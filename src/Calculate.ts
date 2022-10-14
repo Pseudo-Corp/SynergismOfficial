@@ -1393,36 +1393,46 @@ export const calculateHepteractMultiplier = (score = -1) => {
         mult: productContents(arr)}
 }
 
-export const octeractGainPerSecond = () => {
-    const SCOREREQ = 1e23
-    const currentScore = calculateAscensionScore().effectiveScore
-
-    const baseMultiplier = (currentScore >= SCOREREQ) ? currentScore / SCOREREQ : 0;
+export const getOcteractValueMultipliers = () => {
     const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
-
-    const valueMultipliers = [
+    return [
         1 + 1.5 * player.shopUpgrades.seasonPass3 / 100,
         1 + 0.75 * player.shopUpgrades.seasonPassY / 100,
         1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
         1 + player.shopUpgrades.seasonPassLost / 1000,
+        // cube upgrade 70, ie Cx20
         1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
         1 + +(corruptionLevelSum >= 14 * 8) * +player.singularityUpgrades.divinePack.getEffect().bonus,
+        // next three are flame/blaze/inferno
         +player.singularityUpgrades.singCubes1.getEffect().bonus,
         +player.singularityUpgrades.singCubes2.getEffect().bonus,
         +player.singularityUpgrades.singCubes3.getEffect().bonus,
+        // absinthe through eighth wonder
         +player.singularityUpgrades.singOcteractGain.getEffect().bonus,
         +player.singularityUpgrades.singOcteractGain2.getEffect().bonus,
         +player.singularityUpgrades.singOcteractGain3.getEffect().bonus,
         +player.singularityUpgrades.singOcteractGain4.getEffect().bonus,
         +player.singularityUpgrades.singOcteractGain5.getEffect().bonus,
+        // octeracts for dummies
         1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
+        // cogenesis and trigenesis
         +player.octeractUpgrades.octeractGain.getEffect().bonus,
         +player.octeractUpgrades.octeractGain2.getEffect().bonus,
         derpsmithCornucopiaBonus(),
+        // digital octeract accumulator
         Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
         1 + calculateEventBuff('Octeract'),
         1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24))
-    ]
+    ];
+}
+
+export const octeractGainPerSecond = () => {
+    const SCOREREQ = 1e23
+    const currentScore = calculateAscensionScore().effectiveScore
+
+    const baseMultiplier = (currentScore >= SCOREREQ) ? currentScore / SCOREREQ : 0;
+
+    const valueMultipliers = getOcteractValueMultipliers()
 
     const ascensionSpeed = Math.pow(calculateAscensionAcceleration(), 1 / 2)
     const perSecond = 1 / (24 * 3600 * 365 * 1e15) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
@@ -1431,33 +1441,16 @@ export const octeractGainPerSecond = () => {
 
 // This is an old calculation used only for Stats for Nerds
 export const calculateOcteractMultiplier = (score = -1) => {
+    const SCOREREQ = 1e23
     if (score < 0) {
         score = calculateAscensionScore().effectiveScore;
     }
-    const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
-    const arr = [
-        // ascension score multiplier
-        (score >= 1e32) ? Math.cbrt(score / 1e32) : Math.pow(score / 1e32, 2),
-        // season pass 3
-        1 + 1.5 * player.shopUpgrades.seasonPass3 / 100,
-        // season pass Y
-        1 + 0.75 * player.shopUpgrades.seasonPassY / 100,
-        // season pass Z
-        1 + player.shopUpgrades.seasonPassZ * player.singularityCount / 100,
-        // season pass lost
-        1 + player.shopUpgrades.seasonPassLost / 1000,
-        // cube upgrade 70
-        1 + +(corruptionLevelSum >= 14 * 8) * player.cubeUpgrades[70] / 10000,
-        // divine pack
-        1 + +(corruptionLevelSum >= 14 * 8) * (player.singularityUpgrades.divinePack.level === 1 ? 6.77 : 1.00),
-        // cube flame
-        +player.singularityUpgrades.singCubes1.getEffect().bonus,
-        // cube blaze
-        +player.singularityUpgrades.singCubes2.getEffect().bonus,
-        // cube inferno
-        +player.singularityUpgrades.singCubes3.getEffect().bonus
-        // Total Octeract Multipliers: 11
-    ]
+
+    const arr = getOcteractValueMultipliers()
+
+    // add base score to the beginning and ascension speed mult to the end of the list
+    arr.unshift((score >= SCOREREQ) ? score / SCOREREQ : 0)
+    arr.push(Math.pow(calculateAscensionAcceleration(), 1 / 2))
 
     return {
         list: arr,
