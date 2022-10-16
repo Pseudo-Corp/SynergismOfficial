@@ -655,7 +655,7 @@ export const buttoncolorchange = () => {
     DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = player.currentChallenge.ascension === 0 ? '' : 'purple';
 
     DOMCacheGetOrSet('ascendbtn').style.backgroundColor = player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 ? 'green' : '';
-    
+
     DOMCacheGetOrSet('singularitybtn').style.filter = player.runelevels[6] > 0 ? '' : 'contrast(1.25) sepia(1) grayscale(0.25)';
 
     // Notify new players the reset
