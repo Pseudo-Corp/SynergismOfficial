@@ -656,7 +656,7 @@ export const buttoncolorchange = () => {
 
     DOMCacheGetOrSet('ascendbtn').style.backgroundColor = player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 ? 'green' : '';
     
-    DOMCacheGetOrSet('singularitybtn').style.backgroundColor = player.runelevels[6] > 0 ? '' : '#cd0000';
+    DOMCacheGetOrSet('singularitybtn').style.filter = player.runelevels[6] > 0 ? '' : 'contrast(1.25) sepia(1) grayscale(0.25)';
 
     // Notify new players the reset
     if (player.toggles[33] === true && player.singularityCount === 0) {
