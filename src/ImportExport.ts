@@ -598,7 +598,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     } else if (input === 'time') {
         const availableUses = timeCodeAvailableUses();
         if (availableUses === 0) {
-            return Confirm(`
+            return Alert(`
             If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
 
             Regardless, you must wait at least 15 minutes between each use.
@@ -628,9 +628,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 }
 
                 player.worlds.add(actualQuarkAward * rewardMult, false);
-                return Confirm(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
+                return Alert(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
             } else {
-                return Confirm('You didn\'t guess the right time, try again soon!');
+                return Alert('You didn\'t guess the right time, try again soon!');
             }
         }
     } else if (input === 'spoiler') {
