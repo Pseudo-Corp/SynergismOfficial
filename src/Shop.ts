@@ -825,12 +825,22 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     const singular = shopItem.maxLevel === 1;
     const merch = buyAmount.toLocaleString() + (shopItem.type === shopUpgradeTypes.UPGRADE ? ' level' : ' vial') + (buyAmount === 1 ? '' : 's');
     const noRefunds = shopItem.refundable ? '' : '\n\n\u26A0\uFE0F !! No Refunds !! \u26A0\uFE0F';
+    const maxPots = shopItem.type === shopUpgradeTypes.CONSUMABLE ? '\n\nEnter \'-1\' in Buy: ANY to buy equal amounts of both Potions.' : '';
 
     if (player.shopBuyMaxToggle === 'ANY' && !singular) {
-        const buyInput = await Prompt(`You can afford to purchase up to ${merch} of ${friendlyShopName(input)} for ${buyCost.toLocaleString()} Quarks. How many would you like to buy?${noRefunds}`);
+        const buyInput = await Prompt(`You can afford to purchase up to ${merch} of ${friendlyShopName(input)} for ${buyCost.toLocaleString()} Quarks. How many would you like to buy?${maxPots + noRefunds}`);
         const buyAny = Math.floor(Number(buyInput));
 
         if (buyAny === 0) {
+            return;
+        } else if (shopItem.type === shopUpgradeTypes.CONSUMABLE && buyAny === -1) {
+            const pot1 = player.shopUpgrades.offeringPotion > player.shopUpgrades.obtainiumPotion ? 'offeringPotion' : 'obtainiumPotion';
+            const pot2 = pot1 === 'offeringPotion' ? 'obtainiumPotion' : 'offeringPotion';
+            const firstPot:IMultiBuy = calculateSummationNonLinear(player.shopUpgrades[pot1], shopData[pot1].price, +player.worlds, shopData[pot1].priceIncrease / shopData[pot1].price, Math.floor(buyAmount/2));
+            const secondPot:IMultiBuy = calculateSummationNonLinear(player.shopUpgrades[pot2], shopData[pot2].price, +player.worlds, shopData[pot2].priceIncrease / shopData[pot2].price, buyAmount-firstPot.cost/shopData[pot1].price);
+            player.worlds.sub(firstPot.cost+secondPot.cost);
+            player.shopUpgrades[pot1] = firstPot.levelCanBuy;
+            player.shopUpgrades[pot2] = secondPot.levelCanBuy;
             return;
         } else if (Number.isNaN(buyAny) || !Number.isFinite(buyAny) || buyAny < 0) {
             return Alert('Amount must be a finite, positive integer.');
@@ -844,7 +854,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
 
     let p = true;
     if (player.shopConfirmationToggle || (!shopItem.refundable && player.shopBuyMaxToggle !== false)) {
-        p = await Confirm(`You are about to ${singular ? 'unlock' : `purchase ${merch} of`} ${friendlyShopName(input)} for ${buyCost.toLocaleString()} Quarks. Press 'OK' to finalize purchase.${noRefunds}`);
+        p = await Confirm(`You are about to ${singular ? 'unlock' : `purchase ${merch} of`} ${friendlyShopName(input)} for ${buyCost.toLocaleString()} Quarks. Press 'OK' to finalize purchase.${maxPots + noRefunds}`);
     }
     if (p) {
         player.worlds.sub(buyCost);
