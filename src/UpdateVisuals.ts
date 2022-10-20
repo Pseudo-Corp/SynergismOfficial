@@ -7,7 +7,7 @@ import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel
 import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
-import { getShopCosts, shopData, shopUpgradeTypes } from './Shop';
+import { getShopCosts, isShopUpgradeUnlocked, shopData, shopUpgradeTypes } from './Shop';
 import { quarkHandler } from './Quark';
 import type { Player, ZeroToFour } from './types/Synergism';
 import type { hepteractTypes } from './Hepteracts';
@@ -604,8 +604,14 @@ export const visualUpdateShop = () => {
                     el.textContent = `+${maxBuyablePotions} for ${format(getShopCosts(key)*maxBuyablePotions)} Quarks`;
             }
         }
-        // Ignore all consumables, to be handled above, since they're different.
+
         if (shopItem.type === shopUpgradeTypes.UPGRADE) {
+            if (player.shopHideToggle && player.shopUpgrades[key] >= shopItem.maxLevel && !shopData[key].refundable) {
+                DOMCacheGetOrSet(`${key}Hide`).style.display = 'none';
+                continue;
+            } else {
+                DOMCacheGetOrSet(`${key}Hide`).style.display = isShopUpgradeUnlocked(key) ? 'block' : 'none';
+            }
             // Case: If max level is 1, then it can be considered a boolean "bought" or "not bought" item
             if (shopItem.maxLevel === 1) {
                 DOMCacheGetOrSet(`${key}Level`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Bought!' : 'Not Bought!';
@@ -629,123 +635,6 @@ export const visualUpdateShop = () => {
                 default:
                     buyData = calculateSummationNonLinear(player.shopUpgrades[key], shopData[key].price, +player.worlds, shopData[key].priceIncrease / shopData[key].price, buyMaxAmount);
                     DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : `+ ${format(buyData.levelCanBuy - player.shopUpgrades[key], 0, true)} for ${format(buyData.cost)} Quarks`;
-            }
-
-            const shopUnlock1 = document.getElementsByClassName('chal8Shop') as HTMLCollectionOf<HTMLElement>;
-            const shopUnlock2 = document.getElementsByClassName('chal9Shop') as HTMLCollectionOf<HTMLElement>;
-            const shopUnlock3 = document.getElementsByClassName('ascendunlockShop') as HTMLCollectionOf<HTMLElement>;
-            const shopUnlock4 = document.getElementsByClassName('chal11Shop') as HTMLCollectionOf<HTMLElement>;
-            const shopUnlock5 = document.getElementsByClassName('chal12Shop') as HTMLCollectionOf<HTMLElement>;
-            const shopUnlock6 = document.getElementsByClassName('chal13Shop') as HTMLCollectionOf<HTMLElement>;
-            const shopUnlock7 = document.getElementsByClassName('chal14Shop') as HTMLCollectionOf<HTMLElement>;
-            const shopUnlock8 = document.getElementsByClassName('hepteractsShop') as HTMLCollectionOf<HTMLElement>;
-            const singularityShopItems = document.getElementsByClassName('singularityShopUnlock') as HTMLCollectionOf<HTMLElement>;
-            const singularityShopItems2 = document.getElementsByClassName('singularityShopUnlock2') as HTMLCollectionOf<HTMLElement>;
-            const singularityShopItems3 = document.getElementsByClassName('singularityShopUnlock3') as HTMLCollectionOf<HTMLElement>;
-
-            if (player.shopHideToggle && player.shopUpgrades[key] >= shopItem.maxLevel && !shopData[key].refundable) {
-                DOMCacheGetOrSet(`${key}Hide`).style.display = 'none';
-            } else if (player.shopHideToggle && (player.shopUpgrades[key] < shopItem.maxLevel || shopData[key].refundable)) {
-                DOMCacheGetOrSet(`${key}Hide`).style.display = 'block'; //This checks if you have something you are not supposed to have or supposed to.
-                for (const i of Array.from(shopUnlock1)) {
-                    if (i.style.display === 'block' && player.achievements[127] != 1) {
-                        i.style.display = 'none';
-                    }
-                }
-                for (const i of Array.from(shopUnlock2)) {
-                    if (i.style.display === 'block' && player.achievements[134] != 1) {
-                        i.style.display = 'none';
-                    }
-                }
-                for (const i of Array.from(shopUnlock3)) {
-                    if (i.style.display === 'block' && player.ascensionCount === 0) {
-                        i.style.display = 'none';
-                    }
-                }
-                for (const i of Array.from(shopUnlock4)) {
-                    if (i.style.display === 'block' && player.challengecompletions[11] === 0) {
-                        i.style.display = 'none';
-                    }
-                }
-                for (const i of Array.from(shopUnlock5)) {
-                    if (i.style.display === 'block' && player.challengecompletions[12] === 0) {
-                        i.style.display = 'none';
-                    }
-                }
-                for (const i of Array.from(shopUnlock6)) {
-                    if (i.style.display === 'block' && player.challengecompletions[13] === 0) {
-                        i.style.display = 'none';
-                    }
-                }
-                for (const i of Array.from(shopUnlock7)) {
-                    if (i.style.display === 'block' && player.challengecompletions[14] === 0) {
-                        i.style.display = 'none';
-                    }
-                }
-                for (const i of Array.from(shopUnlock8)) {
-                    if (i.style.display === 'block' && player.challenge15Exponent < 1e15) {
-                        i.style.display = 'none';
-                    }
-                }
-                for (const i of Array.from(singularityShopItems)) {
-                    if (i.style.display === 'block' && !player.singularityUpgrades.wowPass.getEffect().bonus) {
-                        i.style.display = 'none';
-                    }
-                }
-                for (const i of Array.from(singularityShopItems2)) {
-                    if (i.style.display === 'block' && !player.singularityUpgrades.wowPass2.getEffect().bonus) {
-                        i.style.display = 'none';
-                    }
-                }
-                for (const i of Array.from(singularityShopItems3)) {
-                    if (i.style.display === 'block' && !player.singularityUpgrades.wowPass3.getEffect().bonus) {
-                        i.style.display = 'none';
-                    }
-                }
-            } else if (!player.shopHideToggle) {
-                DOMCacheGetOrSet('instantChallengeHide').style.display = 'block';
-                DOMCacheGetOrSet('calculatorHide').style.display = 'block';
-                if (shopData.offeringAuto.refundable === false) {
-                    DOMCacheGetOrSet('offeringAutoHide').style.display = 'block';
-                    DOMCacheGetOrSet('offeringEXHide').style.display = 'block';
-                    DOMCacheGetOrSet('obtainiumAutoHide').style.display = 'block';
-                    DOMCacheGetOrSet('obtainiumEXHide').style.display = 'block';
-                    DOMCacheGetOrSet('antSpeedHide').style.display = 'block';
-                    DOMCacheGetOrSet('cashGrabHide').style.display = 'block';
-                }
-                for (const i of Array.from(shopUnlock1)) {
-                    i.style.display = player.achievements[127] === 1 ? 'block' : 'none';
-                }
-                for (const i of Array.from(shopUnlock2)) {
-                    i.style.display = player.achievements[134] === 1 ? 'block' : 'none';
-                }
-                for (const i of Array.from(shopUnlock3)) {
-                    i.style.display = player.ascensionCount > 0 ? 'block' : 'none';
-                }
-                for (const i of Array.from(shopUnlock4)) {
-                    i.style.display = player.challengecompletions[11] > 0 ? 'block' : 'none';
-                }
-                for (const i of Array.from(shopUnlock5)) {
-                    i.style.display = player.challengecompletions[12] > 0 ? 'block' : 'none';
-                }
-                for (const i of Array.from(shopUnlock6)) {
-                    i.style.display = player.challengecompletions[13] > 0 ? 'block' : 'none';
-                }
-                for (const i of Array.from(shopUnlock7)) {
-                    i.style.display = player.challengecompletions[14] > 0 ? 'block' : 'none';
-                }
-                for (const i of Array.from(shopUnlock8)) {
-                    i.style.display = player.challenge15Exponent >= 1e15 ? 'block' : 'none';
-                }
-                for (const i of Array.from(singularityShopItems)) {
-                    i.style.display = player.singularityUpgrades.wowPass.getEffect().bonus ? 'block' : 'none';
-                }
-                for (const i of Array.from(singularityShopItems2)) {
-                    i.style.display = player.singularityUpgrades.wowPass2.getEffect().bonus ? 'block' : 'none';
-                }
-                for (const i of Array.from(singularityShopItems3)) {
-                    i.style.display = player.singularityUpgrades.wowPass3.getEffect().bonus ? 'block' : 'none';
-                }
             }
         }
     }

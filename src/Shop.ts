@@ -798,11 +798,8 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
         return Alert(`You can't purchase ${friendlyShopName(input)} because you don't have enough Quarks!`);
     }
     // Actually lock for HTML exploit
-    if ((shopItem.tier === 'Ascension' && player.ascensionCount <= 0) ||
-        (shopItem.tier === 'Singularity' && !player.singularityUpgrades.wowPass.getEffect().bonus) ||
-        (shopItem.tier === 'SingularityVol2' && !player.singularityUpgrades.wowPass2.getEffect().bonus) ||
-        (shopItem.tier === 'SingularityVol3' && !player.singularityUpgrades.wowPass3.getEffect().bonus)) {
-        return Alert('You do not have the right to purchase ' + friendlyShopName(input) + '!');
+    if (!isShopUpgradeUnlocked(input)) {
+        return Alert(`You do not have the right to purchase ${friendlyShopName(input)}!`);
     }
 
     let buyData:IMultiBuy;
