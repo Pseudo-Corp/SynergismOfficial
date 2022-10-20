@@ -1842,7 +1842,7 @@ const padEvery = (str: string, places = 3) => {
  * @param accuracy
  * how many decimal points that are to be displayed (Values <10 if !long, <1000 if long).
  * only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
- * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
+ * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e7
  */
 export const format = (
     input: Decimal | number | { [Symbol.toPrimitive]: unknown } | null | undefined,
@@ -1926,9 +1926,9 @@ export const format = (
             return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 3)}K`
         }
         return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
-    } else if (power < 6 || (long && power < 13)) {
-        // If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
-        // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 13
+    } else if (power < 6 || (long && power < 7)) {
+        // If the power is less than 6 or format long and less than 7 use standard formatting (1,234,567)
+        // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 7
         let standard = mantissa * Math.pow(10, power);
         let standardString;
         // Rounds up if the number experiences a rounding error
