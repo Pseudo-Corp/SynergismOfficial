@@ -644,21 +644,6 @@ export const visualUpdateShop = () => {
             const singularityShopItems3 = document.getElementsByClassName('singularityShopUnlock3') as HTMLCollectionOf<HTMLElement>;
 
             if (player.shopHideToggle && player.shopUpgrades[key] >= shopItem.maxLevel && !shopData[key].refundable) {
-                if (player.singularityCount >= 20) {
-                    shopData.offeringAuto.refundable = false;
-                    shopData.offeringEX.refundable = false;
-                    shopData.obtainiumAuto.refundable = false;
-                    shopData.obtainiumEX.refundable = false;
-                    shopData.antSpeed.refundable = false;
-                    shopData.cashGrab.refundable = false;
-                } else {
-                    shopData.offeringAuto.refundable = true;
-                    shopData.offeringEX.refundable = true;
-                    shopData.obtainiumAuto.refundable = true;
-                    shopData.obtainiumEX.refundable = true;
-                    shopData.antSpeed.refundable = true;
-                    shopData.cashGrab.refundable = true;
-                }
                 DOMCacheGetOrSet(`${key}Hide`).style.display = 'none';
             } else if (player.shopHideToggle && (player.shopUpgrades[key] < shopItem.maxLevel || shopData[key].refundable)) {
                 DOMCacheGetOrSet(`${key}Hide`).style.display = 'block'; //This checks if you have something you are not supposed to have or supposed to.
