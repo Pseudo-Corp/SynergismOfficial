@@ -901,26 +901,27 @@ export const resetShopUpgrades = async (ignoreBoolean = false) => {
         let refunds = false;
         for (const shopItem in shopData){
             const key = shopItem as keyof typeof shopData;
-            if (shopData[key].refundable && player.shopUpgrades[key] > shopData[key].refundMinimumLevel){
+            const item = shopData[key];
+            if (item.refundable && player.shopUpgrades[key] > item.refundMinimumLevel){
                 refunds = true;
                 // Determines how many quarks one would not be refunded, based on minimum refund level
-                const doNotRefund = shopData[key].price * shopData[key].refundMinimumLevel +
-                                shopData[key].priceIncrease * (shopData[key].refundMinimumLevel) * (shopData[key].refundMinimumLevel - 1) / 2;
+                const doNotRefund = item.price * item.refundMinimumLevel +
+                                item.priceIncrease * (item.refundMinimumLevel) * (item.refundMinimumLevel - 1) / 2;
 
                 //Refunds Quarks based on the shop level and price vals
                 player.worlds.add(
-                    shopData[key].price * player.shopUpgrades[key] +
-                    shopData[key].priceIncrease * (player.shopUpgrades[key]) * (player.shopUpgrades[key] - 1) / 2
+                    item.price * player.shopUpgrades[key] +
+                    item.priceIncrease * (player.shopUpgrades[key]) * (player.shopUpgrades[key] - 1) / 2
                     - doNotRefund,
                     false
                 );
 
-                player.shopUpgrades[key] = shopData[key].refundMinimumLevel;
+                player.shopUpgrades[key] = item.refundMinimumLevel;
             }
         }
         if (refunds) {
             player.worlds.sub(15);
-        } else {
+        } else if (!ignoreBoolean && player.shopConfirmationToggle) {
             void Alert('Nothing to Refund!');
         }
         player.quarksThisSingularity = singularityQuarks;
