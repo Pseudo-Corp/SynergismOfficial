@@ -861,7 +861,11 @@ export const updateChallengeLevel = (k: number) => {
     const el = DOMCacheGetOrSet('challenge' + k + 'level');
     const maxChallenges = getMaxChallenges(k);
 
-    el.textContent = `${player.challengecompletions[k]}/${maxChallenges}`;
+    if (k === 15) {
+        el.textContent = format(player.challenge15Exponent,0,true);
+    } else {
+        el.textContent = `${player.challengecompletions[k]}/${maxChallenges}`;
+    }
 }
 
 export const updateAchievementBG = () => {
