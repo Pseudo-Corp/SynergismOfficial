@@ -578,9 +578,10 @@ export interface Player {
     totalQuarksEver: number
     hotkeys: Record<number, string[]>
     theme: string
+    notation: string
 
     singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
-    octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade> 
+    octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade>
     dailyCodeUsed: boolean
     hepteractAutoCraftPercentage: number
     octeractTimer: number
