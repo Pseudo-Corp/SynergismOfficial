@@ -564,24 +564,22 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('summaryGeneration').addEventListener('click', () => generateExportSummary());
 
     // Various functions
-    /*Export Files*/ DOMCacheGetOrSet('exportgame').addEventListener('click', () => exportSynergism())
-    /*Update name of File*/
+    DOMCacheGetOrSet('exportgame').addEventListener('click', () => exportSynergism())
     DOMCacheGetOrSet('saveStringInput').addEventListener('blur', e => updateSaveString(e.target as HTMLInputElement));
-    /*Save Game Button*/ DOMCacheGetOrSet('savegame').addEventListener('click', ({ target }) => saveSynergy(true, target as HTMLButtonElement))
-    /*Delete Save Button*/ DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
-    /*Delete Save Button*/ DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => reloadDeleteGame())
-    /*Submit Stats [Note: will eventually become obsolete if kong closes]*/ // DOMCacheGetOrSet('submitstats').addEventListener('click', () => submitStats())
-    /*Promotion Codes*/ DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
-    /*Special action add*/ DOMCacheGetOrSet('addCode').addEventListener('click', () => promocodes('add'))
+    DOMCacheGetOrSet('savegame').addEventListener('click', ({ target }) => saveSynergy(true, target as HTMLButtonElement))
+    DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
+    DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => reloadDeleteGame())
+    DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
+    DOMCacheGetOrSet('addCode').addEventListener('click', () => promocodes('add'))
     DOMCacheGetOrSet('addCode').addEventListener('mouseover', () => promocodesInfo('add'))
-    /*Special action add one*/ DOMCacheGetOrSet('addCodeOne').addEventListener('click', () => promocodes('add', 1))
+    DOMCacheGetOrSet('addCodeOne').addEventListener('click', () => promocodes('add', 1))
     DOMCacheGetOrSet('addCodeOne').addEventListener('mouseover', () => promocodesInfo('add'))
-    /*Special action daily*/ DOMCacheGetOrSet('dailyCode').addEventListener('click', () => promocodes('daily'))
+    DOMCacheGetOrSet('dailyCode').addEventListener('click', () => promocodes('daily'))
     DOMCacheGetOrSet('dailyCode').addEventListener('mouseover', () => promocodesInfo('daily'))
-    /*Special action time*/ DOMCacheGetOrSet('timeCode').addEventListener('click', () => promocodes('time'))
+    DOMCacheGetOrSet('timeCode').addEventListener('click', () => promocodes('time'))
     DOMCacheGetOrSet('timeCode').addEventListener('mouseover', () => promocodesInfo('time'))
-    /*Toggle Ascension Per-Second Setting*/ DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener('click', () => resetHistoryTogglePerSecond())
-    /*ResetHotkeys Button*/ DOMCacheGetOrSet('resetHotkeys').addEventListener('click', () => resetHotkeys())
+    DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener('click', () => resetHistoryTogglePerSecond())
+    DOMCacheGetOrSet('resetHotkeys').addEventListener('click', () => resetHotkeys())
 
     // SHOP TAB
 
