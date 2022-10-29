@@ -862,7 +862,7 @@ export const updateChallengeLevel = (k: number) => {
     const maxChallenges = getMaxChallenges(k);
 
     if (k === 15) {
-        el.textContent = format(player.challenge15Exponent,0,true);
+        el.textContent = format(player.challenge15Exponent, 0, true);
     } else {
         el.textContent = `${player.challengecompletions[k]}/${maxChallenges}`;
     }
