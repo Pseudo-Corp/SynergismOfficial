@@ -677,7 +677,7 @@ const addCodeInterval = () : number => {
     let time = hour
     time *= (1 - 0.02 * player.shopUpgrades.calculator4)
     time *= (1 - Math.min(.5, (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 1000 : 0)
-                            - (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 1000 : 0)))
+                            + (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 1000 : 0)))
     return time
 }
 
