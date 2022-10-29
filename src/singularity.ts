@@ -1268,11 +1268,11 @@ export const singularityPerks: SingularityPerk[] = [
             let counter = 0
             for (const singCount of levels) {
                 if (n >= singCount) {
-                    counter += 1
+                    counter += 0.1
                 }
             }
 
-            return `Code 'add' refills ${counter / 10}% faster per level per singularity (MAX: 50% faster)`
+            return `Code 'add' refills ${counter}% faster per level per singularity (MAX: 50% faster)`
         }
     },
     {
