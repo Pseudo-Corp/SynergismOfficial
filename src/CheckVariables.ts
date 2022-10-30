@@ -485,6 +485,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             seasonPassLost: 0,
             challenge15Auto: 0,
             extraWarp: 0,
+            autoWarp: 0,
             improveQuarkHept: 0,
             improveQuarkHept2: 0,
             improveQuarkHept3: 0,
@@ -733,6 +734,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     if (data.hepteractAutoCraftPercentage === undefined) {
         player.hepteractAutoCraftPercentage = 50;
+    }
+
+    if (data.autoWarpCheck === undefined || player.shopUpgrades.autoWarp === 0) {
+        player.autoWarpCheck = false;
     }
 
     if (data.loadedV297Hotfix1 === undefined) {

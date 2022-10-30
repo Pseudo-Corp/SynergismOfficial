@@ -459,6 +459,7 @@ export const player: Player = {
         powderAuto: 0,
         challenge15Auto: 0,
         extraWarp: 0,
+        autoWarp: 0,
         improveQuarkHept: 0,
         improveQuarkHept2: 0,
         improveQuarkHept3: 0,
@@ -681,6 +682,7 @@ export const player: Player = {
     overfluxOrbsAutoBuy: false,
     overfluxPowder: 0,
     dailyPowderResetUses: 1,
+    autoWarpCheck: false,
     loadedOct4Hotfix: false,
     loadedNov13Vers: true,
     loadedDec16Vers: true,
@@ -1780,6 +1782,13 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('rune' + player.autoSacrifice).style.backgroundColor = 'orange'
         }
 
+        if (player.autoWarpCheck) {
+            DOMCacheGetOrSet('warpAuto').textContent = 'Auto ON'
+            DOMCacheGetOrSet('warpAuto').style.border = '2px solid green'
+        } else {
+            DOMCacheGetOrSet('warpAuto').textContent = 'Auto OFF'
+            DOMCacheGetOrSet('warpAuto').style.border = '2px solid red'
+        }
         DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
         DOMCacheGetOrSet('hepteractToQuarkTradeAuto').textContent = `Auto ${player.overfluxOrbsAutoBuy ? 'ON' : 'OFF'}`
         DOMCacheGetOrSet('hepteractToQuarkTradeAuto').style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'}`;

@@ -598,24 +598,59 @@ export const overfluxPowderDescription = () => {
  * Note by Platonic: kinda rushed job but idk if it can be improved.
  * @returns Alert, either for success or failure of warping
  */
-export const overfluxPowderWarp = async () => {
-    if (player.overfluxPowder < 25) {
-        return Alert('Sorry, but you need 25 powder to operate the warp machine.')
-    }
-    if (player.dailyPowderResetUses <= 0) {
-        return Alert('Sorry, but this machine is on cooldown.')
-    }
-    const c = await Confirm('You stumble upon a mysterious machine. A note attached says that you can reset daily Cube openings for 25 Powder. However it only works once each real life day. You in?')
-    if (!c) {
-        if (player.toggles[35]) {
-            return Alert('You walk away from the machine, powder intact.')
+export const overfluxPowderWarp = async (auto: boolean) => {
+    if (!auto) {
+        if (player.autoWarpCheck) {
+            return Alert('Warping is impossible (you get multiplier to Quarks instead)')
+        }
+        if (player.dailyPowderResetUses <= 0) {
+            return Alert('Sorry, but this machine is on cooldown.')
+        }
+        if (player.overfluxPowder < 25) {
+            return Alert('Sorry, but you need 25 powder to operate the warp machine.')
+        }
+        const c = await Confirm('You stumble upon a mysterious machine. A note attached says that you can reset daily Cube openings for 25 Powder. However it only works once each real life day. You in?')
+        if (!c) {
+            if (player.toggles[35]) {
+                return Alert('You walk away from the machine, powder intact.')
+            }
+        } else {
+            player.overfluxPowder -= 25
+            player.dailyPowderResetUses -= 1;
+            forcedDailyReset();
+            if (player.toggles[35]) {
+                return Alert('Upon using the machine, your cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]')
+            }
         }
     } else {
-        player.overfluxPowder -= 25
-        player.dailyPowderResetUses -= 1;
-        forcedDailyReset();
-        if (player.toggles[35]) {
-            return Alert('Upon using the machine, your cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]')
+        if (player.autoWarpCheck) {
+            const a = await Confirm('Turning this OFF, will consume all of your remaining Warps (without doing a Warp).\nAre you sure?')
+            if (a) {
+                DOMCacheGetOrSet('warpAuto').textContent = 'Auto OFF'
+                DOMCacheGetOrSet('warpAuto').style.border = '2px solid red'
+                player.autoWarpCheck = false
+                player.dailyPowderResetUses = 0;
+                return Alert('Machine will need some time to cooldown (no Warps today).')
+            } else {
+                if (player.toggles[35]) {
+                    return Alert('Machine didn\'t consumed your Warps.')
+                }
+            }
+        } else {
+            const a = await Confirm('This machine will now be able to boost your Quarks gained from opening Cubes, based on how many Warps you have remaining. While its ON, warping will be impossible and turning it OFF won\'t be so easy.\nAre you sure you want to turn it ON?')
+            if (a) {
+                DOMCacheGetOrSet('warpAuto').textContent = 'Auto ON'
+                DOMCacheGetOrSet('warpAuto').style.border = '2px solid green'
+                player.autoWarpCheck = true
+                if (player.dailyPowderResetUses === 0) {
+                    return Alert('Machine will go into overdrive,\nonce you will have some Warps.')
+                }
+                return Alert('Machine is now on overdrive.')
+            } else {
+                if (player.toggles[35]) {
+                    return Alert('Machine will continue to work as ussual, for now.')
+                }
+            }
         }
     }
 }
