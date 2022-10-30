@@ -41,7 +41,7 @@ import { updatePlatonicUpgradeBG } from './Platonic';
 import { testing, version, lastUpdated, prod } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
-import { singularityData, SingularityUpgrade } from './singularity';
+import { singularityData, SingularityUpgrade, getFastForwardTotalMultiplier } from './singularity';
 import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
@@ -3123,13 +3123,14 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 
         let confirmed = false;
         canSave = false;
+        const nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
         if (!player.toggles[33] && player.singularityCount > 0) {
-            confirmed = await Confirm(`Do you wish to start singularity #${format(player.singularityCount + 1)}? Your next universe is harder but you will gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
+            confirmed = await Confirm(`Do you wish to start singularity #${format(nextSingularityNumber)}? Your next universe is harder but you will gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
         } else {
             await Alert('You have reached the end of the game, on Singularity #' +format(player.singularityCount)+'. Platonic and the Ant God are proud of you.')
             await Alert('You may choose to sit on your laurels, and consider the game \'beaten\', or you may do something more interesting.')
             await Alert('You\'re too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.')
-            await Alert(`Start anew, and enter Singularity #${format(player.singularityCount + 1)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
+            await Alert(`Start anew, and enter Singularity #${format(nextSingularityNumber)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
             await Alert('However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.')
 
             confirmed = await Confirm('So, what do you say? Do you wish to enter the Singularity?')

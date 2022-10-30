@@ -15,7 +15,8 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import { calculateSingularityDebuff } from './singularity';
 import { calculateEventSourceBuff } from './Event';
 import { disableHotkeys, enableHotkeys } from './Hotkeys';
-import { setInterval, clearInterval } from './Timers'
+import { setInterval, clearInterval } from './Timers';
+import { getFastForwardTotalMultiplier } from './singularity';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] =
@@ -1523,10 +1524,7 @@ export const calculateGoldenQuarkGain = ():number => {
 
     const gainFromQuarks = player.quarksThisSingularity / 1e5;
 
-    let fastForwardMultiplier = 1;
-    fastForwardMultiplier += +player.singularityUpgrades.singFastForward.getEffect().bonus;
-    fastForwardMultiplier += +player.singularityUpgrades.singFastForward2.getEffect().bonus;
-    fastForwardMultiplier += +player.octeractUpgrades.octeractFastForward.getEffect().bonus;
+    const fastForwardMultiplier = 1 + getFastForwardTotalMultiplier();
 
     const allGoldenQuarkMultiplier = productContents([
         1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2,
