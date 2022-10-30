@@ -21,7 +21,7 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset';
+import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens, updateSingularityMilestoneAwards } from './Reset';
 import type { TesseractBuildings} from './Buy';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
@@ -1720,10 +1720,18 @@ const loadSynergy = async () => {
         } else {
             DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: OFF'
         }
-        if (player.shopBuyMaxToggle) {
-            DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: ON'
-        } else {
-            DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: OFF'
+        switch (player.shopBuyMaxToggle) {
+            case false:
+                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: 1';
+                break;
+            case 'TEN':
+                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: 10';
+                break;
+            case true:
+                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: MAX';
+                break;
+            case 'ANY':
+                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: ANY';
         }
         if (player.shopHideToggle) {
             DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: ON'
@@ -1784,6 +1792,7 @@ const loadSynergy = async () => {
         calculateRuneLevels();
         resetHistoryRenderAllTables();
         updateSingularityAchievements();
+        updateSingularityMilestoneAwards(false);
     }
 
     updateAchievementBG();

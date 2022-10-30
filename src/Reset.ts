@@ -876,15 +876,17 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.highestchallengecompletions[6] = 1;
         achievementaward(113);
     }
-    if (player.achievements[278] > 0 && singularityReset) { // Singularity 5
-        player.shopUpgrades.offeringAuto = 10
-        player.shopUpgrades.offeringEX = 10
-        player.shopUpgrades.obtainiumAuto = 10
-        player.shopUpgrades.obtainiumEX = 10
-        player.shopUpgrades.antSpeed = 10
-        player.shopUpgrades.cashGrab = 10
+    const shopItemPerk_5 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
+    const perk_5: boolean = player.achievements[278] > 0;
+    if (perk_5 && singularityReset) { // Singularity 5
+        shopItemPerk_5.forEach(k => {
+            player.shopUpgrades[k] = 10;
+        });
         player.cubeUpgrades[7] = 1;
     }
+    shopItemPerk_5.forEach(k => {
+        shopData[k].refundMinimumLevel = perk_5 ? 10 : k.endsWith('Auto') ? 1 : 0;
+    });
     if (player.achievements[279] > 0) { // Singularity 7
         player.challengecompletions[7] = 1;
         player.highestchallengecompletions[7] = 1;
@@ -919,19 +921,21 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.fifthOwnedAnts = 1;
         player.cubeUpgrades[20] = 1;
     }
-    if (player.singularityCount >= 20) {
+    const perk_20: boolean = player.singularityCount >= 20;
+    const shopItemPerk_20 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
+    if (perk_20) {
         player.challengecompletions[9] = 1;
         player.highestchallengecompletions[9] = 1;
         achievementaward(134);
         player.antPoints = new Decimal('1e100');
         player.antUpgrades[11] = 1;
-        player.shopUpgrades.offeringAuto = shopData.offeringAuto.maxLevel
-        player.shopUpgrades.offeringEX = shopData.offeringEX.maxLevel
-        player.shopUpgrades.obtainiumAuto = shopData.obtainiumAuto.maxLevel
-        player.shopUpgrades.obtainiumEX = shopData.obtainiumEX.maxLevel
-        player.shopUpgrades.antSpeed = shopData.antSpeed.maxLevel
-        player.shopUpgrades.cashGrab = shopData.cashGrab.maxLevel
+        shopItemPerk_20.forEach(k => {
+            player.shopUpgrades[k] = shopData[k].maxLevel;
+        });
     }
+    shopItemPerk_20.forEach(k => {
+        shopData[k].refundable = perk_20 ? false : true;
+    });
     if (player.singularityCount >= 25) {
         player.eighthOwnedAnts = 1;
     }
@@ -940,6 +944,12 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.researches[135] = 1;
         player.researches[145] = 1;
     }
+    const perk_51 = player.singularityCount >= 51;
+    const shopItemPerk_51 = ['seasonPass', 'seasonPass2', 'seasonPass3', 'seasonPassY', 'chronometer', 'chronometer2'] as const;
+    shopItemPerk_51.forEach(k => {
+        shopData[k].refundable = perk_51 ? false : true;
+    });
+
     if (player.singularityCount >= 101 && singularityReset) {
         player.cubeUpgrades[51] = 1;
         awardAutosCookieUpgrade();

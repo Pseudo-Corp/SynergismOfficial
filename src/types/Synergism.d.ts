@@ -373,7 +373,7 @@ export interface Player {
         shopImprovedDaily4: number
     },
     shopConfirmationToggle: boolean,
-    shopBuyMaxToggle: boolean,
+    shopBuyMaxToggle: boolean | 'TEN' | 'ANY',
     shopHideToggle: boolean,
     autoPotionTimer: number,
     autoPotionTimerObtainium: number,
