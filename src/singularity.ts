@@ -1264,8 +1264,15 @@ export const singularityPerks: SingularityPerk[] = [
     {
         name: 'PL-AT Σ',
         levels: [125, 200],
-        description: () => {
-            return 'Code \'add\' refills 0.1% faster per level per singularity (MAX: 50% faster)'
+        description: (n: number, levels: number[]) => {
+            let counter = 0
+            for (const singCount of levels) {
+                if (n >= singCount) {
+                    counter += 0.1
+                }
+            }
+
+            return `Code 'add' refills ${counter}% faster per level per singularity (MAX: 50% faster)`
         }
     },
     {
