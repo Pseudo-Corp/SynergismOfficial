@@ -884,9 +884,6 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         });
         player.cubeUpgrades[7] = 1;
     }
-    shopItemPerk_5.forEach(k => {
-        shopData[k].refundMinimumLevel = perk_5 ? 10 : k.endsWith('Auto') ? 1 : 0;
-    });
     if (player.achievements[279] > 0) { // Singularity 7
         player.challengecompletions[7] = 1;
         player.highestchallengecompletions[7] = 1;
@@ -933,9 +930,6 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
             player.shopUpgrades[k] = shopData[k].maxLevel;
         });
     }
-    shopItemPerk_20.forEach(k => {
-        shopData[k].refundable = perk_20 ? false : true;
-    });
     if (player.singularityCount >= 25) {
         player.eighthOwnedAnts = 1;
     }
@@ -944,12 +938,6 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.researches[135] = 1;
         player.researches[145] = 1;
     }
-    const perk_51 = player.singularityCount >= 51;
-    const shopItemPerk_51 = ['seasonPass', 'seasonPass2', 'seasonPass3', 'seasonPassY', 'chronometer', 'chronometer2'] as const;
-    shopItemPerk_51.forEach(k => {
-        shopData[k].refundable = perk_51 ? false : true;
-    });
-
     if (player.singularityCount >= 101 && singularityReset) {
         player.cubeUpgrades[51] = 1;
         awardAutosCookieUpgrade();
@@ -971,7 +959,31 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
             updateResearchBG(j);
         }
     }
+    updateSingularityGlobalPerks();
     revealStuff();
+}
+
+// updates singularity perks that do not get saved to player object
+// so that we can call on save load to fix game state
+export const updateSingularityGlobalPerks = () => {
+
+    const perk_5: boolean = player.achievements[278] > 0;
+    const shopItemPerk_5 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
+    shopItemPerk_5.forEach(k => {
+        shopData[k].refundMinimumLevel = perk_5 ? 10 : k.endsWith('Auto') ? 1 : 0;
+    });
+
+    const perk_20: boolean = player.singularityCount >= 20;
+    const shopItemPerk_20 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
+    shopItemPerk_20.forEach(k => {
+        shopData[k].refundable = perk_20 ? false : true;
+    });
+
+    const perk_51 = player.singularityCount >= 51;
+    const shopItemPerk_51 = ['seasonPass', 'seasonPass2', 'seasonPass3', 'seasonPassY', 'chronometer', 'chronometer2'] as const;
+    shopItemPerk_51.forEach(k => {
+        shopData[k].refundable = perk_51 ? false : true;
+    });
 }
 
 export const singularity = async (): Promise<void> => {
