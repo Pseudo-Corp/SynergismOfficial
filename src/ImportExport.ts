@@ -214,7 +214,7 @@ export const resetGame = async () => {
     const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16;
 
     const result = await Prompt(`Answer the question to confirm you'd like to reset: what is ${a}+${b}? (Hint: ${a+b})`)
-    if (Number(result) !== a + b) {
+    if (result === null || Number(result) !== a + b) {
         return Alert('Answer was wrong, not resetting!');
     }
 
@@ -598,7 +598,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     } else if (input === 'time') {
         const availableUses = timeCodeAvailableUses();
         if (availableUses === 0) {
-            return Confirm(`
+            return Alert(`
             If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
 
             Regardless, you must wait at least 15 minutes between each use.
@@ -628,9 +628,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 }
 
                 player.worlds.add(actualQuarkAward * rewardMult, false);
-                return Confirm(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
+                return Alert(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
             } else {
-                return Confirm('You didn\'t guess the right time, try again soon!');
+                return Alert('You didn\'t guess the right time, try again soon!');
             }
         }
     } else if (input === 'spoiler') {
@@ -677,7 +677,7 @@ const addCodeInterval = () : number => {
     let time = hour
     time *= (1 - 0.02 * player.shopUpgrades.calculator4)
     time *= (1 - Math.min(.5, (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 1000 : 0)
-                            - (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 1000 : 0)))
+                            + (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 1000 : 0)))
     return time
 }
 

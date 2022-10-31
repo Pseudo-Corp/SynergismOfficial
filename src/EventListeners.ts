@@ -14,7 +14,7 @@ import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
 import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
 import { exportSynergism, updateSaveString, promocodes, promocodesPrompt, promocodesInfo, importSynergism, resetGame, reloadDeleteGame, handleLastModified } from './ImportExport'
 import { resetHistoryTogglePerSecond } from './History'
-import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, buyConsumable, useConsumable, shopData, shopUpgradeTypes } from './Shop'
+import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable, shopData, shopUpgradeTypes } from './Shop'
 import { Globals as G } from './Variables';
 import { changeTabColor, Confirm } from './UpdateHTML'
 import { hepteractDescriptions, hepteractToOverfluxOrbDescription, tradeHepteractToOverfluxOrb, overfluxPowderDescription, overfluxPowderWarp, toggleAutoBuyOrbs } from './Hepteracts'
@@ -531,7 +531,8 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('hepteractToQuarkTradeMax').addEventListener('click', () => tradeHepteractToOverfluxOrb(true))
     DOMCacheGetOrSet('hepteractToQuarkTradeAuto').addEventListener('click', () => toggleAutoBuyOrbs())
     DOMCacheGetOrSet('overfluxPowder').addEventListener('mouseover', () => overfluxPowderDescription())
-    DOMCacheGetOrSet('powderDayWarp').addEventListener('click', () => overfluxPowderWarp())
+    DOMCacheGetOrSet('powderDayWarp').addEventListener('click', () => overfluxPowderWarp(false))
+    DOMCacheGetOrSet('warpAuto').addEventListener('click', () => overfluxPowderWarp(true))
 
     DOMCacheGetOrSet('hepteractAutoPercentageButton').addEventListener('click', () => toggleHepteractAutoPercentage())
 
@@ -564,24 +565,22 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('summaryGeneration').addEventListener('click', () => generateExportSummary());
 
     // Various functions
-    /*Export Files*/ DOMCacheGetOrSet('exportgame').addEventListener('click', () => exportSynergism())
-    /*Update name of File*/
+    DOMCacheGetOrSet('exportgame').addEventListener('click', () => exportSynergism())
     DOMCacheGetOrSet('saveStringInput').addEventListener('blur', e => updateSaveString(e.target as HTMLInputElement));
-    /*Save Game Button*/ DOMCacheGetOrSet('savegame').addEventListener('click', ({ target }) => saveSynergy(true, target as HTMLButtonElement))
-    /*Delete Save Button*/ DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
-    /*Delete Save Button*/ DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => reloadDeleteGame())
-    /*Submit Stats [Note: will eventually become obsolete if kong closes]*/ // DOMCacheGetOrSet('submitstats').addEventListener('click', () => submitStats())
-    /*Promotion Codes*/ DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
-    /*Special action add*/ DOMCacheGetOrSet('addCode').addEventListener('click', () => promocodes('add'))
+    DOMCacheGetOrSet('savegame').addEventListener('click', ({ target }) => saveSynergy(true, target as HTMLButtonElement))
+    DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
+    DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => reloadDeleteGame())
+    DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
+    DOMCacheGetOrSet('addCode').addEventListener('click', () => promocodes('add'))
     DOMCacheGetOrSet('addCode').addEventListener('mouseover', () => promocodesInfo('add'))
-    /*Special action add one*/ DOMCacheGetOrSet('addCodeOne').addEventListener('click', () => promocodes('add', 1))
+    DOMCacheGetOrSet('addCodeOne').addEventListener('click', () => promocodes('add', 1))
     DOMCacheGetOrSet('addCodeOne').addEventListener('mouseover', () => promocodesInfo('add'))
-    /*Special action daily*/ DOMCacheGetOrSet('dailyCode').addEventListener('click', () => promocodes('daily'))
+    DOMCacheGetOrSet('dailyCode').addEventListener('click', () => promocodes('daily'))
     DOMCacheGetOrSet('dailyCode').addEventListener('mouseover', () => promocodesInfo('daily'))
-    /*Special action time*/ DOMCacheGetOrSet('timeCode').addEventListener('click', () => promocodes('time'))
+    DOMCacheGetOrSet('timeCode').addEventListener('click', () => promocodes('time'))
     DOMCacheGetOrSet('timeCode').addEventListener('mouseover', () => promocodesInfo('time'))
-    /*Toggle Ascension Per-Second Setting*/ DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener('click', () => resetHistoryTogglePerSecond())
-    /*ResetHotkeys Button*/ DOMCacheGetOrSet('resetHotkeys').addEventListener('click', () => resetHotkeys())
+    DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener('click', () => resetHistoryTogglePerSecond())
+    DOMCacheGetOrSet('resetHotkeys').addEventListener('click', () => resetHotkeys())
 
     // SHOP TAB
 
@@ -594,7 +593,7 @@ TODO: Fix this entire tab it's utter shit
     // Part 1: The Settings
     /*Respec The Upgrades*/ DOMCacheGetOrSet('resetShopUpgrades').addEventListener('click', () => resetShopUpgrades())
     /*Toggle Shop Confirmations*/ DOMCacheGetOrSet('toggleConfirmShop').addEventListener('click', () => toggleShopConfirmation())
-    /*Toggle Shop Buy Max*/ DOMCacheGetOrSet('toggleBuyMaxShop').addEventListener('click', () => toggleBuyMaxShop())
+    /*Toggle Shop Buy Max*/ DOMCacheGetOrSet('toggleBuyMaxShop').addEventListener('click', (event) => toggleBuyMaxShop(event))
     /*Toggle Hide Permanent Maxed*/ DOMCacheGetOrSet('toggleHideShop').addEventListener('click', () => toggleHideShop())
 
     // Part 2: Potions
@@ -603,17 +602,23 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('offeringpotionowned').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
     DOMCacheGetOrSet('buyofferingpotion').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
     DOMCacheGetOrSet('useofferingpotion').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
-    DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', () => buyConsumable('offeringPotion'))
+    DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', () => buyShopUpgrades('offeringPotion'))
     //DOMCacheGetOrSet('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
     DOMCacheGetOrSet('useofferingpotion').addEventListener('click', () => useConsumable('offeringPotion'))
+    DOMCacheGetOrSet('toggle42').addEventListener('click', () => {
+        player.autoPotionTimer = 0;
+    })
     /*Obtainium Potion*/
     DOMCacheGetOrSet('obtainiumPotions').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
     DOMCacheGetOrSet('obtainiumpotionowned').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
     DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
     DOMCacheGetOrSet('useobtainiumpotion').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
-    DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('click', () => buyConsumable('obtainiumPotion'))
+    DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('click', () => buyShopUpgrades('obtainiumPotion'))
     //DOMCacheGetOrSet('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
     DOMCacheGetOrSet('useobtainiumpotion').addEventListener('click', () => useConsumable('obtainiumPotion'))
+    DOMCacheGetOrSet('toggle43').addEventListener('click', () => {
+        player.autoPotionTimerObtainium = 0;
+    })
     /* Permanent Upgrade Images */
     const shopKeys = Object.keys(player.shopUpgrades) as (keyof Player['shopUpgrades'])[]
     for (const key of shopKeys) {

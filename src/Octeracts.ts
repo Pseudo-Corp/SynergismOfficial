@@ -1,9 +1,10 @@
-import { format, player } from './Synergism';
+import { format, player, formatTimeShort } from './Synergism';
 import { Alert, Prompt } from './UpdateHTML';
 import type { IUpgradeData } from './DynamicUpgrade';
 import { DynamicUpgrade } from './DynamicUpgrade';
 import type { Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { octeractGainPerSecond } from './Calculate'
 
 export interface IOcteractData extends IUpgradeData {
     costFormula (level: number, baseCost: number): number
@@ -98,7 +99,8 @@ export class OcteractUpgrade extends DynamicUpgrade {
         const maxLevel = this.maxLevel === -1
             ? ''
             : `/${format(this.maxLevel, 0 , true)}`;
-        const color = this.maxLevel === this.level ? 'plum' : 'white';
+        const isMaxLevel = this.maxLevel === this.level;
+        const color = isMaxLevel ? 'plum' : 'white';
 
         let freeLevelInfo = this.freeLevels > 0 ?
             `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>` : ''
@@ -107,11 +109,21 @@ export class OcteractUpgrade extends DynamicUpgrade {
             freeLevelInfo = freeLevelInfo + '<span style="color: maroon"> (Softcapped) </span>'
         }
 
+        const isAffordable = costNextLevel <= player.wowOcteracts;
+        let affordTime = '';
+        if (!isMaxLevel && !isAffordable) {
+            const octPerSecond = octeractGainPerSecond();
+            affordTime = octPerSecond > 0 ? formatTimeShort((costNextLevel - player.wowOcteracts) / octPerSecond) : 'Infinity';
+        }
+        const affordableInfo = isMaxLevel ? '<span style="color: plum"> (Maxed)</span>' :
+            isAffordable ? '<span style="color: green"> (Affordable)</span>' :
+                `<span style="color: yellow"> (Affordable in ${affordTime})</span>`;
+
         return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color: ${color}"> Level ${format(this.level, 0 , true)}${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.getEffect().desc}</span>
-                Cost for next level: ${format(costNextLevel,2,true, true, true)} Octeracts.
+                Cost for next level: ${format(costNextLevel,2,true, true, true)} Octeracts${affordableInfo}
                 Spent Octeracts: ${format(this.octeractsInvested, 2, true, true, true)}`
     }
 
@@ -517,7 +529,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     octeractAutoPotionSpeed: {
         name: 'Pill of Increased Thirst',
-        description: 'You can buy pills of thirst-making to consume potions automatically faster! 2% faster per level to be precise.',
+        description: 'You can buy pills of thirst-making to consume potions automatically faster! 4% faster per level to be precise.',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(10, level)
         },
@@ -525,14 +537,14 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         costPerLevel: 1e-10,
         effect: (n: number) => {
             return {
-                bonus: 1 + 2 * n / 100,
-                desc: `Auto Potion Singularity Perk works ${2 * n}% faster than before!`
+                bonus: 1 + 4 * n / 100,
+                desc: `Auto Potion Singularity Perk works ${4 * n}% faster than before!`
             }
         }
     },
     octeractAutoPotionEfficiency: {
-        name: 'This one is on the house!',
-        description: 'Thanks to the generosity of your Derpsmith, Auto Potion replenishes 4% more per level of this upgrade! At max level, Auto Potion no longer consumes anything.',
+        name: 'Vitamin O Infusion',
+        description: 'Thanks to the generosity of your Derpsmith, Potions are 2% more potent per level!',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(10, level)
         },
@@ -540,8 +552,8 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         costPerLevel: 1e-10 * Math.pow(10, 0.5),
         effect: (n: number) => {
             return {
-                bonus: 1 + 4 * n / 100,
-                desc: `Auto Potion Singularity Perk replenishes potions ${4 * n}% faster than before!`
+                bonus: 1 + 2 * n / 100,
+                desc: `Potions give ${2 * n}% more Offerings and Obtainium.`
             }
         }
     }

@@ -84,19 +84,33 @@ export const addTimers = (input: TimerInput, time = 0) => {
             if (player.highestSingularityCount < 6) {
                 return
             } else {
-                player.autoPotionTimer += time * timeMultiplier
-                const timerThreshold = 60 * Math.pow(1.03, -player.highestSingularityCount) / +player.octeractUpgrades.octeractAutoPotionSpeed.getEffect().bonus
+                // player.toggles[42] enables FAST Offering Potion Expenditure, but actually spends the potion.
+                // Hence, you need at least one potion to be able to use fast spend.
+                const toggleOfferingOn = (player.toggles[42] && player.shopUpgrades.offeringPotion > 0)
+                // player.toggles[43] enables FAST Obtainium Potion Expenditure, but actually spends the potion.
+                const toggleObtainiumOn = (player.toggles[43] && player.shopUpgrades.obtainiumPotion > 0)
 
-                if (player.autoPotionTimer >= timerThreshold) {
-                    const amountOfPotions = (player.autoPotionTimer - (player.autoPotionTimer % timerThreshold)) / timerThreshold
-                    player.autoPotionTimer %= timerThreshold
-                    player.shopUpgrades.offeringPotion += amountOfPotions * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus / 5
-                    player.shopUpgrades.obtainiumPotion += amountOfPotions * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus / 5
-                    void useConsumable('obtainiumPotion', true, amountOfPotions)
-                    void useConsumable('offeringPotion', true, amountOfPotions)
+                player.autoPotionTimer += time * timeMultiplier
+                player.autoPotionTimerObtainium += time * timeMultiplier
+
+                const timerThreshold = 180 * Math.pow(1.03, -player.highestSingularityCount) / +player.octeractUpgrades.octeractAutoPotionSpeed.getEffect().bonus
+
+                const effectiveOfferingThreshold = (toggleOfferingOn ? Math.min(1, timerThreshold) / 20: timerThreshold)
+                const effectiveObtainiumThreshold = (toggleObtainiumOn ? Math.min(1, timerThreshold) / 20: timerThreshold)
+
+                if (player.autoPotionTimer >= effectiveOfferingThreshold) {
+                    const amountOfPotions = ((player.autoPotionTimer) - (player.autoPotionTimer % effectiveOfferingThreshold)) / effectiveOfferingThreshold
+                    player.autoPotionTimer %= effectiveOfferingThreshold
+                    void useConsumable('offeringPotion', true, amountOfPotions, toggleOfferingOn)
                 }
 
+                if (player.autoPotionTimerObtainium >= effectiveObtainiumThreshold) {
+                    const amountOfPotions = ((player.autoPotionTimerObtainium) - (player.autoPotionTimerObtainium % effectiveObtainiumThreshold)) / effectiveObtainiumThreshold
+                    player.autoPotionTimerObtainium %= effectiveObtainiumThreshold
+                    void useConsumable('obtainiumPotion', true, amountOfPotions, toggleObtainiumOn)
+                }
             }
+            break;
         }
     }
 }

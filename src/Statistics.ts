@@ -289,7 +289,7 @@ export const loadStatisticsCubeMultipliers = () => {
 
     DOMCacheGetOrSet('sHeMT').textContent = `x${format(calculateHepteractMultiplier().mult, 3)}`;
 
-    const arr6 = calculateOcteractMultiplier().list;
+    const octMults = calculateOcteractMultiplier();
     const map6: Record<number, { acc: number, desc: string }> = {
         1: {acc: 2, desc: 'Ascension Score Multiplier:'},
         2: {acc: 2, desc: 'Season Pass 3:'},
@@ -300,15 +300,28 @@ export const loadStatisticsCubeMultipliers = () => {
         7: {acc: 2, desc: 'Divine Pack:'},
         8: {acc: 2, desc: 'Cube Flame:'},
         9: {acc: 2, desc: 'Cube Blaze:'},
-        10: {acc: 2, desc: 'Cube Inferno:'}
+        10: {acc: 2, desc: 'Cube Inferno:'},
+        11: {acc: 2, desc: 'Octeract Absinthe'},
+        12: {acc: 2, desc: 'Pieces of Eight'},
+        13: {acc: 2, desc: 'Obelisk Shaped Like an Octagon'},
+        14: {acc: 2, desc: 'Octahedral Synthesis'},
+        15: {acc: 2, desc: 'Eighth Wonder of the World'},
+        16: {acc: 2, desc: 'Octeracts for Dummies'},
+        17: {acc: 2, desc: 'Octeract Cogenesis'},
+        18: {acc: 2, desc: 'Octeract Trigenesis'},
+        19: {acc: 2, desc: 'Singularity Factor'},
+        20: {acc: 2, desc: 'Digital Octeract Accumulator'},
+        21: {acc: 2, desc: 'Event Buff'},
+        22: {acc: 2, desc: 'Platonic DELTA'},
+        23: {acc: 2, desc: 'Ascension Speed Multiplier'}
     }
-    for (let i = 0; i < arr6.length; i++) {
+    for (let i = 0; i < octMults.list.length; i++) {
         const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`);
         statOcMi.childNodes[0].textContent = map6[i + 1].desc;
-        DOMCacheGetOrSet(`sOcM${i + 1}`).textContent = `x${format(arr6[i], map6[i + 1].acc, true)}`;
+        DOMCacheGetOrSet(`sOcM${i + 1}`).textContent = `x${format(octMults.list[i], map6[i + 1].acc, true)}`;
     }
 
-    DOMCacheGetOrSet('sOcMT').textContent = `x${format(calculateOcteractMultiplier().mult, 3)}`;
+    DOMCacheGetOrSet('sOcMT').textContent = `x${format(octMults.mult, 3)}`;
 }
 
 export const loadStatisticsOfferingMultipliers = () => {

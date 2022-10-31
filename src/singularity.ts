@@ -1096,7 +1096,7 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'Potion Autogenerator',
         levels: [6],
         description: () => {
-            return 'Every 60 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity. You also refill potions at 20% of the usage rate!'
+            return 'Every 180 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity.'
         }
     },
     {
@@ -1264,8 +1264,15 @@ export const singularityPerks: SingularityPerk[] = [
     {
         name: 'PL-AT Σ',
         levels: [125, 200],
-        description: () => {
-            return 'Code \'add\' refills 0.1% faster per level per singularity (MAX: 50% faster)'
+        description: (n: number, levels: number[]) => {
+            let counter = 0
+            for (const singCount of levels) {
+                if (n >= singCount) {
+                    counter += 0.1
+                }
+            }
+
+            return `Code 'add' refills ${counter}% faster per level per singularity (MAX: 50% faster)`
         }
     },
     {
@@ -1366,15 +1373,21 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
 }
 
 function formatPerkDescription(perkData: ISingularityPerkDisplayInfo, singularityCount: number): string {
-    let singTolerance = 0
-    singTolerance += +player.singularityUpgrades.singFastForward.getEffect().bonus
-    singTolerance += +player.singularityUpgrades.singFastForward2.getEffect().bonus
-    singTolerance += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
-
+    const singTolerance = getFastForwardTotalMultiplier();
     const isNew = (singularityCount - perkData.lastUpgraded <= singTolerance);
     const levelInfo = perkData.currentLevel > 1 ? ' - Level '+ perkData.currentLevel : '';
     //const acquiredUpgraded = ' / Acq ' + perkData.acquired + ' / Upg ' + perkData.lastUpgraded;
     return `<span${isNew?' class="newPerk"':''} title="${perkData.description}">${perkData.name}${levelInfo}</span>`;
+}
+
+// Indicates the number of extra Singularity count gained on Singularity reset
+export const getFastForwardTotalMultiplier = (): number => {
+    let fastForward = 0;
+    fastForward += +player.singularityUpgrades.singFastForward.getEffect().bonus
+    fastForward += +player.singularityUpgrades.singFastForward2.getEffect().bonus
+    fastForward += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
+
+    return fastForward;
 }
 
 export const getGoldenQuarkCost = (): {

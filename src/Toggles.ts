@@ -730,13 +730,27 @@ export const toggleShopConfirmation = () => {
     player.shopConfirmationToggle = !player.shopConfirmationToggle;
 }
 
-export const toggleBuyMaxShop = () => {
+export const toggleBuyMaxShop = (event: MouseEvent) => {
     const el = DOMCacheGetOrSet('toggleBuyMaxShop')
-    el.textContent = player.shopBuyMaxToggle
-        ? 'Buy Max: OFF'
-        : 'Buy Max: ON';
-
-    player.shopBuyMaxToggle = !player.shopBuyMaxToggle;
+    if (event.shiftKey) {
+        el.textContent = 'Buy: ANY';
+        player.shopBuyMaxToggle = 'ANY';
+        return;
+    }
+    const suf = '<br><span style=\'color: gold; font-size:75%;\'>Shift-Click for Buy: Any</span>';
+    switch (player.shopBuyMaxToggle) {
+        case false:
+            el.innerHTML = `Buy: 10${suf}`;
+            player.shopBuyMaxToggle = 'TEN';
+            break;
+        case 'TEN':
+            el.innerHTML = `Buy: MAX${suf}`;
+            player.shopBuyMaxToggle = true;
+            break;
+        default:
+            el.innerHTML = `Buy: 1${suf}`;
+            player.shopBuyMaxToggle = false;
+    }
 }
 
 export const toggleHideShop = () => {
