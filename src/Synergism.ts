@@ -1801,7 +1801,6 @@ const loadSynergy = async () => {
         calculateRuneLevels();
         resetHistoryRenderAllTables();
         updateSingularityAchievements();
-        updateSingularityMilestoneAwards(false);
     }
 
     updateAchievementBG();
