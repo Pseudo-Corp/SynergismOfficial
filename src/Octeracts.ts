@@ -106,7 +106,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
             `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>` : ''
 
         if (this.freeLevels > this.level) {
-            freeLevelInfo = freeLevelInfo + '<span style="color: maroon"> (Softcapped) </span>'
+            freeLevelInfo = freeLevelInfo + '<span style="color: var(--maroon-text-color)"> (Softcapped) </span>'
         }
 
         const isAffordable = costNextLevel <= player.wowOcteracts;
@@ -116,7 +116,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
             affordTime = octPerSecond > 0 ? formatTimeShort((costNextLevel - player.wowOcteracts) / octPerSecond) : 'Infinity';
         }
         const affordableInfo = isMaxLevel ? '<span style="color: plum"> (Maxed)</span>' :
-            isAffordable ? '<span style="color: green"> (Affordable)</span>' :
+            isAffordable ? '<span style="color: var(--green-text-color)"> (Affordable)</span>' :
                 `<span style="color: yellow"> (Affordable in ${affordTime})</span>`;
 
         return `<span style="color: gold">${this.name}</span>

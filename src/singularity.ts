@@ -74,7 +74,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
             `<span style="color: orange"> [+${format(this.freeLevels, 2, true)}]</span>` : ''
 
         if (this.freeLevels > this.level) {
-            freeLevelInfo = freeLevelInfo + '<span style="color: maroon"> (Softcapped) </span>'
+            freeLevelInfo = freeLevelInfo + '<span style="color: var(--maroon-text-color)"> (Softcapped) </span>'
         }
 
         return `<span style="color: gold">${this.name}</span>

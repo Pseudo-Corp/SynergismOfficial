@@ -1,5 +1,6 @@
-* {
-    transition: var(--transition);
+body *,
+body {
+    transition: background-color var(--transition), border-color var(--transition);
 }
 
 html {
@@ -61,6 +62,7 @@ body {
     --orchid-text-color: orchid;
     --darkcyan-text-color: darkcyan;
     --red-text-color: red;
+    --maroon-text-color: maroon;
     --orangered-text-color: orangered;
     --crimson-text-color: crimson;
     --gray-text-color: gray;
@@ -95,6 +97,7 @@ body {
     --scrollbar-color: #444;
     --scrollbar-bg-color: #111;
     --transition: 0;
+    --transition-extra: 0.15s;
 }
 
 body.loading {
@@ -174,7 +177,7 @@ input[type="checkbox"] {
 button {
     min-height: 30px;
     color: white;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
     outline: none;
@@ -291,7 +294,7 @@ body button:active {
     font-size: 0;
     z-index: 1;
     color: white;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
 }
@@ -834,7 +837,7 @@ p#themesTitle {
     min-height: 20px;
     margin: 2px auto;
     box-sizing: border-box;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 #importFileButton:hover {
@@ -1145,7 +1148,7 @@ p#promocodeinfo {
 .buyAmountBtn {
     background-color: var(--button-color);
     cursor: pointer;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 .buyAmountBtn:hover {
@@ -1290,7 +1293,7 @@ p#prestigehotkeys {
 .runeTypeElement {
     margin: 0;
     text-align: center;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 img.runeTypeElement {
@@ -1550,7 +1553,6 @@ p#transcendhotkeys {
     min-width: 300px;
     min-height: 75px;
     background-color: var(--blackbtn-color);
-    transition-duration: 0.15s;
 }
 
 #startChallenge:hover {
@@ -1662,7 +1664,7 @@ p#transcendhotkeys {
 
 .challenge {
     background-color: var(--button-color);
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 .challenge:hover {
@@ -1785,7 +1787,7 @@ p#reincarnatehotkeys {
 
 #researchtable .researchAvailable {
     cursor: pointer;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 #researchtable .researchAvailable:hover {
@@ -1798,7 +1800,7 @@ p#reincarnatehotkeys {
 
 #researchtable .researchPurchasedAvailable {
     cursor: pointer;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 #researchtable .researchPurchasedAvailable:hover {
@@ -2499,7 +2501,7 @@ p#ascendHotKeys {
 
 .constUpgrade {
     background-color: var(--button-color);
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 .constUpgradeAvailable {

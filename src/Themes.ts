@@ -7,6 +7,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     if (change) {
         localStorage.setItem('theme', `${themeNumber}`);
         body.style.setProperty('--transition', '750ms');
+        body.style.setProperty('--transition-extra', '600ms');
     } else {
         themeNumber = Number(localStorage.getItem('theme') ?? 1);
     }
@@ -22,6 +23,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         body.style.removeProperty('--lightseagreen-text-color');
         body.style.removeProperty('--crimson-text-color');
         body.style.removeProperty('--red-text-color');
+        body.style.removeProperty('--maroon-text-color');
         body.style.removeProperty('--orchid-text-color');
         body.style.removeProperty('--darkorchid-text-color');
         body.style.removeProperty('--darkcyan-text-color');
@@ -157,6 +159,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('actualShop').style.backgroundColor = '#0c0c0f'; //Special cases
         DOMCacheGetOrSet('actualShop').style.borderColor = '#d487d4';
         DOMCacheGetOrSet('platonicUpgradePics').style.backgroundColor = '#0c0c0f';
+        body.style.setProperty('--maroon-text-color', '#a90000');
 
         themeButton.textContent = 'Lighter Dark Mode';
     } else if (themeNumber === 4) { //'Light Mode'
@@ -187,6 +190,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('switchTheme2').style.borderColor = '#284242'; //Special Cases
         body.style.setProperty('--green-text-color', 'limegreen');
         body.style.setProperty('--red-text-color', '#f55');
+        body.style.setProperty('--maroon-text-color', '#ff5656');
         body.style.setProperty('--crimson-text-color', '#f7617d');
         body.style.setProperty('--orchid-text-color', '#dd7dda');
         body.style.setProperty('--darkorchid-text-color', '#cf9ee8');
@@ -221,6 +225,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         body.style.setProperty('--alert-color', '#2a1035');
         body.style.setProperty('--history-lines', '#012d1c');
         body.style.setProperty('--text-color', '#ac47ff');
+        body.style.setProperty('--maroon-text-color', '#c30000');
         body.style.setProperty('--crimson-text-color', '#eb0000');
         body.style.setProperty('--orchid-text-color', '#fd59f7');
         body.style.setProperty('--darkorchid-text-color', '#c205ff');
@@ -282,6 +287,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     if (change) {
         setTimeout(() => {
             body.style.removeProperty('--transition');
+            body.style.removeProperty('--transition-extra');
         }, 750);
     }
 };
