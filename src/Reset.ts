@@ -973,7 +973,7 @@ export const updateSingularityGlobalPerks = () => {
         shopData[k].refundMinimumLevel = perk_5 ? 10 : k.endsWith('Auto') ? 1 : 0;
     });
 
-    const perk_20: boolean = player.singularityCount >= 20;
+    const perk_20 = player.singularityCount >= 20;
     const shopItemPerk_20 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
     shopItemPerk_20.forEach(k => {
         shopData[k].refundable = perk_20 ? false : true;
