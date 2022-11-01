@@ -967,7 +967,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
 // so that we can call on save load to fix game state
 export const updateSingularityGlobalPerks = () => {
 
-    const perk_5: boolean = player.achievements[278] > 0;
+    const perk_5 = player.achievements[278] > 0;
     const shopItemPerk_5 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
     shopItemPerk_5.forEach(k => {
         shopData[k].refundMinimumLevel = perk_5 ? 10 : k.endsWith('Auto') ? 1 : 0;
