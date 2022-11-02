@@ -169,7 +169,8 @@ export const loadStatisticsCubeMultipliers = () => {
         18: {acc: 2, desc: 'Cookie Upgrade 8:'},
         19: {acc: 2, desc: 'Total Octeract Bonus:'},
         20: {acc: 2, desc: 'Citadel [GQ]'},
-        21: {acc: 4, desc: 'Platonic DELTA'}
+        21: {acc: 4, desc: 'Platonic DELTA'},
+        22: {acc: 2, desc: 'Wow Pass ∞'}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
@@ -290,6 +291,7 @@ export const loadStatisticsCubeMultipliers = () => {
     DOMCacheGetOrSet('sHeMT').textContent = `x${format(calculateHepteractMultiplier().mult, 3)}`;
 
     const octMults = calculateOcteractMultiplier();
+    const ascensionSpeedDesc = (player.singularityUpgrades.oneMind.getEffect().bonus) ? 'One Mind Multiplier' : 'Ascension Speed Multiplier'
     const map6: Record<number, { acc: number, desc: string }> = {
         1: {acc: 2, desc: 'Ascension Score Multiplier:'},
         2: {acc: 2, desc: 'Season Pass 3:'},
@@ -313,7 +315,8 @@ export const loadStatisticsCubeMultipliers = () => {
         20: {acc: 2, desc: 'Digital Octeract Accumulator'},
         21: {acc: 2, desc: 'Event Buff'},
         22: {acc: 2, desc: 'Platonic DELTA'},
-        23: {acc: 2, desc: 'Ascension Speed Multiplier'}
+        23: {acc: 2, desc: 'Wow Pass ∞'},
+        24: {acc: 2, desc: ascensionSpeedDesc}
     }
     for (let i = 0; i < octMults.list.length; i++) {
         const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`);

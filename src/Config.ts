@@ -1,4 +1,4 @@
-export const version = '2.9.20: October 9 Auto Potion Revision 3';
+export const version = '2.9.21: November 2: The ∞Duck';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE

@@ -371,7 +371,12 @@ export interface Player {
         shopImprovedDaily: number,
         shopImprovedDaily2: number,
         shopImprovedDaily3: number,
-        shopImprovedDaily4: number
+        shopImprovedDaily4: number,
+        offeringEX3: number,
+        obtainiumEX3: number,
+        improveQuarkHept5: number,
+        seasonPassInfinity: number,
+        chronometerInfinity: number,
     },
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean | 'TEN' | 'ANY',

@@ -402,6 +402,7 @@ export const hepteractEffective = (data: hepteractTypes) => {
         exponentBoost += player.shopUpgrades.improveQuarkHept2 / 100
         exponentBoost += player.shopUpgrades.improveQuarkHept3 / 100
         exponentBoost += player.shopUpgrades.improveQuarkHept4 / 100
+        exponentBoost += player.shopUpgrades.improveQuarkHept5 / 5000
 
         const amount = player.hepteractCrafts[data].BAL
         if (1000 < amount && amount <= 1000 * Math.pow(2, 10)) {
