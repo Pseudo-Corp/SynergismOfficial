@@ -810,7 +810,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     const maxLevel = player.shopUpgrades[input] >= shopItem.maxLevel;
     const canAfford = Number(player.worlds) >= getShopCosts(input);
     if (maxLevel || !canAfford) {
-        if (player.shopConfirmationToggle || (!shopItem.refundable && player.shopBuyMaxToggle)) {
+        if (player.shopConfirmationToggle || (!shopItem.refundable && player.shopBuyMaxToggle !== false)) {
             if (maxLevel) {
                 return Alert(`You can't purchase ${friendlyShopName(input)} because you are already at the maximum ${shopItem.type === shopUpgradeTypes.UPGRADE ? 'level' : 'capacity'}!`);
             } else if (!canAfford) {
