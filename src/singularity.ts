@@ -156,6 +156,12 @@ export class SingularityUpgrade extends DynamicUpgrade {
                 purchased += 1;
                 maxPurchasable -= 1;
             }
+            if (this.name === '[56] ONE MIND') {
+                player.ascensionCounter = 0
+                player.ascensionCounterReal = 0
+                player.ascensionCounterRealReal = 0
+                return Alert('You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...')
+            }
         }
 
         if (purchased === 0) {
