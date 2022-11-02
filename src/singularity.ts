@@ -1413,7 +1413,7 @@ export const getFastForwardTotalMultiplier = (): number => {
     fastForward += +player.singularityUpgrades.singFastForward2.getEffect().bonus
     fastForward += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
 
-    return (player.singularityCount < 200) ? fastForward : 1;
+    return (player.singularityCount < 200) ? fastForward : 0;
 }
 
 export const getGoldenQuarkCost = (): {
