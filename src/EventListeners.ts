@@ -449,7 +449,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('open20Cube').addEventListener('click', () => player.wowCubes.open(Math.floor(Number(player.wowCubes) / 10), false))
     DOMCacheGetOrSet('open1000Cube').addEventListener('click', () => player.wowCubes.open(Math.floor(Number(player.wowCubes) / 2), false))
     DOMCacheGetOrSet('openCustomCube').addEventListener('click', () => player.wowCubes.openCustom());
-    DOMCacheGetOrSet('openMostCube').addEventListener('click', () => player.wowCubes.open(1, true))
+    DOMCacheGetOrSet('openMostCube').addEventListener('click', () => player.wowCubes.open(0, true))
     //Wow Tesseracts
     DOMCacheGetOrSet('open1Tesseract').addEventListener('click', () => player.wowTesseracts.open(1, false))
     DOMCacheGetOrSet('open20Tesseract').addEventListener('click', () => player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) / 10), false))
