@@ -1350,7 +1350,7 @@ export const octeractGainPerSecond = () => {
     const valueMultipliers = getOcteractValueMultipliers()
 
     const ascensionSpeed = player.singularityUpgrades.oneMind.getEffect().bonus ? Math.pow(10, 1/2) : Math.pow(calculateAscensionAcceleration(), 1 / 2)
-    const oneMindModifier = player.singularityUpgrades.oneMind.getEffect().bonus ? Math.pow(calculateAscensionAcceleration() / 10, 0.55): 1;
+    const oneMindModifier = player.singularityUpgrades.oneMind.getEffect().bonus ? Math.pow(calculateAscensionAcceleration() / 10, +player.octeractUpgrades.octeractOneMindImprover.getEffect().bonus): 1;
     const perSecond = 1 / (24 * 3600 * 365 * 1e15) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed * oneMindModifier
     return perSecond
 }
@@ -1369,7 +1369,7 @@ export const calculateOcteractMultiplier = (score = -1) => {
     const ascensionSpeed = calculateAscensionAcceleration()
 
     const ascensionSpeedMulti = (player.singularityUpgrades.oneMind.getEffect().bonus) ?
-        Math.pow(10, 1/2) * Math.pow(ascensionSpeed / 10, 0.55) :
+        Math.pow(10, 1/2) * Math.pow(ascensionSpeed / 10, +player.octeractUpgrades.octeractOneMindImprover.getEffect().bonus) :
         Math.pow(ascensionSpeed, 1/2)
     arr.push(ascensionSpeedMulti)
 

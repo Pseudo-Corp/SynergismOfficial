@@ -1313,6 +1313,27 @@ export const singularityPerks: SingularityPerk[] = [
         description: () => {
             return 'Every use of code `add` gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3.'
         }
+    },
+    {
+        name: 'Metacogenesis',
+        levels: [200],
+        description: () => {
+            return 'Gives 1% of your purchased Octeract Cogenesis as bonus levels of Octeract Cogenesis per use of code daily!'
+        }
+    },
+    {
+        name: 'Industrial Daily Codes',
+        levels: [201],
+        description: () => {
+            return 'Doubles the number of free upgrade rolls gained from code daily!'
+        }
+    },
+    {
+        name: 'Metatrigenesis',
+        levels: [205],
+        description: () => {
+            return 'Gives 1% of your purchased Octeract Trigenesis as bonus levels of Octeract Trigenesis per use of code daily!'
+        }
     }
 ]
 

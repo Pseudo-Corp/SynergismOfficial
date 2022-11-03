@@ -778,6 +778,7 @@ export const player: Player = {
         octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
         octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily']),
         octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
+        octeractImprovedDaily3: new OcteractUpgrade(octeractData['octeractImprovedDaily3']),
         octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
         octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed']),
         octeractImprovedAscensionSpeed: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed']),
@@ -794,7 +795,8 @@ export const player: Player = {
         octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain']),
         octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
         octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
-        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency'])
+        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency']),
+        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover'])
     },
 
     dailyCodeUsed: false,

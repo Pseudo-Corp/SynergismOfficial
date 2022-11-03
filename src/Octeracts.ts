@@ -41,7 +41,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
         let OCTBudget = player.wowOcteracts;
 
         if (event.shiftKey) {
-            maxPurchasable = 100000
+            maxPurchasable = 1000000
             const buy = Number(await Prompt(`How many Octeracts would you like to spend? You have ${format(player.wowOcteracts, 0, true)} OCT. Type -1 to use max!`))
 
             if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
@@ -176,7 +176,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         costFormula: (level: number, baseCost: number) => {
             return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
         },
-        maxLevel: -1,
+        maxLevel: 1e8,
         costPerLevel: 1e-8,
         effect: (n: number) => {
             return {
@@ -291,6 +291,21 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             return {
                 bonus: 1 + 0.01 * n,
                 desc: `Code 'daily' gives +${n}% more free Singularity upgrades per use.`
+            }
+        }
+    },
+    octeractImprovedDaily3: {
+        name: 'CHONKEREREST Daily Code',
+        description: 'It will never satisfy Derpsmith. +1 +0.5% more free Singularity upgrades per day from Daily!',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(20, level)
+        },
+        maxLevel: -1,
+        costPerLevel: 1e20,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: `Code 'daily' gives +${n} +${0.5 * n}% more free Singularity upgrades per use.`
             }
         }
     },
@@ -556,7 +571,21 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 desc: `Potions give ${2 * n}% more Offerings and Obtainium.`
             }
         }
+    },
+    octeractOneMindImprover: {
+        name: 'Infinite Transcription of the One Mind',
+        description: 'You ask what this upgrade does, but Derpsmith just nods his head. What is he hiding from you?',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(1e5, level)
+        },
+        maxLevel: 10,
+        costPerLevel: 1e25,
+        effect: (n: number) => {
+            return {
+                bonus: 0.55 + n / 150,
+                desc: `One Mind converts Ascension Speed to Octeract Gain to the power of ${format(0.55 + n / 150, 3, true)}`
+            }
+        }
     }
-
 }
 
