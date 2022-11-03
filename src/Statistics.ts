@@ -139,7 +139,7 @@ export const loadQuarkMultiplier = () => {
                                                             0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
                                                             0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12
                                                             0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
-                                                            0.10 * player.singularityUpgrades.expertPack.level, 3, true)
+                                                            0.10 * player.singularityUpgrades.divinePack.level, 3, true)
     DOMCacheGetOrSet('sGQM20').textContent = 'x' + format(1 + 0.25 * +player.octeractUpgrades.octeractStarter.getEffect().bonus, 3, true)
     DOMCacheGetOrSet('sGQM21').textContent = 'x' + format(+player.octeractUpgrades.octeractQuarkGain.getEffect().bonus, 3, true)
     DOMCacheGetOrSet('sGQM22').textContent = 'x' + format(calculateTotalOcteractQuarkBonus(), 3, true)
