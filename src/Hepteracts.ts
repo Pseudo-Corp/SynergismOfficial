@@ -217,6 +217,8 @@ export class HepteractCraft {
      */
     expand = async(): Promise<HepteractCraft | void> => {
         const expandMultiplier = 2;
+        const currentBalance = this.BAL;
+        const currentCap = this.CAP;
 
         if (!this.UNLOCKED) {
             return Alert('This is not an unlocked craft. Sorry!');
@@ -234,6 +236,15 @@ export class HepteractCraft {
         const expandPrompt = await Confirm(`This will empty your balance, but capacity will increase from ${format(this.CAP)} to ${format(this.CAP * expandMultiplier)} [Expansion Multiplier: ${format(expandMultiplier, 2, true)}]. Agree to the terms and conditions and stuff?`)
         if (!expandPrompt) {
             return this;
+        }
+
+        // Avoid a double-expand exploit due to player waiting to confirm until after autocraft fires and expands
+        if (this.BAL !== currentBalance || this.CAP !== currentCap) {
+            if (player.toggles[35]) {
+                return Alert('Something already modified your balance or cap, try again!');
+            } else {
+                return;
+            }
         }
 
         // Empties inventory in exchange for doubling maximum capacity.
@@ -402,6 +413,7 @@ export const hepteractEffective = (data: hepteractTypes) => {
         exponentBoost += player.shopUpgrades.improveQuarkHept2 / 100
         exponentBoost += player.shopUpgrades.improveQuarkHept3 / 100
         exponentBoost += player.shopUpgrades.improveQuarkHept4 / 100
+        exponentBoost += player.shopUpgrades.improveQuarkHept5 / 5000
 
         const amount = player.hepteractCrafts[data].BAL
         if (1000 < amount && amount <= 1000 * Math.pow(2, 10)) {

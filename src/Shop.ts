@@ -13,7 +13,7 @@ export enum shopUpgradeTypes {
     UPGRADE = 'upgrade'
 }
 
-type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2' | 'SingularityVol3'
+type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2' | 'SingularityVol3' | 'SingularityVol4'
 
 export interface IShopData {
     price: number
@@ -546,6 +546,56 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundable: false,
         refundMinimumLevel: 0,
         description: 'Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of \'daily\' per level!'
+    },
+    offeringEX3: {
+        tier: 'SingularityVol3',
+        price: 1,
+        priceIncrease: 5e12,
+        maxLevel: 1000,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain 2% more Offerings per level, multiplicative! (Multiplier is 1.02^level)'
+    },
+    obtainiumEX3: {
+        tier: 'SingularityVol3',
+        price: 1,
+        priceIncrease: 5e12,
+        maxLevel: 1000,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain 2% more Obtainium per level, multiplicative! (Multiplier is 1.02^level)'
+    },
+    improveQuarkHept5: {
+        tier: 'SingularityVol4',
+        price: 1,
+        priceIncrease: 1e14,
+        maxLevel: 100,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'This is 1/50 as effective as a normal improver. Why? Because of balancing...'
+    },
+    chronometerInfinity: {
+        tier: 'SingularityVol4',
+        price: 1,
+        priceIncrease: 5e12,
+        maxLevel: 1000,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain +1% Ascension Speed per level, multiplicative! (Multiplier is 1.01^level)'
+    },
+    seasonPassInfinity: {
+        tier: 'SingularityVol4',
+        price: 1,
+        priceIncrease: 5e12,
+        maxLevel: 1000,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain +2% more cubes per level, multiplicative! (Multiplier is 1.02^level)'
     }
 }
 
@@ -558,7 +608,8 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'seasonPassLost' | 'chronometer' | 'chronometer2'| 'chronometer3'| 'chronometerZ' | 'infiniteAscent' | 'calculator' | 'calculator2' |
                         'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | 'autoWarp' | //And Golden Quarks
                         'improveQuarkHept' | 'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4' | 'shopImprovedDaily' |
-                        'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4' | 'calculator4' | 'calculator5' | 'calculator6'
+                        'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4' | 'calculator4' | 'calculator5' | 'calculator6' |
+                        'offeringEX3' | 'obtainiumEX3' | 'improveQuarkHept5' | 'seasonPassInfinity' | 'chronometerInfinity'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -738,6 +789,20 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         case 'shopImprovedDaily4':
             lol.textContent = `CURRENT Effect: + ${player.shopUpgrades.shopImprovedDaily4 * 100}% more golden quarks and ${player.shopUpgrades.shopImprovedDaily4} additional free singularity upgrades from daily.`;
             break;
+        case 'offeringEX3':
+            lol.textContent = `CURRENT Effect: Offering gain is multiplied by ${format(Math.pow(1.02, player.shopUpgrades.offeringEX3), 2, true)}.`
+            break;
+        case 'obtainiumEX3':
+            lol.textContent = `CURRENT Effect: Offering gain is multiplied by ${format(Math.pow(1.02, player.shopUpgrades.obtainiumEX3), 2, true)}.`
+            break;
+        case 'improveQuarkHept5':
+            lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept5/2500}`;
+            break;
+        case 'seasonPassInfinity':
+            lol.textContent = `CURRENT Effect: All Dimensional Cubes are multiplied by ${format(Math.pow(1.02, player.shopUpgrades.seasonPassInfinity), 2, true)}`
+            break;
+        case 'chronometerInfinity':
+            lol.textContent = `CURRENT Effect: Ascension Speed is multiplied by ${format(Math.pow(1.01, player.shopUpgrades.chronometerInfinity), 2, true)}`
     }
 
 }
@@ -797,7 +862,12 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         shopImprovedDaily: 'Improved Daily Code 1',
         shopImprovedDaily2: 'Improved Daily Code 2',
         shopImprovedDaily3: 'Improved Daily Code 3',
-        shopImprovedDaily4: 'Improved Daily Code 4'
+        shopImprovedDaily4: 'Improved Daily Code 4',
+        offeringEX3: 'The final Offering Upgrade',
+        obtainiumEX3: 'The final Obtainium Upgrade',
+        improveQuarkHept5: 'The final Quark Hepteract Improver',
+        chronometerInfinity: 'The final Chronometer',
+        seasonPassInfinity: 'The final Season pass'
     }
 
     return names[input];
@@ -1077,5 +1147,15 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames):boolean => {
             return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
         case 'shopImprovedDaily4':
             return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
+        case 'offeringEX3':
+            return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+        case 'obtainiumEX3':
+            return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+        case 'improveQuarkHept5':
+            return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+        case 'chronometerInfinity':
+            return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+        case 'seasonPassInfinity':
+            return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
     }
 }

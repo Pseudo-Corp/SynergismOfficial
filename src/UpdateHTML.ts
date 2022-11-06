@@ -909,6 +909,7 @@ export const showCorruptionStatsLoadouts = () => {
 const updateAscensionStats = () => {
     const t = player.ascensionCounter;
     const [cubes, tess, hyper, platonic, hepteract] = CalcCorruptionStuff().slice(4);
+    const addedAsterisk = (player.singularityUpgrades.oneMind.getEffect().bonus)
     const fillers: Record<string, string> = {
         'ascLen': formatTimeShort((player.ascStatToggles[6] ? player.ascensionCounter : player.ascensionCounterReal), 0),
         'ascCubes': format(cubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2),
@@ -918,7 +919,7 @@ const updateAscensionStats = () => {
         'ascHepteract': format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
         'ascC10': `${format(player.challengecompletions[10])}`,
         'ascTimeAccel': `${format(calculateTimeAcceleration(), 3)}x`,
-        'ascAscensionTimeAccel': `${format(calculateAscensionAcceleration(), 3)}x`,
+        'ascAscensionTimeAccel': `${format(calculateAscensionAcceleration(), 3)}x${addedAsterisk ? '*' : ''}`,
         'ascSingularityCount': format(player.singularityCount),
         'ascSingLen': formatTimeShort(player.singularityCounter)
     }
