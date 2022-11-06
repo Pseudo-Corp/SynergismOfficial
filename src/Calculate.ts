@@ -1418,33 +1418,42 @@ export const calculateTimeAcceleration = () => {
     return (timeMult)
 }
 
-export const calculateAscensionAcceleration = () => {
+export const calculateAscensionSpeedMultiplier = () => {
     const arr = [
-        1 + 1.2 / 100 * player.shopUpgrades.chronometer,                                                // Shop Upgrade
-        1 + 0.6 / 100 * player.shopUpgrades.chronometer2,                                               // Shop Upgrade 2
-        1 + 1.5 / 100 * player.shopUpgrades.chronometer3,                                               // Shop Upgrade 3
-        1 + 0.6 / 1000 * hepteractEffective('chronos'),                                                 // Hepteract
-        1 + Math.min(0.10, 1 / 100 * Math.log10(player.ascensionCount + 1)) * player.achievements[262], // Achieve 262
-        1 + Math.min(0.10, 1 / 100 * Math.log10(player.ascensionCount + 1)) * player.achievements[263], // Achieve 263
-        1 + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15],                  // PLAT Omega
+        1 + 1.2 / 100 * player.shopUpgrades.chronometer,                                                // Chronometer
+        1 + 0.6 / 100 * player.shopUpgrades.chronometer2,                                               // Chronometer 2
+        1 + 1.5 / 100 * player.shopUpgrades.chronometer3,                                               // Chronometer 3
+        1 + 0.6 / 1000 * hepteractEffective('chronos'),                                                 // Chronos Hepteract
+        1 + Math.min(0.10, 1 / 100 * Math.log10(player.ascensionCount + 1)) * player.achievements[262], // Achievement 262 Bonus
+        1 + Math.min(0.10, 1 / 100 * Math.log10(player.ascensionCount + 1)) * player.achievements[263], // Achievement 263 Bonus
+        1 + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15],                  // Platonic Omega
         G['challenge15Rewards'].ascensionSpeed,                                                         // C15
         1 + 1 / 400 * player.cubeUpgrades[59],                                                          // Cookie Upgrade 9
         1 + 0.5 * (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0),              // Intermediate Pack, Sing Shop
         1 + 1 / 1000 * player.singularityCount * player.shopUpgrades.chronometerZ,                      // Chronometer Z
-        1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed.getEffect().bonus * player.singularityCount, // Oct Upgrade 1
-        1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed2.getEffect().bonus * player.singularityCount, // Oct Upgrade 2
+        1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed.getEffect().bonus * player.singularityCount, // Abstract Photokinetics, Oct Upg
+        1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed2.getEffect().bonus * player.singularityCount, // Abstract Exokinetics, Oct Upg
         1 + calculateEventBuff('Ascension Speed'),                                                      // Event
-        (player.singularityUpgrades.singAscensionSpeed2.level > 0 && player.runelevels[6] < 1) ? 6 : 1, // Sing Ascension Speed lol
-        Math.pow(1.01, player.shopUpgrades.chronometerInfinity)                                         // Chronometer INF
-    ]
-    const baseMultiplier = productContents(arr) / calculateSingularityDebuff('Ascension Speed')
+        (player.singularityUpgrades.singAscensionSpeed2.level > 0 && player.runelevels[6] < 1) ? 6 : 1, // A mediocre ascension speedup!
+        Math.pow(1.01, player.shopUpgrades.chronometerInfinity),                                        // Chronometer INF
+        1,                                                                                              // A hecking good ascension speedup!
+        1 / calculateSingularityDebuff('Ascension Speed')                                               // Singularity Penalty
+    ];
+
+    const baseMultiplier = productContents(arr);
     const exponent = (player.singularityUpgrades.singAscensionSpeed.level > 0) ?
         ((baseMultiplier >= 1) ?
             1.03:
             0.97) :
         1;
+    arr[16] = Math.pow(baseMultiplier, exponent) / baseMultiplier;
 
-    return Math.pow(baseMultiplier, exponent)
+    return {list: arr,
+        mult: productContents(arr)}
+}
+
+export const calculateAscensionAcceleration = () => {
+    return calculateAscensionSpeedMultiplier().mult
 }
 
 export const calculateSingularityQuarkMilestoneMultiplier = () => {
@@ -1527,29 +1536,32 @@ export const calculateQuarkMultiplier = () => {
  *
  * Calculate the number of Golden Quarks earned in current singularity
  */
-export const calculateGoldenQuarkGain = ():number => {
-    const base = 2 * player.singularityCount + 10
+export const calculateGoldenQuarkMultiplier = () => {
+    const base = 2 * player.singularityCount + 10;
 
     let bonus = (player.singularityCount < 10) ? (200 - 10 * player.singularityCount) : 0;
     if (player.singularityCount === 0) {
-        bonus += 200
+        bonus += 200;
     }
 
-    const gainFromQuarks = player.quarksThisSingularity / 1e5;
+    const arr = [
+        1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2,                           // C15 Exponent
+        1 + player.worlds.BONUS / 100,                                                                  // Patreon Bonus
+        (+player.singularityUpgrades.goldenQuarks1.getEffect().bonus),                                  // Golden Quarks I
+        1 + 0.12 * player.cubeUpgrades[69],                                                             // Cookie Upgrade 19
+        1 + calculateEventBuff('Golden Quarks'),                                                        // Event
+        1 + getFastForwardTotalMultiplier(),                                                            // Singularity Fast Forwards
+        (player.highestSingularityCount >= 100) ? 1 + Math.min(1, player.highestSingularityCount / 250) : 1, // Golden Revolution II
+        // This should always be at the end of the array at the end
+        player.quarksThisSingularity / 1e5 + base                                                       // Total Quarks Coefficient
+    ];
 
-    const fastForwardMultiplier = 1 + getFastForwardTotalMultiplier();
+    return {list: arr,
+        mult: productContents(arr) + bonus}
+}
 
-    const allGoldenQuarkMultiplier = productContents([
-        1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2,
-        1 + player.worlds.BONUS / 100,
-        (+player.singularityUpgrades.goldenQuarks1.getEffect().bonus) *
-        1 + 0.12 * player.cubeUpgrades[69],
-        1 + calculateEventBuff('Golden Quarks'),
-        fastForwardMultiplier,
-        (player.highestSingularityCount >= 100) ? 1 + player.highestSingularityCount / 250 : 1
-    ]);
-
-    return (base + gainFromQuarks) * allGoldenQuarkMultiplier + bonus;
+export const calculateGoldenQuarkGain = ():number => {
+    return calculateGoldenQuarkMultiplier().mult;
 }
 
 export const calculateCorruptionPoints = () => {
