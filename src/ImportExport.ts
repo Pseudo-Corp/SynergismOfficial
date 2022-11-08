@@ -19,6 +19,7 @@ import { singularityData } from './singularity';
 import { getEvent } from './Event';
 import { synergismStage } from './Statistics';
 import ClipboardJS from 'clipboard';
+import { octeractData } from './Octeracts';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',
@@ -393,8 +394,14 @@ export const promocodes = async (input: string | null, amount?: number) => {
             rolls += player.shopUpgrades.shopImprovedDaily4
             rolls += (+player.singularityUpgrades.platonicPhi.getEffect().bonus *
                         Math.min(50, 5 * player.singularityCounter / (3600 * 24)))
-
+            rolls += +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus
             rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
+            rolls *= 1 + +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus / 200
+
+            if (player.highestSingularityCount >= 200) {
+                rolls *= 2
+            }
+
             rolls = Math.floor(rolls)
 
             const keys = Object
@@ -422,6 +429,16 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 player.singularityUpgrades.goldenQuarks3.freeLevels += 1
                 freeLevels['goldenQuarks3'] ? freeLevels['goldenQuarks3'] += 1 : freeLevels['goldenQuarks3'] = 1
 
+            }
+
+            if (player.highestSingularityCount >= 200) {
+                player.octeractUpgrades.octeractGain.freeLevels += (player.octeractUpgrades.octeractGain.level / 100)
+                freeLevels['octeractGain'] = player.octeractUpgrades.octeractGain.level / 100
+            }
+
+            if (player.highestSingularityCount >= 205) {
+                player.octeractUpgrades.octeractGain2.freeLevels += (player.octeractUpgrades.octeractGain2.level / 100)
+                freeLevels['octeractGain2'] = player.octeractUpgrades.octeractGain2.level / 100
             }
 
             for (const key of Object.keys(freeLevels)) {
@@ -705,7 +722,7 @@ const timeCodeRewardMultiplier = (): number => {
 }
 
 const dailyCodeFormatFreeLevelMessage = (upgradeKey: string, freeLevelAmount: number): string => {
-    const upgradeNiceName = singularityData[upgradeKey].name;
+    const upgradeNiceName = (upgradeKey in singularityData) ? singularityData[upgradeKey].name : octeractData[upgradeKey].name;
     return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`;
 }
 

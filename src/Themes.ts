@@ -291,3 +291,46 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         }, 750);
     }
 };
+
+export const toggleAnnotation = (setting = true) => {
+    const notationButton = DOMCacheGetOrSet('notation');
+    const current = notationButton.textContent;
+
+    switch (current) {
+        case 'Pure Scientific':
+            notationButton.textContent = 'Pure Engineering';
+            break;
+        case 'Pure Engineering':
+            notationButton.textContent = 'Default';
+            break;
+        default:
+            notationButton.textContent = 'Pure Scientific';
+    }
+    if (setting === true) {
+        player.notation = notationButton.textContent;
+    }
+}
+
+export const settingAnnotation = () => {
+    let userAnnotation = player.notation;
+    const maxAnnotations = 10;
+    const notationButton = DOMCacheGetOrSet('notation');
+    for (let i = 0; i < maxAnnotations; i++) {
+        const current = notationButton.textContent;
+        if (current !== null && userAnnotation.toUpperCase() !== current.toUpperCase()) {
+            toggleAnnotation(false);
+        } else {
+            return;
+        }
+    }
+    userAnnotation = 'DEFAULT';
+    for (let i = 0; i < maxAnnotations; i++) {
+        const current = notationButton.textContent;
+        if (current !== null && userAnnotation !== current.toUpperCase()) {
+            toggleAnnotation(false);
+        } else {
+            return;
+        }
+    }
+}
+

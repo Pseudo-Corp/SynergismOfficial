@@ -156,13 +156,19 @@ export class SingularityUpgrade extends DynamicUpgrade {
                 purchased += 1;
                 maxPurchasable -= 1;
             }
+            if (this.name === player.singularityUpgrades.oneMind.name) {
+                player.ascensionCounter = 0
+                player.ascensionCounterReal = 0
+                player.ascensionCounterRealReal = 0
+                void Alert('You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...')
+            }
         }
 
         if (purchased === 0) {
             return Alert('You cannot afford this upgrade. Sorry!')
         }
         if (purchased > 1) {
-            return Alert(`Purchased ${format(purchased)} levels, thanks to Multi Buy!`)
+            void Alert(`Purchased ${format(purchased)} levels, thanks to Multi Buy!`)
         }
 
         this.updateUpgradeHTML();
@@ -941,6 +947,32 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 desc: `You do ${n > 0 ? '' : 'NOT'} own the Ultimate Pen. ${n > 0 ? ' However, the pen just ran out of ink. How will you get more?' : ''}`
             }
         }
+    },
+    oneMind: {
+        name: 'ONE MIND',
+        description: 'A note, you found on the ground: seems like an advertisement for a cult. "Lock your ascension speed to 10x, and multiply all cubes based on the difference." Hmm...',
+        maxLevel: 1,
+        costPerLevel: 1.66e13,
+        minimumSingularity: 166,
+        effect: (n : number) => {
+            return {
+                bonus: n > 0,
+                desc: `You have ${n > 0 ? '' : 'NOT'} joined the cult!`
+            }
+        }
+    },
+    wowPass4: {
+        name: 'QUQUQUQUAAKCKCKKCKKCKK',
+        description: 'Deals that\'ll cost you a beak and a wing!',
+        maxLevel: 1,
+        costPerLevel: 66666666666,
+        minimumSingularity: 150,
+        effect: (n : number) => {
+            return {
+                bonus: n > 0,
+                desc: `You have ${n > 0 ? '' : 'NOT'} quacked your last QUARK`
+            }
+        }
     }
 }
 
@@ -1281,6 +1313,27 @@ export const singularityPerks: SingularityPerk[] = [
         description: () => {
             return 'Every use of code `add` gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3.'
         }
+    },
+    {
+        name: 'Metacogenesis',
+        levels: [200],
+        description: () => {
+            return 'Gives 1% of your purchased Octeract Cogenesis as bonus levels of Octeract Cogenesis per use of code daily!'
+        }
+    },
+    {
+        name: 'Industrial Daily Codes',
+        levels: [201],
+        description: () => {
+            return 'Doubles the number of free upgrade rolls gained from code daily!'
+        }
+    },
+    {
+        name: 'Metatrigenesis',
+        levels: [205],
+        description: () => {
+            return 'Gives 1% of your purchased Octeract Trigenesis as bonus levels of Octeract Trigenesis per use of code daily!'
+        }
     }
 ]
 
@@ -1387,7 +1440,7 @@ export const getFastForwardTotalMultiplier = (): number => {
     fastForward += +player.singularityUpgrades.singFastForward2.getEffect().bonus
     fastForward += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
 
-    return fastForward;
+    return (player.singularityCount < 200) ? fastForward : 0;
 }
 
 export const getGoldenQuarkCost = (): {
@@ -1486,6 +1539,10 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
         effectiveSingularities *= 3
         effectiveSingularities *= Math.pow(1.04, singularityCount - 150)
     }
+    if (singularityCount > 200) {
+        effectiveSingularities *= 12
+        effectiveSingularities *= Math.pow(1.3, singularityCount - 200)
+    }
     if (singularityCount === 250) {
         effectiveSingularities *= 100
     }
@@ -1493,7 +1550,7 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
     return effectiveSingularities
 }
 export const calculateNextSpike = (singularityCount: number = player.singularityCount): number => {
-    const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 250];
+    const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 250];
     for (const sing of singularityPenaltyThreshold) {
         if (sing > singularityCount) {
             return sing;

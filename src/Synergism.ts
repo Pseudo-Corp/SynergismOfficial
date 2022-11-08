@@ -21,7 +21,7 @@ import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset';
+import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens, updateSingularityGlobalPerks } from './Reset';
 import type { TesseractBuildings} from './Buy';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
@@ -46,8 +46,8 @@ import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
-import { toggleTheme } from './Themes';
-import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers'
+import { settingAnnotation, toggleTheme } from './Themes';
+import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
 
 export const player: Player = {
     firstPlayed: new Date().toISOString(),
@@ -467,7 +467,12 @@ export const player: Player = {
         shopImprovedDaily: 0,
         shopImprovedDaily2: 0,
         shopImprovedDaily3: 0,
-        shopImprovedDaily4: 0
+        shopImprovedDaily4: 0,
+        offeringEX3: 0,
+        obtainiumEX3: 0,
+        improveQuarkHept5: 0,
+        seasonPassInfinity: 0,
+        chronometerInfinity: 0
     },
     shopBuyMaxToggle: false,
     shopHideToggle: false,
@@ -702,6 +707,7 @@ export const player: Player = {
     totalQuarksEver: 0,
     hotkeys: {},
     theme: 'Dark Mode',
+    notation: 'Default',
 
     singularityUpgrades: {
         goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1']),
@@ -758,7 +764,9 @@ export const player: Player = {
         singFastForward: new SingularityUpgrade(singularityData['singFastForward']),
         singFastForward2: new SingularityUpgrade(singularityData['singFastForward2']),
         singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed']),
-        singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2'])
+        singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2']),
+        oneMind: new SingularityUpgrade(singularityData['oneMind']),
+        wowPass4: new SingularityUpgrade(singularityData['wowPass4'])
     },
 
     octeractUpgrades: {
@@ -771,6 +779,7 @@ export const player: Player = {
         octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
         octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily']),
         octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
+        octeractImprovedDaily3: new OcteractUpgrade(octeractData['octeractImprovedDaily3']),
         octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
         octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed']),
         octeractImprovedAscensionSpeed: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed']),
@@ -787,7 +796,8 @@ export const player: Player = {
         octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain']),
         octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
         octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
-        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency'])
+        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency']),
+        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover'])
     },
 
     dailyCodeUsed: false,
@@ -1801,6 +1811,7 @@ const loadSynergy = async () => {
         calculateRuneLevels();
         resetHistoryRenderAllTables();
         updateSingularityAchievements();
+        updateSingularityGlobalPerks();
     }
 
     updateAchievementBG();
@@ -1815,6 +1826,34 @@ const loadSynergy = async () => {
     const m = d.getMinutes()
     const s = d.getSeconds()
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
+}
+
+const FormatList = ['', '', 'M', 'B', 'T', 'Qa', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QtDc', 'SxDc', 'SpDc', 'OcDc', 'NoDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QaVg', 'QtVg', 'SxVg', 'SpVg', 'OcVg', 'NoVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QaTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qd', 'UQd', 'DQd', 'TQd', 'QaQd', 'QtQd', 'SxQd', 'SpQd', 'OcQd', 'NoQd', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OcSe', 'NoSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OcSt', 'NoSt', 'Ocg', 'UOcg', 'DOcg', 'TOcg', 'QaOcg', 'QtOcg', 'SxOcg', 'SpOcg', 'OcOcg', 'NoOcg', 'Nono', 'UNono', 'DNono', 'TNono', 'QaNono', 'QtNono', 'SxNono', 'SpNono', 'OcNono', 'NoNono', 'Ce'];
+const FormatListShort = ['', 'K', 'M', 'B', 'T', 'Qa'];
+function letter(power: number, str: string[]) {
+    const len = str.length;
+    function lN(n: number) {
+        let result = 1;
+        for (let j = 0; j < n; ++j) {
+            result = len * result + 1;
+        }
+        return result;
+    }
+    if (power <= 5) {
+        return str[0];
+    }
+    power = Math.floor(power / 3);
+    let i = 0;
+    while (power >= lN(++i)) {}
+    if (i === 1) {
+        return str[power-1];
+    }
+    power -= lN(i - 1);
+    let ret = '';
+    while (i > 0) {
+        ret += str[Math.floor(power/Math.pow(len,--i)) % len];
+    }
+    return ret;
 }
 
 // Bad browsers (like Safari) only recently implemented this.
@@ -1887,6 +1926,7 @@ export const format = (
         return isNaN(input as number) ? '0 [NaN]' : '0 [und.]';
     } else if ( // this case handles numbers less than 1e-6 and greater than 0
         typeof input === 'number' &&
+        player.notation == 'Default' &&
         input < (!fractional ? 1e-3 : 1e-15) && // arbitrary number, don't change 1e-3
         input > 0 // don't handle negative numbers, probably could be removed
     ) {
@@ -1924,26 +1964,34 @@ export const format = (
     if (power < -15) {
         return '0';
     }
-
+    if (player.notation == 'Pure Engineering') {
+        const powerOver = (power % 3 < 0) ? (3 + power % 3) : (power % 3);
+        power = power - powerOver;
+        mantissa = mantissa * Math.pow(10, powerOver)
+    }
+    if (player.notation == 'Pure Scientific' || player.notation == 'Pure Engineering') {
+        if (power >= 1e6) {
+            return `E${format(power, 3)}`;
+        }
+        accuracy = power === 2 && accuracy > 2 ? 2 : accuracy;
+        if (Math.abs(power) >= 6) {
+            accuracy = (accuracy < 2 ? 2 : accuracy);
+            // Makes the power group 3 with commas
+            const mantissaLook = (Math.floor(mantissa * Math.pow(10, accuracy)) / Math.pow(10, accuracy)).toLocaleString(undefined, locOpts);
+            const powerLook = padEvery(power.toString());
+            // returns format (1.23e456,789)
+            return `${mantissaLook}e${powerLook}`;
+        }
+        const mantissaLook = padEvery((Math.floor(mantissa * Math.pow(10, power) * Math.pow(10, accuracy)) / Math.pow(10, accuracy)).toLocaleString(undefined, {
+            minimumFractionDigits: accuracy, maximumFractionDigits: accuracy
+        }));
+        return `${mantissaLook}`;
+    }
     // If the power is negative, then we will want to address that separately.
     if (power < 0 && !isDecimal(input) && fractional) {
-        if (power <= -15) {
-            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 15)}Qa`
-        }
-        if (power <= -12) {
-            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 12)}T`
-        }
-        if (power <= -9) {
-            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 9)}B`
-        }
-        if (power <= -6) {
-            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 6)}M`
-        }
-        if (power <= -3) {
-            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 3)}K`
-        }
-        return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
-    } else if (power < 6 || (long && power < 13)) {
+        return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -(power % 3))}${letter(-power, FormatListShort)}`
+    }
+    if (power < 6 || (long && power < 13)) {
         // If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
         // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 13
         let standard = mantissa * Math.pow(10, power);
@@ -1999,11 +2047,10 @@ export const format = (
         const powerLookF = powerLook.toLocaleString(undefined, {
             minimumFractionDigits: 4 - powerFront, maximumFractionDigits: 4 - powerFront
         });
-        const notation = ['', '', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QiDc', 'SxDc', 'SpDc', 'OcDc', 'NoDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QaVg', 'QiVg', 'SxVg', 'SpVg', 'OcVg', 'NoVg'];
         const powerLodge = Math.floor(Math.log10(power) / 3);
         // Return relevant notations alongside the "look" power based on what the power actually is
-        if (typeof notation[powerLodge] === 'string') {
-            return `${mantissaLook}e${powerLookF}${notation[powerLodge]}`;
+        if (typeof FormatList[powerLodge] === 'string') {
+            return `${mantissaLook}e${powerLookF}${FormatList[powerLodge]}`;
         }
 
         // If it doesn't fit a notation then default to mantissa e power
@@ -4004,6 +4051,7 @@ export const reloadShit = async (reset = false) => {
     }
 
     toggleTheme(true);
+    settingAnnotation();
     toggleauto();
     htmlInserts();
     createTimer();

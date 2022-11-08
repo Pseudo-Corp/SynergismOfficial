@@ -36,7 +36,9 @@ export const addTimers = (input: TimerInput, time = 0) => {
             break;
         }
         case 'ascension': { //Anything in here is affected by add code
-            player.ascensionCounter += time * timeMultiplier * calculateAscensionAcceleration();
+
+            const ascensionSpeedMulti = (player.singularityUpgrades.oneMind.getEffect().bonus) ? 10 : calculateAscensionAcceleration();
+            player.ascensionCounter += time * timeMultiplier * ascensionSpeedMulti
             player.ascensionCounterReal += time * timeMultiplier;
             break;
         }
