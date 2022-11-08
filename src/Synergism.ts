@@ -1950,6 +1950,9 @@ export const format = (
     }
     if (player.notation == 'Pure Scientific' || player.notation == 'Pure Engineering') {
         if (power >= 1e6) {
+            if (!Number.isFinite(power)) {
+                return 'Infinity';
+            }
             return `E${format(power, 3)}`;
         }
         accuracy = power === 2 && accuracy > 2 ? 2 : accuracy;
