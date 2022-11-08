@@ -1448,8 +1448,10 @@ export const calculateAscensionSpeedMultiplier = () => {
         1;
     arr[16] = Math.pow(baseMultiplier, exponent) / baseMultiplier;
 
-    return {list: arr,
-        mult: productContents(arr)}
+    return {
+        list: arr,
+        mult: productContents(arr)
+    }
 }
 
 export const calculateAscensionAcceleration = () => {
