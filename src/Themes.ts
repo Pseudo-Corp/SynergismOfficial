@@ -1,4 +1,5 @@
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { player } from './Synergism';
 
 export const toggleTheme = (initial = false, themeNumber = 1, change = false) => {
     const themeButton = DOMCacheGetOrSet('theme');
@@ -87,6 +88,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('confirmationToggleTitle').style.color = 'pink';
         DOMCacheGetOrSet('specialActionsTitle').style.color = 'pink';
         DOMCacheGetOrSet('themesTitle').style.color = 'pink';
+        DOMCacheGetOrSet('notationTitle').style.color = 'pink';
         DOMCacheGetOrSet('hepteractWelcome').style.color = 'pink';
         DOMCacheGetOrSet('confirmationdisclaimer').style.color = 'plum';
         DOMCacheGetOrSet('cube6Bonus').style.color = 'brown';
@@ -274,6 +276,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('confirmationToggleTitle').style.color = '#eb0000';
         DOMCacheGetOrSet('specialActionsTitle').style.color = '#eb0000';
         DOMCacheGetOrSet('themesTitle').style.color = '#eb0000';
+        DOMCacheGetOrSet('notationTitle').style.color = '#eb0000';
         DOMCacheGetOrSet('hepteractWelcome').style.color = '#ac47ff';
         DOMCacheGetOrSet('confirmationdisclaimer').style.color = '#bb68ff';
         DOMCacheGetOrSet('antspecies').style.color = '#184ff3';
