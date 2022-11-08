@@ -639,6 +639,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (data.hotkeys === undefined) {
         player.hotkeys = {};
         player.theme = 'Dark Mode';
+        player.notation = 'Default';
     }
 
     // Update (read: check) for undefined shop upgrades. Also checks above max level.
