@@ -22,7 +22,7 @@ import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } 
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
 import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens, updateSingularityGlobalPerks } from './Reset';
-import type { TesseractBuildings} from './Buy';
+import type { TesseractBuildings } from './Buy';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
@@ -1877,7 +1877,9 @@ const locOpts = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
 
 const padEvery = (str: string, places = 3) => {
     let step = 1, newStr = '';
-    for (let i = str.length - 1; i >= 0; i--) {
+    const strParts = str.split('.');
+    // don't take any decimal places
+    for (let i = (strParts[0].length - 1); i >= 0; i--) {
         // pad every [places] places if we aren't at the beginning of the string
         if (step++ === places && i !== 0) {
             step = 1;
@@ -1886,7 +1888,10 @@ const padEvery = (str: string, places = 3) => {
             newStr = str[i] + newStr;
         }
     }
-
+    // re-add decimal places
+    if (typeof strParts[1] !== 'undefined') {
+        newStr += dec + strParts[1];
+    }
     // see https://www.npmjs.com/package/flatstr
     (newStr as unknown as number) | 0;
     return newStr;
@@ -1982,9 +1987,9 @@ export const format = (
             // returns format (1.23e456,789)
             return `${mantissaLook}e${powerLook}`;
         }
-        const mantissaLook = padEvery((Math.floor(mantissa * Math.pow(10, power) * Math.pow(10, accuracy)) / Math.pow(10, accuracy)).toLocaleString(undefined, {
+        const mantissaLook = (Math.floor(mantissa * Math.pow(10, power) * Math.pow(10, accuracy)) / Math.pow(10, accuracy)).toLocaleString(undefined, {
             minimumFractionDigits: accuracy, maximumFractionDigits: accuracy
-        }));
+        });
         return `${mantissaLook}`;
     }
     // If the power is negative, then we will want to address that separately.
@@ -2010,14 +2015,7 @@ export const format = (
         }
 
         // Split it on the decimal place
-        const [front, back] = standardString.split('.');
-        // Apply a number group 3 comma regex to the front
-        const frontFormatted = padEvery(front);
-
-        // if the back is undefined that means there are no decimals to display, return just the front
-        return !back
-            ? frontFormatted
-            : `${frontFormatted}${dec}${back}`;
+        return padEvery(standardString);
     } else if (power < 1e6) {
         // If the power is less than 1e6 then apply standard scientific notation
         // Makes mantissa be rounded down to 2 decimal places
