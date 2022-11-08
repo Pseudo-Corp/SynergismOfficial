@@ -23,7 +23,7 @@ import type { OneToFive, Player } from './types/Synergism'
 import { displayStats } from './Statistics'
 import { testing } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { toggleAnnotation, toggleTheme} from './Themes'
+import { toggleAnnotation, toggleTheme } from './Themes'
 import { buyGoldenQuarks } from './singularity'
 import { resetHotkeys } from './Hotkeys'
 import { generateExportSummary } from './Summary'

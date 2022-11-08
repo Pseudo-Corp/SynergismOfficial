@@ -2,7 +2,7 @@ import { player, format, blankSave, updateAll } from './Synergism';
 import {
     calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
     calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
-    calcAscensionCount, calculateGoldenQuarkGain, calculatePowderConversion} from './Calculate';
+    calcAscensionCount, calculateGoldenQuarkGain, calculatePowderConversion } from './Calculate';
 import { resetofferings } from './Runes';
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';

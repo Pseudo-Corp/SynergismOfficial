@@ -22,7 +22,7 @@ import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } 
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
 import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens, updateSingularityGlobalPerks } from './Reset';
-import type { TesseractBuildings} from './Buy';
+import type { TesseractBuildings } from './Buy';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
@@ -46,7 +46,7 @@ import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
-import {settingAnnotation, settingTheme} from './Themes';
+import {settingAnnotation, settingTheme } from './Themes';
 import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
 
 export const player: Player = {
