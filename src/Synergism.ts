@@ -1828,33 +1828,7 @@ const loadSynergy = async () => {
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
 }
 
-const FormatList = ['', '', 'M', 'B', 'T', 'Qa', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QtDc', 'SxDc', 'SpDc', 'OcDc', 'NoDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QaVg', 'QtVg', 'SxVg', 'SpVg', 'OcVg', 'NoVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QaTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qd', 'UQd', 'DQd', 'TQd', 'QaQd', 'QtQd', 'SxQd', 'SpQd', 'OcQd', 'NoQd', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OcSe', 'NoSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OcSt', 'NoSt', 'Ocg', 'UOcg', 'DOcg', 'TOcg', 'QaOcg', 'QtOcg', 'SxOcg', 'SpOcg', 'OcOcg', 'NoOcg', 'Nono', 'UNono', 'DNono', 'TNono', 'QaNono', 'QtNono', 'SxNono', 'SpNono', 'OcNono', 'NoNono', 'Ce'];
-const FormatListShort = ['', 'K', 'M', 'B', 'T', 'Qa'];
-function letter(power: number, str: string[]) {
-    const len = str.length;
-    function lN(n: number) {
-        let result = 1;
-        for (let j = 0; j < n; ++j) {
-            result = len * result + 1;
-        }
-        return result;
-    }
-    if (power <= 5) {
-        return str[0];
-    }
-    power = Math.floor(power / 3);
-    let i = 0;
-    while (power >= lN(++i)) {}
-    if (i === 1) {
-        return str[power-1];
-    }
-    power -= lN(i - 1);
-    let ret = '';
-    while (i > 0) {
-        ret += str[Math.floor(power/Math.pow(len,--i)) % len];
-    }
-    return ret;
-}
+const FormatList = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QtDc', 'SxDc', 'SpDc', 'OcDc', 'NoDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QaVg', 'QtVg', 'SxVg', 'SpVg', 'OcVg', 'NoVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QaTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qd', 'UQd', 'DQd', 'TQd', 'QaQd', 'QtQd', 'SxQd', 'SpQd', 'OcQd', 'NoQd', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OcSe', 'NoSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OcSt', 'NoSt', 'Ocg', 'UOcg', 'DOcg', 'TOcg', 'QaOcg', 'QtOcg', 'SxOcg', 'SpOcg', 'OcOcg', 'NoOcg', 'Nono', 'UNono', 'DNono', 'TNono', 'QaNono', 'QtNono', 'SxNono', 'SpNono', 'OcNono', 'NoNono', 'Ce'];
 
 // Bad browsers (like Safari) only recently implemented this.
 //
@@ -1979,7 +1953,7 @@ export const format = (
             return `E${format(power, 3)}`;
         }
         accuracy = power === 2 && accuracy > 2 ? 2 : accuracy;
-        if (Math.abs(power) >= 6) {
+        if (power >= 6 || power < 0) {
             accuracy = (accuracy < 2 ? 2 : accuracy);
             // Makes the power group 3 with commas
             const mantissaLook = (Math.floor(mantissa * Math.pow(10, accuracy)) / Math.pow(10, accuracy)).toLocaleString(undefined, locOpts);
@@ -1993,8 +1967,9 @@ export const format = (
         return `${mantissaLook}`;
     }
     // If the power is negative, then we will want to address that separately.
-    if (power < 0 && !isDecimal(input) && fractional) {
-        return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -(power % 3))}${letter(-power, FormatListShort)}`
+    if (power < 0 && fractional) {
+        const powerLodge = Math.floor(-power / 3);
+        return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -(power % 3))}${FormatList[powerLodge]}`
     }
     if (power < 6 || (long && power < 13)) {
         // If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
