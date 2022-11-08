@@ -1556,8 +1556,10 @@ export const calculateGoldenQuarkMultiplier = () => {
         player.quarksThisSingularity / 1e5 + base                                                       // Total Quarks Coefficient
     ];
 
-    return {list: arr,
-        mult: productContents(arr) + bonus}
+    return {
+        list: arr,
+        mult: productContents(arr) + bonus
+    }
 }
 
 export const calculateGoldenQuarkGain = ():number => {
