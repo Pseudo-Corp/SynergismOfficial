@@ -1,6 +1,6 @@
 /* Functions which Handle Quark Gains,  */
 
-import { calculateCubeQuarkMultiplier, calculateQuarkMultiplier} from './Calculate';
+import { calculateCubeQuarkMultiplier, calculateQuarkMultiplier } from './Calculate';
 import { format, player } from './Synergism'
 import { Alert } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
