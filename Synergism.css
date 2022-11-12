@@ -1879,6 +1879,22 @@ p#reincarnatehotkeys {
     margin: 0 0 0 10px;
 }
 
+.num {
+    font-size: 0.8em;
+    vertical-align: text-top;
+}
+
+.den {
+    font-size: 0.8em;
+}
+
+.den::before {
+    content: "\2044";
+    font-size: 1.25em;
+    margin-left: 0.15em;
+    margin-right: 0.1em;
+}
+
 #goldenQuarkamount {
     font-size: 1.2em;
     color: gold;

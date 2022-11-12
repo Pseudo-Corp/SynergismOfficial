@@ -558,7 +558,7 @@ export const visualUpdateOcteracts = () => {
     if (G['currentTab'] !== 'singularity') {
         return
     }
-    DOMCacheGetOrSet('singOcts').textContent = format(player.wowOcteracts, 2, true, true, true)
+    DOMCacheGetOrSet('singOcts').innerHTML = format(player.wowOcteracts, 2, true, true, true);
 
     const perSecond = octeractGainPerSecond();
 
@@ -569,7 +569,7 @@ export const visualUpdateOcteracts = () => {
 
     const cTOCB = (calculateTotalOcteractCubeBonus() - 1) * 100;
     const cTOQB = (calculateTotalOcteractQuarkBonus() - 1) * 100;
-    DOMCacheGetOrSet('totalOcts').textContent = `${format(player.totalWowOcteracts, 2, true, true, true)}`
+    DOMCacheGetOrSet('totalOcts').innerHTML = format(player.totalWowOcteracts, 2, true, true, true);
     DOMCacheGetOrSet('totalOcteractCubeBonus').style.display = cTOCB >= 0.001 ? 'block' : 'none';
     DOMCacheGetOrSet('totalOcteractQuarkBonus').style.display = cTOQB >= 0.001 ? 'block' : 'none';
     DOMCacheGetOrSet('octCubeBonus').textContent = `+${format(cTOCB, 3, true)}%`
