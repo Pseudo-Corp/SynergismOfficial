@@ -141,7 +141,7 @@ const crystalupgdesc: Record<number, () => string> = {
     2: () => 'Gain a boost to Crystals based on held coins per level.',
     3: () => `Each purchased Crystal producer increases generation of Crystal producers by .1% per level. [MAX: ${format(100 * (0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4)), 2, true)}%]`,
     4: () => `Improve the multiplier to coin production by .05 exponent per level. [MAX: +${format(10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4) + 20 * calculateCorruptionPoints() / 400 * G['effectiveRuneSpiritPower'][3])}]`,
-    5: () => 'Every Challenge completion increases Crystal gain by 1% per level.',
+    5: () => 'Every Transcension Challenge completion increases Crystal gain by 1% per level.',
     6: () => 'Coming SOON!',
     7: () => 'Coming SOON!',
     8: () => 'Coming SOON!'
@@ -420,7 +420,16 @@ export const categoryUpgrades = (i: number, auto: boolean) => {
     }
 }
 
+const crystalupgeffect: Record<number, () => string> = {
+    1: () => `Crystal production x${format(Decimal.min(Decimal.pow(10, 50 + 2 * player.crystalUpgrades[0]), Decimal.pow(1.05, player.achievementPoints * player.crystalUpgrades[0])), 2, true)}`,
+    2: () => `Crystal production x${format(Decimal.min(Decimal.pow(10, 100 + 5 * player.crystalUpgrades[1]), Decimal.pow(Decimal.log(player.coins.add(1), 10), player.crystalUpgrades[1] / 3)), 2, true)}`,
+    3: () => `Crystal production x${format(Decimal.pow(1 + Math.min(0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4), 0.001 * player.crystalUpgrades[2]), player.firstOwnedDiamonds + player.secondOwnedDiamonds + player.thirdOwnedDiamonds + player.fourthOwnedDiamonds + player.fifthOwnedDiamonds), 2, true)}`,
+    4: () => `Coin production multiplier exponent +${format(Math.min(10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4) + 20 * calculateCorruptionPoints() / 400 * G['effectiveRuneSpiritPower'][3], 0.05 * player.crystalUpgrades[3]), 2, true)}`,
+    5: () => `Crystal production x${format(Decimal.pow(1.01, (player.challengecompletions[1] + player.challengecompletions[2] + player.challengecompletions[3] + player.challengecompletions[4] + player.challengecompletions[5]) * player.crystalUpgrades[4]), 2, true)}`
+}
+
 const returnCrystalUpgDesc = (i: number) => crystalupgdesc[i]()
+const returnCrystalUpgEffect = (i: number) => crystalupgeffect[i]()
 
 export const crystalupgradedescriptions = (i: number) => {
     const p = player.crystalUpgrades[i - 1];
@@ -428,10 +437,11 @@ export const crystalupgradedescriptions = (i: number) => {
         (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0 ? 10 : 0) +
         (Math.floor(G['rune3level'] * G['effectiveLevelMult'] /16) * 100 / 100);
 
-    const q = Decimal.pow(10, (G['crystalUpgradesCost'][i - 1] + G['crystalUpgradeCostIncrement'][i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)))
-    DOMCacheGetOrSet('crystalupgradedescription').textContent = returnCrystalUpgDesc(i)
+    const q = Decimal.pow(10, (G['crystalUpgradesCost'][i - 1] + G['crystalUpgradeCostIncrement'][i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)));
+    DOMCacheGetOrSet('crystalupgradedescription').textContent = returnCrystalUpgDesc(i);
     DOMCacheGetOrSet('crystalupgradeslevel').textContent = '' + format(p, 0, true);
-    DOMCacheGetOrSet('crystalupgradescost').textContent = format(q) + ''
+    DOMCacheGetOrSet('crystalupgradescost').textContent = format(q) + '';
+    DOMCacheGetOrSet('crystalupgradeseffect').textContent = returnCrystalUpgEffect(i);
 }
 
 
