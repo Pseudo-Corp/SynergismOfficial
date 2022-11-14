@@ -1,7 +1,7 @@
 import { player, format, formatTimeShort } from './Synergism';
 import { Globals as G } from './Variables';
 import { hepteractEffective } from './Hepteracts'
-import {calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus } from './Calculate';
+import {calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus, calculateDailyRewardRolls } from './Calculate';
 import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -20,7 +20,8 @@ const associated = new Map<string, string>([
     ['kPlatMult', 'platonicMultiplierStats'],
     ['kHeptMult', 'hepteractMultiplierStats'],
     ['kOrbPowderMult', 'powderMultiplierStats'],
-    ['kOctMult', 'octeractMultiplierStats']
+    ['kOctMult', 'octeractMultiplierStats'],
+    ['kDailyRewardStats', 'dailyRewardStats']
 ]);
 
 export const displayStats = (btn: HTMLElement) => {
@@ -59,6 +60,9 @@ export const loadStatisticsUpdate = () => {
                 break;
             case 'powderMultiplierStats':
                 loadPowderMultiplier();
+                break;
+            case 'dailyRewardStats':
+                loadDailyCodeStats();
                 break;
             default:
                 loadStatisticsCubeMultipliers();
@@ -388,6 +392,32 @@ export const loadPowderMultiplier = () => {
     }
 
     DOMCacheGetOrSet('sPoMT').textContent = `x${format(calculatePowderConversion().mult, 3)}`;
+}
+
+export const loadDailyCodeStats = () => {
+    const statsArray = calculateDailyRewardRolls();
+    const statsMap: Record<number, { acc: number, desc: string }> = {
+        0: {acc: 2, desc: 'Base:'},
+        1: {acc: 0, desc: 'Octeract Improved Daily:'},
+        2: {acc: 0, desc: 'Improved Daily 2 (green):'},
+        3: {acc: 0, desc: 'Improved Daily 3 (red):'},
+        4: {acc: 0, desc: 'Improved Daily 4 (gray):'},
+        5: {acc: 0, desc: 'Octeract Improved Daily 3:'},
+        6: {acc: 2, desc: 'Platonic PHI'},
+        7: {acc: 2, desc: 'Octeract Improved Daily 2:'},
+        8: {acc: 2, desc: 'Octeract Improved Daily 3:'},
+        9: {acc: 2, desc: 'Industrial Daily Codes:'}
+    }
+
+    for (let i = 0; i < statsArray.list.length; i++) {
+        const statRow = DOMCacheGetOrSet(`statDailyM${i + 1}`);
+        const arithmeticSymbol = statsArray.list[i]['type'] === '*' ? 'x' : statsArray.list[i]['type'];
+        const value = format(statsArray.list[i]['value'], statsMap[i].acc);
+        statRow.childNodes[0].textContent = statsMap[i].desc;
+
+        DOMCacheGetOrSet(`sDailyM${i + 1}`).textContent = `${arithmeticSymbol}${value}`;
+    }
+    DOMCacheGetOrSet('sDailyMT').textContent = `${format(statsArray.total, 0)}`;
 }
 
 export const c15RewardUpdate = () => {
