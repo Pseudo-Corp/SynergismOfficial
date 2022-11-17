@@ -170,7 +170,8 @@ export const loadStatisticsCubeMultipliers = () => {
         19: {acc: 2, desc: 'Total Octeract Bonus:'},
         20: {acc: 2, desc: 'Citadel [GQ]'},
         21: {acc: 4, desc: 'Platonic DELTA'},
-        22: {acc: 2, desc: 'Wow Pass ∞'}
+        22: {acc: 2, desc: 'Wow Pass ∞'},
+        23: {acc: 4, desc: 'One Mind:'}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
