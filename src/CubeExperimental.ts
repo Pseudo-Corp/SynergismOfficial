@@ -93,7 +93,8 @@ export abstract class Cube {
         const thisInPlayer = player[this.key] as Cube;
         const amount = await Prompt(
             `How many cubes would you like to open? You have ${format(thisInPlayer, 0, true)}! ` +
-            'You can input a percentage of cubes to open, for example: "50%" or "100%".'
+            '\nYou can input a percentage of cubes to open, for example: "50%" or "100%".' +
+            '\nYou can start the input with "-" (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number. (also works with %)'
         );
 
         if (amount === null) {
@@ -101,7 +102,9 @@ export abstract class Cube {
         }
 
         const isPercentage = amount.endsWith('%');
-        const cubesToOpen = isPercentage ? Number(amount.slice(0, -1)) : Number(amount);
+        const cubesToOpen = amount.startsWith('-')
+            ? (isPercentage ? 100 + Number(amount.slice(0, -1)) : thisInPlayer.value + Number(amount))
+            : (isPercentage ? Number(amount.slice(0, -1)) : Number(amount));
 
         if (Number.isNaN(cubesToOpen) || !Number.isFinite(cubesToOpen) || !Number.isInteger(cubesToOpen)) {
             return Alert('Value must be a finite, non-decimal number!');

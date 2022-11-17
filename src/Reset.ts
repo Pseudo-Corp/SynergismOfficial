@@ -2,7 +2,7 @@ import { player, format, blankSave, updateAll } from './Synergism';
 import {
     calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
     calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
-    calcAscensionCount, calculateGoldenQuarkGain, calculatePowderConversion} from './Calculate';
+    calcAscensionCount, calculateGoldenQuarkGain, calculatePowderConversion } from './Calculate';
 import { resetofferings } from './Runes';
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';
@@ -1130,6 +1130,7 @@ export const singularity = async (): Promise<void> => {
     hold.overfluxOrbsAutoBuy = player.overfluxOrbsAutoBuy
     hold.hotkeys = player.hotkeys
     hold.theme = player.theme
+    hold.notation = player.notation
     hold.firstPlayed = player.firstPlayed
 
     // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting

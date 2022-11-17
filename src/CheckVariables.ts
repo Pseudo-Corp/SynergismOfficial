@@ -1,4 +1,4 @@
-import { player, resetCheck, blankSave} from './Synergism';
+import { player, resetCheck, blankSave } from './Synergism';
 import { testing } from './Config';
 import type { Player } from './types/Synergism';
 import Decimal from 'break_infinity.js';
@@ -10,10 +10,10 @@ import { padArray } from './Utility';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import { Alert } from './UpdateHTML';
-import { getQuarkInvestment, shopData} from './Shop';
-import type { ISingularityData} from './singularity';
+import { getQuarkInvestment, shopData } from './Shop';
+import type { ISingularityData } from './singularity';
 import { singularityData, SingularityUpgrade } from './singularity';
-import type { IOcteractData} from './Octeracts';
+import type { IOcteractData } from './Octeracts';
 import { octeractData, OcteractUpgrade } from './Octeracts';
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
@@ -639,6 +639,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (data.hotkeys === undefined) {
         player.hotkeys = {};
         player.theme = 'Dark Mode';
+        player.notation = 'Default';
     }
 
     // Update (read: check) for undefined shop upgrades. Also checks above max level.

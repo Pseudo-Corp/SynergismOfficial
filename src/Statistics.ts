@@ -550,7 +550,7 @@ export const c15RewardUpdate = () => {
 }
 
 const updateDisplayC15Rewards = () => {
-    DOMCacheGetOrSet('c15Reward0Num').textContent = format(player.challenge15Exponent,0,true)
+    DOMCacheGetOrSet('c15Reward0Num').textContent = format(player.challenge15Exponent,3,true)
     DOMCacheGetOrSet('c15RequiredExponentNum').textContent = format(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),0,true)
     const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18]
     const isNum: Record<number, boolean> = { // Shit solution to a shit problem -Platonic
