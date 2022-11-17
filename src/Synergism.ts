@@ -3138,14 +3138,24 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
         }
 
-        if (player.singularityCount > 249) {
+        const thankSing = 250;
+        if (player.singularityCount >= thankSing) {
             return Alert(`Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere
             to go from here. At least, not until higher powers expand your journey.`)
         }
 
         let confirmed = false;
         canSave = false;
-        const nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
+        let nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
+
+        // Stop at estimated Sing count even with Fast Forward
+        if (nextSingularityNumber >= 200 && nextSingularityNumber < 200 + 1 + getFastForwardTotalMultiplier()) {
+            nextSingularityNumber = 200
+        }
+        if (nextSingularityNumber >= thankSing && nextSingularityNumber < thankSing + 1 + getFastForwardTotalMultiplier()) {
+            nextSingularityNumber = thankSing
+        }
+
         if (!player.toggles[33] && player.singularityCount > 0) {
             confirmed = await Confirm(`Do you wish to start singularity #${format(nextSingularityNumber)}? Your next universe is harder but you will gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
         } else {
