@@ -1329,6 +1329,13 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'skrauQ',
+        levels: [200],
+        description: () => {
+            return 'Multiply all Quark Gain by ((Singularity - 179)/20)^2 ... Yes, it\'s that good.'
+        }
+    },
+    {
         name: 'Industrial Daily Codes',
         levels: [201],
         description: () => {
