@@ -247,7 +247,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         canExceedCap: true,
         effect: (n: number) => {
             return {
-                bonus: (n > 250) ? 1 - 1 / Math.log2(n / 62.5) : 1 - Math.min(0.5, n / 500),
+                bonus: (n > 250) ? 1 / Math.log2(n / 62.5) : 1 - Math.min(0.5, n / 500),
                 desc: `Purchasing Golden Quarks in the shop is ${(n > 250)? format(100 - 100 / Math.log2(n / 62.5), 2, true) : format(Math.min(50, n / 5),2,true)}% cheaper.`
             }
         }
