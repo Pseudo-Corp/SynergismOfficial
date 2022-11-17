@@ -1449,11 +1449,15 @@ export const calculateAscensionAcceleration = () => {
 
 export const calculateSingularityQuarkMilestoneMultiplier = () => {
     let multiplier = 1
-    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 169, 196, 200, 225, 250]
+    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180, 190, 196, 200, 201, 202, 203, 204, 205, 225, 250]
     for (const sing of singThresholds) {
-        if (player.singularityCount >= sing) {
+        if (player.highestSingularityCount >= sing) {
             multiplier *= 1.05
         }
+    }
+
+    if (player.highestSingularityCount >= 200) {
+        multiplier *= Math.pow((player.highestSingularityCount - 179) / 20, 2)
     }
 
     return multiplier
@@ -1549,7 +1553,18 @@ export const calculateGoldenQuarkGain = ():number => {
         (player.highestSingularityCount >= 100) ? 1 + player.highestSingularityCount / 250 : 1
     ]);
 
-    return (base + gainFromQuarks) * allGoldenQuarkMultiplier + bonus;
+    let perkMultiplier = 1
+    if (player.highestSingularityCount >= 200) {
+        perkMultiplier = 3
+    }
+    if (player.highestSingularityCount >= 208) {
+        perkMultiplier = 5
+    }
+    if (player.highestSingularityCount >= 221) {
+        perkMultiplier = 8
+    }
+
+    return (base + gainFromQuarks) * allGoldenQuarkMultiplier * perkMultiplier + bonus;
 }
 
 export const calculateCorruptionPoints = () => {

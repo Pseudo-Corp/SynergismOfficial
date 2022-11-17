@@ -241,14 +241,14 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     goldenQuarks2: {
         name: 'Golden Quarks II',
-        description: 'Buying GQ is 0.2% cheaper per level! [-50% maximum reduction]',
+        description: 'Buying GQ is 0.2% cheaper per level! [After 50%, effect grows much slower]',
         maxLevel: 75,
         costPerLevel: 60,
         canExceedCap: true,
         effect: (n: number) => {
             return {
-                bonus: 1 - Math.min(0.5, n / 500),
-                desc: `Purchasing Golden Quarks in the shop is ${format(Math.min(50, n / 5),2,true)}% cheaper.`
+                bonus: (n > 250) ? 1 - 1 / Math.log2(n / 62.5) : 1 - Math.min(0.5, n / 500),
+                desc: `Purchasing Golden Quarks in the shop is ${(n > 250)? format(100 - 100 / Math.log2(n / 62.5), 2, true) : format(Math.min(50, n / 5),2,true)}% cheaper.`
             }
         }
     },
@@ -1100,7 +1100,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Even more Quarks',
-        levels: [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 169, 196, 200, 225, 250],
+        levels: [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180, 190, 196, 200, 201, 202, 203, 204, 205, 225, 250],
         description: (n: number, levels: number[]) => {
 
             for (let i = levels.length - 1; i >= 0; i--) {
@@ -1322,6 +1322,13 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Immaculate Alchemy',
+        levels: [200, 208, 221],
+        description: () => {
+            return 'At Singulartiy 200, Fast Forwards no longer work! Instead, multiply your GQ by 3. (GQ is multiplied by 5 at level 2, and 8 at level 3). Also divides GQ buy cost accordingly!'
+        }
+    },
+    {
         name: 'Industrial Daily Codes',
         levels: [201],
         description: () => {
@@ -1456,6 +1463,19 @@ export const getGoldenQuarkCost = (): {
     costReduction *= +player.singularityUpgrades.goldenQuarks2.getEffect().bonus
     costReduction *= +player.octeractUpgrades.octeractGQCostReduce.getEffect().bonus
     costReduction *= (player.highestSingularityCount >= 100 ? 1 - 0.5 * player.highestSingularityCount / 250 : 1)
+
+    let perkDivisor = 1
+    if (player.highestSingularityCount >= 200) {
+        perkDivisor = 3
+    }
+    if (player.highestSingularityCount >= 208) {
+        perkDivisor = 5
+    }
+    if (player.highestSingularityCount >= 221) {
+        perkDivisor = 8
+    }
+    costReduction /= perkDivisor
+
     costReduction = 10000 - costReduction
 
     return {
