@@ -1879,6 +1879,7 @@ const padEvery = (str: string, places = 3) => {
  * how many decimal points that are to be displayed (Values <10 if !long, <1000 if long).
  * only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
  * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
+ * @param fractional returns html markup when the number requires (will not display nicely with .textContent)
  */
 export const format = (
     input: Decimal | number | { [Symbol.toPrimitive]: unknown } | null | undefined,
@@ -1973,7 +1974,8 @@ export const format = (
     // If the power is negative, then we will want to address that separately.
     if (power < 0 && fractional) {
         const powerLodge = Math.floor(-power / 3);
-        return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -(power % 3))}${FormatList[powerLodge]}`
+        return `<span class='num'>${format(mantissa, accuracy, long)}</span>` +
+               `<span class='den'>${Math.pow(10, -(power % 3))}${FormatList[powerLodge]}</span>`
     }
     if (power < 6 || (long && power < 13)) {
         // If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
