@@ -1111,8 +1111,10 @@ export const calculateAllCubeMultiplier = () => {
         // Platonic DELTA
         1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24)),
         // Wow Pass INF
-        Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
-        // Total Global Cube Multipliers: 19
+        Math.pow(1.02, player.shopUpgrades.seasonPassInfinity),
+        // One Mind
+        player.singularityUpgrades.oneMind.getEffect().bonus ? calculateAscensionAcceleration() / 10 : 1
+        // Total Global Cube Multipliers: 23
     ]
     return {
         mult: productContents(arr),
@@ -1825,12 +1827,9 @@ export const CalcCorruptionStuff = () => {
         cubeBank += challengeModifier * player.highestchallengecompletions[i]
     }
 
-    const oneMindModifier = (player.singularityUpgrades.oneMind.getEffect().bonus) ? calculateAscensionAcceleration() / 10 : 1
-
     // Calculation of Cubes :)
     let cubeGain = cubeBank;
     cubeGain *= calculateCubeMultiplier(effectiveScore).mult;
-    cubeGain *= oneMindModifier
 
     const bonusCubeExponent = (player.singularityUpgrades.platonicTau.getEffect().bonus) ? 1.01 : 1
     cubeGain = Math.pow(cubeGain, bonusCubeExponent)
@@ -1841,22 +1840,18 @@ export const CalcCorruptionStuff = () => {
         tesseractGain += 0.5
     }
     tesseractGain *= calculateTesseractMultiplier(effectiveScore).mult;
-    tesseractGain *= oneMindModifier
 
     // Calculation of Hypercubes :)))
     let hypercubeGain = (effectiveScore >= 1e9) ? 1 : 0;
     hypercubeGain *= calculateHypercubeMultiplier(effectiveScore).mult;
-    hypercubeGain *= oneMindModifier
 
     // Calculation of Platonic Cubes :))))
     let platonicGain = (effectiveScore >= 2.666e12) ? 1 : 0;
     platonicGain *= calculatePlatonicMultiplier(effectiveScore).mult;
-    platonicGain *= oneMindModifier
 
     // Calculation of Hepteracts :)))))
     let hepteractGain = (G['challenge15Rewards']['hepteractUnlocked'] && effectiveScore >= 1.666e17 && player.achievements[255] > 0) ? 1 : 0;
     hepteractGain *= calculateHepteractMultiplier(effectiveScore).mult
-    hepteractGain *= oneMindModifier
 
     return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.max(player.singularityCount, Math.floor(tesseractGain)), Math.floor(hypercubeGain), Math.floor(platonicGain), Math.floor(hepteractGain), (bonusMultiplier)]
 }
