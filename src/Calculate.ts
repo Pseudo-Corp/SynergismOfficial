@@ -227,7 +227,7 @@ export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.ru
         multiplier = Math.pow(100, runeLevel)
     }
     if (runeIndex === 6) {
-        multiplier = Math.pow(1e25, runeLevel) * (player.singularityCount + 1)
+        multiplier = Math.pow(1e25, runeLevel) * (player.highestSingularityCount + 1)
     }
     return multiplier * G['runeexpbase'][runeIndex];
 }
@@ -533,12 +533,12 @@ export const calculateTalismanEffects = () => {
     negativeBonus += 0.06 * player.researches[118]
     negativeBonus += 0.0004 * player.cubeUpgrades[50]
 
-    if (player.singularityCount >= 7) {
+    if (player.highestSingularityCount >= 7) {
         positiveBonus += negativeBonus;
         negativeBonus = positiveBonus
     }
 
-    if (player.singularityCount < 7) {
+    if (player.highestSingularityCount < 7) {
         for (let i = 1; i <= 5; i++) {
             if (player.talismanOne[i] === (1)) {
                 G['talisman1Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[1-1]]! + positiveBonus) * player.talismanLevels[1-1] * G['challenge15Rewards'].talismanBonus
@@ -1918,15 +1918,15 @@ export const calculateCubeQuarkMultiplier = () => {
     return (calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40) +
            calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 160) +
            calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 640) +
-           calculateSigmoid(1.15, +(player.singularityCount >= 1) * Math.pow(player.overfluxOrbs, 0.45), 2560) +
-           calculateSigmoid(1.15, +(player.singularityCount >= 2) * Math.pow(player.overfluxOrbs, 0.4), 10000) +
-           calculateSigmoid(1.25, +(player.singularityCount >= 5) * Math.pow(player.overfluxOrbs, 0.35), 40000) +
-           calculateSigmoid(1.25, +(player.singularityCount >= 10) * Math.pow(player.overfluxOrbs, 0.32), 160000) +
-           calculateSigmoid(1.35, +(player.singularityCount >= 15) * Math.pow(player.overfluxOrbs, 0.27), 640000) +
-           calculateSigmoid(1.45, +(player.singularityCount >= 20) * Math.pow(player.overfluxOrbs, 0.24), 2e6) +
-           calculateSigmoid(1.55, +(player.singularityCount >= 25) * Math.pow(player.overfluxOrbs, 0.21), 1e7) +
-           calculateSigmoid(1.85, +(player.singularityCount >= 30) * Math.pow(player.overfluxOrbs, 0.18), 4e7) +
-           calculateSigmoid(3, +(player.singularityCount >= 35) * Math.pow(player.overfluxOrbs, 0.15), 1e8) -
+           calculateSigmoid(1.15, +(player.highestSingularityCount >= 1) * Math.pow(player.overfluxOrbs, 0.45), 2560) +
+           calculateSigmoid(1.15, +(player.highestSingularityCount >= 2) * Math.pow(player.overfluxOrbs, 0.4), 10000) +
+           calculateSigmoid(1.25, +(player.highestSingularityCount >= 5) * Math.pow(player.overfluxOrbs, 0.35), 40000) +
+           calculateSigmoid(1.25, +(player.highestSingularityCount >= 10) * Math.pow(player.overfluxOrbs, 0.32), 160000) +
+           calculateSigmoid(1.35, +(player.highestSingularityCount >= 15) * Math.pow(player.overfluxOrbs, 0.27), 640000) +
+           calculateSigmoid(1.45, +(player.highestSingularityCount >= 20) * Math.pow(player.overfluxOrbs, 0.24), 2e6) +
+           calculateSigmoid(1.55, +(player.highestSingularityCount >= 25) * Math.pow(player.overfluxOrbs, 0.21), 1e7) +
+           calculateSigmoid(1.85, +(player.highestSingularityCount >= 30) * Math.pow(player.overfluxOrbs, 0.18), 4e7) +
+           calculateSigmoid(3, +(player.highestSingularityCount >= 35) * Math.pow(player.overfluxOrbs, 0.15), 1e8) -
            11) * (1 + 1/500 * player.shopUpgrades.cubeToQuarkAll) *
            (player.autoWarpCheck ? 1 + player.dailyPowderResetUses : 1);
 }
@@ -2002,10 +2002,10 @@ export const derpsmithCornucopiaBonus = () => {
     let counter = 0
     const singCounts = [18, 38, 58, 78, 88, 98, 118, 148, 178, 188, 198, 208, 218, 228, 238, 248]
     for (const sing of singCounts) {
-        if (player.singularityCount >= sing) {
+        if (player.highestSingularityCount >= sing) {
             counter += 1
         }
     }
 
-    return 1 + counter * player.singularityCount / 100
+    return 1 + counter * player.highestSingularityCount / 100
 }

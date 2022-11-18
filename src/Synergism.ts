@@ -2401,8 +2401,8 @@ export const multipliers = (): void => {
     // PLAT - check
     const first6CoinUp = new Decimal(G['totalCoinOwned'] + 1).times(Decimal.min(1e30, Decimal.pow(1.008, G['totalCoinOwned'])));
 
-    if (player.singularityCount > 0) {
-        s = s.times(Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.singularityCount + 1, 2))
+    if (player.highestSingularityCount > 0) {
+        s = s.times(Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.highestSingularityCount + 1, 2))
     }
     if (player.upgrades[6] > 0.5) {
         s = s.times(first6CoinUp);
@@ -2852,15 +2852,15 @@ export const updateAntMultipliers = (): void => {
         G['globalAntMult'] = G['globalAntMult'].times(100000)
     }
 
-    if (player.singularityCount >= 30) {
+    if (player.highestSingularityCount >= 30) {
         G['globalAntMult'] = G['globalAntMult'].times(1000)
     }
 
-    if (player.singularityCount >= 70) {
+    if (player.highestSingularityCount >= 70) {
         G['globalAntMult'] = G['globalAntMult'].times(1000)
     }
 
-    if (player.singularityCount >= 100) {
+    if (player.highestSingularityCount >= 100) {
         G['globalAntMult'] = G['globalAntMult'].times(1e6)
     }
 }
@@ -2960,7 +2960,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 maxInc = 10;
             }
             if (player.shopUpgrades.instantChallenge2 > 0) {
-                maxInc += player.singularityCount;
+                maxInc += player.highestSingularityCount;
             }
             if (player.currentChallenge.ascension === 13) {
                 maxInc = 1;
@@ -3023,7 +3023,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 maxInc = 10;
             }
             if (player.shopUpgrades.instantChallenge2 > 0) {
-                maxInc += player.singularityCount;
+                maxInc += player.highestSingularityCount;
             }
             if (player.currentChallenge.ascension === 13) {
                 maxInc = 1;
