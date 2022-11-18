@@ -20,7 +20,7 @@ export const getReductionValue = () => {
     return reduction;
 }
 
-const getCostAccelerator = (buyingTo: number) => {
+const getCostAccelerator = (buyingTo: number): Decimal => {
     --buyingTo;
 
     const originalCost = 500;
@@ -50,6 +50,19 @@ const getCostAccelerator = (buyingTo: number) => {
         const sumBit = buyingTo * (buyingTo + 1) / 2;
         cost = cost.times(Decimal.pow(1e50, sumBit));
     }
+    const buymax = Math.pow(10, 15);
+    if (buyingTo > buymax) {
+        const diminishingExponent = 1/8
+
+        const QuadrillionCost = getCostAccelerator(buymax)
+
+        const newCost = QuadrillionCost.pow(Math.pow(buyingTo / buymax, 1 / diminishingExponent));
+        const newExtra = newCost.exponent - Math.floor(newCost.exponent);
+        newCost.exponent = Math.floor(newCost.exponent);
+        newCost.mantissa *= Math.pow(10, newExtra);
+        newCost.normalize();
+        return Decimal.max(cost,newCost);
+    }
     return cost;
 }
 
@@ -63,8 +76,21 @@ export const buyAccelerator = (autobuyer?: boolean) => {
         const log10Resource = Decimal.log10(player.coins)
         const log10QuadrillionCost = Decimal.log10(getCostAccelerator(buymax))
 
-        const buyable = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
-        const thisCost = getCostAccelerator(buyable)
+        let hi = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+        let lo = buymax;
+        while (hi - lo > 0.5) {
+            const mid = Math.floor(lo + (hi - lo) / 2);
+            if (mid === lo || mid === hi) {
+                break;
+            }
+            if (!player.coins.gte(getCostAccelerator(mid))) {
+                hi = mid;
+            } else {
+                lo = mid;
+            }
+        }
+        const buyable = lo;
+        const thisCost = getCostAccelerator(buyable);
 
         player.acceleratorBought = buyable;
         player.acceleratorCost = thisCost;
@@ -140,7 +166,7 @@ export const buyAccelerator = (autobuyer?: boolean) => {
     }
 }
 
-const getCostMultiplier = (buyingTo: number) => {
+const getCostMultiplier = (buyingTo: number): Decimal => {
     --buyingTo;
 
     const originalCost = 1e4;
@@ -167,6 +193,19 @@ const getCostMultiplier = (buyingTo: number) => {
         const sumBit = buyingTo * (buyingTo + 1) / 2;
         cost = cost.times(Decimal.pow(1e50, sumBit));
     }
+    const buymax = Math.pow(10, 15);
+    if (buyingTo > buymax) {
+        const diminishingExponent = 1/8
+
+        const QuadrillionCost = getCostMultiplier(buymax)
+
+        const newCost = QuadrillionCost.pow(Math.pow(buyingTo / buymax, 1 / diminishingExponent));
+        const newExtra = newCost.exponent - Math.floor(newCost.exponent);
+        newCost.exponent = Math.floor(newCost.exponent);
+        newCost.mantissa *= Math.pow(10, newExtra);
+        newCost.normalize();
+        return Decimal.max(cost,newCost);
+    }
     return cost;
 }
 
@@ -180,7 +219,20 @@ export const buyMultiplier = (autobuyer?: boolean) => {
         const log10Resource = Decimal.log10(player.coins)
         const log10QuadrillionCost = Decimal.log10(getCostMultiplier(buymax))
 
-        const buyable = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+        let hi = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+        let lo = buymax;
+        while (hi - lo > 0.5) {
+            const mid = Math.floor(lo + (hi - lo) / 2);
+            if (mid === lo || mid === hi) {
+                break;
+            }
+            if (!player.coins.gte(getCostMultiplier(mid))) {
+                hi = mid;
+            } else {
+                lo = mid;
+            }
+        }
+        const buyable = lo;
         const thisCost = getCostMultiplier(buyable)
 
         player.multiplierBought = buyable;
@@ -315,9 +367,10 @@ const coinBuildingCosts = [100, 1000, 2e4, 4e5, 8e6] as const;
 const diamondBuildingCosts = [100, 1e5, 1e15, 1e40, 1e100] as const;
 const mythosAndParticleBuildingCosts = [1, 1e2, 1e4, 1e8, 1e16] as const;
 
-const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: keyof typeof buyProducerTypes, num: number, r: number) => {
+const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: keyof typeof buyProducerTypes, num: number, r: number): Decimal => {
     // It's 0 indexed by mistake so you have to subtract 1 somewhere.
     --buyingTo;
+    const buymax = Math.pow(10, 15);
     // Accounts for the multiplies by 1.25^num buyingTo times
     const cost = new Decimal(originalCost);
     let mlog10125 = num * buyingTo;
@@ -399,6 +452,18 @@ const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: ke
     cost.exponent = Math.floor(cost.exponent);
     cost.mantissa *= Math.pow(10, extra);
     cost.normalize();
+    if (buyingTo > buymax) {
+        const diminishingExponent = 1/8
+
+        const QuadrillionCost = getCostInternal(originalCost, buymax, type, num, r)
+
+        const newCost = QuadrillionCost.pow(Math.pow(buyingTo / buymax, 1 / diminishingExponent));
+        const newExtra = newCost.exponent - Math.floor(newCost.exponent);
+        newCost.exponent = Math.floor(newCost.exponent);
+        newCost.mantissa *= Math.pow(10, newExtra);
+        newCost.normalize();
+        return Decimal.max(cost,newCost);
+    }
     return cost;
 }
 
@@ -439,8 +504,21 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
         const log10Resource = Decimal.log10(player[tag])
         const log10QuadrillionCost = Decimal.log10(getCostInternal(originalCost, buymax, type, num, r))
 
-        const buyable = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
-        const thisCost = getCostInternal(originalCost, buyable, type, num, r)
+        let hi = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+        let lo = buymax;
+        while (hi - lo > 0.5) {
+            const mid = Math.floor(lo + (hi - lo) / 2);
+            if (mid === lo || mid === hi) {
+                break;
+            }
+            if (!player[tag].gte(getCostInternal(originalCost, mid, type, num, r))) {
+                hi = mid;
+            } else {
+                lo = mid;
+            }
+        }
+        const buyable = lo;
+        const thisCost = getCostInternal(originalCost, buyable, type, num, r);
 
         player[posOwnedType] = buyable;
         player[`${pos}Cost${type}` as const] = thisCost;
@@ -640,7 +718,20 @@ export const boostAccelerator = (automated?: boolean) => {
             const log10Resource = Decimal.log10(player.prestigePoints)
             const log10QuadrillionCost = Decimal.log10(getAcceleratorBoostCost(buymax))
 
-            const buyable = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+            let hi = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+            let lo = buymax;
+            while (hi - lo > 0.5) {
+                const mid = Math.floor(lo + (hi - lo) / 2);
+                if (mid === lo || mid === hi) {
+                    break;
+                }
+                if (!player.prestigePoints.gte(getAcceleratorBoostCost(mid))) {
+                    hi = mid;
+                } else {
+                    lo = mid;
+                }
+            }
+            const buyable = lo;
             const thisCost = getAcceleratorBoostCost(buyable)
 
             player.acceleratorBoostBought = buyable;
@@ -713,23 +804,38 @@ export const boostAccelerator = (automated?: boolean) => {
 
 }
 
-const getAcceleratorBoostCost = (level = 1) => {
+const getAcceleratorBoostCost = (level = 1): Decimal => {
     // formula starts at 0 but buying starts at 1
     level--;
+    const buymax = Math.pow(10, 15);
     const base = new Decimal(1e3)
     const eff = 1 + 2 * G['effectiveRuneBlessingPower'][4]
     const linSum = (n: number) => n * (n + 1) / 2
     const sqrSum = (n: number) => n * (n + 1) * (2 * n + 1) / 6
+    let cost = base;
     if (level > 1000 * eff) {
-        return base.times(Decimal.pow(10, 10 * level
+        cost = base.times(Decimal.pow(10, 10 * level
             + linSum(level) // each level increases the exponent by 1 more each time
             + sqrSum(level - 1000 * eff) / eff)) // after cost delay is passed each level increases the cost by the square each time
     } else {
-        return base.times(Decimal.pow(10, 10 * level + linSum(level)))
+        cost = base.times(Decimal.pow(10, 10 * level + linSum(level)))
     }
+    if (level > buymax) {
+        const diminishingExponent = 1/8
+
+        const QuadrillionCost = getAcceleratorBoostCost(buymax)
+
+        const newCost = QuadrillionCost.pow(Math.pow(level / buymax, 1 / diminishingExponent));
+        const newExtra = newCost.exponent - Math.floor(newCost.exponent);
+        newCost.exponent = Math.floor(newCost.exponent);
+        newCost.mantissa *= Math.pow(10, newExtra);
+        newCost.normalize();
+        return Decimal.max(cost,newCost);
+    }
+    return cost;
 }
 
-const getParticleCost = (originalCost: DecimalSource, buyTo: number) => {
+const getParticleCost = (originalCost: DecimalSource, buyTo: number): Decimal => {
     --buyTo;
     originalCost = new Decimal(originalCost)
     let cost = originalCost.times(Decimal.pow(2, buyTo));
@@ -739,7 +845,20 @@ const getParticleCost = (originalCost: DecimalSource, buyTo: number) => {
     if (buyTo > DR) {
         cost = cost.times(Decimal.pow(1.001, (buyTo - DR) * ((buyTo - DR + 1) / 2)));
     }
-    return (cost)
+    const buymax = Math.pow(10, 15);
+    if (buyTo > buymax) {
+        const diminishingExponent = 1/8
+
+        const QuadrillionCost = getParticleCost(originalCost, buymax)
+
+        const newCost = QuadrillionCost.pow(Math.pow(buyTo / buymax, 1 / diminishingExponent));
+        const newExtra = newCost.exponent - Math.floor(newCost.exponent);
+        newCost.exponent = Math.floor(newCost.exponent);
+        newCost.mantissa *= Math.pow(10, newExtra);
+        newCost.normalize();
+        return Decimal.max(cost,newCost);
+    }
+    return cost
 }
 
 export const buyParticleBuilding = (
@@ -759,7 +878,20 @@ export const buyParticleBuilding = (
         const log10Resource = Decimal.log10(player.reincarnationPoints)
         const log10QuadrillionCost = Decimal.log10(getParticleCost(originalCost, buymax))
 
-        const buyable = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+        let hi = Math.floor(buymax * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, diminishingExponent)))
+        let lo = buymax;
+        while (hi - lo > 0.5) {
+            const mid = Math.floor(lo + (hi - lo) / 2);
+            if (mid === lo || mid === hi) {
+                break;
+            }
+            if (!player.reincarnationPoints.gte(getParticleCost(originalCost, mid))) {
+                hi = mid;
+            } else {
+                lo = mid;
+            }
+        }
+        const buyable = lo;
         const thisCost = getParticleCost(originalCost, buyable)
 
         player[key] = buyable;
