@@ -3147,15 +3147,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 
         let confirmed = false;
         canSave = false;
-        let nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
-
-        // Stop at estimated Sing count even with Fast Forward
-        if (nextSingularityNumber >= 200 && nextSingularityNumber < 200 + 1 + getFastForwardTotalMultiplier()) {
-            nextSingularityNumber = 200
-        }
-        if (nextSingularityNumber >= thankSing && nextSingularityNumber < thankSing + 1 + getFastForwardTotalMultiplier()) {
-            nextSingularityNumber = thankSing
-        }
+        const nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
 
         if (!player.toggles[33] && player.singularityCount > 0) {
             confirmed = await Confirm(`Do you wish to start singularity #${format(nextSingularityNumber)}? Your next universe is harder but you will gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)

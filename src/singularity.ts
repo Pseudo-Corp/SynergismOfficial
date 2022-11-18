@@ -1467,7 +1467,8 @@ export const getFastForwardTotalMultiplier = (): number => {
     fastForward += +player.singularityUpgrades.singFastForward2.getEffect().bonus
     fastForward += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
 
-    return (player.singularityCount < 200) ? fastForward : 0;
+    // Stop at sing 200 even if you include fast forward
+    return Math.max(0, Math.min(fastForward, 200 - player.singularityCount - 1));
 }
 
 export const getGoldenQuarkCost = (): {
