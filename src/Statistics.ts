@@ -308,15 +308,16 @@ export const loadStatisticsCubeMultipliers = () => {
         13: {acc: 2, desc: 'Obelisk Shaped Like an Octagon'},
         14: {acc: 2, desc: 'Octahedral Synthesis'},
         15: {acc: 2, desc: 'Eighth Wonder of the World'},
-        16: {acc: 2, desc: 'Octeracts for Dummies'},
-        17: {acc: 2, desc: 'Octeract Cogenesis'},
-        18: {acc: 2, desc: 'Octeract Trigenesis'},
-        19: {acc: 2, desc: 'Singularity Factor'},
-        20: {acc: 2, desc: 'Digital Octeract Accumulator'},
-        21: {acc: 2, desc: 'Event Buff'},
-        22: {acc: 2, desc: 'Platonic DELTA'},
-        23: {acc: 2, desc: 'Wow Pass ∞'},
-        24: {acc: 2, desc: ascensionSpeedDesc}
+        16: {acc: 2, desc: 'Platonic is a fat sellout'},
+        17: {acc: 2, desc: 'Octeracts for Dummies'},
+        18: {acc: 2, desc: 'Octeract Cogenesis'},
+        19: {acc: 2, desc: 'Octeract Trigenesis'},
+        20: {acc: 2, desc: 'Singularity Factor'},
+        21: {acc: 2, desc: 'Digital Octeract Accumulator'},
+        22: {acc: 2, desc: 'Event Buff'},
+        23: {acc: 2, desc: 'Platonic DELTA'},
+        24: {acc: 2, desc: 'Wow Pass ∞'},
+        25: {acc: 2, desc: ascensionSpeedDesc}
     }
     for (let i = 0; i < octMults.list.length; i++) {
         const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`);

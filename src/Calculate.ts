@@ -1326,6 +1326,8 @@ export const getOcteractValueMultipliers = () => {
         +player.singularityUpgrades.singOcteractGain3.getEffect().bonus,
         +player.singularityUpgrades.singOcteractGain4.getEffect().bonus,
         +player.singularityUpgrades.singOcteractGain5.getEffect().bonus,
+        // Patreon bonus
+        1 + (player.worlds.BONUS / 100) * +player.singularityUpgrades.singOcteractPatreonBonus.getEffect().bonus,
         // octeracts for dummies
         1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
         // cogenesis and trigenesis

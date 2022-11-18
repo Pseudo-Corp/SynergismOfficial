@@ -525,6 +525,19 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             }
         }
     },
+    singOcteractPatreonBonus: {
+        name: 'Platonic $ells out!!!',
+        description: 'You know that Patreon bonus? Yeah, that\'s cool and all, but what if it also boosted Octeract production by the same amount?',
+        maxLevel: 1,
+        costPerLevel: 9999,
+        minimumSingularity: 12,
+        effect: (n: number) => {
+            return {
+                bonus: (n > 0),
+                desc: `Octeract production is ${n}% faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists.`
+            }
+        }
+    },
     offeringAutomatic: {
         name: 'Offering Lootzifer (Depreciated)',
         description: 'Black Magic. Don\'t make deals with the devil.',
