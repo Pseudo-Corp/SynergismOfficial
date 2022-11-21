@@ -751,7 +751,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.unlocks.rrow4 = false
 
         player.ascendBuilding1.owned = 0
-        player.ascendBuilding2.generated = new Decimal('0')
+        player.ascendBuilding1.generated = new Decimal('0')
         player.ascendBuilding2.owned = 0
         player.ascendBuilding2.generated = new Decimal('0')
         player.ascendBuilding3.owned = 0
