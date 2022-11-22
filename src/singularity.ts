@@ -1010,7 +1010,7 @@ export class SingularityPerk {
 export const singularityPerks: SingularityPerk[] = [
     {
         name: 'XYZ: Xtra dailY rewardZ',
-        levels: [1, 20, 201],
+        levels: [1, 20, 200],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
                 return 'In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!'
