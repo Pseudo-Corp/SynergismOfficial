@@ -1017,7 +1017,7 @@ export const singularityPerks: SingularityPerk[] = [
             } else if (n >= levels[1]) {
                 return 'In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.'
             } else {
-                return 'The Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades per Singularity!'
+                return 'The Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades, both scaling with your singularity count!'
             }
         }
     },
