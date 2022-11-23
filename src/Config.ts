@@ -1,4 +1,4 @@
-export const version = '2.9.23: November 18 v1: Patreon Expansion v1';
+export const version = '2.9.24: November 22 v1: Endgame Balancing and Event Prep';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE

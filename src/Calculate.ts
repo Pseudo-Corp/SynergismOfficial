@@ -1515,8 +1515,12 @@ export const calculateQuarkMultiplier = () => {
 
     multiplier *= calculateSingularityQuarkMilestoneMultiplier();
 
-    multiplier *= +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus
-    multiplier *= (1 + 0.25 * + player.octeractUpgrades.octeractStarter.getEffect().bonus)
+    multiplier *= +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus // Oct Improver 1
+    multiplier *= (1 + 0.25 * + player.octeractUpgrades.octeractStarter.getEffect().bonus) // Oct Starter Pack
+
+    multiplier *= (1 + 1/10000 * Math.floor(player.octeractUpgrades.octeractQuarkGain.level / 199) *
+                                player.octeractUpgrades.octeractQuarkGain2.level *
+                                Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL)))) // Improver 2
 
     multiplier *= (1 + 0.02 * player.singularityUpgrades.intermediatePack.level +               // 1.02
                            0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
@@ -1524,6 +1528,7 @@ export const calculateQuarkMultiplier = () => {
                            0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
                            0.10 * player.singularityUpgrades.expertPack.level)                  // 1.30
 
+    multiplier *= 1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus // Doohickey
     multiplier *= calculateTotalOcteractQuarkBonus()
 
     return multiplier

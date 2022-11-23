@@ -306,14 +306,15 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
-    if (input === 'derpsmith' && !player.codes.get(43) && G['isEvent'] && getEvent().name === 'Derpsmith Tea Party') {
-        player.codes.set(43, true);
+    if (input === 'thanksderpsmith' && !player.codes.get(43) && G['isEvent'] && getEvent().name === 'Giving Thanks to Derpsmith') {
+        player.codes.set(44, true);
         player.quarkstimer = quarkHandler().maxTime;
         player.goldenQuarksTimer = 3600 * 24;
         addTimers('ascension', 4 * 3600);
 
         if (player.challenge15Exponent >= 1e15 || player.singularityCount > 0) {
             player.hepteractCrafts.quark.CAP *= 2;
+            player.hepteractCrafts.quark.BAL += Math.min(1e13, player.hepteractCrafts.quark.CAP/2)
         }
         if (player.singularityCount > 0) {
             player.singularityUpgrades.goldenQuarks1.freeLevels += 1;
@@ -322,14 +323,15 @@ export const promocodes = async (input: string | null, amount?: number) => {
             if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
                 player.octeractUpgrades.octeractGain.freeLevels += 5;
                 player.octeractUpgrades.octeractGain2.freeLevels += 3;
+                player.octeractUpgrades.octeractQuarkGain.freeLevels += 5;
                 player.octeractUpgrades.octeractAscensionsOcteractGain.freeLevels += 0.1
             }
         }
 
         return Alert(`Happy update!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! 
-                      ${(player.challenge15Exponent >= 1e15 || player.singularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free!' : ''}
+                      ${(player.challenge15Exponent >= 1e15 || player.singularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free, and (to a limit) automatically filled the extra amount! What a generous, handsome fella.' : ''}
                       ${(player.singularityCount > 0) ? 'You were also given free levels of GQ1-3!' : ''} 
-                      ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Geneses and Accumulator!': ''}`)
+                      ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Geneses, Accumulator and Quark Gain!': ''}`)
     }
     if (input === 'synergism2021' && !player.codes.get(1)) {
         player.codes.set(1, true);

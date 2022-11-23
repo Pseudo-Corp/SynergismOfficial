@@ -143,6 +143,12 @@ export const loadQuarkMultiplier = () => {
     DOMCacheGetOrSet('sGQM20').textContent = 'x' + format(1 + 0.25 * +player.octeractUpgrades.octeractStarter.getEffect().bonus, 3, true)
     DOMCacheGetOrSet('sGQM21').textContent = 'x' + format(+player.octeractUpgrades.octeractQuarkGain.getEffect().bonus, 3, true)
     DOMCacheGetOrSet('sGQM22').textContent = 'x' + format(calculateTotalOcteractQuarkBonus(), 3, true)
+    DOMCacheGetOrSet('sGQM23').textContent = 'x' + format(1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus, 3, true)
+    DOMCacheGetOrSet('sGQM24').textContent = 'x' + format(1 + 1/10000 * Math.floor(player.octeractUpgrades.octeractQuarkGain.level / 199) *
+                                                            player.octeractUpgrades.octeractQuarkGain2.level *
+                                                            Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL))),
+    3,
+    true)
     DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
 }
 export const loadStatisticsCubeMultipliers = () => {

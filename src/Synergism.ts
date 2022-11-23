@@ -748,6 +748,7 @@ export const player: Player = {
         singChallengeExtension: new SingularityUpgrade(singularityData['singChallengeExtension']),
         singChallengeExtension2: new SingularityUpgrade(singularityData['singChallengeExtension2']),
         singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
+        singQuarkImprover1: new SingularityUpgrade(singularityData['singQuarkImprover1']),
         singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract']),
         singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2']),
         singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3']),
@@ -775,6 +776,7 @@ export const player: Player = {
         octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
         octeractGain2: new OcteractUpgrade(octeractData['octeractGain2']),
         octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
+        octeractQuarkGain2: new OcteractUpgrade(octeractData['octeractQuarkGain2']),
         octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
         octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
         octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
@@ -807,7 +809,7 @@ export const player: Player = {
 }
 
 export const blankSave = Object.assign({}, player, {
-    codes: new Map(Array.from({ length: 43 }, (_, i) => [i + 1, false]))
+    codes: new Map(Array.from({ length: 44 }, (_, i) => [i + 1, false]))
 });
 
 // The main cause of the double singularity bug was caused by a race condition

@@ -298,6 +298,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singChallengeExtension: new SingularityUpgrade(singularityData['singChallengeExtension']),
         singChallengeExtension2: new SingularityUpgrade(singularityData['singChallengeExtension2']),
         singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
+        singQuarkImprover1: new SingularityUpgrade(singularityData['singQuarkImprover1']),
         singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract']),
         singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2']),
         singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3']),
@@ -325,6 +326,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
         octeractGain2: new OcteractUpgrade(octeractData['octeractGain2']),
         octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
+        octeractQuarkGain2: new OcteractUpgrade(octeractData['octeractQuarkGain2']),
         octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
         octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
         octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
@@ -673,7 +675,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     minimumSingularity: singularityData[k].minimumSingularity,
                     effect: singularityData[k].effect,
                     freeLevels: data.singularityUpgrades[k].freeLevels,
-                    canExceedCap: singularityData[k].canExceedCap
+                    canExceedCap: singularityData[k].canExceedCap,
+                    specialCostForm: singularityData[k].specialCostForm
                 }
                 player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
 
@@ -685,7 +688,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                              player.singularityUpgrades[k].costPerLevel / 2
                 if (player.singularityUpgrades[k].maxLevel !== -1 &&
                     player.singularityUpgrades[k].level <= player.singularityUpgrades[k].maxLevel &&
-                    player.singularityUpgrades[k].goldenQuarksInvested !== cost) {
+                    player.singularityUpgrades[k].goldenQuarksInvested !== cost &&
+                    player.singularityUpgrades[k].specialCostForm === 'Default') {
                     player.singularityUpgrades[k].refund()
                 }
             } else {
