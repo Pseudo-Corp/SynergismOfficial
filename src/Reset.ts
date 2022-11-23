@@ -1144,6 +1144,7 @@ export const singularity = async (): Promise<void> => {
 
     const saveCode42 = player.codes.get(42) ?? false
     const saveCode43 = player.codes.get(43) ?? false
+    const saveCode44 = player.codes.get(44) ?? false
 
     // Import Game
 
@@ -1155,6 +1156,7 @@ export const singularity = async (): Promise<void> => {
     player.codes.set(41, true);
     player.codes.set(42, saveCode42)
     player.codes.set(43, saveCode43)
+    player.codes.set(44, saveCode44)
     updateSingularityMilestoneAwards();
 }
 
