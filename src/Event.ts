@@ -49,7 +49,7 @@ const events: Record<string, HolidayData> = {
             ascensionScore: 0,
             antSacrifice: 0,
             offering: 0,
-            obtainium: 0,
+            obtainium: 0
         }
     },
     // Last active event
@@ -72,7 +72,7 @@ const events: Record<string, HolidayData> = {
             octeract: 0.25,
             powderConversion: 2,
             goldenQuark: 0.15,
-            oneMind: 0.05,
+            oneMind: 0.05
         }
     }
     // Event example
@@ -254,8 +254,7 @@ export const eventCheck = () => {
             if (eventBuff !== 0) {
                 if (eventBuffType[i] === 'One Mind' && player.singularityUpgrades.oneMind.level > 0) {
                     buffs += `<span style="color: gold">${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}</span> ,`
-                }
-                else if (eventBuffType[i] !== 'One Mind' || player.singularityUpgrades.oneMind.level === 0) {
+                } else if (eventBuffType[i] !== 'One Mind' || player.singularityUpgrades.oneMind.level === 0) {
                     buffs += `${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}, `;
                 }
             }
