@@ -28,7 +28,6 @@ import { updateClassList } from './Utility';
 import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions';
 import { toggleAutoChallengeModeText, toggleSubTab, toggleTabs } from './Toggles';
 import { DOMCacheGetOrSet } from './Cache/DOM';
-import { WowCubes } from './CubeExperimental';
 import { importSynergism } from './ImportExport';
 import { resetShopUpgrades, shopData } from './Shop';
 import { QuarkHandler } from './Quark';
@@ -413,7 +412,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         }
     }
 
-    if (input === 'reincarnation' || input === 'reincarnationChallenge' || input === 'ascension' || input === 'ascensionChallenge' || input == 'singularity') {
+    if (input === 'reincarnation' || input === 'reincarnationChallenge' || input === 'ascension' || input === 'ascensionChallenge') {
         // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
         if (player.ascensionCount > 0 && player.achievements[183] < 1) {
             ascensionAchievementCheck(1);
@@ -490,7 +489,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         calculateAnts();
     }
 
-    if (input === 'ascension' || input === 'ascensionChallenge' || input === 'singularity') {
+    if (input === 'ascension' || input === 'ascensionChallenge') {
         const metaData = CalcCorruptionStuff()
         if (player.challengecompletions[10] > 0) {
             ascensionAchievementCheck(3, metaData[3]);
@@ -651,7 +650,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.usedCorruptions[1] = 0;
         player.prototypeCorruptions[1] = 0;
         //fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving
-        if (player.currentChallenge.ascension === 15 && (input === 'ascension' || input === 'ascensionChallenge')) {
+        if (player.currentChallenge.ascension === 15) {
             player.usedCorruptions[0] = 0;
             player.prototypeCorruptions[0] = 0;
             for (let i = 2; i <= 9; i++) {
@@ -734,44 +733,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
     if (input == 'reincarnation' || input == 'reincarnationChallenge') {
         player.unlocks.reincarnate = true
-    }
-
-    if (input === 'singularity') {
-        player.unlocks.coinone = false
-        player.unlocks.cointwo = false
-        player.unlocks.cointhree = false
-        player.unlocks.coinfour = false
-        player.unlocks.generation = false
-        player.unlocks.prestige = false
-        player.unlocks.transcend = false
-        player.unlocks.reincarnate = false
-        player.unlocks.rrow1 = false
-        player.unlocks.rrow2 = false
-        player.unlocks.rrow3 = false
-        player.unlocks.rrow4 = false
-
-        player.ascendBuilding1.owned = 0
-        player.ascendBuilding2.generated = new Decimal('0')
-        player.ascendBuilding2.owned = 0
-        player.ascendBuilding2.generated = new Decimal('0')
-        player.ascendBuilding3.owned = 0
-        player.ascendBuilding3.generated = new Decimal('0')
-        player.ascendBuilding4.owned = 0
-        player.ascendBuilding4.generated = new Decimal('0')
-        player.ascendBuilding5.owned = 0
-        player.ascendBuilding5.generated = new Decimal('0')
-
-        player.constantUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-        player.wowCubes = new WowCubes(0)
-        player.wowTesseracts = new WowCubes(0)
-        player.wowHypercubes = new WowCubes(0)
-        player.wowTesseracts = new WowCubes(0)
-        player.wowAbyssals = 0;
-
-        for (let index = 1; index <= 50; index++) {
-            player.cubeUpgrades[index] = 0;
-        }
     }
 
     if (!fast) {
