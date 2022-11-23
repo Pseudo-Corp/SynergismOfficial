@@ -1,4 +1,4 @@
-export const version = '2.9.24: November 22 v2: Endgame Balancing and Event Prep';
+export const version = '2.9.24: November 23 v1: Endgame Balancing and Event Prep';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE

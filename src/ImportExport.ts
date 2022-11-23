@@ -306,7 +306,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
-    if (input === 'thanksderpsmith' && !player.codes.get(43) && G['isEvent'] && getEvent().name === 'Giving Thanks to Derpsmith') {
+    if (input === 'thanksderpsmith' && !player.codes.get(44) && G['isEvent'] && getEvent().name === 'Giving Thanks to Derpsmith') {
         player.codes.set(44, true);
         player.quarkstimer = quarkHandler().maxTime;
         player.goldenQuarksTimer = 3600 * 24;

@@ -126,7 +126,7 @@ export const loadQuarkMultiplier = () => {
     DOMCacheGetOrSet('sGQM7').textContent = '+' + format(player.platonicUpgrades[15] > 0 ? 0.20 : 0, 3, true) //OMEGA
     DOMCacheGetOrSet('sGQM8').textContent = '+' + format(G.challenge15Rewards['quarks']-1, 3, true) //Challenge 15 Reward
     DOMCacheGetOrSet('sGQM9').textContent = 'x' + format(player.worlds.applyBonus(1 / calculateQuarkMultiplier()), 3, true) //Patreon Bonus
-    DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G['isEvent'] ? 1 + calculateEventBuff('Quarks') : 1), 3, true) //Event
+    DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G['isEvent'] ? 1 + calculateEventBuff('Quarks') + calculateEventBuff('One Mind') : 1), 3, true) //Event
     DOMCacheGetOrSet('sGQM11').textContent = 'x' + format(1.1 + 0.15 / 75 * calculateEffectiveIALevel(), 3, true) //IA Rune
     DOMCacheGetOrSet('sGQM12').textContent = 'x' + format(player.challenge15Exponent >= 1e15 ? 1 + 5/10000 * hepteractEffective('quark') : 1, 3, true) //Quark Hepteract
     DOMCacheGetOrSet('sGQM13').textContent = 'x' + format(calculateQuarkMultFromPowder(), 3, true) //Powder

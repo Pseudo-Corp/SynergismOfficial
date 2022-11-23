@@ -23,6 +23,7 @@ interface HolidayData {
         offering?: number
         obtainium?: number
         octeract?: number
+        oneMind?: number
     }
 }
 
@@ -48,7 +49,7 @@ const events: Record<string, HolidayData> = {
             ascensionScore: 0,
             antSacrifice: 0,
             offering: 0,
-            obtainium: 0
+            obtainium: 0,
         }
     },
     // Last active event
@@ -57,7 +58,7 @@ const events: Record<string, HolidayData> = {
         color: 'white',
         url: 'https://www.youtube.com/watch?v=1TO48Cnl66w',
         everyYear: false,
-        start: '11/24/2022 00:00:00',
+        start: '11/23/2022 00:00:00',
         end: '11/27/2022 23:59:59',
         notice: 3,
         event: true,
@@ -70,7 +71,8 @@ const events: Record<string, HolidayData> = {
             obtainium: 0.5,
             octeract: 0.25,
             powderConversion: 2,
-            goldenQuark: 0.15
+            goldenQuark: 0.15,
+            oneMind: 0.05,
         }
     }
     // Event example
@@ -250,7 +252,12 @@ export const eventCheck = () => {
         for (let i = 0; i < eventBuffType.length; i++) {
             const eventBuff = calculateEventSourceBuff(eventBuffType[i]);
             if (eventBuff !== 0) {
-                buffs += `${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}, `;
+                if (eventBuffType[i] === 'One Mind' && player.singularityUpgrades.oneMind.level > 0) {
+                    buffs += `<span style="color: gold">${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}</span> ,`
+                }
+                else if (eventBuffType[i] !== 'One Mind' || player.singularityUpgrades.oneMind.level === 0) {
+                    buffs += `${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}, `;
+                }
             }
         }
         if (buffs.length > 2) {
@@ -258,8 +265,8 @@ export const eventCheck = () => {
             buffs += '!';
         }
         DOMCacheGetOrSet('eventCurrent').textContent = G['isEvent'] ? 'ACTIVE UNTIL ' + end : 'STARTS ' + start;
-        eventBuffs.textContent = G['isEvent'] ? 'Current Buffs: ' + buffs : '';
-        eventBuffs.style.color = 'lime';
+        eventBuffs.innerHTML = G['isEvent'] ? 'Current Buffs: ' + buffs : '';
+        //eventBuffs.style.color = 'lime';
         happyHolidays.innerHTML = nowEvent.name;
         happyHolidays.style.color = nowEvent.color;
         happyHolidays.href = nowEvent.url.length > 0 && G['isEvent'] ? nowEvent.url : '#';
@@ -273,8 +280,8 @@ export const eventCheck = () => {
     }
 }
 
-const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium', 'Octeract'];
-const eventBuffName = ['Quarks', 'Golden Quarks', 'Cubes from all type', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice rewards', 'Offering', 'Obtainium', 'Eight Dimensional Hypercubes'];
+const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium', 'Octeract', 'One Mind'];
+const eventBuffName = ['Quarks', 'Golden Quarks', 'Cubes from all type', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice rewards', 'Offering', 'Obtainium', 'Eight Dimensional Hypercubes', 'One Mind Quark Bonus'];
 
 export const calculateEventSourceBuff = (buff: string): number => {
     const event = getEvent();
@@ -290,6 +297,7 @@ export const calculateEventSourceBuff = (buff: string): number => {
         case 'Offering': return event.buffs.offering || 0;
         case 'Obtainium': return event.buffs.obtainium || 0;
         case 'Octeract': return event.buffs.octeract || 0;
+        case 'One Mind': return (player.singularityUpgrades.oneMind.level > 0) ? event.buffs.oneMind || 0 : 0
         default: return 0;
     }
 }
