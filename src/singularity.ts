@@ -182,6 +182,10 @@ export class SingularityUpgrade extends DynamicUpgrade {
                 player.ascensionCounterRealReal = 0
                 void Alert('You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...')
             }
+
+            if (this.name === player.singularityUpgrades.singCitadel2.name) {
+                player.singularityUpgrades.singCitadel.freeLevels = player.singularityUpgrades.singCitadel2.level
+            }
         }
 
         if (purchased === 0) {
@@ -521,10 +525,24 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singCitadel: {
         name: 'Citadel of Singularity',
-        description: 'This structure is so obscured by Singularity Fog! But it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!',
+        description: 'What a unique structual phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!',
         maxLevel: -1,
         costPerLevel: 500000,
         minimumSingularity: 100,
+        effect: (n: number) => {
+            return {
+                bonus: (1 + 0.02 * n) * (1 + Math.floor(n / 10) / 100),
+                desc: `Obtainium, Offerings, and 3-7D Cubes +${format(100 * ((1 + 0.02 * n) * (1 + Math.floor(n/10)/100) - 1))}%, forever!`
+            }
+        }
+    },
+    singCitadel2: {
+        name: 'Citadel of Singularity: The Real Edition',
+        description: 'This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels! Also sets the free level of the fake citadel to whatever level this is.',
+        maxLevel: 100,
+        costPerLevel: 1e14,
+        minimumSingularity: 210,
+        specialCostForm: 'Quadratic',
         effect: (n: number) => {
             return {
                 bonus: (1 + 0.02 * n) * (1 + Math.floor(n / 10) / 100),
@@ -1360,6 +1378,20 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [150],
         description: () => {
             return 'Every use of code `add` gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3.'
+        }
+    },
+    {
+        name: 'Golden Revolution IV',
+        levels: [160, 173, 185, 194, 204, 210, 219, 229, 240, 249],
+        description: (n: number, levels: number[]) => {
+            const perSecond = 1000000
+            let divisor = 0
+            for (const singCount of levels) {
+                if (n >= singCount) {
+                    divisor += 1
+                }
+            }
+            return `Every Octeract tick, convert 1 in ${format(perSecond / divisor, 0, true)} GQ you would gain in this singularity to your balance automagically!`
         }
     },
     {

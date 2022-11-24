@@ -175,8 +175,9 @@ export const loadStatisticsCubeMultipliers = () => {
         18: {acc: 2, desc: 'Cookie Upgrade 8:'},
         19: {acc: 2, desc: 'Total Octeract Bonus:'},
         20: {acc: 2, desc: 'Citadel [GQ]'},
-        21: {acc: 4, desc: 'Platonic DELTA'},
-        22: {acc: 2, desc: 'Wow Pass ∞'}
+        21: {acc: 2, desc: 'Citadel 2 [GQ]'},
+        22: {acc: 4, desc: 'Platonic DELTA'},
+        23: {acc: 2, desc: 'Wow Pass ∞'}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
@@ -365,9 +366,10 @@ export const loadStatisticsOfferingMultipliers = () => {
         26: {acc: 3, desc: 'Offering Storm [GQ]:'},
         27: {acc: 3, desc: 'Offering Tempest [GQ]:'},
         28: {acc: 3, desc: 'Citadel [GQ]'},
-        29: {acc: 3, desc: 'Cube Upgrade Cx4:'},
-        30: {acc: 3, desc: 'Offering Electrolosis [OC]:'},
-        31: {acc: 3, desc: 'Event:'}
+        29: {acc: 3, desc: 'Citadel 2 [GQ]'},
+        30: {acc: 3, desc: 'Cube Upgrade Cx4:'},
+        31: {acc: 3, desc: 'Offering Electrolosis [OC]:'},
+        32: {acc: 3, desc: 'Event:'}
     }
     for (let i = 0; i < arr.length; i++) {
         const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`);
