@@ -1358,7 +1358,8 @@ export const singularityPerks: SingularityPerk[] = [
         description: () => {
             return 'Every use of code `add` gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3.'
         }
-    }
+    },
+    {
         name: 'Golden Revolution IV',
         levels: [160, 173, 185, 194, 204, 210, 219, 229, 240, 249],
         description: (n: number, levels: number[]) => {
