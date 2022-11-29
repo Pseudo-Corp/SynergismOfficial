@@ -126,7 +126,7 @@ export const loadQuarkMultiplier = () => {
     DOMCacheGetOrSet('sGQM7').textContent = '+' + format(player.platonicUpgrades[15] > 0 ? 0.20 : 0, 3, true) //OMEGA
     DOMCacheGetOrSet('sGQM8').textContent = '+' + format(G.challenge15Rewards['quarks']-1, 3, true) //Challenge 15 Reward
     DOMCacheGetOrSet('sGQM9').textContent = 'x' + format(player.worlds.applyBonus(1 / calculateQuarkMultiplier()), 3, true) //Patreon Bonus
-    DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G['isEvent'] ? 1 + calculateEventBuff('Quarks') : 1), 3, true) //Event
+    DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G['isEvent'] ? 1 + calculateEventBuff('Quarks') + calculateEventBuff('One Mind') : 1), 3, true) //Event
     DOMCacheGetOrSet('sGQM11').textContent = 'x' + format(1.1 + 0.15 / 75 * calculateEffectiveIALevel(), 3, true) //IA Rune
     DOMCacheGetOrSet('sGQM12').textContent = 'x' + format(player.challenge15Exponent >= 1e15 ? 1 + 5/10000 * hepteractEffective('quark') : 1, 3, true) //Quark Hepteract
     DOMCacheGetOrSet('sGQM13').textContent = 'x' + format(calculateQuarkMultFromPowder(), 3, true) //Powder
@@ -143,6 +143,12 @@ export const loadQuarkMultiplier = () => {
     DOMCacheGetOrSet('sGQM20').textContent = 'x' + format(1 + 0.25 * +player.octeractUpgrades.octeractStarter.getEffect().bonus, 3, true)
     DOMCacheGetOrSet('sGQM21').textContent = 'x' + format(+player.octeractUpgrades.octeractQuarkGain.getEffect().bonus, 3, true)
     DOMCacheGetOrSet('sGQM22').textContent = 'x' + format(calculateTotalOcteractQuarkBonus(), 3, true)
+    DOMCacheGetOrSet('sGQM23').textContent = 'x' + format(1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus, 3, true)
+    DOMCacheGetOrSet('sGQM24').textContent = 'x' + format(1 + 1/10000 * Math.floor(player.octeractUpgrades.octeractQuarkGain.level / 199) *
+                                                            player.octeractUpgrades.octeractQuarkGain2.level *
+                                                            Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL))),
+    3,
+    true)
     DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
 }
 export const loadStatisticsCubeMultipliers = () => {
@@ -169,7 +175,9 @@ export const loadStatisticsCubeMultipliers = () => {
         18: {acc: 2, desc: 'Cookie Upgrade 8:'},
         19: {acc: 2, desc: 'Total Octeract Bonus:'},
         20: {acc: 2, desc: 'Citadel [GQ]'},
-        21: {acc: 4, desc: 'Platonic DELTA'}
+        21: {acc: 2, desc: 'Citadel 2 [GQ]'},
+        22: {acc: 4, desc: 'Platonic DELTA'},
+        23: {acc: 2, desc: 'Wow Pass ∞'}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
@@ -290,6 +298,7 @@ export const loadStatisticsCubeMultipliers = () => {
     DOMCacheGetOrSet('sHeMT').textContent = `x${format(calculateHepteractMultiplier().mult, 3)}`;
 
     const octMults = calculateOcteractMultiplier();
+    const ascensionSpeedDesc = (player.singularityUpgrades.oneMind.getEffect().bonus) ? 'One Mind Multiplier' : 'Ascension Speed Multiplier'
     const map6: Record<number, { acc: number, desc: string }> = {
         1: {acc: 2, desc: 'Ascension Score Multiplier:'},
         2: {acc: 2, desc: 'Season Pass 3:'},
@@ -306,14 +315,16 @@ export const loadStatisticsCubeMultipliers = () => {
         13: {acc: 2, desc: 'Obelisk Shaped Like an Octagon'},
         14: {acc: 2, desc: 'Octahedral Synthesis'},
         15: {acc: 2, desc: 'Eighth Wonder of the World'},
-        16: {acc: 2, desc: 'Octeracts for Dummies'},
-        17: {acc: 2, desc: 'Octeract Cogenesis'},
-        18: {acc: 2, desc: 'Octeract Trigenesis'},
-        19: {acc: 2, desc: 'Singularity Factor'},
-        20: {acc: 2, desc: 'Digital Octeract Accumulator'},
-        21: {acc: 2, desc: 'Event Buff'},
-        22: {acc: 2, desc: 'Platonic DELTA'},
-        23: {acc: 2, desc: 'Ascension Speed Multiplier'}
+        16: {acc: 2, desc: 'Platonic is a fat sellout'},
+        17: {acc: 2, desc: 'Octeracts for Dummies'},
+        18: {acc: 2, desc: 'Octeract Cogenesis'},
+        19: {acc: 2, desc: 'Octeract Trigenesis'},
+        20: {acc: 2, desc: 'Singularity Factor'},
+        21: {acc: 2, desc: 'Digital Octeract Accumulator'},
+        22: {acc: 2, desc: 'Event Buff'},
+        23: {acc: 2, desc: 'Platonic DELTA'},
+        24: {acc: 2, desc: 'Wow Pass ∞'},
+        25: {acc: 2, desc: ascensionSpeedDesc}
     }
     for (let i = 0; i < octMults.list.length; i++) {
         const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`);
@@ -355,9 +366,10 @@ export const loadStatisticsOfferingMultipliers = () => {
         26: {acc: 3, desc: 'Offering Storm [GQ]:'},
         27: {acc: 3, desc: 'Offering Tempest [GQ]:'},
         28: {acc: 3, desc: 'Citadel [GQ]'},
-        29: {acc: 3, desc: 'Cube Upgrade Cx4:'},
-        30: {acc: 3, desc: 'Offering Electrolosis [OC]:'},
-        31: {acc: 3, desc: 'Event:'}
+        29: {acc: 3, desc: 'Citadel 2 [GQ]'},
+        30: {acc: 3, desc: 'Cube Upgrade Cx4:'},
+        31: {acc: 3, desc: 'Offering Electrolosis [OC]:'},
+        32: {acc: 3, desc: 'Event:'}
     }
     for (let i = 0; i < arr.length; i++) {
         const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`);
@@ -547,7 +559,7 @@ export const c15RewardUpdate = () => {
 }
 
 const updateDisplayC15Rewards = () => {
-    DOMCacheGetOrSet('c15Reward0Num').textContent = format(player.challenge15Exponent,0,true)
+    DOMCacheGetOrSet('c15Reward0Num').textContent = format(player.challenge15Exponent,3,true)
     DOMCacheGetOrSet('c15RequiredExponentNum').textContent = format(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),0,true)
     const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18]
     const isNum: Record<number, boolean> = { // Shit solution to a shit problem -Platonic

@@ -19,6 +19,7 @@ import { singularityData } from './singularity';
 import { getEvent } from './Event';
 import { synergismStage } from './Statistics';
 import ClipboardJS from 'clipboard';
+import { octeractData } from './Octeracts';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',
@@ -305,14 +306,15 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
-    if (input === 'derpsmith' && !player.codes.get(43) && G['isEvent'] && getEvent().name === 'Derpsmith Tea Party') {
-        player.codes.set(43, true);
+    if (input === 'thanksderpsmith' && !player.codes.get(44) && G['isEvent'] && getEvent().name === 'Giving Thanks to Derpsmith') {
+        player.codes.set(44, true);
         player.quarkstimer = quarkHandler().maxTime;
         player.goldenQuarksTimer = 3600 * 24;
         addTimers('ascension', 4 * 3600);
 
         if (player.challenge15Exponent >= 1e15 || player.singularityCount > 0) {
             player.hepteractCrafts.quark.CAP *= 2;
+            player.hepteractCrafts.quark.BAL += Math.min(1e13, player.hepteractCrafts.quark.CAP/2)
         }
         if (player.singularityCount > 0) {
             player.singularityUpgrades.goldenQuarks1.freeLevels += 1;
@@ -321,14 +323,15 @@ export const promocodes = async (input: string | null, amount?: number) => {
             if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
                 player.octeractUpgrades.octeractGain.freeLevels += 5;
                 player.octeractUpgrades.octeractGain2.freeLevels += 3;
+                player.octeractUpgrades.octeractQuarkGain.freeLevels += 5;
                 player.octeractUpgrades.octeractAscensionsOcteractGain.freeLevels += 0.1
             }
         }
 
         return Alert(`Happy update!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! 
-                      ${(player.challenge15Exponent >= 1e15 || player.singularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free!' : ''}
+                      ${(player.challenge15Exponent >= 1e15 || player.singularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free, and (to a limit) automatically filled the extra amount! What a generous, handsome fella.' : ''}
                       ${(player.singularityCount > 0) ? 'You were also given free levels of GQ1-3!' : ''} 
-                      ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Geneses and Accumulator!': ''}`)
+                      ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Geneses, Accumulator and Quark Gain!': ''}`)
     }
     if (input === 'synergism2021' && !player.codes.get(1)) {
         player.codes.set(1, true);
@@ -393,8 +396,14 @@ export const promocodes = async (input: string | null, amount?: number) => {
             rolls += player.shopUpgrades.shopImprovedDaily4
             rolls += (+player.singularityUpgrades.platonicPhi.getEffect().bonus *
                         Math.min(50, 5 * player.singularityCounter / (3600 * 24)))
-
+            rolls += +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus
             rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
+            rolls *= 1 + +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus / 200
+
+            if (player.highestSingularityCount >= 200) {
+                rolls *= 2
+            }
+
             rolls = Math.floor(rolls)
 
             const keys = Object
@@ -422,6 +431,16 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 player.singularityUpgrades.goldenQuarks3.freeLevels += 1
                 freeLevels['goldenQuarks3'] ? freeLevels['goldenQuarks3'] += 1 : freeLevels['goldenQuarks3'] = 1
 
+            }
+
+            if (player.highestSingularityCount >= 200) {
+                player.octeractUpgrades.octeractGain.freeLevels += (player.octeractUpgrades.octeractGain.level / 100)
+                freeLevels['octeractGain'] = player.octeractUpgrades.octeractGain.level / 100
+            }
+
+            if (player.highestSingularityCount >= 205) {
+                player.octeractUpgrades.octeractGain2.freeLevels += (player.octeractUpgrades.octeractGain2.level / 100)
+                freeLevels['octeractGain2'] = player.octeractUpgrades.octeractGain2.level / 100
             }
 
             for (const key of Object.keys(freeLevels)) {
@@ -598,7 +617,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     } else if (input === 'time') {
         const availableUses = timeCodeAvailableUses();
         if (availableUses === 0) {
-            return Confirm(`
+            return Alert(`
             If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
 
             Regardless, you must wait at least 15 minutes between each use.
@@ -628,9 +647,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 }
 
                 player.worlds.add(actualQuarkAward * rewardMult, false);
-                return Confirm(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
+                return Alert(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
             } else {
-                return Confirm('You didn\'t guess the right time, try again soon!');
+                return Alert('You didn\'t guess the right time, try again soon!');
             }
         }
     } else if (input === 'spoiler') {
@@ -677,7 +696,7 @@ const addCodeInterval = () : number => {
     let time = hour
     time *= (1 - 0.02 * player.shopUpgrades.calculator4)
     time *= (1 - Math.min(.5, (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 1000 : 0)
-                            - (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 1000 : 0)))
+                            + (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 1000 : 0)))
     return time
 }
 
@@ -705,7 +724,7 @@ const timeCodeRewardMultiplier = (): number => {
 }
 
 const dailyCodeFormatFreeLevelMessage = (upgradeKey: string, freeLevelAmount: number): string => {
-    const upgradeNiceName = singularityData[upgradeKey].name;
+    const upgradeNiceName = (upgradeKey in singularityData) ? singularityData[upgradeKey].name : octeractData[upgradeKey].name;
     return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`;
 }
 

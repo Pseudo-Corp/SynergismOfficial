@@ -363,6 +363,7 @@ export interface Player {
         obtainiumEX2: number,
         challenge15Auto: number,
         extraWarp: number,
+        autoWarp: number,
         improveQuarkHept: number,
         improveQuarkHept2: number,
         improveQuarkHept3: number,
@@ -370,10 +371,15 @@ export interface Player {
         shopImprovedDaily: number,
         shopImprovedDaily2: number,
         shopImprovedDaily3: number,
-        shopImprovedDaily4: number
+        shopImprovedDaily4: number,
+        offeringEX3: number,
+        obtainiumEX3: number,
+        improveQuarkHept5: number,
+        seasonPassInfinity: number,
+        chronometerInfinity: number,
     },
     shopConfirmationToggle: boolean,
-    shopBuyMaxToggle: boolean,
+    shopBuyMaxToggle: boolean | 'TEN' | 'ANY',
     shopHideToggle: boolean,
     autoPotionTimer: number,
     autoPotionTimerObtainium: number,
@@ -562,6 +568,7 @@ export interface Player {
     overfluxOrbsAutoBuy: boolean
     overfluxPowder: number
     dailyPowderResetUses: number
+    autoWarpCheck: boolean
 
     singularityCount: number
     highestSingularityCount: number
@@ -571,9 +578,10 @@ export interface Player {
     totalQuarksEver: number
     hotkeys: Record<number, string[]>
     theme: string
+    notation: string
 
     singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
-    octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade> 
+    octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade>
     dailyCodeUsed: boolean
     hepteractAutoCraftPercentage: number
     octeractTimer: number

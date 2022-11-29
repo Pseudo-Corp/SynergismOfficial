@@ -4,7 +4,7 @@ import type { DecimalSource } from 'break_infinity.js';
 import Decimal from 'break_infinity.js';
 import { achievementaward } from './Achievements';
 import { smallestInc } from './Utility';
-import { upgradeupdate, crystalupgradedescriptions} from './Upgrades';
+import { upgradeupdate, crystalupgradedescriptions } from './Upgrades';
 import { reset } from './Reset';
 import { calculateSummationLinear, calculateCorruptionPoints, calculateRuneBonuses } from './Calculate';
 import { Globals as G, Upgrade } from './Variables';

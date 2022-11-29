@@ -2,7 +2,7 @@ import { player, format, blankSave, updateAll } from './Synergism';
 import {
     calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
     calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
-    calcAscensionCount, calculateGoldenQuarkGain, calculatePowderConversion} from './Calculate';
+    calcAscensionCount, calculateGoldenQuarkGain, calculatePowderConversion } from './Calculate';
 import { resetofferings } from './Runes';
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans';
 import { calculateTesseractBlessings } from './Tesseracts';
@@ -32,7 +32,7 @@ import { WowCubes } from './CubeExperimental';
 import { importSynergism } from './ImportExport';
 import { resetShopUpgrades, shopData } from './Shop';
 import { QuarkHandler } from './Quark';
-import { calculateSingularityDebuff } from './singularity';
+import { calculateSingularityDebuff, getFastForwardTotalMultiplier } from './singularity';
 import { updateCubeUpgradeBG, awardAutosCookieUpgrade } from './Cubes';
 import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
 import { getAutoHepteractCrafts } from './Hepteracts'
@@ -139,7 +139,7 @@ export const resetdetails = (input: resetNames) => {
         case 'ascension':
             currencyImage1.style.display = 'none'
             resetCurrencyGain.textContent = '';
-            resetInfo.textContent = 'Ascend, C-10 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds.\n(Real-time ' + format(player.ascensionCounterRealReal, 0, false) + ' Seconds)';
+            resetInfo.textContent = 'Ascend, C-10 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds. (Real-time ' + format(player.ascensionCounterRealReal, 0, false) + ' Seconds)';
             resetInfo.style.color = 'gold';
             break;
         case 'singularity':
@@ -876,13 +876,12 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.highestchallengecompletions[6] = 1;
         achievementaward(113);
     }
-    if (player.achievements[278] > 0 && singularityReset) { // Singularity 5
-        player.shopUpgrades.offeringAuto = 10
-        player.shopUpgrades.offeringEX = 10
-        player.shopUpgrades.obtainiumAuto = 10
-        player.shopUpgrades.obtainiumEX = 10
-        player.shopUpgrades.antSpeed = 10
-        player.shopUpgrades.cashGrab = 10
+    const shopItemPerk_5 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
+    const perk_5 = player.achievements[278] > 0;
+    if (perk_5 && singularityReset) { // Singularity 5
+        for (const key of shopItemPerk_5) {
+            player.shopUpgrades[key] = 10;
+        }
         player.cubeUpgrades[7] = 1;
     }
     if (player.achievements[279] > 0) { // Singularity 7
@@ -919,18 +918,17 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.fifthOwnedAnts = 1;
         player.cubeUpgrades[20] = 1;
     }
-    if (player.singularityCount >= 20) {
+    const perk_20 = player.singularityCount >= 20;
+    const shopItemPerk_20 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
+    if (perk_20) {
         player.challengecompletions[9] = 1;
         player.highestchallengecompletions[9] = 1;
         achievementaward(134);
         player.antPoints = new Decimal('1e100');
         player.antUpgrades[11] = 1;
-        player.shopUpgrades.offeringAuto = shopData.offeringAuto.maxLevel
-        player.shopUpgrades.offeringEX = shopData.offeringEX.maxLevel
-        player.shopUpgrades.obtainiumAuto = shopData.obtainiumAuto.maxLevel
-        player.shopUpgrades.obtainiumEX = shopData.obtainiumEX.maxLevel
-        player.shopUpgrades.antSpeed = shopData.antSpeed.maxLevel
-        player.shopUpgrades.cashGrab = shopData.cashGrab.maxLevel
+        for (const key of shopItemPerk_20) {
+            player.shopUpgrades[key] = shopData[key].maxLevel;
+        }
     }
     if (player.singularityCount >= 25) {
         player.eighthOwnedAnts = 1;
@@ -961,7 +959,31 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
             updateResearchBG(j);
         }
     }
+    updateSingularityGlobalPerks();
     revealStuff();
+}
+
+// updates singularity perks that do not get saved to player object
+// so that we can call on save load to fix game state
+export const updateSingularityGlobalPerks = () => {
+
+    const perk_5 = player.achievements[278] > 0;
+    const shopItemPerk_5 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
+    for (const key of shopItemPerk_5) {
+        shopData[key].refundMinimumLevel = perk_5 ? 10 : key.endsWith('Auto') ? 1 : 0;
+    }
+
+    const perk_20 = player.singularityCount >= 20;
+    const shopItemPerk_20 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
+    for (const key of shopItemPerk_20) {
+        shopData[key].refundable = perk_20 ? false : true;
+    }
+
+    const perk_51 = player.singularityCount >= 51;
+    const shopItemPerk_51 = ['seasonPass', 'seasonPass2', 'seasonPass3', 'seasonPassY', 'chronometer', 'chronometer2'] as const;
+    for (const key of shopItemPerk_51) {
+        shopData[key].refundable = perk_51 ? false : true;
+    }
 }
 
 export const singularity = async (): Promise<void> => {
@@ -995,13 +1017,9 @@ export const singularity = async (): Promise<void> => {
     // reset the rune instantly to hopefully prevent a double singularity
     player.runelevels[6] = 0;
 
-    let incrementSingCount = 1
-    incrementSingCount += +player.singularityUpgrades.singFastForward.getEffect().bonus
-    incrementSingCount += +player.singularityUpgrades.singFastForward2.getEffect().bonus
-    incrementSingCount += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
-
     player.goldenQuarks += calculateGoldenQuarkGain();
     if (player.singularityCount === player.highestSingularityCount) {
+        const incrementSingCount = 1 + getFastForwardTotalMultiplier();
         player.highestSingularityCount += incrementSingCount
 
         if (player.highestSingularityCount === 5) {
@@ -1012,8 +1030,6 @@ export const singularity = async (): Promise<void> => {
         }
     }
     player.singularityCount = player.highestSingularityCount;
-
-
 
     player.totalQuarksEver += player.quarksThisSingularity;
     await resetShopUpgrades(true);
@@ -1103,6 +1119,7 @@ export const singularity = async (): Promise<void> => {
     hold.dayCheck = player.dayCheck
     hold.ascStatToggles = player.ascStatToggles
     hold.hepteractAutoCraftPercentage = player.hepteractAutoCraftPercentage
+    hold.autoWarpCheck = player.autoWarpCheck
     hold.shopBuyMaxToggle = player.shopBuyMaxToggle
     hold.shopHideToggle = player.shopHideToggle
     hold.shopConfirmationToggle = player.shopConfirmationToggle
@@ -1113,6 +1130,7 @@ export const singularity = async (): Promise<void> => {
     hold.overfluxOrbsAutoBuy = player.overfluxOrbsAutoBuy
     hold.hotkeys = player.hotkeys
     hold.theme = player.theme
+    hold.notation = player.notation
     hold.firstPlayed = player.firstPlayed
 
     // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting
@@ -1126,6 +1144,7 @@ export const singularity = async (): Promise<void> => {
 
     const saveCode42 = player.codes.get(42) ?? false
     const saveCode43 = player.codes.get(43) ?? false
+    const saveCode44 = player.codes.get(44) ?? false
 
     // Import Game
 
@@ -1137,6 +1156,7 @@ export const singularity = async (): Promise<void> => {
     player.codes.set(41, true);
     player.codes.set(42, saveCode42)
     player.codes.set(43, saveCode43)
+    player.codes.set(44, saveCode44)
     updateSingularityMilestoneAwards();
 }
 

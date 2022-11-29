@@ -1,4 +1,4 @@
-import { player, resetCheck, blankSave} from './Synergism';
+import { player, resetCheck, blankSave } from './Synergism';
 import { testing } from './Config';
 import type { Player } from './types/Synergism';
 import Decimal from 'break_infinity.js';
@@ -10,10 +10,10 @@ import { padArray } from './Utility';
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts';
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental';
 import { Alert } from './UpdateHTML';
-import { getQuarkInvestment, shopData} from './Shop';
-import type { ISingularityData} from './singularity';
+import { getQuarkInvestment, shopData } from './Shop';
+import type { ISingularityData } from './singularity';
 import { singularityData, SingularityUpgrade } from './singularity';
-import type { IOcteractData} from './Octeracts';
+import type { IOcteractData } from './Octeracts';
 import { octeractData, OcteractUpgrade } from './Octeracts';
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
@@ -283,7 +283,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singCubes2: new SingularityUpgrade(singularityData['singCubes2']),
         singCubes3: new SingularityUpgrade(singularityData['singCubes3']),
         singCitadel: new SingularityUpgrade(singularityData['singCitadel']),
+        singCitadel2: new SingularityUpgrade(singularityData['singCitadel2']),
         octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
+        singOcteractPatreonBonus: new SingularityUpgrade(singularityData['singOcteractPatreonBonus']),
         offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
         intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),
         advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
@@ -297,6 +299,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singChallengeExtension: new SingularityUpgrade(singularityData['singChallengeExtension']),
         singChallengeExtension2: new SingularityUpgrade(singularityData['singChallengeExtension2']),
         singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
+        singQuarkImprover1: new SingularityUpgrade(singularityData['singQuarkImprover1']),
         singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract']),
         singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2']),
         singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3']),
@@ -314,7 +317,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singFastForward: new SingularityUpgrade(singularityData['singFastForward']),
         singFastForward2: new SingularityUpgrade(singularityData['singFastForward2']),
         singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed']),
-        singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2'])
+        singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2']),
+        oneMind: new SingularityUpgrade(singularityData['oneMind']),
+        wowPass4: new SingularityUpgrade(singularityData['wowPass4'])
     }
 
     player.octeractUpgrades = {
@@ -322,11 +327,13 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
         octeractGain2: new OcteractUpgrade(octeractData['octeractGain2']),
         octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
+        octeractQuarkGain2: new OcteractUpgrade(octeractData['octeractQuarkGain2']),
         octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
         octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
         octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
         octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily']),
         octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
+        octeractImprovedDaily3: new OcteractUpgrade(octeractData['octeractImprovedDaily3']),
         octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
         octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed']),
         octeractImprovedAscensionSpeed: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed']),
@@ -343,7 +350,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain']),
         octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
         octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
-        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency'])
+        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency']),
+        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
@@ -485,6 +493,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             seasonPassLost: 0,
             challenge15Auto: 0,
             extraWarp: 0,
+            autoWarp: 0,
             improveQuarkHept: 0,
             improveQuarkHept2: 0,
             improveQuarkHept3: 0,
@@ -492,7 +501,12 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             shopImprovedDaily: 0,
             shopImprovedDaily2: 0,
             shopImprovedDaily3: 0,
-            shopImprovedDaily4: 0
+            shopImprovedDaily4: 0,
+            offeringEX3: 0,
+            obtainiumEX3: 0,
+            improveQuarkHept5: 0,
+            seasonPassInfinity: 0,
+            chronometerInfinity: 0
         }
 
         player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false);
@@ -629,6 +643,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     if (data.hotkeys === undefined) {
         player.hotkeys = {};
         player.theme = 'Dark Mode';
+        player.notation = 'Default';
     }
 
     // Update (read: check) for undefined shop upgrades. Also checks above max level.
@@ -661,7 +676,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     minimumSingularity: singularityData[k].minimumSingularity,
                     effect: singularityData[k].effect,
                     freeLevels: data.singularityUpgrades[k].freeLevels,
-                    canExceedCap: singularityData[k].canExceedCap
+                    canExceedCap: singularityData[k].canExceedCap,
+                    specialCostForm: singularityData[k].specialCostForm
                 }
                 player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
 
@@ -673,7 +689,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                              player.singularityUpgrades[k].costPerLevel / 2
                 if (player.singularityUpgrades[k].maxLevel !== -1 &&
                     player.singularityUpgrades[k].level <= player.singularityUpgrades[k].maxLevel &&
-                    player.singularityUpgrades[k].goldenQuarksInvested !== cost) {
+                    player.singularityUpgrades[k].goldenQuarksInvested !== cost &&
+                    player.singularityUpgrades[k].specialCostForm === 'Default') {
                     player.singularityUpgrades[k].refund()
                 }
             } else {
@@ -733,6 +750,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     if (data.hepteractAutoCraftPercentage === undefined) {
         player.hepteractAutoCraftPercentage = 50;
+    }
+
+    if (data.autoWarpCheck === undefined || player.shopUpgrades.autoWarp === 0) {
+        player.autoWarpCheck = false;
     }
 
     if (data.loadedV297Hotfix1 === undefined) {

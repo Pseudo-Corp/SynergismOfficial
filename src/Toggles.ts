@@ -116,11 +116,12 @@ export const toggleChallenges = (i: number, auto = false) => {
             resetrepeat('reincarnationChallenge');
         }
     }
-    if (i >= 11 && ((!auto && player.toggles[31] === false) || player.challengecompletions[10] > 0)) {
-        if ((!auto && player.toggles[31] === false) || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0)) {
-            player.currentChallenge.ascension = i;
-            reset('ascensionChallenge', false, 'enterChallenge');
+    if (i >= 11 && ((!auto && player.toggles[31] === false) || player.challengecompletions[10] > 0 || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0))) {
+        if (player.currentChallenge.ascension === 15) {
+            void resetCheck('ascensionChallenge', false, true);
         }
+        player.currentChallenge.ascension = i;
+        reset('ascensionChallenge', false, 'enterChallenge');
     }
     updateChallengeDisplay();
     getChallengeConditions(i);
@@ -136,9 +137,9 @@ export const toggleChallenges = (i: number, auto = false) => {
 
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract';
 
-export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000, type: ToggleBuy) => {
+export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000 | 10000 | 100000, type: ToggleBuy) => {
     player[`${type}buyamount` as const] = quantity;
-    const a = ['one', 'ten', 'hundred', 'thousand'][quantity.toString().length - 1];
+    const a = ['one', 'ten', 'hundred', 'thousand', '10k', '100k'][quantity.toString().length - 1];
 
     DOMCacheGetOrSet(`${type}${a}`).style.backgroundColor = 'Green';
     if (quantity !== 1) {
@@ -152,6 +153,12 @@ export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000, type: ToggleBuy) 
     }
     if (quantity !== 1000) {
         DOMCacheGetOrSet(`${type}thousand`).style.backgroundColor = ''
+    }
+    if (quantity !== 10000) {
+        DOMCacheGetOrSet(`${type}10k`).style.backgroundColor = ''
+    }
+    if (quantity !== 100000) {
+        DOMCacheGetOrSet(`${type}100k`).style.backgroundColor = ''
     }
 }
 
@@ -730,13 +737,27 @@ export const toggleShopConfirmation = () => {
     player.shopConfirmationToggle = !player.shopConfirmationToggle;
 }
 
-export const toggleBuyMaxShop = () => {
+export const toggleBuyMaxShop = (event: MouseEvent) => {
     const el = DOMCacheGetOrSet('toggleBuyMaxShop')
-    el.textContent = player.shopBuyMaxToggle
-        ? 'Buy Max: OFF'
-        : 'Buy Max: ON';
-
-    player.shopBuyMaxToggle = !player.shopBuyMaxToggle;
+    if (event.shiftKey) {
+        el.textContent = 'Buy: ANY';
+        player.shopBuyMaxToggle = 'ANY';
+        return;
+    }
+    const suf = '<br><span style=\'color: gold; font-size:75%;\'>Shift-Click for Buy: Any</span>';
+    switch (player.shopBuyMaxToggle) {
+        case false:
+            el.innerHTML = `Buy: 10${suf}`;
+            player.shopBuyMaxToggle = 'TEN';
+            break;
+        case 'TEN':
+            el.innerHTML = `Buy: MAX${suf}`;
+            player.shopBuyMaxToggle = true;
+            break;
+        default:
+            el.innerHTML = `Buy: 1${suf}`;
+            player.shopBuyMaxToggle = false;
+    }
 }
 
 export const toggleHideShop = () => {

@@ -15,7 +15,8 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import { calculateSingularityDebuff } from './singularity';
 import { calculateEventSourceBuff } from './Event';
 import { disableHotkeys, enableHotkeys } from './Hotkeys';
-import { setInterval, clearInterval } from './Timers'
+import { setInterval, clearInterval } from './Timers';
+import { getFastForwardTotalMultiplier } from './singularity';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] =
@@ -366,6 +367,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         +player.singularityUpgrades.singOfferings2.getEffect().bonus, // Offering Storm GQ Upgrade
         +player.singularityUpgrades.singOfferings3.getEffect().bonus, // Offering Tempest GQ Upgrade
         +player.singularityUpgrades.singCitadel.getEffect().bonus, // Citadel GQ Upgrade
+        +player.singularityUpgrades.singCitadel2.getEffect().bonus, // Citadel 2 GQ Upgrade
         1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
         +player.octeractUpgrades.octeractOfferings1.getEffect().bonus, // Offering Electrolosis OC Upgrade
         1 + calculateEventBuff('Offering') // Event
@@ -388,6 +390,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     }
     q *= (1 + 1/200 * player.shopUpgrades.cashGrab2);
     q *= (1 + 1/100 * player.shopUpgrades.offeringEX2 * player.singularityCount);
+    q *= Math.pow(1.02, player.shopUpgrades.offeringEX3)
     q = Math.min(1e300, q);
 
     let persecond = 0;
@@ -460,7 +463,7 @@ export const calculateObtainium = () => {
     if (player.reincarnationCount >= 5) {
         G['obtainiumGain'] *= Math.max(1, player.reincarnationcounter / 10)
     }
-    G['obtainiumGain'] *= Math.pow(Decimal.log(Decimal.max(player.transcendShards.add(1), 1), 10) / 300, 2)
+    G['obtainiumGain'] *= Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2);
     G['obtainiumGain'] = Math.pow(G['obtainiumGain'], Math.min(1, G['illiteracyPower'][player.usedCorruptions[5]] * (1 + 9 / 100 * player.platonicUpgrades[9] * Math.min(100, Math.log10(player.researchPoints + 10)))))
     G['obtainiumGain'] *= (1 + 4 / 100 * player.cubeUpgrades[42])
     G['obtainiumGain'] *= (1 + 3 / 100 * player.cubeUpgrades[43])
@@ -477,6 +480,10 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= (1 + 1/200 * player.shopUpgrades.cashGrab2)
     G['obtainiumGain'] *= (1 + 1/100 * player.shopUpgrades.obtainiumEX2 * player.singularityCount)
     G['obtainiumGain'] *= 1 + calculateEventBuff('Obtainium');
+    G['obtainiumGain'] *= +player.singularityUpgrades.singCitadel.getEffect().bonus;
+    G['obtainiumGain'] *= +player.singularityUpgrades.singCitadel2.getEffect().bonus;
+    G['obtainiumGain'] *= +player.octeractUpgrades.octeractObtainium1.getEffect().bonus;
+    G['obtainiumGain'] *= Math.pow(1.02, player.shopUpgrades.obtainiumEX3);
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
         G['obtainiumGain'] *= (1 + 7 * player.cubeUpgrades[62])
@@ -501,100 +508,6 @@ export const calculateObtainium = () => {
     }
     player.obtainiumpersecond = Math.min(1e300, G['obtainiumGain']) / (0.1 + player.reincarnationcounter);
     player.maxobtainiumpersecond = Math.max(player.maxobtainiumpersecond, player.obtainiumpersecond);
-}
-
-export const calculateObtainium2 = () => {
-    G['obtainiumGain'] = 1;
-    if (player.upgrades[69] > 0) {
-        G['obtainiumGain'] *= Math.min(10, new Decimal(Decimal.pow(Decimal.log(G['reincarnationPointGain'].add(10), 10), 0.5)).toNumber())
-    }
-    if (player.upgrades[72] > 0) {
-        G['obtainiumGain'] *= Math.min(50, (1 + 2 * player.challengecompletions[6] + 2 * player.challengecompletions[7] + 2 * player.challengecompletions[8] + 2 * player.challengecompletions[9] + 2 * player.challengecompletions[10]))
-    }
-    if (player.upgrades[74] > 0) {
-        G['obtainiumGain'] *= (1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5)))
-    }
-    G['obtainiumGain'] *= (1 + player.researches[65] / 5)
-    G['obtainiumGain'] *= (1 + player.researches[76] / 10)
-    G['obtainiumGain'] *= (1 + player.researches[81] / 10)
-    G['obtainiumGain'] *= (1 + player.shopUpgrades.obtainiumAuto / 50)
-    G['obtainiumGain'] *= (1 + player.shopUpgrades.cashGrab / 100)
-    G['obtainiumGain'] *= (1 + G['rune5level'] / 200 * G['effectiveLevelMult'] * (1 + player.researches[84] / 200 * (1 + 1 * G['effectiveRuneSpiritPower'][5] * calculateCorruptionPoints() / 400)))
-    G['obtainiumGain'] *= (1 + 0.01 * player.achievements[84] + 0.03 * player.achievements[91] + 0.05 * player.achievements[98] + 0.07 * player.achievements[105] + 0.09 * player.achievements[112] + 0.11 * player.achievements[119] + 0.13 * player.achievements[126] + 0.15 * player.achievements[133] + 0.17 * player.achievements[140] + 0.19 * player.achievements[147])
-    G['obtainiumGain'] *= (1 + 2 * Math.pow((player.antUpgrades[10-1]! + G['bonusant10']) / 50, 2 / 3))
-    G['obtainiumGain'] *= (1 + player.achievements[188] * Math.min(2, player.ascensionCount / 5e6))
-    G['obtainiumGain'] *= (1 + 0.6 * player.achievements[250] + 1 * player.achievements[251])
-    G['obtainiumGain'] *= G['cubeBonusMultiplier'][5]
-    G['obtainiumGain'] *= (1 + 0.04 * player.constantUpgrades[4])
-    G['obtainiumGain'] *= (1 + 0.1 * player.cubeUpgrades[47])
-    G['obtainiumGain'] *= (1 + 0.1 * player.cubeUpgrades[3])
-    G['obtainiumGain'] *= (1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]))
-    G['obtainiumGain'] *= (1 + calculateCorruptionPoints() / 400 * G['effectiveRuneSpiritPower'][4])
-    G['obtainiumGain'] *= (1 + 0.03 * Math.log(player.uncommonFragments + 1) / Math.log(4) * player.researches[144])
-    G['obtainiumGain'] *= (1 + 0.02 / 100 * player.cubeUpgrades[50])
-    if (player.achievements[53] > 0) {
-        G['obtainiumGain'] *= (1 + 1 / 800 * (G['runeSum']))
-    }
-    if (player.achievements[128]) {
-        G['obtainiumGain'] *= 1.5
-    }
-    if (player.achievements[129]) {
-        G['obtainiumGain'] *= 1.25
-    }
-
-    if (player.achievements[51] > 0) {
-        G['obtainiumGain'] += 4
-    }
-    if (player.reincarnationcounter >= 2) {
-        G['obtainiumGain'] += 1 * player.researches[63]
-    }
-    if (player.reincarnationcounter >= 5) {
-        G['obtainiumGain'] += 2 * player.researches[64]
-    }
-    G['obtainiumGain'] *= Math.min(1, Math.pow(player.reincarnationcounter / 10, 2));
-    G['obtainiumGain'] *= (1 + 1 / 25 * player.shopUpgrades.obtainiumEX)
-    if (player.reincarnationCount >= 5) {
-        G['obtainiumGain'] *= Math.max(1, player.reincarnationcounter / 10)
-    }
-    G['obtainiumGain'] *= Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2)
-    G['obtainiumGain'] = Math.pow(G['obtainiumGain'], Math.min(1, G['illiteracyPower'][player.usedCorruptions[5]] * (1 + 9 / 100 * player.platonicUpgrades[9] * Math.min(100, Math.log(player.researchPoints + 10) / Math.log(10)))))
-    G['obtainiumGain'] *= (1 + 4 / 100 * player.cubeUpgrades[42])
-    G['obtainiumGain'] *= (1 + 3 / 100 * player.cubeUpgrades[43])
-    G['obtainiumGain'] *= (1 + player.platonicUpgrades[5])
-    G['obtainiumGain'] *= (1 + 1.5 * player.platonicUpgrades[9])
-    G['obtainiumGain'] *= (1 + 2.5 * player.platonicUpgrades[10])
-    G['obtainiumGain'] *= (1 + 5 * player.platonicUpgrades[15])
-    G['obtainiumGain'] *= G['challenge15Rewards'].obtainium
-    G['obtainiumGain'] *= 1 + 5 * (player.singularityUpgrades.starterPack.getEffect().bonus ? 1 : 0)
-    G['obtainiumGain'] *= +player.singularityUpgrades.singObtainium1.getEffect().bonus
-    G['obtainiumGain'] *= +player.singularityUpgrades.singObtainium2.getEffect().bonus
-    G['obtainiumGain'] *= +player.singularityUpgrades.singObtainium3.getEffect().bonus
-    G['obtainiumGain'] *= (1 + player.cubeUpgrades[55] / 100) // Cube Upgrade 6x5 (Cx5)
-    G['obtainiumGain'] *= (1 + 1/200 * player.shopUpgrades.cashGrab2)
-    G['obtainiumGain'] *= (1 + 1/100 * player.shopUpgrades.obtainiumEX2 * player.singularityCount)
-    G['obtainiumGain'] *= 1 + calculateEventBuff('Obtainium');
-    G['obtainiumGain'] *= +player.singularityUpgrades.singCitadel.getEffect().bonus
-    G['obtainiumGain'] *= +player.octeractUpgrades.octeractObtainium1.getEffect().bonus
-    if (player.currentChallenge.ascension === 15) {
-        G['obtainiumGain'] += 1;
-        G['obtainiumGain'] *= (1 + 7 * player.cubeUpgrades[62])
-    }
-
-
-    G['obtainiumGain'] = Math.min(1e300, G['obtainiumGain']);
-    G['obtainiumGain'] /= calculateSingularityDebuff('Obtainium');
-
-    if (player.usedCorruptions[5] >= 15) {
-        G['obtainiumGain'] = Math.pow(G['obtainiumGain'], 1/4)
-    }
-    if (player.usedCorruptions[5] >= 16) {
-        G['obtainiumGain'] = Math.pow(G['obtainiumGain'], 1/3)
-    }
-
-    G['obtainiumGain'] = Math.max(1 + player.singularityCount, G['obtainiumGain']);
-    if (player.currentChallenge.ascension === 14) {
-        G['obtainiumGain'] = 0
-    }
 }
 
 export const calculateAutomaticObtainium = () => {
@@ -1197,9 +1110,13 @@ export const calculateAllCubeMultiplier = () => {
         calculateTotalOcteractCubeBonus(),
         // Singularity Citadel
         +player.singularityUpgrades.singCitadel.getEffect().bonus,
+        // Singularity Citadel 2
+        +player.singularityUpgrades.singCitadel2.getEffect().bonus,
         // Platonic DELTA
-        1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24))
-        // Total Global Cube Multipliers: 18
+        1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24)),
+        // Wow Pass INF
+        Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
+        // Total Global Cube Multipliers: 19
     ]
     return {
         mult: productContents(arr),
@@ -1413,6 +1330,8 @@ export const getOcteractValueMultipliers = () => {
         +player.singularityUpgrades.singOcteractGain3.getEffect().bonus,
         +player.singularityUpgrades.singOcteractGain4.getEffect().bonus,
         +player.singularityUpgrades.singOcteractGain5.getEffect().bonus,
+        // Patreon bonus
+        1 + (player.worlds.BONUS / 100) * +player.singularityUpgrades.singOcteractPatreonBonus.getEffect().bonus,
         // octeracts for dummies
         1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
         // cogenesis and trigenesis
@@ -1422,7 +1341,9 @@ export const getOcteractValueMultipliers = () => {
         // digital octeract accumulator
         Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
         1 + calculateEventBuff('Octeract'),
-        1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24))
+        1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24)),
+        // Wow Pass INF
+        Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
     ];
 }
 
@@ -1434,8 +1355,9 @@ export const octeractGainPerSecond = () => {
 
     const valueMultipliers = getOcteractValueMultipliers()
 
-    const ascensionSpeed = Math.pow(calculateAscensionAcceleration(), 1 / 2)
-    const perSecond = 1 / (24 * 3600 * 365 * 1e15) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed
+    const ascensionSpeed = player.singularityUpgrades.oneMind.getEffect().bonus ? Math.pow(10, 1/2) : Math.pow(calculateAscensionAcceleration(), 1 / 2)
+    const oneMindModifier = player.singularityUpgrades.oneMind.getEffect().bonus ? Math.pow(calculateAscensionAcceleration() / 10, +player.octeractUpgrades.octeractOneMindImprover.getEffect().bonus): 1;
+    const perSecond = 1 / (24 * 3600 * 365 * 1e15) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed * oneMindModifier
     return perSecond
 }
 
@@ -1450,7 +1372,12 @@ export const calculateOcteractMultiplier = (score = -1) => {
 
     // add base score to the beginning and ascension speed mult to the end of the list
     arr.unshift((score >= SCOREREQ) ? score / SCOREREQ : 0)
-    arr.push(Math.pow(calculateAscensionAcceleration(), 1 / 2))
+    const ascensionSpeed = calculateAscensionAcceleration()
+
+    const ascensionSpeedMulti = (player.singularityUpgrades.oneMind.getEffect().bonus) ?
+        Math.pow(10, 1/2) * Math.pow(ascensionSpeed / 10, +player.octeractUpgrades.octeractOneMindImprover.getEffect().bonus) :
+        Math.pow(ascensionSpeed, 1/2)
+    arr.push(ascensionSpeedMulti)
 
     return {
         list: arr,
@@ -1513,7 +1440,8 @@ export const calculateAscensionAcceleration = () => {
         1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed.getEffect().bonus * player.singularityCount, // Oct Upgrade 1
         1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed2.getEffect().bonus * player.singularityCount, // Oct Upgrade 2
         1 + calculateEventBuff('Ascension Speed'),                                                      // Event
-        (player.singularityUpgrades.singAscensionSpeed2.level > 0 && player.runelevels[6] < 1) ? 6 : 1 // Sing Ascension Speed lol
+        (player.singularityUpgrades.singAscensionSpeed2.level > 0 && player.runelevels[6] < 1) ? 6 : 1, // Sing Ascension Speed lol
+        Math.pow(1.01, player.shopUpgrades.chronometerInfinity)                                         // Chronometer INF
     ]
     const baseMultiplier = productContents(arr) / calculateSingularityDebuff('Ascension Speed')
     const exponent = (player.singularityUpgrades.singAscensionSpeed.level > 0) ?
@@ -1527,11 +1455,15 @@ export const calculateAscensionAcceleration = () => {
 
 export const calculateSingularityQuarkMilestoneMultiplier = () => {
     let multiplier = 1
-    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 169, 196, 200, 225, 250]
+    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180, 190, 196, 200, 201, 202, 203, 204, 205, 225, 250]
     for (const sing of singThresholds) {
-        if (player.singularityCount >= sing) {
+        if (player.highestSingularityCount >= sing) {
             multiplier *= 1.05
         }
+    }
+
+    if (player.highestSingularityCount >= 200) {
+        multiplier *= Math.pow((player.highestSingularityCount - 179) / 20, 2)
     }
 
     return multiplier
@@ -1576,7 +1508,7 @@ export const calculateQuarkMultiplier = () => {
         multiplier *= (1 + player.singularityCount / 10)
     }
     if (G['isEvent']) {
-        multiplier *= 1 + calculateEventBuff('Quarks');
+        multiplier *= 1 + calculateEventBuff('Quarks') + calculateEventBuff('One Mind');
     }
     if (player.cubeUpgrades[53] > 0) { // Cube Upgrade 6x3 (Cx3)
         multiplier *= (1 + 0.10 * player.cubeUpgrades[53] / 100)
@@ -1587,8 +1519,12 @@ export const calculateQuarkMultiplier = () => {
 
     multiplier *= calculateSingularityQuarkMilestoneMultiplier();
 
-    multiplier *= +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus
-    multiplier *= (1 + 0.25 * + player.octeractUpgrades.octeractStarter.getEffect().bonus)
+    multiplier *= +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus // Oct Improver 1
+    multiplier *= (1 + 0.25 * + player.octeractUpgrades.octeractStarter.getEffect().bonus) // Oct Starter Pack
+
+    multiplier *= (1 + 1/10000 * Math.floor(player.octeractUpgrades.octeractQuarkGain.level / 199) *
+                                player.octeractUpgrades.octeractQuarkGain2.level *
+                                Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL)))) // Improver 2
 
     multiplier *= (1 + 0.02 * player.singularityUpgrades.intermediatePack.level +               // 1.02
                            0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
@@ -1596,6 +1532,7 @@ export const calculateQuarkMultiplier = () => {
                            0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
                            0.10 * player.singularityUpgrades.expertPack.level)                  // 1.30
 
+    multiplier *= 1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus // Doohickey
     multiplier *= calculateTotalOcteractQuarkBonus()
 
     return multiplier
@@ -1605,7 +1542,7 @@ export const calculateQuarkMultiplier = () => {
  *
  * Calculate the number of Golden Quarks earned in current singularity
  */
-export const calculateGoldenQuarkGain = ():number => {
+export const calculateGoldenQuarkGain = (computeMultiplier = false):number => {
     const base = 2 * player.singularityCount + 10
 
     let bonus = (player.singularityCount < 10) ? (200 - 10 * player.singularityCount) : 0;
@@ -1615,10 +1552,7 @@ export const calculateGoldenQuarkGain = ():number => {
 
     const gainFromQuarks = player.quarksThisSingularity / 1e5;
 
-    let fastForwardMultiplier = 1;
-    fastForwardMultiplier += +player.singularityUpgrades.singFastForward.getEffect().bonus;
-    fastForwardMultiplier += +player.singularityUpgrades.singFastForward2.getEffect().bonus;
-    fastForwardMultiplier += +player.octeractUpgrades.octeractFastForward.getEffect().bonus;
+    const fastForwardMultiplier = 1 + getFastForwardTotalMultiplier();
 
     const allGoldenQuarkMultiplier = productContents([
         1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2,
@@ -1630,7 +1564,22 @@ export const calculateGoldenQuarkGain = ():number => {
         (player.highestSingularityCount >= 100) ? 1 + player.highestSingularityCount / 250 : 1
     ]);
 
-    return (base + gainFromQuarks) * allGoldenQuarkMultiplier + bonus;
+    let perkMultiplier = 1
+    if (player.highestSingularityCount >= 200) {
+        perkMultiplier = 3
+    }
+    if (player.highestSingularityCount >= 208) {
+        perkMultiplier = 5
+    }
+    if (player.highestSingularityCount >= 221) {
+        perkMultiplier = 8
+    }
+
+    if (computeMultiplier) {
+        return allGoldenQuarkMultiplier * perkMultiplier / 1e5
+    }
+
+    return (base + gainFromQuarks) * allGoldenQuarkMultiplier * perkMultiplier + bonus;
 }
 
 export const calculateCorruptionPoints = () => {
@@ -1676,6 +1625,7 @@ export const calculateSummationNonLinear = (
         : Math.floor(v);
 
     buyToLevel = Math.min(buyToLevel, buyAmount + baseLevel)
+    buyToLevel = Math.max(buyToLevel, baseLevel)
     let totalCost = baseCost * (c * Math.pow(buyToLevel, 2) + buyToLevel * (1 - c)) - alreadySpent
     if (buyToLevel == baseLevel) {
         totalCost = baseCost * (1 + 2 * c * baseLevel)
@@ -1760,7 +1710,7 @@ export const calculateCubicSumData = (initialLevel: number, baseCost: number,
     const determinantRoot = Math.pow(totalToSpend / baseCost, 0.5) // Assume nonnegative!
     const solution = solveQuadratic(1, 1, -2 * determinantRoot, true)
 
-    const levelToBuy = Math.min(maxLevel, Math.floor(solution))
+    const levelToBuy = Math.max(Math.min(maxLevel, Math.floor(solution)), initialLevel)
     const realCost = (levelToBuy === initialLevel)? baseCost * Math.pow(initialLevel + 1, 3) :
         baseCost * calculateSummationCubic(levelToBuy) - alreadySpent;
 
@@ -1888,9 +1838,12 @@ export const CalcCorruptionStuff = () => {
         cubeBank += challengeModifier * player.highestchallengecompletions[i]
     }
 
+    const oneMindModifier = (player.singularityUpgrades.oneMind.getEffect().bonus) ? calculateAscensionAcceleration() / 10 : 1
+
     // Calculation of Cubes :)
     let cubeGain = cubeBank;
     cubeGain *= calculateCubeMultiplier(effectiveScore).mult;
+    cubeGain *= oneMindModifier
 
     const bonusCubeExponent = (player.singularityUpgrades.platonicTau.getEffect().bonus) ? 1.01 : 1
     cubeGain = Math.pow(cubeGain, bonusCubeExponent)
@@ -1901,18 +1854,22 @@ export const CalcCorruptionStuff = () => {
         tesseractGain += 0.5
     }
     tesseractGain *= calculateTesseractMultiplier(effectiveScore).mult;
+    tesseractGain *= oneMindModifier
 
     // Calculation of Hypercubes :)))
     let hypercubeGain = (effectiveScore >= 1e9) ? 1 : 0;
     hypercubeGain *= calculateHypercubeMultiplier(effectiveScore).mult;
+    hypercubeGain *= oneMindModifier
 
     // Calculation of Platonic Cubes :))))
     let platonicGain = (effectiveScore >= 2.666e12) ? 1 : 0;
     platonicGain *= calculatePlatonicMultiplier(effectiveScore).mult;
+    platonicGain *= oneMindModifier
 
     // Calculation of Hepteracts :)))))
     let hepteractGain = (G['challenge15Rewards']['hepteractUnlocked'] && effectiveScore >= 1.666e17 && player.achievements[255] > 0) ? 1 : 0;
     hepteractGain *= calculateHepteractMultiplier(effectiveScore).mult
+    hepteractGain *= oneMindModifier
 
     return [cubeBank, Math.floor(baseScore), corruptionMultiplier, Math.floor(effectiveScore), Math.floor(cubeGain), Math.max(player.singularityCount, Math.floor(tesseractGain)), Math.floor(hypercubeGain), Math.floor(platonicGain), Math.floor(hepteractGain), (bonusMultiplier)]
 }
@@ -1943,6 +1900,7 @@ export const calcAscensionCount = () => {
         ascCount *= +player.singularityUpgrades.ascensions.getEffect().bonus
         ascCount *= +player.octeractUpgrades.octeractAscensions.getEffect().bonus
         ascCount *= +player.octeractUpgrades.octeractAscensions2.getEffect().bonus
+        ascCount *= (player.singularityUpgrades.oneMind.getEffect().bonus) ? calculateAscensionAcceleration() / 10 : 1
     }
 
     return Math.floor(ascCount);
@@ -1982,7 +1940,8 @@ export const calculateCubeQuarkMultiplier = () => {
            calculateSigmoid(1.55, +(player.singularityCount >= 25) * Math.pow(player.overfluxOrbs, 0.21), 1e7) +
            calculateSigmoid(1.85, +(player.singularityCount >= 30) * Math.pow(player.overfluxOrbs, 0.18), 4e7) +
            calculateSigmoid(3, +(player.singularityCount >= 35) * Math.pow(player.overfluxOrbs, 0.15), 1e8) -
-           11) * (1 + 1/500 * player.shopUpgrades.cubeToQuarkAll);
+           11) * (1 + 1/500 * player.shopUpgrades.cubeToQuarkAll) *
+           (player.autoWarpCheck ? 1 + player.dailyPowderResetUses : 1);
 }
 
 export const calculateCubeMultFromPowder = () => {
