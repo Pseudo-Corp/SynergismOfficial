@@ -1,5 +1,5 @@
 import { player, saveSynergy, format, resourceGain, updateAll, getTimePinnedToLoadDate } from './Synergism';
-import { sumContents, productContents } from './Utility';
+import { sumContents, productContents, calculateContents } from './Utility';
 import { Globals as G } from './Variables';
 import { CalcECC } from './Challenges';
 import Decimal from 'break_infinity.js';
@@ -2021,4 +2021,25 @@ export const derpsmithCornucopiaBonus = () => {
     }
 
     return 1 + counter * player.singularityCount / 100
+}
+
+export const calculateDailyRewardRolls = () => {
+    const rolls = [
+        {'type': '+', 'value': 3 * Math.sqrt(player.singularityCount)},
+        {'type': '+', 'value': +player.octeractUpgrades.octeractImprovedDaily.getEffect().bonus},
+        {'type': '+', 'value': player.shopUpgrades.shopImprovedDaily2},
+        {'type': '+', 'value': player.shopUpgrades.shopImprovedDaily3},
+        {'type': '+', 'value': player.shopUpgrades.shopImprovedDaily4},
+        {'type': '+', 'value': (+player.singularityUpgrades.platonicPhi.getEffect().bonus *
+                Math.min(50, 5 * player.singularityCounter / (3600 * 24)))},
+        {'type': '+', 'value': +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus},
+        {'type': '*', 'value': +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus},
+        {'type': '*', 'value': 1 + +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus / 200},
+        {'type': '*', 'value': player.highestSingularityCount >= 200 ? 2 : 1}
+    ];
+
+    return {
+        list: rolls,
+        total: Math.floor(calculateContents(rolls))
+    };
 }

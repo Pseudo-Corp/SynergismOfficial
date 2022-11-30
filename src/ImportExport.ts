@@ -1,5 +1,5 @@
 import { player, saveSynergy, blankSave, reloadShit, format } from './Synergism';
-import { octeractGainPerSecond } from './Calculate';
+import {calculateDailyRewardRolls, octeractGainPerSecond} from './Calculate';
 import { testing, version } from './Config';
 import { cleanString, getElementById } from './Utility';
 import LZString from 'lz-string';
@@ -389,22 +389,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 singOfferings1: {value: 1, pdf: (x: number) => 600 < x && x <= 800},
                 ascensions: {value: 1, pdf: (x: number) => 800 < x && x <= 1000}
             }
-            let rolls = 3 * Math.sqrt(player.singularityCount)
-            rolls += +player.octeractUpgrades.octeractImprovedDaily.getEffect().bonus
-            rolls += player.shopUpgrades.shopImprovedDaily2
-            rolls += player.shopUpgrades.shopImprovedDaily3
-            rolls += player.shopUpgrades.shopImprovedDaily4
-            rolls += (+player.singularityUpgrades.platonicPhi.getEffect().bonus *
-                        Math.min(50, 5 * player.singularityCounter / (3600 * 24)))
-            rolls += +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus
-            rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
-            rolls *= 1 + +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus / 200
 
-            if (player.highestSingularityCount >= 200) {
-                rolls *= 2
-            }
-
-            rolls = Math.floor(rolls)
+            const rolls = calculateDailyRewardRolls().total;
 
             const keys = Object
                 .keys(player.singularityUpgrades)

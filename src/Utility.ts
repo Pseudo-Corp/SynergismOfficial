@@ -47,6 +47,24 @@ export const sumContents = (array: number[]): number => {
  */
 export const productContents = (array: number[]): number => array.reduce((a, b) => a * b);
 
+/**
+ * Given an array of {type, value} where type is one of '+' or '*', reduces the values based on the
+ * arithmetic operation associated with each value.
+ * @param toCalc
+ * @returns number
+ */
+export const calculateContents = (toCalc: {'type':string, 'value':number}[]): number => {
+    return toCalc.reduce((accumulator, contents) => {
+        if (contents.type === '+') {
+            return accumulator + contents.value;
+        }
+        if (contents.type === '*') {
+            return accumulator * contents.value;
+        }
+        return accumulator;
+    }, 0)
+}
+
 export const sortWithIndices = (toSort: number[]) => {
     return Array
         .from([...toSort.keys()])
