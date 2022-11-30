@@ -1,5 +1,5 @@
 import { sacrificeAnts } from './Ants';
-import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
+import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateGoldenQuarkGain, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
 import { quarkHandler } from './Quark';
 import { redeemShards, unlockedRune, checkMaxRunes } from './Runes';
 import { player } from './Synergism';
@@ -78,6 +78,23 @@ export const addTimers = (input: TimerInput, time = 0) => {
                 const perSecond = octeractGainPerSecond()
                 player.wowOcteracts += amountOfGiveaways * perSecond
                 player.totalWowOcteracts += amountOfGiveaways * perSecond
+
+                if (player.highestSingularityCount >= 160) {
+                    const levels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249]
+                    const frac = 1e-6
+                    let actualLevel = 0
+                    for (const sing of levels) {
+                        if (player.highestSingularityCount >= sing) {
+                            actualLevel += 1
+                        }
+                    }
+
+                    for (let i = 0; i < amountOfGiveaways; i++) {
+                        const quarkFraction = player.quarksThisSingularity * frac * actualLevel
+                        player.goldenQuarks += quarkFraction * calculateGoldenQuarkGain(true)
+                        player.quarksThisSingularity -= quarkFraction
+                    }
+                }
                 visualUpdateOcteracts()
             }
             break;

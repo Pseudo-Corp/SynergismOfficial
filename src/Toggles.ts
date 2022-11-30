@@ -116,11 +116,12 @@ export const toggleChallenges = (i: number, auto = false) => {
             resetrepeat('reincarnationChallenge');
         }
     }
-    if (i >= 11 && ((!auto && player.toggles[31] === false) || player.challengecompletions[10] > 0)) {
-        if ((!auto && player.toggles[31] === false) || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0)) {
-            player.currentChallenge.ascension = i;
-            reset('ascensionChallenge', false, 'enterChallenge');
+    if (i >= 11 && ((!auto && player.toggles[31] === false) || player.challengecompletions[10] > 0 || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0))) {
+        if (player.currentChallenge.ascension === 15) {
+            void resetCheck('ascensionChallenge', false, true);
         }
+        player.currentChallenge.ascension = i;
+        reset('ascensionChallenge', false, 'enterChallenge');
     }
     updateChallengeDisplay();
     getChallengeConditions(i);
@@ -136,9 +137,9 @@ export const toggleChallenges = (i: number, auto = false) => {
 
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract';
 
-export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000, type: ToggleBuy) => {
+export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000 | 10000 | 100000, type: ToggleBuy) => {
     player[`${type}buyamount` as const] = quantity;
-    const a = ['one', 'ten', 'hundred', 'thousand'][quantity.toString().length - 1];
+    const a = ['one', 'ten', 'hundred', 'thousand', '10k', '100k'][quantity.toString().length - 1];
 
     DOMCacheGetOrSet(`${type}${a}`).style.backgroundColor = 'Green';
     if (quantity !== 1) {
@@ -152,6 +153,12 @@ export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000, type: ToggleBuy) 
     }
     if (quantity !== 1000) {
         DOMCacheGetOrSet(`${type}thousand`).style.backgroundColor = ''
+    }
+    if (quantity !== 10000) {
+        DOMCacheGetOrSet(`${type}10k`).style.backgroundColor = ''
+    }
+    if (quantity !== 100000) {
+        DOMCacheGetOrSet(`${type}100k`).style.backgroundColor = ''
     }
 }
 

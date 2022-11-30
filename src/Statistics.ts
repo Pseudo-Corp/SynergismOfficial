@@ -126,7 +126,7 @@ export const loadQuarkMultiplier = () => {
     DOMCacheGetOrSet('sGQM7').textContent = '+' + format(player.platonicUpgrades[15] > 0 ? 0.20 : 0, 3, true) //OMEGA
     DOMCacheGetOrSet('sGQM8').textContent = '+' + format(G.challenge15Rewards['quarks']-1, 3, true) //Challenge 15 Reward
     DOMCacheGetOrSet('sGQM9').textContent = 'x' + format(player.worlds.applyBonus(1 / calculateQuarkMultiplier()), 3, true) //Patreon Bonus
-    DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G['isEvent'] ? 1 + calculateEventBuff('Quarks') : 1), 3, true) //Event
+    DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G['isEvent'] ? 1 + calculateEventBuff('Quarks') + calculateEventBuff('One Mind') : 1), 3, true) //Event
     DOMCacheGetOrSet('sGQM11').textContent = 'x' + format(1.1 + 0.15 / 75 * calculateEffectiveIALevel(), 3, true) //IA Rune
     DOMCacheGetOrSet('sGQM12').textContent = 'x' + format(player.challenge15Exponent >= 1e15 ? 1 + 5/10000 * hepteractEffective('quark') : 1, 3, true) //Quark Hepteract
     DOMCacheGetOrSet('sGQM13').textContent = 'x' + format(calculateQuarkMultFromPowder(), 3, true) //Powder
@@ -143,6 +143,12 @@ export const loadQuarkMultiplier = () => {
     DOMCacheGetOrSet('sGQM20').textContent = 'x' + format(1 + 0.25 * +player.octeractUpgrades.octeractStarter.getEffect().bonus, 3, true)
     DOMCacheGetOrSet('sGQM21').textContent = 'x' + format(+player.octeractUpgrades.octeractQuarkGain.getEffect().bonus, 3, true)
     DOMCacheGetOrSet('sGQM22').textContent = 'x' + format(calculateTotalOcteractQuarkBonus(), 3, true)
+    DOMCacheGetOrSet('sGQM23').textContent = 'x' + format(1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus, 3, true)
+    DOMCacheGetOrSet('sGQM24').textContent = 'x' + format(1 + 1/10000 * Math.floor(player.octeractUpgrades.octeractQuarkGain.level / 199) *
+                                                            player.octeractUpgrades.octeractQuarkGain2.level *
+                                                            Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL))),
+    3,
+    true)
     DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
 }
 export const loadStatisticsCubeMultipliers = () => {
@@ -169,8 +175,9 @@ export const loadStatisticsCubeMultipliers = () => {
         18: {acc: 2, desc: 'Cookie Upgrade 8:'},
         19: {acc: 2, desc: 'Total Octeract Bonus:'},
         20: {acc: 2, desc: 'Citadel [GQ]'},
-        21: {acc: 4, desc: 'Platonic DELTA'},
-        22: {acc: 2, desc: 'Wow Pass ∞'}
+        21: {acc: 2, desc: 'Citadel 2 [GQ]'},
+        22: {acc: 4, desc: 'Platonic DELTA'},
+        23: {acc: 2, desc: 'Wow Pass ∞'}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
@@ -359,9 +366,10 @@ export const loadStatisticsOfferingMultipliers = () => {
         26: {acc: 3, desc: 'Offering Storm [GQ]:'},
         27: {acc: 3, desc: 'Offering Tempest [GQ]:'},
         28: {acc: 3, desc: 'Citadel [GQ]'},
-        29: {acc: 3, desc: 'Cube Upgrade Cx4:'},
-        30: {acc: 3, desc: 'Offering Electrolosis [OC]:'},
-        31: {acc: 3, desc: 'Event:'}
+        29: {acc: 3, desc: 'Citadel 2 [GQ]'},
+        30: {acc: 3, desc: 'Cube Upgrade Cx4:'},
+        31: {acc: 3, desc: 'Offering Electrolosis [OC]:'},
+        32: {acc: 3, desc: 'Event:'}
     }
     for (let i = 0; i < arr.length; i++) {
         const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`);

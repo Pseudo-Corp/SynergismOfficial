@@ -139,7 +139,7 @@ export const resetdetails = (input: resetNames) => {
         case 'ascension':
             currencyImage1.style.display = 'none'
             resetCurrencyGain.textContent = '';
-            resetInfo.textContent = 'Ascend, C-10 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds.\n(Real-time ' + format(player.ascensionCounterRealReal, 0, false) + ' Seconds)';
+            resetInfo.textContent = 'Ascend, C-10 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds. (Real-time ' + format(player.ascensionCounterRealReal, 0, false) + ' Seconds)';
             resetInfo.style.color = 'gold';
             break;
         case 'singularity':
@@ -1145,6 +1145,7 @@ export const singularity = async (): Promise<void> => {
 
     const saveCode42 = player.codes.get(42) ?? false
     const saveCode43 = player.codes.get(43) ?? false
+    const saveCode44 = player.codes.get(44) ?? false
 
     // Import Game
 
@@ -1156,6 +1157,7 @@ export const singularity = async (): Promise<void> => {
     player.codes.set(41, true);
     player.codes.set(42, saveCode42)
     player.codes.set(43, saveCode43)
+    player.codes.set(44, saveCode44)
     updateSingularityMilestoneAwards();
 }
 

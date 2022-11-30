@@ -367,6 +367,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         +player.singularityUpgrades.singOfferings2.getEffect().bonus, // Offering Storm GQ Upgrade
         +player.singularityUpgrades.singOfferings3.getEffect().bonus, // Offering Tempest GQ Upgrade
         +player.singularityUpgrades.singCitadel.getEffect().bonus, // Citadel GQ Upgrade
+        +player.singularityUpgrades.singCitadel2.getEffect().bonus, // Citadel 2 GQ Upgrade
         1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
         +player.octeractUpgrades.octeractOfferings1.getEffect().bonus, // Offering Electrolosis OC Upgrade
         1 + calculateEventBuff('Offering') // Event
@@ -480,6 +481,7 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= (1 + 1/100 * player.shopUpgrades.obtainiumEX2 * player.singularityCount)
     G['obtainiumGain'] *= 1 + calculateEventBuff('Obtainium');
     G['obtainiumGain'] *= +player.singularityUpgrades.singCitadel.getEffect().bonus;
+    G['obtainiumGain'] *= +player.singularityUpgrades.singCitadel2.getEffect().bonus;
     G['obtainiumGain'] *= +player.octeractUpgrades.octeractObtainium1.getEffect().bonus;
     G['obtainiumGain'] *= Math.pow(1.02, player.shopUpgrades.obtainiumEX3);
     if (player.currentChallenge.ascension === 15) {
@@ -1108,6 +1110,8 @@ export const calculateAllCubeMultiplier = () => {
         calculateTotalOcteractCubeBonus(),
         // Singularity Citadel
         +player.singularityUpgrades.singCitadel.getEffect().bonus,
+        // Singularity Citadel 2
+        +player.singularityUpgrades.singCitadel2.getEffect().bonus,
         // Platonic DELTA
         1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24)),
         // Wow Pass INF
@@ -1504,7 +1508,7 @@ export const calculateQuarkMultiplier = () => {
         multiplier *= (1 + player.singularityCount / 10)
     }
     if (G['isEvent']) {
-        multiplier *= 1 + calculateEventBuff('Quarks');
+        multiplier *= 1 + calculateEventBuff('Quarks') + calculateEventBuff('One Mind');
     }
     if (player.cubeUpgrades[53] > 0) { // Cube Upgrade 6x3 (Cx3)
         multiplier *= (1 + 0.10 * player.cubeUpgrades[53] / 100)
@@ -1515,8 +1519,12 @@ export const calculateQuarkMultiplier = () => {
 
     multiplier *= calculateSingularityQuarkMilestoneMultiplier();
 
-    multiplier *= +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus
-    multiplier *= (1 + 0.25 * + player.octeractUpgrades.octeractStarter.getEffect().bonus)
+    multiplier *= +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus // Oct Improver 1
+    multiplier *= (1 + 0.25 * + player.octeractUpgrades.octeractStarter.getEffect().bonus) // Oct Starter Pack
+
+    multiplier *= (1 + 1/10000 * Math.floor(player.octeractUpgrades.octeractQuarkGain.level / 199) *
+                                player.octeractUpgrades.octeractQuarkGain2.level *
+                                Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL)))) // Improver 2
 
     multiplier *= (1 + 0.02 * player.singularityUpgrades.intermediatePack.level +               // 1.02
                            0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
@@ -1524,6 +1532,7 @@ export const calculateQuarkMultiplier = () => {
                            0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
                            0.10 * player.singularityUpgrades.expertPack.level)                  // 1.30
 
+    multiplier *= 1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus // Doohickey
     multiplier *= calculateTotalOcteractQuarkBonus()
 
     return multiplier
@@ -1533,7 +1542,7 @@ export const calculateQuarkMultiplier = () => {
  *
  * Calculate the number of Golden Quarks earned in current singularity
  */
-export const calculateGoldenQuarkGain = ():number => {
+export const calculateGoldenQuarkGain = (computeMultiplier = false):number => {
     const base = 2 * player.singularityCount + 10
 
     let bonus = (player.singularityCount < 10) ? (200 - 10 * player.singularityCount) : 0;
@@ -1564,6 +1573,10 @@ export const calculateGoldenQuarkGain = ():number => {
     }
     if (player.highestSingularityCount >= 221) {
         perkMultiplier = 8
+    }
+
+    if (computeMultiplier) {
+        return allGoldenQuarkMultiplier * perkMultiplier / 1e5
     }
 
     return (base + gainFromQuarks) * allGoldenQuarkMultiplier * perkMultiplier + bonus;

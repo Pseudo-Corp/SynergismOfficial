@@ -219,6 +219,21 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             }
         }
     },
+    octeractQuarkGain2: {
+        name: 'Octo-Hepteract Primality Synergism',
+        description: 'For every 199 levels of Quark Octeract, you gain 0.01% more quarks per digit in your Quark Hepteract count per level!',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(1e26, level)
+        },
+        maxLevel: 2,
+        costPerLevel: 1e22,
+        effect: (n: number) => {
+            return {
+                bonus: n > 0,
+                desc: `Octo-Hepteract Primality Synergism is ${n > 0 ? '' : 'NOT'} active.`
+            }
+        }
+    },
     octeractCorruption: {
         name: 'EXTRA CHONKY Corruptions',
         description: 'Adds one level to the cap on corruptions. Derpsmith approves.',

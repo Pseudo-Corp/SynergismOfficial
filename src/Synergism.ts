@@ -733,6 +733,7 @@ export const player: Player = {
         singCubes2: new SingularityUpgrade(singularityData['singCubes2']),
         singCubes3: new SingularityUpgrade(singularityData['singCubes3']),
         singCitadel: new SingularityUpgrade(singularityData['singCitadel']),
+        singCitadel2: new SingularityUpgrade(singularityData['singCitadel2']),
         octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
         singOcteractPatreonBonus: new SingularityUpgrade(singularityData['singOcteractPatreonBonus']),
         offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
@@ -748,6 +749,7 @@ export const player: Player = {
         singChallengeExtension: new SingularityUpgrade(singularityData['singChallengeExtension']),
         singChallengeExtension2: new SingularityUpgrade(singularityData['singChallengeExtension2']),
         singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
+        singQuarkImprover1: new SingularityUpgrade(singularityData['singQuarkImprover1']),
         singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract']),
         singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2']),
         singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3']),
@@ -775,6 +777,7 @@ export const player: Player = {
         octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
         octeractGain2: new OcteractUpgrade(octeractData['octeractGain2']),
         octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
+        octeractQuarkGain2: new OcteractUpgrade(octeractData['octeractQuarkGain2']),
         octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
         octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
         octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
@@ -807,7 +810,7 @@ export const player: Player = {
 }
 
 export const blankSave = Object.assign({}, player, {
-    codes: new Map(Array.from({ length: 43 }, (_, i) => [i + 1, false]))
+    codes: new Map(Array.from({ length: 44 }, (_, i) => [i + 1, false]))
 });
 
 // The main cause of the double singularity bug was caused by a race condition
@@ -1878,7 +1881,7 @@ const padEvery = (str: string, places = 3) => {
  * @param accuracy
  * how many decimal points that are to be displayed (Values <10 if !long, <1000 if long).
  * only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
- * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
+ * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e7
  */
 export const format = (
     input: Decimal | number | { [Symbol.toPrimitive]: unknown } | null | undefined,
@@ -1971,13 +1974,26 @@ export const format = (
         return `${mantissaLook}`;
     }
     // If the power is negative, then we will want to address that separately.
-    if (power < 0 && fractional) {
-        const powerLodge = Math.floor(-power / 3);
-        return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -(power % 3))}${FormatList[powerLodge]}`
-    }
-    if (power < 6 || (long && power < 13)) {
-        // If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
-        // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 13
+    if (power < 0 && !isDecimal(input) && fractional) {
+        if (power <= -15) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 15)}Qa`
+        }
+        if (power <= -12) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 12)}T`
+        }
+        if (power <= -9) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 9)}B`
+        }
+        if (power <= -6) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 6)}M`
+        }
+        if (power <= -3) {
+            return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 3)}K`
+        }
+        return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
+    } else if (power < 6 || (long && power < 7)) {
+        // If the power is less than 6 or format long and less than 7 use standard formatting (1,234,567)
+        // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 7
         let standard = mantissa * Math.pow(10, power);
         let standardString;
         // Rounds up if the number experiences a rounding error
