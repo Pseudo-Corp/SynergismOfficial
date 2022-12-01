@@ -1625,8 +1625,8 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
     ];
 
     // Calculate for Total Quarks Coefficient
-    if (computeMultiplier) {
-        arr[arr.length - 1] = productContents(arr) / 1e5;
+    if (computeMultiplier === true) {
+        arr[arr.length - 1] = 1 / 1e5;
     } else {
         arr[arr.length - 1] = ((base + player.quarksThisSingularity / 1e5) * productContents(arr) + bonus) / productContents(arr);
     }
