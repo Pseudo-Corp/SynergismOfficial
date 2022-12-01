@@ -31,10 +31,14 @@ function getSingularityOridnalText(singularityCount: number): string {
     return 'You are in the <span style="color: gold">' + toOrdinal(singularityCount) + ' Singularity</span>';
 }
 
+// Need a better way of handling the ones without a special formulae than 'Default' variant
+type SingularitySpecialCostFormulae = 'Default' | 'Quadratic' | 'Cubic' | 'Exponential2'
+
 export interface ISingularityData extends IUpgradeData {
     goldenQuarksInvested?: number
     minimumSingularity?: number
     canExceedCap?: boolean
+    specialCostForm?: SingularitySpecialCostFormulae
 }
 
 /**
@@ -46,13 +50,15 @@ export class SingularityUpgrade extends DynamicUpgrade {
     // Field Initialization
     public goldenQuarksInvested = 0;
     public minimumSingularity: number;
-    public canExceedCap: boolean
+    public canExceedCap: boolean;
+    public specialCostForm: SingularitySpecialCostFormulae
 
     public constructor(data: ISingularityData) {
         super(data)
         this.goldenQuarksInvested = data.goldenQuarksInvested ?? 0;
         this.minimumSingularity = data.minimumSingularity ?? 0;
         this.canExceedCap = data.canExceedCap ?? false;
+        this.specialCostForm = data.specialCostForm ?? 'Default';
     }
 
     /**
@@ -95,12 +101,26 @@ export class SingularityUpgrade extends DynamicUpgrade {
      * @returns A number representing how many Golden Quarks a player must have to upgrade once.
      */
     getCostTNL(): number {
-        let costMultiplier = (this.maxLevel === -1 && this.level >= 100) ? this.level / 50 : 1;
-        costMultiplier *= (this.maxLevel === -1 && this.level >= 400) ? this.level / 100 : 1;
 
+        let costMultiplier = 1
         if (this.computeMaxLevel() > this.maxLevel && this.level >= this.maxLevel) {
             costMultiplier *= Math.pow(4, this.level - this.maxLevel + 1)
         }
+
+        if (this.specialCostForm === 'Exponential2') {
+            return this.costPerLevel * Math.sqrt(costMultiplier) * Math.pow(2, this.level)
+        }
+
+        if (this.specialCostForm === 'Cubic') {
+            return this.costPerLevel * costMultiplier * (Math.pow(this.level + 1, 3) - Math.pow(this.level, 3))
+        }
+
+        if (this.specialCostForm === 'Quadratic') {
+            return this.costPerLevel * costMultiplier * (Math.pow(this.level + 1, 2) - Math.pow(this.level, 2))
+        }
+
+        costMultiplier *= (this.maxLevel === -1 && this.level >= 100) ? this.level / 50 : 1;
+        costMultiplier *= (this.maxLevel === -1 && this.level >= 400) ? this.level / 100 : 1;
 
         return (this.computeMaxLevel() === this.level) ? 0: Math.ceil(this.costPerLevel * (1 + this.level) * costMultiplier);
     }
@@ -161,6 +181,10 @@ export class SingularityUpgrade extends DynamicUpgrade {
                 player.ascensionCounterReal = 0
                 player.ascensionCounterRealReal = 0
                 void Alert('You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...')
+            }
+
+            if (this.name === player.singularityUpgrades.singCitadel2.name) {
+                player.singularityUpgrades.singCitadel.freeLevels = player.singularityUpgrades.singCitadel2.level
             }
         }
 
@@ -241,14 +265,14 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     goldenQuarks2: {
         name: 'Golden Quarks II',
-        description: 'Buying GQ is 0.2% cheaper per level! [-50% maximum reduction]',
+        description: 'Buying GQ is 0.2% cheaper per level! [After 50%, effect grows much slower]',
         maxLevel: 75,
         costPerLevel: 60,
         canExceedCap: true,
         effect: (n: number) => {
             return {
-                bonus: 1 - Math.min(0.5, n / 500),
-                desc: `Purchasing Golden Quarks in the shop is ${format(Math.min(50, n / 5),2,true)}% cheaper.`
+                bonus: (n > 250) ? 1 / Math.log2(n / 62.5) : 1 - Math.min(0.5, n / 500),
+                desc: `Purchasing Golden Quarks in the shop is ${(n > 250)? format(100 - 100 / Math.log2(n / 62.5), 2, true) : format(Math.min(50, n / 5),2,true)}% cheaper.`
             }
         }
     },
@@ -501,10 +525,24 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     singCitadel: {
         name: 'Citadel of Singularity',
-        description: 'This structure is so obscured by Singularity Fog! But it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!',
+        description: 'What a unique structual phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!',
         maxLevel: -1,
         costPerLevel: 500000,
         minimumSingularity: 100,
+        effect: (n: number) => {
+            return {
+                bonus: (1 + 0.02 * n) * (1 + Math.floor(n / 10) / 100),
+                desc: `Obtainium, Offerings, and 3-7D Cubes +${format(100 * ((1 + 0.02 * n) * (1 + Math.floor(n/10)/100) - 1))}%, forever!`
+            }
+        }
+    },
+    singCitadel2: {
+        name: 'Citadel of Singularity: The Real Edition',
+        description: 'This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels! Also sets the free level of the fake citadel to whatever level this is.',
+        maxLevel: 100,
+        costPerLevel: 1e14,
+        minimumSingularity: 210,
+        specialCostForm: 'Quadratic',
         effect: (n: number) => {
             return {
                 bonus: (1 + 0.02 * n) * (1 + Math.floor(n / 10) / 100),
@@ -522,6 +560,19 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: (n > 0),
                 desc: `You ${(n > 0) ? 'have': 'have not'} bought into the Octeract hype.`
+            }
+        }
+    },
+    singOcteractPatreonBonus: {
+        name: 'Platonic $ells out!!!',
+        description: 'You know that Patreon bonus? Yeah, that\'s cool and all, but what if it also boosted Octeract production by the same amount?',
+        maxLevel: 1,
+        costPerLevel: 9999,
+        minimumSingularity: 12,
+        effect: (n: number) => {
+            return {
+                bonus: (n > 0),
+                desc: `Octeract production is ${n}% faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists.`
             }
         }
     },
@@ -707,6 +758,21 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: n,
                 desc: `You feel motivated enough to complete ${2 * n} more Reincarnation Challenges, and ${n} more Ascension Challenges.`
+            }
+        }
+    },
+    singQuarkImprover1: {
+        name: 'Marginal Quark Gain Improver Thingy',
+        description: 'A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitarily long?',
+        maxLevel: 30,
+        costPerLevel: 1,
+        minimumSingularity: 177,
+        canExceedCap: true,
+        specialCostForm: 'Exponential2',
+        effect: (n: number) => {
+            return {
+                bonus: n/200,
+                desc: `You gain ${format(n/2, 2, true)}% more Quarks!`
             }
         }
     },
@@ -1100,7 +1166,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Even more Quarks',
-        levels: [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 169, 196, 200, 225, 250],
+        levels: [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180, 190, 196, 200, 201, 202, 203, 204, 205, 225, 250],
         description: (n: number, levels: number[]) => {
 
             for (let i = levels.length - 1; i >= 0; i--) {
@@ -1315,10 +1381,38 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Golden Revolution IV',
+        levels: [160, 173, 185, 194, 204, 210, 219, 229, 240, 249],
+        description: (n: number, levels: number[]) => {
+            const perSecond = 1000000
+            let divisor = 0
+            for (const singCount of levels) {
+                if (n >= singCount) {
+                    divisor += 1
+                }
+            }
+            return `Every Octeract tick, convert 1 in ${format(perSecond / divisor, 0, true)} GQ you would gain in this singularity to your balance automagically!`
+        }
+    },
+    {
         name: 'Metacogenesis',
         levels: [200],
         description: () => {
             return 'Gives 1% of your purchased Octeract Cogenesis as bonus levels of Octeract Cogenesis per use of code daily!'
+        }
+    },
+    {
+        name: 'Immaculate Alchemy',
+        levels: [200, 208, 221],
+        description: () => {
+            return 'At Singulartiy 200, Fast Forwards no longer work! Instead, multiply your GQ by 3. (GQ is multiplied by 5 at level 2, and 8 at level 3). Also divides GQ buy cost accordingly!'
+        }
+    },
+    {
+        name: 'skrauQ',
+        levels: [200],
+        description: () => {
+            return 'Multiply all Quark Gain by ((Singularity - 179)/20)^2 ... Yes, it\'s that good.'
         }
     },
     {
@@ -1456,6 +1550,19 @@ export const getGoldenQuarkCost = (): {
     costReduction *= +player.singularityUpgrades.goldenQuarks2.getEffect().bonus
     costReduction *= +player.octeractUpgrades.octeractGQCostReduce.getEffect().bonus
     costReduction *= (player.highestSingularityCount >= 100 ? 1 - 0.5 * player.highestSingularityCount / 250 : 1)
+
+    let perkDivisor = 1
+    if (player.highestSingularityCount >= 200) {
+        perkDivisor = 3
+    }
+    if (player.highestSingularityCount >= 208) {
+        perkDivisor = 5
+    }
+    if (player.highestSingularityCount >= 221) {
+        perkDivisor = 8
+    }
+    costReduction /= perkDivisor
+
     costReduction = 10000 - costReduction
 
     return {
@@ -1536,14 +1643,14 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
         effectiveSingularities *= Math.pow(1.1, singularityCount - 100)
     }
     if (singularityCount > 150) {
-        effectiveSingularities *= 3
-        effectiveSingularities *= Math.pow(1.04, singularityCount - 150)
+        effectiveSingularities *= 2
+        effectiveSingularities *= Math.pow(1.05, singularityCount - 150)
     }
     if (singularityCount > 200) {
-        effectiveSingularities *= 12
-        effectiveSingularities *= Math.pow(1.3, singularityCount - 200)
+        effectiveSingularities *= 1.5
+        effectiveSingularities *= Math.pow(1.275, singularityCount - 200)
     }
-    if (singularityCount === 250) {
+    if (singularityCount >= 250) {
         effectiveSingularities *= 100
     }
 

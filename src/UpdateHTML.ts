@@ -1,7 +1,7 @@
 import { player, format, formatTimeShort /*formatTimeShort*/ } from './Synergism';
 import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
-import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAcceleration} from './Calculate';
+import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAcceleration } from './Calculate';
 import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
 import { autoResearchEnabled } from './Research';
