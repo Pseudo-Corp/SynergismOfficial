@@ -1470,7 +1470,7 @@ export const calculateAscensionSpeedMultiplier = () => {
         1 + Math.min(0.10, 1 / 100 * Math.log10(player.ascensionCount + 1)) * player.achievements[262], // Achievement 262 Bonus
         1 + Math.min(0.10, 1 / 100 * Math.log10(player.ascensionCount + 1)) * player.achievements[263], // Achievement 263 Bonus
         1 + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15],                  // Platonic Omega
-        G['challenge15Rewards'].ascensionSpeed,                                                         // C15
+        G['challenge15Rewards'].ascensionSpeed,                                                         // Challenge 15 Reward
         1 + 1 / 400 * player.cubeUpgrades[59],                                                          // Cookie Upgrade 9
         1 + 0.5 * (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0),              // Intermediate Pack, Sing Shop
         1 + 1 / 1000 * player.singularityCount * player.shopUpgrades.chronometerZ,                      // Chronometer Z
@@ -1612,7 +1612,7 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
     }
 
     const arr = [
-        1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2,                           // C15 Exponent
+        1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2,                           // Challenge 15 Exponent
         1 + player.worlds.BONUS / 100,                                                                  // Patreon Bonus
         +player.singularityUpgrades.goldenQuarks1.getEffect().bonus,                                    // Golden Quarks I
         1 + 0.12 * player.cubeUpgrades[69],                                                             // Cookie Upgrade 19

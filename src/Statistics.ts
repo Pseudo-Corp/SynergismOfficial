@@ -417,7 +417,7 @@ export const loadStatisticsAscensionSpeedMultipliers = () => {
         5: {acc: 2, desc: 'Achievement 262 Bonus:'},
         6: {acc: 2, desc: 'Achievement 263 Bonus:'},
         7: {acc: 2, desc: 'Platonic Omega:'},
-        8: {acc: 2, desc: 'C15:'},
+        8: {acc: 2, desc: 'Challenge 15 Reward:'},
         9: {acc: 2, desc: 'Cookie Upgrade 9:'},
         10: {acc: 2, desc: 'Intermediate Pack:'},
         11: {acc: 2, desc: 'Chronometer Z:'},
@@ -441,7 +441,7 @@ export const loadStatisticsAscensionSpeedMultipliers = () => {
 export const loadStatisticsGoldenQuarkMultipliers = () => {
     const arr = calculateGoldenQuarkMultiplier();
     const map: Record<number, { acc: number, desc: string }> = {
-        1: {acc: 2, desc: 'C15 Exponent:'},
+        1: {acc: 2, desc: 'Challenge 15 Exponent:'},
         2: {acc: 2, desc: 'Patreon Bonus:'},
         3: {acc: 2, desc: 'Golden Quarks I:'},
         4: {acc: 2, desc: 'Cookie Upgrade 19:'},
