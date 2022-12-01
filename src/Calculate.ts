@@ -1478,20 +1478,20 @@ export const calculateAscensionSpeedMultiplier = () => {
         1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed2.getEffect().bonus * player.singularityCount, // Abstract Exokinetics, Oct Upg
         1 + calculateEventBuff('Ascension Speed'),                                                      // Event
         (player.singularityUpgrades.singAscensionSpeed2.level > 0 && player.runelevels[6] < 1) ? 6 : 1, // A mediocre ascension speedup!
-        Math.pow(1.01, player.shopUpgrades.chronometerInfinity),                                        // Chronometer INF
-        // This should always be at the end of the array at the end
-        1,                                                                                              // A hecking good ascension speedup!
-        1 / calculateSingularityDebuff('Ascension Speed')                                               // Singularity Penalty
+        Math.pow(1.01, player.shopUpgrades.chronometerInfinity)                                         // Chronometer INF
     ];
 
-    // Calculate for A hecking good ascension speedup!
+    // A hecking good ascension speedup!
     const baseMultiplier = productContents(arr);
-    const exponent = (player.singularityUpgrades.singAscensionSpeed.level > 0) ?
-        ((baseMultiplier >= 1) ?
-            1.03:
-            0.97) :
-        1;
-    arr[arr.length - 2] = Math.pow(baseMultiplier, exponent) / baseMultiplier;
+    const exponent = (player.singularityUpgrades.singAscensionSpeed.level > 0
+        ? (baseMultiplier >= 1
+            ? 1.03
+            : 0.97)
+        : 1);
+    arr.push(Math.pow(baseMultiplier, exponent) / baseMultiplier);
+
+    // Singularity Penalty
+    arr.push(1 / calculateSingularityDebuff('Ascension Speed'));
 
     return {
         list: arr,
@@ -1619,17 +1619,14 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
         1 + calculateEventBuff('Golden Quarks'),                                                        // Event
         1 + getFastForwardTotalMultiplier(),                                                            // Singularity Fast Forwards
         player.highestSingularityCount >= 100 ? 1 + Math.min(1, player.highestSingularityCount / 250) : 1, // Golden Revolution II
-        perkMultiplier,                                                                                 // Immaculate Alchemy
-        // This should always be at the end of the array at the end
-        1                                                                                               // Total Quarks Coefficient
+        perkMultiplier                                                                                  // Immaculate Alchemy
     ];
 
-    // Calculate for Total Quarks Coefficient
-    if (computeMultiplier === true) {
-        arr[arr.length - 1] = 1 / 1e5;
-    } else {
-        arr[arr.length - 1] = ((base + player.quarksThisSingularity / 1e5) * productContents(arr) + bonus) / productContents(arr);
-    }
+    // Total Quarks Coefficient
+    arr.push(computeMultiplier === true
+        ? 1 / 1e5
+        : ((base + player.quarksThisSingularity / 1e5) * productContents(arr) + bonus) / productContents(arr)
+    );
 
     return {
         list: arr,
