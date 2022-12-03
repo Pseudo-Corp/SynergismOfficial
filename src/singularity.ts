@@ -1433,7 +1433,7 @@ export const singularityPerks: SingularityPerk[] = [
 
 export const updateSingularityPerks = (): void => {
     const singularityCount = player.highestSingularityCount;
-    const str = `You are in the <span style="color: gold">Highest ${toOrdinal(singularityCount)} Singularity</span><br/>
+    const str = `The highest Singularity you've reached is the <span style="color: gold">${toOrdinal(singularityCount)} Singularity.</span><br/>
                 Here is the list of Perks you have acquired to compensate the Penalties
                 (Hover for more details. Perks in <span class="newPerk">gold text</span> were added or improved in this Singularity)<br/>`
                 + getAvailablePerksDescription(singularityCount)
