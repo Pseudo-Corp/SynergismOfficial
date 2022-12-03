@@ -304,7 +304,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.prestigenocoinupgrades = true;
 
     // Notify new players the reset
-    if (player.singularityCount === 0) {
+    if (player.highestSingularityCount === 0) {
         if (input === 'prestige' && player.unlocks.prestige === false) {
             DOMCacheGetOrSet('prestigebtn').style.boxShadow = '';
         }
@@ -500,7 +500,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.currentChallenge.reincarnation = 0;
 
         // The start of the auto challenge to improve QoL starts with C10
-        if (input === 'ascensionChallenge' && player.currentChallenge.ascension > 10 && player.singularityCount >= 2 && player.autoChallengeToggles[10]) {
+        if (input === 'ascensionChallenge' && player.currentChallenge.ascension > 10 && player.highestSingularityCount >= 2 && player.autoChallengeToggles[10]) {
             player.autoChallengeIndex = 10;
         } else {
             player.autoChallengeIndex = 1;
@@ -789,25 +789,25 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
  * Computes which achievements in 274-280 are achievable given current singularity number
  */
 export const updateSingularityAchievements = (): void => {
-    if (player.singularityCount >= 1) {
+    if (player.highestSingularityCount >= 1) {
         achievementaward(274)
     }
-    if (player.singularityCount >= 2) {
+    if (player.highestSingularityCount >= 2) {
         achievementaward(275)
     }
-    if (player.singularityCount >= 3) {
+    if (player.highestSingularityCount >= 3) {
         achievementaward(276)
     }
-    if (player.singularityCount >= 4) {
+    if (player.highestSingularityCount >= 4) {
         achievementaward(277)
     }
-    if (player.singularityCount >= 5) {
+    if (player.highestSingularityCount >= 5) {
         achievementaward(278)
     }
-    if (player.singularityCount >= 7) {
+    if (player.highestSingularityCount >= 7) {
         achievementaward(279)
     }
-    if (player.singularityCount >= 10) {
+    if (player.highestSingularityCount >= 10) {
         achievementaward(280)
     }
 }
@@ -906,10 +906,10 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
             achievementaward(176 + i)
         }
     }
-    if (player.singularityCount > 10) { // Must be the same as autoResearchEnabled()
+    if (player.highestSingularityCount > 10) { // Must be the same as autoResearchEnabled()
         player.cubeUpgrades[9] = 1;
     }
-    if (player.singularityCount >= 15) {
+    if (player.highestSingularityCount >= 15) {
         player.challengecompletions[8] = 5;
         player.highestchallengecompletions[8] = 5;
         if (player.currentChallenge.ascension !== 12) {
@@ -918,9 +918,9 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         player.fifthOwnedAnts = 1;
         player.cubeUpgrades[20] = 1;
     }
-    const perk_20 = player.singularityCount >= 20;
-    const shopItemPerk_20 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
+    const perk_20 = player.highestSingularityCount >= 20;
     if (perk_20) {
+        const shopItemPerk_20 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
         player.challengecompletions[9] = 1;
         player.highestchallengecompletions[9] = 1;
         achievementaward(134);
@@ -930,15 +930,15 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
             player.shopUpgrades[key] = shopData[key].maxLevel;
         }
     }
-    if (player.singularityCount >= 25) {
+    if (player.highestSingularityCount >= 25) {
         player.eighthOwnedAnts = 1;
     }
-    if (player.singularityCount >= 30) {
+    if (player.highestSingularityCount >= 30) {
         player.researches[130] = 1;
         player.researches[135] = 1;
         player.researches[145] = 1;
     }
-    if (player.singularityCount >= 101 && singularityReset) {
+    if (player.highestSingularityCount >= 101 && singularityReset) {
         player.cubeUpgrades[51] = 1;
         awardAutosCookieUpgrade();
     }
@@ -973,13 +973,13 @@ export const updateSingularityGlobalPerks = () => {
         shopData[key].refundMinimumLevel = perk_5 ? 10 : key.endsWith('Auto') ? 1 : 0;
     }
 
-    const perk_20 = player.singularityCount >= 20;
+    const perk_20 = player.highestSingularityCount >= 20;
     const shopItemPerk_20 = ['offeringAuto', 'offeringEX', 'obtainiumAuto', 'obtainiumEX', 'antSpeed', 'cashGrab'] as const;
     for (const key of shopItemPerk_20) {
         shopData[key].refundable = perk_20 ? false : true;
     }
 
-    const perk_51 = player.singularityCount >= 51;
+    const perk_51 = player.highestSingularityCount >= 51;
     const shopItemPerk_51 = ['seasonPass', 'seasonPass2', 'seasonPass3', 'seasonPassY', 'chronometer', 'chronometer2'] as const;
     for (const key of shopItemPerk_51) {
         shopData[key].refundable = perk_51 ? false : true;
@@ -1018,9 +1018,11 @@ export const singularity = async (): Promise<void> => {
     player.runelevels[6] = 0;
 
     player.goldenQuarks += calculateGoldenQuarkGain();
-    if (player.singularityCount === player.highestSingularityCount) {
-        const incrementSingCount = 1 + getFastForwardTotalMultiplier();
-        player.highestSingularityCount += incrementSingCount
+
+    const incrementSingCount = 1 + getFastForwardTotalMultiplier();
+    player.singularityCount += incrementSingCount;
+    if (player.singularityCount >= player.highestSingularityCount) {
+        player.highestSingularityCount = player.singularityCount;
 
         if (player.highestSingularityCount === 5) {
             player.singularityUpgrades.goldenQuarks3.freeLevels += 1;
@@ -1029,7 +1031,6 @@ export const singularity = async (): Promise<void> => {
             player.singularityUpgrades.goldenQuarks3.freeLevels += 2;
         }
     }
-    player.singularityCount = player.highestSingularityCount;
 
     player.totalQuarksEver += player.quarksThisSingularity;
     await resetShopUpgrades(true);
@@ -1333,7 +1334,7 @@ const resetResearches = () => {
         176, 177, 178, 179, 181, 182, 184, 186, 187, 188, 189, 191, 192, 193, 194, 196, 197, 199
     ];
 
-    if (player.singularityCount < 25) {
+    if (player.highestSingularityCount < 25) {
         destroy.push(138, 153, 168, 183, 198)
     }
 

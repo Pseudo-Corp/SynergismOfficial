@@ -190,7 +190,7 @@ export function tabs(mainTab: number): TabValue;
 export function tabs(mainTab?: number) {
     const tabs: Tab = {
         '-1': {tabName: 'settings', unlocked: true},
-        0: {tabName: 'shop', unlocked: player.unlocks.reincarnate || player.singularityCount > 0},
+        0: {tabName: 'shop', unlocked: player.unlocks.reincarnate || player.highestSingularityCount > 0},
         1: {tabName: 'buildings', unlocked: true},
         2: {tabName: 'upgrades', unlocked: true},
         3: {tabName: 'achievements', unlocked: player.unlocks.coinfour},
@@ -200,7 +200,7 @@ export function tabs(mainTab?: number) {
         7: {tabName: 'ants', unlocked: player.achievements[127] > 0},
         8: {tabName: 'cubes', unlocked: player.achievements[141] > 0},
         9: {tabName: 'traits', unlocked: player.challengecompletions[11] > 0},
-        10: {tabName: 'singularity', unlocked: player.singularityCount > 0}
+        10: {tabName: 'singularity', unlocked: player.highestSingularityCount > 0}
     }
 
     if (typeof mainTab === 'undefined') {
@@ -229,7 +229,7 @@ export const subTabsInMainTab = (mainTab: number) => {
                 {subTabID: 'statisticsSubTab', unlocked: true},
                 {subTabID: 'resetHistorySubTab', unlocked: player.unlocks.prestige},
                 {subTabID: 'ascendHistorySubTab', unlocked: player.ascensionCount > 0},
-                {subTabID: 'singularityHistorySubTab', unlocked: player.singularityCount > 0},
+                {subTabID: 'singularityHistorySubTab', unlocked: player.highestSingularityCount > 0},
                 { subTabID: 'hotkeys', unlocked: true }
             ]
         },
@@ -276,9 +276,9 @@ export const subTabsInMainTab = (mainTab: number) => {
         10: {
             tabSwitcher: toggleSingularityScreen,
             subTabList: [
-                {subTabID: 1, unlocked: player.singularityCount > 0, buttonID: 'toggleSingularitySubTab1'},
-                {subTabID: 2, unlocked: player.singularityCount > 0, buttonID: 'toggleSingularitySubTab2'},
-                {subTabID: 3, unlocked: player.singularityCount > 0, buttonID: 'toggleSingularitySubTab3'},
+                {subTabID: 1, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab1'},
+                {subTabID: 2, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab2'},
+                {subTabID: 3, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab3'},
                 {subTabID: 4, unlocked: Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus), buttonID: 'toggleSingularitySubTab4'}]
         }
     }
@@ -895,7 +895,7 @@ export const toggleAutoAscend = (mode = 0) => {
         }
 
         player.autoAscend = !player.autoAscend;
-    } else if (mode === 1 && player.singularityCount >= 25) {
+    } else if (mode === 1 && player.highestSingularityCount >= 25) {
         const a = DOMCacheGetOrSet('ascensionAutoToggle');
         if (player.autoAscendMode === 'c10Completions') {
             player.autoAscendMode = 'realAscensionTime'
@@ -908,7 +908,7 @@ export const toggleAutoAscend = (mode = 0) => {
 }
 
 export const toggleautoopensCubes = (i: number) => {
-    if (player.singularityCount >= 35) {
+    if (player.highestSingularityCount >= 35) {
         if (i === 1) {
             const oc = DOMCacheGetOrSet('openCubes');
             const oci = DOMCacheGetOrSet('cubeOpensInput');

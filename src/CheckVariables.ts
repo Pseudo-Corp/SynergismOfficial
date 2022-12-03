@@ -681,7 +681,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                 }
                 player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
 
-                if (player.singularityUpgrades[k].minimumSingularity > player.singularityCount) {
+                if (player.singularityUpgrades[k].minimumSingularity > player.highestSingularityCount) {
                     player.singularityUpgrades[k].refund()
                 }
 

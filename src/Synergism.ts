@@ -2417,8 +2417,8 @@ export const multipliers = (): void => {
     // PLAT - check
     const first6CoinUp = new Decimal(G['totalCoinOwned'] + 1).times(Decimal.min(1e30, Decimal.pow(1.008, G['totalCoinOwned'])));
 
-    if (player.singularityCount > 0) {
-        s = s.times(Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.singularityCount + 1, 2))
+    if (player.highestSingularityCount > 0) {
+        s = s.times(Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.highestSingularityCount + 1, 2))
     }
     if (player.upgrades[6] > 0.5) {
         s = s.times(first6CoinUp);
@@ -2868,15 +2868,15 @@ export const updateAntMultipliers = (): void => {
         G['globalAntMult'] = G['globalAntMult'].times(100000)
     }
 
-    if (player.singularityCount >= 30) {
+    if (player.highestSingularityCount >= 30) {
         G['globalAntMult'] = G['globalAntMult'].times(1000)
     }
 
-    if (player.singularityCount >= 70) {
+    if (player.highestSingularityCount >= 70) {
         G['globalAntMult'] = G['globalAntMult'].times(1000)
     }
 
-    if (player.singularityCount >= 100) {
+    if (player.highestSingularityCount >= 100) {
         G['globalAntMult'] = G['globalAntMult'].times(1e6)
     }
 }
@@ -2976,7 +2976,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 maxInc = 10;
             }
             if (player.shopUpgrades.instantChallenge2 > 0) {
-                maxInc += player.singularityCount;
+                maxInc += player.highestSingularityCount;
             }
             if (player.currentChallenge.ascension === 13) {
                 maxInc = 1;
@@ -3039,7 +3039,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 maxInc = 10;
             }
             if (player.shopUpgrades.instantChallenge2 > 0) {
-                maxInc += player.singularityCount;
+                maxInc += player.highestSingularityCount;
             }
             if (player.currentChallenge.ascension === 13) {
                 maxInc = 1;
@@ -3163,15 +3163,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 
         let confirmed = false;
         canSave = false;
-        let nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
-
-        // Stop at estimated Sing count even with Fast Forward
-        if (nextSingularityNumber >= 200 && nextSingularityNumber < 200 + 1 + getFastForwardTotalMultiplier()) {
-            nextSingularityNumber = 200
-        }
-        if (nextSingularityNumber >= thankSing && nextSingularityNumber < thankSing + 1 + getFastForwardTotalMultiplier()) {
-            nextSingularityNumber = thankSing
-        }
+        const nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
 
         if (!player.toggles[33] && player.singularityCount > 0) {
             confirmed = await Confirm(`Do you wish to start singularity #${format(nextSingularityNumber)}? Your next universe is harder but you will gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)

@@ -71,7 +71,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
             ? ''
             : `/${format(this.computeMaxLevel(), 0 , true)}`;
         const color = this.computeMaxLevel() === this.level ? 'plum' : 'white';
-        const minReqColor = player.singularityCount < this.minimumSingularity ? 'crimson' : 'green';
+        const minReqColor = player.highestSingularityCount < this.minimumSingularity ? 'crimson' : 'green';
         const minimumSingularity = this.minimumSingularity > 0
             ? `Minimum Singularity: ${this.minimumSingularity}`
             : 'No minimal Singularity to purchase required'
@@ -161,7 +161,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
             return Alert('Hey! You have already maxed this upgrade. :D')
         }
 
-        if (player.singularityCount < this.minimumSingularity) {
+        if (player.highestSingularityCount < this.minimumSingularity) {
             return Alert('You\'re not powerful enough to purchase this yet.')
         }
         while (maxPurchasable > 0) {
@@ -212,7 +212,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
             let cap = this.maxLevel
             const overclockPerks = [50, 60, 75, 100, 125, 150, 175, 200, 225, 250]
             for (let i = 0; i < overclockPerks.length; i++) {
-                if (player.singularityCount >= overclockPerks[i]) {
+                if (player.highestSingularityCount >= overclockPerks[i]) {
                     cap += 1
                 } else {
                     break
@@ -1059,7 +1059,7 @@ export class SingularityPerk {
     }
 }
 
-// List of Singularity Perks based on player.singularityCount
+// List of Singularity Perks based on player.highestSingularityCount
 // The list is ordered on first level acquisition, so be careful when inserting a new one ;)
 export const singularityPerks: SingularityPerk[] = [
     {
@@ -1433,9 +1433,9 @@ export const singularityPerks: SingularityPerk[] = [
 ]
 
 export const updateSingularityPerks = (): void => {
-    const singularityCount = player.singularityCount;
-    const str = getSingularityOridnalText(singularityCount) +
-                `<br/><br/>Here is the list of Perks you have acquired to compensate the Penalties
+    const singularityCount = player.highestSingularityCount;
+    const str = `The highest Singularity you've reached is the <span style="color: gold">${toOrdinal(singularityCount)} Singularity.</span><br/>
+                Here is the list of Perks you have acquired to compensate the Penalties
                 (Hover for more details. Perks in <span class="newPerk">gold text</span> were added or improved in this Singularity)<br/>`
                 + getAvailablePerksDescription(singularityCount)
 
@@ -1535,7 +1535,15 @@ export const getFastForwardTotalMultiplier = (): number => {
     fastForward += +player.singularityUpgrades.singFastForward2.getEffect().bonus
     fastForward += +player.octeractUpgrades.octeractFastForward.getEffect().bonus
 
-    return (player.singularityCount < 200) ? fastForward : 0;
+    // Stop at sing 200 even if you include fast forward
+    fastForward = Math.max(0, Math.min(fastForward, 200 - player.singularityCount - 1));
+
+    // If the next singularityCount is greater than the highestSingularityCount, fast forward to be equal to the highestSingularityCount
+    if (player.highestSingularityCount !== player.singularityCount && player.singularityCount + fastForward + 1 >= player.highestSingularityCount) {
+        return Math.max(0, Math.min(fastForward, player.highestSingularityCount - player.singularityCount - 1))
+    }
+
+    return fastForward;
 }
 
 export const getGoldenQuarkCost = (): {

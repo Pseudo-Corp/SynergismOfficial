@@ -91,7 +91,7 @@ export class HepteractCraft {
             return this;
         }
         this.UNLOCKED = true;
-        if (player.singularityCount < 5) {
+        if (player.highestSingularityCount < 5) {
             return Alert('Congratulations. You have unlocked the ability to craft ' + hepteractName + ' in the hepteract forge!');
         } else {
             return this

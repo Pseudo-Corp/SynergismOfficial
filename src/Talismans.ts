@@ -436,7 +436,7 @@ export const buyTalismanLevels = (i: number, auto = false): boolean => {
     if (player.ascensionCount > 0) {
         max = 30
     }
-    if (player.singularityCount > 0) {
+    if (player.highestSingularityCount > 0) {
         max = 180
     }
     let hasPurchased = false;
