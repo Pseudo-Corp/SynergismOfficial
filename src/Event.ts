@@ -74,6 +74,28 @@ const events: Record<string, HolidayData> = {
             goldenQuark: 0,
             oneMind: 0.4
         }
+    },
+    khafra: {
+        name: 'Thanks for Boosting the Discord',
+        color: 'green',
+        url: 'https://www.youtube.com/watch?v=iYYRH4apXDo',
+        everyYear: false,
+        start: '12/07/2022 00:00:00',
+        end: '12/08/2022 23:59:59',
+        notice: 20,
+        event: true,
+        buffs: {
+            quark: .2,
+            globalSpeed: 0,
+            ascensionSpeed: 0,
+            antSacrifice: 0,
+            offering: 0,
+            obtainium: 0,
+            octeract: 0,
+            powderConversion: 0,
+            goldenQuark: 0,
+            oneMind: 0
+        }
     }
     /*next: {
         name: 'Derpmas 2022: Daily Extravaganza!',
