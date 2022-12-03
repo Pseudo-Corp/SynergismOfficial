@@ -1455,7 +1455,7 @@ export const calculateAscensionAcceleration = () => {
 
 export const calculateSingularityQuarkMilestoneMultiplier = () => {
     let multiplier = 1
-    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180, 190, 196, 200, 201, 202, 203, 204, 205, 225, 250]
+    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180, 190, 196, 200, 200, 201, 202, 203, 204, 205, 210, 212, 214, 216, 218, 220, 225, 250];
     for (const sing of singThresholds) {
         if (player.highestSingularityCount >= sing) {
             multiplier *= 1.05

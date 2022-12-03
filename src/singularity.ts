@@ -364,7 +364,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: 'Cookie Recipes V (WIP)',
         description: 'The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.',
         maxLevel: 1,
-        costPerLevel: 5e7 - 1,
+        costPerLevel: 1.66e15,
+        minimumSingularity: 215,
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
@@ -577,15 +578,15 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         }
     },
     offeringAutomatic: {
-        name: 'Offering Lootzifer (Depreciated)',
-        description: 'Black Magic. Don\'t make deals with the devil.',
-        maxLevel: 50,
-        costPerLevel: 100000000000,
-        minimumSingularity: 1337,
+        name: 'Blueberry Shards! (WIP)',
+        description: 'The legends are true. \n The Prophecies are fulfilled. \n Ant God has heard your prayers. \n Let there be blueberries! \n And they were good.',
+        maxLevel: -1,
+        costPerLevel: 1e14,
+        minimumSingularity: 222,
         effect: (n: number) => {
             return {
-                bonus: (n > 0),
-                desc: 'No one can speak to Lootzifer at this moment.'
+                bonus: n,
+                desc: `You have purchased ${n} tasty blueberries.`
             }
         }
     },
@@ -1166,7 +1167,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Even more Quarks',
-        levels: [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180, 190, 196, 200, 201, 202, 203, 204, 205, 225, 250],
+        levels: [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180, 190, 196, 200, 200, 201, 202, 203, 204, 205, 210, 212, 214, 216, 218, 220, 225, 250],
         description: (n: number, levels: number[]) => {
 
             for (let i = levels.length - 1; i >= 0; i--) {
