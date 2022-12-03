@@ -76,7 +76,7 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
  * @returns boolean
  */
 export const autoResearchEnabled = (): boolean => {
-    return (player.cubeUpgrades[9] === 1 || player.singularityCount > 10);
+    return (player.cubeUpgrades[9] === 1 || player.highestSingularityCount > 10);
 }
 /**
  * Attempts to buy the research of the index selected. This is hopefully an improvement over buyResearch. Fuck

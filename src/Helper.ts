@@ -1,5 +1,5 @@
 import { sacrificeAnts } from './Ants';
-import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
+import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateGoldenQuarkGain, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
 import { quarkHandler } from './Quark';
 import { redeemShards, unlockedRune, checkMaxRunes } from './Runes';
 import { player } from './Synergism';
@@ -78,6 +78,23 @@ export const addTimers = (input: TimerInput, time = 0) => {
                 const perSecond = octeractGainPerSecond()
                 player.wowOcteracts += amountOfGiveaways * perSecond
                 player.totalWowOcteracts += amountOfGiveaways * perSecond
+
+                if (player.highestSingularityCount >= 160) {
+                    const levels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249]
+                    const frac = 1e-6
+                    let actualLevel = 0
+                    for (const sing of levels) {
+                        if (player.highestSingularityCount >= sing) {
+                            actualLevel += 1
+                        }
+                    }
+
+                    for (let i = 0; i < amountOfGiveaways; i++) {
+                        const quarkFraction = player.quarksThisSingularity * frac * actualLevel
+                        player.goldenQuarks += quarkFraction * calculateGoldenQuarkGain(true)
+                        player.quarksThisSingularity -= quarkFraction
+                    }
+                }
                 visualUpdateOcteracts()
             }
             break;
@@ -157,7 +174,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
             player.sacrificeTimer += time;
             if (player.sacrificeTimer >= 1 && isFinite(player.runeshards) && player.runeshards > 0){
                 // Automatic purchase of Blessings
-                if (player.singularityCount >= 15) {
+                if (player.highestSingularityCount >= 15) {
                     let ratio = 4;
                     if (player.toggles[36] === true) {
                         buyAllBlessings('Blessings', 100 / ratio, true);
@@ -168,13 +185,13 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
                         ratio--;
                     }
                 }
-                if (player.autoBuyFragment && player.singularityCount >= 40 && player.cubeUpgrades[51] > 0) {
+                if (player.autoBuyFragment && player.highestSingularityCount >= 40 && player.cubeUpgrades[51] > 0) {
                     buyAllTalismanResources();
                 }
 
                 // If you bought cube upgrade 2x10 then it sacrifices to all runes equally
                 if (player.cubeUpgrades[20] === 1){
-                    const maxi = player.singularityCount >= 50 ? 7 : (player.singularityCount >= 30 ? 6 : 5);
+                    const maxi = player.highestSingularityCount >= 50 ? 7 : (player.highestSingularityCount >= 30 ? 6 : 5);
                     const notMaxed = (maxi - checkMaxRunes(maxi));
                     if (notMaxed > 0){
                         const baseAmount = Math.floor(player.runeshards / notMaxed / 2);

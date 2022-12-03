@@ -617,7 +617,7 @@ export const visualUpdateShop = () => {
                 DOMCacheGetOrSet(`${key}Level`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Bought!' : 'Not Bought!';
             } else {
                 // Case: max level greater than 1, treat it as a fraction out of max level
-                DOMCacheGetOrSet(`${key}Level`).textContent = (player.singularityCount > 0 || player.ascensionCount > 0 ? '' : 'Level ') + format(player.shopUpgrades[key]) + '/' + format(shopItem.maxLevel);
+                DOMCacheGetOrSet(`${key}Level`).textContent = (player.highestSingularityCount > 0 || player.ascensionCount > 0 ? '' : 'Level ') + format(player.shopUpgrades[key]) + '/' + format(shopItem.maxLevel);
             }
             // Handles Button - max level needs no price indicator, otherwise it's necessary
 

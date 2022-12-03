@@ -876,11 +876,17 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
 
 export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     const shopItem = shopData[input];
+
     if (player.shopUpgrades[input] >= shopItem.maxLevel) {
-        return Alert(`You can't purchase ${friendlyShopName(input)} because you are already at the maximum ${shopItem.type === shopUpgradeTypes.UPGRADE ? 'level' : 'capacity'}!`);
+        return player.shopConfirmationToggle
+            ? Alert(`You can't purchase ${friendlyShopName(input)} because you are already at the maximum ${shopItem.type === shopUpgradeTypes.UPGRADE ? 'level' : 'capacity'}!`)
+            : null;
     } else if (Number(player.worlds) < getShopCosts(input)) {
-        return Alert(`You can't purchase ${friendlyShopName(input)} because you don't have enough Quarks!`);
+        return player.shopConfirmationToggle
+            ? Alert(`You can't purchase ${friendlyShopName(input)} because you don't have enough Quarks!`)
+            : null;
     }
+
     // Actually lock for HTML exploit
     if (!isShopUpgradeUnlocked(input)) {
         return Alert(`You do not have the right to purchase ${friendlyShopName(input)}!`);

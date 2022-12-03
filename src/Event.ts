@@ -23,6 +23,7 @@ interface HolidayData {
         offering?: number
         obtainium?: number
         octeract?: number
+        oneMind?: number
     }
 }
 
@@ -53,24 +54,71 @@ const events: Record<string, HolidayData> = {
     },
     // Last active event
     last: {
-        name: 'Derpsmith Tea Party',
+        name: 'Derpmas 2022: Quark Extravaganza!',
         color: 'white',
-        url: 'https://www.youtube.com/watch?v=znxoba0k000',
+        url: 'https://www.youtube.com/watch?v=A6-vc-R9np8',
         everyYear: false,
-        start: '09/24/2022 00:00:00',
-        end: '10/01/2022 23:59:59',
-        notice: 3,
+        start: '12/17/2022 00:00:00',
+        end: '12/18/2022 23:59:59',
+        notice: 20,
         event: true,
         buffs: {
-            quark: 0.25,
-            globalSpeed: 1,
-            ascensionSpeed: 1,
-            antSacrifice: 1,
-            offering: 1,
-            obtainium: 1,
-            octeract: 0.3
+            quark: 3,
+            globalSpeed: 0,
+            ascensionSpeed: 0,
+            antSacrifice: 0,
+            offering: 0,
+            obtainium: 0,
+            octeract: 0,
+            powderConversion: 0,
+            goldenQuark: 0,
+            oneMind: 0.4
+        }
+    },
+    khafra: {
+        name: 'Thanks for Boosting the Discord',
+        color: 'green',
+        url: 'https://www.youtube.com/watch?v=iYYRH4apXDo',
+        everyYear: false,
+        start: '12/07/2022 00:00:00',
+        end: '12/08/2022 23:59:59',
+        notice: 20,
+        event: true,
+        buffs: {
+            quark: .2,
+            globalSpeed: 0,
+            ascensionSpeed: 0,
+            antSacrifice: 0,
+            offering: 0,
+            obtainium: 0,
+            octeract: 0,
+            powderConversion: 0,
+            goldenQuark: 0,
+            oneMind: 0
         }
     }
+    /*next: {
+        name: 'Derpmas 2022: Daily Extravaganza!',
+        color: 'white',
+        url: 'https://www.youtube.com/watch?v=A6-vc-R9np8',
+        everyYear: false,
+        start: '12/25/2022 00:00:00',
+        end: '01/01/2023 23:59:59',
+        notice: 30,
+        event: true,
+        buffs: {
+            quark: 0,
+            globalSpeed: 0,
+            ascensionSpeed: 0,
+            antSacrifice: 0,
+            offering: 0,
+            obtainium: 0,
+            octeract: 0,
+            powderConversion: 0,
+            goldenQuark: 0,
+            oneMind: 0.05
+        }
+    }*/
     // Event example
     /*
     newyear: {
@@ -248,7 +296,11 @@ export const eventCheck = () => {
         for (let i = 0; i < eventBuffType.length; i++) {
             const eventBuff = calculateEventSourceBuff(eventBuffType[i]);
             if (eventBuff !== 0) {
-                buffs += `${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}, `;
+                if (eventBuffType[i] === 'One Mind' && player.singularityUpgrades.oneMind.level > 0) {
+                    buffs += `<span style="color: gold">${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}</span> ,`
+                } else if (eventBuffType[i] !== 'One Mind' || player.singularityUpgrades.oneMind.level === 0) {
+                    buffs += `${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}, `;
+                }
             }
         }
         if (buffs.length > 2) {
@@ -256,11 +308,11 @@ export const eventCheck = () => {
             buffs += '!';
         }
         DOMCacheGetOrSet('eventCurrent').textContent = G['isEvent'] ? 'ACTIVE UNTIL ' + end : 'STARTS ' + start;
-        eventBuffs.textContent = G['isEvent'] ? 'Current Buffs: ' + buffs : '';
-        eventBuffs.style.color = 'lime';
+        eventBuffs.innerHTML = G['isEvent'] ? 'Current Buffs: ' + buffs : '';
+        //eventBuffs.style.color = 'lime';
         happyHolidays.innerHTML = nowEvent.name;
         happyHolidays.style.color = nowEvent.color;
-        happyHolidays.href = nowEvent.url.length > 0 && G['isEvent'] ? nowEvent.url : '#';
+        happyHolidays.href = nowEvent.url.length > 0 ? nowEvent.url : '#';
     } else {
         G['isEvent'] = false;
         DOMCacheGetOrSet('eventCurrent').textContent = 'INACTIVE';
@@ -271,8 +323,8 @@ export const eventCheck = () => {
     }
 }
 
-const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium', 'Octeract'];
-const eventBuffName = ['Quarks', 'Golden Quarks', 'Cubes from all type', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice rewards', 'Offering', 'Obtainium', 'Eight Dimensional Hypercubes'];
+const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium', 'Octeract', 'One Mind'];
+const eventBuffName = ['Quarks', 'Golden Quarks', 'Cubes from all type', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice rewards', 'Offering', 'Obtainium', 'Eight Dimensional Hypercubes', 'One Mind Quark Bonus'];
 
 export const calculateEventSourceBuff = (buff: string): number => {
     const event = getEvent();
@@ -288,6 +340,7 @@ export const calculateEventSourceBuff = (buff: string): number => {
         case 'Offering': return event.buffs.offering || 0;
         case 'Obtainium': return event.buffs.obtainium || 0;
         case 'Octeract': return event.buffs.octeract || 0;
+        case 'One Mind': return (player.singularityUpgrades.oneMind.level > 0) ? event.buffs.oneMind || 0 : 0
         default: return 0;
     }
 }

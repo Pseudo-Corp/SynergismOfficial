@@ -306,30 +306,32 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
-    if (input === 'derpsmith' && !player.codes.get(43) && G['isEvent'] && getEvent().name === 'Derpsmith Tea Party') {
-        player.codes.set(43, true);
+    if (input === 'thanksderpsmith' && !player.codes.get(44) && G['isEvent'] && getEvent().name === 'Giving Thanks to Derpsmith') {
+        player.codes.set(44, true);
         player.quarkstimer = quarkHandler().maxTime;
         player.goldenQuarksTimer = 3600 * 24;
         addTimers('ascension', 4 * 3600);
 
-        if (player.challenge15Exponent >= 1e15 || player.singularityCount > 0) {
+        if (player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0) {
             player.hepteractCrafts.quark.CAP *= 2;
+            player.hepteractCrafts.quark.BAL += Math.min(1e13, player.hepteractCrafts.quark.CAP/2)
         }
-        if (player.singularityCount > 0) {
+        if (player.highestSingularityCount > 0) {
             player.singularityUpgrades.goldenQuarks1.freeLevels += 1;
             player.singularityUpgrades.goldenQuarks2.freeLevels += 1;
             player.singularityUpgrades.goldenQuarks3.freeLevels += 1;
             if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
                 player.octeractUpgrades.octeractGain.freeLevels += 5;
                 player.octeractUpgrades.octeractGain2.freeLevels += 3;
+                player.octeractUpgrades.octeractQuarkGain.freeLevels += 5;
                 player.octeractUpgrades.octeractAscensionsOcteractGain.freeLevels += 0.1
             }
         }
 
         return Alert(`Happy update!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! 
-                      ${(player.challenge15Exponent >= 1e15 || player.singularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free!' : ''}
-                      ${(player.singularityCount > 0) ? 'You were also given free levels of GQ1-3!' : ''} 
-                      ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Geneses and Accumulator!': ''}`)
+                      ${(player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free, and (to a limit) automatically filled the extra amount! What a generous, handsome fella.' : ''}
+                      ${(player.highestSingularityCount > 0) ? 'You were also given free levels of GQ1-3!' : ''} 
+                      ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Geneses, Accumulator and Quark Gain!': ''}`)
     }
     if (input === 'synergism2021' && !player.codes.get(1)) {
         player.codes.set(1, true);
@@ -352,7 +354,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
         let rewardMessage = 'Thank you for playing today!\nThe Ant God rewards you with this gift:';
 
         const rewards = dailyCodeReward();
-        const quarkMultiplier = 1 + Math.min(49, player.singularityCount)
+        const quarkMultiplier = 1 + Math.min(49, player.highestSingularityCount)
 
         let actualQuarkAward = player.worlds.applyBonus(rewards.quarks * quarkMultiplier);
         if (actualQuarkAward > 1e5) {
@@ -367,7 +369,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
         }
         await Alert(rewardMessage);
 
-        if (player.singularityCount > 0) {
+        if (player.highestSingularityCount > 0) {
             const upgradeDistribution: Record<
             'goldenQuarks1' | 'goldenQuarks2' | 'goldenQuarks3' | 'singCubes1' | 'singCubes2' | 'singCubes3' |
             'singOfferings1' | 'singOfferings2' | 'singOfferings3' |
@@ -387,7 +389,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 singOfferings1: {value: 1, pdf: (x: number) => 600 < x && x <= 800},
                 ascensions: {value: 1, pdf: (x: number) => 800 < x && x <= 1000}
             }
-            let rolls = 3 * Math.sqrt(player.singularityCount)
+            let rolls = 3 * Math.sqrt(player.highestSingularityCount)
             rolls += +player.octeractUpgrades.octeractImprovedDaily.getEffect().bonus
             rolls += player.shopUpgrades.shopImprovedDaily2
             rolls += player.shopUpgrades.shopImprovedDaily3
@@ -637,7 +639,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
             player.promoCodeTiming.time = Date.now();
 
             if (diff <= (2500 + 125 * player.cubeUpgrades[61])) {
-                const reward = Math.floor(Math.min(1000, (125 + 25 * player.singularityCount)) * (1 + player.cubeUpgrades[61] / 50));
+                const reward = Math.floor(Math.min(1000, (125 + 25 * player.highestSingularityCount)) * (1 + player.cubeUpgrades[61] / 50));
                 let actualQuarkAward = player.worlds.applyBonus(reward)
 
                 if (actualQuarkAward > 66666) {
@@ -731,7 +733,7 @@ const dailyCodeReward = () => {
     let goldenQuarks = 0
 
     const ascended = player.ascensionCount > 0;
-    const singularity = player.singularityCount > 0;
+    const singularity = player.highestSingularityCount > 0;
     if (player.reincarnationCount > 0 || ascended || singularity) {
         quarks += 20
     }
@@ -791,7 +793,7 @@ const dailyCodeReward = () => {
     quarks = Math.floor(quarks)
 
     if (singularity) {
-        goldenQuarks += 2 + 3 * player.singularityCount
+        goldenQuarks += 2 + 3 * player.highestSingularityCount
         goldenQuarks *= 1 + 0.2 * player.shopUpgrades.shopImprovedDaily2
         goldenQuarks *= 1 + 0.15 * player.shopUpgrades.shopImprovedDaily3
         goldenQuarks *= 1 + player.shopUpgrades.shopImprovedDaily4
