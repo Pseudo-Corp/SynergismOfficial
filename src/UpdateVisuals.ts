@@ -17,6 +17,7 @@ import type { IMultiBuy } from './Cubes';
 import { calculateMaxTalismanLevel } from './Talismans';
 import { getGoldenQuarkCost } from './singularity';
 import { loadStatisticsUpdate } from './Statistics';
+import { octeractData } from './Octeracts';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== 'buildings') {
@@ -574,6 +575,18 @@ export const visualUpdateOcteracts = () => {
     DOMCacheGetOrSet('totalOcteractQuarkBonus').style.display = cTOQB >= 0.001 ? 'block' : 'none';
     DOMCacheGetOrSet('octCubeBonus').textContent = `+${format(cTOCB, 3, true)}%`
     DOMCacheGetOrSet('octQuarkBonus').textContent = `+${format(cTOQB, 3, true)}%`
+
+    const keys = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[];
+    for (const key of keys) {
+        const octeractItem = octeractData[key];
+        const elementToHide = DOMCacheGetOrSet(`${key.toString()}`).parentNode as HTMLElement;
+        if (player.octeractHideToggle && octeractItem.maxLevel !== -1 && player.octeractUpgrades[key].level >= octeractItem.maxLevel) {
+            elementToHide.style.display = 'none';
+            continue;
+        } else {
+            elementToHide.style.display = 'block';
+        }
+    }
 }
 
 export const visualUpdateShop = () => {

@@ -769,6 +769,34 @@ export const toggleHideShop = () => {
     player.shopHideToggle = !player.shopHideToggle;
 }
 
+export const toggleBuyMaxOcteract = () => {
+    const el = DOMCacheGetOrSet('toggleBuyMaxOcteract')
+
+    switch (player.octeractBuyMaxToggle) {
+        case false:
+            el.innerHTML = 'Buy: ANY';
+            player.octeractBuyMaxToggle = 'ANY';
+            break;
+        case 'ANY':
+            el.innerHTML = 'Buy: MAX';
+            player.octeractBuyMaxToggle = true;
+            break;
+        default:
+            el.innerHTML = 'Buy: 1';
+            player.octeractBuyMaxToggle = false;
+    }
+}
+
+export const toggleHideOcteract = () => {
+    const el = DOMCacheGetOrSet('toggleHideOcteract')
+    el.textContent = player.octeractHideToggle
+        ? 'Hide Maxed: OFF'
+        : 'Hide Maxed: ON';
+
+    player.octeractHideToggle = !player.octeractHideToggle;
+    visualUpdateOcteracts();
+}
+
 export const toggleAntMaxBuy = () => {
     const el = DOMCacheGetOrSet('toggleAntMax');
     el.textContent = player.antMax

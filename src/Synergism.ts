@@ -806,7 +806,9 @@ export const player: Player = {
 
     dailyCodeUsed: false,
     hepteractAutoCraftPercentage: 50,
-    octeractTimer: 0
+    octeractTimer: 0,
+    octeractHideToggle: false,
+    octeractBuyMaxToggle: false
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -1753,6 +1755,21 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: ON'
         } else {
             DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: OFF'
+        }
+        switch (player.octeractBuyMaxToggle) {
+            case false:
+                DOMCacheGetOrSet('toggleBuyMaxOcteract').textContent = 'Buy: 1';
+                break;
+            case true:
+                DOMCacheGetOrSet('toggleBuyMaxOcteract').textContent = 'Buy: MAX';
+                break;
+            case 'ANY':
+                DOMCacheGetOrSet('toggleBuyMaxOcteract').textContent = 'Buy: ANY';
+        }
+        if (player.octeractHideToggle) {
+            DOMCacheGetOrSet('toggleHideOcteract').textContent = 'Hide Maxed: ON'
+        } else {
+            DOMCacheGetOrSet('toggleHideOcteract').textContent = 'Hide Maxed: OFF'
         }
         if (player.researchBuyMaxToggle) {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'

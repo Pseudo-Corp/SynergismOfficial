@@ -37,25 +37,31 @@ export class OcteractUpgrade extends DynamicUpgrade {
      */
     public async buyLevel(event: MouseEvent): Promise<void> {
         let purchased = 0;
-        let maxPurchasable = 1;
-        let OCTBudget = player.wowOcteracts;
+        let maxPurchasable = 1000000;
+        let octBudget = player.wowOcteracts;
 
-        if (event.shiftKey) {
-            maxPurchasable = 1000000
-            const buy = Number(await Prompt(`How many Octeracts would you like to spend? You have ${format(player.wowOcteracts, 0, true)} OCT. Type -1 to use max!`))
+        if (!event.shiftKey && player.octeractBuyMaxToggle === false) {
+            maxPurchasable = 1;
+        } else {
+            let octToSpend = -1;
 
-            if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
-                return Alert('Value must be a finite number!');
+            // Shows a prompt to ask how many Octeracts to spend
+            if (event.shiftKey || player.octeractBuyMaxToggle === 'ANY') {
+                octToSpend = Number(await Prompt(`How many Octeracts would you like to spend? You have ${format(player.wowOcteracts, 0, true)} OCT. Type -1 to use max!`))
+
+                if (isNaN(octToSpend) || !isFinite(octToSpend) || !Number.isInteger(octToSpend)) { // nan + Infinity checks
+                    return Alert('Value must be a finite number!');
+                }
             }
 
-            if (buy === -1) {
-                OCTBudget = player.wowOcteracts
-            } else if (buy <= 0) {
+            if (octToSpend === -1) {
+                octBudget = player.wowOcteracts
+            } else if (octToSpend <= 0) {
                 return Alert('Purchase cancelled!')
             } else {
-                OCTBudget = buy
+                octBudget = octToSpend;
             }
-            OCTBudget = Math.min(player.wowOcteracts, OCTBudget)
+            octBudget = Math.min(player.wowOcteracts, octBudget)
         }
 
         if (this.maxLevel > 0) {
@@ -68,11 +74,11 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
         while (maxPurchasable > 0) {
             const cost = this.getCostTNL();
-            if (player.wowOcteracts < cost || OCTBudget < cost) {
+            if (player.wowOcteracts < cost || octBudget < cost) {
                 break;
             } else {
                 player.wowOcteracts -= cost;
-                OCTBudget -= cost;
+                octBudget -= cost;
                 this.octeractsInvested += cost
                 this.level += 1;
                 purchased += 1;

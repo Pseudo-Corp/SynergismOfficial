@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage } from './Toggles'
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleBuyMaxOcteract, toggleHideShop, toggleHideOcteract, toggleHepteractAutoPercentage } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyRuneBonusLevels, buyAllBlessings } from './Buy'
@@ -646,6 +646,9 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.octeractUpgrades[`${String(key)}`].updateUpgradeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.octeractUpgrades[`${String(key)}`].buyLevel(event))
     }
+    /*Toggle Hide Maxed*/ DOMCacheGetOrSet('toggleHideOcteract').addEventListener('click', () => toggleHideOcteract())
+    /*Toggle Buy Max*/ DOMCacheGetOrSet('toggleBuyMaxOcteract').addEventListener('click', () => toggleBuyMaxOcteract())
+
     //Toggle subtabs of Singularity tab
     for (let index = 0; index < 4; index++) {
         DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => toggleSubTab(10, index))

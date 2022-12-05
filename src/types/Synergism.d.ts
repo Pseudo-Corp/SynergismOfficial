@@ -584,8 +584,9 @@ export interface Player {
     octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade>
     dailyCodeUsed: boolean
     hepteractAutoCraftPercentage: number
-    octeractTimer: number
-
+    octeractTimer: number,
+    octeractHideToggle: boolean,
+    octeractBuyMaxToggle: boolean | 'ANY'
 }
 
 export interface GlobalVariables {
