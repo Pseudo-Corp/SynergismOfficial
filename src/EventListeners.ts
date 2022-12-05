@@ -594,7 +594,7 @@ TODO: Fix this entire tab it's utter shit
     // Part 1: The Settings
     /*Respec The Upgrades*/ DOMCacheGetOrSet('resetShopUpgrades').addEventListener('click', () => resetShopUpgrades())
     /*Toggle Shop Confirmations*/ DOMCacheGetOrSet('toggleConfirmShop').addEventListener('click', () => toggleShopConfirmation())
-    /*Toggle Shop Buy Max*/ DOMCacheGetOrSet('toggleBuyMaxShop').addEventListener('click', (event) => toggleBuyMaxShop(event))
+    /*Toggle Shop Buy Max*/ DOMCacheGetOrSet('toggleBuyMaxShop').addEventListener('click', () => toggleBuyMaxShop())
     /*Toggle Hide Permanent Maxed*/ DOMCacheGetOrSet('toggleHideShop').addEventListener('click', () => toggleHideShop())
 
     // Part 2: Potions
@@ -603,8 +603,7 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('offeringpotionowned').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
     DOMCacheGetOrSet('buyofferingpotion').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
     DOMCacheGetOrSet('useofferingpotion').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
-    DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', () => buyShopUpgrades('offeringPotion'))
-    //DOMCacheGetOrSet('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
+    DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', (event) => buyShopUpgrades('offeringPotion', event))
     DOMCacheGetOrSet('useofferingpotion').addEventListener('click', () => useConsumable('offeringPotion'))
     DOMCacheGetOrSet('toggle42').addEventListener('click', () => {
         player.autoPotionTimer = 0;
@@ -614,8 +613,7 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('obtainiumpotionowned').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
     DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
     DOMCacheGetOrSet('useobtainiumpotion').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
-    DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('click', () => buyShopUpgrades('obtainiumPotion'))
-    //DOMCacheGetOrSet('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
+    DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('click', (event) => buyShopUpgrades('obtainiumPotion', event))
     DOMCacheGetOrSet('useobtainiumpotion').addEventListener('click', () => useConsumable('obtainiumPotion'))
     DOMCacheGetOrSet('toggle43').addEventListener('click', () => {
         player.autoPotionTimerObtainium = 0;
@@ -628,8 +626,7 @@ TODO: Fix this entire tab it's utter shit
             DOMCacheGetOrSet(`${key}`).addEventListener('mouseover', () => shopDescriptions(key))
             DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', () => shopDescriptions(key))
             DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', () => shopDescriptions(key))
-            //DOMCacheGetOrSet(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
-            DOMCacheGetOrSet(`${key}Button`).addEventListener('click', () => buyShopUpgrades(key))
+            DOMCacheGetOrSet(`${key}Button`).addEventListener('click', (event) => buyShopUpgrades(key, event))
         }
     }
     DOMCacheGetOrSet('buySingularityQuarksButton').addEventListener('click', () => buyGoldenQuarks());
