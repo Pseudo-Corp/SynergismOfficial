@@ -94,8 +94,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('cube6Bonus').style.color = 'brown';
         DOMCacheGetOrSet('tesseract6Bonus').style.color = 'brown';
         DOMCacheGetOrSet('hypercube6Bonus').style.color = 'brown';
-        DOMCacheGetOrSet('c15Reward29').style.color = 'grey';
-        DOMCacheGetOrSet('c15Reward29Num').style.color = 'grey';
         DOMCacheGetOrSet('runeshowpower5').style.color = 'tomato';
         DOMCacheGetOrSet('hypercubeWelcome').style.color = '#ff004c'; //Hypercube colors
         DOMCacheGetOrSet('hypercubeInventory').style.color = '#ff004c';
@@ -213,8 +211,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('cube6Bonus').style.color = '#a5a5a5';
         DOMCacheGetOrSet('tesseract6Bonus').style.color = '#a5a5a5';
         DOMCacheGetOrSet('hypercube6Bonus').style.color = '#a5a5a5';
-        DOMCacheGetOrSet('c15Reward29').style.color = '#a5a5a5';
-        DOMCacheGetOrSet('c15Reward29Num').style.color = '#a5a5a5';
         DOMCacheGetOrSet('hypercubeWelcome').style.color = '#f58';
         DOMCacheGetOrSet('hypercubeInventory').style.color = '#f58';
         DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = '#f58';
@@ -231,7 +227,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         body.style.setProperty('--crimson-text-color', '#eb0000');
         body.style.setProperty('--orchid-text-color', '#fd59f7');
         body.style.setProperty('--darkorchid-text-color', '#c205ff');
-        body.style.setProperty('--gray-text-color', '#ff00c8');
+        body.style.setProperty('--gray-text-color', '#8f8f8f');
         body.style.setProperty('--box-color', '#000000');
         body.style.setProperty('--boxmain-bordercolor', '#b341e0');
         body.style.setProperty('--button-color', '#21003f');
@@ -280,10 +276,8 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('hepteractWelcome').style.color = '#ac47ff';
         DOMCacheGetOrSet('confirmationdisclaimer').style.color = '#bb68ff';
         DOMCacheGetOrSet('antspecies').style.color = '#184ff3';
-        DOMCacheGetOrSet('c15Reward29').style.color = '#8f8f8f';
-        DOMCacheGetOrSet('c15Reward29Num').style.color = '#8f8f8f';
         DOMCacheGetOrSet('bonussummation').style.color = '#eb0000';
-        DOMCacheGetOrSet('buildinghotkeys').style.color = '#ff00c8';
+        DOMCacheGetOrSet('buildinghotkeys').style.color = '#838383';
 
         themeButton.textContent = 'Dracula Mode';
     }

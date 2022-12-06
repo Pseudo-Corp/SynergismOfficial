@@ -3138,6 +3138,9 @@ header #obtainiumDisplay { color: pink; }
 #c15Reward26,
 #c15Reward26Num { color: var(--red-text-color); }
 
+#c15Reward29,
+#c15Reward29Num { color: var(--gray-text-color); }
+
 #c15Reward33,
 #c15Reward33Num,
 #c15RewardList { color: var(--orchid-text-color); }
