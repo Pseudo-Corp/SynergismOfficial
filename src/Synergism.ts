@@ -808,7 +808,9 @@ export const player: Player = {
     hepteractAutoCraftPercentage: 50,
     octeractTimer: 0,
     octeractHideToggle: false,
-    octeractBuyMaxToggle: false
+    octeractBuyMaxToggle: false,
+    singUpgradeHideToggle: false,
+    singUpgradeBuyMaxToggle: false
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -1770,6 +1772,21 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleHideOcteract').textContent = 'Hide Maxed: ON'
         } else {
             DOMCacheGetOrSet('toggleHideOcteract').textContent = 'Hide Maxed: OFF'
+        }
+        switch (player.singUpgradeBuyMaxToggle) {
+            case false:
+                DOMCacheGetOrSet('toggleBuyMaxSingUpgrade').textContent = 'Buy: 1';
+                break;
+            case true:
+                DOMCacheGetOrSet('toggleBuyMaxSingUpgrade').textContent = 'Buy: MAX';
+                break;
+            case 'ANY':
+                DOMCacheGetOrSet('toggleBuyMaxSingUpgrade').textContent = 'Buy: ANY';
+        }
+        if (player.singUpgradeHideToggle) {
+            DOMCacheGetOrSet('toggleHideSingUpgrade').textContent = 'Hide Maxed: ON'
+        } else {
+            DOMCacheGetOrSet('toggleHideSingUpgrade').textContent = 'Hide Maxed: OFF'
         }
         if (player.researchBuyMaxToggle) {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'

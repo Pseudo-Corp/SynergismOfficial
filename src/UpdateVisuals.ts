@@ -550,8 +550,20 @@ export const visualUpdateSingularity = () => {
     if (G['currentTab'] !== 'singularity') {
         return
     }
-    if (player.subtabNumber === 0) {
+    if (player.subtabNumber <= 1) {
         DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks, 0, true) + ' Golden Quarks!'
+        const keys = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
+        for (const key of keys) {
+            const singUpgradeItem = player.singularityUpgrades[key];
+            const elementToHide = DOMCacheGetOrSet(`${key.toString()}`).parentNode as HTMLElement;
+            const computedMaxLevel = singUpgradeItem.computeMaxLevel();
+            if (player.singUpgradeHideToggle && computedMaxLevel !== -1 && singUpgradeItem.level >= computedMaxLevel) {
+                elementToHide.style.display = 'none';
+                continue;
+            } else {
+                elementToHide.style.display = 'block';
+            }
+        }
     }
 }
 

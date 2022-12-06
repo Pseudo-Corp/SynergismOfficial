@@ -783,6 +783,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.octeractBuyMaxToggle = false;
     }
 
+    if (data.singUpgradeBuyMaxToggle === undefined) {
+        player.singUpgradeBuyMaxToggle = false;
+    }
+
     if (data.wowOcteracts === undefined) {
         player.wowOcteracts = 0;
         player.octeractTimer = 0;
@@ -794,6 +798,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     if (data.octeractHideToggle === undefined) {
         player.octeractHideToggle = false;
+    }
+
+    if (data.singUpgradeHideToggle === undefined) {
+        player.singUpgradeHideToggle = false;
     }
 
     if (data.researchBuyMaxToggle === undefined) {

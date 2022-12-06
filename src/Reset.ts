@@ -1135,6 +1135,8 @@ export const singularity = async (): Promise<void> => {
     hold.firstPlayed = player.firstPlayed
     hold.octeractHideToggle = player.octeractHideToggle
     hold.octeractBuyMaxToggle = player.octeractBuyMaxToggle
+    hold.singUpgradeHideToggle = player.singUpgradeHideToggle
+    hold.singUpgradeBuyMaxToggle = player.singUpgradeBuyMaxToggle
 
     // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark;

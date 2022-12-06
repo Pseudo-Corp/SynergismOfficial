@@ -586,7 +586,9 @@ export interface Player {
     hepteractAutoCraftPercentage: number
     octeractTimer: number,
     octeractHideToggle: boolean,
-    octeractBuyMaxToggle: boolean | 'ANY'
+    octeractBuyMaxToggle: boolean | 'ANY',
+    singUpgradeHideToggle: boolean,
+    singUpgradeBuyMaxToggle: boolean | 'ANY'
 }
 
 export interface GlobalVariables {

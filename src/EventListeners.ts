@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleBuyMaxOcteract, toggleHideShop, toggleHideOcteract, toggleHepteractAutoPercentage } from './Toggles'
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleBuyMaxOcteract, toggleBuyMaxSingUpgrade, toggleHideShop, toggleHideOcteract, toggleHideSingUpgrade, toggleHepteractAutoPercentage } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyRuneBonusLevels, buyAllBlessings } from './Buy'
@@ -636,6 +636,8 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.singularityUpgrades[`${String(key)}`].buyLevel(event))
     }
+    /*Toggle Hide Maxed*/ DOMCacheGetOrSet('toggleHideSingUpgrade').addEventListener('click', () => toggleHideSingUpgrade())
+    /*Toggle Buy Max*/ DOMCacheGetOrSet('toggleBuyMaxSingUpgrade').addEventListener('click', () => toggleBuyMaxSingUpgrade())
 
     // Octeract Upgrades
     const octeractUpgrades = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[];

@@ -1,7 +1,7 @@
 import { revealStuff, hideStuff, updateChallengeDisplay, showCorruptionStatsLoadouts, changeTabColor, Prompt, Alert } from './UpdateHTML';
 import { player, format, resetCheck } from './Synergism';
 import { Globals as G } from './Variables';
-import { visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals';
+import { visualUpdateCubes, visualUpdateOcteracts, visualUpdateSingularity } from './UpdateVisuals';
 import { calculateRuneLevels } from './Calculate';
 import { reset, resetrepeat } from './Reset';
 import { autoResearchEnabled } from './Research';
@@ -794,6 +794,35 @@ export const toggleHideOcteract = () => {
 
     player.octeractHideToggle = !player.octeractHideToggle;
     visualUpdateOcteracts();
+}
+
+export const toggleBuyMaxSingUpgrade = () => {
+    const el = DOMCacheGetOrSet('toggleBuyMaxSingUpgrade')
+
+    switch (player.singUpgradeBuyMaxToggle) {
+        case false:
+            el.innerHTML = 'Buy: ANY';
+            player.singUpgradeBuyMaxToggle = 'ANY';
+            break;
+        case 'ANY':
+            el.innerHTML = 'Buy: MAX';
+            player.singUpgradeBuyMaxToggle = true;
+            break;
+        case true:
+        default:
+            el.innerHTML = 'Buy: 1';
+            player.singUpgradeBuyMaxToggle = false;
+    }
+}
+
+export const toggleHideSingUpgrade = () => {
+    const el = DOMCacheGetOrSet('toggleHideSingUpgrade')
+    el.textContent = player.singUpgradeHideToggle
+        ? 'Hide Maxed: OFF'
+        : 'Hide Maxed: ON';
+
+    player.singUpgradeHideToggle = !player.singUpgradeHideToggle;
+    visualUpdateSingularity();
 }
 
 export const toggleAntMaxBuy = () => {
