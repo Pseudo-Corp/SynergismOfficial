@@ -3095,7 +3095,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
     }
 
     if (i === 'ascension') {
-        if (player.toggles[28] === false || player.challengecompletions[10] > 0) {
+        if (player.achievements[141] > 0 && (player.toggles[31] === false || player.challengecompletions[10] > 0)) {
             if (manual) {
                 void resetConfirmation('ascend');
             }
