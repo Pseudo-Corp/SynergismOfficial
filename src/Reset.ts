@@ -986,50 +986,56 @@ export const updateSingularityGlobalPerks = () => {
     }
 }
 
-export const singularity = async (): Promise<void> => {
-    if (player.runelevels[6] === 0) {
+export const singularity = async (setSingNumber = -1): Promise<void> => {
+    if (player.runelevels[6] === 0 && setSingNumber === -1) {
         return Alert('You nearly triggered a double singularity bug! Oh no! Luckily, our staff prevented this from happening.');
     }
 
-    // get total cube blessings for history
-    const cubeArray = Object.values(player.cubeBlessings);
-    const tesseractArray = Object.values(player.tesseractBlessings);
-    const hypercubeArray = Object.values(player.hypercubeBlessings);
-    const platonicArray = Object.values(player.platonicBlessings);
-    // Update sing history
-    const historyEntry: ResetHistoryEntrySingularity = {
-        seconds: player.singularityCounter,
-        date: Date.now(),
-        singularityCount: player.singularityCount,
-        quarks: player.quarksThisSingularity,
-        c15Score: player.challenge15Exponent,
-        goldenQuarks: calculateGoldenQuarkGain(),
-        wowTribs: sumContents(cubeArray),
-        tessTribs: sumContents(tesseractArray),
-        hyperTribs: sumContents(hypercubeArray),
-        platTribs: sumContents(platonicArray),
-        octeracts: player.totalWowOcteracts,
-        quarkHept: player.hepteractCrafts.quark.BAL,
-        kind: 'singularity'
+    // setSingNumber is only not -1 when we are entering and exiting a challenge.
+    if (setSingNumber === -1) {
+        // get total cube blessings for history
+        const cubeArray = Object.values(player.cubeBlessings);
+        const tesseractArray = Object.values(player.tesseractBlessings);
+        const hypercubeArray = Object.values(player.hypercubeBlessings);
+        const platonicArray = Object.values(player.platonicBlessings);
+        // Update sing history
+        const historyEntry: ResetHistoryEntrySingularity = {
+            seconds: player.singularityCounter,
+            date: Date.now(),
+            singularityCount: player.singularityCount,
+            quarks: player.quarksThisSingularity,
+            c15Score: player.challenge15Exponent,
+            goldenQuarks: calculateGoldenQuarkGain(),
+            wowTribs: sumContents(cubeArray),
+            tessTribs: sumContents(tesseractArray),
+            hyperTribs: sumContents(hypercubeArray),
+            platTribs: sumContents(platonicArray),
+            octeracts: player.totalWowOcteracts,
+            quarkHept: player.hepteractCrafts.quark.BAL,
+            kind: 'singularity'
+        }
+        Synergism.emit('historyAdd', 'singularity', historyEntry);
     }
-    Synergism.emit('historyAdd', 'singularity', historyEntry);
-
     // reset the rune instantly to hopefully prevent a double singularity
     player.runelevels[6] = 0;
 
     player.goldenQuarks += calculateGoldenQuarkGain();
 
-    const incrementSingCount = 1 + getFastForwardTotalMultiplier();
-    player.singularityCount += incrementSingCount;
-    if (player.singularityCount >= player.highestSingularityCount) {
-        player.highestSingularityCount = player.singularityCount;
+    if (setSingNumber === -1) {
+        const incrementSingCount = 1 + getFastForwardTotalMultiplier();
+        player.singularityCount += incrementSingCount;
+        if (player.singularityCount >= player.highestSingularityCount) {
+            player.highestSingularityCount = player.singularityCount;
 
-        if (player.highestSingularityCount === 5) {
-            player.singularityUpgrades.goldenQuarks3.freeLevels += 1;
+            if (player.highestSingularityCount === 5) {
+                player.singularityUpgrades.goldenQuarks3.freeLevels += 1;
+            }
+            if (player.highestSingularityCount === 10) {
+                player.singularityUpgrades.goldenQuarks3.freeLevels += 2;
+            }
         }
-        if (player.highestSingularityCount === 10) {
-            player.singularityUpgrades.goldenQuarks3.freeLevels += 2;
-        }
+    } else {
+        player.singularityCount = setSingNumber;
     }
 
     player.totalQuarksEver += player.quarksThisSingularity;
@@ -1133,6 +1139,8 @@ export const singularity = async (): Promise<void> => {
     hold.theme = player.theme
     hold.notation = player.notation
     hold.firstPlayed = player.firstPlayed
+    hold.insideSingularityChallenge = player.insideSingularityChallenge
+    hold.singularityChallenges = player.singularityChallenges
 
     // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark;
@@ -1149,6 +1157,12 @@ export const singularity = async (): Promise<void> => {
 
     // Import Game
 
+    /*(for (const obj in blankSave) {
+        const k = obj as keyof Player;
+        if (k in blankSave) {
+            player[k] = blankSave?.[k]
+        }
+    }*/
     await importSynergism(btoa(JSON.stringify(hold)), true);
 
     // TODO: Do not enable data that has never used an event code

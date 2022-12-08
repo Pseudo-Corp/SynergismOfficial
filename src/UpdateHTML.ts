@@ -424,6 +424,11 @@ export const revealStuff = () => {
         item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'block' : 'none';
     }
 
+    const singChallengeUnlocks = document.getElementsByClassName('singChallenges') as HTMLCollectionOf<HTMLElement>;
+    for (const item of Array.from(singChallengeUnlocks)) {
+        item.style.display = player.highestSingularityCount >= 25 ? 'block' : 'none';
+    }
+
     (player.runelevels[6] > 0 || player.highestSingularityCount > 0) ?
         (DOMCacheGetOrSet('singularitybtn').style.display = 'block') :
         (DOMCacheGetOrSet('singularitybtn').style.display = 'none');
