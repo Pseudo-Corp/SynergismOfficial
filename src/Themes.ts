@@ -137,7 +137,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
 
         themeButton.textContent = 'Darker Mode';
     } else if (themeNumber === 3) { //'Lighter Dark Mode'
-        body.style.setProperty('--header-color', '#0e0d12');
+        body.style.setProperty('--header-color', '#18171c');
         body.style.setProperty('--bg-color', '#1c1b22');
         body.style.setProperty('--alert-color', '#141319');
         body.style.setProperty('--history-lines', '#083a3a');

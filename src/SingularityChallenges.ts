@@ -112,12 +112,12 @@ export class SingularityChallenge {
      */
     toString(): string {
 
-        const color = (this.completions === this.maxCompletions) ? 'orchid' : 'white'
-        const enabled = (this.enabled) ? '<span style="color: red">[ENABLED]</span>' : '';
+        const color = (this.completions === this.maxCompletions) ? 'var(--orchid-text-color)' : 'white'
+        const enabled = (this.enabled) ? '<span style="color: var(--red-text-color)">[ENABLED]</span>' : '';
         return `<span style="color: gold">${this.name}</span> ${enabled}
                 <span style="color: lightblue">${this.description}</span>
                 Tiers completed: <span style="color: ${color}">${this.completions}/${this.maxCompletions}</span>
-                <span style="color: gold">The current tier of this challenge takes place in Singularity <span style="color: orchid">${this.singularityRequirement(this.baseReq, this.completions)}</span></span>
+                <span style="color: gold">The current tier of this challenge takes place in Singularity <span style="color: var(--orchid-text-color)">${this.singularityRequirement(this.baseReq, this.completions)}</span></span>
                 <span>${this.rewardDescription}</span>`
     }
 
