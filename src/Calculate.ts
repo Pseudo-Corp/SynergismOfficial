@@ -1896,7 +1896,7 @@ export const calcAscensionCount = () => {
         ascCount *= (player.platonicUpgrades[15] > 0 ? 2 : 1);
         ascCount *= (1 + 0.02 * player.platonicUpgrades[16]);
         ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000));
-        ascCount *= (1 + 1/8 * player.singularityCount)
+        ascCount *= (1 + player.singularityCount / 10);
         ascCount *= +player.singularityUpgrades.ascensions.getEffect().bonus
         ascCount *= +player.octeractUpgrades.octeractAscensions.getEffect().bonus
         ascCount *= +player.octeractUpgrades.octeractAscensions2.getEffect().bonus

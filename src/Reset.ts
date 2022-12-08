@@ -33,7 +33,8 @@ import { importSynergism } from './ImportExport';
 import { resetShopUpgrades, shopData } from './Shop';
 import { QuarkHandler } from './Quark';
 import { calculateSingularityDebuff, getFastForwardTotalMultiplier } from './singularity';
-import { updateCubeUpgradeBG, awardAutosCookieUpgrade } from './Cubes';
+import { updateCubeUpgradeBG, awardAutosCookieUpgrade, autoBuyCubeUpgrades } from './Cubes';
+import { autoBuyPlatonicUpgrades } from './Platonic';
 import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
 import { getAutoHepteractCrafts } from './Hepteracts'
 import type { TesseractBuildings } from './Buy';
@@ -709,6 +710,12 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             }
         }
 
+        // Automation Platonic Upgrades
+        autoBuyPlatonicUpgrades();
+
+        // Automation Cube Upgrades
+        autoBuyCubeUpgrades();
+
         //Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
         if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
             player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
@@ -1133,6 +1140,8 @@ export const singularity = async (): Promise<void> => {
     hold.theme = player.theme
     hold.notation = player.notation
     hold.firstPlayed = player.firstPlayed
+    hold.autoCubeUpgradesToggle = player.autoCubeUpgradesToggle
+    hold.autoPlatonicUpgradesToggle = player.autoPlatonicUpgradesToggle
 
     // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark;

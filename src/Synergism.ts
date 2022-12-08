@@ -14,7 +14,7 @@ import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, exitOffline, calculateGoldenQuarkGain } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels, calculateMaxTalismanLevel } from './Talismans';
-import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount } from './Toggles';
+import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
@@ -535,6 +535,8 @@ export const player: Player = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     cubeUpgradesBuyMaxToggle: false,
+    autoCubeUpgradesToggle: false,
+    autoPlatonicUpgradesToggle: false,
     platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     wowCubes: new WowCubes(0),
     wowTesseracts: new WowTesseracts(0),
@@ -1764,6 +1766,8 @@ const loadSynergy = async () => {
         } else {
             DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: 1 Level wow'
         }
+        autoCubeUpgradesToggle(false);
+        autoPlatonicUpgradesToggle(false);
 
         for (let i = 1; i <= 2; i++) {
             toggleAntMaxBuy();
