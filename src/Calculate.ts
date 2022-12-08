@@ -1108,6 +1108,8 @@ export const calculateAllCubeMultiplier = () => {
         1 + 0.25 * +G['isEvent'] * player.cubeUpgrades[58],
         // Wow Octeract Bonus
         calculateTotalOcteractCubeBonus(),
+        // No Singularity Upgrades Challenge
+        +player.singularityChallenges.noSingularityUpgrades.rewards.cubes,
         // Singularity Citadel
         +player.singularityUpgrades.singCitadel.getEffect().bonus,
         // Singularity Citadel 2
@@ -1341,6 +1343,8 @@ export const getOcteractValueMultipliers = () => {
         // digital octeract accumulator
         Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
         1 + calculateEventBuff('Octeract'),
+        // No Singulairty Upgrades
+        +player.singularityChallenges.noSingularityUpgrades.rewards.cubes,
         1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24)),
         // Wow Pass INF
         Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
@@ -1559,6 +1563,7 @@ export const calculateGoldenQuarkGain = (computeMultiplier = false):number => {
         1 + player.worlds.BONUS / 100,
         (+player.singularityUpgrades.goldenQuarks1.getEffect().bonus) *
         1 + 0.12 * player.cubeUpgrades[69],
+        +player.singularityChallenges.noSingularityUpgrades.rewards.goldenQuarks,
         1 + calculateEventBuff('Golden Quarks'),
         fastForwardMultiplier,
         (player.highestSingularityCount >= 100) ? 1 + player.highestSingularityCount / 250 : 1

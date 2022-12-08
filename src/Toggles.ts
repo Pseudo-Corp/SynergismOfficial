@@ -279,7 +279,8 @@ export const subTabsInMainTab = (mainTab: number) => {
                 {subTabID: 1, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab1'},
                 {subTabID: 2, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab2'},
                 {subTabID: 3, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab3'},
-                {subTabID: 4, unlocked: Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus), buttonID: 'toggleSingularitySubTab4'}]
+                {subTabID: 4, unlocked: Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus), buttonID: 'toggleSingularitySubTab4'},
+                {subTabID: 5, unlocked: player.highestSingularityCount >= 25, buttonID: 'toggleSingularitySubTab5'}]
         }
     }
     return subTabs[mainTab]!;
@@ -607,10 +608,10 @@ export const toggleSaveOff = () => {
 }
 
 export const toggleSingularityScreen = (index: number) => {
-    const screens = ['shop', 'penalties', 'perks'];
+    const screens = ['shop', 'penalties', 'perks', 'octeracts', 'challenges'];
     G['singularityscreen'] = screens[index - 1];
 
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= 5; i++) {
         const a = DOMCacheGetOrSet('toggleSingularitySubTab' + i);
         const b = DOMCacheGetOrSet('singularityContainer' + i);
         if (i === index) {

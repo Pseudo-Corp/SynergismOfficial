@@ -6,6 +6,7 @@ import { OcteractUpgrade } from '../Octeracts';
 import { IPlatBaseCost } from '../Platonic';
 import type { QuarkHandler } from '../Quark';
 import { SingularityUpgrade } from '../singularity';
+import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges';
 
 export interface Player {
     firstPlayed: string
@@ -587,6 +588,10 @@ export interface Player {
     dailyCodeUsed: boolean
     hepteractAutoCraftPercentage: number
     octeractTimer: number
+
+    insideSingularityChallenge: boolean
+    singularityChallenges: Record<keyof typeof singularityChallengeData, SingularityChallenge>
+
 
 }
 

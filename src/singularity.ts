@@ -39,6 +39,7 @@ export interface ISingularityData extends IUpgradeData {
     minimumSingularity?: number
     canExceedCap?: boolean
     specialCostForm?: SingularitySpecialCostFormulae
+    qualityOfLife?: boolean
 }
 
 /**
@@ -52,6 +53,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
     public minimumSingularity: number;
     public canExceedCap: boolean;
     public specialCostForm: SingularitySpecialCostFormulae
+    public qualityOfLife: boolean
 
     public constructor(data: ISingularityData) {
         super(data)
@@ -59,6 +61,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
         this.minimumSingularity = data.minimumSingularity ?? 0;
         this.canExceedCap = data.canExceedCap ?? false;
         this.specialCostForm = data.specialCostForm ?? 'Default';
+        this.qualityOfLife = data.qualityOfLife ?? false;
     }
 
     /**
@@ -224,6 +227,10 @@ export class SingularityUpgrade extends DynamicUpgrade {
     }
 
     public actualTotalLevels(): number {
+        if (player.singularityChallenges.noSingularityUpgrades.enabled && !this.qualityOfLife) {
+            return 0
+        }
+
         const actualFreeLevels = this.computeFreeLevelSoftcap();
         const linearLevels = this.level + actualFreeLevels
         let polynomialLevels = 0
@@ -310,7 +317,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: (n > 0),
                 desc: `You ${(n > 0) ? 'have': 'have not'} unlocked the Shop Bonanza.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     cookies: {
         name: 'Cookie Recipes I',
@@ -322,7 +330,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: (n > 0),
                 desc: `You ${(n > 0) ? 'have': 'have not'} unlocked volume 1 of the recipe book.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     cookies2: {
         name: 'Cookie Recipes II',
@@ -334,7 +343,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: (n > 0),
                 desc: `You ${(n > 0) ? 'have': 'have not'} unlocked volume 2 of the recipe book.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     cookies3: {
         name: 'Cookie Recipes III',
@@ -346,7 +356,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: (n > 0),
                 desc: `You ${(n > 0) ? 'have': 'have not'} appeased the union of Bakers.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     cookies4: {
         name: 'Cookie Recipes IV',
@@ -358,7 +369,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: (n > 0),
                 desc: `You ${(n > 0) ? 'have': 'have not'} paid your price for salvation.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     cookies5: {
         name: 'Cookie Recipes V (WIP)',
@@ -371,7 +383,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: (n > 0),
                 desc: `You ${(n > 0) ? 'have' : 'have not'} paid witness to the suffering of the masses.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     ascensions: {
         name: 'Improved Ascension Gain',
@@ -562,7 +575,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: (n > 0),
                 desc: `You ${(n > 0) ? 'have': 'have not'} bought into the Octeract hype.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     singOcteractPatreonBonus: {
         name: 'Platonic $ells out!!!',
@@ -666,7 +680,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: (n > 0),
                 desc: `You ${(n > 0) ? 'have': 'have not'} triggered the Liquidation event!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     wowPass3: {
         name: 'QUAAAACK',
@@ -679,7 +694,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: (n > 0),
                 desc: `You ${(n > 0) ? 'have': 'have not'} triggered the QUACKSTRAVAGANZA!!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     potionBuff: {
         name: 'Potion Decanter of Enlightenment',
@@ -775,7 +791,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: n/200,
                 desc: `You gain ${format(n/2, 2, true)}% more Quarks!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     singQuarkHepteract: {
         name: 'I wish my Quark Hepteract was marginally better.',
@@ -788,7 +805,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: n/100,
                 desc: `The DR exponent is now ${format(2 *n, 2, true)}% larger!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     singQuarkHepteract2: {
         name: 'I wish my Quark Hepteract was marginally better II.',
@@ -801,7 +819,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: n/100,
                 desc: `The DR exponent is now ${format(2 * n, 2, true)}% larger!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     singQuarkHepteract3: {
         name: 'I wish my Quark Hepteract was marginally better III.',
@@ -814,7 +833,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: n/100,
                 desc: `The DR exponent is now ${format(2 * n, 2, true)}% larger!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     singOcteractGain: {
         name: 'Octeract Absinthe',
@@ -896,7 +916,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: n > 0,
                 desc: `This upgrade has ${n > 0 ? '' : 'NOT'} been purchased!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     platonicAlpha: {
         name: 'Platonic ALPHA...?',
@@ -909,7 +930,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: n > 0,
                 desc: `This upgrade has ${n > 0 ? '' : 'NOT'} been purchased!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     platonicDelta: {
         name: 'Platonic DELTA',
@@ -935,7 +957,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: n > 0,
                 desc: `This upgrade has ${n > 0 ? '' : 'NOT'} been purchased!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     singFastForward: {
         name: 'Etherflux Singularities',
@@ -948,7 +971,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: n > 0,
                 desc: `You've ${n > 0 ? '' : 'NOT'} transformed the Etherflux!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     singFastForward2: {
         name: 'Aetherflux Singularities',
@@ -961,7 +985,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: n > 0,
                 desc: `You've ${n > 0 ? '' : 'NOT'} transformed the Aetherflux!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     singAscensionSpeed: {
         name: 'A hecking good ascension speedup!',
@@ -1026,7 +1051,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: n > 0,
                 desc: `You have ${n > 0 ? '' : 'NOT'} joined the cult!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     wowPass4: {
         name: 'QUQUQUQUAAKCKCKKCKKCKK',
@@ -1039,7 +1065,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: n > 0,
                 desc: `You have ${n > 0 ? '' : 'NOT'} quacked your last QUARK`
             }
-        }
+        },
+        qualityOfLife: true
     }
 }
 
@@ -1242,7 +1269,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Exalted Achievements',
-        levels: [16],
+        levels: [25],
         description: () => {
             return 'Unlocks new, very difficult achievements! They are earned differently from others, however... (WIP)'
         }
