@@ -823,9 +823,9 @@ export const blankSave = Object.assign({}, player, {
 // when the game was saving just as the user was entering a Singularity. To fix
 // this, hopefully, we disable saving the game when in the prompt or currently
 // entering a Singularity.
-let canSave = true;
+export const saveCheck = { canSave: true }
 
-export const saveSynergy = async (button?: boolean, element?: HTMLButtonElement): Promise<boolean> => {
+export const saveSynergy = async (button?: boolean): Promise<boolean> => {
     player.offlinetick = Date.now();
     player.loaded1009 = true;
     player.loaded1009hotfix1 = true;
@@ -840,17 +840,13 @@ export const saveSynergy = async (button?: boolean, element?: HTMLButtonElement)
         wowPlatonicCubes: Number(player.wowPlatonicCubes)
     });
 
-    if (!canSave) {
-        return false
-    }
-
     const save = btoa(JSON.stringify(p));
     if (save !== null) {
         const saveBlob = new Blob([save], { type: 'text/plain' });
 
-        if (element) {
-            element.disabled = true;
-            setTimeout(() => element.disabled = false, 10_000);
+        //Should prevent overwritting of localforage that is currently used
+        if (!saveCheck.canSave) {
+            return false;
         }
 
         await localforage.setItem<Blob>('Synergysave2', saveBlob);
@@ -3173,7 +3169,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
 
         let confirmed = false;
-        canSave = false;
         const nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
 
         if (!player.toggles[33] && player.singularityCount > 0) {
@@ -3195,11 +3190,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
 
         if (!confirmed) {
-            canSave = true;
             return Alert('If you decide to change your mind, let me know. -Ant God')
         } else {
             await singularity();
-            canSave = true;
             await saveSynergy();
             return Alert('Welcome to Singularity #' + format(player.singularityCount) + '. You\'re back to familiar territory, but something doesn\'t seem right.')
         }
@@ -4048,7 +4041,7 @@ export const reloadShit = async (reset = false) => {
         player.worlds = new QuarkHandler({ bonus: 0, quarks: 0 });
         // saving is disabled during a singularity event to prevent bug
         // early return here if the save fails can keep game state from properly resetting after a singularity
-        if (canSave) {
+        if (saveCheck.canSave) {
             const saved = await saveSynergy();
             if (!saved) {
                 return
