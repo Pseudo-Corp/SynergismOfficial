@@ -161,114 +161,114 @@ const historyGains: Record<
     }
 > = {
     offerings: {
-        img: 'Pictures/Offering.png',
+        img: 'Pictures/Default/Offering.png',
         formatter: formatDecimalSource,
         imgTitle: 'Offerings'
     },
     obtainium: {
-        img: 'Pictures/Obtainium.png',
+        img: 'Pictures/Default/Obtainium.png',
         formatter: formatDecimalSource,
         imgTitle: 'Obtainium'
     },
     particles: {
-        img: 'Pictures/Particle.png',
+        img: 'Pictures/Default/Particle.png',
         formatter: formatDecimalSource,
         imgTitle: 'Particles'
     },
     diamonds: {
-        img: 'Pictures/Diamond.png',
+        img: 'Pictures/Default/Diamond.png',
         formatter: formatDecimalSource,
         imgTitle: 'Diamonds'
     },
     mythos: {
-        img: 'Pictures/Mythos.png',
+        img: 'Pictures/Default/Mythos.png',
         formatter: formatDecimalSource,
         imgTitle: 'Mythos'
     },
     wowTesseracts: {
-        img: 'Pictures/TinyWow4.png',
+        img: 'Pictures/Default/TinyWow4.png',
         formatter: conditionalFormatPerSecond,
         imgTitle: 'Wow! Tesseracts'
     },
     wowHypercubes: {
-        img: 'Pictures/TinyWow5.png',
+        img: 'Pictures/Default/TinyWow5.png',
         formatter: conditionalFormatPerSecond,
         imgTitle: 'Wow! Hypercubes',
         onlyif: () => player.challengecompletions[13] > 0
     },
     wowCubes: {
-        img: 'Pictures/TinyWow3.png',
+        img: 'Pictures/Default/TinyWow3.png',
         formatter: conditionalFormatPerSecond,
         imgTitle: 'Wow! Cubes'
     },
     wowPlatonicCubes: {
-        img: 'Pictures/TinyWow6.png',
+        img: 'Pictures/Default/TinyWow6.png',
         formatter: conditionalFormatPerSecond,
         imgTitle: 'Platonic Cubes',
         onlyif: () => player.challengecompletions[14] > 0
     },
     wowHepteracts: {
-        img: 'Pictures/TinyWow7.png',
+        img: 'Pictures/Default/TinyWow7.png',
         formatter: conditionalFormatPerSecond,
         imgTitle: 'Hepteracts',
         onlyif: () => player.achievements[255] > 0
     },
     singularityCount: {
-        img: 'Pictures/TinyS.png',
+        img: 'Pictures/Default/TinyS.png',
         formatter: formatDecimalSource,
         imgTitle: 'Singularity Count',
         onlyif: () => player.highestSingularityCount > 0
     },
     quarks: {
-        img: 'Pictures/Quark.png',
+        img: 'Pictures/Default/Quark.png',
         formatter: formatDecimalSource,
         imgTitle: 'Quarks',
         onlyif: () => player.highestSingularityCount > 0
     },
     goldenQuarks: {
-        img: 'Pictures/GoldenQuark.png',
+        img: 'Pictures/Default/GoldenQuark.png',
         formatter: formatDecimalSource,
         imgTitle: 'Golden Quarks',
         onlyif: () => player.highestSingularityCount > 0
     },
     wowTribs: {
-        img: 'Pictures/TinyWow3.png',
+        img: 'Pictures/Default/TinyWow3.png',
         formatter: formatDecimalSource,
         imgTitle: 'Cube Tributes',
         onlyif: () => player.highestSingularityCount > 0
     },
     tessTribs: {
-        img: 'Pictures/TinyWow4.png',
+        img: 'Pictures/Default/TinyWow4.png',
         formatter: formatDecimalSource,
         imgTitle: 'Tesseract Gifts',
         onlyif: () => player.highestSingularityCount > 0
     },
     hyperTribs: {
-        img: 'Pictures/TinyWow5.png',
+        img: 'Pictures/Default/TinyWow5.png',
         formatter: formatDecimalSource,
         imgTitle: 'Hypercube Bendictions',
         onlyif: () => player.highestSingularityCount > 0
     },
     platTribs: {
-        img: 'Pictures/TinyWow6.png',
+        img: 'Pictures/Default/TinyWow6.png',
         formatter: formatDecimalSource,
         imgTitle: 'Platonics Opened',
         onlyif: () => player.highestSingularityCount > 0
     },
     octeracts: {
-        img: 'Pictures/TinyWow8.png',
+        img: 'Pictures/Default/TinyWow8.png',
         formatter: formatDecimalSource,
         imgTitle: 'Octeracts',
         onlyif: () => player.singularityUpgrades.octeractUnlock.getEffect().bonus > 0
     },
     c15Score: {
-        img: 'Pictures/TinyChallenge15.png',
+        img: 'Pictures/Default/TinyChallenge15.png',
         formatter: formatDecimalSource,
         imgTitle: 'C15 score',
         onlyif: () => player.singularityCount > 0
     },
     quarkHept: {
-        img: 'Pictures/TinyQuarkHept.png',
+        img: 'Pictures/Default/TinyQuarkHept.png',
         formatter: formatDecimalSource,
         imgTitle: 'Quark Hept',
         onlyif: () => player.singularityCount > 0
@@ -286,12 +286,12 @@ const historyGainsOrder: ResetHistoryGainType[] = [
 
 // The various kinds and their associated images.
 const historyKinds: Record<Kind, { img: string }> = {
-    'antsacrifice': {img: 'Pictures/SacrificeNoBorder.png'},
-    'prestige': {img: 'Pictures/TinyP.png'},
-    'transcend': {img: 'Pictures/TinyT.png'},
-    'reincarnate': {img: 'Pictures/TinyR.png'},
-    'ascend': {img: 'Pictures/TinyA.png'},
-    'singularity': {img: 'Pictures/TinyS.png'}
+    'antsacrifice': {img: 'Pictures/Default/SacrificeNoBorder.png'},
+    'prestige': {img: 'Pictures/Default/TinyP.png'},
+    'transcend': {img: 'Pictures/Default/TinyT.png'},
+    'reincarnate': {img: 'Pictures/Default/TinyR.png'},
+    'ascend': {img: 'Pictures/Default/TinyA.png'},
+    'singularity': {img: 'Pictures/Default/TinyS.png'}
 };
 
 // List of categories and the IDs of the associated table in the DOM.
@@ -304,14 +304,14 @@ const resetHistoryTableMapping: Record<Category, string> = {
 
 // Images associated with the various corruptions.
 const resetHistoryCorruptionImages = [
-    'Pictures/CorruptViscocity.png',
-    'Pictures/CorruptSpatialDilation.png',
-    'Pictures/CorruptHyperchallenged.png',
-    'Pictures/CorruptScientificIlliteracy.png',
-    'Pictures/CorruptDeflation.png',
-    'Pictures/CorruptExtinction.png',
-    'Pictures/CorruptDrought.png',
-    'Pictures/CorruptFinancialCollapse.png'
+    'Pictures/Default/CorruptViscocity.png',
+    'Pictures/Default/CorruptSpatialDilation.png',
+    'Pictures/Default/CorruptHyperchallenged.png',
+    'Pictures/Default/CorruptScientificIlliteracy.png',
+    'Pictures/Default/CorruptDeflation.png',
+    'Pictures/Default/CorruptExtinction.png',
+    'Pictures/Default/CorruptDrought.png',
+    'Pictures/Default/CorruptFinancialCollapse.png'
 ];
 
 const resetHistoryCorruptionTitles = [
@@ -399,13 +399,13 @@ const resetHistoryRenderRow = (
         const newMulti = antSacrificePointsToMultiplier(data.antSacrificePointsAfter);
         const diff = newMulti - oldMulti;
         extra.push(
-            `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
-            `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/TinyCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
-            `<span title="${format(data.baseELO)} base"><img src="Pictures/TinyELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
+            `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/Default/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
+            `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/Default/TinyCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
+            `<span title="${format(data.baseELO)} base"><img src="Pictures/Default/TinyELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
         );
     } else if (data.kind === 'ascend') {
         extra.push(
-            `<img alt="C10" src="Pictures/TinyChallenge10.png" title="Challenge 10 completions">${data.c10Completions}`
+            `<img alt="C10" src="Pictures/Default/TinyChallenge10.png" title="Challenge 10 completions">${data.c10Completions}`
         );
 
         const corruptions = resetHistoryFormatCorruptions(data);
