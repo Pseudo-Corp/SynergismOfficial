@@ -738,11 +738,21 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         }
     }
 
+
     if (data.singularityChallenges != null) {
         for (const item in blankSave.singularityChallenges) {
             const k = item as keyof Player['singularityChallenges'];
             let updatedData:ISingularityChallengeData
             if (data.singularityChallenges[k]) {
+
+                // This is a HOTFIX. Please do not remove unless you can think of a better way
+                if (data.loadedV2927Hotfix1 === undefined && k === 'noSingularityUpgrades') {
+                    const comps = data.singularityChallenges[k].completions
+                    if (comps > 0) {
+                        data.singularityChallenges[k].highestSingularityCompleted = 4 * comps - 3
+                    }
+                }
+
                 updatedData = {
                     name: singularityChallengeData[k].name,
                     descripton: singularityChallengeData[k].descripton,
@@ -752,6 +762,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     maxCompletions: singularityChallengeData[k].maxCompletions,
                     unlockSingularity: singularityChallengeData[k].unlockSingularity,
                     HTMLTag: singularityChallengeData[k].HTMLTag,
+                    highestSingularityCompleted: data.singularityChallenges[k].highestSingularityCompleted,
                     enabled: data.singularityChallenges[k].enabled,
                     singularityRequirement: singularityChallengeData[k].singularityRequirement,
                     effect: singularityChallengeData[k].effect

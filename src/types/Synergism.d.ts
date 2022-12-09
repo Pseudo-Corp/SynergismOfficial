@@ -547,6 +547,7 @@ export interface Player {
     loadedV253: boolean
     loadedV255: boolean
     loadedV297Hotfix1: boolean
+    loadedV2927Hotfix1: boolean
     version: string
 
     rngCode: number

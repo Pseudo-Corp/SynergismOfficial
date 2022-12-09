@@ -17,6 +17,7 @@ export interface ISingularityChallengeData {
     effect: (n: number) => {[key: string]: number | boolean}
     completions?: number
     enabled?: boolean
+    highestSingularityCompleted?: number
 }
 
 export class SingularityChallenge {
@@ -28,6 +29,7 @@ export class SingularityChallenge {
     public maxCompletions
     public unlockSingularity
     public HTMLTag
+    public highestSingularityCompleted
     public enabled
     public singularityRequirement
     public effect
@@ -40,15 +42,26 @@ export class SingularityChallenge {
         this.maxCompletions = data.maxCompletions
         this.unlockSingularity = data.unlockSingularity
         this.HTMLTag = data.HTMLTag
+        this.highestSingularityCompleted = data.highestSingularityCompleted ?? 0
         this.enabled = data.enabled ?? false
         this.singularityRequirement = data.singularityRequirement
         this.effect = data.effect
 
         this.updateIconHTML()
+        this.updateChallengeCompletions()
     }
 
     public computeSingularityRquirement() {
         return this.singularityRequirement(this.baseReq, this.completions)
+    }
+
+    public updateChallengeCompletions() {
+        let updateVal = 0
+        while (this.singularityRequirement(this.baseReq, updateVal) <= this.highestSingularityCompleted) {
+            updateVal += 1
+        }
+
+        this.completions = updateVal
     }
 
     public challengeEntryHandler() {
@@ -69,10 +82,16 @@ export class SingularityChallenge {
         if (!player.insideSingularityChallenge) {
             const setSingularity = this.computeSingularityRquirement()
             const holdSingTimer = player.singularityCounter
+            const holdAdds = player.rngCode
+            const holdQuarkExport = player.quarkstimer
+            const holdGoldenQuarkExport = player.goldenQuarksTimer
             this.enabled = true
             player.insideSingularityChallenge = true
             await singularity(setSingularity)
             player.singularityCounter = holdSingTimer
+            player.rngCode = holdAdds
+            player.quarkstimer = holdQuarkExport
+            player.goldenQuarksTimer = holdGoldenQuarkExport
 
             this.updateChallengeHTML()
             return Alert(`You are attempting ${this.name} #${this.completions + 1}! You were sent to Singularity ${this.computeSingularityRquirement()}. Buy Antiquities to complete the challenge!`)
@@ -89,19 +108,27 @@ export class SingularityChallenge {
             }
 
         }
+
         this.enabled = false
         player.insideSingularityChallenge = false
         const highestSingularityHold = player.highestSingularityCount
         const holdSingTimer = player.singularityCounter
+        const holdAdds = player.rngCode
+        const holdQuarkExport = player.quarkstimer
+        const holdGoldenQuarkExport = player.goldenQuarksTimer
         this.updateIconHTML()
         if (success) {
-            this.completions = Math.min(this.maxCompletions, 1 + this.completions)
+            this.highestSingularityCompleted = player.singularityCount
+            this.updateChallengeCompletions()
             await singularity(highestSingularityHold)
             player.singularityCounter = holdSingTimer
             return Alert(`You have completed the ${toOrdinal(this.completions)} tier of ${this.name}! The corresponding challenge rewards have been updated.`)
         } else {
             await singularity(highestSingularityHold)
             player.singularityCounter = holdSingTimer
+            player.rngCode = holdAdds
+            player.quarkstimer = holdQuarkExport
+            player.goldenQuarksTimer = holdGoldenQuarkExport
             return Alert('You have been transported back to your highest reached Singularity. Try again soon! -Derpsmith')
         }
     }
@@ -140,17 +167,17 @@ export const singularityChallengeData: Record<keyof Player['singularityUpgrades'
     noSingularityUpgrades: {
         name: 'No Singularity Upgrades',
         descripton: 'Simply put, you have to beat the target singularity without (most) Singularity Upgrades. Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.',
-        rewardDescription: 'Each completion increases cube gain of every dimension by 25%! First completion gives +12% Golden Quarks. Final completion awards something `special` ;) (WIP)',
+        rewardDescription: 'Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks. Final completion awards something `special` ;) (WIP)',
         baseReq: 1,
-        maxCompletions: 40,
+        maxCompletions: 20,
         unlockSingularity: 25,
         HTMLTag: 'noSingularityUpgrades',
         singularityRequirement: (baseReq: number, completions: number) => {
-            return baseReq + 4 * completions
+            return baseReq + 8 * completions
         },
         effect: (n: number) => {
             return {
-                cubes: 1 + 0.25 * n,
+                cubes: 1 + 0.5 * n,
                 goldenQuarks: 1 + 0.12 * +(n > 0)
             }
         }
