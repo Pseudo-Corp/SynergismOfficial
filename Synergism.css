@@ -110,7 +110,7 @@ label {
     display: block;
 }
 
-input,
+input:not(input[type="image"]),
 button,
 select,
 textarea {
@@ -125,7 +125,7 @@ input:disabled {
     color: gray;
 }
 
-input {
+input:not(input[type="image"]) {
     min-height: 20px;
     color: white;
     padding: 0 0 0 0.2em;
@@ -170,6 +170,7 @@ body button:active {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .hCenter {
@@ -483,7 +484,6 @@ body button:active {
 }
 
 .resetbtn {
-    cursor: pointer;
     margin-right: 5px;
     background-color: var(--button-color);
 }
@@ -685,20 +685,17 @@ p#buildinghotkeys {
     line-height: 1em;
 }
 
-#upgradesFlex > div > table {
-    font-size: 0;
+#upgradesFlex > div > div {
+    display: grid;
+    grid-template-columns: repeat(5, 32px);
+    grid-template-rows: repeat(5, 32px);
+    gap: 4px;
+    margin: 3px 0 -3px;
     min-height: 182px;
-    text-align: center;
 }
 
-#upgradesFlex > div > table img {
-    background-color: var(--buttonimg-color);
-    cursor: pointer;
-}
-
-#upgradesFlex > div > button {
-    min-width: 80px;
-}
+#upgradesFlex > div > div > input[type="image"] { background-color: var(--buttonimg-color); }
+#upgradesFlex > div > button { min-width: 80px; }
 
 #shoptogglecoin { grid-column-start: 1; }
 #shoptoggleprestige { grid-column-start: 2; }
@@ -1129,6 +1126,13 @@ p#promocodeinfo {
     margin: 0 auto;
 }
 
+.legacyTable {
+    display: flex;
+    justify-content: center;
+    column-gap: 4px;
+    margin: 3px 0 5px;
+}
+
 #crystalupgrades {
     width: 50em;
     max-width: 1000px;
@@ -1136,10 +1140,9 @@ p#promocodeinfo {
     text-align: center;
 }
 
-#crystalupgradestable { margin: 0 auto; }
-
-#crystalupgrades img {
+#crystalupgrades input[type="image"] {
     background-color: var(--buttonbuy-color);
+    cursor: default;
 }
 
 #autocrystalbuild {
@@ -1549,11 +1552,9 @@ p#transcendhotkeys {
     align-items: center;
 }
 
-#challengeIcons img {
+#challengeIcons input[type="image"] {
     width: 64px;
     height: 64px;
-    cursor: pointer;
-    vertical-align: top;
 }
 
 /* In webkit, the font-size px is fixed even if it is enlarged, but Firefox fluctuates */
@@ -1709,15 +1710,6 @@ p#reincarnatehotkeys {
     justify-content: center;
 }
 
-#researchtable {
-    border-collapse: collapse;
-    font-size: 0;
-}
-
-#researchtable > tbody {
-    margin-top: 15px;
-}
-
 #researchDetails {
     display: flex;
     flex-direction: column;
@@ -1749,39 +1741,30 @@ p#reincarnatehotkeys {
     min-height: 3em;
 }
 
-#researchtable img {
+#researchGrid {
+    display: grid;
+    grid-template-columns: repeat(25, 32px);
+    grid-template-rows: repeat(8, 32px);
+    gap: 2px;
+    margin-top: 16px;
+}
+
+#researchGrid > input {
     background-color: var(--buttonimg-color);
+    cursor: default;
 }
 
-#researchtable .researchAvailable {
+#researchGrid > .researchPurchasedAvailable,
+#researchGrid > .researchAvailable {
     cursor: pointer;
     transition-duration: 0.15s;
 }
 
-#researchtable .researchAvailable:hover {
-    background-color: var(--hover-color);
-}
-
-#researchtable .researchPurchased {
-    background-color: purple;
-}
-
-#researchtable .researchPurchasedAvailable {
-    cursor: pointer;
-    transition-duration: 0.15s;
-}
-
-#researchtable .researchPurchasedAvailable:hover {
-    background-color: #b300b2;
-}
-
-#researchtable .researchRoomba {
-    background-color: orange;
-}
-
-#researchtable .researchMaxed {
-    background-color: green;
-}
+#researchGrid > .researchAvailable:hover { background-color: var(--hover-color); }
+#researchGrid > .researchPurchased { background-color: purple; }
+#researchGrid > .researchPurchasedAvailable:hover { background-color: #b300b2; }
+#researchGrid > .researchRoomba { background-color: orange; }
+#researchGrid > .researchMaxed { background-color: green; }
 
 #shop {
     text-align: center;
@@ -2076,6 +2059,7 @@ p#reincarnatehotkeys {
 
 .antBtn {
     background-color: var(--button-color);
+    cursor: default;
 }
 
 .antTierBtnAvailable,
@@ -2264,10 +2248,12 @@ p[id$="BlessingsTotal"] {
     align-items: flex-start;
 }
 
-#cubeUpgradeTable {
-    margin: 5px 0;
-    border-collapse: collapse;
-    font-size: 0;
+#cubeUpgradeGrid {
+    display: grid;
+    grid-template-columns: repeat(10, 32px);
+    grid-template-rows: repeat(7, 32px);
+    gap: 2px;
+    margin: 3px 0;
 }
 
 .cubeUpgradeInfo {
@@ -2281,7 +2267,6 @@ p[id$="BlessingsTotal"] {
 
 .gridImg {
     background-color: var(--buttonimg-color);
-    cursor: pointer;
 }
 
 /* Credits */
@@ -2463,12 +2448,13 @@ p#ascendHotKeys {
 
 .constUpgrade {
     background-color: var(--button-color);
-    transition-duration: 0.15s;
+    cursor: default;
 }
 
 .constUpgradeAvailable {
     background-color: green;
     cursor: pointer;
+    transition-duration: 0.15s;
 }
 
 .constUpgradeAvailable:hover {
@@ -2482,6 +2468,7 @@ p#ascendHotKeys {
 .constUpgradeSingleAvailable {
     background-color: gold;
     cursor: pointer;
+    transition-duration: 0.15s;
 }
 
 .constUpgradeSingleAvailable:hover {
@@ -3098,7 +3085,11 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #platonicUpgradePics {
-    font-size: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 32px);
+    grid-template-rows: repeat(4, 32px);
+    gap: 4px;
+    padding: 3px;
 }
 
 #platonicUpgrades {
@@ -3116,7 +3107,6 @@ header #obtainiumDisplay { color: pink; }
 
 .platonicUpgradeImage {
     background-color: var(--buttonimg-color);
-    cursor: pointer;
 }
 
 .platonicContainer {
@@ -3339,18 +3329,6 @@ header #obtainiumDisplay { color: pink; }
     margin-top: 5px;
     width: calc(36px * 14);
     gap: 4px;
-}
-
-.singularityUpgrade,
-.octeractUpgrade,
-.singularityChallenge {
-    font-size: 0;
-}
-
-.singularityUpgrade > img,
-.octeractUpgrade > img,
-.singularityChallenge > img {
-    cursor: pointer;
 }
 
 #singularityPenaltiesMultiline,
