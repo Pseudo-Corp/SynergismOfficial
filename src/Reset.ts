@@ -72,8 +72,8 @@ export const resetdetails = (input: resetNames) => {
 
     switch (input){
         case 'prestige':
-            if (!currencyImage1.src.endsWith('Pictures/Default/Diamond.png')) {
-                currencyImage1.src = 'Pictures/Default/Diamond.png'
+            if (!currencyImage1.src.endsWith('Pictures/' + player.iconSet + '/Diamond.png')) {
+                currencyImage1.src = 'Pictures/' + player.iconSet + '/Diamond.png'
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['prestigePointGain']);
@@ -81,8 +81,8 @@ export const resetdetails = (input: resetNames) => {
             resetInfo.style.color = 'turquoise';
             break;
         case 'transcension':
-            if (!currencyImage1.src.endsWith('Pictures/Default/Mythos.png')) {
-                currencyImage1.src = 'Pictures/Default/Mythos.png'
+            if (!currencyImage1.src.endsWith('Pictures/' + player.iconSet + '/Mythos.png')) {
+                currencyImage1.src = 'Pictures/' + player.iconSet + '/Mythos.png'
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['transcendPointGain']);
@@ -90,8 +90,8 @@ export const resetdetails = (input: resetNames) => {
             resetInfo.style.color = 'orchid';
             break;
         case 'reincarnation':
-            if (!currencyImage1.src.endsWith('Pictures/Default/Particle.png')) {
-                currencyImage1.src = 'Pictures/Default/Particle.png'
+            if (!currencyImage1.src.endsWith('Pictures/' + player.iconSet + '/Particle.png')) {
+                currencyImage1.src = 'Pictures/' + player.iconSet + '/Particle.png'
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['reincarnationPointGain']);
@@ -99,8 +99,8 @@ export const resetdetails = (input: resetNames) => {
             resetInfo.style.color = 'limegreen';
             break;
         case 'acceleratorBoost':
-            if (!currencyImage1.src.endsWith('Pictures/Default/Diamond.png')) {
-                currencyImage1.src = 'Pictures/Default/Diamond.png'
+            if (!currencyImage1.src.endsWith('Pictures/' + player.iconSet + '/Diamond.png')) {
+                currencyImage1.src = 'Pictures/' + player.iconSet + '/Diamond.png'
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '-' + format(player.acceleratorBoostCost);

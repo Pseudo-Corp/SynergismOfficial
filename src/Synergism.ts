@@ -46,7 +46,7 @@ import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
-import {settingAnnotation, settingTheme } from './Themes';
+import {settingAnnotation, settingTheme, initializeIcons } from './Themes';
 import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
 
 export const player: Player = {
@@ -707,6 +707,7 @@ export const player: Player = {
     totalQuarksEver: 0,
     hotkeys: {},
     theme: 'Dark Mode',
+    iconSet: 'Default',
     notation: 'Default',
 
     singularityUpgrades: {
@@ -4047,6 +4048,7 @@ export const reloadShit = async (reset = false) => {
 
     settingTheme();
     settingAnnotation();
+    initializeIcons();
     toggleauto();
     htmlInserts();
     createTimer();

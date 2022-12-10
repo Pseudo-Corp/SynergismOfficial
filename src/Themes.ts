@@ -225,6 +225,51 @@ export const settingTheme = () => {
     }
 }
 
+// To add an icon set, create a new folder that includes a copy of ALL image files (either new or copied from another set),
+// and then edit the switch statement to include your new icon set folder.
+// !!Make sure the folder name is NOT a string that is included in any image files or the text replacement will start messing things up!!
+export const toggleIconSet = (setting = true) => {
+    const iconSetButton = DOMCacheGetOrSet('iconSet');
+    const current = iconSetButton.textContent;
+
+    let changeTo = 'Default';
+    switch (current) {
+        case 'Default':
+            changeTo = 'Legacy';
+            break;
+        case 'Legacy' :
+            changeTo = 'Default';
+            break;
+        default:
+            changeTo = 'Default';
+            break;
+    }
+
+    const reg = new RegExp('' + current);
+    Array.from(document.getElementsByTagName('img')).forEach(
+        function(img) {
+            img.src = img.src.replace(reg, changeTo);
+        }
+    );
+
+    if (setting === true && iconSetButton.textContent !== null) {
+        player.iconSet = changeTo;
+    }
+
+    iconSetButton.textContent = changeTo;
+}
+
+export const initializeIcons = () => {
+    const iconSetButton = DOMCacheGetOrSet('iconSet');
+    const reg = new RegExp('Default');
+    Array.from(document.getElementsByTagName('img')).forEach(
+        function(img) {
+            img.src = img.src.replace(reg, player.iconSet);
+        }
+    );
+    iconSetButton.textContent = player.iconSet;
+}
+
 export const toggleAnnotation = (setting = true) => {
     const notationButton = DOMCacheGetOrSet('notation');
     const current = notationButton.textContent;

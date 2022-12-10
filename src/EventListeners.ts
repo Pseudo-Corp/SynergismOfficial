@@ -23,7 +23,7 @@ import type { OneToFive, Player } from './types/Synergism'
 import { displayStats } from './Statistics'
 import { testing } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { toggleAnnotation, toggleTheme } from './Themes'
+import { toggleAnnotation, toggleTheme, toggleIconSet } from './Themes'
 import { buyGoldenQuarks } from './singularity'
 import { resetHotkeys } from './Hotkeys'
 import { generateExportSummary } from './Summary'
@@ -582,6 +582,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener('click', () => resetHistoryTogglePerSecond())
     DOMCacheGetOrSet('resetHotkeys').addEventListener('click', () => resetHotkeys())
     DOMCacheGetOrSet('notation').addEventListener('click', () => toggleAnnotation())
+    DOMCacheGetOrSet('iconSet').addEventListener('click', () => toggleIconSet())
 
     // SHOP TAB
 
