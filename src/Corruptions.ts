@@ -52,7 +52,9 @@ export const corruptionDisplay = (index: number) => {
     G['corruptionTrigger'] = index
     const currentExponent = ((index === 2) && player.usedCorruptions[index] >= 10) ? 1 + 0.04 * player.platonicUpgrades[17] + 2 * Math.min(1, player.platonicUpgrades[17]) : 1;
     const protoExponent = ((index === 2) && player.prototypeCorruptions[index] >= 10) ? 1 + 0.04 * player.platonicUpgrades[17] + 2 * Math.min(1, player.platonicUpgrades[17]) : 1;
-    const [bonusLevel, bonusText] = (player.singularityUpgrades.corruptionFifteen.level > 0) ? [1, ' [+1]'] : [0, ''];
+    let bonusLevel = (player.singularityUpgrades.corruptionFifteen.level > 0) ? 1 : 0;
+    bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
+    const bonusText = (bonusLevel > 0) ? `[+${bonusLevel}]` : '';
     const corruptionTexts: Record<'name' | 'description' | 'current' | 'planned' | 'multiplier' | 'spiritContribution' | 'image', string>[] = [
         {
             name: 'Corruption I: Viscosity',

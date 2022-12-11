@@ -357,7 +357,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
 
     player.singularityChallenges = {
-        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades'])
+        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades']),
+        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {

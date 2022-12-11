@@ -814,7 +814,8 @@ export const player: Player = {
     insideSingularityChallenge: false,
 
     singularityChallenges: {
-        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades'])
+        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades']),
+        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap'])
     }
 }
 

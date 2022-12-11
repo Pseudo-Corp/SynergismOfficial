@@ -73,6 +73,9 @@ export class SingularityChallenge {
     }
 
     public async enableChallenge() {
+        if (player.highestSingularityCount < this.unlockSingularity) {
+            return Alert('Derpsmith prohibits you from entering this challenge. Go do some more singing first.')
+        }
         const confirmation = await(Confirm(`You are about to enter ${this.name}. Your Singularity Timer will not reset but you will be taken back to the beginning of a Singularity. Do you proceed?`))
 
         if (!confirmation) {
@@ -143,6 +146,7 @@ export class SingularityChallenge {
         const enabled = (this.enabled) ? '<span style="color: red">[ENABLED]</span>' : '';
         return `<span style="color: gold">${this.name}</span> ${enabled}
                 <span style="color: lightblue">${this.description}</span>
+                <span style="color: pink">Can be entered at highest Singularity ${this.unlockSingularity} [Your highest: ${player.highestSingularityCount}]</span>
                 Tiers completed: <span style="color: ${color}">${this.completions}/${this.maxCompletions}</span>
                 <span style="color: gold">The current tier of this challenge takes place in Singularity <span style="color: orchid">${this.singularityRequirement(this.baseReq, this.completions)}</span></span>
                 <span>${this.rewardDescription}</span>`
@@ -179,6 +183,25 @@ export const singularityChallengeData: Record<keyof Player['singularityUpgrades'
             return {
                 cubes: 1 + 0.5 * n,
                 goldenQuarks: 1 + 0.12 * +(n > 0)
+            }
+        }
+    },
+    oneChallengeCap: {
+        name: 'One Challenge Caps',
+        descripton: 'Beat the target Singularity, but the first 14 Challenges have cap of only 1!',
+        rewardDescription: 'Each completion increases Corruption Multiplier Values by 0.015, no matter what. First Completion gives +3 to Reincarnation Challenge Cap. Final completion grants +1 free Corruption level!',
+        baseReq: 10,
+        maxCompletions: 20,
+        unlockSingularity: 40,
+        HTMLTag: 'oneChallengeCap',
+        singularityRequirement: (baseReq: number, completions: number) => {
+            return baseReq + 10 * completions
+        },
+        effect: (n: number) => {
+            return {
+                corrScoreIncrease: 0.015 * n,
+                capIncrease: 3 * +(n > 0),
+                freeCorruptionLevel: (n === 20)
             }
         }
     }

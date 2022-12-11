@@ -1708,6 +1708,10 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
         effectiveSingularities *= 1.5
         effectiveSingularities *= Math.pow(1.275, singularityCount - 200)
     }
+    if (singularityCount > 215) {
+        effectiveSingularities *= 1.25
+        effectiveSingularities *= Math.pow(1.2, singularityCount - 215)
+    }
     if (singularityCount >= 250) {
         effectiveSingularities *= 100
     }
