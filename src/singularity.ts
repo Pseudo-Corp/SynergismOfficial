@@ -268,7 +268,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: 1 + 0.10 * n,
                 desc: `Permanently gain ${format(10 * n, 0, true)}% more Golden Quarks on Singularities.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     goldenQuarks2: {
         name: 'Golden Quarks II',
@@ -281,7 +282,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: (n > 250) ? 1 / Math.log2(n / 62.5) : 1 - Math.min(0.5, n / 500),
                 desc: `Purchasing Golden Quarks in the shop is ${(n > 250)? format(100 - 100 / Math.log2(n / 62.5), 2, true) : format(Math.min(50, n / 5),2,true)}% cheaper.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     goldenQuarks3: {
         name: 'Golden Quarks III',
@@ -1587,6 +1589,11 @@ export const getFastForwardTotalMultiplier = (): number => {
     // Stop at sing 200 even if you include fast forward
     fastForward = Math.max(0, Math.min(fastForward, 200 - player.singularityCount - 1));
 
+    // Please for the love of god don't allow FF during a challenge
+    if (player.insideSingularityChallenge) {
+        return 0
+    }
+
     // If the next singularityCount is greater than the highestSingularityCount, fast forward to be equal to the highestSingularityCount
     if (player.highestSingularityCount !== player.singularityCount && player.singularityCount + fastForward + 1 >= player.highestSingularityCount) {
         return Math.max(0, Math.min(fastForward, player.highestSingularityCount - player.singularityCount - 1))
@@ -1687,29 +1694,30 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
         effectiveSingularities *= Math.min(6, 1.5 * singularityCount / 25 - 0.5)
     }
     if (singularityCount > 36) {
-        effectiveSingularities *= 4
+        effectiveSingularities *= 6
         effectiveSingularities *= Math.min(5, singularityCount / 18 - 1)
         effectiveSingularities *= Math.pow(1.1, Math.min(singularityCount - 36, 64))
     }
     if (singularityCount > 50) {
-        effectiveSingularities *= 6
+        effectiveSingularities *= 10
         effectiveSingularities *= Math.min(8, 2 * singularityCount / 50 - 1)
         effectiveSingularities *= Math.pow(1.1, Math.min(singularityCount - 50, 50))
     }
     if (singularityCount > 100) {
+        effectiveSingularities *= 2
         effectiveSingularities *= singularityCount / 25
         effectiveSingularities *= Math.pow(1.1, singularityCount - 100)
     }
     if (singularityCount > 150) {
-        effectiveSingularities *= 2
+        effectiveSingularities *= 1.5
         effectiveSingularities *= Math.pow(1.05, singularityCount - 150)
     }
     if (singularityCount > 200) {
-        effectiveSingularities *= 1.5
+        effectiveSingularities *= 1.25
         effectiveSingularities *= Math.pow(1.275, singularityCount - 200)
     }
     if (singularityCount > 215) {
-        effectiveSingularities *= 1.25
+        effectiveSingularities *= 1.1
         effectiveSingularities *= Math.pow(1.2, singularityCount - 215)
     }
     if (singularityCount >= 250) {
@@ -1719,7 +1727,7 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
     return effectiveSingularities
 }
 export const calculateNextSpike = (singularityCount: number = player.singularityCount): number => {
-    const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 250];
+    const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 216, 250];
     for (const sing of singularityPenaltyThreshold) {
         if (sing > singularityCount) {
             return sing;

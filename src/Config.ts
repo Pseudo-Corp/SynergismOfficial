@@ -1,4 +1,4 @@
-export const version = '2.9.28: December 11 v1: Challenges 2';
+export const version = '2.9.28: December 11 v2: Challenges Balanced!';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE

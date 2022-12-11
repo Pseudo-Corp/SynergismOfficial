@@ -1,4 +1,5 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateGoldenQuarkGain } from './Calculate'
 import { singularity } from './Reset'
 import { player } from './Synergism'
 import type { Player } from './types/Synergism'
@@ -88,10 +89,13 @@ export class SingularityChallenge {
             const holdAdds = player.rngCode
             const holdQuarkExport = player.quarkstimer
             const holdGoldenQuarkExport = player.goldenQuarksTimer
+            const goldenQuarkGain = calculateGoldenQuarkGain();
+            const currentGQ = player.goldenQuarks
             this.enabled = true
             player.insideSingularityChallenge = true
             await singularity(setSingularity)
             player.singularityCounter = holdSingTimer
+            player.goldenQuarks = currentGQ + goldenQuarkGain
             player.rngCode = holdAdds
             player.quarkstimer = holdQuarkExport
             player.goldenQuarksTimer = holdGoldenQuarkExport
@@ -189,17 +193,17 @@ export const singularityChallengeData: Record<keyof Player['singularityUpgrades'
     oneChallengeCap: {
         name: 'One Challenge Caps',
         descripton: 'Beat the target Singularity, but the first 14 Challenges have cap of only 1!',
-        rewardDescription: 'Each completion increases Corruption Multiplier Values by 0.015, no matter what. First Completion gives +3 to Reincarnation Challenge Cap. Final completion grants +1 free Corruption level!',
+        rewardDescription: 'Each completion increases Corruption Multiplier Values by 0.03, no matter what. First Completion gives +3 to Reincarnation Challenge Cap. Final completion grants +1 free Corruption level!',
         baseReq: 10,
         maxCompletions: 20,
         unlockSingularity: 40,
         HTMLTag: 'oneChallengeCap',
         singularityRequirement: (baseReq: number, completions: number) => {
-            return baseReq + 10 * completions
+            return baseReq + 11 * completions
         },
         effect: (n: number) => {
             return {
-                corrScoreIncrease: 0.015 * n,
+                corrScoreIncrease: 0.03 * n,
                 capIncrease: 3 * +(n > 0),
                 freeCorruptionLevel: (n === 20)
             }
