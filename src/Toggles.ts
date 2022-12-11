@@ -812,6 +812,34 @@ export const toggleMaxBuyCube = () => {
     }
 }
 
+export const autoCubeUpgradesToggle = (toggle = true) => {
+    if (toggle) {
+        player.autoCubeUpgradesToggle = !player.autoCubeUpgradesToggle;
+    }
+    const el = DOMCacheGetOrSet('toggleAutoCubeUpgrades');
+    if (player.autoCubeUpgradesToggle) {
+        el.textContent = 'Auto Upgrades: [ON]'
+        el.style.border = '2px solid green'
+    } else {
+        el.textContent = 'Auto Upgrades: [OFF]'
+        el.style.border = '2px solid red'
+    }
+}
+
+export const autoPlatonicUpgradesToggle = (toggle = true) => {
+    if (toggle) {
+        player.autoPlatonicUpgradesToggle = !player.autoPlatonicUpgradesToggle;
+    }
+    const el = DOMCacheGetOrSet('toggleAutoPlatonicUpgrades');
+    if (player.autoPlatonicUpgradesToggle) {
+        el.textContent = 'Auto Upgrades: [ON]'
+        el.style.border = '2px solid green'
+    } else {
+        el.textContent = 'Auto Upgrades: [OFF]'
+        el.style.border = '2px solid red'
+    }
+}
+
 export const toggleCubeSubTab = (i: number) => {
     const numSubTabs = subTabsInMainTab(8).subTabList.length
     for (let j = 1; j <= numSubTabs; j++) {

@@ -887,4 +887,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         // stored, or the date in the save being loaded.
         player.firstPlayed = oldest ?? data.firstPlayed
     }
+
+    if (data.autoCubeUpgradesToggle === undefined) {
+        player.autoCubeUpgradesToggle = false;
+        player.autoPlatonicUpgradesToggle = false;
+    }
 }

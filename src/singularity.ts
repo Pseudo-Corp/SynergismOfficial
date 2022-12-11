@@ -1099,8 +1099,8 @@ export const singularityPerks: SingularityPerk[] = [
     {
         name: 'Unlimited growth',
         levels: [1],
-        description: (n: number) => {
-            return `+10% to Quarks gain and Ascension Count for each Singularity (currently +${format(10*n)}%)`
+        description: () => {
+            return `+10% to Quarks gain and Ascension Count for current each Singularity (currently +${format(10 * player.singularityCount)}%)`
         }
     },
     {
@@ -1334,7 +1334,7 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Automation Cubes',
+        name: 'Automation Open Cubes',
         levels: [35],
         description: () => {
             return 'Ascension allows you to automatically open the cubes you have'
@@ -1360,6 +1360,17 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Automation Cube Upgrades',
+        levels: [50, 150],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'Automatically do Cube Upgrades with each ascension. Unlimited!'
+            } else {
+                return 'Automatically do Cube Upgrades with each ascension. But if currently in Highest Singularity it won\'t work...'
+            }
+        }
+    },
+    {
         name: 'Golden Revolution',
         levels: [100],
         description: () => {
@@ -1378,6 +1389,17 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [100],
         description: () => {
             return 'Export Gives 2% more Golden Quarks per singularity (MAX: +500%)'
+        }
+    },
+    {
+        name: 'Automation Platonic Upgrades',
+        levels: [100, 200],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'Automatically do Platonic Upgrades with each ascension. And the off and obt costs are ignored. Unlimited!'
+            } else {
+                return 'Automatically do Platonic Upgrades with each ascension. And the off and obt costs are ignored. But if currently in Highest Singularity it won\'t work...'
+            }
         }
     },
     {

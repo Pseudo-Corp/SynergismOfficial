@@ -2262,7 +2262,7 @@
                                 <button id="openCustomHypercube" alt="openCustomHypercube" label="openCustomHypercube" class="cubeBtn">Custom Amount</button>
                                 <button id="openMostHypercube" alt="openMostHypercube" label="openMostHypercube" class="cubeBtn">Open All</button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens" id="openHypercubes" alt="openHypercubes" label="openHypercubes" style="border: 1px solid red" title="On Ascension will open % of Hypercubes&#013Research 8x8 is required">Auto Open [OFF]</button>
+                                    <button class="autoOpens" id="openHypercubes" alt="openHypercubes" label="openHypercubes" style="border: 1px solid red" title="On Ascension will open % of Hypercubes">Auto Open [OFF]</button>
                                     <input class="autoOpensInput" type="number" id="hypercubesOpensInput" alt="hypercubesOpensInput" label="hypercubesOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
@@ -2507,7 +2507,10 @@
                         </div>
                         <p id="cubeUpgradeCost" alt="cubeUpgradeCost" label="cubeUpgradeCost" style="text-align:center; color:pink"></p>
                         <p id="cubeUpgradeLevel" alt="cubeUpgradeLevel" label="cubeUpgradeLevel" style="text-align: center; color: crimson"></p>
-                        <button id="toggleCubeBuy" alt="toggleCubeBuy" label="toggleCubeBuy" style="text-align: center;color: white;border: 2px solid pink">Upgrade: 1 Level wow</button>
+                        <div class="cubeUpgradeToggles">
+                            <button id="toggleCubeBuy" alt="toggleCubeBuy" label="toggleCubeBuy" style="text-align: center;color: white;border: 2px solid pink">Upgrade: 1 Level wow</button>
+                            <button id="toggleAutoCubeUpgrades" alt="toggleAutoCubeUpgrades" label="toggleAutoCubeUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
+                        </div>
                     </div>
                 </div>
                 <div id="cubeTab6" alt="cubeTab6" label="cubeTab6" class="cubeTab" style="display: none">
@@ -2554,9 +2557,6 @@
                     </div>
                     <div class="platonicUpgradesContainer">
                         <div id="platonicUpgrades" alt="platonicUpgrades" label="platonicUpgrades">
-                            <div style="display: inline">
-                                <button id="saveOffToggle" alt="saveOffToggle" label="saveOffToggle" style="border: 2px solid gold" title="If ON, then it will turn OFF Auto Runes toggle">Save Offerings [OFF]</button>
-                            </div>
                             <table class="boxColor" id="platonicUpgradePics" alt="platonicUpgradePics" label="platonicUpgradePics">
                                 <tr>
                                     <td><img id="platUpg1" alt="platUpg1" label="platUpg1" src="Pictures/Transparent%20Pics/PlatonicUpgrade1.png" class="platonicUpgradeImage" loading="lazy"></td>
@@ -2587,6 +2587,10 @@
                                     <td><img id="platUpg20" alt="platUpg20" label="platUpg20" src="Pictures/Transparent%20Pics/PlatonicUpgrade20.png" class="platonicUpgradeImage" loading="lazy"></td>
                                 </tr>
                             </table>
+                            <div class="platonicUpgrades2">
+                                <button id="saveOffToggle" alt="saveOffToggle" label="saveOffToggle" style="border: 2px solid gold" title="If ON, then it will turn OFF Auto Runes toggle">Save Offerings [OFF]</button>
+                                <button id="toggleAutoPlatonicUpgrades" alt="toggleAutoPlatonicUpgrades" label="toggleAutoPlatonicUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
+                            </div>
                         </div>
                         <div id="platonicUpgradeDescriptions" alt="platonicUpgradeDescriptions" label="platonicUpgradeDescriptions" class="platonicContainer boxColor">
                             <p id="platonicUpgradeDescriptionDivisor" alt="platonicUpgradeDescriptionDivisor" label="platonicUpgradeDescriptionDivisor" class="platonicPortion">===Upgrade Description===</p>
