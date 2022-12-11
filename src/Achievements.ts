@@ -531,7 +531,7 @@ export const achievementAlerts = async (num: number) => {
             text = 'Wow! You gained 1e17 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!'
     }
 
-    if (text !== '' && player.singularityCount === 0) {
+    if (text !== '' && player.highestSingularityCount === 0) {
         return Alert(text)
     }
 }

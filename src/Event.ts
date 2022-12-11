@@ -54,27 +54,71 @@ const events: Record<string, HolidayData> = {
     },
     // Last active event
     last: {
-        name: 'Giving Thanks to Derpsmith',
+        name: 'Derpmas 2022: Quark Extravaganza!',
         color: 'white',
-        url: 'https://www.youtube.com/watch?v=1TO48Cnl66w',
+        url: 'https://www.youtube.com/watch?v=A6-vc-R9np8',
         everyYear: false,
-        start: '11/24/2022 00:00:00',
-        end: '11/28/2022 23:59:59',
-        notice: 3,
+        start: '12/17/2022 00:00:00',
+        end: '12/18/2022 23:59:59',
+        notice: 20,
         event: true,
         buffs: {
-            quark: 0.20,
-            globalSpeed: 0.75,
-            ascensionSpeed: 0.5,
-            antSacrifice: 0.5,
-            offering: 0.5,
-            obtainium: 0.5,
-            octeract: 0.25,
-            powderConversion: 2,
-            goldenQuark: 0.15,
-            oneMind: 0.05
+            quark: 3,
+            globalSpeed: 0,
+            ascensionSpeed: 0,
+            antSacrifice: 0,
+            offering: 0,
+            obtainium: 0,
+            octeract: 0,
+            powderConversion: 0,
+            goldenQuark: 0,
+            oneMind: 0.4
+        }
+    },
+    khafra: {
+        name: 'Thanks for Boosting the Discord',
+        color: 'green',
+        url: 'https://www.youtube.com/watch?v=iYYRH4apXDo',
+        everyYear: false,
+        start: '12/07/2022 00:00:00',
+        end: '12/08/2022 23:59:59',
+        notice: 20,
+        event: true,
+        buffs: {
+            quark: .2,
+            globalSpeed: 0,
+            ascensionSpeed: 0,
+            antSacrifice: 0,
+            offering: 0,
+            obtainium: 0,
+            octeract: 0,
+            powderConversion: 0,
+            goldenQuark: 0,
+            oneMind: 0
         }
     }
+    /*next: {
+        name: 'Derpmas 2022: Daily Extravaganza!',
+        color: 'white',
+        url: 'https://www.youtube.com/watch?v=A6-vc-R9np8',
+        everyYear: false,
+        start: '12/25/2022 00:00:00',
+        end: '01/01/2023 23:59:59',
+        notice: 30,
+        event: true,
+        buffs: {
+            quark: 0,
+            globalSpeed: 0,
+            ascensionSpeed: 0,
+            antSacrifice: 0,
+            offering: 0,
+            obtainium: 0,
+            octeract: 0,
+            powderConversion: 0,
+            goldenQuark: 0,
+            oneMind: 0.05
+        }
+    }*/
     // Event example
     /*
     newyear: {
@@ -268,7 +312,7 @@ export const eventCheck = () => {
         //eventBuffs.style.color = 'lime';
         happyHolidays.innerHTML = nowEvent.name;
         happyHolidays.style.color = nowEvent.color;
-        happyHolidays.href = nowEvent.url.length > 0 && G['isEvent'] ? nowEvent.url : '#';
+        happyHolidays.href = nowEvent.url.length > 0 ? nowEvent.url : '#';
     } else {
         G['isEvent'] = false;
         DOMCacheGetOrSet('eventCurrent').textContent = 'INACTIVE';

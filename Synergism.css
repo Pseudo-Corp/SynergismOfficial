@@ -1914,6 +1914,7 @@ p#reincarnatehotkeys {
 
 #shopHovers {
     width: 800px;
+    min-height: 8.2em;
 }
 
 #shopHovers > p { margin: 0; }
@@ -2112,7 +2113,7 @@ p#reincarnatehotkeys {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 125%;
+    width: 126%;
 }
 
 .cubeToQuark {
@@ -2281,9 +2282,19 @@ p[id$="BlessingsTotal"] {
     min-height: 4em;
 }
 
+.cubeUpgradeToggles {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 0 15px;
+}
+
 #toggleCubeBuy {
     min-width: 200px;
-    margin-top: 10px;
+}
+
+#toggleAutoCubeUpgrades {
+    min-width: 150px;
 }
 
 .gridImg {
@@ -2676,8 +2687,8 @@ p#ascendHotKeys {
 
 #toggle36,
 #toggle37 {
-    width: 5em;
-    min-width: 60px;
+    width: 6em;
+    min-width: 80px;
 }
 
 .runeButtonsAvailable {
@@ -3113,12 +3124,16 @@ header #obtainiumDisplay { color: pink; }
     margin-bottom: 30px;
 }
 
-#saveOffToggle {
+.platonicUpgrades2 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+    gap: 5px;
+}
+
+.platonicUpgrades2 > button {
     min-width: 130px;
     max-width: 200px;
-    position: absolute;
-    margin-top: 6px;
-    margin-left: 193px;
 }
 
 .platonicUpgradeImage {
@@ -3349,12 +3364,52 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .singularityUpgrade,
-.octeractUpgrade {
+.octeractUpgrade,
+.singularityChallenge {
     font-size: 0;
 }
 
+.singularityChallenge {
+    display: flex;
+    justify-content: center;
+    column-gap: 4px;
+}
+
+.rainbowBorder {
+    width: 64px;
+    height: 64px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.rainbowBorder > img {
+    position: relative;
+    width: calc(100% - 6px); /* 58px */
+    height: calc(100% - 6px);
+    object-fit: none;
+    background-color: var(--bg-color);
+    border-radius: 3px;
+}
+
+.rainbowBorder::before {
+    position: absolute;
+    width: 150%; /* 96px */
+    height: 150%;
+    background-image: conic-gradient(#ca001f, #ffb17f, #fff200, #22b14c, #767dda, #a349a4, #ca001f);
+    animation: 3s linear infinite rotaterainbow;
+    content: "";
+}
+
+@keyframes rotaterainbow {
+    to { transform: rotate(360deg); }
+}
+
 .singularityUpgrade > img,
-.octeractUpgrade > img {
+.octeractUpgrade > img,
+.singularityChallenge img {
     cursor: pointer;
 }
 
@@ -3365,6 +3420,16 @@ header #obtainiumDisplay { color: pink; }
 
 #testingMultiline,
 #singularityOcteractsMultiline {
+    white-space: pre-line;
+    margin: 15px 0 0;
+}
+
+#singularityChallengeDetails {
+    width: 50%;
+    margin-left: 25%;
+}
+
+#singularityChallengesMultiline {
     white-space: pre-line;
     margin: 15px 0 0;
 }
