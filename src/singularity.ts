@@ -1360,13 +1360,13 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Automation Cube Upgrades',
+        name: 'Wow! Cube Automated Shipping',
         levels: [50, 150],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
-                return 'Automatically do Cube Upgrades with each ascension. Unlimited!'
+                return 'Automatically buy Cube Upgrades with each ascension, no matter where you are!'
             } else {
-                return 'Automatically do Cube Upgrades with each ascension. But if currently in Highest Singularity it won\'t work...'
+                return 'Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge.'
             }
         }
     },
@@ -1392,13 +1392,13 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Automation Platonic Upgrades',
+        name: 'Clones of Platonic Clicking At Your Desktop',
         levels: [100, 200],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
-                return 'Automatically do Platonic Upgrades with each ascension. And the off and obt costs are ignored. Unlimited!'
+                return 'Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, anywhere!'
             } else {
-                return 'Automatically do Platonic Upgrades with each ascension. And the off and obt costs are ignored. But if currently in Highest Singularity it won\'t work...'
+                return 'Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, but only in a Singularity Challenge.'
             }
         }
     },
