@@ -1694,12 +1694,12 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
         effectiveSingularities *= Math.min(6, 1.5 * singularityCount / 25 - 0.5)
     }
     if (singularityCount > 36) {
-        effectiveSingularities *= 6
+        effectiveSingularities *= 4
         effectiveSingularities *= Math.min(5, singularityCount / 18 - 1)
         effectiveSingularities *= Math.pow(1.1, Math.min(singularityCount - 36, 64))
     }
     if (singularityCount > 50) {
-        effectiveSingularities *= 10
+        effectiveSingularities *= 5
         effectiveSingularities *= Math.min(8, 2 * singularityCount / 50 - 1)
         effectiveSingularities *= Math.pow(1.1, Math.min(singularityCount - 50, 50))
     }
@@ -1709,15 +1709,15 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
         effectiveSingularities *= Math.pow(1.1, singularityCount - 100)
     }
     if (singularityCount > 150) {
-        effectiveSingularities *= 1.5
+        effectiveSingularities *= 2
         effectiveSingularities *= Math.pow(1.05, singularityCount - 150)
     }
     if (singularityCount > 200) {
-        effectiveSingularities *= 1.25
+        effectiveSingularities *= 1.5
         effectiveSingularities *= Math.pow(1.275, singularityCount - 200)
     }
     if (singularityCount > 215) {
-        effectiveSingularities *= 1.1
+        effectiveSingularities *= 1.25
         effectiveSingularities *= Math.pow(1.2, singularityCount - 215)
     }
     if (singularityCount >= 250) {
