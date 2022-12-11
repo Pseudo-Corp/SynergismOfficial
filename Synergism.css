@@ -3369,9 +3369,47 @@ header #obtainiumDisplay { color: pink; }
     font-size: 0;
 }
 
+.singularityChallenge {
+    display: flex;
+    justify-content: center;
+    column-gap: 4px;
+}
+
+.rainbowBorder {
+    width: 64px;
+    height: 64px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.rainbowBorder > img {
+    position: relative;
+    width: calc(100% - 6px); /* 58px */
+    height: calc(100% - 6px);
+    object-fit: none;
+    background-color: var(--bg-color);
+    border-radius: 3px;
+}
+
+.rainbowBorder::before {
+    position: absolute;
+    width: 150%; /* 96px */
+    height: 150%;
+    background-image: conic-gradient(#ca001f, #ffb17f, #fff200, #22b14c, #767dda, #a349a4, #ca001f);
+    animation: 3s linear infinite rotaterainbow;
+    content: "";
+}
+
+@keyframes rotaterainbow {
+    to { transform: rotate(360deg); }
+}
+
 .singularityUpgrade > img,
 .octeractUpgrade > img,
-.singularityChallenge > img {
+.singularityChallenge img {
     cursor: pointer;
 }
 

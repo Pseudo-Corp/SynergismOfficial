@@ -153,7 +153,7 @@ export class SingularityChallenge {
     }
 
     public updateIconHTML(): void {
-        const color = (this.enabled) ? 'orchid' : 'transparent'
+        const color = (this.enabled) ? 'orchid' : ''
         DOMCacheGetOrSet(`${this.HTMLTag}`).style.backgroundColor = color
     }
 
