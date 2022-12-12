@@ -2260,9 +2260,19 @@ p[id$="BlessingsTotal"] {
     min-height: 4em;
 }
 
+.cubeUpgradeToggles {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 0 15px;
+}
+
 #toggleCubeBuy {
     min-width: 200px;
-    margin-top: 10px;
+}
+
+#toggleAutoCubeUpgrades {
+    min-width: 150px;
 }
 
 .gridImg {
@@ -3097,12 +3107,16 @@ header #obtainiumDisplay { color: pink; }
     margin-bottom: 30px;
 }
 
-#saveOffToggle {
+.platonicUpgrades2 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+    gap: 5px;
+}
+
+.platonicUpgrades2 > button {
     min-width: 130px;
     max-width: 200px;
-    position: absolute;
-    margin-top: 6px;
-    margin-left: 193px;
 }
 
 .platonicUpgradeImage {
@@ -3329,6 +3343,44 @@ header #obtainiumDisplay { color: pink; }
     margin-top: 5px;
     width: calc(36px * 14);
     gap: 4px;
+}
+
+.singularityChallenge {
+    display: flex;
+    justify-content: center;
+    column-gap: 4px;
+}
+
+.rainbowBorder {
+    width: 64px;
+    height: 64px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.rainbowBorder > input[type="image"] {
+    position: relative;
+    width: calc(100% - 6px); /* 58px */
+    height: calc(100% - 6px);
+    object-fit: none;
+    background-color: var(--bg-color);
+    border-radius: 3px;
+}
+
+.rainbowBorder::before {
+    position: absolute;
+    width: 150%; /* 96px */
+    height: 150%;
+    background-image: conic-gradient(#ca001f, #ffb17f, #fff200, #22b14c, #767dda, #a349a4, #ca001f);
+    animation: 3s linear infinite rotaterainbow;
+    content: "";
+}
+
+@keyframes rotaterainbow {
+    to { transform: rotate(360deg); }
 }
 
 #singularityPenaltiesMultiline,

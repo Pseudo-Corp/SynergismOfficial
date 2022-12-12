@@ -12,6 +12,9 @@ export const getMaxChallenges = (i: number) => {
     let maxChallenge = 0;
     //Transcension Challenges
     if (i <= 5) {
+        if (player.singularityChallenges.oneChallengeCap.enabled) {
+            return 1
+        }
         //Start with base 25 max completions
         maxChallenge = 25;
         //Check Research 5x5 ('Infinite' T. Challenges)
@@ -24,6 +27,9 @@ export const getMaxChallenges = (i: number) => {
     }
     //Reincarnation Challenges
     if (i <= 10 && i > 5) {
+        if (player.singularityChallenges.oneChallengeCap.enabled) {
+            return 1
+        }
         //Start with base of 40 max completions
         maxChallenge = 40;
         //Cube Upgrade 2x9: +4/level
@@ -46,6 +52,8 @@ export const getMaxChallenges = (i: number) => {
         maxChallenge += 2 * +player.singularityUpgrades.singChallengeExtension.getEffect().bonus
         maxChallenge += 2 * +player.singularityUpgrades.singChallengeExtension2.getEffect().bonus
         maxChallenge += 2 * +player.singularityUpgrades.singChallengeExtension3.getEffect().bonus
+
+        maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.capIncrease
         return maxChallenge
     }
     //Ascension Challenge
@@ -53,6 +61,9 @@ export const getMaxChallenges = (i: number) => {
         //Challenge 15 has no formal cap, so return 9001.
         if (i === 15) {
             return 0
+        }
+        if (player.singularityChallenges.oneChallengeCap.enabled) {
+            return 1
         }
         //Start with base of 30 max completions
         maxChallenge = 30;

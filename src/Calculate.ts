@@ -1762,7 +1762,8 @@ export const calculateAscensionScore = () => {
     let corruptionMultiplier = 1;
     let effectiveScore = 0;
 
-    const bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect().bonus ? 1 : 0;
+    let bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect().bonus ? 1 : 0;
+    bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
     // Init Arrays with challenge values :)
     const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
     const challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
@@ -1803,7 +1804,8 @@ export const calculateAscensionScore = () => {
     // Max: 1.0425
     baseScore *= Math.pow(1.03 + 0.005 * player.cubeUpgrades[39] + 0.0025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10]), player.highestchallengecompletions[10]);
     // Corruption Multiplier is the product of all Corruption Score multipliers based on used corruptions
-    const bonusVal = player.singularityUpgrades.advancedPack.getEffect().bonus ? 0.33: 0;
+    let bonusVal = player.singularityUpgrades.advancedPack.getEffect().bonus ? 0.33: 0;
+    bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
     for (let i = 2; i < 10; i++) {
         const exponent = ((i === 2) && player.usedCorruptions[i] >= 10) ? 1 + 2 * Math.min(1, player.platonicUpgrades[17]) + 0.04 * player.platonicUpgrades[17] : 1;
         corruptionMultiplier *= (Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i] + bonusLevel], exponent) + bonusVal);
@@ -1901,7 +1903,7 @@ export const calcAscensionCount = () => {
         ascCount *= (player.platonicUpgrades[15] > 0 ? 2 : 1);
         ascCount *= (1 + 0.02 * player.platonicUpgrades[16]);
         ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000));
-        ascCount *= (1 + 1/8 * player.singularityCount)
+        ascCount *= (1 + player.singularityCount / 10);
         ascCount *= +player.singularityUpgrades.ascensions.getEffect().bonus
         ascCount *= +player.octeractUpgrades.octeractAscensions.getEffect().bonus
         ascCount *= +player.octeractUpgrades.octeractAscensions2.getEffect().bonus

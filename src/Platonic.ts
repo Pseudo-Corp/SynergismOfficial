@@ -246,7 +246,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     }
 }
 
-const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { canBuy: boolean }), boolean> => {
+const checkPlatonicUpgrade = (index: number, auto = false): Record<keyof (IPlatBaseCost & { canBuy: boolean }), boolean> => {
     let checksum = 0
     const resources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals'] as const;
     const resourceNames = ['researchPoints', 'runeshards', 'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowAbyssals'] as const;
@@ -267,13 +267,16 @@ const checkPlatonicUpgrade = (index: number): Record<keyof (IPlatBaseCost & { ca
     priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
 
     for (let i = 0; i < resources.length - 1; i++) {
-        if (Math.floor(platUpgradeBaseCosts[index][resources[i]] * priceMultiplier) <= player[resourceNames[i]]) {
+        if (auto === true && (resources[i] === 'obtainium' || resources[i] === 'offerings')) {
+            checksum++;
+            checks[resources[i]] = true
+        } else if (Math.floor(platUpgradeBaseCosts[index][resources[i]] * priceMultiplier) <= player[resourceNames[i]]) {
             checksum++;
             checks[resources[i]] = true
         }
     }
 
-    if (player.hepteractCrafts.abyss.BAL >= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier) || platUpgradeBaseCosts[index].abyssals == 0) {
+    if (player.hepteractCrafts.abyss.BAL >= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier) || platUpgradeBaseCosts[index].abyssals === 0) {
         checksum ++
         checks['abyssals'] = true
     }
@@ -363,9 +366,9 @@ export const updatePlatonicUpgradeBG = (i: number) => {
 
 }
 
-export const buyPlatonicUpgrades = (index: number) => {
-    while (true) { // eslint-disable-line no-constant-condition, @typescript-eslint/no-unnecessary-condition
-        const resourceCheck = checkPlatonicUpgrade(index)
+export const buyPlatonicUpgrades = (index: number, auto = false) => {
+    while (index > 0) { // eslint-disable-line no-constant-condition, @typescript-eslint/no-unnecessary-condition
+        const resourceCheck = checkPlatonicUpgrade(index, auto)
         let priceMultiplier = 1;
         if (platUpgradeBaseCosts[index].priceMult) {
             priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
@@ -374,8 +377,11 @@ export const buyPlatonicUpgrades = (index: number) => {
 
         if (resourceCheck.canBuy) {
             player.platonicUpgrades[index] += 1
-            player.researchPoints -= Math.floor(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
-            player.runeshards -= Math.floor(platUpgradeBaseCosts[index].offerings * priceMultiplier)
+            // Auto Platonic Upgrades no longer claim the cost of Offerings and Obtainiums
+            if (!auto) {
+                player.researchPoints -= Math.floor(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
+                player.runeshards -= Math.floor(platUpgradeBaseCosts[index].offerings * priceMultiplier)
+            }
             player.wowCubes.sub(Math.floor(platUpgradeBaseCosts[index].cubes * priceMultiplier));
             player.wowTesseracts.sub(Math.floor(platUpgradeBaseCosts[index].tesseracts * priceMultiplier));
             player.wowHypercubes.sub(Math.floor(platUpgradeBaseCosts[index].hypercubes * priceMultiplier));
@@ -383,18 +389,31 @@ export const buyPlatonicUpgrades = (index: number) => {
             player.hepteractCrafts.abyss.spend(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier));
 
             Synergism.emit('boughtPlatonicUpgrade', platUpgradeBaseCosts[index]);
-            if (index === 20 && player.highestSingularityCount === 0) {
+            if (index === 20 && !auto && player.singularityCount === 0) {
                 void Alert('While I strongly recommended you not to buy this, you did it anyway. For that, you have unlocked the rune of Grandiloquence, for you are a richass.')
             }
         } else {
             break;
         }
 
-        if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel || player.highestSingularityCount === 0) {
+        if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel || player.singularityCount === 0) {
             break
         }
     }
     createPlatonicDescription(index)
     updatePlatonicUpgradeBG(index)
     revealStuff();
+}
+
+export const autoBuyPlatonicUpgrades = () => {
+    if (player.autoPlatonicUpgradesToggle === true && ((player.highestSingularityCount >= 100 && player.singularityCount < player.highestSingularityCount) || player.highestSingularityCount >= 200)) {
+        for (let i = 1; i < player.platonicUpgrades.length; i++) {
+            if (player.platonicUpgrades[i] < platUpgradeBaseCosts[i].maxLevel) {
+                const resourceCheck = checkPlatonicUpgrade(i, true);
+                if (resourceCheck.canBuy) {
+                    void buyPlatonicUpgrades(i, true);
+                }
+            }
+        }
+    }
 }

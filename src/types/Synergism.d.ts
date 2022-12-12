@@ -442,6 +442,8 @@ export interface Player {
     openPlatonicsCubes: number
     cubeUpgrades: [null, ...number[]]
     cubeUpgradesBuyMaxToggle: boolean
+    autoCubeUpgradesToggle: boolean,
+    autoPlatonicUpgradesToggle: boolean,
     platonicUpgrades: number[]
     saveOfferingToggle: boolean,
     wowCubes: WowCubes

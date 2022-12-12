@@ -268,7 +268,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: 1 + 0.10 * n,
                 desc: `Permanently gain ${format(10 * n, 0, true)}% more Golden Quarks on Singularities.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     goldenQuarks2: {
         name: 'Golden Quarks II',
@@ -281,7 +282,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: (n > 250) ? 1 / Math.log2(n / 62.5) : 1 - Math.min(0.5, n / 500),
                 desc: `Purchasing Golden Quarks in the shop is ${(n > 250)? format(100 - 100 / Math.log2(n / 62.5), 2, true) : format(Math.min(50, n / 5),2,true)}% cheaper.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     goldenQuarks3: {
         name: 'Golden Quarks III',
@@ -1099,8 +1101,8 @@ export const singularityPerks: SingularityPerk[] = [
     {
         name: 'Unlimited growth',
         levels: [1],
-        description: (n: number) => {
-            return `+10% to Quarks gain and Ascension Count for each Singularity (currently +${format(10*n)}%)`
+        description: () => {
+            return `+10% to Quarks gain and Ascension Count for current each Singularity (currently +${format(10 * player.singularityCount)}%)`
         }
     },
     {
@@ -1334,7 +1336,7 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Automation Cubes',
+        name: 'Automation Open Cubes',
         levels: [35],
         description: () => {
             return 'Ascension allows you to automatically open the cubes you have'
@@ -1360,6 +1362,17 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
+        name: 'Wow! Cube Automated Shipping',
+        levels: [50, 150],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'Automatically buy Cube Upgrades with each ascension, no matter where you are!'
+            } else {
+                return 'Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge.'
+            }
+        }
+    },
+    {
         name: 'Golden Revolution',
         levels: [100],
         description: () => {
@@ -1378,6 +1391,17 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [100],
         description: () => {
             return 'Export Gives 2% more Golden Quarks per singularity (MAX: +500%)'
+        }
+    },
+    {
+        name: 'Clones of Platonic Clicking At Your Desktop',
+        levels: [100, 200],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, anywhere!'
+            } else {
+                return 'Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, but only in a Singularity Challenge.'
+            }
         }
     },
     {
@@ -1565,6 +1589,11 @@ export const getFastForwardTotalMultiplier = (): number => {
     // Stop at sing 200 even if you include fast forward
     fastForward = Math.max(0, Math.min(fastForward, 200 - player.singularityCount - 1));
 
+    // Please for the love of god don't allow FF during a challenge
+    if (player.insideSingularityChallenge) {
+        return 0
+    }
+
     // If the next singularityCount is greater than the highestSingularityCount, fast forward to be equal to the highestSingularityCount
     if (player.highestSingularityCount !== player.singularityCount && player.singularityCount + fastForward + 1 >= player.highestSingularityCount) {
         return Math.max(0, Math.min(fastForward, player.highestSingularityCount - player.singularityCount - 1))
@@ -1670,11 +1699,12 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
         effectiveSingularities *= Math.pow(1.1, Math.min(singularityCount - 36, 64))
     }
     if (singularityCount > 50) {
-        effectiveSingularities *= 6
+        effectiveSingularities *= 5
         effectiveSingularities *= Math.min(8, 2 * singularityCount / 50 - 1)
         effectiveSingularities *= Math.pow(1.1, Math.min(singularityCount - 50, 50))
     }
     if (singularityCount > 100) {
+        effectiveSingularities *= 2
         effectiveSingularities *= singularityCount / 25
         effectiveSingularities *= Math.pow(1.1, singularityCount - 100)
     }
@@ -1686,6 +1716,10 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
         effectiveSingularities *= 1.5
         effectiveSingularities *= Math.pow(1.275, singularityCount - 200)
     }
+    if (singularityCount > 215) {
+        effectiveSingularities *= 1.25
+        effectiveSingularities *= Math.pow(1.2, singularityCount - 215)
+    }
     if (singularityCount >= 250) {
         effectiveSingularities *= 100
     }
@@ -1693,7 +1727,7 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
     return effectiveSingularities
 }
 export const calculateNextSpike = (singularityCount: number = player.singularityCount): number => {
-    const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 250];
+    const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 216, 250];
     for (const sing of singularityPenaltyThreshold) {
         if (sing > singularityCount) {
             return sing;
