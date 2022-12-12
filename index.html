@@ -2442,7 +2442,7 @@
                                 <input type="image" id="platUpg19" alt="platUpg19" src="Pictures/Transparent%20Pics/PlatonicUpgrade19.png" class="platonicUpgradeImage">
                                 <input type="image" id="platUpg20" alt="platUpg20" src="Pictures/Transparent%20Pics/PlatonicUpgrade20.png" class="platonicUpgradeImage">
                             </div>
-                            <div class="platonicUpgrades2">
+                            <div class="platonicUpgradesToggles">
                                 <button id="saveOffToggle" alt="saveOffToggle" label="saveOffToggle" style="border: 2px solid gold" title="If ON, then it will turn OFF Auto Runes toggle">Save Offerings [OFF]</button>
                                 <button id="toggleAutoPlatonicUpgrades" alt="toggleAutoPlatonicUpgrades" label="toggleAutoPlatonicUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
                             </div>
@@ -3680,17 +3680,21 @@ $STAGE$ for synergism stage" style="color: white"></p>
             </div>
         </div>
 
-        <div id="singularityContainer5" alt="singularityContainer5" style="display: none;">
-            <div id="singularityChallenges" alt="singularityChallenges" class="singularityContainer">
-                <div id="singularityChallengeFlavor" alt="singularityChallengeFlavor">
-                    <p id="singularityChallengeIntro" alt="singularityChallengeIntro">Do you have what it takes to earn EXALT from Ant God?</p>
+        <div id="singularityContainer5" style="display: none;">
+            <div id="singularityChallenges" class="singularityContainer">
+                <div id="singularityChallengeFlavor" >
+                    <p id="singularityChallengeIntro">Do you have what it takes to earn EXALT from Ant God?</p>
                 </div>
-                <div class="singularityChallenge">
-                    <div class="rainbowBorder"><input type="image" id="noSingularityUpgrades" src="Pictures/Transparent Pics/No Singularity Upgrade Challenge.png"></div>
-                    <div class="rainbowBorder"><input type="image" id="oneChallengeCap" src="Pictures/Transparent Pics/One Challenge Cap Challenge.png"></div>
+                <div class="singularityChallenges">
+                    <div id="noSingularityUpgradesDiv" class="rainbowBorder">
+                        <input type="image" id="noSingularityUpgrades" alt="No Singularity Upgrades" src="Pictures/Transparent Pics/No Singularity Upgrade Challenge.png">
+                    </div>
+                    <div id="oneChallengeCapDiv" class="rainbowBorder">
+                        <input type="image" id="oneChallengeCap" alt="One Challenge Cap" src="Pictures/Transparent Pics/One Challenge Cap Challenge.png">
+                    </div>
                 </div>
-                <div id="singularityChallengeDetails" alt="singularityChallengeDetails">
-                    <p id="singularityChallengesMultiline" alt="singularityChallengesMultiline"></p>
+                <div id="singularityChallengeDetails">
+                    <p id="singularityChallengesMultiline"></p>
                 </div>
             </div>
         </div>
