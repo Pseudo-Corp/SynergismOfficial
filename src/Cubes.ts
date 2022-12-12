@@ -192,9 +192,11 @@ const cubeUpgradeDescriptions = [
     '[Cx20] The pinnacle of baking. Nothing you\'ll eat will taste better than this. Gain +0.01% more Octeracts on Ascension if every corruption is set to level 14.'
 ]
 
-const getCubeCost = (i: number, linGrowth = 0, cubic = false): IMultiBuy => {
+const getCubeCost = (i: number, buyMax: boolean): IMultiBuy => {
+    const linGrowth = (i === 50 ? 0.01 : 0);
+    const cubic = i > 50;
     const maxLevel = getCubeMax(i)
-    let amountToBuy = player.cubeUpgradesBuyMaxToggle ? 1e5: 1;
+    let amountToBuy = buyMax ? 1e5: 1;
     const cubeUpgrade = player.cubeUpgrades[i]!;
     amountToBuy = Math.min(maxLevel - cubeUpgrade, amountToBuy)
     const singularityMultiplier = (i <= 50) ? calculateSingularityDebuff('Cube Upgrades'): 1;
@@ -203,7 +205,7 @@ const getCubeCost = (i: number, linGrowth = 0, cubic = false): IMultiBuy => {
 
     if (cubic) {
         // TODO: Fix this inconsistency later.
-        amountToBuy = player.cubeUpgradesBuyMaxToggle ? maxLevel: Math.min(maxLevel, cubeUpgrade + 1)
+        amountToBuy = buyMax ? maxLevel: Math.min(maxLevel, cubeUpgrade + 1)
         metaData = calculateCubicSumData(cubeUpgrade, cubeBaseCost[i-1],
             Number(player.wowCubes), amountToBuy)
     } else {
@@ -225,8 +227,8 @@ const getCubeMax = (i: number) => {
     return baseValue
 }
 
-export const cubeUpgradeDesc = (i: number, linGrowth = 0, cubic = false) => {
-    const metaData = getCubeCost(i, linGrowth, cubic)
+export const cubeUpgradeDesc = (i: number, buyMax = player.cubeUpgradesBuyMaxToggle) => {
+    const metaData = getCubeCost(i, buyMax)
     const a = DOMCacheGetOrSet('cubeUpgradeName')
     const b = DOMCacheGetOrSet('cubeUpgradeDescription')
     const c = DOMCacheGetOrSet('cubeUpgradeCost')
@@ -286,33 +288,36 @@ export const awardAutosCookieUpgrade = () => {
     }
 }
 
-export const buyCubeUpgrades = (i: number, linGrowth = 0, cubic = false) => {
+export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxToggle, auto = false) => {
     // Actually lock for HTML exploit
     if ((i > 50 && i <= 55 && !player.singularityUpgrades.cookies.getEffect().bonus) ||
         (i > 55 && i <= 60 && !player.singularityUpgrades.cookies2.getEffect().bonus) ||
         (i > 60 && i <= 65 && !player.singularityUpgrades.cookies3.getEffect().bonus) ||
-        (i > 65 && i <= 70 && !player.singularityUpgrades.cookies4.getEffect().bonus)) {
+        (i > 65 && i <= 70 && !player.singularityUpgrades.cookies4.getEffect().bonus) ||
+        (i > 70 && !player.singularityUpgrades.cookies5.getEffect().bonus)) {
         return;
     }
 
-    const metaData = getCubeCost(i,linGrowth, cubic);
-    const maxLevel = getCubeMax(i)
-    if (Number(player.wowCubes) >= metaData.cost && player.cubeUpgrades[i]! < maxLevel){
+    const metaData = getCubeCost(i, buyMax);
+    const maxLevel = getCubeMax(i);
+    if (Number(player.wowCubes) >= metaData.cost && player.cubeUpgrades[i]! < maxLevel) {
         player.wowCubes.sub(100 / 100 * metaData.cost);
         player.cubeUpgrades[i] = metaData.levelCanBuy;
+    } else {
+        return;
     }
 
-    if (i === 4 && player.cubeUpgrades[4] > 0){
+    if (i === 4 && player.cubeUpgrades[4] > 0) {
         for (let j = 94; j <= 98; j++){
             player.upgrades[j] = 1;
             upgradeupdate(j, true)
         }
     }
-    if (i === 5 && player.cubeUpgrades[5] > 0){
+    if (i === 5 && player.cubeUpgrades[5] > 0) {
         player.upgrades[99] = 1
         upgradeupdate(99, true)
     }
-    if (i === 6 && player.cubeUpgrades[6] > 0){
+    if (i === 6 && player.cubeUpgrades[6] > 0) {
         player.upgrades[100] = 1
         upgradeupdate(100, true)
     }
@@ -327,8 +332,46 @@ export const buyCubeUpgrades = (i: number, linGrowth = 0, cubic = false) => {
         }
     }
 
-    cubeUpgradeDesc(i, linGrowth, cubic);
+    if (auto === false) {
+        cubeUpgradeDesc(i);
+        revealStuff();
+        calculateCubeBlessings();
+    }
     updateCubeUpgradeBG(i);
-    revealStuff();
-    calculateCubeBlessings();
+}
+
+export const autoBuyCubeUpgrades = () => {
+    if (player.autoCubeUpgradesToggle && ((player.highestSingularityCount >= 50 && player.singularityCount < player.highestSingularityCount) || player.highestSingularityCount >= 150)) {
+        const cheapet = [];
+
+        for (let i = 1; i < player.cubeUpgrades.length; i++) {
+            const maxLevel = getCubeMax(i);
+            if (player.cubeUpgrades[i]! < maxLevel) {
+                const metaData = getCubeCost(i, true);
+                cheapet.push([i, metaData.cost, metaData.levelCanBuy]);
+            }
+        }
+
+        if (cheapet.length > 0) {
+            let update = false;
+
+            cheapet.sort((a, b) => {
+                return a[1] - b[1];
+            });
+
+            for (const value of cheapet) {
+                const maxLevel = getCubeMax(value[0]);
+                const metaData = getCubeCost(value[0], true);
+                if (Number(player.wowCubes) >= metaData.cost && player.cubeUpgrades[value[0]]! < maxLevel && (player.cubeUpgradesBuyMaxToggle === true || maxLevel === metaData.levelCanBuy)) {
+                    buyCubeUpgrades(value[0], true, true);
+                    update = true;
+                }
+            }
+
+            if (update === true) {
+                revealStuff();
+                calculateCubeBlessings();
+            }
+        }
+    }
 }

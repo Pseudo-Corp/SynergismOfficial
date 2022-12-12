@@ -227,7 +227,7 @@ export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.ru
         multiplier = Math.pow(100, runeLevel)
     }
     if (runeIndex === 6) {
-        multiplier = Math.pow(1e25, runeLevel) * (player.singularityCount + 1)
+        multiplier = Math.pow(1e25, runeLevel) * (player.highestSingularityCount + 1)
     }
     return multiplier * G['runeexpbase'][runeIndex];
 }
@@ -538,12 +538,12 @@ export const calculateTalismanEffects = () => {
     negativeBonus += 0.06 * player.researches[118]
     negativeBonus += 0.0004 * player.cubeUpgrades[50]
 
-    if (player.singularityCount >= 7) {
+    if (player.highestSingularityCount >= 7) {
         positiveBonus += negativeBonus;
         negativeBonus = positiveBonus
     }
 
-    if (player.singularityCount < 7) {
+    if (player.highestSingularityCount < 7) {
         for (let i = 1; i <= 5; i++) {
             if (player.talismanOne[i] === (1)) {
                 G['talisman1Effect'][i] = (G['talismanPositiveModifier'][player.talismanRarity[1-1]]! + positiveBonus) * player.talismanLevels[1-1] * G['challenge15Rewards'].talismanBonus
@@ -1134,6 +1134,8 @@ export const calculateAllCubeMultiplier = () => {
         1 + 0.25 * +G['isEvent'] * player.cubeUpgrades[58],
         // Wow Octeract Bonus
         calculateTotalOcteractCubeBonus(),
+        // No Singularity Upgrades Challenge
+        +player.singularityChallenges.noSingularityUpgrades.rewards.cubes,
         // Singularity Citadel
         +player.singularityUpgrades.singCitadel.getEffect().bonus,
         // Singularity Citadel 2
@@ -1377,6 +1379,8 @@ export const getOcteractValueMultipliers = () => {
         // digital octeract accumulator
         Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
         1 + calculateEventBuff('Octeract'),
+        // No Singulairty Upgrades
+        +player.singularityChallenges.noSingularityUpgrades.rewards.cubes,
         1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24)),
         // Wow Pass INF
         Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
@@ -1505,7 +1509,7 @@ export const calculateAscensionAcceleration = () => {
 
 export const calculateSingularityQuarkMilestoneMultiplier = () => {
     let multiplier = 1
-    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180, 190, 196, 200, 201, 202, 203, 204, 205, 225, 250]
+    const singThresholds = [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180, 190, 196, 200, 200, 201, 202, 203, 204, 205, 210, 212, 214, 216, 218, 220, 225, 250];
     for (const sing of singThresholds) {
         if (player.highestSingularityCount >= sing) {
             multiplier *= 1.05
@@ -1616,6 +1620,7 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
         1 + player.worlds.BONUS / 100,                                                                  // Patreon Bonus
         +player.singularityUpgrades.goldenQuarks1.getEffect().bonus,                                    // Golden Quarks I
         1 + 0.12 * player.cubeUpgrades[69],                                                             // Cookie Upgrade 19
+        +player.singularityChallenges.noSingularityUpgrades.rewards.goldenQuarks,                       // No Singularity Upgrades
         1 + calculateEventBuff('Golden Quarks'),                                                        // Event
         1 + getFastForwardTotalMultiplier(),                                                            // Singularity Fast Forwards
         player.highestSingularityCount >= 100 ? 1 + Math.min(1, player.highestSingularityCount / 250) : 1, // Golden Revolution II
@@ -1820,7 +1825,8 @@ export const calculateAscensionScore = () => {
     let corruptionMultiplier = 1;
     let effectiveScore = 0;
 
-    const bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect().bonus ? 1 : 0;
+    let bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect().bonus ? 1 : 0;
+    bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
     // Init Arrays with challenge values :)
     const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300];
     const challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450];
@@ -1861,7 +1867,8 @@ export const calculateAscensionScore = () => {
     // Max: 1.0425
     baseScore *= Math.pow(1.03 + 0.005 * player.cubeUpgrades[39] + 0.0025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10]), player.highestchallengecompletions[10]);
     // Corruption Multiplier is the product of all Corruption Score multipliers based on used corruptions
-    const bonusVal = player.singularityUpgrades.advancedPack.getEffect().bonus ? 0.33: 0;
+    let bonusVal = player.singularityUpgrades.advancedPack.getEffect().bonus ? 0.33: 0;
+    bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
     for (let i = 2; i < 10; i++) {
         const exponent = ((i === 2) && player.usedCorruptions[i] >= 10) ? 1 + 2 * Math.min(1, player.platonicUpgrades[17]) + 0.04 * player.platonicUpgrades[17] : 1;
         corruptionMultiplier *= (Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[i] + bonusLevel], exponent) + bonusVal);
@@ -1972,7 +1979,7 @@ export const calcAscensionCount = () => {
         ascCount *= (player.platonicUpgrades[15] > 0 ? 2 : 1);
         ascCount *= (1 + 0.02 * player.platonicUpgrades[16]);
         ascCount *= (1 + 0.02 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 100000));
-        ascCount *= (1 + 1/8 * player.singularityCount)
+        ascCount *= (1 + player.singularityCount / 10);
         ascCount *= +player.singularityUpgrades.ascensions.getEffect().bonus
         ascCount *= +player.octeractUpgrades.octeractAscensions.getEffect().bonus
         ascCount *= +player.octeractUpgrades.octeractAscensions2.getEffect().bonus
@@ -2007,15 +2014,15 @@ export const calculateCubeQuarkMultiplier = () => {
     return (calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40) +
            calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 160) +
            calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 640) +
-           calculateSigmoid(1.15, +(player.singularityCount >= 1) * Math.pow(player.overfluxOrbs, 0.45), 2560) +
-           calculateSigmoid(1.15, +(player.singularityCount >= 2) * Math.pow(player.overfluxOrbs, 0.4), 10000) +
-           calculateSigmoid(1.25, +(player.singularityCount >= 5) * Math.pow(player.overfluxOrbs, 0.35), 40000) +
-           calculateSigmoid(1.25, +(player.singularityCount >= 10) * Math.pow(player.overfluxOrbs, 0.32), 160000) +
-           calculateSigmoid(1.35, +(player.singularityCount >= 15) * Math.pow(player.overfluxOrbs, 0.27), 640000) +
-           calculateSigmoid(1.45, +(player.singularityCount >= 20) * Math.pow(player.overfluxOrbs, 0.24), 2e6) +
-           calculateSigmoid(1.55, +(player.singularityCount >= 25) * Math.pow(player.overfluxOrbs, 0.21), 1e7) +
-           calculateSigmoid(1.85, +(player.singularityCount >= 30) * Math.pow(player.overfluxOrbs, 0.18), 4e7) +
-           calculateSigmoid(3, +(player.singularityCount >= 35) * Math.pow(player.overfluxOrbs, 0.15), 1e8) -
+           calculateSigmoid(1.15, +(player.highestSingularityCount >= 1) * Math.pow(player.overfluxOrbs, 0.45), 2560) +
+           calculateSigmoid(1.15, +(player.highestSingularityCount >= 2) * Math.pow(player.overfluxOrbs, 0.4), 10000) +
+           calculateSigmoid(1.25, +(player.highestSingularityCount >= 5) * Math.pow(player.overfluxOrbs, 0.35), 40000) +
+           calculateSigmoid(1.25, +(player.highestSingularityCount >= 10) * Math.pow(player.overfluxOrbs, 0.32), 160000) +
+           calculateSigmoid(1.35, +(player.highestSingularityCount >= 15) * Math.pow(player.overfluxOrbs, 0.27), 640000) +
+           calculateSigmoid(1.45, +(player.highestSingularityCount >= 20) * Math.pow(player.overfluxOrbs, 0.24), 2e6) +
+           calculateSigmoid(1.55, +(player.highestSingularityCount >= 25) * Math.pow(player.overfluxOrbs, 0.21), 1e7) +
+           calculateSigmoid(1.85, +(player.highestSingularityCount >= 30) * Math.pow(player.overfluxOrbs, 0.18), 4e7) +
+           calculateSigmoid(3, +(player.highestSingularityCount >= 35) * Math.pow(player.overfluxOrbs, 0.15), 1e8) -
            11) * (1 + 1/500 * player.shopUpgrades.cubeToQuarkAll) *
            (player.autoWarpCheck ? 1 + player.dailyPowderResetUses : 1);
 }
@@ -2091,10 +2098,10 @@ export const derpsmithCornucopiaBonus = () => {
     let counter = 0
     const singCounts = [18, 38, 58, 78, 88, 98, 118, 148, 178, 188, 198, 208, 218, 228, 238, 248]
     for (const sing of singCounts) {
-        if (player.singularityCount >= sing) {
+        if (player.highestSingularityCount >= sing) {
             counter += 1
         }
     }
 
-    return 1 + counter * player.singularityCount / 100
+    return 1 + counter * player.highestSingularityCount / 100
 }

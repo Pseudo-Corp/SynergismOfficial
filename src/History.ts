@@ -217,43 +217,43 @@ const historyGains: Record<
         img: 'Pictures/Singularity.png',
         formatter: formatDecimalSource,
         imgTitle: 'Singularity Count',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     quarks: {
         img: 'Pictures/Quark.png',
         formatter: formatDecimalSource,
         imgTitle: 'Quarks',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     goldenQuarks: {
         img: 'Pictures/Golden Quark.png',
         formatter: formatDecimalSource,
         imgTitle: 'Golden Quarks',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     wowTribs: {
         img: 'Pictures/WowCube.png',
         formatter: formatDecimalSource,
         imgTitle: 'Cube Tributes',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     tessTribs: {
         img: 'Pictures/WowTessaract.png',
         formatter: formatDecimalSource,
         imgTitle: 'Tesseract Gifts',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     hyperTribs: {
         img: 'Pictures/WowHypercube.png',
         formatter: formatDecimalSource,
         imgTitle: 'Hypercube Bendictions',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     platTribs: {
         img: 'Pictures/Platonic Cube.png',
         formatter: formatDecimalSource,
         imgTitle: 'Platonics Opened',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     octeracts: {
         img: 'Pictures/Octaret.png',

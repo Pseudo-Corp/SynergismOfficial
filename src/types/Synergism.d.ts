@@ -6,6 +6,7 @@ import { OcteractUpgrade } from '../Octeracts';
 import { IPlatBaseCost } from '../Platonic';
 import type { QuarkHandler } from '../Quark';
 import { SingularityUpgrade } from '../singularity';
+import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges';
 
 export interface Player {
     firstPlayed: string
@@ -441,6 +442,8 @@ export interface Player {
     openPlatonicsCubes: number
     cubeUpgrades: [null, ...number[]]
     cubeUpgradesBuyMaxToggle: boolean
+    autoCubeUpgradesToggle: boolean,
+    autoPlatonicUpgradesToggle: boolean,
     platonicUpgrades: number[]
     saveOfferingToggle: boolean,
     wowCubes: WowCubes
@@ -546,6 +549,7 @@ export interface Player {
     loadedV253: boolean
     loadedV255: boolean
     loadedV297Hotfix1: boolean
+    loadedV2927Hotfix1: boolean
     version: string
 
     rngCode: number
@@ -585,6 +589,10 @@ export interface Player {
     dailyCodeUsed: boolean
     hepteractAutoCraftPercentage: number
     octeractTimer: number
+
+    insideSingularityChallenge: boolean
+    singularityChallenges: Record<keyof typeof singularityChallengeData, SingularityChallenge>
+
 
 }
 

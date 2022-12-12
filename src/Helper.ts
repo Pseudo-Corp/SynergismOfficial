@@ -174,7 +174,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
             player.sacrificeTimer += time;
             if (player.sacrificeTimer >= 1 && isFinite(player.runeshards) && player.runeshards > 0){
                 // Automatic purchase of Blessings
-                if (player.singularityCount >= 15) {
+                if (player.highestSingularityCount >= 15) {
                     let ratio = 4;
                     if (player.toggles[36] === true) {
                         buyAllBlessings('Blessings', 100 / ratio, true);
@@ -185,13 +185,13 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
                         ratio--;
                     }
                 }
-                if (player.autoBuyFragment && player.singularityCount >= 40 && player.cubeUpgrades[51] > 0) {
+                if (player.autoBuyFragment && player.highestSingularityCount >= 40 && player.cubeUpgrades[51] > 0) {
                     buyAllTalismanResources();
                 }
 
                 // If you bought cube upgrade 2x10 then it sacrifices to all runes equally
                 if (player.cubeUpgrades[20] === 1){
-                    const maxi = player.singularityCount >= 50 ? 7 : (player.singularityCount >= 30 ? 6 : 5);
+                    const maxi = player.highestSingularityCount >= 50 ? 7 : (player.highestSingularityCount >= 30 ? 6 : 5);
                     const notMaxed = (maxi - checkMaxRunes(maxi));
                     if (notMaxed > 0){
                         const baseAmount = Math.floor(player.runeshards / notMaxed / 2);

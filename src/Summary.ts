@@ -28,21 +28,21 @@ export const generateExportSummary = async():Promise<void> => {
     resources = resources + (player.highestSingularityCount > 0 ? `Golden Quarks: ${format(player.goldenQuarks, 2, true)}\n` : '')
     resources = resources + subCategoryDivisor
     resources = resources + `Coins: ${format(player.coins, 2, true)}\n`
-    if (player.prestigeCount > 0 || player.singularityCount > 0) {
+    if (player.prestigeCount > 0 || player.highestSingularityCount > 0) {
         resources = resources + `Diamonds: ${format(player.prestigePoints, 2, true)}\n`
         resources = resources + `Crystals: ${format(player.prestigeShards, 2, true)}\n`
         resources = resources + `Offerings: ${format(player.runeshards, 0, true)}\n`
     }
-    if (player.transcendCount > 0 || player.singularityCount > 0) {
+    if (player.transcendCount > 0 || player.highestSingularityCount > 0) {
         resources = resources + `Mythos: ${format(player.transcendPoints, 2, true)}\n`
         resources = resources + `Mythos Shards: ${format(player.transcendShards, 2, true)}\n`
     }
-    if (player.reincarnationCount > 0 || player.singularityCount > 0) {
+    if (player.reincarnationCount > 0 || player.highestSingularityCount > 0) {
         resources = resources + `Particles: ${format(player.reincarnationPoints, 2, true)}\n`
         resources = resources + `Atoms: ${format(player.reincarnationShards, 2, true)}\n`
         resources = resources + `Obtainium: ${format(player.researchPoints, 0, true)}\n`
     }
-    if (player.ascensionCount > 0 || player.singularityCount > 0) {
+    if (player.ascensionCount > 0 || player.highestSingularityCount > 0) {
         const cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
         const tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
         const hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]

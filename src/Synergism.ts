@@ -14,7 +14,7 @@ import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, exitOffline, calculateGoldenQuarkGain } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels, calculateMaxTalismanLevel } from './Talismans';
-import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount } from './Toggles';
+import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
@@ -48,6 +48,7 @@ import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
 import {settingAnnotation, settingTheme } from './Themes';
 import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
+import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges';
 
 export const player: Player = {
     firstPlayed: new Date().toISOString(),
@@ -535,6 +536,8 @@ export const player: Player = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     cubeUpgradesBuyMaxToggle: false,
+    autoCubeUpgradesToggle: false,
+    autoPlatonicUpgradesToggle: false,
     platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     wowCubes: new WowCubes(0),
     wowTesseracts: new WowTesseracts(0),
@@ -694,6 +697,7 @@ export const player: Player = {
     loadedV253: true,
     loadedV255: true,
     loadedV297Hotfix1: true,
+    loadedV2927Hotfix1: true,
     version,
     rngCode: 0,
     promoCodeTiming: {
@@ -806,7 +810,13 @@ export const player: Player = {
 
     dailyCodeUsed: false,
     hepteractAutoCraftPercentage: 50,
-    octeractTimer: 0
+    octeractTimer: 0,
+    insideSingularityChallenge: false,
+
+    singularityChallenges: {
+        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades']),
+        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap'])
+    }
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -1764,6 +1774,8 @@ const loadSynergy = async () => {
         } else {
             DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: 1 Level wow'
         }
+        autoCubeUpgradesToggle(false);
+        autoPlatonicUpgradesToggle(false);
 
         for (let i = 1; i <= 2; i++) {
             toggleAntMaxBuy();
@@ -2417,8 +2429,8 @@ export const multipliers = (): void => {
     // PLAT - check
     const first6CoinUp = new Decimal(G['totalCoinOwned'] + 1).times(Decimal.min(1e30, Decimal.pow(1.008, G['totalCoinOwned'])));
 
-    if (player.singularityCount > 0) {
-        s = s.times(Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.singularityCount + 1, 2))
+    if (player.highestSingularityCount > 0) {
+        s = s.times(Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.highestSingularityCount + 1, 2))
     }
     if (player.upgrades[6] > 0.5) {
         s = s.times(first6CoinUp);
@@ -2868,15 +2880,15 @@ export const updateAntMultipliers = (): void => {
         G['globalAntMult'] = G['globalAntMult'].times(100000)
     }
 
-    if (player.singularityCount >= 30) {
+    if (player.highestSingularityCount >= 30) {
         G['globalAntMult'] = G['globalAntMult'].times(1000)
     }
 
-    if (player.singularityCount >= 70) {
+    if (player.highestSingularityCount >= 70) {
         G['globalAntMult'] = G['globalAntMult'].times(1000)
     }
 
-    if (player.singularityCount >= 100) {
+    if (player.highestSingularityCount >= 100) {
         G['globalAntMult'] = G['globalAntMult'].times(1e6)
     }
 }
@@ -2976,7 +2988,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 maxInc = 10;
             }
             if (player.shopUpgrades.instantChallenge2 > 0) {
-                maxInc += player.singularityCount;
+                maxInc += player.highestSingularityCount;
             }
             if (player.currentChallenge.ascension === 13) {
                 maxInc = 1;
@@ -3039,7 +3051,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 maxInc = 10;
             }
             if (player.shopUpgrades.instantChallenge2 > 0) {
-                maxInc += player.singularityCount;
+                maxInc += player.highestSingularityCount;
             }
             if (player.currentChallenge.ascension === 13) {
                 maxInc = 1;
@@ -3085,7 +3097,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
     }
 
     if (i === 'ascension') {
-        if (player.toggles[28] === false || player.challengecompletions[10] > 0) {
+        if (player.achievements[141] > 0 && (player.toggles[31] === false || player.challengecompletions[10] > 0)) {
             if (manual) {
                 void resetConfirmation('ascend');
             }
@@ -3156,6 +3168,11 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
 
         const thankSing = 250;
+
+        if (player.insideSingularityChallenge) {
+            return Alert('Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.')
+        }
+
         if (player.singularityCount >= thankSing) {
             return Alert(`Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere
             to go from here. At least, not until higher powers expand your journey.`)
@@ -3163,15 +3180,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 
         let confirmed = false;
         canSave = false;
-        let nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
-
-        // Stop at estimated Sing count even with Fast Forward
-        if (nextSingularityNumber >= 200 && nextSingularityNumber < 200 + 1 + getFastForwardTotalMultiplier()) {
-            nextSingularityNumber = 200
-        }
-        if (nextSingularityNumber >= thankSing && nextSingularityNumber < thankSing + 1 + getFastForwardTotalMultiplier()) {
-            nextSingularityNumber = thankSing
-        }
+        const nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
 
         if (!player.toggles[33] && player.singularityCount > 0) {
             confirmed = await Confirm(`Do you wish to start singularity #${format(nextSingularityNumber)}? Your next universe is harder but you will gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
