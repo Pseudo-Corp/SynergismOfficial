@@ -717,7 +717,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         autoBuyCubeUpgrades();
 
         // Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
-        if (player.highestSingularityCount >= 35 && numberOfAutoCraftsAndOrbs > 0) {
+        if (player.highestSingularityCount >= 35) {
             if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
                 player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
             }
