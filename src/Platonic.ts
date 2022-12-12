@@ -367,7 +367,7 @@ export const updatePlatonicUpgradeBG = (i: number) => {
 }
 
 export const buyPlatonicUpgrades = (index: number, auto = false) => {
-    while (index > 0) { // eslint-disable-line no-constant-condition, @typescript-eslint/no-unnecessary-condition
+    while (index > 0) {
         const resourceCheck = checkPlatonicUpgrade(index, auto)
         let priceMultiplier = 1;
         if (platUpgradeBaseCosts[index].priceMult) {
@@ -406,7 +406,7 @@ export const buyPlatonicUpgrades = (index: number, auto = false) => {
 }
 
 export const autoBuyPlatonicUpgrades = () => {
-    if (player.autoPlatonicUpgradesToggle === true && ((player.highestSingularityCount >= 100 && player.singularityCount < player.highestSingularityCount) || player.highestSingularityCount >= 200)) {
+    if (player.autoPlatonicUpgradesToggle === true && ((player.highestSingularityCount >= 100 && player.insideSingularityChallenge) || player.highestSingularityCount >= 200)) {
         for (let i = 1; i < player.platonicUpgrades.length; i++) {
             if (player.platonicUpgrades[i] < platUpgradeBaseCosts[i].maxLevel) {
                 const resourceCheck = checkPlatonicUpgrade(i, true);

@@ -341,7 +341,7 @@ export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
 }
 
 export const autoBuyCubeUpgrades = () => {
-    if (player.autoCubeUpgradesToggle && ((player.highestSingularityCount >= 50 && player.singularityCount < player.highestSingularityCount) || player.highestSingularityCount >= 150)) {
+    if (player.autoCubeUpgradesToggle && ((player.highestSingularityCount >= 50 && player.insideSingularityChallenge) || player.highestSingularityCount >= 150)) {
         const cheapet = [];
 
         for (let i = 1; i < player.cubeUpgrades.length; i++) {
