@@ -3683,10 +3683,6 @@ export const updateAll = (): void => {
             c15RewardUpdate();
         }
     }
-
-    if (player.singularityUpgrades.platonicAlpha.getEffect().bonus && player.platonicUpgrades[5] === 0) {
-        player.platonicUpgrades[5] = 1;
-    }
 }
 
 export const fastUpdates = (): void => {
