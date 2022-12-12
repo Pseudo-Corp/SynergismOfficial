@@ -1175,6 +1175,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
         }
     }*/
     await importSynergism(btoa(JSON.stringify(hold)), true);
+    //Techically possible to import game during reset. But that will only "hurt" that imported save
 
     // TODO: Do not enable data that has never used an event code
     player.codes.set(39, true);
