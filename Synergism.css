@@ -122,7 +122,7 @@ body.loading {
 .orangeredText { color: var(--orangered-text-color); }
 .orchidText { color: var(--orchid-text-color); }
 .darkorchidText { color: var(--darkorchid-text-color); }
-.darkcyanText { color: var(--darkcyan-text-color); } /* Test */
+.darkcyanText { color: var(--darkcyan-text-color); }
 
 .boxColor {
     border: 3px solid;
