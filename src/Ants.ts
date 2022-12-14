@@ -42,19 +42,19 @@ const antspecies: Record<string, string> = {
     antspecies12: 'Mortuus Est Formicidae'
 }
 
-const antupgdesc: Record<string, string> = {
-    antupgdesc1: 'Promotes romance and unity within the colony. [+12% Ant Speed / level]',
-    antupgdesc2: 'Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]',
-    antupgdesc3: 'Swarms the Taxman into submission [Up to -99.5% taxes!]',
-    antupgdesc4: 'Scares you into running faster [up to x20]',
-    antupgdesc5: 'Imitates your body through magic shape-shifting powers [up to x40]',
-    antupgdesc6: 'Tries to please Ant God... but fails [Additional Offerings!]',
-    antupgdesc7: 'Helps you build a few things here and there [+3% Building Cost Delay / level, Cap 9,999,999%]',
-    antupgdesc8: 'Knows how to salt and pepper food [Up to 1,000x Rune EXP!]',
-    antupgdesc9: 'Can make your message to Ant God a little more clear [+1 all Rune Levels / level, Cap 10 Million]',
-    antupgdesc10: 'Has big brain energy [Additional Obtainium!]',
-    antupgdesc11: 'A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]',
-    antupgdesc12: 'Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]'
+const antupgdesc: Record<string, () => string> = {
+    antupgdesc1: () => `Promotes romance and unity within the colony. [+${11 + player.researches[101] / 10 + player.researches[162] / 100}% Ant Speed / level]`,
+    antupgdesc2: () => 'Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]',
+    antupgdesc3: () => 'Swarms the Taxman into submission [Up to -99.5% taxes!]',
+    antupgdesc4: () => 'Scares you into running faster [up to x20]',
+    antupgdesc5: () => 'Imitates your body through magic shape-shifting powers [up to x40]',
+    antupgdesc6: () => 'Tries to please Ant God... but fails [Additional Offerings!]',
+    antupgdesc7: () => 'Helps you build a few things here and there [+3% Building Cost Delay / level, Cap 9,999,999%]',
+    antupgdesc8: () => 'Knows how to salt and pepper food [Up to 1,000x Rune EXP!]',
+    antupgdesc9: () => 'Can make your message to Ant God a little more clear [+1 all Rune Levels / level, Cap 10 Million]',
+    antupgdesc10: () => 'Has big brain energy [Additional Obtainium!]',
+    antupgdesc11: () => 'A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]',
+    antupgdesc12: () => 'Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]'
 }
 
 export const calculateCrumbToCoinExp = () => {
@@ -66,7 +66,7 @@ export const calculateCrumbToCoinExp = () => {
 }
 
 const antUpgradeTexts = [
-    () => 'ALL Ants work at ' + format(Decimal.pow(1.12 + 1 / 1000 * player.researches[101], player.antUpgrades[1-1]! + G['bonusant1']), 2) + 'x speed.',
+    () => 'ALL Ants work at ' + format(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[1-1]! + G['bonusant1']), 2) + 'x speed.',
     () => 'Crumb --> Coin exponent is ^' + format(calculateCrumbToCoinExp()),
     () => 'Tax growth is multiplied by ' + format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3-1]! + G['bonusant3']), 4),
     () => 'Accelerator Boosts +' + format(100 * (calculateSigmoidExponential(20, (player.antUpgrades[4-1]! + G['bonusant4']) / 1000 * 20 / 19) - 1), 3) + '%',
@@ -274,7 +274,7 @@ export const antUpgradeDescription = (i: number) => {
     const me = DOMCacheGetOrSet('antupgradeeffect')
 
     const content1 = antspecies['antspecies' + i];
-    const content2 = antupgdesc['antupgdesc' + i];
+    const content2 = antupgdesc['antupgdesc' + i]();
     const bonuslevel = G[`bonusant${i}` as keyof typeof G] as typeof G['bonusant1'];
 
     const c11 = player.currentChallenge.ascension === 11 ? 999 : 0;
