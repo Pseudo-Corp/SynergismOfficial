@@ -1,4 +1,4 @@
-export const version = '2.9.28: December 11 v3: Challenges Balanced Again!';
+export const version = '2.9.29: December 15 v1: Exalt 3 Premiere';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE
