@@ -474,7 +474,7 @@ const UpdateHeptGridValues = (type: hepteractTypes) => {
         if (barWidth < 34) {
             barColor = 'var(--hepteract-bar-red)';
         } else if (barWidth >= 34 && barWidth < 68) {
-            barColor = 'var(--hepteract-bar-yelow)';
+            barColor = 'var(--hepteract-bar-yellow)';
         } else {
             barColor = 'var(--hepteract-bar-green)';
         }
