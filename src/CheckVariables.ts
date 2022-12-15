@@ -358,7 +358,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
     player.singularityChallenges = {
         noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades']),
-        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap'])
+        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap']),
+        noOcteracts: new SingularityChallenge(singularityChallengeData['noOcteracts'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
@@ -724,7 +725,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     toggleBuy: data.octeractUpgrades[k].toggleBuy,
                     effect: octeractData[k].effect,
                     costFormula: octeractData[k].costFormula,
-                    freeLevels: data.octeractUpgrades[k].freeLevels
+                    freeLevels: data.octeractUpgrades[k].freeLevels,
+                    qualityOfLife: octeractData[k].qualityOfLife
                 }
                 player.octeractUpgrades[k] = new OcteractUpgrade(updatedData);
 

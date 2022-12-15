@@ -3,7 +3,7 @@ import { Globals as G } from './Variables';
 import { player, format, formatTimeShort } from './Synergism';
 import { version } from './Config';
 import { CalcECC } from './Challenges';
-import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear, calculateTotalOcteractCubeBonus, calculateTotalOcteractQuarkBonus, octeractGainPerSecond } from './Calculate';
+import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear, calculateTotalOcteractCubeBonus, calculateTotalOcteractQuarkBonus, octeractGainPerSecond, calculateTotalOcteractObtainiumBonus, calculateTotalOcteractOfferingBonus } from './Calculate';
 import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
@@ -569,11 +569,17 @@ export const visualUpdateOcteracts = () => {
 
     const cTOCB = (calculateTotalOcteractCubeBonus() - 1) * 100;
     const cTOQB = (calculateTotalOcteractQuarkBonus() - 1) * 100;
+    const cTOOB = (calculateTotalOcteractOfferingBonus() - 1) * 100;
+    const cTOOOB = (calculateTotalOcteractObtainiumBonus() - 1) * 100;
     DOMCacheGetOrSet('totalOcts').textContent = `${format(player.totalWowOcteracts, 2, true, true, true)}`
     DOMCacheGetOrSet('totalOcteractCubeBonus').style.display = cTOCB >= 0.001 ? 'block' : 'none';
     DOMCacheGetOrSet('totalOcteractQuarkBonus').style.display = cTOQB >= 0.001 ? 'block' : 'none';
+    DOMCacheGetOrSet('totalOcteractOfferingBonus').style.display = cTOOB >= 0.001 ? 'block' : 'none';
+    DOMCacheGetOrSet('totalOcteractObtainiumBonus').style.display = cTOOOB >= 0.001 ? 'block' : 'none';
     DOMCacheGetOrSet('octCubeBonus').textContent = `+${format(cTOCB, 3, true)}%`
     DOMCacheGetOrSet('octQuarkBonus').textContent = `+${format(cTOQB, 3, true)}%`
+    DOMCacheGetOrSet('octOfferingBonus').textContent = `+${format(cTOOB, 3, true)}%`
+    DOMCacheGetOrSet('octObtainiumBonus').textContent = `+${format(cTOOOB, 3, true)}%`
 }
 
 export const visualUpdateShop = () => {

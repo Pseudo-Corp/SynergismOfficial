@@ -391,6 +391,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     q *= (1 + 1/200 * player.shopUpgrades.cashGrab2);
     q *= (1 + 1/100 * player.shopUpgrades.offeringEX2 * player.singularityCount);
     q *= Math.pow(1.02, player.shopUpgrades.offeringEX3)
+    q *= calculateTotalOcteractOfferingBonus();
     q = Math.min(1e300, q);
 
     let persecond = 0;
@@ -484,6 +485,7 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= +player.singularityUpgrades.singCitadel2.getEffect().bonus;
     G['obtainiumGain'] *= +player.octeractUpgrades.octeractObtainium1.getEffect().bonus;
     G['obtainiumGain'] *= Math.pow(1.02, player.shopUpgrades.obtainiumEX3);
+    G['obtainiumGain'] *= calculateTotalOcteractObtainiumBonus()
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
         G['obtainiumGain'] *= (1 + 7 * player.cubeUpgrades[62])
@@ -1051,21 +1053,42 @@ export const calculateCubeBlessings = () => {
 }
 
 export const calculateTotalOcteractCubeBonus = () => {
+    if (player.singularityChallenges.noOcteracts.enabled) {
+        return 1
+    }
     if (player.totalWowOcteracts < 1000) {
         const bonus = (1 + 2/1000 * player.totalWowOcteracts) // At 1,000 returns 3
         return bonus > 1.00001 ? bonus : 1
     } else {
-        return 3 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, 2.0) // At 1,000 returns 3
+        const power = 2 + +player.singularityChallenges.noOcteracts.rewards.octeractPow
+        return 3 * Math.pow(Math.log10(player.totalWowOcteracts) - 2, power) // At 1,000 returns 3
     }
 }
 
 export const calculateTotalOcteractQuarkBonus = () => {
+    if (player.singularityChallenges.noOcteracts.enabled) {
+        return 1
+    }
     if (player.totalWowOcteracts < 1000) {
         const bonus = (1 + 0.2 / 1000 * player.totalWowOcteracts) // At 1,000 returns 1.20
         return bonus > 1.00001 ? bonus : 1
     } else {
         return 1.1 + 0.1 * (Math.log10(player.totalWowOcteracts) - 2) // At 1,000 returns 1.20
     }
+}
+
+export const calculateTotalOcteractOfferingBonus = () => {
+    if (!player.singularityChallenges.noOcteracts.rewards.offeringBonus) {
+        return 1
+    }
+    return Math.pow(calculateTotalOcteractQuarkBonus(), 1.5)
+}
+
+export const calculateTotalOcteractObtainiumBonus = () => {
+    if (!player.singularityChallenges.noOcteracts.rewards.obtainiumBonus) {
+        return 1
+    }
+    return Math.pow(calculateTotalOcteractQuarkBonus(), 1.4)
 }
 
 export const calculateAllCubeMultiplier = () => {

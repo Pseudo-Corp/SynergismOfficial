@@ -208,6 +208,25 @@ export const singularityChallengeData: Record<keyof Player['singularityUpgrades'
                 freeCorruptionLevel: (n === 20)
             }
         }
+    },
+    noOcteracts: {
+        name: 'No Octeract Effects',
+        descripton: 'Beat the target Singularity, but octeracts and their upgrades do nothing! Effective Singularity is also much higher based on tier.',
+        rewardDescription: 'Each completion increases Octeract to Cube Bonus power by 0.02 (BASE: 2.00). First completion adds a bonus to Offerings based on Octeracts. Final completion adds a bonus to Obtainium based on Octeracts.',
+        baseReq: 75,
+        maxCompletions: 10,
+        unlockSingularity: 100,
+        HTMLTag: 'noOcteracts',
+        singularityRequirement: (baseReq: number, completions: number) => {
+            return baseReq + 13 * completions
+        },
+        effect: (n: number) => {
+            return {
+                octeractPow: 0.02 * n,
+                offeringBonus: (n > 0),
+                obtainiumBonus: (n === 10)
+            }
+        }
     }
 }
 

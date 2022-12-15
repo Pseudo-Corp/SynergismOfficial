@@ -1685,6 +1685,13 @@ export type SingularityDebuffs = 'Offering' | 'Obtainium' | 'Global Speed' | 'Re
 export const calculateEffectiveSingularities = (singularityCount: number = player.singularityCount): number => {
     let effectiveSingularities = singularityCount;
     effectiveSingularities *= Math.min(4.75, 0.75 * singularityCount / 10 + 1)
+
+    if (player.insideSingularityChallenge) {
+        if (player.singularityChallenges.noOcteracts.enabled) {
+            effectiveSingularities *= Math.pow(player.singularityChallenges.noOcteracts.completions + 1, 3)
+        }
+    }
+
     if (singularityCount > 10) {
         effectiveSingularities *= 1.5
         effectiveSingularities *= Math.min(4, 1.25 * singularityCount / 10 - 0.25)
