@@ -77,7 +77,7 @@ const events: Record<string, HolidayData> = {
     },
     khafra: {
         name: 'Thanks for Boosting the Discord',
-        color: 'green',
+        color: 'var(--green-text-color)', //Plat please use var color instead for any of these (darkorchid, orchid, darkcyan, red, maroon, orangered, crimson, gray, green, lightseagreen)
         url: 'https://www.youtube.com/watch?v=iYYRH4apXDo',
         everyYear: false,
         start: '12/07/2022 00:00:00',
@@ -317,7 +317,7 @@ export const eventCheck = () => {
         G['isEvent'] = false;
         DOMCacheGetOrSet('eventCurrent').textContent = 'INACTIVE';
         eventBuffs.textContent = now.getTime() >= player.dayCheck.getTime() ? '' : ''
-        eventBuffs.style.color = 'red';
+        eventBuffs.style.color = 'var(--red-text-color)';
         happyHolidays.innerHTML = '';
         happyHolidays.href = '';
     }

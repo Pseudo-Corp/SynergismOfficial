@@ -8,9 +8,9 @@ import { toOrdinal } from './Utility'
 
 export const updateSingularityPenalties = (): void => {
     const singularityCount = player.singularityCount;
-    const color = player.runelevels[6] > 0 ? 'green' : 'red';
-    const platonic = (singularityCount > 36) ? `Platonic Upgrade costs are multiplied by ${format(calculateSingularityDebuff('Platonic Costs', singularityCount), 2, true)}.` : '<span style="color: grey">???????? ??????? ????? ??? ?????????? ?? ???</span> <span style="color: red">(Sing 37)</span>';
-    const hepteract = (singularityCount > 50) ? `Hepteract Forge costs are multiplied by ${format(calculateSingularityDebuff('Hepteract Costs', singularityCount), 2, true)}.` : '<span style="color: grey">????????? ????? ????? ??? ?????????? ?? ???</span> <span style="color: red">(Sing 51)</span>';
+    const color = player.runelevels[6] > 0 ? 'var(--green-text-color)' : 'var(--red-text-color)';
+    const platonic = (singularityCount > 36) ? `Platonic Upgrade costs are multiplied by ${format(calculateSingularityDebuff('Platonic Costs', singularityCount), 2, true)}.` : '<span class="grayText">???????? ??????? ????? ??? ?????????? ?? ???</span> <span class="redText">(Sing 37)</span>';
+    const hepteract = (singularityCount > 50) ? `Hepteract Forge costs are multiplied by ${format(calculateSingularityDebuff('Hepteract Costs', singularityCount), 2, true)}.` : '<span class="grayText">????????? ????? ????? ??? ?????????? ?? ???</span> <span class="redText">(Sing 51)</span>';
     const str = getSingularityOridnalText(singularityCount) +
                 `<br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed', singularityCount), 2, true)}.
                  Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed', singularityCount), 2, true)}
@@ -21,7 +21,7 @@ export const updateSingularityPenalties = (): void => {
                  Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(calculateSingularityDebuff('Cube Upgrades', singularityCount), 2, true)}.
                  ${platonic}
                  ${hepteract}
-                 Your penalties will ${singularityCount >= 250 ? 'now smoothly increase forever.' : `sharply increase in <span style="color: red"> Singularity ${format(calculateNextSpike(player.singularityCount), 0, true)}</span>.`}
+                 Your penalties will ${singularityCount >= 250 ? 'now smoothly increase forever.' : `sharply increase in <span class="redText"> Singularity ${format(calculateNextSpike(player.singularityCount), 0, true)}</span>.`}
                  <span style='color: ${color}'>Antiquities of Ant God is ${(player.runelevels[6] > 0) ? '' : 'NOT'} purchased. Penalties are ${(player.runelevels[6] > 0) ? '' : 'NOT'} dispelled!</span>`
 
     DOMCacheGetOrSet('singularityPenaltiesMultiline').innerHTML = str;
@@ -74,7 +74,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
             ? ''
             : `/${format(this.computeMaxLevel(), 0 , true)}`;
         const color = this.computeMaxLevel() === this.level ? 'plum' : 'white';
-        const minReqColor = player.highestSingularityCount < this.minimumSingularity ? 'crimson' : 'green';
+        const minReqColor = player.highestSingularityCount < this.minimumSingularity ? 'var(--crimson-text-color)' : 'var(--green-text-color)';
         const minimumSingularity = this.minimumSingularity > 0
             ? `Minimum Singularity: ${this.minimumSingularity}`
             : 'No minimal Singularity to purchase required'
@@ -83,7 +83,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
             `<span style="color: orange"> [+${format(this.freeLevels, 2, true)}]</span>` : ''
 
         if (this.freeLevels > this.level) {
-            freeLevelInfo = freeLevelInfo + '<span style="color: maroon"> (Softcapped) </span>'
+            freeLevelInfo = freeLevelInfo + '<span style="color: var(--maroon-text-color)"> (Softcapped) </span>'
         }
 
         return `<span style="color: gold">${this.name}</span>
@@ -268,7 +268,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: 1 + 0.10 * n,
                 desc: `Permanently gain ${format(10 * n, 0, true)}% more Golden Quarks on Singularities.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     goldenQuarks2: {
         name: 'Golden Quarks II',
@@ -281,7 +282,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 bonus: (n > 250) ? 1 / Math.log2(n / 62.5) : 1 - Math.min(0.5, n / 500),
                 desc: `Purchasing Golden Quarks in the shop is ${(n > 250)? format(100 - 100 / Math.log2(n / 62.5), 2, true) : format(Math.min(50, n / 5),2,true)}% cheaper.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     goldenQuarks3: {
         name: 'Golden Quarks III',
@@ -1562,6 +1564,11 @@ export const getFastForwardTotalMultiplier = (): number => {
     // Stop at sing 200 even if you include fast forward
     fastForward = Math.max(0, Math.min(fastForward, 200 - player.singularityCount - 1));
 
+    // Please for the love of god don't allow FF during a challenge
+    if (player.insideSingularityChallenge) {
+        return 0
+    }
+
     // If the next singularityCount is greater than the highestSingularityCount, fast forward to be equal to the highestSingularityCount
     if (player.highestSingularityCount !== player.singularityCount && player.singularityCount + fastForward + 1 >= player.highestSingularityCount) {
         return Math.max(0, Math.min(fastForward, player.highestSingularityCount - player.singularityCount - 1))
@@ -1653,6 +1660,13 @@ export type SingularityDebuffs = 'Offering' | 'Obtainium' | 'Global Speed' | 'Re
 export const calculateEffectiveSingularities = (singularityCount: number = player.singularityCount): number => {
     let effectiveSingularities = singularityCount;
     effectiveSingularities *= Math.min(4.75, 0.75 * singularityCount / 10 + 1)
+
+    if (player.insideSingularityChallenge) {
+        if (player.singularityChallenges.noOcteracts.enabled) {
+            effectiveSingularities *= Math.pow(player.singularityChallenges.noOcteracts.completions + 1, 3)
+        }
+    }
+
     if (singularityCount > 10) {
         effectiveSingularities *= 1.5
         effectiveSingularities *= Math.min(4, 1.25 * singularityCount / 10 - 0.25)
@@ -1667,11 +1681,12 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
         effectiveSingularities *= Math.pow(1.1, Math.min(singularityCount - 36, 64))
     }
     if (singularityCount > 50) {
-        effectiveSingularities *= 6
+        effectiveSingularities *= 5
         effectiveSingularities *= Math.min(8, 2 * singularityCount / 50 - 1)
         effectiveSingularities *= Math.pow(1.1, Math.min(singularityCount - 50, 50))
     }
     if (singularityCount > 100) {
+        effectiveSingularities *= 2
         effectiveSingularities *= singularityCount / 25
         effectiveSingularities *= Math.pow(1.1, singularityCount - 100)
     }
@@ -1683,6 +1698,10 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
         effectiveSingularities *= 1.5
         effectiveSingularities *= Math.pow(1.275, singularityCount - 200)
     }
+    if (singularityCount > 215) {
+        effectiveSingularities *= 1.25
+        effectiveSingularities *= Math.pow(1.2, singularityCount - 215)
+    }
     if (singularityCount >= 250) {
         effectiveSingularities *= 100
     }
@@ -1690,7 +1709,7 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
     return effectiveSingularities
 }
 export const calculateNextSpike = (singularityCount: number = player.singularityCount): number => {
-    const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 250];
+    const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 216, 250];
     for (const sing of singularityPenaltyThreshold) {
         if (sing > singularityCount) {
             return sing;

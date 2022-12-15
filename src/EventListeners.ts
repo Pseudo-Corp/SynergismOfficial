@@ -557,7 +557,7 @@ export const generateEventHandlers = () => {
     // Various functions
     DOMCacheGetOrSet('exportgame').addEventListener('click', () => exportSynergism())
     DOMCacheGetOrSet('saveStringInput').addEventListener('blur', e => updateSaveString(e.target as HTMLInputElement));
-    DOMCacheGetOrSet('savegame').addEventListener('click', ({ target }) => saveSynergy(true, target as HTMLButtonElement))
+    DOMCacheGetOrSet('savegame').addEventListener('click', () => saveSynergy(true))
     DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
     DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => reloadDeleteGame())
     DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
@@ -676,7 +676,9 @@ TODO: Fix this entire tab it's utter shit
         return importSynergism(save);
     });
 
-    DOMCacheGetOrSet('theme').addEventListener('click', () => toggleTheme());
+    for (let i = 1; i <= 5; i++) {
+        DOMCacheGetOrSet(`switchTheme${i}`).addEventListener('click', () => toggleTheme(false, i, true));
+    }
 
     DOMCacheGetOrSet('saveType').addEventListener('click', async (event) => {
         const element = event.target as HTMLInputElement

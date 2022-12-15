@@ -148,7 +148,7 @@ export abstract class Cube {
     }
 
     add(amount: number): Cube {
-        this.value += amount;
+        this.value = Math.min(1e300, this.value + amount);
         return this;
     }
 

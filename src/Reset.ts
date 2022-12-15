@@ -34,7 +34,7 @@ import { resetShopUpgrades, shopData } from './Shop';
 import { QuarkHandler } from './Quark';
 import { calculateSingularityDebuff, getFastForwardTotalMultiplier } from './singularity';
 import { updateCubeUpgradeBG, awardAutosCookieUpgrade, autoBuyCubeUpgrades } from './Cubes';
-import { autoBuyPlatonicUpgrades } from './Platonic';
+import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic';
 import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
 import { getAutoHepteractCrafts } from './Hepteracts'
 import type { TesseractBuildings } from './Buy';
@@ -88,7 +88,7 @@ export const resetdetails = (input: resetNames) => {
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['transcendPointGain']);
             resetInfo.textContent = 'Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: ' + format(player.coinsThisTranscension) + '/1e100 Coins || TIME SPENT: ' + format(player.transcendcounter) + ' Seconds.';
-            resetInfo.style.color = 'orchid';
+            resetInfo.style.color = 'var(--orchid-text-color)';
             break;
         case 'reincarnation':
             if (!currencyImage1.src.endsWith('Pictures/Particle.png')) {
@@ -114,7 +114,7 @@ export const resetdetails = (input: resetNames) => {
 
             (transcensionChallenge !== 0)?
                 (resetInfo.style.color = 'aquamarine', resetInfo.textContent = 'Are you tired of being in your Challenge or stuck? Click to leave Challenge ' + transcensionChallenge + '. Progress: ' + format(player.coinsThisTranscension) + '/' + format(challengeRequirement(transcensionChallenge, player.challengecompletions[transcensionChallenge])) + ' Coins. TIME SPENT: ' + format(player.transcendcounter) + ' Seconds.'):
-                (resetInfo.style.color = 'crimson', resetInfo.textContent = 'You\'re not in a Transcension Challenge right now. Get in one before you can leave it, duh!');
+                (resetInfo.style.color = 'var(--crimson-text-color)', resetInfo.textContent = 'You\'re not in a Transcension Challenge right now. Get in one before you can leave it, duh!');
             break;
         case 'reincarnationChallenge':
             currencyImage1.style.display = 'none'
@@ -127,7 +127,7 @@ export const resetdetails = (input: resetNames) => {
                 resetInfo.style.color = 'silver';
                 resetInfo.textContent = 'Are you done or tired of being in your Challenge? Click to leave Challenge ' + reincarnationChallenge + '. Progress: ' + format(player[goal]) + '/' + format(challengeRequirement(reincarnationChallenge, player.challengecompletions[reincarnationChallenge], reincarnationChallenge)) + goaldesc + '. TIME SPENT: ' + format(player.reincarnationcounter) + ' Seconds.';
             } else {
-                resetInfo.style.color = 'crimson';
+                resetInfo.style.color = 'var(--crimson-text-color)';
                 resetInfo.textContent = 'You\'re not in a Reincarnation Challenge right now. How could you leave what you are not in?';
             }
             break;
@@ -567,7 +567,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
                 player.wowTesseracts.add(metaData[5]);
                 player.wowHypercubes.add(metaData[6]);
                 player.wowPlatonicCubes.add(metaData[7]);
-                player.wowAbyssals += metaData[8];
+                player.wowAbyssals = Math.min(1e300, player.wowAbyssals + metaData[8]);
             }
         }
 
@@ -717,7 +717,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         autoBuyCubeUpgrades();
 
         // Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
-        if (player.highestSingularityCount >= 35 && numberOfAutoCraftsAndOrbs > 0) {
+        if (player.highestSingularityCount >= 35) {
             if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
                 player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
             }
@@ -952,6 +952,11 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         awardAutosCookieUpgrade();
     }
 
+    if (player.singularityUpgrades.platonicAlpha.getEffect().bonus && player.platonicUpgrades[5] === 0) {
+        player.platonicUpgrades[5] = 1;
+        updatePlatonicUpgradeBG(5);
+    }
+
     if (singularityReset) {
         for (let j = 1; j <= 15; j++) {
             challengeachievementcheck(j);
@@ -1175,6 +1180,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
         }
     }*/
     await importSynergism(btoa(JSON.stringify(hold)), true);
+    //Techically possible to import game during reset. But that will only "hurt" that imported save
 
     // TODO: Do not enable data that has never used an event code
     player.codes.set(39, true);

@@ -238,13 +238,13 @@ export const cubeUpgradeDesc = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
     a.textContent = cubeUpgradeName[i - 1];
     b.textContent = cubeUpgradeDescriptions[i - 1];
     c.textContent = 'Cost: ' + format(metaData.cost, 0, true) + ' Wow! Cubes [+' + format(metaData.levelCanBuy-player.cubeUpgrades[i]!,0,true) + ' Levels]';
-    c.style.color = 'green'
+    c.style.color = 'var(--green-text-color)'
     d.textContent = 'Level: ' + format(player.cubeUpgrades[i], 0, true) + '/' + format(maxLevel, 0, true);
     d.style.color = 'white'
 
     // This conditional is true only in the case where you can buy zero levels.
     if (Number(player.wowCubes) < metaData.cost) {
-        c.style.color = 'crimson'
+        c.style.color = 'var(--crimson-text-color)'
     }
     if (player.cubeUpgrades[i] === maxLevel) {
         c.style.color = 'gold'
@@ -341,7 +341,7 @@ export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
 }
 
 export const autoBuyCubeUpgrades = () => {
-    if (player.autoCubeUpgradesToggle && ((player.highestSingularityCount >= 50 && player.singularityCount < player.highestSingularityCount) || player.highestSingularityCount >= 150)) {
+    if (player.autoCubeUpgradesToggle && ((player.highestSingularityCount >= 50 && player.insideSingularityChallenge) || player.highestSingularityCount >= 150)) {
         const cheapet = [];
 
         for (let i = 1; i < player.cubeUpgrades.length; i++) {
