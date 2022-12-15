@@ -1,4 +1,4 @@
-import { player, saveSynergy, blankSave, reloadShit, format } from './Synergism';
+import { player, saveSynergy, blankSave, reloadShit, format, saveCheck } from './Synergism';
 import { octeractGainPerSecond } from './Calculate';
 import { testing, version } from './Config';
 import { cleanString, getElementById } from './Utility';
@@ -253,12 +253,15 @@ export const importSynergism = async (input: string | null, reset = false) => {
             return Alert('Unable to import this file!');
         }
 
+        saveCheck.canSave = false;
         const item = new Blob([saveString], { type: 'text/plain' });
         await localforage.setItem<Blob>('Synergysave2', item);
 
         localStorage.setItem('saveScumIsCheating', Date.now().toString());
 
-        return reloadShit(reset);
+        await reloadShit(reset);
+        saveCheck.canSave = true;
+        return;
     } else {
         return Alert('You are attempting to load a testing file in a non-testing version!');
     }
