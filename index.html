@@ -3000,6 +3000,7 @@ $STAGE$ for synergism stage" style="color: white"></p>
             <button class="statsNerds" id="kFreeMult" alt="kFreeMult" label="kFreeMult" style="border: 2px solid lawngreen">Free Multipliers</button>
             <button class="statsNerds" id="kOfferingMult" alt="kOfferingMult" label="kOfferingMult" style="border: 2px solid palegreen">Offering Multipliers</button>
             <button class="statsNerds" id="kQuarkMult" alt="kQuarkMult" label="kQuarkMult" style="border: 2px solid white">Global Quark Multipliers</button>
+            <button class="statsNerds ascendunlock" id="kASCMult" alt="kASCMult" label="kASCMult" style="border: 2px solid orange">Ascension Speed Multipliers</button>
             <button class="statsNerds ascendunlock" id="kGlobalCubeMult" alt="kGlobalCubeMult" label="kGlobalCubeMult" style="border: 2px solid khaki">Global Cube Multipliers</button>
             <button class="statsNerds ascendunlock" id="kCubeMult" alt="kCubeMult" label="kCubeMult" style="border: 2px solid darkgoldenrod">Cube Multipliers</button>
             <button class="statsNerds ascendunlock" id="kTessMult" alt="kTessMult" label="kTessMult" style="border: 2px solid honeydew">Tesseract Multipliers</button>
@@ -3007,7 +3008,8 @@ $STAGE$ for synergism stage" style="color: white"></p>
             <button class="statsNerds chal14" id="kPlatMult" alt="kPlatMult" label="kPlatMult" style="border: 2px solid slateblue">Platonic Multipliers</button>
             <button class="statsNerds hepteracts" id="kHeptMult" alt="kHeptMult" label="kHeptMult" style="border: 2px solid rosybrown">Hepteract Multipliers</button>
             <button class="statsNerds hepteracts" id="kOrbPowderMult" alt="kOrbPowderMult" label="kOrbPowderMult" style="border: 2px solid orchid">Orb to Powder Multipliers</button>
-            <button class="statsNerds singularity" id="kOctMult" alt="kOctMult" label="kOctMult" style="border: 2px solid rosybrown">Octeract Multipliers</button>
+            <button class="statsNerds singularity" id="kGQMult" alt="kGQMult" label="kGQMult" style="border: 2px solid yellow">Golden Quark Multipliers</button>
+            <button class="statsNerds singularity" id="kOctMult" alt="kOctMult" label="kOctMult" style="border: 2px solid blue">Octeract Multipliers</button>
         </div>
         <div id="miscStats" alt="miscStats" label="miscStats" class="statContainer activeStats">
             <p class="prestigeunlock statPortion" id="settingtitle3" alt="settingtitle3" label="settingtitle3" style="color: plum; font-size: 1.2em">Miscellaneous Stats</p>
@@ -3122,6 +3124,29 @@ $STAGE$ for synergism stage" style="color: white"></p>
             <p id="statGQM23" alt="statGQM23" label="statGQM23" class="statPortion octeracts">Doohickey Bonus:<span id="sGQM23" alt="sGQM23" label="sGQM23" class="statNumber">0</span></p>
             <p id="statGQM24" alt="statGQM24" label="statGQM24" class="statPortion singularity">Octo-Hepteract Primality Synergy:<span id="sGQM24" alt="sGQM24" label="sGQM24" class="statNumber">0</span></p>
             <p id ="statGQMT" alt="statGQMT" label="statGQMT" class="statPortion statTotal" style='color: white'>TOTAL QUARK MULTIPLIER:<span id="sGQMT" alt="sGQMT" label="sGQMT" class="statNumber statTotal">0</span></p>
+        </div>
+        <div id="ascensionSpeedMultiplierStats" alt="ascensionSpeedMultiplierStats" label="ascensionSpeedMultiplierStats" class="statContainer" style="display: none;">
+            <p id="asmStatTitle" alt="asmStatTitle" label="asmStatTitle" class="statPortion" style="color: orange; font-size: 1.2em;">Ascension Speed Multipliers</p>
+            <p id="statASM1" alt="statASM1" label="statASM1" class="statPortion">Chronometer:<span id="sASM1" alt="sASM1" label="sASM1" class="statNumber">0</span></p>
+            <p id="statASM2" alt="statASM2" label="statASM2" class="statPortion">Chronometer 2:<span id="sASM2" alt="sASM2" label="sASM2" class="statNumber">0</span></p>
+            <p id="statASM3" alt="statASM3" label="statASM3" class="statPortion">Chronometer 3:<span id="sASM3" alt="sASM3" label="sASM3" class="statNumber">0</span></p>
+            <p id="statASM4" alt="statASM4" label="statASM4" class="statPortion ascendunlock">Chronos Hepteract:<span id="sASM4" alt="sASM4" label="sASM4" class="statNumber">0</span></p>
+            <p id="statASM5" alt="statASM5" label="statASM5" class="statPortion ascendunlock">Achievement 262 Bonus:<span id="sASM5" alt="sASM5" label="sASM5" class="statNumber">0</span></p>
+            <p id="statASM6" alt="statASM6" label="statASM6" class="statPortion ascendunlock">Achievement 263 Bonus:<span id="sASM6" alt="sASM6" label="sASM6" class="statNumber">0</span></p>
+            <p id="statASM7" alt="statASM7" label="statASM7" class="statPortion ascendunlock">Platonic Omega:<span id="sASM7" alt="sASM7" label="sASM7" class="statNumber">0</span></p>
+            <p id="statASM8" alt="statASM8" label="statASM8" class="statPortion ascendunlock">Challenge 15 Reward:<span id="sASM8" alt="sASM8" label="sASM8" class="statNumber">0</span></p>
+            <p id="statASM9" alt="statASM9" label="statASM9" class="statPortion ascendunlock">Cookie Upgrade 9:<span id="sASM9" alt="sASM9" label="sASM9" class="statNumber">0</span></p>
+            <p id="statASM10" alt="statASM10" label="statASM10" class="statPortion singularity">Intermediate Pack:<span id="sASM10" alt="sASM10" label="sASM10" class="statNumber">0</span></p>
+            <p id="statASM11" alt="statASM11" label="statASM11" class="statPortion singularity">Chronometer Z:<span id="sASM11" alt="sASM11" label="sASM11" class="statNumber">0</span></p>
+            <p id="statASM12" alt="statASM12" label="statASM12" class="statPortion singularity">Abstract Photokinetics:<span id="sASM12" alt="sASM12" label="sASM12" class="statNumber">0</span></p>
+            <p id="statASM13" alt="statASM13" label="statASM13" class="statPortion singularity">Abstract Exokinetics:<span id="sASM13" alt="sASM13" label="sASM13" class="statNumber">0</span></p>
+            <p id="statASM14" alt="statASM14" label="statASM14" class="statPortion">Event:<span id="sASM14" alt="sASM14" label="sASM14" class="statNumber">0</span></p>
+            <p id="statASM15" alt="statASM15" label="statASM15" class="statPortion singularity">Ascension Speedup 2 [GQ]:<span id="sASM15" alt="sASM15" label="sASM15" class="statNumber">0</span></p>
+            <p id="statASM16" alt="statASM16" label="statASM16" class="statPortion singularity">Chronometer INF:<span id="sASM16" alt="sASM16" label="sASM16" class="statNumber">0</span></p>
+            <p id="statASM17" alt="statASM17" label="statASM17" class="statPortion singularity">Ascension Speedup [GQ]:<span id="sASM17" alt="sASM17" label="sASM17" class="statNumber">0</span></p>
+            <p id="statASM18" alt="statASM18" label="statASM18" class="statPortion singularity">Singularity Penalty:<span id="sASM18" alt="sASM18" label="sASM18" class="statNumber">0</span></p>
+            <p id="statASMT" alt="statASMT" label="statASMT" class="statPortion statTotal" style="color: orange">TOTAL ASCENSION SPEED MULTIPLIER: <span
+                    id="sASMT" alt="sASMT" label="sASMT" class="statNumber statTotal">0</span></p>
         </div>
         <div id="globalCubeMultiplierStats" alt="globalCubeMultiplierStats" label="globalCubeMultiplierStats" class="statContainer" style="display: none;">
             <p id="globalCubeStatTitle" alt="globalCubeStatTitle" label="globalCubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Global Cube Multipliers</p>
@@ -3248,6 +3273,22 @@ $STAGE$ for synergism stage" style="color: white"></p>
                     id="sPoMT" alt="sPoMT" label="sPoMT" class="statNumber statTotal">0</span></p>
         </div>
 
+        <div id="goldenQuarkMultiplierStats" alt="goldenQuarkMultiplierStats" label="goldenQuarkMultiplierStats" class="statContainer" style="display: none;">
+            <p id="asmStatTitle" alt="asmStatTitle" label="asmStatTitle" class="statPortion" style="color: yellow; font-size: 1.2em;">Golden Quark Multipliers</p>
+            <p id="statGQMS1" alt="statGQMS1" label="statGQMS1" class="statPortion">Challenge 15 Exponent:<span id="sGQMS1" alt="sGQMS1" label="sGQMS1" class="statNumber">0</span></p>
+            <p id="statGQMS2" alt="statGQMS2" label="statGQMS2" class="statPortion">Patreon Bonus:<span id="sGQMS2" alt="sGQMS2" label="sGQMS2" class="statNumber">0</span></p>
+            <p id="statGQMS3" alt="statGQMS3" label="statGQMS3" class="statPortion">Golden Quarks I:<span id="sGQMS3" alt="sGQMS3" label="sGQMS3" class="statNumber">0</span></p>
+            <p id="statGQMS4" alt="statGQMS4" label="statGQMS4" class="statPortion">Cookie Upgrade 19:<span id="sGQMS4" alt="sGQMS4" label="sGQMS4" class="statNumber">0</span></p>
+            <p id="statGQMS5" alt="statGQMS5" label="statGQMS5" class="statPortion">No Singularity Upgrades:<span id="sGQMS5" alt="sGQMS5" label="sGQMS5" class="statNumber">0</span></p>
+            <p id="statGQMS6" alt="statGQMS6" label="statGQMS6" class="statPortion">Event:<span id="sGQMS6" alt="sGQMS6" label="sGQMS6" class="statNumber">0</span></p>
+            <p id="statGQMS7" alt="statGQMS7" label="statGQMS7" class="statPortion">Singularity Fast Forwards:<span id="sGQMS7" alt="sGQMS7" label="sGQMS7" class="statNumber">0</span></p>
+            <p id="statGQMS8" alt="statGQMS8" label="statGQMS8" class="statPortion">Golden Revolution II:<span id="sGQMS8" alt="sGQMS8" label="sGQMS8" class="statNumber">0</span></p>
+            <p id="statGQMS9" alt="statGQMS9" label="statGQMS9" class="statPortion">Immaculate Alchemy:<span id="sGQMS9" alt="sGQMS9" label="sGQMS9" class="statNumber">0</span></p>
+            <p id="statGQMS10" alt="statGQMS10" label="statGQMS10" class="statPortion">Total Quarks Coefficient:<span id="sGQMS10" alt="sGQMS10" label="sGQMS10" class="statNumber">0</span></p>
+            <p id="statASMT" alt="statASMT" label="statASMT" class="statPortion statTotal" style="color: orange">TOTAL GOLDEN QUARK MULTIPLIER: <span
+                    id="sGQMST" alt="sGQMST" label="sGQMST" class="statNumber statTotal">0</span></p>
+        </div>
+
         <div id="octeractMultiplierStats" alt="octeractMultiplierStats" label="octeractMultiplierStats" class="statContainer" style="display: none;">
             <p id="octeractStatTitle" alt="octeractStatTitle" label="octeractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Octeract Multipliers</p>
             <p id="statOcM1" alt="statOcM1" label="statOcM1" class="statPortion singularity">Ascescion Score:<span id="sOcM1" alt="sOcM1" label="sOcM1" class="statNumber">0</span></p>
@@ -3279,6 +3320,7 @@ $STAGE$ for synergism stage" style="color: white"></p>
             <p id="statOcMT" alt="statOcMT" label="statOcMT" class="statPortion statTotal" style="color: orange">TOTAL OCTERACT MULTIPLIER: <span
                     id="sOcMT" alt="sOcMT" label="sOcMT" class="statNumber statTotal">0</span></p>
         </div>
+
         <button id="summaryGeneration" style="border: 2px solid grey; height: 20px; width: 250px;">Generate Savefile Stats Summary</button>
     </div>
     <div class="subtabContent subtabDisplayFlex historySubTab" id="resetHistorySubTab" alt="resetHistorySubTab" label="resetHistorySubTab">
