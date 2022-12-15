@@ -3613,7 +3613,7 @@ export const updateAll = (): void => {
         if (player.autoAscendMode === 'realAscensionTime' && player.ascensionCounterRealReal >= Math.max(0.1, player.autoAscendThreshold)) {
             ascension = true;
         }
-        if (ascension === true) {
+        if (ascension === true && player.challengecompletions[10] > 0) {
             // Auto Ascension and Auto Challenge Sweep enables rotation of the Ascension Challenge
             if (autoAscensionChallengeSweepUnlock() && player.currentChallenge.ascension !== 0 && player.retrychallenges && player.researches[150] === 1 && player.autoChallengeRunning) {
                 let nextChallenge = getNextChallenge(player.currentChallenge.ascension + 1, false, 11, 15);
@@ -3676,10 +3676,6 @@ export const updateAll = (): void => {
             player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM;
             c15RewardUpdate();
         }
-    }
-
-    if (player.singularityUpgrades.platonicAlpha.getEffect().bonus && player.platonicUpgrades[5] === 0) {
-        player.platonicUpgrades[5] = 1;
     }
 }
 

@@ -34,7 +34,7 @@ import { resetShopUpgrades, shopData } from './Shop';
 import { QuarkHandler } from './Quark';
 import { calculateSingularityDebuff, getFastForwardTotalMultiplier } from './singularity';
 import { updateCubeUpgradeBG, awardAutosCookieUpgrade, autoBuyCubeUpgrades } from './Cubes';
-import { autoBuyPlatonicUpgrades } from './Platonic';
+import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic';
 import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
 import { getAutoHepteractCrafts } from './Hepteracts'
 import type { TesseractBuildings } from './Buy';
@@ -567,7 +567,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
                 player.wowTesseracts.add(metaData[5]);
                 player.wowHypercubes.add(metaData[6]);
                 player.wowPlatonicCubes.add(metaData[7]);
-                player.wowAbyssals += metaData[8];
+                player.wowAbyssals = Math.min(1e300, player.wowAbyssals + metaData[8]);
             }
         }
 
@@ -717,7 +717,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         autoBuyCubeUpgrades();
 
         // Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
-        if (player.highestSingularityCount >= 35 && numberOfAutoCraftsAndOrbs > 0) {
+        if (player.highestSingularityCount >= 35) {
             if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
                 player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
             }
@@ -950,6 +950,11 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     if (player.highestSingularityCount >= 101 && singularityReset) {
         player.cubeUpgrades[51] = 1;
         awardAutosCookieUpgrade();
+    }
+
+    if (player.singularityUpgrades.platonicAlpha.getEffect().bonus && player.platonicUpgrades[5] === 0) {
+        player.platonicUpgrades[5] = 1;
+        updatePlatonicUpgradeBG(5);
     }
 
     if (singularityReset) {

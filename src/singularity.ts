@@ -1469,7 +1469,7 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: 'Industrial Daily Codes',
-        levels: [201],
+        levels: [200],
         description: () => {
             return 'Doubles the number of free upgrade rolls gained from code daily!'
         }
