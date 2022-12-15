@@ -46,7 +46,7 @@ import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
-import {settingAnnotation, settingTheme } from './Themes';
+import {settingAnnotation, toggleTheme } from './Themes';
 import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges';
 
@@ -4052,7 +4052,7 @@ export const reloadShit = async (reset = false) => {
         }
     }
 
-    settingTheme();
+    toggleTheme(true);
     settingAnnotation();
     toggleauto();
     htmlInserts();

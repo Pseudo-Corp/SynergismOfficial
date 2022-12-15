@@ -676,7 +676,9 @@ TODO: Fix this entire tab it's utter shit
         return importSynergism(save);
     });
 
-    DOMCacheGetOrSet('theme').addEventListener('click', () => toggleTheme());
+    for (let i = 1; i <= 5; i++) {
+        DOMCacheGetOrSet(`switchTheme${i}`).addEventListener('click', () => toggleTheme(false, i, true));
+    }
 
     DOMCacheGetOrSet('saveType').addEventListener('click', async (event) => {
         const element = event.target as HTMLInputElement

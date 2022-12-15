@@ -1,3 +1,8 @@
+body *,
+body {
+    transition: background-color var(--transition), border-color var(--transition);
+}
+
 html {
     min-width: 1250px;
     position: relative;
@@ -53,12 +58,26 @@ body {
 
     /* Custom colors that are used for themes */
     --text-color: white;
+    --darkorchid-text-color: darkorchid;
+    --orchid-text-color: orchid;
+    --darkcyan-text-color: darkcyan;
+    --red-text-color: red;
+    --maroon-text-color: maroon;
+    --orangered-text-color: orangered;
+    --crimson-text-color: crimson;
+    --gray-text-color: gray;
+    --green-text-color: green;
+    --lightseagreen-text-color: lightseagreen;
+    --header-color: var(--bg-color);
     --bg-color: #111;
     --alert-color: #141414;
     --history-lines: #262626;
     --boxmain-bordercolor: plum;
     --box-color: #111;
     --button-color: #171717;
+    --blackbtn-color: black;
+    --purplebtn-color: purple;
+    --purplehover-color: #b300b2;
     --hover-color: #333;
     --buttonbuy-color: #171717;
     --buildings-canbuy-color: #555;
@@ -69,8 +88,16 @@ body {
     --singtab-color: black;
     --buttonimg-color: black;
     --hoversing-color: #252525;
+    --shoptab-color: purple;
+    --hovershop-color: #b300b2;
+    --hepteract-bar-empty: #555;
+    --hepteract-bar-red: red;
+    --hepteract-bar-yellow: #cca300;
+    --hepteract-bar-green: green;
     --scrollbar-color: #444;
     --scrollbar-bg-color: #111;
+    --transition: 0;
+    --transition-extra: 0.15s;
 }
 
 body.loading {
@@ -82,9 +109,20 @@ body.loading {
     background-color: var(--bg-color);
 }
 
-.mainText {
-    color: var(--text-color);
+.textOutline:not(button, #importFileButton) {
+    text-shadow: -1px 0 #67647a, 0 1px #67647a, 1px 0 #67647a, 0 -1px #67647a;
 }
+
+.mainText { color: var(--text-color); }
+.greenText { color: var(--green-text-color); }
+.lightseagreenText { color: var(--lightseagreen-text-color); }
+.crimsonText { color: var(--crimson-text-color); }
+.redText { color: var(--red-text-color); }
+.grayText { color: var(--gray-text-color); }
+.orangeredText { color: var(--orangered-text-color); }
+.orchidText { color: var(--orchid-text-color); }
+.darkorchidText { color: var(--darkorchid-text-color); }
+.darkcyanText { color: var(--darkcyan-text-color); }
 
 .boxColor {
     border: 3px solid;
@@ -129,7 +167,7 @@ input {
     min-height: 20px;
     color: white;
     padding: 0 0 0 0.2em;
-    background-color: #171717;
+    background-color: var(--blackbtn-color);
 }
 
 input[type="checkbox"] {
@@ -139,7 +177,7 @@ input[type="checkbox"] {
 button {
     min-height: 30px;
     color: white;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
     outline: none;
@@ -256,7 +294,7 @@ body button:active {
     font-size: 0;
     z-index: 1;
     color: white;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
 }
@@ -459,12 +497,12 @@ body button:active {
     z-index: 3;
     margin-top: 20px;
     border: 2px solid ivory;
-    background-color: purple;
+    background-color: var(--purplebtn-color);
     color: white;
 }
 
 #exitOffline:hover {
-    background-color: #b300b2;
+    background-color: var(--purplehover-color);
 }
 
 .resetInformationContainer {
@@ -587,7 +625,7 @@ nav button {
 
 #shoptab {
     border-color: white;
-    background-color: purple;
+    background-color: var(--shoptab-color);
 }
 
 #singularitytab {
@@ -601,7 +639,7 @@ nav button {
 }
 
 #shoptab:hover {
-    background-color: #b300b2;
+    background-color: var(--hovershop-color);
 }
 
 #anttab {
@@ -799,7 +837,7 @@ p#themesTitle {
     min-height: 20px;
     margin: 2px auto;
     box-sizing: border-box;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 #importFileButton:hover {
@@ -868,6 +906,24 @@ div.addCodeBox {
 
 p#promocodeinfo {
     width: 100%;
+}
+
+#themeArea > button { width: 100%; }
+#themeArea:focus-within > div { display: inline-grid; }
+
+#themeArea > div {
+    position: absolute;
+    display: none;
+    grid-template-columns: repeat(2, 150px);
+    border: 3px solid var(--boxmain-bordercolor);
+    background-color: var(--box-color);
+    padding: 2px;
+    margin-left: 8px;
+}
+
+#themeArea > div button {
+    padding: 5px;
+    margin: 1px;
 }
 
 .center {
@@ -1092,31 +1148,11 @@ p#promocodeinfo {
 .buyAmountBtn {
     background-color: var(--button-color);
     cursor: pointer;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 .buyAmountBtn:hover {
     background-color: var(--hover-color);
-}
-
-#togglecrystalbuy {
-    color: white;
-    position: absolute;
-    font-size: 11px;
-    width: 220px;
-    left: 80%;
-    top: 30px;
-    margin-left: -87px;
-}
-
-#toggleofferingbuy {
-    color: white;
-    position: absolute;
-    font-size: 11px;
-    width: 250px;
-    left: 85%;
-    top: 25px;
-    margin-left: -183px;
 }
 
 #prestige {
@@ -1157,7 +1193,7 @@ p#promocodeinfo {
 #prestigeamount {
     color: white;
     border: 1px solid cyan;
-    background-color: black;
+    background-color: var(--blackbtn-color);
 }
 
 #prestige p {
@@ -1172,7 +1208,6 @@ p#prestigehotkeys {
     margin-top: 15px;
     width: 1000px;
     text-align: center;
-    color: gray;
 }
 
 #runes {
@@ -1258,7 +1293,7 @@ p#prestigehotkeys {
 .runeTypeElement {
     margin: 0;
     text-align: center;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 img.runeTypeElement {
@@ -1271,12 +1306,12 @@ img.runeTypeElement:hover {
 }
 
 .runeType > .runeButtonAvailable {
-    background-color: purple;
+    background-color: var(--purplebtn-color);
     cursor: pointer;
 }
 
 .runeType > .runeButtonAvailable:hover {
-    background-color: #b300b2;
+    background-color: var(--purplehover-color);
 }
 
 #toggleautofortify,
@@ -1348,12 +1383,12 @@ img.runeTypeElement:hover {
 }
 
 .talisminBtnAvailable {
-    background-color: purple;
+    background-color: var(--purplebtn-color);
     cursor: pointer;
 }
 
 .talisminBtnAvailable:hover {
-    background-color: #b300b2;
+    background-color: var(--purplehover-color);
 }
 
 .talismansContainer {
@@ -1471,7 +1506,7 @@ img.runeTypeElement:hover {
 #transcendamount {
     color: white;
     border: 1px solid plum;
-    background-color: black;
+    background-color: var(--blackbtn-color);
 }
 
 p#transcendhotkeys {
@@ -1479,7 +1514,6 @@ p#transcendhotkeys {
 }
 
 #transcendhotkeys {
-    color: gray;
     text-align: center;
 }
 
@@ -1518,8 +1552,7 @@ p#transcendhotkeys {
     font-size: 1.1em;
     min-width: 300px;
     min-height: 75px;
-    background-color: black;
-    transition-duration: 0.15s;
+    background-color: var(--blackbtn-color);
 }
 
 #startChallenge:hover {
@@ -1591,7 +1624,7 @@ p#transcendhotkeys {
 
 #challengeName { color: white; }
 #challengeFlavor { color: plum; }
-#challengeRestrictions { color: crimson; }
+#challengeRestrictions { color: var(--crimson-text-color); }
 #challengeGoal { color: gold; }
 #challengePerCompletionRewards { color: var(--text-color); }
 *[id^="challengePer"] { color: pink; }
@@ -1625,13 +1658,13 @@ p#transcendhotkeys {
     margin: 0;
 }
 
-#challengehotkeys { color: gray; }
-#challengewarning { color: crimson; }
+#challengehotkeys { color: var(--gray-text-color); }
+#challengewarning { color: var(--crimson-text-color); }
 #challengewarningreincarnation { color: limegreen; }
 
 .challenge {
     background-color: var(--button-color);
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 .challenge:hover {
@@ -1680,7 +1713,7 @@ p#transcendhotkeys {
 #reincarnationamount {
     color: white;
     border: 1px solid green;
-    background-color: black;
+    background-color: var(--blackbtn-color);
 }
 
 #reincarnateautomation > div {
@@ -1695,7 +1728,6 @@ p#transcendhotkeys {
 
 p#reincarnatehotkeys {
     margin-top: 15px;
-    color: gray;
     text-align: center;
 }
 
@@ -1755,7 +1787,7 @@ p#reincarnatehotkeys {
 
 #researchtable .researchAvailable {
     cursor: pointer;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 #researchtable .researchAvailable:hover {
@@ -1768,7 +1800,7 @@ p#reincarnatehotkeys {
 
 #researchtable .researchPurchasedAvailable {
     cursor: pointer;
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 #researchtable .researchPurchasedAvailable:hover {
@@ -1845,6 +1877,7 @@ p#reincarnatehotkeys {
     padding: 5px;
     width: calc(115px * 2 - 5px);
     border: 3px solid yellow;
+    background-color: var(--box-color);
     gap: 5px;
     flex-wrap: wrap;
 }
@@ -1887,12 +1920,11 @@ p#reincarnatehotkeys {
 
 #octeractAmount {
     font-size: 1.2em;
-    color: lightseagreen;
     margin-left: 5px;
 }
 
 #consumables {
-    color: orangered;
+    color: var(--orangered-text-color);
     font-size: 1.2em;
     margin-top: 20px;
 }
@@ -2139,7 +2171,7 @@ p#reincarnatehotkeys {
 
 .cubeBtn {
     min-width: 100px;
-    background-color: black;
+    background-color: var(--blackbtn-color);
     border: 1px solid gold;
 }
 
@@ -2154,14 +2186,14 @@ p#reincarnatehotkeys {
     width: 8em;
     min-width: 100px;
     min-height: 30px;
-    background-color: black;
+    background-color: var(--blackbtn-color);
 }
 
 .autoOpensInput {
     width: 8em;
     min-width: 100px;
     color: white;
-    background-color: black;
+    background-color: var(--blackbtn-color);
     z-index: 1;
 }
 
@@ -2172,7 +2204,7 @@ p[id$="BlessingsTotal"] {
 }
 
 #cubeBlessingsTotal { color: orange; }
-#tesseractBlessingsTotal { color: orchid; }
+#tesseractBlessingsTotal { color: var(--orchid-text-color); }
 #hypercubeBlessingsTotal { color: rgb(255 0 76); }
 #platonicBlessingsTotal { color: orange; }
 
@@ -2369,7 +2401,7 @@ p[id$="BlessingsTotal"] {
 #tesseractAmount {
     color: white;
     border: 1px solid orange;
-    background-color: black;
+    background-color: var(--blackbtn-color);
 }
 
 #autotessbuyeramount {
@@ -2378,7 +2410,6 @@ p[id$="BlessingsTotal"] {
 
 p#ascendHotKeys {
     margin-top: 15px;
-    color: gray;
     text-align: center;
 }
 
@@ -2481,7 +2512,7 @@ p#ascendHotKeys {
 
 .constUpgrade {
     background-color: var(--button-color);
-    transition-duration: 0.15s;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 .constUpgradeAvailable {
@@ -2534,6 +2565,10 @@ p#ascendHotKeys {
 
 .historySubTab {
     color: white;
+}
+
+.historySubTab p:first-of-type {
+    color: var(--text-color);
 }
 
 .historySubTab p {
@@ -2733,7 +2768,7 @@ p#ascendHotKeys {
 
 #corruptionIntroduction {
     font-size: 1.2em;
-    color: darkorchid;
+    color: var(--darkorchid-text-color);
 }
 
 #corruptionInfo1 {
@@ -2759,7 +2794,6 @@ p#ascendHotKeys {
 
 #corruptionName {
     font-size: 1.2em;
-    color: red;
 }
 
 #corruptionDescription {
@@ -2767,7 +2801,7 @@ p#ascendHotKeys {
 }
 
 #corruptionLevelCurrent {
-    color: orchid;
+    color: var(--orchid-text-color);
 }
 
 #corruptionLevelPlanned {
@@ -2793,7 +2827,7 @@ p#ascendHotKeys {
 #ascensionAmount {
     border: 1px solid orange;
     color: gold;
-    background-color: black;
+    background-color: var(--blackbtn-color);
 }
 
 #corruptionStatsLoadouts {
@@ -2804,6 +2838,7 @@ p#ascendHotKeys {
     border: 1px solid orange;
     box-sizing: border-box;
     color: white;
+    background-color: var(--box-color);
     text-align: center;
 }
 
@@ -2959,6 +2994,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: var(--header-color);
 }
 
 header .img {
@@ -3032,7 +3068,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #ascLen {
-    color: darkcyan;
+    color: var(--darkcyan-text-color);
     min-width: 8em; /* prevent bouncing around */
 }
 
@@ -3045,11 +3081,11 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #ascTess {
-    color: orchid;
+    color: var(--orchid-text-color);
 }
 
 #ascHyper {
-    color: crimson;
+    color: var(--crimson-text-color);
 }
 
 #ascPlatonic {
@@ -3108,6 +3144,16 @@ header #obtainiumDisplay { color: pink; }
     text-align: left;
     font-size: 1em;
 }
+
+#c15Reward26,
+#c15Reward26Num { color: var(--red-text-color); }
+
+#c15Reward29,
+#c15Reward29Num { color: var(--gray-text-color); }
+
+#c15Reward33,
+#c15Reward33Num,
+#c15RewardList { color: var(--orchid-text-color); }
 
 .platonicUpgradesContainer {
     display: flex;
@@ -3231,7 +3277,7 @@ header #obtainiumDisplay { color: pink; }
 .meter {
     height: 1em;
     position: relative;
-    background: #555;
+    background: var(--hepteract-bar-empty);
     border-radius: 5px;
     padding: 2px;
     grid-column: 1 / 4;
@@ -3266,7 +3312,6 @@ header #obtainiumDisplay { color: pink; }
     top: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 1em;
 }
 
 #hepteractCraftTexts {
@@ -3301,7 +3346,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #hotkeyTooltip {
-    color: darkorchid;
+    color: var(--darkorchid-text-color);
 }
 
 #actualHotkey {
