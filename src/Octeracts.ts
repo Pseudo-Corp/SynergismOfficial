@@ -467,7 +467,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 desc: `Some Singularity Upgrades have +${n} max level!`
             }
         },
-        qualityOfLife: true,
+        qualityOfLife: true
     },
     octeractOfferings1: {
         name: 'Offering Electrolosis',

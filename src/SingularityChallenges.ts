@@ -227,7 +227,7 @@ export const singularityChallengeData: Record<keyof Player['singularityUpgrades'
                 obtainiumBonus: (n === 10)
             }
         }
-    },
+    }
 }
 
 
