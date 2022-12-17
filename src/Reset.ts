@@ -1190,6 +1190,8 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
     player.codes.set(43, saveCode43)
     player.codes.set(44, saveCode44)
     updateSingularityMilestoneAwards();
+
+    player.rngCode = Date.now();
 }
 
 const resetUpgrades = (i: number) => {

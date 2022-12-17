@@ -1418,11 +1418,11 @@ export const singularityPerks: SingularityPerk[] = [
             let counter = 0
             for (const singCount of levels) {
                 if (n >= singCount) {
-                    counter += 0.1
+                    counter += 0.125
                 }
             }
 
-            return `Code 'add' refills ${counter}% faster per level per singularity (MAX: 50% faster)`
+            return `Code 'add' refills ${counter}% faster per level per singularity (MAX: -60% cooldown)`
         }
     },
     {
@@ -1726,6 +1726,10 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
     if (singularityCount > 215) {
         effectiveSingularities *= 1.25
         effectiveSingularities *= Math.pow(1.2, singularityCount - 215)
+    }
+    if (singularityCount > 230) {
+        effectiveSingularities *= 2
+        effectiveSingularities *= Math.pow(1.3, singularityCount - 230)
     }
     if (singularityCount >= 250) {
         effectiveSingularities *= 100

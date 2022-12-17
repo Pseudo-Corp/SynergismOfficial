@@ -86,7 +86,6 @@ export class SingularityChallenge {
         if (!player.insideSingularityChallenge) {
             const setSingularity = this.computeSingularityRquirement()
             const holdSingTimer = player.singularityCounter
-            const holdAdds = player.rngCode
             const holdQuarkExport = player.quarkstimer
             const holdGoldenQuarkExport = player.goldenQuarksTimer
             const goldenQuarkGain = calculateGoldenQuarkGain();
@@ -96,7 +95,6 @@ export class SingularityChallenge {
             await singularity(setSingularity)
             player.singularityCounter = holdSingTimer
             player.goldenQuarks = currentGQ + goldenQuarkGain
-            player.rngCode = holdAdds
             player.quarkstimer = holdQuarkExport
             player.goldenQuarksTimer = holdGoldenQuarkExport
 
@@ -109,7 +107,8 @@ export class SingularityChallenge {
 
     public async exitChallenge(success: boolean) {
         if (!success) {
-            const confirmation = await(Confirm(`Are you sure you want to quit ${this.name} Tier ${this.completions + 1}?`))
+            const extra = (player.runelevels[6] === 0) ? 'WARNING: You will not get a completion as you have not yet purchased Antiquities.' : ''
+            const confirmation = await(Confirm(`Are you sure you want to quit ${this.name} Tier ${this.completions + 1}? \n${extra}`))
             if (!confirmation) {
                 return Alert('Derpsmith tries to hug you, but he has no arms.')
             }
@@ -120,7 +119,6 @@ export class SingularityChallenge {
         player.insideSingularityChallenge = false
         const highestSingularityHold = player.highestSingularityCount
         const holdSingTimer = player.singularityCounter
-        const holdAdds = player.rngCode
         const holdQuarkExport = player.quarkstimer
         const holdGoldenQuarkExport = player.goldenQuarksTimer
         this.updateIconHTML()
@@ -133,7 +131,6 @@ export class SingularityChallenge {
         } else {
             await singularity(highestSingularityHold)
             player.singularityCounter = holdSingTimer
-            player.rngCode = holdAdds
             player.quarkstimer = holdQuarkExport
             player.goldenQuarksTimer = holdGoldenQuarkExport
             return Alert('You have been transported back to your highest reached Singularity. Try again soon! -Derpsmith')
