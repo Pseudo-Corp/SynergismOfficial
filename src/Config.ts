@@ -1,4 +1,4 @@
-export const version = '2.9.25: December 2 v1: Derpmas Event Preparations';
+export const version = '2.9.27: December 9 v1: Singularity Challenge v2';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE

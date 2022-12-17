@@ -647,8 +647,15 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.octeractUpgrades[`${String(key)}`].updateUpgradeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.octeractUpgrades[`${String(key)}`].buyLevel(event))
     }
+
+    // EXALT
+    const singularityChallenges = Object.keys(player.singularityChallenges) as (keyof Player['singularityChallenges'])[];
+    for (const key of singularityChallenges) {
+        DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityChallenges[`${String(key)}`].updateChallengeHTML())
+        DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.singularityChallenges[`${String(key)}`].challengeEntryHandler())
+    }
     //Toggle subtabs of Singularity tab
-    for (let index = 0; index < 4; index++) {
+    for (let index = 0; index < 5; index++) {
         DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => toggleSubTab(10, index))
     }
 

@@ -15,6 +15,8 @@ import type { ISingularityData } from './singularity';
 import { singularityData, SingularityUpgrade } from './singularity';
 import type { IOcteractData } from './Octeracts';
 import { octeractData, OcteractUpgrade } from './Octeracts';
+import type { ISingularityChallengeData} from './SingularityChallenges';
+import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges';
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -354,6 +356,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover'])
     }
 
+    player.singularityChallenges = {
+        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades'])
+    }
+
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
         player.loadedOct4Hotfix = true;
         // Only process refund if the save's researches array is already updated to v2
@@ -677,7 +683,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     effect: singularityData[k].effect,
                     freeLevels: data.singularityUpgrades[k].freeLevels,
                     canExceedCap: singularityData[k].canExceedCap,
-                    specialCostForm: singularityData[k].specialCostForm
+                    specialCostForm: singularityData[k].specialCostForm,
+                    qualityOfLife: singularityData[k].qualityOfLife
                 }
                 player.singularityUpgrades[k] = new SingularityUpgrade(updatedData);
 
@@ -728,6 +735,42 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                 player.octeractUpgrades[k].name = `[NEW!] ${player.octeractUpgrades[k].name}`
             }
             octeractNum += 1;
+        }
+    }
+
+
+    if (data.singularityChallenges != null) {
+        for (const item in blankSave.singularityChallenges) {
+            const k = item as keyof Player['singularityChallenges'];
+            let updatedData:ISingularityChallengeData
+            if (data.singularityChallenges[k]) {
+
+                // This is a HOTFIX. Please do not remove unless you can think of a better way
+                if (data.loadedV2927Hotfix1 === undefined && k === 'noSingularityUpgrades') {
+                    const comps = data.singularityChallenges[k].completions
+                    if (comps > 0) {
+                        data.singularityChallenges[k].highestSingularityCompleted = 4 * comps - 3
+                    }
+                }
+
+                updatedData = {
+                    name: singularityChallengeData[k].name,
+                    descripton: singularityChallengeData[k].descripton,
+                    rewardDescription: singularityChallengeData[k].rewardDescription,
+                    baseReq: singularityChallengeData[k].baseReq,
+                    completions: data.singularityChallenges[k].completions,
+                    maxCompletions: singularityChallengeData[k].maxCompletions,
+                    unlockSingularity: singularityChallengeData[k].unlockSingularity,
+                    HTMLTag: singularityChallengeData[k].HTMLTag,
+                    highestSingularityCompleted: data.singularityChallenges[k].highestSingularityCompleted,
+                    enabled: data.singularityChallenges[k].enabled,
+                    singularityRequirement: singularityChallengeData[k].singularityRequirement,
+                    effect: singularityChallengeData[k].effect
+                }
+                player.singularityChallenges[k] = new SingularityChallenge(updatedData);
+            } else {
+                player.singularityChallenges[k].name = `[NEW!] ${player.singularityChallenges[k].name}`
+            }
         }
     }
 
@@ -825,6 +868,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
     if (data.autoPotionTimerObtainium === undefined) {
         player.autoPotionTimerObtainium = 0;
+    }
+    if (data.insideSingularityChallenge === undefined) {
+        player.insideSingularityChallenge = false
     }
 
     const oldest = localStorage.getItem('firstPlayed')

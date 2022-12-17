@@ -48,6 +48,7 @@ import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
 import {settingAnnotation, settingTheme, initializeIcons } from './Themes';
 import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
+import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges';
 
 export const player: Player = {
     firstPlayed: new Date().toISOString(),
@@ -694,6 +695,7 @@ export const player: Player = {
     loadedV253: true,
     loadedV255: true,
     loadedV297Hotfix1: true,
+    loadedV2927Hotfix1: true,
     version,
     rngCode: 0,
     promoCodeTiming: {
@@ -807,7 +809,12 @@ export const player: Player = {
 
     dailyCodeUsed: false,
     hepteractAutoCraftPercentage: 50,
-    octeractTimer: 0
+    octeractTimer: 0,
+    insideSingularityChallenge: false,
+
+    singularityChallenges: {
+        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades'])
+    }
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -3157,6 +3164,11 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
 
         const thankSing = 250;
+
+        if (player.insideSingularityChallenge) {
+            return Alert('Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.')
+        }
+
         if (player.singularityCount >= thankSing) {
             return Alert(`Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere
             to go from here. At least, not until higher powers expand your journey.`)

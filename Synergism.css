@@ -3350,12 +3350,14 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .singularityUpgrade,
-.octeractUpgrade {
+.octeractUpgrade,
+.singularityChallenge {
     font-size: 0;
 }
 
 .singularityUpgrade > img,
-.octeractUpgrade > img {
+.octeractUpgrade > img,
+.singularityChallenge > img {
     cursor: pointer;
 }
 
@@ -3366,6 +3368,16 @@ header #obtainiumDisplay { color: pink; }
 
 #testingMultiline,
 #singularityOcteractsMultiline {
+    white-space: pre-line;
+    margin: 15px 0 0;
+}
+
+#singularityChallengeDetails {
+    width: 50%;
+    margin-left: 25%;
+}
+
+#singularityChallengesMultiline {
     white-space: pre-line;
     margin: 15px 0 0;
 }
