@@ -550,6 +550,7 @@ export interface Player {
     loadedV255: boolean
     loadedV297Hotfix1: boolean
     loadedV2927Hotfix1: boolean
+    loadedV2930Hotfix1: boolean
     version: string
 
     rngCode: number

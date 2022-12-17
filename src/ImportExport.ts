@@ -682,7 +682,7 @@ const addCodeMaxUses = () : number => {
     let maxUses = 24
     maxUses += 2 * player.shopUpgrades.calculator2
     if (player.shopUpgrades.calculator4 === shopData.calculator4.maxLevel) {
-        maxUses += 8
+        maxUses += 32
     }
     maxUses += Math.floor(player.shopUpgrades.calculator5 / 10)
     if (player.shopUpgrades.calculator5 === shopData.calculator5.maxLevel) {
@@ -697,9 +697,13 @@ const addCodeMaxUses = () : number => {
 
 const addCodeInterval = () : number => {
     let time = hour
-    time *= (1 - 0.02 * player.shopUpgrades.calculator4)
-    time *= (1 - Math.min(.5, (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 1000 : 0)
-                            + (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 1000 : 0)))
+    time *= (1 - 0.04 * player.shopUpgrades.calculator4)
+    time *= (1 - Math.min(.6, (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 800 : 0)
+                            + (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 800 : 0)))
+
+    if (player.runelevels[6] > 0) {
+        time *= 0.8
+    }
     return time
 }
 

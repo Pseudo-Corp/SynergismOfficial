@@ -876,6 +876,16 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.insideSingularityChallenge = false
     }
 
+    if (data.loadedV2930Hotfix1 === undefined) {
+        if (player.singularityCount > 230) {
+            player.singularityCount = 230
+        }
+        if (player.highestSingularityCount > 230) {
+            player.highestSingularityCount = 230
+            void Alert('Due to balancing changes, you were sent back to Singularity 230 to prevent softlocking your savefile!')
+        }
+        player.loadedV2930Hotfix1 = true
+    }
     const oldest = localStorage.getItem('firstPlayed')
 
     if (data.firstPlayed == undefined) {

@@ -421,10 +421,15 @@ export const hepteractEffective = (data: hepteractTypes) => {
         } else if (1000 * Math.pow(2, 10) < amount && amount <= 1000 * Math.pow(2, 18)) {
             return effectiveValue * Math.pow(Math.pow(2, 10), 1/2 + exponentBoost) *
                     Math.pow(amount / (1000 * Math.pow(2, 10)), 1/4 + exponentBoost / 2)
-        } else if (1000 * Math.pow(2, 18) < amount) {
+        } else if (1000 * Math.pow(2, 18) < amount && amount <= 1000 * Math.pow(2, 44)) {
             return effectiveValue * Math.pow(Math.pow(2, 10), 1/2 + exponentBoost) *
                     Math.pow(Math.pow(2, 8), 1/4 + exponentBoost / 2) *
                     Math.pow(amount / (1000 * Math.pow(2, 18)), 1/6 + exponentBoost / 3)
+        } else if (1000 * Math.pow(2, 44) < amount) {
+            return effectiveValue * Math.pow(Math.pow(2, 10), 1/2 + exponentBoost) *
+                    Math.pow(Math.pow(2, 8), 1/4 + exponentBoost / 2) *
+                    Math.pow(Math.pow(2, 26), 1/6 + exponentBoost / 3) *
+                    Math.pow(amount / (1000 * Math.pow(2, 44)), 1/12 + exponentBoost / 6)
         }
     }
     if (player.hepteractCrafts[data].BAL > hepteractEffectiveValues[data].LIMIT) {

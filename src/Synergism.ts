@@ -698,6 +698,7 @@ export const player: Player = {
     loadedV255: true,
     loadedV297Hotfix1: true,
     loadedV2927Hotfix1: true,
+    loadedV2930Hotfix1: true,
     version,
     rngCode: 0,
     promoCodeTiming: {
