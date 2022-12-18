@@ -228,17 +228,17 @@ export const settingTheme = () => {
 // To add an icon set, create a new folder that includes a copy of ALL image files (either new or copied from another set),
 // and then edit the switch statement to include your new icon set folder.
 // !!Make sure the folder name is NOT a string that is included in any image files or the text replacement will start messing things up!!
-export const toggleIconSet = (setting = true) => {
+export const toggleIconSet = () => {
     const iconSetButton = DOMCacheGetOrSet('iconSet');
     const current = iconSetButton.textContent;
 
     let changeTo = 'Default';
     switch (current) {
         case 'Default':
-            changeTo = 'Legacy';
+            changeTo = 'Simplified';
             break;
-        case 'Legacy' :
-            changeTo = 'Default';
+        case 'Simplified' :
+            changeTo = 'Legacy';
             break;
         default:
             changeTo = 'Default';
@@ -252,10 +252,7 @@ export const toggleIconSet = (setting = true) => {
         }
     );
 
-    if (setting === true && iconSetButton.textContent !== null) {
-        player.iconSet = changeTo;
-    }
-
+    player.iconSet = changeTo;
     iconSetButton.textContent = changeTo;
 }
 
