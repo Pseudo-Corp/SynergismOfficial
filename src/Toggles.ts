@@ -427,7 +427,7 @@ export const toggleResearchBuy = () => {
 
 export const toggleAutoResearch = () => {
     const el = DOMCacheGetOrSet('toggleautoresearch')
-    if (player.autoResearchToggle) {
+    if (player.autoResearchToggle || player.shopUpgrades.obtainiumAuto < 1) {
         player.autoResearchToggle = false;
         el.textContent = 'Automatic: OFF';
         DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
@@ -445,7 +445,7 @@ export const toggleAutoResearch = () => {
 
 export const toggleAutoResearchMode = () => {
     const el = DOMCacheGetOrSet('toggleautoresearchmode')
-    if (player.autoResearchMode === 'cheapest') {
+    if (player.autoResearchMode === 'cheapest' || !autoResearchEnabled()) {
         player.autoResearchMode = 'manual';
         el.textContent = 'Automatic mode: Manual';
     } else {
