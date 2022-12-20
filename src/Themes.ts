@@ -238,6 +238,9 @@ export const toggleIconSet = () => {
             changeTo = 'Simplified';
             break;
         case 'Simplified' :
+            changeTo = 'Monotonous';
+            break;
+        case 'Monotonous' :
             changeTo = 'Legacy';
             break;
         default:
