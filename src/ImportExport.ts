@@ -483,9 +483,11 @@ export const promocodes = async (input: string | null, amount?: number) => {
         }
 
         const realAttemptsUsed = Math.min(availableUses, toUse);
+        const perkRewardDivisor = addCodeSingularityPerkBonus();
         let mult = Math.max(0.4 + 0.02 * player.shopUpgrades.calculator3, 2/5 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 640); // [0.4, 0.6], slightly biased in favor of 0.4. =)
         mult *= 1 + 0.14 * player.shopUpgrades.calculator // Calculator Shop Upgrade (+14% / level)
         mult *= (player.shopUpgrades.calculator2 === shopData['calculator2'].maxLevel)? 1.25: 1; // Calculator 2 Max Level (+25%)
+        mult /= perkRewardDivisor
         const quarkBase = quarkHandler().perHour
         const actualQuarks = Math.floor(quarkBase * mult * realAttemptsUsed)
         const [first, second] = window.crypto.getRandomValues(new Uint8Array(2));
@@ -497,19 +499,19 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
         // Calculator 3: Adds ascension timer.
         const ascMult = (player.singularityUpgrades.expertPack.level > 0) ? 1.2 : 1;
-        const ascensionTimer = 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult;
+        const ascensionTimer = 60 * player.shopUpgrades.calculator3 * realAttemptsUsed * ascMult / perkRewardDivisor;
         const ascensionTimerText = (player.shopUpgrades.calculator3 > 0)
             ? `Thanks to PL-AT Ω you have also gained ${format(ascensionTimer)} real-life seconds to your Ascension Timer!`
             : '';
 
         // Calculator 5: Adds GQ export timer.
-        const gqTimer = 6 * player.shopUpgrades.calculator5 * realAttemptsUsed;
+        const gqTimer = 6 * player.shopUpgrades.calculator5 * realAttemptsUsed / perkRewardDivisor;
         const gqTimerText = (player.shopUpgrades.calculator5 > 0)
             ? `Thanks to PL-AT Γ you have additionally gained ${format(gqTimer)} real-life seconds to your GQ Export Timer!`
             : '';
 
         // Calculator 6: Octeract Generation
-        const octeractTime = player.shopUpgrades.calculator6 * realAttemptsUsed;
+        const octeractTime = player.shopUpgrades.calculator6 * realAttemptsUsed / perkRewardDivisor;
         const octeractTimeText = (player.shopUpgrades.calculator6 > 0)
             ? `Finally, thanks to PL-AT _ you have gained ${format(octeractTime)} seconds of Octeract generation!`
             : '';
@@ -678,6 +680,20 @@ export const promocodes = async (input: string | null, amount?: number) => {
     setTimeout(() => el.textContent = '', 15000);
 }
 
+const addCodeSingularityPerkBonus = () : number => {
+    const levels = [10, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 235, 240]
+    let count = 0
+    for (let i = 0; i < levels.length; i++) {
+        if (player.highestSingularityCount >= levels[i]) {
+            count += 1
+            continue
+        } else {
+            break
+        }
+    }
+    return 1 + count / 5
+}
+
 const addCodeMaxUses = () : number => {
     let maxUses = 24
     maxUses += 2 * player.shopUpgrades.calculator2
@@ -692,7 +708,9 @@ const addCodeMaxUses = () : number => {
         maxUses += 24
     }
 
-    return maxUses
+    maxUses *= addCodeSingularityPerkBonus();
+
+    return Math.ceil(maxUses)
 }
 
 const addCodeInterval = () : number => {
@@ -704,6 +722,8 @@ const addCodeInterval = () : number => {
     if (player.runelevels[6] > 0) {
         time *= 0.8
     }
+
+    time /= addCodeSingularityPerkBonus()
     return time
 }
 

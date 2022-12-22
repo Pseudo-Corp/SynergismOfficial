@@ -54,25 +54,25 @@ const events: Record<string, HolidayData> = {
     },
     // Last active event
     last: {
-        name: 'Derpmas 2022: Quark Extravaganza!',
+        name: 'Derpmas 2022: Gift of Gamebreak!',
         color: 'white',
         url: 'https://www.youtube.com/watch?v=A6-vc-R9np8',
         everyYear: false,
-        start: '12/17/2022 00:00:00',
-        end: '12/18/2022 23:59:59',
+        start: '12/21/2022 00:00:00',
+        end: '01/02/2023 23:59:59',
         notice: 20,
         event: true,
         buffs: {
-            quark: 3,
-            globalSpeed: 0,
-            ascensionSpeed: 0,
-            antSacrifice: 0,
-            offering: 0,
-            obtainium: 0,
-            octeract: 0,
-            powderConversion: 0,
-            goldenQuark: 0,
-            oneMind: 0.4
+            quark: 0.11,
+            globalSpeed: 0.11,
+            ascensionSpeed: 0.11,
+            antSacrifice: 0.11,
+            offering: 0.11,
+            obtainium: 0.11,
+            octeract: 0.11,
+            powderConversion: 0.11,
+            goldenQuark: 0.11,
+            oneMind: 0.01
         }
     },
     khafra: {
