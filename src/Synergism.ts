@@ -775,6 +775,7 @@ export const player: Player = {
         singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2']),
         oneMind: new SingularityUpgrade(singularityData['oneMind']),
         wowPass4: new SingularityUpgrade(singularityData['wowPass4']),
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
         blueberries: new SingularityUpgrade(singularityData['blueberries'])
     },
 

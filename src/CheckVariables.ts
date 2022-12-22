@@ -321,6 +321,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2']),
         oneMind: new SingularityUpgrade(singularityData['oneMind']),
         wowPass4: new SingularityUpgrade(singularityData['wowPass4']),
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
         blueberries: new SingularityUpgrade(singularityData['blueberries'])
     }
 
@@ -672,10 +673,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             // if more crafts are added, some keys might not exist in the save
             let updatedData:ISingularityData
             if (data.singularityUpgrades[k]) {
-                if (k === 'offeringAutomatic') {
-                    player.goldenQuarks += data.singularityUpgrades[k].goldenQuarksInvested
-                    continue
-                }
                 updatedData = {
                     name: `[${singularityNum}] ${singularityData[k].name}`,
                     description: singularityData[k].description,
@@ -898,6 +895,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.shopUpgrades.seasonPassInfinity = Math.min(1000, player.shopUpgrades.seasonPassInfinity * 2)
         player.shopUpgrades.chronometerInfinity = Math.min(1000, player.shopUpgrades.chronometerInfinity * 2)
         player.shopUpgrades.improveQuarkHept5 = Math.min(100, player.shopUpgrades.improveQuarkHept5 * 2)
+        player.singularityUpgrades.offeringAutomatic.refund();
         void Alert('You have loaded into the December 22 patch v1.')
     }
 
