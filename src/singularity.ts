@@ -1069,6 +1069,20 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             }
         },
         qualityOfLife: true
+    },
+    blueberries: {
+        name: 'Blueberry Shards! (WIP)',
+        description: 'The legends are true. \n The Prophecies are fulfilled. \n Ant God has heard your prayers. \n Let there be blueberries! \n And they were good.',
+        maxLevel: -1,
+        costPerLevel: 1e14,
+        minimumSingularity: 222,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: `You have purchased ${n} tasty blueberries.`
+            }
+        },
+        specialCostForm: 'Cubic'
     }
 }
 
@@ -1245,6 +1259,18 @@ export const singularityPerks: SingularityPerk[] = [
             } else {
                 return 'You permanently keep Ant autobuyers and start each Ascension with a Tier 1 Ant'
             }
+        }
+    },
+    {
+        name: 'It all adds up',
+        levels: [10, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 235, 240],
+        description: (n: number, levels: number[]) => {
+            for (let i = levels.length - 1; i >= 0; i--) {
+                if (n >= levels[i]) {
+                    return `ADD code reward is divided by ${format(1 + (i+1)/5, 2, true)} but the cooldown is also divided by ${format(1 + (i+1)/5, 2, true)} and capacity is multiplied by ${format(1 + (i+1)/5, 2, true)} (rounded up).`
+                }
+            }
+            return 'BUG!!!'
         }
     },
     {

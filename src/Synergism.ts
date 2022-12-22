@@ -699,6 +699,7 @@ export const player: Player = {
     loadedV297Hotfix1: true,
     loadedV2927Hotfix1: true,
     loadedV2930Hotfix1: true,
+    loadedV2931Hotfix1: true,
     version,
     rngCode: 0,
     promoCodeTiming: {
@@ -741,7 +742,6 @@ export const player: Player = {
         singCitadel2: new SingularityUpgrade(singularityData['singCitadel2']),
         octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
         singOcteractPatreonBonus: new SingularityUpgrade(singularityData['singOcteractPatreonBonus']),
-        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
         intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),
         advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
         expertPack: new SingularityUpgrade(singularityData['expertPack']),
@@ -774,7 +774,8 @@ export const player: Player = {
         singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed']),
         singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2']),
         oneMind: new SingularityUpgrade(singularityData['oneMind']),
-        wowPass4: new SingularityUpgrade(singularityData['wowPass4'])
+        wowPass4: new SingularityUpgrade(singularityData['wowPass4']),
+        blueberries: new SingularityUpgrade(singularityData['blueberries'])
     },
 
     octeractUpgrades: {
