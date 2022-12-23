@@ -19,6 +19,7 @@ jobs:
       - name: Install deps
         run: |
           npm install
+          sudo apt install -y jq
       - name: Build
         run: |
           node ./scripts/update-last-updated.js
@@ -32,10 +33,15 @@ jobs:
           files: dist/ Pictures/ index.html Synergism.css favicon.ico
           dest: Kong.zip
           recursive: false
+      - name: Retrieve version
+        run: |
+          echo "VERSION=$(jq '.version' package.json)" >> $GITHUB_OUTPUT
+        id: version
       - name: Create release
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: ${{ steps.version.outputs.VERSION }}
           title: Kongregate Build ${{ github.event.repository.updated_at }}
           files: |
             Kong.zip
