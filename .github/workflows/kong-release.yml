@@ -22,7 +22,6 @@ jobs:
       - name: Build
         run: |
           node ./scripts/update-last-updated.js
-          node ./scripts/transform.js
           npm run-script build:esbuild
       - name: Remove old .zip
         run: |
@@ -37,8 +36,6 @@ jobs:
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: latest
-          prerelease: true
-          title: Kongregate Build
+          title: Kongregate Build ${{ github.event.repository.updated_at }}
           files: |
             Kong.zip
