@@ -396,7 +396,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.usedCorruptions[0] = 0
     }
     if (player.antSacrificeTimerReal === undefined) {
-        player.antSacrificeTimerReal = player.antSacrificeTimer / calculateTimeAcceleration();
+        player.antSacrificeTimerReal = player.antSacrificeTimer / calculateTimeAcceleration().mult;
     }
     if (player.subtabNumber === undefined || data.subtabNumber === undefined) {
         player.subtabNumber = 0;
