@@ -533,14 +533,15 @@ export const loadAddCodeModifiersAndEffects = () => {
         DOMCacheGetOrSet('s+eff1').textContent = `+${format(qbr * addEffectStats.quarks, 3)}`;
     }
 
-    DOMCacheGetOrSet('stat+eff2').childNodes[0].textContent = 'Bonus Ascension time: ';
-    DOMCacheGetOrSet('s+eff2').textContent = `+${format(addEffectStats.ascensionTimer, 2)} sec`; // does it need a / 1000?
+    DOMCacheGetOrSet('stat+eff2').childNodes[0].textContent = 'PL-AT X - bonus ascension time: ';
+    DOMCacheGetOrSet('s+eff2').textContent = `+${format(addEffectStats.ascensionTimer, 2)} sec`;
 
-    DOMCacheGetOrSet('stat+eff3').childNodes[0].textContent = 'Bonus GQ Export time: ';
+    DOMCacheGetOrSet('stat+eff3').childNodes[0].textContent = 'PL-AT Γ - bonus GQ export time: ';
     DOMCacheGetOrSet('s+eff3').textContent = `+${format(addEffectStats.gqTimer, 2)} sec`; // does it need a / 1000?
 
-    DOMCacheGetOrSet('stat+eff4').childNodes[0].textContent = 'Bonus Octeract time: ';
+    DOMCacheGetOrSet('stat+eff4').childNodes[0].textContent = 'PL-AT _ - bonus octeract time: ';
     DOMCacheGetOrSet('s+eff4').textContent = `+${format(addEffectStats.octeractTime, 2)} sec`; // does it need a / 1000?
+    // Might be worth converting to raw octeracts awarded.  I don't have the calculator needed to test it, though.
 }
 
 export const c15RewardUpdate = () => {
