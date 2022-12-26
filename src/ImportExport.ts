@@ -309,32 +309,35 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (input === null) {
         return Alert('Alright, come back soon!')
     }
-    if (input === 'thanksderpsmith' && !player.codes.get(44) && G['isEvent'] && getEvent().name === 'Giving Thanks to Derpsmith') {
-        player.codes.set(44, true);
+    if (input === 'derpderp' && !player.codes.get(45) && G['isEvent'] && getEvent().name === 'Derpmas 2022: Gift of Gamebreak!') {
+
+        if (!player.dailyCodeUsed) {
+            return Alert('This event code gives you another usage of code \'daily\'. Please use that code and try this event code again.')
+        }
+
+        player.codes.set(45, true);
         player.quarkstimer = quarkHandler().maxTime;
         player.goldenQuarksTimer = 3600 * 24;
         addTimers('ascension', 4 * 3600);
+        player.dailyCodeUsed = false;
 
         if (player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0) {
             player.hepteractCrafts.quark.CAP *= 2;
             player.hepteractCrafts.quark.BAL += Math.min(1e13, player.hepteractCrafts.quark.CAP/2)
         }
         if (player.highestSingularityCount > 0) {
-            player.singularityUpgrades.goldenQuarks1.freeLevels += 1;
-            player.singularityUpgrades.goldenQuarks2.freeLevels += 1;
-            player.singularityUpgrades.goldenQuarks3.freeLevels += 1;
+            player.singularityUpgrades.goldenQuarks1.freeLevels += 1 + Math.floor(player.highestSingularityCount / 25);
+            player.singularityUpgrades.goldenQuarks2.freeLevels += 1 + Math.floor(player.highestSingularityCount / 25);
+            player.singularityUpgrades.goldenQuarks3.freeLevels += 1 + Math.floor(player.highestSingularityCount / 25);
             if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
-                player.octeractUpgrades.octeractGain.freeLevels += 5;
-                player.octeractUpgrades.octeractGain2.freeLevels += 3;
-                player.octeractUpgrades.octeractQuarkGain.freeLevels += 5;
-                player.octeractUpgrades.octeractAscensionsOcteractGain.freeLevels += 0.1
+                player.octeractUpgrades.octeractAscensionsOcteractGain.freeLevels += 0.2
             }
         }
 
-        return Alert(`Happy update!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! 
+        return Alert(`Happy New Year 2023!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! Your daily code has also been reset for you.
                       ${(player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free, and (to a limit) automatically filled the extra amount! What a generous, handsome fella.' : ''}
                       ${(player.highestSingularityCount > 0) ? 'You were also given free levels of GQ1-3!' : ''} 
-                      ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Geneses, Accumulator and Quark Gain!': ''}`)
+                      ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Accumulator!': ''}`)
     }
     if (input === 'synergism2021' && !player.codes.get(1)) {
         player.codes.set(1, true);

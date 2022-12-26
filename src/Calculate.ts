@@ -1612,6 +1612,10 @@ export const calculateQuarkMultiplier = () => {
     multiplier *= 1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus // Doohickey
     multiplier *= calculateTotalOcteractQuarkBonus()
 
+    if (player.highestSingularityCount === 0) {
+        multiplier *= 1.25
+    }
+
     return multiplier
 }
 

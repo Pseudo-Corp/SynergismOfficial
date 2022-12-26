@@ -3167,7 +3167,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
         }
 
-        const thankSing = 250;
+        const thankSing = 300;
 
         if (player.insideSingularityChallenge) {
             return Alert('Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.')
