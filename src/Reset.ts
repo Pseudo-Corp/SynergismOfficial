@@ -1,4 +1,4 @@
-import { player, format, blankSave, updateAll } from './Synergism';
+import { player, format, blankSave, updateAll, saveSynergy } from './Synergism';
 import {
     calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
     calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
@@ -1194,6 +1194,9 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
     updateSingularityMilestoneAwards();
 
     player.rngCode = Date.now();
+
+    // Save again at the end of singularity reset
+    void saveSynergy();
 }
 
 const resetUpgrades = (i: number) => {
