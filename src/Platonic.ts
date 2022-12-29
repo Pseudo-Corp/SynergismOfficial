@@ -312,42 +312,42 @@ export const createPlatonicDescription = (index: number) => {
 
     resourceCheck.offerings ?
         DOMCacheGetOrSet('platonicOfferingCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicOfferingCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicOfferingCost').style.color = 'var(--crimson-text-color)';
 
     resourceCheck.obtainium ?
         DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'var(--crimson-text-color)';
 
     resourceCheck.cubes ?
         DOMCacheGetOrSet('platonicCubeCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicCubeCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicCubeCost').style.color = 'var(--crimson-text-color)';
 
     resourceCheck.tesseracts ?
         DOMCacheGetOrSet('platonicTesseractCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicTesseractCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicTesseractCost').style.color = 'var(--crimson-text-color)';
 
     resourceCheck.hypercubes ?
         DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'var(--crimson-text-color)';
 
     resourceCheck.platonics ?
         DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'var(--crimson-text-color)';
 
     resourceCheck.abyssals ?
         DOMCacheGetOrSet('platonicHepteractCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicHepteractCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicHepteractCost').style.color = 'var(--crimson-text-color)';
 
     if (player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
         DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'cyan'
         resourceCheck.canBuy ?
             (DOMCacheGetOrSet('platonicCanBuy').style.color = 'gold', DOMCacheGetOrSet('platonicCanBuy').textContent = '===Affordable! Click to buy!===') :
-            (DOMCacheGetOrSet('platonicCanBuy').style.color = 'crimson', DOMCacheGetOrSet('platonicCanBuy').textContent = '===You cannot afford this!===');
+            (DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--crimson-text-color)', DOMCacheGetOrSet('platonicCanBuy').textContent = '===You cannot afford this!===');
     }
 
     if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
         DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'gold'
-        DOMCacheGetOrSet('platonicCanBuy').style.color = 'orchid'
+        DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--orchid-text-color)'
         DOMCacheGetOrSet('platonicCanBuy').textContent = '===Maxed==='
     }
 }
@@ -367,7 +367,7 @@ export const updatePlatonicUpgradeBG = (i: number) => {
 }
 
 export const buyPlatonicUpgrades = (index: number, auto = false) => {
-    while (index > 0) { // eslint-disable-line no-constant-condition, @typescript-eslint/no-unnecessary-condition
+    while (index > 0) {
         const resourceCheck = checkPlatonicUpgrade(index, auto)
         let priceMultiplier = 1;
         if (platUpgradeBaseCosts[index].priceMult) {
@@ -406,7 +406,7 @@ export const buyPlatonicUpgrades = (index: number, auto = false) => {
 }
 
 export const autoBuyPlatonicUpgrades = () => {
-    if (player.autoPlatonicUpgradesToggle === true && ((player.highestSingularityCount >= 100 && player.singularityCount < player.highestSingularityCount) || player.highestSingularityCount >= 200)) {
+    if (player.autoPlatonicUpgradesToggle === true && ((player.highestSingularityCount >= 100 && player.insideSingularityChallenge) || player.highestSingularityCount >= 200)) {
         for (let i = 1; i < player.platonicUpgrades.length; i++) {
             if (player.platonicUpgrades[i] < platUpgradeBaseCosts[i].maxLevel) {
                 const resourceCheck = checkPlatonicUpgrade(i, true);

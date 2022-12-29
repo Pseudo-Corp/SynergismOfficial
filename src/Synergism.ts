@@ -46,7 +46,7 @@ import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
-import {settingAnnotation, settingTheme } from './Themes';
+import {settingAnnotation, toggleTheme } from './Themes';
 import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges';
 
@@ -698,6 +698,8 @@ export const player: Player = {
     loadedV255: true,
     loadedV297Hotfix1: true,
     loadedV2927Hotfix1: true,
+    loadedV2930Hotfix1: true,
+    loadedV2931Hotfix1: true,
     version,
     rngCode: 0,
     promoCodeTiming: {
@@ -740,7 +742,6 @@ export const player: Player = {
         singCitadel2: new SingularityUpgrade(singularityData['singCitadel2']),
         octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
         singOcteractPatreonBonus: new SingularityUpgrade(singularityData['singOcteractPatreonBonus']),
-        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
         intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),
         advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
         expertPack: new SingularityUpgrade(singularityData['expertPack']),
@@ -773,7 +774,9 @@ export const player: Player = {
         singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed']),
         singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2']),
         oneMind: new SingularityUpgrade(singularityData['oneMind']),
-        wowPass4: new SingularityUpgrade(singularityData['wowPass4'])
+        wowPass4: new SingularityUpgrade(singularityData['wowPass4']),
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
+        blueberries: new SingularityUpgrade(singularityData['blueberries'])
     },
 
     octeractUpgrades: {
@@ -3164,7 +3167,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
         }
 
-        const thankSing = 250;
+        const thankSing = 300;
 
         if (player.insideSingularityChallenge) {
             return Alert('Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.')
@@ -3613,7 +3616,7 @@ export const updateAll = (): void => {
         if (player.autoAscendMode === 'realAscensionTime' && player.ascensionCounterRealReal >= Math.max(0.1, player.autoAscendThreshold)) {
             ascension = true;
         }
-        if (ascension === true) {
+        if (ascension === true && player.challengecompletions[10] > 0) {
             // Auto Ascension and Auto Challenge Sweep enables rotation of the Ascension Challenge
             if (autoAscensionChallengeSweepUnlock() && player.currentChallenge.ascension !== 0 && player.retrychallenges && player.researches[150] === 1 && player.autoChallengeRunning) {
                 let nextChallenge = getNextChallenge(player.currentChallenge.ascension + 1, false, 11, 15);
@@ -3676,10 +3679,6 @@ export const updateAll = (): void => {
             player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM;
             c15RewardUpdate();
         }
-    }
-
-    if (player.singularityUpgrades.platonicAlpha.getEffect().bonus && player.platonicUpgrades[5] === 0) {
-        player.platonicUpgrades[5] = 1;
     }
 }
 
@@ -4056,7 +4055,7 @@ export const reloadShit = async (reset = false) => {
         }
     }
 
-    settingTheme();
+    toggleTheme(true);
     settingAnnotation();
     toggleauto();
     htmlInserts();

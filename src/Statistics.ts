@@ -1,7 +1,7 @@
 import { player, format, formatTimeShort } from './Synergism';
 import { Globals as G } from './Variables';
 import { hepteractEffective } from './Hepteracts'
-import {calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus } from './Calculate';
+import {calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus, calculateAscensionSpeedMultiplier, calculateGoldenQuarkMultiplier } from './Calculate';
 import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -20,7 +20,9 @@ const associated = new Map<string, string>([
     ['kPlatMult', 'platonicMultiplierStats'],
     ['kHeptMult', 'hepteractMultiplierStats'],
     ['kOrbPowderMult', 'powderMultiplierStats'],
-    ['kOctMult', 'octeractMultiplierStats']
+    ['kOctMult', 'octeractMultiplierStats'],
+    ['kASCMult', 'ascensionSpeedMultiplierStats'],
+    ['kGQMult', 'goldenQuarkMultiplierStats']
 ]);
 
 export const displayStats = (btn: HTMLElement) => {
@@ -59,6 +61,12 @@ export const loadStatisticsUpdate = () => {
                 break;
             case 'powderMultiplierStats':
                 loadPowderMultiplier();
+                break;
+            case 'ascensionSpeedMultiplierStats':
+                loadStatisticsAscensionSpeedMultipliers();
+                break;
+            case 'goldenQuarkMultiplierStats':
+                loadStatisticsGoldenQuarkMultipliers();
                 break;
             default:
                 loadStatisticsCubeMultipliers();
@@ -401,6 +409,60 @@ export const loadPowderMultiplier = () => {
     DOMCacheGetOrSet('sPoMT').textContent = `x${format(calculatePowderConversion().mult, 3)}`;
 }
 
+export const loadStatisticsAscensionSpeedMultipliers = () => {
+    const arr = calculateAscensionSpeedMultiplier();
+    const map7: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 2, desc: 'Chronometer:'},
+        2: {acc: 2, desc: 'Chronometer 2:'},
+        3: {acc: 2, desc: 'Chronometer 3:'},
+        4: {acc: 2, desc: 'Chronos Hepteract:'},
+        5: {acc: 2, desc: 'Achievement 262 Bonus:'},
+        6: {acc: 2, desc: 'Achievement 263 Bonus:'},
+        7: {acc: 2, desc: 'Platonic Omega:'},
+        8: {acc: 2, desc: 'Challenge 15 Reward:'},
+        9: {acc: 2, desc: 'Cookie Upgrade 9:'},
+        10: {acc: 2, desc: 'Intermediate Pack:'},
+        11: {acc: 2, desc: 'Chronometer Z:'},
+        12: {acc: 2, desc: 'Abstract Photokinetics:'},
+        13: {acc: 2, desc: 'Abstract Exokinetics:'},
+        14: {acc: 2, desc: 'Event:'},
+        15: {acc: 2, desc: 'Ascension Speedup 2 [GQ]:'},
+        16: {acc: 2, desc: 'Chronometer INF:'},
+        17: {acc: 2, desc: 'Ascension Speedup [GQ]:'},
+        18: {acc: 2, desc: 'Singularity Penalty:'}
+    }
+    for (let i = 0; i < arr.list.length; i++) {
+        const statASMi = DOMCacheGetOrSet(`statASM${i + 1}`);
+        statASMi.childNodes[0].textContent = map7[i + 1].desc;
+        DOMCacheGetOrSet(`sASM${i + 1}`).textContent = `x${format(arr.list[i], map7[i + 1].acc, true)}`;
+    }
+
+    DOMCacheGetOrSet('sASMT').textContent = `x${format(arr.mult, 3)}`;
+}
+
+export const loadStatisticsGoldenQuarkMultipliers = () => {
+    const arr = calculateGoldenQuarkMultiplier();
+    const map: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 2, desc: 'Challenge 15 Exponent:'},
+        2: {acc: 2, desc: 'Patreon Bonus:'},
+        3: {acc: 2, desc: 'Golden Quarks I:'},
+        4: {acc: 2, desc: 'Cookie Upgrade 19:'},
+        5: {acc: 2, desc: 'No Singularity Upgrades:'},
+        6: {acc: 2, desc: 'Event:'},
+        7: {acc: 2, desc: 'Singularity Fast Forwards:'},
+        8: {acc: 2, desc: 'Golden Revolution II:'},
+        9: {acc: 2, desc: 'Immaculate Alchemy:'},
+        10: {acc: 2, desc: 'Total Quarks Coefficient:'}
+    }
+    for (let i = 0; i < arr.list.length; i++) {
+        const statGQMi = DOMCacheGetOrSet(`statGQMS${i + 1}`);
+        statGQMi.childNodes[0].textContent = map[i + 1].desc;
+        DOMCacheGetOrSet(`sGQMS${i + 1}`).textContent = `x${format(arr.list[i], map[i + 1].acc, true)}`;
+    }
+
+    DOMCacheGetOrSet('sGQMST').textContent = `x${format(arr.mult, 3)}`;
+}
+
 export const c15RewardUpdate = () => {
     const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18]
     type Key = keyof GlobalVariables['challenge15Rewards'];
@@ -653,8 +715,11 @@ export const gameStages = (): Stage[] => {
         {stage: 17, tier: 5, name: 'beta-1e15-expo', unlocked: player.challenge15Exponent >= 1e15, reset: player.achievements[183] === 1},
         {stage: 18, tier: 5, name: '1e15-expo-omega', unlocked: player.platonicUpgrades[15] > 0, reset: player.achievements[183] === 1},
         {stage: 19, tier: 5, name: 'omega-singularity', unlocked: player.singularityCount > 0 && player.runelevels[6] > 0, reset: player.achievements[183] === 1},
-        {stage: 20, tier: 6, name: 'singularity-octeracts', unlocked: player.singularityUpgrades.octeractUnlock.level > 0, reset: player.singularityCount > 0},
-        {stage: 21, tier: 6, name: 'octeracts', unlocked: false, reset: player.singularityCount > 0}
+        {stage: 20, tier: 6, name: 'singularity-liquidation', unlocked: player.singularityUpgrades.wowPass2.level > 0, reset: player.highestSingularityCount > 0},
+        {stage: 21, tier: 6, name: 'liquidation-onemind', unlocked: player.singularityUpgrades.oneMind.level > 0, reset: player.highestSingularityCount > 0},
+        {stage: 22, tier: 6, name: 'onemind-bbshards', unlocked: player.singularityUpgrades.offeringAutomatic.level > 0, reset: player.highestSingularityCount > 0},
+        {stage: 23, tier: 6, name: 'bbshards-pen', unlocked: player.singularityUpgrades.ultimatePen.level > 0, reset: player.highestSingularityCount > 0},
+        {stage: 24, tier: 6, name: 'pen', unlocked: false, reset: player.highestSingularityCount > 0}
     ];
     return stages;
 }

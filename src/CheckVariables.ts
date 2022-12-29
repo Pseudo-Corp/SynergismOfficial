@@ -288,7 +288,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singCitadel2: new SingularityUpgrade(singularityData['singCitadel2']),
         octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
         singOcteractPatreonBonus: new SingularityUpgrade(singularityData['singOcteractPatreonBonus']),
-        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
         intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),
         advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
         expertPack: new SingularityUpgrade(singularityData['expertPack']),
@@ -321,7 +320,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed']),
         singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2']),
         oneMind: new SingularityUpgrade(singularityData['oneMind']),
-        wowPass4: new SingularityUpgrade(singularityData['wowPass4'])
+        wowPass4: new SingularityUpgrade(singularityData['wowPass4']),
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
+        blueberries: new SingularityUpgrade(singularityData['blueberries'])
     }
 
     player.octeractUpgrades = {
@@ -874,6 +875,28 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
     if (data.insideSingularityChallenge === undefined) {
         player.insideSingularityChallenge = false
+    }
+
+    if (data.loadedV2930Hotfix1 === undefined) {
+        if (player.singularityCount > 230) {
+            player.singularityCount = 230
+        }
+        if (player.highestSingularityCount > 230) {
+            player.highestSingularityCount = 230
+            void Alert('Due to balancing changes, you were sent back to Singularity 230 to prevent softlocking your savefile!')
+        }
+        player.loadedV2930Hotfix1 = true
+    }
+
+    if (data.loadedV2931Hotfix1 === undefined) {
+        player.loadedV2931Hotfix1 = true
+        player.shopUpgrades.obtainiumEX3 = Math.min(1000, player.shopUpgrades.obtainiumEX3 * 2)
+        player.shopUpgrades.offeringEX3 = Math.min(1000, player.shopUpgrades.offeringEX3 * 2)
+        player.shopUpgrades.seasonPassInfinity = Math.min(1000, player.shopUpgrades.seasonPassInfinity * 2)
+        player.shopUpgrades.chronometerInfinity = Math.min(1000, player.shopUpgrades.chronometerInfinity * 2)
+        player.shopUpgrades.improveQuarkHept5 = Math.min(100, player.shopUpgrades.improveQuarkHept5 * 2)
+        player.singularityUpgrades.offeringAutomatic.refund();
+        void Alert('You have loaded into the December 22 patch v1.')
     }
 
     const oldest = localStorage.getItem('firstPlayed')

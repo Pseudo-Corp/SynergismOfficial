@@ -626,6 +626,9 @@ TODO: Fix this entire tab it's utter shit
     // SINGULARITY TAB
     const singularityUpgrades = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
     for (const key of singularityUpgrades) {
+        if (key === 'offeringAutomatic') {
+            continue
+        }
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.singularityUpgrades[`${String(key)}`].buyLevel(event))
     }
@@ -676,7 +679,9 @@ TODO: Fix this entire tab it's utter shit
         return importSynergism(save);
     });
 
-    DOMCacheGetOrSet('theme').addEventListener('click', () => toggleTheme());
+    for (let i = 1; i <= 5; i++) {
+        DOMCacheGetOrSet(`switchTheme${i}`).addEventListener('click', () => toggleTheme(false, i, true));
+    }
 
     DOMCacheGetOrSet('saveType').addEventListener('click', async (event) => {
         const element = event.target as HTMLInputElement
