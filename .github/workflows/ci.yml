@@ -3,15 +3,11 @@ name: ci
 on:
   push:
     paths-ignore:
-      - 'Pictures/**'
       - '*.md'
-      - '*.html'
       - '*.json'
   pull_request:
     paths-ignore:
-      - 'Pictures/**'
       - '*.md'
-      - '*.html'
       - '*.json'
 
 env:
