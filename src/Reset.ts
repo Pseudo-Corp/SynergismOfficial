@@ -331,6 +331,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.prestigecounter = 0;
     G['autoResetTimers'].prestige = 0;
 
+    G['generatorPower'] = new Decimal(1);
+
     const types = ['transcension', 'transcensionChallenge', 'reincarnation', 'reincarnationChallenge', 'ascension', 'ascensionChallenge'];
     if (types.includes(input)) {
         resetUpgrades(2);

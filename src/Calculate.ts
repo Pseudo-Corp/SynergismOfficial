@@ -1619,7 +1619,7 @@ export const calculateQuarkMultiplier = () => {
                            0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
                            0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12
                            0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
-                           0.10 * player.singularityUpgrades.expertPack.level)                  // 1.30
+                           0.10 * player.singularityUpgrades.divinePack.level)                  // 1.30
 
     multiplier *= 1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus // Doohickey
     multiplier *= calculateTotalOcteractQuarkBonus()
