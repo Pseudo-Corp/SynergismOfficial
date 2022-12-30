@@ -336,7 +336,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
         return Alert(`Happy New Year 2023!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! Your daily code has also been reset for you.
                       ${(player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free, and (to a limit) automatically filled the extra amount! What a generous, handsome fella.' : ''}
-                      ${(player.highestSingularityCount > 0) ? 'You were also given free levels of GQ1-3!' : ''}
+                      ${(player.highestSingularityCount > 0) ? 'You were also given free levels of GQ1-3!' : ''} 
                       ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Accumulator!': ''}`)
     }
     if (input === 'synergism2021' && !player.codes.get(1)) {
