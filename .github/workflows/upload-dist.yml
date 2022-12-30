@@ -3,7 +3,7 @@ name: Update Steam
 on:
   push:
     branches:
-      - dist
+      - gh-pages
 
 jobs:
   copy-file:
