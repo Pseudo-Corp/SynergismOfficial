@@ -6,6 +6,7 @@ import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import Decimal from 'break_infinity.js';
+import { addCodeMaxUses, addCodeInterval, addCodeAvailableUses, addCodeTimeToNextUse, addCodeBonuses } from './ImportExport';
 
 const associated = new Map<string, string>([
     ['kMisc', 'miscStats'],
@@ -22,7 +23,8 @@ const associated = new Map<string, string>([
     ['kOrbPowderMult', 'powderMultiplierStats'],
     ['kOctMult', 'octeractMultiplierStats'],
     ['kASCMult', 'ascensionSpeedMultiplierStats'],
-    ['kGQMult', 'goldenQuarkMultiplierStats']
+    ['kGQMult', 'goldenQuarkMultiplierStats'],
+    ['kAddStats', 'addCodeStats']
 ]);
 
 export const displayStats = (btn: HTMLElement) => {
@@ -67,6 +69,9 @@ export const loadStatisticsUpdate = () => {
                 break;
             case 'goldenQuarkMultiplierStats':
                 loadStatisticsGoldenQuarkMultipliers();
+                break;
+            case 'addCodeStats':
+                loadAddCodeModifiersAndEffects();
                 break;
             default:
                 loadStatisticsCubeMultipliers();
@@ -463,6 +468,82 @@ export const loadStatisticsGoldenQuarkMultipliers = () => {
     }
 
     DOMCacheGetOrSet('sGQMST').textContent = `x${format(arr.mult, 3)}`;
+}
+
+export const loadAddCodeModifiersAndEffects = () => {
+    const intervalStats = addCodeInterval();
+    const capacityStats = addCodeMaxUses();
+    const availableCount = addCodeAvailableUses();
+    const timeToNext = addCodeTimeToNextUse();
+
+    // Add interval stats
+    const intervalMap: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 0, desc: 'Base:'},
+        2: {acc: 2, desc: 'PL-AT δ calculator:'},
+        3: {acc: 2, desc: 'PL-AT Σ sing perk:'},
+        4: {acc: 2, desc: 'Ascension of Ant God:'},
+        5: {acc: 2, desc: 'Singularity factor:'}
+    }
+    intervalStats.list[0] /= 1000; // is originally in milliseconds, but players will expect it in seconds.
+
+    for (let i = 0; i < intervalStats.list.length; i++) {
+        const statAddIntervalI = DOMCacheGetOrSet(`stat+time${i + 1}`);
+        statAddIntervalI.childNodes[0].textContent = intervalMap[i + 1].desc;
+        if (i == 0) {
+            DOMCacheGetOrSet(`s+time${i + 1}`).textContent = `${format(intervalStats.list[i], intervalMap[i + 1].acc, true)} sec`;
+        } else {
+            DOMCacheGetOrSet(`s+time${i + 1}`).textContent = `x${format(intervalStats.list[i], intervalMap[i + 1].acc, true)}`;
+        }
+    }
+
+    DOMCacheGetOrSet('s+timeT').textContent = `${format(intervalStats.time / 1000, 1)} sec`;
+    if (availableCount != capacityStats.total) {
+        DOMCacheGetOrSet('s+next').textContent = `+1 in ${format(timeToNext, 1)} sec`;  // is already in sec.
+    } else {
+        DOMCacheGetOrSet('s+next').textContent = '';
+    }
+
+    // Add capacity stats
+    const capacityMap: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 0, desc: 'Base:'},
+        2: {acc: 0, desc: 'PL-AT X:'},
+        3: {acc: 0, desc: 'PL-AT δ:'},
+        4: {acc: 0, desc: 'PL-AT Γ:'},
+        5: {acc: 0, desc: 'PL-AT _:'},
+        6: {acc: 3, desc: 'Singularity factor:'}
+    }
+
+    for (let i = 0; i < capacityStats.list.length; i++) {
+        const statAddIntervalI = DOMCacheGetOrSet(`stat+cap${i + 1}`);
+        statAddIntervalI.childNodes[0].textContent = capacityMap[i + 1].desc;
+        const prefix = i==0 ? '' : (i == 5 ? 'x' : '+');
+        DOMCacheGetOrSet(`s+cap${i + 1}`).textContent = `${prefix}${format(capacityStats.list[i], capacityMap[i + 1].acc, true)}`;
+    }
+
+    DOMCacheGetOrSet('s+capT').textContent = `${format(availableCount, 0)} / ${format(capacityStats.total, 0)}`;
+
+    // TODO:  we also want to report on the effects of each add.
+    const addEffectStats = addCodeBonuses();
+
+    // Quark Bonus Rate; the bonus is typically applied when actually given to the player, rather than calculated before.
+    const qbr = player.worlds.applyBonus(1);
+
+    DOMCacheGetOrSet('stat+eff1').childNodes[0].textContent = 'Quarks: ';
+    if (Math.abs(addEffectStats.maxQuarks - addEffectStats.minQuarks) >= 0.5) { // b/c floating-point errors
+        DOMCacheGetOrSet('s+eff1').textContent = `+${format(qbr * addEffectStats.minQuarks, 3)} ~ ${format(qbr * addEffectStats.maxQuarks, 3)}`;
+    } else {
+        DOMCacheGetOrSet('s+eff1').textContent = `+${format(qbr * addEffectStats.quarks, 3)}`;
+    }
+
+    DOMCacheGetOrSet('stat+eff2').childNodes[0].textContent = 'PL-AT X - bonus ascension time: ';
+    DOMCacheGetOrSet('s+eff2').textContent = `+${format(addEffectStats.ascensionTimer, 2)} sec`;
+
+    DOMCacheGetOrSet('stat+eff3').childNodes[0].textContent = 'PL-AT Γ - bonus GQ export time: ';
+    DOMCacheGetOrSet('s+eff3').textContent = `+${format(addEffectStats.gqTimer, 2)} sec`; // does it need a / 1000?
+
+    DOMCacheGetOrSet('stat+eff4').childNodes[0].textContent = 'PL-AT _ - bonus octeract time: ';
+    DOMCacheGetOrSet('s+eff4').textContent = `+${format(addEffectStats.octeractTime, 2)} sec`; // does it need a / 1000?
+    // Might be worth converting to raw octeracts awarded.  I don't have the calculator needed to test it, though.
 }
 
 export const c15RewardUpdate = () => {

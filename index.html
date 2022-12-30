@@ -3019,6 +3019,7 @@ $STAGE$ for synergism stage"></p>
             <button class="statsNerds hepteracts" id="kHeptMult" alt="kHeptMult" label="kHeptMult" style="border: 2px solid rosybrown">Hepteract Multipliers</button>
             <button class="statsNerds hepteracts" id="kOrbPowderMult" alt="kOrbPowderMult" label="kOrbPowderMult" style="border: 2px solid orchid">Orb to Powder Multipliers</button>
             <button class="statsNerds singularity" id="kGQMult" alt="kGQMult" label="kGQMult" style="border: 2px solid yellow">Golden Quark Multipliers</button>
+            <button class="statsNerds singularity" id="kAddStats" alt="kAddStats" label="kAddStats" style="border: 2px solid green">Add Code Stats</button>
             <button class="statsNerds singularity" id="kOctMult" alt="kOctMult" label="kOctMult" style="border: 2px solid blue">Octeract Multipliers</button>
         </div>
         <div id="miscStats" alt="miscStats" label="miscStats" class="statContainer activeStats">
@@ -3303,7 +3304,7 @@ $STAGE$ for synergism stage"></p>
 
         <div id="octeractMultiplierStats" alt="octeractMultiplierStats" label="octeractMultiplierStats" class="statContainer" style="display: none;">
             <p id="octeractStatTitle" alt="octeractStatTitle" label="octeractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Octeract Multipliers</p>
-            <p id="statOcM1" alt="statOcM1" label="statOcM1" class="statPortion singularity">Ascescion Score:<span id="sOcM1" alt="sOcM1" label="sOcM1" class="statNumber">0</span></p>
+            <p id="statOcM1" alt="statOcM1" label="statOcM1" class="statPortion singularity">Ascension Score:<span id="sOcM1" alt="sOcM1" label="sOcM1" class="statNumber">0</span></p>
             <p id="statOcM2" alt="statOcM2" label="statOcM2" class="statPortion singularity">Season Pass 3:<span id="sOcM2" alt="sOcM2" label="sOcM2" class="statNumber">0</span></p>
             <p id="statOcM3" alt="statOcM3" label="statOcM3" class="statPortion singularity">Season Pass Y:<span id="sOcM3" alt="sOcM3" label="sOcM3" class="statNumber">0</span></p>
             <p id="statOcM4" alt="statOcM4" label="statOcM4" class="statPortion singularity">Season Pass Z:<span id="sOcM4" alt="sOcM4" label="sOcM4" class="statNumber">0</span></p>
@@ -3331,6 +3332,48 @@ $STAGE$ for synergism stage"></p>
             <p id="statOcM26" alt="statOcM26" label="statOcM26" class="statPortion singularity"> <span id="sOcM26" alt="sOcM26" label="sOcM26" class="statNumber">0</span></p>
             <p id="statOcMT" alt="statOcMT" label="statOcMT" class="statPortion statTotal" style="color: orange">TOTAL OCTERACT MULTIPLIER: <span
                     id="sOcMT" alt="sOcMT" label="sOcMT" class="statNumber statTotal">0</span></p>
+        </div>
+
+        <div id="addCodeStats" alt="addCodeStats" label="addCodeStats" class="statContainer" style="display: none;">
+            <p id="addCodeStatTitle1" alt="addCodeStatTitle1" label="addCodeStatTitle1" class="statPortion" style="color: green; font-size: 1.2em">Add Code Effects</p>
+            <p id="stat+eff1" alt="stat+eff1" label="stat+eff1" class="statPortion">Quarks:<span id="s+eff1" alt="s+eff1" label="s+eff1" class="statNumber"></span></p>
+            <p id="stat+eff2" alt="stat+eff2" label="stat+eff2" class="statPortion ascendunlock">Ascension time:<span id="s+eff2" alt="s+eff2" label="s+eff2" class="statNumber"></span></p>
+            <p id="stat+eff3" alt="stat+eff3" label="stat+eff3" class="statPortion singularity">GQ Export time:<span id="s+eff3" alt="s+eff3" label="s+eff3" class="statNumber"></span></p>
+            <p id="stat+eff4" alt="stat+eff4" label="stat+eff4" class="statPortion singularity">Bonus Octeract time:<span id="s+eff4" alt="s+eff4" label="s+eff4" class="statNumber"></span></p>
+            <!-- Midas perk is too troublesome (and possibly spoilery) to include here. -->
+
+            <p id="statAddSep1" alt="statAddSep1" label="statAddSep1" class="statPortion">&nbsp;</p>
+
+            <p id="addCodeStatTitle2" alt="addCodeStatTitle2" label="addCodeStatTitle2" class="statPortion" style="color: green; font-size: 1.2em">Add Code Timer</p>
+            <p id="stat+time1" alt="stat+time1" label="stat+time1" class="statPortion">Base:<span id="s+time1" alt="s+time1" label="s+time1" class="statNumber">3600 sec</span></p>
+            <p id="stat+time2" alt="stat+time2" label="stat+time2" class="statPortion singularity">PL-AT δ calculator:<span id="s+time2" alt="s+time2" label="s+time2" class="statNumber">0</span></p>
+            <p id="stat+time3" alt="stat+time3" label="stat+time3" class="statPortion singularity">PL-AT Σ sing perk:<span id="s+time3" alt="s+time3" label="s+time3" class="statNumber">0</span></p>
+            <p id="stat+time4" alt="stat+time4" label="stat+time4" class="statPortion hepteracts">AoAG:<span id="s+time4" alt="s+time4" label="s+time4" class="statNumber">0</span></p>
+            <!--"It all adds up"-->
+            <p id="stat+time5" alt="stat+time5" label="stat+time5" class="statPortion singularity">Singularity factor:<span id="s+time5" alt="s+time5" label="s+time5" class="statNumber">0</span></p>
+
+            <p id="statAddSep2" alt="statAddSep2" label="statAddSep2" class="statPortion">&nbsp;</p>
+
+            <p id="stat+timeT" alt="stat+timeT" label="stat+timeT" class="statPortion statTotal" style="color: orange">ADD REGEN INTERVAL: <span
+                id="s+timeT" alt="s+timeT" label="s+timeT" class="statNumber statTotal">0</span></p>
+
+            <p id="statAddSep4" alt="statAddSep4" label="statAddSep4" class="statPortion">&nbsp;</p>
+
+            <p id="addCodeStatTitle3" alt="addCodeStatTitle3" label="addCodeStatTitle3" class="statPortion" style="color: green; font-size: 1.2em">Add Code Capacity</p>
+            <p id="stat+cap1" alt="stat+cap1" label="stat+cap1" class="statPortion">Base:<span id="s+cap1" alt="s+cap1" label="s+cap1" class="statNumber">24</span></p>
+            <p id="stat+cap2" alt="stat+cap2" label="stat+cap2" class="statPortion ascendunlock">PL-AT X:<span id="s+cap2" alt="s+cap2" label="s+cap2" class="statNumber">0</span></p>
+            <p id="stat+cap3" alt="stat+cap3" label="stat+cap3" class="statPortion singularity">PL-AT δ:<span id="s+cap3" alt="s+cap3" label="s+cap3" class="statNumber">0</span></p>
+            <p id="stat+cap4" alt="stat+cap4" label="stat+cap4" class="statPortion singularity">PL-AT Γ:<span id="s+cap4" alt="s+cap4" label="s+cap4" class="statNumber">0</span></p>
+            <p id="stat+cap5" alt="stat+cap5" label="stat+cap5" class="statPortion singularity">PL-AT _:<span id="s+cap5" alt="s+cap5" label="s+cap5" class="statNumber">0</span></p>
+            <!--"It all adds up"-->
+            <p id="stat+cap6" alt="stat+cap6" label="stat+cap6" class="statPortion singularity">Singularity factor:<span id="s+cap6" alt="s+cap6" label="s+cap6" class="statNumber">0</span></p>
+
+            <p id="statAddSep3" alt="statAddSep3" label="statAddSep3" class="statPortion">&nbsp;</p>
+
+            <p id="stat+capT" alt="stat+capT" label="stat+capT" class="statPortion statTotal" style="color: orange">TOTAL ADDS / CAPACITY: <span
+                id="s+capT" alt="s+capT" label="s+capT" class="statNumber statTotal">0</span></p>
+
+            <p id="stat+next" alt="s+next" label="stat+next" class="statPortion"><span id="s+next" alt="s+next" label="s+next" class="statNumber">0</span></p>
         </div>
 
         <button id="summaryGeneration" style="border: 2px solid grey; height: 20px; width: 250px;">Generate Savefile Stats Summary</button>
