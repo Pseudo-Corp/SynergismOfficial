@@ -43,7 +43,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source_file: 'targetdir'
+          source_file: 'targetdir/'
           destination_repo: 'Pseudo-Corp/steam'
           destination_folder: 'src'
           user_email: 'maitken033380023@gmail.com'
