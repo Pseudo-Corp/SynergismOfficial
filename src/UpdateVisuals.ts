@@ -467,7 +467,7 @@ const UpdateHeptGridValues = (type: hepteractTypes) => {
         barEl.style.backgroundColor = 'var(--hepteract-bar-red)';
     } else {
         const balance = player.hepteractCrafts[type].BAL;
-        const cap = player.hepteractCrafts[type].CAP;
+        const cap = player.hepteractCrafts[type].computeActualCap();
         const barWidth = Math.round((balance / cap) * 100);
 
         let barColor = '';

@@ -224,6 +224,25 @@ export const singularityChallengeData: Record<keyof Player['singularityUpgrades'
                 obtainiumBonus: (n === 10)
             }
         }
+    },
+    limitedAscensions: {
+        name: 'Twenty Ascensions Challenge',
+        descripton: 'Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs! Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.',
+        rewardDescription: 'Each completion grants 0.1% Ascension Speed per completion per digit in your Ascension count! First completion doubles the cap of all hepteract. Final completion adds another calculator in the shop!',
+        baseReq: 10,
+        maxCompletions: 25,
+        unlockSingularity: 50,
+        HTMLTag: 'limitedAscensions',
+        singularityRequirement: (baseReq: number, completions: number) => {
+            return baseReq + 10 * completions
+        },
+        effect: (n: number) => {
+            return {
+                ascensionSpeedMult: 0.1 * n / 100,
+                hepteractCap: (n > 0),
+                calculatorUnlock: (n >= 25)
+            }
+        }
     }
 }
 

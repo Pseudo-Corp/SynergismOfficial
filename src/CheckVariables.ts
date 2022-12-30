@@ -360,7 +360,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     player.singularityChallenges = {
         noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades']),
         oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap']),
-        noOcteracts: new SingularityChallenge(singularityChallengeData['noOcteracts'])
+        noOcteracts: new SingularityChallenge(singularityChallengeData['noOcteracts']),
+        limitedAscensions: new SingularityChallenge(singularityChallengeData['limitedAscensions'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {

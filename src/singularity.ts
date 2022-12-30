@@ -21,7 +21,7 @@ export const updateSingularityPenalties = (): void => {
                  Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(calculateSingularityDebuff('Cube Upgrades', singularityCount), 2, true)}.
                  ${platonic}
                  ${hepteract}
-                 Your penalties will ${singularityCount >= 250 ? 'now smoothly increase forever.' : `sharply increase in <span class="redText"> Singularity ${format(calculateNextSpike(player.singularityCount), 0, true)}</span>.`}
+                 Your penalties will ${singularityCount >= 230 ? 'now smoothly increase forever.' : `sharply increase in <span class="redText"> Singularity ${format(calculateNextSpike(player.singularityCount), 0, true)}</span>.`}
                  <span style='color: ${color}'>Antiquities of Ant God is ${(player.runelevels[6] > 0) ? '' : 'NOT'} purchased. Penalties are ${(player.runelevels[6] > 0) ? '' : 'NOT'} dispelled!</span>`
 
     DOMCacheGetOrSet('singularityPenaltiesMultiline').innerHTML = str;
@@ -228,6 +228,10 @@ export class SingularityUpgrade extends DynamicUpgrade {
 
     public actualTotalLevels(): number {
         if (player.singularityChallenges.noSingularityUpgrades.enabled && !this.qualityOfLife) {
+            return 0
+        }
+
+        if (player.singularityChallenges.limitedAscensions.enabled && this.name === player.singularityUpgrades.platonicDelta.name) {
             return 0
         }
 
@@ -1033,8 +1037,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         name: 'The Ultimate Pen',
         description: 'You. It is you who is the author of your own story!',
         maxLevel: 1,
-        costPerLevel: Number.MAX_SAFE_INTEGER,
-        minimumSingularity: 250,
+        costPerLevel: 2.22e22,
+        minimumSingularity: 300,
         effect: (n: number) => {
             return {
                 bonus: n > 0,
@@ -1755,16 +1759,12 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
     }
     if (singularityCount > 230) {
         effectiveSingularities *= 2
-        effectiveSingularities *= Math.pow(1.3, singularityCount - 230)
-    }
-    if (singularityCount >= 250) {
-        effectiveSingularities *= 100
     }
 
     return effectiveSingularities
 }
 export const calculateNextSpike = (singularityCount: number = player.singularityCount): number => {
-    const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 216, 250];
+    const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 216, 230];
     for (const sing of singularityPenaltyThreshold) {
         if (sing > singularityCount) {
             return sing;

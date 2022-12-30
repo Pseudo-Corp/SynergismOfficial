@@ -100,7 +100,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = '#ff004c';
     } else {
         if (themeNumber === 4) {
-            DOMCacheGetOrSet('logo').setAttribute('src', 'Pictures/logo%20Light.png');
+            DOMCacheGetOrSet('logo').setAttribute('src', 'Pictures/logoLight.png');
         }
     }
 
