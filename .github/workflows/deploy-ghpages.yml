@@ -38,18 +38,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: targetdir
-      - name: Copy files
-        run: |
-          rm -rf ./src
-          mv targetdir src
-      - name: Uploads files to Steam version
-        uses: dmnemec/copy_file_to_another_repo_action@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          source_file: 'src'
-          destination_repo: 'Pseudo-Corp/steam'
-          destination_folder: '.'
-          user_email: 'maitken033380023@gmail.com'
-          user_name: 'KhafraDev'
-          commit_message: 'Update Synergism'
