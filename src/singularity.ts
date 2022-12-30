@@ -1111,16 +1111,22 @@ export class SingularityPerk {
 export const singularityPerks: SingularityPerk[] = [
     {
         name: 'XYZ: Xtra dailY rewardZ',
-        levels: [1],
-        description: () => {
-            return 'Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades'
+        levels: [1, 20, 200],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[2]) {
+                return 'In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!'
+            } else if (n >= levels[1]) {
+                return 'In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.'
+            } else {
+                return 'The Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades, both scaling with your singularity count!'
+            }
         }
     },
     {
         name: 'Unlimited growth',
         levels: [1],
         description: () => {
-            return `+10% to Quarks gain and Ascension Count for current each Singularity (currently +${format(10 * player.singularityCount)}%)`
+            return `+10% to Quarks gain and Ascension Count for each Singularity. Currently: +${format(10*player.singularityCount)}%`
         }
     },
     {
@@ -1189,13 +1195,13 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Not so challenging',
+        name: 'Not so Challenging',
         levels: [4, 7, 10, 15, 20],
         description: (n: number, levels: number[]) => {
             if (n >= levels[4]) {
-                return 'You start each Ascension with 5 completion of Challenge 8 and 1 completion of Challenges 6, 7 and 9'
+                return 'You start each Ascension with 1 completion of Challenges 6, 7 & 9 and 5 completions of Challenge 8'
             } else if (n >= levels[3]) {
-                return 'You start each Ascension with 5 completion of Challenge 8 and 1 completion of Challenges 6 and 7'
+                return 'You start each Ascension with 1 completion of Challenges 6 & 7 and 5 completions of Challenge 8'
             } else if (n >= levels[2]) {
                 return 'You start each Ascension with 1 completion of Challenges 6, 7 and 8'
             } else if (n >= levels[1]) {
@@ -1206,10 +1212,22 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'A particular improvement',
-        levels: [5],
-        description: () => {
-            return 'You start each Ascension with Autobuyers for Particle buildings unlocked'
+        name: 'Automation Upgrades',
+        levels: [5, 10, 15, 25, 30, 100],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[5]) {
+                return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
+            } else if (n >= levels[4]) {
+                return 'You always have w1x4 through w1x8 and w2x10; r6x5, r6x10 and r6x20. Automation Shop is also automatically purchased!'
+            } else if (n >= levels[3]) {
+                return 'You always have w1x4 through w1x8 and w2x10. Automation Shop is now automatically purchased!'
+            } else if (n >= levels[2]) {
+                return 'You always have w1x4 through w1x8 and w2x10.'
+            } else if (n >= levels[1]) {
+                return 'You always have w1x4 through w1x8.'
+            } else {
+                return 'You always have w1x7. (Autobuyers for Particle buildings)'
+            }
         }
     },
     {
@@ -1278,25 +1296,18 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Automation Upgrades',
-        levels: [10, 25, 30, 100],
+        name: 'Automagical Runes',
+        levels: [15, 30, 40, 50],
         description: (n: number, levels: number[]) => {
             if (n >= levels[3]) {
-                return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
+                return 'Runes autobuyer will buy Blessings, Spirits, Talisman Shards, Fragments and will level up Infinite Ascent AND Antiquities of Ant God'
             } else if (n >= levels[2]) {
-                return 'You always have r6x5, r6x10, r6x20, w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
+                return 'Runes autobuyer will buy Blessings, Spirits, Talisman Shards, Fragments and will level up Infinite Ascent'
             } else if (n >= levels[1]) {
-                return 'You always have w1x4, w1x5 and w1x6. Automation Shop is automatically purchased!'
+                return 'Runes autobuyer will buy Blessings, Spirits and level up Infinite Ascent'
             } else {
-                return 'You always have w1x4, w1x5 and w1x6.'
+                return 'Runes autobuyer will buy Blessings and Spirits'
             }
-        }
-    },
-    {
-        name: 'Blessed by the Spirits',
-        levels: [15],
-        description: () => {
-            return 'Runes autobuyer will also buy Blessings and Spirits'
         }
     },
     {
@@ -1304,13 +1315,6 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [25],
         description: () => {
             return 'Unlocks new, very difficult achievements! They are earned differently from others, however... (WIP)'
-        }
-    },
-    {
-        name: 'Midas\' Windfall',
-        levels: [20],
-        description: () => {
-            return 'Using code Daily is guaranteed to give you 0.2 free GQ1, 0.2 free GQ2 and 1 free GQ3 level per day!'
         }
     },
     {
@@ -1328,27 +1332,24 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Better cube opening',
-        levels: [25],
-        description: () => {
-            return 'Researches related to opening cubes will no longer reset on Ascension'
-        }
-    },
-    {
-        name: 'Real time Auto Ascend',
-        levels: [25],
-        description: () => {
-            return 'You can now automatically ascend based on the length of the Ascension'
-        }
-    },
-    {
-        name: 'Advanced Runes Autobuyer',
-        levels: [30, 50],
+        name: 'Cool QoL Cubes',
+        levels: [25, 35],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
-                return 'Runes autobuyer will also level up Infinite Ascent AND Antiquities of Ant God'
+                return 'Keep all Cube Opening researches AND gain the ability to automatically open a percentage of your cubes each Ascension!'
             } else {
-                return 'Runes autobuyer will also level up Infinite Ascent'
+                return 'Researches related to opening cubes will no longer reset on Ascension'
+            }
+        }
+    },
+    {
+        name: 'Eternal Ascensions',
+        levels: [25, 101],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'You can now automatically ascend based on time length and autorun Ascension Challenges with Instant Challenges 2!'
+            } else {
+                return 'You can now automatically ascend based on the length of the Ascension'
             }
         }
     },
@@ -1357,26 +1358,12 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [30, 70, 100],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
-                return 'Ant Speed is multiplied by 1 TRILLION! And is immune to any and all corruption.'
+                return 'Ant Speed is multiplied by 1 TRILLION, this increase is immune to any and all corruption.'
             } else if (n >= levels[1]) {
-                return 'Ant Speed is multiplied by 1 MILLION! And is immune to any and all corruption.'
+                return 'Ant Speed is multiplied by 1 MILLION, this increase is immune to any and all corruption.'
             } else {
-                return 'Ant Speed is multiplied by 1,000! And is immune to any and all corruption.'
+                return 'Ant Speed is multiplied by 1,000, this increase is immune to any and all corruption.'
             }
-        }
-    },
-    {
-        name: 'Automation Open Cubes',
-        levels: [35],
-        description: () => {
-            return 'Ascension allows you to automatically open the cubes you have'
-        }
-    },
-    {
-        name: 'Autobuy Talismans Resources',
-        levels: [40],
-        description: () => {
-            return 'Runes autobuyer can also buy Talisman Shards and Fragments'
         }
     },
     {
@@ -1406,21 +1393,21 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'Golden Revolution',
         levels: [100],
         description: () => {
-            return 'Golden Quarks are 0.2% cheaper per Singularity (MAX: -50%)'
+            return `Singularity grants 0.4% more Golden Quarks per Singularity. Currently: +${format(Math.min(100, 0.4*player.singularityCount), 1)}% (MAX: +100%)`
         }
     },
     {
         name: 'Golden Revolution II',
         levels: [100],
         description: () => {
-            return 'Singularity Grants 0.4% more Golden Quarks per Singularity (MAX: +100%)'
+            return `Golden Quarks are 0.2% cheaper per Singularity. Currently: -${format(Math.min(50, 0.2*player.singularityCount), 1)}% (MAX: -50%)`
         }
     },
     {
         name: 'Golden Revolution III',
         levels: [100],
         description: () => {
-            return 'Export Gives 2% more Golden Quarks per singularity (MAX: +500%)'
+            return `Export gives 2% more Golden Quarks per Singularity. Currently: +${format(Math.min(500, 2*player.singularityCount))}% (MAX: +500%)`
         }
     },
     {
@@ -1435,13 +1422,6 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Auto Ascension Challenge Sweep',
-        levels: [101],
-        description: () => {
-            return 'Auto Challenge Sweep can run Ascension Challenges if you have better Instant Challenge Completions'
-        }
-    },
-    {
         name: 'PL-AT Σ',
         levels: [125, 200],
         description: (n: number, levels: number[]) => {
@@ -1451,8 +1431,7 @@ export const singularityPerks: SingularityPerk[] = [
                     counter += 0.125
                 }
             }
-
-            return `Code 'add' refills ${counter}% faster per level per singularity (MAX: -60% cooldown)`
+            return `Code 'add' refills ${counter}% faster per level per Singularity. Currently: ${format(Math.min(50, counter*player.singularityCount), 1)} (MAX: -60% Cooldown)`
         }
     },
     {
@@ -1477,38 +1456,34 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Metacogenesis',
-        levels: [200],
-        description: () => {
-            return 'Gives 1% of your purchased Octeract Cogenesis as bonus levels of Octeract Cogenesis per use of code daily!'
+        name: 'Octeract Metagenesis',
+        levels: [200, 205],
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[1]) {
+                return 'Gives 1% of your purchased Octeract Cogenesis AND Trigenesis as bonus levels of themselves per use of the Daily Special Action!'
+            } else {
+                return 'Gives 1% of your purchased Octeract Cogenesis as bonus levels of Octeract Cogenesis per use of the Daily Special Action!'
+            }
         }
     },
     {
         name: 'Immaculate Alchemy',
         levels: [200, 208, 221],
-        description: () => {
-            return 'At Singulartiy 200, Fast Forwards no longer work! Instead, multiply your GQ by 3. (GQ is multiplied by 5 at level 2, and 8 at level 3). Also divides GQ buy cost accordingly!'
+        description: (n: number, levels: number[]) => {
+            if (n >= levels[2]) {
+                return 'After Singulartiy 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 8.'
+            } else if (n >= levels[1]) {
+                return 'After Singulartiy 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 5.'
+            } else {
+                return 'After Singulartiy 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 3.'
+            }
         }
     },
     {
         name: 'skrauQ',
         levels: [200],
         description: () => {
-            return 'Multiply all Quark Gain by ((Singularity - 179)/20)^2 ... Yes, it\'s that good.'
-        }
-    },
-    {
-        name: 'Industrial Daily Codes',
-        levels: [200],
-        description: () => {
-            return 'Doubles the number of free upgrade rolls gained from code daily!'
-        }
-    },
-    {
-        name: 'Metatrigenesis',
-        levels: [205],
-        description: () => {
-            return 'Gives 1% of your purchased Octeract Trigenesis as bonus levels of Octeract Trigenesis per use of code daily!'
+            return `Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: ${format(((player.singularityCount - 179)/20)^2)}... Yes, it's that good.`
         }
     }
 ]
