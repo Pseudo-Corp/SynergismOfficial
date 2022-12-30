@@ -1,7 +1,8 @@
 import { player, format } from './Synergism';
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML';
-import { calculatePowderConversion, calculateTimeAcceleration } from './Calculate';
+import { calculatePowderConversion, calculateSummationNonLinear, calculateTimeAcceleration } from './Calculate';
 import type { Player } from './types/Synergism';
+import type { IMultiBuy } from './Cubes';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 
 /**
@@ -12,7 +13,7 @@ export enum shopUpgradeTypes {
     UPGRADE = 'upgrade'
 }
 
-type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2' | 'SingularityVol3'
+type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2' | 'SingularityVol3' | 'SingularityVol4'
 
 export interface IShopData {
     price: number
@@ -264,7 +265,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'The PL-AT δ runs at 4,096Hz, which is a huge improvement over previous models. Add attempts refill 2% faster per level! Final level adds 8 additional capacity!'
+        description: 'The PL-AT δ runs at 4,096Hz, which is a huge improvement over previous models. Add attempts refill 4% faster per level! Final level adds 32 additional capacity!'
     },
     calculator5: {
         tier: 'SingularityVol2',
@@ -456,6 +457,16 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundMinimumLevel: 0,
         description: '"Hey dude, get in this portal I built up last night in my shed!" said the Quack Merchant'
     },
+    autoWarp: {
+        tier: 'SingularityVol3',
+        price: 5e11,
+        priceIncrease: 0,
+        maxLevel: 1,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'With the power of Quacks Warp machine will now be able to go into overdrive'
+    },
     improveQuarkHept: {
         tier: 'Ascension',
         price: 2e5 - 1,
@@ -535,6 +546,56 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundable: false,
         refundMinimumLevel: 0,
         description: 'Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of \'daily\' per level!'
+    },
+    offeringEX3: {
+        tier: 'SingularityVol3',
+        price: 1,
+        priceIncrease: 1.25e12,
+        maxLevel: 1000,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain 2% more Offerings per level, multiplicative! (Multiplier is 1.02^level)'
+    },
+    obtainiumEX3: {
+        tier: 'SingularityVol3',
+        price: 1,
+        priceIncrease: 1.25e12,
+        maxLevel: 1000,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain 2% more Obtainium per level, multiplicative! (Multiplier is 1.02^level)'
+    },
+    improveQuarkHept5: {
+        tier: 'SingularityVol4',
+        price: 1,
+        priceIncrease: 2.5e13,
+        maxLevel: 100,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'This is 1/50 as effective as a normal improver. Why? Because of balancing...'
+    },
+    chronometerInfinity: {
+        tier: 'SingularityVol4',
+        price: 1,
+        priceIncrease: 1.25e12,
+        maxLevel: 1000,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain +1% Ascension Speed per level, multiplicative! (Multiplier is 1.01^level)'
+    },
+    seasonPassInfinity: {
+        tier: 'SingularityVol4',
+        price: 1,
+        priceIncrease: 1.25e12,
+        maxLevel: 1000,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Gain +2% more cubes per level, multiplicative! (Multiplier is 1.02^level)'
     }
 }
 
@@ -545,9 +606,10 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'antSpeed' | 'cashGrab' | 'cashGrab2' | 'shopTalisman' | 'seasonPass' | 'challengeExtension' | 'challengeTome' | 'challengeTome2' |
                         'cubeToQuark' | 'tesseractToQuark' | 'cubeToQuarkAll' | 'hypercubeToQuark' | 'seasonPass2' | 'seasonPass3' | 'seasonPassY' | 'seasonPassZ' |
                         'seasonPassLost' | 'chronometer' | 'chronometer2'| 'chronometer3'| 'chronometerZ' | 'infiniteAscent' | 'calculator' | 'calculator2' |
-                        'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | //And Golden Quarks
+                        'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | 'autoWarp' | //And Golden Quarks
                         'improveQuarkHept' | 'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4' | 'shopImprovedDaily' |
-                        'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4' | 'calculator4' | 'calculator5' | 'calculator6'
+                        'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4' | 'calculator4' | 'calculator5' | 'calculator6' |
+                        'offeringEX3' | 'obtainiumEX3' | 'improveQuarkHept5' | 'seasonPassInfinity' | 'chronometerInfinity'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -700,6 +762,9 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         case 'extraWarp':
             lol.textContent = `CURRENT Effect: You can warp ${player.shopUpgrades.extraWarp} extra times.`;
             break;
+        case 'autoWarp':
+            lol.textContent = `CURRENT Effect: Warp machine ${player.shopUpgrades.autoWarp ? 'can now' : 'can\'t'} go into overdrive${player.shopUpgrades.autoWarp ? '' : ', yet'}.`;
+            break;
         case 'improveQuarkHept':
             lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept/50}`;
             break;
@@ -724,6 +789,20 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         case 'shopImprovedDaily4':
             lol.textContent = `CURRENT Effect: + ${player.shopUpgrades.shopImprovedDaily4 * 100}% more golden quarks and ${player.shopUpgrades.shopImprovedDaily4} additional free singularity upgrades from daily.`;
             break;
+        case 'offeringEX3':
+            lol.textContent = `CURRENT Effect: Offering gain is multiplied by ${format(Math.pow(1.02, player.shopUpgrades.offeringEX3), 2, true)}.`
+            break;
+        case 'obtainiumEX3':
+            lol.textContent = `CURRENT Effect: Offering gain is multiplied by ${format(Math.pow(1.02, player.shopUpgrades.obtainiumEX3), 2, true)}.`
+            break;
+        case 'improveQuarkHept5':
+            lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept5/2500}`;
+            break;
+        case 'seasonPassInfinity':
+            lol.textContent = `CURRENT Effect: All Dimensional Cubes are multiplied by ${format(Math.pow(1.02, player.shopUpgrades.seasonPassInfinity), 2, true)}`
+            break;
+        case 'chronometerInfinity':
+            lol.textContent = `CURRENT Effect: Ascension Speed is multiplied by ${format(Math.pow(1.01, player.shopUpgrades.chronometerInfinity), 2, true)}`
     }
 
 }
@@ -775,6 +854,7 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         seasonPassLost: 'Season Pass LOST',
         challenge15Auto: 'Challenge 15 Automation',
         extraWarp: 'Extra Warp',
+        autoWarp: 'a quack powered Warps?',
         improveQuarkHept: 'Quark Hepteract 1',
         improveQuarkHept2: 'Quark Hepteract 2',
         improveQuarkHept3: 'Quark Hepteract 3',
@@ -782,7 +862,12 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         shopImprovedDaily: 'Improved Daily Code 1',
         shopImprovedDaily2: 'Improved Daily Code 2',
         shopImprovedDaily3: 'Improved Daily Code 3',
-        shopImprovedDaily4: 'Improved Daily Code 4'
+        shopImprovedDaily4: 'Improved Daily Code 4',
+        offeringEX3: 'The final Offering Upgrade',
+        obtainiumEX3: 'The final Obtainium Upgrade',
+        improveQuarkHept5: 'The final Quark Hepteract Improver',
+        chronometerInfinity: 'The final Chronometer',
+        seasonPassInfinity: 'The final Season pass'
     }
 
     return names[input];
@@ -790,74 +875,81 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
 }
 
 export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
-    let p = true;
-    const maxLevel = player.shopUpgrades[input] >= shopData[input].maxLevel;
-    const canAfford = Number(player.worlds) >= getShopCosts(input);
+    const shopItem = shopData[input];
+
+    if (player.shopUpgrades[input] >= shopItem.maxLevel) {
+        return player.shopConfirmationToggle
+            ? Alert(`You can't purchase ${friendlyShopName(input)} because you are already at the maximum ${shopItem.type === shopUpgradeTypes.UPGRADE ? 'level' : 'capacity'}!`)
+            : null;
+    } else if (Number(player.worlds) < getShopCosts(input)) {
+        return player.shopConfirmationToggle
+            ? Alert(`You can't purchase ${friendlyShopName(input)} because you don't have enough Quarks!`)
+            : null;
+    }
 
     // Actually lock for HTML exploit
-    if ((shopData[input].tier === 'Ascension' && player.ascensionCount <= 0) ||
-        (shopData[input].tier === 'Singularity' && !player.singularityUpgrades.wowPass.getEffect().bonus) ||
-        (shopData[input].tier === 'SingularityVol2' && !player.singularityUpgrades.wowPass2.getEffect().bonus) ||
-        (shopData[input].tier === 'SingularityVol3' && !player.singularityUpgrades.wowPass3.getEffect().bonus)) {
-        return Alert('You do not have the right to purchase ' + friendlyShopName(input) + '!');
+    if (!isShopUpgradeUnlocked(input)) {
+        return Alert(`You do not have the right to purchase ${friendlyShopName(input)}!`);
     }
 
-    if (player.shopConfirmationToggle || (!shopData[input].refundable && player.shopBuyMaxToggle)) {
-        if (maxLevel) {
-            await Alert('You can\'t purchase ' + friendlyShopName(input) + ' because you already have the max level!')
-        } else if (!canAfford) {
-            await Alert('You can\'t purchase ' + friendlyShopName(input) + ' because you don\'t have enough Quarks!')
+    let buyData:IMultiBuy;
+    const maxBuyAmount = shopItem.maxLevel - player.shopUpgrades[input];
+    let buyAmount;
+    let buyCost;
+    switch (player.shopBuyMaxToggle) {
+        case false:
+            buyAmount = 1;
+            buyCost = getShopCosts(input);
+            break;
+        case 'TEN':
+            buyData = calculateSummationNonLinear(player.shopUpgrades[input], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, Math.min(10,maxBuyAmount))
+            buyAmount = buyData.levelCanBuy - player.shopUpgrades[input];
+            buyCost = buyData.cost;
+            break;
+        default:
+            buyData = calculateSummationNonLinear(player.shopUpgrades[input], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, maxBuyAmount)
+            buyAmount = buyData.levelCanBuy - player.shopUpgrades[input];
+            buyCost = buyData.cost;
+    }
+
+    const singular = shopItem.maxLevel === 1;
+    const merch = buyAmount.toLocaleString() + (shopItem.type === shopUpgradeTypes.UPGRADE ? ' level' : ' vial') + (buyAmount === 1 ? '' : 's');
+    const noRefunds = shopItem.refundable ? '' : '\n\n\u26A0\uFE0F !! No Refunds !! \u26A0\uFE0F';
+    const maxPots = shopItem.type === shopUpgradeTypes.CONSUMABLE ? '\n\nType -1 in Buy: ANY to buy equal amounts of both Potions.' : '';
+
+    if (player.shopBuyMaxToggle === 'ANY' && !singular) {
+        const buyInput = await Prompt(`You can afford to purchase up to ${merch} of ${friendlyShopName(input)} for ${buyCost.toLocaleString()} Quarks. How many would you like to buy?${maxPots + noRefunds}`);
+        let buyAny;
+        if (Number(buyInput) === -1 && shopItem.type === shopUpgradeTypes.CONSUMABLE) {
+            const other = input === 'offeringPotion' ? 'obtainiumPotion' : 'offeringPotion';
+            const toSpend = Math.max(+player.worlds / 2, +player.worlds - buyCost);
+            const otherPot:IMultiBuy = calculateSummationNonLinear(player.shopUpgrades[other], shopData[other].price, toSpend, shopData[other].priceIncrease / shopData[other].price, shopData[other].maxLevel-player.shopUpgrades[other]);
+            player.worlds.sub(otherPot.cost);
+            player.shopUpgrades[other] = otherPot.levelCanBuy;
+            buyAny = buyAmount;
         } else {
-            let noRefunds = '';
-            if (!shopData[input].refundable) {
-                noRefunds = ' REMINDER: No refunds!'
+            buyAny = Math.floor(Number(buyInput));
+            if (buyAny === 0) {
+                return;
+            } else if (Number.isNaN(buyAny) || !Number.isFinite(buyAny) || buyAny < 0) {
+                return Alert('Amount must be a finite, positive integer.');
             }
-            p = await Confirm('Are you sure you\'d like to purchase ' + friendlyShopName(input) + ' for ' + format(getShopCosts(input)) + ' Quarks? Press \'OK\' to finalize purchase.' + noRefunds);
         }
+        const anyData:IMultiBuy = calculateSummationNonLinear(player.shopUpgrades[input], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, Math.min(buyAny, buyAmount))
+        player.worlds.sub(anyData.cost);
+        player.shopUpgrades[input] = anyData.levelCanBuy;
+        revealStuff();
+        return;
     }
 
+    let p = true;
+    if (player.shopConfirmationToggle || (!shopItem.refundable && player.shopBuyMaxToggle !== false)) {
+        p = await Confirm(`You are about to ${singular ? 'unlock' : `purchase ${merch} of`} ${friendlyShopName(input)} for ${buyCost.toLocaleString()} Quarks. Press 'OK' to finalize purchase.${maxPots + noRefunds}`);
+    }
     if (p) {
-        if (player.shopBuyMaxToggle) {
-            //Can't use canAfford and maxLevel here because player's quarks change and shop levels change during loop
-            while (Number(player.worlds) >= getShopCosts(input) && player.shopUpgrades[input] < shopData[input].maxLevel) {
-                player.worlds.sub(getShopCosts(input));
-                player.shopUpgrades[input] += 1
-            }
-        } else {
-            if (canAfford && !maxLevel) {
-                player.worlds.sub(getShopCosts(input));
-                player.shopUpgrades[input] += 1
-            }
-        }
-    }
-    revealStuff();
-}
-
-export const buyConsumable = async (input: ShopUpgradeNames) => {
-
-    const maxBuyablePotions = Math.min(Math.floor(Number(player.worlds)/100),shopData[input].maxLevel-player.shopUpgrades[input]);
-    const potionKind = input === 'offeringPotion' ? 'Offering Potions' : 'Obtainium Potions';
-
-    if (shopData[input].maxLevel <= player.shopUpgrades[input]) {
-        return Alert(`You can't purchase ${potionKind} because you already have capacity!`);
-    }
-    if (maxBuyablePotions === 0) {
-        return Alert(`You can't purchase ${potionKind} because you don't have enough Quarks!`);
-    }
-
-    const potionsAmount = await Prompt(`How many ${potionKind} would you like?\nYou can buy up to ${format(maxBuyablePotions, 0, true)} for 100 Quarks each.`);
-    const potionsToBuy = Math.floor(Number(potionsAmount));
-
-    if (potionsToBuy === 0) {
-        return Alert('Ok. No potions purchased.');
-    } else if (Number.isNaN(potionsToBuy) || !Number.isFinite(potionsToBuy) || potionsToBuy < 0) {
-        return Alert('Value must be a finite, positive integer.');
-    } else if (potionsToBuy > maxBuyablePotions) {
-        player.worlds.sub(100*maxBuyablePotions);
-        player.shopUpgrades[input] += maxBuyablePotions;
-    } else {
-        player.worlds.sub(100*potionsToBuy);
-        player.shopUpgrades[input] += potionsToBuy;
+        player.worlds.sub(buyCost);
+        player.shopUpgrades[input] += buyAmount;
+        revealStuff();
     }
 }
 
@@ -914,42 +1006,34 @@ export const resetShopUpgrades = async (ignoreBoolean = false) => {
 
     if (p || ignoreBoolean) {
         const singularityQuarks = player.quarksThisSingularity;
-        player.worlds.sub(15);
-
+        let refunds = false;
         for (const shopItem in shopData){
             const key = shopItem as keyof typeof shopData;
-            if (shopData[key].refundable && player.shopUpgrades[key] > shopData[key].refundMinimumLevel){
-
-                if (shopData[key].tier === 'Reincarnation' && player.singularityCount >= 20) {
-                    continue;
-                }
-
-                if (shopData[key].tier === 'Ascension' && player.singularityCount >= 51) {
-                    continue;
-                }
-
+            const item = shopData[key];
+            if (item.refundable && player.shopUpgrades[key] > item.refundMinimumLevel){
+                refunds = true;
                 // Determines how many quarks one would not be refunded, based on minimum refund level
-                const doNotRefund = shopData[key].price * shopData[key].refundMinimumLevel +
-                                shopData[key].priceIncrease * (shopData[key].refundMinimumLevel) * (shopData[key].refundMinimumLevel - 1) / 2;
+                const doNotRefund = item.price * item.refundMinimumLevel +
+                                item.priceIncrease * (item.refundMinimumLevel) * (item.refundMinimumLevel - 1) / 2;
 
                 //Refunds Quarks based on the shop level and price vals
                 player.worlds.add(
-                    shopData[key].price * player.shopUpgrades[key] +
-                    shopData[key].priceIncrease * (player.shopUpgrades[key]) * (player.shopUpgrades[key] - 1) / 2
+                    item.price * player.shopUpgrades[key] +
+                    item.priceIncrease * (player.shopUpgrades[key]) * (player.shopUpgrades[key] - 1) / 2
                     - doNotRefund,
                     false
                 );
 
-                player.shopUpgrades[key] = shopData[key].refundMinimumLevel;
+                player.shopUpgrades[key] = item.refundMinimumLevel;
             }
+        }
+        if (refunds) {
+            player.worlds.sub(15);
+        } else if (!ignoreBoolean && player.shopConfirmationToggle) {
+            void Alert('Nothing to Refund!');
         }
         player.quarksThisSingularity = singularityQuarks;
     }
-    /*if (p && player.worlds >= 15) {
-        player.worlds -= 15;
-        Object.keys(shopData).forEach(function)
-        revealStuff();
-    }*/
 }
 
 export const getQuarkInvestment = (upgrade: ShopUpgradeNames) => {
@@ -1051,6 +1135,8 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames):boolean => {
             return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
         case 'extraWarp':
             return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
+        case 'autoWarp':
+            return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
         case 'improveQuarkHept':
             return player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0
         case 'improveQuarkHept2':
@@ -1067,5 +1153,15 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames):boolean => {
             return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
         case 'shopImprovedDaily4':
             return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
+        case 'offeringEX3':
+            return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+        case 'obtainiumEX3':
+            return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+        case 'improveQuarkHept5':
+            return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+        case 'chronometerInfinity':
+            return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+        case 'seasonPassInfinity':
+            return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
     }
 }

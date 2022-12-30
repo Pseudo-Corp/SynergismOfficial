@@ -6,6 +6,7 @@ import { OcteractUpgrade } from '../Octeracts';
 import { IPlatBaseCost } from '../Platonic';
 import type { QuarkHandler } from '../Quark';
 import { SingularityUpgrade } from '../singularity';
+import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges';
 
 export interface Player {
     firstPlayed: string
@@ -363,6 +364,7 @@ export interface Player {
         obtainiumEX2: number,
         challenge15Auto: number,
         extraWarp: number,
+        autoWarp: number,
         improveQuarkHept: number,
         improveQuarkHept2: number,
         improveQuarkHept3: number,
@@ -370,10 +372,15 @@ export interface Player {
         shopImprovedDaily: number,
         shopImprovedDaily2: number,
         shopImprovedDaily3: number,
-        shopImprovedDaily4: number
+        shopImprovedDaily4: number,
+        offeringEX3: number,
+        obtainiumEX3: number,
+        improveQuarkHept5: number,
+        seasonPassInfinity: number,
+        chronometerInfinity: number,
     },
     shopConfirmationToggle: boolean,
-    shopBuyMaxToggle: boolean,
+    shopBuyMaxToggle: boolean | 'TEN' | 'ANY',
     shopHideToggle: boolean,
     autoPotionTimer: number,
     autoPotionTimerObtainium: number,
@@ -435,6 +442,8 @@ export interface Player {
     openPlatonicsCubes: number
     cubeUpgrades: [null, ...number[]]
     cubeUpgradesBuyMaxToggle: boolean
+    autoCubeUpgradesToggle: boolean,
+    autoPlatonicUpgradesToggle: boolean,
     platonicUpgrades: number[]
     saveOfferingToggle: boolean,
     wowCubes: WowCubes
@@ -540,6 +549,9 @@ export interface Player {
     loadedV253: boolean
     loadedV255: boolean
     loadedV297Hotfix1: boolean
+    loadedV2927Hotfix1: boolean
+    loadedV2930Hotfix1: boolean
+    loadedV2931Hotfix1: boolean
     version: string
 
     rngCode: number
@@ -562,6 +574,7 @@ export interface Player {
     overfluxOrbsAutoBuy: boolean
     overfluxPowder: number
     dailyPowderResetUses: number
+    autoWarpCheck: boolean
 
     singularityCount: number
     highestSingularityCount: number
@@ -571,12 +584,17 @@ export interface Player {
     totalQuarksEver: number
     hotkeys: Record<number, string[]>
     theme: string
+    notation: string
 
     singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
-    octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade> 
+    octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade>
     dailyCodeUsed: boolean
     hepteractAutoCraftPercentage: number
     octeractTimer: number
+
+    insideSingularityChallenge: boolean
+    singularityChallenges: Record<keyof typeof singularityChallengeData, SingularityChallenge>
+
 
 }
 

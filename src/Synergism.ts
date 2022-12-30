@@ -14,15 +14,15 @@ import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, exitOffline, calculateGoldenQuarkGain } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels, calculateMaxTalismanLevel } from './Talismans';
-import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount } from './Toggles';
+import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
 import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
-import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset';
-import type { TesseractBuildings} from './Buy';
+import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens, updateSingularityGlobalPerks } from './Reset';
+import type { TesseractBuildings } from './Buy';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
 import { autoUpgrades } from './Automation';
 import { redeemShards } from './Runes';
@@ -41,13 +41,14 @@ import { updatePlatonicUpgradeBG } from './Platonic';
 import { testing, version, lastUpdated, prod } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import localforage from 'localforage';
-import { singularityData, SingularityUpgrade } from './singularity';
+import { singularityData, SingularityUpgrade, getFastForwardTotalMultiplier } from './singularity';
 import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
-import { settingTheme } from './Themes';
-import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers'
+import {settingAnnotation, toggleTheme } from './Themes';
+import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
+import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges';
 
 export const player: Player = {
     firstPlayed: new Date().toISOString(),
@@ -459,6 +460,7 @@ export const player: Player = {
         powderAuto: 0,
         challenge15Auto: 0,
         extraWarp: 0,
+        autoWarp: 0,
         improveQuarkHept: 0,
         improveQuarkHept2: 0,
         improveQuarkHept3: 0,
@@ -466,7 +468,12 @@ export const player: Player = {
         shopImprovedDaily: 0,
         shopImprovedDaily2: 0,
         shopImprovedDaily3: 0,
-        shopImprovedDaily4: 0
+        shopImprovedDaily4: 0,
+        offeringEX3: 0,
+        obtainiumEX3: 0,
+        improveQuarkHept5: 0,
+        seasonPassInfinity: 0,
+        chronometerInfinity: 0
     },
     shopBuyMaxToggle: false,
     shopHideToggle: false,
@@ -529,6 +536,8 @@ export const player: Player = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     cubeUpgradesBuyMaxToggle: false,
+    autoCubeUpgradesToggle: false,
+    autoPlatonicUpgradesToggle: false,
     platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     wowCubes: new WowCubes(0),
     wowTesseracts: new WowTesseracts(0),
@@ -681,12 +690,16 @@ export const player: Player = {
     overfluxOrbsAutoBuy: false,
     overfluxPowder: 0,
     dailyPowderResetUses: 1,
+    autoWarpCheck: false,
     loadedOct4Hotfix: false,
     loadedNov13Vers: true,
     loadedDec16Vers: true,
     loadedV253: true,
     loadedV255: true,
     loadedV297Hotfix1: true,
+    loadedV2927Hotfix1: true,
+    loadedV2930Hotfix1: true,
+    loadedV2931Hotfix1: true,
     version,
     rngCode: 0,
     promoCodeTiming: {
@@ -700,6 +713,7 @@ export const player: Player = {
     totalQuarksEver: 0,
     hotkeys: {},
     theme: 'Dark Mode',
+    notation: 'Default',
 
     singularityUpgrades: {
         goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1']),
@@ -725,8 +739,9 @@ export const player: Player = {
         singCubes2: new SingularityUpgrade(singularityData['singCubes2']),
         singCubes3: new SingularityUpgrade(singularityData['singCubes3']),
         singCitadel: new SingularityUpgrade(singularityData['singCitadel']),
+        singCitadel2: new SingularityUpgrade(singularityData['singCitadel2']),
         octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
-        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
+        singOcteractPatreonBonus: new SingularityUpgrade(singularityData['singOcteractPatreonBonus']),
         intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),
         advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
         expertPack: new SingularityUpgrade(singularityData['expertPack']),
@@ -739,6 +754,7 @@ export const player: Player = {
         singChallengeExtension: new SingularityUpgrade(singularityData['singChallengeExtension']),
         singChallengeExtension2: new SingularityUpgrade(singularityData['singChallengeExtension2']),
         singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
+        singQuarkImprover1: new SingularityUpgrade(singularityData['singQuarkImprover1']),
         singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract']),
         singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2']),
         singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3']),
@@ -756,7 +772,11 @@ export const player: Player = {
         singFastForward: new SingularityUpgrade(singularityData['singFastForward']),
         singFastForward2: new SingularityUpgrade(singularityData['singFastForward2']),
         singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed']),
-        singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2'])
+        singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2']),
+        oneMind: new SingularityUpgrade(singularityData['oneMind']),
+        wowPass4: new SingularityUpgrade(singularityData['wowPass4']),
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
+        blueberries: new SingularityUpgrade(singularityData['blueberries'])
     },
 
     octeractUpgrades: {
@@ -764,11 +784,13 @@ export const player: Player = {
         octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
         octeractGain2: new OcteractUpgrade(octeractData['octeractGain2']),
         octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
+        octeractQuarkGain2: new OcteractUpgrade(octeractData['octeractQuarkGain2']),
         octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
         octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
         octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
         octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily']),
         octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
+        octeractImprovedDaily3: new OcteractUpgrade(octeractData['octeractImprovedDaily3']),
         octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
         octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed']),
         octeractImprovedAscensionSpeed: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed']),
@@ -785,25 +807,34 @@ export const player: Player = {
         octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain']),
         octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
         octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
-        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency'])
+        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency']),
+        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover'])
     },
 
     dailyCodeUsed: false,
     hepteractAutoCraftPercentage: 50,
-    octeractTimer: 0
+    octeractTimer: 0,
+    insideSingularityChallenge: false,
+
+    singularityChallenges: {
+        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades']),
+        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap']),
+        noOcteracts: new SingularityChallenge(singularityChallengeData['noOcteracts']),
+        limitedAscensions: new SingularityChallenge(singularityChallengeData['limitedAscensions'])
+    }
 }
 
 export const blankSave = Object.assign({}, player, {
-    codes: new Map(Array.from({ length: 43 }, (_, i) => [i + 1, false]))
+    codes: new Map(Array.from({ length: 44 }, (_, i) => [i + 1, false]))
 });
 
 // The main cause of the double singularity bug was caused by a race condition
 // when the game was saving just as the user was entering a Singularity. To fix
 // this, hopefully, we disable saving the game when in the prompt or currently
 // entering a Singularity.
-let canSave = true;
+export const saveCheck = { canSave: true }
 
-export const saveSynergy = async (button?: boolean, element?: HTMLButtonElement): Promise<boolean> => {
+export const saveSynergy = async (button?: boolean): Promise<boolean> => {
     player.offlinetick = Date.now();
     player.loaded1009 = true;
     player.loaded1009hotfix1 = true;
@@ -818,17 +849,13 @@ export const saveSynergy = async (button?: boolean, element?: HTMLButtonElement)
         wowPlatonicCubes: Number(player.wowPlatonicCubes)
     });
 
-    if (!canSave) {
-        return false
-    }
-
     const save = btoa(JSON.stringify(p));
     if (save !== null) {
         const saveBlob = new Blob([save], { type: 'text/plain' });
 
-        if (element) {
-            element.disabled = true;
-            setTimeout(() => element.disabled = false, 10_000);
+        //Should prevent overwritting of localforage that is currently used
+        if (!saveCheck.canSave) {
+            return false;
         }
 
         await localforage.setItem<Blob>('Synergysave2', saveBlob);
@@ -1720,10 +1747,18 @@ const loadSynergy = async () => {
         } else {
             DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: OFF'
         }
-        if (player.shopBuyMaxToggle) {
-            DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: ON'
-        } else {
-            DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy Max: OFF'
+        switch (player.shopBuyMaxToggle) {
+            case false:
+                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: 1';
+                break;
+            case 'TEN':
+                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: 10';
+                break;
+            case true:
+                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: MAX';
+                break;
+            case 'ANY':
+                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: ANY';
         }
         if (player.shopHideToggle) {
             DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: ON'
@@ -1740,6 +1775,8 @@ const loadSynergy = async () => {
         } else {
             DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: 1 Level wow'
         }
+        autoCubeUpgradesToggle(false);
+        autoPlatonicUpgradesToggle(false);
 
         for (let i = 1; i <= 2; i++) {
             toggleAntMaxBuy();
@@ -1772,6 +1809,13 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('rune' + player.autoSacrifice).style.backgroundColor = 'orange'
         }
 
+        if (player.autoWarpCheck) {
+            DOMCacheGetOrSet('warpAuto').textContent = 'Auto ON'
+            DOMCacheGetOrSet('warpAuto').style.border = '2px solid green'
+        } else {
+            DOMCacheGetOrSet('warpAuto').textContent = 'Auto OFF'
+            DOMCacheGetOrSet('warpAuto').style.border = '2px solid red'
+        }
         DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
         DOMCacheGetOrSet('hepteractToQuarkTradeAuto').textContent = `Auto ${player.overfluxOrbsAutoBuy ? 'ON' : 'OFF'}`
         DOMCacheGetOrSet('hepteractToQuarkTradeAuto').style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'}`;
@@ -1784,6 +1828,7 @@ const loadSynergy = async () => {
         calculateRuneLevels();
         resetHistoryRenderAllTables();
         updateSingularityAchievements();
+        updateSingularityGlobalPerks();
     }
 
     updateAchievementBG();
@@ -1799,6 +1844,8 @@ const loadSynergy = async () => {
     const s = d.getSeconds()
     player.dayTimer = (60 * 60 * 24 - (s + 60 * m + 60 * 60 * h))
 }
+
+const FormatList = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QtDc', 'SxDc', 'SpDc', 'OcDc', 'NoDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QaVg', 'QtVg', 'SxVg', 'SpVg', 'OcVg', 'NoVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QaTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qd', 'UQd', 'DQd', 'TQd', 'QaQd', 'QtQd', 'SxQd', 'SpQd', 'OcQd', 'NoQd', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OcSe', 'NoSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OcSt', 'NoSt', 'Ocg', 'UOcg', 'DOcg', 'TOcg', 'QaOcg', 'QtOcg', 'SxOcg', 'SpOcg', 'OcOcg', 'NoOcg', 'Nono', 'UNono', 'DNono', 'TNono', 'QaNono', 'QtNono', 'SxNono', 'SpNono', 'OcNono', 'NoNono', 'Ce'];
 
 // Bad browsers (like Safari) only recently implemented this.
 //
@@ -1821,7 +1868,9 @@ const locOpts = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
 
 const padEvery = (str: string, places = 3) => {
     let step = 1, newStr = '';
-    for (let i = str.length - 1; i >= 0; i--) {
+    const strParts = str.split('.');
+    // don't take any decimal places
+    for (let i = (strParts[0].length - 1); i >= 0; i--) {
         // pad every [places] places if we aren't at the beginning of the string
         if (step++ === places && i !== 0) {
             step = 1;
@@ -1830,7 +1879,10 @@ const padEvery = (str: string, places = 3) => {
             newStr = str[i] + newStr;
         }
     }
-
+    // re-add decimal places
+    if (typeof strParts[1] !== 'undefined') {
+        newStr += dec + strParts[1];
+    }
     // see https://www.npmjs.com/package/flatstr
     (newStr as unknown as number) | 0;
     return newStr;
@@ -1842,7 +1894,7 @@ const padEvery = (str: string, places = 3) => {
  * @param accuracy
  * how many decimal points that are to be displayed (Values <10 if !long, <1000 if long).
  * only works up to 305 (308 - 3), however it only worked up to ~14 due to rounding errors regardless
- * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e13
+ * @param long dictates whether or not a given number displays as scientific at 1,000,000. This auto defaults to short if input >= 1e7
  */
 export const format = (
     input: Decimal | number | { [Symbol.toPrimitive]: unknown } | null | undefined,
@@ -1870,6 +1922,7 @@ export const format = (
         return isNaN(input as number) ? '0 [NaN]' : '0 [und.]';
     } else if ( // this case handles numbers less than 1e-6 and greater than 0
         typeof input === 'number' &&
+        player.notation == 'Default' &&
         input < (!fractional ? 1e-3 : 1e-15) && // arbitrary number, don't change 1e-3
         input > 0 // don't handle negative numbers, probably could be removed
     ) {
@@ -1907,7 +1960,32 @@ export const format = (
     if (power < -15) {
         return '0';
     }
-
+    if (player.notation == 'Pure Engineering') {
+        const powerOver = (power % 3 < 0) ? (3 + power % 3) : (power % 3);
+        power = power - powerOver;
+        mantissa = mantissa * Math.pow(10, powerOver)
+    }
+    if (player.notation == 'Pure Scientific' || player.notation == 'Pure Engineering') {
+        if (power >= 1e6) {
+            if (!Number.isFinite(power)) {
+                return 'Infinity';
+            }
+            return `E${format(power, 3)}`;
+        }
+        accuracy = power === 2 && accuracy > 2 ? 2 : accuracy;
+        if (power >= 6 || power < 0) {
+            accuracy = (accuracy < 2 ? 2 : accuracy);
+            // Makes the power group 3 with commas
+            const mantissaLook = (Math.floor(mantissa * Math.pow(10, accuracy)) / Math.pow(10, accuracy)).toLocaleString(undefined, locOpts);
+            const powerLook = padEvery(power.toString());
+            // returns format (1.23e456,789)
+            return `${mantissaLook}e${powerLook}`;
+        }
+        const mantissaLook = (Math.floor(mantissa * Math.pow(10, power) * Math.pow(10, accuracy)) / Math.pow(10, accuracy)).toLocaleString(undefined, {
+            minimumFractionDigits: accuracy, maximumFractionDigits: accuracy
+        });
+        return `${mantissaLook}`;
+    }
     // If the power is negative, then we will want to address that separately.
     if (power < 0 && !isDecimal(input) && fractional) {
         if (power <= -15) {
@@ -1926,9 +2004,9 @@ export const format = (
             return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power - 3)}K`
         }
         return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
-    } else if (power < 6 || (long && power < 13)) {
-        // If the power is less than 6 or format long and less than 13 use standard formatting (123,456,789)
-        // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 13
+    } else if (power < 6 || (long && power < 7)) {
+        // If the power is less than 6 or format long and less than 7 use standard formatting (1,234,567)
+        // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 7
         let standard = mantissa * Math.pow(10, power);
         let standardString;
         // Rounds up if the number experiences a rounding error
@@ -1945,14 +2023,7 @@ export const format = (
         }
 
         // Split it on the decimal place
-        const [front, back] = standardString.split('.');
-        // Apply a number group 3 comma regex to the front
-        const frontFormatted = padEvery(front);
-
-        // if the back is undefined that means there are no decimals to display, return just the front
-        return !back
-            ? frontFormatted
-            : `${frontFormatted}${dec}${back}`;
+        return padEvery(standardString);
     } else if (power < 1e6) {
         // If the power is less than 1e6 then apply standard scientific notation
         // Makes mantissa be rounded down to 2 decimal places
@@ -1982,11 +2053,10 @@ export const format = (
         const powerLookF = powerLook.toLocaleString(undefined, {
             minimumFractionDigits: 4 - powerFront, maximumFractionDigits: 4 - powerFront
         });
-        const notation = ['', '', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QiDc', 'SxDc', 'SpDc', 'OcDc', 'NoDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QaVg', 'QiVg', 'SxVg', 'SpVg', 'OcVg', 'NoVg'];
         const powerLodge = Math.floor(Math.log10(power) / 3);
         // Return relevant notations alongside the "look" power based on what the power actually is
-        if (typeof notation[powerLodge] === 'string') {
-            return `${mantissaLook}e${powerLookF}${notation[powerLodge]}`;
+        if (typeof FormatList[powerLodge] === 'string') {
+            return `${mantissaLook}e${powerLookF}${FormatList[powerLodge]}`;
         }
 
         // If it doesn't fit a notation then default to mantissa e power
@@ -2360,8 +2430,8 @@ export const multipliers = (): void => {
     // PLAT - check
     const first6CoinUp = new Decimal(G['totalCoinOwned'] + 1).times(Decimal.min(1e30, Decimal.pow(1.008, G['totalCoinOwned'])));
 
-    if (player.singularityCount > 0) {
-        s = s.times(Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.singularityCount + 1, 2))
+    if (player.highestSingularityCount > 0) {
+        s = s.times(Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.highestSingularityCount + 1, 2))
     }
     if (player.upgrades[6] > 0.5) {
         s = s.times(first6CoinUp);
@@ -2811,15 +2881,15 @@ export const updateAntMultipliers = (): void => {
         G['globalAntMult'] = G['globalAntMult'].times(100000)
     }
 
-    if (player.singularityCount >= 30) {
+    if (player.highestSingularityCount >= 30) {
         G['globalAntMult'] = G['globalAntMult'].times(1000)
     }
 
-    if (player.singularityCount >= 70) {
+    if (player.highestSingularityCount >= 70) {
         G['globalAntMult'] = G['globalAntMult'].times(1000)
     }
 
-    if (player.singularityCount >= 100) {
+    if (player.highestSingularityCount >= 100) {
         G['globalAntMult'] = G['globalAntMult'].times(1e6)
     }
 }
@@ -2919,7 +2989,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 maxInc = 10;
             }
             if (player.shopUpgrades.instantChallenge2 > 0) {
-                maxInc += player.singularityCount;
+                maxInc += player.highestSingularityCount;
             }
             if (player.currentChallenge.ascension === 13) {
                 maxInc = 1;
@@ -2982,7 +3052,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
                 maxInc = 10;
             }
             if (player.shopUpgrades.instantChallenge2 > 0) {
-                maxInc += player.singularityCount;
+                maxInc += player.highestSingularityCount;
             }
             if (player.currentChallenge.ascension === 13) {
                 maxInc = 1;
@@ -3028,7 +3098,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
     }
 
     if (i === 'ascension') {
-        if (player.toggles[28] === false || player.challengecompletions[10] > 0) {
+        if (player.achievements[141] > 0 && (player.toggles[31] === false || player.challengecompletions[10] > 0)) {
             if (manual) {
                 void resetConfirmation('ascend');
             }
@@ -3098,20 +3168,27 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
         }
 
-        if (player.singularityCount > 249) {
+        const thankSing = 300;
+
+        if (player.insideSingularityChallenge) {
+            return Alert('Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.')
+        }
+
+        if (player.singularityCount >= thankSing) {
             return Alert(`Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere
             to go from here. At least, not until higher powers expand your journey.`)
         }
 
         let confirmed = false;
-        canSave = false;
+        const nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
+
         if (!player.toggles[33] && player.singularityCount > 0) {
-            confirmed = await Confirm(`Do you wish to start singularity #${format(player.singularityCount + 1)}? Your next universe is harder but you will gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
+            confirmed = await Confirm(`Do you wish to start singularity #${format(nextSingularityNumber)}? Your next universe is harder but you will gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
         } else {
             await Alert('You have reached the end of the game, on Singularity #' +format(player.singularityCount)+'. Platonic and the Ant God are proud of you.')
             await Alert('You may choose to sit on your laurels, and consider the game \'beaten\', or you may do something more interesting.')
             await Alert('You\'re too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.')
-            await Alert(`Start anew, and enter Singularity #${format(player.singularityCount + 1)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
+            await Alert(`Start anew, and enter Singularity #${format(nextSingularityNumber)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
             await Alert('However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.')
 
             confirmed = await Confirm('So, what do you say? Do you wish to enter the Singularity?')
@@ -3124,11 +3201,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
 
         if (!confirmed) {
-            canSave = true;
             return Alert('If you decide to change your mind, let me know. -Ant God')
         } else {
             await singularity();
-            canSave = true;
             await saveSynergy();
             return Alert('Welcome to Singularity #' + format(player.singularityCount) + '. You\'re back to familiar territory, but something doesn\'t seem right.')
         }
@@ -3542,7 +3617,7 @@ export const updateAll = (): void => {
         if (player.autoAscendMode === 'realAscensionTime' && player.ascensionCounterRealReal >= Math.max(0.1, player.autoAscendThreshold)) {
             ascension = true;
         }
-        if (ascension === true) {
+        if (ascension === true && player.challengecompletions[10] > 0) {
             // Auto Ascension and Auto Challenge Sweep enables rotation of the Ascension Challenge
             if (autoAscensionChallengeSweepUnlock() && player.currentChallenge.ascension !== 0 && player.retrychallenges && player.researches[150] === 1 && player.autoChallengeRunning) {
                 let nextChallenge = getNextChallenge(player.currentChallenge.ascension + 1, false, 11, 15);
@@ -3605,10 +3680,6 @@ export const updateAll = (): void => {
             player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM;
             c15RewardUpdate();
         }
-    }
-
-    if (player.singularityUpgrades.platonicAlpha.getEffect().bonus && player.platonicUpgrades[5] === 0) {
-        player.platonicUpgrades[5] = 1;
     }
 }
 
@@ -3977,7 +4048,7 @@ export const reloadShit = async (reset = false) => {
         player.worlds = new QuarkHandler({ bonus: 0, quarks: 0 });
         // saving is disabled during a singularity event to prevent bug
         // early return here if the save fails can keep game state from properly resetting after a singularity
-        if (canSave) {
+        if (saveCheck.canSave) {
             const saved = await saveSynergy();
             if (!saved) {
                 return
@@ -3985,7 +4056,8 @@ export const reloadShit = async (reset = false) => {
         }
     }
 
-    settingTheme();
+    toggleTheme(true);
+    settingAnnotation();
     toggleauto();
     htmlInserts();
     createTimer();

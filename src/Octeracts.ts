@@ -1,23 +1,27 @@
-import { format, player } from './Synergism';
+import { format, player, formatTimeShort } from './Synergism';
 import { Alert, Prompt } from './UpdateHTML';
 import type { IUpgradeData } from './DynamicUpgrade';
 import { DynamicUpgrade } from './DynamicUpgrade';
 import type { Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { octeractGainPerSecond } from './Calculate'
 
 export interface IOcteractData extends IUpgradeData {
     costFormula (level: number, baseCost: number): number
     octeractsInvested?: number
+    qualityOfLife?: boolean
 }
 
 export class OcteractUpgrade extends DynamicUpgrade {
     readonly costFormula: (level: number, baseCost: number) => number
     public octeractsInvested = 0
+    public qualityOfLife: boolean
 
     constructor(data: IOcteractData) {
         super(data);
         this.costFormula = data.costFormula;
         this.octeractsInvested = data.octeractsInvested ?? 0;
+        this.qualityOfLife = data.qualityOfLife ?? false
     }
 
     getCostTNL(): number {
@@ -40,7 +44,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
         let OCTBudget = player.wowOcteracts;
 
         if (event.shiftKey) {
-            maxPurchasable = 100000
+            maxPurchasable = 1000000
             const buy = Number(await Prompt(`How many Octeracts would you like to spend? You have ${format(player.wowOcteracts, 0, true)} OCT. Type -1 to use max!`))
 
             if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
@@ -98,20 +102,31 @@ export class OcteractUpgrade extends DynamicUpgrade {
         const maxLevel = this.maxLevel === -1
             ? ''
             : `/${format(this.maxLevel, 0 , true)}`;
-        const color = this.maxLevel === this.level ? 'plum' : 'white';
+        const isMaxLevel = this.maxLevel === this.level;
+        const color = isMaxLevel ? 'plum' : 'white';
 
         let freeLevelInfo = this.freeLevels > 0 ?
             `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>` : ''
 
         if (this.freeLevels > this.level) {
-            freeLevelInfo = freeLevelInfo + '<span style="color: maroon"> (Softcapped) </span>'
+            freeLevelInfo = freeLevelInfo + '<span style="color: var(--maroon-text-color)"> (Softcapped) </span>'
         }
+
+        const isAffordable = costNextLevel <= player.wowOcteracts;
+        let affordTime = '';
+        if (!isMaxLevel && !isAffordable) {
+            const octPerSecond = octeractGainPerSecond();
+            affordTime = octPerSecond > 0 ? formatTimeShort((costNextLevel - player.wowOcteracts) / octPerSecond) : 'Infinity';
+        }
+        const affordableInfo = isMaxLevel ? '<span style="color: plum"> (Maxed)</span>' :
+            isAffordable ? '<span style="color: var(--green-text-color)"> (Affordable)</span>' :
+                `<span style="color: yellow"> (Affordable in ${affordTime})</span>`;
 
         return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color: ${color}"> Level ${format(this.level, 0 , true)}${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.getEffect().desc}</span>
-                Cost for next level: ${format(costNextLevel,2,true, true, true)} Octeracts.
+                Cost for next level: ${format(costNextLevel,2,true, true, true)} Octeracts${affordableInfo}
                 Spent Octeracts: ${format(this.octeractsInvested, 2, true, true, true)}`
     }
 
@@ -125,6 +140,9 @@ export class OcteractUpgrade extends DynamicUpgrade {
     }
 
     public actualTotalLevels(): number {
+        if (player.singularityChallenges.noOcteracts.enabled && !this.qualityOfLife) {
+            return 0
+        }
         const actualFreeLevels = this.computeFreeLevelSoftcap();
         const linearLevels = this.level + actualFreeLevels
         return linearLevels // There is currently no 'improvement' to oct free upgrades.
@@ -164,7 +182,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         costFormula: (level: number, baseCost: number) => {
             return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
         },
-        maxLevel: -1,
+        maxLevel: 1e8,
         costPerLevel: 1e-8,
         effect: (n: number) => {
             return {
@@ -204,6 +222,21 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             return {
                 bonus: 1 + 0.01 * n,
                 desc: `Quark gain is increased by ${format(n, 0 , true)}%.`
+            }
+        }
+    },
+    octeractQuarkGain2: {
+        name: 'Octo-Hepteract Primality Synergism',
+        description: 'For every 199 levels of Quark Octeract, you gain 0.01% more quarks per digit in your Quark Hepteract count per level!',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(1e26, level)
+        },
+        maxLevel: 3,
+        costPerLevel: 1e22,
+        effect: (n: number) => {
+            return {
+                bonus: n > 0,
+                desc: `Octo-Hepteract Primality Synergism is ${n > 0 ? '' : 'NOT'} active.`
             }
         }
     },
@@ -265,7 +298,8 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 bonus: n,
                 desc: `Code 'daily' gives +${n} free Singularity upgrades per use.`
             }
-        }
+        },
+        qualityOfLife: true
     },
     octeractImprovedDaily2: {
         name: 'CHONKERER Daily Code',
@@ -280,7 +314,24 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 bonus: 1 + 0.01 * n,
                 desc: `Code 'daily' gives +${n}% more free Singularity upgrades per use.`
             }
-        }
+        },
+        qualityOfLife: true
+    },
+    octeractImprovedDaily3: {
+        name: 'CHONKEREREST Daily Code',
+        description: 'It will never satisfy Derpsmith. +1 +0.5% more free Singularity upgrades per day from Daily!',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(20, level)
+        },
+        maxLevel: -1,
+        costPerLevel: 1e20,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: `Code 'daily' gives +${n} +${0.5 * n}% more free Singularity upgrades per use.`
+            }
+        },
+        qualityOfLife: true
     },
     octeractImprovedQuarkHept: {
         name: 'I wish for even better Quark Hepteracts.',
@@ -415,7 +466,8 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 bonus: n,
                 desc: `Some Singularity Upgrades have +${n} max level!`
             }
-        }
+        },
+        qualityOfLife: true
     },
     octeractOfferings1: {
         name: 'Offering Electrolosis',
@@ -544,7 +596,22 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
                 desc: `Potions give ${2 * n}% more Offerings and Obtainium.`
             }
         }
+    },
+    octeractOneMindImprover: {
+        name: 'Infinite Transcription of the One Mind',
+        description: 'You ask what this upgrade does, but Derpsmith just nods his head. What is he hiding from you?',
+        costFormula: (level: number, baseCost: number) => {
+            return baseCost * Math.pow(1e5, level)
+        },
+        maxLevel: 10,
+        costPerLevel: 1e25,
+        effect: (n: number) => {
+            return {
+                bonus: 0.55 + n / 150,
+                desc: `One Mind converts Ascension Speed to Octeract Gain to the power of ${format(0.55 + n / 150, 3, true)}`
+            }
+        },
+        qualityOfLife: true
     }
-
 }
 

@@ -202,7 +202,7 @@ const historyGains: Record<
         imgTitle: 'Wow! Cubes'
     },
     wowPlatonicCubes: {
-        img: 'Pictures/Platonic Cube.png',
+        img: 'Pictures/PlatonicCube.png',
         formatter: conditionalFormatPerSecond,
         imgTitle: 'Platonic Cubes',
         onlyif: () => player.challengecompletions[14] > 0
@@ -217,43 +217,43 @@ const historyGains: Record<
         img: 'Pictures/Singularity.png',
         formatter: formatDecimalSource,
         imgTitle: 'Singularity Count',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     quarks: {
         img: 'Pictures/Quark.png',
         formatter: formatDecimalSource,
         imgTitle: 'Quarks',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     goldenQuarks: {
-        img: 'Pictures/Golden Quark.png',
+        img: 'Pictures/GoldenQuark.png',
         formatter: formatDecimalSource,
         imgTitle: 'Golden Quarks',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     wowTribs: {
         img: 'Pictures/WowCube.png',
         formatter: formatDecimalSource,
         imgTitle: 'Cube Tributes',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     tessTribs: {
         img: 'Pictures/WowTessaract.png',
         formatter: formatDecimalSource,
         imgTitle: 'Tesseract Gifts',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     hyperTribs: {
         img: 'Pictures/WowHypercube.png',
         formatter: formatDecimalSource,
         imgTitle: 'Hypercube Bendictions',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     platTribs: {
-        img: 'Pictures/Platonic Cube.png',
+        img: 'Pictures/PlatonicCube.png',
         formatter: formatDecimalSource,
         imgTitle: 'Platonics Opened',
-        onlyif: () => player.singularityCount > 0
+        onlyif: () => player.highestSingularityCount > 0
     },
     octeracts: {
         img: 'Pictures/Octaret.png',
@@ -305,13 +305,13 @@ const resetHistoryTableMapping: Record<Category, string> = {
 // Images associated with the various corruptions.
 const resetHistoryCorruptionImages = [
     'Pictures/Viscocity.png',
-    'Pictures/Spatial Dilation.png',
+    'Pictures/SpatialDilation.png',
     'Pictures/Hyperchallenged.png',
-    'Pictures/Scientific Illiteracy.png',
+    'Pictures/ScientificIlliteracy.png',
     'Pictures/Deflation.png',
     'Pictures/Extinction.png',
     'Pictures/Drought.png',
-    'Pictures/Financial Collapse.png'
+    'Pictures/FinancialCollapse.png'
 ];
 
 const resetHistoryCorruptionTitles = [
