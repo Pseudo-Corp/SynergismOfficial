@@ -231,6 +231,10 @@ export class SingularityUpgrade extends DynamicUpgrade {
             return 0
         }
 
+        if (player.singularityChallenges.limitedAscensions.enabled && this.name === player.singularityUpgrades.platonicDelta.name) {
+            return 0
+        }
+
         const actualFreeLevels = this.computeFreeLevelSoftcap();
         const linearLevels = this.level + actualFreeLevels
         let polynomialLevels = 0

@@ -1488,6 +1488,16 @@ export const calculateTimeAcceleration = () => {
     return (timeMult)
 }
 
+export const calculateLimitedAscensionsDebuff = () => {
+    if (!player.singularityChallenges.limitedAscensions.enabled) {
+        return 1
+    } else {
+        let exponent = (player.ascensionCount - Math.max(0, 20 - player.singularityChallenges.limitedAscensions.completions))
+        exponent = Math.max(0, exponent)
+        return Math.pow(2, exponent)
+    }
+}
+
 export const calculateAscensionSpeedMultiplier = () => {
     const arr = [
         1 + 1.2 / 100 * player.shopUpgrades.chronometer,                                                // Chronometer
@@ -1505,7 +1515,9 @@ export const calculateAscensionSpeedMultiplier = () => {
         1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed2.getEffect().bonus * player.singularityCount, // Abstract Exokinetics, Oct Upg
         1 + calculateEventBuff('Ascension Speed'),                                                      // Event
         (player.singularityUpgrades.singAscensionSpeed2.level > 0 && player.runelevels[6] < 1) ? 6 : 1, // A mediocre ascension speedup!
-        Math.pow(1.01, player.shopUpgrades.chronometerInfinity)                                         // Chronometer INF
+        Math.pow(1.01, player.shopUpgrades.chronometerInfinity),                                         // Chronometer INF
+        1 / calculateLimitedAscensionsDebuff(),                                                           // EXALT Debuff
+        Math.pow(1 + +player.singularityChallenges.limitedAscensions.rewards.ascensionSpeedMult, 1 + Math.max(0, Math.floor(Math.log10(player.ascensionCount)))) // EXALT Buff                                                                                                 // EXALT Buff
     ];
 
     // A hecking good ascension speedup!
@@ -1986,6 +1998,10 @@ export const CalcCorruptionStuff = () => {
 
 export const calcAscensionCount = () => {
     let ascCount = 1;
+
+    if (player.singularityChallenges.limitedAscensions.enabled) {
+        return ascCount
+    }
 
     if (player.challengecompletions[10] > 0 && player.achievements[197] === 1) {
         const {effectiveScore} = calculateAscensionScore();

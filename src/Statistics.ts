@@ -428,8 +428,10 @@ export const loadStatisticsAscensionSpeedMultipliers = () => {
         14: {acc: 2, desc: 'Event:'},
         15: {acc: 2, desc: 'Ascension Speedup 2 [GQ]:'},
         16: {acc: 2, desc: 'Chronometer INF:'},
-        17: {acc: 2, desc: 'Ascension Speedup [GQ]:'},
-        18: {acc: 2, desc: 'Singularity Penalty:'}
+        17: {acc: 2, desc: 'Limited Ascensions Penalty:'},
+        18: {acc: 2, desc: 'Limited Ascensions Reward:'},
+        19: {acc: 2, desc: 'Ascension Speedup [GQ]:'},
+        20: {acc: 2, desc: 'Singularity Penalty:'}
     }
     for (let i = 0; i < arr.list.length; i++) {
         const statASMi = DOMCacheGetOrSet(`statASM${i + 1}`);
