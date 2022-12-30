@@ -1884,6 +1884,7 @@ const padEvery = (str: string, places = 3) => {
         newStr += dec + strParts[1];
     }
     // see https://www.npmjs.com/package/flatstr
+    // eslint-disable-next-line no-bitwise
     (newStr as unknown as number) | 0;
     return newStr;
 }

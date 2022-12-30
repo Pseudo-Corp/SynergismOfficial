@@ -1471,11 +1471,11 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [200, 208, 221],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
-                return 'After Singulartiy 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 8.'
+                return 'After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 8.'
             } else if (n >= levels[1]) {
-                return 'After Singulartiy 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 5.'
+                return 'After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 5.'
             } else {
-                return 'After Singulartiy 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 3.'
+                return 'After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 3.'
             }
         }
     },
@@ -1483,7 +1483,8 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'skrauQ',
         levels: [200],
         description: () => {
-            return `Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: ${format(((player.singularityCount - 179)/20)^2)}... Yes, it's that good.`
+            const amt = Math.pow((player.singularityCount - 179) / 20, 2)
+            return `Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: ${format(amt)}... Yes, it's that good.`
         }
     }
 ]

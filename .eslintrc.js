@@ -55,6 +55,7 @@ module.exports = {
 		'no-unsafe-optional-chaining': 'error',
 		'no-useless-backreference': 'error',
 		'no-console': 'error',
+		'no-bitwise': 'error',
 
 		'@typescript-eslint/no-unused-vars': ['error', { 'varsIgnorePattern': '_' }],
         // TODO: enable
