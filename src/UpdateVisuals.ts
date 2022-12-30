@@ -556,6 +556,9 @@ export const visualUpdateSingularity = () => {
         const val = G['shopEnhanceVision'];
 
         for (const key of keys) {
+            if (key === 'offeringAutomatic') {
+                continue
+            }
             const singItem = player.singularityUpgrades[key];
             const el = DOMCacheGetOrSet(`${String(key)}`);
             if (singItem.maxLevel !== -1 && singItem.level >= singItem.computeMaxLevel()) {
