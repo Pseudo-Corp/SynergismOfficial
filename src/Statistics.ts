@@ -6,6 +6,7 @@ import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import Decimal from 'break_infinity.js';
+import { CalcECC } from './Challenges';
 
 const associated = new Map<string, string>([
     ['kMisc', 'miscStats'],
@@ -101,7 +102,7 @@ export const loadStatisticsAccelerator = () => {
     DOMCacheGetOrSet('sA4').textContent = 'x' + format(1 + G['rune1level'] * 1 / 200 * G['effectiveLevelMult'], 3, true)
     DOMCacheGetOrSet('sA5').textContent = 'x' + format(Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25]), 3, true)
     DOMCacheGetOrSet('sA6').textContent = 'x' + format(Math.pow(1.01, player.achievements[60] + player.achievements[61] + player.achievements[62]), 3, true)
-    DOMCacheGetOrSet('sA7').textContent = 'x' + format(1 + 1 / 5 * player.researches[1], 3, true)
+    DOMCacheGetOrSet('sA7').textContent = 'x' + format(1 + 1 / 5 * player.researches[1] * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14])), 3, true)
     DOMCacheGetOrSet('sA8').textContent = 'x' + format(1 + 1 / 20 * player.researches[6] + 1 / 25 * player.researches[7] + 1 / 40 * player.researches[8] + 3 / 200 * player.researches[9] + 1 / 200 * player.researches[10], 3, true)
     DOMCacheGetOrSet('sA9').textContent = 'x' + format(1 + 1 / 20 * player.researches[86], 3, true)
     DOMCacheGetOrSet('sA10').textContent = 'x' + format(((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5 ? 1.25 : 1), 3, true)
@@ -115,7 +116,7 @@ export const loadStatisticsMultiplier = () => {
     DOMCacheGetOrSet('sM3').textContent = 'x' + format(1 + G['rune2level'] / 200 * G['effectiveLevelMult'], 3, true)
     DOMCacheGetOrSet('sM4').textContent = 'x' + format(Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25]) * (1 + player.upgrades[34] * 3 / 100) * (1 + player.upgrades[34] * (2 / 103)), 3, true)
     DOMCacheGetOrSet('sM5').textContent = 'x' + format(Math.pow(1.01, player.achievements[57] + player.achievements[58] + player.achievements[59]), 3, true)
-    DOMCacheGetOrSet('sM6').textContent = 'x' + format(1 + 1 / 5 * player.researches[2], 3, true)
+    DOMCacheGetOrSet('sM6').textContent = 'x' + format(1 + 1 / 5 * player.researches[2] * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14])), 3, true)
     DOMCacheGetOrSet('sM7').textContent = 'x' + format(1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15], 3, true)
     DOMCacheGetOrSet('sM8').textContent = 'x' + format(1 + 1 / 20 * player.researches[87], 3, true)
     DOMCacheGetOrSet('sM9').textContent = 'x' + format(calculateSigmoidExponential(40, (player.antUpgrades[4]! + G['bonusant5']) / 1000 * 40 / 39),2,true)
