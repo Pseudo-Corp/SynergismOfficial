@@ -17,7 +17,7 @@ export const updateSingularityPenalties = (): void => {
                  <span style="color: Gold">Offering Gain</span> is divided by <span style="color: Gold">${format(calculateSingularityDebuff('Offering', singularityCount), 2, true)}</span>.
                  <span style="color: Steelblue">Obtainium Gain</span> is divided by <span style="color: Steelblue">${format(calculateSingularityDebuff('Obtainium', singularityCount), 2, true)}</span>.
                  <span style="color: Yellow">Cube Gain</span> is divided by <span style="color: Yellow">${format(calculateSingularityDebuff('Cubes', singularityCount), 2, true)}</span>.
-                 <span style="color: Green">Research Costs</span> are multiplied by <span style="color: Green">${format(calculateSingularityDebuff('Researches', singularityCount), 2, true)}</span>.
+                 <span style="color: var(--green-text-color)">Research Costs</span> are multiplied by <span style="color: var(--green-text-color)">${format(calculateSingularityDebuff('Researches', singularityCount), 2, true)}</span>.
                  <span style="color: Silver">Cube Upgrade Costs</span> (Excluding Cookies) are multiplied by <span style="color: Silver">${format(calculateSingularityDebuff('Cube Upgrades', singularityCount), 2, true)}</span>.
                  ${platonic}
                  ${hepteract}
