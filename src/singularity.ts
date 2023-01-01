@@ -9,7 +9,7 @@ import { toOrdinal } from './Utility'
 export const updateSingularityPenalties = (): void => {
     const singularityCount = player.singularityCount;
     const color = player.runelevels[6] > 0 ? 'var(--green-text-color)' : 'var(--red-text-color)';
-    const platonic = (singularityCount > 36) ? `<span style="color: Orchid">Platonic Upgrade</span> costs are multiplied by <span style="color: Orchid">${format(calculateSingularityDebuff('Platonic Costs', singularityCount), 2, true)}</span>.` : '<span class="grayText">???????? ??????? ????? ??? ?????????? ?? ???</span> <span class="redText">(Sing 37)</span>';
+    const platonic = (singularityCount > 36) ? `<span style="color: var(--orchid-text-color)">Platonic Upgrade</span> costs are multiplied by <span style="color: var(--orchid-text-color)">${format(calculateSingularityDebuff('Platonic Costs', singularityCount), 2, true)}</span>.` : '<span class="grayText">???????? ??????? ????? ??? ?????????? ?? ???</span> <span class="redText">(Sing 37)</span>';
     const hepteract = (singularityCount > 50) ? `<span style="color: Pink">Hepteract Forge</span> costs are multiplied by <span style="color: Pink">${format(calculateSingularityDebuff('Hepteract Costs', singularityCount), 2, true)}</span>.` : '<span class="grayText">????????? ????? ????? ??? ?????????? ?? ???</span> <span class="redText">(Sing 51)</span>';
     const str = getSingularityOridnalText(singularityCount) +
                 `<br><span style="color: RoyalBlue">Global Speed</span> is divided by <span style="color: RoyalBlue">${format(calculateSingularityDebuff('Global Speed', singularityCount), 2, true)}</span>.
