@@ -560,16 +560,28 @@ export const visualUpdateSingularity = () => {
                 continue
             }
             const singItem = player.singularityUpgrades[key];
-            const el = DOMCacheGetOrSet(`${String(key)}`);
+            const el = DOMCacheGetOrSet(`${String(key)}`) as HTMLImageElement;
             if (singItem.maxLevel !== -1 && singItem.level >= singItem.computeMaxLevel()) {
-                el.style.filter = val ? 'brightness(.9)' : 'none';
-            } else if  (singItem.getCostTNL() > player.goldenQuarks || player.singularityCount < singItem.minimumSingularity) {
-                el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none';
+                // Upgrade is maxed; provide a makeshift 'completed green' look for these entries.
+                el.style.filter = val ? 'opacity(0.6)' : 'none';
+                el.parentElement!.style.backgroundColor = val ? 'green' : '';
+            } else if (player.singularityCount < singItem.minimumSingularity) {
+                // Upgrade is absolutely unpurchasable
+                el.style.filter = val ? 'saturate(.15) brightness(.6)' : 'none';
+            } else if (singItem.getCostTNL() > player.goldenQuarks) {
+                // Upgrade is not currently purchasable.
+                el.style.filter = val ? 'saturate(.6) brightness(.8)' : 'none';
             } else if (singItem.maxLevel === -1 || singItem.level < singItem.computeMaxLevel()) {
                 if (singItem.freeLevels > singItem.level) {
-                    el.style.filter = val ? 'blur(1px) invert(.9) saturate(200)' : 'none';
+                    // Give it both a hint of enhanced saturation/brightness and a translucent drop-shadow
+                    // using the standard color for "softcapped" text.
+                    el.style.filter = val ? 'saturate(1.6) brightness(2) opacity(0.33) drop-shadow(0 0 1px var(--crimson-text-color))' : 'none';
+                    // Because we made the base image transparent, we replicate it in its parent's background to keep the image itself
+                    // at full opacity when composited.
+                    el.parentElement!.style.backgroundImage = val ? `url(${el.src})` : '';
                 } else {
-                    el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none';
+                    // Eh, just give it a subtle bit of extra pop, no other tweaks needed.
+                    el.style.filter = val ? 'saturate(1.2) brightness(1.1)' : 'none';
                 }
             }
         }
@@ -580,16 +592,28 @@ export const visualUpdateSingularity = () => {
 
         for (const key of keys) {
             const octItem = player.octeractUpgrades[key];
-            const el = DOMCacheGetOrSet(`${String(key)}`);
+            const el = DOMCacheGetOrSet(`${String(key)}`) as HTMLImageElement;
             if (octItem.maxLevel !== -1 && octItem.level >= octItem.maxLevel) {
-                el.style.filter = val ? 'brightness(.9)' : 'none';
-            } else if  (octItem.getCostTNL() > player.wowOcteracts) {
-                el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none';
+                // Upgrade is maxed; provide a makeshift 'completed green' look for these entries.
+                el.style.filter = val ? 'opacity(0.6)' : 'none';
+                el.parentElement!.style.backgroundColor = val ? 'green' : '';
+            } else if (octItem.level == 0 && octItem.getCostTNL() > player.totalWowOcteracts) {
+                // Upgrade is not currently purchasable and has never been purchasable, even with 100% investment.
+                el.style.filter = val ? 'saturate(.15) brightness(.6)' : 'none';
+            } else if (octItem.getCostTNL() > player.wowOcteracts) {
+                // Upgrade is not currently purchasable, but might be reasonable to wait for.
+                el.style.filter = val ? 'saturate(.6) brightness(.8)' : 'none';
             } else if (octItem.maxLevel === -1 || octItem.level < octItem.maxLevel) {
+                // Give it both a hint of enhanced saturation/brightness and a translucent drop-shadow
+                // using the standard color for "softcapped" text.
                 if (octItem.freeLevels > octItem.level) {
-                    el.style.filter = val ? 'blur(2px) invert(.9) saturate(200)' : 'none';
+                    el.style.filter = val ? 'saturate(1.6) brightness(2) opacity(0.33) drop-shadow(0 0 1px var(--crimson-text-color))' : 'none';
+                    // Because we made the base image transparent, we replicate it in its parent's background to keep the image itself
+                    // at full opacity when composited.
+                    el.parentElement!.style.backgroundImage = val ? `url(${el.src})` : '';
                 } else {
-                    el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none';
+                    // Eh, just give it a subtle bit of extra pop, no other tweaks needed.
+                    el.style.filter = val ? 'saturate(1.2) brightness(1.1)' : 'none';
                 }
             }
         }
