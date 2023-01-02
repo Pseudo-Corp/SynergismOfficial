@@ -265,7 +265,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0,
-        description: 'The PL-AT δ runs at 4,096Hz, which is a huge improvement over previous models. Add attempts refill 2% faster per level! Final level adds 8 additional capacity!'
+        description: 'The PL-AT δ runs at 4,096Hz, which is a huge improvement over previous models. Add attempts refill 4% faster per level! Final level adds 32 additional capacity!'
     },
     calculator5: {
         tier: 'SingularityVol2',
@@ -550,7 +550,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     offeringEX3: {
         tier: 'SingularityVol3',
         price: 1,
-        priceIncrease: 5e12,
+        priceIncrease: 1.25e12,
         maxLevel: 1000,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
@@ -560,7 +560,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     obtainiumEX3: {
         tier: 'SingularityVol3',
         price: 1,
-        priceIncrease: 5e12,
+        priceIncrease: 1.25e12,
         maxLevel: 1000,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
@@ -570,7 +570,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     improveQuarkHept5: {
         tier: 'SingularityVol4',
         price: 1,
-        priceIncrease: 1e14,
+        priceIncrease: 2.5e13,
         maxLevel: 100,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
@@ -580,7 +580,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     chronometerInfinity: {
         tier: 'SingularityVol4',
         price: 1,
-        priceIncrease: 5e12,
+        priceIncrease: 1.25e12,
         maxLevel: 1000,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
@@ -590,7 +590,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     seasonPassInfinity: {
         tier: 'SingularityVol4',
         price: 1,
-        priceIncrease: 5e12,
+        priceIncrease: 1.25e12,
         maxLevel: 1000,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,

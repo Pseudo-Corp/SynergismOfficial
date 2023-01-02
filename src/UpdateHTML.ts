@@ -403,6 +403,14 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('platonicCubeOpensInput').style.display = 'none';
     }
 
+    (player.highestSingularityCount >= 50 && player.singularityCount < player.highestSingularityCount) || player.highestSingularityCount >= 150 ? // Auto Cube Upgrades
+        DOMCacheGetOrSet('toggleAutoCubeUpgrades').style.display = 'block' :
+        DOMCacheGetOrSet('toggleAutoCubeUpgrades').style.display = 'none';
+
+    (player.highestSingularityCount >= 100 && player.singularityCount < player.highestSingularityCount) || player.highestSingularityCount >= 200 ? // Auto Platonic Upgrades
+        DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').style.display = 'block' :
+        DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').style.display = 'none';
+
     // Singularity confirmation toggle pic
     player.highestSingularityCount > 0 && player.ascensionCount > 0 ?
         (DOMCacheGetOrSet('settingpic6').style.display = 'block'):
@@ -422,6 +430,11 @@ export const revealStuff = () => {
     const octeractUnlocks = document.getElementsByClassName('octeracts') as HTMLCollectionOf<HTMLElement>;
     for (const item of Array.from(octeractUnlocks)) { // Stuff that you need octeracts to access
         item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'block' : 'none';
+    }
+
+    const singChallengeUnlocks = document.getElementsByClassName('singChallenges') as HTMLCollectionOf<HTMLElement>;
+    for (const item of Array.from(singChallengeUnlocks)) {
+        item.style.display = player.highestSingularityCount >= 25 ? 'block' : 'none';
     }
 
     (player.runelevels[6] > 0 || player.highestSingularityCount > 0) ?

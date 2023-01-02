@@ -8,21 +8,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           persist-credentials: false 
-      - name: Use Node.js 16
-        uses: actions/setup-node@v2
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: npm
       - name: Install deps
         run: |
           npm install
+          sudo apt install -y jq
       - name: Build
         run: |
           node ./scripts/update-last-updated.js
-          node ./scripts/transform.js
           npm run-script build:esbuild
       - name: Remove old .zip
         run: |
@@ -33,12 +33,15 @@ jobs:
           files: dist/ Pictures/ index.html Synergism.css favicon.ico
           dest: Kong.zip
           recursive: false
+      - name: Retrieve version
+        run: |
+          echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
+        id: version
       - name: Create release
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: latest
-          prerelease: true
-          title: Kongregate Build
+          automatic_release_tag: v${{ steps.version.outputs.VERSION }}
+          title: Kongregate Build ${{ github.event.repository.updated_at }}
           files: |
             Kong.zip

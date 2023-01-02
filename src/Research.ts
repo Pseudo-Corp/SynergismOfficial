@@ -393,7 +393,7 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     }
 
     if (player.researchPoints < metaData.cost && player.researches[i] < (G['researchMaxLevels'][i])) {
-        DOMCacheGetOrSet('researchcost').style.color = 'crimson'
+        DOMCacheGetOrSet('researchcost').style.color = 'var(--crimson-text-color)'
         updateClassList(p, [], ['researchMaxed', 'researchAvailable', 'researchPurchasedAvailable'])
     }
 

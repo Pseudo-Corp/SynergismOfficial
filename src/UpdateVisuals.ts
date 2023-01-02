@@ -3,7 +3,7 @@ import { Globals as G } from './Variables';
 import { player, format, formatTimeShort } from './Synergism';
 import { version } from './Config';
 import { CalcECC } from './Challenges';
-import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear, calculateTotalOcteractCubeBonus, calculateTotalOcteractQuarkBonus, octeractGainPerSecond } from './Calculate';
+import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear, calculateTotalOcteractCubeBonus, calculateTotalOcteractQuarkBonus, octeractGainPerSecond, calculateTotalOcteractObtainiumBonus, calculateTotalOcteractOfferingBonus } from './Calculate';
 import { displayRuneInformation } from './Runes';
 import { showSacrifice } from './Ants';
 import { sumContents } from './Utility';
@@ -465,19 +465,19 @@ const UpdateHeptGridValues = (type: hepteractTypes) => {
     if (!unlocked) {
         textEl.textContent = 'LOCKED';
         barEl.style.width = '100%';
-        barEl.style.backgroundColor = 'red';
+        barEl.style.backgroundColor = 'var(--hepteract-bar-red)';
     } else {
         const balance = player.hepteractCrafts[type].BAL;
-        const cap = player.hepteractCrafts[type].CAP;
+        const cap = player.hepteractCrafts[type].computeActualCap();
         const barWidth = Math.round((balance / cap) * 100);
 
         let barColor = '';
         if (barWidth < 34) {
-            barColor = 'red';
+            barColor = 'var(--hepteract-bar-red)';
         } else if (barWidth >= 34 && barWidth < 68) {
-            barColor = '#cca300';
+            barColor = 'var(--hepteract-bar-yellow)';
         } else {
-            barColor = 'green';
+            barColor = 'var(--hepteract-bar-green)';
         }
 
         textEl.textContent = format(balance) + ' / ' + format(cap);
@@ -552,19 +552,64 @@ export const visualUpdateSingularity = () => {
     }
     if (player.subtabNumber <= 1) {
         DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks, 0, true) + ' Golden Quarks!'
+
         const keys = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
+        const enhanceVision = G['shopEnhanceVision'];
         for (const key of keys) {
+            // Check item for Hide
             const singUpgradeItem = player.singularityUpgrades[key];
             const elementToHide = DOMCacheGetOrSet(`${key.toString()}`).parentNode as HTMLElement;
-            const computedMaxLevel = singUpgradeItem.computeMaxLevel();
-            if (player.singUpgradeHideToggle && computedMaxLevel !== -1 && singUpgradeItem.level >= computedMaxLevel) {
+            const computedMaxLevel = singItem.computeMaxLevel();
+            if (player.singUpgradeHideToggle && computedMaxLevel !== -1 && singItem.level >= computedMaxLevel) {
                 elementToHide.style.display = 'none';
                 continue;
             } else {
                 elementToHide.style.display = 'block';
             }
+
+            // Check item for Enhanced vision
+            if (key === 'offeringAutomatic') {
+                continue
+            }
+            const singItem = player.singularityUpgrades[key];
+            const el = DOMCacheGetOrSet(`${String(key)}`);
+            if (singItem.maxLevel !== -1 && singItem.level >= singItem.computeMaxLevel()) {
+                el.style.filter = enhanceVision ? 'brightness(.9)' : 'none';
+            } else if  (singItem.getCostTNL() > player.goldenQuarks || player.singularityCount < singItem.minimumSingularity) {
+                el.style.filter = enhanceVision ? 'grayscale(.9) brightness(.8)' : 'none';
+            } else if (singItem.maxLevel === -1 || singItem.level < singItem.computeMaxLevel()) {
+                if (singItem.freeLevels > singItem.level) {
+                    el.style.filter = enhanceVision ? 'blur(1px) invert(.9) saturate(200)' : 'none';
+                } else {
+                    el.style.filter = enhanceVision ? 'invert(.9) brightness(1.1)' : 'none';
+                }
+            }
         }
     }
+    if (player.subtabNumber === 3) {
+        const keys = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[];
+        const val = G['shopEnhanceVision'];
+
+        for (const key of keys) {
+            const octItem = player.octeractUpgrades[key];
+            const el = DOMCacheGetOrSet(`${String(key)}`);
+            if (octItem.maxLevel !== -1 && octItem.level >= octItem.maxLevel) {
+                el.style.filter = val ? 'brightness(.9)' : 'none';
+            } else if  (octItem.getCostTNL() > player.wowOcteracts) {
+                el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none';
+            } else if (octItem.maxLevel === -1 || octItem.level < octItem.maxLevel) {
+                if (octItem.freeLevels > octItem.level) {
+                    el.style.filter = val ? 'blur(2px) invert(.9) saturate(200)' : 'none';
+                } else {
+                    el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none';
+                }
+            }
+        }
+    }
+}
+
+export const shopMouseover = (value: boolean) => {
+    G['shopEnhanceVision'] = value;
 }
 
 export const visualUpdateOcteracts = () => {
@@ -582,9 +627,13 @@ export const visualUpdateOcteracts = () => {
 
     const cTOCB = (calculateTotalOcteractCubeBonus() - 1) * 100;
     const cTOQB = (calculateTotalOcteractQuarkBonus() - 1) * 100;
+    const cTOOB = (calculateTotalOcteractOfferingBonus() - 1) * 100;
+    const cTOOOB = (calculateTotalOcteractObtainiumBonus() - 1) * 100;
     DOMCacheGetOrSet('totalOcts').textContent = `${format(player.totalWowOcteracts, 2, true, true, true)}`
     DOMCacheGetOrSet('totalOcteractCubeBonus').style.display = cTOCB >= 0.001 ? 'block' : 'none';
     DOMCacheGetOrSet('totalOcteractQuarkBonus').style.display = cTOQB >= 0.001 ? 'block' : 'none';
+    DOMCacheGetOrSet('totalOcteractOfferingBonus').style.display = cTOOB >= 0.001 ? 'block' : 'none';
+    DOMCacheGetOrSet('totalOcteractObtainiumBonus').style.display = cTOOOB >= 0.001 ? 'block' : 'none';
     DOMCacheGetOrSet('octCubeBonus').textContent = `+${format(cTOCB, 3, true)}%`
     DOMCacheGetOrSet('octQuarkBonus').textContent = `+${format(cTOQB, 3, true)}%`
 
@@ -599,6 +648,9 @@ export const visualUpdateOcteracts = () => {
             elementToHide.style.display = 'block';
         }
     }
+
+    DOMCacheGetOrSet('octOfferingBonus').textContent = `+${format(cTOOB, 3, true)}%`
+    DOMCacheGetOrSet('octObtainiumBonus').textContent = `+${format(cTOOOB, 3, true)}%`
 }
 
 export const visualUpdateShop = () => {
