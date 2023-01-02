@@ -594,7 +594,7 @@ export interface Player {
     octeractHideToggle: boolean
     octeractBuyMaxToggle: boolean | 'ANY'
     singUpgradeHideToggle: boolean
-    singUpgradeBuyMaxToggle: boolean | 'ANY
+    singUpgradeBuyMaxToggle: boolean | 'ANY'
     octeractTimer: number
 
     insideSingularityChallenge: boolean
