@@ -817,7 +817,7 @@ export const player: Player = {
     octeractHideToggle: false,
     octeractBuyMaxToggle: false,
     singUpgradeHideToggle: false,
-    singUpgradeBuyMaxToggle: false
+    singUpgradeBuyMaxToggle: false,
     insideSingularityChallenge: false,
 
     singularityChallenges: {
