@@ -557,7 +557,7 @@ export const visualUpdateSingularity = () => {
         const enhanceVision = G['shopEnhanceVision'];
         for (const key of keys) {
             // Check item for Hide
-            const singUpgradeItem = player.singularityUpgrades[key];
+            const singItem = player.singularityUpgrades[key];
             const elementToHide = DOMCacheGetOrSet(`${key.toString()}`).parentNode as HTMLElement;
             const computedMaxLevel = singItem.computeMaxLevel();
             if (player.singUpgradeHideToggle && computedMaxLevel !== -1 && singItem.level >= computedMaxLevel) {
@@ -571,7 +571,7 @@ export const visualUpdateSingularity = () => {
             if (key === 'offeringAutomatic') {
                 continue
             }
-            const singItem = player.singularityUpgrades[key];
+
             const el = DOMCacheGetOrSet(`${String(key)}`);
             if (singItem.maxLevel !== -1 && singItem.level >= singItem.computeMaxLevel()) {
                 el.style.filter = enhanceVision ? 'brightness(.9)' : 'none';
