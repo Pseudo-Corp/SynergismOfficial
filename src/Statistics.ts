@@ -1,11 +1,12 @@
 import { player, format, formatTimeShort } from './Synergism';
 import { Globals as G } from './Variables';
 import { hepteractEffective } from './Hepteracts'
-import {calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus } from './Calculate';
+import {calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus, calculateAscensionSpeedMultiplier, calculateGoldenQuarkMultiplier } from './Calculate';
 import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import Decimal from 'break_infinity.js';
+import { addCodeMaxUses, addCodeInterval, addCodeAvailableUses, addCodeTimeToNextUse, addCodeBonuses } from './ImportExport';
 
 const associated = new Map<string, string>([
     ['kMisc', 'miscStats'],
@@ -20,7 +21,10 @@ const associated = new Map<string, string>([
     ['kPlatMult', 'platonicMultiplierStats'],
     ['kHeptMult', 'hepteractMultiplierStats'],
     ['kOrbPowderMult', 'powderMultiplierStats'],
-    ['kOctMult', 'octeractMultiplierStats']
+    ['kOctMult', 'octeractMultiplierStats'],
+    ['kASCMult', 'ascensionSpeedMultiplierStats'],
+    ['kGQMult', 'goldenQuarkMultiplierStats'],
+    ['kAddStats', 'addCodeStats']
 ]);
 
 export const displayStats = (btn: HTMLElement) => {
@@ -59,6 +63,15 @@ export const loadStatisticsUpdate = () => {
                 break;
             case 'powderMultiplierStats':
                 loadPowderMultiplier();
+                break;
+            case 'ascensionSpeedMultiplierStats':
+                loadStatisticsAscensionSpeedMultipliers();
+                break;
+            case 'goldenQuarkMultiplierStats':
+                loadStatisticsGoldenQuarkMultipliers();
+                break;
+            case 'addCodeStats':
+                loadAddCodeModifiersAndEffects();
                 break;
             default:
                 loadStatisticsCubeMultipliers();
@@ -126,7 +139,7 @@ export const loadQuarkMultiplier = () => {
     DOMCacheGetOrSet('sGQM7').textContent = '+' + format(player.platonicUpgrades[15] > 0 ? 0.20 : 0, 3, true) //OMEGA
     DOMCacheGetOrSet('sGQM8').textContent = '+' + format(G.challenge15Rewards['quarks']-1, 3, true) //Challenge 15 Reward
     DOMCacheGetOrSet('sGQM9').textContent = 'x' + format(player.worlds.applyBonus(1 / calculateQuarkMultiplier()), 3, true) //Patreon Bonus
-    DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G['isEvent'] ? 1 + calculateEventBuff('Quarks') : 1), 3, true) //Event
+    DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G['isEvent'] ? 1 + calculateEventBuff('Quarks') + calculateEventBuff('One Mind') : 1), 3, true) //Event
     DOMCacheGetOrSet('sGQM11').textContent = 'x' + format(1.1 + 0.15 / 75 * calculateEffectiveIALevel(), 3, true) //IA Rune
     DOMCacheGetOrSet('sGQM12').textContent = 'x' + format(player.challenge15Exponent >= 1e15 ? 1 + 5/10000 * hepteractEffective('quark') : 1, 3, true) //Quark Hepteract
     DOMCacheGetOrSet('sGQM13').textContent = 'x' + format(calculateQuarkMultFromPowder(), 3, true) //Powder
@@ -139,10 +152,16 @@ export const loadQuarkMultiplier = () => {
                                                             0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
                                                             0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12
                                                             0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
-                                                            0.10 * player.singularityUpgrades.expertPack.level, 3, true)
+                                                            0.10 * player.singularityUpgrades.divinePack.level, 3, true)
     DOMCacheGetOrSet('sGQM20').textContent = 'x' + format(1 + 0.25 * +player.octeractUpgrades.octeractStarter.getEffect().bonus, 3, true)
     DOMCacheGetOrSet('sGQM21').textContent = 'x' + format(+player.octeractUpgrades.octeractQuarkGain.getEffect().bonus, 3, true)
     DOMCacheGetOrSet('sGQM22').textContent = 'x' + format(calculateTotalOcteractQuarkBonus(), 3, true)
+    DOMCacheGetOrSet('sGQM23').textContent = 'x' + format(1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus, 3, true)
+    DOMCacheGetOrSet('sGQM24').textContent = 'x' + format(1 + 1/10000 * Math.floor(player.octeractUpgrades.octeractQuarkGain.level / 199) *
+                                                            player.octeractUpgrades.octeractQuarkGain2.level *
+                                                            Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL))),
+    3,
+    true)
     DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
 }
 export const loadStatisticsCubeMultipliers = () => {
@@ -168,8 +187,11 @@ export const loadStatisticsCubeMultipliers = () => {
         17: {acc: 2, desc: 'Cookie Upgrade 16:'},
         18: {acc: 2, desc: 'Cookie Upgrade 8:'},
         19: {acc: 2, desc: 'Total Octeract Bonus:'},
-        20: {acc: 2, desc: 'Citadel [GQ]'},
-        21: {acc: 4, desc: 'Platonic DELTA'}
+        20: {acc: 2, desc: 'No Singularity Upgrades Challenge:'},
+        21: {acc: 2, desc: 'Citadel [GQ]'},
+        22: {acc: 2, desc: 'Citadel 2 [GQ]'},
+        23: {acc: 4, desc: 'Platonic DELTA'},
+        24: {acc: 2, desc: 'Wow Pass ∞'}
     }
     for (let i = 0; i < arr0.length; i++) {
         const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`);
@@ -289,7 +311,8 @@ export const loadStatisticsCubeMultipliers = () => {
 
     DOMCacheGetOrSet('sHeMT').textContent = `x${format(calculateHepteractMultiplier().mult, 3)}`;
 
-    const arr6 = calculateOcteractMultiplier().list;
+    const octMults = calculateOcteractMultiplier();
+    const ascensionSpeedDesc = (player.singularityUpgrades.oneMind.getEffect().bonus) ? 'One Mind Multiplier' : 'Ascension Speed Multiplier'
     const map6: Record<number, { acc: number, desc: string }> = {
         1: {acc: 2, desc: 'Ascension Score Multiplier:'},
         2: {acc: 2, desc: 'Season Pass 3:'},
@@ -300,15 +323,31 @@ export const loadStatisticsCubeMultipliers = () => {
         7: {acc: 2, desc: 'Divine Pack:'},
         8: {acc: 2, desc: 'Cube Flame:'},
         9: {acc: 2, desc: 'Cube Blaze:'},
-        10: {acc: 2, desc: 'Cube Inferno:'}
+        10: {acc: 2, desc: 'Cube Inferno:'},
+        11: {acc: 2, desc: 'Octeract Absinthe'},
+        12: {acc: 2, desc: 'Pieces of Eight'},
+        13: {acc: 2, desc: 'Obelisk Shaped Like an Octagon'},
+        14: {acc: 2, desc: 'Octahedral Synthesis'},
+        15: {acc: 2, desc: 'Eighth Wonder of the World'},
+        16: {acc: 2, desc: 'Platonic is a fat sellout'},
+        17: {acc: 2, desc: 'Octeracts for Dummies'},
+        18: {acc: 2, desc: 'Octeract Cogenesis'},
+        19: {acc: 2, desc: 'Octeract Trigenesis'},
+        20: {acc: 2, desc: 'Singularity Factor'},
+        21: {acc: 2, desc: 'Digital Octeract Accumulator'},
+        22: {acc: 2, desc: 'Event Buff'},
+        23: {acc: 2, desc: 'Platonic DELTA'},
+        24: {acc: 2, desc: 'No Singularity Upgrades Challenge'},
+        25: {acc: 2, desc: 'Wow Pass ∞'},
+        26: {acc: 2, desc: ascensionSpeedDesc}
     }
-    for (let i = 0; i < arr6.length; i++) {
+    for (let i = 0; i < octMults.list.length; i++) {
         const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`);
         statOcMi.childNodes[0].textContent = map6[i + 1].desc;
-        DOMCacheGetOrSet(`sOcM${i + 1}`).textContent = `x${format(arr6[i], map6[i + 1].acc, true)}`;
+        DOMCacheGetOrSet(`sOcM${i + 1}`).textContent = `x${format(octMults.list[i], map6[i + 1].acc, true)}`;
     }
 
-    DOMCacheGetOrSet('sOcMT').textContent = `x${format(calculateOcteractMultiplier().mult, 3)}`;
+    DOMCacheGetOrSet('sOcMT').textContent = `x${format(octMults.mult, 3)}`;
 }
 
 export const loadStatisticsOfferingMultipliers = () => {
@@ -342,9 +381,10 @@ export const loadStatisticsOfferingMultipliers = () => {
         26: {acc: 3, desc: 'Offering Storm [GQ]:'},
         27: {acc: 3, desc: 'Offering Tempest [GQ]:'},
         28: {acc: 3, desc: 'Citadel [GQ]'},
-        29: {acc: 3, desc: 'Cube Upgrade Cx4:'},
-        30: {acc: 3, desc: 'Offering Electrolosis [OC]:'},
-        31: {acc: 3, desc: 'Event:'}
+        29: {acc: 3, desc: 'Citadel 2 [GQ]'},
+        30: {acc: 3, desc: 'Cube Upgrade Cx4:'},
+        31: {acc: 3, desc: 'Offering Electrolosis [OC]:'},
+        32: {acc: 3, desc: 'Event:'}
     }
     for (let i = 0; i < arr.length; i++) {
         const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`);
@@ -372,6 +412,138 @@ export const loadPowderMultiplier = () => {
     }
 
     DOMCacheGetOrSet('sPoMT').textContent = `x${format(calculatePowderConversion().mult, 3)}`;
+}
+
+export const loadStatisticsAscensionSpeedMultipliers = () => {
+    const arr = calculateAscensionSpeedMultiplier();
+    const map7: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 2, desc: 'Chronometer:'},
+        2: {acc: 2, desc: 'Chronometer 2:'},
+        3: {acc: 2, desc: 'Chronometer 3:'},
+        4: {acc: 2, desc: 'Chronos Hepteract:'},
+        5: {acc: 2, desc: 'Achievement 262 Bonus:'},
+        6: {acc: 2, desc: 'Achievement 263 Bonus:'},
+        7: {acc: 2, desc: 'Platonic Omega:'},
+        8: {acc: 2, desc: 'Challenge 15 Reward:'},
+        9: {acc: 2, desc: 'Cookie Upgrade 9:'},
+        10: {acc: 2, desc: 'Intermediate Pack:'},
+        11: {acc: 2, desc: 'Chronometer Z:'},
+        12: {acc: 2, desc: 'Abstract Photokinetics:'},
+        13: {acc: 2, desc: 'Abstract Exokinetics:'},
+        14: {acc: 2, desc: 'Event:'},
+        15: {acc: 2, desc: 'Ascension Speedup 2 [GQ]:'},
+        16: {acc: 2, desc: 'Chronometer INF:'},
+        17: {acc: 2, desc: 'Limited Ascensions Penalty:'},
+        18: {acc: 2, desc: 'Limited Ascensions Reward:'},
+        19: {acc: 2, desc: 'Ascension Speedup [GQ]:'},
+        20: {acc: 2, desc: 'Singularity Penalty:'}
+    }
+    for (let i = 0; i < arr.list.length; i++) {
+        const statASMi = DOMCacheGetOrSet(`statASM${i + 1}`);
+        statASMi.childNodes[0].textContent = map7[i + 1].desc;
+        DOMCacheGetOrSet(`sASM${i + 1}`).textContent = `x${format(arr.list[i], map7[i + 1].acc, true)}`;
+    }
+
+    DOMCacheGetOrSet('sASMT').textContent = `x${format(arr.mult, 3)}`;
+}
+
+export const loadStatisticsGoldenQuarkMultipliers = () => {
+    const arr = calculateGoldenQuarkMultiplier();
+    const map: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 2, desc: 'Challenge 15 Exponent:'},
+        2: {acc: 2, desc: 'Patreon Bonus:'},
+        3: {acc: 2, desc: 'Golden Quarks I:'},
+        4: {acc: 2, desc: 'Cookie Upgrade 19:'},
+        5: {acc: 2, desc: 'No Singularity Upgrades:'},
+        6: {acc: 2, desc: 'Event:'},
+        7: {acc: 2, desc: 'Singularity Fast Forwards:'},
+        8: {acc: 2, desc: 'Golden Revolution II:'},
+        9: {acc: 2, desc: 'Immaculate Alchemy:'},
+        10: {acc: 2, desc: 'Total Quarks Coefficient:'}
+    }
+    for (let i = 0; i < arr.list.length; i++) {
+        const statGQMi = DOMCacheGetOrSet(`statGQMS${i + 1}`);
+        statGQMi.childNodes[0].textContent = map[i + 1].desc;
+        DOMCacheGetOrSet(`sGQMS${i + 1}`).textContent = `x${format(arr.list[i], map[i + 1].acc, true)}`;
+    }
+
+    DOMCacheGetOrSet('sGQMST').textContent = `x${format(arr.mult, 3)}`;
+}
+
+export const loadAddCodeModifiersAndEffects = () => {
+    const intervalStats = addCodeInterval();
+    const capacityStats = addCodeMaxUses();
+    const availableCount = addCodeAvailableUses();
+    const timeToNext = addCodeTimeToNextUse();
+
+    // Add interval stats
+    const intervalMap: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 0, desc: 'Base:'},
+        2: {acc: 2, desc: 'PL-AT δ calculator:'},
+        3: {acc: 2, desc: 'PL-AT Σ sing perk:'},
+        4: {acc: 2, desc: 'Ascension of Ant God:'},
+        5: {acc: 2, desc: 'Singularity factor:'}
+    }
+    intervalStats.list[0] /= 1000; // is originally in milliseconds, but players will expect it in seconds.
+
+    for (let i = 0; i < intervalStats.list.length; i++) {
+        const statAddIntervalI = DOMCacheGetOrSet(`stat+time${i + 1}`);
+        statAddIntervalI.childNodes[0].textContent = intervalMap[i + 1].desc;
+        if (i == 0) {
+            DOMCacheGetOrSet(`s+time${i + 1}`).textContent = `${format(intervalStats.list[i], intervalMap[i + 1].acc, true)} sec`;
+        } else {
+            DOMCacheGetOrSet(`s+time${i + 1}`).textContent = `x${format(intervalStats.list[i], intervalMap[i + 1].acc, true)}`;
+        }
+    }
+
+    DOMCacheGetOrSet('s+timeT').textContent = `${format(intervalStats.time / 1000, 1)} sec`;
+    if (availableCount != capacityStats.total) {
+        DOMCacheGetOrSet('s+next').textContent = `+1 in ${format(timeToNext, 1)} sec`;  // is already in sec.
+    } else {
+        DOMCacheGetOrSet('s+next').textContent = '';
+    }
+
+    // Add capacity stats
+    const capacityMap: Record<number, { acc: number, desc: string }> = {
+        1: {acc: 0, desc: 'Base:'},
+        2: {acc: 0, desc: 'PL-AT X:'},
+        3: {acc: 0, desc: 'PL-AT δ:'},
+        4: {acc: 0, desc: 'PL-AT Γ:'},
+        5: {acc: 0, desc: 'PL-AT _:'},
+        6: {acc: 3, desc: 'Singularity factor:'}
+    }
+
+    for (let i = 0; i < capacityStats.list.length; i++) {
+        const statAddIntervalI = DOMCacheGetOrSet(`stat+cap${i + 1}`);
+        statAddIntervalI.childNodes[0].textContent = capacityMap[i + 1].desc;
+        const prefix = i==0 ? '' : (i == 5 ? 'x' : '+');
+        DOMCacheGetOrSet(`s+cap${i + 1}`).textContent = `${prefix}${format(capacityStats.list[i], capacityMap[i + 1].acc, true)}`;
+    }
+
+    DOMCacheGetOrSet('s+capT').textContent = `${format(availableCount, 0)} / ${format(capacityStats.total, 0)}`;
+
+    // TODO:  we also want to report on the effects of each add.
+    const addEffectStats = addCodeBonuses();
+
+    // Quark Bonus Rate; the bonus is typically applied when actually given to the player, rather than calculated before.
+    const qbr = player.worlds.applyBonus(1);
+
+    DOMCacheGetOrSet('stat+eff1').childNodes[0].textContent = 'Quarks: ';
+    if (Math.abs(addEffectStats.maxQuarks - addEffectStats.minQuarks) >= 0.5) { // b/c floating-point errors
+        DOMCacheGetOrSet('s+eff1').textContent = `+${format(qbr * addEffectStats.minQuarks, 3)} ~ ${format(qbr * addEffectStats.maxQuarks, 3)}`;
+    } else {
+        DOMCacheGetOrSet('s+eff1').textContent = `+${format(qbr * addEffectStats.quarks, 3)}`;
+    }
+
+    DOMCacheGetOrSet('stat+eff2').childNodes[0].textContent = 'PL-AT X - bonus ascension time: ';
+    DOMCacheGetOrSet('s+eff2').textContent = `+${format(addEffectStats.ascensionTimer, 2)} sec`;
+
+    DOMCacheGetOrSet('stat+eff3').childNodes[0].textContent = 'PL-AT Γ - bonus GQ export time: ';
+    DOMCacheGetOrSet('s+eff3').textContent = `+${format(addEffectStats.gqTimer, 2)} sec`; // does it need a / 1000?
+
+    DOMCacheGetOrSet('stat+eff4').childNodes[0].textContent = 'PL-AT _ - bonus octeract time: ';
+    DOMCacheGetOrSet('s+eff4').textContent = `+${format(addEffectStats.octeractTime, 2)} sec`; // does it need a / 1000?
+    // Might be worth converting to raw octeracts awarded.  I don't have the calculator needed to test it, though.
 }
 
 export const c15RewardUpdate = () => {
@@ -534,7 +706,7 @@ export const c15RewardUpdate = () => {
 }
 
 const updateDisplayC15Rewards = () => {
-    DOMCacheGetOrSet('c15Reward0Num').textContent = format(player.challenge15Exponent,0,true)
+    DOMCacheGetOrSet('c15Reward0Num').textContent = format(player.challenge15Exponent,3,true)
     DOMCacheGetOrSet('c15RequiredExponentNum').textContent = format(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),0,true)
     const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18]
     const isNum: Record<number, boolean> = { // Shit solution to a shit problem -Platonic
@@ -626,8 +798,11 @@ export const gameStages = (): Stage[] => {
         {stage: 17, tier: 5, name: 'beta-1e15-expo', unlocked: player.challenge15Exponent >= 1e15, reset: player.achievements[183] === 1},
         {stage: 18, tier: 5, name: '1e15-expo-omega', unlocked: player.platonicUpgrades[15] > 0, reset: player.achievements[183] === 1},
         {stage: 19, tier: 5, name: 'omega-singularity', unlocked: player.singularityCount > 0 && player.runelevels[6] > 0, reset: player.achievements[183] === 1},
-        {stage: 20, tier: 6, name: 'singularity-octeracts', unlocked: player.singularityUpgrades.octeractUnlock.level > 0, reset: player.singularityCount > 0},
-        {stage: 21, tier: 6, name: 'octeracts', unlocked: false, reset: player.singularityCount > 0}
+        {stage: 20, tier: 6, name: 'singularity-liquidation', unlocked: player.singularityUpgrades.wowPass2.level > 0, reset: player.highestSingularityCount > 0},
+        {stage: 21, tier: 6, name: 'liquidation-onemind', unlocked: player.singularityUpgrades.oneMind.level > 0, reset: player.highestSingularityCount > 0},
+        {stage: 22, tier: 6, name: 'onemind-bbshards', unlocked: player.singularityUpgrades.offeringAutomatic.level > 0, reset: player.highestSingularityCount > 0},
+        {stage: 23, tier: 6, name: 'bbshards-pen', unlocked: player.singularityUpgrades.ultimatePen.level > 0, reset: player.highestSingularityCount > 0},
+        {stage: 24, tier: 6, name: 'pen', unlocked: false, reset: player.highestSingularityCount > 0}
     ];
     return stages;
 }

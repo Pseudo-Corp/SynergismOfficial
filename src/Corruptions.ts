@@ -52,7 +52,9 @@ export const corruptionDisplay = (index: number) => {
     G['corruptionTrigger'] = index
     const currentExponent = ((index === 2) && player.usedCorruptions[index] >= 10) ? 1 + 0.04 * player.platonicUpgrades[17] + 2 * Math.min(1, player.platonicUpgrades[17]) : 1;
     const protoExponent = ((index === 2) && player.prototypeCorruptions[index] >= 10) ? 1 + 0.04 * player.platonicUpgrades[17] + 2 * Math.min(1, player.platonicUpgrades[17]) : 1;
-    const [bonusLevel, bonusText] = (player.singularityUpgrades.corruptionFifteen.level > 0) ? [1, ' [+1]'] : [0, ''];
+    let bonusLevel = (player.singularityUpgrades.corruptionFifteen.level > 0) ? 1 : 0;
+    bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
+    const bonusText = (bonusLevel > 0) ? `[+${bonusLevel}]` : '';
     const corruptionTexts: Record<'name' | 'description' | 'current' | 'planned' | 'multiplier' | 'spiritContribution' | 'image', string>[] = [
         {
             name: 'Corruption I: Viscosity',
@@ -70,7 +72,7 @@ export const corruptionDisplay = (index: number) => {
             planned: 'On next Ascension, this corruption will be level ' + format(player.prototypeCorruptions[3]) + bonusText + '. Effect: Time is divided by ' + format(1 / G['lazinessMultiplier'][player.prototypeCorruptions[3]], 5),
             multiplier: 'Current Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.usedCorruptions[3] + bonusLevel], 1) + ' / Next Ascension Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[3] + bonusLevel], 1),
             spiritContribution: 'This Ascension gives Rune Spirit Effect +' + format(4 * Math.pow(player.usedCorruptions[3] + bonusLevel,2),1) + '% / Next Ascension Rune Spirit Effect +' + format(4 * Math.pow(player.prototypeCorruptions[3] + bonusLevel,2),1) + '%',
-            image: 'Pictures/Spatial Dilation.png'
+            image: 'Pictures/SpatialDilation.png'
         },
         {
             name: 'Corruption III: Hyperchallenged',
@@ -88,7 +90,7 @@ export const corruptionDisplay = (index: number) => {
             planned: 'On next Ascension, this corruption will be level ' + format(player.prototypeCorruptions[5]) + bonusText + '. Effect: Obtainium gain ^' + format(G['illiteracyPower'][player.prototypeCorruptions[5]], 3),
             multiplier: 'Current Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.usedCorruptions[5] + bonusLevel], 1) + ' / Next Ascension Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[5] + bonusLevel], 1),
             spiritContribution: 'This Ascension gives Rune Spirit Effect +' + format(4 * Math.pow(player.usedCorruptions[5] + bonusLevel,2),1) + '% / Next Ascension Rune Spirit Effect +' + format(4 * Math.pow(player.prototypeCorruptions[5] + bonusLevel,2),1) + '%',
-            image: 'Pictures/Scientific Illiteracy.png'
+            image: 'Pictures/ScientificIlliteracy.png'
         },
         {
             name: 'Corruption V: Market Deflation',
@@ -124,7 +126,7 @@ export const corruptionDisplay = (index: number) => {
             planned: 'On next Ascension, this corruption will be level ' + format(player.prototypeCorruptions[9]) + bonusText + '. Effect: Coin Gain ^' + format(G['financialcollapsePower'][player.prototypeCorruptions[9]], 3),
             multiplier: 'Current Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.usedCorruptions[9] + bonusLevel], 1) + ' / Next Ascension Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[9] + bonusLevel], 1),
             spiritContribution: 'This Ascension gives Rune Spirit Effect +' + format(4 * Math.pow(player.usedCorruptions[9] + bonusLevel,2),1) + '% / Next Ascension Rune Spirit Effect +' + format(4 * Math.pow(player.prototypeCorruptions[9] + bonusLevel,2),1) + '%',
-            image: 'Pictures/Financial Collapse.png'
+            image: 'Pictures/FinancialCollapse.png'
         },
         {
             name: 'CLEANSE THE CORRUPTION',

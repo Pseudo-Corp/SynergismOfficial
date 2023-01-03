@@ -1,4 +1,4 @@
-export const version = '2.9.20: October 9 Auto Potion Revision 3';
+export const version = '2.10.1: December 29 v2: Oops! All Exalts';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE

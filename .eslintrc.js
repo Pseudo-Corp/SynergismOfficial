@@ -55,6 +55,7 @@ module.exports = {
 		'no-unsafe-optional-chaining': 'error',
 		'no-useless-backreference': 'error',
 		'no-console': 'error',
+		'no-bitwise': 'error',
 
 		'@typescript-eslint/no-unused-vars': ['error', { 'varsIgnorePattern': '_' }],
         // TODO: enable
@@ -79,7 +80,7 @@ module.exports = {
 		'@typescript-eslint/no-empty-interface': 'error',
 		'@typescript-eslint/no-explicit-any': 'error',
 		'@typescript-eslint/no-extra-non-null-assertion': 'error',
-		'@typescript-eslint/no-floating-promises': 'error',        
+		'@typescript-eslint/no-floating-promises': 'error',
 		'@typescript-eslint/no-for-in-array': 'error',
 		'@typescript-eslint/no-inferrable-types': 'error',
 		'@typescript-eslint/no-misused-new': 'error',
