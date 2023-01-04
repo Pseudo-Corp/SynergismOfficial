@@ -1076,9 +1076,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     blueberries: {
         name: 'Blueberry Shards! (WIP)',
-        description: 'The legends are true. \n The Prophecies are fulfilled. \n Ant God has heard your prayers. \n Let there be blueberries! \n And they were good.',
+        description: 'Blueberries! Yeah, Platonic is out of ideas. Well, each Blueberry gives a 0.01% chance per second to generate some Ambrosia!',
         maxLevel: -1,
-        costPerLevel: 1e14,
+        costPerLevel: 1e16,
         minimumSingularity: 222,
         effect: (n: number) => {
             return {
@@ -1086,7 +1086,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
                 desc: `You have purchased ${n} tasty blueberries.`
             }
         },
-        specialCostForm: 'Cubic'
+        specialCostForm: 'Exponential2'
     }
 }
 
@@ -1741,9 +1741,12 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
 }
 export const calculateNextSpike = (singularityCount: number = player.singularityCount): number => {
     const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 216, 230];
+    let penaltyDebuff = 0
+    penaltyDebuff += player.shopUpgrades.shopSingularityPenaltyDebuff
+
     for (const sing of singularityPenaltyThreshold) {
-        if (sing > singularityCount) {
-            return sing;
+        if (sing + penaltyDebuff > singularityCount) {
+            return (sing + penaltyDebuff);
         }
     }
     return -1;
@@ -1756,7 +1759,10 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
         return 1
     }
 
-    const effectiveSingularities = calculateEffectiveSingularities(singularityCount);
+    let constitutiveSingularityCount = singularityCount
+    constitutiveSingularityCount -= player.shopUpgrades.shopSingularityPenaltyDebuff
+
+    const effectiveSingularities = calculateEffectiveSingularities(constitutiveSingularityCount);
 
     if (debuff === 'Offering') {
         return Math.sqrt(Math.min(effectiveSingularities, calculateEffectiveSingularities(150)) + 1)

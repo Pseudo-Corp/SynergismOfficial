@@ -612,6 +612,22 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             }
         },
         qualityOfLife: true
+    },
+    octeractAmbrosiaLuck: {
+        name: 'Berries of an Eight Leaf Clover (WIP)',
+        description: 'Totally not a reskin of the blueberry! Adds +1 Ambrosial Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.',
+        costFormula: (level: number, baseCost: number) => {
+            const useLevel = level + 1
+            return baseCost * (Math.pow(10, useLevel) - Math.pow(10, useLevel - 1))
+        },
+        maxLevel: -1,
+        costPerLevel: 1e60 / 9,
+        effect: (n: number) => {
+            return {
+                bonus: n,
+                desc: `Ambrosial Luck +${format(n)}(!)`
+            }
+        }
     }
 }
 

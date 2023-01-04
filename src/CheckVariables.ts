@@ -354,7 +354,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
         octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
         octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency']),
-        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover'])
+        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover']),
+        octeractAmbrosiaLuck: new OcteractUpgrade(octeractData['octeractAmbrosiaLuck'])
     }
 
     player.singularityChallenges = {
@@ -516,7 +517,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             obtainiumEX3: 0,
             improveQuarkHept5: 0,
             seasonPassInfinity: 0,
-            chronometerInfinity: 0
+            chronometerInfinity: 0,
+            shopSingularityPenaltyDebuff: 0
         }
 
         player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false);
@@ -898,6 +900,12 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.shopUpgrades.improveQuarkHept5 = Math.min(100, player.shopUpgrades.improveQuarkHept5 * 2)
         player.singularityUpgrades.offeringAutomatic.refund();
         void Alert('You have loaded into the December 22 patch v1.')
+    }
+
+    if (data.loadedV21003Hotfix1 === undefined) {
+        player.loadedV21003Hotfix1 = true
+        player.singularityUpgrades.blueberries.refund()
+        void Alert('You have loaded into the January 4, 2023 Patch v1.')
     }
 
     const oldest = localStorage.getItem('firstPlayed')

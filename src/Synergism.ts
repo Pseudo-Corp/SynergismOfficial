@@ -473,7 +473,8 @@ export const player: Player = {
         obtainiumEX3: 0,
         improveQuarkHept5: 0,
         seasonPassInfinity: 0,
-        chronometerInfinity: 0
+        chronometerInfinity: 0,
+        shopSingularityPenaltyDebuff: 0
     },
     shopBuyMaxToggle: false,
     shopHideToggle: false,
@@ -700,6 +701,7 @@ export const player: Player = {
     loadedV2927Hotfix1: true,
     loadedV2930Hotfix1: true,
     loadedV2931Hotfix1: true,
+    loadedV21003Hotfix1: true,
     version,
     rngCode: 0,
     promoCodeTiming: {
@@ -808,7 +810,8 @@ export const player: Player = {
         octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
         octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
         octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency']),
-        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover'])
+        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover']),
+        octeractAmbrosiaLuck: new OcteractUpgrade(octeractData['octeractAmbrosiaLuck'])
     },
 
     dailyCodeUsed: false,

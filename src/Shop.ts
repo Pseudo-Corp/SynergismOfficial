@@ -13,7 +13,7 @@ export enum shopUpgradeTypes {
     UPGRADE = 'upgrade'
 }
 
-type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2' | 'SingularityVol3' | 'SingularityVol4'
+type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2' | 'SingularityVol3' | 'SingularityVol4' | 'Exalt'
 
 export interface IShopData {
     price: number
@@ -596,6 +596,16 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundable: false,
         refundMinimumLevel: 0,
         description: 'Gain +2% more cubes per level, multiplicative! (Multiplier is 1.02^level)'
+    },
+    shopSingularityPenaltyDebuff: {
+        tier: 'Exalt',
+        price: 1e17,
+        priceIncrease: 9.99e19,
+        maxLevel: 2,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.'
     }
 }
 
@@ -609,7 +619,7 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | 'autoWarp' | //And Golden Quarks
                         'improveQuarkHept' | 'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4' | 'shopImprovedDaily' |
                         'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4' | 'calculator4' | 'calculator5' | 'calculator6' |
-                        'offeringEX3' | 'obtainiumEX3' | 'improveQuarkHept5' | 'seasonPassInfinity' | 'chronometerInfinity'
+                        'offeringEX3' | 'obtainiumEX3' | 'improveQuarkHept5' | 'seasonPassInfinity' | 'chronometerInfinity' | 'shopSingularityPenaltyDebuff'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -803,6 +813,9 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             break;
         case 'chronometerInfinity':
             lol.textContent = `CURRENT Effect: Ascension Speed is multiplied by ${format(Math.pow(1.01, player.shopUpgrades.chronometerInfinity), 2, true)}`
+            break;
+        case 'shopSingularityPenaltyDebuff':
+            lol.textContent = `CURRENT Effect: Singularity Debuffs are as if you had ${format(player.shopUpgrades.shopSingularityPenaltyDebuff)} fewer Singularities.`
     }
 
 }
@@ -867,7 +880,8 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         obtainiumEX3: 'The final Obtainium Upgrade',
         improveQuarkHept5: 'The final Quark Hepteract Improver',
         chronometerInfinity: 'The final Chronometer',
-        seasonPassInfinity: 'The final Season pass'
+        seasonPassInfinity: 'The final Season pass',
+        shopSingularityPenaltyDebuff: 'A Singularity Tenderizer'
     }
 
     return names[input];
@@ -1163,5 +1177,7 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames):boolean => {
             return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
         case 'seasonPassInfinity':
             return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+        case 'shopSingularityPenaltyDebuff':
+            return Boolean(player.singularityChallenges.noSingularityUpgrades.rewards.shopUpgrade)
     }
 }
