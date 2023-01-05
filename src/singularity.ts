@@ -9,16 +9,16 @@ import { toOrdinal } from './Utility'
 export const updateSingularityPenalties = (): void => {
     const singularityCount = player.singularityCount;
     const color = player.runelevels[6] > 0 ? 'var(--green-text-color)' : 'var(--red-text-color)';
-    const platonic = (singularityCount > 36) ? `Platonic Upgrade costs are multiplied by ${format(calculateSingularityDebuff('Platonic Costs', singularityCount), 2, true)}.` : '<span class="grayText">???????? ??????? ????? ??? ?????????? ?? ???</span> <span class="redText">(Sing 37)</span>';
-    const hepteract = (singularityCount > 50) ? `Hepteract Forge costs are multiplied by ${format(calculateSingularityDebuff('Hepteract Costs', singularityCount), 2, true)}.` : '<span class="grayText">????????? ????? ????? ??? ?????????? ?? ???</span> <span class="redText">(Sing 51)</span>';
+    const platonic = (singularityCount > 36) ? `<span style="color: var(--orchid-text-color)">Platonic Upgrade</span> costs are multiplied by <span style="color: var(--orchid-text-color)">${format(calculateSingularityDebuff('Platonic Costs', singularityCount), 2, true)}</span>.` : '<span class="grayText">???????? ??????? ????? ??? ?????????? ?? ???</span> <span class="redText">(Sing 37)</span>';
+    const hepteract = (singularityCount > 50) ? `<span style="color: Pink">Hepteract Forge</span> costs are multiplied by <span style="color: Pink">${format(calculateSingularityDebuff('Hepteract Costs', singularityCount), 2, true)}</span>.` : '<span class="grayText">????????? ????? ????? ??? ?????????? ?? ???</span> <span class="redText">(Sing 51)</span>';
     const str = getSingularityOridnalText(singularityCount) +
-                `<br>Global Speed is divided by ${format(calculateSingularityDebuff('Global Speed', singularityCount), 2, true)}.
-                 Ascension Speed is divided by ${format(calculateSingularityDebuff('Ascension Speed', singularityCount), 2, true)}
-                 Offering Gain is divided by ${format(calculateSingularityDebuff('Offering', singularityCount), 2, true)}
-                 Obtainium Gain is divided by ${format(calculateSingularityDebuff('Obtainium', singularityCount), 2, true)}
-                 Cube Gain is divided by ${format(calculateSingularityDebuff('Cubes', singularityCount), 2, true)}.
-                 Research Costs are multiplied by ${format(calculateSingularityDebuff('Researches', singularityCount), 2, true)}.
-                 Cube Upgrade Costs (Excluding Cookies) are multiplied by ${format(calculateSingularityDebuff('Cube Upgrades', singularityCount), 2, true)}.
+                `<br><span style="color: RoyalBlue">Global Speed</span> is divided by <span style="color: RoyalBlue">${format(calculateSingularityDebuff('Global Speed', singularityCount), 2, true)}</span>.
+                 <span style="color: Orange">Ascension Speed</span> is divided by <span style="color: Orange">${format(calculateSingularityDebuff('Ascension Speed', singularityCount), 2, true)}</span>.
+                 <span style="color: Gold">Offering Gain</span> is divided by <span style="color: Gold">${format(calculateSingularityDebuff('Offering', singularityCount), 2, true)}</span>.
+                 <span style="color: Steelblue">Obtainium Gain</span> is divided by <span style="color: Steelblue">${format(calculateSingularityDebuff('Obtainium', singularityCount), 2, true)}</span>.
+                 <span style="color: Yellow">Cube Gain</span> is divided by <span style="color: Yellow">${format(calculateSingularityDebuff('Cubes', singularityCount), 2, true)}</span>.
+                 <span style="color: var(--green-text-color)">Research Costs</span> are multiplied by <span style="color: var(--green-text-color)">${format(calculateSingularityDebuff('Researches', singularityCount), 2, true)}</span>.
+                 <span style="color: Silver">Cube Upgrade Costs</span> (Excluding Cookies) are multiplied by <span style="color: Silver">${format(calculateSingularityDebuff('Cube Upgrades', singularityCount), 2, true)}</span>.
                  ${platonic}
                  ${hepteract}
                  Your penalties will ${singularityCount >= 230 ? 'now smoothly increase forever.' : `sharply increase in <span class="redText"> Singularity ${format(calculateNextSpike(player.singularityCount), 0, true)}</span>.`}
