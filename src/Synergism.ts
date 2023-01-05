@@ -3752,7 +3752,7 @@ const tick = () => {
 const tack = (dt: number) => {
     if (!G['timeWarp']) {
         //Adds Resources (coins, ants, etc)
-        const timeMult = calculateTimeAcceleration();
+        const timeMult = calculateTimeAcceleration().mult;
         resourceGain(dt * timeMult)
         //Adds time (in milliseconds) to all reset functions, and quarks timer.
         addTimers('prestige', dt)

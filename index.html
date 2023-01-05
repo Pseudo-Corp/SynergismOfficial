@@ -3010,6 +3010,7 @@ $STAGE$ for synergism stage"></p>
             <button class="statsNerds" id="kFreeMult" alt="kFreeMult" label="kFreeMult" style="border: 2px solid lawngreen">Free Multipliers</button>
             <button class="statsNerds" id="kOfferingMult" alt="kOfferingMult" label="kOfferingMult" style="border: 2px solid palegreen">Offering Multipliers</button>
             <button class="statsNerds" id="kQuarkMult" alt="kQuarkMult" label="kQuarkMult" style="border: 2px solid white">Global Quark Multipliers</button>
+            <button class="statsNerds reincarnationunlock" id="kGSpeedMult" alt="kGSpeedMult" label="kGSpeedMult" style="border: 2px solid blue">Global Speed Multipliers</button>
             <button class="statsNerds ascendunlock" id="kASCMult" alt="kASCMult" label="kASCMult" style="border: 2px solid orange">Ascension Speed Multipliers</button>
             <button class="statsNerds ascendunlock" id="kGlobalCubeMult" alt="kGlobalCubeMult" label="kGlobalCubeMult" style="border: 2px solid khaki">Global Cube Multipliers</button>
             <button class="statsNerds ascendunlock" id="kCubeMult" alt="kCubeMult" label="kCubeMult" style="border: 2px solid darkgoldenrod">Cube Multipliers</button>
@@ -3107,6 +3108,43 @@ $STAGE$ for synergism stage"></p>
             <p id="statOff31" alt="statOff31" label="statOff31" class="statPortion">Offering Electrolosis [OC]: <span id="sOff31" alt="sOff31" label="sOff31" class="statNumber">0</span></p>
             <p id="statOff32" alt="statOff32" label="statOff32" class="statPortion">Event: <span id="sOff32" alt="sOff32" label="sOff32" class="statNumber">0</span></p>
             <p id="statOffT" alt="statOffT" label="statOffT" class="statPortion statTotal" style='color: gold'>TOTAL OFFERING MULTIPLIER: <span id="sOffT" alt="sOffT" label="sOffT" class="statNumber statTotal">0</span></p>
+        </div>
+        <div id="globalSpeedMultiplierStats" alt="globalSpeedMultiplierStats" label="globalSpeedMultiplierStats" class="statContainer" style="display: none;">
+            <p id="GlobalSpeedStatTitle" alt="GlobalSpeedStatTitle" label="GlobalSpeedStatTitle" class='statPortion' style="color: blue; font-size: 1.2em">Global Speed Multipliers</p>
+
+            <!-- Corruptable / DR-susceptible set-->
+            <p id="statGSMa1" alt="statGSMa1" label="statGSMa1" class="statPortion reincarnationunlock">Particle Upgrade 2x5:<span id="sGSMa1" alt="sGSMa1" label="sGSMa1" class="statNumber">0</span></p>
+            <p id="statGSMa2" alt="statGSMa2" label="statGSMa2" class="statPortion reincarnationunlock">Research 5x21:<span id="sGSMa2" alt="sGSMa2" label="sGSMa2" class="statNumber">0</span></p>
+            <p id="statGSMa3" alt="statGSMa3" label="statGSMa3" class="statPortion reincarnationunlock">Research 6x11:<span id="sGSMa3" alt="sGSMa3" label="sGSMa3" class="statNumber">0</span></p>
+            <p id="statGSMa4" alt="statGSMa4" label="statGSMa4" class="statPortion reincarnationunlock">Research 7x1:<span id="sGSMa4" alt="sGSMa4" label="sGSMa4" class="statNumber">0</span></p>
+            <p id="statGSMa5" alt="statGSMa5" label="statGSMa5" class="statPortion reincarnationunlock">Research 7x16:<span id="sGSMa5" alt="sGSMa5" label="sGSMa5" class="statNumber">0</span></p>
+            <p id="statGSMa6" alt="statGSMa6" label="statGSMa6" class="statPortion reincarnationunlock">Research 8x6:<span id="sGSMa6" alt="sGSMa6" label="sGSMa6" class="statNumber">0</span></p>
+            <p id="statGSMa7" alt="statGSMa7" label="statGSMa7" class="statPortion reincarnationunlock">Research 8x21:<span id="sGSMa7" alt="sGSMa7" label="sGSMa7" class="statNumber">0</span></p>
+            <p id="statGSMa8" alt="statGSMa8" label="statGSMa8" class="statPortion reincarnationunlock">Blessing Power:<span id="sGSMa8" alt="sGSMa8" label="sGSMa8" class="statNumber">0</span></p>
+            <p id="statGSMa9" alt="statGSMa9" label="statGSMa9" class="statPortion chal12">Spirit Power:<span id="sGSMa9" alt="sGSMa9" label="sGSMa9" class="statNumber">0</span></p>
+            <p id="statGSMa10" alt="statGSMa10" label="statGSMa10" class="statPortion ascendunlock">Chronos' Tribute Multiplier:<span id="sGSMa10" alt="sGSMa10" label="sGSMa10" class="statNumber">0</span></p>
+            <p id="statGSMa11" alt="statGSMa11" label="statGSMa11" class="statPortion ascendunlock">Cube Upgrade 2x8:<span id="sGSMa11" alt="sGSMa11" label="sGSMa11" class="statNumber">0</span></p>
+            <p id="statGSMa12" alt="statGSMa12" label="statGSMa12" class="statPortion chal8">Mortuus Est Formicidae:<span id="sGSMa12" alt="sGSMa12" label="sGSMa12" class="statNumber">0</span></p>
+            <p id="statGSMa13" alt="statGSMa13" label="statGSMa13" class="statPortion chal9">Exemption Talisman:<span id="sGSMa13" alt="sGSMa13" label="sGSMa13" class="statNumber">0</span></p>
+            <p id="statGSMa14" alt="statGSMa14" label="statGSMa14" class="statPortion chal14">Challenge 15:<span id="sGSMa14" alt="sGSMa14" label="sGSMa14" class="statNumber">0</span></p>
+            <p id="statGSMa15" alt="statGSMa15" label="statGSMa15" class="statPortion singularity">Cookie Upgrade 2:<span id="sGSMa15" alt="sGSMa15" label="sGSMa15" class="statNumber">0</span></p>
+
+            <p id="statGSsep1" alt="statGSsep1" label="statGSsep1" class="statPortion">&nbsp;</p>
+
+            <!-- Corruption / DR effects -->
+            <p id="statGSMb1" alt="statGSMb1" label="statGSMb1" class="statPortion chal14">Corruption (Spacial Dilation):<span id="sGSMb1" alt="sGSMb1" label="sGSMb1" class="statNumber">0</span></p>
+            <p id="statGSMb2" alt="statGSMb2" label="statGSMb2" class="statPortion">Global speed softcap:<span id="sGSMb2" alt="sGSMb2" label="sGSMb2" class="statNumber">0</span></p>
+            <p id="statGSMb3" alt="statGSMb3" label="statGSMb3" class="statPortion chal14">Platonic 2x2:<span id="sGSMb3" alt="sGSMb3" label="sGSMb3" class="statNumber">0</span></p>
+            <p id="statGSMb4" alt="statGSMb4" label="statGSMb4" class="statPortion singularity">Singularity Penalty:<span id="sGSMb4" alt="sGSMb4" label="sGSMb4" class="statNumber">0</span></p>
+
+            <p id="statGSsep2" alt="statGSsep2" label="statGSsep2" class="statPortion singularity">&nbsp;</p>
+
+            <!-- Post-corruption / post-DR effects -->
+            <p id="statGSMc1" alt="statGSMc1" label="statGSMc1" class="statPortion chal14">Chronos Statue:<span id="sGSMc1" alt="sGSMc1" label="sGSMc1" class="statNumber">0</span></p>
+            <p id="statGSMc2" alt="statGSMc2" label="statGSMc2" class="statPortion singularity">Intermediate Pack:<span id="sGSMc2" alt="sGSMc2" label="sGSMc2" class="statNumber">0</span></p>
+            <p id="statGSMc3" alt="statGSMc3" label="statGSMc3" class="statPortion singularity">Forbidden Clock of Time:<span id="sGSMc3" alt="sGSMc3" label="sGSMc3" class="statNumber">0</span></p>
+
+            <p id ="statGSMT" alt="statGSMT" label="statGSMT" class="statPortion statTotal" style='color: white'>TOTAL GLOBAL SPEED MULTIPLIER:<span id="sGSMT" alt="sGSMT" label="sGSMT" class="statNumber statTotal">0</span></p>
         </div>
         <div id="globalQuarkMultiplierStats" alt="globalQuarkMultiplierStats" label="globalQuarkMultiplierStats" class="statContainer" style="display: none;">
             <p id="GlobalQuarkStatTitle" alt="GlobalQuarkStatTitle" label="GlobalQuarkStatTitle" class='statPortion' style="color: white; font-size: 1.2em">Global Quark Multipliers</p>

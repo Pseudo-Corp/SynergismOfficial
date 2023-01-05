@@ -292,7 +292,7 @@ export const visualUpdateResearch = () => {
     }
 
     if (player.researches[61] > 0) {
-        DOMCacheGetOrSet('automaticobtainium').textContent = 'Thanks to researches you automatically gain ' + format(calculateAutomaticObtainium() * calculateTimeAcceleration(), 3, true) + ' Obtainium per real life second.'
+        DOMCacheGetOrSet('automaticobtainium').textContent = 'Thanks to researches you automatically gain ' + format(calculateAutomaticObtainium() * calculateTimeAcceleration().mult, 3, true) + ' Obtainium per real life second.'
     }
 }
 

@@ -644,10 +644,10 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
     switch (input) {
         case 'offeringPotion':
-            lol.textContent = 'Gain ' + format((7200 * player.offeringpersecond * calculateTimeAcceleration() * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Offerings.'
+            lol.textContent = 'Gain ' + format((7200 * player.offeringpersecond * calculateTimeAcceleration().mult * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Offerings.'
             break;
         case 'obtainiumPotion':
-            lol.textContent = 'Gain ' + format((7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Obtainium.';
+            lol.textContent = 'Gain ' + format((7200 * player.maxobtainiumpersecond * calculateTimeAcceleration().mult * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Obtainium.';
             break;
         case 'offeringEX':
             lol.textContent = 'CURRENT Effect: You will gain ' + format(4 * player.shopUpgrades.offeringEX,2,true) + '% more Offerings!'
@@ -997,13 +997,13 @@ export const useConsumable = async (input: ShopUpgradeNames, automatic = false, 
         if (input === 'offeringPotion') {
             if (player.shopUpgrades.offeringPotion >= used || !spend) {
                 player.shopUpgrades.offeringPotion -= (spend ? used: 0);
-                player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration() * multiplier)
+                player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration().mult * multiplier)
                 player.runeshards = Math.min(1e300, player.runeshards)
             }
         } else if (input === 'obtainiumPotion') {
             if (player.shopUpgrades.obtainiumPotion >= used || !spend) {
                 player.shopUpgrades.obtainiumPotion -= (spend? used: 0);
-                player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * multiplier)
+                player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration().mult * multiplier)
                 player.researchPoints = Math.min(1e300, player.researchPoints)
             }
         }
