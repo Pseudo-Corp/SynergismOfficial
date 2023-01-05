@@ -3784,7 +3784,8 @@ const tack = (dt: number) => {
         }
 
         //Automatically tries and buys researches lol
-        if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearch > 0 && player.autoResearch <= maxRoombaResearchIndex(player)) {
+        if (player.autoResearchToggle && player.autoResearch > 0 && player.autoResearch <= maxRoombaResearchIndex(player) &&
+                (autoResearchEnabled() || player.autoResearchMode === 'manual')) {
             // buyResearch() probably shouldn't even be called if player.autoResearch exceeds the highest unlocked research
             let counter = 0;
             const maxCount = 1 + player.challengecompletions[14];
