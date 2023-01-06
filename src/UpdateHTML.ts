@@ -403,6 +403,14 @@ export const revealStuff = () => {
         DOMCacheGetOrSet('platonicCubeOpensInput').style.display = 'none';
     }
 
+    (player.highestSingularityCount >= 50 && player.singularityCount < player.highestSingularityCount) || player.highestSingularityCount >= 150 ? // Auto Cube Upgrades
+        DOMCacheGetOrSet('toggleAutoCubeUpgrades').style.display = 'block' :
+        DOMCacheGetOrSet('toggleAutoCubeUpgrades').style.display = 'none';
+
+    (player.highestSingularityCount >= 100 && player.singularityCount < player.highestSingularityCount) || player.highestSingularityCount >= 200 ? // Auto Platonic Upgrades
+        DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').style.display = 'block' :
+        DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').style.display = 'none';
+
     // Singularity confirmation toggle pic
     player.highestSingularityCount > 0 && player.ascensionCount > 0 ?
         (DOMCacheGetOrSet('settingpic6').style.display = 'block'):
@@ -923,7 +931,7 @@ const updateAscensionStats = () => {
         'ascPlatonic': format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5),
         'ascHepteract': format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
         'ascC10': `${format(player.challengecompletions[10])}`,
-        'ascTimeAccel': `${format(calculateTimeAcceleration(), 3)}x`,
+        'ascTimeAccel': `${format(calculateTimeAcceleration().mult, 3)}x`,
         'ascAscensionTimeAccel': `${format(calculateAscensionAcceleration(), 3)}x${addedAsterisk ? '*' : ''}`,
         'ascSingularityCount': format(player.singularityCount),
         'ascSingLen': formatTimeShort(player.singularityCounter)

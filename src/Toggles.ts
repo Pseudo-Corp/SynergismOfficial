@@ -427,7 +427,7 @@ export const toggleResearchBuy = () => {
 
 export const toggleAutoResearch = () => {
     const el = DOMCacheGetOrSet('toggleautoresearch')
-    if (player.autoResearchToggle) {
+    if (player.autoResearchToggle || player.shopUpgrades.obtainiumAuto < 1) {
         player.autoResearchToggle = false;
         el.textContent = 'Automatic: OFF';
         DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
@@ -445,7 +445,7 @@ export const toggleAutoResearch = () => {
 
 export const toggleAutoResearchMode = () => {
     const el = DOMCacheGetOrSet('toggleautoresearchmode')
-    if (player.autoResearchMode === 'cheapest') {
+    if (player.autoResearchMode === 'cheapest' || !autoResearchEnabled()) {
         player.autoResearchMode = 'manual';
         el.textContent = 'Automatic mode: Manual';
     } else {
@@ -809,6 +809,34 @@ export const toggleMaxBuyCube = () => {
     } else {
         player.cubeUpgradesBuyMaxToggle = true;
         el.textContent = 'Upgrade: MAX [if possible wow]'
+    }
+}
+
+export const autoCubeUpgradesToggle = (toggle = true) => {
+    if (toggle) {
+        player.autoCubeUpgradesToggle = !player.autoCubeUpgradesToggle;
+    }
+    const el = DOMCacheGetOrSet('toggleAutoCubeUpgrades');
+    if (player.autoCubeUpgradesToggle) {
+        el.textContent = 'Auto Upgrades: [ON]'
+        el.style.border = '2px solid green'
+    } else {
+        el.textContent = 'Auto Upgrades: [OFF]'
+        el.style.border = '2px solid red'
+    }
+}
+
+export const autoPlatonicUpgradesToggle = (toggle = true) => {
+    if (toggle) {
+        player.autoPlatonicUpgradesToggle = !player.autoPlatonicUpgradesToggle;
+    }
+    const el = DOMCacheGetOrSet('toggleAutoPlatonicUpgrades');
+    if (player.autoPlatonicUpgradesToggle) {
+        el.textContent = 'Auto Upgrades: [ON]'
+        el.style.border = '2px solid green'
+    } else {
+        el.textContent = 'Auto Upgrades: [OFF]'
+        el.style.border = '2px solid red'
     }
 }
 

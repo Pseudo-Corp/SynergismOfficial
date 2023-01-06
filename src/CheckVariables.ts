@@ -288,7 +288,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singCitadel2: new SingularityUpgrade(singularityData['singCitadel2']),
         octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
         singOcteractPatreonBonus: new SingularityUpgrade(singularityData['singOcteractPatreonBonus']),
-        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
         intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),
         advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
         expertPack: new SingularityUpgrade(singularityData['expertPack']),
@@ -321,7 +320,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed']),
         singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2']),
         oneMind: new SingularityUpgrade(singularityData['oneMind']),
-        wowPass4: new SingularityUpgrade(singularityData['wowPass4'])
+        wowPass4: new SingularityUpgrade(singularityData['wowPass4']),
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
+        blueberries: new SingularityUpgrade(singularityData['blueberries'])
     }
 
     player.octeractUpgrades = {
@@ -353,11 +354,15 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
         octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
         octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency']),
-        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover'])
+        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover']),
+        octeractAmbrosiaLuck: new OcteractUpgrade(octeractData['octeractAmbrosiaLuck'])
     }
 
     player.singularityChallenges = {
-        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades'])
+        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades']),
+        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap']),
+        noOcteracts: new SingularityChallenge(singularityChallengeData['noOcteracts']),
+        limitedAscensions: new SingularityChallenge(singularityChallengeData['limitedAscensions'])
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
@@ -393,7 +398,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.usedCorruptions[0] = 0
     }
     if (player.antSacrificeTimerReal === undefined) {
-        player.antSacrificeTimerReal = player.antSacrificeTimer / calculateTimeAcceleration();
+        player.antSacrificeTimerReal = player.antSacrificeTimer / calculateTimeAcceleration().mult;
     }
     if (player.subtabNumber === undefined || data.subtabNumber === undefined) {
         player.subtabNumber = 0;
@@ -512,7 +517,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             obtainiumEX3: 0,
             improveQuarkHept5: 0,
             seasonPassInfinity: 0,
-            chronometerInfinity: 0
+            chronometerInfinity: 0,
+            shopSingularityPenaltyDebuff: 0
         }
 
         player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false);
@@ -723,7 +729,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     toggleBuy: data.octeractUpgrades[k].toggleBuy,
                     effect: octeractData[k].effect,
                     costFormula: octeractData[k].costFormula,
-                    freeLevels: data.octeractUpgrades[k].freeLevels
+                    freeLevels: data.octeractUpgrades[k].freeLevels,
+                    qualityOfLife: octeractData[k].qualityOfLife
                 }
                 player.octeractUpgrades[k] = new OcteractUpgrade(updatedData);
 
@@ -873,6 +880,34 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.insideSingularityChallenge = false
     }
 
+    if (data.loadedV2930Hotfix1 === undefined) {
+        if (player.singularityCount > 230) {
+            player.singularityCount = 230
+        }
+        if (player.highestSingularityCount > 230) {
+            player.highestSingularityCount = 230
+            void Alert('Due to balancing changes, you were sent back to Singularity 230 to prevent softlocking your savefile!')
+        }
+        player.loadedV2930Hotfix1 = true
+    }
+
+    if (data.loadedV2931Hotfix1 === undefined) {
+        player.loadedV2931Hotfix1 = true
+        player.shopUpgrades.obtainiumEX3 = Math.min(1000, player.shopUpgrades.obtainiumEX3 * 2)
+        player.shopUpgrades.offeringEX3 = Math.min(1000, player.shopUpgrades.offeringEX3 * 2)
+        player.shopUpgrades.seasonPassInfinity = Math.min(1000, player.shopUpgrades.seasonPassInfinity * 2)
+        player.shopUpgrades.chronometerInfinity = Math.min(1000, player.shopUpgrades.chronometerInfinity * 2)
+        player.shopUpgrades.improveQuarkHept5 = Math.min(100, player.shopUpgrades.improveQuarkHept5 * 2)
+        player.singularityUpgrades.offeringAutomatic.refund();
+        void Alert('You have loaded into the December 22 patch v1.')
+    }
+
+    if (data.loadedV21003Hotfix1 === undefined) {
+        player.loadedV21003Hotfix1 = true
+        player.singularityUpgrades.blueberries.refund()
+        void Alert('You have loaded into the January 4, 2023 Patch v1.')
+    }
+
     const oldest = localStorage.getItem('firstPlayed')
 
     if (data.firstPlayed == undefined) {
@@ -886,5 +921,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         // Otherwise just set the firstPlayed time to either the oldest
         // stored, or the date in the save being loaded.
         player.firstPlayed = oldest ?? data.firstPlayed
+    }
+
+    if (data.autoCubeUpgradesToggle === undefined) {
+        player.autoCubeUpgradesToggle = false;
+        player.autoPlatonicUpgradesToggle = false;
     }
 }

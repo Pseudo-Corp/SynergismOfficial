@@ -357,7 +357,7 @@ export const Globals: GlobalVariables = {
     droughtMultiplier: [1, 5, 25, 200, 1e4, 1e7, 1e11, 1e16, 1e22, 1e30, 1e40, 1e55, 1e80, 1e120, 1e177, 1e200, 1e250],
     financialcollapsePower: [1, 0.9, 0.7, 0.6, 0.5, 0.37, 0.30, 0.23, 0.18, 0.15, 0.12, 0.09, 0.03, 0.01, 0.007, 0.0007, 0.00007],
 
-    corruptionPointMultipliers: [1, 3, 4, 5, 6, 7, 7.75, 8.5, 9.25, 10, 10.75, 11.5, 12.25, 13, 16, 20, 25, 33],
+    corruptionPointMultipliers: [1, 3, 4, 5, 6, 7, 7.75, 8.5, 9.25, 10, 10.75, 11.5, 12.25, 13, 16, 20, 25, 33, 35],
     ascendBuildingProduction: {
         first: new Decimal('0'),
         second: new Decimal('0'),
@@ -424,7 +424,8 @@ export const Globals: GlobalVariables = {
 
     historyCountMax: 20,
 
-    isEvent: false
+    isEvent: false,
+    shopEnhanceVision: false
 
     // talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]
     // talismanResourceOfferingCosts: [0, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]

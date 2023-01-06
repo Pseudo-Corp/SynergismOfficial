@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage } from './Toggles'
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyRuneBonusLevels, buyAllBlessings } from './Buy'
@@ -27,6 +27,7 @@ import { toggleAnnotation, toggleTheme, toggleIconSet } from './Themes'
 import { buyGoldenQuarks } from './singularity'
 import { resetHotkeys } from './Hotkeys'
 import { generateExportSummary } from './Summary'
+import { shopMouseover } from './UpdateVisuals'
 
 /* STYLE GUIDE */
 /*
@@ -421,27 +422,16 @@ export const generateEventHandlers = () => {
     }
 
     //Part 1: Cube Upgrades
-    // #1-70, skip 50
-    for (let index = 0; index < 70; index++) {
+    for (let index = 1; index < player.cubeUpgrades.length; index++) {
 
-        if (index < 49) {
-            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('mouseover', () => cubeUpgradeDesc(index+1))
-            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('click', () => buyCubeUpgrades(index+1))
-        }
+        DOMCacheGetOrSet(`cubeUpg${index}`).addEventListener('mouseover', () => cubeUpgradeDesc(index))
+        DOMCacheGetOrSet(`cubeUpg${index}`).addEventListener('click', () => buyCubeUpgrades(index))
 
-        if (index == 49) {
-            DOMCacheGetOrSet('cubeUpg50').addEventListener('mouseover', () => cubeUpgradeDesc(50,0.01))
-            DOMCacheGetOrSet('cubeUpg50').addEventListener('click', () => buyCubeUpgrades(50,0.01))
-        }
-
-        if (index > 49) {
-            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('mouseover', () => cubeUpgradeDesc(index+1, 0, true))
-            DOMCacheGetOrSet(`cubeUpg${index+1}`).addEventListener('click', () => buyCubeUpgrades(index+1, 0, true))
-        }
     }
 
     // Toggle
     DOMCacheGetOrSet('toggleCubeBuy').addEventListener('click', () => toggleMaxBuyCube())
+    DOMCacheGetOrSet('toggleAutoCubeUpgrades').addEventListener('click', () => autoCubeUpgradesToggle())
 
     //Part 2: Cube Opening Buttons
     //Wow Cubes
@@ -449,7 +439,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('open20Cube').addEventListener('click', () => player.wowCubes.open(Math.floor(Number(player.wowCubes) / 10), false))
     DOMCacheGetOrSet('open1000Cube').addEventListener('click', () => player.wowCubes.open(Math.floor(Number(player.wowCubes) / 2), false))
     DOMCacheGetOrSet('openCustomCube').addEventListener('click', () => player.wowCubes.openCustom());
-    DOMCacheGetOrSet('openMostCube').addEventListener('click', () => player.wowCubes.open(1, true))
+    DOMCacheGetOrSet('openMostCube').addEventListener('click', () => player.wowCubes.open(0, true))
     //Wow Tesseracts
     DOMCacheGetOrSet('open1Tesseract').addEventListener('click', () => player.wowTesseracts.open(1, false))
     DOMCacheGetOrSet('open20Tesseract').addEventListener('click', () => player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) / 10), false))
@@ -478,6 +468,7 @@ export const generateEventHandlers = () => {
         platonicUpgrades[index].addEventListener('click', () => buyPlatonicUpgrades(index+1))
 
     }
+    DOMCacheGetOrSet('toggleAutoPlatonicUpgrades').addEventListener('click', () => autoPlatonicUpgradesToggle())
 
     //Part 4: Hepteract Subtab
     DOMCacheGetOrSet('chronosHepteract').addEventListener('mouseover', () => hepteractDescriptions('chronos'))
@@ -567,7 +558,7 @@ export const generateEventHandlers = () => {
     // Various functions
     DOMCacheGetOrSet('exportgame').addEventListener('click', () => exportSynergism())
     DOMCacheGetOrSet('saveStringInput').addEventListener('blur', e => updateSaveString(e.target as HTMLInputElement));
-    DOMCacheGetOrSet('savegame').addEventListener('click', ({ target }) => saveSynergy(true, target as HTMLButtonElement))
+    DOMCacheGetOrSet('savegame').addEventListener('click', () => saveSynergy(true))
     DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
     DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => reloadDeleteGame())
     DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
@@ -637,9 +628,14 @@ TODO: Fix this entire tab it's utter shit
     // SINGULARITY TAB
     const singularityUpgrades = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
     for (const key of singularityUpgrades) {
+        if (key === 'offeringAutomatic') {
+            continue
+        }
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.singularityUpgrades[`${String(key)}`].buyLevel(event))
     }
+    DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener('mouseover', () => shopMouseover(true));
+    DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener('mouseout', () => shopMouseover(false));
 
     // Octeract Upgrades
     const octeractUpgrades = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[];
@@ -648,12 +644,16 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.octeractUpgrades[`${String(key)}`].buyLevel(event))
     }
 
+    DOMCacheGetOrSet('octeractUpgradeContainer').addEventListener('mouseover', () => shopMouseover(true));
+    DOMCacheGetOrSet('octeractUpgradeContainer').addEventListener('mouseout', () => shopMouseover(false));
+
     // EXALT
     const singularityChallenges = Object.keys(player.singularityChallenges) as (keyof Player['singularityChallenges'])[];
     for (const key of singularityChallenges) {
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityChallenges[`${String(key)}`].updateChallengeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.singularityChallenges[`${String(key)}`].challengeEntryHandler())
     }
+
     //Toggle subtabs of Singularity tab
     for (let index = 0; index < 5; index++) {
         DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => toggleSubTab(10, index))
@@ -687,7 +687,9 @@ TODO: Fix this entire tab it's utter shit
         return importSynergism(save);
     });
 
-    DOMCacheGetOrSet('theme').addEventListener('click', () => toggleTheme());
+    for (let i = 1; i <= 5; i++) {
+        DOMCacheGetOrSet(`switchTheme${i}`).addEventListener('click', () => toggleTheme(false, i, true));
+    }
 
     DOMCacheGetOrSet('saveType').addEventListener('click', async (event) => {
         const element = event.target as HTMLInputElement

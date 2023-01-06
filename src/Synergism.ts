@@ -14,7 +14,7 @@ import { calculateHypercubeBlessings } from './Hypercubes';
 import { calculateTesseractBlessings } from './Tesseracts';
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, exitOffline, calculateGoldenQuarkGain } from './Calculate';
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels, calculateMaxTalismanLevel } from './Talismans';
-import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount } from './Toggles';
+import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles';
 import { c15RewardUpdate } from './Statistics';
 import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
@@ -46,7 +46,7 @@ import type { PlayerSave } from './types/LegacySynergism';
 import { eventCheck } from './Event';
 import { disableHotkeys } from './Hotkeys';
 import { octeractData, OcteractUpgrade } from './Octeracts';
-import {settingAnnotation, settingTheme, initializeIcons } from './Themes';
+import {settingAnnotation, toggleTheme, initializeIcons } from './Themes';
 import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges';
 
@@ -473,7 +473,8 @@ export const player: Player = {
         obtainiumEX3: 0,
         improveQuarkHept5: 0,
         seasonPassInfinity: 0,
-        chronometerInfinity: 0
+        chronometerInfinity: 0,
+        shopSingularityPenaltyDebuff: 0
     },
     shopBuyMaxToggle: false,
     shopHideToggle: false,
@@ -536,6 +537,8 @@ export const player: Player = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     cubeUpgradesBuyMaxToggle: false,
+    autoCubeUpgradesToggle: false,
+    autoPlatonicUpgradesToggle: false,
     platonicUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     wowCubes: new WowCubes(0),
     wowTesseracts: new WowTesseracts(0),
@@ -696,6 +699,9 @@ export const player: Player = {
     loadedV255: true,
     loadedV297Hotfix1: true,
     loadedV2927Hotfix1: true,
+    loadedV2930Hotfix1: true,
+    loadedV2931Hotfix1: true,
+    loadedV21003Hotfix1: true,
     version,
     rngCode: 0,
     promoCodeTiming: {
@@ -739,7 +745,6 @@ export const player: Player = {
         singCitadel2: new SingularityUpgrade(singularityData['singCitadel2']),
         octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
         singOcteractPatreonBonus: new SingularityUpgrade(singularityData['singOcteractPatreonBonus']),
-        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
         intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),
         advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
         expertPack: new SingularityUpgrade(singularityData['expertPack']),
@@ -772,7 +777,9 @@ export const player: Player = {
         singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed']),
         singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2']),
         oneMind: new SingularityUpgrade(singularityData['oneMind']),
-        wowPass4: new SingularityUpgrade(singularityData['wowPass4'])
+        wowPass4: new SingularityUpgrade(singularityData['wowPass4']),
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
+        blueberries: new SingularityUpgrade(singularityData['blueberries'])
     },
 
     octeractUpgrades: {
@@ -804,7 +811,8 @@ export const player: Player = {
         octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
         octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
         octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency']),
-        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover'])
+        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover']),
+        octeractAmbrosiaLuck: new OcteractUpgrade(octeractData['octeractAmbrosiaLuck'])
     },
 
     dailyCodeUsed: false,
@@ -813,7 +821,10 @@ export const player: Player = {
     insideSingularityChallenge: false,
 
     singularityChallenges: {
-        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades'])
+        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades']),
+        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap']),
+        noOcteracts: new SingularityChallenge(singularityChallengeData['noOcteracts']),
+        limitedAscensions: new SingularityChallenge(singularityChallengeData['limitedAscensions'])
     }
 }
 
@@ -825,9 +836,9 @@ export const blankSave = Object.assign({}, player, {
 // when the game was saving just as the user was entering a Singularity. To fix
 // this, hopefully, we disable saving the game when in the prompt or currently
 // entering a Singularity.
-let canSave = true;
+export const saveCheck = { canSave: true }
 
-export const saveSynergy = async (button?: boolean, element?: HTMLButtonElement): Promise<boolean> => {
+export const saveSynergy = async (button?: boolean): Promise<boolean> => {
     player.offlinetick = Date.now();
     player.loaded1009 = true;
     player.loaded1009hotfix1 = true;
@@ -842,17 +853,13 @@ export const saveSynergy = async (button?: boolean, element?: HTMLButtonElement)
         wowPlatonicCubes: Number(player.wowPlatonicCubes)
     });
 
-    if (!canSave) {
-        return false
-    }
-
     const save = btoa(JSON.stringify(p));
     if (save !== null) {
         const saveBlob = new Blob([save], { type: 'text/plain' });
 
-        if (element) {
-            element.disabled = true;
-            setTimeout(() => element.disabled = false, 10_000);
+        //Should prevent overwritting of localforage that is currently used
+        if (!saveCheck.canSave) {
+            return false;
         }
 
         await localforage.setItem<Blob>('Synergysave2', saveBlob);
@@ -1772,6 +1779,8 @@ const loadSynergy = async () => {
         } else {
             DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: 1 Level wow'
         }
+        autoCubeUpgradesToggle(false);
+        autoPlatonicUpgradesToggle(false);
 
         for (let i = 1; i <= 2; i++) {
             toggleAntMaxBuy();
@@ -1879,6 +1888,7 @@ const padEvery = (str: string, places = 3) => {
         newStr += dec + strParts[1];
     }
     // see https://www.npmjs.com/package/flatstr
+    // eslint-disable-next-line no-bitwise
     (newStr as unknown as number) | 0;
     return newStr;
 }
@@ -3093,7 +3103,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
     }
 
     if (i === 'ascension') {
-        if (player.toggles[28] === false || player.challengecompletions[10] > 0) {
+        if (player.achievements[141] > 0 && (player.toggles[31] === false || player.challengecompletions[10] > 0)) {
             if (manual) {
                 void resetConfirmation('ascend');
             }
@@ -3163,7 +3173,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
             return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
         }
 
-        const thankSing = 250;
+        const thankSing = 300;
 
         if (player.insideSingularityChallenge) {
             return Alert('Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.')
@@ -3175,7 +3185,6 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
 
         let confirmed = false;
-        canSave = false;
         const nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
 
         if (!player.toggles[33] && player.singularityCount > 0) {
@@ -3197,11 +3206,9 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         }
 
         if (!confirmed) {
-            canSave = true;
             return Alert('If you decide to change your mind, let me know. -Ant God')
         } else {
             await singularity();
-            canSave = true;
             await saveSynergy();
             return Alert('Welcome to Singularity #' + format(player.singularityCount) + '. You\'re back to familiar territory, but something doesn\'t seem right.')
         }
@@ -3615,7 +3622,7 @@ export const updateAll = (): void => {
         if (player.autoAscendMode === 'realAscensionTime' && player.ascensionCounterRealReal >= Math.max(0.1, player.autoAscendThreshold)) {
             ascension = true;
         }
-        if (ascension === true) {
+        if (ascension === true && player.challengecompletions[10] > 0) {
             // Auto Ascension and Auto Challenge Sweep enables rotation of the Ascension Challenge
             if (autoAscensionChallengeSweepUnlock() && player.currentChallenge.ascension !== 0 && player.retrychallenges && player.researches[150] === 1 && player.autoChallengeRunning) {
                 let nextChallenge = getNextChallenge(player.currentChallenge.ascension + 1, false, 11, 15);
@@ -3678,10 +3685,6 @@ export const updateAll = (): void => {
             player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM;
             c15RewardUpdate();
         }
-    }
-
-    if (player.singularityUpgrades.platonicAlpha.getEffect().bonus && player.platonicUpgrades[5] === 0) {
-        player.platonicUpgrades[5] = 1;
     }
 }
 
@@ -3750,7 +3753,7 @@ const tick = () => {
 const tack = (dt: number) => {
     if (!G['timeWarp']) {
         //Adds Resources (coins, ants, etc)
-        const timeMult = calculateTimeAcceleration();
+        const timeMult = calculateTimeAcceleration().mult;
         resourceGain(dt * timeMult)
         //Adds time (in milliseconds) to all reset functions, and quarks timer.
         addTimers('prestige', dt)
@@ -3782,7 +3785,8 @@ const tack = (dt: number) => {
         }
 
         //Automatically tries and buys researches lol
-        if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearch > 0 && player.autoResearch <= maxRoombaResearchIndex(player)) {
+        if (player.autoResearchToggle && player.autoResearch > 0 && player.autoResearch <= maxRoombaResearchIndex(player) &&
+                (autoResearchEnabled() || player.autoResearchMode === 'manual')) {
             // buyResearch() probably shouldn't even be called if player.autoResearch exceeds the highest unlocked research
             let counter = 0;
             const maxCount = 1 + player.challengecompletions[14];
@@ -4050,7 +4054,7 @@ export const reloadShit = async (reset = false) => {
         player.worlds = new QuarkHandler({ bonus: 0, quarks: 0 });
         // saving is disabled during a singularity event to prevent bug
         // early return here if the save fails can keep game state from properly resetting after a singularity
-        if (canSave) {
+        if (saveCheck.canSave) {
             const saved = await saveSynergy();
             if (!saved) {
                 return
@@ -4058,7 +4062,7 @@ export const reloadShit = async (reset = false) => {
         }
     }
 
-    settingTheme();
+    toggleTheme(true);
     settingAnnotation();
     initializeIcons();
     toggleauto();

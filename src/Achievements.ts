@@ -482,7 +482,7 @@ export const areward = (i: number): string => {
         221: 'Gain +4% Platonic Cubes on Ascension!',
         222: 'Gain +3% Platonic Cubes on Ascension!',
         223: `Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Platonic Cubes +${format(Math.min(200, player.ascensionCount / 13370000), 2)}% [Max: 200% at 2.674B Ascensions]`,
-        240: `Ascension Cube Gain Multipliers is VERY slightly affected by global speed multipliers: ${format(Math.min(1.5, 1 + Math.max(2, Math.log10(calculateTimeAcceleration()))/20), 2)}x (Min: 1.10x, Max: 1.50x)`,
+        240: `Ascension Cube Gain Multipliers is VERY slightly affected by global speed multipliers: ${format(Math.min(1.5, 1 + Math.max(2, Math.log10(calculateTimeAcceleration().mult))/20), 2)}x (Min: 1.10x, Max: 1.50x)`,
         250: 'You gain a permanent +60% Obtainium and Offering bonus, with +6% all Cube types!',
         251: 'You gain a permanent +100% Obtainium and Offering bonus, with +10% all Cube types!',
         253: 'You will gain +10% Hypercubes! Why? I don\'t know.',

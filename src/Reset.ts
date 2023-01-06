@@ -1,4 +1,4 @@
-import { player, format, blankSave, updateAll } from './Synergism';
+import { player, format, blankSave, updateAll, saveSynergy } from './Synergism';
 import {
     calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
     calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
@@ -33,7 +33,8 @@ import { importSynergism } from './ImportExport';
 import { resetShopUpgrades, shopData } from './Shop';
 import { QuarkHandler } from './Quark';
 import { calculateSingularityDebuff, getFastForwardTotalMultiplier } from './singularity';
-import { updateCubeUpgradeBG, awardAutosCookieUpgrade } from './Cubes';
+import { updateCubeUpgradeBG, awardAutosCookieUpgrade, autoBuyCubeUpgrades } from './Cubes';
+import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic';
 import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
 import { getAutoHepteractCrafts } from './Hepteracts'
 import type { TesseractBuildings } from './Buy';
@@ -87,7 +88,7 @@ export const resetdetails = (input: resetNames) => {
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['transcendPointGain']);
             resetInfo.textContent = 'Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: ' + format(player.coinsThisTranscension) + '/1e100 Coins || TIME SPENT: ' + format(player.transcendcounter) + ' Seconds.';
-            resetInfo.style.color = 'orchid';
+            resetInfo.style.color = 'var(--orchid-text-color)';
             break;
         case 'reincarnation':
             if (!currencyImage1.src.endsWith('Pictures/' + player.iconSet + '/Particle.png')) {
@@ -113,7 +114,7 @@ export const resetdetails = (input: resetNames) => {
 
             (transcensionChallenge !== 0)?
                 (resetInfo.style.color = 'aquamarine', resetInfo.textContent = 'Are you tired of being in your Challenge or stuck? Click to leave Challenge ' + transcensionChallenge + '. Progress: ' + format(player.coinsThisTranscension) + '/' + format(challengeRequirement(transcensionChallenge, player.challengecompletions[transcensionChallenge])) + ' Coins. TIME SPENT: ' + format(player.transcendcounter) + ' Seconds.'):
-                (resetInfo.style.color = 'crimson', resetInfo.textContent = 'You\'re not in a Transcension Challenge right now. Get in one before you can leave it, duh!');
+                (resetInfo.style.color = 'var(--crimson-text-color)', resetInfo.textContent = 'You\'re not in a Transcension Challenge right now. Get in one before you can leave it, duh!');
             break;
         case 'reincarnationChallenge':
             currencyImage1.style.display = 'none'
@@ -126,7 +127,7 @@ export const resetdetails = (input: resetNames) => {
                 resetInfo.style.color = 'silver';
                 resetInfo.textContent = 'Are you done or tired of being in your Challenge? Click to leave Challenge ' + reincarnationChallenge + '. Progress: ' + format(player[goal]) + '/' + format(challengeRequirement(reincarnationChallenge, player.challengecompletions[reincarnationChallenge], reincarnationChallenge)) + goaldesc + '. TIME SPENT: ' + format(player.reincarnationcounter) + ' Seconds.';
             } else {
-                resetInfo.style.color = 'crimson';
+                resetInfo.style.color = 'var(--crimson-text-color)';
                 resetInfo.textContent = 'You\'re not in a Reincarnation Challenge right now. How could you leave what you are not in?';
             }
             break;
@@ -329,6 +330,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     player.prestigecounter = 0;
     G['autoResetTimers'].prestige = 0;
+
+    G['generatorPower'] = new Decimal(1);
 
     const types = ['transcension', 'transcensionChallenge', 'reincarnation', 'reincarnationChallenge', 'ascension', 'ascensionChallenge'];
     if (types.includes(input)) {
@@ -566,7 +569,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
                 player.wowTesseracts.add(metaData[5]);
                 player.wowHypercubes.add(metaData[6]);
                 player.wowPlatonicCubes.add(metaData[7]);
-                player.wowAbyssals += metaData[8];
+                player.wowAbyssals = Math.min(1e300, player.wowAbyssals + metaData[8]);
             }
         }
 
@@ -667,7 +670,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         // Hepteract Autocraft
         const autoHepteractCrafts = getAutoHepteractCrafts();
         const numberOfAutoCraftsAndOrbs = autoHepteractCrafts.length + (player.overfluxOrbsAutoBuy ? 1 : 0);
-        if (numberOfAutoCraftsAndOrbs > 0) {
+        if (player.highestSingularityCount >= 1 && numberOfAutoCraftsAndOrbs > 0) {
             // Computes the max number of Hepteracts to spend on each auto Hepteract craft
             const heptAutoSpend = Math.floor((player.wowAbyssals / numberOfAutoCraftsAndOrbs) * (player.hepteractAutoCraftPercentage / 100))
             for (const craft of autoHepteractCrafts) {
@@ -709,20 +712,28 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
             }
         }
 
-        //Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
-        if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
-            player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
-        }
-        if (player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0) {
-            if (player.tesseractAutoBuyerToggle !== 1 || player.resettoggle4 === 2) {
-                player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) * player.openTesseracts / 100), false)
+        // Automation Platonic Upgrades
+        autoBuyPlatonicUpgrades();
+
+        // Automation Cube Upgrades
+        autoBuyCubeUpgrades();
+
+        // Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
+        if (player.highestSingularityCount >= 35) {
+            if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
+                player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
             }
-        }
-        if (player.autoOpenHypercubes && player.openHypercubes !== 0 && player.challengecompletions[13] > 0 && player.researches[183] > 0) {
-            player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) * player.openHypercubes / 100), false)
-        }
-        if (player.autoOpenPlatonicsCubes && player.openPlatonicsCubes !== 0 && player.challengecompletions[14] > 0) {
-            player.wowPlatonicCubes.open(Math.floor(Number(player.wowPlatonicCubes) * player.openPlatonicsCubes / 100), false)
+            if (player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0) {
+                if (player.tesseractAutoBuyerToggle !== 1 || player.resettoggle4 === 2) {
+                    player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) * player.openTesseracts / 100), false)
+                }
+            }
+            if (player.autoOpenHypercubes && player.openHypercubes !== 0 && player.challengecompletions[13] > 0) {
+                player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) * player.openHypercubes / 100), false)
+            }
+            if (player.autoOpenPlatonicsCubes && player.openPlatonicsCubes !== 0 && player.challengecompletions[14] > 0) {
+                player.wowPlatonicCubes.open(Math.floor(Number(player.wowPlatonicCubes) * player.openPlatonicsCubes / 100), false)
+            }
         }
     }
 
@@ -943,6 +954,11 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
         awardAutosCookieUpgrade();
     }
 
+    if (player.singularityUpgrades.platonicAlpha.getEffect().bonus && player.platonicUpgrades[5] === 0) {
+        player.platonicUpgrades[5] = 1;
+        updatePlatonicUpgradeBG(5);
+    }
+
     if (singularityReset) {
         for (let j = 1; j <= 15; j++) {
             challengeachievementcheck(j);
@@ -1139,6 +1155,8 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
     hold.theme = player.theme
     hold.notation = player.notation
     hold.firstPlayed = player.firstPlayed
+    hold.autoCubeUpgradesToggle = player.autoCubeUpgradesToggle
+    hold.autoPlatonicUpgradesToggle = player.autoPlatonicUpgradesToggle
     hold.insideSingularityChallenge = player.insideSingularityChallenge
     hold.singularityChallenges = player.singularityChallenges
 
@@ -1154,6 +1172,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
     const saveCode42 = player.codes.get(42) ?? false
     const saveCode43 = player.codes.get(43) ?? false
     const saveCode44 = player.codes.get(44) ?? false
+    const saveCode45 = player.codes.get(45) ?? false
 
     // Import Game
 
@@ -1164,6 +1183,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
         }
     }*/
     await importSynergism(btoa(JSON.stringify(hold)), true);
+    //Techically possible to import game during reset. But that will only "hurt" that imported save
 
     // TODO: Do not enable data that has never used an event code
     player.codes.set(39, true);
@@ -1172,7 +1192,13 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
     player.codes.set(42, saveCode42)
     player.codes.set(43, saveCode43)
     player.codes.set(44, saveCode44)
+    player.codes.set(45, saveCode45)
     updateSingularityMilestoneAwards();
+
+    player.rngCode = Date.now();
+
+    // Save again at the end of singularity reset
+    void saveSynergy();
 }
 
 const resetUpgrades = (i: number) => {

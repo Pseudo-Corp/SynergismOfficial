@@ -369,13 +369,13 @@ export const sacrificeAnts = async (auto = false) => {
             };
 
             if (player.challengecompletions[9] > 0) {
-                player.talismanShards += sacRewards.talismanShards;
-                player.commonFragments += sacRewards.commonFragments;
-                player.uncommonFragments += sacRewards.uncommonFragments;
-                player.rareFragments += sacRewards.rareFragments;
-                player.epicFragments += sacRewards.epicFragments;
-                player.legendaryFragments += sacRewards.legendaryFragments;
-                player.mythicalFragments += sacRewards.mythicalFragments;
+                player.talismanShards = Math.min(1e300, player.talismanShards + sacRewards.talismanShards);
+                player.commonFragments = Math.min(1e300, player.commonFragments + sacRewards.commonFragments);
+                player.uncommonFragments = Math.min(1e300, player.uncommonFragments + sacRewards.uncommonFragments);
+                player.rareFragments = Math.min(1e300, player.rareFragments + sacRewards.rareFragments);
+                player.epicFragments = Math.min(1e300, player.epicFragments + sacRewards.epicFragments);
+                player.legendaryFragments = Math.min(1e300, player.legendaryFragments + sacRewards.legendaryFragments);
+                player.mythicalFragments = Math.min(1e300, player.mythicalFragments + sacRewards.mythicalFragments);
             }
 
             // Now we're safe to reset the ants.
