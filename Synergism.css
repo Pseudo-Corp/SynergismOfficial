@@ -3073,7 +3073,7 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #ascTess {
-    //color: var(--orchid-text-color);
+    /* color: var(--orchid-text-color); */
     color: orange;
 }
 
