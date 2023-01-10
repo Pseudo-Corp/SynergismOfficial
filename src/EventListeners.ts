@@ -573,7 +573,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener('click', () => resetHistoryTogglePerSecond())
     DOMCacheGetOrSet('resetHotkeys').addEventListener('click', () => resetHotkeys())
     DOMCacheGetOrSet('notation').addEventListener('click', () => toggleAnnotation())
-    DOMCacheGetOrSet('iconSet').addEventListener('click', () => toggleIconSet())
+    DOMCacheGetOrSet('iconSet').addEventListener('click', () => toggleIconSet(player.iconSet + 1))
 
     // SHOP TAB
 
