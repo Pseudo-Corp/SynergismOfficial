@@ -7,6 +7,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import { Globals as G } from './Variables';
 import { applyCorruptions } from './Corruptions';
 import { Notification } from './UpdateHTML';
+import { IconSets } from './Themes';
 
 // The categories are the different tables & storages for each type.
 export type Category = 'ants' | 'reset' | 'ascend' | 'singularity';
@@ -373,7 +374,7 @@ const resetHistoryRenderRow = (
     const kindMeta = historyKinds[data.kind];
 
     const localDate = new Date(data.date).toLocaleString();
-    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img alt="${data.kind}" src="Pictures/${player.iconSet}/${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`;
+    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img alt="${data.kind}" src="Pictures/${IconSets[player.iconSet][0]}/${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`;
 
     // Carefully loop through everything we need to print in the right order, and add it to the gains array if present.
     const gains: string[] = [];
@@ -385,7 +386,7 @@ const resetHistoryRenderRow = (
                 return;
             }
             const formatter = gainInfo.formatter || (() => {/* If no formatter is specified, don't display. */});
-            const str = `<img alt="${gainInfo.imgTitle}" src="Pictures/${player.iconSet}/${gainInfo.img}" title="${gainInfo.imgTitle}">${formatter(dataIntersection[listable]!, data)}`;
+            const str = `<img alt="${gainInfo.imgTitle}" src="Pictures/${IconSets[player.iconSet][0]}/${gainInfo.img}" title="${gainInfo.imgTitle}">${formatter(dataIntersection[listable]!, data)}`;
 
             gains.push(str);
         }
@@ -399,13 +400,13 @@ const resetHistoryRenderRow = (
         const newMulti = antSacrificePointsToMultiplier(data.antSacrificePointsAfter);
         const diff = newMulti - oldMulti;
         extra.push(
-            `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/${player.iconSet}/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
-            `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/${player.iconSet}/TinyCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
-            `<span title="${format(data.baseELO)} base"><img src="Pictures/${player.iconSet}/TinyELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
+            `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/${IconSets[player.iconSet][0]}/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
+            `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/${IconSets[player.iconSet][0]}/TinyCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
+            `<span title="${format(data.baseELO)} base"><img src="Pictures/${IconSets[player.iconSet][0]}/TinyELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
         );
     } else if (data.kind === 'ascend') {
         extra.push(
-            `<img alt="C10" src="Pictures/${player.iconSet}/TinyChallenge10.png" title="Challenge 10 completions">${data.c10Completions}`
+            `<img alt="C10" src="Pictures/${IconSets[player.iconSet][0]}/TinyChallenge10.png" title="Challenge 10 completions">${data.c10Completions}`
         );
 
         const corruptions = resetHistoryFormatCorruptions(data);
@@ -491,7 +492,7 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
         const corruptionIdx = i + 2;
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
-            corruptions += `<img alt="${corrs > 0 ? '/' : ''}" src="Pictures/${player.iconSet}/${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
+            corruptions += `<img alt="${corrs > 0 ? '/' : ''}" src="Pictures/${IconSets[player.iconSet][0]}/${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
         } else {
             corruptions += `<span>${corrs > 0 ? '/0' : '0'}</span>`;
         }

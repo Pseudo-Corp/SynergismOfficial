@@ -289,51 +289,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     }
 };
 
-// To add an icon set, create a new folder that includes a copy of ALL image files (either new or copied from another set),
-// and then edit the switch statement to include your new icon set folder.
-// !!Make sure the folder name is NOT a string that is included in any image files or the text replacement will start messing things up!!
-export const toggleIconSet = () => {
-    const iconSetButton = DOMCacheGetOrSet('iconSet');
-    const current = iconSetButton.textContent;
-
-    let changeTo = 'Default';
-    switch (current) {
-        case 'Default':
-            changeTo = 'Simplified';
-            break;
-        case 'Simplified' :
-            changeTo = 'Monotonous';
-            break;
-        case 'Monotonous' :
-            changeTo = 'Legacy';
-            break;
-        default:
-            changeTo = 'Default';
-            break;
-    }
-
-    const reg = new RegExp('' + current);
-    Array.from(document.getElementsByTagName('img')).forEach(
-        function(img) {
-            img.src = img.src.replace(reg, changeTo);
-        }
-    );
-
-    player.iconSet = changeTo;
-    iconSetButton.textContent = changeTo;
-}
-
-export const initializeIcons = () => {
-    const iconSetButton = DOMCacheGetOrSet('iconSet');
-    const reg = new RegExp('Default');
-    Array.from(document.getElementsByTagName('img')).forEach(
-        function(img) {
-            img.src = img.src.replace(reg, player.iconSet);
-        }
-    );
-    iconSetButton.textContent = player.iconSet;
-}
-
 export const toggleAnnotation = (setting = true) => {
     const notationButton = DOMCacheGetOrSet('notation');
     const current = notationButton.textContent;
@@ -373,5 +328,54 @@ export const settingAnnotation = () => {
         } else {
             return;
         }
+    }
+}
+
+// IconSets: ['FolderName', 'FallbackSetIndex']
+// Make sure new sets have a UNIQUE folder name (not used in icon file names), and it is added to IconSets[][] and IconSetsRegex
+export const IconSets:[string,number][] = [
+    ['Legacy', -1],
+    ['Default', 0],
+    ['Simplified', 1],
+    ['Monotonous', 1]
+];
+export const IconSetsRegex = new RegExp('Default|Simplified|Monotonous|Legacy');
+
+export const toggleIconSet = (changeTo = player.iconSet) => {
+    if ((changeTo > (IconSets.length - 1)) || (changeTo < 0)) {
+        changeTo = 0;
+    }
+    player.iconSet = changeTo;
+    Array.from(document.getElementsByTagName('img')).forEach(
+        function(img) {
+            img.src = img.src.replace(IconSetsRegex, IconSets[player.iconSet][0]);
+        }
+    );
+    DOMCacheGetOrSet('iconSet').textContent = IconSets[player.iconSet][0];
+}
+
+// If no image is found falls back to designated fallback, then Legacy, then MISSINGIMAGE.png
+// MISSINGIMAGE.png(s) will not be replaced except on a full page reload
+export function imgErrorHandler (evt: Event) {
+    if (!evt.target || !(evt.target instanceof HTMLImageElement)) {
+        return;
+    }
+    const whichImg = evt.target;
+    const iconSetName = IconSets[player.iconSet][0];
+    const fallbackSetNum = IconSets[player.iconSet][1];
+    let fallbackSetName = 'Legacy';
+    if ((fallbackSetNum >= 0) && (fallbackSetNum < IconSets.length - 1)) {
+        fallbackSetName = IconSets[fallbackSetNum][0];
+    }
+
+    if (whichImg.src.includes('Legacy') || !(IconSetsRegex.exec(whichImg.src))) {
+        // no image to fall back to
+        whichImg.src = '/Pictures/MISSINGIMAGE.png';
+    } else if (whichImg.src.includes(iconSetName)) {
+        // first fall back attempt
+        whichImg.src = whichImg.src.replace(IconSetsRegex, fallbackSetName);
+    } else {
+        // fall back to Legacy
+        whichImg.src = whichImg.src.replace(IconSetsRegex, 'Legacy');
     }
 }

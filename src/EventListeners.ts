@@ -23,7 +23,7 @@ import type { OneToFive, Player } from './types/Synergism'
 import { displayStats } from './Statistics'
 import { testing } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { toggleAnnotation, toggleTheme, toggleIconSet } from './Themes'
+import { toggleAnnotation, toggleTheme, toggleIconSet, imgErrorHandler } from './Themes'
 import { buyGoldenQuarks } from './singularity'
 import { resetHotkeys } from './Hotkeys'
 import { generateExportSummary } from './Summary'
@@ -711,4 +711,7 @@ TODO: Fix this entire tab it's utter shit
             localStorage.removeItem('copyToClipboard')
         }
     })
+
+    // Window
+    window.addEventListener('error', imgErrorHandler, {capture: true});
 }
