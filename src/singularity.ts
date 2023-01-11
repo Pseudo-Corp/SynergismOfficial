@@ -138,7 +138,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
         let maxPurchasable = 100000;
         let GQBudget = player.goldenQuarks;
 
-        if (!event.shiftKey && player.singUpgradeBuyMaxToggle === false) {
+        if (!event.shiftKey && player.singUpgradeBuyMaxToggle === 'ONE') {
             maxPurchasable = 1;
         } else {
             let buy = -1;

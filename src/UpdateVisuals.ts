@@ -556,6 +556,10 @@ export const visualUpdateSingularity = () => {
         const keys = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
         const enhanceVision = G['shopEnhanceVision'];
         for (const key of keys) {
+            if (key === 'offeringAutomatic') {
+                continue;
+            }
+
             // Check item for Hide
             const singItem = player.singularityUpgrades[key];
             const elementToHide = DOMCacheGetOrSet(`${key.toString()}`).parentNode as HTMLElement;
@@ -568,10 +572,6 @@ export const visualUpdateSingularity = () => {
             }
 
             // Check item for Enhanced vision
-            if (key === 'offeringAutomatic') {
-                continue
-            }
-
             const el = DOMCacheGetOrSet(`${String(key)}`);
             if (singItem.maxLevel !== -1 && singItem.level >= singItem.computeMaxLevel()) {
                 el.style.filter = enhanceVision ? 'brightness(.9)' : 'none';

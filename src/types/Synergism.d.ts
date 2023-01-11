@@ -592,9 +592,9 @@ export interface Player {
     hepteractAutoCraftPercentage: number
 
     octeractHideToggle: boolean
-    octeractBuyMaxToggle: boolean | 'ANY'
+    octeractBuyMaxToggle: 'ONE' | 'MAX' | 'ANY'
     singUpgradeHideToggle: boolean
-    singUpgradeBuyMaxToggle: boolean | 'ANY'
+    singUpgradeBuyMaxToggle: 'ONE' | 'MAX' | 'ANY'
     octeractTimer: number
 
     insideSingularityChallenge: boolean

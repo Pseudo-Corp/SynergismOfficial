@@ -43,7 +43,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
         let maxPurchasable = 1000000;
         let octBudget = player.wowOcteracts;
 
-        if (!event.shiftKey && player.octeractBuyMaxToggle === false) {
+        if (!event.shiftKey && player.octeractBuyMaxToggle === 'ONE') {
             maxPurchasable = 1;
         } else {
             let octToSpend = -1;

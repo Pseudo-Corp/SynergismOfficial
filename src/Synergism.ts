@@ -815,9 +815,9 @@ export const player: Player = {
     hepteractAutoCraftPercentage: 50,
     octeractTimer: 0,
     octeractHideToggle: false,
-    octeractBuyMaxToggle: false,
+    octeractBuyMaxToggle: 'ONE',
     singUpgradeHideToggle: false,
-    singUpgradeBuyMaxToggle: false,
+    singUpgradeBuyMaxToggle: 'ONE',
     insideSingularityChallenge: false,
 
     singularityChallenges: {
@@ -1770,10 +1770,10 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: OFF'
         }
         switch (player.octeractBuyMaxToggle) {
-            case false:
+            case 'ONE':
                 DOMCacheGetOrSet('toggleBuyMaxOcteract').textContent = 'Buy: 1';
                 break;
-            case true:
+            case 'MAX':
                 DOMCacheGetOrSet('toggleBuyMaxOcteract').textContent = 'Buy: MAX';
                 break;
             case 'ANY':
@@ -1785,10 +1785,10 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleHideOcteract').textContent = 'Hide Maxed: OFF'
         }
         switch (player.singUpgradeBuyMaxToggle) {
-            case false:
+            case 'ONE':
                 DOMCacheGetOrSet('toggleBuyMaxSingUpgrade').textContent = 'Buy: 1';
                 break;
-            case true:
+            case 'MAX':
                 DOMCacheGetOrSet('toggleBuyMaxSingUpgrade').textContent = 'Buy: MAX';
                 break;
             case 'ANY':

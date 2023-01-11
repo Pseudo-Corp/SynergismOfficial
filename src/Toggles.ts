@@ -773,17 +773,18 @@ export const toggleBuyMaxOcteract = () => {
     const el = DOMCacheGetOrSet('toggleBuyMaxOcteract')
 
     switch (player.octeractBuyMaxToggle) {
-        case false:
+        case 'ONE':
             el.innerHTML = 'Buy: ANY';
             player.octeractBuyMaxToggle = 'ANY';
             break;
         case 'ANY':
             el.innerHTML = 'Buy: MAX';
-            player.octeractBuyMaxToggle = true;
+            player.octeractBuyMaxToggle = 'MAX';
             break;
+        case 'MAX':
         default:
             el.innerHTML = 'Buy: 1';
-            player.octeractBuyMaxToggle = false;
+            player.octeractBuyMaxToggle = 'ONE';
     }
 }
 
@@ -801,18 +802,18 @@ export const toggleBuyMaxSingUpgrade = () => {
     const el = DOMCacheGetOrSet('toggleBuyMaxSingUpgrade')
 
     switch (player.singUpgradeBuyMaxToggle) {
-        case false:
+        case 'ONE':
             el.innerHTML = 'Buy: ANY';
             player.singUpgradeBuyMaxToggle = 'ANY';
             break;
         case 'ANY':
             el.innerHTML = 'Buy: MAX';
-            player.singUpgradeBuyMaxToggle = true;
+            player.singUpgradeBuyMaxToggle = 'MAX';
             break;
-        case true:
+        case 'MAX':
         default:
             el.innerHTML = 'Buy: 1';
-            player.singUpgradeBuyMaxToggle = false;
+            player.singUpgradeBuyMaxToggle = 'ONE';
     }
 }
 

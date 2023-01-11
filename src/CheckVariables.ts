@@ -828,11 +828,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
 
     if (data.octeractBuyMaxToggle === undefined) {
-        player.octeractBuyMaxToggle = false;
+        player.octeractBuyMaxToggle = 'ONE';
     }
 
     if (data.singUpgradeBuyMaxToggle === undefined) {
-        player.singUpgradeBuyMaxToggle = false;
+        player.singUpgradeBuyMaxToggle = 'ONE';
     }
 
     if (data.wowOcteracts === undefined) {
