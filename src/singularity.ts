@@ -136,11 +136,20 @@ export class SingularityUpgrade extends DynamicUpgrade {
     public async buyLevel(event: MouseEvent): Promise<void> {
         let purchased = 0;
         let maxPurchasable = 1
+        player.goldenQuarks = 1e100
         let GQBudget = player.goldenQuarks
 
+        if (!Number.isFinite(GQBudget)) {
+            return Alert('Hey! Golden Quarks are not numbers and cannot be purchased!');
+        }
+
         if (event.shiftKey) {
-            maxPurchasable = 100000
-            const buy = Number(await Prompt(`How many Golden Quarks would you like to spend? You have ${format(player.goldenQuarks, 0, true)} GQ. Type -1 to use max!`))
+            maxPurchasable = 1000000
+            if (player.highestSingularityCount >= 250) {
+                maxPurchasable = 1000000;
+            }
+
+            const buy = Number(await Prompt(`How many Golden Quarks would you like to spend? You have ${format(player.goldenQuarks, 0, true)} GQ.\nType -1 to use max. Negative numbers below -2 can specify the number of purchases!`))
 
             if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
                 return Alert('Value must be a finite number!');
@@ -148,8 +157,10 @@ export class SingularityUpgrade extends DynamicUpgrade {
 
             if (buy === -1) {
                 GQBudget = player.goldenQuarks
-            } else if (buy <= 0) {
-                return Alert('Purchase cancelled!')
+            } else if (-buy > maxPurchasable) {
+                return Alert(`No purchases higher than ${format(maxPurchasable, 0, true)}.`);
+            } else if (-buy > 0) { // Negative number selects the number of purchases
+                maxPurchasable = -buy
             } else {
                 GQBudget = buy
             }
@@ -179,6 +190,9 @@ export class SingularityUpgrade extends DynamicUpgrade {
                 purchased += 1;
                 maxPurchasable -= 1;
             }
+        }
+
+        if (purchased >= 1 && this.level === this.maxLevel) {
             if (this.name === player.singularityUpgrades.oneMind.name) {
                 player.ascensionCounter = 0
                 player.ascensionCounterReal = 0
@@ -1737,7 +1751,7 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
         effectiveSingularities *= 2
     }
 
-    return effectiveSingularities
+    return Math.min(1e300, effectiveSingularities)
 }
 export const calculateNextSpike = (singularityCount: number = player.singularityCount): number => {
     const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 216, 230];

@@ -1421,7 +1421,7 @@ export const octeractGainPerSecond = () => {
     const ascensionSpeed = player.singularityUpgrades.oneMind.getEffect().bonus ? Math.pow(10, 1/2) : Math.pow(calculateAscensionAcceleration(), 1 / 2)
     const oneMindModifier = player.singularityUpgrades.oneMind.getEffect().bonus ? Math.pow(calculateAscensionAcceleration() / 10, +player.octeractUpgrades.octeractOneMindImprover.getEffect().bonus): 1;
     const perSecond = 1 / (24 * 3600 * 365 * 1e15) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed * oneMindModifier
-    return perSecond
+    return Number.isNaN(perSecond) ? 0 : Math.min(1e300, perSecond);
 }
 
 // This is an old calculation used only for Stats for Nerds
@@ -1515,7 +1515,7 @@ export const calculateTimeAcceleration = () => {
         preList: preCorruptionArr,
         drList: corruptionArr,
         postList: postCorruptionArr,
-        mult: timeMult
+        mult: Math.min(1e300, Math.max(1e-300, timeMult))
     };
 }
 
@@ -1525,7 +1525,7 @@ export const calculateLimitedAscensionsDebuff = () => {
     } else {
         let exponent = (player.ascensionCount - Math.max(0, 20 - player.singularityChallenges.limitedAscensions.completions))
         exponent = Math.max(0, exponent)
-        return Math.pow(2, exponent)
+        return Math.min(1e100, Math.pow(2, exponent))
     }
 }
 
@@ -1565,7 +1565,7 @@ export const calculateAscensionSpeedMultiplier = () => {
 
     return {
         list: arr,
-        mult: productContents(arr)
+        mult: Math.min(1e300, Math.max(1e-300, productContents(arr)))
     }
 }
 

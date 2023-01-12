@@ -891,6 +891,10 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
 export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     const shopItem = shopData[input];
 
+    if (!Number.isFinite(+player.worlds)) {
+        return Alert('Hey! Quarks are not numbers and cannot be purchased!');
+    }
+
     if (player.shopUpgrades[input] >= shopItem.maxLevel) {
         return player.shopConfirmationToggle
             ? Alert(`You can't purchase ${friendlyShopName(input)} because you are already at the maximum ${shopItem.type === shopUpgradeTypes.UPGRADE ? 'level' : 'capacity'}!`)

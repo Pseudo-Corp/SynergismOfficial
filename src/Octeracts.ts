@@ -43,9 +43,13 @@ export class OcteractUpgrade extends DynamicUpgrade {
         let maxPurchasable = 1;
         let OCTBudget = player.wowOcteracts;
 
+        if (!Number.isFinite(OCTBudget)) {
+            return Alert('Hey! Octeracts are not numbers and cannot be purchased!');
+        }
+
         if (event.shiftKey) {
             maxPurchasable = 1000000
-            const buy = Number(await Prompt(`How many Octeracts would you like to spend? You have ${format(player.wowOcteracts, 0, true)} OCT. Type -1 to use max!`))
+            const buy = Number(await Prompt(`How many Octeracts would you like to spend? You have ${format(player.wowOcteracts, 0, true)} OCT.\nType -1 to use max. Negative numbers below -2 can specify the number of purchases!`))
 
             if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
                 return Alert('Value must be a finite number!');
@@ -53,8 +57,10 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
             if (buy === -1) {
                 OCTBudget = player.wowOcteracts
-            } else if (buy <= 0) {
-                return Alert('Purchase cancelled!')
+            } else if (-buy > maxPurchasable) {
+                return Alert(`No purchases higher than ${format(maxPurchasable, 0, true)}.`);
+            } else if (-buy > 0) { // Negative number selects the number of purchases
+                maxPurchasable = -buy
             } else {
                 OCTBudget = buy
             }

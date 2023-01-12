@@ -76,8 +76,8 @@ export const addTimers = (input: TimerInput, time = 0) => {
                 player.octeractTimer %= 1
 
                 const perSecond = octeractGainPerSecond()
-                player.wowOcteracts += amountOfGiveaways * perSecond
-                player.totalWowOcteracts += amountOfGiveaways * perSecond
+                player.wowOcteracts = Math.min(1e300, Math.max(0, player.wowOcteracts + (amountOfGiveaways * perSecond)));
+                player.totalWowOcteracts = Math.min(1e300, Math.max(0, player.totalWowOcteracts + (amountOfGiveaways * perSecond)));
 
                 if (player.highestSingularityCount >= 160) {
                     const levels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249]

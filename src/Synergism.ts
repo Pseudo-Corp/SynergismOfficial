@@ -968,6 +968,9 @@ const loadSynergy = async () => {
             return ((player[prop] as unknown) = data[prop]);
         });
 
+        // Save last booted version
+        player.version = version;
+
         if (data.offerpromo24used !== undefined) {
             player.codes.set(25, false)
         }
