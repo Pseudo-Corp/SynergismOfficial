@@ -1,4 +1,4 @@
-export const version = '2.10.2: January 4, 2023: Exalt Buff 1';
+export const version = '2.10.3: January 12, 2023: Iconography';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE
