@@ -23,7 +23,7 @@ import type { OneToFive, Player } from './types/Synergism'
 import { displayStats } from './Statistics'
 import { testing } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { toggleAnnotation, toggleTheme } from './Themes'
+import { toggleAnnotation, toggleTheme, toggleIconSet, imgErrorHandler } from './Themes'
 import { buyGoldenQuarks } from './singularity'
 import { resetHotkeys } from './Hotkeys'
 import { generateExportSummary } from './Summary'
@@ -573,6 +573,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener('click', () => resetHistoryTogglePerSecond())
     DOMCacheGetOrSet('resetHotkeys').addEventListener('click', () => resetHotkeys())
     DOMCacheGetOrSet('notation').addEventListener('click', () => toggleAnnotation())
+    DOMCacheGetOrSet('iconSet').addEventListener('click', () => toggleIconSet(player.iconSet + 1))
 
     // SHOP TAB
 
@@ -710,4 +711,7 @@ TODO: Fix this entire tab it's utter shit
             localStorage.removeItem('copyToClipboard')
         }
     })
+
+    // Window
+    window.addEventListener('error', imgErrorHandler, {capture: true});
 }

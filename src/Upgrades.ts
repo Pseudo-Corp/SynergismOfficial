@@ -447,10 +447,10 @@ export const crystalupgradedescriptions = (i: number) => {
 
 export const upgradeupdate = (num: number, fast?: boolean) => {
     const el = DOMCacheGetOrSet(`upg${num}`);
-    if (player.upgrades[num] > 0.5 && ((num <= 60 || num > 80) && (num <= 93 || num > 100))) {
-        el.style.backgroundColor = 'green'
-    } else if (player.upgrades[num] > 0.5 && ((num > 60 && num <= 80) || (num > 93 && num <= 100) || (num > 120))) {
-        el.style.backgroundColor = 'white'
+    if (player.upgrades[num] > 0.5) {
+        el.style.backgroundColor = 'green';
+    } else {
+        el.style.backgroundColor = '';
     }
 
     const b = upgdesc[`upgdesc${num}`];
@@ -460,8 +460,6 @@ export const upgradeupdate = (num: number, fast?: boolean) => {
             DOMCacheGetOrSet('upgradedescription').textContent = b + c
             DOMCacheGetOrSet('upgradedescription').style.color = 'gold'
         }
-    } else {
-        el.style.backgroundColor = ''
     }
 
     if (!fast) {

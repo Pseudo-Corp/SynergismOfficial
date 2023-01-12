@@ -40,6 +40,7 @@ import { getAutoHepteractCrafts } from './Hepteracts'
 import type { TesseractBuildings } from './Buy';
 import { sumContents } from './Utility';
 import { setInterval, clearInterval } from './Timers'
+import { IconSets } from './Themes';
 
 let repeatreset: ReturnType<typeof setTimeout>;
 
@@ -73,8 +74,8 @@ export const resetdetails = (input: resetNames) => {
 
     switch (input){
         case 'prestige':
-            if (!currencyImage1.src.endsWith('Pictures/Diamond.png')) {
-                currencyImage1.src = 'Pictures/Diamond.png'
+            if (!currencyImage1.src.endsWith('Pictures/' + IconSets[player.iconSet][0] + '/Diamond.png')) {
+                currencyImage1.src = 'Pictures/' + IconSets[player.iconSet][0] + '/Diamond.png'
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['prestigePointGain']);
@@ -82,8 +83,8 @@ export const resetdetails = (input: resetNames) => {
             resetInfo.style.color = 'turquoise';
             break;
         case 'transcension':
-            if (!currencyImage1.src.endsWith('Pictures/Mythos.png')) {
-                currencyImage1.src = 'Pictures/Mythos.png'
+            if (!currencyImage1.src.endsWith('Pictures/' + IconSets[player.iconSet][0] + '/Mythos.png')) {
+                currencyImage1.src = 'Pictures/' + IconSets[player.iconSet][0] + '/Mythos.png'
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['transcendPointGain']);
@@ -91,8 +92,8 @@ export const resetdetails = (input: resetNames) => {
             resetInfo.style.color = 'var(--orchid-text-color)';
             break;
         case 'reincarnation':
-            if (!currencyImage1.src.endsWith('Pictures/Particle.png')) {
-                currencyImage1.src = 'Pictures/Particle.png'
+            if (!currencyImage1.src.endsWith('Pictures/' + IconSets[player.iconSet][0] + '/Particle.png')) {
+                currencyImage1.src = 'Pictures/' + IconSets[player.iconSet][0] + '/Particle.png'
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '+' + format(G['reincarnationPointGain']);
@@ -100,8 +101,8 @@ export const resetdetails = (input: resetNames) => {
             resetInfo.style.color = 'limegreen';
             break;
         case 'acceleratorBoost':
-            if (!currencyImage1.src.endsWith('Pictures/Diamond.png')) {
-                currencyImage1.src = 'Pictures/Diamond.png'
+            if (!currencyImage1.src.endsWith('Pictures/' + IconSets[player.iconSet][0] + '/Diamond.png')) {
+                currencyImage1.src = 'Pictures/' + IconSets[player.iconSet][0] + '/Diamond.png'
             }
             currencyImage1.style.display = 'block'
             resetCurrencyGain.textContent = '-' + format(player.acceleratorBoostCost);
