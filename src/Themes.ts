@@ -370,7 +370,7 @@ export function imgErrorHandler (evt: Event) {
 
     if (whichImg.src.includes('Legacy') || !(IconSetsRegex.exec(whichImg.src))) {
         // no image to fall back to
-        whichImg.src = '/Pictures/MISSINGIMAGE.png';
+        whichImg.src = './Pictures/MISSINGIMAGE.png';
     } else if (whichImg.src.includes(iconSetName)) {
         // first fall back attempt
         whichImg.src = whichImg.src.replace(IconSetsRegex, fallbackSetName);
