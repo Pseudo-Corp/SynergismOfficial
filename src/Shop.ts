@@ -803,7 +803,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = `CURRENT Effect: Offering gain is multiplied by ${format(Math.pow(1.02, player.shopUpgrades.offeringEX3), 2, true)}.`
             break;
         case 'obtainiumEX3':
-            lol.textContent = `CURRENT Effect: Offering gain is multiplied by ${format(Math.pow(1.02, player.shopUpgrades.obtainiumEX3), 2, true)}.`
+            lol.textContent = `CURRENT Effect: Obtainium gain is multiplied by ${format(Math.pow(1.02, player.shopUpgrades.obtainiumEX3), 2, true)}.`
             break;
         case 'improveQuarkHept5':
             lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept5/2500}`;

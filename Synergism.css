@@ -2516,7 +2516,7 @@ p#ascendHotKeys {
     background-color: #00b300;
 }
 
-.constUpgradeSingle {
+/* .constUpgradeSingle {
     background-color: gold;
 }
 
@@ -2527,7 +2527,7 @@ p#ascendHotKeys {
 
 .constUpgradeSingleAvailable:hover {
     background-color: #fff4b3;
-}
+} */
 
 .subtabSwitcher > button.buttonActive {
     background-color: crimson;
@@ -3073,7 +3073,8 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #ascTess {
-    color: var(--orchid-text-color);
+    /* color: var(--orchid-text-color); */
+    color: orange;
 }
 
 #ascHyper {
@@ -3081,11 +3082,11 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #ascPlatonic {
-    color: lightgoldenrodyellow;
+    color: orchid;
 }
 
 #ascHepteract {
-    color: pink;
+    color: mediumpurple;
 }
 
 #ascTimeAccel {

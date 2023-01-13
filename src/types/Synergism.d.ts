@@ -586,6 +586,7 @@ export interface Player {
     totalQuarksEver: number
     hotkeys: Record<number, string[]>
     theme: string
+    iconSet: number
     notation: string
 
     singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
