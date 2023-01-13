@@ -739,5 +739,16 @@
       "level": "Level: {{value1}} / {{value2}}",
       "maxLevel": "Cost: 0 Wow! Cubes. This upgrade is maxed! wow"
     }
+  },
+  "calculate": {
+      "timePrompt": "How far in the future would you like to go into the future? Anything awaits when it is testing season.",
+      "timePromptError": "Hey! That\"s not a valid time!",
+      "offlineTimer": "You have {{value}} seconds of offline progress!",
+      "offlineEarnings": "While offline, the Idle Overlords earned:",
+      "quadraticImproperError": "This is not a quadratic equation!",
+      "quadraticDeterminantError": "Determinant was negative!",
+      "cubicSumNegativeError": "You cannot spend a negative amount!"
+
+
   }
 }
