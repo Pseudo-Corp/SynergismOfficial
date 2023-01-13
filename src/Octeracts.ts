@@ -386,7 +386,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     octeractImprovedAscensionSpeed2: {
         name: 'Abstract Exokinetics',
-        description: 'Gain +0.02% Ascension Speed per level per singularity!',
+        description: 'Gain +0.05% Ascension Speed per level per singularity!',
         costFormula: (level: number, baseCost: number) => {
             return baseCost * Math.pow(1e12, level / 250)
         },
@@ -395,7 +395,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         effect: (n: number) => {
             return {
                 bonus: n / 2000,
-                desc: `Ascension Speed per singularity +${format(n/50, 2, true)}%`
+                desc: `Ascension Speed per singularity +${format(n/20, 2, true)}%`
             }
         }
     },

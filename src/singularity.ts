@@ -192,7 +192,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
             }
         }
 
-        if (purchased >= 1 && this.level === this.maxLevel) {
+        if (purchased >= 1) {
             if (this.name === player.singularityUpgrades.oneMind.name) {
                 player.ascensionCounter = 0
                 player.ascensionCounterReal = 0
@@ -678,7 +678,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     divinePack: {
         name: 'Divine Pack',
-        description: 'OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14.',
+        description: 'OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 2 if corruptions are all set to 14.',
         maxLevel: 1,
         costPerLevel: 12800,
         minimumSingularity: 36,
