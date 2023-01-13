@@ -7,6 +7,7 @@ import { hepteractEffective } from './Hepteracts';
 import { productContents } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { autoResearchEnabled } from './Research';
+import i18next from 'i18next';
 
 export const getMaxChallenges = (i: number) => {
     let maxChallenge = 0;
@@ -140,119 +141,21 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     const m = DOMCacheGetOrSet('challengeCurrent2');
     const n = DOMCacheGetOrSet('challengeCurrent3');
 
+    if (i === G['challengefocus']) {
+      a.textContent = i18next.t(`challenges.${i}.name`, { value: player.challengecompletions[1] + '/' + format(maxChallenges) })
+      b.textContent = i18next.t(`challenges.${i}.flavor`, { value: player.challengecompletions[1] + '/' + format(maxChallenges) })
+      c.textContent = i18next.t(`challenges.${i}.restrictions`)
+      d.textContent = i18next.t(`challenges.${i}.goal`, { value: format(challengeRequirement(i, player.challengecompletions[i])) })
+      e.textContent = i18next.t(`challenges.${i}.per.1`)
+      f.textContent = i18next.t(`challenges.${i}.per.2`)
+      g.textContent = i18next.t(`challenges.${i}.per.3`)
+      h.textContent = i18next.t(`challenges.${i}.first`)
+      k.textContent = i18next.t(`challenges.${i}.start`)
+      l.textContent = i18next.t(`challenges.${i}.current.1`, { value: format(10 * CalcECC('transcend', player.challengecompletions[1])) })
+      m.textContent = i18next.t(`challenges.${i}.current.2`, { value: format(10 * CalcECC('transcend', player.challengecompletions[1])) })
+      n.textContent = i18next.t(`challenges.${i}.current.3`, { value: format(0.04 * CalcECC('transcend', player.challengecompletions[1]), 2, true) })
+    }
 
-    if (i === 1 && G['challengefocus'] === 1) {
-        a.textContent = 'No Multipliers Challenge || ' + player.challengecompletions[1] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'Multipliers make the game a little too fast. Let\'s take them out!'
-        c.textContent = 'Transcend and reach the goal except Multipliers do nothing but act like Accelerators, which are nerfed by 50%!'
-        d.textContent = 'Goal: Gain ' + format(challengeRequirement(i, player.challengecompletions[i])) + ' Coins in challenge.'
-        e.textContent = '+10 base Multiplier Boosts! [+0.05 to power!] Current: '
-        f.textContent = '+10% total Multiplier Boosts! Current: '
-        g.textContent = '+0.04 base Rune exp per Offering! Current: '
-        h.textContent = '+1 free Multiplier! +1 Base EXP per offering used!'
-        k.textContent = 'Start [No Multipliers]'
-        l.textContent = '+' + format(10 * CalcECC('transcend', player.challengecompletions[1])) + ' Boosts'
-        m.textContent = '+' + format(10 * CalcECC('transcend', player.challengecompletions[1])) + '% more Boosts'
-        n.textContent = '+' + format(0.04 * CalcECC('transcend', player.challengecompletions[1]), 2, true) + ' Rune EXP [Highest Completion]'
-    }
-    if (i === 2 && G['challengefocus'] === 2) {
-        a.textContent = 'No Accelerators Challenge || ' + player.challengecompletions[2] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'Who needs accelerators? They do basically nothing now.'
-        c.textContent = 'Transcend and reach the goal except Accelerators do nothing! Multipliers are nerfed a bit as well.'
-        d.textContent = 'Goal: Gain ' + format(challengeRequirement(i, player.challengecompletions[i])) + ' Coins in challenge.'
-        e.textContent = '+5 Free Accelerators! Current: '
-        f.textContent = '+5% Accelerator Boost Power! Current: '
-        g.textContent = '+0.25% Accelerator Power! Current: '
-        h.textContent = '+1 base offering for Prestige and Transcensions.'
-        k.textContent = 'Start [No Accelerators]'
-        l.textContent = '+' + format(5 * CalcECC('transcend', player.challengecompletions[2])) + ' Accelerators'
-        m.textContent = '+' + format(5 * CalcECC('transcend', player.challengecompletions[2])) + '% A.Boost Power'
-        n.textContent = '+' + format(0.25 * CalcECC('transcend', player.challengecompletions[2]), 2, true) + '% Accelerator Power'
-    }
-    if (i === 3 && G['challengefocus'] === 3) {
-        a.textContent = 'No Shards Challenge || ' + player.challengecompletions[3] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'Alright, now you\'re thinking, how else can I make the game harder?'
-        c.textContent = 'Transcend and reach the goal except you do not produce Crystals or Mythos Shards.'
-        d.textContent = 'Goal: Gain ' + format(challengeRequirement(i, player.challengecompletions[i])) + ' Coins in challenge.'
-        e.textContent = 'Crystal --> Coin conversion exponent +0.04! Current: '
-        f.textContent = '+0.5% to Grandmaster production per Mythos producer bought. Current: '
-        g.textContent = 'When you use a rune, all other runes gain +0.01 EXP. Current: '
-        h.textContent = 'Gain an offering automatically every 2 seconds!'
-        k.textContent = 'Start [No Shards]'
-        l.textContent = 'Exponent +' + format(0.04 * player.challengecompletions[3], 2, true)
-        m.textContent = '+' + format(0.5 * CalcECC('transcend', player.challengecompletions[3]), 2, true) + '%'
-        n.textContent = '+' + format(0.01 * CalcECC('transcend', player.challengecompletions[3]), 2, true) + ' EXP'
-    }
-    if (i === 4 && G['challengefocus'] === 4) {
-        a.textContent = 'Cost+ Challenge || ' + player.challengecompletions[4] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'You\'re getting rich now, but inflation hasn\'t happened yet? I don\'t think so!'
-        c.textContent = 'Transcend and reach the goal except Coin/Crystal producers, Accelerators and Multipliers cost more. [Gets harder each time!]'
-        d.textContent = 'Goal: Gain ' + format(challengeRequirement(i, player.challengecompletions[i])) + ' Coins in challenge.'
-        e.textContent = 'Accelerator Cost scale slows down by +5 purchases. Current: '
-        f.textContent = 'Multiplier Cost scale slows down by +2 purchases. Current: '
-        g.textContent = 'Building Cost Delay +0.5%. Current: '
-        h.textContent = 'None'
-        k.textContent = 'Start [Cost+]'
-        l.textContent = 'Accelerator Delay +' + format(5 * CalcECC('transcend', player.challengecompletions[4]))
-        m.textContent = 'Multiplier Delay +' + format(2 * CalcECC('transcend', player.challengecompletions[4]))
-        n.textContent = 'Building Cost Delay +' + format(0.5 * CalcECC('transcend', player.challengecompletions[4]), 2, true) + '%'
-    }
-    if (i === 5 && G['challengefocus'] === 5) {
-        a.textContent = 'Reduced Diamonds Challenge || ' + player.challengecompletions[5] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'You ever wonder how you get so many diamonds?'
-        c.textContent = 'Transcend and reach the goal except you gain far fewer Diamonds from all sources [Gets harder each time!]'
-        d.textContent = 'Goal: Gain ' + format(challengeRequirement(i, player.challengecompletions[i])) + ' Coins in challenge.'
-        e.textContent = '+0.01 Coin --> Diamond conversion exponent on Prestige! Current: '
-        f.textContent = 'Multiply Crystal production by 10! Current: '
-        g.textContent = ''
-        h.textContent = 'None'
-        k.textContent = 'Start [Reduced Diamonds]'
-        l.textContent = 'Exponent = ^' + format(0.5 + CalcECC('transcend', player.challengecompletions[5]) / 100, 2, true)
-        m.textContent = 'Crystal production x' + format(Math.pow(10, CalcECC('transcend', player.challengecompletions[5])))
-        n.textContent = ''
-    }
-    if (i === 6 && G['challengefocus'] === 6) {
-        a.textContent = 'Higher Tax Challenge || ' + player.challengecompletions[6] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'The tax man caught wind that you reincarnated recently...'
-        c.textContent = 'Reincarnate and reach the goal except tax has a lower cap, and Coin production is divided by 1e250.'
-        d.textContent = 'Goal: Gain ' + format(challengeRequirement(i, player.challengecompletions[i], 6)) + ' Mythos Shards in challenge.'
-        e.textContent = '-3.5% Taxes [Multiplicative]! Current: '
-        f.textContent = 'Thrift Rune Exp +10%! Current: '
-        g.textContent = 'Prestige Offerings +2%! Current: '
-        h.textContent = '-7.5% Taxes!'
-        k.textContent = 'Start <Higher Tax>'
-        l.textContent = 'Tax multiplier x' + format(Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6])), 3, true)
-        m.textContent = 'EXP +' + format(10 * CalcECC('reincarnation', player.challengecompletions[6])) + '%'
-        n.textContent = '+' + format(2 * CalcECC('reincarnation', player.challengecompletions[6])) + '% Prestige-based Offerings'
-    }
-    if (i === 7 && G['challengefocus'] === 7) {
-        a.textContent = 'No Multipliers/Accelerators Challenge || ' + player.challengecompletions[7] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'You\'re really going to hate this one.'
-        c.textContent = 'Reincarnate and reach the goal except Accelerators and Multipliers do nothing. Coin Production is divided by 1e1,250.'
-        d.textContent = 'Goal: Gain ' + format(challengeRequirement(i, player.challengecompletions[i],7)) + ' Mythos Shards in challenge.'
-        e.textContent = 'Accelerator/Multiplier boost power exponent +0.04! Current: '
-        f.textContent = 'Speed Rune Exp +10%! Current: '
-        g.textContent = 'Duplication Rune Exp +10%! Current: '
-        h.textContent = 'Multiplier Boost power +25%! The first Discord-Booster Global Diamond Upgrade.'
-        k.textContent = 'Start <No Multipliers/Accelerators>'
-        l.textContent = 'Exponent = ^' + format(1 + 0.04 * CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
-        m.textContent = 'EXP +' + format(10 * CalcECC('reincarnation', player.challengecompletions[7])) + '%'
-        n.textContent = 'EXP +' + format(10 * CalcECC('reincarnation', player.challengecompletions[7])) + '%'
-    }
-    if (i === 8 && G['challengefocus'] === 8) {
-        a.textContent = 'Cost++ Challenge || ' + player.challengecompletions[8] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'You thought you could outgrow inflation by Reincarnating?'
-        c.textContent = 'Reincarnate and reach the goal except Cost Scaling for producers and Accelerators/Multipliers scale much, much faster.'
-        d.textContent = 'Goal: Gain ' + format(challengeRequirement(i, player.challengecompletions[i],8)) + ' Mythos Shards in challenge.'
-        e.textContent = 'Base Building Power +0.25! Current: '
-        f.textContent = 'Prism Rune Exp +20%! Current: '
-        g.textContent = 'Transcend Offerings +4%! Current: '
-        h.textContent = 'Unlock the Anthill feature! Includes 20 new Researches. A Global Diamond Upgrade.'
-        k.textContent = 'Start <Cost++>'
-        l.textContent = '+' + format(0.25 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
-        m.textContent = '+' + format(20 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true) + '% EXP'
-        n.textContent = '+' + format(4 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true) + '% Transcend-based offerings'
-    }
     if (i === 9 && G['challengefocus'] === 9) {
         a.textContent = 'No Runes Challenge || ' + player.challengecompletions[9] + '/' + format(maxChallenges) + ' Completions'
         b.textContent = 'You\'ll never complain about Prism being bad again.'
@@ -355,6 +258,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         m.textContent = ''
         n.textContent = ''
     }
+
     const scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
     const scoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
     const scoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750];

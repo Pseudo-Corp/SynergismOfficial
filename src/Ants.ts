@@ -15,17 +15,7 @@ import type { FirstToEighth, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { smallestInc } from './Utility';
 import { setInterval, clearInterval } from './Timers'
-
-const antdesc: Record<string, string> = {
-    antdesc1: 'Gain a Worker Ant for your everyday life. Gathers Galactic Crumbs. Essential!',
-    antdesc2: 'Gain a Breeder Ant that produces Worker Ants automatically!',
-    antdesc3: 'Gain a Meta-breeder Ant that produces Breeder Ants automatically!',
-    antdesc4: 'Gain a Mega-breeder Ant that produces Meta-breeder Ants automatically!',
-    antdesc5: 'Gain a Queen Ant that produces Mega-breeder Ants automatically!',
-    antdesc6: 'Gain a Lord Royal Ant that produces Queen Ants automatically!',
-    antdesc7: 'Gain an ALMIGHTY ANT that produces Lord Royal Ants automatically!',
-    antdesc8: 'Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!'
-}
+import i18next from 'i18next';
 
 const antspecies: Record<string, string> = {
     antspecies1: 'Inceptus Formicidae',
@@ -40,21 +30,6 @@ const antspecies: Record<string, string> = {
     antspecies10: 'Scientia Formicidae',
     antspecies11: 'Phylacterium Formicidae',
     antspecies12: 'Mortuus Est Formicidae'
-}
-
-const antupgdesc: Record<string, string> = {
-    antupgdesc1: 'Promotes romance and unity within the colony. [+12% Ant Speed / level]',
-    antupgdesc2: 'Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]',
-    antupgdesc3: 'Swarms the Taxman into submission [Up to -99.5% taxes!]',
-    antupgdesc4: 'Scares you into running faster [up to x20]',
-    antupgdesc5: 'Imitates your body through magic shape-shifting powers [up to x40]',
-    antupgdesc6: 'Tries to please Ant God... but fails [Additional Offerings!]',
-    antupgdesc7: 'Helps you build a few things here and there [+3% Building Cost Delay / level, Cap 9,999,999%]',
-    antupgdesc8: 'Knows how to salt and pepper food [Up to 1,000x Rune EXP!]',
-    antupgdesc9: 'Can make your message to Ant God a little more clear [+1 all Rune Levels / level, Cap 10 Million]',
-    antupgdesc10: 'Has big brain energy [Additional Obtainium!]',
-    antupgdesc11: 'A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]',
-    antupgdesc12: 'Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]'
 }
 
 export const calculateCrumbToCoinExp = () => {
@@ -98,7 +73,7 @@ export const updateAntDescription = (i: number) => {
 
     let priceType = 'Galactic Crumbs'
     let tier: FirstToEighth = 'first'
-    el.textContent = antdesc['antdesc' + i]
+    el.textContent = i18next.t(`ants.descriptions.${i}`)
 
     switch (i) {
         case 1:
@@ -274,7 +249,7 @@ export const antUpgradeDescription = (i: number) => {
     const me = DOMCacheGetOrSet('antupgradeeffect')
 
     const content1 = antspecies['antspecies' + i];
-    const content2 = antupgdesc['antupgdesc' + i];
+    const content2 = i18next.t(`ants.upgrades.${i}`)
     const bonuslevel = G[`bonusant${i}` as keyof typeof G] as typeof G['bonusant1'];
 
     const c11 = player.currentChallenge.ascension === 11 ? 999 : 0;
@@ -285,21 +260,6 @@ export const antUpgradeDescription = (i: number) => {
     ti.textContent = 'Cost: ' + format(Decimal.pow(G['antUpgradeCostIncreases'][i-1], player.antUpgrades[i-1]! * G['extinctionMultiplier'][player.usedCorruptions[10]]).times(G['antUpgradeBaseCost'][i-1])) + ' Galactic Crumbs'
     me.textContent = 'CURRENT EFFECT: ' + antUpgradeTexts[i - 1]()
 }
-
-//function buyAntUpgrade(i,auto) {
-//    if(player.antPoints.gte(Decimal.pow(10, G['antUpgradeCostIncreases'][i] * player.antUpgrades[i-1]).times(G['antUpgradeBaseCost'][i]))){
-//        player.antPoints = player.antPoints.sub(Decimal.pow(10, G['antUpgradeCostIncreases'][i] * player.antUpgrades[i-1]).times(G['antUpgradeBaseCost'][i]));
-//        player.antUpgrades[i-1]++
-//        calculateAnts();
-//        calculateRuneLevels();
-//        calculateAntSacrificeELO();
-
-
-//        if(!auto){antUpgradeDescription(i)}
-//        if(player.antUpgrades[12-1] == 1 && i == 12){revealStuff()}
-//    }
-//    else{}
-//}
 
 export const antSacrificePointsToMultiplier = (points: number) => {
     let multiplier = Math.pow(1 + points / 5000, 2)

@@ -901,15 +901,13 @@ const loadSynergy = async () => {
         : null;
 
     if (testing || prod === false) {
-        Object.defineProperty(window, 'player', {
-            value: player
-        });
-        Object.defineProperty(window, 'G', {
-            value: G
-        });
-        Object.defineProperty(window, 'Decimal', {
-            value: Decimal
-        });
+        Object.defineProperties(window, {
+          player: { value: player },
+          G: { value: G },
+          Decimal: { value: Decimal },
+          i18n: { value: i18next }
+        })
+
         if (data && testing) {
             data.exporttest = false;
         }
