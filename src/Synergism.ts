@@ -902,10 +902,10 @@ const loadSynergy = async () => {
 
     if (testing || prod === false) {
         Object.defineProperties(window, {
-          player: { value: player },
-          G: { value: G },
-          Decimal: { value: Decimal },
-          i18n: { value: i18next }
+            player: { value: player },
+            G: { value: G },
+            Decimal: { value: Decimal },
+            i18n: { value: i18next }
         })
 
         if (data && testing) {

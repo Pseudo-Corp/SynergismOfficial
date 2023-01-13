@@ -459,6 +459,132 @@
         "2": "+{{value}}% EXP",
         "3": "+{{value}}% Transcend-based offerings"
       }
+    },
+    "9": {
+      "name": "No Runes Challenge || {{- value}} Completions",
+      "flavor": "You'll never complain about Prism being bad again.",
+      "restrictions": "Reincarnate and reach the goal except runes always have level 1 effects. All coin production is divided by e2,000,000.",
+      "goal": "Goal: Gain {{value}} Coins in challenge.",
+      "per": {
+        "1": "+1 free Ant level! Current: ",
+        "2": "+10% Ant speed [Multiplicative!] Current: ",
+        "3": "SI Rune Exp +20%! Current: "
+      },
+      "first": "Unlock the Talismans feature! [In Runes tab]. A Global Diamond Upgrade.",
+      "start": "Start <No Runes>",
+      "current": {
+        "1": "+{{value}} free levels",
+        "2": "x{{value}} Ant Speed",
+        "3": "+{{value}}% EXP"
+      }
+    },
+    "10": {
+      "name": "Sadistic Challenge I || {{- value}} Completions",
+      "flavor": "I'm sorry for what I've unleashed onto the world.",
+      "restrictions": "Reincarnate and reach the goal except run the first five challenges AT THE SAME TIME! Coin Production /e12,500,000.",
+      "goal": "Goal: Gain {{value}} Coins in challenge.",
+      "per": {
+        "1": "+100 base ELO for sacrificing ants! Current: ",
+        "2": "+2% Ant Sacrifice Reward! Current: ",
+        "3": "Reincarnation Offerings +10%! Current: "
+      },
+      "first": "Unlock the Ascension Reset Tier!",
+      "start": "Start <Sadistic I>",
+      "current": {
+        "1": "+{{value}} Ant ELO",
+        "2": "+{{value}}% Ant Sacrifice reward",
+        "3": "+{{value}}% Reincarnate-based offerings"
+      }
+    },
+    "11": {
+      "name": "Reduced Ants Challenge || {{- value}} Completions",
+      "flavor": "The great Ant War of '21 wiped off all of the skilled ants.",
+      "restrictions": "Ascend and reach the goal but only get free ant upgrades and from Challenge8/9 completions. FOR ASCENSION CHALLENGES YOU MUST CLEAR CHALLENGE 10 TO ATTEMPT THEM.",
+      "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
+      "per": {
+        "1": "+12 free Ant Levels! Current: ",
+        "2": "Ant Speed x(1e5)^completions! Current: ",
+        "3": "+80 to Rune Caps! Current: "
+      },
+      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to toggle Corruptions ;)",
+      "start": "Start <[(Reduced Ants)]>",
+      "current": {
+        "1": "+{{value}} free ant levels",
+        "2": "Ant Speed x{{value}}",
+        "3": "+{{value}} to Rune Caps"
+      }
+    },
+    "12": {
+      "name": "No Reincarnation Challenge || {{- value}} Completions",
+      "flavor": "For some reason, you just can't do it.",
+      "restrictions": "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! Ant production ^0.5.",
+      "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
+      "per": {
+        "1": "+50% Obtainium! Current: ",
+        "2": "+12% Offerings! Current: ",
+        "3": "+1 Cube Tribute per opening! Current: "
+      },
+      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Increase Corruption Cap by 2 levels. Finally, unlock two new corruptions! ;)",
+      "start": "Start <[(No Reincarnation)]>",
+      "current": {
+        "1": "+{{value}}% Obtainium",
+        "2": "+{{value}}% Offerings",
+        "3": "+{{value}} additional Cube Tributes"
+      }
+    },
+    "13": {
+      "name": "Tax+++ Challenge || {{- value}} Completions",
+      "flavor": "Good luck with the IRS, buddy.",
+      "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. Ant production ^0.23",
+      "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
+      "per": {
+        "1": "Taxes -3.33%! Multiplicative! Current: ",
+        "2": "+6 maximum to Talisman Level Cap! Current: ",
+        "3": "+3% Spirit Power effectiveness! Current: "
+      },
+      "first": "Unlock 15 Researches, and unlock the power of the Hypercube! Increase Corruption Cap by 2 levels, to 9! Finally, unlock two new corruptions! ;)",
+      "start": "Start <[(Tax+++)]>",
+      "current": {
+        "1": "+{{value}}% Corruption Tax",
+        "2": "+{{value}} Talisman Level Cap",
+        "3": "+{{value}}% Effectiveness"
+      }
+    },
+    "14": {
+      "name": "No Research Challenge || {{- value}} Completions",
+      "flavor": "The dimension that never progressed past the dark ages. Many fear to even step foot.",
+      "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.2.",
+      "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
+      "per": {
+        "1": "+50% stronger effect on researches 1x1 through 1x5. Current: ",
+        "2": "+1 research purchased per roomba tick! Current: ",
+        "3": "+200 to Rune Caps! Current: "
+      },
+      "first": "Unlock 15 Researches, and a way to coalesce your power into the Singularity. Increase Corruption Cap by 2 levels, to 11! Finally, unlock two new corruptions! ;)",
+      "start": "Start <[(No Research)]>",
+      "current": {
+        "1": "+{{value}}% Power",
+        "2": "+{{value}} per Tick",
+        "3": "+{{value}} to Rune Caps"
+      }
+    },
+    "15": {
+      "name": "SADISTIC CHALLENGE II || {{- value}} Completions",
+      "flavor": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
+      "restrictions": "Ascend and reach the goal but you're stuck in all corruptions at level 11, and Ant production ^0.01.",
+      "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
+      "per": {
+        "1": "Folly of mankind: ",
+        "2": "to believe they can defeat ",
+        "3": "what Ant God labored "
+      },
+      "first": "You would break the universe if you could!",
+      "start": "Start <[(Sadistic Challenge II)]>",
+      "current": {
+        "1": "",
+        "2": "",
+        "3": ""
+      }
     }
   }
 }
