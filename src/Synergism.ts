@@ -49,6 +49,8 @@ import { octeractData, OcteractUpgrade } from './Octeracts';
 import {settingAnnotation, toggleTheme, toggleIconSet } from './Themes';
 import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges';
+import { init as i18nInit } from './i18n'
+import i18next from 'i18next'
 
 export const player: Player = {
     firstPlayed: new Date().toISOString(),
@@ -4030,13 +4032,13 @@ export const reloadShit = async (reset = false) => {
 
         if (isLZString) {
             if (!dec) {
-                return Alert('Unable to load the save.');
+                return Alert(i18next.t('save.loadFailed'));
             }
 
             const saveString = btoa(dec);
 
             if (saveString === null) {
-                return Alert('Unable to load the save.');
+                return Alert(i18next.t('save.loadFailed'));
             }
 
             localStorage.clear();
@@ -4120,7 +4122,10 @@ export const reloadShit = async (reset = false) => {
     saveType.checked = localStorage.getItem('copyToClipboard') !== null
 }
 
-window.addEventListener('load', () => {
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+window.addEventListener('load', async () => {
+    await i18nInit()
+
     const ver = DOMCacheGetOrSet('versionnumber');
     const addZero = (n: number) => `${n}`.padStart(2, '0')
     if (ver instanceof HTMLElement) {
@@ -4128,7 +4133,7 @@ window.addEventListener('load', () => {
         ver.textContent =
             `You're ${testing ? 'testing' : 'playing'} v${version} - The Alternate Reality` +
             textUpdate +
-            ` ${testing ? 'Savefiles cannot be used in live!' : ''}`;
+            ` ${testing ? i18next.t('testing.saveInLive') : ''}`;
     }
     document.title = `Synergism v${version}`;
 

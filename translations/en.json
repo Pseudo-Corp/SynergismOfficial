@@ -1,0 +1,8 @@
+{
+  "testing": {
+    "saveInLive": "Savefiles cannot be used in live!"
+  },
+  "save": {
+    "loadFailed": "Unable to load save."
+  }
+}
