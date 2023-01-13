@@ -132,13 +132,12 @@ export class QuarkHandler {
                 try {
                     quarkBonus = JSON.parse(window.atob(localStorage.getItem('quarkBonus')!)) as typeof quarkBonus;
                 } catch (err2) {
-                    quarkBonus = JSON.parse(localStorage.getItem('quarkBonus')!) as typeof quarkBonus;
                 }
                 if (typeof quarkBonus !== 'object' || !Number.isFinite(quarkBonus.bonus)) {
                     throw new Error('quarkBonus in localStorage is corrupted or has bad value!');
                 }
                 // cache is younger than 15 minutes
-                if (Date.now() - quarkBonus.fetched < 60 * 1000 * 15) {
+                if (Math.abs(Date.now() - quarkBonus.fetched) < 60 * 1000 * 15) {
                     el.textContent = `Generous patrons give you a bonus of ${quarkBonus.bonus}% more Quarks!`;
                     return this.BONUS = quarkBonus.bonus;
                 }
