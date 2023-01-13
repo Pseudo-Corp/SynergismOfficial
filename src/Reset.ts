@@ -1160,6 +1160,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
     hold.autoPlatonicUpgradesToggle = player.autoPlatonicUpgradesToggle
     hold.insideSingularityChallenge = player.insideSingularityChallenge
     hold.singularityChallenges = player.singularityChallenges
+    hold.iconSet = player.iconSet
 
     // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting
     hold.hepteractCrafts.quark = player.hepteractCrafts.quark;
