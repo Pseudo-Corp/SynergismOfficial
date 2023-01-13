@@ -1311,10 +1311,10 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Exalted Achievements',
+        name: 'Exalted Challenges',
         levels: [25],
         description: () => {
-            return 'Unlocks new, very difficult achievements! They are earned differently from others, however... (WIP)'
+            return 'Unlocks new, very difficult challenges! They are more unique than previous ones, however...'
         }
     },
     {
@@ -1338,7 +1338,7 @@ export const singularityPerks: SingularityPerk[] = [
             if (n >= levels[1]) {
                 return 'Keep all Cube Opening researches AND gain the ability to automatically open a percentage of your cubes each Ascension!'
             } else {
-                return 'Researches related to opening cubes will no longer reset on Ascension'
+                return 'Researches related to opening cubes will no longer reset on Ascension! '
             }
         }
     },
@@ -1347,9 +1347,9 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [25, 101],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
-                return 'You can now automatically ascend based on time length and autorun Ascension Challenges with Instant Challenges 2!'
+                return 'You can now automatically ascend based on real time length and autorun Ascension Challenges with Instant Challenges 2!'
             } else {
-                return 'You can now automatically ascend based on the length of the Ascension'
+                return 'You can now automatically ascend based on the real time length of the Ascension'
             }
         }
     },
@@ -1431,7 +1431,7 @@ export const singularityPerks: SingularityPerk[] = [
                     counter += 0.125
                 }
             }
-            return `Code 'add' refills ${counter}% faster per level per Singularity. Currently: ${format(Math.min(50, counter*player.singularityCount), 1)} (MAX: -60% Cooldown)`
+            return `Code 'add' refills ${counter}% faster per level per Singularity. Currently: ${format(Math.min(60, counter*player.singularityCount), 1)} (MAX: -60% Cooldown)`
         }
     },
     {
@@ -1484,7 +1484,7 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [200],
         description: () => {
             const amt = Math.pow((player.singularityCount - 179) / 20, 2)
-            return `Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: ${format(amt)}... Yes, it's that good.`
+            return `Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: ${format(amt, 4)}... Yes, it's that good.`
         }
     }
 ]
@@ -1492,7 +1492,7 @@ export const singularityPerks: SingularityPerk[] = [
 export const updateSingularityPerks = (): void => {
     const singularityCount = player.highestSingularityCount;
     const str = `The highest Singularity you've reached is the <span style="color: gold">${toOrdinal(singularityCount)} Singularity.</span><br/>
-                Here is the list of Perks you have acquired to compensate the Penalties
+                Here is the list of Perks you have acquired to compensate the Penalties:
                 (Hover for more details. Perks in <span class="newPerk">gold text</span> were added or improved in this Singularity)<br/>`
                 + getAvailablePerksDescription(singularityCount)
 
@@ -1570,9 +1570,15 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
     if (singularityCountForNextPerk) {
         perksText += '<br/>You will unlock a whole new Perk in Singularity ' + singularityCountForNextPerk;
     }
+    else {
+        perksText += '<br/>You have no Perks left to unlock! '
+    }
     const singularityCountForNextPerkUpgrade = nextUpgrades.reduce((a, b) => Math.min(a, +b), Infinity);
     if (singularityCountForNextPerkUpgrade < Infinity) {
         perksText += '<br/>An existing Perk will be improved in Singularity ' + singularityCountForNextPerkUpgrade;
+    }
+    else {
+        perksText += '<br/>You have no Perks left to improve! '
     }
     return perksText;
 }
