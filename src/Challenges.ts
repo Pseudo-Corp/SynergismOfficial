@@ -142,18 +142,18 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     const n = DOMCacheGetOrSet('challengeCurrent3');
 
     if (i === G['challengefocus']) {
-      a.textContent = i18next.t(`challenges.${i}.name`, { value: player.challengecompletions[1] + '/' + format(maxChallenges) })
-      b.textContent = i18next.t(`challenges.${i}.flavor`, { value: player.challengecompletions[1] + '/' + format(maxChallenges) })
-      c.textContent = i18next.t(`challenges.${i}.restrictions`)
-      d.textContent = i18next.t(`challenges.${i}.goal`, { value: format(challengeRequirement(i, player.challengecompletions[i])) })
-      e.textContent = i18next.t(`challenges.${i}.per.1`)
-      f.textContent = i18next.t(`challenges.${i}.per.2`)
-      g.textContent = i18next.t(`challenges.${i}.per.3`)
-      h.textContent = i18next.t(`challenges.${i}.first`)
-      k.textContent = i18next.t(`challenges.${i}.start`)
-      l.textContent = i18next.t(`challenges.${i}.current.1`, { value: format(10 * CalcECC('transcend', player.challengecompletions[1])) })
-      m.textContent = i18next.t(`challenges.${i}.current.2`, { value: format(10 * CalcECC('transcend', player.challengecompletions[1])) })
-      n.textContent = i18next.t(`challenges.${i}.current.3`, { value: format(0.04 * CalcECC('transcend', player.challengecompletions[1]), 2, true) })
+        a.textContent = i18next.t(`challenges.${i}.name`, { value: player.challengecompletions[1] + '/' + format(maxChallenges) })
+        b.textContent = i18next.t(`challenges.${i}.flavor`, { value: player.challengecompletions[1] + '/' + format(maxChallenges) })
+        c.textContent = i18next.t(`challenges.${i}.restrictions`)
+        d.textContent = i18next.t(`challenges.${i}.goal`, { value: format(challengeRequirement(i, player.challengecompletions[i])) })
+        e.textContent = i18next.t(`challenges.${i}.per.1`)
+        f.textContent = i18next.t(`challenges.${i}.per.2`)
+        g.textContent = i18next.t(`challenges.${i}.per.3`)
+        h.textContent = i18next.t(`challenges.${i}.first`)
+        k.textContent = i18next.t(`challenges.${i}.start`)
+        l.textContent = i18next.t(`challenges.${i}.current.1`, { value: format(10 * CalcECC('transcend', player.challengecompletions[1])) })
+        m.textContent = i18next.t(`challenges.${i}.current.2`, { value: format(10 * CalcECC('transcend', player.challengecompletions[1])) })
+        n.textContent = i18next.t(`challenges.${i}.current.3`, { value: format(0.04 * CalcECC('transcend', player.challengecompletions[1]), 2, true) })
     }
 
     if (i === 9 && G['challengefocus'] === 9) {
