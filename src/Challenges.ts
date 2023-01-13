@@ -142,121 +142,112 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     const n = DOMCacheGetOrSet('challengeCurrent3');
 
     if (i === G['challengefocus']) {
-        a.textContent = i18next.t(`challenges.${i}.name`, { value: player.challengecompletions[1] + '/' + format(maxChallenges) })
-        b.textContent = i18next.t(`challenges.${i}.flavor`, { value: player.challengecompletions[1] + '/' + format(maxChallenges) })
+        const completions = `${player.challengecompletions[i]}/${format(maxChallenges)}`
+        const special = (i >= 6 && i <= 10) || i === 15
+        const goal = format(challengeRequirement(i, player.challengecompletions[i], special ? i : 0))
+
+        let current1 = ''
+        let current2 = ''
+        let current3 = ''
+
+        switch (i) {
+            case 1: {
+                current1 = current2 = format(10 * CalcECC('transcend', player.challengecompletions[1]))
+                current3 = format(0.04 * CalcECC('transcend', player.challengecompletions[1]), 2, true)
+                break
+            }
+            case 2: {
+                current1 = current2 = format(5 * CalcECC('transcend', player.challengecompletions[2]))
+                break
+            }
+            case 3: {
+                current1 = format(0.04 * player.challengecompletions[3], 2, true)
+                current2 = format(0.5 * CalcECC('transcend', player.challengecompletions[3]), 2, true)
+                current3 = format(0.01 * CalcECC('transcend', player.challengecompletions[3]), 2, true)
+                break
+            }
+            case 4: {
+                current1 = format(5 * CalcECC('transcend', player.challengecompletions[4]))
+                current2 = format(2 * CalcECC('transcend', player.challengecompletions[4]))
+                current3 = format(0.5 * CalcECC('transcend', player.challengecompletions[4]), 2, true)
+                break
+            }
+            case 5: {
+                current1 = format(0.5 + CalcECC('transcend', player.challengecompletions[5]) / 100, 2, true)
+                current2 = format(Math.pow(10, CalcECC('transcend', player.challengecompletions[5])))
+                break
+            }
+            case 6: {
+                current1 = format(Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6])), 3, true)
+                current2 = format(10 * CalcECC('reincarnation', player.challengecompletions[6]))
+                current3 = format(2 * CalcECC('reincarnation', player.challengecompletions[6]))
+                break
+            }
+            case 7: {
+                current1 = format(1 + 0.04 * CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
+                current2 = current3 = format(10 * CalcECC('reincarnation', player.challengecompletions[7]))
+                break
+            }
+            case 8: {
+                current1 = format(0.25 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
+                current2 = format(20 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
+                current3 = format(4 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
+                break
+            }
+            case 9: {
+                current1 = format(CalcECC('reincarnation', player.challengecompletions[9]))
+                current2 = format(Math.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])), 2, true)
+                current3 = format(20 * CalcECC('reincarnation', player.challengecompletions[9]), 2, true)
+                break
+            }
+            case 10: {
+                current1 = format(100 * CalcECC('reincarnation', player.challengecompletions[10]))
+                current2 = format(2 * CalcECC('reincarnation', player.challengecompletions[10]))
+                current3 = format(10 * CalcECC('reincarnation', player.challengecompletions[10]), 2, true)
+                break
+            }
+            case 11: {
+                current1 = format(12 * CalcECC('ascension', player.challengecompletions[11]))
+                current2 = format(Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11])))
+                current3 = format(80 * CalcECC('ascension', player.challengecompletions[11]))
+                break
+            }
+            case 12: {
+                current1 = format(50 * CalcECC('ascension', player.challengecompletions[12]))
+                current2 = format(12 * CalcECC('ascension', player.challengecompletions[12]))
+                current3 = format(CalcECC('ascension', player.challengecompletions[12]))
+                break
+            }
+            case 13: {
+                current1 = format(100 - 100 * Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13])), 3, true)
+                current2 = format(6 * CalcECC('ascension', player.challengecompletions[13]))
+                current3 = format(3 * CalcECC('ascension', player.challengecompletions[13]))
+                break
+            }
+            case 14: {
+                current1 = format(50 * CalcECC('ascension', player.challengecompletions[14]))
+                current2 = format(1 * player.challengecompletions[14])
+                current3 = format(200 * CalcECC('ascension', player.challengecompletions[14]))
+                break
+            }
+        }
+
+        a.textContent = i18next.t(`challenges.${i}.name`, { value: completions })
+        b.textContent = i18next.t(`challenges.${i}.flavor`)
         c.textContent = i18next.t(`challenges.${i}.restrictions`)
-        d.textContent = i18next.t(`challenges.${i}.goal`, { value: format(challengeRequirement(i, player.challengecompletions[i])) })
+        d.textContent = i18next.t(`challenges.${i}.goal`, { value: goal })
         e.textContent = i18next.t(`challenges.${i}.per.1`)
         f.textContent = i18next.t(`challenges.${i}.per.2`)
         g.textContent = i18next.t(`challenges.${i}.per.3`)
         h.textContent = i18next.t(`challenges.${i}.first`)
         k.textContent = i18next.t(`challenges.${i}.start`)
-        l.textContent = i18next.t(`challenges.${i}.current.1`, { value: format(10 * CalcECC('transcend', player.challengecompletions[1])) })
-        m.textContent = i18next.t(`challenges.${i}.current.2`, { value: format(10 * CalcECC('transcend', player.challengecompletions[1])) })
-        n.textContent = i18next.t(`challenges.${i}.current.3`, { value: format(0.04 * CalcECC('transcend', player.challengecompletions[1]), 2, true) })
+        l.textContent = i18next.t(`challenges.${i}.current.1`, { value: current1 })
+        m.textContent = i18next.t(`challenges.${i}.current.2`, { value: current2 })
+        n.textContent = i18next.t(`challenges.${i}.current.3`, { value: current3 })
     }
 
-    if (i === 9 && G['challengefocus'] === 9) {
-        a.textContent = 'No Runes Challenge || ' + player.challengecompletions[9] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'You\'ll never complain about Prism being bad again.'
-        c.textContent = 'Reincarnate and reach the goal except runes always have level 1 effects. All coin production is divided by e2,000,000.'
-        d.textContent = 'Goal: Gain ' + format(challengeRequirement(i, player.challengecompletions[i], 9)) + ' Coins in challenge.'
-        e.textContent = '+1 free Ant level! Current: '
-        f.textContent = '+10% Ant speed [Multiplicative!] Current: '
-        g.textContent = 'SI Rune Exp +20%! Current: '
-        h.textContent = 'Unlock the Talismans feature! [In Runes tab]. A Global Diamond Upgrade.'
-        k.textContent = 'Start <No Runes>'
-        l.textContent = '+' + format(CalcECC('reincarnation', player.challengecompletions[9])) + ' free levels'
-        m.textContent = 'x' + format(Math.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])), 2, true) + ' Ant Speed'
-        n.textContent = '+' + format(20 * CalcECC('reincarnation', player.challengecompletions[9]), 2, true) + '% EXP'
-    }
-    if (i === 10 && G['challengefocus'] === 10) {
-        a.textContent = 'Sadistic Challenge I || ' + player.challengecompletions[10] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'I\'m sorry for what I\'ve unleashed onto the world.'
-        c.textContent = 'Reincarnate and reach the goal except run the first five challenges AT THE SAME TIME! Coin Production /e12,500,000.'
-        d.textContent = 'Goal: Gain ' + format(challengeRequirement(i, player.challengecompletions[i], 10)) + ' Coins in challenge.'
-        e.textContent = '+100 base ELO for sacrificing ants! Current: '
-        f.textContent = '+2% Ant Sacrifice Reward! Current: '
-        g.textContent = 'Reincarnation Offerings +10%! Current: '
-        h.textContent = 'Unlock the Ascension Reset Tier!'
-        k.textContent = 'Start <Sadistic I>'
-        l.textContent = '+' + format(100 * CalcECC('reincarnation', player.challengecompletions[10])) + ' Ant ELO'
-        m.textContent = '+' + format(2 * CalcECC('reincarnation', player.challengecompletions[10])) + '% Ant Sacrifice reward'
-        n.textContent = '+' + format(10 * CalcECC('reincarnation', player.challengecompletions[10]), 2, true) + '% Reincarnate-based offerings'
-    }
-    if (i === 11 && G['challengefocus'] === 11) {
-        a.textContent = 'Reduced Ants Challenge || ' + player.challengecompletions[11] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'The great Ant War of \'21 wiped off all of the skilled ants.'
-        c.textContent = 'Ascend and reach the goal but only get free ant upgrades and from Challenge8/9 completions. FOR ASCENSION CHALLENGES YOU MUST CLEAR CHALLENGE 10 TO ATTEMPT THEM.'
-        d.textContent = 'Goal: Complete Challenge 10 [Sadistic Challenge I] ' + format(challengeRequirement(i, player.challengecompletions[i])) + ' times.'
-        e.textContent = '+12 free Ant Levels! Current: '
-        f.textContent = 'Ant Speed x(1e5)^completions! Current: '
-        g.textContent = '+80 to Rune Caps! Current: '
-        h.textContent = 'Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to toggle Corruptions ;)'
-        k.textContent = 'Start <[(Reduced Ants)]>'
-        l.textContent = '+' + format(12 * CalcECC('ascension', player.challengecompletions[11])) + ' free ant levels'
-        m.textContent = 'Ant Speed x' + format(Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11])))
-        n.textContent = '+' + format(80 * CalcECC('ascension', player.challengecompletions[11])) + ' to Rune Caps'
-    }
-    if (i === 12 && G['challengefocus'] === 12) {
-        a.textContent = 'No Reincarnation Challenge || ' + player.challengecompletions[12] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'For some reason, you just can\'t do it.'
-        c.textContent = 'Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! Ant production ^0.5.'
-        d.textContent = 'Goal: Complete Challenge 10 [Sadistic Challenge I] ' + format(challengeRequirement(i, player.challengecompletions[i])) + ' times.'
-        e.textContent = '+50% Obtainium! Current: '
-        f.textContent = '+12% Offerings! Current: '
-        g.textContent = '+1 Cube Tribute per opening! Current: '
-        h.textContent = 'Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Increase Corruption Cap by 2 levels. Finally, unlock two new corruptions! ;)'
-        k.textContent = 'Start <[(No Reincarnation)]>'
-        l.textContent = '+' + format(50 * CalcECC('ascension', player.challengecompletions[12])) + '% Obtainium'
-        m.textContent = '+' + format(12 * CalcECC('ascension', player.challengecompletions[12])) + '% Offerings'
-        n.textContent = '+' + format(CalcECC('ascension', player.challengecompletions[12])) + ' additional Cube Tributes'
-    }
-    if (i === 13 && G['challengefocus'] === 13) {
-        a.textContent = 'Tax+++ Challenge || ' + player.challengecompletions[13] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'Good luck with the IRS, buddy.'
-        c.textContent = 'Ascend and reach the goal, but taxes are much higher and grow with challenge completions. Ant production ^0.23'
-        d.textContent = 'Goal: Complete Challenge 10 [Sadistic Challenge I] ' + format(challengeRequirement(i, player.challengecompletions[i])) + ' times.'
-        e.textContent = 'Taxes -3.33%! Multiplicative! Current: '
-        f.textContent = '+6 maximum to Talisman Level Cap! Current: '
-        g.textContent = '+3% Spirit Power effectiveness! Current: '
-        h.textContent = 'Unlock 15 Researches, and unlock the power of the Hypercube! Increase Corruption Cap by 2 levels, to 9! Finally, unlock two new corruptions! ;)'
-        k.textContent = 'Start <[(Tax+++)]>'
-        l.textContent = '-' + format(100 - 100 * Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13])),3,true) + '% Corruption Tax'
-        m.textContent = '+' + format(6 * CalcECC('ascension', player.challengecompletions[13])) + ' Talisman Level Cap'
-        n.textContent = '+' + format(3 * CalcECC('ascension', player.challengecompletions[13])) + '% Effectiveness'
-    }
-    if (i === 14 && G['challengefocus'] === 14) {
-        a.textContent = 'No Research Challenge || ' + player.challengecompletions[14] + '/' + format(maxChallenges) + ' Completions'
-        b.textContent = 'The dimension that never progressed past the dark ages. Many fear to even step foot.'
-        c.textContent = 'Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.2.'
-        d.textContent = 'Goal: Complete Challenge 10 [Sadistic Challenge I] ' + format(challengeRequirement(i, player.challengecompletions[i])) + ' times.'
-        e.textContent = '+50% stronger effect on researches 1x1 through 1x5. Current: '
-        f.textContent = '+1 research purchased per roomba tick! Current: '
-        g.textContent = '+200 to Rune Caps! Current: '
-        h.textContent = 'Unlock 15 Researches, and a way to coalesce your power into the Singularity. Increase Corruption Cap by 2 levels, to 11! Finally, unlock two new corruptions! ;)'
-        k.textContent = 'Start <[(No Research)]>'
-        l.textContent = '+' + format(50 * CalcECC('ascension', player.challengecompletions[14])) + '% Power'
-        m.textContent = '+' + format(1 * player.challengecompletions[14]) + ' per Tick'
-        n.textContent = '+' + format(200 * CalcECC('ascension', player.challengecompletions[14])) + ' to Rune Caps'
-    }
-    if (i === 15 && G['challengefocus'] === 15) {
-        a.textContent = 'SADISTIC CHALLENGE II || ' + player.challengecompletions[15] + '/' + format(maxChallenges) +  ' Completions'
-        b.textContent = 'The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.'
-        c.textContent = 'Ascend and reach the goal but you\'re stuck in all corruptions at level 11, and Ant production ^0.01.'
-        if (maxChallenges === 0) {
-            d.textContent = 'You will find no goal in sight, but get bonuses based on your best attempt.'
-        } else {
-            d.textContent = 'Goal: ' + format(challengeRequirement(i, player.challengecompletions[i], 15)) + ' Coins, but get bonuses based on your best attempt.'
-        }
-        e.textContent = 'Folly of mankind: '
-        f.textContent = 'to believe they can defeat '
-        g.textContent = 'what Ant God labored '
-        h.textContent = 'You would break the universe if you could!'
-        k.textContent = 'Start <[(Sadistic Challenge II)]>'
-        l.textContent = ''
-        m.textContent = ''
-        n.textContent = ''
+    if (i === 15 && G['challengefocus'] === 15 && maxChallenges === 0) {
+        d.textContent = 'You will find no goal in sight, but get bonuses based on your best attempt.'
     }
 
     const scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
