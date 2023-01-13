@@ -1569,15 +1569,13 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
     perksText += '<br/>';
     if (singularityCountForNextPerk) {
         perksText += '<br/>You will unlock a whole new Perk in Singularity ' + singularityCountForNextPerk;
-    }
-    else {
+    } else {
         perksText += '<br/>You have no Perks left to unlock! '
     }
     const singularityCountForNextPerkUpgrade = nextUpgrades.reduce((a, b) => Math.min(a, +b), Infinity);
     if (singularityCountForNextPerkUpgrade < Infinity) {
         perksText += '<br/>An existing Perk will be improved in Singularity ' + singularityCountForNextPerkUpgrade;
-    }
-    else {
+    } else {
         perksText += '<br/>You have no Perks left to improve! '
     }
     return perksText;
