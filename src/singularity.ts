@@ -1018,11 +1018,11 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [1, 20, 200],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
-                return 'In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!'
+                return i18next.t('singularity.perks.xyz.hasLevel2')
             } else if (n >= levels[1]) {
-                return 'In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.'
+                return i18next.t('singularity.perks.xyz.hasLevel1')
             } else {
-                return 'The Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades, both scaling with your singularity count!'
+                return i18next.t('singularity.perks.xyz.default')
             }
         }
     },
@@ -1030,28 +1030,28 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'Unlimited growth',
         levels: [1],
         description: () => {
-            return `+10% to Quarks gain and Ascension Count for each Singularity. Currently: +${format(10*player.singularityCount)}%`
+            return i18next.t('singularity.perks.unlimitedGrowth', { amount: format(10 * player.singularityCount) })
         }
     },
     {
         name: 'Golden coins',
         levels: [1],
         description: () => {
-            return 'Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity'
+            return i18next.t('singularity.perks.goldenCoins')
         }
     },
     {
         name: 'Hepteract Autocraft',
         levels: [1],
         description: () => {
-            return 'Hepteract Autocraft will be unlocked'
+            return i18next.t('singularity.perks.hepteractAutocraft')
         }
     },
     {
         name: 'Generous Orbs',
         levels: [1, 2, 5, 10, 15, 20, 25, 30, 35],
         description: (n: number, levels: number[]) => {
-            const overfluxBonus = {
+            const overfluxBonus: Record<number, number> = {
                 8: 700, // How to read: levels[8] -> Sing 35 gives 700%
                 7: 500,
                 6: 415,
@@ -1060,14 +1060,14 @@ export const singularityPerks: SingularityPerk[] = [
                 3: 280,
                 2: 255,
                 1: 230
-            } as const;
+            };
 
             for (let i = 8; i > 0; i--) {
                 if (n >= levels[i]) {
-                    return `Overflux Orbs effect on opening Cubes for Quarks can now go up to ${overfluxBonus[i as keyof typeof overfluxBonus]}%`
+                    return i18next.t('singularity.perks.generousOrbs', { amount: overfluxBonus[i] })
                 }
             }
-            return 'Overflux Orbs effect on opening Cubes for Quarks can now go up to 215%'
+            return i18next.t('singularity.perks.generousOrbs', { amount: '215' })
         }
     },
     {
@@ -1075,9 +1075,9 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [1, 11],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
-                return 'You permanently keep Auto Research'
+                return i18next.t('singularity.perks.researchDummies.hasLevel1')
             } else {
-                return 'You can Research using Hover to Buy'
+                return i18next.t('singularity.perks.researchDummies.otherwise')
             }
         }
     },
@@ -1086,15 +1086,15 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [2, 3, 4, 7, 15],
         description: (n: number, levels: number[]) => {
             if (n >= levels[4]) {
-                return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 2.22e2222 Particles and 500 Obtainium'
+                return i18next.t('singularity.perks.superStart.hasLevel4')
             } else if (n >= levels[3]) {
-                return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e100 Particles and 500 Obtainium'
+                return i18next.t('singularity.perks.superStart.hasLevel3')
             } else if (n >= levels[2]) {
-                return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e16 Particles and 500 Obtainium'
+                return i18next.t('singularity.perks.superStart.hasLevel2')
             } else if (n >= levels[1]) {
-                return 'You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos and 10 Particles'
+                return i18next.t('singularity.perks.superStart.hasLevel1')
             } else {
-                return 'You start each Ascension with 1 Transcension and 1001 Mythos'
+                return i18next.t('singularity.perks.superStart.default')
             }
         }
     },
@@ -1103,15 +1103,15 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [4, 7, 10, 15, 20],
         description: (n: number, levels: number[]) => {
             if (n >= levels[4]) {
-                return 'You start each Ascension with 1 completion of Challenges 6, 7 & 9 and 5 completions of Challenge 8'
+                return i18next.t('singularity.perks.notSoChallenging.hasLevel4')
             } else if (n >= levels[3]) {
-                return 'You start each Ascension with 1 completion of Challenges 6 & 7 and 5 completions of Challenge 8'
+                return i18next.t('singularity.perks.notSoChallenging.hasLevel3')
             } else if (n >= levels[2]) {
-                return 'You start each Ascension with 1 completion of Challenges 6, 7 and 8'
+                return i18next.t('singularity.perks.notSoChallenging.hasLevel2')
             } else if (n >= levels[1]) {
-                return 'You start each Ascension with 1 completion of Challenges 6 and 7'
+                return i18next.t('singularity.perks.notSoChallenging.hasLevel1')
             } else {
-                return 'You start each Ascension with 1 completion of Challenge 6'
+                return i18next.t('singularity.perks.notSoChallenging.default')
             }
         }
     },
@@ -1120,17 +1120,17 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [5, 10, 15, 25, 30, 100],
         description: (n: number, levels: number[]) => {
             if (n >= levels[5]) {
-                return 'Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!'
+                return i18next.t('singularity.perks.automationUpgrades.hasLevel5')
             } else if (n >= levels[4]) {
-                return 'You always have w1x4 through w1x8 and w2x10; r6x5, r6x10 and r6x20. Automation Shop is also automatically purchased!'
+                return i18next.t('singularity.perks.automationUpgrades.hasLevel4')
             } else if (n >= levels[3]) {
-                return 'You always have w1x4 through w1x8 and w2x10. Automation Shop is now automatically purchased!'
+                return i18next.t('singularity.perks.automationUpgrades.hasLevel3')
             } else if (n >= levels[2]) {
-                return 'You always have w1x4 through w1x8 and w2x10.'
+                return i18next.t('singularity.perks.automationUpgrades.hasLevel2')
             } else if (n >= levels[1]) {
-                return 'You always have w1x4 through w1x8.'
+                return i18next.t('singularity.perks.automationUpgrades.hasLevel1')
             } else {
-                return 'You always have w1x7. (Autobuyers for Particle buildings)'
+                return i18next.t('singularity.perks.automationUpgrades.default')
             }
         }
     },
@@ -1138,13 +1138,16 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'Even more Quarks',
         levels: [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180, 190, 196, 200, 200, 201, 202, 203, 204, 205, 210, 212, 214, 216, 218, 220, 225, 250],
         description: (n: number, levels: number[]) => {
-
             for (let i = levels.length - 1; i >= 0; i--) {
                 if (n >= levels[i]) {
-                    return `You gain ${i+1} stacks of 5% Quarks! Total Increase: +${format(100 * (Math.pow(1.05, i+1) - 1), 2)}%`
+                    return i18next.t('singularity.perks.evenMoreQuarks.m', {
+                        stack: i + 1,
+                        inc: format(100 * (Math.pow(1.05, i+1) - 1), 2)
+                    })
                 }
             }
-            return 'This is a bug! Contact Platonic if you see this message, somehow.'
+
+            return i18next.t('singularity.perks.evenMoreQuarks.bug')
         }
     },
     {
@@ -1152,11 +1155,11 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [5, 20, 51],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
-                return 'Reincarnation and Ascension tier Shop upgrades are kept permanently!'
+                return i18next.t('singularity.perks.shopSpecialOffer.hasLevel2')
             } else if (n >= levels[1]) {
-                return 'You permanently keep 100 free levels of each Shop upgrade in the first row'
+                return i18next.t('singularity.perks.shopSpecialOffer.hasLevel1')
             } else {
-                return 'You start each Singularity with 10 free levels of each Shop upgrade in the first row'
+                return i18next.t('singularity.perks.shopSpecialOffer.default')
             }
         }
     },
@@ -1164,14 +1167,14 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'Potion Autogenerator',
         levels: [6],
         description: () => {
-            return 'Every 180 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity.'
+            return i18next.t('singularity.perks.potionAutogenerator')
         }
     },
     {
         name: 'Respec, be gone!',
         levels: [7],
         description: () => {
-            return 'Talismans now buff all runes at all times!'
+            return i18next.t('singularity.perks.respecBeGone')
         }
     },
     {
@@ -1179,11 +1182,11 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [10, 15, 25],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
-                return 'You permanently keep Ant autobuyers and start each Ascension with a Tier 8 Ant'
+                return i18next.t('singularity.perks.forTheLoveOfTheAntGod.hasLevel2')
             } else if (n >= levels[1]) {
-                return 'You permanently keep Ant autobuyers and start each Ascension with a Tier 5 Ant'
+                return i18next.t('singularity.perks.forTheLoveOfTheAntGod.hasLevel1')
             } else {
-                return 'You permanently keep Ant autobuyers and start each Ascension with a Tier 1 Ant'
+                return i18next.t('singularity.perks.forTheLoveOfTheAntGod.default')
             }
         }
     },
@@ -1193,10 +1196,15 @@ export const singularityPerks: SingularityPerk[] = [
         description: (n: number, levels: number[]) => {
             for (let i = levels.length - 1; i >= 0; i--) {
                 if (n >= levels[i]) {
-                    return `ADD code reward is divided by ${format(1 + (i+1)/5, 2, true)} but the cooldown is also divided by ${format(1 + (i+1)/5, 2, true)} and capacity is multiplied by ${format(1 + (i+1)/5, 2, true)} (rounded up).`
+                    return i18next.t('singulary.perks.itAllAddsUp', {
+                        div: format(1 + (i + 1) / 5, 2, true),
+                        div2: format(1 + (i + 1) / 5, 2, true),
+                        cap: format(1 + (i + 1) / 5, 2, true)
+                    })
                 }
             }
-            return 'BUG!!!'
+
+            return i18next.t('singularity.perks.evenMoreQuarks.bug')
         }
     },
     {
@@ -1204,13 +1212,13 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [15, 30, 40, 50],
         description: (n: number, levels: number[]) => {
             if (n >= levels[3]) {
-                return 'Runes autobuyer will buy Blessings, Spirits, Talisman Shards, Fragments and will level up Infinite Ascent AND Antiquities of Ant God'
+                return i18next.t('singularity.perks.automagicalRunes.hasLevel3')
             } else if (n >= levels[2]) {
-                return 'Runes autobuyer will buy Blessings, Spirits, Talisman Shards, Fragments and will level up Infinite Ascent'
+                return i18next.t('singularity.perks.automagicalRunes.hasLevel2')
             } else if (n >= levels[1]) {
-                return 'Runes autobuyer will buy Blessings, Spirits and level up Infinite Ascent'
+                return i18next.t('singularity.perks.automagicalRunes.hasLevel1')
             } else {
-                return 'Runes autobuyer will buy Blessings and Spirits'
+                return i18next.t('singularity.perks.automagicalRunes.default')
             }
         }
     },
@@ -1218,7 +1226,7 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'Exalted Achievements',
         levels: [25],
         description: () => {
-            return 'Unlocks new, very difficult achievements! They are earned differently from others, however... (WIP)'
+            return i18next.t('singularity.perks.exaltedAchievements')
         }
     },
     {
@@ -1232,7 +1240,7 @@ export const singularityPerks: SingularityPerk[] = [
                 }
             }
 
-            return `With blessing from the Derpsmith, every singularity grants +${counter}% more Octeracts!`
+            return i18next.t('singulary.perks.derpSmithsCornucopia', { counter })
         }
     },
     {
@@ -1240,9 +1248,9 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [25, 35],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
-                return 'Keep all Cube Opening researches AND gain the ability to automatically open a percentage of your cubes each Ascension!'
+                return i18next.t('singularity.perks.coolQOLCubes.hasLevel1')
             } else {
-                return 'Researches related to opening cubes will no longer reset on Ascension'
+                return i18next.t('singularity.perks.coolQOLCubes.default')
             }
         }
     },
@@ -1251,9 +1259,9 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [25, 101],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
-                return 'You can now automatically ascend based on time length and autorun Ascension Challenges with Instant Challenges 2!'
+                return i18next.t('singularity.perks.eternalAscensions.hasLevel1')
             } else {
-                return 'You can now automatically ascend based on the length of the Ascension'
+                return i18next.t('singularity.perks.eternalAscensions.default')
             }
         }
     },
@@ -1262,11 +1270,11 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [30, 70, 100],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
-                return 'Ant Speed is multiplied by 1 TRILLION, this increase is immune to any and all corruption.'
+                return i18next.t('singularity.perks.antGodsCornucopia.hasLevel2')
             } else if (n >= levels[1]) {
-                return 'Ant Speed is multiplied by 1 MILLION, this increase is immune to any and all corruption.'
+                return i18next.t('singularity.perks.antGodsCornucopia.hasLevel1')
             } else {
-                return 'Ant Speed is multiplied by 1,000, this increase is immune to any and all corruption.'
+                return i18next.t('singularity.perks.antGodsCornucopia.default')
             }
         }
     },
@@ -1276,10 +1284,11 @@ export const singularityPerks: SingularityPerk[] = [
         description: (n: number, levels: number[]) => {
             for (let i = levels.length - 1; i >= 0; i--) {
                 if (n >= levels[i]) {
-                    return `Level Caps on Certain Singularity Upgrades are increased by ${i+1}!`
+                    return i18next.t('singularity.perks.overclocked', { i: i + 1 })
                 }
             }
-            return 'This is a bug! Contact Platonic if you see this message, somehow.'
+
+            return i18next.t('singularity.perks.evenMoreQuarks.bug')
         }
     },
     {
@@ -1287,9 +1296,9 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [50, 150],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
-                return 'Automatically buy Cube Upgrades with each ascension, no matter where you are!'
+                return i18next.t('singularity.perks.wowCubeAutomatedShipping.hasLevel1')
             } else {
-                return 'Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge.'
+                return i18next.t('singularity.perks.wowCubeAutomatedShipping.default')
             }
         }
     },
@@ -1297,21 +1306,27 @@ export const singularityPerks: SingularityPerk[] = [
         name: 'Golden Revolution',
         levels: [100],
         description: () => {
-            return `Singularity grants 0.4% more Golden Quarks per Singularity. Currently: +${format(Math.min(100, 0.4*player.singularityCount), 1)}% (MAX: +100%)`
+            return i18next.t('singularity.perks.goldenRevolution', {
+                current: format(Math.min(100, 0.4 * player.singularityCount), 1)
+            })
         }
     },
     {
         name: 'Golden Revolution II',
         levels: [100],
         description: () => {
-            return `Golden Quarks are 0.2% cheaper per Singularity. Currently: -${format(Math.min(50, 0.2*player.singularityCount), 1)}% (MAX: -50%)`
+            return i18next.t('singularity.perks.goldenRevolutionII', {
+                current: format(Math.min(50, 0.2 * player.singularityCount), 1)
+            })
         }
     },
     {
         name: 'Golden Revolution III',
         levels: [100],
         description: () => {
-            return `Export gives 2% more Golden Quarks per Singularity. Currently: +${format(Math.min(500, 2*player.singularityCount))}% (MAX: +500%)`
+            return i18next.t('singularity.perks.goldenRevolutionIII', {
+                current: format(Math.min(500, 2 * player.singularityCount))
+            })
         }
     },
     {
@@ -1319,9 +1334,9 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [100, 200],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
-                return 'Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, anywhere!'
+                return i18next.t('singularity.perks.platonicClones.hasLevel1')
             } else {
-                return 'Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, but only in a Singularity Challenge.'
+                return i18next.t('singularity.perks.platonicClones.default')
             }
         }
     },
@@ -1335,14 +1350,18 @@ export const singularityPerks: SingularityPerk[] = [
                     counter += 0.125
                 }
             }
-            return `Code 'add' refills ${counter}% faster per level per Singularity. Currently: ${format(Math.min(50, counter*player.singularityCount), 1)} (MAX: -60% Cooldown)`
+
+            return i18next.t('singularity.perks.platSigma', {
+                counter,
+                current: format(Math.min(50, counter*player.singularityCount), 1)
+            })
         }
     },
     {
         name: 'Midas\' Millenium-Aged Gold',
         levels: [150],
         description: () => {
-            return 'Every use of code `add` gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3.'
+            return i18next.t('singularity.perks.midasMilleniumAgedGold')
         }
     },
     {
@@ -1356,7 +1375,8 @@ export const singularityPerks: SingularityPerk[] = [
                     divisor += 1
                 }
             }
-            return `Every Octeract tick, convert 1 in ${format(perSecond / divisor, 0, true)} GQ you would gain in this singularity to your balance automagically!`
+
+            return i18next.t('singularity.perks.goldenRevolution4', { gq: format(perSecond / divisor, 0, true) })
         }
     },
     {
@@ -1364,9 +1384,9 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [200, 205],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
-                return 'Gives 1% of your purchased Octeract Cogenesis AND Trigenesis as bonus levels of themselves per use of the Daily Special Action!'
+                return i18next.t('singularity.perks.octeractMetagenesis.hasLevel1')
             } else {
-                return 'Gives 1% of your purchased Octeract Cogenesis as bonus levels of Octeract Cogenesis per use of the Daily Special Action!'
+                return i18next.t('singularity.perks.octeractMetagenesis.default')
             }
         }
     },
@@ -1375,11 +1395,11 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [200, 208, 221],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
-                return 'After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 8.'
+                return i18next.t('singularity.perks.immaculateAlchemy.hasLevel2')
             } else if (n >= levels[1]) {
-                return 'After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 5.'
+                return i18next.t('singularity.perks.immaculateAlchemy.hasLevel1')
             } else {
-                return 'After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 3.'
+                return i18next.t('singularity.perks.immaculateAlchemy.default')
             }
         }
     },
@@ -1388,7 +1408,7 @@ export const singularityPerks: SingularityPerk[] = [
         levels: [200],
         description: () => {
             const amt = Math.pow((player.singularityCount - 179) / 20, 2)
-            return `Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: ${format(amt)}... Yes, it's that good.`
+            return i18next.t('singularity.perks.skrauQ', { amt })
         }
     }
 ]
