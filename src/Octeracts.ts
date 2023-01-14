@@ -5,6 +5,7 @@ import { DynamicUpgrade } from './DynamicUpgrade';
 import type { Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { octeractGainPerSecond } from './Calculate'
+import i18next from 'i18next';
 
 export interface IOcteractData extends IUpgradeData {
     costFormula (level: number, baseCost: number): number
@@ -48,7 +49,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
             const buy = Number(await Prompt(`How many Octeracts would you like to spend? You have ${format(player.wowOcteracts, 0, true)} OCT. Type -1 to use max!`))
 
             if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
-                return Alert('Value must be a finite number!');
+                return Alert(i18next.t('general.validation.finite'));
             }
 
             if (buy === -1) {

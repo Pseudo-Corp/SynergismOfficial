@@ -1014,5 +1014,352 @@
       "seasonPassInfinity": "Gain +2% more cubes per level, multiplicative! (Multiplier is 1.02^level)",
       "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost."
     }
+  },
+  "singularity": {
+    "goldenQuarks": {
+      "transaction": "Transaction of {{spent}} Golden Quarks successful! [-{{cost}} Quarks]",
+      "poor": "Sorry, I can't give credit. Come back when you're a little... mmm... richer!",
+      "buyPrompt": "You can buy Golden Quarks here for {{cost}} Quarks (Discounted by {{discount}})! You can buy up to {{max}}. How many do you want? Type -1 to buy max!",
+      "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq} GQ. Type -1 to use max!",
+      "hasUpgrade": "Hey! You have already maxed this upgrade. :D",
+      "notHighEnoughLevel": "You're not powerful enough to purchase this yet.",
+      "ascensionReset": "You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...",
+      "multiBuyPurchased": "Purchased {{levels}} levels, thanks to Multi Buy!"
+    },
+    "perks": {
+      "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
+      "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
+      "update": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties (Hover for more details. Perks in <span class=\"newPerk\">gold text</span> were added or improved in this Singularity)<br/>{{extra}}"
+    },
+    "toString": {
+      "noMinimum": "No minimal Singularity to purchase required",
+      "costNextLevel": "Cost for next level:"
+    },
+    "data": {
+      "goldenQuarks1": {
+        "name": "Golden Quarks I",
+        "description": "In the future, you will gain 10% more Golden Quarks on Singularities per level!",
+        "effect": "Permanently gain {{n}}% more Golden Quarks on Singularities."
+      },
+      "goldenQuarks2": {
+        "name": "Golden Quarks II",
+        "description": "Buying GQ is 0.2% cheaper per level! [After 50%, effect grows much slower]",        
+        "effec": "Purchasing Golden Quarks in the shop is {{n}}% cheaper."
+      },
+      "goldenQuarks3": {
+        "name": "Golden Quarks III",
+        "description": "If you buy this, you will gain Golden Quarks per hour from Exports. Leveling up gives (level) additional per hour!",
+        "effect": "Every hour, you gain {{n}} Golden Quarks from exporting."
+      },
+      "starterPack": {
+        "name": "Starter Pack",
+        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources, post-corruption.",
+        "effect": "You {{n}} unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings."
+      },
+      "wowPass": {
+        "name": "Shop Bonanza",
+        "description": "This upgrade will convince the seal merchant to sell you more cool stuff, which even persist on Singularity!",
+        "effect": "You {{n}} unlocked the Shop Bonanza."
+      },
+      "cookies": {
+        "name": "Cookie Recipes I",
+        "description": "For just a few Golden Quarks, re-open Wow! Bakery, adding five cookie-related Cube upgrades.",
+        "effect": "You {{n}} unlocked volume 1 of the recipe book."
+      },
+      "cookies2": {
+        "name": "Cookie Recipes II",
+        "description": "Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related Cube upgrades.",
+        "effect": "You {{n}} unlocked volume 2 of the recipe book."
+      },
+      "cookies3": {
+        "name": "Cookie Recipes III",
+        "description": "Your Bakers threaten to quit without a higher pay. If you do pay them, they will bake even more fancy cookies.",
+        "effect": "You {{n}} appeased the union of Bakers."
+      },
+      "cookies4": {
+        "name": "Cookie Recipes IV",
+        "description": "This is a small price to pay for Salvation.",
+        "effect": "You {{n}} paid your price for salvation."
+      },
+      "cookies5": {
+        "name": "Cookie Recipes V (WIP)",
+        "description": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
+        "effect": "You {{n}} paid witness to the suffering of the masses."
+      },
+      "ascensions": {
+        "name": "Improved Ascension Gain",
+        "description": "Buying this, you will gain +2% Ascension Count forever, per level! Every 10 levels grants an additional, multiplicative +1% Ascension Count.",
+        "effect": "Ascension Count increases {{n}}% faster."
+      },
+      "corruptionFourteen": {
+        "name": "Level Fourteen Corruptions",
+        "description": "Buy this to unlock level fourteen corruptions. :)",
+        "effect": "You {{n}} gained the ability to use level 14 corruptions. {{m}}"
+      },
+      "corruptionFifteen": {
+        "name": "Level Fifteen Corruptions",
+        "description": "This doesn't *really* raise the corruption limit. Rather, it adds one FREE level to corruption multipliers, no matter what (can exceed cap). :)",
+        "effect": "You {{n}} gained a free corruption level. {{m}}"
+      },
+      "singOfferings1": {
+        "name": "Offering Charge",
+        "description": "Upgrade this to get +2% Offerings per level, forever!",
+        "effect": "Permanently gain {{n}}% more Offerings."
+      },
+      "singOfferings2": {
+        "name": "Offering Storm",
+        "description": "Apparently, you can use this bar to attract more Offerings. +8% per level, to be precise.",
+        "effect": "Permanently gain {{n}}% more Offerings."
+      },
+      "singOfferings3": {
+        "name": "Offering Tempest",
+        "description": "This bar is so prestine, it'll make anyone submit their Offerings. +4% per level, to be precise.",
+        "effect": "Permanently gain {{n}}% more Offerings."
+      },
+      "singObtainium1": {
+        "name": "Obtainium Wave",
+        "description": "Upgrade this to get +2% Obtainium per level, forever!",
+        "effect": "Permanently gain {{n}}% more Obtainium."
+      },
+      "singObtainium2": {
+        "name": "Obtainium Flood",
+        "description": "Holy crap, water bending! +8% gained Obtainium per level.",        
+        "effect": "Permanently gain {{n}}% more Obtainium."
+      },
+      "singObtainium3": {
+        "name": "Obtainium Tsunami",
+        "description": "A rising tide lifts all boats. +4% gained Obtainium per level.",        
+        "effect": "Permanently gain {{n}}% more Obtainium."
+      },
+      "singCubes1": {
+        "name": "Cube Flame",
+        "description": "Upgrade this to get +2% Cubes per level, forever!",
+        "effect": "Permanently gain {{n}}% more Cubes."
+      },
+      "singCubes2": {
+        "name": "Cube Blaze",
+        "description": "Burn some more Golden Quarks! +8% gained Cubes per level.",
+        "effect": "Permanently gain {{n}}% more Cubes."
+      },
+      "singCubes3": {
+        "name": "Cube Inferno",
+        "description": "Even Dante is impressed. +4% gained Cubes per level.",
+        "effect": "Permanently gain {{n}}% more Cubes."
+      },
+      "singCitadel": {
+        "name": "Citadel of Singularity",
+        "description": "What a unique structual phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
+        "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
+      },
+      "singCitadel2": {
+        "name": "Citadel of 'Singularity': The Real Edition",
+        "description": "This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels! Also sets the free level of the fake citadel to whatever level this is.",
+        "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
+      },
+      "octeractUnlock": {
+        "name": "Octeracts",
+        "description": "Hey!!! What are you trying to do?!?",
+        "effect": "You {{n}} bought into the Octeract hype."
+      },
+      "singOcteractPatreonBonus": {
+        "name": "Platonic $ells out!!!",
+        "description": "You know that Patreon bonus? Yeah, that's cool and all, but what if it also boosted Octeract production by the same amount?",
+        "effect": "Octeract production is {{n}}% faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists."
+      },
+      "offeringAutomatic": {
+        "name": "Blueberry Shards! (WIP)",
+        "description": "The legends are true. \n The Prophecies are fulfilled. \n Ant God has heard your prayers. \n Let there be blueberries! \n And they were good.",
+        "effect": "You have purchased {{n}} tasty blueberries."
+      },
+      "intermediatePack": {
+        "name": "Intermediate Pack",
+        "description": "Double Global Speed, Multiply Ascension speed by 1.5, and gain +2% Quarks forever. Yum... 2% Quark Milk.",
+        "effect": "You {{n}} upgraded your package to intermediate."
+      },
+      "advancedPack": {
+        "name": "Advanced Pack",
+        "description": "Now we're cooking with kerosene! Gain +4% Quarks stack with intermediate, +0.33 to all corruption score multipliers, regardless of level!",
+        "effect": "You {{n}} bought our advanced package."
+      },
+      "expertPack": {
+        "name": "Expert Pack",
+        "description": "That's a handful! Gain +6% Quarks stack with advanced, 1.5x Ascension Score, Code 'add' gives 1.2x Ascension Timer.",
+        "effect": "You {{n}} switched to the expert provider."
+      },
+      "masterPack": {
+        "name": "Master Pack",
+        "description": "A tad insane. Gain +8% Quarks stack with expert, for every level 14 corruption, Ascension score is multiplied by 1.1.",
+        "effect": "You {{n}} mastered your inner chakras."
+      },
+      "divinePack": {
+        "name": "Divine Pack",
+        "description": "OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14.",
+        "effect": "You {{n}} found the reason for existence{{n}}."
+      },
+      "wowPass2": {
+        "name": "Shop Liquidation Sale",
+        "description": "The Seal Merchant needs to get rid of some exotic goods. Only for a steep price. I do not think that is how sales work.",
+        "effect": "You {{n}} triggered the Liquidation event!"
+      },
+      "wowPass3": {
+        "name": "QUAAAACK",
+        "description": "QUAAAAAAAACK. The Merchant has gone crazy for your QUARKS!",
+        "effect": "You {{n}} triggered the QUACKSTRAVAGANZA!!"
+      },
+      "potionBuff": {
+        "name": "Potion Decanter of Enlightenment",
+        "description": "Purported to actually be the fountain of youth, this item powers up potions considerably!",        
+        "effect": "Potions currently give {{n}}x items!"
+      },
+      "potionBuff2": {
+        "name": "Potion Decanter of Inquisition",
+        "description": "Staring at the glass, you aren't actually sure what this potion is.",
+        "effect": "Potions currently give {{n}}x items!"
+      },
+      "potionBuff3": {
+        "name": "Potion Decanter of Maddening Instability",
+        "description": "SHE'S GONNA BLOW!!!! Said Midas, the Golden Quark Salesman. Oh yeah, did we mention he's in the game?",
+        "effect": "Potions currently give {{n}}x items!"
+      },
+      "singChallengeExtension": {
+        "name": "Bigger Challenge Caps",
+        "description": "Need more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.",
+        "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+      },
+      "singChallengeExtension2": {
+        "name": "Biggerer Challenge Caps",
+        "description": "Need even more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.",
+        "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+      },
+      "singChallengeExtension3": {
+        "name": "BiggererEST Challenge Caps",
+        "description": "Need even MORE Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level. Does it not seem excessive?",
+        "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+      },
+      "singQuarkImprover1": {
+        "name": "Marginal Quark Gain Improver Thingy",
+        "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitarily long?",
+        "effect": "You gain {{n}}% more Quarks!"
+      },
+      "singQuarkHepteract": {
+        "name": "I wish my Quark Hepteract was marginally better.",
+        "description": "Wrong game, oops. Anyway, would you like a very slightly better DR exponent on Quark Hepteract?",
+        "effect": "The DR exponent is now {{n}}% larger!"
+      },
+      "singQuarkHepteract2": {
+        "name": "I wish my Quark Hepteract was marginally better II.",
+        "description": "Still not the right game. Same as the previous upgrade.",
+        "effect": "The DR exponent is now {{n}}% larger!"
+      },
+      "singQuarkHepteract3": {
+        "name": "I wish my Quark Hepteract was marginally better III.",
+        "description": "I AM NOT THE GODMOTHER YOU ARE LOOKING FOR, DYLAN!",
+        "effect": "The DR exponent is now {{n}}% larger!"
+      },
+      "singOcteractGain": {
+        "name": "Octeract Absinthe",
+        "description": "You would have never known this tonic can boost your Octeracts! [+1% per level, in fact!]",
+        "effect": "Octeract Gain +{{n}}%"
+      },
+      "singOcteractGain2": {
+        "name": "Pieces of Eight",
+        "description": "There is indeed eight of them, but each only gives +0.5% bonus, so each level gives +4% Octeract per level.",
+        "effect": "Octeract Gain +{{n}}%"
+      },
+      "singOcteractGain3": {
+        "name": "The Obelisk Shaped like an Octagon.",
+        "description": "Platonic had to reach pretty far here. +2% Octeracts yeah!",
+        "effect": "Octeract Gain +{{n}}%"
+      },
+      "singOcteractGain4": {
+        "name": "Octahedral Synthesis",
+        "description": "How does this even work!?? +1% Octeracts, you bet!",
+        "effect": "Octeract Gain +{{n}}%"
+      },
+      "singOcteractGain5": {
+        "name": "The Eighth Wonder of the World",
+        "description": "is the wonder of the world we live in. [+0.5% Octeracts. Platonic, this is so stingy! but, he does not care one bit.]",
+        "effect": "Octeract Gain +{{n}}%"
+      },
+      "platonicTau": {
+        "name": "Platonic TAU",
+        "description": "Placed in the wrong upgrade section, this will remove any restrictions on corruptions or corruption level caps! Also raises 3d cube gain to the power of 1.01!",
+        "effect": "This upgrade has {{n}} been purchased!"
+      },
+      "platonicAlpha": {
+        "name": "Platonic ALPHA...?",
+        "description": "Confusion ensues as to why there are two of these. This one is capitalized, so buying this ensures Platonic Alpha is always maxed!",
+        "effect": "This upgrade has {{n}} been purchased!"
+      },
+      "platonicDelta": {
+          "name": "Platonic DELTA",
+        "description": "Time follows you towards the future, after getting this bad boy. Gain +100% more cubes per day in your current singularity, up to +900% at day 9.",
+        "effect": "This upgrade has {{n}} been purchased!"
+      },
+      "platonicPhi": {
+        "name": "Platonic PHI",
+        "description": "Time follows you toward the past as well. Gain 5 additional free Singularity Upgrades per day in your singularity from code daily, up to +50 after 10 days.",
+        "effect": "This upgrade has {{n}} been purchased!"
+      },
+      "singFastForward": {
+        "name": "Etherflux Singularities",
+        "description": "Golden Quark gained by Singularity is increased by 100% (additive), and going singular at your all time highest count gives +1 singularity count!",
+        "effect": "You've {{n}} transformed the Etherflux!"
+      },
+      "singFastForward2": {
+        "name": "Aetherflux Singularities",
+        "description": "Golden Quark gained by Singularity is increased by 100% (additive) and going singular at your all time highest count gives +1 singularity count! It's like Etherflux but with an A.",
+        "effect": "You've {{n}} transformed the Aetherflux!"
+      },
+      "singAscensionSpeed": {
+        "name": "A hecking good ascension speedup!",
+        "description": "Ascension Speed is raised to the power of 1.03, raised to 0.97 if less than 1x.",
+        "effect": "Ascension Speed ^{{n}}, ^{{m}} if < 1x"
+      },
+      "singAscensionSpeed2": {
+        "name": "A mediocre ascension speedup!",
+        "description": "Ascension speed is multiplied by 6 if you have not purchased Antiquities in your current Singularity.",
+        "effect": "The effect is clear"
+      },
+      "WIP": {
+        "name": "WIP TEMPLATE",
+        "description": "This is a template! Bottom Text.",
+        "effect": "Update this description at a later time!!!!!!!!!!"
+      },
+      "ultimatePen": {
+        "name": "The Ultimate Pen",
+        "description": "You. It is you who is the author of your own story!",
+        "effect": "You do {{n}} own the Ultimate Pen. {{m}}"
+      },
+      "oneMind": {
+        "name": "ONE MIND",
+        "description": "A note, you found on the 'ground': seems like an advertisement for a cult. \"Lock your ascension speed to 10x, and multiply all cubes based on the difference.\" Hmm...",
+        "effect": "You have {{n}} joined the cult!"
+      },
+      "wowPass4": {
+        "name": "QUQUQUQUAAKCKCKKCKKCKK",
+        "description": "Deals that'll cost you a beak and a wing!",
+        "effect": "You have {{n}} quacked your last QUARK"
+      },
+      "blueberries": {
+        "name": "Blueberry Shards! (WIP)",
+        "description": "Blueberries! Yeah, Platonic is out of ideas. Well, each Blueberry gives a 0.01% chance per second to generate some Ambrosia!",
+        "effect": "You have purchased {{n}} tasty blueberries."
+      }
+    }
+  },
+  "general": {
+    "youAreInThe": "You are in the",
+    "validation": {
+      "finite": "Value must be a finite number!",
+      "zeroOrLess": "Only numbers greater than zero, please!",
+      "moreThanPlayerHas": "You can't afford this yet!",
+      "fraction": "Yeah, that isn't an integer. We don't accept fractions here!",
+      "goldenQuarksTooMany": "Sorry, I cannnot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!"
+    },
+    "cancelled": "Okay, maybe next time!",
+    "level": "Level",
+    "minimum": "Minimum",
+    "spent": "Spent"
   }
 }

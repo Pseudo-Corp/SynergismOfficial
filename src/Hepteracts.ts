@@ -6,6 +6,7 @@ import type { Player } from './types/Synergism';
 import { Alert, Confirm, Prompt } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { calculateSingularityDebuff } from './singularity';
+import i18next from 'i18next';
 
 export interface IHepteractCraft {
     BASE_CAP: number
@@ -166,9 +167,9 @@ export class HepteractCraft {
 
         //Check these lol
         if (isNaN(craftAmount) || !isFinite(craftAmount) || !Number.isInteger(craftAmount)) { // nan + Infinity checks
-            return Alert('Value must be a finite number!');
+            return Alert(i18next.t('general.validation.finite'));
         } else if (craftAmount <= 0) { // 0 or less selected
-            return Alert('You can\'t craft a nonpositive amount of these, you monster!');
+            return Alert('general.validation.zeroOrLess');
         }
 
         // Get the smallest of hepteract limit, limit found above and specified input
