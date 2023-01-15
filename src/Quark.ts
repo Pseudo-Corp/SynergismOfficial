@@ -125,34 +125,16 @@ export class QuarkHandler {
 
     async getBonus() {
         const el = DOMCacheGetOrSet('currentBonus');
-        if (localStorage.getItem('patreonBonus') !== null) { // is in cache
-            let quarkBonus = {bonus: 0, fetched: 0};
-            try {
-                // if decryption fails, use compatibility instead
-                try {
-                    quarkBonus = JSON.parse(window.atob(localStorage.getItem('quarkBonus')!)) as typeof quarkBonus;
-                } catch (err2) {
-                }
-                if (typeof quarkBonus !== 'object' || !Number.isFinite(quarkBonus.bonus)) {
-                    throw new Error('quarkBonus in localStorage is corrupted or has bad value!');
-                }
-                // cache is younger than 15 minutes
-                if (Math.abs(Date.now() - quarkBonus.fetched) < 60 * 1000 * 15) {
-                    el.textContent = `Generous patrons give you a bonus of ${quarkBonus.bonus}% more Quarks!`;
-                    return this.BONUS = quarkBonus.bonus;
-                }
-            } catch (err1) {
-                // eslint-disable-next-line no-console
-                console.log(`quarkBonus: ${(err1 as Error).message}`);
-                localStorage.removeItem('patreonBonus');
+        if (localStorage.getItem('quarkBonus') !== null) { // is in cache
+            const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus')!) as { bonus: number, fetched: number };
+            if (Date.now() - fetched < 60 * 1000 * 15) { // cache is younger than 15 minutes
+                el.textContent = `Generous patrons give you a bonus of ${bonus}% more Quarks!`
+                return this.BONUS = bonus;
             }
-        } else {
-            localStorage.removeItem('quarkBonus');
-            if (!navigator.onLine) {
-                return el.textContent = 'Current Bonus: N/A% (offline)!';
-            } else if (document.hidden) {
-                return el.textContent = 'Current Bonus: N/A% (unfocused)!';
-            }
+        } else if (!navigator.onLine) {
+            return el.textContent = 'Current Bonus: N/A% (offline)!';
+        } else if (document.hidden) {
+            return el.textContent = 'Current Bonus: N/A% (unfocused)!';
         }
 
         const b = await getBonus();
@@ -168,7 +150,7 @@ export class QuarkHandler {
         }
 
         el.textContent = `Generous patrons give you a bonus of ${b}% more Quarks!`;
-        localStorage.setItem('patreonBonus', window.btoa(JSON.stringify({ bonus: b, fetched: Date.now() })));
+        localStorage.setItem('quarkBonus', JSON.stringify({ bonus: b, fetched: Date.now() }));
         this.BONUS = b;
     }
 
