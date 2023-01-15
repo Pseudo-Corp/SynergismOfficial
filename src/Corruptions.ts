@@ -5,6 +5,7 @@ import { getElementById } from './Utility';
 import { Alert, Prompt } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { IconSets } from './Themes';
+import i18next from 'i18next';
 
 //
 
@@ -56,90 +57,53 @@ export const corruptionDisplay = (index: number) => {
     let bonusLevel = (player.singularityUpgrades.corruptionFifteen.level > 0) ? 1 : 0;
     bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
     const bonusText = (bonusLevel > 0) ? `[+${bonusLevel}]` : '';
-    const corruptionTexts: Record<'name' | 'description' | 'current' | 'planned' | 'multiplier' | 'spiritContribution' | 'image', string>[] = [
-        {
-            name: 'Corruption I: Viscosity',
-            description: 'You feel lethargic across the universe...',
-            current: 'On this Ascension, this corruption is level ' + format(player.usedCorruptions[2]) + bonusText + '. Effect: Free Accel. and Multipliers Exponent ^' + format(G['maladaptivePower'][player.usedCorruptions[2]], 3),
-            planned: 'On next Ascension, this corruption will be level ' + format(player.prototypeCorruptions[2]) + bonusText + '. Effect: Free Accelerator and Multipliers Exponent ^' + format(G['maladaptivePower'][player.prototypeCorruptions[2]], 3),
-            multiplier: 'Current Score Multiplier: ' + format(Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[2] + bonusLevel], currentExponent), 1) + ' / Next Ascension Score Multiplier: ' + format(Math.pow(G['corruptionPointMultipliers'][player.prototypeCorruptions[2] + bonusLevel], protoExponent), 1),
-            spiritContribution: 'This Ascension gives Rune Spirit Effect +' + format(4 * Math.pow(player.usedCorruptions[2] + bonusLevel,2),1) + '% / Next Ascension Rune Spirit Effect +' + format(4 * Math.pow(player.prototypeCorruptions[2] + bonusLevel,2),1) + '%',
-            image: 'Pictures/' + IconSets[player.iconSet][0] + '/CorruptViscocity.png'
-        },
-        {
-            name: 'Corruption II: Spacial Dilation',
-            description: 'Way to go, Albert.',
-            current: 'On this Ascension, this corruption is level ' + format(player.usedCorruptions[3]) + bonusText + '. Effect: Time Speed is divided by ' + format(1 / G['lazinessMultiplier'][player.usedCorruptions[3]], 5),
-            planned: 'On next Ascension, this corruption will be level ' + format(player.prototypeCorruptions[3]) + bonusText + '. Effect: Time is divided by ' + format(1 / G['lazinessMultiplier'][player.prototypeCorruptions[3]], 5),
-            multiplier: 'Current Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.usedCorruptions[3] + bonusLevel], 1) + ' / Next Ascension Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[3] + bonusLevel], 1),
-            spiritContribution: 'This Ascension gives Rune Spirit Effect +' + format(4 * Math.pow(player.usedCorruptions[3] + bonusLevel,2),1) + '% / Next Ascension Rune Spirit Effect +' + format(4 * Math.pow(player.prototypeCorruptions[3] + bonusLevel,2),1) + '%',
-            image: 'Pictures/' + IconSets[player.iconSet][0] + '/CorruptSpatialDilation.png'
-        },
-        {
-            name: 'Corruption III: Hyperchallenged',
-            description: 'What\'s in a challenge?',
-            current: 'On this Ascension, this corruption is level ' + format(player.usedCorruptions[4]) + bonusText + '. Effect: Challenge Exponent Reqs.  x' + format(G['hyperchallengedMultiplier'][player.usedCorruptions[4]], 3),
-            planned: 'On next Ascension, this corruption will be level ' + format(player.prototypeCorruptions[4]) + bonusText + '. Effect: Challenge Exponent Reqs.  x' + format(G['hyperchallengedMultiplier'][player.prototypeCorruptions[4]], 3),
-            multiplier: 'Current Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.usedCorruptions[4] + bonusLevel], 1) + ' / Next Ascension Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[4] + bonusLevel], 1),
-            spiritContribution: 'This Ascension gives Rune Spirit Effect +' + format(4 * Math.pow(player.usedCorruptions[4] + bonusLevel,2),1) + '% / Next Ascension Rune Spirit Effect +' + format(4 * Math.pow(player.prototypeCorruptions[4] + bonusLevel,2),1) + '%',
-            image: 'Pictures/' + IconSets[player.iconSet][0] + '/CorruptHyperchallenged.png'
-        },
-        {
-            name: 'Corruption IV: Scientific Illiteracy',
-            description: 'Maybe Albert wouldn\'t have theorized Dilation after all.',
-            current: 'On this Ascension, this corruption is level ' + format(player.usedCorruptions[5]) + bonusText + '. Effect: Obtainium gain ^' + format(G['illiteracyPower'][player.usedCorruptions[5]], 3),
-            planned: 'On next Ascension, this corruption will be level ' + format(player.prototypeCorruptions[5]) + bonusText + '. Effect: Obtainium gain ^' + format(G['illiteracyPower'][player.prototypeCorruptions[5]], 3),
-            multiplier: 'Current Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.usedCorruptions[5] + bonusLevel], 1) + ' / Next Ascension Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[5] + bonusLevel], 1),
-            spiritContribution: 'This Ascension gives Rune Spirit Effect +' + format(4 * Math.pow(player.usedCorruptions[5] + bonusLevel,2),1) + '% / Next Ascension Rune Spirit Effect +' + format(4 * Math.pow(player.prototypeCorruptions[5] + bonusLevel,2),1) + '%',
-            image: 'Pictures/' + IconSets[player.iconSet][0] + '/CorruptScientificIlliteracy.png'
-        },
-        {
-            name: 'Corruption V: Market Deflation',
-            description: 'Diamond Mine destroyed... no more monopolies!',
-            current: 'On this Ascension, this corruption is level ' + format(player.usedCorruptions[6]) + bonusText + '. Effect: Diamond gain ^1/' + format(1 / G['deflationMultiplier'][player.usedCorruptions[6]], 2),
-            planned: 'On next Ascension, this corruption will be level ' + format(player.prototypeCorruptions[6]) + bonusText + '. Effect: Diamond gain ^1/' + format(1 / G['deflationMultiplier'][player.prototypeCorruptions[6]], 2),
-            multiplier: 'Current Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.usedCorruptions[6] + bonusLevel], 1) + ' / Next Ascension Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[6] + bonusLevel], 1),
-            spiritContribution: 'This Ascension gives Rune Spirit Effect +' + format(4 * Math.pow(player.usedCorruptions[6] + bonusLevel,2),1) + '% / Next Ascension Rune Spirit Effect +' + format(4 * Math.pow(player.prototypeCorruptions[6] + bonusLevel,2),1) + '%',
-            image: 'Pictures/' + IconSets[player.iconSet][0] + '/CorruptDeflation.png'
-        },
-        {
-            name: 'Corruption VI: Extinction',
-            description: 'It killed the dinosaurs too, ya dingus.',
-            current: 'On this Ascension, this corruption is level ' + format(player.usedCorruptions[7]) + bonusText + '. Effect: Ant Production ^' + format(G['extinctionMultiplier'][player.usedCorruptions[7]], 3),
-            planned: 'On next Ascension, this corruption will be level ' + format(player.prototypeCorruptions[7]) + bonusText + '. Effect: Ant Production ^' + format(G['extinctionMultiplier'][player.prototypeCorruptions[7]], 3),
-            multiplier: 'Current Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.usedCorruptions[7] + bonusLevel], 1) + ' / Next Ascension Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[7] + bonusLevel], 1),
-            spiritContribution: 'This Ascension gives Rune Spirit Effect +' + format(4 * Math.pow(player.usedCorruptions[7] + bonusLevel,2),1) + '% / Next Ascension Rune Spirit Effect +' + format(4 * Math.pow(player.prototypeCorruptions[7] + bonusLevel,2),1) + '%',
-            image: 'Pictures/' + IconSets[player.iconSet][0] + '/CorruptExtinction.png'
-        },
-        {
-            name: 'Corruption VII: Drought',
-            description: 'More like California, am I right?',
-            current: 'On this Ascension, this corruption is level ' + format(player.usedCorruptions[8]) + bonusText + '. Effect: Offering EXP divided by ' + format(G['droughtMultiplier'][player.usedCorruptions[8]], 3),
-            planned: 'On next Ascension, this corruption will be level ' + format(player.prototypeCorruptions[8]) + bonusText + '. Effect: Offering EXP divided by ' + format(G['droughtMultiplier'][player.prototypeCorruptions[8]], 3),
-            multiplier: 'Current Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.usedCorruptions[8] + bonusLevel], 1) + ' / Next Ascension Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[8] + bonusLevel], 1),
-            spiritContribution: 'This Ascension gives Rune Spirit Effect +' + format(4 * Math.pow(player.usedCorruptions[8] + bonusLevel,2),1) + '% / Next Ascension Rune Spirit Effect +' + format(4 * Math.pow(player.prototypeCorruptions[8] + bonusLevel,2),1) + '%',
-            image: 'Pictures/' + IconSets[player.iconSet][0] + '/CorruptDrought.png'
-        },
-        {
-            name: 'Corruption VIII: Financial Recession',
-            description: '2008.exe has stopped working.',
-            current: 'On this Ascension, this corruption is level ' + format(player.usedCorruptions[9]) + bonusText + '. Effect: Coin Gain ^' + format(G['financialcollapsePower'][player.usedCorruptions[9]], 3),
-            planned: 'On next Ascension, this corruption will be level ' + format(player.prototypeCorruptions[9]) + bonusText + '. Effect: Coin Gain ^' + format(G['financialcollapsePower'][player.prototypeCorruptions[9]], 3),
-            multiplier: 'Current Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.usedCorruptions[9] + bonusLevel], 1) + ' / Next Ascension Score Multiplier: ' + format(G['corruptionPointMultipliers'][player.prototypeCorruptions[9] + bonusLevel], 1),
-            spiritContribution: 'This Ascension gives Rune Spirit Effect +' + format(4 * Math.pow(player.usedCorruptions[9] + bonusLevel,2),1) + '% / Next Ascension Rune Spirit Effect +' + format(4 * Math.pow(player.prototypeCorruptions[9] + bonusLevel,2),1) + '%',
-            image: 'Pictures/' + IconSets[player.iconSet][0] + '/CorruptFinancialCollapse.png'
-        },
-        {
-            name: 'CLEANSE THE CORRUPTION',
-            description: 'Free this world of sin.',
-            current: 'Reset all Corruptions to level 0 for your current ascension. Does not reset your current ascension.',
-            planned: 'Push that big \'Reset Corruptions\' button to confirm your decision.',
-            multiplier: 'Note: if you need to do this, you may have bitten off more than you can chew.',
-            spiritContribution: '',
-            image: 'Pictures/' + IconSets[player.iconSet][0] + '/CorruptExit.png'
+
+    const corruptEffectValues: number[][] = [
+        G['viscosityPower'],
+        G['lazinessMultiplier'],
+        G['hyperchallengedMultiplier'],
+        G['illiteracyPower'],
+        G['deflationMultiplier'],
+        G['extinctionMultiplier'],
+        G['droughtMultiplier'],
+        G['financialcollapsePower'],
+        [0]
+    ]
+
+    const iconExtensions: string[] = [
+        '/CorruptViscocity.png',
+        '/CorruptSpatialDilation.png',
+        '/CorruptHyperchallenged.png',
+        '/CorruptScientificIlliteracy.png',
+        '/CorruptDeflation.png',
+        '/CorruptExtinction.png',
+        '/CorruptDrought.png',
+        '/CorruptFinancialCollapse.png'
+    ]
+
+
+    let text: Record<'name' | 'description' | 'current' | 'planned' | 'multiplier' | 'spiritContribution' | 'image', string> = {
+        name: i18next.t('corruptions.exitCorruption.name'),
+        description: i18next.t('corruptions.exitCorruption.description'),
+        current: i18next.t('corruptions.exitCorruption.current'),
+        planned: i18next.t('corruptions.exitCorruption.planned'),
+        multiplier: i18next.t('corruptions.exitCorruption.multiplier'),
+        spiritContribution: '',
+        image: `Pictures/${IconSets[player.iconSet][0]}/CorruptExit.png`
+    }
+
+    if (index < 10) {
+        text = {
+            name: i18next.t(`corruptions.names.${index-1}`),
+            description: i18next.t(`corruptions.descriptions.${index-1}`),
+            current: i18next.t(`corruptions.currentLevel.${index-1}`, {level: format(player.usedCorruptions[index]) + bonusText, effect: format(corruptEffectValues[index-2][player.usedCorruptions[index]], 3)}),
+            planned: i18next.t(`corruptions.prototypeLevel.${index-1}`, {level: format(player.prototypeCorruptions[index]) + bonusText, effect: format(corruptEffectValues[index-2][player.prototypeCorruptions[index]], 3)}),
+            multiplier: i18next.t('corruptions.scoreMultiplier', {curr: format(Math.pow(G['corruptionPointMultipliers'][player.usedCorruptions[index] + bonusLevel], currentExponent), 1), next: format(Math.pow(G['corruptionPointMultipliers'][player.prototypeCorruptions[index] + bonusLevel], protoExponent), 1)}),
+            spiritContribution: i18next.t('corruptions.spiritEffect', {curr: format(4 * Math.pow(player.usedCorruptions[index] + bonusLevel,2),1), next: format(4 * Math.pow(player.prototypeCorruptions[index] + bonusLevel,2),1)}),
+            image: `Pictures/${IconSets[player.iconSet][0]}${iconExtensions[index-2]}`
         }
-    ];
-    const text = corruptionTexts[index-2];
+    }
+
     DOMCacheGetOrSet('corruptionName').textContent = text.name
     DOMCacheGetOrSet('corruptionDescription').textContent = text.description
     DOMCacheGetOrSet('corruptionLevelCurrent').textContent = text.current
@@ -177,14 +141,14 @@ export const corruptionButtonsAdd = () => {
 
         const p = document.createElement('p');
         p.className = 'corrDesc'
-        let text = document.createTextNode('Current: ')
+        let text = document.createTextNode(i18next.t('corruptions.current'))
         p.appendChild(text)
         let span = document.createElement('span');
         span.id = `corrCurrent${i+2}`;
         span.textContent = `${player.usedCorruptions[i+2]}`;
         p.appendChild(span);
 
-        text = document.createTextNode(' / Next: ');
+        text = document.createTextNode(i18next.t('corruptions.next'));
         p.appendChild(text);
 
         span = document.createElement('span');
@@ -196,7 +160,7 @@ export const corruptionButtonsAdd = () => {
         let btn;
         btn = document.createElement('button');
         btn.className = 'corrBtn corruptionMax';
-        btn.textContent = '+MAX';
+        btn.textContent = `+${i18next.t('corruptions.max')}`;
         btn.addEventListener('click', () => toggleCorruptionLevel(i + 2, 99));
         row.appendChild(btn);
 
@@ -214,7 +178,7 @@ export const corruptionButtonsAdd = () => {
 
         btn = document.createElement('button');
         btn.className = 'corrBtn corruptionReset';
-        btn.textContent = '-MAX';
+        btn.textContent = `-${i18next.t('corruptions.max')}`;
         btn.addEventListener('click', () => toggleCorruptionLevel(i + 2, -99));
         row.appendChild(btn);
         row.addEventListener('click', () => corruptionDisplay(i + 2));
@@ -237,13 +201,13 @@ export const corruptionLoadoutTableCreate = () => {
             cell.className = `test${j}`
             if (j === 0) { // First column
                 if (i === 0) { // First row
-                    cell.textContent = 'Next:'
+                    cell.textContent = i18next.t('corruptions.loadoutTable.next')
                     cell.addEventListener('click', () => void corruptionLoadoutGetExport());
                     cell.classList.add('corrLoadoutName');
-                    cell.title = 'Click to copy the next Corruptions to the clipboard. This is the format that can be imported'
+                    cell.title = i18next.t('corruptions.loadoutTable.firstRowTitle')
                 } else {
                     // Custom loadout names are loaded later, via updateCorruptionLoadoutNames()
-                    cell.title = `Click to rename. Hotkey: SHIFT+${i}`
+                    cell.title = i18next.t('corruptions.loadoutTable.otherRowTitle', {value: i})
                 }
 
             } else if (j <= corrCount) {
@@ -259,7 +223,7 @@ export const corruptionLoadoutTableCreate = () => {
             let cell = row.insertCell();
             let btn: HTMLButtonElement= document.createElement('button');
             btn.className = 'corrImport'
-            btn.textContent = 'Import'
+            btn.textContent = i18next.t('corruptions.loadoutTable.import')
             btn.addEventListener('click', () => void importCorruptionsPrompt());
             cell.appendChild(btn);
             cell.title = 'Import Corruption Loadout in text format'
@@ -267,23 +231,23 @@ export const corruptionLoadoutTableCreate = () => {
             cell = row.insertCell();
             btn = document.createElement('button');
             btn.className = 'corrLoad'
-            btn.textContent = 'Zero'
+            btn.textContent = i18next.t('corruptions.loadoutTable.zero')
             btn.addEventListener('click', () => corruptionLoadoutSaveLoad(false, i));
             cell.appendChild(btn);
-            cell.title = 'Reset Corruptions to zero on your next Ascension. Hotkey: SHIFT+9'
+            cell.title = i18next.t('corruptions.loadoutTable.zeroTitle')
         } else {
             let cell = row.insertCell();
             let btn = document.createElement('button');
             btn.className = 'corrSave'
-            btn.textContent = 'Save'
+            btn.textContent = i18next.t('corruptions.loadoutTable.save')
             btn.addEventListener('click', () => corruptionLoadoutSaveLoad(true, i));
             cell.appendChild(btn);
-            cell.title = 'Save current Corruptions to this Loadout'
+            cell.title = i18next.t('corruptions.loadoutTable.saveTitle')
 
             cell = row.insertCell();
             btn = document.createElement('button');
             btn.className = 'corrLoad'
-            btn.textContent = 'Load'
+            btn.textContent = i18next.t('corruptions.loadoutTable.load')
             btn.addEventListener('click', () => corruptionLoadoutSaveLoad(false, i));
             cell.appendChild(btn);
         }
@@ -341,10 +305,10 @@ export const applyCorruptions = (corruptions: string) => {
 }
 
 async function importCorruptionsPrompt() {
-    const input = await Prompt('Enter a Corruption Loadout to import for next Ascension. It must be in the following text format: 1/2/3/4/5/6/7/8');
+    const input = await Prompt(i18next.t('corruptions.importCorruptionsPrompt.import'));
 
     if (!applyCorruptions('0/0/' + input + '/0/0/0')) {
-        void Alert('Your input was not in the correct format, try again.');
+        void Alert(i18next.t('corruptions.importCorruptionsPrompt.importError'));
     }
 }
 
@@ -352,22 +316,19 @@ async function corruptionLoadoutGetNewName(loadout = 0) {
     const maxChars = 9
     // eslint-disable-next-line
     const regex = /^[\x00-\xFF]*$/
-    const renamePrompt = await Prompt(
-        `What would you like to name Loadout ${loadout + 1}? ` +
-        `Names cannot be longer than ${maxChars} characters. Nothing crazy!`
-    );
+    const renamePrompt = await Prompt(i18next.t('corruptions.corruptionLoadoutName.loadoutPrompt', {loadNum: loadout + 1, maxChars: maxChars}));
 
     if (!renamePrompt) {
-        return Alert('Okay, maybe next time.');
+        return Alert(i18next.t('corruptions.corruptionLoadoutName.errors.noName'));
     } else if (renamePrompt.length > maxChars) {
-        return Alert('The name you provided is too long! Try again.')
+        return Alert(i18next.t('corruptions.corruptionLoadoutName.errors.exceedsCharacterLimit'))
     } else if (!regex.test(renamePrompt)) {
-        return Alert('The Loadout Renamer didn\'t like a character in your name! Try something else.')
+        return Alert(i18next.t('corruptions.corruptionLoadoutName.errors.regexError'))
     } else {
         player.corruptionLoadoutNames[loadout] = renamePrompt
         updateCorruptionLoadoutNames();
         if (renamePrompt === 'crazy') {
-            return Alert('Ant God approves of your joke!')
+            return Alert(i18next.t('corruptions.loadoutPrompt.errors.crazyJoke'))
         }
     }
 }
@@ -389,9 +350,9 @@ const corruptionLoadoutGetExport = async () => {
     const str = player.prototypeCorruptions.slice(2, 10).join('/');
     if ('clipboard' in navigator) {
         await navigator.clipboard.writeText(str)
-            .catch((e: Error) => Alert(`Unable to write the save to clipboard: ${e.message}`));
+            .catch((e: Error) => Alert(i18next.t('corruptions.loadoutExport.saveErrorNavigator', {message: e.message})));
     } else {
-        void Alert(`Unable to write the save to clipboard: ${str}`);
+        void Alert(i18next.t('corruptions.loadoutExport.otherSaveError', {message: str}));
     }
 }
 
