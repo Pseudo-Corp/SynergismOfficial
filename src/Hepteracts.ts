@@ -169,7 +169,7 @@ export class HepteractCraft {
         if (isNaN(craftAmount) || !isFinite(craftAmount) || !Number.isInteger(craftAmount)) { // nan + Infinity checks
             return Alert(i18next.t('general.validation.finite'));
         } else if (craftAmount <= 0) { // 0 or less selected
-            return Alert('general.validation.zeroOrLess');
+            return Alert(i18next.t('general.validation.zeroOrLess'));
         }
 
         // Get the smallest of hepteract limit, limit found above and specified input

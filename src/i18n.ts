@@ -1,7 +1,7 @@
 import i18next, { type Resource } from 'i18next'
 import { prod } from './Config'
 
-const supported = ['en']
+const supported = ['en', 'zh']
 
 export const init = async () => {
     const resources: Record<string, Resource> = {}
