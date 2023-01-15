@@ -125,7 +125,7 @@ export class QuarkHandler {
 
     async getBonus() {
         const el = DOMCacheGetOrSet('currentBonus');
-        if (localStorage.getItem('quarkBonus') !== null) { // is in cache
+        if (localStorage.getItem('patreonBonus') !== null) { // is in cache
             let quarkBonus = {bonus: 0, fetched: 0};
             try {
                 // if decryption fails, use compatibility instead
@@ -144,12 +144,15 @@ export class QuarkHandler {
             } catch (err1) {
                 // eslint-disable-next-line no-console
                 console.log(`quarkBonus: ${(err1 as Error).message}`);
-                localStorage.removeItem('quarkBonus');
+                localStorage.removeItem('patreonBonus');
             }
-        } else if (!navigator.onLine) {
-            return el.textContent = 'Current Bonus: N/A% (offline)!';
-        } else if (document.hidden) {
-            return el.textContent = 'Current Bonus: N/A% (unfocused)!';
+        } else {
+            localStorage.removeItem('quarkBonus');
+            if (!navigator.onLine) {
+                return el.textContent = 'Current Bonus: N/A% (offline)!';
+            } else if (document.hidden) {
+                return el.textContent = 'Current Bonus: N/A% (unfocused)!';
+            }
         }
 
         const b = await getBonus();
@@ -165,7 +168,7 @@ export class QuarkHandler {
         }
 
         el.textContent = `Generous patrons give you a bonus of ${b}% more Quarks!`;
-        localStorage.setItem('quarkBonus', window.btoa(JSON.stringify({ bonus: b, fetched: Date.now() })));
+        localStorage.setItem('patreonBonus', window.btoa(JSON.stringify({ bonus: b, fetched: Date.now() })));
         this.BONUS = b;
     }
 
