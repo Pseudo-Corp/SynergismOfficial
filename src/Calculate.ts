@@ -19,6 +19,7 @@ import { setInterval, clearInterval } from './Timers';
 import { getFastForwardTotalMultiplier } from './singularity';
 import i18next from 'i18next';
 
+
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] =
         player.firstOwnedCoin +
