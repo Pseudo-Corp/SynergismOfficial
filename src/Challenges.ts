@@ -101,30 +101,31 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     }
 
     const maxChallenges = getMaxChallenges(i);
-    if (i <= 5 && changefocus){
-        if (player.challengecompletions[i] >= 100){
-            DOMCacheGetOrSet('completionSoftcap').textContent = '|| Softcapped past 100! Effective completion count: ' + format(CalcECC('transcend',player.challengecompletions[i]),2,true)
+    if (i <= 5 && changefocus) {
+        if (player.challengecompletions[i] >= 100) {
+            DOMCacheGetOrSet('completionSoftcap').textContent = '|| Softcapped past 100! Effective completion count: ' + format(CalcECC(i), 2, true);
         } else {
-            DOMCacheGetOrSet('completionSoftcap').textContent = ''
+            DOMCacheGetOrSet('completionSoftcap').textContent = '';
         }
     }
-
 
     if (i > 5 && i <= 10) {
         quarksMultiplier = 10;
-        if (player.challengecompletions[i] >= 25 && changefocus){
-            DOMCacheGetOrSet('completionSoftcap').textContent = '|| Softcapped past 25! Effective completion count: ' + format(CalcECC('reincarnation',player.challengecompletions[i]),2,true)
+        if (player.challengecompletions[i] >= 25 && changefocus) {
+            DOMCacheGetOrSet('completionSoftcap').textContent = '|| Softcapped past 25! Effective completion count: ' + format(CalcECC(i), 2, true);
         } else {
-            DOMCacheGetOrSet('completionSoftcap').textContent = ''
+            DOMCacheGetOrSet('completionSoftcap').textContent = '';
         }
     }
+
     if (i > 10) {
-        if (player.challengecompletions[i] >= 10){
-            DOMCacheGetOrSet('completionSoftcap').textContent = '|| Softcapped past 10! Effective completion count: ' + format(CalcECC('ascension',player.challengecompletions[i]),2,true)
+        if (player.challengecompletions[i] >= 10) {
+            DOMCacheGetOrSet('completionSoftcap').textContent = '|| Softcapped past 10! Effective completion count: ' + format(CalcECC(i), 2, true);
         } else {
-            DOMCacheGetOrSet('completionSoftcap').textContent = ''
+            DOMCacheGetOrSet('completionSoftcap').textContent = '';
         }
     }
+
     let descriptor = ''
     const a = DOMCacheGetOrSet('challengeName');
     const b = DOMCacheGetOrSet('challengeFlavor');
@@ -151,9 +152,9 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = '+0.04 base Rune exp per Offering! Current: '
         h.textContent = '+1 free Multiplier! +1 Base EXP per offering used!'
         k.textContent = 'Start [No Multipliers]'
-        l.textContent = '+' + format(10 * CalcECC('transcend', player.challengecompletions[1])) + ' Boosts'
-        m.textContent = '+' + format(10 * CalcECC('transcend', player.challengecompletions[1])) + '% more Boosts'
-        n.textContent = '+' + format(0.04 * CalcECC('transcend', player.challengecompletions[1]), 2, true) + ' Rune EXP [Highest Completion]'
+        l.textContent = '+' + format(10 * CalcECC(1)) + ' Boosts'
+        m.textContent = '+' + format(10 * CalcECC(1)) + '% more Boosts'
+        n.textContent = '+' + format(0.04 * CalcECC(1), 2, true) + ' Rune EXP [Highest Completion]'
     }
     if (i === 2 && G['challengefocus'] === 2) {
         a.textContent = 'No Accelerators Challenge || ' + player.challengecompletions[2] + '/' + format(maxChallenges) + ' Completions'
@@ -165,9 +166,9 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = '+0.25% Accelerator Power! Current: '
         h.textContent = '+1 base offering for Prestige and Transcensions.'
         k.textContent = 'Start [No Accelerators]'
-        l.textContent = '+' + format(5 * CalcECC('transcend', player.challengecompletions[2])) + ' Accelerators'
-        m.textContent = '+' + format(5 * CalcECC('transcend', player.challengecompletions[2])) + '% A.Boost Power'
-        n.textContent = '+' + format(0.25 * CalcECC('transcend', player.challengecompletions[2]), 2, true) + '% Accelerator Power'
+        l.textContent = '+' + format(5 * CalcECC(2)) + ' Accelerators'
+        m.textContent = '+' + format(5 * CalcECC(2)) + '% A.Boost Power'
+        n.textContent = '+' + format(0.25 * CalcECC(2), 2, true) + '% Accelerator Power'
     }
     if (i === 3 && G['challengefocus'] === 3) {
         a.textContent = 'No Shards Challenge || ' + player.challengecompletions[3] + '/' + format(maxChallenges) + ' Completions'
@@ -180,8 +181,8 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         h.textContent = 'Gain an offering automatically every 2 seconds!'
         k.textContent = 'Start [No Shards]'
         l.textContent = 'Exponent +' + format(0.04 * player.challengecompletions[3], 2, true)
-        m.textContent = '+' + format(0.5 * CalcECC('transcend', player.challengecompletions[3]), 2, true) + '%'
-        n.textContent = '+' + format(0.01 * CalcECC('transcend', player.challengecompletions[3]), 2, true) + ' EXP'
+        m.textContent = '+' + format(0.5 * CalcECC(3), 2, true) + '%'
+        n.textContent = '+' + format(0.01 * CalcECC(3), 2, true) + ' EXP'
     }
     if (i === 4 && G['challengefocus'] === 4) {
         a.textContent = 'Cost+ Challenge || ' + player.challengecompletions[4] + '/' + format(maxChallenges) + ' Completions'
@@ -193,9 +194,9 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = 'Building Cost Delay +0.5%. Current: '
         h.textContent = 'None'
         k.textContent = 'Start [Cost+]'
-        l.textContent = 'Accelerator Delay +' + format(5 * CalcECC('transcend', player.challengecompletions[4]))
-        m.textContent = 'Multiplier Delay +' + format(2 * CalcECC('transcend', player.challengecompletions[4]))
-        n.textContent = 'Building Cost Delay +' + format(0.5 * CalcECC('transcend', player.challengecompletions[4]), 2, true) + '%'
+        l.textContent = 'Accelerator Delay +' + format(5 * CalcECC(4))
+        m.textContent = 'Multiplier Delay +' + format(2 * CalcECC(4))
+        n.textContent = 'Building Cost Delay +' + format(0.5 * CalcECC(4), 2, true) + '%'
     }
     if (i === 5 && G['challengefocus'] === 5) {
         a.textContent = 'Reduced Diamonds Challenge || ' + player.challengecompletions[5] + '/' + format(maxChallenges) + ' Completions'
@@ -207,8 +208,8 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = ''
         h.textContent = 'None'
         k.textContent = 'Start [Reduced Diamonds]'
-        l.textContent = 'Exponent = ^' + format(0.5 + CalcECC('transcend', player.challengecompletions[5]) / 100, 2, true)
-        m.textContent = 'Crystal production x' + format(Math.pow(10, CalcECC('transcend', player.challengecompletions[5])))
+        l.textContent = 'Exponent = ^' + format(0.5 + CalcECC(5) / 100, 2, true)
+        m.textContent = 'Crystal production x' + format(Math.pow(10, CalcECC(5)))
         n.textContent = ''
     }
     if (i === 6 && G['challengefocus'] === 6) {
@@ -221,9 +222,9 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = 'Prestige Offerings +2%! Current: '
         h.textContent = '-7.5% Taxes!'
         k.textContent = 'Start <Higher Tax>'
-        l.textContent = 'Tax multiplier x' + format(Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6])), 3, true)
-        m.textContent = 'EXP +' + format(10 * CalcECC('reincarnation', player.challengecompletions[6])) + '%'
-        n.textContent = '+' + format(2 * CalcECC('reincarnation', player.challengecompletions[6])) + '% Prestige-based Offerings'
+        l.textContent = 'Tax multiplier x' + format(Math.pow(0.965, CalcECC(6)), 3, true)
+        m.textContent = 'EXP +' + format(10 * CalcECC(6)) + '%'
+        n.textContent = '+' + format(2 * CalcECC(6)) + '% Prestige-based Offerings'
     }
     if (i === 7 && G['challengefocus'] === 7) {
         a.textContent = 'No Multipliers/Accelerators Challenge || ' + player.challengecompletions[7] + '/' + format(maxChallenges) + ' Completions'
@@ -235,9 +236,9 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = 'Duplication Rune Exp +10%! Current: '
         h.textContent = 'Multiplier Boost power +25%! The first Discord-Booster Global Diamond Upgrade.'
         k.textContent = 'Start <No Multipliers/Accelerators>'
-        l.textContent = 'Exponent = ^' + format(1 + 0.04 * CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
-        m.textContent = 'EXP +' + format(10 * CalcECC('reincarnation', player.challengecompletions[7])) + '%'
-        n.textContent = 'EXP +' + format(10 * CalcECC('reincarnation', player.challengecompletions[7])) + '%'
+        l.textContent = 'Exponent = ^' + format(1 + 0.04 * CalcECC(7), 2, true)
+        m.textContent = 'EXP +' + format(10 * CalcECC(7)) + '%'
+        n.textContent = 'EXP +' + format(10 * CalcECC(7)) + '%'
     }
     if (i === 8 && G['challengefocus'] === 8) {
         a.textContent = 'Cost++ Challenge || ' + player.challengecompletions[8] + '/' + format(maxChallenges) + ' Completions'
@@ -249,9 +250,9 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = 'Transcend Offerings +4%! Current: '
         h.textContent = 'Unlock the Anthill feature! Includes 20 new Researches. A Global Diamond Upgrade.'
         k.textContent = 'Start <Cost++>'
-        l.textContent = '+' + format(0.25 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
-        m.textContent = '+' + format(20 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true) + '% EXP'
-        n.textContent = '+' + format(4 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true) + '% Transcend-based offerings'
+        l.textContent = '+' + format(0.25 * CalcECC(8), 2, true)
+        m.textContent = '+' + format(20 * CalcECC(8), 2, true) + '% EXP'
+        n.textContent = '+' + format(4 * CalcECC(8), 2, true) + '% Transcend-based offerings'
     }
     if (i === 9 && G['challengefocus'] === 9) {
         a.textContent = 'No Runes Challenge || ' + player.challengecompletions[9] + '/' + format(maxChallenges) + ' Completions'
@@ -263,9 +264,9 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = 'SI Rune Exp +20%! Current: '
         h.textContent = 'Unlock the Talismans feature! [In Runes tab]. A Global Diamond Upgrade.'
         k.textContent = 'Start <No Runes>'
-        l.textContent = '+' + format(CalcECC('reincarnation', player.challengecompletions[9])) + ' free levels'
-        m.textContent = 'x' + format(Math.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])), 2, true) + ' Ant Speed'
-        n.textContent = '+' + format(20 * CalcECC('reincarnation', player.challengecompletions[9]), 2, true) + '% EXP'
+        l.textContent = '+' + format(CalcECC(9)) + ' free levels'
+        m.textContent = 'x' + format(Math.pow(1.1, CalcECC(9)), 2, true) + ' Ant Speed'
+        n.textContent = '+' + format(20 * CalcECC(9), 2, true) + '% EXP'
     }
     if (i === 10 && G['challengefocus'] === 10) {
         a.textContent = 'Sadistic Challenge I || ' + player.challengecompletions[10] + '/' + format(maxChallenges) + ' Completions'
@@ -277,9 +278,9 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = 'Reincarnation Offerings +10%! Current: '
         h.textContent = 'Unlock the Ascension Reset Tier!'
         k.textContent = 'Start <Sadistic I>'
-        l.textContent = '+' + format(100 * CalcECC('reincarnation', player.challengecompletions[10])) + ' Ant ELO'
-        m.textContent = '+' + format(2 * CalcECC('reincarnation', player.challengecompletions[10])) + '% Ant Sacrifice reward'
-        n.textContent = '+' + format(10 * CalcECC('reincarnation', player.challengecompletions[10]), 2, true) + '% Reincarnate-based offerings'
+        l.textContent = '+' + format(100 * CalcECC(10)) + ' Ant ELO'
+        m.textContent = '+' + format(2 * CalcECC(10)) + '% Ant Sacrifice reward'
+        n.textContent = '+' + format(10 * CalcECC(10), 2, true) + '% Reincarnate-based offerings'
     }
     if (i === 11 && G['challengefocus'] === 11) {
         a.textContent = 'Reduced Ants Challenge || ' + player.challengecompletions[11] + '/' + format(maxChallenges) + ' Completions'
@@ -291,9 +292,9 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = '+80 to Rune Caps! Current: '
         h.textContent = 'Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to toggle Corruptions ;)'
         k.textContent = 'Start <[(Reduced Ants)]>'
-        l.textContent = '+' + format(12 * CalcECC('ascension', player.challengecompletions[11])) + ' free ant levels'
-        m.textContent = 'Ant Speed x' + format(Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11])))
-        n.textContent = '+' + format(80 * CalcECC('ascension', player.challengecompletions[11])) + ' to Rune Caps'
+        l.textContent = '+' + format(12 * CalcECC(11)) + ' free ant levels'
+        m.textContent = 'Ant Speed x' + format(Decimal.pow(1e5, CalcECC(11)))
+        n.textContent = '+' + format(80 * CalcECC(11)) + ' to Rune Caps'
     }
     if (i === 12 && G['challengefocus'] === 12) {
         a.textContent = 'No Reincarnation Challenge || ' + player.challengecompletions[12] + '/' + format(maxChallenges) + ' Completions'
@@ -305,9 +306,9 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = '+1 Cube Tribute per opening! Current: '
         h.textContent = 'Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Increase Corruption Cap by 2 levels. Finally, unlock two new corruptions! ;)'
         k.textContent = 'Start <[(No Reincarnation)]>'
-        l.textContent = '+' + format(50 * CalcECC('ascension', player.challengecompletions[12])) + '% Obtainium'
-        m.textContent = '+' + format(12 * CalcECC('ascension', player.challengecompletions[12])) + '% Offerings'
-        n.textContent = '+' + format(CalcECC('ascension', player.challengecompletions[12])) + ' additional Cube Tributes'
+        l.textContent = '+' + format(50 * CalcECC(12)) + '% Obtainium'
+        m.textContent = '+' + format(12 * CalcECC(12)) + '% Offerings'
+        n.textContent = '+' + format(CalcECC(12)) + ' additional Cube Tributes'
     }
     if (i === 13 && G['challengefocus'] === 13) {
         a.textContent = 'Tax+++ Challenge || ' + player.challengecompletions[13] + '/' + format(maxChallenges) + ' Completions'
@@ -319,9 +320,9 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = '+3% Spirit Power effectiveness! Current: '
         h.textContent = 'Unlock 15 Researches, and unlock the power of the Hypercube! Increase Corruption Cap by 2 levels, to 9! Finally, unlock two new corruptions! ;)'
         k.textContent = 'Start <[(Tax+++)]>'
-        l.textContent = '-' + format(100 - 100 * Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13])),3,true) + '% Corruption Tax'
-        m.textContent = '+' + format(6 * CalcECC('ascension', player.challengecompletions[13])) + ' Talisman Level Cap'
-        n.textContent = '+' + format(3 * CalcECC('ascension', player.challengecompletions[13])) + '% Effectiveness'
+        l.textContent = '-' + format(100 - 100 * Math.pow(0.966, CalcECC(13)), 3, true) + '% Corruption Tax'
+        m.textContent = '+' + format(6 * CalcECC(13)) + ' Talisman Level Cap'
+        n.textContent = '+' + format(3 * CalcECC(13)) + '% Effectiveness'
     }
     if (i === 14 && G['challengefocus'] === 14) {
         a.textContent = 'No Research Challenge || ' + player.challengecompletions[14] + '/' + format(maxChallenges) + ' Completions'
@@ -333,9 +334,9 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         g.textContent = '+200 to Rune Caps! Current: '
         h.textContent = 'Unlock 15 Researches, and a way to coalesce your power into the Singularity. Increase Corruption Cap by 2 levels, to 11! Finally, unlock two new corruptions! ;)'
         k.textContent = 'Start <[(No Research)]>'
-        l.textContent = '+' + format(50 * CalcECC('ascension', player.challengecompletions[14])) + '% Power'
+        l.textContent = '+' + format(50 * CalcECC(14)) + '% Power'
         m.textContent = '+' + format(1 * player.challengecompletions[14]) + ' per Tick'
-        n.textContent = '+' + format(200 * CalcECC('ascension', player.challengecompletions[14])) + ' to Rune Caps'
+        n.textContent = '+' + format(200 * CalcECC(14)) + ' to Rune Caps'
     }
     if (i === 15 && G['challengefocus'] === 15) {
         a.textContent = 'SADISTIC CHALLENGE II || ' + player.challengecompletions[15] + '/' + format(maxChallenges) +  ' Completions'
@@ -552,24 +553,24 @@ export const calculateChallengeRequirementMultiplier = (
 /**
  * Works to mitigate the difficulty of calculating challenge reward multipliers when considering softcapping
  */
-export const CalcECC = (type: 'transcend' | 'reincarnation' | 'ascension', completions: number) => { // ECC stands for "Effective Challenge Completions"
+export const CalcECC = (index: number) => { // ECC stands for "Effective Challenge Completions"
     let effective = 0;
-    switch (type) {
-        case 'transcend':
-            effective += Math.min(100, completions);
-            effective += 1 / 20 * (Math.min(1000, Math.max(100, completions)) - 100);
-            effective += 1 / 100 * (Math.max(1000, completions) - 1000)
-            return (effective);
-        case 'reincarnation':
-            effective += Math.min(25, completions);
-            effective += 1 / 2 * (Math.min(75, Math.max(25, completions)) - 25);
-            effective += 1 / 10 * (Math.max(75, completions) - 75)
-            return (effective);
-        case 'ascension':
-            effective += Math.min(10, completions);
-            effective += 1 / 2 * (Math.max(10, completions) - 10);
-            return (effective);
+    const completions = player.challengecompletions[index];
+
+    if (index >= 1 && index <= 5) { //transcend
+        effective += Math.min(100, completions);
+        effective += 1 / 20 * (Math.min(1000, Math.max(100, completions)) - 100);
+        effective += 1 / 100 * (Math.max(1000, completions) - 1000);
+    } else if (index <= 10) { //reincarnation
+        effective += Math.min(25, completions);
+        effective += 1 / 2 * (Math.min(75, Math.max(25, completions)) - 25);
+        effective += 1 / 10 * (Math.max(75, completions) - 75);
+    } else if (index <= 14) { //ascension
+        effective += Math.min(10, completions);
+        effective += 1 / 2 * (Math.max(10, completions) - 10);
     }
+
+    return effective;
 }
 
 export const challengeRequirement = (challenge: number, completion: number, special = 0) => {

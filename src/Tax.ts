@@ -63,7 +63,7 @@ export const calculatetax = () => {
     exponent *= exp;
     exponent *= (1 - 1 / 20 * player.researches[51] - 1 / 40 * player.researches[52] - 1 / 80 * player.researches[53] - 1 / 160 * player.researches[54] - 1 / 320 * player.researches[55]);
     exponent *= (1 - 0.05 / 1800 * (player.achievements[45] + player.achievements[46] + 2 * player.achievements[47]) * Math.min(player.prestigecounter, 1800));
-    exponent *= Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6]));
+    exponent *= Math.pow(0.965, CalcECC(6));
     exponent *= (0.001 + .999 * (Math.pow(6, -(G['rune2level'] * G['effectiveLevelMult']) / 1000)));
     exponent *= (0.01 + .99 * (Math.pow(4, Math.min(0, (400 - G['rune4level']) / 1100))));
     exponent *= (1 - 0.04 * player.achievements[82] - 0.04 * player.achievements[89] - 0.04 * player.achievements[96] - 0.04 * player.achievements[103] - 0.04 * player.achievements[110] - 0.0566 * player.achievements[117] - 0.0566 * player.achievements[124] - 0.0566 * player.achievements[131]);
@@ -72,7 +72,7 @@ export const calculatetax = () => {
     exponent *= 1 / Math.pow((1 + Decimal.log(player.ascendShards.add(1), 10)), 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + (G['platonicBonusMultiplier'][5]-1));
     exponent *= (1 - 0.10 * (player.talismanRarity[1-1] - 1));
     exponent *= Math.pow(0.98, 3 / 5 * Math.log(1 + player.rareFragments) / Math.log(10) * player.researches[159]);
-    exponent *= Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13]));
+    exponent *= Math.pow(0.966, CalcECC(13));
     exponent *= (1 - 0.666 * player.researches[200] / 100000);
     exponent *= (1 - 0.666 * player.cubeUpgrades[50] / 100000);
     exponent *= G['challenge15Rewards'].taxes;

@@ -47,7 +47,7 @@ const num = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven'] as const;
 
 export const calculateMaxTalismanLevel = (i: number) => {
     let maxLevel = 30 * player.talismanRarity[i]
-    maxLevel += 6 * CalcECC('ascension', player.challengecompletions[13])
+    maxLevel += 6 * CalcECC(13)
     maxLevel += Math.floor(player.researches[200] / 400)
 
     if (player.cubeUpgrades[67] > 0 && i === 3) {

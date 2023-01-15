@@ -52,7 +52,7 @@ export const visualUpdateBuildings = () => {
         DOMCacheGetOrSet('buildtext13').textContent = 'Multipliers: ' + format(player.multiplierBought, 0, true) + ' [+' + format(G['freeMultiplier'], 0, true) + ']'
         DOMCacheGetOrSet('buildtext14').textContent = 'Multiplier Power: ' + format(G['multiplierPower'], 2) + 'x || Multiplier: ' + format(G['multiplierEffect'], 2) + 'x'
         DOMCacheGetOrSet('buildtext15').textContent = 'Accelerator Boost: ' + format(player.acceleratorBoostBought, 0, true) + ' [+' + format(G['freeAcceleratorBoost'], 0, false) + ']'
-        DOMCacheGetOrSet('buildtext16').textContent = 'Reset Diamonds and Prestige Upgrades, but add ' + format(G['tuSevenMulti'] * (1 + player.researches[16] / 50) * (1 + CalcECC('transcend', player.challengecompletions[2]) / 100), 2) + '% Acceleration Power and 5 free Accelerators.'
+        DOMCacheGetOrSet('buildtext16').textContent = 'Reset Diamonds and Prestige Upgrades, but add ' + format(G['tuSevenMulti'] * (1 + player.researches[16] / 50) * (1 + CalcECC(2) / 100), 2) + '% Acceleration Power and 5 free Accelerators.'
         DOMCacheGetOrSet('buyaccelerator').textContent = 'Cost: ' + format(player.acceleratorCost) + ' coins.'
         DOMCacheGetOrSet('buymultiplier').textContent = 'Cost: ' + format(player.multiplierCost) + ' coins.'
         DOMCacheGetOrSet('buyacceleratorboost').textContent = 'Cost: ' + format(player.acceleratorBoostCost) + ' Diamonds.'
