@@ -577,12 +577,18 @@ export const achievementaward = (num: number) => {
         void achievementAlerts(num)
         player.achievementPoints += achievementpointvalues[num]
         player.worlds.add(getAchievementQuarks(num), false)
-        DOMCacheGetOrSet('achievementprogress').textContent = 'Achievement Points: ' + player.achievementPoints + '/' + totalachievementpoints + ' [' + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + '%]'
+        achievementPoints();
         player.achievements[num] = 1;
         revealStuff()
-    }
 
-    DOMCacheGetOrSet(`ach${num}`).style.backgroundColor = 'Green';
-    Synergism.emit('achievement', num);
+        DOMCacheGetOrSet(`ach${num}`).style.backgroundColor = 'green';
+        Synergism.emit('achievement', num);
+    }
 }
 
+export const achievementPoints = () => {
+    const minPoints = `${format(player.achievementPoints, 0, true)}`;
+    const maxPoints = `${format(totalachievementpoints, 0, true)}`;
+    const percent = `${format(100 * player.achievementPoints / totalachievementpoints, 2)}`;
+    DOMCacheGetOrSet('achievementprogress').textContent = i18next.t('achievements.achievementPoints', { min: `${minPoints}`, max: `${maxPoints}`, percent: `${percent}` });
+}

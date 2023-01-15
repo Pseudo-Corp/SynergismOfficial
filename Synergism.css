@@ -2449,7 +2449,7 @@ p#ascendHotKeys {
     align-items: flex-start;
     width: 25em;
     min-width: 500px;
-    max-width: 800px;
+    max-width: 600px;
     height: fit-content;
     gap: 10px 15px;
 }
@@ -2459,9 +2459,8 @@ p#ascendHotKeys {
 }
 
 .statContainer {
-    width: 20em;
     min-width: 400px;
-    max-width: 500px;
+    max-width: 600px;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: auto;
@@ -2469,6 +2468,13 @@ p#ascendHotKeys {
     padding-right: 25px;
     padding-bottom: 25px;
     display: none;
+}
+
+#statsContainer {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 30px;
 }
 
 #miscStats {

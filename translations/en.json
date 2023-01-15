@@ -5,7 +5,78 @@
   "save": {
     "loadFailed": "Unable to load save."
   },
+  "tabs": {
+    "buildings": "Buildings",
+    "upgrades": "Upgrades",
+    "achievements": "Achievements",
+    "runes": "Runes",
+    "challenge": "Challenges",
+    "research": "Research",
+    "ant": "Anthill",
+    "cube": "WOW! Cubes",
+    "traits": "Corruption",
+    "singularity": "Singularity",
+    "settings": "Settings",
+    "shop": "Shop"
+  },
+  "subtab": {
+    "setting": {
+      "setting": "Settings",
+      "credits": "Credits",
+      "statistics": "Stats for Nerds",
+      "resetHistory": "Reset History",
+      "ascendHistory": "Ascend History",
+      "singularityHistory": "Singularity History",
+      "hotkeys": "Hotkeys"
+    },
+    "building": {
+      "coin": "Coin Buildings",
+      "diamond": "Diamond Buildings",
+      "mythos": "Mythos Buildings",
+      "particle": "Particle Buildings",
+      "tesseract": "Tesseract Buildings"
+    },
+    "rune": {
+      "runes": "Runes",
+      "talismans": "Talismans",
+      "blessings": "Blessings",
+      "spirits": "Spirits"
+    },
+    "cube": {
+      "cubeTributes": "Cube Tributes",
+      "tesseractGifts": "Tesseract Gifts",
+      "hypercubeBenedictions": "Hypercube Benedictions",
+      "platonicStatues": "Platonic Statues",
+      "cubeUpgrades": "Cube Upgrades",
+      "platonicUpgrades": "Challenge 15/Platonic Upgrades",
+      "hepteractForge": "Hepteract Forge"
+    },
+    "corruption": {
+      "corruptionStats": "Corruption Stats",
+      "corruptionLoadouts": "Corruption Loadouts"
+    },
+    "singularity": {
+      "shop": "Shop",
+      "penalties": "Penalties",
+      "perks": "Perks",
+      "octeracts": "Octeracts",
+      "exalt": "EXALT"
+    }
+  },
+  "dialog": {
+    "confirm_ok": "OK",
+    "confirm_cancel": "Cancel",
+    "alert_ok": "OK",
+    "prompt_ok": "OK",
+    "prompt_cancel": "Cancel"
+  },
   "achievements": {
+    "achievementPoints": "Achievement Points: {{min}} / {{max}} [{{percent}}%]",
+    "achievementtutorial": "Hover over an achievement to view information.",
+    "achievementcolorcode1": "Green background: Achieved.",
+    "achievementcolorcode2": "Purple background: Unachieved, provides bonus multiplier.",
+    "achievementcolorcode3": "Red background: Unachieved, provides content/feature unlock.",
+    "achievementcolorcode4": "No background: Unachieved, nothing special.",
     "descriptions": {
       "1": "[{{number}}] A Loyal Employee: Hire your first Worker.",
       "2": "[{{number}}] Small Business: Hire 10 Workers.",
@@ -1699,6 +1770,64 @@
       "allYouNeed": "All you need is right above this message.",
       "30boosts": "Thank you for getting the server above 30 boosts!",
       "lookAbove": "Look above!"
+    }
+  },
+  "statistics": {
+    "stats": "Stats for Nerds",
+    "summaryGeneration": "Generate Savefile Stats Summary",
+    "miscStats": {
+      "button": "Miscellaneous Stats"
+    },
+    "acceleratorStats": {
+      "button": "Free Accelerators"
+    },
+    "multiplierStats": {
+      "button": "Free Multipliers"
+    },
+    "multiplierStats": {
+      "button": "Free Multipliers"
+    },
+    "offeringMultiplierStats": {
+      "button": "Offering Multipliers"
+    },
+    "globalQuarkMultiplierStats": {
+      "button": "Global Quark Multipliers"
+    },
+    "globalSpeedMultiplierStats": {
+      "button": "Global Speed Multipliers"
+    },
+    "ascensionSpeedMultiplierStats": {
+      "button": "Ascension Speed Multipliers"
+    },
+    "globalCubeMultiplierStats": {
+      "button": "Global Cube Multipliers"
+    },
+    "cubeMultiplierStats": {
+      "button": "Cube Multipliers"
+    },
+    "tesseractMultiplierStats": {
+      "button": "Tesseract Multipliers"
+    },
+    "hypercubeMultiplierStats": {
+      "button": "Hypercube Multipliers"
+    },
+    "platonicMultiplierStats": {
+      "button": "Platonic Multipliers"
+    },
+    "hepteractMultiplierStats": {
+      "button": "Hepteract Multipliers"
+    },
+    "powderMultiplierStats": {
+      "button": "Orb to Powder Multipliers"
+    },
+    "goldenQuarkMultiplierStats": {
+      "button": "Golden Quark Multipliers"
+    },
+    "addCodeStats": {
+      "button": "Add Code Stats"
+    },
+    "octeractMultiplierStats": {
+      "button": "Octeract Multipliers"
     }
   }
 }

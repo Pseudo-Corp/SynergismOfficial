@@ -20,7 +20,7 @@ import { resetHistoryRenderAllTables } from './History';
 import { calculatePlatonicBlessings } from './PlatonicCubes';
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants';
 import { calculatetax } from './Tax';
-import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck } from './Achievements';
+import { ascensionAchievementCheck, challengeachievementcheck, achievementaward, resetachievementcheck, buildingAchievementCheck, achievementPoints } from './Achievements';
 import { reset, resetrepeat, singularity, updateSingularityAchievements, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens, updateSingularityGlobalPerks } from './Reset';
 import type { TesseractBuildings } from './Buy';
 import { buyMax, buyAccelerator, buyMultiplier, boostAccelerator, buyCrystalUpgrades, buyParticleBuilding, getReductionValue, getCost, buyRuneBonusLevels, buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy';
@@ -51,6 +51,7 @@ import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges';
 import { init as i18nInit } from './i18n'
 import i18next from 'i18next'
+import { langUpdateHTML } from './UpdateLanguage';
 
 export const player: Player = {
     firstPlayed: new Date().toISOString(),
@@ -1392,6 +1393,7 @@ const loadSynergy = async () => {
         for (let j = 1; j <= (200); j++) {
             updateResearchBG(j);
         }
+
         for (let j = 1; j < player.cubeUpgrades.length; j++) {
             updateCubeUpgradeBG(j);
         }
@@ -1832,6 +1834,7 @@ const loadSynergy = async () => {
         calculateRuneLevels();
         resetHistoryRenderAllTables();
         updateSingularityAchievements();
+        achievementPoints();
         updateSingularityGlobalPerks();
     }
 
@@ -4083,6 +4086,7 @@ export const reloadShit = async (reset = false) => {
 
     constantIntervals();
     changeTabColor();
+    langUpdateHTML();
 
     eventCheck();
     setInterval(eventCheck, 15000);

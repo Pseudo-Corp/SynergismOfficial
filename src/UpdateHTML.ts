@@ -2,7 +2,6 @@ import { player, format, formatTimeShort /*formatTimeShort*/ } from './Synergism
 import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAcceleration } from './Calculate';
-import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
 import { autoResearchEnabled } from './Research';
 import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateSingularity, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
@@ -572,7 +571,6 @@ export const hideStuff = () => {
         DOMCacheGetOrSet('statistics').style.display = 'block'
         DOMCacheGetOrSet('achievementstab').style.backgroundColor = 'white'
         DOMCacheGetOrSet('achievementstab').style.color = 'black'
-        DOMCacheGetOrSet('achievementprogress').textContent = 'Achievement Points: ' + format(player.achievementPoints, 0, true) + '/' + format(totalachievementpoints, 0, true) + ' [' + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + '%]'
     }
     if (G['currentTab'] === 'runes') {
         DOMCacheGetOrSet('runes').style.display = 'block'
@@ -886,9 +884,9 @@ export const updateChallengeLevel = (k: number) => {
 }
 
 export const updateAchievementBG = () => {
-    //When loading/importing, the game needs to correctly update achievement backgrounds.
-    for (let i = 1; i <= 280; i++) { //Initiates by setting all to default
-        DOMCacheGetOrSet('ach' + i).style.backgroundColor = ''
+    // When loading/importing, the game needs to correctly update achievement backgrounds.
+    for (let i = 1; i < player.achievements.length; i++) { //Initiates by setting all to default
+        DOMCacheGetOrSet(`ach${i}`).style.backgroundColor = ''
     }
     const fixDisplay1 = document.getElementsByClassName('purpleach') as HTMLCollectionOf<HTMLElement>;
     const fixDisplay2 = document.getElementsByClassName('redach') as HTMLCollectionOf<HTMLElement>;
@@ -898,9 +896,10 @@ export const updateAchievementBG = () => {
     for (let i = 0; i < fixDisplay2.length; i++) {
         fixDisplay2[i].style.backgroundColor = 'maroon' //Sets the appropriate achs to maroon (red)
     }
+    // This sets all completed ach to green
     for (let i = 1; i < player.achievements.length; i++) {
         if (player.achievements[i] > 0.5) {
-            achievementaward(i) //This sets all completed ach to green
+            DOMCacheGetOrSet(`ach${i}`).style.backgroundColor = 'green'
         }
     }
 }

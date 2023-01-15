@@ -7,25 +7,32 @@ import type { GlobalVariables } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import Decimal from 'break_infinity.js';
 import { addCodeMaxUses, addCodeInterval, addCodeAvailableUses, addCodeTimeToNextUse, addCodeBonuses } from './ImportExport';
+import i18next from 'i18next';
 
+/*
+    There are a few things to do to make the addition of Stats for Nerds
+    associated and loadStatisticsUpdate
+    Add index.html corresponding to associated key and value
+    translations/en.json
+*/
 const associated = new Map<string, string>([
     ['kMisc', 'miscStats'],
     ['kFreeAccel', 'acceleratorStats'],
     ['kFreeMult', 'multiplierStats'],
     ['kOfferingMult', 'offeringMultiplierStats'],
-    ['kGlobalCubeMult', 'globalCubeMultiplierStats'],
     ['kQuarkMult', 'globalQuarkMultiplierStats'],
     ['kGSpeedMult', 'globalSpeedMultiplierStats'],
+    ['kASCMult', 'ascensionSpeedMultiplierStats'],
+    ['kGlobalCubeMult', 'globalCubeMultiplierStats'],
     ['kCubeMult', 'cubeMultiplierStats'],
     ['kTessMult', 'tesseractMultiplierStats'],
     ['kHypercubeMult', 'hypercubeMultiplierStats'],
     ['kPlatMult', 'platonicMultiplierStats'],
     ['kHeptMult', 'hepteractMultiplierStats'],
     ['kOrbPowderMult', 'powderMultiplierStats'],
-    ['kOctMult', 'octeractMultiplierStats'],
-    ['kASCMult', 'ascensionSpeedMultiplierStats'],
     ['kGQMult', 'goldenQuarkMultiplierStats'],
-    ['kAddStats', 'addCodeStats']
+    ['kAddStats', 'addCodeStats'],
+    ['kOctMult', 'octeractMultiplierStats']
 ]);
 
 export const displayStats = (btn: HTMLElement) => {
@@ -44,9 +51,8 @@ export const displayStats = (btn: HTMLElement) => {
 }
 
 export const loadStatisticsUpdate = () => {
-    const activeStats = document.getElementsByClassName('activeStats') as HTMLCollectionOf<HTMLElement>;
-    for (let i = 0; i < activeStats.length; i++) {
-        switch (activeStats[i].id) {
+    for (const [, value] of associated) {
+        switch (value) {
             case 'miscStats':
                 loadStatisticsMiscellaneous();
                 break;
@@ -65,11 +71,11 @@ export const loadStatisticsUpdate = () => {
             case 'globalSpeedMultiplierStats':
                 loadGlobalSpeedMultiplier();
                 break;
-            case 'powderMultiplierStats':
-                loadPowderMultiplier();
-                break;
             case 'ascensionSpeedMultiplierStats':
                 loadStatisticsAscensionSpeedMultipliers();
+                break;
+            case 'powderMultiplierStats':
+                loadPowderMultiplier();
                 break;
             case 'goldenQuarkMultiplierStats':
                 loadStatisticsGoldenQuarkMultipliers();
@@ -82,6 +88,12 @@ export const loadStatisticsUpdate = () => {
                 break;
         }
     }
+}
+
+export const langStatistics = () => {
+    associated.forEach((value, key) => {
+        DOMCacheGetOrSet(key).textContent = i18next.t(`statistics.${value}.button`);
+    });
 }
 
 export const loadStatisticsMiscellaneous = () => {
