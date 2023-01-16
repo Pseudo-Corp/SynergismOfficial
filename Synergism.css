@@ -1076,6 +1076,7 @@ p#promocodeinfo {
 #achievementinfo > p,
 #achievementColorInfo > p {
     margin: 0;
+    height: 1.2em;
 }
 
 #achievementinfo {

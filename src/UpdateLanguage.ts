@@ -7,11 +7,11 @@ import { achievementPoints } from './Achievements';
 // Everything here is an embedding of index.html. if not write to langUpdate()
 export const langUpdateHTML = () => {
     // Dialogs
-    DOMCacheGetOrSet('ok_confirm').textContent = i18next.t('dialog.confirm_ok');
-    DOMCacheGetOrSet('cancel_confirm').textContent = i18next.t('dialog.confirm_cancel');
-    DOMCacheGetOrSet('ok_alert').textContent = i18next.t('dialog.alert_ok');
-    DOMCacheGetOrSet('ok_prompt').textContent = i18next.t('dialog.prompt_ok');
-    DOMCacheGetOrSet('cancel_prompt').textContent = i18next.t('dialog.prompt_cancel');
+    DOMCacheGetOrSet('ok_confirm').textContent = i18next.t('dialog.confirmOk');
+    DOMCacheGetOrSet('cancel_confirm').textContent = i18next.t('dialog.confirmCancel');
+    DOMCacheGetOrSet('ok_alert').textContent = i18next.t('dialog.alertOk');
+    DOMCacheGetOrSet('ok_prompt').textContent = i18next.t('dialog.promptOk');
+    DOMCacheGetOrSet('cancel_prompt').textContent = i18next.t('dialog.promptCancel');
 
     // Tabs
     DOMCacheGetOrSet('buildingstab').textContent = i18next.t('tabs.buildings');
@@ -36,11 +36,11 @@ export const langUpdateHTML = () => {
 
     // Achievements
     achievementPoints();
-    DOMCacheGetOrSet('achievementtutorial').textContent = i18next.t('achievements.achievementtutorial');
-    DOMCacheGetOrSet('achievementcolorcode1').textContent = i18next.t('achievements.achievementcolorcode1');
-    DOMCacheGetOrSet('achievementcolorcode2').textContent = i18next.t('achievements.achievementcolorcode2');
-    DOMCacheGetOrSet('achievementcolorcode3').textContent = i18next.t('achievements.achievementcolorcode3');
-    DOMCacheGetOrSet('achievementcolorcode4').textContent = i18next.t('achievements.achievementcolorcode4');
+    DOMCacheGetOrSet('achievementtutorial').textContent = i18next.t('achievements.information1');
+    DOMCacheGetOrSet('achievementcolorcode1').textContent = i18next.t('achievements.information2');
+    DOMCacheGetOrSet('achievementcolorcode2').textContent = i18next.t('achievements.information3');
+    DOMCacheGetOrSet('achievementcolorcode3').textContent = i18next.t('achievements.information4');
+    DOMCacheGetOrSet('achievementcolorcode4').textContent = i18next.t('achievements.information5');
 
     langUpdate();
 }
