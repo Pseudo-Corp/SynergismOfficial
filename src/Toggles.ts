@@ -225,6 +225,7 @@ export const subTabsInMainTab = (mainTab: number) => {
             tabSwitcher: setActiveSettingScreen,
             subTabList: [
                 {subTabID: 'settingsubtab', unlocked: true},
+                {subTabID: 'languagesubtab', unlocked: true},
                 {subTabID: 'creditssubtab', unlocked: true},
                 {subTabID: 'statisticsSubTab', unlocked: true},
                 {subTabID: 'resetHistorySubTab', unlocked: player.unlocks.prestige},
