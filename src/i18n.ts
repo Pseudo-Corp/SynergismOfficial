@@ -4,7 +4,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 
 // For 'flag': https://emojipedia.org/emoji-flag-sequence/
 // Searching "flag <country>" in their search bar will help verify the code.
-const supported: {[langID: string]: {name: string, flag: string}} = {
+const supported: Record<string, { name: string, flag: string }> = {
     // Define language properties and mappings here.
     en: { name: 'English', flag: '🇺🇸'}, // Or '🇺🇸 / 🇬🇧', no name?
     zh: { name: 'Chinese', flag: '🇨🇳'}
