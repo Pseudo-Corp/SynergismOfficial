@@ -1634,6 +1634,34 @@
       "singularity": "Singularity",
       "settings": "Settings",
       "shop": "Shop"
+    },
+    "buildings": {
+      "coin": "Coin Buildings",
+      "diamond": "Diamond Buildings",
+      "mythos": "Mythos Buildings",
+      "particle": "Particle Buildings",
+      "tesseract": "Tesseract Buildings"
+    },
+    "runes": {
+      "runes": "Runes",
+      "talismans": "Talismans",
+      "blessings": "Blessings",
+      "spirits": "[=-Spirits-=]"
+    },
+    "cubes": {
+      "cubeTributes": "Cube Tributes",
+      "tesseract": "Tesseract Gifts",
+      "hypercube": "Hypercube Benedictions",
+      "platonic": "Platonic Statues",
+      "cubeUpgrades": "Cube Upgrades",
+      "challenge15": "Challenge 15/Platonic Upgrades",
+      "hepteract": "Hepteract Forge"
+    },
+    "singularity": {
+      "penalties": "Penalties",
+      "perks": "Perks",
+      "octeracts": "Octeracts",
+      "exalt": "EXALT"
     }
   }
 }

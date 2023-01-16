@@ -1619,5 +1619,49 @@
             "30boosts": "效果：感谢您让服务器助力超过了30！",
             "lookAbove": "效果：在那写着呢。看上面！"
         }
+    },
+    "tabs": {
+        "main": {
+            "buildings": "建筑",
+            "upgrades": "升级",
+            "achievements": "成就",
+            "runes": "符文",
+            "challenges": "挑战",
+            "research": "研究",
+            "antHill": "蚁丘",
+            "wowCubes": "惊奇方盒",
+            "corruption": "腐化",
+            "singularity": "奇点",
+            "settings": "设置",
+            "shop": "商店"
+        },
+        "buildings": {
+            "coin": "金币建筑",
+            "diamond": "钻石建筑",
+            "mythos": "神话建筑",
+            "particle": "粒子建筑",
+            "tesseract": "超立方建筑"
+        },
+        "runes": {
+            "runes": "符文",
+            "talismans": "护身符",
+            "blessings": "祝福",
+            "spirits": "[=-魂灵-=]"
+        },
+        "cubes": {
+            "cubeTributes": "方盒的贡品！",
+            "tesseract": "超立方的赠礼！",
+            "hypercube": "五阶立方的恩赐",
+            "platonic": "PLATONIC的塑像",
+            "cubeUpgrades": "方盒升级",
+            "challenge15": "挑战15/PLATONIC方盒升级",
+            "hepteract": "七阶立方的锻炉"
+        },
+        "singularity": {
+            "penalties": "惩罚",
+            "perks": "特权",
+            "octeracts": "惊奇八阶方块",
+            "exalt": "拔擢"
+        }
     }
 }

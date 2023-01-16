@@ -35,7 +35,9 @@ function buildLanguageButton(langID: string, name: string, flag: string) {
     mainButton.id = `language_${langID}`;
     mainButton.className = 'language-select';
     mainButton.addEventListener('click', () => {
-        void i18next.changeLanguage(langID);
+        void i18next.changeLanguage(langID).then(
+            () => translateHTML()
+        );
     });
 
     const flagSpan = document.createElement('span');
