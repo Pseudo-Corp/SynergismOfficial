@@ -10,7 +10,7 @@ const supported: Record<string, { name: string, flag: string }> = {
     zh: { name: 'Chinese', flag: '🇨🇳'}
 };
 
-export const init = async () => {
+export const init = async (): Promise<void> => {
     const resources: Record<string, Resource> = {}
 
     for (const lang in supported) {
@@ -20,11 +20,14 @@ export const init = async () => {
         }
     }
 
-    return i18next.init({
+    await i18next.init({
         fallbackLng: 'en',
         debug: !prod,
         resources
-    }).then(() => buildLanguageTab());
+    })
+
+    buildLanguageTab()
+    translateHTML()
 }
 
 function buildLanguageButton(langID: string, name: string, flag: string) {
@@ -53,5 +56,15 @@ function buildLanguageTab() {
     for (const langID in supported) {
         const langButton = buildLanguageButton(langID, supported[langID].name, supported[langID].flag);
         langSelector.appendChild(langButton);
+    }
+}
+
+function translateHTML () {
+    const i18n = document.querySelectorAll('*[i18n]')
+
+    for (const element of Array.from(i18n)) {
+        const key = element.getAttribute('i18n')!
+
+        element.textContent = i18next.t(key)
     }
 }

@@ -1619,5 +1619,21 @@
       "30boosts": "Thank you for getting the server above 30 boosts!",
       "lookAbove": "Look above!"
     }
+  },
+  "tabs": {
+    "main": {
+      "buildings": "Buildings",
+      "upgrades": "Upgrades",
+      "achievements": "Achievements",
+      "runes": "Runes",
+      "challenges": "Challenges",
+      "research": "Research",
+      "antHill": "Anthill",
+      "wowCubes": "WOW! Cubes",
+      "corruption": "Corruption",
+      "singularity": "Singularity",
+      "settings": "Settings",
+      "shop": "Shop"
+    }
   }
 }
