@@ -58,7 +58,7 @@ const acalcs: {[key: number]: ((...args: number[]) => number[][])} = {
     118: (a) => [[a * Math.pow(0.9925, player.challengecompletions[6] + player.challengecompletions[7] + player.challengecompletions[8] + player.challengecompletions[9] + player.challengecompletions[10]), 1, 4]],
     169: (a) => [[a * Decimal.log(player.antPoints.add(10), 10), 1, 2]],
     174: (a) => [[a * 0.4 * Decimal.log(player.antPoints.add(1), 10), 1, 2]],
-    187: (a, b, corr3) => [[a * Math.max(1, Math.log10(corr3+1) - 7), 1, 2], [a * Math.min(100, player.ascensionCount / 10000), 1, 2]],
+    187: (a, corr3) => [[a * Math.max(1, Math.log10(corr3+1) - 7), 1, 2], [a * Math.min(100, player.ascensionCount / 10000), 1, 2]],
     188: (a) => [[a * Math.min(100, player.ascensionCount / 50000), 1, 2]],
     189: (a) => [[a * Math.min(200, player.ascensionCount / 2.5e6), 1, 2]],
     193: (a) => [[a * Decimal.log(player.ascendShards.add(1), 10) / 4, 1, 2]],
@@ -68,11 +68,11 @@ const acalcs: {[key: number]: ((...args: number[]) => number[][])} = {
     216: (a) => [[a * Math.min(200, player.ascensionCount / 1e7), 1, 2]],
     223: (a) => [[a * Math.min(200, player.ascensionCount / 13370000), 1, 2]],
     240: (a) => [[a * Math.min(1.5, 1 + Math.max(2, Math.log10(calculateTimeAcceleration().mult))/20), 1, 2]],
-    254: (a, b, corr3) => [[a * Math.min(15, Math.log10(corr3+1) * 0.6), 1, 2]],
-    255: (a, b, corr3) => [[a * Math.min(15, Math.log10(corr3+1) * 0.6), 1, 2]],
-    256: (a, b, corr3) => [[a * Math.min(15, Math.log10(corr3+1) * 0.6), 1, 2]],
-    257: (a, b, corr3) => [[a * Math.min(15, Math.log10(corr3+1) * 0.6), 1, 2]],
-    258: (a, b, corr3) => [[a * Math.min(15, Math.log10(corr3+1) * 0.6), 1, 2]],
+    254: (a, corr3) => [[a * Math.min(15, Math.log10(corr3+1) * 0.6), 1, 2]],
+    255: (a, corr3) => [[a * Math.min(15, Math.log10(corr3+1) * 0.6), 1, 2]],
+    256: (a, corr3) => [[a * Math.min(15, Math.log10(corr3+1) * 0.6), 1, 2]],
+    257: (a, corr3) => [[a * Math.min(15, Math.log10(corr3+1) * 0.6), 1, 2]],
+    258: (a, corr3) => [[a * Math.min(15, Math.log10(corr3+1) * 0.6), 1, 2]],
     262: (a) => [[a * Math.min(10, Math.log10(player.ascensionCount+1)), 1, 2]],
     263: (a) => [[a * Math.min(10, Math.log10(player.ascensionCount+1)), 1, 2]],
     264: (a) => [[a * Math.min(40, player.ascensionCount / 2e11), 1, 2]],
@@ -86,7 +86,7 @@ const acalcs: {[key: number]: ((...args: number[]) => number[][])} = {
 // TODO: Use acalcs for actual calculations. Need to replace acalcs with actual calculations to do this
 export const achievementBonus = (num: number, arr = 0, extra = 0): number => {
     if (num in acalcs) {
-        const achCalc = acalcs[num](player.achievements[num] / 100, num, extra);
+        const achCalc = acalcs[num](player.achievements[num] / 100, extra);
         return achCalc[arr][0];
     } else {
         return 0;
@@ -94,15 +94,16 @@ export const achievementBonus = (num: number, arr = 0, extra = 0): number => {
 }
 
 export const achRewardDescriptions  = (num: number): string => {
-    const obj = { number: `${num}` };
     if (num in acalcs) {
+        const obj: Record<string, string> = {};
+        obj.number = `${num}`;
         let extra = 0;
         // Effective score is 3rd index
         if (num === 187 || (num >= 254 && num <= 258)) {
             extra = CalcCorruptionStuff()[3];
         }
         // Calculate to string corresponding to i18next
-        const achCalc = acalcs[num](1, num, extra);
+        const achCalc = acalcs[num](1, extra);
         for (let i = 0; i < achCalc.length; i++) {
             obj[`calc${i+1}`] = `${format(achCalc[i][0] * achCalc[i][1], achCalc[i][2])}`;
         }
