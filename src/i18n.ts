@@ -15,6 +15,7 @@ export const init = async () => {
 
     return i18next.init({
         fallbackLng: 'en',
+        postProcess: true,
         debug: !prod,
         resources
     })

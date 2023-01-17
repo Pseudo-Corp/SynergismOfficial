@@ -70,6 +70,66 @@
     "promptOk": "OK",
     "promptCancel": "Cancel"
   },
+  "buildings": {
+    "formatBuild": "{{name}}: {{owned}} [+{{generated}}]",
+    "formatCost": "Cost: {{cost}} {{resource}}",
+    "coin": {
+      "1": "Workers",
+      "2": "Investments",
+      "3": "Printers",
+      "4": "Coin Mints",
+      "5": "Alchemies",
+      "type": "Coin",
+      "resource": "Coins",
+      "formatGein": "Coins/Sec: {{second}} [{{percent}}%]",
+      "accelerators": "Accelerators",
+      "acceleratorsGein": "Acceleration Power: {{power}}% || Acceleration Multiplier: {{multiplier}}x",
+      "multipliers": "Multipliers",
+      "multipliersGein": "Multiplier Power: {{power}}x || Multiplier: {{multiplier}}x",
+      "acceleratorsBoost": "Accelerator Boost",
+      "acceleratorsBoostGein": "Reset Diamonds and Prestige Upgrades, but add {{power}}% Acceleration Power and 5 free Accelerators.",
+      "taxWarning": "Your tax also caps your Coin gain at {{tax}}/s.",
+      "taxinfo": "Due to your excessive wealth, coin production is divided by {{tax}} to pay taxes! {{- warning}}",
+      "hotkeys": "Press [1], [2], [3], [4], or [5] to buy the corresponding tier starting from the top. Press [A] to buy Accelerator, [M] to buy Multiplier, or [B] to buy Accelerator Boost.\nPress [Left arrow] or [Right arrow] to switch tabs. Enjoy!"
+    },
+    "diamond": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "type": "Diamond",
+      "resource": "Diamonds"
+    },
+    "mythos": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "type": "",
+      "resource": ""
+    },
+    "particle": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "type": "",
+      "resource": ""
+    },
+    "tesseract": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "type": "",
+      "resource": ""
+    }
+  },
+  
   "achievements": {
     "points": "Achievement Points: {{min}}/{{max}} [{{percent}}%]",
     "information1": "Hover over an achievement to view information.",
@@ -1062,9 +1122,36 @@
     "loadoutExport": {
       "saveErrorNavigator": "Unable to write the save to clipboard: {{ message }}",
       "otherSaveError": "Unable to write the save to clipboard: {{ message }}"
-    }
-
-    
+    },
+    "corruptionIntroduction": "The most rewarding ventures are those few would dare to embark.",
+    "introduction1": "Select the trait levels you wish to run with. Choose wisely! ",
+    "introduction2": "Don't bite off more than you can chew...",
+    "antExponent1": "This Ascension's climate raises Ant production to the power of ",
+    "antExponent2": ".",
+    "spiritBonus1": "However, it also multiplies Rune Spirit Effects by ",
+    "spiritBonus2": "!",
+    "bank1": "You have ",
+    "bank2": " Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
+    "score1": "Your Ascension Score is ",
+    "score2": " (base) * ",
+    "score3": " (Corruption mult) * ",
+    "score4": " (Bonus mult) = ",
+    "score5": "",
+    "ascensionCount1": "If you Ascend now, ",
+    "ascensionCount2": " will be added to your ascension count.",
+    "cubes1": "If you Ascend now, you will gain ",
+    "cubes2": " Wow! Cubes.",
+    "tesseracts1": "If you Ascend now, you will gain ",
+    "tesseracts2": " Wow! Tesseracts. [Get more if Score >100,000]",
+    "hypercubes1": "If you Ascend now, you will gain ",
+    "hypercubes2": " Wow! Hypercubes. [Req Score: >1,000,000,000]",
+    "platonicCubes1": "If you Ascend now, you will gain ",
+    "platonicCubes2": " PLATONIC CUBES. [Req Score: >2,666,000,000,000]",
+    "hepteracts1": "If you Ascend now, you will gain ",
+    "hepteracts2": " HEPTERACTS. [Req Score: >1.666e17]",
+    "autoAscendC10": "Ascend when you've completed Sadistic Challenge I a total of {{ value1 }} times, Currently {{ value2 }}",
+    "autoAscendTimer": "Ascend when the timer is at least {{ value1 }} seconds (Real-time), Currently {{ value2 }}",
+    "autoAscendMetric2": ""
   },
   "calculate": {
       "timePrompt": "How far in the future would you like to go into the future? Anything awaits when it is testing season.",
