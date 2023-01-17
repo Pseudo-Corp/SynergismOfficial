@@ -684,10 +684,15 @@ nav button {
     margin: 0;
 }
 
-p#buildinghotkeys {
+p#buildinghotkeys,
+p#buildinghotkeys2 {
     margin-top: 15px;
     color: lightgray;
     text-align: center;
+}
+
+p#buildinghotkeys2 {
+    margin-top: 0;
 }
 
 #buildingtext {

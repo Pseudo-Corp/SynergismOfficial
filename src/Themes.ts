@@ -81,6 +81,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('cubetab').style.color = 'red';
         DOMCacheGetOrSet('ascTimeAccel').style.color = 'royalblue';
         DOMCacheGetOrSet('buildinghotkeys').style.color = 'lightgray';
+        DOMCacheGetOrSet('buildinghotkeys2').style.color = 'lightgray';
         DOMCacheGetOrSet('antspecies').style.color = 'royalblue'; //HTML colors
         DOMCacheGetOrSet('achievementcolorcode2').style.color = 'purple';
         DOMCacheGetOrSet('corruptionTesseractsValue').style.color = 'darkviolet';
@@ -278,6 +279,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('antspecies').style.color = '#184ff3';
         DOMCacheGetOrSet('bonussummation').style.color = '#eb0000';
         DOMCacheGetOrSet('buildinghotkeys').style.color = '#838383';
+        DOMCacheGetOrSet('buildinghotkeys2').style.color = '#838383';
 
         themeButton.textContent = 'Dracula Mode';
     }

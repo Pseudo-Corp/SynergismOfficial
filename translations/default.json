@@ -1760,5 +1760,12 @@
     "loadoutExport": {
         "saveErrorNavigator": "Unable to write the save to clipboard: {{ message }}"
     }
+  },
+  "footnotes": {
+    "buildings": "Press [1], [2], [3], [4], or [5] to buy the corresponding tier starting from the top. Press [A] to buy Accelerator, [M] to buy Multiplier, or [B] to buy Accelerator Boost.",
+    "buildings2": "Press [Left arrow] or [Right arrow] to switch tabs. Enjoy!",
+    "crystals": "Press [1], [2], [3], [4], or [5] to buy the respective tiered producer. Press [6], [7], [8], [9] or [0] to buy the corresponding Crystal upgrade starting on the left.",
+    "mythos": "Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.",
+    "particle": "Press [1], [2], [3], [4], or [5] to buy the respective tiered producer."
   }
 }
