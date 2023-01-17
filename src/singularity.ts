@@ -1196,7 +1196,7 @@ export const singularityPerks: SingularityPerk[] = [
         description: (n: number, levels: number[]) => {
             for (let i = levels.length - 1; i >= 0; i--) {
                 if (n >= levels[i]) {
-                    return i18next.t('singulary.perks.itAllAddsUp', {
+                    return i18next.t('singularity.perks.itAllAddsUp', {
                         div: format(1 + (i + 1) / 5, 2, true),
                         div2: format(1 + (i + 1) / 5, 2, true),
                         cap: format(1 + (i + 1) / 5, 2, true)
@@ -1240,7 +1240,7 @@ export const singularityPerks: SingularityPerk[] = [
                 }
             }
 
-            return i18next.t('singulary.perks.derpSmithsCornucopia', { counter })
+            return i18next.t('singularity.perks.derpSmithsCornucopia', { counter })
         }
     },
     {

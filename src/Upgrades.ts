@@ -10,8 +10,6 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import i18next from 'i18next';
 
 const crystalupgdesc: Record<number, () => Record<string, string>> = {
-    1: () => {},
-    2: () => {},
     3: () => ({
         max: format(
             100 * (0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] *
@@ -23,8 +21,7 @@ const crystalupgdesc: Record<number, () => Record<string, string>> = {
             10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) /
         Math.log(4) + 20 * calculateCorruptionPoints() / 400 * G['effectiveRuneSpiritPower'][3]
         )
-    }),
-    5: () => {}
+    })
 }
 
 const constantUpgDesc: Record<number, () => Record<string, string>> = {
@@ -34,15 +31,7 @@ const constantUpgDesc: Record<number, () => Record<string, string>> = {
             10 + player.achievements[270] + player.shopUpgrades.constantEX + 100 *
         (G['challenge15Rewards'].exponent - 1) + 0.3 * player.platonicUpgrades[18], 2, true
         )
-    }),
-    3: () => {},
-    4: () => {},
-    5: () => {},
-    6: () => {},
-    7: () => {},
-    8: () => {},
-    9: () => {},
-    10: () => {}
+    })
 }
 
 const upgradetexts = [
@@ -274,7 +263,7 @@ const crystalupgeffect: Record<number, () => string> = {
     5: () => `Crystal production x${format(Decimal.pow(1.01, (player.challengecompletions[1] + player.challengecompletions[2] + player.challengecompletions[3] + player.challengecompletions[4] + player.challengecompletions[5]) * player.crystalUpgrades[4]), 2, true)}`
 }
 
-const returnCrystalUpgDesc = (i: number) => i18next.t(`upgrades.crystalUpgrades.${i}`, crystalupgdesc[i]())
+const returnCrystalUpgDesc = (i: number) => i18next.t(`upgrades.crystalUpgrades.${i}`, i in crystalupgdesc ? crystalupgdesc[i]() : {})
 const returnCrystalUpgEffect = (i: number) => crystalupgeffect[i]()
 
 export const crystalupgradedescriptions = (i: number) => {
@@ -285,9 +274,9 @@ export const crystalupgradedescriptions = (i: number) => {
 
     const q = Decimal.pow(10, (G['crystalUpgradesCost'][i - 1] + G['crystalUpgradeCostIncrement'][i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)));
     DOMCacheGetOrSet('crystalupgradedescription').textContent = returnCrystalUpgDesc(i);
-    DOMCacheGetOrSet('crystalupgradeslevel').textContent = '' + format(p, 0, true);
-    DOMCacheGetOrSet('crystalupgradescost').textContent = format(q) + '';
-    DOMCacheGetOrSet('crystalupgradeseffect').textContent = returnCrystalUpgEffect(i);
+    DOMCacheGetOrSet('crystalupgradeslevel').textContent = i18next.t('buildings.diamond.crystalUpgradesLevel', {level: format(p, 0, true)});
+    DOMCacheGetOrSet('crystalupgradescost').textContent = i18next.t('buildings.diamond.crystalUpgradesCost', {cost: format(q)});
+    DOMCacheGetOrSet('crystalupgradeseffect').textContent = i18next.t('buildings.diamond.crystalUpgradesEffect', {effect: returnCrystalUpgEffect(i)});
 }
 
 
@@ -336,7 +325,7 @@ const constUpgEffect: Record<number, () => string> = {
     10: () => `Cubes/Tesseracts on Ascension x${format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]), 4, true)}`
 }
 
-const returnConstUpgDesc = (i: number) => i18next.t(`upgrades.constantUpgrades.${i}`, constantUpgDesc[i]())
+const returnConstUpgDesc = (i: number) => i18next.t(`upgrades.constantUpgrades.${i}`, i in constantUpgDesc ? constantUpgDesc[i]() : {})
 const returnConstUpgEffect = (i: number) => constUpgEffect[i]();
 
 export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
@@ -355,9 +344,9 @@ export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
 export const constantUpgradeDescriptions = (i: number) => {
     const [level, cost] = getConstUpgradeMetadata(i)
     DOMCacheGetOrSet('constUpgradeDescription').textContent = returnConstUpgDesc(i)
-    DOMCacheGetOrSet('constUpgradeLevel2').textContent = format(player.constantUpgrades[i])
-    DOMCacheGetOrSet('constUpgradeCost2').textContent = format(cost) + ' [+' + format(level) + ' LVL]'
-    DOMCacheGetOrSet('constUpgradeEffect2').textContent = returnConstUpgEffect(i)
+    DOMCacheGetOrSet('constUpgradeLevel').textContent = i18next.t('buildings.tesseract.constUpgradesLevel', {level: format(player.constantUpgrades[i])});
+    DOMCacheGetOrSet('constUpgradeCost').textContent = i18next.t('buildings.tesseract.constUpgradesCost', {cost: format(cost), level: format(level)});
+    DOMCacheGetOrSet('constUpgradeEffect').textContent = i18next.t('buildings.tesseract.constUpgradesEffect', {effect: returnConstUpgEffect(i)});
 }
 
 export const buyConstantUpgrades = (i: number, fast = false) => {

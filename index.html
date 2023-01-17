@@ -382,7 +382,7 @@
             </div>
         </div>
 
-        <p id="prestigeshardinfo" alt="prestigeshardinfo" label="prestigeshardinfo" style="color: lightblue; text-align: center">You have 1.39e+100394 Prestige Shards, providing 1,214,593 multiplier power boosts.</p>
+        <p id="prestigeshardinfo" alt="prestigeshardinfo" label="prestigeshardinfo" style="color: lightblue; text-align: center"></p>
 
         <div id="crystalupgrades" alt="crystalupgrades" label="crystalupgrades">
             <table id="crystalupgradestable" alt="crystalupgradestable" label="crystalupgradestable" style="padding: 0; font-size: 0;">
@@ -395,18 +395,19 @@
 
                 </tr>
             </table>
-            <p class="mainText" id="crystalupgradedescription" alt="crystalupgradedescription" label="crystalupgradedescription" style="text-align: center;">Hover over a crystal upgrade to get information!</p>
-            <p class="mainText" id="crystalupgradeslevel1" alt="crystalupgradeslevel1" label="crystalupgradeslevel1" style="text-align: center;">Current Level: <span id="crystalupgradeslevel" alt="crystalupgradeslevel" label="crystalupgradeslevel" style="color: lightblue">---</span></p>
-            <p class="mainText" id="crystalupgradescost1" alt="crystalupgradescost1" label="crystalupgradescost1" style="text-align: center;">Cost: <span id="crystalupgradescost" alt="crystalupgradescost" label="crystalupgradescost" style="color: lightblue">---</span> crystals</p>
-            <p class="mainText" id="crystalupgradeseffect1" alt="crystalupgradeseffect1" label="crystalupgradeseffect1" style="text-align: center;">Current Effect: <span id="crystalupgradeseffect" alt="crystalupgradeseffect" label="crystalupgradeseffect" style="color: lightblue">---</span></p>
+            <p class="mainText" id="crystalupgradedescription" alt="crystalupgradedescription" label="crystalupgradedescription" style="text-align: center;" i18n="buildings.diamond.description"></p>
+            <p class="mainText" id="crystalupgradeslevel" alt="crystalupgradeslevel" label="crystalupgradeslevel" style="color: lightblue">Current Level: ---</p>
+            <p class="mainText" id="crystalupgradescost" alt="crystalupgradescost" label="crystalupgradescost" style="color: lightblue">Cost: ---</p>
+            <p class="mainText" id="crystalupgradeseffect" alt="crystalupgradeseffect" label="crystalupgradeseffect" style="color: lightblue">Current Effect: ---</p>
+
         </div>
 
         <div class="resetautomation" id="autocrystalbuild" alt="autocrystalbuild" label="autocrystalbuild">
-            <button class="auto" id="toggle15" alt="toggle15" label="toggle15" toggleid="15" alt="15" label="15" format="Auto Prestige [$]">Automatic Prestige & Customization Being Developed!</button>
+            <button class="auto" id="toggle15" alt="toggle15" label="toggle15" toggleid="15" alt="15" label="15" format="Auto Prestige [$]">Auto: Off</button>
             <button id="prestigeautotoggle" alt="prestigeautotoggle" label="prestigeautotoggle" style="border:2px solid green;"></button>
             <input class="transcendunlock" type="number" id="prestigeamount" alt="prestigeamount" label="prestigeamount" min="1" max="999999999" defaultValue="1">
             <p class="transcendunlock mainText" id="autoprestige" alt="autoprestige" label="autoprestige"></p>
-            <p id="prestigehotkeys" alt="prestigehotkeys" label="prestigehotkeys" class="grayText">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer. Press [6], [7], [8], [9] or [0] to buy the corresponding Crystal upgrade starting on the left.</p>
+            <p id="prestigehotkeys" alt="prestigehotkeys" label="prestigehotkeys" class="grayText" i18n="buildings.diamond.hotkeys"></p>
         </div>
     </div>
     <div id="transcension" alt="transcension" label="transcension" style="display: none;">
@@ -461,8 +462,8 @@
             </div>
         </div>
 
-        <p id="transcendshardinfo" alt="transcendshardinfo" label="transcendshardinfo" style="color:pink;">You have 1.39e+100394 Transcend Shards, providing 1,214,593 multiplier power boosts.</p>
-        <p id="transcendshardbonus" alt="transcendshardbonus" label="transcendshardbonus" style="color: limegreen;">Each Multiplier Boost increases the base effect of Multipliers by 0.005!</p>
+        <p id="transcendshardinfo" alt="transcendshardinfo" label="transcendshardinfo" style="color:pink;"></p>
+        <p id="transcendshardbonus" alt="transcendshardbonus" label="transcendshardbonus" style="color: limegreen;" i18n="buildings.mythos.bonus"></p>
 
         <div class="resetautomation">
             <button class="auto" id="toggle21" alt="toggle21" label="toggle21" toggleid="21" alt="21" label="21" format="Auto Transcend [$]">Auto: Off</button>
@@ -471,7 +472,7 @@
             <p class="transcendunlock" id="autotranscend" alt="autotranscend" label="autotranscend"></p>
         </div>
 
-        <p id="transcendhotkeys" alt="transcendhotkeys" label="transcendhotkeys" class="grayText">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
+        <p id="transcendhotkeys" alt="transcendhotkeys" label="transcendhotkeys" class="grayText" i18n="buildings.mythos.hotkeys"></p>
     </div>
     <div id="reincarnation" alt="reincarnation" label="reincarnation" style="display: none;">
         <div id="buyamountparticle" alt="buyamountparticle" label="buyamountparticle">
@@ -526,9 +527,9 @@
         </div>
 
         <div id="reincarnationTexts" alt="reincarnationTexts" label="reincarnationTexts">
-            <p id="reincarnationshardinfo" alt="reincarnationshardinfo" label="reincarnationshardinfo" style="color:lime;">You have 1.39e+100394 Atoms, providing a building power of 3.02.</p>
-            <p id="reincarnationCrystalInfo" alt="reincarnationCrystalInfo" label="reincarnationCrystalInfo" style="color: cyan; display: none;">Thanks to research 3x9, you also multiply Crystal producion by 1.</p>
-            <p id="reincarnationMythosInfo" alt="reincarnationMythosInfo" label="reincarnationMythosInfo" style="color:plum; display: none;">Thanks to research 3x10, you also multiply Mythos Shard production by 1.</p>
+            <p id="reincarnationshardinfo" alt="reincarnationshardinfo" label="reincarnationshardinfo" style="color:lime;"></p>
+            <p id="reincarnationCrystalInfo" alt="reincarnationCrystalInfo" label="reincarnationCrystalInfo" style="color: cyan; display: none;"></p>
+            <p id="reincarnationMythosInfo" alt="reincarnationMythosInfo" label="reincarnationMythosInfo" style="color:plum; display: none;"></p>
         </div>
 
         <div class="resetautomation" id="reincarnateautomation" alt="reincarnateautomation" label="reincarnateautomation">
@@ -539,7 +540,7 @@
                 <p class="reincarnationunlock mainText" id="autoreincarnate" alt="autoreincarnate" label="autoreincarnate"></p>
             </div>
         </div>
-        <p id="reincarnatehotkeys" alt="reincarnatehotkeys" label="reincarnatehotkeys" class="grayText">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
+        <p id="reincarnatehotkeys" alt="reincarnatehotkeys" label="reincarnatehotkeys" class="grayText" i18n="buildings.particle.hotkeys"></p>
     </div>
     <div id="ascension" alt="ascension" label="ascension" style="display: none">
         <div id="buyAmountTesseract" alt="buyAmountTesseract" label="buyAmountTesseract">
@@ -594,8 +595,8 @@
         </div>
 
         <div id="tesseractTexts" alt="tesseractTexts" label="tesseractTexts">
-            <p id="tesseractInfo" alt="tesseractInfo" label="tesseractInfo" style="color:plum;">You have 0 Wow! Tesseracts. Gain more through completing Challenge 10 each ascension.</p>
-            <p id="ascendShardInfo" alt="ascendShardInfo" label="ascendShardInfo" style="color: orange;">You have a mathematical constant of 3. I Wonder what it's for!</p>
+            <p id="tesseractInfo" alt="tesseractInfo" label="tesseractInfo" style="color:plum;"></p>
+            <p id="ascendShardInfo" alt="ascendShardInfo" label="ascendShardInfo" style="color: orange;"></p>
         </div>
 
         <div id="ascendConstantUpgrades" alt="ascendConstantUpgrades" label="ascendConstantUpgrades">
@@ -633,10 +634,10 @@
                     </td>
                 </tr>
             </table>
-            <p id="constUpgradeDescription" alt="constUpgradeDescription" label="constUpgradeDescription" style="color: gold">Hover over an icon for a description of the upgrade. Click to buy it!</p>
-            <p class="mainText" id="constUpgradeLevel" alt="constUpgradeLevel" label="constUpgradeLevel">Current Level: <span id="constUpgradeLevel2" alt="constUpgradeLevel2" label="constUpgradeLevel2" class="orchidText">---</span></p>
-            <p class="mainText" id="constUpgradeCost" alt="constUpgradeCost" label="constUpgradeCost">Cost: <span id="constUpgradeCost2" alt="constUpgradeCost2" label="constUpgradeCost2" class="orchidText">---</span> from your Constant</p>
-            <p class="mainText" id="constUpgradeEffect1" alt="constUpgradeEffect1" label="constUpgradeEffect1">Current Effect: <span id="constUpgradeEffect2" alt="constUpgradeEffect2" label="constUpgradeEffect2" class="orchidText">---</span></p>
+            <p id="constUpgradeDescription" alt="constUpgradeDescription" label="constUpgradeDescription" style="color: gold" i18n="buildings.tesseract.description"></p>
+            <p class="mainText" id="constUpgradeLevel" alt="constUpgradeLevel" label="constUpgradeLevel" style="color:plum;">Current Level: ---</p>
+            <p class="mainText" id="constUpgradeCost" alt="constUpgradeCost" label="constUpgradeCost" style="color:plum;">Cost: ---</p>
+            <p class="mainText" id="constUpgradeEffect" alt="constUpgradeEffect" label="constUpgradeEffect" style="color:plum;">Current Effect: ---</p>
         </div>
         <div class="resetautomation" id="ascendautomation" alt="ascendautomation" label="ascendautomation">
             <button id="tesseractautobuytoggle" alt="tesseractautobuytoggle" label="tesseractautobuytoggle" style="border:2px solid red;">Auto Buy: OFF</button>
@@ -644,7 +645,7 @@
             <input class="tesseractautobuyamount" type="number" id="tesseractAmount" alt="tesseractAmount" label="tesseractAmount" min="1" max="999999999" defaultValue="1">
             <p class="tesseractautobuyamount mainText" id="autotessbuyeramount" alt="autotessbuyeramount" label="autotessbuyeramount"></p>
         </div>
-        <p id="ascendHotKeys" alt="ascendHotKeys" label="ascendHotKeys" class="grayText">Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.</p>
+        <p id="ascendHotKeys" alt="ascendHotKeys" label="ascendHotKeys" class="grayText" i18n="buildings.tesseract.hotkeys"></p>
     </div>
 </div>
 
@@ -2828,8 +2829,8 @@
                 </div>
                 <div id="corruptionDisplays" alt="corruptionDisplays" label="corruptionDisplays" class="flex row center">
                     <img src="Pictures/Default/CorruptExit.png" class="corruptionImg" loading="lazy">
-                    <button id="corruptionCleanse" alt="corruptionCleanse" label="corruptionCleanse" i18n="corruptionCleanse.hotkeys"></button>
-                    <button id="corruptionCleanseConfirm" alt="corruptionCleanseConfirm" label="corruptionCleanseConfirm" i18n="corruptionCleanse.confirm"></button>
+                    <button id="corruptionCleanse" alt="corruptionCleanse" label="corruptionCleanse" i18n="corruptions.cleanse"></button>
+                    <button id="corruptionCleanseConfirm" alt="corruptionCleanseConfirm" label="corruptionCleanseConfirm" i18n="corruptions.confirm"></button>
                 </div>
             </div>
             <div id="corruptionMain" alt="corruptionMain" label="corruptionMain" class="flex column">

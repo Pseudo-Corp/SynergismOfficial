@@ -2442,12 +2442,6 @@ button.language-select span.lang-name {
     margin-top: 100px;
 }
 
-#constUpgradeLevel,
-#constUpgradeCost,
-#constUpgradeEffect1 {
-    color: white;
-}
-
 #tesseractautobuytoggle,
 #tesseractautobuymode,
 #tesseractAmount {
