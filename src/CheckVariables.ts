@@ -675,16 +675,18 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             // if more crafts are added, some keys might not exist in the save
             let updatedData:ISingularityData
             if (data.singularityUpgrades[k]) {
+                const { level, goldenQuarksInvested, toggleBuy, freeLevels } = data.singularityUpgrades[k]
+
                 updatedData = {
                     maxLevel: singularityData[k].maxLevel,
                     costPerLevel: singularityData[k].costPerLevel,
 
-                    level: data.singularityUpgrades[k].level,
-                    goldenQuarksInvested: data.singularityUpgrades[k].goldenQuarksInvested,
-                    toggleBuy: data.singularityUpgrades[k].toggleBuy,
+                    level,
+                    goldenQuarksInvested,
+                    toggleBuy,
+                    freeLevels,
                     minimumSingularity: singularityData[k].minimumSingularity,
                     effect: singularityData[k].effect,
-                    freeLevels: data.singularityUpgrades[k].freeLevels,
                     canExceedCap: singularityData[k].canExceedCap,
                     specialCostForm: singularityData[k].specialCostForm,
                     qualityOfLife: singularityData[k].qualityOfLife

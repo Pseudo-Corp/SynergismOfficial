@@ -852,7 +852,17 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
         wowCubes: Number(player.wowCubes),
         wowTesseracts: Number(player.wowTesseracts),
         wowHypercubes: Number(player.wowHypercubes),
-        wowPlatonicCubes: Number(player.wowPlatonicCubes)
+        wowPlatonicCubes: Number(player.wowPlatonicCubes),
+        singularityUpgrades: Object.fromEntries(
+            Object.entries(player.singularityUpgrades).map(([key, value]) => {
+                return [key, {
+                    level: value.level,
+                    goldenQuarksInvested: value.goldenQuarksInvested,
+                    toggleBuy: value.toggleBuy,
+                    freeLevels: value.freeLevels
+                }]
+            })
+        )
     });
 
     const save = btoa(JSON.stringify(p));

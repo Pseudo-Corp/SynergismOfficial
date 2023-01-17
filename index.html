@@ -52,57 +52,58 @@
         <img id="logo" src="Pictures/logo.png" alt="The Synergism Logo" />
         <button id="preloadDeleteGame" alt="preloadDeleteGame" label="preloadDeleteGame" style="display: none;">Delete savefile</button>
     </div>
-    <div id="offlineContainer" alt="offlineContainer" label="offlineContainer" style="display: none;">
-        <p id="offlineTimer" alt="offlineTimer" label="offlineTimer" class="offlineText" style="color: plum"></p>
-        <p id="progressbardescription" alt="progressbardescription" label="progressbardescription" class="offlineText" style="color: yellow">Loading Offline Progress...</p>
+    <div id="offlineContainer" label="offlineContainer" style="display: none;">
+        <p id="offlineTimer" label="offlineTimer" class="offlineText" style="color: plum"></p>
+        <p id="progressbardescription" label="progressbardescription" class="offlineText" style="color: yellow" i18n="offlineProgress.loading"></p>
         <div class="offlineStats scrollbar" style="color: white">
-            <div class="offlineStat prestigeunlock" id="offlinePrestigeCountDiv" alt="offlinePrestigeCountDiv" label="offlinePrestigeCountDiv">
-                <img src="Pictures/Default/BackedPrestige.png" alt='' class='offlineStatIcon'>
-                <span id="offlinePrestigeCount" alt="offlinePrestigeCount" label="offlinePrestigeCount" class='offlineStatElement'>Prestige Count: +<span id="offlinePrestigeCountNumber" alt="offlinePrestigeCountNumber" label="offlinePrestigeCountNumber" style="color: cyan;"></span></span>
+            <div class="offlineStat prestigeunlock" id="offlinePrestigeCountDiv" label="offlinePrestigeCountDiv">
+              <img src="Pictures/Default/BackedPrestige.png" class="offlineStatIcon">
+              <span id="offlinePrestigeCount" label="offlinePrestigeCount" class="offlineStatElement" i18n="offlineProgress.prestigeCount"></span>
+              <span id="offlinePrestigeCountNumber" label="offlinePrestigeCountNumber" style="color: cyan;"></span>
             </div>
-            <div class="offlineStat" id="offlinePrestigeTimerDiv" alt="offlinePrestigeTimerDiv" label="offlinePrestigeTimerDiv">
-                <img src="Pictures/Default/BackedPrestigeOffTimer.png" alt='' class='offlineStatIcon'>
-                <span id="offlinePrestigeTimer" alt="offlinePrestigeTimer" label="offlinePrestigeTimer" class='offlineStatElement'>Current Prestige Timer: +<span id="offlinePrestigeTimerNumber" alt="offlinePrestigeTimerNumber" label="offlinePrestigeTimerNumber" style="color: cyan;"></span> seconds</span>
+            <div class="offlineStat" id="offlinePrestigeTimerDiv" label="offlinePrestigeTimerDiv">
+              <img src="Pictures/Default/BackedPrestigeOffTimer.png" class="offlineStatIcon">
+              <span id="offlinePrestigeTimer" label="offlinePrestigeTimer" class="offlineStatElement" i18n="offlineProgress.currentPrestigeTimer"></span>
             </div>
-            <div class="offlineStat prestigeunlock" id="offlineOfferingCountDiv" alt="offlineOfferingCountDiv" label="offlineOfferingCountDiv">
-                <img src="Pictures/Default/BackedOffering.png" alt='' class='offlineStatIcon'>
-                <span id="offlineOfferingCount" alt="offlineOfferingCount" label="offlineOfferingCount" class='offlineStatElement'>Offerings Generated: <span id="offlineOfferingCountNumber" alt="offlineOfferingCountNumber" label="offlineOfferingCountNumber" style="color: orange"></span></span>
+            <div class="offlineStat prestigeunlock" id="offlineOfferingCountDiv" label="offlineOfferingCountDiv">
+                <img src="Pictures/Default/BackedOffering.png" class="offlineStatIcon">
+                <span id="offlineOfferingCount" label="offlineOfferingCount" class="offlineStatElement" i18n="offlineProgress.offeringsGenerated"></span>
             </div>
-            <div class="offlineStat transcendunlock" id="offlineTranscensionCountDiv" alt="offlineTranscensionCountDiv" label="offlineTranscensionCountDiv">
-                <img src="Pictures/Default/BackedTranscend.png" alt='' class='offlineStatIcon'>
-                <span id="offlineTranscensionCount" alt="offlineTranscensionCount" label="offlineTranscensionCount" class='offlineStatElement'>Transcension Count: +<span id="offlineTranscensionCountNumber" alt="offlineTranscensionCountNumber" label="offlineTranscensionCountNumber" class="orchidText"></span></span>
+            <div class="offlineStat transcendunlock" id="offlineTranscensionCountDiv" label="offlineTranscensionCountDiv">
+                <img src="Pictures/Default/BackedTranscend.png" class='offlineStatIcon'>
+                <span id="offlineTranscensionCount" label="offlineTranscensionCount" class="offlineStatElement" i18n="offlineProgress.transcensionCount"></span>
             </div>
-            <div class="offlineStat transcendunlock" id="offlineTranscensionTimerDiv" alt="offlineTranscensionTimerDiv" label="offlineTranscensionTimerDiv">
-                <img src="Pictures/Default/BackedTranscendOffTimer.png" alt='' class='offlineStatIcon'>
-                <span id="offlineTranscensionTimer" alt="offlineTranscensionTimer" label="offlineTranscensionTimer" class='offlineStatElement'>Current Transcension Timer: +<span id="offlineTranscensionTimerNumber" alt="offlineTranscensionTimerNumber" label="offlineTranscensionTimerNumber" class="orchidText"></span> seconds</span>
+            <div class="offlineStat transcendunlock" id="offlineTranscensionTimerDiv" label="offlineTranscensionTimerDiv">
+                <img src="Pictures/Default/BackedTranscendOffTimer.png" class="offlineStatIcon">
+                <span id="offlineTranscensionTimer" label="offlineTranscensionTimer" class="offlineStatElement" i18n="offlineProgress.currentTranscensionCounter"></span>
             </div>
-            <div class='offlineStat reincarnationunlock' id="offlineReincarnationCountDiv" alt="offlineReincarnationCountDiv" label="offlineReincarnationCountDiv">
-                <img src="Pictures/Default/BackedReincarnate.png" alt='' class='offlineStatIcon'>
-                <span id="offlineReincarnationCount" alt="offlineReincarnationCount" label="offlineReincarnationCount" class='offlineStatElement'>Reincarnation Count: +<span id="offlineReincarnationCountNumber" alt="offlineReincarnationCountNumber" label="offlineReincarnationCountNumber" style="color: limegreen;"></span></span>
+            <div class='offlineStat reincarnationunlock' id="offlineReincarnationCountDiv" label="offlineReincarnationCountDiv">
+                <img src="Pictures/Default/BackedReincarnate.png" class='offlineStatIcon'>
+                <span id="offlineReincarnationCount" label="offlineReincarnationCountNumber" class="offlineStatElement" i18n="offlineProgress.reincarnationCount"></span></span>
             </div>
-            <div class='offlineStat reincarnationunlock' id="offlineReincarnationTimerDiv" alt="offlineReincarnationTimerDiv" label="offlineReincarnationTimerDiv">
-                <img src="Pictures/Default/BackedReincarnateOffTimer.png" alt='' class='offlineStatIcon'>
-                <span id="offlineReincarnationTimer" alt="offlineReincarnationTimer" label="offlineReincarnationTimer" class='offlineStatElement'>Current Reincarnation Timer: +<span id="offlineReincarnationTimerNumber" alt="offlineReincarnationTimerNumber" label="offlineReincarnationTimerNumber" style="color: limegreen;"></span> seconds</span>
+            <div class='offlineStat reincarnationunlock' id="offlineReincarnationTimerDiv" label="offlineReincarnationTimerDiv">
+                <img src="Pictures/Default/BackedReincarnateOffTimer.png" class='offlineStatIcon'>
+                <span id="offlineReincarnationTimer" label="offlineReincarnationTimer" class="offlineStatElement" i18n="offlineProgress.currentReincarnationTimer"></span>
             </div>
-            <div class='offlineStat reincarnationunlock' id="offlineObtainiumCountDiv" alt="offlineObtainiumCountDiv" label="offlineObtainiumCountDiv">
-                <img src="Pictures/Default/BackedObtainium.png" alt='' class='offlineStatIcon'>
-                <span id="offlineObtainiumCount" alt="offlineObtainiumCount" label="offlineObtainiumCount" class='offlineStatElement'>Obtainium Generated: <span id="offlineObtainiumCountNumber" alt="offlineObtainiumCountNumber" label="offlineObtainiumCountNumber" style="color: pink;"></span></span>
+            <div class='offlineStat reincarnationunlock' id="offlineObtainiumCountDiv" label="offlineObtainiumCountDiv">
+                <img src="Pictures/Default/BackedObtainium.png" class='offlineStatIcon'>
+                <span id="offlineObtainiumCount" label="offlineObtainiumCount" class="offlineStatElement" i18n="offlineProgress.obtainiumGenerated"></span>
             </div>
-            <div class='offlineStat chal8' id="offlineAntTimerDiv" alt="offlineAntTimerDiv" label="offlineAntTimerDiv">
-                <img src="Pictures/Default/BackedSacrificeIGTimer.png" alt='' class='offlineStatIcon'>
-                <span id="offlineAntTimer" alt="offlineAntTimer" label="offlineAntTimer" class='offlineStatElement'>In-Game Ant Sacrifice Timer: +<span id="offlineAntTimerNumber" alt="offlineAntTimerNumber" label="offlineAntTimerNumber" class="redText"></span> seconds</span>
+            <div class='offlineStat chal8' id="offlineAntTimerDiv" label="offlineAntTimerDiv">
+                <img src="Pictures/Default/BackedSacrificeIGTimer.png" class='offlineStatIcon'>
+                <span id="offlineAntTimer" label="offlineAntTimer" class='offlineStatElement' i18n="offlineProgress.ingameAntSacTimer"></span>
             </div>
-            <div class='offlineStat chal8' id="offlineRealAntTimerDiv" alt="offlineRealAntTimerDiv" label="offlineRealAntTimerDiv">
-                <img src="Pictures/Default/BackedSacrificeRealTimer.png" alt='' class='offlineStatIcon'>
-                <span id="offlineRealAntTimer" alt="offlineRealAntTimer" label="offlineRealAntTimer" class='offlineStatElement'>Real-Life Ant Sacrifice Timer: +<span id="offlineRealAntTimerNumber" alt="offlineRealAntTimerNumber" label="offlineRealAntTimerNumber" class="redText"></span> seconds</span>
+            <div class='offlineStat chal8' id="offlineRealAntTimerDiv" label="offlineRealAntTimerDiv">
+                <img src="Pictures/Default/BackedSacrificeRealTimer.png" class='offlineStatIcon'>
+                <span id="offlineRealAntTimer" label="offlineRealAntTimer" class="offlineStatElement" i18n="offlineProgress.realAntSacTimer"></span>
             </div>
-            <div class='offlineStat ascendunlock' id="offlineAscensionTimerDiv" alt="offlineAscensionTimerDiv" label="offlineAscensionTimerDiv">
-                <img src="Pictures/Default/BackedAscensionOffTimer.png" alt='' class='offlineStatIcon'>
-                <span id="offlineAscensionTimer" alt="offlineAscensionTimer" label="offlineAscensionTimer" class='offlineStatElement'>Current Ascension Timer: +<span id="offlineAscensionTimerNumber" alt="offlineAscensionTimerNumber" label="offlineAscensionTimerNumber" style="color: gold;"></span> seconds</span>
+            <div class='offlineStat ascendunlock' id="offlineAscensionTimerDiv" label="offlineAscensionTimerDiv">
+                <img src="Pictures/Default/BackedAscensionOffTimer.png" class='offlineStatIcon'>
+                <span id="offlineAscensionTimer" label="offlineAscensionTimer" class="offlineStatElement" i18n="offlineProgress.currentAscensionTimer"></span>
             </div>
-            <div class='offlineStat' id="offlineQuarkCountDiv" alt="offlineQuarkCountDiv" label="offlineQuarkCountDiv">
-                <img src="Pictures/Default/BackedQuark.png" alt='' class='offlineStatIcon'>
-                <span id="offlineQuarkCount" alt="offlineQuarkCount" label="offlineQuarkCount" class='offlineStatElement'>Export Quarks: +<span id="offlineQuarkCountNumber" alt="offlineQuarkCountNumber" label="offlineQuarkCountNumber" style="color:goldenrod"></span></span>
+            <div class='offlineStat' id="offlineQuarkCountDiv" label="offlineQuarkCountDiv">
+                <img src="Pictures/Default/BackedQuark.png" class='offlineStatIcon'>
+                <span id="offlineQuarkCount" label="offlineQuarkCount" class="offlineStatElement" i18n="offlineProgress.exportQuarks"></span>
             </div>
         </div>
 

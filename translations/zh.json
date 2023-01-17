@@ -1663,5 +1663,20 @@
             "octeracts": "惊奇八阶方块",
             "exalt": "拔擢"
         }
+    },
+    "offlineProgress": {
+        "loading": "加载离线进度...",
+        "prestigeCount": "转生次数：+",
+        "currentPrestigeTimer": "当前转生时间：+<<cyan|{{value}}>>秒",
+        "offeringsGenerated": "产生的祭品数量: <<orange|{{value}}>>",
+        "transcensionCount": "超越次数：+<<var(--orchid-text-color);|{{value}}>>",
+        "currentTranscensionCounter": "当前超越时间：+<<var(--orchid-text-color);|{{value}}>>秒",
+        "reincarnationCount": "转世次数：+<<limegreen|{{value}}>>",
+        "currentReincarnationTimer": "当前转世时间：+<<limegreen|{{value}}>>秒",
+        "obtainiumGenerated": "产生的难得素数量: <<pink|{{value}}>>",
+        "ingameAntSacTimer": "游戏内的蚂蚁计时：+<<var(--red-text-color);|{{value}}>>秒",
+        "realAntSacTimer": "现实中的蚂蚁计时：+<<var(--red-text-color);|{{value}}>>秒",
+        "currentAscensionTimer": "当前飞升时间：+<<gold|{{value}}>>秒",
+        "exportQuarks": "导出可获得的夸克数量：+<<goldenrod|{{value}}>>"
     }
 }

@@ -1,6 +1,7 @@
 import i18next, { type Resource } from 'i18next'
 import { prod } from './Config'
-import { DOMCacheGetOrSet } from './Cache/DOM';
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import ColorTextPlugin from './Plugins/ColorText'
 
 // For 'flag': https://emojipedia.org/emoji-flag-sequence/
 // Searching "flag <country>" in their search bar will help verify the code.
@@ -20,10 +21,11 @@ export const init = async (): Promise<void> => {
         }
     }
 
-    await i18next.init({
+    await i18next.use(ColorTextPlugin).init({
         fallbackLng: 'en',
         debug: !prod,
-        resources
+        resources,
+        postProcess: ['ColorText']
     })
 
     buildLanguageTab()

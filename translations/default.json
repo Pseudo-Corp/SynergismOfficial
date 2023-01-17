@@ -1663,5 +1663,20 @@
       "octeracts": "Octeracts",
       "exalt": "EXALT"
     }
+  },
+  "offlineProgress": {
+    "loading": "Loading Offline Progress...",
+    "prestigeCount": "Prestige Count: +",
+    "currentPrestigeTimer": "Current Prestige Timer: +<<cyan|{{value}}>> seconds",
+    "offeringsGenerated": "Offerings Generated: <<orange|{{value}}>>",
+    "transcensionCount": "Transcension Count: +<<var(--orchid-text-color);|{{value}}>>",
+    "currentTranscensionCounter": "Current Transcension Timer: +<<var(--orchid-text-color);|{{value}}>> seconds",
+    "reincarnationCount": "Reincarnation Count: +<<limegreen|{{value}}>>",
+    "currentReincarnationTimer": "Current Reincarnation Timer: +<<limegreen|{{value}}>> seconds",
+    "obtainiumGenerated": "Obtainium Generated: <<pink|{{value}}>>",
+    "ingameAntSacTimer": "In-Game Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
+    "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
+    "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
+    "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
   }
 }
