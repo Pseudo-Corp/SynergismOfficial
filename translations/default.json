@@ -1029,6 +1029,8 @@
     "perks": {
       "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
       "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
+      "maxunlock": "You have no Perks left to unlock!",
+      "maximprove":"You have no Perks left to improve!",
       "update": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties (Hover for more details. Perks in <span class=\"newPerk\">gold text</span> were added or improved in this Singularity)<br/>{{extra}}",
       "xyz": {
         "hasLevel2": "In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!",
@@ -1142,7 +1144,7 @@
       "goldenQuarks2": {
         "name": "Golden Quarks II",
         "description": "Buying GQ is 0.2% cheaper per level! [After 50%, effect grows much slower]",        
-        "effec": "Purchasing Golden Quarks in the shop is {{n}}% cheaper."
+        "effect": "Purchasing Golden Quarks in the shop is {{n}}% cheaper."
       },
       "goldenQuarks3": {
         "name": "Golden Quarks III",
@@ -1462,7 +1464,11 @@
     "OK": "OK",
     "Cancel": "Cancel",
     "autoOnBracket": "Auto [ON]",
-    "autoOffBracket": "Auto [OFF]"
+    "autoOffBracket": "Auto [OFF]",
+    "softcapped": "(Softcapped)",
+    "NOT": "NOT",
+    "have": "have",
+    "havenot": "have not"
   },
   "upgrades": {
     "descriptions": {

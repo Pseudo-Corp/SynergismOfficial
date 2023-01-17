@@ -1029,6 +1029,8 @@
         "perks": {
             "improvedIn": "第{{sing}}次进入奇点后将有特权加强",
             "unlockedIn": "第{{sing}}次进入奇点后将解锁新特权",
+            "maxunlock": "You have no Perks left to unlock!",
+            "maximprove":"You have no Perks left to improve!",
             "update": "您的最高奇点次数为 <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties (Hover for more details. Perks in <span class=\"newPerk\">gold text</span> were added or improved in this Singularity)<br/>{{extra}}",
             "xyz": {
                 "hasLevel2": "输入“daily”代码后可以获得金夸克和随机奇点升级的免费等级，额外获得0.2级金夸克 I，0.2级金夸克 II和1级金夸克 III，另外再使获得的免费等级数量翻倍！",
@@ -1142,7 +1144,7 @@
             "goldenQuarks2": {
                 "name": "金夸克 II",
                 "description": "每级使商店购买金夸克的花费减少0.2%！[超过50%之后，效果将增长得更加缓慢]",
-                "effec": "商店购买金夸克的花费减少{{n}}%。"
+                "effect": "商店购买金夸克的花费减少{{n}}%。"
             },
             "goldenQuarks3": {
                 "name": "金夸克 III",
@@ -1462,7 +1464,11 @@
         "OK": "好",
         "Cancel": "取消",
         "autoOnBracket": "自动[开]",
-        "autoOffBracket": "自动[关]"
+        "autoOffBracket": "自动[关]",
+        "softcapped": "(软最大值)",
+        "NOT": "不",
+        "have": "有",
+        "havenot": "还没有"
     },
     "upgrades": {
         "descriptions": {

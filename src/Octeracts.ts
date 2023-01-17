@@ -237,7 +237,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         effect: (n: number) => {
             return {
                 bonus: n > 0,
-                desc: `Octo-Hepteract Primality Synergism is ${n > 0 ? '' : 'NOT'} active.`
+                desc: `Octo-Hepteract Primality Synergism is ${n > 0 ? '' : `${i18next.t('general.NOT')}`} active.`
             }
         }
     },
@@ -405,7 +405,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         effect: (n: number) => {
             return {
                 bonus: n > 0,
-                desc: `Singularity Upgrade free levels are ${(n > 0) ? '' : 'NOT'} being powered!`
+                desc: `Singularity Upgrade free levels are ${(n > 0) ? '' : `${i18next.t('general.NOT')}`} being powered!`
             }
         }
     },
