@@ -1461,8 +1461,8 @@
     "spent": "Spent",
     "OK": "OK",
     "Cancel": "Cancel",
-    "onBracket": "[ON]",
-    "offBracket": "[OFF]"
+    "autoOnBracket": "Auto [ON]",
+    "autoOffBracket": "Auto [OFF]"
   },
   "upgrades": {
     "descriptions": {

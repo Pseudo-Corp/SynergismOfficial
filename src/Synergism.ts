@@ -1502,13 +1502,6 @@ const loadSynergy = async () => {
         showCorruptionStatsLoadouts()
         updateCorruptionLoadoutNames()
 
-        for (let j = 1; j <= 5; j++) {
-            const ouch = DOMCacheGetOrSet('tesseractAutoToggle' + j);
-            (player.autoTesseracts[j]) ?
-                (ouch.textContent = 'Auto [ON]', ouch.style.border = '2px solid green') :
-                (ouch.textContent = 'Auto [OFF]', ouch.style.border = '2px solid red');
-        }
-
         DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + format(100 * G['effectiveLevelMult'] - 100, 4, true) + '%';
 
         DOMCacheGetOrSet('talismanlevelup').style.display = 'none'

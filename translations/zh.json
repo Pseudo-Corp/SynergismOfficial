@@ -1461,8 +1461,8 @@
         "spent": "花费",
         "OK": "好",
         "Cancel": "取消",
-        "onBracket": "[开]",
-        "offBracket": "关"
+        "autoOnBracket": "自动[开]",
+        "autoOffBracket": "自动[关]"
     },
     "upgrades": {
         "descriptions": {
