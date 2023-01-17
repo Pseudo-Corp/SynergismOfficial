@@ -764,7 +764,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
 //strentax 07/21 Add function to convert code-name display to end-user friendly display of shop upgrades
 export const friendlyShopName = (input: ShopUpgradeNames) => {
-
+    // TODO(i18n): add these under shop.names
     const names: Record<ShopUpgradeNames, string> = {
         offeringPotion: 'Offering Potion',
         obtainiumPotion: 'Obtainium Potion',

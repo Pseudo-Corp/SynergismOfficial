@@ -19,7 +19,6 @@ type SubTab = Record<number, {
     tabSwitcher?: ((...args: any[]) => unknown) | ((...args: any[]) => Promise<unknown>)
     subTabList: {
         subTabID: string | number | boolean
-        lang: string
         unlocked: boolean
         buttonID: string
     }[]
@@ -225,24 +224,25 @@ export const subTabsInMainTab = (mainTab: number) => {
         '-1': {
             tabSwitcher: setActiveSettingScreen,
             subTabList: [
-                {subTabID: 'settingsubtab', lang: 'subtab.setting.setting', unlocked: true, buttonID: 'switchSettingSubTab1'},
-                {subTabID: 'creditssubtab', lang: 'subtab.setting.credits', unlocked: true, buttonID: 'switchSettingSubTab2'},
-                {subTabID: 'statisticsSubTab', lang: 'subtab.setting.statistics', unlocked: true, buttonID: 'switchSettingSubTab3'},
-                {subTabID: 'resetHistorySubTab', lang: 'subtab.setting.resetHistory', unlocked: player.unlocks.prestige, buttonID: 'switchSettingSubTab4'},
-                {subTabID: 'ascendHistorySubTab', lang: 'subtab.setting.ascendHistory', unlocked: player.ascensionCount > 0, buttonID: 'switchSettingSubTab5'},
-                {subTabID: 'singularityHistorySubTab', lang: 'subtab.setting.singularityHistory', unlocked: player.highestSingularityCount > 0, buttonID: 'switchSettingSubTab6'},
-                {subTabID: 'hotkeys', lang: 'subtab.setting.hotkeys', unlocked: true, buttonID: 'switchSettingSubTab7'}
+                {subTabID: 'settingsubtab', unlocked: true, buttonID: 'switchSettingSubTab1'},
+                {subTabID: 'languagesubtab', unlocked: true, buttonID: 'switchSettingSubTab2'},
+                {subTabID: 'creditssubtab', unlocked: true, buttonID: 'switchSettingSubTab3'},
+                {subTabID: 'statisticsSubTab', unlocked: true, buttonID: 'switchSettingSubTab4'},
+                {subTabID: 'resetHistorySubTab', unlocked: player.unlocks.prestige, buttonID: 'switchSettingSubTab5'},
+                {subTabID: 'ascendHistorySubTab', unlocked: player.ascensionCount > 0, buttonID: 'switchSettingSubTab6'},
+                {subTabID: 'singularityHistorySubTab', unlocked: player.highestSingularityCount > 0, buttonID: 'switchSettingSubTab7'},
+                {subTabID: 'hotkeys', unlocked: true, buttonID: 'switchSettingSubTab8'}
             ]
         },
         0: {subTabList: []},
         1: {
             tabSwitcher: toggleBuildingScreen,
             subTabList: [
-                {subTabID: 'coin', lang: 'subtab.building.coin', unlocked: true, buttonID: 'switchToCoinBuilding'},
-                {subTabID: 'diamond', lang: 'subtab.building.diamond', unlocked: player.unlocks.prestige, buttonID: 'switchToDiamondBuilding'},
-                {subTabID: 'mythos', lang: 'subtab.building.mythos', unlocked: player.unlocks.transcend, buttonID: 'switchToMythosBuilding'},
-                {subTabID: 'particle', lang: 'subtab.building.particle', unlocked: player.unlocks.reincarnate, buttonID: 'switchToParticleBuilding'},
-                {subTabID: 'tesseract', lang: 'subtab.building.tesseract', unlocked: player.achievements[183] > 0, buttonID: 'switchToTesseractBuilding'}
+                {subTabID: 'coin', unlocked: true, buttonID: 'switchToCoinBuilding'},
+                {subTabID: 'diamond', unlocked: player.unlocks.prestige, buttonID: 'switchToDiamondBuilding'},
+                {subTabID: 'mythos', unlocked: player.unlocks.transcend, buttonID: 'switchToMythosBuilding'},
+                {subTabID: 'particle', unlocked: player.unlocks.reincarnate, buttonID: 'switchToParticleBuilding'},
+                {subTabID: 'tesseract', unlocked: player.achievements[183] > 0, buttonID: 'switchToTesseractBuilding'}
             ]
         },
         2: {subTabList: []},
@@ -250,10 +250,10 @@ export const subTabsInMainTab = (mainTab: number) => {
         4: {
             tabSwitcher: toggleRuneScreen,
             subTabList: [
-                {subTabID: 1, lang: 'subtab.rune.runes', unlocked: player.unlocks.prestige, buttonID: 'toggleRuneSubTab1'},
-                {subTabID: 2, lang: 'subtab.rune.talismans', unlocked: player.achievements[134] > 0, buttonID: 'toggleRuneSubTab2'},
-                {subTabID: 3, lang: 'subtab.rune.blessings', unlocked: player.achievements[134] > 0, buttonID: 'toggleRuneSubTab3'},
-                {subTabID: 4, lang: 'subtab.rune.spirits', unlocked: player.achievements[204] > 0, buttonID: 'toggleRuneSubTab4'}
+                {subTabID: 1, unlocked: player.unlocks.prestige, buttonID: 'toggleRuneSubTab1'},
+                {subTabID: 2, unlocked: player.achievements[134] > 0, buttonID: 'toggleRuneSubTab2'},
+                {subTabID: 3, unlocked: player.achievements[134] > 0, buttonID: 'toggleRuneSubTab3'},
+                {subTabID: 4, unlocked: player.achievements[204] > 0, buttonID: 'toggleRuneSubTab4'}
             ]
         },
         5: {subTabList: []},
@@ -262,30 +262,30 @@ export const subTabsInMainTab = (mainTab: number) => {
         8: {
             tabSwitcher: toggleCubeSubTab,
             subTabList: [
-                {subTabID: 1, lang: 'subtab.cube.cubeTributes', unlocked: player.achievements[141] > 0, buttonID: 'switchCubeSubTab1'},
-                {subTabID: 2, lang: 'subtab.cube.tesseractGifts', unlocked: player.achievements[197] > 0, buttonID: 'switchCubeSubTab2'},
-                {subTabID: 3, lang: 'subtab.cube.hypercubeBenedictions', unlocked: player.achievements[211] > 0, buttonID: 'switchCubeSubTab3'},
-                {subTabID: 4, lang: 'subtab.cube.platonicStatues', unlocked: player.achievements[218] > 0, buttonID: 'switchCubeSubTab4'},
-                {subTabID: 5, lang: 'subtab.cube.cubeUpgrades', unlocked: player.achievements[141] > 0, buttonID: 'switchCubeSubTab5'},
-                {subTabID: 6, lang: 'subtab.cube.platonicUpgrades', unlocked: player.achievements[218] > 0, buttonID: 'switchCubeSubTab6'},
-                {subTabID: 7, lang: 'subtab.cube.hepteractForge', unlocked: player.challenge15Exponent >= 1e15, buttonID: 'switchCubeSubTab7'}
+                {subTabID: 1, unlocked: player.achievements[141] > 0, buttonID: 'switchCubeSubTab1'},
+                {subTabID: 2, unlocked: player.achievements[197] > 0, buttonID: 'switchCubeSubTab2'},
+                {subTabID: 3, unlocked: player.achievements[211] > 0, buttonID: 'switchCubeSubTab3'},
+                {subTabID: 4, unlocked: player.achievements[218] > 0, buttonID: 'switchCubeSubTab4'},
+                {subTabID: 5, unlocked: player.achievements[141] > 0, buttonID: 'switchCubeSubTab5'},
+                {subTabID: 6, unlocked: player.achievements[218] > 0, buttonID: 'switchCubeSubTab6'},
+                {subTabID: 7, unlocked: player.challenge15Exponent >= 1e15, buttonID: 'switchCubeSubTab7'}
             ]
         },
         9: {
             tabSwitcher: toggleCorruptionLoadoutsStats,
             subTabList: [
-                {subTabID: true, lang: 'subtab.corruption.corruptionStats', unlocked: player.achievements[141] > 0, buttonID: 'corrStatsBtn'},
-                {subTabID: false, lang: 'subtab.corruption.corruptionLoadouts', unlocked: player.achievements[141] > 0, buttonID: 'corrLoadoutsBtn'}
+                {subTabID: true, unlocked: player.achievements[141] > 0, buttonID: 'corrStatsBtn'},
+                {subTabID: false, unlocked: player.achievements[141] > 0, buttonID: 'corrLoadoutsBtn'}
             ]
         },
         10: {
             tabSwitcher: toggleSingularityScreen,
             subTabList: [
-                {subTabID: 1, lang: 'subtab.singularity.shop', unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab1'},
-                {subTabID: 2, lang: 'subtab.singularity.penalties', unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab2'},
-                {subTabID: 3, lang: 'subtab.singularity.perks', unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab3'},
-                {subTabID: 4, lang: 'subtab.singularity.octeracts', unlocked: Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus), buttonID: 'toggleSingularitySubTab4'},
-                {subTabID: 5, lang: 'subtab.singularity.exalt', unlocked: player.highestSingularityCount >= 25, buttonID: 'toggleSingularitySubTab5'}
+                {subTabID: 1, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab1'},
+                {subTabID: 2, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab2'},
+                {subTabID: 3, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab3'},
+                {subTabID: 4, unlocked: Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus), buttonID: 'toggleSingularitySubTab4'},
+                {subTabID: 5, unlocked: player.highestSingularityCount >= 25, buttonID: 'toggleSingularitySubTab5'}
             ]
         }
     }
@@ -360,12 +360,12 @@ export const toggleSubTab = (mainTab = 1, subTab = 0) => {
     }
 }
 
-export const langUpdateSubTab = () => {
+export const allSubTabListener = () => {
     for (const key in tabNumberConst) {
         const tabNumber = tabNumberConst[key as keyof typeof tabNumberConst];
         const subTabList = subTabsInMainTab(tabNumber).subTabList;
-        subTabList.forEach((value) => {
-            DOMCacheGetOrSet(value.buttonID).textContent = i18next.t(value.lang);
+        subTabList.forEach((value, keysub) => {
+            DOMCacheGetOrSet(value.buttonID).addEventListener('click', () => toggleSubTab(tabNumber, keysub));
         });
     }
 }

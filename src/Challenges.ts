@@ -232,7 +232,11 @@ export const challengeDisplay = (i: number, changefocus = true) => {
             }
         }
 
-        a.textContent = i18next.t(`challenges.${i}.name`, { value: completions })
+        a.textContent = i18next.t(`challenges.${i}.name`, {
+            value: completions,
+            completions: player.challengecompletions[i],
+            max: maxChallenges
+        })
         b.textContent = i18next.t(`challenges.${i}.flavor`)
         c.textContent = i18next.t(`challenges.${i}.restrictions`)
         d.textContent = i18next.t(`challenges.${i}.goal`, { value: goal })

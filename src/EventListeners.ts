@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles'
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle, allSubTabListener } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyRuneBonusLevels, buyAllBlessings } from './Buy'
@@ -130,12 +130,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('singularitytab').addEventListener('click', () => toggleTabs('singularity'))
 
     // BUILDINGS TAB
-    //Part 1: Upper portion (Subtab toggle)
-    const buildingTypes = ['Coin','Diamond','Mythos','Particle','Tesseract']
-    for (let index = 0; index < buildingTypes.length; index++) {
-        DOMCacheGetOrSet(`switchTo${buildingTypes[index]}Building`).addEventListener('click', () => toggleSubTab(1, index))
 
-    }
     //Part 2: Building Amount Toggles
     const buildingTypesAlternate = ['coin','crystal','mythos','particle','tesseract','offering'] as const;
     const buildingOrds = ['one','ten','hundred','thousand', '10k', '100k']
@@ -261,12 +256,6 @@ export const generateEventHandlers = () => {
     // Part 0: Upper UI portion
     //Auto sacrifice toggle button
     DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice(0))
-    //Toggle subtabs of Runes tab
-    for (let index = 0; index < 4; index++) {
-
-        DOMCacheGetOrSet(`toggleRuneSubTab${index+1}`).addEventListener('click', () => toggleSubTab(4, index))
-
-    }
 
     // Part 1: Runes Subtab
     for (let index = 0; index < 7; index++) {
@@ -414,12 +403,6 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('autoSacrificeAntMode').addEventListener('click', () => toggleAntAutoSacrifice(1))
 
     // WOW! Cubes Tab
-    //Part 0: Subtab UI
-    for (let index = 0; index < 7; index++) {
-
-        DOMCacheGetOrSet(`switchCubeSubTab${index+1}`).addEventListener('click', () => toggleSubTab(8, index))
-
-    }
 
     //Part 1: Cube Upgrades
     for (let index = 1; index < player.cubeUpgrades.length; index++) {
@@ -528,9 +511,6 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('hepteractAutoPercentageButton').addEventListener('click', () => toggleHepteractAutoPercentage())
 
     // CORRUPTION TAB
-    //Part 0: Subtabs
-    DOMCacheGetOrSet('corrStatsBtn').addEventListener('click', () => toggleSubTab(9, 0))
-    DOMCacheGetOrSet('corrLoadoutsBtn').addEventListener('click', () => toggleSubTab(9, 1))
 
     //Part 1: Displays
     DOMCacheGetOrSet('corruptionDisplays').addEventListener('click', () => corruptionDisplay(10))
@@ -542,11 +522,6 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('ascensionAutoToggle').addEventListener('click', () => toggleAutoAscend(1))
 
     // SETTNGS TAB
-    // Part 0: Subtabs
-    const settingSubTabs = Array.from<HTMLElement>(document.querySelectorAll('[id^="switchSettingSubTab"]'));
-    for (const subtab of settingSubTabs) {
-        subtab.addEventListener('click', () => toggleSubTab(-1, settingSubTabs.indexOf(subtab)));
-    }
 
     const t = Array.from(document.querySelectorAll<HTMLElement>('button.statsNerds'));
     for (const s of t) {
@@ -654,11 +629,6 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.singularityChallenges[`${String(key)}`].challengeEntryHandler())
     }
 
-    //Toggle subtabs of Singularity tab
-    for (let index = 0; index < 5; index++) {
-        DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => toggleSubTab(10, index))
-    }
-
     const tabs = document.querySelectorAll<HTMLElement>('#tabrow > button');
     tabs.forEach(b => b.addEventListener('click', () => changeTabColor()));
 
@@ -711,6 +681,9 @@ TODO: Fix this entire tab it's utter shit
             localStorage.removeItem('copyToClipboard')
         }
     })
+
+    // Register all SubTabs
+    allSubTabListener();
 
     // Window
     window.addEventListener('error', imgErrorHandler, {capture: true});

@@ -64,6 +64,7 @@
             "resource": ""
         }
     },
+    
     "achievements": {
         "points": "Achievement Points: {{min}}/{{max}} [{{percent}}%]",
         "information1": "Hover over an achievement to view information.",
@@ -2072,7 +2073,7 @@
             "octeracts": "Octeracts",
             "exalt": "EXALT"
         },
-        "setting": {
+        "settings": {
             "settings": "Settings",
             "languages": "🌐 Languages 🌐",
             "credits": "Credits",
@@ -2081,7 +2082,7 @@
             "ascendHistory": "Ascend History",
             "singularityHistory": "Singularity History",
             "hotkeys": "Hotkeys"
-        }
+        },
     },
     "offlineProgress": {
         "loading": "Loading Offline Progress...",
