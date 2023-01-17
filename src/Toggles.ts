@@ -450,7 +450,7 @@ export const toggleauto = () => {
     for (let j = 0; j < tesseractAutos.length; j++) {
         const auto = tesseractAutos[j]
 
-        if (player.autoTesseracts[j]) {
+        if (player.autoTesseracts[j + 1]) {
             auto.textContent = i18next.t('general.autoOnBracket')
             auto.style.border = '2px solid green'
         } else {

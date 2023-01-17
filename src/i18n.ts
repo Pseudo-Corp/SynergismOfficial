@@ -26,7 +26,6 @@ export const init = async (): Promise<void> => {
 
     await i18next.use(ColorTextPlugin).init({
         fallbackLng: 'en',
-        postProcess: true,
         debug: !prod,
         resources,
         postProcess: ['ColorText']
