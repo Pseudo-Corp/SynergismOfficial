@@ -584,7 +584,8 @@
                 "1": "",
                 "2": "",
                 "3": ""
-            }
+            },
+            "noGoal": "You will find no goal in sight, but get bonuses based on your best attempt."
         }
     },
     "cubes": {
@@ -1766,6 +1767,21 @@
         "buildings2": "Press [Left arrow] or [Right arrow] to switch tabs. Enjoy!",
         "crystals": "Press [1], [2], [3], [4], or [5] to buy the respective tiered producer. Press [6], [7], [8], [9] or [0] to buy the corresponding Crystal upgrade starting on the left.",
         "mythos": "Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.",
-        "particle": "Press [1], [2], [3], [4], or [5] to buy the respective tiered producer."
+        "particle": "Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.",
+        "upgrade": "Press [1], [2], [3], [4], [5] or [6] on your keyboard to use resources for each upgrades.",
+        "achievements": {
+            "green": "Green background: Achieved.",
+            "purple": "Purple background: Unachieved, provides bonus multiplier.",
+            "red": "Red background: Unachieved, provides content/feature unlock.",
+            "none": "No background: Unachieved, nothing special."
+        },
+        "runes": "Press [1], [2], [3], [4] or [5] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!",
+        "challenges": {
+            "hotkey": "Press [1], [2]... up to [0] to enter challenges 1 to 10. Press [E] to exit your Transcension or Reincarnation challenge if stuck!",
+            "finishTranscension": "If you are unable to finish a Transcension challenge, press the hotkey listed above OR click on the red Challenge \"C\" button on the reset buttons on top.",
+            "leaveReincarnation": "To leave a reincarnation challenge, press the grey Challenge \"C\" instead!"
+        },
+        "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> researches first. The <<var(--crimson-text-color);|red-bordered>> researches are never reset whereas the <<white;|white-bordered>> researches will reset upon the next reset tier!",
+        "shop": "Hover over each portion of the shop to see what each upgrade does!"
     }
 }

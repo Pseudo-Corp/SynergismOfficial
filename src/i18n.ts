@@ -69,8 +69,13 @@ function translateHTML () {
 
     for (const element of Array.from(i18n)) {
         const key = element.getAttribute('i18n')!
+        const value = i18next.t(key)
 
-        element.textContent = i18next.t(key)
+        if (value.includes('<span')) {
+            element.innerHTML = value
+        } else {
+            element.textContent = value
+        }
     }
 }
 
