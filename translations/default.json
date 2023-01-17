@@ -1678,5 +1678,87 @@
     "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
     "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
     "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
+  },
+  "corruptions": {
+    "names": {
+        "1": "Corruption I: Viscosity",
+        "2": "Corruption II: Spacial Dilation",
+        "3": "Corruption III: Hyperchallenged",
+        "4": "Corruption IV: Scientific Illiteracy",
+        "5": "Corruption V: Market Deflation",
+        "6": "Corruption VI: Extinction",
+        "7": "Corruption VII: Drought",
+        "8": "Corruption VIII: Financial Recession"
+    },
+    "descriptions": {
+        "1": "You feel lethargic across the universe...",
+        "2": "Way to go, Albert.",
+        "3": "What\"s in a challenge?",
+        "4": "Maybe Albert wouldn\"t have theorized Dilation after all.",
+        "5": "Diamond Mine destroyed... no more monopolies!",
+        "6": "It killed the dinosaurs too, ya Dingus.",
+        "7": "More like California, am I right?",
+        "8": "Yet another 2020 catastrophe."
+    },
+    "currentLevel": {
+        "1": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
+        "2": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+        "3": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+        "4": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+        "5": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+        "6": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
+        "7": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+        "8": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+    },
+    "prototypeLevel": {
+        "1": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
+        "2": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+        "3": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+        "4": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+        "5": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+        "6": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
+        "7": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+        "8": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+    },
+    "scoreMultiplier": "Current Score Multiplier: {{ curr }} / Next Ascension Score Multiplier: {{ next }}",
+    "spiritEffect": "This corruption gives Rune Spirit Effect +{{curr}}% / Next Ascension Rune Spirit Effect +{{next}}%",
+    "exitCorruption": {
+        "name": "CLEANSE THE CORRUPTION",
+        "description": "Free this world of sin.",
+        "current": "Reset all Corruptions to level 0 for your current ascension. Does not reset your current ascension.",
+        "planned": "Push that big \"Reset Corruptions\" button to confirm your decision.",
+        "multiplier": "Note: if you need to do this, you may have bitten off more than you can chew."
+    },
+    "max": "MAX",
+    "current": "Current: ",
+    "next": " / Next: ",
+    "loadoutTable": {
+        "next": "Next:",
+        "firstRowTitle": "Click to copy the next Corruptions to the clipboard. This is the format that can be imported",
+        "otherRowTitle": "Click to rename. Hotkey: SHIFT+{{ value }}",
+        "import": "Import",
+        "importTitle": "Import Corruption Loadout in text format",
+        "zero": "Zero",
+        "zeroTitle": "Reset Corruptions to zero on your next Ascension. Hotkey: SHIFT+9",
+        "save": "Save",
+        "saveTitle": "Save current Corruptions to this Loadout",
+        "load": "Load"
+    },
+    "importCorruptionsPrompt": {
+        "import": "Enter a Corruption Loadout to import for next Ascension. It must be in the following text format: 1/2/3/4/5/6/7/8",
+        "importError": "Your input was not in the correct format, try again."
+    },
+    "corruptionLoadoutName": {
+      "loadoutPrompt": "What would you like to name Loadout {{ loadNum }}? Names cannot be longer than {{ maxChars }} characters. Nothing crazy!",
+      "errors": {
+          "noName": "Okay, maybe next time.",
+          "exceedsCharacterLimit": "The name you provided is too long! Try again.",
+          "regexError": "The Loadout Renamer didn\"t like a character in your name! Try something else.",
+          "crazyJoke": "Ant God approves of your joke!"
+      }
+    },
+    "loadoutExport": {
+        "saveErrorNavigator": "Unable to write the save to clipboard: {{ message }}"
+    }
   }
 }

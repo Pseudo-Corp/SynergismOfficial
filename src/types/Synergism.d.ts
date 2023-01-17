@@ -863,8 +863,7 @@ export interface GlobalVariables {
 
     researchOrderByCost: number[],
 
-    divisivenessPower: number[]
-    maladaptivePower: number[]
+    viscosityPower: number[]
     lazinessMultiplier: number[]
     hyperchallengedMultiplier: number[]
     illiteracyPower: number[]
