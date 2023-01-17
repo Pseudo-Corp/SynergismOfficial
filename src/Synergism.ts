@@ -852,7 +852,17 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
         wowCubes: Number(player.wowCubes),
         wowTesseracts: Number(player.wowTesseracts),
         wowHypercubes: Number(player.wowHypercubes),
-        wowPlatonicCubes: Number(player.wowPlatonicCubes)
+        wowPlatonicCubes: Number(player.wowPlatonicCubes),
+        singularityUpgrades: Object.fromEntries(
+            Object.entries(player.singularityUpgrades).map(([key, value]) => {
+                return [key, {
+                    level: value.level,
+                    goldenQuarksInvested: value.goldenQuarksInvested,
+                    toggleBuy: value.toggleBuy,
+                    freeLevels: value.freeLevels
+                }]
+            })
+        )
     });
 
     const save = btoa(JSON.stringify(p));
@@ -1492,13 +1502,6 @@ const loadSynergy = async () => {
         }
         showCorruptionStatsLoadouts()
         updateCorruptionLoadoutNames()
-
-        for (let j = 1; j <= 5; j++) {
-            const ouch = DOMCacheGetOrSet('tesseractAutoToggle' + j);
-            (player.autoTesseracts[j]) ?
-                (ouch.textContent = 'Auto [ON]', ouch.style.border = '2px solid green') :
-                (ouch.textContent = 'Auto [OFF]', ouch.style.border = '2px solid red');
-        }
 
         DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + format(100 * G['effectiveLevelMult'] - 100, 4, true) + '%';
 

@@ -3,6 +3,8 @@ import { prod } from './Config'
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { langStatistics } from './Statistics';
 import { achievementPoints } from './Achievements';
+import ColorTextPlugin from './Plugins/ColorText'
+import { toggleauto } from './Toggles'
 
 // For 'flag': https://emojipedia.org/emoji-flag-sequence/
 // Searching "flag <country>" in their search bar will help verify the code.
@@ -22,11 +24,12 @@ export const init = async (): Promise<void> => {
         }
     }
 
-    await i18next.init({
+    await i18next.use(ColorTextPlugin).init({
         fallbackLng: 'en',
         postProcess: true,
         debug: !prod,
-        resources
+        resources,
+        postProcess: ['ColorText']
     })
 
     buildLanguageTab()
@@ -41,7 +44,7 @@ function buildLanguageButton(langID: string, name: string, flag: string) {
     mainButton.className = 'language-select';
     mainButton.addEventListener('click', () => {
         void i18next.changeLanguage(langID).then(
-            () => translateHTML()
+            () => afterLanguageChange()
         );
     });
 
@@ -74,4 +77,9 @@ function translateHTML () {
 
         element.textContent = i18next.t(key)
     }
+}
+
+function afterLanguageChange () {
+    translateHTML()
+    toggleauto()
 }
