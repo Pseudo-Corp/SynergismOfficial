@@ -735,6 +735,10 @@ p#buildinghotkeys {
     text-align: center;
 }
 
+#upgradesFlex > div > img {
+    cursor: pointer;
+}
+
 #upgradesFlex > div > table img {
     background-color: var(--buttonimg-color);
     cursor: pointer;

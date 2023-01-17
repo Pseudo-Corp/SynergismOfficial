@@ -106,7 +106,7 @@
             </div>
         </div>
 
-        <button id="exitOffline" alt="exitOffline" label="exitOffline" class="subtabContent" class="visibility: hidden">That's cool. Take me to the game!</button>
+        <button id="exitOffline" alt="exitOffline" label="exitOffline" class="subtabContent" class="visibility: hidden" i18n="offlineProgress.exitOffline"></button>
 
     </div>
     <header>
@@ -326,8 +326,8 @@
         </div>
 
         <div id="buildingtext" alt="buildingtext" label="buildingtext">
-            <p class="prestigeunlock" id="taxinfo" alt="taxinfo" label="taxinfo" style="color: orange;">Due to your excessive wealth, all coin production is divided by 1.00 to pay taxes!</p>
-            <p class="prestigeunlock" id="buildinghotkeys" alt="buildinghotkeys" label="buildinghotkeys">Press [1], [2], [3], [4], or [5] to buy the corresponding tier starting from the top. Press [A] to buy Accelerator, [M] to buy Multiplier, or [B] to buy Accelerator Boost.<br>Press [Left arrow] or [Right arrow] to switch tabs. Enjoy!</p>
+            <p class="prestigeunlock" id="taxinfo" alt="taxinfo" label="taxinfo" style="color: orange;"></p>
+            <p class="prestigeunlock" id="buildinghotkeys" alt="buildinghotkeys" label="buildinghotkeys" i18n="buildings.coin.hotkeys"></p>
         </div>
     </div>
     <div id="prestige" alt="prestige" label="prestige" style="display: none;">
@@ -652,7 +652,7 @@
         <div id="upgradesFlex" alt="upgradesFlex" label="upgradesFlex">
             <div>
                 <img id="upgrades1" alt="upgrades1" label="upgrades1" src="Pictures/Default/Coin.png" loading="lazy">
-                <p id="cointext" alt="cointext" label="cointext" style="color: gold">Coin Upgrades</p>
+                <p id="cointext" alt="cointext" label="cointext" style="color: gold" i18n="upgrades.cointext"></p>
                 <table id="coinupgradestable" alt="coinupgradestable" label="coinupgradestable" style="display: inline-block;">
 
                     <tr>
@@ -695,7 +695,7 @@
             </div>
             <div>
                 <img id="upgrades2" alt="upgrades2" label="upgrades2" class="prestigeunlock" src="Pictures/Default/Diamond.png" loading="lazy">
-                <p class="prestigeunlock" id="prestigetext" alt="prestigetext" label="prestigetext" style="color: cyan">Diamond Upgrades</p>
+                <p class="prestigeunlock" id="prestigetext" alt="prestigetext" label="prestigetext" style="color: cyan" i18n="upgrades.prestigetext"></p>
                 <table class="prestigeunlock" id="prestigeupgradestable" alt="prestigeupgradestable" label="prestigeupgradestable">
                     <tr>
                         <td><img src="Pictures/Default/Diamond1.png" id="upg21" alt="upg21" label="upg21" loading="lazy"></td>
@@ -731,7 +731,7 @@
             </div>
             <div>
                 <img id="upgrades3" alt="upgrades3" label="upgrades3" class="transcendunlock" src="Pictures/Default/Mythos.png" loading="lazy">
-                <p class="transcendunlock" id="transcendtext" alt="transcendtext" label="transcendtext" style="color: plum">Mythos Upgrades</p>
+                <p class="transcendunlock" id="transcendtext" alt="transcendtext" label="transcendtext" style="color: plum" i18n="upgrades.transcendtext"></p>
                 <table class="transcendunlock" id="transcendupgradestable" alt="transcendupgradestable" label="transcendupgradestable">
                     <tr>
                         <td><img src="Pictures/Default/Mythos1.png" id="upg41" alt="upg41" label="upg41" loading="lazy"></td>
@@ -766,7 +766,7 @@
             </div>
             <div>
                 <img id="upgrades4" alt="upgrades4" label="upgrades4" class="prestigeunlock" src="Pictures/Default/Generators.png" loading="lazy">
-                <p class="prestigeunlock" id="generatortext" alt="generatortext" label="generatortext" style="color: lightgray">Generator Shop</p>
+                <p class="prestigeunlock" id="generatortext" alt="generatortext" label="generatortext" style="color: lightgray" i18n="upgrades.generatortext"></p>
                 <table class="prestigeunlock" id="generatortable" alt="generatortable" label="generatortable">
                     <tr>
                         <td><img id="upg101" alt="upg101" label="upg101" src="Pictures/Default/Generator1.png" loading="lazy"></td>
@@ -801,7 +801,7 @@
             </div>
             <div>
                 <img id="upgrades5" alt="upgrades5" label="upgrades5" class="prestigeunlock" src="Pictures/Default/Automation.png" loading="lazy">
-                <p class="prestigeunlock crimsonText" id="automationtext" alt="automationtext" label="automationtext">Automation Shop</p>
+                <p class="prestigeunlock crimsonText" id="automationtext" alt="automationtext" label="automationtext" i18n="upgrades.generatortext"></p>
                 <table class="prestigeunlock" id="automationtable" alt="automationtable" label="automationtable">
                     <tr>
                        <td><img id="upg81" alt="upg81" label="upg81" src="Pictures/Default/Automation1.png" loading="lazy"></td>
@@ -835,7 +835,7 @@
             </div>
             <div>
                 <img id="upgrades6" alt="upgrades6" label="upgrades6" class="reincarnationunlock" src="Pictures/Default/Particle.png" loading="lazy">
-                <p class="reincarnationunlock" id="reincarnationtext" alt="reincarnationtext" label="reincarnationtext" style="color: limegreen">Particles Upgrades</p>
+                <p class="reincarnationunlock" id="reincarnationtext" alt="reincarnationtext" label="reincarnationtext" style="color: limegreen" i18n="upgrades.reincarnationtext"></p>
                 <table class="reincarnationunlock" id="reincarnationupgradestable" alt="reincarnationupgradestable" label="reincarnationupgradestable">
                     <tr>
                         <td><img class="reinrow1" src="Pictures/Default/Particle1.png" id="upg61" alt="upg61" label="upg61" loading="lazy"></td>
@@ -875,7 +875,7 @@
             <p id="upgradecost" alt="upgradecost" label="upgradecost"></p>
             <p id="upgradeeffect" alt="upgradeeffect" label="upgradeeffect"></p>
             <button class="auto autobuyerToggleButton" id="toggle9" alt="toggle9" label="toggle9" toggleid="9" alt="9" label="9" format="Hover-to-Buy [$]" style="border:2px solid green">Hover-To-Buy: Off</button>
-            <p id="upgradehotkeys" alt="upgradehotkeys" label="upgradehotkeys" class="grayText">Press [1], [2], [3], [4], [5] or [6] on your keyboard to use resources for each upgrades.</p>
+            <p id="upgradehotkeys" alt="upgradehotkeys" label="upgradehotkeys" class="grayText" i18n="upgrades.hotkeys"></p>
         </div>
     </div>
 
@@ -1188,16 +1188,16 @@
                 </div>
             </div>
             <div id="achievementinfo" alt="achievementinfo" label="achievementinfo">
-                <p class="mainText" id="achievementtutorial" alt="achievementtutorial" label="achievementtutorial">Hover over an achievement to view information.</p>
+                <p class="mainText" id="achievementtutorial" alt="achievementtutorial" label="achievementtutorial" i18n="achievements.tutorial"></p>
                 <p id="achievementdescription" alt="achievementdescription" label="achievementdescription"></p>
                 <p id="achievementreward" alt="achievementreward" label="achievementreward"></p>
                 <p id="achievementreward2" alt="achievementreward2" label="achievementreward2"></p>
             </div>
             <div id="achievementColorInfo" alt="achievementColorInfo" label="achievementColorInfo">
-                <p id="achievementcolorcode1" alt="achievementcolorcode1" label="achievementcolorcode1" style="color: limegreen">Green background: Achieved.</p>
-                <p id="achievementcolorcode2" alt="achievementcolorcode2" label="achievementcolorcode2" style="color: purple">Purple background: Unachieved, provides bonus multiplier.</p>
-                <p id="achievementcolorcode3" alt="achievementcolorcode3" label="achievementcolorcode3" class="crimsonText">Red background: Unachieved, provides content/feature unlock.</p>
-                <p id="achievementcolorcode4" alt="achievementcolorcode4" label="achievementcolorcode4" class="grayText">No background: Unachieved, nothing special.</p>
+                <p id="achievementcolorcode1" alt="achievementcolorcode1" label="achievementcolorcode1" i18n="achievements.information1" style="color: limegreen"></p>
+                <p id="achievementcolorcode2" alt="achievementcolorcode2" label="achievementcolorcode2" i18n="achievements.information2" style="color: purple"></p>
+                <p id="achievementcolorcode3" alt="achievementcolorcode3" label="achievementcolorcode3" i18n="achievements.information3" class="crimsonText"></p>
+                <p id="achievementcolorcode4" alt="achievementcolorcode4" label="achievementcolorcode4" i18n="achievements.information4" class="grayText"></p>
             </div>
         </div>
 
@@ -2828,14 +2828,14 @@
                 </div>
                 <div id="corruptionDisplays" alt="corruptionDisplays" label="corruptionDisplays" class="flex row center">
                     <img src="Pictures/Default/CorruptExit.png" class="corruptionImg" loading="lazy">
-                    <button id="corruptionCleanse" alt="corruptionCleanse" label="corruptionCleanse">Cleanse</button>
-                    <button id="corruptionCleanseConfirm" alt="corruptionCleanseConfirm" label="corruptionCleanseConfirm">Confirm</button>
+                    <button id="corruptionCleanse" alt="corruptionCleanse" label="corruptionCleanse" i18n="corruptionCleanse.hotkeys"></button>
+                    <button id="corruptionCleanseConfirm" alt="corruptionCleanseConfirm" label="corruptionCleanseConfirm" i18n="corruptionCleanse.confirm"></button>
                 </div>
             </div>
             <div id="corruptionMain" alt="corruptionMain" label="corruptionMain" class="flex column">
-                <p id="corruptionIntroduction" alt="corruptionIntroduction" label="corruptionIntroduction" class="tightText">The most rewarding ventures are those few would dare to embark.</p>
+                <p id="corruptionIntroduction" alt="corruptionIntroduction" label="corruptionIntroduction" class="tightText" i18n="corruptions.corruptionIntroduction"></p>
                 <p class="tightText">
-                    <span id="corruptionInfo1" alt="corruptionInfo1" label="corruptionInfo1">Select the trait levels you wish to run with. Choose wisely!</span><span id="corruptionInfo2" alt="corruptionInfo2" label="corruptionInfo2" class="redText">Don't bite off more than you can chew...</span>
+                    <span id="corruptionInfo1" alt="corruptionInfo1" label="corruptionInfo1" i18n="corruptions.introduction1"></span><span id="corruptionInfo2" alt="corruptionInfo2" label="corruptionInfo2" class="redText" i18n="corruptions.introduction2"></span>
                 </p>
                 <div id="corruptionSelected" alt="corruptionSelected" label="corruptionSelected" class="hCenter">
                     <img id="corruptionSelectedPic" alt="corruptionSelectedPic" label="corruptionSelectedPic" class="corruptionImg" src="Pictures/Default/CorruptExit.png" style="visibility: hidden" loading="lazy">
@@ -2849,46 +2849,44 @@
                     <p id="corruptionSpiritContribution" alt="corruptionSpiritContribution" label="corruptionSpiritContribution" class="chal12 tightText"></p>
                 </div>
                 <p class="tightText crimsonText">
-                    <span id="corruptionAntExponent1" alt="corruptionAntExponent1" label="corruptionAntExponent1">This Ascension's climate raises Ant production to the power of </span><span id="corruptionAntExponentValue" alt="corruptionAntExponentValue" label="corruptionAntExponentValue" class="darkorchidText" style="font-size: 1.2em">1.000</span><span id="corruptionAntExponent2" alt="corruptionAntExponent2" label="corruptionAntExponent2">.</span>
+                    <span id="corruptionAntExponent1" alt="corruptionAntExponent1" label="corruptionAntExponent1" i18n="corruptions.antExponent1"></span><span id="corruptionAntExponentValue" alt="corruptionAntExponentValue" label="corruptionAntExponentValue" class="darkorchidText" style="font-size: 1.2em">1.000</span><span id="corruptionAntExponent2" alt="corruptionAntExponent2" label="corruptionAntExponent2" i18n="corruptions.antExponent2"></span>
                 </p>
                 <p class="chal12 tightText" style="color: gold">
-                    <span id="corruptionSpiritBonus1" alt="corruptionSpiritBonus1" label="corruptionSpiritBonus1">However, it also multiplies Rune Spirit Effects by </span><span id="corruptionSpiritBonusValue" alt="corruptionSpiritBonusValue" label="corruptionSpiritBonusValue" style="color: wheat; font-size: 1.2em;">1.000</span><span id="corruptionSpiritBonus2" alt="corruptionSpiritBonus2" label="corruptionSpiritBonus2">!</span>
+                    <span id="corruptionSpiritBonus1" alt="corruptionSpiritBonus1" label="corruptionSpiritBonus1" i18n="corruptions.spiritBonus1"></span><span id="corruptionSpiritBonusValue" alt="corruptionSpiritBonusValue" label="corruptionSpiritBonusValue" style="color: wheat; font-size: 1.2em;">1.000</span><span id="corruptionSpiritBonus2" alt="corruptionSpiritBonus2" label="corruptionSpiritBonus2" i18n="corruptions.spiritBonus2"></span>
                 </p>
                 <p class="tightText" style="color: white">
-                    <span id="corruptionBank1" alt="corruptionBank1" label="corruptionBank1">You have </span><span id="corruptionBankValue" alt="corruptionBankValue" label="corruptionBankValue" class="crimsonText">1</span><span id="corruptionBank2" alt="corruptionBank2" label="corruptionBank2">Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.</span>
+                    <span id="corruptionBank1" alt="corruptionBank1" label="corruptionBank1" i18n="corruptions.bank1"></span><span id="corruptionBankValue" alt="corruptionBankValue" label="corruptionBankValue" class="crimsonText">1</span><span id="corruptionBank2" alt="corruptionBank2" label="corruptionBank2" i18n="corruptions.bank2"></span>
                 </p>
                 <p class="tightText" style="color: white">
-                    <span id="corruptionScore1" alt="corruptionScore1" label="corruptionScore1">Your Ascension Score is </span><span id="corruptionScoreValue" alt="corruptionScoreValue" label="corruptionScoreValue" style="color: goldenrod">1</span><span id="corruptionScore2" alt="corruptionScore2" label="corruptionScore2"> (base) * </span><span id="corruptionMultiplierValue" alt="corruptionMultiplierValue" label="corruptionMultiplierValue" class="crimsonText">4</span><span id="corruptionScore3" alt="corruptionScore3" label="corruptionScore3"> (Corruption mult) * </span><span id="corruptionBonusMultiplierValue" alt="corruptionBonusMultiplierValue" label="corruptionBonusMultiplierValue" class="orchidText">1</span><span id="corruptionScore4" alt="corruptionScore4" label="corruptionScore4"> (Bonus mult) = </span><span id="corruptionTotalScore" alt="corruptionTotalScore" label="corruptionTotalScore" class="darkorchidText">4</span><span id="corruptionScore5" alt="corruptionScore5" label="corruptionScore5"></span>
+                    <span id="corruptionScore1" alt="corruptionScore1" label="corruptionScore1" i18n="corruptions.score1"></span><span id="corruptionScoreValue" alt="corruptionScoreValue" label="corruptionScoreValue" style="color: goldenrod">1</span><span id="corruptionScore2" alt="corruptionScore2" label="corruptionScore2" i18n="corruptions.score2"></span><span id="corruptionMultiplierValue" alt="corruptionMultiplierValue" label="corruptionMultiplierValue" class="crimsonText">4</span><span id="corruptionScore3" alt="corruptionScore3" label="corruptionScore3" i18n="corruptions.score3"></span><span id="corruptionBonusMultiplierValue" alt="corruptionBonusMultiplierValue" label="corruptionBonusMultiplierValue" class="orchidText">1</span><span id="corruptionScore4" alt="corruptionScore4" label="corruptionScore4" i18n="corruptions.score4"></span><span id="corruptionTotalScore" alt="corruptionTotalScore" label="corruptionTotalScore" class="darkorchidText">4</span><span id="corruptionScore5" alt="corruptionScore5" label="corruptionScore5" i18n="corruptions.score5"></span>
                 </p>
                 <p class="tightText" style="color: white">
-                    <span id="corruptionAscensionCount1" alt="corruptionAscensionCount1" label="corruptionAscensionCount1">If you Ascend now, </span>
+                    <span id="corruptionAscensionCount1" alt="corruptionAscensionCount1" label="corruptionAscensionCount1" i18n="corruptions.ascensionCount1"></span>
                     <span id="corruptionAscensionCountValue" alt="corruptionAscensionCountValue" label="corruptionAscensionCountValue" style="color: darkorange; font-size: 1.2em"></span>
-                    <span id="corruptionAscensionCount2" alt="corruptionAscensionCount2" label="corruptionAscensionCount2"> will be added to your ascension count.</span>
+                    <span id="corruptionAscensionCount2" alt="corruptionAscensionCount2" label="corruptionAscensionCount2" i18n="corruptions.ascensionCount2"></span>
                 </p>
                 <p class="tightText" style="color: white">
-                    <span id="corruptionCubes1" alt="corruptionCubes1" label="corruptionCubes1">If you Ascend now, you will gain </span>
-                    <span id="corruptionCubesValue" alt="corruptionCubesValue" label="corruptionCubesValue" style="color: yellow; font-size: 1.2em"></span>
-                    <span id="corruptionCubes2" alt="corruptionCubes2" label="corruptionCubes2"> Wow! Cubes.</span>
+                    <span id="corruptionCubes1" alt="corruptionCubes1" label="corruptionCubes1" i18n="corruptions.cubes1"></span><span id="corruptionCubesValue" alt="corruptionCubesValue" label="corruptionCubesValue" style="color: yellow; font-size: 1.2em"></span><span id="corruptionCubes2" alt="corruptionCubes2" label="corruptionCubes2" i18n="corruptions.cubes2"></span>
                 </p>
                 <p class="tightText" style="color: white">
-                    <span id="corruptionTesseracts1" alt="corruptionTesseracts1" label="corruptionTesseracts1">If you Ascend now, you will gain </span>
+                    <span id="corruptionTesseracts1" alt="corruptionTesseracts1" label="corruptionTesseracts1" i18n="corruptions.tesseracts1"></span>
                     <span id="corruptionTesseractsValue" alt="corruptionTesseractsValue" label="corruptionTesseractsValue" style="color: orange; font-size: 1.2em"></span>
-                    <span id="corruptionTesseracts2" alt="corruptionTesseracts2" label="corruptionTesseracts2"> Wow! Tesseracts. [Get more if Score >100,000]</span>
+                    <span id="corruptionTesseracts2" alt="corruptionTesseracts2" label="corruptionTesseracts2" i18n="corruptions.tesseracts2"></span>
                 </p>
                 <p class="chal13 tightText" style="color: white">
-                    <span id="corruptionHypercubes1" alt="corruptionHypercubes1" label="corruptionHypercubes1">If you Ascend now, you will gain </span>
+                    <span id="corruptionHypercubes1" alt="corruptionHypercubes1" label="corruptionHypercubes1" i18n="corruptions.hypercubes1"></span>
                     <span id="corruptionHypercubesValue" alt="corruptionHypercubesValue" label="corruptionHypercubesValue" class="crimsonText" style="font-size: 1.2em"></span>
-                    <span id="corruptionHypercubes2" alt="corruptionHypercubes2" label="corruptionHypercubes2"> Wow! Hypercubes. [Req Score: >1,000,000,000]</span>
+                    <span id="corruptionHypercubes2" alt="corruptionHypercubes2" label="corruptionHypercubes2" i18n="corruptions.hypercubes2"></span>
                 </p>
                 <p class="chal14 tightText" style="color: white">
-                    <span id="corruptionPlatonicCubes1" alt="corruptionPlatonicCubes1" label="corruptionPlatonicCubes1">If you Ascend now, you will gain </span>
+                    <span id="corruptionPlatonicCubes1" alt="corruptionPlatonicCubes1" label="corruptionPlatonicCubes1" i18n="corruptions.platonicCubes1"></span>
                     <span id="corruptionPlatonicCubesValue" alt="corruptionPlatonicCubesValue" label="corruptionPlatonicCubesValue" style="color: orchid; font-size: 1.2em"></span>
-                    <span id="corruptionPlatonicCubes2" alt="corruptionPlatonicCubes2" label="corruptionPlatonicCubes2"> PLATONIC CUBES. [Req Score: >2,666,000,000,000]</span>
+                    <span id="corruptionPlatonicCubes2" alt="corruptionPlatonicCubes2" label="corruptionPlatonicCubes2" i18n="corruptions.platonicCubes2"></span>
                 </p>
                 <p class="chal15 tightText" style="color: white" id="corruptionHepteracts" alt="corruptionHepteracts" label="corruptionHepteracts">
-                    <span id="corruptionHepteracts1" alt="corruptionHepteracts1" label="corruptionHepteracts1">If you Ascend now, you will gain </span>
+                    <span id="corruptionHepteracts1" alt="corruptionHepteracts1" label="corruptionHepteracts1" i18n="corruptions.hepteracts1"></span>
                     <span id="corruptionHepteractsValue" alt="corruptionHepteractsValue" label="corruptionHepteractsValue" style="color: mediumpurple; font-size: 1.2em"></span>
-                    <span id="corruptionHepteracts2" alt="corruptionHepteracts2" label="corruptionHepteracts2"> HEPTERACTS. [Req Score: >1.666e17]</span>
+                    <span id="corruptionHepteracts2" alt="corruptionHepteracts2" label="corruptionHepteracts2" i18n="corruptions.hepteracts2"></span>
                 </p>
                 <div id="ascensionAutomation" alt="ascensionAutomation" label="ascensionAutomation" class="cubeUpgrade10 vAlign">
                     <button id="ascensionAutoEnable" alt="ascensionAutoEnable" label="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green">Auto Ascend [ON]</button>
@@ -3076,7 +3074,7 @@ $STAGE$ for synergism stage"></p>
                 <button class="statsNerds singularity" id="kAddStats" alt="kAddStats" label="kAddStats" style="border: 2px solid green">Add Code Stats</button>
                 <button class="statsNerds singularity" id="kOctMult" alt="kOctMult" label="kOctMult" style="border: 2px solid blue">Octeract Multipliers</button>
             </div>
-            <button id="summaryGeneration" style="border: 2px solid grey; height: 20px; width: 250px;">Generate Savefile Stats Summary</button>
+            <button id="summaryGeneration" style="border: 2px solid grey; height: 20px; width: 250px;" i18n="statistics.summaryGeneration"></button>
         </div>
         <div id="miscStats" alt="miscStats" label="miscStats" class="statContainer activeStats">
             <p class="statPortion" id="miscStatTitle" alt="miscStatTitle" label="miscStatTitle" style="color: plum; font-size: 1.2em">Miscellaneous Stats</p>
@@ -3867,7 +3865,7 @@ $STAGE$ for synergism stage"></p>
     </div>
     <div id="singularity" alt="singularity" label="singularity">
         <div id="singularityTabsToggle" alt="singularityTabsToggle" label="singularityTabsToggle">
-            <button id="toggleSingularitySubTab1" label="toggleSingularitySubTab1" style="border: 2px solid silver; color: white; background-color: crimson" i18n="tabs.main.shop"></button>
+            <button id="toggleSingularitySubTab1" label="toggleSingularitySubTab1" style="border: 2px solid silver; color: white; background-color: crimson" i18n="tabs.singularity.shop"></button>
             <button id="toggleSingularitySubTab2" label="toggleSingularitySubTab2" style="border: 2px solid orange; color: white" i18n="tabs.singularity.penalties"></button>
             <button id="toggleSingularitySubTab3" label="toggleSingularitySubTab3" style="border: 2px solid greenyellow; color: white" i18n="tabs.singularity.perks"></button>
             <button id="toggleSingularitySubTab4" class="octeracts" label="toggleSingularitySubTab4" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>

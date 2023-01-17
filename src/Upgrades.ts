@@ -10,6 +10,8 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import i18next from 'i18next';
 
 const crystalupgdesc: Record<number, () => Record<string, string>> = {
+    1: () => {},
+    2: () => {},
     3: () => ({
         max: format(
             100 * (0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] *
@@ -21,7 +23,8 @@ const crystalupgdesc: Record<number, () => Record<string, string>> = {
             10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) /
         Math.log(4) + 20 * calculateCorruptionPoints() / 400 * G['effectiveRuneSpiritPower'][3]
         )
-    })
+    }),
+    5: () => {}
 }
 
 const constantUpgDesc: Record<number, () => Record<string, string>> = {
@@ -31,7 +34,15 @@ const constantUpgDesc: Record<number, () => Record<string, string>> = {
             10 + player.achievements[270] + player.shopUpgrades.constantEX + 100 *
         (G['challenge15Rewards'].exponent - 1) + 0.3 * player.platonicUpgrades[18], 2, true
         )
-    })
+    }),
+    3: () => {},
+    4: () => {},
+    5: () => {},
+    6: () => {},
+    7: () => {},
+    8: () => {},
+    9: () => {},
+    10: () => {}
 }
 
 const upgradetexts = [

@@ -10,7 +10,6 @@ import { getChallengeConditions } from './Challenges';
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
-import i18next from 'i18next';
 
 interface TabValue { tabName: keyof typeof tabNumberConst, unlocked: boolean }
 type Tab = Record<number, TabValue>;

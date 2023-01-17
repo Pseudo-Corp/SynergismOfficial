@@ -51,7 +51,6 @@ import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges';
 import { init as i18nInit } from './i18n'
 import i18next from 'i18next'
-import { langUpdateHTML } from './UpdateLanguage';
 
 export const player: Player = {
     firstPlayed: new Date().toISOString(),
@@ -4086,7 +4085,6 @@ export const reloadShit = async (reset = false) => {
 
     constantIntervals();
     changeTabColor();
-    langUpdateHTML();
 
     eventCheck();
     setInterval(eventCheck, 15000);

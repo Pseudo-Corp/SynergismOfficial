@@ -1,6 +1,8 @@
 import i18next, { type Resource } from 'i18next'
 import { prod } from './Config'
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import { langStatistics } from './Statistics';
+import { achievementPoints } from './Achievements';
 
 // For 'flag': https://emojipedia.org/emoji-flag-sequence/
 // Searching "flag <country>" in their search bar will help verify the code.
@@ -29,6 +31,8 @@ export const init = async (): Promise<void> => {
 
     buildLanguageTab()
     translateHTML()
+    langStatistics()
+    achievementPoints()
 }
 
 function buildLanguageButton(langID: string, name: string, flag: string) {

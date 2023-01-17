@@ -491,8 +491,8 @@ export const visualUpdateCorruptions = () => {
 
     const metaData = CalcCorruptionStuff();
     const ascCount = calcAscensionCount();
-    
-    DOMCacheGetOrSet('autoAscend').textContent = player.autoAscendMode === 'c10Completions' ? i18next.t('corruptions.autoAscendC10' , {value1: format(player.autoAscendThreshold), value2: String(player.challengecompletions[10]), }) : i18next.t('corruptions.autoAscendTimer' , {value1: format(player.autoAscendThreshold), value2: format(player.ascensionCounterRealReal), });
+
+    DOMCacheGetOrSet('autoAscend').textContent = player.autoAscendMode === 'c10Completions' ? i18next.t('corruptions.autoAscendC10' , {value1: format(player.autoAscendThreshold), value2: String(player.challengecompletions[10]) }) : i18next.t('corruptions.autoAscendTimer' , {value1: format(player.autoAscendThreshold), value2: format(player.ascensionCounterRealReal) });
     DOMCacheGetOrSet('corruptionBankValue').textContent = format(metaData[0]);
     DOMCacheGetOrSet('corruptionScoreValue').textContent = format(metaData[1], 0, true);
     DOMCacheGetOrSet('corruptionMultiplierValue').textContent = format(metaData[2], 1, true);
