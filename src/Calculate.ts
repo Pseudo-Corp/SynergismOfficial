@@ -969,17 +969,28 @@ export const calculateOffline = async (forceTime = 0) => {
     }, 0);
 
     DOMCacheGetOrSet('offlinePrestigeCountNumber').textContent = format(resetAdd.prestige, 0, true)
-    DOMCacheGetOrSet('offlinePrestigeTimerNumber').textContent = format(timerAdd.prestige, 2, false)
-    DOMCacheGetOrSet('offlineOfferingCountNumber').textContent = format(resetAdd.offering, 0, true)
-    DOMCacheGetOrSet('offlineTranscensionCountNumber').textContent = format(resetAdd.transcension, 0, true)
-    DOMCacheGetOrSet('offlineTranscensionTimerNumber').textContent = format(timerAdd.transcension, 2, false)
-    DOMCacheGetOrSet('offlineReincarnationCountNumber').textContent = format(resetAdd.reincarnation, 0, true)
-    DOMCacheGetOrSet('offlineReincarnationTimerNumber').textContent = format(timerAdd.reincarnation, 2, false)
-    DOMCacheGetOrSet('offlineObtainiumCountNumber').textContent = format(resetAdd.obtainium, 0, true)
-    DOMCacheGetOrSet('offlineAntTimerNumber').textContent = format(timerAdd.ants, 2, false)
-    DOMCacheGetOrSet('offlineRealAntTimerNumber').textContent = format(timerAdd.antsReal, 2, true)
-    DOMCacheGetOrSet('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
-    DOMCacheGetOrSet('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
+    DOMCacheGetOrSet('offlinePrestigeTimer').innerHTML =
+      i18next.t('offlineProgress.currentPrestigeTimer', { value: format(timerAdd.prestige, 2, false) })
+    DOMCacheGetOrSet('offlineOfferingCount').innerHTML =
+      i18next.t('offlineProgress.offeringsGenerated', { value: format(resetAdd.offering, 0, true) })
+    DOMCacheGetOrSet('offlineTranscensionCount').innerHTML =
+      i18next.t('offlineProgress.transcensionCount', { value: format(resetAdd.transcension, 0, true) })
+    DOMCacheGetOrSet('offlineTranscensionTimer').innerHTML =
+      i18next.t('offlineProgress.currentTranscensionCounter', { value: format(timerAdd.transcension, 2, false) })
+    DOMCacheGetOrSet('offlineReincarnationCount').innerHTML =
+      i18next.t('offlineProgress.reincarnationCount', { value: format(resetAdd.reincarnation, 0, true) })
+    DOMCacheGetOrSet('offlineReincarnationTimer').innerHTML =
+      i18next.t('offlineProgress.currentReincarnationTimer', { value: format(timerAdd.reincarnation, 2, false) })
+    DOMCacheGetOrSet('offlineObtainiumCount').innerHTML =
+      i18next.t('offlineProgress.obtainiumGenerated', { value: format(resetAdd.obtainium, 0, true) })
+    DOMCacheGetOrSet('offlineAntTimer').innerHTML =
+      i18next.t('offlineProgress.ingameAntSacTimer', { value: format(timerAdd.ants, 2, false) })
+    DOMCacheGetOrSet('offlineRealAntTimer').innerHTML =
+      i18next.t('offlineProgress.realAntSacTimer', { value: format(timerAdd.antsReal, 2, true) })
+    DOMCacheGetOrSet('offlineAscensionTimer').innerHTML =
+      i18next.t('offlineProgress.currentAscensionTimer', { value: format(timerAdd.ascension, 2, true) })
+    DOMCacheGetOrSet('offlineQuarkCount').innerHTML =
+      i18next.t('offlineProgress.exportQuarks', { value: format(timerAdd.quarks, 0, true) })
 
     DOMCacheGetOrSet('progressbardescription').textContent = i18next.t('calculate.offlineEarnings')
 

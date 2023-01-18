@@ -263,8 +263,10 @@ const crystalupgeffect: Record<number, () => string> = {
     5: () => `Crystal production x${format(Decimal.pow(1.01, (player.challengecompletions[1] + player.challengecompletions[2] + player.challengecompletions[3] + player.challengecompletions[4] + player.challengecompletions[5]) * player.crystalUpgrades[4]), 2, true)}`
 }
 
-const returnCrystalUpgDesc = (i: number) => i18next.t(`upgrades.crystalUpgrades.${i}`, crystalupgdesc[i]())
-const returnCrystalUpgEffect = (i: number) => crystalupgeffect[i]()
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+const returnCrystalUpgDesc = (i: number) => i18next.t(`upgrades.crystalUpgrades.${i}`, crystalupgdesc[i]?.())
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+const returnCrystalUpgEffect = (i: number) => crystalupgeffect[i]?.()
 
 export const crystalupgradedescriptions = (i: number) => {
     const p = player.crystalUpgrades[i - 1];
@@ -325,8 +327,10 @@ const constUpgEffect: Record<number, () => string> = {
     10: () => `Cubes/Tesseracts on Ascension x${format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]), 4, true)}`
 }
 
-const returnConstUpgDesc = (i: number) => i18next.t(`upgrades.constantUpgrades.${i}`, constantUpgDesc[i]())
-const returnConstUpgEffect = (i: number) => constUpgEffect[i]();
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+const returnConstUpgDesc = (i: number) => i18next.t(`upgrades.constantUpgrades.${i}`, constantUpgDesc[i]?.())
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+const returnConstUpgEffect = (i: number) => constUpgEffect[i]?.();
 
 export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
     const toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G['constUpgradeCosts'][i]!) / Math.log(10)));

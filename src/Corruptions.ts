@@ -352,7 +352,7 @@ const corruptionLoadoutGetExport = async () => {
         await navigator.clipboard.writeText(str)
             .catch((e: Error) => Alert(i18next.t('corruptions.loadoutExport.saveErrorNavigator', {message: e.message})));
     } else {
-        void Alert(i18next.t('corruptions.loadoutExport.otherSaveError', {message: str}));
+        void Alert(i18next.t('corruptions.loadoutExport.saveErrorNavigator', {message: str}));
     }
 }
 

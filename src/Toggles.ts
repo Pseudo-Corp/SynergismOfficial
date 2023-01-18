@@ -10,7 +10,7 @@ import { getChallengeConditions } from './Challenges';
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
-
+import i18next from 'i18next';
 
 interface TabValue { tabName: keyof typeof tabNumberConst, unlocked: boolean }
 type Tab = Record<number, TabValue>;
@@ -89,9 +89,17 @@ export const toggleSettings = (toggle: HTMLElement) => {
     } else {
         player.toggles[+toggleId] = true;
     }
-    const format = toggle.getAttribute('format') || 'Auto [$]';
-    const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF');
-    toggle.textContent = finishedString;
+    const format = toggle.getAttribute('format')
+
+    if (format) {
+        const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF');
+        toggle.textContent = finishedString;
+    } else {
+        toggle.textContent = player.toggles[+toggleId]
+            ? i18next.t('general.autoOnBracket')
+            : i18next.t('general.autoOffBracket')
+    }
+
     toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
 }
 
@@ -225,6 +233,7 @@ export const subTabsInMainTab = (mainTab: number) => {
             tabSwitcher: setActiveSettingScreen,
             subTabList: [
                 {subTabID: 'settingsubtab', unlocked: true},
+                {subTabID: 'languagesubtab', unlocked: true},
                 {subTabID: 'creditssubtab', unlocked: true},
                 {subTabID: 'statisticsSubTab', unlocked: true},
                 {subTabID: 'resetHistorySubTab', unlocked: player.unlocks.prestige},
@@ -406,12 +415,33 @@ export const toggleautobuytesseract = () => {
 export const toggleauto = () => {
     const toggles = Array.from<HTMLElement>(document.querySelectorAll('.auto[toggleid]'));
     for (const toggle of toggles) {
-        const format = toggle.getAttribute('format') || 'Auto [$]';
+        const format = toggle.getAttribute('format')
         const toggleId = toggle.getAttribute('toggleId') || 1;
 
-        const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF')
-        toggle.textContent = finishedString;
+        if (format) {
+            const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF')
+            toggle.textContent = finishedString;
+        } else {
+            toggle.textContent = player.toggles[+toggleId]
+                ? i18next.t('general.autoOnBracket')
+                : i18next.t('general.autoOffBracket')
+        }
+
         toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
+    }
+
+    const tesseractAutos = Array.from<HTMLElement>(document.querySelectorAll('*[id^="tesseractAutoToggle"]'))
+
+    for (let j = 0; j < tesseractAutos.length; j++) {
+        const auto = tesseractAutos[j]
+
+        if (player.autoTesseracts[j + 1]) {
+            auto.textContent = i18next.t('general.autoOnBracket')
+            auto.style.border = '2px solid green'
+        } else {
+            auto.textContent = i18next.t('general.autoOffBracket')
+            auto.style.border = '2px solid red'
+        }
     }
 }
 
@@ -1018,10 +1048,10 @@ export const updateRuneBlessingBuyAmount = (i: number) => {
 export const toggleAutoTesseracts = (i: number) => {
     const el = DOMCacheGetOrSet('tesseractAutoToggle' + i);
     if (player.autoTesseracts[i]) {
-        el.textContent = 'Auto [OFF]'
+        el.textContent = i18next.t('general.autoOffBracket')
         el.style.border = '2px solid red';
     } else {
-        el.textContent = 'Auto [ON]'
+        el.textContent = i18next.t('general.autoOnBracket')
         el.style.border = '2px solid green';
     }
 

@@ -232,7 +232,11 @@ export const challengeDisplay = (i: number, changefocus = true) => {
             }
         }
 
-        a.textContent = i18next.t(`challenges.${i}.name`, { value: completions })
+        a.textContent = i18next.t(`challenges.${i}.name`, {
+            value: completions,
+            completions: player.challengecompletions[i],
+            max: maxChallenges
+        })
         b.textContent = i18next.t(`challenges.${i}.flavor`)
         c.textContent = i18next.t(`challenges.${i}.restrictions`)
         d.textContent = i18next.t(`challenges.${i}.goal`, { value: goal })
@@ -247,7 +251,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     }
 
     if (i === 15 && G['challengefocus'] === 15 && maxChallenges === 0) {
-        d.textContent = 'You will find no goal in sight, but get bonuses based on your best attempt.'
+        d.textContent = i18next.t('challenges.15.noGoal')
     }
 
     const scoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
