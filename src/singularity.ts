@@ -136,7 +136,6 @@ export class SingularityUpgrade extends DynamicUpgrade {
     public async buyLevel(event: MouseEvent): Promise<void> {
         let purchased = 0;
         let maxPurchasable = 1
-        player.goldenQuarks = 1e100
         let GQBudget = player.goldenQuarks
 
         if (!Number.isFinite(GQBudget)) {
