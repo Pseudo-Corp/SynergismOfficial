@@ -324,6 +324,9 @@
         "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
         "costCoins": "Cost: {{coins}} coins.",
         "costDiamonds": "Cost: {{diamonds}} Diamonds.",
+        "crystalMult": "You have {{crystals}} Crystals, multiplying Coin production by {{gain}}.",
+        "hoverCrystalUpgrade": "Hover over a crystal upgrade to get information!",
+        "autoPrestige": "Prestige when your Diamonds can increase by a factor {{factor}} [Toggle number above]. Current Multiplier: {{mult}}.",
         "names": {
             "workers": "Workers: {{amount}} [+{{gain}}]",
             "investments": "Investments: {{amount}} [+{{gain}}]",
@@ -332,7 +335,24 @@
             "alchemies": "Alchemies: {{amount}} [+{{gain}}]",
             "accelerators": "Accelerators: {{amount}} [+{{gain}}]",
             "multipliers": "Multipliers: {{amount}} [+{{gain}}]",
-            "acceleratorBoost": "Accelerator Boost: {{amount}} [+{{gain}}]"
+            "acceleratorBoost": "Accelerator Boost: {{amount}} [+{{gain}}]",
+            "refineries": "Refineries: {{amount}} [+{{gain}}]",
+            "coalPlants": "Coal Plants: {{amount}} [+{{gain}}]",
+            "coalRigs": "Coal Rigs: {{amount}} [+{{gain}}]",
+            "pickaxes": "Pickaxes: {{amount}} [+{{gain}}]",
+            "pandorasBoxes": "Pandoras Boxes: {{amount}} [+{{gain}}]"
+        },
+        "per": {
+            "crystal": "Crystal/sec: {{amount}}",
+            "ref": "Ref./sec: {{amount}}",
+            "plants": "Plants/sec: {{amount}}",
+            "rigs": "Rigs/sec: {{amount}}",
+            "pickaxes": "Pickaxes/sec: {{amount}}"
+        },
+        "crystalUpgrades": {
+            "currentLevel": "Current Level: <<lightblue|{{amount}}>>",
+            "cost": "Cost: <<lightblue|{{amount}}>> crystals",
+            "currentEffect": "Current Effect: <<lightblue|{{effect}}>>"
         }
     },
     "challenges": {

@@ -109,23 +109,38 @@ export const visualUpdateBuildings = () => {
     if (G['buildingSubTab'] === 'diamond') {
         // For the display of Diamond Buildings
         const upper = ['produceFirstDiamonds', 'produceSecondDiamonds', 'produceThirdDiamonds', 'produceFourthDiamonds', 'produceFifthDiamonds'] as const;
-        const names = [null, 'Refineries', 'Coal Plants', 'Coal Rigs', 'Pickaxes', 'Pandoras Boxes']
-        const perSecNames = [null, 'Crystal/sec', 'Ref./sec', 'Plants/sec', 'Rigs/sec', 'Pickaxes/sec']
+        const names = ['refineries', 'coalPlants', 'coalRigs', 'pickaxes', 'pandorasBoxes']
+        const perSecNames = ['crystal', 'ref', 'plants', 'rigs', 'pickaxes']
 
-        DOMCacheGetOrSet('prestigeshardinfo').textContent = 'You have ' + format(player.prestigeShards, 2) + ' Crystals, multiplying Coin production by ' + format(G['prestigeMultiplier'], 2) + 'x.'
+        DOMCacheGetOrSet('prestigeshardinfo').textContent = i18next.t('buildings.crystalMult', {
+            crystals: format(player.prestigeShards, 2),
+            gain: format(G['prestigeMultiplier'], 2)
+        })
 
         for (let i = 1; i <= 5; i++) {
             const place = G[upper[i-1]];
             const ith = G['ordinals'][i - 1 as ZeroToFour];
 
-            DOMCacheGetOrSet('prestigetext' + (2 * i - 1)).textContent = names[i] + ': ' + format(player[`${ith}OwnedDiamonds` as const], 0, true) + ' [+' + format(player[`${ith}GeneratedDiamonds` as const], 2) + ']'
-            DOMCacheGetOrSet('prestigetext' + (2 * i)).textContent = perSecNames[i] + ': ' + format((place).times(40), 2)
-            DOMCacheGetOrSet('buydiamond' + i).textContent = 'Cost: ' + format(player[`${ith}CostDiamonds` as const], 2) + ' Diamonds'
+            DOMCacheGetOrSet('prestigetext' + (2 * i - 1)).textContent = i18next.t(`buildings.names.${names[i - 1]}`, {
+                amount: format(player[`${ith}OwnedDiamonds` as const], 0, true),
+                gain: format(player[`${ith}GeneratedDiamonds` as const], 2)
+            })
+
+            DOMCacheGetOrSet('prestigetext' + (2 * i)).textContent = i18next.t(`buildings.per.${perSecNames[i - 1]}`, {
+                amount: format((place).times(40), 2)
+            })
+
+            DOMCacheGetOrSet('buydiamond' + i).textContent = i18next.t('buildings.costDiamonds', {
+                diamonds: format(player[`${ith}CostDiamonds` as const], 2)
+            })
         }
 
         if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
             const p = Decimal.pow(10, Decimal.log(G['prestigePointGain'].add(1), 10) - Decimal.log(player.prestigePoints.sub(1), 10))
-            DOMCacheGetOrSet('autoprestige').textContent = 'Prestige when your Diamonds can increase by a factor ' + format(Decimal.pow(10, player.prestigeamount)) + ' [Toggle number above]. Current Multiplier: ' + format(p) + '.'
+            DOMCacheGetOrSet('autoprestige').textContent = i18next.t('buildings.autoPrestige', {
+                factor: format(Decimal.pow(10, player.prestigeamount)),
+                mult: format(p)
+            })
         }
         if (player.resettoggle1 === 2) {
             DOMCacheGetOrSet('autoprestige').textContent = 'Prestige when the autotimer is at least ' + (player.prestigeamount) + ' real-life seconds. [Toggle number above]. Current timer: ' + format(G['autoResetTimers'].prestige, 1) + 's.'
