@@ -315,6 +315,26 @@
             "8": "Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!"
         }
     },
+    "buildings": {
+        "excessiveWealth": "Due to your excessive wealth, coin production is divided by {{div}} to pay taxes! {{- warning}}",
+        "taxWarning": "Your tax also caps your Coin gain at {{gain}}/s.",
+        "acceleratorPower": "Acceleration Power: {{power}}% || Acceleration Multiplier: {{mult}}x",
+        "multiplierPower": "Multiplier Power: {{power}}x || Multiplier: {{mult}}x",
+        "acceleratorBoost": "Reset Diamonds and Prestige Upgrades, but add {{amount}}% Acceleration Power and 5 free Accelerators.",
+        "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
+        "costCoins": "Cost: {{coins}} coins.",
+        "costDiamonds": "Cost: {{diamonds}} Diamonds.",
+        "names": {
+            "workers": "Workers: {{amount}} [+{{gain}}]",
+            "investments": "Investments: {{amount}} [+{{gain}}]",
+            "printers": "Printers: {{amount}} [+{{gain}}]",
+            "coinMints": "Coin Mints: {{amount}} [+{{gain}}]",
+            "alchemies": "Alchemies: {{amount}} [+{{gain}}]",
+            "accelerators": "Accelerators: {{amount}} [+{{gain}}]",
+            "multipliers": "Multipliers: {{amount}} [+{{gain}}]",
+            "acceleratorBoost": "Accelerator Boost: {{amount}} [+{{gain}}]"
+        }
+    },
     "challenges": {
         "1": {
             "name": "No Multipliers Challenge || {{- value}} Completions",

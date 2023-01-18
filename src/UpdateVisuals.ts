@@ -17,6 +17,7 @@ import type { IMultiBuy } from './Cubes';
 import { calculateMaxTalismanLevel } from './Talismans';
 import { getGoldenQuarkCost } from './singularity';
 import { loadStatisticsUpdate } from './Statistics';
+import i18next from 'i18next';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== 'buildings') {
@@ -27,10 +28,7 @@ export const visualUpdateBuildings = () => {
     if (G['buildingSubTab'] === 'coin') {
         // For the display of Coin Buildings
         const upper = ['produceFirst', 'produceSecond', 'produceThird', 'produceFourth', 'produceFifth'] as const;
-        const names = [null, 'Workers', 'Investments', 'Printers', 'Coin Mints', 'Alchemies']
-
-        // Placeholder is of form "produce+upper[i]", which feeds info place in the form of window function
-        let percentage = new Decimal()
+        const names = [null, 'workers', 'investments', 'printers', 'coinMints', 'alchemies']
 
         let totalProductionDivisor = new Decimal(G['produceTotal']);
         if (totalProductionDivisor.equals(0)) {
@@ -41,29 +39,71 @@ export const visualUpdateBuildings = () => {
             const place = G[upper[i - 1]];
             const ith = G['ordinals'][i - 1 as ZeroToFour];
 
-            DOMCacheGetOrSet('buildtext' + (2 * i - 1)).textContent = names[i] + ': ' + format(player[`${ith}OwnedCoin` as const], 0, true) + ' [+' + format(player[`${ith}GeneratedCoin` as const]) + ']'
-            DOMCacheGetOrSet('buycoin' + i).textContent = 'Cost: ' + format(player[`${ith}CostCoin` as const]) + ' coins.'
-            percentage = percentage.fromMantissaExponent(place.mantissa / totalProductionDivisor.mantissa, place.exponent - totalProductionDivisor.exponent).times(100)
-            DOMCacheGetOrSet('buildtext' + (2 * i)).textContent = 'Coins/Sec: ' + format((place.dividedBy(G['taxdivisor'])).times(40), 2) + ' [' + format(percentage, 3) + '%]'
+            DOMCacheGetOrSet(`buildtext${2 * i - 1}`).textContent = i18next.t(`buildings.names.${names[i]}`, {
+                amount: format(player[`${ith}OwnedCoin` as const], 0, true),
+                gain: format(player[`${ith}GeneratedCoin` as const])
+            })
+
+            DOMCacheGetOrSet('buycoin' + i).textContent = i18next.t('buildings.costCoins', {
+                coins: format(player[`${ith}CostCoin` as const])
+            })
+
+            const percentage = Decimal
+                .fromMantissaExponent(place.mantissa / totalProductionDivisor.mantissa, place.exponent - totalProductionDivisor.exponent)
+                .times(100)
+
+            DOMCacheGetOrSet('buildtext' + (2 * i)).textContent = i18next.t('buildings.coinsPerSecond', {
+                coins: format((place.dividedBy(G['taxdivisor'])).times(40), 2),
+                percent: format(percentage, 3)
+            })
         }
 
-        DOMCacheGetOrSet('buildtext11').textContent = 'Accelerators: ' + format(player.acceleratorBought, 0, true) + ' [+' + format(G['freeAccelerator'], 0, true) + ']'
-        DOMCacheGetOrSet('buildtext12').textContent = 'Acceleration Power: ' + format((G['acceleratorPower'] - 1) * 100, 2) + '% || Acceleration Multiplier: ' + format(G['acceleratorEffect'], 2) + 'x'
-        DOMCacheGetOrSet('buildtext13').textContent = 'Multipliers: ' + format(player.multiplierBought, 0, true) + ' [+' + format(G['freeMultiplier'], 0, true) + ']'
-        DOMCacheGetOrSet('buildtext14').textContent = 'Multiplier Power: ' + format(G['multiplierPower'], 2) + 'x || Multiplier: ' + format(G['multiplierEffect'], 2) + 'x'
-        DOMCacheGetOrSet('buildtext15').textContent = 'Accelerator Boost: ' + format(player.acceleratorBoostBought, 0, true) + ' [+' + format(G['freeAcceleratorBoost'], 0, false) + ']'
-        DOMCacheGetOrSet('buildtext16').textContent = 'Reset Diamonds and Prestige Upgrades, but add ' + format(G['tuSevenMulti'] * (1 + player.researches[16] / 50) * (1 + CalcECC('transcend', player.challengecompletions[2]) / 100), 2) + '% Acceleration Power and 5 free Accelerators.'
-        DOMCacheGetOrSet('buyaccelerator').textContent = 'Cost: ' + format(player.acceleratorCost) + ' coins.'
-        DOMCacheGetOrSet('buymultiplier').textContent = 'Cost: ' + format(player.multiplierCost) + ' coins.'
-        DOMCacheGetOrSet('buyacceleratorboost').textContent = 'Cost: ' + format(player.acceleratorBoostCost) + ' Diamonds.'
+        DOMCacheGetOrSet('buildtext11').textContent = i18next.t('buildings.names.accelerators', {
+            amount: format(player.acceleratorBought, 0, true),
+            gain: format(G['freeAccelerator'], 0, true)
+        })
+
+        DOMCacheGetOrSet('buildtext12').textContent = i18next.t('buildings.acceleratorPower', {
+            power: format((G['acceleratorPower'] - 1) * 100, 2),
+            mult: format(G['acceleratorEffect'], 2)
+        })
+
+        DOMCacheGetOrSet('buildtext13').textContent = i18next.t('buildings.names.multipliers', {
+            amount: format(player.multiplierBought, 0, true),
+            gain: format(G['freeMultiplier'], 0, true)
+        })
+
+        DOMCacheGetOrSet('buildtext14').textContent = i18next.t('buildings.multiplierPower', {
+            power: format(G['multiplierPower'], 2),
+            mult: format(G['multiplierEffect'], 2)
+        })
+
+        DOMCacheGetOrSet('buildtext15').textContent = i18next.t('buildings.names.acceleratorBoost', {
+            amount: format(player.acceleratorBoostBought, 0, true),
+            gain: format(G['freeAcceleratorBoost'], 0, false)
+        })
+
+        DOMCacheGetOrSet('buildtext16').textContent = i18next.t('buildings.acceleratorBoost', {
+            amount: format(G['tuSevenMulti'] * (1 + player.researches[16] / 50) * (1 + CalcECC('transcend', player.challengecompletions[2]) / 100), 2)
+        })
+
+        DOMCacheGetOrSet('buyaccelerator').textContent = i18next.t('buildings.costCoins', { coins: format(player.acceleratorCost) })
+        DOMCacheGetOrSet('buymultiplier').textContent = i18next.t('buildings.costCoins', { coins: format(player.multiplierCost) })
+        DOMCacheGetOrSet('buyacceleratorboost').textContent = i18next.t('buildings.costDiamonds', {
+            diamonds: format(player.acceleratorBoostCost)
+        })
 
         // update the tax text
         let warning = '';
         if (player.reincarnationCount > 0.5) {
-            warning = `Your tax also caps your Coin gain at ${format(Decimal.pow(10, G['maxexponent'] - Decimal.log(G['taxdivisorcheck'], 10)))}/s.`
+            warning = i18next.t('buildings.taxWarning', {
+                gain: format(Decimal.pow(10, G['maxexponent'] - Decimal.log(G['taxdivisorcheck'], 10)))
+            })
         }
-        DOMCacheGetOrSet('taxinfo').textContent =
-            `Due to your excessive wealth, coin production is divided by ${format(G['taxdivisor'], 2)} to pay taxes! ${warning}`
+        DOMCacheGetOrSet('taxinfo').textContent = i18next.t('buildings.excessiveWealth', {
+            div: format(G['taxdivisor'], 2),
+            warning
+        })
     }
 
     if (G['buildingSubTab'] === 'diamond') {

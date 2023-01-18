@@ -1735,9 +1735,14 @@
         "next": " / 下次",
         "loadoutTable": {
             "next": "下次",
+            "firstRowTitle": "点击后可以将目前的腐化预设导出到剪贴板。",
+            "otherRowTitle": "点击后可以重命名。载入预设的快捷键为：SHIFT+{{ value }}",
             "import": "导入",
+            "importTitle": "以字符串形式导入腐化预设",
             "zero": "清零",
+            "zeroTitle": "下次飞升时将所有腐化重置为零。快捷键：SHIFT+9",
             "save": "保存",
+            "saveTitle": "将当前腐化保存到该预设",
             "load": "载入"
         },
         "importCorruptionsPrompt": {
@@ -1752,6 +1757,9 @@
                 "regexError": "名字里有系统不支持的字符(比如中文)！换个其他的再来吧。",
                 "crazyJoke": "蚁神批准了你的玩笑！"
             }
+        },
+        "loadoutExport": {
+            "saveErrorNavigator": "无法导出到剪贴板：{{ message }}"
         }
     },
     "footnotes": {
@@ -1775,5 +1783,21 @@
         },
         "research": "欢迎来到研究！难得素可以通过<<var(--green-text-color);|转世>>获得。我个人建议优先研究<<limegreen;|绿色边框>>的升级。<<var(--crimson-text-color);|红色边框>>的升级不会被重置，<<white;|白色边框>>的升级在下一阶重置时将被重置！",
         "shop": "鼠标停在商店物品上以查看详细介绍！"
+    },
+    "buildings": {
+        "acceleratorBoost": "重置钻石及转生升级，但将增加{{amount}}加速器效果，并增加5个免费的加速器。",
+        "coinsPerSecond": "金币每秒产量：{{coins}} [{{percent}}%]",
+        "costCoins": "花费：{{coins}}金币。",
+        "costDiamonds": "花费：{{diamonds}}钻石。",
+        "names": {
+            "workers": "工人：{{amount}} [+{{gain}}]",
+            "investments": "投资：{{amount}} [+{{gain}}]",
+            "printers": "打印机：{{amount}} [+{{gain}}]",
+            "coinMints": "铸币厂：{{amount}} [+{{gain}}]",
+            "alchemies": "炼金术：{{amount}} [+{{gain}}]",
+            "accelerators": "加速器：{{amount}} [+{{gain}}]",
+            "multipliers": "加倍器：{{amount}} [+{{gain}}]",
+            "acceleratorBoost": "加速器加成：{{amount}} [+{{gain}}]"
+        }
     }
 }
