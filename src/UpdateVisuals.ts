@@ -137,12 +137,16 @@ export const visualUpdateBuildings = () => {
             const p = Decimal.pow(10, Decimal.log(G['prestigePointGain'].add(1), 10) - Decimal.log(player.prestigePoints.sub(1), 10))
             DOMCacheGetOrSet('autoprestige').textContent = i18next.t('buildings.autoPrestige', {
                 name: 'Diamonds',
+                action: 'Prestige',
                 factor: format(Decimal.pow(10, player.prestigeamount)),
                 mult: format(p)
             })
-        }
-        if (player.resettoggle1 === 2) {
-            DOMCacheGetOrSet('autoprestige').textContent = 'Prestige when the autotimer is at least ' + (player.prestigeamount) + ' real-life seconds. [Toggle number above]. Current timer: ' + format(G['autoResetTimers'].prestige, 1) + 's.'
+        } else if (player.resettoggle1 === 2) {
+            DOMCacheGetOrSet('autoprestige').textContent = i18next.t('buildings.autoReincarnate', {
+                name: 'Prestige',
+                amount: player.prestigeamount,
+                timer: format(G['autoResetTimers'].prestige, 1)
+            })
         }
     } else if (G['buildingSubTab'] === 'mythos') {
         // For the display of Mythos Buildings
@@ -176,6 +180,7 @@ export const visualUpdateBuildings = () => {
         if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
             DOMCacheGetOrSet('autotranscend').textContent = i18next.t('buildings.autoPrestige', {
                 name: 'Mythos',
+                action: 'Prestige',
                 factor: format(Decimal.pow(10, player.transcendamount)),
                 mult: format(Decimal.pow(10, Decimal.log(G['transcendPointGain'].add(1), 10) - Decimal.log(player.transcendPoints.add(1), 10)), 2)
             })
@@ -183,58 +188,95 @@ export const visualUpdateBuildings = () => {
         if (player.resettoggle2 === 2) {
             DOMCacheGetOrSet('autotranscend').textContent = 'Transcend when the autotimer is at least ' + (player.transcendamount) + ' real-life seconds. [Toggle number above]. Current timer: ' + format(G['autoResetTimers'].transcension, 1) + 's.'
         }
-    }
-
-    if (G['buildingSubTab'] === 'particle') {
+    } else if (G['buildingSubTab'] === 'particle') {
 
         // For the display of Particle Buildings
         const upper = ['FirstParticles', 'SecondParticles', 'ThirdParticles', 'FourthParticles', 'FifthParticles'] as const;
-        const names = ['Protons', 'Elements', 'Pulsars', 'Quasars', 'Galactic Nuclei'];
-        const perSecNames = ['Atoms/sec', 'Protons/sec', 'Elements/sec', 'Pulsars/sec', 'Quasars/sec']
+        const names = ['protons', 'elements', 'pulsars', 'quasars', 'galacticNuclei'];
+        const perSecNames = ['atoms', 'protons', 'elements', 'pulsars', 'quasars']
 
         for (let i = 1; i <= 5; i++) {
             const ith = G['ordinals'][i - 1 as ZeroToFour];
-            const place = G[`produce${upper[i-1]}` as const];
+            const place = G[`produce${upper[i - 1]}` as const];
 
-            DOMCacheGetOrSet(`reincarnationtext${i}`).textContent =
-                `${names[i-1]}: ${format(player[`${ith}OwnedParticles` as const], 0, true)} [+${format(player[`${ith}GeneratedParticles` as const], 2)}]`;
-            DOMCacheGetOrSet(`reincarnationtext${i+5}`).textContent =
-                `${perSecNames[i-1]}: ${format((place).times(40), 2)}`;
-            DOMCacheGetOrSet(`buyparticles${i}`).textContent =
-                `Cost: ${format(player[`${ith}CostParticles` as const], 2)} Particles`;
+            DOMCacheGetOrSet(`reincarnationtext${i}`).textContent = i18next.t(`buildings.names.${names[i - 1]}`, {
+                amount: format(player[`${ith}OwnedParticles` as const], 0, true),
+                gain: format(player[`${ith}GeneratedParticles` as const], 2)
+            })
+            DOMCacheGetOrSet(`reincarnationtext${i+5}`).textContent = i18next.t(`buildings.per.${perSecNames[i - 1]}`, {
+                amount: format((place).times(40), 2)
+            })
+            DOMCacheGetOrSet(`buyparticles${i}`).textContent = i18next.t('buildings.costParticles', {
+                particles: format(player[`${ith}CostParticles` as const], 2)
+            })
         }
 
-        DOMCacheGetOrSet('reincarnationshardinfo').textContent = 'You have ' + format(player.reincarnationShards, 2) + ' Atoms, providing ' + format(G['buildingPower'], 4) + ' Building Power. Multiplier to Coin Production: ' + format(G['reincarnationMultiplier'])
-        DOMCacheGetOrSet('reincarnationCrystalInfo').textContent = 'Thanks to Research 2x14, you also multiply Crystal production by ' + format(Decimal.pow(G['reincarnationMultiplier'], 1 / 50), 3, false)
-        DOMCacheGetOrSet('reincarnationMythosInfo').textContent = 'Thanks to Research 2x15, you also multiply Mythos Shard production by ' + format(Decimal.pow(G['reincarnationMultiplier'], 1 / 250), 3, false)
+        DOMCacheGetOrSet('reincarnationshardinfo').textContent = i18next.t('buildings.atomsYouHave', {
+            atoms: format(player.reincarnationShards, 2),
+            power: format(G['buildingPower'], 4),
+            mult: format(G['reincarnationMultiplier'])
+        })
+
+        DOMCacheGetOrSet('reincarnationCrystalInfo').textContent = i18next.t('buildings.thanksR2x14', {
+            mult: format(Decimal.pow(G['reincarnationMultiplier'], 1 / 50), 3, false)
+        })
+
+        DOMCacheGetOrSet('reincarnationMythosInfo').textContent = i18next.t('buildings.thanksR2x15', {
+            mult: format(Decimal.pow(G['reincarnationMultiplier'], 1 / 250), 3, false)
+        })
 
         if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
-            DOMCacheGetOrSet('autoreincarnate').textContent = 'Reincarnate when your Particles can increase by a factor ' + format(Decimal.pow(10, player.reincarnationamount)) + ' [Toggle number above]. Current Multiplier: ' + format(Decimal.pow(10, Decimal.log(G['reincarnationPointGain'].add(1), 10) - Decimal.log(player.reincarnationPoints.add(1), 10)), 2) + '.'
+            DOMCacheGetOrSet('autoreincarnate').textContent = i18next.t('buildings.autoPrestige', {
+                name: 'Particles',
+                action: 'Reincarnate',
+                factor: format(Decimal.pow(10, player.reincarnationamount)),
+                mult: format(Decimal.pow(10, Decimal.log(G['reincarnationPointGain'].add(1), 10) - Decimal.log(player.reincarnationPoints.add(1), 10)), 2)
+            })
+        } else if (player.resettoggle3 === 2) {
+            DOMCacheGetOrSet('autoreincarnate').textContent = i18next.t('buildings.autoReincarnate', {
+                name: 'Reincarnate',
+                amount: player.reincarnationamount,
+                timer: format(G['autoResetTimers'].reincarnation, 1)
+            })
         }
-        if (player.resettoggle3 === 2) {
-            DOMCacheGetOrSet('autoreincarnate').textContent = 'Reincarnate when the autotimer is at least ' + (player.reincarnationamount) + ' real-life seconds. [Toggle number above]. Current timer: ' + format(G['autoResetTimers'].reincarnation, 1) + 's.'
-        }
-    }
+    } else if (G['buildingSubTab'] === 'tesseract') { // eslint-disable-line @typescript-eslint/no-unnecessary-condition
+        const names = ['dot', 'vector', 'threeSpace', 'bentTime', 'hilbertSpace']
+        const perSecNames = ['constant', 'dot', 'vector', 'threeSpace', 'bentTime']
 
-    if (G['buildingSubTab'] === 'tesseract') {
-        const names = [null, 'Dot', 'Vector', 'Three-Space', 'Bent Time', 'Hilbert Space']
-        const perSecNames = [null, '+Constant/sec', 'Dot/sec', 'Vector/sec', 'Three-Space/sec', 'Bent Time/sec']
         for (let i = 1; i <= 5; i++) {
             const ascendBuildingI = `ascendBuilding${i as 1|2|3|4|5}` as const;
-            DOMCacheGetOrSet('ascendText' + i).textContent = names[i] + ': ' + format(player[ascendBuildingI]['owned'], 0, true) + ' [+' + format(player[ascendBuildingI]['generated'], 2) + ']'
-            DOMCacheGetOrSet('ascendText' + (5 + i)).textContent =
-                perSecNames[i] + ': ' + format(((G['ascendBuildingProduction'] as { [key: string]: Decimal })[G['ordinals'][i - 1]]), 2)
-            DOMCacheGetOrSet('buyTesseracts' + i).textContent = 'Cost: ' + format(player[ascendBuildingI]['cost'], 0) + ' Tesseracts'
+
+            DOMCacheGetOrSet('ascendText' + i).textContent = i18next.t(`buildings.names.${names[i - 1]}`, {
+                amount: format(player[ascendBuildingI]['owned'], 0, true),
+                gain: format(player[ascendBuildingI]['generated'], 2)
+            })
+
+            DOMCacheGetOrSet('ascendText' + (5 + i)).textContent = i18next.t(`buildings.per.${perSecNames[i - 1]}`, {
+                amount: format(((G['ascendBuildingProduction'] as { [key: string]: Decimal })[G['ordinals'][i - 1]]), 2)
+            })
+
+            DOMCacheGetOrSet('buyTesseracts' + i).textContent = i18next.t('buildings.costTesseracts', {
+                tesseracts: format(player[ascendBuildingI]['cost'], 0)
+            })
         }
 
-        DOMCacheGetOrSet('tesseractInfo').textContent = 'You have ' + format(player.wowTesseracts) + ' Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension.'
-        DOMCacheGetOrSet('ascendShardInfo').textContent = 'You have a mathematical constant of ' + format(player.ascendShards, 2) + '. Taxes are divided by ' + format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + (G['platonicBonusMultiplier'][5] - 1)), 4, true) + '.'
+        DOMCacheGetOrSet('tesseractInfo').textContent = i18next.t('buildings.tesseractsYouHave', {
+            tesseracts: format(player.wowTesseracts)
+        })
+
+        DOMCacheGetOrSet('ascendShardInfo').textContent = i18next.t('buildings.constantYouHave', {
+            const: format(player.ascendShards, 2),
+            amount: format(Math.pow(Decimal.log(player.ascendShards.add(1), 10) + 1, 1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5] + 0.2 * player.platonicUpgrades[10] + (G['platonicBonusMultiplier'][5] - 1)), 4, true)
+        })
 
         if (player.resettoggle4 === 1 || player.resettoggle4 === 0) {
-            DOMCacheGetOrSet('autotessbuyeramount').textContent = 'Auto buyer will save at least ' + format(player.tesseractAutoBuyerAmount) + ' tesseracts. [Enter number above].'
-        }
-        if (player.resettoggle4 === 2) {
-            DOMCacheGetOrSet('autotessbuyeramount').textContent = 'On Ascension, Auto buyer will save at least ' + format(Math.min(100, player.tesseractAutoBuyerAmount)) + '% of your current amount of tesseracts. [Enter number above].'
+            DOMCacheGetOrSet('autotessbuyeramount').textContent = i18next.t('buildings.autoTesseract', {
+                tesseracts: format(player.tesseractAutoBuyerAmount)
+            })
+        } else if (player.resettoggle4 === 2) {
+            DOMCacheGetOrSet('autotessbuyeramount').textContent = i18next.t('buildings.autoAscensionTesseract', {
+                percent: format(Math.min(100, player.tesseractAutoBuyerAmount))
+            })
         }
     }
 }
