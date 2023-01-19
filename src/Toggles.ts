@@ -402,12 +402,12 @@ export const toggleautoreset = (i: number) => {
 export const toggleautobuytesseract = () => {
     if (player.tesseractAutoBuyerToggle === 1 || player.tesseractAutoBuyerToggle === 0) {
         player.tesseractAutoBuyerToggle = 2;
-        DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: OFF'
+        DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOff')
         DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
 
     } else {
         player.tesseractAutoBuyerToggle = 1;
-        DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: ON'
+        DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOn')
         DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid green'
     }
 }
@@ -521,11 +521,11 @@ export const toggleAutoSacrifice = (index: number) => {
 export const toggleAutoBuyFragment = () => {
     const el = DOMCacheGetOrSet('toggleautoBuyFragments')
     if (player.autoBuyFragment) {
-        el.textContent = 'Auto Buy: OFF'
+        el.textContent = i18next.t('runes.talismans.autoBuyOff')
         el.style.border = '2px solid orange'
         el.style.color = 'white'
     } else {
-        el.textContent = 'Auto Buy: ON'
+        el.textContent = i18next.t('runes.talismans.autoBuyOn')
         el.style.border = '2px solid white'
         el.style.color = 'orange'
     }
@@ -1033,7 +1033,9 @@ export const updateRuneBlessingBuyAmount = (i: number) => {
         case 1: {
             const t = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value)) || 1;
             player.runeBlessingBuyAmount = Math.max(t, 1);
-            DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount);
+            DOMCacheGetOrSet('buyRuneBlessingToggle').innerHTML = i18next.t('runes.blessings.buyUpTo', {
+                amount: format(player.runeBlessingBuyAmount)
+            })
             return;
         }
         case 2: {

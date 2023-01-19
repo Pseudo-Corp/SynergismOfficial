@@ -2164,6 +2164,45 @@
             "5": "S. Intellect Rune Bonus: Obtainium gain x{{gain}}. Ant Speed: x{{speed}}. Base Offerings: +{{offerings}}",
             "6": "IA Rune Bonus: Quark Gain +{{percent1}}%, Ascensions give +{{percent2}}% more of all cube types.",
             "7": "You cannot grasp the true form of Ant God's treasure."
+        },
+        "talismans": {
+            "fortify": "FORTIFY",
+            "enhance": "ENHANCE",
+            "respec": "RESPEC",
+            "respecAll": "RESPEC ALL",
+            "buy": "BUY",
+            "buyAll": "BUY ALL",
+            "autoBuyOn": "Auto Buy: ON",
+            "autoBuyOff": "Auto Buy: OFF",
+            "clickBuyEveryType": "Click to buy every type of Talisman Shards and Fragments, if affordable",
+            "costToBuy": "Cost to buy {{name}} ({{buyAmount}}): {{obtainium}} Obtainium and {{offerings}} Offerings."
+        },
+        "blessings": {
+            "buyUpTo": "Buy up to <<var(--orchid-text-color);|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]",
+            "autoRuneOn": "Auto Rune: ON",
+            "autoRuneOff": "Auto Rune: OFF",
+            "allIncreaseLevel": "ALL Increase Level",
+            "blessingLevel": "<<orchid|Blessing level>>: {{amount}}",
+            "blessingPower": "Blessing Power: <<turquoise|{{value}}>> =-=-= Effect: <<gold|{{speed}}>>x {{reward}}!",
+            "rewards": {
+                "0": "Global Speed",
+                "1": "Multiplier Boosts",
+                "2": "Ant Sacrifice Rewards",
+                "3": "Delay for A.Boost Cost",
+                "4": "Obtainium --> Ant Mult."
+            },
+            "increaseLevel": "Increase Level By <<orchid|{{amount}}>> [Cost: <<orchid|{{offerings}}>> Offerings]"
+        },
+        "spirits": {
+            "spiritLevel": "Spirit level: <<orchid|{{amount}}>>",
+            "spiritPower": "Spirit Power: <<turquoise|{{value}}>> =-=-= Effect: <<gold|{{speed}}>>{{reward}}!",
+            "rewards": {
+                "0": "x Global Speed",
+                "1": "x Wow! Cubes by Ascension",
+                "2": "x Additional levels to Crystal caps",
+                "3": "x Obtainium",
+                "4": "% stronger Research 4x9 effect"
+            }
         }
     }
 }

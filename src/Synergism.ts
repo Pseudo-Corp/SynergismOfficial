@@ -1637,7 +1637,11 @@ const loadSynergy = async () => {
             (DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value = ('' + (player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount)).replace(omit, 'e');
             updateRuneBlessingBuyAmount(1);
         }
-        DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount);
+
+        DOMCacheGetOrSet('buyRuneBlessingToggle').innerHTML = i18next.t('runes.blessings.buyUpTo', {
+            amount: format(player.runeBlessingBuyAmount)
+        })
+
         inputd = player.runeSpiritBuyAmount;
         inpute = Number((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value);
         if (inpute !== inputd || isNaN(inpute + inputd)) {
@@ -1673,11 +1677,11 @@ const loadSynergy = async () => {
         }
 
         if (player.tesseractAutoBuyerToggle === 1) {
-            DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: ON'
+            DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOn')
             DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid green'
         }
         if (player.tesseractAutoBuyerToggle === 2) {
-            DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: OFF'
+            DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOff')
             DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
         }
 
@@ -1729,18 +1733,18 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleautoresearchmode').textContent = 'Automatic mode: Manual'
         }
         if (player.autoSacrificeToggle) {
-            DOMCacheGetOrSet('toggleautosacrifice').textContent = 'Auto Rune: ON'
+            DOMCacheGetOrSet('toggleautosacrifice').textContent = i18next.t('runes.blessings.autoRuneOn')
             DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid green'
         } else {
-            DOMCacheGetOrSet('toggleautosacrifice').textContent = 'Auto Rune: OFF'
+            DOMCacheGetOrSet('toggleautosacrifice').textContent = i18next.t('runes.blessings.autoRuneOff')
             DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid red'
         }
         if (player.autoBuyFragment) {
-            DOMCacheGetOrSet('toggleautoBuyFragments').textContent = 'Auto Buy: ON'
+            DOMCacheGetOrSet('toggleautoBuyFragments').textContent = i18next.t('runes.talismans.autoBuyOn')
             DOMCacheGetOrSet('toggleautoBuyFragments').style.border = '2px solid white'
             DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'orange'
         } else {
-            DOMCacheGetOrSet('toggleautoBuyFragments').textContent = 'Auto Buy: OFF'
+            DOMCacheGetOrSet('toggleautoBuyFragments').textContent = i18next.t('runes.talismans.autoBuyOff')
             DOMCacheGetOrSet('toggleautoBuyFragments').style.border = '2px solid orange'
             DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'white'
         }
