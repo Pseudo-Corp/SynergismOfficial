@@ -823,10 +823,10 @@ export const player: Player = {
     insideSingularityChallenge: false,
 
     singularityChallenges: {
-        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades']),
-        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap']),
-        noOcteracts: new SingularityChallenge(singularityChallengeData['noOcteracts']),
-        limitedAscensions: new SingularityChallenge(singularityChallengeData['limitedAscensions'])
+        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades'], 'noSingularityUpgrades'),
+        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap'], 'oneChallengeCap'),
+        noOcteracts: new SingularityChallenge(singularityChallengeData['noOcteracts'], 'noOcteracts'),
+        limitedAscensions: new SingularityChallenge(singularityChallengeData['limitedAscensions'], 'limitedAscensions')
     }
 }
 
@@ -870,6 +870,15 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
                     goldenQuarksInvested: value.octeractsInvested,
                     toggleBuy: value.toggleBuy,
                     freeLevels: value.freeLevels
+                }]
+            })
+        ),
+        singularityChallenges: Object.fromEntries(
+            Object.entries(player.singularityChallenges).map(([key, value]) => {
+                return [key, {
+                    completions: value.completions,
+                    highestSingularityCompleted: value.highestSingularityCompleted,
+                    enabled: value.enabled
                 }]
             })
         )

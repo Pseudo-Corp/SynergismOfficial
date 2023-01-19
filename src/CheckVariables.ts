@@ -359,10 +359,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
 
     player.singularityChallenges = {
-        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades']),
-        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap']),
-        noOcteracts: new SingularityChallenge(singularityChallengeData['noOcteracts']),
-        limitedAscensions: new SingularityChallenge(singularityChallengeData['limitedAscensions'])
+        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades'], 'noSingularityUpgrades'),
+        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap'], 'oneChallengeCap'),
+        noOcteracts: new SingularityChallenge(singularityChallengeData['noOcteracts'], 'noOcteracts'),
+        limitedAscensions: new SingularityChallenge(singularityChallengeData['limitedAscensions'], 'limitedAscensions')
     }
 
     if (data.loadedOct4Hotfix === undefined || player.loadedOct4Hotfix === false) {
@@ -757,23 +757,19 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                     }
                 }
 
+                const { completions, highestSingularityCompleted, enabled } = data.singularityChallenges[k]
                 updatedData = {
-                    name: singularityChallengeData[k].name,
-                    descripton: singularityChallengeData[k].descripton,
-                    rewardDescription: singularityChallengeData[k].rewardDescription,
                     baseReq: singularityChallengeData[k].baseReq,
-                    completions: data.singularityChallenges[k].completions,
+                    completions,
                     maxCompletions: singularityChallengeData[k].maxCompletions,
                     unlockSingularity: singularityChallengeData[k].unlockSingularity,
                     HTMLTag: singularityChallengeData[k].HTMLTag,
-                    highestSingularityCompleted: data.singularityChallenges[k].highestSingularityCompleted,
-                    enabled: data.singularityChallenges[k].enabled,
+                    highestSingularityCompleted,
+                    enabled,
                     singularityRequirement: singularityChallengeData[k].singularityRequirement,
                     effect: singularityChallengeData[k].effect
                 }
-                player.singularityChallenges[k] = new SingularityChallenge(updatedData);
-            } else {
-                player.singularityChallenges[k].name = `[NEW!] ${player.singularityChallenges[k].name}`
+                player.singularityChallenges[k] = new SingularityChallenge(updatedData, k.toString());
             }
         }
     }

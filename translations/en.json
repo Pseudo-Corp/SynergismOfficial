@@ -1695,6 +1695,49 @@
           }
         }
     },
+    "singularityChallenge": {
+        "enterChallenge":{
+          "lowSingularity": "Derpsmith prohibits you from entering this challenge. Go do some more Singing first.",
+          "confirmation": "You are about to enter {{name}}. Your Singularity Timer will not reset but you will be taken back to the beginning of a Singularity. Do you proceed?",
+          "decline": "Derpsmith nods his head. Come back when you are ready...",
+          "acceptSuccess": "You are attempting {{name}} #{{tier}}! You were sent to Singularity {{singReq}}. Buy Antiquities to complete the challenge!",
+          "acceptFailure": "Derpsmith declares you are already in a singularity challenge and prohibits you from destroying the fabric of your Reality."
+        },
+        "exitChallenge": {
+          "incompleteWarning": "WARNING: You will not get a completion as you have not yet purchased Antiquities.",
+          "confirmation": "Are you sure you want to quit {{name}} Tier {{tier}} \n{{warning}}`",
+          "decline": "Derpsmith tries to hug you, but he has no arms.",
+          "acceptSuccess": "You have completed the {{tier}} tier of {{name}}! The corresponding challenge rewards have been updated.",
+          "acceptFailure": "You have been transported back to your highest reached Singularity. Try again soon! -Derpsmith"
+        },
+        "toString": {
+            "canEnter": "Can be entered at highest Singularity {{unlockSing}} [Your highest: {{highestSing}}]",
+            "tiersCompleted": "Tiers completed",
+            "currentTierSingularity": "The current tier of this challenge takes place in Singularity"
+        },
+        "data": {
+            "noSingularityUpgrades": {
+              "name":"No Singularity Upgrades",
+              "description":"Simply put, you have to beat the target singularity without (most) Singularity Upgrades. Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
+              "rewardDescription":"Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks. 20th awards something `special` ;)"
+            },
+            "oneChallengeCap": {
+              "name":"One Challenge Caps",
+              "description":"Beat the target Singularity, but the first 14 Challenges have cap of only 1!",
+              "rewardDescription":"Each completion increases Corruption Multiplier Values by 0.03, no matter what. First Completion gives +3 to Reincarnation Challenge Cap. 20th completion grants +1 free Corruption level!"
+            },
+            "noOcteracts": {
+              "name":"No Octeract Effects",
+              "description":"Beat the target Singularity, but octeracts and their upgrades do nothing! Effective Singularity is also much higher based on tier.",
+              "rewardDescription":"Each completion increases Octeract to Cube Bonus power by 0.02 (BASE: 2.00). First completion adds a bonus to Offerings based on Octeracts. Final completion adds a bonus to Obtainium based on Octeracts."
+            },
+            "limitedAscensions": {
+              "name":"Twenty Ascensions Challenge",
+              "description":"Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs! Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
+              "rewardDescription":"Each completion grants 0.1% Ascension Speed per completion per digit in your Ascension count! First completion doubles the cap of all hepteract. Final completion adds another calculator in the shop!"
+            }
+        }
+      },
     "general": {
         "youAreInThe": "You are in the",
         "validation": {
