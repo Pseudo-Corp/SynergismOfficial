@@ -301,7 +301,9 @@ export const visualUpdateRunes = () => {
             'rune5Talisman'
         ] as const;
 
-        DOMCacheGetOrSet('offeringCount').textContent = `You have ${format(player.runeshards, 0, true)} Offerings.`
+        DOMCacheGetOrSet('offeringCount').textContent = i18next.t('runes.offeringsYouHave', {
+            offerings: format(player.runeshards, 0, true)
+        })
 
         for (let i = 1; i <= 7; i++) { //First one updates level, second one updates TNL, third updates orange bonus levels
             let place = G[talismans[i-1]];
@@ -310,7 +312,11 @@ export const visualUpdateRunes = () => {
             }
             const runeLevel = player.runelevels[i - 1]
             const maxLevel = calculateMaxRunes(i)
-            DOMCacheGetOrSet(`rune${i}level`).childNodes[0].textContent = 'Level: ' + format(runeLevel) + '/' + format(maxLevel)
+            DOMCacheGetOrSet(`rune${i}level`).childNodes[0].textContent = i18next.t('cubes.cubeMetadata.level', {
+                value1: format(runeLevel),
+                value2: format(maxLevel)
+            })
+
             if (runeLevel < maxLevel) {
                 DOMCacheGetOrSet(`rune${i}exp`).textContent = `+1 in ${format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2)} EXP`
             } else {
@@ -339,8 +345,15 @@ export const visualUpdateRunes = () => {
             // Particle Upgrade 1x1
             2 * player.upgrades[61]
         ]);
-        DOMCacheGetOrSet('offeringExperienceValue').textContent = `Gain ${format(allRuneExpAdditiveMultiplier, 2, true)}x EXP per offering sacrificed.`
-        DOMCacheGetOrSet('offeringRecycleInfo').textContent = `You have ${format((1 - 1 / calculateRecycle) * 100, 2, true)}% chance of recycling your offerings. This multiplies EXP gain by ${format(calculateRecycle, 2, true)}!`
+
+        DOMCacheGetOrSet('offeringExperienceValue').textContent = i18next.t('runes.gainExp', {
+            amount: format(allRuneExpAdditiveMultiplier, 2, true)
+        })
+
+        DOMCacheGetOrSet('offeringRecycleInfo').textContent = i18next.t('runes.recycleChance', {
+            percent: format((1 - 1 / calculateRecycle) * 100, 2, true),
+            mult: format(calculateRecycle, 2, true)
+        })
     }
 
     if (G['runescreen'] === 'talismans') {

@@ -11,6 +11,7 @@ import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { updateSingularityPenalties, updateSingularityPerks } from './singularity';
 import { revealCorruptions } from './Corruptions';
+import i18next from 'i18next';
 
 export const revealStuff = () => {
     const example = document.getElementsByClassName('coinunlock1') as HTMLCollectionOf<HTMLElement>;
@@ -573,12 +574,13 @@ export const hideStuff = () => {
         DOMCacheGetOrSet('achievementstab').style.backgroundColor = 'white'
         DOMCacheGetOrSet('achievementstab').style.color = 'black'
         DOMCacheGetOrSet('achievementprogress').textContent = 'Achievement Points: ' + format(player.achievementPoints, 0, true) + '/' + format(totalachievementpoints, 0, true) + ' [' + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + '%]'
-    }
-    if (G['currentTab'] === 'runes') {
+    } else if (G['currentTab'] === 'runes') {
         DOMCacheGetOrSet('runes').style.display = 'block'
         DOMCacheGetOrSet('runestab').style.backgroundColor = 'blue'
-        DOMCacheGetOrSet('runeshowlevelup').textContent = 'Hey, hover over a rune icon to get details on what each one does and what benefits they\'re giving you!'
-        DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + format(100 * G['effectiveLevelMult'] - 100, 4, true) + '%'
+        DOMCacheGetOrSet('runeshowlevelup').textContent = i18next.t('runes.hover')
+        DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t('runes.thanksResearches', {
+            percent: format(100 * G['effectiveLevelMult'] - 100, 4, true)
+        })
         displayRuneInformation(1, false)
         displayRuneInformation(2, false)
         displayRuneInformation(3, false)

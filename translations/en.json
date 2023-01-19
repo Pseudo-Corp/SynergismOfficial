@@ -2078,5 +2078,30 @@
         },
         "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> researches first. The <<var(--crimson-text-color);|red-bordered>> researches are never reset whereas the <<white;|white-bordered>> researches will reset upon the next reset tier!",
         "shop": "Hover over each portion of the shop to see what each upgrade does!"
+    },
+    "runes": {
+        "offeringsYouHave": "You have {{offerings}} Offerings.",
+        "gainExp": "Gain {{amount}}x EXP per offering sacrificed.",
+        "recycleChance": "You have {{percent}}% chance of recycling your offerings. This multiplies EXP gain by {{mult}}!",
+        "hover": "Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!",
+        "thanksResearches": "Thanks to researches, your effective levels are increased by {{percent}}%",
+        "levelup": {
+            "1": "+(Level/4)^1.25 Accelerator, +0.25% Accelerators per level. +1 Accelerator Boost every 20 levels!",
+            "2": "+(Level/10) Multipliers every 10th level, +0.25% Multipliers per level. Tax growth is delayed more for each level!",
+            "3": "~(1 + (Level/2)^2 * 2^(Level/2) / 256)x Crystal Production. +1 free level for each Crystal upgrade per 16 levels!",
+            "4": "+0.125% building cost growth delay per level, +0.0625% Offering recycle chance per level [MAX: 25%], 2^((1000 - Level)/1100) Tax growth multiplier AFTER level 400",
+            "5": "~(1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed, +0.005 base Offerings for each tier per level",
+            "6": "+0.2% Quarks, +1% all Cube types per level! Start with +10% Quarks.",
+            "7": "I wonder what happens if you feed it {{exp}} Rune EXP."
+        },
+        "power": {
+            "1": "Speed Rune Bonus: +{{bonus}} Accelerators, +{{percent}}% Accelerators, +{{boost}} Accelerator Boosts.",
+            "2": "Duplication Rune Bonus: +{{mult1}} Multipliers, +{{mult2}}% Multipliers, -{{tax}}% Tax Growth.",
+            "3": "Prism Rune Bonus: All Crystal Producer production multiplied by {{mult}}, gain +{{gain}}' free crystal levels.",
+            "4": "Thrift Rune Bonus: Delay all producer cost increases by {{delay}}%. Offering recycle chance: +{{chance}}%. -{{tax}}% Tax Growth",
+            "5": "S. Intellect Rune Bonus: Obtainium gain x{{gain}}. Ant Speed: x{{speed}}. Base Offerings: +{{offerings}}",
+            "6": "IA Rune Bonus: Quark Gain +{{percent1}}%, Ascensions give +{{percent2}}% more of all cube types.",
+            "7": "You cannot grasp the true form of Ant God's treasure."
+        }
     }
 }
