@@ -265,8 +265,9 @@ const crystalupgeffect: Record<number, () => string> = {
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 const returnCrystalUpgDesc = (i: number) => i18next.t(`upgrades.crystalUpgrades.${i}`, crystalupgdesc[i]?.())
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-const returnCrystalUpgEffect = (i: number) => crystalupgeffect[i]?.()
+const returnCrystalUpgEffect = (i: number) => i18next.t('buildings.crystalUpgrades.currentEffect', {
+    effect: i in crystalupgeffect ? crystalupgeffect[i]() : ''
+})
 
 export const crystalupgradedescriptions = (i: number) => {
     const p = player.crystalUpgrades[i - 1];
@@ -276,9 +277,11 @@ export const crystalupgradedescriptions = (i: number) => {
 
     const q = Decimal.pow(10, (G['crystalUpgradesCost'][i - 1] + G['crystalUpgradeCostIncrement'][i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)));
     DOMCacheGetOrSet('crystalupgradedescription').textContent = returnCrystalUpgDesc(i);
-    DOMCacheGetOrSet('crystalupgradeslevel').textContent = '' + format(p, 0, true);
-    DOMCacheGetOrSet('crystalupgradescost').textContent = format(q) + '';
-    DOMCacheGetOrSet('crystalupgradeseffect').textContent = returnCrystalUpgEffect(i);
+    DOMCacheGetOrSet('crystalupgradeslevel1').innerHTML = i18next.t('buildings.crystalUpgrades.currentLevel', {
+        amount: format(p, 0, true)
+    })
+    DOMCacheGetOrSet('crystalupgradescost1').innerHTML = i18next.t('buildings.crystalUpgrades.cost', { amount: format(q) })
+    DOMCacheGetOrSet('crystalupgradeseffect1').innerHTML = returnCrystalUpgEffect(i);
 }
 
 
