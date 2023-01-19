@@ -104,9 +104,7 @@ export const visualUpdateBuildings = () => {
             div: format(G['taxdivisor'], 2),
             warning
         })
-    }
-
-    if (G['buildingSubTab'] === 'diamond') {
+    } else if (G['buildingSubTab'] === 'diamond') {
         // For the display of Diamond Buildings
         const upper = ['produceFirstDiamonds', 'produceSecondDiamonds', 'produceThirdDiamonds', 'produceFourthDiamonds', 'produceFifthDiamonds'] as const;
         const names = ['refineries', 'coalPlants', 'coalRigs', 'pickaxes', 'pandorasBoxes']
@@ -138,6 +136,7 @@ export const visualUpdateBuildings = () => {
         if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
             const p = Decimal.pow(10, Decimal.log(G['prestigePointGain'].add(1), 10) - Decimal.log(player.prestigePoints.sub(1), 10))
             DOMCacheGetOrSet('autoprestige').textContent = i18next.t('buildings.autoPrestige', {
+                name: 'Diamonds',
                 factor: format(Decimal.pow(10, player.prestigeamount)),
                 mult: format(p)
             })
@@ -145,27 +144,41 @@ export const visualUpdateBuildings = () => {
         if (player.resettoggle1 === 2) {
             DOMCacheGetOrSet('autoprestige').textContent = 'Prestige when the autotimer is at least ' + (player.prestigeamount) + ' real-life seconds. [Toggle number above]. Current timer: ' + format(G['autoResetTimers'].prestige, 1) + 's.'
         }
-    }
-
-    if (G['buildingSubTab'] === 'mythos') {
+    } else if (G['buildingSubTab'] === 'mythos') {
         // For the display of Mythos Buildings
         const upper = ['produceFirstMythos', 'produceSecondMythos', 'produceThirdMythos', 'produceFourthMythos', 'produceFifthMythos'] as const;
-        const names = [null, 'Augments', 'Enchantments', 'Wizards', 'Oracles', 'Grandmasters']
-        const perSecNames = [null, 'Shards/sec', 'Augments/sec', 'Enchantments/sec', 'Wizards/sec', 'Oracles/sec']
+        const names = ['augments', 'enchantments', 'wizards', 'oracles', 'grandmasters']
+        const perSecNames = ['shards', 'augments', 'enchantments', 'wizards', 'oracles']
 
-        DOMCacheGetOrSet('transcendshardinfo').textContent = 'You have ' + format(player.transcendShards, 2) + ' Mythos Shards, providing ' + format(G['totalMultiplierBoost'], 0, true) + ' Multiplier Power boosts.'
+        DOMCacheGetOrSet('transcendshardinfo').textContent = i18next.t('buildings.mythosYouHave', {
+            shards: format(player.transcendShards, 2),
+            mult: format(G['totalMultiplierBoost'], 0, true)
+        })
 
         for (let i = 1; i <= 5; i++) {
             const place = G[upper[i-1]];
             const ith = G['ordinals'][i - 1 as ZeroToFour];
 
-            DOMCacheGetOrSet('transcendtext' + (2 * i - 1)).textContent = names[i] + ': ' + format(player[`${ith}OwnedMythos` as const], 0, true) + ' [+' + format(player[`${ith}GeneratedMythos` as const], 2) + ']'
-            DOMCacheGetOrSet('transcendtext' + (2 * i)).textContent = perSecNames[i] + ': ' + format((place).times(40), 2)
-            DOMCacheGetOrSet('buymythos' + i).textContent = 'Cost: ' + format(player[`${ith}CostMythos` as const], 2) + ' Mythos'
+            DOMCacheGetOrSet('transcendtext' + (2 * i - 1)).textContent = i18next.t(`buildings.names.${names[i - 1]}`, {
+                amount: format(player[`${ith}OwnedMythos` as const], 0, true),
+                gain: format(player[`${ith}GeneratedMythos` as const], 2)
+            })
+
+            DOMCacheGetOrSet('transcendtext' + (2 * i)).textContent = i18next.t(`buildings.per.${perSecNames[i - 1]}`, {
+                amount: format((place).times(40), 2)
+            })
+
+            DOMCacheGetOrSet(`buymythos${i}`).textContent = i18next.t('buildings.costMythos', {
+                mythos: format(player[`${ith}CostMythos` as const], 2)
+            })
         }
 
         if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
-            DOMCacheGetOrSet('autotranscend').textContent = 'Prestige when your Mythos can increase by a factor ' + format(Decimal.pow(10, player.transcendamount)) + ' [Toggle number above]. Current Multiplier: ' + format(Decimal.pow(10, Decimal.log(G['transcendPointGain'].add(1), 10) - Decimal.log(player.transcendPoints.add(1), 10)), 2) + '.'
+            DOMCacheGetOrSet('autotranscend').textContent = i18next.t('buildings.autoPrestige', {
+                name: 'Mythos',
+                factor: format(Decimal.pow(10, player.transcendamount)),
+                mult: format(Decimal.pow(10, Decimal.log(G['transcendPointGain'].add(1), 10) - Decimal.log(player.transcendPoints.add(1), 10)), 2)
+            })
         }
         if (player.resettoggle2 === 2) {
             DOMCacheGetOrSet('autotranscend').textContent = 'Transcend when the autotimer is at least ' + (player.transcendamount) + ' real-life seconds. [Toggle number above]. Current timer: ' + format(G['autoResetTimers'].transcension, 1) + 's.'

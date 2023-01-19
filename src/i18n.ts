@@ -12,17 +12,29 @@ const supported: Record<string, { name: string, flag: string }> = {
     zh: { name: 'Chinese', flag: '🇨🇳'}
 };
 
+const languageCache = new Map<string, { translation: Resource }>()
+
 export const init = async (): Promise<void> => {
     const resources: Record<string, Resource> = {}
+    const language = localStorage.getItem('language') ?? 'en'
 
-    for (const lang in supported) {
-        const response = await fetch(`./translations/${lang}.json`)
-        resources[lang] = {
-            translation: await response.json() as Resource
-        }
+    const response = await fetch(`./translations/${language}.json`)
+    const file = await response.json() as Resource
+
+    languageCache.set(language, { translation: file })
+    resources[language] = { translation: file }
+
+    if (language !== 'en') {
+        // We always need to load English, to use as a fallback
+        const response = await fetch('./translations/en.json')
+        const file = await response.json() as Resource
+
+        languageCache.set('en', { translation: file })
+        resources.en = { translation: file }
     }
 
     await i18next.use(ColorTextPlugin).init({
+        lng: language,
         fallbackLng: 'en',
         debug: !prod,
         resources,
@@ -37,10 +49,20 @@ function buildLanguageButton(langID: string, name: string, flag: string) {
     const mainButton = document.createElement('button');
     mainButton.id = `language_${langID}`;
     mainButton.className = 'language-select';
-    mainButton.addEventListener('click', () => {
-        void i18next.changeLanguage(langID).then(
-            () => afterLanguageChange()
-        );
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    mainButton.addEventListener('click', async () => {
+        if (!languageCache.has(langID)) {
+            const response = await fetch(`./translations/${langID}.json`)
+            const file = await response.json() as Resource
+
+            languageCache.set(langID, { translation: file })
+            i18next.addResourceBundle(langID, 'translation', file)
+        }
+
+        // i18next.addResourceBundle
+        await i18next.changeLanguage(langID)
+        localStorage.setItem('language', langID)
+        afterLanguageChange()
     });
 
     const flagSpan = document.createElement('span');

@@ -756,9 +756,12 @@
     "acceleratorPower": "Acceleration Power: {{power}}% || Acceleration Multiplier: {{mult}}x",
     "multiplierPower": "Multiplier Power: {{power}}x || Multiplier: {{mult}}x",
     "acceleratorBoost": "Reset Diamonds and Prestige Upgrades, but add {{amount}}% Acceleration Power and 5 free Accelerators.",
+    "mythosYouHave": "You have {{shards}} Mythos Shards, providing {{mult}} Multiplier Power boosts.",
+    "eachMultiplierBoost": "Each Multiplier Boost increases the base effect of Multipliers by 0.005!",
     "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
     "costCoins": "Cost: {{coins}} coins.",
     "costDiamonds": "Cost: {{diamonds}} Diamonds.",
+    "costMythos": "Cost: {{mythos}} Mythos.",
     "crystalMult": "You have {{crystals}} Crystals, multiplying Coin production by {{gain}}.",
     "hoverCrystalUpgrade": "Hover over a crystal upgrade to get information!",
     "autoPrestige": "Prestige when your Diamonds can increase by a factor {{factor}} [Toggle number above]. Current Multiplier: {{mult}}.",
@@ -775,14 +778,24 @@
       "coalPlants": "Coal Plants: {{amount}} [+{{gain}}]",
       "coalRigs": "Coal Rigs: {{amount}} [+{{gain}}]",
       "pickaxes": "Pickaxes: {{amount}} [+{{gain}}]",
-      "pandorasBoxes": "Pandoras Boxes: {{amount}} [+{{gain}}]"
+      "pandorasBoxes": "Pandoras Boxes: {{amount}} [+{{gain}}]",
+      "augments": "Augments: {{amount}} [+{{gain}}]",
+      "enchantments": "Enchantments: {{amount}} [+{{gain}}]",
+      "wizards": "Wizards: {{amount}} [+{{gain}}]",
+      "oracles": "Oracles: {{amount}} [+{{gain}}]",
+      "grandmasters": "Grandmasters: {{amount}} [+{{gain}}]"
     },
     "per": {
       "crystal": "Crystal/sec: {{amount}}",
       "ref": "Ref./sec: {{amount}}",
       "plants": "Plants/sec: {{amount}}",
       "rigs": "Rigs/sec: {{amount}}",
-      "pickaxes": "Pickaxes/sec: {{amount}}"
+      "pickaxes": "Pickaxes/sec: {{amount}}",
+      "shards": "Shards/sec: {{amount}}",
+      "augments": "Augments/sec: {{amount}}",
+      "enchantments": "Enchantments: {{amount}}",
+      "wizards": "Wizards: {{amount}}",
+      "oracles": "Oracles/sec: {{amount}}"
     },
     "crystalUpgrades": {
       "currentLevel": "Current Level: <<lightblue|{{amount}}>>",
