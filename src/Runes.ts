@@ -5,56 +5,58 @@ import { Globals as G } from './Variables';
 import Decimal from 'break_infinity.js';
 import type { resetNames } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import i18next, { type StringMap } from 'i18next';
 
 export const displayRuneInformation = (i: number, updatelevelup = true) => {
     const m = G['effectiveLevelMult']
     const SILevelMult = (1 + player.researches[84] / 200 * (1 + 1 * G['effectiveRuneSpiritPower'][5] * calculateCorruptionPoints()/400))
     const amountPerOffering = calculateRuneExpGiven(i - 1, false, player.runelevels[i - 1]);
 
+    let options: StringMap
 
     if (i === 1) {
-        if (updatelevelup) {
-            DOMCacheGetOrSet('runeshowlevelup').textContent = '+(Level/4)^1.25 Accelerator, +0.25% Accelerators per level. +1 Accelerator Boost every 20 levels!'
+        options = {
+            bonus: format(Math.floor(Math.pow(G['rune1level'] * m / 4, 1.25))),
+            percent: format((G['rune1level'] / 4 * m), 2, true),
+            boost: format(Math.floor(G['rune1level'] / 20 * m))
         }
-        DOMCacheGetOrSet('runeshowpower1').textContent = 'Speed Rune Bonus: ' + '+' + format(Math.floor(Math.pow(G['rune1level'] * m / 4, 1.25))) + ' Accelerators, +' + format((G['rune1level'] / 4 * m), 2, true) + '% Accelerators, +' + format(Math.floor(G['rune1level'] / 20 * m)) + ' Accelerator Boosts.'
-    }
-    if (i === 2) {
-        if (updatelevelup) {
-            DOMCacheGetOrSet('runeshowlevelup').textContent = '+(Level/10) Multipliers every 10th level, +0.25% Multipliers per level. Tax growth is delayed more for each level!'
+    } else if (i === 2) {
+        options = {
+            mult1: format(Math.floor(G['rune2level'] * m / 10) * Math.floor(1 + G['rune2level'] * m / 10) / 2),
+            mult2: format(m * G['rune2level'] / 4, 1, true),
+            tax: (99.9 * (1 - Math.pow(6, -(G['rune2level'] * m) / 1000))).toPrecision(4)
         }
-        DOMCacheGetOrSet('runeshowpower2').textContent = 'Duplication Rune Bonus: ' + '+' + format(Math.floor(G['rune2level'] * m / 10) * Math.floor(1 + G['rune2level'] * m / 10) / 2) + ' Multipliers, +' + format(m * G['rune2level'] / 4, 1, true) + '% Multipliers, -' + (99.9 * (1 - Math.pow(6, -(G['rune2level'] * m) / 1000))).toPrecision(4) + '% Tax Growth.'
-    }
-    if (i === 3) {
-        if (updatelevelup) {
-            DOMCacheGetOrSet('runeshowlevelup').textContent = '~(1 + (Level/2)^2 * 2^(Level/2) / 256)x Crystal Production. +1 free level for each Crystal upgrade per 16 levels!'
+    } else if (i === 3) {
+        options = {
+            mult: format(Decimal.pow(G['rune3level'] * m / 2, 2).times(Decimal.pow(2, G['rune3level'] * m / 2 - 8)).add(1), 3),
+            gain: format(Math.floor(G['rune3level'] / 16 * m))
         }
-        DOMCacheGetOrSet('runeshowpower3').textContent = 'Prism Rune Bonus: ' + 'All Crystal Producer production multiplied by ' + format(Decimal.pow(G['rune3level'] * m / 2, 2).times(Decimal.pow(2, G['rune3level'] * m / 2 - 8)).add(1), 3) + ', gain +' + format(Math.floor(G['rune3level'] / 16 * m)) + ' free crystal levels.'
-    }
-    if (i === 4) {
-        if (updatelevelup) {
-            DOMCacheGetOrSet('runeshowlevelup').textContent = '+0.125% building cost growth delay per level, +0.0625% Offering recycle chance per level [MAX: 25%], 2^((1000 - Level)/1100) Tax growth multiplier AFTER level 400'
+    } else if (i === 4) {
+        options = {
+            delay: (G['rune4level'] / 8 * m).toPrecision(3),
+            chance: Math.min(25, G['rune4level'] / 16),
+            tax: (99 * (1 - Math.pow(4, Math.min(0, (400 - G['rune4level']) / 1100)))).toPrecision(4)
         }
-        DOMCacheGetOrSet('runeshowpower4').textContent = 'Thrift Rune Bonus: ' + 'Delay all producer cost increases by ' + (G['rune4level'] / 8 * m).toPrecision(3) + '%. Offering recycle chance: +' + Math.min(25, G['rune4level'] / 16) + '%. -' + (99 * (1 - Math.pow(4, Math.min(0, (400 - G['rune4level']) / 1100)))).toPrecision(4) + '% Tax Growth'
-    }
-    if (i === 5) {
-        if (updatelevelup) {
-            DOMCacheGetOrSet('runeshowlevelup').textContent = '~(1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed, +0.005 base Offerings for each tier per level'
+    } else if (i === 5) {
+        options = {
+            gain: format((1 + G['rune5level'] / 200 * m * SILevelMult), 2, true),
+            speed: format(1 + Math.pow(G['rune5level'] * m * SILevelMult, 2) / 2500),
+            offerings: format((G['rune5level'] * m * SILevelMult * 0.005), 3, true)
         }
-        DOMCacheGetOrSet('runeshowpower5').textContent = 'S. Intellect Rune Bonus: ' + 'Obtainium gain x' + format((1 + G['rune5level'] / 200 * m * SILevelMult), 2, true) + '. Ant Speed: x' + format(1 + Math.pow(G['rune5level'] * m * SILevelMult, 2) / 2500) + '. Base Offerings: +' + format((G['rune5level'] * m * SILevelMult * 0.005), 3, true)
-    }
-    if (i === 6) {
-        if (updatelevelup) {
-            DOMCacheGetOrSet('runeshowlevelup').textContent = '+0.2% Quarks, +1% all Cube types per level! Start with +10% Quarks.'
+    } else if (i === 6) {
+        options = {
+            percent1: format(10 + 15/75 * calculateEffectiveIALevel(), 1, true),
+            percent2: format(1 * calculateEffectiveIALevel(), 0, true)
         }
-        DOMCacheGetOrSet('runeshowpower6').textContent = 'IA Rune Bonus: ' + ' Quark Gain +' + format(10 + 15/75 * calculateEffectiveIALevel(), 1, true) + '%, Ascensions give +' + format(1 * calculateEffectiveIALevel(), 0, true) + '% more of all cube types.'
+    } else if (i === 7 && updatelevelup) {
+        options = { exp: format(1e256 * (1 + player.singularityCount)) }
     }
 
-    if (i === 7) {
-        if (updatelevelup) {
-            DOMCacheGetOrSet('runeshowlevelup').textContent = 'I wonder what happens if you feed it ' + format(1e256 * (1 + player.singularityCount)) + ' Rune EXP.'
-        }
-        DOMCacheGetOrSet('runeshowpower7').textContent = 'You cannot grasp the true form of Ant God\'s treasure.'
+    if (updatelevelup) {
+        DOMCacheGetOrSet('runeshowlevelup').textContent = i18next.t(`runes.levelup.${i}`)
     }
+
+    DOMCacheGetOrSet(`runeshowpower${i}`).textContent = i18next.t(`runes.power.${i}`, options!)
 
     if (updatelevelup) {
         const arr = calculateOfferingsToLevelXTimes(i - 1, player.runelevels[i - 1], player.offeringbuyamount);
