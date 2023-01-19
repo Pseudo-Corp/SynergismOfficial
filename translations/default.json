@@ -1100,6 +1100,22 @@
     }
   },
   "singularity": {
+    "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
+    "penalties": {
+      "globalSpeed": "<<royalblue|Global Speed>> is divided by <<royalblue|{{divisor}}>>.",
+      "ascensionSpeed": "<<orange|Ascension Speed>> is divided by <<orange|{{divisor}}>>.",
+      "offeringGain": "<<gold|Offering Gain>> is divided by <<gold|{{divisor}}>>.",
+      "obtainiumGain": "<<steelblue|Obtainium Gain>> is divided by <<steelblue|{{divisor}}>>.",
+      "cubeGain": "<<yellow|Cube Gain>> is divided by <<yellow|{{divisor}}>>.",
+      "researchCosts": "<<var(--green-text-color)|Research Costs>> are multiplied by <<var(--green-text-color)|{{multiplier}}>>.",
+      "cubeUpgradeCosts": "<<Silver|Cube Upgrade costs>> (Excluding Cookies) are multiplied by <<Silver|{{multiplier}}>>.",
+      "platonicCosts": "<<var(--orchid-text-color)|Platonic Upgrade costs>> are multiplied by <<var(--orchid-text-color)|{{multiplier}}>>.",
+      "hepteractCosts": "<<Pink|Hepteract Forge costs>> are multiplied by <<Pink|{{multiplier}}>>.",
+      "penaltySmooth": "You will no longer experience sudden spikes in penalties.",
+      "penaltyRough": "Your penalties will sharply worsen in <<var(--red-text-color)|Singularity {{num}}>>.",
+      "antiquitiesBought": "<<var(--green-text-color)|Antiquities of Ant God is maxed! Penalties are dispelled!>>",
+      "antiquitiesNotBought": "<<var(--red-text-color)|Penalties are active because you have not leveled up Antiquities of Ant God!>>"
+    },
     "goldenQuarks": {
       "transaction": "Transaction of {{spent}} Golden Quarks successful! [-{{cost}} Quarks]",
       "poor": "Sorry, I can't give credit. Come back when you're a little... mmm... richer!",
@@ -1109,6 +1125,41 @@
       "notHighEnoughLevel": "You're not powerful enough to purchase this yet.",
       "ascensionReset": "You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...",
       "multiBuyPurchased": "Purchased {{levels}} levels, thanks to Multi Buy!"
+    },
+    "perkNames": {
+      "xyz": "XYZ: Xtra dailY rewardZ",
+      "unlimitedGrowth": "Unlimited growth",
+      "goldenCoins": "Golden coins",
+      "hepteractAutocraft": "Hepteract Autocraft",
+      "generousOrbs": "Generous Orbs",
+      "researchDummies": "Research for Dummies",
+      "superStart": "Super Start",
+      "notSoChallenging": "Not So Challenging",
+      "automationUpgrades": "Automation Upgrades",
+      "evenMoreQuarks": "Even More Quarks",
+      "shopSpecialOffer": "Shop Special Offer",
+      "potionAutogenerator": "Potion Autogenerator",
+      "respecBeGone": "Respec, be gone!",
+      "forTheLoveOfTheAntGod": "For the love of (the Ant) God!",
+      "itAllAddsUp": "It all adds up",
+      "automagicalRunes": "Automagical Runes",
+      "exaltedAchievements": "EXALT Vault",
+      "derpSmithsCornucopia": "Derpsmith's Cornucopia",
+      "coolQOLCubes": "Cool Qol Cubes",
+      "eternalAscensions": "Eternal Ascensions",
+      "antGodsCornucopia": "Ant God's Cornucopia",
+      "overclocked": "Overclocked",
+      "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
+      "goldenRevolution": "Golden Revolution",
+      "goldenRevolutionII": "Golden Revolution II",
+      "goldenRevolutionIII": "Golden Revolution III",
+      "platonicClones": "Clones of Platonic Clicking at Your Desktop",
+      "platSigma": "PL-AT Σ",
+      "midasMilleniumAgedGold": "Midas' Millenium-Aged Gold",
+      "goldenRevolution4": "Golden Revolution IV",
+      "octeractMetagenesis": "Octeract Metagenesis",
+      "immaculateAlchemy": "Immaculate Alchemy",
+      "skrauQ": "skrauQ"
     },
     "perks": {
       "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
@@ -1531,6 +1582,14 @@
     }
   },
   "octeract": {
+    "amount": "You have {{octeracts}} Octeracts!",
+    "secondsPerOcteract": "+1 per <<var(--orchid-text-color)|{{seconds}}>> seconds",
+    "octeractsPerSecond": "<<yellow|{{octeracts}} per second",
+    "totalGenerated": "Total Generated: <<var(--lightseagreen-text-color)|{{octeracts}}>> Octeracts!",
+    "generatedCubeBonus": "3-7 Dimensional Cubes <<yellow|+{{cubeBonus}}%>>",
+    "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}%>>",
+    "generatedOfferingBonus": "Offerings <<orange|+{{offeringBonus}}%>>",
+    "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}%>>",
     "buyLevel": {
       "buyPrompt": "How many Octeracts would you like to spend? You have {{n}} OCT. Type -1 to use max!",
       "cancelPurchase": "Purchase cancelled!",
@@ -1696,6 +1755,7 @@
     }
   },
   "singularityChallenge": {
+    "intro": "Do you have what it takes to earn EXALT from Ant God?",
     "enterChallenge":{
       "lowSingularity": "Derpsmith prohibits you from entering this challenge. Go do some more Singing first.",
       "confirmation": "You are about to enter {{name}}. Your Singularity Timer will not reset but you will be taken back to the beginning of a Singularity. Do you proceed?",
@@ -1760,7 +1820,9 @@
     "maxed": "(Maxed)",
     "affordable": "(Affordable)",
     "infinity": "Infinity",
-    "enabled": "[ENABLED]"
+    "enabled": "[ENABLED]",
+    "sacrificeCapital": "SACRIFICE",
+    "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!"
   },
   "upgrades": {
     "descriptions": {

@@ -673,7 +673,7 @@ export const visualUpdateSingularity = () => {
         return
     }
     if (player.subtabNumber === 0) {
-        DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks, 0, true) + ' Golden Quarks!'
+        DOMCacheGetOrSet('goldenQuarkamount').textContent = i18next.t('singularity.goldenQuarkAmount', {goldenQuarks: format(player.goldenQuarks, 0, true)})
 
         const keys = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
         const val = G['shopEnhanceVision'];
@@ -727,28 +727,28 @@ export const visualUpdateOcteracts = () => {
     if (G['currentTab'] !== 'singularity') {
         return
     }
-    DOMCacheGetOrSet('singOcts').textContent = format(player.wowOcteracts, 2, true, true, true)
+    DOMCacheGetOrSet('octeractAmount').innerHTML = i18next.t('octeract.amount', {octeracts: format(player.wowOcteracts, 2, true, true, true)})
 
     const perSecond = octeractGainPerSecond();
 
     DOMCacheGetOrSet('secondsPerOcteract').style.display = perSecond < 1 ? 'block' : 'none';
-    DOMCacheGetOrSet('sPO').textContent = format(1 / perSecond, 2, true);
+    DOMCacheGetOrSet('secondsPerOcteract').innerHTML = i18next.t('octeract.secondsPerOcteract', {seconds: format(1 / perSecond, 2, true)})
     DOMCacheGetOrSet('octeractPerSeconds').style.display = perSecond >= 1 ? 'block' : 'none';
-    DOMCacheGetOrSet('oPS').textContent = format(perSecond, 2, true);
+    DOMCacheGetOrSet('octeractPerSeconds').innerHTML = i18next.t('octeract.octeractsPerSecond', {octeracts: format(perSecond, 2, true)})
 
     const cTOCB = (calculateTotalOcteractCubeBonus() - 1) * 100;
     const cTOQB = (calculateTotalOcteractQuarkBonus() - 1) * 100;
     const cTOOB = (calculateTotalOcteractOfferingBonus() - 1) * 100;
     const cTOOOB = (calculateTotalOcteractObtainiumBonus() - 1) * 100;
-    DOMCacheGetOrSet('totalOcts').textContent = `${format(player.totalWowOcteracts, 2, true, true, true)}`
+    DOMCacheGetOrSet('totalOcteractAmount').innerHTML = i18next.t('octeract.totalGenerated', {octeracts: format(player.totalWowOcteracts, 2, true, true, true)})
     DOMCacheGetOrSet('totalOcteractCubeBonus').style.display = cTOCB >= 0.001 ? 'block' : 'none';
     DOMCacheGetOrSet('totalOcteractQuarkBonus').style.display = cTOQB >= 0.001 ? 'block' : 'none';
     DOMCacheGetOrSet('totalOcteractOfferingBonus').style.display = cTOOB >= 0.001 ? 'block' : 'none';
     DOMCacheGetOrSet('totalOcteractObtainiumBonus').style.display = cTOOOB >= 0.001 ? 'block' : 'none';
-    DOMCacheGetOrSet('octCubeBonus').textContent = `+${format(cTOCB, 3, true)}%`
-    DOMCacheGetOrSet('octQuarkBonus').textContent = `+${format(cTOQB, 3, true)}%`
-    DOMCacheGetOrSet('octOfferingBonus').textContent = `+${format(cTOOB, 3, true)}%`
-    DOMCacheGetOrSet('octObtainiumBonus').textContent = `+${format(cTOOOB, 3, true)}%`
+    DOMCacheGetOrSet('totalOcteractCubeBonus').innerHTML = i18next.t('octeract.generatedCubeBonus', {cubeBonus: format(cTOCB, 3, true)})
+    DOMCacheGetOrSet('totalOcteractQuarkBonus').innerHTML = i18next.t('octeract.generatedQuarkBonus', {quarkBonus: format(cTOQB, 3, true)})
+    DOMCacheGetOrSet('totalOcteractOfferingBonus').innerHTML = i18next.t('octeract.generatedOfferingBonus', {offeringBonus: format(cTOOB, 3, true)})
+    DOMCacheGetOrSet('totalOcteractObtainiumBonus').innerHTML = i18next.t('octeract.generatedObtainiumBonus', {obtainiumBonus: format(cTOOOB, 3, true)})
 }
 
 export const visualUpdateShop = () => {
