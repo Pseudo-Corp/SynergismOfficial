@@ -664,7 +664,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     divinePack: {
         name: 'Divine Pack',
-        description: 'OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14.',
+        description: 'OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 2 if average corruption level is at least 14.',
         maxLevel: 1,
         costPerLevel: 12800,
         minimumSingularity: 36,
