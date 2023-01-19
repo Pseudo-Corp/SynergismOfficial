@@ -1173,7 +1173,7 @@
                 "default": "Runes autobuyer will buy Blessings and Spirits"
             },
             "exaltedAchievements": "Unlocks new, very difficult achievements! They are earned differently from others, however... (WIP)",
-            "derpSmithsConucopia": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!",
+            "derpSmithsCornucopia": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!",
             "coolQOLCubes": {
                 "hasLevel1": "Keep all Cube Opening researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
                 "default": "Researches related to opening cubes will no longer reset on Ascension"

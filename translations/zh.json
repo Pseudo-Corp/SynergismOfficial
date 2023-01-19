@@ -1090,7 +1090,7 @@
                 "default": "开启自动符文时您可以自动购买祝福和魂灵"
             },
             "exaltedAchievements": "解锁新的，更加困难的成就！获取方式与其余的成就不同……(制作中)",
-            "derpSmithsConucopia": "Derpsmith祝福了您，每次奇点可以多获得{{counter}}%惊奇八阶方块！",
+            "derpSmithsCornucopia": "Derpsmith祝福了您，每次奇点可以多获得{{counter}}%惊奇八阶方块！",
             "coolQOLCubes": {
                 "hasLevel1": "飞升时，研究6x13、7x3、7x18、8x8、8x23不再重置，并可以自动开启特定比例的方盒及立方！",
                 "default": "飞升时，研究6x13、7x3、7x18、8x8、8x23不再重置"

@@ -862,6 +862,16 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
                     freeLevels: value.freeLevels
                 }]
             })
+        ),
+        octeractUpgrades: Object.fromEntries(
+            Object.entries(player.octeractUpgrades).map(([key, value]) => {
+                return [key, {
+                    level: value.level,
+                    goldenQuarksInvested: value.octeractsInvested,
+                    toggleBuy: value.toggleBuy,
+                    freeLevels: value.freeLevels
+                }]
+            })
         )
     });
 
