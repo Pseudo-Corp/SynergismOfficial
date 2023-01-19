@@ -136,7 +136,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
     public updateUpgradeHTML(): void {
         DOMCacheGetOrSet('singularityOcteractsMultiline').innerHTML = this.toString()
-        DOMCacheGetOrSet('singOcts').textContent = format(player.wowOcteracts, 2, true, true, true)
+        DOMCacheGetOrSet('octeractAmount').innerHTML = i18next.t('octeract.amount', {octeracts: format(player.wowOcteracts, 2, true, true, true)})
     }
 
     public computeFreeLevelSoftcap(): number {

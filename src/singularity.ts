@@ -9,21 +9,20 @@ import i18next from 'i18next'
 
 export const updateSingularityPenalties = (): void => {
     const singularityCount = player.singularityCount;
-    const color = player.runelevels[6] > 0 ? 'var(--green-text-color)' : 'var(--red-text-color)';
-    const platonic = (singularityCount > 36) ? `<span style="color: var(--orchid-text-color)">Platonic Upgrade</span> costs are multiplied by <span style="color: var(--orchid-text-color)">${format(calculateSingularityDebuff('Platonic Costs', singularityCount), 2, true)}</span>.` : '<span class="grayText">???????? ??????? ????? ??? ?????????? ?? ???</span> <span class="redText">(Sing 37)</span>';
-    const hepteract = (singularityCount > 50) ? `<span style="color: Pink">Hepteract Forge</span> costs are multiplied by <span style="color: Pink">${format(calculateSingularityDebuff('Hepteract Costs', singularityCount), 2, true)}</span>.` : '<span class="grayText">????????? ????? ????? ??? ?????????? ?? ???</span> <span class="redText">(Sing 51)</span>';
+    const platonic = (singularityCount > 36) ? i18next.t('singularity.penalties.platonicCosts', {multiplier: format(calculateSingularityDebuff('Platonic Costs', singularityCount), 2, true)}) : '<span class="grayText">???????? ??????? ????? ??? ?????????? ?? ???</span> <span class="redText">(37)</span>';
+    const hepteract = (singularityCount > 50) ? i18next.t('singularity.penalties.hepteractCosts', {multiplier: format(calculateSingularityDebuff('Hepteract Costs', singularityCount), 2, true)}) : '<span class="grayText">????????? ????? ????? ??? ?????????? ?? ???</span> <span class="redText">(51)</span>';
     const str = getSingularityOridnalText(singularityCount) +
-                `<br><span style="color: RoyalBlue">Global Speed</span> is divided by <span style="color: RoyalBlue">${format(calculateSingularityDebuff('Global Speed', singularityCount), 2, true)}</span>.
-                 <span style="color: Orange">Ascension Speed</span> is divided by <span style="color: Orange">${format(calculateSingularityDebuff('Ascension Speed', singularityCount), 2, true)}</span>.
-                 <span style="color: Gold">Offering Gain</span> is divided by <span style="color: Gold">${format(calculateSingularityDebuff('Offering', singularityCount), 2, true)}</span>.
-                 <span style="color: Steelblue">Obtainium Gain</span> is divided by <span style="color: Steelblue">${format(calculateSingularityDebuff('Obtainium', singularityCount), 2, true)}</span>.
-                 <span style="color: Yellow">Cube Gain</span> is divided by <span style="color: Yellow">${format(calculateSingularityDebuff('Cubes', singularityCount), 2, true)}</span>.
-                 <span style="color: var(--green-text-color)">Research Costs</span> are multiplied by <span style="color: var(--green-text-color)">${format(calculateSingularityDebuff('Researches', singularityCount), 2, true)}</span>.
-                 <span style="color: Silver">Cube Upgrade Costs</span> (Excluding Cookies) are multiplied by <span style="color: Silver">${format(calculateSingularityDebuff('Cube Upgrades', singularityCount), 2, true)}</span>.
+                `<br>${i18next.t('singularity.penalties.globalSpeed', {divisor: format(calculateSingularityDebuff('Global Speed', singularityCount), 2, true)})}
+                 ${i18next.t('singularity.penalties.ascensionSpeed', {divisor: format(calculateSingularityDebuff('Ascension Speed', singularityCount), 2, true)})}
+                 ${i18next.t('singularity.penalties.offeringGain', {divisor: format(calculateSingularityDebuff('Offering', singularityCount), 2, true)})}
+                 ${i18next.t('singularity.penalties.obtainiumGain', {divisor: format(calculateSingularityDebuff('Obtainium', singularityCount), 2, true)})}
+                 ${i18next.t('singularity.penalties.cubeGain', {divisor: format(calculateSingularityDebuff('Cubes', singularityCount), 2, true)})}
+                 ${i18next.t('singularity.penalties.researchCosts', {multiplier: format(calculateSingularityDebuff('Researches', singularityCount), 2, true)})}
+                 ${i18next.t('singularity.penalties.cubeUpgradeCosts', {multiplier: format(calculateSingularityDebuff('Cube Upgrades', singularityCount), 2, true)})}
                  ${platonic}
                  ${hepteract}
-                 Your penalties will ${singularityCount >= 230 ? 'now smoothly increase forever.' : `sharply increase in <span class="redText"> Singularity ${format(calculateNextSpike(player.singularityCount), 0, true)}</span>.`}
-                 <span style='color: ${color}'>Antiquities of Ant God is ${(player.runelevels[6] > 0) ? '' : 'NOT'} purchased. Penalties are ${(player.runelevels[6] > 0) ? '' : 'NOT'} dispelled!</span>`
+                 ${(singularityCount >= 230) ? i18next.t('singularity.penalties.penaltySmooth') : i18next.t('singularity.penalties.penaltyRough', {num: format(calculateNextSpike(player.singularityCount), 0, true)})}
+                 ${(player.runelevels[6] > 0) ? i18next.t('singularity.penalties.antiquitiesBought') : i18next.t('singularity.penalties.antiquitiesNotBought')}`
 
     DOMCacheGetOrSet('singularityPenaltiesMultiline').innerHTML = str;
 }
@@ -1123,7 +1122,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
  * They can have one or several levels with a description for each level
  */
 export class SingularityPerk {
-    public readonly name: string
+    public readonly name: () => string
     public readonly levels: number[]
     public readonly description: (n: number, levels: number[]) => string
 
@@ -1138,7 +1137,9 @@ export class SingularityPerk {
 // The list is ordered on first level acquisition, so be careful when inserting a new one ;)
 export const singularityPerks: SingularityPerk[] = [
     {
-        name: 'XYZ: Xtra dailY rewardZ',
+        name: () => {
+            return  i18next.t('singularity.perkNames.xyz')
+        },
         levels: [1, 20, 200],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
@@ -1151,28 +1152,36 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Unlimited growth',
+        name: () => {
+            return  i18next.t('singularity.perkNames.unlimitedGrowth')
+        },
         levels: [1],
         description: () => {
             return i18next.t('singularity.perks.unlimitedGrowth', { amount: format(10 * player.singularityCount) })
         }
     },
     {
-        name: 'Golden coins',
+        name: () => {
+            return  i18next.t('singularity.perkNames.goldenCoins')
+        },
         levels: [1],
         description: () => {
             return i18next.t('singularity.perks.goldenCoins')
         }
     },
     {
-        name: 'Hepteract Autocraft',
+        name: () => {
+            return  i18next.t('singularity.perkNames.hepteractAutocraft')
+        },
         levels: [1],
         description: () => {
             return i18next.t('singularity.perks.hepteractAutocraft')
         }
     },
     {
-        name: 'Generous Orbs',
+        name: () => {
+            return  i18next.t('singularity.perkNames.generousOrbs')
+        },
         levels: [1, 2, 5, 10, 15, 20, 25, 30, 35],
         description: (n: number, levels: number[]) => {
             const overfluxBonus: Record<number, number> = {
@@ -1195,7 +1204,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Research for Dummies',
+        name: () => {
+            return  i18next.t('singularity.perkNames.researchDummies')
+        },
         levels: [1, 11],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
@@ -1206,7 +1217,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Super Start',
+        name: () => {
+            return  i18next.t('singularity.perkNames.superStart')
+        },
         levels: [2, 3, 4, 7, 15],
         description: (n: number, levels: number[]) => {
             if (n >= levels[4]) {
@@ -1223,7 +1236,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Not so Challenging',
+        name: () => {
+            return  i18next.t('singularity.perkNames.notSoChallenging')
+        },
         levels: [4, 7, 10, 15, 20],
         description: (n: number, levels: number[]) => {
             if (n >= levels[4]) {
@@ -1240,7 +1255,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Automation Upgrades',
+        name: () => {
+            return  i18next.t('singularity.perkNames.automationUpgrades')
+        },
         levels: [5, 10, 15, 25, 30, 100],
         description: (n: number, levels: number[]) => {
             if (n >= levels[5]) {
@@ -1259,7 +1276,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Even more Quarks',
+        name: () => {
+            return  i18next.t('singularity.perkNames.evenMoreQuarks')
+        },
         levels: [5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180, 190, 196, 200, 200, 201, 202, 203, 204, 205, 210, 212, 214, 216, 218, 220, 225, 250],
         description: (n: number, levels: number[]) => {
             for (let i = levels.length - 1; i >= 0; i--) {
@@ -1275,7 +1294,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Shop Special Offer',
+        name: () => {
+            return  i18next.t('singularity.perkNames.shopSpecialOffer')
+        },
         levels: [5, 20, 51],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
@@ -1288,21 +1309,27 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Potion Autogenerator',
+        name: () => {
+            return  i18next.t('singularity.perkNames.potionAutogenerator')
+        },
         levels: [6],
         description: () => {
             return i18next.t('singularity.perks.potionAutogenerator')
         }
     },
     {
-        name: 'Respec, be gone!',
+        name: () => {
+            return  i18next.t('singularity.perkNames.respecBeGone')
+        },
         levels: [7],
         description: () => {
             return i18next.t('singularity.perks.respecBeGone')
         }
     },
     {
-        name: 'For the love of (the Ant) God',
+        name: () => {
+            return  i18next.t('singularity.perkNames.forTheLoveOfTheAntGod')
+        },
         levels: [10, 15, 25],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
@@ -1315,7 +1342,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'It all adds up',
+        name: () => {
+            return  i18next.t('singularity.perkNames.itAllAddsUp')
+        },
         levels: [10, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 235, 240],
         description: (n: number, levels: number[]) => {
             for (let i = levels.length - 1; i >= 0; i--) {
@@ -1332,7 +1361,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Automagical Runes',
+        name: () => {
+            return  i18next.t('singularity.perkNames.automagicalRunes')
+        },
         levels: [15, 30, 40, 50],
         description: (n: number, levels: number[]) => {
             if (n >= levels[3]) {
@@ -1347,14 +1378,18 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Exalted Achievements',
+        name: () => {
+            return  i18next.t('singularity.perkNames.exaltedAchievements')
+        },
         levels: [25],
         description: () => {
             return i18next.t('singularity.perks.exaltedAchievements')
         }
     },
     {
-        name: 'Derpsmith\'s Cornucopia',
+        name: () => {
+            return  i18next.t('singularity.perkNames.derpSmithsCornucopia')
+        },
         levels: [18, 38, 58, 78, 88, 98, 118, 148, 178, 188, 198, 208, 218, 228, 238, 248],
         description: (n: number, levels: number[]) => {
             let counter = 0
@@ -1368,7 +1403,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Cool QoL Cubes',
+        name: () => {
+            return  i18next.t('singularity.perkNames.coolQOLCubes')
+        },
         levels: [25, 35],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
@@ -1379,7 +1416,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Eternal Ascensions',
+        name: () => {
+            return  i18next.t('singularity.perkNames.eternalAscensions')
+        },
         levels: [25, 101],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
@@ -1390,7 +1429,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Ant God\'s Cornucopia',
+        name: () => {
+            return i18next.t('singularity.perkNames.antGodsCornucopia')
+        },
         levels: [30, 70, 100],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
@@ -1403,7 +1444,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Overclocked',
+        name: () => {
+            return i18next.t('singularity.perkNames.overclocked')
+        },
         levels: [50, 60, 75, 100, 125, 150, 175, 200, 225, 250],
         description: (n: number, levels: number[]) => {
             for (let i = levels.length - 1; i >= 0; i--) {
@@ -1416,7 +1459,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Wow! Cube Automated Shipping',
+        name: () => {
+            return i18next.t('singularity.perkNames.wowCubeAutomatedShipping')
+        },
         levels: [50, 150],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
@@ -1427,7 +1472,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Golden Revolution',
+        name: () => {
+            return i18next.t('singularity.perkNames.goldenRevolution')
+        },
         levels: [100],
         description: () => {
             return i18next.t('singularity.perks.goldenRevolution', {
@@ -1436,7 +1483,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Golden Revolution II',
+        name: () => {
+            return i18next.t('singularity.perkNames.goldenRevolutionII')
+        },
         levels: [100],
         description: () => {
             return i18next.t('singularity.perks.goldenRevolutionII', {
@@ -1445,7 +1494,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Golden Revolution III',
+        name: () => {
+            return i18next.t('singularity.perkNames.goldenRevolutionIII')
+        },
         levels: [100],
         description: () => {
             return i18next.t('singularity.perks.goldenRevolutionIII', {
@@ -1454,7 +1505,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Clones of Platonic Clicking At Your Desktop',
+        name: () => {
+            return i18next.t('singularity.perkNames.platonicClones')
+        },
         levels: [100, 200],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
@@ -1465,7 +1518,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'PL-AT Σ',
+        name: () => {
+            return i18next.t('singularity.perkNames.platSigma')
+        },
         levels: [125, 200],
         description: (n: number, levels: number[]) => {
             let counter = 0
@@ -1482,14 +1537,18 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Midas\' Millenium-Aged Gold',
+        name: () => {
+            return i18next.t('singularity.perkNames.midasMilleniumAgedGold')
+        },
         levels: [150],
         description: () => {
             return i18next.t('singularity.perks.midasMilleniumAgedGold')
         }
     },
     {
-        name: 'Golden Revolution IV',
+        name: () => {
+            return i18next.t('singularity.perkNames.goldenRevolution4')
+        },
         levels: [160, 173, 185, 194, 204, 210, 219, 229, 240, 249],
         description: (n: number, levels: number[]) => {
             const perSecond = 1000000
@@ -1504,7 +1563,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Octeract Metagenesis',
+        name: () => {
+            return i18next.t('singularity.perkNames.octeractMetagenesis')
+        },
         levels: [200, 205],
         description: (n: number, levels: number[]) => {
             if (n >= levels[1]) {
@@ -1515,7 +1576,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'Immaculate Alchemy',
+        name: () => {
+            return i18next.t('singularity.perkNames.immaculateAlchemy')
+        },
         levels: [200, 208, 221],
         description: (n: number, levels: number[]) => {
             if (n >= levels[2]) {
@@ -1528,7 +1591,9 @@ export const singularityPerks: SingularityPerk[] = [
         }
     },
     {
-        name: 'skrauQ',
+        name: () => {
+            return i18next.t('singularity.perkNames.skrauQ')
+        },
         levels: [200],
         description: () => {
             const amt = Math.pow((player.singularityCount - 179) / 20, 2)
@@ -1583,7 +1648,7 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
         const upgradeInfo = getLastUpgradeInfo(perk, singularityCount);
         if (upgradeInfo.level > 0) {
             availablePerks.push({
-                name: perk.name,
+                name: perk.name(),
                 description: perk.description(singularityCount, perk.levels),
                 currentLevel: upgradeInfo.level,
                 lastUpgraded: upgradeInfo.singularity,
