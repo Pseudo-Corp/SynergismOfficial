@@ -20,7 +20,7 @@ type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' |
  */
 export const addTimers = (input: TimerInput, time = 0) => {
     const timeMultiplier = (input === 'ascension' || input === 'quarks' || input === 'goldenQuarks' ||
-                            input === 'singularity' || input === 'octeracts' || input === 'autoPotion') ? 1 : calculateTimeAcceleration();
+                            input === 'singularity' || input === 'octeracts' || input === 'autoPotion') ? 1 : calculateTimeAcceleration().mult;
 
     switch (input){
         case 'prestige': {
@@ -142,7 +142,7 @@ type AutoToolInput = 'addObtainium' | 'addOfferings' | 'runeSacrifice' | 'antSac
  * @param time
  */
 export const automaticTools = (input: AutoToolInput, time: number) => {
-    const timeMultiplier = (input === 'runeSacrifice' || input === 'addOfferings') ? 1 : calculateTimeAcceleration()
+    const timeMultiplier = (input === 'runeSacrifice' || input === 'addOfferings') ? 1 : calculateTimeAcceleration().mult
 
     switch (input){
         case 'addObtainium': {

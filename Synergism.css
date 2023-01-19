@@ -2231,7 +2231,6 @@ p[id$="BlessingsTotal"] {
     display: flex;
     align-self: flex-start;
     margin: 10px 0 5px;
-    width: 1000px;
 }
 
 .openImage {
@@ -2275,19 +2274,12 @@ p[id$="BlessingsTotal"] {
 .cubeTab {
     flex-direction: column;
     align-items: center;
-    width: auto;
+    width: 800px;
     margin-left: 50px;
 }
 
 .cubeTab > span {
     text-align: center;
-    width: 75%;
-    margin-left: 0;
-    margin-right: auto;
-}
-
-#cubeTab5 {
-    width: 60%;
 }
 
 #cubeTab5Wrapper {
@@ -2528,7 +2520,7 @@ p#ascendHotKeys {
     background-color: #00b300;
 }
 
-.constUpgradeSingle {
+/* .constUpgradeSingle {
     background-color: gold;
 }
 
@@ -2539,7 +2531,7 @@ p#ascendHotKeys {
 
 .constUpgradeSingleAvailable:hover {
     background-color: #fff4b3;
-}
+} */
 
 .subtabSwitcher > button.buttonActive {
     background-color: crimson;
@@ -3085,7 +3077,8 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #ascTess {
-    color: var(--orchid-text-color);
+    /* color: var(--orchid-text-color); */
+    color: orange;
 }
 
 #ascHyper {
@@ -3093,11 +3086,11 @@ header #obtainiumDisplay { color: pink; }
 }
 
 #ascPlatonic {
-    color: lightgoldenrodyellow;
+    color: orchid;
 }
 
 #ascHepteract {
-    color: pink;
+    color: mediumpurple;
 }
 
 #ascTimeAccel {
@@ -3174,16 +3167,17 @@ header #obtainiumDisplay { color: pink; }
     margin-bottom: 30px;
 }
 
-.platonicUpgrades2 {
+.platonicUpgradesToggles {
     display: flex;
     flex-direction: column;
     margin-left: 5px;
-    gap: 5px;
+    margin-top: 6px;
+    row-gap: 5px;
 }
 
-.platonicUpgrades2 > button {
-    min-width: 130px;
-    max-width: 200px;
+.platonicUpgradesToggles > button {
+    width: 130px;
+    height: 32px;
 }
 
 .platonicUpgradeImage {
@@ -3418,7 +3412,7 @@ header #obtainiumDisplay { color: pink; }
     font-size: 0;
 }
 
-.singularityChallenge {
+.singularityChallenges {
     display: flex;
     justify-content: center;
     column-gap: 4px;
@@ -3449,6 +3443,7 @@ header #obtainiumDisplay { color: pink; }
     height: 150%;
     background-image: conic-gradient(#ca001f, #ffb17f, #fff200, #22b14c, #767dda, #a349a4, #ca001f);
     animation: 3s linear infinite rotaterainbow;
+    animation-play-state: inherit; /* For easier pause if needed */
     content: "";
 }
 

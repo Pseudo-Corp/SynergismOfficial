@@ -330,3 +330,52 @@ export const settingAnnotation = () => {
         }
     }
 }
+
+// IconSets: ['FolderName', 'FallbackSetIndex']
+// Make sure new sets have a UNIQUE folder name (not used in icon file names), and it is added to IconSets[][] and IconSetsRegex
+export const IconSets:[string,number][] = [
+    ['Legacy', -1],
+    ['Default', 0],
+    ['Simplified', 1],
+    ['Monotonous', 1]
+];
+export const IconSetsRegex = new RegExp('Default|Simplified|Monotonous|Legacy');
+
+export const toggleIconSet = (changeTo = player.iconSet) => {
+    if ((changeTo > (IconSets.length - 1)) || (changeTo < 0)) {
+        changeTo = 0;
+    }
+    player.iconSet = changeTo;
+    Array.from(document.getElementsByTagName('img')).forEach(
+        function(img) {
+            img.src = img.src.replace(IconSetsRegex, IconSets[player.iconSet][0]);
+        }
+    );
+    DOMCacheGetOrSet('iconSet').textContent = IconSets[player.iconSet][0];
+}
+
+// If no image is found falls back to designated fallback, then Legacy, then MISSINGIMAGE.png
+// MISSINGIMAGE.png(s) will not be replaced except on a full page reload
+export function imgErrorHandler (evt: Event) {
+    if (!evt.target || !(evt.target instanceof HTMLImageElement)) {
+        return;
+    }
+    const whichImg = evt.target;
+    const iconSetName = IconSets[player.iconSet][0];
+    const fallbackSetNum = IconSets[player.iconSet][1];
+    let fallbackSetName = 'Legacy';
+    if ((fallbackSetNum >= 0) && (fallbackSetNum < IconSets.length - 1)) {
+        fallbackSetName = IconSets[fallbackSetNum][0];
+    }
+
+    if (whichImg.src.includes('Legacy') || !(IconSetsRegex.exec(whichImg.src))) {
+        // no image to fall back to
+        whichImg.src = './Pictures/MISSINGIMAGE.png';
+    } else if (whichImg.src.includes(iconSetName)) {
+        // first fall back attempt
+        whichImg.src = whichImg.src.replace(IconSetsRegex, fallbackSetName);
+    } else {
+        // fall back to Legacy
+        whichImg.src = whichImg.src.replace(IconSetsRegex, 'Legacy');
+    }
+}

@@ -131,7 +131,7 @@ export const generateExportSummary = async():Promise<void> => {
         reincarnation = reincarnation + `Reincarnation Count: ${format(player.reincarnationCount, 0, true)}\n`
         reincarnation = reincarnation + `Reincarnation Timer: ${formatS(player.reincarnationcounter)}\n`
         reincarnation = reincarnation + `Fastest Reincarnation: ${formatS(player.fastestreincarnate)}\n`
-        reincarnation = reincarnation + `Global Speed Multiplier: ${format(calculateTimeAcceleration(), 2, true)}\n`
+        reincarnation = reincarnation + `Global Speed Multiplier: ${format(calculateTimeAcceleration().mult, 2, true)}\n`
         reincarnation = reincarnation + `Challenge 6 Completions: ${player.highestchallengecompletions[6]}/${getMaxChallenges(6)}\n`
         reincarnation = reincarnation + `Challenge 7 Completions: ${player.highestchallengecompletions[7]}/${getMaxChallenges(7)}\n`
         reincarnation = reincarnation + `Challenge 8 Completions: ${player.highestchallengecompletions[8]}/${getMaxChallenges(8)}\n`

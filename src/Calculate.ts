@@ -890,7 +890,7 @@ export const calculateOffline = async (forceTime = 0) => {
 
     player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick;
 
-    G['timeMultiplier'] = calculateTimeAcceleration();
+    G['timeMultiplier'] = calculateTimeAcceleration().mult;
     calculateObtainium();
     const obtainiumGain = calculateAutomaticObtainium();
 
@@ -926,7 +926,7 @@ export const calculateOffline = async (forceTime = 0) => {
 
     //200 simulated all ticks [July 12, 2021]
     const runOffline = setInterval(() => {
-        G['timeMultiplier'] = calculateTimeAcceleration();
+        G['timeMultiplier'] = calculateTimeAcceleration().mult;
         calculateObtainium();
 
         //Reset Stuff lmao!
@@ -1124,7 +1124,7 @@ export const calculateAllCubeMultiplier = () => {
         // Sun and Moon achievements
         1 + 6 / 100 * player.achievements[250] + 10 / 100 * player.achievements[251],
         // Speed Achievement
-        1 + player.achievements[240] * Math.min(0.5, Math.max(0.1, 1 / 20 * Math.log10(calculateTimeAcceleration() + 0.01))),
+        1 + player.achievements[240] * Math.min(0.5, Math.max(0.1, 1 / 20 * Math.log10(calculateTimeAcceleration().mult + 0.01))),
         // Challenge 15: All Cube Gain bonuses 1-5
         G['challenge15Rewards'].cube1 * G['challenge15Rewards'].cube2 * G['challenge15Rewards'].cube3 * G['challenge15Rewards'].cube4 * G['challenge15Rewards'].cube5,
         // Rune 6: Infinite Ascent
@@ -1402,9 +1402,9 @@ export const getOcteractValueMultipliers = () => {
         // digital octeract accumulator
         Math.pow(1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus, 1 + Math.floor(Math.log10(1 + player.ascensionCount))),
         1 + calculateEventBuff('Octeract'),
+        1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24)),
         // No Singulairty Upgrades
         +player.singularityChallenges.noSingularityUpgrades.rewards.cubes,
-        1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24)),
         // Wow Pass INF
         Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
     ];
@@ -1449,34 +1449,60 @@ export const calculateOcteractMultiplier = (score = -1) => {
 }
 
 export const calculateTimeAcceleration = () => {
-    let timeMult = 1;
-    timeMult *= (1 + 1 / 300 * Math.log10(player.maxobtainium + 1) * player.upgrades[70]) //Particle upgrade 2x5
-    timeMult *= (1 + player.researches[121] / 50); // research 5x21
-    timeMult *= (1 + 0.015 * player.researches[136]) // research 6x11
-    timeMult *= (1 + 0.012 * player.researches[151]) // research 7x1
-    timeMult *= (1 + 0.009 * player.researches[166]) // research 7x16
-    timeMult *= (1 + 0.006 * player.researches[181]) // research 8x6
-    timeMult *= (1 + 0.003 * player.researches[196]) // research 8x21
-    timeMult *= (1 + 8 * G['effectiveRuneBlessingPower'][1]); // speed blessing
-    timeMult *= (1 + calculateCorruptionPoints() / 400 * G['effectiveRuneSpiritPower'][1]) // speed SPIRIT
-    timeMult *= G['cubeBonusMultiplier'][10]; // Chronos cube blessing
-    timeMult *= 1 + player.cubeUpgrades[18] / 5; // cube upgrade 2x8
-    timeMult *= calculateSigmoid(2, player.antUpgrades[12-1]! + G['bonusant12'], 69) // ant 12
-    timeMult *= (1 + 0.10 * (player.talismanRarity[2-1] - 1)) // Chronos Talisman bonus
-    timeMult *= G['challenge15Rewards'].globalSpeed // Challenge 15 reward
-    timeMult *= 1 + 0.01 * player.cubeUpgrades[52] // cube upgrade 6x2 (Cx2)
-    timeMult *= G['lazinessMultiplier'][player.usedCorruptions[3]]
-    if (timeMult > 100) {
-        timeMult = 10 * Math.sqrt(timeMult)
+    const preCorruptionArr = [
+        (1 + 1 / 300 * Math.log10(player.maxobtainium + 1) * player.upgrades[70]),  // Particle upgrade 2x5
+        (1 + player.researches[121] / 50),                                          // research 5x21
+        (1 + 0.015 * player.researches[136]),                                       // research 6x11
+        (1 + 0.012 * player.researches[151]),                                       // research 7x1
+        (1 + 0.009 * player.researches[166]),                                       // research 7x16
+        (1 + 0.006 * player.researches[181]),                                       // research 8x6
+        (1 + 0.003 * player.researches[196]),                                       // research 8x21
+        (1 + 8 * G['effectiveRuneBlessingPower'][1]),                               // speed blessing
+        (1 + calculateCorruptionPoints() / 400 * G['effectiveRuneSpiritPower'][1]), // speed SPIRIT
+        G['cubeBonusMultiplier'][10],                                               // Chronos cube blessing
+        1 + player.cubeUpgrades[18] / 5,                                            // cube upgrade 2x8
+        calculateSigmoid(2, player.antUpgrades[12-1]! + G['bonusant12'], 69),       // ant 12
+        (1 + 0.10 * (player.talismanRarity[2-1] - 1)),                              // Chronos Talisman bonus
+        G['challenge15Rewards'].globalSpeed,                                        // Challenge 15 reward
+        1 + 0.01 * player.cubeUpgrades[52]                                          // cube upgrade 6x2 (Cx2)
+    ];
+
+    // Global Speed softcap + Corruption / Corruption-like effects
+    const corruptionArr: number[] = [
+        G['lazinessMultiplier'][player.usedCorruptions[3]]                          // Corruption:  Spacial Dilation
+    ];
+
+    const corruptableTimeMult = productContents(preCorruptionArr) * corruptionArr[0]; // DR applies after base corruption.
+
+    if (corruptableTimeMult > 100) {
+        const postSoftcap = 10 * Math.sqrt(corruptableTimeMult);
+        const softcapRatio = postSoftcap / corruptableTimeMult;
+
+        corruptionArr.push(softcapRatio);
+    } else {
+        corruptionArr.push(1);
     }
-    if (timeMult < 1) {
-        timeMult = Math.pow(timeMult, 1 - player.platonicUpgrades[7] / 30)
+
+    if (corruptableTimeMult < 1) {
+        const postPlat2x2 = Math.pow(corruptableTimeMult, 1 - player.platonicUpgrades[7] / 30);
+        const plat2x2Ratio = postPlat2x2 / corruptableTimeMult;
+
+        corruptionArr.push(plat2x2Ratio);
+    } else {
+        corruptionArr.push(1);
     }
-    timeMult /= calculateSingularityDebuff('Global Speed');
-    timeMult *= G['platonicBonusMultiplier'][7]
-    timeMult *= 1 + calculateEventBuff('Global Speed');
-    timeMult *= 1 + (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0)
-    timeMult *= 1 + +player.octeractUpgrades.octeractImprovedGlobalSpeed.getEffect().bonus * player.singularityCount
+
+    corruptionArr.push(1.0 / calculateSingularityDebuff('Global Speed'));
+
+    // Uncorruptable effects
+    const postCorruptionArr = [
+        G['platonicBonusMultiplier'][7],    // Chronos statue
+        1 + (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0),
+        1 + +player.octeractUpgrades.octeractImprovedGlobalSpeed.getEffect().bonus * player.singularityCount
+    ];
+
+    const timeMult = productContents(preCorruptionArr) * productContents(corruptionArr) * productContents(postCorruptionArr);
+
 
     if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
         achievementaward(241)
@@ -1484,8 +1510,13 @@ export const calculateTimeAcceleration = () => {
     if (timeMult > 3600 && player.achievements[242] < 1) {
         achievementaward(242)
     }
-    //timeMult *= 25
-    return (timeMult)
+
+    return {
+        preList: preCorruptionArr,
+        drList: corruptionArr,
+        postList: postCorruptionArr,
+        mult: timeMult
+    };
 }
 
 export const calculateLimitedAscensionsDebuff = () => {

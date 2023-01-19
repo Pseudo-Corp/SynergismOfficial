@@ -13,7 +13,7 @@ export enum shopUpgradeTypes {
     UPGRADE = 'upgrade'
 }
 
-type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2' | 'SingularityVol3' | 'SingularityVol4'
+type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2' | 'SingularityVol3' | 'SingularityVol4' | 'Exalt'
 
 export interface IShopData {
     price: number
@@ -596,6 +596,16 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         refundable: false,
         refundMinimumLevel: 0,
         description: 'Gain +2% more cubes per level, multiplicative! (Multiplier is 1.02^level)'
+    },
+    shopSingularityPenaltyDebuff: {
+        tier: 'Exalt',
+        price: 1e17,
+        priceIncrease: 9.99e19,
+        maxLevel: 2,
+        type: shopUpgradeTypes.UPGRADE,
+        refundable: false,
+        refundMinimumLevel: 0,
+        description: 'Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.'
     }
 }
 
@@ -609,7 +619,7 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | 'autoWarp' | //And Golden Quarks
                         'improveQuarkHept' | 'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4' | 'shopImprovedDaily' |
                         'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4' | 'calculator4' | 'calculator5' | 'calculator6' |
-                        'offeringEX3' | 'obtainiumEX3' | 'improveQuarkHept5' | 'seasonPassInfinity' | 'chronometerInfinity'
+                        'offeringEX3' | 'obtainiumEX3' | 'improveQuarkHept5' | 'seasonPassInfinity' | 'chronometerInfinity' | 'shopSingularityPenaltyDebuff'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -634,10 +644,10 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
     switch (input) {
         case 'offeringPotion':
-            lol.textContent = 'Gain ' + format((7200 * player.offeringpersecond * calculateTimeAcceleration() * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Offerings.'
+            lol.textContent = 'Gain ' + format((7200 * player.offeringpersecond * calculateTimeAcceleration().mult * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Offerings.'
             break;
         case 'obtainiumPotion':
-            lol.textContent = 'Gain ' + format((7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Obtainium.';
+            lol.textContent = 'Gain ' + format((7200 * player.maxobtainiumpersecond * calculateTimeAcceleration().mult * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Obtainium.';
             break;
         case 'offeringEX':
             lol.textContent = 'CURRENT Effect: You will gain ' + format(4 * player.shopUpgrades.offeringEX,2,true) + '% more Offerings!'
@@ -793,7 +803,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.textContent = `CURRENT Effect: Offering gain is multiplied by ${format(Math.pow(1.02, player.shopUpgrades.offeringEX3), 2, true)}.`
             break;
         case 'obtainiumEX3':
-            lol.textContent = `CURRENT Effect: Offering gain is multiplied by ${format(Math.pow(1.02, player.shopUpgrades.obtainiumEX3), 2, true)}.`
+            lol.textContent = `CURRENT Effect: Obtainium gain is multiplied by ${format(Math.pow(1.02, player.shopUpgrades.obtainiumEX3), 2, true)}.`
             break;
         case 'improveQuarkHept5':
             lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept5/2500}`;
@@ -803,6 +813,9 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             break;
         case 'chronometerInfinity':
             lol.textContent = `CURRENT Effect: Ascension Speed is multiplied by ${format(Math.pow(1.01, player.shopUpgrades.chronometerInfinity), 2, true)}`
+            break;
+        case 'shopSingularityPenaltyDebuff':
+            lol.textContent = `CURRENT Effect: Singularity Debuffs are as if you had ${format(player.shopUpgrades.shopSingularityPenaltyDebuff)} fewer Singularities.`
     }
 
 }
@@ -867,7 +880,8 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
         obtainiumEX3: 'The final Obtainium Upgrade',
         improveQuarkHept5: 'The final Quark Hepteract Improver',
         chronometerInfinity: 'The final Chronometer',
-        seasonPassInfinity: 'The final Season pass'
+        seasonPassInfinity: 'The final Season pass',
+        shopSingularityPenaltyDebuff: 'A Singularity Tenderizer'
     }
 
     return names[input];
@@ -991,13 +1005,13 @@ export const useConsumable = async (input: ShopUpgradeNames, automatic = false, 
         if (input === 'offeringPotion') {
             if (player.shopUpgrades.offeringPotion >= used || !spend) {
                 player.shopUpgrades.offeringPotion -= (spend ? used: 0);
-                player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration() * multiplier)
+                player.runeshards += Math.floor(7200 * player.offeringpersecond * calculateTimeAcceleration().mult * multiplier)
                 player.runeshards = Math.min(1e300, player.runeshards)
             }
         } else if (input === 'obtainiumPotion') {
             if (player.shopUpgrades.obtainiumPotion >= used || !spend) {
                 player.shopUpgrades.obtainiumPotion -= (spend? used: 0);
-                player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration() * multiplier)
+                player.researchPoints += Math.floor(7200 * player.maxobtainiumpersecond * calculateTimeAcceleration().mult * multiplier)
                 player.researchPoints = Math.min(1e300, player.researchPoints)
             }
         }
@@ -1171,5 +1185,7 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames):boolean => {
             return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
         case 'seasonPassInfinity':
             return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+        case 'shopSingularityPenaltyDebuff':
+            return Boolean(player.singularityChallenges.noSingularityUpgrades.rewards.shopUpgrade)
     }
 }

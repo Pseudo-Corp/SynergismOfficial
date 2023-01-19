@@ -1,7 +1,7 @@
 import { player, format, formatTimeShort } from './Synergism';
 import { Globals as G } from './Variables';
 import { hepteractEffective } from './Hepteracts'
-import {calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus, calculateAscensionSpeedMultiplier, calculateGoldenQuarkMultiplier } from './Calculate';
+import {calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTimeAcceleration, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus, calculateAscensionSpeedMultiplier, calculateGoldenQuarkMultiplier } from './Calculate';
 import { challenge15ScoreMultiplier } from './Challenges';
 import type { GlobalVariables } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -15,6 +15,7 @@ const associated = new Map<string, string>([
     ['kOfferingMult', 'offeringMultiplierStats'],
     ['kGlobalCubeMult', 'globalCubeMultiplierStats'],
     ['kQuarkMult', 'globalQuarkMultiplierStats'],
+    ['kGSpeedMult', 'globalSpeedMultiplierStats'],
     ['kCubeMult', 'cubeMultiplierStats'],
     ['kTessMult', 'tesseractMultiplierStats'],
     ['kHypercubeMult', 'hypercubeMultiplierStats'],
@@ -60,6 +61,9 @@ export const loadStatisticsUpdate = () => {
                 break;
             case 'globalQuarkMultiplierStats':
                 loadQuarkMultiplier();
+                break;
+            case 'globalSpeedMultiplierStats':
+                loadGlobalSpeedMultiplier();
                 break;
             case 'powderMultiplierStats':
                 loadPowderMultiplier();
@@ -164,6 +168,28 @@ export const loadQuarkMultiplier = () => {
     true)
     DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
 }
+
+export const loadGlobalSpeedMultiplier = () => {
+    const globalSpeedStats = calculateTimeAcceleration();
+
+    const preDRlist = globalSpeedStats.preList;
+    for (let i = 0; i < preDRlist.length; i++) {
+        DOMCacheGetOrSet(`sGSMa${i + 1}`).textContent = `x${format(preDRlist[i], 3, true)}`;
+    }
+
+    const drList = globalSpeedStats.drList;
+    for (let i = 0; i < drList.length; i++) {
+        DOMCacheGetOrSet(`sGSMb${i + 1}`).textContent = `x${format(drList[i], 3, true)}`;
+    }
+
+    const postDRlist = globalSpeedStats.postList;
+    for (let i = 0; i < postDRlist.length; i++) {
+        DOMCacheGetOrSet(`sGSMc${i + 1}`).textContent = `x${format(postDRlist[i], 3, true)}`;
+    }
+
+    DOMCacheGetOrSet('sGSMT').textContent = format(globalSpeedStats.mult, 3);
+}
+
 export const loadStatisticsCubeMultipliers = () => {
 
     const arr0 = calculateAllCubeMultiplier().list;
