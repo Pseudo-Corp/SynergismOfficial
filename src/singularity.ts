@@ -274,7 +274,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.10 * n,
-                desc: i18next.t('singularity.data.goldenQuarks1.effect', { n: format(10 * n, 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.goldenQuarks1.effect', { n: format(10 * n, 0, true) })
+                }
             }
         },
         qualityOfLife: true
@@ -286,9 +288,11 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 250) ? 1 / Math.log2(n / 62.5) : 1 - Math.min(0.5, n / 500),
-                desc: i18next.t('singularity.data.goldenQuarks2.effect', {
-                    n: n > 250 ? format(100 - 100 / Math.log2(n / 62.5), 2, true) : format(Math.min(50, n / 5), 2, true)
-                })
+                get desc () {
+                    return i18next.t('singularity.data.goldenQuarks2.effect', {
+                        n: n > 250 ? format(100 - 100 / Math.log2(n / 62.5), 2, true) : format(Math.min(50, n / 5), 2, true)
+                    })
+                }
             }
         },
         qualityOfLife: true
@@ -299,7 +303,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n * (n + 1) / 2,
-                desc: i18next.t('singularity.data.goldenQuarks3.effect', { n: format(n * (n + 1) / 2) })
+                get desc () {
+                    return i18next.t('singularity.data.goldenQuarks3.effect', { n: format(n * (n + 1) / 2) })
+                }
             }
         }
     },
@@ -309,7 +315,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.starterPack.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.starterPack.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         }
     },
@@ -319,7 +327,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.wowPass.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.wowPass.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         },
         qualityOfLife: true
@@ -330,7 +340,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.cookies.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.cookies.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         },
         qualityOfLife: true
@@ -341,7 +353,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.cookies2.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.cookies2.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         },
         qualityOfLife: true
@@ -352,7 +366,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.cookies3.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.cookies3.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         },
         qualityOfLife: true
@@ -363,7 +379,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.cookies4.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.cookies4.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         },
         qualityOfLife: true
@@ -375,7 +393,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.cookies5.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.cookies5.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         },
         qualityOfLife: true
@@ -386,9 +406,11 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (1 + 2 * n / 100) * (1 + Math.floor(n / 10) / 100),
-                desc: i18next.t('singularity.data.goldenQuarks1.effect', {
-                    n: format((100 + 2 * n) * (1 + Math.floor(n/10) / 100) - 100, 1, true)
-                })
+                get desc () {
+                    return i18next.t('singularity.data.goldenQuarks1.effect', {
+                        n: format((100 + 2 * n) * (1 + Math.floor(n/10) / 100) - 100, 1, true)
+                    })
+                }
             }
         }
     },
@@ -398,10 +420,12 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.corruptionFourteen.effect', {
-                    n: (n > 0) ? 'have': 'have not',
-                    m: n > 0 ? ':)' : ':('
-                })
+                get desc () {
+                    return i18next.t('singularity.data.corruptionFourteen.effect', {
+                        n: (n > 0) ? 'have': 'have not',
+                        m: n > 0 ? ':)' : ':('
+                    })
+                }
             }
         }
     },
@@ -411,10 +435,12 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.corruptionFifteen.effect', {
-                    n: (n > 0) ? 'have': 'have not',
-                    m: n > 0 ? ':)' : ':('
-                })
+                get desc () {
+                    return i18next.t('singularity.data.corruptionFifteen.effect', {
+                        n: (n > 0) ? 'have': 'have not',
+                        m: n > 0 ? ':)' : ':('
+                    })
+                }
             }
         }
     },
@@ -424,7 +450,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.02 * n,
-                desc: i18next.t('singularity.data.singOfferings1.effect', { n: format(2 * n, 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singOfferings1.effect', { n: format(2 * n, 0, true) })
+                }
             }
         }
 
@@ -436,7 +464,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.08 * n,
-                desc: i18next.t('singularity.data.singOfferings2.effect', { n: format(8 * n, 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singOfferings2.effect', { n: format(8 * n, 0, true) })
+                }
             }
         }
     },
@@ -447,7 +477,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.04 * n,
-                desc: i18next.t('singularity.data.singOfferings3.effect', { n: format(4 * n, 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singOfferings3.effect', { n: format(4 * n, 0, true) })
+                }
             }
         }
     },
@@ -457,7 +489,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.02 * n,
-                desc: i18next.t('singularity.data.singObtainium1.effect', { n: format(2 * n, 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singObtainium1.effect', { n: format(2 * n, 0, true) })
+                }
             }
         }
     },
@@ -468,7 +502,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.08 * n,
-                desc: i18next.t('singularity.data.singObtainium2.effect', { n: format(8 * n, 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singObtainium2.effect', { n: format(8 * n, 0, true) })
+                }
             }
         }
     },
@@ -479,7 +515,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.04 * n,
-                desc: i18next.t('singularity.data.singObtainium3.effect', { n: format(4 * n, 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singObtainium3.effect', { n: format(4 * n, 0, true) })
+                }
             }
         }
     },
@@ -489,7 +527,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.02 * n,
-                desc: i18next.t('singularity.data.singCubes1.effect', { n: format(2 * n, 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singCubes1.effect', { n: format(2 * n, 0, true) })
+                }
             }
         }
     },
@@ -500,7 +540,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.08 * n,
-                desc: i18next.t('singularity.data.singCubes2.effect', { n: format(8 * n, 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singCubes2.effect', { n: format(8 * n, 0, true) })
+                }
             }
         }
     },
@@ -511,7 +553,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.04 * n,
-                desc: i18next.t('singularity.data.singCubes3.effect', { n: format(4 * n, 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singCubes3.effect', { n: format(4 * n, 0, true) })
+                }
             }
         }
     },
@@ -522,9 +566,11 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (1 + 0.02 * n) * (1 + Math.floor(n / 10) / 100),
-                desc: i18next.t('singularity.data.singCubes2.effect', {
-                    n: format(100 * ((1 + 0.02 * n) * (1 + Math.floor(n/10)/100) - 1))
-                })
+                get desc () {
+                    return i18next.t('singularity.data.singCubes2.effect', {
+                        n: format(100 * ((1 + 0.02 * n) * (1 + Math.floor(n/10)/100) - 1))
+                    })
+                }
             }
         }
     },
@@ -536,9 +582,11 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (1 + 0.02 * n) * (1 + Math.floor(n / 10) / 100),
-                desc: i18next.t('singularity.data.singCubes3.effect', { n:
-                  format(100 * ((1 + 0.02 * n) * (1 + Math.floor(n/10)/100) - 1))
-                })
+                get desc () {
+                    return i18next.t('singularity.data.singCubes3.effect', { n:
+                    format(100 * ((1 + 0.02 * n) * (1 + Math.floor(n/10)/100) - 1))
+                    })
+                }
             }
         }
     },
@@ -549,7 +597,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.octeractUnlock.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.octeractUnlock.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         },
         qualityOfLife: true
@@ -561,7 +611,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.singOcteractPatreonBonus.effect', { n })
+                get desc () {
+                    return i18next.t('singularity.data.singOcteractPatreonBonus.effect', { n })
+                }
             }
         }
     },
@@ -572,7 +624,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: i18next.t('singularity.data.offeringAutomatic.effect', { n })
+                get desc () {
+                    return i18next.t('singularity.data.offeringAutomatic.effect', { n })
+                }
             }
         }
     },
@@ -583,7 +637,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.intermediatePack.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.intermediatePack.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         }
     },
@@ -594,7 +650,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.advancedPack.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.advancedPack.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         }
     },
@@ -605,7 +663,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.expertPack.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.expertPack.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         }
     },
@@ -616,7 +676,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.masterPack.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.masterPack.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         }
     },
@@ -627,7 +689,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.divinePack.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.divinePack.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         }
     },
@@ -638,7 +702,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.wowPass2.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.wowPass2.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         },
         qualityOfLife: true
@@ -650,7 +716,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: (n > 0),
-                desc: i18next.t('singularity.data.wowPass3.effect', { n: (n > 0) ? 'have': 'have not' })
+                get desc () {
+                    return i18next.t('singularity.data.wowPass3.effect', { n: (n > 0) ? 'have': 'have not' })
+                }
             }
         },
         qualityOfLife: true
@@ -663,9 +731,11 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: Math.max(1, 10 * Math.pow(n, 2)),
-                desc: i18next.t('singularity.data.potionBuff.effect', {
-                    n: format(Math.max(1, 10 * Math.pow(n, 2)), 0, true)
-                })
+                get desc () {
+                    return i18next.t('singularity.data.potionBuff.effect', {
+                        n: format(Math.max(1, 10 * Math.pow(n, 2)), 0, true)
+                    })
+                }
             }
         }
     },
@@ -677,7 +747,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: Math.max(1, 2 * n),
-                desc: i18next.t('singularity.data.potionBuff2.effect', { n: format(Math.max(1, 2 * n), 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.potionBuff2.effect', { n: format(Math.max(1, 2 * n), 0, true) })
+                }
             }
         }
     },
@@ -689,7 +761,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: Math.max(1, 1 + 0.5 * n),
-                desc: i18next.t('singularity.data.potionBuff3.effect', { n: format(Math.max(1, 1 + 0.5 * n), 2, true) })
+                get desc () {
+                    return i18next.t('singularity.data.potionBuff3.effect', { n: format(Math.max(1, 1 + 0.5 * n), 2, true) })
+                }
             }
         }
     },
@@ -700,7 +774,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: i18next.t('singularity.data.singChallengeExtension.effect', { n: 2 * n, m: n })
+                get desc () {
+                    return i18next.t('singularity.data.singChallengeExtension.effect', { n: 2 * n, m: n })
+                }
             }
         }
     },
@@ -711,7 +787,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: i18next.t('singularity.data.singChallengeExtension2.effect', { n: 2 * n, m: n })
+                get desc () {
+                    return i18next.t('singularity.data.singChallengeExtension2.effect', { n: 2 * n, m: n })
+                }
             }
         }
     },
@@ -722,7 +800,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: i18next.t('singularity.data.singChallengeExtension3.effect', { n: 2 * n, m: n })
+                get desc () {
+                    return i18next.t('singularity.data.singChallengeExtension3.effect', { n: 2 * n, m: n })
+                }
             }
         }
     },
@@ -735,7 +815,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n/200,
-                desc: i18next.t('singularity.data.singQuarkImprover1.effect', { n: format(n / 2, 2, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singQuarkImprover1.effect', { n: format(n / 2, 2, true) })
+                }
             }
         },
         qualityOfLife: true
@@ -747,7 +829,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n/100,
-                desc: i18next.t('singularity.data.singQuarkHepteract.effect', { n: format(2 * n, 2, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singQuarkHepteract.effect', { n: format(2 * n, 2, true) })
+                }
             }
         },
         qualityOfLife: true
@@ -759,7 +843,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n/100,
-                desc: i18next.t('singularity.data.singQuarkHepteract2.effect', { n: format(2 * n, 2, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singQuarkHepteract2.effect', { n: format(2 * n, 2, true) })
+                }
             }
         },
         qualityOfLife: true
@@ -771,7 +857,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n/100,
-                desc: i18next.t('singularity.data.singQuarkHepteract3.effect', { n: format(2 * n, 2, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singQuarkHepteract3.effect', { n: format(2 * n, 2, true) })
+                }
             }
         },
         qualityOfLife: true
@@ -783,7 +871,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.01 * n,
-                desc: i18next.t('singularity.data.singOcteractGain.effect', { n: format(n, 2, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singOcteractGain.effect', { n: format(n, 2, true) })
+                }
             }
         }
     },
@@ -795,7 +885,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.04 * n,
-                desc: i18next.t('singularity.data.singOcteractGain2.effect', { n: format(4 * n, 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singOcteractGain2.effect', { n: format(4 * n, 0, true) })
+                }
             }
         }
     },
@@ -807,7 +899,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.02 * n,
-                desc: i18next.t('singularity.data.singOcteractGain3.effect', { n: format(2 * n, 2, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singOcteractGain3.effect', { n: format(2 * n, 2, true) })
+                }
             }
         }
     },
@@ -819,7 +913,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.01 * n,
-                desc: i18next.t('singularity.data.singOcteractGain4.effect', { n: format(n, 0, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singOcteractGain4.effect', { n: format(n, 0, true) })
+                }
             }
         }
     },
@@ -831,7 +927,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: 1 + 0.005 * n,
-                desc: i18next.t('singularity.data.singOcteractGain5.effect', { n: format(n / 2, 1, true) })
+                get desc () {
+                    return i18next.t('singularity.data.singOcteractGain5.effect', { n: format(n / 2, 1, true) })
+                }
             }
         }
     },
@@ -842,7 +940,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n > 0,
-                desc: i18next.t('singularity.data.platonicTau.effect', { n: n ? '' : 'NOT' })
+                get desc () {
+                    return i18next.t('singularity.data.platonicTau.effect', { n: n ? '' : 'NOT' })
+                }
             }
         },
         qualityOfLife: true
@@ -854,7 +954,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n > 0,
-                desc: i18next.t('singularity.data.platonicAlpha.effect', { n: n ? '' : 'NOT' })
+                get desc () {
+                    return i18next.t('singularity.data.platonicAlpha.effect', { n: n ? '' : 'NOT' })
+                }
             }
         },
         qualityOfLife: true
@@ -866,7 +968,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n > 0,
-                desc: i18next.t('singularity.data.platonicDelta.effect', { n: n ? '' : 'NOT' })
+                get desc () {
+                    return i18next.t('singularity.data.platonicDelta.effect', { n: n ? '' : 'NOT' })
+                }
             }
         }
     },
@@ -877,7 +981,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n > 0,
-                desc: i18next.t('singularity.data.platonicPhi.effect', { n: n ? '' : 'NOT' })
+                get desc () {
+                    return i18next.t('singularity.data.platonicPhi.effect', { n: n ? '' : 'NOT' })
+                }
             }
         },
         qualityOfLife: true
@@ -889,7 +995,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n > 0,
-                desc: i18next.t('singularity.data.singFastForward.effect', { n: n ? '' : 'NOT' })
+                get desc () {
+                    return i18next.t('singularity.data.singFastForward.effect', { n: n ? '' : 'NOT' })
+                }
             }
         },
         qualityOfLife: true
@@ -901,7 +1009,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n > 0,
-                desc: i18next.t('singularity.data.singFastForward2.effect', { n: n ? '' : 'NOT' })
+                get desc () {
+                    return i18next.t('singularity.data.singFastForward2.effect', { n: n ? '' : 'NOT' })
+                }
             }
         },
         qualityOfLife: true
@@ -913,10 +1023,12 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: i18next.t('singularity.data.singAscensionSpeed.effect', {
-                    n: format(1 + 0.03 * n, 2, true),
-                    m: format(1 - 0.03 * n, 2, true)
-                })
+                get desc () {
+                    return i18next.t('singularity.data.singAscensionSpeed.effect', {
+                        n: format(1 + 0.03 * n, 2, true),
+                        m: format(1 - 0.03 * n, 2, true)
+                    })
+                }
             }
         }
     },
@@ -927,7 +1039,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: i18next.t('singularity.data.singAscensionSpeed2.effect') // TODO
+                get desc () {
+                    return i18next.t('singularity.data.singAscensionSpeed2.effect')
+                }
             }
         }
     },
@@ -938,7 +1052,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: i18next.t('singularity.data.WIP.effect') // TODO
+                get desc () {
+                    return i18next.t('singularity.data.WIP.effect')
+                }
             }
         }
     },
@@ -949,10 +1065,12 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n > 0,
-                desc: i18next.t('singularity.data.ultimatePen.effect', {
-                    n: n ? '' : 'NOT',
-                    m: n > 0 ? ' However, the pen just ran out of ink. How will you get more?' : ''
-                })
+                get desc () {
+                    return i18next.t('singularity.data.ultimatePen.effect', {
+                        n: n ? '' : 'NOT',
+                        m: n > 0 ? ' However, the pen just ran out of ink. How will you get more?' : ''
+                    })
+                }
             }
         }
     },
@@ -963,7 +1081,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n : number) => {
             return {
                 bonus: n > 0,
-                desc: i18next.t('singularity.data.oneMind.effect', { n: n ? '' : 'NOT' })
+                get desc () {
+                    return i18next.t('singularity.data.oneMind.effect', { n: n ? '' : 'NOT' })
+                }
             }
         },
         qualityOfLife: true
@@ -975,7 +1095,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n : number) => {
             return {
                 bonus: n > 0,
-                desc: i18next.t('singularity.data.wowPass4.effect', { n: n ? '' : 'NOT' })
+                get desc () {
+                    return i18next.t('singularity.data.wowPass4.effect', { n: n ? '' : 'NOT' })
+                }
             }
         },
         qualityOfLife: true
@@ -987,7 +1109,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         effect: (n: number) => {
             return {
                 bonus: n,
-                desc: i18next.t('singularity.data.blueberries.effect', { n })
+                get desc () {
+                    return i18next.t('singularity.data.blueberries.effect', { n })
+                }
             }
         },
         specialCostForm: 'Exponential2'
