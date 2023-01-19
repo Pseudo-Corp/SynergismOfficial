@@ -398,15 +398,26 @@ export const visualUpdateRunes = () => {
         const subtract = [0, 0, 0, 1, 0, 0]
         for (let i = 1; i <= 5; i++) {
             spiritMultiplierArray[i] *= (calculateCorruptionPoints() / 400)
-            DOMCacheGetOrSet(`runeSpiritLevel${i}Value`).textContent = format(player.runeSpiritLevels[i])
-            DOMCacheGetOrSet(`runeSpiritPower${i}Value1`).textContent = format(G['runeSpirits'][i])
+
+            DOMCacheGetOrSet(`runeSpiritLevel${i}Value`).innerHTML = i18next.t('runes.spirits.spiritLevel', {
+                amount: format(player.runeSpiritLevels[i])
+            })
+
+            DOMCacheGetOrSet(`runeSpiritPower${i}Value1`).innerHTML = i18next.t('runes.spirits.spiritPower', {
+                reward: i18next.t(`runes.spirits.rewards.${i - 1}`),
+                value: format(G['runeSpirits'][i]),
+                speed: format(1 - subtract[i] + spiritMultiplierArray[i] * G['effectiveRuneSpiritPower'][i], 4, true)
+            })
+
             const levelsPurchasable = calculateSummationLinear(player.runeSpiritLevels[i], G['spiritBaseCost'], player.runeshards, player.runeSpiritBuyAmount)[0] - player.runeSpiritLevels[i]
             levelsPurchasable > 0
                 ? DOMCacheGetOrSet(`runeSpiritPurchase${i}`).classList.add('runeButtonsAvailable')
                 : DOMCacheGetOrSet(`runeSpiritPurchase${i}`).classList.remove('runeButtonsAvailable')
-            DOMCacheGetOrSet(`runeSpiritPurchaseAmount${i}`).textContent = format(Math.max(1, levelsPurchasable))
-            DOMCacheGetOrSet(`runeSpiritPurchaseCost${i}`).textContent = format(Math.max(G['spiritBaseCost'] * (1 + player.runeSpiritLevels[i]), calculateSummationLinear(player.runeSpiritLevels[i], G['spiritBaseCost'], player.runeshards, player.runeSpiritBuyAmount)[1]))
-            DOMCacheGetOrSet(`runeSpiritPower${i}Value2`).textContent = format(1 - subtract[i] + spiritMultiplierArray[i] * G['effectiveRuneSpiritPower'][i], 4, true)
+
+            DOMCacheGetOrSet(`runeSpiritPurchase${i}`).innerHTML = i18next.t('runes.blessings.increaseLevel', {
+                amount: format(Math.max(1, levelsPurchasable)),
+                offerings: format(Math.max(G['spiritBaseCost'] * (1 + player.runeSpiritLevels[i]), calculateSummationLinear(player.runeSpiritLevels[i], G['spiritBaseCost'], player.runeshards, player.runeSpiritBuyAmount)[1]))
+            })
         }
     }
 }

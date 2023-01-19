@@ -2132,6 +2132,17 @@
         "4": "Obtainium --> Ant Mult."
       },
       "increaseLevel": "Increase Level By <<orchid|{{amount}}>> [Cost: <<orchid|{{offerings}}>> Offerings]"
+    },
+    "spirits": {
+      "spiritLevel": "Spirit level: <<orchid|{{amount}}>>",
+      "spiritPower": "Spirit Power: <<turquoise|{{value}}>> =-=-= Effect: <<gold|{{speed}}>>{{reward}}!",
+      "rewards": {
+        "0": "x Global Speed",
+        "1": "x Wow! Cubes by Ascension",
+        "2": "x Additional levels to Crystal caps",
+        "3": "x Obtainium",
+        "4": "% stronger Research 4x9 effect"
+      }
     }
   }
 }
