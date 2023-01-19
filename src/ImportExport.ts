@@ -19,7 +19,6 @@ import { singularityData } from './singularity';
 import { getEvent } from './Event';
 import { synergismStage } from './Statistics';
 import ClipboardJS from 'clipboard';
-import { octeractData } from './Octeracts';
 import i18next from 'i18next';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
@@ -804,7 +803,7 @@ const timeCodeRewardMultiplier = (): number => {
 const dailyCodeFormatFreeLevelMessage = (upgradeKey: string, freeLevelAmount: number): string => {
     const upgradeNiceName = (upgradeKey in singularityData)
         ? i18next.t(`singularity.data.${upgradeKey}.name`)
-        : octeractData[upgradeKey].name;
+        : i18next.t(`octeract.data.${upgradeKey}.name`);
     return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`;
 }
 

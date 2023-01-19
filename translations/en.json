@@ -1467,6 +1467,171 @@
             }
         }
     },
+    "octeract": {
+        "buyLevel": {
+          "buyPrompt": "How many Octeracts would you like to spend? You have {{n}} OCT. Type -1 to use max!",
+          "cancelPurchase": "Purchase cancelled!",
+          "alreadyMax": "Hey! You have already maxed this upgrade. :D",
+          "cannotAfford": "You cannot afford this upgrade. Sorry!",
+          "multiBuy": "Purchased {{n}} levels, thanks to Multi Buy!"
+        },
+        "toString": {
+          "costNextLevel": "Cost for next level",
+          "becomeAffordable": "(Affordable in {{n}})"
+        },
+        "data": {
+          "octeractStarter":{
+            "name": "Octeracts for Dummies",
+            "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 25% More Quarks, 20% More Octeracts, And 100,000x Ant Speed...",
+            "effect": "You have {{n}} paid your respects to Derpsmith."
+          },
+          "octeractGain":{
+            "name": "Octeract Cogenesis",
+            "description": "Have you despised how slow these damn things are? Gain 1% more of them per level! Simple.",
+            "effect": "Octeract Gain is increased by {{n}}%."
+          },
+          "octeractGain2":{
+            "name": "Octeract Trigenesis",
+            "description": "It turns out that you have six additional dimensions to modify your Cogenesis. +1% more Octs per level!",
+            "effect": "Octeract Gain is increased by {{n}}%."
+          },
+          "octeractQuarkGain":{
+            "name": "Quark Octeract",
+            "description": "An altered forme of the hepteract, this gives a 1% Quark Bonus per level without Diminishing Return.",
+            "effect": "Quark gain is increased by {{n}}%."
+          },
+          "octeractQuarkGain2":{
+            "name": "Octo-Hepteract Primality Synergism",
+            "description": "For every 199 levels of Quark Octeract, you gain 0.01% more quarks per digit in your Quark Hepteract count per level!",
+            "effect": "Octo-Hepteract Primality Synergism is {{n}} active."
+          },
+          "octeractCorruption":{
+            "name": "EXTRA CHONKY Corruptions",
+            "description": "Adds one level to the cap on corruptions. Derpsmith approves.",
+            "effect": "Corruption level cap is increased by {{n}}"
+          },
+          "octeractGQCostReduce":{
+            "name": "EXTRA WIMPY Golden Quark Costs!",
+            "description": "Reduces the cost of Golden Quarks in the shop by 1% per level.",
+            "effect": "Golden Quarks are {{n}}% cheaper!"
+          },
+          "octeractExportQuarks":{
+            "name": "Improved Download Speeds",
+            "description": "Thanks to ethernet technology, export quarks are increased by 40% per level! Only normal ones.",
+            "effect": "Export quarks +{{n}}%"
+          },
+          "octeractImprovedDaily":{
+            "name": "CHONKER Daily Code",
+            "description": "Derpsmith hacks into the source code, and adds +1 free Singularity upgrade per day from Daily.",
+            "effect": "Code 'daily' gives +{{n}} free Singularity upgrades per use."
+          },
+          "octeractImprovedDaily2":{
+            "name": "CHONKERER Daily Code",
+            "description": "Derpsmith implemented hyperspeed multiplication. +1% more free Singularity upgrades per day from Daily!",
+            "effect": "Code 'daily' gives +{{n}}% more free Singularity upgrades per use."
+          },
+          "octeractImprovedDaily3":{
+            "name": "CHONKEREREST Daily Code",
+            "description": "It will never satisfy Derpsmith. +1 +0.5% more free Singularity upgrades per day from Daily!",
+            "effect": "Code 'daily' gives +{{n}} more free Singularity upgrades per use."
+          },
+          "octeractImprovedQuarkHept":{
+            "name": "I wish for even better Quark Hepteracts.",
+            "description": "The godmother is absent, but Derpsmith is here! +2% DR exponent per level. Stacks additively with all the others!",
+            "effect": "Quark Hepteract DR +{{n}}."
+          },
+          "octeractImprovedGlobalSpeed":{
+            "name": "The forbidden clock of time",
+            "description": "Hypothesized to be locked in a hyperbolic time chamber. +1% Global Speed per level per singularity!",
+            "effect": "Global Speed per singularity +{{n}}%"
+          },
+          "octeractImprovedAscensionSpeed":{
+            "name": "Abstract Photokinetics",
+            "description": "Gain +0.05% Ascension Speed per level per singularity!",
+            "effect": "Ascension Speed per singularity +{{n}}}%"
+          },
+          "octeractImprovedAscensionSpeed2":{
+            "name": "Abstract Exokinetics",
+            "description": "Gain +0.02% Ascension Speed per level per singularity!",
+            "effect": "Ascension Speed per singularity +{{n}}%"
+          },
+          "octeractImprovedFree":{
+            "name": "Wow! I want free upgrades to be better.",
+            "description": "Singularity Upgrade level is (paid level * free levels)^0.6 instead of being added.",
+            "effect": "Singularity Upgrade free levels are {{n}} being powered!"
+          },
+          "octeractImprovedFree2":{
+            "name": "Wow! Free upgrades still suck.",
+            "description": "Who said beggars can\"t be choosers? Extends the exponent of the first upgrade to 0.65.",
+            "effect": "Exponent of previous upgrade +{{n}}."
+          },
+          "octeractImprovedFree3":{
+            "name": "Wow! Make free upgrades good already, Platonic!",
+            "description": "Extends the exponent of the free upgrades to 0.70.",
+            "effect": "Exponent of the first upgrade +{{n]}"
+          },
+          "octeractImprovedFree4":{
+            "name": "Coupon of Ultimate Penniless Derpsmiths",
+            "description": "Each level adds 0.001 to the exponent of free upgrades, with the first level adding another 0.01!",
+            "effect": "Exponent of the first upgrade +{{n}}"
+          },
+          "octeractSingUpgradeCap":{
+            "name": "Overwriting Pointers",
+            "description": "Derpsmith encountered a SegFault after reassigning null... +1 to level cap on certain Singularity Upgrades per level!",
+            "effect": "Some Singularity Upgrades have +{{n}} max level!"
+          },
+          "octeractOfferings1":{
+            "name": "Offering Electrolosis",
+            "description": "Gain 1% more offerings per level.",
+            "effect": "Offering gain +{{n}}%"
+          },
+          "octeractObtainium1":{
+            "name": "Obtainium Deluge",
+            "description": "Gain 1% more obtainium per level.",
+            "effect": "Obtainium gain +{{n}}%"
+          },
+          "octeractAscensions":{
+            "name": "Voided Warranty",
+            "description": "Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels.",
+            "effect": "Ascension Count increases {{n}}}% faster."
+          },
+          "octeractAscensions2":{
+            "name": "Hidden Late Fees",
+            "description": "Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels. But... this scales a lot faster. Must be those hidden late fees.",
+            "effect": "Ascension Count increases {{n}}% faster."
+          },
+          "octeractAscensionsOcteractGain":{
+            "name": "Digital Octeract Accumulator",
+            "description": "Octeract gain is 1% faster for every digit in your Ascension count!",
+            "effect": "Octeract Gain per OOM Ascension count +{{n}}%"
+          },
+          "octeractFastForward":{
+            "name": "Derpsmith\"s Singularity Discombobulator",
+            "description": "Each level makes Singularity give +100% Golden Quarks (additive) and singularity at all time highest count grants +1 singularity count!",
+            "effect": "Singularities give {{n}}% more GQ and count as ${n} more."
+          },
+          "octeractAutoPotionSpeed":{
+            "name": "Pill of Increased Thirst",
+            "description": "You can buy pills of thirst-making to consume potions automatically faster! 4% faster per level to be precise.",
+            "effect": "Auto Potion Singularity Perk works {{n}}% faster than before!"
+          },
+          "octeractAutoPotionEfficiency":{
+            "name": "Vitamin O Infusion",
+            "description": "Thanks to the generosity of your Derpsmith, Potions are 2% more potent per level!",
+            "effect": "Potions give {{n}}% more Offerings and Obtainium."
+          },
+          "octeractOneMindImprover":{
+            "name": "Infinite Transcription of the One Mind",
+            "description": "You ask what this upgrade does, but Derpsmith just nods his head. What is he hiding from you?",
+            "effect": "One Mind converts Ascension Speed to Octeract Gain to the power of {{n}}."
+          },
+          "octeractAmbrosiaLuck":{
+            "name": "Berries of an Eight Leaf Clover (WIP)",
+            "description": "Totally not a reskin of the blueberry! Adds +1 Ambrosial Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
+            "effect": "Ambrosial Luck +{{n}}(!)"
+          }
+        }
+    },
     "general": {
         "youAreInThe": "You are in the",
         "validation": {
@@ -1483,7 +1648,11 @@
         "OK": "OK",
         "Cancel": "Cancel",
         "autoOnBracket": "Auto [ON]",
-        "autoOffBracket": "Auto [OFF]"
+        "autoOffBracket": "Auto [OFF]",
+        "softCapped": "(Softcapped)",
+        "maxed": "(Maxed)",
+        "affordable": "(Affordable)",
+        "infinity": "Infinity"
     },
     "upgrades": {
         "descriptions": {

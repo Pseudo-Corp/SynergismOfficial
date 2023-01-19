@@ -326,36 +326,36 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
 
     player.octeractUpgrades = {
-        octeractStarter: new OcteractUpgrade(octeractData['octeractStarter']),
-        octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
-        octeractGain2: new OcteractUpgrade(octeractData['octeractGain2']),
-        octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
-        octeractQuarkGain2: new OcteractUpgrade(octeractData['octeractQuarkGain2']),
-        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
-        octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
-        octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
-        octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily']),
-        octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
-        octeractImprovedDaily3: new OcteractUpgrade(octeractData['octeractImprovedDaily3']),
-        octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
-        octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed']),
-        octeractImprovedAscensionSpeed: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed']),
-        octeractImprovedAscensionSpeed2: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed2']),
-        octeractImprovedFree: new OcteractUpgrade(octeractData['octeractImprovedFree']),
-        octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
-        octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),
-        octeractImprovedFree4: new OcteractUpgrade(octeractData['octeractImprovedFree4']),
-        octeractSingUpgradeCap: new OcteractUpgrade(octeractData['octeractSingUpgradeCap']),
-        octeractOfferings1: new OcteractUpgrade(octeractData['octeractOfferings1']),
-        octeractObtainium1: new OcteractUpgrade(octeractData['octeractObtainium1']),
-        octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
-        octeractAscensions2: new OcteractUpgrade(octeractData['octeractAscensions2']),
-        octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain']),
-        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
-        octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
-        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency']),
-        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover']),
-        octeractAmbrosiaLuck: new OcteractUpgrade(octeractData['octeractAmbrosiaLuck'])
+        octeractStarter: new OcteractUpgrade(octeractData['octeractStarter'], 'octeractStarter'),
+        octeractGain: new OcteractUpgrade(octeractData['octeractGain'], 'octeractGain'),
+        octeractGain2: new OcteractUpgrade(octeractData['octeractGain2'], 'octeractGain2'),
+        octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain'], 'octeractQuarkGain'),
+        octeractQuarkGain2: new OcteractUpgrade(octeractData['octeractQuarkGain2'], 'octeractQuarkGain2'),
+        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption'], 'octeractCorruption'),
+        octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce'], 'octeractGQCostReduce'),
+        octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks'], 'octeractExportQuarks'),
+        octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily'], 'octeractImprovedDaily'),
+        octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2'], 'octeractImprovedDaily2'),
+        octeractImprovedDaily3: new OcteractUpgrade(octeractData['octeractImprovedDaily3'], 'octeractImprovedDaily3'),
+        octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept'], 'octeractImprovedQuarkHept'),
+        octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed'], 'octeractImprovedGlobalSpeed'),
+        octeractImprovedAscensionSpeed: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed'], 'octeractImprovedAscensionSpeed'),
+        octeractImprovedAscensionSpeed2: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed2'], 'octeractImprovedAscensionSpeed2'),
+        octeractImprovedFree: new OcteractUpgrade(octeractData['octeractImprovedFree'], 'octeractImprovedFree'),
+        octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2'], 'octeractImprovedFree2'),
+        octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3'], 'octeractImprovedFree3'),
+        octeractImprovedFree4: new OcteractUpgrade(octeractData['octeractImprovedFree4'], 'octeractImprovedFree4'),
+        octeractSingUpgradeCap: new OcteractUpgrade(octeractData['octeractSingUpgradeCap'], 'octeractSingUpgradeCap'),
+        octeractOfferings1: new OcteractUpgrade(octeractData['octeractOfferings1'], 'octeractOfferings1'),
+        octeractObtainium1: new OcteractUpgrade(octeractData['octeractObtainium1'], 'octeractObtainium1'),
+        octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions'], 'octeractAscensions'),
+        octeractAscensions2: new OcteractUpgrade(octeractData['octeractAscensions2'], 'octeractAscensions2'),
+        octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain'], 'octeractAscensionsOcteractGain'),
+        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward'], 'octeractFastForward'),
+        octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed'], 'octeractAutoPotionSpeed'),
+        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency'], 'octeractAutoPotionEfficiency'),
+        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover'], 'octeractOneMindImprover'),
+        octeractAmbrosiaLuck: new OcteractUpgrade(octeractData['octeractAmbrosiaLuck'], 'octeractAmbrosiaLuck')
     }
 
     player.singularityChallenges = {
@@ -712,25 +712,25 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
 
     if (data.octeractUpgrades != null) { // TODO: Make this more DRY -Platonic, July 15 2022
-        let octeractNum = 1;
         for (const item in blankSave.octeractUpgrades) {
             const k = item as keyof Player['octeractUpgrades'];
             let updatedData:IOcteractData
             if (data.octeractUpgrades[k]) {
+                const { level, octeractsInvested, toggleBuy, freeLevels } = data.octeractUpgrades[k]
+
                 updatedData = {
-                    name: `[${octeractNum}] ${octeractData[k].name}`,
-                    description: octeractData[k].description,
                     maxLevel: octeractData[k].maxLevel,
                     costPerLevel: octeractData[k].costPerLevel,
-                    level: data.octeractUpgrades[k].level,
-                    octeractsInvested: data.octeractUpgrades[k].octeractsInvested,
-                    toggleBuy: data.octeractUpgrades[k].toggleBuy,
+
+                    level,
+                    octeractsInvested,
+                    toggleBuy,
                     effect: octeractData[k].effect,
                     costFormula: octeractData[k].costFormula,
-                    freeLevels: data.octeractUpgrades[k].freeLevels,
+                    freeLevels,
                     qualityOfLife: octeractData[k].qualityOfLife
                 }
-                player.octeractUpgrades[k] = new OcteractUpgrade(updatedData);
+                player.octeractUpgrades[k] = new OcteractUpgrade(updatedData, k.toString());
 
                 if (player.octeractUpgrades[k].maxLevel !== -1 &&
                     player.octeractUpgrades[k].level > player.octeractUpgrades[k].maxLevel) {
@@ -739,7 +739,6 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             } else {
                 player.octeractUpgrades[k].name = `[NEW!] ${player.octeractUpgrades[k].name}`
             }
-            octeractNum += 1;
         }
     }
 
