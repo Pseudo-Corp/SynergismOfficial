@@ -4,6 +4,7 @@ import { CalcECC } from './Challenges';
 import { calculateRuneLevels } from './Calculate';
 import { achievementaward } from './Achievements';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import i18next from 'i18next';
 
 const talismanResourceCosts = {
     shard: {
@@ -79,11 +80,15 @@ export const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCos
         const talismanCostInfo = getTalismanResourceInfo(type, percentage);
         const TalismanName = talismanResourceCosts[type].name;
 
-        el.textContent = 'Cost to buy ' + format(talismanCostInfo.buyAmount) + ' ' + TalismanName + (talismanCostInfo.buyAmount>1?'s':'') + ': ';
-        el.textContent += format(talismanCostInfo.obtainiumCost) + ' Obtainium and ' + format(talismanCostInfo.offeringCost) + ' Offerings.';
+        el.textContent = i18next.t('runes.talismans.costToBuy', {
+            name: TalismanName,
+            buyAmount: format(talismanCostInfo.buyAmount),
+            obtainium: format(talismanCostInfo.obtainiumCost),
+            offerings: format(talismanCostInfo.offeringCost)
+        })
     } else {
         // Buy All
-        el.textContent = 'Click to buy every type of Talisman Shards and Fragments, if affordable';
+        el.textContent = i18next.t('runes.talismans.clickBuyEveryType')
     }
 }
 

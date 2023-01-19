@@ -367,18 +367,29 @@ export const visualUpdateRunes = () => {
         const blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
         let t = 0;
         for (let i = 1; i <= 5; i++) {
-            DOMCacheGetOrSet(`runeBlessingLevel${i}Value`).textContent = format(player.runeBlessingLevels[i])
-            DOMCacheGetOrSet(`runeBlessingPower${i}Value1`).textContent = format(G['runeBlessings'][i])
+            DOMCacheGetOrSet(`runeBlessingLevel${i}Value`).innerHTML = i18next.t('runes.blessings.blessingLevel', {
+                amount: format(player.runeBlessingLevels[i])
+            })
+
+            DOMCacheGetOrSet(`runeBlessingPower${i}Value1`).innerHTML = i18next.t('runes.blessings.blessingPower', {
+                reward: i18next.t(`runes.blessings.rewards.${i - 1}`),
+                value: format(G['runeBlessings'][i]),
+                speed: format(1 - t + blessingMultiplierArray[i] * G['effectiveRuneBlessingPower'][i], 4, true)
+            })
+
             const levelsPurchasable = calculateSummationLinear(player.runeBlessingLevels[i], G['blessingBaseCost'], player.runeshards, player.runeBlessingBuyAmount)[0] - player.runeBlessingLevels[i]
             levelsPurchasable > 0
                 ? DOMCacheGetOrSet(`runeBlessingPurchase${i}`).classList.add('runeButtonsAvailable')
                 : DOMCacheGetOrSet(`runeBlessingPurchase${i}`).classList.remove('runeButtonsAvailable')
-            DOMCacheGetOrSet(`runeBlessingPurchaseAmount${i}`).textContent = format(Math.max(1, levelsPurchasable))
-            DOMCacheGetOrSet(`runeBlessingPurchaseCost${i}`).textContent = format(Math.max(G['blessingBaseCost'] * (1 + player.runeBlessingLevels[i]), calculateSummationLinear(player.runeBlessingLevels[i], G['blessingBaseCost'], player.runeshards, player.runeBlessingBuyAmount)[1]))
+
+            DOMCacheGetOrSet(`runeBlessingPurchase${i}`).innerHTML = i18next.t('runes.blessings.increaseLevel', {
+                amount: format(Math.max(1, levelsPurchasable)),
+                offerings: format(Math.max(G['blessingBaseCost'] * (1 + player.runeBlessingLevels[i]), calculateSummationLinear(player.runeBlessingLevels[i], G['blessingBaseCost'], player.runeshards, player.runeBlessingBuyAmount)[1]))
+            })
+
             if (i === 5) {
                 t = 1
             }
-            DOMCacheGetOrSet(`runeBlessingPower${i}Value2`).textContent = format(1 - t + blessingMultiplierArray[i] * G['effectiveRuneBlessingPower'][i], 4, true)
         }
     }
 
