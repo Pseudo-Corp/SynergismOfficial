@@ -608,7 +608,7 @@ export const visualUpdateSettings = () => {
         DOMCacheGetOrSet('goldenQuarkTimerAmount').textContent =
             `Golden Quarks on export: ${format(Math.floor(player.goldenQuarksTimer * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus/ 3600) * goldenQuarkMultiplier, 2)} [Max ${format(Math.floor(168 * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus * goldenQuarkMultiplier))}]`
     }
-    if (player.subtabNumber === 2) {
+    if (player.subtabNumber === 3) {
         loadStatisticsUpdate();
     }
 }
