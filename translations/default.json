@@ -1670,7 +1670,7 @@
       "octeractImprovedAscensionSpeed":{
         "name": "Abstract Photokinetics",
         "description": "Gain +0.05% Ascension Speed per level per singularity!",
-        "effect": "Ascension Speed per singularity +{{n}}}%"
+        "effect": "Ascension Speed per singularity +{{n}}%"
       },
       "octeractImprovedAscensionSpeed2":{
         "name": "Abstract Exokinetics",
@@ -1715,7 +1715,7 @@
       "octeractAscensions":{
         "name": "Voided Warranty",
         "description": "Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels.",
-        "effect": "Ascension Count increases {{n}}}% faster."
+        "effect": "Ascension Count increases {{n}}% faster."
       },
       "octeractAscensions2":{
         "name": "Hidden Late Fees",
