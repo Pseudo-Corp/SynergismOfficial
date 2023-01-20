@@ -254,10 +254,10 @@
             "245": "[{{number}}]彻底祝福：[提示：加速符文的祝福等级需要大到离谱，甚至是1e14的一亿倍]",
             "246": "[{{number}}]意义何在？[提示：在赫尔墨斯的贡品等级已经比一千万的两万倍还多时，再去开一个方盒又有什么意义呢，对不对？]",
             "247": "[{{number}}]真正的挑战！[提示：使用某个跟蚂蚁产量有关的腐化以后，完成挑战11，且本次完成挑战10的次数不能低于49，也不需要高于51？什么，腐化要多少级？挑战10至少需要次数的第一位就是了]",
-            "248": "[{{number}}]无蓝见红：[提示：在某个见不到发亮蓝石的挑战中，获得1后面跟着10个0……哦不好意思还少了个0的某种红色资源。什么资源？前面不是有一个一样的吗，就那个]",
-            "249": "[{{number}}]课税过重：[提示：在某个税收增加极快的挑战，当然不是那种转转世就能完成的挑战中，由于税收，金币产量连1后面跟着1，2，3……等等，多少来着，哦，100……1000？不不，100000个0都达不到]",
-            "250": "[{{number}}]烈日千阳：[提示：将某个最后出现的研究提升至最大]",
-            "251": "[{{number}}]静月千阴：[提示：将方盒最后的某个升级提升至最大]",
+            "248": "[{{number}}]无蓝见红：[提示：在某个见不到发亮蓝石的挑战中，获得1后面跟着11个0的某种红色资源。什么资源？前面不是有一个一样的吗，就那个]",
+            "249": "[{{number}}]课税过重：[提示：在某个税收增加极快的挑战，当然不是那种转转世就能完成的挑战中，由于税收，金币产量连1后面跟着1，2，3……100000个0都达不到]",
+            "250": "[{{number}}]烈日千阳：[提示：将某个最后出现的研究提升至满级]",
+            "251": "[{{number}}]静月千阴：[提示：将方盒最后的某个升级提升至满级]",
             "252": "[{{number}}]终极挑战：完成虐待狂挑战 II。",
             "253": "[{{number}}]Platonic主义：以1e12以上的分数完成飞升。",
             "254": "[{{number}}]屈指可数：以1e14以上的分数完成飞升。",
@@ -275,7 +275,7 @@
             "266": "[{{number}}]数字还在逐渐增长，保持住这个势头：进行一百万亿(1e14)次飞升。",
             "267": "[{{number}}]特征值：达到1e1000的数学常数。",
             "268": "[{{number}}]达到数学：达到1e5000的数学常数。",
-            "269": "[{{number}}]拉姆齐数R(5,5)(译者注：此数不存在)：达到1e15000的数学常数。",
+            "269": "[{{number}}]拉姆齐数R(5,5)：达到1e15000的数学常数。",
             "270": "[{{number}}]下一个是什么？：达到1e50000的数学常数。",
             "271": "[{{number}}]小伙子：达到1e100000的数学常数。",
             "272": "[{{number}}]中伙子：达到1e300000的数学常数。",
@@ -1089,8 +1089,7 @@
                 "hasLevel1": "开启自动符文时您可以自动购买祝福和魂灵，并会将祭品分配给符文6 - 无限晋升",
                 "default": "开启自动符文时您可以自动购买祝福和魂灵"
             },
-            "exaltedAchievements": "解锁新的，更加困难的成就！获取方式与其余的成就不同……",
-            "derpSmithsCornucopia": "Derpsmith祝福了您，每次奇点可以多获得{{counter}}%惊奇八阶方块！",
+            "exaltedAchievements": "解锁新的，更加困难的成就！获取方式与其余的成就不同……(制作中)",
             "coolQOLCubes": {
                 "hasLevel1": "飞升时，研究6x13、7x3、7x18、8x8、8x23不再重置，并可以自动开启特定比例的方盒及立方！",
                 "default": "飞升时，研究6x13、7x3、7x18、8x8、8x23不再重置"
@@ -1128,7 +1127,8 @@
                 "hasLevel1": "从第200次奇点开始，增加奇点次数的升级不再生效！但使您的金夸克获取数量变为5倍，并使购买金夸克的花费除以5。",
                 "default": "从第200次奇点开始，增加奇点次数的升级不再生效！但使您的金夸克获取数量变为3倍，并使购买金夸克的花费除以3。"
             },
-            "skrauQ": "使夸克获取数量变为((奇点次数-179)/20)的平方倍。目前倍率为${format(amt)}……是的，就是这么好。"
+            "skrauQ": "使夸克获取数量变为((奇点次数-179)/20)的平方倍。目前倍率为{{amt}}……是的，就是这么好。",
+            "derpSmithsCornucopia": "Derpsmith祝福了您，每次奇点可以多获得{{counter}}%惊奇八阶方块！"
         },
         "toString": {
             "noMinimum": "无进入奇点次数要求",
@@ -1445,6 +1445,57 @@
                 "description": "是蓝莓！啊，Platonic已经无计可施了。嗯，每个蓝莓每秒有0.01%的概率产生神肴！",
                 "effect": "您购买了{{n}}个美味的蓝莓。"
             }
+        },
+        "goldenQuarkAmount": "您有{{goldenQuarks}}金夸克！",
+        "penalties": {
+            "globalSpeed": "<<royalblue|全局速度>>除以<<royalblue|{{divisor}}>>。",
+            "ascensionSpeed": "<<orange|飞升的速度>>除以<<orange|{{divisor}}>>。",
+            "offeringGain": "<<gold|祭品获取数量>>除以<<gold|{{divisor}}>>。",
+            "obtainiumGain": "<<steelblue|难得素获取数量>>除以<<steelblue|{{divisor}}>>。",
+            "cubeGain": "<<yellow|所有类型的方盒及立方获取数量>>除以<<yellow|{{divisor}}>>。",
+            "researchCosts": "<<var(--green-text-color)|研究花费>>乘以<<var(--green-text-color)|{{multiplier}}>>。",
+            "cubeUpgradeCosts": "<<Silver|方盒升级花费>>(饼干升级除外)乘以<<Silver|{{multiplier}}>>。",
+            "platonicCosts": "<<var(--orchid-text-color)|PLATONIC方盒升级花费>>乘以<<var(--orchid-text-color)|{{multiplier}}>>。",
+            "hepteractCosts": "<<Pink|七阶立方锻炉花费>>乘以<<Pink|{{multiplier}}>>。",
+            "penaltySmooth": "惩罚将永远平滑地增加下去。",
+            "penaltyRough": "惩罚将在<<var(--red-text-color)|第{{num}}次进入奇点>>后大幅增加。",
+            "antiquitiesBought": "<<var(--green-text-color)|蚁神之古物已购买。奇点相关惩罚已驱散！>>",
+            "antiquitiesNotBought": "<<var(--red-text-color)|蚁神之古物未购买。奇点相关惩罚未驱散！>>"
+        },
+        "perkNames": {
+            "xyz": "“daily”代码额外奖励",
+            "unlimitedGrowth": "无限成长",
+            "goldenCoins": "金币之雨",
+            "hepteractAutocraft": "七阶立方自动锻造",
+            "generousOrbs": "慷慨之珠",
+            "researchDummies": "傻瓜式研究教学",
+            "superStart": "超级初始",
+            "notSoChallenging": "这就是挑战？",
+            "automationUpgrades": "永久保留自动升级",
+            "evenMoreQuarks": "更多夸克",
+            "shopSpecialOffer": "商店特惠",
+            "potionAutogenerator": "自动使用药剂",
+            "respecBeGone": "别了，变配！",
+            "forTheLoveOfTheAntGod": "看在(蚁)神的份上",
+            "itAllAddsUp": "集腋成裘",
+            "automagicalRunes": "自动魔法符文",
+            "exaltedAchievements": "拔擢成就",
+            "derpSmithsCornucopia": "Derpsmith的聚宝盆",
+            "coolQOLCubes": "酷炫的开盒体验",
+            "eternalAscensions": "永恒飞升",
+            "antGodsCornucopia": "蚁神的聚宝盆",
+            "overclocked": "超载",
+            "wowCubeAutomatedShipping": "惊奇方盒自动运输",
+            "goldenRevolution": "金之革命",
+            "goldenRevolutionII": "金之革命 II",
+            "goldenRevolutionIII": "金之革命 III",
+            "platonicClones": "PLATONIC桌面点击之克隆",
+            "platSigma": "PL-AT Σ",
+            "midasMilleniumAgedGold": "米达斯的千年之金",
+            "goldenRevolution4": "金之革命 IV",
+            "octeractMetagenesis": "八阶方块世代交替",
+            "immaculateAlchemy": "完美炼金术",
+            "skrauQ": "克夸"
         }
     },
     "general": {
@@ -1463,7 +1514,14 @@
         "OK": "好",
         "Cancel": "取消",
         "autoOnBracket": "自动[开]",
-        "autoOffBracket": "自动[关]"
+        "autoOffBracket": "自动[关]",
+        "softCapped": "(已达软上限)",
+        "maxed": "(已满级)",
+        "affordable": "(可购买)",
+        "infinity": "无限",
+        "enabled": "[已启用]",
+        "sacrificeCapital": "献祭",
+        "multiBuyInstructions": "按住<<var(--orchid-text-color)|'SHIFT'>>键再购买升级，则可以一次性进行多次升级！"
     },
     "upgrades": {
         "descriptions": {
@@ -1699,7 +1757,7 @@
             "5": "钻石矿被摧毁了……没有垄断了！",
             "6": "它连恐龙都干掉了，憨憨。",
             "7": "更像加州了，对吧？",
-            "8": "2008.exe已停止工作。"
+            "8": "2020年的股灾又来了一次。"
         },
         "currentLevel": {
             "1": "本次飞升，此腐化等级为{{level}}。效果为：免费加速器和加倍器指数变为{{effect}}",
@@ -1801,7 +1859,351 @@
             "alchemies": "炼金术：{{amount}} [+{{gain}}]",
             "accelerators": "加速器：{{amount}} [+{{gain}}]",
             "multipliers": "加倍器：{{amount}} [+{{gain}}]",
-            "acceleratorBoost": "加速器加成：{{amount}} [+{{gain}}]"
+            "acceleratorBoost": "加速器加成：{{amount}} [+{{gain}}]",
+            "refineries": "炼油厂：{{amount}} [+{{gain}}]",
+            "coalPlants": "煤电厂：{{amount}} [+{{gain}}]",
+            "coalRigs": "煤钻机：{{amount}} [+{{gain}}]",
+            "pickaxes": "十字镐：{{amount}} [+{{gain}}]",
+            "pandorasBoxes": "潘多拉魔盒：{{amount}} [+{{gain}}]",
+            "augments": "强化：{{amount}} [+{{gain}}]",
+            "enchantments": "附魔：{{amount}} [+{{gain}}]",
+            "wizards": "法师：{{amount}} [+{{gain}}]",
+            "oracles": "先知：{{amount}} [+{{gain}}]",
+            "grandmasters": "宗师：{{amount}} [+{{gain}}]",
+            "protons": "质子：{{amount}} [+{{gain}}]",
+            "elements": "元素：{{amount}} [+{{gain}}]",
+            "pulsars": "脉冲星：{{amount}} [+{{gain}}]",
+            "quasars": "类星体：{{amount}} [+{{gain}}]",
+            "galacticNuclei": "星系核心：{{amount}} [+{{gain}}]",
+            "dot": "点：{{amount}} [+{{gain}}]",
+            "vector": "矢量：{{amount}} [+{{gain}}]",
+            "threeSpace": "三维空间：{{amount}} [+{{gain}}]",
+            "bentTime": "时间扭曲：{{amount}} [+{{gain}}]",
+            "hilbertSpace": "希尔伯特空间：{{amount}} [+{{gain}}]"
+        },
+        "crystalMult": "您有{{crystals}}水晶，金币产量因此乘以{{gain}}。",
+        "hoverCrystalUpgrade": "将鼠标停在水晶升级上可以获得更多信息！",
+        "autoPrestige": "当{{name}}为之前的{{factor}}倍时{{action}}[在上方输入设置数值]。当前倍率：{{mult}}。",
+        "per": {
+            "crystal": "水晶每秒产量：{{amount}}",
+            "ref": "炼油厂每秒产量：{{amount}}",
+            "plants": "煤电厂每秒产量：{{amount}}",
+            "rigs": "煤钻机每秒产量：{{amount}}",
+            "pickaxes": "十字镐每秒产量：{{amount}}",
+            "shards": "神话碎片每秒产量：{{amount}}",
+            "augments": "强化每秒产量：{{amount}}",
+            "enchantments": "附魔每秒产量：{{amount}}",
+            "wizards": "法师每秒产量：{{amount}}",
+            "oracles": "先知每秒产量：{{amount}}",
+            "atoms": "原子每秒产量：{{amount}}",
+            "protons": "质子每秒产量：{{amount}}",
+            "elements": "元素每秒产量：{{amount}}",
+            "pulsars": "脉冲星每秒产量：{{amount}}",
+            "quasars": "类星体每秒产量：{{amount}}",
+            "constant": "数学常数每秒产量：{{amount}}",
+            "dot": "点每秒产量：{{amount}}",
+            "vector": "矢量每秒产量：{{amount}}",
+            "threeSpace": "三维空间每秒产量：{{amount}}",
+            "bentTime": "时间扭曲每秒产量：{{amount}}"
+        },
+        "crystalUpgrades": {
+            "currentLevel": "当前等级：<<lightblue|{{amount}}>>",
+            "cost": "花费：<<lightblue|{{amount}}>>水晶",
+            "currentEffect": "当前效果：<<lightblue|{{effect}}>>"
+        },
+        "mythosYouHave": "您有{{shards}}神话碎片，加倍器加成因此增加{{mult}}个。",
+        "eachMultiplierBoost": "每1个加倍器加成使加倍器的基础效果增加0.005！",
+        "costMythos": "花费：{{mythos}}神话。",
+        "atomsYouHave": "您有{{atoms}}原子，建筑能量因此增加{{power}}。金币产量倍率变为{{mult}}倍",
+        "costParticles": "花费：{{particles}}粒子",
+        "autoReincarnate": "当现实时间经过{{amount}}秒后{{name}}[在上方输入设置数值]。当前时间：{{timer}}秒。",
+        "thanksR2x14": "由于研究2x14的效果，水晶产量变为{{mult}}倍",
+        "thanksR2x15": "由于研究2x15的效果，神话碎片产量变为{{mult}}倍",
+        "tesseractsYouHave": "您有{{tesseracts}}惊奇超立方。飞升时通过挑战10以获取更多。",
+        "constantYouHave": "您有{{const}}数学常数。税收因此除以{{amount}}。",
+        "costTesseracts": "花费：{{tesseracts}}超立方",
+        "autoTesseract": "自动购买至少保留{{tesseracts}}超立方[在上方输入设置数值]。",
+        "autoAscensionTesseract": "飞升时，自动购买至少保留{{percent}}%超立方[在上方输入设置数值]。"
+    },
+    "octeract": {
+        "buyLevel": {
+            "buyPrompt": "您想要花费多少惊奇八阶方块？您拥有{{n}}惊奇八阶方块。如果想要购买最大数量，请输入-1！",
+            "cancelPurchase": "已取消购买！",
+            "alreadyMax": "嘿！您已经升满此升级了！:D",
+            "cannotAfford": "您无法承担该升级的花费。很遗憾！",
+            "multiBuy": "一共升了{{n}}级，多重购买真是太棒了！"
+        },
+        "toString": {
+            "costNextLevel": "下一级的花费",
+            "becomeAffordable": "({{n}}后可购买)"
+        },
+        "data": {
+            "octeractStarter": {
+                "name": "萌新的惊奇八阶方块",
+                "description": "您好……我是Derpsmith……蚁神的先祖……没想到您能走到这一步。该升级可以使您的夸克获取数量增加25%，惊奇八阶方块获取数量增加20%，蚂蚁速度变为100000倍……",
+                "effect": "您{{n}}向Derpsmith致敬。"
+            },
+            "octeractGain": {
+                "name": "惊奇八阶方块同生",
+                "description": "您有没有感觉这些玩意慢得捉急？每级可以使惊奇八阶方块获取数量增加1%！很简单吧。",
+                "effect": "惊奇八阶方块获取数量增加{{n}}%。"
+            },
+            "octeractGain2": {
+                "name": "惊奇八阶方块三度起源",
+                "description": "原来您还有六个维度可以升级同生。每级可以使惊奇八阶方块获取数量增加1%！",
+                "effect": "惊奇八阶方块获取数量增加{{n}}%。"
+            },
+            "octeractQuarkGain": {
+                "name": "惊奇八阶方块·夸克",
+                "description": "惊奇七阶立方的变体版本，每级使夸克获取数量增加1%，且效果不衰减。",
+                "effect": "夸克获取数量增加{{n}}%。"
+            },
+            "octeractQuarkGain2": {
+                "name": "七-八阶原始协同",
+                "description": "惊奇八阶方块·夸克每有199级，惊奇七阶立方·夸克每有一个数量级，每级该升级就可以使夸克获取数量增加0.01%。",
+                "effect": "七-八阶原始协同效果{{n}}生效。"
+            },
+            "octeractCorruption": {
+                "name": "更多腐化",
+                "description": "使腐化等级上限再增加1级。Derpsmith表示赞同。",
+                "effect": "腐化等级上限增加{{n}}"
+            },
+            "octeractGQCostReduce": {
+                "name": "金夸克购买花费再度降低",
+                "description": "每级使商店购买金夸克的花费减少1%。",
+                "effect": "购买金夸克的花费减少了{{n}}%！"
+            },
+            "octeractExportQuarks": {
+                "name": "改善下载速度",
+                "description": "感谢伟大的以太网技术，每级使导出夸克奖励增加40%！",
+                "effect": "导出夸克奖励增加{{n}}%"
+            },
+            "octeractImprovedDaily": {
+                "name": "加强“Daily”代码效果",
+                "description": "Derpsmith使用技术手段调整源代码，使“Daily”代码获得的免费奇点升级增加1级。",
+                "effect": "“Daily”代码可以额外提供{{n}}级免费奇点升级。"
+            },
+            "octeractImprovedDaily2": {
+                "name": "再度加强“Daily”代码效果",
+                "description": "Derpsmith实现了超高速乘法。使“Daily”代码获得的免费奇点升级增加1%！",
+                "effect": "“Daily”代码可以额外提供{{n}}%的免费奇点升级。"
+            },
+            "octeractImprovedDaily3": {
+                "name": "超级加强“Daily”代码效果",
+                "description": "Derpsmith永不自满。使“Daily”代码获得的免费奇点升级增加1级和增加0.5%！",
+                "effect": "“Daily”代码可以额外提供{{n}}级免费奇点升级。"
+            },
+            "octeractImprovedQuarkHept": {
+                "name": "我希望惊奇七阶立方·夸克的效果还能增加。",
+                "description": "教母跑路了，但Derpsmith还在！每级使超过软上限后的指数增加2%，与其他类似升级之间叠加！",
+                "effect": "惊奇七阶立方·夸克超过软上限后的指数增加{{n}}。"
+            },
+            "octeractImprovedGlobalSpeed": {
+                "name": "禁忌时钟",
+                "description": "就像是时间与精神之屋那样。对于每次奇点，每级使全局速度增加1%！",
+                "effect": "每次奇点使全局速度增加{{n}}%"
+            },
+            "octeractImprovedAscensionSpeed": {
+                "name": "抽象趋光性",
+                "description": "对于每次奇点，每级使飞升的速度增加0.05%！",
+                "effect": "每次奇点使飞升的速度增加{{n}}%"
+            },
+            "octeractImprovedAscensionSpeed2": {
+                "name": "抽象外动力",
+                "description": "对于每次奇点，每级使飞升的速度增加0.02%！",
+                "effect": "每次奇点使飞升的速度增加{{n}}%"
+            },
+            "octeractImprovedFree": {
+                "name": "真惊奇！我希望免费升级效果变得更好。",
+                "description": "奇点商店升级的效果从购买等级与免费等级直接相加改为 [购买等级×免费等级]的0.6次方。",
+                "effect": "奇点商店的免费等级效果{{n}}强化！"
+            },
+            "octeractImprovedFree2": {
+                "name": "真惊奇！免费升级还是不够给力。",
+                "description": "谁规定免费就不能置喙了？使第一个升级的指数变为0.65。",
+                "effect": "前一个升级的指数增加{{n}}。"
+            },
+            "octeractImprovedFree3": {
+                "name": "真惊奇！PLATONIC，让免费升级再度强大吧！",
+                "description": "使免费升级的指数变为0.70。",
+                "effect": "第一个升级的指数增加{{n]}"
+            },
+            "octeractImprovedFree4": {
+                "name": "身无分文的Derpsmith之终极兑换券",
+                "description": "每级使免费升级的指数增加0.001，并且第一级额外增加0.01！",
+                "effect": "第一个升级的指数增加{{n}}"
+            },
+            "octeractSingUpgradeCap": {
+                "name": "重写指针",
+                "description": "Derpsmith在NULL指针重分配时遇到了段出错……每级可以使特定奇点升级的等级上限增加1！",
+                "effect": "特定奇点升级的等级上限增加了{{n}}！"
+            },
+            "octeractOfferings1": {
+                "name": "祭品电解",
+                "description": "每级使祭品获取数量增加1%。",
+                "effect": "祭品获取数量增加{{n}}%"
+            },
+            "octeractObtainium1": {
+                "name": "难得素之涌",
+                "description": "每级使难得素获取数量增加1%。",
+                "effect": "难得素获取数量增加{{n}}%"
+            },
+            "octeractAscensions": {
+                "name": "保修失效",
+                "description": "每级使飞升次数获取数量增加1%，每10级还可以使飞升次数获取数量额外增加2%。",
+                "effect": "飞升次数获取数量增加{{n}}%。"
+            },
+            "octeractAscensions2": {
+                "name": "隐藏滞纳金",
+                "description": "每级使飞升次数获取数量增加1%，每10级还可以使飞升次数获取数量额外增加2%。这一项升级……总之它的价格增加得更快，像隐藏滞纳金一样。",
+                "effect": "飞升次数获取数量增加{{n}}%。"
+            },
+            "octeractAscensionsOcteractGain": {
+                "name": "八进制数码累加器",
+                "description": "飞升次数每个数量级可以使惊奇八阶方块的获取数量增加1%！",
+                "effect": "飞升次数每个数量级可以使惊奇八阶方块获取数量增加{{n}}%"
+            },
+            "octeractFastForward": {
+                "name": "Derpsmith的奇点小玩意",
+                "description": "每级使进入奇点的金夸克获取数量增加100%(效果相互叠加)，且在最高奇点次数时进入奇点将使奇点次数增加1次！",
+                "effect": "进入奇点的金夸克获取数量增加{{n}}%，且奇点次数增加{n}次。"
+            },
+            "octeractAutoPotionSpeed": {
+                "name": "口渴药片",
+                "description": "这些药瓶可以让您加快使用药剂！准确来说，每级可以使速度增加4%。",
+                "effect": "自动生成药剂的奇点特权生效速度增加{{n}}%！"
+            },
+            "octeractAutoPotionEfficiency": {
+                "name": "维生素O灌注",
+                "description": "感谢慷慨的Derpsmith，每级使药剂的效果增加2%！",
+                "effect": "使用药剂获得的祭品和难得素增加{{n}}%。"
+            },
+            "octeractOneMindImprover": {
+                "name": "无限转录一心",
+                "description": "您想知道这个升级的效果，但Derpsmith只是点了点头。他到底在隐瞒着什么？",
+                "effect": "一心对八阶方块获取数量的加成变为{{n}}次方。"
+            },
+            "octeractAmbrosiaLuck": {
+                "name": "八叶草之莓",
+                "description": "很显然并不是蓝莓的换皮版本！使神肴之运增加1，它可以在蓝莓产生神肴时，增加神肴的获取数量。",
+                "effect": "获取数量增加{{n}}(!)"
+            }
+        },
+        "amount": "您有{{octeracts}}惊奇八阶方块！",
+        "secondsPerOcteract": "每<<var(--orchid-text-color)|{{seconds}}>>秒增加1个",
+        "octeractsPerSecond": "每秒增加<<yellow|{{octeracts}}个",
+        "totalGenerated": "共产生<<var(--lightseagreen-text-color)|{{octeracts}}>>惊奇八阶方块！",
+        "generatedCubeBonus": "惊奇方盒至惊奇七阶立方获取数量<<yellow|+{{cubeBonus}}%>>",
+        "generatedQuarkBonus": "夸克获取数量<<cyan|+{{quarkBonus}}%>>",
+        "generatedOfferingBonus": "祭品获取数量<<orange|+{{offeringBonus}}%>>",
+        "generatedObtainiumBonus": "难得素获取数量<<pink|+{{obtainiumBonus}}%>>"
+    },
+    "runes": {
+        "offeringsYouHave": "您有{{offerings}}祭品。",
+        "gainExp": "献祭每个祭品可以获得{{amount}}倍经验值。",
+        "recycleChance": "您有{{percent}}%概率回收祭品。这意味着您可以获得{{mult}}倍经验值！",
+        "hover": "鼠标停在符文上来查看它有什么作用！",
+        "thanksResearches": "由于研究效果，符文有效等级增加了{{percent}}%",
+        "levelup": {
+            "1": "使加速器数量增加(等级/4)^1.25，且每级再增加0.25%。每20级使加速器加成数量增加1！",
+            "2": "每10级使加倍器数量增加(等级/10)，且每级再增加0.25%。每级使税收增长减缓更多！",
+            "3": "使水晶产量变为[1+(等级/2)^2*2^(等级/2)/256]倍。每16级使每个水晶升级免费增加1级！",
+            "4": "每级使建筑成本增长减缓0.125%，每级使祭品回收概率增加0.0625%[上限：25%]。另外当等级超过400以后，还可以使税收增长倍率变为2^[(1000-等级)/1100]倍",
+            "5": "使难得素获取数量变为(1+等级/200)倍，蚂蚁速度变为(1+等级^2/2500)倍，每级使每一阶重置的基础祭品数量增加0.005",
+            "6": "每级使夸克获取数量增加0.2%，所有类型的方盒及立方获取数量增加1%！初始状态下使夸克获取数量增加10%。",
+            "7": "如果给它{{exp}}符文经验值，或许会发生什么事情。"
+        },
+        "power": {
+            "1": "加速符文奖励：使加速器数量增加{{bonus}}，再增加{{percent}}%，加速器加成数量增加{{boost}}。",
+            "2": "重叠符文奖励：使加倍器数量增加{{mult1}}，再增加{{mult2}}%，税收增长减缓{{tax}}%。",
+            "3": "棱柱符文奖励：使水晶产量变为{{mult}}倍，每个水晶升级免费增加{{gain}}级。",
+            "4": "节俭符文奖励：使所有建筑成本增长减缓{{delay}}%，祭品回收概率增加{{chance}}%，税收增长减缓{{tax}}%。",
+            "5": "卓越智慧符文奖励：使难得素获取数量变为{{gain}}倍，蚂蚁速度变为{{speed}}倍，基础祭品数量增加{{offerings}}。",
+            "6": "无限晋升符文奖励：使夸克获取数量增加{{percent1}}%，飞升时所有类型的方盒及立方获取数量增加{{percent2}}%。",
+            "7": "您无法得知蚁神至宝的真面目。"
+        },
+        "talismans": {
+            "fortify": "加强",
+            "enhance": "升阶",
+            "respec": "变配",
+            "respecAll": "全部变配",
+            "buy": "购买",
+            "buyAll": "全部购买",
+            "autoBuyOn": "自动购买：开",
+            "autoBuyOff": "自动购买：关",
+            "clickBuyEveryType": "点击后将尽可能购买所有碎片",
+            "costToBuy": "购买{{buyAmount}}个{{name}}花费：{{obtainium}}难得素及{{offerings}}祭品。"
+        },
+        "blessings": {
+            "buyUpTo": "最多一次购买<<var(--orchid-text-color);|{{amount}}>>级。[输入数字来控制]",
+            "autoRuneOn": "自动符文：开",
+            "autoRuneOff": "自动符文：关",
+            "allIncreaseLevel": "提升所有等级",
+            "blessingLevel": "<<orchid|祝福等级>>：{{amount}}",
+            "blessingPower": "祝福能量：<<turquoise|{{value}}>> =-=-= 效果：<<gold|{{speed}}>>倍 {{reward}}！",
+            "rewards": {
+                "0": "全局速度",
+                "1": "加倍器加成",
+                "2": "蚂蚁献祭奖励",
+                "3": "加速器加成成本增长减缓",
+                "4": "难得素对蚂蚁倍率的指数"
+            },
+            "increaseLevel": "提升<<orchid|{{amount}}>>级[花费：<<orchid|{{offerings}}>>祭品]"
+        },
+        "spirits": {
+            "spiritLevel": "魂灵等级：<<orchid|{{amount}}>>",
+            "spiritPower": "魂灵能量：<<turquoise|{{value}}>> =-=-= 效果：<<gold|{{speed}}>>{{reward}}！",
+            "rewards": {
+                "0": "倍全局速度",
+                "1": "倍飞升时惊奇方盒获取数量",
+                "2": "倍额外的水晶升级等级上限",
+                "3": "倍难得素获取数量",
+                "4": "%额外的研究4x9效果"
+            }
         }
+    },
+    "singularityChallenge": {
+        "enterChallenge": {
+            "lowSingularity": "Derpsmith阻止了您进入挑战。先进入更多次奇点吧。",
+            "confirmation": "您将要进行{{name}}。您的奇点时长不会重置，但您将回到奇点的开头，确定要继续吗？",
+            "decline": "Derpsmith点了点头。准备好以后再来吧……",
+            "acceptSuccess": "您正在进行第{{tier}}次{{name}}！您目前相当于进入了{{singReq}}次奇点。购买蚁神之古物后可以完成挑战！",
+            "acceptFailure": "Derpsmith表示您已经在进行奇点挑战，为了现实的安全着想，您不可以再进行挑战了。"
+        },
+        "exitChallenge": {
+            "incompleteWarning": "注意：您的阶层完成数不会增加，因为您还没有购买古物。",
+            "confirmation": "您确定要退出第{{tier}}阶{{name}}吗？{{warning}}",
+            "decline": "Derpsmith想抱抱您，可惜他没有胳膊。",
+            "acceptSuccess": "您完成了第{{tier}}阶{{name}}！相应的挑战奖励已经更新。",
+            "acceptFailure": "您回到了最高完成次数的奇点。之后再试吧！————Derpsmith"
+        },
+        "toString": {
+            "canEnter": "最高奇点次数达到{{unlockSing}}以后可以进入挑战[您的最高奇点次数为：{{highestSing}}]",
+            "tiersCompleted": "阶层完成数",
+            "currentTierSingularity": "进入当前阶层的该挑战，相当于进入奇点次数："
+        },
+        "data": {
+            "noSingularityUpgrades": {
+                "name": "无奇点升级",
+                "description": "简而言之，您需要在没有大部分奇点升级的前提下通过目标奇点。惊奇八阶方块，特权和游戏体验相关的奇点升级将仍然保留。",
+                "rewardDescription": "每完成一阶层就可以使所有类型的方盒、立方和方块获取数量增加50%！完成第一阶层后可以使金夸克获取数量增加12%。完成第二十阶层后，可以获得一些“特别”的东西 ;)"
+            },
+            "oneChallengeCap": {
+                "name": "挑战上限恒为一",
+                "description": "您需要在前14个挑战的上限只有1的前提下通过目标奇点！",
+                "rewardDescription": "每完成一阶层就可以使腐化的相关加成倍率增加0.03。完成第一阶层后可以使转世挑战次数上限增加3。完成第二十阶层后，可以使腐化的相关加成倍率直接视为增加1级！"
+            },
+            "noOcteracts": {
+                "name": "无八阶方块效果",
+                "description": "您需要在惊奇八阶方块和相应升级没有效果的前提下通过目标奇点！另外，奇点相关惩罚也会根据当前阶层数量变得更高。",
+                "rewardDescription": "每完成一阶层就可以使惊奇八阶方块对惊奇方盒至惊奇七阶立方获取数量的加成指数增加0.02(基础值为2)。完成第一阶层后可以使惊奇八阶方块增加对祭品获取数量的加成。完成最后一阶层后，可以使惊奇八阶方块增加对难得素获取数量的加成。"
+            },
+            "limitedAscensions": {
+                "name": "二十飞升挑战",
+                "description": "Derpsmith颁布了飞升禁令。整个奇点只能进行 (20 - 阶层完成数) 次飞升，之后将触发极其巨大的惩罚！飞升次数倍率锁定为1。哦对了，PLATONIC·德尔塔在该挑战中失效，哈。",
+                "rewardDescription": "每完成一阶层，飞升次数每有一个数量级，就可以使飞升的速度增加0.1%！完成第一阶层后可以使所有七阶立方的上限翻倍。完成最后一阶层后，可以解锁商店中的另一个计算器！"
+            }
+        },
+        "intro": "过蒙拔擢，宠命优渥。"
     }
 }
