@@ -53,7 +53,7 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
     }
 
     if (updatelevelup) {
-        DOMCacheGetOrSet('runeshowlevelup').textContent = i18next.t(`runes.levelup.${i}`)
+        DOMCacheGetOrSet('runeshowlevelup').textContent = i18next.t(`runes.levelup.${i}`, options!)
     }
 
     DOMCacheGetOrSet(`runeshowpower${i}`).textContent = i18next.t(`runes.power.${i}`, options!)

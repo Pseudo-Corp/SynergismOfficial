@@ -1077,7 +1077,7 @@
             "cashGrab2": "This isn't even as good as the original. +0.5% Offerings and Obtainium per level.",
             "chronometerZ": "Gain +0.1% Ascension Speed per level per Singularity. It needs a lot of fuel to power up.",
             "offeringEX2": "Gain +1% Offerings per level per Singularity. Putting the Singularity Debuff industry out of business.",
-            "SingularityVol2": "Gain +1% Obtainium per level per Singularity!!!",
+            "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
             "powderAuto": "Your grandparents had to wait a full day for powder, but not you! Per level gain +1% of orbs to powder based on the conversion rate.",
             "seasonPassLost": "One would be advised not to touch this. +0.1% Octeracts per level, whatever those are...",
             "challenge15Auto": "Your grandparents had to bend dimensions to gain Challenge 15 score, but not you! Updates Challenge 15 Exponent every tick while in challenge 15!",
@@ -1087,13 +1087,13 @@
             "improveQuarkHept2": "After 1,024,000 Quark Hepts, their effect is raised to ^0.25!!! Nonsense. Gain +2% to all Quark Hept DRs.",
             "improveQuarkHept3": "After ~100 million Quark Hepts, their effect is raised to ^0.16! Absolute rubbish. Gain +2% to all Quark Hept DRs, yet again.",
             "improveQuarkHept4": "And when they've given you their all, some stagger and fall after all it's not easy...",
+            "improveQuarkHept5": "This is 1/50 as effective as a normal improver. Why? Because of balancing...",
             "shopImprovedDaily": "Hey you. Yeah, you! Quarks make seal merchant happy. Get +5% more of them from code 'daily' per level.",
             "shopImprovedDaily2": "Gain 1 additional free Singularity Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
             "shopImprovedDaily3": "Gain 1 additional free Singularity Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
             "shopImprovedDaily4": "Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
             "offeringEX3": "Gain 2% more Offerings per level, multiplicative! (Multiplier is 1.02^level)",
             "obtainiumEX3": "Gain 2% more Obtainium per level, multiplicative! (Multiplier is 1.02^level)",
-            "SingularityVol4": "This is 1/50 as effective as a normal improver. Why? Because of balancing...",
             "chronometerInfinity": "Gain +1% Ascension Speed per level, multiplicative! (Multiplier is 1.01^level)",
             "seasonPassInfinity": "Gain +2% more cubes per level, multiplicative! (Multiplier is 1.02^level)",
             "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost."
@@ -1272,12 +1272,12 @@
             "goldenQuarks1": {
                 "name": "Golden Quarks I",
                 "description": "In the future, you will gain 10% more Golden Quarks on Singularities per level!",
-                "effect": "Permanently gain {{n}}% more Golden Quarks on Singularities."
+                "effect": "Ascension Count increases {{n}}% faster."
             },
             "goldenQuarks2": {
                 "name": "Golden Quarks II",
                 "description": "Buying GQ is 0.2% cheaper per level! [After 50%, effect grows much slower]",
-                "effec": "Purchasing Golden Quarks in the shop is {{n}}% cheaper."
+                "effect": "Purchasing Golden Quarks in the shop is {{n}}% cheaper."
             },
             "goldenQuarks3": {
                 "name": "Golden Quarks III",

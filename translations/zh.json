@@ -1843,7 +1843,7 @@
         "shop": "鼠标停在商店物品上以查看详细介绍！"
     },
     "buildings": {
-        "execessiveWealth": "由于您的财富过多，需要减少{{div}}的金币产量用于缴税！{{- warning}}",
+        "excessiveWealth": "由于您的财富过多，需要减少{{div}}的金币产量用于缴税！{{- warning}}",
         "taxWarning": "税收还将您的金币每秒产量上限限制在{{gain}}。",
         "acceleratorPower": "加速器效果：{{power}}% || 加速器倍率：{{mult}}x",
         "multiplierPower": "加倍器效果：{{power}}% || 加倍器倍率：{{mult}}x",
