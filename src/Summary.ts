@@ -13,6 +13,7 @@ import { Alert } from './UpdateHTML'
 import { formatS, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 import ClipboardJS from 'clipboard'
+import i18next from 'i18next'
 
 export const generateExportSummary = async():Promise<void> => {
     const titleText = '===== SUMMARY STATS ====='
@@ -160,7 +161,11 @@ export const generateExportSummary = async():Promise<void> => {
         prestige = prestige + `Prestige Count: ${format(player.prestigeCount, 0, true)}\n`
         prestige = prestige + `Prestige Timer: ${formatS(player.prestigecounter)}\n`
         prestige = prestige + `Fastest Prestige: ${formatS(player.fastestprestige)}\n`
-        prestige = prestige + `Achievement Points: ${format(player.achievementPoints, 0, true)}/${format(totalachievementpoints, 0, true)}\n`
+        prestige = prestige + i18next.t('achievements.totalPoints', {
+            x: format(player.achievementPoints),
+            y: format(totalachievementpoints),
+            z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
+        }) + '\n'
         prestige = prestige + `Speed Rune: Level ${format(player.runelevels[0],0,true)}/${format(calculateMaxRunes(1))} [Bonus: ${format(G['rune1level'] - player.runelevels[0], 0, true)}]\n`
         if (player.achievements[38] > 0 || player.highestSingularityCount > 0) {
             prestige = prestige + `Duplication Rune: Level ${format(player.runelevels[1],0,true)}/${format(calculateMaxRunes(2))} [Bonus: ${format(G['rune2level'] - player.runelevels[1], 0, true)}]\n`

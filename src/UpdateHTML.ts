@@ -573,7 +573,11 @@ export const hideStuff = () => {
         DOMCacheGetOrSet('statistics').style.display = 'block'
         DOMCacheGetOrSet('achievementstab').style.backgroundColor = 'white'
         DOMCacheGetOrSet('achievementstab').style.color = 'black'
-        DOMCacheGetOrSet('achievementprogress').textContent = 'Achievement Points: ' + format(player.achievementPoints, 0, true) + '/' + format(totalachievementpoints, 0, true) + ' [' + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + '%]'
+        DOMCacheGetOrSet('achievementprogress').textContent = i18next.t('achievements.totalPoints', {
+            x: format(player.achievementPoints),
+            y: format(totalachievementpoints),
+            z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
+        })
     } else if (G['currentTab'] === 'runes') {
         DOMCacheGetOrSet('runes').style.display = 'block'
         DOMCacheGetOrSet('runestab').style.backgroundColor = 'blue'

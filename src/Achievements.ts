@@ -60,196 +60,66 @@ export const areward = (i: number): string => {
     //Effective score is 3rd index
     const corr = CalcCorruptionStuff();
 
-    const descs: { [key: number]: string } = {
-        3: 'Gain +.05% to Accelerator Power.',
-        4: 'Start Transcensions/Challenges with Worker Autobuyer unlocked.',
-        5: 'Gain +1 Accelerator per 500 Workers owned.',
-        6: 'Gain +1 Multiplier per 1,000 Workers owned.',
-        7: 'Gain +1 Accelerator Boost per 2,000 workers owned.',
-        10: 'Gain +.10% to Accelerator Power.',
-        11: 'Start Transcensions/Challenges with Investment Autobuyer unlocked.',
-        12: 'Gain +1 Accelerator per 500 Investments owned.',
-        13: 'Gain +1 Multiplier per 1,000 Investments owned.',
-        14: 'Gain +1 Accelerator Boost per 2,000 Investments owned.',
-        17: 'Gain +.15% to Accelerator Power.',
-        18: 'Start Transcensions/Challenges with Printer Autobuyer unlocked.',
-        19: 'Gain +1 Accelerator per 500 Printers owned.',
-        20: 'Gain +1 Multiplier per 1,000 Printers owned.',
-        21: 'Gain +1 Accelerator Boost per 2,000 Printers owned.',
-        24: 'Gain +.20% to Accelerator Power.',
-        25: 'Start Transcensions/Challenges with Coin Mint Autobuyer unlocked.',
-        26: 'Gain +1 Accelerator per 500 Mints owned.',
-        27: 'Gain +1 Multiplier per 1,000 Mints owned.',
-        28: 'Gain +1 Accelerator Boost per 2,000 Mints owned.',
-        31: 'Gain +.25% to Accelerator Power.',
-        32: 'Start Transcensions/Challenges with Alchemy Autobuyer unlocked.',
-        33: 'Gain 10% more Offerings from resets || +1 Accelerator per 500 Alchemies!',
-        34: 'Gain 15% more Offerings from resets (stacks multiplicatively!) || +1 Multiplier per 1,000 Alchemies!',
-        35: 'Gain 25% more Offerings from resets (stacks multiplicatively!) || +1 Accelerator Boost per 2,000 Alchemies!',
-        36: 'Multiply Crystal Production by 2x.',
-        37: 'Multiply Crystal Production by the common logarithm of owned Diamonds. Prestiges give more Offerings based on time spent (Up to +15 at 1800 seconds)',
-        38: 'Unlock the Duplication rune!',
-        43: 'Accelerator Boosts can be purchased from any screen. Unlock the Auto-Prestige feature.',
-        44: 'Unlock the Prism Rune! Transcensions give more Offerings based on time spent (Up to +15 at 1800 seconds)',
-        45: 'Reduce tax scaling by up to 5%, depending on the length of Prestige.',
-        46: 'Reduce tax scaling by up to another 5%, depending on length of Prestige.',
-        47: 'Reduce tax scaling by up to ANOTHER 10%, depending on length of Prestige!',
-        50: 'Unlock new Atomic production and unlock 3 new incredibly difficult Challenges! Gain 2x particles on all future Reincarnations!',
-        51: 'Manual Reincarnations give +4 Obtainium (unaffected by multipliers except time multiplier)!',
-        52: 'Reincarnations give more Offerings based on time spent (Up to +25 at 1800 seconds)',
-        53: 'Increase the amount of Obtainium gained through all features by 0.125% additive for each rune level.',
-        57: 'Gain +1, +1% free Multipliers!',
-        58: 'Gain +1, +1% more free Multipliers!',
-        59: 'Gain +1, +1% more, MORE free Multipliers!',
-        60: 'Gain +2, +1% free Accelerators!',
-        61: 'Gain +2, +1% more free Accelerators!',
-        62: 'Gain +2, +1% more, MORE free Accelerators!',
-        71: '+1% Conversion Exponent on all generator upgrades!',
-        72: '+1% Conversion Exponent on all generator upgrades!',
-        73: '+1% Conversion Exponent on all generator upgrades!',
-        74: '+1% Conversion Exponent on all generator upgrades!',
-        75: '+1% Conversion Exponent on all generator upgrades!',
-        76: '+1% Conversion Exponent on all generator upgrades!',
-        77: '+1% Conversion Exponent on all generator upgrades! They\'re in overdrive now!',
-        78: 'Start Transcensions/Challenges with 1 Refinery and automatically buy Refineries.',
-        79: 'Automatically buy the first Crystal upgrade if you can afford it!',
-        80: 'Start Transcensions/Challenges with Multiplier Autobuyer unlocked. +5% Offering recycle.',
-        82: 'Delay tax growth by 4%.',
-        84: '+1% Obtainium (stacks additively with other achievement rewards)',
-        85: 'Start Transcensions/Challenges with 1 Coal Plant and automatically buy Coal Plants.',
-        86: 'Automatically buy the second Crystal upgrade if you can afford it!',
-        87: 'Start Transcensions/Challenges with Accelerator Autobuyer unlocked. +5% Offering recycle.',
-        89: 'Delay tax growth by 4%.',
-        91: '+3% Obtainium (stacks additively with other Achievement rewards)',
-        92: 'Start Transcensions/Challenges with 1 Coal Rig and automatically buy Coal Rigs.',
-        93: 'Automatically buy the third Crystal upgrade if you can afford it!',
-        94: '+5% Offering recycle.',
-        96: 'Delay tax growth by 4%.',
-        98: '+5% Obtainium (stacks additively with other achievement rewards)',
-        99: 'Start Transcensions/Challenges with 1 Diamond Pickaxe and automatically buy Diamond Pickaxes.',
-        100: 'Automatically buy the fourth Crystal upgrade if you can afford it!',
-        101: '+5% Offering recycle.',
-        102: 'Unlock the Thrift rune!',
-        103: 'Delay tax growth by 4%.',
-        105: '+7% Obtainium (stacks additively with other achievement rewards)',
-        106: 'Start Transcensions/Challenges with 1 Pandora\'s Box and automatically buy Pandora\'s Boxes.',
-        107: 'Automatically buy the fifth Crystal upgrade if you can afford it!',
-        108: '+5% Offering recycle.',
-        110: 'Delay tax growth by 4%.',
-        112: '+9% Obtainium (stacks additively with other achievement rewards)',
-        115: '+5% Offering recycle.',
-        117: 'Delay tax growth by 5.66%.',
-        118: `Each Reincarnation Challenge completion delays tax growth by 0.75% per level, multiplicative. Effect: ${format(Math.pow(0.9925, player.challengecompletions[6] + player.challengecompletions[7] + player.challengecompletions[8] + player.challengecompletions[9] + player.challengecompletions[10]), 4)}x`,
-        119: '+11% Obtainium. Unlock a nice trinket somewhere...',
-        122: '+7.5% Offering recycle.',
-        124: 'Delay tax growth by 5.66%. Unlock 5 new incredibly powerful researches!',
-        126: '+13% Obtainium. You get an accessory to commemorate this moment!',
-        127: 'Unlock 20 new incredibly expensive yet good researches. Unlock the [Anthill] feature!',
-        128: 'Make researches go Cost-- with 1.5x Obtainium!',
-        129: '+7.5% Offering recycle. Gain another 1.25x Obtainium multiplier!',
-        131: 'Delay tax growth by 5.66%.',
-        132: 'Permanently gain +25% more sacrifice reward!',
-        133: '+15% Obtainium. Obtain the gift of Midas himself.',
-        134: 'Unlock 10 newer incredibly expensive yet good researches. Unlock <Talismans> in the Runes Tab!',
-        135: 'Talisman positive bonuses are now +0.02 stronger per level.',
-        136: 'Talisman positive bonuses are now +0.02 even stronger per level.',
-        137: 'Permanently gain +25% more sacrifice reward!',
-        140: '+17% Obtainium. Lazy joke about not leaking talismans here [You get a new one]',
-        141: 'Unlock a new reset tier!',
-        147: '+19% Obtainium (Achievement total is up to 100%!). Gain the Polymath Talisman!',
-        169: `ALL Ant speed multiplied by ${format(Decimal.log(player.antPoints.add(10), 10), 2)}`,
-        171: '+16.666% ALL Ant speed!',
-        172: 'Gain more Ants the longer your Reincarnation lasts (Max speed achieved in 2 hours)',
-        173: 'Unlock Ant Sacrifice, allowing you to reset your Ants and Ant upgrades in exchange for amazing rewards! Automatically buy Worker Ants.',
-        174: `Ant Multiplier from sacrifice is multiplied by another logarithm: x${format(0.4 * Decimal.log(player.antPoints.add(1), 10), 2)}`,
-        176: 'Unlock Tier 2 Ant autobuy, and autobuy Inceptus and Fortunae Ants! Add +25 Base Ant ELO.',
-        177: 'Unlock Tier 3 Ant autobuy, and autobuy Tributum Ants! Add +50 Base Ant ELO.',
-        178: 'Unlock Tier 4 Ant autobuy, and autobuy Celeritas and Multa Ants! Add +75 Base Ant ELO.',
-        179: 'Unlock Tier 5 Ant autobuy, and autobuy Sacrificium Ants! Add +100 Base Ant ELO.',
-        180: 'Unlock Tier 6 Ant autobuy, and autobuy Hic and Experientia Ants! Add +1% Base Ant ELO.',
-        181: 'Unlock Tier 7 Ant autobuy, and autobuy Praemoenio Ants! Add +2% Base Ant ELO.',
-        182: 'Unlock Tier 8 Ant autobuy, and autobuy Scientia and Phylacterium Ants! Add +3% Base Ant ELO.',
-        187: `Gain an Ascension Cubes multiplier based on your score: x${format(Math.max(1, Math.log10(corr[3]+1) - 7), 2)}. Also: Offerings +${format(Math.min(100, player.ascensionCount / 10000), 2)}% [Max: 100% at 1M Ascensions]`,
-        188: `Gain +100 Ascension count for all Ascensions longer than 10 seconds. Also: Obtainium +${format(Math.min(100, player.ascensionCount / 50000), 2)}% [Max: 100% at 5M Ascensions]`,
-        189: `Gain 20% of Excess time after 10 seconds each Ascension as a linear multiplier to Ascension count. Also: Cubes +${format(Math.min(200, player.ascensionCount / 2.5e6), 2)}% [Max: 200% at 500M Ascensions]`,
-        193: `Gain ${format(Decimal.log(player.ascendShards.add(1), 10) / 4, 2)}% more Cubes on Ascension!`,
-        195: `Gain ${format(Math.min(25000, Decimal.log(player.ascendShards.add(1), 10) / 4), 2)}% more Cubes and Tesseracts on Ascension! Multiplicative with the other Ach. bonus [MAX: 25,000% at e100,000 Const]`,
-        196: `Gain ${format(Math.min(2000, Decimal.log(player.ascendShards.add(1), 10) / 50), 2)}% more Platonic Cubes on Ascension! [MAX: 2,000% at e100,000 Const]`,
-        197: 'You will unlock a stat tracker for Ascensions.',
-        198: 'Gain +4% Cubes on Ascension!',
-        199: 'Gain +4% Cubes on Ascension!',
-        200: 'Gain +4% Cubs on Ascension! Did I spell that wrong? You bet I did.',
-        201: 'Gain +3% Cubes on Ascension!',
-        202: `Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Tesseracts +${format(Math.min(200, player.ascensionCount / 5e6), 2)}% [Max: 200% at 1B Ascensions]`,
-        204: 'You will gain 25% of Excess time after 10 seconds each Ascension as a linear multiplier to rewards.',
-        205: 'Gain +4% Tesseracts on Ascension!',
-        206: 'Gain +4% Tesseracts on Ascension!',
-        207: 'Gain +4% Tesseracts on Ascension!',
-        208: 'Gain +3% Tesseracts on Ascension!',
-        209: 'Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count.',
-        211: 'You will gain 25% MORE Excess time (Total: 50%) after 10 seconds each Ascension as a linear multiplier to rewards.',
-        212: 'Gain +4% Hypercubes on Ascension!',
-        213: 'Gain +4% Hypercubes on Ascension!',
-        214: 'Gain +4% Hypercubes on Ascension!',
-        215: 'Gain +3% Hypercubes on Ascension!',
-        216: `Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Hypercubes +${format(Math.min(200, player.ascensionCount / 1e7), 2)}% [Max: 200% at 2B Ascensions]`,
-        218: 'You gain gain 50% MORE MORE excess time (Total: 100%) after 10 seconds each Ascension as a linear multiplier to rewards.',
-        219: 'Gain +4% Platonic Cubes on Ascension!',
-        220: 'Gain +4% Platonic Cubes on Ascension!',
-        221: 'Gain +4% Platonic Cubes on Ascension!',
-        222: 'Gain +3% Platonic Cubes on Ascension!',
-        223: `Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Platonic Cubes +${format(Math.min(200, player.ascensionCount / 13370000), 2)}% [Max: 200% at 2.674B Ascensions]`,
-        240: `Ascension Cube Gain Multipliers is VERY slightly affected by global speed multipliers: ${format(Math.min(1.5, 1 + Math.max(2, Math.log10(calculateTimeAcceleration().mult))/20), 2)}x (Min: 1.10x, Max: 1.50x)`,
-        250: 'You gain a permanent +60% Obtainium and Offering bonus, with +6% all Cube types!',
-        251: 'You gain a permanent +100% Obtainium and Offering bonus, with +10% all Cube types!',
-        253: 'You will gain +10% Hypercubes! Why? I don\'t know.',
-        254: `Cube Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]`,
-        255: `Tesseract Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score], and allow gain of Hepteracts.`,
-        256: `Hypercube Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!`,
-        257: `Platonic Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!`,
-        258: `Hepteract Gain +${format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true)}% [Max: +15% at 1e25 Ascension Score]`,
-        259: 'Corruption score is increased by 1% for every expansion of Abyss Hepteract!',
-        260: 'You will gain 10% more Ascension count, forever!',
-        261: 'You will gain 10% more Ascension count, forever!',
-        262: `Ascensions are ${format(Math.min(10, Math.log10(player.ascensionCount+1)), 2)}% faster! Max: +10%`,
-        263: `Ascensions are ${format(Math.min(10, Math.log10(player.ascensionCount+1)), 2)}% faster! Max: +10%`,
-        264: `Hepteracts +${format(Math.min(40, player.ascensionCount / 2e11), 2)}% [Max: 40% at 8T Ascensions]!`,
-        265: `Hepteracts +${format(Math.min(20, player.ascensionCount / 8e12), 2)}% [Max: 20% at 160T Ascensions]!`,
-        266: `Quarks +${format(Math.min(10, player.ascensionCount / 1e14), 2)}% [Max: 10% at 1Qa Ascensions]!`,
-        267: `Ascension Score is boosted by ${format(Math.min(100, Decimal.log(player.ascendShards.add(1), 10) / 1000), 2)}% [Max: 100% at 1e100,000 Const]`,
-        270: `Hepteract Gain is boosted by ${format(Math.min(100, Decimal.log(player.ascendShards.add(1), 10) / 10000), 2)}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).`,
-        271: `When you open a Platonic Cube, gain ${format(Math.max(0, Math.min(1, (Decimal.log(player.ascendShards.add(1), 10) - 1e5) / 9e5)), 2, true)} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]`,
-        274: 'Ant Speed is permanently multiplied by 4.44! Platonic Upgrades now BuyMax whenever affordable!',
-        275: 'You immediately start Singularities with 1 Transcension and 1001 mythos!',
-        276: 'You immediately start Singularities with 1 Reincarnation, and 10 particles!',
-        277: 'You immediately start Singularities with 500 Obtainium!',
-        278: 'Gain 5% more Quarks, permanently! Automation regarding Particle Buildings are immediately available.',
-        279: 'You immediately start Singularities with a Challenge 7 completion and 1e100 particles. Talismans now buff all runes at all times!',
-        280: 'You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 Ant.'
+    const extra: Record<number, string | Record<string, string>> = {
+        118: format(Math.pow(0.9925, player.challengecompletions[6] + player.challengecompletions[7] + player.challengecompletions[8] + player.challengecompletions[9] + player.challengecompletions[10]), 4),
+        169: format(Decimal.log(player.antPoints.add(10), 10), 2),
+        174: format(0.4 * Decimal.log(player.antPoints.add(1), 10), 2),
+        187: { x: format(Math.max(1, Math.log10(corr[3]+1) - 7), 2), y: format(Math.min(100, player.ascensionCount / 10000), 2) },
+        188: format(Math.min(100, player.ascensionCount / 50000), 2),
+        189: format(Math.min(200, player.ascensionCount / 2.5e6), 2),
+        193: format(Decimal.log(player.ascendShards.add(1), 10) / 4, 2),
+        195: format(Math.min(25000, Decimal.log(player.ascendShards.add(1), 10) / 4), 2),
+        196: format(Math.min(2000, Decimal.log(player.ascendShards.add(1), 10) / 50), 2),
+        202: format(Math.min(200, player.ascensionCount / 5e6), 2),
+        216: format(Math.min(200, player.ascensionCount / 1e7), 2),
+        223: format(Math.min(200, player.ascensionCount / 13370000), 2),
+        240: format(Math.min(1.5, 1 + Math.max(2, Math.log10(calculateTimeAcceleration().mult))/20), 2),
+        254: format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true),
+        255: format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true),
+        256: format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true),
+        257: format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true),
+        258: format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true),
+        262: format(Math.min(10, Math.log10(player.ascensionCount+1)), 2),
+        263: format(Math.min(10, Math.log10(player.ascensionCount+1)), 2),
+        264: format(Math.min(40, player.ascensionCount / 2e11), 2),
+        265: format(Math.min(20, player.ascensionCount / 8e12), 2),
+        266: format(Math.min(10, player.ascensionCount / 1e14), 2),
+        267: format(Math.min(100, Decimal.log(player.ascendShards.add(1), 10) / 1000), 2),
+        270: format(Math.min(100, Decimal.log(player.ascendShards.add(1), 10) / 10000), 2),
+        271: format(Math.max(0, Math.min(1, (Decimal.log(player.ascendShards.add(1), 10) - 1e5) / 9e5)), 2, true)
     }
 
-    if (i in descs) {
-        return descs[i]
-    } else {
-        return ''
+    const descs: number[] = [
+        3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 17, 18, 19,
+        20, 21, 24, 25, 26, 27, 28, 31, 32, 33, 34, 35,
+        36, 37, 38, 43, 44, 45, 46, 47, 50, 51, 52, 53,
+        57, 58, 59, 60, 61, 62, 71, 72, 73, 74, 75, 76,
+        77, 78, 79, 80, 82, 84, 85, 86, 87, 89, 91, 92,
+        93, 94, 96, 98, 99, 100, 101, 102, 103, 105, 106,
+        107, 108, 110, 112, 115, 117, 119, 122, 124, 126,
+        127, 128, 129, 131, 132, 133, 134, 135, 136, 137,
+        140, 141, 147,171, 172, 173, 176, 177, 178, 179,
+        180, 181, 182, 197, 198, 199, 200, 201, 204, 205,
+        206, 207, 208, 209, 211, 212, 213, 214, 215, 218,
+        219, 220, 221, 222, 250, 251, 253, 259, 260, 261,
+        274, 275, 276, 277, 278, 279, 280
+    ]
+
+    if (descs.includes(i) || i in extra) {
+        const obj = extra[i]
+        const map = typeof obj === 'object' ? obj : { x: obj }
+
+        return i18next.t(`achievements.rewards.${i}`, map)
     }
+
+    return ''
 }
 
 export const achievementAlerts = async (num: number) => {
-    let text = ''
-    switch (num){
-        case 36:
-            text = 'Congratulations on your first Prestige. The first of many. You obtain Offerings. You can use them in the new Runes tab! [Unlocked Runes, Achievements, Diamond Buildings and some Upgrades!]'
-            break;
-        case 38:
-            text = 'Hmm, it seems you are getting richer, being able to get 1 Googol diamonds in a single Prestige. How about we give you another Rune? [Unlocked Duplication Rune in Runes tab!]'
-            break;
-        case 255:
-            text = 'Wow! You gained 1e17 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!'
-    }
-
-    if (text !== '' && player.highestSingularityCount === 0) {
-        return Alert(text)
+    if (player.highestSingularityCount === 0) {
+        if (num === 36 || num == 38 || num === 255) {
+            return Alert(i18next.t(`achievements.alerts.${num}`))
+        }
     }
 }
 //${format(Decimal.log(player.ascendShards.add(1), 10) / 1000, 2)} (log(constant)/1000)%!
@@ -577,7 +447,13 @@ export const achievementaward = (num: number) => {
         void achievementAlerts(num)
         player.achievementPoints += achievementpointvalues[num]
         player.worlds.add(getAchievementQuarks(num), false)
-        DOMCacheGetOrSet('achievementprogress').textContent = 'Achievement Points: ' + player.achievementPoints + '/' + totalachievementpoints + ' [' + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + '%]'
+
+        DOMCacheGetOrSet('achievementprogress').textContent = i18next.t('achievements.totalPoints', {
+            x: format(player.achievementPoints),
+            y: format(totalachievementpoints),
+            z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
+        })
+
         player.achievements[num] = 1;
         revealStuff()
     }
