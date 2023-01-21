@@ -84,7 +84,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('buildinghotkeys2').style.color = 'lightgray';
         DOMCacheGetOrSet('antspecies').style.color = 'royalblue'; //HTML colors
         DOMCacheGetOrSet('achievementcolorcode2').style.color = 'purple';
-        DOMCacheGetOrSet('corruptionTesseractsValue').style.color = 'darkviolet';
+        DOMCacheGetOrSet('corruptionTesseracts').style.color = 'darkviolet';
         DOMCacheGetOrSet('antwelcome').style.color = 'lightslategrey';
         DOMCacheGetOrSet('confirmationToggleTitle').style.color = 'pink';
         DOMCacheGetOrSet('specialActionsTitle').style.color = 'pink';
@@ -201,7 +201,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         body.style.setProperty('--gray-text-color', '#a5a5a5');
         DOMCacheGetOrSet('achievementcolorcode2').style.color = '#dc7dff';
         DOMCacheGetOrSet('corruptionDescription').style.color = '#d272ff';
-        DOMCacheGetOrSet('corruptionTesseractsValue').style.color = '#d272ff';
+        DOMCacheGetOrSet('corruptionTesseracts').style.color = '#d272ff';
         DOMCacheGetOrSet('antwelcome').style.color = '#b1b1b1';
         DOMCacheGetOrSet('versionnumber').style.color = '#ff5aff';
         DOMCacheGetOrSet('singularitytab').style.color = '#ff5252';
@@ -268,7 +268,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('heptGrid').style.borderColor = '#9b7306';
         DOMCacheGetOrSet('achievementcolorcode2').style.color = '#ef00e4'; //Text colors
         DOMCacheGetOrSet('corruptionDescription').style.color = '#c205ff';
-        DOMCacheGetOrSet('corruptionTesseractsValue').style.color = '#c205ff';
+        DOMCacheGetOrSet('corruptionTesseracts').style.color = '#c205ff';
         DOMCacheGetOrSet('antwelcome').style.color = 'darkgrey';
         DOMCacheGetOrSet('confirmationToggleTitle').style.color = '#eb0000';
         DOMCacheGetOrSet('specialActionsTitle').style.color = '#eb0000';

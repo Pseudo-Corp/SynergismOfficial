@@ -947,10 +947,10 @@ export const toggleAutoAscend = (mode = 0) => {
         const a = DOMCacheGetOrSet('ascensionAutoEnable');
         if (player.autoAscend) {
             a.style.border = '2px solid red'
-            a.textContent = 'Auto Ascend [OFF]'
+            a.textContent = i18next.t('corruptions.autoAscend.off')
         } else {
             a.style.border = '2px solid green'
-            a.textContent = 'Auto Ascend [ON]'
+            a.textContent = i18next.t('corruptions.autoAscend.on')
         }
 
         player.autoAscend = !player.autoAscend;
@@ -958,10 +958,10 @@ export const toggleAutoAscend = (mode = 0) => {
         const a = DOMCacheGetOrSet('ascensionAutoToggle');
         if (player.autoAscendMode === 'c10Completions') {
             player.autoAscendMode = 'realAscensionTime'
-            a.textContent = 'Mode: Real time'
+            a.textContent = i18next.t('corruptions.autoAscend.modeRealTime')
         } else {
             player.autoAscendMode = 'c10Completions'
-            a.textContent = 'Mode: C10 Completions'
+            a.textContent = i18next.t('corruptions.autoAscend.modeCompletions')
         }
     }
 }

@@ -2764,8 +2764,8 @@
         <div id="traits" alt="traits" label="traits" style="display: none;">
             <div id="corruptionStatsLoadouts" alt="corruptionStatsLoadouts" label="corruptionStatsLoadouts" class="flex column">
                 <span id="corrButtonRow" alt="corrButtonRow" label="corrButtonRow" class="flex row center">
-                    <button id="corrStatsBtn" alt="corrStatsBtn" label="corrStatsBtn">Corruption Stats</button>
-                    <button id="corrLoadoutsBtn" alt="corrLoadoutsBtn" label="corrLoadoutsBtn">Corruption Loadouts</button>
+                    <button id="corrStatsBtn" alt="corrStatsBtn" label="corrStatsBtn" i18n="corruptions.corrStatsBtn"></button>
+                    <button id="corrLoadoutsBtn" alt="corrLoadoutsBtn" label="corrLoadoutsBtn" i18n="corruptions.corrLoadoutsBtn"></button>
                 </span>
                 <div id="corruptionStats" alt="corruptionStats" label="corruptionStats" class="corruptionContainer">
                     <span class="corruptionStatRow chal11Corruption">
@@ -2828,13 +2828,13 @@
                 </div>
                 <div id="corruptionDisplays" alt="corruptionDisplays" label="corruptionDisplays" class="flex row center">
                     <img src="Pictures/Default/CorruptExit.png" class="corruptionImg" loading="lazy">
-                    <button id="corruptionCleanse" alt="corruptionCleanse" label="corruptionCleanse">Cleanse</button>
-                    <button id="corruptionCleanseConfirm" alt="corruptionCleanseConfirm" label="corruptionCleanseConfirm">Confirm</button>
+                    <button id="corruptionCleanse" alt="corruptionCleanse" label="corruptionCleanse" i18n="corruptions.cleanse"></button>
+                    <button id="corruptionCleanseConfirm" alt="corruptionCleanseConfirm" label="corruptionCleanseConfirm" i18n="corruptions.confirm"></button>
                 </div>
             </div>
             <div id="corruptionMain" alt="corruptionMain" label="corruptionMain" class="flex column">
-                <div id="corruptionIntroduction" alt="corruptionIntroduction" label="corruptionIntroduction" class="tightText">The most rewarding ventures are those few would dare to embark.</div>
-                <div id="corruptionInfo1" alt="corruptionInfo1" label="corruptionInfo1" class="tightText">Select the trait levels you wish to run with. Choose wisely! <span class="redText">Don't bite off more than you can chew...</span></div>
+                <div id="corruptionIntroduction" alt="corruptionIntroduction" label="corruptionIntroduction" class="tightText" i18n="corruptions.intro"></div>
+                <div id="corruptionInfo1" alt="corruptionInfo1" label="corruptionInfo1" class="tightText" i18n="corruptions.traitInfo"></div>
                 <div id="corruptionSelected" alt="corruptionSelected" label="corruptionSelected" class="hCenter">
                     <img id="corruptionSelectedPic" alt="corruptionSelectedPic" label="corruptionSelectedPic" class="corruptionImg" src="Pictures/Default/CorruptExit.png" style="visibility: hidden" loading="lazy">
                 </div>
@@ -2846,21 +2846,21 @@
                     <p id="corruptionMultiplierContribution" alt="corruptionMultiplierContribution" label="corruptionMultiplierContribution" class="tightText"></p>
                     <p id="corruptionSpiritContribution" alt="corruptionSpiritContribution" label="corruptionSpiritContribution" class="chal12 tightText"></p>
                 </div>
-                <p id="corruptionAntExponent" alt="corruptionAntExponent" label="corruptionAntExponent" class="tightText crimsonText">This Ascension's climate raises Ant production to the power of <span id="corruptionAntExponentValue" alt="corruptionAntExponentValue" label="corruptionAntExponentValue" class="darkorchid" style="font-size: 1.2em">1.000</span>.</p>
-                <p id="corruptionSpiritBonus" alt="corruptionSpiritBonus" label="corruptionSpiritBonus" class="chal12 tightText" style="color: gold">However, it also multiplies Rune Spirit Effects by <span id="corruptionSpiritBonusValue" alt="corruptionSpiritBonusValue" label="corruptionSpiritBonusValue" style="color: wheat; font-size: 1.2em;">1.000</span>!</p>
-                <p id="corruptionBank" alt="corruptionBank" label="corruptionBank" class="tightText" style="color: white">You have <span id="corruptionBankValue" alt="corruptionBankValue" label="corruptionBankValue" class="crimsonText">1</span> Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.</p>
-                <p id="corruptionScore" alt="corruptionScore" label="corruptionScore" class="tightText" style="color: white">Your Ascension Score is <span id="corruptionScoreValue" alt="corruptionScoreValue" label="corruptionScoreValue" style="color: goldenrod">1</span> (base) * <span id="corruptionMultiplierValue" alt="corruptionMultiplierValue" label="corruptionMultiplierValue" class="crimsonText">4</span> (Corruption mult) * <span id="corruptionBonusMultiplierValue" alt="corruptionBonusMultiplierValue" label="corruptionBonusMultiplierValue" class="orchidText">1</span> (Bonus mult) = <span id="corruptionTotalScore" alt="corruptionTotalScore" label="corruptionTotalScore" class="darkorchidText">4</span></p>
-                <p id="corruptionAscensionCount" alt="corruptionAscensionCount" label="corruptionAscensionCount" class="tightText" style="color: white">If you Ascend now, <span id="corruptionAscensionCountValue" alt="corruptionAscensionCountValue" label="corruptionAscensionCountValue" style="color: darkorange; font-size: 1.2em">0</span> will be added to your ascension count.</p>
-                <p id="corruptionCubes" alt="corruptionCubes" label="corruptionCubes" class="tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionCubesValue" alt="corruptionCubesValue" label="corruptionCubesValue" style="color: yellow; font-size: 1.2em">32</span> Wow! Cubes.</p>
-                <p id="corruptionTesseracts" alt="corruptionTesseracts" label="corruptionTesseracts" class="tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionTesseractsValue" alt="corruptionTesseractsValue" label="corruptionTesseractsValue" style="color: orange; font-size: 1.2em">32</span> Wow! Tesseracts. [<span class="orangeText">Get more if Score >100,000</span>]</p>
-                <p id="corruptionHypercubes" alt="corruptionHypercubes" label="corruptionHypercubes" class="chal13 tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionHypercubesValue" alt="corruptionHypercubesValue" label="corruptionHypercubesValue" class="crimsonText" style="font-size: 1.2em">32</span> Wow! Hypercubes. [<span class="redText">Req Score: >1,000,000,000</span>]</p>
-                <p id="corruptionPlatonicCubes" alt="corruptionPlatonicCubes" label="corruptionPlatonicCubes" class="chal14 tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionPlatonicCubesValue" alt="corruptionPlatonicCubesValue" label="corruptionPlatonicCubesValue" style="color: orchid; font-size: 1.2em">32</span> PLATONIC CUBES. [<span style="color: orchid">Req Score: >2,666,000,000,000</span>]</p>
-                <p id="corruptionHepteracts" alt="corruptionHepteracts" label="corruptionHepteracts" class="chal15 tightText" style="color: white">If you Ascend now, you will gain <span id="corruptionHepteractsValue" alt="corruptionHepteractsValue" label="corruptionHepteractsValue" style="color: mediumpurple; font-size: 1.2em">0</span> HEPTERACTS. [<span style="color: mediumpurple">Req Score: >1.666e17</span>]</p>
+                <p id="corruptionAntExponent" alt="corruptionAntExponent" label="corruptionAntExponent" class="tightText crimsonText"></p>
+                <p id="corruptionSpiritBonus" alt="corruptionSpiritBonus" label="corruptionSpiritBonus" class="chal12 tightText" style="color: gold"></p>
+                <p id="corruptionBank" alt="corruptionBank" label="corruptionBank" class="tightText" style="color: white"></p>
+                <p id="corruptionScore" alt="corruptionScore" label="corruptionScore" class="tightText" style="color: white"></p>
+                <p id="corruptionAscensionCount" alt="corruptionAscensionCount" label="corruptionAscensionCount" class="tightText" style="color: white"></p>
+                <p id="corruptionCubes" alt="corruptionCubes" label="corruptionCubes" class="tightText" style="color: white"></p>
+                <p id="corruptionTesseracts" alt="corruptionTesseracts" label="corruptionTesseracts" class="tightText" style="color: white"></p>
+                <p id="corruptionHypercubes" alt="corruptionHypercubes" label="corruptionHypercubes" class="chal13 tightText" style="color: white"></p>
+                <p id="corruptionPlatonicCubes" alt="corruptionPlatonicCubes" label="corruptionPlatonicCubes" class="chal14 tightText" style="color: white"></p>
+                <p id="corruptionHepteracts" alt="corruptionHepteracts" label="corruptionHepteracts" class="chal15 tightText" style="color: white"></p>
                 <div id="ascensionAutomation" alt="ascensionAutomation" label="ascensionAutomation" class="cubeUpgrade10 vAlign">
-                    <button id="ascensionAutoEnable" alt="ascensionAutoEnable" label="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green">Auto Ascend [ON]</button>
-                    <button id="ascensionAutoToggle" alt="ascensionAutoToggle" label="ascensionAutoToggle" class="hCenter tight" style="border:2px solid orchid;">Mode: C10 Completions</button>
+                    <button id="ascensionAutoEnable" alt="ascensionAutoEnable" label="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green"></button>
+                    <button id="ascensionAutoToggle" alt="ascensionAutoToggle" label="ascensionAutoToggle" class="hCenter tight" style="border:2px solid orchid;"></button>
                     <input id="ascensionAmount" alt="ascensionAmount" label="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1">
-                    <p id="autoAscend" alt="autoAscend" label="autoAscend" class="ascendunlock tightText">Ascend when<span id="autoAscendText" alt="autoAscendText" label="autoAscendText"> you've completed Sadistic Challenge I a total of </span><span id="autoAscendMetric" alt="autoAscendMetric" label="autoAscendMetric" style="color: violet">1</span><span id="autoAscendText2" alt="autoAscendText2" label="autoAscendText2"> times, Currently: </span><span id="autoAscendMetric2" alt="autoAscendMetric2" label="autoAscendMetric2" style="color: gold">0</span></p>
+                    <p id="autoAscend" alt="autoAscend" label="autoAscend" class="ascendunlock tightText"></p>
                 </div>
             </div>
         </div>

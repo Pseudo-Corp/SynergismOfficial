@@ -637,26 +637,26 @@ export const visualUpdateCorruptions = () => {
 
     const metaData = CalcCorruptionStuff();
     const ascCount = calcAscensionCount();
-    DOMCacheGetOrSet('autoAscendText').textContent = player.autoAscendMode === 'c10Completions' ? ' you\'ve completed Sadistic Challenge I a total of ' : ' the timer is at least ';
+    DOMCacheGetOrSet('autoAscend').innerHTML = player.autoAscendMode === 'c10Completions' ?
+        i18next.t('corruptions.autoAscend.c10Completions', {input: format(player.autoAscendThreshold), completions: format(player.challengecompletions[10])}):
+        i18next.t('corruptions.autoAscend.realTime', {input: format(player.autoAscendThreshold), time: format(player.ascensionCounterRealReal)})
+    /*DOMCacheGetOrSet('autoAscendText').textContent = player.autoAscendMode === 'c10Completions' ? ' you\'ve completed Sadistic Challenge I a total of ' : ' the timer is at least ';
     DOMCacheGetOrSet('autoAscendMetric').textContent = format(player.autoAscendThreshold);
     DOMCacheGetOrSet('autoAscendText2').textContent = player.autoAscendMode === 'c10Completions' ? ' times, Currently ' : ' seconds (Real-time), Currently ';
-    DOMCacheGetOrSet('autoAscendMetric2').textContent = player.autoAscendMode === 'c10Completions' ? String(player.challengecompletions[10]) : format(player.ascensionCounterRealReal);
-    DOMCacheGetOrSet('corruptionBankValue').textContent = format(metaData[0]);
-    DOMCacheGetOrSet('corruptionScoreValue').textContent = format(metaData[1], 0, true);
-    DOMCacheGetOrSet('corruptionMultiplierValue').textContent = format(metaData[2], 1, true);
-    DOMCacheGetOrSet('corruptionBonusMultiplierValue').textContent = format(metaData[9], 2, true);
-    DOMCacheGetOrSet('corruptionTotalScore').textContent = format(metaData[3], 0, true);
-    DOMCacheGetOrSet('corruptionCubesValue').textContent = format(metaData[4], 0, true);
-    DOMCacheGetOrSet('corruptionTesseractsValue').textContent = format(metaData[5]);
-    DOMCacheGetOrSet('corruptionHypercubesValue').textContent = format(metaData[6]);
-    DOMCacheGetOrSet('corruptionPlatonicCubesValue').textContent = format(metaData[7]);
-    DOMCacheGetOrSet('corruptionHepteractsValue').textContent = format(metaData[8]);
-    DOMCacheGetOrSet('corruptionAntExponentValue').textContent = format((1 - 0.9 / 90 * sumContents(player.usedCorruptions)) * G['extinctionMultiplier'][player.usedCorruptions[7]], 3);
-    DOMCacheGetOrSet('corruptionSpiritBonusValue').textContent = format(calculateCorruptionPoints()/400,2,true);
+    DOMCacheGetOrSet('autoAscendMetric2').textContent = player.autoAscendMode === 'c10Completions' ? String(player.challengecompletions[10]) : format(player.ascensionCounterRealReal);*/
+    DOMCacheGetOrSet('corruptionBank').innerHTML = i18next.t('corruptions.corruptionBank', {number: format(metaData[0], 0, true)})
+    DOMCacheGetOrSet('corruptionScore').innerHTML = i18next.t('corruptions.corruptionScore', {ascScore: format(metaData[1], 1, true), corrMult: format(metaData[2], 1, true), bonusMult: format(metaData[9], 2, true), totalScore: format(metaData[3], 1, true)})
+    DOMCacheGetOrSet('corruptionCubes').innerHTML = i18next.t('corruptions.corruptionCubes', {cubeAmount: format(metaData[4], 0, true)})
+    DOMCacheGetOrSet('corruptionTesseracts').innerHTML = i18next.t('corruptions.corruptionTesseracts', {tesseractAmount: format(metaData[5], 0, true)})
+    DOMCacheGetOrSet('corruptionHypercubes').innerHTML = i18next.t('corruptions.corruptionHypercubes', {hypercubeAmount: format(metaData[6], 0, true)})
+    DOMCacheGetOrSet('corruptionPlatonicCubes').innerHTML = i18next.t('corruptions.corruptionPlatonics', {platonicAmount: format(metaData[7], 0, true)})
+    DOMCacheGetOrSet('corruptionHepteracts').innerHTML = i18next.t('corruptions.corruptionHepteracts', {hepteractAmount: format(metaData[8], 0, true)})
+    DOMCacheGetOrSet('corruptionAntExponent').innerHTML = i18next.t('corruptions.antExponent', {exponent: format((1 - 0.9 / 90 * sumContents(player.usedCorruptions)) * G['extinctionMultiplier'][player.usedCorruptions[7]], 3)})
+    DOMCacheGetOrSet('corruptionSpiritBonus').innerHTML = i18next.t('corruptions.spiritBonus', {multiplier: format(calculateCorruptionPoints()/400,2,true)})
     DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'block' : 'none';
 
     if (ascCount > 1) {
-        DOMCacheGetOrSet('corruptionAscensionCountValue').textContent = format(calcAscensionCount());
+        DOMCacheGetOrSet('corruptionAscensionCount').innerHTML = i18next.t('corruptions.ascensionCount', {ascCount: format(calcAscensionCount())}) ;
     }
 }
 

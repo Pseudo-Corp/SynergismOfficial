@@ -2040,6 +2040,30 @@
     "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
   },
   "corruptions": {
+    "corrStatsBtn": "Corruption Stats",
+    "corrLoadoutsBtn": "Corruption Loadouts",
+    "cleanse": "Cleanse",
+    "confirm": "Confirm",
+    "intro": "The most rewarding ventures are those few would dare to embark.",
+    "traitInfo": "Select the trait levels you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
+    "antExponent": "This Ascension's climate raises Ant production to the power of <<var(--darkorchid-text-color)|{{exponent}}>>.",
+    "spiritBonus": "However, it also multiplies Rune Spirit Effects by <<wheat|{{multiplier}}>>.",
+    "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
+    "corruptionScore": "Your Ascension Score is <<goldenrod|{{ascScore}}>></span> (base) * <<var(--crimson-text-color)|{{corrMult}}>> (Corruption mult) * <<var(--orchid-text-color)|{{bonusMult}}>> (Bonus mult) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
+    "ascensionCount": "If you Ascend now, <<darkorange|{{ascCount}}>> will be added to your ascension count.",
+    "corruptionCubes": "If you Ascend now, you will gain <<yellow|{{cubeAmount}}>> Wow! Cubes.",
+    "corruptionTesseracts": "If you Ascend now, you will gain <<orange|{{tesseractAmount}}>> Wow! Tesseracts. [<<var(--orange-text-color)|Get more if Score >100,000>>]",
+    "corruptionHypercubes": "If you Ascend now, you will gain <<var(--crimson-text-color)|{{hypercubeAmount}}>> Wow! Hypercubes. [<<var(--red-text-color)|Req Score: >1,000,000,000>>]",
+    "corruptionPlatonics": "If you Ascend now, you will gain <<orchid|{{platonicAmount}}>> PLATONIC CUBES. [<<var(--orchid-text-color)|Req Score: >2,666,000,000,000>>]",
+    "corruptionHepteracts": "If you Ascend now, you will gain <<mediumpurple|{{hepteractAmount}}>> HEPTERACTS. [<<mediumpurple|Req Score: >1.666e17>>]",
+    "autoAscend": {
+      "c10Completions": "Ascend when you've completed Sadistic Challenge I a total of <<var(--violet-text-color)|{{input}}>> times, Currently <<gold|{{completions}}>>",
+      "realTime": "Ascend when the timer is at least <<var(--violet-text-color)|{{input}}>> seconds (Real-time), Currently <<gold|{{time}}>>",
+      "on": "Auto Ascend [ON]",
+      "off": "Auto Ascend [OFF]",
+      "modeCompletions": "Mode: C10 Completions",
+      "modeRealTime": "Mode: Real time"
+    },
     "names": {
         "1": "Corruption I: Viscosity",
         "2": "Corruption II: Spacial Dilation",
