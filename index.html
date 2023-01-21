@@ -3505,30 +3505,30 @@ $STAGE$ for synergism stage"></p>
         <div id="shopWrapper" alt="shopWrapper" label="shopWrapper">
             <div id="actualWrapper" alt="actualWrapper" label="actualWrapper" class="scrollbarX">
                 <div id="actualConsumables" alt="actualConsumables" label="actualConsumables">
-                    <div id="consumables" alt="consumables" label="consumables">Buy Yer' Potions!</div>
+                    <div id="consumables" label="consumables" i18n="shop.buyYerPotions"></div>
                     <div id="actualPotionShop" alt="actualPotionShop" label="actualPotionShop" style="color: white">
                         <div id="offeringPotionHide">
                             <img id="offeringPotions" alt="offeringPotions" label="offeringPotions" src="Pictures/Default/OfferingPotion.png" loading="lazy">
                             <p id="offeringpotionowned" alt="offeringpotionowned" label="offeringpotionowned">Own: 2222</p>
-                            <button class="consumablebutton" id="buyofferingpotion" alt="buyofferingpotion" label="buyofferingpotion" style="border: 2px solid white">Buy: 100 Quarks Each</button>
-                            <button class="consumablebutton" id="useofferingpotion" alt="useofferingpotion" label="useofferingpotion" style="border: 2px solid orange">CONSUME</button>
+                            <button class="consumablebutton" id="buyofferingpotion" label="buyofferingpotion" style="border: 2px solid white">Buy: 100 Quarks Each</button>
+                            <button class="consumablebutton" id="useofferingpotion" label="useofferingpotion" style="border: 2px solid orange" i18n="shop.consume"></button>
                             <button class="consumablebutton auto" id="toggle42" alt="toggle42" label="toggle42" toggleid="42" label="42" format="Auto Catalyze: $" style="border:2px solid red" title="Speeds up AutoPotion while enabled&#013If you run out of potions, it will refill/spend at normal rate, automatically.">Auto Use: OFF</button>
                         </div>
                         <div id="obtainiumPotionHide">
                             <img id="obtainiumPotions" alt="obtainiumPotions" label="obtainiumPotions" src="Pictures/Default/ObtainiumPotion.png" loading="lazy">
                             <p id="obtainiumpotionowned" alt="obtainiumpotionowned" label="obtainiumpotionowned">Own: 0</p>
-                            <button class="consumablebutton" id="buyobtainiumpotion" alt="buyobtainiumpotion" label="buyobtainiumpotion" style="border: 2px solid white">Buy: 100 Quarks Each</button>
-                            <button class="consumablebutton" id="useobtainiumpotion" alt="useobtainiumpotion" label="useobtainiumpotion" style="border: 2px solid blue">CONSUME</button>
+                            <button class="consumablebutton" id="buyobtainiumpotion" label="buyobtainiumpotion" style="border: 2px solid white">Buy: 100 Quarks Each</button>
+                            <button class="consumablebutton" id="useobtainiumpotion" label="useobtainiumpotion" style="border: 2px solid blue" i18n="shop.consume"></button>
                             <button class="consumablebutton auto" id="toggle43" alt="toggle43" label="toggle43" toggleid="43" label="43" format="Auto Catalyze: $" style="border:2px solid red" title="Speeds up AutoPotion while enabled&#013If you run out of potions, it will refill/spend at normal rate, automatically.">Auto Use: OFF</button>
                         </div>
                     </div>
                     <div id="quarksDisplay" alt="quarksDisplay" label="quarksDisplay">
                         <img src="Pictures/Default/Quark.png" width="32px" height="32px" loading="lazy">
-                        <p id="quarkamount" alt="quarkamount" label="quarkamount">You have 0 Quarks!</p>
+                        <p id="quarkamount" label="quarkamount"></p>
                     </div>
                 </div>
                 <div id="actualShopContainer" alt="actualShopContainer" label="actualShopContainer">
-                    <div id="shoptop" alt="shoptop" label="shoptop">Welcome to the Quark Shop. You can't believe what's in stock!</div>
+                    <div id="shoptop" label="shoptop" i18n="shop.header"></div>
                     <div class="boxColor" id="actualShop" alt="actualShop" label="actualShop" style="color: white">
                         <div id="offeringEXHide">
                             <img id="offeringEX" alt="offeringEX" label="offeringEX" src="Pictures/Default/ShopOfferingUpgrade.png" loading="lazy">
@@ -3817,10 +3817,14 @@ $STAGE$ for synergism stage"></p>
                         </div>
                     </div>
                     <div id="shopButtons" alt="shopButtons" label="shopButtons">
-                        <button id="resetShopUpgrades" alt="resetShopUpgrades" label="resetShopUpgrades" style="border: 2px solid orangered; color: white">Reset Perm Shop [Cost: 15 Quarks]</button>
-                        <button id="toggleConfirmShop" alt="toggleConfirmShop" label="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
+                        <button id="resetShopUpgrades" label="resetShopUpgrades" style="border: 2px solid orangered; color: white" i18n="shop.resetPermShop"></button>
+                        <button id="toggleConfirmShop" label="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
                         <button id="toggleHideShop" alt="toggleHideShop" label="toggleHideShop" title="Only hides Non Refundable upgrades" style="border: 2px solid white">Hide Maxed: OFF</button>
-                        <button id="toggleBuyMaxShop" label="toggleBuyMaxShop" style="border: 2px solid white"></button>
+                        <button id="toggleBuyMaxShop" label="toggleBuyMaxShop" style="border: 2px solid white">
+                          <span id="toggleBuyMaxShopText"></span>
+                          <br />
+                          <span style="color: gold; font-size:75%;" i18n="shop.shiftClickForBuyAny"></span>
+                        </button>
                     </div>
                     <div id="shopHovers" alt="shopHovers" label="shopHovers">
                         <p style="font-size: 1.2em;" i18n="footnotes.shop"></p>

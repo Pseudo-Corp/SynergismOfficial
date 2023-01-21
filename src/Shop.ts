@@ -582,7 +582,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
     shopData[input].refundable ?
         refundable.textContent = 'This item is refundable! Will be set to level ' + shopData[input].refundMinimumLevel + ' when refunded.':
-        refundable.textContent = 'This item CANNOT be refunded! Take caution.'
+        refundable.textContent = i18next.t('shop.cannotRefund')
 
     switch (input) {
         case 'offeringPotion':

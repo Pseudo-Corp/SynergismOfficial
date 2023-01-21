@@ -794,7 +794,7 @@ export const visualUpdateShop = () => {
     if (G['currentTab'] !== 'shop') {
         return
     }
-    DOMCacheGetOrSet('quarkamount').textContent = 'You have ' + format(player.worlds, 0, true) + ' Quarks!'
+    DOMCacheGetOrSet('quarkamount').textContent = i18next.t('shop.youHaveQuarks', { x: format(player.worlds, 0, true) })
     DOMCacheGetOrSet('offeringpotionowned').textContent = format(player.shopUpgrades.offeringPotion, 0, true)
     DOMCacheGetOrSet('obtainiumpotionowned').textContent = format(player.shopUpgrades.obtainiumPotion, 0, true)
 
@@ -840,15 +840,27 @@ export const visualUpdateShop = () => {
 
             switch (player.shopBuyMaxToggle) {
                 case false:
-                    DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : `Upgrade for ${format(getShopCosts(key))}  Quarks`;
+                    DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel
+                        ? i18next.t('shop.maxed')
+                        : i18next.t('shop.upgradeFor', { x: format(getShopCosts(key)) })
                     break;
                 case 'TEN':
                     buyData = calculateSummationNonLinear(player.shopUpgrades[key], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, Math.min(10,buyMaxAmount));
-                    DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : `+ ${format(buyData.levelCanBuy - player.shopUpgrades[key], 0, true)} for ${format(buyData.cost)} Quarks`;
+                    DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel
+                        ? i18next.t('shop.maxed')
+                        : i18next.t('shop.plusForQuarks', {
+                            x: format(buyData.levelCanBuy - player.shopUpgrades[key], 0, true),
+                            y: format(buyData.cost)
+                        })
                     break;
                 default:
                     buyData = calculateSummationNonLinear(player.shopUpgrades[key], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, buyMaxAmount);
-                    DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel ? 'Maxed!' : `+ ${format(buyData.levelCanBuy - player.shopUpgrades[key], 0, true)} for ${format(buyData.cost)} Quarks`;
+                    DOMCacheGetOrSet(`${key}Button`).textContent = player.shopUpgrades[key] >= shopItem.maxLevel
+                        ? i18next.t('shop.maxed')
+                        : i18next.t('shop.plusForQuarks', {
+                            x: format(buyData.levelCanBuy - player.shopUpgrades[key], 0, true),
+                            y: format(buyData.cost)
+                        })
             }
         }
     }

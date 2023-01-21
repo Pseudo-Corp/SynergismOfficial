@@ -1786,27 +1786,27 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
         }
         if (player.shopConfirmationToggle) {
-            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: ON'
+            DOMCacheGetOrSet('toggleConfirmShop').textContent = i18next.t('shop.shopConfirmationOn')
         } else {
-            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: OFF'
+            DOMCacheGetOrSet('toggleConfirmShop').textContent = i18next.t('shop.shopConfirmationOff')
         }
         switch (player.shopBuyMaxToggle) {
             case false:
-                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: 1';
+                DOMCacheGetOrSet('toggleBuyMaxShopText').textContent = i18next.t('shop.buy1')
                 break;
             case 'TEN':
-                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: 10';
+                DOMCacheGetOrSet('toggleBuyMaxShopText').textContent = i18next.t('shop.buy10')
                 break;
             case true:
-                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: MAX';
+                DOMCacheGetOrSet('toggleBuyMaxShopText').textContent = i18next.t('shop.buyMax')
                 break;
             case 'ANY':
-                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: ANY';
+                DOMCacheGetOrSet('toggleBuyMaxShopText').textContent = i18next.t('shop.buyAny')
         }
         if (player.shopHideToggle) {
-            DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: ON'
+            DOMCacheGetOrSet('toggleHideShop').textContent = i18next.t('shop.hideMaxedOn')
         } else {
-            DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: OFF'
+            DOMCacheGetOrSet('toggleHideShop').textContent = i18next.t('shop.hideMaxedOff')
         }
         if (player.researchBuyMaxToggle) {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = i18next.t('researches.upgradeMax')

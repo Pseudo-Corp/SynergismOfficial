@@ -91,7 +91,10 @@ export const toggleSettings = (toggle: HTMLElement) => {
     }
     const format = toggle.getAttribute('format')
 
-    if (format === 'Hover-to-Buy [$]') {
+    if (format === 'Auto Catalyze: $') {
+        const text = player.toggles[+toggleId] ? i18next.t('shop.autoCatalyzeOn') : i18next.t('shop.autoCatalyzeOff')
+        toggle.textContent = text
+    } else if (format === 'Hover-to-Buy [$]') {
         const text = player.toggles[+toggleId] ? i18next.t('researches.hoverToBuyOn') : i18next.t('researches.hoverToBuyOff')
         toggle.textContent = text
     } else if (format === 'Auto: $') {
@@ -434,7 +437,10 @@ export const toggleauto = () => {
         const format = toggle.getAttribute('format')
         const toggleId = toggle.getAttribute('toggleId') || 1;
 
-        if (format === 'Hover-to-Buy [$]') {
+        if (format === 'Auto Catalyze: $') {
+            const text = player.toggles[+toggleId] ? i18next.t('shop.autoCatalyzeOn') : i18next.t('shop.autoCatalyzeOff')
+            toggle.textContent = text
+        } else if (format === 'Hover-to-Buy [$]') {
             const text = player.toggles[+toggleId] ? i18next.t('researches.hoverToBuyOn') : i18next.t('researches.hoverToBuyOff')
             toggle.textContent = text
         } else if (format === 'Auto: $') {
@@ -784,31 +790,31 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
 export const toggleShopConfirmation = () => {
     const el = DOMCacheGetOrSet('toggleConfirmShop')
     el.textContent = player.shopConfirmationToggle
-        ? 'Shop Confirmations: OFF'
-        : 'Shop Confirmations: ON';
+        ? i18next.t('shop.shopConfirmationOff')
+        : i18next.t('shop.shopConfirmationOn')
 
     player.shopConfirmationToggle = !player.shopConfirmationToggle;
 }
 
 export const toggleBuyMaxShop = (event: MouseEvent) => {
-    const el = DOMCacheGetOrSet('toggleBuyMaxShop')
+    const el = DOMCacheGetOrSet('toggleBuyMaxShopText')
     if (event.shiftKey) {
-        el.textContent = 'Buy: ANY';
+        el.textContent = i18next.t('shop.buyAny');
         player.shopBuyMaxToggle = 'ANY';
         return;
     }
-    const suf = '<br><span style=\'color: gold; font-size:75%;\'>Shift-Click for Buy: Any</span>';
+
     switch (player.shopBuyMaxToggle) {
         case false:
-            el.innerHTML = `Buy: 10${suf}`;
+            el.innerHTML = i18next.t('shop.buy10')
             player.shopBuyMaxToggle = 'TEN';
             break;
         case 'TEN':
-            el.innerHTML = `Buy: MAX${suf}`;
+            el.innerHTML = i18next.t('shop.buyMax')
             player.shopBuyMaxToggle = true;
             break;
         default:
-            el.innerHTML = `Buy: 1${suf}`;
+            el.innerHTML = i18next.t('shop.buy1')
             player.shopBuyMaxToggle = false;
     }
 }
@@ -816,8 +822,8 @@ export const toggleBuyMaxShop = (event: MouseEvent) => {
 export const toggleHideShop = () => {
     const el = DOMCacheGetOrSet('toggleHideShop')
     el.textContent = player.shopHideToggle
-        ? 'Hide Maxed: OFF'
-        : 'Hide Maxed: ON';
+        ? i18next.t('shop.hideMaxedOff')
+        : i18next.t('shop.hideMaxedOn')
 
     player.shopHideToggle = !player.shopHideToggle;
 }

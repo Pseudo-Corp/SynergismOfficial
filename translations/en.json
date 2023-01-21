@@ -1347,7 +1347,27 @@
             "chronometerInfinity": "Gain +1% Ascension Speed per level, multiplicative! (Multiplier is 1.01^level)",
             "seasonPassInfinity": "Gain +2% more cubes per level, multiplicative! (Multiplier is 1.02^level)",
             "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost."
-        }
+        },
+        "maxed": "Maxed!",
+        "upgradeFor": "Upgrade for {{x}} Quarks",
+        "plusForQuarks": "+ {{x}} for {{y}} Quarks",
+        "consume": "CONSUME",
+        "buyYerPotions": "Buy Yer' Potions!",
+        "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
+        "youHaveQuarks": "You have {{x}} Quarks!",
+        "cannotRefund": "This item CANNOT be refunded! Take caution.",
+        "resetPermShop": "Reset Perm Shop [Cost: 15 Quarks]",
+        "shopConfirmationOn": "Shop Confirmations: ON",
+        "shopConfirmationOff": "Shop Confirmations: OFF",
+        "hideMaxedOn": "Hide Maxed: ON",
+        "hideMaxedOff": "Hide Maxed: OFF",
+        "autoCatalyzeOn": "Auto Catalyze: ON",
+        "autoCatalyzeOff": "Auto Catalyze: OFF",
+        "shiftClickForBuyAny": "Shift-Click for Buy: Any",
+        "buy10": "Buy: 10",
+        "buy1": "Buy: 1",
+        "buyMax": "Buy: MAX",
+        "buyAny": "Buy: ANY"
     },
     "singularity": {
         "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
