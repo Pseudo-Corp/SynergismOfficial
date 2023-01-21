@@ -41,18 +41,18 @@ export const calculateCrumbToCoinExp = () => {
 }
 
 const antUpgradeTexts = [
-    () => 'ALL Ants work at ' + format(Decimal.pow(1.12 + 1 / 1000 * player.researches[101], player.antUpgrades[1-1]! + G['bonusant1']), 2) + 'x speed.',
-    () => 'Crumb --> Coin exponent is ^' + format(calculateCrumbToCoinExp()),
-    () => 'Tax growth is multiplied by ' + format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3-1]! + G['bonusant3']), 4),
-    () => 'Accelerator Boosts +' + format(100 * (calculateSigmoidExponential(20, (player.antUpgrades[4-1]! + G['bonusant4']) / 1000 * 20 / 19) - 1), 3) + '%',
-    () => 'Multipliers +' + format(100 * (calculateSigmoidExponential(40, (player.antUpgrades[5-1]! + G['bonusant5']) / 1000 * 40 / 39) - 1), 3) + '%',
-    () => 'Offerings x' + format(1 + Math.pow((player.antUpgrades[6-1]! + G['bonusant6']), 0.66), 4),
-    () => 'Building Costs scale ' + format(Math.min(9999999,3 * player.antUpgrades[7-1]! + 3 * G['bonusant7']),0,true) + '% slower!',
-    () => 'Rune EXP is multiplied by ' + format(calculateSigmoidExponential(999, 1 / 10000 * Math.pow(player.antUpgrades[8-1]! + G['bonusant8'], 1.1)), 3) + '!',
-    () => 'Each rune has +' + format(1 * Math.min(1e7, (player.antUpgrades[9-1]! + G['bonusant9'])),0,true) + ' effective levels.',
-    () => 'Obtainium x' + format(1 + 2 * Math.pow((player.antUpgrades[10-1]! + G['bonusant10']) / 50, 0.75), 4),
-    () => 'Sacrificing is ' + format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11-1]! + G['bonusant11']) / 125)), 4) + 'x as effective',
-    () => 'Global timer is sped up by a factor of ' + format(calculateSigmoid(2, player.antUpgrades[12-1]! + G['bonusant12'], 69), 4)
+    () => format(Decimal.pow(1.12 + 1 / 1000 * player.researches[101], player.antUpgrades[1-1]! + G['bonusant1']), 2),
+    () => format(calculateCrumbToCoinExp()),
+    () => format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3-1]! + G['bonusant3']), 4),
+    () => format(100 * (calculateSigmoidExponential(20, (player.antUpgrades[4-1]! + G['bonusant4']) / 1000 * 20 / 19) - 1), 3),
+    () => format(100 * (calculateSigmoidExponential(40, (player.antUpgrades[5-1]! + G['bonusant5']) / 1000 * 40 / 39) - 1), 3),
+    () => format(1 + Math.pow((player.antUpgrades[6-1]! + G['bonusant6']), 0.66), 4),
+    () => format(Math.min(9999999,3 * player.antUpgrades[7-1]! + 3 * G['bonusant7']),0,true),
+    () => format(calculateSigmoidExponential(999, 1 / 10000 * Math.pow(player.antUpgrades[8-1]! + G['bonusant8'], 1.1)), 3),
+    () => format(1 * Math.min(1e7, (player.antUpgrades[9-1]! + G['bonusant9'])),0,true),
+    () => format(1 + 2 * Math.pow((player.antUpgrades[10-1]! + G['bonusant10']) / 50, 0.75), 4),
+    () => format(1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11-1]! + G['bonusant11']) / 125)), 4),
+    () => format(calculateSigmoid(2, player.antUpgrades[12-1]! + G['bonusant12'], 69), 4)
 ]
 
 let repeatAnt: ReturnType<typeof setTimeout>;
@@ -71,47 +71,53 @@ export const updateAntDescription = (i: number) => {
     const ti = DOMCacheGetOrSet('antquantity')
     const me = DOMCacheGetOrSet('generateant')
 
-    let priceType = 'Galactic Crumbs'
+    let priceType = 'ants.costGalacticCrumbs'
     let tier: FirstToEighth = 'first'
+    let x!: string
     el.textContent = i18next.t(`ants.descriptions.${i}`)
 
     switch (i) {
         case 1:
-            priceType = 'Particles';
+            priceType = 'ants.costParticles'
             tier = 'first';
-            me.textContent = 'Generates ' + format(G['antOneProduce'], 5) + ' Crumbs/sec';
+            x = format(G['antOneProduce'], 5)
             break;
         case 2:
             tier = 'second';
-            me.textContent = 'Generates ' + format(G['antTwoProduce'], 5) + ' Workers/sec';
+            x = format(G['antTwoProduce'], 5)
             break;
         case 3:
             tier = 'third';
-            me.textContent = 'Generates ' + format(G['antThreeProduce'], 5) + ' Breeders/sec';
+            x = format(G['antThreeProduce'], 5)
             break;
         case 4:
             tier = 'fourth';
-            me.textContent = 'Generates ' + format(G['antFourProduce'], 5) + ' MetaBreeders/sec';
+            x = format(G['antFourProduce'], 5)
             break;
         case 5:
             tier = 'fifth';
-            me.textContent = 'Generates ' + format(G['antFiveProduce'], 5) + ' MegaBreeders/sec';
+            x = format(G['antFiveProduce'], 5)
             break;
         case 6:
             tier = 'sixth';
-            me.textContent = 'Generates ' + format(G['antSixProduce'], 5) + ' Queens/sec';
+            x = format(G['antSixProduce'], 5)
             break;
         case 7:
             tier = 'seventh';
-            me.textContent = 'Generates ' + format(G['antSevenProduce'], 5) + ' Royals/sec';
+            x = format(G['antSevenProduce'], 5)
             break;
         case 8:
             tier = 'eighth';
-            me.textContent = 'Generates ' + format(G['antEightProduce'], 5) + ' ALMIGHTIES/sec';
+            x = format(G['antEightProduce'], 5)
             break;
     }
-    la.textContent = 'Cost: ' + format(player[`${tier}CostAnts` as const]) + ' ' + priceType
-    ti.textContent = 'Owned: ' + format(player[`${tier}OwnedAnts` as const]) + ' [+' + format(player[`${tier}GeneratedAnts` as const], 2) + ']'
+
+    me.textContent = i18next.t(`ants.generates.${i}`, { x })
+    la.textContent = i18next.t(priceType, { x: format(player[`${tier}CostAnts` as const]) })
+    ti.textContent = i18next.t('ants.owned', {
+        x: format(player[`${tier}OwnedAnts` as const]),
+        y: format(player[`${tier}GeneratedAnts` as const], 2)
+    })
 }
 
 const getAntCost = (originalCost: Decimal, buyTo: number, index: number) => {
@@ -257,8 +263,12 @@ export const antUpgradeDescription = (i: number) => {
     el.childNodes[0].textContent = content1 + ' Level ' + format(player.antUpgrades[i-1])
     al.textContent = ' [+' + format(Math.min(player.antUpgrades[i-1]! + c11, bonuslevel)) + ']'
     la.textContent = content2
-    ti.textContent = 'Cost: ' + format(Decimal.pow(G['antUpgradeCostIncreases'][i-1], player.antUpgrades[i-1]! * G['extinctionMultiplier'][player.usedCorruptions[10]]).times(G['antUpgradeBaseCost'][i-1])) + ' Galactic Crumbs'
-    me.textContent = 'CURRENT EFFECT: ' + antUpgradeTexts[i - 1]()
+    ti.textContent = i18next.t('ants.costGalacticCrumbs', {
+        x: format(Decimal.pow(G['antUpgradeCostIncreases'][i-1], player.antUpgrades[i-1]! * G['extinctionMultiplier'][player.usedCorruptions[10]]).times(G['antUpgradeBaseCost'][i-1]))
+    })
+    me.textContent = i18next.t(`ants.rewards.${i}`, {
+        x: antUpgradeTexts[i - 1]()
+    })
 }
 
 export const antSacrificePointsToMultiplier = (points: number) => {
@@ -274,15 +284,23 @@ export const showSacrifice = () => {
     const sacRewards = calculateAntSacrificeRewards();
     DOMCacheGetOrSet('antSacrificeSummary').style.display = 'block'
 
-    DOMCacheGetOrSet('antELO').childNodes[0].textContent = 'Your Ant ELO is '
-    DOMCacheGetOrSet('ELO').textContent = format(G['antELO'], 2)
-    DOMCacheGetOrSet('effectiveELO').textContent = '[' + format(G['effectiveELO'], 2, false) + ' effective]'
+    DOMCacheGetOrSet('ELO').innerHTML = i18next.t('ants.yourAntELO', {
+        x: format(G['antELO'], 2),
+        y: format(G['effectiveELO'], 2, false)
+    })
 
-    DOMCacheGetOrSet('antSacrificeMultiplier').childNodes[0].textContent = 'Ant Multiplier x' + format(antSacrificePointsToMultiplier(player.antSacrificePoints), 3, false) + ' --> '
-    DOMCacheGetOrSet('SacrificeMultiplier').textContent = 'x' + format(antSacrificePointsToMultiplier(player.antSacrificePoints + sacRewards.antSacrificePoints), 3, false)
+    DOMCacheGetOrSet('SacrificeMultiplier').innerHTML = i18next.t('ants.antSacMultiplier', {
+        x: format(antSacrificePointsToMultiplier(player.antSacrificePoints + sacRewards.antSacrificePoints), 3, false)
+    })
 
-    DOMCacheGetOrSet('SacrificeUpgradeMultiplier').textContent = format(G['upgradeMultiplier'], 3, true) + 'x'
-    DOMCacheGetOrSet('SacrificeTimeMultiplier').textContent = format(G['timeMultiplier'], 3, true) + 'x'
+    DOMCacheGetOrSet('SacrificeUpgradeMultiplier').innerHTML = i18next.t('ants.upgradeMultiplier', {
+        x: format(G['upgradeMultiplier'], 3, true)
+    })
+
+    DOMCacheGetOrSet('SacrificeTimeMultiplier').innerHTML = i18next.t('ants.timeMultiplier', {
+        x: format(G['timeMultiplier'], 3, true)
+    })
+
     DOMCacheGetOrSet('antSacrificeOffering').textContent = '+' + format(sacRewards.offerings)
     DOMCacheGetOrSet('antSacrificeObtainium').textContent = '+' + format(sacRewards.obtainium)
     if (player.challengecompletions[9] > 0) {

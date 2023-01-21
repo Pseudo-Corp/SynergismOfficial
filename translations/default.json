@@ -490,7 +490,47 @@
       "6": "Gain a Lord Royal Ant that produces Queen Ants automatically!",
       "7": "Gain an ALMIGHTY ANT that produces Lord Royal Ants automatically!",
       "8": "Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!"
-    }
+    },
+    "generates": {
+      "1": "Generates {{x}} Crumbs/sec",
+      "2": "Generates {{x}} Workers/sec",
+      "3": "Generates {{x}} Breeders/sec",
+      "4": "Generates {{x}} MetaBreeders/sec",
+      "5": "Generates {{x}} MegaBreeders/sec",
+      "6": "Generates {{x}} Queens/sec",
+      "7": "Generates {{x}} Royals/sec",
+      "8": "Generates {{x}} ALMIGHTIES/sec"
+    },
+    "rewards": {
+      "1": "CURRENT EFFECT: ALL Ants work at {{x}}x speed.",
+      "2": "CURRENT EFFECT: Crumb --> Coin exponent is ^{{x}}",
+      "3": "CURRENT EFFECT: Tax growth is multiplied by {{x}}",
+      "4": "CURRENT EFFECT: Accelerator Boosts +{[x}}%",
+      "5": "CURRENT EFFECT: Multipliers +{{x}}%",
+      "6": "CURRENT EFFECT: Offerings x{{x}}",
+      "7": "CURRENT EFFECT: Building Costs scale {{x}}% slower!",
+      "8": "CURRENT EFFECT: Rune EXP is multiplied by {{x}}!",
+      "9": "CURRENT EFFECT: Each rune has +{{x}} effective levels.",
+      "10": "CURRENT EFFECT: Obtainium x{{x}}",
+      "11": "CURRENT EFFECT: Sacrificing is {{x}}x as effective",
+      "12": "CURRENT EFFECT: Global timer is sped up by a factor of {{x}}"
+    },
+    "header": "The ants welcome you to their home.",
+    "hover": "Hover over the icons for description. Click icons to buy!",
+    "youHaveGalacticCrumbs": "You have {{x}} Galactic Crumbs [{{y}}/s], providing a {{z}} Coin Multiplier",
+    "owned": "Owned: {{x}} [+{{y}}]",
+    "costGalacticCrumbs": "Cost: {{x}} Galactic Crumbs",
+    "costParticles": "Cost: {{x}} Particles",
+    "autoSacrificeOn": "Auto Sacrifice: ON",
+    "autoSacrificeOff": "Auto Sacrifice: OFF",
+    "modeRealTime": "Mode: Real-time",
+    "modeInGameTime": "Mode: In-game time",
+    "sacrificeWhenTimer": "Sacrifice when the timer is at least {{x}} seconds ({{y}}), Currently: {{z}}",
+    "yourAntELO": "<<plum|Your Ant ELO is>> <<gold|{{x}}>> [{{y}} effective]",
+    "upgradeMultiplier": "Upgrade Multiplier: <<gold|{{x}}x>>",
+    "timeMultiplier": "Time Multiplier: <<var(--lightseagreen-text-color);|{{x}}x>>",
+    "resetAnthill": "Reset Anthill features for:",
+    "antSacMultiplier": "Ant Sacrifice Multiplier: 1x --> <<limegreen|x{{x}}>>"
   },
   "challenges": {
     "1": {
@@ -1233,7 +1273,19 @@
       "198": "[8x23] +0.06% tributes from Cubes / level!. Wow! Cubes really has a lot of manufacturing errors in your favor.",
       "199": "[8x24] +10% faster Tesseract Buildings / level. THE ARISEN. WITH THE PRAISE OF THE SINGULARITY.",
       "200": "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings, and +0.004% Cubes, +0.04 Max Rune level, +(level/400) max Talisman Level, +(level/200) free Ants, 0.000666% Tax reduction per level."
-    }
+    },
+    "thanksToResearches": "Thanks to researches you automatically gain {{x}} Obtainium per real life second.",
+    "level": "Level {{x}}/{{y}}",
+    "maxed": " || MAXED!",
+    "cost": "Cost: {{x}} Obtainium [+{{y}} Levels]",
+    "upgradeMax": "Upgrade: MAX [if possible]",
+    "upgradeOne": "Upgrade: 1 Level",
+    "automaticOn": "Automatic: ON",
+    "automaticOff": "Automatic: OFF",
+    "autoModeCheapest": "Automatic mode: Cheapest",
+    "autoModeManual": "Automatic mode: Manual",
+    "hoverToBuyOn": "Hover-to-Buy [ON]",
+    "hoverToBuyOff": "Hover-to-Buy [OFF]"
   },
   "shop": {
     "upgradeDescriptions": {
@@ -2016,6 +2068,8 @@
     "autoOffBracket": "Auto [OFF]",
     "autoOnColon": "Auto: ON",
     "autoOffColon": "Auto: OFF",
+    "buyMaxOn": "Buy Max: ON",
+    "buyMaxOff": "Buy Max: OFF",
     "softCapped": "(Softcapped)",
     "maxed": "(Maxed)",
     "affordable": "(Affordable)",

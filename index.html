@@ -528,7 +528,7 @@
         </div>
 
         <div id="reincarnationTexts" alt="reincarnationTexts" label="reincarnationTexts">
-            <p id="reincarnationshardinfo" alt="reincarnationshardinfo" label="reincarnationshardinfo" style="color:lime;">You have 1.39e+100394 Atoms, providing a building power of 3.02.</p>
+            <p id="reincarnationshardinfo" label="reincarnationshardinfo" style="color:lime;"></p>
             <p id="reincarnationCrystalInfo" alt="reincarnationCrystalInfo" label="reincarnationCrystalInfo" style="color: cyan; display: none;">Thanks to research 3x9, you also multiply Crystal producion by 1.</p>
             <p id="reincarnationMythosInfo" alt="reincarnationMythosInfo" label="reincarnationMythosInfo" style="color:plum; display: none;">Thanks to research 3x10, you also multiply Mythos Shard production by 1.</p>
         </div>
@@ -1918,8 +1918,8 @@
         <div id="ants" alt="ants" label="ants" style="display: none;">
             <div id="antsWrapper" alt="antsWrapper" label="antsWrapper">
                 <div id="antsWelcomeTexts" alt="antsWelcomeTexts" label="antsWelcomeTexts">
-                    <p id="antwelcome" alt="antwelcome" label="antwelcome" style="color: lightslategrey">The ants welcome you to their home.</p>
-                    <p id="antdescription" alt="antdescription" label="antdescription" style="color: plum">Hover over the icons for description. Click icons to buy!</p>
+                    <p id="antwelcome" label="antwelcome" style="color: lightslategrey" i18n="ants.header"></p>
+                    <p id="antdescription" label="antdescription" style="color: plum" i18n="ants.hover"></p>
                 </div>
 
                 <div id="antrow1" alt="antrow1" label="antrow1">
@@ -1966,10 +1966,10 @@
                 </div>
 
                 <div id="antToggleFeatures" alt="antToggleFeatures" label="antToggleFeatures">
-                    <button id="toggleAntMax" alt="toggleAntMax" label="toggleAntMax">Buy Max: ON</button>
-                    <button id="toggleAutoSacrificeAnt" alt="toggleAutoSacrificeAnt" label="toggleAutoSacrificeAnt">Auto Sacrifice: OFF</button>
+                    <button id="toggleAntMax" label="toggleAntMax"></button>
+                    <button id="toggleAutoSacrificeAnt" label="toggleAutoSacrificeAnt"></button>
                     <div class="antSacrificeSettingsContainer" id="antSacrificeButtons" alt="antSacrificeButtons" label="antSacrificeButtons">
-                        <button id="autoSacrificeAntMode" alt="autoSacrificeAntMode" label="autoSacrificeAntMode">Mode: In-game time</button>
+                        <button id="autoSacrificeAntMode" label="autoSacrificeAntMode"></button>
                         <input id="autoAntSacrificeAmount" alt="autoAntSacrificeAmount" label="autoAntSacrificeAmount" type="number">
                     </div>
                 </div>
@@ -1982,11 +1982,13 @@
                         </div>
                     </div>
                     <div class="antSacrificeHeader bodycolor">
-                        <p id="antELO" alt="antELO" label="antELO" style="color: plum">Your Ant ELO is <span id="ELO" alt="ELO" label="ELO" style="color: gold">0 ELO</span> <span id="effectiveELO" alt="effectiveELO" label="effectiveELO" style="color: white"> </span></p>
-                        <p id="antUpgradeMultiplier" alt="antUpgradeMultiplier" label="antUpgradeMultiplier" style="color: white">Upgrade Multiplier: <span id="SacrificeUpgradeMultiplier" alt="SacrificeUpgradeMultiplier" label="SacrificeUpgradeMultiplier" style="color: gold">0.01x</span></p>
-                        <p id="antTimeMultiplier" alt="antTimeMultiplier" label="antTimeMultiplier" style="color: white">Time Multiplier: <span id="SacrificeTimeMultiplier" alt="SacrificeTimeMultiplier" label="SacrificeTimeMultiplier" class="lightseagreenText">0.01x</span></p>
-                        <p id="antSacrificeTitle" alt="antSacrificeTitle" label="antSacrificeTitle" class="crimsonText">Reset Anthill features for:</p>
-                        <p id="antSacrificeMultiplier" alt="antSacrificeMultiplier" label="antSacrificeMultiplier" style="color: white">Ant Sacrifice Multiplier: 1x --> <span id="SacrificeMultiplier" alt="SacrificeMultiplier" label="SacrificeMultiplier" style="color: limegreen">x2</span></p>
+                        <span id="ELO" alt="ELO" label="ELO"></span>
+                        <br />
+                        <span id="SacrificeUpgradeMultiplier" label="SacrificeUpgradeMultiplier"></span>
+                        <br />
+                        <span id="SacrificeTimeMultiplier" label="SacrificeTimeMultiplier"></span>
+                        <p id="antSacrificeTitle" label="antSacrificeTitle" class="crimsonText" i18n="ants.resetAnthill"></p>
+                        <span id="SacrificeMultiplier" label="SacrificeMultiplier"></span>
                     </div>
                     <table id="antSacrificeTable" alt="antSacrificeTable" label="antSacrificeTable" class="bodycolor">
                         <tr style="height: 32px;">
@@ -3818,7 +3820,7 @@ $STAGE$ for synergism stage"></p>
                         <button id="resetShopUpgrades" alt="resetShopUpgrades" label="resetShopUpgrades" style="border: 2px solid orangered; color: white">Reset Perm Shop [Cost: 15 Quarks]</button>
                         <button id="toggleConfirmShop" alt="toggleConfirmShop" label="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
                         <button id="toggleHideShop" alt="toggleHideShop" label="toggleHideShop" title="Only hides Non Refundable upgrades" style="border: 2px solid white">Hide Maxed: OFF</button>
-                        <button id="toggleBuyMaxShop" alt="toggleBuyMaxShop" label="toggleBuyMaxShop" style="border: 2px solid white">Buy Max: OFF</button>
+                        <button id="toggleBuyMaxShop" label="toggleBuyMaxShop" style="border: 2px solid white"></button>
                     </div>
                     <div id="shopHovers" alt="shopHovers" label="shopHovers">
                         <p style="font-size: 1.2em;" i18n="footnotes.shop"></p>

@@ -91,7 +91,10 @@ export const toggleSettings = (toggle: HTMLElement) => {
     }
     const format = toggle.getAttribute('format')
 
-    if (format === 'Auto: $') {
+    if (format === 'Hover-to-Buy [$]') {
+        const text = player.toggles[+toggleId] ? i18next.t('researches.hoverToBuyOn') : i18next.t('researches.hoverToBuyOff')
+        toggle.textContent = text
+    } else if (format === 'Auto: $') {
         const text = player.toggles[+toggleId] ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
         toggle.textContent = text
     } else if (format) {
@@ -431,7 +434,13 @@ export const toggleauto = () => {
         const format = toggle.getAttribute('format')
         const toggleId = toggle.getAttribute('toggleId') || 1;
 
-        if (format) {
+        if (format === 'Hover-to-Buy [$]') {
+            const text = player.toggles[+toggleId] ? i18next.t('researches.hoverToBuyOn') : i18next.t('researches.hoverToBuyOff')
+            toggle.textContent = text
+        } else if (format === 'Auto: $') {
+            const text = player.toggles[+toggleId] ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
+            toggle.textContent = text
+        } else if (format) {
             const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF')
             toggle.textContent = finishedString;
         } else {
@@ -816,8 +825,8 @@ export const toggleHideShop = () => {
 export const toggleAntMaxBuy = () => {
     const el = DOMCacheGetOrSet('toggleAntMax');
     el.textContent = player.antMax
-        ? 'Buy Max: OFF'
-        : 'Buy Max: ON';
+        ? i18next.t('general.buyMaxOn')
+        : i18next.t('general.buyMaxOff')
 
     player.antMax = !player.antMax;
 }
@@ -827,19 +836,19 @@ export const toggleAntAutoSacrifice = (mode = 0) => {
         const el = DOMCacheGetOrSet('toggleAutoSacrificeAnt');
         if (player.autoAntSacrifice) {
             player.autoAntSacrifice = false;
-            el.textContent = 'Auto Sacrifice: OFF'
+            el.textContent = i18next.t('ants.autoSacrificeOff')
         } else {
             player.autoAntSacrifice = true;
-            el.textContent = 'Auto Sacrifice: ON'
+            el.textContent = i18next.t('ants.autoSacrificeOn')
         }
     } else if (mode === 1) {
         const el = DOMCacheGetOrSet('autoSacrificeAntMode');
         if (player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0) {
             player.autoAntSacrificeMode = 2;
-            el.textContent = 'Mode: Real time';
+            el.textContent = i18next.t('ants.modeRealTime')
         } else {
             player.autoAntSacrificeMode = 1;
-            el.textContent = 'Mode: In-game time';
+            el.textContent = i18next.t('ants.modeInGameTime')
         }
     }
 }

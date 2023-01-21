@@ -166,7 +166,6 @@ const isResearchMaxed = (index: number) => G['researchMaxLevels'][index] <= play
 export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => {
     const buyAmount = (player.researchBuyMaxToggle || auto) ? 100000 : 1;
     const y = i18next.t(`researches.descriptions.${i}`)
-    let z = ''
     const p = 'res' + i
 
     if (player.toggles[38] === true && player.singularityCount > 0) {
@@ -174,12 +173,16 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     }
 
     const metaData = getResearchCost(i, buyAmount, linGrowth);
-    z = ' Cost: ' + (format(metaData.cost, 0, false)) + ' Obtainium [+' + format(metaData.levelCanBuy - player.researches[i], 0, true) + ' Levels]'
+    let z = i18next.t('researches.cost', {
+        x: format(metaData.cost, 0, false),
+        y: format(metaData.levelCanBuy - player.researches[i], 0, true)
+    })
+
     if (player.researches[i] === (G['researchMaxLevels'][i])) {
         DOMCacheGetOrSet('researchcost').style.color = 'Gold'
         DOMCacheGetOrSet('researchinfo3').style.color = 'plum'
         updateClassList(p, ['researchMaxed'], ['researchAvailable', 'researchPurchased', 'researchPurchasedAvailable'])
-        z = z + ' || MAXED!'
+        z += i18next.t('researches.maxed')
     } else {
         DOMCacheGetOrSet('researchcost').style.color = 'limegreen'
         DOMCacheGetOrSet('researchinfo3').style.color = 'white'
@@ -197,7 +200,10 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
 
     DOMCacheGetOrSet('researchinfo2').textContent = y
     DOMCacheGetOrSet('researchcost').textContent = z
-    DOMCacheGetOrSet('researchinfo3').textContent = 'Level ' + player.researches[i] + '/' + (G['researchMaxLevels'][i])
+    DOMCacheGetOrSet('researchinfo3').textContent =  i18next.t('researches.level', {
+        x: player.researches[i],
+        y: G['researchMaxLevels'][i]
+    })
 }
 
 export const updateResearchBG = (j: number) => {

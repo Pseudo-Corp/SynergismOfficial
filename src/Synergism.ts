@@ -1736,14 +1736,14 @@ const loadSynergy = async () => {
         }
 
         if (player.autoResearchToggle) {
-            DOMCacheGetOrSet('toggleautoresearch').textContent = 'Automatic: ON'
+            DOMCacheGetOrSet('toggleautoresearch').textContent = i18next.t('researches.automaticOn')
         } else {
-            DOMCacheGetOrSet('toggleautoresearch').textContent = 'Automatic: OFF'
+            DOMCacheGetOrSet('toggleautoresearch').textContent = i18next.t('researches.automaticOff')
         }
         if (player.autoResearchMode === 'cheapest') {
-            DOMCacheGetOrSet('toggleautoresearchmode').textContent = 'Automatic mode: Cheapest'
+            DOMCacheGetOrSet('toggleautoresearchmode').textContent = i18next.t('researches.autoModeCheapest')
         } else {
-            DOMCacheGetOrSet('toggleautoresearchmode').textContent = 'Automatic mode: Manual'
+            DOMCacheGetOrSet('toggleautoresearchmode').textContent = i18next.t('researches.autoModeManual')
         }
         if (player.autoSacrificeToggle) {
             DOMCacheGetOrSet('toggleautosacrifice').textContent = i18next.t('runes.blessings.autoRuneOn')
@@ -1809,9 +1809,9 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: OFF'
         }
         if (player.researchBuyMaxToggle) {
-            DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
+            DOMCacheGetOrSet('toggleresearchbuy').textContent = i18next.t('researches.upgradeMax')
         } else {
-            DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
+            DOMCacheGetOrSet('toggleresearchbuy').textContent = i18next.t('researches.upgradeOne')
         }
         if (player.cubeUpgradesBuyMaxToggle) {
             DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: MAX [if possible wow]'

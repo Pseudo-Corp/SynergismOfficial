@@ -441,7 +441,9 @@ export const visualUpdateResearch = () => {
     }
 
     if (player.researches[61] > 0) {
-        DOMCacheGetOrSet('automaticobtainium').textContent = 'Thanks to researches you automatically gain ' + format(calculateAutomaticObtainium() * calculateTimeAcceleration().mult, 3, true) + ' Obtainium per real life second.'
+        DOMCacheGetOrSet('automaticobtainium').textContent = i18next.t('researches.thanksToResearches', {
+            x: format(calculateAutomaticObtainium() * calculateTimeAcceleration().mult, 3, true)
+        })
     }
 }
 
@@ -449,10 +451,21 @@ export const visualUpdateAnts = () => {
     if (G['currentTab'] !== 'ants') {
         return
     }
-    DOMCacheGetOrSet('crumbcount').textContent = 'You have ' + format(player.antPoints, 2) + ' Galactic Crumbs [' + format(G['antOneProduce'], 2) + '/s], providing a ' + format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[1]! + G['bonusant2']) / 5000 * 500 / 499))) + 'x Coin Multiplier.'
-    const mode = player.autoAntSacrificeMode === 2 ? 'Real-time' : 'In-game time';
+    DOMCacheGetOrSet('crumbcount').textContent = i18next.t('ants.youHaveGalacticCrumbs', {
+        x: format(player.antPoints, 2),
+        y: format(G['antOneProduce'], 2),
+        z: format(Decimal.pow(Decimal.max(1, player.antPoints), 100000 + calculateSigmoidExponential(49900000, (player.antUpgrades[1]! + G['bonusant2']) / 5000 * 500 / 499)))
+    })
+
+    const mode = player.autoAntSacrificeMode === 2 ? i18next.t('ants.modeRealTime') : i18next.t('ants.modeInGameTime')
     const timer = player.autoAntSacrificeMode === 2 ? player.antSacrificeTimerReal : player.antSacrificeTimer;
-    DOMCacheGetOrSet('autoAntSacrifice').textContent = `Sacrifice when the timer is at least ${player.autoAntSacTimer} seconds (${mode}), Currently: ${format(timer, 2)}`
+
+    DOMCacheGetOrSet('autoAntSacrifice').textContent = i18next.t('ants.sacrificeWhenTimer', {
+        x: player.autoAntSacTimer,
+        y: mode,
+        z: format(timer, 2)
+    })
+
     if (player.achievements[173] === 1) {
         DOMCacheGetOrSet('antSacrificeTimer').textContent = formatTimeShort(player.antSacrificeTimer);
         showSacrifice();
