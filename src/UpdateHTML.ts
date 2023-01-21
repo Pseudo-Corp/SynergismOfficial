@@ -871,9 +871,9 @@ export const updateChallengeDisplay = () => {
     }
     //Corrects HTML on retry challenges button
     if (player.retrychallenges) {
-        DOMCacheGetOrSet('retryChallenge').textContent = 'Retry Challenges: ON'
+        DOMCacheGetOrSet('retryChallenge').textContent = i18next.t('challenges.retryChallengesOn')
     } else {
-        DOMCacheGetOrSet('retryChallenge').textContent = 'Retry Challenges: OFF'
+        DOMCacheGetOrSet('retryChallenge').textContent = i18next.t('challenges.retryChallengesOff')
     }
     for (let k = 1; k <= 15; k++) {
         updateChallengeLevel(k);

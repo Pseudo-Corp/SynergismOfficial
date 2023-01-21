@@ -905,19 +905,29 @@ export const updateAutoChallenge = (i: number) => {
         case 1: {
             const t = parseFloat((DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
             player.autoChallengeTimer.start = Math.max(t, 0);
-            DOMCacheGetOrSet('startTimerValue').textContent = format(player.autoChallengeTimer.start, 2, true) + 's';
+            DOMCacheGetOrSet('startTimerValue').innerHTML = i18next.t('challenges.timeStartSweep', {
+                time: format(player.autoChallengeTimer.start, 2, true)
+            })
             return;
         }
         case 2: {
             const u = parseFloat((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
             player.autoChallengeTimer.exit = Math.max(u, 0);
-            DOMCacheGetOrSet('exitTimerValue').textContent = format(player.autoChallengeTimer.exit, 2, true) + 's';
+
+            DOMCacheGetOrSet('exitTimerValue').innerHTML = i18next.t('challenges.timeExitChallenge', {
+                time: format(player.autoChallengeTimer.exit, 2, true)
+            })
+
             return;
         }
         case 3: {
             const v = parseFloat((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
             player.autoChallengeTimer.enter = Math.max(v, 0);
-            DOMCacheGetOrSet('enterTimerValue').textContent = format(player.autoChallengeTimer.enter, 2, true) + 's';
+
+            DOMCacheGetOrSet('enterTimerValue').innerHTML = i18next.t('challenges.timeEnterChallenge', {
+                time: format(player.autoChallengeTimer.enter, 2, true)
+            })
+
             return;
         }
     }
@@ -929,7 +939,20 @@ export const toggleAutoChallengesIgnore = (i: number) => {
 
         const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore');
         el.style.border = player.autoChallengeToggles[i] ? '2px solid green' : '2px solid red';
-        el.textContent = `${i >= 11 && i <= 15 ? 'Auto Ascension' : 'Automatically'} Run Chal.${i} [${player.autoChallengeToggles[i] ? 'ON' : 'OFF'}]`;
+
+        if (i >= 11 && i <= 15) {
+            if (player.autoChallengeToggles[i]) {
+                el.textContent = i18next.t('challenges.autoAscRunChalOn', { x: i })
+            } else {
+                el.textContent = i18next.t('challenges.autoAscRunChalOff', { x: i })
+            }
+        } else {
+            if (player.autoChallengeToggles[i]) {
+                el.textContent = i18next.t('challenges.autoRunChalOn', { x: i })
+            } else {
+                el.textContent = i18next.t('challenges.autoRunChalOff', { x: i })
+            }
+        }
     }
 }
 
@@ -937,12 +960,12 @@ export const toggleAutoChallengeRun = () => {
     const el = DOMCacheGetOrSet('toggleAutoChallengeStart');
     if (player.autoChallengeRunning) {
         el.style.border = '2px solid red'
-        el.textContent = 'Auto Challenge Sweep [OFF]'
+        el.textContent = i18next.t('challenges.autoChallengeSweepOff')
         G['autoChallengeTimerIncrement'] = 0;
         toggleAutoChallengeModeText('OFF')
     } else {
         el.style.border = '2px solid gold'
-        el.textContent = 'Auto Challenge Sweep [ON]'
+        el.textContent = i18next.t('challenges.autoChallengeSweepOn')
         toggleAutoChallengeModeText('START')
         G['autoChallengeTimerIncrement'] = 0;
     }
@@ -952,7 +975,8 @@ export const toggleAutoChallengeRun = () => {
 
 export const toggleAutoChallengeModeText = (i: string) => {
     const a = DOMCacheGetOrSet('autoChallengeType');
-    a.textContent = 'MODE: ' + i
+
+    a.textContent = i18next.t(`challenges.mode${i[0] + i.slice(1).toLowerCase()}`)
 }
 
 export const toggleAutoAscend = (mode = 0) => {

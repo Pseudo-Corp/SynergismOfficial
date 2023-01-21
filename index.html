@@ -1566,10 +1566,10 @@
         </div>
         <div id="challenges" alt="challenges" label="challenges" style="display: none;">
             <div id="challengesWrapper" alt="challengesWrapper" label="challengesWrapper">
-                <p id="challengeIntroduction" alt="challengeIntroduction" label="challengeIntroduction" style="color: white">Is the base game too easy? Try these situations! [Click the icons to view challenge details!]</p>
+                <p id="challengeIntroduction" label="challengeIntroduction" style="color: white" i18n="challenges.header"></p>
                 <div id="challengesAutoToggles" alt="challengesAutoToggles" label="challengesAutoToggles">
-                    <button class="research150" id="toggleAutoChallengeStart" alt="toggleAutoChallengeStart" label="toggleAutoChallengeStart">Auto Challenge Sweep [ON]</button>
-                    <button id="retryChallenge" alt="retryChallenge" label="retryChallenge">Retry Challenges: OFF</button>
+                    <button class="research150" id="toggleAutoChallengeStart" alt="toggleAutoChallengeStart" label="toggleAutoChallengeStart"></button>
+                    <button id="retryChallenge" alt="retryChallenge" label="retryChallenge"></button>
                     <button id="toggleAutoChallengeIgnore" alt="toggleAutoChallengeIgnore" label="toggleAutoChallengeIgnore">---</button>
                 </div>
                 <div id="challengeIcons" alt="challengeIcons" label="challengeIcons">
@@ -1638,15 +1638,15 @@
                 <div id="challengeDetails" alt="challengeDetails" label="challengeDetails">
                     <div id="challengeTimers" alt="challengeTimers" label="challengeTimers">
                         <div id="challengeTimersText" alt="challengeTimersText" label="challengeTimersText">
-                            <button id="startChallenge" alt="startChallenge" label="startChallenge">Start Challenge 1</button>
-                            <p class="research150" id="startAutoChallengeTimer" alt="startAutoChallengeTimer" label="startAutoChallengeTimer">Time for start of sweep: <span id="startTimerValue" alt="startTimerValue" label="startTimerValue" class="orchidText">10s</span></p>
-                            <input type="number" class="research150" id="startAutoChallengeTimerInput" alt="startAutoChallengeTimerInput" label="startAutoChallengeTimerInput" min="0" max="999999999" defaultValue="10">
-                            <p class="research150" id="exitAutoChallengeTimer" alt="exitAutoChallengeTimer" label="exitAutoChallengeTimer">Time before exiting challenge: <span id="exitTimerValue" alt="exitTimerValue" label="exitTimerValue" class="orchidText">2s</span></p>
-                            <input type="number" class="research150" id="exitAutoChallengeTimerInput" alt="exitAutoChallengeTimerInput" label="exitAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
-                            <p class="research150" id="enterAutoChallengeTimer" alt="enterAutoChallengeTimer" label="enterAutoChallengeTimer">Time before entering challenge: <span id="enterTimerValue" alt="enterTimerValue" label="enterTimerValue" class="orchidText">2s</span></p>
+                            <button id="startChallenge" label="startChallenge">Start Challenge 1</button>
+                            <span id="startTimerValue" label="startTimerValue"></span>
+                            <input type="number" class="research150" id="startAutoChallengeTimerInput" label="startAutoChallengeTimerInput" min="0" max="999999999" defaultValue="10">
+                            <span id="exitTimerValue" alt="exitTimerValue" label="exitTimerValue"></span>
+                            <input type="number" class="research150" id="exitAutoChallengeTimerInput" label="exitAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
+                            <span id="enterTimerValue" alt="enterTimerValue" label="enterTimerValue"></span>
                             <input type="number" class="research150" id="enterAutoChallengeTimerInput" alt="enterAutoChallengeTimerInput" label="enterAutoChallengeTimerInput" min="0" max="999999999" defaultValue="2">
-                            <p class="research150" id="autoChallengeIncrementer" alt="autoChallengeIncrementer" label="autoChallengeIncrementer" style='color: orange'>Auto Timer: <span id="autoIncrementerAmount" alt="autoIncrementerAmount" label="autoIncrementerAmount" class="orchidText">0s</span></p>
-                            <p class="research150" id="autoChallengeType" alt="autoChallengeType" label="autoChallengeType" style='color: lightgoldenrodyellow'>Mode: OFF</p>
+                            <span id="autoIncrementerAmount" label="autoIncrementerAmount"></span>
+                            <p class="research150" id="autoChallengeType" alt="autoChallengeType" label="autoChallengeType" style='color: lightgoldenrodyellow'></p>
                         </div>
                     </div>
                     <div id="oneChallengeDetails" alt="oneChallengeDetails" label="oneChallengeDetails" style="display:none">
@@ -1655,12 +1655,12 @@
                         <span id="challengeRestrictions" alt="challengeRestrictions" label="challengeRestrictions">Restriction: No Multipliers</span>
                         <br>
                         <span id="challengeGoal" alt="challengeGoal" label="challengeGoal">Gain 1e10 Coins</span>
-                        <span id="challengePerCompletionRewards" alt="challengePerCompletionRewards" label="challengePerCompletionRewards">Per Completion Bonuses <span id="completionSoftcap" alt="completionSoftcap" label="completionSoftcap" class="orchidText"></span></span>
+                        <span id="completionSoftcap" label="completionSoftcap"></span>
                         <span id="challengePer1" alt="challengePer1" label="challengePer1">+10% Multiplier Boosts <span id="challengeCurrent1" alt="challengeCurrent1" label="challengeCurrent1" class="orchidText">Current: 0</span></span>
                         <span id="challengePer2" alt="challengePer2" label="challengePer2">+10 base Multiplier Boosts <span id="challengeCurrent2" alt="challengeCurrent2" label="challengeCurrent2" class="orchidText">Current: 0</span></span>
                         <span id="challengePer3" alt="challengePer3" label="challengePer3">--- <span id="challengeCurrent3" alt="challengeCurrent3" label="challengeCurrent3" class="orchidText">Current: 0</span></span>
                         <br>
-                        <span id="challengeFirstCompletionRewards" alt="challengeFirstCompletionRewards" label="challengeFirstCompletionRewards">Bonus/Unlock for First Completion</span>
+                        <span id="challengeFirstCompletionRewards" label="challengeFirstCompletionRewards" i18n="challenges.bonusFirstCompletion"></span>
                         <span id="challengeFirst1" alt="challengeFirst1" label="challengeFirst1">+1 Free Multiplier!</span>
                         <br>
                         <span id="challengeQuarkBonus" alt="challengeQuarkBonus" label="challengeQuarkBonus">+1 Quarks</span>

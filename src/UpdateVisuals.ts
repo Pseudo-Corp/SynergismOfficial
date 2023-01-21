@@ -429,7 +429,9 @@ export const visualUpdateChallenges = () => {
         return
     }
     if (player.researches[150] > 0) {
-        DOMCacheGetOrSet('autoIncrementerAmount').textContent = format(G['autoChallengeTimerIncrement'], 2) + 's'
+        DOMCacheGetOrSet('autoIncrementerAmount').innerHTML = i18next.t('challenges.autoTimer', {
+            time: format(G['autoChallengeTimerIncrement'], 2)
+        })
     }
 }
 

@@ -1555,21 +1555,32 @@ const loadSynergy = async () => {
             (DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value = ('' + (player.autoChallengeTimer.start || blankSave.autoChallengeTimer.start)).replace(omit, 'e');
             updateAutoChallenge(1);
         }
-        DOMCacheGetOrSet('startTimerValue').textContent = format(player.autoChallengeTimer.start, 2, true) + 's'
+
+        DOMCacheGetOrSet('startTimerValue').innerHTML = i18next.t('challenges.timeStartSweep', {
+            time: format(player.autoChallengeTimer.start, 2, true)
+        })
+
         inputd = player.autoChallengeTimer.exit;
         inpute = Number((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value);
         if (inpute !== inputd || isNaN(inpute + inputd)) {
             (DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value = ('' + (player.autoChallengeTimer.exit || blankSave.autoChallengeTimer.exit)).replace(omit, 'e');
             updateAutoChallenge(2);
         }
-        DOMCacheGetOrSet('exitTimerValue').textContent = format(player.autoChallengeTimer.exit, 2, true) + 's'
+
+        DOMCacheGetOrSet('exitTimerValue').innerHTML = i18next.t('challenges.timeExitChallenge', {
+            time: format(player.autoChallengeTimer.exit, 2, true)
+        })
+
         inputd = player.autoChallengeTimer.enter;
         inpute = Number((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value);
         if (inpute !== inputd || isNaN(inpute + inputd)) {
             (DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value = ('' + (player.autoChallengeTimer.enter || blankSave.autoChallengeTimer.enter)).replace(omit, 'e');
             updateAutoChallenge(3);
         }
-        DOMCacheGetOrSet('enterTimerValue').textContent = format(player.autoChallengeTimer.enter, 2, true) + 's'
+
+        DOMCacheGetOrSet('enterTimerValue').innerHTML = i18next.t('challenges.timeEnterChallenge', {
+            time: format(player.autoChallengeTimer.enter, 2, true)
+        })
 
         inputd = player.prestigeamount;
         inpute = Number((DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value);

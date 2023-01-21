@@ -104,9 +104,12 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     const maxChallenges = getMaxChallenges(i);
     if (i <= 5 && changefocus){
         if (player.challengecompletions[i] >= 100){
-            DOMCacheGetOrSet('completionSoftcap').textContent = '|| Softcapped past 100! Effective completion count: ' + format(CalcECC('transcend',player.challengecompletions[i]),2,true)
+            DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
+                x: 100,
+                y: format(CalcECC('transcend',player.challengecompletions[i]),2,true)
+            })
         } else {
-            DOMCacheGetOrSet('completionSoftcap').textContent = ''
+            DOMCacheGetOrSet('completionSoftcap').textContent = i18next.t('challenges.perCompletionBonusEmpty')
         }
     }
 
@@ -114,16 +117,22 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     if (i > 5 && i <= 10) {
         quarksMultiplier = 10;
         if (player.challengecompletions[i] >= 25 && changefocus){
-            DOMCacheGetOrSet('completionSoftcap').textContent = '|| Softcapped past 25! Effective completion count: ' + format(CalcECC('reincarnation',player.challengecompletions[i]),2,true)
+            DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
+                x: 25,
+                y: format(CalcECC('reincarnation',player.challengecompletions[i]),2,true)
+            })
         } else {
-            DOMCacheGetOrSet('completionSoftcap').textContent = ''
+            DOMCacheGetOrSet('completionSoftcap').textContent = i18next.t('challenges.perCompletionBonusEmpty')
         }
     }
     if (i > 10) {
         if (player.challengecompletions[i] >= 10){
-            DOMCacheGetOrSet('completionSoftcap').textContent = '|| Softcapped past 10! Effective completion count: ' + format(CalcECC('ascension',player.challengecompletions[i]),2,true)
+            DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
+                x: 10,
+                y: format(CalcECC('ascension',player.challengecompletions[i]),2,true)
+            })
         } else {
-            DOMCacheGetOrSet('completionSoftcap').textContent = ''
+            DOMCacheGetOrSet('completionSoftcap').textContent = i18next.t('challenges.perCompletionBonusEmpty')
         }
     }
     let descriptor = ''
@@ -300,13 +309,26 @@ export const challengeDisplay = (i: number, changefocus = true) => {
         const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore');
         el.style.display = i <= (autoAscensionChallengeSweepUnlock() ? 15 : 10) && player.researches[150] > 0 ? 'block' : 'none';
         el.style.border = player.autoChallengeToggles[i] ? '2px solid green' : '2px solid red';
-        el.textContent = `${i >= 11 && i <= 15 ? 'Auto Ascension' : 'Automatically'} Run Chal.${i} [${player.autoChallengeToggles[i] ? 'ON' : 'OFF'}]`;
+
+        if (i >= 11 && i <= 15) {
+            if (player.autoChallengeToggles[i]) {
+                el.textContent = i18next.t('challenges.autoAscRunChalOn', { x: i })
+            } else {
+                el.textContent = i18next.t('challenges.autoAscRunChalOff', { x: i })
+            }
+        } else {
+            if (player.autoChallengeToggles[i]) {
+                el.textContent = i18next.t('challenges.autoRunChalOn', { x: i })
+            } else {
+                el.textContent = i18next.t('challenges.autoRunChalOff', { x: i })
+            }
+        }
     }
 
     const ella = DOMCacheGetOrSet('toggleAutoChallengeStart');
     (player.autoChallengeRunning) ?
-        (ella.textContent = 'Auto Challenge Sweep [ON]', ella.style.border = '2px solid gold') :
-        (ella.textContent = 'Auto Challenge Sweep [OFF]', ella.style.border = '2px solid red');
+        (ella.textContent = i18next.t('challenges.autoChallengeSweepOn'), ella.style.border = '2px solid gold') :
+        (ella.textContent = i18next.t('challenges.autoChallengeSweepOff'), ella.style.border = '2px solid red');
 }
 
 export const getChallengeConditions = (i?: number) => {
@@ -332,8 +354,8 @@ export const getChallengeConditions = (i?: number) => {
 
 export const toggleRetryChallenges = () => {
     DOMCacheGetOrSet('retryChallenge').textContent = player.retrychallenges
-        ? 'Retry Challenges: OFF'
-        : 'Retry Challenges: ON';
+        ? i18next.t('challenges.retryChallengesOff')
+        : i18next.t('challenges.retryChallengesOn')
 
     player.retrychallenges = !player.retrychallenges;
 }

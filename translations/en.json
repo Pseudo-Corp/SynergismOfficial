@@ -846,7 +846,28 @@
                 "3": ""
             },
             "noGoal": "You will find no goal in sight, but get bonuses based on your best attempt."
-        }
+        },
+        "header": "Is the base game too easy? Try these situations! [Click the icons to view challenge details!]",
+        "autoChallengeSweepOn": "Auto Challenge Sweep [ON]",
+        "autoChallengeSweepOff": "Auto Challenge Sweep [OFF]",
+        "retryChallengesOn": "Retry Challenges: ON",
+        "retryChallengesOff": "Retry Challenges: OFF",
+        "autoAscRunChalOn": "Auto Ascension Run Chal.{{x}} [ON]",
+        "autoAscRunChalOff": "Auto Ascension Run Chal.{{x}} [OFF]",
+        "autoRunChalOn": "Automatically Run Chal.{{x}} [ON]",
+        "autoRunChalOff": "Automatically Run Chal.{{x}} [OFF]",
+        "modeStart": "MODE: START",
+        "modeExit": "MODE: EXIT",
+        "modeWait": "MODE: WAIT",
+        "modeOff": "MODE: OFF",
+        "modeEnter": "MODE: ENTER",
+        "bonusFirstCompletion": "Bonus/Unlock for First Completion",
+        "timeStartSweep": "Time for start of sweep: <<var(--orchid-text-color)|{{time}}>>/s",
+        "timeExitChallenge": "Time before exiting challenge: <<var(--orchid-text-color)|{{time}}>>s",
+        "timeEnterChallenge": "Time before entering challenge: <<var(--orchid-text-color)|{{time}}>>s",
+        "autoTimer": "<<orange|Auto Timer:>> <<var(--orchid-text-color)|{{time}}s>>",
+        "perCompletionBonus": "Per Completion Bonuses || <<var(--orchid-text-color)|Softcapped pass {{x}}! Effective completion count {{y}}>>",
+        "perCompletionBonusEmpty": "Per Completion Bonuses"
     },
     "cubes": {
         "upgradeNames": {
