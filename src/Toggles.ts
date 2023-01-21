@@ -91,7 +91,10 @@ export const toggleSettings = (toggle: HTMLElement) => {
     }
     const format = toggle.getAttribute('format')
 
-    if (format) {
+    if (format === 'Auto: $') {
+        const text = player.toggles[+toggleId] ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
+        toggle.textContent = text
+    } else if (format) {
         const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF');
         toggle.textContent = finishedString;
     } else {
@@ -181,14 +184,24 @@ export const toggleShops = (toggle?: upgradeAutos) => {
     if (toggle) {
         player.shoptoggles[toggle] = !player.shoptoggles[toggle]
         DOMCacheGetOrSet(`${toggle}AutoUpgrade`).style.borderColor = player.shoptoggles[toggle] ? 'green' : 'red';
-        DOMCacheGetOrSet(`${toggle}AutoUpgrade`).textContent = 'Auto: ' + (player.shoptoggles[toggle] ? 'ON': 'OFF');
+
+        if (player.shoptoggles[toggle]) {
+            DOMCacheGetOrSet(`${toggle}AutoUpgrade`).textContent = i18next.t('general.autoOnColon')
+        } else {
+            DOMCacheGetOrSet(`${toggle}AutoUpgrade`).textContent = i18next.t('general.autoOffColon')
+        }
     } else {
         const keys = Object.keys(player.shoptoggles) as (keyof Player['shoptoggles'])[]
         for (const key of keys) {
             const color = player.shoptoggles[key]? 'green': 'red'
-            const auto = 'Auto: ' + (player.shoptoggles[key] ? 'ON' : 'OFF')
+
+            if (player.shoptoggles[key]) {
+                DOMCacheGetOrSet(`${key}AutoUpgrade`).textContent = i18next.t('general.autoOnColon')
+            } else {
+                DOMCacheGetOrSet(`${key}AutoUpgrade`).textContent = i18next.t('general.autoOffColon')
+            }
+
             DOMCacheGetOrSet(`${key}AutoUpgrade`).style.borderColor = color
-            DOMCacheGetOrSet(`${key}AutoUpgrade`).textContent = auto
         }
     }
 }
@@ -594,10 +607,10 @@ export const toggleRuneScreen = (index: number) => {
 export const toggleautofortify = () => {
     const el = DOMCacheGetOrSet('toggleautofortify');
     if (player.autoFortifyToggle) {
-        el.textContent = 'Auto Fortify: OFF'
+        el.textContent = i18next.t('runes.autoFortifyOff')
         el.style.border = '2px solid red'
     } else {
-        el.textContent = 'Auto Fortify: ON'
+        el.textContent = i18next.t('runes.autoFortifyOn')
         el.style.border = '2px solid green'
     }
 
@@ -607,10 +620,10 @@ export const toggleautofortify = () => {
 export const toggleautoenhance = () => {
     const el = DOMCacheGetOrSet('toggleautoenhance');
     if (player.autoEnhanceToggle) {
-        el.textContent = 'Auto Enhance: OFF'
+        el.textContent = i18next.t('runes.autoEnhanceOff')
         el.style.border = '2px solid red'
     } else {
-        el.textContent = 'Auto Enhance: ON'
+        el.textContent = i18next.t('runes.autoEnhanceOn')
         el.style.border = '2px solid green'
     }
 
@@ -1041,7 +1054,9 @@ export const updateRuneBlessingBuyAmount = (i: number) => {
         case 2: {
             const u = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value)) || 1;
             player.runeSpiritBuyAmount = Math.max(u, 1);
-            DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount);
+            DOMCacheGetOrSet('buyRuneSpiritToggleValue').innerHTML = i18next.t('runes.spirits.buyUpTo', {
+                amount: format(player.runeSpiritBuyAmount)
+            })
             return;
         }
     }

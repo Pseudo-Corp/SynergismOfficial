@@ -425,11 +425,16 @@ export const getAchievementQuarks = (i: number) => {
 
 export const achievementdescriptions = (i: number) => {
     const y = i18next.t(`achievements.descriptions.${i}`, { number: `${i}` })
-    const z = player.achievements[i] > 0.5 ? ' COMPLETED!' : '';
+    const z = player.achievements[i] > 0.5 ? i18next.t('achievements.completed') : '';
     const k = areward(i)
 
     DOMCacheGetOrSet('achievementdescription').textContent = y + z
-    DOMCacheGetOrSet('achievementreward').textContent = 'Reward: ' + achievementpointvalues[i] + ' AP. ' + format(getAchievementQuarks(i), 0, true) + ' Quarks! ' + k
+    DOMCacheGetOrSet('achievementreward').textContent = i18next.t('achievements.rewardGainMessage', {
+        x: achievementpointvalues[i],
+        y: format(getAchievementQuarks(i), 0, true),
+        z: k
+    })
+
     if (player.achievements[i] > 0.5) {
         DOMCacheGetOrSet('achievementdescription').style.color = 'gold'
     } else {
@@ -441,7 +446,7 @@ export const achievementaward = (num: number) => {
     if (player.achievements[num] < 1) {
         if (player.toggles[34]) {
             const description = i18next.t(`achievements.descriptions.${num}`, { number: `${num}` })
-            void Notification(`You unlocked an achievement: ${description}`);
+            void Notification(i18next.t('achievements.notification', { m: description }));
         }
 
         void achievementAlerts(num)

@@ -265,7 +265,7 @@ export const showTalismanPrices = (i: number) => {
     const f = DOMCacheGetOrSet('talismanLegendaryFragmentCost')
     const g = DOMCacheGetOrSet('talismanMythicalFragmentCost')
 
-    DOMCacheGetOrSet('talismanLevelUpSummary').textContent = '-=-=- Resources Required to Level Up -=-=-'
+    DOMCacheGetOrSet('talismanLevelUpSummary').textContent = i18next.t('runes.resourcesToLevelup')
     DOMCacheGetOrSet('talismanLevelUpSummary').style.color = 'silver'
 
     let m = G['talismanLevelCostMultiplier'][i]
@@ -299,7 +299,7 @@ export const showEnhanceTalismanPrices = (i: number) => {
     const f = DOMCacheGetOrSet('talismanLegendaryFragmentCost')
     const g = DOMCacheGetOrSet('talismanMythicalFragmentCost')
 
-    DOMCacheGetOrSet('talismanLevelUpSummary').textContent = '=-=-= Resources Required to ENHANCE =-=-='
+    DOMCacheGetOrSet('talismanLevelUpSummary').textContent = i18next.t('runes.resourcesToEnhance')
     DOMCacheGetOrSet('talismanLevelUpSummary').style.color = 'gold'
 
     const array = [G['commonTalismanEnhanceCost'], G['uncommonTalismanEnchanceCost'], G['rareTalismanEnchanceCost'], G['epicTalismanEnhanceCost'], G['legendaryTalismanEnchanceCost'], G['mythicalTalismanEnchanceCost']]

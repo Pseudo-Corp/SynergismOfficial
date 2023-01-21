@@ -1648,7 +1648,9 @@ const loadSynergy = async () => {
             (DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value = ('' + (player.runeSpiritBuyAmount || blankSave.runeSpiritBuyAmount)).replace(omit, 'e');
             updateRuneBlessingBuyAmount(2);
         }
-        DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
+        DOMCacheGetOrSet('buyRuneSpiritToggleValue').innerHTML = i18next.t('runes.spirits.buyUpTo', {
+            amount: format(player.runeSpiritBuyAmount, 0, true)
+        })
 
         if (player.resettoggle1 === 1) {
             DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: AMOUNT'
@@ -1749,17 +1751,17 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'white'
         }
         if (player.autoFortifyToggle) {
-            DOMCacheGetOrSet('toggleautofortify').textContent = 'Auto Fortify: ON'
+            DOMCacheGetOrSet('toggleautofortify').textContent = i18next.t('runes.autoFortifyOn')
             DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid green'
         } else {
-            DOMCacheGetOrSet('toggleautofortify').textContent = 'Auto Fortify: OFF'
+            DOMCacheGetOrSet('toggleautofortify').textContent = i18next.t('runes.autoFortifyOff')
             DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid red'
         }
         if (player.autoEnhanceToggle) {
-            DOMCacheGetOrSet('toggleautoenhance').textContent = 'Auto Enhance: ON'
+            DOMCacheGetOrSet('toggleautoenhance').textContent = i18next.t('runes.autoEnhanceOn')
             DOMCacheGetOrSet('toggleautoenhance').style.border = '2px solid green'
         } else {
-            DOMCacheGetOrSet('toggleautoenhance').textContent = 'Auto Enhance: OFF'
+            DOMCacheGetOrSet('toggleautoenhance').textContent = i18next.t('runes.autoEnhanceOff')
             DOMCacheGetOrSet('toggleautoenhance').style.border = '2px solid red'
         }
         player.saveOfferingToggle = false; //Lint doesnt like it being inside if

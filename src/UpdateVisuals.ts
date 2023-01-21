@@ -323,9 +323,11 @@ export const visualUpdateRunes = () => {
                 DOMCacheGetOrSet(`rune${i}exp`).textContent = 'Maxed Level!'
             }
             if (i <= 5) {
-                DOMCacheGetOrSet(`bonusrune${i}`).textContent = ` [Bonus: ${format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[8]! + G['bonusant9']) + place)}]`
+                DOMCacheGetOrSet(`bonusrune${i}`).textContent = i18next.t('runes.bonusAmount', {
+                    x: format(7 * player.constantUpgrades[7] + Math.min(1e7, player.antUpgrades[8]! + G['bonusant9']) + place)
+                })
             } else {
-                DOMCacheGetOrSet(`bonusrune${i}`).textContent = '[Bonus: Nope!]'
+                DOMCacheGetOrSet(`bonusrune${i}`).textContent = i18next.t('runes.bonusNope')
             }
             displayRuneInformation(i, false)
         }

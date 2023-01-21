@@ -67,7 +67,12 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
             j++;
         }
         const s = j === 1 ? 'once' : `${j} times`
-        DOMCacheGetOrSet('runeDisplayInfo').textContent = `+${format(amountPerOffering)} EXP per offering. ${format(offerings)} Offerings to level up ${s}.`
+
+        DOMCacheGetOrSet('runeDisplayInfo').textContent = i18next.t('runes.perOfferingText', {
+            exp: format(amountPerOffering),
+            x: format(offerings),
+            y: s
+        })
     }
 
 }

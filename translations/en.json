@@ -461,7 +461,10 @@
             "255": "Wow! You gained 1e17 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!"
         },
         "hover": "Hover over an achievement to view information.",
-        "totalPoints": "Achievement Points: {{x}}/{{y}} [{{z}}%]"
+        "totalPoints": "Achievement Points: {{x}}/{{y}} [{{z}}%]",
+        "rewardGainMessage": "Reward: {{x}} AP. {{y}} Quarks! {{z}}",
+        "completed": " COMPLETED!",
+        "notification": "You unlocked an achievement: {{m}}"
     },
     "ants": {
         "upgrades": {
@@ -1989,6 +1992,8 @@
         "Cancel": "Cancel",
         "autoOnBracket": "Auto [ON]",
         "autoOffBracket": "Auto [OFF]",
+        "autoOnColon": "Auto: ON",
+        "autoOffColon": "Auto: OFF",
         "softCapped": "(Softcapped)",
         "maxed": "(Maxed)",
         "affordable": "(Affordable)",
@@ -2437,6 +2442,16 @@
         "recycleChance": "You have {{percent}}% chance of recycling your offerings. This multiplies EXP gain by {{mult}}!",
         "hover": "Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!",
         "thanksResearches": "Thanks to researches, your effective levels are increased by {{percent}}%",
+        "perOfferingText": "+{{exp}} EXP per offering, {{x}} [{{y}}] Offerings to level up once.",
+        "runeEffectSummaryTitle": "=====RUNE EFFECT SUMMARY=====",
+        "bonusAmount": "[Bonus: {{x}}]",
+        "bonusNope": "[Bonus: Nope!]",
+        "resourcesToEnhance": "=-=-= Resources Required to ENHANCE =-=-=",
+        "resourcesToLevelup": "-=-=- Resources Required to Level Up -=-=-",
+        "autoEnhanceOn": "Auto Enhance: ON",
+        "autoEnhanceOff": "Auto Enhance: OFF",
+        "autoFortifyOn": "Auto Fortify: ON",
+        "autoFortifyOff": "Auto Fortify: OFF",
         "levelup": {
             "1": "+(Level/4)^1.25 Accelerator, +0.25% Accelerators per level. +1 Accelerator Boost every 20 levels!",
             "2": "+(Level/10) Multipliers every 10th level, +0.25% Multipliers per level. Tax growth is delayed more for each level!",
@@ -2492,7 +2507,8 @@
                 "2": "x Additional levels to Crystal caps",
                 "3": "x Obtainium",
                 "4": "% stronger Research 4x9 effect"
-            }
+            },
+            "buyUpTo": "Buy up to <<var(--orchid-text-color)|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]"
         }
     }
 }
