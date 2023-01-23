@@ -2868,19 +2868,19 @@
         </div>
 <div id="settings" alt="settings" label="settings" style="display: none;">
     <div class="subtabSwitcher subTabWrapper">
-        <button id="switchSettingSubTab1" alt="switchSettingSubTab1" label="switchSettingSubTab1" class="buttonActive" style="border: 2px solid white">Settings</button>
-        <button id="switchSettingSubTab2" alt="switchSettingSubTab2" label="switchSettingSubTab2" style="border: 2px solid cyan">🌐 Languages 🌐</button>
-        <button id="switchSettingSubTab3" alt="switchSettingSubTab3" label="switchSettingSubTab3" style="border: 2px solid gold">Credits</button>
-        <button id="switchSettingSubTab4" alt="switchSettingSubTab4" label="switchSettingSubTab4" style="border: 2px solid orange">Stats for Nerds</button>
-        <button id="switchSettingSubTab5" alt="switchSettingSubTab5" label="switchSettingSubTab5" class="prestigeunlockib" style="border: 2px solid brown">Reset History</button>
-        <button id="switchSettingSubTab6" alt="switchSettingSubTab6" label="switchSettingSubTab6" class="ascendunlockib" style="border: 2px solid darkorange">Ascend History</button>
-        <button id="switchSettingSubTab7" alt="switchSettingSubTab7" label="switchSettingSubTab7" class="singularity" style="border: 2px solid darkorange">Singularity History</button>
-        <button id="switchSettingSubTab8" alt="switchSettingSubTab8" label="switchSettingSubTab8" style="border: 2px solid white">Hotkeys</button>
+        <button id="switchSettingSubTab1" label="switchSettingSubTab1" class="buttonActive" style="border: 2px solid white" i18n="tabs.main.settings"></button>
+        <button id="switchSettingSubTab2" label="switchSettingSubTab2" style="border: 2px solid cyan" i18n="tabs.settings.languages"></button>
+        <button id="switchSettingSubTab3" label="switchSettingSubTab3" style="border: 2px solid gold" i18n="tabs.settings.credit"></button>
+        <button id="switchSettingSubTab4" label="switchSettingSubTab4" style="border: 2px solid orange" i18n="tabs.settings.stats"></button>
+        <button id="switchSettingSubTab5" label="switchSettingSubTab5" class="prestigeunlockib" style="border: 2px solid brown" i18n="tabs.settings.resetHistory"></button>
+        <button id="switchSettingSubTab6" label="switchSettingSubTab6" class="ascendunlockib" style="border: 2px solid darkorange"  i18n="tabs.settings.ascendHistory"></button>
+        <button id="switchSettingSubTab7" label="switchSettingSubTab7" class="singularity" style="border: 2px solid darkorange"  i18n="tabs.settings.singularityHistory"></button>
+        <button id="switchSettingSubTab8" label="switchSettingSubTab8" style="border: 2px solid white"  i18n="tabs.settings.hotkeys"></button>
     </div>
     <div class="subtabContent subtabDisplayFlex subtabActive" id="settingsubtab" alt="settingsubtab" label="settingsubtab">
         <div class="settingSubTabUpper">
             <div id="confirmationToggleBox" alt="confirmationToggleBox" label="confirmationToggleBox">
-                <p class="prestigeunlock" id="confirmationToggleTitle" alt="confirmationToggleTitle" label="confirmationToggleTitle" style="color: pink">Confirmation Toggles</p>
+                <p class="prestigeunlock" id="confirmationToggleTitle" label="confirmationToggleTitle" style="color: pink" i18n="settings.confirmationTitle"></p>
                 <div class="confirmationToggles">
                     <div class="confirmationToggle">
                         <img class="prestigeunlock settingpic" id="settingpic1" alt="settingpic1" label="settingpic1" src = "Pictures/Default/PrestigeNoBorder.png" loading="lazy">
@@ -2907,42 +2907,42 @@
                         <button class="auto square" id="toggle33" alt="toggle33" label="toggle33" toggleid="33" label="33" format="$" style="border:2px solid green">ON</button>
                     </div>
                 </div>
-                <p class="prestigeunlock" id="confirmationdisclaimer" alt="confirmationdisclaimer" label="confirmationdisclaimer" style="color: plum">These do not work with hotkeys. Too bad!</p>
-                <p id="specialActionsTitle" alt="specialActionsTitle" label="specialActionsTitle" style="color: pink">Special Actions</p>
-                <button id="dailyCode" alt="dailyCode" label="dailyCode" class="promocodeButton" style="border:2px solid green">Daily</button>
+                <p class="prestigeunlock" id="confirmationdisclaimer" label="confirmationdisclaimer" style="color: plum" i18n="settings.noHotkeyAvailable"></p>
+                <p id="specialActionsTitle" label="specialActionsTitle" style="color: pink" i18n="settings.specialActions"></p>
+                <button id="dailyCode" label="dailyCode" class="promocodeButton" style="border:2px solid green" i18n="settings.daily"></button>
                 <div class="addCodeBox promocodeButton">
-                    <button id="addCode" alt="addCode" label="addCode" style="border:2px solid green">Add</button>
-                    <button id="addCodeOne" alt="addCodeOne" label="addCodeOne" style="border:2px solid green">Add x1</button>
+                    <button id="addCode" label="addCode" style="border:2px solid green" i18n="settings.add"></button>
+                    <button id="addCodeOne" label="addCodeOne" style="border:2px solid green" i18n="settings.add1"></button>
                 </div>
-                <button id="timeCode" alt="timeCode" label="timeCode" class="promocodeButton" style="border:2px solid green">Time</button>
-                <button id="promocodes" alt="promocodes" label="promocodes" class="promocodeButton" style="border:2px solid goldenrod">Enter a promotion code here!</button>
+                <button id="timeCode" label="timeCode" class="promocodeButton" style="border:2px solid green" i18n="settings.time"></button>
+                <button id="promocodes" label="promocodes" class="promocodeButton" style="border:2px solid goldenrod" i18n="settings.enterPromoCodeHere"></button>
                 <p id="promocodeinfo" alt="promocodeinfo" label="promocodeinfo" style="color: goldenrod"></p>
-                <p id="themesTitle" style="color: pink" aria-hidden="true">Current Theme</p>
+                <p id="themesTitle" style="color: pink" aria-hidden="true" i18n="settings.currentTheme"></p>
                 <div id="themeArea" class="promocodeButton" aria-hidden="true">
-                    <button id="theme" tabindex="-1" style="border: 2px solid white">Dark Mode</button>
+                    <button id="theme" tabindex="-1" style="border: 2px solid white" i18n="settings.themes.dark"></button>
                     <div id="themeBox">
-                        <button id="switchTheme1" style="border: 2px solid gray">Dark Mode</button>
-                        <button id="switchTheme2" style="border: 2px solid darkslategray">Darker Mode</button>
-                        <button id="switchTheme3" style="border: 2px solid lightslategray">Lighter Dark Mode</button>
-                        <button id="switchTheme4" style="border: 2px solid cyan">Light Mode</button>
-                        <button id="switchTheme5" style="border: 2px solid purple">Dracula Mode</button>
+                        <button id="switchTheme1" style="border: 2px solid gray"  i18n="settings.themes.dark"></button>
+                        <button id="switchTheme2" style="border: 2px solid darkslategray" i18n="settings.themes.darker"></button>
+                        <button id="switchTheme3" style="border: 2px solid lightslategray" i18n="settings.themes.lighterDark"></button>
+                        <button id="switchTheme4" style="border: 2px solid cyan" i18n="settings.themes.light"></button>
+                        <button id="switchTheme5" style="border: 2px solid purple" i18n="settings.themes.dracula"></button>
                     </div>
                 </div>
-                <p id="iconSetTitle" alt="iconSetTitle" label="iconSetTitle" style="color: pink">Current Icon Set</p>
-                <button id="iconSet" alt="iconSet" label="iconSet" class="promocodeButton" style="border: 2px solid white">Default</button>
-                <p id="notationTitle" alt="notationTitle" label="notationTitle" style="color: pink">Current Annotation</p>
-                <button id="notation" alt="notation" label="notation" class="promocodeButton" style="border: 2px solid white">Default</button>
+                <p id="iconSetTitle" label="iconSetTitle" style="color: pink" i18n="settings.currentIconSet"></p>
+                <button id="iconSet" label="iconSet" class="promocodeButton" style="border: 2px solid white"></button>
+                <p id="notationTitle" label="notationTitle" style="color: pink" i18n="settings.currentNotation"></p>
+                <button id="notation" label="notation" class="promocodeButton" style="border: 2px solid white"></button>
             </div>
             <div id="exportButtons" alt="exportButtons" label="exportButtons">
-                <p id="quarktimerdisplay" alt="quarktimerdisplay" label="quarktimerdisplay" class="tightText" style="color: gold">3600s until +1 export Quark</p>
-                <p id="quarktimeramount" alt="quarktimeramount" label="quarktimeramount" class="tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
+                <p id="quarktimerdisplay" label="quarktimerdisplay" class="tightText" style="color: gold"></p>
+                <p id="quarktimeramount" label="quarktimeramount" class="tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
                 <p id="goldenQuarkTimerDisplay" alt="goldenQuarkTimerDisplay" label="goldenQuarkTimerDisplay" class="tightText goldenQuark3Upg" style="color: goldenrod">3600s until +1 export Gold Quark</p>
                 <p id="goldenQuarkTimerAmount" alt="goldenQuarkTimerAmount" label="goldenQuarkTimerAmount" class="tightText goldenQuark3Upg" style="color: turquoise">Golden Quarks on export: 0 [Max: 50]</p>
                 <div>
                     <input type="checkbox" id="saveType" alt="saveType" label="saveType" name="saveType">
-                    <label style="display: inline;color: white" for="saveType">Copy to Clipboard</label>
+                    <label style="display: inline;color: white" for="saveType" i18n="settings.copyToClipboard"></label>
                 </div>
-                <button id="exportgame" alt="exportgame" label="exportgame" style="border:2px solid green">Export the game here</button>
+                <button id="exportgame" label="exportgame" style="border:2px solid green" i18n="settings.exportHere"></button>
                 <p id="exportinfo" alt="exportinfo" label="exportinfo" class="tightText"></p>
                 <label title="Use $VERSION$ for full version, $VER$ for version number,
 $TIME$ for 24h time, $TIME12$ for 12h,
@@ -2970,22 +2970,22 @@ $SING$ for singularity, $SINGS$ for singularity number,
 $QUARK$ for quarks, $QUARKS$ for format quarks,
 $GQ$ for golden quarks, $GQS$ for format golden quarks,
 $STAGE$ for synergism stage"></p>
-                <p id="importgame" alt="importgame" label="importgame" class="tightText" style="color: limegreen">Load game below!</p>
-                <label id="importFileButton" alt="importFileButton" label="importFileButton" for="importfile" style="font-size: 0.9em; line-height: 1.4em;">Load from file</label>
-                <input type="file" id="importfile" alt="importfile" label="importfile" accept=".txt" style="display: none">
-                <button id="savegame" alt="savegame" label="savegame" style="border: 2px solid plum">Save the game manually</button>
-                <button id="deleteGame" alt="deleteGame" label="deleteGame" style="border: 2px solid red">Delete savefile</button>
+                <p id="importgame" label="importgame" class="tightText" style="color: limegreen" i18n="settings.loadGameBelow"></p>
+                <label id="importFileButton" label="importFileButton" for="importfile" style="font-size: 0.9em; line-height: 1.4em;" i18n="settings.loadFromFile"></label>
+                <input type="file" id="importfile" label="importfile" accept=".txt" style="display: none">
+                <button id="savegame" label="savegame" style="border: 2px solid plum" i18n="settings.saveManually"></button>
+                <button id="deleteGame" label="deleteGame" style="border: 2px solid red" i18n="settings.deleteSave"></button>
                 <p id="saveinfo" alt="saveinfo" label="saveinfo" style="color: limegreen"></p>
             </div>
             <div id="thirdParty" alt="thirdParty" label="thirdParty">
                 <div id="discord" alt="discord" label="discord">
-                    <p style="color: gold">Click the image below to join the Discord!</p>
+                    <p style="color: gold" i18n="settings.joinDiscord"></p>
                     <a id="discordhref" alt="discordhref" label="discordhref" href="https://www.discord.gg/ameCknq" target="_blank" rel="noopener noreferrer nofollow">
                         <img id="discordicon" alt="discordicon" label="discordicon" src="Pictures/Default/icon.gif" title="Click to join the official Discord!" width="100" height="100" loading="lazy">
                     </a>
                 </div>
                 <div id="patreon" alt="patreon" label="patreon">
-                    <p style="color: gold">Support Development on Patreon!</p>
+                    <p style="color: gold" i18n="settings.joinPatreon"></p>
                     <a id="patreonhref" alt="patreonhref" label="patreonhref" href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
                         <img id="patreonicon" alt="patreonicon" label="patreonicon" src="Pictures/Default/Patreonlogo.png" title="Click to support development!" loading="lazy">
                     </a>
@@ -2998,8 +2998,8 @@ $STAGE$ for synergism stage"></p>
                 </div>
             </div>
         </div>
-        <div id="versionnumber" alt="versionnumber" label="versionnumber">You're playing Synergism</div>
-        <div id="event" alt="event" label="event" class="orchidText">Event Status: <span id="eventCurrent" alt="eventCurrent" label="eventCurrent" class="orangeredText"></span></div>
+        <div id="versionnumber" label="versionnumber"></div>
+        <span id="eventCurrent" alt="eventCurrent" label="eventCurrent" class="orangeredText"></span>
         <div id="eventBuffs" alt="eventBuffs" label="eventBuffs" style="color: lime;">Buffs: </div>
         <a href="#" target="_blank" id="happyHolidays" alt="happyHolidays" label="happyHolidays" style="color: greenyellow"></a>
     </div>

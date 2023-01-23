@@ -1,5 +1,6 @@
 import { player } from './Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import i18next from 'i18next';
 
 export const toggleTheme = (initial = false, themeNumber = 1, change = false) => {
     const themeButton = DOMCacheGetOrSet('theme');
@@ -297,16 +298,16 @@ export const toggleAnnotation = (setting = true) => {
 
     switch (current) {
         case 'Pure Scientific':
-            notationButton.textContent = 'Pure Engineering';
+            notationButton.textContent = i18next.t('settings.notation.pureEngineering')
             break;
         case 'Pure Engineering':
-            notationButton.textContent = 'Default';
+            notationButton.textContent = i18next.t('settings.notation.default')
             break;
         default:
-            notationButton.textContent = 'Pure Scientific';
+            notationButton.textContent = i18next.t('settings.notation.pureScientific')
     }
     if (setting === true) {
-        player.notation = notationButton.textContent;
+        player.notation = current ?? 'Default';
     }
 }
 
@@ -353,7 +354,7 @@ export const toggleIconSet = (changeTo = player.iconSet) => {
             img.src = img.src.replace(IconSetsRegex, IconSets[player.iconSet][0]);
         }
     );
-    DOMCacheGetOrSet('iconSet').textContent = IconSets[player.iconSet][0];
+    DOMCacheGetOrSet('iconSet').textContent = i18next.t(`settings.iconSets.${IconSets[player.iconSet][0].toLowerCase()}`)
 }
 
 // If no image is found falls back to designated fallback, then Legacy, then MISSINGIMAGE.png

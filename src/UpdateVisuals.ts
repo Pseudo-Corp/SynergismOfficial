@@ -683,8 +683,9 @@ export const visualUpdateSettings = () => {
     }
 
     if (player.subtabNumber === 0) {
-        DOMCacheGetOrSet('saveString').textContent =
-            `Currently: ${player.saveString.replace('$VERSION$', 'v' + version)}`;
+        DOMCacheGetOrSet('saveString').textContent = i18next.t('settings.currently', {
+            x: player.saveString.replace('$VERSION$', 'v' + version)
+        })
 
         const quarkData = quarkHandler();
         const onExportQuarks = quarkData.gain
@@ -694,13 +695,24 @@ export const visualUpdateSettings = () => {
         goldenQuarkMultiplier *= 1 + player.worlds.BONUS / 100
         goldenQuarkMultiplier *= (player.highestSingularityCount >= 100 ? 1 + player.highestSingularityCount / 50 : 1)
 
-        DOMCacheGetOrSet('quarktimerdisplay').textContent = format((3600 / (quarkData.perHour) - (player.quarkstimer % (3600.00001 / (quarkData.perHour)))), 2) + 's until +' + player.worlds.toString(1) + ' export Quark'
-        DOMCacheGetOrSet('quarktimeramount').textContent =
-            `Quarks on export: ${player.worlds.toString(onExportQuarks)} [Max ${player.worlds.toString(maxExportQuarks)}]`;
+        DOMCacheGetOrSet('quarktimerdisplay').textContent = i18next.t('settings.exportQuark', {
+            x: format((3600 / (quarkData.perHour) - (player.quarkstimer % (3600.00001 / (quarkData.perHour)))), 2),
+            y: player.worlds.toString(1)
+        })
+        DOMCacheGetOrSet('quarktimeramount').textContent = i18next.t('settings.quarksOnExport', {
+            x: player.worlds.toString(onExportQuarks),
+            y: player.worlds.toString(maxExportQuarks)
+        })
 
-        DOMCacheGetOrSet('goldenQuarkTimerDisplay').textContent = format(3600 / Math.max(1, +player.singularityUpgrades.goldenQuarks3.getEffect().bonus) - (player.goldenQuarksTimer % (3600.00001 / Math.max(1,+player.singularityUpgrades.goldenQuarks3.getEffect().bonus)))) + 's until +' + format(goldenQuarkMultiplier, 2, true) + ' export Golden Quark'
-        DOMCacheGetOrSet('goldenQuarkTimerAmount').textContent =
-            `Golden Quarks on export: ${format(Math.floor(player.goldenQuarksTimer * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus/ 3600) * goldenQuarkMultiplier, 2)} [Max ${format(Math.floor(168 * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus * goldenQuarkMultiplier))}]`
+        DOMCacheGetOrSet('goldenQuarkTimerDisplay').textContent = i18next.t('settings.exportGoldenQuark', {
+            x: format(3600 / Math.max(1, +player.singularityUpgrades.goldenQuarks3.getEffect().bonus) - (player.goldenQuarksTimer % (3600.00001 / Math.max(1,+player.singularityUpgrades.goldenQuarks3.getEffect().bonus)))),
+            y: format(goldenQuarkMultiplier, 2, true)
+        })
+
+        DOMCacheGetOrSet('goldenQuarkTimerAmount').textContent = i18next.t('settings.goldenQuarksOnExport', {
+            x: format(Math.floor(player.goldenQuarksTimer * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus/ 3600) * goldenQuarkMultiplier, 2),
+            y: format(Math.floor(168 * +player.singularityUpgrades.goldenQuarks3.getEffect().bonus * goldenQuarkMultiplier))
+        })
     }
     if (player.subtabNumber === 3) {
         loadStatisticsUpdate();

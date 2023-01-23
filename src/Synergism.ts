@@ -1853,14 +1853,16 @@ const loadSynergy = async () => {
         }
 
         if (player.autoWarpCheck) {
-            DOMCacheGetOrSet('warpAuto').textContent = 'Auto ON'
+            DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOnColon')
             DOMCacheGetOrSet('warpAuto').style.border = '2px solid green'
         } else {
-            DOMCacheGetOrSet('warpAuto').textContent = 'Auto OFF'
+            DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOffColon')
             DOMCacheGetOrSet('warpAuto').style.border = '2px solid red'
         }
         DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
-        DOMCacheGetOrSet('hepteractToQuarkTradeAuto').textContent = `Auto ${player.overfluxOrbsAutoBuy ? 'ON' : 'OFF'}`
+        DOMCacheGetOrSet('hepteractToQuarkTradeAuto').textContent = player.overfluxOrbsAutoBuy
+            ? i18next.t('general.autoOnColon')
+            : i18next.t('general.autoOffColon')
         DOMCacheGetOrSet('hepteractToQuarkTradeAuto').style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'}`;
         toggleAutoBuyOrbs(true, true);
 

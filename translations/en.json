@@ -2094,7 +2094,9 @@
         "affordable": "(Affordable)",
         "infinity": "Infinity",
         "sacrificeCapital": "SACRIFICE",
-        "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!"
+        "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!",
+        "on": "ON",
+        "off": "OFF"
     },
     "upgrades": {
         "descriptions": {
@@ -2386,6 +2388,15 @@
             "perks": "Perks",
             "octeracts": "Octeracts",
             "exalt": "EXALT"
+        },
+        "settings": {
+          "languages": "🌐 Languages 🌐",
+          "credit": "Credits",
+          "stats": "Stats for Nerds",
+          "resetHistory": "Reset History",
+          "ascendHistory": "Ascend History",
+          "singularityHistory": "Singularity History",
+          "hotkeys": "Hotkeys"
         }
     },
     "offlineProgress": {
@@ -2605,5 +2616,54 @@
             },
             "buyUpTo": "Buy up to <<var(--orchid-text-color)|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]"
         }
+    },
+    "settings": {
+      "confirmationTitle": "Confirmation Toggles",
+      "noHotkeyAvailable": "These do not work with hotkeys. Too bad!",
+      "specialActions": "Special Actions",
+      "daily": "Daily",
+      "add1": "Add x1",
+      "add": "Add",
+      "time": "Time",
+      "enterPromoCodeHere": "Enter a promotion code here!",
+      "currentTheme": "Current Theme",
+      "themes": {
+        "dark": "Dark Mode",
+        "darker": "Darker Mode",
+        "lighterDark": "Lighter Dark Mode",
+        "light": "Light Mode",
+        "dracula": "Dracula Mode"
+      },
+      "currentIconSet": "Current Icon Set",
+      "notation": {
+        "default": "Default",
+        "pureScientific": "Pure Scientific",
+        "pureEngineering": "Pure Engineering"
+      },
+      "currentNotation": "Current Annotation",
+      "iconSets": {
+        "default": "Default",
+        "legacy": "Legacy",
+        "simplified": "Simplified",
+        "monotonous": "Monotonous"
+      },
+      "joinDiscord": "Click the image below to join the Discord!",
+      "joinPatreon": "Support Development on Patreon!",
+      "exportQuark": "{{x}}s until +{{y}} export Quark",
+      "exportGoldenQuark": "{{x}}s until +{{y}} export Golden Quark",
+      "quarksOnExport": "Quarks on export: {{x}} [Max {{y}}]",
+      "goldenQuarksOnExport": "Golden Quarks on export: {{x}} [Max {{y}}]",
+      "copyToClipboard": "Copy to Clipboard",
+      "exportHere": "Export the game here",
+      "currently": "Currently: {{x}}",
+      "loadGameBelow": "Load game below!",
+      "loadFromFile": "Load from file",
+      "saveManually": "Save the game manually",
+      "deleteSave": "Delete savefile",
+      "events": {
+        "inactive": "<<var(--orchid-text-color);|Event Status:>> INACTIVE",
+        "activeUntil": "ACTIVE UNTIL: {{x}}",
+        "starts": "STARTS {{x}}"
+      }
     }
 }

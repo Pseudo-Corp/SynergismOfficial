@@ -1,6 +1,7 @@
 import { player, getTimePinnedToLoadDate } from './Synergism'
 import { Globals as G } from './Variables';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import i18next from 'i18next';
 
 interface HolidayData {
     name: string
@@ -307,7 +308,9 @@ export const eventCheck = () => {
             buffs = buffs.substring(0, buffs.length - 2);
             buffs += '!';
         }
-        DOMCacheGetOrSet('eventCurrent').textContent = G['isEvent'] ? 'ACTIVE UNTIL ' + end : 'STARTS ' + start;
+        DOMCacheGetOrSet('eventCurrent').textContent = G['isEvent']
+            ? i18next.t('settings.events.activeUntil', { x: end })
+            : i18next.t('settings.events.starts', { x: start })
         eventBuffs.innerHTML = G['isEvent'] ? 'Current Buffs: ' + buffs : '';
         //eventBuffs.style.color = 'lime';
         happyHolidays.innerHTML = nowEvent.name;
@@ -315,7 +318,7 @@ export const eventCheck = () => {
         happyHolidays.href = nowEvent.url.length > 0 ? nowEvent.url : '#';
     } else {
         G['isEvent'] = false;
-        DOMCacheGetOrSet('eventCurrent').textContent = 'INACTIVE';
+        DOMCacheGetOrSet('eventCurrent').innerHTML = i18next.t('settings.events.inactive')
         eventBuffs.textContent = now.getTime() >= player.dayCheck.getTime() ? '' : ''
         eventBuffs.style.color = 'var(--red-text-color)';
         happyHolidays.innerHTML = '';

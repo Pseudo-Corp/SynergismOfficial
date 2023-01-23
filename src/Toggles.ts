@@ -91,7 +91,10 @@ export const toggleSettings = (toggle: HTMLElement) => {
     }
     const format = toggle.getAttribute('format')
 
-    if (format === 'Auto Catalyze: $') {
+    if (format === '$') {
+        const text = player.toggles[+toggleId] ? i18next.t('general.on') : i18next.t('general.off')
+        toggle.textContent = text
+    } else if (format === 'Auto Catalyze: $') {
         const text = player.toggles[+toggleId] ? i18next.t('shop.autoCatalyzeOn') : i18next.t('shop.autoCatalyzeOff')
         toggle.textContent = text
     } else if (format === 'Hover-to-Buy [$]') {
@@ -437,7 +440,10 @@ export const toggleauto = () => {
         const format = toggle.getAttribute('format')
         const toggleId = toggle.getAttribute('toggleId') || 1;
 
-        if (format === 'Auto Catalyze: $') {
+        if (format === '$') {
+            const text = player.toggles[+toggleId] ? i18next.t('general.on') : i18next.t('general.off')
+            toggle.textContent = text
+        } else if (format === 'Auto Catalyze: $') {
             const text = player.toggles[+toggleId] ? i18next.t('shop.autoCatalyzeOn') : i18next.t('shop.autoCatalyzeOff')
             toggle.textContent = text
         } else if (format === 'Hover-to-Buy [$]') {

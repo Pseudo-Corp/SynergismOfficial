@@ -290,7 +290,7 @@ export class HepteractCraft {
         // When newValue is empty, current value is toggled
         this.AUTO = newValue ?? !this.AUTO;
 
-        HTML.textContent = `Auto ${this.AUTO ? 'ON' : 'OFF'}`;
+        HTML.textContent = this.AUTO ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
         HTML.style.border = `2px solid ${this.AUTO ? 'green' : 'red'}`;
 
         return this;
@@ -595,7 +595,7 @@ export const toggleAutoBuyOrbs = (newValue?: boolean, firstLoad = false) => {
         player.overfluxOrbsAutoBuy = newValue ?? !player.overfluxOrbsAutoBuy;
     }
 
-    HTML.textContent = `Auto ${player.overfluxOrbsAutoBuy ? 'ON' : 'OFF'}`;
+    HTML.textContent = player.overfluxOrbsAutoBuy ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
     HTML.style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'}`;
 }
 
@@ -650,7 +650,7 @@ export const overfluxPowderWarp = async (auto: boolean) => {
         if (player.autoWarpCheck) {
             const a = await Confirm('Turning this OFF, will consume all of your remaining Warps (without doing a Warp).\nAre you sure?')
             if (a) {
-                DOMCacheGetOrSet('warpAuto').textContent = 'Auto OFF'
+                DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOffColon')
                 DOMCacheGetOrSet('warpAuto').style.border = '2px solid red'
                 player.autoWarpCheck = false
                 player.dailyPowderResetUses = 0;
@@ -663,7 +663,7 @@ export const overfluxPowderWarp = async (auto: boolean) => {
         } else {
             const a = await Confirm('This machine will now be able to boost your Quarks gained from opening Cubes, based on how many Warps you have remaining. While its ON, warping will be impossible and turning it OFF won\'t be so easy.\nAre you sure you want to turn it ON?')
             if (a) {
-                DOMCacheGetOrSet('warpAuto').textContent = 'Auto ON'
+                DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOnColon')
                 DOMCacheGetOrSet('warpAuto').style.border = '2px solid green'
                 player.autoWarpCheck = true
                 if (player.dailyPowderResetUses === 0) {
