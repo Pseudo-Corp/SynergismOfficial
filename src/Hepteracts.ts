@@ -6,6 +6,7 @@ import type { Player } from './types/Synergism';
 import { Alert, Confirm, Prompt } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { calculateSingularityDebuff } from './singularity';
+import type { StringMap } from 'i18next';
 import i18next from 'i18next';
 
 export interface IHepteractCraft {
@@ -459,64 +460,68 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
 
     const multiplier = player.hepteractCrafts[type].computeActualCap() / player.hepteractCrafts[type].CAP
     bonusCapacityText.textContent = (player.hepteractCrafts[type].computeActualCap() / player.hepteractCrafts[type].CAP > 1) ? `Hepteract capacities are currently multiplied by ${multiplier}. Expansions cost what they would if this multiplier were 1.` : ''
+    let currentEffectRecord!: StringMap
+    let oneCost!: string | Record<string, string>
+
     switch (type){
         case 'chronos':
-            unlockedText.textContent = (player.hepteractCrafts.chronos.UNLOCKED) ? '< UNLOCKED >': '< LOCKED >'
-            effectText.textContent = 'This hepteract bends time, in your favor. +0.06% Ascension Speed per Chronos Hepteract.'
-            currentEffectText.textContent = 'Current Effect: Ascension Speed +' + format(hepteractEffective('chronos') * 6 / 100, 2, true) + '%'
-            balanceText.textContent = 'Inventory: ' + format(player.hepteractCrafts.chronos.BAL, 0, true) + ' / ' + format(player.hepteractCrafts.chronos.computeActualCap(), 0, true)
-            costText.textContent = 'One of these will cost you ' + format(player.hepteractCrafts.chronos.HEPTERACT_CONVERSION * craftCostMulti, 0, true) + ' Hepteracts and ' + format(1e115 * craftCostMulti, 0, false) + ' Obtainium'
+            currentEffectRecord = { x: format(hepteractEffective('chronos') * 6 / 100, 2, true) }
+            oneCost = format(1e115 * craftCostMulti, 0, false)
+
             break;
         case 'hyperrealism':
-            unlockedText.textContent = (player.hepteractCrafts.hyperrealism.UNLOCKED) ? '< UNLOCKED >': '< LOCKED >'
-            effectText.textContent = 'This bad boy can make hypercube gain skyrocket. +0.06% Hypercubes per Hyperreal Hepteract.'
-            currentEffectText.textContent = 'Current Effect: Hypercubes +' + format(hepteractEffective('hyperrealism') * 6 / 100, 2, true) + '%'
-            balanceText.textContent = 'Inventory: ' + format(player.hepteractCrafts.hyperrealism.BAL, 0, true) + ' / ' + format(player.hepteractCrafts.hyperrealism.computeActualCap(), 0, true)
-            costText.textContent = 'One of these will cost you ' + format(player.hepteractCrafts.hyperrealism.HEPTERACT_CONVERSION * craftCostMulti, 0, true) + ' Hepteracts and ' + format(1e80 * craftCostMulti, 0, true) + ' Offerings.'
+            currentEffectRecord = { x: format(hepteractEffective('hyperrealism') * 6 / 100, 2, true) }
+            oneCost = format(1e80 * craftCostMulti, 0, true)
             break;
         case 'quark':
-            unlockedText.textContent = (player.hepteractCrafts.quark.UNLOCKED) ? '< UNLOCKED >': '< LOCKED >'
-            effectText.textContent = 'One pound, two pound fish, fishy grant +0.05% Quarks per Quark Hepteract fish fish.'
-            currentEffectText.textContent = 'Current Effect: Quarks +' + format(hepteractEffective('quark') * 5 / 100, 2, true) + '%'
-            balanceText.textContent = 'Inventory: ' + format(player.hepteractCrafts.quark.BAL, 0, true) + ' / ' + format(player.hepteractCrafts.quark.computeActualCap(), 0, true)
-            costText.textContent = 'One of these will cost you ' + format(player.hepteractCrafts.quark.HEPTERACT_CONVERSION * craftCostMulti, 0, true) + ' Hepteracts and 100 Quarks.'
+            currentEffectRecord = { x: format(hepteractEffective('quark') * 5 / 100, 2, true) }
+            oneCost = '100'
             break;
         case 'challenge':
-            unlockedText.textContent = (player.hepteractCrafts.challenge.UNLOCKED) ? '< UNLOCKED >': '< LOCKED >'
-            effectText.textContent = 'That\'s preposterous. How are you going to gain +0.05% C15 Exponent per Challenge Hepteract? How!?'
-            currentEffectText.textContent = 'Current Effect: C15 Exponent +' + format(hepteractEffective('challenge') * 5 / 100, 2, true) + '%'
-            balanceText.textContent = 'Inventory: ' + format(player.hepteractCrafts.challenge.BAL, 0, true) + ' / ' + format(player.hepteractCrafts.challenge.computeActualCap(), 0, true)
-            costText.textContent = `One of these will cost you ${format(player.hepteractCrafts.challenge.HEPTERACT_CONVERSION * craftCostMulti, 0, true)} Hepteracts, ${format(1e11 * craftCostMulti)} Platonic Cubes and ${format(1e22 * craftCostMulti)} Cubes.`
+            currentEffectRecord = { x: format(hepteractEffective('challenge') * 5 / 100, 2, true) }
+            oneCost = {
+                y: format(1e11 * craftCostMulti),
+                z: format(1e22 * craftCostMulti)
+            }
             break;
         case 'abyss':
-            unlockedText.textContent = (player.hepteractCrafts.abyss.UNLOCKED) ? '< UNLOCKED >': '< LOCKED >'
-            effectText.textContent = 'It seems like this holds the power to be at the End of Time. Do you remember why you need this?'
-            currentEffectText.textContent = '<[You will submit to the Omega Entity of Time]>'
-            balanceText.textContent = 'Inventory: ' + format(player.hepteractCrafts.abyss.BAL, 0, true) + ' / ' + format(player.hepteractCrafts.abyss.computeActualCap(), 0, true)
-            costText.textContent = `One of these will cost you ${format(player.hepteractCrafts.abyss.HEPTERACT_CONVERSION * craftCostMulti, 0, true)} Hepteracts and ${format(69 * craftCostMulti)} Wow! Cubes (lol)`
+            oneCost = format(69 * craftCostMulti)
             break;
         case 'accelerator':
-            unlockedText.textContent = (player.hepteractCrafts.accelerator.UNLOCKED) ? '< UNLOCKED >': '< LOCKED >'
-            effectText.textContent = 'Haha, stupid Corruptions. +2,000 +0.03% Uncorruptable Accelerators per \'Way too many accelerators\' Hepteract!'
-            currentEffectText.textContent = 'Current Effect: Uncorruptable Accelerators +'+ format(2000 * hepteractEffective('accelerator'), 2, true) +' +' + format(hepteractEffective('accelerator') * 3 / 100, 2, true) + '%'
-            balanceText.textContent = 'Inventory: ' + format(player.hepteractCrafts.accelerator.BAL, 0, true) + ' / ' + format(player.hepteractCrafts.accelerator.computeActualCap(), 0, true)
-            costText.textContent = `One of these will cost you ${format(player.hepteractCrafts.accelerator.HEPTERACT_CONVERSION * craftCostMulti, 0, true)} Hepteracts and ${format(1e14 * craftCostMulti)} Wow! Tesseracts`
+            currentEffectRecord = {
+                x: format(2000 * hepteractEffective('accelerator'), 2, true),
+                y: format(hepteractEffective('accelerator') * 3 / 100, 2, true)
+            }
+            oneCost = format(1e14 * craftCostMulti)
             break;
         case 'acceleratorBoost':
-            unlockedText.textContent = (player.hepteractCrafts.acceleratorBoost.UNLOCKED) ? '< UNLOCKED >': '< LOCKED >'
-            effectText.textContent = 'Haha, stupid Corruptions. +0.1% Accelerator Boosts per \'Way too many accelerator boosts\' Hepteract!'
-            currentEffectText.textContent = 'Current Effect: Accelerator Boosts +' +format(hepteractEffective('acceleratorBoost') / 10, 2, true) + '%'
-            balanceText.textContent = 'Inventory: ' + format(player.hepteractCrafts.acceleratorBoost.BAL, 0, true) + ' / ' + format(player.hepteractCrafts.acceleratorBoost.computeActualCap(), 0, true)
-            costText.textContent = `One of these will cost you ${format(player.hepteractCrafts.acceleratorBoost.HEPTERACT_CONVERSION * craftCostMulti, 0, true)} Hepteracts and ${format(1e10 * craftCostMulti)} Hypercubes`
+            currentEffectRecord = { x: format(hepteractEffective('acceleratorBoost') / 10, 2, true) }
+            oneCost = format(1e10 * craftCostMulti)
             break;
         case 'multiplier':
-            unlockedText.textContent = (player.hepteractCrafts.multiplier.UNLOCKED) ? '< UNLOCKED >': '< LOCKED >'
-            effectText.textContent = 'Haha, stupid Corruptions. +1,000 +0.03% Uncorruptable Multipliers per \'Way too many multipliers\' Hepteract!'
-            currentEffectText.textContent = 'Current Effect: Uncorruptable Multipliers +' + format(1000 * hepteractEffective('multiplier'), 2, true) +' +' + format(hepteractEffective('multiplier') * 3 / 100, 2, true) + '%'
-            balanceText.textContent = 'Inventory: ' + format(player.hepteractCrafts.multiplier.BAL, 0, true) + ' / ' + format(player.hepteractCrafts.multiplier.computeActualCap(), 0, true)
-            costText.textContent = `One of these will cost you ${format(player.hepteractCrafts.multiplier.HEPTERACT_CONVERSION * craftCostMulti, 0, true)} Hepteracts and ${format(1e130 * craftCostMulti)} Obtainium`
+            currentEffectRecord = {
+                x: format(1000 * hepteractEffective('multiplier'), 2, true),
+                y: format(hepteractEffective('multiplier') * 3 / 100, 2, true)
+            }
+            oneCost = format(1e130 * craftCostMulti)
             break;
     }
+
+    effectText.textContent = i18next.t(`wowCubes.hepteractForge.descriptions.${type}.effect`)
+    currentEffectText.textContent = i18next.t(`wowCubes.hepteractForge.descriptions.${type}.currentEffect`, currentEffectRecord)
+    balanceText.textContent = i18next.t('wowCubes.hepteractForge.inventory', {
+        x: format(player.hepteractCrafts[type].BAL, 0, true),
+        y: format(player.hepteractCrafts[type].computeActualCap(), 0, true)
+    })
+    const record = typeof oneCost === 'string' ? { y: oneCost } : oneCost
+    costText.textContent = i18next.t(`wowCubes.hepteractForge.descriptions.${type}.oneCost`, {
+        x: format(player.hepteractCrafts[type].HEPTERACT_CONVERSION * craftCostMulti, 0, true),
+        ...record
+    })
+
+    unlockedText.textContent = player.hepteractCrafts[type].UNLOCKED
+        ? i18next.t('wowCubes.hepteractForge.unlocked')
+        : i18next.t('wowCubes.hepteractForge.locked')
 }
 
 /**

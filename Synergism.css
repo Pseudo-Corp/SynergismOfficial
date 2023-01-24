@@ -3535,3 +3535,10 @@ header #obtainiumDisplay { color: pink; }
 .newPerk {
     color: gold;
 }
+
+#autoHepteractPercentage {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 5px;
+}

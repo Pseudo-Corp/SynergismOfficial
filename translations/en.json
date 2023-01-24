@@ -2511,6 +2511,68 @@
                 "7": "High-Scoring Statue: x{{amount}}: +{{bonus}}% More Score on corruptions",
                 "8": "Chronos Statue: x{{amount}}: +{{bonus}}% <<yellow|true>> Global Speed (after speed diminishing returns)"
             }
+        },
+        "hepteractForge": {
+          "howDidIGetHere": "How did I get here?",
+          "noTimeToWaste": "Oh well, no time to waste. This is your lab. Make cool stuff with your Hepteracts!",
+          "noPassiveBonus": "Hepteracts do not provide passive bonuses. They must be made useful through crafting.",
+          "youPossessHepteracts": "You possess <<yellow|{{x}}>> Hepteracts! You know where to get these, right?",
+          "craft": "Craft",
+          "max": "Max",
+          "expand": "Expand",
+          "warp": "Warp",
+          "autoSetting": "Auto Setting : {{x}}%",
+          "autoCraftPercentage": "Autocraft Percentage",
+          "autoCraftPercentagePrompt": "Enter a number from 0 to 100 (integer only!) to set autocraft percentage. Every ascension, that percentage of your hepteracts are used to craft equally split between every hepteract with AUTO ON. Auto crafting also does not consume other resources! [Except Quarks, of course...]",
+          "unlocked": "< UNLOCKED >",
+          "locked": "< LOCKED >",
+          "inventory": "Inventory: {{x}} / {{y}}",
+          "orbs": "Orbs:",
+          "effect": "Effect:",
+          "powder": "Powder:",
+          "warps": "Warps:",
+          "descriptions": {
+            "chronos": {
+              "effect": "This hepteract bends time, in your favor. +0.06% Ascension Speed per Chronos Hepteract.",
+              "currentEffect": "Current Effect: Ascension Speed +{{x}}%",
+              "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Obtainium!"
+            },
+            "hyperrealism": {
+              "effect": "This bad boy can make hypercube gain skyrocket. +0.06% Hypercubes per Hyperreal Hepteract.",
+              "currentEffect": "Current Effect: Hypercubes +{{x}}%",
+              "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Offerings."
+            },
+            "quark": {
+              "effect": "One pound, two pound fish, fishy grant +0.05% Quarks per Quark Hepteract fish fish.",
+              "currentEffect": "Current Effect: Quarks +{{x}}%",
+              "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Quarks."
+            },
+            "challenge": {
+              "effect": "That's preposterous. How are you going to gain +0.05% C15 Exponent per Challenge Hepteract? How!?",
+              "currentEffect": "Current Effect: C15 Exponent +{{x}}%",
+              "oneCost": "One of these will cost you {{x}} Hepteracts, {{y}} Platonic Cubes and {{z}} Cubes."
+            },
+            "abyss": {
+              "effect": "It seems like this holds the power to be at the End of Time. Do you remember why you need this?",
+              "currentEffect": "<[You will submit to the Omega Entity of Time]>",
+              "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Cubes (lol)"
+            },
+            "accelerator": {
+              "effect": "Haha, stupid Corruptions. +2,000 +0.03% Uncorruptable Accelerators per 'Way too many accelerators' Hepteract!",
+              "currentEffect": "Current Effect: Uncorruptable Accelerators +{{x}} + {{y}}%",
+              "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Tesseracts"
+            },
+            "acceleratorBoost": {
+              "effect": "Haha, stupid Corruptions. +0.1% Accelerator Boosts per 'Way too many accelerator boosts' Hepteract!",
+              "currentEffect": "Current Effect: Accelerator Boosts +{{x}}%",
+              "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Hypercubes"
+            },
+            "multiplier": {
+              "effect": "Haha, stupid Corruptions. +1,000 +0.03% Uncorruptable Multipliers per 'Way too many multipliers' Hepteract!",
+              "currentEffect": "Current Effect: Uncorruptable Multipliers +{{x}} +{{y}}%",
+              "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Obtainium"
+            }
+          }
         }
     },
     "corruptions": {
