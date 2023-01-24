@@ -91,9 +91,9 @@ export const toggleSettings = (toggle: HTMLElement) => {
     }
     const format = toggle.getAttribute('format')
 
-    if (format === '$') {
+    if (format === '$' || format === '[$]') {
         const text = player.toggles[+toggleId] ? i18next.t('general.on') : i18next.t('general.off')
-        toggle.textContent = text
+        toggle.textContent = format === '[$]' ? `[${text}]` : text
     } else if (format === 'Auto Catalyze: $') {
         const text = player.toggles[+toggleId] ? i18next.t('shop.autoCatalyzeOn') : i18next.t('shop.autoCatalyzeOff')
         toggle.textContent = text
@@ -1171,12 +1171,7 @@ export const toggleAscStatPerSecond = (id: number) => {
 }
 
 export const toggleHepteractAutoPercentage = async(): Promise<void> => {
-    const amount = await Prompt(
-        'Enter a number from 0 to 100 (integer only!) to set autocraft percentage. ' +
-        'Every ascension, that percentage of your hepteracts are used to craft equally split ' +
-        'between every hepteract with AUTO ON. Auto crafting also does not consume other resources! ' +
-        '[Except Quarks, of course...]'
-    );
+    const amount = await Prompt(i18next.t('wowCubes.hepteractForge.autoCraftPercentagePrompt'));
 
     if (amount === null) {
         if (player.toggles[35]) {
@@ -1190,7 +1185,7 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
     const rawPercentage = isPercentage ? Number(amount.slice(0, -1)) : Number(amount);
 
     if (Number.isNaN(rawPercentage) || !Number.isFinite(rawPercentage) || !Number.isInteger(rawPercentage)) {
-        return Alert('Value must be a finite, non-decimal number!');
+        return Alert(i18next.t('general.validation.finiteInt'));
     } else if (rawPercentage < 0 || rawPercentage > 100) {
         return Alert('Value must be a number between 0 and 100, inclusive!');
     } else if (rawPercentage === player.hepteractAutoCraftPercentage && player.toggles[35]) {
@@ -1198,7 +1193,9 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
     }
 
     player.hepteractAutoCraftPercentage = rawPercentage
-    DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
+    DOMCacheGetOrSet('autoHepteractPercentage').textContent = i18next.t('wowCubes.hepteractForge.autoSetting', {
+        x: `${player.hepteractAutoCraftPercentage}`
+    })
     if (player.toggles[35]) {
         return Alert(`Okay. On Ascension, ${player.hepteractAutoCraftPercentage}% of your Hepteracts will be used in crafting.`)
     }

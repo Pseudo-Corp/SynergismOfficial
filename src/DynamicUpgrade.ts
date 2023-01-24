@@ -1,3 +1,4 @@
+import i18next from 'i18next'
 import { format } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 
@@ -38,30 +39,27 @@ export abstract class DynamicUpgrade {
     public async changeToggle(): Promise<void> {
 
         // Is null unless given an explicit number
-        const newToggle = await Prompt(`
-        Set maximum purchase amount per click for the ${this.name} upgrade.
-        type -1 to set to MAX by default.
-        `);
+        const newToggle = await Prompt(i18next.t('dynamicUpgrades.validation.setPurchaseAmount', { x: this.name }));
         const newToggleAmount = Number(newToggle);
 
         if (newToggle === null) {
-            return Alert(`Toggle kept at ${format(this.toggleBuy)}.`)
+            return Alert(i18next.t('dynamicUpgrades.validation.toggleKept', { x: format(this.toggleBuy) }))
         }
 
         if (!Number.isInteger(newToggle)) {
-            return Alert('Toggle value must be a whole number!');
+            return Alert(i18next.t('general.validation.fraction'));
         }
         if (newToggleAmount < -1) {
-            return Alert('The only valid negative number for toggle is -1.');
+            return Alert(i18next.t('dynamicUpgrades.validation.onlyNegativeOne'));
         }
         if (newToggleAmount === 0) {
-            return Alert('You cannot set the toggle to 0.');
+            return Alert(i18next.t('dynamicUpgrades.validation.notZero'));
         }
 
         this.toggleBuy = newToggleAmount;
         const m = newToggleAmount === -1
-            ? 'Your toggle is now set to MAX'
-            : `Your toggle is now set to ${format(this.toggleBuy)}`;
+            ? i18next.t('dynamicUpgrades.toggleMax')
+            : i18next.t('dynamicUpgrades.toggle', { x: format(this.toggleBuy) })
 
         return Alert(m);
     }
@@ -75,6 +73,4 @@ export abstract class DynamicUpgrade {
     abstract updateUpgradeHTML(): void
     abstract getCostTNL(): number
     public abstract buyLevel(event: MouseEvent): Promise<void> | void
-
-
 }

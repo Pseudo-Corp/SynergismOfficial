@@ -585,7 +585,9 @@ export const visualUpdateCubes = () => {
         case 5:
             break;
         case 6:
-            DOMCacheGetOrSet('hepteractQuantity').textContent = format(player.wowAbyssals, 0, true)
+            DOMCacheGetOrSet('hepteractQuantity').innerHTML = i18next.t('wowCubes.hepteractForge.youPossessHepteracts', {
+                x: format(player.wowAbyssals, 0, true)
+            })
 
             //Update the grid
             hepteractTypeList.forEach((type) => {

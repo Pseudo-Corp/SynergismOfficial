@@ -1859,7 +1859,9 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOffColon')
             DOMCacheGetOrSet('warpAuto').style.border = '2px solid red'
         }
-        DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
+        DOMCacheGetOrSet('autoHepteractPercentage').textContent = i18next.t('wowCubes.hepteractForge.autoSetting', {
+            x: `${player.hepteractAutoCraftPercentage}`
+        })
         DOMCacheGetOrSet('hepteractToQuarkTradeAuto').textContent = player.overfluxOrbsAutoBuy
             ? i18next.t('general.autoOnColon')
             : i18next.t('general.autoOffColon')
