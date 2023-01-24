@@ -292,7 +292,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Singularity',
         price: 250,
         priceIncrease: 250,
-        maxLevel: 999,
+        maxLevel: 1000,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0
@@ -310,7 +310,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Singularity',
         price: 250,
         priceIncrease: 250,
-        maxLevel: 999,
+        maxLevel: 1000,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0
@@ -346,7 +346,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'SingularityVol2',
         price: 5000,
         priceIncrease: 5000,
-        maxLevel: 999,
+        maxLevel: 1000,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0
@@ -355,7 +355,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'SingularityVol2',
         price: 12500,
         priceIncrease: 12500,
-        maxLevel: 999,
+        maxLevel: 1000,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0
@@ -364,7 +364,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'SingularityVol2',
         price: 10000,
         priceIncrease: 10000,
-        maxLevel: 999,
+        maxLevel: 1000,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0
@@ -373,7 +373,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'SingularityVol2',
         price: 10000,
         priceIncrease: 10000,
-        maxLevel: 999,
+        maxLevel: 1000,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0
@@ -391,7 +391,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'SingularityVol2',
         price: 1000000,
         priceIncrease: 25000,
-        maxLevel: 999,
+        maxLevel: 1000,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0
@@ -586,178 +586,178 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
     switch (input) {
         case 'offeringPotion':
-            lol.textContent = 'Gain ' + format((7200 * player.offeringpersecond * calculateTimeAcceleration().mult * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Offerings.'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.offeringPotion', {amount: format((7200 * player.offeringpersecond * calculateTimeAcceleration().mult * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true)})
             break;
         case 'obtainiumPotion':
-            lol.textContent = 'Gain ' + format((7200 * player.maxobtainiumpersecond * calculateTimeAcceleration().mult * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true) + ' Obtainium.';
+            lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumPotion', {amount: format((7200 * player.maxobtainiumpersecond * calculateTimeAcceleration().mult * +player.singularityUpgrades.potionBuff.getEffect().bonus), 0, true)})
             break;
         case 'offeringEX':
-            lol.textContent = 'CURRENT Effect: You will gain ' + format(4 * player.shopUpgrades.offeringEX,2,true) + '% more Offerings!'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.offeringEX', {amount: format(4 * player.shopUpgrades.offeringEX,2,true)})
             break;
         case 'offeringAuto':
-            lol.textContent = 'CURRENT Effect: Per 10 seconds, pour ' + format(Math.pow(2, 1 + player.shopUpgrades.offeringAuto)) + ' Offerings. +' + format(2 * player.shopUpgrades.offeringAuto, 2) + '% Offerings.'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.offeringAuto', {amount1: format(Math.pow(2, 1 + player.shopUpgrades.offeringAuto)), amount2: format(2 * player.shopUpgrades.offeringAuto, 2)})
             break;
         case 'obtainiumEX':
-            lol.textContent = 'CURRENT Effect: You will gain ' + format(4 * player.shopUpgrades.obtainiumEX,2,true) + '% more Obtainium!'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumEX', {amount: format(4 * player.shopUpgrades.obtainiumEX,2,true)})
             break;
         case 'obtainiumAuto':
-            lol.textContent = 'CURRENT Effect: Try to upgrade research each reincarnation, and gain ' + format(player.shopUpgrades.obtainiumAuto * 2, 2) + '% more Obtainium.'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumAuto', {amount: format(player.shopUpgrades.obtainiumAuto * 2, 2)})
             break;
         case 'instantChallenge':
-            lol.textContent = 'CURRENT Effect: Even in a premium shop it\'s kinda obvious, right?'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.instantChallenge')
             break;
         case 'antSpeed':
-            lol.textContent = 'CURRENT Effect: All Ants\' Speed x' + format(Math.pow(1.2, player.shopUpgrades.antSpeed), 2)
+            lol.innerHTML = i18next.t('shop.upgradeEffects.antSpeed', {amount: format(Math.pow(1.2, player.shopUpgrades.antSpeed), 2)})
             break;
         case 'cashGrab':
-            lol.textContent = 'CURRENT Effect: You will gain ' + format(player.shopUpgrades.cashGrab, 2) + '% more Obtainium and Offerings!'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.cashGrab', {amount: format(player.shopUpgrades.cashGrab, 2)})
             break;
         case 'shopTalisman':
-            lol.textContent = 'CURRENT Effect: Even in a premium shop it\'s kinda obvious, right?'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.shopTalisman')
             break;
         case 'seasonPass':
-            lol.textContent = 'CURRENT Effect: Ascensions give ' + format(2.25 * player.shopUpgrades.seasonPass) + '% more Wow! Cubes and Tesseracts.'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.seasonPass', {amount: format(2.25 * player.shopUpgrades.seasonPass)})
             break;
         case 'challengeExtension':
-            lol.textContent = 'CURRENT Effect: Reincarnation Challenges may be completed an additional ' + format(2*player.shopUpgrades.challengeExtension) + ' times.'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.challengeExtension', {amount: format(2*player.shopUpgrades.challengeExtension)})
             break;
         case 'challengeTome':
-            lol.textContent = 'CURRENT Effect: Challenge 10 Exponent Requirement reduced by ' + format(20*player.shopUpgrades.challengeTome) + ' Million. Past 60 completions of C9 or C10 the scaling multiplier is [completions * ' + format(1 - (player.shopUpgrades.challengeTome + player.shopUpgrades.challengeTome2) / 100, 2, true) + ']'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.challengeTome', {amount1: format(20*player.shopUpgrades.challengeTome), amount2: format(1 - (player.shopUpgrades.challengeTome + player.shopUpgrades.challengeTome2) / 100, 2, true)})
             break;
         case 'cubeToQuark':
-            lol.textContent = 'CURRENT Effect: Even in a premium shop it\'s kinda obvious, right?'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.cubeToQuark')
             break;
         case 'tesseractToQuark':
-            lol.textContent = 'CURRENT Effect: Even in a premium shop it\'s kinda obvious, right?'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.tesseractToQuark')
             break;
         case 'hypercubeToQuark':
-            lol.textContent = 'CURRENT Effect: Even in a premium shop it\'s kinda obvious, right?'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.hypercubeToQuark')
             break;
         case 'seasonPass2':
-            lol.textContent = 'CURRENT Effect: Ascensions give ' + format(1.5 * player.shopUpgrades.seasonPass2) + '% more Hypercubes and Platonic Cubes.'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.seasonPass2', {amount: format(1.5 * player.shopUpgrades.seasonPass2)})
             break;
         case 'seasonPass3':
-            lol.textContent = 'CURRENT Effect: Ascensions give ' + format(1.5 * player.shopUpgrades.seasonPass3) + '% more Hepteracts and Octeracts.'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.seasonPass3', {amount: format(1.5 * player.shopUpgrades.seasonPass3)})
             break;
         case 'chronometer':
-            lol.textContent = 'CURRENT Effect: Ascension timer runs ' + format(1.2 * player.shopUpgrades.chronometer) + '% faster.'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.chronometer', {amount: format(1.2 * player.shopUpgrades.chronometer)})
             break;
         case 'infiniteAscent':
-            lol.textContent = 'CURRENT Effect: Idk, depends if you bought it or not.'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.infiniteAscent')
             break;
         case 'calculator':
-            lol.textContent = 'CURRENT Effect: Code \'add\' provides ' + format(14 * player.shopUpgrades.calculator) + '% more Quarks. AutoAnswer: ' + (player.shopUpgrades.calculator > 0) + ', AutoFill: ' + (player.shopUpgrades.calculator == 5);
+            lol.innerHTML = i18next.t('shop.upgradeEffects.calculator', {amount1: format(14 * player.shopUpgrades.calculator), bool1: player.shopUpgrades.calculator > 0, bool2: player.shopUpgrades.calculator === shopData.calculator.maxLevel})
             break;
         case 'calculator2':
-            lol.textContent = 'CURRENT Effect: Code \'add\' has ' + format(2 * player.shopUpgrades.calculator2) + ' more capacity. \'add\' uses generate ' + format((player.shopUpgrades.calculator2 === shopData['calculator2'].maxLevel) ? 25: 0) + '% more Quarks.';
+            lol.innerHTML = i18next.t('shop.upgradeEffects.calculator2', {amount1: format(2 * player.shopUpgrades.calculator2), amount2: format((player.shopUpgrades.calculator2 === shopData['calculator2'].maxLevel) ? 25: 0)})
             break;
         case 'calculator3':
-            lol.textContent = 'CURRENT Effect: Code \'add\' variance -' + format(10 * player.shopUpgrades.calculator3) + '%, Each use gives ' + format(60 * player.shopUpgrades.calculator3) + ' seconds to Ascension Timer.';
+            lol.innerHTML = i18next.t('shop.upgradeEffects.calculator3', {amount1: format(10 * player.shopUpgrades.calculator3), amount2: format(60 * player.shopUpgrades.calculator3)})
             break;
         case 'calculator4':
-            lol.textContent = `CURRENT Effect: Code add refills ${format(2 * player.shopUpgrades.calculator4)}% faster. Capacity +${player.shopUpgrades.calculator4 == 10 ? 8 : 0}`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.calculator4', {amount1: format(2 * player.shopUpgrades.calculator4), amount2: player.shopUpgrades.calculator4 == 10 ? 32 : 0})
             break;
         case 'calculator5':
-            lol.textContent = `CURRENT Effect: Code add adds ${format(6 * player.shopUpgrades.calculator5)}s to GQ export timer. Capacity +${Math.floor(player.shopUpgrades.calculator5 / 10) + (player.shopUpgrades.calculator4 === 100 ? 6 : 0)}`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.calculator5', {amount1: format(6 * player.shopUpgrades.calculator5), amount2: Math.floor(player.shopUpgrades.calculator5 / 10) + (player.shopUpgrades.calculator4 === shopData.calculator5.maxLevel ? 6 : 0)})
             break;
         case 'calculator6':
-            lol.textContent = `CURRENT Effect: Code add generates ${format(player.shopUpgrades.calculator6)}s of Octeracts. Capacity +${player.shopUpgrades.calculator6 === 100 ? 24 : 0}`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.calculator6', {amount1: format(player.shopUpgrades.calculator6), amount2: player.shopUpgrades.calculator6 === shopData.calculator6.maxLevel ? 24 : 0})
             break;
         case 'constantEX':
-            lol.textContent = 'CURRENT Effect: +' + format(0.01 * player.shopUpgrades.constantEX, 2, true) + ' effect on Constant Upgrade 2';
+            lol.innerHTML = i18next.t('shop.upgradeEffects.constantEX', {amount: format(player.shopUpgrades.constantEX, 0, true)})
             break;
         case 'powderEX':
-            lol.textContent = 'CURRENT Effect: +' + format(2 * player.shopUpgrades.powderEX) + '% Overflux Powder gained when Overflux Orbs expire.'
+            lol.innerHTML = i18next.t('shop.upgradeEffects.powderEX', {amount: format(2 * player.shopUpgrades.powderEX)})
             break;
         case 'chronometer2':
-            lol.textContent = `CURRENT Effect: +${format(0.6 * player.shopUpgrades.chronometer2, 1)}% faster Ascensions!`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.chronometer2', {amount: format(0.6 * player.shopUpgrades.chronometer2, 1)})
             break;
         case 'chronometer3':
-            lol.textContent = `CURRENT Effect: +${format(1.5 * player.shopUpgrades.chronometer3, 1)}% faster Ascensions! FOREVER!`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.chronometer3', {amount: format(1.5 * player.shopUpgrades.chronometer3, 1)})
             break;
         case 'seasonPassY':
-            lol.textContent = `CURRENT Effect: +${format(0.75 * player.shopUpgrades.seasonPassY, 1)}% more Cubes on Ascension.`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.seasonPassY', {amount: format(0.75 * player.shopUpgrades.seasonPassY, 2)})
             break;
         case 'seasonPassZ':
-            lol.textContent = `CURRENT Effect: +${format(1 * player.shopUpgrades.seasonPassZ * player.singularityCount, 0, true)}% more Cubes on Ascension.`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.seasonPassZ', {amount: format(1 * player.shopUpgrades.seasonPassZ * player.singularityCount, 0, true)})
             break;
         case 'challengeTome2':
-            lol.textContent = `CURRENT Effect: Challenge 10 Exponent Requirement reduced by ${20 * player.shopUpgrades.challengeTome2} Million. Past 60 completions of C9 or C10 the scaling multiplier is [completions * ${format(1 - (player.shopUpgrades.challengeTome + player.shopUpgrades.challengeTome2) / 100, 2, true)}]`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.challengeTome2', {amount1: 20 * player.shopUpgrades.challengeTome2, amount2: format(1 - (player.shopUpgrades.challengeTome + player.shopUpgrades.challengeTome2) / 100, 2, true)})
             break;
         case 'instantChallenge2':
-            lol.textContent = `CURRENT Effect: +${format(player.shopUpgrades.instantChallenge2 * player.singularityCount, 0)} Challenges per tick`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.instantChallenge2', {amount: format(player.shopUpgrades.instantChallenge2 * player.singularityCount, 0)})
             break;
         case 'cashGrab2':
-            lol.textContent = `CURRENT Effect: Offering, Obtainium +${format(0.5 * player.shopUpgrades.cashGrab2, 1)}%!`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.cashGrab2', {amount: format(0.5 * player.shopUpgrades.cashGrab2, 1)})
             break;
         case 'cubeToQuarkAll':
-            lol.textContent = `CURRENT Effect: Opening any cube gives +${format(0.2 * player.shopUpgrades.cubeToQuarkAll, 2)}% Quarks!`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.cubeToQuarkAll', {amount: format(0.2 * player.shopUpgrades.cubeToQuarkAll, 2)})
             break;
         case 'chronometerZ':
-            lol.textContent = `CURRENT Effect: Ascension Speed +${format(0.1 * player.singularityCount * player.shopUpgrades.chronometerZ, 2)}%!`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.chronometerZ', {amount: format(0.1 * player.singularityCount * player.shopUpgrades.chronometerZ, 2)})
             break;
         case 'offeringEX2':
-            lol.textContent = `CURRENT Effect: Offerings +${format(1 * player.singularityCount * player.shopUpgrades.offeringEX2, 2)}%!`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.offeringEX2', {amount: format(1 * player.singularityCount * player.shopUpgrades.offeringEX2, 2)})
             break;
         case 'obtainiumEX2':
-            lol.textContent = `CURRENT Effect: Obtainium +${format(1 * player.singularityCount * player.shopUpgrades.obtainiumEX2, 2)}%!`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumEX2', {amount: format(1 * player.singularityCount * player.shopUpgrades.obtainiumEX2, 2)});
             break;
         case 'powderAuto':
-            lol.textContent = `CURRENT Effect: Every ${format(100 / (Math.max(1, player.shopUpgrades.powderAuto) * calculatePowderConversion().mult), 0, true)} purchased orbs grants 1 powder.`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.powderAuto', {amount: format(100 / (Math.max(1, player.shopUpgrades.powderAuto) * calculatePowderConversion().mult), 2, true)})
             break;
         case 'seasonPassLost':
-            lol.textContent = `CURRENT Effect: +${format(0.1 * player.shopUpgrades.seasonPassLost, 2)}% of those Eight-Dimensional Thingies.`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.seasonPassLost', {amount: format(0.1 * player.shopUpgrades.seasonPassLost, 2)})
             break;
         case 'challenge15Auto':
-            lol.textContent = `CURRENT Effect: Challenge 15 Exponent is ${player.shopUpgrades.challenge15Auto ? '' : 'NOT'} automatically gained!`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.challenge15Auto')
             break;
         case 'extraWarp':
-            lol.textContent = `CURRENT Effect: You can warp ${player.shopUpgrades.extraWarp} extra times.`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.extraWarp', {amount: player.shopUpgrades.extraWarp})
             break;
         case 'autoWarp':
-            lol.textContent = `CURRENT Effect: Warp machine ${player.shopUpgrades.autoWarp ? 'can now' : 'can\'t'} go into overdrive${player.shopUpgrades.autoWarp ? '' : ', yet'}.`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.autoWarp')
             break;
         case 'improveQuarkHept':
-            lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept/50}`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.improveQuarkHept', {amount: 2 * player.shopUpgrades.improveQuarkHept})
             break;
         case 'improveQuarkHept2':
-            lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept2/50}`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.improveQuarkHept2', {amount: 2 * player.shopUpgrades.improveQuarkHept2})
             break;
         case 'improveQuarkHept3':
-            lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept3/50}`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.improveQuarkHept3', {amount: 2 * player.shopUpgrades.improveQuarkHept3})
             break;
         case 'improveQuarkHept4':
-            lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept4/50}`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.improveQuarkHept4', {amount: 2 * player.shopUpgrades.improveQuarkHept4})
             break;
         case 'shopImprovedDaily':
-            lol.textContent = `CURRENT Effect: + ${player.shopUpgrades.shopImprovedDaily * 5}% more quarks from daily.`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.shopImprovedDaily', {amount: format(5 * player.shopUpgrades.shopImprovedDaily)})
             break;
         case 'shopImprovedDaily2':
-            lol.textContent = `CURRENT Effect: + ${player.shopUpgrades.shopImprovedDaily2 * 20}% more golden quarks and ${player.shopUpgrades.shopImprovedDaily2} additional free singularity upgrades from daily.`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.shopImprovedDaily2', {amount1: player.shopUpgrades.shopImprovedDaily2, amount2: player.shopUpgrades.shopImprovedDaily2 * 20})
             break;
         case 'shopImprovedDaily3':
-            lol.textContent = `CURRENT Effect: + ${player.shopUpgrades.shopImprovedDaily3 * 15}% more golden quarks and ${player.shopUpgrades.shopImprovedDaily3} additional free singularity upgrades from daily.`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.shopImprovedDaily3', {amount1: player.shopUpgrades.shopImprovedDaily3, amount2: player.shopUpgrades.shopImprovedDaily3 * 15})
             break;
         case 'shopImprovedDaily4':
-            lol.textContent = `CURRENT Effect: + ${player.shopUpgrades.shopImprovedDaily4 * 100}% more golden quarks and ${player.shopUpgrades.shopImprovedDaily4} additional free singularity upgrades from daily.`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.shopImprovedDaily4', {amount1: player.shopUpgrades.shopImprovedDaily4, amount2: player.shopUpgrades.shopImprovedDaily4 * 100})
             break;
         case 'offeringEX3':
-            lol.textContent = `CURRENT Effect: Offering gain is multiplied by ${format(Math.pow(1.02, player.shopUpgrades.offeringEX3), 2, true)}.`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.offeringEX3', {amount: format(100 * (Math.pow(1.02, player.shopUpgrades.offeringEX3) - 1), 2, true)})
             break;
         case 'obtainiumEX3':
-            lol.textContent = `CURRENT Effect: Obtainium gain is multiplied by ${format(Math.pow(1.02, player.shopUpgrades.obtainiumEX3), 2, true)}.`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumEX3', {amount: format(100 * (Math.pow(1.02, player.shopUpgrades.obtainiumEX3) - 1), 2, true)})
             break;
         case 'improveQuarkHept5':
-            lol.textContent = `CURRENT Effect: Quark Hepteract DR +${player.shopUpgrades.improveQuarkHept5/2500}`;
+            lol.innerHTML = i18next.t('shop.upgradeEffects.improveQuarkHept5', {amount: format(player.shopUpgrades.improveQuarkHept5 / 25, 2, true)})
             break;
         case 'seasonPassInfinity':
-            lol.textContent = `CURRENT Effect: All Dimensional Cubes are multiplied by ${format(Math.pow(1.02, player.shopUpgrades.seasonPassInfinity), 2, true)}`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.seasonPassInfinity', {amount: format(100 * (Math.pow(1.02, player.shopUpgrades.seasonPassInfinity) - 1), 2, true)})
             break;
         case 'chronometerInfinity':
-            lol.textContent = `CURRENT Effect: Ascension Speed is multiplied by ${format(Math.pow(1.01, player.shopUpgrades.chronometerInfinity), 2, true)}`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.chronometerInfinity', {amount: format(100 * (Math.pow(1.01, player.shopUpgrades.chronometerInfinity) - 1), 2, true)})
             break;
         case 'shopSingularityPenaltyDebuff':
-            lol.textContent = `CURRENT Effect: Singularity Debuffs are as if you had ${format(player.shopUpgrades.shopSingularityPenaltyDebuff)} fewer Singularities.`
+            lol.innerHTML = i18next.t('shop.upgradeEffects.shopSingularityPenaltyDebuff', {amount1: format(player.singularityCount), amount2: format(player.singularityCount - player.shopUpgrades.shopSingularityPenaltyDebuff)})
     }
 
 }
