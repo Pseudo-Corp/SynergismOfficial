@@ -66,7 +66,7 @@ function buildLanguageButton(langID: string, name: string, flag: string) {
         const shouldReload = await Confirm(i18next.t('general.languageChange'))
 
         if (shouldReload) {
-          location.reload()
+            location.reload()
         }
     });
 
