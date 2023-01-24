@@ -528,13 +528,13 @@ export const toggleAutoSacrifice = (index: number) => {
     if (index === 0) {
         if (player.autoSacrificeToggle) {
             player.autoSacrificeToggle = false;
-            el.textContent = 'Auto Runes: OFF';
+            el.textContent = i18next.t('runes.blessings.autoRuneOff');
             el.style.border = '2px solid red'
             player.autoSacrifice = 0;
         } else {
             player.autoSacrificeToggle = true;
             player.saveOfferingToggle = false;
-            el.textContent = 'Auto Runes: ON'
+            el.textContent = i18next.t('runes.blessings.autoRuneOn');
             el.style.border = '2px solid green'
             DOMCacheGetOrSet('saveOffToggle').textContent = 'Save Offerings [OFF]'
             DOMCacheGetOrSet('saveOffToggle').style.color = 'white'

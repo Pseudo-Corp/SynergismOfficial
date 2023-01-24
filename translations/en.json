@@ -557,6 +557,7 @@
         "autoAscensionTesseract": "On Ascension, Auto buyer will save at least {{percent}}% of your current amount of tesseracts. [Enter number above].",
         "thanksR2x14": "Thanks to Research 2x14, you also multiply Crystal production by {{mult}}",
         "thanksR2x15": "Thanks to Research 2x15, you also multiply Mythos Shard production by {{mult}}",
+        "constantHover": "Hover over an icon for a description of the upgrade. Click to buy it!",
         "names": {
             "workers": "Workers: {{amount}} [+{{gain}}]",
             "investments": "Investments: {{amount}} [+{{gain}}]",
@@ -1072,6 +1073,7 @@
         "cubicSumNegativeError": "You cannot spend a negative amount!"
     },
     "researches": {
+        "hover": "Hover over the grid to get details about researches!",
         "descriptions": {
             "1": "[1x1] Increase the number of free Accelerators gained by 20% from all sources.",
             "2": "[1x2] Increase the number of free Multipliers gained by 20% from all sources.",
@@ -2099,6 +2101,7 @@
         "off": "OFF"
     },
     "upgrades": {
+        "hover": "Hover over an upgrade icon to see details!",
         "descriptions": {
             "1": "Increase production of Workers per producer bought.",
             "2": "Increase production of Investments per producer bought.",
@@ -2639,6 +2642,17 @@
         "shop": "Hover over each portion of the shop to see what each upgrade does!"
     },
     "runes": {
+        "names": {
+            "speed": "Speed Rune",
+            "duplication": "Duplication Rune",
+            "prism": "Prism Rune",
+            "thrift": "Thrift Rune",
+            "SI": "Superior Intellect",
+            "IA": "Infinite Ascent",
+            "AOAG": "Antiquities of Ant God"
+        },
+        "maxLevel": "Maxed Level!",
+        "TNL": "+1 in {{EXP}} EXP",
         "offeringsYouHave": "You have {{offerings}} Offerings.",
         "gainExp": "Gain {{amount}}x EXP per offering sacrificed.",
         "recycleChance": "You have {{percent}}% chance of recycling your offerings. This multiplies EXP gain by {{mult}}!",
@@ -2673,6 +2687,15 @@
             "7": "You cannot grasp the true form of Ant God's treasure."
         },
         "talismans": {
+            "names": {
+                "exemption": "Exemption",
+                "chronos": "Chronos",
+                "midas": "Midas",
+                "metaphysics": "Metaphysics",
+                "polymath": "Polymath",
+                "mortuus": "Mortuus Est",
+                "plastic": "Plastic"
+            },
             "fortify": "FORTIFY",
             "enhance": "ENHANCE",
             "respec": "RESPEC",

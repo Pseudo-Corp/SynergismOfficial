@@ -318,9 +318,9 @@ export const visualUpdateRunes = () => {
             })
 
             if (runeLevel < maxLevel) {
-                DOMCacheGetOrSet(`rune${i}exp`).textContent = `+1 in ${format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2)} EXP`
+                DOMCacheGetOrSet(`rune${i}exp`).textContent = i18next.t('runes.TNL', {EXP: format(calculateRuneExpToLevel(i - 1) - player.runeexp[i - 1], 2)})
             } else {
-                DOMCacheGetOrSet(`rune${i}exp`).textContent = 'Maxed Level!'
+                DOMCacheGetOrSet(`rune${i}exp`).textContent = i18next.t('runes.maxLevel')
             }
             if (i <= 5) {
                 DOMCacheGetOrSet(`bonusrune${i}`).textContent = i18next.t('runes.bonusAmount', {
