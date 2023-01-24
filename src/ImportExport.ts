@@ -156,7 +156,7 @@ export const exportSynergism = async () => {
             // - TypeError (browser doesn't support this feature)
             // - Failed to copy (browser limitation; Safari)
             await navigator.clipboard.writeText(saveString)
-            DOMCacheGetOrSet('exportinfo').textContent = 'Copied save to clipboard!';
+            DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.copiedSave');
         } catch (err) {
             // So we fallback to the deprecated way of doing it,
             // which isn't limited by any browser.
@@ -180,13 +180,13 @@ export const exportSynergism = async () => {
             }
 
             clipboard.on('success', () => {
-                DOMCacheGetOrSet('exportinfo').textContent = 'Copied save to clipboard!'
+                DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.copiedSave');
                 cleanup()
             })
 
             clipboard.on('error', () => {
-                DOMCacheGetOrSet('exportinfo').textContent = 'Export failed!'
-                void Alert('Unable to write the save to clipboard.').finally(cleanup)
+                DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.exportFailed');
+                void Alert(i18next.t('importexport.unableCopySave')).finally(cleanup)
             })
         }
     } else {
@@ -200,13 +200,13 @@ export const exportSynergism = async () => {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        DOMCacheGetOrSet('exportinfo').textContent = 'Savefile copied to file!';
+        DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.copiedFile')
     }
     setTimeout(() => DOMCacheGetOrSet('exportinfo').textContent = '', 15_000);
 }
 
 export const reloadDeleteGame = async () => {
-    await Alert('The next confirmation is to delete the save data\nIf you do not want to delete it, cancel it');
+    await Alert(i18next.t('importexport.reloadDeletePrompt'));
     await resetGame();
 }
 
@@ -214,9 +214,9 @@ export const resetGame = async () => {
     const a = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16;
     const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16;
 
-    const result = await Prompt(`Answer the question to confirm you'd like to reset: what is ${a}+${b}? (Hint: ${a+b})`)
+    const result = await Prompt(i18next.t('importexport.resetPrompt', { a, b, sum: a + b }))
     if (result === null || Number(result) !== a + b) {
-        return Alert('Answer was wrong, not resetting!');
+        return Alert(i18next.t('importexport.wrongAnswer'));
     }
 
     const hold = Object.assign({}, blankSave, {
@@ -236,7 +236,7 @@ export const resetGame = async () => {
 
 export const importSynergism = async (input: string | null, reset = false) => {
     if (typeof input !== 'string') {
-        return Alert('Invalid character, could not save! 😕');
+        return Alert(i18next.t('importexport.unableImport'));
     }
 
     const d = LZString.decompressFromBase64(input);
@@ -250,7 +250,7 @@ export const importSynergism = async (input: string | null, reset = false) => {
         const saveString = btoa(JSON.stringify(f));
 
         if (saveString === null) {
-            return Alert('Unable to import this file!');
+            return Alert(i18next.t('importexport.unableImport'));
         }
 
         saveCheck.canSave = false;
@@ -263,7 +263,7 @@ export const importSynergism = async (input: string | null, reset = false) => {
         saveCheck.canSave = true;
         return;
     } else {
-        return Alert('You are attempting to load a testing file in a non-testing version!');
+        return Alert(i18next.t('importexport.loadTestInLive'));
     }
 }
 
@@ -299,7 +299,7 @@ export const promocodesInfo = async (input: string) => {
 }
 
 export const promocodesPrompt = async () => {
-    const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in "synergism2021" or "Khafra" perchance?]');
+    const input = await Prompt(i18next.t('importexport.promocodePrompt'));
     void promocodes(input);
 }
 
@@ -307,7 +307,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     const el = DOMCacheGetOrSet('promocodeinfo');
 
     if (input === null) {
-        return Alert('Alright, come back soon!')
+        return Alert(i18next.t('importexport.comeBackSoon'))
     }
     if (input === 'derpderp' && !player.codes.get(45) && G['isEvent'] && getEvent().name === 'Derpmas 2022: Gift of Gamebreak!') {
 
@@ -462,7 +462,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
         const timeInterval = addCodeInterval().time;
 
         if (availableUses < 1) {
-            el.textContent = `You do not have an 'Add' code attempt! You will gain 1 in ${timeToNextUse} seconds.`;
+            el.textContent = i18next.t('importexport.noAddCodes', { x: timeToNextUse });
             return;
         }
 
@@ -470,11 +470,11 @@ export const promocodes = async (input: string | null, amount?: number) => {
         if (amount) {
             attemptsUsed = amount.toString();
         } else {
-            attemptsUsed = await Prompt(`You can use up to ${availableUses} attempts at once. How many would you like to use?`);
+            attemptsUsed = await Prompt(i18next.t('importexport.useXAdds', { x: availableUses }));
         }
 
         if (attemptsUsed === null) {
-            return Alert('No worries, you didn\'t lose any of your uses! Come back later!');
+            return Alert(i18next.t('importexport.cancelAdd'));
         }
         const toUse = Number(attemptsUsed);
         if (
@@ -482,7 +482,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
             !Number.isInteger(toUse) ||
             toUse <= 0
         ) {
-            return Alert('Hey! That\'s not a valid number!');
+            return Alert(i18next.t('general.validation.invalidNumber'));
         }
 
         const addEffects = addCodeBonuses();

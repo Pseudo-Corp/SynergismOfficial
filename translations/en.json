@@ -2766,7 +2766,8 @@
         "loadoutExport": {
             "saveErrorNavigator": "Unable to write the save to clipboard: {{ message }}"
         },
-        "importLoadoutInTextFormat": "Import Corruption Loadout in text format"
+        "importLoadoutInTextFormat": "Import Corruption Loadout in text format",
+        "loadoutApplied": "Corruption Loadout from previous run has been applied. This will take effect on the next Ascension."
     },
     "footnotes": {
         "buildings": "Press [1], [2], [3], [4], or [5] to buy the corresponding tier starting from the top. Press [A] to buy Accelerator, [M] to buy Multiplier, or [B] to buy Accelerator Boost.",
@@ -2965,6 +2966,40 @@
       "craftMaxOrbs": "This will attempt to buy as many orbs as possible. \\nYou can buy up to {{x}} with your hepteracts. Are you sure?",
       "hepteractInput": "How many Orbs would you like to purchase?\\n You can buy up to {{x}} with your hepteracts.",
       "gainedPowder": "You have also gained {{x}} powder immediately, thanks to your shop upgrades.",
-      "purchasedOrbs": "You have purchased {{x}} Overflux Orbs [+{{y}}% to effect]. {{z}} Enjoy!"
+      "purchasedOrbs": "You have purchased {{x}} Overflux Orbs [+{{y}}% to effect]. {{z}} Enjoy!",
+      "allCubeGain": "ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative]",
+      "allCubeGainExtended": "ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative], Ascension Count +{{z}}%, Tesseract Building Production x{{a}} [From Platonic Upgrade 4x1]",
+      "powderEffect": "Powder effect: {{x}}",
+      "powderLumps": "You have {{x}} lumps of Overflux Powder.",
+      "expiredOrbs": "Expired Overflux Orbs become powder at a rate of {{x}} Orbs per powder lump!",
+      "dayWarpsRemaining": "Day Warps remaining today: {{x}}",
+      "warpImpossible": "Warping is impossible (you get multiplier to Quarks instead)",
+      "machineCooldown": "Sorry, but this machine is on cooldown.",
+      "atleastPowder": "Sorry, but you need 25 powder to operate the warp machine.",
+      "stumbleMachine": "You stumble upon a mysterious machine. A note attached says that you can reset daily Cube openings for 25 Powder. However it only works once each real life day. You in?",
+      "walkAwayMachine": "You walk away from the machine, powder intact.",
+      "useMachine": "Upon using the machine, your cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]",
+      "useAllWarpsPrompt": "Turning this OFF, will consume all of your remaining Warps (without doing a Warp).\\nAre you sure?",
+      "machineDidNotConsume": "Machine didn't consume your Warps.",
+      "boostQuarksPrompt": "This machine will now be able to boost your Quarks gained from opening Cubes, based on how many Warps you have remaining. While its ON, warping will be impossible and turning it OFF won't be so easy.\\nAre you sure you want to turn it ON?",
+      "machineOverdrive": "Machine will go into overdrive,\\nonce you will have some Warps.",
+      "machineInOverdrive": "Machine is now on overdrive.",
+      "machineUsualContinue": "Machine will continue to work as usual, for now."
+    },
+    "importexport": {
+      "copiedSave": "Copied save to clipboard!",
+      "copiedFile": "Savefile copied to file!",
+      "exportFailed": "Export failed!",
+      "unableCopySave": "Unable to write the save to clipboard.",
+      "reloadDeletePrompt": "The next confirmation is to delete the save data\\nIf you do not want to delete it, cancel it",
+      "resetPrompt": "Answer the question to confirm you'd like to reset: what is {{a}}+{{b}}? (Hint: {{sum}})",
+      "wrongAnswer": "Answer was wrong, not resetting!",
+      "unableImport": "Unable to import this file!",
+      "loadTestInLive": "You are attempting to load a testing file in a non-testing version!",
+      "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \\n [Note to viewer: this is for events and certain always-active codes. \\n May I suggest you type in \"synergism2021\" or \"Khafra\" perchance?]",
+      "comeBackSoon": "Alright, come back soon!",
+      "noAddCodes": "You do not have an 'Add' code attempt! You will gain 1 in {{x}} seconds.",
+      "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use?",
+      "cancelAdd": "No worries, you didn't lose any of your uses! Come back later!"
     }
 }

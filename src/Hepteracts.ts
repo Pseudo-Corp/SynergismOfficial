@@ -636,18 +636,30 @@ export const toggleAutoBuyOrbs = (newValue?: boolean, firstLoad = false) => {
  * Generates the description at the bottom of the page for Overflux Powder Properties
  */
 export const overfluxPowderDescription = () => {
-    let powderEffectText = 'ALL Cube Gain +' + format(100 * (calculateCubeMultFromPowder() - 1), 2, true) + '% [Multiplicative], +' + format(100 * (calculateQuarkMultFromPowder() - 1), 3, true) + '% Quarks [Multiplicative]'
+    let powderEffectText: string
     if (player.platonicUpgrades[16] > 0) {
-        powderEffectText += ', Ascension Count +' + format(2 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 1e5), 2, true) + '%, ' + 'Tesseract Building Production x' + format(Decimal.pow(player.overfluxPowder + 1, 10 * player.platonicUpgrades[16])) + ' [From Platonic Upgrade 4x1]'
+        powderEffectText = i18next.t('hepteracts.allCubeGainExtended', {
+            x: format(100 * (calculateCubeMultFromPowder() - 1), 2, true),
+            y: format(100 * (calculateQuarkMultFromPowder() - 1), 3, true),
+            z: format(2 * player.platonicUpgrades[16] * Math.min(1, player.overfluxPowder / 1e5), 2, true),
+            a: format(Decimal.pow(player.overfluxPowder + 1, 10 * player.platonicUpgrades[16]))
+        })
+    } else {
+        powderEffectText = i18next.t('hepteracts.allCubeGain', {
+            x: format(100 * (calculateCubeMultFromPowder() - 1), 2, true),
+            y: format(100 * (calculateQuarkMultFromPowder() - 1), 3, true)
+        })
     }
     DOMCacheGetOrSet('hepteractUnlockedText').style.display = 'none'
-    DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = 'Powder effect: ' + powderEffectText
-    DOMCacheGetOrSet('hepteractBalanceText').textContent = 'You have ' + format(player.overfluxPowder, 2, true) + ' lumps of Overflux Powder.'
-    DOMCacheGetOrSet('hepteractEffectText').textContent = `Expired Overflux Orbs become powder at a rate of ${format(1 / calculatePowderConversion().mult, 1, true)} Orbs per powder lump!`
+    DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = i18next.t('hepteracts.powderEffect', { x: powderEffectText })
+    DOMCacheGetOrSet('hepteractBalanceText').textContent = i18next.t('hepteracts.powderLumps', { x: format(player.overfluxPowder, 2, true) })
+    DOMCacheGetOrSet('hepteractEffectText').textContent = i18next.t('hepteracts.expiredOrbs', {
+        x: format(1 / calculatePowderConversion().mult, 1, true)
+    })
     DOMCacheGetOrSet('hepteractCostText').style.display = 'none'
 
     DOMCacheGetOrSet('powderDayWarpText').style.display = 'block'
-    DOMCacheGetOrSet('powderDayWarpText').textContent = `Day Warps remaining today: ${player.dailyPowderResetUses}`
+    DOMCacheGetOrSet('powderDayWarpText').textContent = i18next.t('hepteracts.dayWarpsRemaining', { x: player.dailyPowderResetUses })
 }
 
 /**
@@ -658,54 +670,54 @@ export const overfluxPowderDescription = () => {
 export const overfluxPowderWarp = async (auto: boolean) => {
     if (!auto) {
         if (player.autoWarpCheck) {
-            return Alert('Warping is impossible (you get multiplier to Quarks instead)')
+            return Alert(i18next.t('hepteracts.warpImpossible'))
         }
         if (player.dailyPowderResetUses <= 0) {
-            return Alert('Sorry, but this machine is on cooldown.')
+            return Alert(i18next.t('hepteracts.machineCooldown'))
         }
         if (player.overfluxPowder < 25) {
-            return Alert('Sorry, but you need 25 powder to operate the warp machine.')
+            return Alert(i18next.t('hepteracts.atleastPowder'))
         }
-        const c = await Confirm('You stumble upon a mysterious machine. A note attached says that you can reset daily Cube openings for 25 Powder. However it only works once each real life day. You in?')
+        const c = await Confirm(i18next.t('hepteracts.stumbleMachine'))
         if (!c) {
             if (player.toggles[35]) {
-                return Alert('You walk away from the machine, powder intact.')
+                return Alert(i18next.t('hepteracts.walkAwayMachine'))
             }
         } else {
             player.overfluxPowder -= 25
             player.dailyPowderResetUses -= 1;
             forcedDailyReset();
             if (player.toggles[35]) {
-                return Alert('Upon using the machine, your cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]')
+                return Alert(i18next.t('hepteracts.useMachine'))
             }
         }
     } else {
         if (player.autoWarpCheck) {
-            const a = await Confirm('Turning this OFF, will consume all of your remaining Warps (without doing a Warp).\nAre you sure?')
+            const a = await Confirm(i18next.t('hepteracts.useAllWarpsPrompt'))
             if (a) {
                 DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOffColon')
                 DOMCacheGetOrSet('warpAuto').style.border = '2px solid red'
                 player.autoWarpCheck = false
                 player.dailyPowderResetUses = 0;
-                return Alert('Machine will need some time to cooldown (no Warps today).')
+                return Alert(i18next.t('hepteracts.machineCooldown'))
             } else {
                 if (player.toggles[35]) {
-                    return Alert('Machine didn\'t consumed your Warps.')
+                    return Alert(i18next.t('hepteracts.machineDidNotConsume'))
                 }
             }
         } else {
-            const a = await Confirm('This machine will now be able to boost your Quarks gained from opening Cubes, based on how many Warps you have remaining. While its ON, warping will be impossible and turning it OFF won\'t be so easy.\nAre you sure you want to turn it ON?')
+            const a = await Confirm(i18next.t('hepteracts.boostQuarksPrompt'))
             if (a) {
                 DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOnColon')
                 DOMCacheGetOrSet('warpAuto').style.border = '2px solid green'
                 player.autoWarpCheck = true
                 if (player.dailyPowderResetUses === 0) {
-                    return Alert('Machine will go into overdrive,\nonce you will have some Warps.')
+                    return Alert(i18next.t('hepteracts.machineOverdrive'))
                 }
-                return Alert('Machine is now on overdrive.')
+                return Alert(i18next.t('hepteracts.machineInOverdrive'))
             } else {
                 if (player.toggles[35]) {
-                    return Alert('Machine will continue to work as ussual, for now.')
+                    return Alert(i18next.t('hepteracts.machineUsualContinue'))
                 }
             }
         }
