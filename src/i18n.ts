@@ -2,7 +2,7 @@ import i18next, { type Resource } from 'i18next'
 import { prod } from './Config'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import ColorTextPlugin from './Plugins/ColorText'
-import { toggleauto } from './Toggles'
+import { Confirm } from './UpdateHTML'
 
 // For 'flag': https://emojipedia.org/emoji-flag-sequence/
 // Searching "flag <country>" in their search bar will help verify the code.
@@ -62,7 +62,12 @@ function buildLanguageButton(langID: string, name: string, flag: string) {
         // i18next.addResourceBundle
         await i18next.changeLanguage(langID)
         localStorage.setItem('language', langID)
-        afterLanguageChange()
+
+        const shouldReload = await Confirm(i18next.t('general.languageChange'))
+
+        if (shouldReload) {
+          location.reload()
+        }
     });
 
     const flagSpan = document.createElement('span');
@@ -101,7 +106,3 @@ function translateHTML () {
     }
 }
 
-function afterLanguageChange () {
-    translateHTML()
-    toggleauto()
-}

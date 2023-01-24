@@ -2098,7 +2098,8 @@
         "sacrificeCapital": "SACRIFICE",
         "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!",
         "on": "ON",
-        "off": "OFF"
+        "off": "OFF",
+        "languageChange": "Changing the language requires a reload! Would you like to reload now?"
     },
     "upgrades": {
         "hover": "Hover over an upgrade icon to see details!",
