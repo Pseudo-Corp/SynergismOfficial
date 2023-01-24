@@ -1185,7 +1185,7 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
     const rawPercentage = isPercentage ? Number(amount.slice(0, -1)) : Number(amount);
 
     if (Number.isNaN(rawPercentage) || !Number.isFinite(rawPercentage) || !Number.isInteger(rawPercentage)) {
-        return Alert('Value must be a finite, non-decimal number!');
+        return Alert(i18next.t('general.validation.finiteInt'));
     } else if (rawPercentage < 0 || rawPercentage > 100) {
         return Alert('Value must be a number between 0 and 100, inclusive!');
     } else if (rawPercentage === player.hepteractAutoCraftPercentage && player.toggles[35]) {

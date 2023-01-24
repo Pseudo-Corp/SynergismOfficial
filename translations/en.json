@@ -530,7 +530,9 @@
         "upgradeMultiplier": "Upgrade Multiplier: <<gold|{{x}}x>>",
         "timeMultiplier": "Time Multiplier: <<var(--lightseagreen-text-color);|{{x}}x>>",
         "resetAnthill": "Reset Anthill features for:",
-        "antSacMultiplier": "Ant Sacrifice Multiplier: 1x --> <<limegreen|x{{x}}>>"
+        "antSacMultiplier": "Ant Sacrifice Multiplier: 1x --> <<limegreen|x{{x}}>>",
+        "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?",
+        "elo": "+{{x}} [>{{y}} ELO]"
     },
     "buildings": {
         "excessiveWealth": "Due to your excessive wealth, coin production is divided by {{div}} to pay taxes! {{- warning}}",
@@ -908,7 +910,11 @@
         "timeEnterChallenge": "Time before entering challenge: <<var(--orchid-text-color)|{{time}}>>s",
         "autoTimer": "<<orange|Auto Timer:>> <<var(--orchid-text-color)|{{time}}s>>",
         "perCompletionBonus": "Per Completion Bonuses || <<var(--orchid-text-color)|Softcapped pass {{x}}! Effective completion count {{y}}>>",
-        "perCompletionBonusEmpty": "Per Completion Bonuses"
+        "perCompletionBonusEmpty": "Per Completion Bonuses",
+        "hypercubeOneTimeBonus": "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)",
+        "ascensionBankAdd": "Completing the challenge adds {{x}} to Ascension Bank and increase base Score by {{y}}.",
+        "firstTimeBonus": "Gain {{x}} for completing this challenge [First Time Bonus]!",
+        "firstTimeBonusQuarks": "Gain {{x}} Quarks for completing this challenge [First Time Bonus]!"
     },
     "cubes": {
         "upgradeNames": {
@@ -1061,6 +1067,13 @@
             "cost": "Cost: {{value1}} Wow! Cubes [+{{value2}} Levels]",
             "level": "Level: {{value1}} / {{value2}}",
             "maxLevel": "Cost: 0 Wow! Cubes. This upgrade is maxed! wow"
+        },
+        "noCubesOpened": "OK. No cubes opened.",
+        "howManyCubesOpen": "How many cubes would you like to open? You have {{x}}! \\nYou can input a percentage of cubes to open, for example: \"50%\" or \"100%\". \\nYou can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number (also works with %).",
+        "validation": {
+          "notEnough": "You don't have enough cubes to open!",
+          "negative": "You can't open a negative amount of cubes.",
+          "invalidPercent": "You can't open {{x}}% of your cubes..."
         }
     },
     "calculate": {
@@ -2073,11 +2086,22 @@
     "general": {
         "youAreInThe": "You are in the",
         "validation": {
+            "finiteInt": "Value must be a finite, non-decimal number!",
             "finite": "Value must be a finite number!",
             "zeroOrLess": "Only numbers greater than zero, please!",
             "moreThanPlayerHas": "You can't afford this yet!",
             "fraction": "Yeah, that isn't an integer. We don't accept fractions here!",
-            "goldenQuarksTooMany": "Sorry, I cannnot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!"
+            "goldenQuarksTooMany": "Sorry, I cannnot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!",
+            "invalidNumber": "Hey! That's not a valid number!"
+        },
+        "updateAlerts": {
+          "june282021": "June 28, 2021: V2.5.3. You have been refunded quarks from calculators if you purchased them. They are no longer refundable so be wary!",
+          "july22021": "July 2, 2021: V2.5.5. You have been refunded quarks from Powder EX upgrade, if you purchased levels. Your T1 ants were also reset and base cost set to 1e700 particles. Powder EX is no longer refundable, though, so be careful!",
+          "sing230Balancing": "Due to balancing changes, you were sent back to Singularity 230 to prevent softlocking your savefile!",
+          "december22xxxx": "You have loaded into the December 22 patch v1.",
+          "january42023": "You have loaded into the January 4, 2023 Patch v1.",
+          "v297hotfix1NoSing": "You have loaded into the version 2.9.7 hotfix 1!",
+          "v297hotfix1Sing": "You have loaded into the version 2.9.7 hotfix 1! Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience."
         },
         "cancelled": "Okay, maybe next time!",
         "level": "Level",
@@ -2680,7 +2704,8 @@
         },
         "loadoutExport": {
             "saveErrorNavigator": "Unable to write the save to clipboard: {{ message }}"
-        }
+        },
+        "importLoadoutInTextFormat": "Import Corruption Loadout in text format"
     },
     "footnotes": {
         "buildings": "Press [1], [2], [3], [4], or [5] to buy the corresponding tier starting from the top. Press [A] to buy Accelerator, [M] to buy Multiplier, or [B] to buy Accelerator Boost.",
@@ -2847,5 +2872,38 @@
         "activeUntil": "ACTIVE UNTIL: {{x}}",
         "starts": "STARTS {{x}}"
       }
+    },
+    "dynamicUpgrades": {
+      "validation": {
+        "setPurchaseAmount": "Set maximum purchase amount per click for the {{x}} upgrade. Type -1 to set to MAX by default.",
+        "toggleKept": "Toggle kept at {{x}}.",
+        "onlyNegativeOne": "The only valid negative number for toggle is -1.",
+        "notZero": "You cannot set the toggle to 0."
+      },
+      "toggleMax": "Your toggle is now set to MAX",
+      "toggle": "Your toggle is now set to {{x}}"
+    },
+    "hepteracts": {
+      "unlockedCraft": "Congratulations. You have unlocked the ability to craft {{x}} in the hepteract forge!",
+      "notUnlocked": "This is not an unlocked craft, thus you cannot craft this item!",
+      "reachedCapacity": "You have reached the current capacity of {{x}}. Please expand to craft more.",
+      "craftMax": "This will attempt to craft as many as possible. \\nYou can craft up to {{x}} ({{y}}%). Are you sure?",
+      "executionFailed": "Execution failed: material could not be calculated.",
+      "craft": "How many would you like to craft? \\nYou can buy up to {{x}} ({{y}}%) amount.",
+      "cancelled": "Okay, maybe next time.",
+      "notEnough": "Insufficient inventory to expand.",
+      "craftedHepteracts": "You have successfully crafted {{x}} hepteracts.",
+      "craftedHepteractsMax": "You have successfully crafted {{x}} hepteracts. If this is less than your input, you either hit the inventory limit or you had insufficient resources.",
+      "expandPrompt": "This will reduce your balance by {{x}}, but capacity will increase from {{y}} to {{z}} [Expansion Multiplier: {{a}}]. Agree to the terms and conditions and stuff?",
+      "doubleSpent": "Something already modified your balance or cap, try again!",
+      "expandedInventory": "Successfully expanded your inventory. You can now fit {{x}}.",
+      "orbEffect": "Orb Effect: Opening Cubes gives {{x}}% more Quarks.",
+      "orbsPurchasedToday": "Orbs Purchased Today: {{x}}.",
+      "amalgamate": "You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]",
+      "cost250k": "Cost: 250,000 Hepteracts per Overflux Orb",
+      "craftMaxOrbs": "This will attempt to buy as many orbs as possible. \\nYou can buy up to {{x}} with your hepteracts. Are you sure?",
+      "hepteractInput": "How many Orbs would you like to purchase?\\n You can buy up to {{x}} with your hepteracts.",
+      "gainedPowder": "You have also gained {{x}} powder immediately, thanks to your shop upgrades.",
+      "purchasedOrbs": "You have purchased {{x}} Overflux Orbs [+{{y}}% to effect]. {{z}} Enjoy!"
     }
 }

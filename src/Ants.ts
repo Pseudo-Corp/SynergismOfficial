@@ -304,13 +304,13 @@ export const showSacrifice = () => {
     DOMCacheGetOrSet('antSacrificeOffering').textContent = '+' + format(sacRewards.offerings)
     DOMCacheGetOrSet('antSacrificeObtainium').textContent = '+' + format(sacRewards.obtainium)
     if (player.challengecompletions[9] > 0) {
-        DOMCacheGetOrSet('antSacrificeTalismanShard').textContent = '+' + format(sacRewards.talismanShards) + ' [>500 ELO]'
-        DOMCacheGetOrSet('antSacrificeCommonFragment').textContent = '+' + format(sacRewards.commonFragments) + ' [>750 ELO]'
-        DOMCacheGetOrSet('antSacrificeUncommonFragment').textContent = '+' + format(sacRewards.uncommonFragments) + ' [>1,000 ELO]'
-        DOMCacheGetOrSet('antSacrificeRareFragment').textContent = '+' + format(sacRewards.rareFragments) + ' [>1,500 ELO]'
-        DOMCacheGetOrSet('antSacrificeEpicFragment').textContent = '+' + format(sacRewards.epicFragments) + ' [>2,000 ELO]'
-        DOMCacheGetOrSet('antSacrificeLegendaryFragment').textContent = '+' + format(sacRewards.legendaryFragments) + ' [>3,000 ELO]'
-        DOMCacheGetOrSet('antSacrificeMythicalFragment').textContent = '+' + format(sacRewards.mythicalFragments) + ' [>5,000 ELO]'
+        DOMCacheGetOrSet('antSacrificeTalismanShard').textContent = i18next.t('ants.elo', { x: format(sacRewards.talismanShards), y: 500 })
+        DOMCacheGetOrSet('antSacrificeCommonFragment').textContent = i18next.t('ants.elo', { x: format(sacRewards.commonFragments), y: 750 })
+        DOMCacheGetOrSet('antSacrificeUncommonFragment').textContent = i18next.t('ants.elo', { x: format(sacRewards.uncommonFragments), y: 1000 })
+        DOMCacheGetOrSet('antSacrificeRareFragment').textContent = i18next.t('ants.elo', { x: format(sacRewards.rareFragments), y: 1500 })
+        DOMCacheGetOrSet('antSacrificeEpicFragment').textContent = i18next.t('ants.elo', { x: format(sacRewards.epicFragments), y: 2000 })
+        DOMCacheGetOrSet('antSacrificeLegendaryFragment').textContent = i18next.t('ants.elo', { x: format(sacRewards.legendaryFragments), y: 3000 })
+        DOMCacheGetOrSet('antSacrificeMythicalFragment').textContent = i18next.t('ants.elo', { x: format(sacRewards.mythicalFragments), y: 5000 })
     }
 }
 
@@ -319,7 +319,7 @@ export const sacrificeAnts = async (auto = false) => {
 
     if (player.antPoints.gte('1e40')) {
         if (!auto && player.toggles[32]) {
-            p = await Confirm('This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?')
+            p = await Confirm(i18next.t('ants.autoReset'))
         }
         if (p) {
             const antSacrificePointsBefore = player.antSacrificePoints;

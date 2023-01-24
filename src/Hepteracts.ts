@@ -94,7 +94,7 @@ export class HepteractCraft {
         }
         this.UNLOCKED = true;
         if (player.highestSingularityCount < 5) {
-            return Alert('Congratulations. You have unlocked the ability to craft ' + hepteractName + ' in the hepteract forge!');
+            return Alert(i18next.t('hepteracts.unlockedCraft', { x: hepteractName }));
         } else {
             return this
         }
@@ -114,12 +114,12 @@ export class HepteractCraft {
         const craftCostMulti = calculateSingularityDebuff('Hepteract Costs')
         // If craft is unlocked, we return object
         if (!this.UNLOCKED) {
-            return Alert('This is not an unlocked craft, thus you cannot craft this item!');
+            return Alert(i18next.t('hepteracts.notUnlocked'));
         }
 
         if (heptCap - this.BAL <= 0) {
             if (player.toggles[35]) {
-                return Alert(`You have reached the current capacity of ${format(heptCap,0,true)}. Please expand to craft more.`);
+                return Alert(i18next.t('hepteracts.reachedCapacity', { x: format(heptCap, 0, true) }))
             }
         }
 
@@ -148,15 +148,19 @@ export class HepteractCraft {
 
         // Return if the material is not a calculable number
         if (isNaN(amountToCraft) || !isFinite(amountToCraft)) {
-            return Alert('Execustion failed: material could not be calculated.');
+            return Alert(i18next.t('hepteracts.executionFailed'));
         }
 
         //Prompt used here. Thank you Khafra for the already made code! -Platonic
         if (!max) {
-            const craftingPrompt = await Prompt(`How many would you like to craft? \nYou can buy up to ${format(amountToCraft, 0, true)} (${(Math.floor(amountToCraft / heptCap * 10000) / 100)}%) amount.`);
+            const craftingPrompt = await Prompt(i18next.t('hepteracts.craft', {
+                x: format(amountToCraft, 0, true),
+                y: Math.floor(amountToCraft / heptCap * 10000) / 100
+            }))
+
             if (craftingPrompt === null) { // Number(null) is 0. Yeah..
                 if (player.toggles[35]) {
-                    return Alert('Okay, maybe next time.');
+                    return Alert(i18next.t('hepteracts.cancelled'));
                 } else {
                     return //If no return, then it will just give another message
                 }
@@ -177,9 +181,13 @@ export class HepteractCraft {
         amountToCraft = Math.min(smallestItemLimit, hepteractLimit, craftAmount, heptCap - this.BAL);
 
         if (max && player.toggles[35]) {
-            const craftYesPlz = await Confirm(`This will attempt to craft as many as possible. \nYou can craft up to ${format(amountToCraft, 0, true)} (${(Math.floor(amountToCraft / heptCap * 10000) / 100)}%). Are you sure?`);
+            const craftYesPlz = await Confirm(i18next.t('hepteracts.craftMax', {
+                x: format(amountToCraft, 0, true),
+                y: Math.floor(amountToCraft / heptCap * 10000) / 100
+            }))
+
             if (!craftYesPlz) {
-                return Alert('Okay, maybe next time.');
+                return Alert(i18next.t('hepteracts.cancelled'));
             }
         }
 
@@ -207,7 +215,11 @@ export class HepteractCraft {
         }
 
         if (player.toggles[35]) {
-            return Alert('You have successfully crafted ' + format(amountToCraft, 0, true) + ' hepteracts.' + (max ? '' : ' If this is less than your input, you either hit the inventory limit or you had insufficient resources.'));
+            if (!max) {
+                return Alert(i18next.t('hepteracts.craftedHepteracts', { x: format(amountToCraft, 0, true) }))
+            }
+
+            return Alert(i18next.t('hepteracts.craftedHepteractsMax', { x: format(amountToCraft, 0, true) }))
         }
     }
 
@@ -232,19 +244,25 @@ export class HepteractCraft {
         const currHeptCapNoMulti = this.CAP
 
         if (!this.UNLOCKED) {
-            return Alert('This is not an unlocked craft. Sorry!');
+            return Alert(i18next.t('hepteracts.notUnlocked'));
         }
 
         // Below capacity
         if (this.BAL < this.CAP) {
             if (player.toggles[35]) {
-                return Alert('Insufficient inventory to expand.');
+                return Alert(i18next.t('hepteracts.notEnough'));
             } else {
                 return
             }
         }
 
-        const expandPrompt = await Confirm(`This will reduce your balance by ${format(this.CAP)}, but capacity will increase from ${format(heptCap)} to ${format(heptCap * expandMultiplier)} [Expansion Multiplier: ${format(expandMultiplier, 2, true)}]. Agree to the terms and conditions and stuff?`)
+        const expandPrompt = await Confirm(i18next.t('hepteracts.expandPrompt', {
+            x: format(this.CAP),
+            y: format(heptCap),
+            z: format(heptCap * expandMultiplier),
+            a: format(expandMultiplier, 2, true)
+        }))
+
         if (!expandPrompt) {
             return this;
         }
@@ -252,7 +270,7 @@ export class HepteractCraft {
         // Avoid a double-expand exploit due to player waiting to confirm until after autocraft fires and expands
         if (this.BAL !== currentBalance || this.CAP !== currHeptCapNoMulti) {
             if (player.toggles[35]) {
-                return Alert('Something already modified your balance or cap, try again!');
+                return Alert(i18next.t('hepteracts.doubleSpent'));
             } else {
                 return;
             }
@@ -265,7 +283,9 @@ export class HepteractCraft {
         this.CAP = Math.min(1e300, this.CAP * expandMultiplier);
 
         if (player.toggles[35]) {
-            return Alert(`Successfully expanded your inventory. You can now fit ${format(heptCap * expandMultiplier, 0, true)}.`);
+            return Alert(i18next.t('hepteracts.expandedInventory', {
+                x: format(heptCap * expandMultiplier, 0, true)
+            }))
         }
     }
 
@@ -532,10 +552,14 @@ export const hepteractToOverfluxOrbDescription = () => {
     DOMCacheGetOrSet('powderDayWarpText').style.display = 'none'
     DOMCacheGetOrSet('hepteractCostText').style.display = 'block'
 
-    DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = 'Orb Effect: Opening Cubes gives ' + format(100 *(-1 + calculateCubeQuarkMultiplier()), 2, true) + '% more Quarks.'
-    DOMCacheGetOrSet('hepteractBalanceText').textContent = 'Orbs Purchased Today: ' + format(player.overfluxOrbs, 0, true) + '.'
-    DOMCacheGetOrSet('hepteractEffectText').textContent = 'You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]'
-    DOMCacheGetOrSet('hepteractCostText').textContent = 'Cost: 250,000 Hepteracts per Overflux Orb'
+    DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = i18next.t('hepteracts.orbEffect', {
+        x: format(100 * (-1 + calculateCubeQuarkMultiplier()), 2, true)
+    })
+    DOMCacheGetOrSet('hepteractBalanceText').textContent = i18next.t('hepteracts.orbsPurchasedToday', {
+        x: format(player.overfluxOrbs, 0, true)
+    })
+    DOMCacheGetOrSet('hepteractEffectText').textContent = i18next.t('hepteracts.amalgamate')
+    DOMCacheGetOrSet('hepteractCostText').textContent = i18next.t('hepteracts.cost250k')
 }
 
 /**
@@ -548,17 +572,17 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?:boolean) => {
 
     if (buyMax) {
         if (player.toggles[35]) {
-            const craftYesPlz = await Confirm(`This will attempt to buy as many orbs as possible. \nYou can buy up to ${format(maxBuy, 0, true)} with your hepteracts. Are you sure?`);
+            const craftYesPlz = await Confirm(i18next.t('hepteracts.craftMaxOrbs', { x: format(maxBuy, 0, true) }));
             if (!craftYesPlz) {
-                return Alert('Okay, maybe next time.');
+                return Alert(i18next.t('hepteracts.cancelled'));
             }
         }
         toUse = maxBuy;
     } else {
-        const hepteractInput = await Prompt(`How many Orbs would you like to purchase?\n You can buy up to ${format(maxBuy, 0, true)} with your hepteracts.`);
+        const hepteractInput = await Prompt(i18next.t('hepteracts.hepteractInput', { x: format(maxBuy, 0, true) }));
         if (hepteractInput === null) {
             if (player.toggles[35]) {
-                return Alert('Okay, maybe next time.');
+                return Alert(i18next.t('hepteracts.cancelled'));
             } else {
                 return
             }
@@ -569,7 +593,7 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?:boolean) => {
             !isFinite(toUse) ||
             !Number.isInteger(toUse) ||
             toUse <= 0) {
-            return Alert('Hey! That\'s not a valid number!');
+            return Alert(i18next.t('general.validation.invalidNumber'));
         }
     }
 
@@ -586,9 +610,13 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?:boolean) => {
     const powderGain = player.shopUpgrades.powderAuto * calculatePowderConversion().mult * buyAmount / 100;
     player.overfluxPowder += powderGain;
 
-    const powderText = (powderGain > 0) ? `You have also gained ${format(powderGain, 2, true)} powder immediately, thanks to your shop upgrades.` : '';
+    const powderText = (powderGain > 0) ? i18next.t('hepteracts.gainedPowder', { x: format(powderGain, 2, true) }) : '';
     if (player.toggles[35]) {
-        return Alert('You have purchased ' + format(buyAmount, 0, true) + ` Overflux Orbs [+${format(100 * (afterEffect - beforeEffect), 2, true)}% to effect]. ${powderText} Enjoy!`);
+        return Alert(i18next.t('hepteracts.purchasedOrbs', {
+            x: format(buyAmount, 0, true),
+            y: format(100 * (afterEffect - beforeEffect), 2, true),
+            z: powderText
+        }))
     }
 }
 

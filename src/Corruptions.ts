@@ -226,7 +226,7 @@ export const corruptionLoadoutTableCreate = () => {
             btn.textContent = i18next.t('corruptions.loadoutTable.import')
             btn.addEventListener('click', () => void importCorruptionsPrompt());
             cell.appendChild(btn);
-            cell.title = 'Import Corruption Loadout in text format'
+            cell.title = i18next.t('corruptions.importLoadoutInTextFormat')
 
             cell = row.insertCell();
             btn = document.createElement('button');
