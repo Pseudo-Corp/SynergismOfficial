@@ -1030,11 +1030,11 @@ export const toggleautoopensCubes = (i: number) => {
             const oc = DOMCacheGetOrSet('openCubes');
             const oci = DOMCacheGetOrSet('cubeOpensInput');
             if (player.autoOpenCubes) {
-                oc.textContent = 'Auto Open [OFF]';
+                oc.textContent = i18next.t('wowCubes.autoOff');
                 oc.style.border = '1px solid red';
                 oci.style.border = '1px solid red';
             } else {
-                oc.textContent = `Auto Open ${format(player.openCubes, 0)}%`;
+                oc.textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openCubes, 0)});
                 oc.style.border = '1px solid green';
                 oci.style.border = '1px solid green';
             }
@@ -1044,11 +1044,11 @@ export const toggleautoopensCubes = (i: number) => {
             const oc = DOMCacheGetOrSet('openTesseracts');
             const oci = DOMCacheGetOrSet('tesseractsOpensInput');
             if (player.autoOpenTesseracts) {
-                oc.textContent = 'Auto Open [OFF]';
+                oc.textContent = i18next.t('wowCubes.autoOff');
                 oc.style.border = '1px solid red';
                 oci.style.border = '1px solid red';
             } else {
-                oc.textContent = `Auto Open ${format(player.openTesseracts, 0)}%`;
+                oc.textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openTesseracts, 0)});
                 oc.style.border = '1px solid green';
                 oci.style.border = '1px solid green';
             }
@@ -1058,11 +1058,11 @@ export const toggleautoopensCubes = (i: number) => {
             const oc = DOMCacheGetOrSet('openHypercubes');
             const oci = DOMCacheGetOrSet('hypercubesOpensInput');
             if (player.autoOpenHypercubes) {
-                oc.textContent = 'Auto Open [OFF]';
+                oc.textContent = i18next.t('wowCubes.autoOff');
                 oc.style.border = '1px solid red';
                 oci.style.border = '1px solid red';
             } else {
-                oc.textContent = `Auto Open ${format(player.openHypercubes, 0)}%`;
+                oc.textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openHypercubes, 0)});
                 oc.style.border = '1px solid green';
                 oci.style.border = '1px solid green';
             }
@@ -1072,11 +1072,11 @@ export const toggleautoopensCubes = (i: number) => {
             const oc = DOMCacheGetOrSet('openPlatonicCube');
             const oci = DOMCacheGetOrSet('platonicCubeOpensInput');
             if (player.autoOpenPlatonicsCubes) {
-                oc.textContent = 'Auto Open [OFF]';
+                oc.textContent = i18next.t('wowCubes.autoOff');
                 oc.style.border = '1px solid red';
                 oci.style.border = '1px solid red';
             } else {
-                oc.textContent = `Auto Open ${format(player.openPlatonicsCubes, 0)}%`;
+                oc.textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openPlatonicsCubes, 0)})
                 oc.style.border = '1px solid green';
                 oci.style.border = '1px solid green';
             }

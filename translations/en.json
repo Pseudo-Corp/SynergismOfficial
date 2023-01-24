@@ -2414,6 +2414,102 @@
         "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
         "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
     },
+    "wowCubes": {
+        "greenText": "You can also spend them on upgrades that persist through Ascension.",
+        "open1": "Open x1",
+        "open10%": "Open 10%",
+        "open50%": "Open 50%",
+        "openCustom": "Custom Amount",
+        "openAll": "Open All",
+        "autoOff": "Auto Open [OFF]",
+        "autoOn": "Auto Open {{percent}}%",
+        "quarks": {
+            "quarkTitle": "-=- Cube to Quark Corner -=-",
+            "resetInfo": "Quark Rewards reset midnight!",
+            "cubeQuarksToday": "Quarks gained from Cubes: <<cyan|{{amount}}>>",
+            "cubeQuarksOpenRequirement": "Open {{amount}} Cubes for next quark.",
+            "cubeQuarksOpenToday": "Cubes opened today: <<orchid|{{amount}}>>",
+            "tesseractQuarksToday": "Quarks gained from Tesseracts: <<cyan|{{amount}}>>",
+            "tesseractQuarksOpenRequirement": "Open {{amount}} Tesseracts for next quark.",
+            "tesseractQuarksOpenToday": "Tesseracts opened today: <<orchid|{{amount}}>>",
+            "hypercubeQuarksToday": "Quarks gained from Hypercubes: <<cyan|{{amount}}>>",
+            "hypercubeQuarksOpenRequirement": "Open {{amount}} Hypercubes for next quark.",
+            "hypercubeQuarksOpenToday": "Hypercubes opened today: <<orchid|{{amount}}>>",
+            "platonicCubeQuarksToday": "Platonic Cubes gained from Cubes: <<cyan|{{amount}}>>",
+            "platonicCubeQuarksOpenRequirement": "Open {{amount}} Platonic Cubes for next quark.",
+            "platonicCubeQuarksOpenToday": "Platonic Cubes opened today: <<orchid|{{amount}}>>"
+        },
+        "cubes": {
+            "intro": "You feel a sense of Pride and Accomplishment... and a hunger for power.",
+            "instructions": "Open up some Lootb-- er, Wow! Cubes, to get one of ten permanent bonuses.",
+            "inventory": "You possess <<yellow|{{amount}}>> Wow! Cubes. Get them from ascending!",
+            "total": "You have a total of <<yellow|{{amount}}>> Cube tributes!",
+            "items": {
+                "1": "Hermes' Tribute x{{amount}}: +{{bonus}} Accelerators per Accelerator Boost",
+                "2": "Aphrodite's Tribute x{{amount}}: +{{bonus}}% Multipliers",
+                "3": "Plutus' Tribute x{{amount}}: +{{bonus}}% Offering Gain",
+                "4": "Iris' Tribute x{{amount}}: +{{bonus}}% Rune EXP",
+                "5": "Athena's Tribute x{{amount}}: +{{bonus}}% Obtainium Gain",
+                "6": "Artemis' Tribute x{{amount}}: +{{bonus}}% Ant Speed",
+                "7": "Ares' Tribute x{{amount}}: +{{bonus}}% Sacrifice Reward",
+                "8": "Moloch's Tribute x{{amount}}: +{{bonus}} Effective ELO",
+                "9": "Midas' Tribute x{{amount}}: +{{bonus}} Bonus Rune Levels on Talismans",
+                "10": "Chronos' Tribute x{{amount}}: +{{bonus}}% Global Time Acceleration"
+            }
+        },
+        "tesseracts": {
+            "intro": "You obtain guidance from beings in another dimension!",
+            "instructions": "Open up some Lootb-- er, Wow! Tesseracts, to boost tributes from the previous tier.",
+            "inventory": "You possess <<yellow|{{amount}}>> Wow! Tesseracts. Get them from ascending with at least 100,000 score!",
+            "total": "You have a total of <<yellow|{{amount}}>> Tesseract gifts!",
+            "items": {
+                "1": "Hermes' Gift x{{amount}}: +{{bonus}}% Hermes Tribute Power",
+                "2": "Aphrodite's Gift x{{amount}}: +{{bonus}}% Aphrodite Tribute Power",
+                "3": "Plutus' Gift x{{amount}}: +{{bonus}}% Plutus Tribute Power",
+                "4": "Iris' Gift x{{amount}}: +{{bonus}}% Iris Tribute Power",
+                "5": "Athena's Gift x{{amount}}: +{{bonus}}% Athena Tribute Power",
+                "6": "Artemis' Gift x{{amount}}: +{{bonus}}% Artemis Tribute Power",
+                "7": "Ares' Gift x{{amount}}: +{{bonus}}% Ares Tribute Power",
+                "8": "Moloch's Gift x{{amount}}: +{{bonus}}% Moloch Tribute Power",
+                "9": "Midas' Gift x{{amount}}: +{{bonus}}% Midas Tribute Power",
+                "10": "Chronos' Gift x{{amount}}: +{{bonus}}% Chronos Tribute Power"
+            }
+        },
+        "hypercubes": {
+            "intro": "I didn't know that Wow! enterprises made 5-Dimensional Objects.",
+            "instructions": "Open up some Lootb-- er, Wow! Hypercubes, to boost blessings from the previous tier.",
+            "inventory": "You possess <<yellow|{{amount}}>> Wow! Hypercubes. Get them from ascending with at least 1e9 score!",
+            "total": "You have a total of <<yellow|{{amount}}>> Hypercube benedictions!",
+            "items": {
+                "1": "Hermes' Benediction x{{amount}}: +{{bonus}}% Hermes Gift Power",
+                "2": "Aphrodite's Benediction x{{amount}}: +{{bonus}}% Aphrodite Gift Power",
+                "3": "Plutus' Benediction x{{amount}}: +{{bonus}}% Plutus Gift Power",
+                "4": "Iris' Benediction x{{amount}}: +{{bonus}}% Iris Gift Power",
+                "5": "Athena's Benediction x{{amount}}: +{{bonus}}% Athena Gift Power",
+                "6": "Artemis' Benediction x{{amount}}: +{{bonus}}% Artemis Gift Power",
+                "7": "Ares' Benediction x{{amount}}: +{{bonus}}% Ares Gift Power",
+                "8": "Moloch's Benediction x{{amount}}: +{{bonus}}% Moloch Gift Power",
+                "9": "Midas' Benediction x{{amount}}: +{{bonus}}% Midas Gift Power",
+                "10": "Chronos' Benediction x{{amount}}: +{{bonus}}% Chronos Gift Power"
+            }
+        },
+        "platonics": {
+            "intro": "This seems very familiar.",
+            "instructions": "Open up some Lootb-- er, Platonic! Cubes, for epic perks!.",
+            "inventory": "You possess <<yellow|{{amount}}>> Wow! Platonic Cubes. Get them from ascending with at least 2.666e12 score!",
+            "total": "You have a total of <<yellow|{{amount}}>> Platonic Cubes opened!",
+            "items": {
+                "1": "Cube Shard: x{{amount}}: +{{bonus}}% Bonus Wow! Cubes",
+                "2": "Tesseract Shard: x{{amount}}: +{{bonus}}% Bonus Wow! Tesseracts",
+                "3": "Hypercube Shard: x{{amount}}: +{{bonus}}% Bonus Wow! Hypercubes",
+                "4": "Platonic Remnant: x{{amount}}: +{{bonus}}% Bonus Platonic! Cubes",
+                "5": "Hypercube Statue: x{{amount}}: +{{bonus}}% ALL Hypercube bonuses",
+                "6": "Keynesian Statue: x{{amount}}: +{{bonus}}% Bonus Constant exponent on taxes",
+                "7": "High-Scoring Statue: x{{amount}}: +{{bonus}}% More Score on corruptions",
+                "8": "Chronos Statue: x{{amount}}: +{{bonus}}% <<yellow|true>> Global Speed (after speed diminishing returns)"
+            }
+        }
+    },
     "corruptions": {
         "corrStatsBtn": "Corruption Stats",
         "corrLoadoutsBtn": "Corruption Loadouts",

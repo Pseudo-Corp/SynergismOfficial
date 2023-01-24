@@ -1699,38 +1699,38 @@ const loadSynergy = async () => {
         }
 
         if (player.autoOpenCubes) {
-            DOMCacheGetOrSet('openCubes').textContent = `Auto Open ${format(player.openCubes, 0)}%`;
+            DOMCacheGetOrSet('openCubes').textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openCubes, 0)});
             DOMCacheGetOrSet('openCubes').style.border = '1px solid green';
             DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid green';
         } else {
-            DOMCacheGetOrSet('openCubes').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openCubes').textContent = i18next.t('wowCubes.autoOff');
             DOMCacheGetOrSet('openCubes').style.border = '1px solid red';
             DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid red';
         }
         if (player.autoOpenTesseracts) {
-            DOMCacheGetOrSet('openTesseracts').textContent = `Auto Open ${format(player.openTesseracts, 0)}%`;
+            DOMCacheGetOrSet('openTesseracts').textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openTesseracts, 0)});
             DOMCacheGetOrSet('openTesseracts').style.border = '1px solid green';
             DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid green';
         } else {
-            DOMCacheGetOrSet('openTesseracts').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openTesseracts').textContent = i18next.t('wowCubes.autoOff');
             DOMCacheGetOrSet('openTesseracts').style.border = '1px solid red';
             DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid red';
         }
         if (player.autoOpenHypercubes) {
-            DOMCacheGetOrSet('openHypercubes').textContent = `Auto Open ${format(player.openHypercubes, 0)}%`;
+            DOMCacheGetOrSet('openHypercubes').textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openHypercubes, 0)});
             DOMCacheGetOrSet('openHypercubes').style.border = '1px solid green';
             DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid green';
         } else {
-            DOMCacheGetOrSet('openHypercubes').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openHypercubes').textContent = i18next.t('wowCubes.autoOff');
             DOMCacheGetOrSet('openHypercubes').style.border = '1px solid red';
             DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid red';
         }
         if (player.autoOpenPlatonicsCubes) {
-            DOMCacheGetOrSet('openPlatonicCube').textContent = `Auto Open ${format(player.openPlatonicsCubes, 0)}%`;
+            DOMCacheGetOrSet('openPlatonicCube').textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openPlatonicsCubes, 0)});
             DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid green';
             DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid green';
         } else {
-            DOMCacheGetOrSet('openPlatonicCube').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openPlatonicCube').textContent = i18next.t('wowCubes.autoOff');
             DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid red';
             DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid red';
         }

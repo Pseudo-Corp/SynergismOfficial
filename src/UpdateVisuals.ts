@@ -483,7 +483,6 @@ export const visualUpdateCubes = () => {
     if (G['currentTab'] !== 'cubes') {
         return
     }
-    DOMCacheGetOrSet('cubeToQuarkTimerValue').textContent = format(Math.floor(player.dayTimer / 3600), 0) + ' Hours ' + format(Math.floor(player.dayTimer / 60 % 60), 0) + ' Mins ' + format(Math.floor(player.dayTimer % 60), 0) + ' Secs '
 
     const cubeMult = (player.shopUpgrades.cubeToQuark) ? 1.5 : 1;
     const tesseractMult = (player.shopUpgrades.tesseractToQuark) ? 1.5 : 1;
@@ -499,24 +498,21 @@ export const visualUpdateCubes = () => {
 
     const names = Object.keys(toNextQuark) as (keyof cubeNames)[]
     for (const name of names) {
-        DOMCacheGetOrSet(`${name}QuarksTodayValue`).textContent = format(player[`${name}QuarkDaily` as const]);
-        DOMCacheGetOrSet(`${name}QuarksOpenTodayValue`).textContent = format(player[`${name}OpenedDaily` as const]);
-        DOMCacheGetOrSet(`${name}QuarksOpenRequirementValue`).textContent = format(Math.max(1, toNextQuark[name]))
+        DOMCacheGetOrSet(`${name}QuarksToday`).innerHTML = i18next.t(`wowCubes.quarks.${name}QuarksToday`, {amount: format(player[`${name}QuarkDaily` as const])})
+        DOMCacheGetOrSet(`${name}QuarksOpenToday`).innerHTML = i18next.t(`wowCubes.quarks.${name}QuarksOpenToday`, {amount: format(player[`${name}OpenedDaily` as const])})
+        DOMCacheGetOrSet(`${name}QuarksOpenRequirement`).innerHTML = i18next.t(`wowCubes.quarks.${name}QuarksOpenRequirement`, {amount: format(Math.max(1, toNextQuark[name]))})
 
         // Change color of requirement text if 1 or less required :D
         DOMCacheGetOrSet(`${name}QuarksOpenRequirement`).style.color = (Math.max(1, toNextQuark[name]) === 1)? 'gold': 'white'
-        if (DOMCacheGetOrSet(`${name}QuarksOpenRequirementValue`).style.color !== 'gold') {
-            DOMCacheGetOrSet(`${name}QuarksOpenRequirementValue`).style.color === 'gold'
-        }
     }
 
     let accuracy;
     switch (player.subtabNumber) {
         case 0: {
             if (player.autoOpenCubes) {
-                DOMCacheGetOrSet('openCubes').textContent = `Auto Open ${format(player.openCubes, 0)}%`;
+                DOMCacheGetOrSet('openCubes').textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openCubes, 0)});
             }
-            DOMCacheGetOrSet('cubeQuantity').textContent = format(player.wowCubes, 0, true)
+            DOMCacheGetOrSet('cubeQuantity').innerHTML = i18next.t('wowCubes.cubes.inventory', {amount: format(player.wowCubes, 0, true)})
             const cubeArray = [null, player.cubeBlessings.accelerator, player.cubeBlessings.multiplier, player.cubeBlessings.offering, player.cubeBlessings.runeExp, player.cubeBlessings.obtainium, player.cubeBlessings.antSpeed, player.cubeBlessings.antSacrifice, player.cubeBlessings.antELO, player.cubeBlessings.talismanBonus, player.cubeBlessings.globalSpeed]
 
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
@@ -525,20 +521,17 @@ export const visualUpdateCubes = () => {
                 if (cubeArray[i]! >= 1000 && i !== 6) {
                     augmentAccuracy += 2;
                 }
-                DOMCacheGetOrSet(`cubeBlessing${i}Amount`).textContent = `x${format(cubeArray[i], 0, true)}`
-                DOMCacheGetOrSet(`cubeBlessing${i}Effect`).textContent = `+${format(100 * (G['cubeBonusMultiplier'][i]! - 1), accuracy[i]! + augmentAccuracy, true)}%`
-                if (i === 1 || i === 8 || i === 9) {
-                    DOMCacheGetOrSet(`cubeBlessing${i}Effect`).textContent = `+${format(G['cubeBonusMultiplier'][i] - 1, accuracy[i]! + augmentAccuracy, true)}`
-                }
+                const aestheticMultiplier = (i === 1 || i === 8 || i === 9) ? 1: 100
+                DOMCacheGetOrSet(`cube${i}Bonus`).innerHTML = i18next.t(`wowCubes.cubes.items.${i}`, {amount: format(cubeArray[i], 0, true), bonus: format(aestheticMultiplier * (G['cubeBonusMultiplier'][i]! - 1), accuracy[i]! + augmentAccuracy, true)})
             }
-            DOMCacheGetOrSet('cubeBlessingTotalAmount').textContent = format(sumContents(cubeArray.slice(1) as number[]), 0, true);
+            DOMCacheGetOrSet('cubeBlessingsTotal').innerHTML = i18next.t('wowCubes.cubes.total', {amount: format(sumContents(cubeArray.slice(1) as number[]), 0, true)});
             break;
         }
         case 1: {
             if (player.autoOpenTesseracts) {
-                DOMCacheGetOrSet('openTesseracts').textContent = `Auto Open ${format(player.openTesseracts, 0)}%`;
+                DOMCacheGetOrSet('openTesseracts').textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openTesseracts, 0)});
             }
-            DOMCacheGetOrSet('tesseractQuantity').textContent = format(player.wowTesseracts, 0, true)
+            DOMCacheGetOrSet('tesseractQuantity').innerHTML = i18next.t('wowCubes.tesseracts.inventory', {amount: format(player.wowTesseracts, 0, true)})
             const tesseractArray = [null, player.tesseractBlessings.accelerator, player.tesseractBlessings.multiplier, player.tesseractBlessings.offering, player.tesseractBlessings.runeExp, player.tesseractBlessings.obtainium, player.tesseractBlessings.antSpeed, player.tesseractBlessings.antSacrifice, player.tesseractBlessings.antELO, player.tesseractBlessings.talismanBonus, player.tesseractBlessings.globalSpeed]
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
             for (let i = 1; i <= 10; i++) {
@@ -546,17 +539,16 @@ export const visualUpdateCubes = () => {
                 if (tesseractArray[i]! >= 1000 && i !== 6) {
                     augmentAccuracy += 2;
                 }
-                DOMCacheGetOrSet(`tesseractBlessing${i}Amount`).textContent = `x${format(tesseractArray[i], 0, true)}`
-                DOMCacheGetOrSet(`tesseractBlessing${i}Effect`).textContent = `+${format(100 * (G['tesseractBonusMultiplier'][i]! - 1), accuracy[i]! + augmentAccuracy, true)}%`
+                DOMCacheGetOrSet(`tesseract${i}Bonus`).innerHTML = i18next.t(`wowCubes.tesseracts.items.${i}`, {amount: format(tesseractArray[i], 0, true), bonus: format(100 * (G['tesseractBonusMultiplier'][i]! - 1), accuracy[i]! + augmentAccuracy, true)})
             }
-            DOMCacheGetOrSet('tesseractBlessingTotalAmount').textContent = format(sumContents(tesseractArray.slice(1) as number[]), 0, true);
+            DOMCacheGetOrSet('tesseractBlessingsTotal').innerHTML = i18next.t('wowCubes.tesseracts.total', {amount: format(sumContents(tesseractArray.slice(1) as number[]), 0, true)})
             break;
         }
         case 2: {
             if (player.autoOpenHypercubes) {
-                DOMCacheGetOrSet('openHypercubes').textContent = `Auto Open ${format(player.openHypercubes, 0)}%`;
+                DOMCacheGetOrSet('openHypercubes').textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openHypercubes, 0)})
             }
-            DOMCacheGetOrSet('hypercubeQuantity').textContent = format(player.wowHypercubes, 0, true)
+            DOMCacheGetOrSet('hypercubeQuantity').innerHTML = i18next.t('wowCubes.hypercubes.inventory', {amount: format(player.wowHypercubes, 0, true)})
             const hypercubeArray = [null, player.hypercubeBlessings.accelerator, player.hypercubeBlessings.multiplier, player.hypercubeBlessings.offering, player.hypercubeBlessings.runeExp, player.hypercubeBlessings.obtainium, player.hypercubeBlessings.antSpeed, player.hypercubeBlessings.antSacrifice, player.hypercubeBlessings.antELO, player.hypercubeBlessings.talismanBonus, player.hypercubeBlessings.globalSpeed]
             accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
             for (let i = 1; i <= 10; i++) {
@@ -564,17 +556,16 @@ export const visualUpdateCubes = () => {
                 if (hypercubeArray[i]! >= 1000) {
                     augmentAccuracy += 2;
                 }
-                DOMCacheGetOrSet(`hypercubeBlessing${i}Amount`).textContent = `x${format(hypercubeArray[i], 0, true)}`
-                DOMCacheGetOrSet(`hypercubeBlessing${i}Effect`).textContent = `+${format(100 * (G['hypercubeBonusMultiplier'][i]! - 1), accuracy[i]! + augmentAccuracy, true)}%`
+                DOMCacheGetOrSet(`hypercube${i}Bonus`).innerHTML = i18next.t(`wowCubes.hypercubes.items.${i}`, {amount: format(hypercubeArray[i], 0, true), bonus: format(100 * (G['hypercubeBonusMultiplier'][i]! - 1), accuracy[i]! + augmentAccuracy, true)})
             }
-            DOMCacheGetOrSet('hypercubeBlessingTotalAmount').textContent = format(sumContents(hypercubeArray.slice(1) as number[]), 0, true);
+            DOMCacheGetOrSet('hypercubeBlessingsTotal').innerHTML = i18next.t('wowCubes.hypercubes.total', {amount: format(sumContents(hypercubeArray.slice(1) as number[]), 0, true)})
             break;
         }
         case 3: {
             if (player.autoOpenPlatonicsCubes) {
-                DOMCacheGetOrSet('openPlatonicCube').textContent = `Auto Open ${format(player.openPlatonicsCubes, 0)}%`;
+                DOMCacheGetOrSet('openPlatonicCube').textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openPlatonicsCubes, 0)})
             }
-            DOMCacheGetOrSet('platonicQuantity').textContent = format(player.wowPlatonicCubes, 0, true)
+            DOMCacheGetOrSet('platonicQuantity').innerHTML = i18next.t('wowCubes.platonics.inventory', {amount: format(player.wowPlatonicCubes, 0, true)})
             const platonicArray = [player.platonicBlessings.cubes, player.platonicBlessings.tesseracts, player.platonicBlessings.hypercubes, player.platonicBlessings.platonics, player.platonicBlessings.hypercubeBonus, player.platonicBlessings.taxes, player.platonicBlessings.scoreBonus, player.platonicBlessings.globalSpeed]
             const DRThreshold = [4e6, 4e6, 4e6, 8e4, 1e4, 1e4, 1e4, 1e4]
             accuracy = [5, 5, 5, 5, 2, 3, 3, 2]
@@ -583,10 +574,9 @@ export const visualUpdateCubes = () => {
                 if (platonicArray[i] >= DRThreshold[i]) {
                     augmentAccuracy += 1;
                 }
-                DOMCacheGetOrSet(`platonicBlessing${i + 1}Amount`).textContent = `x${format(platonicArray[i], 0, true)}`
-                DOMCacheGetOrSet(`platonicBlessing${i + 1}Effect`).textContent = `+${format(100 * (G['platonicBonusMultiplier'][i] - 1), accuracy[i] + augmentAccuracy, true)}%`
+                DOMCacheGetOrSet(`platonicCube${i+1}Bonus`).innerHTML = i18next.t(`wowCubes.platonics.items.${i+1}`, {amount: format(platonicArray[i], 0, true), bonus: format(100 * (G['platonicBonusMultiplier'][i] - 1), accuracy[i] + augmentAccuracy, true)})
             }
-            DOMCacheGetOrSet('platonicBlessingTotalAmount').textContent = format(sumContents(platonicArray), 0, true);
+            DOMCacheGetOrSet('platonicBlessingsTotal').innerHTML = i18next.t('wowCubes.platonics.total', {amount: format(sumContents(platonicArray), 0, true)});
             break;
         }
         case 4:
