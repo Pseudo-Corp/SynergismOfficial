@@ -1633,37 +1633,44 @@
             "starterPack": {
                 "name": "Starter Pack",
                 "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources, post-corruption.",
-                "effect": "You {{n}} unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings."
+                "effectHave": "You have unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings.",
+                "effectHaveNot": "You have not unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings."
             },
             "wowPass": {
                 "name": "Shop Bonanza",
                 "description": "This upgrade will convince the seal merchant to sell you more cool stuff, which even persist on Singularity!",
-                "effect": "You {{n}} unlocked the Shop Bonanza."
+                "effectHave": "You have unlocked the Shop Bonanza.",
+                "effectHaveNot": "You have not unlocked the Shop Bonanza."
             },
             "cookies": {
                 "name": "Cookie Recipes I",
                 "description": "For just a few Golden Quarks, re-open Wow! Bakery, adding five cookie-related Cube upgrades.",
-                "effect": "You {{n}} unlocked volume 1 of the recipe book."
+                "effectHave": "You have unlocked volume 1 of the recipe book.",
+                "effectHaveNot": "You have not unlocked volume 1 of the recipe book."
             },
             "cookies2": {
                 "name": "Cookie Recipes II",
                 "description": "Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related Cube upgrades.",
-                "effect": "You {{n}} unlocked volume 2 of the recipe book."
+                "effectHave": "You have unlocked volume 2 of the recipe book.",
+                "effectHaveNot": "You have not unlocked volume 2 of the recipe book."
             },
             "cookies3": {
                 "name": "Cookie Recipes III",
                 "description": "Your Bakers threaten to quit without a higher pay. If you do pay them, they will bake even more fancy cookies.",
-                "effect": "You {{n}} appeased the union of Bakers."
+                "effectHave": "You have appeased the union of Bakers.",
+                "effectHaveNot": "You have not appeased the union of Bakers."
             },
             "cookies4": {
                 "name": "Cookie Recipes IV",
                 "description": "This is a small price to pay for Salvation.",
-                "effect": "You {{n}} paid your price for salvation."
+                "effectHave": "You have paid your price for salvation.",
+                "effectHaveNot": "You have not paid your price for salvation."
             },
             "cookies5": {
                 "name": "Cookie Recipes V (WIP)",
                 "description": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
-                "effect": "You {{n}} paid witness to the suffering of the masses."
+                "effectHave": "You have paid witness to the suffering of the masses.",
+                "effectHaveNot": "You have not paid witness to the suffering of the masses."
             },
             "ascensions": {
                 "name": "Improved Ascension Gain",
@@ -1673,12 +1680,14 @@
             "corruptionFourteen": {
                 "name": "Level Fourteen Corruptions",
                 "description": "Buy this to unlock level fourteen corruptions. :)",
-                "effect": "You {{n}} gained the ability to use level 14 corruptions. {{m}}"
+                "effectHave": "You have gained the ability to use level 14 corruptions. {{m}}",
+                "effectHaveNot": "You have not gained the ability to use level 14 corruptions. {{m}}"
             },
             "corruptionFifteen": {
                 "name": "Level Fifteen Corruptions",
                 "description": "This doesn't *really* raise the corruption limit. Rather, it adds one FREE level to corruption multipliers, no matter what (can exceed cap). :)",
-                "effect": "You {{n}} gained a free corruption level. {{m}}"
+                "effectHave": "You have gained a free corruption level. {{m}}",
+                "effectHaveNot": "You have not gained a free corruption level. {{m}}"
             },
             "singOfferings1": {
                 "name": "Offering Charge",
@@ -1738,7 +1747,8 @@
             "octeractUnlock": {
                 "name": "Octeracts",
                 "description": "Hey!!! What are you trying to do?!?",
-                "effect": "You {{n}} bought into the Octeract hype."
+                "effectHave": "You have bought into the Octeract hype.",
+                "effectHaveNot": "You have not bought into the Octeract hype."
             },
             "singOcteractPatreonBonus": {
                 "name": "Platonic $ells out!!!",
@@ -1753,37 +1763,44 @@
             "intermediatePack": {
                 "name": "Intermediate Pack",
                 "description": "Double Global Speed, Multiply Ascension speed by 1.5, and gain +2% Quarks forever. Yum... 2% Quark Milk.",
-                "effect": "You {{n}} upgraded your package to intermediate."
+                "effectHave": "You have upgraded your package to intermediate.",
+                "effectHaveNot": "You have not upgraded your package to intermediate."
             },
             "advancedPack": {
                 "name": "Advanced Pack",
                 "description": "Now we're cooking with kerosene! Gain +4% Quarks stack with intermediate, +0.33 to all corruption score multipliers, regardless of level!",
-                "effect": "You {{n}} bought our advanced package."
+                "effectHave": "You have bought our advanced package.",
+                "effectHaveNot": "You have not bought our advanced package."
             },
             "expertPack": {
                 "name": "Expert Pack",
                 "description": "That's a handful! Gain +6% Quarks stack with advanced, 1.5x Ascension Score, Code 'add' gives 1.2x Ascension Timer.",
-                "effect": "You {{n}} switched to the expert provider."
+                "effectHave": "You have switched to the expert provider.",
+                "effectHaveNot": "You have not switched to the expert provider."
             },
             "masterPack": {
                 "name": "Master Pack",
                 "description": "A tad insane. Gain +8% Quarks stack with expert, for every level 14 corruption, Ascension score is multiplied by 1.1.",
-                "effect": "You {{n}} mastered your inner chakras."
+                "effectHave": "You have mastered your inner chakras.",
+                "effectHaveNot": "You have not mastered your inner chakras."
             },
             "divinePack": {
                 "name": "Divine Pack",
                 "description": "OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14.",
-                "effect": "You {{n}} found the reason for existence{{n}}."
+                "effectHave": "You have found the reason for existence.",
+                "effectHaveNot": "You have not found the reason for existence."
             },
             "wowPass2": {
                 "name": "Shop Liquidation Sale",
                 "description": "The Seal Merchant needs to get rid of some exotic goods. Only for a steep price. I do not think that is how sales work.",
-                "effect": "You {{n}} triggered the Liquidation event!"
+                "effectHave": "You have triggered the Liquidation event!",
+                "effectHaveNot": "You have not triggered the Liquidation event!"
             },
             "wowPass3": {
                 "name": "QUAAAACK",
                 "description": "QUAAAAAAAACK. The Merchant has gone crazy for your QUARKS!",
-                "effect": "You {{n}} triggered the QUACKSTRAVAGANZA!!"
+                "effectHave": "You have triggered the QUACKSTRAVAGANZA!!",
+                "effectHaveNot": "You have not triggered the QUACKSTRAVAGANZA!!"
             },
             "potionBuff": {
                 "name": "Potion Decanter of Enlightenment",

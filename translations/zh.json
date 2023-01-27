@@ -9,17 +9,17 @@
         "descriptions": {
             "1": "[{{number}}]一个忠实的雇员：雇佣第1个工人。",
             "2": "[{{number}}]小生意：雇佣10个工人。",
-            "3": "[{{number}}]我们就是协同！：雇佣100个工人。",
+            "3": "[{{number}}]正在签署协同！：雇佣100个工人。",
             "4": "[{{number}}]该裁员了：雇佣1000个工人。",
-            "5": "[{{number}}]机器上的齿轮：雇佣5000个工人。",
-            "6": "[{{number}}]机器上的螺丝钉：雇佣10000个工人。",
+            "5": "[{{number}}]机器里的一个小齿轮：雇佣5000个工人。",
+            "6": "[{{number}}]机器里的一个小钉子：雇佣10000个工人。",
             "7": "[{{number}}]我们还在机器里吗？：雇佣20000个工人。",
             "8": "[{{number}}]进击！！！：购买1个投资。",
             "9": "[{{number}}]提前计划：购买10个投资。",
-            "10": "[{{number}}]内部交易：购买100个投资。",
-            "11": "[{{number}}]外部交易？：购买1000个投资。",
+            "10": "[{{number}}]内线交易：购买100个投资。",
+            "11": "[{{number}}]外线交易？：购买1000个投资。",
             "12": "[{{number}}]接管市场：购买5000个投资。",
-            "13": "[{{number}}]利益均沾论：购买10000个投资。",
+            "13": "[{{number}}]下渗经济学：购买10000个投资。",
             "14": "[{{number}}]监管消失：购买20000个投资。",
             "15": "[{{number}}]文具！：购买1台打印机。",
             "16": "[{{number}}]印刷机：购买10台打印机。",
@@ -530,7 +530,9 @@
         "upgradeMultiplier": "升级倍率：<<gold|{{x}}倍>>",
         "timeMultiplier": "时间倍率：<<var(--lightseagreen-text-color);|{{x}}倍>>",
         "resetAnthill": "重置蚁丘可获得(下方 分 指强度分)：",
-        "antSacMultiplier": "蚂蚁倍率：×1 --> <<limegreen|×{{x}}>>"
+        "antSacMultiplier": "蚂蚁倍率：×1 --> <<limegreen|×{{x}}>>",
+        "autoReset": "这么做将重置银河碎屑，蚂蚁以及蚂蚁升级，但可以获得更高的倍率和一些其他资源。您确定要继续吗？",
+        "elo": "+{{x}} [分>{{y}}]"
     },
     "challenges": {
         "1": {
@@ -824,7 +826,11 @@
         "timeEnterChallenge": "进入挑战前经过时间：<<var(--orchid-text-color)|{{time}}>>秒",
         "autoTimer": "<<orange|扫荡计时：>><<var(--orchid-text-color)|{{time}}秒>>",
         "perCompletionBonus": "每次完成奖励||超过{{x}}次以后效果下降！有效的完成次数为{{y}}",
-        "perCompletionBonusEmpty": "每次完成奖励"
+        "perCompletionBonusEmpty": "每次完成奖励",
+        "hypercubeOneTimeBonus": "完成挑战后可以获得1个惊奇五阶立方(首次完成奖励)",
+        "ascensionBankAdd": "完成挑战后飞升库增加{{x}}个惊奇方盒，飞升基础分数增加{{y}}。",
+        "firstTimeBonus": "完成挑战后可以获得{{x}}[首次完成奖励]！",
+        "firstTimeBonusQuarks": "完成挑战后可以获得{{x}}夸克[首次完成奖励]！"
     },
     "cubes": {
         "upgradeNames": {
@@ -976,7 +982,14 @@
         "cubeMetadata": {
             "cost": "花费：{{value1}}惊奇方盒[可提升{{value2}}级]",
             "level": "等级：{{value1}}/{{value2}}",
-            "maxLevel": "花费：0惊奇方盒。此升级已达到上限！真惊奇"
+            "maxLevel": "花费：0惊奇方盒。此升级已满级！真惊奇"
+        },
+        "noCubesOpened": "好吧。不开了。",
+        "howManyCubesOpen": "您想要开启多少？您目前拥有{{x}}！\\n您可以输入想要开启的百分比，例如输入“50%”或“100%”。\\n您还可以输入以-开头的数字，意味着保留相应数字不开启，并开启剩下的所有(同样可以使用%格式)。",
+        "validation": {
+            "notEnough": "您目前拥有的数量小于想要开启的数量！",
+            "negative": "您无法开启负数数量。",
+            "invalidPercent": "无法开启{{x}}%……"
         }
     },
     "calculate": {
@@ -1202,7 +1215,8 @@
         "autoModeCheapest": "自动模式：花费",
         "autoModeManual": "自动模式：手动",
         "hoverToBuyOn": "鼠标停留购买[开]",
-        "hoverToBuyOff": "鼠标停留购买[关]"
+        "hoverToBuyOff": "鼠标停留购买[关]",
+        "hover": "将鼠标停在格子上可获得有关研究的详情！"
     },
     "shop": {
         "upgradeDescriptions": {
@@ -1284,7 +1298,68 @@
         "buy10": "购买：10",
         "buy1": "购买：1",
         "buyMax": "购买：最大",
-        "buyAny": "购买：任意"
+        "buyAny": "购买：任意",
+        "upgradeEffects": {
+            "currentEffect": "当前效果：",
+            "offeringPotion": "获得<<orange|{{amount}}>>祭品",
+            "obtainiumPotion": "获得<<pink|{{amount}}>>难得素",
+            "offeringEX": "祭品获取数量增加<<goldenrod|{{amount}}%>>！",
+            "offeringAuto": "每秒最多使符文增加<<goldenrod|{{amount1}}>>级。祭品获取数量增加<<goldenrod|{{amount2}}%>>。",
+            "obtainiumEX": "难得素获取数量增加<<pink|{{amount}}%>>！",
+            "obtainiumAuto": "每次转世都尝试研究，并且难得素获取数量增加<<pink|{{amount}}%>>。",
+            "instantChallenge": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
+            "antSpeed": "所有蚂蚁速度变为<<crimson|{{amount}}>>倍",
+            "cashGrab": "难得素和祭品的获取数量增加<<gold|{{amount}}%>>！",
+            "shopTalisman": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
+            "seasonPass": "飞升的方盒和超立方获取数量增加<<lightgoldenrodyellow|{{amount}}%>>。",
+            "challengeExtension": "转世挑战完成次数上限额外增加<<lime|{{amount}}>>次。",
+            "challengeTome": "挑战10的基础目标减少<<lightgoldenrodyellow|1e{{amount1}}M>>。超过60次以后的挑战9或挑战10的挑战目标增长因子变为[挑战次数×<<lightgoldenrodyellow|{{amount2}}>>]",
+            "cubeToQuark": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
+            "tesseractToQuark": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
+            "hypercubeToQuark": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
+            "seasonPass2": "飞升的五阶立方和PLATONIC方盒获取数量增加<<lightgoldenrodyellow|{{amount}}%>>。",
+            "seasonPass3": "飞升的七阶立方和八阶方块获取数量增加<<lightgoldenrodyellow|{{amount}}%>>。",
+            "chronometer": "飞升的速度增加<<orange|{{amount}}%>>。",
+            "infiniteAscent": "升1级后使夸克获取数量增加<<cyan|10%>>。",
+            "calculator": "使用“增加”代码获取的夸克数量增加<<cyan|{{amount1}}%>>。显示答案：<<orchid|{{bool1}}>>，自动回答：<<orchid|{{bool2}}>>",
+            "calculator2": "使“增加”代码的次数上限增加<<orchid|{{amount1}}>>。使用“增加”代码可以额外获取<<cyan|{{amount2}}%>>的夸克。",
+            "calculator3": "使“增加”代码的奖励变动范围减少<<orchid|{{amount1}}%>>，使用“增加”代码时飞升时间同时增加<<orchid|{{amount2}}>>秒。",
+            "calculator4": "使“增加”代码的使用次数加快<<orchid|{{amount1}}%>>恢复。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
+            "calculator5": "使用“增加”代码时导出存档的金夸克奖励计时增加<<orchid|{{amount1}}>>。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
+            "calculator6": "使用“增加”代码时获得相当于<<orchid|{{amount1}}>>秒产量的惊奇八阶方块。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
+            "constantEX": "数学常数升级2的效果再增加<<orange|{{amount}}>>。",
+            "powderEX": "超通量粉转换效率增加<<red|{{amount}}%>>。",
+            "chronometer2": "飞升的速度增加<<orange|{{amount}}%>>！",
+            "chronometer3": "飞升的速度增加<<orange|{{amount}}%>>！该升级<<red|永久>>生效！",
+            "seasonPassY": "<<orchid|所有类型的方盒、立方和方块获取数量>>增加<<lightgoldenrodyellow|{{amount}}%>>。",
+            "seasonPassZ": "<<orchid|所有类型的方盒、立方和方块获取数量>>增加<<lightgoldenrodyellow|{{amount}}%>>。该升级<<red|永久>>生效！",
+            "challengeTome2": "挑战10的基础目标减少<<lightgoldenrodyellow|1e{{amount1}}M>>。超过60次以后的挑战9或挑战10的挑战目标增长因子变为[挑战次数×<<lightgoldenrodyellow|{{amount2}}>>]",
+            "instantChallenge2": "“立即完成挑战”每个时刻多完成<<orchid|{{amount}}>>次挑战。",
+            "cubeToQuarkAll": "开启方盒获取夸克时夸克获取数量增加<<cyan|{{amount}}%>>！",
+            "cashGrab2": "难得素和祭品的获取数量增加<<gold|{{amount}}%>>！效果只有之前那个的<<red|一半>>。",
+            "chronometerZ": "飞升的速度增加<<orange|{{amount}}%>>！它看来能够自己产生<<orchid|动力>>……",
+            "offeringEX2": "祭品的获取数量增加<<goldenrod|{{amount}}%>>！之前那个升级跟它一比完全是<<red|没用的东西>>……",
+            "obtainiumEX2": "难得素的获取数量增加<<pink|{{amount}}%>>！之前那个升级跟它一比完全是<<red|没用的东西>>……",
+            "powderAuto": "每锻造<<red|{{amount}}>>超通量珠就可以获得1超通量粉块。",
+            "seasonPassLost": "八阶方块获取数量增加<<lightgoldenrodyellow|{{amount}}%>>。",
+            "challenge15Auto": "就算在这个高档商店中，它的效果仍然很明显，不是么？",
+            "extraWarp": "您可以额外进行<<red|{{amount}}>>次时空跃迁。",
+            "autoWarp": "购买后您就可以在七阶立方的锻炉选项卡下开启<<red|自动跃迁>>了。",
+            "improveQuarkHept": "惊奇七阶立方·夸克的效果开始衰减后，衰减指数增加<<cyan|{{amount}}%>>。",
+            "improveQuarkHept2": "惊奇七阶立方·夸克的效果开始衰减后，衰减指数增加<<cyan|{{amount}}%>>。",
+            "improveQuarkHept3": "惊奇七阶立方·夸克的效果开始衰减后，衰减指数增加<<cyan|{{amount}}%>>。",
+            "improveQuarkHept4": "惊奇七阶立方·夸克的效果开始衰减后，衰减指数增加<<cyan|{{amount}}%>>。",
+            "improveQuarkHept5": "惊奇七阶立方·夸克的效果开始衰减后，衰减指数增加<<cyan|{{amount}}%>>。",
+            "shopImprovedDaily": "“每日”代码的夸克获取数量增加<<cyan|{{amount}}%>>。",
+            "shopImprovedDaily2": "“每日”代码获得的免费奇点升级增加<<turquoise|{{amount1}}>>级，且金夸克获取数量增加<<turquoise|{{amount2}}%>>。",
+            "shopImprovedDaily3": "“每日”代码获得的免费奇点升级增加<<turquoise|{{amount1}}>>级，且金夸克获取数量增加<<turquoise|{{amount2}}%>>。",
+            "shopImprovedDaily4": "“每日”代码获得的免费奇点升级增加<<turquoise|{{amount1}}>>级，且金夸克获取数量增加<<turquoise|{{amount2}}%>>。",
+            "offeringEX3": "祭品获取数量增加<<goldenrod|{{amount}}%>>！",
+            "obtainiumEX3": "难得素获取数量增加<<pink|{{amount}}%>>！",
+            "chronometerInfinity": "飞升的速度增加<<orange|{{amount}}%>>。",
+            "seasonPassInfinity": "<<orchid|所有类型的方盒、立方和方块获取数量>>增加<<lightgoldenrodyellow|{{amount}}%>>。",
+            "shopSingularityPenaltyDebuff": "在<<pink|{{amount1}}>>次奇点时，奇点相关惩罚视为在<<pink|{{amount2}}>>次奇点。"
+        }
     },
     "singularity": {
         "goldenQuarks": {
@@ -1423,37 +1498,44 @@
             "starterPack": {
                 "name": "新手大礼包",
                 "description": "买这个就对了！使所有类型的方盒及立方获取数量乘以5，并使最终难得素获取数量和祭品获取数量(计算腐化后)变为6倍。",
-                "effect": "您{{n}}使所有类型的方盒及立方获取数量乘以5，最终难得素获取数量和祭品获取数量变为6倍。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "wowPass": {
                 "name": "商店促销",
                 "description": "购买后，印记商人将向您出售更多好东西，它们在进入奇点后等级仍然保留！",
-                "effect": "您{{n}}解锁商店促销。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "cookies": {
                 "name": "饼干配方 I",
                 "description": "花费一点金夸克就可以让惊奇烘焙坊重新开张，增加5个跟饼干有关的方盒升级。",
-                "effect": "您{{n}}解锁饼干配方 I。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "cookies2": {
                 "name": "饼干配方 II",
                 "description": "让惊奇烘焙坊制造更有异国风味的饼干，再增加5个跟饼干有关的方盒升级。",
-                "effect": "您{{n}}解锁饼干配方 II。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "cookies3": {
                 "name": "饼干配方 III",
                 "description": "烘焙师们表示不加薪就辞职了。如果给他们加薪，他们会为您制造更棒的饼干。",
-                "effect": "您{{n}}安抚烘焙师工会。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "cookies4": {
                 "name": "饼干配方 IV",
                 "description": "天下没有免费的饼干。",
-                "effect": "您{{n}}替饼干付费。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "cookies5": {
                 "name": "饼干配方 V(制作中)",
                 "description": "袖手旁观是人类最大的原罪。",
-                "effect": "您{{n}}选择袖手旁观。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "ascensions": {
                 "name": "更多飞升次数",
@@ -1463,12 +1545,14 @@
             "corruptionFourteen": {
                 "name": "腐化等级-十四",
                 "description": "购买后解锁腐化等级14。:)",
-                "effect": "您{{n}}解锁腐化等级14。{{m}}"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "corruptionFifteen": {
                 "name": "腐化等级-十五",
                 "description": "购买后并*不*会*使腐化等级上限增加，而是使腐化的相关加成倍率直接视为增加1级(可以超过上限)。:)",
-                "effect": "您{{n}}使腐化加成倍率视为增加1级。{{m}}"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "singOfferings1": {
                 "name": "祭品增压",
@@ -1528,7 +1612,8 @@
             "octeractUnlock": {
                 "name": "惊奇八阶方块",
                 "description": "喂！！！您到底要做什么？！？",
-                "effect": "您{{n}}解锁八阶方块。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "singOcteractPatreonBonus": {
                 "name": "Platonic脱销！！！",
@@ -1543,37 +1628,44 @@
             "intermediatePack": {
                 "name": "中级礼包",
                 "description": "使全局速度翻倍，飞升的速度变为1.5倍，夸克获取数量增加2%。",
-                "effect": "您{{n}}将礼包升级为中级。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "advancedPack": {
                 "name": "高级礼包",
                 "description": "好上加好！使夸克获取数量增加4%(可以与中级礼包叠加)，并使所有腐化(等级不限)的分数倍率增加0.33！",
-                "effect": "您{{n}}购买高级礼包。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "expertPack": {
                 "name": "专家礼包",
                 "description": "越来越难控制了！使夸克获取数量增加6%(可以与高级礼包叠加)，飞升分数变为1.5倍，输入“增加”代码的飞升时间奖励变为1.2倍。",
-                "effect": "您{{n}}切换至专家礼包。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "masterPack": {
                 "name": "大师礼包",
                 "description": "有点疯狂了。使夸克获取数量增加8%(可以与专家礼包叠加)，每有一个腐化等级达到14，就使飞升分数变为1.1倍。",
-                "effect": "您{{n}}能开宗立派。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "divinePack": {
                 "name": "神圣礼包",
                 "description": "哦—————使夸克获取数量增加10%(可以与大师礼包叠加)，如果腐化等级总和(不考虑视为增加的等级)超过14×8，则使惊奇八阶方块获取数量变为7.77倍。",
-                "effect": "您{{n}}发觉生存的理由。"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "wowPass2": {
                 "name": "商店清仓大甩卖",
                 "description": "印记商人想要抛售掉一些奇异商品。价格的确是有点高昂了。大甩卖大概不是这个样子的。",
-                "effect": "您{{n}}开启清仓大甩卖！"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "wowPass3": {
                 "name": "夸夸夸夸克",
                 "description": "夸夸夸夸夸夸夸夸克。商人已经对夸克痴狂了！",
-                "effect": "您{{n}}开启夸克大盛典！！"
+                "effectHave": "",
+                "effectHaveNot": ""
             },
             "potionBuff": {
                 "name": "启迪药水瓶",
@@ -1775,7 +1867,9 @@
             "zeroOrLess": "请只输入大于0的数字！",
             "moreThanPlayerHas": "您无法承担它的花费！",
             "fraction": "嗯，这不是整数。这里不接受分数！",
-            "goldenQuarksTooMany": "抱歉，您无法购买这个数量的金夸克！请减少购买数量，或者直接输入-1购买最大数量！"
+            "goldenQuarksTooMany": "抱歉，您无法购买这个数量的金夸克！请减少购买数量，或者直接输入-1购买最大数量！",
+            "finiteInt": "这不是有效的数字啊。",
+            "invalidNumber": "哈？不，这不是个有效的数字。"
         },
         "cancelled": "好吧，下次再说。",
         "level": "等级",
@@ -1796,7 +1890,17 @@
         "buyMaxOn": "购买最大数量：开",
         "buyMaxOff": "购买最大数量：关",
         "on": "开",
-        "off": "关"
+        "off": "关",
+        "updateAlerts": {
+            "june282021": "2021年6月28日：V2.5.3。如果您之前购买过计算器，则将重置相应购买。它们之后将无法重置，请注意这一点！",
+            "july22021": "2021年7月2日：V2.5.5。如果您之前购买过EX超通量粉，则将重置该项购买。您的T1蚂蚁数量也进行了重置，基础花费变为1e700粒子。EX超通量粉之后将无法重置，请注意这一点！",
+            "sing230Balancing": "由于平衡性调整，您被送回了第230次奇点，以避免进度软锁死！",
+            "december22xxxx": "您载入了12月22日v1版补丁。",
+            "january42023": "您载入了2023年1月4日v1版补丁。",
+            "v297hotfix1NoSing": "您载入了2.9.7热修复1补丁！",
+            "v297hotfix1Sing": "您载入了2.9.7热修复1补丁！部分无上限的奇点升级进行了重置，对此表示抱歉。"
+        },
+        "languageChange": "切换语言需要刷新页面，您现在就想要刷新页面吗？"
     },
     "upgrades": {
         "descriptions": {
@@ -2002,7 +2106,7 @@
             "51": "效果：神话生产者产量变为{{x}}倍！",
             "52": "效果：神话生产者产量变为{{x}}倍！这就像开始了什么一样。",
             "53": "效果：强化的神话碎片产量变为{{x}}倍。",
-            "54": "效果：法师的附魔产量变为$1倍。真是一群干劲十足的家伙们！",
+            "54": "效果：法师的附魔产量变为{{x}}倍。真是一群干劲十足的家伙们！",
             "55": "效果：宗师的先知产量变为{{x}}倍！",
             "56": "效果：很明显，不是么？",
             "57": "效果：看上面！",
@@ -2044,7 +2148,8 @@
             "generator": "发生器升级",
             "automation": "自动化升级",
             "particles": "粒子升级"
-        }
+        },
+        "hover": "将鼠标停在升级图标上可获得相关详情！"
     },
     "tabs": {
         "main": {
@@ -2218,7 +2323,9 @@
             "off": "自动飞升[关]",
             "modeCompletions": "模式：挑战10完成数",
             "modeRealTime": "模式：现实时间"
-        }
+        },
+        "importLoadoutInTextFormat": "以字符串形式导入腐化预设",
+        "loadoutApplied": "之前周目的腐化已载入。飞升后即可生效。"
     },
     "footnotes": {
         "buildings": "按[1]，[2]，[3]，[4]或[5]来购买生产者，按[A]来购买加速器，按[M]来购买加倍器，按[B]来购买加速器加成。",
@@ -2323,7 +2430,8 @@
         "costTesseracts": "花费：{{tesseracts}}超立方",
         "autoTesseract": "自动购买至少保留{{tesseracts}}超立方[在上方输入设置数值]。",
         "autoAscensionTesseract": "飞升时，自动购买至少保留{{percent}}%超立方[在上方输入设置数值]。",
-        "excessiveWealth": "由于您的财富过多，需要减少{{div}}的金币产量用于缴税！{{- warning}}"
+        "excessiveWealth": "由于您的财富过多，需要减少{{div}}的金币产量用于缴税！{{- warning}}",
+        "constantHover": "将鼠标停在图标上可以获得升级描述。点击以购买！"
     },
     "octeract": {
         "buyLevel": {
@@ -2532,7 +2640,16 @@
             "autoBuyOn": "自动购买：开",
             "autoBuyOff": "自动购买：关",
             "clickBuyEveryType": "点击后将尽可能购买所有碎片",
-            "costToBuy": "购买{{buyAmount}}个{{name}}花费：{{obtainium}}难得素及{{offerings}}祭品。"
+            "costToBuy": "购买{{buyAmount}}个{{name}}花费：{{obtainium}}难得素及{{offerings}}祭品。",
+            "names": {
+                "exemption": "免税",
+                "chronos": "时光",
+                "midas": "点金",
+                "metaphysics": "玄学",
+                "polymath": "博识",
+                "mortuus": "虔蚁",
+                "plastic": "信卡"
+            }
         },
         "blessings": {
             "buyUpTo": "最多一次购买<<var(--orchid-text-color);|{{amount}}>>级。[输入数字来控制]",
@@ -2571,7 +2688,18 @@
         "autoEnhanceOn": "自动升阶：开",
         "autoEnhanceOff": "自动升阶：关",
         "autoFortifyOn": "自动加强：开",
-        "autoFortifyOff": "自动加强：关"
+        "autoFortifyOff": "自动加强：关",
+        "names": {
+            "speed": "加速符文",
+            "duplication": "重叠符文",
+            "prism": "棱柱符文",
+            "thrift": "节俭符文",
+            "SI": "卓越智慧",
+            "IA": "无限晋升",
+            "AOAG": "蚁神之古物"
+        },
+        "maxLevel": "已满级！",
+        "TNL": "升1级需{{EXP}}经验值"
     },
     "singularityChallenge": {
         "enterChallenge": {
@@ -2665,5 +2793,230 @@
             "activeUntil": "活动持续到{{x}}",
             "starts": "活动开始于{{x}}"
         }
+    },
+    "wowCubes": {
+        "greenText": "您也可以将它们用来购买升级，这些升级不会因为飞升而重置。",
+        "open1": "开启1个",
+        "open10%": "开启10%",
+        "open50%": "开启50%",
+        "openCustom": "自定数量",
+        "openAll": "开启全部",
+        "autoOff": "自动开启[关]",
+        "autoOn": "自动开启{{percent}}%",
+        "quarks": {
+            "quarkTitle": "-=- 开启方盒获取夸克 -=-",
+            "resetInfo": "每日0点夸克奖励重置！",
+            "cubeQuarksToday": "从方盒获取的夸克数量：<<cyan|{{amount}}>>",
+            "cubeQuarksOpenRequirement": "开启{{amount}}方盒后可获取夸克。",
+            "cubeQuarksOpenToday": "今日开启方盒数量：<<orchid|{{amount}}>>",
+            "tesseractQuarksToday": "从超立方获取的夸克数量：<<cyan|{{amount}}>>",
+            "tesseractQuarksOpenRequirement": "开启{{amount}}超立方后可获取夸克。",
+            "tesseractQuarksOpenToday": "今日开启超立方数量：<<orchid|{{amount}}>>",
+            "hypercubeQuarksToday": "从五阶立方获取的夸克数量：<<cyan|{{amount}}>>",
+            "hypercubeQuarksOpenRequirement": "开启{{amount}}五阶立方后可获取夸克。",
+            "hypercubeQuarksOpenToday": "今日开启五阶立方数量：<<orchid|{{amount}}>>",
+            "platonicCubeQuarksToday": "从PLATONIC方盒获取的夸克数量：<<cyan|{{amount}}>>",
+            "platonicCubeQuarksOpenRequirement": "开启{{amount}}PLATONIC方盒后可获取夸克。",
+            "platonicCubeQuarksOpenToday": "今日开启PLATONIC方盒数量：<<orchid|{{amount}}>>"
+        },
+        "cubes": {
+            "intro": "您感到了自豪和成就感……还有对力量的渴求。",
+            "instructions": "开启一些盲——呃，我是说惊奇方盒，来获取十种永久加成中的一种。",
+            "inventory": "您拥有<<yellow|{{amount}}>>惊奇方盒。您可以通过更高难度的飞升或者其他途径获取更多。",
+            "total": "您一共有<<yellow|{{amount}}>>方盒的贡品！",
+            "items": {
+                "1": "赫尔墨斯的贡品×{{amount}}：每个加速器加成额外提供{{bonus}}个加速器",
+                "2": "阿佛洛狄忒的贡品×{{amount}}：加倍器数量增加{{bonus}}%",
+                "3": "普路托斯的贡品×{{amount}}：祭品获取数量增加{{bonus}}%",
+                "4": "伊丽丝的贡品×{{amount}}：符文经验值增加{{bonus}}%",
+                "5": "雅典娜的贡品×{{amount}}：难得素获取数量增加{{bonus}}%",
+                "6": "阿尔忒弥斯的贡品×{{amount}}：蚂蚁速度增加{{bonus}}%",
+                "7": "阿瑞斯的贡品×{{amount}}：献祭奖励增加{{bonus}}%",
+                "8": "摩洛克的贡品×{{amount}}：有效强度分增加{{bonus}}",
+                "9": "米达斯的贡品×{{amount}}：每级护身符的符文额外等级增加{{bonus}}",
+                "10": "柯罗诺斯的贡品×{{amount}}：全局速度增加{{bonus}}%"
+            }
+        },
+        "tesseracts": {
+            "intro": "您从另一个维度的生物那边获得了指引！",
+            "instructions": "开启一些秘——呃，我是说惊奇超立方，来加成上一阶的贡品。",
+            "inventory": "您拥有<<yellow|{{amount}}>>惊奇超立方。您可以通过飞升分数超过100000的飞升获取更多。",
+            "total": "您一共有<<yellow|{{amount}}>>超立方的赠礼！",
+            "items": {
+                "1": "赫尔墨斯的赠礼×{{amount}}：赫尔墨斯的贡品效果增加{{bonus}}%",
+                "2": "阿佛洛狄忒的赠礼×{{amount}}：阿佛洛狄忒的贡品效果增加{{bonus}}%",
+                "3": "普路托斯的赠礼×{{amount}}：普路托斯的贡品效果增加{{bonus}}%",
+                "4": "伊丽丝的赠礼×{{amount}}：伊丽丝的贡品效果增加{{bonus}}%",
+                "5": "雅典娜的赠礼×{{amount}}：雅典娜的贡品效果增加{{bonus}}%",
+                "6": "阿尔忒弥斯的赠礼×{{amount}}：阿尔忒弥斯的贡品效果增加{{bonus}}%",
+                "7": "阿瑞斯的赠礼×{{amount}}：阿瑞斯的贡品效果增加{{bonus}}%",
+                "8": "摩洛克的赠礼×{{amount}}：摩洛克的贡品效果增加{{bonus}}%",
+                "9": "米达斯的赠礼×{{amount}}：米达斯的贡品效果增加{{bonus}}%",
+                "10": "柯罗诺斯的赠礼×{{amount}}：柯罗诺斯的贡品效果增加{{bonus}}%"
+            }
+        },
+        "hypercubes": {
+            "intro": "我之前可不知道惊奇公司居然有五维的产品。",
+            "instructions": "开启一些嫩牛五——呃，我是说惊奇五阶立方，来加成上一阶的赠礼。",
+            "inventory": "您拥有<<yellow|{{amount}}>>惊奇五阶立方。您可以通过飞升分数超过1e9的飞升获取更多。",
+            "total": "您一共有<<yellow|{{amount}}>>五阶立方的恩赐！",
+            "items": {
+                "1": "赫尔墨斯的恩赐×{{amount}}：赫尔墨斯的赠礼效果增加{{bonus}}%",
+                "2": "阿佛洛狄忒的恩赐×{{amount}}：阿佛洛狄忒的赠礼效果增加{{bonus}}%",
+                "3": "普路托斯的恩赐×{{amount}}：普路托斯的赠礼效果增加{{bonus}}%",
+                "4": "伊丽丝的恩赐×{{amount}}：伊丽丝的赠礼效果增加{{bonus}}%",
+                "5": "雅典娜的恩赐×{{amount}}：雅典娜的赠礼效果增加{{bonus}}%",
+                "6": "阿尔忒弥斯的恩赐×{{amount}}：阿尔忒弥斯的赠礼效果增加{{bonus}}%",
+                "7": "阿瑞斯的恩赐×{{amount}}：阿瑞斯的赠礼效果增加{{bonus}}%",
+                "8": "摩洛克的恩赐×{{amount}}：摩洛克的赠礼效果增加{{bonus}}%",
+                "9": "米达斯的恩赐×{{amount}}：米达斯的赠礼效果增加{{bonus}}%",
+                "10": "柯罗诺斯的恩赐×{{amount}}：柯罗诺斯的赠礼效果增加{{bonus}}%"
+            }
+        },
+        "platonics": {
+            "intro": "这看上去总感觉……很眼熟。",
+            "instructions": "开启一些作者方——呃，我是说PLATONIC方盒，来获得一些强大的特权！",
+            "inventory": "您拥有<<yellow|{{amount}}>>PLATONIC方盒。您可以通过飞升分数超过2.666e12的飞升获取更多。",
+            "total": "您一共开启了<<yellow|{{amount}}>>PLATONIC方盒！",
+            "items": {
+                "1": "方盒碎片×{{amount}}：惊奇方盒获取数量额外增加{{bonus}}%",
+                "2": "超立方碎片×{{amount}}：惊奇超立方获取数量额外增加{{bonus}}%",
+                "3": "五阶立方碎片×{{amount}}：惊奇五阶立方获取数量额外增加{{bonus}}%",
+                "4": "PLATONIC遗物×{{amount}}：PLATONIC方盒获取数量额外增加{{bonus}}%",
+                "5": "五阶立方塑像×{{amount}}：惊奇五阶立方的加成数值增加{{bonus}}%",
+                "6": "凯恩斯塑像×{{amount}}：数学常数减缓税收的指数的加成数值增加{{bonus}}%",
+                "7": "高分塑像×{{amount}}：腐化时的飞升分数增加{{bonus}}%",
+                "8": "柯罗诺斯塑像×{{amount}}：<<yellow|真实>>全局速度增加{{bonus}}%(不受效果衰减影响)"
+            }
+        },
+        "hepteractForge": {
+            "howDidIGetHere": "我是怎么到这里的？",
+            "noTimeToWaste": "好吧，没时间管那些了。这就是您的实验室。用惊奇七阶立方弄出一些有用的东西来吧！",
+            "noPassiveBonus": "惊奇七阶立方没有任何被动加成。必须通过锻造才能变得有用。",
+            "youPossessHepteracts": "您拥有<<yellow|{{amount}}>>惊奇七阶立方！您应该已经知道这些是哪来的了吧？",
+            "craft": "锻造",
+            "max": "最大化",
+            "expand": "延展",
+            "warp": "时空跃迁",
+            "autoSetting": "自动比例：{{x}}%",
+            "autoCraftPercentage": "自动锻造比例",
+            "autoCraftPercentagePrompt": "请输入0至100之间的整数来设定自动锻造的比例。每次飞升后，都将使用该比例的七阶立方来进行自动锻造，且将对所有开启自动锻造的七阶立方平均进行分配。自动锻造除了夸克以外，不花费七阶立方以外的资源！",
+            "unlocked": "< 已解锁 >",
+            "locked": "< 未解锁 >",
+            "inventory": "库存：{{x}} / {{y}}",
+            "orbs": "超通量珠：",
+            "effect": "效果：",
+            "powder": "超通量粉：",
+            "warps": "跃迁次数：",
+            "descriptions": {
+                "chronos": {
+                    "effect": "该惊奇七阶立方可以扭曲时间，为您所用。每个惊奇七阶立方·时光可以使飞升的速度增加0.06%。",
+                    "currentEffect": "当前效果：飞升的速度增加{{x}}%",
+                    "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}难得素！"
+                },
+                "hyperrealism": {
+                    "effect": "这货可以使五阶立方获取速度变得更快。每个惊奇七阶立方·超真实可以使五阶立方的获取数量增加0.06%。",
+                    "currentEffect": "当前效果：五阶立方获取数量增加{{x}}%",
+                    "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}祭品。"
+                },
+                "quark": {
+                    "effect": "一磅鱼，两磅鱼，鱼鱼鱼。每个惊奇七阶立方·夸克可以使夸克的获取数量增加0.05%。",
+                    "currentEffect": "当前效果：夸克获取数量增加{{x}}%",
+                    "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}夸克。"
+                },
+                "challenge": {
+                    "effect": "这不是扯淡吗？每个惊奇七阶立方·挑战可以使挑战15的指数获取数量增加0.05%？怎么可能？怎么可能！？",
+                    "currentEffect": "当前效果：挑战15的指数增加{{x}}%",
+                    "oneCost": "锻造一个将消耗{{x}}七阶立方，{{y}} PLATONIC方盒及{{z}}惊奇方盒。"
+                },
+                "abyss": {
+                    "effect": "似乎它拥有时间尽头的力量。还记得有哪里出现过类似的东西吗？",
+                    "currentEffect": "<[服从于时间的欧米伽形态吧]>",
+                    "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}惊奇方盒(笑)"
+                },
+                "accelerator": {
+                    "effect": "哈哈，腐化你个蠢蛋。每个惊奇七阶立方·加速器可以使不受腐化影响的加速器数量增加2000，然后再增加0.03%。",
+                    "currentEffect": "当前效果：不受腐化影响的加速器数量增加{{x}}，再增加{{y}}%",
+                    "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}惊奇超立方"
+                },
+                "acceleratorBoost": {
+                    "effect": "哈哈，腐化你个蠢蛋。每个惊奇七阶立方·加速器加成可以使加速器加成数量增加0.1%。",
+                    "currentEffect": "当前效果：加速器加成数量增加{{x}}%",
+                    "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}惊奇五阶立方"
+                },
+                "multiplier": {
+                    "effect": "哈哈，腐化你个蠢蛋。每个惊奇七阶立方·加倍器可以使不受腐化影响的加倍器数量增加1000，然后再增加0.03%。",
+                    "currentEffect": "当前效果：不受腐化影响的加倍器数量增加{{x}}，再增加{{y}}%",
+                    "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}难得素"
+                }
+            }
+        }
+    },
+    "dynamicUpgrades": {
+        "validation": {
+            "setPurchaseAmount": "设置{{x}}升级每次点击最大购买数量。输入-1则设置为默认值最大。",
+            "toggleKept": "数量仍然保持为{{x}}。",
+            "onlyNegativeOne": "您唯一能输入的负数只有-1。",
+            "notZero": "您无法将数量设置为0。"
+        },
+        "toggleMax": "数量已设置为最大",
+        "toggle": "数量已设置为{{x}}"
+    },
+    "hepteracts": {
+        "unlockedCraft": "恭喜，您现在可以在七阶立方锻炉内锻造{{x}}了！",
+        "notUnlocked": "这还没有解锁，您要怎么锻造呢？",
+        "reachedCapacity": "该七阶立方达到了上限{{x}}。请进行延展。",
+        "craftMax": "这将尽可能进行锻造。\\n您至多可以锻造{{x}}个(上限的{{y}}%)。您确定要这么做吗？",
+        "executionFailed": "执行失败：无法计算原材料。",
+        "craft": "您想要锻造多少？\\n您至多可以锻造{{x}}个(上限的{{y}}%)。",
+        "cancelled": "好吧，下次再说。",
+        "notEnough": "未达上限，无法延展。",
+        "craftedHepteracts": "您锻造了{{x}}七阶立方。",
+        "craftedHepteractsMax": "您锻造了{{x}}七阶立方。如果这个数量比您输入的数字要小，可能是数量达到了上限，或者是原材料不足。",
+        "expandPrompt": "延展将使此类惊奇七阶立方减少{{x}}，但可以使上限从{{y}}变为{{z}}[延展倍率：{{a}}倍]。您确定这么做没问题吧？",
+        "doubleSpent": "数量或者上限因为其他原因变化了，请重试！",
+        "expandedInventory": "延展完毕。上限变为{{x}}。",
+        "orbEffect": "超通量珠效果：开启方盒及立方时额外获得{{x}}%夸克。",
+        "orbsPurchasedToday": "今日购买的超通量珠数量：{{x}}。",
+        "amalgamate": "您可以在此处融合出超通量珠。[注意：所有超通量珠将在当天后粉碎]",
+        "cost250k": "每超通量珠需要250000七阶立方",
+        "craftMaxOrbs": "这将尽可能融合超通量珠。\\n您至多可以获得{{x}}个。您确定要这么做吗？",
+        "hepteractInput": "您要购买多少超通量珠？\\n现有的七阶立方最多可以购买{{x}}。",
+        "gainedPowder": "由于商店升级的效果，您还立即获得了{{x}}超通量粉。",
+        "purchasedOrbs": "您购买了{{x}}超通量珠[效果增加{{y}}%]。{{z}}祝您开心！",
+        "allCubeGain": "所有类型的方盒及立方获取数量增加{{x}}%[叠乘]，夸克获取数量增加{{y}}%[叠乘]",
+        "allCubeGainExtended": "所有类型的方盒及立方获取数量增加{{x}}%[叠乘]，夸克获取数量增加{{y}}%[叠乘]，飞升次数增加{{z}}%，超立方建筑产量变为{{a}}倍[Platonic升级4x1的效果]",
+        "powderEffect": "超通量粉块效果：{{x}}",
+        "powderLumps": "您拥有{{x}}超通量粉块。",
+        "expiredOrbs": "粉碎的超通量珠可以转化为超通量粉，比率为：每超通量粉块需要{{x}}超通量珠！",
+        "dayWarpsRemaining": "今日剩余的时空跃迁次数：{{x}}",
+        "warpImpossible": "您无法进行时空跃迁(变为获得更多夸克)",
+        "machineCooldown": "抱歉，机器目前还无法使用。",
+        "atleastPowder": "抱歉，您需要25超通量粉块才可以进行时空跃迁。",
+        "stumbleMachine": "您偶然发现了一台神秘的机器。上面附着一张说明，您可以使用25超通量粉来重置当天开启方盒及立方获得的夸克计数。但现实时间一天只能使用一次。您要使用它吗？",
+        "walkAwayMachine": "您离开了那台机器，超通量粉分毫未少。",
+        "useMachine": "使用机器后，当天开启方盒及立方获得的夸克计数被重置了！[消耗25超通量粉]",
+        "useAllWarpsPrompt": "关闭后将消耗您今日所有的跃迁次数(但没有任何收益)。\\n您确定要这么做吗？",
+        "machineDidNotConsume": "跃迁次数未发生变化。",
+        "boostQuarksPrompt": "机器可以根据剩余的跃迁次数来增加开启方盒及立方的夸克获取数量了。但开启后，您将无法进行跃迁，且将它关闭需要付出一定代价。\\n您确定要开启它吗？",
+        "machineOverdrive": "机器将开始过载工作，\\n但您目前没有跃迁次数。",
+        "machineInOverdrive": "机器开始了过载工作。",
+        "machineUsualContinue": "机器将继续正常工作。"
+    },
+    "importexport": {
+        "copiedSave": "存档已导出至剪贴板！",
+        "copiedFile": "存档已导出！",
+        "exportFailed": "导出失败！",
+        "unableCopySave": "无法将存档导出至剪贴板。",
+        "reloadDeletePrompt": "下个确认框将删除存档\\n如果您不想这么做，请取消",
+        "resetPrompt": "如果想要删除存档，请正确回答以下问题：{{a}}加{{b}}等于多少？(提示：答案为{{sum}})",
+        "wrongAnswer": "回答错误，不会删除存档！",
+        "unableImport": "无法导入该文件！",
+        "loadTestInLive": "您尝试导入的存档来自测试版的游戏。",
+        "promocodePrompt": "有奖励代码吗？很好！在这里输入就可以了(注意大小写)。\\n[注意：此处可以输入活动代码或者一些常时代码。\\n您可以考虑输入“synergism2021”或者“Khafra”。]",
+        "comeBackSoon": "好吧，下次再说！",
+        "noAddCodes": "您暂时还没有使用“增加”代码的次数！{{x}}秒后可以获得1次。",
+        "useXAdds": "您最多可以同时使用{{x}}次。您想要使用多少次？",
+        "cancelAdd": "您没有消耗任何代码次数！下次再说吧！"
     }
 }
