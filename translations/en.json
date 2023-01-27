@@ -505,7 +505,7 @@
             "1": "CURRENT EFFECT: ALL Ants work at {{x}}x speed.",
             "2": "CURRENT EFFECT: Crumb --> Coin exponent is ^{{x}}",
             "3": "CURRENT EFFECT: Tax growth is multiplied by {{x}}",
-            "4": "CURRENT EFFECT: Accelerator Boosts +{[x}}%",
+            "4": "CURRENT EFFECT: Accelerator Boosts +{{x}}%",
             "5": "CURRENT EFFECT: Multipliers +{{x}}%",
             "6": "CURRENT EFFECT: Offerings x{{x}}",
             "7": "CURRENT EFFECT: Building Costs scale {{x}}% slower!",
@@ -2053,7 +2053,7 @@
           "octeractImprovedFree3":{
             "name": "Wow! Make free upgrades good already, Platonic!",
             "description": "Extends the exponent of the free upgrades to 0.70.",
-            "effect": "Exponent of the first upgrade +{{n]}"
+            "effect": "Exponent of the first upgrade +{{n}}"
           },
           "octeractImprovedFree4":{
             "name": "Coupon of Ultimate Penniless Derpsmiths",

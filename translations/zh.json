@@ -2534,7 +2534,7 @@
             "octeractImprovedFree3": {
                 "name": "真惊奇！PLATONIC，让免费升级再度强大吧！",
                 "description": "使免费升级的指数变为0.70。",
-                "effect": "第一个升级的指数增加{{n]}"
+                "effect": "第一个升级的指数增加{{n}}"
             },
             "octeractImprovedFree4": {
                 "name": "身无分文的Derpsmith之终极兑换券",
