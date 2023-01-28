@@ -1910,8 +1910,8 @@
             "singFastForward2": {
                 "name": "Aetherflux Singularities",
                 "description": "Golden Quark gained by Singularity is increased by 100% (additive) and going singular at your all time highest count gives +1 singularity count! It's like Etherflux but with an A.",
-                "effectHave": "You've transformed the Etherflux!",
-                "effectHaveNot": "You haven't transformed the Etherflux!"
+                "effectHave": "You've transformed the Aetherflux!",
+                "effectHaveNot": "You haven't transformed the Aetherflux!"
             },
             "singAscensionSpeed": {
                 "name": "A hecking good ascension speedup!",
