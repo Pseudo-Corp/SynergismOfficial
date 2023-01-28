@@ -938,7 +938,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: n > 0,
                 get desc () {
-                    return i18next.t('singularity.data.platonicTau.effect', { n: n ? '' : 'NOT' })
+                    return i18next.t(`singularity.data.platonicTau.effect${n ? 'Have' : 'HaveNot'}`)
                 }
             }
         },
@@ -952,7 +952,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: n > 0,
                 get desc () {
-                    return i18next.t('singularity.data.platonicAlpha.effect', { n: n ? '' : 'NOT' })
+                    return i18next.t(`singularity.data.platonicAlpha.effect${n ? 'Have' : 'HaveNot'}`)
                 }
             }
         },
@@ -966,7 +966,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: n > 0,
                 get desc () {
-                    return i18next.t('singularity.data.platonicDelta.effect', { n: n ? '' : 'NOT' })
+                    return i18next.t(`singularity.data.platonicDelta.effect${n ? 'Have' : 'HaveNot'}`)
                 }
             }
         }
@@ -979,7 +979,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: n > 0,
                 get desc () {
-                    return i18next.t('singularity.data.platonicPhi.effect', { n: n ? '' : 'NOT' })
+                    return i18next.t(`singularity.data.platonicPhi.effect${n ? 'Have' : 'HaveNot'}`)
                 }
             }
         },
@@ -993,7 +993,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: n > 0,
                 get desc () {
-                    return i18next.t('singularity.data.singFastForward.effect', { n: n ? '' : 'NOT' })
+                    return i18next.t(`singularity.data.singFastForward.effect${n ? 'Have' : 'HaveNot'}`)
                 }
             }
         },
@@ -1007,7 +1007,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: n > 0,
                 get desc () {
-                    return i18next.t('singularity.data.singFastForward2.effect', { n: n ? '' : 'NOT' })
+                    return i18next.t(`singularity.data.singFastForward2.effect${n ? 'Have' : 'HaveNot'}`)
                 }
             }
         },
@@ -1079,7 +1079,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: n > 0,
                 get desc () {
-                    return i18next.t('singularity.data.oneMind.effect', { n: n ? '' : 'NOT' })
+                    return i18next.t(`singularity.data.oneMind.effect${n ? 'Have' : 'HaveNot'}`)
                 }
             }
         },
@@ -1093,7 +1093,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: n > 0,
                 get desc () {
-                    return i18next.t('singularity.data.wowPass4.effect', { n: n ? '' : 'NOT' })
+                    return i18next.t(`singularity.data.wowPass4.effect${n ? 'Have' : 'HaveNot'}`)
                 }
             }
         },

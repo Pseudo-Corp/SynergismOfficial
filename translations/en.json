@@ -1880,32 +1880,38 @@
             "platonicTau": {
                 "name": "Platonic TAU",
                 "description": "Placed in the wrong upgrade section, this will remove any restrictions on corruptions or corruption level caps! Also raises 3d cube gain to the power of 1.01!",
-                "effect": "This upgrade has {{n}} been purchased!"
+                "effectHave": "This upgrade has been purchased",
+                "effectHaveNot": "This upgrade has not been purchased"
             },
             "platonicAlpha": {
                 "name": "Platonic ALPHA...?",
                 "description": "Confusion ensues as to why there are two of these. This one is capitalized, so buying this ensures Platonic Alpha is always maxed!",
-                "effect": "This upgrade has {{n}} been purchased!"
+                "effectHave": "This upgrade has been purchased",
+                "effectHaveNot": "This upgrade has not been purchased"
             },
             "platonicDelta": {
                 "name": "Platonic DELTA",
                 "description": "Time follows you towards the future, after getting this bad boy. Gain +100% more cubes per day in your current singularity, up to +900% at day 9.",
-                "effect": "This upgrade has {{n}} been purchased!"
+                "effectHave": "This upgrade has been purchased",
+                "effectHaveNot": "This upgrade has not been purchased"
             },
             "platonicPhi": {
                 "name": "Platonic PHI",
                 "description": "Time follows you toward the past as well. Gain 5 additional free Singularity Upgrades per day in your singularity from code daily, up to +50 after 10 days.",
-                "effect": "This upgrade has {{n}} been purchased!"
+                "effectHave": "This upgrade has been purchased",
+                "effectHaveNot": "This upgrade has not been purchased"
             },
             "singFastForward": {
                 "name": "Etherflux Singularities",
                 "description": "Golden Quark gained by Singularity is increased by 100% (additive), and going singular at your all time highest count gives +1 singularity count!",
-                "effect": "You've {{n}} transformed the Etherflux!"
+                "effectHave": "You've transformed the Etherflux!",
+                "effectHaveNot": "You haven't transformed the Etherflux!"
             },
             "singFastForward2": {
                 "name": "Aetherflux Singularities",
                 "description": "Golden Quark gained by Singularity is increased by 100% (additive) and going singular at your all time highest count gives +1 singularity count! It's like Etherflux but with an A.",
-                "effect": "You've {{n}} transformed the Aetherflux!"
+                "effectHave": "You've transformed the Etherflux!",
+                "effectHaveNot": "You haven't transformed the Etherflux!"
             },
             "singAscensionSpeed": {
                 "name": "A hecking good ascension speedup!",
