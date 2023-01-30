@@ -1,9 +1,13 @@
 {
     "testing": {
-        "saveInLive": "存档无法在正式版本中使用！"
+        "saveInLive": "存档无法在正式版本中使用！",
+        "saveInLive2": "",
+        "errorSaving": "",
+        "gameSaved": ""
     },
     "save": {
-        "loadFailed": "无法载入存档。"
+        "loadFailed": "无法载入存档。",
+        "saveToClipboard": ""
     },
     "achievements": {
         "descriptions": {
@@ -1498,44 +1502,44 @@
             "starterPack": {
                 "name": "新手大礼包",
                 "description": "买这个就对了！使所有类型的方盒及立方获取数量乘以5，并使最终难得素获取数量和祭品获取数量(计算腐化后)变为6倍。",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已使所有类型的方盒及立方获取数量乘以5，最终难得素获取数量和祭品获取数量变为6倍。",
+                "effectHaveNot": "您未使所有类型的方盒及立方获取数量乘以5，最终难得素获取数量和祭品获取数量变为6倍。"
             },
             "wowPass": {
                 "name": "商店促销",
                 "description": "购买后，印记商人将向您出售更多好东西，它们在进入奇点后等级仍然保留！",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已解锁商店促销。",
+                "effectHaveNot": "您未解锁商店促销。"
             },
             "cookies": {
                 "name": "饼干配方 I",
                 "description": "花费一点金夸克就可以让惊奇烘焙坊重新开张，增加5个跟饼干有关的方盒升级。",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已解锁饼干配方 I。",
+                "effectHaveNot": "您未解锁饼干配方 I。"
             },
             "cookies2": {
                 "name": "饼干配方 II",
                 "description": "让惊奇烘焙坊制造更有异国风味的饼干，再增加5个跟饼干有关的方盒升级。",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已解锁饼干配方 II。",
+                "effectHaveNot": "您未解锁饼干配方 II。"
             },
             "cookies3": {
                 "name": "饼干配方 III",
                 "description": "烘焙师们表示不加薪就辞职了。如果给他们加薪，他们会为您制造更棒的饼干。",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已安抚烘焙师工会。",
+                "effectHaveNot": "您未安抚烘焙师工会。"
             },
             "cookies4": {
                 "name": "饼干配方 IV",
                 "description": "天下没有免费的饼干。",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已替饼干付费。",
+                "effectHaveNot": "您未替饼干付费。"
             },
             "cookies5": {
                 "name": "饼干配方 V(制作中)",
                 "description": "袖手旁观是人类最大的原罪。",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已见证大众的苦难。",
+                "effectHaveNot": "您未见证大众的苦难。"
             },
             "ascensions": {
                 "name": "更多飞升次数",
@@ -1545,14 +1549,14 @@
             "corruptionFourteen": {
                 "name": "腐化等级-十四",
                 "description": "购买后解锁腐化等级14。:)",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已解锁腐化等级14。{{m}}",
+                "effectHaveNot": "您未解锁腐化等级14。{{m}}"
             },
             "corruptionFifteen": {
                 "name": "腐化等级-十五",
                 "description": "购买后并*不*会*使腐化等级上限增加，而是使腐化的相关加成倍率直接视为增加1级(可以超过上限)。:)",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已使腐化加成倍率视为增加1级。{{m}}",
+                "effectHaveNot": "您未使腐化加成倍率视为增加1级。{{m}}"
             },
             "singOfferings1": {
                 "name": "祭品增压",
@@ -1612,8 +1616,8 @@
             "octeractUnlock": {
                 "name": "惊奇八阶方块",
                 "description": "喂！！！您到底要做什么？！？",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已解锁八阶方块。",
+                "effectHaveNot": "您未解锁八阶方块。"
             },
             "singOcteractPatreonBonus": {
                 "name": "Platonic脱销！！！",
@@ -1628,44 +1632,44 @@
             "intermediatePack": {
                 "name": "中级礼包",
                 "description": "使全局速度翻倍，飞升的速度变为1.5倍，夸克获取数量增加2%。",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已将礼包升级为中级。",
+                "effectHaveNot": "您未将礼包升级为中级。"
             },
             "advancedPack": {
                 "name": "高级礼包",
                 "description": "好上加好！使夸克获取数量增加4%(可以与中级礼包叠加)，并使所有腐化(等级不限)的分数倍率增加0.33！",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已购买高级礼包。",
+                "effectHaveNot": "您未购买高级礼包。"
             },
             "expertPack": {
                 "name": "专家礼包",
                 "description": "越来越难控制了！使夸克获取数量增加6%(可以与高级礼包叠加)，飞升分数变为1.5倍，输入“增加”代码的飞升时间奖励变为1.2倍。",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已切换至专家礼包。",
+                "effectHaveNot": "您未切换至专家礼包。"
             },
             "masterPack": {
                 "name": "大师礼包",
                 "description": "有点疯狂了。使夸克获取数量增加8%(可以与专家礼包叠加)，每有一个腐化等级达到14，就使飞升分数变为1.1倍。",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已能开宗立派。",
+                "effectHaveNot": "您未能开宗立派。"
             },
             "divinePack": {
                 "name": "神圣礼包",
                 "description": "哦—————使夸克获取数量增加10%(可以与大师礼包叠加)，如果腐化等级总和(不考虑视为增加的等级)超过14×8，则使惊奇八阶方块获取数量变为7.77倍。",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已发觉生存的理由。",
+                "effectHaveNot": "您暂未发觉生存的理由。"
             },
             "wowPass2": {
                 "name": "商店清仓大甩卖",
                 "description": "印记商人想要抛售掉一些奇异商品。价格的确是有点高昂了。大甩卖大概不是这个样子的。",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已开启清仓大甩卖！",
+                "effectHaveNot": "您未开启清仓大甩卖！"
             },
             "wowPass3": {
                 "name": "夸夸夸夸克",
                 "description": "夸夸夸夸夸夸夸夸克。商人已经对夸克痴狂了！",
-                "effectHave": "",
-                "effectHaveNot": ""
+                "effectHave": "您已开启夸克大盛典！！",
+                "effectHaveNot": "您未开启夸克大盛典！！"
             },
             "potionBuff": {
                 "name": "启迪药水瓶",
@@ -1745,32 +1749,38 @@
             "platonicTau": {
                 "name": "PLATONIC·陶",
                 "description": "似乎放到了错误的升级区域，它将使腐化解锁和腐化等级上限解锁的相应限制解除。另外，它还使惊奇方盒获取数量变为原来的1.01次方！",
-                "effect": "{{n}}购买该升级！"
+                "effectHave": "已购买该升级",
+                "effectHaveNot": "未购买该升级"
             },
             "platonicAlpha": {
                 "name": "PLATONIC·阿 尔 法……？",
                 "description": "有两个阿尔法简直令人大惑不解。不过这一个阿尔法中间有空格，它可以使PLATONIC ALPHA升级永久为已升级！",
-                "effect": "{{n}}购买该升级！"
+                "effectHave": "已购买该升级",
+                "effectHaveNot": "未购买该升级"
             },
             "platonicDelta": {
                 "name": "PLATONIC·德尔塔",
                 "description": "获得这个玩意以后，时间的力量会向着未来变得更加强大。在本次奇点中，每经过一天，所有类型的方盒、立方和方块获取数量就增加100%，最高为第九天增加900%。",
-                "effect": "{{n}}购买该升级！"
+                "effectHave": "已购买该升级",
+                "effectHaveNot": "未购买该升级"
             },
             "platonicPhi": {
                 "name": "PLATONIC·斐",
                 "description": "时间的力量也可以向着过去变得更加强大。在本次奇点中，每经过一天，“每日”代码获得的免费奇点升级增加5级，最高为第十天增加50级。",
-                "effect": "{{n}}购买该升级！"
+                "effectHave": "已购买该升级",
+                "effectHaveNot": "未购买该升级"
             },
             "singFastForward": {
                 "name": "以太通量·奇点",
                 "description": "使进入奇点的金夸克获取数量增加100%(效果相互叠加)，且在最高奇点次数时进入奇点将使奇点次数增加1次！",
-                "effect": "您{{n}}转化以太通量！"
+                "effectHave": "您已转化以太通量！",
+                "effectHaveNot": "您未转化以太通量！"
             },
             "singFastForward2": {
                 "name": "超以太通量·奇点",
                 "description": "使进入奇点的金夸克获取数量增加100%(效果相互叠加)，且在最高奇点次数时进入奇点将使奇点次数增加1次！它的效果与以太通量类似，只是名字多了个超字。",
-                "effect": "您{{n}}转化超以太通量！"
+                "effectHave": "您已转化超以太通量！",
+                "effectHaveNot": "您未转化超以太通量！"
             },
             "singAscensionSpeed": {
                 "name": "飞升的速度强力提升！",
@@ -2149,7 +2159,8 @@
             "automation": "自动化升级",
             "particles": "粒子升级"
         },
-        "hover": "将鼠标停在升级图标上可获得相关详情！"
+        "hover": "将鼠标停在升级图标上可获得相关详情！",
+        "hoverOverUpgrade": ""
     },
     "tabs": {
         "main": {
@@ -2534,7 +2545,7 @@
             "octeractImprovedFree3": {
                 "name": "真惊奇！PLATONIC，让免费升级再度强大吧！",
                 "description": "使免费升级的指数变为0.70。",
-                "effect": "第一个升级的指数增加{{n}}"
+                "effect": "第一个升级的指数增加{{n]}"
             },
             "octeractImprovedFree4": {
                 "name": "身无分文的Derpsmith之终极兑换券",
@@ -3017,6 +3028,103 @@
         "comeBackSoon": "好吧，下次再说！",
         "noAddCodes": "您暂时还没有使用“增加”代码的次数！{{x}}秒后可以获得1次。",
         "useXAdds": "您最多可以同时使用{{x}}次。您想要使用多少次？",
-        "cancelAdd": "您没有消耗任何代码次数！下次再说吧！"
+        "cancelAdd": "您没有消耗任何代码次数！下次再说吧！",
+        "daily0Uses": "",
+        "daily1Uses": "",
+        "add1Uses": "",
+        "add0Uses": "",
+        "addUses": "",
+        "timeMultiplier": "",
+        "promocodes": {
+            "synergism2021": "",
+            "unsmith": "",
+            "antismith": "",
+            "khafra": "",
+            "daily": {
+                "message": "",
+                "message2": ""
+            },
+            "add": {
+                "calculator3": "",
+                "calculator5": "",
+                "calculator6": "",
+                "calculatorSolution": "",
+                "calculatorPrompt": "",
+                "calculatorMaxed": "",
+                "freeLevel": "",
+                "cancelled": "",
+                "reward": "",
+                "wrong": ""
+            },
+            "sub": {
+                "subbed": "",
+                "gave": ""
+            },
+            "gamble": {
+                "wait": "",
+                "prompt": "",
+                "cancelled": "",
+                "betPrompt": "",
+                "cheaters": "",
+                "won": "",
+                "lost": ""
+            },
+            "time": {
+                "wait": "",
+                "confirm": "",
+                "won": "",
+                "lost": ""
+            },
+            "spoiler": {
+                "moreThan1": "",
+                "one": ""
+            },
+            "invalid": ""
+        }
+    },
+    "toggles": {
+        "percentBetweenInclusive": "",
+        "percentKeptAt": "",
+        "onAscensionHepteractsCraft": "",
+        "autoUpgradeOn": "",
+        "autoUpgradeOff": "",
+        "upgradeMaxIfPossible": "",
+        "upgradeOneLevelWow": "",
+        "saveOfferingsOn": "",
+        "saveOfferingsOff": "",
+        "modeTime": "",
+        "modeAmount": "",
+        "modePercentage": ""
+    },
+    "main": {
+        "dataPersistent": "",
+        "starRepo": "",
+        "transferredFromLZ": "",
+        "allCorruptionsZero": "",
+        "corruptionLoadoutApplied": "",
+        "ascendPrompt": "",
+        "reincarnatePrompt": "",
+        "transcendPrompt": "",
+        "prestigePrompt": "",
+        "welcomeToSingularity": "",
+        "singularityCancelled": "",
+        "singularityMessage1": "",
+        "singularityMessage2": "",
+        "singularityMessage3": "",
+        "singularityMessage4": "",
+        "singularityMessage5": "",
+        "singularityConfirm0": "",
+        "singularityConfirm1": "",
+        "singularityConfirm2": "",
+        "singularityConfirm3": "",
+        "noAntiquity": "",
+        "insideSingularityChallenge": "",
+        "gameBeat": "",
+        "exitAscensionChallenge": "",
+        "buyResearch3x11": ""
+    },
+    "history": {
+        "perSecondOn": "",
+        "perSecondOff": ""
     }
 }
