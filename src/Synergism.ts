@@ -895,13 +895,13 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
 
         await localforage.setItem<Blob>('Synergysave2', saveBlob);
     } else {
-        await Alert('An error prevented this file from being saved.')
+        await Alert(i18next.t('testing.errorSaving'))
         return false
     }
 
     if (button) {
         const el = DOMCacheGetOrSet('saveinfo');
-        el.textContent = 'Game saved successfully!';
+        el.textContent = i18next.t('testing.gameSaved');
         setTimeout(() => el.textContent = '', 4000);
     }
 
@@ -949,7 +949,7 @@ const loadSynergy = async () => {
             (data.exporttest === false || data.exporttest === 'NO!') &&
             !testing
         ) {
-            return Alert('You can\'t load this save anymore!');
+            return Alert(i18next.t('testing.saveInLive2'));
         }
 
         const oldCodesUsed = Array.from(
@@ -1521,7 +1521,9 @@ const loadSynergy = async () => {
         showCorruptionStatsLoadouts()
         updateCorruptionLoadoutNames()
 
-        DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + format(100 * G['effectiveLevelMult'] - 100, 4, true) + '%';
+        DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t('runes.thanksResearches', {
+            percent: format(100 * G['effectiveLevelMult'] - 100, 4, true)
+        })
 
         DOMCacheGetOrSet('talismanlevelup').style.display = 'none'
         DOMCacheGetOrSet('talismanrespec').style.display = 'none'
@@ -1664,29 +1666,29 @@ const loadSynergy = async () => {
         })
 
         if (player.resettoggle1 === 1) {
-            DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: AMOUNT'
+            DOMCacheGetOrSet('prestigeautotoggle').textContent = i18next.t('toggles.modeAmount')
         }
         if (player.resettoggle2 === 1) {
-            DOMCacheGetOrSet('transcendautotoggle').textContent = 'Mode: AMOUNT'
+            DOMCacheGetOrSet('transcendautotoggle').textContent = i18next.t('toggles.modeAmount')
         }
         if (player.resettoggle3 === 1) {
-            DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: AMOUNT'
+            DOMCacheGetOrSet('reincarnateautotoggle').textContent = i18next.t('toggles.modeAmount')
         }
         if (player.resettoggle4 === 1) {
-            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: AMOUNT'
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t('toggles.modeAmount')
         }
 
         if (player.resettoggle1 === 2) {
-            DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: TIME'
+            DOMCacheGetOrSet('prestigeautotoggle').textContent = i18next.t('toggles.modeTime')
         }
         if (player.resettoggle2 === 2) {
-            DOMCacheGetOrSet('transcendautotoggle').textContent = 'Mode: TIME'
+            DOMCacheGetOrSet('transcendautotoggle').textContent = i18next.t('toggles.modeTime')
         }
         if (player.resettoggle3 === 2) {
-            DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: TIME'
+            DOMCacheGetOrSet('reincarnateautotoggle').textContent = i18next.t('toggles.modeTime')
         }
         if (player.resettoggle4 === 2) {
-            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: PERCENTAGE'
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t('toggles.modePercentage')
         }
 
         if (player.tesseractAutoBuyerToggle === 1) {
@@ -1776,13 +1778,13 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleautoenhance').style.border = '2px solid red'
         }
         player.saveOfferingToggle = false; //Lint doesnt like it being inside if
-        DOMCacheGetOrSet('saveOffToggle').textContent = 'Save Offerings [OFF]'
+        DOMCacheGetOrSet('saveOffToggle').textContent = i18next.t('toggles.saveOfferingsOff')
         DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
         if (player.autoAscend) {
-            DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [ON]';
+            DOMCacheGetOrSet('ascensionAutoEnable').textContent = i18next.t('corruptions.autoAscend.on')
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid green'
         } else {
-            DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [OFF]';
+            DOMCacheGetOrSet('ascensionAutoEnable').textContent = i18next.t('corruptions.autoAscend.off')
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
         }
         if (player.shopConfirmationToggle) {
@@ -1814,9 +1816,9 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = i18next.t('researches.upgradeOne')
         }
         if (player.cubeUpgradesBuyMaxToggle) {
-            DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: MAX [if possible wow]'
+            DOMCacheGetOrSet('toggleCubeBuy').textContent = i18next.t('toggles.upgradeMaxIfPossible')
         } else {
-            DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: 1 Level wow'
+            DOMCacheGetOrSet('toggleCubeBuy').textContent = i18next.t('toggles.upgradeOneLevelWow')
         }
         autoCubeUpgradesToggle(false);
         autoPlatonicUpgradesToggle(false);
@@ -1845,7 +1847,7 @@ const loadSynergy = async () => {
 
 
         if (player.researches[61] === 0) {
-            DOMCacheGetOrSet('automaticobtainium').textContent = '[LOCKED - Buy Research 3x11]'
+            DOMCacheGetOrSet('automaticobtainium').textContent = i18next.t('main.buyResearch3x11')
         }
 
         if (player.autoSacrificeToggle && player.autoSacrifice > 0.5) {
@@ -3157,7 +3159,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         let conf = true
         if (manual) {
             if (player.challengecompletions[11] === 0 || player.toggles[31]) {
-                conf = await Confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
+                conf = await Confirm(i18next.t('main.exitAscensionChallenge'))
             }
         }
         if (!conf) {
@@ -3213,47 +3215,53 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 
     if (i === 'singularity') {
         if (player.runelevels[6] === 0) {
-            return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
+            return Alert(i18next.t('main.noAntiquity'))
         }
 
         const thankSing = 300;
 
         if (player.insideSingularityChallenge) {
-            return Alert('Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.')
+            return Alert(i18next.t('main.insideSingularityChallenge'))
         }
 
         if (player.singularityCount >= thankSing) {
-            return Alert(`Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere
-            to go from here. At least, not until higher powers expand your journey.`)
+            return Alert(i18next.t('main.gameBeat'))
         }
 
         let confirmed = false;
         const nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
 
         if (!player.toggles[33] && player.singularityCount > 0) {
-            confirmed = await Confirm(`Do you wish to start singularity #${format(nextSingularityNumber)}? Your next universe is harder but you will gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
+            confirmed = await Confirm(i18next.t('main.singularityConfirm0', {
+                x: format(nextSingularityNumber),
+                y: format(calculateGoldenQuarkGain(), 2, true)
+            }))
         } else {
-            await Alert('You have reached the end of the game, on Singularity #' +format(player.singularityCount)+'. Platonic and the Ant God are proud of you.')
-            await Alert('You may choose to sit on your laurels, and consider the game \'beaten\', or you may do something more interesting.')
-            await Alert('You\'re too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.')
-            await Alert(`Start anew, and enter Singularity #${format(nextSingularityNumber)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
-            await Alert('However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.')
+            await Alert(i18next.t('main.singularityMessage1', { x: format(player.singularityCount) }))
+            await Alert(i18next.t('main.singularityMessage2'))
+            await Alert(i18next.t('main.singularityMessage3'))
+            await Alert(i18next.t('main.singularityMessage4', {
+                x: format(nextSingularityNumber),
+                y: format(calculateGoldenQuarkGain(), 2, true),
+                z: format(player.worlds.BONUS)
+            }))
+            await Alert(i18next.t('main.singularityMessage5'))
 
-            confirmed = await Confirm('So, what do you say? Do you wish to enter the Singularity?')
+            confirmed = await Confirm(i18next.t('main.singularityConfirm1'))
             if (confirmed) {
-                confirmed = await Confirm('Are you sure you wish to enter the Singularity?')
+                confirmed = await Confirm(i18next.t('main.singularityConfirm2'))
             }
             if (confirmed) {
-                confirmed = await Confirm('Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.')
+                confirmed = await Confirm(i18next.t('main.singularityConfirm3'))
             }
         }
 
         if (!confirmed) {
-            return Alert('If you decide to change your mind, let me know. -Ant God')
+            return Alert(i18next.t('main.singularityCancelled'))
         } else {
             await singularity();
             await saveSynergy();
-            return Alert('Welcome to Singularity #' + format(player.singularityCount) + '. You\'re back to familiar territory, but something doesn\'t seem right.')
+            return Alert(i18next.t('main.welcomeToSingularity', { x: format(player.singularityCount) }))
         }
     }
 }
@@ -3261,7 +3269,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 export const resetConfirmation = async (i: string): Promise<void> => {
     if (i === 'prestige') {
         if (player.toggles[28] === true) {
-            const r = await Confirm('Prestige will reset coin upgrades, coin producers AND crystals. The first Prestige unlocks new features. Would you like to Prestige? [Toggle this message in settings.]')
+            const r = await Confirm(i18next.t('main.prestigePrompt'))
             if (r === true) {
                 resetachievementcheck(1);
                 reset('prestige');
@@ -3273,7 +3281,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
     }
     if (i === 'transcend') {
         if (player.toggles[29] === true) {
-            const z = await Confirm('Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first Transcension unlocks new features. Would you like to Transcend? [Toggle this message in settings.]')
+            const z = await Confirm(i18next.t('main.transcendPrompt'))
             if (z === true) {
                 resetachievementcheck(2);
                 reset('transcension');
@@ -3286,7 +3294,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
     if (i === 'reincarnate') {
         if (player.currentChallenge.ascension !== 12) {
             if (player.toggles[30] === true) {
-                const z = await Confirm('Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]')
+                const z = await Confirm(i18next.t('main.reincarnatePrompt'))
                 if (z === true) {
                     resetachievementcheck(3);
                     reset('reincarnation');
@@ -3299,7 +3307,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
     }
     if (i === 'ascend') {
         const z = !player.toggles[31] ||
-                  await Confirm('Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue?')
+                  await Confirm(i18next.t('main.ascendPrompt'))
         if (z) {
             reset('ascension');
         }
@@ -3933,12 +3941,18 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         if (player.challengecompletions[11] > 0 && !isNaN(num)) {
             if (num >= 0 && num < player.corruptionLoadoutNames.length) {
                 if (player.toggles[41] === true) {
-                    void Notification(`Corruption Loadout ${num + 1} "${player.corruptionLoadoutNames[num]}" has been applied. This will take effect on the next Ascension.`, 5000);
+                    void Notification(
+                        i18next.t('main.corruptionLoadoutApplied', {
+                            x: num + 1,
+                            y: player.corruptionLoadoutNames[num]
+                        }),
+                        5000
+                    )
                 }
                 corruptionLoadoutSaveLoad(false, num + 1);
             } else {
                 if (player.toggles[41] === true) {
-                    void Notification('All Corruptions have been set to Zero. This will take effect on the next Ascension.', 5000);
+                    void Notification(i18next.t('main.allCorruptionsZero'), 5000);
                 }
                 corruptionLoadoutSaveLoad(false, 0);
             }
@@ -4085,7 +4099,7 @@ export const reloadShit = async (reset = false) => {
             localStorage.clear();
             const blob = new Blob([saveString], { type: 'text/plain' });
             await localforage.setItem<Blob>('Synergysave2', blob);
-            await Alert('Transferred save to new format successfully!');
+            await Alert(i18next.t('main.transferredFromLZ'));
         }
 
         await loadSynergy();
@@ -4133,7 +4147,7 @@ export const reloadShit = async (reset = false) => {
     clearTimeout(preloadDeleteGame);
 
     if (localStorage.getItem('pleaseStar') === null) {
-        void Alert('Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial');
+        void Alert(i18next.t('main.starRepo'));
         localStorage.setItem('pleaseStar', '');
     }
 
@@ -4151,7 +4165,7 @@ export const reloadShit = async (reset = false) => {
             const isPersistentNow = await navigator.storage.persist();
 
             if (isPersistentNow) {
-                void Alert('Data on this page is now persistent! If you do not know what this means, you can safely ignore it.');
+                void Alert(i18next.t('main.dataPersistent'));
             }
         } else {
             // eslint-disable-next-line no-console

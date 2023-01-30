@@ -480,7 +480,11 @@ export const resetHistoryTogglePerSecond = () => {
     player.historyShowPerSecond = !player.historyShowPerSecond;
     resetHistoryRenderAllTables();
     const button = DOMCacheGetOrSet('historyTogglePerSecondButton');
-    button.textContent = 'Per second: ' + (player.historyShowPerSecond ? 'ON' : 'OFF');
+    if (player.historyShowPerSecond) {
+        button.textContent = i18next.t('history.perSecondOn')
+    } else {
+        button.textContent = i18next.t('history.perSecondOff')
+    }
     button.style.borderColor = player.historyShowPerSecond ? 'green' : 'red';
 }
 

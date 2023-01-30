@@ -561,7 +561,7 @@ export const hideStuff = () => {
     if (G['currentTab'] === 'upgrades') {
         DOMCacheGetOrSet('upgrades').style.display = 'block'
         DOMCacheGetOrSet('upgradestab').style.backgroundColor = 'orange'
-        DOMCacheGetOrSet('upgradedescription').textContent = 'Hover over an upgrade to view details!'
+        DOMCacheGetOrSet('upgradedescription').textContent = i18next.t('upgrades.hoverOverUpgrade')
     }
     if (G['currentTab'] === 'settings') {
         DOMCacheGetOrSet('settings').style.display = 'block'

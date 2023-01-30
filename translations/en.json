@@ -1,9 +1,13 @@
 {
     "testing": {
-        "saveInLive": "Savefiles cannot be used in live!"
+        "saveInLive": "Savefiles cannot be used in live!",
+        "saveInLive2": "You can't load this save anymore!",
+        "errorSaving": "An error prevented this file from being saved.",
+        "gameSaved": "Game saved successfully!"
     },
     "save": {
-        "loadFailed": "Unable to load save."
+        "loadFailed": "Unable to load save.",
+        "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
     },
     "achievements": {
         "descriptions": {
@@ -2456,7 +2460,8 @@
             "generator": "Generator Shop",
             "automation": "Automation Shop",
             "particles": "Particles Upgrades"
-        }
+        },
+        "hoverOverUpgrade": "Hover over an upgrade to view details!"
     },
     "tabs": {
         "main": {
@@ -3023,6 +3028,103 @@
       "comeBackSoon": "Alright, come back soon!",
       "noAddCodes": "You do not have an 'Add' code attempt! You will gain 1 in {{x}} seconds.",
       "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use?",
-      "cancelAdd": "No worries, you didn't lose any of your uses! Come back later!"
+      "cancelAdd": "No worries, you didn't lose any of your uses! Come back later!",
+      "daily0Uses": "0 uses left. Next: end of the day.",
+      "daily1Uses": "1 use left. Next: end of the day.",
+      "add1Uses": "{{x}} use left.",
+      "add0Uses": "{{x}} uses left. Next: in {{y}} seconds.",
+      "addUses": "{{x}} uses left.",
+      "timeMultiplier": "{{x}} use(s) left. Multiplier: {{y}}x",
+      "promocodes": {
+        "synergism2021": "Promo Code 'synergism2021' Applied! +25 Offerings, +50 Quarks",
+        "unsmith": "It's Spaghetti Time! [Awarded an achievement!!!]",
+        "antismith": "Hey, isn't this just a reference to Antimatter Dimensions? Shh. [Awarded an achievement!!!]",
+        "khafra": "Khafra has blessed you with {{x}} Quarks!",
+        "daily": {
+          "message": "Thank you for playing today!\nThe Ant God rewards you with this gift:",
+          "message2": "Feeling especially generous, the Ant God has also given you free levels of the following Singularity upgrades:"
+        },
+        "add": {
+          "calculator3": "Thanks to PL-AT Ω you have also gained {{x}} real-life seconds to your Ascension Timer!",
+          "calculator5": "Thanks to PL-AT Γ you have additionally gained {{x}} real-life seconds to your GQ Export Timer!",
+          "calculator6": "Finally, thanks to PL-AT _ you have gained {{x}} seconds of Octeract generation!",
+          "calculatorSolution": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}? The answer is {{z}} according to your calculator.",
+          "calculatorPrompt": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}?",
+          "calculatorMaxed": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks! {{e}} {{f}} {{g}} {{h}} You have {{i}} uses of Add. You will gain 1 in {{j}} seconds.",
+          "freeLevel": "Moreover, gain {{x}} free levels of GQ1 and {{y}} free levels of GQ3!!!",
+          "cancelled": "No worries, you didn't lose any of your uses! Come back later!",
+          "reward": "You were awarded {{a}} Quarks! {{b}} {{c}} {{d}} You have {{e}} uses of Add. You will gain 1 in {{f}} seconds.",
+          "wrong": "You guessed {{w}}, but the answer was {{x}}. You have {{y}} uses of Add. You will gain 1 in {{z}} seconds."
+        },
+        "sub": {
+          "subbed": "Thanks for using the \"sub\" code! I've taken away {{x}} Quarks! :)",
+          "gave": "I gave you {{x}} Quarks so I could take {{y}} away."
+        },
+        "gamble": {
+          "wait": "Wait a little bit. We'll get back to you when you're ready to lose again.",
+          "prompt": "Are you sure? The house always wins!",
+          "cancelled": "Scared? You should be!",
+          "betPrompt": "How many Quarks are you putting up?",
+          "cheaters": "Due to cheaters, you can only bet 10k max.",
+          "won": "You won. The Syncasino offers you a grand total of 25% of the pot! [+{{x}} Quarks]",
+          "lost": "Try again... you can do it! [-{{x}} quarks]"
+        },
+        "time": {
+          "wait": "If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.\n\nRegardless, you must wait at least 15 minutes between each use.",
+          "confirm": "Click the button within the next 15 seconds to test your luck! If you click within {{x}} ms of a randomly generated time, you will win a prize! This particular instance has a {{y}}x multiplier due to elapsed time between uses.",
+          "won": "You clicked at the right time! [+{{x}} Quarkies]",
+          "lost": "You didn't guess the right time, try again soon!"
+        },
+        "spoiler": {
+          "moreThan1": "You will gain {{x}} Octeracts (when they come out) every second, assuming you have them unlocked!",
+          "one": "You will gain an Octeract (when they come out) every {{x}} seconds, assuming you have them unlocked!"
+        },
+        "invalid": "Your code is either invalid or already used. Try again!"
+      }
+    },
+    "toggles": {
+      "percentBetweenInclusive": "Value must be a number between {{x}} and {{y}}, inclusive!",
+      "percentKeptAt": "Your percentage is kept at {{x}}%.",
+      "onAscensionHepteractsCraft": "Okay. On Ascension, {{x}}% of your Hepteracts will be used in crafting.",
+      "autoUpgradeOn": "Auto Upgrades: [ON]",
+      "autoUpgradeOff": "Auto Upgrades: [OFF]",
+      "upgradeMaxIfPossible": "Upgrade: MAX [if possible wow]",
+      "upgradeOneLevelWow": "Upgrade: 1 Level wow",
+      "saveOfferingsOn": "Save Offerings [ON]",
+      "saveOfferingsOff": "Save Offerings [OFF]",
+      "modeTime": "Mode: TIME",
+      "modeAmount": "Mode: AMOUNT",
+      "modePercentage": "Mode: PERCENTAGE"
+    },
+    "main": {
+      "dataPersistent": "Data on this page is now persistent! If you do not know what this means, you can safely ignore it.",
+      "starRepo": "Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial",
+      "transferredFromLZ": "Transferred save to new format successfully!",
+      "allCorruptionsZero": "All Corruptions have been set to Zero. This will take effect on the next Ascension.",
+      "corruptionLoadoutApplied": "Corruption Loadout {{x}} \"{{y}}\" has been applied. This will take effect on the next Ascension.",
+      "ascendPrompt": "Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue?",
+      "reincarnatePrompt": "Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]",
+      "transcendPrompt": "Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first Transcension unlocks new features. Would you like to Transcend? [Toggle this message in settings.]",
+      "prestigePrompt": "Prestige will reset coin upgrades, coin producers AND crystals. The first Prestige unlocks new features. Would you like to Prestige? [Toggle this message in settings.]",
+      "welcomeToSingularity": "Welcome to Singularity #{{x}}. You're back to familiar territory, but something doesn't seem right.",
+      "singularityCancelled": "If you decide to change your mind, let me know. -Ant God",
+      "singularityMessage1": "You have reached the end of the game, on Singularity #{{x}}. Platonic and the Ant God are proud of you.",
+      "singularityMessage2": "You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.",
+      "singularityMessage3": "You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.",
+      "singularityMessage4": "Start anew, and enter Singularity #{{x}}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain {{y}} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by {{z}}% due to patreon bonus!].",
+      "singularityMessage5": "However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.",
+      "singularityConfirm0": "Do you wish to start singularity #{{x}}? Your next universe is harder but you will gain {{y}} Golden Quarks.",
+      "singularityConfirm1": "So, what do you say? Do you wish to enter the Singularity?",
+      "singularityConfirm2": "Are you sure you wish to enter the Singularity?",
+      "singularityConfirm3": "Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.",
+      "noAntiquity": "Hmph. Please return with an Antiquity. Thank you. -Ant God",
+      "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.",
+      "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
+      "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
+      "buyResearch3x11": "[LOCKED - Buy Research 3x11]"
+    },
+    "history": {
+      "perSecondOn": "Per second: ON",
+      "perSecondOff": "Per second: OFF"
     }
 }
