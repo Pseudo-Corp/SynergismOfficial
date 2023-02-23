@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles'
+import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleBuyMaxOcteract, toggleBuyMaxSingUpgrade, toggleHideShop, toggleHideOcteract, toggleHideSingUpgrade, toggleHepteractAutoPercentage, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyRuneBonusLevels, buyAllBlessings } from './Buy'
@@ -586,7 +586,7 @@ TODO: Fix this entire tab it's utter shit
     // Part 1: The Settings
     /*Respec The Upgrades*/ DOMCacheGetOrSet('resetShopUpgrades').addEventListener('click', () => resetShopUpgrades())
     /*Toggle Shop Confirmations*/ DOMCacheGetOrSet('toggleConfirmShop').addEventListener('click', () => toggleShopConfirmation())
-    /*Toggle Shop Buy Max*/ DOMCacheGetOrSet('toggleBuyMaxShop').addEventListener('click', (event) => toggleBuyMaxShop(event))
+    /*Toggle Shop Buy Max*/ DOMCacheGetOrSet('toggleBuyMaxShop').addEventListener('click', () => toggleBuyMaxShop())
     /*Toggle Hide Permanent Maxed*/ DOMCacheGetOrSet('toggleHideShop').addEventListener('click', () => toggleHideShop())
 
     // Part 2: Potions
@@ -595,8 +595,7 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('offeringpotionowned').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
     DOMCacheGetOrSet('buyofferingpotion').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
     DOMCacheGetOrSet('useofferingpotion').addEventListener('mouseover', () => shopDescriptions('offeringPotion'))
-    DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', () => buyShopUpgrades('offeringPotion'))
-    //DOMCacheGetOrSet('offeringPotions').addEventListener('click', () => buyShopUpgrades("offeringPotion"))  //Allow clicking of image to buy also
+    DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', (event) => buyShopUpgrades('offeringPotion', event))
     DOMCacheGetOrSet('useofferingpotion').addEventListener('click', () => useConsumable('offeringPotion'))
     DOMCacheGetOrSet('toggle42').addEventListener('click', () => {
         player.autoPotionTimer = 0;
@@ -606,8 +605,7 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('obtainiumpotionowned').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
     DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
     DOMCacheGetOrSet('useobtainiumpotion').addEventListener('mouseover', () => shopDescriptions('obtainiumPotion'))
-    DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('click', () => buyShopUpgrades('obtainiumPotion'))
-    //DOMCacheGetOrSet('obtainiumPotions').addEventListener('click', () => buyShopUpgrades("obtainiumPotion"))  //Allow clicking of image to buy also
+    DOMCacheGetOrSet('buyobtainiumpotion').addEventListener('click', (event) => buyShopUpgrades('obtainiumPotion', event))
     DOMCacheGetOrSet('useobtainiumpotion').addEventListener('click', () => useConsumable('obtainiumPotion'))
     DOMCacheGetOrSet('toggle43').addEventListener('click', () => {
         player.autoPotionTimerObtainium = 0;
@@ -620,8 +618,7 @@ TODO: Fix this entire tab it's utter shit
             DOMCacheGetOrSet(`${key}`).addEventListener('mouseover', () => shopDescriptions(key))
             DOMCacheGetOrSet(`${key}Level`).addEventListener('mouseover', () => shopDescriptions(key))
             DOMCacheGetOrSet(`${key}Button`).addEventListener('mouseover', () => shopDescriptions(key))
-            //DOMCacheGetOrSet(`${key}`).addEventListener('click', () => buyShopUpgrades(key))  //Allow clicking of image to buy also
-            DOMCacheGetOrSet(`${key}Button`).addEventListener('click', () => buyShopUpgrades(key))
+            DOMCacheGetOrSet(`${key}Button`).addEventListener('click', (event) => buyShopUpgrades(key, event))
         }
     }
     DOMCacheGetOrSet('buySingularityQuarksButton').addEventListener('click', () => buyGoldenQuarks());
@@ -634,6 +631,10 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.singularityUpgrades[`${String(key)}`].buyLevel(event))
     }
+
+    /*Toggle Hide Maxed*/ DOMCacheGetOrSet('toggleHideSingUpgrade').addEventListener('click', () => toggleHideSingUpgrade())
+    /*Toggle Buy Max*/ DOMCacheGetOrSet('toggleBuyMaxSingUpgrade').addEventListener('click', () => toggleBuyMaxSingUpgrade())
+
     DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener('mouseover', () => shopMouseover(true));
     DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener('mouseout', () => shopMouseover(false));
 
@@ -643,6 +644,9 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.octeractUpgrades[`${String(key)}`].updateUpgradeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.octeractUpgrades[`${String(key)}`].buyLevel(event))
     }
+
+    /*Toggle Hide Maxed*/ DOMCacheGetOrSet('toggleHideOcteract').addEventListener('click', () => toggleHideOcteract())
+    /*Toggle Buy Max*/ DOMCacheGetOrSet('toggleBuyMaxOcteract').addEventListener('click', () => toggleBuyMaxOcteract())
 
     DOMCacheGetOrSet('octeractUpgradeContainer').addEventListener('mouseover', () => shopMouseover(true));
     DOMCacheGetOrSet('octeractUpgradeContainer').addEventListener('mouseout', () => shopMouseover(false));

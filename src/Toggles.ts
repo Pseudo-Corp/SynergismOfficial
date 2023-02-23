@@ -1,7 +1,7 @@
 import { revealStuff, hideStuff, updateChallengeDisplay, showCorruptionStatsLoadouts, changeTabColor, Prompt, Alert } from './UpdateHTML';
 import { player, format, resetCheck } from './Synergism';
 import { Globals as G } from './Variables';
-import { visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals';
+import { visualUpdateCubes, visualUpdateOcteracts, visualUpdateSingularity } from './UpdateVisuals';
 import { calculateRuneLevels } from './Calculate';
 import { reset, resetrepeat } from './Reset';
 import { autoResearchEnabled } from './Research';
@@ -738,25 +738,24 @@ export const toggleShopConfirmation = () => {
     player.shopConfirmationToggle = !player.shopConfirmationToggle;
 }
 
-export const toggleBuyMaxShop = (event: MouseEvent) => {
+export const toggleBuyMaxShop = () => {
     const el = DOMCacheGetOrSet('toggleBuyMaxShop')
-    if (event.shiftKey) {
-        el.textContent = 'Buy: ANY';
-        player.shopBuyMaxToggle = 'ANY';
-        return;
-    }
-    const suf = '<br><span style=\'color: gold; font-size:75%;\'>Shift-Click for Buy: Any</span>';
+
     switch (player.shopBuyMaxToggle) {
         case false:
-            el.innerHTML = `Buy: 10${suf}`;
+            el.innerHTML = 'Buy: 10';
             player.shopBuyMaxToggle = 'TEN';
             break;
         case 'TEN':
-            el.innerHTML = `Buy: MAX${suf}`;
+            el.textContent = 'Buy: ANY';
+            player.shopBuyMaxToggle = 'ANY';
+            break;
+        case 'ANY':
+            el.innerHTML = 'Buy: MAX';
             player.shopBuyMaxToggle = true;
             break;
         default:
-            el.innerHTML = `Buy: 1${suf}`;
+            el.innerHTML = 'Buy: 1';
             player.shopBuyMaxToggle = false;
     }
 }
@@ -768,6 +767,64 @@ export const toggleHideShop = () => {
         : 'Hide Maxed: ON';
 
     player.shopHideToggle = !player.shopHideToggle;
+}
+
+export const toggleBuyMaxOcteract = () => {
+    const el = DOMCacheGetOrSet('toggleBuyMaxOcteract')
+
+    switch (player.octeractBuyMaxToggle) {
+        case 'ONE':
+            el.innerHTML = 'Buy: ANY';
+            player.octeractBuyMaxToggle = 'ANY';
+            break;
+        case 'ANY':
+            el.innerHTML = 'Buy: MAX';
+            player.octeractBuyMaxToggle = 'MAX';
+            break;
+        case 'MAX':
+        default:
+            el.innerHTML = 'Buy: 1';
+            player.octeractBuyMaxToggle = 'ONE';
+    }
+}
+
+export const toggleHideOcteract = () => {
+    const el = DOMCacheGetOrSet('toggleHideOcteract')
+    el.textContent = player.octeractHideToggle
+        ? 'Hide Maxed: OFF'
+        : 'Hide Maxed: ON';
+
+    player.octeractHideToggle = !player.octeractHideToggle;
+    visualUpdateOcteracts();
+}
+
+export const toggleBuyMaxSingUpgrade = () => {
+    const el = DOMCacheGetOrSet('toggleBuyMaxSingUpgrade')
+
+    switch (player.singUpgradeBuyMaxToggle) {
+        case 'ONE':
+            el.innerHTML = 'Buy: ANY';
+            player.singUpgradeBuyMaxToggle = 'ANY';
+            break;
+        case 'ANY':
+            el.innerHTML = 'Buy: MAX';
+            player.singUpgradeBuyMaxToggle = 'MAX';
+            break;
+        case 'MAX':
+        default:
+            el.innerHTML = 'Buy: 1';
+            player.singUpgradeBuyMaxToggle = 'ONE';
+    }
+}
+
+export const toggleHideSingUpgrade = () => {
+    const el = DOMCacheGetOrSet('toggleHideSingUpgrade')
+    el.textContent = player.singUpgradeHideToggle
+        ? 'Hide Maxed: OFF'
+        : 'Hide Maxed: ON';
+
+    player.singUpgradeHideToggle = !player.singUpgradeHideToggle;
+    visualUpdateSingularity();
 }
 
 export const toggleAntMaxBuy = () => {

@@ -1929,7 +1929,9 @@ p#reincarnatehotkeys {
     margin-top: 20px;
 }
 
-#shopButtons {
+#shopButtons,
+#octeractButtons,
+#singUpgradeButtons {
     display: flex;
     justify-content: center;
     flex-flow: wrap;
@@ -1938,7 +1940,9 @@ p#reincarnatehotkeys {
     margin-top: 5px;
 }
 
-#shopButtons > button {
+#shopButtons > button,
+#octeractButtons > button,
+#singUpgradeButtons > button {
     min-width: 150px;
     min-height: 40px;
     margin-bottom: 6px;

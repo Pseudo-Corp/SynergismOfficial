@@ -17,6 +17,7 @@ import type { IMultiBuy } from './Cubes';
 import { calculateMaxTalismanLevel } from './Talismans';
 import { getGoldenQuarkCost } from './singularity';
 import { loadStatisticsUpdate } from './Statistics';
+import { octeractData } from './Octeracts';
 
 export const visualUpdateBuildings = () => {
     if (G['currentTab'] !== 'buildings') {
@@ -549,27 +550,38 @@ export const visualUpdateSingularity = () => {
     if (G['currentTab'] !== 'singularity') {
         return
     }
-    if (player.subtabNumber === 0) {
+    if (player.subtabNumber <= 1) {
         DOMCacheGetOrSet('goldenQuarkamount').textContent = 'You have ' + format(player.goldenQuarks, 0, true) + ' Golden Quarks!'
 
         const keys = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
-        const val = G['shopEnhanceVision'];
-
+        const enhanceVision = G['shopEnhanceVision'];
         for (const key of keys) {
             if (key === 'offeringAutomatic') {
-                continue
+                continue;
             }
+
+            // Check item for Hide
             const singItem = player.singularityUpgrades[key];
+            const elementToHide = DOMCacheGetOrSet(`${key.toString()}`).parentNode as HTMLElement;
+            const computedMaxLevel = singItem.computeMaxLevel();
+            if (player.singUpgradeHideToggle && computedMaxLevel !== -1 && singItem.level >= computedMaxLevel) {
+                elementToHide.style.display = 'none';
+                continue;
+            } else {
+                elementToHide.style.display = 'block';
+            }
+
+            // Check item for Enhanced vision
             const el = DOMCacheGetOrSet(`${String(key)}`);
             if (singItem.maxLevel !== -1 && singItem.level >= singItem.computeMaxLevel()) {
-                el.style.filter = val ? 'brightness(.9)' : 'none';
+                el.style.filter = enhanceVision ? 'brightness(.9)' : 'none';
             } else if  (singItem.getCostTNL() > player.goldenQuarks || player.singularityCount < singItem.minimumSingularity) {
-                el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none';
+                el.style.filter = enhanceVision ? 'grayscale(.9) brightness(.8)' : 'none';
             } else if (singItem.maxLevel === -1 || singItem.level < singItem.computeMaxLevel()) {
                 if (singItem.freeLevels > singItem.level) {
-                    el.style.filter = val ? 'blur(1px) invert(.9) saturate(200)' : 'none';
+                    el.style.filter = enhanceVision ? 'blur(1px) invert(.9) saturate(200)' : 'none';
                 } else {
-                    el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none';
+                    el.style.filter = enhanceVision ? 'invert(.9) brightness(1.1)' : 'none';
                 }
             }
         }
@@ -624,6 +636,19 @@ export const visualUpdateOcteracts = () => {
     DOMCacheGetOrSet('totalOcteractObtainiumBonus').style.display = cTOOOB >= 0.001 ? 'block' : 'none';
     DOMCacheGetOrSet('octCubeBonus').textContent = `+${format(cTOCB, 3, true)}%`
     DOMCacheGetOrSet('octQuarkBonus').textContent = `+${format(cTOQB, 3, true)}%`
+
+    const keys = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[];
+    for (const key of keys) {
+        const octeractItem = octeractData[key];
+        const elementToHide = DOMCacheGetOrSet(`${key.toString()}`).parentNode as HTMLElement;
+        if (player.octeractHideToggle && octeractItem.maxLevel !== -1 && player.octeractUpgrades[key].level >= octeractItem.maxLevel) {
+            elementToHide.style.display = 'none';
+            continue;
+        } else {
+            elementToHide.style.display = 'block';
+        }
+    }
+
     DOMCacheGetOrSet('octOfferingBonus').textContent = `+${format(cTOOB, 3, true)}%`
     DOMCacheGetOrSet('octObtainiumBonus').textContent = `+${format(cTOOOB, 3, true)}%`
 }

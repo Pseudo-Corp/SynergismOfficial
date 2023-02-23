@@ -818,6 +818,10 @@ export const player: Player = {
     dailyCodeUsed: false,
     hepteractAutoCraftPercentage: 50,
     octeractTimer: 0,
+    octeractHideToggle: false,
+    octeractBuyMaxToggle: 'ONE',
+    singUpgradeHideToggle: false,
+    singUpgradeBuyMaxToggle: 'ONE',
     insideSingularityChallenge: false,
 
     singularityChallenges: {
@@ -1768,6 +1772,36 @@ const loadSynergy = async () => {
             DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: ON'
         } else {
             DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: OFF'
+        }
+        switch (player.octeractBuyMaxToggle) {
+            case 'ONE':
+                DOMCacheGetOrSet('toggleBuyMaxOcteract').textContent = 'Buy: 1';
+                break;
+            case 'MAX':
+                DOMCacheGetOrSet('toggleBuyMaxOcteract').textContent = 'Buy: MAX';
+                break;
+            case 'ANY':
+                DOMCacheGetOrSet('toggleBuyMaxOcteract').textContent = 'Buy: ANY';
+        }
+        if (player.octeractHideToggle) {
+            DOMCacheGetOrSet('toggleHideOcteract').textContent = 'Hide Maxed: ON'
+        } else {
+            DOMCacheGetOrSet('toggleHideOcteract').textContent = 'Hide Maxed: OFF'
+        }
+        switch (player.singUpgradeBuyMaxToggle) {
+            case 'ONE':
+                DOMCacheGetOrSet('toggleBuyMaxSingUpgrade').textContent = 'Buy: 1';
+                break;
+            case 'MAX':
+                DOMCacheGetOrSet('toggleBuyMaxSingUpgrade').textContent = 'Buy: MAX';
+                break;
+            case 'ANY':
+                DOMCacheGetOrSet('toggleBuyMaxSingUpgrade').textContent = 'Buy: ANY';
+        }
+        if (player.singUpgradeHideToggle) {
+            DOMCacheGetOrSet('toggleHideSingUpgrade').textContent = 'Hide Maxed: ON'
+        } else {
+            DOMCacheGetOrSet('toggleHideSingUpgrade').textContent = 'Hide Maxed: OFF'
         }
         if (player.researchBuyMaxToggle) {
             DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'

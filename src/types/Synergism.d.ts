@@ -593,11 +593,15 @@ export interface Player {
     octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade>
     dailyCodeUsed: boolean
     hepteractAutoCraftPercentage: number
+
+    octeractHideToggle: boolean
+    octeractBuyMaxToggle: 'ONE' | 'MAX' | 'ANY'
+    singUpgradeHideToggle: boolean
+    singUpgradeBuyMaxToggle: 'ONE' | 'MAX' | 'ANY'
     octeractTimer: number
 
     insideSingularityChallenge: boolean
     singularityChallenges: Record<keyof typeof singularityChallengeData, SingularityChallenge>
-
 
 }
 

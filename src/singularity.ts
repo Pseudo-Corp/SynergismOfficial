@@ -135,15 +135,21 @@ export class SingularityUpgrade extends DynamicUpgrade {
      */
     public async buyLevel(event: MouseEvent): Promise<void> {
         let purchased = 0;
-        let maxPurchasable = 1
-        let GQBudget = player.goldenQuarks
+        let maxPurchasable = 100000;
+        let GQBudget = player.goldenQuarks;
 
-        if (event.shiftKey) {
-            maxPurchasable = 100000
-            const buy = Number(await Prompt(`How many Golden Quarks would you like to spend? You have ${format(player.goldenQuarks, 0, true)} GQ. Type -1 to use max!`))
+        if (!event.shiftKey && player.singUpgradeBuyMaxToggle === 'ONE') {
+            maxPurchasable = 1;
+        } else {
+            let buy = -1;
 
-            if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
-                return Alert('Value must be a finite number!');
+            // Shows a prompt to ask how many GQ to spend
+            if (event.shiftKey || player.singUpgradeBuyMaxToggle === 'ANY') {
+                buy = Number(await Prompt(`How many Golden Quarks would you like to spend? You have ${format(player.goldenQuarks, 0, true)} GQ. Type -1 to use max!`))
+
+                if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
+                    return Alert('Value must be a finite number!');
+                }
             }
 
             if (buy === -1) {

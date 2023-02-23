@@ -1156,6 +1156,10 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
     hold.theme = player.theme
     hold.notation = player.notation
     hold.firstPlayed = player.firstPlayed
+    hold.octeractHideToggle = player.octeractHideToggle
+    hold.octeractBuyMaxToggle = player.octeractBuyMaxToggle
+    hold.singUpgradeHideToggle = player.singUpgradeHideToggle
+    hold.singUpgradeBuyMaxToggle = player.singUpgradeBuyMaxToggle
     hold.autoCubeUpgradesToggle = player.autoCubeUpgradesToggle
     hold.autoPlatonicUpgradesToggle = player.autoPlatonicUpgradesToggle
     hold.insideSingularityChallenge = player.insideSingularityChallenge

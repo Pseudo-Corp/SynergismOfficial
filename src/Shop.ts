@@ -888,7 +888,7 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
 
 }
 
-export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
+export const buyShopUpgrades = async (input: ShopUpgradeNames, event: MouseEvent) => {
     const shopItem = shopData[input];
 
     if (player.shopUpgrades[input] >= shopItem.maxLevel) {
@@ -910,20 +910,28 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     const maxBuyAmount = shopItem.maxLevel - player.shopUpgrades[input];
     let buyAmount;
     let buyCost;
-    switch (player.shopBuyMaxToggle) {
-        case false:
-            buyAmount = 1;
-            buyCost = getShopCosts(input);
-            break;
-        case 'TEN':
-            buyData = calculateSummationNonLinear(player.shopUpgrades[input], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, Math.min(10,maxBuyAmount))
-            buyAmount = buyData.levelCanBuy - player.shopUpgrades[input];
-            buyCost = buyData.cost;
-            break;
-        default:
-            buyData = calculateSummationNonLinear(player.shopUpgrades[input], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, maxBuyAmount)
-            buyAmount = buyData.levelCanBuy - player.shopUpgrades[input];
-            buyCost = buyData.cost;
+    if (event.shiftKey) {
+        // Buy ANY
+        buyData = calculateSummationNonLinear(player.shopUpgrades[input], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, maxBuyAmount)
+        buyAmount = buyData.levelCanBuy - player.shopUpgrades[input];
+        buyCost = buyData.cost;
+    } else {
+        switch (player.shopBuyMaxToggle) {
+            case false:
+                buyAmount = 1;
+                buyCost = getShopCosts(input);
+                break;
+            case 'TEN':
+                buyData = calculateSummationNonLinear(player.shopUpgrades[input], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, Math.min(10,maxBuyAmount))
+                buyAmount = buyData.levelCanBuy - player.shopUpgrades[input];
+                buyCost = buyData.cost;
+                break;
+            default:
+                // Buy MAX
+                buyData = calculateSummationNonLinear(player.shopUpgrades[input], shopItem.price, +player.worlds, shopItem.priceIncrease / shopItem.price, maxBuyAmount)
+                buyAmount = buyData.levelCanBuy - player.shopUpgrades[input];
+                buyCost = buyData.cost;
+        }
     }
 
     const singular = shopItem.maxLevel === 1;
@@ -931,7 +939,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     const noRefunds = shopItem.refundable ? '' : '\n\n\u26A0\uFE0F !! No Refunds !! \u26A0\uFE0F';
     const maxPots = shopItem.type === shopUpgradeTypes.CONSUMABLE ? '\n\nType -1 in Buy: ANY to buy equal amounts of both Potions.' : '';
 
-    if (player.shopBuyMaxToggle === 'ANY' && !singular) {
+    if (!singular && (event.shiftKey || player.shopBuyMaxToggle === 'ANY')) {
         const buyInput = await Prompt(`You can afford to purchase up to ${merch} of ${friendlyShopName(input)} for ${buyCost.toLocaleString()} Quarks. How many would you like to buy?${maxPots + noRefunds}`);
         let buyAny;
         if (Number(buyInput) === -1 && shopItem.type === shopUpgradeTypes.CONSUMABLE) {
