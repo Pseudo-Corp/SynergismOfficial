@@ -1,4 +1,4 @@
-export const version = '2.10.4: January 13, 2023: Iconography v2';
+export const version = '2.10.5: Febuary 23, 2023: Birth Event!';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE

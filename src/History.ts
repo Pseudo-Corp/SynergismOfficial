@@ -8,6 +8,7 @@ import { Globals as G } from './Variables';
 import { applyCorruptions } from './Corruptions';
 import { Notification } from './UpdateHTML';
 import { IconSets } from './Themes';
+import i18next from 'i18next';
 
 // The categories are the different tables & storages for each type.
 export type Category = 'ants' | 'reset' | 'ascend' | 'singularity';
@@ -463,7 +464,7 @@ function clickHandlerForLoadCorruptionsButton(btn: HTMLElement) {
     const corruptions = btn.getAttribute('data-corr');
     if (corruptions) {
         applyCorruptions(corruptions);
-        void Notification('Corruption Loadout from previous run has been applied. This will take effect on the next Ascension.', 5000);
+        void Notification(i18next.t('corruptions.loadoutApplied'), 5000);
     }
 }
 
@@ -479,7 +480,11 @@ export const resetHistoryTogglePerSecond = () => {
     player.historyShowPerSecond = !player.historyShowPerSecond;
     resetHistoryRenderAllTables();
     const button = DOMCacheGetOrSet('historyTogglePerSecondButton');
-    button.textContent = 'Per second: ' + (player.historyShowPerSecond ? 'ON' : 'OFF');
+    if (player.historyShowPerSecond) {
+        button.textContent = i18next.t('history.perSecondOn')
+    } else {
+        button.textContent = i18next.t('history.perSecondOff')
+    }
     button.style.borderColor = player.historyShowPerSecond ? 'green' : 'red';
 }
 

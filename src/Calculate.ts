@@ -17,6 +17,7 @@ import { calculateEventSourceBuff } from './Event';
 import { disableHotkeys, enableHotkeys } from './Hotkeys';
 import { setInterval, clearInterval } from './Timers';
 import { getFastForwardTotalMultiplier } from './singularity';
+import i18next from 'i18next';
 
 export const calculateTotalCoinOwned = () => {
     G['totalCoinOwned'] =
@@ -853,13 +854,13 @@ export const calculateAntSacrificeRewards = (): IAntSacRewards => {
 }
 
 export const timeWarp = async () => {
-    const time = await Prompt('How far in the future would you like to go into the future? Anything awaits when it is testing season.');
+    const time = await Prompt(i18next.t('calculate.timePrompt'));
     const timeUse = Number(time);
     if (
         Number.isNaN(timeUse) ||
             timeUse <= 0
     ) {
-        return Alert('Hey! That\'s not a valid time!');
+        return Alert(i18next.t('calculate.timePromptError'));
     }
 
     DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
@@ -879,7 +880,7 @@ export const calculateOffline = async (forceTime = 0) => {
     const timeTick = timeAdd/200;
     let resourceTicks = 200;
 
-    DOMCacheGetOrSet('offlineTimer').textContent = 'You have ' + format(timeAdd, 0) + ' seconds of Offline Progress!';
+    DOMCacheGetOrSet('offlineTimer').textContent = i18next.t('calculate.offlineTimer', {value: format(timeAdd, 0)})
 
     //May 11, 2021: I've revamped calculations for this significantly. Note to May 11 Platonic: Fuck off -May 15 Platonic
     //Some one-time tick things that are relatively important
@@ -968,19 +969,30 @@ export const calculateOffline = async (forceTime = 0) => {
     }, 0);
 
     DOMCacheGetOrSet('offlinePrestigeCountNumber').textContent = format(resetAdd.prestige, 0, true)
-    DOMCacheGetOrSet('offlinePrestigeTimerNumber').textContent = format(timerAdd.prestige, 2, false)
-    DOMCacheGetOrSet('offlineOfferingCountNumber').textContent = format(resetAdd.offering, 0, true)
-    DOMCacheGetOrSet('offlineTranscensionCountNumber').textContent = format(resetAdd.transcension, 0, true)
-    DOMCacheGetOrSet('offlineTranscensionTimerNumber').textContent = format(timerAdd.transcension, 2, false)
-    DOMCacheGetOrSet('offlineReincarnationCountNumber').textContent = format(resetAdd.reincarnation, 0, true)
-    DOMCacheGetOrSet('offlineReincarnationTimerNumber').textContent = format(timerAdd.reincarnation, 2, false)
-    DOMCacheGetOrSet('offlineObtainiumCountNumber').textContent = format(resetAdd.obtainium, 0, true)
-    DOMCacheGetOrSet('offlineAntTimerNumber').textContent = format(timerAdd.ants, 2, false)
-    DOMCacheGetOrSet('offlineRealAntTimerNumber').textContent = format(timerAdd.antsReal, 2, true)
-    DOMCacheGetOrSet('offlineAscensionTimerNumber').textContent = format(timerAdd.ascension, 2, true)
-    DOMCacheGetOrSet('offlineQuarkCountNumber').textContent = format(timerAdd.quarks, 0, true)
+    DOMCacheGetOrSet('offlinePrestigeTimer').innerHTML =
+      i18next.t('offlineProgress.currentPrestigeTimer', { value: format(timerAdd.prestige, 2, false) })
+    DOMCacheGetOrSet('offlineOfferingCount').innerHTML =
+      i18next.t('offlineProgress.offeringsGenerated', { value: format(resetAdd.offering, 0, true) })
+    DOMCacheGetOrSet('offlineTranscensionCount').innerHTML =
+      i18next.t('offlineProgress.transcensionCount', { value: format(resetAdd.transcension, 0, true) })
+    DOMCacheGetOrSet('offlineTranscensionTimer').innerHTML =
+      i18next.t('offlineProgress.currentTranscensionCounter', { value: format(timerAdd.transcension, 2, false) })
+    DOMCacheGetOrSet('offlineReincarnationCount').innerHTML =
+      i18next.t('offlineProgress.reincarnationCount', { value: format(resetAdd.reincarnation, 0, true) })
+    DOMCacheGetOrSet('offlineReincarnationTimer').innerHTML =
+      i18next.t('offlineProgress.currentReincarnationTimer', { value: format(timerAdd.reincarnation, 2, false) })
+    DOMCacheGetOrSet('offlineObtainiumCount').innerHTML =
+      i18next.t('offlineProgress.obtainiumGenerated', { value: format(resetAdd.obtainium, 0, true) })
+    DOMCacheGetOrSet('offlineAntTimer').innerHTML =
+      i18next.t('offlineProgress.ingameAntSacTimer', { value: format(timerAdd.ants, 2, false) })
+    DOMCacheGetOrSet('offlineRealAntTimer').innerHTML =
+      i18next.t('offlineProgress.realAntSacTimer', { value: format(timerAdd.antsReal, 2, true) })
+    DOMCacheGetOrSet('offlineAscensionTimer').innerHTML =
+      i18next.t('offlineProgress.currentAscensionTimer', { value: format(timerAdd.ascension, 2, true) })
+    DOMCacheGetOrSet('offlineQuarkCount').innerHTML =
+      i18next.t('offlineProgress.exportQuarks', { value: format(timerAdd.quarks, 0, true) })
 
-    DOMCacheGetOrSet('progressbardescription').textContent = 'You have gained the following from offline progression!'
+    DOMCacheGetOrSet('progressbardescription').textContent = i18next.t('calculate.offlineEarnings')
 
     player.offlinetick = updatedTime
     if (!player.loadedNov13Vers) {
@@ -1797,11 +1809,11 @@ export const calculateSummationCubic = (n: number) => {
  */
 export const solveQuadratic = (a: number, b: number, c:number, positive:boolean) => {
     if (a < 0) {
-        throw new Error('This is not a quadratic equation!')
+        throw new Error(String(i18next.t('calculate.quadraticImproperError')))
     }
     const determinant = Math.pow(b, 2) - 4 * a * c
     if (determinant < 0) {
-        throw new Error('Determinant was negative!')
+        throw new Error(String(i18next.t('calculate.quadraticDeterminantError')))
     }
 
     if (determinant === 0) {
@@ -1840,7 +1852,7 @@ export const calculateCubicSumData = (initialLevel: number, baseCost: number,
     *  We can rewrite as n^2 + n - 2 * det = 0 and solve for n.
     */
     if (totalToSpend < 0) {
-        throw new Error('You cannot spend a negative amount!')
+        throw new Error(String(i18next.t('calculate.cubicSumNegativeError')))
     }
 
     const determinantRoot = Math.pow(totalToSpend / baseCost, 0.5) // Assume nonnegative!

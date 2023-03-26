@@ -19,7 +19,7 @@ import { singularityData } from './singularity';
 import { getEvent } from './Event';
 import { synergismStage } from './Statistics';
 import ClipboardJS from 'clipboard';
-import { octeractData } from './Octeracts';
+import i18next from 'i18next';
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
     year: 'numeric',
@@ -156,7 +156,7 @@ export const exportSynergism = async () => {
             // - TypeError (browser doesn't support this feature)
             // - Failed to copy (browser limitation; Safari)
             await navigator.clipboard.writeText(saveString)
-            DOMCacheGetOrSet('exportinfo').textContent = 'Copied save to clipboard!';
+            DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.copiedSave');
         } catch (err) {
             // So we fallback to the deprecated way of doing it,
             // which isn't limited by any browser.
@@ -180,13 +180,13 @@ export const exportSynergism = async () => {
             }
 
             clipboard.on('success', () => {
-                DOMCacheGetOrSet('exportinfo').textContent = 'Copied save to clipboard!'
+                DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.copiedSave');
                 cleanup()
             })
 
             clipboard.on('error', () => {
-                DOMCacheGetOrSet('exportinfo').textContent = 'Export failed!'
-                void Alert('Unable to write the save to clipboard.').finally(cleanup)
+                DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.exportFailed');
+                void Alert(i18next.t('importexport.unableCopySave')).finally(cleanup)
             })
         }
     } else {
@@ -200,13 +200,13 @@ export const exportSynergism = async () => {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        DOMCacheGetOrSet('exportinfo').textContent = 'Savefile copied to file!';
+        DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.copiedFile')
     }
     setTimeout(() => DOMCacheGetOrSet('exportinfo').textContent = '', 15_000);
 }
 
 export const reloadDeleteGame = async () => {
-    await Alert('The next confirmation is to delete the save data\nIf you do not want to delete it, cancel it');
+    await Alert(i18next.t('importexport.reloadDeletePrompt'));
     await resetGame();
 }
 
@@ -214,9 +214,9 @@ export const resetGame = async () => {
     const a = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16;
     const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16;
 
-    const result = await Prompt(`Answer the question to confirm you'd like to reset: what is ${a}+${b}? (Hint: ${a+b})`)
+    const result = await Prompt(i18next.t('importexport.resetPrompt', { a, b, sum: a + b }))
     if (result === null || Number(result) !== a + b) {
-        return Alert('Answer was wrong, not resetting!');
+        return Alert(i18next.t('importexport.wrongAnswer'));
     }
 
     const hold = Object.assign({}, blankSave, {
@@ -236,7 +236,7 @@ export const resetGame = async () => {
 
 export const importSynergism = async (input: string | null, reset = false) => {
     if (typeof input !== 'string') {
-        return Alert('Invalid character, could not save! 😕');
+        return Alert(i18next.t('importexport.unableImport'));
     }
 
     const d = LZString.decompressFromBase64(input);
@@ -250,7 +250,7 @@ export const importSynergism = async (input: string | null, reset = false) => {
         const saveString = btoa(JSON.stringify(f));
 
         if (saveString === null) {
-            return Alert('Unable to import this file!');
+            return Alert(i18next.t('importexport.unableImport'));
         }
 
         saveCheck.canSave = false;
@@ -263,7 +263,7 @@ export const importSynergism = async (input: string | null, reset = false) => {
         saveCheck.canSave = true;
         return;
     } else {
-        return Alert('You are attempting to load a testing file in a non-testing version!');
+        return Alert(i18next.t('importexport.loadTestInLive'));
     }
 }
 
@@ -273,23 +273,41 @@ export const promocodesInfo = async (input: string) => {
     let availableUses = 0;
     switch (input) {
         case 'daily':
-            textMessage += (player.dailyCodeUsed ? '0 uses' : '1 use') + ' left. Next: end of the day.';
+            if (player.dailyCodeUsed) {
+                textMessage += i18next.t('importexport.daily0Uses')
+            } else {
+                textMessage += i18next.t('importexport.daily1Uses')
+            }
             break;
         case 'add':
             availableUses = addCodeAvailableUses();
-            textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
             if (availableUses === 0) {
-                textMessage += ' Next: in ' + format(addCodeTimeToNextUse(), 0) + ' seconds.';
+                textMessage += i18next.t('importexport.add0Uses', {
+                    x: 0,
+                    y: format(addCodeTimeToNextUse(), 0)
+                })
+            } else if (availableUses !== 1) {
+                textMessage += i18next.t('importexport.addUses', { x: availableUses })
+            } else {
+                textMessage += i18next.t('importexport.add1Uses', { x: availableUses })
             }
+
             break;
         case 'time':
             availableUses = timeCodeAvailableUses();
-            textMessage += availableUses + ' use' + (availableUses !== 1 ? 's' : '') + ' left.';
+
             if (availableUses === 0) {
-                textMessage += ' Next: in ' + format(timeCodeTimeToNextUse(), 0) + ' seconds.';
+                textMessage += i18next.t('importexport.add0Uses', {
+                    x: 0,
+                    y: format(timeCodeTimeToNextUse(), 0)
+                })
             } else {
-                textMessage += ' Multiplier: ' + format(timeCodeRewardMultiplier(), 2, true) + 'x';
+                textMessage += i18next.t('importexport.timeMultiplier', {
+                    x: availableUses,
+                    y: format(timeCodeRewardMultiplier(), 2, true)
+                })
             }
+
             break;
         default:
             textMessage = '';
@@ -299,7 +317,7 @@ export const promocodesInfo = async (input: string) => {
 }
 
 export const promocodesPrompt = async () => {
-    const input = await Prompt('Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in "synergism2021" or "Khafra" perchance?]');
+    const input = await Prompt(i18next.t('importexport.promocodePrompt'));
     void promocodes(input);
 }
 
@@ -307,7 +325,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     const el = DOMCacheGetOrSet('promocodeinfo');
 
     if (input === null) {
-        return Alert('Alright, come back soon!')
+        return Alert(i18next.t('importexport.comeBackSoon'))
     }
     if (input === 'derpderp' && !player.codes.get(45) && G['isEvent'] && getEvent().name === 'Derpmas 2022: Gift of Gamebreak!') {
 
@@ -343,21 +361,23 @@ export const promocodes = async (input: string | null, amount?: number) => {
         player.codes.set(1, true);
         player.runeshards += 25;
         player.worlds.add(50);
-        el.textContent = 'Promo Code \'synergism2021\' Applied! +25 Offerings, +50 Quarks'
+        el.textContent = i18next.t('importexport.promocodes.synergism2021')
     } else if (input === ':unsmith:' && player.achievements[243] < 1) {
         achievementaward(243);
-        el.textContent = 'It\'s Spaghetti Time! [Awarded an achievement!!!]';
+        el.textContent = i18next.t('importexport.promocodes.unsmith')
     } else if (input === ':antismith:' && player.achievements[244] < 1) {
         achievementaward(244);
-        el.textContent = 'Hey, isn\'t this just a reference to Antimatter Dimensions? Shh. [Awarded an achievement!!!]';
+        el.textContent = i18next.t('importexport.promocodes.antismith')
     } else if (input === 'Khafra' && !player.codes.get(26)) {
         player.codes.set(26, true);
         const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100);
         player.worlds.add(quarks);
-        el.textContent = 'Khafra has blessed you with ' + player.worlds.applyBonus(quarks) + ' Quarks!';
+        el.textContent = i18next.t('importexport.promocodes.khafra', {
+            x: player.worlds.applyBonus(quarks)
+        })
     } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
         player.dailyCodeUsed = true;
-        let rewardMessage = 'Thank you for playing today!\nThe Ant God rewards you with this gift:';
+        let rewardMessage = i18next.t('importexport.promocodes.daily.message')
 
         const rewards = dailyCodeReward();
         const quarkMultiplier = 1 + Math.min(49, player.highestSingularityCount)
@@ -416,7 +436,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 .keys(player.singularityUpgrades)
                 .filter(key => key in upgradeDistribution) as (keyof typeof upgradeDistribution)[];
 
-            rewardMessage = 'Feeling especially generous, the Ant God has also given you free levels of the following Singularity upgrades:'
+            rewardMessage = i18next.t('importexport.promocodes.daily.message2')
             // The same upgrade can be drawn several times, so we save the sum of the levels gained, to display them only once at the end
             const freeLevels: Record<string, number> = {}
             for (let i = 0; i < rolls; i++) {
@@ -462,7 +482,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
         const timeInterval = addCodeInterval().time;
 
         if (availableUses < 1) {
-            el.textContent = `You do not have an 'Add' code attempt! You will gain 1 in ${timeToNextUse} seconds.`;
+            el.textContent = i18next.t('importexport.noAddCodes', { x: timeToNextUse });
             return;
         }
 
@@ -470,11 +490,11 @@ export const promocodes = async (input: string | null, amount?: number) => {
         if (amount) {
             attemptsUsed = amount.toString();
         } else {
-            attemptsUsed = await Prompt(`You can use up to ${availableUses} attempts at once. How many would you like to use?`);
+            attemptsUsed = await Prompt(i18next.t('importexport.useXAdds', { x: availableUses }));
         }
 
         if (attemptsUsed === null) {
-            return Alert('No worries, you didn\'t lose any of your uses! Come back later!');
+            return Alert(i18next.t('importexport.cancelAdd'));
         }
         const toUse = Number(attemptsUsed);
         if (
@@ -482,7 +502,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
             !Number.isInteger(toUse) ||
             toUse <= 0
         ) {
-            return Alert('Hey! That\'s not a valid number!');
+            return Alert(i18next.t('general.validation.invalidNumber'));
         }
 
         const addEffects = addCodeBonuses();
@@ -499,24 +519,27 @@ export const promocodes = async (input: string | null, amount?: number) => {
         // Calculator 3: Adds ascension timer.
         const ascensionTimer = realAttemptsUsed * addEffects.ascensionTimer;
         const ascensionTimerText = (player.shopUpgrades.calculator3 > 0)
-            ? `Thanks to PL-AT Ω you have also gained ${format(ascensionTimer)} real-life seconds to your Ascension Timer!`
+            ? i18next.t('importexport.promocodes.add.calculator3', { x: format(ascensionTimer) })
             : '';
 
         // Calculator 5: Adds GQ export timer.
         const gqTimer = realAttemptsUsed * addEffects.gqTimer;
         const gqTimerText = (player.shopUpgrades.calculator5 > 0)
-            ? `Thanks to PL-AT Γ you have additionally gained ${format(gqTimer)} real-life seconds to your GQ Export Timer!`
+            ? i18next.t('importexport.promocodes.add.calculator5', { x: format(gqTimer) })
             : '';
 
         // Calculator 6: Octeract Generation
         const octeractTime = realAttemptsUsed * addEffects.octeractTime;
         const octeractTimeText = (player.shopUpgrades.calculator6 > 0)
-            ? `Finally, thanks to PL-AT _ you have gained ${format(octeractTime)} seconds of Octeract generation!`
+            ? i18next.t('importexport.promocodes.add.calculator6', { x: format(octeractTime) })
             : '';
 
         // Midas' Millenium-Aged Gold perk
         const freeLevelsText = (player.highestSingularityCount >= 150)
-            ? `Moreover, gain ${format(0.01 * realAttemptsUsed, 2)} free levels of GQ1 and ${format(0.05 * realAttemptsUsed, 2)} free levels of GQ3!!!`
+            ? i18next.t('importexport.promocodes.add.freeLevel', {
+                x: format(0.01 * realAttemptsUsed, 2),
+                y: format(0.05 * realAttemptsUsed, 2)
+            })
             : '';
 
         // Calculator Maxed: you don't need to insert anything!
@@ -537,20 +560,37 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 void promocodesInfo('add')
                 return
             } else {
-                return Alert(`Your calculator figured out that ${first} + ${second} = ${first + second} on its own, so you were awarded ${player.worlds.toString(actualQuarks)} Quarks! ` +
-                    `${ ascensionTimerText } ${ gqTimerText } ${ octeractTimeText } ${ freeLevelsText } You have ${ remaining } uses of Add. You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+                return Alert(i18next.t('importexport.promocodes.add.calculatorMaxed', {
+                    a: first,
+                    b: second,
+                    c: first + second,
+                    d: player.worlds.toString(actualQuarks),
+                    e: ascensionTimerText,
+                    f: gqTimerText,
+                    g: octeractTimeText,
+                    h: freeLevelsText,
+                    i: remaining,
+                    j: timeToNext.toLocaleString()
+                }))
             }
         }
 
         // If your calculator isn't maxed but has levels, it will provide the solution.
-        const solution = (player.shopUpgrades.calculator > 0)
-            ? 'The answer is ' + (first + second) + ' according to your calculator.'
-            : '';
+        const options = {
+            w: player.worlds.toString(actualQuarks),
+            x: first,
+            y: second,
+            z: first + second
+        }
 
-        const addPrompt = await Prompt(`For ${player.worlds.toString(actualQuarks)} Quarks or nothing: What is ${first} + ${second}? ${solution}`);
+        const promptText = (player.shopUpgrades.calculator > 0)
+            ? i18next.t('importexport.promocodes.add.calculatorSolution', options)
+            : i18next.t('importexport.promocodes.add.calculatorPrompt', options)
+
+        const addPrompt = await Prompt(promptText);
 
         if (addPrompt === null) {
-            return Alert('No worries, you didn\'t lose any of your uses! Come back later!');
+            return Alert(i18next.t('importexport.promocodes.add.cancelled'));
         }
 
         player.rngCode = v;
@@ -561,19 +601,32 @@ export const promocodes = async (input: string | null, amount?: number) => {
             player.goldenQuarksTimer += gqTimer
             addTimers('octeracts', octeractTime)
 
-            await Alert(`You were awarded ${player.worlds.toString(actualQuarks)} Quarks! ${ascensionTimerText} ${ gqTimerText } ${ octeractTimeText } You have ${remaining} uses of Add. ` +
-                `You will gain 1 in ${ timeToNext.toLocaleString(navigator.language) } seconds.`);
+            await Alert(i18next.t('importexport.promocodes.add.reward', {
+                a: player.worlds.toString(actualQuarks),
+                b: ascensionTimerText,
+                c: gqTimerText,
+                d: octeractTimeText,
+                e: remaining
+            }))
         } else {
-            await Alert(`You guessed ${addPrompt}, but the answer was ${first + second}. You have ${remaining} uses of Add. You will gain 1 in ${timeToNext.toLocaleString(navigator.language)} seconds.`);
+            await Alert(i18next.t('importexport.promocodes.add.wrong', {
+                w: addPrompt,
+                x: first + second,
+                y: remaining,
+                z: timeToNext.toLocaleString(navigator.language)
+            }))
         }
 
     } else if (input === 'sub') {
         const amount = 1 + window.crypto.getRandomValues(new Uint16Array(1))[0] % 16; // [1, 16]
         const quarks = Number(player.worlds);
-        await Alert(`Thanks for using the "sub" code! I've taken away ${amount} Quarks! :)`);
+        await Alert(i18next.t('importexport.promocodes.sub.subbed', { x: amount }));
 
         if (quarks < amount) {
-            await Alert(`I gave you ${amount - quarks} Quarks so I could take ${amount} away.`);
+            await Alert(i18next.t('importexport.promocodes.sub.gave', {
+                x: amount - quarks,
+                y: amount
+            }))
         }
 
         player.worlds.sub(quarks < amount ? amount - quarks : amount);
@@ -586,22 +639,22 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 (Date.now() - player.skillCode!) / 1000 < 3600 ||
                 (Date.now() - Number(localStorage.getItem('saveScumIsCheating'))) / 1000 < 3600
             ) {
-                return el.textContent = 'Wait a little bit. We\'ll get back to you when you\'re ready to lose again.';
+                return el.textContent = i18next.t('importexport.promocodes.gamble.wait')
             }
         }
 
-        const confirmed = await Confirm('Are you sure? The house always wins!');
+        const confirmed = await Confirm(i18next.t('importexport.promocodes.gamble.confirm'))
         if (!confirmed) {
-            return el.textContent = 'Scared? You should be!';
+            return el.textContent = i18next.t('importexport.promocodes.gamble.cancelled')
         }
 
-        const bet = Number(await Prompt('How many Quarks are you putting up?'));
+        const bet = Number(await Prompt(i18next.t('importexport.promocodes.gamble.betPrompt')));
         if (Number.isNaN(bet) || bet <= 0) {
-            return el.textContent = 'Can\'t bet that!';
+            return el.textContent = i18next.t('general.validation.zeroOrLess')
         } else if (bet > 1e4) {
-            return el.textContent = 'Due to cheaters, you can only bet 10k max.';
+            return el.textContent = i18next.t('importexport.promocodes.gamble.cheaters')
         } else if (Number(player.worlds) < bet) {
-            return el.textContent = 'Can\'t bet what you don\'t have.';
+            return el.textContent = i18next.t('general.validation.moreThanPlayerHas')
         }
 
         localStorage.setItem('saveScumIsCheating', Date.now().toString());
@@ -612,30 +665,25 @@ export const promocodes = async (input: string | null, amount?: number) => {
             player.worlds.add(won, false);
 
             player.skillCode = Date.now();
-            return el.textContent = `You won. The Syncasino offers you a grand total of 25% of the pot! [+${won} Quarks]`;
+            return el.textContent = i18next.t('importexport.promocodes.gamble.won', { x: won })
         }
 
         player.worlds.sub(bet);
-        el.textContent = `Try again... you can do it! [-${bet} quarks]`;
+        el.textContent = i18next.t('importexport.promocodes.gamble.lost', { x: bet })
     } else if (input === 'time') {
         const availableUses = timeCodeAvailableUses();
         if (availableUses === 0) {
-            return Alert(`
-            If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.
-
-            Regardless, you must wait at least 15 minutes between each use.
-            `);
+            return Alert(i18next.t('importexport.promocodes.time.wait'))
         }
 
         const rewardMult = timeCodeRewardMultiplier();
 
         const random = Math.random() * 15000; // random time within 15 seconds
         const start = Date.now();
-        const playerConfirmed = await Confirm(
-            'Click the button within the next 15 seconds to test your luck!' +
-            ` If you click within ${format(2500 + 125 * player.cubeUpgrades[61], 0, true)} ms of a randomly generated time, you will win a prize!` +
-            ` This particular instance has a ${format(rewardMult, 2, true)}x multiplier due to elapsed time between uses.`
-        );
+        const playerConfirmed = await Confirm(i18next.t('importexport.promocodes.time.confirm', {
+            x: format(2500 + 125 * player.cubeUpgrades[61], 0, true),
+            y: format(rewardMult, 2, true)
+        }))
 
         if (playerConfirmed) {
             const diff = Math.abs(Date.now() - (start + random));
@@ -650,21 +698,23 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 }
 
                 player.worlds.add(actualQuarkAward * rewardMult, false);
-                return Alert(`You clicked at the right time! [+${format(actualQuarkAward * rewardMult, 0, true)} Quarkies]`);
+                return Alert(i18next.t('importexport.promocodes.time.won', {
+                    x: format(actualQuarkAward * rewardMult, 0, true)
+                }))
             } else {
-                return Alert('You didn\'t guess the right time, try again soon!');
+                return Alert(i18next.t('importexport.promocodes.time.lost'))
             }
         }
     } else if (input === 'spoiler') {
         const perSecond = octeractGainPerSecond()
         if (perSecond > 1) {
-            return Alert(`You will gain ${format(perSecond, 2, true)} Octeracts (when they come out) every second, assuming you have them unlocked!`)
+            return Alert(i18next.t('importexport.promocodes.spoiler.moreThan1', { x: format(perSecond, 2, true) }))
         } else {
-            return Alert(`You will gain an Octeract (when they come out) every ${format(1 / perSecond, 2, true)} seconds, assuming you have them unlocked!`)
+            return Alert(i18next.t('importexport.promocodes.spoiler.one', { x: format(1 / perSecond, 2, true) }))
         }
 
     } else {
-        el.textContent = 'Your code is either invalid or already used. Try again!'
+        el.textContent = i18next.t('importexport.promocodes.invalid')
     }
 
     const saved = await saveSynergy(); // should fix refresh bug where you can continuously enter promocodes
@@ -801,7 +851,9 @@ const timeCodeRewardMultiplier = (): number => {
 }
 
 const dailyCodeFormatFreeLevelMessage = (upgradeKey: string, freeLevelAmount: number): string => {
-    const upgradeNiceName = (upgradeKey in singularityData) ? singularityData[upgradeKey].name : octeractData[upgradeKey].name;
+    const upgradeNiceName = (upgradeKey in singularityData)
+        ? i18next.t(`singularity.data.${upgradeKey}.name`)
+        : i18next.t(`octeract.data.${upgradeKey}.name`);
     return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`;
 }
 

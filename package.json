@@ -7,6 +7,7 @@
     "break_infinity.js": "^2.0.0",
     "clipboard": "^2.0.11",
     "eventemitter3": "^4.0.7",
+    "i18next": "^22.4.9",
     "localforage": "^1.10.0",
     "lz-string": "^1.4.4",
     "worker-timers": "^7.0.53"
@@ -17,7 +18,7 @@
     "@typescript-eslint/parser": "^5.22.0",
     "esbuild": "^0.14.38",
     "eslint": "^8.14.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.0",
     "stylelint": "^14.8.2",
     "stylelint-config-standard": "^25.0.0",
     "typescript": "^4.6.4"
@@ -29,7 +30,8 @@
     "build:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\"",
     "watch:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\" --watch",
     "check:tsc": "npx -p typescript tsc",
-    "watch:tsc": "npx -p typescript tsc --watch"
+    "watch:tsc": "npx -p typescript tsc --watch",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",

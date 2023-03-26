@@ -60,6 +60,7 @@ body {
     --text-color: white;
     --darkorchid-text-color: darkorchid;
     --orchid-text-color: orchid;
+    --violet-text-color: violet;
     --darkcyan-text-color: darkcyan;
     --red-text-color: red;
     --maroon-text-color: maroon;
@@ -684,10 +685,15 @@ nav button {
     margin: 0;
 }
 
-p#buildinghotkeys {
+p#buildinghotkeys,
+p#buildinghotkeys2 {
     margin-top: 15px;
     color: lightgray;
     text-align: center;
+}
+
+p#buildinghotkeys2 {
+    margin-top: 0;
 }
 
 #buildingtext {
@@ -2326,6 +2332,58 @@ p[id$="BlessingsTotal"] {
     cursor: pointer;
 }
 
+#languagesubtab {
+    flex-direction: row;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.languagesMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    flex-basis: 1;
+    flex-grow: 0;
+    min-width: 450px;
+    max-width: 750px;
+    padding: 5px;
+}
+
+.languageOptions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+button.language-select {
+    border: 2px solid white;
+    width: 12em;
+    min-width: 150px;
+    min-height: 40px;
+    margin: 5px;
+}
+
+button.language-select span.lang-flag {
+    font-size: 2em;
+    padding-right: 4px;
+    vertical-align: middle;
+}
+
+button.language-select span.lang-name {
+    font-size: 1.2em;
+    vertical-align: middle;
+}
+
+.languageContribution {
+    flex-basis: 1;
+    flex-grow: 0;
+    min-width: 450px;
+    max-width: 750px;
+    padding: 5px;
+}
+
 /* Credits */
 
 #creditssubtab {
@@ -3476,4 +3534,11 @@ header #obtainiumDisplay { color: pink; }
 
 .newPerk {
     color: gold;
+}
+
+#autoHepteractPercentage {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 5px;
 }
