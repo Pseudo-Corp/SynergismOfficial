@@ -14,7 +14,7 @@ const supported: Record<string, { name: string, flag: string }> = {
     de: { name: 'German', flag: '🇩🇪' },
     pl: { name: 'Polish', flag: '🇵🇱' },
     es: { name: 'Spanish', flag: '🇪🇸' },
-    pt_BR: { name: 'Brazilian Portugese', flag: '🇧🇷' }
+    pt_BR: { name: 'Brazilian Portuguese', flag: '🇧🇷' }
 };
 
 const languageCache = new Map<string, { translation: Resource }>()
