@@ -10,6 +10,7 @@ import { calculateSummationLinear, calculateCorruptionPoints, calculateRuneBonus
 import { Globals as G, Upgrade } from './Variables';
 import type { FirstToFifth, OneToFive, ZeroToFour } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import i18next from 'i18next';
 
 export const getReductionValue = () => {
     let reduction = 1;
@@ -1204,15 +1205,21 @@ export const updateRuneBlessing = (type: 'Blessings' | 'Spirits', index: number)
     if (type === 'Blessings') {
         const blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
         const t = (index === 5) ? 1 : 0;
-        DOMCacheGetOrSet('runeBlessingPower' + index + 'Value1').textContent = format(G['runeBlessings'][index])
-        DOMCacheGetOrSet('runeBlessingPower' + index + 'Value2').textContent = format(1 - t + blessingMultiplierArray[index] * G['effectiveRuneBlessingPower'][index], 4, true)
-    }
-    if (type === 'Spirits') {
+        DOMCacheGetOrSet(`runeBlessingPower${index}Value1`).innerHTML = i18next.t('runes.blessings.blessingPower', {
+            reward: i18next.t(`runes.blessings.rewards.${index - 1}`),
+            value: format(G['runeBlessings'][index]),
+            speed: format(1 - t + blessingMultiplierArray[index] * G['effectiveRuneBlessingPower'][index], 4, true)
+        })
+    } else if (type === 'Spirits') { // eslint-disable-line @typescript-eslint/no-unnecessary-condition
         const spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
         spiritMultiplierArray[index] *= (calculateCorruptionPoints() / 400)
         const t = (index === 3) ? 1 : 0;
-        DOMCacheGetOrSet('runeSpiritPower' + index + 'Value1').textContent = format(G['runeSpirits'][index])
-        DOMCacheGetOrSet('runeSpiritPower' + index + 'Value2').textContent = format(1 - t + spiritMultiplierArray[index] * G['effectiveRuneSpiritPower'][index], 4, true)
+
+        DOMCacheGetOrSet(`runeSpiritPower${index}Value1`).innerHTML = i18next.t('runes.spirits.spiritPower', {
+            reward: i18next.t(`runes.spirits.rewards.${index - 1}`),
+            value: format(G['runeSpirits'][index]),
+            speed: format(1 - t + spiritMultiplierArray[index] * G['effectiveRuneSpiritPower'][index], 4, true)
+        })
     }
 }
 

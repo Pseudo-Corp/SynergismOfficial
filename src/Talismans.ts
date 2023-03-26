@@ -4,6 +4,7 @@ import { CalcECC } from './Challenges';
 import { calculateRuneLevels } from './Calculate';
 import { achievementaward } from './Achievements';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import i18next from 'i18next';
 
 const talismanResourceCosts = {
     shard: {
@@ -79,11 +80,15 @@ export const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCos
         const talismanCostInfo = getTalismanResourceInfo(type, percentage);
         const TalismanName = talismanResourceCosts[type].name;
 
-        el.textContent = 'Cost to buy ' + format(talismanCostInfo.buyAmount) + ' ' + TalismanName + (talismanCostInfo.buyAmount>1?'s':'') + ': ';
-        el.textContent += format(talismanCostInfo.obtainiumCost) + ' Obtainium and ' + format(talismanCostInfo.offeringCost) + ' Offerings.';
+        el.textContent = i18next.t('runes.talismans.costToBuy', {
+            name: TalismanName,
+            buyAmount: format(talismanCostInfo.buyAmount),
+            obtainium: format(talismanCostInfo.obtainiumCost),
+            offerings: format(talismanCostInfo.offeringCost)
+        })
     } else {
         // Buy All
-        el.textContent = 'Click to buy every type of Talisman Shards and Fragments, if affordable';
+        el.textContent = i18next.t('runes.talismans.clickBuyEveryType')
     }
 }
 
@@ -260,7 +265,7 @@ export const showTalismanPrices = (i: number) => {
     const f = DOMCacheGetOrSet('talismanLegendaryFragmentCost')
     const g = DOMCacheGetOrSet('talismanMythicalFragmentCost')
 
-    DOMCacheGetOrSet('talismanLevelUpSummary').textContent = '-=-=- Resources Required to Level Up -=-=-'
+    DOMCacheGetOrSet('talismanLevelUpSummary').textContent = i18next.t('runes.resourcesToLevelup')
     DOMCacheGetOrSet('talismanLevelUpSummary').style.color = 'silver'
 
     let m = G['talismanLevelCostMultiplier'][i]
@@ -294,7 +299,7 @@ export const showEnhanceTalismanPrices = (i: number) => {
     const f = DOMCacheGetOrSet('talismanLegendaryFragmentCost')
     const g = DOMCacheGetOrSet('talismanMythicalFragmentCost')
 
-    DOMCacheGetOrSet('talismanLevelUpSummary').textContent = '=-=-= Resources Required to ENHANCE =-=-='
+    DOMCacheGetOrSet('talismanLevelUpSummary').textContent = i18next.t('runes.resourcesToEnhance')
     DOMCacheGetOrSet('talismanLevelUpSummary').style.color = 'gold'
 
     const array = [G['commonTalismanEnhanceCost'], G['uncommonTalismanEnchanceCost'], G['rareTalismanEnchanceCost'], G['epicTalismanEnhanceCost'], G['legendaryTalismanEnchanceCost'], G['mythicalTalismanEnchanceCost']]

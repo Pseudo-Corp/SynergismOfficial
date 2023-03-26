@@ -49,6 +49,8 @@ import { octeractData, OcteractUpgrade } from './Octeracts';
 import {settingAnnotation, toggleTheme, toggleIconSet } from './Themes';
 import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers';
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges';
+import { init as i18nInit } from './i18n'
+import i18next from 'i18next'
 
 export const player: Player = {
     firstPlayed: new Date().toISOString(),
@@ -719,100 +721,100 @@ export const player: Player = {
     notation: 'Default',
 
     singularityUpgrades: {
-        goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1']),
-        goldenQuarks2: new SingularityUpgrade(singularityData['goldenQuarks2']),
-        goldenQuarks3: new SingularityUpgrade(singularityData['goldenQuarks3']),
-        starterPack: new SingularityUpgrade(singularityData['starterPack']),
-        wowPass: new SingularityUpgrade(singularityData['wowPass']),
-        cookies: new SingularityUpgrade(singularityData['cookies']),
-        cookies2: new SingularityUpgrade(singularityData['cookies2']),
-        cookies3: new SingularityUpgrade(singularityData['cookies3']),
-        cookies4: new SingularityUpgrade(singularityData['cookies4']),
-        cookies5: new SingularityUpgrade(singularityData['cookies5']),
-        ascensions: new SingularityUpgrade(singularityData['ascensions']),
-        corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen']),
-        corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen']),
-        singOfferings1: new SingularityUpgrade(singularityData['singOfferings1']),
-        singOfferings2: new SingularityUpgrade(singularityData['singOfferings2']),
-        singOfferings3: new SingularityUpgrade(singularityData['singOfferings3']),
-        singObtainium1: new SingularityUpgrade(singularityData['singObtainium1']),
-        singObtainium2: new SingularityUpgrade(singularityData['singObtainium2']),
-        singObtainium3: new SingularityUpgrade(singularityData['singObtainium3']),
-        singCubes1: new SingularityUpgrade(singularityData['singCubes1']),
-        singCubes2: new SingularityUpgrade(singularityData['singCubes2']),
-        singCubes3: new SingularityUpgrade(singularityData['singCubes3']),
-        singCitadel: new SingularityUpgrade(singularityData['singCitadel']),
-        singCitadel2: new SingularityUpgrade(singularityData['singCitadel2']),
-        octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock']),
-        singOcteractPatreonBonus: new SingularityUpgrade(singularityData['singOcteractPatreonBonus']),
-        intermediatePack: new SingularityUpgrade(singularityData['intermediatePack']),
-        advancedPack: new SingularityUpgrade(singularityData['advancedPack']),
-        expertPack: new SingularityUpgrade(singularityData['expertPack']),
-        masterPack: new SingularityUpgrade(singularityData['masterPack']),
-        divinePack: new SingularityUpgrade(singularityData['divinePack']),
-        wowPass2: new SingularityUpgrade(singularityData['wowPass2']),
-        potionBuff: new SingularityUpgrade(singularityData['potionBuff']),
-        potionBuff2: new SingularityUpgrade(singularityData['potionBuff2']),
-        potionBuff3: new SingularityUpgrade(singularityData['potionBuff3']),
-        singChallengeExtension: new SingularityUpgrade(singularityData['singChallengeExtension']),
-        singChallengeExtension2: new SingularityUpgrade(singularityData['singChallengeExtension2']),
-        singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3']),
-        singQuarkImprover1: new SingularityUpgrade(singularityData['singQuarkImprover1']),
-        singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract']),
-        singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2']),
-        singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3']),
-        singOcteractGain: new SingularityUpgrade(singularityData['singOcteractGain']),
-        singOcteractGain2: new SingularityUpgrade(singularityData['singOcteractGain2']),
-        singOcteractGain3: new SingularityUpgrade(singularityData['singOcteractGain3']),
-        singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4']),
-        singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5']),
-        wowPass3: new SingularityUpgrade(singularityData['wowPass3']),
-        ultimatePen: new SingularityUpgrade(singularityData['ultimatePen']),
-        platonicTau: new SingularityUpgrade(singularityData['platonicTau']),
-        platonicAlpha: new SingularityUpgrade(singularityData['platonicAlpha']),
-        platonicDelta: new SingularityUpgrade(singularityData['platonicDelta']),
-        platonicPhi: new SingularityUpgrade(singularityData['platonicPhi']),
-        singFastForward: new SingularityUpgrade(singularityData['singFastForward']),
-        singFastForward2: new SingularityUpgrade(singularityData['singFastForward2']),
-        singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed']),
-        singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2']),
-        oneMind: new SingularityUpgrade(singularityData['oneMind']),
-        wowPass4: new SingularityUpgrade(singularityData['wowPass4']),
-        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic']),
-        blueberries: new SingularityUpgrade(singularityData['blueberries'])
+        goldenQuarks1: new SingularityUpgrade(singularityData['goldenQuarks1'], 'goldenQuarks1'),
+        goldenQuarks2: new SingularityUpgrade(singularityData['goldenQuarks2'], 'goldenQuarks2'),
+        goldenQuarks3: new SingularityUpgrade(singularityData['goldenQuarks3'], 'goldenQuarks3'),
+        starterPack: new SingularityUpgrade(singularityData['starterPack'], 'starterPack'),
+        wowPass: new SingularityUpgrade(singularityData['wowPass'], 'wowPass'),
+        cookies: new SingularityUpgrade(singularityData['cookies'], 'cookies'),
+        cookies2: new SingularityUpgrade(singularityData['cookies2'], 'cookies2'),
+        cookies3: new SingularityUpgrade(singularityData['cookies3'], 'cookies3'),
+        cookies4: new SingularityUpgrade(singularityData['cookies4'], 'cookies4'),
+        cookies5: new SingularityUpgrade(singularityData['cookies5'], 'cookies5'),
+        ascensions: new SingularityUpgrade(singularityData['ascensions'], 'ascensions'),
+        corruptionFourteen: new SingularityUpgrade(singularityData['corruptionFourteen'], 'corruptionFourteen'),
+        corruptionFifteen: new SingularityUpgrade(singularityData['corruptionFifteen'], 'corruptionFifteen'),
+        singOfferings1: new SingularityUpgrade(singularityData['singOfferings1'], 'singOfferings1'),
+        singOfferings2: new SingularityUpgrade(singularityData['singOfferings2'], 'singOfferings2'),
+        singOfferings3: new SingularityUpgrade(singularityData['singOfferings3'], 'singOfferings3'),
+        singObtainium1: new SingularityUpgrade(singularityData['singObtainium1'], 'singObtainium1'),
+        singObtainium2: new SingularityUpgrade(singularityData['singObtainium2'], 'singObtainium2'),
+        singObtainium3: new SingularityUpgrade(singularityData['singObtainium3'], 'singObtainium3'),
+        singCubes1: new SingularityUpgrade(singularityData['singCubes1'], 'singCubes1'),
+        singCubes2: new SingularityUpgrade(singularityData['singCubes2'], 'singCubes2'),
+        singCubes3: new SingularityUpgrade(singularityData['singCubes3'], 'singCubes3'),
+        singCitadel: new SingularityUpgrade(singularityData['singCitadel'], 'singCitadel'),
+        singCitadel2: new SingularityUpgrade(singularityData['singCitadel2'], 'singCitadel2'),
+        octeractUnlock: new SingularityUpgrade(singularityData['octeractUnlock'], 'octeractUnlock'),
+        singOcteractPatreonBonus: new SingularityUpgrade(singularityData['singOcteractPatreonBonus'], 'singOcteractPatreonBonus'),
+        intermediatePack: new SingularityUpgrade(singularityData['intermediatePack'], 'intermediatePack'),
+        advancedPack: new SingularityUpgrade(singularityData['advancedPack'], 'advancedPack'),
+        expertPack: new SingularityUpgrade(singularityData['expertPack'], 'expertPack'),
+        masterPack: new SingularityUpgrade(singularityData['masterPack'], 'masterPack'),
+        divinePack: new SingularityUpgrade(singularityData['divinePack'], 'divinePack'),
+        wowPass2: new SingularityUpgrade(singularityData['wowPass2'], 'wowPass2'),
+        potionBuff: new SingularityUpgrade(singularityData['potionBuff'], 'potionBuff'),
+        potionBuff2: new SingularityUpgrade(singularityData['potionBuff2'], 'potionBuff2'),
+        potionBuff3: new SingularityUpgrade(singularityData['potionBuff3'], 'potionBuff3'),
+        singChallengeExtension: new SingularityUpgrade(singularityData['singChallengeExtension'], 'singChallengeExtension'),
+        singChallengeExtension2: new SingularityUpgrade(singularityData['singChallengeExtension2'], 'singChallengeExtension2'),
+        singChallengeExtension3: new SingularityUpgrade(singularityData['singChallengeExtension3'], 'singChallengeExtension3'),
+        singQuarkImprover1: new SingularityUpgrade(singularityData['singQuarkImprover1'], 'singQuarkImprover1'),
+        singQuarkHepteract: new SingularityUpgrade(singularityData['singQuarkHepteract'], 'singQuarkHepteract'),
+        singQuarkHepteract2: new SingularityUpgrade(singularityData['singQuarkHepteract2'], 'singQuarkHepteract2'),
+        singQuarkHepteract3: new SingularityUpgrade(singularityData['singQuarkHepteract3'], 'singQuarkHepteract3'),
+        singOcteractGain: new SingularityUpgrade(singularityData['singOcteractGain'], 'singOcteractGain'),
+        singOcteractGain2: new SingularityUpgrade(singularityData['singOcteractGain2'], 'singOcteractGain2'),
+        singOcteractGain3: new SingularityUpgrade(singularityData['singOcteractGain3'], 'singOcteractGain3'),
+        singOcteractGain4: new SingularityUpgrade(singularityData['singOcteractGain4'], 'singOcteractGain4'),
+        singOcteractGain5: new SingularityUpgrade(singularityData['singOcteractGain5'], 'singOcteractGain5'),
+        wowPass3: new SingularityUpgrade(singularityData['wowPass3'], 'wowPass3'),
+        ultimatePen: new SingularityUpgrade(singularityData['ultimatePen'], 'ultimatePen'),
+        platonicTau: new SingularityUpgrade(singularityData['platonicTau'], 'platonicTau'),
+        platonicAlpha: new SingularityUpgrade(singularityData['platonicAlpha'], 'platonicAlpha'),
+        platonicDelta: new SingularityUpgrade(singularityData['platonicDelta'], 'platonicDelta'),
+        platonicPhi: new SingularityUpgrade(singularityData['platonicPhi'], 'platonicPhi'),
+        singFastForward: new SingularityUpgrade(singularityData['singFastForward'], 'singFastForward'),
+        singFastForward2: new SingularityUpgrade(singularityData['singFastForward2'], 'singFastForward2'),
+        singAscensionSpeed: new SingularityUpgrade(singularityData['singAscensionSpeed'], 'singAscensionSpeed'),
+        singAscensionSpeed2: new SingularityUpgrade(singularityData['singAscensionSpeed2'], 'singAscensionSpeed2'),
+        oneMind: new SingularityUpgrade(singularityData['oneMind'], 'oneMind'),
+        wowPass4: new SingularityUpgrade(singularityData['wowPass4'], 'wowPass4'),
+        offeringAutomatic: new SingularityUpgrade(singularityData['offeringAutomatic'], 'offeringAutomatic'),
+        blueberries: new SingularityUpgrade(singularityData['blueberries'], 'blueberries')
     },
 
     octeractUpgrades: {
-        octeractStarter: new OcteractUpgrade(octeractData['octeractStarter']),
-        octeractGain: new OcteractUpgrade(octeractData['octeractGain']),
-        octeractGain2: new OcteractUpgrade(octeractData['octeractGain2']),
-        octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain']),
-        octeractQuarkGain2: new OcteractUpgrade(octeractData['octeractQuarkGain2']),
-        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption']),
-        octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce']),
-        octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks']),
-        octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily']),
-        octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2']),
-        octeractImprovedDaily3: new OcteractUpgrade(octeractData['octeractImprovedDaily3']),
-        octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept']),
-        octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed']),
-        octeractImprovedAscensionSpeed: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed']),
-        octeractImprovedAscensionSpeed2: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed2']),
-        octeractImprovedFree: new OcteractUpgrade(octeractData['octeractImprovedFree']),
-        octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2']),
-        octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3']),
-        octeractImprovedFree4: new OcteractUpgrade(octeractData['octeractImprovedFree4']),
-        octeractSingUpgradeCap: new OcteractUpgrade(octeractData['octeractSingUpgradeCap']),
-        octeractOfferings1: new OcteractUpgrade(octeractData['octeractOfferings1']),
-        octeractObtainium1: new OcteractUpgrade(octeractData['octeractObtainium1']),
-        octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions']),
-        octeractAscensions2: new OcteractUpgrade(octeractData['octeractAscensions2']),
-        octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain']),
-        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward']),
-        octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed']),
-        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency']),
-        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover']),
-        octeractAmbrosiaLuck: new OcteractUpgrade(octeractData['octeractAmbrosiaLuck'])
+        octeractStarter: new OcteractUpgrade(octeractData['octeractStarter'], 'octeractStarter'),
+        octeractGain: new OcteractUpgrade(octeractData['octeractGain'], 'octeractGain'),
+        octeractGain2: new OcteractUpgrade(octeractData['octeractGain2'], 'octeractGain2'),
+        octeractQuarkGain: new OcteractUpgrade(octeractData['octeractQuarkGain'], 'octeractQuarkGain'),
+        octeractQuarkGain2: new OcteractUpgrade(octeractData['octeractQuarkGain2'], 'octeractQuarkGain2'),
+        octeractCorruption: new OcteractUpgrade(octeractData['octeractCorruption'], 'octeractCorruption'),
+        octeractGQCostReduce: new OcteractUpgrade(octeractData['octeractGQCostReduce'], 'octeractGQCostReduce'),
+        octeractExportQuarks: new OcteractUpgrade(octeractData['octeractExportQuarks'], 'octeractExportQuarks'),
+        octeractImprovedDaily: new OcteractUpgrade(octeractData['octeractImprovedDaily'], 'octeractImprovedDaily'),
+        octeractImprovedDaily2: new OcteractUpgrade(octeractData['octeractImprovedDaily2'], 'octeractImprovedDaily2'),
+        octeractImprovedDaily3: new OcteractUpgrade(octeractData['octeractImprovedDaily3'], 'octeractImprovedDaily3'),
+        octeractImprovedQuarkHept: new OcteractUpgrade(octeractData['octeractImprovedQuarkHept'], 'octeractImprovedQuarkHept'),
+        octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData['octeractImprovedGlobalSpeed'], 'octeractImprovedGlobalSpeed'),
+        octeractImprovedAscensionSpeed: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed'], 'octeractImprovedAscensionSpeed'),
+        octeractImprovedAscensionSpeed2: new OcteractUpgrade(octeractData['octeractImprovedAscensionSpeed2'], 'octeractImprovedAscensionSpeed2'),
+        octeractImprovedFree: new OcteractUpgrade(octeractData['octeractImprovedFree'], 'octeractImprovedFree'),
+        octeractImprovedFree2: new OcteractUpgrade(octeractData['octeractImprovedFree2'], 'octeractImprovedFree2'),
+        octeractImprovedFree3: new OcteractUpgrade(octeractData['octeractImprovedFree3'], 'octeractImprovedFree3'),
+        octeractImprovedFree4: new OcteractUpgrade(octeractData['octeractImprovedFree4'], 'octeractImprovedFree4'),
+        octeractSingUpgradeCap: new OcteractUpgrade(octeractData['octeractSingUpgradeCap'], 'octeractSingUpgradeCap'),
+        octeractOfferings1: new OcteractUpgrade(octeractData['octeractOfferings1'], 'octeractOfferings1'),
+        octeractObtainium1: new OcteractUpgrade(octeractData['octeractObtainium1'], 'octeractObtainium1'),
+        octeractAscensions: new OcteractUpgrade(octeractData['octeractAscensions'], 'octeractAscensions'),
+        octeractAscensions2: new OcteractUpgrade(octeractData['octeractAscensions2'], 'octeractAscensions2'),
+        octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData['octeractAscensionsOcteractGain'], 'octeractAscensionsOcteractGain'),
+        octeractFastForward: new OcteractUpgrade(octeractData['octeractFastForward'], 'octeractFastForward'),
+        octeractAutoPotionSpeed: new OcteractUpgrade(octeractData['octeractAutoPotionSpeed'], 'octeractAutoPotionSpeed'),
+        octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData['octeractAutoPotionEfficiency'], 'octeractAutoPotionEfficiency'),
+        octeractOneMindImprover: new OcteractUpgrade(octeractData['octeractOneMindImprover'], 'octeractOneMindImprover'),
+        octeractAmbrosiaLuck: new OcteractUpgrade(octeractData['octeractAmbrosiaLuck'], 'octeractAmbrosiaLuck')
     },
 
     dailyCodeUsed: false,
@@ -821,10 +823,10 @@ export const player: Player = {
     insideSingularityChallenge: false,
 
     singularityChallenges: {
-        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades']),
-        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap']),
-        noOcteracts: new SingularityChallenge(singularityChallengeData['noOcteracts']),
-        limitedAscensions: new SingularityChallenge(singularityChallengeData['limitedAscensions'])
+        noSingularityUpgrades: new SingularityChallenge(singularityChallengeData['noSingularityUpgrades'], 'noSingularityUpgrades'),
+        oneChallengeCap: new SingularityChallenge(singularityChallengeData['oneChallengeCap'], 'oneChallengeCap'),
+        noOcteracts: new SingularityChallenge(singularityChallengeData['noOcteracts'], 'noOcteracts'),
+        limitedAscensions: new SingularityChallenge(singularityChallengeData['limitedAscensions'], 'limitedAscensions')
     }
 }
 
@@ -850,7 +852,36 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
         wowCubes: Number(player.wowCubes),
         wowTesseracts: Number(player.wowTesseracts),
         wowHypercubes: Number(player.wowHypercubes),
-        wowPlatonicCubes: Number(player.wowPlatonicCubes)
+        wowPlatonicCubes: Number(player.wowPlatonicCubes),
+        singularityUpgrades: Object.fromEntries(
+            Object.entries(player.singularityUpgrades).map(([key, value]) => {
+                return [key, {
+                    level: value.level,
+                    goldenQuarksInvested: value.goldenQuarksInvested,
+                    toggleBuy: value.toggleBuy,
+                    freeLevels: value.freeLevels
+                }]
+            })
+        ),
+        octeractUpgrades: Object.fromEntries(
+            Object.entries(player.octeractUpgrades).map(([key, value]) => {
+                return [key, {
+                    level: value.level,
+                    goldenQuarksInvested: value.octeractsInvested,
+                    toggleBuy: value.toggleBuy,
+                    freeLevels: value.freeLevels
+                }]
+            })
+        ),
+        singularityChallenges: Object.fromEntries(
+            Object.entries(player.singularityChallenges).map(([key, value]) => {
+                return [key, {
+                    completions: value.completions,
+                    highestSingularityCompleted: value.highestSingularityCompleted,
+                    enabled: value.enabled
+                }]
+            })
+        )
     });
 
     const save = btoa(JSON.stringify(p));
@@ -864,13 +895,13 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
 
         await localforage.setItem<Blob>('Synergysave2', saveBlob);
     } else {
-        await Alert('An error prevented this file from being saved.')
+        await Alert(i18next.t('testing.errorSaving'))
         return false
     }
 
     if (button) {
         const el = DOMCacheGetOrSet('saveinfo');
-        el.textContent = 'Game saved successfully!';
+        el.textContent = i18next.t('testing.gameSaved');
         setTimeout(() => el.textContent = '', 4000);
     }
 
@@ -899,15 +930,13 @@ const loadSynergy = async () => {
         : null;
 
     if (testing || prod === false) {
-        Object.defineProperty(window, 'player', {
-            value: player
-        });
-        Object.defineProperty(window, 'G', {
-            value: G
-        });
-        Object.defineProperty(window, 'Decimal', {
-            value: Decimal
-        });
+        Object.defineProperties(window, {
+            player: { value: player },
+            G: { value: G },
+            Decimal: { value: Decimal },
+            i18n: { value: i18next }
+        })
+
         if (data && testing) {
             data.exporttest = false;
         }
@@ -920,7 +949,7 @@ const loadSynergy = async () => {
             (data.exporttest === false || data.exporttest === 'NO!') &&
             !testing
         ) {
-            return Alert('You can\'t load this save anymore!');
+            return Alert(i18next.t('testing.saveInLive2'));
         }
 
         const oldCodesUsed = Array.from(
@@ -1492,14 +1521,9 @@ const loadSynergy = async () => {
         showCorruptionStatsLoadouts()
         updateCorruptionLoadoutNames()
 
-        for (let j = 1; j <= 5; j++) {
-            const ouch = DOMCacheGetOrSet('tesseractAutoToggle' + j);
-            (player.autoTesseracts[j]) ?
-                (ouch.textContent = 'Auto [ON]', ouch.style.border = '2px solid green') :
-                (ouch.textContent = 'Auto [OFF]', ouch.style.border = '2px solid red');
-        }
-
-        DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + format(100 * G['effectiveLevelMult'] - 100, 4, true) + '%';
+        DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t('runes.thanksResearches', {
+            percent: format(100 * G['effectiveLevelMult'] - 100, 4, true)
+        })
 
         DOMCacheGetOrSet('talismanlevelup').style.display = 'none'
         DOMCacheGetOrSet('talismanrespec').style.display = 'none'
@@ -1533,21 +1557,32 @@ const loadSynergy = async () => {
             (DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value = ('' + (player.autoChallengeTimer.start || blankSave.autoChallengeTimer.start)).replace(omit, 'e');
             updateAutoChallenge(1);
         }
-        DOMCacheGetOrSet('startTimerValue').textContent = format(player.autoChallengeTimer.start, 2, true) + 's'
+
+        DOMCacheGetOrSet('startTimerValue').innerHTML = i18next.t('challenges.timeStartSweep', {
+            time: format(player.autoChallengeTimer.start, 2, true)
+        })
+
         inputd = player.autoChallengeTimer.exit;
         inpute = Number((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value);
         if (inpute !== inputd || isNaN(inpute + inputd)) {
             (DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value = ('' + (player.autoChallengeTimer.exit || blankSave.autoChallengeTimer.exit)).replace(omit, 'e');
             updateAutoChallenge(2);
         }
-        DOMCacheGetOrSet('exitTimerValue').textContent = format(player.autoChallengeTimer.exit, 2, true) + 's'
+
+        DOMCacheGetOrSet('exitTimerValue').innerHTML = i18next.t('challenges.timeExitChallenge', {
+            time: format(player.autoChallengeTimer.exit, 2, true)
+        })
+
         inputd = player.autoChallengeTimer.enter;
         inpute = Number((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value);
         if (inpute !== inputd || isNaN(inpute + inputd)) {
             (DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value = ('' + (player.autoChallengeTimer.enter || blankSave.autoChallengeTimer.enter)).replace(omit, 'e');
             updateAutoChallenge(3);
         }
-        DOMCacheGetOrSet('enterTimerValue').textContent = format(player.autoChallengeTimer.enter, 2, true) + 's'
+
+        DOMCacheGetOrSet('enterTimerValue').innerHTML = i18next.t('challenges.timeEnterChallenge', {
+            time: format(player.autoChallengeTimer.enter, 2, true)
+        })
 
         inputd = player.prestigeamount;
         inpute = Number((DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value);
@@ -1615,169 +1650,175 @@ const loadSynergy = async () => {
             (DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value = ('' + (player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount)).replace(omit, 'e');
             updateRuneBlessingBuyAmount(1);
         }
-        DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount);
+
+        DOMCacheGetOrSet('buyRuneBlessingToggle').innerHTML = i18next.t('runes.blessings.buyUpTo', {
+            amount: format(player.runeBlessingBuyAmount)
+        })
+
         inputd = player.runeSpiritBuyAmount;
         inpute = Number((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value);
         if (inpute !== inputd || isNaN(inpute + inputd)) {
             (DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value = ('' + (player.runeSpiritBuyAmount || blankSave.runeSpiritBuyAmount)).replace(omit, 'e');
             updateRuneBlessingBuyAmount(2);
         }
-        DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount, 0, true);
+        DOMCacheGetOrSet('buyRuneSpiritToggleValue').innerHTML = i18next.t('runes.spirits.buyUpTo', {
+            amount: format(player.runeSpiritBuyAmount, 0, true)
+        })
 
         if (player.resettoggle1 === 1) {
-            DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: AMOUNT'
+            DOMCacheGetOrSet('prestigeautotoggle').textContent = i18next.t('toggles.modeAmount')
         }
         if (player.resettoggle2 === 1) {
-            DOMCacheGetOrSet('transcendautotoggle').textContent = 'Mode: AMOUNT'
+            DOMCacheGetOrSet('transcendautotoggle').textContent = i18next.t('toggles.modeAmount')
         }
         if (player.resettoggle3 === 1) {
-            DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: AMOUNT'
+            DOMCacheGetOrSet('reincarnateautotoggle').textContent = i18next.t('toggles.modeAmount')
         }
         if (player.resettoggle4 === 1) {
-            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: AMOUNT'
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t('toggles.modeAmount')
         }
 
         if (player.resettoggle1 === 2) {
-            DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: TIME'
+            DOMCacheGetOrSet('prestigeautotoggle').textContent = i18next.t('toggles.modeTime')
         }
         if (player.resettoggle2 === 2) {
-            DOMCacheGetOrSet('transcendautotoggle').textContent = 'Mode: TIME'
+            DOMCacheGetOrSet('transcendautotoggle').textContent = i18next.t('toggles.modeTime')
         }
         if (player.resettoggle3 === 2) {
-            DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: TIME'
+            DOMCacheGetOrSet('reincarnateautotoggle').textContent = i18next.t('toggles.modeTime')
         }
         if (player.resettoggle4 === 2) {
-            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: PERCENTAGE'
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t('toggles.modePercentage')
         }
 
         if (player.tesseractAutoBuyerToggle === 1) {
-            DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: ON'
+            DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOn')
             DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid green'
         }
         if (player.tesseractAutoBuyerToggle === 2) {
-            DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: OFF'
+            DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOff')
             DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
         }
 
         if (player.autoOpenCubes) {
-            DOMCacheGetOrSet('openCubes').textContent = `Auto Open ${format(player.openCubes, 0)}%`;
+            DOMCacheGetOrSet('openCubes').textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openCubes, 0)});
             DOMCacheGetOrSet('openCubes').style.border = '1px solid green';
             DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid green';
         } else {
-            DOMCacheGetOrSet('openCubes').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openCubes').textContent = i18next.t('wowCubes.autoOff');
             DOMCacheGetOrSet('openCubes').style.border = '1px solid red';
             DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid red';
         }
         if (player.autoOpenTesseracts) {
-            DOMCacheGetOrSet('openTesseracts').textContent = `Auto Open ${format(player.openTesseracts, 0)}%`;
+            DOMCacheGetOrSet('openTesseracts').textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openTesseracts, 0)});
             DOMCacheGetOrSet('openTesseracts').style.border = '1px solid green';
             DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid green';
         } else {
-            DOMCacheGetOrSet('openTesseracts').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openTesseracts').textContent = i18next.t('wowCubes.autoOff');
             DOMCacheGetOrSet('openTesseracts').style.border = '1px solid red';
             DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid red';
         }
         if (player.autoOpenHypercubes) {
-            DOMCacheGetOrSet('openHypercubes').textContent = `Auto Open ${format(player.openHypercubes, 0)}%`;
+            DOMCacheGetOrSet('openHypercubes').textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openHypercubes, 0)});
             DOMCacheGetOrSet('openHypercubes').style.border = '1px solid green';
             DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid green';
         } else {
-            DOMCacheGetOrSet('openHypercubes').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openHypercubes').textContent = i18next.t('wowCubes.autoOff');
             DOMCacheGetOrSet('openHypercubes').style.border = '1px solid red';
             DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid red';
         }
         if (player.autoOpenPlatonicsCubes) {
-            DOMCacheGetOrSet('openPlatonicCube').textContent = `Auto Open ${format(player.openPlatonicsCubes, 0)}%`;
+            DOMCacheGetOrSet('openPlatonicCube').textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openPlatonicsCubes, 0)});
             DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid green';
             DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid green';
         } else {
-            DOMCacheGetOrSet('openPlatonicCube').textContent = 'Auto Open [OFF]';
+            DOMCacheGetOrSet('openPlatonicCube').textContent = i18next.t('wowCubes.autoOff');
             DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid red';
             DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid red';
         }
 
         if (player.autoResearchToggle) {
-            DOMCacheGetOrSet('toggleautoresearch').textContent = 'Automatic: ON'
+            DOMCacheGetOrSet('toggleautoresearch').textContent = i18next.t('researches.automaticOn')
         } else {
-            DOMCacheGetOrSet('toggleautoresearch').textContent = 'Automatic: OFF'
+            DOMCacheGetOrSet('toggleautoresearch').textContent = i18next.t('researches.automaticOff')
         }
         if (player.autoResearchMode === 'cheapest') {
-            DOMCacheGetOrSet('toggleautoresearchmode').textContent = 'Automatic mode: Cheapest'
+            DOMCacheGetOrSet('toggleautoresearchmode').textContent = i18next.t('researches.autoModeCheapest')
         } else {
-            DOMCacheGetOrSet('toggleautoresearchmode').textContent = 'Automatic mode: Manual'
+            DOMCacheGetOrSet('toggleautoresearchmode').textContent = i18next.t('researches.autoModeManual')
         }
         if (player.autoSacrificeToggle) {
-            DOMCacheGetOrSet('toggleautosacrifice').textContent = 'Auto Rune: ON'
+            DOMCacheGetOrSet('toggleautosacrifice').textContent = i18next.t('runes.blessings.autoRuneOn')
             DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid green'
         } else {
-            DOMCacheGetOrSet('toggleautosacrifice').textContent = 'Auto Rune: OFF'
+            DOMCacheGetOrSet('toggleautosacrifice').textContent = i18next.t('runes.blessings.autoRuneOff')
             DOMCacheGetOrSet('toggleautosacrifice').style.border = '2px solid red'
         }
         if (player.autoBuyFragment) {
-            DOMCacheGetOrSet('toggleautoBuyFragments').textContent = 'Auto Buy: ON'
+            DOMCacheGetOrSet('toggleautoBuyFragments').textContent = i18next.t('runes.talismans.autoBuyOn')
             DOMCacheGetOrSet('toggleautoBuyFragments').style.border = '2px solid white'
             DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'orange'
         } else {
-            DOMCacheGetOrSet('toggleautoBuyFragments').textContent = 'Auto Buy: OFF'
+            DOMCacheGetOrSet('toggleautoBuyFragments').textContent = i18next.t('runes.talismans.autoBuyOff')
             DOMCacheGetOrSet('toggleautoBuyFragments').style.border = '2px solid orange'
             DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'white'
         }
         if (player.autoFortifyToggle) {
-            DOMCacheGetOrSet('toggleautofortify').textContent = 'Auto Fortify: ON'
+            DOMCacheGetOrSet('toggleautofortify').textContent = i18next.t('runes.autoFortifyOn')
             DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid green'
         } else {
-            DOMCacheGetOrSet('toggleautofortify').textContent = 'Auto Fortify: OFF'
+            DOMCacheGetOrSet('toggleautofortify').textContent = i18next.t('runes.autoFortifyOff')
             DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid red'
         }
         if (player.autoEnhanceToggle) {
-            DOMCacheGetOrSet('toggleautoenhance').textContent = 'Auto Enhance: ON'
+            DOMCacheGetOrSet('toggleautoenhance').textContent = i18next.t('runes.autoEnhanceOn')
             DOMCacheGetOrSet('toggleautoenhance').style.border = '2px solid green'
         } else {
-            DOMCacheGetOrSet('toggleautoenhance').textContent = 'Auto Enhance: OFF'
+            DOMCacheGetOrSet('toggleautoenhance').textContent = i18next.t('runes.autoEnhanceOff')
             DOMCacheGetOrSet('toggleautoenhance').style.border = '2px solid red'
         }
         player.saveOfferingToggle = false; //Lint doesnt like it being inside if
-        DOMCacheGetOrSet('saveOffToggle').textContent = 'Save Offerings [OFF]'
+        DOMCacheGetOrSet('saveOffToggle').textContent = i18next.t('toggles.saveOfferingsOff')
         DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
         if (player.autoAscend) {
-            DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [ON]';
+            DOMCacheGetOrSet('ascensionAutoEnable').textContent = i18next.t('corruptions.autoAscend.on')
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid green'
         } else {
-            DOMCacheGetOrSet('ascensionAutoEnable').textContent = 'Auto Ascend [OFF]';
+            DOMCacheGetOrSet('ascensionAutoEnable').textContent = i18next.t('corruptions.autoAscend.off')
             DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
         }
         if (player.shopConfirmationToggle) {
-            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: ON'
+            DOMCacheGetOrSet('toggleConfirmShop').textContent = i18next.t('shop.shopConfirmationOn')
         } else {
-            DOMCacheGetOrSet('toggleConfirmShop').textContent = 'Shop Confirmations: OFF'
+            DOMCacheGetOrSet('toggleConfirmShop').textContent = i18next.t('shop.shopConfirmationOff')
         }
         switch (player.shopBuyMaxToggle) {
             case false:
-                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: 1';
+                DOMCacheGetOrSet('toggleBuyMaxShopText').textContent = i18next.t('shop.buy1')
                 break;
             case 'TEN':
-                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: 10';
+                DOMCacheGetOrSet('toggleBuyMaxShopText').textContent = i18next.t('shop.buy10')
                 break;
             case true:
-                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: MAX';
+                DOMCacheGetOrSet('toggleBuyMaxShopText').textContent = i18next.t('shop.buyMax')
                 break;
             case 'ANY':
-                DOMCacheGetOrSet('toggleBuyMaxShop').textContent = 'Buy: ANY';
+                DOMCacheGetOrSet('toggleBuyMaxShopText').textContent = i18next.t('shop.buyAny')
         }
         if (player.shopHideToggle) {
-            DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: ON'
+            DOMCacheGetOrSet('toggleHideShop').textContent = i18next.t('shop.hideMaxedOn')
         } else {
-            DOMCacheGetOrSet('toggleHideShop').textContent = 'Hide Maxed: OFF'
+            DOMCacheGetOrSet('toggleHideShop').textContent = i18next.t('shop.hideMaxedOff')
         }
         if (player.researchBuyMaxToggle) {
-            DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
+            DOMCacheGetOrSet('toggleresearchbuy').textContent = i18next.t('researches.upgradeMax')
         } else {
-            DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
+            DOMCacheGetOrSet('toggleresearchbuy').textContent = i18next.t('researches.upgradeOne')
         }
         if (player.cubeUpgradesBuyMaxToggle) {
-            DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: MAX [if possible wow]'
+            DOMCacheGetOrSet('toggleCubeBuy').textContent = i18next.t('toggles.upgradeMaxIfPossible')
         } else {
-            DOMCacheGetOrSet('toggleCubeBuy').textContent = 'Upgrade: 1 Level wow'
+            DOMCacheGetOrSet('toggleCubeBuy').textContent = i18next.t('toggles.upgradeOneLevelWow')
         }
         autoCubeUpgradesToggle(false);
         autoPlatonicUpgradesToggle(false);
@@ -1806,7 +1847,7 @@ const loadSynergy = async () => {
 
 
         if (player.researches[61] === 0) {
-            DOMCacheGetOrSet('automaticobtainium').textContent = '[LOCKED - Buy Research 3x11]'
+            DOMCacheGetOrSet('automaticobtainium').textContent = i18next.t('main.buyResearch3x11')
         }
 
         if (player.autoSacrificeToggle && player.autoSacrifice > 0.5) {
@@ -1814,14 +1855,18 @@ const loadSynergy = async () => {
         }
 
         if (player.autoWarpCheck) {
-            DOMCacheGetOrSet('warpAuto').textContent = 'Auto ON'
+            DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOnColon')
             DOMCacheGetOrSet('warpAuto').style.border = '2px solid green'
         } else {
-            DOMCacheGetOrSet('warpAuto').textContent = 'Auto OFF'
+            DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOffColon')
             DOMCacheGetOrSet('warpAuto').style.border = '2px solid red'
         }
-        DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
-        DOMCacheGetOrSet('hepteractToQuarkTradeAuto').textContent = `Auto ${player.overfluxOrbsAutoBuy ? 'ON' : 'OFF'}`
+        DOMCacheGetOrSet('autoHepteractPercentage').textContent = i18next.t('wowCubes.hepteractForge.autoSetting', {
+            x: `${player.hepteractAutoCraftPercentage}`
+        })
+        DOMCacheGetOrSet('hepteractToQuarkTradeAuto').textContent = player.overfluxOrbsAutoBuy
+            ? i18next.t('general.autoOnColon')
+            : i18next.t('general.autoOffColon')
         DOMCacheGetOrSet('hepteractToQuarkTradeAuto').style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'}`;
         toggleAutoBuyOrbs(true, true);
 
@@ -2150,7 +2195,7 @@ export const updateAllTick = (): void => {
 
     calculateAcceleratorMultiplier();
     a *= G['acceleratorMultiplier']
-    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]]))
+    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['viscosityPower'][player.usedCorruptions[2]]))
     a += 2000 * hepteractEffective('accelerator');
     a *= G['challenge15Rewards'].accelerator
     a *= (1 + 3/10000 * hepteractEffective('accelerator'))
@@ -2331,7 +2376,7 @@ export const updateAllMultiplier = (): void => {
     if ((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5) {
         a *= 1.25
     }
-    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['maladaptivePower'][player.usedCorruptions[2]]))
+    a = Math.pow(a, Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G['viscosityPower'][player.usedCorruptions[2]]))
     a += 1000 * hepteractEffective('multiplier')
     a *= G['challenge15Rewards'].multiplier
     a *= (1 + 3/10000 * hepteractEffective('multiplier'))
@@ -3114,7 +3159,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
         let conf = true
         if (manual) {
             if (player.challengecompletions[11] === 0 || player.toggles[31]) {
-                conf = await Confirm('Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!')
+                conf = await Confirm(i18next.t('main.exitAscensionChallenge'))
             }
         }
         if (!conf) {
@@ -3170,47 +3215,53 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 
     if (i === 'singularity') {
         if (player.runelevels[6] === 0) {
-            return Alert('Hmph. Please return with an Antiquity. Thank you. -Ant God')
+            return Alert(i18next.t('main.noAntiquity'))
         }
 
         const thankSing = 300;
 
         if (player.insideSingularityChallenge) {
-            return Alert('Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.')
+            return Alert(i18next.t('main.insideSingularityChallenge'))
         }
 
         if (player.singularityCount >= thankSing) {
-            return Alert(`Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere
-            to go from here. At least, not until higher powers expand your journey.`)
+            return Alert(i18next.t('main.gameBeat'))
         }
 
         let confirmed = false;
         const nextSingularityNumber = player.singularityCount + 1 + getFastForwardTotalMultiplier();
 
         if (!player.toggles[33] && player.singularityCount > 0) {
-            confirmed = await Confirm(`Do you wish to start singularity #${format(nextSingularityNumber)}? Your next universe is harder but you will gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks.`)
+            confirmed = await Confirm(i18next.t('main.singularityConfirm0', {
+                x: format(nextSingularityNumber),
+                y: format(calculateGoldenQuarkGain(), 2, true)
+            }))
         } else {
-            await Alert('You have reached the end of the game, on Singularity #' +format(player.singularityCount)+'. Platonic and the Ant God are proud of you.')
-            await Alert('You may choose to sit on your laurels, and consider the game \'beaten\', or you may do something more interesting.')
-            await Alert('You\'re too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.')
-            await Alert(`Start anew, and enter Singularity #${format(nextSingularityNumber)}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain ${format(calculateGoldenQuarkGain(), 2, true)} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by ${format(player.worlds.BONUS)}% due to patreon bonus!].`)
-            await Alert('However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.')
+            await Alert(i18next.t('main.singularityMessage1', { x: format(player.singularityCount) }))
+            await Alert(i18next.t('main.singularityMessage2'))
+            await Alert(i18next.t('main.singularityMessage3'))
+            await Alert(i18next.t('main.singularityMessage4', {
+                x: format(nextSingularityNumber),
+                y: format(calculateGoldenQuarkGain(), 2, true),
+                z: format(player.worlds.BONUS)
+            }))
+            await Alert(i18next.t('main.singularityMessage5'))
 
-            confirmed = await Confirm('So, what do you say? Do you wish to enter the Singularity?')
+            confirmed = await Confirm(i18next.t('main.singularityConfirm1'))
             if (confirmed) {
-                confirmed = await Confirm('Are you sure you wish to enter the Singularity?')
+                confirmed = await Confirm(i18next.t('main.singularityConfirm2'))
             }
             if (confirmed) {
-                confirmed = await Confirm('Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.')
+                confirmed = await Confirm(i18next.t('main.singularityConfirm3'))
             }
         }
 
         if (!confirmed) {
-            return Alert('If you decide to change your mind, let me know. -Ant God')
+            return Alert(i18next.t('main.singularityCancelled'))
         } else {
             await singularity();
             await saveSynergy();
-            return Alert('Welcome to Singularity #' + format(player.singularityCount) + '. You\'re back to familiar territory, but something doesn\'t seem right.')
+            return Alert(i18next.t('main.welcomeToSingularity', { x: format(player.singularityCount) }))
         }
     }
 }
@@ -3218,7 +3269,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
 export const resetConfirmation = async (i: string): Promise<void> => {
     if (i === 'prestige') {
         if (player.toggles[28] === true) {
-            const r = await Confirm('Prestige will reset coin upgrades, coin producers AND crystals. The first Prestige unlocks new features. Would you like to Prestige? [Toggle this message in settings.]')
+            const r = await Confirm(i18next.t('main.prestigePrompt'))
             if (r === true) {
                 resetachievementcheck(1);
                 reset('prestige');
@@ -3230,7 +3281,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
     }
     if (i === 'transcend') {
         if (player.toggles[29] === true) {
-            const z = await Confirm('Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first Transcension unlocks new features. Would you like to Transcend? [Toggle this message in settings.]')
+            const z = await Confirm(i18next.t('main.transcendPrompt'))
             if (z === true) {
                 resetachievementcheck(2);
                 reset('transcension');
@@ -3243,7 +3294,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
     if (i === 'reincarnate') {
         if (player.currentChallenge.ascension !== 12) {
             if (player.toggles[30] === true) {
-                const z = await Confirm('Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]')
+                const z = await Confirm(i18next.t('main.reincarnatePrompt'))
                 if (z === true) {
                     resetachievementcheck(3);
                     reset('reincarnation');
@@ -3256,7 +3307,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
     }
     if (i === 'ascend') {
         const z = !player.toggles[31] ||
-                  await Confirm('Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue?')
+                  await Confirm(i18next.t('main.ascendPrompt'))
         if (z) {
             reset('ascension');
         }
@@ -3890,12 +3941,18 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         if (player.challengecompletions[11] > 0 && !isNaN(num)) {
             if (num >= 0 && num < player.corruptionLoadoutNames.length) {
                 if (player.toggles[41] === true) {
-                    void Notification(`Corruption Loadout ${num + 1} "${player.corruptionLoadoutNames[num]}" has been applied. This will take effect on the next Ascension.`, 5000);
+                    void Notification(
+                        i18next.t('main.corruptionLoadoutApplied', {
+                            x: num + 1,
+                            y: player.corruptionLoadoutNames[num]
+                        }),
+                        5000
+                    )
                 }
                 corruptionLoadoutSaveLoad(false, num + 1);
             } else {
                 if (player.toggles[41] === true) {
-                    void Notification('All Corruptions have been set to Zero. This will take effect on the next Ascension.', 5000);
+                    void Notification(i18next.t('main.allCorruptionsZero'), 5000);
                 }
                 corruptionLoadoutSaveLoad(false, 0);
             }
@@ -4030,19 +4087,19 @@ export const reloadShit = async (reset = false) => {
 
         if (isLZString) {
             if (!dec) {
-                return Alert('Unable to load the save.');
+                return Alert(i18next.t('save.loadFailed'));
             }
 
             const saveString = btoa(dec);
 
             if (saveString === null) {
-                return Alert('Unable to load the save.');
+                return Alert(i18next.t('save.loadFailed'));
             }
 
             localStorage.clear();
             const blob = new Blob([saveString], { type: 'text/plain' });
             await localforage.setItem<Blob>('Synergysave2', blob);
-            await Alert('Transferred save to new format successfully!');
+            await Alert(i18next.t('main.transferredFromLZ'));
         }
 
         await loadSynergy();
@@ -4090,7 +4147,7 @@ export const reloadShit = async (reset = false) => {
     clearTimeout(preloadDeleteGame);
 
     if (localStorage.getItem('pleaseStar') === null) {
-        void Alert('Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial');
+        void Alert(i18next.t('main.starRepo'));
         localStorage.setItem('pleaseStar', '');
     }
 
@@ -4108,7 +4165,7 @@ export const reloadShit = async (reset = false) => {
             const isPersistentNow = await navigator.storage.persist();
 
             if (isPersistentNow) {
-                void Alert('Data on this page is now persistent! If you do not know what this means, you can safely ignore it.');
+                void Alert(i18next.t('main.dataPersistent'));
             }
         } else {
             // eslint-disable-next-line no-console
@@ -4120,7 +4177,10 @@ export const reloadShit = async (reset = false) => {
     saveType.checked = localStorage.getItem('copyToClipboard') !== null
 }
 
-window.addEventListener('load', () => {
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+window.addEventListener('load', async () => {
+    await i18nInit()
+
     const ver = DOMCacheGetOrSet('versionnumber');
     const addZero = (n: number) => `${n}`.padStart(2, '0')
     if (ver instanceof HTMLElement) {
@@ -4128,7 +4188,7 @@ window.addEventListener('load', () => {
         ver.textContent =
             `You're ${testing ? 'testing' : 'playing'} v${version} - The Alternate Reality` +
             textUpdate +
-            ` ${testing ? 'Savefiles cannot be used in live!' : ''}`;
+            ` ${testing ? i18next.t('testing.saveInLive') : ''}`;
     }
     document.title = `Synergism v${version}`;
 

@@ -10,7 +10,7 @@ import { getChallengeConditions } from './Challenges';
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions';
 import type { BuildingSubtab, Player } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
-
+import i18next from 'i18next';
 
 interface TabValue { tabName: keyof typeof tabNumberConst, unlocked: boolean }
 type Tab = Record<number, TabValue>;
@@ -89,9 +89,29 @@ export const toggleSettings = (toggle: HTMLElement) => {
     } else {
         player.toggles[+toggleId] = true;
     }
-    const format = toggle.getAttribute('format') || 'Auto [$]';
-    const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF');
-    toggle.textContent = finishedString;
+    const format = toggle.getAttribute('format')
+
+    if (format === '$' || format === '[$]') {
+        const text = player.toggles[+toggleId] ? i18next.t('general.on') : i18next.t('general.off')
+        toggle.textContent = format === '[$]' ? `[${text}]` : text
+    } else if (format === 'Auto Catalyze: $') {
+        const text = player.toggles[+toggleId] ? i18next.t('shop.autoCatalyzeOn') : i18next.t('shop.autoCatalyzeOff')
+        toggle.textContent = text
+    } else if (format === 'Hover-to-Buy [$]') {
+        const text = player.toggles[+toggleId] ? i18next.t('researches.hoverToBuyOn') : i18next.t('researches.hoverToBuyOff')
+        toggle.textContent = text
+    } else if (format === 'Auto: $') {
+        const text = player.toggles[+toggleId] ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
+        toggle.textContent = text
+    } else if (format) {
+        const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF');
+        toggle.textContent = finishedString;
+    } else {
+        toggle.textContent = player.toggles[+toggleId]
+            ? i18next.t('general.autoOnBracket')
+            : i18next.t('general.autoOffBracket')
+    }
+
     toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
 }
 
@@ -173,14 +193,24 @@ export const toggleShops = (toggle?: upgradeAutos) => {
     if (toggle) {
         player.shoptoggles[toggle] = !player.shoptoggles[toggle]
         DOMCacheGetOrSet(`${toggle}AutoUpgrade`).style.borderColor = player.shoptoggles[toggle] ? 'green' : 'red';
-        DOMCacheGetOrSet(`${toggle}AutoUpgrade`).textContent = 'Auto: ' + (player.shoptoggles[toggle] ? 'ON': 'OFF');
+
+        if (player.shoptoggles[toggle]) {
+            DOMCacheGetOrSet(`${toggle}AutoUpgrade`).textContent = i18next.t('general.autoOnColon')
+        } else {
+            DOMCacheGetOrSet(`${toggle}AutoUpgrade`).textContent = i18next.t('general.autoOffColon')
+        }
     } else {
         const keys = Object.keys(player.shoptoggles) as (keyof Player['shoptoggles'])[]
         for (const key of keys) {
             const color = player.shoptoggles[key]? 'green': 'red'
-            const auto = 'Auto: ' + (player.shoptoggles[key] ? 'ON' : 'OFF')
+
+            if (player.shoptoggles[key]) {
+                DOMCacheGetOrSet(`${key}AutoUpgrade`).textContent = i18next.t('general.autoOnColon')
+            } else {
+                DOMCacheGetOrSet(`${key}AutoUpgrade`).textContent = i18next.t('general.autoOffColon')
+            }
+
             DOMCacheGetOrSet(`${key}AutoUpgrade`).style.borderColor = color
-            DOMCacheGetOrSet(`${key}AutoUpgrade`).textContent = auto
         }
     }
 }
@@ -225,6 +255,7 @@ export const subTabsInMainTab = (mainTab: number) => {
             tabSwitcher: setActiveSettingScreen,
             subTabList: [
                 {subTabID: 'settingsubtab', unlocked: true},
+                {subTabID: 'languagesubtab', unlocked: true},
                 {subTabID: 'creditssubtab', unlocked: true},
                 {subTabID: 'statisticsSubTab', unlocked: true},
                 {subTabID: 'resetHistorySubTab', unlocked: player.unlocks.prestige},
@@ -358,34 +389,34 @@ export const toggleautoreset = (i: number) => {
     if (i === 1) {
         if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
             player.resettoggle1 = 2;
-            DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: TIME'
+            DOMCacheGetOrSet('prestigeautotoggle').textContent = i18next.t('toggles.modeTime')
         } else {
             player.resettoggle1 = 1;
-            DOMCacheGetOrSet('prestigeautotoggle').textContent = 'Mode: AMOUNT'
+            DOMCacheGetOrSet('prestigeautotoggle').textContent = i18next.t('toggles.modeAmount')
         }
     } else if (i === 2) {
         if (player.resettoggle2 === 1 || player.resettoggle2 === 0) {
             player.resettoggle2 = 2;
-            DOMCacheGetOrSet('transcendautotoggle').textContent = 'Mode: TIME'
+            DOMCacheGetOrSet('transcendautotoggle').textContent = i18next.t('toggles.modeTime')
         } else {
             player.resettoggle2 = 1;
-            DOMCacheGetOrSet('transcendautotoggle').textContent = 'Mode: AMOUNT'
+            DOMCacheGetOrSet('transcendautotoggle').textContent = i18next.t('toggles.modeAmount')
         }
     } else if (i === 3) {
         if (player.resettoggle3 === 1 || player.resettoggle3 === 0) {
             player.resettoggle3 = 2;
-            DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: TIME'
+            DOMCacheGetOrSet('reincarnateautotoggle').textContent = i18next.t('toggles.modeTime')
         } else {
             player.resettoggle3 = 1;
-            DOMCacheGetOrSet('reincarnateautotoggle').textContent = 'Mode: AMOUNT'
+            DOMCacheGetOrSet('reincarnateautotoggle').textContent = i18next.t('toggles.modeAmount')
         }
     } else if (i === 4) {
         if (player.resettoggle4 === 1 || player.resettoggle4 === 0) {
             player.resettoggle4 = 2;
-            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: PERCENTAGE'
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t('main.modePercentage')
         } else {
             player.resettoggle4 = 1;
-            DOMCacheGetOrSet('tesseractautobuymode').textContent = 'Mode: AMOUNT'
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t('toggles.modeAmount')
         }
     }
 }
@@ -393,12 +424,12 @@ export const toggleautoreset = (i: number) => {
 export const toggleautobuytesseract = () => {
     if (player.tesseractAutoBuyerToggle === 1 || player.tesseractAutoBuyerToggle === 0) {
         player.tesseractAutoBuyerToggle = 2;
-        DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: OFF'
+        DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOff')
         DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
 
     } else {
         player.tesseractAutoBuyerToggle = 1;
-        DOMCacheGetOrSet('tesseractautobuytoggle').textContent = 'Auto Buy: ON'
+        DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOn')
         DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid green'
     }
 }
@@ -406,22 +437,55 @@ export const toggleautobuytesseract = () => {
 export const toggleauto = () => {
     const toggles = Array.from<HTMLElement>(document.querySelectorAll('.auto[toggleid]'));
     for (const toggle of toggles) {
-        const format = toggle.getAttribute('format') || 'Auto [$]';
+        const format = toggle.getAttribute('format')
         const toggleId = toggle.getAttribute('toggleId') || 1;
 
-        const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF')
-        toggle.textContent = finishedString;
+        if (format === '$') {
+            const text = player.toggles[+toggleId] ? i18next.t('general.on') : i18next.t('general.off')
+            toggle.textContent = text
+        } else if (format === 'Auto Catalyze: $') {
+            const text = player.toggles[+toggleId] ? i18next.t('shop.autoCatalyzeOn') : i18next.t('shop.autoCatalyzeOff')
+            toggle.textContent = text
+        } else if (format === 'Hover-to-Buy [$]') {
+            const text = player.toggles[+toggleId] ? i18next.t('researches.hoverToBuyOn') : i18next.t('researches.hoverToBuyOff')
+            toggle.textContent = text
+        } else if (format === 'Auto: $') {
+            const text = player.toggles[+toggleId] ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
+            toggle.textContent = text
+        } else if (format) {
+            const finishedString = format.replace('$', player.toggles[+toggleId] ? 'ON' : 'OFF')
+            toggle.textContent = finishedString;
+        } else {
+            toggle.textContent = player.toggles[+toggleId]
+                ? i18next.t('general.autoOnBracket')
+                : i18next.t('general.autoOffBracket')
+        }
+
         toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red');
+    }
+
+    const tesseractAutos = Array.from<HTMLElement>(document.querySelectorAll('*[id^="tesseractAutoToggle"]'))
+
+    for (let j = 0; j < tesseractAutos.length; j++) {
+        const auto = tesseractAutos[j]
+
+        if (player.autoTesseracts[j + 1]) {
+            auto.textContent = i18next.t('general.autoOnBracket')
+            auto.style.border = '2px solid green'
+        } else {
+            auto.textContent = i18next.t('general.autoOffBracket')
+            auto.style.border = '2px solid red'
+        }
     }
 }
 
 export const toggleResearchBuy = () => {
     if (player.researchBuyMaxToggle) {
         player.researchBuyMaxToggle = false;
-        DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: 1 Level'
+        DOMCacheGetOrSet('toggleresearchbuy').textContent = i18next.t('researches.upgradeOne')
     } else {
         player.researchBuyMaxToggle = true;
-        DOMCacheGetOrSet('toggleresearchbuy').textContent = 'Upgrade: MAX [if possible]'
+        DOMCacheGetOrSet('toggleresearchbuy').textContent = i18next.t('researches.upgradeMax')
     }
 }
 
@@ -429,12 +493,12 @@ export const toggleAutoResearch = () => {
     const el = DOMCacheGetOrSet('toggleautoresearch')
     if (player.autoResearchToggle || player.shopUpgrades.obtainiumAuto < 1) {
         player.autoResearchToggle = false;
-        el.textContent = 'Automatic: OFF';
+        el.textContent = i18next.t('researches.automaticOff')
         DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
         player.autoResearch = 0;
     } else {
         player.autoResearchToggle = true;
-        el.textContent = 'Automatic: ON'
+        el.textContent = i18next.t('researches.automaticOn')
     }
 
     if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
@@ -447,10 +511,10 @@ export const toggleAutoResearchMode = () => {
     const el = DOMCacheGetOrSet('toggleautoresearchmode')
     if (player.autoResearchMode === 'cheapest' || !autoResearchEnabled()) {
         player.autoResearchMode = 'manual';
-        el.textContent = 'Automatic mode: Manual';
+        el.textContent = i18next.t('researches.autoModeManual')
     } else {
         player.autoResearchMode = 'cheapest';
-        el.textContent = 'Automatic mode: Cheapest';
+        el.textContent = i18next.t('researches.autoModeCheapest')
     }
     DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba');
 
@@ -464,15 +528,15 @@ export const toggleAutoSacrifice = (index: number) => {
     if (index === 0) {
         if (player.autoSacrificeToggle) {
             player.autoSacrificeToggle = false;
-            el.textContent = 'Auto Runes: OFF';
+            el.textContent = i18next.t('runes.blessings.autoRuneOff');
             el.style.border = '2px solid red'
             player.autoSacrifice = 0;
         } else {
             player.autoSacrificeToggle = true;
             player.saveOfferingToggle = false;
-            el.textContent = 'Auto Runes: ON'
+            el.textContent = i18next.t('runes.blessings.autoRuneOn');
             el.style.border = '2px solid green'
-            DOMCacheGetOrSet('saveOffToggle').textContent = 'Save Offerings [OFF]'
+            DOMCacheGetOrSet('saveOffToggle').textContent = i18next.t('toggles.saveOfferingsOff')
             DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
         }
     } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAuto > 0.5) {
@@ -491,11 +555,11 @@ export const toggleAutoSacrifice = (index: number) => {
 export const toggleAutoBuyFragment = () => {
     const el = DOMCacheGetOrSet('toggleautoBuyFragments')
     if (player.autoBuyFragment) {
-        el.textContent = 'Auto Buy: OFF'
+        el.textContent = i18next.t('runes.talismans.autoBuyOff')
         el.style.border = '2px solid orange'
         el.style.color = 'white'
     } else {
-        el.textContent = 'Auto Buy: ON'
+        el.textContent = i18next.t('runes.talismans.autoBuyOn')
         el.style.border = '2px solid white'
         el.style.color = 'orange'
     }
@@ -564,10 +628,10 @@ export const toggleRuneScreen = (index: number) => {
 export const toggleautofortify = () => {
     const el = DOMCacheGetOrSet('toggleautofortify');
     if (player.autoFortifyToggle) {
-        el.textContent = 'Auto Fortify: OFF'
+        el.textContent = i18next.t('runes.autoFortifyOff')
         el.style.border = '2px solid red'
     } else {
-        el.textContent = 'Auto Fortify: ON'
+        el.textContent = i18next.t('runes.autoFortifyOn')
         el.style.border = '2px solid green'
     }
 
@@ -577,10 +641,10 @@ export const toggleautofortify = () => {
 export const toggleautoenhance = () => {
     const el = DOMCacheGetOrSet('toggleautoenhance');
     if (player.autoEnhanceToggle) {
-        el.textContent = 'Auto Enhance: OFF'
+        el.textContent = i18next.t('runes.autoEnhanceOff')
         el.style.border = '2px solid red'
     } else {
-        el.textContent = 'Auto Enhance: ON'
+        el.textContent = i18next.t('runes.autoEnhanceOn')
         el.style.border = '2px solid green'
     }
 
@@ -592,13 +656,13 @@ export const toggleSaveOff = () => {
     const et = DOMCacheGetOrSet('toggleautosacrifice')
     if (player.saveOfferingToggle) {
         player.autoSacrificeToggle = true
-        el.textContent = 'Save Offerings [OFF]'
+        el.textContent = i18next.t('toggles.saveOfferingsOff')
         el.style.color = 'white'
         et.textContent = 'Auto Runes: ON'
         et.style.border = '2px solid green'
     } else {
         player.autoSacrificeToggle = false
-        el.textContent = 'Save Offerings [ON]'
+        el.textContent = i18next.t('toggles.saveOfferingsOn')
         el.style.color = 'yellow'
         et.textContent = 'Auto Runes: OFF'
         et.style.border = '2px solid red'
@@ -732,31 +796,31 @@ const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonE
 export const toggleShopConfirmation = () => {
     const el = DOMCacheGetOrSet('toggleConfirmShop')
     el.textContent = player.shopConfirmationToggle
-        ? 'Shop Confirmations: OFF'
-        : 'Shop Confirmations: ON';
+        ? i18next.t('shop.shopConfirmationOff')
+        : i18next.t('shop.shopConfirmationOn')
 
     player.shopConfirmationToggle = !player.shopConfirmationToggle;
 }
 
 export const toggleBuyMaxShop = (event: MouseEvent) => {
-    const el = DOMCacheGetOrSet('toggleBuyMaxShop')
+    const el = DOMCacheGetOrSet('toggleBuyMaxShopText')
     if (event.shiftKey) {
-        el.textContent = 'Buy: ANY';
+        el.textContent = i18next.t('shop.buyAny');
         player.shopBuyMaxToggle = 'ANY';
         return;
     }
-    const suf = '<br><span style=\'color: gold; font-size:75%;\'>Shift-Click for Buy: Any</span>';
+
     switch (player.shopBuyMaxToggle) {
         case false:
-            el.innerHTML = `Buy: 10${suf}`;
+            el.innerHTML = i18next.t('shop.buy10')
             player.shopBuyMaxToggle = 'TEN';
             break;
         case 'TEN':
-            el.innerHTML = `Buy: MAX${suf}`;
+            el.innerHTML = i18next.t('shop.buyMax')
             player.shopBuyMaxToggle = true;
             break;
         default:
-            el.innerHTML = `Buy: 1${suf}`;
+            el.innerHTML = i18next.t('shop.buy1')
             player.shopBuyMaxToggle = false;
     }
 }
@@ -764,8 +828,8 @@ export const toggleBuyMaxShop = (event: MouseEvent) => {
 export const toggleHideShop = () => {
     const el = DOMCacheGetOrSet('toggleHideShop')
     el.textContent = player.shopHideToggle
-        ? 'Hide Maxed: OFF'
-        : 'Hide Maxed: ON';
+        ? i18next.t('shop.hideMaxedOff')
+        : i18next.t('shop.hideMaxedOn')
 
     player.shopHideToggle = !player.shopHideToggle;
 }
@@ -773,8 +837,8 @@ export const toggleHideShop = () => {
 export const toggleAntMaxBuy = () => {
     const el = DOMCacheGetOrSet('toggleAntMax');
     el.textContent = player.antMax
-        ? 'Buy Max: OFF'
-        : 'Buy Max: ON';
+        ? i18next.t('general.buyMaxOn')
+        : i18next.t('general.buyMaxOff')
 
     player.antMax = !player.antMax;
 }
@@ -784,19 +848,19 @@ export const toggleAntAutoSacrifice = (mode = 0) => {
         const el = DOMCacheGetOrSet('toggleAutoSacrificeAnt');
         if (player.autoAntSacrifice) {
             player.autoAntSacrifice = false;
-            el.textContent = 'Auto Sacrifice: OFF'
+            el.textContent = i18next.t('ants.autoSacrificeOff')
         } else {
             player.autoAntSacrifice = true;
-            el.textContent = 'Auto Sacrifice: ON'
+            el.textContent = i18next.t('ants.autoSacrificeOn')
         }
     } else if (mode === 1) {
         const el = DOMCacheGetOrSet('autoSacrificeAntMode');
         if (player.autoAntSacrificeMode === 1 || player.autoAntSacrificeMode === 0) {
             player.autoAntSacrificeMode = 2;
-            el.textContent = 'Mode: Real time';
+            el.textContent = i18next.t('ants.modeRealTime')
         } else {
             player.autoAntSacrificeMode = 1;
-            el.textContent = 'Mode: In-game time';
+            el.textContent = i18next.t('ants.modeInGameTime')
         }
     }
 }
@@ -805,10 +869,10 @@ export const toggleMaxBuyCube = () => {
     const el = DOMCacheGetOrSet('toggleCubeBuy')
     if (player.cubeUpgradesBuyMaxToggle) {
         player.cubeUpgradesBuyMaxToggle = false;
-        el.textContent = 'Upgrade: 1 Level wow'
+        el.textContent = i18next.t('toggles.upgradeOneLevelWow')
     } else {
         player.cubeUpgradesBuyMaxToggle = true;
-        el.textContent = 'Upgrade: MAX [if possible wow]'
+        el.textContent = i18next.t('toggles.upgradeMaxIfPossible')
     }
 }
 
@@ -818,10 +882,10 @@ export const autoCubeUpgradesToggle = (toggle = true) => {
     }
     const el = DOMCacheGetOrSet('toggleAutoCubeUpgrades');
     if (player.autoCubeUpgradesToggle) {
-        el.textContent = 'Auto Upgrades: [ON]'
+        el.textContent = i18next.t('toggles.autoUpgradeOn')
         el.style.border = '2px solid green'
     } else {
-        el.textContent = 'Auto Upgrades: [OFF]'
+        el.textContent = i18next.t('toggles.autoUpgradeOff')
         el.style.border = '2px solid red'
     }
 }
@@ -832,10 +896,10 @@ export const autoPlatonicUpgradesToggle = (toggle = true) => {
     }
     const el = DOMCacheGetOrSet('toggleAutoPlatonicUpgrades');
     if (player.autoPlatonicUpgradesToggle) {
-        el.textContent = 'Auto Upgrades: [ON]'
+        el.textContent = i18next.t('toggles.autoUpgradeOn')
         el.style.border = '2px solid green'
     } else {
-        el.textContent = 'Auto Upgrades: [OFF]'
+        el.textContent = i18next.t('toggles.autoUpgradeOff')
         el.style.border = '2px solid red'
     }
 }
@@ -862,19 +926,29 @@ export const updateAutoChallenge = (i: number) => {
         case 1: {
             const t = parseFloat((DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
             player.autoChallengeTimer.start = Math.max(t, 0);
-            DOMCacheGetOrSet('startTimerValue').textContent = format(player.autoChallengeTimer.start, 2, true) + 's';
+            DOMCacheGetOrSet('startTimerValue').innerHTML = i18next.t('challenges.timeStartSweep', {
+                time: format(player.autoChallengeTimer.start, 2, true)
+            })
             return;
         }
         case 2: {
             const u = parseFloat((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
             player.autoChallengeTimer.exit = Math.max(u, 0);
-            DOMCacheGetOrSet('exitTimerValue').textContent = format(player.autoChallengeTimer.exit, 2, true) + 's';
+
+            DOMCacheGetOrSet('exitTimerValue').innerHTML = i18next.t('challenges.timeExitChallenge', {
+                time: format(player.autoChallengeTimer.exit, 2, true)
+            })
+
             return;
         }
         case 3: {
             const v = parseFloat((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value) || 0;
             player.autoChallengeTimer.enter = Math.max(v, 0);
-            DOMCacheGetOrSet('enterTimerValue').textContent = format(player.autoChallengeTimer.enter, 2, true) + 's';
+
+            DOMCacheGetOrSet('enterTimerValue').innerHTML = i18next.t('challenges.timeEnterChallenge', {
+                time: format(player.autoChallengeTimer.enter, 2, true)
+            })
+
             return;
         }
     }
@@ -886,7 +960,20 @@ export const toggleAutoChallengesIgnore = (i: number) => {
 
         const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore');
         el.style.border = player.autoChallengeToggles[i] ? '2px solid green' : '2px solid red';
-        el.textContent = `${i >= 11 && i <= 15 ? 'Auto Ascension' : 'Automatically'} Run Chal.${i} [${player.autoChallengeToggles[i] ? 'ON' : 'OFF'}]`;
+
+        if (i >= 11 && i <= 15) {
+            if (player.autoChallengeToggles[i]) {
+                el.textContent = i18next.t('challenges.autoAscRunChalOn', { x: i })
+            } else {
+                el.textContent = i18next.t('challenges.autoAscRunChalOff', { x: i })
+            }
+        } else {
+            if (player.autoChallengeToggles[i]) {
+                el.textContent = i18next.t('challenges.autoRunChalOn', { x: i })
+            } else {
+                el.textContent = i18next.t('challenges.autoRunChalOff', { x: i })
+            }
+        }
     }
 }
 
@@ -894,12 +981,12 @@ export const toggleAutoChallengeRun = () => {
     const el = DOMCacheGetOrSet('toggleAutoChallengeStart');
     if (player.autoChallengeRunning) {
         el.style.border = '2px solid red'
-        el.textContent = 'Auto Challenge Sweep [OFF]'
+        el.textContent = i18next.t('challenges.autoChallengeSweepOff')
         G['autoChallengeTimerIncrement'] = 0;
         toggleAutoChallengeModeText('OFF')
     } else {
         el.style.border = '2px solid gold'
-        el.textContent = 'Auto Challenge Sweep [ON]'
+        el.textContent = i18next.t('challenges.autoChallengeSweepOn')
         toggleAutoChallengeModeText('START')
         G['autoChallengeTimerIncrement'] = 0;
     }
@@ -909,7 +996,8 @@ export const toggleAutoChallengeRun = () => {
 
 export const toggleAutoChallengeModeText = (i: string) => {
     const a = DOMCacheGetOrSet('autoChallengeType');
-    a.textContent = 'MODE: ' + i
+
+    a.textContent = i18next.t(`challenges.mode${i[0] + i.slice(1).toLowerCase()}`)
 }
 
 export const toggleAutoAscend = (mode = 0) => {
@@ -917,10 +1005,10 @@ export const toggleAutoAscend = (mode = 0) => {
         const a = DOMCacheGetOrSet('ascensionAutoEnable');
         if (player.autoAscend) {
             a.style.border = '2px solid red'
-            a.textContent = 'Auto Ascend [OFF]'
+            a.textContent = i18next.t('corruptions.autoAscend.off')
         } else {
             a.style.border = '2px solid green'
-            a.textContent = 'Auto Ascend [ON]'
+            a.textContent = i18next.t('corruptions.autoAscend.on')
         }
 
         player.autoAscend = !player.autoAscend;
@@ -928,10 +1016,10 @@ export const toggleAutoAscend = (mode = 0) => {
         const a = DOMCacheGetOrSet('ascensionAutoToggle');
         if (player.autoAscendMode === 'c10Completions') {
             player.autoAscendMode = 'realAscensionTime'
-            a.textContent = 'Mode: Real time'
+            a.textContent = i18next.t('corruptions.autoAscend.modeRealTime')
         } else {
             player.autoAscendMode = 'c10Completions'
-            a.textContent = 'Mode: C10 Completions'
+            a.textContent = i18next.t('corruptions.autoAscend.modeCompletions')
         }
     }
 }
@@ -942,11 +1030,11 @@ export const toggleautoopensCubes = (i: number) => {
             const oc = DOMCacheGetOrSet('openCubes');
             const oci = DOMCacheGetOrSet('cubeOpensInput');
             if (player.autoOpenCubes) {
-                oc.textContent = 'Auto Open [OFF]';
+                oc.textContent = i18next.t('wowCubes.autoOff');
                 oc.style.border = '1px solid red';
                 oci.style.border = '1px solid red';
             } else {
-                oc.textContent = `Auto Open ${format(player.openCubes, 0)}%`;
+                oc.textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openCubes, 0)});
                 oc.style.border = '1px solid green';
                 oci.style.border = '1px solid green';
             }
@@ -956,11 +1044,11 @@ export const toggleautoopensCubes = (i: number) => {
             const oc = DOMCacheGetOrSet('openTesseracts');
             const oci = DOMCacheGetOrSet('tesseractsOpensInput');
             if (player.autoOpenTesseracts) {
-                oc.textContent = 'Auto Open [OFF]';
+                oc.textContent = i18next.t('wowCubes.autoOff');
                 oc.style.border = '1px solid red';
                 oci.style.border = '1px solid red';
             } else {
-                oc.textContent = `Auto Open ${format(player.openTesseracts, 0)}%`;
+                oc.textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openTesseracts, 0)});
                 oc.style.border = '1px solid green';
                 oci.style.border = '1px solid green';
             }
@@ -970,11 +1058,11 @@ export const toggleautoopensCubes = (i: number) => {
             const oc = DOMCacheGetOrSet('openHypercubes');
             const oci = DOMCacheGetOrSet('hypercubesOpensInput');
             if (player.autoOpenHypercubes) {
-                oc.textContent = 'Auto Open [OFF]';
+                oc.textContent = i18next.t('wowCubes.autoOff');
                 oc.style.border = '1px solid red';
                 oci.style.border = '1px solid red';
             } else {
-                oc.textContent = `Auto Open ${format(player.openHypercubes, 0)}%`;
+                oc.textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openHypercubes, 0)});
                 oc.style.border = '1px solid green';
                 oci.style.border = '1px solid green';
             }
@@ -984,11 +1072,11 @@ export const toggleautoopensCubes = (i: number) => {
             const oc = DOMCacheGetOrSet('openPlatonicCube');
             const oci = DOMCacheGetOrSet('platonicCubeOpensInput');
             if (player.autoOpenPlatonicsCubes) {
-                oc.textContent = 'Auto Open [OFF]';
+                oc.textContent = i18next.t('wowCubes.autoOff');
                 oc.style.border = '1px solid red';
                 oci.style.border = '1px solid red';
             } else {
-                oc.textContent = `Auto Open ${format(player.openPlatonicsCubes, 0)}%`;
+                oc.textContent = i18next.t('wowCubes.autoOn', {percent: format(player.openPlatonicsCubes, 0)})
                 oc.style.border = '1px solid green';
                 oci.style.border = '1px solid green';
             }
@@ -1003,13 +1091,17 @@ export const updateRuneBlessingBuyAmount = (i: number) => {
         case 1: {
             const t = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value)) || 1;
             player.runeBlessingBuyAmount = Math.max(t, 1);
-            DOMCacheGetOrSet('buyRuneBlessingToggleValue').textContent = format(player.runeBlessingBuyAmount);
+            DOMCacheGetOrSet('buyRuneBlessingToggle').innerHTML = i18next.t('runes.blessings.buyUpTo', {
+                amount: format(player.runeBlessingBuyAmount)
+            })
             return;
         }
         case 2: {
             const u = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value)) || 1;
             player.runeSpiritBuyAmount = Math.max(u, 1);
-            DOMCacheGetOrSet('buyRuneSpiritToggleValue').textContent = format(player.runeSpiritBuyAmount);
+            DOMCacheGetOrSet('buyRuneSpiritToggleValue').innerHTML = i18next.t('runes.spirits.buyUpTo', {
+                amount: format(player.runeSpiritBuyAmount)
+            })
             return;
         }
     }
@@ -1018,10 +1110,10 @@ export const updateRuneBlessingBuyAmount = (i: number) => {
 export const toggleAutoTesseracts = (i: number) => {
     const el = DOMCacheGetOrSet('tesseractAutoToggle' + i);
     if (player.autoTesseracts[i]) {
-        el.textContent = 'Auto [OFF]'
+        el.textContent = i18next.t('general.autoOffBracket')
         el.style.border = '2px solid red';
     } else {
-        el.textContent = 'Auto [ON]'
+        el.textContent = i18next.t('general.autoOnBracket')
         el.style.border = '2px solid green';
     }
 
@@ -1079,16 +1171,11 @@ export const toggleAscStatPerSecond = (id: number) => {
 }
 
 export const toggleHepteractAutoPercentage = async(): Promise<void> => {
-    const amount = await Prompt(
-        'Enter a number from 0 to 100 (integer only!) to set autocraft percentage. ' +
-        'Every ascension, that percentage of your hepteracts are used to craft equally split ' +
-        'between every hepteract with AUTO ON. Auto crafting also does not consume other resources! ' +
-        '[Except Quarks, of course...]'
-    );
+    const amount = await Prompt(i18next.t('wowCubes.hepteractForge.autoCraftPercentagePrompt'));
 
     if (amount === null) {
         if (player.toggles[35]) {
-            return Alert(`Your percentage is kept at ${player.hepteractAutoCraftPercentage}%.`);
+            return Alert(i18next.t('toggles.percentKeptAt', { x: player.hepteractAutoCraftPercentage }))
         } else {
             return
         }
@@ -1098,17 +1185,21 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
     const rawPercentage = isPercentage ? Number(amount.slice(0, -1)) : Number(amount);
 
     if (Number.isNaN(rawPercentage) || !Number.isFinite(rawPercentage) || !Number.isInteger(rawPercentage)) {
-        return Alert('Value must be a finite, non-decimal number!');
+        return Alert(i18next.t('general.validation.finiteInt'));
     } else if (rawPercentage < 0 || rawPercentage > 100) {
-        return Alert('Value must be a number between 0 and 100, inclusive!');
+        return Alert(i18next.t('toggles.percentBetweenInclusive', { x: 0, y: 100 }))
     } else if (rawPercentage === player.hepteractAutoCraftPercentage && player.toggles[35]) {
-        return Alert(`Your percentage is kept at ${player.hepteractAutoCraftPercentage}%.`)
+        return Alert(i18next.t('toggles.percentKeptAt', { x: player.hepteractAutoCraftPercentage }))
     }
 
     player.hepteractAutoCraftPercentage = rawPercentage
-    DOMCacheGetOrSet('autoHepteractPercentage').textContent = `${player.hepteractAutoCraftPercentage}`
+    DOMCacheGetOrSet('autoHepteractPercentage').textContent = i18next.t('wowCubes.hepteractForge.autoSetting', {
+        x: `${player.hepteractAutoCraftPercentage}`
+    })
     if (player.toggles[35]) {
-        return Alert(`Okay. On Ascension, ${player.hepteractAutoCraftPercentage}% of your Hepteracts will be used in crafting.`)
+        return Alert(i18next.t('toggles.onAscensionHepteractsCraft', {
+            x: player.hepteractAutoCraftPercentage
+        }))
     }
 }
 

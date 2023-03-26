@@ -6,6 +6,7 @@ import { updateClassList } from './Utility';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import type { IMultiBuy } from './Cubes';
 import { calculateSingularityDebuff } from './singularity';
+import i18next from 'i18next';
 
 const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): IMultiBuy => {
     buyAmount = Math.min(G['researchMaxLevels'][index] - player.researches[index], buyAmount)
@@ -162,213 +163,9 @@ export const isResearchUnlocked = (index: number) => {
 
 const isResearchMaxed = (index: number) => G['researchMaxLevels'][index] <= player.researches[index];
 
-const resdesc = [
-    '[1x1] Increase the number of free Accelerators gained by 20% from all sources.',
-    '[1x2] Increase the number of free Multipliers gained by 20% from all sources.',
-    '[1x3] Increase the number of free Accelerator Boosts gained by 20% from all sources.',
-    '[1x4] Increase most rune effects by 10%. (Excludes any recycle chance bonus)',
-    '[1x5] Multiply the production of all Crystal producers by 1e4.',
-    '[1x6] Gain +5% free Accelerators per level.',
-    '[1x7] Gain +4% free Accelerators per level.',
-    '[1x8] Gain +3% free Accelerators per level.',
-    '[1x9] Gain +2% free Accelerators per level.',
-    '[1x10] Gain +2% free Accelerators per level.',
-    '[1x11] Gain +5% free Multipliers per level.',
-    '[1x12] Gain +4% free Multipliers per level.',
-    '[1x13] Gain +2.5% free Multipliers per level.',
-    '[1x14] Gain +1.5% free Multipliers per level.',
-    '[1x15] Gain +0.5% free Multipliers per level.',
-    '[1x16] Gain +5% free Accelerator Boosts per level.',
-    '[1x17] Gain +5% free Accelerator Boosts per level.',
-    '[1x18] Gain +2 free Accelerator per Accelerator Boost.',
-    '[1x19] Gain +2 free Accelerator per Accelerator Boost.',
-    '[1x20] Gain +3 free Accelerator per Accelerator Boost!',
-    '[1x21] Most rune effects are increased by 1% per level. (Excludes any recycle chance bonus)',
-    '[1x22] Each Offering used increases Rune EXP by 0.6 per level.',
-    '[1x23] Each Offering used increases Rune EXP by another 0.3 per level!',
-    '[1x24] Prestige and Transcensions base Offering is increased by 0.2 per level.',
-    '[1x25] Reincarnations base Offering is increased by 0.6 per level.',
-    '[2x1] Multiply all Crystal producer production by 150% per level (Multiplicative).',
-    '[2x2] Multiply all Crystal producer production by 150% per level (Multiplicative).',
-    '[2x3] Coin Exponent is increased by 0.08 per level.',
-    '[2x4] Coin Exponent is increased by another 0.08 per level.',
-    '[2x5] Coin Exponent is increased by ANOTHER 0.04 per level.',
-    '[2x6] Want to bake cookies instead? You can go offline for 4 additional hours per level (Base 72hr).',
-    '[2x7] Want to bake a lot of cookies instead? Extend the offline maximum timer by another 4 hours per level!',
-    '[2x8] Gain +11% more Multiplier Boosts from Mythos Shards per level.',
-    '[2x9] Gain another +11% more Multiplier Boosts from Mythos Shards per level.',
-    '[2x10] Gain ANOTHER +11% more Multiplier Boosts from Mythos Shards per level.',
-    '[2x11] Building power scales 5% faster per level.',
-    '[2x12] Building power scales 2.5% faster per level.',
-    '[2x13] Building power scales 2.5% faster per level.',
-    '[2x14] Building power affects Crystal production at a reduced rate.',
-    '[2x15] Building power affects Mythos Shard production at a reduced rate.',
-    '[2x16] Start Reincarnations with automatic A.Boosts unlocked. Note: this research doesn\'t affect earning achievements.',
-    '[2x17] Start Reincarnations with automatic Generators unlocked.',
-    '[2x18] Start Reincarnations with automatic C.Upgrades unlocked.',
-    '[2x19] Start Reincarnations with automatic D.Upgrades unlocked.',
-    '[2x20] Start Reincarnations with automatic Diamond production unlocked.',
-    '[2x21] Unlock the ability to automatically Reincarnate!',
-    '[2x22] Unlock Reincarnation upgrades 1-5. [Upgrades cost between 1 and 1,000 Particles]',
-    '[2x23] Unlock Reincarnation upgrades 6-10. [Upgrades cost between 100,000 and 1e22 Particles]',
-    '[2x24] Unlock Reincarnation upgrades 11-15. [Upgrades cost between 1e30 and 1e60 Particles]',
-    '[2x25] Unlock Reincarnation upgrades 16-20. [You might want to wait until Challenge 8 is doable!]',
-    '[3x1] Taxation scales 5.0% slower per level. [Up to -50%]',
-    '[3x2] Taxation scales 2.5% slower per level. [Up to -75%]',
-    '[3x3] Taxation scales 1.25% slower per level. [Up to -87.5%]',
-    '[3x4] Taxation scales 0.625% slower per level. [Up to -93.75%]',
-    '[3x5] Taxation scales 0.3125% slower per level. [Up to -96.875%]',
-    '[3x6] Building Cost Scale is delayed by 0.5% per level.',
-    '[3x7] Building Cost Scale is delayed by 0.5% per level.',
-    '[3x8] Building Cost Scale is delayed by 0.5% per level.',
-    '[3x9] Building Cost Scale is delayed by 0.5% per level.',
-    '[3x10] Building Cost Scale is delayed by 0.5% per level.',
-    '[3x11] Gain +50% of your best Obtainium per second AUTOMATICALLY!',
-    '[3x12] Gain an additional +10% of your best Obtainium per second automatically.',
-    '[3x13] If your Reincarnation lasts at least 2 seconds you gain +1 Obtainium per level.',
-    '[3x14] If your Reincarnation lasts at least 5 seconds you gain +2 Obtainium per level.',
-    '[3x15] Increase the rate of gaining Obtainium through Reincarnations by 20% per level.',
-    '[3x16] Increase the maximum number of [No Multipliers] completions by 5 per level.',
-    '[3x17] Increase the maximum number of [No Accelerators] completions by 5 per level.',
-    '[3x18] Increase the maximum number of [No Shards] completions by 5 per level.',
-    '[3x19] Increase the maximum number of [Cost+] completions by 5 per level.',
-    '[3x20] Increase the maximum number of [Reduced Diamonds] completions by 5 per level.',
-    '[3x21] Automatically gain completions for Challenge 1 while running a Reincarnation Challenge',
-    '[3x22] Automatically gain completions for Challenge 2 while running a Reincarnation Challenge',
-    '[3x23] Automatically gain completions for Challenge 3 while running a Reincarnation Challenge',
-    '[3x24] Automatically gain completions for Challenge 4 while running a Reincarnation Challenge',
-    '[3x25] Automatically gain completions for Challenge 5 while running a Reincarnation Challenge',
-    '[4x1] Welcome to the land of expensive researches. Here\'s +10% Obtainium per level to help you out!',
-    '[4x2] Increase the level cap of Thrift rune by 10 per level, and +2% EXP for that rune in particular.',
-    '[4x3] Increase the level cap of Speed rune by 10 per level, and +2% EXP for that rune in particular.',
-    '[4x4] Increase the level cap of Prism rune by 10 per level, and +2% EXP for that rune in particular.',
-    '[4x5] Increase the level cap of Duplication rune by 10 per level, and +2% EXP for that rune in particular.',
-    '[4x6] You thought the previous researches are expensive? You\'re going to need this! [+10% Obtainium/level]',
-    '[4x7] Permanently UNLOCK the Rune of Superior Intellect! [+%Ob / +Ant Speed / +Base Offerings.]',
-    '[4x8] Taking forever to level up that SI Rune? Here\'s +5% SI Rune EXP per level.',
-    '[4x9] Does the new rune kinda suck? Power it up! +0.5% level effectiveness for SI rune per level!',
-    '[4x10] Gain +0.01% more Offerings per level per Challenge completion!',
-    '[4x11] Yeah, going back to basics. +5% Accelerators/Level.',
-    '[4x12] 0/5 Multipliers SUCK: +5% Multipliers/Level.',
-    '[4x13] -1/5 A.Boosts SUCK: +5% Accelerator Boosts/Level.',
-    '[4x14] -5/5 MULTIPLIERS STILL SUCK: +20% Multiplier Boosts/Level',
-    '[4x15] Runes don\'t suck at all, but why not make them even BETTER? +1% Rune Effectiveness/level!',
-    '[4x16] A simple +5% Rune EXP for all runes!',
-    '[4x17] Another simple +5% Rune EXP for all runes!',
-    '[4x18] +1 Accelerator Boost per 20 Summative Rune Levels, per level.',
-    '[4x19] +20 Multiplier per 8 Summative Rune Levels, per level.',
-    '[4x20] Gain +4 base Offerings from Reincarnations by purchasing this. Math Nerds will love this!',
-    '[4x21] Ants slow? Add +0.0002 to Ant efficiency increase per Ant purchased per level.',
-    '[4x22] Add +4 level to the first six upgradable Ants per level!',
-    '[4x23] Add +4 level to the next five upgradable Ants per level!',
-    '[4x24] Is the Quark Shop too hot to resist? Get +1 Quark per hour from Exporting for each level!',
-    '[4x25] Alright, Platonic is off his rocker. I don\'t expect you to get this but this will give +1 MORE Quark per hour from Exporting for each level!',
-    '[5x1] Alright, you\'re past the big wall. How about adding +.001 to Inceptus Ant efficiency per level?',
-    '[5x2] Gain +1 bonus level to ALL Ants per level! A rainbow attack!',
-    '[5x3] Pray to Ant God for +5% sacrifice rewards per level!',
-    '[5x4] You\'re beginning to feel like an Ant God (Ant God): +5% sacrifice reward per level!',
-    '[5x5] Buy this and be able to run the first five Challenges 9,001 times! (Note that requirements scale a LOT faster after 75, and again after 1,000)',
-    '[5x6] Engrave your talismans with Obtainium to get +0.03 Rune Levels per talisman level per level.',
-    '[5x7] Refine your talismans with the powder of Obtainium to get +0.03 Rune Levels per talisman level per level again.',
-    '[5x8] A simple trick makes your base Ant ELO increase by 25 per level!',
-    '[5x9] A more convoluted trick makes your base Ant ELO increase by 25 per level again!',
-    '[5x10] Gain +1% more ELO from Ant sources per level because why not?',
-    '[5x11] Gotta go fast [+10 max Speed Rune Level per level, +1% EXP to that rune]',
-    '[5x12] Double Trouble [+10 max Duplication Rune level per level, +1% EXP to that rune]',
-    '[5x13] Newton\'s Delight [+10 max Prism Rune Level per level, +1% EXP to that rune]',
-    '[5x14] Five-Finger discounts [+10 max Thrift Rune Level per level, +1% EXP to that rune]',
-    '[5x15] Scientific Breakthrough [+10 max SI Rune Level per level +1% EXP to that rune]',
-    '[5x16] Talismans have +0.015 Rune levels per talisman level per level. Levelception!',
-    '[5x17] Talismans have another +0.015 Rune levels per talisman level per level!',
-    '[5x18] For \'neutral\' talisman effects, increase by +0.06 per level!',
-    '[5x19] Gain +0.25% Wow! Cubes per level upon Ascension.',
-    '[5x20] Gain another +0.25% Wow! Cubes per level upon Ascension.',
-    '[5x21] Bend time to your will, making all ticks 2% faster each level.',
-    '[5x22] Adds +2% Ant sacrifice reward per level.',
-    '[5x23] Adds +40 base Ant ELO per level.',
-    '[5x24] Unlock the automator for Ant Sacrifice! [Good luck buying this.]',
-    '[5x25] Good luck, buddy. [+1 Export Quark/hour per level]',
-    '[6x1] 6 rows? That can\'t be... You\'ve angered Ant God (+1% Accelerators / level)',
-    '[6x2] Ant God gets angrier (+1% Accelerator Boosts / level)',
-    '[6x3] Ant God cannot believe your bravery (+1% Multipliers / level)',
-    '[6x4] Add +1 extra level to Crystal upgrade caps multiplied by Level * Log4(Common Fragments + 1)',
-    '[6x5] Unlock automation for Fortifying talismans! Activates every 2 real life seconds.',
-    '[6x6] Turn some Ant Disciples against Ant God, giving +0.5% Rune Effectiveness per level.',
-    '[6x7] Recruit a couple other Ants towards your side as well, giving +2 free Ant levels per level.',
-    '[6x8] Using some coalesced Obtainium, you can make Ant Sacrifice 3% better per level.',
-    '[6x9 lol] The funny number. Gain a +6.9% bonus to Blessing level.',
-    '[6x10] Unlock automation for Enhancing talismans! Activates every 2 real life seconds.',
-    '[6x11] It may be time to look back. Makes all ticks 1.5% faster each level.',
-    '[6x12] Paying off Wow! Industries, they\'ll sponsor +1% Cubes per level towards your Ascension bank.',
-    '[6x13] When you open Wow! Cubes you will get +0.1% tributes per level!',
-    '[6x14] Make all Tesseract buildings produce 2% faster per level.',
-    '[6x15] The first of a Tetralogy, this tome reduces the base requirements of Challenge 10 by dividing it by 1e100M! A must-read!',
-    '[6x16] The Ant God has infiltrated your mind. Run away from your conscience! (+0.8% Accelerators / level)',
-    '[6x17] Run... RUN FASTER from your nightmares! (+0.8% Accelerator Boosts / level)',
-    '[6x18] Your resilience somehow gives you +0.8% Multipliers / level!',
-    '[6x19] Your Obtainium gain is increased by 3 * Log4(Uncommon Fragments + 1) * level%! Why is this? I don\'t know.',
-    '[6x20] Your knowledge from the ant war will help you automatically gain Mortuus Est Ant levels.',
-    '[6x21] Feed your Disciples pure Obtainium to make your runes +0.4% more effective per level.',
-    '[6x22] Feed your Ants their own crumbs to make them Log(Crumbs + 10)x faster!',
-    '[6x23] Increase your base Ant ELO by 2.5% per level!',
-    '[6x24] You will gain +0.03% more Offerings per level per level in the Midas Talisman!',
-    '[6x25] Auto Challenge. Enough said. (Lets you automatically run and complete Challenges!)',
-    '[7x1] A new row, old upgrade. Makes all ticks 1.2% faster each level.',
-    '[7x2] Wow! Industries sponsors another +0.9% Cubes per level towards your Ascension bank!',
-    '[7x3] Hey, I totally didn\'t steal this idea. You gain 12 tributes of Wow! Cube tier for every Tesseract opened.',
-    '[7x4] Make all Tesseract buildings produce 3% faster per level. Hey, isn\'t that more than the last research tier?',
-    '[7x5] Tome 2 of 4: How to win over the Ant universe. Another e100M Divider to Challenge 10 Base Requirement on purchase.',
-    '[7x6] What, again? Alright. +0.6% Accelerators / level.',
-    '[7x7] Gas, gas, gas. +0.6% Accelerator Boosts / level.',
-    '[7x8] Dupe DUPE DUPE. +0.6% Multipliers / level.',
-    '[7x9] Somehow, I can\'t explain why, you reduce your taxes by 2% multiplicative, based on 3/5 * log10(Rare Fragments)!',
-    '[7x10] Want a permanent Blessing boost? I know you do. A permanent +25% effect to all Blessings.',
-    '[7x11] SIGMA KAPPA: +0.3% Rune Effectiveness each level!',
-    '[7x12] More exponentiation! +0.0001% more Inceptus power per level!',
-    '[7x13] Ant God\'s wanting blood: +2% Ant Sacrifice rewards / level',
-    '[7x14] Spirit power still sucks, so add +8% power per level!',
-    '[7x15] Gain 2x the Spirit buffs in Ascension Challenges!',
-    '[7x16] < T I M E >: +0.9% faster ticks / level ',
-    '[7x17] Because of sponsorships, Wow! Industries is raising Cubes gained in Ascension by 0.8% per level.',
-    '[7x18] Gain +0.08% tributes from Cubes per level. You know, you should expect it at this point.',
-    '[7x19] +4% faster Tesseract Buildings / level. It\'s GROWING.',
-    '[7x20] Tome 3 of 4: How to totally ROCK Challenge 10. e100m divisor!',
-    '[7x21] You should know how this goes. +0.4% Accelerators / level',
-    '[7x22] Accelerator Boosts += 0.004 * Accelerator Boosts',
-    '[7x23] A lot of a small +0.4% Multipliers per level',
-    '[7x24] Epic Fragments boost Blessing power by 10% * Log10(Epic Shards + 1)',
-    '[7x25] Automatically buy Constant Upgrades, if they are affordable! They also no longer subtract from your constant.',
-    '[8x1] Row 8 baby! +0.2% Rune Effectiveness / level.',
-    '[8x2] +Log10(Crumbs)% to Ant production per level. Pretty cool buff ain\'t it?',
-    '[8x3] +666 Base ELO per level! Spooky number of the devil.',
-    '[8x4] +0.04% more Offerings per level per midas level!',
-    '[8x5] +1 Export Quark per hour per level, yet again.',
-    '[8x6] +0.6% faster ticks / level because why not? You\'re already the speed of light.',
-    '[8x7] +0.7% Cubes in Ascension bank / level, from dividends in Wow! Stock.',
-    '[8x8] When you open a Hypercube, you also open 100 Tesseracts! (This works with 7x3, if you were curious.)',
-    '[8x9] +5% faster Tesseract Buildings / level. ASCENDED.',
-    '[8x10] Tome 4 of 4: You need to prepare for your Ascent. e100m divisor!',
-    '[8x11] Something something +0.2% Accelerators pretty cool!',
-    '[8x12] Something somewhere, +0.2% Accelerator Boosts!',
-    '[8x13] You are DUPLICATED. +0.2% Multipliers/level',
-    '[8x14] Legendary Fragments increase Spirit powers by +15% multiplied by Log10(Legendary Fragments + 1)',
-    '[8x15] Unlock Automations for all 5 of the Tesseract buildings.',
-    '[8x16] +0.1% Rune Effectiveness / level. Does this even do anything at this point?',
-    '[8x17] Each purchased level of Mortuus Est also increases Ascension Cube reward by +0.03%',
-    '[8x18] +1% Ant Sacrifice Reward per level. Singularity HYPE.',
-    '[8x19] Increases both Spirit AND Blessing power by 2% per level.',
-    '[8x20] Gain +1 export Quark per level, and increases the max timer to redeem Quarks by 5 hours each!',
-    '[8x21] +0.3% faster ticks / level, because you just can\'t wait to become the Singularity.',
-    '[8x22] +0.6% Cubes in Ascension Bank / level. No one knows how. Bank error perhaps.',
-    '[8x23] +0.06% tributes from Cubes / level!. Wow! Cubes really has a lot of manufacturing errors in your favor.',
-    '[8x24] +10% faster Tesseract Buildings / level. THE ARISEN. WITH THE PRAISE OF THE SINGULARITY.',
-    '[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings, and +0.004% Cubes, +0.04 Max Rune level, +(level/400) max Talisman Level, +(level/200) free Ants, 0.000666% Tax reduction per level.'
-];
-
 export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => {
     const buyAmount = (player.researchBuyMaxToggle || auto) ? 100000 : 1;
-    const y = resdesc[i-1];
-    let z = ''
+    const y = i18next.t(`researches.descriptions.${i}`)
     const p = 'res' + i
 
     if (player.toggles[38] === true && player.singularityCount > 0) {
@@ -376,12 +173,16 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     }
 
     const metaData = getResearchCost(i, buyAmount, linGrowth);
-    z = ' Cost: ' + (format(metaData.cost, 0, false)) + ' Obtainium [+' + format(metaData.levelCanBuy - player.researches[i], 0, true) + ' Levels]'
+    let z = i18next.t('researches.cost', {
+        x: format(metaData.cost, 0, false),
+        y: format(metaData.levelCanBuy - player.researches[i], 0, true)
+    })
+
     if (player.researches[i] === (G['researchMaxLevels'][i])) {
         DOMCacheGetOrSet('researchcost').style.color = 'Gold'
         DOMCacheGetOrSet('researchinfo3').style.color = 'plum'
         updateClassList(p, ['researchMaxed'], ['researchAvailable', 'researchPurchased', 'researchPurchasedAvailable'])
-        z = z + ' || MAXED!'
+        z += i18next.t('researches.maxed')
     } else {
         DOMCacheGetOrSet('researchcost').style.color = 'limegreen'
         DOMCacheGetOrSet('researchinfo3').style.color = 'white'
@@ -399,7 +200,10 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
 
     DOMCacheGetOrSet('researchinfo2').textContent = y
     DOMCacheGetOrSet('researchcost').textContent = z
-    DOMCacheGetOrSet('researchinfo3').textContent = 'Level ' + player.researches[i] + '/' + (G['researchMaxLevels'][i])
+    DOMCacheGetOrSet('researchinfo3').textContent =  i18next.t('researches.level', {
+        x: player.researches[i],
+        y: G['researchMaxLevels'][i]
+    })
 }
 
 export const updateResearchBG = (j: number) => {

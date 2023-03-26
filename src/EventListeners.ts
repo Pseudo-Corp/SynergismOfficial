@@ -28,6 +28,7 @@ import { buyGoldenQuarks } from './singularity'
 import { resetHotkeys } from './Hotkeys'
 import { generateExportSummary } from './Summary'
 import { shopMouseover } from './UpdateVisuals'
+import i18next from 'i18next'
 
 /* STYLE GUIDE */
 /*
@@ -702,7 +703,7 @@ TODO: Fix this entire tab it's utter shit
 
         event.preventDefault()
 
-        const confirmed = await Confirm('Are you sure you want to enable copy save to clipboard?')
+        const confirmed = await Confirm(i18next.t('save.saveToClipboard'))
 
         if (confirmed) {
             element.checked = !element.checked

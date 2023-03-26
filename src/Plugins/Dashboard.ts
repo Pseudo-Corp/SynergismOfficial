@@ -1,3 +1,4 @@
+import i18next from 'i18next';
 import { DOMCacheGetOrSet } from '../Cache/DOM';
 import { CalcCorruptionStuff } from '../Calculate';
 import { platUpgradeBaseCosts } from '../Platonic';
@@ -100,17 +101,17 @@ const statValues: ((el: HTMLElement) => void)[] = [
     el => {
         const roomba = player.autoResearchToggle && player.autoResearchMode === 'cheapest'
         el.style.color = roomba ? 'green' : 'red'
-        el.textContent = roomba ? 'ON' : 'OFF'
+        el.textContent = roomba ? i18next.t('general.on') : i18next.t('general.off')
     },
     el => {
         const autorune = player.autoSacrificeToggle
         el.style.color = autorune ? 'green' : 'red'
-        el.textContent = autorune ? 'ON' : 'OFF'
+        el.textContent = autorune ? i18next.t('general.on') : i18next.t('general.off')
     },
     el => {
         const autoch = player.autoChallengeRunning
         el.style.color = autoch ? 'green' : 'red'
-        el.textContent = autoch ? 'ON' : 'OFF'
+        el.textContent = autoch ? i18next.t('general.on') : i18next.t('general.off')
     },
     el => {
         const autosac = player.autoAntSacrifice
@@ -120,7 +121,7 @@ const statValues: ((el: HTMLElement) => void)[] = [
         text.textContent = `(${seconds} ${realtime ? 'real' : 'igt'} seconds) `;
         const button = el.lastElementChild as HTMLElement;
         button.style.color = autosac ? 'green' : 'red'
-        button.textContent = autosac ? 'ON' : 'OFF'
+        button.textContent = autosac ? i18next.t('general.on') : i18next.t('general.off')
     }
 ]
 
