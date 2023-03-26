@@ -9,7 +9,12 @@ import { Confirm } from './UpdateHTML'
 const supported: Record<string, { name: string, flag: string }> = {
     // Define language properties and mappings here.
     en: { name: 'English', flag: '🇺🇸'}, // Or '🇺🇸 / 🇬🇧', no name?
-    zh: { name: 'Chinese', flag: '🇨🇳'}
+    zh: { name: 'Chinese', flag: '🇨🇳'},
+    fr: { name: 'French', flag: '🏳️' },
+    de: { name: 'German', flag: '🇩🇪' },
+    pl: { name: 'Polish', flag: '🇵🇱' },
+    es: { name: 'Spanish', flag: '🇪🇸' },
+    pt_BR: { name: 'Brazilian Portugese', flag: '🇧🇷' }
 };
 
 const languageCache = new Map<string, { translation: Resource }>()
@@ -38,7 +43,10 @@ export const init = async (): Promise<void> => {
         fallbackLng: 'en',
         debug: !prod,
         resources,
-        postProcess: ['ColorText']
+        postProcess: ['ColorText'],
+        // poeditor returns an empty string when a translation for
+        // a language isn't present
+        returnEmptyString: false
     })
 
     buildLanguageTab()
