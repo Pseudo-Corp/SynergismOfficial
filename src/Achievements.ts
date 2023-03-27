@@ -446,7 +446,14 @@ export const achievementaward = (num: number) => {
     if (player.achievements[num] < 1) {
         if (player.toggles[34]) {
             const description = i18next.t(`achievements.descriptions.${num}`, { number: `${num}` })
-            void Notification(i18next.t('achievements.notification', { m: description }));
+            void Notification(
+                i18next.t('achievements.notification', {
+                    m: description,
+                    interpolation: {
+                        escapeValue: false
+                    }
+                })
+            );
         }
 
         void achievementAlerts(num)
