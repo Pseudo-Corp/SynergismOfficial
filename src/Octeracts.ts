@@ -124,7 +124,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
         }
         const affordableInfo = isMaxLevel ? `<span style="color: plum"> ${i18next.t('general.maxed')}</span>` :
             isAffordable ? `<span style="color: var(--green-text-color)"> ${i18next.t('general.affordable')}</span>` :
-                `<span style="color: yellow">${i18next.t('octeract.toString.becomeAffordable', {n: affordTime})}</span>`;
+                `<span style="color: yellow"> ${i18next.t('octeract.toString.becomeAffordable', {n: affordTime})}</span>`;
 
         return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
@@ -566,7 +566,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             return {
                 bonus: n,
                 get desc () {
-                    return i18next.t('octeract.data.octeractFastForward.effect', {n: 100 * n})
+                    return i18next.t('octeract.data.octeractFastForward.effect', {n100: 100 * n, n: n})
                 }
             }
         }
