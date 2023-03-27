@@ -534,7 +534,7 @@
         "upgradeMultiplier": "升级倍率：<<gold|{{x}}倍>>",
         "timeMultiplier": "时间倍率：<<var(--lightseagreen-text-color);|{{x}}倍>>",
         "resetAnthill": "重置蚁丘可获得(下方 分 指强度分)：",
-        "antSacMultiplier": "蚂蚁倍率：×1 --> <<limegreen|×{{x}}>>",
+        "antSacMultiplier": "蚂蚁倍率：×{{y}} --> <<limegreen|×{{x}}>>",
         "autoReset": "这么做将重置银河碎屑，蚂蚁以及蚂蚁升级，但可以获得更高的倍率和一些其他资源。您确定要继续吗？",
         "elo": "+{{x}} [分>{{y}}]"
     },

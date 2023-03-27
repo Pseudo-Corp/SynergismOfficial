@@ -534,7 +534,7 @@
         "upgradeMultiplier": "Upgrade Multiplier: <<gold|{{x}}x>>",
         "timeMultiplier": "Time Multiplier: <<var(--lightseagreen-text-color);|{{x}}x>>",
         "resetAnthill": "Reset Anthill features for:",
-        "antSacMultiplier": "Ant Sacrifice Multiplier: 1x --> <<limegreen|x{{x}}>>",
+        "antSacMultiplier": "Ant Sacrifice Multiplier: {{y}}x --> <<limegreen|x{{x}}>>",
         "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?",
         "elo": "+{{x}} [>{{y}} ELO]"
     },
@@ -619,14 +619,14 @@
             "per": {
                 "1": "+0.01 Coin --> Diamond conversion exponent on Prestige! Current: ",
                 "2": "Multiply Crystal production by 10! Current: ",
-                "3": ""
+                "3": " "
             },
             "first": "None",
             "start": "Start [Reduced Diamonds]",
             "current": {
                 "1": "Exponent = ^{{value}}",
                 "2": "Crystal production x{{value}}",
-                "3": ""
+                "3": " "
             }
         },
         "6": {
@@ -804,9 +804,9 @@
             "first": "You would break the universe if you could!",
             "start": "Start <[(Sadistic Challenge II)]>",
             "current": {
-                "1": "",
-                "2": "",
-                "3": ""
+                "1": " ",
+                "2": " ",
+                "3": " "
             },
             "noGoal": "You will find no goal in sight, but get bonuses based on your best attempt."
         },
@@ -1805,12 +1805,14 @@
             "oneMind": {
                 "name": "ONE MIND",
                 "description": "A note, you found on the 'ground': seems like an advertisement for a cult. \"Lock your ascension speed to 10x, and multiply all cubes based on the difference.\" Hmm...",
-                "effect": "You have {{n}} joined the cult!"
+                "effectHave": "You have joined the cult!",
+                "effectHaveNot": "You haven't joined the cult!"
             },
             "wowPass4": {
                 "name": "QUQUQUQUAAKCKCKKCKKCKK",
                 "description": "Deals that'll cost you a beak and a wing!",
-                "effect": "You have {{n}} quacked your last QUARK"
+                "effectHave": "You have quacked your last QUARK",
+                "effectHaveNot": "You haven't quacked your last QUARK"
             },
             "blueberries": {
                 "name": "Blueberry Shards! (WIP)",
