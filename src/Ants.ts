@@ -290,6 +290,7 @@ export const showSacrifice = () => {
     })
 
     DOMCacheGetOrSet('SacrificeMultiplier').innerHTML = i18next.t('ants.antSacMultiplier', {
+        y: format(antSacrificePointsToMultiplier(player.antSacrificePoints), 3, false),
         x: format(antSacrificePointsToMultiplier(player.antSacrificePoints + sacRewards.antSacrificePoints), 3, false)
     })
 

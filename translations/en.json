@@ -534,7 +534,7 @@
         "upgradeMultiplier": "Upgrade Multiplier: <<gold|{{x}}x>>",
         "timeMultiplier": "Time Multiplier: <<var(--lightseagreen-text-color);|{{x}}x>>",
         "resetAnthill": "Reset Anthill features for:",
-        "antSacMultiplier": "Ant Sacrifice Multiplier: 1x --> <<limegreen|x{{x}}>>",
+        "antSacMultiplier": "Ant Sacrifice Multiplier: {{y}}x --> <<limegreen|x{{x}}>>",
         "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?",
         "elo": "+{{x}} [>{{y}} ELO]"
     },
