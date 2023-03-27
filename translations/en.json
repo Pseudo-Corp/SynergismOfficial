@@ -989,7 +989,7 @@
             "maxLevel": "Cost: 0 Wow! Cubes. This upgrade is maxed! wow"
         },
         "noCubesOpened": "OK. No cubes opened.",
-        "howManyCubesOpen": "How many cubes would you like to open? You have {{x}}! \\nYou can input a percentage of cubes to open, for example: '50%' or '100%'. \\nYou can start the input with '-' (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number (also works with %).",
+        "howManyCubesOpen": "How many cubes would you like to open? You have {{x}}! \\nYou can input a percentage of cubes to open, for example: \"50%\" or \"100%\". \\nYou can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number (also works with %).",
         "validation": {
             "notEnough": "You don't have enough cubes to open!",
             "negative": "You can't open a negative amount of cubes.",
