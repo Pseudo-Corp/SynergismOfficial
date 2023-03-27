@@ -98,7 +98,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('hypercube6Bonus').style.color = 'brown';
         DOMCacheGetOrSet('runeshowpower5').style.color = 'tomato';
         DOMCacheGetOrSet('hypercubeWelcome').style.color = '#ff004c'; //Hypercube colors
-        DOMCacheGetOrSet('hypercubeInventory').style.color = '#ff004c';
+        DOMCacheGetOrSet('hypercubeQuantity').style.color = '#ff004c';
         DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = '#ff004c';
     } else {
         if (themeNumber === 4) {
@@ -214,7 +214,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
         DOMCacheGetOrSet('tesseract6Bonus').style.color = '#a5a5a5';
         DOMCacheGetOrSet('hypercube6Bonus').style.color = '#a5a5a5';
         DOMCacheGetOrSet('hypercubeWelcome').style.color = '#f58';
-        DOMCacheGetOrSet('hypercubeInventory').style.color = '#f58';
+        DOMCacheGetOrSet('hypercubeQuantity').style.color = '#f58';
         DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = '#f58';
         DOMCacheGetOrSet('runeshowpower5').style.color = '#ff7158';
 
