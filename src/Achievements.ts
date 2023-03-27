@@ -424,7 +424,10 @@ export const getAchievementQuarks = (i: number) => {
 }
 
 export const achievementdescriptions = (i: number) => {
-    const y = i18next.t(`achievements.descriptions.${i}`, { number: `${i}` })
+    const y = i18next.t(`achievements.descriptions.${i}`, {
+        number: `${i}`,
+        interpolation: { escapeValue: false }
+    })
     const z = player.achievements[i] > 0.5 ? i18next.t('achievements.completed') : '';
     const k = areward(i)
 

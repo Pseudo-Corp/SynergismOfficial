@@ -3944,7 +3944,8 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
                     void Notification(
                         i18next.t('main.corruptionLoadoutApplied', {
                             x: num + 1,
-                            y: player.corruptionLoadoutNames[num]
+                            y: player.corruptionLoadoutNames[num],
+                            interpolation: { escapeValue: false }
                         }),
                         5000
                     )
