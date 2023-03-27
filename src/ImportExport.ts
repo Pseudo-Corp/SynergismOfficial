@@ -606,7 +606,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
                 b: ascensionTimerText,
                 c: gqTimerText,
                 d: octeractTimeText,
-                e: remaining
+                e: remaining,
+                f: timeToNext.toLocaleString(navigator.language)
             }))
         } else {
             await Alert(i18next.t('importexport.promocodes.add.wrong', {
