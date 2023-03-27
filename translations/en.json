@@ -903,13 +903,13 @@
             "63": "Wow! A tin of Brownie Cookies.",
             "64": "Wow! A tin of Fortune Cookies.",
             "65": "Wow! A tin of Biscotti.",
-            "66": "Wow! A box of Mother\"s Favorite Cookies.",
+            "66": "Wow! A box of Mother's Favorite Cookies.",
             "67": "Wow! A box of Metaphysical Brownies.",
             "68": "Wow! A box of Not Cookies.",
             "69": "Wow! A box of Cookies Beyond This World.",
             "70": "Wow! A box of Perfect Cookies.",
-            "71": "Wow! A Singular Cookie of Pandora\"s Benefactory",
-            "72": "Wow! A Singular Cookie of Vyshareth\"s Benefactory"
+            "71": "Wow! A Singular Cookie of Pandora's Benefactory",
+            "72": "Wow! A Singular Cookie of Vyshareth's Benefactory"
         },
         "upgradeDescriptions": {
             "1": "[1x1] You got it! +16.666% 3D Cubes from Ascending per level.",
@@ -920,7 +920,7 @@
             "6": "[1x6] You keep the automatic mythos gain upgrade in the upgrades tab!",
             "7": "[1x7] Automatically buy each Particle Building whenever possible.",
             "8": "[1x8] Automatically buy Particle Upgrades.",
-            "9": "[1x9] The research automator in shop now automatically buys cheapest when enabled. It\"s like a roomba kinda!",
+            "9": "[1x9] The research automator in shop now automatically buys cheapest when enabled. It's like a roomba kinda!",
             "10": "[1x10] Unlock some tools to automate Ascensions or whatever. Kinda expensive but cool.",
             "11": "[2x1] You got it again! +9.09% 3D Cubes from Ascending per level.",
             "12": "[2x2] Raise building power to the power of (1 + level * 0.09).",
@@ -931,7 +931,7 @@
             "17": "[2x7] Yep. +5 Exponent per level to crystals.",
             "18": "[2x8] Quantum tunnelling ftw. +20% global game speed.",
             "19": "[2x9] Unlocks new coin upgrades ranging from start of Ascend to post c10 and beyond.",
-            "20": "[2x10] The rune automator in shop now spends all Offerings automatically, \"splitting\" them into each of the 5 runes equally.",
+            "20": "[2x10] The rune automator in shop now spends all Offerings automatically, 'splitting' them into each of the 5 runes equally.",
             "21": "[3x1] Perhaps score will benefit you more? Gain +5% more score on Ascensions per level.",
             "22": "[3x2] The exponent of the bonus of Artemis is increased by 0.05 per level.",
             "23": "[3x3] For each 20 Cubes opened at once, you get 1 additional tribute at random.",
@@ -952,7 +952,7 @@
             "38": "[4x8] Gain +0.5% more Tesseracts on Ascension for each additional level in a corruption you enable.",
             "39": "[4x9] Instead of the multiplier being 1.03^(C10 completions), it is now 1.035^(C10 completions)!",
             "40": "[4x10] Athena is very smart (Rewards the same as others).",
-            "41": "[5x1] Yeah yeah yeah, +5% score on Ascension per level. Isn\"t it enough?",
+            "41": "[5x1] Yeah yeah yeah, +5% score on Ascension per level. Isn't it enough?",
             "42": "[5x2] You now gain +4% Obtainium per level, which is not dependent on corruptions!",
             "43": "[5x3] Gain another +3% corruption-independent Obtainium per level.",
             "44": "[5x4] Blah blah blah Midas works harder (same rewards as before)",
@@ -961,27 +961,27 @@
             "47": "[5x7] Gain +10% more Obtainium per level!",
             "48": "[5x8] When you ascend, start with 1 worker Ant (this is a lot better than it sounds!)",
             "49": "[5x9] When you ascend, gain 1 of each Challenge 6-8 completion.",
-            "50": "[5x10] What doesn\"t this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +0.04 Max Rune Levels, +1 Effective ELO, +0.0004 Talisman bonuses per level, 0.00066% Tax reduction per level.",
+            "50": "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +0.04 Max Rune Levels, +1 Effective ELO, +0.0004 Talisman bonuses per level, 0.00066% Tax reduction per level.",
             "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the cube tab, and researches as well.",
             "52": "[Cx2] These sugar cookies sure boost your blood sugar. Gain +1% global speed per level.",
             "53": "[Cx3] What a hearty snack. Gain +0.1% Quarks per level.",
             "54": "[Cx4] Pretty dry, but they suffice. Increase Offering gain by 1% per level.",
             "55": "[Cx5] An inventive take on the original chip cookie. Increase Obtainium gain by 1% per level.",
             "56": "[Cx6] These are a little more exotic. Gain +1 more raw score from Challenge 1 completions per level.",
-            "57": "[Cx7] Yum yum! Now we\"re talking... or maybe not. Increase the cap of Cube Upgrades 1x1, 2x1, 3x1, 4x1, 5x1 by 1.",
+            "57": "[Cx7] Yum yum! Now we're talking... or maybe not. Increase the cap of Cube Upgrades 1x1, 2x1, 3x1, 4x1, 5x1 by 1.",
             "58": "[Cx8] A bit festive! If there is an event, All Cube gain is multiplied by 1.25.",
             "59": "[Cx9] Quite sour for a cookie. But it increases your Ascension speed by 0.25% per level, so who is to complain?",
             "60": "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the cost of buying Golden Quarks by 0.003% per level.",
-            "61": "[Cx11] Edible but prone to mistakes. Adds 125 whole milliseconds to the tolerance of code \"time\", and increases reward by +2% per level.",
+            "61": "[Cx11] Edible but prone to mistakes. Adds 125 whole milliseconds to the tolerance of code 'time', and increases reward by +2% per level.",
             "62": "[Cx12] Platonic loves toffee. Octuple Obtainium and Offering gain in Challenge 15.",
             "63": "[Cx13] Brownie Cookies, the best of both worlds. Increase Regular Cube Gain by 1% based on owned Hepteracts (+3% per OOM).",
             "64": "[Cx14] Some say the Ant God itself penned these fortunes. When you gain a statue from Platonic Cubes, you gain two instead.",
-            "65": "[Cx15] That\"s amore, but is quite a crumbful! Increase Ant efficiency by 0.4%. (Roughly every 200 Ants purchased doubles crumb production!)",
+            "65": "[Cx15] That's amore, but is quite a crumbful! Increase Ant efficiency by 0.4%. (Roughly every 200 Ants purchased doubles crumb production!)",
             "66": "[Cx16] You just wish you could have one more cookie baked by her. Gain 2x all Cubes until you purchase OMEGA.",
             "67": "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
-            "68": "[Cx18] What the heck! These aren\"t even cookies. +0.01% Quarks per level purchased of this upgrade. +5% more at level 1,000!",
-            "69": "[Cx19] Cookies that you\"ll never remember again. +12% Golden Quarks this Singularity.",
-            "70": "[Cx20] The pinnacle of baking. Nothing you\"ll eat will taste better than this. Gain +0.01% more Octeracts on Ascension if every corruption is set to level 14."
+            "68": "[Cx18] What the heck! These aren't even cookies. +0.01% Quarks per level purchased of this upgrade. +5% more at level 1,000!",
+            "69": "[Cx19] Cookies that you'll never remember again. +12% Golden Quarks this Singularity.",
+            "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts on Ascension if every corruption is set to level 14."
         },
         "cubeMetadata": {
             "cost": "Cost: {{value1}} Wow! Cubes [+{{value2}} Levels]",
@@ -989,7 +989,7 @@
             "maxLevel": "Cost: 0 Wow! Cubes. This upgrade is maxed! wow"
         },
         "noCubesOpened": "OK. No cubes opened.",
-        "howManyCubesOpen": "How many cubes would you like to open? You have {{x}}! \\nYou can input a percentage of cubes to open, for example: \"50%\" or \"100%\". \\nYou can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number (also works with %).",
+        "howManyCubesOpen": "How many cubes would you like to open? You have {{x}}! \\nYou can input a percentage of cubes to open, for example: '50%' or '100%'. \\nYou can start the input with '-' (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number (also works with %).",
         "validation": {
             "notEnough": "You don't have enough cubes to open!",
             "negative": "You can't open a negative amount of cubes.",
@@ -998,7 +998,7 @@
     },
     "calculate": {
         "timePrompt": "How far in the future would you like to go into the future? Anything awaits when it is testing season.",
-        "timePromptError": "Hey! That\"s not a valid time!",
+        "timePromptError": "Hey! That's not a valid time!",
         "offlineTimer": "You have {{value}} seconds of offline progress!",
         "offlineEarnings": "While offline, the Idle Overlords earned:",
         "quadraticImproperError": "This is not a quadratic equation!",
@@ -2539,7 +2539,7 @@
             },
             "octeractImprovedFree2": {
                 "name": "Wow! Free upgrades still suck.",
-                "description": "Who said beggars can\"t be choosers? Extends the exponent of the first upgrade to 0.65.",
+                "description": "Who said beggars can't be choosers? Extends the exponent of the first upgrade to 0.65.",
                 "effect": "Exponent of previous upgrade +{{n}}."
             },
             "octeractImprovedFree3": {
@@ -2583,9 +2583,9 @@
                 "effect": "Octeract Gain per OOM Ascension count +{{n}}%"
             },
             "octeractFastForward": {
-                "name": "Derpsmith\"s Singularity Discombobulator",
+                "name": "Derpsmith's Singularity Discombobulator",
                 "description": "Each level makes Singularity give +100% Golden Quarks (additive) and singularity at all time highest count grants +1 singularity count!",
-                "effect": "Singularities give {{n}}% more GQ and count as ${n} more."
+                "effect": "Singularities give {{n100}}% more GQ and count as {{n}} more."
             },
             "octeractAutoPotionSpeed": {
                 "name": "Pill of Increased Thirst",

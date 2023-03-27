@@ -2585,7 +2585,7 @@
             "octeractFastForward": {
                 "name": "Derpsmith的奇点小玩意",
                 "description": "每级使进入奇点的金夸克获取数量增加100%(效果相互叠加)，且在最高奇点次数时进入奇点将使奇点次数增加1次！",
-                "effect": "进入奇点的金夸克获取数量增加{{n}}%，且奇点次数增加{n}次。"
+                "effect": "进入奇点的金夸克获取数量增加{{n100}}%，且奇点次数增加{{n}}次。"
             },
             "octeractAutoPotionSpeed": {
                 "name": "口渴药片",
