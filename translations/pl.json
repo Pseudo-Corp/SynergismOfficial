@@ -1,13 +1,13 @@
 {
     "testing": {
         "saveInLive": "Ten zapis gry nie może zostać użyty w tej wersji!",
-        "saveInLive2": "You can't load this save anymore!",
-        "errorSaving": "An error prevented this file from being saved.",
-        "gameSaved": "Game saved successfully!"
+        "saveInLive2": "Ten zapis gry nie może zostać wczytany!",
+        "errorSaving": "Błąd uniemożliwił zapisanie pliku.",
+        "gameSaved": "Zapisano pomyślnie!"
     },
     "save": {
         "loadFailed": "Nie można wczytać stanu gry.",
-        "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
+        "saveToClipboard": "Czy na pewno chcesz włączyć kopiowanie zapisów do schowka?"
     },
     "achievements": {
         "descriptions": {
@@ -293,41 +293,41 @@
             "280": "[{{number}}] Incepcja: Osiągnij Osobliwość 10 razy."
         },
         "rewards": {
-            "3": "Gain +.05% to Accelerator Power.",
-            "4": "Start Transcensions/Challenges with Worker Autobuyer unlocked.",
-            "5": "Gain +1 Accelerator per 500 Workers owned.",
-            "6": "Gain +1 Multiplier per 1,000 Workers owned.",
-            "7": "Gain +1 Accelerator Boost per 2,000 workers owned.",
-            "10": "Gain +.10% to Accelerator Power.",
-            "11": "Start Transcensions/Challenges with Investment Autobuyer unlocked.",
-            "12": "Gain +1 Accelerator per 500 Investments owned.",
-            "13": "Gain +1 Multiplier per 1,000 Investments owned.",
-            "14": "Gain +1 Accelerator Boost per 2,000 Investments owned.",
-            "17": "Gain +.15% to Accelerator Power.",
-            "18": "Start Transcensions/Challenges with Printer Autobuyer unlocked.",
-            "19": "Gain +1 Accelerator per 500 Printers owned.",
-            "20": "Gain +1 Multiplier per 1,000 Printers owned.",
-            "21": "Gain +1 Accelerator Boost per 2,000 Printers owned.",
-            "24": "Gain +.20% to Accelerator Power.",
-            "25": "Start Transcensions/Challenges with Coin Mint Autobuyer unlocked.",
-            "26": "Gain +1 Accelerator per 500 Mints owned.",
-            "27": "Gain +1 Multiplier per 1,000 Mints owned.",
-            "28": "Gain +1 Accelerator Boost per 2,000 Mints owned.",
-            "31": "Gain +.25% to Accelerator Power.",
-            "32": "Start Transcensions/Challenges with Alchemy Autobuyer unlocked.",
+            "3": "Zyskaj +.05% do mocy Akceleratora.",
+            "4": "Rozpocznij Transcendencje/Wyzwania z odblokowanym auto-zakupem pracowników.",
+            "5": "Otrzymaj +1 akcelerator za każde 500 posiadanych pracowników.",
+            "6": "Zdobądź +1 Mnożnik na 1000 posiadanych pracowników.",
+            "7": "Otrzymaj +1 Doładowanie Przyspieszenia za każde 2 000 posiadanych pracowników.",
+            "10": "Zyskaj +.10% do mocy Akceleratora.",
+            "11": "Rozpocznij Transcendencje/Wyzwania z odblokowanym auto-zakupem Inwestycji.",
+            "12": "Otrzymaj +1 akcelerator za każde 500 posiadanych inwestycji.",
+            "13": "Otrzymaj +1 Mnożnik za każdy 1000 posiadanych pracowników.",
+            "14": "Otrzymaj +1 Doładowanie Przyspieszenia za każde 2 000 posiadanych inwestycji.",
+            "17": "Zyskaj +.15% do mocy Akceleratora.",
+            "18": "Rozpocznij Transcendencje/Wyzwania z odblokowanym auto-zakupem drukarek.",
+            "19": "Otrzymaj +1 akcelerator za każde 500 posiadanych drukarek.",
+            "20": "Otrzymaj +1 Mnożnik za każdy 1000 posiadanych drukarek.",
+            "21": "Otrzymaj +1 Doładowanie Przyspieszenia za każde 2 000 posiadanych drukarek.",
+            "24": "Zyskaj +.20% do mocy Akceleratora.",
+            "25": "Rozpocznij Transcendencje/Wyzwania z odblokowanym auto-zakupem mennic.",
+            "26": "Otrzymaj +1 akcelerator za każde 500 posiadanych mennic.",
+            "27": "Otrzymaj +1 Mnożnik za każdy 1000 posiadanych mennic.",
+            "28": "Otrzymaj +1 Doładowanie Przyspieszenia za każde 2 000 posiadanych mennic.",
+            "31": "Zyskaj +.25% do mocy Akceleratora.",
+            "32": "Rozpocznij Transcendencje/Wyzwania z odblokowanym auto-zakupem Alchemii.",
             "33": "Gain 10% more Offerings from resets || +1 Accelerator per 500 Alchemies!",
             "34": "Gain 15% more Offerings from resets (stacks multiplicatively!) || +1 Multiplier per 1,000 Alchemies!",
             "35": "Gain 25% more Offerings from resets (stacks multiplicatively!) || +1 Accelerator Boost per 2,000 Alchemies!",
-            "36": "Multiply Crystal Production by 2x.",
-            "37": "Multiply Crystal Production by the common logarithm of owned Diamonds. Prestiges give more Offerings based on time spent (Up to +15 at 1800 seconds)",
-            "38": "Unlock the Duplication rune!",
-            "43": "Accelerator Boosts can be purchased from any screen. Unlock the Auto-Prestige feature.",
-            "44": "Unlock the Prism Rune! Transcensions give more Offerings based on time spent (Up to +15 at 1800 seconds)",
-            "45": "Reduce tax scaling by up to 5%, depending on the length of Prestige.",
-            "46": "Reduce tax scaling by up to another 5%, depending on length of Prestige.",
-            "47": "Reduce tax scaling by up to ANOTHER 10%, depending on length of Prestige!",
-            "50": "Unlock new Atomic production and unlock 3 new incredibly difficult Challenges! Gain 2x particles on all future Reincarnations!",
-            "51": "Manual Reincarnations give +4 Obtainium (unaffected by multipliers except time multiplier)!",
+            "36": "Podwój produkcję kryształów.",
+            "37": "Pomnóż produkcję kryształów przez logarytm dziesiętny z posiadanych Diamentów. Prestiże dają więcej Darów na podstawie spędzonego czasu (aż do +15 o 1800 sekund)",
+            "38": "Odblokuj runę Duplikacji!",
+            "43": "Akceleratory Przyspieszenia mogą być kupione z dowolnej zakładki. Odblokuj funkcję Auto-Prestiżu.",
+            "44": "Odblokuj Runę Pryzmu! Transcendencje dają więcej Darów na podstawie spędzonego czasu (Aż do +15 o 1800 sekund)",
+            "45": "Zmniejsz skalowanie podatków o maksymalnie 5%, bazując na długości Prestiżu.",
+            "46": "Zmniejsz skalowanie podatków o kolejne 5%, bazując na długości Prestiżu.",
+            "47": "Zmniejsz skalowanie podatków o KOLEJNE 10%, bazując na długości Prestiżu!",
+            "50": "Odblokuj nową produkcję atomową i odblokuj 3 nowe, niezwykle trudne wyzwania! Zdobądź podwójną ilość cząsteczek na wszystkich przyszłych Reinkarnacjach!",
+            "51": "Reinkarnacje wykonane ręcznie dają +4 Obtainium (mnożniki z wyjątkiem mnożnika czasu nie mają wpływu)!",
             "52": "Reincarnations give more Offerings based on time spent (Up to +25 at 1800 seconds)",
             "53": "Increase the amount of Obtainium gained through all features by 0.125% additive for each rune level.",
             "57": "Gain +1, +1% free Multipliers!",
@@ -477,7 +477,7 @@
             "3": "Zmusza poborcę do poddania się [Do -99,5% podatków!]",
             "4": "Straszy cię, abyś biegł szybciej [do x20]",
             "5": "Imituje twoje ciało dzięki magicznym mocom zmiany kształtu [do x40]",
-            "6": "Próba zadowolenia Boga Mrówek... nieudana [Dodatkowe ofiary!]",
+            "6": "Próba zadowolenia Boga Mrówek... nieudana [Dodatkowe Dary!]",
             "7": "Pomaga zbudować kilka rzeczy tu i tam [+3% opóźnienia kosztu budowy / poziom, limit 9 999 999%]",
             "8": "Wie, jak solić i pieprzyć jedzenie [Do 1000x Runiczne EXP!]",
             "9": "Może sprawić, że twoja wiadomość do mrówkowego boga będzie trochę jaśniejsza [+1 wszystkie poziomy run / poziom, limit 10 milionów]",
@@ -637,14 +637,14 @@
             "per": {
                 "1": "-3.5% Podatku [Multiplikatywny]! Obecnie: ",
                 "2": "EXP Runy Oszczędności +10%! Obecnie: ",
-                "3": "Ofiary za Prestiż +2%! Obecnie: "
+                "3": "Dary za Prestiż +2%! Obecnie: "
             },
             "first": "-7.5% Podatków!",
             "start": "Rozpocznij <Wyższy podatek>",
             "current": {
                 "1": "mnożnik podatku x{{value}}",
                 "2": "EXP +{{value}}%",
-                "3": "+{{value}}% Ofiar bazowanych na Prestiżu"
+                "3": "+{{value}}% Darów bazowanych na Prestiżu"
             }
         },
         "7": {
@@ -673,14 +673,14 @@
             "per": {
                 "1": "Bazowa moc Budowy +0.25! Obecnie: ",
                 "2": "EXP Runy Pryzmatycznej +20%! Obecnie: ",
-                "3": "Ofiary za Transcendencję +4%! Obecnie: "
+                "3": "Dary za Transcendencję +4%! Obecnie: "
             },
             "first": "Odblokuj Mrowisko! Zawiera 20 nowych badań. Globalne Ulepszenie Diamentów.",
             "start": "Rozpocznij <Cost++>",
             "current": {
                 "1": "+{{value}}",
                 "2": "+{{value}}% EXP",
-                "3": "+{{value}}% Ofiar bazowanych na Transcendencji"
+                "3": "+{{value}}% Darów bazowanych na Transcendencji"
             }
         },
         "9": {
@@ -709,14 +709,14 @@
             "per": {
                 "1": "+100 bazowego ELO za poświęcenie mrówek! Obecnie: ",
                 "2": "+2% nagród za Poświęcenie Mrówek! Obecnie: ",
-                "3": "+10% Ofiar za Reinkarnację! Obecnie: "
+                "3": "+10% Darów za Reinkarnację! Obecnie: "
             },
             "first": "Odblokuj Ascendencję!",
             "start": "Rozpocznij <Sadistic I>",
             "current": {
                 "1": "+{{value}} Mrówcze ELO",
                 "2": "+{{value}}% nagród za Poświęcenie Mrówek",
-                "3": "+{{value}}% ofiar bazowanych na Reinkarnacji"
+                "3": "+{{value}}% Darów bazowanych na Reinkarnacji"
             }
         },
         "11": {
@@ -744,7 +744,7 @@
             "goal": "Cel: Ukończ wyzwanie 10 [Sadystyczny I] {{value}} raz/y.",
             "per": {
                 "1": "+50% Obtainium! Obecnie: ",
-                "2": "+12% Ofiar! Obecnie: ",
+                "2": "+12% Darów! Obecnie: ",
                 "3": "+1 Danina Sześcianu za otwarcie! Obecnie: "
             },
             "first": "Odblokuj 15 nowych badań oraz mistyczną Siłę Duchową! Znajdziesz je w zakładce Runy. Zwiększ limit Korupcji o 2 poziomy. Odblokuj dwie nowe Korupcje! ;)",
@@ -883,7 +883,7 @@
             "43": "Wow! Chcę jeszcze więcej nieskorumpowanego Obtainium!",
             "44": "Wow! Chcę by bonus z Danin Midasa skalował się lepiej 1.",
             "45": "Wow! Chcę by bonus z Danin Hermesa skalował się lepiej 1.",
-            "46": "Wow! Chcę jeszcze WIĘCEJ Ofiar!",
+            "46": "Wow! Chcę jeszcze WIĘCEJ Darów!",
             "47": "Wow! Chcę jeszcze WIĘCEJ Obtainium!",
             "48": "Wow! Chcę rozpocząć Ascendencję z Mrówką.",
             "49": "Wow! Chcę rozpocząć Ascendencję z wykonanymi wyzwaniami 6-8.",
@@ -931,7 +931,7 @@
             "17": "[2x7] Mhm. wykładnik przy Kryształach zwiększony o 5 co poziom.",
             "18": "[2x8] Tunele kwantowe po wygraną. +20% globalnej prędkości gry.",
             "19": "[2x9] Odblokowuje nowe ulepszenia sięgające od startu Ascendencji do wyzwania 10-ego i jeszcze dalej.",
-            "20": "[2x10] Automatyzator run w sklepie teraz wydaje wszystkie Ofiary automatycznie, \"dzieląc\" je na wszystkie pięć run po równo.",
+            "20": "[2x10] Automatyzator run w sklepie teraz wydaje wszystkie Dary automatycznie, \"dzieląc\" je na wszystkie pięć run po równo.",
             "21": "[3x1] Może wyniki będą dla ciebie bardziej wartościowe? Otrzymaj 5% więcej punktów przy Ascendencji co poziom.",
             "22": "[3x2] wykładnik przy bonusie Artemidy jest zwiększony o 0.05 co poziom.",
             "23": "[3x3] za każde 20 Sześcianów otwartych naraz, otrzymasz dodatkowo jedną daninę losowo.",
@@ -957,7 +957,7 @@
             "43": "[5x3] Otrzymujesz kolejne +3% więcej niezależnego od korupcji Obtainium co poziom.",
             "44": "[5x4] Bla, bla, bla... Midas pracuje ciężej... (nagrody takie jak wcześniej)",
             "45": "[5x5] Ble, ble, ble... Hermes pracuje ciężej... (nagrody takie jak wcześniej)",
-            "46": "[5x6] Otrzymujesz 5% więcej Ofiar co poziom!",
+            "46": "[5x6] Otrzymujesz 5% więcej Darów co poziom!",
             "47": "[5x6] Otrzymujesz 10% więcej Obtainium co poziom!",
             "48": "[5x8] Gdy rozpoczynasz Ascendencję, startujesz z jedną Mrówką Robotnicą. (Działa dużo lepiej niż brzmi! Uwierz mi.)",
             "49": "[5x9] Kiedy ascendujesz otrzymaj po jednym ukończeniu przy każdym z wyzwań 6-8.",
@@ -1088,10 +1088,10 @@
             "79": "[4x4] Zwiększ limit Runy Pryzmatycznej o 10 co poziom. Dodatkowo otrzymujesz 2% więcej EXP'a dla tej runy.",
             "80": "[4x5] Zwiększ limit Runy Duplikacji o 10 co poziom. Dodatkowo otrzymujesz 2% więcej EXP'a dla tej runy.",
             "81": "[4x6] Myślałeś że poprzednie badania były drogie? Masz, będziesz tego potrzebować! [10% Więcej Obtainium co poziom]",
-            "82": "[4x7] Permamentnie odblokuj Runę Super Inteligencji! [+%Obtainium / +Prędkość Mrówek / +Bazowe Ofiary]",
+            "82": "[4x7] Permamentnie odblokuj Runę Super Inteligencji! [+%Obtainium / +Prędkość Mrówek / +Bazowe Darów]",
             "83": "[4x8] Expienie Runy SI zajmuje wieczność? Łap, +5% Bonusowego  EXP'a za poziom.",
             "84": "[4x9] Nowa runa trochę ssie? Wzmocnij ją! +0.5% wydajności dla Runy SI za poziom!",
-            "85": "[4x10] Otrzymaj 0.01% więcej Ofiar co poziom, za każde wykonane wyzwanie!",
+            "85": "[4x10] Otrzymaj 0.01% więcej Darów co poziom, za każde wykonane wyzwanie!",
             "86": "[4x11] Mhm, powrót do podstaw. 5% Więcej Akceleratorów co poziom.",
             "87": "[4x12]  0/5 Mnożniki SSĄ: 5% więcej Mnożników co poziom.",
             "88": "[4x13] -1/5 D.Przyspieszeń SSIE: 5% więcej Doładowań Przyspieszenia co poziom.",
@@ -1101,7 +1101,7 @@
             "92": "[4x17] Również proste 5% EXP'a run co poziom!",
             "93": "[4x18] +1 D.Przyspieszenia za każde 20 poziomów Run [zsumowane] co poziom.",
             "94": "[4x19] +20 Mnożników za każde 8 poziomów run [Zsumowane] co poziom.",
-            "95": "[4x20] Otrzymaj 4 bazowe Ofiary z Reinkarnacji przy zakupie. Matematyczne kujony to pokochają!",
+            "95": "[4x20] Otrzymaj 4 bazowe Dary z Reinkarnacji przy zakupie. Matematyczne kujony to pokochają!",
             "96": "[4x21] Wolne mrówki? Dodaj 0.0002 do ich efektywności co poziom.",
             "97": "[4x22] +4 poziomy do pierwszych 6-ciu mrówek co poziom!",
             "98": "[4x23] +4 poziomy do kolejnych 5-ciu mrówek co poziom!",
@@ -1155,7 +1155,7 @@
             "146": "[6x21] Nakarm swoich uczniów czystym Obtainium, aby zwiększyć skuteczność run o +0,4% na poziom.",
             "147": "[6x22] Nakarm swoje mrówki ich własnymi okruchami, aby Log(Crumbs + 10)x były szybsze!",
             "148": "[6x23] Zwiększ swoje podstawowe ELO Ant o 2,5% na poziom!",
-            "149": "[6x24] Otrzymasz +0,03% więcej Ofiar na poziom na poziom w Talizmanie Midasa!",
+            "149": "[6x24] Otrzymasz +0,03% więcej Darów na poziom na poziom w Talizmanie Midasa!",
             "150": "[6x25] Automatyczne wyzwanie. Wystarczająco powiedziane. (Pozwala automatycznie uruchamiać i kończyć wyzwania!)",
             "151": "[7x1] Nowy rząd, stara aktualizacja. Sprawia, że wszystkie tiki są o 1,2% szybsze na każdym poziomie.",
             "152": "[7x2] Wow! Branże sponsorują kolejne +0.9% Sześcianów co poziom w ramach twojego banku Ascendencji!",
@@ -1185,7 +1185,7 @@
             "176": "[8x1] Rząd 8 misiaczku! +0,2% Skuteczność runy / poziom.",
             "177": "[8x2] +Log10(Crumbs)% do produkcji mrówek na poziom. Niezły buff, prawda?",
             "178": "[8x3] +666 bazowego ELO na poziom! Straszna szatańska liczba.",
-            "179": "[8x4] +0,04% więcej Ofert na poziom na poziom Midas!",
+            "179": "[8x4] +0,04% więcej Darów na poziom na poziom Midas!",
             "180": "[8x5] +1 Kwark eksportowy na godzinę na poziom, jeszcze raz.",
             "181": "[8x6] +0,6% szybsze tiki / poziom, bo czemu nie? Jesteś już z prędkością światła.",
             "182": "[8x7] +0,7% Kostek w banku Wzniesienia / poziomie, z dywidend, Wow! Magazyn.",
