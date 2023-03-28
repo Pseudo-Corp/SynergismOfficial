@@ -261,36 +261,36 @@
             "248": "[{{number}}] В гневе без раздумий: [Подсказка: Можно ли получить красные вещи не получив синих вещей?]",
             "249": "[{{number}}] Сверх налог: [Подсказка: Возможно, будет выгоднее не читать!]",
             "250": "[{{number}}] Тысяча Солнц: [Подсказка: Вам нужно полностью исследовать, чтобы стать БОГОМ]",
-            "251": "[{{number}}] The Thousand Moons: [Hint: You may need to cube yourself up]",
-            "252": "[{{number}}] Ultimate: Complete 'SADISTIC II' Challenge.",
+            "251": "[{{number}}] Тысяча лун: [Подсказка: Возможно, вам придётся сложить себя в куб]",
+            "252": "[{{number}}] Окончательный: Выполнить испытание 'САДИСТИЧЕСКИЙ II'.",
             "253": "[{{number}}] Платонизм: Завершите Вознесение со счётом 1e12.",
-            "254": "[{{number}}] That's a handful!: Clear an Ascension with 1e14 score.",
+            "254": "[{{number}}] Это целая горстка!: Завершите Вознесение со счётом 1e14.",
             "255": "[{{number}}] Игра, в которой всё придумано: Завершите Вознесение со счётом 1e17.",
             "256": "[{{number}}] ... и очки не имеют смысла: Завершите Вознесение со счётом 2e18.",
             "257": "[{{number}}] Вероятно, морально: Завершите Вознесение со счётом 4e19.",
             "258": "[{{number}}] Личный Рекорд Khafra: Завершите Вознесение со счётом 1e21.",
             "259": "[{{number}}] 100 миллионов миллионов миллионов!: Завершите Вознесение со счётом 1e23.",
-            "260": "[{{number}}] Highly Dimensional Being: Ascend a total of 10 million times.",
-            "261": "[{{number}}] Ant God's upheaval: Ascend a total of 100 million times.",
-            "262": "[{{number}}] Did you forget about Ant God?: Ascend a total of 2 billion times.",
+            "260": "[{{number}}] Существо высокой размерности: Вознеситесь в сумме 40 миллионов раз.",
+            "261": "[{{number}}] Восстание Муравьиных Богов: Вознеситесь в сумме 100 миллионов раз.",
+            "262": "[{{number}}] Ты забыл о Муравьином Боге?: Вознеситесь в сумме 2 миллиардов раз.",
             "263": "[{{number}}] Молодец. Муравьиный Бог теперь безработный: Вознеситесь в сумме 40 миллиардов раз.",
-            "264": "[{{number}}] I hope you're happy with yourself: Ascend a total of 800 billion times.",
-            "265": "[{{number}}] Oh well: Ascend a total of 16 trillion times.",
-            "266": "[{{number}}] Keep up the gradual numerical increase: Ascend a total of 100 trillion times.",
+            "264": "[{{number}}] Я надеюсь ты доволен собою: Вознеситесь в сумме 800 миллиардов раз.",
+            "265": "[{{number}}] Ну что ж: Вознеситесь в сумме 16 триллионов раз.",
+            "266": "[{{number}}] Продолжайте постепенное числовое увеличение: Вознеситесь в сумме 100 триллионов раз.",
             "267": "[{{number}}] Собственно обозначенный: Набрать константу 1e1,000.",
             "268": "[{{number}}] Достигнуть Математику: Набрать константу 1e5,000.",
             "269": "[{{number}}] Рамсей (5,5): Набрать константу 1e15,000.",
             "270": "[{{number}}] Что идёт после этого?: Набрать константу 1e50,000.",
-            "271": "[{{number}}] LARGE BOY: Achieve a constant of 1e100,000.",
-            "272": "[{{number}}] LARGER BOY: Achieve a constant of 1e300,000.",
-            "273": "[{{number}}] LARGEST BOY: Achieve a constant of 1e1,000,000.",
-            "274": "[{{number}}] Power Creep: Singularity 1 time.",
-            "275": "[{{number}}] Have you enough cubes?: Singularity 2 times.",
-            "276": "[{{number}}] Singularity: Singularity 3 times.",
-            "277": "[{{number}}] SingularRity: Singularity 4 times.",
-            "278": "[{{number}}] SiINguLaRrRity: Singularity 5 times.",
-            "279": "[{{number}}] SiIINGuLArRrIiTyY: Singularity 7 times.",
-            "280": "[{{number}}] Inception: Singularity 10 times."
+            "271": "[{{number}}] БОЛЬШОЙ МАЛЬЧИК: Набрать константу 1e100,000.",
+            "272": "[{{number}}] БОЛЬШИЙ МАЛЬЧИК: Набрать константу 1e300,000.",
+            "273": "[{{number}}] КРУПНЕЙШИЙ МАЛЬЧИК: Набрать константу 1e1,000,000.",
+            "274": "[{{number}}] Сдвиг мощности: Сингулярность 1 раз.",
+            "275": "[{{number}}] У тебя достаточно кубов?: Сингулярность 2 раз.",
+            "276": "[{{number}}] Сингулярность: Сингулярность 3 раза.",
+            "277": "[{{number}}] СингулярРность: Сингулярность 4 раза.",
+            "278": "[{{number}}] СиИНгуЛяРрРность: Сингулярность 5 раз.",
+            "279": "[{{number}}] СиИИНГуЛЯрРрНОсТЬ: Сингулярность 7 раз.",
+            "280": "[{{number}}] Начало: Сингулярность 10 раз."
         },
         "rewards": {
             "3": "Получите +0.05% к силе Ускорителей.",
@@ -473,7 +473,7 @@
     "ants": {
         "upgrades": {
             "1": "Продвигает романтику и единство в колонии. [+12% Скорость Муравьёв/ уровень]",
-            "2": "Sweetens crumbs to increase their value [Each level increases Crumb --> Coin Conversion efficiency, up to ^50,000,000]",
+            "2": "Подслащивает крошки для увеличения их ценности [Каждый уровень увеличивает эффективность конвертации Крошки - Монеты, вплоть до ^50,000,000]",
             "3": "Swarms the Taxman into submission [Up to -99.5% taxes!]",
             "4": "Scares you into running faster [up to x20]",
             "5": "Imitates your body through magic shape-shifting powers [up to x40]",
@@ -483,17 +483,17 @@
             "9": "Может сделать ваше послание Муравьиному Богу чуточку чётче [+1 ко всем Уровням Рун / уровень, Макс. 10 миллионов]",
             "10": "Has big brain energy [Additional Obtainium!]",
             "11": "Ценное подношение Муравьиному Богу [Награды за Жертвоприношение возрастают до 3-ёхкратных!]",
-            "12": "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
+            "12": "Предайте Муравьиного Бога, увеличивая хрупкость вашего измерения [Открывает муравьиный талисман, множитель глобальной скорости до 2-ух крат]"
         },
         "descriptions": {
-            "1": "Gain a Worker Ant for your everyday life. Gathers Galactic Crumbs. Essential!",
-            "2": "Gain a Breeder Ant that produces Worker Ants automatically!",
-            "3": "Gain a Meta-breeder Ant that produces Breeder Ants automatically!",
+            "1": "Получаете Муравья - Рабочего для вашей повседневной жизни. Собирает Галактические Крошки. Жизненно важен!",
+            "2": "Получаете Муравья муравьевода, который производит Муравьёв - Рабочих автоматически!",
+            "3": "Получаете Муравья Мета - муравьевода, который производит Муравьёв муравьеводов автоматически!",
             "4": "Получаете Муравья Мега - муравьевода, который производит Муравьёв Мета - муравьеводов автоматически!",
             "5": "Получаете Муравья - Королеву, которая производит Муравья Мега - муравьевода!",
             "6": "Получаете Королевского Муравья - Повелителя, который производит Муравьёв - Королев автоматически!",
             "7": "Получаете ВСЕМОГУЩЕГО МУРАВЬЯ, который производит Королевских Муравьёв - Повелителей автоматически!",
-            "8": "Gain a DISCIPLE OF ANT GOD that produces ALMIGHTY ANTS automatically!"
+            "8": "Получаете УЧЕНИКА МУРАВЬИНОГО БОГА, который производит ВСЕМОГУЩИХ МУРАВЬЁВ автоматически!"
         },
         "generates": {
             "1": "Generates {{x}} Crumbs/sec",
@@ -506,7 +506,7 @@
             "8": "Generates {{x}} ALMIGHTIES/sec"
         },
         "rewards": {
-            "1": "CURRENT EFFECT: ALL Ants work at {{x}}x speed.",
+            "1": "ТЕКУЩИЙ ЭФФЕКТ: ВСЕ Муравьи работают с {{x}}x скоростью.",
             "2": "CURRENT EFFECT: Crumb --> Coin exponent is ^{{x}}",
             "3": "CURRENT EFFECT: Tax growth is multiplied by {{x}}",
             "4": "CURRENT EFFECT: Accelerator Boosts +{{x}}%",
@@ -1386,7 +1386,7 @@
                 "default": "The Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades, both scaling with your singularity count!"
             },
             "unlimitedGrowth": "+10% to Quarks gain and Ascension Count for each Singularity. Currently: +{{amount}}%",
-            "goldenCoins": "Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity",
+            "goldenCoins": "Непотраченные Золотые Кварки увеличивают получение Монет. Особенно полезно для первого Вознесения каждой Сингулярности",
             "hepteractAutocraft": "Hepteract Autocraft will be unlocked",
             "generousOrbs": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%",
             "researchDummies": {
@@ -1621,7 +1621,7 @@
             },
             "singOcteractPatreonBonus": {
                 "name": "Platonic $ells out!!!",
-                "description": "You know that Patreon bonus? Yeah, that's cool and all, but what if it also boosted Octeract production by the same amount?",
+                "description": "Слышали про бонус Patreon? Это, конечно, круто, но что если бы он также увеличивал производство Октерактов на ту же величину?",
                 "effect": "Octeract production is {{n}}% faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists."
             },
             "offeringAutomatic": {
@@ -2154,7 +2154,7 @@
             "125": "+{{x}}% Constant Divisor power."
         },
         "shopTitles": {
-            "coin": "Coin Upgrades",
+            "coin": "Улучшения Монет",
             "diamond": "Алмазные Улучшения",
             "mythos": "Улучшения Мифов",
             "generator": "Магазин Генераторов",
@@ -2180,7 +2180,7 @@
             "shop": "Shop"
         },
         "buildings": {
-            "coin": "Coin Buildings",
+            "coin": "Строения Монет",
             "diamond": "Алмазные Строения",
             "mythos": "Mythos Buildings",
             "particle": "Particle Buildings",
@@ -2236,7 +2236,7 @@
         "names": {
             "1": "Порча I: Вязкость",
             "2": "Порча II: Пространственное Расширение",
-            "3": "Коррупция III: Гиперзакалённый",
+            "3": "Порча III: Гиперзакалённый",
             "4": "Порча IV: Научная Неграмотность",
             "5": "Порча V: Рыночная Дефляция",
             "6": "Порча VI: Вымирание",
