@@ -295,9 +295,9 @@
         "rewards": {
             "3": "Gana +,05% Poder de Acelerador.",
             "4": "Empieza Trascensiones/Desafíos con el Autocomprador de Empleados desbloqueado.",
-            "5": "Gana +1 Acelerador por cada 500 Empleados poseídos.",
-            "6": "Gana +1 Multiplicador por cada 1,000 Empleados poseídos.",
-            "7": "Gana +1 Potenciador de Acelerador por cada 2,000 empleados poseídos.",
+            "5": "Gana +1 Acelerador por cada 500 Trabajadores poseídos.",
+            "6": "Gana +1 Multiplicador por cada 1,000 Trabajadores poseídos.",
+            "7": "Gana +1 Potenciador de Acelerador por cada 2,000 Trabajadores poseídos.",
             "10": "Gana +,10% Poder de Aceleración.",
             "11": "Empieza Trascensiones/Desafíos con el Autocomprador de Inversiones desbloqueado.",
             "12": "Gana +1 Acelerador por cada 500 Inversiones poseídas.",
@@ -502,20 +502,20 @@
             "4": "Genera {{x}} MetaProcreadoras/seg",
             "5": "Genera {{x}} MegaProcreadoras/s",
             "6": "Genera {{x}} Reinas/seg",
-            "7": "Generates {{x}} Royals/sec",
-            "8": "Generates {{x}} ALMIGHTIES/sec"
+            "7": "Genera {{x}} Señores/seg",
+            "8": "Genera {{x}} TODOPODEROSAS/seg"
         },
         "rewards": {
-            "1": "CURRENT EFFECT: ALL Ants work at {{x}}x speed.",
-            "2": "CURRENT EFFECT: Crumb --> Coin exponent is ^{{x}}",
-            "3": "CURRENT EFFECT: Tax growth is multiplied by {{x}}",
-            "4": "CURRENT EFFECT: Accelerator Boosts +{{x}}%",
-            "5": "CURRENT EFFECT: Multipliers +{{x}}%",
-            "6": "CURRENT EFFECT: Offerings x{{x}}",
-            "7": "CURRENT EFFECT: Building Costs scale {{x}}% slower!",
-            "8": "CURRENT EFFECT: Rune EXP is multiplied by {{x}}!",
-            "9": "CURRENT EFFECT: Each rune has +{{x}} effective levels.",
-            "10": "CURRENT EFFECT: Obtainium x{{x}}",
+            "1": "EFECTO ACTUAL: TODAS las Hormigas trabajan a {{x}}x velocidad.",
+            "2": "EFECTO ACTUAL: Migas --> Exponente de Moneda es ^{{x}}",
+            "3": "EFECTO ACTUAL: Crecimiento de impuestos multiplicado por {{x}}",
+            "4": "EFECTO ACTUAL: Potenciador de Acelerador +{{x}}%",
+            "5": "EFECTO ACTUAL: Multiplicadores +{{x}}%",
+            "6": "EFECTO ACTUAL: Ofrendas x{{x}}",
+            "7": "EFECTO ACTUAL: ¡Coste de construcción escala {{x}}% más lento!",
+            "8": "EFECTO ACTUAL: ¡EXP de Runa multiplicada por {{x}}!",
+            "9": "EFECTO ACTUAL: Cada runa tiene +{{x}} niveles efectivos.",
+            "10": "EFECTO ACTUAL: Obtainium x{{x}}",
             "11": "CURRENT EFFECT: Sacrificing is {{x}}x as effective",
             "12": "CURRENT EFFECT: Global timer is sped up by a factor of {{x}}"
         },
@@ -640,7 +640,7 @@
                 "3": "¡+2% Ofrendas de Prestigio! Actual: "
             },
             "first": "¡-7,5% Impuestos!",
-            "start": "Empieza <Higher Tax>",
+            "start": "Empieza <Más Impuestos>",
             "current": {
                 "1": "Multiplicador de Impuestos x{{value}}",
                 "2": "EXP +{{value}}%",
@@ -658,7 +658,7 @@
                 "3": "¡+10% Exp de Duplicación! Actual: "
             },
             "first": "¡+25% al Poder de Potenciadores Multiplicador! La primera Mejora Global de Diamantes por Impulso de Discord.",
-            "start": "Empieza <No Multipliers/Accelerators>",
+            "start": "Empieza <Sin Multiplicadores/Aceleradores>",
             "current": {
                 "1": "Exponente =^{{value}}",
                 "2": "EXP +{{value}}%",
@@ -676,7 +676,7 @@
                 "3": "¡+4% Ofrendas de Trascensión! Actual: "
             },
             "first": "¡Desbloquea El Hormiguero! Incluye 20 nuevas Investigaciones y Mejora Global de Diamante.",
-            "start": "Empieza <Cost++>",
+            "start": "Empieza <Coste++>",
             "current": {
                 "1": "+{{value}}",
                 "2": "+{{value}}% EXP",
@@ -694,7 +694,7 @@
                 "3": "¡+20% Exp de Runa IS! Actual: "
             },
             "first": "¡Desbloquea los Talismanes! [En pestaña de Runas]. Mejora Global de Diamante.",
-            "start": "Empieza <No Runes>",
+            "start": "Empieza <Sin Runas>",
             "current": {
                 "1": "+{{value}} niveles gratis",
                 "2": "x{{value}} Velocidad de Hormigas",
@@ -712,7 +712,7 @@
                 "3": "¡+10% Ofrendas de Reencarnación! Actual: "
             },
             "first": "¡Desbloquea el Nivel de Reseteo Ascensión!",
-            "start": "Empieza <Sadistic I>",
+            "start": "Empieza <Sádico I>",
             "current": {
                 "1": "+{{value}} ELO de Hormigas",
                 "2": "+{{value}}% recompensa por Sacrificio de Hormigas",
@@ -766,7 +766,7 @@
                 "3": "¡+3% Efectividad del Poder Espíritu! Actual: "
             },
             "first": "Desbloquea 15 Investigaciones, ¡y desbloquea el poder del Hipercubo! Aumenta el máximo de Corrupción en 2 niveles, ¡A 9! Finalmente, ¡desbloquea dos nuevas corrupciones! ;)",
-            "start": "Start <[(Tax+++)]>",
+            "start": "Empieza <[(Impuestos++)]>",
             "current": {
                 "1": "+{{value}}% Impuesto de Corrupción",
                 "2": "+{{value}} Máximo Nivel de Talismán",
@@ -802,23 +802,23 @@
                 "3": "la labor del Dios Hormiga "
             },
             "first": "¡Romperías el universo si pudieras!",
-            "start": "Start <[(Sadistic Challenge II)]>",
+            "start": "Empieza<[(Desafío Sádico II)]>",
             "current": {
                 "1": " ",
                 "2": " ",
                 "3": " "
             },
-            "noGoal": "You will find no goal in sight, but get bonuses based on your best attempt."
+            "noGoal": "No hay meta que cumplir, pero ganas bonus en función de tu mejor intento."
         },
-        "header": "Is the base game too easy? Try these situations! [Click the icons to view challenge details!]",
+        "header": "¿El juego se te hace fácil? ¡Intenta esto! [¡Haz clic en los iconos para ver los detalles del desafío!]",
         "autoChallengeSweepOn": "Barrido Auto Desafío [ON]",
         "autoChallengeSweepOff": "Barrido Auto Desafío [OFF]",
         "retryChallengesOn": "Reintentar Desafíos: ON",
         "retryChallengesOff": "Reintentar Desafíos: OFF",
-        "autoAscRunChalOn": "Auto Ascension Run Chal.{{x}} [ON]",
-        "autoAscRunChalOff": "Auto Ascension Run Chal.{{x}} [OFF]",
-        "autoRunChalOn": "Automatically Run Chal.{{x}} [ON]",
-        "autoRunChalOff": "Automatically Run Chal.{{x}} [OFF]",
+        "autoAscRunChalOn": "Auto Correr Desafío Asc {{x}} [OFF]",
+        "autoAscRunChalOff": "Auto Correr Desafío Asc {{x}} [ON]",
+        "autoRunChalOn": "Correr Autom. Desafío {{x}} [ON]",
+        "autoRunChalOff": "Correr Autom. Desafío {{x}} [OFF]",
         "modeStart": "MODO: INICIAR",
         "modeExit": "MODO: SALIR",
         "modeWait": "MODO: ESPERAR",
@@ -829,12 +829,12 @@
         "timeExitChallenge": "Time before exiting challenge: <<var(--orchid-text-color)|{{time}}>>s",
         "timeEnterChallenge": "Time before entering challenge: <<var(--orchid-text-color)|{{time}}>>s",
         "autoTimer": "<<orange|Auto Timer:>> <<var(--orchid-text-color)|{{time}}s>>",
-        "perCompletionBonus": "Per Completion Bonuses || <<var(--orchid-text-color)|Softcapped pass {{x}}! Effective completion count {{y}}>>",
+        "perCompletionBonus": "Bonus por Finalización || <<var(--orchid-text-color)|Softcapped pass {{x}}! Effective completion count {{y}}>>",
         "perCompletionBonusEmpty": "Bonus por Finalización",
         "hypercubeOneTimeBonus": "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)",
         "ascensionBankAdd": "Completing the challenge adds {{x}} to Ascension Bank and increase base Score by {{y}}.",
-        "firstTimeBonus": "Gain {{x}} for completing this challenge [First Time Bonus]!",
-        "firstTimeBonusQuarks": "Gain {{x}} Quarks for completing this challenge [First Time Bonus]!"
+        "firstTimeBonus": "¡Gana {{x}} por completar este desafío [Bonus de Primera Vez]!",
+        "firstTimeBonusQuarks": "¡Gana {{x}} Quarks por completar este desafío [Bonus de Primera Vez]!"
     },
     "cubes": {
         "upgradeNames": {
@@ -989,18 +989,18 @@
             "maxLevel": "Coste: 0 Cubos ¡Wow! ¡Esta mejora está al máximo! wow"
         },
         "noCubesOpened": "Ok. No se abrieron cubos.",
-        "howManyCubesOpen": "How many cubes would you like to open? You have {{x}}! \nYou can input a percentage of cubes to open, for example: \"50%\" or \"100%\". \nYou can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number (also works with %).",
+        "howManyCubesOpen": "¿Cuántos cubos te gustaría abrir? ¡Tienes {{x}}! \nPuedes introducir un porcentaje de cubos para abrir, por ejemplo: \"50%\" o \"100%\". \nPuedes comenzar la entrada con \"-\" (pon un valor negativo) para poner el valor que guardar, que abre todos los cubos excepto el número especificado (también funciona con %).",
         "validation": {
             "notEnough": "¡No tienes bastantes Cubos para abrir!",
             "negative": "No puedes abrir un número negativo de cubos.",
-            "invalidPercent": "You can't open {{x}}% of your cubes..."
+            "invalidPercent": "No puedes abrir {{x}}% de tus cubos..."
         }
     },
     "calculate": {
         "timePrompt": "¿Cuán lejos en el futuro querrías llegar en el futuro? Cualquier cosa te espera cuando es temporada de testeo.",
         "timePromptError": "¡Hey! ¡Eso no es un tiempo válido!",
         "offlineTimer": "¡Tienes {{value}} segundos de progreso desconectado!",
-        "offlineEarnings": "En desconexión, los Señores Inactivos ganaron:",
+        "offlineEarnings": "Mientras estabas fuera, tus Soberanos de Inactividad ganaron:",
         "quadraticImproperError": "¡Esta no es una ecuación cuadrática!",
         "quadraticDeterminantError": "¡El determinador es negativo!",
         "cubicSumNegativeError": "¡No puedes gastar una cantidad negativa!"
@@ -1209,17 +1209,17 @@
             "200": "[8x25] ¡Gana el poder de mil soles! +0,01% Aceleradores, Potenciadores de A., Multiplicadores, Ofrendas, y +0,004% Cubos, +0,04 nivel máximo de Runa, +(nivel/400) nivel máximo de Talismán, +(nivel/200) Hormigas gratis, 0,000666% reducción de Impuestos por nivel."
         },
         "thanksToResearches": "Thanks to researches you automatically gain {{x}} Obtainium per real life second.",
-        "level": "Level {{x}}/{{y}}",
-        "maxed": " || MAXED!",
-        "cost": "Cost: {{x}} Obtainium [+{{y}} Levels]",
-        "upgradeMax": "Upgrade: MAX [if possible]",
-        "upgradeOne": "Upgrade: 1 Level",
-        "automaticOn": "Automatic: ON",
-        "automaticOff": "Automatic: OFF",
-        "autoModeCheapest": "Automatic mode: Cheapest",
-        "autoModeManual": "Automatic mode: Manual",
-        "hoverToBuyOn": "Hover-to-Buy [ON]",
-        "hoverToBuyOff": "Hover-to-Buy [OFF]",
+        "level": "Nivel {{x}}/{{y}}",
+        "maxed": " || ¡MAXIMIZADO!",
+        "cost": "Coste: {{x}} Obtainium [+{{y}} Niveles]",
+        "upgradeMax": "Mejora: MAX [si posible]",
+        "upgradeOne": "Mejora: 1 nivel",
+        "automaticOn": "Automático: ON",
+        "automaticOff": "Automático: OFF",
+        "autoModeCheapest": "Modo automático: Más Barato",
+        "autoModeManual": "Modo automático: Manual",
+        "hoverToBuyOn": "Desliza para comprar [ON]",
+        "hoverToBuyOff": "Desliza para comprar [OFF]",
         "hover": "Hover over the grid to get details about researches!"
     },
     "shop": {
@@ -1280,36 +1280,36 @@
             "chronometerInfinity": "Gana +1% Velocidad de Ascensión por nivel, ¡multiplicativo! (Multiplicador de 1.01^nivel)",
             "seasonPassInfinity": "Gana +2% más cubos por nivel, ¡multiplicativo! (Multiplicador de 1.02^nivel)",
             "shopSingularityPenaltyDebuff": "Derpsmith está tan orgulloso de tu rendimiento en el primer EXALT que quiere reducir tus penalizaciones de singularidad. Por un precio. Un gran precio.",
-            "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
-            "improveQuarkHept5": "This is 1/50 as effective as a normal improver. Why? Because of balancing..."
+            "obtainiumEX2": "¡¡¡Gana +1% Obtainium por nivel por Singularidad!!!",
+            "improveQuarkHept5": "Esto es 1/50 tan efectivo como un mejorador normal. ¿Por qué? Para equilibrar..."
         },
-        "maxed": "Maxed!",
-        "upgradeFor": "Upgrade for {{x}} Quarks",
-        "plusForQuarks": "+ {{x}} for {{y}} Quarks",
+        "maxed": "¡Maximizado!",
+        "upgradeFor": "Mejora por {{x}} Quarks",
+        "plusForQuarks": "+ {{x}} por {{y}} Quarks",
         "consume": "CONSUME",
-        "buyYerPotions": "Buy Yer' Potions!",
-        "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
-        "youHaveQuarks": "You have {{x}} Quarks!",
-        "cannotRefund": "This item CANNOT be refunded! Take caution.",
-        "resetPermShop": "Reset Perm Shop [Cost: 15 Quarks]",
-        "shopConfirmationOn": "Shop Confirmations: ON",
-        "shopConfirmationOff": "Shop Confirmations: OFF",
-        "hideMaxedOn": "Hide Maxed: ON",
-        "hideMaxedOff": "Hide Maxed: OFF",
-        "autoCatalyzeOn": "Auto Catalyze: ON",
-        "autoCatalyzeOff": "Auto Catalyze: OFF",
-        "shiftClickForBuyAny": "Shift-Click for Buy: Any",
-        "buy10": "Buy: 10",
-        "buy1": "Buy: 1",
-        "buyMax": "Buy: MAX",
-        "buyAny": "Buy: ANY",
+        "buyYerPotions": "¡Arr, compra pociones!",
+        "header": "Bienvenido a la Tienda de Quarks ¡No creerás lo que tenemos!",
+        "youHaveQuarks": "¡Tienes {{x}} Quarks!",
+        "cannotRefund": "¡Este artículo NO se reembolsa! Cuidado.",
+        "resetPermShop": "Reinicia tienda Permanente [Precio: 15 Quarks]",
+        "shopConfirmationOn": "Confirmaciones de tienda: ON",
+        "shopConfirmationOff": "Confirmaciones de tienda: OFF",
+        "hideMaxedOn": "Ocultar maximizados: ON",
+        "hideMaxedOff": "Ocultar maximizados: OFF",
+        "autoCatalyzeOn": "Auto Catalizar: ON",
+        "autoCatalyzeOff": "Auto Catalizar: OFF",
+        "shiftClickForBuyAny": "Shift-Clic para Comprar: Cualquier",
+        "buy10": "Comprar: 10",
+        "buy1": "Comprar: 1",
+        "buyMax": "Comprar: MAX",
+        "buyAny": "Comprar: CUALQUIER",
         "upgradeEffects": {
             "currentEffect": "Efecto Actual:",
-            "offeringPotion": "Gain <<orange|{{amount}}>> Offerings",
-            "obtainiumPotion": "Gain <<pink|{{amount}}>> Obtainium",
-            "offeringEX": "You will gain <<goldenrod|{{amount}}%>> more Offerings!",
-            "offeringAuto": "Per 10 seconds, pour <<goldenrod|{{amount1}}>> Offerings. +<<goldenrod|{{amount2}}%>> Offerings.",
-            "obtainiumEX": "You will gain <<pink|{{amount}}%>> more Obtainium!",
+            "offeringPotion": "Gana <<orange|{{amount}}>> Ofrendas",
+            "obtainiumPotion": "Gana <<pink|{{amount}}>> Obtainium",
+            "offeringEX": "¡Ganarás <<goldenrod|{{amount}}%>> más Ofrendas!",
+            "offeringAuto": "Cada 10 segundos, vierte <<goldenrod|{{amount1}}>> Ofrendas. +<<goldenrod|{{amount2}}%>> Ofrendas.",
+            "obtainiumEX": "¡Ganarás <<pink|{{amount}}%>> más Obtainium!",
             "obtainiumAuto": "Try to upgrade research each reincarnation, and gain <<pink|{{amount}}%>> more Obtainium.",
             "instantChallenge": "Incluso en una tienda premium, es obvio, ¿no?",
             "antSpeed": "All Ants' Speed <<crimson|x{{amount}}>>",
@@ -1324,7 +1324,7 @@
             "seasonPass2": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Hypercubes and Platonic Cubes.",
             "seasonPass3": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Hepteracts and Octeracts.",
             "chronometer": "Ascension timer increases <<orange|{{amount}}%>> faster.",
-            "infiniteAscent": "The first level gives <<cyan|+10%>> Quarks, for free!",
+            "infiniteAscent": "El primer nivel da <<cyan|+10%>> Quarks, ¡gratis!",
             "calculator": "Code 'add' provides <<cyan|{{amount1}}%>> more Quarks. AutoAnswer: <<orchid|{{bool1}}>>, AutoFill: <<orchid|{{bool2}}>>",
             "calculator2": "Code 'add' has <<orchid|{{amount1}}>> more capacity. 'add' generates <<cyan|{{amount2}}%>> more Quarks.",
             "calculator3": "Code 'add' rewards are <<orchid|{{amount1}}%>> less random. 'add' generates <<orchid|{{amount2}}>> seconds to Ascension Timer.",
@@ -1886,7 +1886,7 @@
         "cancelled": "okey, ¡Quizá la próxima vez!",
         "level": "Nivel",
         "minimum": "Mínimo",
-        "spent": "Gasto",
+        "spent": "Gastado",
         "OK": "OK",
         "Cancel": "Cancelar",
         "autoOnBracket": "Auto [ON]",
@@ -1925,7 +1925,7 @@
             "7": "Gana multiplicadores gratuitos en base a tus Laboratorios Alquímicos comprados.",
             "8": "Gana 1 Acelerador Gratuito por cada 7 Multiplicadores comprados.",
             "9": "Gana 1 multiplicador Gratuito por cada 10 Aceleradores comprados.",
-            "10": "Mejora los Trabajadores en base a las primeras 750 inversiones compradas.",
+            "10": "Mejora los Trabajadores basado en las primeras 750 inversiones compradas.",
             "11": "Los Aceleradores mejoran la producción un 2% cada uno.",
             "12": "Cada Prestigio multiplica la producción por 1.01, multiplicativamente (Max: 1e4x)",
             "13": "Los Aumentos potencian la producción de Inversiones.",
@@ -2371,7 +2371,7 @@
         "costCoins": "Cost: {{coins}} coins.",
         "costDiamonds": "Cost: {{diamonds}} Diamonds.",
         "names": {
-            "workers": "Workers: {{amount}} [+{{gain}}]",
+            "workers": "Trabajadores: {{amount}} [+{{gain}}]",
             "investments": "Investments: {{amount}} [+{{gain}}]",
             "printers": "Printers: {{amount}} [+{{gain}}]",
             "coinMints": "Coin Mints: {{amount}} [+{{gain}}]",
@@ -2448,7 +2448,7 @@
     },
     "octeract": {
         "buyLevel": {
-            "buyPrompt": "How many Octeracts would you like to spend? You have {{n}} OCT. Type -1 to use max!",
+            "buyPrompt": "¿Cuántos Octeractos te gustaría gastar? Tienes {{{n}} OCT. ¡Escribe -1 para usar max!",
             "cancelPurchase": "¡Compra cancelada!",
             "alreadyMax": "Hey! You have already maxed this upgrade. :D",
             "cannotAfford": "You cannot afford this upgrade. Sorry!",
@@ -2462,7 +2462,7 @@
             "octeractStarter": {
                 "name": "Octeractos para Dummies",
                 "description": "Hola... Soy Derpsmith... El Ancestro de Dios Hormiga... No esperaba que llegases aquí. Toma un 25% más de Quarks, 20% más Octeractos, y 100.000X velocidad de Hormigas...",
-                "effect": "You have {{n}} paid your respects to Derpsmith."
+                "effect": "{{n}} has presentado sus respetos a Derpsmith."
             },
             "octeractGain": {
                 "name": "Cogénesis de Octeractos",
@@ -2610,7 +2610,7 @@
                 "effect": "Ambrosial Luck +{{n}}(!)"
             }
         },
-        "amount": "You have {{octeracts}} Octeracts!",
+        "amount": "¡Tienes {{octeracts}} Octeractos!",
         "secondsPerOcteract": "+1 per <<var(--orchid-text-color)|{{seconds}}>> seconds",
         "octeractsPerSecond": "<<yellow|{{octeracts}}>> per second",
         "totalGenerated": "Total Generated: <<var(--lightseagreen-text-color)|{{octeracts}}>> Octeracts!",
@@ -2752,8 +2752,8 @@
             },
             "limitedAscensions": {
                 "name": "Desafío de Veinte Ascensiones",
-                "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs! Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
-                "rewardDescription": "Each completion grants 0.1% Ascension Speed per completion per digit in your Ascension count! First completion doubles the cap of all hepteract. Final completion adds another calculator in the shop!"
+                "description": "Derpsmith ha embargado las Ascensiones. Sólo (20 - finalizaciones) están permitidas en esta Singularidad, antes de que las Ascensiones causen desventajas masivas! El Multiplicador de Cuenta de Ascensión es 1. Y Delta está deshabilitado. Ha.",
+                "rewardDescription": "¡Cada finalización da un 0,1% de Velocidad de Ascensión por finalización y dígito en cuenta de Ascensiones! La primera duplica el límite de todo hepteracto. La última añade otra calculadora en la tienda!"
             }
         },
         "intro": "¿Tienes lo que hay que tener para ganar el EXALTADO de Dios Hormiga?"
