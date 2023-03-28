@@ -441,8 +441,8 @@
             "257": "Platonic Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!",
             "258": "Hepteract Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]",
             "259": "Corruption score is increased by 1% for every expansion of Abyss Hepteract!",
-            "260": "You will gain 10% more Ascension count, forever!",
-            "261": "You will gain 10% more Ascension count, forever!",
+            "260": "¡Ganarás 10% más de número de Ascensiones, para siempre!",
+            "261": "¡Ganarás 10% más de número de Ascensiones, para siempre!",
             "262": "¡Ascensiones {{x}}% más rápidas! Máx: +10%",
             "263": "¡Ascensiones {{x}}% más rápidas! Máx: +10%",
             "264": "Hepteracts +{{x}}% [Max: 40% at 8T Ascensions]!",
@@ -1465,7 +1465,7 @@
                 "default": "Compra automáticamente Mejoras Platónicas cada ascensión, sin gastar Obtainium u Ofrendas, pero solo en Desafíos de Singularidad."
             },
             "platSigma": "El código 'add' se rellena {{counter}}% más rápido por nivel y Singularidad. Actual:  {{current}} (MAX: -60% intervalo)",
-            "midasMilleniumAgedGold": "Cada uso de `add` da 0,01 niveles gratis de GD1 y 0,05 niveles gratuitos de QD3.",
+            "midasMilleniumAgedGold": "Cada uso de `suma` da 0,01 niveles gratis de GD1 y 0,05 niveles gratuitos de QD3.",
             "goldenRevolution4": "Cada tick de Octeracto, ¡convierte 1 en {{gq}} QD que hubieras ganado en esta singularidad a tu balance automágicamente!",
             "octeractMetagenesis": {
                 "hasLevel1": "¡Compra automáticamente Mejoras de Cubos cada ascensión, sin importar dónde estés!",
@@ -2486,7 +2486,7 @@
             },
             "octeractCorruption": {
                 "name": "EXTRA CHONKY Corruptions",
-                "description": "Adds one level to the cap on corruptions. Derpsmith approves.",
+                "description": "Añade un nivel al límite de corrupciones. Derpsmith lo aprueba.",
                 "effect": "Corruption level cap is increased by {{n}}"
             },
             "octeractGQCostReduce": {
@@ -2763,8 +2763,8 @@
         "noHotkeyAvailable": "These do not work with hotkeys. Too bad!",
         "specialActions": "Special Actions",
         "daily": "Daily",
-        "add1": "Add x1",
-        "add": "Add",
+        "add1": "Suma x1",
+        "add": "Suma",
         "time": "Time",
         "enterPromoCodeHere": "Enter a promotion code here!",
         "currentTheme": "Current Theme",
@@ -2908,7 +2908,7 @@
             "noPassiveBonus": "Hepteracts do not provide passive bonuses. They must be made useful through crafting.",
             "youPossessHepteracts": "You possess <<yellow|{{x}}>> Hepteracts! You know where to get these, right?",
             "craft": "Crear",
-            "max": "Max",
+            "max": "Máx",
             "expand": "Expandir",
             "warp": "Distorsión",
             "autoSetting": "Auto Setting : {{x}}%",
@@ -2968,18 +2968,18 @@
     "dynamicUpgrades": {
         "validation": {
             "setPurchaseAmount": "Set maximum purchase amount per click for the {{x}} upgrade. Type -1 to set to MAX by default.",
-            "toggleKept": "Toggle kept at {{x}}.",
-            "onlyNegativeOne": "The only valid negative number for toggle is -1.",
-            "notZero": "You cannot set the toggle to 0."
+            "toggleKept": "Alternar a {{x}}.",
+            "onlyNegativeOne": "El único número negativo válido para alternar es -1.",
+            "notZero": "No puede establecer el alternador a 0."
         },
-        "toggleMax": "Your toggle is now set to MAX",
-        "toggle": "Your toggle is now set to {{x}}"
+        "toggleMax": "Tu alternador ahora está en MAX",
+        "toggle": "Tu alternador ahora está en {{x}}"
     },
     "hepteracts": {
-        "unlockedCraft": "Congratulations. You have unlocked the ability to craft {{x}} in the hepteract forge!",
+        "unlockedCraft": "¡Enhorabuena. ¡Has desbloqueado la habilidad de crear {{x}} en la forja de hepteractos!",
         "notUnlocked": "Esto no está desbloqueado, ¡Por tanto no puedes crear este elemento!",
-        "reachedCapacity": "You have reached the current capacity of {{x}}. Please expand to craft more.",
-        "craftMax": "This will attempt to craft as many as possible. \nYou can craft up to {{x}} ({{y}}%). Are you sure?",
+        "reachedCapacity": "Has alcanzado el techo de {{x}}. Por favor, expande para crear más.",
+        "craftMax": "Esto intentará crear tantos como posibles. \nPuedes fabricar hasta {{x}} ({{y}}%). ¿Estás seguro?",
         "executionFailed": "Execution failed: material could not be calculated.",
         "craft": "How many would you like to craft? \nYou can buy up to {{x}} ({{y}}%) amount.",
         "cancelled": "Okay, quizá la próxima.",
@@ -2987,10 +2987,10 @@
         "craftedHepteracts": "You have successfully crafted {{x}} hepteracts.",
         "craftedHepteractsMax": "You have successfully crafted {{x}} hepteracts. If this is less than your input, you either hit the inventory limit or you had insufficient resources.",
         "expandPrompt": "This will reduce your balance by {{x}}, but capacity will increase from {{y}} to {{z}} [Expansion Multiplier: {{a}}]. Agree to the terms and conditions and stuff?",
-        "doubleSpent": "Something already modified your balance or cap, try again!",
+        "doubleSpent": "Algo ya ha modificado tu saldo o límite, ¡inténtalo de nuevo!",
         "expandedInventory": "Successfully expanded your inventory. You can now fit {{x}}.",
         "orbEffect": "Orb Effect: Opening Cubes gives {{x}}% more Quarks.",
-        "orbsPurchasedToday": "Orbs Purchased Today: {{x}}.",
+        "orbsPurchasedToday": "Orbes comprados hoy: {{x}}.",
         "amalgamate": "You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]",
         "cost250k": "Coste: 250.000 Hepteractos por Orbe de Sobreflujo",
         "craftMaxOrbs": "This will attempt to buy as many orbs as possible. \nYou can buy up to {{x}} with your hepteracts. Are you sure?",
@@ -2999,7 +2999,7 @@
         "purchasedOrbs": "You have purchased {{x}} Overflux Orbs [+{{y}}% to effect]. {{z}} Enjoy!",
         "allCubeGain": "ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative]",
         "allCubeGainExtended": "ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative], Ascension Count +{{z}}%, Tesseract Building Production x{{a}} [From Platonic Upgrade 4x1]",
-        "powderEffect": "Powder effect: {{x}}",
+        "powderEffect": "Efecto del Polvo: {{x}}",
         "powderLumps": "You have {{x}} lumps of Overflux Powder.",
         "expiredOrbs": "Expired Overflux Orbs become powder at a rate of {{x}} Orbs per powder lump!",
         "dayWarpsRemaining": "Distorsiones diarias restantes hoy: {{x}}",
@@ -3017,8 +3017,8 @@
         "machineUsualContinue": "La Máquina seguirá funcionando como siempre, por ahora."
     },
     "importexport": {
-        "copiedSave": "Copied save to clipboard!",
-        "copiedFile": "Savefile copied to file!",
+        "copiedSave": "¡Copia guardada al portapapeles!",
+        "copiedFile": "¡Fichero de guardado copiado al archivo!",
         "exportFailed": "¡Exportación fallida!",
         "unableCopySave": "No se puede escribir el guardado al portapapeles.",
         "reloadDeletePrompt": "The next confirmation is to delete the save data\nIf you do not want to delete it, cancel it",
@@ -3028,7 +3028,7 @@
         "loadTestInLive": "You are attempting to load a testing file in a non-testing version!",
         "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism2021\" or \"Khafra\" perchance?]",
         "comeBackSoon": "Bien, ¡Vuelve pronto!",
-        "noAddCodes": "You do not have an 'Add' code attempt! You will gain 1 in {{x}} seconds.",
+        "noAddCodes": "¡No tienes un intento de código 'Suma'! Ganarás 1 en {{x}} segundos.",
         "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use?",
         "cancelAdd": "Sin problemas, ¡No has usado ningún uso! ¡Vuelve más tarde!",
         "daily0Uses": "0 usos restantes. Siguiente: Fin del día.",
@@ -3036,31 +3036,31 @@
         "add1Uses": "{{x}} usos restantes.",
         "add0Uses": "{{x}} uses left. Next: in {{y}} seconds.",
         "addUses": "{{x}} usos restantes.",
-        "timeMultiplier": "{{x}} use(s) left. Multiplier: {{y}}x",
+        "timeMultiplier": "{{x}} uso(s) restantes: Multiplicador: {{y}}x",
         "promocodes": {
             "synergism2021": "¡Código promocional 'synergism2021' usado! +25 Ofrendas, +50 Quarks",
-            "unsmith": "It's Spaghetti Time! [Awarded an achievement!!!]",
-            "antismith": "Hey, isn't this just a reference to Antimatter Dimensions? Shh. [Awarded an achievement!!!]",
+            "unsmith": "¡¡¡¡Es Hora de Espagueti! [¡¡¡¡Obtén un logro!!]",
+            "antismith": "Hey, ¿una referencia Antimatter Dimensions? Shh. [¡¡¡Obtén un logro!!!]",
             "khafra": "¡Khafra te ha bendecido con {{x}} Quarks!",
             "daily": {
                 "message": "¡Gracias por jugar hoy!\nEl Dios Hormiga te recompensa con este regalo:",
-                "message2": "Feeling especially generous, the Ant God has also given you free levels of the following Singularity upgrades:"
+                "message2": "Sintiéndose especialmente generoso, el Dios Hormiga también te da niveles gratuitos de las siguientes mejoras de Singularidad:"
             },
             "add": {
                 "calculator3": "Thanks to PL-AT Ω you have also gained {{x}} real-life seconds to your Ascension Timer!",
                 "calculator5": "Thanks to PL-AT Γ you have additionally gained {{x}} real-life seconds to your GQ Export Timer!",
                 "calculator6": "Finally, thanks to PL-AT _ you have gained {{x}} seconds of Octeract generation!",
-                "calculatorSolution": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}? The answer is {{z}} according to your calculator.",
-                "calculatorPrompt": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}?",
-                "calculatorMaxed": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks! {{e}} {{f}} {{g}} {{h}} You have {{i}} uses of Add. You will gain 1 in {{j}} seconds.",
-                "freeLevel": "Moreover, gain {{x}} free levels of GQ1 and {{y}} free levels of GQ3!!!",
-                "cancelled": "No worries, you didn't lose any of your uses! Come back later!",
-                "reward": "You were awarded {{a}} Quarks! {{b}} {{c}} {{d}} You have {{e}} uses of Add. You will gain 1 in {{f}} seconds.",
-                "wrong": "You guessed {{w}}, but the answer was {{x}}. You have {{y}} uses of Add. You will gain 1 in {{z}} seconds."
+                "calculatorSolution": "Por {{w}} Quarks o nada: ¿Cuánto es {{x}} + {{y}}? La respuesta es {{z}} según tu calculadora.",
+                "calculatorPrompt": "Por {{w}} Quarks o nada: ¿Cuánto es {{x}} + {{y}}?",
+                "calculatorMaxed": "Tu calculadora calculó que {{a}} + {{b}} = {{c}} por sí misma ¡así que te han concedido {{d}} Quarks! {{e}} {{f}} {{g}} {{h}} Tienes {{i}} usos de Suma. Ganarás 1 en {{j}} segundos.",
+                "freeLevel": "Además, ¡¡¡Gana {{x}} niveles gratis de GQ1 y {{y}} niveles gratis de GQ3!!!",
+                "cancelled": "Sin problemas, ¡No has perdido ningún uso! ¡Vuelve más tarde!",
+                "reward": "¡Has recibido {{a}} Quarks! {{b}} {{c}} {{d}} Tienes {{e}} usos de Suma. Ganarás 1 en {{f}} segundos.",
+                "wrong": "Pusiste {{w}}, pero la respuesta era {{x}}. Tienes {{y}} usos de Suma. Obtendrás 1 en {{z}} segundos."
             },
             "sub": {
-                "subbed": "Thanks for using the \"sub\" code! I've taken away {{x}} Quarks! :)",
-                "gave": "I gave you {{x}} Quarks so I could take {{y}} away."
+                "subbed": "¡Gracias por usar el código \"sub\"! ¡Te he quitado {{x}} Quarks! :)",
+                "gave": "Te he dado {{x}} Quarks para poder quitarte {{y}}."
             },
             "gamble": {
                 "wait": "Espera un poco. Nos volveremos a ver cuando estés listo para perder de nuevo.",
@@ -3069,23 +3069,23 @@
                 "betPrompt": "¿Cuántos Quarks apuestas?",
                 "cheaters": "Por los tramposos, solo puedes apostar 10K max.",
                 "won": "You won. The Syncasino offers you a grand total of 25% of the pot! [+{{x}} Quarks]",
-                "lost": "Try again... you can do it! [-{{x}} quarks]"
+                "lost": "Inténtalo de nuevo... ¡puedes hacerlo! [-{{x}} quarks]"
             },
             "time": {
-                "wait": "If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.\n\nRegardless, you must wait at least 15 minutes between each use.",
-                "confirm": "Click the button within the next 15 seconds to test your luck! If you click within {{x}} ms of a randomly generated time, you will win a prize! This particular instance has a {{y}}x multiplier due to elapsed time between uses.",
-                "won": "You clicked at the right time! [+{{x}} Quarkies]",
+                "wait": "Si has importado un guardado, no puedes utilizar este código durante 15 minutos para evitar trampas.\n\nSe debe esperar al menos 15 minutos entre cada uso.",
+                "confirm": "¡Haz clic en el botón en los próximos 15 segundos para probar tu suerte! Si haces clic a menos de {{x}} ms de un tiempo generado aleatoriamente, ¡ganarás un premio! Este intento tiene un multiplicador de {{y}}x debido al tiempo transcurrido entre usos.",
+                "won": "¡Has clicado el momento adecuado! [+{{x}} Quarkies]",
                 "lost": "No has clicado el momento adecuado, ¡vuelve a intentarlo pronto!"
             },
             "spoiler": {
-                "moreThan1": "You will gain {{x}} Octeracts (when they come out) every second, assuming you have them unlocked!",
-                "one": "You will gain an Octeract (when they come out) every {{x}} seconds, assuming you have them unlocked!"
+                "moreThan1": "Obtendrás {{x}} Octeractos (cuando salgan) cada segundo, ¡suponiendo que los tengas desbloqueados!",
+                "one": "Obtendrás un Octeracto (cuando salgan) cada {{x}} segundos, ¡suponiendo que los tengas desbloqueados!"
             },
             "invalid": "Tu código no es válido o ya se usó. ¡Vuelve a intentarlo!"
         }
     },
     "toggles": {
-        "percentBetweenInclusive": "Value must be a number between {{x}} and {{y}}, inclusive!",
+        "percentBetweenInclusive": "El valor debe ser un número entre {{x}} y {{y}}, ¡incluido!",
         "percentKeptAt": "Tu porcentaje se mantiene en un {{x}}%.",
         "onAscensionHepteractsCraft": "Okay. On Ascension, {{x}}% of your Hepteracts will be used in crafting.",
         "autoUpgradeOn": "Auto Mejoras: [ON]",
@@ -3104,24 +3104,24 @@
         "transferredFromLZ": "Transferred save to new format successfully!",
         "allCorruptionsZero": "All Corruptions have been set to Zero. This will take effect on the next Ascension.",
         "corruptionLoadoutApplied": "Corruption Loadout {{x}} \"{{y}}\" has been applied. This will take effect on the next Ascension.",
-        "ascendPrompt": "Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue?",
-        "reincarnatePrompt": "Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]",
-        "transcendPrompt": "Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first Transcension unlocks new features. Would you like to Transcend? [Toggle this message in settings.]",
-        "prestigePrompt": "Prestige will reset coin upgrades, coin producers AND crystals. The first Prestige unlocks new features. Would you like to Prestige? [Toggle this message in settings.]",
-        "welcomeToSingularity": "Welcome to Singularity #{{x}}. You're back to familiar territory, but something doesn't seem right.",
-        "singularityCancelled": "If you decide to change your mind, let me know. -Ant God",
-        "singularityMessage1": "You have reached the end of the game, on Singularity #{{x}}. Platonic and the Ant God are proud of you.",
-        "singularityMessage2": "You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.",
-        "singularityMessage3": "You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.",
-        "singularityMessage4": "Start anew, and enter Singularity #{{x}}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain {{y}} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by {{z}}% due to patreon bonus!].",
-        "singularityMessage5": "However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.",
-        "singularityConfirm0": "Do you wish to start singularity #{{x}}? Your next universe is harder but you will gain {{y}} Golden Quarks.",
+        "ascendPrompt": "Ascender reseteará todos los edificios, niveles de runas [¡NO SU LÍMITE!], talismanes, la mayoría de las investigaciones y hormiguero para Cubos del Poder. ¿Continuar?",
+        "reincarnatePrompt": "Reencarnarse reseteará TODO pero ganarás Partículas extraordinariamente poderosas, y desbloquearás algunas características y mejoras muy sólidas. ¿Quieres Trascender? [Cambia este mensaje en ajustes.]",
+        "transcendPrompt": "Trascender reseteará las mejoras de monedas, cristales y prestigio, sus productores Y diamantes. La primera Trascensión desbloquea nuevas características. ¿Quieres Trascender? [Cambia este mensaje en ajustes.]",
+        "prestigePrompt": "Prestigiar reseteará las mejoras de monedas, sus productores Y cristales. El primer Prestigio desbloquea nuevas características. ¿Quieres Prestigiar? [Cambia este mensaje en ajustes.]",
+        "welcomeToSingularity": "Bienvenido a la Singularidad #{{x}}. De nuevo en territorio familiar, pero algo es distinto.",
+        "singularityCancelled": "Si decides cambiar de opinión, házmelo saber. -Dios Hormiga",
+        "singularityMessage1": "Has llegado al final del juego, en Singularidad #{{x}}. Platonic y el Dios Hormiga están orgullosos de ti.",
+        "singularityMessage2": "Puedes optar por sentarte en tus laureles y considerar el juego \"ganado\", o puedes hacer algo más interesante.",
+        "singularityMessage3": "Eres demasiado poderoso para este universo. El multiverso de Synergism es verdaderamente interminable, pero ahí afuera hay universos paralelos a este aún más desafiantes.",
+        "singularityMessage4": "Comienza de nuevo, entra en Singularidad #{{x}}. Tu siguiente universo es más difícil que este, pero desbloquea un permanente +10% de Bono de Quarks, +10% de Bono de Conteo de Ascensión, y gana {{y}} Quarks Dorados, que pueden comprar mejoras de final del juego [¡Aumentado un {{z}}% por bono de patreon!].",
+        "singularityMessage5": "Sin embargo, ¡tus logros pasados desaparecerán! TODOS los Desafíos, Mejoras de Tienda Reembolsable, Mejoras de su pestaña, Runas y Todas las Mejoras de Cubos, Aperturas de Cubos, Hepteractos (Menos Hepteractos de Quarks), y Logros serán borrados.",
+        "singularityConfirm0": "¿Quieres empezar la singularidad #{{x}}? Tu próximo universo es más difícil pero ganarás {{y}} Quarks Dorados.",
         "singularityConfirm1": "Así que, ¿Qué dices? ¿Quieres entrar en la Singularidad?",
         "singularityConfirm2": "¿Seguro que quieres entrar en la Singularidad?",
         "singularityConfirm3": "¿Con TOTAL CERTEZA? ¡No podrás echarte atrás (sin un guardado anterior)! Confirma una última vez para sellar tu decisión.",
         "noAntiquity": "Hmph. Por favor, regresa con una Antiguedad. Gracias. -Dios Hormiga",
-        "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.",
-        "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
+        "insideSingularityChallenge": "Derpsmith cree que estás en un Desafío de Singularidad. Puedes salir haciendo clic en el icono de desafío en la pestaña de Singularidad.",
+        "gameBeat": "Bien. Parece que has llegado al ojo de la Singularidad. Estoy satisfecho. Esto también significa que no hay nada más que hacer aquí, al menos, no hasta que poderes superiores amplíen tu viaje.",
         "exitAscensionChallenge": "¿Estás absolutamente seguro de abandonar el Desafío de Ascensión? ¡Necesitarás completar Desafío 10 de nuevo antes de intentar otro de nuevo!",
         "buyResearch3x11": "[BLOQUEADO - Compra Investigación 3x11]"
     },
