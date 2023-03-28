@@ -365,7 +365,7 @@
             "103": "Retrasa el aumento de Impuestos un 4%.",
             "105": "+7% Obtainium (stacks additively with other achievement rewards)",
             "106": "Start Transcensions/Challenges with 1 Pandora's Box and automatically buy Pandora's Boxes.",
-            "107": "Automatically buy the fifth Crystal upgrade if you can afford it!",
+            "107": "¡Compra automáticamente la quinta mejora de Cristal si puedes permitírtela!",
             "108": "+5% reciclaje de Ofrendas.",
             "110": "Retrasa el aumento de Impuestos un 4%.",
             "112": "+9% Obtainium (stacks additively with other achievement rewards)",
@@ -445,16 +445,16 @@
             "261": "¡Ganarás 10% más de número de Ascensiones, para siempre!",
             "262": "¡Ascensiones {{x}}% más rápidas! Máx: +10%",
             "263": "¡Ascensiones {{x}}% más rápidas! Máx: +10%",
-            "264": "Hepteracts +{{x}}% [Max: 40% at 8T Ascensions]!",
-            "265": "Hepteracts +{{x}}% [Max: 20% at 160T Ascensions]!",
-            "266": "Quarks +{{x}}% [Max: 10% at 1Qa Ascensions]!",
-            "267": "Ascension Score is boosted by {{x}}% [Max: 100% at 1e100,000 Const]",
-            "270": "Hepteract Gain is boosted by {{x}}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).",
-            "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]",
-            "274": "Ant Speed is permanently multiplied by 4.44! Platonic Upgrades now BuyMax whenever affordable!",
-            "275": "You immediately start Singularities with 1 Transcension and 1001 mythos!",
-            "276": "You immediately start Singularities with 1 Reincarnation, and 10 particles!",
-            "277": "You immediately start Singularities with 500 Obtainium!",
+            "264": "¡Hepteractos +{{x}}% [Max: 40% a 8T Ascensiones]!",
+            "265": "¡Hepteractos +{{x}}% [Max: 20% a 160T Ascensiones]!",
+            "266": "Cuarquías +{{x}}% [Max: 10% a 1Qa Ascensiones]!",
+            "267": "La puntuación de ascensión aumenta un {{x}}% [Max: 100% a 1e100.000 Const]",
+            "270": "La ganancia de Hepteractos aumenta un {{x}}% [Max: 100% a 1e1.000.000 const], Mejora de Constante 1 aumentada a 1,06 (de 1,05), mejora de Constante 2 aumentada a 1,11 (de 1,10).",
+            "271": "Al abrir un Cubo Platónico, obtienes {{x}} Hypercubos, redondeado a menor [Max: 1 a 1e1.000.000 Const]",
+            "274": "¡Velocidad de Hormigas multiplicada permanentemente por 4,44! ¡Se compra máximas Mejoras Platónicas cuando pueda!",
+            "275": "¡Inmediatamente empiezas Singularidades con 1 Trascensión y 1001 mythos!",
+            "276": "¡Inmediatamente empiezas Singularidades con 1 Reencarnación y 10 partículas!",
+            "277": "¡Inmediatamente empiezas Singularidades con 500 Obtainium!",
             "278": "Gain 5% more Quarks, permanently! Automation regarding Particle Buildings are immediately available.",
             "279": "You immediately start Singularities with a Challenge 7 completion and 1e100 particles. Talismans now buff all runes at all times!",
             "280": "You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 Ant."
@@ -465,8 +465,8 @@
             "255": "Wow! You gained 1e17 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!"
         },
         "hover": "Pasa sobre un logro para ver información.",
-        "totalPoints": "Achievement Points: {{x}}/{{y}} [{{z}}%]",
-        "rewardGainMessage": "Reward: {{x}} AP. {{y}} Quarks! {{z}}",
+        "totalPoints": "Puntos de Logro: {{x}}/{{y}} [{{z}}%]",
+        "rewardGainMessage": "Recompensa: {{x}} PL.¡ {{y}} Quarks! {{z}}",
         "completed": " ¡COMPLETADO!",
         "notification": "Has desbloqueado un logro: {{m}}"
     },
@@ -516,7 +516,7 @@
             "8": "EFECTO ACTUAL: ¡EXP de Runa multiplicada por {{x}}!",
             "9": "EFECTO ACTUAL: Cada runa tiene +{{x}} niveles efectivos.",
             "10": "EFECTO ACTUAL: Obtainium x{{x}}",
-            "11": "CURRENT EFFECT: Sacrificing is {{x}}x as effective",
+            "11": "EFECTO ACTUAL: Sacrificar es {{x}}x más efectivo",
             "12": "CURRENT EFFECT: Global timer is sped up by a factor of {{x}}"
         },
         "header": "Las hormigas te dan la bienvenida a su hogar.",
@@ -1688,42 +1688,42 @@
             },
             "singChallengeExtension": {
                 "name": "Mayores Límites de Desafíos",
-                "description": "Need more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.",
-                "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+                "description": "¿Quieres más Desafíos? Bien, aumenta en 2 el límite de los Desafíos de Reencarnación y 1 de Ascensión, por nivel.",
+                "effect": "Te sientes lo bastante motivado para completar {{n}} más Desafíos de Reencarnación, y {{m}} de Ascensión."
             },
             "singChallengeExtension2": {
                 "name": "Más Mayores Límites de Desafíos",
-                "description": "Need even more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.",
-                "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+                "description": "¿Quieres aún más Desafíos? Bien, aumenta en 2 el límite de los Desafíos de Reencarnación y 1 de Ascensión, por nivel.",
+                "effect": "Te sientes lo bastante motivado para completar {{n}} más Desafíos de Reencarnación, y {{m}} de Ascensión."
             },
             "singChallengeExtension3": {
                 "name": "Los Más Mayores Límites de Desafíos",
-                "description": "Need even MORE Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level. Does it not seem excessive?",
-                "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+                "description": "¿Quieres aún MÁS Desafíos? Bien, aumenta en 2 el límite de los Desafíos de Reencarnación y 1 de Ascensión, por nivel. No debe ser sano.",
+                "effect": "Te sientes lo bastante motivado para completar {{n}} más Desafíos de Reencarnación, y {{m}} de Ascensión."
             },
             "singQuarkImprover1": {
-                "name": "Marginal Quark Gain Improver Thingy",
-                "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitarily long?",
-                "effect": "You gain {{n}}% more Quarks!"
+                "name": "Coso Apenas Mejorador de Ganancia de Quarks",
+                "description": "Un cachivache del que me olvidé su aspecto. +0,5% Quarks por nivel, ¡multiplicativo con todos los otros bonus! Parece que su coste aumenta mucho más rápido que el resto. Además, ¿sabías que estas descripciones pueden ser muuuuy largas?",
+                "effect": "¡Ganas {{n}}% más quarks!"
             },
             "singQuarkHepteract": {
-                "name": "I wish my Quark Hepteract was marginally better.",
-                "description": "Wrong game, oops. Anyway, would you like a very slightly better DR exponent on Quark Hepteract?",
-                "effect": "The DR exponent is now {{n}}% larger!"
+                "name": "Desearía que mi Hepteracto de Quarks fuera marginalmente mejor.",
+                "description": "Juego equivocado, sorry. En fin, ¿Quieres un exponente de DR muy ligeramente mejor para tu Hepteracto de Quarks?",
+                "effect": "¡El exponente de DR es ahora {{n}}% mayor!"
             },
             "singQuarkHepteract2": {
-                "name": "I wish my Quark Hepteract was marginally better II.",
-                "description": "Still not the right game. Same as the previous upgrade.",
-                "effect": "The DR exponent is now {{n}}% larger!"
+                "name": "Desearía que mi Hepteracto de Quarks fuera marginalmente mejor II.",
+                "description": "Aún no es el correcto. Igual que la anterior mejora.",
+                "effect": "¡El exponente de DR es ahora {{n}}% mayor!"
             },
             "singQuarkHepteract3": {
-                "name": "I wish my Quark Hepteract was marginally better III.",
-                "description": "I AM NOT THE GODMOTHER YOU ARE LOOKING FOR, DYLAN!",
-                "effect": "The DR exponent is now {{n}}% larger!"
+                "name": "Desearía que mi Hepteracto de Quarks fuera marginalmente mejor III.",
+                "description": "¡NO SOY LA MADRINA QUE ESTÁS BUSCANDO, DYLAN!",
+                "effect": "¡El exponente de DR es ahora {{n}}% mayor!"
             },
             "singOcteractGain": {
                 "name": "Absenta de Octeractos",
-                "description": "You would have never known this tonic can boost your Octeracts! [+1% per level, in fact!]",
+                "description": "¡Nunca imaginarías que este tónico potencia tus Octeractos! [¡+1% por nivel, de hecho!]",
                 "effect": "+{{n}}% Ganancia de Octeractos"
             },
             "singOcteractGain2": {
@@ -1805,14 +1805,14 @@
             "oneMind": {
                 "name": "UNA MENTE",
                 "description": "Una nota en el 'suelo': parece un anuncio de un culto. \"Bloquea tu velocidad de ascensión a 10x, y multiplica todos los cubos basados en la diferencia.\" Hmm...",
-                "effectHave": "You have joined the cult!",
-                "effectHaveNot": "You haven't joined the cult!"
+                "effectHave": "¡Te has unido al culto!",
+                "effectHaveNot": "¡No te has unido al culto!"
             },
             "wowPass4": {
                 "name": "QUQUQUQUAAKCKCKKCKKCKK",
                 "description": "¡Tratos que te costarán un pico y un ala!",
-                "effectHave": "You have quacked your last QUARK",
-                "effectHaveNot": "You haven't quacked your last QUARK"
+                "effectHave": "Has cuacado tu último QUARK",
+                "effectHaveNot": "No has cuacado tu último QUARK"
             },
             "blueberries": {
                 "name": "¡Fragmentos de Arándano! (WIP)",
@@ -1820,7 +1820,7 @@
                 "effect": "Has comprado {{n}} sabrosos arándanos."
             }
         },
-        "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
+        "goldenQuarkAmount": "¡Tienes {{goldenQuarks}} Quarks Dorados!",
         "penalties": {
             "globalSpeed": "<<royalblue|Global Speed>> is divided by <<royalblue|{{divisor}}>>.",
             "ascensionSpeed": "<<orange|Ascension Speed>> is divided by <<orange|{{divisor}}>>.",
@@ -1887,7 +1887,7 @@
         "level": "Nivel",
         "minimum": "Mínimo",
         "spent": "Gastado",
-        "OK": "OK",
+        "OK": "Ok",
         "Cancel": "Cancelar",
         "autoOnBracket": "Auto [ON]",
         "autoOffBracket": "Auto [OFF]",
@@ -1899,8 +1899,8 @@
         "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!",
         "autoOnColon": "AUTO: ON",
         "autoOffColon": "AUTO: OFF",
-        "buyMaxOn": "Buy Max: ON",
-        "buyMaxOff": "Buy Max: OFF",
+        "buyMaxOn": "Comprar Max: ON",
+        "buyMaxOff": "Comprar Max: OFF",
         "on": "ON",
         "off": "OFF",
         "updateAlerts": {
@@ -1951,34 +1951,34 @@
             "33": "Gana un Multiplicador gratuito por cada Potenciador de Aceleración que tengas.",
             "34": "Gana un 3% más de Multiplicadores Gratuitos.",
             "35": "Gana un 2% más de Multiplicadores Gratuitos.",
-            "36": "Multiply Crystal production by Diamonds, maximum 1e5000x.",
-            "37": "Multiply Mythos Shard production by the squared logarithm of Diamonds.",
-            "38": "Gain +20% more Offerings thanks to generous Discord Server Boosters!",
-            "39": "Gain +60% more Ant Speed thanks to generous Discord Server Boosters!",
-            "40": "Gain +25% more Ant Sacrifice rewards thanks to generous Discord Server Boosters!",
+            "36": "Multiplica la producción de Cristales por Diamantes, máximo de 1e5000x.",
+            "37": "Multiplica la producción de Fragmentos de Mythos por el logaritmo cuadrado de Diamantes.",
+            "38": "¡Gana +20% más de Ofrendas gracias a Boosters de Servidor de Discord!",
+            "39": "¡Gana +60% más de Velocidad de Hormigas gracias a Boosters de Servidor de Discord!",
+            "40": "¡Gana +25% más de recompensas de Sacrificio gracias a Boosters de Servidor de Discord!",
             "41": "Multiplica la producción basándose en Mythos sin gastar.",
-            "42": "Multiply Mythos Shard production based on unspent Diamonds.",
-            "43": "Multiply coin production by 1.01 per Transcension (Max: 1e30x).",
-            "44": "Multiply Mythos gain on Transcend by 1.01 per Transcension (Max: 1e6x).",
-            "45": "Gain free Accelerators based on Mythos Shards.",
-            "46": "Accelerator Boosts are 5% stronger and do not reset Prestige features.",
-            "47": "Multiply Mythos Shard production based on your AP.",
-            "48": "Multiply production based on owned Accelerators and Multipliers.",
-            "49": "Gain free Multipliers based on unspent Mythos.",
-            "50": "Gain +25% free Accelerators and Multipliers, but ONLY while doing Challenges.",
-            "51": "Increase production of all Mythos buildings based on owned Accelerator Boosts.",
-            "52": "Mythos building exponent +0.025.",
-            "53": "Augments produce more Shards based on Acceleration Multiplier.",
-            "54": "Wizards produce more Enchantments based on Multiplier.",
+            "42": "Multiplica la producción de Fragmentos de Mythos basado en Diamantes sin gastar.",
+            "43": "Multiplica la producción de monedas por 1,01 por Trascensión (Max: 1e30x).",
+            "44": "Multiplica los Mythos ganados al Trascender por 1,01 por Trascensión (Max: 1e6x).",
+            "45": "Gana Aceleradores gratuitos basado en Fragmentos de Mythos.",
+            "46": "Los Potenciadores de Aceleración son 5% más fuertes y no resetean mejoras de Prestigio.",
+            "47": "Multiplica la producción de Fragmentos de Mythos basados en tus Puntos de Logro.",
+            "48": "Multiplica la producción basado en Aceleradores y Multiplicadores poseídos.",
+            "49": "Gana Multiplicadores gratis basados en Mythos sin gastar.",
+            "50": "Gana +25% Aceleradores y Multiplicadores gratis, pero SOLO en Desafíos.",
+            "51": "Aumenta la producción de todos los constructos de Mythos basados en Potenciadores de Acelerador poseídos.",
+            "52": "Exponente de construcción de Mythos +0,025.",
+            "53": "Los Aumentos producen más Fragmentos basados en Multiplicador de Aceleración.",
+            "54": "Los Magos producen más Encantamientos basados en Multiplicadores.",
             "55": "Los Gran Maeses producen más Oráculos basado en poder de Edificios.",
             "56": "La producción de Trabajadores se multiplica por 1e+5000.",
             "57": "La producción de Inversiones se multiplica por 1e+7500.",
             "58": "La producción de Impresoras se multiplica por 1e+15000.",
             "59": "La producción de Casas de Moneda se multiplica por 1e+25000.",
             "60": "La producción de Laboratorios de Alquimia se multiplica por 1e+35000.",
-            "61": "Welcome to Reincarnation! +5% Offering Recycle, +2 EXP/Offering!",
-            "62": "Completing Challenges, automatically or manually, increase Offerings gained in Reincarnation. Bonus subject to time multiplier!",
-            "63": "Crystal Production is multiplied based on Particles to the sixth power [Caps at 1e6000x].",
+            "61": "¡Bienvenido a Reencarnación! ¡+5% Reciclaje de Ofrendas, +2 EXP/Ofrenda!",
+            "62": "Completar Desafíos, automáticamente o manualmente, aumenta las Ofrendas ganadas en Reencarnación. ¡Bonus sujeto a multiplicador de tiempo!",
+            "63": "La producción de Cristales se multiplica en base a partículas a la sexta potencia [Hasta 1e6000x].",
             "64": "Mythos Shard Production is multiplied by your Particles squared.",
             "65": "Multiply the gain of Particles from Reincarnation by 5x!",
             "66": "When you use an Offering, every unlocked rune will get 1 free experience.",
@@ -2016,7 +2016,7 @@
             "98": "Compra automáticamente Gran Maeses si te lo puedes permitir.",
             "99": "Compra automáticamente Mejoras de Mythos si te lo puedes permitir.",
             "100": "Ingresa 1% de los Mythos al trascender por segundo.",
-            "101": "Alchemies will produce Coin Mints.",
+            "101": "Los labos de Alquimia producirán Casas de Moneda.",
             "102": "Las Casas de Moneda producirán Impresoras.",
             "103": "Las Impresoras producirán Inversiones.",
             "104": "Las Inversiones producirán Trabajadores.",
@@ -2039,7 +2039,7 @@
             "121": "Posiblemente has autocomprado esto. ¡-50% impuestos!",
             "122": "¡Aumenta el límite de Mejora de Cristales 3 de +12% a +100%!",
             "123": "Raise coin production to the power of 1.025. More EXPONENTS.",
-            "124": "Gain +3% more effective ELO.",
+            "124": "Gana +3% más de ELO efectivo.",
             "125": "Constant Tax divisor is 0.333% stronger per challenge 10 completion. [Divisor^(1 + upgrade)]"
         },
         "crystalUpgrades": {
@@ -2055,8 +2055,8 @@
         "constantUpgrades": {
             "1": "Make all Tesseract buildings {{level}}% more productive per level.",
             "2": "Each Tesseract building bought increases the production of all of them by 0.1% per level [Max {{max}}%].",
-            "3": "Increase Offering gain +2% per level.",
-            "4": "Increase Obtainium gain +4% per level.",
+            "3": "Aumenta la ganancia de Ofrendas +2% por nivel.",
+            "4": "Aumenta la ganancia de Obtainium +4% por nivel.",
             "5": "Multiply Ant speed by (1 + log10(Constant + 1)/10)^level",
             "6": "Añade +2 Niveles de Hormigas gratis por nivel.",
             "7": "Provides 7 free rune levels and increases the rune cap by 3 per level.",
@@ -2083,7 +2083,7 @@
             "16": "Effect: Gain {{x}}x more Diamonds on Prestige",
             "17": "Effect: Mint Production x1e100 (Duh)",
             "18": "Efecto: Producción de Impresoras x",
-            "19": "Effect: Investment Production x{{x}}",
+            "19": "Efecto: Producción de Inversiones x{{x}}",
             "20": "Effect: All coin production is further multiplied by {{x}} [Stacks with upgrade 1]!",
             "21": "Efecto: {{x}} Multiplicadores, +{{y}} Aceleradores.",
             "22": "Efecto: {{x}} Multiplicadores, +{{y}} Aceleradores.",
@@ -2091,67 +2091,67 @@
             "24": "Efecto: {{x}} Multiplicadores, +{{y}} Aceleradores.",
             "25": "Efecto: {{x}} Multiplicadores, +{{y}} Aceleradores.",
             "26": "Efecto: +1 Potenciador de Aceleración gratuito.",
-            "27": "Effect: +{{x}} Accelerators.",
-            "28": "Effect: +{{x}} Multipliers.",
-            "29": "Effect: +{{x}} Accelerators.",
-            "30": "Effect: +{{x}} Multipliers.",
-            "31": "Effect: +{{x}} Accelerator Boosts",
-            "32": "Effect: +{{x}} Accelerators",
-            "33": "Effect: +{{x} Multipliers",
-            "34": "Effect: +{{x}} Multipliers",
-            "35": "Effect: +{{x}} Multipliers",
-            "36": "Effect: All Crystal producers x{{x}}",
-            "37": "Effect: All Mythos producers production x{{x}}",
-            "38": "Effect: Thank you for getting the server above 30 boosts!",
-            "39": "Effect: Thank you for getting the server above 30 boosts!",
-            "40": "Effect: Thank you for getting the server above 30 boosts!",
-            "41": "Effect: Welcome to Transcension! Coin production is multiplied by {{x}}.",
+            "27": "Efecto: +{{x}} Aceleradores.",
+            "28": "Efecto: +{{x}} Multiplicadores.",
+            "29": "Efecto: +{{x}} Aceleradores.",
+            "30": "Efecto: +{{x}} Multiplicadores.",
+            "31": "Efecto: +{{x}} Potenciador de Acelerador",
+            "32": "Efecto: +{{x}} Aceleradores",
+            "33": "Efecto: +{{x} Multiplicadores",
+            "34": "Efecto: +{{x}} Multiplicadores",
+            "35": "Efecto: +{{x}} Multiplicadores",
+            "36": "Efecto: Todo productor de Cristal x{{x}}",
+            "37": "Efecto: Toda producción de productor de Mythos x{{x}}",
+            "38": "Efecto: ¡Gracias por llevar al servidor sobre 30 boosts!",
+            "39": "Efecto: ¡Gracias por llevar al servidor sobre 30 boosts!",
+            "40": "Efecto: ¡Gracias por llevar al servidor sobre 30 boosts!",
+            "41": "Efecto: ¡Bienvenido a la Trascensión! La producción de monedas se multiplica por {{x}}.",
             "42": "Efecto: Todo productor de Fragmentos de Mythos irá a toda máquina: ¡producción x{{x}}!",
-            "43": "Effect: Multiply all coin production by {{x}}!",
-            "44": "Effect: Multiply Mythos gained in Transcension by {{x}}!",
-            "45": "Effect: +{{x}} Accelerators!",
-            "46": "Effect: It's kinda self-evident, ain't it?",
-            "47": "Effect: Mythos-tier producers production x{{x}}",
-            "48": "Effect: Multiply coin production by a factor of {{x}}!",
-            "49": "Effect: +{{x}} Multipliers through magic!",
+            "43": "Efecto: ¡Multiplica toda producción de monedas por {{x}}!",
+            "44": "Efecto: ¡Multiplica los Mythos obtenidos en Transcensión por {{x}}!",
+            "45": "Efecto: +{{x}} Aceleradores!",
+            "46": "Efecto: Es algo bastante evidente, ¿no?",
+            "47": "Efecto: Producción de productores en rango de Mythos x{{x}}",
+            "48": "Efecto: ¡Multiplica la producción de monedas por {{x}}!",
+            "49": "Efecto: ¡+{{x}} Multiplicadores por magia!",
             "50": "Effect: It's quite obvious what the benefit is, but you must be in a Challenge for it to be in use!",
-            "51": "Effect: Mythos-tier producers production x{{x}}!",
-            "52": "Effect: Mythos-tier producers production x{{x}}! It's like inception, or something.",
-            "53": "Effect: Augments will produce {{x}}x as many Mythos Shards.",
-            "54": "Effect: Wizards will produce {{x}}x as many Enchantments; What productive spirits!",
-            "55": "Effect: Grandmasters will produce {{x}}x as many Oracles!",
-            "56": "Effect: It's quite obvious, ain't it?",
+            "51": "Efecto: Producción de productores en rango de Mythos x{{x}}!",
+            "52": "Efecto: ¡Producción de productores en rango de Mythos x{{x}}! Como Origen, o algo.",
+            "53": "Efecto: Aumentos producen {{x}}x veces Fragmentos de Mythos.",
+            "54": "Efecto: Efecto: Magos producen {{x}}x veces Encantamientos; ¡Unos ánimos productivos!",
+            "55": "Efecto: ¡Los Granmaeses producen {{x}}x veces Oráculos!",
+            "56": "Efecto: Es bastante obvio, ¿no?",
             "57": "Efecto: ¡Mira arriba!",
             "58": "Efecto: ¡Mira arriba!",
             "59": "Efecto: ¡Mira arriba!",
             "60": "Efecto: ¡Mira arriba!",
             "61": "Effect: +5% Offering Recycle/+2EXP per Offerings. Duh!",
             "62": "Effect: Base Offering amount for Reincarnations +{{x}}. Challenge yourself!",
-            "63": "Effect: All Crystal production x{{x}}",
-            "64": "Effect: All Mythos Shard production x{{x}}",
-            "65": "Effect: 5x Particle gain from Reincarnations. Duh!",
+            "63": "Efecto: Toda Producción de Cristal x{{x}}",
+            "64": "Efecto: Toda Producción de Fragmentos de Mythos x{{x}}",
+            "65": "Efecto: 5x Ganancia de partículas por Reencarnaciones. ¡Heh!",
             "66": "Efecto: ¡La descripción está bastante clara!",
-            "67": "Effect: The first particle-tier producer is {{x}}x as productive.",
-            "68": "Effect: Your compliance with tax laws provides you with {{x}} free Multipliers, for some reason.",
-            "69": "Effect: Cosmic Magnetics will allow you to gain {{x}}x as much Obtainium reincarnating x{{y}} automatic gain.",
+            "67": "Efecto: El primer productor de partículas es {{x}}x veces más productivo.",
+            "68": "Efecto: Tu cumplimiento de la legislación fiscal te da {{x}} Multiplicadores gratuitos, por alguna razón.",
+            "69": "Efecto: El Magnetismo Cósmico te permitirá ganar {{x}}x veces Obtainium reencarnando x{{y}} de ganancia automática.",
             "70": "Effect: Contracted time makes your game timers run {{x}}% more quickly.",
             "71": "Efecto: Está escrito en piedra. ¡Mira arriba!",
-            "72": "Effect: Obtainium multiplier: x{{x}}",
+            "72": "Efecto: Multiplicador de Obtainium: x{{x}}",
             "73": "Effect: Same as Transcend upgrade 10, except you MUST be in a Reincarnation Challenge in particular.",
-            "74": "Effect: Obtainium multiplier: x{{x}}",
-            "75": "Effect: Offering Multiplier: x{{x}}",
+            "74": "Efecto: Multiplicador de Obtainium: x{{x}}",
+            "75": "Efecto: Multiplicador de Ofrenda: x{{x}}",
             "76": "Efecto: ¡Épico x5 Hormigas!",
-            "77": "Effect: Ant Speed Multiplier: x{{x}}",
-            "78": "Effect: Ant Speed Multiplier: x{{x}}",
+            "77": "Efecto: Multiplicador de Velocidad de Hormiga: x{{x}}",
+            "78": "Efecto: Multiplicador de Velocidad de Hormiga: x{{x}}",
             "79": "Efecto: Ganarás +10% recompensas =)",
             "80": "Effect: Ant ELO +75 if this upgrade is purchased.",
-            "81": "Effect: All you need is right above this message.",
-            "120": "Effect: -50% Taxes duh!",
-            "121": "Effect: +88% cap to Crystal Upgrade 3, duh!",
-            "122": "Effect: Coin Production ^1.025, duh!",
-            "123": "Effect: +3% Effective Ant ELO, duh!",
-            "124": "+{{x}}% Constant Divisor power.",
-            "125": "+{{x}}% Constant Divisor power."
+            "81": "Efecto: Todo lo que necesitas saber está sobre este mensaje.",
+            "120": "Efecto: ¡-50% Impuestos heh!",
+            "121": "Efecto: ¡+88% límite de Mejora Cristales 3, heh!",
+            "122": "Efecto: ¡Producción de Monedas ^1,025, heh!",
+            "123": "Efecto: ¡+3% ELO de Hormigas efectivo, heh!",
+            "124": "+{{x}}% de poder al Divisor de Constante.",
+            "125": "+{{x}}% de poder al Divisor de Constante."
         },
         "shopTitles": {
             "coin": "Mejoras de Moneda",
@@ -2161,7 +2161,7 @@
             "automation": "Tienda de Automatización",
             "particles": "Mejoras de Partículas"
         },
-        "hover": "Hover over an upgrade icon to see details!",
+        "hover": "¡Pasa sobre un icono de mejora para ver el detalle!",
         "hoverOverUpgrade": "¡Pasa sobre las mejoras para ver el detalle!"
     },
     "tabs": {
@@ -2208,13 +2208,13 @@
             "exalt": "EXALTADO"
         },
         "settings": {
-            "languages": "🌐 Languages 🌐",
-            "credit": "Credits",
-            "stats": "Stats for Nerds",
-            "resetHistory": "Reset History",
-            "ascendHistory": "Ascend History",
-            "singularityHistory": "Singularity History",
-            "hotkeys": "Hotkeys"
+            "languages": "🌐 Idiomas 🌐",
+            "credit": "Créditos",
+            "stats": "Estadísticas para nerds",
+            "resetHistory": "Historial de Reseteo",
+            "ascendHistory": "Historial de Ascensión",
+            "singularityHistory": "Historial de Singularidad",
+            "hotkeys": "Atajos"
         }
     },
     "offlineProgress": {
@@ -2290,7 +2290,7 @@
             "firstRowTitle": "Click to copy the next Corruptions to the clipboard. This is the format that can be imported",
             "otherRowTitle": "Click to rename. Hotkey: SHIFT+{{ value }}",
             "import": "Importar",
-            "importTitle": "Import Corruption Loadout in text format",
+            "importTitle": "Importa la Carga de Corrupciones en formato texto",
             "zero": "Cero",
             "zeroTitle": "Reset Corruptions to zero on your next Ascension. Hotkey: SHIFT+9",
             "save": "Guardar",
@@ -2311,10 +2311,10 @@
             }
         },
         "loadoutExport": {
-            "saveErrorNavigator": "Unable to write the save to clipboard: {{ message }}"
+            "saveErrorNavigator": "Imposible escribir el guardado al portapapeles: {{ message }}"
         },
         "corrStatsBtn": "Estadísticas de Corrupción",
-        "corrLoadoutsBtn": "Corruption Loadouts",
+        "corrLoadoutsBtn": "Cargas de Corrupción",
         "cleanse": "Purgar",
         "confirm": "Confirmar",
         "intro": "The most rewarding ventures are those few would dare to embark.",
@@ -2337,7 +2337,7 @@
             "modeCompletions": "Modo: Finalizaciones de C10",
             "modeRealTime": "Modo: Tiempo real"
         },
-        "importLoadoutInTextFormat": "Import Corruption Loadout in text format",
+        "importLoadoutInTextFormat": "Importa la Carga de Corrupciones en formato texto",
         "loadoutApplied": "Corruption Loadout from previous run has been applied. This will take effect on the next Ascension."
     },
     "footnotes": {
@@ -2367,48 +2367,48 @@
         "acceleratorPower": "Acceleration Power: {{power}}% || Acceleration Multiplier: {{mult}}x",
         "multiplierPower": "Multiplier Power: {{power}}x || Multiplier: {{mult}}x",
         "acceleratorBoost": "Reset Diamonds and Prestige Upgrades, but add {{amount}}% Acceleration Power and 5 free Accelerators.",
-        "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
-        "costCoins": "Cost: {{coins}} coins.",
-        "costDiamonds": "Cost: {{diamonds}} Diamonds.",
+        "coinsPerSecond": "Monedas/Seg: {{coins}} [{{percent}}%]",
+        "costCoins": "Coste: {{coins}} monedas.",
+        "costDiamonds": "Coste: {{diamonds}} Diamantes.",
         "names": {
             "workers": "Trabajadores: {{amount}} [+{{gain}}]",
-            "investments": "Investments: {{amount}} [+{{gain}}]",
-            "printers": "Printers: {{amount}} [+{{gain}}]",
-            "coinMints": "Coin Mints: {{amount}} [+{{gain}}]",
-            "alchemies": "Alchemies: {{amount}} [+{{gain}}]",
-            "accelerators": "Accelerators: {{amount}} [+{{gain}}]",
-            "multipliers": "Multipliers: {{amount}} [+{{gain}}]",
-            "acceleratorBoost": "Accelerator Boost: {{amount}} [+{{gain}}]",
-            "refineries": "Refineries: {{amount}} [+{{gain}}]",
-            "coalPlants": "Coal Plants: {{amount}} [+{{gain}}]",
-            "coalRigs": "Coal Rigs: {{amount}} [+{{gain}}]",
-            "pickaxes": "Pickaxes: {{amount}} [+{{gain}}]",
-            "pandorasBoxes": "Pandoras Boxes: {{amount}} [+{{gain}}]",
-            "augments": "Augments: {{amount}} [+{{gain}}]",
-            "enchantments": "Enchantments: {{amount}} [+{{gain}}]",
-            "wizards": "Wizards: {{amount}} [+{{gain}}]",
-            "oracles": "Oracles: {{amount}} [+{{gain}}]",
-            "grandmasters": "Grandmasters: {{amount}} [+{{gain}}]",
-            "protons": "Protons: {{amount}} [+{{gain}}]",
-            "elements": "Elements: {{amount}} [+{{gain}}]",
-            "pulsars": "Pulsars: {{amount}} [+{{gain}}]",
-            "quasars": "Quasars: {{amount}} [+{{gain}}]",
-            "galacticNuclei": "Galactic Nuclei: {{amount}} [+{{gain}}]",
-            "dot": "Dot: {{amount}} [+{{gain}}]",
+            "investments": "Inversiones: {{amount}} [+{{gain}}]",
+            "printers": "Impresoras: {{amount}} [+{{gain}}]",
+            "coinMints": "Casas de Moneda: {{amount}} [+{{gain}}]",
+            "alchemies": "Laboratorios de Alquimia: {{amount}} [+{{gain}}]",
+            "accelerators": "Aceleradores: {{amount}} [+{{gain}}]",
+            "multipliers": "Multiplicadores: {{amount}} [+{{gain}}]",
+            "acceleratorBoost": "Potenciadores de Aceleración: {{amount}} [+{{gain}}]",
+            "refineries": "Refinerías: {{amount}} [+{{gain}}]",
+            "coalPlants": "Plantas de Carbón: {{amount}} [+{{gain}}]",
+            "coalRigs": "Plataforma de Carbón: {{amount}} [+{{gain}}]",
+            "pickaxes": "Picos: {{amount}} [+{{gain}}]",
+            "pandorasBoxes": "Cajas de Pandora: {{amount}} [+{{gain}}]",
+            "augments": "Aumentos: {{amount}} [+{{gain}}]",
+            "enchantments": "Encantamientos: {{amount}} [+{{gain}}]",
+            "wizards": "Magos: {{amount}} [+{{gain}}]",
+            "oracles": "Oráculos: {{amount}} [+{{gain}}]",
+            "grandmasters": "Gran Maeses: {{amount}} [+{{gain}}]",
+            "protons": "Protones: {{amount}} [+{{gain}}]",
+            "elements": "Elementos: {{amount}} [+{{gain}}]",
+            "pulsars": "Pulsares: {{amount}} [+{{gain}}]",
+            "quasars": "Quasares: {{amount}} [+{{gain}}]",
+            "galacticNuclei": "Núcleos Galácticos: {{amount}} [+{{gain}}]",
+            "dot": "Punto: {{amount}} [+{{gain}}]",
             "vector": "Vector: {{amount}} [+{{gain}}]",
-            "threeSpace": "Three-Space: {{amount}} [+{{gain}}]",
-            "bentTime": "Bent Time: {{amount}} [+{{gain}}]",
-            "hilbertSpace": "Hilbert Space: {{amount}} [+{{gain}}]"
+            "threeSpace": "Tri-espacio: {{amount}} [+{{gain}}]",
+            "bentTime": "Tiempo Doblado: {{amount}} [+{{gain}}]",
+            "hilbertSpace": "Espacio de Hilbert: {{amount}} [+{{gain}}]"
         },
         "crystalMult": "You have {{crystals}} Crystals, multiplying Coin production by {{gain}}.",
-        "hoverCrystalUpgrade": "Hover over a crystal upgrade to get information!",
+        "hoverCrystalUpgrade": "¡Pasa sobre una mejora de cristal para su información!",
         "autoPrestige": "{{action}} when your {{name}} can increase by a factor {{factor}} [Toggle number above]. Current Multiplier: {{mult}}.",
         "per": {
-            "crystal": "Crystal/sec: {{amount}}",
-            "ref": "Ref./sec: {{amount}}",
-            "plants": "Plants/sec: {{amount}}",
-            "rigs": "Rigs/sec: {{amount}}",
-            "pickaxes": "Pickaxes/sec: {{amount}}",
+            "crystal": "Cristal/seg: {{amount}}",
+            "ref": "Ref./seg: {{amount}}",
+            "plants": "Plantas/seg: {{amount}}",
+            "rigs": "Plataf./seg: {{amount}}",
+            "pickaxes": "Picos/seg: {{amount}}",
             "shards": "Fragmentos/segundo: {{amount}}",
             "augments": "Aumentos/segundo: {{amount}}",
             "enchantments": "Encantamientos/segundo: {{amount}}",
@@ -2426,21 +2426,21 @@
             "bentTime": "Tiempo de Bent/segundo: {{amount}}"
         },
         "crystalUpgrades": {
-            "currentLevel": "Current Level: <<lightblue|{{amount}}>>",
-            "cost": "Cost: <<lightblue|{{amount}}>> crystals",
-            "currentEffect": "Current Effect: <<lightblue|{{effect}}>>"
+            "currentLevel": "Nivel actual: <<lightblue|{{amount}}>>",
+            "cost": "Precio: <<lightblue|{{amount}}>> cristales",
+            "currentEffect": "Efecto Actual: <<lightblue|{{effect}}>>"
         },
-        "mythosYouHave": "You have {{shards}} Mythos Shards, providing {{mult}} Multiplier Power boosts.",
+        "mythosYouHave": "Tienes {{shards}} Fragmentos de Mythos, proporcionando {{mult}} Potenciadores de Poder Multiplicador.",
         "eachMultiplierBoost": "¡Cada Potenciador de Multiplicador aumenta el efecto base de los Multiplicadores un 0,005!",
-        "costMythos": "Cost: {{mythos}} Mythos",
-        "atomsYouHave": "You have {{atoms}} Atoms, providing {{power}} Building Power. Multiplier to Coin Production: {{mult}}",
-        "costParticles": "Cost: {{particles}} Particles",
+        "costMythos": "Coste: {{mythos}} Mythos",
+        "atomsYouHave": "Tienes {{atoms}} Átomos proporcionando {{power}} poder de construcción. Multiplicador de Producción de Moneda: {{mult}}",
+        "costParticles": "Coste: {{particles}} Partículas",
         "autoReincarnate": "{{name}} when the autotimer is at least {{amount}} real-life seconds. [Toggle number above]. Current timer: {{timer}}s.",
         "thanksR2x14": "Thanks to Research 2x14, you also multiply Crystal production by {{mult}}",
         "thanksR2x15": "Thanks to Research 2x15, you also multiply Mythos Shard production by {{mult}}",
         "tesseractsYouHave": "You have {{tesseracts}} Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension.",
         "constantYouHave": "You have a mathematical constant of {{const}}. Taxes are divided by {{amount}}.",
-        "costTesseracts": "Cost: {{tesseracts}} Tesseracts",
+        "costTesseracts": "Coste: {{tesseracts}} Teseractos",
         "autoTesseract": "Auto buyer will save at least {{tesseracts}} tesseracts. [Enter number above].",
         "autoAscensionTesseract": "On Ascension, Auto buyer will save at least {{percent}}% of your current amount of tesseracts. [Enter number above].",
         "excessiveWealth": "Due to your excessive wealth, coin production is divided by {{div}} to pay taxes! {{- warning}}",
@@ -2450,13 +2450,13 @@
         "buyLevel": {
             "buyPrompt": "¿Cuántos Octeractos te gustaría gastar? Tienes {{{n}} OCT. ¡Escribe -1 para usar max!",
             "cancelPurchase": "¡Compra cancelada!",
-            "alreadyMax": "Hey! You have already maxed this upgrade. :D",
-            "cannotAfford": "You cannot afford this upgrade. Sorry!",
-            "multiBuy": "Purchased {{n}} levels, thanks to Multi Buy!"
+            "alreadyMax": "¡Hey! Ya has maximizado esta mejora. :D",
+            "cannotAfford": "No puedes permitirte esta mejora. ¡Lo siento!",
+            "multiBuy": "Comprados {{n}} niveles, ¡gracias a Multi Compra!"
         },
         "toString": {
             "costNextLevel": "Coste para siguiente nivel",
-            "becomeAffordable": "(Affordable in {{n}})"
+            "becomeAffordable": "(Permitible en {{n}})"
         },
         "data": {
             "octeractStarter": {
@@ -2467,17 +2467,17 @@
             "octeractGain": {
                 "name": "Cogénesis de Octeractos",
                 "description": "¡Te molesta lo lentas que son estas malditas cosas? ¡Gana 1% más de ellos por nivel! Simple.",
-                "effect": "Octeract Gain is increased by {{n}}%."
+                "effect": "La ganancia de Octeractos aumenta un {{n}}%."
             },
             "octeractGain2": {
                 "name": "Trigénesis de Octeractos",
                 "description": "It turns out that you have six additional dimensions to modify your Cogenesis. +1% more Octs per level!",
-                "effect": "Octeract Gain is increased by {{n}}%."
+                "effect": "La ganancia de Octeractos aumenta un {{n}}%."
             },
             "octeractQuarkGain": {
                 "name": "Octeracto de Quarks",
                 "description": "Una forma alternativa del hepteracto, te da un 1% Bonus de Quarks por nivel sin Retornos Disminuidos.",
-                "effect": "Quark gain is increased by {{n}}%."
+                "effect": "La ganancia de Quarks aumenta un {{n}}%."
             },
             "octeractQuarkGain2": {
                 "name": "Sinergia Primaria Octo-Hepteracto",
@@ -2487,42 +2487,42 @@
             "octeractCorruption": {
                 "name": "EXTRA CHONKY Corruptions",
                 "description": "Añade un nivel al límite de corrupciones. Derpsmith lo aprueba.",
-                "effect": "Corruption level cap is increased by {{n}}"
+                "effect": "El límite de nivel de corrupción aumenta en {{n}}"
             },
             "octeractGQCostReduce": {
                 "name": "EXTRA WIMPY Golden Quark Costs!",
-                "description": "Reduces the cost of Golden Quarks in the shop by 1% per level.",
-                "effect": "Golden Quarks are {{n}}% cheaper!"
+                "description": "Reduce el coste de Quarks Dorados de la tienda un 1% por nivel.",
+                "effect": "¡Quarks Dorados un {{n}}% más baratos!"
             },
             "octeractExportQuarks": {
-                "name": "Improved Download Speeds",
-                "description": "Thanks to ethernet technology, export quarks are increased by 40% per level! Only normal ones.",
-                "effect": "Export quarks +{{n}}%"
+                "name": "Velocidad de Descarga Mejorada",
+                "description": "Gracias a ethernet, ¡los quarks exportados se incrementan un 40% por nivel! Solo los normales.",
+                "effect": "Exportar Quarks +{{n}}%"
             },
             "octeractImprovedDaily": {
                 "name": "CHONKER Daily Code",
                 "description": "Derpsmith hacks into the source code, and adds +1 free Singularity upgrade per day from Daily.",
-                "effect": "Code 'daily' gives +{{n}} free Singularity upgrades per use."
+                "effect": "El código 'diario' da +{{n}} mejoras gratuitas de Singularidad por uso."
             },
             "octeractImprovedDaily2": {
                 "name": "CHONKERER Daily Code",
                 "description": "Derpsmith implemented hyperspeed multiplication. +1% more free Singularity upgrades per day from Daily!",
-                "effect": "Code 'daily' gives +{{n}}% more free Singularity upgrades per use."
+                "effect": "El código 'diario' da +{{n}}% más mejoras gratuitas de Singularidad por uso."
             },
             "octeractImprovedDaily3": {
                 "name": "CHONKEREREST Daily Code",
                 "description": "It will never satisfy Derpsmith. +1 +0.5% more free Singularity upgrades per day from Daily!",
-                "effect": "Code 'daily' gives +{{n}} more free Singularity upgrades per use."
+                "effect": "El código 'diario' da +{{n}} más mejoras gratuitas de Singularidad por uso."
             },
             "octeractImprovedQuarkHept": {
                 "name": "Deseo Hepteractos de Quarks aún mejores.",
                 "description": "The godmother is absent, but Derpsmith is here! +2% DR exponent per level. Stacks additively with all the others!",
-                "effect": "Quark Hepteract DR +{{n}}."
+                "effect": "RD de Hepteracto de Quarks +{{n}}."
             },
             "octeractImprovedGlobalSpeed": {
                 "name": "El reloj prohibido del tiempo",
                 "description": "Hypothesized to be locked in a hyperbolic time chamber. +1% Global Speed per level per singularity!",
-                "effect": "Global Speed per singularity +{{n}}%"
+                "effect": "Velocidad Global por singularidad +{{n}}%"
             },
             "octeractImprovedAscensionSpeed": {
                 "name": "Fotoquinesis Abstracta",
@@ -2551,33 +2551,33 @@
             },
             "octeractImprovedFree4": {
                 "name": "Cupón de los Derpsmiths Sin Blanca Final",
-                "description": "Each level adds 0.001 to the exponent of free upgrades, with the first level adding another 0.01!",
-                "effect": "Exponent of the first upgrade +{{n}}"
+                "description": "Cada nivel añade 0,001 al exponente de mejoras gratuitas, ¡el primer nivel añade otro 0.01!",
+                "effect": "Exponente de la primera mejora +{{n}}"
             },
             "octeractSingUpgradeCap": {
                 "name": "Sobreescribiendo Punteros",
                 "description": "Derpsmith encountered a SegFault after reassigning null... +1 to level cap on certain Singularity Upgrades per level!",
-                "effect": "Some Singularity Upgrades have +{{n}} max level!"
+                "effect": "¡Algunas Mejoras de Singularidad tienen +{{n}} nivel máx!"
             },
             "octeractOfferings1": {
                 "name": "Electrólisis de Ofrendas",
-                "description": "Gain 1% more offerings per level.",
-                "effect": "Offering gain +{{n}}%"
+                "description": "Gana 1% más ofrendas por nivel.",
+                "effect": "Ganancia de Ofrendas +{{n}}%"
             },
             "octeractObtainium1": {
                 "name": "Diluvio de Obtainium",
-                "description": "Gain 1% more obtainium per level.",
-                "effect": "Obtainium gain +{{n}}%"
+                "description": "Gana 1% más obtainium por nivel.",
+                "effect": "Ganancia de Obtainium +{{n}}%"
             },
             "octeractAscensions": {
                 "name": "Garantía Anulada",
                 "description": "Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels.",
-                "effect": "Ascension Count increases {{n}}% faster."
+                "effect": "El contador de Ascensión sube un {{n}}% más rápido."
             },
             "octeractAscensions2": {
                 "name": "Honorarios Tardíos Ocultos",
                 "description": "Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels. But... this scales a lot faster. Must be those hidden late fees.",
-                "effect": "Ascension Count increases {{n}}% faster."
+                "effect": "El contador de Ascensión sube un {{n}}% más rápido."
             },
             "octeractAscensionsOcteractGain": {
                 "name": "Acumulador Digital de Octeractos",
@@ -2712,7 +2712,7 @@
             "AOAG": "Antiguedades de Dios Hormiga"
         },
         "maxLevel": "¡Nivel máximo!",
-        "TNL": "+1 in {{EXP}} EXP"
+        "TNL": "+1 en {{EXP}} EXP"
     },
     "singularityChallenge": {
         "enterChallenge": {
@@ -2760,33 +2760,33 @@
     },
     "settings": {
         "confirmationTitle": "Confirmation Toggles",
-        "noHotkeyAvailable": "These do not work with hotkeys. Too bad!",
-        "specialActions": "Special Actions",
-        "daily": "Daily",
+        "noHotkeyAvailable": "Estas no funcionan con atajos. ¡Qué mal!",
+        "specialActions": "Acciones especiales",
+        "daily": "Diario",
         "add1": "Suma x1",
         "add": "Suma",
-        "time": "Time",
-        "enterPromoCodeHere": "Enter a promotion code here!",
-        "currentTheme": "Current Theme",
+        "time": "Tiempo",
+        "enterPromoCodeHere": "¡Introduce un código de promo!",
+        "currentTheme": "Tema Actual",
         "themes": {
-            "dark": "Dark Mode",
-            "darker": "Darker Mode",
-            "lighterDark": "Lighter Dark Mode",
-            "light": "Light Mode",
-            "dracula": "Dracula Mode"
+            "dark": "Modo oscuro",
+            "darker": "Modo Más oscuro",
+            "lighterDark": "Modo Oscuro claro",
+            "light": "Modo Claro",
+            "dracula": "Modo Drácula"
         },
-        "currentIconSet": "Current Icon Set",
+        "currentIconSet": "Set de iconos actual",
         "notation": {
-            "default": "Default",
-            "pureScientific": "Pure Scientific",
-            "pureEngineering": "Pure Engineering"
+            "default": "Por defecto",
+            "pureScientific": "Científico puro",
+            "pureEngineering": "Ingenieril Puro"
         },
-        "currentNotation": "Current Annotation",
+        "currentNotation": "Anotación actual",
         "iconSets": {
-            "default": "Default",
-            "legacy": "Legacy",
-            "simplified": "Simplified",
-            "monotonous": "Monotonous"
+            "default": "Por defecto",
+            "legacy": "Legado",
+            "simplified": "Simplificado",
+            "monotonous": "Monótono"
         },
         "joinDiscord": "Click the image below to join the Discord!",
         "joinPatreon": "Support Development on Patreon!",
@@ -2796,15 +2796,15 @@
         "goldenQuarksOnExport": "Golden Quarks on export: {{x}} [Max {{y}}]",
         "copyToClipboard": "Copiar a Portapapeles",
         "exportHere": "Exporta el juego aquí",
-        "currently": "Currently: {{x}}",
+        "currently": "Actualmente: {{x}}",
         "loadGameBelow": "Load game below!",
         "loadFromFile": "Carga de archivo",
         "saveManually": "Save the game manually",
-        "deleteSave": "Delete savefile",
+        "deleteSave": "Eliminar archivo guardado",
         "events": {
             "inactive": "<<var(--orchid-text-color);|Event Status:>> INACTIVE",
-            "activeUntil": "ACTIVE UNTIL: {{x}}",
-            "starts": "STARTS {{x}}"
+            "activeUntil": "ACTIVO HASTA: {{x}}",
+            "starts": "EMPIEZA {{x}}"
         }
     },
     "wowCubes": {
@@ -2814,8 +2814,8 @@
         "open50%": "Abrir 50%",
         "openCustom": "Cantidad indicada",
         "openAll": "Abrir todo",
-        "autoOff": "Auto Open [OFF]",
-        "autoOn": "Auto Open {{percent}}%",
+        "autoOff": "Auto Abrir [OFF]",
+        "autoOn": "Auto Abrir {{percent}}%",
         "quarks": {
             "quarkTitle": "-=- Cube to Quark Corner -=-",
             "resetInfo": "Quark Rewards reset midnight!",
@@ -2912,11 +2912,11 @@
             "expand": "Expandir",
             "warp": "Distorsión",
             "autoSetting": "Auto Setting : {{x}}%",
-            "autoCraftPercentage": "Autocraft Percentage",
+            "autoCraftPercentage": "Porcentaje de Autocreación",
             "autoCraftPercentagePrompt": "Enter a number from 0 to 100 (integer only!) to set autocraft percentage. Every ascension, that percentage of your hepteracts are used to craft equally split between every hepteract with AUTO ON. Auto crafting also does not consume other resources! [Except Quarks, of course...]",
             "unlocked": "< DESBLOQUEADO >",
             "locked": "< BLOQUEADO >",
-            "inventory": "Inventory: {{x}} / {{y}}",
+            "inventory": "Inventario: {{x}} / {{y}}",
             "orbs": "Orbes:",
             "effect": "Efecto:",
             "powder": "Polvo:",
@@ -3026,15 +3026,15 @@
         "wrongAnswer": "Respuesta incorrecta, ¡no se resetea!",
         "unableImport": "¡No se puede importar este archivo!",
         "loadTestInLive": "You are attempting to load a testing file in a non-testing version!",
-        "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism2021\" or \"Khafra\" perchance?]",
+        "promocodePrompt": "¿Tienes un código? ¡Genial! Ingrésalo (dIStiNguE MaYÚSculAS). \n [Nota a espectador: esto es para eventos y ciertos códigos siempre activos. \n ¿Puedo sugerir que escribas \"synergism2021\" o \"Khafra\" por ejemplo?]",
         "comeBackSoon": "Bien, ¡Vuelve pronto!",
         "noAddCodes": "¡No tienes un intento de código 'Suma'! Ganarás 1 en {{x}} segundos.",
-        "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use?",
+        "useXAdds": "Puedes usar hasta {{x}} intentos a la vez. ¿Cuántos te gustaría usar?",
         "cancelAdd": "Sin problemas, ¡No has usado ningún uso! ¡Vuelve más tarde!",
         "daily0Uses": "0 usos restantes. Siguiente: Fin del día.",
         "daily1Uses": "1 uso restante. Siguiente: Fin del día.",
         "add1Uses": "{{x}} usos restantes.",
-        "add0Uses": "{{x}} uses left. Next: in {{y}} seconds.",
+        "add0Uses": "{{x}} usos restantes. Siguiente: en {{y}} segundos.",
         "addUses": "{{x}} usos restantes.",
         "timeMultiplier": "{{x}} uso(s) restantes: Multiplicador: {{y}}x",
         "promocodes": {
@@ -3047,9 +3047,9 @@
                 "message2": "Sintiéndose especialmente generoso, el Dios Hormiga también te da niveles gratuitos de las siguientes mejoras de Singularidad:"
             },
             "add": {
-                "calculator3": "Thanks to PL-AT Ω you have also gained {{x}} real-life seconds to your Ascension Timer!",
-                "calculator5": "Thanks to PL-AT Γ you have additionally gained {{x}} real-life seconds to your GQ Export Timer!",
-                "calculator6": "Finally, thanks to PL-AT _ you have gained {{x}} seconds of Octeract generation!",
+                "calculator3": "¡Gracias a PL-AT Ω, también has ganado {{x}} segundos reales en tu Cronómetro de Ascensión!",
+                "calculator5": "¡Gracias a PL-AT Γ, has ganado además {{x}} segundos reales en tu Cronómetro de Exportación de QD!",
+                "calculator6": "¡Finalmente, gracias a PL-AT _ has ganado {{x}} segundos de generación de Octeractos!",
                 "calculatorSolution": "Por {{w}} Quarks o nada: ¿Cuánto es {{x}} + {{y}}? La respuesta es {{z}} según tu calculadora.",
                 "calculatorPrompt": "Por {{w}} Quarks o nada: ¿Cuánto es {{x}} + {{y}}?",
                 "calculatorMaxed": "Tu calculadora calculó que {{a}} + {{b}} = {{c}} por sí misma ¡así que te han concedido {{d}} Quarks! {{e}} {{f}} {{g}} {{h}} Tienes {{i}} usos de Suma. Ganarás 1 en {{j}} segundos.",
