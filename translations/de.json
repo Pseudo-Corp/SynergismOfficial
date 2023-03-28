@@ -1,13 +1,13 @@
 {
     "testing": {
         "saveInLive": "Spielstände können nicht in der Live-Version genutzt werden!",
-        "saveInLive2": "You can't load this save anymore!",
-        "errorSaving": "An error prevented this file from being saved.",
-        "gameSaved": "Game saved successfully!"
+        "saveInLive2": "Du kannst diesen Speicherstand nicht mehr laden!",
+        "errorSaving": "Ein Fehler hat verhindert, dass diese Datei gespeichert werden konnte.",
+        "gameSaved": "Spiel erfolgreich gespeichert!"
     },
     "save": {
         "loadFailed": "Spielstand kann nicht geladen werden.",
-        "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
+        "saveToClipboard": "Bist du sicher, dass du das Speichern der Spielstände in deine Zwischenablage aktivieren möchtest?"
     },
     "achievements": {
         "descriptions": {
@@ -293,12 +293,12 @@
             "280": "[{{number}}] Anbeginn: Durchquere die Singularität 10-mal."
         },
         "rewards": {
-            "3": "Gain +.05% to Accelerator Power.",
-            "4": "Start Transcensions/Challenges with Worker Autobuyer unlocked.",
-            "5": "Gain +1 Accelerator per 500 Workers owned.",
-            "6": "Gain +1 Multiplier per 1,000 Workers owned.",
-            "7": "Gain +1 Accelerator Boost per 2,000 workers owned.",
-            "10": "Gain +.10% to Accelerator Power.",
+            "3": "Erhalte +.05% an Beschleunigerkraft.",
+            "4": "Wenn du Transzendenzen/Herausforderungen startest, ist das automatische Kaufen von Arbeitern freigeschaltet.",
+            "5": "Erhalte +1 Beschleuniger pro 500 Arbeiter im Besitz.",
+            "6": "Erhalte +1 Multiplikator pro 1,000 Arbeiter im Besitz.",
+            "7": "Erhalte +1 Beschleuniger-Boost pro 2,000 Arbeiter im Besitz.",
+            "10": "Erhalte +.10% an Beschleunigerkraft.",
             "11": "Start Transcensions/Challenges with Investment Autobuyer unlocked.",
             "12": "Gain +1 Accelerator per 500 Investments owned.",
             "13": "Gain +1 Multiplier per 1,000 Investments owned.",
