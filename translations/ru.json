@@ -32,7 +32,7 @@
             "19": "[{{number}}] Монополизация Рынка: Построить 5,000 Принтеров.",
             "20": "[{{number}}] У нас кончаются чернила!: Построить 10,000 Принтеров.",
             "21": "[{{number}}] 3D-печать вселенной: Построить 20,000 Принтеров.",
-            "22": "[{{number}}] Народное достояние: Создайте 1 Мятную монету.",
+            "22": "[{{number}}] Национальное достояние: Учредите 1 Монетный Двор.",
             "23": "[{{number}}] Теперь с конкурсом!: Создайте 10 Мятных монет.",
             "24": "[{{number}}] Подделка со стилем!: Создайте 100 Мятных монет.",
             "25": "[{{number}}] Зачем нам всё это нужно?: Создайте 1000 Мятных монет.",
@@ -67,22 +67,22 @@
             "54": "[{{number}}] Танец лептонов: Выполните реинкарнацию как минимум для 1e+1500 Частиц.",
             "55": "[{{number}}] У нас уже достаточно?: Выполните реинкарнацию как минимум для 1e+5000 Частиц.",
             "56": "[{{number}}] Я чувствую удачу в своих клетках: Выполните реинкарнацию как минимум для 1e+7777 Частиц.",
-            "57": "[{{number}}] One Way Only: Prestige without buying Multipliers.",
-            "58": "[{{number}}] Authentic Shifting: Transcend without having bought a Multiplier.",
-            "59": "[{{number}}] The Singularity: Reincarnate without having bought a Multiplier.",
-            "60": "[{{number}}] Gotta go SLOW!: Prestige without buying Accelerators or Accelerator Boosts.",
-            "61": "[{{number}}] I'm really going slow: Transcend without having bought Accelerators or Boosts.",
-            "62": "[{{number}}] Are we there yet?: Reincarnate without having bought Accelerators or Boosts.",
-            "63": "[{{number}}] A careful search for Diamonds: Get 1e120,000 Coins in [Reduced Diamonds] without buying Accelerators or Boosts.",
-            "64": "[{{number}}] Very Based: Prestige without purchasing Coin Upgrades.",
-            "65": "[{{number}}] Miser: Transcend without purchasing Coin Upgrades.",
-            "66": "[{{number}}] True Miser: Transcend without purchasing Coin or Diamond Upgrades.",
-            "67": "[{{number}}] Coinless Pursuit: Reincarnate without purchasing Coin Upgrades.",
-            "68": "[{{number}}] Diamonds don't matter to me!: Reincarnate without purchasing Coin or Diamond Upgrades.",
-            "69": "[{{number}}] Leave nothing behind: Reincarnate without purchasing Coin, Diamond or Mythos Upgrades.",
-            "70": "[{{number}}] Leave NOTHING behind.: Reincarnate without purchasing Coin, Diamond, Mythos, or Generator Upgrades.",
-            "71": "[{{number}}] Out of Order: Buy Generator Upgrade Row 1, #2 first in a Transcension (IV -> III)",
-            "72": "[{{number}}] More Out of Order: Buy Generator Upgrade Row 1, #3 first in a Transcension (III -> II)",
+            "57": "[{{number}}] Только один путь: Выполните престиж не покупая Множители.",
+            "58": "[{{number}}] Аутентичное переключение: Выполните превосходство не покупая Множители.",
+            "59": "[{{number}}] Сингулярность: Выполните реинкарнацию не покупая Множители.",
+            "60": "[{{number}}] Gotta go SLOW!: Выполните престиж не покупая Ускорители и Ускорительные бустеры.",
+            "61": "[{{number}}] Я действительно двигаюсь медленно: Выполните превосходство не покупая Ускорители и бустеры.",
+            "62": "[{{number}}] Мы уже приехали?: Выполните реинкарнацию не покупая Ускорители и бустеры.",
+            "63": "[{{number}}] Тщательный поиск Алмазов: Получите 1e120,000 Монет в [Сокращённые Алмазы] не покупая Ускорители и бустеры.",
+            "64": "[{{number}}] Очень логичный: Выполните престиж не покупая Улучшения за монеты.",
+            "65": "[{{number}}] Жмот: Выполните превосходство не покупая Улучшения за монеты.",
+            "66": "[{{number}}] Истинный жмот: Выполните превосходство не покупая Улучшения за монеты и алмазы.",
+            "67": "[{{number}}] Погоня без монет: Выполните реинкарнацию не покупая Улучшения за монеты.",
+            "68": "[{{number}}] Мне не нужны алмазы!: Выполните реинкарнацию не покупая Улучшения за монеты и алмазы.",
+            "69": "[{{number}}] Не оставляй ничего позади: Реинкарнируйте без приобретения Улучшений для Монет, Алмазов или Мифов.",
+            "70": "[{{number}}] Не оставляй НИЧЕГО позади: Реинкарнируйте без приобретения Улучшений для Монет, Алмазов, Мифов или Генераторов.",
+            "71": "[{{number}}] Неисправен: Купите Улучшение генератора в строке 1, #2 первым в превосходстве (IV -> III)",
+            "72": "[{{number}}] Ещё более неисправен: Купите Улучшение генератора в строке 1, #3 первым в превосходстве (III -> II)",
             "73": "[{{number}}] Four's a Company: Buy Generator Upgrade Row 1, #4 first in a Transcension (II -> I)",
             "74": "[{{number}}] Five's a Croud: Buy Generator Upgrade Row 1, #5 first in a Transcension (I -> V)",
             "75": "[{{number}}] Vaseline without the Machine: Exit [No Multiplier] with at least 1e1000 coins and without any of the row 1 generator upgrades.",
@@ -98,11 +98,11 @@
             "85": "[{{number}}] Медленное Начало: Выполните [Без Ускорителей] один раз",
             "86": "[{{number}}] Respawn Rate -12%: Complete [No Accelerator] three times.",
             "87": "[{{number}}] Putting the Breaks On: Complete [No Accelerator] five times.",
-            "88": "[{{number}}] Racing a Sloth...: Complete [No Accelerator] ten times.",
-            "89": "[{{number}}] ... and Losing.: Complete [No Accelerator] twenty times.",
-            "90": "[{{number}}] Planck Distance Traveled: Complete [No Accelerator] fifty times.",
+            "88": "[{{number}}] Наперегонки с Улиткой...: Выполните [Без Ускорителей] десять раз.",
+            "89": "[{{number}}] ... и всё равно не поспевать.: Выполните [Без Ускорителей] двадцать раз.",
+            "90": "[{{number}}] Планковская Длина Пройдена: Выполните [Без Ускорителей] пятьдесят раз.",
             "91": "[{{number}}] Inverse-Ackermann Growth: Complete [No Accelerator] seventy-five times.",
-            "92": "[{{number}}] Intact: Complete [No Shards] once.",
+            "92": "[{{number}}] Целый: Выполните [Без Осколков] один раз.",
             "93": "[{{number}}] Augments are Stupid!: Complete [No Shards] three times.",
             "94": "[{{number}}] Grandmasters are Brilliant!: Complete [No Shards] five times.",
             "95": "[{{number}}] Gotta get those Grandmasters Stronger: Complete [No Shards] ten times.",
@@ -241,7 +241,7 @@
             "228": "[{{number}}] Antitrust: Clear an Ascension with above 100 million score.",
             "229": "[{{number}}] Ant-i-trust: Clear an Ascension with above 1 billion score.",
             "230": "[{{number}}] This is pretty unfair: Clear an Ascension with above 5 billion score.",
-            "231": "[{{number}}] Antichrist: Clear an Ascension with above 25 billion score.",
+            "231": "[{{number}}] Антихрист: Завершите Вознесение со счётом более 25 миллиардов.",
             "232": "[{{number}}] Highly Blessed: Level your Speed Rune Blessing to 100,000.",
             "233": "[{{number}}] Divine Blessing: Level your Speed Rune Blessing to 100,000,000.",
             "234": "[{{number}}] Blessing III: Level your Speed Rune Blessing to 100 billion.",
@@ -1292,8 +1292,8 @@
         "youHaveQuarks": "You have {{x}} Quarks!",
         "cannotRefund": "This item CANNOT be refunded! Take caution.",
         "resetPermShop": "Reset Perm Shop [Cost: 15 Quarks]",
-        "shopConfirmationOn": "Shop Confirmations: ON",
-        "shopConfirmationOff": "Shop Confirmations: OFF",
+        "shopConfirmationOn": "Подтверждения Покупок: ВКЛ",
+        "shopConfirmationOff": "Подтверждения Покупок: ВЫКЛ",
         "hideMaxedOn": "Hide Maxed: ON",
         "hideMaxedOff": "Hide Maxed: OFF",
         "autoCatalyzeOn": "Auto Catalyze: ON",
@@ -1788,7 +1788,7 @@
                 "effect": "Ascension Speed ^{{n}}, ^{{m}} if < 1x"
             },
             "singAscensionSpeed2": {
-                "name": "A mediocre ascension speedup!",
+                "name": "Посредственное ускорение вознесения!",
                 "description": "Ascension speed is multiplied by 6 if you have not purchased Antiquities in your current Singularity.",
                 "effect": "The effect is clear"
             },
@@ -1979,7 +1979,7 @@
             "61": "Welcome to Reincarnation! +5% Offering Recycle, +2 EXP/Offering!",
             "62": "Completing Challenges, automatically or manually, increase Offerings gained in Reincarnation. Bonus subject to time multiplier!",
             "63": "Crystal Production is multiplied based on Particles to the sixth power [Caps at 1e6000x].",
-            "64": "Mythos Shard Production is multiplied by your Particles squared.",
+            "64": "Производство Осколков Мифов умножается на квадрат количества Частиц.",
             "65": "Multiply the gain of Particles from Reincarnation by 5x!",
             "66": "When you use an Offering, every unlocked rune will get 1 free experience.",
             "67": "Atom gain is increased by 3% per Particle producer purchased!",
@@ -2014,7 +2014,7 @@
             "96": "Automatically buy Wizards if affordable.",
             "97": "Automatically buy Oracles if affordable.",
             "98": "Automatically buy Grandmasters if affordable.",
-            "99": "Automatically buy Mythos Upgrades if affordable.",
+            "99": "Если доступны, Автоматически покупайте Улучшения Мифов.",
             "100": "Generate 1% of Mythos Gain from transcending per second.",
             "101": "Alchemies will produce Coin Mints.",
             "102": "Coin Mints will produce Printers.",
@@ -2156,7 +2156,7 @@
         "shopTitles": {
             "coin": "Coin Upgrades",
             "diamond": "Diamond Upgrades",
-            "mythos": "Mythos Upgrades",
+            "mythos": "Улучшения Мифов",
             "generator": "Generator Shop",
             "automation": "Automation Shop",
             "particles": "Particles Upgrades"
@@ -2532,7 +2532,7 @@
             "octeractImprovedAscensionSpeed2": {
                 "name": "Abstract Exokinetics",
                 "description": "Gain +0.02% Ascension Speed per level per singularity!",
-                "effect": "Ascension Speed per singularity +{{n}}%"
+                "effect": "Скорость Вознесения за сингулярность +{{n}}%"
             },
             "octeractImprovedFree": {
                 "name": "Wow! I want free upgrades to be better.",
@@ -2572,16 +2572,16 @@
             "octeractAscensions": {
                 "name": "Voided Warranty",
                 "description": "Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels.",
-                "effect": "Ascension Count increases {{n}}% faster."
+                "effect": "Счётчик Вознесений увеличивается на {{n}}% быстрее."
             },
             "octeractAscensions2": {
                 "name": "Hidden Late Fees",
                 "description": "Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels. But... this scales a lot faster. Must be those hidden late fees.",
-                "effect": "Ascension Count increases {{n}}% faster."
+                "effect": "Счётчик Вознесений увеличивается на {{n}}% быстрее."
             },
             "octeractAscensionsOcteractGain": {
                 "name": "Digital Octeract Accumulator",
-                "description": "Octeract gain is 1% faster for every digit in your Ascension count!",
+                "description": "Получение Октерактов на 1% быстрее за каждую цифру в счётчике Вознесения!",
                 "effect": "Octeract Gain per OOM Ascension count +{{n}}%"
             },
             "octeractFastForward": {
