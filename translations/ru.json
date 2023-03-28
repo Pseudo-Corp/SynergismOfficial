@@ -3,16 +3,16 @@
         "saveInLive": "Savefiles cannot be used in live!",
         "saveInLive2": "Вы больше не можете загрузить это сохранение!",
         "errorSaving": "An error prevented this file from being saved.",
-        "gameSaved": "Game saved successfully!"
+        "gameSaved": "Игра успешно сохранена!"
     },
     "save": {
-        "loadFailed": "Unable to load save.",
+        "loadFailed": "Не удалось загрузить сохранение.",
         "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
     },
     "achievements": {
         "descriptions": {
-            "1": "[{{number}}] A Loyal Employee: Hire your first Worker.",
-            "2": "[{{number}}] Small Business: Hire 10 Workers.",
+            "1": "[{{number}}] Верный Сотрудник: Наймите вашего первого Работника.",
+            "2": "[{{number}}] Малый Бизнес: Наймите 10 Работников.",
             "3": "[{{number}}] Now we're synergizing!: Hire 100 Workers.",
             "4": "[{{number}}] Gaining Redundancies: Hire 1,000 Workers.",
             "5": "[{{number}}] A cog in the machine: Hire 5,000 Workers.",
