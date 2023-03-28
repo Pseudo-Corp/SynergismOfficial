@@ -1,13 +1,13 @@
 {
     "testing": {
         "saveInLive": "Spielstände können nicht in der Live-Version genutzt werden!",
-        "saveInLive2": "You can't load this save anymore!",
-        "errorSaving": "An error prevented this file from being saved.",
-        "gameSaved": "Game saved successfully!"
+        "saveInLive2": "Du kannst diesen Speicherstand nicht mehr laden!",
+        "errorSaving": "Ein Fehler hat verhindert, dass diese Datei gespeichert werden konnte.",
+        "gameSaved": "Spiel erfolgreich gespeichert!"
     },
     "save": {
         "loadFailed": "Spielstand kann nicht geladen werden.",
-        "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
+        "saveToClipboard": "Bist du sicher, dass du das Speichern der Spielstände in deine Zwischenablage aktivieren möchtest?"
     },
     "achievements": {
         "descriptions": {
