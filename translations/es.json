@@ -1708,18 +1708,18 @@
             },
             "singQuarkHepteract": {
                 "name": "Desearía que mi Hepteracto de Quarks fuera marginalmente mejor.",
-                "description": "Juego equivocado, sorry. En fin, ¿Quieres un exponente de DR muy ligeramente mejor para tu Hepteracto de Quarks?",
-                "effect": "¡El exponente de DR es ahora {{n}}% mayor!"
+                "description": "Juego equivocado, sorry. En fin, ¿Quieres un exponente de RD muy ligeramente mejor para tu Hepteracto de Quarks?",
+                "effect": "¡El exponente de RD es ahora {{n}}% mayor!"
             },
             "singQuarkHepteract2": {
                 "name": "Desearía que mi Hepteracto de Quarks fuera marginalmente mejor II.",
                 "description": "Aún no es el correcto. Igual que la anterior mejora.",
-                "effect": "¡El exponente de DR es ahora {{n}}% mayor!"
+                "effect": "¡El exponente de RD es ahora {{n}}% mayor!"
             },
             "singQuarkHepteract3": {
                 "name": "Desearía que mi Hepteracto de Quarks fuera marginalmente mejor III.",
                 "description": "¡NO SOY LA MADRINA QUE ESTÁS BUSCANDO, DYLAN!",
-                "effect": "¡El exponente de DR es ahora {{n}}% mayor!"
+                "effect": "¡El exponente de RD es ahora {{n}}% mayor!"
             },
             "singOcteractGain": {
                 "name": "Absenta de Octeractos",
@@ -2516,7 +2516,7 @@
             },
             "octeractImprovedQuarkHept": {
                 "name": "Deseo Hepteractos de Quarks aún mejores.",
-                "description": "The godmother is absent, but Derpsmith is here! +2% DR exponent per level. Stacks additively with all the others!",
+                "description": "La madrina está ausente, ¡pero Derpsmith está aquí! +2% exponente RD por nivel. ¡Suma aditivamente con todos los otros!",
                 "effect": "RD de Hepteracto de Quarks +{{n}}."
             },
             "octeractImprovedGlobalSpeed": {
@@ -2620,11 +2620,11 @@
         "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}%>>"
     },
     "runes": {
-        "offeringsYouHave": "You have {{offerings}} Offerings.",
-        "gainExp": "Gain {{amount}}x EXP per offering sacrificed.",
-        "recycleChance": "You have {{percent}}% chance of recycling your offerings. This multiplies EXP gain by {{mult}}!",
-        "hover": "Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!",
-        "thanksResearches": "Thanks to researches, your effective levels are increased by {{percent}}%",
+        "offeringsYouHave": "Tienes {{offerings}} Ofrendas.",
+        "gainExp": "Gana {{amount}}x EXP por ofrenda sacrificada.",
+        "recycleChance": "Tienes un {{percent}}% de probabilidades de reciclar tus ofrendas. ¡Esto multiplica la ganancia de EXP en {{mult}}!",
+        "hover": "¡Hey, pasa el cursor sobre un icono de runa para obtener detalles sobre lo que hace cada una y qué beneficios te están dando!",
+        "thanksResearches": "Gracias a las investigaciones, tus niveles efectivos aumentan un {{percent}}%",
         "levelup": {
             "1": "+(Level/4)^1.25 Accelerator, +0.25% Accelerators per level. +1 Accelerator Boost every 20 levels!",
             "2": "+(Level/10) Multipliers every 10th level, +0.25% Multipliers per level. Tax growth is delayed more for each level!",
@@ -2696,8 +2696,8 @@
         "runeEffectSummaryTitle": "=====RESUMEN EFECTO DE RUNAS=====",
         "bonusAmount": "[Bonus: {{x}}]",
         "bonusNope": "[Bonus: ¡Nnope!]",
-        "resourcesToEnhance": "=-=-= Resources Required to ENHANCE =-=-=",
-        "resourcesToLevelup": "-=-=- Resources Required to Level Up -=-=-",
+        "resourcesToEnhance": "=-=-= Recursos requeridos para REALZAR =-=-=",
+        "resourcesToLevelup": "-=-=- Recursos requeridos para Subir Nivel -=-=-",
         "autoEnhanceOn": "Auto Aumentar: ON",
         "autoEnhanceOff": "Auto Aumentar: OFF",
         "autoFortifyOn": "Auto Fortificar: ON",
@@ -2799,7 +2799,7 @@
         "currently": "Actualmente: {{x}}",
         "loadGameBelow": "Load game below!",
         "loadFromFile": "Carga de archivo",
-        "saveManually": "Save the game manually",
+        "saveManually": "Guarda el juego manualmente",
         "deleteSave": "Eliminar archivo guardado",
         "events": {
             "inactive": "<<var(--orchid-text-color);|Event Status:>> INACTIVE",
@@ -2817,26 +2817,26 @@
         "autoOff": "Auto Abrir [OFF]",
         "autoOn": "Auto Abrir {{percent}}%",
         "quarks": {
-            "quarkTitle": "-=- Cube to Quark Corner -=-",
-            "resetInfo": "Quark Rewards reset midnight!",
-            "cubeQuarksToday": "Quarks gained from Cubes: <<cyan|{{amount}}>>",
-            "cubeQuarksOpenRequirement": "Open {{amount}} Cubes for next quark.",
-            "cubeQuarksOpenToday": "Cubes opened today: <<orchid|{{amount}}>>",
-            "tesseractQuarksToday": "Quarks gained from Tesseracts: <<cyan|{{amount}}>>",
-            "tesseractQuarksOpenRequirement": "Open {{amount}} Tesseracts for next quark.",
-            "tesseractQuarksOpenToday": "Tesseracts opened today: <<orchid|{{amount}}>>",
-            "hypercubeQuarksToday": "Quarks gained from Hypercubes: <<cyan|{{amount}}>>",
-            "hypercubeQuarksOpenRequirement": "Open {{amount}} Hypercubes for next quark.",
-            "hypercubeQuarksOpenToday": "Hypercubes opened today: <<orchid|{{amount}}>>",
-            "platonicCubeQuarksToday": "Platonic Cubes gained from Cubes: <<cyan|{{amount}}>>",
-            "platonicCubeQuarksOpenRequirement": "Open {{amount}} Platonic Cubes for next quark.",
-            "platonicCubeQuarksOpenToday": "Platonic Cubes opened today: <<orchid|{{amount}}>>"
+            "quarkTitle": "-=- Rincón de Cubos a Quarks -=-",
+            "resetInfo": "¡Las Recompensas de Quark se reinician a medianoche!",
+            "cubeQuarksToday": "Quarks ganados de Cubos: <<cyan|{{amount}}>>",
+            "cubeQuarksOpenRequirement": "Abre {{amount}} Cubos para el siguiente Quark.",
+            "cubeQuarksOpenToday": "Cubos abiertos hoy: <<orchid|{{amount}}>>",
+            "tesseractQuarksToday": "Quarks ganados de Teseractos: <<cyan|{{amount}}>>",
+            "tesseractQuarksOpenRequirement": "Abre {{amount}} Teseractos para el siguiente Quark.",
+            "tesseractQuarksOpenToday": "Teseractos abiertos hoy: <<orchid|{{amount}}>>",
+            "hypercubeQuarksToday": "Quarks ganados de Hipercubos: <<cyan|{{amount}}>>",
+            "hypercubeQuarksOpenRequirement": "Abre {{amount}} Hipercubos para el siguiente Quark.",
+            "hypercubeQuarksOpenToday": "Hipercubos abiertos hoy: <<orchid|{{amount}}>>",
+            "platonicCubeQuarksToday": "Quarks ganados de Cubos Platónicos: <<cyan|{{amount}}>>",
+            "platonicCubeQuarksOpenRequirement": "Abre {{amount}} Cubos Platónicos para el siguiente Quark.",
+            "platonicCubeQuarksOpenToday": "Cubos Platónicos abiertos hoy: <<orchid|{{amount}}>>"
         },
         "cubes": {
-            "intro": "You feel a sense of Pride and Accomplishment... and a hunger for power.",
-            "instructions": "Open up some Lootb-- er, Wow! Cubes, to get one of ten permanent bonuses.",
-            "inventory": "You possess <<yellow|{{amount}}>> Wow! Cubes. Get them from ascending!",
-            "total": "You have a total of <<yellow|{{amount}}>> Cube tributes!",
+            "intro": "Sientes una sensación de Orgullo y Satisfacción... y hambre de poder.",
+            "instructions": "Abre algunas Lootb-- esto, Cubos ¡Wow!, para obtener uno de los diez bonos permanentes.",
+            "inventory": "Posees <<yellow|{{amount}}>> Cubos ¡Wow!. ¡Consíguelos al ascender!",
+            "total": "¡Tienes un total de <<yellow|{{amount}}>> tributos de Cubo!",
             "items": {
                 "1": "Hermes' Tribute x{{amount}}: +{{bonus}} Accelerators per Accelerator Boost",
                 "2": "Aphrodite's Tribute x{{amount}}: +{{bonus}}% Multipliers",
@@ -2851,8 +2851,8 @@
             }
         },
         "tesseracts": {
-            "intro": "You obtain guidance from beings in another dimension!",
-            "instructions": "Open up some Lootb-- er, Wow! Tesseracts, to boost tributes from the previous tier.",
+            "intro": "¡Recibes la guía de seres en otra dimensión!",
+            "instructions": "Abre algunas Lootb-- esto, Teseractos ¡Wow!, para potenciar los tributos del anterior rango.",
             "inventory": "You possess <<yellow|{{amount}}>> Wow! Tesseracts. Get them from ascending with at least 100,000 score!",
             "total": "You have a total of <<yellow|{{amount}}>> Tesseract gifts!",
             "items": {
@@ -2870,7 +2870,7 @@
         },
         "hypercubes": {
             "intro": "I didn't know that Wow! enterprises made 5-Dimensional Objects.",
-            "instructions": "Open up some Lootb-- er, Wow! Hypercubes, to boost blessings from the previous tier.",
+            "instructions": "Abre algunas Lootb-- esto, Hipercubos ¡Wow!, para potenciar las bendiciones del anterior rango.",
             "inventory": "You possess <<yellow|{{amount}}>> Wow! Hypercubes. Get them from ascending with at least 1e9 score!",
             "total": "You have a total of <<yellow|{{amount}}>> Hypercube benedictions!",
             "items": {
@@ -2888,7 +2888,7 @@
         },
         "platonics": {
             "intro": "Esto es muy familiar.",
-            "instructions": "Open up some Lootb-- er, Platonic! Cubes, for epic perks!.",
+            "instructions": "Abre algunas Lootb-- esto, Cubos ¡Platónicos!, ¡para beneficios épicos!.",
             "inventory": "You possess <<yellow|{{amount}}>> Wow! Platonic Cubes. Get them from ascending with at least 2.666e12 score!",
             "total": "You have a total of <<yellow|{{amount}}>> Platonic Cubes opened!",
             "items": {
@@ -2904,16 +2904,16 @@
         },
         "hepteractForge": {
             "howDidIGetHere": "¿Cómo he llegado aquí?",
-            "noTimeToWaste": "Oh well, no time to waste. This is your lab. Make cool stuff with your Hepteracts!",
-            "noPassiveBonus": "Hepteracts do not provide passive bonuses. They must be made useful through crafting.",
-            "youPossessHepteracts": "You possess <<yellow|{{x}}>> Hepteracts! You know where to get these, right?",
+            "noTimeToWaste": "Bien, no hay tiempo que perder. Este es tu laboratorio. ¡Haz grandes cosas con tus Hepteractos!",
+            "noPassiveBonus": "Los hepteractos no proporcionan bonificaciones pasivas, deben hacerse útiles a través de la creación.",
+            "youPossessHepteracts": "¡Tienes <<yellow|{{x}}>> Hepteractos! ¿Sabes dónde conseguir más, verdad?",
             "craft": "Crear",
             "max": "Máx",
             "expand": "Expandir",
             "warp": "Distorsión",
             "autoSetting": "Auto Configuración: {{x}}%",
             "autoCraftPercentage": "Porcentaje de Autocreación",
-            "autoCraftPercentagePrompt": "Enter a number from 0 to 100 (integer only!) to set autocraft percentage. Every ascension, that percentage of your hepteracts are used to craft equally split between every hepteract with AUTO ON. Auto crafting also does not consume other resources! [Except Quarks, of course...]",
+            "autoCraftPercentagePrompt": "Introduce un número de 0 a 100 (¡sólo enteros!) para indicar el porcentaje de creación. Cada ascensión, ese porcentaje de hepteractos se utilizan para crear otros hepteractos divididos entre cada uno con AUTO ON. ¡La creación automática tampoco consume otros recursos! [Excepto Quarks, por supuesto...]",
             "unlocked": "< DESBLOQUEADO >",
             "locked": "< BLOQUEADO >",
             "inventory": "Inventario: {{x}} / {{y}}",
@@ -2923,44 +2923,44 @@
             "warps": "Distorsiones:",
             "descriptions": {
                 "chronos": {
-                    "effect": "This hepteract bends time, in your favor. +0.06% Ascension Speed per Chronos Hepteract.",
-                    "currentEffect": "Current Effect: Ascension Speed +{{x}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Obtainium!"
+                    "effect": "Este hepteracto manipulará el tiempo, a tu favor, +0,06% Velocidad de Ascensión por Hepteracto de Cronos.",
+                    "currentEffect": "Efecto Actual: Velocidad de Ascensión +{{x}}%",
+                    "oneCost": "Uno de estos te costará {{x}} Hepteractos y {{y}} Obtainium!"
                 },
                 "hyperrealism": {
-                    "effect": "This bad boy can make hypercube gain skyrocket. +0.06% Hypercubes per Hyperreal Hepteract.",
-                    "currentEffect": "Current Effect: Hypercubes +{{x}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Offerings."
+                    "effect": "Este chico malo puede disparar la ganancia de hipercubos. +0,06% Hipercubos por Hepteracto Hiperreal.",
+                    "currentEffect": "Efecto Actual: Hipercubos +{{x}}%",
+                    "oneCost": "Uno de estos te costará {{x}} Hepteractos y {{y}} Ofrendas."
                 },
                 "quark": {
                     "effect": "One pound, two pound fish, fishy grant +0.05% Quarks per Quark Hepteract fish fish.",
-                    "currentEffect": "Current Effect: Quarks +{{x}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Quarks."
+                    "currentEffect": "Efecto Actual: Quarks +{{x}}%",
+                    "oneCost": "Uno de estos te costará {{x}} Hepteractos y {{y}} Quarks."
                 },
                 "challenge": {
-                    "effect": "That's preposterous. How are you going to gain +0.05% C15 Exponent per Challenge Hepteract? How!?",
-                    "currentEffect": "Current Effect: C15 Exponent +{{x}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts, {{y}} Platonic Cubes and {{z}} Cubes."
+                    "effect": "Eso es absurdo. ¿Cómo vas a ganar +0,05% de Exponente C15 por Hepteracto de Desafío? ¿¡Cómo!?",
+                    "currentEffect": "Efecto Actual: Exponente C15 +{{x}}%",
+                    "oneCost": "Uno de estos te costará {{x}} Hepteractos, {{y}} Cubos Platónicos y {{z}} Cubos."
                 },
                 "abyss": {
-                    "effect": "It seems like this holds the power to be at the End of Time. Do you remember why you need this?",
-                    "currentEffect": "<[You will submit to the Omega Entity of Time]>",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Cubes (lol)"
+                    "effect": "Parece que esto posee el poder de llegar al Fin de los Tiempos. ¿Me recuerdas por qué lo necesitas?",
+                    "currentEffect": "<[Te someterás a la Entidad Omega del Tiempo]>",
+                    "oneCost": "Uno de estos te costará {{x}} Hepteractos y {{y}} Cubos ¡Wow! (nice)"
                 },
                 "accelerator": {
-                    "effect": "Haha, stupid Corruptions. +2,000 +0.03% Uncorruptable Accelerators per 'Way too many accelerators' Hepteract!",
-                    "currentEffect": "Current Effect: Uncorruptable Accelerators +{{x}} + {{y}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Tesseracts"
+                    "effect": "Haha, patéticas Corrupciones. ¡+2.000 +0,03% Aceleradores Incorruptibles por cada Hepteracto 'Demasiados aceleradores'!",
+                    "currentEffect": "Efecto Actual: Aceleradores Incorruptibles +{{x}} + {{y}}%",
+                    "oneCost": "Uno de estos te costará {{x}} Hepteractos y {{y}} Tesseractos ¡Wow!"
                 },
                 "acceleratorBoost": {
-                    "effect": "Haha, stupid Corruptions. +0.1% Accelerator Boosts per 'Way too many accelerator boosts' Hepteract!",
-                    "currentEffect": "Current Effect: Accelerator Boosts +{{x}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Hypercubes"
+                    "effect": "Haha, patéticas Corrupciones. ¡+0,1% Potenciadores de Acelerador por cada Hepteracto 'Demasiados Potenciadores de Acelerador'!",
+                    "currentEffect": "Efecto Actual: Potenciador de Acelerador +{{x}}%",
+                    "oneCost": "Uno de estos te costará {{x}} Hepteractos y {{y}} Hipercubos"
                 },
                 "multiplier": {
-                    "effect": "Haha, stupid Corruptions. +1,000 +0.03% Uncorruptable Multipliers per 'Way too many multipliers' Hepteract!",
-                    "currentEffect": "Current Effect: Uncorruptable Multipliers +{{x}} +{{y}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Obtainium"
+                    "effect": "Haha, patéticas Corrupciones. ¡+1.000 +0,03% Multiplicadores Incorruptibles por cada Hepteracto 'Demasiados multiplicadores'!",
+                    "currentEffect": "Efecto Actual: Multiplicadores Incorruptibles +{{x}} + {{y}}%",
+                    "oneCost": "Uno de estos te costará {{x}} Hepteractos y {{y}} Obtainium"
                 }
             }
         }
@@ -2988,15 +2988,15 @@
         "craftedHepteractsMax": "Has creado con éxito {{x}} hepteractos. Si esto es menos que lo insertado, o has alcanzado el límite de inventario o no tendrás recursos suficientes.",
         "expandPrompt": "This will reduce your balance by {{x}}, but capacity will increase from {{y}} to {{z}} [Expansion Multiplier: {{a}}]. Agree to the terms and conditions and stuff?",
         "doubleSpent": "Algo ya ha modificado tu saldo o límite, ¡inténtalo de nuevo!",
-        "expandedInventory": "Successfully expanded your inventory. You can now fit {{x}}.",
-        "orbEffect": "Orb Effect: Opening Cubes gives {{x}}% more Quarks.",
+        "expandedInventory": "Has ampliado tu inventario. Ahora pueden caber en él {{x}}.",
+        "orbEffect": "Efecto del orbe: Abrir Cubos da un {{x}}% más de Quarks.",
         "orbsPurchasedToday": "Orbes comprados hoy: {{x}}.",
-        "amalgamate": "You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]",
+        "amalgamate": "Puedes amalgamar Orbes de Sobreflujo aquí. [NOTA: estos expiran al final del día actual]",
         "cost250k": "Coste: 250.000 Hepteractos por Orbe de Sobreflujo",
-        "craftMaxOrbs": "This will attempt to buy as many orbs as possible. \nYou can buy up to {{x}} with your hepteracts. Are you sure?",
-        "hepteractInput": "How many Orbs would you like to purchase?\n You can buy up to {{x}} with your hepteracts.",
-        "gainedPowder": "You have also gained {{x}} powder immediately, thanks to your shop upgrades.",
-        "purchasedOrbs": "You have purchased {{x}} Overflux Orbs [+{{y}}% to effect]. {{z}} Enjoy!",
+        "craftMaxOrbs": "Esto intentará comprar tantos orbes como sea posible. \nPuedes comprar hasta {{x}} con tus hepteractos. ¿Seguro?",
+        "hepteractInput": "¿Cuántos Orbes te gustaría comprar?\n Puedes comprar hasta {{x}} con tus hepteractos.",
+        "gainedPowder": "También has ganado {{x}} polvo inmediatamente, gracias a tus mejoras de tienda.",
+        "purchasedOrbs": "Has comprado {{x}} Orbes de Sobreflujo[+{{y}}% a efecto]. ¡ {{z}} Disfruta!",
         "allCubeGain": "Ganancia de TODOS los Cubos +{{x}}% [Multiplicativo], +{{y}}% Quarks [Multiplicativo]",
         "allCubeGainExtended": "Ganancia de TODOS los Cubos +{{x}}% [Multiplicativo], +{{y}}% Quarks [Multiplicativo], Conteo de Ascensión +{{z}}%, Producción de Edificios de Tesseracto x{{a}} [Desde Mejora Platónica 4x1]",
         "powderEffect": "Efecto del Polvo: {{x}}",
