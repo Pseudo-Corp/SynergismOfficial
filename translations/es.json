@@ -2614,9 +2614,9 @@
         "secondsPerOcteract": "+1 per <<var(--orchid-text-color)|{{seconds}}>> seconds",
         "octeractsPerSecond": "<<yellow|{{octeracts}}>> per second",
         "totalGenerated": "Total Generated: <<var(--lightseagreen-text-color)|{{octeracts}}>> Octeracts!",
-        "generatedCubeBonus": "3-7 Dimensional Cubes <<yellow|+{{cubeBonus}}%>>",
+        "generatedCubeBonus": "Cubos 3-7 Dimensionales <<yellow|+{{cubeBonus}}%>>",
         "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}%>>",
-        "generatedOfferingBonus": "Offerings <<orange|+{{offeringBonus}}%>>",
+        "generatedOfferingBonus": "Ofrendas <<orange|+{{offeringBonus}}%>>",
         "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}%>>"
     },
     "runes": {
@@ -2681,7 +2681,7 @@
             "increaseLevel": "Increase Level By <<orchid|{{amount}}>> [Cost: <<orchid|{{offerings}}>> Offerings]"
         },
         "spirits": {
-            "spiritLevel": "Spirit level: <<orchid|{{amount}}>>",
+            "spiritLevel": "Nivel de Espíritu: <<orchid|{{amount}}>>",
             "spiritPower": "Spirit Power: <<turquoise|{{value}}>> =-=-= Effect: <<gold|{{speed}}>>{{reward}}!",
             "rewards": {
                 "0": "x Velocidad Global",
@@ -2717,28 +2717,28 @@
     "singularityChallenge": {
         "enterChallenge": {
             "lowSingularity": "Derpsmith te prohíbe entrar en este desafío. Se más singular primero.",
-            "confirmation": "You are about to enter {{name}}. Your Singularity Timer will not reset but you will be taken back to the beginning of a Singularity. Do you proceed?",
+            "confirmation": "Está a punto de entrar en {{name}}. Tu timer de Singularidad no reseteará pero volverás al comienzo de una Singularidad. ¿Continuarás?",
             "decline": "Derpsmith asiente. Vuelve cuando estés preparado...",
-            "acceptSuccess": "You are attempting {{name}} #{{tier}}! You were sent to Singularity {{singReq}}. Buy Antiquities to complete the challenge!",
+            "acceptSuccess": "Estás intentando {{name}} #{{tier}}! Has vuelto a la Singularidad {{singReq}}. ¡Compra Antigüedades para completar el desafío!",
             "acceptFailure": "Derpsmith declara que ya estás en un desafío de Singularidad y te prohíbe destruir el tejido de tu Realidad."
         },
         "exitChallenge": {
             "incompleteWarning": "ATENCIÓN: No ganarás una finalización ya que no has comprado aún las Antigüedades.",
-            "confirmation": "Are you sure you want to quit {{name}} Tier {{tier}} \n{{warning}}`",
+            "confirmation": "¿Seguro que quieres salir de {{name}} Nivel {{tier}} \n{{warning}}?",
             "decline": "Derpsmith trata de abrazarte, pero no tiene brazos.",
-            "acceptSuccess": "You have completed the {{tier}} tier of {{name}}! The corresponding challenge rewards have been updated.",
-            "acceptFailure": "You have been transported back to your highest reached Singularity. Try again soon! -Derpsmith"
+            "acceptSuccess": "¡Has completado el nivel {{tier}} de {{name}}! Se han actualizado las recompensas correspondientes al desafío.",
+            "acceptFailure": "Has sido transportado a tu Singularidad más alta. ¡Inténtalo de nuevo pronto! -Derpsmith"
         },
         "toString": {
-            "canEnter": "Can be entered at highest Singularity {{unlockSing}} [Your highest: {{highestSing}}]",
+            "canEnter": "Se puede entrar desde la Singularidad mayor {{unlockSing}} [Tu más alta: {{highestSing}}]",
             "tiersCompleted": "Rangos Completados",
             "currentTierSingularity": "El rango actual de este desafío tiene lugar en la Singularidad"
         },
         "data": {
             "noSingularityUpgrades": {
                 "name": "Sin Mejoras de Singularidad",
-                "description": "Simply put, you have to beat the target singularity without (most) Singularity Upgrades. Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
-                "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks. 20th awards something `special` ;)"
+                "description": "En resumen, supera la singularidad objetivo sin (la mayoría de) Mejoras de Singularidad. Las mejoras de Octeractos, QoL y Beneficios se conservan.",
+                "rewardDescription": "¡Cada finalización aumenta la ganancia de cubos de cada dimensión un 50%! La primera da +12% de Quarks Dorados. La 20 premia con algo 'especial' ;)"
             },
             "oneChallengeCap": {
                 "name": "Límites de Un Desafío",
@@ -2788,16 +2788,16 @@
             "simplified": "Simplificado",
             "monotonous": "Monótono"
         },
-        "joinDiscord": "Click the image below to join the Discord!",
-        "joinPatreon": "Support Development on Patreon!",
-        "exportQuark": "{{x}}s until +{{y}} export Quark",
-        "exportGoldenQuark": "{{x}}s until +{{y}} export Golden Quark",
-        "quarksOnExport": "Quarks on export: {{x}} [Max {{y}}]",
-        "goldenQuarksOnExport": "Golden Quarks on export: {{x}} [Max {{y}}]",
+        "joinDiscord": "¡Haz clic en la imagen de abajo para unirte al Discord!",
+        "joinPatreon": "¡Apoya el Desarrollo en Patreon!",
+        "exportQuark": "{{x}}s hasta +{{y}} Quark exportados",
+        "exportGoldenQuark": "{{x}}s hasta +{{y}} Quark Dorados exportados",
+        "quarksOnExport": "Quarks al exportar: {{x}} [Máximo {{y}}]",
+        "goldenQuarksOnExport": "Quarks Dorados al exportar: {{x}} [Máximo {{y}}]",
         "copyToClipboard": "Copiar a Portapapeles",
         "exportHere": "Exporta el juego aquí",
         "currently": "Actualmente: {{x}}",
-        "loadGameBelow": "Load game below!",
+        "loadGameBelow": "¡Carga la partida abajo!",
         "loadFromFile": "Carga de archivo",
         "saveManually": "Guarda el juego manualmente",
         "deleteSave": "Eliminar archivo guardado",
@@ -2808,7 +2808,7 @@
         }
     },
     "wowCubes": {
-        "greenText": "You can also spend them on upgrades that persist through Ascension.",
+        "greenText": "También puedes gastarlos en mejoras que persisten a través de Ascensión.",
         "open1": "Abrir x1",
         "open10%": "Abrir 10%",
         "open50%": "Abrir 50%",
