@@ -837,8 +837,8 @@ export const toggleHideShop = () => {
 export const toggleAntMaxBuy = () => {
     const el = DOMCacheGetOrSet('toggleAntMax');
     el.textContent = player.antMax
-        ? i18next.t('general.buyMaxOn')
-        : i18next.t('general.buyMaxOff')
+        ? i18next.t('general.buyMaxOff')
+        : i18next.t('general.buyMaxOn')
 
     player.antMax = !player.antMax;
 }
