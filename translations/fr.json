@@ -1,31 +1,31 @@
 {
     "testing": {
         "saveInLive": "Les sauvegardes ne peuvent pas être utilisées en direct  !",
-        "saveInLive2": "You can't load this save anymore!",
-        "errorSaving": "An error prevented this file from being saved.",
-        "gameSaved": "Game saved successfully!"
+        "saveInLive2": "Vous ne pouvez plus charger cette sauvegarde !",
+        "errorSaving": "Une erreur à empêcher la sauvegarde du fichier.",
+        "gameSaved": "Jeu sauvegardé avec succès !"
     },
     "save": {
         "loadFailed": "Incapable de charger la sauvegarde.",
-        "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
+        "saveToClipboard": "Êtes-vous sûr de vouloir activer l'enregistrement de la sauvegarde dans le presse-papiers ?"
     },
     "achievements": {
         "descriptions": {
             "1": "[{{number}}] Un Employé Fidèle : Embauchez votre premier Ouvrier.",
             "2": "[{{number}}] Petite entreprise : Embauchez 10 Ouvriers.",
-            "3": "[{{number}}] Nous sommes en synergie ! : Embauchez 100 Ouvriers.",
-            "4": "[{{number}}] Obtenant des Redondances : Embauchez 1 000 ouvriers.",
+            "3": "[{{number}}] Là, On parle ! On est enfin en synergie ! : Embauchez 100 Ouvriers.",
+            "4": "[{{number}}] Ça devient répétitif : Embauchez 1 000 ouvriers.",
             "5": "[{{number}}] Un rouage dans la machine : Embauchez 5000 Ouvriers.",
             "6": "[{{number}}] Un clou dans la machine : Embauchez 10 000 Ouvriers.",
-            "7": "[{{number}}] Sommes-nous encore dans la machine ? : Embauchez 20 000 Ouvriers.",
-            "8": "[{{number}}] STONKS!!!: Achetez 1 Investissement.",
+            "7": "[{{number}}] Sommes-nous mêmes encore dans la machine ? : Embauchez 20 000 Ouvriers.",
+            "8": "[{{number}}] STONKS!!! : Achetez 1 Investissement.",
             "9": "[{{number}}] Planifier à l'avance : Achetez 10 Investissements.",
             "10": "[{{number}}] Délit d'Initié : Achetez 100 Investissements.",
-            "11": "[{{number}}] Délit de non-initié ?  : Achetez 1,000 investissements.",
-            "12": "[{{number}}] Reprise de Marché: Achetez 5,000 Investissements.",
-            "13": "[{{number}}] Théorie du Ruissèlement : Achetez 10,000 Investissements.",
-            "14": "[{{number}}] Réglementation Supprimée: Achetez 20,000 Investissements.",
-            "15": "[{{number}}] Papeterie!: Construisez 1 imprimante.",
+            "11": "[{{number}}] Délit de non-initié ? : Achetez 1 000 investissements.",
+            "12": "[{{number}}] Reprise de Marché : Achetez 5 000 Investissements.",
+            "13": "[{{number}}] Théorie du Ruissèlement : Achetez 10 000 Investissements.",
+            "14": "[{{number}}] Réglementation Supprimée : Achetez 20 000 Investissements.",
+            "15": "[{{number}}] Papeterie ! : Construisez 1 imprimante.",
             "16": "{{number}} Planche à billets : Construisez 10 imprimantes.",
             "17": "{{number}} Ça imprime de l'argent gratuitement ! : Construisez 100 imprimantes.",
             "18": "[{{number}}] Rembourser nos dettes : Construisez 1,000 imprimantes.",
