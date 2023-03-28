@@ -1604,8 +1604,7 @@ export const updateSingularityPerks = (): void => {
     const singularityCount = player.highestSingularityCount;
     const str = i18next.t('singularity.perks.update', {
         ord: toOrdinal(singularityCount),
-        extra: getAvailablePerksDescription(singularityCount),
-        interpolation: { escapeValue: false }
+        extra: getAvailablePerksDescription(singularityCount)
     })
 
     DOMCacheGetOrSet('singularityPerksMultiline').innerHTML = str;

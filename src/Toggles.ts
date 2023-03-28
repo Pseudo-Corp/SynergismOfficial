@@ -413,7 +413,7 @@ export const toggleautoreset = (i: number) => {
     } else if (i === 4) {
         if (player.resettoggle4 === 1 || player.resettoggle4 === 0) {
             player.resettoggle4 = 2;
-            DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t('main.modePercentage')
+            DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t('toggles.modePercentage')
         } else {
             player.resettoggle4 = 1;
             DOMCacheGetOrSet('tesseractautobuymode').textContent = i18next.t('toggles.modeAmount')

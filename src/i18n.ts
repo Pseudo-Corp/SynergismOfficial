@@ -46,7 +46,10 @@ export const init = async (): Promise<void> => {
         postProcess: ['ColorText'],
         // poeditor returns an empty string when a translation for
         // a language isn't present
-        returnEmptyString: false
+        returnEmptyString: false,
+        interpolation: {
+            escapeValue: false
+        }
     })
 
     buildLanguageTab()

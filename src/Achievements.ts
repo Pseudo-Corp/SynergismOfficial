@@ -424,10 +424,7 @@ export const getAchievementQuarks = (i: number) => {
 }
 
 export const achievementdescriptions = (i: number) => {
-    const y = i18next.t(`achievements.descriptions.${i}`, {
-        number: `${i}`,
-        interpolation: { escapeValue: false }
-    })
+    const y = i18next.t(`achievements.descriptions.${i}`, { number: `${i}` })
     const z = player.achievements[i] > 0.5 ? i18next.t('achievements.completed') : '';
     const k = areward(i)
 
@@ -448,10 +445,7 @@ export const achievementdescriptions = (i: number) => {
 export const achievementaward = (num: number) => {
     if (player.achievements[num] < 1) {
         if (player.toggles[34]) {
-            const description = i18next.t(`achievements.descriptions.${num}`, {
-                number: `${num}`,
-                interpolation: { escapeValue: false }
-            })
+            const description = i18next.t(`achievements.descriptions.${num}`, { number: `${num}` })
             void Notification(i18next.t('achievements.notification', { m: description }));
         }
 
