@@ -1,7 +1,7 @@
 {
     "testing": {
         "saveInLive": "Savefiles cannot be used in live!",
-        "saveInLive2": "You can't load this save anymore!",
+        "saveInLive2": "Вы больше не можете загрузить это сохранение!",
         "errorSaving": "An error prevented this file from being saved.",
         "gameSaved": "Game saved successfully!"
     },
