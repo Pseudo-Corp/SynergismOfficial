@@ -1312,9 +1312,9 @@
             "obtainiumEX": "¡Ganarás <<pink|{{amount}}%>> más Obtainium!",
             "obtainiumAuto": "Try to upgrade research each reincarnation, and gain <<pink|{{amount}}%>> more Obtainium.",
             "instantChallenge": "Incluso en una tienda premium, es obvio, ¿no?",
-            "antSpeed": "All Ants' Speed <<crimson|x{{amount}}>>",
+            "antSpeed": "Velocidad de toda Hormigas <<crimson|x{{amount}}>>",
             "cashGrab": "You will gain <<gold|{{amount}}%>> more Obtainium and Offerings!",
-            "shopTalisman": "Even in a premium shop it's kinda obvious, right?",
+            "shopTalisman": "Incluso en una tienda premium, es obvio, ¿no?",
             "seasonPass": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Wow! Cubes and Tesseracts.",
             "challengeExtension": "Reincarnation Challenges may be completed an additional <<lime|{{amount}}>> times.",
             "challengeTome": "Challenge 10 Exponent Requirement reduced by <<lightgoldenrodyellow|{{amount1}}>> Million. Past 60 completions of C9 or C10 the scaling multiplier is [completions * <<lightgoldenrodyellow|{{amount2}}>>]",
@@ -1347,7 +1347,7 @@
             "powderAuto": "Every <<red|{{amount}}>> purchased orbs grants 1 powder.",
             "seasonPassLost": "You generate <<lightgoldenrodyellow|{{amount}}%>> more Wow! Octeracts per second.",
             "challenge15Auto": "Even in a premium shop it's kinda obvious, right?",
-            "extraWarp": "You can warp <<red|+{{amount}}>> extra times.",
+            "extraWarp": "Puedes distorsionarte <<red|+{{amount}}>> veces extra.",
             "autoWarp": "If you buy this upgrade, you can toggle <<red|auto warp>> in the Hepteract Forge tab. Only if you buy this, though.",
             "improveQuarkHept": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
             "improveQuarkHept2": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
@@ -2106,7 +2106,7 @@
             "39": "Effect: Thank you for getting the server above 30 boosts!",
             "40": "Effect: Thank you for getting the server above 30 boosts!",
             "41": "Effect: Welcome to Transcension! Coin production is multiplied by {{x}}.",
-            "42": "Effect: All Mythos Shard producers are going into overdrive: x{{x}} the production!",
+            "42": "Efecto: Todo productor de Fragmentos de Mythos irá a toda máquina: ¡producción x{{x}}!",
             "43": "Effect: Multiply all coin production by {{x}}!",
             "44": "Effect: Multiply Mythos gained in Transcension by {{x}}!",
             "45": "Effect: +{{x}} Accelerators!",
@@ -3002,17 +3002,17 @@
         "powderEffect": "Powder effect: {{x}}",
         "powderLumps": "You have {{x}} lumps of Overflux Powder.",
         "expiredOrbs": "Expired Overflux Orbs become powder at a rate of {{x}} Orbs per powder lump!",
-        "dayWarpsRemaining": "Day Warps remaining today: {{x}}",
-        "warpImpossible": "Warping is impossible (you get multiplier to Quarks instead)",
+        "dayWarpsRemaining": "Distorsiones diarias restantes hoy: {{x}}",
+        "warpImpossible": "Distorsionar es imposible (pero obtienes un multiplicador de Quarks)",
         "machineCooldown": "Lo siento, pero esta máquina está recuperándose.",
         "atleastPowder": "Lo siento, pero necesitas 25 polvo para usar la máquina de distorsión.",
         "stumbleMachine": "You stumble upon a mysterious machine. A note attached says that you can reset daily Cube openings for 25 Powder. However it only works once each real life day. You in?",
         "walkAwayMachine": "Dejas la máquina en paz, polvo sin tocar.",
         "useMachine": "Upon using the machine, your cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]",
-        "useAllWarpsPrompt": "Turning this OFF, will consume all of your remaining Warps (without doing a Warp).\nAre you sure?",
+        "useAllWarpsPrompt": "Desactivar esta opción consumirá todas las Distorsiones restantes (sin hacer una).\n¿Estás seguro?",
         "machineDidNotConsume": "La Máquina no ha consumido tus Distorsiones.",
-        "boostQuarksPrompt": "This machine will now be able to boost your Quarks gained from opening Cubes, based on how many Warps you have remaining. While its ON, warping will be impossible and turning it OFF won't be so easy.\nAre you sure you want to turn it ON?",
-        "machineOverdrive": "Machine will go into overdrive,\nonce you will have some Warps.",
+        "boostQuarksPrompt": "Esta máquina mejorará sus Quarks ganados al abrir Cubos, según cuántos Warps le queden. Mientras esté encendida, distorsionar será imposible y desactivarla no será gratis.\n¿Estás seguro de querer activarla?",
+        "machineOverdrive": "La Máquina irá a toda máquina,\ncuando tengas unas Distorsiones.",
         "machineInOverdrive": "La Máquina va a toda máquina.",
         "machineUsualContinue": "La Máquina seguirá funcionando como siempre, por ahora."
     },
@@ -3075,18 +3075,18 @@
                 "wait": "If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.\n\nRegardless, you must wait at least 15 minutes between each use.",
                 "confirm": "Click the button within the next 15 seconds to test your luck! If you click within {{x}} ms of a randomly generated time, you will win a prize! This particular instance has a {{y}}x multiplier due to elapsed time between uses.",
                 "won": "You clicked at the right time! [+{{x}} Quarkies]",
-                "lost": "You didn't guess the right time, try again soon!"
+                "lost": "No has clicado el momento adecuado, ¡vuelve a intentarlo pronto!"
             },
             "spoiler": {
                 "moreThan1": "You will gain {{x}} Octeracts (when they come out) every second, assuming you have them unlocked!",
                 "one": "You will gain an Octeract (when they come out) every {{x}} seconds, assuming you have them unlocked!"
             },
-            "invalid": "Your code is either invalid or already used. Try again!"
+            "invalid": "Tu código no es válido o ya se usó. ¡Vuelve a intentarlo!"
         }
     },
     "toggles": {
         "percentBetweenInclusive": "Value must be a number between {{x}} and {{y}}, inclusive!",
-        "percentKeptAt": "Your percentage is kept at {{x}}%.",
+        "percentKeptAt": "Tu porcentaje se mantiene en un {{x}}%.",
         "onAscensionHepteractsCraft": "Okay. On Ascension, {{x}}% of your Hepteracts will be used in crafting.",
         "autoUpgradeOn": "Auto Mejoras: [ON]",
         "autoUpgradeOff": "Auto Mejoras: [OFF]",
@@ -3122,7 +3122,7 @@
         "noAntiquity": "Hmph. Por favor, regresa con una Antiguedad. Gracias. -Dios Hormiga",
         "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.",
         "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
-        "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
+        "exitAscensionChallenge": "¿Estás absolutamente seguro de abandonar el Desafío de Ascensión? ¡Necesitarás completar Desafío 10 de nuevo antes de intentar otro de nuevo!",
         "buyResearch3x11": "[BLOQUEADO - Compra Investigación 3x11]"
     },
     "history": {
