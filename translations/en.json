@@ -777,7 +777,7 @@
             "name": "No Research Challenge || {{- value}} Completions",
             "flavor": "The dimension that never progressed past the dark ages. Many fear to even step foot.",
             "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.2.",
-            "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
+            "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
             "per": {
                 "1": "+50% stronger effect on researches 1x1 through 1x5. Current: ",
                 "2": "+1 research purchased per roomba tick! Current: ",
@@ -1370,7 +1370,7 @@
             "transaction": "Transaction of {{spent}} Golden Quarks successful! [-{{cost}} Quarks]",
             "poor": "Sorry, I can't give credit. Come back when you're a little... mmm... richer!",
             "buyPrompt": "You can buy Golden Quarks here for {{cost}} Quarks (Discounted by {{discount}})! You can buy up to {{max}}. How many do you want? Type -1 to buy max!",
-            "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq}} GQ. Type -1 to use max!",
+            "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq} GQ. Type -1 to use max!",
             "hasUpgrade": "Hey! You have already maxed this upgrade. :D",
             "notHighEnoughLevel": "You're not powerful enough to purchase this yet.",
             "ascensionReset": "You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...",
