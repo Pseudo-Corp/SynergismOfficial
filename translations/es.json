@@ -435,12 +435,12 @@
             "250": "You gain a permanent +60% Obtainium and Offering bonus, with +6% all Cube types!",
             "251": "You gain a permanent +100% Obtainium and Offering bonus, with +10% all Cube types!",
             "253": "¡Ganas +10% Hipercubos! ¿Por qué? No lo sé.",
-            "254": "Cube Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]",
-            "255": "Tesseract Gain +{{x}}% [Max: +15% at 1e25 Ascension Score], and allow gain of Hepteracts.",
-            "256": "Hypercube Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!",
-            "257": "Platonic Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!",
-            "258": "Hepteract Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]",
-            "259": "Corruption score is increased by 1% for every expansion of Abyss Hepteract!",
+            "254": "Ganancia de Cubos +{{x}}% [Máx: +15% con 1e25 Puntuación de Ascensión]",
+            "255": "Ganancia de Teseractos +{{x}}% [Máx: +15% con 1e25 Puntuación de Ascensión], y permite ganar Hepteractos.",
+            "256": "Ganancia de Hipercubos +{{x}}% [Máx: +15% con 1e25 Puntuación de Ascensión]. ¡Y mejora un 5% el ratio de conversión de Orbes de Sobreflujo!",
+            "257": "Ganancia de Platónicos +{{x}}% [Máx: +15% con 1e25 Puntuación de Ascensión]. ¡Y mejora un 5% el ratio de conversión de Orbes de Sobreflujo!",
+            "258": "Ganancia de Hepteractos +{{x}}% [Máx: +15% con 1e25 Puntuación de Ascensión]",
+            "259": "¡La puntuación de Corrupción aumenta un 1% por cada expansión de Hepteracto del Abismo!",
             "260": "¡Ganarás 10% más de número de Ascensiones, para siempre!",
             "261": "¡Ganarás 10% más de número de Ascensiones, para siempre!",
             "262": "¡Ascensiones {{x}}% más rápidas! Máx: +10%",
@@ -455,14 +455,14 @@
             "275": "¡Inmediatamente empiezas Singularidades con 1 Trascensión y 1001 mythos!",
             "276": "¡Inmediatamente empiezas Singularidades con 1 Reencarnación y 10 partículas!",
             "277": "¡Inmediatamente empiezas Singularidades con 500 Obtainium!",
-            "278": "Gain 5% more Quarks, permanently! Automation regarding Particle Buildings are immediately available.",
+            "278": "¡Gana un 5% más de Quarks, permanentemente! La automatización de Edificios de Partículas está disponible inmediatamente.",
             "279": "You immediately start Singularities with a Challenge 7 completion and 1e100 particles. Talismans now buff all runes at all times!",
             "280": "You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 Ant."
         },
         "alerts": {
-            "36": "Congratulations on your first Prestige. The first of many. You obtain Offerings. You can use them in the new Runes tab! [Unlocked Runes, Achievements, Diamond Buildings and some Upgrades!]",
-            "38": "Hmm, it seems you are getting richer, being able to get 1 Googol diamonds in a single Prestige. How about we give you another Rune? [Unlocked Duplication Rune in Runes tab!]",
-            "255": "Wow! You gained 1e17 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!"
+            "36": "Felicidades por tu primer Prestigio. El primero de muchos. Obtienes Ofrendas. ¡Puedes usarlas en la nueva pestaña de Runas! [Runas Desbloqueadas, Logros, Edificios de Diamantes y algunas Mejoras]",
+            "38": "Hmm, parece que te estás haciendo rico, siendo capaz de obtener 1 Googol de diamantes en un solo Prestigio. ¿Y si te damos otra Runa? [¡Runa de Duplicación disponible en pestaña de Runas!]",
+            "255": "¡Wow! Has ganado 1e17 (100 Cuatrillones) puntos en una sola Ascensión. Por eso, ahora puedes generar Hepteractos si superas 1.66e17 (166.6 Cuatrillion) de puntos en una Ascensión. ¡Buena suerte!"
         },
         "hover": "Pasa sobre un logro para ver información.",
         "totalPoints": "Puntos de Logro: {{x}}/{{y}} [{{z}}%]",
@@ -517,10 +517,10 @@
             "9": "EFECTO ACTUAL: Cada runa tiene +{{x}} niveles efectivos.",
             "10": "EFECTO ACTUAL: Obtainium x{{x}}",
             "11": "EFECTO ACTUAL: Sacrificar es {{x}}x más efectivo",
-            "12": "CURRENT EFFECT: Global timer is sped up by a factor of {{x}}"
+            "12": "EFECTO ACTUAL: El cronómetro global se acelera por un factor de {{x}}"
         },
         "header": "Las hormigas te dan la bienvenida a su hogar.",
-        "hover": "Hover over the icons for description. Click icons to buy!",
+        "hover": "Pasa sobre los iconos para la descripción. ¡Haz clic en ellos para comprar!",
         "youHaveGalacticCrumbs": "You have {{x}} Galactic Crumbs [{{y}}/s], providing a {{z}} Coin Multiplier",
         "owned": "Poseído: {{x}} [+{{y}}]",
         "costGalacticCrumbs": "Coste: {{x}} Migas Galácticas",
@@ -531,7 +531,7 @@
         "modeInGameTime": "Modo: Tiempo del juego",
         "sacrificeWhenTimer": "Sacrifice when the timer is at least {{x}} seconds ({{y}}), Currently: {{z}}",
         "yourAntELO": "<<plum|Your Ant ELO is>> <<gold|{{x}}>> [{{y}} effective]",
-        "upgradeMultiplier": "Upgrade Multiplier: <<gold|{{x}}x>>",
+        "upgradeMultiplier": "Multiplicador de Mejora: <<gold|{{x}}x>>",
         "timeMultiplier": "Time Multiplier: <<var(--lightseagreen-text-color);|{{x}}x>>",
         "resetAnthill": "Resetea características del Hormiguero para:",
         "antSacMultiplier": "Multiplicador de Sacrificio de Hormigas: {{y}}x --> <<limegreen|x{{x}}>>",
@@ -831,7 +831,7 @@
         "autoTimer": "<<orange|Auto Timer:>> <<var(--orchid-text-color)|{{time}}s>>",
         "perCompletionBonus": "Bonus por Finalización || <<var(--orchid-text-color)|Softcapped pass {{x}}! Effective completion count {{y}}>>",
         "perCompletionBonusEmpty": "Bonus por Finalización",
-        "hypercubeOneTimeBonus": "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)",
+        "hypercubeOneTimeBonus": "Gana 1 Hipercubo ¡wow! por completar este desafío (Bonus de Primera Vez)",
         "ascensionBankAdd": "Completing the challenge adds {{x}} to Ascension Bank and increase base Score by {{y}}.",
         "firstTimeBonus": "¡Gana {{x}} por completar este desafío [Bonus de Primera Vez]!",
         "firstTimeBonusQuarks": "¡Gana {{x}} Quarks por completar este desafío [Bonus de Primera Vez]!"
@@ -1208,7 +1208,7 @@
             "199": "[8x24] +10% velocidad de Edificios Teseracto / nivel. EL RESURGIDO. CON LA ALABANZA DE LA SINGULARIDAD.",
             "200": "[8x25] ¡Gana el poder de mil soles! +0,01% Aceleradores, Potenciadores de A., Multiplicadores, Ofrendas, y +0,004% Cubos, +0,04 nivel máximo de Runa, +(nivel/400) nivel máximo de Talismán, +(nivel/200) Hormigas gratis, 0,000666% reducción de Impuestos por nivel."
         },
-        "thanksToResearches": "Thanks to researches you automatically gain {{x}} Obtainium per real life second.",
+        "thanksToResearches": "Gracias a las investigaciones, automáticamente ganas {{x}} Obtainium por segundo en la vida real.",
         "level": "Nivel {{x}}/{{y}}",
         "maxed": " || ¡MAXIMIZADO!",
         "cost": "Coste: {{x}} Obtainium [+{{y}} Niveles]",
@@ -1220,7 +1220,7 @@
         "autoModeManual": "Modo automático: Manual",
         "hoverToBuyOn": "Desliza para comprar [ON]",
         "hoverToBuyOff": "Desliza para comprar [OFF]",
-        "hover": "Hover over the grid to get details about researches!"
+        "hover": "¡Pasa sobre la cuadrícula para ver detalles de investigaciones!"
     },
     "shop": {
         "upgradeDescriptions": {
@@ -1313,7 +1313,7 @@
             "obtainiumAuto": "Try to upgrade research each reincarnation, and gain <<pink|{{amount}}%>> more Obtainium.",
             "instantChallenge": "Incluso en una tienda premium, es obvio, ¿no?",
             "antSpeed": "Velocidad de toda Hormigas <<crimson|x{{amount}}>>",
-            "cashGrab": "You will gain <<gold|{{amount}}%>> more Obtainium and Offerings!",
+            "cashGrab": "¡Ganarás <<gold|{{amount}}%>> más Obtainium y Ofrendas!",
             "shopTalisman": "Incluso en una tienda premium, es obvio, ¿no?",
             "seasonPass": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Wow! Cubes and Tesseracts.",
             "challengeExtension": "Reincarnation Challenges may be completed an additional <<lime|{{amount}}>> times.",
@@ -1323,11 +1323,11 @@
             "hypercubeToQuark": "Incluso en una tienda premium, es obvio, ¿no?",
             "seasonPass2": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Hypercubes and Platonic Cubes.",
             "seasonPass3": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Hepteracts and Octeracts.",
-            "chronometer": "Ascension timer increases <<orange|{{amount}}%>> faster.",
+            "chronometer": "El contador de Ascensión sube un <<orange|{{amount}}%>> más rápido.",
             "infiniteAscent": "El primer nivel da <<cyan|+10%>> Quarks, ¡gratis!",
-            "calculator": "Code 'add' provides <<cyan|{{amount1}}%>> more Quarks. AutoAnswer: <<orchid|{{bool1}}>>, AutoFill: <<orchid|{{bool2}}>>",
-            "calculator2": "Code 'add' has <<orchid|{{amount1}}>> more capacity. 'add' generates <<cyan|{{amount2}}%>> more Quarks.",
-            "calculator3": "Code 'add' rewards are <<orchid|{{amount1}}%>> less random. 'add' generates <<orchid|{{amount2}}>> seconds to Ascension Timer.",
+            "calculator": "El código 'suma' proporciona <<cyan|{{amount1}}%>> más Quarks. Respuesta automática: <<orchid|{{bool1}}>>, AutoCompletar: <<orchid|{{bool2}}>>",
+            "calculator2": "El código 'suma' tiene <<orchid|{{amount1}}>> más capacidad. 'suma' genera <<cyan|{{amount2}}%>> más Quarks.",
+            "calculator3": "Las recompensas del código 'suma' son <<orchid|{{amount1}}%>> menos aleatorias. 'suma' genera <<orchid|{{amount2}}>> segundos al tiempo de Ascensión.",
             "calculator4": "Code 'add' refills <<orchid|{{amount1}}%>> faster. Capacity is increased by <<orchid|+{{amount2}}>>.",
             "calculator5": "Code 'add' generates <<orchid|{{amount1}}>> seconds of GQ export timer. Capacity is increased by <<orchid|+{{amount2}}>>.",
             "calculator6": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Octeracts. Capacity is increased by <<orchid|+{{amount2}}>>.",
@@ -1350,17 +1350,17 @@
             "extraWarp": "Puedes distorsionarte <<red|+{{amount}}>> veces extra.",
             "autoWarp": "If you buy this upgrade, you can toggle <<red|auto warp>> in the Hepteract Forge tab. Only if you buy this, though.",
             "improveQuarkHept": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
-            "improveQuarkHept2": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
-            "improveQuarkHept3": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
-            "improveQuarkHept4": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
-            "improveQuarkHept5": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
-            "shopImprovedDaily": "Code 'daily' gives <<cyan|+{{amount}}%>> more quarks.",
-            "shopImprovedDaily2": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<turquoise|+{{amount2}}%>> more Golden Quarks.",
-            "shopImprovedDaily3": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<turquoise|+{{amount2}}%>> more Golden Quarks.",
-            "shopImprovedDaily4": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<turquoise|+{{amount2}}%>> more Golden Quarks.",
-            "offeringEX3": "You will gain <<goldenrod|{{amount}}%>> more Offerings!",
-            "obtainiumEX3": "You will gain <<pink|{{amount}}%>> more Obtainium!",
-            "chronometerInfinity": "Ascension timer increases <<orange|{{amount}}%>> faster.",
+            "improveQuarkHept2": "El Exponente de Retorno Disminuido en Hepteracto de Quarks se incrementa en <<cyan|+{{amount}}%>>.",
+            "improveQuarkHept3": "El Exponente de Retorno Disminuido en Hepteracto de Quarks se incrementa en <<cyan|+{{amount}}%>>.",
+            "improveQuarkHept4": "El Exponente de Retorno Disminuido en Hepteracto de Quarks se incrementa en <<cyan|+{{amount}}%>>.",
+            "improveQuarkHept5": "El Exponente de Retorno Disminuido en Hepteracto de Quarks se incrementa en <<cyan|+{{amount}}%>>.",
+            "shopImprovedDaily": "El código 'diario' da <<cyan|+{{amount}}%>> más quarks.",
+            "shopImprovedDaily2": "Código 'diario' da <<turquoise|+{{amount1}}>> Mejoras de Singularidad gratuitas y <<turquoise|+{{amount2}}%>> más Quarks Dorados.",
+            "shopImprovedDaily3": "Código 'diario' da <<turquoise|+{{amount1}}>> Mejoras de Singularidad gratuitas y <<turquoise|+{{amount2}}%>> más Quarks Dorados.",
+            "shopImprovedDaily4": "Código 'diario' da <<turquoise|+{{amount1}}>> Mejoras de Singularidad gratuitas y <<turquoise|+{{amount2}}%>> más Quarks Dorados.",
+            "offeringEX3": "¡Ganarás <<goldenrod|{{amount}}%>> más Ofrendas!",
+            "obtainiumEX3": "¡Ganarás <<pink|{{amount}}%>> más Obtainium!",
+            "chronometerInfinity": "El contador de Ascensión sube un <<orange|{{amount}}%>> más rápido.",
             "seasonPassInfinity": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more cubes (of <<orchid|all>> types) on Ascension.",
             "shopSingularityPenaltyDebuff": "At Singularity <<pink|{{amount1}}>>, your debuffs are as if you were in <<pink|{{amount2}}>>."
         }
@@ -1492,7 +1492,7 @@
             "goldenQuarks2": {
                 "name": "Quarks Dorados II",
                 "description": "¡Comprar QD es 0,2% más barato por nivel! [Tras 50%, el efecto sube mucho más lento]",
-                "effect": "Purchasing Golden Quarks in the shop is {{n}}% cheaper."
+                "effect": "Comprar Quarks Dorados en la tienda es {{n}}% más barato."
             },
             "goldenQuarks3": {
                 "name": "Quarks Dorados III",
@@ -1508,8 +1508,8 @@
             "wowPass": {
                 "name": "Bonanza de la tienda",
                 "description": "Esta mejora convencerá al mercader foca para venderte cosas mejores, ¡Que incluso persisten la Singularidad!",
-                "effectHave": "You have unlocked the Shop Bonanza.",
-                "effectHaveNot": "You have not unlocked the Shop Bonanza."
+                "effectHave": "Has desbloqueado la Bonanza de Tienda.",
+                "effectHaveNot": "No has desbloqueado la Bonanza de Tienda."
             },
             "cookies": {
                 "name": "Receta de galletas I",
@@ -1983,15 +1983,15 @@
             "65": "Multiply the gain of Particles from Reincarnation by 5x!",
             "66": "When you use an Offering, every unlocked rune will get 1 free experience.",
             "67": "Atom gain is increased by 3% per Particle producer purchased!",
-            "68": "Gain a free Multiplier for every 1e1000x increase in tax.",
+            "68": "Obtén un Multiplicador gratuito por cada aumento de 1e1000 en impuestos.",
             "69": "Gain more Obtainium based on your particle gain. [Works with automation at a reduced rate!]",
             "70": "Time seems to go +0.333*log10(MAX Obtainium +1)% faster when you buy this.",
-            "71": "Runes will gain (Rune Level/25) additional EXP per Offering used.",
+            "71": "Las Runas ganarán (Nivel de Runa/25) EXP adicional por Ofrenda usada.",
             "72": "Obtainium gain from Reincarnations is multiplied (1 + 2C) where C is #Reincarnation Challenges completed, up to 50x!",
             "73": "Gain +100% free Accelerator Boosts and +10 free Crystal Upgrade levels, but only in Reincarnation Challenges.",
             "74": "Obtainium gain is increased based on highest ever unspent Offerings. [Max: 100,000 Unspent]",
             "75": "Offering gain is increased based on highest ever unspent Obtainium [Max: 30,000,000 Obtainium]",
-            "76": "Ant generation kinda slow? I agree! Make all Ant tiers 5x faster!",
+            "76": "¿Lenta generación de Hormigas? ¡Concuerdo! ¡Todos los rangos de Hormigas son 5x más rápidas!",
             "77": "This is Synergism, right? Let's make each purchased Ant make all Ants 0.4% faster.",
             "78": "Gain an Ant speed multiplier equivalent to (1 + 0.005 * (log10(MAX Offerings + 1))^2).",
             "79": "The Ant God will accept an arbitrary number of Particles in order to give you 10% more from sacrifices.",
@@ -2144,7 +2144,7 @@
             "77": "Efecto: Multiplicador de Velocidad de Hormiga: x{{x}}",
             "78": "Efecto: Multiplicador de Velocidad de Hormiga: x{{x}}",
             "79": "Efecto: Ganarás +10% recompensas =)",
-            "80": "Effect: Ant ELO +75 if this upgrade is purchased.",
+            "80": "Efecto: ELO de Hormiga +75 si esta mejora se compra.",
             "81": "Efecto: Todo lo que necesitas saber está sobre este mensaje.",
             "120": "Efecto: ¡-50% Impuestos heh!",
             "121": "Efecto: ¡+88% límite de Mejora Cristales 3, heh!",
@@ -2226,11 +2226,11 @@
         "currentTranscensionCounter": "Current Transcension Timer: +<<var(--orchid-text-color);|{{value}}>> seconds",
         "reincarnationCount": "Reincarnation Count: +<<limegreen|{{value}}>>",
         "currentReincarnationTimer": "Current Reincarnation Timer: +<<limegreen|{{value}}>> seconds",
-        "obtainiumGenerated": "Obtainium Generated: <<pink|{{value}}>>",
+        "obtainiumGenerated": "Obtainium generado: <<pink|{{value}}>>",
         "ingameAntSacTimer": "In-Game Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
         "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
         "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
-        "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
+        "exportQuarks": "Exportar Quarks: +<<goldenrod|{{value}}>>"
     },
     "corruptions": {
         "names": {
@@ -2254,24 +2254,24 @@
             "8": "Y otra catástrofe de 2020."
         },
         "currentLevel": {
-            "1": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-            "2": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-            "3": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-            "4": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-            "5": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-            "6": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
-            "7": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-            "8": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+            "1": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Exponente de Acel. y Mult. gratuitos ^{{ effect }}",
+            "2": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Velocidad de Tiempo dividida por {{ effect }}",
+            "3": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Requisitos de Exponente de Desafío x{{ effect }}",
+            "4": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Ganancia de Obtainium ^{{ effect }}",
+            "5": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Ganancia de Diamantes ^{{ effect }}",
+            "6": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Producción de Hormigas ^{{ effect }}",
+            "7": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: EXP de Ofrendas dividida por {{ effect }}",
+            "8": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Ganancia de Monedas ^{{ effect }}"
         },
         "prototypeLevel": {
-            "1": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-            "2": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-            "3": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-            "4": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-            "5": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-            "6": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
-            "7": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-            "8": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+            "1": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Exponente de Acel. y Mult. gratuitos ^{{ effect }}",
+            "2": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Velocidad de Tiempo dividida por {{ effect }}",
+            "3": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Requisitos de Exponente de Desafío x{{ effect }}",
+            "4": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Obtainium ^{{ effect }}",
+            "5": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Diamantes ^{{ effect }}",
+            "6": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Producción de Hormigas ^{{ effect }}",
+            "7": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: EXP de Ofrendas dividida por {{ effect }}",
+            "8": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Monedas ^{{ effect }}"
         },
         "scoreMultiplier": "Current Score Multiplier: {{ curr }} / Next Ascension Score Multiplier: {{ next }}",
         "spiritEffect": "This corruption gives Rune Spirit Effect +{{curr}}% / Next Ascension Rune Spirit Effect +{{next}}%",
@@ -2288,7 +2288,7 @@
         "loadoutTable": {
             "next": "Siguiente:",
             "firstRowTitle": "Click to copy the next Corruptions to the clipboard. This is the format that can be imported",
-            "otherRowTitle": "Click to rename. Hotkey: SHIFT+{{ value }}",
+            "otherRowTitle": "Haz clic para renombrar. Atajo: SHIFT+{{ value }}",
             "import": "Importar",
             "importTitle": "Importa la Carga de Corrupciones en formato texto",
             "zero": "Cero",
@@ -2298,7 +2298,7 @@
             "load": "Cargar"
         },
         "importCorruptionsPrompt": {
-            "import": "Enter a Corruption Loadout to import for next Ascension. It must be in the following text format: 1/2/3/4/5/6/7/8",
+            "import": "Introduce una Carga de Corrupción para importar en la próxima Ascensión. Debe estar en el siguiente formato de texto: 1/2/3/4/5/6/7/8",
             "importError": "La entrada no tiene el formato correcto, inténtalo de nuevo."
         },
         "corruptionLoadoutName": {
@@ -2317,7 +2317,7 @@
         "corrLoadoutsBtn": "Cargas de Corrupción",
         "cleanse": "Purgar",
         "confirm": "Confirmar",
-        "intro": "The most rewarding ventures are those few would dare to embark.",
+        "intro": "Las empresas más lucrativas son aquellas que pocos se atreven a realizar.",
         "traitInfo": "Select the trait levels you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
         "antExponent": "This Ascension's climate raises Ant production to the power of <<var(--darkorchid-text-color)|{{exponent}}>>.",
         "spiritBonus": "However, it also multiplies Rune Spirit Effects by <<wheat|{{multiplier}}>>.",
@@ -2444,7 +2444,7 @@
         "autoTesseract": "Auto buyer will save at least {{tesseracts}} tesseracts. [Enter number above].",
         "autoAscensionTesseract": "On Ascension, Auto buyer will save at least {{percent}}% of your current amount of tesseracts. [Enter number above].",
         "excessiveWealth": "Due to your excessive wealth, coin production is divided by {{div}} to pay taxes! {{- warning}}",
-        "constantHover": "Hover over an icon for a description of the upgrade. Click to buy it!"
+        "constantHover": "Pasa sobre un icono para la descripción de la mejora. ¡Haz clic para comprarla!"
     },
     "octeract": {
         "buyLevel": {
@@ -2485,12 +2485,12 @@
                 "effect": "Sinergia Primaria Octo-Hepteracto {{n}} está activa."
             },
             "octeractCorruption": {
-                "name": "EXTRA CHONKY Corruptions",
+                "name": "Corrupciones EXTRA GORDITAS",
                 "description": "Añade un nivel al límite de corrupciones. Derpsmith lo aprueba.",
                 "effect": "El límite de nivel de corrupción aumenta en {{n}}"
             },
             "octeractGQCostReduce": {
-                "name": "EXTRA WIMPY Golden Quark Costs!",
+                "name": "¡Costes de Quarks Dorados EXTRA DEBILUCHOS!",
                 "description": "Reduce el coste de Quarks Dorados de la tienda un 1% por nivel.",
                 "effect": "¡Quarks Dorados un {{n}}% más baratos!"
             },
@@ -2500,17 +2500,17 @@
                 "effect": "Exportar Quarks +{{n}}%"
             },
             "octeractImprovedDaily": {
-                "name": "CHONKER Daily Code",
-                "description": "Derpsmith hacks into the source code, and adds +1 free Singularity upgrade per day from Daily.",
+                "name": "Código Diario GORDO",
+                "description": "Derpsmith hackea el código fuente y añade +1 Mejora de Singularidad gratuita al día desde diario.",
                 "effect": "El código 'diario' da +{{n}} mejoras gratuitas de Singularidad por uso."
             },
             "octeractImprovedDaily2": {
-                "name": "CHONKERER Daily Code",
-                "description": "Derpsmith implemented hyperspeed multiplication. +1% more free Singularity upgrades per day from Daily!",
+                "name": "Código Diario GORDISIMO",
+                "description": "Derpsmith implementó multiplicación a hipervelocidad. ¡+1% más Mejora de Singularidad gratis de diario!",
                 "effect": "El código 'diario' da +{{n}}% más mejoras gratuitas de Singularidad por uso."
             },
             "octeractImprovedDaily3": {
-                "name": "CHONKEREREST Daily Code",
+                "name": "Código Diario GORDIMAXIMO",
                 "description": "It will never satisfy Derpsmith. +1 +0.5% more free Singularity upgrades per day from Daily!",
                 "effect": "El código 'diario' da +{{n}} más mejoras gratuitas de Singularidad por uso."
             },
