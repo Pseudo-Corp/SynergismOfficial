@@ -1590,7 +1590,7 @@
             },
             "singCubes1": {
                 "name": "Llama de Cubos",
-                "description": "Mejora esto para ganar +2% Cubos por nivel, ¡Para siempre!",
+                "description": "Mejora esto para ganar +1% Cubos por nivel, ¡Para siempre!",
                 "effect": "Gana permanentemente {{n}}% más Cubos."
             },
             "singCubes2": {
@@ -1723,27 +1723,27 @@
             },
             "singOcteractGain": {
                 "name": "Absenta de Octeractos",
-                "description": "¡Nunca imaginarías que este tónico potencia tus Octeractos! [¡+1% por nivel, de hecho!]",
+                "description": "¡Nunca imaginarías que este tónico potencia tus Octeractos! [¡+1.25% por nivel, de hecho!]",
                 "effect": "+{{n}}% Ganancia de Octeractos"
             },
             "singOcteractGain2": {
                 "name": "Reales de a Ocho",
-                "description": "Hay de hecho ocho de ellos, pero cada uno da +0,5% bonus, así que cada nivel da +4% Octeractos por nivel.",
+                "description": "Hay de hecho ocho de ellos, pero cada uno da +0,625% bonus, así que cada nivel da +5% Octeractos por nivel.",
                 "effect": "+{{n}}% Ganancia de Octeractos"
             },
             "singOcteractGain3": {
                 "name": "El Obelisco con Forma de Octógono.",
-                "description": "Platonic ha tenido que llegar lejos con esto. ¡+2% Octeractos, sí!",
+                "description": "Platonic ha tenido que llegar lejos con esto. ¡+2.5% Octeractos, sí!",
                 "effect": "+{{n}}% Ganancia de Octeractos"
             },
             "singOcteractGain4": {
                 "name": "Síntesis Octahédrica",
-                "description": "¿¿¡Cómo funciona esto!?? ¡+1% Octeractos, por supuesto!",
+                "description": "¿¿¡Cómo funciona esto!?? ¡+2% Octeractos, por supuesto!",
                 "effect": "+{{n}}% Ganancia de Octeractos"
             },
             "singOcteractGain5": {
                 "name": "La Octava Maravilla del Mundo",
-                "description": "Es la maravilla del mundo en que vivimos. [+0,5% Octeractos. ¡Platonic, esto es cutre! Pero no le importa.]",
+                "description": "Es la maravilla del mundo en que vivimos. [+1% Octeractos. ¡Platonic, esto es cutre! Pero no le importa.]",
                 "effect": "+{{n}}% Ganancia de Octeractos"
             },
             "platonicTau": {
@@ -2461,7 +2461,7 @@
         "data": {
             "octeractStarter": {
                 "name": "Octeractos para Dummies",
-                "description": "Hola... Soy Derpsmith... El Ancestro de Dios Hormiga... No esperaba que llegases aquí. Toma un 25% más de Quarks, 20% más Octeractos, y 100.000X velocidad de Hormigas...",
+                "description": "Hola... Soy Derpsmith... El Ancestro de Dios Hormiga... No esperaba que llegases aquí. Toma un 30% más de Quarks, 20% más Octeractos, y 100.000X velocidad de Hormigas...",
                 "effect": "{{n}} has presentado sus respetos a Derpsmith."
             },
             "octeractGain": {
@@ -2476,12 +2476,12 @@
             },
             "octeractQuarkGain": {
                 "name": "Octeracto de Quarks",
-                "description": "Una forma alternativa del hepteracto, te da un 1% Bonus de Quarks por nivel sin Retornos Disminuidos.",
+                "description": "Una forma alternativa del hepteracto, te da un 1.1% Bonus de Quarks por nivel sin Retornos Disminuidos.",
                 "effect": "La ganancia de Quarks aumenta un {{n}}%."
             },
             "octeractQuarkGain2": {
                 "name": "Sinergia Primaria Octo-Hepteracto",
-                "description": "For every 199 levels of Quark Octeract, you gain 0.01% more quarks per digit in your Quark Hepteract count per level!",
+                "description": "For every 111 levels of Quark Octeract, you gain 0.01% more quarks per digit in your Quark Hepteract count per level!",
                 "effect": "Sinergia Primaria Octo-Hepteracto {{n}} está activa."
             },
             "octeractCorruption": {

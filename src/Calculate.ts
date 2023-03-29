@@ -1613,13 +1613,13 @@ export const calculateQuarkMultiplier = () => {
         multiplier += 0.10;
     }
     if (player.platonicUpgrades[5] > 0) { // Platonic ALPHA upgrade
-        multiplier += 0.10;
+        multiplier += 0.20;
     }
     if (player.platonicUpgrades[10] > 0) { // Platonic BETA Upgrade
-        multiplier += 0.15;
+        multiplier += 0.25;
     }
     if (player.platonicUpgrades[15] > 0) { // Platonic OMEGA upgrade
-        multiplier += 0.20;
+        multiplier += 0.30;
     }
     if (player.challenge15Exponent >= 1e11) { // Challenge 15: Exceed 1e11 exponent reward
         multiplier += (G['challenge15Rewards'].quarks - 1);
@@ -1652,9 +1652,9 @@ export const calculateQuarkMultiplier = () => {
     multiplier *= calculateSingularityQuarkMilestoneMultiplier();
 
     multiplier *= +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus // Oct Improver 1
-    multiplier *= (1 + 0.25 * + player.octeractUpgrades.octeractStarter.getEffect().bonus) // Oct Starter Pack
+    multiplier *= (1 + 0.3 * + player.octeractUpgrades.octeractStarter.getEffect().bonus) // Oct Starter Pack
 
-    multiplier *= (1 + 1/10000 * Math.floor(player.octeractUpgrades.octeractQuarkGain.level / 199) *
+    multiplier *= (1 + 1/10000 * Math.floor(player.octeractUpgrades.octeractQuarkGain.level / 111) *
                                 player.octeractUpgrades.octeractQuarkGain2.level *
                                 Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL)))) // Improver 2
 

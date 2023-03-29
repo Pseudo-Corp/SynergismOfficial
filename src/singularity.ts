@@ -523,7 +523,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         costPerLevel: 1,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.02 * n,
+                bonus: 1 + 0.01 * n,
                 get desc () {
                     return i18next.t('singularity.data.singCubes1.effect', { n: format(2 * n, 0, true) })
                 }
@@ -867,7 +867,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         minimumSingularity: 36,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.01 * n,
+                bonus: 1 + 0.0125 * n,
                 get desc () {
                     return i18next.t('singularity.data.singOcteractGain.effect', { n: format(n, 2, true) })
                 }
@@ -881,7 +881,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         canExceedCap: true,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.04 * n,
+                bonus: 1 + 0.05 * n,
                 get desc () {
                     return i18next.t('singularity.data.singOcteractGain2.effect', { n: format(4 * n, 0, true) })
                 }
@@ -895,7 +895,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         canExceedCap: true,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.02 * n,
+                bonus: 1 + 0.025 * n,
                 get desc () {
                     return i18next.t('singularity.data.singOcteractGain3.effect', { n: format(2 * n, 2, true) })
                 }
@@ -909,7 +909,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         canExceedCap: true,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.01 * n,
+                bonus: 1 + 0.02 * n,
                 get desc () {
                     return i18next.t('singularity.data.singOcteractGain4.effect', { n: format(n, 0, true) })
                 }
@@ -923,7 +923,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         canExceedCap: true,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.005 * n,
+                bonus: 1 + 0.01 * n,
                 get desc () {
                     return i18next.t('singularity.data.singOcteractGain5.effect', { n: format(n / 2, 1, true) })
                 }

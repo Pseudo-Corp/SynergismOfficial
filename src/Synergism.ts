@@ -704,6 +704,7 @@ export const player: Player = {
     loadedV2930Hotfix1: true,
     loadedV2931Hotfix1: true,
     loadedV21003Hotfix1: true,
+    loadedV21007Hotfix1: true,
     version,
     rngCode: 0,
     promoCodeTiming: {

@@ -544,7 +544,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
         tier: 'Exalt',
         price: 1e17,
         priceIncrease: 9.99e19,
-        maxLevel: 2,
+        maxLevel: 4,
         type: shopUpgradeTypes.UPGRADE,
         refundable: false,
         refundMinimumLevel: 0

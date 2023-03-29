@@ -1590,7 +1590,7 @@
             },
             "singCubes1": {
                 "name": "Cube Flame",
-                "description": "Upgrade this to get +2% Cubes per level, forever!",
+                "description": "Upgrade this to get +1% Cubes per level, forever!",
                 "effect": "Permanently gain {{n}}% more Cubes."
             },
             "singCubes2": {
@@ -1723,27 +1723,27 @@
             },
             "singOcteractGain": {
                 "name": "Octeract Absinthe",
-                "description": "You would have never known this tonic can boost your Octeracts! [+1% per level, in fact!]",
+                "description": "You would have never known this tonic can boost your Octeracts! [+1.25% per level, in fact!]",
                 "effect": "Octeract Gain +{{n}}%"
             },
             "singOcteractGain2": {
                 "name": "Pieces of Eight",
-                "description": "There is indeed eight of them, but each only gives +0.5% bonus, so each level gives +4% Octeract per level.",
+                "description": "There is indeed eight of them, but each only gives +0.625% bonus, so each level gives +5% Octeract per level.",
                 "effect": "Octeract Gain +{{n}}%"
             },
             "singOcteractGain3": {
                 "name": "The Obelisk Shaped like an Octagon.",
-                "description": "Platonic had to reach pretty far here. +2% Octeracts yeah!",
+                "description": "Platonic had to reach pretty far here. +2.5% Octeracts yeah!",
                 "effect": "Octeract Gain +{{n}}%"
             },
             "singOcteractGain4": {
                 "name": "Octahedral Synthesis",
-                "description": "How does this even work!?? +1% Octeracts, you bet!",
+                "description": "How does this even work!?? +2% Octeracts, you bet!",
                 "effect": "Octeract Gain +{{n}}%"
             },
             "singOcteractGain5": {
                 "name": "The Eighth Wonder of the World",
-                "description": "is the wonder of the world we live in. [+0.5% Octeracts. Platonic, this is so stingy! but, he does not care one bit.]",
+                "description": "is the wonder of the world we live in. [+1% Octeracts. Platonic, this is so stingy! but, he does not care one bit.]",
                 "effect": "Octeract Gain +{{n}}%"
             },
             "platonicTau": {
@@ -2461,7 +2461,7 @@
         "data": {
             "octeractStarter": {
                 "name": "Octeracts for Dummies",
-                "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 25% More Quarks, 20% More Octeracts, And 100,000x Ant Speed...",
+                "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 30% More Quarks, 20% More Octeracts, And 100,000x Ant Speed...",
                 "effect": "You have {{n}} paid your respects to Derpsmith."
             },
             "octeractGain": {
@@ -2476,12 +2476,12 @@
             },
             "octeractQuarkGain": {
                 "name": "Quark Octeract",
-                "description": "An altered forme of the hepteract, this gives a 1% Quark Bonus per level without Diminishing Return.",
+                "description": "An altered forme of the hepteract, this gives a 1.1% Quark Bonus per level without Diminishing Return.",
                 "effect": "Quark gain is increased by {{n}}%."
             },
             "octeractQuarkGain2": {
                 "name": "Octo-Hepteract Primality Synergism",
-                "description": "For every 199 levels of Quark Octeract, you gain 0.01% more quarks per digit in your Quark Hepteract count per level!",
+                "description": "For every 111 levels of Quark Octeract, you gain 0.01% more quarks per digit in your Quark Hepteract count per level!",
                 "effect": "Octo-Hepteract Primality Synergism is {{n}} active."
             },
             "octeractCorruption": {

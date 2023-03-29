@@ -906,6 +906,13 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         void Alert(i18next.t('general.updateAlerts.january42023'))
     }
 
+    if (data.loadedV21007Hotfix1 === undefined) {
+        player.loadedV21007Hotfix1 = true
+        if (player.octeractUpgrades.octeractQuarkGain.level >= 10000) {
+            player.octeractUpgrades.octeractQuarkGain.refund()
+        }
+    }
+
     const oldest = localStorage.getItem('firstPlayed')
 
     if (data.firstPlayed == undefined) {

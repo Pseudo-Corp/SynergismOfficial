@@ -188,7 +188,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         costPerLevel: 1e-8,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.01 * n,
+                bonus: 1 + 0.011 * n,
                 get desc () {
                     return i18next.t('octeract.data.octeractGain.effect', {n: format(n, 0 , true)})
                 }
@@ -215,10 +215,12 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
             if (level < 1000) {
                 return baseCost * (Math.pow(level + 1, 7) - Math.pow(level, 7))
             } else {
-                return baseCost * (Math.pow(1001, 7) - Math.pow(1000, 7)) * Math.pow(10, level / 1000)
+                const fasterMult = (level >= 10000) ? (Math.pow(10, (level - 10000) / 250)) : 1
+                const fasterMult2 = (level >= 15000) ? (Math.pow(10, (level - 15000) / 250)) : 1
+                return baseCost * (Math.pow(1001, 7) - Math.pow(1000, 7)) * Math.pow(10, level / 1000) * fasterMult * fasterMult2
             }
         },
-        maxLevel: 19900,
+        maxLevel: 20000,
         costPerLevel: 1e-7,
         effect: (n: number) => {
             return {
@@ -231,9 +233,9 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     octeractQuarkGain2: {
         costFormula: (level: number, baseCost: number) => {
-            return baseCost * Math.pow(1e26, level)
+            return baseCost * Math.pow(1e20, level)
         },
-        maxLevel: 3,
+        maxLevel: 5,
         costPerLevel: 1e22,
         effect: (n: number) => {
             return {
@@ -603,9 +605,10 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     octeractOneMindImprover: {
         costFormula: (level: number, baseCost: number) => {
-            return baseCost * Math.pow(1e5, level)
+            const fasterMult = (level >= 10) ? (Math.pow(1e3, level - 10)) : 1
+            return baseCost * Math.pow(1e5, level) * fasterMult
         },
-        maxLevel: 10,
+        maxLevel: 16,
         costPerLevel: 1e25,
         effect: (n: number) => {
             return {
