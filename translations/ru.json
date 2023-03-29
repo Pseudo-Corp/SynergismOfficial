@@ -347,26 +347,26 @@
             "79": "Автоматически покупается первое улучшение Кристаллов, если станет доступен!",
             "80": "Начните Превосходство/Испытание с разблокированным Автопокупателем Множителей. +5% к переработке Предложений.",
             "82": "Замедлить рост налогов на 4%.",
-            "84": "+1% Obtainium (stacks additively with other achievement rewards)",
-            "85": "Start Transcensions/Challenges with 1 Coal Plant and automatically buy Coal Plants.",
-            "86": "Automatically buy the second Crystal upgrade if you can afford it!",
-            "87": "Start Transcensions/Challenges with Accelerator Autobuyer unlocked. +5% Offering recycle.",
+            "84": "+1% Обтаиниум (складывается суммарно с другими наградами за достижения)",
+            "85": "Начните Превосходство/Испытание с 1 Угольным Заводом и автоматической покупкой Угольных Заводов.",
+            "86": "Автоматически покупается второе улучшение Кристаллов, если станет доступен!",
+            "87": "Начните Превосходство/Испытание с разблокированным Автопокупателем Ускорителей. +5% к переработке Предложений.",
             "89": "Задержать рост налогов на 4%.",
-            "91": "+3% Obtainium (stacks additively with other Achievement rewards)",
-            "92": "Start Transcensions/Challenges with 1 Coal Rig and automatically buy Coal Rigs.",
-            "93": "Automatically buy the third Crystal upgrade if you can afford it!",
+            "91": "+3% Обтаиниум (складывается суммарно с другими наградами за достижения)",
+            "92": "Начните Превосходство/Испытание с 1 Угольным Буром и автоматической покупкой Угольных Буров.",
+            "93": "Автоматически покупается третье улучшение Кристаллов, если станет доступен!",
             "94": "+5% К переработке Предложений.",
             "96": "Замедлить рост налогов на 4%.",
-            "98": "+5% Obtainium (stacks additively with other achievement rewards)",
-            "99": "Start Transcensions/Challenges with 1 Diamond Pickaxe and automatically buy Diamond Pickaxes.",
-            "100": "Automatically buy the fourth Crystal upgrade if you can afford it!",
+            "98": "+5% Обтаиниум (складывается суммарно с другими наградами за достижения)",
+            "99": "Начните Превосходство/Испытание с 1 Алмазной Киркой и автоматической покупкой Алмазных Кирок.",
+            "100": "Автоматически покупается четвёртое улучшение Кристаллов, если станет доступен!",
             "101": "+5% К переработке Предложений.",
-            "102": "Unlock the Thrift rune!",
+            "102": "Разблокируйте руну Экономии!",
             "103": "Замедлить рост налогов на 4%.",
-            "105": "+7% Obtainium (stacks additively with other achievement rewards)",
-            "106": "Start Transcensions/Challenges with 1 Pandora's Box and automatically buy Pandora's Boxes.",
-            "107": "Automatically buy the fifth Crystal upgrade if you can afford it!",
-            "108": "+5% Offering recycle.",
+            "105": "+7% Обтаиниум (складывается суммарно с другими наградами за достижения)",
+            "106": "Начните Превосходство/Испытание с 1 Ящиком Пандоры и автоматической покупкой Ящиков Пандоры.",
+            "107": "Автоматически покупается пятое улучшение Кристаллов, если станет доступен!",
+            "108": "+5% к переработке Предложений.",
             "110": "Delay tax growth by 4%.",
             "112": "+9% Obtainium (stacks additively with other achievement rewards)",
             "115": "+5% Offering recycle.",
@@ -379,7 +379,7 @@
             "127": "Unlock 20 new incredibly expensive yet good researches. Unlock the [Anthill] feature!",
             "128": "Make researches go Cost-- with 1.5x Obtainium!",
             "129": "+7.5% Offering recycle. Gain another 1.25x Obtainium multiplier!",
-            "131": "Delay tax growth by 5.66%.",
+            "131": "Замедлить рост налогов на 5.66%.",
             "132": "Permanently gain +25% more sacrifice reward!",
             "133": "+15% Obtainium. Obtain the gift of Midas himself.",
             "134": "Unlock 10 newer incredibly expensive yet good researches. Unlock <Talismans> in the Runes Tab!",
@@ -389,11 +389,11 @@
             "140": "+17% Obtainium. Ленивая шутка о не сливе талисманов здесь [Вы получите новый талисман]",
             "141": "Разблокировать новый уровень сброса!",
             "147": "+19% Obtainium (Achievement total is up to 100%!). Gain the Polymath Talisman!",
-            "169": "ALL Ant speed multiplied by {{x}}",
+            "169": "Скорость ВСЕХ муравьёв ускорена в {{x}} раз.",
             "171": "+16.666% К скорости ВСЕХ муравьёв!",
             "172": "Gain more Ants the longer your Reincarnation lasts (Max speed achieved in 2 hours)",
-            "173": "Unlock Ant Sacrifice, allowing you to reset your Ants and Ant upgrades in exchange for amazing rewards! Automatically buy Worker Ants.",
-            "174": "Ant Multiplier from sacrifice is multiplied by another logarithm: x{{x}}",
+            "173": "Открывает Жертвоприношение Муравьёв, позволяя вам сбросить прогресс Муравьёв и Муравьиных улучшений в обмен на замечательные награды! Автоматически покупает Муравьёв - Рабочих.",
+            "174": "Множитель муравьёв от пожертвования множен на дополнительный логарифм: x{{x}}",
             "176": "Unlock Tier 2 Ant autobuy, and autobuy Inceptus and Fortunae Ants! Add +25 Base Ant ELO.",
             "177": "Unlock Tier 3 Ant autobuy, and autobuy Tributum Ants! Add +50 Base Ant ELO.",
             "178": "Unlock Tier 4 Ant autobuy, and autobuy Celeritas and Multa Ants! Add +75 Base Ant ELO.",
@@ -420,7 +420,7 @@
             "208": "Gain +3% Tesseracts on Ascension!",
             "209": "Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count.",
             "211": "You will gain 25% MORE Excess time (Total: 50%) after 10 seconds each Ascension as a linear multiplier to rewards.",
-            "212": "Gain +4% Hypercubes on Ascension!",
+            "212": "+4% Гиперкубов при Вознесении!",
             "213": "Gain +4% Hypercubes on Ascension!",
             "214": "Gain +4% Hypercubes on Ascension!",
             "215": "Gain +3% Hypercubes on Ascension!",
@@ -497,7 +497,7 @@
         },
         "generates": {
             "1": "Generates {{x}} Crumbs/sec",
-            "2": "Generates {{x}} Workers/sec",
+            "2": "Создаёт {{x}} Рабочих/сек",
             "3": "Generates {{x}} Breeders/sec",
             "4": "Generates {{x}} MetaBreeders/sec",
             "5": "Generates {{x}} MegaBreeders/sec",
@@ -523,7 +523,7 @@
         "hover": "Hover over the icons for description. Click icons to buy!",
         "youHaveGalacticCrumbs": "У вас {{x}} Галактических Крошек [{{y}}/сек], дающих {{z}} Множитель Монет",
         "owned": "Owned: {{x}} [+{{y}}]",
-        "costGalacticCrumbs": "Cost: {{x}} Galactic Crumbs",
+        "costGalacticCrumbs": "Стоимость: {{x}} Галактических Крошек",
         "costParticles": "Стоимость: {{x}} Частиц",
         "autoSacrificeOn": "Auto Sacrifice: ON",
         "autoSacrificeOff": "Auto Sacrifice: OFF",
@@ -959,7 +959,7 @@
             "45": "[5x5] Blah blah blah Hermes works harder (same rewards as before)",
             "46": "[5x6] Gain +5% more Offerings per level!",
             "47": "[5x7] Gain +10% more Obtainium per level!",
-            "48": "[5x8] When you ascend, start with 1 worker Ant (this is a lot better than it sounds!)",
+            "48": "[5x8] При вознесении, начинаете с 1 Муравьём - рабочим (это гораздо лучше, чем кажется!)",
             "49": "[5x9] When you ascend, gain 1 of each Challenge 6-8 completion.",
             "50": "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +0.04 Max Rune Levels, +1 Effective ELO, +0.0004 Talisman bonuses per level, 0.00066% Tax reduction per level.",
             "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the cube tab, and researches as well.",
@@ -984,7 +984,7 @@
             "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts on Ascension if every corruption is set to level 14."
         },
         "cubeMetadata": {
-            "cost": "Cost: {{value1}} Wow! Cubes [+{{value2}} Levels]",
+            "cost": "Стоимость: {{value1}} Вау! Кубов [+{{value2}} Уровней]",
             "level": "Level: {{value1}} / {{value2}}",
             "maxLevel": "Cost: 0 Wow! Cubes. This upgrade is maxed! wow"
         },
@@ -1211,7 +1211,7 @@
         "thanksToResearches": "Thanks to researches you automatically gain {{x}} Obtainium per real life second.",
         "level": "Level {{x}}/{{y}}",
         "maxed": " || MAXED!",
-        "cost": "Cost: {{x}} Obtainium [+{{y}} Levels]",
+        "cost": "Стоимость: {{x}} Обтаниума [+{{y}} Уровней]",
         "upgradeMax": "Upgrade: MAX [if possible]",
         "upgradeOne": "Upgrade: 1 Level",
         "automaticOn": "Automatic: ON",
@@ -1481,7 +1481,7 @@
         },
         "toString": {
             "noMinimum": "No minimal Singularity to purchase required",
-            "costNextLevel": "Cost for next level:"
+            "costNextLevel": "Стоимость следующего уровня:"
         },
         "data": {
             "goldenQuarks1": {
@@ -1827,10 +1827,10 @@
             "offeringGain": "<<gold|Offering Gain>> is divided by <<gold|{{divisor}}>>.",
             "obtainiumGain": "<<steelblue|Obtainium Gain>> is divided by <<steelblue|{{divisor}}>>.",
             "cubeGain": "<<yellow|Cube Gain>> is divided by <<yellow|{{divisor}}>>.",
-            "researchCosts": "<<var(--green-text-color)|Research Costs>> are multiplied by <<var(--green-text-color)|{{multiplier}}>>.",
-            "cubeUpgradeCosts": "<<Silver|Cube Upgrade costs>> (Excluding Cookies) are multiplied by <<Silver|{{multiplier}}>>.",
-            "platonicCosts": "<<var(--orchid-text-color)|Platonic Upgrade costs>> are multiplied by <<var(--orchid-text-color)|{{multiplier}}>>.",
-            "hepteractCosts": "<<Pink|Hepteract Forge costs>> are multiplied by <<Pink|{{multiplier}}>>.",
+            "researchCosts": "<<var(--green-text-color)|Стоимость Исследований>> умножена на <<var(--green-text-color)|{{multiplier}}>>.",
+            "cubeUpgradeCosts": "<<Silver|стоимость Улучшений Кубов>> (Исключая Печеньки) умножена на <<Silver|{{multiplier}}>>.",
+            "platonicCosts": "<<var(--orchid-text-color)|стоимость Платонических Улучшений>> умножена на <<var(--orchid-text-color)|{{multiplier}}>>.",
+            "hepteractCosts": "<<Pink|стоимость Кузни Гептерактов>> умножена на <<Pink|{{multiplier}}>>.",
             "penaltySmooth": "You will no longer experience sudden spikes in penalties.",
             "penaltyRough": "Your penalties will sharply worsen in <<var(--red-text-color)|Singularity {{num}}>>.",
             "antiquitiesBought": "<<var(--green-text-color)|Antiquities of Ant God is maxed! Penalties are dispelled!>>",
@@ -1916,20 +1916,20 @@
     },
     "upgrades": {
         "descriptions": {
-            "1": "Increase production of Workers per producer bought.",
-            "2": "Increase production of Investments per producer bought.",
-            "3": "Increase production of Printers per producer bought.",
+            "1": "Увеличивает производство Работников за каждого купленного производителя.",
+            "2": "Увеличивает производство Инвестиций за каждого купленного производителя.",
+            "3": "Увеличивает производство Принтеров за каждого купленного производителя.",
             "4": "Increase production of Mints per producer bought.",
-            "5": "Increase production of Alchemies per producer bought.",
+            "5": "Увеличивает производство Алхимий за каждого купленного производителя.",
             "6": "Increase all production based on producer bought.",
-            "7": "Gain free multipliers based on your purchased Alchemies.",
+            "7": "Получите бесплатные Множители на основе ваших купленных Алхимий.",
             "8": "Gain 1 free Accelerator per 7 purchased Multipliers.",
             "9": "Gain 1 free Multiplier per 10 purchased Accelerators.",
-            "10": "Improve Workers based on the first 750 purchased Investments.",
+            "10": "Улучшает Работников в зависимости от первых 750 купленных Инвестиций.",
             "11": "Accelerators improve generation production by 2% each.",
             "12": "Each Prestige multiplies production by 1.01, multiplicatively (Max: 1e4x).",
-            "13": "Augments buff the production of Investments.",
-            "14": "Free Accelerators buff generation of Printers.",
+            "13": "Усиления увеличивают производство Инвестиций.",
+            "14": "Бесплатные Ускорители увеличивают создание Принтеров.",
             "15": "Free Accelerators buff generation of Mints.",
             "16": "Acceleration Multiplier buffs Diamond gain.",
             "17": "Multiply Mint production by 1e+100.",
@@ -1971,11 +1971,11 @@
             "53": "Augments produce more Shards based on Acceleration Multiplier.",
             "54": "Wizards produce more Enchantments based on Multiplier.",
             "55": "Grandmasters produce more Oracles based on Building power.",
-            "56": "Worker production is multiplied by 1e+5000.",
+            "56": "Производство Работников умножено на 1e+5000.",
             "57": "Investment production is multiplied by 1e+7500.",
             "58": "Printer production is multiplied by 1e+15000.",
             "59": "Производство Монетного Двора умножено на 1e+25000.",
-            "60": "Alchemies production is multiplied by 1e+35000.",
+            "60": "Производство Алхимий умножено на 1e+35000.",
             "61": "Welcome to Reincarnation! +5% Offering Recycle, +2 EXP/Offering!",
             "62": "Completing Challenges, automatically or manually, increase Offerings gained in Reincarnation. Bonus subject to time multiplier!",
             "63": "Crystal Production is multiplied based on Particles to the sixth power [Caps at 1e6000x].",
@@ -1996,11 +1996,11 @@
             "78": "Gain an Ant speed multiplier equivalent to (1 + 0.005 * (log10(MAX Offerings + 1))^2).",
             "79": "The Ant God will accept an arbitrary number of Particles in order to give you 10% more from sacrifices.",
             "80": "The Ant God will accept a larger arbitrary number of Particles to give you more Ant ELO.",
-            "81": "Automatically buy Workers if affordable.",
-            "82": "Automatically buy Investments if affordable.",
-            "83": "Automatically buy Printers if affordable.",
+            "81": "Если доступны, автоматически покупайте Работников.",
+            "82": "Если доступны, автоматически покупайте Инвестиции.",
+            "83": "Если доступны, автоматически покупайте Принтеры.",
             "84": "Если доступны, автоматически покупайте Монетные Дворы.",
-            "85": "Automatically buy Alchemies if affordable.",
+            "85": "Если доступны, автоматически покупайте Алхимии.",
             "86": "Automatically buy Accelerators if affordable.",
             "87": "Automatically buy Multipliers if affordable.",
             "88": "Automatically buy Accelerator Boosts if affordable.",
@@ -2018,10 +2018,10 @@
             "100": "Generate 1% of Mythos Gain from transcending per second.",
             "101": "Алхимики будут производить Монетные Дворы.",
             "102": "Монетные Дворы будут производить Принтеры.",
-            "103": "Printers will produce Investments.",
-            "104": "Investments will produce Workers.",
-            "105": "Purchased Workers will produce Alchemies.",
-            "106": "Refineries can produce Alchemies equal to Refineries owned raised to 0.10",
+            "103": "Принтеры будут производить Инвестиции.",
+            "104": "Инвестиции будут производить Работников.",
+            "105": "Купленные Работники будут производить Алхимии.",
+            "106": "Перерабатывающие заводы могут производить Алхимии в количестве, равном количеству заводом в степени 0.10",
             "107": "Refinery -> Alchemy exponent increased from 0.10 to 0.25.",
             "108": "Refinery -> Alchemy exponent increased from 0.25 to 0.50",
             "109": "Refinery -> Alchemy exponent increased from 0.50 to 0.75",
@@ -2065,16 +2065,16 @@
             "10": "После покупки, получите на Log4(Константа + 1)% больше Вау! Кубов и Тессерактов при Вознесении."
         },
         "effects": {
-            "1": "Effect: Worker Production x{{x}}",
+            "1": "Эффект: Производство Работников x{{x}}",
             "2": "Effect: Investment Production x{{x}}",
             "3": "Effect: Printer Production x{{x}}",
             "4": "Effect: Mint Production x{{x}}",
             "5": "Effect: Alchemy Production x{{x}}",
             "6": "Эффект: Всё производство Монет x{{x}}",
-            "7": "Effect: Gain {{x}} free Multipliers from bought Alchemies.",
+            "7": "Эффект: Получите {{x}} бесплатных Множителей за купленные Алхимии.",
             "8": "Effect: +{{x}} free Accelerators.",
             "9": "Effect: +{{x}} free Multipliers.",
-            "10": "Effect: Worker Production x{{x}}",
+            "10": "Эффект: Производство Работников x{{x}}",
             "11": "Эффект: Эффективность генераторов: x{{x}}",
             "12": "Эффект: Всё производство Монет x{{x}}",
             "13": "Effect: Investment Production x{{x}}",
@@ -2371,11 +2371,11 @@
         "costCoins": "Стоимость: {{coins}} монет.",
         "costDiamonds": "Стоимость: {{diamonds}} Алмазов.",
         "names": {
-            "workers": "Workers: {{amount}} [+{{gain}}]",
-            "investments": "Investments: {{amount}} [+{{gain}}]",
-            "printers": "Printers: {{amount}} [+{{gain}}]",
+            "workers": "Работники: {{amount}} [+{{gain}}]",
+            "investments": "Инвестиции: {{amount}} [+{{gain}}]",
+            "printers": "Принтеры: {{amount}} [+{{gain}}]",
             "coinMints": "Монетные Дворы: {{amount}} [+{{gain}}]",
-            "alchemies": "Alchemies: {{amount}} [+{{gain}}]",
+            "alchemies": "Алхимии: {{amount}} [+{{gain}}]",
             "accelerators": "Accelerators: {{amount}} [+{{gain}}]",
             "multipliers": "Multipliers: {{amount}} [+{{gain}}]",
             "acceleratorBoost": "Accelerator Boost: {{amount}} [+{{gain}}]",
@@ -2427,12 +2427,12 @@
         },
         "crystalUpgrades": {
             "currentLevel": "Current Level: <<lightblue|{{amount}}>>",
-            "cost": "Cost: <<lightblue|{{amount}}>> crystals",
+            "cost": "Стоимость: <<lightblue|{{amount}}>> кристаллов",
             "currentEffect": "Current Effect: <<lightblue|{{effect}}>>"
         },
         "mythosYouHave": "You have {{shards}} Mythos Shards, providing {{mult}} Multiplier Power boosts.",
         "eachMultiplierBoost": "Each Multiplier Boost increases the base effect of Multipliers by 0.005!",
-        "costMythos": "Cost: {{mythos}} Mythos",
+        "costMythos": "Стоимость: {{mythos}} Мифов",
         "atomsYouHave": "У вас {{atoms}} Атомов, дающих {{power}} Степени Строительства. Множитель Производства Монет: {{mult}}",
         "costParticles": "Стоимость: {{particles}} Частиц",
         "autoReincarnate": "{{name}} when the autotimer is at least {{amount}} real-life seconds. [Toggle number above]. Current timer: {{timer}}s.",
@@ -2440,7 +2440,7 @@
         "thanksR2x15": "Thanks to Research 2x15, you also multiply Mythos Shard production by {{mult}}",
         "tesseractsYouHave": "You have {{tesseracts}} Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension.",
         "constantYouHave": "Вы обладаете математической константой, равной {{const}}. Ваши налоги уменьшены в {{amount}} раз.",
-        "costTesseracts": "Cost: {{tesseracts}} Tesseracts",
+        "costTesseracts": "Стоимость: {{tesseracts}} Тессерактов",
         "autoTesseract": "Auto buyer will save at least {{tesseracts}} tesseracts. [Enter number above].",
         "autoAscensionTesseract": "On Ascension, Auto buyer will save at least {{percent}}% of your current amount of tesseracts. [Enter number above].",
         "excessiveWealth": "Из-за избыточного богатства, производство монет уменьшено в {{div}} раз, чтобы оплатить налоги! {{- warning}}",
@@ -2455,7 +2455,7 @@
             "multiBuy": "Purchased {{n}} levels, thanks to Multi Buy!"
         },
         "toString": {
-            "costNextLevel": "Cost for next level",
+            "costNextLevel": "Стоимость следующего уровня",
             "becomeAffordable": "(Affordable in {{n}})"
         },
         "data": {
@@ -2490,8 +2490,8 @@
                 "effect": "Corruption level cap is increased by {{n}}"
             },
             "octeractGQCostReduce": {
-                "name": "EXTRA WIMPY Golden Quark Costs!",
-                "description": "Reduces the cost of Golden Quarks in the shop by 1% per level.",
+                "name": "ХИЛЕНЬКИЕ Стоимости Золотых Кварков!",
+                "description": "Снижает стоимость Золотых Кварков в магазине на 1% за уровень.",
                 "effect": "Golden Quarks are {{n}}% cheaper!"
             },
             "octeractExportQuarks": {
@@ -2653,7 +2653,7 @@
             "autoBuyOn": "Auto Buy: ON",
             "autoBuyOff": "Auto Buy: OFF",
             "clickBuyEveryType": "Click to buy every type of Talisman Shards and Fragments, if affordable",
-            "costToBuy": "Cost to buy {{name}} ({{buyAmount}}): {{obtainium}} Obtainium and {{offerings}} Offerings.",
+            "costToBuy": "Цена покупки {{name}} ({{buyAmount}}): {{obtainium}} Обтаниума и {{offerings}} Подношений.",
             "names": {
                 "exemption": "Exemption",
                 "chronos": "Chronos",
@@ -2925,42 +2925,42 @@
                 "chronos": {
                     "effect": "This hepteract bends time, in your favor. +0.06% Ascension Speed per Chronos Hepteract.",
                     "currentEffect": "Current Effect: Ascension Speed +{{x}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Obtainium!"
+                    "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Обатниума!"
                 },
                 "hyperrealism": {
                     "effect": "This bad boy can make hypercube gain skyrocket. +0.06% Hypercubes per Hyperreal Hepteract.",
                     "currentEffect": "Current Effect: Hypercubes +{{x}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Offerings."
+                    "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Подношений."
                 },
                 "quark": {
                     "effect": "One pound, two pound fish, fishy grant +0.05% Quarks per Quark Hepteract fish fish.",
                     "currentEffect": "Current Effect: Quarks +{{x}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Quarks."
+                    "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Кварков."
                 },
                 "challenge": {
                     "effect": "That's preposterous. How are you going to gain +0.05% C15 Exponent per Challenge Hepteract? How!?",
                     "currentEffect": "Current Effect: C15 Exponent +{{x}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts, {{y}} Platonic Cubes and {{z}} Cubes."
+                    "oneCost": "Один такой будет стоить вам {{x}} Гептерактов, {{y}} Платонических Кубов и {{z}} Кубов."
                 },
                 "abyss": {
                     "effect": "It seems like this holds the power to be at the End of Time. Do you remember why you need this?",
                     "currentEffect": "<[You will submit to the Omega Entity of Time]>",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Cubes (lol)"
+                    "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Вау! Кубов(лол)"
                 },
                 "accelerator": {
                     "effect": "Haha, stupid Corruptions. +2,000 +0.03% Uncorruptable Accelerators per 'Way too many accelerators' Hepteract!",
                     "currentEffect": "Current Effect: Uncorruptable Accelerators +{{x}} + {{y}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Tesseracts"
+                    "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Вау! Тессерактов"
                 },
                 "acceleratorBoost": {
                     "effect": "Haha, stupid Corruptions. +0.1% Accelerator Boosts per 'Way too many accelerator boosts' Hepteract!",
                     "currentEffect": "Current Effect: Accelerator Boosts +{{x}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Hypercubes"
+                    "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Гиперкубов"
                 },
                 "multiplier": {
                     "effect": "Haha, stupid Corruptions. +1,000 +0.03% Uncorruptable Multipliers per 'Way too many multipliers' Hepteract!",
                     "currentEffect": "Current Effect: Uncorruptable Multipliers +{{x}} +{{y}}%",
-                    "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Obtainium"
+                    "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Обатниума"
                 }
             }
         }

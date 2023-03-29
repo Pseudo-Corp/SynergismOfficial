@@ -1912,7 +1912,7 @@
             "v297hotfix1NoSing": "¡Has cargado la revisión 1 de la versión 2.9.7!",
             "v297hotfix1Sing": "¡Has cargado la revisión 1 de la versión 2.9.7! ¡Tus mejoras de singularidad sin límite se han devuelto! Disculpa los inconvenientes."
         },
-        "languageChange": "¡Cambiar de lenguajes necesita volver a cargar! ¿Quieres hacerlo ahora?"
+        "languageChange": "¡Para cambiar de lenguaje se necesita recargar! ¿Quieres hacerlo ahora?"
     },
     "upgrades": {
         "descriptions": {
@@ -2220,16 +2220,16 @@
     "offlineProgress": {
         "loading": "Cargando Progreso Desconectado...",
         "prestigeCount": "Contador de Prestigio: +",
-        "currentPrestigeTimer": "Current Prestige Timer: +<<cyan|{{value}}>> seconds",
-        "offeringsGenerated": "Offerings Generated: <<orange|{{value}}>>",
-        "transcensionCount": "Transcension Count: +<<var(--orchid-text-color);|{{value}}>>",
-        "currentTranscensionCounter": "Current Transcension Timer: +<<var(--orchid-text-color);|{{value}}>> seconds",
-        "reincarnationCount": "Reincarnation Count: +<<limegreen|{{value}}>>",
-        "currentReincarnationTimer": "Current Reincarnation Timer: +<<limegreen|{{value}}>> seconds",
+        "currentPrestigeTimer": "Cronómetro de Prestigio actual: +<<cyan|{{value}}>> segundos",
+        "offeringsGenerated": "Ofrendas generadas: <<orange|{{value}}>>",
+        "transcensionCount": "Número de Trascensiones: +<<var(--orchid-text-color);|{{value}}>>",
+        "currentTranscensionCounter": "Cronómetro de Trascensión actual: +<<var(--orchid-text-color);|{{value}}>> segundos",
+        "reincarnationCount": "Número de Reencarnaciones: +<<limegreen|{{value}}>>",
+        "currentReincarnationTimer": "Cronómetro de Reencarnación actual: +<<limegreen|{{value}}>> segundos",
         "obtainiumGenerated": "Obtainium generado: <<pink|{{value}}>>",
         "ingameAntSacTimer": "In-Game Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
         "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
-        "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
+        "currentAscensionTimer": "Cronómetro de Ascenso actual: +<<gold|{{value}}>> segundos",
         "exportQuarks": "Exportar Quarks: +<<goldenrod|{{value}}>>"
     },
     "corruptions": {
@@ -2323,14 +2323,14 @@
         "spiritBonus": "However, it also multiplies Rune Spirit Effects by <<wheat|{{multiplier}}>>.",
         "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
         "corruptionScore": "Your Ascension Score is <<goldenrod|{{ascScore}}>></span> (base) * <<var(--crimson-text-color)|{{corrMult}}>> (Corruption mult) * <<var(--orchid-text-color)|{{bonusMult}}>> (Bonus mult) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
-        "ascensionCount": "If you Ascend now, <<darkorange|{{ascCount}}>> will be added to your ascension count.",
-        "corruptionCubes": "If you Ascend now, you will gain <<yellow|{{cubeAmount}}>> Wow! Cubes.",
-        "corruptionTesseracts": "If you Ascend now, you will gain <<orange|{{tesseractAmount}}>> Wow! Tesseracts. [<<var(--orange-text-color)|Get more if Score >100,000>>]",
-        "corruptionHypercubes": "If you Ascend now, you will gain <<var(--crimson-text-color)|{{hypercubeAmount}}>> Wow! Hypercubes. [<<var(--red-text-color)|Req Score: >1,000,000,000>>]",
-        "corruptionPlatonics": "If you Ascend now, you will gain <<orchid|{{platonicAmount}}>> PLATONIC CUBES. [<<var(--orchid-text-color)|Req Score: >2,666,000,000,000>>]",
-        "corruptionHepteracts": "If you Ascend now, you will gain <<mediumpurple|{{hepteractAmount}}>> HEPTERACTS. [<<mediumpurple|Req Score: >1.666e17>>]",
+        "ascensionCount": "Si Asciendes ahora, <<darkorange|{{ascCount}}>> se añadirán a su cuenta de ascensión.",
+        "corruptionCubes": "¡Si Asciendes ahora, ganarás <<yellow|{{cubeAmount}}>> Cubos ¡Wow!",
+        "corruptionTesseracts": "Si Asciendes ahora, ganarás <<orange|{{tesseractAmount}}>> Tesseractos ¡Wow!. [<<var(--orange-text-color)|Get more if Score >100.000>>]",
+        "corruptionHypercubes": "Si Asciendes ahora, ganarás <<var(--crimson-text-color)|{{hypercubeAmount}}>> Hipercubos ¡Wow!. [<<var(--red-text-color)|Req Score: >1.000.000.000>>]",
+        "corruptionPlatonics": "Si Asciendes ahora, ganarás <<orchid|{{platonicAmount}}>> CUBOS PLATÓNICOS. [<<var(--orchid-text-color)|Req Score: >2.666.000.000.000>>]",
+        "corruptionHepteracts": "Si Asciendes ahora, ganarás <<mediumpurple|{{hepteractAmount}}>> HEPTERACTOS. [<<mediumpurple|Req Score: >1,666e17>>]",
         "autoAscend": {
-            "c10Completions": "Ascend when you've completed Sadistic Challenge I a total of <<var(--violet-text-color)|{{input}}>> times, Currently <<gold|{{completions}}>>",
+            "c10Completions": "Asciende cuando hayas completado el Desafío Sádico I un total de <<var(--violet-text-color)|{{input}}>> veces, actualmente <<gold|{{completions}}>>",
             "realTime": "Ascend when the timer is at least <<var(--violet-text-color)|{{input}}>> seconds (Real-time), Currently <<gold|{{time}}>>",
             "on": "Auto Ascender [ON]",
             "off": "Auto Ascender [OFF]",
@@ -2511,7 +2511,7 @@
             },
             "octeractImprovedDaily3": {
                 "name": "Código Diario GORDIMAXIMO",
-                "description": "It will never satisfy Derpsmith. +1 +0.5% more free Singularity upgrades per day from Daily!",
+                "description": "Nunca satisfará a Derpsmith. ¡+1 +0.5% más Mejoras de Singularidad gratuitas de diario!",
                 "effect": "El código 'diario' da +{{n}} más mejoras gratuitas de Singularidad por uso."
             },
             "octeractImprovedQuarkHept": {
@@ -2521,7 +2521,7 @@
             },
             "octeractImprovedGlobalSpeed": {
                 "name": "El reloj prohibido del tiempo",
-                "description": "Hypothesized to be locked in a hyperbolic time chamber. +1% Global Speed per level per singularity!",
+                "description": "Se cree encerrado dentro de cámaras de tiempo hiperbolicas. ¡+1% Velocidad Global por nivel por singularidad!",
                 "effect": "Velocidad Global por singularidad +{{n}}%"
             },
             "octeractImprovedAscensionSpeed": {
@@ -2536,8 +2536,8 @@
             },
             "octeractImprovedFree": {
                 "name": "¡Wow! Quiero que las mejoras gratuitas sean mejores.",
-                "description": "Singularity Upgrade level is (paid level * free levels)^0.6 instead of being added.",
-                "effect": "Singularity Upgrade free levels are {{n}} being powered!"
+                "description": "Las Mejoras de Singularidad son (nivel pagado * niveles gratis)^0.6 en lugar de sumados.",
+                "effect": "¡Los niveles gratuitos de Mejoras Singularidad {{n}} están empoderados!"
             },
             "octeractImprovedFree2": {
                 "name": "¡Wow! Las mejoras gratuitas aún apestan.",
@@ -2571,17 +2571,17 @@
             },
             "octeractAscensions": {
                 "name": "Garantía Anulada",
-                "description": "Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels.",
+                "description": "Gana +1% de Cuenta de Ascensión por nivel, con un extra 2% por cada 10 niveles.",
                 "effect": "El contador de Ascensión sube un {{n}}% más rápido."
             },
             "octeractAscensions2": {
                 "name": "Honorarios Tardíos Ocultos",
-                "description": "Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels. But... this scales a lot faster. Must be those hidden late fees.",
+                "description": "Gana +1% de Cuenta de Ascensión por nivel, con un extra 2% por cada 10 niveles. Pero... esto escala mucho más rápido. Deben ser esas comisiones tardías ocultas.",
                 "effect": "El contador de Ascensión sube un {{n}}% más rápido."
             },
             "octeractAscensionsOcteractGain": {
                 "name": "Acumulador Digital de Octeractos",
-                "description": "Octeract gain is 1% faster for every digit in your Ascension count!",
+                "description": "¡La ganancia Octeractos es 1% más rápida por cada dígito en su cuenta de Ascensiones!",
                 "effect": "Octeract Gain per OOM Ascension count +{{n}}%"
             },
             "octeractFastForward": {
@@ -2838,41 +2838,41 @@
             "inventory": "Posees <<yellow|{{amount}}>> Cubos ¡Wow!. ¡Consíguelos al ascender!",
             "total": "¡Tienes un total de <<yellow|{{amount}}>> tributos de Cubo!",
             "items": {
-                "1": "Hermes' Tribute x{{amount}}: +{{bonus}} Accelerators per Accelerator Boost",
-                "2": "Aphrodite's Tribute x{{amount}}: +{{bonus}}% Multipliers",
-                "3": "Plutus' Tribute x{{amount}}: +{{bonus}}% Offering Gain",
-                "4": "Iris' Tribute x{{amount}}: +{{bonus}}% Rune EXP",
-                "5": "Athena's Tribute x{{amount}}: +{{bonus}}% Obtainium Gain",
-                "6": "Artemis' Tribute x{{amount}}: +{{bonus}}% Ant Speed",
-                "7": "Ares' Tribute x{{amount}}: +{{bonus}}% Sacrifice Reward",
-                "8": "Moloch's Tribute x{{amount}}: +{{bonus}} Effective ELO",
-                "9": "Midas' Tribute x{{amount}}: +{{bonus}} Bonus Rune Levels on Talismans",
-                "10": "Chronos' Tribute x{{amount}}: +{{bonus}}% Global Time Acceleration"
+                "1": "Tributo de Hermes x{{amount}}: +{{bonus}} Aceleradores por Potenciador de Acelerador",
+                "2": "Tributo de Afrodita x{{amount}}: +{{bonus}}% Multiplicadores",
+                "3": "Tributo de Plutón x{{amount}}: +{{bonus}}% Ganancia de Ofrenda",
+                "4": "Tributo de Iris x{{amount}}: +{{bonus}}% EXP de Runa",
+                "5": "Tributo de Atenea x{{amount}}: +{{bonus}}% Ganancia de Obtainium",
+                "6": "Tributo de Artemisia x{{amount}}: +{{bonus}}% Velocidad de la Hormigas",
+                "7": "Tributo de Ares x{{amount}}: +{{bonus}}% Recompensa de Sacrificio",
+                "8": "Tributo de Moloc x{{amount}}: + {{bonus}} ELO Efectivo",
+                "9": "Tributo de Midas x{{amount}}: +{{bonus}} Niveles Adicionales de Runa en Talismanes",
+                "10": "Tributo de Cronos x{{amount}}: +{{bonus}}% Aceleración de Tiempo Global"
             }
         },
         "tesseracts": {
             "intro": "¡Recibes la guía de seres en otra dimensión!",
             "instructions": "Abre algunas Lootb-- esto, Teseractos ¡Wow!, para potenciar los tributos del anterior rango.",
-            "inventory": "You possess <<yellow|{{amount}}>> Wow! Tesseracts. Get them from ascending with at least 100,000 score!",
-            "total": "You have a total of <<yellow|{{amount}}>> Tesseract gifts!",
+            "inventory": "Tienes <<yellow|{{amount}}>> Teseractos ¡Wow!. ¡Consíguelos al ascender con al menos 100.000 puntos!",
+            "total": "¡Tienes un total de <<yellow|{{amount}}>> Regalos de Teseracto!",
             "items": {
-                "1": "Hermes' Gift x{{amount}}: +{{bonus}}% Hermes Tribute Power",
-                "2": "Aphrodite's Gift x{{amount}}: +{{bonus}}% Aphrodite Tribute Power",
-                "3": "Plutus' Gift x{{amount}}: +{{bonus}}% Plutus Tribute Power",
-                "4": "Iris' Gift x{{amount}}: +{{bonus}}% Iris Tribute Power",
-                "5": "Athena's Gift x{{amount}}: +{{bonus}}% Athena Tribute Power",
-                "6": "Artemis' Gift x{{amount}}: +{{bonus}}% Artemis Tribute Power",
-                "7": "Ares' Gift x{{amount}}: +{{bonus}}% Ares Tribute Power",
-                "8": "Moloch's Gift x{{amount}}: +{{bonus}}% Moloch Tribute Power",
-                "9": "Midas' Gift x{{amount}}: +{{bonus}}% Midas Tribute Power",
-                "10": "Chronos' Gift x{{amount}}: +{{bonus}}% Chronos Tribute Power"
+                "1": "Regalo de Hermes x{{amount}}: +{{bonus}}% Poder de Tributo de Hermes",
+                "2": "Regalo de Afrodita x{{amount}}: +{{bonus}}% Poder de Tributo Afrodita",
+                "3": "Regalo de Plutón x{{amount}}: +{{bonus}}% Poder de Tributo Plutón",
+                "4": "Regalo de Iris x{{amount}}: +{{bonus}}% Poder de Tributo de Iris",
+                "5": "Regalo de Atenea x{{amount}}: +{{bonus}}% Poder de Tributo Atenea",
+                "6": "Regalo de Artemisia x{{amount}}: +{{bonus}}% Poder de Tributo de Artemisia",
+                "7": "Regalo de Ares x{{amount}}: +{{bonus}}% Poder de Tributo de Ares",
+                "8": "Regalo de Moloc x{{amount}}: +{{bonus}}% Poder de Tributo Moloc",
+                "9": "Regalo de Midas x{{amount}}: +{{bonus}}% Poder de Tributo de Midas",
+                "10": "Regalo de Cronos x{{amount}}: +{{bonus}}% Poder de Tributo de Cronos"
             }
         },
         "hypercubes": {
-            "intro": "I didn't know that Wow! enterprises made 5-Dimensional Objects.",
+            "intro": "No sabía que las empresas ¡Wow! Hicieran objetos de 5 dimensiones.",
             "instructions": "Abre algunas Lootb-- esto, Hipercubos ¡Wow!, para potenciar las bendiciones del anterior rango.",
-            "inventory": "You possess <<yellow|{{amount}}>> Wow! Hypercubes. Get them from ascending with at least 1e9 score!",
-            "total": "You have a total of <<yellow|{{amount}}>> Hypercube benedictions!",
+            "inventory": "Tienes <<yellow|{{amount}}>> Hipercibos ¡Wow!. ¡Consíguelos al ascender con al menos 1e9 puntos!",
+            "total": "¡Tienes un total de <<yellow|{{amount}}>> Bendiciones de Hipercubo!",
             "items": {
                 "1": "Hermes' Benediction x{{amount}}: +{{bonus}}% Hermes Gift Power",
                 "2": "Aphrodite's Benediction x{{amount}}: +{{bonus}}% Aphrodite Gift Power",
