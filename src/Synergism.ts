@@ -363,6 +363,7 @@ export const player: Player = {
     runelevels: [1, 1, 1, 1, 1, 0, 0],
     runeexp: [0, 0, 0, 0, 0, 0, 0],
     runeshards: 0,
+    offerings: new Decimal('0'),
     maxofferings: 0,
     offeringpersecond: 0,
 

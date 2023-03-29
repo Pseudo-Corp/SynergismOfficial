@@ -908,6 +908,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         void Alert('You have loaded into the January 4, 2023 Patch v1.')
     }
 
+    if (data.offerings === undefined) {
+        player.offerings = new Decimal(player.runeshards)
+        void Alert('As of the latest update, Offerings are now uncapped! Yippee')
+    }
+
     const oldest = localStorage.getItem('firstPlayed')
 
     if (data.firstPlayed == undefined) {

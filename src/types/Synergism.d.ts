@@ -270,6 +270,7 @@ export interface Player {
     runelevels: number[]
     runeexp: number[]
     runeshards: number
+    offerings: Decimal
     maxofferings: number
     offeringpersecond: number
 

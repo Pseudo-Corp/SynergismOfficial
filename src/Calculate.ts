@@ -114,14 +114,14 @@ export const calculateRecycleMultiplier = () => {
     return 1 / (1 - recycleFactors);
 }
 
-export function calculateRuneExpGiven(runeIndex: number, all: boolean, runeLevel: number, returnFactors: true): number[];
-export function calculateRuneExpGiven(runeIndex: number, all: boolean, runeLevel: number, returnFactors: false): number;
-export function calculateRuneExpGiven(runeIndex: number, all: boolean, runeLevel: number): number;
-export function calculateRuneExpGiven(runeIndex: number, all: boolean): number;
-export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel = player.runelevels[runeIndex], returnFactors = false) {
+export function calculateRuneExpGiven(runeIndex: number, all: boolean, runeLevel: number): Decimal;
+export function calculateRuneExpGiven(runeIndex: number, all: boolean): Decimal;
+export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel = player.runelevels[runeIndex]) {
     // recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
+    let EXPMult = new Decimal(1)
     const recycleMultiplier = calculateRecycleMultiplier();
 
+    EXPMult = EXPMult.times(recycleMultiplier)
     // Rune multiplier that is summed instead of added
     let allRuneExpAdditiveMultiplier: number | null = null;
     if (all) {
@@ -150,6 +150,8 @@ export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel 
         ]);
     }
 
+    EXPMult.times(allRuneExpAdditiveMultiplier)
+
     // Rune multiplier that gets applied to all runes
     const allRuneExpMultiplier = productContents([
         // Research 4x16
@@ -168,37 +170,43 @@ export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel 
         G['challenge15Rewards'].runeExp
     ]);
         // Corruption Divisor
-    const droughtEffect = 1 / Math.pow(G['droughtMultiplier'][player.usedCorruptions[8]], 1 - 1 / 2 * player.platonicUpgrades[13]);
+    
+    EXPMult = EXPMult.times(allRuneExpMultiplier)
+    const droughtEffect = new Decimal(Decimal.pow(G['droughtMultiplier'][player.usedCorruptions[8]], 1 - 1 / 2 * player.platonicUpgrades[13]));
+
+    EXPMult = EXPMult.div(droughtEffect)
 
     // Rune multiplier that gets applied to specific runes
     const runeExpMultiplier = [
         productContents([
-            1 + (player.researches[78] / 50), 1 + (player.researches[111] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[7]) / 10), droughtEffect
+            1 + (player.researches[78] / 50), 1 + (player.researches[111] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[7]) / 10)
         ]),
         productContents([
-            1 + (player.researches[80] / 50), 1 + (player.researches[112] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[7]) / 10), droughtEffect
+            1 + (player.researches[80] / 50), 1 + (player.researches[112] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[7]) / 10)
         ]),
         productContents([
-            1 + (player.researches[79] / 50), 1 + (player.researches[113] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[8]) / 5), droughtEffect
+            1 + (player.researches[79] / 50), 1 + (player.researches[113] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[8]) / 5)
         ]),
         productContents([
-            1 + (player.researches[77] / 50), 1 + (player.researches[114] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[6]) / 10), droughtEffect
+            1 + (player.researches[77] / 50), 1 + (player.researches[114] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[6]) / 10)
         ]),
         productContents([
-            1 + (player.researches[83] / 20), 1 + (player.researches[115] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[9]) / 5), droughtEffect
+            1 + (player.researches[83] / 20), 1 + (player.researches[115] / 100), 1 + (CalcECC('reincarnation', player.challengecompletions[9]) / 5)
         ]),
         productContents([1]),
         productContents([1])
     ];
 
-    const fact = [
+    EXPMult = EXPMult.times(runeExpMultiplier[runeIndex])
+
+    /*const fact = [
         allRuneExpAdditiveMultiplier,
         allRuneExpMultiplier,
         recycleMultiplier,
         runeExpMultiplier[runeIndex]
-    ];
+    ];*/
 
-    return returnFactors ? fact : Math.min(1e200, productContents(fact));
+    return EXPMult;
 }
 
 export const lookupTableGen = (runeLevel: number) => {
@@ -221,15 +229,23 @@ let lookupTableRuneExp: number[] | null = null;
 export const calculateRuneExpToLevel = (runeIndex: number, runeLevel = player.runelevels[runeIndex]) => {
     lookupTableRuneExp ??= Array.from({ length: 40000 }, (_, i) => lookupTableGen(i));
 
+    let multiplier = new Decimal(1)
     // For runes 6 and 7 we will apply a special multiplier
-    let multiplier = lookupTableRuneExp[runeLevel]
+    if (runeLevel < 40000) {
+        multiplier = multiplier.times(lookupTableRuneExp[runeLevel])
+    }
+    else {
+        multiplier = multiplier.times(lookupTableRuneExp[39999])
+        multiplier = multiplier.times(Decimal.pow(1.05, runeLevel - 40000))
+    }
+
     if (runeIndex === 5) {
-        multiplier = Math.pow(100, runeLevel)
+        multiplier = Decimal.pow(100, runeLevel)
     }
     if (runeIndex === 6) {
-        multiplier = Math.pow(1e25, runeLevel) * (player.highestSingularityCount + 1)
+        multiplier = Decimal.pow(1e25, runeLevel).times(player.highestSingularityCount + 1)
     }
-    return multiplier * G['runeexpbase'][runeIndex];
+    return multiplier.times(G['runeexpbase'][runeIndex]);
 }
 
 export const calculateMaxRunes = (i: number) => {
@@ -246,7 +262,7 @@ export const calculateMaxRunes = (i: number) => {
         10 * (player.researches[79] + player.researches[113]) + increaseAll,
         10 * (player.researches[77] + player.researches[114]) + increaseAll,
         10 * player.researches[115] + increaseAll,
-        -901,
+        -801,
         -999
     ]
 
@@ -255,39 +271,39 @@ export const calculateMaxRunes = (i: number) => {
 }
 
 export const calculateEffectiveIALevel = () => {
-    return player.runelevels[5] + Math.max(0, player.runelevels[5] - 74) + Math.max(0, player.runelevels[5] - 98)
+    return player.runelevels[5] + Math.max(0, player.runelevels[5] - 74) + Math.max(0, player.runelevels[5] - 98) + Math.max(0, player.runelevels[5] - 99)
 }
 
-export function calculateOfferings(input: resetNames): number;
-export function calculateOfferings(input: resetNames, calcMult: false): number[];
-export function calculateOfferings(input: resetNames, calcMult: false, statistic: boolean): number[];
-export function calculateOfferings(input: resetNames, calcMult: true, statistic: boolean): number;
+export function calculateOfferings(input: resetNames): Decimal;
+export function calculateOfferings(input: resetNames, calcMult: false): Decimal[];
+export function calculateOfferings(input: resetNames, calcMult: false, statistic: boolean): Decimal[];
+export function calculateOfferings(input: resetNames, calcMult: true, statistic: boolean): Decimal;
 export function calculateOfferings(input: resetNames, calcMult = true, statistic = false) {
 
     if (input == 'acceleratorBoost' || input == 'ascension' || input == 'ascensionChallenge'){
-        return 0;
+        return new Decimal(0);
     }
 
-    let q = 0;
-    let a = 0;
-    let b = 0;
+    let q = new Decimal(0);
+    let reinOff = new Decimal(0);
+    let b = new Decimal(0);
     let c = 0;
 
     if (input == 'reincarnation' || input == 'reincarnationChallenge') {
-        a += 3
+        reinOff = reinOff.add(3)
         if (player.achievements[52] > 0.5) {
-            a += (25 * Math.min(player.reincarnationcounter / 1800, 1))
+            reinOff = reinOff.add(25 * Math.min(player.reincarnationcounter / 1800, 1))
         }
         if (player.upgrades[62] > 0.5) {
-            a += 1 / 50 * (sumContents(player.challengecompletions))
+            reinOff = reinOff.add(1 / 50 * (sumContents(player.challengecompletions)))
         }
-        a += 0.6 * player.researches[25]
+        reinOff = reinOff.add(0.6 * player.researches[25])
         if (player.researches[95] === 1) {
-            a += 4
+            reinOff = reinOff.add(4)
         }
-        a += 1 / 200 * G['rune5level'] * G['effectiveLevelMult'] * (1 + player.researches[85] / 200)
-        a *= (1 + Math.pow(Decimal.log(player.reincarnationShards.add(1), 10), 2 / 3) / 4);
-        a *= Math.min(Math.pow(player.reincarnationcounter / 10 + 1, 2), 1)
+        reinOff = reinOff.add(1 / 200 * G['rune5level'] * G['effectiveLevelMult'] * (1 + player.researches[85] / 200))
+        reinOff = reinOff.times((1 + Math.pow(Decimal.log(player.reincarnationShards.add(1), 10), 2 / 3) / 4);
+        reinOff *= Math.min(Math.pow(player.reincarnationcounter / 10 + 1, 2), 1)
         if (player.reincarnationcounter >= 5) {
             a *= Math.max(1, player.reincarnationcounter / 10)
         }
@@ -805,7 +821,7 @@ const calculateAntSacrificeMultipliers = () => {
 
 interface IAntSacRewards {
     antSacrificePoints: number
-    offerings: number
+    offerings: Decimal
     obtainium: number
     talismanShards: number
     commonFragments: number
@@ -824,7 +840,7 @@ export const calculateAntSacrificeRewards = (): IAntSacRewards => {
     const rewardsMult = Math.min(maxCap, G['timeMultiplier'] * G['upgradeMultiplier']);
     const rewards: IAntSacRewards = {
         antSacrificePoints: G['effectiveELO'] * rewardsMult / 85,
-        offerings: Math.min(maxCap, player.offeringpersecond * 0.15 * G['effectiveELO'] * rewardsMult / 180),
+        offerings: new Decimal(player.offeringpersecond * 0.15 * G['effectiveELO'] * rewardsMult / 180),
         obtainium: Math.min(maxCap, player.maxobtainiumpersecond * 0.24 * G['effectiveELO'] * rewardsMult / 180),
         talismanShards: (G['antELO'] > 500)
             ? Math.min(maxCap, Math.max(1, Math.floor(rewardsMult / 210 * Math.pow(1 / 4 * (Math.max(0, G['effectiveELO'] - 500)), 2))))

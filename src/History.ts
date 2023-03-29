@@ -29,7 +29,7 @@ export type ResetHistoryEntryAntSacrifice = ResetHistoryEntryBase & {
     crumbsPerSecond: string
     effectiveELO: number
     obtainium: number
-    offerings: number
+    offerings: string
     kind: 'antsacrifice'
 };
 
