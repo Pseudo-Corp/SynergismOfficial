@@ -1,4 +1,4 @@
-export const version = '2.10.7: March 29, 2023: The Lexical Update!';
+export const version = '2.10.7: March 29, 2023 v2: The Lexical Update!';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE
