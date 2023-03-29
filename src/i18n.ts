@@ -14,7 +14,6 @@ const supported: Record<string, { name: string, flag: string }> = {
     de: { name: 'German', flag: '🇩🇪' },
     pl: { name: 'Polish', flag: '🇵🇱' },
     es: { name: 'Spanish', flag: '🇪🇸' },
-    pt_BR: { name: 'Brazilian Portuguese', flag: '🇧🇷' },
     ru: { name: 'Russian', flag: '🇷🇺' }
 };
 
