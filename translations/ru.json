@@ -2899,7 +2899,7 @@
                 "5": "Hypercube Statue: x{{amount}}: +{{bonus}}% ALL Hypercube bonuses",
                 "6": "Keynesian Statue: x{{amount}}: +{{bonus}}% Bonus Constant exponent on taxes",
                 "7": "High-Scoring Statue: x{{amount}}: +{{bonus}}% More Score on corruptions",
-                "8": "Статуя Хроноса: x{{amount}}: +{{bonus}}% к <<yellow|истинной>> Глобальной Скорость (после уменьшающиеся отдачи на скорость)"
+                "8": "Статуя Хроноса: x{{amount}}: +{{bonus}}% к <<yellow|true>> Глобальной Скорость (после уменьшающиеся отдачи на скорость)"
             }
         },
         "hepteractForge": {
