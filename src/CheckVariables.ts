@@ -913,6 +913,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         }
     }
 
+    if (data.offerings === undefined) {
+        player.offerings = new Decimal(player.runeshards)
+        void Alert('As of the latest update, Offerings are now uncapped! Yippee')
+    }
+
     const oldest = localStorage.getItem('firstPlayed')
 
     if (data.firstPlayed == undefined) {

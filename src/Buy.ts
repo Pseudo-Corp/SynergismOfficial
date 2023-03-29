@@ -1153,7 +1153,7 @@ export const buyTesseractBuilding = (index: OneToFive, amount = player.tesseract
 
 export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number) => {
     const unlocked = type === 'Spirits' ? player.challengecompletions[12] > 0 : player.achievements[134] === 1;
-    if (unlocked && isFinite(player.runeshards) && player.runeshards > 0) {
+    if (unlocked && player.offerings.gte(0)) {
         let baseCost;
         let baseLevels;
         let levelCap;
@@ -1167,17 +1167,18 @@ export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number)
             levelCap = player.runeBlessingBuyAmount;
         }
 
-        const [level, cost] = calculateSummationLinear(baseLevels, baseCost, player.runeshards, levelCap);
+        const offeringToUse = (player.offerings.gte('1e308')) ? 1e308 : Number(player.offerings)
+
+        const [level, cost] = calculateSummationLinear(baseLevels, baseCost, offeringToUse, levelCap);
         if (type === 'Spirits') {
             player.runeSpiritLevels[index] = level;
         } else {
             player.runeBlessingLevels[index] = level;
         }
 
-        player.runeshards -= cost;
-
-        if (player.runeshards < 0) {
-            player.runeshards = 0;
+        player.offerings = player.offerings.sub(cost);
+        if (player.offerings.lte(0)) {
+            player.offerings = new Decimal(0)
         }
 
         updateRuneBlessing(type, index);
@@ -1226,9 +1227,10 @@ export const updateRuneBlessing = (type: 'Blessings' | 'Spirits', index: number)
 export const buyAllBlessings = (type: 'Blessings' | 'Spirits', percentage = 100, auto = false) => {
     const unlocked = type === 'Spirits' ? player.challengecompletions[12] > 0 : player.achievements[134] === 1;
     if (unlocked) {
-        const runeshards = Math.floor(player.runeshards / 100 * percentage / 5);
+        const offeringsToUse = (player.offerings.gte(1e308)) ? 1e308 : Number(player.offerings)
+        const runeshards = Math.floor(offeringsToUse / 100 * percentage / 5);
         for (let index = 1; index < 6; index++) {
-            if (isFinite(player.runeshards) && player.runeshards > 0) {
+            if (player.offerings.gte(0)) {
                 let baseCost;
                 let baseLevels;
                 const levelCap = 1e300;
@@ -1248,10 +1250,9 @@ export const buyAllBlessings = (type: 'Blessings' | 'Spirits', percentage = 100,
                         player.runeBlessingLevels[index] = level;
                     }
 
-                    player.runeshards -= cost;
-
-                    if (player.runeshards < 0) {
-                        player.runeshards = 0;
+                    player.offerings = player.offerings.sub(cost);
+                    if (player.offerings.lte(0)) {
+                        player.offerings = new Decimal(0)
                     }
 
                     updateRuneBlessing(type, index);

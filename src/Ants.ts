@@ -327,7 +327,7 @@ export const sacrificeAnts = async (auto = false) => {
 
             const sacRewards = calculateAntSacrificeRewards();
             player.antSacrificePoints += sacRewards.antSacrificePoints;
-            player.runeshards += sacRewards.offerings;
+            player.offerings = player.offerings.add(sacRewards.offerings);
 
             if (player.currentChallenge.ascension !== 14) {
                 player.researchPoints += sacRewards.obtainium;
@@ -337,7 +337,7 @@ export const sacrificeAnts = async (auto = false) => {
                 date: Date.now(),
                 seconds: player.antSacrificeTimer,
                 kind: 'antsacrifice',
-                offerings: sacRewards.offerings,
+                offerings: format(sacRewards.offerings),
                 obtainium: sacRewards.obtainium,
                 antSacrificePointsBefore: antSacrificePointsBefore,
                 antSacrificePointsAfter: player.antSacrificePoints,
