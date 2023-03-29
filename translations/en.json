@@ -777,7 +777,7 @@
             "name": "No Research Challenge || {{- value}} Completions",
             "flavor": "The dimension that never progressed past the dark ages. Many fear to even step foot.",
             "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.2.",
-            "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
+            "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
             "per": {
                 "1": "+50% stronger effect on researches 1x1 through 1x5. Current: ",
                 "2": "+1 research purchased per roomba tick! Current: ",
@@ -825,7 +825,7 @@
         "modeOff": "MODE: OFF",
         "modeEnter": "MODE: ENTER",
         "bonusFirstCompletion": "Bonus/Unlock for First Completion",
-        "timeStartSweep": "Time for start of sweep: <<var(--orchid-text-color)|{{time}}>>s",
+        "timeStartSweep": "Time for start of sweep: <<var(--orchid-text-color)|{{time}}>>/s",
         "timeExitChallenge": "Time before exiting challenge: <<var(--orchid-text-color)|{{time}}>>s",
         "timeEnterChallenge": "Time before entering challenge: <<var(--orchid-text-color)|{{time}}>>s",
         "autoTimer": "<<orange|Auto Timer:>> <<var(--orchid-text-color)|{{time}}s>>",
@@ -1264,9 +1264,9 @@
             "offeringEX2": "Gain +1% Offerings per level per Singularity. Putting the Singularity Debuff industry out of business.",
             "powderAuto": "Your grandparents had to wait a full day for powder, but not you! Per level gain +1% of orbs to powder based on the conversion rate.",
             "seasonPassLost": "One would be advised not to touch this. +0.1% Octeracts per level, whatever those are...",
-            "challenge15Auto": "Your grandparents had to bend dimensions to gain Challenge 15 score, but not you! Updates Challenge 15 Exponent every tick while in Challenge 15!",
-            "extraWarp": "\"Hey dude, get in this portal I built up last night in my shed!\" said the Quack Merchant.",
-            "autoWarp": "With the power of Quacks, the Warp machine will now be able to go into overdrive.",
+            "challenge15Auto": "Your grandparents had to bend dimensions to gain Challenge 15 score, but not you! Updates Challenge 15 Exponent every tick while in challenge 15!",
+            "extraWarp": "\"Hey dude, get in this portal I built up last night in my shed!\" said the Quack Merchant",
+            "autoWarp": "With the power of Quacks Warp machine will now be able to go into overdrive",
             "improveQuarkHept": "Did you know that after 1,000 Quark Hepteracts, their effect is raised to ^0.5? The Seal disapproves. Gain +2% to the diminishing return exponent.",
             "improveQuarkHept2": "After 1,024,000 Quark Hepts, their effect is raised to ^0.25!!! Nonsense. Gain +2% to all Quark Hept DRs.",
             "improveQuarkHept3": "After ~100 million Quark Hepts, their effect is raised to ^0.16! Absolute rubbish. Gain +2% to all Quark Hept DRs, yet again.",
@@ -1370,7 +1370,7 @@
             "transaction": "Transaction of {{spent}} Golden Quarks successful! [-{{cost}} Quarks]",
             "poor": "Sorry, I can't give credit. Come back when you're a little... mmm... richer!",
             "buyPrompt": "You can buy Golden Quarks here for {{cost}} Quarks (Discounted by {{discount}})! You can buy up to {{max}}. How many do you want? Type -1 to buy max!",
-            "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq}} GQ. Type -1 to use max!",
+            "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq} GQ. Type -1 to use max!",
             "hasUpgrade": "Hey! You have already maxed this upgrade. :D",
             "notHighEnoughLevel": "You're not powerful enough to purchase this yet.",
             "ascensionReset": "You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...",
@@ -2159,7 +2159,7 @@
             "mythos": "Mythos Upgrades",
             "generator": "Generator Shop",
             "automation": "Automation Shop",
-            "particles": "Particle Upgrades"
+            "particles": "Particles Upgrades"
         },
         "hover": "Hover over an upgrade icon to see details!",
         "hoverOverUpgrade": "Hover over an upgrade to view details!"
@@ -2637,7 +2637,7 @@
         "power": {
             "1": "Speed Rune Bonus: +{{bonus}} Accelerators, +{{percent}}% Accelerators, +{{boost}} Accelerator Boosts.",
             "2": "Duplication Rune Bonus: +{{mult1}} Multipliers, +{{mult2}}% Multipliers, -{{tax}}% Tax Growth.",
-            "3": "Prism Rune Bonus: All Crystal Producer production multiplied by {{mult}}, gain +{{gain}} free crystal levels.",
+            "3": "Prism Rune Bonus: All Crystal Producer production multiplied by {{mult}}, gain +{{gain}}' free crystal levels.",
             "4": "Thrift Rune Bonus: Delay all producer cost increases by {{delay}}%. Offering recycle chance: +{{chance}}%. -{{tax}}% Tax Growth",
             "5": "S. Intellect Rune Bonus: Obtainium gain x{{gain}}. Ant Speed: x{{speed}}. Base Offerings: +{{offerings}}",
             "6": "IA Rune Bonus: Quark Gain +{{percent1}}%, Ascensions give +{{percent2}}% more of all cube types.",
