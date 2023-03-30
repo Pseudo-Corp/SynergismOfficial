@@ -777,7 +777,7 @@
             "name": "无研究挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
             "flavor": "这个维度没能跨越黑暗时代。很多人甚至不敢越雷池一步。",
             "restrictions": "立即飞升开始挑战，您无法获得难得素，也无法进行研究。蚂蚁产量^0.2。",
-            "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
+            "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
             "per": {
                 "1": "研究1x1至研究1x5的效果增加50%。当前效果： ",
                 "2": "每个时刻自动购买的研究数量增加1！当前效果： ",
@@ -825,7 +825,7 @@
         "modeOff": "模式：关闭",
         "modeEnter": "模式：进入",
         "bonusFirstCompletion": "首次完成奖励",
-        "timeStartSweep": "扫荡间隔时间：<<var(--orchid-text-color)|{{time}}>>秒",
+        "timeStartSweep": "Time for start of sweep: <<var(--orchid-text-color)|{{time}}>>s",
         "timeExitChallenge": "退出挑战前经过时间：<<var(--orchid-text-color)|{{time}}>>秒",
         "timeEnterChallenge": "进入挑战前经过时间：<<var(--orchid-text-color)|{{time}}>>秒",
         "autoTimer": "<<orange|扫荡计时：>><<var(--orchid-text-color)|{{time}}秒>>",
@@ -1264,9 +1264,9 @@
             "offeringEX2": "对于每次奇点，每级使祭品获取数量增加1%。让奇点削弱行业倒闭去吧。",
             "powderAuto": "您的爷爷奶奶可能还在等着一天结束获得超通量粉，但您已经可以直接获得了！每级可以将1%的超通量珠直接转化为超通量粉，且不减少超通量珠数量。",
             "seasonPassLost": "触碰它可不是什么明智之举。每级使八阶方块获取数量增加0.1%，但这些是……",
-            "challenge15Auto": "您的爷爷奶奶可能还要退出挑战才能获得挑战15指数，但您已经可以直接获得了！在挑战15中，每个时刻可以自动更新挑战15指数！",
-            "extraWarp": "“喂，老兄，快进来，这是我昨天在棚子里鼓捣出的传送门！”夸克商人如是说",
-            "autoWarp": "利用夸克的力量，使跃迁机器可以进行过载工作",
+            "challenge15Auto": "Your grandparents had to bend dimensions to gain Challenge 15 score, but not you! Updates Challenge 15 Exponent every tick while in Challenge 15!",
+            "extraWarp": "\"Hey dude, get in this portal I built up last night in my shed!\" said the Quack Merchant.",
+            "autoWarp": "With the power of Quacks, the Warp machine will now be able to go into overdrive.",
             "improveQuarkHept": "您知道当惊奇七阶立方·夸克超过1000库存后，它们的效果会变为0.5次方吗？印记表示反对。使它的效果指数增加2%。",
             "improveQuarkHept2": "当惊奇七阶立方·夸克超过1024000库存后，它们的效果会变为0.25次方！！！简直是胡言乱语。使它的所有效果指数增加2%。",
             "improveQuarkHept3": "当惊奇七阶立方·夸克超过约一亿库存后，它们的效果会变为0.16次方！！！真的烂透了。使它的所有效果指数再次增加2%。",
@@ -1331,7 +1331,7 @@
             "calculator4": "使“增加”代码的使用次数加快<<orchid|{{amount1}}%>>恢复。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
             "calculator5": "使用“增加”代码时导出存档的金夸克奖励计时增加<<orchid|{{amount1}}>>。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
             "calculator6": "使用“增加”代码时获得相当于<<orchid|{{amount1}}>>秒产量的惊奇八阶方块。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
-            "constantEX": "数学常数升级2的效果再增加<<orange|{{amount}}>>。",
+            "constantEX": "<<orange|+{{amount}}>> max percent on Constant Upgrade 2",
             "powderEX": "超通量粉转换效率增加<<red|{{amount}}%>>。",
             "chronometer2": "飞升的速度增加<<orange|{{amount}}%>>！",
             "chronometer3": "飞升的速度增加<<orange|{{amount}}%>>！该升级<<red|永久>>生效！",
@@ -1370,7 +1370,7 @@
             "transaction": "购买了{{spent}}金夸克！[夸克减少{{cost}}]",
             "poor": "抱歉，您的夸克不是太够……请之后再来吧！",
             "buyPrompt": "您可以使用夸克来购买金夸克，单价为{{cost}}(花费减少了{{discount}})！您至多可以购买{{max}}金夸克，想要购买多少？如果想要购买最大数量，请输入-1！",
-            "spendPrompt": "您想要花费多少金夸克？您拥有{{gq}}金夸克。如果想要购买最大数量，请输入-1！",
+            "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq}} GQ. Type -1 to use max!",
             "hasUpgrade": "嘿！您已经升满此升级了！:D",
             "notHighEnoughLevel": "您还不够强大，无法升级。",
             "ascensionReset": "您没能抵挡住异教的诱惑。为了以防万一，飞升进度进行了一次性的重置……",
@@ -1749,26 +1749,26 @@
             "platonicTau": {
                 "name": "PLATONIC·陶",
                 "description": "似乎放到了错误的升级区域，它将使腐化解锁和腐化等级上限解锁的相应限制解除。另外，它还使惊奇方盒获取数量变为原来的1.01次方！",
-                "effectHave": "已购买该升级",
-                "effectHaveNot": "未购买该升级"
+                "effectHave": "This upgrade has been purchased.",
+                "effectHaveNot": "This upgrade has not been purchased."
             },
             "platonicAlpha": {
                 "name": "PLATONIC·阿 尔 法……？",
                 "description": "有两个阿尔法简直令人大惑不解。不过这一个阿尔法中间有空格，它可以使PLATONIC ALPHA升级永久为已升级！",
-                "effectHave": "已购买该升级",
-                "effectHaveNot": "未购买该升级"
+                "effectHave": "This upgrade has been purchased.",
+                "effectHaveNot": "This upgrade has not been purchased."
             },
             "platonicDelta": {
                 "name": "PLATONIC·德尔塔",
                 "description": "获得这个玩意以后，时间的力量会向着未来变得更加强大。在本次奇点中，每经过一天，所有类型的方盒、立方和方块获取数量就增加100%，最高为第九天增加900%。",
-                "effectHave": "已购买该升级",
-                "effectHaveNot": "未购买该升级"
+                "effectHave": "This upgrade has been purchased.",
+                "effectHaveNot": "This upgrade has not been purchased."
             },
             "platonicPhi": {
                 "name": "PLATONIC·斐",
                 "description": "时间的力量也可以向着过去变得更加强大。在本次奇点中，每经过一天，“每日”代码获得的免费奇点升级增加5级，最高为第十天增加50级。",
-                "effectHave": "已购买该升级",
-                "effectHaveNot": "未购买该升级"
+                "effectHave": "This upgrade has been purchased.",
+                "effectHaveNot": "This upgrade has not been purchased."
             },
             "singFastForward": {
                 "name": "以太通量·奇点",
@@ -1790,7 +1790,7 @@
             "singAscensionSpeed2": {
                 "name": "飞升的速度普通提升！",
                 "description": "只要本次奇点未购买蚁神之古物，就使飞升的速度变为原来的6倍。",
-                "effect": "效果很显然了！"
+                "effect": "The effect is clear."
             },
             "WIP": {
                 "name": "制作中的模板",
@@ -1811,8 +1811,8 @@
             "wowPass4": {
                 "name": "夸夸夸夸克克克克克克",
                 "description": "就算再怎么贵也要冲鸭！",
-                "effectHave": "You have quacked your last QUARK",
-                "effectHaveNot": "You haven't quacked your last QUARK"
+                "effectHave": "You have quacked your last QUARK.",
+                "effectHaveNot": "You haven't quacked your last QUARK."
             },
             "blueberries": {
                 "name": "蓝莓碎片!",
@@ -2159,7 +2159,7 @@
             "mythos": "神话升级",
             "generator": "发生器升级",
             "automation": "自动化升级",
-            "particles": "粒子升级"
+            "particles": "Particle Upgrades"
         },
         "hover": "将鼠标停在升级图标上可获得相关详情！",
         "hoverOverUpgrade": "Hover over an upgrade to view details!"
@@ -2637,7 +2637,7 @@
         "power": {
             "1": "加速符文奖励：使加速器数量增加{{bonus}}，再增加{{percent}}%，加速器加成数量增加{{boost}}。",
             "2": "重叠符文奖励：使加倍器数量增加{{mult1}}，再增加{{mult2}}%，税收增长减缓{{tax}}%。",
-            "3": "棱柱符文奖励：使水晶产量变为{{mult}}倍，每个水晶升级免费增加{{gain}}级。",
+            "3": "Prism Rune Bonus: All Crystal Producer production multiplied by {{mult}}, gain +{{gain}} free crystal levels.",
             "4": "节俭符文奖励：使所有建筑成本增长减缓{{delay}}%，祭品回收概率增加{{chance}}%，税收增长减缓{{tax}}%。",
             "5": "卓越智慧符文奖励：使难得素获取数量变为{{gain}}倍，蚂蚁速度变为{{speed}}倍，基础祭品数量增加{{offerings}}。",
             "6": "无限晋升符文奖励：使夸克获取数量增加{{percent1}}%，飞升时所有类型的方盒及立方获取数量增加{{percent2}}%。",
@@ -2828,7 +2828,7 @@
             "hypercubeQuarksToday": "从五阶立方获取的夸克数量：<<cyan|{{amount}}>>",
             "hypercubeQuarksOpenRequirement": "开启{{amount}}五阶立方后可获取夸克。",
             "hypercubeQuarksOpenToday": "今日开启五阶立方数量：<<orchid|{{amount}}>>",
-            "platonicCubeQuarksToday": "从PLATONIC方盒获取的夸克数量：<<cyan|{{amount}}>>",
+            "platonicCubeQuarksToday": "Quarks gained from Platonic Cubes: <<cyan|{{amount}}>>",
             "platonicCubeQuarksOpenRequirement": "开启{{amount}}PLATONIC方盒后可获取夸克。",
             "platonicCubeQuarksOpenToday": "今日开启PLATONIC方盒数量：<<orchid|{{amount}}>>"
         },
