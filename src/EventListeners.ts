@@ -23,10 +23,12 @@ import type { OneToFive, Player } from './types/Synergism'
 import { displayStats } from './Statistics'
 import { testing } from './Config';
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { toggleAnnotation, toggleTheme } from './Themes'
+import { toggleAnnotation, toggleTheme, toggleIconSet, imgErrorHandler } from './Themes'
 import { buyGoldenQuarks } from './singularity'
 import { resetHotkeys } from './Hotkeys'
 import { generateExportSummary } from './Summary'
+import { shopMouseover } from './UpdateVisuals'
+import i18next from 'i18next'
 
 /* STYLE GUIDE */
 /*
@@ -438,7 +440,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('open20Cube').addEventListener('click', () => player.wowCubes.open(Math.floor(Number(player.wowCubes) / 10), false))
     DOMCacheGetOrSet('open1000Cube').addEventListener('click', () => player.wowCubes.open(Math.floor(Number(player.wowCubes) / 2), false))
     DOMCacheGetOrSet('openCustomCube').addEventListener('click', () => player.wowCubes.openCustom());
-    DOMCacheGetOrSet('openMostCube').addEventListener('click', () => player.wowCubes.open(1, true))
+    DOMCacheGetOrSet('openMostCube').addEventListener('click', () => player.wowCubes.open(0, true))
     //Wow Tesseracts
     DOMCacheGetOrSet('open1Tesseract').addEventListener('click', () => player.wowTesseracts.open(1, false))
     DOMCacheGetOrSet('open20Tesseract').addEventListener('click', () => player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) / 10), false))
@@ -572,6 +574,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener('click', () => resetHistoryTogglePerSecond())
     DOMCacheGetOrSet('resetHotkeys').addEventListener('click', () => resetHotkeys())
     DOMCacheGetOrSet('notation').addEventListener('click', () => toggleAnnotation())
+    DOMCacheGetOrSet('iconSet').addEventListener('click', () => toggleIconSet(player.iconSet + 1))
 
     // SHOP TAB
 
@@ -626,9 +629,14 @@ TODO: Fix this entire tab it's utter shit
     // SINGULARITY TAB
     const singularityUpgrades = Object.keys(player.singularityUpgrades) as (keyof Player['singularityUpgrades'])[];
     for (const key of singularityUpgrades) {
+        if (key === 'offeringAutomatic') {
+            continue
+        }
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.singularityUpgrades[`${String(key)}`].buyLevel(event))
     }
+    DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener('mouseover', () => shopMouseover(true));
+    DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener('mouseout', () => shopMouseover(false));
 
     // Octeract Upgrades
     const octeractUpgrades = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[];
@@ -637,12 +645,16 @@ TODO: Fix this entire tab it's utter shit
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.octeractUpgrades[`${String(key)}`].buyLevel(event))
     }
 
+    DOMCacheGetOrSet('octeractUpgradeContainer').addEventListener('mouseover', () => shopMouseover(true));
+    DOMCacheGetOrSet('octeractUpgradeContainer').addEventListener('mouseout', () => shopMouseover(false));
+
     // EXALT
     const singularityChallenges = Object.keys(player.singularityChallenges) as (keyof Player['singularityChallenges'])[];
     for (const key of singularityChallenges) {
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.singularityChallenges[`${String(key)}`].updateChallengeHTML())
         DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.singularityChallenges[`${String(key)}`].challengeEntryHandler())
     }
+
     //Toggle subtabs of Singularity tab
     for (let index = 0; index < 5; index++) {
         DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => toggleSubTab(10, index))
@@ -676,7 +688,9 @@ TODO: Fix this entire tab it's utter shit
         return importSynergism(save);
     });
 
-    DOMCacheGetOrSet('theme').addEventListener('click', () => toggleTheme());
+    for (let i = 1; i <= 5; i++) {
+        DOMCacheGetOrSet(`switchTheme${i}`).addEventListener('click', () => toggleTheme(false, i, true));
+    }
 
     DOMCacheGetOrSet('saveType').addEventListener('click', async (event) => {
         const element = event.target as HTMLInputElement
@@ -689,7 +703,7 @@ TODO: Fix this entire tab it's utter shit
 
         event.preventDefault()
 
-        const confirmed = await Confirm('Are you sure you want to enable copy save to clipboard?')
+        const confirmed = await Confirm(i18next.t('save.saveToClipboard'))
 
         if (confirmed) {
             element.checked = !element.checked
@@ -698,4 +712,7 @@ TODO: Fix this entire tab it's utter shit
             localStorage.removeItem('copyToClipboard')
         }
     })
+
+    // Window
+    window.addEventListener('error', imgErrorHandler, {capture: true});
 }

@@ -378,6 +378,7 @@ export interface Player {
         improveQuarkHept5: number,
         seasonPassInfinity: number,
         chronometerInfinity: number,
+        shopSingularityPenaltyDebuff: number,
     },
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean | 'TEN' | 'ANY',
@@ -550,6 +551,10 @@ export interface Player {
     loadedV255: boolean
     loadedV297Hotfix1: boolean
     loadedV2927Hotfix1: boolean
+    loadedV2930Hotfix1: boolean
+    loadedV2931Hotfix1: boolean
+    loadedV21003Hotfix1: boolean,
+    loadedV21007Hotfix1: boolean,
     version: string
 
     rngCode: number
@@ -582,6 +587,7 @@ export interface Player {
     totalQuarksEver: number
     hotkeys: Record<number, string[]>
     theme: string
+    iconSet: number
     notation: string
 
     singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
@@ -858,8 +864,7 @@ export interface GlobalVariables {
 
     researchOrderByCost: number[],
 
-    divisivenessPower: number[]
-    maladaptivePower: number[]
+    viscosityPower: number[]
     lazinessMultiplier: number[]
     hyperchallengedMultiplier: number[]
     illiteracyPower: number[]
@@ -937,6 +942,7 @@ export interface GlobalVariables {
     historyCountMax: number
 
     isEvent: boolean
+    shopEnhanceVision: boolean
 }
 
 export interface SynergismEvents {

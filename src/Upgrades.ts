@@ -7,301 +7,148 @@ import { buyUpgrades } from './Buy';
 import { buyGenerator, buyAutobuyers } from './Automation';
 import { revealStuff } from './UpdateHTML';
 import { DOMCacheGetOrSet } from './Cache/DOM';
+import i18next from 'i18next';
 
-const upgdesc: Record<string, string> = {
-    upgdesc1: 'Increase production of Workers per producer bought.', //Coin Upgrades 1-20
-    upgdesc2: 'Increase production of Investments per producer bought.',
-    upgdesc3: 'Increase production of Printers per producer bought.',
-    upgdesc4: 'Increase production of Mints per producer bought.',
-    upgdesc5: 'Increase production of Alchemies per producer bought.',
-    upgdesc6: 'Increase all production based on producer bought.',
-    upgdesc7: 'Gain free multipliers based on your purchased Alchemies.',
-    upgdesc8: 'Gain 1 free Accelerator per 7 purchased Multipliers.',
-    upgdesc9: 'Gain 1 free Multiplier per 10 purchased Accelerators.',
-    upgdesc10: 'Improve Workers based on the first 750 purchased Investments.',
-    upgdesc11: 'Accelerators improve generation production by 2% each.',
-    upgdesc12: 'Each Prestige multiplies production by 1.01, multiplicatively (Max: 1e4x).',
-    upgdesc13: 'Augments buff the production of Investments.',
-    upgdesc14: 'Free Accelerators buff generation of Printers.',
-    upgdesc15: 'Free Accelerators buff generation of Mints.',
-    upgdesc16: 'Acceleration Multiplier buffs Diamond gain.',
-    upgdesc17: 'Multiply Mint production by 1e+100.',
-    upgdesc18: 'Multiply Printer production based on Mythos Shards.',
-    upgdesc19: 'Multiply Investment production based on Mythos.',
-    upgdesc20: 'Coin upgrade 1 is raised to the eleventh power.',
-    upgdesc21: 'Gain 1 Multiplier and 5 Accelerators plus 1% more free Multipliers/Accelerators.', //Prestige Upgrades 21-40
-    upgdesc22: 'Gain 1 Multiplier and 4 Accelerators plus 1% more free Multipliers/Accelerators.',
-    upgdesc23: 'Gain 1 Multiplier and 3 Accelerators plus 1% more free Multipliers/Accelerators.',
-    upgdesc24: 'Gain 1 Multiplier and 2 Accelerators plus 1% more free Multipliers/Accelerators.',
-    upgdesc25: 'Gain 1 Multiplier and 1 Accelerators plus 1% more free Multipliers/Accelerators.',
-    upgdesc26: 'Gain a free Accelerator Boost.',
-    upgdesc27: 'Gain free Accelerators based on unspent Coins.',
-    upgdesc28: 'Gain a free Multiplier per 160 Coin producers bought.',
-    upgdesc29: 'Gain a free Accelerator per 80 Coin producers bought.',
-    upgdesc30: 'Gain free Multipliers based on unspent Coins.',
-    upgdesc31: 'Gain 1 free Accelerator Boost per 2,000 Coin producers bought.',
-    upgdesc32: 'Gain free Accelerators based on Unspent Diamonds.',
-    upgdesc33: 'Gain 1 free Multiplier for each Accelerator Boost owned.',
-    upgdesc34: 'Gain 3% more free Multipliers.',
-    upgdesc35: 'Gain 2% more free Multipliers.',
-    upgdesc36: 'Multiply Crystal production by Diamonds, maximum 1e5000x.',
-    upgdesc37: 'Multiply Mythos Shard production by the squared logarithm of Diamonds.',
-    upgdesc38: 'Gain +20% more Offerings thanks to generous Discord Server Boosters!',
-    upgdesc39: 'Gain +60% more Ant Speed thanks to generous Discord Server Boosters!',
-    upgdesc40: 'Gain +25% more Ant Sacrifice rewards thanks to generous Discord Server Boosters!',
-    upgdesc41: 'Multiply production based on unspent Mythos.',
-    upgdesc42: 'Multiply Mythos Shard production based on unspent Diamonds.',
-    upgdesc43: 'Multiply coin production by 1.01 per Transcension (Max: 1e30x).',
-    upgdesc44: 'Multiply Mythos gain on Transcend by 1.01 per Transcension (Max: 1e6x).',
-    upgdesc45: 'Gain free Accelerators based on Mythos Shards.',
-    upgdesc46: 'Accelerator Boosts are 5% stronger and do not reset Prestige features.',
-    upgdesc47: 'Multiply Mythos Shard production based on your AP.',
-    upgdesc48: 'Multiply production based on owned Accelerators and Multipliers.',
-    upgdesc49: 'Gain free Multipliers based on unspent Mythos.',
-    upgdesc50: 'Gain +25% free Accelerators and Multipliers, but ONLY while doing Challenges.',
-    upgdesc51: 'Increase production of all Mythos buildings based on owned Accelerator Boosts.',
-    upgdesc52: 'Mythos building exponent +0.025.',
-    upgdesc53: 'Augments produce more Shards based on Acceleration Multiplier.',
-    upgdesc54: 'Wizards produce more Enchantments based on Multiplier.',
-    upgdesc55: 'Grandmasters produce more Oracles based on Building power.',
-    upgdesc56: 'Worker production is multiplied by 1e+5000.',
-    upgdesc57: 'Investment production is multiplied by 1e+7500.',
-    upgdesc58: 'Printer production is multiplied by 1e+15000.',
-    upgdesc59: 'Coin Mint production is multiplied by 1e+25000.',
-    upgdesc60: 'Alchemies production is multiplied by 1e+35000.', //Reincarnation Upgrades 61-100
-    upgdesc61: 'Welcome to Reincarnation! +5% Offering Recycle, +2 EXP/Offering!',
-    upgdesc62: 'Completing Challenges, automatically or manually, increase Offerings gained in Reincarnation. Bonus subject to time multiplier!',
-    upgdesc63: 'Crystal Production is multiplied based on Particles to the sixth power [Caps at 1e6000x].',
-    upgdesc64: 'Mythos Shard Production is multiplied by your Particles squared.',
-    upgdesc65: 'Multiply the gain of Particles from Reincarnation by 5x!',
-    upgdesc66: 'When you use an Offering, every unlocked rune will get 1 free experience.',
-    upgdesc67: 'Atom gain is increased by 3% per Particle producer purchased!',
-    upgdesc68: 'Gain a free Multiplier for every 1e1000x increase in tax.',
-    upgdesc69: 'Gain more Obtainium based on your particle gain. [Works with automation at a reduced rate!]',
-    upgdesc70: 'Time seems to go +0.333*log10(MAX Obtainium +1)% faster when you buy this.',
-    upgdesc71: 'Runes will gain (Rune Level/25) additional EXP per Offering used.',
-    upgdesc72: 'Obtainium gain from Reincarnations is multiplied (1 + 2C) where C is #Reincarnation Challenges completed, up to 50x!',
-    upgdesc73: 'Gain +100% free Accelerator Boosts and +10 free Crystal Upgrade levels, but only in Reincarnation Challenges.',
-    upgdesc74: 'Obtainium gain is increased based on highest ever unspent Offerings. [Max: 100,000 Unspent]',
-    upgdesc75: 'Offering gain is increased based on highest ever unspent Obtainium [Max: 30,000,000 Obtainium]',
-    upgdesc76: 'Ant generation kinda slow? I agree! Make all Ant tiers 5x faster!',
-    upgdesc77: 'This is Synergism, right? Let\'s make each purchased Ant make all Ants 0.4% faster.',
-    upgdesc78: 'Gain an Ant speed multiplier equivalent to (1 + 0.005 * (log10(MAX Offerings + 1))^2).',
-    upgdesc79: 'The Ant God will accept an arbitrary number of Particles in order to give you 10% more from sacrifices.',
-    upgdesc80: 'The Ant God will accept a larger arbitrary number of Particles to give you more Ant ELO.',
-    upgdesc81: 'Automatically buy Workers if affordable.', //Automation Upgrades 81-100
-    upgdesc82: 'Automatically buy Investments if affordable.',
-    upgdesc83: 'Automatically buy Printers if affordable.',
-    upgdesc84: 'Automatically buy Coin Mints if affordable.',
-    upgdesc85: 'Automatically buy Alchemies if affordable.',
-    upgdesc86: 'Automatically buy Accelerators if affordable.',
-    upgdesc87: 'Automatically buy Multipliers if affordable.',
-    upgdesc88: 'Automatically buy Accelerator Boosts if affordable.',
-    upgdesc89: 'Unlock Automatic Transcensions.',
-    upgdesc90: 'Automatically buy from the Generator Shop.',
-    upgdesc91: 'Automatically buy Coin Upgrades.',
-    upgdesc92: 'Automatically buy Diamond Upgrades.',
-    upgdesc93: 'Generate 1% of Diamond Gain from prestiging per second.',
-    upgdesc94: 'Automatically buy Augments if affordable.',
-    upgdesc95: 'Automatically buy Enchantments if affordable.',
-    upgdesc96: 'Automatically buy Wizards if affordable.',
-    upgdesc97: 'Automatically buy Oracles if affordable.',
-    upgdesc98: 'Automatically buy Grandmasters if affordable.',
-    upgdesc99: 'Automatically buy Mythos Upgrades if affordable.',
-    upgdesc100: 'Generate 1% of Mythos Gain from transcending per second.',
-    upgdesc101: 'Alchemies will produce Coin Mints.', // Generator Upgrades 101-120
-    upgdesc102: 'Coin Mints will produce Printers.',
-    upgdesc103: 'Printers will produce Investments.',
-    upgdesc104: 'Investments will produce Workers.',
-    upgdesc105: 'Purchased Workers will produce Alchemies.',
-    upgdesc106: 'Refineries can produce Alchemies equal to Refineries owned raised to 0.10',
-    upgdesc107: 'Refinery -> Alchemy exponent increased from 0.10 to 0.25.',
-    upgdesc108: 'Refinery -> Alchemy exponent increased from 0.25 to 0.50',
-    upgdesc109: 'Refinery -> Alchemy exponent increased from 0.50 to 0.75',
-    upgdesc110: 'Refinery -> Alchemy exponent increased from 0.75 to 1',
-    upgdesc111: 'Augments can produce Pandora Boxes equal to Augments owned raised to 0.08',
-    upgdesc112: 'Augment -> Box exponent increased from 0.08 to 0.16',
-    upgdesc113: 'Augment -> Box exponent increased from 0.16 to 0.24',
-    upgdesc114: 'Augment -> Box exponent increased from 0.24 to 0.32',
-    upgdesc115: 'Augment -> Box exponent increased from 0.32 to 0.40',
-    upgdesc116: 'Protons can produce Grandmasters equal to Protons owned raised to 0.05',
-    upgdesc117: 'Protons -> Grandmaster exponent increased from 0.05 to 0.10',
-    upgdesc118: 'Protons -> Grandmaster exponent increased from 0.10 to 0.15',
-    upgdesc119: 'Protons -> Grandmaster exponent increased from 0.15 to 0.20',
-    upgdesc120: 'Protons -> Grandmaster exponent increased from 0.20 to 0.25',
-    upgdesc121: 'You probably autobought this. -50% taxes!',
-    upgdesc122: 'Increase Crystal Upgrade 3 cap from +12% to +100%!',
-    upgdesc123: 'Raise coin production to the power of 1.025. More EXPONENTS.',
-    upgdesc124: 'Gain +3% more effective ELO.',
-    upgdesc125: 'Constant Tax divisor is 0.333% stronger per challenge 10 completion. [Divisor^(1 + upgrade)]'
+const crystalupgdesc: Record<number, () => Record<string, string>> = {
+    3: () => ({
+        max: format(
+            100 * (0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] *
+        Math.log(player.commonFragments + 1) / Math.log(4)), 2, true
+        )
+    }),
+    4: () => ({
+        max: format(
+            10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) /
+        Math.log(4) + 20 * calculateCorruptionPoints() / 400 * G['effectiveRuneSpiritPower'][3]
+        )
+    })
 }
 
-const crystalupgdesc: Record<number, () => string> = {
-    1: () => 'Gain a 5% multiplicative boost to Crystals per AP per level.',
-    2: () => 'Gain a boost to Crystals based on held coins per level.',
-    3: () => `Each purchased Crystal producer increases generation of Crystal producers by .1% per level. [MAX: ${format(100 * (0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4)), 2, true)}%]`,
-    4: () => `Improve the multiplier to coin production by .05 exponent per level. [MAX: +${format(10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4) + 20 * calculateCorruptionPoints() / 400 * G['effectiveRuneSpiritPower'][3])}]`,
-    5: () => 'Every Transcension Challenge completion increases Crystal gain by 1% per level.',
-    6: () => 'Coming SOON!',
-    7: () => 'Coming SOON!',
-    8: () => 'Coming SOON!'
-}
-
-const constantUpgDesc: Record<number, () => string> = {
-    1: () => `Make all Tesseract buildings ${format(5 + player.achievements[270] + 0.1 * player.platonicUpgrades[18], 1, true)}% more productive per level.`,
-    2: () => `Each Tesseract building bought increases the production of all of them by 0.1% per level [Max ${format(10 + player.achievements[270] + player.shopUpgrades.constantEX + 100 * (G['challenge15Rewards'].exponent - 1) + 0.3 * player.platonicUpgrades[18], 2, true)}%].`,
-    3: () => 'Increase Offering gain +2% per level.',
-    4: () => 'Increase Obtainium gain +4% per level.',
-    5: () => 'Multiply Ant speed by (1 + log10(Constant + 1)/10)^level',
-    6: () => 'Add +2 free Ant Levels per level.',
-    7: () => 'Provides 7 free rune levels and increases the rune cap by 3 per level.',
-    8: () => 'Increase the rune EXP given by Offerings by 10% per level [Additive]',
-    9: () => 'When bought, rune effectiveness is increased by Log4(Talisman Shards +1) %',
-    10: () => 'When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on Ascension.'
+const constantUpgDesc: Record<number, () => Record<string, string>> = {
+    1: () => ({ level: format(5 + player.achievements[270] + 0.1 * player.platonicUpgrades[18], 1, true) }),
+    2: () => ({
+        max: format(
+            10 + player.achievements[270] + player.shopUpgrades.constantEX + 100 *
+        (G['challenge15Rewards'].exponent - 1) + 0.3 * player.platonicUpgrades[18], 2, true
+        )
+    })
 }
 
 const upgradetexts = [
-    () => 'Worker Production x' + format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
-    () => 'Investment Production x' + format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
-    () => 'Printer Production x' + format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
-    () => 'Mint Production x' + format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
-    () => 'Alchemy Production x' + format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
-    () => 'All Coin production x' + format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
-    () => 'Gain ' + Math.min(4, 1 + Math.floor(Decimal.log(player.fifthOwnedCoin + 1, 10))) + ' free Multipliers from bought Alchemies.',
-    () => '+' + Math.floor(player.multiplierBought / 7) + ' free Accelerators.',
-    () => '+' + Math.floor(player.acceleratorBought / 10) + ' free Multipliers.',
-    () => 'Worker Production x' + format(Decimal.pow(2, Math.min(50, player.secondOwnedCoin / 15)), 2),
-    () => 'Generator efficiency x' + format(Decimal.pow(1.02, G['freeAccelerator']), 2),
-    () => 'All Coin production x' + format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
-    () => 'Investment Production x' + format(Decimal.min(1e50, Decimal.pow(player.firstGeneratedMythos.add(player.firstOwnedMythos).add(1), 4 / 3).times(1e10)), 2),
-    () => 'Printer Generation x' + format(Decimal.pow(1.15, G['freeAccelerator']), 2),
-    () => 'Mint Generation x' + format(Decimal.pow(1.15, G['freeAccelerator']), 2),
-    () => 'Gain ' + format(Decimal.pow(G['acceleratorEffect'], 1 / 3), 2) + 'x more Diamonds on Prestige',
-    () => 'Mint Production x1e100 (Duh)',
-    () => 'Printer Production x' + format(Decimal.min(1e125, player.transcendShards.add(1))),
-    () => 'Investment Production x' + format(Decimal.min(1e200, player.transcendPoints.times(1e30).add(1))),
-    () => 'All coin production is further multiplied by ' + format(Decimal.pow((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 10), 2) + ' [Stacks with upgrade 1]!',
-    () => '+' + format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))) + ' Multipliers, +' + format(Math.floor((5 + (1 / 101 * G['freeAccelerator'])))) + ' Accelerators.',
-    () => '+' + format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))) + ' Multipliers, +' + format(Math.floor((4 + (1 / 101 * G['freeAccelerator'])))) + ' Accelerators.',
-    () => '+' + format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))) + ' Multipliers, +' + format(Math.floor((3 + (1 / 101 * G['freeAccelerator'])))) + ' Accelerators.',
-    () => '+' + format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))) + ' Multipliers, +' + format(Math.floor((2 + (1 / 101 * G['freeAccelerator'])))) + ' Accelerators.',
-    () => '+' + format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))) + ' Multipliers, +' + format(Math.floor((1 + (1 / 101 * G['freeAccelerator'])))) + ' Accelerators.',
-    () => '+1 Accelerator Boost.',
-    () => '+' + format(Math.min(250, Math.floor(Decimal.log(player.coins.add(1), 1e3))) + Math.max(0, Math.min(1750, Math.floor(Decimal.log(player.coins.add(1), 1e15)) - 50))) + ' Accelerators.',
-    () => '+' + format(Math.min(1000, Math.floor((player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin) / 160))) + ' Multipliers.',
-    () => '+' + format(Math.floor(Math.min(2000, (player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin) / 80))) + ' Accelerators.',
-    () => '+' + format(Math.min(75, Math.floor(Decimal.log(player.coins.add(1), 1e10))) + Math.min(925, Math.floor(Decimal.log(player.coins.add(1), 1e30)))) + ' Multipliers.',
-    () => '+' + format(Math.floor(G['totalCoinOwned'] / 2000)) + ' Accelerator Boosts',
-    () => '+' + format(Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)))) + ' Accelerators',
-    () => '+' + format(G['totalAcceleratorBoost']) + ' Multipliers',
-    () => '+' + format(Math.floor(3 / 103 * G['freeMultiplier'])) + ' Multipliers',
-    () => '+' + format(Math.floor(2 / 102 * G['freeMultiplier'])) + ' Multipliers',
-    () => 'All Crystal producers x' + format(Decimal.min('1e5000', Decimal.pow(player.prestigePoints, 1 / 500)), 2),
-    () => 'All Mythos producers production x' + format(Decimal.pow(Decimal.log(player.prestigePoints.add(10), 10), 2), 2),
-    () => 'Thank you for getting the server above 30 boosts!',
-    () => 'Thank you for getting the server above 30 boosts!',
-    () => 'Thank you for getting the server above 30 boosts!',
-    () => 'Welcome to Transcension! Coin production is multiplied by ' + format(Decimal.min(1e30, Decimal.pow(player.transcendPoints.add(1), 1 / 2))) + '.',
-    () => 'All Mythos Shard producers are going into overdrive: x' + format(Decimal.min(1e50, Decimal.pow(player.prestigePoints.add(1), 1 / 50).dividedBy(2.5).add(1)), 2) + ' the production!',
-    () => 'Multiply all coin production by ' + format(Decimal.min(1e30, Decimal.pow(1.01, player.transcendCount)), 2) + '!',
-    () => 'Multiply Mythos gained in Transcension by ' + format(Decimal.min(1e6, Decimal.pow(1.01, player.transcendCount)), 2) + '!',
-    () => '+' + format(Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10)))) + ' Accelerators!',
-    () => 'It\'s kinda self-evident, ain\'t it?',
-    () => 'Mythos-tier producers production x' + format(Math.pow(1.05, player.achievementPoints) * (player.achievementPoints + 1), 2),
-    () => 'Multiply coin production by a factor of ' + format(Math.pow((Math.min(1e25, G['totalMultiplier'] * G['totalAccelerator']) / 1000 + 1), 8)) + '!',
-    () => '+' + format(Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10)))) + ' Multipliers through magic!',
-    () => 'It\'s quite obvious what the benefit is, but you must be in a Challenge for it to be in use!',
-    () => 'Mythos-tier producers production x' + format(Math.pow(G['totalAcceleratorBoost'], 2), 2) + '!',
-    () => 'Mythos-tier producers production x' + format(Decimal.pow(G['globalMythosMultiplier'], 0.025), 2) + '! It\'s like inception, or something.',
-    () => 'Augments will produce ' + format(Decimal.min('1e1250', Decimal.pow(G['acceleratorEffect'], 1 / 125)), 2) + 'x as many Mythos Shards.',
-    () => 'Wizards will produce ' + format(Decimal.min('1e2000', Decimal.pow(G['multiplierEffect'], 1 / 180)), 2) + 'x as many Enchantments; What productive spirits!',
-    () => 'Grandmasters will produce ' + format((Decimal.pow('1e1000', Math.min(1000, G['buildingPower'] - 1))), 2) + 'x as many Oracles!',
-    () => 'It\'s quite obvious, ain\'t it?',
-    () => 'Look above!',
-    () => 'Look above!',
-    () => 'Look above!',
-    () => 'Look above!',
-    () => '+5% Offering Recycle/+2EXP per Offerings. Duh!',
-    () => 'Base Offering amount for Reincarnations +' + Math.floor(1 / 5 * (sumContents(player.challengecompletions))) + '. Challenge yourself!',
-    () => 'All Crystal production x' + format(Decimal.min('1e6000', Decimal.pow(player.reincarnationPoints.add(1), 6))),
-    () => 'All Mythos Shard production x' + format(Decimal.pow(player.reincarnationPoints.add(1), 2)),
-    () => '5x Particle gain from Reincarnations. Duh!',
-    () => 'It\'s quite clear in the description!',
-    () => 'The first particle-tier producer is ' + format(Decimal.pow(1.03, player.firstOwnedParticles + player.secondOwnedParticles + player.thirdOwnedParticles + player.fourthOwnedParticles + player.fifthOwnedParticles), 2) + 'x as productive.',
-    () => 'Your compliance with tax laws provides you with ' + format(Math.min(2500, Math.floor(1 / 1000 * Decimal.log(G['taxdivisor'], 10)))) + ' free Multipliers, for some reason.',
+    () => format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
+    () => format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
+    () => format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
+    () => format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
+    () => format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
+    () => format((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 2),
+    () => Math.min(4, 1 + Math.floor(Decimal.log(player.fifthOwnedCoin + 1, 10))),
+    () => Math.floor(player.multiplierBought / 7),
+    () => Math.floor(player.acceleratorBought / 10),
+    () => format(Decimal.pow(2, Math.min(50, player.secondOwnedCoin / 15)), 2),
+    () => format(Decimal.pow(1.02, G['freeAccelerator']), 2),
+    () => format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
+    () => format(Decimal.min(1e50, Decimal.pow(player.firstGeneratedMythos.add(player.firstOwnedMythos).add(1), 4 / 3).times(1e10)), 2),
+    () => format(Decimal.pow(1.15, G['freeAccelerator']), 2),
+    () => format(Decimal.pow(1.15, G['freeAccelerator']), 2),
+    () => format(Decimal.pow(G['acceleratorEffect'], 1 / 3), 2),
+    () => null,
+    () => format(Decimal.min(1e125, player.transcendShards.add(1))),
+    () => format(Decimal.min(1e200, player.transcendPoints.times(1e30).add(1))),
+    () => format(Decimal.pow((G['totalCoinOwned'] + 1) * Math.min(1e30, Math.pow(1.008, G['totalCoinOwned'])), 10), 2),
+    () => ({ x: format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))), y: format(Math.floor((5 + (1 / 101 * G['freeAccelerator'])))) }),
+    () => ({ x: format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))), y: format(Math.floor((4 + (1 / 101 * G['freeAccelerator'])))) }),
+    () => ({ x: format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))), y: format(Math.floor((3 + (1 / 101 * G['freeAccelerator'])))) }),
+    () => ({ x: format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))), y: format(Math.floor((2 + (1 / 101 * G['freeAccelerator'])))) }),
+    () => ({ x: format(Math.floor((1 + (1 / 101 * G['freeMultiplier'])))), y: format(Math.floor((1 + (1 / 101 * G['freeAccelerator'])))) }),
+    () => null,
+    () => format(Math.min(250, Math.floor(Decimal.log(player.coins.add(1), 1e3))) + Math.max(0, Math.min(1750, Math.floor(Decimal.log(player.coins.add(1), 1e15)) - 50))),
+    () => format(Math.min(1000, Math.floor((player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin) / 160))),
+    () => format(Math.floor(Math.min(2000, (player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin) / 80))),
+    () => format(Math.min(75, Math.floor(Decimal.log(player.coins.add(1), 1e10))) + Math.min(925, Math.floor(Decimal.log(player.coins.add(1), 1e30)))),
+    () => format(Math.floor(G['totalCoinOwned'] / 2000)),
+    () => format(Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)))),
+    () => format(G['totalAcceleratorBoost']),
+    () => format(Math.floor(3 / 103 * G['freeMultiplier'])),
+    () => format(Math.floor(2 / 102 * G['freeMultiplier'])),
+    () => format(Decimal.min('1e5000', Decimal.pow(player.prestigePoints, 1 / 500)), 2),
+    () => format(Decimal.pow(Decimal.log(player.prestigePoints.add(10), 10), 2), 2),
+    () => null,
+    () => null,
+    () => null,
+    () => format(Decimal.min(1e30, Decimal.pow(player.transcendPoints.add(1), 1 / 2))),
+    () => format(Decimal.min(1e50, Decimal.pow(player.prestigePoints.add(1), 1 / 50).dividedBy(2.5).add(1)), 2),
+    () => format(Decimal.min(1e30, Decimal.pow(1.01, player.transcendCount)), 2),
+    () => format(Decimal.min(1e6, Decimal.pow(1.01, player.transcendCount)), 2),
+    () => format(Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10)))),
+    () => null,
+    () => format(Math.pow(1.05, player.achievementPoints) * (player.achievementPoints + 1), 2),
+    () => format(Math.pow((Math.min(1e25, G['totalMultiplier'] * G['totalAccelerator']) / 1000 + 1), 8)),
+    () => format(Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10)))),
+    () => null,
+    () => format(Math.pow(G['totalAcceleratorBoost'], 2), 2),
+    () => format(Decimal.pow(G['globalMythosMultiplier'], 0.025), 2),
+    () => format(Decimal.min('1e1250', Decimal.pow(G['acceleratorEffect'], 1 / 125)), 2),
+    () => format(Decimal.min('1e2000', Decimal.pow(G['multiplierEffect'], 1 / 180)), 2),
+    () => format((Decimal.pow('1e1000', Math.min(1000, G['buildingPower'] - 1))), 2),
+    () => null,
+    () => null,
+    () => null,
+    () => null,
+    () => null,
+    () => null,
+    () => Math.floor(1 / 5 * (sumContents(player.challengecompletions))),
+    () => format(Decimal.min('1e6000', Decimal.pow(player.reincarnationPoints.add(1), 6))),
+    () => format(Decimal.pow(player.reincarnationPoints.add(1), 2)),
+    () => null,
+    () => null,
+    () => format(Decimal.pow(1.03, player.firstOwnedParticles + player.secondOwnedParticles + player.thirdOwnedParticles + player.fourthOwnedParticles + player.fifthOwnedParticles), 2),
+    () => format(Math.min(2500, Math.floor(1 / 1000 * Decimal.log(G['taxdivisor'], 10)))),
     () => {
         const a = Decimal.pow(Decimal.log(G['reincarnationPointGain'].add(10), 10), 0.5);
         const b = Decimal.pow(Decimal.log(G['reincarnationPointGain'].add(10), 10), 0.5);
-        return 'Cosmic Magnetics will allow you to gain ' +
-            format(Math.min(10, new Decimal(a).toNumber()), 2) +
-            'x as much Obtainium reincarnating, x' +
-            format(Math.min(3, new Decimal(b).toNumber()), 2) +
-            ' automation gain.';
+        return {
+            x: format(Math.min(10, new Decimal(a).toNumber()), 2),
+            y: format(Math.min(3, new Decimal(b).toNumber()), 2)
+        }
     },
-    () => 'Contracted time makes your game timers run ' + format(1/3 * Math.log(player.maxobtainium + 1)/Math.log(10),2,true) + '% more quickly.',
-    () => 'Writing\'s on the wall. Look above!',
-    () => 'Obtainium multiplier: x' + Math.min(50, (1 + 2 * player.challengecompletions[6] + 2 * player.challengecompletions[7] + 2 * player.challengecompletions[8] + 2 * player.challengecompletions[9] + 2 * player.challengecompletions[10])),
-    () => 'Same as Transcend upgrade 10, except you MUST be in a Reincarnation Challenge in particular.',
-    () => 'Obtainium multiplier: x' + format((1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5))), 2),
-    () => 'Offering Multiplier: x' + format((1 + 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5))), 2),
-    () => 'Epic 5x Ants!',
-    () => 'Ant Speed Multiplier: x' + format((Decimal.pow(1.004 + 4 / 100000 * player.researches[96], player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts)), 3),
-    () => 'Ant Speed Multiplier: x' + format(1 + 0.005 * Math.pow(Math.log(player.maxofferings + 1)/Math.log(10),2),2,true),
-    () => 'You will gain +10% rewards =)',
-    () => 'Ant ELO +75 if this upgrade is purchased.',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => 'All you need to know is right above this message!',
-    () => '-50% Taxes duh!',
-    () => '+88% cap to Crystal Upgrade 3, duh!',
-    () => 'Coin Production ^1.025, duh!',
-    () => '+3% Effective Ant ELO, duh!',
-    () => '+' + format(0.333 * player.challengecompletions[10], 0) + '% Constant Divisor power.'
+    () => format(1/3 * Math.log(player.maxobtainium + 1)/Math.log(10),2,true),
+    () => null,
+    () => Math.min(50, (1 + 2 * player.challengecompletions[6] + 2 * player.challengecompletions[7] + 2 * player.challengecompletions[8] + 2 * player.challengecompletions[9] + 2 * player.challengecompletions[10])),
+    () => null,
+    () => format((1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5))), 2),
+    () => format((1 + 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5))), 2),
+    () => null,
+    () => format((Decimal.pow(1.004 + 4 / 100000 * player.researches[96], player.firstOwnedAnts + player.secondOwnedAnts + player.thirdOwnedAnts + player.fourthOwnedAnts + player.fifthOwnedAnts + player.sixthOwnedAnts + player.seventhOwnedAnts + player.eighthOwnedAnts)), 3),
+    () => format(1 + 0.005 * Math.pow(Math.log(player.maxofferings + 1) / Math.log(10), 2), 2, true),
+    () => null,
+    () => null,
+    ...Array.from({ length: 39 }, () => () => null),
+    () => null,
+    () => null,
+    () => null,
+    () => null,
+    () => format(0.333 * player.challengecompletions[10], 0),
+    () => format(0.333 * player.challengecompletions[10], 0)
 ]
 
 export const upgradeeffects = (i: number) => {
-    DOMCacheGetOrSet('upgradeeffect').textContent = 'Effect: ' + upgradetexts[i - 1]();
+    const effect = upgradetexts[i - 1]?.()
+    const type = typeof effect
+    const element = DOMCacheGetOrSet('upgradeeffect')
+
+    if (i >= 81 && i <= 119) {
+        element.textContent = i18next.t('upgrades.effects.81')
+    } else if (effect == null) {
+        element.textContent = i18next.t(`upgrades.effects.${i}`)
+    } else if (type === 'string' || type === 'number') {
+        element.textContent = i18next.t(`upgrades.effects.${i}`, { x: effect })
+    } else {
+        element.textContent = i18next.t(`upgrades.effects.${i}`, effect as Exclude<typeof effect, string | number>)
+    }
 }
 
 export const upgradedescriptions = (i: number) => {
-    const y = upgdesc[`upgdesc${i}`];
+    const y = i18next.t(`upgrades.descriptions.${i}`)
     const z = player.upgrades[i] > 0.5 ? ' BOUGHT!' : '';
 
     const el = DOMCacheGetOrSet('upgradedescription');
@@ -428,8 +275,11 @@ const crystalupgeffect: Record<number, () => string> = {
     5: () => `Crystal production x${format(Decimal.pow(1.01, (player.challengecompletions[1] + player.challengecompletions[2] + player.challengecompletions[3] + player.challengecompletions[4] + player.challengecompletions[5]) * player.crystalUpgrades[4]), 2, true)}`
 }
 
-const returnCrystalUpgDesc = (i: number) => crystalupgdesc[i]()
-const returnCrystalUpgEffect = (i: number) => crystalupgeffect[i]()
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+const returnCrystalUpgDesc = (i: number) => i18next.t(`upgrades.crystalUpgrades.${i}`, crystalupgdesc[i]?.())
+const returnCrystalUpgEffect = (i: number) => i18next.t('buildings.crystalUpgrades.currentEffect', {
+    effect: i in crystalupgeffect ? crystalupgeffect[i]() : ''
+})
 
 export const crystalupgradedescriptions = (i: number) => {
     const p = player.crystalUpgrades[i - 1];
@@ -439,29 +289,29 @@ export const crystalupgradedescriptions = (i: number) => {
 
     const q = Decimal.pow(10, (G['crystalUpgradesCost'][i - 1] + G['crystalUpgradeCostIncrement'][i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)));
     DOMCacheGetOrSet('crystalupgradedescription').textContent = returnCrystalUpgDesc(i);
-    DOMCacheGetOrSet('crystalupgradeslevel').textContent = '' + format(p, 0, true);
-    DOMCacheGetOrSet('crystalupgradescost').textContent = format(q) + '';
-    DOMCacheGetOrSet('crystalupgradeseffect').textContent = returnCrystalUpgEffect(i);
+    DOMCacheGetOrSet('crystalupgradeslevel1').innerHTML = i18next.t('buildings.crystalUpgrades.currentLevel', {
+        amount: format(p, 0, true)
+    })
+    DOMCacheGetOrSet('crystalupgradescost1').innerHTML = i18next.t('buildings.crystalUpgrades.cost', { amount: format(q) })
+    DOMCacheGetOrSet('crystalupgradeseffect1').innerHTML = returnCrystalUpgEffect(i);
 }
 
 
 export const upgradeupdate = (num: number, fast?: boolean) => {
     const el = DOMCacheGetOrSet(`upg${num}`);
-    if (player.upgrades[num] > 0.5 && ((num <= 60 || num > 80) && (num <= 93 || num > 100))) {
-        el.style.backgroundColor = 'green'
-    } else if (player.upgrades[num] > 0.5 && ((num > 60 && num <= 80) || (num > 93 && num <= 100) || (num > 120))) {
-        el.style.backgroundColor = 'white'
+    if (player.upgrades[num] > 0.5) {
+        el.style.backgroundColor = 'green';
+    } else {
+        el.style.backgroundColor = '';
     }
 
-    const b = upgdesc[`upgdesc${num}`];
+    const b = i18next.t(`upgrades.descriptions.${num}`)
     const c = player.upgrades[num] > 0.5 ? ' BOUGHT!' : '';
     if (player.upgrades[num] > 0.5) {
         if (!fast) {
             DOMCacheGetOrSet('upgradedescription').textContent = b + c
             DOMCacheGetOrSet('upgradedescription').style.color = 'gold'
         }
-    } else {
-        el.style.backgroundColor = ''
     }
 
     if (!fast) {
@@ -492,12 +342,15 @@ const constUpgEffect: Record<number, () => string> = {
     10: () => `Cubes/Tesseracts on Ascension x${format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]), 4, true)}`
 }
 
-const returnConstUpgDesc = (i: number) => constantUpgDesc[i]();
-const returnConstUpgEffect = (i: number) => constUpgEffect[i]();
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+const returnConstUpgDesc = (i: number) => i18next.t(`upgrades.constantUpgrades.${i}`, constantUpgDesc[i]?.())
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+const returnConstUpgEffect = (i: number) => constUpgEffect[i]?.();
 
 export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
     const toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G['constUpgradeCosts'][i]!) / Math.log(10)));
-    let cost = new Decimal('1');
+    let cost: Decimal
+
     if (toBuy > player.constantUpgrades[i]!) {
         cost = Decimal.pow(10, toBuy - 1).times(G['constUpgradeCosts'][i]!)
     } else {

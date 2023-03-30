@@ -1,3 +1,4 @@
+import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateGoldenQuarkGain } from './Calculate'
 import { singularity } from './Reset'
@@ -7,9 +8,6 @@ import { Alert, Confirm } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 
 export interface ISingularityChallengeData {
-    name: string
-    descripton: string
-    rewardDescription: string
     baseReq: number
     maxCompletions: number
     unlockSingularity: number
@@ -34,10 +32,13 @@ export class SingularityChallenge {
     public enabled
     public singularityRequirement
     public effect
-    public constructor(data: ISingularityChallengeData) {
-        this.name = data.name
-        this.description = data.descripton
-        this.rewardDescription = data.rewardDescription
+    public constructor(data: ISingularityChallengeData, key: string) {
+        const name = i18next.t(`singularityChallenge.data.${key}.name`)
+        const description = i18next.t(`singularityChallenge.data.${key}.description`)
+        const rewardDescription = i18next.t(`singularityChallenge.data.${key}.rewardDescription`)
+        this.name = name
+        this.description = description
+        this.rewardDescription = rewardDescription
         this.baseReq = data.baseReq
         this.completions = data.completions ?? 0
         this.maxCompletions = data.maxCompletions
@@ -62,7 +63,7 @@ export class SingularityChallenge {
             updateVal += 1
         }
 
-        this.completions = updateVal
+        this.completions = Math.min(this.maxCompletions, updateVal)
     }
 
     public challengeEntryHandler() {
@@ -75,18 +76,17 @@ export class SingularityChallenge {
 
     public async enableChallenge() {
         if (player.highestSingularityCount < this.unlockSingularity) {
-            return Alert('Derpsmith prohibits you from entering this challenge. Go do some more singing first.')
+            return Alert(i18next.t('singularityChallenge.enterChallenge.lowSingularity'))
         }
-        const confirmation = await(Confirm(`You are about to enter ${this.name}. Your Singularity Timer will not reset but you will be taken back to the beginning of a Singularity. Do you proceed?`))
+        const confirmation = await(Confirm(i18next.t('singularityChallenge.enterChallenge.confirmation', {name: this.name})))
 
         if (!confirmation) {
-            return Alert('Derpsmith nods his head. Come back when you are ready...')
+            return Alert(i18next.t('singularityChallenge.enterChallenge.decline'))
         }
 
         if (!player.insideSingularityChallenge) {
             const setSingularity = this.computeSingularityRquirement()
             const holdSingTimer = player.singularityCounter
-            const holdAdds = player.rngCode
             const holdQuarkExport = player.quarkstimer
             const holdGoldenQuarkExport = player.goldenQuarksTimer
             const goldenQuarkGain = calculateGoldenQuarkGain();
@@ -96,22 +96,22 @@ export class SingularityChallenge {
             await singularity(setSingularity)
             player.singularityCounter = holdSingTimer
             player.goldenQuarks = currentGQ + goldenQuarkGain
-            player.rngCode = holdAdds
             player.quarkstimer = holdQuarkExport
             player.goldenQuarksTimer = holdGoldenQuarkExport
 
             this.updateChallengeHTML()
-            return Alert(`You are attempting ${this.name} #${this.completions + 1}! You were sent to Singularity ${this.computeSingularityRquirement()}. Buy Antiquities to complete the challenge!`)
+            return Alert(i18next.t('singularityChallenge.acceptSuccess', {name: this.name, tier: this.completions + 1, singReq: this.computeSingularityRquirement()}))
         } else {
-            return Alert('Derpsmith declares you are already in a singularity challenge and prohibits you from destroying the fabric of your Reality.')
+            return Alert(i18next.t('singularityChallenge.acceptFailure'))
         }
     }
 
     public async exitChallenge(success: boolean) {
         if (!success) {
-            const confirmation = await(Confirm(`Are you sure you want to quit ${this.name} Tier ${this.completions + 1}?`))
+            const extra = (player.runelevels[6] === 0) ? i18next.t('singularityChallenge.exitChallenge.incompleteWarning') : ''
+            const confirmation = await(Confirm(i18next.t('singularityChallenge.exitChallenge.confirmation', {name: this.name, tier: this.completions + 1, warning: extra})))
             if (!confirmation) {
-                return Alert('Derpsmith tries to hug you, but he has no arms.')
+                return Alert(i18next.t('singularityChallenge.exitChallenge.decline'))
             }
 
         }
@@ -120,7 +120,6 @@ export class SingularityChallenge {
         player.insideSingularityChallenge = false
         const highestSingularityHold = player.highestSingularityCount
         const holdSingTimer = player.singularityCounter
-        const holdAdds = player.rngCode
         const holdQuarkExport = player.quarkstimer
         const holdGoldenQuarkExport = player.goldenQuarksTimer
         this.updateIconHTML()
@@ -129,14 +128,13 @@ export class SingularityChallenge {
             this.updateChallengeCompletions()
             await singularity(highestSingularityHold)
             player.singularityCounter = holdSingTimer
-            return Alert(`You have completed the ${toOrdinal(this.completions)} tier of ${this.name}! The corresponding challenge rewards have been updated.`)
+            return Alert(i18next.t('singularityChallenge.exitChallenge.acceptSuccess', {tier: toOrdinal(this.completions), name: this.name}))
         } else {
             await singularity(highestSingularityHold)
             player.singularityCounter = holdSingTimer
-            player.rngCode = holdAdds
             player.quarkstimer = holdQuarkExport
             player.goldenQuarksTimer = holdGoldenQuarkExport
-            return Alert('You have been transported back to your highest reached Singularity. Try again soon! -Derpsmith')
+            return Alert(i18next.t('singularityChallenge.exitChallenge.acceptFailure'))
         }
     }
 
@@ -146,13 +144,13 @@ export class SingularityChallenge {
      */
     toString(): string {
 
-        const color = (this.completions === this.maxCompletions) ? 'orchid' : 'white'
-        const enabled = (this.enabled) ? '<span style="color: red">[ENABLED]</span>' : '';
+        const color = (this.completions === this.maxCompletions) ? 'var(--orchid-text-color)' : 'white'
+        const enabled = (this.enabled) ? `<span style="color: var(--red-text-color)">${i18next.t('general.enabled')}</span>` : '';
         return `<span style="color: gold">${this.name}</span> ${enabled}
                 <span style="color: lightblue">${this.description}</span>
-                <span style="color: pink">Can be entered at highest Singularity ${this.unlockSingularity} [Your highest: ${player.highestSingularityCount}]</span>
-                Tiers completed: <span style="color: ${color}">${this.completions}/${this.maxCompletions}</span>
-                <span style="color: gold">The current tier of this challenge takes place in Singularity <span style="color: orchid">${this.singularityRequirement(this.baseReq, this.completions)}</span></span>
+                <span style="color: pink">${i18next.t('singularityChallenge.toString.canEnter', {unlockSing: this.unlockSingularity, highestSing: player.highestSingularityCount})}</span>
+                ${i18next.t('singularityChallenge.toString.tiersCompleted')}: <span style="color: ${color}">${this.completions}/${this.maxCompletions}</span>
+                <span style="color: gold">${i18next.t('singularityChallenge.toString.currentTierSingularity')} <span style="color: var(--orchid-text-color)">${this.singularityRequirement(this.baseReq, this.completions)}</span></span>
                 <span>${this.rewardDescription}</span>`
     }
 
@@ -173,11 +171,8 @@ export class SingularityChallenge {
 
 export const singularityChallengeData: Record<keyof Player['singularityUpgrades'], ISingularityChallengeData> = {
     noSingularityUpgrades: {
-        name: 'No Singularity Upgrades',
-        descripton: 'Simply put, you have to beat the target singularity without (most) Singularity Upgrades. Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.',
-        rewardDescription: 'Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks. Final completion awards something `special` ;) (WIP)',
         baseReq: 1,
-        maxCompletions: 20,
+        maxCompletions: 30,
         unlockSingularity: 25,
         HTMLTag: 'noSingularityUpgrades',
         singularityRequirement: (baseReq: number, completions: number) => {
@@ -186,16 +181,14 @@ export const singularityChallengeData: Record<keyof Player['singularityUpgrades'
         effect: (n: number) => {
             return {
                 cubes: 1 + 0.5 * n,
-                goldenQuarks: 1 + 0.12 * +(n > 0)
+                goldenQuarks: 1 + 0.12 * +(n > 0),
+                shopUpgrade: (n >= 20)
             }
         }
     },
     oneChallengeCap: {
-        name: 'One Challenge Caps',
-        descripton: 'Beat the target Singularity, but the first 14 Challenges have cap of only 1!',
-        rewardDescription: 'Each completion increases Corruption Multiplier Values by 0.03, no matter what. First Completion gives +3 to Reincarnation Challenge Cap. Final completion grants +1 free Corruption level!',
         baseReq: 10,
-        maxCompletions: 20,
+        maxCompletions: 25,
         unlockSingularity: 40,
         HTMLTag: 'oneChallengeCap',
         singularityRequirement: (baseReq: number, completions: number) => {
@@ -205,7 +198,39 @@ export const singularityChallengeData: Record<keyof Player['singularityUpgrades'
             return {
                 corrScoreIncrease: 0.03 * n,
                 capIncrease: 3 * +(n > 0),
-                freeCorruptionLevel: (n === 20)
+                freeCorruptionLevel: (n >= 20)
+            }
+        }
+    },
+    noOcteracts: {
+        baseReq: 75,
+        maxCompletions: 10,
+        unlockSingularity: 100,
+        HTMLTag: 'noOcteracts',
+        singularityRequirement: (baseReq: number, completions: number) => {
+            return baseReq + 13 * completions
+        },
+        effect: (n: number) => {
+            return {
+                octeractPow: 0.02 * n,
+                offeringBonus: (n > 0),
+                obtainiumBonus: (n === 10)
+            }
+        }
+    },
+    limitedAscensions: {
+        baseReq: 10,
+        maxCompletions: 25,
+        unlockSingularity: 50,
+        HTMLTag: 'limitedAscensions',
+        singularityRequirement: (baseReq: number, completions: number) => {
+            return baseReq + 10 * completions
+        },
+        effect: (n: number) => {
+            return {
+                ascensionSpeedMult: 0.1 * n / 100,
+                hepteractCap: (n > 0),
+                calculatorUnlock: (n >= 25)
             }
         }
     }

@@ -9,17 +9,17 @@ const platonicUpgradeDesc = [
     '+0.018% Tesseracts per Corruption level per level!',
     '+0.054% Hypercubes per Corruption level per level!',
     'Gain +2.4% Platonic Cubes per level! It is that simple.',
-    'C10 Exponent: 1.035 --> 1.0375, Constant tax exponent +0.10, 2x faster Constant production, +10% Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Obtainium and Offerings, ^1.10 coin gain in C15, as well +1 Corruption Cap Level!',
+    'C10 Exponent: 1.035 --> 1.0375, Constant tax exponent +0.10, 2x faster Constant production, +20% Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Obtainium and Offerings, ^1.10 coin gain in C15, as well +1 Corruption Cap Level!',
     'Multiplies Viscosity exponent by (1 + level/30), capacity of ^1 on Multipliers and Accelerators.',
     'Raises speed below 1x to the power of ^(1 - level/30).',
     'Divides Hyperchallenged by (1 + 0.4 * level), with a minimum 1x Challenge requirement multiplier!',
     'Raise Obtainium to the power of (1+(0.09*log10(Obtainium owned))) and add another x2.5 multiplier (Uncorruptable), up until 1e100 Obtainium!',
-    'C10 Exponent: 1.0375 --> 1.04, Constant tax exponent +0.20, 10x faster Constant production, +15% Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 3.5x Obtainium and Offerings, 2x All Cubes, ^1.25 ant exponent in C15, +1 Corruption Cap Level again!',
+    'C10 Exponent: 1.0375 --> 1.04, Constant tax exponent +0.20, 10x faster Constant production, +25% Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 3.5x Obtainium and Offerings, 2x All Cubes, ^1.25 ant exponent in C15, +1 Corruption Cap Level again!',
     'With this upgrade, you will gain diamonds equal to particle gain on Reincarnation while using Market Deflation 11 or higher! Does not work with Cube upgrade [3x8]!',
     'Gain (1 + lvl/100)x Ant multiplier per Challenge completion, ignoring corruptions to Ants.',
     'Effect of Drought is raised to the power of 0.5.',
     'Reduce the effect of Financial Recession in Challenge 15, multiplying the coin exponent by 1.55.',
-    'You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (Multiplicative), +20% Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Offerings and Obtainium (Uncorruptable)! Talk about a deep dive.',
+    'You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (Multiplicative), +30% Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Offerings and Obtainium (Uncorruptable)! Talk about a deep dive.',
     'Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to 100,000. This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.',
     'If Viscosity Corruption is set to level 10 or higher, score multiplier is raised by an exponent. That exponent is 3 + 0.04 per level of this upgrade.',
     'Raise the base percentage of Constant Upgrade 1 by 0.1% and increase the base percentage cap of Constant Upgrade 2 by 0.3% per level!',
@@ -48,7 +48,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e5,
         platonics: 1e4,
         abyssals: 0,
-        maxLevel: 125
+        maxLevel: 250,
+        priceMult: 2
     },
     2: {
         obtainium: 3e70,
@@ -58,7 +59,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e5,
         platonics: 1e4,
         abyssals: 0,
-        maxLevel: 125
+        maxLevel: 250,
+        priceMult: 2
     },
     3: {
         obtainium: 1e71,
@@ -68,7 +70,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e7,
         platonics: 1e4,
         abyssals: 0,
-        maxLevel: 125
+        maxLevel: 250,
+        priceMult: 2
     },
     4: {
         obtainium: 4e71,
@@ -78,7 +81,8 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         hypercubes: 1e6,
         platonics: 1e6,
         abyssals: 0,
-        maxLevel: 125
+        maxLevel: 250,
+        priceMult: 2
     },
     5: {
         obtainium: 1e80,
@@ -219,7 +223,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         tesseracts: 0,
         hypercubes: 1e19,
         platonics: 0,
-        abyssals: 8,
+        abyssals: 4,
         maxLevel: 40,
         priceMult: 500
     },
@@ -230,7 +234,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         tesseracts: 0,
         hypercubes: 1e21,
         platonics: 0,
-        abyssals: 128,
+        abyssals: 64,
         maxLevel: 50,
         priceMult: 200
     },
@@ -241,7 +245,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
         tesseracts: 1e28,
         hypercubes: 1e25,
         platonics: 1e25,
-        abyssals: Math.pow(2, 31) - 1,
+        abyssals: Math.pow(2, 30) - 1,
         maxLevel: 1
     }
 }
@@ -312,42 +316,42 @@ export const createPlatonicDescription = (index: number) => {
 
     resourceCheck.offerings ?
         DOMCacheGetOrSet('platonicOfferingCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicOfferingCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicOfferingCost').style.color = 'var(--crimson-text-color)';
 
     resourceCheck.obtainium ?
         DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'var(--crimson-text-color)';
 
     resourceCheck.cubes ?
         DOMCacheGetOrSet('platonicCubeCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicCubeCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicCubeCost').style.color = 'var(--crimson-text-color)';
 
     resourceCheck.tesseracts ?
         DOMCacheGetOrSet('platonicTesseractCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicTesseractCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicTesseractCost').style.color = 'var(--crimson-text-color)';
 
     resourceCheck.hypercubes ?
         DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'var(--crimson-text-color)';
 
     resourceCheck.platonics ?
         DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'var(--crimson-text-color)';
 
     resourceCheck.abyssals ?
         DOMCacheGetOrSet('platonicHepteractCost').style.color = 'lime' :
-        DOMCacheGetOrSet('platonicHepteractCost').style.color = 'crimson';
+        DOMCacheGetOrSet('platonicHepteractCost').style.color = 'var(--crimson-text-color)';
 
     if (player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
         DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'cyan'
         resourceCheck.canBuy ?
             (DOMCacheGetOrSet('platonicCanBuy').style.color = 'gold', DOMCacheGetOrSet('platonicCanBuy').textContent = '===Affordable! Click to buy!===') :
-            (DOMCacheGetOrSet('platonicCanBuy').style.color = 'crimson', DOMCacheGetOrSet('platonicCanBuy').textContent = '===You cannot afford this!===');
+            (DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--crimson-text-color)', DOMCacheGetOrSet('platonicCanBuy').textContent = '===You cannot afford this!===');
     }
 
     if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
         DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'gold'
-        DOMCacheGetOrSet('platonicCanBuy').style.color = 'orchid'
+        DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--orchid-text-color)'
         DOMCacheGetOrSet('platonicCanBuy').textContent = '===Maxed==='
     }
 }
@@ -367,7 +371,7 @@ export const updatePlatonicUpgradeBG = (i: number) => {
 }
 
 export const buyPlatonicUpgrades = (index: number, auto = false) => {
-    while (index > 0) { // eslint-disable-line no-constant-condition, @typescript-eslint/no-unnecessary-condition
+    while (index > 0) {
         const resourceCheck = checkPlatonicUpgrade(index, auto)
         let priceMultiplier = 1;
         if (platUpgradeBaseCosts[index].priceMult) {
@@ -406,7 +410,7 @@ export const buyPlatonicUpgrades = (index: number, auto = false) => {
 }
 
 export const autoBuyPlatonicUpgrades = () => {
-    if (player.autoPlatonicUpgradesToggle === true && ((player.highestSingularityCount >= 100 && player.singularityCount < player.highestSingularityCount) || player.highestSingularityCount >= 200)) {
+    if (player.autoPlatonicUpgradesToggle === true && ((player.highestSingularityCount >= 100 && player.insideSingularityChallenge) || player.highestSingularityCount >= 200)) {
         for (let i = 1; i < player.platonicUpgrades.length; i++) {
             if (player.platonicUpgrades[i] < platUpgradeBaseCosts[i].maxLevel) {
                 const resourceCheck = checkPlatonicUpgrade(i, true);

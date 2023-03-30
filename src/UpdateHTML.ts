@@ -11,6 +11,7 @@ import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import { updateSingularityPenalties, updateSingularityPerks } from './singularity';
 import { revealCorruptions } from './Corruptions';
+import i18next from 'i18next';
 
 export const revealStuff = () => {
     const example = document.getElementsByClassName('coinunlock1') as HTMLCollectionOf<HTMLElement>;
@@ -560,7 +561,7 @@ export const hideStuff = () => {
     if (G['currentTab'] === 'upgrades') {
         DOMCacheGetOrSet('upgrades').style.display = 'block'
         DOMCacheGetOrSet('upgradestab').style.backgroundColor = 'orange'
-        DOMCacheGetOrSet('upgradedescription').textContent = 'Hover over an upgrade to view details!'
+        DOMCacheGetOrSet('upgradedescription').textContent = i18next.t('upgrades.hoverOverUpgrade')
     }
     if (G['currentTab'] === 'settings') {
         DOMCacheGetOrSet('settings').style.display = 'block'
@@ -572,13 +573,18 @@ export const hideStuff = () => {
         DOMCacheGetOrSet('statistics').style.display = 'block'
         DOMCacheGetOrSet('achievementstab').style.backgroundColor = 'white'
         DOMCacheGetOrSet('achievementstab').style.color = 'black'
-        DOMCacheGetOrSet('achievementprogress').textContent = 'Achievement Points: ' + format(player.achievementPoints, 0, true) + '/' + format(totalachievementpoints, 0, true) + ' [' + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + '%]'
-    }
-    if (G['currentTab'] === 'runes') {
+        DOMCacheGetOrSet('achievementprogress').textContent = i18next.t('achievements.totalPoints', {
+            x: format(player.achievementPoints),
+            y: format(totalachievementpoints),
+            z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
+        })
+    } else if (G['currentTab'] === 'runes') {
         DOMCacheGetOrSet('runes').style.display = 'block'
         DOMCacheGetOrSet('runestab').style.backgroundColor = 'blue'
-        DOMCacheGetOrSet('runeshowlevelup').textContent = 'Hey, hover over a rune icon to get details on what each one does and what benefits they\'re giving you!'
-        DOMCacheGetOrSet('researchrunebonus').textContent = 'Thanks to researches, your effective levels are increased by ' + format(100 * G['effectiveLevelMult'] - 100, 4, true) + '%'
+        DOMCacheGetOrSet('runeshowlevelup').textContent = i18next.t('runes.hover')
+        DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t('runes.thanksResearches', {
+            percent: format(100 * G['effectiveLevelMult'] - 100, 4, true)
+        })
         displayRuneInformation(1, false)
         displayRuneInformation(2, false)
         displayRuneInformation(3, false)
@@ -865,9 +871,9 @@ export const updateChallengeDisplay = () => {
     }
     //Corrects HTML on retry challenges button
     if (player.retrychallenges) {
-        DOMCacheGetOrSet('retryChallenge').textContent = 'Retry Challenges: ON'
+        DOMCacheGetOrSet('retryChallenge').textContent = i18next.t('challenges.retryChallengesOn')
     } else {
-        DOMCacheGetOrSet('retryChallenge').textContent = 'Retry Challenges: OFF'
+        DOMCacheGetOrSet('retryChallenge').textContent = i18next.t('challenges.retryChallengesOff')
     }
     for (let k = 1; k <= 15; k++) {
         updateChallengeLevel(k);
@@ -931,7 +937,7 @@ const updateAscensionStats = () => {
         'ascPlatonic': format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5),
         'ascHepteract': format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
         'ascC10': `${format(player.challengecompletions[10])}`,
-        'ascTimeAccel': `${format(calculateTimeAcceleration(), 3)}x`,
+        'ascTimeAccel': `${format(calculateTimeAcceleration().mult, 3)}x`,
         'ascAscensionTimeAccel': `${format(calculateAscensionAcceleration(), 3)}x${addedAsterisk ? '*' : ''}`,
         'ascSingularityCount': format(player.singularityCount),
         'ascSingLen': formatTimeShort(player.singularityCounter)

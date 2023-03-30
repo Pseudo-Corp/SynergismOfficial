@@ -1,4 +1,4 @@
-export const version = '2.9.28: December 11 v3: Challenges Balanced Again!';
+export const version = '2.10.7: March 29, 2023 v2: The Lexical Update!';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE

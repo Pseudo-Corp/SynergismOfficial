@@ -7,6 +7,8 @@ import { DOMCacheGetOrSet } from './Cache/DOM';
 import { Globals as G } from './Variables';
 import { applyCorruptions } from './Corruptions';
 import { Notification } from './UpdateHTML';
+import { IconSets } from './Themes';
+import i18next from 'i18next';
 
 // The categories are the different tables & storages for each type.
 export type Category = 'ants' | 'reset' | 'ascend' | 'singularity';
@@ -161,114 +163,114 @@ const historyGains: Record<
     }
 > = {
     offerings: {
-        img: 'Pictures/Offering.png',
+        img: 'Offering.png',
         formatter: formatDecimalSource,
         imgTitle: 'Offerings'
     },
     obtainium: {
-        img: 'Pictures/Obtainium.png',
+        img: 'Obtainium.png',
         formatter: formatDecimalSource,
         imgTitle: 'Obtainium'
     },
     particles: {
-        img: 'Pictures/Particle.png',
+        img: 'Particle.png',
         formatter: formatDecimalSource,
         imgTitle: 'Particles'
     },
     diamonds: {
-        img: 'Pictures/Diamond.png',
+        img: 'Diamond.png',
         formatter: formatDecimalSource,
         imgTitle: 'Diamonds'
     },
     mythos: {
-        img: 'Pictures/Mythos.png',
+        img: 'Mythos.png',
         formatter: formatDecimalSource,
         imgTitle: 'Mythos'
     },
     wowTesseracts: {
-        img: 'Pictures/WowTessaract.png',
+        img: 'TinyWow4.png',
         formatter: conditionalFormatPerSecond,
         imgTitle: 'Wow! Tesseracts'
     },
     wowHypercubes: {
-        img: 'Pictures/WowHypercube.png',
+        img: 'TinyWow5.png',
         formatter: conditionalFormatPerSecond,
         imgTitle: 'Wow! Hypercubes',
         onlyif: () => player.challengecompletions[13] > 0
     },
     wowCubes: {
-        img: 'Pictures/WowCube.png',
+        img: 'TinyWow3.png',
         formatter: conditionalFormatPerSecond,
         imgTitle: 'Wow! Cubes'
     },
     wowPlatonicCubes: {
-        img: 'Pictures/Platonic Cube.png',
+        img: 'TinyWow6.png',
         formatter: conditionalFormatPerSecond,
         imgTitle: 'Platonic Cubes',
         onlyif: () => player.challengecompletions[14] > 0
     },
     wowHepteracts: {
-        img: 'Pictures/Hepteract.png',
+        img: 'TinyWow7.png',
         formatter: conditionalFormatPerSecond,
         imgTitle: 'Hepteracts',
         onlyif: () => player.achievements[255] > 0
     },
     singularityCount: {
-        img: 'Pictures/Singularity.png',
+        img: 'TinyS.png',
         formatter: formatDecimalSource,
         imgTitle: 'Singularity Count',
         onlyif: () => player.highestSingularityCount > 0
     },
     quarks: {
-        img: 'Pictures/Quark.png',
+        img: 'Quark.png',
         formatter: formatDecimalSource,
         imgTitle: 'Quarks',
         onlyif: () => player.highestSingularityCount > 0
     },
     goldenQuarks: {
-        img: 'Pictures/Golden Quark.png',
+        img: 'GoldenQuark.png',
         formatter: formatDecimalSource,
         imgTitle: 'Golden Quarks',
         onlyif: () => player.highestSingularityCount > 0
     },
     wowTribs: {
-        img: 'Pictures/WowCube.png',
+        img: 'TinyWow3.png',
         formatter: formatDecimalSource,
         imgTitle: 'Cube Tributes',
         onlyif: () => player.highestSingularityCount > 0
     },
     tessTribs: {
-        img: 'Pictures/WowTessaract.png',
+        img: 'TinyWow4.png',
         formatter: formatDecimalSource,
         imgTitle: 'Tesseract Gifts',
         onlyif: () => player.highestSingularityCount > 0
     },
     hyperTribs: {
-        img: 'Pictures/WowHypercube.png',
+        img: 'TinyWow5.png',
         formatter: formatDecimalSource,
         imgTitle: 'Hypercube Bendictions',
         onlyif: () => player.highestSingularityCount > 0
     },
     platTribs: {
-        img: 'Pictures/Platonic Cube.png',
+        img: 'TinyWow6.png',
         formatter: formatDecimalSource,
         imgTitle: 'Platonics Opened',
         onlyif: () => player.highestSingularityCount > 0
     },
     octeracts: {
-        img: 'Pictures/Octaret.png',
+        img: 'TinyWow8.png',
         formatter: formatDecimalSource,
         imgTitle: 'Octeracts',
         onlyif: () => player.singularityUpgrades.octeractUnlock.getEffect().bonus > 0
     },
     c15Score: {
-        img: 'Pictures/Challenge15.png',
+        img: 'TinyChallenge15.png',
         formatter: formatDecimalSource,
         imgTitle: 'C15 score',
         onlyif: () => player.singularityCount > 0
     },
     quarkHept: {
-        img: 'Pictures/QuarkHepteract.png',
+        img: 'TinyQuarkHept.png',
         formatter: formatDecimalSource,
         imgTitle: 'Quark Hept',
         onlyif: () => player.singularityCount > 0
@@ -286,12 +288,12 @@ const historyGainsOrder: ResetHistoryGainType[] = [
 
 // The various kinds and their associated images.
 const historyKinds: Record<Kind, { img: string }> = {
-    'antsacrifice': {img: 'Pictures/AntSacrifice.png'},
-    'prestige': {img: 'Pictures/Prestige.png'},
-    'transcend': {img: 'Pictures/Transcend.png'},
-    'reincarnate': {img: 'Pictures/Reincarnate.png'},
-    'ascend': {img: 'Pictures/questionable.png'},
-    'singularity': {img: 'Pictures/Singularity.png'}
+    'antsacrifice': {img: 'SacrificeNoBorder.png'},
+    'prestige': {img: 'TinyP.png'},
+    'transcend': {img: 'TinyT.png'},
+    'reincarnate': {img: 'TinyR.png'},
+    'ascend': {img: 'TinyA.png'},
+    'singularity': {img: 'TinyS.png'}
 };
 
 // List of categories and the IDs of the associated table in the DOM.
@@ -304,14 +306,14 @@ const resetHistoryTableMapping: Record<Category, string> = {
 
 // Images associated with the various corruptions.
 const resetHistoryCorruptionImages = [
-    'Pictures/Viscocity.png',
-    'Pictures/Spatial Dilation.png',
-    'Pictures/Hyperchallenged.png',
-    'Pictures/Scientific Illiteracy.png',
-    'Pictures/Deflation.png',
-    'Pictures/Extinction.png',
-    'Pictures/Drought.png',
-    'Pictures/Financial Collapse.png'
+    'CorruptViscocity.png',
+    'CorruptSpatialDilation.png',
+    'CorruptHyperchallenged.png',
+    'CorruptScientificIlliteracy.png',
+    'CorruptDeflation.png',
+    'CorruptExtinction.png',
+    'CorruptDrought.png',
+    'CorruptFinancialCollapse.png'
 ];
 
 const resetHistoryCorruptionTitles = [
@@ -373,7 +375,7 @@ const resetHistoryRenderRow = (
     const kindMeta = historyKinds[data.kind];
 
     const localDate = new Date(data.date).toLocaleString();
-    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img alt="${data.kind}" src="${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`;
+    rowContentHtml += `<td class="history-seconds" title="${localDate}"><img alt="${data.kind}" src="Pictures/${IconSets[player.iconSet][0]}/${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`;
 
     // Carefully loop through everything we need to print in the right order, and add it to the gains array if present.
     const gains: string[] = [];
@@ -385,7 +387,7 @@ const resetHistoryRenderRow = (
                 return;
             }
             const formatter = gainInfo.formatter || (() => {/* If no formatter is specified, don't display. */});
-            const str = `<img alt="${gainInfo.imgTitle}" src="${gainInfo.img}" title="${gainInfo.imgTitle}">${formatter(dataIntersection[listable]!, data)}`;
+            const str = `<img alt="${gainInfo.imgTitle}" src="Pictures/${IconSets[player.iconSet][0]}/${gainInfo.img}" title="${gainInfo.imgTitle}">${formatter(dataIntersection[listable]!, data)}`;
 
             gains.push(str);
         }
@@ -399,13 +401,13 @@ const resetHistoryRenderRow = (
         const newMulti = antSacrificePointsToMultiplier(data.antSacrificePointsAfter);
         const diff = newMulti - oldMulti;
         extra.push(
-            `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
-            `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/crumb.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
-            `<span title="${format(data.baseELO)} base"><img src="Pictures/ELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
+            `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/${IconSets[player.iconSet][0]}/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
+            `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/${IconSets[player.iconSet][0]}/TinyCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
+            `<span title="${format(data.baseELO)} base"><img src="Pictures/${IconSets[player.iconSet][0]}/TinyELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
         );
     } else if (data.kind === 'ascend') {
         extra.push(
-            `<img alt="C10" src="Pictures/Challenge10.png" title="Challenge 10 completions">${data.c10Completions}`
+            `<img alt="C10" src="Pictures/${IconSets[player.iconSet][0]}/TinyChallenge10.png" title="Challenge 10 completions">${data.c10Completions}`
         );
 
         const corruptions = resetHistoryFormatCorruptions(data);
@@ -462,7 +464,7 @@ function clickHandlerForLoadCorruptionsButton(btn: HTMLElement) {
     const corruptions = btn.getAttribute('data-corr');
     if (corruptions) {
         applyCorruptions(corruptions);
-        void Notification('Corruption Loadout from previous run has been applied. This will take effect on the next Ascension.', 5000);
+        void Notification(i18next.t('corruptions.loadoutApplied'), 5000);
     }
 }
 
@@ -478,7 +480,11 @@ export const resetHistoryTogglePerSecond = () => {
     player.historyShowPerSecond = !player.historyShowPerSecond;
     resetHistoryRenderAllTables();
     const button = DOMCacheGetOrSet('historyTogglePerSecondButton');
-    button.textContent = 'Per second: ' + (player.historyShowPerSecond ? 'ON' : 'OFF');
+    if (player.historyShowPerSecond) {
+        button.textContent = i18next.t('history.perSecondOn')
+    } else {
+        button.textContent = i18next.t('history.perSecondOff')
+    }
     button.style.borderColor = player.historyShowPerSecond ? 'green' : 'red';
 }
 
@@ -491,7 +497,7 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
     for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
         const corruptionIdx = i + 2;
         if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
-            corruptions += `<img alt="${corrs > 0 ? '/' : ''}" src="${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
+            corruptions += `<img alt="${corrs > 0 ? '/' : ''}" src="Pictures/${IconSets[player.iconSet][0]}/${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`;
         } else {
             corruptions += `<span>${corrs > 0 ? '/0' : '0'}</span>`;
         }

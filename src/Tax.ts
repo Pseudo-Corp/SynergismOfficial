@@ -51,9 +51,10 @@ export const calculatetax = () => {
         exp = 0.000005;
     }
     //im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236
+    const c13effcompletions = Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15] - 3 * player.cubeUpgrades[49] - ((player.singularityCount >= 15)?4:0) - ((player.singularityCount >= 20)?1:0));
     if (player.currentChallenge.ascension === 13) {
         exp *= 700 * (1 + 1 / 6 * player.challengecompletions[13]);
-        exp *= Math.pow(1.05, Math.max(0, sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12] - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15] - 3 * player.cubeUpgrades[49] - ((player.singularityCount >= 15)?4:0) - ((player.singularityCount >= 20)?1:0)));
+        exp *= Math.pow(1.05, c13effcompletions);
     }
     if (player.challengecompletions[6] > 0) {
         exp /= 1.075;
@@ -86,7 +87,12 @@ export const calculatetax = () => {
     const a2 = Math.min(G['maxexponent'], Math.floor(Decimal.log(G['produceTotal'].add(1), 10)));
 
     if (player.currentChallenge.ascension === 13 && G['maxexponent'] <= 99999 && player.achievements[249] < 1) {
-        achievementaward(249);
+        //i don't think it makes sense to give the achievement as soon as the challenge is opened
+        //as soon as the challenge is opened you don't have enough tax reducers to have max exponent above 100000
+        //so for the achievement description to make sense i think it should require at least 1 challenge completion || Dorijanko
+        if (c13effcompletions >= 1) {
+            achievementaward(249);
+        }
     }
 
     if (a2 >= 1) {
