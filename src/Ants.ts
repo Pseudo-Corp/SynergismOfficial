@@ -41,7 +41,7 @@ export const calculateCrumbToCoinExp = () => {
 }
 
 const antUpgradeTexts = [
-    () => format(Decimal.pow(1.12 + 1 / 1000 * player.researches[101], player.antUpgrades[1-1]! + G['bonusant1']), 2),
+    () => format(Decimal.pow(1.11 + player.researches[101] / 1000 + player.researches[162] / 10000, player.antUpgrades[1-1]! + G['bonusant1']), 2),
     () => format(calculateCrumbToCoinExp()),
     () => format(0.005 + 0.995 * Math.pow(0.99, player.antUpgrades[3-1]! + G['bonusant3']), 4),
     () => format(100 * (calculateSigmoidExponential(20, (player.antUpgrades[4-1]! + G['bonusant4']) / 1000 * 20 / 19) - 1), 3),
