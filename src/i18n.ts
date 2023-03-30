@@ -44,7 +44,7 @@ export const init = async (): Promise<void> => {
         debug: !prod,
         resources,
         postProcess: ['ColorText'],
-        // poeditor returns an empty string when a translation for
+        // crowdin returns an empty string when a translation for
         // a language isn't present
         returnEmptyString: false,
         interpolation: {
