@@ -1,13 +1,13 @@
 {
     "testing": {
         "saveInLive": "存档无法在正式版本中使用！",
-        "saveInLive2": "You can't load this save anymore!",
-        "errorSaving": "An error prevented this file from being saved.",
-        "gameSaved": "Game saved successfully!"
+        "saveInLive2": "您无法导入该存档！",
+        "errorSaving": "发生错误，导出存档失败。",
+        "gameSaved": "游戏保存成功！"
     },
     "save": {
         "loadFailed": "无法载入存档。",
-        "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
+        "saveToClipboard": "您确定要启用将存档导出到剪贴板吗？"
     },
     "achievements": {
         "descriptions": {
@@ -811,14 +811,14 @@
             "noGoal": "没有目标，根据您在此挑战中的最高金币数量获得奖励。"
         },
         "header": "正常游戏是不是已经让您觉得太简单了？试试这些吧！[点击图标以查看挑战详情！]",
-        "autoChallengeSweepOn": "自动扫荡挑战[开]",
-        "autoChallengeSweepOff": "自动扫荡挑战[关]",
+        "autoChallengeSweepOn": "自动扫荡挑战[ON]",
+        "autoChallengeSweepOff": "自动扫荡挑战[OFF]",
         "retryChallengesOn": "重新尝试挑战：开",
         "retryChallengesOff": "重新尝试挑战：关",
-        "autoAscRunChalOn": "自动飞升运行挑战{{x}}[开]",
-        "autoAscRunChalOff": "自动飞升运行挑战{{x}}[关]",
-        "autoRunChalOn": "自动运行挑战{{x}}[开]",
-        "autoRunChalOff": "自动运行挑战{{x}}[关]",
+        "autoAscRunChalOn": "自动飞升运行挑战{{x}}[ON]",
+        "autoAscRunChalOff": "自动飞升运行挑战{{x}}[OFF]",
+        "autoRunChalOn": "自动运行挑战{{x}}[ON]",
+        "autoRunChalOff": "自动运行挑战{{x}}[OFF]",
         "modeStart": "模式：开始",
         "modeExit": "模式：退出",
         "modeWait": "模式：等待",
@@ -1218,8 +1218,8 @@
         "automaticOff": "自动：关",
         "autoModeCheapest": "自动模式：花费",
         "autoModeManual": "自动模式：手动",
-        "hoverToBuyOn": "鼠标停留购买[开]",
-        "hoverToBuyOff": "鼠标停留购买[关]",
+        "hoverToBuyOn": "鼠标停留购买[ON]",
+        "hoverToBuyOff": "鼠标停留购买[OFF]",
         "hover": "将鼠标停在格子上可获得有关研究的详情！"
     },
     "shop": {
@@ -1805,8 +1805,8 @@
             "oneMind": {
                 "name": "一心",
                 "description": "您在地上发现一张纸条，似乎是什么异教的宣传单。“将飞升的速度限制在10倍，然后使所有类型的方盒、立方和方块获取数量乘以飞升的速度变化的倍数。”嗯……",
-                "effectHave": "You have joined the cult!",
-                "effectHaveNot": "You haven't joined the cult!"
+                "effectHave": "您已加入异教！",
+                "effectHaveNot": "您未加入异教！"
             },
             "wowPass4": {
                 "name": "夸夸夸夸克克克克克克",
@@ -1889,8 +1889,8 @@
         "spent": "花费",
         "OK": "好",
         "Cancel": "取消",
-        "autoOnBracket": "自动[开]",
-        "autoOffBracket": "自动[关]",
+        "autoOnBracket": "自动[ON]",
+        "autoOffBracket": "自动[OFF]",
         "softCapped": "(已达软上限)",
         "maxed": "(已满级)",
         "affordable": "(可购买)",
@@ -2161,7 +2161,7 @@
             "particles": "粒子升级"
         },
         "hover": "将鼠标停在升级图标上可获得相关详情！",
-        "hoverOverUpgrade": "Hover over an upgrade to view details!"
+        "hoverOverUpgrade": "把鼠标停在升级上可以查看详细信息！"
     },
     "tabs": {
         "main": {
@@ -2331,8 +2331,8 @@
         "autoAscend": {
             "c10Completions": "当进行<<var(--violet-text-color)|{{input}}>>次挑战10以后飞升，目前次数为<<gold|{{completions}}>>",
             "realTime": "当时间至少经过<<var(--violet-text-color)|{{input}}>>秒(现实时间)后飞升，目前秒数为<<gold|{{time}}>>",
-            "on": "自动飞升[开]",
-            "off": "自动飞升[关]",
+            "on": "自动飞升[ON]",
+            "off": "自动飞升[OFF]",
             "modeCompletions": "模式：挑战10完成数",
             "modeRealTime": "模式：现实时间"
         },
@@ -2813,7 +2813,7 @@
         "open50%": "开启50%",
         "openCustom": "自定数量",
         "openAll": "开启全部",
-        "autoOff": "自动开启[关]",
+        "autoOff": "自动开启[OFF]",
         "autoOn": "自动开启{{percent}}%",
         "quarks": {
             "quarkTitle": "-=- 开启方盒获取夸克 -=-",
@@ -2905,7 +2905,7 @@
             "howDidIGetHere": "我是怎么到这里的？",
             "noTimeToWaste": "好吧，没时间管那些了。这就是您的实验室。用惊奇七阶立方弄出一些有用的东西来吧！",
             "noPassiveBonus": "惊奇七阶立方没有任何被动加成。必须通过锻造才能变得有用。",
-            "youPossessHepteracts": "您拥有<<yellow|{{amount}}>>惊奇七阶立方！您应该已经知道这些是哪来的了吧？",
+            "youPossessHepteracts": "您拥有<<yellow|{{x}}>>惊奇七阶立方！您应该已经知道这些是哪来的了吧？",
             "craft": "锻造",
             "max": "最大化",
             "expand": "延展",
@@ -3030,102 +3030,102 @@
         "noAddCodes": "您暂时还没有使用“增加”代码的次数！{{x}}秒后可以获得1次。",
         "useXAdds": "您最多可以同时使用{{x}}次。您想要使用多少次？",
         "cancelAdd": "您没有消耗任何代码次数！下次再说吧！",
-        "daily0Uses": "0 uses left. Next: end of the day.",
-        "daily1Uses": "1 use left. Next: end of the day.",
-        "add1Uses": "{{x}} use left.",
-        "add0Uses": "{{x}} uses left. Next: in {{y}} seconds.",
-        "addUses": "{{x}} uses left.",
-        "timeMultiplier": "{{x}} use(s) left. Multiplier: {{y}}x",
+        "daily0Uses": "剩余0次使用次数。明日可以获得新的使用次数。",
+        "daily1Uses": "剩余1次使用次数。明日可以获得新的使用次数。",
+        "add1Uses": "剩余{{x}}次使用次数。",
+        "add0Uses": "剩余{{x}}次使用次数。{{y}}秒后可以获得1次使用次数。",
+        "addUses": "剩余{{x}}次使用次数。",
+        "timeMultiplier": "剩余{{x}}次使用次数。奖励倍率为：{{y}}倍",
         "promocodes": {
-            "synergism2021": "Promo Code 'synergism2021' Applied! +25 Offerings, +50 Quarks",
-            "unsmith": "It's Spaghetti Time! [Awarded an achievement!!!]",
-            "antismith": "Hey, isn't this just a reference to Antimatter Dimensions? Shh. [Awarded an achievement!!!]",
-            "khafra": "Khafra has blessed you with {{x}} Quarks!",
+            "synergism2021": "奖励代码“synergism2021”已生效！获得25祭品，50夸克",
+            "unsmith": "意面时间！[获得一个成就！！！]",
+            "antismith": "这不是玩的反物质维度的梗吗？切。[获得一个成就！！！]",
+            "khafra": "Khafra祝福了您，您获得了{{x}}夸克！",
             "daily": {
-                "message": "Thank you for playing today!\nThe Ant God rewards you with this gift:",
-                "message2": "Feeling especially generous, the Ant God has also given you free levels of the following Singularity upgrades:"
+                "message": "感谢您今日也继续游玩本游戏！\n蚁神奖励了您这些东西：",
+                "message2": "大方的蚁神还给予了您以下奇点升级的免费等级："
             },
             "add": {
-                "calculator3": "Thanks to PL-AT Ω you have also gained {{x}} real-life seconds to your Ascension Timer!",
-                "calculator5": "Thanks to PL-AT Γ you have additionally gained {{x}} real-life seconds to your GQ Export Timer!",
-                "calculator6": "Finally, thanks to PL-AT _ you have gained {{x}} seconds of Octeract generation!",
-                "calculatorSolution": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}? The answer is {{z}} according to your calculator.",
-                "calculatorPrompt": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}?",
-                "calculatorMaxed": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks! {{e}} {{f}} {{g}} {{h}} You have {{i}} uses of Add. You will gain 1 in {{j}} seconds.",
-                "freeLevel": "Moreover, gain {{x}} free levels of GQ1 and {{y}} free levels of GQ3!!!",
-                "cancelled": "No worries, you didn't lose any of your uses! Come back later!",
-                "reward": "You were awarded {{a}} Quarks! {{b}} {{c}} {{d}} You have {{e}} uses of Add. You will gain 1 in {{f}} seconds.",
-                "wrong": "You guessed {{w}}, but the answer was {{x}}. You have {{y}} uses of Add. You will gain 1 in {{z}} seconds."
+                "calculator3": "由于PL-AT Ω的效果，您同时获得了{{x}}秒的飞升时间！",
+                "calculator5": "由于PL-AT Γ的效果，您还使导出存档的金夸克奖励计时增加了{{x}}秒！",
+                "calculator6": "最后，由于PL-AT _的效果，您还获得了相当于{{x}}秒产量的惊奇八阶方块！",
+                "calculatorSolution": "答对可以获得{{w}}夸克，答错则一无所有：{{x}}+{{y}}等于多少？根据计算器，答案应该为{{z}}。",
+                "calculatorPrompt": "答对可以获得{{w}}夸克，答错则一无所有：{{x}}+{{y}}等于多少？",
+                "calculatorMaxed": "您的计算器自动算出了{{a}}+{{b}}={{c}}，因此您直接获得了{{d}}夸克！{{e}}{{f}}{{g}}{{h}}您还有{{i}}次“增加”代码的使用机会。{{j}}秒后可以获得1次。",
+                "freeLevel": "最后的最后，您还获得了{{x}}级的免费金夸克 I升级和{{y}}级的免费金夸克 III升级！！！",
+                "cancelled": "您没有消耗任何代码次数，不必担心！下次再说吧！",
+                "reward": "您获得了{{a}}夸克！{{b}}{{c}}{{d}}您还有{{e}}次“增加”代码的使用机会。{{f}}秒后可以获得1次。",
+                "wrong": "您输入的是{{w}}，但正确答案是{{x}}。您还有{{y}}次“增加”代码的使用机会。{{z}}秒后可以获得1次。"
             },
             "sub": {
-                "subbed": "Thanks for using the \"sub\" code! I've taken away {{x}} Quarks! :)",
-                "gave": "I gave you {{x}} Quarks so I could take {{y}} away."
+                "subbed": "感谢您使用“减少”代码！那我就拿走{{x}}夸克了！:)",
+                "gave": "我得先给您{{x}}夸克，这样我才能拿走{{y}}夸克。"
             },
             "gamble": {
-                "wait": "Wait a little bit. We'll get back to you when you're ready to lose again.",
-                "prompt": "Are you sure? The house always wins!",
-                "cancelled": "Scared? You should be!",
-                "betPrompt": "How many Quarks are you putting up?",
-                "cheaters": "Due to cheaters, you can only bet 10k max.",
-                "won": "You won. The Syncasino offers you a grand total of 25% of the pot! [+{{x}} Quarks]",
-                "lost": "Try again... you can do it! [-{{x}} quarks]"
+                "wait": "稍等片刻，等您准备好再输一次的时候再来吧。",
+                "prompt": "您确定吗？要知道，庄家总是赢家！",
+                "cancelled": "怂了吗？也不失为明智之举！",
+                "betPrompt": "您要下注多少夸克？",
+                "cheaters": "由于过多玩家滥用此代码，因此下注上限现在限制为10000。",
+                "won": "您赢了。协同赌场额外返还了下注额的25%给您！[增加{{x}}夸克]",
+                "lost": "不要灰心……下次，一定能赢！[减少{{x}}夸克]"
             },
             "time": {
-                "wait": "If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.\n\nRegardless, you must wait at least 15 minutes between each use.",
-                "confirm": "Click the button within the next 15 seconds to test your luck! If you click within {{x}} ms of a randomly generated time, you will win a prize! This particular instance has a {{y}}x multiplier due to elapsed time between uses.",
-                "won": "You clicked at the right time! [+{{x}} Quarkies]",
-                "lost": "You didn't guess the right time, try again soon!"
+                "wait": "导入存档后，您在15分钟内是无法使用此代码的，这是为了防止作弊。\n其他情况下，您需要等待15分钟后才能再度使用。",
+                "confirm": "在接下来的15秒内点击确定按钮，以此来测试运气！如果您在随机生成时间点的{{x}}毫秒范围内点击了按钮，您将获得一份奖励！由于两次使用该代码之间的时间间隔，本次代码的奖励变为{{y}}倍。",
+                "won": "您点击的时机很好！[增加{{x}}夸克]",
+                "lost": "点击的时机不对，下次再来吧！"
             },
             "spoiler": {
-                "moreThan1": "You will gain {{x}} Octeracts (when they come out) every second, assuming you have them unlocked!",
-                "one": "You will gain an Octeract (when they come out) every {{x}} seconds, assuming you have them unlocked!"
+                "moreThan1": "如果您已经解锁它们，则每秒可以获得{{x}}惊奇八阶方块！",
+                "one": "如果您已经解锁它们，则每{{x}}秒可以获得1惊奇八阶方块！"
             },
-            "invalid": "Your code is either invalid or already used. Try again!"
+            "invalid": "奖励代码输入错误，或者已经使用过。请再次尝试！"
         }
     },
     "toggles": {
-        "percentBetweenInclusive": "Value must be a number between {{x}} and {{y}}, inclusive!",
-        "percentKeptAt": "Your percentage is kept at {{x}}%.",
-        "onAscensionHepteractsCraft": "Okay. On Ascension, {{x}}% of your Hepteracts will be used in crafting.",
-        "autoUpgradeOn": "Auto Upgrades: [ON]",
-        "autoUpgradeOff": "Auto Upgrades: [OFF]",
-        "upgradeMaxIfPossible": "Upgrade: MAX [if possible wow]",
-        "upgradeOneLevelWow": "Upgrade: 1 Level wow",
-        "saveOfferingsOn": "Save Offerings [ON]",
-        "saveOfferingsOff": "Save Offerings [OFF]",
-        "modeTime": "Mode: TIME",
-        "modeAmount": "Mode: AMOUNT",
-        "modePercentage": "Mode: PERCENTAGE"
+        "percentBetweenInclusive": "请输入{{x}}至{{y}}之间的数字！",
+        "percentKeptAt": "您的自动锻造比例仍然为{{x}}%。",
+        "onAscensionHepteractsCraft": "好的。飞升时，将有{{x}}%的七阶立方用于锻造。",
+        "autoUpgradeOn": "自动升级：[ON]",
+        "autoUpgradeOff": "自动升级：[OFF]",
+        "upgradeMaxIfPossible": "升级：最大[尽可能]",
+        "upgradeOneLevelWow": "升级：1级(惊奇)",
+        "saveOfferingsOn": "保留祭品[ON]",
+        "saveOfferingsOff": "保留祭品[OFF]",
+        "modeTime": "模式：时间",
+        "modeAmount": "模式：数量",
+        "modePercentage": "模式：百分比"
     },
     "main": {
-        "dataPersistent": "Data on this page is now persistent! If you do not know what this means, you can safely ignore it.",
-        "starRepo": "Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial",
-        "transferredFromLZ": "Transferred save to new format successfully!",
-        "allCorruptionsZero": "All Corruptions have been set to Zero. This will take effect on the next Ascension.",
-        "corruptionLoadoutApplied": "Corruption Loadout {{x}} \"{{y}}\" has been applied. This will take effect on the next Ascension.",
-        "ascendPrompt": "Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue?",
-        "reincarnatePrompt": "Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]",
-        "transcendPrompt": "Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first Transcension unlocks new features. Would you like to Transcend? [Toggle this message in settings.]",
-        "prestigePrompt": "Prestige will reset coin upgrades, coin producers AND crystals. The first Prestige unlocks new features. Would you like to Prestige? [Toggle this message in settings.]",
-        "welcomeToSingularity": "Welcome to Singularity #{{x}}. You're back to familiar territory, but something doesn't seem right.",
-        "singularityCancelled": "If you decide to change your mind, let me know. -Ant God",
-        "singularityMessage1": "You have reached the end of the game, on Singularity #{{x}}. Platonic and the Ant God are proud of you.",
-        "singularityMessage2": "You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.",
-        "singularityMessage3": "You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.",
-        "singularityMessage4": "Start anew, and enter Singularity #{{x}}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain {{y}} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by {{z}}% due to patreon bonus!].",
-        "singularityMessage5": "However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.",
-        "singularityConfirm0": "Do you wish to start singularity #{{x}}? Your next universe is harder but you will gain {{y}} Golden Quarks.",
-        "singularityConfirm1": "So, what do you say? Do you wish to enter the Singularity?",
-        "singularityConfirm2": "Are you sure you wish to enter the Singularity?",
-        "singularityConfirm3": "Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.",
-        "noAntiquity": "Hmph. Please return with an Antiquity. Thank you. -Ant God",
-        "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.",
-        "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
-        "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
-        "buyResearch3x11": "[LOCKED - Buy Research 3x11]"
+        "dataPersistent": "该页面上的数据将持久保存！如果您不知道这句话的意思，则可以忽略它。",
+        "starRepo": "请支持我们，给我们的Github项目加一个星。 ❤️ https://github.com/pseudo-corp/SynergismOfficial",
+        "transferredFromLZ": "成功将存档转换为新格式！",
+        "allCorruptionsZero": "下次飞升时将所有腐化重置为零。",
+        "corruptionLoadoutApplied": "第{{x}}个预设\"{{y}}\"已载入。飞升后即可生效。",
+        "ascendPrompt": "飞升后，之前的所有低阶资源，符文等级[非上限！]，护身符，大部分研究，以及蚁丘都将被重置，但您可以获得方盒的力量。您确定要继续吗？",
+        "reincarnatePrompt": "转世后之前的所有低阶资源都将被重置，但您可以获得强大的粒子，以及解锁一些非常强大的升级和新的游戏机制。您确定要转世吗？[您可以在设置中调整是否弹出此对话框。]",
+        "transcendPrompt": "超越后金币、钻石升级，金币生产者，水晶生产者和钻石都将被重置。首次超越可以解锁新的游戏机制。您确定要超越吗？[您可以在设置中调整是否弹出此对话框。]",
+        "prestigePrompt": "转生后金币升级，金币生产者和水晶都将被重置。首次转生可以解锁新的游戏机制。您确定要转生吗？[您可以在设置中调整是否弹出此对话框。]",
+        "welcomeToSingularity": "欢迎来到第{{x}}次奇点。您回到了熟悉的领域内，但好像有什么东西不大对劲。",
+        "singularityCancelled": "改变主意的话，可以再来找我。————蚁神",
+        "singularityMessage1": "您到达了游戏终点，也就是第{{x}}次奇点。Platonic和蚁神都为您而感到骄傲。",
+        "singularityMessage2": "您可以选择就此封盘，认为您已经“通关”了，又或着您还愿意做一些更有趣的事情。",
+        "singularityMessage3": "这个宇宙已经容纳不了您的力量了。协同放置的多元宇宙可谓无穷无尽，比起现在这个宇宙，还有更多更具挑战性的平行宇宙。",
+        "singularityMessage4": "让我们重新开始，进入第{{x}}次奇点吧。下一个宇宙比目前的宇宙要来得更艰难，但夸克获取数量永久增加10%，飞升次数永久增加10%，且您可以获得{{y}}金夸克，它可以用于购买游戏内最后阶段的升级[Patreon加成了{{z}}%！]。",
+        "singularityMessage5": "但是，您之前的一切成果都将离您而去！所有的挑战完成次数，可重置的商店购买项，升级，符文，所有类型的方盒及立方升级，所有类型的方盒及立方已获取量，七阶立方库存(除了七阶立方·夸克)，成就，一切的一切，都将成为过去。",
+        "singularityConfirm0": "您想要进入第{{x}}次奇点吗？下一个宇宙比目前的宇宙要来得更艰难，但您可以获得{{y}}金夸克。",
+        "singularityConfirm1": "所以，您意下如何？您真的想要进入奇点吗？",
+        "singularityConfirm2": "您……真的想要进入奇点吗？",
+        "singularityConfirm3": "您是真的真的确定了吗？一旦这么做将再也无法反悔(除非您有旧的存档文件)！这是最后一次向您确认。",
+        "noAntiquity": "哼，请带着古物再来。谢谢。————蚁神",
+        "insideSingularityChallenge": "Derpsmith提醒您，您还在奇点挑战中。您可以在奇点选项卡下点击相应挑战的图标退出挑战。",
+        "gameBeat": "很好。您已经到了奇点之眼。我很满意。但这也意味着您无法继续前进了。除非有什么更强的力量，为您开辟新道路……",
+        "exitAscensionChallenge": "您真的确定要退出飞升挑战吗？退出后，您必须完成挑战10以后才能再次进行飞升挑战！",
+        "buyResearch3x11": "[未解锁 - 请先购买研究3x11]"
     },
     "history": {
-        "perSecondOn": "Per second: ON",
-        "perSecondOff": "Per second: OFF"
+        "perSecondOn": "每秒产量：开",
+        "perSecondOff": "每秒产量：关"
     }
 }
