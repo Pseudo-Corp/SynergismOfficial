@@ -100,9 +100,9 @@ export class SingularityChallenge {
             player.goldenQuarksTimer = holdGoldenQuarkExport
 
             this.updateChallengeHTML()
-            return Alert(i18next.t('singularityChallenge.acceptSuccess', {name: this.name, tier: this.completions + 1, singReq: this.computeSingularityRquirement()}))
+            return Alert(i18next.t('singularityChallenge.enterChallenge.acceptSuccess', {name: this.name, tier: this.completions + 1, singReq: this.computeSingularityRquirement()}))
         } else {
-            return Alert(i18next.t('singularityChallenge.acceptFailure'))
+            return Alert(i18next.t('singularityChallenge.exitChallenge.acceptFailure'))
         }
     }
 
