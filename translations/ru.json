@@ -13,7 +13,7 @@
         "descriptions": {
             "1": "[{{number}}] Верный Сотрудник: Наймите вашего первого Работника.",
             "2": "[{{number}}] Малый Бизнес: Наймите 10 Работников.",
-            "3": "[{{number}}] Now we're synergizing!: Hire 100 Workers.",
+            "3": "[{{number}}] Вот теперь синергия!: Нанять 100 Работников.",
             "4": "[{{number}}] Набирая Избыточно: Нанять 1,000 Работников.",
             "5": "[{{number}}] Шестерня в механизме: Нанять 5,000 Работников.",
             "6": "[{{number}}] Гвоздь в механизме: Нанять 10,000 Работников.",
@@ -293,12 +293,12 @@
             "280": "[{{number}}] Начало: Сингулярность 10 раз."
         },
         "rewards": {
-            "3": "Получите +0.05% к силе Ускорителей.",
+            "3": "+0.05% к Силе Ускорителей.",
             "4": "Начинайте Превосходство/Испытания с разблокированным Автопокупателем Работников.",
             "5": "Получите +1 Ускоритель за каждые 500 рабочих.",
-            "6": "Получите +1 Множитель за каждую 1000 рабочих.",
-            "7": "Получите +1 Усилитель Ускорителя за каждые 2,000 рабочих.",
-            "10": "Получите +.10% к силе Ускорителей.",
+            "6": "+1 Множитель за каждую 1000 рабочих.",
+            "7": "+1 Усилитель Ускорителя за каждые 2,000 рабочих.",
+            "10": "+.10% к силе Ускорителей.",
             "11": "Начинайте Превосходство/Испытания с разблокированным Автопокупателем Инвестиций.",
             "12": "Получите +1 Ускоритель за каждые 500 Инвестиций.",
             "13": "Получите +1 Множитель за каждую 1000 Инвестиций.",
@@ -329,7 +329,7 @@
             "50": "Разблокируйте новую Атомную производство и разблокируйте 3 новых невероятно сложных Испытаний! Получите в 2 раза больше частиц для всех будущих Реинкарнаций!",
             "51": "Ручные Реинкарнации дают +4 Обтаиниума (не зависит от множителя, кроме временного множителя)!",
             "52": "Реинкарнации дают больше Предложений в зависимости от потраченного времени (До +25 за 1800 секунд)",
-            "53": "Increase the amount of Obtainium gained through all features by 0.125% additive for each rune level.",
+            "53": "Увеличивает количество Обтаниума, полученное из любых источников, на 0.125%; добавочно за каждый уровень рун.",
             "57": "+1 и +1% Бесплатных Множителей!",
             "58": "+1 и +1% Больше бесплатных Множителей!",
             "59": "+1 и +1% Больше и БОЛЬШЕ бесплатных Множителей!",
@@ -388,7 +388,7 @@
             "137": "+25% К награде за пожертвования навсегда!",
             "140": "+17% Obtainium. Ленивая шутка о не сливе талисманов здесь [Вы получите новый талисман]",
             "141": "Разблокировать новый уровень сброса!",
-            "147": "+11% Обтаиниум (Сумма достижений теперь 100%!). Получите талисман Полимата!",
+            "147": "+19% Обтаниума (Сумма от достижений теперь 100%!). Получите талисман Эрудита!",
             "169": "Скорость ВСЕХ муравьёв ускорена в {{x}} раз.",
             "171": "+16.666% К скорости ВСЕХ муравьёв!",
             "172": "Получите больше Муравьёв за счёт времени вашей Реинкарнации (Максимальная скорость достигается за 2 часа)",
@@ -437,36 +437,36 @@
             "253": "Вы получите +10% Гиперкубов! Зачем? Без понятия.",
             "254": "Прирост Кубов +{{x}}% [Макс: +15% при 1e25 счёте Вознесения]",
             "255": "Прирост Тессерактов +{{x}}% [Макс: +15% при 1e25 счёте Вознесения], и позволяет получать Гептеракты.",
-            "256": "Hypercube Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!",
-            "257": "Platonic Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!",
-            "258": "Hepteract Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]",
-            "259": "Corruption score is increased by 1% for every expansion of Abyss Hepteract!",
-            "260": "You will gain 10% more Ascension count, forever!",
-            "261": "You will gain 10% more Ascension count, forever!",
+            "256": "Прирост Гиперкубов +{{x}}% [Макс: +15% при 1e25 счёте Восхождения]. Также, коэффициент конвертации Порошка Изобильного Потока на 5% лучше!",
+            "257": "Прирост Платоника +{{x}}% [Макс: +15% при 1e25 счёте Восхождения]. Также, коэффициент конвертации Порошка Изобильного Потока на 5% лучше!",
+            "258": "Прирост Гептерактов +{{x}}% [Макс: +15% при 1e25 счёте Вознесения]",
+            "259": "Повышает счёт Порчи на 1% за каждое расширение Гептеракта Бездны!",
+            "260": "Вы получите на 10% больше к счётчику Вознесения, навсегда!",
+            "261": "Вы получите на 10% больше к счётчику Вознесения, навсегда!",
             "262": "Вознесения на {{x}}% быстрее! Макс: +10%",
             "263": "Вознесения на {{x}}% быстрее! Макс: +10%",
             "264": "Гептеракты +{{x}}% [Макс: 40% при 8Т Вознесений]!",
             "265": "Гептеракты +{{x}}% [Макс: 20% при 160Т Вознесений]!",
             "266": "Кварки +{{x}}% [Макс: 10% при 1Qa Вознесений]!",
-            "267": "Ascension Score is boosted by {{x}}% [Max: 100% at 1e100,000 Const]",
-            "270": "Hepteract Gain is boosted by {{x}}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).",
-            "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]",
+            "267": "Счёт за Вознесение повышена на {{x}}% [Макс: 100% при 1e100,000 Констант]",
+            "270": "Прирост Гептерактов повышена на {{x}}% [Макс: 100% при 1e1,000,000 Констант], Улучшение Константа 1 повышена до 1.06 (с 1.05), Улучшение Константа 2 повышена до 1.11 (с 1.10).",
+            "271": "Когда вы открываете Платоновые Кубы, получаете {{x}} Гиперкубов, округлённую в меньшую сторону [Макс: 1 при 1e1,000,000 Констант]",
             "274": "Скорость муравьёв навсегда умножена на 4.44! Если доступны, Платоновы Улучшения теперь КупиМакс!",
-            "275": "You immediately start Singularities with 1 Transcension and 1001 mythos!",
-            "276": "You immediately start Singularities with 1 Reincarnation, and 10 particles!",
-            "277": "You immediately start Singularities with 500 Obtainium!",
+            "275": "Вы сразу начинаете Сингулярности с 1 Превосходством и 1001 мифоф!",
+            "276": "Вы сразу начинаете Сингулярности с 1 Реинкарнацией и 10 частицами!",
+            "277": "Вы сразу начинаете Сингулярности с 500 Обтаиниумами!",
             "278": "Навсегда получаете на 5% больше Кварков! Автоматизация Строений Частиц доступна с начала.",
-            "279": "You immediately start Singularities with a Challenge 7 completion and 1e100 particles. Talismans now buff all runes at all times!",
-            "280": "You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 Ant."
+            "279": "Вы сразу начинаете Сингулярности с выполненным Испытанием 7 и 1e100 частицами. Теперь Талисманы имеют эффект всех рун сразу!",
+            "280": "Вы сразу начинаете Сингулярности с выполненным Испытанием 8 и 1 Муравьём 1 Уровня."
         },
         "alerts": {
             "36": "Поздравляем вас с первым Престижом. Одним из многим. Теперь вы получаете Предложения, которые вы можете использовать в новой вкладке \"Руны!\" [Разблокированы: Руны, Достижения, Алмазные Строения и ещё немного Улучшений!]",
-            "38": "Hmm, it seems you are getting richer, being able to get 1 Googol diamonds in a single Prestige. How about we give you another Rune? [Unlocked Duplication Rune in Runes tab!]",
+            "38": "Хм-м, кажется вы становитесь богаче, имея возможность получить 1 Гугол алмазов за один Престиж. Как насчёт того, мы дадим тебе ещё одну Руну? [Разблокирована руна Дублировании во вкладке \"Руны\"]",
             "255": "Вау! Вы достигли счёта 1e17 (100 Квадриллионов) за одно Вознесение. В качестве награды, теперь, если ваш счёт будет выше 1.66e17 (166.6 Квадриллионов), вы сможете генерировать Гептеракты. Удачи!"
         },
         "hover": "Наведите на достижение, чтобы просмотреть его информацию.",
         "totalPoints": "Очки Достижений: {{x}}/{{y}} [{{z}}%]",
-        "rewardGainMessage": "Reward: {{x}} AP. {{y}} Quarks! {{z}}",
+        "rewardGainMessage": "Награда: {{x}} ОД. {{y}} Кварков! {{z}}",
         "completed": " ЗАВЕРШЕНО!",
         "notification": "Вы разблокировали достижение: {{m}}"
     },
@@ -474,14 +474,14 @@
         "upgrades": {
             "1": "Продвигает романтику и единство в колонии. [+12% Скорость Муравьёв/ уровень]",
             "2": "Подслащивает крошки для увеличения их ценности [Каждый уровень увеличивает эффективность конвертации Крошки - Монеты, вплоть до ^50,000,000]",
-            "3": "Swarms the Taxman into submission [Up to -99.5% taxes!]",
+            "3": "Подчинять Рои Сборщика налогов [До -99.5% налогов!]",
             "4": "Пугает вас, заставляя двигаться быстрее [до x20]",
-            "5": "Imitates your body through magic shape-shifting powers [up to x40]",
+            "5": "Имитирует ваше тело с помощью магической способностью изменения формы [до x40]",
             "6": "Пытается угодить Муравьиному Богу... но безуспешно. [Дополнительные Подношения!]",
             "7": "Помогает построить парочку вещей тут и там [+3% к Отсрочке Стоимости Строений / уровень, Макс 9,999,999%]",
             "8": "Знает как добавлять соль и перец в еду [До 1,000x к EXP Рун!]",
             "9": "Может сделать ваше послание Муравьиному Богу чуточку чётче [+1 ко всем Уровням Рун / уровень, Макс. 10 миллионов]",
-            "10": "Has big brain energy [Additional Obtainium!]",
+            "10": "Обладать большой энергией мозга [Дополнительный Обтаиниум!]",
             "11": "Ценное подношение Муравьиному Богу [Награды за Жертвоприношение возрастают до 3-ёхкратных!]",
             "12": "Предайте Муравьиного Бога, увеличивая хрупкость вашего измерения [Открывает муравьиный талисман, множитель глобальной скорости до 2-ух крат]"
         },
@@ -513,14 +513,14 @@
             "5": "ТЕКУЩИЙ ЭФФЕКТ: +{{x}}% Множителей",
             "6": "ТЕКУЩИЙ ЭФФЕКТ: Подношения х{{x}}",
             "7": "ТЕКУЩИЙ ЭФФЕКТ: Стоимость Строений растёт на {{x}}% медленнее!",
-            "8": "CURRENT EFFECT: Rune EXP is multiplied by {{x}}!",
-            "9": "CURRENT EFFECT: Each rune has +{{x}} effective levels.",
-            "10": "CURRENT EFFECT: Obtainium x{{x}}",
+            "8": "ТЕКУЩИЙ ЭФФЕКТ: Опыт Рун умножен в {{x}} раз!",
+            "9": "ТЕКУЩИЙ ЭФФЕКТ: Каждая руна имеет +{{x}} эффективных уровней.",
+            "10": "ТЕКУЩИЙ ЭФФЕКТ: Обтаниум х{{x}}",
             "11": "ТЕКУЩИЙ ЭФФЕКТ: Эффективность Пожертвования увеличена в {{x}}x раз",
             "12": "CURRENT EFFECT: Глобальный таймер ускорен в коэффициент {{x}}"
         },
         "header": "Муравьи приглашают вас в свой дом.",
-        "hover": "Наведите на иконки, чтобы посмотреть их описание. Нажмите на иконки, чтобы их купить!",
+        "hover": "Наведите на иконки, чтобы посмотреть их описание. Нажмите, чтобы купить!",
         "youHaveGalacticCrumbs": "У вас {{x}} Галактических Крошек [{{y}}/сек], дающих {{z}} Множитель Монет",
         "owned": "Имеется: {{x}} [+{{y}}]",
         "costGalacticCrumbs": "Стоимость: {{x}} Галактических Крошек",
@@ -531,30 +531,30 @@
         "modeInGameTime": "Режим: В игровом времени",
         "sacrificeWhenTimer": "Совершить пожертвование, когда таймер достигнет {{x}} секунд ({{y}}), Время сейчас: {{z}}",
         "yourAntELO": "<<plum|Ваш Муравьиный ЭЛО - >> <<gold|{{x}}>> [Эффективный - {{y}}]",
-        "upgradeMultiplier": "Upgrade Multiplier: <<gold|{{x}}x>>",
+        "upgradeMultiplier": "Множитель улучшения: <<gold|{{x}}x>>",
         "timeMultiplier": "Множитель Времени: <<var(--lightseagreen-text-color);|{{x}}x>>",
-        "resetAnthill": "Reset Anthill features for:",
-        "antSacMultiplier": "Ant Sacrifice Multiplier: {{y}}x --> <<limegreen|x{{x}}>>",
-        "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?",
-        "elo": "+{{x}} [>{{y}} ELO]"
+        "resetAnthill": "Сброс Муравейника для:",
+        "antSacMultiplier": "Множитель Пожертвования Муравьёв: {{y}}x --> <<limegreen|x{{x}}>>",
+        "autoReset": "Это сбросит ваши Крошки, Муравьёв и Улучшения Муравьёв в обмен на некоторый множитель и ресурсов. Продолжить?",
+        "elo": "+{{x}} [>{{y}} ЭЛО]"
     },
     "challenges": {
         "1": {
-            "name": "No Multipliers Challenge || {{- value}} Completions",
+            "name": "Испытание Без Множителей || {{- value}} Выполнений",
             "flavor": "Множители чересчур ускоряют игру. Давайте мы их уберем!",
-            "restrictions": "Transcend and reach the goal except Multipliers do nothing but act like Accelerators, which are nerfed by 50%!",
+            "restrictions": "Выполните Превосходство и достигните цели, однако Множители не имеют эффекта, но действуют как Ускорители, которые понёрфлены на 50%!",
             "goal": "Цель: Заработать {{value}} Монет в испытании.",
             "per": {
-                "1": "+10 base Multiplier Boosts! [+0.05 to power!] Current: ",
-                "2": "+10% total Multiplier Boosts! Current: ",
-                "3": "+0.04 base Rune exp per Offering! Current: "
+                "1": "+10 к базовому усилению Множителя! [+0.05 к силе!] Текущий: ",
+                "2": "+10% к общему усилению Множителя! Текущий: ",
+                "3": "+0.04 к базовому опыту Руны за каждое Подошение! Текущий: "
             },
-            "first": "+1 free Multiplier! +1 Base EXP per offering used!",
+            "first": "+1 бесплатный Множитель! +1 к базовому опыту за каждое использование Подношения!",
             "start": "Запустить [Без Множителей]",
             "current": {
                 "1": "+{{value}} Усилителей",
                 "2": "+{{value}}% Больше Усилений",
-                "3": "+{{value}} Rune EXP [Highest Completion]"
+                "3": "+{{value}} опыта Рун [Наибольшее выполнение]"
             }
         },
         "2": {
@@ -564,21 +564,21 @@
             "goal": "Цель: Заработать {{value}} Монет в испытании.",
             "per": {
                 "1": "+5 Бесплатных Ускорителей! Текущий эффект: ",
-                "2": "+5% Accelerator Boost Power! Current: ",
-                "3": "+0.25% Accelerator Power! Current: "
+                "2": "+5% к силе Усилителю Ускорителя! Текущий: ",
+                "3": "+0.25% к силе Ускорителя! Текущий: "
             },
-            "first": "+1 base offering for Prestige and Transcensions.",
+            "first": "+1 к базовому подношению за Престиж и Превосходства.",
             "start": "Запустить [Без Ускорителей]",
             "current": {
                 "1": "+{{value}} Ускорителей",
-                "2": "+{{value}}% A.Boost Power",
+                "2": "+{{value}}% к Усилителю У.",
                 "3": "+{{value}}% к Усилителям Ускорителей"
             }
         },
         "3": {
-            "name": "No Shards Challenge || {{- value}} Completions",
+            "name": "Испытание Без Осколков || {{- value}} Выполнений",
             "flavor": "Итак. Вы задумались, а как же я могу ещё сделать игру ещё сложнее?",
-            "restrictions": "Transcend and reach the goal except you do not produce Crystals or Mythos Shards.",
+            "restrictions": "Выполните Превосходство и достигните цели, однако вы не производите Кристаллы и Осколки Мифов.",
             "goal": "Цель: Заработать {{value}} Монет в испытании.",
             "per": {
                 "1": "Экспонента Кристалло - Монетной конвертации +0.04! Текущая: ",
@@ -606,8 +606,8 @@
             "first": "Отсутствует",
             "start": "Начать [Стоимость+]",
             "current": {
-                "1": "Accelerator Delay +{{value}}",
-                "2": "Multiplier Delay +{{value}}",
+                "1": "Отсрочка Ускорителей +{{value}}",
+                "2": "Отсрочка Множителей +{{value}}",
                 "3": "Отсрочка Стоимости Строений +{{value}}%"
             }
         },
@@ -636,13 +636,13 @@
             "goal": "Цель: Заработать {{value}} Осколков Мифос в испытании.",
             "per": {
                 "1": "-3.5% Налогов [Multiplicative]! Текущий: ",
-                "2": "Thrift Rune Exp +10%! Current: ",
+                "2": "Опыт Руны Экономии +10%! Текущий: ",
                 "3": "+2% больше Предложений за Престиж! Текущий эффект: "
             },
             "first": "-7.5% Налогов!",
             "start": "Начать <Налоги+>",
             "current": {
-                "1": "Tax multiplier x{{value}}",
+                "1": "Множитель налогов x{{value}}",
                 "2": "EXP +{{value}}%",
                 "3": "+{{value}}% Prestige-based Offerings"
             }
@@ -653,12 +653,12 @@
             "restrictions": "Реинкарнируйте и достигните цели, однако Ускорители и Множители ничего не делают. Производство Монет разделено на 1e1,250.",
             "goal": "Цель: Получить {{value}} Осколков Мифов в испытании.",
             "per": {
-                "1": "Accelerator/Multiplier boost power exponent +0.04! Current: ",
-                "2": "Speed Rune Exp +10%! Current: ",
-                "3": "Duplication Rune Exp +10%! Current: "
+                "1": "Усиливает Ускоритель/Множитель на силу степени +0.04! Текущее: ",
+                "2": "Опыт Руны Скорости +10%! Текущее: ",
+                "3": "Опыт Руны Дубликации +10%! Текущее: "
             },
-            "first": "Multiplier Boost power +25%! The first Discord-Booster Global Diamond Upgrade.",
-            "start": "Start <No Multipliers/Accelerators>",
+            "first": "Усиливает Множитель на силу +25%! Первое Глобальное Алмазное Улучшение Дискорд Буста.",
+            "start": "Начать <Нет Мультипликаторов/Ускорителей>",
             "current": {
                 "1": "Степень = ^{{value}}",
                 "2": "EXP +{{value}}%",
@@ -668,15 +668,15 @@
         "8": {
             "name": "Испытание Стоимость++ || {{- value}} Выполнений",
             "flavor": "Вы думаете, что можете преодолеть инфляцию реникарнированием?",
-            "restrictions": "Reincarnate and reach the goal except Cost Scaling for producers and Accelerators/Multipliers scale much, much faster.",
+            "restrictions": "Реинкарнируйте и достигните цели, однако Рост Цен для производителей и Ускорителей/Множителей увеличивается намного, намного быстрее.",
             "goal": "Цель: Получить {{value}} Осколков Мифов в испытании.",
             "per": {
-                "1": "Base Building Power +0.25! Current: ",
-                "2": "Prism Rune Exp +20%! Current: ",
-                "3": "Transcend Offerings +4%! Current: "
+                "1": "Сила к базовому Строению +0.25! Текущий: ",
+                "2": "Опыт Руны Призмы +20%! Текущий: ",
+                "3": "Подношения за Превосходство +4%! Текущий: "
             },
-            "first": "Unlock the Anthill feature! Includes 20 new Researches. A Global Diamond Upgrade.",
-            "start": "Start <Cost++>",
+            "first": "Открывает Муравейник! Также включены 20 новых Исследований, и Глобальное Улучшение Алмазов.",
+            "start": "Начать <Cost++>",
             "current": {
                 "1": "+{{value}}",
                 "2": "+{{value}}% EXP",
@@ -684,16 +684,16 @@
             }
         },
         "9": {
-            "name": "No Runes Challenge || {{- value}} Completions",
-            "flavor": "You'll never complain about Prism being bad again.",
+            "name": "Испытание Без Рун || {{- value}} Выполнений",
+            "flavor": "Вы больше никогда не пожалуетесь, что Призма отстой.",
             "restrictions": "Реинкарнируйте и достигните цели, однако у рун всегда эффект 1 уровня. Всё производство Монет разделено на e2,000,000.",
             "goal": "Цель: Заработать {{value}} Монет в испытании.",
             "per": {
                 "1": "+1 бесплатный уровень Муравьёв! Текущий: ",
                 "2": "+10% к скорости Муравьёв [Мультипликативно!] Текущая: ",
-                "3": "SI Rune Exp +20%! Current: "
+                "3": "Опыт Руны \"ПИ\" +20%! Текущий: "
             },
-            "first": "Unlock the Talismans feature! [In Runes tab]. A Global Diamond Upgrade.",
+            "first": "Разблокируйте Талисманы! [Во вкладке Руны]. Глобальное улучшение Алмазов.",
             "start": "Запустить <Без Рун>",
             "current": {
                 "1": "+{{value}} бесплатных уровней",
@@ -703,103 +703,103 @@
         },
         "10": {
             "name": "Sadistic Challenge I || {{- value}} Completions",
-            "flavor": "I'm sorry for what I've unleashed onto the world.",
+            "flavor": "Я сожалею за то, что я выпустил в мир.",
             "restrictions": "Реинкарнируйте и достигните цели, однако первые пять испытаний будут запущены В ОДНО И ТО ЖЕ ВРЕМЯ! Производство Монет /e12,500,000.",
             "goal": "Цель: Заработать {{value}} Монет в испытании.",
             "per": {
-                "1": "+100 base ELO for sacrificing ants! Current: ",
-                "2": "+2% Ant Sacrifice Reward! Current: ",
-                "3": "Reincarnation Offerings +10%! Current: "
+                "1": "+100 к базовому ЭЛО за пожертвование муравьёв! Текущий: ",
+                "2": "+2% к Награде Пожертвовании Муравьёв! Текущий: ",
+                "3": "+10% Подношений за Реинкарнацию! Текущий эффект: "
             },
-            "first": "Unlock the Ascension Reset Tier!",
-            "start": "Start <Sadistic I>",
+            "first": "Открывает Уровень Сброса - Вознесение!",
+            "start": "Начать <Sadistic I>",
             "current": {
-                "1": "+{{value}} Ant ELO",
-                "2": "+{{value}}% Ant Sacrifice reward",
+                "1": "+{{value}} к Муравьиному ЭЛО",
+                "2": "+{{value}}% к награде Пожертвовании Муравьёв",
                 "3": "+{{value}}% Reincarnate-based offerings"
             }
         },
         "11": {
             "name": "Reduced Ants Challenge || {{- value}} Completions",
-            "flavor": "The great Ant War of '21 wiped off all of the skilled ants.",
-            "restrictions": "Ascend and reach the goal but only get free ant upgrades and from Challenge8/9 completions. FOR ASCENSION CHALLENGES YOU MUST CLEAR CHALLENGE 10 TO ATTEMPT THEM.",
-            "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
+            "flavor": "Великая Война Муравьёв 21 года привела гибели всех опытных муравьёв.",
+            "restrictions": "Выполните вознесение и достигните цели, однако вы получаете только бесплатные уровни муравьёв за каждое выполненное Испытание 8/9. ДЛЯ ИСПЫТАНИЙ ВОЗНЕСЕНИЯ ВЫ ДОЛЖНЫ ВЫПОЛНИТЬ ИСПЫТАНИЕ 10, ЧТОБЫ ПОПЫТАТЬСЯ ВЫПОЛНИТЬ ИХ.",
+            "goal": "Цель: Выполните Испытание 10 [Садистское Испытание I] {{value}} раз.",
             "per": {
-                "1": "+12 free Ant Levels! Current: ",
+                "1": "+12 бесплатных Уровней у Муравьев! Текущий: ",
                 "2": "x(1e5)^Выполнения к Скорости Муравьёв. Текущий эффект: ",
                 "3": "+80 к Пределу Рун! Текущий эффект: "
             },
-            "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to toggle Corruptions ;)",
-            "start": "Start <[(Reduced Ants)]>",
+            "first": "Открывает 15 новых Исследований и способность открывать Тессеракты! Также, Порчи теперь настраиваемы ;)",
+            "start": "Начать <[(Уменьшенные Муравьи)]>",
             "current": {
-                "1": "+{{value}} free ant levels",
-                "2": "Ant Speed x{{value}}",
-                "3": "+{{value}} to Rune Caps"
+                "1": "+{{value}} бесплатных уровней у муравьев",
+                "2": "Скорость Муравьев x{{value}}",
+                "3": "+{{value}} к Лимиту Рун"
             }
         },
         "12": {
-            "name": "No Reincarnation Challenge || {{- value}} Completions",
+            "name": "Испытание Без Реинкарнаций || {{- value}} Выполнений",
             "flavor": "По какой-то причине, вы просто не можете этого сделать.",
-            "restrictions": "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! Ant production ^0.5.",
-            "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
+            "restrictions": "Выполните вознесение и достигните цели, но вы не получаете Частицы и не можете Реинкарнировать вовсе! Производство Муравьёв ^0.5.",
+            "goal": "Цель: Выполните Испытание 10 [Садистское Испытание I] {{value}} раз.",
             "per": {
-                "1": "+50% Obtainium! Current: ",
+                "1": "+50% Обтаниума! Текущий: ",
                 "2": "+12% Подношений! Текущий: ",
-                "3": "+1 Cube Tribute per opening! Current: "
+                "3": "+1 Куб Дани за открытие! Текущий: "
             },
-            "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Increase Corruption Cap by 2 levels. Finally, unlock two new corruptions! ;)",
-            "start": "Start <[(No Reincarnation)]>",
+            "first": "Разблокируйте 15 Исследований и разблокируйте мистические Духовные Силы! Найдите их во вкладке Руны. Увеличивает максимальный уровень Коррупций на 2 уровня. Также, разблокируйте еще две новых коррупции! ;)",
+            "start": "Начать <[(Без Реинкарнаций)]>",
             "current": {
-                "1": "+{{value}}% Obtainium",
+                "1": "+{{value}}% Обтаниума",
                 "2": "+{{value}}% Подношений",
-                "3": "+{{value}} additional Cube Tributes"
+                "3": "+{{value}} дополнительных Кубов Дани"
             }
         },
         "13": {
-            "name": "Tax+++ Challenge || {{- value}} Completions",
+            "name": "Испытание Налоги+++ || {{- value}} Выполнений",
             "flavor": "Удачи с IRS, приятель.",
-            "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. Ant production ^0.23",
-            "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
+            "restrictions": "Выполните вознесение и достигните цели, но налоги гораздо выше и увеличиваются по мере выполненных испытаний. Производство Муравьёв ^0.23",
+            "goal": "Цель: Выполните Испытание 10 [Садистское Испытание I] {{value}} раз.",
             "per": {
-                "1": "Taxes -3.33%! Multiplicative! Current: ",
-                "2": "+6 maximum to Talisman Level Cap! Current: ",
-                "3": "+3% Spirit Power effectiveness! Current: "
+                "1": "Налоги -3.33%! Умножающийся! Текущий: ",
+                "2": "+6 к максимальному Пределу Уровня Талисмана! Текущий: ",
+                "3": "+3% к силе эффективности Духа! Текущий: "
             },
-            "first": "Unlock 15 Researches, and unlock the power of the Hypercube! Increase Corruption Cap by 2 levels, to 9! Finally, unlock two new corruptions! ;)",
-            "start": "Start <[(Tax+++)]>",
+            "first": "Открывает 15 новых Исследований, а также дарует мощь Гиперкубов! Лимит Порчи увеличен на 2 уровня, до 9! И наконец, открывает две новых порчи! ;)",
+            "start": "Начать <[(Налоги+++)]>",
             "current": {
-                "1": "+{{value}}% Corruption Tax",
-                "2": "+{{value}} Talisman Level Cap",
-                "3": "+{{value}}% Effectiveness"
+                "1": "+{{value}}% к Порче налогов",
+                "2": "+{{value}} к Пределу Уровня Талисмана",
+                "3": "+{{value}}% Эффективности"
             }
         },
         "14": {
-            "name": "No Research Challenge || {{- value}} Completions",
+            "name": "Испытание Без Исследований || {{- value}} Выполнений",
             "flavor": "Измерение, которые никогда не прорвалось через тёмные времена. Многие даже бояться шагнуть.",
-            "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.2.",
+            "restrictions": "Выполните вознесение и достигните цели, но вы не получите Обтаиниум и не сможете приобрести никакие исследования. Производство Муравьёв ^0.2.",
             "goal": "Цель: {{value}} Монет, но получаете бонус в зависимости от вашей лучшей попытки.",
             "per": {
-                "1": "+50% stronger effect on researches 1x1 through 1x5. Current: ",
-                "2": "+1 research purchased per roomba tick! Current: ",
-                "3": "+200 to Rune Caps! Current: "
+                "1": "Эффект исследований с 1х1 по 1х5 сильнее на +50%. Текущий: ",
+                "2": "+1 к покупке исследования за каждый тик roomba! Текущий: ",
+                "3": "+200 к Пределу Рун! Текущий эффект: "
             },
-            "first": "Unlock 15 Researches, and a way to coalesce your power into the Singularity. Increase Corruption Cap by 2 levels, to 11! Finally, unlock two new corruptions! ;)",
-            "start": "Start <[(No Research)]>",
+            "first": "Открывает 15 новых Исследований, а также способ объединить вашу силу в Сингулярность. Лимит Порчи увеличен на 2 уровня, до 11! И наконец, открывает две новых порчи! ;)",
+            "start": "Начать <[(Без Исследований)]>",
             "current": {
-                "1": "+{{value}}% Power",
-                "2": "+{{value}} per Tick",
-                "3": "+{{value}} to Rune Caps"
+                "1": "+{{value}}% Сильнее",
+                "2": "+{{value}} за Тик",
+                "3": "+{{value}} к Пределу Рун"
             }
         },
         "15": {
-            "name": "SADISTIC CHALLENGE II || {{- value}} Completions",
-            "flavor": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
-            "restrictions": "Ascend and reach the goal but you're stuck in all corruptions at level 11, and Ant production ^0.01.",
-            "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
+            "name": "САДИСТКОЕ ИСПЫТАНИЕ II || {{- value}} Выполнений",
+            "flavor": "Худшее злодеяние, которое может совершить человек это без страданий наблюдать за страданиями других.",
+            "restrictions": "Вознеситесь и достигните цели, но все ваши порчи 11 уровня, а производство Муравьёв возводится в ^0.01.",
+            "goal": "Цель: Выполните Испытание 10 [Садистское Испытание I] {{value}} раз.",
             "per": {
-                "1": "Folly of mankind: ",
-                "2": "to believe they can defeat ",
-                "3": "what Ant God labored "
+                "1": "Глупость человечества: ",
+                "2": "верить что они могут победить то ",
+                "3": "над чем трудился Муравьиный Бог "
             },
             "first": "Вы бы сломали вселенную если могли бы!",
             "start": "Start <[(Sadistic Challenge II)]>",
@@ -810,11 +810,11 @@
             },
             "noGoal": "Вы не найдёте видимую цель, но будете получать бонусы за лучшую попытку."
         },
-        "header": "Is the base game too easy? Try these situations! [Click the icons to view challenge details!]",
+        "header": "Игра кажется слишком лёгкой? Попробуйте эти ситуации! [Чтобы посмотреть информацию об испытании, кликните на иконку!]",
         "autoChallengeSweepOn": "Авто Зачистка Испытаний [ON]",
         "autoChallengeSweepOff": "Авто Зачистка Испытаний [OFF]",
-        "retryChallengesOn": "Retry Challenges: ON",
-        "retryChallengesOff": "Retry Challenges: OFF",
+        "retryChallengesOn": "Повтор Испытаний: ВКЛ",
+        "retryChallengesOff": "Повтор Испытаний: ВЫКЛ",
         "autoAscRunChalOn": "Авто Старт Исп. Вознесения {{x}} [ON]",
         "autoAscRunChalOff": "Авто Старт Исп. Вознесения {{x}} [OFF]",
         "autoRunChalOn": "Автозапуск Испытаний.{{x}} [ON]",
@@ -826,21 +826,21 @@
         "modeEnter": "РЕЖИМ: ВХОД",
         "bonusFirstCompletion": "Бонус/Разблокировка За Первое Выполнение",
         "timeStartSweep": "Time for start of sweep: <<var(--orchid-text-color)|{{time}}>>/s",
-        "timeExitChallenge": "Time before exiting challenge: <<var(--orchid-text-color)|{{time}}>>s",
-        "timeEnterChallenge": "Time before entering challenge: <<var(--orchid-text-color)|{{time}}>>s",
+        "timeExitChallenge": "Время перед выходом из испытания: <<var(--orchid-text-color)|{{time}}>>сек",
+        "timeEnterChallenge": "Время перед входом в испытание: <<var(--orchid-text-color)|{{time}}>>сек",
         "autoTimer": "<<orange|Авто Таймер:>> <<var(--orchid-text-color)|{{time}}s>>",
-        "perCompletionBonus": "Per Completion Bonuses || <<var(--orchid-text-color)|Softcapped pass {{x}}! Effective completion count {{y}}>>",
+        "perCompletionBonus": "Бонусы за Прохождение || <<var(--orchid-text-color)|Предел после {{x}}! Количество эффективных прохождений {{y}}>>",
         "perCompletionBonusEmpty": "Бонусы за выполнение",
-        "hypercubeOneTimeBonus": "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)",
-        "ascensionBankAdd": "Completing the challenge adds {{x}} to Ascension Bank and increase base Score by {{y}}.",
-        "firstTimeBonus": "Gain {{x}} for completing this challenge [First Time Bonus]!",
-        "firstTimeBonusQuarks": "Gain {{x}} Quarks for completing this challenge [First Time Bonus]!"
+        "hypercubeOneTimeBonus": "Получите 1 Wow! ГИПЕРКУБ за прохождение этого испытания (Только За Первый Раз)",
+        "ascensionBankAdd": "Выполнение испытания добавляет {{x}} в Банк Восхождения и увеличивает базовый Счёт на {{y}}.",
+        "firstTimeBonus": "Получите {{x}} за прохождение этого испытания [Только За Первый Раз]!",
+        "firstTimeBonusQuarks": "Получите {{x}} Кварков за прохождение этого испытания [Только За Первый Раз]!"
     },
     "cubes": {
         "upgradeNames": {
             "1": "Wow! Я хочу больше Кубов.",
             "2": "Wow! Я также хочу пассивный заработок Предложений.",
-            "3": "Wow! I want better passive Obtainium",
+            "3": "Вау! Я хочу больше пассивного Обтаниума",
             "4": "Вау! Я хочу сохранить автопокупатели строений мифов.",
             "5": "Вау! Я хочу сохранить автопокупатель улучшений мифов.",
             "6": "Вау! Я хочу сохранить авто получение Мифов.",
@@ -849,55 +849,55 @@
             "9": "Вау! Я хочу лучше автоматизировать исследования, блин.",
             "10": "Вау! Выглядит весьма хорошо, но также дорого.",
             "11": "Вау! Я хочу больше Кубов 2.",
-            "12": "Wow! I want building power to be useful 1.",
-            "13": "Wow! I want opened Cubes to give more tributes 1.",
-            "14": "Wow! I want Iris Tribute bonuses to scale better 1.",
-            "15": "Wow! I want Ares Tribute bonuses to scale better 1.",
+            "12": "Вау! Я хочу, чтобы сила строений была полезной 1.",
+            "13": "Вау! Я хочу при открытии Кубов, давали больше дани 1.",
+            "14": "Вау! Я хочу, чтобы бонус Дани Iris ценился лучше 1.",
+            "15": "Вау! Я хочу, чтобы бонус Дани Ares ценился лучше 1.",
             "16": "Вау! Я хочу больше уровней рун 1.",
             "17": "Вау! Я хочу немного больше силы Кристаллов.",
             "18": "Вау! Я хочу ускорить время!",
             "19": "Вау! Я хочу открыть ещё парочку улучшений монет.",
             "20": "Вау! Я хочу улучшить инструменты авто рун.",
-            "21": "Wow! I want to hack in more score 1.",
-            "22": "Wow! I wish my Artemis was a little better 1",
-            "23": "Wow! I want opened Cubes to give more tributes 2.",
-            "24": "Wow! I want Plutus Tribute bonuses to scale better 1",
-            "25": "Wow! I want Moloch Tribute bonuses to scale better 1",
-            "26": "Wow! I want to start Ascensions with rune levels.",
-            "27": "Wow! I want to start Ascensions with one of each Reincarnation building.",
-            "28": "Wow! I want to finally render Reincarnating obsolete.",
-            "29": "Wow! I want to increase maximum Reincarnation Challenge completions.",
-            "30": "Wow! I want to arbitrarily increase my Cube and Tesseract gain.",
-            "31": "Wow! I want to hack in more score 2.",
-            "32": "Wow! I want runes to be easier to level up over time.",
-            "33": "Wow! I want opened Cubes to give more tributes 3.",
-            "34": "Wow! I want Chronos Tribute bonuses to scale better 1",
-            "35": "Wow! I want Aphrodite Tribute bonuses to scale better 1",
-            "36": "Wow! I want building power to be useful 2.",
-            "37": "Wow! I want more rune levels 2.",
-            "38": "Wow! I want more Tesseracts while corrupted!",
-            "39": "Wow! I want more score from Challenge 10 completions.",
-            "40": "Wow! I want Athena Tribute bonuses to scale better 1.",
-            "41": "Wow! I want to hack in more score 3.",
-            "42": "Wow! I want some Uncorruptable Obtainium.",
-            "43": "Wow! I want even more Uncorruptable Obtainium!",
-            "44": "Wow! I want Midas Tribute bonus to scale better 1.",
-            "45": "Wow! I want Hermes Tribute bonus to scale better 1.",
+            "21": "Вау! Я хочу накрутить побольше очков 1.",
+            "22": "Вау! Если бы мой Artemis был немного лучше 1",
+            "23": "Вау! Я хочу при открытии Кубов, давали больше дани 2.",
+            "24": "Вау! Я хочу, чтобы бонус Дани Plutus ценился лучше 1",
+            "25": "Вау! Я хочу, чтобы бонус Дани Moloch ценился лучше 1",
+            "26": "Вау! Я хочу начинать Вознесения с уровнями рун.",
+            "27": "Вау! Я хочу начать Вознесения с каждым построением Реинкарнации.",
+            "28": "Вау! Я хочу окончательно сделать Реинкарнацию устаревшим.",
+            "29": "Вау! Я хочу увеличить максимальное количество выполнений Испытаний Реинкарнации.",
+            "30": "Вау! Я хочу произвольно увеличить прирост своих Кубов и Тессерактов.",
+            "31": "Вау! Я хочу накрутить побольше очков 2.",
+            "32": "Вау! Я хочу, чтобы руны были легче повышать уровень со временем.",
+            "33": "Вау! Я хочу при открытии Кубов, давали больше дани 3.",
+            "34": "Вау! Я хочу, чтобы бонус Дани Chronos ценился лучше 1",
+            "35": "Вау! Я хочу, чтобы бонус Дани Aphrodite ценился лучше 1",
+            "36": "Вау! Я хочу, чтобы сила строений была полезной 2.",
+            "37": "Вау! Я хочу больше уровней рун 2.",
+            "38": "Вау! Я хочу больше Тессерактов во время порчи!",
+            "39": "Вау! Я хочу больше очков от выполнений Испытания 10.",
+            "40": "Вау! Я хочу, чтобы бонус Дани Athena ценился лучше 1.",
+            "41": "Вау! Я хочу накрутить побольше очков 3.",
+            "42": "Вау! Я хочу немного Чистого Обтаниума.",
+            "43": "Вау! Я хочу больше Чистого Обтаниума!",
+            "44": "Вау! Я хочу, чтобы бонус Дани Midas ценился лучше 1.",
+            "45": "Вау! Я хочу, чтобы бонус Дани Hermes ценился лучше 1.",
             "46": "Вау! Я хочу ещё БОЛЬШЕ подношений!",
-            "47": "Wow! I want even MORE Obtainium!",
-            "48": "Wow! I want to start ascension with an Ant.",
-            "49": "Wow! I want to start ascension with a Challenge 6-8 completion.",
+            "47": "Вау! Я хочу ещё БОЛЬШЕ Обтаниума!",
+            "48": "Вау! Я хочу начинать вознесение с Муравьём.",
+            "49": "Вау! Я хочу начинать вознесение с выполнением Испытаний с 6 по 8.",
             "50": "Wow! Я хочу быть осветлён слой тысяча Солнц.",
-            "51": "Wow! A pile of Chocolate Chip Cookies.",
+            "51": "Вау! Кучка Печенья с Шоколадной Крошкой.",
             "52": "Вау! Кучка Сахарных Печений.",
-            "53": "Wow! A pile of Butter Cookies.",
-            "54": "Wow! A pile of Vanilla Wafers.",
-            "55": "Wow! A pile of White Chocolate Cookies.",
-            "56": "Wow! A bag of Snickerdoodles.",
-            "57": "Wow! A bag of Macarons.",
-            "58": "Wow! A bag of Gingerbread Cookies.",
-            "59": "Wow! A bag of Lemon Cookies.",
-            "60": "Wow! A bag of Ginger Snaps.",
+            "53": "Вау! Кучка Масляного Печенья.",
+            "54": "Вау! Кучка Ванильных Печенья.",
+            "55": "Вау! Кучка Печенья с Белым Шоколадом.",
+            "56": "Вау! Мешок Сникердудлов.",
+            "57": "Вау! Мешок Миндальных печенья.",
+            "58": "Вау! Мешок Пряничных Печенья.",
+            "59": "Вау! Мешок Лимонных Печенья.",
+            "60": "Вау! Мешок Имбирных Печенья.",
             "61": "Wow! A tin of Whoopie Pies.",
             "62": "Wow! A tin of Toffee Bars.",
             "63": "Wow! A tin of Brownie Cookies.",
@@ -912,8 +912,8 @@
             "72": "Wow! A Singular Cookie of Vyshareth's Benefactory"
         },
         "upgradeDescriptions": {
-            "1": "[1x1] You got it! +16.666% 3D Cubes from Ascending per level.",
-            "2": "[1x2] Plutus grants you +1 Offering per second, no matter what, per level. Also a +0.5% Recycling chance!",
+            "1": "[1x1] Не вопрос! +16.666 3Д Кубов от Вознесения за уровень.",
+            "2": "[1x2] Плутос дарует вам +1 Подношение в секунду, независимо от чего-либо, за уровень. А также +0.5% к шансу Переработки!",
             "3": "[1x3] Афина дарует вам +10% к Обтайниуму, и +80% Авто Обтайниума за уровень.",
             "4": "[1x4] Вы сохраняете те 5 полезных улучшений автоматизации во вкладке улучшений!",
             "5": "[1x5] Вы сохраняете улучшение автоматизации мифов во вкладке улучшений!",
@@ -929,10 +929,10 @@
             "15": "[2x5] Ares teaches you the Art of War. The effect power is now increased by +0.01 (+0.0033 if >1000 tributes) per level.",
             "16": "[2x6] You got it buster! +20 ALL max rune levels per level.",
             "17": "[2x7] Да. +5 к степени к кристаллам на уровень.",
-            "18": "[2x8] Quantum tunnelling ftw. +20% global game speed.",
+            "18": "[2x8] Туннельный эффект топ. +20% к глобальной скорости.",
             "19": "[2x9] Открывает новые улучшения монет, доступные с начала Вознесения до и10 и далее.",
             "20": "[2x10] Автоматизатор рун из магазина теперь тратит все Подношения автоматически, 'разделяя' их между 5 рунами поровну.",
-            "21": "[3x1] Perhaps score will benefit you more? Gain +5% more score on Ascensions per level.",
+            "21": "[3x1] Возможно, очки принесут вам больше пользы? +5% очков при Вознесении за уровень.",
             "22": "[3x2] The exponent of the bonus of Artemis is increased by 0.05 per level.",
             "23": "[3x3] For each 20 Cubes opened at once, you get 1 additional tribute at random.",
             "24": "[3x4] Plutus teaches you the Art of the Deal. The effect power is now increased by +0.01 (+0.0033 if >1000 tributes) per level.",
@@ -941,10 +941,10 @@
             "27": "[3x7] Upon an Ascension, you will start with 1 of each Reincarnation building to speed up Ascensions.",
             "28": "[3x8] Well, I think you got it? Gain +1% of particles on Reincarnation per second.",
             "29": "[3x9] Add +4 to Reincarnation Challenge cap per level. Completions after 25 scale faster in requirement!",
-            "30": "[3x10] You now get +40% Cubes and Tesseracts forever!",
+            "30": "[3x10] +40% Кубов и Тессерактов навсегда!",
             "31": "[4x1] Снова вы? На 5% больше счёта при Вознесении за уровень.",
             "32": "[4x2] Gain +0.1% Rune EXP per second you have spent in an Ascension. This has no cap!",
-            "33": "[4x3] For each 20 Cubes opened at once, you get yet another additional tribute at random.",
+            "33": "[4x3] За каждые 20 Кубов открыто одновременно, вы получаете рандомный дополнительный трибут.",
             "34": "[4x4] Хронос разгоняет вселенную для твоего же блага. (Награждает тем же, что и другие)",
             "35": "[4x5] Афродита увеличивает плодородие ваших монет. (Награды такие же как и прежде)",
             "36": "[4x6] Снова возвести силу строения в (1 + 0.05 * Уровень)-ю степень.",
@@ -963,21 +963,21 @@
             "49": "[5x9] When you ascend, gain 1 of each Challenge 6-8 completion.",
             "50": "[5x10] Чего только это не усиляет? +0.01% Ускорителей, Множителей, Усилителей Ускорителей, +0.02% Обтайниума, +0.02% Подношений, +0.04 К Макс Уровню Рун, +1 Эффективного ЭЛО, +0.0004 к бонусам Талисманов за уровень, 0.00066% снижения Налогов за уровень.",
             "51": "[Cx1] Пекарня Wow! открыта!!! Мгновенно открывает все автоматизации из вкладки кубов и исследований.",
-            "52": "[Cx2] These sugar cookies sure boost your blood sugar. Gain +1% global speed per level.",
-            "53": "[Cx3] What a hearty snack. Gain +0.1% Quarks per level.",
-            "54": "[Cx4] Pretty dry, but they suffice. Increase Offering gain by 1% per level.",
-            "55": "[Cx5] An inventive take on the original chip cookie. Increase Obtainium gain by 1% per level.",
+            "52": "[Cx2] Эти сахарные печенья точно повысят твой уровень сахара в крови. Получите +1% глобальной скорости за уровень.",
+            "53": "[Cx3] Какой сытный перекус. Получите +0,1% Кварков за уровень.",
+            "54": "[Cx4] Весьма суховато, но сойдет. Увеличивает доход от Подношений на 1% за каждый уровень.",
+            "55": "[Cx5] Изобретательный подход к оригинальному печенью с кусочками шоколада. Увеличивает получение Обтаниума на 1% за уровень.",
             "56": "[Cx6] These are a little more exotic. Gain +1 more raw score from Challenge 1 completions per level.",
             "57": "[Cx7] Yum yum! Now we're talking... or maybe not. Increase the cap of Cube Upgrades 1x1, 2x1, 3x1, 4x1, 5x1 by 1.",
-            "58": "[Cx8] A bit festive! If there is an event, All Cube gain is multiplied by 1.25.",
-            "59": "[Cx9] Quite sour for a cookie. But it increases your Ascension speed by 0.25% per level, so who is to complain?",
+            "58": "[Cx8] Немного празднично! Если идет событие, прирост всех Кубов умножается на 1,25.",
+            "59": "[Cx9] Довольно кисло для печенья. Но скорость Вознесения увеличивается на 0,25% за уровень, так что на что жаловаться?",
             "60": "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the cost of buying Golden Quarks by 0.003% per level.",
             "61": "[Cx11] Edible but prone to mistakes. Adds 125 whole milliseconds to the tolerance of code 'time', and increases reward by +2% per level.",
-            "62": "[Cx12] Platonic loves toffee. Octuple Obtainium and Offering gain in Challenge 15.",
-            "63": "[Cx13] Brownie Cookies, the best of both worlds. Increase Regular Cube Gain by 1% based on owned Hepteracts (+3% per OOM).",
+            "62": "[Cx12] Платоник любит ириски. В 8 раз увеличивает получение Обтаниума и Подношений в Испытании 15.",
+            "63": "[Cx13] Брауни, лучшее из обоих миров. Увеличьте прирост Обычных Кубов на 1% в зависимости от количества Гептерактов в наличии (+3% за один порядок величины).",
             "64": "[Cx14] Some say the Ant God itself penned these fortunes. When you gain a statue from Platonic Cubes, you gain two instead.",
             "65": "[Cx15] That's amore, but is quite a crumbful! Increase Ant efficiency by 0.4%. (Roughly every 200 Ants purchased doubles crumb production!)",
-            "66": "[Cx16] You just wish you could have one more cookie baked by her. Gain 2x all Cubes until you purchase OMEGA.",
+            "66": "[Cx16] Ты просто мечтаешь, чтобы она испекла тебе еще одно печенье. Получите в 2 раза больше всех Кубов, пока не купите OMEGA.",
             "67": "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
             "68": "[Cx18] What the heck! These aren't even cookies. +0.01% Quarks per level purchased of this upgrade. +5% more at level 1,000!",
             "69": "[Cx19] Cookies that you'll never remember again. +12% Golden Quarks this Singularity.",
@@ -988,28 +988,28 @@
             "level": "Уровень: {{value1}} / {{value2}}",
             "maxLevel": "Стоимость: 0 Wow! Кубов. Это улучшение достигло максимального уровня! вау"
         },
-        "noCubesOpened": "OK. No cubes opened.",
-        "howManyCubesOpen": "How many cubes would you like to open? You have {{x}}! \nYou can input a percentage of cubes to open, for example: \"50%\" or \"100%\". \nYou can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number (also works with %).",
+        "noCubesOpened": "Ок. Ни один куб не открылся.",
+        "howManyCubesOpen": "Сколько кубов ты Вы бы хотели открыть? У вас есть {{x}}! \nВы можете ввести процент открываемых кубов, например: «50%» или «100%». \nВы можете начать ввод с «-» (ввести отрицательное значение), чтобы ввести значение, которое будет сохранено, что означает, что вы открываете все кубы, кроме указанного числа кубов (также работает с %).",
         "validation": {
-            "notEnough": "You don't have enough cubes to open!",
-            "negative": "You can't open a negative amount of cubes.",
+            "notEnough": "У Вас недостаточно кубов для открытия!",
+            "negative": "Вы не можете открыть отрицательное количество кубов.",
             "invalidPercent": "Вы не можете открыть {{x}}% ваших кубов..."
         }
     },
     "calculate": {
-        "timePrompt": "How far in the future would you like to go into the future? Anything awaits when it is testing season.",
+        "timePrompt": "В насколько далёкое будущее вы бы хотели попасть? Во время тестирования, вас может ожидать что угодно.",
         "timePromptError": "Hey! That's not a valid time!",
-        "offlineTimer": "You have {{value}} seconds of offline progress!",
-        "offlineEarnings": "While offline, the Idle Overlords earned:",
-        "quadraticImproperError": "This is not a quadratic equation!",
+        "offlineTimer": "У вас {{value}} секунд оффлайн прогресса!",
+        "offlineEarnings": "Пока вас не было, Повелители Афк заработали вам:",
+        "quadraticImproperError": "Это не квадратное уравнение!",
         "quadraticDeterminantError": "Дискриминант был отрицательным!",
         "cubicSumNegativeError": "Вы не можете потратить отрицательное количество!"
     },
     "researches": {
         "descriptions": {
-            "1": "[1x1] Increase the number of free Accelerators gained by 20% from all sources.",
-            "2": "[1x2] Increase the number of free Multipliers gained by 20% from all sources.",
-            "3": "[1x3] Increase the number of free Accelerator Boosts gained by 20% from all sources.",
+            "1": "[1x1] Увеличивает количество полученных бесплатно Ускорителей на 20% от всех источников.",
+            "2": "[1x2] Увеличивает количество полученных бесплатно Множителей на 20% от всех источников.",
+            "3": "[1x3] Увеличивает количество полученных бесплатно Усилителей Ускорителей на 20% от всех источников.",
             "4": "[1x4] Increase most rune effects by 10%. (Excludes any recycle chance bonus)",
             "5": "[1x5] Multiply the production of all Crystal producers by 1e4.",
             "6": "[1x6] Gain +5% free Accelerators per level.",
@@ -1024,27 +1024,27 @@
             "15": "[1x15] Gain +0.5% free Multipliers per level.",
             "16": "[1x16] Gain +5% free Accelerator Boosts per level.",
             "17": "[1x17] Gain +5% free Accelerator Boosts per level.",
-            "18": "[1x18] Gain +2 free Accelerator per Accelerator Boost.",
-            "19": "[1x19] Gain +2 free Accelerator per Accelerator Boost.",
-            "20": "[1x20] Gain +3 free Accelerator per Accelerator Boost!",
-            "21": "[1x21] Most rune effects are increased by 1% per level. (Excludes any recycle chance bonus)",
-            "22": "[1x22] Each Offering used increases Rune EXP by 0.6 per level.",
-            "23": "[1x23] Each Offering used increases Rune EXP by another 0.3 per level!",
+            "18": "[1x18] +2 Бесплатных Ускорителей за каждый Усил. Ускорителей.",
+            "19": "[1x19] +2 Бесплатных Ускорителей за каждый Усил. Ускорителей.",
+            "20": "[1x20] +3 Бесплатных Ускорителей за каждый Усил. Ускорителей!",
+            "21": "[1x21] Множество эффектов рун увеличено на 1% за уровень. (Исключается бонус за шанс на переработку)",
+            "22": "[1x22] Каждое использованное Предложение увеличивает ОО Руны на 0.6 за уровень.",
+            "23": "[1x23] Каждое использованное Предложение увеличивает ОО Руны на дополнительные 0.3 за уровень!",
             "24": "[1x24] Prestige and Transcensions base Offering is increased by 0.2 per level.",
             "25": "[1x25] Reincarnations base Offering is increased by 0.6 per level.",
-            "26": "[2x1] Multiply all Crystal producer production by 150% per level (Multiplicative).",
-            "27": "[2x2] Multiply all Crystal producer production by 150% per level (Multiplicative).",
+            "26": "[2x1] Умножить производство всех производителей Кристаллов на 150% за уровень (Умножающийся).",
+            "27": "[2x2] Умножить производство всех производителей Кристаллов на 150% за уровень (Умножающийся).",
             "28": "[2x3] Экспонента Монет увеличена на 0.08 за уровень.",
             "29": "[2x4] Экспонента Монет увеличена ещё на 0.08 за уровень.",
             "30": "[2x5] Экспонента Монет увеличена ЕЩЁ на 0.04 за уровень.",
-            "31": "[2x6] Want to bake cookies instead? You can go offline for 4 additional hours per level (Base 72hr).",
-            "32": "[2x7] Want to bake a lot of cookies instead? Extend the offline maximum timer by another 4 hours per level!",
+            "31": "[2x6] Хотите вместо этого печь печеньки? Время оффлайна увеличено на 4 часа за уровень (Начальное - 72ч).",
+            "32": "[2x7] Хотите вместо этого испечь много печенек? Время оффлайна увеличено ещё на 4 часа за уровень!",
             "33": "[2x8] Gain +11% more Multiplier Boosts from Mythos Shards per level.",
             "34": "[2x9] Gain another +11% more Multiplier Boosts from Mythos Shards per level.",
             "35": "[2x10] Gain ANOTHER +11% more Multiplier Boosts from Mythos Shards per level.",
-            "36": "[2x11] Building power scales 5% faster per level.",
-            "37": "[2x12] Building power scales 2.5% faster per level.",
-            "38": "[2x13] Building power scales 2.5% faster per level.",
+            "36": "[2x11] Сила Построений наценивается 5% быстрее за уровень.",
+            "37": "[2x12] Сила Построений наценивается 2.5% быстрее за уровень.",
+            "38": "[2x13] Сила Построений наценивается 2.5% быстрее за уровень.",
             "39": "[2x14] Building power affects Crystal production at a reduced rate.",
             "40": "[2x15] Building power affects Mythos Shard production at a reduced rate.",
             "41": "[2x16] Начинайте Реинкарнации с открытой автоматизацией У.Усилений. Примечание: это исследование не влияет на получение достижений.",
@@ -1097,14 +1097,14 @@
             "88": "[4x13] -1/5 У. Ускорителей - ОТСТОЙ: +5% Усилителей Ускорений/Уровень.",
             "89": "[4x14] -5/5 МНОЖИТЕЛИ - ВСЁ ЕЩЁ ОТСТОЙ: +20% Усилителей Множителей/Уровень",
             "90": "[4x15] А вот руны не отстой, но почему-бы их не сделать ЕЩЁ ЛУЧШЕ? +1% к Эффективности Рун/уровень!",
-            "91": "[4x16] A simple +5% Rune EXP for all runes!",
-            "92": "[4x17] Another simple +5% Rune EXP for all runes!",
+            "91": "[4x16] +5% ОО Рун для всех рун просто запросто!",
+            "92": "[4x17] +5% ОО Рун для всех рун просто запросто снова!",
             "93": "[4x18] +1 Accelerator Boost per 20 Summative Rune Levels, per level.",
             "94": "[4x19] +20 Multiplier per 8 Summative Rune Levels, per level.",
             "95": "[4x20] Купив это, получите +4 базовых Подношения от Реинкарнаций. Ботаникам-математикам это понравится!",
             "96": "[4x21] Ants slow? Add +0.0002 to Ant efficiency increase per Ant purchased per level.",
-            "97": "[4x22] Add +4 level to the first six upgradable Ants per level!",
-            "98": "[4x23] Add +4 level to the next five upgradable Ants per level!",
+            "97": "[4x22] Добавить +4 уровня к шести из самых первых прокачиваемых муравьёв за уровень!",
+            "98": "[4x23] Добавить +4 уровня к пяти из самых первых прокачиваемых муравьёв за уровень!",
             "99": "[4x24] Is the Quark Shop too hot to resist? Get +1 Quark per hour from Exporting for each level!",
             "100": "[4x25] Alright, Platonic is off his rocker. I don't expect you to get this but this will give +1 MORE Quark per hour from Exporting for each level!",
             "101": "[5x1] Alright, you're past the big wall. How about adding +.001 to Inceptus Ant efficiency per level?",
@@ -1124,17 +1124,17 @@
             "115": "[5x15] Scientific Breakthrough [+10 max SI Rune Level per level +1% EXP to that rune]",
             "116": "[5x16] Talismans have +0.015 Rune levels per talisman level per level. Levelception!",
             "117": "[5x17] Talismans have another +0.015 Rune levels per talisman level per level!",
-            "118": "[5x18] For 'neutral' talisman effects, increase by +0.06 per level!",
+            "118": "[5x18] Увеличить эффект 'нейтральных' талисманов на +0.06 за уровень!",
             "119": "[5x19] Gain +0.25% Wow! Cubes per level upon Ascension.",
             "120": "[5x20] Gain another +0.25% Wow! Cubes per level upon Ascension.",
-            "121": "[5x21] Bend time to your will, making all ticks 2% faster each level.",
+            "121": "[5x21] Согнуть время на ваше позволение, делая тики +2% быстрее за уровень.",
             "122": "[5x22] Adds +2% Ant sacrifice reward per level.",
             "123": "[5x23] Adds +40 base Ant ELO per level.",
             "124": "[5x24] Открывает автоматизатор Жертвоприношений Муравьёв! [Удачи купить это.]",
             "125": "[5x25] Удачи, дружище. [+1 Экспорт Кварк/час за уровень]",
             "126": "[6x1] 6 строк? Не может быть... Вы разозлили Муравьиного Бога (+1% Ускорителей / уровень)",
-            "127": "[6x2] Ant God gets angrier (+1% Accelerator Boosts / level)",
-            "128": "[6x3] Ant God cannot believe your bravery (+1% Multipliers / level)",
+            "127": "[6x2] Бог Муравьёв становится злее (+1% Усил. Ускорителей / уровень)",
+            "128": "[6x3] Бог Муравьёв просто не может поверить вашей храбрости (+1% Множителей / уровень)",
             "129": "[6x4] Add +1 extra level to Crystal upgrade caps multiplied by Level * Log4(Common Fragments + 1)",
             "130": "[6x5] Открывает автоматизацию Укрепления талисманов! Активируется каждые 2 реальные секунды.",
             "131": "[6x6] Turn some Ant Disciples against Ant God, giving +0.5% Rune Effectiveness per level.",
@@ -1145,8 +1145,8 @@
             "136": "[6x11] It may be time to look back. Makes all ticks 1.5% faster each level.",
             "137": "[6x12] Paying off Wow! Industries, they'll sponsor +1% Cubes per level towards your Ascension bank.",
             "138": "[6x13] When you open Wow! Cubes you will get +0.1% tributes per level!",
-            "139": "[6x14] Make all Tesseract buildings produce 2% faster per level.",
-            "140": "[6x15] The first of a Tetralogy, this tome reduces the base requirements of Challenge 10 by dividing it by 1e100M! A must-read!",
+            "139": "[6x14] Все строения Тессерактов производят на 2% быстрее за уровень.",
+            "140": "[6x15] Первый том в Тетралогии, снижает базовые требования Испытания 10, разделяя их на 1e100M! К прочтению обязательно!",
             "141": "[6x16] The Ant God has infiltrated your mind. Run away from your conscience! (+0.8% Accelerators / level)",
             "142": "[6x17] Run... RUN FASTER from your nightmares! (+0.8% Accelerator Boosts / level)",
             "143": "[6x18] Your resilience somehow gives you +0.8% Multipliers / level!",
@@ -1161,22 +1161,22 @@
             "152": "[7x2] Wow! Industries sponsors another +0.9% Cubes per level towards your Ascension bank!",
             "153": "[7x3] Hey, I totally didn't steal this idea. You gain 12 tributes of Wow! Cube tier for every Tesseract opened.",
             "154": "[7x4] Make all Tesseract buildings produce 3% faster per level. Hey, isn't that more than the last research tier?",
-            "155": "[7x5] Tome 2 of 4: How to win over the Ant universe. Another e100M Divider to Challenge 10 Base Requirement on purchase.",
+            "155": "[7x5] Том 2 из 4: Как покорить вселенную Муравьёв. При покупке, базовые требования Испытания 10 снова делятся на e100M.",
             "156": "[7x6] What, again? Alright. +0.6% Accelerators / level.",
             "157": "[7x7] Gas, gas, gas. +0.6% Accelerator Boosts / level.",
             "158": "[7x8] Dupe DUPE DUPE. +0.6% Multipliers / level.",
-            "159": "[7x9] Somehow, I can't explain why, you reduce your taxes by 2% multiplicative, based on 3/5 * log10(Rare Fragments)!",
+            "159": "[7x9] Почему-то я не могу объяснить, почему ты уменьшаешь налоги на 2% умножающимся путём, зависимым на 3/5 * log10(Редкие Фрагменты)!",
             "160": "[7x10] Хотите постоянное усиление Благословений? Я же знаю, что да. Навсегда увеличивает эффект всех Благословений на +25%.",
-            "161": "[7x11] SIGMA KAPPA: +0.3% Rune Effectiveness each level!",
+            "161": "[7x11] СИГМА КАППА: +0.3% в Эффективности Рун за уровень!",
             "162": "[7x12] More exponentiation! +0.0001% more Inceptus power per level!",
             "163": "[7x13] Ant God's wanting blood: +2% Ant Sacrifice rewards / level",
             "164": "[7x14] Spirit power still sucks, so add +8% power per level!",
             "165": "[7x15] Gain 2x the Spirit buffs in Ascension Challenges!",
-            "166": "[7x16] < T I M E >: +0.9% faster ticks / level ",
+            "166": "[7x16] < В Р Е М Я >: +0.9% быстрее тики / уровень ",
             "167": "[7x17] Because of sponsorships, Wow! Industries is raising Cubes gained in Ascension by 0.8% per level.",
             "168": "[7x18] Gain +0.08% tributes from Cubes per level. You know, you should expect it at this point.",
             "169": "[7x19] +4% faster Tesseract Buildings / level. It's GROWING.",
-            "170": "[7x20] Tome 3 of 4: How to totally ROCK Challenge 10. e100m divisor!",
+            "170": "[7x20] Том 3 из 4: Как ПОКОРЯТЬ 10-е Испытание. Делитель на 100 млн. порядков (e100,000,000)!",
             "171": "[7x21] You should know how this goes. +0.4% Accelerators / level",
             "172": "[7x22] Accelerator Boosts += 0.004 * Accelerator Boosts",
             "173": "[7x23] A lot of a small +0.4% Multipliers per level",
@@ -1187,12 +1187,12 @@
             "178": "[8x3] +666 Base ELO per level! Spooky number of the devil.",
             "179": "[8x4] +0.04% more Offerings per level per midas level!",
             "180": "[8x5] +1 Export Quark per hour per level, yet again.",
-            "181": "[8x6] +0.6% faster ticks / level because why not? You're already the speed of light.",
+            "181": "[8x6] +0.6% быстрее тики / уровень просто так. Вы и так уже на скорости света.",
             "182": "[8x7] +0.7% Cubes in Ascension bank / level, from dividends in Wow! Stock.",
             "183": "[8x8] When you open a Hypercube, you also open 100 Tesseracts! (This works with 7x3, if you were curious.)",
             "184": "[8x9] +5% faster Tesseract Buildings / level. ASCENDED.",
-            "185": "[8x10] Tome 4 of 4: You need to prepare for your Ascent. e100m divisor!",
-            "186": "[8x11] Something something +0.2% Accelerators pretty cool!",
+            "185": "[8x10] Том 4 из 4: Тебе следует подготовиться к Вознесению. Делитель на 100 млн. порядков (e100,000,000)!",
+            "186": "[8x11] Что-то что-то +0.2% Ускорителей. Класс!",
             "187": "[8x12] Something somewhere, +0.2% Accelerator Boosts!",
             "188": "[8x13] You are DUPLICATED. +0.2% Multipliers/level",
             "189": "[8x14] Legendary Fragments increase Spirit powers by +15% multiplied by Log10(Legendary Fragments + 1)",
@@ -1206,34 +1206,34 @@
             "197": "[8x22] +0.6% Cubes in Ascension Bank / level. No one knows how. Bank error perhaps.",
             "198": "[8x23] +0.06% tributes from Cubes / level!. Wow! Cubes really has a lot of manufacturing errors in your favor.",
             "199": "[8x24] +10% faster Tesseract Buildings / level. THE ARISEN. WITH THE PRAISE OF THE SINGULARITY.",
-            "200": "[8x25] Gain the power of a thousand suns! +0.01% Accelerators, A. Boosts, Multipliers, Offerings, and +0.004% Cubes, +0.04 Max Rune level, +(level/400) max Talisman Level, +(level/200) free Ants, 0.000666% Tax reduction per level."
+            "200": "[8x25] Получите мощь тысячи солнц! +0.01% Ускорителей, У.Ускорителей, Множителей, Подношений, а также +0.004% Кубов, +0.04 к Макс. уровню Рун, +(уровень/400) к макс. уровню Талисманов, +(уровень/200) бесплатных Муравьёв и 0.000666% снижения Налогов за уровень."
         },
         "thanksToResearches": "Благодаря исследованиям, вы автоматически получаете {{x}} Обтайниума за одну реальную секунду.",
-        "level": "Level {{x}}/{{y}}",
-        "maxed": " || MAXED!",
+        "level": "Уровень {{x}}/{{y}}",
+        "maxed": " || МАКСИМУМ!",
         "cost": "Стоимость: {{x}} Обтаниума [+{{y}} Уровней]",
-        "upgradeMax": "Upgrade: MAX [if possible]",
-        "upgradeOne": "Upgrade: 1 Level",
+        "upgradeMax": "Улучшить: Макс. [если возможно]",
+        "upgradeOne": "Улучшить: 1 Уровень",
         "automaticOn": "Автоматически: ВКЛ",
         "automaticOff": "Автоматически: ВЫКЛ",
         "autoModeCheapest": "Автоматический режим: Самый дешевый",
         "autoModeManual": "Автоматический режим: Ручной",
-        "hoverToBuyOn": "Hover-to-Buy [ON]",
-        "hoverToBuyOff": "Hover-to-Buy [OFF]",
-        "hover": "Hover over the grid to get details about researches!"
+        "hoverToBuyOn": "Наведите-для-Покупки [ON]",
+        "hoverToBuyOff": "Наведите-для-Покупки [OFF]",
+        "hover": "Наведите курсор на иконки, чтобы узнать сведения об исследованиях!"
     },
     "shop": {
         "upgradeDescriptions": {
             "offeringPotion": "Мгновенно получите эквивалент 2 часов реального времени Подношений, зависит от вашего наивысшего Подношения/сек и глобальной скорости!",
-            "obtainiumPotion": "Instantly gain 2 real life hours of Obtainium, based on your all time best Obtainium/sec and speed acceleration!",
+            "obtainiumPotion": "Мгновенно получите эквивалент 2 часов реального времени Обтаниума, зависит от вашего наивысшего Обтаниум/сек и глобальной скорости!",
             "offeringEX": "Получите на +4% больше Подношений от всех источников!",
-            "offeringAuto": "Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 2^(Level) Offerings are spent.",
-            "obtainiumEX": "Gain +4% more Obtainium from all sources!",
+            "offeringAuto": "Автоматически вливает Подношения в руну. 1-ый уровень открывает возможность, каждый последующий увеличивает получение Подношений на 2%. Каждую секунду, тратится 2^(Уровень) Подношений.",
+            "obtainiumEX": "+4% Обтаниума от всех источников!",
             "obtainiumAuto": "Automatically pour Obtainium into a research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every Reincarnation, dump all Obtainium into research until maxed.",
             "instantChallenge": "Прев. и Р Испытания не вызывают сбросов если включён повтор и набирают до 10 прохождений за такт. Также, при выходе из Р Испытаний, мгновенно получаете прохождение Прев. Испытаний до высшего пройденного.",
             "antSpeed": "Each level gives a 1.2x speed multiplier to all Ant tiers' production! (Uncorruptable!) Short and simple.",
             "cashGrab": "This is a cash grab but it gives a couple cool stats. +1% production per level to Offerings and Obtainium.",
-            "shopTalisman": "Permanently unlock a Shop talisman!",
+            "shopTalisman": "Навсегда открывает талисман Магазина!",
             "seasonPass": "Вау! Кубы дают вам сделку: Купить определённо справедливый сезонный пропуск и получите +2.25% больше Кубов и Тессерактов за уровень когда вы Возноситесь!",
             "challengeExtension": "Using some amazing trick, you manage to increase your Reincarnation Challenge cap by 2 for each level!",
             "challengeTome": "The extended cut: This fifth forgotten tome gives you an additional 20 Million exponent reduction on the Challenge 10 requirement per level. Past 60 completions of Challenge 9 or 10, this will also reduce the scaling factor by 1% per level.",
@@ -1284,27 +1284,27 @@
             "improveQuarkHept5": "This is 1/50 as effective as a normal improver. Why? Because of balancing..."
         },
         "maxed": "Maxed!",
-        "upgradeFor": "Upgrade for {{x}} Quarks",
-        "plusForQuarks": "+ {{x}} for {{y}} Quarks",
-        "consume": "CONSUME",
+        "upgradeFor": "Улучшить за {{x}} Кварков",
+        "plusForQuarks": "+{{x}} за {{y}} Кварков",
+        "consume": "ИСПОЛЬЗОВАТЬ",
         "buyYerPotions": "Buy Yer' Potions!",
         "header": "Добро пожаловать в Магазин Кварков. Вы не поверите что здесь продаётся!",
-        "youHaveQuarks": "You have {{x}} Quarks!",
-        "cannotRefund": "This item CANNOT be refunded! Take caution.",
+        "youHaveQuarks": "У вас {{x}} Кварков!",
+        "cannotRefund": "Это предмет НЕ ПОДЛЕЖИТ к возврату. Будьте осторожны.",
         "resetPermShop": "Reset Perm Shop [Cost: 15 Quarks]",
         "shopConfirmationOn": "Подтверждения Покупок: ВКЛ",
         "shopConfirmationOff": "Подтверждения Покупок: ВЫКЛ",
-        "hideMaxedOn": "Hide Maxed: ON",
-        "hideMaxedOff": "Hide Maxed: OFF",
+        "hideMaxedOn": "Скрыть Макс.: ВКЛ.",
+        "hideMaxedOff": "Скрыть Макс.: ВЫКЛ.",
         "autoCatalyzeOn": "Авто Катализ: ВКЛ",
         "autoCatalyzeOff": "Авто Катализ: ВЫКЛ",
-        "shiftClickForBuyAny": "Shift-Click for Buy: Any",
-        "buy10": "Buy: 10",
-        "buy1": "Buy: 1",
-        "buyMax": "Buy: MAX",
-        "buyAny": "Buy: ANY",
+        "shiftClickForBuyAny": "Shift-Клик чтобы Купить: Любое",
+        "buy10": "Купить: 10",
+        "buy1": "Купить: 1",
+        "buyMax": "Купить: МАКС",
+        "buyAny": "Купить: ЛЮБОЕ",
         "upgradeEffects": {
-            "currentEffect": "Current Effect:",
+            "currentEffect": "Текущий Эффект:",
             "offeringPotion": "Получите <<orange|{{amount}}>> Подношений",
             "obtainiumPotion": "Gain <<pink|{{amount}}>> Obtainium",
             "offeringEX": "You will gain <<goldenrod|{{amount}}%>> more Offerings!",
@@ -1318,9 +1318,9 @@
             "seasonPass": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Wow! Cubes and Tesseracts.",
             "challengeExtension": "Reincarnation Challenges may be completed an additional <<lime|{{amount}}>> times.",
             "challengeTome": "Challenge 10 Exponent Requirement reduced by <<lightgoldenrodyellow|{{amount1}}>> Million. Past 60 completions of C9 or C10 the scaling multiplier is [completions * <<lightgoldenrodyellow|{{amount2}}>>]",
-            "cubeToQuark": "Even in a premium shop it's kinda obvious, right?",
-            "tesseractToQuark": "Even in a premium shop it's kinda obvious, right?",
-            "hypercubeToQuark": "Even in a premium shop it's kinda obvious, right?",
+            "cubeToQuark": "Даже для премиум магазина это довольно очевидно, не так ли?",
+            "tesseractToQuark": "Даже для премиум магазина это довольно очевидно, не так ли?",
+            "hypercubeToQuark": "Даже для премиум магазина это довольно очевидно, не так ли?",
             "seasonPass2": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Hypercubes and Platonic Cubes.",
             "seasonPass3": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Hepteracts and Octeracts.",
             "chronometer": "Ascension timer increases <<orange|{{amount}}%>> faster.",
@@ -1346,7 +1346,7 @@
             "obtainiumEX2": "You will gain <<pink|{{amount}}%>> more Obtainium! Puts the first to <<red|shame>>...",
             "powderAuto": "Every <<red|{{amount}}>> purchased orbs grants 1 powder.",
             "seasonPassLost": "You generate <<lightgoldenrodyellow|{{amount}}%>> more Wow! Octeracts per second.",
-            "challenge15Auto": "Even in a premium shop it's kinda obvious, right?",
+            "challenge15Auto": "Даже для премиум магазина это довольно очевидно, не так ли?",
             "extraWarp": "You can warp <<red|+{{amount}}>> extra times.",
             "autoWarp": "If you buy this upgrade, you can toggle <<red|auto warp>> in the Hepteract Forge tab. Only if you buy this, though.",
             "improveQuarkHept": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
@@ -1368,10 +1368,10 @@
     "singularity": {
         "goldenQuarks": {
             "transaction": "Transaction of {{spent}} Golden Quarks successful! [-{{cost}} Quarks]",
-            "poor": "Sorry, I can't give credit. Come back when you're a little... mmm... richer!",
+            "poor": "Прости, в займы не даю. Возвращайся когда станешь... ммм... побогаче!",
             "buyPrompt": "Вы можете купить Золотые Кварки здесь за {{cost}} Кварков (Скидка - {{discount}})! Вы можете купить до {{max}}. Сколько вы хотите? Введите -1, чтобы купить максимальное количество!",
             "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq} GQ. Type -1 to use max!",
-            "hasUpgrade": "Hey! You have already maxed this upgrade. :D",
+            "hasUpgrade": "Хэй! Максимальный уровень для этого уже куплен. :D",
             "notHighEnoughLevel": "You're not powerful enough to purchase this yet.",
             "ascensionReset": "You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...",
             "multiBuyPurchased": "Purchased {{levels}} levels, thanks to Multi Buy!"
@@ -1425,7 +1425,7 @@
                 "default": "You start each Singularity with 10 free levels of each Shop upgrade in the first row"
             },
             "potionAutogenerator": "Каждые 180 секунд автоматически используется одно зелье Обтайниума и Подношений! Интервал уменьшает на 3% за сингулярность.",
-            "respecBeGone": "Talismans now buff all runes at all times!",
+            "respecBeGone": "Теперь Талисманы всегда усиливают все руны!",
             "forTheLoveOfTheAntGod": {
                 "hasLevel2": "You permanently keep Ant autobuyers and start each Ascension with a Tier 8 Ant",
                 "hasLevel1": "You permanently keep Ant autobuyers and start each Ascension with a Tier 5 Ant",
@@ -1441,14 +1441,14 @@
             "exaltedAchievements": "Unlocks new, very difficult achievements! They are earned differently from others, however...",
             "coolQOLCubes": {
                 "hasLevel1": "Keep all Cube Opening researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
-                "default": "Researches related to opening cubes will no longer reset on Ascension"
+                "default": "Исследования, касающиеся открытия кубов больше не сбрасываются при Вознесении"
             },
             "eternalAscensions": {
-                "hasLevel1": "You can now automatically ascend based on time length and autorun Ascension Challenges with Instant Challenges 2!",
-                "default": "You can now automatically ascend based on the length of the Ascension"
+                "hasLevel1": "Теперь возможно автоматическое вознесение в зависимости от длительности. Мгновенные Испытания 2 дают возможность автозапуска Испытаний Вознесения!",
+                "default": "Теперь возможно автоматическое вознесение в зависимости от длительности"
             },
             "antGodsCornucopia": {
-                "hasLevel2": "Ant Speed is multiplied by 1 TRILLION, this increase is immune to any and all corruption.",
+                "hasLevel2": "Скорость Муравьёв умножена на 1 ТРИЛЛИОН. Это увеличение защищено от любой порчи.",
                 "hasLevel1": "Ant Speed is multiplied by 1 MILLION, this increase is immune to any and all corruption.",
                 "default": "Ant Speed is multiplied by 1,000, this increase is immune to any and all corruption."
             },
@@ -1485,40 +1485,40 @@
         },
         "data": {
             "goldenQuarks1": {
-                "name": "Golden Quarks I",
+                "name": "Золотые Кварки I",
                 "description": "In the future, you will gain 10% more Golden Quarks on Singularities per level!",
-                "effect": "Ascension Count increases {{n}}% faster."
+                "effect": "Счётчик Вознесений увеличивается на {{n}}% быстрее."
             },
             "goldenQuarks2": {
-                "name": "Golden Quarks II",
+                "name": "Золотые Кварки II",
                 "description": "Buying GQ is 0.2% cheaper per level! [After 50%, effect grows much slower]",
                 "effect": "Purchasing Golden Quarks in the shop is {{n}}% cheaper."
             },
             "goldenQuarks3": {
-                "name": "Golden Quarks III",
+                "name": "Золотые Кварки III",
                 "description": "If you buy this, you will gain Golden Quarks per hour from Exports. Leveling up gives (level) additional per hour!",
                 "effect": "Every hour, you gain {{n}} Golden Quarks from exporting."
             },
             "starterPack": {
-                "name": "Starter Pack",
+                "name": "Стартовый Набор",
                 "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources, post-corruption.",
                 "effectHave": "You have unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings.",
                 "effectHaveNot": "You have not unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings."
             },
             "wowPass": {
-                "name": "Shop Bonanza",
+                "name": "Золотое Дно Магазина",
                 "description": "This upgrade will convince the seal merchant to sell you more cool stuff, which even persist on Singularity!",
                 "effectHave": "You have unlocked the Shop Bonanza.",
                 "effectHaveNot": "You have not unlocked the Shop Bonanza."
             },
             "cookies": {
-                "name": "Cookie Recipes I",
+                "name": "Рецепты Печенек I",
                 "description": "For just a few Golden Quarks, re-open Wow! Bakery, adding five cookie-related Cube upgrades.",
                 "effectHave": "You have unlocked volume 1 of the recipe book.",
                 "effectHaveNot": "You have not unlocked volume 1 of the recipe book."
             },
             "cookies2": {
-                "name": "Cookie Recipes II",
+                "name": "Рецепты Печенек II",
                 "description": "Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related Cube upgrades.",
                 "effectHave": "You have unlocked volume 2 of the recipe book.",
                 "effectHaveNot": "You have not unlocked volume 2 of the recipe book."
@@ -1526,29 +1526,29 @@
             "cookies3": {
                 "name": "Cookie Recipes III",
                 "description": "Your Bakers threaten to quit without a higher pay. If you do pay them, they will bake even more fancy cookies.",
-                "effectHave": "You have appeased the union of Bakers.",
-                "effectHaveNot": "You have not appeased the union of Bakers."
+                "effectHave": "Вы задобрили профсоюз Пекарей.",
+                "effectHaveNot": "Вы не задобрили профсоюз Пекарей."
             },
             "cookies4": {
                 "name": "Cookie Recipes IV",
-                "description": "This is a small price to pay for Salvation.",
+                "description": "Всего-то, такова цена Спасения.",
                 "effectHave": "You have paid your price for salvation.",
                 "effectHaveNot": "You have not paid your price for salvation."
             },
             "cookies5": {
                 "name": "Cookie Recipes V (WIP)",
-                "description": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
-                "effectHave": "You have paid witness to the suffering of the masses.",
-                "effectHaveNot": "You have not paid witness to the suffering of the masses."
+                "description": "Худшее злодеяние, которое человек может совершить, это наблюдение за страданиями других, без каких либо мук совести.",
+                "effectHave": "Вы уделили внимание страданиям масс.",
+                "effectHaveNot": "Вы не уделили внимание страданиям масс."
             },
             "ascensions": {
                 "name": "Improved Ascension Gain",
                 "description": "Buying this, you will gain +2% Ascension Count forever, per level! Every 10 levels grants an additional, multiplicative +1% Ascension Count.",
-                "effect": "Ascension Count increases {{n}}% faster."
+                "effect": "Счётчик Вознесений увеличивается на {{n}}% быстрее."
             },
             "corruptionFourteen": {
                 "name": "Порчи Четырнадцатого Уровня",
-                "description": "Buy this to unlock level fourteen corruptions. :)",
+                "description": "Купите это, чтобы открыть порчи четырнадцатого уровня. :)",
                 "effectHave": "You have gained the ability to use level 14 corruptions. {{m}}",
                 "effectHaveNot": "You have not gained the ability to use level 14 corruptions. {{m}}"
             },
@@ -1559,7 +1559,7 @@
                 "effectHaveNot": "You have not gained a free corruption level. {{m}}"
             },
             "singOfferings1": {
-                "name": "Offering Charge",
+                "name": "Разряд Подношений",
                 "description": "Улучшите это, чтобы получить +2% Подношений за уровень, навсегда!",
                 "effect": "Навсегда получаете на {{n}}% больше Подношений."
             },
@@ -1574,29 +1574,29 @@
                 "effect": "Навсегда получаете на {{n}}% больше Подношений."
             },
             "singObtainium1": {
-                "name": "Obtainium Wave",
-                "description": "Upgrade this to get +2% Obtainium per level, forever!",
-                "effect": "Permanently gain {{n}}% more Obtainium."
+                "name": "Прилив Обтаниума",
+                "description": "Улучшите это, чтобы получить +2% Обтаниума за уровень, навсегда!",
+                "effect": "Навсегда получаете на {{n}}% больше Обтаниума."
             },
             "singObtainium2": {
                 "name": "Наводнение Обтайниума",
                 "description": "Holy crap, water bending! +8% gained Obtainium per level.",
-                "effect": "Permanently gain {{n}}% more Obtainium."
+                "effect": "Навсегда получаете на {{n}}% больше Обтаниума."
             },
             "singObtainium3": {
                 "name": "Цунами Обтайниума",
                 "description": "A rising tide lifts all boats. +4% gained Obtainium per level.",
-                "effect": "Permanently gain {{n}}% more Obtainium."
+                "effect": "Навсегда получаете на {{n}}% больше Обтаниума."
             },
             "singCubes1": {
                 "name": "Пламя Кубов",
-                "description": "Upgrade this to get +1% Cubes per level, forever!",
-                "effect": "Permanently gain {{n}}% more Cubes."
+                "description": "Улучшите это, чтобы получить +1% Кубов за уровень, навсегда!",
+                "effect": "Навсегда получаете на {{n}}% больше Кубов."
             },
             "singCubes2": {
                 "name": "Пожар Кубов",
                 "description": "Burn some more Golden Quarks! +8% gained Cubes per level.",
-                "effect": "Permanently gain {{n}}% more Cubes."
+                "effect": "Навсегда получаете на {{n}}% больше Кубов."
             },
             "singCubes3": {
                 "name": "Инферно Кубов",
@@ -1630,19 +1630,19 @@
                 "effect": "You have purchased {{n}} tasty blueberries."
             },
             "intermediatePack": {
-                "name": "Intermediate Pack",
+                "name": "Промежуточный Набор",
                 "description": "Double Global Speed, Multiply Ascension speed by 1.5, and gain +2% Quarks forever. Yum... 2% Quark Milk.",
                 "effectHave": "You have upgraded your package to intermediate.",
                 "effectHaveNot": "You have not upgraded your package to intermediate."
             },
             "advancedPack": {
-                "name": "Advanced Pack",
+                "name": "Продвинутый Набор",
                 "description": "Now we're cooking with kerosene! Gain +4% Quarks stack with intermediate, +0.33 to all corruption score multipliers, regardless of level!",
                 "effectHave": "You have bought our advanced package.",
                 "effectHaveNot": "You have not bought our advanced package."
             },
             "expertPack": {
-                "name": "Expert Pack",
+                "name": "Набор Эксперта",
                 "description": "That's a handful! Gain +6% Quarks stack with advanced, 1.5x Ascension Score, Code 'add' gives 1.2x Ascension Timer.",
                 "effectHave": "You have switched to the expert provider.",
                 "effectHaveNot": "You have not switched to the expert provider."
@@ -1654,10 +1654,10 @@
                 "effectHaveNot": "You have not mastered your inner chakras."
             },
             "divinePack": {
-                "name": "Divine Pack",
+                "name": "Божественный Набор",
                 "description": "OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14.",
-                "effectHave": "You have found the reason for existence.",
-                "effectHaveNot": "You have not found the reason for existence."
+                "effectHave": "Вы нашли причину существования.",
+                "effectHaveNot": "Вы не нашли причину существования."
             },
             "wowPass2": {
                 "name": "Shop Liquidation Sale",
@@ -1672,8 +1672,8 @@
                 "effectHaveNot": "You have not triggered the QUACKSTRAVAGANZA!!"
             },
             "potionBuff": {
-                "name": "Potion Decanter of Enlightenment",
-                "description": "Purported to actually be the fountain of youth, this item powers up potions considerably!",
+                "name": "Графин Просветления для Зелий",
+                "description": "Предположительно являющийся источников вечной молодости, этот предмет значительно усиливает зелья!",
                 "effect": "Potions currently give {{n}}x items!"
             },
             "potionBuff2": {
@@ -1687,12 +1687,12 @@
                 "effect": "Potions currently give {{n}}x items!"
             },
             "singChallengeExtension": {
-                "name": "Bigger Challenge Caps",
+                "name": "Увеличенные Лимиты Испытаний",
                 "description": "Need more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.",
                 "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
             },
             "singChallengeExtension2": {
-                "name": "Biggerer Challenge Caps",
+                "name": "Увеличееенныыыеее Лимиты Испытаний",
                 "description": "Need even more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.",
                 "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
             },
@@ -1723,27 +1723,27 @@
             },
             "singOcteractGain": {
                 "name": "Octeract Absinthe",
-                "description": "You would have never known this tonic can boost your Octeracts! [+1.25% per level, in fact!]",
+                "description": "Вы бы и не подумали, что этот тоник может усилить ваши Октеракты! [Фактически, +1.25% за уровень!]",
                 "effect": "Octeract Gain +{{n}}%"
             },
             "singOcteractGain2": {
                 "name": "Pieces of Eight",
-                "description": "There is indeed eight of them, but each only gives +0.625% bonus, so each level gives +5% Octeract per level.",
+                "description": "Их действительно восемь, но каждое даёт только +0.625%, поэтому +5% Октерактов за уровень.",
                 "effect": "Octeract Gain +{{n}}%"
             },
             "singOcteractGain3": {
                 "name": "The Obelisk Shaped like an Octagon.",
-                "description": "Platonic had to reach pretty far here. +2.5% Octeracts yeah!",
+                "description": "Platonic должен был зайти довольно далеко в этот раз. +2.5% Октерактов, детка!",
                 "effect": "Octeract Gain +{{n}}%"
             },
             "singOcteractGain4": {
-                "name": "Octahedral Synthesis",
+                "name": "Октаэдрический Синтез",
                 "description": "Как оно вообще работает!?? +2% к Октерактам, скажешь мне.",
                 "effect": "Octeract Gain +{{n}}%"
             },
             "singOcteractGain5": {
-                "name": "The Eighth Wonder of the World",
-                "description": "is the wonder of the world we live in. [+1% Octeracts. Platonic, this is so stingy! but, he does not care one bit.]",
+                "name": "Восьмое Чудо Света",
+                "description": "чудо мира, в котором мы живём. [+1% Октерактов. Platonic, эта цена кусается! но ему на это всё равно.]",
                 "effect": "Octeract Gain +{{n}}%"
             },
             "platonicTau": {
@@ -1873,46 +1873,46 @@
         }
     },
     "general": {
-        "youAreInThe": "You are in the",
+        "youAreInThe": "Сейчас вы находитесь в",
         "validation": {
-            "finite": "Value must be a finite number!",
-            "zeroOrLess": "Only numbers greater than zero, please!",
-            "moreThanPlayerHas": "You can't afford this yet!",
-            "fraction": "Yeah, that isn't an integer. We don't accept fractions here!",
-            "goldenQuarksTooMany": "Sorry, I cannnot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!",
-            "finiteInt": "Value must be a finite, non-decimal number!",
-            "invalidNumber": "Hey! That's not a valid number!"
+            "finite": "Значение должно быть конечным числом!",
+            "zeroOrLess": "Пожалуйста, только числа больше нуля!",
+            "moreThanPlayerHas": "Сейчас вы не можете это купить!",
+            "fraction": "Ага, это не целое число. Дробные не принимаем!",
+            "goldenQuarksTooMany": "К сожалению, столько Золотых Кварков я продать не могу! Попробуйте купить меньше или введите -1 для покупки максимума!",
+            "finiteInt": "Значение должно быть конечным, целым числом!",
+            "invalidNumber": "Эй! Это значение недопустимо!"
         },
-        "cancelled": "Okay, maybe next time!",
-        "level": "Level",
-        "minimum": "Minimum",
-        "spent": "Spent",
-        "OK": "OK",
-        "Cancel": "Cancel",
+        "cancelled": "Ладно, может в другой раз!",
+        "level": "Уровень",
+        "minimum": "Минимум",
+        "spent": "Потрачено",
+        "OK": "ОК",
+        "Cancel": "Отмена",
         "autoOnBracket": "Авто [ON]",
         "autoOffBracket": "Авто [OFF]",
-        "softCapped": "(Softcapped)",
-        "maxed": "(Maxed)",
-        "affordable": "(Affordable)",
-        "infinity": "Infinity",
-        "sacrificeCapital": "SACRIFICE",
-        "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!",
+        "softCapped": "(Предельное значение)",
+        "maxed": "(Макс. Ур.)",
+        "affordable": "(Доступно)",
+        "infinity": "Бесконечность",
+        "sacrificeCapital": "ЖЕРТВОПРИНОШЕНИЕ",
+        "multiBuyInstructions": "Чтобы купить несколько уровней сразу, удерживайте <<var(--orchid-text-color)|'SHIFT'>>!",
         "autoOnColon": "Авто: ВКЛ",
         "autoOffColon": "Авто: ВЫКЛ",
-        "buyMaxOn": "Buy Max: ON",
-        "buyMaxOff": "Buy Max: OFF",
-        "on": "ON",
-        "off": "OFF",
+        "buyMaxOn": "Купить Макс: ВКЛ",
+        "buyMaxOff": "Купить Макс: ВЫКЛ",
+        "on": "ВКЛ",
+        "off": "ВЫКЛ",
         "updateAlerts": {
-            "june282021": "June 28, 2021: V2.5.3. You have been refunded quarks from calculators if you purchased them. They are no longer refundable so be wary!",
+            "june282021": "28 Июня, 2021: Вер. 2.5.3. Вам были возвращены кварки за калькуляторы, если они были куплены. Средства за них возврату более не подлежат, так что будьте осторожны!",
             "july22021": "2 Июля, 2021: Вер. 2.5.5. Вам возвращены кварки за улучшение Порошок EX, если были куплены уровни. Ваши У1 муравьи также были сброшены и их базовая цена была установлена на 1e700 частиц. Впрочем, Порошок EX более не подлежит возврату, так что будьте осторожны!",
-            "sing230Balancing": "Due to balancing changes, you were sent back to Singularity 230 to prevent softlocking your savefile!",
-            "december22xxxx": "You have loaded into the December 22 patch v1.",
-            "january42023": "You have loaded into the January 4, 2023 Patch v1.",
-            "v297hotfix1NoSing": "You have loaded into the version 2.9.7 hotfix 1!",
-            "v297hotfix1Sing": "You have loaded into the version 2.9.7 hotfix 1! Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience."
+            "sing230Balancing": "Из-за изменений баланса, вы были отправлены обратно в Сингулярность 230, дабы избежать софтлока вашего сохранения!",
+            "december22xxxx": "Успешная загрузка в патч v1 от 22 Декабря.",
+            "january42023": "Успешная загрузка в патч v1 от 4 Января, 2023 года.",
+            "v297hotfix1NoSing": "Успешная загрузка в версию 2.9.7, хотфикс 1!",
+            "v297hotfix1Sing": "Успешная загрузка в версию 2.9.7, хотфикс 1! Средства за неограниченные ресурсные улучшения сингулярности были возвращены! Приносим извинения за неудобства."
         },
-        "languageChange": "Changing the language requires a reload! Would you like to reload now?"
+        "languageChange": "Смена языка требует перезагрузки! Хотите перезагрузить сейчас?"
     },
     "upgrades": {
         "descriptions": {
@@ -1949,8 +1949,8 @@
             "31": "Получите 1 бесплатный Усилитель Ускорителя за каждые 2,000 производителей Монет.",
             "32": "Gain free Accelerators based on Unspent Diamonds.",
             "33": "Gain 1 free Multiplier for each Accelerator Boost owned.",
-            "34": "Gain 3% more free Multipliers.",
-            "35": "Gain 2% more free Multipliers.",
+            "34": "+3% бесплатных Множителей.",
+            "35": "+2% бесплатных Множителей.",
             "36": "Multiply Crystal production by Diamonds, maximum 1e5000x.",
             "37": "Multiply Mythos Shard production by the squared logarithm of Diamonds.",
             "38": "Gain +20% more Offerings thanks to generous Discord Server Boosters!",
@@ -2007,7 +2007,7 @@
             "89": "Unlock Automatic Transcensions.",
             "90": "Автоматически покупать из Магазина Генераторов.",
             "91": "Автоматическая покупка Улучшений Монет.",
-            "92": "Automatically buy Diamond Upgrades.",
+            "92": "Автоматическая покупка Улучшений Алмазов.",
             "93": "Generate 1% of Diamond Gain from prestiging per second.",
             "94": "Automatically buy Augments if affordable.",
             "95": "Automatically buy Enchantments if affordable.",
@@ -2146,10 +2146,10 @@
             "79": "Effect: You will gain +10% rewards =)",
             "80": "Effect: Ant ELO +75 if this upgrade is purchased.",
             "81": "Effect: All you need is right above this message.",
-            "121": "Effect: -50% Taxes duh!",
-            "122": "Effect: +88% cap to Crystal Upgrade 3, duh!",
-            "123": "Effect: Coin Production ^1.025, duh!",
-            "124": "Effect: +3% Effective Ant ELO, duh!",
+            "121": "Эффект: -50% Налогов, кэп!",
+            "122": "Эффект: +88% к лимиту Улучшения Кристаллов 3, кэп!",
+            "123": "Эффект: Производство Монет ^1.025, кэп!",
+            "124": "Эффект: +3% Эффективного Муравьиного ЭЛО, кэп!",
             "125": "+{{x}}% Constant Divisor power."
         },
         "shopTitles": {
@@ -2168,35 +2168,35 @@
             "buildings": "Строения",
             "upgrades": "Улучшения",
             "achievements": "Достижения",
-            "runes": "Runes",
+            "runes": "Руны",
             "challenges": "Испытания",
             "research": "Research",
             "antHill": "Anthill",
-            "wowCubes": "WOW! Cubes",
+            "wowCubes": "WOW! Кубы",
             "corruption": "Порча",
             "singularity": "Сингулярность",
             "settings": "Настройки",
-            "shop": "Shop"
+            "shop": "Магазин"
         },
         "buildings": {
             "coin": "Строения Монет",
             "diamond": "Алмазные Строения",
             "mythos": "Строения Мифов",
-            "particle": "Particle Buildings",
-            "tesseract": "Tesseract Buildings"
+            "particle": "Строения Частиц",
+            "tesseract": "Строения Тессерактов"
         },
         "runes": {
             "runes": "Руны",
             "talismans": "Талисманы",
-            "blessings": "Blessings",
-            "spirits": "[=-Spirits-=]"
+            "blessings": "Благословения",
+            "spirits": "[=-Духи-=]"
         },
         "cubes": {
             "cubeTributes": "Cube Tributes",
             "tesseract": "Tesseract Gifts",
             "hypercube": "Hypercube Benedictions",
-            "platonic": "Platonic Statues",
-            "cubeUpgrades": "Cube Upgrades",
+            "platonic": "Платоновы Статуи",
+            "cubeUpgrades": "Улучшения Кубов",
             "challenge15": "Испытание 15/Платоновы Улучшения",
             "hepteract": "Hepteract Forge"
         },
@@ -2211,25 +2211,25 @@
             "credit": "Авторы",
             "stats": "Статистика для Ботаников",
             "resetHistory": "История Сброса",
-            "ascendHistory": "Ascend History",
+            "ascendHistory": "История Вознесений",
             "singularityHistory": "История Сингулярности",
             "hotkeys": "Горячие клавиши"
         }
     },
     "offlineProgress": {
         "loading": "Идёт калькуляция оффлайн прогресса...",
-        "prestigeCount": "Prestige Count: +",
-        "currentPrestigeTimer": "Current Prestige Timer: +<<cyan|{{value}}>> seconds",
+        "prestigeCount": "Счётчик Престижа: +",
+        "currentPrestigeTimer": "Таймер Текущего Престижа: +<<cyan|{{value}}>> секунд",
         "offeringsGenerated": "Подношений Создано: <<orange|{{value}}>>",
         "transcensionCount": "Transcension Count: +<<var(--orchid-text-color);|{{value}}>>",
         "currentTranscensionCounter": "Current Transcension Timer: +<<var(--orchid-text-color);|{{value}}>> seconds",
-        "reincarnationCount": "Reincarnation Count: +<<limegreen|{{value}}>>",
-        "currentReincarnationTimer": "Current Reincarnation Timer: +<<limegreen|{{value}}>> seconds",
-        "obtainiumGenerated": "Obtainium Generated: <<pink|{{value}}>>",
-        "ingameAntSacTimer": "In-Game Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
+        "reincarnationCount": "Счётчик Реинкарнаций: +<<limegreen|{{value}}>>",
+        "currentReincarnationTimer": "Таймер Текущей Реинкарнации: +<<limegreen|{{value}}>> секунд",
+        "obtainiumGenerated": "Обтаниума Создано: <<pink|{{value}}>>",
+        "ingameAntSacTimer": "Внутриигровой Таймер Жертвоприношений: +<<var(--red-text-color);|{{value}}>> секунд",
         "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
-        "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
-        "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
+        "currentAscensionTimer": "Таймер Текущего Вознесения: +<<gold|{{value}}>> секунд",
+        "exportQuarks": "Экспорт Кварки: +<<goldenrod|{{value}}>>"
     },
     "corruptions": {
         "names": {
@@ -2243,8 +2243,8 @@
             "8": "Порча VIII: Финансовая Рецессия"
         },
         "descriptions": {
-            "1": "You feel lethargic across the universe...",
-            "2": "Way to go, Albert.",
+            "1": "Вялость чувствуется по всей вселенной...",
+            "2": "Так держать, Альберт.",
             "3": "Что находится в этом испытании?",
             "4": "Может всё же Альберт не должен был делать теории о Замедлении.",
             "5": "Алмазные пещеры уничтожены... больше никаких монополий!",
@@ -2292,9 +2292,9 @@
             "importTitle": "Import Corruption Loadout in text format",
             "zero": "Zero",
             "zeroTitle": "Reset Corruptions to zero on your next Ascension. Hotkey: SHIFT+9",
-            "save": "Save",
+            "save": "Сохранить",
             "saveTitle": "Save current Corruptions to this Loadout",
-            "load": "Load"
+            "load": "Загрузить"
         },
         "importCorruptionsPrompt": {
             "import": "Enter a Corruption Loadout to import for next Ascension. It must be in the following text format: 1/2/3/4/5/6/7/8",
@@ -2306,7 +2306,7 @@
                 "noName": "Ладно, может в другой раз.",
                 "exceedsCharacterLimit": "The name you provided is too long! Try again.",
                 "regexError": "The Loadout Renamer didn't like a character in your name! Try something else.",
-                "crazyJoke": "Ant God approves of your joke!"
+                "crazyJoke": "Муравьиный Бог оценил вашу шутку!"
             }
         },
         "loadoutExport": {
@@ -2315,7 +2315,7 @@
         "corrStatsBtn": "Corruption Stats",
         "corrLoadoutsBtn": "Corruption Loadouts",
         "cleanse": "Cleanse",
-        "confirm": "Confirm",
+        "confirm": "Подтвердить",
         "intro": "The most rewarding ventures are those few would dare to embark.",
         "traitInfo": "Select the trait levels you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
         "antExponent": "This Ascension's climate raises Ant production to the power of <<var(--darkorchid-text-color)|{{exponent}}>>.",
@@ -2333,24 +2333,24 @@
             "realTime": "Ascend when the timer is at least <<var(--violet-text-color)|{{input}}>> seconds (Real-time), Currently <<gold|{{time}}>>",
             "on": "Авто Вознесение [ON]",
             "off": "Авто Вознесение [OFF]",
-            "modeCompletions": "Mode: C10 Completions",
-            "modeRealTime": "Mode: Real time"
+            "modeCompletions": "Режим: Выполнения И10",
+            "modeRealTime": "Режим: Реальное Время"
         },
         "importLoadoutInTextFormat": "Import Corruption Loadout in text format",
         "loadoutApplied": "Corruption Loadout from previous run has been applied. This will take effect on the next Ascension."
     },
     "footnotes": {
-        "buildings": "Press [1], [2], [3], [4], or [5] to buy the corresponding tier starting from the top. Press [A] to buy Accelerator, [M] to buy Multiplier, or [B] to buy Accelerator Boost.",
-        "buildings2": "Press [Left arrow] or [Right arrow] to switch tabs. Enjoy!",
+        "buildings": "Нажмите [1], [2], [3], [4], или [5] чтобы купить соответствующее строение, начиная сверху. Нажмите [A] для покупки Ускорителя, [M] для покупки Множителя, или [B] для покупки Усилителя Ускорителя.",
+        "buildings2": "Чтобы сменить вкладки, нажмите [Стрелка Влево] или [Стрелка Вправо]. Удачи!",
         "crystals": "Press [1], [2], [3], [4], or [5] to buy the respective tiered producer. Press [6], [7], [8], [9] or [0] to buy the corresponding Crystal upgrade starting on the left.",
         "mythos": "Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.",
         "particle": "Press [1], [2], [3], [4], or [5] to buy the respective tiered producer.",
         "upgrade": "Press [1], [2], [3], [4], [5] or [6] on your keyboard to use resources for each upgrades.",
         "achievements": {
-            "green": "Green background: Achieved.",
-            "purple": "Purple background: Unachieved, provides bonus multiplier.",
-            "red": "Red background: Unachieved, provides content/feature unlock.",
-            "none": "No background: Unachieved, nothing special."
+            "green": "Зелёный фон: Разблокированный.",
+            "purple": "Пурпурный фон: Не разблокированный. Даёт бонусный множитель.",
+            "red": "Красный фон: Не разблокированный. Разблокирует контент/функции.",
+            "none": "Без фона: Не разблокированный. Ничего не даёт."
         },
         "runes": "Press [1], [2], [3], [4] or [5] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!",
         "challenges": {
@@ -2363,8 +2363,8 @@
     },
     "buildings": {
         "taxWarning": "Ваш налог также ограничивает ваше получение монет до {{gain}}/сек.",
-        "acceleratorPower": "Acceleration Power: {{power}}% || Acceleration Multiplier: {{mult}}x",
-        "multiplierPower": "Multiplier Power: {{power}}x || Multiplier: {{mult}}x",
+        "acceleratorPower": "Сила Ускорителя: {{power}}% || Множитель Ускорения: {{mult}}x",
+        "multiplierPower": "Сила Множителя: {{power}}х || Множитель: {{mult}}x",
         "acceleratorBoost": "Сбросить Алмазы и Престижные Улучшения, но добавить {{amount}}% к Силе Ускорителей и 5 бесплатных Ускорителей.",
         "coinsPerSecond": "Монеты/Сек: {{coins}} [{{percent}}%]",
         "costCoins": "Стоимость: {{coins}} монет.",
@@ -2375,26 +2375,26 @@
             "printers": "Принтеры: {{amount}} [+{{gain}}]",
             "coinMints": "Монетные Дворы: {{amount}} [+{{gain}}]",
             "alchemies": "Алхимии: {{amount}} [+{{gain}}]",
-            "accelerators": "Accelerators: {{amount}} [+{{gain}}]",
-            "multipliers": "Multipliers: {{amount}} [+{{gain}}]",
-            "acceleratorBoost": "Accelerator Boost: {{amount}} [+{{gain}}]",
+            "accelerators": "Ускорители: {{amount}} [+{{gain}}]",
+            "multipliers": "Множители: {{amount}} [+{{gain}}]",
+            "acceleratorBoost": "Усилители Ускорения: {{amount}} [+{{gain}}]",
             "refineries": "Refineries: {{amount}} [+{{gain}}]",
             "coalPlants": "Coal Plants: {{amount}} [+{{gain}}]",
             "coalRigs": "Coal Rigs: {{amount}} [+{{gain}}]",
             "pickaxes": "Pickaxes: {{amount}} [+{{gain}}]",
-            "pandorasBoxes": "Pandoras Boxes: {{amount}} [+{{gain}}]",
+            "pandorasBoxes": "Ящики Пандоры: {{amount}} [+{{gain}}]",
             "augments": "Augments: {{amount}} [+{{gain}}]",
-            "enchantments": "Enchantments: {{amount}} [+{{gain}}]",
-            "wizards": "Wizards: {{amount}} [+{{gain}}]",
-            "oracles": "Oracles: {{amount}} [+{{gain}}]",
-            "grandmasters": "Grandmasters: {{amount}} [+{{gain}}]",
-            "protons": "Protons: {{amount}} [+{{gain}}]",
-            "elements": "Elements: {{amount}} [+{{gain}}]",
-            "pulsars": "Pulsars: {{amount}} [+{{gain}}]",
-            "quasars": "Quasars: {{amount}} [+{{gain}}]",
+            "enchantments": "Зачарования: {{amount}} [+{{gain}}]",
+            "wizards": "Волшебники: {{amount}} [+{{gain}}]",
+            "oracles": "Оракулы: {{amount}} [+{{gain}}]",
+            "grandmasters": "Гроссмейстеры: {{amount}} [+{{gain}}]",
+            "protons": "Протоны: {{amount}} [+{{gain}}]",
+            "elements": "Элементы: {{amount}} [+{{gain}}]",
+            "pulsars": "Пульсары: {{amount}} [+{{gain}}]",
+            "quasars": "Квазары: {{amount}} [+{{gain}}]",
             "galacticNuclei": "Galactic Nuclei: {{amount}} [+{{gain}}]",
-            "dot": "Dot: {{amount}} [+{{gain}}]",
-            "vector": "Vector: {{amount}} [+{{gain}}]",
+            "dot": "Точка: {{amount}} [+{{gain}}]",
+            "vector": "Вектор: {{amount}} [+{{gain}}]",
             "threeSpace": "Three-Space: {{amount}} [+{{gain}}]",
             "bentTime": "Bent Time: {{amount}} [+{{gain}}]",
             "hilbertSpace": "Hilbert Space: {{amount}} [+{{gain}}]"
@@ -2414,13 +2414,13 @@
             "wizards": "Wizards/sec: {{amount}}",
             "oracles": "Oracles/sec: {{amount}}",
             "atoms": "Atoms/sec: {{amount}}",
-            "protons": "Protons/sec: {{amount}}",
-            "elements": "Elements/sec: {{amount}}",
-            "pulsars": "Pulsars/sec: {{amount}}",
-            "quasars": "Quasars/sec: {{amount}}",
+            "protons": "Протонов/сек: {{amount}}",
+            "elements": "Элементов/сек: {{amount}}",
+            "pulsars": "Пульсаров/сек: {{amount}}",
+            "quasars": "Квазаров/сек: {{amount}}",
             "constant": "+Константа/сек: {{amount}}",
-            "dot": "Dot/sec: {{amount}}",
-            "vector": "Vector/sec: {{amount}}",
+            "dot": "Точек/сек: {{amount}}",
+            "vector": "Векторов/сек: {{amount}}",
             "threeSpace": "Three-Space/sec: {{amount}}",
             "bentTime": "Bent Time/sec: {{amount}}"
         },
@@ -2460,7 +2460,7 @@
         "data": {
             "octeractStarter": {
                 "name": "Октеракты для Чайников",
-                "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 30% More Quarks, 20% More Octeracts, And 100,000x Ant Speed...",
+                "description": "Приветствую... Я Есть Кукузнец... Предок Муравьиного Бога... Я Не Ожидал, Что Вы До Сюда Доберётесь. Вот Вам 30% к Кваркам, 20% к Октерактам и 100,000х к Скорости Муравьёв...",
                 "effect": "You have {{n}} paid your respects to Derpsmith."
             },
             "octeractGain": {
@@ -2475,7 +2475,7 @@
             },
             "octeractQuarkGain": {
                 "name": "Quark Octeract",
-                "description": "An altered forme of the hepteract, this gives a 1.1% Quark Bonus per level without Diminishing Return.",
+                "description": "Видоизменённый гептеракт, даёт +1.1% к Кваркам за уровень без Убывающей Полезности.",
                 "effect": "Quark gain is increased by {{n}}%."
             },
             "octeractQuarkGain2": {
@@ -2643,22 +2643,22 @@
             "7": "You cannot grasp the true form of Ant God's treasure."
         },
         "talismans": {
-            "fortify": "FORTIFY",
-            "enhance": "ENHANCE",
+            "fortify": "УКРЕПИТЬ",
+            "enhance": "ЗАЧАРОВАТЬ",
             "respec": "RESPEC",
             "respecAll": "RESPEC ALL",
-            "buy": "BUY",
-            "buyAll": "BUY ALL",
+            "buy": "КУПИТЬ",
+            "buyAll": "КУПИТЬ ВСЕ",
             "autoBuyOn": "Автопокупка: ВКЛ",
             "autoBuyOff": "Автопокупка: ВЫКЛ",
             "clickBuyEveryType": "Click to buy every type of Talisman Shards and Fragments, if affordable",
             "costToBuy": "Цена покупки {{name}} ({{buyAmount}}): {{obtainium}} Обтаниума и {{offerings}} Подношений.",
             "names": {
                 "exemption": "Exemption",
-                "chronos": "Chronos",
-                "midas": "Midas",
-                "metaphysics": "Metaphysics",
-                "polymath": "Polymath",
+                "chronos": "Хронос",
+                "midas": "Мидас",
+                "metaphysics": "Метафизика",
+                "polymath": "Эрудит",
                 "mortuus": "Mortuus Est",
                 "plastic": "Plastic"
             }
@@ -2667,21 +2667,21 @@
             "buyUpTo": "Buy up to <<var(--orchid-text-color);|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]",
             "autoRuneOn": "Авто Руны: ВКЛ",
             "autoRuneOff": "Авто Руны: ВЫКЛ",
-            "allIncreaseLevel": "ALL Increase Level",
-            "blessingLevel": "<<orchid|Blessing level>>: {{amount}}",
-            "blessingPower": "Blessing Power: <<turquoise|{{value}}>> =-=-= Effect: <<gold|{{speed}}>>x {{reward}}!",
+            "allIncreaseLevel": "Повысить Уровень ВСЕХ",
+            "blessingLevel": "<<orchid|уровень Благословения>>: {{amount}}",
+            "blessingPower": "Сила Благословения: <<turquoise|{{value}}>> =-=-= Эффект: <<gold|{{speed}}>>x {{reward}}!",
             "rewards": {
                 "0": "Global Speed",
                 "1": "Multiplier Boosts",
-                "2": "Ant Sacrifice Rewards",
+                "2": "Награда за Жертвоприношения",
                 "3": "Delay for A.Boost Cost",
-                "4": "Obtainium --> Ant Mult."
+                "4": "Обтаниум --> Множ. Муравьёв"
             },
             "increaseLevel": "Increase Level By <<orchid|{{amount}}>> [Cost: <<orchid|{{offerings}}>> Offerings]"
         },
         "spirits": {
-            "spiritLevel": "Spirit level: <<orchid|{{amount}}>>",
-            "spiritPower": "Spirit Power: <<turquoise|{{value}}>> =-=-= Effect: <<gold|{{speed}}>>{{reward}}!",
+            "spiritLevel": "Уровень Духа: <<orchid|{{amount}}>>",
+            "spiritPower": "Сила Духа: <<turquoise|{{value}}>> =-=-= Эффект: <<gold|{{speed}}>>x {{reward}}!",
             "rewards": {
                 "0": "x Global Speed",
                 "1": "x Wow! Cubes by Ascension",
@@ -2692,25 +2692,25 @@
             "buyUpTo": "Buy up to <<var(--orchid-text-color)|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]"
         },
         "perOfferingText": "+{{exp}} EXP per offering, {{x}} [{{y}}] Offerings to level up once.",
-        "runeEffectSummaryTitle": "=====RUNE EFFECT SUMMARY=====",
-        "bonusAmount": "[Bonus: {{x}}]",
-        "bonusNope": "[Bonus: Nope!]",
-        "resourcesToEnhance": "=-=-= Resources Required to ENHANCE =-=-=",
-        "resourcesToLevelup": "-=-=- Resources Required to Level Up -=-=-",
+        "runeEffectSummaryTitle": "=====СПИСОК ЭФФЕКТОВ РУН=====",
+        "bonusAmount": "[Бонус: {{x}}]",
+        "bonusNope": "[Бонус: Неа!]",
+        "resourcesToEnhance": "=-=-= Необходимо Для ЗАЧАРОВАНИЯ =-=-=",
+        "resourcesToLevelup": "-=-=- Необходимо для Повышения Уровня -=-=-",
         "autoEnhanceOn": "Авто Зачарования: ВКЛ",
         "autoEnhanceOff": "Авто Зачарования: ВЫКЛ",
         "autoFortifyOn": "Авто Укрепление: ВКЛ",
         "autoFortifyOff": "Авто Укрепление: ВЫКЛ",
         "names": {
-            "speed": "Speed Rune",
-            "duplication": "Duplication Rune",
-            "prism": "Prism Rune",
-            "thrift": "Thrift Rune",
+            "speed": "Руна Скорости",
+            "duplication": "Руна Дубликации",
+            "prism": "Руна Призмы",
+            "thrift": "Руна Экономии",
             "SI": "Superior Intellect",
-            "IA": "Infinite Ascent",
-            "AOAG": "Antiquities of Ant God"
+            "IA": "Бесконечное Восхождение",
+            "AOAG": "Антикварии Муравьиного Бога"
         },
-        "maxLevel": "Maxed Level!",
+        "maxLevel": "Макс. уровень!",
         "TNL": "+1 in {{EXP}} EXP"
     },
     "singularityChallenge": {
@@ -2937,8 +2937,8 @@
                     "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Кварков."
                 },
                 "challenge": {
-                    "effect": "That's preposterous. How are you going to gain +0.05% C15 Exponent per Challenge Hepteract? How!?",
-                    "currentEffect": "Current Effect: C15 Exponent +{{x}}%",
+                    "effect": "Абсурд. Как?! Как вы собираетесь получить +0.05% к Экспоненте И15 за каждый Гептеракт Испытаний?",
+                    "currentEffect": "Текущий Эффект: Экспонента И15 +{{x}}%",
                     "oneCost": "Один такой будет стоить вам {{x}} Гептерактов, {{y}} Платонических Кубов и {{z}} Кубов."
                 },
                 "abyss": {
@@ -3103,7 +3103,7 @@
         "transferredFromLZ": "Transferred save to new format successfully!",
         "allCorruptionsZero": "Все Порчи были установлены на Ноль. Эффект вступит в силу при следующем Вознесении.",
         "corruptionLoadoutApplied": "Corruption Loadout {{x}} \"{{y}}\" has been applied. This will take effect on the next Ascension.",
-        "ascendPrompt": "Ascending will reset all buildings, rune levels [NOT CAP!], talismans, most researches, and the anthill feature for Cubes of Power. Continue?",
+        "ascendPrompt": "При вознесении, все строения, уровни рун [НЕ ЛИМИТ!], талисманы, большинство исследований и муравейник будут сброшены. При этом, вы получите Кубы Силы. Продолжить?",
         "reincarnatePrompt": "Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]",
         "transcendPrompt": "Преобразование сбросит ваши монеты и престижные улучшения, производство монет и кристаллов И алмазы. Первое преобразование открывает новые функции. Преобразовать? [Вы можете включить/выключить это сообщение в настройках.]",
         "prestigePrompt": "Престиж сбросит улучшения монет, производителей монет И кристаллов. Первый Престиж открывает новые возможности. Хотите ли вы выполнить Престиж? [Это сообщение переключаемо в настройках.]",
