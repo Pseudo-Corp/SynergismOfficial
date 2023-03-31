@@ -525,7 +525,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: 1 + 0.01 * n,
                 get desc () {
-                    return i18next.t('singularity.data.singCubes1.effect', { n: format(2 * n, 0, true) })
+                    return i18next.t('singularity.data.singCubes1.effect', { n: format(1 * n, 0, true) })
                 }
             }
         }
@@ -869,7 +869,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: 1 + 0.0125 * n,
                 get desc () {
-                    return i18next.t('singularity.data.singOcteractGain.effect', { n: format(n, 2, true) })
+                    return i18next.t('singularity.data.singOcteractGain.effect', { n: format(1.25 * n, 2, true) })
                 }
             }
         }
@@ -883,7 +883,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: 1 + 0.05 * n,
                 get desc () {
-                    return i18next.t('singularity.data.singOcteractGain2.effect', { n: format(4 * n, 0, true) })
+                    return i18next.t('singularity.data.singOcteractGain2.effect', { n: format(5 * n, 0, true) })
                 }
             }
         }
@@ -897,7 +897,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: 1 + 0.025 * n,
                 get desc () {
-                    return i18next.t('singularity.data.singOcteractGain3.effect', { n: format(2 * n, 2, true) })
+                    return i18next.t('singularity.data.singOcteractGain3.effect', { n: format(2.5 * n, 0, true) })
                 }
             }
         }
@@ -911,7 +911,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: 1 + 0.02 * n,
                 get desc () {
-                    return i18next.t('singularity.data.singOcteractGain4.effect', { n: format(n, 0, true) })
+                    return i18next.t('singularity.data.singOcteractGain4.effect', { n: format(2*n, 0, true) })
                 }
             }
         }
@@ -925,7 +925,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
             return {
                 bonus: 1 + 0.01 * n,
                 get desc () {
-                    return i18next.t('singularity.data.singOcteractGain5.effect', { n: format(n / 2, 1, true) })
+                    return i18next.t('singularity.data.singOcteractGain5.effect', { n: format(n, 0, true) })
                 }
             }
         }
@@ -1377,27 +1377,28 @@ export const singularityPerks: SingularityPerk[] = [
     },
     {
         name: () => {
+            return  i18next.t('singularity.perkNames.derpSmithsCornucopia')
+        },
+        levels: [18, 38, 58, 78, 88, 98, 118, 148, 178, 188, 198, 208, 218, 228, 238, 248],
+        description: (n: number, levels: number[]) => {
+            for (let i = levels.length - 1; i >= 0; i--) {
+                if (n >= levels[i]) {
+                    return i18next.t('singularity.perks.derpSmithsCornucopia', {
+                        counter: i+1
+                    })
+                }
+            }
+
+            return i18next.t('singularity.perks.evenMoreQuarks.bug')
+        }
+    },
+    {
+        name: () => {
             return  i18next.t('singularity.perkNames.exaltedAchievements')
         },
         levels: [25],
         description: () => {
             return i18next.t('singularity.perks.exaltedAchievements')
-        }
-    },
-    {
-        name: () => {
-            return  i18next.t('singularity.perkNames.derpSmithsCornucopia')
-        },
-        levels: [18, 38, 58, 78, 88, 98, 118, 148, 178, 188, 198, 208, 218, 228, 238, 248],
-        description: (n: number, levels: number[]) => {
-            let counter = 0
-            for (const singCount of levels) {
-                if (n >= singCount) {
-                    counter += 1
-                }
-            }
-
-            return i18next.t('singularity.perks.derpSmithsCornucopia', { counter })
         }
     },
     {

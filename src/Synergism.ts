@@ -868,7 +868,7 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
             Object.entries(player.octeractUpgrades).map(([key, value]) => {
                 return [key, {
                     level: value.level,
-                    goldenQuarksInvested: value.octeractsInvested,
+                    octeractsInvested: value.octeractsInvested,
                     toggleBuy: value.toggleBuy,
                     freeLevels: value.freeLevels
                 }]
@@ -3819,7 +3819,7 @@ const tack = (dt: number) => {
         addTimers('autoPotion', dt)
 
         //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
-        if (player.shopUpgrades.offeringAuto > 0.5 && player.autoSacrificeToggle) {
+        if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle) {
             automaticTools('runeSacrifice', dt)
         }
 

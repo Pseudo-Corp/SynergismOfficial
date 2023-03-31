@@ -45,7 +45,9 @@ export const sumContents = (array: number[]): number => {
  * @param array {number[]}
  * @returns {number}
  */
+// TODO: Add a productContents for Decimal, but callable using productContents...
 export const productContents = (array: number[]): number => array.reduce((a, b) => a * b);
+
 
 export const sortWithIndices = (toSort: number[]) => {
     return Array

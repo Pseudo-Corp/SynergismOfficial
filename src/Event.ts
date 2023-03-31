@@ -55,25 +55,25 @@ const events: Record<string, HolidayData> = {
     },
     // Last active event
     last: {
-        name: 'Platonic\'s Feelin\' 22',
-        color: 'gold',
-        url: 'https://youtu.be/NypS89VNgI8?t=345',
+        name: 'April Showers',
+        color: 'turquoise',
+        url: 'https://youtu.be/eKpPxWAauOI',
         everyYear: false,
-        start: '02/22/2022 00:00:00',
-        end: '02/26/2023 23:59:59',
+        start: '03/29/2022 00:00:00',
+        end: '04/03/2023 23:59:59',
         notice: 20,
         event: true,
         buffs: {
-            quark: 1,
-            globalSpeed: 0.22,
-            ascensionSpeed: 0.22,
-            antSacrifice: 0.22,
-            offering: 0.22,
-            obtainium: 0.22,
-            octeract: 0.22,
-            powderConversion: 0.22,
-            goldenQuark: 0.22,
-            oneMind: 0.022
+            quark: 0.25,
+            globalSpeed: 0.2,
+            ascensionSpeed: 0,
+            antSacrifice: 0.2,
+            offering: 0.25,
+            obtainium: 0.25,
+            octeract: 0.25,
+            powderConversion: 0,
+            goldenQuark: 0.1,
+            oneMind: 0.025
         }
     },
     khafra: {

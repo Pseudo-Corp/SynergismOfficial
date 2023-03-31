@@ -21,7 +21,6 @@ export class OcteractUpgrade extends DynamicUpgrade {
     constructor(data: IOcteractData, key: string) {
         const name = i18next.t(`octeract.data.${key}.name`)
         const description = i18next.t(`octeract.data.${key}.description`)
-
         super({... data, name, description});
         this.costFormula = data.costFormula;
         this.octeractsInvested = data.octeractsInvested ?? 0;
@@ -224,9 +223,9 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         costPerLevel: 1e-7,
         effect: (n: number) => {
             return {
-                bonus: 1 + 0.01 * n,
+                bonus: 1 + 0.011 * n,
                 get desc () {
-                    return i18next.t('octeract.data.octeractQuarkGain.effect', {n: format(n, 0 , true)})
+                    return i18next.t('octeract.data.octeractQuarkGain.effect', {n: format(1.1*n, 0 , true)})
                 }
             }
         }

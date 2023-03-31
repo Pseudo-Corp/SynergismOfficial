@@ -718,11 +718,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
             let updatedData:IOcteractData
             if (data.octeractUpgrades[k]) {
                 const { level, octeractsInvested, toggleBuy, freeLevels } = data.octeractUpgrades[k]
-
                 updatedData = {
                     maxLevel: octeractData[k].maxLevel,
                     costPerLevel: octeractData[k].costPerLevel,
-
                     level,
                     octeractsInvested,
                     toggleBuy,

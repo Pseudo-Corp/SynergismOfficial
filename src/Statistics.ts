@@ -138,9 +138,9 @@ export const loadQuarkMultiplier = () => {
     DOMCacheGetOrSet('sGQM2').textContent = '+' + format(player.achievementPoints / 25000, 3, true) //AP
     DOMCacheGetOrSet('sGQM3').textContent = '+' + format(player.achievements[250] > 0 ? 0.10 : 0, 3, true) //Max r8x25
     DOMCacheGetOrSet('sGQM4').textContent = '+' + format(player.achievements[251] > 0 ? 0.10 : 0, 3, true) //Max w5x10
-    DOMCacheGetOrSet('sGQM5').textContent = '+' + format(player.platonicUpgrades[5] > 0 ? 0.10 : 0, 3, true) //ALPHA
-    DOMCacheGetOrSet('sGQM6').textContent = '+' + format(player.platonicUpgrades[10] > 0 ? 0.15 : 0, 3, true) //BETA
-    DOMCacheGetOrSet('sGQM7').textContent = '+' + format(player.platonicUpgrades[15] > 0 ? 0.20 : 0, 3, true) //OMEGA
+    DOMCacheGetOrSet('sGQM5').textContent = '+' + format(player.platonicUpgrades[5] > 0 ? 0.20 : 0, 3, true) //ALPHA
+    DOMCacheGetOrSet('sGQM6').textContent = '+' + format(player.platonicUpgrades[10] > 0 ? 0.25 : 0, 3, true) //BETA
+    DOMCacheGetOrSet('sGQM7').textContent = '+' + format(player.platonicUpgrades[15] > 0 ? 0.30 : 0, 3, true) //OMEGA
     DOMCacheGetOrSet('sGQM8').textContent = '+' + format(G.challenge15Rewards['quarks']-1, 3, true) //Challenge 15 Reward
     DOMCacheGetOrSet('sGQM9').textContent = 'x' + format(player.worlds.applyBonus(1 / calculateQuarkMultiplier()), 3, true) //Patreon Bonus
     DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G['isEvent'] ? 1 + calculateEventBuff('Quarks') + calculateEventBuff('One Mind') : 1), 3, true) //Event

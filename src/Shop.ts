@@ -595,7 +595,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
             lol.innerHTML = i18next.t('shop.upgradeEffects.offeringEX', {amount: format(4 * player.shopUpgrades.offeringEX,2,true)})
             break;
         case 'offeringAuto':
-            lol.innerHTML = i18next.t('shop.upgradeEffects.offeringAuto', {amount1: format(Math.pow(2, 1 + player.shopUpgrades.offeringAuto)), amount2: format(2 * player.shopUpgrades.offeringAuto, 2)})
+            lol.innerHTML = i18next.t('shop.upgradeEffects.offeringAuto', {amount1: format(Math.pow(2, player.shopUpgrades.offeringAuto)), amount2: format(2 * player.shopUpgrades.offeringAuto, 2)})
             break;
         case 'obtainiumEX':
             lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumEX', {amount: format(4 * player.shopUpgrades.obtainiumEX,2,true)})

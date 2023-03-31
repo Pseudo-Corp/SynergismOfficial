@@ -2146,11 +2146,10 @@
             "79": "Efecto: Ganarás +10% recompensas =)",
             "80": "Efecto: ELO de Hormiga +75 si esta mejora se compra.",
             "81": "Efecto: Todo lo que necesitas saber está sobre este mensaje.",
-            "120": "Efecto: ¡-50% Impuestos heh!",
-            "121": "Efecto: ¡+88% límite de Mejora Cristales 3, heh!",
-            "122": "Efecto: ¡Producción de Monedas ^1,025, heh!",
-            "123": "Efecto: ¡+3% ELO de Hormigas efectivo, heh!",
-            "124": "+{{x}}% de poder al Divisor de Constante.",
+            "121": "Efecto: ¡-50% Impuestos heh!",
+            "122": "Efecto: ¡+88% límite de Mejora Cristales 3, heh!",
+            "123": "Efecto: ¡Producción de Monedas ^1,025, heh!",
+            "124": "Efecto: ¡+3% ELO de Hormigas efectivo, heh!",
             "125": "+{{x}}% de poder al Divisor de Constante."
         },
         "shopTitles": {
