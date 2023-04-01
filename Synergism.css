@@ -3542,3 +3542,28 @@ header #obtainiumDisplay { color: pink; }
     text-align: center;
     padding-bottom: 5px;
 }
+
+#event {
+    position: relative;
+    padding: 0;
+    text-align: center;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+#unsmith {
+    margin: 15px;
+    gap: 10px 15px;
+    height: auto;
+    width: 200px;
+    max-width: 500%;
+    animation: rotation 2s infinite linear;
+}
