@@ -811,14 +811,14 @@
             "noGoal": "没有目标，根据您在此挑战中的最高金币数量获得奖励。"
         },
         "header": "正常游戏是不是已经让您觉得太简单了？试试这些吧！[点击图标以查看挑战详情！]",
-        "autoChallengeSweepOn": "自动扫荡挑战[ON]",
-        "autoChallengeSweepOff": "自动扫荡挑战[OFF]",
+        "autoChallengeSweepOn": "自动扫荡挑战[开]",
+        "autoChallengeSweepOff": "自动扫荡挑战[关]",
         "retryChallengesOn": "重新尝试挑战：开",
         "retryChallengesOff": "重新尝试挑战：关",
-        "autoAscRunChalOn": "自动飞升运行挑战{{x}}[ON]",
-        "autoAscRunChalOff": "自动飞升运行挑战{{x}}[OFF]",
-        "autoRunChalOn": "自动运行挑战{{x}}[ON]",
-        "autoRunChalOff": "自动运行挑战{{x}}[OFF]",
+        "autoAscRunChalOn": "自动飞升运行挑战{{x}}[开]",
+        "autoAscRunChalOff": "自动飞升运行挑战{{x}}[关]",
+        "autoRunChalOn": "自动运行挑战{{x}}[开]",
+        "autoRunChalOff": "自动运行挑战{{x}}[关]",
         "modeStart": "模式：开始",
         "modeExit": "模式：退出",
         "modeWait": "模式：等待",
@@ -1218,8 +1218,8 @@
         "automaticOff": "自动：关",
         "autoModeCheapest": "自动模式：花费",
         "autoModeManual": "自动模式：手动",
-        "hoverToBuyOn": "鼠标停留购买[ON]",
-        "hoverToBuyOff": "鼠标停留购买[OFF]",
+        "hoverToBuyOn": "鼠标停留购买[开]",
+        "hoverToBuyOff": "鼠标停留购买[关]",
         "hover": "将鼠标停在格子上可获得有关研究的详情！"
     },
     "shop": {
@@ -1811,8 +1811,8 @@
             "wowPass4": {
                 "name": "夸夸夸夸克克克克克克",
                 "description": "就算再怎么贵也要冲鸭！",
-                "effectHave": "You have quacked your last QUARK",
-                "effectHaveNot": "You haven't quacked your last QUARK"
+                "effectHave": "您已嘎了最后的嘎克",
+                "effectHaveNot": "您未嘎了最后的嘎克"
             },
             "blueberries": {
                 "name": "蓝莓碎片!",
@@ -1889,8 +1889,8 @@
         "spent": "花费",
         "OK": "好",
         "Cancel": "取消",
-        "autoOnBracket": "自动[ON]",
-        "autoOffBracket": "自动[OFF]",
+        "autoOnBracket": "自动[开]",
+        "autoOffBracket": "自动[关]",
         "softCapped": "(已达软上限)",
         "maxed": "(已满级)",
         "affordable": "(可购买)",
@@ -2331,8 +2331,8 @@
         "autoAscend": {
             "c10Completions": "当进行<<var(--violet-text-color)|{{input}}>>次挑战10以后飞升，目前次数为<<gold|{{completions}}>>",
             "realTime": "当时间至少经过<<var(--violet-text-color)|{{input}}>>秒(现实时间)后飞升，目前秒数为<<gold|{{time}}>>",
-            "on": "自动飞升[ON]",
-            "off": "自动飞升[OFF]",
+            "on": "自动飞升[开]",
+            "off": "自动飞升[关]",
             "modeCompletions": "模式：挑战10完成数",
             "modeRealTime": "模式：现实时间"
         },
@@ -2813,7 +2813,7 @@
         "open50%": "开启50%",
         "openCustom": "自定数量",
         "openAll": "开启全部",
-        "autoOff": "自动开启[OFF]",
+        "autoOff": "自动开启[关]",
         "autoOn": "自动开启{{percent}}%",
         "quarks": {
             "quarkTitle": "-=- 开启方盒获取夸克 -=-",
@@ -3087,12 +3087,12 @@
         "percentBetweenInclusive": "请输入{{x}}至{{y}}之间的数字！",
         "percentKeptAt": "您的自动锻造比例仍然为{{x}}%。",
         "onAscensionHepteractsCraft": "好的。飞升时，将有{{x}}%的七阶立方用于锻造。",
-        "autoUpgradeOn": "自动升级：[ON]",
-        "autoUpgradeOff": "自动升级：[OFF]",
+        "autoUpgradeOn": "自动升级：[开]",
+        "autoUpgradeOff": "自动升级：[关]",
         "upgradeMaxIfPossible": "升级：最大[尽可能]",
         "upgradeOneLevelWow": "升级：1级(惊奇)",
-        "saveOfferingsOn": "保留祭品[ON]",
-        "saveOfferingsOff": "保留祭品[OFF]",
+        "saveOfferingsOn": "保留祭品[开]",
+        "saveOfferingsOff": "保留祭品[关]",
         "modeTime": "模式：时间",
         "modeAmount": "模式：数量",
         "modePercentage": "模式：百分比"
@@ -3130,9 +3130,9 @@
     },
     "event": {
         "aprilFools": {
-            "introText": "The <<white|Unsmith>> spins at you, telepathically communicating: 'This is NOT a <<white|Rick>><<red|Roll>>, I swear. Just click me already!'",
-            "clicked": "See? Yet another reason to trust Unsmith. Ah well. For clicking me, you gain 5% more Offerings, Obtainium, and ALL Cubes until you refresh the page!",
-            "clickedText": "You have clicked the <<white|Unsmith>>! Until refresh, gain <<orange|+5% Offerings>>, <<pink|+5% Obtainium>>, <<white|+5% ALL Cubes>>!"
+            "introText": "<<white|Unsmith>>向您转了过来，用心灵感应说道：“我保证，这 绝 不是<<white|瑞克>><<red|摇摆>>。点击我就行了！“",
+            "clicked": "看吧？都说了可以相信Unsmith的。因为您点击了我，您的难得素获取数量、祭品获取数量、所有类型的方盒及立方获取数量在刷新页面之前增加5%！",
+            "clickedText": "您点击了<<white|Unsmith>>！在刷新页面之前，可以使<<orange|祭品获取数量增加5%>>，<<pink|难得素获取数量增加5%>>，且<<white|所有类型的方盒及立方产量增加5%>>！"
         }
     }
 }
