@@ -26,7 +26,7 @@ import { Synergism } from './Events'
 import type { Player, resetNames, OneToFive } from './types/Synergism'
 import { updateClassList } from './Utility'
 import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions'
-import { toggleAutoChallengeModeText, toggleSubTab, toggleTabs } from './Toggles'
+import { toggleAutoChallengeModeText } from './Toggles'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { WowCubes } from './CubeExperimental'
 import { importSynergism } from './ImportExport'
@@ -41,6 +41,7 @@ import type { TesseractBuildings } from './Buy'
 import { sumContents } from './Utility'
 import { setInterval, clearInterval } from './Timers'
 import { IconSets } from './Themes'
+import { changeTab, changeSubTab } from './Tabs'
 
 let repeatreset: ReturnType<typeof setTimeout>
 
@@ -1062,13 +1063,13 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   }) as Player
 
   // Reset Displays
-  toggleTabs('buildings')
-  toggleSubTab(1, 0)
-  toggleSubTab(4, 0) // Set 'runes' subtab back to 'runes' tab
-  toggleSubTab(8, 0) // Set 'cube tribues' subtab back to 'cubes' tab
-  toggleSubTab(9, 0) // set 'corruption main'
-  toggleSubTab(10, 0) // set 'singularity main'
-  toggleSubTab(-1, 0) // set 'statistics main'
+  changeTab('buildings')
+  changeSubTab('buildings', 0)
+  changeSubTab('runes', 0) // Set 'runes' subtab back to 'runes' tab
+  changeSubTab('cube', 0) // Set 'cube tribues' subtab back to 'cubes' tab
+  changeSubTab('traits', 0) // set 'corruption main'
+  changeSubTab('singularity', 0) // set 'singularity main'
+  changeSubTab('settings', 0) // set 'statistics main'
 
   hold.history.singularity = player.history.singularity
   hold.totalQuarksEver = player.totalQuarksEver

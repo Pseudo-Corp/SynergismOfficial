@@ -132,7 +132,7 @@ export const toOrdinal = (int: number):string => {
 }
 
 export const formatMS = (ms: number) => Object.entries({
-  d: format(Math.floor(ms / 86400000), 0, true),
+  d: Math.floor(ms / 86400000),
   h: Math.floor(ms / 3600000) % 24,
   m: Math.floor(ms / 60000) % 60,
   s: Math.floor(ms / 1000) % 60
@@ -155,4 +155,20 @@ export const cleanString = (s: string): string => {
   }
 
   return cleaned
+}
+
+export function assert (condition: unknown): asserts condition {
+  if (!condition) {
+    throw new TypeError('assertion failed')
+  }
+}
+
+export function limitRange (number: number, min: number, max: number): number {
+  if (number < min) {
+    return max
+  } else if (number > max) {
+    return min
+  }
+
+  return number
 }

@@ -1,12 +1,13 @@
 import { sacrificeAnts } from './Ants'
 import { buyAccelerator, boostAccelerator, buyMultiplier } from './Buy'
 import { player, resetCheck, synergismHotkeys } from './Synergism'
-import { keyboardTabChange, toggleAutoChallengeRun, toggleCorruptionLevel, confirmReply } from './Toggles'
+import { toggleAutoChallengeRun, toggleCorruptionLevel, confirmReply } from './Toggles'
 import { Alert, Prompt, Confirm } from './UpdateHTML'
 import { Globals as G } from './Variables'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { useConsumable } from  './Shop'
 import { promocodes } from './ImportExport'
+import { keyboardTabChange as kbTabChange } from './Tabs'
 
 export const defaultHotkeys = new Map<string, [string, () => unknown, boolean]>([
   ['A', ['Buy Accelerators', () => buyAccelerator(), false]],
@@ -28,10 +29,10 @@ export const defaultHotkeys = new Map<string, [string, () => unknown, boolean]>(
   ['S', ['Sacrifice Ants', () => sacrificeAnts(), false]],
   ['T', ['Reset Transcend', () => resetCheck('transcension'), false]],
   ['Y', ['Yes (OK)', () => confirmReply(true), true]],
-  ['ARROWLEFT', ['Back a tab', () => keyboardTabChange(-1), false]],
-  ['ARROWRIGHT', ['Next tab', () => keyboardTabChange(1), false]],
-  ['ARROWUP', ['Back a subtab', () => keyboardTabChange(-1, false), false]],
-  ['ARROWDOWN', ['Next subtab', () => keyboardTabChange(1, false), false]],
+  ['ARROWLEFT', ['Back a tab', () => kbTabChange(-1), false]],
+  ['ARROWRIGHT', ['Next tab', () => kbTabChange(1), false]],
+  ['ARROWUP', ['Back a subtab', () => kbTabChange(-1, true), false]],
+  ['ARROWDOWN', ['Next subtab', () => kbTabChange(1, true), false]],
   ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascension'), false]],
   ['SHIFT+C', ['Cleanse Corruptions', () => toggleCorruptionLevel(10, 999), false]],
   ['SHIFT+D', ['Spec. Action Add x1', () => promocodes('add', 1), false]],

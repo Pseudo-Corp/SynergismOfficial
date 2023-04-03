@@ -1228,6 +1228,7 @@ p#prestigehotkeys {
 #runeContainer1,
 #runeContainer3,
 #runeContainer4 {
+    display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;

@@ -14,7 +14,7 @@ import { calculateHypercubeBlessings } from './Hypercubes'
 import { calculateTesseractBlessings } from './Tesseracts'
 import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, exitOffline, calculateGoldenQuarkGain } from './Calculate'
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels, calculateMaxTalismanLevel } from './Talismans'
-import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleTabs, toggleSubTab, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles'
+import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles'
 import { c15RewardUpdate } from './Statistics'
 import { resetHistoryRenderAllTables } from './History'
 import { calculatePlatonicBlessings } from './PlatonicCubes'
@@ -51,6 +51,7 @@ import { setInterval, setTimeout, clearTimeout, clearTimers } from './Timers'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import { init as i18nInit } from './i18n'
 import i18next from 'i18next'
+import { changeTab, changeSubTab } from './Tabs'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -1913,8 +1914,8 @@ const loadSynergy = async () => {
 const FormatList = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QtDc', 'SxDc', 'SpDc', 'OcDc', 'NoDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QaVg', 'QtVg', 'SxVg', 'SpVg', 'OcVg', 'NoVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QaTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qd', 'UQd', 'DQd', 'TQd', 'QaQd', 'QtQd', 'SxQd', 'SpQd', 'OcQd', 'NoQd', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OcSe', 'NoSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OcSt', 'NoSt', 'Ocg', 'UOcg', 'DOcg', 'TOcg', 'QaOcg', 'QtOcg', 'SxOcg', 'SpOcg', 'OcOcg', 'NoOcg', 'Nono', 'UNono', 'DNono', 'TNono', 'QaNono', 'QtNono', 'SxNono', 'SpNono', 'OcNono', 'NoNono', 'Ce']
 
 // Bad browsers (like Safari) only recently implemented this.
-// eslint-disable-next-line
-const supportsFormatToParts = typeof Intl.NumberFormat.prototype.formatToParts === 'function'
+//
+const supportsFormatToParts = typeof (Intl.NumberFormat.prototype).formatToParts === 'function'
 
 // In some browsers, this will return an empty-1 length array (?), causing a "TypeError: Cannot read property 'value' of undefined"
 // if we destructure it... To reproduce: ` const [ { value } ] = []; `
@@ -4008,7 +4009,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
           buyRuneBonusLevels('Spirits', num)
         }
       }
-      if (G.currentTab === 'challenges') {
+      if (G.currentTab === 'challenge') {
         toggleChallenges(num)
         challengeDisplay(num)
       }
@@ -4022,7 +4023,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       if (G.currentTab === 'buildings' && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(1)
       }
-      if (G.currentTab === 'challenges' && player.reincarnationCount > 0) {
+      if (G.currentTab === 'challenge' && player.reincarnationCount > 0) {
         toggleChallenges(6)
         challengeDisplay(6)
       }
@@ -4031,7 +4032,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       if (G.currentTab === 'buildings' && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(2)
       }
-      if (G.currentTab === 'challenges' && player.achievements[113] === 1) {
+      if (G.currentTab === 'challenge' && player.achievements[113] === 1) {
         toggleChallenges(7)
         challengeDisplay(7)
       }
@@ -4040,7 +4041,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       if (G.currentTab === 'buildings' && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(3)
       }
-      if (G.currentTab === 'challenges' && player.achievements[120] === 1) {
+      if (G.currentTab === 'challenge' && player.achievements[120] === 1) {
         toggleChallenges(8)
         challengeDisplay(8)
       }
@@ -4049,7 +4050,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       if (G.currentTab === 'buildings' && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(4)
       }
-      if (G.currentTab === 'challenges' && player.achievements[127] === 1) {
+      if (G.currentTab === 'challenge' && player.achievements[127] === 1) {
         toggleChallenges(9)
         challengeDisplay(9)
       }
@@ -4058,7 +4059,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       if (G.currentTab === 'buildings' && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(5)
       }
-      if (G.currentTab === 'challenges' && player.achievements[134] === 1) {
+      if (G.currentTab === 'challenge' && player.achievements[134] === 1) {
         toggleChallenges(10)
         challengeDisplay(10)
       }
@@ -4143,13 +4144,13 @@ export const reloadShit = async (reset = false) => {
   createTimer()
 
   //Reset Displays
-  toggleTabs('buildings')
-  toggleSubTab(1, 0)
-  toggleSubTab(4, 0) // Set 'runes' subtab back to 'runes' tab
-  toggleSubTab(8, 0) // Set 'cube tribues' subtab back to 'cubes' tab
-  toggleSubTab(9, 0) // set 'corruption main'
-  toggleSubTab(10, 0) // set 'singularity main'
-  toggleSubTab(-1, 0) // set 'statistics main'
+  changeTab('buildings')
+  changeSubTab('buildings', 0)
+  changeSubTab('runes', 0) // Set 'runes' subtab back to 'runes' tab
+  changeSubTab('cube', 0) // Set 'cube tribues' subtab back to 'cubes' tab
+  changeSubTab('traits', 0) // set 'corruption main'
+  changeSubTab('singularity', 0) // set 'singularity main'
+  changeSubTab('settings', 0) // set 'statistics main'
 
   dailyResetCheck()
   setInterval(dailyResetCheck, 30000)

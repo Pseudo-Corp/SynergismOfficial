@@ -1,4 +1,4 @@
-import { revealStuff, hideStuff, updateChallengeDisplay, showCorruptionStatsLoadouts, changeTabColor, Prompt, Alert } from './UpdateHTML'
+import { updateChallengeDisplay, showCorruptionStatsLoadouts, Prompt, Alert } from './UpdateHTML'
 import { player, format, resetCheck } from './Synergism'
 import { Globals as G } from './Variables'
 import { visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
@@ -11,77 +11,7 @@ import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } f
 import type { BuildingSubtab, Player } from './types/Synergism'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import i18next from 'i18next'
-
-interface TabValue { tabName: keyof typeof tabNumberConst, unlocked: boolean }
-type Tab = Record<number, TabValue>
-type SubTab = Record<number, {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    tabSwitcher?: ((...args: any[]) => unknown) | ((...args: any[]) => Promise<unknown>)
-    subTabList: {
-        subTabID: string | number | boolean
-        unlocked: boolean
-        buttonID?: string
-    }[]
-}>
-
-const tabNumberConst = {
-  'settings': -1,
-  'shop': 0,
-  'buildings': 1,
-  'upgrades': 2,
-  'achievements': 3,
-  'runes': 4,
-  'challenges': 5,
-  'researches': 6,
-  'ants': 7,
-  'cubes': 8,
-  'traits': 9,
-  'singularity': 10,
-  'event': 11
-} as const
-
-export const toggleTabs = (name: keyof typeof tabNumberConst) => {
-  G.currentTab = name
-  player.tabnumber = tabNumberConst[name]
-
-  revealStuff()
-  hideStuff()
-
-  const el = document.activeElement as HTMLElement | null
-  if (el !== null) {
-    el.blur()
-  }
-
-  const subTabList = subTabsInMainTab(player.tabnumber).subTabList
-  if (player.tabnumber !== -1) {
-    for (let i = 0; i < subTabList.length; i++) {
-      const id = subTabList[i].buttonID
-      if (id) {
-        const button = DOMCacheGetOrSet(id) as HTMLElement | null
-        if (button !== null) {
-          if (button.style.backgroundColor === 'crimson') { // handles every tab except settings and corruptions
-            player.subtabNumber = i
-            break
-          }
-          if (player.tabnumber === 9 && button.style.borderColor === 'dodgerblue') { // handle corruption tab
-            player.subtabNumber = i
-            break
-          }
-        }
-      }
-    }
-  } else { // handle settings tab
-    // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-    const btns = document.querySelectorAll('[id^="switchSettingSubTab"]')
-    for (let i = 0; i < btns.length; i++) {
-      if (btns[i].classList.contains('buttonActive')) {
-        player.subtabNumber = i
-        break
-      }
-    }
-  }
-  toggleSubTab(player.tabnumber, player.subtabNumber)
-}
+import { subTabsInMainTab } from './Tabs'
 
 export const toggleSettings = (toggle: HTMLElement) => {
   const toggleId = toggle.getAttribute('toggleId') ?? 1
@@ -113,7 +43,7 @@ export const toggleSettings = (toggle: HTMLElement) => {
       : i18next.t('general.autoOffBracket')
   }
 
-  toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
+  toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red')
 }
 
 export const toggleChallenges = (i: number, auto = false) => {
@@ -216,178 +146,6 @@ export const toggleShops = (toggle?: upgradeAutos) => {
   }
 }
 
-export function tabs(): Tab
-export function tabs(mainTab: number): TabValue
-export function tabs(mainTab?: number) {
-  const tabs: Tab = {
-    '-1': { tabName: 'settings', unlocked: true },
-    0: { tabName: 'shop', unlocked: player.unlocks.reincarnate || player.highestSingularityCount > 0 },
-    1: { tabName: 'buildings', unlocked: true },
-    2: { tabName: 'upgrades', unlocked: true },
-    3: { tabName: 'achievements', unlocked: player.unlocks.coinfour },
-    4: { tabName: 'runes', unlocked: player.unlocks.prestige },
-    5: { tabName: 'challenges', unlocked: player.unlocks.transcend },
-    6: { tabName: 'researches', unlocked: player.unlocks.reincarnate },
-    7: { tabName: 'ants', unlocked: player.achievements[127] > 0 },
-    8: { tabName: 'cubes', unlocked: player.achievements[141] > 0 },
-    9: { tabName: 'traits', unlocked: player.challengecompletions[11] > 0 },
-    10: { tabName: 'singularity', unlocked: player.highestSingularityCount > 0 },
-    11: { tabName: 'event', unlocked: G.isEvent }
-  }
-
-  if (typeof mainTab === 'undefined') {
-    return tabs
-  }
-
-  return tabs[mainTab]
-}
-
-/**
- *
- * @param mainTab the index of the main tab
- * @returns Object()
- */
-export const subTabsInMainTab = (mainTab: number) => {
-  /**
-     * An array of sub-tab objects with the IDs for the sub-tabs and buttons, and unlock conditions
-     * @type {SubTab}
-     */
-  const subTabs: SubTab = {
-    '-1': {
-      tabSwitcher: setActiveSettingScreen,
-      subTabList: [
-        { subTabID: 'settingsubtab', unlocked: true },
-        { subTabID: 'languagesubtab', unlocked: true },
-        { subTabID: 'creditssubtab', unlocked: true },
-        { subTabID: 'statisticsSubTab', unlocked: true },
-        { subTabID: 'resetHistorySubTab', unlocked: player.unlocks.prestige },
-        { subTabID: 'ascendHistorySubTab', unlocked: player.ascensionCount > 0 },
-        { subTabID: 'singularityHistorySubTab', unlocked: player.highestSingularityCount > 0 },
-        { subTabID: 'hotkeys', unlocked: true }
-      ]
-    },
-    0: { subTabList: [] },
-    1: {
-      tabSwitcher: toggleBuildingScreen,
-      subTabList: [
-        { subTabID: 'coin', unlocked: true, buttonID: 'switchToCoinBuilding' },
-        { subTabID: 'diamond', unlocked: player.unlocks.prestige, buttonID: 'switchToDiamondBuilding' },
-        { subTabID: 'mythos', unlocked: player.unlocks.transcend, buttonID: 'switchToMythosBuilding' },
-        { subTabID: 'particle', unlocked: player.unlocks.reincarnate, buttonID: 'switchToParticleBuilding' },
-        { subTabID: 'tesseract', unlocked: player.achievements[183] > 0, buttonID: 'switchToTesseractBuilding' }]
-    },
-    2: { subTabList: [] },
-    3: { subTabList: [] },
-    4: {
-      tabSwitcher: toggleRuneScreen,
-      subTabList: [
-        { subTabID: 1, unlocked: player.unlocks.prestige, buttonID: 'toggleRuneSubTab1' },
-        { subTabID: 2, unlocked: player.achievements[134] > 0, buttonID: 'toggleRuneSubTab2' },
-        { subTabID: 3, unlocked: player.achievements[134] > 0, buttonID: 'toggleRuneSubTab3' },
-        { subTabID: 4, unlocked: player.achievements[204] > 0, buttonID: 'toggleRuneSubTab4' }]
-    },
-    5: { subTabList: [] },
-    6: { subTabList: [] },
-    7: { subTabList: [] },
-    8: {
-      tabSwitcher: toggleCubeSubTab,
-      subTabList: [
-        { subTabID: 1, unlocked: player.achievements[141] > 0, buttonID: 'switchCubeSubTab1' },
-        { subTabID: 2, unlocked: player.achievements[197] > 0, buttonID: 'switchCubeSubTab2' },
-        { subTabID: 3, unlocked: player.achievements[211] > 0, buttonID: 'switchCubeSubTab3' },
-        { subTabID: 4, unlocked: player.achievements[218] > 0, buttonID: 'switchCubeSubTab4' },
-        { subTabID: 5, unlocked: player.achievements[141] > 0, buttonID: 'switchCubeSubTab5' },
-        { subTabID: 6, unlocked: player.achievements[218] > 0, buttonID: 'switchCubeSubTab6' },
-        { subTabID: 7, unlocked: player.challenge15Exponent >= 1e15, buttonID: 'switchCubeSubTab7' }]
-    },
-    9: {
-      tabSwitcher: toggleCorruptionLoadoutsStats,
-      subTabList: [
-        { subTabID: true, unlocked: player.achievements[141] > 0, buttonID: 'corrStatsBtn' },
-        { subTabID: false, unlocked: player.achievements[141] > 0, buttonID: 'corrLoadoutsBtn' }]
-    },
-    10: {
-      tabSwitcher: toggleSingularityScreen,
-      subTabList: [
-        { subTabID: 1, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab1' },
-        { subTabID: 2, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab2' },
-        { subTabID: 3, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab3' },
-        { subTabID: 4, unlocked: Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus), buttonID: 'toggleSingularitySubTab4' },
-        { subTabID: 5, unlocked: player.highestSingularityCount >= 25, buttonID: 'toggleSingularitySubTab5' }]
-    },
-    11: { subTabList: [] }
-  }
-  return subTabs[mainTab]!
-}
-
-export const keyboardTabChange = (dir = 1, main = true) => {
-  if (main) {
-    player.tabnumber += dir
-    const maxTab = Object.keys(tabs()).reduce((a, b) => Math.max(a, +b), -Infinity)
-    const minTab = Object.keys(tabs()).reduce((a, b) => Math.min(a, +b), Infinity)
-    // The loop point is chosen to be before settings so that new tabs can just be added to the end of the list
-    // without needing to mess with the settings and shop
-    const handleLoopBack = () => {
-      if (player.tabnumber === maxTab + 1) { // went over from the right
-        player.tabnumber = minTab // loop back left
-      }
-      if (player.tabnumber === minTab - 1) { // and vice versa
-        player.tabnumber = maxTab
-      }
-    }
-    handleLoopBack()
-    while (!tabs(player.tabnumber).unlocked) {
-      player.tabnumber += dir
-      handleLoopBack()
-    }
-    toggleTabs(tabs(player.tabnumber).tabName)
-  } else {
-    const subTabList = subTabsInMainTab(player.tabnumber).subTabList
-    if (subTabList.length === 0) {
-      return
-    }
-    player.subtabNumber += dir
-    const handleLoopBack = () => {
-      const numSubTabs = subTabList.length
-      player.subtabNumber = (player.subtabNumber + numSubTabs) % numSubTabs
-    }
-    handleLoopBack()
-    while (!subTabList[player.subtabNumber].unlocked) {
-      player.subtabNumber += dir
-      handleLoopBack()
-    }
-    toggleSubTab(player.tabnumber, player.subtabNumber)
-  }
-
-  changeTabColor()
-}
-
-export const toggleSubTab = (mainTab = 1, subTab = 0) => {
-  const subTabs = subTabsInMainTab(mainTab)
-  if (tabs(mainTab).unlocked && subTabs.subTabList.length > 0) {
-
-    const el = document.activeElement as HTMLElement | null
-    if (el !== null) {
-      el.blur()
-    }
-
-    const subTabList = subTabs.subTabList[subTab]
-    if (mainTab === -1) {
-      // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-      const btn = DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[subTab]
-      if (subTabList.unlocked) {
-        player.subtabNumber = subTab
-        subTabs.tabSwitcher?.(subTabList.subTabID, btn)
-      }
-    } else {
-      if (subTabList.unlocked) {
-        player.subtabNumber = subTab
-        subTabs.tabSwitcher?.(subTabList.subTabID)
-      }
-    }
-  }
-}
-
 export const toggleautoreset = (i: number) => {
   if (i === 1) {
     if (player.resettoggle1 === 1 || player.resettoggle1 === 0) {
@@ -464,7 +222,7 @@ export const toggleauto = () => {
         : i18next.t('general.autoOffBracket')
     }
 
-    toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
+    toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red')
   }
 
   const tesseractAutos = Array.from<HTMLElement>(document.querySelectorAll('*[id^="tesseractAutoToggle"]'))
@@ -718,7 +476,7 @@ interface ChadContributor {
     contributions: number
 }
 
-const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonElement) => {
+export const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonElement) => {
   const subtabEl = DOMCacheGetOrSet(subtab)
   if (subtabEl.classList.contains('subtabActive')) {
     return
@@ -908,7 +666,8 @@ export const autoPlatonicUpgradesToggle = (toggle = true) => {
 }
 
 export const toggleCubeSubTab = (i: number) => {
-  const numSubTabs = subTabsInMainTab(8).subTabList.length
+  const numSubTabs = subTabsInMainTab('cube')
+
   for (let j = 1; j <= numSubTabs; j++) {
     const cubeTab = DOMCacheGetOrSet(`cubeTab${j}`)
     if (cubeTab.style.display === 'flex' && j !== i) {

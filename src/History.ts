@@ -261,7 +261,7 @@ const historyGains: Record<
     img: 'TinyWow8.png',
     formatter: formatDecimalSource,
     imgTitle: 'Octeracts',
-    onlyif: () => player.singularityUpgrades.octeractUnlock.getEffect().bonus > 0
+    onlyif: () => (player.singularityUpgrades.octeractUnlock.getEffect().bonus as number) > 0
   },
   c15Score: {
     img: 'TinyChallenge15.png',

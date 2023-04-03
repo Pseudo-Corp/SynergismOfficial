@@ -12,6 +12,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { revealCorruptions } from './Corruptions'
 import i18next from 'i18next'
+import type { TabNames } from './Tabs'
 
 export const revealStuff = () => {
   const example = document.getElementsByClassName('coinunlock1') as HTMLCollectionOf<HTMLElement>
@@ -234,7 +235,7 @@ export const revealStuff = () => {
 
   const goldenQuarks3 = document.getElementsByClassName('goldenQuark3Upg') as HTMLCollectionOf<HTMLElement>
   for (const HTML of Array.from(goldenQuarks3)) {
-    HTML.style.display = player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0 ? 'block' : 'none'
+    HTML.style.display = (player.singularityUpgrades.goldenQuarks3.getEffect().bonus as number) > 0 ? 'block' : 'none'
   }
   if (player.upgrades[89] === 1) {
     DOMCacheGetOrSet('transcendautotoggle').style.display = 'block'
@@ -555,7 +556,7 @@ export const hideStuff = () => {
   DOMCacheGetOrSet('singularity').style.display = 'none'
   DOMCacheGetOrSet('singularitytab').style.backgroundColor = ''
   DOMCacheGetOrSet('event').style.display = 'none'
-  DOMCacheGetOrSet('eventTab').style.backgroundColor = ''
+  DOMCacheGetOrSet('eventtab').style.backgroundColor = ''
 
   const tab = DOMCacheGetOrSet('settingstab')!
   tab.style.backgroundColor = ''
@@ -600,11 +601,11 @@ export const hideStuff = () => {
     displayRuneInformation(6, false)
     displayRuneInformation(7, false)
   }
-  if (G.currentTab === 'challenges') {
+  if (G.currentTab === 'challenge') {
     DOMCacheGetOrSet('challenges').style.display = 'block'
     DOMCacheGetOrSet('challengetab').style.backgroundColor = 'purple'
   }
-  if (G.currentTab === 'researches') {
+  if (G.currentTab === 'research') {
     DOMCacheGetOrSet('research').style.display = 'block'
     DOMCacheGetOrSet('researchtab').style.backgroundColor = 'green'
   }
@@ -612,11 +613,11 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('shop').style.display = 'block'
     DOMCacheGetOrSet('shoptab').style.backgroundColor = 'limegreen'
   }
-  if (G.currentTab === 'ants') {
+  if (G.currentTab === 'ant') {
     DOMCacheGetOrSet('ants').style.display = 'block'
     DOMCacheGetOrSet('anttab').style.backgroundColor = 'brown'
   }
-  if (G.currentTab === 'cubes') {
+  if (G.currentTab === 'cube') {
     DOMCacheGetOrSet('cubes').style.display = 'flex'
     DOMCacheGetOrSet('cubetab').style.backgroundColor = 'white'
   }
@@ -634,21 +635,21 @@ export const hideStuff = () => {
 
   if (G.currentTab === 'event') {
     DOMCacheGetOrSet('event').style.display = 'block'
-    DOMCacheGetOrSet('eventTab').style.backgroundColor = 'gold'
+    DOMCacheGetOrSet('eventtab').style.backgroundColor = 'gold'
   }
 }
 
-const visualTab: Record<typeof G['currentTab'], () => void> = {
+const visualTab: Record<TabNames, () => void> = {
   buildings: visualUpdateBuildings,
   upgrades: visualUpdateUpgrades,
   achievements: visualUpdateAchievements,
   runes: visualUpdateRunes,
-  challenges: visualUpdateChallenges,
-  researches: visualUpdateResearch,
+  challenge: visualUpdateChallenges,
+  research: visualUpdateResearch,
   settings: visualUpdateSettings,
   shop: visualUpdateShop,
-  ants: visualUpdateAnts,
-  cubes: visualUpdateCubes,
+  ant: visualUpdateAnts,
+  cube: visualUpdateCubes,
   traits: visualUpdateCorruptions,
   singularity: visualUpdateSingularity,
   event: visualUpdateEvent
@@ -851,7 +852,7 @@ export const buttoncolorchange = () => {
     }
   }
 
-  if (G.currentTab === 'ants') {
+  if (G.currentTab === 'ant') {
     (player.reincarnationPoints.gte(player.firstCostAnts)) ? DOMCacheGetOrSet('anttier1').classList.add('antTierBtnAvailable') : DOMCacheGetOrSet('anttier1').classList.remove('antTierBtnAvailable')
     for (let i = 2; i <= 8; i++) {
       const costAnts = player[`${G.ordinals[(i - 1) as ZeroToSeven]}CostAnts` as const]
