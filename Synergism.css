@@ -643,6 +643,10 @@ nav button {
     background-color: var(--hovershop-color);
 }
 
+button.isEvent:hover {
+    background-color: gold;
+}
+
 #anttab {
     border-color: maroon;
 }
