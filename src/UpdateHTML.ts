@@ -634,7 +634,7 @@ export const hideStuff = () => {
 
     if (G['currentTab'] === 'event') {
         DOMCacheGetOrSet('event').style.display = 'block'
-        DOMCacheGetOrSet('eventTab').style.backgroundColor = 'black';
+        DOMCacheGetOrSet('eventTab').style.backgroundColor = 'gold';
     }
 }
 
