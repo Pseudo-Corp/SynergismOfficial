@@ -1077,8 +1077,27 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.goldenQuarks = player.goldenQuarks
   hold.shopUpgrades = player.shopUpgrades
   hold.worlds = new QuarkHandler({ quarks: 0, bonus: 0 })
-  hold.singularityUpgrades = player.singularityUpgrades
-  hold.octeractUpgrades = player.octeractUpgrades
+  // Exclude potentially non-latin1 characters from the save
+  hold.singularityUpgrades = Object.fromEntries(
+    Object.entries(player.singularityUpgrades).map(([key, value]) => {
+      return [key, {
+        level: value.level,
+        goldenQuarksInvested: value.goldenQuarksInvested,
+        toggleBuy: value.toggleBuy,
+        freeLevels: value.freeLevels
+      }]
+    })
+  ) as Player['singularityUpgrades']
+  hold.octeractUpgrades = Object.fromEntries(
+    Object.entries(player.octeractUpgrades).map(([key, value]) => {
+      return [key, {
+        level: value.level,
+        goldenQuarksInvested: value.octeractsInvested,
+        toggleBuy: value.toggleBuy,
+        freeLevels: value.freeLevels
+      }]
+    })
+  ) as unknown as Player['octeractUpgrades']
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString
@@ -1159,7 +1178,15 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.autoCubeUpgradesToggle = player.autoCubeUpgradesToggle
   hold.autoPlatonicUpgradesToggle = player.autoPlatonicUpgradesToggle
   hold.insideSingularityChallenge = player.insideSingularityChallenge
-  hold.singularityChallenges = player.singularityChallenges
+  hold.singularityChallenges = Object.fromEntries(
+    Object.entries(player.singularityChallenges).map(([key, value]) => {
+      return [key, {
+        completions: value.completions,
+        highestSingularityCompleted: value.highestSingularityCompleted,
+        enabled: value.enabled
+      }]
+    })
+  ) as Player['singularityChallenges']
   hold.iconSet = player.iconSet
 
   // Quark Hepteract craft is saved entirely. For other crafts we only save their auto setting

@@ -1913,7 +1913,7 @@ const loadSynergy = async () => {
 const FormatList = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QtDc', 'SxDc', 'SpDc', 'OcDc', 'NoDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QaVg', 'QtVg', 'SxVg', 'SpVg', 'OcVg', 'NoVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QaTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qd', 'UQd', 'DQd', 'TQd', 'QaQd', 'QtQd', 'SxQd', 'SpQd', 'OcQd', 'NoQd', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OcSe', 'NoSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OcSt', 'NoSt', 'Ocg', 'UOcg', 'DOcg', 'TOcg', 'QaOcg', 'QtOcg', 'SxOcg', 'SpOcg', 'OcOcg', 'NoOcg', 'Nono', 'UNono', 'DNono', 'TNono', 'QaNono', 'QtNono', 'SxNono', 'SpNono', 'OcNono', 'NoNono', 'Ce']
 
 // Bad browsers (like Safari) only recently implemented this.
-//
+// eslint-disable-next-line
 const supportsFormatToParts = typeof Intl.NumberFormat.prototype.formatToParts === 'function'
 
 // In some browsers, this will return an empty-1 length array (?), causing a "TypeError: Cannot read property 'value' of undefined"
