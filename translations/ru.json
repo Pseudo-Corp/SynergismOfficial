@@ -1370,7 +1370,7 @@
             "transaction": "Сделка на {{spent}} Золотых Кварков прошла успешно! [-{{cost}} Кварков]",
             "poor": "Прости, в займы не даю. Возвращайся когда станешь... ммм... побогаче!",
             "buyPrompt": "Вы можете купить Золотые Кварки здесь за {{cost}} Кварков (Скидка - {{discount}})! Вы можете купить до {{max}}. Сколько вы хотите? Введите -1, чтобы купить максимальное количество!",
-            "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq} GQ. Type -1 to use max!",
+            "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq}} GQ. Type -1 to use max!",
             "hasUpgrade": "Хэй! Максимальный уровень для этого уже куплен. :D",
             "notHighEnoughLevel": "Пока что вы недостаточно сильны, чтобы купить это.",
             "ascensionReset": "Вы присоединились к культу. В качестве меры предосторожности, прогресс вашего вознесения был сброшен...",
@@ -1481,7 +1481,7 @@
         },
         "toString": {
             "noMinimum": "No minimal Singularity to purchase required",
-            "costNextLevel": "Стоимость следующего уровня:"
+            "costNextLevel": "Стоимость следующего уровня"
         },
         "data": {
             "goldenQuarks1": {
@@ -2097,7 +2097,7 @@
             "30": "Effect: +{{x}} Multipliers.",
             "31": "Effect: +{{x}} Accelerator Boosts",
             "32": "Effect: +{{x}} Accelerators",
-            "33": "Effect: +{{x} Multipliers",
+            "33": "Effect: +{{x}} Multipliers",
             "34": "Effect: +{{x}} Multipliers",
             "35": "Effect: +{{x}} Multipliers",
             "36": "Effect: All Crystal producers x{{x}}",
