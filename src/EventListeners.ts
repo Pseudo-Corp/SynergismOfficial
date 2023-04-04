@@ -29,6 +29,7 @@ import { resetHotkeys } from './Hotkeys'
 import { generateExportSummary } from './Summary'
 import { shopMouseover } from './UpdateVisuals'
 import i18next from 'i18next'
+import { clickSmith } from './Event'
 
 /* STYLE GUIDE */
 /*
@@ -129,6 +130,7 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet('cubetab').addEventListener('click', () => toggleTabs('cubes'))
     DOMCacheGetOrSet('traitstab').addEventListener('click', () => toggleTabs('traits'))
     DOMCacheGetOrSet('singularitytab').addEventListener('click', () => toggleTabs('singularity'))
+    DOMCacheGetOrSet('eventTab').addEventListener('click', () => toggleTabs('event'))
 
     // BUILDINGS TAB
     //Part 1: Upper portion (Subtab toggle)
@@ -662,6 +664,9 @@ TODO: Fix this entire tab it's utter shit
 
     const tabs = document.querySelectorAll<HTMLElement>('#tabrow > button');
     tabs.forEach(b => b.addEventListener('click', () => changeTabColor()));
+
+    // EVENT TAB (Replace as events are created)
+    DOMCacheGetOrSet('unsmith').addEventListener('click', () => clickSmith())
 
     // Import button
     DOMCacheGetOrSet('importfile').addEventListener('change', async e => {

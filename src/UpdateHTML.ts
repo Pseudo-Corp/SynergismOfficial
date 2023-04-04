@@ -5,7 +5,7 @@ import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAccel
 import { achievementaward, totalachievementpoints } from './Achievements';
 import { displayRuneInformation } from './Runes';
 import { autoResearchEnabled } from './Research';
-import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateSingularity, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions } from './UpdateVisuals';
+import { visualUpdateBuildings, visualUpdateUpgrades, visualUpdateAchievements, visualUpdateRunes, visualUpdateChallenges, visualUpdateResearch, visualUpdateSettings, visualUpdateShop, visualUpdateSingularity, visualUpdateAnts, visualUpdateCubes, visualUpdateCorruptions, visualUpdateEvent } from './UpdateVisuals';
 import { getMaxChallenges } from './Challenges';
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism';
 import { DOMCacheGetOrSet } from './Cache/DOM';
@@ -203,6 +203,11 @@ export const revealStuff = () => {
     for (const HTML of Array.from(singularityHTMLs)) { // Ability to view singularity features.
         const count = Number(HTML.getAttribute('count')) || 1;
         HTML.style.display = player.highestSingularityCount >= count ? 'block' : 'none';
+    }
+
+    const eventHTMLs = document.getElementsByClassName('isEvent') as HTMLCollectionOf<HTMLElement>;
+    for (const HTML of Array.from(eventHTMLs)) {
+        HTML.style.display = G['isEvent'] ? 'block' : 'none';
     }
 
     visualUpdateShop();
@@ -549,6 +554,8 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('traits').style.display = 'none'
     DOMCacheGetOrSet('singularity').style.display = 'none'
     DOMCacheGetOrSet('singularitytab').style.backgroundColor = ''
+    DOMCacheGetOrSet('event').style.display = 'none'
+    DOMCacheGetOrSet('eventTab').style.backgroundColor = ''
 
     const tab = DOMCacheGetOrSet('settingstab')!;
     tab.style.backgroundColor = '';
@@ -624,6 +631,11 @@ export const hideStuff = () => {
         updateSingularityPenalties();
         updateSingularityPerks();
     }
+
+    if (G['currentTab'] === 'event') {
+        DOMCacheGetOrSet('event').style.display = 'block'
+        DOMCacheGetOrSet('eventTab').style.backgroundColor = 'black';
+    }
 }
 
 const visualTab: Record<typeof G['currentTab'], () => void> = {
@@ -638,7 +650,8 @@ const visualTab: Record<typeof G['currentTab'], () => void> = {
     ants: visualUpdateAnts,
     cubes: visualUpdateCubes,
     traits: visualUpdateCorruptions,
-    singularity: visualUpdateSingularity
+    singularity: visualUpdateSingularity,
+    event: visualUpdateEvent
 };
 
 export const htmlInserts = () => {

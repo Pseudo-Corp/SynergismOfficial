@@ -384,6 +384,9 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
         return productContents(arr)
     }
 
+    if (G['eventClicked'] && G['isEvent']) {
+        q *= 1.05
+    }
     q /= calculateSingularityDebuff('Offering');
     q = Math.floor(q) * 100 / 100
     if (player.currentChallenge.ascension === 15) {
@@ -490,6 +493,11 @@ export const calculateObtainium = () => {
     G['obtainiumGain'] *= +player.octeractUpgrades.octeractObtainium1.getEffect().bonus;
     G['obtainiumGain'] *= Math.pow(1.02, player.shopUpgrades.obtainiumEX3);
     G['obtainiumGain'] *= calculateTotalOcteractObtainiumBonus()
+
+    if (G['eventClicked'] && G['isEvent']) {
+        G['obtainiumGain'] *= 1.05
+    }
+
     if (player.currentChallenge.ascension === 15) {
         G['obtainiumGain'] += 1;
         G['obtainiumGain'] *= (1 + 7 * player.cubeUpgrades[62])
@@ -1181,8 +1189,10 @@ export const calculateAllCubeMultiplier = () => {
         Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
         // Total Global Cube Multipliers: 19
     ]
+
+    const extraMult = (G['isEvent'] && G['eventClicked']) ? 1.05 : 1
     return {
-        mult: productContents(arr),
+        mult: productContents(arr) * extraMult,
         list: arr
     }
 }
@@ -1432,7 +1442,8 @@ export const octeractGainPerSecond = () => {
 
     const ascensionSpeed = player.singularityUpgrades.oneMind.getEffect().bonus ? Math.pow(10, 1/2) : Math.pow(calculateAscensionAcceleration(), 1 / 2)
     const oneMindModifier = player.singularityUpgrades.oneMind.getEffect().bonus ? Math.pow(calculateAscensionAcceleration() / 10, +player.octeractUpgrades.octeractOneMindImprover.getEffect().bonus): 1;
-    const perSecond = 1 / (24 * 3600 * 365 * 1e15) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed * oneMindModifier
+    const extraMult = (G['isEvent'] && G['eventClicked']) ? 1.05 : 1
+    const perSecond = 1 / (24 * 3600 * 365 * 1e15) * baseMultiplier * productContents(valueMultipliers) * ascensionSpeed * oneMindModifier * extraMult
     return perSecond
 }
 

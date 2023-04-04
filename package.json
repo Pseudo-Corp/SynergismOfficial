@@ -27,6 +27,7 @@
     "lint": "npx eslint . --ext .ts",
     "lint:fix": "npx eslint . --ext .ts --fix",
     "csslint": "npx stylelint Synergism.css",
+    "csslint:fix": "npx stylelint Synergism.css --fix",
     "build:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\"",
     "watch:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\" --watch",
     "check:tsc": "npx -p typescript tsc",

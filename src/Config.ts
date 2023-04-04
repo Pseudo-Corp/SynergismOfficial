@@ -1,4 +1,4 @@
-export const version = '2.10.7: March 30, 2023: Bug Fixing 1';
+export const version = '"3.0.0": April 1, 2023: Blueberries!';
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE

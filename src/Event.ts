@@ -2,6 +2,7 @@ import { player, getTimePinnedToLoadDate } from './Synergism'
 import { Globals as G } from './Variables';
 import { DOMCacheGetOrSet } from './Cache/DOM';
 import i18next from 'i18next';
+import { Alert, revealStuff } from './UpdateHTML';
 
 interface HolidayData {
     name: string
@@ -277,6 +278,7 @@ export const eventCheck = () => {
     //}
     const happyHolidays = DOMCacheGetOrSet('happyHolidays') as HTMLAnchorElement;
     const eventBuffs = DOMCacheGetOrSet('eventBuffs');
+    const updateIsEventCheck = G['isEvent']
     if (nowEvent.event === true) {
         start = new Date(nowEvent.start);
         end = new Date(nowEvent.end);
@@ -324,6 +326,9 @@ export const eventCheck = () => {
         happyHolidays.innerHTML = '';
         happyHolidays.href = '';
     }
+    if (G['isEvent'] !== updateIsEventCheck) {
+        revealStuff()
+    }
 }
 
 const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium', 'Octeract', 'One Mind'];
@@ -346,4 +351,10 @@ export const calculateEventSourceBuff = (buff: string): number => {
         case 'One Mind': return (player.singularityUpgrades.oneMind.level > 0) ? event.buffs.oneMind || 0 : 0
         default: return 0;
     }
+}
+
+export const clickSmith = (): Promise<void> => {
+    G['eventClicked'] = true
+    DOMCacheGetOrSet('eventClicked').style.display = 'block'
+    return Alert(i18next.t('event.aprilFools.clicked'))
 }

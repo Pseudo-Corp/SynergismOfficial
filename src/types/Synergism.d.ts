@@ -712,7 +712,8 @@ export interface GlobalVariables {
         | 'ants'
         | 'cubes'
         | 'traits'
-        | 'singularity',
+        | 'singularity'
+        | 'event',
 
     researchfiller1: string
     researchfiller2: string
@@ -943,6 +944,8 @@ export interface GlobalVariables {
 
     isEvent: boolean
     shopEnhanceVision: boolean
+    
+    eventClicked: boolean
 }
 
 export interface SynergismEvents {

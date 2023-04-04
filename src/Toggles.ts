@@ -36,7 +36,8 @@ const tabNumberConst = {
     'ants': 7,
     'cubes': 8,
     'traits': 9,
-    'singularity': 10
+    'singularity': 10,
+    'event': 99
 } as const;
 
 export const toggleTabs = (name: keyof typeof tabNumberConst) => {
@@ -230,7 +231,8 @@ export function tabs(mainTab?: number) {
         7: {tabName: 'ants', unlocked: player.achievements[127] > 0},
         8: {tabName: 'cubes', unlocked: player.achievements[141] > 0},
         9: {tabName: 'traits', unlocked: player.challengecompletions[11] > 0},
-        10: {tabName: 'singularity', unlocked: player.highestSingularityCount > 0}
+        10: {tabName: 'singularity', unlocked: player.highestSingularityCount > 0},
+        99: {tabName: 'event', unlocked: G['isEvent']}
     }
 
     if (typeof mainTab === 'undefined') {
@@ -312,7 +314,8 @@ export const subTabsInMainTab = (mainTab: number) => {
                 {subTabID: 3, unlocked: player.highestSingularityCount > 0, buttonID: 'toggleSingularitySubTab3'},
                 {subTabID: 4, unlocked: Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus), buttonID: 'toggleSingularitySubTab4'},
                 {subTabID: 5, unlocked: player.highestSingularityCount >= 25, buttonID: 'toggleSingularitySubTab5'}]
-        }
+        },
+        99: { subTabList: [] }
     }
     return subTabs[mainTab]!;
 }

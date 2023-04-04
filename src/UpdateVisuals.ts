@@ -872,3 +872,6 @@ export const visualUpdateShop = () => {
     DOMCacheGetOrSet('buySingularityQuarksAmount').textContent = `${player.goldenQuarks < 1000 ? 'Owned: ' : ''}${format(player.goldenQuarks)}`
     DOMCacheGetOrSet('buySingularityQuarksButton').textContent = `Buy! ${format(getGoldenQuarkCost().cost)} Quarks Each`
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export const visualUpdateEvent = () => {}
