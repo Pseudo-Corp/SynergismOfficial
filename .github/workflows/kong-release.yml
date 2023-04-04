@@ -17,7 +17,7 @@ jobs:
           node-version: lts/*
       - name: Install deps
         run: |
-          npm ci
+          npm install
           sudo apt install -y jq
       - name: Build
         run: |
