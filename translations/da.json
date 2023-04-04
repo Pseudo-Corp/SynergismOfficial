@@ -1481,7 +1481,7 @@
         },
         "toString": {
             "noMinimum": "No minimal Singularity to purchase required",
-            "costNextLevel": "Cost for next level:"
+            "costNextLevel": "Cost for next level"
         },
         "data": {
             "goldenQuarks1": {
