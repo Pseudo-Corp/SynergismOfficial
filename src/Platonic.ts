@@ -274,7 +274,7 @@ const checkPlatonicUpgrade = (index: number, auto = false): Record<keyof (IPlatB
     if (auto && (resources[i] === 'obtainium' || resources[i] === 'offerings')) {
       checksum++
       checks[resources[i]] = true
-    } else if (Math.floor(platUpgradeBaseCosts[index][resources[i]] * priceMultiplier) <= player[resourceNames[i]]) {
+    } else if (Math.floor(platUpgradeBaseCosts[index][resources[i]] * priceMultiplier) <= (player[resourceNames[i]] as number)) {
       checksum++
       checks[resources[i]] = true
     }

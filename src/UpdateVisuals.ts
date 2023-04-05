@@ -428,7 +428,7 @@ export const visualUpdateRunes = () => {
 }
 
 export const visualUpdateChallenges = () => {
-  if (G.currentTab !== 'challenges') {
+  if (G.currentTab !== 'challenge') {
     return
   }
   if (player.researches[150] > 0) {
@@ -439,7 +439,7 @@ export const visualUpdateChallenges = () => {
 }
 
 export const visualUpdateResearch = () => {
-  if (G.currentTab !== 'researches') {
+  if (G.currentTab !== 'research') {
     return
   }
 
@@ -451,7 +451,7 @@ export const visualUpdateResearch = () => {
 }
 
 export const visualUpdateAnts = () => {
-  if (G.currentTab !== 'ants') {
+  if (G.currentTab !== 'ant') {
     return
   }
   DOMCacheGetOrSet('crumbcount').textContent = i18next.t('ants.youHaveGalacticCrumbs', {
@@ -483,7 +483,7 @@ interface cubeNames {
 }
 
 export const visualUpdateCubes = () => {
-  if (G.currentTab !== 'cubes') {
+  if (G.currentTab !== 'cube') {
     return
   }
 

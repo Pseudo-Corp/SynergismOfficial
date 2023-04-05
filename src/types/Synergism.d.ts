@@ -7,6 +7,7 @@ import { IPlatBaseCost } from '../Platonic';
 import type { QuarkHandler } from '../Quark';
 import { SingularityUpgrade } from '../singularity';
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges';
+import type { TabNames } from '../Tabs'
 
 export interface Player {
     firstPlayed: string
@@ -700,20 +701,7 @@ export interface GlobalVariables {
     uFourteenMulti: Decimal
     uFifteenMulti: Decimal
     tuSevenMulti: number
-    currentTab:
-        | 'buildings'
-        | 'upgrades'
-        | 'achievements'
-        | 'challenges'
-        | 'runes'
-        | 'researches'
-        | 'settings'
-        | 'shop'
-        | 'ants'
-        | 'cubes'
-        | 'traits'
-        | 'singularity'
-        | 'event',
+    currentTab: TabNames,
 
     researchfiller1: string
     researchfiller2: string

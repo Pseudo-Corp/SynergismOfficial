@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleTabs, toggleSubTab, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles'
+import { toggleAscStatPerSecond, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyRuneBonusLevels, buyAllBlessings } from './Buy'
@@ -30,6 +30,7 @@ import { generateExportSummary } from './Summary'
 import { shopMouseover } from './UpdateVisuals'
 import i18next from 'i18next'
 import { clickSmith } from './Event'
+import { changeTab, changeSubTab } from './Tabs'
 
 /* STYLE GUIDE */
 /*
@@ -118,25 +119,25 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('singularitybtn').addEventListener('click', () => resetCheck('singularity'))
   //Part 2: Tabs (sucks)
   //Onmouseover Events
-  DOMCacheGetOrSet('buildingstab').addEventListener('click', () => toggleTabs('buildings'))
-  DOMCacheGetOrSet('upgradestab').addEventListener('click', () => toggleTabs('upgrades'))
-  DOMCacheGetOrSet('settingstab').addEventListener('click', () => toggleTabs('settings'))
-  DOMCacheGetOrSet('achievementstab').addEventListener('click', () => toggleTabs('achievements'))
-  DOMCacheGetOrSet('runestab').addEventListener('click', () => toggleTabs('runes'))
-  DOMCacheGetOrSet('challengetab').addEventListener('click', () => toggleTabs('challenges'))
-  DOMCacheGetOrSet('researchtab').addEventListener('click', () => toggleTabs('researches'))
-  DOMCacheGetOrSet('shoptab').addEventListener('click', () => toggleTabs('shop'))
-  DOMCacheGetOrSet('anttab').addEventListener('click', () => toggleTabs('ants'))
-  DOMCacheGetOrSet('cubetab').addEventListener('click', () => toggleTabs('cubes'))
-  DOMCacheGetOrSet('traitstab').addEventListener('click', () => toggleTabs('traits'))
-  DOMCacheGetOrSet('singularitytab').addEventListener('click', () => toggleTabs('singularity'))
-  DOMCacheGetOrSet('eventTab').addEventListener('click', () => toggleTabs('event'))
+  DOMCacheGetOrSet('buildingstab').addEventListener('click', () => changeTab('buildings'))
+  DOMCacheGetOrSet('upgradestab').addEventListener('click', () => changeTab('upgrades'))
+  DOMCacheGetOrSet('settingstab').addEventListener('click', () => changeTab('settings'))
+  DOMCacheGetOrSet('achievementstab').addEventListener('click', () => changeTab('achievements'))
+  DOMCacheGetOrSet('runestab').addEventListener('click', () => changeTab('runes'))
+  DOMCacheGetOrSet('challengetab').addEventListener('click', () => changeTab('challenge'))
+  DOMCacheGetOrSet('researchtab').addEventListener('click', () => changeTab('research'))
+  DOMCacheGetOrSet('shoptab').addEventListener('click', () => changeTab('shop'))
+  DOMCacheGetOrSet('anttab').addEventListener('click', () => changeTab('ant'))
+  DOMCacheGetOrSet('cubetab').addEventListener('click', () => changeTab('cube'))
+  DOMCacheGetOrSet('traitstab').addEventListener('click', () => changeTab('traits'))
+  DOMCacheGetOrSet('singularitytab').addEventListener('click', () => changeTab('singularity'))
+  DOMCacheGetOrSet('eventtab').addEventListener('click', () => changeTab('event'))
 
   // BUILDINGS TAB
   //Part 1: Upper portion (Subtab toggle)
   const buildingTypes = ['Coin', 'Diamond', 'Mythos', 'Particle', 'Tesseract']
   for (let index = 0; index < buildingTypes.length; index++) {
-    DOMCacheGetOrSet(`switchTo${buildingTypes[index]}Building`).addEventListener('click', () => toggleSubTab(1, index))
+    DOMCacheGetOrSet(`switchTo${buildingTypes[index]}Building`).addEventListener('click', () => changeSubTab('buildings', index))
 
   }
   //Part 2: Building Amount Toggles
@@ -267,7 +268,7 @@ export const generateEventHandlers = () => {
   //Toggle subtabs of Runes tab
   for (let index = 0; index < 4; index++) {
 
-    DOMCacheGetOrSet(`toggleRuneSubTab${index+1}`).addEventListener('click', () => toggleSubTab(4, index))
+    DOMCacheGetOrSet(`toggleRuneSubTab${index+1}`).addEventListener('click', () => changeSubTab('runes', index))
 
   }
 
@@ -420,7 +421,7 @@ export const generateEventHandlers = () => {
   //Part 0: Subtab UI
   for (let index = 0; index < 7; index++) {
 
-    DOMCacheGetOrSet(`switchCubeSubTab${index+1}`).addEventListener('click', () => toggleSubTab(8, index))
+    DOMCacheGetOrSet(`switchCubeSubTab${index+1}`).addEventListener('click', () => changeSubTab('cube', index))
 
   }
 
@@ -532,8 +533,8 @@ export const generateEventHandlers = () => {
 
   // CORRUPTION TAB
   //Part 0: Subtabs
-  DOMCacheGetOrSet('corrStatsBtn').addEventListener('click', () => toggleSubTab(9, 0))
-  DOMCacheGetOrSet('corrLoadoutsBtn').addEventListener('click', () => toggleSubTab(9, 1))
+  DOMCacheGetOrSet('corrStatsBtn').addEventListener('click', () => changeSubTab('traits', 0))
+  DOMCacheGetOrSet('corrLoadoutsBtn').addEventListener('click', () => changeSubTab('traits', 1))
 
   //Part 1: Displays
   DOMCacheGetOrSet('corruptionDisplays').addEventListener('click', () => corruptionDisplay(10))
@@ -548,7 +549,7 @@ export const generateEventHandlers = () => {
   // Part 0: Subtabs
   const settingSubTabs = Array.from<HTMLElement>(document.querySelectorAll('[id^="switchSettingSubTab"]'))
   for (const subtab of settingSubTabs) {
-    subtab.addEventListener('click', () => toggleSubTab(-1, settingSubTabs.indexOf(subtab)))
+    subtab.addEventListener('click', () => changeSubTab('settings', settingSubTabs.indexOf(subtab)))
   }
 
   const t = Array.from(document.querySelectorAll<HTMLElement>('button.statsNerds'))
@@ -659,7 +660,7 @@ TODO: Fix this entire tab it's utter shit
 
   //Toggle subtabs of Singularity tab
   for (let index = 0; index < 5; index++) {
-    DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => toggleSubTab(10, index))
+    DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => changeSubTab('singularity', index))
   }
 
   const tabs = document.querySelectorAll<HTMLElement>('#tabrow > button')

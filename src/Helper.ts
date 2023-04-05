@@ -156,7 +156,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       //Add Obtainium
       player.researchPoints = Math.min(1e300, player.researchPoints + obtainiumGain * time * timeMultiplier)
       //Update visual displays if appropriate
-      if (G.currentTab === 'researches') {
+      if (G.currentTab === 'research') {
         visualUpdateResearch()
       }
       break

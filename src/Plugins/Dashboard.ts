@@ -209,7 +209,7 @@ const renderDashboardFast = () => {
 const openDashboard = () => {
   // compute blessings total amounts
   const n = player.subtabNumber
-  G.currentTab = 'cubes';
+  G.currentTab = 'cube';
   [0, 1, 2, 3].forEach(i => {
     player.subtabNumber = i
     visualUpdateCubes()
