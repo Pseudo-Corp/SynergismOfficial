@@ -1481,7 +1481,7 @@
         },
         "toString": {
             "noMinimum": "无进入奇点次数要求",
-            "costNextLevel": "下一级的花费："
+            "costNextLevel": "下一级的花费"
         },
         "data": {
             "goldenQuarks1": {
