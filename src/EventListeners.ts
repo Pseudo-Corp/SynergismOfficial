@@ -663,15 +663,6 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => changeSubTab('singularity', index))
   }
 
-  document.getElementById('tabrow')?.addEventListener('click', (e) => {
-    const element = e.target as HTMLElement
-
-    // sanity check, not really needed
-    if (element.tagName === 'BUTTON') {
-
-    }
-  })
-
   const tabs = document.querySelectorAll<HTMLElement>('#tabrow > button')
   tabs.forEach(b => b.addEventListener('click', () => changeTabColor()))
 

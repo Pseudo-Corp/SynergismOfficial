@@ -194,8 +194,12 @@ export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
     player.tabnumber = limitRange(player.tabnumber + step, 1, tabs.size)
   }
 
-  const tab = tabs.get(player.tabnumber)
-  assert(tab !== undefined)
+  let tab = tabs.get(player.tabnumber)!
+
+  while (!tab.unlocked) {
+    player.tabnumber = limitRange(player.tabnumber + step, 1, tabs.size)
+    tab = tabs.get(player.tabnumber)!
+  }
 
   if (changeSubtab) {
     changeSubTab(tab, step)
