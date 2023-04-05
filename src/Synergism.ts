@@ -2852,7 +2852,7 @@ export const resourceGain = (dt: number): void => {
     }
   }
   if (ascendchal !== 0 && ascendchal < 15) {
-    if (player.challengecompletions[10] >= challengeRequirement(ascendchal, player.challengecompletions[ascendchal], ascendchal)) {
+    if (player.challengecompletions[10] >= (challengeRequirement(ascendchal, player.challengecompletions[ascendchal], ascendchal) as number)) {
       void resetCheck('ascensionChallenge', false)
       challengeachievementcheck(ascendchal, true)
     }
@@ -3186,7 +3186,7 @@ export const resetCheck = async (i: resetNames, manual = true, leaving = false):
     const maxCompletions = getMaxChallenges(a)
 
     if (a !== 0 && a < 15) {
-      if (player.challengecompletions[10] >= challengeRequirement(a, player.challengecompletions[a], a) && player.challengecompletions[a] < maxCompletions) {
+      if (player.challengecompletions[10] >= (challengeRequirement(a, player.challengecompletions[a], a) as number) && player.challengecompletions[a] < maxCompletions) {
         player.challengecompletions[a] += 1
         updateChallengeLevel(a)
         challengeDisplay(a, false)
