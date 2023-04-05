@@ -1481,7 +1481,7 @@
         },
         "toString": {
             "noMinimum": "No minimal Singularity to purchase required",
-            "costNextLevel": "Cost for next level:"
+            "costNextLevel": "Cost for next level"
         },
         "data": {
             "goldenQuarks1": {
@@ -2097,7 +2097,7 @@
             "30": "Effect: +{{x}} Multipliers.",
             "31": "Effect: +{{x}} Accelerator Boosts",
             "32": "Effect: +{{x}} Accelerators",
-            "33": "Effect: +{{x} Multipliers",
+            "33": "Effect: +{{x}} Multipliers",
             "34": "Effect: +{{x}} Multipliers",
             "35": "Effect: +{{x}} Multipliers",
             "36": "Effect: All Crystal producers x{{x}}",
