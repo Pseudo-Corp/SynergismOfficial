@@ -4145,12 +4145,12 @@ export const reloadShit = async (reset = false) => {
 
   //Reset Displays
   changeTab('buildings')
-  changeSubTab('buildings', 0)
-  changeSubTab('runes', 0) // Set 'runes' subtab back to 'runes' tab
-  changeSubTab('cube', 0) // Set 'cube tribues' subtab back to 'cubes' tab
-  changeSubTab('traits', 0) // set 'corruption main'
-  changeSubTab('singularity', 0) // set 'singularity main'
-  changeSubTab('settings', 0) // set 'statistics main'
+  changeSubTab('buildings', { page: 0 })
+  changeSubTab('runes', { page: 0 }) // Set 'runes' subtab back to 'runes' tab
+  changeSubTab('cube', { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
+  changeSubTab('traits', { page: 0 }) // set 'corruption main'
+  changeSubTab('singularity', { page: 0 }) // set 'singularity main'
+  changeSubTab('settings', { page: 0 }) // set 'statistics main'
 
   dailyResetCheck()
   setInterval(dailyResetCheck, 30000)

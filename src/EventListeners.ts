@@ -137,7 +137,7 @@ export const generateEventHandlers = () => {
   //Part 1: Upper portion (Subtab toggle)
   const buildingTypes = ['Coin', 'Diamond', 'Mythos', 'Particle', 'Tesseract']
   for (let index = 0; index < buildingTypes.length; index++) {
-    DOMCacheGetOrSet(`switchTo${buildingTypes[index]}Building`).addEventListener('click', () => changeSubTab('buildings', index))
+    DOMCacheGetOrSet(`switchTo${buildingTypes[index]}Building`).addEventListener('click', () => changeSubTab('buildings', { page: index }))
 
   }
   //Part 2: Building Amount Toggles
@@ -268,7 +268,7 @@ export const generateEventHandlers = () => {
   //Toggle subtabs of Runes tab
   for (let index = 0; index < 4; index++) {
 
-    DOMCacheGetOrSet(`toggleRuneSubTab${index+1}`).addEventListener('click', () => changeSubTab('runes', index))
+    DOMCacheGetOrSet(`toggleRuneSubTab${index+1}`).addEventListener('click', () => changeSubTab('runes', { page: index }))
 
   }
 
@@ -421,7 +421,7 @@ export const generateEventHandlers = () => {
   //Part 0: Subtab UI
   for (let index = 0; index < 7; index++) {
 
-    DOMCacheGetOrSet(`switchCubeSubTab${index+1}`).addEventListener('click', () => changeSubTab('cube', index))
+    DOMCacheGetOrSet(`switchCubeSubTab${index+1}`).addEventListener('click', () => changeSubTab('cube', { page: index }))
 
   }
 
@@ -533,8 +533,8 @@ export const generateEventHandlers = () => {
 
   // CORRUPTION TAB
   //Part 0: Subtabs
-  DOMCacheGetOrSet('corrStatsBtn').addEventListener('click', () => changeSubTab('traits', 0))
-  DOMCacheGetOrSet('corrLoadoutsBtn').addEventListener('click', () => changeSubTab('traits', 1))
+  DOMCacheGetOrSet('corrStatsBtn').addEventListener('click', () => changeSubTab('traits', { page: 0 }))
+  DOMCacheGetOrSet('corrLoadoutsBtn').addEventListener('click', () => changeSubTab('traits', { page: 1 }))
 
   //Part 1: Displays
   DOMCacheGetOrSet('corruptionDisplays').addEventListener('click', () => corruptionDisplay(10))
@@ -549,7 +549,7 @@ export const generateEventHandlers = () => {
   // Part 0: Subtabs
   const settingSubTabs = Array.from<HTMLElement>(document.querySelectorAll('[id^="switchSettingSubTab"]'))
   for (const subtab of settingSubTabs) {
-    subtab.addEventListener('click', () => changeSubTab('settings', settingSubTabs.indexOf(subtab)))
+    subtab.addEventListener('click', () => changeSubTab('settings', { page: settingSubTabs.indexOf(subtab) }))
   }
 
   const t = Array.from(document.querySelectorAll<HTMLElement>('button.statsNerds'))
@@ -660,7 +660,7 @@ TODO: Fix this entire tab it's utter shit
 
   //Toggle subtabs of Singularity tab
   for (let index = 0; index < 5; index++) {
-    DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => changeSubTab('singularity', index))
+    DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => changeSubTab('singularity', { page: index }))
   }
 
   const tabs = document.querySelectorAll<HTMLElement>('#tabrow > button')

@@ -14,6 +14,12 @@ import { Globals as G } from './Variables'
 
 export type TabNames = 'settings' | 'shop' | 'buildings' | 'upgrades' | 'achievements' | 'runes' | 'challenge' | 'research' | 'ant' | 'cube' | 'traits' | 'singularity' | 'event'
 
+/**
+ * If step is provided, move the page back/forward {step} pages.
+ * If page is provided, change the subtab to {page}
+ */
+type SubTabSwitchOptions = { step: number, page?: undefined } | { page: number, step?: undefined }
+
 interface SubTab {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tabSwitcher?: ((...args: any[]) => any)
@@ -194,27 +200,26 @@ export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
     player.tabnumber = limitRange(player.tabnumber + step, 1, tabs.size)
   }
 
-  let tab = tabs.get(player.tabnumber)!
+  let tab = tabs.get(player.tabnumber)
 
-  while (!tab.unlocked) {
+  while (!tab?.unlocked) {
     player.tabnumber = limitRange(player.tabnumber + step, 1, tabs.size)
     tab = tabs.get(player.tabnumber)!
   }
 
   if (changeSubtab) {
-    changeSubTab(tab, step)
+    changeSubTab(tab, { step })
   }
 
   changeTab(tab)
 }
 
 export const changeTab = (tabOrName: Tab | TabNames) => {
-  const tab = typeof tabOrName === 'string'
-    ? [...tabs.values()].find(tab => tab.name === tabOrName)
-    : tabOrName
+  const [index, tab] = [...tabs.entries()]
+    .find(([, tab]) => tab.name === tabOrName || tab === tabOrName)!
 
-  assert(tab !== undefined)
   G.currentTab = tab.name
+  player.tabnumber = index
 
   revealStuff()
   hideStuff()
@@ -251,7 +256,7 @@ export const changeTab = (tabOrName: Tab | TabNames) => {
   }
 }
 
-export const changeSubTab = (tabOrName: Tab | TabNames, step: number) => {
+export const changeSubTab = (tabOrName: Tab | TabNames, { page, step }: SubTabSwitchOptions) => {
   const tab = typeof tabOrName === 'string'
     ? [...tabs.values()].find(tab => tab.name === tabOrName)
     : tabOrName
@@ -263,7 +268,11 @@ export const changeSubTab = (tabOrName: Tab | TabNames, step: number) => {
     return
   }
 
-  player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
+  if (page !== undefined) {
+    player.subtabNumber = limitRange(page, 0, subTabs.subTabList.length - 1)
+  } else {
+    player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
+  }
   const subTabList = subTabs.subTabList[player.subtabNumber]
 
   if (G.currentTab === 'settings') {
@@ -271,13 +280,9 @@ export const changeSubTab = (tabOrName: Tab | TabNames, step: number) => {
     const btn = DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[player.subtabNumber]
     if (subTabList.unlocked) {
       subTabs.tabSwitcher?.(subTabList.subTabID, btn)
-    } else {
-      player.subtabNumber -= step
     }
   } else if (subTabList.unlocked) {
     subTabs.tabSwitcher?.(subTabList.subTabID)
-  } else if (!subTabList.unlocked) { // eslint-disable-line @typescript-eslint/no-unnecessary-condition
-    player.subtabNumber -= step
   }
 }
 
