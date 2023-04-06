@@ -730,7 +730,7 @@
                 "3": "+80 к Пределу Рун! Текущий эффект: "
             },
             "first": "Открывает 15 новых Исследований и способность открывать Тессеракты! Также, Порчи теперь настраиваемы ;)",
-            "start": "Начать <[(Уменьшенные Муравьи)]>",
+            "start": "Начать <[(Меньше Муравьёв)]>",
             "current": {
                 "1": "+{{value}} бесплатных уровней у муравьев",
                 "2": "Скорость Муравьев x{{value}}",
@@ -1340,26 +1340,26 @@
             "challengeTome2": "Требование к Экспоненте Испытанию 10 уменьшено на <<lightgoldenrodyellow|{{amount1}}>> Миллион. После 60 завершений И9 или И10 множитель масштабирования равен [выполнения * <<lightgoldenrodyellow|{{amount2}}>>]",
             "instantChallenge2": "Мгновенно Испытание выполняет <<orchid|+{{amount}}>> больше испытаний за тик.",
             "cubeToQuarkAll": "Cube to Quark Corner gives <<cyan|+{{amount}}%>> more Quarks!",
-            "cashGrab2": "You will gain <<gold|{{amount}}%>> more Obtainium and Offerings! <<red|Half>> as powerful as the original.",
-            "chronometerZ": "Ascension timer increases <<orange|{{amount}}%>> faster! Seems like this model can build <<orchid|momentum>>...",
-            "offeringEX2": "You will gain <<goldenrod|{{amount}}%>> more Offerings! Puts the first to <<red|shame>>...",
-            "obtainiumEX2": "You will gain <<pink|{{amount}}%>> more Obtainium! Puts the first to <<red|shame>>...",
-            "powderAuto": "Every <<red|{{amount}}>> purchased orbs grants 1 powder.",
-            "seasonPassLost": "You generate <<lightgoldenrodyellow|{{amount}}%>> more Wow! Octeracts per second.",
+            "cashGrab2": "Вы получите <<gold|{{amount}}%>> больше Обтаиниума и Подношений! <<red|Наполовину>> мощнее оригинала.",
+            "chronometerZ": "Таймер Вознесения увеличивается на <<orange|{{amount}}%>> быстрее! Похоже, что эта модель может набирать <<orchid|обороты>>...",
+            "offeringEX2": "Вы получите <<goldenrod|{{amount}}%>> больше Подношений! <<red|Позорит>> первого...",
+            "obtainiumEX2": "Вы получите <<pink|{{amount}}%>> больше Обтаиниума! <<red|Позорит>> первого...",
+            "powderAuto": "Каждые <<red|{{amount}}>> купленных сфер дают 1 порошок.",
+            "seasonPassLost": "Вы генерируете <<lightgoldenrodyellow|{{amount}}%>> больше Вау! Октерактов в секунду.",
             "challenge15Auto": "Даже для премиум магазина это довольно очевидно, не так ли?",
-            "extraWarp": "You can warp <<red|+{{amount}}>> extra times.",
-            "autoWarp": "If you buy this upgrade, you can toggle <<red|auto warp>> in the Hepteract Forge tab. Only if you buy this, though.",
-            "improveQuarkHept": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
-            "improveQuarkHept2": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
-            "improveQuarkHept3": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
-            "improveQuarkHept4": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
-            "improveQuarkHept5": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
-            "shopImprovedDaily": "Code 'daily' gives <<cyan|+{{amount}}%>> more quarks.",
-            "shopImprovedDaily2": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<turquoise|+{{amount2}}%>> more Golden Quarks.",
-            "shopImprovedDaily3": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<turquoise|+{{amount2}}%>> more Golden Quarks.",
-            "shopImprovedDaily4": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<turquoise|+{{amount2}}%>> more Golden Quarks.",
-            "offeringEX3": "You will gain <<goldenrod|{{amount}}%>> more Offerings!",
-            "obtainiumEX3": "You will gain <<pink|{{amount}}%>> more Obtainium!",
+            "extraWarp": "Вы можете деформироваться <<red|+{{amount}}>> дополнительных раз.",
+            "autoWarp": "Если вы купите это обновление, вы можете переключать <<red|Авто деформирование>> во вкладке Кузницы Хептерактов. Но только в том случае, если ты купишь это.",
+            "improveQuarkHept": "Экспонента убывающей отдачи для Кварковых Гептерактов увеличена на <<cyan|+{{amount}}%>>.",
+            "improveQuarkHept2": "Экспонента убывающей отдачи для Кварковых Гептерактов увеличена на <<cyan|+{{amount}}%>>.",
+            "improveQuarkHept3": "Экспонента убывающей отдачи для Кварковых Гептерактов увеличена на <<cyan|+{{amount}}%>>.",
+            "improveQuarkHept4": "Экспонента убывающей отдачи для Кварковых Гептерактов увеличена на <<cyan|+{{amount}}%>>.",
+            "improveQuarkHept5": "Экспонента убывающей отдачи для Кварковых Гептерактов увеличена на <<cyan|+{{amount}}%>>.",
+            "shopImprovedDaily": "Код 'daily' даёт <<cyan|+{{amount}}%>> больше кварков.",
+            "shopImprovedDaily2": "Код 'daily' даёт <<turquoise|+{{amount1}}>> бесплатных Улучшений Сингулярности и <<turquoise|+{{amount2}}%>> больше Золотых Кварков.",
+            "shopImprovedDaily3": "Код 'daily' даёт <<turquoise|+{{amount1}}>> бесплатных Улучшений Сингулярности и <<turquoise|+{{amount2}}%>> больше Золотых Кварков.",
+            "shopImprovedDaily4": "Код 'daily' даёт <<turquoise|+{{amount1}}>> бесплатных Улучшений Сингулярности и <<turquoise|+{{amount2}}%>> больше Золотых Кварков.",
+            "offeringEX3": "Вы получите <<goldenrod|{{amount}}%>> больше Подношений!",
+            "obtainiumEX3": "Вы получите <<pink|{{amount}}%>> больше Обтаиниума!",
             "chronometerInfinity": "Таймер Вознесения увеличивается на <<orange|{{amount}}%>> быстрее.",
             "seasonPassInfinity": "Вознесения дают на <<lightgoldenrodyellow|{{amount}}%>> больше кубов (<<orchid|всех>> видов).",
             "shopSingularityPenaltyDebuff": "В Сингулярности <<pink|{{amount1}}>>, ваши негативные эффекты такие же, как если бы вы были в <<pink|{{amount2}}>>."
@@ -1370,25 +1370,25 @@
             "transaction": "Сделка на {{spent}} Золотых Кварков прошла успешно! [-{{cost}} Кварков]",
             "poor": "Прости, в займы не даю. Возвращайся когда станешь... ммм... побогаче!",
             "buyPrompt": "Вы можете купить Золотые Кварки здесь за {{cost}} Кварков (Скидка - {{discount}})! Вы можете купить до {{max}}. Сколько вы хотите? Введите -1, чтобы купить максимальное количество!",
-            "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq}} GQ. Type -1 to use max!",
+            "spendPrompt": "Сколько Золотых Кварков вы хотели бы потратить? У вас есть {{gq}} ЗК. Введите -1, чтобы использовать максимум!",
             "hasUpgrade": "Хэй! Максимальный уровень для этого уже куплен. :D",
             "notHighEnoughLevel": "Пока что вы недостаточно сильны, чтобы купить это.",
             "ascensionReset": "Вы присоединились к культу. В качестве меры предосторожности, прогресс вашего вознесения был сброшен...",
-            "multiBuyPurchased": "Purchased {{levels}} levels, thanks to Multi Buy!"
+            "multiBuyPurchased": "Куплено {{levels}} уровней, благодаря Многоразовой Покупке!"
         },
         "perks": {
             "improvedIn": "Уже существующая Привилегия будет улучшена в Сингулярности {{sing}}",
             "unlockedIn": "Вы разблокируете новую Привилегию в Сингулярности {{sing}}",
-            "update": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties (Hover for more details. Perks in <span class=\"newPerk\">gold text</span> were added or improved in this Singularity)<br/>{{extra}}",
+            "update": "Самая высокая Сингулярность, которой вы достигли - <span style=\"color: gold\">{{ord}} Сингулярность.</span><br/>Вот список перков, которые вы приобрели для компенсации штрафов (Наведите курсор для получения более подробной информации. В этой Сингулярности были добавлены или улучшены перки в <span class=\"newPerk\">золотом тексте</span>)<br/>{{extra}}",
             "xyz": {
-                "hasLevel2": "In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!",
-                "hasLevel1": "In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.",
-                "default": "The Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades, both scaling with your singularity count!"
+                "hasLevel2": "В дополнении к ЗК и гарантированным бесплатным уровням к ЗК 1/2/3 на +0.2/+0.2/+1, вы получаете ДВОЙНОЕ количество бесплатных улучшений в Ежедневной Специальной Акции!",
+                "hasLevel1": "В дополнении к ЗК и бесплатным уровням улучшения, Ежедневная Специальная Акция даёт вам дополнительные бесплатные уровни к ЗК 1/2/3 на +0.2/+0.2/+1 уровни соответственно.",
+                "default": "Ежедневная Специальная Акция теперь вознаграждает вас Золотыми Кварками и бесплатными уровнями для случайных улучшений Сингулярности, которые увеличиваются в зависимости от вашего количества сингулярностей!"
             },
-            "unlimitedGrowth": "+10% to Quarks gain and Ascension Count for each Singularity. Currently: +{{amount}}%",
+            "unlimitedGrowth": "+10% к увеличению количества Кварков и счётчику Вознесения для каждой Сингулярности. Текущий: +{{amount}}%",
             "goldenCoins": "Непотраченные Золотые Кварки увеличивают получение Монет. Особенно полезно для первого Вознесения каждой Сингулярности",
             "hepteractAutocraft": "Открывает Автосоздание гептерактов",
-            "generousOrbs": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%",
+            "generousOrbs": "Эффект Сфер Изобильного Потока при открытии Кубов для Кварков теперь может увеличиваться до {{amount}}%",
             "researchDummies": {
                 "hasLevel1": "Навсегда оставляете Авто Исследования",
                 "otherwise": "Вы можете Исследовать, Наведя курсор мыши, чтобы Купить"
@@ -1487,7 +1487,7 @@
             "goldenQuarks1": {
                 "name": "Золотые Кварки I",
                 "description": "В будущем, вы получите на 10% больше Золотых Кварков при Сингулярности за уровень!",
-                "effect": "Счётчик Вознесений увеличивается на {{n}}% быстрее."
+                "effect": "Permanently gain {{n}}% more Golden Quarks on Singularities."
             },
             "goldenQuarks2": {
                 "name": "Золотые Кварки II",
