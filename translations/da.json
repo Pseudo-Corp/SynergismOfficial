@@ -1487,7 +1487,7 @@
             "goldenQuarks1": {
                 "name": "Golden Quarks I",
                 "description": "In the future, you will gain 10% more Golden Quarks on Singularities per level!",
-                "effect": "Ascension Count increases {{n}}% faster."
+                "effect": "Permanently gain {{n}}% more Golden Quarks on Singularities."
             },
             "goldenQuarks2": {
                 "name": "Golden Quarks II",
