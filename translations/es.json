@@ -1487,7 +1487,7 @@
             "goldenQuarks1": {
                 "name": "Quarks Dorados I",
                 "description": "A futuro, ¡Ganarás 10% más Quarks Dorados en Singularidades por nivel!",
-                "effect": "Gana permanentemente {{n}}% más Quarks Dorados en Singularidades."
+                "effect": "Permanently gain {{n}}% more Golden Quarks on Singularities."
             },
             "goldenQuarks2": {
                 "name": "Quarks Dorados II",
