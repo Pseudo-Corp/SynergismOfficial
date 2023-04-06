@@ -406,7 +406,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
       return {
         bonus: (1 + 2 * n / 100) * (1 + Math.floor(n / 10) / 100),
         get desc () {
-          return i18next.t('singularity.data.goldenQuarks1.effect', {
+          return i18next.t('singularity.data.ascensions.effect', {
             n: format((100 + 2 * n) * (1 + Math.floor(n/10) / 100) - 100, 1, true)
           })
         }

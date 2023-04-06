@@ -1487,7 +1487,7 @@
             "goldenQuarks1": {
                 "name": "Golden Quarks I",
                 "description": "W przyszłości będziesz zdobywać 10% więcej Złotych Kwarków na Osobliwościach na poziom!",
-                "effect": "Licznik wniebowstąpienia zwiększa się o {{n}}% szybciej."
+                "effect": "Permanently gain {{n}}% more Golden Quarks on Singularities."
             },
             "goldenQuarks2": {
                 "name": "Złote kwarki II",
