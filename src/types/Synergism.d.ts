@@ -940,7 +940,7 @@ export interface GlobalVariables {
 
     historyCountMax: number
 
-    isEvent: boolean
+    readonly isEvent: boolean
     shopEnhanceVision: boolean
     
     eventClicked: boolean

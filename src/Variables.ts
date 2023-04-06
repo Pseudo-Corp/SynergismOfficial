@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js'
 import type { GlobalVariables } from './types/Synergism'
+import { Events } from './Event'
 
 export enum Upgrade {
      coin = 'coins',
@@ -423,7 +424,12 @@ export const Globals: GlobalVariables = {
 
   historyCountMax: 20,
 
-  isEvent: false,
+  get isEvent () {
+    return Events.list.active.length > 0
+  },
+
+  set isEvent (_: boolean) {},
+
   shopEnhanceVision: false,
 
   // talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]

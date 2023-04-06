@@ -43,7 +43,6 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import localforage from 'localforage'
 import { singularityData, SingularityUpgrade, getFastForwardTotalMultiplier } from './singularity'
 import type { PlayerSave } from './types/LegacySynergism'
-import { eventCheck } from './Event'
 import { disableHotkeys } from './Hotkeys'
 import { octeractData, OcteractUpgrade } from './Octeracts'
 import { settingAnnotation, toggleTheme, toggleIconSet } from './Themes'
@@ -53,6 +52,7 @@ import { init as i18nInit } from './i18n'
 import i18next from 'i18next'
 import { changeTab, changeSubTab } from './Tabs'
 import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
+import { Events } from './Event'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -4172,8 +4172,8 @@ export const reloadShit = async (reset = false) => {
   constantIntervals()
   changeTabColor()
 
-  eventCheck()
-  setInterval(eventCheck, 15000)
+  Events.setBuffText()
+  setInterval(() => Events.setBuffText(), 60000)
   showExitOffline()
   clearTimeout(preloadDeleteGame)
 

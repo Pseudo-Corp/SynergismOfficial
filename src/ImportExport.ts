@@ -15,7 +15,6 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import localforage from 'localforage'
 import { Globals as G } from './Variables'
 import { singularityData } from './singularity'
-import { getEvent } from './Event'
 import { synergismStage } from './Statistics'
 import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
@@ -326,36 +325,6 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
   if (input === null) {
     return Alert(i18next.t('importexport.comeBackSoon'))
-  }
-  if (input === 'synergism2023' && !player.codes.get(46) && G.isEvent && getEvent().name === 'Synergism 3: More Synergies') {
-
-    if (!player.dailyCodeUsed) {
-      return Alert('This event code gives you another usage of code \'daily\'. Please use that code and try this event code again.')
-    }
-
-    player.codes.set(46, true)
-    player.quarkstimer = quarkHandler().maxTime
-    player.goldenQuarksTimer = 3600 * 24
-    addTimers('ascension', 4 * 3600)
-    player.dailyCodeUsed = false
-
-    if (player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0) {
-      player.hepteractCrafts.quark.CAP *= 2
-      player.hepteractCrafts.quark.BAL += Math.min(1e13, player.hepteractCrafts.quark.CAP/2)
-    }
-    if (player.highestSingularityCount > 0) {
-      player.singularityUpgrades.goldenQuarks1.freeLevels += 1 + Math.floor(player.highestSingularityCount / 25)
-      player.singularityUpgrades.goldenQuarks2.freeLevels += 1 + Math.floor(player.highestSingularityCount / 25)
-      player.singularityUpgrades.goldenQuarks3.freeLevels += 1 + Math.floor(player.highestSingularityCount / 25)
-      if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
-        player.octeractUpgrades.octeractAscensionsOcteractGain.freeLevels += 0.2
-      }
-    }
-
-    return Alert(`Happy 3rd anniversary of Synergism!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! Your daily code has also been reset for you.
-                      ${(player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free, and (to a limit) automatically filled the extra amount! What a generous, handsome fella.' : ''}
-                      ${(player.highestSingularityCount > 0) ? 'You were also given free levels of GQ1-3!' : ''} 
-                      ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Accumulator!': ''}`)
   }
   if (input === 'synergism2021' && !player.codes.get(1)) {
     player.codes.set(1, true)

@@ -1,69 +1,41 @@
-import { player, getTimePinnedToLoadDate } from './Synergism'
+import { player } from './Synergism'
 import { Globals as G } from './Variables'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import i18next from 'i18next'
 import { Alert, revealStuff } from './UpdateHTML'
 
-interface HolidayData {
-    name: string
-    color: string
-    url: string
-    everyYear: boolean
-    start: string
-    end: string
-    notice: number
-    event: boolean
-    buffs: {
-        quark?: number
-        goldenQuark?: number
-        cubes?: number
-        powderConversion?: number
-        ascensionSpeed?: number
-        globalSpeed?: number
-        ascensionScore?: number
-        antSacrifice?: number
-        offering?: number
-        obtainium?: number
-        octeract?: number
-        oneMind?: number
-    }
+export interface EventData {
+  name: string
+  color: string
+  url: string
+  start: Date
+  end: Date
+  notice: number
+  buffs: {
+    quark?: number
+    goldenQuark?: number
+    cubes?: number
+    powderConversion?: number
+    ascensionSpeed?: number
+    globalSpeed?: number
+    ascensionScore?: number
+    antSacrifice?: number
+    offering?: number
+    obtainium?: number
+    octeract?: number
+    oneMind?: number
+  }
 }
 
 // Editing the event is here
-// can change the basic game balance by setting default to event: true, but cannot stack events
-const events: Record<string, HolidayData> = {
-  default: {
-    name: 'Game Modified',
-    color: 'white',
-    url: '',
-    everyYear: true,
-    start: '1/1/2001 00:00:00',
-    end: '12/31/2099 23:59:59',
-    notice: 0,
-    event: false,
-    buffs: {
-      quark: -0.2,
-      goldenQuark: 0,
-      cubes: 0,
-      powderConversion: 0,
-      ascensionSpeed: 0,
-      globalSpeed: 0,
-      ascensionScore: 0,
-      antSacrifice: 0,
-      offering: 0,
-      obtainium: 0
-    }
-  },
-  // Last active event
+const events = new Map<string, EventData>(Object.entries({
   last: {
     name: 'Synergism 3: More Synergies',
     color: 'white',
     url: 'https://www.youtube.com/watch?v=M8JO51TLGgg',
-    everyYear: false,
-    start: '05/01/2023 00:00:00',
-    end: '05/07/2023 23:59:59',
+    start: new Date('05/01/2023 00:00:00'),
+    end: new Date('05/07/2023 23:59:59'),
     notice: 20,
-    event: true,
     buffs: {
       quark: 0.33,
       globalSpeed: 0.33,
@@ -76,280 +48,135 @@ const events: Record<string, HolidayData> = {
       goldenQuark: 0,
       oneMind: 0.033
     }
+  }
+}))
+
+export const Events = {
+  lastFetchedList: 0,
+
+  memoizedList: {} as Record<string, string[]>,
+
+  /**
+   * Return the names of all active and events that are starting or ending soon.
+   */
+  get list () {
+    if (Date.now() - this.lastFetchedList <= 60_000) {
+      return this.memoizedList
+    }
+
+    const list = {
+      active: [] as string[],
+      starting: [] as string[],
+      ending: [] as string[]
+    } satisfies Record<string, string[]>
+
+    const date = Date.now()
+
+    for (const [name, { start, end, notice }] of events) {
+      const startTime = start.getTime()
+      const endTime = end.getTime()
+
+      // If the current time is between [start, end]
+      if (date >= startTime && date <= endTime) {
+        list.active.push(name)
+        continue
+      }
+
+      const noticeOffset = 60 * 1000 * notice
+
+      // If the event is starting soon
+      if (date >= startTime - noticeOffset) {
+        list.starting.push(name)
+        continue
+      }
+
+      // If the event is ending soon
+      if (date >= endTime - noticeOffset) {
+        list.ending.push(name)
+        continue
+      }
+    }
+
+    this.lastFetchedList = Date.now()
+    this.memoizedList = list
+
+    return list
   },
-  khafra: {
-    name: 'Thanks for Boosting the Discord',
-    color: 'var(--green-text-color)', //Plat please use var color instead for any of these (darkorchid, orchid, darkcyan, red, maroon, orangered, crimson, gray, green, lightseagreen)
-    url: 'https://www.youtube.com/watch?v=iYYRH4apXDo',
-    everyYear: false,
-    start: '12/07/2022 00:00:00',
-    end: '12/08/2022 23:59:59',
-    notice: 20,
-    event: true,
-    buffs: {
-      quark: .2,
-      globalSpeed: 0,
+
+  /**
+   * Return the buffs/debuffs for the active event, stacked
+   */
+  get rewards (): Required<EventData['buffs']> {
+    const { active } = this.list
+    const rewards = {
+      quark: 0,
+      goldenQuark: 0,
+      cubes: 0,
+      powderConversion: 0,
       ascensionSpeed: 0,
+      globalSpeed: 0,
+      ascensionScore: 0,
       antSacrifice: 0,
       offering: 0,
       obtainium: 0,
       octeract: 0,
-      powderConversion: 0,
-      goldenQuark: 0,
       oneMind: 0
+    } satisfies EventData['buffs']
+
+    if (active.length === 0) {
+      return rewards
     }
-  }
-  /*next: {
-        name: 'Derpmas 2022: Daily Extravaganza!',
-        color: 'white',
-        url: 'https://www.youtube.com/watch?v=A6-vc-R9np8',
-        everyYear: false,
-        start: '12/25/2022 00:00:00',
-        end: '01/01/2023 23:59:59',
-        notice: 30,
-        event: true,
-        buffs: {
-            quark: 0,
-            globalSpeed: 0,
-            ascensionSpeed: 0,
-            antSacrifice: 0,
-            offering: 0,
-            obtainium: 0,
-            octeract: 0,
-            powderConversion: 0,
-            goldenQuark: 0,
-            oneMind: 0.05
-        }
-    }*/
-  // Event example
-  /*
-    newyear: {
-        name: '&#127881; New Year Event! &#127881;',
-        color: 'yellow',
-        url: '',
-        everyYear: true,
-        start: '12/31/2001 00:00:00',
-        end: '01/02/2001 23:59:59',
-        notice: 3,
-        event: true,
-        buffs: {
-            quark: 1,
-            ascensionSpeed: 2,
-            globalSpeed: 2
-        }
-    },
-    spring: {
-        name: '&#127800; Spring Event! &#127800;',
-        color: 'pink',
-        url: '',
-        everyYear: true,
-        start: '04/01/2001 00:00:00',
-        end: '04/02/2001 23:59:59',
-        notice: 3,
-        event: true,
-        buffs: {
-            quark: 1,
-            ascensionScore: 0.5,
-            antSacrifice: 1
-        }
-    },
-    summer: {
-        name: '&#9728 Summer Event! &#9728',
-        color: 'lightgoldenrodyellow',
-        url: '',
-        everyYear: true,
-        start: '07/01/2001 00:00:00',
-        end: '07/02/2001 23:59:59',
-        notice: 3,
-        event: true,
-        buffs: {
-            quark: 1,
-            ascensionSpeed: 1,
-            obtainium: 2
-        }
-    },
-    autumn: {
-        name: '&#127810; Autumn Event! &#127810;',
-        color: 'tomato',
-        url: '',
-        everyYear: true,
-        start: '10/01/2001 00:00:00',
-        end: '10/02/2001 23:59:59',
-        notice: 3,
-        event: true,
-        buffs: {
-            quark: 1,
-            cubes: 1,
-            offering: 2
-        }
-    },
-    winter: {
-        name: '&#10052 Winter Event! &#10052',
-        color: 'lightblue',
-        url: '',
-        everyYear: true,
-        start: '02/01/2001 00:00:00',
-        end: '02/02/2001 23:59:59',
-        notice: 3,
-        event: true,
-        buffs: {
-            quark: 1,
-            powderConversion: 2,
-            globalSpeed: 2
-        }
-    },
-    birthday: {
-        name: '&#127874; Synergism Birthday! &#127874;',
-        color: 'white',
-        url: '',
-        everyYear: true,
-        start: '01/05/2001 00:00:00',
-        end: '01/05/2001 23:59:59',
-        notice: 3,
-        event: true,
-        buffs: {
-            quark: 1,
-            goldenQuark: 1,
-            cubes: 1,
-            powderConversion: 1,
-            ascensionSpeed: 1,
-            globalSpeed: 1,
-            ascensionScore: 1,
-            antSacrifice: 1,
-            offering: 1,
-            obtainium: 1
-        }
-    }
-    */
-}
 
-let nowEvent = events.default
-
-export const getEvent = (): HolidayData => {
-  return nowEvent
-}
-
-export const eventCheck = () => {
-  if (!player.dayCheck) {
-    return
-  }
-  const now = new Date(getTimePinnedToLoadDate())
-  let start: Date
-  let end: Date
-
-  // Disable the event if there is any fraud, such as setting a device clock in the past
-  /* TODO: Figure out why some people get tagged for cheating even when they are playing legitimately
-             I have temporarily disabled the checks. */
-  nowEvent = events.default
-  //if (now.getTime() >= player.dayCheck.getTime()) {
-  // Update currently valid events
-  for (const e in events) {
-    const event = events[e]
-    if (event.name !== 'default' && event.event) {
-      start = new Date(event.start)
-      end = new Date(event.end)
-      if (event.everyYear) {
-        const nowFullYear = now.getFullYear()
-        start = new Date(event.start)
-        end = new Date(event.end)
-        start.setFullYear(nowFullYear)
-        end.setFullYear(nowFullYear)
-        if (start.getTime() > end.getTime()) {
-          end.setFullYear(nowFullYear + 1)
-        }
-        if (now.getTime() >= start.getTime() - 31536000000 && now.getTime() <= end.getTime() - 31536000000) {
-          start.setFullYear(start.getFullYear() - 1)
-          end.setFullYear(end.getFullYear() - 1)
-        }
-        if (now.getTime() >= end.getTime() + 86400000) {
-          continue
-        }
-      } else if (now.getTime() >= end.getTime() + 86400000) {
-        continue
+    return active.reduce((a, b) => {
+      const { buffs } = events.get(b)!
+      for (const key of Object.keys(buffs) as (keyof EventData['buffs'])[]) {
+        a[key] += buffs[key] ?? 0
       }
-      if (now.getTime() >= start.getTime() - event.notice * 86400000 && now.getTime() <= end.getTime()) {
-        nowEvent = event
-        if (now.getTime() >= start.getTime() && now.getTime() <= end.getTime()) {
-          break
-        }
+
+      return a
+    }, rewards)
+  },
+
+  setBuffText () {
+    const { active } = this.list
+    const buffs = this.rewards
+    const buffText: string[] = []
+
+    for (const [key, value] of Object.entries(buffs)) {
+      // If there is no buff
+      if (!value) continue
+
+      if (key === 'oneMind' && player.singularityUpgrades.oneMind.level > 0) {
+        buffText.push(`<span style="color: gold">${value > 0 ? '+' : '-'}${Math.round(Math.abs(value) * 100)}% ${key}</span>`)
+      } else {
+        buffText.push(`${value > 0 ? '+' : '-'}${Math.round(Math.abs(value) * 100)}% ${key}`)
       }
     }
-  }
-  //}
-  const happyHolidays = DOMCacheGetOrSet('happyHolidays') as HTMLAnchorElement
-  const eventBuffs = DOMCacheGetOrSet('eventBuffs')
-  const updateIsEventCheck = G.isEvent
-  if (nowEvent.event) {
-    start = new Date(nowEvent.start)
-    end = new Date(nowEvent.end)
-    if (nowEvent.everyYear) {
-      const nowFullYear = now.getFullYear()
-      start.setFullYear(nowFullYear)
-      end.setFullYear(nowFullYear)
-      if (start.getTime() > end.getTime()) {
-        end.setFullYear(nowFullYear + 1)
-      }
-      if (now.getTime() >= start.getTime() - 31536000000 && now.getTime() <= end.getTime() - 31536000000) {
-        start.setFullYear(start.getFullYear() - 1)
-        end.setFullYear(end.getFullYear() - 1)
-      }
-    }
-    G.isEvent = now.getTime() >= start.getTime() && now.getTime() <= end.getTime()
-    let buffs = ''
-    for (let i = 0; i < eventBuffType.length; i++) {
-      const eventBuff = calculateEventSourceBuff(eventBuffType[i])
-      if (eventBuff !== 0) {
-        if (eventBuffType[i] === 'One Mind' && player.singularityUpgrades.oneMind.level > 0) {
-          buffs += `<span style="color: gold">${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}</span> ,`
-        } else if (eventBuffType[i] !== 'One Mind' || player.singularityUpgrades.oneMind.level === 0) {
-          buffs += `${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}, `
-        }
-      }
-    }
-    if (buffs.length > 2) {
-      buffs = buffs.substring(0, buffs.length - 2)
-      buffs += '!'
-    }
-    DOMCacheGetOrSet('eventCurrent').textContent = G.isEvent
-      ? i18next.t('settings.events.activeUntil', { x: end })
-      : i18next.t('settings.events.starts', { x: start })
-    eventBuffs.innerHTML = G.isEvent ? 'Current Buffs: ' + buffs : ''
-    //eventBuffs.style.color = 'lime';
-    happyHolidays.innerHTML = nowEvent.name
-    happyHolidays.style.color = nowEvent.color
-    happyHolidays.href = nowEvent.url.length > 0 ? nowEvent.url : '#'
-  } else {
-    G.isEvent = false
-    DOMCacheGetOrSet('eventCurrent').innerHTML = i18next.t('settings.events.inactive')
-    eventBuffs.textContent = now.getTime() >= player.dayCheck.getTime() ? '' : ''
-    eventBuffs.style.color = 'var(--red-text-color)'
-    happyHolidays.innerHTML = ''
-    happyHolidays.href = ''
-  }
-  if (G.isEvent !== updateIsEventCheck) {
-    revealStuff()
-  }
-}
 
-const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium', 'Octeract', 'One Mind']
-const eventBuffName = ['Quarks', 'Golden Quarks', 'Cubes from all type', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice rewards', 'Offering', 'Obtainium', 'Eight Dimensional Hypercubes', 'One Mind Quark Bonus']
+    if (buffText.length) {
+      const text = `${buffText.join(', ')}!`
+      DOMCacheGetOrSet('eventBuffs').innerHTML = text
 
-export const calculateEventSourceBuff = (buff: string): number => {
-  const event = getEvent()
-  switch (buff) {
-    case 'Quarks': return event.buffs.quark ?? 0
-    case 'Golden Quarks': return event.buffs.goldenQuark ?? 0
-    case 'Cubes': return event.buffs.cubes ?? 0
-    case 'Powder Conversion': return event.buffs.powderConversion ?? 0
-    case 'Ascension Speed': return event.buffs.ascensionSpeed ?? 0
-    case 'Global Speed': return event.buffs.globalSpeed ?? 0
-    case 'Ascension Score': return event.buffs.ascensionScore ?? 0
-    case 'Ant Sacrifice': return event.buffs.antSacrifice ?? 0
-    case 'Offering': return event.buffs.offering ?? 0
-    case 'Obtainium': return event.buffs.obtainium ?? 0
-    case 'Octeract': return event.buffs.octeract ?? 0
-    case 'One Mind': return (player.singularityUpgrades.oneMind.level > 0) ? event.buffs.oneMind ?? 0 : 0
-    default: return 0
+      const { start, end, url } = active.reduce((a, b) => {
+        const { start, end, url } = events.get(b)!
+
+        if (a.start > start.getTime()) a.start = start.getTime()
+        if (a.end < end.getTime()) a.end = end.getTime()
+        if (url) a.url = url
+
+        return a
+      }, { start: Infinity, end: 0, url: '' })
+
+      const href = DOMCacheGetOrSet('happyHolidays') as HTMLAnchorElement
+      href.textContent = active.join(', ')
+      href.href = url.length ? url : '#'
+
+      DOMCacheGetOrSet('eventCurrent').textContent = G.isEvent
+        ? i18next.t('settings.events.activeUntil', { x: new Date(end) })
+        : i18next.t('settings.events.starts', { x: new Date(start) })
+
+      revealStuff()
+    }
   }
 }
 
