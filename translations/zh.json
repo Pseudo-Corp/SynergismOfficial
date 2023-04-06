@@ -1481,13 +1481,13 @@
         },
         "toString": {
             "noMinimum": "无进入奇点次数要求",
-            "costNextLevel": "下一级的花费："
+            "costNextLevel": "下一级的花费"
         },
         "data": {
             "goldenQuarks1": {
                 "name": "金夸克 I",
                 "description": "每级使进入奇点的金夸克获取数量增加10%！",
-                "effect": "使进入奇点的金夸克获取数量增加{{n}}%。"
+                "effect": "Permanently gain {{n}}% more Golden Quarks on Singularities."
             },
             "goldenQuarks2": {
                 "name": "金夸克 II",
