@@ -1370,7 +1370,7 @@
             "transaction": "Transkation mit {{spent}} goldenen Quarks erfolgreich! [-{{cost}} Quarks]",
             "poor": "Sorry, aber ich kann dir keinen Kredit geben. Komm wieder wenn du ein bisschen ... reicher geworden bist!",
             "buyPrompt": "Du kannst hier goldene Quarks für {{cost}} Quarks kaufen (Reduziert um {{discount}}), bis zu {{max}}! Wie viele willst du? Tippe -1 um alle zu kaufen!",
-            "spendPrompt": "Wie viele goldene Quarks willst du ausgeben? Du hast {{gq} goldene Quarks.  Tippe -1 um alle zu auszugeben!",
+            "spendPrompt": "Wie viele goldene Quarks willst du ausgeben? Du hast {{gq}} goldene Quarks.  Tippe -1 um alle zu auszugeben!",
             "hasUpgrade": "Hey! Du hast dieses Upgrade bereits. :D",
             "notHighEnoughLevel": "Du bist noch nicht stark genug um das zu kaufen.",
             "ascensionReset": "Du bist dem Kult verfallen. Dein Aufstiegsfortschritt wurde sicherheitshalber einmalig zurückgesetzt...",
@@ -1481,13 +1481,13 @@
         },
         "toString": {
             "noMinimum": "No minimal Singularity to purchase required",
-            "costNextLevel": "Cost for next level:"
+            "costNextLevel": "Cost for next level"
         },
         "data": {
             "goldenQuarks1": {
                 "name": "Golden Quarks I",
                 "description": "In the future, you will gain 10% more Golden Quarks on Singularities per level!",
-                "effect": "Ascension Count increases {{n}}% faster."
+                "effect": "Permanently gain {{n}}% more Golden Quarks on Singularities."
             },
             "goldenQuarks2": {
                 "name": "Golden Quarks II",
@@ -2097,7 +2097,7 @@
             "30": "Effect: +{{x}} Multipliers.",
             "31": "Effect: +{{x}} Accelerator Boosts",
             "32": "Effect: +{{x}} Accelerators",
-            "33": "Effect: +{{x} Multipliers",
+            "33": "Effect: +{{x}} Multipliers",
             "34": "Effect: +{{x}} Multipliers",
             "35": "Effect: +{{x}} Multipliers",
             "36": "Effect: All Crystal producers x{{x}}",
