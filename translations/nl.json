@@ -2042,6 +2042,13 @@
             "124": "Gain +3% more effective ELO.",
             "125": "Constant Tax divisor is 0.333% stronger per challenge 10 completion. [Divisor^(1 + upgrade)]"
         },
+        "crystalEffects": {
+            "1": "Crystal production x{{x}}",
+            "2": "Crystal production x{{x}}",
+            "3": "Crystal production x{{x}}",
+            "4": "Coin production multiplier exponent +{{x}}",
+            "5": "Crystal production x{{x}}"
+        },
         "crystalUpgrades": {
             "1": "Gain a 5% multiplicative boost to Crystals per AP per level.",
             "2": "Gain a boost to Crystals based on held coins per level.",
@@ -2051,6 +2058,18 @@
             "6": "Coming (not so) SOON!",
             "7": "Coming (not so) SOON!",
             "8": "Coming (not so) SOON!"
+        },
+        "constantEffects": {
+            "1": "Tesseract building production x{{x}}",
+            "2": "Tesseract building production x{{x}}",
+            "3": "Offering gain x{{x}}",
+            "4": "Obtainium gain x{{x}}",
+            "5": "Ant Speed x{{x}}",
+            "6": "+{{x}} free Ant Levels",
+            "7": "+{{x}} free Rune Levels, +{{y}} to Rune Cap",
+            "8": "Rune EXP x{{x}}",
+            "9": "Runes effectiveness x{{x}}",
+            "10": "Cubes/Tesseracts on Ascension x{{x}}"
         },
         "constantUpgrades": {
             "1": "Make all Tesseract buildings {{level}}% more productive per level.",
