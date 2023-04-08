@@ -1856,20 +1856,20 @@
             "exaltedAchievements": "EXALT Vault",
             "derpSmithsCornucopia": "Derpsmith's Cornucopia",
             "coolQOLCubes": "Cool Qol Cubes",
-            "eternalAscensions": "Eternal Ascensions",
+            "eternalAscensions": "Вечные Вознесения",
             "antGodsCornucopia": "Рог изобилия Муравьиного Бога",
             "overclocked": "Overclocked",
             "wowCubeAutomatedShipping": "Автоматические Поставки Wow! Кубов",
-            "goldenRevolution": "Golden Revolution",
-            "goldenRevolutionII": "Golden Revolution II",
-            "goldenRevolutionIII": "Golden Revolution III",
+            "goldenRevolution": "Золотая Революция",
+            "goldenRevolutionII": "Золотая Революция II",
+            "goldenRevolutionIII": "Золотая Революция III",
             "platonicClones": "Clones of Platonic Clicking at Your Desktop",
             "platSigma": "PL-AT Σ",
             "midasMilleniumAgedGold": "Midas' Millenium-Aged Gold",
-            "goldenRevolution4": "Golden Revolution IV",
-            "octeractMetagenesis": "Octeract Metagenesis",
-            "immaculateAlchemy": "Immaculate Alchemy",
-            "skrauQ": "skrauQ"
+            "goldenRevolution4": "Золотая Революция IV",
+            "octeractMetagenesis": "Метагенезис Октерактов",
+            "immaculateAlchemy": "Безупречная Алхимия",
+            "skrauQ": "икравК"
         }
     },
     "general": {
@@ -1919,19 +1919,19 @@
             "1": "Увеличивает производство Работников за каждого купленного производителя.",
             "2": "Увеличивает производство Инвестиций за каждого купленного производителя.",
             "3": "Увеличивает производство Принтеров за каждого купленного производителя.",
-            "4": "Increase production of Mints per producer bought.",
+            "4": "Увеличивает производство Дворов за каждого купленного производителя.",
             "5": "Увеличивает производство Алхимий за каждого купленного производителя.",
-            "6": "Increase all production based on producer bought.",
+            "6": "Увеличивает всё производство за каждого купленного производителя.",
             "7": "Получите бесплатные Множители на основе ваших купленных Алхимий.",
-            "8": "Gain 1 free Accelerator per 7 purchased Multipliers.",
-            "9": "Gain 1 free Multiplier per 10 purchased Accelerators.",
+            "8": "+1 бесплатный Ускоритель за каждые 7 купленных Множителей.",
+            "9": "+1 Бесплатный Множитель за каждые 10 купленных Ускорителей.",
             "10": "Улучшает Работников в зависимости от первых 750 купленных Инвестиций.",
             "11": "Accelerators improve generation production by 2% each.",
             "12": "Каждый Престиж умножает производство на 1.01 (Максимум: 1e4x).",
             "13": "Усиления увеличивают производство Инвестиций.",
             "14": "Бесплатные Ускорители увеличивают создание Принтеров.",
-            "15": "Free Accelerators buff generation of Mints.",
-            "16": "Acceleration Multiplier buffs Diamond gain.",
+            "15": "Бесплатные Ускорители увеличивают создание Дворов.",
+            "16": "Множитель Ускорения усиливает получение Алмазов.",
             "17": "Multiply Mint production by 1e+100.",
             "18": "Multiply Printer production based on Mythos Shards.",
             "19": "Multiply Investment production based on Mythos.",
@@ -2161,7 +2161,7 @@
             "particles": "Улучшения Частиц"
         },
         "hover": "Наведите на иконку улучшения, чтобы посмотреть детали!",
-        "hoverOverUpgrade": "Hover over an upgrade to view details!"
+        "hoverOverUpgrade": "Наведите на улучшение, чтобы посмотреть детали!"
     },
     "tabs": {
         "main": {
@@ -2170,8 +2170,8 @@
             "achievements": "Достижения",
             "runes": "Руны",
             "challenges": "Испытания",
-            "research": "Research",
-            "antHill": "Anthill",
+            "research": "Исследования",
+            "antHill": "Муравейник",
             "wowCubes": "WOW! Кубы",
             "corruption": "Порча",
             "singularity": "Сингулярность",
@@ -2198,12 +2198,12 @@
             "platonic": "Платоновы Статуи",
             "cubeUpgrades": "Улучшения Кубов",
             "challenge15": "Испытание 15/Платоновы Улучшения",
-            "hepteract": "Hepteract Forge"
+            "hepteract": "Кузница Гептерактов"
         },
         "singularity": {
-            "penalties": "Penalties",
-            "perks": "Perks",
-            "octeracts": "Octeracts",
+            "penalties": "Штрафы",
+            "perks": "Преимущества",
+            "octeracts": "Октеракты",
             "exalt": "EXALT"
         },
         "settings": {
@@ -2282,8 +2282,8 @@
             "multiplier": "Примечание: если вам понадобилось это сделать, вы взяли на себя больше, чем могли вынести."
         },
         "max": "МАКС",
-        "current": "Current: ",
-        "next": " / Next: ",
+        "current": "Текущие: ",
+        "next": " / Дальше: ",
         "loadoutTable": {
             "next": "Дальше:",
             "firstRowTitle": "Click to copy the next Corruptions to the clipboard. This is the format that can be imported",
