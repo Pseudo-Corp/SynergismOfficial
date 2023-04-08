@@ -73,7 +73,7 @@
             "60": "[{{number}}] Gotta go SLOW!: Выполните престиж не покупая Ускорители и Ускорительные бустеры.",
             "61": "[{{number}}] Я действительно двигаюсь медленно: Выполните превосходство не покупая Ускорители и бустеры.",
             "62": "[{{number}}] Мы уже приехали?: Выполните реинкарнацию не покупая Ускорители и бустеры.",
-            "63": "[{{number}}] Тщательный поиск Алмазов: Получите 1e120,000 Монет в [Сокращённые Алмазы] не покупая Ускорители и бустеры.",
+            "63": "[{{number}}] Тщательный поиск Алмазов: Получите 1e120,000 Монет в [Меньше Алмазов], не покупая Ускорители и бустеры.",
             "64": "[{{number}}] Очень логичный: Выполните престиж не покупая Улучшения за монеты.",
             "65": "[{{number}}] Жмот: Выполните превосходство не покупая Улучшения за монеты.",
             "66": "[{{number}}] Истинный жмот: Выполните превосходство не покупая Улучшения за монеты и алмазы.",
@@ -116,13 +116,13 @@
             "103": "[{{number}}] Неравенство богатства: Выполнить [+Стоимость] двадцать раз.",
             "104": "[{{number}}] Серьёзная переплата: Выполнить [+Стоимость] пятьдесят раз.",
             "105": "[{{number}}] Социальный коллапс: Выполнить [+Стоимость] семьдесят пять раз.",
-            "106": "[{{number}}] Раскопки: Выполнить [Сокращённые Алмазы] хотя бы раз.",
-            "107": "[{{number}}] Глубокое копание: Выполнить [Сокращённые Алмазы] три раза.",
-            "108": "[{{number}}] Действуйте по мере необходимости: Выполнить [Сокращённые Алмазы] пять раз.",
+            "106": "[{{number}}] Раскопки: Выполнить [Меньше Алмазов] хотя бы раз.",
+            "107": "[{{number}}] Глубокое копание: Выполнить [Меньше Алмазов] три раза.",
+            "108": "[{{number}}] Бурение По Необходимости: Выполнить [Меньше Алмазов] пять раз.",
             "109": "[{{number}}] Унобтаниевая кирка: Выполнить [Сокращённые Алмазы] десять раз.",
             "110": "[{{number}}] Удача III: Выполнить [Сокращённые Алмазы] двадцать раз.",
-            "111": "[{{number}}] Каждый карат...: Выполните [Сокращённые Алмазы] пятьдесят раз.",
-            "112": "[{{number}}] ...начинается с К.: Выполните [Сокращённые Алмазы] семьдесят пять раз.",
+            "111": "[{{number}}] Каждый карат...: Выполните [Меньше Алмазов] пятьдесят раз.",
+            "112": "[{{number}}] ...начинается с К.: Выполните [Меньше Алмазов] семьдесят пять раз.",
             "113": "[{{number}}] Уклонение от налогов!: Выполните {[Налоги+]} один раз.",
             "114": "[{{number}}] Наравне с Джонсами: Выполните {[Налоги+]} дважды.",
             "115": "[{{number}}] Оффшоры: Выполните {[Налоги+]} трижды.",
@@ -207,13 +207,13 @@
             "194": "[{{number}}] Планковская величина^(-1): Набрать константу 1.509e33.",
             "195": "[{{number}}] Эспилон > много: Набрать константу 1e66.",
             "196": "[{{number}}] NUM_MAX: Набрать константу 1.8e308.",
-            "197": "[{{number}}] Жертвы: Выполните испытание 'Сниженные Муравьи' один раз.",
-            "198": "[{{number}}] Смерти: Выполните испытание 'Сниженные Муравьи' два раза.",
-            "199": "[{{number}}] Разрушение: Выполните испытание 'Сниженные Муравьи' три раза.",
-            "200": "[{{number}}] Война, для чего же она хороша?: Выполните испытание 'Сниженные Муравьи' пять раз.",
-            "201": "[{{number}}] Да для чего угодно.: Выполните испытание 'Сниженные Муравьи' десять раз.",
-            "202": "[{{number}}] Идеальный Шторм: Выполнить испытание 'Уменьшенные Муравьи' двадцать раз.",
-            "203": "[{{number}}] Безупречная Буря: Выполните испытание 'Сниженные Муравьи' тридцать раз.",
+            "197": "[{{number}}] Жертвы: Выполните испытание 'Меньше Муравьёв' один раз.",
+            "198": "[{{number}}] Смерти: Выполните испытание 'Меньше Муравьёв' два раза.",
+            "199": "[{{number}}] Разрушение: Выполните испытание 'Меньше Муравьёв' три раза.",
+            "200": "[{{number}}] Война, для чего же она хороша?: Выполните испытание 'Меньше Муравьёв' пять раз.",
+            "201": "[{{number}}] Да для чего угодно.: Выполните испытание 'Меньше Муравьёв' десять раз.",
+            "202": "[{{number}}] Идеальный Шторм: Выполнить испытание 'Меньше Муравьёв' двадцать раз.",
+            "203": "[{{number}}] Безупречная Буря: Выполните испытание 'Меньше Муравьёв' тридцать раз.",
             "204": "[{{number}}] Мне совсем были не нужны эти тупые реинкарнации!: Выполнить испытание 'Без Реинкарнаций' хотя бы раз.",
             "205": "[{{number}}] [x1,x2,0,x3]: Выполнить испытание 'Без Реинкарнаций' дважды.",
             "206": "[{{number}}] Не метафизический: Выполнить испытание 'Без Реинкарнации' три раза.",
@@ -1337,9 +1337,9 @@
             "chronometer3": "Таймер вознесения увеличивается на <<orange|{{amount}}%>> быстрее! Это <<red|никогда>> не сбросится!",
             "seasonPassY": "Восхождения дают <<lightgoldenrodyellow|{{amount}}%>> больше Кубов (для <<orchid|всех>> типов) при Восхождении.",
             "seasonPassZ": "Восхождения дают <<lightgoldenrodyellow|{{amount}}%>> больше Кубов (для <<orchid|всех>> типов) при Восхождении. Это <<red|никогда>> не сбросится!",
-            "challengeTome2": "Требование к Экспоненте Испытанию 10 уменьшено на <<lightgoldenrodyellow|{{amount1}}>> Миллион. После 60 завершений И9 или И10 множитель масштабирования равен [выполнения * <<lightgoldenrodyellow|{{amount2}}>>]",
+            "challengeTome2": "Требование к Экспоненте Испытания 10 уменьшено на <<lightgoldenrodyellow|{{amount1}}>> Миллионов. После 60 завершений И9 или И10 увеличение множителя равно [выполнения * <<lightgoldenrodyellow|{{amount2}}>>]",
             "instantChallenge2": "Мгновенно Испытание выполняет <<orchid|+{{amount}}>> больше испытаний за тик.",
-            "cubeToQuarkAll": "Cube to Quark Corner gives <<cyan|+{{amount}}%>> more Quarks!",
+            "cubeToQuarkAll": "Поворот Куба к Кварку даёт <<cyan|+{{amount}}%>> больше Кварков!",
             "cashGrab2": "Вы получите <<gold|{{amount}}%>> больше Обтаиниума и Подношений! <<red|Наполовину>> мощнее оригинала.",
             "chronometerZ": "Таймер Вознесения увеличивается на <<orange|{{amount}}%>> быстрее! Похоже, что эта модель может набирать <<orchid|обороты>>...",
             "offeringEX2": "Вы получите <<goldenrod|{{amount}}%>> больше Подношений! <<red|Позорит>> первого...",
@@ -1394,53 +1394,53 @@
                 "otherwise": "Вы можете Исследовать, Наведя курсор мыши, чтобы Купить"
             },
             "superStart": {
-                "hasLevel4": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 2.22e2222 Particles and 500 Obtainium",
-                "hasLevel3": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e100 Particles and 500 Obtainium",
-                "hasLevel2": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e16 Particles and 500 Obtainium",
-                "hasLevel1": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos and 10 Particles",
-                "default": "You start each Ascension with 1 Transcension and 1001 Mythos"
+                "hasLevel4": "Вы начинаете каждое Вознесение с 1 Превосходством, 1 Реинкарнацией, 1001 Мифов, 2.22e2222 Частицами и 500 Обтаиниумом",
+                "hasLevel3": "Вы начинаете каждое Вознесение с 1 Превосходством, 1 Реинкарнацией, 1001 Мифов, 1e100 Частицами и 500 Обтаиниумом",
+                "hasLevel2": "Вы начинаете каждое Вознесение с 1 Превосходством, 1 Реинкарнацией, 1001 Мифов, 1e16 Частицами и 500 Обтаиниумом",
+                "hasLevel1": "Вы начинаете каждое Вознесение с 1 Превосходством, 1 Реинкарнацией, 1001 Мифов и 10 Частицами",
+                "default": "Вы начинаете каждое Вознесение с 1 Превосходством и 1001 Мифов"
             },
             "notSoChallenging": {
-                "hasLevel4": "You start each Ascension with 1 completion of Challenges 6, 7 & 9 and 5 completions of Challenge 8",
-                "hasLevel3": "You start each Ascension with 1 completion of Challenges 6 & 7 and 5 completions of Challenge 8",
-                "hasLevel2": "You start each Ascension with 1 completion of Challenges 6, 7 and 8",
-                "hasLevel1": "You start each Ascension with 1 completion of Challenges 6 and 7",
-                "default": "You start each Ascension with 1 completion of Challenge 6"
+                "hasLevel4": "Вы начинаете каждое Вознесение с 1 выполненным Испытанием 6, 7 и 9, и 5 выполненными Испытаниями 8",
+                "hasLevel3": "Вы начинаете каждое Вознесение с 1 выполненным Испытанием 6 и 7, и 5 выполненными Испытаниями 8",
+                "hasLevel2": "Вы начинаете каждое Вознесение с 1 выполненным Испытанием 6, 7 и 8",
+                "hasLevel1": "Вы начинаете каждое Вознесение с 1 выполненным Испытанием 6 и 7",
+                "default": "Вы начинаете каждое Вознесение с 1 выполненным Испытанием 6"
             },
             "automationUpgrades": {
-                "hasLevel5": "Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!",
-                "hasLevel4": "You always have w1x4 through w1x8 and w2x10; r6x5, r6x10 and r6x20. Automation Shop is also automatically purchased!",
-                "hasLevel3": "You always have w1x4 through w1x8 and w2x10. Automation Shop is now automatically purchased!",
-                "hasLevel2": "You always have w1x4 through w1x8 and w2x10.",
-                "hasLevel1": "You always have w1x4 through w1x8.",
-                "default": "You always have w1x7. (Autobuyers for Particle buildings)"
+                "hasLevel5": "Достигнув 100 Сингулярности, вы никогда не забудете вкус Вау! Кучка Печенья с Шоколадной Крошкой!",
+                "hasLevel4": "У вас всегда есть с w1x4 по w1x8 и w2x10; r6x5, r6x10 и r6x20. Магазин автоматизации также приобретается автоматически!",
+                "hasLevel3": "У вас всегда есть с w1x4 по w1x8 и w2x10. Магазин автоматизации теперь приобретается автоматически!",
+                "hasLevel2": "У вас всегда есть с w1x4 по w1x8 и w2x10.",
+                "hasLevel1": "У вас всегда есть с w1x4 по w1x8.",
+                "default": "У вас всегда есть с w1x7. (Автопокупатели для строений Частиц)"
             },
             "evenMoreQuarks": {
                 "bug": "Это баг! Напишите Platonic, если вы каким-либо образом увидели это сообщение.",
-                "m": "You gain {{stack}} stacks of 5% Quarks! Total Increase: +{{inc}}%"
+                "m": "Вы получаете {{stack}} стаков по 5% Кварков! Общее Увеличение: +{{inc}}%"
             },
             "shopSpecialOffer": {
-                "hasLevel2": "Reincarnation and Ascension tier Shop upgrades are kept permanently!",
-                "hasLevel1": "You permanently keep 100 free levels of each Shop upgrade in the first row",
-                "default": "You start each Singularity with 10 free levels of each Shop upgrade in the first row"
+                "hasLevel2": "Улучшения в магазинах уровней Реинкарнации и Вознесения сохраняются постоянно!",
+                "hasLevel1": "Вы постоянно сохраняете 100 бесплатных уровней каждого улучшения Магазина в первом ряду",
+                "default": "Вы начинаете каждую Сингулярность с 10 бесплатных уровней каждого улучшения Магазина в первом ряду"
             },
             "potionAutogenerator": "Каждые 180 секунд автоматически используется одно зелье Обтайниума и Подношений! Интервал уменьшает на 3% за сингулярность.",
             "respecBeGone": "Теперь Талисманы всегда усиливают все руны!",
             "forTheLoveOfTheAntGod": {
                 "hasLevel2": "Навсегда сохраняете автопокупатели Муравьёв и начинаете каждое Вознесение с Муравьёв 8-го уровня",
-                "hasLevel1": "You permanently keep Ant autobuyers and start each Ascension with a Tier 5 Ant",
-                "default": "You permanently keep Ant autobuyers and start each Ascension with a Tier 1 Ant"
+                "hasLevel1": "Вы постоянно сохраняете автопокупатели Муравьёв и начинаете каждое Восхождение с Муравья 5-го уровня",
+                "default": "Вы постоянно сохраняете автопокупатели Муравьёв и начинаете каждое Восхождение с Муравья 1-го уровня"
             },
-            "itAllAddsUp": "ADD code reward is divided by {{div}} but the cooldown is also divided by {{div2}} and capacity is multiplied by {{cap}} (rounded up).",
+            "itAllAddsUp": "Награда за код ADD делится на {{div}}, но время восстановления также делится на {{div2}}, а ёмкость умножается на {{cap}} (округляется в большую сторону).",
             "automagicalRunes": {
                 "hasLevel3": "Автопокупатель рун будет покупать Благословения, Духов, Осколки Талисманов, Фрагменты и будет повышать уровень Бесконечного Восхождения И Антиквариатов Муравьиного Бога",
                 "hasLevel2": "Автопокупатель рун будет покупать Благословения, Духов, Осколки Талисманов, Фрагменты и будет повышать уровень Бесконечного Восхождения",
                 "hasLevel1": "Автопокупатель рун будет покупать Благословения, Духов и повышать уровень Бесконечного Восхождения",
                 "default": "Автопокупатель рун будет покупать Благословения и Духов"
             },
-            "exaltedAchievements": "Unlocks new, very difficult achievements! They are earned differently from others, however...",
+            "exaltedAchievements": "Открывает новые, очень сложные достижения! Однако они зарабатываются иначе, чем другие...",
             "coolQOLCubes": {
-                "hasLevel1": "Keep all Cube Opening researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
+                "hasLevel1": "Сохраняются все исследования Открытия Кубов И появляется возможность автоматически открывать определенный процент ваших кубов при каждом Восхождении!",
                 "default": "Исследования, касающиеся открытия кубов больше не сбрасываются при Вознесении"
             },
             "eternalAscensions": {
@@ -1449,24 +1449,24 @@
             },
             "antGodsCornucopia": {
                 "hasLevel2": "Скорость Муравьёв умножена на 1 ТРИЛЛИОН. Это увеличение защищено от любой порчи.",
-                "hasLevel1": "Ant Speed is multiplied by 1 MILLION, this increase is immune to any and all corruption.",
-                "default": "Ant Speed is multiplied by 1,000, this increase is immune to any and all corruption."
+                "hasLevel1": "Скорость Муравья умножается на 1 МИЛЛИОН, это увеличение невосприимчиво к любым порчам.",
+                "default": "Скорость Муравья умножается на 1000, это увеличение невосприимчиво к любым порчам."
             },
-            "overclocked": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!",
+            "overclocked": "Лимиты уровней для Некоторых Улучшений Сингулярности увеличены на {{i}}!",
             "wowCubeAutomatedShipping": {
                 "hasLevel1": "Автоматическая покупка улучшений кубов каждое вознесение, вне зависимости от того, где вы!",
                 "default": "Автоматическая покупка Улучшений Кубов каждое вознесение, но только если вы в Испытании Сингулярности."
             },
             "goldenRevolution": "Сингулярность даёт на 0.4% больше Золотых Кварков за Сингулярность. Текущий: +{{current}}% (МАКС: +100%)",
-            "goldenRevolutionII": "Golden Quarks are 0.2% cheaper per Singularity. Currently: -{{current}}% (MAX: -50%)",
-            "goldenRevolutionIII": "Export gives 2% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +500%)",
+            "goldenRevolutionII": "Золотые Кварки стоят на 0.2% дешевле за Сингулярность. Текущий: -{{current}}% (МАКС: -50%)",
+            "goldenRevolutionIII": "Экспорт даёт на 2% больше Золотых Кварков за Сингулярность. Текущий: +{{current}}% (МАКС: +500%)",
             "platonicClones": {
                 "hasLevel1": "Автоматическая покупка Платоновых Улучшений каждое вознесение, без траты Обтайниума или Подношений, где угодно!",
                 "default": "Автоматическая покупка Платоновых Улучшений каждое вознесение, без траты Обтайниума или Подношений, но только в Испытаниях Сингулярности."
             },
-            "platSigma": "Code 'add' refills {{counter}}% faster per level per Singularity. Currently: {{current}} (MAX: -60% Cooldown)",
-            "midasMilleniumAgedGold": "Every use of code `add` gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3.",
-            "goldenRevolution4": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!",
+            "platSigma": "Код 'add' пополняет {{counter}}% быстрее за каждый уровень за Сингулярность. Текущий: {{current}} (МАКС: Время перезарядки -60%)",
+            "midasMilleniumAgedGold": "Каждое использование кода 'add' даёт 0.01 бесплатных уровней ЗК1 и 0.05 бесплатных уровней ЗК3.",
+            "goldenRevolution4": "Каждый тик Октеракта автоматически переводит 1 в {{gq}} ЗК, который вы получили в этой сингулярности, на ваш баланс автоматически!",
             "octeractMetagenesis": {
                 "hasLevel1": "Автоматическая покупка улучшений кубов каждое вознесение, вне зависимости от того, где вы!",
                 "default": "Автоматическая покупка Улучшений Кубов каждое вознесение, но только если вы в Испытании Сингулярности."
@@ -1476,18 +1476,18 @@
                 "hasLevel1": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 5.",
                 "default": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 3."
             },
-            "skrauQ": "Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: {{amt}}... Yes, it's that good.",
-            "derpSmithsCornucopia": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!"
+            "skrauQ": "Умножает все Получения Кварков на ((Сингулярность - 179)/20)^2. Текущий: {{amt}}... Да, это настолько хорошо.",
+            "derpSmithsCornucopia": "С благословением от Кукузнеца, каждая сингулярность даёт +{{counter}}% больше Октерактов!"
         },
         "toString": {
-            "noMinimum": "No minimal Singularity to purchase required",
+            "noMinimum": "Никакой минимальной Сингулярности для покупки не требуется",
             "costNextLevel": "Стоимость следующего уровня"
         },
         "data": {
             "goldenQuarks1": {
                 "name": "Золотые Кварки I",
                 "description": "В будущем, вы получите на 10% больше Золотых Кварков при Сингулярности за уровень!",
-                "effect": "Permanently gain {{n}}% more Golden Quarks on Singularities."
+                "effect": "При Сингулярности, навсегда получаете на {{n}}% больше Золотых Кварков."
             },
             "goldenQuarks2": {
                 "name": "Золотые Кварки II",
@@ -1514,14 +1514,14 @@
             "cookies": {
                 "name": "Рецепты Печенек I",
                 "description": "For just a few Golden Quarks, re-open Wow! Bakery, adding five cookie-related Cube upgrades.",
-                "effectHave": "You have unlocked volume 1 of the recipe book.",
-                "effectHaveNot": "You have not unlocked volume 1 of the recipe book."
+                "effectHave": "Вы открыли том 1 книги рецептов.",
+                "effectHaveNot": "Вы не открыли том 1 книги рецептов."
             },
             "cookies2": {
                 "name": "Рецепты Печенек II",
-                "description": "Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related Cube upgrades.",
-                "effectHave": "You have unlocked volume 2 of the recipe book.",
-                "effectHaveNot": "You have not unlocked volume 2 of the recipe book."
+                "description": "Разнообразьте Вау! Пекарню, приготовив немного более экзотическое печенье, добавив ещё пять улучшений Кубов, связанных с печеньем.",
+                "effectHave": "Вы открыли том 2 книги рецептов.",
+                "effectHaveNot": "Вы не открыли том 2 книги рецептов."
             },
             "cookies3": {
                 "name": "Рецепты Печенек III",
@@ -2097,7 +2097,7 @@
             "30": "Effect: +{{x}} Multipliers.",
             "31": "Effect: +{{x}} Accelerator Boosts",
             "32": "Effect: +{{x}} Accelerators",
-            "33": "Effect: +{{x}} Multipliers",
+            "33": "Эффект: +{{x}} Множителей",
             "34": "Effect: +{{x}} Multipliers",
             "35": "Effect: +{{x}} Multipliers",
             "36": "Effect: All Crystal producers x{{x}}",

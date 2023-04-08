@@ -1487,7 +1487,7 @@
             "goldenQuarks1": {
                 "name": "金夸克 I",
                 "description": "每级使进入奇点的金夸克获取数量增加10%！",
-                "effect": "Permanently gain {{n}}% more Golden Quarks on Singularities."
+                "effect": "使进入奇点的金夸克获取数量增加{{n}}%。"
             },
             "goldenQuarks2": {
                 "name": "金夸克 II",
