@@ -1497,23 +1497,23 @@
             "goldenQuarks3": {
                 "name": "Золотые Кварки III",
                 "description": "If you buy this, you will gain Golden Quarks per hour from Exports. Leveling up gives (level) additional per hour!",
-                "effect": "Every hour, you gain {{n}} Golden Quarks from exporting."
+                "effect": "Каждый час вы получите {{n}} Золотых Кварков от экспорта."
             },
             "starterPack": {
                 "name": "Стартовый Набор",
-                "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources, post-corruption.",
-                "effectHave": "You have unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings.",
-                "effectHaveNot": "You have not unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings."
+                "description": "Купи это! Купи это! Прирост Куба постоянно умножается на 5, и вы получаете в 6 раз больше Обтаиниума и Подношений из всех источников, после порчи.",
+                "effectHave": "Вы разблокировали 5-кратный множитель для Кубов и 6-кратный множитель для получения Обтаиниума и Подношений.",
+                "effectHaveNot": "Вы не разблокировали 5-кратный множитель для Кубов и 6-кратный множитель для получения Обтаиниума и Подношений."
             },
             "wowPass": {
                 "name": "Золотое Дно Магазина",
-                "description": "This upgrade will convince the seal merchant to sell you more cool stuff, which even persist on Singularity!",
-                "effectHave": "You have unlocked the Shop Bonanza.",
-                "effectHaveNot": "You have not unlocked the Shop Bonanza."
+                "description": "Это улучшение убедит торговца печатями продать вам больше интересных вещей, которые сохраняются даже в Сингулярности!",
+                "effectHave": "Вы открыли Золотое Дно Магазина.",
+                "effectHaveNot": "Вы не открыли Золотое Дно Магазина."
             },
             "cookies": {
                 "name": "Рецепты Печенек I",
-                "description": "For just a few Golden Quarks, re-open Wow! Bakery, adding five cookie-related Cube upgrades.",
+                "description": "Всего за несколько Золотых Кварков заново откройте Пекарню, добавив пять улучшений Кубов, связанных с печеньем.",
                 "effectHave": "Вы открыли том 1 книги рецептов.",
                 "effectHaveNot": "Вы не открыли том 1 книги рецептов."
             },
@@ -1525,38 +1525,38 @@
             },
             "cookies3": {
                 "name": "Рецепты Печенек III",
-                "description": "Your Bakers threaten to quit without a higher pay. If you do pay them, they will bake even more fancy cookies.",
+                "description": "Ваши Пекари угрожают уволиться без повышения зарплаты. Если вы им заплатите, они испекут ещё больше вкусного печенья.",
                 "effectHave": "Вы задобрили профсоюз Пекарей.",
                 "effectHaveNot": "Вы не задобрили профсоюз Пекарей."
             },
             "cookies4": {
                 "name": "Рецепты Печенек IV",
                 "description": "Всего-то, такова цена Спасения.",
-                "effectHave": "You have paid your price for salvation.",
-                "effectHaveNot": "You have not paid your price for salvation."
+                "effectHave": "Вы заплатили свою цену за спасение.",
+                "effectHaveNot": "Вы не заплатили свою цену за спасение."
             },
             "cookies5": {
-                "name": "Cookie Recipes V (WIP)",
+                "name": "Рецепты Печенек V (НЗП)",
                 "description": "Худшее злодеяние, которое человек может совершить, это наблюдение за страданиями других, без каких либо мук совести.",
                 "effectHave": "Вы уделили внимание страданиям масс.",
                 "effectHaveNot": "Вы не уделили внимание страданиям масс."
             },
             "ascensions": {
-                "name": "Improved Ascension Gain",
-                "description": "Buying this, you will gain +2% Ascension Count forever, per level! Every 10 levels grants an additional, multiplicative +1% Ascension Count.",
+                "name": "Улучшенный Прирост при Вознесении",
+                "description": "Купив это, вы навсегда получите +2% к Счётчику Вознесения за каждый уровень! Каждые 10 уровней дают дополнительное, умножающий на +1% к Счётчику Вознесения.",
                 "effect": "Счётчик Вознесений увеличивается на {{n}}% быстрее."
             },
             "corruptionFourteen": {
                 "name": "Порчи Четырнадцатого Уровня",
                 "description": "Купите это, чтобы открыть порчи четырнадцатого уровня. :)",
-                "effectHave": "You have gained the ability to use level 14 corruptions. {{m}}",
-                "effectHaveNot": "You have not gained the ability to use level 14 corruptions. {{m}}"
+                "effectHave": "Вы получили способность использовать порчу 14-го уровня. {{m}}",
+                "effectHaveNot": "Вы не получили способность использовать порчу 14-го уровня. {{m}}"
             },
             "corruptionFifteen": {
                 "name": "Порчи Пятнадцатого Уровня",
-                "description": "This doesn't *really* raise the corruption limit. Rather, it adds one FREE level to corruption multipliers, no matter what (can exceed cap). :)",
-                "effectHave": "You have gained a free corruption level. {{m}}",
-                "effectHaveNot": "You have not gained a free corruption level. {{m}}"
+                "description": "Это * действительно* не повышает предел порчи. Скорее, это добавляет один БЕСПЛАТНЫЙ уровень к множителям порчи, независимо от того, что (может превышать лимит). :)",
+                "effectHave": "Вы получили бесплатный уровень порчи. {{m}}",
+                "effectHaveNot": "Вы не получили бесплатный уровень порчи. {{m}}"
             },
             "singOfferings1": {
                 "name": "Разряд Подношений",
@@ -1580,12 +1580,12 @@
             },
             "singObtainium2": {
                 "name": "Наводнение Обтайниума",
-                "description": "Holy crap, water bending! +8% gained Obtainium per level.",
+                "description": "Чёрт возьми, магия воды! +8% к полученному Обтаиниуму за уровень.",
                 "effect": "Навсегда получаете на {{n}}% больше Обтаниума."
             },
             "singObtainium3": {
                 "name": "Цунами Обтайниума",
-                "description": "A rising tide lifts all boats. +4% gained Obtainium per level.",
+                "description": "Прилив поднимает все лодки. +4% к полученному Обтаиниуму за уровень.",
                 "effect": "Навсегда получаете на {{n}}% больше Обтаниума."
             },
             "singCubes1": {
@@ -1595,37 +1595,37 @@
             },
             "singCubes2": {
                 "name": "Пожар Кубов",
-                "description": "Burn some more Golden Quarks! +8% gained Cubes per level.",
+                "description": "Сожги ещё несколько Золотых Кварков! +8% к полученным Кубам за уровень.",
                 "effect": "Навсегда получаете на {{n}}% больше Кубов."
             },
             "singCubes3": {
                 "name": "Инферно Кубов",
-                "description": "Even Dante is impressed. +4% gained Cubes per level.",
-                "effect": "Permanently gain {{n}}% more Cubes."
+                "description": "Даже Данте впечатён +4% к полученным Кубам за уровень.",
+                "effect": "Навсегда получите {{n}}% больше Кубов."
             },
             "singCitadel": {
                 "name": "Цитадель Сингулярности",
-                "description": "What a unique structual phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
-                "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
+                "description": "Какой уникальный структурный феномен... но это даёт +2% Обтаиниуму, Подношениям и 3-7D Кубам за уровень! +1% дополнительно за каждые 10 уровней!",
+                "effect": "Обтаиниум, Подношения, и 3-7D Кубы +{{n}}%, навсегда!"
             },
             "singCitadel2": {
                 "name": "Цитадель 'Сингулярности': Настоящее Издание",
-                "description": "This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels! Also sets the free level of the fake citadel to whatever level this is.",
-                "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
+                "description": "Эта реальная цитадель даёт +2% Обтаиниуму, Подношениям, и 3-7D Кубам за уровень! +1% дополнительно за каждые 10 уровней! Также устанавливает бесплатный уровень поддельной цитадели на любой текущий уровень.",
+                "effect": "Обтаиниум, Подношения, и 3-7D Кубы +{{n}}%, навсегда!"
             },
             "octeractUnlock": {
-                "name": "Octeracts",
-                "description": "Hey!!! What are you trying to do?!?",
-                "effectHave": "You have bought into the Octeract hype.",
-                "effectHaveNot": "You have not bought into the Octeract hype."
+                "name": "Октеракты",
+                "description": "Эй!!! Что ты пытаешься сделать?!?",
+                "effectHave": "Вы купились на шумиху вокруг Октеракта.",
+                "effectHaveNot": "Вы не купились на шумиху вокруг Октеракта."
             },
             "singOcteractPatreonBonus": {
-                "name": "Platonic $ells out!!!",
+                "name": "Ра$продажа Платоника!!!",
                 "description": "Слышали про бонус Patreon? Это, конечно, круто, но что если бы он также увеличивал производство Октерактов на ту же величину?",
-                "effect": "Octeract production is {{n}}% faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists."
+                "effect": "Производство Октеракта на {{n}}% быстрее за каждые 10 долларов в месяц на Patreon! То же самое, что и бонус Кварка, который уже существует."
             },
             "offeringAutomatic": {
-                "name": "Blueberry Shards! (WIP)",
+                "name": "Осколки Голубики! (НЗП)",
                 "description": "Легенды правдивы. \n Пророчества выполнены. \n Бог Муравьиный услышал молитвы. \n Да будет же голубика! \n И была она хороша.",
                 "effect": "Вы купили {{n}} вкусной голубики."
             },
@@ -1704,65 +1704,65 @@
             "singQuarkImprover1": {
                 "name": "Marginal Quark Gain Improver Thingy",
                 "description": "Я забыл как выглядит эта штуковина. +0.5% Кварков за уровень, мультипликативно со всеми другими бонусами! Кажется, что цена на это растёт гораздо быстрее, чем на что-либо ещё. Кстати, вы знали, что эти описания иногда бывают сколь угодно длинными?",
-                "effect": "You gain {{n}}% more Quarks!"
+                "effect": "Вы получите {{n}}% больше Кварков!"
             },
             "singQuarkHepteract": {
-                "name": "I wish my Quark Hepteract was marginally better.",
-                "description": "Wrong game, oops. Anyway, would you like a very slightly better DR exponent on Quark Hepteract?",
-                "effect": "The DR exponent is now {{n}}% larger!"
+                "name": "Я бы хотел, чтобы мой Кварковый Гептеракт был хоть немного лучше.",
+                "description": "Неправильная игра, упс. В любом случае не хотели бы вы получить немного лучший экспонент УО по Кварковому Гептеракту?",
+                "effect": "Экспонента УО теперь на {{n}}% больше!"
             },
             "singQuarkHepteract2": {
-                "name": "I wish my Quark Hepteract was marginally better II.",
-                "description": "Still not the right game. Same as the previous upgrade.",
-                "effect": "The DR exponent is now {{n}}% larger!"
+                "name": "Я бы хотел, чтобы мой Кварковый Гептеракт был хоть немного лучше II.",
+                "description": "Всё ещё не та игра. То же, что и предыдущее улучшение.",
+                "effect": "Экспонента УО теперь на {{n}}% больше!"
             },
             "singQuarkHepteract3": {
-                "name": "I wish my Quark Hepteract was marginally better III.",
-                "description": "I AM NOT THE GODMOTHER YOU ARE LOOKING FOR, DYLAN!",
-                "effect": "The DR exponent is now {{n}}% larger!"
+                "name": "Я бы хотел, чтобы мой Кварковый Гептеракт был хоть немного лучше III.",
+                "description": "Я НЕ ТА КРЁСТНАЯ, КОТОРУЮ ТЫ ИЩЕШЬ, ДИЛАН!",
+                "effect": "Экспонента УО теперь на {{n}}% больше!"
             },
             "singOcteractGain": {
-                "name": "Octeract Absinthe",
+                "name": "Абсент \"Октеракт\"",
                 "description": "Вы бы и не подумали, что этот тоник может усилить ваши Октеракты! [Фактически, +1.25% за уровень!]",
-                "effect": "Octeract Gain +{{n}}%"
+                "effect": "Прирост Октеракта +{{n}}%"
             },
             "singOcteractGain2": {
                 "name": "Pieces of Eight",
                 "description": "Их действительно восемь, но каждое даёт только +0.625%, поэтому +5% Октерактов за уровень.",
-                "effect": "Octeract Gain +{{n}}%"
+                "effect": "Прирост Октеракта +{{n}}%"
             },
             "singOcteractGain3": {
-                "name": "The Obelisk Shaped like an Octagon.",
+                "name": "Форма Обелиска напоминает Восьмиугольник.",
                 "description": "Platonic должен был зайти довольно далеко в этот раз. +2.5% Октерактов, детка!",
-                "effect": "Octeract Gain +{{n}}%"
+                "effect": "Прирост Октеракта +{{n}}%"
             },
             "singOcteractGain4": {
                 "name": "Октаэдрический Синтез",
                 "description": "Как оно вообще работает!?? +2% к Октерактам, скажешь мне.",
-                "effect": "Octeract Gain +{{n}}%"
+                "effect": "Прирост Октеракта +{{n}}%"
             },
             "singOcteractGain5": {
                 "name": "Восьмое Чудо Света",
                 "description": "чудо мира, в котором мы живём. [+1% Октерактов. Platonic, эта цена кусается! но ему на это всё равно.]",
-                "effect": "Octeract Gain +{{n}}%"
+                "effect": "Прирост Октеракта +{{n}}%"
             },
             "platonicTau": {
                 "name": "Платоново ТАУ",
-                "description": "Placed in the wrong upgrade section, this will remove any restrictions on corruptions or corruption level caps! Also raises 3d cube gain to the power of 1.01!",
-                "effectHave": "This upgrade has been purchased",
-                "effectHaveNot": "This upgrade has not been purchased"
+                "description": "Размещённый в неправильном разделе улучшения, он снимет все ограничения порчи или лимиты уровня порчи! Также увеличивает коэффициент усиления 3d-куба в 1.01 раза!",
+                "effectHave": "Это улучшение уже куплено",
+                "effectHaveNot": "Это улучшение ещё не куплено"
             },
             "platonicAlpha": {
                 "name": "Платонова АЛЬФА...?",
-                "description": "Confusion ensues as to why there are two of these. This one is capitalized, so buying this ensures Platonic Alpha is always maxed!",
-                "effectHave": "This upgrade has been purchased",
-                "effectHaveNot": "This upgrade has not been purchased"
+                "description": "Возникает путаница относительно того, почему их существует два. Это слово написано с заглавной буквы, так что покупка этого гарантирует, что Платонова Альфа всегда будет максимальной!",
+                "effectHave": "Это улучшение уже куплено",
+                "effectHaveNot": "Это улучшение ещё не куплено"
             },
             "platonicDelta": {
                 "name": "Платонова ДЕЛЬТА",
                 "description": "Стоит вам получить этого славного малого, время последует за вами в будущее. Получите на +100% больше кубов за каждый день в текущей сингулярности, до +900% на 9 день.",
-                "effectHave": "This upgrade has been purchased",
-                "effectHaveNot": "This upgrade has not been purchased"
+                "effectHave": "Это улучшение уже куплено",
+                "effectHaveNot": "Это улучшение ещё не куплено"
             },
             "platonicPhi": {
                 "name": "Платоново ФИ",
@@ -1771,21 +1771,21 @@
                 "effectHaveNot": "Это улучшение ещё не куплено"
             },
             "singFastForward": {
-                "name": "Etherflux Singularities",
+                "name": "Сингулярности Потока простого эфира",
                 "description": "Получение Золотых Кварков от Сингулярности увеличено на 100% (добавочно). Становление единым в высшей за всё время сингулярности даёт +1 к счётчику сингулярности!",
-                "effectHave": "You've transformed the Etherflux!",
-                "effectHaveNot": "You haven't transformed the Etherflux!"
+                "effectHave": "Вы преобразили Поток простого эфира!",
+                "effectHaveNot": "Вы не преобразили Поток простого эфира!"
             },
             "singFastForward2": {
-                "name": "Aetherflux Singularities",
-                "description": "Golden Quark gained by Singularity is increased by 100% (additive) and going singular at your all time highest count gives +1 singularity count! It's like Etherflux but with an A.",
-                "effectHave": "You've transformed the Aetherflux!",
-                "effectHaveNot": "You haven't transformed the Aetherflux!"
+                "name": "Сингулярности Потока эфира",
+                "description": "Получение Золотых Кварков от Сингулярности увеличено на 100% (добавочно). Становление единым в высшей за всё время сингулярности даёт +1 к счётчику сингулярности! Это как Поток простого эфира, но без слова \"простого\".",
+                "effectHave": "Вы преобразили Поток эфира!",
+                "effectHaveNot": "Вы не преобразили Поток эфира!"
             },
             "singAscensionSpeed": {
-                "name": "A hecking good ascension speedup!",
+                "name": "Чертовски хорошее ускорение восхождения!",
                 "description": "Скорость Вознесения возводится в степень 1.03, а возводится в степень 0.97, если меньше 1x.",
-                "effect": "Ascension Speed ^{{n}}, ^{{m}} if < 1x"
+                "effect": "Скорость Вознесения ^{{n}}, ^{{m}} если < 1x"
             },
             "singAscensionSpeed2": {
                 "name": "Посредственное ускорение вознесения!",
@@ -1793,36 +1793,36 @@
                 "effect": "Эффект очевиден"
             },
             "WIP": {
-                "name": "WIP TEMPLATE",
-                "description": "This is a template! Bottom Text.",
-                "effect": "Update this description at a later time!!!!!!!!!!"
+                "name": "ШАБЛОН НЗП",
+                "description": "Это шаблон! Нижний текст.",
+                "effect": "Обновите это описание позже!!!!!!!!!!"
             },
             "ultimatePen": {
-                "name": "The Ultimate Pen",
-                "description": "You. It is you who is the author of your own story!",
-                "effect": "You do {{n}} own the Ultimate Pen. {{m}}"
+                "name": "Идеальная Ручка",
+                "description": "Ты. Именно ты являешься автором своей собственной истории!",
+                "effect": "Вы {{n}} имеете Идеальную Ручку. {{m}}"
             },
             "oneMind": {
                 "name": "ЕДИНЫЙ РАЗУМ",
-                "description": "A note, you found on the 'ground': seems like an advertisement for a cult. \"Lock your ascension speed to 10x, and multiply all cubes based on the difference.\" Hmm...",
+                "description": "Заметка, которую вы нашли на \"земле\": похоже на рекламу культа. \"Зафиксируйте свою скорость восхождения в 10 раз и умножьте все кубы на основе разницы\". Хм...",
                 "effectHave": "Вы присоединились к культу!",
                 "effectHaveNot": "Вы не присоединились к культу!"
             },
             "wowPass4": {
-                "name": "QUQUQUQUAAKCKCKKCKKCKK",
+                "name": "КРКРКРКРЯЯВКВКВВКВВКВВ",
                 "description": "Сделки, ценою в клюв и крыло!",
-                "effectHave": "You have quacked your last QUARK",
-                "effectHaveNot": "You haven't quacked your last QUARK"
+                "effectHave": "Вы крякнули свой последний КВАРК",
+                "effectHaveNot": "Вы не крякнули свой последний КВАРК"
             },
             "blueberries": {
-                "name": "Blueberry Shards! (WIP)",
-                "description": "Blueberries! Yeah, Platonic is out of ideas. Well, each Blueberry gives a 0.01% chance per second to generate some Ambrosia!",
-                "effect": "You have purchased {{n}} tasty blueberries."
+                "name": "Осколки Голубики! (НЗП)",
+                "description": "Голубика! Да, у Платона закончились идеи. Что ж, каждая Голубика даёт 0.01% вероятности в секунду получить немного Амброзии!",
+                "effect": "Вы купили {{n}} вкусной голубики."
             }
         },
-        "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
+        "goldenQuarkAmount": "У вас {{goldenQuarks}} Золотых Кварков!",
         "penalties": {
-            "globalSpeed": "<<royalblue|Global Speed>> is divided by <<royalblue|{{divisor}}>>.",
+            "globalSpeed": "<<royalblue|Глобальная Скорость>> делится на <<royalblue|{{divisor}}>>.",
             "ascensionSpeed": "<<orange|Ascension Speed>> is divided by <<orange|{{divisor}}>>.",
             "offeringGain": "<<gold|Offering Gain>> is divided by <<gold|{{divisor}}>>.",
             "obtainiumGain": "<<steelblue|Obtainium Gain>> is divided by <<steelblue|{{divisor}}>>.",
@@ -1969,8 +1969,8 @@
             "51": "Increase production of all Mythos buildings based on owned Accelerator Boosts.",
             "52": "Mythos building exponent +0.025.",
             "53": "Augments produce more Shards based on Acceleration Multiplier.",
-            "54": "Wizards produce more Enchantments based on Multiplier.",
-            "55": "Grandmasters produce more Oracles based on Building power.",
+            "54": "Волшебники производят больше Заклинаний в зависимости от множителя.",
+            "55": "Гроссмейстеры производят больше Оракулов в зависимости от силы Строения.",
             "56": "Производство Работников умножено на 1e+5000.",
             "57": "Производство Инвестиций умножено на 1e+7500.",
             "58": "Производство Принтеров умножено на 1e+15000.",
@@ -1982,75 +1982,75 @@
             "64": "Производство Осколков Мифов умножается на квадрат количества Частиц.",
             "65": "Умножает получение Частиц от Реинкарнации на 5х!",
             "66": "При использовании Подношения, каждая открытая руна получит 1 бесплатное очко опыта.",
-            "67": "Atom gain is increased by 3% per Particle producer purchased!",
-            "68": "Gain a free Multiplier for every 1e1000x increase in tax.",
-            "69": "Gain more Obtainium based on your particle gain. [Works with automation at a reduced rate!]",
-            "70": "Time seems to go +0.333*log10(MAX Obtainium +1)% faster when you buy this.",
-            "71": "Runes will gain (Rune Level/25) additional EXP per Offering used.",
-            "72": "Obtainium gain from Reincarnations is multiplied (1 + 2C) where C is #Reincarnation Challenges completed, up to 50x!",
-            "73": "Gain +100% free Accelerator Boosts and +10 free Crystal Upgrade levels, but only in Reincarnation Challenges.",
-            "74": "Obtainium gain is increased based on highest ever unspent Offerings. [Max: 100,000 Unspent]",
-            "75": "Offering gain is increased based on highest ever unspent Obtainium [Max: 30,000,000 Obtainium]",
+            "67": "Прирост Атомов увеличивается на 3% с каждого приобретённого производителя частиц!",
+            "68": "Получите бесплатный Множитель за каждое увеличение налога в 1e1000 раз.",
+            "69": "Получите больше Обтаиниума в зависимости от вашего прироста частиц. [Работает с автоматизацией по сниженной цене!]",
+            "70": "Кажется, что время идёт на +0.333*log10(МАКС Обтаиниума +1)% быстрее, когда вы купите это.",
+            "71": "Руны будут получать (Уровень Руны/25) дополнительного опыта за каждое использованное Подношение.",
+            "72": "Полученный Обтаиниум от Реинкарнаций умножается (1 + 2И), где И - количество выполненных Испытаний Реинкарнации, до 50 раз!",
+            "73": "Получите +100% бесплатных Усилителей Ускорения и +10 бесплатных Уровней Улучшения Кристаллов, но только в Испытаниях Реинкарнации.",
+            "74": "Прирост Обтаиниума увеличивается на основе самых высоких за всю историю неизрасходованных Подношений. [Макс: 100,000 Неизрасходованных]",
+            "75": "Прирост Подношений увеличивается в зависимости от самого высокого за всю историю неизрасходованного Обтаиниума [Макс: 30,000,000 Обтаиниума]",
             "76": "Создание Муравьёв кажется медленным? Согласен! Скорость Муравьёв всех уровней умножается на 5х!",
             "77": "Это же Synergism, так ведь? Теперь каждый купленный Муравей делает всех Муравьёв на 0.4% быстрее.",
-            "78": "Gain an Ant speed multiplier equivalent to (1 + 0.005 * (log10(MAX Offerings + 1))^2).",
-            "79": "The Ant God will accept an arbitrary number of Particles in order to give you 10% more from sacrifices.",
-            "80": "The Ant God will accept a larger arbitrary number of Particles to give you more Ant ELO.",
+            "78": "Получите множитель скорости Муравья, эквивалентный (1 + 0.005 * (log10(МАКС Подношений + 1))^2).",
+            "79": "Муравьиный Бог примет произвольное количество Частиц, чтобы дать вам на 10% больше от пожертвований.",
+            "80": "Муравьиный Бог примет большее произвольное количество Частиц, чтобы дать вам больше Муравьиного ЭЛО.",
             "81": "Если доступны, автоматически покупайте Работников.",
             "82": "Если доступны, автоматически покупайте Инвестиции.",
             "83": "Если доступны, автоматически покупайте Принтеры.",
             "84": "Если доступны, автоматически покупайте Монетные Дворы.",
             "85": "Если доступны, автоматически покупайте Алхимии.",
-            "86": "Automatically buy Accelerators if affordable.",
-            "87": "Automatically buy Multipliers if affordable.",
-            "88": "Automatically buy Accelerator Boosts if affordable.",
-            "89": "Unlock Automatic Transcensions.",
+            "86": "Если доступны, автоматически покупайте Ускорители.",
+            "87": "Если доступны, автоматически покупайте Множители.",
+            "88": "Если доступны, автоматически покупайте Усилители Ускорителя.",
+            "89": "Разблокируйте Автоматические Превосходства.",
             "90": "Автоматически покупать из Магазина Генераторов.",
             "91": "Автоматическая покупка Улучшений Монет.",
             "92": "Автоматическая покупка Улучшений Алмазов.",
-            "93": "Generate 1% of Diamond Gain from prestiging per second.",
+            "93": "Генерируйте 1% Прироста Алмаза от престижа в секунду.",
             "94": "Automatically buy Augments if affordable.",
-            "95": "Automatically buy Enchantments if affordable.",
-            "96": "Automatically buy Wizards if affordable.",
-            "97": "Automatically buy Oracles if affordable.",
-            "98": "Automatically buy Grandmasters if affordable.",
+            "95": "Если доступны, автоматически покупайте Зачарования.",
+            "96": "Если доступны, автоматически покупайте Волшебников.",
+            "97": "Если доступны, автоматически покупайте Оракулов.",
+            "98": "Если доступны, автоматически покупайте Гроссмейстеры.",
             "99": "Если доступны, Автоматически покупайте Улучшения Мифов.",
-            "100": "Generate 1% of Mythos Gain from transcending per second.",
+            "100": "Генерируйте 1% Прироста Мифов от превосходства в секунду.",
             "101": "Алхимики будут производить Монетные Дворы.",
             "102": "Монетные Дворы будут производить Принтеры.",
             "103": "Принтеры будут производить Инвестиции.",
             "104": "Инвестиции будут производить Работников.",
             "105": "Купленные Работники будут производить Алхимии.",
             "106": "Перерабатывающие заводы могут производить Алхимии в количестве, равном количеству заводом в степени 0.10",
-            "107": "Refinery -> Alchemy exponent increased from 0.10 to 0.25.",
-            "108": "Refinery -> Alchemy exponent increased from 0.25 to 0.50",
-            "109": "Refinery -> Alchemy exponent increased from 0.50 to 0.75",
-            "110": "Refinery -> Alchemy exponent increased from 0.75 to 1",
+            "107": "Степень Переработки -> Алхимии увеличена с 0.10 до 0.25.",
+            "108": "Степень Переработки -> Алхимии увеличена с 0.25 до 0.50",
+            "109": "Степень Переработки -> Алхимии увеличена с 0.50 до 0.75",
+            "110": "Степень Переработки -> Алхимии увеличена с 0.75 до 1",
             "111": "Augments can produce Pandora Boxes equal to Augments owned raised to 0.08",
             "112": "Augment -> Box exponent increased from 0.08 to 0.16",
             "113": "Augment -> Box exponent increased from 0.16 to 0.24",
             "114": "Augment -> Box exponent increased from 0.24 to 0.32",
             "115": "Augment -> Box exponent increased from 0.32 to 0.40",
-            "116": "Protons can produce Grandmasters equal to Protons owned raised to 0.05",
-            "117": "Protons -> Grandmaster exponent increased from 0.05 to 0.10",
-            "118": "Protons -> Grandmaster exponent increased from 0.10 to 0.15",
-            "119": "Protons -> Grandmaster exponent increased from 0.15 to 0.20",
-            "120": "Protons -> Grandmaster exponent increased from 0.20 to 0.25",
-            "121": "You probably autobought this. -50% taxes!",
-            "122": "Increase Crystal Upgrade 3 cap from +12% to +100%!",
+            "116": "Протоны могут производить Гроссмейстеров, равном количеству Протонам в степени 0.05",
+            "117": "Степень Протона -> Гроссмастера увеличена с 0.05 до 0.10",
+            "118": "Степень Протона -> Гроссмастера увеличена с 0.10 до 0.15",
+            "119": "Степень Протона -> Гроссмастера увеличена с 0.15 до 0.20",
+            "120": "Степень Протона -> Гроссмастера увеличена с 0.20 до 0.25",
+            "121": "Вы, вероятно, купили это самостоятельно. -50% налогов!",
+            "122": "Увеличьте лимит Улучшения Кристала 3 с +12% до +100%!",
             "123": "Возводит производство монет в степень 1.025. Больше ЭКСПОНЕНТ.",
-            "124": "Gain +3% more effective ELO.",
-            "125": "Constant Tax divisor is 0.333% stronger per challenge 10 completion. [Divisor^(1 + upgrade)]"
+            "124": "Получите на +3% больше эффективного ЭЛО.",
+            "125": "Налог константы делится на 0.333% сильнее за выполнение испытания 10. [Делитель^(1 + улучшение)]"
         },
         "crystalUpgrades": {
-            "1": "Gain a 5% multiplicative boost to Crystals per AP per level.",
+            "1": "Получите мультипликативный прирост Кристаллов на 5% за ОД за уровень.",
             "2": "Усиление Кристаллам основанные на удержанные Монеты за уровень.",
-            "3": "Each purchased Crystal producer increases generation of Crystal producers by .1% per level. [MAX: {{max}}%]",
-            "4": "Improve the multiplier to coin production by .05 exponent per level. [MAX: +{{max}}]",
-            "5": "Every Transcension Challenge completion increases Crystal gain by 1% per level.",
-            "6": "Coming (not so) SOON!",
-            "7": "Coming (not so) SOON!",
-            "8": "Coming (not so) SOON!"
+            "3": "Каждый купленный производитель Кристаллов увеличивает количество производителей Кристаллов на 0.1% за уровень. [МАКС: {{max}}%]",
+            "4": "Увеличьте множитель для производства монет на .05 экспоненты за уровень. [МАКС: +{{max}}]",
+            "5": "Каждое выполнение Испытания Превосходства увеличивает прирост Кристаллов на 1% за уровень.",
+            "6": "Будет (не так) СКОРО!",
+            "7": "Будет (не так) СКОРО!",
+            "8": "Будет (не так) СКОРО!"
         },
         "constantUpgrades": {
             "1": "Make all Tesseract buildings {{level}}% more productive per level.",
@@ -2110,17 +2110,17 @@
             "43": "Эффект: Умножение всего производства монет на {{x}}!",
             "44": "Effect: Multiply Mythos gained in Transcension by {{x}}!",
             "45": "Effect: +{{x}} Accelerators!",
-            "46": "Effect: It's kinda self-evident, ain't it?",
-            "47": "Effect: Mythos-tier producers production x{{x}}",
+            "46": "Эффект: Это вроде как самоочевидно, не так ли?",
+            "47": "Эффект: Производство производителей уровня Мифов x{{x}}",
             "48": "Эффект: Умножение производства монет на коэффициент {{x}}!",
-            "49": "Effect: +{{x}} Multipliers through magic!",
-            "50": "Effect: It's quite obvious what the benefit is, but you must be in a Challenge for it to be in use!",
-            "51": "Effect: Mythos-tier producers production x{{x}}!",
-            "52": "Effect: Mythos-tier producers production x{{x}}! It's like inception, or something.",
+            "49": "Эффект: +{{x}} Множителей с помощью магии!",
+            "50": "Эффект: Совершенно очевидно, в чём заключается выгода, но вы должны быть в Испытании, чтобы это можно было использовать!",
+            "51": "Эффект: Производство производителей уровня Мифов x{{x}}!",
+            "52": "Эффект: Производство производителей уровня Мифов x{{x}}! Это как начало или что-то в этом роде.",
             "53": "Effect: Augments will produce {{x}}x as many Mythos Shards.",
-            "54": "Effect: Wizards will produce {{x}}x as many Enchantments; What productive spirits!",
-            "55": "Effect: Grandmasters will produce {{x}}x as many Oracles!",
-            "56": "Effect: It's quite obvious, ain't it?",
+            "54": "Эффект: Волшебники производят {{x}}x столько же Заклинаний; Какие продуктивные духи!",
+            "55": "Эффект: Гроссмейстеры производят {{x}}x столько же Оракулов!",
+            "56": "Эффект: Это совершенно очевидно, не так ли?",
             "57": "Эффект: Посмотри выше!",
             "58": "Эффект: Посмотри выше!",
             "59": "Эффект: Посмотри выше!",
@@ -2605,7 +2605,7 @@
             },
             "octeractAmbrosiaLuck": {
                 "name": "Berries of an Eight Leaf Clover (WIP)",
-                "description": "Totally not a reskin of the blueberry! Adds +1 Ambrosial Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
+                "description": "Совершенно не похож на голубику! Добавляет +1 к Амброзийной удаче, что может увеличить количество выпадения Амброзии, когда Голубика генерирует Амброзию.",
                 "effect": "Ambrosial Luck +{{n}}(!)"
             }
         },
