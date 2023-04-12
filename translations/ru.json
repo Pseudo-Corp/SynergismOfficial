@@ -1496,7 +1496,7 @@
             },
             "goldenQuarks3": {
                 "name": "Золотые Кварки III",
-                "description": "If you buy this, you will gain Golden Quarks per hour from Exports. Leveling up gives (level) additional per hour!",
+                "description": "Если вы купите это, вы будете получать Золотые Кварки в час от Экспорта. Повышение уровня даёт дополнительно (уровень) в час!",
                 "effect": "Каждый час вы получите {{n}} Золотых Кварков от экспорта."
             },
             "starterPack": {
@@ -1632,77 +1632,77 @@
             "intermediatePack": {
                 "name": "Промежуточный Набор",
                 "description": "Удваивает Глобальную Скорость, Умножает скорость Вознесения на 1.5, а также навсегда даёт +2% Кварков. Ммм... 2%-ое Кварковое Молоко.",
-                "effectHave": "You have upgraded your package to intermediate.",
-                "effectHaveNot": "You have not upgraded your package to intermediate."
+                "effectHave": "Вы улучшили свой пакет до промежуточного состояния.",
+                "effectHaveNot": "Вы не улучшили свой пакет до промежуточного состояния."
             },
             "advancedPack": {
                 "name": "Продвинутый Набор",
-                "description": "Now we're cooking with kerosene! Gain +4% Quarks stack with intermediate, +0.33 to all corruption score multipliers, regardless of level!",
-                "effectHave": "You have bought our advanced package.",
-                "effectHaveNot": "You have not bought our advanced package."
+                "description": "Теперь мы готовим на керосине! Получите +4% Кварков складывающим с промежуточным, +0.33 ко всем множителям очков порчи, независимо от уровня!",
+                "effectHave": "Вы приобрели наш продвинутый пакет.",
+                "effectHaveNot": "Вы не приобрели наш продвинутый пакет."
             },
             "expertPack": {
                 "name": "Набор Эксперта",
-                "description": "That's a handful! Gain +6% Quarks stack with advanced, 1.5x Ascension Score, Code 'add' gives 1.2x Ascension Timer.",
-                "effectHave": "You have switched to the expert provider.",
-                "effectHaveNot": "You have not switched to the expert provider."
+                "description": "Это сущая беда! Получите +6% Кварков складывающим с продвинутым, 1.5x к счёту Вознесения, Код 'add' даёт 1.2x к Таймеру Вознесения.",
+                "effectHave": "Вы переключились на эксперта-провайдера.",
+                "effectHaveNot": "Вы не переключились на эксперта-провайдера."
             },
             "masterPack": {
-                "name": "Master Pack",
-                "description": "A tad insane. Gain +8% Quarks stack with expert, for every level 14 corruption, Ascension score is multiplied by 1.1.",
-                "effectHave": "You have mastered your inner chakras.",
-                "effectHaveNot": "You have not mastered your inner chakras."
+                "name": "Пакет Мастера",
+                "description": "Немного безумный. Получите +8% Кварков складывающим с экспертом, за каждую порчу 14-го уровня счёт вознесения умножается на 1.1.",
+                "effectHave": "Вы овладели своими внутренними чакрами.",
+                "effectHaveNot": "Вы не овладели своими внутренними чакрами."
             },
             "divinePack": {
                 "name": "Божественный Набор",
-                "description": "OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14.",
+                "description": "ООООО. Получите +10% Кварков складывающим с мастером, и умножьте Октеракты на 7.77, если все порчи установлены на 14.",
                 "effectHave": "Вы нашли причину существования.",
                 "effectHaveNot": "Вы не нашли причину существования."
             },
             "wowPass2": {
-                "name": "Shop Liquidation Sale",
-                "description": "The Seal Merchant needs to get rid of some exotic goods. Only for a steep price. I do not think that is how sales work.",
-                "effectHave": "You have triggered the Liquidation event!",
-                "effectHaveNot": "You have not triggered the Liquidation event!"
+                "name": "Продажа при Ликвидации Магазина",
+                "description": "Торговцу тюленями нужно избавиться от некоторых экзотических товаров. Только по завышенной цене. Я не думаю, что продажи работают именно так.",
+                "effectHave": "Вы запустили событие Ликвидации!",
+                "effectHaveNot": "Вы не запустили событие Ликвидации!"
             },
             "wowPass3": {
-                "name": "QUAAAACK",
-                "description": "QUAAAAAAAACK. The Merchant has gone crazy for your QUARKS!",
-                "effectHave": "You have triggered the QUACKSTRAVAGANZA!!",
-                "effectHaveNot": "You have not triggered the QUACKSTRAVAGANZA!!"
+                "name": "КРЯЯЯЯКВ",
+                "description": "КРЯЯЯЯЯЯЯЯКВ. Торговец сошел с ума по вашим КВАРКАМ!",
+                "effectHave": "Вы вызвали КРЯКВСТРАВАГАНЗА!!",
+                "effectHaveNot": "Вы не вызвали КРЯКВСТРАВАГАНЗА!!"
             },
             "potionBuff": {
                 "name": "Графин Просветления для Зелий",
                 "description": "Предположительно являющийся источников вечной молодости, этот предмет значительно усиливает зелья!",
-                "effect": "Potions currently give {{n}}x items!"
+                "effect": "Зелья теперь дают {{n}}x предметов!"
             },
             "potionBuff2": {
                 "name": "Графин Инквизиции для зелий",
-                "description": "Staring at the glass, you aren't actually sure what this potion is.",
-                "effect": "Potions currently give {{n}}x items!"
+                "description": "Глядя на стакан, вы на самом деле не уверены, что это за зелье.",
+                "effect": "Зелья теперь дают {{n}}x предметов!"
             },
             "potionBuff3": {
-                "name": "Potion Decanter of Maddening Instability",
-                "description": "SHE'S GONNA BLOW!!!! Said Midas, the Golden Quark Salesman. Oh yeah, did we mention he's in the game?",
-                "effect": "Potions currently give {{n}}x items!"
+                "name": "Графин с Зельем Сводящей с ума Нестабильности",
+                "description": "ОНА СЕЙЧАС ВЗОРВЁТСЯ!!!! Сказал Мидас, Продавец Золотых Кварков. Ах, да, мы упоминали, что он в игре?",
+                "effect": "Зелья теперь дают {{n}}x предметов!"
             },
             "singChallengeExtension": {
                 "name": "Увеличенные Лимиты Испытаний",
-                "description": "Need more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.",
-                "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+                "description": "Нужно больше Испытаний? Что ж, добавим к лимиту ещё 2 Испытания Реинкарнации и 1 Испытание Вознесения за каждый уровень.",
+                "effect": "Вы чувствуете себя достаточно мотивированным, чтобы выполнить на {{n}} больше Испытаний Реинкарнации и на {{m}} больше Испытаний Вознесения."
             },
             "singChallengeExtension2": {
                 "name": "Увеличееенныыыеее Лимиты Испытаний",
-                "description": "Need even more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.",
-                "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+                "description": "Нужно ещё больше Испытаний? Что ж, добавим к лимиту ещё 2 Испытания Реинкарнации и 1 Испытание Вознесения за каждый уровень.",
+                "effect": "Вы чувствуете себя достаточно мотивированным, чтобы выполнить на {{n}} больше Испытаний Реинкарнации и на {{m}} больше Испытаний Вознесения."
             },
             "singChallengeExtension3": {
                 "name": "BiggererEST Challenge Caps",
-                "description": "Need even MORE Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level. Does it not seem excessive?",
-                "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+                "description": "Нужно ещё БОЛЬШЕ Испытаний? Что ж, добавим к лимиту ещё 2 Испытания Реинкарнации и 1 Испытание Вознесения за каждый уровень. Вам это не кажется излишним?",
+                "effect": "Вы чувствуете себя достаточно мотивированным, чтобы выполнить на {{n}} больше Испытаний Реинкарнации и на {{m}} больше Испытаний Вознесения."
             },
             "singQuarkImprover1": {
-                "name": "Marginal Quark Gain Improver Thingy",
+                "name": "Штука, Улучшающий Предел Получения Кварков",
                 "description": "Я забыл как выглядит эта штуковина. +0.5% Кварков за уровень, мультипликативно со всеми другими бонусами! Кажется, что цена на это растёт гораздо быстрее, чем на что-либо ещё. Кстати, вы знали, что эти описания иногда бывают сколь угодно длинными?",
                 "effect": "Вы получите {{n}}% больше Кварков!"
             },
@@ -1823,15 +1823,15 @@
         "goldenQuarkAmount": "У вас {{goldenQuarks}} Золотых Кварков!",
         "penalties": {
             "globalSpeed": "<<royalblue|Глобальная Скорость>> делится на <<royalblue|{{divisor}}>>.",
-            "ascensionSpeed": "<<orange|Ascension Speed>> is divided by <<orange|{{divisor}}>>.",
-            "offeringGain": "<<gold|Offering Gain>> is divided by <<gold|{{divisor}}>>.",
-            "obtainiumGain": "<<steelblue|Obtainium Gain>> is divided by <<steelblue|{{divisor}}>>.",
-            "cubeGain": "<<yellow|Cube Gain>> is divided by <<yellow|{{divisor}}>>.",
+            "ascensionSpeed": "<<orange|Скорость Вознесения>> делится на <<orange|{{divisor}}>>.",
+            "offeringGain": "<<gold|Получение Подношений>> делится на <<gold|{{divisor}}>>.",
+            "obtainiumGain": "<<steelblue|Получение Обтаиниума>> делится на <<steelblue|{{divisor}}>>.",
+            "cubeGain": "<<yellow|Получение Кубов>> делится на <<yellow|{{divisor}}>>.",
             "researchCosts": "<<var(--green-text-color)|Стоимость Исследований>> умножена на <<var(--green-text-color)|{{multiplier}}>>.",
             "cubeUpgradeCosts": "<<Silver|стоимость Улучшений Кубов>> (Исключая Печеньки) умножена на <<Silver|{{multiplier}}>>.",
             "platonicCosts": "<<var(--orchid-text-color)|стоимость Платонических Улучшений>> умножена на <<var(--orchid-text-color)|{{multiplier}}>>.",
             "hepteractCosts": "<<Pink|стоимость Кузни Гептерактов>> умножена на <<Pink|{{multiplier}}>>.",
-            "penaltySmooth": "You will no longer experience sudden spikes in penalties.",
+            "penaltySmooth": "Вы больше не будете испытывать внезапных всплесков в штрафах.",
             "penaltyRough": "Ваши штрафы резко ухудшатся в <<var(--red-text-color)|Сингулярности {{num}}>>.",
             "antiquitiesBought": "<<var(--green-text-color)|Antiquities of Ant God is maxed! Penalties are dispelled!>>",
             "antiquitiesNotBought": "<<var(--red-text-color)|Penalties are active because you have not leveled up Antiquities of Ant God!>>"
