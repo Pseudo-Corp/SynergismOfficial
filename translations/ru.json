@@ -590,7 +590,7 @@
             "current": {
                 "1": "+{{value}} к Степени",
                 "2": "+{{value}}%",
-                "3": "+{{value}} EXP"
+                "3": "+{{value}} ОПЫТ"
             }
         },
         "4": {
@@ -643,7 +643,7 @@
             "start": "Начать <Налоги+>",
             "current": {
                 "1": "Множитель налогов x{{value}}",
-                "2": "EXP +{{value}}%",
+                "2": "ОПЫТ +{{value}}%",
                 "3": "+{{value}}% предложений на основе Престижа"
             }
         },
@@ -661,8 +661,8 @@
             "start": "Начать <Нет Мультипликаторов/Ускорителей>",
             "current": {
                 "1": "Степень = ^{{value}}",
-                "2": "EXP +{{value}}%",
-                "3": "EXP +{{value}}%"
+                "2": "ОПЫТ +{{value}}%",
+                "3": "ОПЫТ +{{value}}%"
             }
         },
         "8": {
@@ -679,8 +679,8 @@
             "start": "Начать <Cost++>",
             "current": {
                 "1": "+{{value}}",
-                "2": "+{{value}}% EXP",
-                "3": "+{{value}}% Transcend-based offerings"
+                "2": "+{{value}}% ОПЫТ",
+                "3": "+{{value}}% подношений при Трансценденции"
             }
         },
         "9": {
@@ -698,7 +698,7 @@
             "current": {
                 "1": "+{{value}} бесплатных уровней",
                 "2": "x{{value}} Скорости Муравьёв",
-                "3": "+{{value}}% EXP"
+                "3": "+{{value}}% ОПЫТ"
             }
         },
         "10": {
@@ -716,7 +716,7 @@
             "current": {
                 "1": "+{{value}} к Муравьиному ЭЛО",
                 "2": "+{{value}}% к награде Пожертвовании Муравьёв",
-                "3": "+{{value}}% Reincarnate-based offerings"
+                "3": "+{{value}}% подношений при Реинкарнации"
             }
         },
         "11": {
@@ -1179,7 +1179,7 @@
             "170": "[7x20] Том 3 из 4: Как ПОКОРЯТЬ 10-е Испытание. Делитель на 100 млн. порядков (e100,000,000)!",
             "171": "[7x21] Вы должны знать, как это происходит. +0.4% Ускорителей / уровень",
             "172": "[7x22] Усилители Ускорения += 0.004 * Усилители Ускорения",
-            "173": "[7x23] A lot of a small +0.4% Multipliers per level",
+            "173": "[7x23] Много небольших 0.4% Множителей за уровень",
             "174": "[7x24] Эпические Фрагменты увеличивают силу Благословения на 10% * Log10 (Эпические фрагменты + 1)",
             "175": "[7x25] Автоматическая покупка Улучшений Константы, если они доступны! Они также больше не уменьшают вашу константу.",
             "176": "[8x1] 8-й ряд, детка! +0.2% к эффективности Рун / уровень.",
@@ -1279,7 +1279,7 @@
             "obtainiumEX3": "Получите 2% больше Обтаиниума за уровень, многократно! (Множитель равен 1.02^уровень)",
             "chronometerInfinity": "Получите 1% Скорости Восхождения за уровень, многократно! (Множитель равен 1.01^уровень)",
             "seasonPassInfinity": "Получите 2% больше Кубов за уровень, многократно! (Множитель равен 1.02^уровень)",
-            "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.",
+            "shopSingularityPenaltyDebuff": "Кукузнец был так горд вашим результатом в первом ВОЗВЫШЕНИИ, что он хочет сделать ваши штрафы сингулярности слабее. Но у всего есть цена. И не маленькая.",
             "obtainiumEX2": "Получите +1% Обтаиниума за каждый уровень за каждую Сингулярность!!!",
             "improveQuarkHept5": "Это на 1/50 эффективнее обычного улучшителя. Почему? Из-за баланса..."
         },
@@ -1727,7 +1727,7 @@
                 "effect": "Прирост Октеракта +{{n}}%"
             },
             "singOcteractGain2": {
-                "name": "Pieces of Eight",
+                "name": "Части Восьми",
                 "description": "Их действительно восемь, но каждое даёт только +0.625%, поэтому +5% Октерактов за уровень.",
                 "effect": "Прирост Октеракта +{{n}}%"
             },
@@ -1833,28 +1833,28 @@
             "hepteractCosts": "<<Pink|стоимость Кузни Гептерактов>> умножена на <<Pink|{{multiplier}}>>.",
             "penaltySmooth": "Вы больше не будете испытывать внезапных всплесков в штрафах.",
             "penaltyRough": "Ваши штрафы резко ухудшатся в <<var(--red-text-color)|Сингулярности {{num}}>>.",
-            "antiquitiesBought": "<<var(--green-text-color)|Antiquities of Ant God is maxed! Penalties are dispelled!>>",
-            "antiquitiesNotBought": "<<var(--red-text-color)|Penalties are active because you have not leveled up Antiquities of Ant God!>>"
+            "antiquitiesBought": "<<var(--green-text-color)|Антикварии Муравьиного Бога приобретены! Штрафы развеяны! >>",
+            "antiquitiesNotBought": "<var(--red-text-color)|Так как Антикварии Муравьиного Бога не приобретены, штрафы не развеяны!>"
         },
         "perkNames": {
-            "xyz": "XYZ: Xtra dailY rewardZ",
-            "unlimitedGrowth": "Unlimited growth",
+            "xyz": "XYZ: Xтра ежедневныY приZ",
+            "unlimitedGrowth": "Неограниченный рост",
             "goldenCoins": "Золотые монеты",
             "hepteractAutocraft": "Автосоздание Гептерактов",
-            "generousOrbs": "Generous Orbs",
+            "generousOrbs": "Щедрые Сферы",
             "researchDummies": "Исследования для Чайников",
-            "superStart": "Super Start",
-            "notSoChallenging": "Not So Challenging",
+            "superStart": "Супер Старт",
+            "notSoChallenging": "Тоже Мне Испытание",
             "automationUpgrades": "Улучшения Автоматизации",
-            "evenMoreQuarks": "Even More Quarks",
+            "evenMoreQuarks": "Ещё Больше Кварков",
             "shopSpecialOffer": "Shop Special Offer",
             "potionAutogenerator": "Автогенератор Зелий",
             "respecBeGone": "Respec, be gone!",
             "forTheLoveOfTheAntGod": "Ради (Муравьиного) Бога!",
-            "itAllAddsUp": "It all adds up",
+            "itAllAddsUp": "Всё идет по нарастающей",
             "automagicalRunes": "Автомагические Руны",
-            "exaltedAchievements": "EXALT Vault",
-            "derpSmithsCornucopia": "Derpsmith's Cornucopia",
+            "exaltedAchievements": "Хранилище ВОЗВЫШЕНИЯ",
+            "derpSmithsCornucopia": "Рог Изобилия Кукузнеца",
             "coolQOLCubes": "Cool Qol Cubes",
             "eternalAscensions": "Вечные Вознесения",
             "antGodsCornucopia": "Рог изобилия Муравьиного Бога",
@@ -1863,7 +1863,7 @@
             "goldenRevolution": "Золотая Революция",
             "goldenRevolutionII": "Золотая Революция II",
             "goldenRevolutionIII": "Золотая Революция III",
-            "platonicClones": "Clones of Platonic Clicking at Your Desktop",
+            "platonicClones": "Клоны Platonic'а, Кликающие с Вами",
             "platSigma": "PL-AT Σ",
             "midasMilleniumAgedGold": "Midas' Millenium-Aged Gold",
             "goldenRevolution4": "Золотая Революция IV",
@@ -2066,24 +2066,24 @@
         },
         "effects": {
             "1": "Эффект: Производство Работников x{{x}}",
-            "2": "Effect: Investment Production x{{x}}",
-            "3": "Effect: Printer Production x{{x}}",
-            "4": "Effect: Mint Production x{{x}}",
-            "5": "Effect: Alchemy Production x{{x}}",
+            "2": "Эффект: Производство Инвестиций x{{x}}",
+            "3": "Эффект: Производство Принтеров x{{x}}",
+            "4": "Эффект: Производство Дворов x{{x}}",
+            "5": "Эффект: Производство Алхимий x{{x}}",
             "6": "Эффект: Всё производство Монет x{{x}}",
             "7": "Эффект: Получите {{x}} бесплатных Множителей за купленные Алхимии.",
-            "8": "Effect: +{{x}} free Accelerators.",
-            "9": "Effect: +{{x}} free Multipliers.",
+            "8": "Эффект: +{{x}} бесплатных ускорителей.",
+            "9": "Эффект: +{{x}} бесплатных Множителей.",
             "10": "Эффект: Производство Работников x{{x}}",
             "11": "Эффект: Эффективность генераторов: x{{x}}",
             "12": "Эффект: Всё производство Монет x{{x}}",
-            "13": "Effect: Investment Production x{{x}}",
-            "14": "Effect: Printer Generation x{{x}}",
-            "15": "Effect: Mint Generation x{{x}}",
+            "13": "Эффект: Производство Инвестиций x{{x}}",
+            "14": "Эффект: Создание Принтеров x{{x}}",
+            "15": "Эффект: Создание Дворов x{{x}}",
             "16": "Effect: Gain {{x}}x more Diamonds on Prestige",
             "17": "Effect: Mint Production x1e100 (Duh)",
-            "18": "Effect: Printer Production x",
-            "19": "Effect: Investment Production x{{x}}",
+            "18": "Эффект: Производство Принтеров x",
+            "19": "Эффект: Производство Инвестиций x{{x}}",
             "20": "Effect: All coin production is further multiplied by {{x}} [Stacks with upgrade 1]!",
             "21": "Effect: {{x}} Multipliers, +{{y}} Accelerators.",
             "22": "Effect: {{x}} Multipliers, +{{y}} Accelerators.",
@@ -2194,7 +2194,7 @@
         "cubes": {
             "cubeTributes": "Cube Tributes",
             "tesseract": "Tesseract Gifts",
-            "hypercube": "Hypercube Benedictions",
+            "hypercube": "Благословения Гиперкубов",
             "platonic": "Платоновы Статуи",
             "cubeUpgrades": "Улучшения Кубов",
             "challenge15": "Испытание 15/Платоновы Улучшения",
@@ -2204,7 +2204,7 @@
             "penalties": "Штрафы",
             "perks": "Преимущества",
             "octeracts": "Октеракты",
-            "exalt": "EXALT"
+            "exalt": "ВОЗВЫШЕНИЕ"
         },
         "settings": {
             "languages": "🌐 Языки 🌐",
@@ -2221,13 +2221,13 @@
         "prestigeCount": "Счётчик Престижа: +",
         "currentPrestigeTimer": "Таймер Текущего Престижа: +<<cyan|{{value}}>> секунд",
         "offeringsGenerated": "Подношений Создано: <<orange|{{value}}>>",
-        "transcensionCount": "Transcension Count: +<<var(--orchid-text-color);|{{value}}>>",
-        "currentTranscensionCounter": "Current Transcension Timer: +<<var(--orchid-text-color);|{{value}}>> seconds",
+        "transcensionCount": "Счётчик Трансценденций: +<<var(--orchid-text-color);|{{value}}>>",
+        "currentTranscensionCounter": "Таймер Текущей Трансценденции: +<<var(--orchid-text-color);|{{value}}>> секунд",
         "reincarnationCount": "Счётчик Реинкарнаций: +<<limegreen|{{value}}>>",
         "currentReincarnationTimer": "Таймер Текущей Реинкарнации: +<<limegreen|{{value}}>> секунд",
         "obtainiumGenerated": "Обтаниума Создано: <<pink|{{value}}>>",
         "ingameAntSacTimer": "Внутриигровой Таймер Жертвоприношений: +<<var(--red-text-color);|{{value}}>> секунд",
-        "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
+        "realAntSacTimer": "Таймер Реального Времени Жертвоприношений: +<<var(--red-text-color);|{{value}}>> секунд",
         "currentAscensionTimer": "Таймер Текущего Вознесения: +<<gold|{{value}}>> секунд",
         "exportQuarks": "Экспорт Кварки: +<<goldenrod|{{value}}>>"
     },
@@ -2250,16 +2250,16 @@
             "5": "Алмазные пещеры уничтожены... больше никаких монополий!",
             "6": "Это и динозавров убило, клоун.",
             "7": "More like California, am I right?",
-            "8": "Yet another 2020 catastrophe."
+            "8": "Очередная катастрофа 2020-го."
         },
         "currentLevel": {
-            "1": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-            "2": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-            "3": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-            "4": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-            "5": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-            "6": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
-            "7": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+            "1": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Экспонента Беспл. Ускор. и Множителей ^{{ effect }}",
+            "2": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Глобальная Скорость разделена на {{ effect }}",
+            "3": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Экспонента Требований Испытаний x{{ effect }}",
+            "4": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: получение Обтаниума ^{{ effect }}",
+            "5": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: получение Алмазов ^{{ effect }}",
+            "6": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Производство Муравьёв ^{{ effect }}",
+            "7": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Опыт Подношений разделён на {{ effect }}",
             "8": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
         },
         "prototypeLevel": {
@@ -2288,12 +2288,12 @@
             "next": "Дальше:",
             "firstRowTitle": "Click to copy the next Corruptions to the clipboard. This is the format that can be imported",
             "otherRowTitle": "Нажмите, чтобы переименовать. Горячая клавиша: SHIFT+{{ value }}",
-            "import": "Import",
-            "importTitle": "Import Corruption Loadout in text format",
-            "zero": "Zero",
+            "import": "Импорт",
+            "importTitle": "Импортировать Заготовку Порчи в текстовом виде",
+            "zero": "Обнулить",
             "zeroTitle": "Reset Corruptions to zero on your next Ascension. Hotkey: SHIFT+9",
             "save": "Сохранить",
-            "saveTitle": "Save current Corruptions to this Loadout",
+            "saveTitle": "Сохранить текущие Порчи в эту Заготовку",
             "load": "Загрузить"
         },
         "importCorruptionsPrompt": {
@@ -2314,7 +2314,7 @@
         },
         "corrStatsBtn": "Corruption Stats",
         "corrLoadoutsBtn": "Corruption Loadouts",
-        "cleanse": "Cleanse",
+        "cleanse": "Очистить",
         "confirm": "Подтвердить",
         "intro": "The most rewarding ventures are those few would dare to embark.",
         "traitInfo": "Select the trait levels you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
@@ -2455,7 +2455,7 @@
         },
         "toString": {
             "costNextLevel": "Стоимость следующего уровня",
-            "becomeAffordable": "(Affordable in {{n}})"
+            "becomeAffordable": "(Доступно через {{n}})"
         },
         "data": {
             "octeractStarter": {
@@ -2464,7 +2464,7 @@
                 "effect": "You have {{n}} paid your respects to Derpsmith."
             },
             "octeractGain": {
-                "name": "Octeract Cogenesis",
+                "name": "Когенезис Октерактов",
                 "description": "Have you despised how slow these damn things are? Gain 1% more of them per level! Simple.",
                 "effect": "Octeract Gain is increased by {{n}}%."
             },
