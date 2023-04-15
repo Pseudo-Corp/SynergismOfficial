@@ -161,7 +161,7 @@
             "148": "[{{number}}] Газ газ газ: Купить 5 Ускорителей.",
             "149": "[{{number}}] От 0 до 25: Купить 25 Ускорителей.",
             "150": "[{{number}}] От 0 до 100: Купить 100 Ускорителей",
-            "151": "[{{number}}] Магистраль в Ад: Купить 666 Ускорителей.",
+            "151": "[{{number}}] Highway to Hell: Купить 666 Ускорителей.",
             "152": "[{{number}}] Думаю тебе стоит притормозить: Купить 2,000 Ускорителя.",
             "153": "[{{number}}] Немедленно выйдите из машины!: Купить 12,500 Ускорителя.",
             "154": "[{{number}}] Быстрее скорости света: Купить 100,000 Ускорителей.",
@@ -1379,11 +1379,11 @@
         "perks": {
             "improvedIn": "Уже существующая Привилегия будет улучшена в Сингулярности {{sing}}",
             "unlockedIn": "Вы разблокируете новую Привилегию в Сингулярности {{sing}}",
-            "update": "Самая высокая Сингулярность, которой вы достигли - <span style=\"color: gold\">{{ord}} Сингулярность.</span><br/>Вот список перков, которые вы приобрели для компенсации штрафов (Наведите курсор для получения более подробной информации. В этой Сингулярности были добавлены или улучшены перки в <span class=\"newPerk\">золотом тексте</span>)<br/>{{extra}}",
+            "update": "Высшая Сингулярность, которой вы достигли - <span style=\"color: gold\">{{ord}} Сингулярность.</span><br/>Вот список привилегий, которые вы приобрели для компенсации штрафов (Наведите курсор для получения более подробной информации. В этой Сингулярности были добавлены или улучшены привилегии, <span class=\"newPerk\">отображаемые золотым текстом</span>)<br/>{{extra}}",
             "xyz": {
                 "hasLevel2": "В дополнении к ЗК и гарантированным бесплатным уровням к ЗК 1/2/3 на +0.2/+0.2/+1, вы получаете ДВОЙНОЕ количество бесплатных улучшений в Ежедневной Специальной Акции!",
                 "hasLevel1": "В дополнении к ЗК и бесплатным уровням улучшения, Ежедневная Специальная Акция даёт вам дополнительные бесплатные уровни к ЗК 1/2/3 на +0.2/+0.2/+1 уровни соответственно.",
-                "default": "Ежедневная Специальная Акция теперь вознаграждает вас Золотыми Кварками и бесплатными уровнями для случайных улучшений Сингулярности, которые увеличиваются в зависимости от вашего количества сингулярностей!"
+                "default": "Специальный Код 'Ежедневный' теперь дарует вам Золотые Кварки и случайные бесплатные улучшения Сингулярности; и то и то увеличивается в зависимости от счётчика сингулярности!"
             },
             "unlimitedGrowth": "+10% к увеличению количества Кварков и счётчику Вознесения для каждой Сингулярности. Текущий: +{{amount}}%",
             "goldenCoins": "Непотраченные Золотые Кварки увеличивают получение Монет. Особенно полезно для первого Вознесения каждой Сингулярности",
@@ -1855,10 +1855,10 @@
             "automagicalRunes": "Автомагические Руны",
             "exaltedAchievements": "Хранилище ВОЗВЫШЕНИЯ",
             "derpSmithsCornucopia": "Рог Изобилия Кукузнеца",
-            "coolQOLCubes": "Cool Qol Cubes",
+            "coolQOLCubes": "Крутой Сервис Для Кубов",
             "eternalAscensions": "Вечные Вознесения",
             "antGodsCornucopia": "Рог изобилия Муравьиного Бога",
-            "overclocked": "Overclocked",
+            "overclocked": "Разогнанный",
             "wowCubeAutomatedShipping": "Автоматические Поставки Wow! Кубов",
             "goldenRevolution": "Золотая Революция",
             "goldenRevolutionII": "Золотая Революция II",
@@ -1968,7 +1968,7 @@
             "50": "+25% бесплатных Ускорителей и Множителей, но ТОЛЬКО во время Испытаний.",
             "51": "Увеличьте производство всех строений Мифосов в зависимости от имеющихся Усилителей Ускорителей.",
             "52": "Степень строений Мифосов +0.025.",
-            "53": "Augments produce more Shards based on Acceleration Multiplier.",
+            "53": "Улучшения производят больше Осколков в зависимости от Множителя Ускорения.",
             "54": "Волшебники производят больше Заклинаний в зависимости от множителя.",
             "55": "Гроссмейстеры производят больше Оракулов в зависимости от силы Строения.",
             "56": "Производство Работников умножено на 1e+5000.",
@@ -2009,7 +2009,7 @@
             "91": "Автоматическая покупка Улучшений Монет.",
             "92": "Автоматическая покупка Улучшений Алмазов.",
             "93": "Генерируйте 1% Прироста Алмаза от престижа в секунду.",
-            "94": "Automatically buy Augments if affordable.",
+            "94": "Если доступны, автоматически покупайте Улучшения.",
             "95": "Если доступны, автоматически покупайте Зачарования.",
             "96": "Если доступны, автоматически покупайте Волшебников.",
             "97": "Если доступны, автоматически покупайте Оракулов.",
@@ -2026,11 +2026,11 @@
             "108": "Степень Переработки -> Алхимии увеличена с 0.25 до 0.50",
             "109": "Степень Переработки -> Алхимии увеличена с 0.50 до 0.75",
             "110": "Степень Переработки -> Алхимии увеличена с 0.75 до 1",
-            "111": "Augments can produce Pandora Boxes equal to Augments owned raised to 0.08",
-            "112": "Augment -> Box exponent increased from 0.08 to 0.16",
-            "113": "Augment -> Box exponent increased from 0.16 to 0.24",
-            "114": "Augment -> Box exponent increased from 0.24 to 0.32",
-            "115": "Augment -> Box exponent increased from 0.32 to 0.40",
+            "111": "Улучшения могут производить Ящики Пандоры в количестве, равном Улучшениям в степени 0.08",
+            "112": "Степень Улучшения -> Ящики увеличена с 0.08 до 0.16",
+            "113": "Степень Улучшения -> Ящики увеличена с 0.16 до 0.24",
+            "114": "Степень Улучшения -> Ящики увеличена с 0.24 до 0.32",
+            "115": "Степень Улучшения -> Ящики увеличена с 0.32 до 0.40",
             "116": "Протоны могут производить Гроссмейстеров, равном количеству Протонам в степени 0.05",
             "117": "Степень Протона -> Гроссмастера увеличена с 0.05 до 0.10",
             "118": "Степень Протона -> Гроссмастера увеличена с 0.10 до 0.15",
@@ -2101,15 +2101,15 @@
             "34": "Эффект: +{{x}} Множителей",
             "35": "Эффект: +{{x}} Множителей",
             "36": "Эффект: Всё производство Кристаллов x{{x}}",
-            "37": "Effect: All Mythos producers production x{{x}}",
-            "38": "Effect: Thank you for getting the server above 30 boosts!",
-            "39": "Effect: Thank you for getting the server above 30 boosts!",
-            "40": "Effect: Thank you for getting the server above 30 boosts!",
-            "41": "Effect: Welcome to Transcension! Coin production is multiplied by {{x}}.",
-            "42": "Effect: All Mythos Shard producers are going into overdrive: x{{x}} the production!",
+            "37": "Эффект: Всё производство Мифосов производят x{{x}}",
+            "38": "Эффект: Спасибо за буст сервера более 30 раз!",
+            "39": "Эффект: Спасибо за буст сервера более 30 раз!",
+            "40": "Эффект: Спасибо за буст сервера более 30 раз!",
+            "41": "Эффект: Добро пожаловать в Превосходство! Производство Монет умножается на {{x}}.",
+            "42": "Эффект: Все производители Осколков Мифов переходят в режим перегрузки: x{{x}} к производству!",
             "43": "Эффект: Умножение всего производства монет на {{x}}!",
-            "44": "Effect: Multiply Mythos gained in Transcension by {{x}}!",
-            "45": "Effect: +{{x}} Accelerators!",
+            "44": "Эффект: Умножает Мифы, полученные от Трансценденции на {{x}}!",
+            "45": "Эффект: +{{x}} Ускорителей!",
             "46": "Эффект: Это вроде как самоочевидно, не так ли?",
             "47": "Эффект: Производство производителей типа Мифосов x{{x}}",
             "48": "Эффект: Умножение производства монет на коэффициент {{x}}!",
@@ -2117,7 +2117,7 @@
             "50": "Эффект: Совершенно очевидно, в чём заключается выгода, но вы должны быть в Испытании, чтобы это можно было использовать!",
             "51": "Эффект: Производство производителей типа Мифосов x{{x}}!",
             "52": "Эффект: Производство производителей типа Мифосов x{{x}}! Это как начало или что-то в этом роде.",
-            "53": "Effect: Augments will produce {{x}}x as many Mythos Shards.",
+            "53": "Эффект: Улучшения будут производить в {{x}}x раз больше Осколков Мифов.",
             "54": "Эффект: Волшебники производят {{x}}x столько же Заклинаний; Какие продуктивные духи!",
             "55": "Эффект: Гроссмейстеры производят {{x}}x столько же Оракулов!",
             "56": "Эффект: Это совершенно очевидно, не так ли?",
@@ -2126,31 +2126,31 @@
             "59": "Эффект: Посмотри выше!",
             "60": "Эффект: Посмотри выше!",
             "61": "Effect: +5% к Переработке Предложения/+2EXP за Предложение. Чего ещё сказать!?",
-            "62": "Effect: Base Offering amount for Reincarnations +{{x}}. Challenge yourself!",
-            "63": "Effect: All Crystal production x{{x}}",
-            "64": "Effect: All Mythos Shard production x{{x}}",
-            "65": "Effect: 5x Particle gain from Reincarnations. Duh!",
-            "66": "Effect: It's quite clear in the description!",
-            "67": "Effect: The first particle-tier producer is {{x}}x as productive.",
-            "68": "Effect: Your compliance with tax laws provides you with {{x}} free Multipliers, for some reason.",
+            "62": "Эффект: Базовое количество подношений от Реинкарнаций +{{x}}. Испытайте себя!",
+            "63": "Эффект: Всё производство Кристаллов x{{x}}",
+            "64": "Эффект: Всё производство Осколков Мифов x{{x}}",
+            "65": "Эффект: В 5х раз больше Частиц от Реинкарнаций. Кэп!",
+            "66": "Эффект: В описании сказано достаточно!",
+            "67": "Эффект: Производитель частиц первого уровня в {{x}}x раз продуктивнее.",
+            "68": "Эффект: По какой-то причине, соблюдение налоговых законов даёт вам {{x}} бесплатных Множителей.",
             "69": "Effect: Cosmic Magnetics will allow you to gain {{x}}x as much Obtainium reincarnating x{{y}} automatic gain.",
-            "70": "Effect: Contracted time makes your game timers run {{x}}% more quickly.",
-            "71": "Effect: Writing's on the wall. Look above!",
-            "72": "Effect: Obtainium multiplier: x{{x}}",
-            "73": "Effect: Same as Transcend upgrade 10, except you MUST be in a Reincarnation Challenge in particular.",
-            "74": "Effect: Obtainium multiplier: x{{x}}",
-            "75": "Effect: Offering Multiplier: x{{x}}",
-            "76": "Effect: Epic 5x Ants!",
-            "77": "Effect: Ant Speed Multiplier: x{{x}}",
-            "78": "Effect: Ant Speed Multiplier: x{{x}}",
-            "79": "Effect: You will gain +10% rewards =)",
-            "80": "Effect: Ant ELO +75 if this upgrade is purchased.",
-            "81": "Effect: All you need is right above this message.",
+            "70": "Эффект: Сжатое время заставляет ваши игровые таймеры идти на {{x}}% быстрее.",
+            "71": "Эффект: Всё уже написано. Смотри выше!",
+            "72": "Эффект: Множитель Обтаниума: x{{x}}",
+            "73": "Эффект: Точно так же как и в 10-м улучшении Превосходства, но ты ДОЛЖЕН быть именно в Испытании Реинкарнации.",
+            "74": "Эффект: множитель Обтаниума: x{{x}}",
+            "75": "Эффект: Множитель Пожертвований: x{{x}}",
+            "76": "Эффект: Эпичный 5x к Муравьям!",
+            "77": "Эффект: Множитель скорости Ant: x{{x}}",
+            "78": "Эффект: Множитель Скорости Муравьев: x{{x}}",
+            "79": "Эффект: Вы будете получать на +10% больше наград =)",
+            "80": "Эффект: +75 к Муравьиному ЭЛО если это улучшение куплено.",
+            "81": "Эффект: Вся информация прямо над этим сообщением.",
             "121": "Эффект: -50% Налогов, кэп!",
             "122": "Эффект: +88% к лимиту Улучшения Кристаллов 3, кэп!",
             "123": "Эффект: Производство Монет ^1.025, кэп!",
             "124": "Эффект: +3% Эффективного Муравьиного ЭЛО, кэп!",
-            "125": "+{{x}}% Constant Divisor power."
+            "125": "+{{x}}% к силе Делителя Константы."
         },
         "shopTitles": {
             "coin": "Улучшения Монет",
@@ -2192,8 +2192,8 @@
             "spirits": "[=-Духи-=]"
         },
         "cubes": {
-            "cubeTributes": "Cube Tributes",
-            "tesseract": "Tesseract Gifts",
+            "cubeTributes": "Дань Кубов",
+            "tesseract": "Подарки Тессерактов",
             "hypercube": "Благословения Гиперкубов",
             "platonic": "Платоновы Статуи",
             "cubeUpgrades": "Улучшения Кубов",
@@ -2202,7 +2202,7 @@
         },
         "singularity": {
             "penalties": "Штрафы",
-            "perks": "Преимущества",
+            "perks": "Привилегии",
             "octeracts": "Октеракты",
             "exalt": "ВОЗВЫШЕНИЕ"
         },
@@ -2249,7 +2249,7 @@
             "4": "Может всё же Альберт не должен был делать теории о Замедлении.",
             "5": "Алмазные пещеры уничтожены... больше никаких монополий!",
             "6": "Это и динозавров убило, клоун.",
-            "7": "More like California, am I right?",
+            "7": "Больше похоже на Калифорнию, не так ли?",
             "8": "Очередная катастрофа 2020-го."
         },
         "currentLevel": {
@@ -2260,16 +2260,16 @@
             "5": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: получение Алмазов ^{{ effect }}",
             "6": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Производство Муравьёв ^{{ effect }}",
             "7": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Опыт Подношений разделён на {{ effect }}",
-            "8": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+            "8": "На следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Получение Монет ^{{ effect }}"
         },
         "prototypeLevel": {
-            "1": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-            "2": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-            "3": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-            "4": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-            "5": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-            "6": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
-            "7": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+            "1": "На следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Экспонент Бесплатных Ускорителей и Множителей ^{{ effect }}",
+            "2": "На следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Скорость Времени разделена на {{ effect }}",
+            "3": "На следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Экспонент Требований Испытаний x{{ effect }}",
+            "4": "На следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: получение Обтаниума ^{{ effect }}",
+            "5": "На следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: получение Алмазов ^{{ effect }}",
+            "6": "На следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Производительность Муравьёв ^{{ effect }}",
+            "7": "На следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Опыт от Пожертвований разделён на {{ effect }}",
             "8": "При следующем Вознесении, уровень этой порчи будет {{ level }}. Эффект: Получение Монет ^{{ effect }}"
         },
         "scoreMultiplier": "Текущий Множитель Счёта: {{ curr }} / Множитель Счёта при следующем Вознесении: {{ next }}",
@@ -2286,7 +2286,7 @@
         "next": " / Дальше: ",
         "loadoutTable": {
             "next": "Дальше:",
-            "firstRowTitle": "Click to copy the next Corruptions to the clipboard. This is the format that can be imported",
+            "firstRowTitle": "Кликни чтобы скопировать следующие Порчи в буфер обмена. Это формат который может быть импортирован",
             "otherRowTitle": "Нажмите, чтобы переименовать. Горячая клавиша: SHIFT+{{ value }}",
             "import": "Импорт",
             "importTitle": "Импортировать Заготовку Порчи в текстовом виде",
@@ -2317,27 +2317,27 @@
         "cleanse": "Очистить",
         "confirm": "Подтвердить",
         "intro": "Самая прибыльная затея - это та, на которую немногие отважились бы пуститься.",
-        "traitInfo": "Выберите уровни характеристик, с которыми вы хотите начать. Выбирайте с умом! <var(--red-text-color)|Не откусывайте больше, чем можете прожевать...>",
+        "traitInfo": "Выберите уровни характеристик, с которыми вы хотите начать. Выбирайте с умом! <<var(--red-text-color)|Не откусывайте больше, чем можете прожевать...>>",
         "antExponent": "Климат этого Вознесения повышает производство Муравьёв в степени <<var(--darkorchid-text-color)|{{exponent}}>>.",
         "spiritBonus": "Однако это также повышает Эффекты Рун Духа на <<wheat|{{multiplier}}>>.",
         "corruptionBank": "У вас <<var(--crimson-text-color)|{{number}}>> Вау! Кубов в банке Вознесения. Получите больше выполняя Испытания! Вознеситесь, чтобы выкупить их.",
         "corruptionScore": "Ваш счёт Вознесения <<goldenrod|{{ascScore}}>></span> (основной) * <<var(--crimson-text-color)|{{corrMult}}>> (Множ. порчи) * <<var(--orchid-text-color)|{{bonusMult}}>> (Бонусный множ.) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
-        "ascensionCount": "If you Ascend now, <<darkorange|{{ascCount}}>> will be added to your ascension count.",
-        "corruptionCubes": "If you Ascend now, you will gain <<yellow|{{cubeAmount}}>> Wow! Cubes.",
-        "corruptionTesseracts": "If you Ascend now, you will gain <<orange|{{tesseractAmount}}>> Wow! Tesseracts. [<<var(--orange-text-color)|Get more if Score >100,000>>]",
-        "corruptionHypercubes": "If you Ascend now, you will gain <<var(--crimson-text-color)|{{hypercubeAmount}}>> Wow! Hypercubes. [<<var(--red-text-color)|Req Score: >1,000,000,000>>]",
-        "corruptionPlatonics": "If you Ascend now, you will gain <<orchid|{{platonicAmount}}>> PLATONIC CUBES. [<<var(--orchid-text-color)|Req Score: >2,666,000,000,000>>]",
-        "corruptionHepteracts": "If you Ascend now, you will gain <<mediumpurple|{{hepteractAmount}}>> HEPTERACTS. [<<mediumpurple|Req Score: >1.666e17>>]",
+        "ascensionCount": "Если вы Вознесётесь сейчас к вашему счётчику вознесений будет добавлено <darkorange|{{ascCount}}>.",
+        "corruptionCubes": "При Вознесении сейчас, вы получите <<yellow|{{cubeAmount}}>> Wow! Кубов.",
+        "corruptionTesseracts": "При Вознесении сейчас, вы получите <<orange|{{tesseractAmount}}>> Wow! Тессерактов. [<<var(--orange-text-color)|Получите больше если Счёт >100,000>>]",
+        "corruptionHypercubes": "При Вознесении сейчас, вы получите <<var(--crimson-text-color)|{{hypercubeAmount}}>> Wow! Гиперкубов. [<<var(--red-text-color)|Треб. Счёт: >1,000,000,000>>]",
+        "corruptionPlatonics": "При Вознесении сейчас, вы получите <<orchid|{{platonicAmount}}>> ПЛАТОНОВЫХ КУБОВ. [<<var(--orchid-text-color)|Треб. Счёт: >2,666,000,000,000>>]",
+        "corruptionHepteracts": "При Вознесении сейчас, вы получите <<mediumpurple|{{hepteractAmount}}>> ГЕПТЕРАКТОВ. [<<mediumpurple|Треб. Счёт: >1.666e17>>]",
         "autoAscend": {
-            "c10Completions": "Ascend when you've completed Sadistic Challenge I a total of <<var(--violet-text-color)|{{input}}>> times, Currently <<gold|{{completions}}>>",
-            "realTime": "Ascend when the timer is at least <<var(--violet-text-color)|{{input}}>> seconds (Real-time), Currently <<gold|{{time}}>>",
+            "c10Completions": "Вознеситесь, когда завершите Испытание Садизм I <<var(--violet-text-color)|{{input}}>> раз, Текущее кол-во: <<gold|{{completions}}>>",
+            "realTime": "Вознеситесь, когда таймер достигнет как минимум <<var(--violet-text-color)|{{input}}>> секунд (Реальных), Текущий <<gold|{{time}}>>",
             "on": "Авто Вознесение [ON]",
             "off": "Авто Вознесение [OFF]",
             "modeCompletions": "Режим: Выполнения И10",
             "modeRealTime": "Режим: Реальное Время"
         },
-        "importLoadoutInTextFormat": "Import Corruption Loadout in text format",
-        "loadoutApplied": "Corruption Loadout from previous run has been applied. This will take effect on the next Ascension."
+        "importLoadoutInTextFormat": "Импортировать Заготовку Порчи в текстовом виде",
+        "loadoutApplied": "Заготовка Порчи с прошлого вознесения была применена. Эффект вступит в силу в следующем Вознесении."
     },
     "footnotes": {
         "buildings": "Нажмите [1], [2], [3], [4], или [5] чтобы купить соответствующее строение, начиная сверху. Нажмите [A] для покупки Ускорителя, [M] для покупки Множителя, или [B] для покупки Усилителя Ускорителя.",
@@ -2345,21 +2345,21 @@
         "crystals": "Нажмите [1], [2], [3], [4], или [5] чтобы купить производитель соответствующего яруса. Нажмите [6], [7], [8], [9], или [0] чтобы купить соответствующие улучшения Кристаллов, начиная слева.",
         "mythos": "Нажмите [1], [2], [3], [4], или [5] чтобы купить производитель соответствующего яруса.",
         "particle": "Нажмите [1], [2], [3], [4], или [5] чтобы купить производитель соответствующего яруса.",
-        "upgrade": "Press [1], [2], [3], [4], [5] or [6] on your keyboard to use resources for each upgrades.",
+        "upgrade": "Нажмите [1], [2], [3], [4], [5] или [6] на клавиатуре, чтобы использовать ресурсы для каждого улучшения.",
         "achievements": {
             "green": "Зелёный фон: Разблокированный.",
             "purple": "Пурпурный фон: Не разблокированный. Даёт бонусный множитель.",
             "red": "Красный фон: Не разблокированный. Разблокирует контент/функции.",
             "none": "Без фона: Не разблокированный. Ничего не даёт."
         },
-        "runes": "Press [1], [2], [3], [4] or [5] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!",
+        "runes": "Нажмите [1], [2], [3], [4] или [5] на вашей клавиатуре, чтобы использовать подношения для каждой руны, начиная с Руны Скорости слева; руна должна быть разблокирована, чтобы использовать горячую клавишу!",
         "challenges": {
-            "hotkey": "Press [1], [2]... up to [0] to enter challenges 1 to 10. Press [E] to exit your Transcension or Reincarnation challenge if stuck!",
-            "finishTranscension": "If you are unable to finish a Transcension challenge, press the hotkey listed above OR click on the red Challenge \"C\" button on the reset buttons on top.",
-            "leaveReincarnation": "To leave a reincarnation challenge, press the grey Challenge \"C\" instead!"
+            "hotkey": "Нажмите [1], [2]... до [0] чтобы войти в испытания с 1 по 10. Если застряли, нажмите [E], чтобы выйти из испытания Трансценденции или Реинкарнации!",
+            "finishTranscension": "Если вы неспособны завершить испытание Трансценденции, нажмите горячую клавишу ИЛИ кликните на красную кнопку \"С\" в кнопках сброса вверху.",
+            "leaveReincarnation": "Вместо этого, чтобы покинуть испытание реинкарнации, нажмите на серую \"С\"!"
         },
         "research": "Добро пожаловать в будущее! Обтаиниум можно получить с помощью <<var(--green-text-color);|Реинкарнации>>. Я бы порекомендовал изучить исследования с <<limegreen;|зелёной рамкой>> в первую очередь. Исследования с <<var(--crimson-text-color);|красной рамкой>> никогда не сбросятся, тогда как исследования <<white;|белой рамкой>> будут сброшены при следующем уровне сброса!",
-        "shop": "Hover over each portion of the shop to see what each upgrade does!"
+        "shop": "Наведите на каждую иконку в магазине, чтобы увидеть, что делает каждое улучшение!"
     },
     "buildings": {
         "taxWarning": "Ваш налог также ограничивает ваше получение монет до {{gain}}/сек.",
@@ -2378,12 +2378,12 @@
             "accelerators": "Ускорители: {{amount}} [+{{gain}}]",
             "multipliers": "Множители: {{amount}} [+{{gain}}]",
             "acceleratorBoost": "Усилители Ускорения: {{amount}} [+{{gain}}]",
-            "refineries": "Refineries: {{amount}} [+{{gain}}]",
-            "coalPlants": "Coal Plants: {{amount}} [+{{gain}}]",
-            "coalRigs": "Coal Rigs: {{amount}} [+{{gain}}]",
-            "pickaxes": "Pickaxes: {{amount}} [+{{gain}}]",
+            "refineries": "Переработчики: {{amount}} [+{{gain}}]",
+            "coalPlants": "Угольные Генераторы: {{amount}} [+{{gain}}]",
+            "coalRigs": "Угольные Карьеры: {{amount}} [+{{gain}}]",
+            "pickaxes": "Кирки {{amount}} [+{{gain}}]",
             "pandorasBoxes": "Ящики Пандоры: {{amount}} [+{{gain}}]",
-            "augments": "Augments: {{amount}} [+{{gain}}]",
+            "augments": "Улучшения: {{amount}} [+{{gain}}]",
             "enchantments": "Зачарования: {{amount}} [+{{gain}}]",
             "wizards": "Волшебники: {{amount}} [+{{gain}}]",
             "oracles": "Оракулы: {{amount}} [+{{gain}}]",
@@ -2392,28 +2392,28 @@
             "elements": "Элементы: {{amount}} [+{{gain}}]",
             "pulsars": "Пульсары: {{amount}} [+{{gain}}]",
             "quasars": "Квазары: {{amount}} [+{{gain}}]",
-            "galacticNuclei": "Galactic Nuclei: {{amount}} [+{{gain}}]",
+            "galacticNuclei": "Галактические Ядра: {{amount}} [+{{gain}}]",
             "dot": "Точка: {{amount}} [+{{gain}}]",
             "vector": "Вектор: {{amount}} [+{{gain}}]",
-            "threeSpace": "Three-Space: {{amount}} [+{{gain}}]",
-            "bentTime": "Bent Time: {{amount}} [+{{gain}}]",
-            "hilbertSpace": "Hilbert Space: {{amount}} [+{{gain}}]"
+            "threeSpace": "Трёх-Мерное Пространство: {{amount}} [+{{gain}}]",
+            "bentTime": "Искривлённое Время: {{amount}} [+{{gain}}]",
+            "hilbertSpace": "Гильбертово Пространство: {{amount}} [+{{gain}}]"
         },
         "crystalMult": "У вас {{crystals}} Кристаллов, умножая производство Монет на {{gain}}.",
-        "hoverCrystalUpgrade": "Hover over a crystal upgrade to get information!",
-        "autoPrestige": "{{action}} when your {{name}} can increase by a factor {{factor}} [Toggle number above]. Current Multiplier: {{mult}}.",
+        "hoverCrystalUpgrade": "Наведите на улучшение кристаллов для получения информации!",
+        "autoPrestige": "{{action}}, когда ваши {{name}} могут увеличиться на {{factor}} [Измените число выше]. Текущий Множитель: {{mult}}.",
         "per": {
-            "crystal": "Crystal/sec: {{amount}}",
-            "ref": "Ref./sec: {{amount}}",
-            "plants": "Plants/sec: {{amount}}",
-            "rigs": "Rigs/sec: {{amount}}",
-            "pickaxes": "Pickaxes/sec: {{amount}}",
-            "shards": "Shards/sec: {{amount}}",
-            "augments": "Augments/sec: {{amount}}",
-            "enchantments": "Enchantments/sec: {{amount}}",
-            "wizards": "Wizards/sec: {{amount}}",
-            "oracles": "Oracles/sec: {{amount}}",
-            "atoms": "Atoms/sec: {{amount}}",
+            "crystal": "Кристаллы/сек: {{amount}}",
+            "ref": "Пер./сек:{{amount}}",
+            "plants": "Генераторы/сек: {{amount}}",
+            "rigs": "Карьеры/сек: {{amount}}",
+            "pickaxes": "Кирки/сек: {{amount}}",
+            "shards": "Осколки/сек: {{amount}}",
+            "augments": "Улучшения/сек: {{amount}}",
+            "enchantments": "Зачарования/сек: {{amount}}",
+            "wizards": "Волшебники/сек: {{amount}}",
+            "oracles": "Оракулы/сек: {{amount}}",
+            "atoms": "Атомы/сек: {{amount}}",
             "protons": "Протонов/сек: {{amount}}",
             "elements": "Элементов/сек: {{amount}}",
             "pulsars": "Пульсаров/сек: {{amount}}",
@@ -2421,37 +2421,37 @@
             "constant": "+Константа/сек: {{amount}}",
             "dot": "Точек/сек: {{amount}}",
             "vector": "Векторов/сек: {{amount}}",
-            "threeSpace": "Three-Space/sec: {{amount}}",
-            "bentTime": "Bent Time/sec: {{amount}}"
+            "threeSpace": "Трёх-Мерное/сек: {{amount}}",
+            "bentTime": "Искривлённое/сек: {{amount}}"
         },
         "crystalUpgrades": {
-            "currentLevel": "Current Level: <<lightblue|{{amount}}>>",
+            "currentLevel": "Текущий Уровень: <<lightblue|{{amount}}>>",
             "cost": "Стоимость: <<lightblue|{{amount}}>> кристаллов",
-            "currentEffect": "Current Effect: <<lightblue|{{effect}}>>"
+            "currentEffect": "Текущий Эффект: <<lightblue|{{effect}}>>"
         },
-        "mythosYouHave": "You have {{shards}} Mythos Shards, providing {{mult}} Multiplier Power boosts.",
-        "eachMultiplierBoost": "Each Multiplier Boost increases the base effect of Multipliers by 0.005!",
+        "mythosYouHave": "У вас {{shards}} Осколков Мифов, дающих {{mult}} Усилителей Множителей.",
+        "eachMultiplierBoost": "Каждый Усилитель Множителей увеличивает базовый эффект всех Множителей на 0.005!",
         "costMythos": "Стоимость: {{mythos}} Мифосов",
         "atomsYouHave": "У вас {{atoms}} Атомов, дающих {{power}} Степени Строительства. Множитель Производства Монет: {{mult}}",
         "costParticles": "Стоимость: {{particles}} Частиц",
         "autoReincarnate": "{{name}} когда автотаймер достигнет как минимум {{amount}} реальных секунд. [Изменить число выше]. Текущее время: {{timer}}с.",
-        "thanksR2x14": "Thanks to Research 2x14, you also multiply Crystal production by {{mult}}",
-        "thanksR2x15": "Thanks to Research 2x15, you also multiply Mythos Shard production by {{mult}}",
-        "tesseractsYouHave": "You have {{tesseracts}} Wow! Tesseracts. Gain more by beating Challenge 10 on each Ascension.",
+        "thanksR2x14": "Благодаря Исследованию 2х14, также умножается производство Кристаллов на {{mult}}",
+        "thanksR2x15": "Благодаря Исследованию 2х15, также умножается производство Осколков Мифов на {{mult}}",
+        "tesseractsYouHave": "У вас {{tesseracts}} Wow! Тессерактов. Получить больше можно выполняя Испытание 10 в каждом Вознесении.",
         "constantYouHave": "Вы обладаете математической константой, равной {{const}}. Ваши налоги уменьшены в {{amount}} раз.",
         "costTesseracts": "Стоимость: {{tesseracts}} Тессерактов",
         "autoTesseract": "Авто закупка сохранит как минимум {{tesseracts}} тессерактов. [Введите число выше].",
         "autoAscensionTesseract": "При Вознесении, Авто закупка сохранит как минимум {{percent}}% от вашего текущего количества тессерактов. [Введите число выше].",
         "excessiveWealth": "Из-за избыточного богатства, производство монет уменьшено в {{div}} раз, чтобы оплатить налоги! {{- warning}}",
-        "constantHover": "Hover over an icon for a description of the upgrade. Click to buy it!"
+        "constantHover": "Наведите на иконку, чтобы увидеть описание улучшения. Кликните, чтобы купить его!"
     },
     "octeract": {
         "buyLevel": {
-            "buyPrompt": "How many Octeracts would you like to spend? You have {{n}} OCT. Type -1 to use max!",
-            "cancelPurchase": "Purchase cancelled!",
-            "alreadyMax": "Hey! You have already maxed this upgrade. :D",
-            "cannotAfford": "You cannot afford this upgrade. Sorry!",
-            "multiBuy": "Purchased {{n}} levels, thanks to Multi Buy!"
+            "buyPrompt": "Сколько Октерактов вы хотели бы потратить? У вас есть {{n}} ОКТ. Введите -1, чтобы использовать максимум!",
+            "cancelPurchase": "Покупка отменена!",
+            "alreadyMax": "Хэй! Максимальный уровень для этого уже куплен. :D",
+            "cannotAfford": "Извините, вы не можете позволить себе это улучшение!",
+            "multiBuy": "Куплено {{n}} уровней, благодаря Множественной Покупке!"
         },
         "toString": {
             "costNextLevel": "Стоимость следующего уровня",
@@ -2461,32 +2461,32 @@
             "octeractStarter": {
                 "name": "Октеракты для Чайников",
                 "description": "Приветствую... Я Есть Кукузнец... Предок Муравьиного Бога... Я Не Ожидал, Что Вы До Сюда Доберётесь. Вот Вам 30% к Кваркам, 20% к Октерактам и 100,000х к Скорости Муравьёв...",
-                "effect": "You have {{n}} paid your respects to Derpsmith."
+                "effect": "Вы {{n}} выразили своё почтение Кукузнецу."
             },
             "octeractGain": {
                 "name": "Когенезис Октерактов",
-                "description": "Have you despised how slow these damn things are? Gain 1% more of them per level! Simple.",
-                "effect": "Octeract Gain is increased by {{n}}%."
+                "description": "Не осточертело ли вам то, насколько они медленные? Получайте на 1% больше за уровень! Просто.",
+                "effect": "Получение Октерактов увеличено на {{n}}%."
             },
             "octeractGain2": {
-                "name": "Octeract Trigenesis",
-                "description": "It turns out that you have six additional dimensions to modify your Cogenesis. +1% more Octs per level!",
-                "effect": "Octeract Gain is increased by {{n}}%."
+                "name": "Тригенезис Октерактов",
+                "description": "Оказывается, что у вас есть шесть дополнительных измерений для модификации вашего Когенезиса. На 1% больше Октерактов за уровень!",
+                "effect": "Получение Октерактов увеличено на {{n}}%."
             },
             "octeractQuarkGain": {
-                "name": "Quark Octeract",
+                "name": "Октеракт Кварков",
                 "description": "Видоизменённый гептеракт, даёт +1.1% к Кваркам за уровень без Убывающей Полезности.",
-                "effect": "Quark gain is increased by {{n}}%."
+                "effect": "Получение Кварков увеличено на {{n}}%."
             },
             "octeractQuarkGain2": {
-                "name": "Octo-Hepteract Primality Synergism",
+                "name": "Синергизм Простоты Окто-Гептерактов",
                 "description": "For every 1111 levels of Quark Octeract, you gain 0.01% more quarks per digit in your Quark Hepteract count per level!",
-                "effect": "Octo-Hepteract Primality Synergism is {{n}} active."
+                "effect": "Синергизм Простоты Окто-Гептерактов {{n}} активен."
             },
             "octeractCorruption": {
                 "name": "EXTRA CHONKY Corruptions",
-                "description": "Adds one level to the cap on corruptions. Derpsmith approves.",
-                "effect": "Corruption level cap is increased by {{n}}"
+                "description": "Добавляет один уровень порчей к пределу. Кукузнец одобряет.",
+                "effect": "Лимит уровня Порчи увеличен на {{n}}"
             },
             "octeractGQCostReduce": {
                 "name": "ХИЛЕНЬКИЕ Стоимости Золотых Кварков!",
@@ -2494,94 +2494,94 @@
                 "effect": "Золотые Кварки дешевле на {{n}}%!"
             },
             "octeractExportQuarks": {
-                "name": "Improved Download Speeds",
-                "description": "Thanks to ethernet technology, export quarks are increased by 40% per level! Only normal ones.",
-                "effect": "Export quarks +{{n}}%"
+                "name": "Улучшенная Скорость Загрузок",
+                "description": "Благодаря технологии ethernet, экспорт кварки увеличены на 40% за уровень! Действует только на нормальные.",
+                "effect": "Экспорт кварки +{{n}}%"
             },
             "octeractImprovedDaily": {
-                "name": "CHONKER Daily Code",
-                "description": "Derpsmith hacks into the source code, and adds +1 free Singularity upgrade per day from Daily.",
-                "effect": "Code 'daily' gives +{{n}} free Singularity upgrades per use."
+                "name": "УПИТАННЫЙ Ежедневный Код",
+                "description": "Кукузнец хакнул сурс код, теперь код Ежедневный даёт +1 бесплатное улучшение Сингулярности в день.",
+                "effect": "Код 'ежедневный' даёт +{{n}} бесплатных улучшений Сингулярности за использование."
             },
             "octeractImprovedDaily2": {
                 "name": "CHONKERER Daily Code",
-                "description": "Derpsmith implemented hyperspeed multiplication. +1% more free Singularity upgrades per day from Daily!",
-                "effect": "Code 'daily' gives +{{n}}% more free Singularity upgrades per use."
+                "description": "Derpsmith ввёл умножение гиперскорости. +1% к бесплатным улучшениям Сингулярности от Daily каждый день!",
+                "effect": "Код `daily` приносит +{{n}}% бесплантых улучшений Сингулярности при использовании."
             },
             "octeractImprovedDaily3": {
                 "name": "CHONKEREREST Daily Code",
-                "description": "It will never satisfy Derpsmith. +1 +0.5% more free Singularity upgrades per day from Daily!",
-                "effect": "Code 'daily' gives +{{n}} more free Singularity upgrades per use."
+                "description": "Оно никогда не удовлетворит Derpsmith. +1 +0.5% к бесплатным улучшениям Сингулярности каждый день от Daily!",
+                "effect": "Код `daily` приносит +{{n}} бесплатных улучшений Сингулярности при использовании."
             },
             "octeractImprovedQuarkHept": {
-                "name": "I wish for even better Quark Hepteracts.",
-                "description": "The godmother is absent, but Derpsmith is here! +2% DR exponent per level. Stacks additively with all the others!",
-                "effect": "Quark Hepteract DR +{{n}}."
+                "name": "Я желаю ещё лучшие Гептеракты Кварков.",
+                "description": "Крёстной матери сейчас нет, но Derpsmith здесь! +2% к экспоненте УО за уровень. Складывается со всеми другими!",
+                "effect": "+{{n}} к УО Гептерактов Кварков."
             },
             "octeractImprovedGlobalSpeed": {
-                "name": "The forbidden clock of time",
-                "description": "Hypothesized to be locked in a hyperbolic time chamber. +1% Global Speed per level per singularity!",
-                "effect": "Global Speed per singularity +{{n}}%"
+                "name": "Запрещенные часы времени",
+                "description": "Гипотезирован как закрыт в камере гиперболического времени. +1% к Глобальной Скорости за уровень за сингулярность!",
+                "effect": "Глобальная Скорость за сингулярность +{{n}}%"
             },
             "octeractImprovedAscensionSpeed": {
-                "name": "Abstract Photokinetics",
-                "description": "Gain +0.05% Ascension Speed per level per singularity!",
-                "effect": "Ascension Speed per singularity +{{n}}%"
+                "name": "Абстрактная Фотокинетика",
+                "description": "Получите +0.05% Скорость Вознесения за каждый уровень за каждую сингулярность!",
+                "effect": "Скорость Вознесения за сингулярность +{{n}}%"
             },
             "octeractImprovedAscensionSpeed2": {
-                "name": "Abstract Exokinetics",
-                "description": "Gain +0.02% Ascension Speed per level per singularity!",
+                "name": "Абстрактная Экзокинетика",
+                "description": "Получите +0.02% Скорости Вознесения за каждый уровень за каждую сингулярность!",
                 "effect": "Скорость Вознесения за сингулярность +{{n}}%"
             },
             "octeractImprovedFree": {
-                "name": "Wow! I want free upgrades to be better.",
+                "name": "Вау! Я хочу, чтобы бесплатные улучшения стали лучше.",
                 "description": "Singularity Upgrade level is (paid level * free levels)^0.6 instead of being added.",
                 "effect": "Singularity Upgrade free levels are {{n}} being powered!"
             },
             "octeractImprovedFree2": {
-                "name": "Wow! Free upgrades still suck.",
-                "description": "Who said beggars can't be choosers? Extends the exponent of the first upgrade to 0.65.",
-                "effect": "Exponent of previous upgrade +{{n}}."
+                "name": "Вау! Бесплатные улучшения всё ещё отстой.",
+                "description": "Кто сказал, что дарёному коню в зубы не смотрят? Увеличивает степень первого улучшения до 0.65.",
+                "effect": "Степень предыдущего улучшения +{{n}}."
             },
             "octeractImprovedFree3": {
                 "name": "Вау! Platonic, сделай уже бесплатные улучшения стоящими!",
-                "description": "Extends the exponent of the free upgrades to 0.70.",
-                "effect": "Exponent of the first upgrade +{{n}}"
+                "description": "Увеличивает степень бесплатных улучшений до 0.70.",
+                "effect": "+{{n}} к экспоненте первого улучшения"
             },
             "octeractImprovedFree4": {
                 "name": "Coupon of Ultimate Penniless Derpsmiths",
-                "description": "Each level adds 0.001 to the exponent of free upgrades, with the first level adding another 0.01!",
-                "effect": "Exponent of the first upgrade +{{n}}"
+                "description": "Каждый уровень прибавляет 0.001 к экспоненте бесплатных улучшений, а первый уровень добавляет ещё 0.01!",
+                "effect": "Экспонент первого улучшения +{{n}}"
             },
             "octeractSingUpgradeCap": {
-                "name": "Overwriting Pointers",
-                "description": "Derpsmith encountered a SegFault after reassigning null... +1 to level cap on certain Singularity Upgrades per level!",
-                "effect": "Some Singularity Upgrades have +{{n}} max level!"
+                "name": "Перезаписывающие Указатели",
+                "description": "Derpsmith столкнулся с SegFault после переназначения null... +1 к максимальному уровню некоторых Улучшений Сингулярности за уровень!",
+                "effect": "Некоторые Улучшения Сингулярности получают +{{n}} к максимальному уровню!"
             },
             "octeractOfferings1": {
-                "name": "Offering Electrolosis",
+                "name": "Электролиз Подношений",
                 "description": "Получите на 1% больше подношений за уровень.",
-                "effect": "Offering gain +{{n}}%"
+                "effect": "+{{n}}% к получению пожертвований"
             },
             "octeractObtainium1": {
-                "name": "Obtainium Deluge",
-                "description": "Gain 1% more obtainium per level.",
-                "effect": "Obtainium gain +{{n}}%"
+                "name": "Потоп Обтаиниума",
+                "description": "Вы будете получать на 1% больше обтаниума за уровень.",
+                "effect": "+{{n}}% к получению Обтаниума"
             },
             "octeractAscensions": {
-                "name": "Voided Warranty",
-                "description": "Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels.",
+                "name": "Аннулированная Гарантия",
+                "description": "Вы будете получать +1% к счётчику Вознесений за уровень, с бонусом в 2% за каждые 10 уровней.",
                 "effect": "Счётчик Вознесений увеличивается на {{n}}% быстрее."
             },
             "octeractAscensions2": {
-                "name": "Hidden Late Fees",
-                "description": "Gain +1% Ascension Count per level, with a 2% bonus for every 10 levels. But... this scales a lot faster. Must be those hidden late fees.",
+                "name": "Скрытые поздние взносы",
+                "description": "Вы будете получать +1% к счётчику Вознесений за уровень, с бонусом в 2% за каждые 10 уровней. Но... это будет расти в цене гораздо быстрее. Скорее всего из-за тех скрытых поздних платежей.",
                 "effect": "Счётчик Вознесений увеличивается на {{n}}% быстрее."
             },
             "octeractAscensionsOcteractGain": {
-                "name": "Digital Octeract Accumulator",
+                "name": "Цифровой Накопитель Октерактов",
                 "description": "Получение Октерактов на 1% быстрее за каждую цифру в счётчике Вознесений!",
-                "effect": "Octeract Gain per OOM Ascension count +{{n}}%"
+                "effect": "Получение Октерактов за порядок количества Вознесений +{{n}}%"
             },
             "octeractFastForward": {
                 "name": "Распутчик Сингулярности Derpsmith",
@@ -2589,58 +2589,58 @@
                 "effect": "Сингулярности дают в {{n100}} раз больше ЗК и считаются за {{n}} больше Сингулярность(и)."
             },
             "octeractAutoPotionSpeed": {
-                "name": "Pill of Increased Thirst",
-                "description": "You can buy pills of thirst-making to consume potions automatically faster! 4% faster per level to be precise.",
+                "name": "Таблетка Повышенной Жажды",
+                "description": "Вы можете купить пилюли жажды чтобы потреблять зелья автоматически быстрее! На 4% быстрее за уровень, чтобы быть точным.",
                 "effect": "Привилегия Сингулярности \"Авто Зелья\" работает на {{n}}% быстрее чем прежде!"
             },
             "octeractAutoPotionEfficiency": {
-                "name": "Vitamin O Infusion",
-                "description": "Thanks to the generosity of your Derpsmith, Potions are 2% more potent per level!",
-                "effect": "Potions give {{n}}% more Offerings and Obtainium."
+                "name": "Настой Витамина О",
+                "description": "Благодаря щедрости вашего Derpsmith, зелья на 2% сильнее за уровень!",
+                "effect": "Зелья дают на {{n}}% больше Пожертвований и Обтаниума."
             },
             "octeractOneMindImprover": {
-                "name": "Infinite Transcription of the One Mind",
-                "description": "You ask what this upgrade does, but Derpsmith just nods his head. What is he hiding from you?",
-                "effect": "One Mind converts Ascension Speed to Octeract Gain to the power of {{n}}."
+                "name": "Бесконечная Транскрипция Единого Разума",
+                "description": "Вы спрашиваете, что даёт это улучшение, но Кукузнец просто кивает головой. Что же он от вас прячет?",
+                "effect": "Единый Разум преобразует Скорость Вознесения в Получение Октерактов в степени {{n}}."
             },
             "octeractAmbrosiaLuck": {
-                "name": "Berries of an Eight Leaf Clover (WIP)",
+                "name": "Ягоды Восьмилистного Клевера (НЗП)",
                 "description": "Совершенно не похож на голубику! Добавляет +1 к Амброзийной удаче, что может увеличить количество выпадения Амброзии, когда Голубика генерирует Амброзию.",
-                "effect": "Ambrosial Luck +{{n}}(!)"
+                "effect": "Удача Амброзии +{{n}} (!)"
             }
         },
-        "amount": "You have {{octeracts}} Octeracts!",
-        "secondsPerOcteract": "+1 per <<var(--orchid-text-color)|{{seconds}}>> seconds",
-        "octeractsPerSecond": "<<yellow|{{octeracts}}>> per second",
-        "totalGenerated": "Total Generated: <<var(--lightseagreen-text-color)|{{octeracts}}>> Octeracts!",
-        "generatedCubeBonus": "3-7 Dimensional Cubes <<yellow|+{{cubeBonus}}%>>",
-        "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}%>>",
-        "generatedOfferingBonus": "Offerings <<orange|+{{offeringBonus}}%>>",
-        "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}%>>"
+        "amount": "У вас {{octeracts}} Октерактов!",
+        "secondsPerOcteract": "+1 за <<var(--orchid-text-color)|{{seconds}}>> секунд",
+        "octeractsPerSecond": "<<yellow|{{octeracts}}>> в секунду",
+        "totalGenerated": "Всего Создано: <<var(--lightseagreen-text-color)|{{octeracts}}>> Октерактов!",
+        "generatedCubeBonus": "3-7 Мерные Кубы <<yellow|+{{cubeBonus}}%>>",
+        "generatedQuarkBonus": "Кварки <<cyan|+{{quarkBonus}}%>>",
+        "generatedOfferingBonus": "Подношения <<orange|+{{offeringBonus}}%>>",
+        "generatedObtainiumBonus": "Обтаиниум <<pink|+{{obtainiumBonus}}%>>"
     },
     "runes": {
         "offeringsYouHave": "У вас {{offerings}} Подношений.",
-        "gainExp": "Gain {{amount}}x EXP per offering sacrificed.",
-        "recycleChance": "You have {{percent}}% chance of recycling your offerings. This multiplies EXP gain by {{mult}}!",
-        "hover": "Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!",
-        "thanksResearches": "Thanks to researches, your effective levels are increased by {{percent}}%",
+        "gainExp": "Получите {{amount}}x Опыта за пожертвование подношений.",
+        "recycleChance": "У вас {{percent}}% шанса переработать ваши подношения. Это умножает прирост Опыта на {{mult}}!",
+        "hover": "Эй, наведите курсор на значок руны, чтобы получить подробную информацию о том, что делает каждая из них и какие преимущества они вам дают!",
+        "thanksResearches": "Благодаря исследованиям, ваши эффективные уровни повышены на {{percent}}%",
         "levelup": {
-            "1": "+(Level/4)^1.25 Accelerator, +0.25% Accelerators per level. +1 Accelerator Boost every 20 levels!",
-            "2": "+(Level/10) Multipliers every 10th level, +0.25% Multipliers per level. Tax growth is delayed more for each level!",
-            "3": "~(1 + (Level/2)^2 * 2^(Level/2) / 256)x Crystal Production. +1 free level for each Crystal upgrade per 16 levels!",
+            "1": "+(Уровень/4)^1.25 Ускоритель, +0.25% Ускорителей за уровень. +1 Усилитель Ускорителя каждые 20 уровней!",
+            "2": "+(Уровень/10) Множителей на каждом 10-м уровне, +0.25% Множителей за Уровень. Прирост налогов откладывается больше за каждый уровень!",
+            "3": "~(1 + (Уровень/2)^2 * 2^(Уровень/2) / 256)x к Производству Кристаллов. +1 бесплатный уровень для каждого улучшения Кристалла каждые 16 уровней!",
             "4": "+0.125% отсрочки роста стоимости строений за уровень, +0.0625% шанса переработки Подношений за уровень [МАКС: 25%], 2^((1000 - Уровень)/1100) множителя роста Налогов ПОСЛЕ 400 уровня",
-            "5": "~(1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed, +0.005 base Offerings for each tier per level",
-            "6": "+0.2% Quarks, +1% all Cube types per level! Start with +10% Quarks.",
-            "7": "I wonder what happens if you feed it {{exp}} Rune EXP."
+            "5": "~(1 + уровень/200)x Обтаиниума, (1 + Уровень^2/2500)x к Скорости Вылупления Муравьёв, +0.005 к базовому Подношениям для каждого слоя за уровень",
+            "6": "+0.2% Кварков, +1% ко всем типам Кубов за уровень! Начните с +10% Кварков.",
+            "7": "Интересно, что произойдёт, если вы скормите его {{exp}} опыта Рун."
         },
         "power": {
-            "1": "Speed Rune Bonus: +{{bonus}} Accelerators, +{{percent}}% Accelerators, +{{boost}} Accelerator Boosts.",
-            "2": "Duplication Rune Bonus: +{{mult1}} Multipliers, +{{mult2}}% Multipliers, -{{tax}}% Tax Growth.",
+            "1": "Бонус Руны Скорости: +{{bonus}} Ускорителей, +{{percent}}% Ускорителей, +{{boost}} Усилителей Ускорителя.",
+            "2": "Бонус Руны Дубликации: +{{mult1}} Множителей, +{{mult2}}% Множтелей, -{{tax}}% Прирост налогов.",
             "3": "Бонус Руны Призмы: Все Производители Кристаллов производят в {{mult}} раз больше, получите +{{gain}} бесплатных уровней улучшений Кристаллов.",
             "4": "Бонус Руны Процветания: Все увеличения стоимости всех производителей задерживаются на {{delay}}%. Шанс переработки пожертвований: +{{chance}}%. Рост налогов: -{{tax}}%",
-            "5": "S. Intellect Rune Bonus: Obtainium gain x{{gain}}. Ant Speed: x{{speed}}. Base Offerings: +{{offerings}}",
-            "6": "IA Rune Bonus: Quark Gain +{{percent1}}%, Ascensions give +{{percent2}}% more of all cube types.",
-            "7": "You cannot grasp the true form of Ant God's treasure."
+            "5": "Бонус Руны П. Интеллекта: Получение Обтаиниума x{{gain}}. Скорость Муравьёв: x{{speed}}. Базовое Подношение: +{{offerings}}",
+            "6": "Бонус Руны БВ: Получение Кварков +{{percent1}}%, Вознесения дают +{{percent2}}% больше всех типов кубов.",
+            "7": "Вы не можете понять истинную форму сокровища Муравьиного Бога."
         },
         "talismans": {
             "fortify": "УКРЕПИТЬ",
@@ -2651,16 +2651,16 @@
             "buyAll": "КУПИТЬ ВСЕ",
             "autoBuyOn": "Автопокупка: ВКЛ",
             "autoBuyOff": "Автопокупка: ВЫКЛ",
-            "clickBuyEveryType": "Click to buy every type of Talisman Shards and Fragments, if affordable",
+            "clickBuyEveryType": "Нажмите, чтобы купить все виды Осколков Талисманов, если они доступны",
             "costToBuy": "Цена покупки {{name}} ({{buyAmount}}): {{obtainium}} Обтаниума и {{offerings}} Подношений.",
             "names": {
-                "exemption": "Exemption",
+                "exemption": "Освобождение",
                 "chronos": "Хронос",
                 "midas": "Мидас",
                 "metaphysics": "Метафизика",
                 "polymath": "Эрудит",
                 "mortuus": "Mortuus Est",
-                "plastic": "Plastic"
+                "plastic": "Пластик"
             }
         },
         "blessings": {
@@ -2671,27 +2671,27 @@
             "blessingLevel": "<<orchid|уровень Благословения>>: {{amount}}",
             "blessingPower": "Сила Благословения: <<turquoise|{{value}}>> =-=-= Эффект: <<gold|{{speed}}>>x {{reward}}!",
             "rewards": {
-                "0": "Global Speed",
-                "1": "Multiplier Boosts",
+                "0": "Глобальная Скорость",
+                "1": "Усилители Множителя",
                 "2": "Награда за Жертвоприношения",
-                "3": "Delay for A.Boost Cost",
+                "3": "Задержка Стоимости Усилений Ускорителей",
                 "4": "Обтаниум --> Множ. Муравьёв"
             },
-            "increaseLevel": "Increase Level By <<orchid|{{amount}}>> [Cost: <<orchid|{{offerings}}>> Offerings]"
+            "increaseLevel": "Увеличить уровень на <orchid|{{amount}}> [Стоимость: <orchid|{{offerings}}> Пожертвований]"
         },
         "spirits": {
             "spiritLevel": "Уровень Духа: <<orchid|{{amount}}>>",
             "spiritPower": "Сила Духа: <<turquoise|{{value}}>> =-=-= Эффект: <<gold|{{speed}}>>x {{reward}}!",
             "rewards": {
-                "0": "x Global Speed",
-                "1": "x Wow! Cubes by Ascension",
-                "2": "x Additional levels to Crystal caps",
-                "3": "x Obtainium",
-                "4": "% stronger Research 4x9 effect"
+                "0": "х Глобальная Скорость",
+                "1": "x Wow! Кубов при Вознесении",
+                "2": "x Дополнительных макс уровней улучшений Кристаллов",
+                "3": "x Обтаниум",
+                "4": "% сильнее эффект Исследования 4x9"
             },
             "buyUpTo": "Buy up to <<var(--orchid-text-color)|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]"
         },
-        "perOfferingText": "+{{exp}} EXP per offering, {{x}} [{{y}}] Offerings to level up once.",
+        "perOfferingText": "+{{exp}} Опыта за Пожертвование, {{x}} [{{y}}] Пожертвований чтобы повысить уровень один раз.",
         "runeEffectSummaryTitle": "=====СПИСОК ЭФФЕКТОВ РУН=====",
         "bonusAmount": "[Бонус: {{x}}]",
         "bonusNope": "[Бонус: Неа!]",
@@ -2706,51 +2706,51 @@
             "duplication": "Руна Дубликации",
             "prism": "Руна Призмы",
             "thrift": "Руна Экономии",
-            "SI": "Superior Intellect",
+            "SI": "Высший Разум",
             "IA": "Бесконечное Восхождение",
             "AOAG": "Антикварии Муравьиного Бога"
         },
         "maxLevel": "Макс. уровень!",
-        "TNL": "+1 in {{EXP}} EXP"
+        "TNL": "+1 через {{EXP}} Опыта"
     },
     "singularityChallenge": {
         "enterChallenge": {
-            "lowSingularity": "Derpsmith prohibits you from entering this challenge. Go do some more Singing first.",
+            "lowSingularity": "Derpsmith запрещает вам начать это испытание. Сперва сделайте ещё несколько Сингов.",
             "confirmation": "Вы собираетесь войти в {{name}}. Таймер Сингулярности не сбросится, но вы вернетесь в начало Сингулярности. Продолжить?",
-            "decline": "Derpsmith nods his head. Come back when you are ready...",
+            "decline": "Derpsmith кивает головой. Возвращайтесь, когда будете готовы...",
             "acceptSuccess": "Вы начинаете {{name}} #{{tier}}! Вы были посланы в Сингулярность {{singReq}}. Купите Антиквариаты, чтобы выполнить испытание!",
             "acceptFailure": "Кукузнец заявляет, что вы уже в испытании сингулярности и запрещает вам разрушение ткани вашей Реальности."
         },
         "exitChallenge": {
-            "incompleteWarning": "WARNING: You will not get a completion as you have not yet purchased Antiquities.",
-            "confirmation": "Are you sure you want to quit {{name}} Tier {{tier}} \n{{warning}}`",
-            "decline": "Derpsmith tries to hug you, but he has no arms.",
-            "acceptSuccess": "You have completed the {{tier}} tier of {{name}}! The corresponding challenge rewards have been updated.",
-            "acceptFailure": "You have been transported back to your highest reached Singularity. Try again soon! -Derpsmith"
+            "incompleteWarning": "ПРЕДУПРЕЖДЕНИЕ: Вы не получите прохождение так как вы ещё не приобрели Антикварий.",
+            "confirmation": "Вы уверены что хотите покинуть {{name}} уровня {{tier}} \n{{warning}}",
+            "decline": "Derpsmith пытается вас обнять, но у него нет рук.",
+            "acceptSuccess": "Вы прошли {{tier}} уровень {{name}}! Награды соответствующего испытания были обновлены.",
+            "acceptFailure": "Вы были перенесены в вашу самую высокую достигнутую Сингулярность. Попытайтесь снова скоро! -Derpsmith"
         },
         "toString": {
-            "canEnter": "Can be entered at highest Singularity {{unlockSing}} [Your highest: {{highestSing}}]",
-            "tiersCompleted": "Tiers completed",
+            "canEnter": "Может быть начато с наивысшей Сингулярностью {{unlockSing}} [Ваша наивысшая: {{highestSing}}]",
+            "tiersCompleted": "Этапов завершено",
             "currentTierSingularity": "The current tier of this challenge takes place in Singularity"
         },
         "data": {
             "noSingularityUpgrades": {
                 "name": "Без Улучшений Сингулярности",
-                "description": "Simply put, you have to beat the target singularity without (most) Singularity Upgrades. Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
-                "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks. 20th awards something `special` ;)"
+                "description": "Простыми словами, вам нужно пройти целевую Сингулярность без большинства Улучшений Сингулярности. Октеракты, Перки и Улучшения Качества Жизни сохранены.",
+                "rewardDescription": "Каждое прохождение увеличивает получение кубов каждого измерения на 50%! Первое прохождение даёт +12% к Золотым Кваркам. 20-е награждает чем-то `особым` ;)"
             },
             "oneChallengeCap": {
-                "name": "One Challenge Caps",
-                "description": "Beat the target Singularity, but the first 14 Challenges have cap of only 1!",
-                "rewardDescription": "Each completion increases Corruption Multiplier Values by 0.03, no matter what. First Completion gives +3 to Reincarnation Challenge Cap. 20th completion grants +1 free Corruption level!"
+                "name": "Предел в Одно Выполнение",
+                "description": "Завершите необходимую Сингулярность, но лимит выполнений первых 14 Испытаний - 1!",
+                "rewardDescription": "Каждое выполнение увеличивает Значение Множителей Порчи на 0.03, не смотря ни на что. Первое Выполнение даёт +3 к Лимиту Испытаний Реинкарнации. 20-ое выполнение даёт +1 бесплатный уровень Порчи!"
             },
             "noOcteracts": {
-                "name": "No Octeract Effects",
-                "description": "Beat the target Singularity, but octeracts and their upgrades do nothing! Effective Singularity is also much higher based on tier.",
-                "rewardDescription": "Each completion increases Octeract to Cube Bonus power by 0.02 (BASE: 2.00). First completion adds a bonus to Offerings based on Octeracts. Final completion adds a bonus to Obtainium based on Octeracts."
+                "name": "Без Эффектов Октерактов",
+                "description": "Пройдите целевую Сингулярность, но октеракты и их улучшения ничего не делают! Эффективная Сингулярность также сильно растёт в зависимости от уровня.",
+                "rewardDescription": "Каждое прохождение увеличивает экспоненту от Октерактов к Бонусу Кубов на 0.02 (БАЗА: 2.00) Первое прохождение даёт бонус к Пожертвованиям, зависящий от Октерактов. Последнее прохождение даёт бонус к Обтаниуму, зависящий от Октерактов."
             },
             "limitedAscensions": {
-                "name": "Twenty Ascensions Challenge",
+                "name": "Испытание Двадцати Вознесений",
                 "description": "Кукузнец наложил эмбарго на Вознесения. На всю сингулярность дано только (20-выполнения), прежде чем Вознесения активируют негативные эффекты! Множитель Счётчика Вознесения не может быть выше 1. Ах, да, Дельта тоже отключена. Хе.",
                 "rewardDescription": "Каждое выполнение даёт 0.1% Скорости Вознесения за выполнение, за цифру в вашем Счётчике Вознесений. Первое выполнение удваивает вместимость всех гептерактов. Последнее выполнение добавляет новый калькулятор в магазин!"
             }
@@ -2761,24 +2761,24 @@
         "confirmationTitle": "Настройки Подтверждения",
         "noHotkeyAvailable": "Они не работают с горячими клавишами. А жаль!",
         "specialActions": "Спец. Действия",
-        "daily": "Daily",
-        "add1": "Add x1",
-        "add": "Add",
-        "time": "Time",
-        "enterPromoCodeHere": "Enter a promotion code here!",
-        "currentTheme": "Current Theme",
+        "daily": "Ежедневный",
+        "add1": "Добавить х1",
+        "add": "Добавить",
+        "time": "Время",
+        "enterPromoCodeHere": "Введите промокод здесь!",
+        "currentTheme": "Текущая Тема",
         "themes": {
-            "dark": "Dark Mode",
-            "darker": "Darker Mode",
-            "lighterDark": "Lighter Dark Mode",
-            "light": "Light Mode",
-            "dracula": "Dracula Mode"
+            "dark": "Тёмная",
+            "darker": "Темнее",
+            "lighterDark": "Тёмная Посветлее",
+            "light": "Светлая",
+            "dracula": "Дракула"
         },
-        "currentIconSet": "Current Icon Set",
+        "currentIconSet": "Текущий Набор Иконок",
         "notation": {
-            "default": "Default",
-            "pureScientific": "Pure Scientific",
-            "pureEngineering": "Pure Engineering"
+            "default": "Стандартный",
+            "pureScientific": "Только Научная",
+            "pureEngineering": "Только Инженерная"
         },
         "currentNotation": "Текущая Аннотация",
         "iconSets": {
@@ -2787,153 +2787,153 @@
             "simplified": "Упрощённое",
             "monotonous": "Монотонный"
         },
-        "joinDiscord": "Click the image below to join the Discord!",
+        "joinDiscord": "Нажмите на изображение ниже, чтобы присоединиться к Discord!",
         "joinPatreon": "Поддержите разработку на Patreon!",
-        "exportQuark": "{{x}}s until +{{y}} export Quark",
-        "exportGoldenQuark": "{{x}}s until +{{y}} export Golden Quark",
-        "quarksOnExport": "Quarks on export: {{x}} [Max {{y}}]",
-        "goldenQuarksOnExport": "Golden Quarks on export: {{x}} [Max {{y}}]",
+        "exportQuark": "{{x}}с до +{{y}} Кварков за экспорт",
+        "exportGoldenQuark": "{{x}}с до +{{y}} Золотых Кварков за экспорт",
+        "quarksOnExport": "Кварки при экспорте: {{x}} [Макс. {{y}}]",
+        "goldenQuarksOnExport": "Золотые Кварки при экспорте: {{x}} [Макс. {{y}}]",
         "copyToClipboard": "Скопировать в буфер обмена",
         "exportHere": "Экспортировать игру",
-        "currently": "Currently: {{x}}",
-        "loadGameBelow": "Load game below!",
+        "currently": "Сейчас: {{x}}",
+        "loadGameBelow": "Загрузите игру ниже!",
         "loadFromFile": "Загрузить с файла",
         "saveManually": "Сохранить игру вручную",
         "deleteSave": "Удалить файл сохранения",
         "events": {
-            "inactive": "<<var(--orchid-text-color);|Event Status:>> INACTIVE",
-            "activeUntil": "ACTIVE UNTIL: {{x}}",
-            "starts": "STARTS {{x}}"
+            "inactive": "<<var(--orchid-text-color);|Event Status:> НЕАКТИВЕН",
+            "activeUntil": "АКТИВНО ДО: {{x}}",
+            "starts": "НАЧАЛО {{x}}"
         }
     },
     "wowCubes": {
-        "greenText": "You can also spend them on upgrades that persist through Ascension.",
-        "open1": "Open x1",
-        "open10%": "Open 10%",
-        "open50%": "Open 50%",
-        "openCustom": "Custom Amount",
-        "openAll": "Open All",
+        "greenText": "Вы также можете потратить их на улучшения, которые сохраняются при Вознесениях.",
+        "open1": "Открыть х1",
+        "open10%": "Открыть 10%",
+        "open50%": "Открыть 50%",
+        "openCustom": "Своё Количество",
+        "openAll": "Открыть Все",
         "autoOff": "Авто Открытие [OFF]",
         "autoOn": "Авто Открытие {{percent}}%",
         "quarks": {
-            "quarkTitle": "-=- Cube to Quark Corner -=-",
-            "resetInfo": "Quark Rewards reset midnight!",
-            "cubeQuarksToday": "Quarks gained from Cubes: <<cyan|{{amount}}>>",
-            "cubeQuarksOpenRequirement": "Open {{amount}} Cubes for next quark.",
-            "cubeQuarksOpenToday": "Cubes opened today: <<orchid|{{amount}}>>",
-            "tesseractQuarksToday": "Quarks gained from Tesseracts: <<cyan|{{amount}}>>",
-            "tesseractQuarksOpenRequirement": "Open {{amount}} Tesseracts for next quark.",
-            "tesseractQuarksOpenToday": "Tesseracts opened today: <<orchid|{{amount}}>>",
-            "hypercubeQuarksToday": "Quarks gained from Hypercubes: <<cyan|{{amount}}>>",
-            "hypercubeQuarksOpenRequirement": "Open {{amount}} Hypercubes for next quark.",
-            "hypercubeQuarksOpenToday": "Hypercubes opened today: <<orchid|{{amount}}>>",
-            "platonicCubeQuarksToday": "Platonic Cubes gained from Cubes: <<cyan|{{amount}}>>",
-            "platonicCubeQuarksOpenRequirement": "Open {{amount}} Platonic Cubes for next quark.",
-            "platonicCubeQuarksOpenToday": "Platonic Cubes opened today: <<orchid|{{amount}}>>"
+            "quarkTitle": "-=- Уголок Кубов в Кварки -=-",
+            "resetInfo": "Награды Кварков сбрасываются в полночь!",
+            "cubeQuarksToday": "Кварки, полученные от Кубов: <<cyan|{{amount}}>>",
+            "cubeQuarksOpenRequirement": "Откройте {{amount}} Кубов для следующего кварка.",
+            "cubeQuarksOpenToday": "Сегодня открыто кубов: <<orchid|{{amount}}>>",
+            "tesseractQuarksToday": "Кварки, полученные от Тессерактов: <<cyan|{{amount}}>>",
+            "tesseractQuarksOpenRequirement": "Откройте {{amount}} Тессерактов для следующего кварка.",
+            "tesseractQuarksOpenToday": "Сегодня открыто тессерактов: <<orchid|{{amount}}>>",
+            "hypercubeQuarksToday": "Кварки, полученные от Гиперкубов: <<cyan|{{amount}}>>",
+            "hypercubeQuarksOpenRequirement": "Откройте {{amount}} Гиперкубов для следующего кварка.",
+            "hypercubeQuarksOpenToday": "Сегодня открыто гиперкубов: <<orchid|{{amount}}>>",
+            "platonicCubeQuarksToday": "Платоновых Кубов, полученных от Кубов: <<cyan|{{amount}}>>",
+            "platonicCubeQuarksOpenRequirement": "Откройте {{amount}} Платоновых Кубов для следующего кварка.",
+            "platonicCubeQuarksOpenToday": "Сегодня открыто платоновых кубов: <<orchid|{{amount}}>>"
         },
         "cubes": {
-            "intro": "You feel a sense of Pride and Accomplishment... and a hunger for power.",
-            "instructions": "Open up some Lootb-- er, Wow! Cubes, to get one of ten permanent bonuses.",
-            "inventory": "You possess <<yellow|{{amount}}>> Wow! Cubes. Get them from ascending!",
-            "total": "You have a total of <<yellow|{{amount}}>> Cube tributes!",
+            "intro": "Вы испытываете чувство Гордости и Достижения... и жажду власти.",
+            "instructions": "Откройте несколько Лутб-- эм, Wow! Кубов, чтобы получить один из десяти постоянных бонусов.",
+            "inventory": "У вас есть <<yellow|{{amount}}>> Wow! Кубов. Получите их за вознесения!",
+            "total": "Всего у вас <<yellow|{{amount}}>> даней Кубов!",
             "items": {
-                "1": "Hermes' Tribute x{{amount}}: +{{bonus}} Accelerators per Accelerator Boost",
-                "2": "Aphrodite's Tribute x{{amount}}: +{{bonus}}% Multipliers",
-                "3": "Plutus' Tribute x{{amount}}: +{{bonus}}% Offering Gain",
-                "4": "Iris' Tribute x{{amount}}: +{{bonus}}% Rune EXP",
-                "5": "Athena's Tribute x{{amount}}: +{{bonus}}% Obtainium Gain",
-                "6": "Artemis' Tribute x{{amount}}: +{{bonus}}% Ant Speed",
-                "7": "Ares' Tribute x{{amount}}: +{{bonus}}% Sacrifice Reward",
-                "8": "Moloch's Tribute x{{amount}}: +{{bonus}} Effective ELO",
-                "9": "Midas' Tribute x{{amount}}: +{{bonus}} Bonus Rune Levels on Talismans",
-                "10": "Chronos' Tribute x{{amount}}: +{{bonus}}% Global Time Acceleration"
+                "1": "Дань Гермесу x{{amount}}: +{{bonus}} Ускорителей за Усилитель Ускорителя",
+                "2": "Дань Афродите x{{amount}}: +{{bonus}}% Множителей",
+                "3": "Награда Плутуса x{{amount}}: +{{bonus}}% к Получению Пожертвований",
+                "4": "Награда Ириды x{{amount}}: +{{bonus}}% Опыта Рун",
+                "5": "Награда Афины x{{amount}}: +{{bonus}}% к Получению Обтаниума",
+                "6": "Дань Артемиде x{{amount}}: +{{bonus}}% Скорости Муравьёв",
+                "7": "Дань Аресу x{{amount}}: +{{bonus}}% Награды Жертвоприношений",
+                "8": "Дань Молоху x{{amount}}: +{{bonus}} Эффективного ЭЛО",
+                "9": "Дань Мидасу x{{amount}}: +{{bonus}} Уровней Рун от Талисманов",
+                "10": "Дань Хроносу x{{amount}}: +{{bonus}}% Ускорения Глобального Времени"
             }
         },
         "tesseracts": {
-            "intro": "You obtain guidance from beings in another dimension!",
-            "instructions": "Open up some Lootb-- er, Wow! Tesseracts, to boost tributes from the previous tier.",
-            "inventory": "You possess <<yellow|{{amount}}>> Wow! Tesseracts. Get them from ascending with at least 100,000 score!",
-            "total": "You have a total of <<yellow|{{amount}}>> Tesseract gifts!",
+            "intro": "Получите наставления от существ из других измерений!",
+            "instructions": "Откройте несколько Лут-эм, Wow! Тессерактов, чтобы усилить дани с предыдущего уровня.",
+            "inventory": "У вас <<yellow|{{amount}}>> Wow! Тессерактов. Получите их при вознесении со счётом выше 100,000!",
+            "total": "Всего у вас <<yellow|{{amount}}>> подарков Тессерактов!",
             "items": {
-                "1": "Hermes' Gift x{{amount}}: +{{bonus}}% Hermes Tribute Power",
-                "2": "Aphrodite's Gift x{{amount}}: +{{bonus}}% Aphrodite Tribute Power",
-                "3": "Plutus' Gift x{{amount}}: +{{bonus}}% Plutus Tribute Power",
-                "4": "Iris' Gift x{{amount}}: +{{bonus}}% Iris Tribute Power",
-                "5": "Athena's Gift x{{amount}}: +{{bonus}}% Athena Tribute Power",
-                "6": "Artemis' Gift x{{amount}}: +{{bonus}}% Artemis Tribute Power",
-                "7": "Ares' Gift x{{amount}}: +{{bonus}}% Ares Tribute Power",
-                "8": "Moloch's Gift x{{amount}}: +{{bonus}}% Moloch Tribute Power",
-                "9": "Midas' Gift x{{amount}}: +{{bonus}}% Midas Tribute Power",
-                "10": "Chronos' Gift x{{amount}}: +{{bonus}}% Chronos Tribute Power"
+                "1": "Подарок Гермеса x{{amount}}: +{{bonus}}% Силы Дани Гермеса",
+                "2": "Подарок Афродиты x{{amount}}: +{{bonus}}% к Силе Награды Афродиты",
+                "3": "Подарок Плутуса x{{amount}}: +{{bonus}}% к Силе Награды Плутуса",
+                "4": "Подарок Ириды x{{amount}}: +{{bonus}}% к Силе Награды Ириды",
+                "5": "Подарок Афины x{{amount}}: +{{bonus}}% к Силе Награды Афины",
+                "6": "Подарок Артемису x{{amount}}: +{{bonus}}% к Силе Награды Артемиса",
+                "7": "Подарок Ареса x{{amount}}: +{{bonus}}% к Силе Награды Ареса",
+                "8": "Подарок Молоха x{{amount}}: +{{bonus}}% к Силе Награды Молоха",
+                "9": "Подарок Мидаса x{{amount}}: +{{bonus}}% к Силе Награды Мидаса",
+                "10": "Подарок Хроноса x{{amount}}: +{{bonus}}% к Силе Награды Хроноса"
             }
         },
         "hypercubes": {
-            "intro": "I didn't know that Wow! enterprises made 5-Dimensional Objects.",
-            "instructions": "Open up some Lootb-- er, Wow! Hypercubes, to boost blessings from the previous tier.",
-            "inventory": "You possess <<yellow|{{amount}}>> Wow! Hypercubes. Get them from ascending with at least 1e9 score!",
-            "total": "You have a total of <<yellow|{{amount}}>> Hypercube benedictions!",
+            "intro": "Не знал, что корпорация Wow! делает 5-Мерные Объекты.",
+            "instructions": "Откройте несколько Лут-эм, Wow! Гиперкубов, чтобы усилить награды с предыдущего уровня.",
+            "inventory": "У вас есть <<yellow|{{amount}}>> Wow! Гиперкубов. Получите их за вознесения с хотя бы 1e9 очков!",
+            "total": "У вас всего <<yellow|{{amount}}>> благословений Гиперкубов!",
             "items": {
-                "1": "Hermes' Benediction x{{amount}}: +{{bonus}}% Hermes Gift Power",
-                "2": "Aphrodite's Benediction x{{amount}}: +{{bonus}}% Aphrodite Gift Power",
-                "3": "Plutus' Benediction x{{amount}}: +{{bonus}}% Plutus Gift Power",
-                "4": "Iris' Benediction x{{amount}}: +{{bonus}}% Iris Gift Power",
-                "5": "Athena's Benediction x{{amount}}: +{{bonus}}% Athena Gift Power",
-                "6": "Artemis' Benediction x{{amount}}: +{{bonus}}% Artemis Gift Power",
-                "7": "Ares' Benediction x{{amount}}: +{{bonus}}% Ares Gift Power",
-                "8": "Moloch's Benediction x{{amount}}: +{{bonus}}% Moloch Gift Power",
-                "9": "Midas' Benediction x{{amount}}: +{{bonus}}% Midas Gift Power",
-                "10": "Chronos' Benediction x{{amount}}: +{{bonus}}% Chronos Gift Power"
+                "1": "Благословение Гермеса x{{amount}}: +{{bonus}}% к Силе Подарка Гермеса",
+                "2": "Благословение Афродиты x{{amount}}: +{{bonus}}% к Силе Подарка Афродиты",
+                "3": "Благословение Плутуса x{{amount}}: +{{bonus}}% к Силе Подарка Плутуса",
+                "4": "Благословение Ириды x{{amount}}: +{{bonus}}% к Силе Подарка Ириды",
+                "5": "Благословение Афины x{{amount}}: +{{bonus}}% к Силе Подарка Афины",
+                "6": "Благословение Артемиса x{{amount}}: +{{bonus}}% к Силе Подарка Артемиса",
+                "7": "Благословение Ареса x{{amount}}: +{{bonus}}% к Силе Подарка Ареса",
+                "8": "Благословение Молоха x{{amount}}: +{{bonus}}% к Силе Подарка Молоха",
+                "9": "Благословение Мидаса x{{amount}}: +{{bonus}}% к Силе Подарка Мидаса",
+                "10": "Благословение Хроноса x{{amount}}: +{{bonus}}% к Силе Подарка Хроноса"
             }
         },
         "platonics": {
-            "intro": "This seems very familiar.",
-            "instructions": "Open up some Lootb-- er, Platonic! Cubes, for epic perks!.",
-            "inventory": "You possess <<yellow|{{amount}}>> Wow! Platonic Cubes. Get them from ascending with at least 2.666e12 score!",
-            "total": "You have a total of <<yellow|{{amount}}>> Platonic Cubes opened!",
+            "intro": "Это кажется очень знакомым.",
+            "instructions": "Откройте несколько Лутб-- эм, Платоновых кубов ради эпичных перков!",
+            "inventory": "У вас есть <<yellow|{{amount}}>> Wow! Платоновых Кубов. Получите их за вознесения с хотя бы 2.666e12 очков!",
+            "total": "Всего вы открыли <<yellow|{{amount}}>> Платоновых Кубов!",
             "items": {
-                "1": "Cube Shard: x{{amount}}: +{{bonus}}% Bonus Wow! Cubes",
-                "2": "Tesseract Shard: x{{amount}}: +{{bonus}}% Bonus Wow! Tesseracts",
-                "3": "Hypercube Shard: x{{amount}}: +{{bonus}}% Bonus Wow! Hypercubes",
-                "4": "Platonic Remnant: x{{amount}}: +{{bonus}}% Bonus Platonic! Cubes",
-                "5": "Hypercube Statue: x{{amount}}: +{{bonus}}% ALL Hypercube bonuses",
-                "6": "Keynesian Statue: x{{amount}}: +{{bonus}}% Bonus Constant exponent on taxes",
-                "7": "High-Scoring Statue: x{{amount}}: +{{bonus}}% More Score on corruptions",
+                "1": "Кубический Осколок x{{amount}}: +{{bonus}}% Бонусных Wow! Кубов",
+                "2": "Тессерактовый Осколок x{{amount}}: +{{bonus}}% Бонусных Wow! Тессерактов",
+                "3": "Гиперкубический Осколок x{{amount}}: +{{bonus}}% Бонусных Wow! Гиперкубов",
+                "4": "Платоновый Остаток x{{amount}}: +{{bonus}}% Бонусных Платоновых Кубов",
+                "5": "Статуя Гиперкуба: x{{amount}}: +{{bonus}}% ВСЕ бонусы Гиперкубов",
+                "6": "Статуя Кейнсианству: x{{amount}}: +{{bonus}}% К бонусу степени снижения налогов от Константы",
+                "7": "Статуя Высоких Результатов x{{amount}}: +{{bonus}}% дополнительных очков за Порчи",
                 "8": "Статуя Хроноса: x{{amount}}: +{{bonus}}% к <<yellow|истинной>> Глобальной Скорость (после уменьшающиеся отдачи на скорость)"
             }
         },
         "hepteractForge": {
-            "howDidIGetHere": "How did I get here?",
-            "noTimeToWaste": "Oh well, no time to waste. This is your lab. Make cool stuff with your Hepteracts!",
-            "noPassiveBonus": "Hepteracts do not provide passive bonuses. They must be made useful through crafting.",
+            "howDidIGetHere": "Как я тут оказался?",
+            "noTimeToWaste": "Ну что ж, у нас нет времени. Это ваша лаборатория. Делайте крутые вещи из ваших Гептерактов!",
+            "noPassiveBonus": "Гептеракты не дают пассивных бонусов. Они должны быть сделаны полезными с помощью создания.",
             "youPossessHepteracts": "У вас <<yellow|{{x}}>> Гептерактов! Вы же знаете где их получить, да?",
-            "craft": "Craft",
-            "max": "Max",
-            "expand": "Expand",
-            "warp": "Warp",
+            "craft": "Создать",
+            "max": "Макс",
+            "expand": "Расширить",
+            "warp": "Варп",
             "autoSetting": "Настройка Авто: {{x}}%",
             "autoCraftPercentage": "Процента Автосоздания",
             "autoCraftPercentagePrompt": "Введите число от 0 до 100 (только целое), чтобы установить процент автосоздания. Каждое вознесение, этот процент ваших гептерактов поровну разделён между каждым гептерактом с АВТО ВКЛ, и используется для создания. Авто создание также не потребляет других ресурсов! [Разумеется, Кварки - исключение...]",
-            "unlocked": "< UNLOCKED >",
-            "locked": "< LOCKED >",
-            "inventory": "Inventory: {{x}} / {{y}}",
-            "orbs": "Orbs:",
-            "effect": "Effect:",
-            "powder": "Powder:",
-            "warps": "Warps:",
+            "unlocked": "< РАЗБЛОКИРОВАНО >",
+            "locked": "< ЗАБЛОКИРОВАНО >",
+            "inventory": "Хранилище: {{x}} / {{y}}",
+            "orbs": "Сферы:",
+            "effect": "Эффект:",
+            "powder": "Порошок:",
+            "warps": "Варпов:",
             "descriptions": {
                 "chronos": {
-                    "effect": "This hepteract bends time, in your favor. +0.06% Ascension Speed per Chronos Hepteract.",
-                    "currentEffect": "Current Effect: Ascension Speed +{{x}}%",
+                    "effect": "Этот гептеракт искривляет время, в вашу пользу. +0.06% Скорости Вознесения за каждый Гептеракт Хроноса.",
+                    "currentEffect": "Текущий эффект: Скорость Вознесения +{{x}}%",
                     "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Обатниума!"
                 },
                 "hyperrealism": {
-                    "effect": "This bad boy can make hypercube gain skyrocket. +0.06% Hypercubes per Hyperreal Hepteract.",
-                    "currentEffect": "Current Effect: Hypercubes +{{x}}%",
+                    "effect": "Этот плохой мальчик может отправить получение гиперкубов в небеса. +0.06% к Гиперкубам за Гиперреальный Гептеракт.",
+                    "currentEffect": "Текущий эффект: Гиперкубы +{{x}}%",
                     "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Подношений."
                 },
                 "quark": {
                     "effect": "One pound, two pound fish, fishy grant +0.05% Quarks per Quark Hepteract fish fish.",
-                    "currentEffect": "Current Effect: Quarks +{{x}}%",
+                    "currentEffect": "Текущий эффект: Кварки +{{x}}%",
                     "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Кварков."
                 },
                 "challenge": {
@@ -2942,23 +2942,23 @@
                     "oneCost": "Один такой будет стоить вам {{x}} Гептерактов, {{y}} Платонических Кубов и {{z}} Кубов."
                 },
                 "abyss": {
-                    "effect": "It seems like this holds the power to be at the End of Time. Do you remember why you need this?",
-                    "currentEffect": "<[You will submit to the Omega Entity of Time]>",
+                    "effect": "Похоже, этот владеет силой быть в Конце Времён. Вы ещё помните, зачем вам это нужно?",
+                    "currentEffect": "<[Вы склонитесь перед Омега Существом Времени]>",
                     "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Вау! Кубов(лол)"
                 },
                 "accelerator": {
-                    "effect": "Haha, stupid Corruptions. +2,000 +0.03% Uncorruptable Accelerators per 'Way too many accelerators' Hepteract!",
-                    "currentEffect": "Current Effect: Uncorruptable Accelerators +{{x}} + {{y}}%",
+                    "effect": "Хаха, тупые Порчи. +2,000 и +0.03% Чистых Ускорителей за каждый Гептеракт 'Изобилия ускорителей'!",
+                    "currentEffect": "Текущий Эффект: Чистые Ускорители +{{x}} + {{y}}%",
                     "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Вау! Тессерактов"
                 },
                 "acceleratorBoost": {
-                    "effect": "Haha, stupid Corruptions. +0.1% Accelerator Boosts per 'Way too many accelerator boosts' Hepteract!",
-                    "currentEffect": "Current Effect: Accelerator Boosts +{{x}}%",
+                    "effect": "Хаха, тупые Порчи. +0.1% Усилений Ускорителей за Гептеракт `Слишком много усилений ускорителей`!",
+                    "currentEffect": "Текущий Эффект: +{{x}}% Усилителей Ускорителей",
                     "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Гиперкубов"
                 },
                 "multiplier": {
-                    "effect": "Haha, stupid Corruptions. +1,000 +0.03% Uncorruptable Multipliers per 'Way too many multipliers' Hepteract!",
-                    "currentEffect": "Current Effect: Uncorruptable Multipliers +{{x}} +{{y}}%",
+                    "effect": "Хаха, тупые Порчи. +1,000 и +0.03% Чистых Множителей за каждый Гептеракт 'Изобилия множителей'!",
+                    "currentEffect": "Текущий Эффект: Чистые Множители +{{x}} + {{y}}%",
                     "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Обатниума"
                 }
             }
@@ -2968,57 +2968,57 @@
         "validation": {
             "setPurchaseAmount": "Set maximum purchase amount per click for the {{x}} upgrade. Type -1 to set to MAX by default.",
             "toggleKept": "Toggle kept at {{x}}.",
-            "onlyNegativeOne": "The only valid negative number for toggle is -1.",
+            "onlyNegativeOne": "Единственное допустимое негативное число для ввода это -1.",
             "notZero": "You cannot set the toggle to 0."
         },
         "toggleMax": "Your toggle is now set to MAX",
         "toggle": "Your toggle is now set to {{x}}"
     },
     "hepteracts": {
-        "unlockedCraft": "Congratulations. You have unlocked the ability to craft {{x}} in the hepteract forge!",
-        "notUnlocked": "This is not an unlocked craft, thus you cannot craft this item!",
-        "reachedCapacity": "You have reached the current capacity of {{x}}. Please expand to craft more.",
+        "unlockedCraft": "Поздравляем. Вы разблокировали способность создавать {{x}} в кузнице гептерактов!",
+        "notUnlocked": "Это ещё не разблокиравно, поэтому вы не может создать этот предмет!",
+        "reachedCapacity": "Вы достигли текущего лимита в {{x}}. Пожалуйста, расширьте, чтобы создать больше.",
         "craftMax": "This will attempt to craft as many as possible. \nYou can craft up to {{x}} ({{y}}%). Are you sure?",
         "executionFailed": "Execution failed: material could not be calculated.",
         "craft": "How many would you like to craft? \nYou can buy up to {{x}} ({{y}}%) amount.",
-        "cancelled": "Okay, maybe next time.",
+        "cancelled": "Ладно, может в другой раз.",
         "notEnough": "Insufficient inventory to expand.",
-        "craftedHepteracts": "You have successfully crafted {{x}} hepteracts.",
+        "craftedHepteracts": "Вы успешно создали {{x}} гептерактов.",
         "craftedHepteractsMax": "You have successfully crafted {{x}} hepteracts. If this is less than your input, you either hit the inventory limit or you had insufficient resources.",
         "expandPrompt": "This will reduce your balance by {{x}}, but capacity will increase from {{y}} to {{z}} [Expansion Multiplier: {{a}}]. Agree to the terms and conditions and stuff?",
         "doubleSpent": "Something already modified your balance or cap, try again!",
         "expandedInventory": "Successfully expanded your inventory. You can now fit {{x}}.",
         "orbEffect": "Orb Effect: Opening Cubes gives {{x}}% more Quarks.",
-        "orbsPurchasedToday": "Orbs Purchased Today: {{x}}.",
+        "orbsPurchasedToday": "Сфер Куплено Сегодня: {{x}}.",
         "amalgamate": "You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]",
         "cost250k": "Стоимость: 250,000 Гептерактов за одну Сферу Изобильного Потока",
         "craftMaxOrbs": "This will attempt to buy as many orbs as possible. \nYou can buy up to {{x}} with your hepteracts. Are you sure?",
-        "hepteractInput": "How many Orbs would you like to purchase?\n You can buy up to {{x}} with your hepteracts.",
-        "gainedPowder": "You have also gained {{x}} powder immediately, thanks to your shop upgrades.",
+        "hepteractInput": "Как много Сфер вы хотите купить?\n С вашими гептерактами, вы можете купить до {{x}}.",
+        "gainedPowder": "Благодаря вашим улучшениям магазина, вы также мгновенно получили {{x}} порошка.",
         "purchasedOrbs": "You have purchased {{x}} Overflux Orbs [+{{y}}% to effect]. {{z}} Enjoy!",
         "allCubeGain": "ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative]",
         "allCubeGainExtended": "ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative], Ascension Count +{{z}}%, Tesseract Building Production x{{a}} [From Platonic Upgrade 4x1]",
-        "powderEffect": "Powder effect: {{x}}",
+        "powderEffect": "Эффект Порошка: {{x}}",
         "powderLumps": "You have {{x}} lumps of Overflux Powder.",
         "expiredOrbs": "Expired Overflux Orbs become powder at a rate of {{x}} Orbs per powder lump!",
         "dayWarpsRemaining": "Day Warps remaining today: {{x}}",
         "warpImpossible": "Warping is impossible (you get multiplier to Quarks instead)",
-        "machineCooldown": "Sorry, but this machine is on cooldown.",
+        "machineCooldown": "Извините, машина перезаряжается.",
         "atleastPowder": "Sorry, but you need 25 powder to operate the warp machine.",
-        "stumbleMachine": "You stumble upon a mysterious machine. A note attached says that you can reset daily Cube openings for 25 Powder. However it only works once each real life day. You in?",
+        "stumbleMachine": "Вы наткнулись на загадочную машину. В прикреплённой к ней записке написано, что вы можете сбросить ежедневное открытие Кубов за 25 Порошка. Однако, это работает только один раз в реальный день. Вы в деле?",
         "walkAwayMachine": "You walk away from the machine, powder intact.",
-        "useMachine": "Upon using the machine, your cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]",
-        "useAllWarpsPrompt": "Turning this OFF, will consume all of your remaining Warps (without doing a Warp).\nAre you sure?",
-        "machineDidNotConsume": "Machine didn't consume your Warps.",
+        "useMachine": "После использования машины, ваши кубы ощущаются чуть более полезными. Счётчик ежедневного открытия кубов был сброшен! [-25 Порошка]",
+        "useAllWarpsPrompt": "Переключение на ВЫКЛ использует все ваши оставшиеся Варпы (без совершения Варпа).\nВы уверены?",
+        "machineDidNotConsume": "Машина не использовала ваши Варпы.",
         "boostQuarksPrompt": "This machine will now be able to boost your Quarks gained from opening Cubes, based on how many Warps you have remaining. While its ON, warping will be impossible and turning it OFF won't be so easy.\nAre you sure you want to turn it ON?",
-        "machineOverdrive": "Machine will go into overdrive,\nonce you will have some Warps.",
-        "machineInOverdrive": "Machine is now on overdrive.",
-        "machineUsualContinue": "Machine will continue to work as usual, for now."
+        "machineOverdrive": "Машина перейдёт в режим перегрузки\nкак только у вас появится несколько Варпов.",
+        "machineInOverdrive": "Машина теперь в режиме перегрузки.",
+        "machineUsualContinue": "Машина продолжит работать как обычно, пока что."
     },
     "importexport": {
-        "copiedSave": "Copied save to clipboard!",
-        "copiedFile": "Savefile copied to file!",
-        "exportFailed": "Export failed!",
+        "copiedSave": "Сохранение скопировано в буфер обмена!",
+        "copiedFile": "Сохранение скопировано в файл!",
+        "exportFailed": "Экспорт не удался!",
         "unableCopySave": "Unable to write the save to clipboard.",
         "reloadDeletePrompt": "The next confirmation is to delete the save data\nIf you do not want to delete it, cancel it",
         "resetPrompt": "Answer the question to confirm you'd like to reset: what is {{a}}+{{b}}? (Hint: {{sum}})",
@@ -3026,107 +3026,107 @@
         "unableImport": "Unable to import this file!",
         "loadTestInLive": "You are attempting to load a testing file in a non-testing version!",
         "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism2021\" or \"Khafra\" perchance?]",
-        "comeBackSoon": "Alright, come back soon!",
+        "comeBackSoon": "Ладно, до скорой встречи!",
         "noAddCodes": "You do not have an 'Add' code attempt! You will gain 1 in {{x}} seconds.",
         "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use?",
         "cancelAdd": "No worries, you didn't lose any of your uses! Come back later!",
-        "daily0Uses": "0 uses left. Next: end of the day.",
-        "daily1Uses": "1 use left. Next: end of the day.",
-        "add1Uses": "{{x}} use left.",
-        "add0Uses": "{{x}} uses left. Next: in {{y}} seconds.",
-        "addUses": "{{x}} uses left.",
-        "timeMultiplier": "{{x}} use(s) left. Multiplier: {{y}}x",
+        "daily0Uses": "Осталось 0 использований. Следующее: Конец дня.",
+        "daily1Uses": "Осталось 1 использование. Следующее: Конец дня.",
+        "add1Uses": "{{x}} использование осталось.",
+        "add0Uses": "{{x}} использований осталось. Следующее: через {{y}} секунд.",
+        "addUses": "{{x}} использований осталось.",
+        "timeMultiplier": "{{x}} использование(ий) осталось. Множитель: {{y}}x",
         "promocodes": {
-            "synergism2021": "Promo Code 'synergism2021' Applied! +25 Offerings, +50 Quarks",
-            "unsmith": "It's Spaghetti Time! [Awarded an achievement!!!]",
+            "synergism2021": "Промокод 'synergism2021' Применён! +25 Подношений, +50 Кварков",
+            "unsmith": "Время Спагетти! [Получено достижение!!!!]",
             "antismith": "Эй, а это разве не отсылка на Antimatter Dimensions? Тссс. [Получено достижение!!!]",
-            "khafra": "Khafra has blessed you with {{x}} Quarks!",
+            "khafra": "Khafra благословил вас {{x}} Кварками!",
             "daily": {
-                "message": "Thank you for playing today!\nThe Ant God rewards you with this gift:",
-                "message2": "Feeling especially generous, the Ant God has also given you free levels of the following Singularity upgrades:"
+                "message": "Спасибо что играли сегодня! \nМуравьиный Бог дарует вам подарок:",
+                "message2": "Ощущая себя особенно щедрым, Муравьиный Бог также даёт вам бесплатные уровни следующих улучшений Сингулярности:"
             },
             "add": {
-                "calculator3": "Thanks to PL-AT Ω you have also gained {{x}} real-life seconds to your Ascension Timer!",
+                "calculator3": "Благодаря ПЛ-АТ Ω вы также получаете {{x}} реальных секунд к вашему Таймеру Вознесения!",
                 "calculator5": "Thanks to PL-AT Γ you have additionally gained {{x}} real-life seconds to your GQ Export Timer!",
                 "calculator6": "Finally, thanks to PL-AT _ you have gained {{x}} seconds of Octeract generation!",
-                "calculatorSolution": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}? The answer is {{z}} according to your calculator.",
-                "calculatorPrompt": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}?",
-                "calculatorMaxed": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks! {{e}} {{f}} {{g}} {{h}} You have {{i}} uses of Add. You will gain 1 in {{j}} seconds.",
-                "freeLevel": "Moreover, gain {{x}} free levels of GQ1 and {{y}} free levels of GQ3!!!",
-                "cancelled": "No worries, you didn't lose any of your uses! Come back later!",
-                "reward": "You were awarded {{a}} Quarks! {{b}} {{c}} {{d}} You have {{e}} uses of Add. You will gain 1 in {{f}} seconds.",
-                "wrong": "You guessed {{w}}, but the answer was {{x}}. You have {{y}} uses of Add. You will gain 1 in {{z}} seconds."
+                "calculatorSolution": "За {{w}} Кварков или ничего: Что есть {{x}} + {{y}}? В соответствии с вашим калькулятором, ответ {{z}}.",
+                "calculatorPrompt": "За {{w}} Кварков или ничего: Что есть {{x}} + {{y}}?",
+                "calculatorMaxed": "Ваш калькулятор сам понял что {{a}} + {{b}} = {{c}}, так что вам было выдано {{d}} Кварков! {{e}} {{f}} {{g}} {{h}} У вас есть {{i}} использований Add. Вы получите одно через {{j}} секунд.",
+                "freeLevel": "Более того, получите {{x}} бесплатных уровней GQ1 и {{y}} бесплатных уровней GQ3!!!",
+                "cancelled": "Не волнуйтесь, вы не потеряли ни одного из ваших использований! Возвращайтесь позже!",
+                "reward": "Вам было присужено {{a}} Кварков! {{b}} {{c}} {{d}} У вас есть {{e}} использований Add. Вы получите 1 через {{f}} секунд.",
+                "wrong": "Вы сказали {{w}}, но ответ был {{x}}. У вас {{y}} использований Add. Вы получите 1 через {{z}} секунд."
             },
             "sub": {
-                "subbed": "Thanks for using the \"sub\" code! I've taken away {{x}} Quarks! :)",
-                "gave": "I gave you {{x}} Quarks so I could take {{y}} away."
+                "subbed": "Спасибо что использовали код \"sub\"! Я забрал {{x}} Кварков! :)",
+                "gave": "Я дал вам {{x}} Кварков дабы я мог забрать {{y}}."
             },
             "gamble": {
-                "wait": "Wait a little bit. We'll get back to you when you're ready to lose again.",
-                "prompt": "Are you sure? The house always wins!",
-                "cancelled": "Scared? You should be!",
-                "betPrompt": "How many Quarks are you putting up?",
-                "cheaters": "Due to cheaters, you can only bet 10k max.",
-                "won": "You won. The Syncasino offers you a grand total of 25% of the pot! [+{{x}} Quarks]",
-                "lost": "Try again... you can do it! [-{{x}} quarks]"
+                "wait": "Подождите немного. Мы вернёмся к вам, когда вы будете готовы снова проиграть.",
+                "prompt": "Вы уверены? Казино всегда выигрывает!",
+                "cancelled": "Напуганы? А должны быть!",
+                "betPrompt": "Как много Кварков вы ставите?",
+                "cheaters": "Из-за жуликов, вы можете поставить не больше 10к.",
+                "won": "Вы выиграли. Syncasino предлагает вам целые 25% от общей суммы! [+{{x}} Кварков]",
+                "lost": "Попробуйте снова... вы сможете сделать это! [-{{x}} кварков]"
             },
             "time": {
-                "wait": "If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.\n\nRegardless, you must wait at least 15 minutes between each use.",
+                "wait": "Если вы импортировали сохранение, вы не можете использовать этот код в течение 15 минут чтобы предотвратить читеров.\n\nВ любом случае, вы обязаны подождать хотя бы 15 минут между каждым использованием.",
                 "confirm": "Click the button within the next 15 seconds to test your luck! If you click within {{x}} ms of a randomly generated time, you will win a prize! This particular instance has a {{y}}x multiplier due to elapsed time between uses.",
-                "won": "You clicked at the right time! [+{{x}} Quarkies]",
-                "lost": "You didn't guess the right time, try again soon!"
+                "won": "Вы кликнули в нужный момент! [+{{x}} Кварков]",
+                "lost": "Вы не угадали верное время, попробуйте снова позже!"
             },
             "spoiler": {
                 "moreThan1": "You will gain {{x}} Octeracts (when they come out) every second, assuming you have them unlocked!",
                 "one": "You will gain an Octeract (when they come out) every {{x}} seconds, assuming you have them unlocked!"
             },
-            "invalid": "Your code is either invalid or already used. Try again!"
+            "invalid": "Ваш код либо недействителен или уже использован. Попробуйте снова!"
         }
     },
     "toggles": {
-        "percentBetweenInclusive": "Value must be a number between {{x}} and {{y}}, inclusive!",
-        "percentKeptAt": "Your percentage is kept at {{x}}%.",
+        "percentBetweenInclusive": "Значение должно быть число между {{x}} и {{y}} включительно!",
+        "percentKeptAt": "Ваш процент остался на {{x}}%.",
         "onAscensionHepteractsCraft": "Ладно. При Вознесении, {{x}}% ваших Гептерактов будут использованы для создания.",
         "autoUpgradeOn": "Авто Улучшения: [ON]",
         "autoUpgradeOff": "Авто Улучшения: [OFF]",
-        "upgradeMaxIfPossible": "Upgrade: MAX [if possible wow]",
-        "upgradeOneLevelWow": "Upgrade: 1 Level wow",
+        "upgradeMaxIfPossible": "Улучшить: МАКС. [если возможно вау]",
+        "upgradeOneLevelWow": "Улучшить: 1 Уровень вау",
         "saveOfferingsOn": "Не тратить Подношения [ON]",
         "saveOfferingsOff": "Не тратить Подношения [OFF]",
-        "modeTime": "Mode: TIME",
-        "modeAmount": "Mode: AMOUNT",
-        "modePercentage": "Mode: PERCENTAGE"
+        "modeTime": "Режим: ВРЕМЯ",
+        "modeAmount": "Режим: КОЛИЧЕСТВО",
+        "modePercentage": "Режим: ПРОЦЕНТ"
     },
     "main": {
-        "dataPersistent": "Data on this page is now persistent! If you do not know what this means, you can safely ignore it.",
-        "starRepo": "Please show your appreciation by giving the GitHub repo a star. ❤️ https://github.com/pseudo-corp/SynergismOfficial",
-        "transferredFromLZ": "Transferred save to new format successfully!",
+        "dataPersistent": "Данные на этой странице теперь сохраняются! Если вы не знаете, что это значит, вы можете спокойно игнорировать это.",
+        "starRepo": "Пожалуйста, выразите свою признательность, поставив звезду на GitHub. ❤️ https://github.com/pseudo-corp/SynergismOfficial",
+        "transferredFromLZ": "Сохранение успешно конвертировано в новый формат!",
         "allCorruptionsZero": "Все Порчи были установлены на Ноль. Эффект вступит в силу при следующем Вознесении.",
-        "corruptionLoadoutApplied": "Corruption Loadout {{x}} \"{{y}}\" has been applied. This will take effect on the next Ascension.",
+        "corruptionLoadoutApplied": "Заготовка Порчи {{x}} \"{{y}}\" была применена. Эффект вступит в силу в следующем Вознесении.",
         "ascendPrompt": "При вознесении, все строения, уровни рун [НЕ ЛИМИТ!], талисманы, большинство исследований и муравейник будут сброшены. При этом, вы получите Кубы Силы. Продолжить?",
-        "reincarnatePrompt": "Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]",
+        "reincarnatePrompt": "Реинкарнирование сбросит ВСЁ, но в обмен вы получите невероятно могущественные Частицы и разблокируете очень мощные улучшение и новые функции. Хотите ли вы Реинкарнировать? [Сообщение можно отключить в настройках.]",
         "transcendPrompt": "Преобразование сбросит ваши монеты и престижные улучшения, производство монет и кристаллов И алмазы. Первое преобразование открывает новые функции. Преобразовать? [Вы можете включить/выключить это сообщение в настройках.]",
         "prestigePrompt": "Престиж сбросит улучшения монет, производителей монет И кристаллов. Первый Престиж открывает новые возможности. Хотите ли вы выполнить Престиж? [Это сообщение переключаемо в настройках.]",
         "welcomeToSingularity": "Добро пожаловать в Сингулярность #{{x}}. Вы вернулись на знакомую территорию, но что-то кажется неправильным.",
-        "singularityCancelled": "If you decide to change your mind, let me know. -Ant God",
-        "singularityMessage1": "You have reached the end of the game, on Singularity #{{x}}. Platonic and the Ant God are proud of you.",
-        "singularityMessage2": "You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.",
-        "singularityMessage3": "You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.",
-        "singularityMessage4": "Start anew, and enter Singularity #{{x}}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain {{y}} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by {{z}}% due to patreon bonus!].",
-        "singularityMessage5": "However, all your past accomplishments are gone! ALL Challenges, Refundable Shop upgrades, Upgrade Tab, Runes, All Cube upgrades, All Cube Openings, Hepteracts (Except for your Quark Hepteracts), Achievements will be wiped clean.",
-        "singularityConfirm0": "Do you wish to start singularity #{{x}}? Your next universe is harder but you will gain {{y}} Golden Quarks.",
-        "singularityConfirm1": "So, what do you say? Do you wish to enter the Singularity?",
-        "singularityConfirm2": "Are you sure you wish to enter the Singularity?",
-        "singularityConfirm3": "Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.",
+        "singularityCancelled": "Если измените своё решение, дайте мне знать. -Муравьиный Бог",
+        "singularityMessage1": "В Сингулярности #{{x}}, вы достигли конца игры. Platonic и Муравьиный Бог гордятся вами.",
+        "singularityMessage2": "Вы можете почивать на ваших лаврах, и считать игру 'пройденной', или же сделать кое-что более интересное.",
+        "singularityMessage3": "Вы слишком могущественны для текущей вселенной. Мультивселенная Synergism действительно безгранична, но существуют ещё более сложные по сравнению с вашей параллельные вселенные.",
+        "singularityMessage4": "Начните заново, и войдите в Сингулярность #{{x}}. Ваша следующая вселенная будет сложнее нынешней, но вы разблокируете постоянный бонус +10% Кварков, +10% Счётчика Вознесений, а также получите {{y}} Золотых Кварков, которые можно потратить на совершенно новые эндгейм улучшения [Больше на {{z}}% благодаря бонусу Patreon!].",
+        "singularityMessage5": "Однако, все ваши предыдущие свершения пропадут! ВСЕ Испытания, Возвращаемые улучшения Магазина, Вкладка Улучшений, Руны, Все Улучшения Кубов, Все Открытия Кубов, Гептеракты (Кроме вашего Гептеракта Кварков) и Достижения будут стёрты начисто.",
+        "singularityConfirm0": "Вы хотите начать сингулярность #{{x}}? Ваша следующая вселенная сложнее, но вы получите {{y}} Золотых Кварков.",
+        "singularityConfirm1": "Итак, что скажете? Хотите ли вы войти в Сингулярность?",
+        "singularityConfirm2": "Вы уверены, что хотите войти в Сингулярность?",
+        "singularityConfirm3": "Вы ТОЧНО УВЕРЕНЫ? Решение необратимо (без старого сохранения)! Подтвердите в последний раз, чтобы закрепить ваше решение.",
         "noAntiquity": "Хмпф. Пожалуйста, возвращайтесь с Антиквариатом. Благодарю. - Муравьиный Бог",
-        "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.",
-        "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
+        "insideSingularityChallenge": "Кукузнец считает, что вы в Испытании Сингулярности. Вы можете покинуть его, кликнув на иконку испытания во вкладке Сингулярность.",
+        "gameBeat": "Что ж. Кажется, что вы достигли ока Сингулярности. Я доволен. Это также означает, что отсюда больше некуда идти. По крайней мере, пока высшие силы не расширят ваше приключение.",
         "exitAscensionChallenge": "Вы точно уверены, что хотите закончить Испытание Вознесения? Вам потребуется завершить испытание 10 снова, прежде чем вы сможете начать испытание!",
-        "buyResearch3x11": "[LOCKED - Buy Research 3x11]"
+        "buyResearch3x11": "[ЗАБЛОКИРОВАНО - Купите Исследование 3x11]"
     },
     "history": {
-        "perSecondOn": "Per second: ON",
-        "perSecondOff": "Per second: OFF"
+        "perSecondOn": "В секунду: ВКЛ",
+        "perSecondOff": "В секунду: ВЫКЛ"
     },
     "event": {
         "aprilFools": {
