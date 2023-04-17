@@ -2133,7 +2133,7 @@
             "66": "Эффект: В описании сказано достаточно!",
             "67": "Эффект: Производитель частиц первого уровня в {{x}}x раз продуктивнее.",
             "68": "Эффект: По какой-то причине, соблюдение налоговых законов даёт вам {{x}} бесплатных Множителей.",
-            "69": "Effect: Cosmic Magnetics will allow you to gain {{x}}x as much Obtainium reincarnating x{{y}} automatic gain.",
+            "69": "Эффект: Космический Магнетизм позволяет вам получать в {{x}}х раз больше Обтаниума от реинкарнаций и х{{y}} автоматического.",
             "70": "Эффект: Сжатое время заставляет ваши игровые таймеры идти на {{x}}% быстрее.",
             "71": "Эффект: Всё уже написано. Смотри выше!",
             "72": "Эффект: Множитель Обтаниума: x{{x}}",
@@ -2484,7 +2484,7 @@
                 "effect": "Синергизм Простоты Окто-Гептерактов {{n}} активен."
             },
             "octeractCorruption": {
-                "name": "EXTRA CHONKY Corruptions",
+                "name": "ЭКСТРА ПЛОТНЫЕ Порчи",
                 "description": "Добавляет один уровень порчей к пределу. Кукузнец одобряет.",
                 "effect": "Лимит уровня Порчи увеличен на {{n}}"
             },
@@ -2504,12 +2504,12 @@
                 "effect": "Код 'ежедневный' даёт +{{n}} бесплатных улучшений Сингулярности за использование."
             },
             "octeractImprovedDaily2": {
-                "name": "CHONKERER Daily Code",
+                "name": "ЕЩЁ БОЛЕЕ УПИТАННЫЙ Ежедневный Код",
                 "description": "Derpsmith ввёл умножение гиперскорости. +1% к бесплатным улучшениям Сингулярности от Daily каждый день!",
                 "effect": "Код `daily` приносит +{{n}}% бесплантых улучшений Сингулярности при использовании."
             },
             "octeractImprovedDaily3": {
-                "name": "CHONKEREREST Daily Code",
+                "name": "ПУХЛЕЙШИЙ Ежедневный Код",
                 "description": "Оно никогда не удовлетворит Derpsmith. +1 +0.5% к бесплатным улучшениям Сингулярности каждый день от Daily!",
                 "effect": "Код `daily` приносит +{{n}} бесплатных улучшений Сингулярности при использовании."
             },
@@ -2535,8 +2535,8 @@
             },
             "octeractImprovedFree": {
                 "name": "Вау! Я хочу, чтобы бесплатные улучшения стали лучше.",
-                "description": "Singularity Upgrade level is (paid level * free levels)^0.6 instead of being added.",
-                "effect": "Singularity Upgrade free levels are {{n}} being powered!"
+                "description": "Вместо добавления, уровни Улучшений Сингулярности теперь (купленные уровни * бесплатные уровни)^0.6.",
+                "effect": "Бесплатные уровни Улучшений Сингулярности {{n}} усилены!"
             },
             "octeractImprovedFree2": {
                 "name": "Вау! Бесплатные улучшения всё ещё отстой.",
@@ -2549,7 +2549,7 @@
                 "effect": "+{{n}} к экспоненте первого улучшения"
             },
             "octeractImprovedFree4": {
-                "name": "Coupon of Ultimate Penniless Derpsmiths",
+                "name": "Купон Абсолютной Нищеты Кукузнеца",
                 "description": "Каждый уровень прибавляет 0.001 к экспоненте бесплатных улучшений, а первый уровень добавляет ещё 0.01!",
                 "effect": "Экспонент первого улучшения +{{n}}"
             },
@@ -2664,7 +2664,7 @@
             }
         },
         "blessings": {
-            "buyUpTo": "Buy up to <<var(--orchid-text-color);|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]",
+            "buyUpTo": "Купить до <<var(--orchid-text-color);|{{amount}}>> Уровней за покупку, если возможно. [Введите для переключения]",
             "autoRuneOn": "Авто Руны: ВКЛ",
             "autoRuneOff": "Авто Руны: ВЫКЛ",
             "allIncreaseLevel": "Повысить Уровень ВСЕХ",
@@ -2677,7 +2677,7 @@
                 "3": "Задержка Стоимости Усилений Ускорителей",
                 "4": "Обтаниум --> Множ. Муравьёв"
             },
-            "increaseLevel": "Увеличить уровень на <orchid|{{amount}}> [Стоимость: <orchid|{{offerings}}> Пожертвований]"
+            "increaseLevel": "Увеличить уровень на <<orchid|{{amount}}>> [Стоимость: <<orchid|{{offerings}}>> Пожертвований]"
         },
         "spirits": {
             "spiritLevel": "Уровень Духа: <<orchid|{{amount}}>>",
@@ -2689,7 +2689,7 @@
                 "3": "x Обтаниум",
                 "4": "% сильнее эффект Исследования 4x9"
             },
-            "buyUpTo": "Buy up to <<var(--orchid-text-color)|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]"
+            "buyUpTo": "Купить до <<var(--orchid-text-color);|{{amount}}>> Уровней за покупку, если возможно. [Введите для переключения]"
         },
         "perOfferingText": "+{{exp}} Опыта за Пожертвование, {{x}} [{{y}}] Пожертвований чтобы повысить уровень один раз.",
         "runeEffectSummaryTitle": "=====СПИСОК ЭФФЕКТОВ РУН=====",
@@ -2731,7 +2731,7 @@
         "toString": {
             "canEnter": "Может быть начато с наивысшей Сингулярностью {{unlockSing}} [Ваша наивысшая: {{highestSing}}]",
             "tiersCompleted": "Этапов завершено",
-            "currentTierSingularity": "The current tier of this challenge takes place in Singularity"
+            "currentTierSingularity": "Текущий уровень этого испытания происходит в Сингулярности"
         },
         "data": {
             "noSingularityUpgrades": {
@@ -2755,7 +2755,7 @@
                 "rewardDescription": "Каждое выполнение даёт 0.1% Скорости Вознесения за выполнение, за цифру в вашем Счётчике Вознесений. Первое выполнение удваивает вместимость всех гептерактов. Последнее выполнение добавляет новый калькулятор в магазин!"
             }
         },
-        "intro": "Do you have what it takes to earn EXALT from Ant God?"
+        "intro": "Есть ли у вас всё необходимое, чтобы заслужить ВОЗВЫШЕНИЯ от Муравьиного Бога?"
     },
     "settings": {
         "confirmationTitle": "Настройки Подтверждения",
@@ -2932,7 +2932,7 @@
                     "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Подношений."
                 },
                 "quark": {
-                    "effect": "One pound, two pound fish, fishy grant +0.05% Quarks per Quark Hepteract fish fish.",
+                    "effect": "По щучьему веленью, по моему хотенью, даёт +0.05% Кварков за каждый Гептеракт Кварков.",
                     "currentEffect": "Текущий эффект: Кварки +{{x}}%",
                     "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Кварков."
                 },
@@ -2966,51 +2966,51 @@
     },
     "dynamicUpgrades": {
         "validation": {
-            "setPurchaseAmount": "Set maximum purchase amount per click for the {{x}} upgrade. Type -1 to set to MAX by default.",
-            "toggleKept": "Toggle kept at {{x}}.",
+            "setPurchaseAmount": "Установите максимальную сумму покупки за клик для улучшения {{x}}. Введите -1, чтобы установить МАКС по умолчанию.",
+            "toggleKept": "Переключатель остаётся на {{x}}.",
             "onlyNegativeOne": "Единственное допустимое негативное число для ввода это -1.",
-            "notZero": "You cannot set the toggle to 0."
+            "notZero": "Вы не можете установить переключатель на 0."
         },
-        "toggleMax": "Your toggle is now set to MAX",
-        "toggle": "Your toggle is now set to {{x}}"
+        "toggleMax": "Ваш переключатель теперь установлен на MAX",
+        "toggle": "Ваш переключатель теперь установлен на {{x}}"
     },
     "hepteracts": {
         "unlockedCraft": "Поздравляем. Вы разблокировали способность создавать {{x}} в кузнице гептерактов!",
         "notUnlocked": "Это ещё не разблокиравно, поэтому вы не может создать этот предмет!",
         "reachedCapacity": "Вы достигли текущего лимита в {{x}}. Пожалуйста, расширьте, чтобы создать больше.",
-        "craftMax": "This will attempt to craft as many as possible. \nYou can craft up to {{x}} ({{y}}%). Are you sure?",
-        "executionFailed": "Execution failed: material could not be calculated.",
-        "craft": "How many would you like to craft? \nYou can buy up to {{x}} ({{y}}%) amount.",
+        "craftMax": "Это попытается создать столько, сколько возможно. \nВы можете создать до {{x}} ({{y}}%). Вы уверены?",
+        "executionFailed": "Сбой исполнения: не удалось рассчитать материал.",
+        "craft": "Сколько вы хотите создать? \nВы можете купить до {{x}} ({{y}}%).",
         "cancelled": "Ладно, может в другой раз.",
-        "notEnough": "Insufficient inventory to expand.",
+        "notEnough": "Недостаточно запасов для расширения.",
         "craftedHepteracts": "Вы успешно создали {{x}} гептерактов.",
-        "craftedHepteractsMax": "You have successfully crafted {{x}} hepteracts. If this is less than your input, you either hit the inventory limit or you had insufficient resources.",
-        "expandPrompt": "This will reduce your balance by {{x}}, but capacity will increase from {{y}} to {{z}} [Expansion Multiplier: {{a}}]. Agree to the terms and conditions and stuff?",
-        "doubleSpent": "Something already modified your balance or cap, try again!",
-        "expandedInventory": "Successfully expanded your inventory. You can now fit {{x}}.",
-        "orbEffect": "Orb Effect: Opening Cubes gives {{x}}% more Quarks.",
+        "craftedHepteractsMax": "Вы успешно создали {{x}} гептерактов. Если это меньше, чем вы задали, вы либо достигли лимит запасов, либо у вас недостаточно ресурсов.",
+        "expandPrompt": "Это уменьшит ваш баланс на {{x}}, но емкость увеличится с {{y}} до {{z}} [Множитель расширения: {{a}}]. Согласиться с условиями и положениями и остальным?",
+        "doubleSpent": "Что-то уже изменило ваш баланс или максимум, попробуйте снова!",
+        "expandedInventory": "Инвентарь успешно расширен. Теперь вы можете поместить {{x}}.",
+        "orbEffect": "Эффект Сферы: Открытие Кубов дает на {{x}}% больше Кварков.",
         "orbsPurchasedToday": "Сфер Куплено Сегодня: {{x}}.",
-        "amalgamate": "You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]",
+        "amalgamate": "Здесь вы можете объединить ваши Сферы Изобильного Потока. [ПРИМЕЧАНИЕ: они истекут в конце текущего дня]",
         "cost250k": "Стоимость: 250,000 Гептерактов за одну Сферу Изобильного Потока",
-        "craftMaxOrbs": "This will attempt to buy as many orbs as possible. \nYou can buy up to {{x}} with your hepteracts. Are you sure?",
+        "craftMaxOrbs": "Будет куплено столько сфер, сколько возможно. \nС вашими гептерактами, вы можете купить до {{x}}. Вы уверены?",
         "hepteractInput": "Как много Сфер вы хотите купить?\n С вашими гептерактами, вы можете купить до {{x}}.",
         "gainedPowder": "Благодаря вашим улучшениям магазина, вы также мгновенно получили {{x}} порошка.",
-        "purchasedOrbs": "You have purchased {{x}} Overflux Orbs [+{{y}}% to effect]. {{z}} Enjoy!",
-        "allCubeGain": "ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative]",
-        "allCubeGainExtended": "ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative], Ascension Count +{{z}}%, Tesseract Building Production x{{a}} [From Platonic Upgrade 4x1]",
+        "purchasedOrbs": "Вы купили {{x}} Сфер Изобильного Потока [+{{y}}% к эффекту]. {{z}} Наслаждайтесь!",
+        "allCubeGain": "Прирост ВСЕХ Кубов +{{x}}% [Умножающийся], +{{y}}% Кварков [Умножающийся]",
+        "allCubeGainExtended": "Прирост ВСЕХ Кубов +{{x}}% [Умножающийся], +{{y}}% Кварков [Умножающийся], Счётчик Вознесения +{{z}}%, Производство Строений Тессерактов x{{a}} [От Платоново Улучшения 4x1]",
         "powderEffect": "Эффект Порошка: {{x}}",
-        "powderLumps": "You have {{x}} lumps of Overflux Powder.",
-        "expiredOrbs": "Expired Overflux Orbs become powder at a rate of {{x}} Orbs per powder lump!",
-        "dayWarpsRemaining": "Day Warps remaining today: {{x}}",
-        "warpImpossible": "Warping is impossible (you get multiplier to Quarks instead)",
+        "powderLumps": "У вас {{x}} комков Порошка Изобильного Потока.",
+        "expiredOrbs": "Просроченные Сферы Изобильного Потока становятся порошком в отношении {{x}} Сфер за комок порошка!",
+        "dayWarpsRemaining": "Варпов Дня осталось сегодня: {{x}}",
+        "warpImpossible": "Варп невозможен! (вместо этого активен множитель Кварков)",
         "machineCooldown": "Извините, машина перезаряжается.",
-        "atleastPowder": "Sorry, but you need 25 powder to operate the warp machine.",
+        "atleastPowder": "Извините, но вам нужно 25 порошка для работы варп-машины.",
         "stumbleMachine": "Вы наткнулись на загадочную машину. В прикреплённой к ней записке написано, что вы можете сбросить ежедневное открытие Кубов за 25 Порошка. Однако, это работает только один раз в реальный день. Вы в деле?",
-        "walkAwayMachine": "You walk away from the machine, powder intact.",
+        "walkAwayMachine": "Вы отходите от машины, порошок не потрачен.",
         "useMachine": "После использования машины, ваши кубы ощущаются чуть более полезными. Счётчик ежедневного открытия кубов был сброшен! [-25 Порошка]",
         "useAllWarpsPrompt": "Переключение на ВЫКЛ использует все ваши оставшиеся Варпы (без совершения Варпа).\nВы уверены?",
         "machineDidNotConsume": "Машина не использовала ваши Варпы.",
-        "boostQuarksPrompt": "This machine will now be able to boost your Quarks gained from opening Cubes, based on how many Warps you have remaining. While its ON, warping will be impossible and turning it OFF won't be so easy.\nAre you sure you want to turn it ON?",
+        "boostQuarksPrompt": "Теперь машина может увеличить количество Кварков, получаемых от открытия Кубов, в зависимости от оставшихся Варпов. Пока эта опция ВКЛЮЧЕНА, варп будет невозможен, и ОТКЛЮЧЕНИЕ не будет лёгким. \nВы уверены, что хотите ВКЛЮЧИТЬ это?",
         "machineOverdrive": "Машина перейдёт в режим перегрузки\nкак только у вас появится несколько Варпов.",
         "machineInOverdrive": "Машина теперь в режиме перегрузки.",
         "machineUsualContinue": "Машина продолжит работать как обычно, пока что."
@@ -3019,17 +3019,17 @@
         "copiedSave": "Сохранение скопировано в буфер обмена!",
         "copiedFile": "Сохранение скопировано в файл!",
         "exportFailed": "Экспорт не удался!",
-        "unableCopySave": "Unable to write the save to clipboard.",
-        "reloadDeletePrompt": "The next confirmation is to delete the save data\nIf you do not want to delete it, cancel it",
-        "resetPrompt": "Answer the question to confirm you'd like to reset: what is {{a}}+{{b}}? (Hint: {{sum}})",
-        "wrongAnswer": "Answer was wrong, not resetting!",
-        "unableImport": "Unable to import this file!",
-        "loadTestInLive": "You are attempting to load a testing file in a non-testing version!",
-        "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism2021\" or \"Khafra\" perchance?]",
+        "unableCopySave": "Не удаётся записать сохранение в буфер обмена.",
+        "reloadDeletePrompt": "Следующее подтверждение удалит данные сохранения\nЕсли вы не хотите их удалять, отмените это",
+        "resetPrompt": "Чтобы подтвердить, что вы хотите сбросить прогресс, ответьте на вопрос: чему равно {{a}}+{{b}}? (Подсказка: {{sum}})",
+        "wrongAnswer": "Ответ неверный, сброс отменён!",
+        "unableImport": "Не удалось импортировать этот файл!",
+        "loadTestInLive": "Вы пытаетесь загрузить тестовый файл в не тестовую версию!",
+        "promocodePrompt": "У вас есть код? Отлично! Введите его (РеГиСтР ВаЖеН). \n [Примечание: это для событий и некоторый всегда активных кодов. \nМогу ли я посоветовать вам ввести \"synergism2021\" или \"Khafra\"?]",
         "comeBackSoon": "Ладно, до скорой встречи!",
-        "noAddCodes": "You do not have an 'Add' code attempt! You will gain 1 in {{x}} seconds.",
-        "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use?",
-        "cancelAdd": "No worries, you didn't lose any of your uses! Come back later!",
+        "noAddCodes": "У вас нет попыток кода 'Add'! Вы получите 1 через {{x}} секунд.",
+        "useXAdds": "Вы можете использовать до {{x}} попыток одновременно. Сколько бы вы хотели использовать?",
+        "cancelAdd": "Не волнуйтесь, вы не потеряли ни одного из ваших использований! Возвращайтесь позже!",
         "daily0Uses": "Осталось 0 использований. Следующее: Конец дня.",
         "daily1Uses": "Осталось 1 использование. Следующее: Конец дня.",
         "add1Uses": "{{x}} использование осталось.",
@@ -3047,8 +3047,8 @@
             },
             "add": {
                 "calculator3": "Благодаря ПЛ-АТ Ω вы также получаете {{x}} реальных секунд к вашему Таймеру Вознесения!",
-                "calculator5": "Thanks to PL-AT Γ you have additionally gained {{x}} real-life seconds to your GQ Export Timer!",
-                "calculator6": "Finally, thanks to PL-AT _ you have gained {{x}} seconds of Octeract generation!",
+                "calculator5": "Благодаря PL-AT Γ вы также получаете {{x}} реальных секунд к вашему Таймеру Экспорта ЗК!",
+                "calculator6": "Наконец, благодаря PL-AT _ вы получаете {{x}} секунд к созданию Октерактов!",
                 "calculatorSolution": "За {{w}} Кварков или ничего: Что есть {{x}} + {{y}}? В соответствии с вашим калькулятором, ответ {{z}}.",
                 "calculatorPrompt": "За {{w}} Кварков или ничего: Что есть {{x}} + {{y}}?",
                 "calculatorMaxed": "Ваш калькулятор сам понял что {{a}} + {{b}} = {{c}}, так что вам было выдано {{d}} Кварков! {{e}} {{f}} {{g}} {{h}} У вас есть {{i}} использований Add. Вы получите одно через {{j}} секунд.",
@@ -3072,13 +3072,13 @@
             },
             "time": {
                 "wait": "Если вы импортировали сохранение, вы не можете использовать этот код в течение 15 минут чтобы предотвратить читеров.\n\nВ любом случае, вы обязаны подождать хотя бы 15 минут между каждым использованием.",
-                "confirm": "Click the button within the next 15 seconds to test your luck! If you click within {{x}} ms of a randomly generated time, you will win a prize! This particular instance has a {{y}}x multiplier due to elapsed time between uses.",
+                "confirm": "Нажмите на кнопку в течение следующих 15 секунд, чтобы испытать свою удачу! Если вы нажмёте в течение {{x}} мс после случайно сгенерированного времени, вы выиграете приз! Этот конкретный экземпляр имеет множитель {{y}}x из-за прошедшего времени между использованием.",
                 "won": "Вы кликнули в нужный момент! [+{{x}} Кварков]",
                 "lost": "Вы не угадали верное время, попробуйте снова позже!"
             },
             "spoiler": {
-                "moreThan1": "You will gain {{x}} Octeracts (when they come out) every second, assuming you have them unlocked!",
-                "one": "You will gain an Octeract (when they come out) every {{x}} seconds, assuming you have them unlocked!"
+                "moreThan1": "Вы будете получать {{x}} Октерактов (когда они появятся) каждую секунду, при условии, что они у вас разблокированы!",
+                "one": "Вы будете получать Октеракт (когда они появятся) каждые {{x}} секунд, при условии, что они у вас разблокированы!"
             },
             "invalid": "Ваш код либо недействителен или уже использован. Попробуйте снова!"
         }
