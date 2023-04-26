@@ -2790,6 +2790,10 @@ p#ascendHotKeys {
     background-color: var(--blessings-hover-color);
 }
 
+.runeButtonsAvailable > span {
+    pointer-events: none;
+}
+
 #buyRuneBlessingInput {
     min-width: 100px;
     width: 5em;
