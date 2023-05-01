@@ -1915,6 +1915,7 @@ const FormatList = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 
 
 // Bad browsers (like Safari) only recently implemented this.
 //
+// eslint-disable-next-line
 const supportsFormatToParts = typeof (Intl.NumberFormat.prototype).formatToParts === 'function'
 
 // In some browsers, this will return an empty-1 length array (?), causing a "TypeError: Cannot read property 'value' of undefined"
