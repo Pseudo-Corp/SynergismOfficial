@@ -2104,6 +2104,8 @@ p#reincarnatehotkeys {
 
 .antSacrificeHeader {
     margin-bottom: 4px;
+    overflow-wrap: break-word;
+    white-space: initial;
 }
 
 #antSacrificeTable {
