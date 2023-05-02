@@ -2,8 +2,8 @@
     "testing": {
         "saveInLive": "Les sauvegardes ne peuvent pas être utilisées en direct  !",
         "saveInLive2": "Vous ne pouvez plus charger cette sauvegarde !",
-        "errorSaving": "Une erreur à empêcher la sauvegarde du fichier.",
-        "gameSaved": "Jeu sauvegardé avec succès !"
+        "errorSaving": "Une erreur a empêché la sauvegarde du fichier.",
+        "gameSaved": "Partie sauvegardée !"
     },
     "save": {
         "loadFailed": "Incapable de charger la sauvegarde.",
@@ -13,12 +13,12 @@
         "descriptions": {
             "1": "[{{number}}] Un Employé Fidèle : Embauchez votre premier Ouvrier.",
             "2": "[{{number}}] Petite entreprise : Embauchez 10 Ouvriers.",
-            "3": "[{{number}}] Là, On parle ! On est enfin en synergie ! : Embauchez 100 Ouvriers.",
-            "4": "[{{number}}] Ça devient répétitif : Embauchez 1 000 ouvriers.",
+            "3": "[{{number}}] Ça c'est de la synergie ! : Embauchez 100 Ouvriers.",
+            "4": "[{{number}}] Proche du licenciement : Embauchez 1 000 ouvriers.",
             "5": "[{{number}}] Un rouage dans la machine : Embauchez 5000 Ouvriers.",
             "6": "[{{number}}] Un clou dans la machine : Embauchez 10 000 Ouvriers.",
-            "7": "[{{number}}] Sommes-nous mêmes encore dans la machine ? : Embauchez 20 000 Ouvriers.",
-            "8": "[{{number}}] STONKS!!! : Achetez 1 Investissement.",
+            "7": "[{{number}}] Qu'est-ce que la machine ? : Embauchez 20 000 Ouvriers.",
+            "8": "[{{number}}] STONKS !!! : Achetez 1 Investissement.",
             "9": "[{{number}}] Planifier à l'avance : Achetez 10 Investissements.",
             "10": "[{{number}}] Délit d'Initié : Achetez 100 Investissements.",
             "11": "[{{number}}] Délit de non-initié ? : Achetez 1 000 investissements.",
@@ -36,7 +36,7 @@
             "23": "[{{number}}] Maintenant en compétition ! : Établir 10 Ateliers monétaires.",
             "24": "[{{number}}] La contrefaçon avec style ! : Établir 100 Ateliers monétaires.",
             "25": "[{{number}}] Pourquoi avons-nous besoin de tout ça ? : Établir 1 000 Ateliers monétaires.",
-            "26": "[{{number}}] Nan vraiment, pourquoi?? : Établir 5 000 Hôtels des Monnaies.",
+            "26": "[{{number}}] Non vraiment, pourquoi?? : Établir 5 000 Ateliers Monétaires.",
             "27": "[{{number}}] Personne ne va nous arrêter ??? : Établir 10 000 Ateliers monétaires.",
             "28": "[{{number}}] Eh bien, il est temps de battre la monnaie : Établir 20 000 Ateliers monétaires.",
             "29": "[{{number}}] L'Apprenti de Newton : Créer 1 Alchimie.",
