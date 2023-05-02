@@ -410,7 +410,7 @@ export const player: Player = {
 
   // create a Map with keys defaulting to false
   codes: new Map(
-    Array.from({ length: 40 }, (_, i) => [i + 1, false])
+    Array.from({ length: 46 }, (_, i) => [i + 1, false])
   ),
 
   loaded1009: true,

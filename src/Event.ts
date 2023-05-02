@@ -56,25 +56,25 @@ const events: Record<string, HolidayData> = {
   },
   // Last active event
   last: {
-    name: 'April Showers',
-    color: 'turquoise',
-    url: 'https://youtu.be/eKpPxWAauOI',
+    name: 'Synergism 3: More Synergies',
+    color: 'white',
+    url: 'https://www.youtube.com/watch?v=M8JO51TLGgg',
     everyYear: false,
-    start: '03/29/2022 00:00:00',
-    end: '04/03/2023 23:59:59',
+    start: '05/01/2023 00:00:00',
+    end: '05/07/2023 23:59:59',
     notice: 20,
     event: true,
     buffs: {
-      quark: 0.25,
-      globalSpeed: 0.2,
-      ascensionSpeed: 0,
-      antSacrifice: 0.2,
-      offering: 0.25,
-      obtainium: 0.25,
-      octeract: 0.25,
-      powderConversion: 0,
-      goldenQuark: 0.1,
-      oneMind: 0.025
+      quark: 0.33,
+      globalSpeed: 0.33,
+      ascensionSpeed: 0.33,
+      antSacrifice: 0.33,
+      offering: 0.33,
+      obtainium: 0.33,
+      octeract: 0.33,
+      powderConversion: 0.33,
+      goldenQuark: 0,
+      oneMind: 0.033
     }
   },
   khafra: {

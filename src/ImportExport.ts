@@ -327,13 +327,13 @@ export const promocodes = async (input: string | null, amount?: number) => {
   if (input === null) {
     return Alert(i18next.t('importexport.comeBackSoon'))
   }
-  if (input === 'derpderp' && !player.codes.get(45) && G.isEvent && getEvent().name === 'Derpmas 2022: Gift of Gamebreak!') {
+  if (input === 'synergism2023' && !player.codes.get(46) && G.isEvent && getEvent().name === 'Synergism 3: More Synergies') {
 
     if (!player.dailyCodeUsed) {
       return Alert('This event code gives you another usage of code \'daily\'. Please use that code and try this event code again.')
     }
 
-    player.codes.set(45, true)
+    player.codes.set(46, true)
     player.quarkstimer = quarkHandler().maxTime
     player.goldenQuarksTimer = 3600 * 24
     addTimers('ascension', 4 * 3600)
@@ -352,7 +352,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       }
     }
 
-    return Alert(`Happy New Year 2023!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! Your daily code has also been reset for you.
+    return Alert(`Happy 3rd anniversary of Synergism!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! Your daily code has also been reset for you.
                       ${(player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free, and (to a limit) automatically filled the extra amount! What a generous, handsome fella.' : ''}
                       ${(player.highestSingularityCount > 0) ? 'You were also given free levels of GQ1-3!' : ''} 
                       ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Accumulator!': ''}`)
