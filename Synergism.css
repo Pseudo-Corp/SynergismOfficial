@@ -68,7 +68,10 @@ body {
     --crimson-text-color: crimson;
     --gray-text-color: gray;
     --green-text-color: green;
+    --lime-text-color: lime;
     --lightseagreen-text-color: lightseagreen;
+    --amber-text-color: #ffbf00;
+    --lightgoldenrodyellow-text-color: lightgoldenrodyellow;
     --header-color: var(--bg-color);
     --bg-color: #111;
     --alert-color: #141414;
@@ -116,6 +119,7 @@ body.loading {
 
 .mainText { color: var(--text-color); }
 .greenText { color: var(--green-text-color); }
+.limeText { color: var(--lime-text-color); }
 .lightseagreenText { color: var(--lightseagreen-text-color); }
 .crimsonText { color: var(--crimson-text-color); }
 .redText { color: var(--red-text-color); }
@@ -124,6 +128,8 @@ body.loading {
 .orchidText { color: var(--orchid-text-color); }
 .darkorchidText { color: var(--darkorchid-text-color); }
 .darkcyanText { color: var(--darkcyan-text-color); }
+.amberText { color: var(--amber-text-color); }
+.lightyellowText { color: var(--lightgoldenrodyellow-text-color); }
 
 .boxColor {
     border: 3px solid;
@@ -1906,7 +1912,8 @@ p#reincarnatehotkeys {
 #quarksDisplay,
 #goldenQuarksDisplay,
 #octeractsDisplay,
-#totalOcteractsDisplay {
+#totalOcteractsDisplay,
+#ambrosiaDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1930,6 +1937,11 @@ p#reincarnatehotkeys {
 }
 
 #octeractAmount {
+    font-size: 1.2em;
+    margin-left: 5px;
+}
+
+#ambrosiaAmount {
     font-size: 1.2em;
     margin-left: 5px;
 }

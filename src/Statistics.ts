@@ -25,7 +25,9 @@ const associated = new Map<string, string>([
   ['kOctMult', 'octeractMultiplierStats'],
   ['kASCMult', 'ascensionSpeedMultiplierStats'],
   ['kGQMult', 'goldenQuarkMultiplierStats'],
-  ['kAddStats', 'addCodeStats']
+  ['kAddStats', 'addCodeStats'],
+  ['kAmbrosiaLuck', 'ambrosiaLuckStats'],
+  ['kAmbrosiaGenMult', 'ambrosiaGenerationStats']
 ])
 
 export const displayStats = (btn: HTMLElement) => {
@@ -76,6 +78,12 @@ export const loadStatisticsUpdate = () => {
         break
       case 'addCodeStats':
         loadAddCodeModifiersAndEffects()
+        break
+      case 'ambrosiaLuckStats':
+        loadStatisticsAmbrosiaLuck()
+        break
+      case 'ambrosiaGenerationStats':
+        loadStatisticsAmbrosiaGeneration()
         break
       default:
         loadStatisticsCubeMultipliers()
@@ -570,6 +578,39 @@ export const loadAddCodeModifiersAndEffects = () => {
   DOMCacheGetOrSet('stat+eff4').childNodes[0].textContent = 'PL-AT _ - bonus octeract time: '
   DOMCacheGetOrSet('s+eff4').textContent = `+${format(addEffectStats.octeractTime, 2)} sec` // does it need a / 1000?
   // Might be worth converting to raw octeracts awarded.  I don't have the calculator needed to test it, though.
+}
+
+export const loadStatisticsAmbrosiaLuck = () => {
+  const arr = player.caches.ambrosiaLuck.flatten()
+  const map: Record<number, { acc: number, desc: string }> = {
+    1: { acc: 0, desc: 'Irish Ants Singularity Perk' },
+    2: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrade' }
+  }
+  for (let i = 0; i < arr.length - 1; i++) {
+    const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
+    statALuckMi.childNodes[0].textContent = map[i + 1].desc
+    DOMCacheGetOrSet(`sALuckM${i + 1}`).textContent = `+${format(arr[i], map[i + 1].acc, true)}`
+  }
+
+  const totalVal = arr[arr.length - 1]
+  DOMCacheGetOrSet('sALuckMT').innerHTML = `&#9752 ${format(totalVal, 0)}`
+}
+
+export const loadStatisticsAmbrosiaGeneration = () => {
+  const arr = player.caches.ambrosiaGeneration.flatten()
+  const map: Record<number, { acc: number, desc: string }> = {
+    1: { acc: 4, desc: 'Base Chance Multiplier' },
+    2: { acc: 4, desc: 'Number of Blueberries' },
+    3: { acc: 4, desc: 'Blueberry Second Multiplier' }
+  }
+  for (let i = 0; i < arr.length - 1; i++) {
+    const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)
+    statAGenMi.childNodes[0].textContent = map[i + 1].desc
+    DOMCacheGetOrSet(`sAGenM${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`
+  }
+
+  const totalVal = arr[arr.length - 1]
+  DOMCacheGetOrSet('sAGenMT').textContent = `${format(100 * totalVal, 3, true)}%`
 }
 
 export const c15RewardUpdate = () => {

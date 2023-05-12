@@ -93,6 +93,10 @@ export class OcteractUpgrade extends DynamicUpgrade {
       return Alert(`${i18next.t('octeract.buyLevel.multiBuy', { n: format(purchased) })}`)
     }
 
+    if (this.name === player.octeractUpgrades.octeractAmbrosiaLuck.name) {
+      player.caches.ambrosiaLuck.updateVal('OcteractBerries')
+    }
+
     this.updateUpgradeHTML()
   }
 
@@ -628,7 +632,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     costPerLevel: 1e60 / 9,
     effect: (n: number) => {
       return {
-        bonus: n,
+        bonus: 3 * n,
         get desc () {
           return i18next.t('octeract.data.octeractAmbrosiaLuck.effect', { n: format(n) })
         }

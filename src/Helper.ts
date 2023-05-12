@@ -2,16 +2,17 @@ import { sacrificeAnts } from './Ants'
 import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateGoldenQuarkGain, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
 import { quarkHandler } from './Quark'
 import { redeemShards, unlockedRune, checkMaxRunes } from './Runes'
-import { player } from './Synergism'
-import { visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals'
+import { format, player } from './Synergism'
+import { visualUpdateAmbrosia, visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 import { buyAllBlessings } from './Buy'
 import { buyAllTalismanResources } from './Talismans'
 import { useConsumable } from './Shop'
+import { Notification } from './UpdateHTML'
 
 type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' |
                   'quarks' | 'goldenQuarks' | 'singularity' | 'octeracts' |
-                  'autoPotion'
+                  'autoPotion' | 'ambrosia'
 
 /**
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
@@ -20,7 +21,7 @@ type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' |
  */
 export const addTimers = (input: TimerInput, time = 0) => {
   const timeMultiplier = (input === 'ascension' || input === 'quarks' || input === 'goldenQuarks' ||
-                            input === 'singularity' || input === 'octeracts' || input === 'autoPotion') ? 1 : calculateTimeAcceleration().mult
+                            input === 'singularity' || input === 'octeracts' || input === 'autoPotion' || input === 'ambrosia') ? 1 : calculateTimeAcceleration().mult
 
   switch (input) {
     case 'prestige': {
@@ -130,6 +131,42 @@ export const addTimers = (input: TimerInput, time = 0) => {
         }
       }
       break
+    }
+    case 'ambrosia': {
+      const compute = player.caches.ambrosiaGeneration.totalVal
+      const ambrosiaLuck = player.caches.ambrosiaLuck.totalVal
+      if (compute === 0) {
+        break
+      }
+
+      let berryCount = +player.singularityUpgrades.blueberries.getEffect().bonus
+      berryCount += +player.singularityChallenges.noSingularityUpgrades.rewards.blueberries
+
+      G.ambrosiaTimer += time * timeMultiplier
+
+      if (G.ambrosiaTimer < 1) {
+        break
+      }
+
+      const RNG = Math.random() / Math.floor(G.ambrosiaTimer)
+      G.ambrosiaTimer %= 1
+
+      if (RNG < compute) {
+        const RNG2 = Math.random()
+        const ambrosiaMult = Math.floor(ambrosiaLuck / 100) + 1
+        const luckMult = (RNG2 < (ambrosiaLuck / 100 - Math.floor(ambrosiaLuck / 100))) ? 1 : 0
+
+        player.ambrosia += 1 * (ambrosiaMult + luckMult)
+        player.lifetimeAmbrosia += 1 * (ambrosiaMult + luckMult)
+        player.ambrosiaRNG -= 10000
+        player.ambrosiaRNG = Math.max(0, player.ambrosiaRNG)
+        void Notification(`You have earned ${ambrosiaMult + luckMult} Ambrosia through sheer luck!!! You now have ${format(player.ambrosia)}.`)
+      } else {
+        player.ambrosiaRNG += berryCount
+      }
+
+      player.caches.ambrosiaGeneration.updateVal('RNG')
+      visualUpdateAmbrosia()
     }
   }
 }

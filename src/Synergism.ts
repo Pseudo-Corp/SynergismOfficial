@@ -52,6 +52,7 @@ import { SingularityChallenge, singularityChallengeData } from './SingularityCha
 import { init as i18nInit } from './i18n'
 import i18next from 'i18next'
 import { changeTab, changeSubTab } from './Tabs'
+import { AmbrosiaGenerationCache, AmbrosiaLuckCache, cacheReinitialize } from './StatCache'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -829,6 +830,15 @@ export const player: Player = {
     oneChallengeCap: new SingularityChallenge(singularityChallengeData.oneChallengeCap, 'oneChallengeCap'),
     noOcteracts: new SingularityChallenge(singularityChallengeData.noOcteracts, 'noOcteracts'),
     limitedAscensions: new SingularityChallenge(singularityChallengeData.limitedAscensions, 'limitedAscensions')
+  },
+
+  ambrosia: 0,
+  lifetimeAmbrosia: 0,
+  ambrosiaRNG: 0,
+
+  caches: {
+    ambrosiaLuck: new AmbrosiaLuckCache(),
+    ambrosiaGeneration: new AmbrosiaGenerationCache()
   }
 }
 
@@ -3834,6 +3844,7 @@ const tack = (dt: number) => {
     addTimers('octeracts', dt)
     addTimers('singularity', dt)
     addTimers('autoPotion', dt)
+    addTimers('ambrosia', dt)
 
     //Triggers automatic rune sacrifice (adds milliseconds to payload timer)
     if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle) {
@@ -4163,6 +4174,8 @@ export const reloadShit = async (reset = false) => {
   setInterval(eventCheck, 15000)
   showExitOffline()
   clearTimeout(preloadDeleteGame)
+
+  setInterval(cacheReinitialize, 15000)
 
   if (localStorage.getItem('pleaseStar') === null) {
     void Alert(i18next.t('main.starRepo'))

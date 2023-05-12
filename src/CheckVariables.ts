@@ -18,6 +18,7 @@ import { octeractData, OcteractUpgrade } from './Octeracts'
 import type { ISingularityChallengeData } from './SingularityChallenges'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import i18next from 'i18next'
+import { AmbrosiaGenerationCache, AmbrosiaLuckCache, cacheReinitialize } from './StatCache'
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -910,6 +911,19 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
       player.octeractUpgrades.octeractQuarkGain.refund()
     }
   }
+
+  if (data.ambrosia === undefined) {
+    player.ambrosia = 0
+    player.lifetimeAmbrosia = 0
+    player.ambrosiaRNG = 0
+  }
+
+  player.caches = {
+    ambrosiaLuck: new AmbrosiaLuckCache,
+    ambrosiaGeneration: new AmbrosiaGenerationCache
+  }
+
+  cacheReinitialize()
 
   const oldest = localStorage.getItem('firstPlayed')
 

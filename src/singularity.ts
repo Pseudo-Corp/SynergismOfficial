@@ -194,6 +194,10 @@ export class SingularityUpgrade extends DynamicUpgrade {
       if (this.name === player.singularityUpgrades.singCitadel2.name) {
         player.singularityUpgrades.singCitadel.freeLevels = player.singularityUpgrades.singCitadel2.level
       }
+
+      if (this.name === player.singularityUpgrades.blueberries.name) {
+        player.caches.ambrosiaGeneration.updateVal('SingularityBerries')
+      }
     }
 
     if (purchased === 0) {
@@ -1444,6 +1448,21 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
+      return i18next.t('singularity.perkNames.irishAnt')
+    },
+    levels: [35, 42, 49, 56, 63, 70, 77],
+    description: (n: number, levels: number[]) => {
+      for (let i = levels.length - 1; i >= 0; i--) {
+        if (n >= levels[i]) {
+          return i18next.t('singularity.perks.irishAnt', { i: 5 * (i+1) })
+        }
+      }
+
+      return i18next.t('singularity.perks.evenMoreQuarks.bug')
+    }
+  },
+  {
+    name: () => {
       return i18next.t('singularity.perkNames.overclocked')
     },
     levels: [50, 60, 75, 100, 125, 150, 175, 200, 225, 250],
@@ -1533,6 +1552,21 @@ export const singularityPerks: SingularityPerk[] = [
         counter,
         current: format(Math.min(50, counter*player.singularityCount), 1)
       })
+    }
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perkNames.irishAnt2')
+    },
+    levels: [135, 142, 149, 156, 163, 170, 177],
+    description: (n: number, levels: number[]) => {
+      for (let i = levels.length - 1; i >= 0; i--) {
+        if (n >= levels[i]) {
+          return i18next.t('singularity.perks.irishAnt2', { i: 6 * (i+1) })
+        }
+      }
+
+      return i18next.t('singularity.perks.evenMoreQuarks.bug')
     }
   },
   {

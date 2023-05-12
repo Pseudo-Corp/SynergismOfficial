@@ -2129,6 +2129,26 @@ export const calculateQuarkMultFromPowder = () => {
   return (player.overfluxPowder > 10000) ? (1 + 1/40 * Math.log10(player.overfluxPowder)) : (1 + 1/100000 * player.overfluxPowder)
 }
 
+export const calculateSingularityAmbrosiaLuckMilestoneBonus = () => {
+  let bonus = 0
+  const singThresholds1 = [35, 42, 49, 56, 63, 70, 77]
+  const singThresholds2 = [135, 142, 149, 156, 163, 170, 177]
+
+  for (const sing of singThresholds1) {
+    if (player.highestSingularityCount >= sing) {
+      bonus += 5
+    }
+  }
+
+  for (const sing of singThresholds2) {
+    if (player.highestSingularityCount >= sing) {
+      bonus += 6
+    }
+  }
+
+  return bonus
+}
+
 export const dailyResetCheck = () => {
   if (!player.dayCheck) {
     return

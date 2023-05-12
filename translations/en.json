@@ -9,6 +9,12 @@
         "loadFailed": "Unable to load save.",
         "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
     },
+    "ambrosia": {
+        "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
+        "chance": "<<var(--amber-text-color)|{{chance}}%>> chance next second for generation",
+        "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
+        "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)"
+    },
     "achievements": {
         "descriptions": {
             "1": "[{{number}}] A Loyal Employee: Hire your first Worker.",
@@ -1452,6 +1458,8 @@
                 "hasLevel1": "Ant Speed is multiplied by 1 MILLION, this increase is immune to any and all corruption.",
                 "default": "Ant Speed is multiplied by 1,000, this increase is immune to any and all corruption."
             },
+            "irishAnt": "Ants blessed with the luck of the Irish grant &#9752 {{i}} Ambrosia Luck!",
+            "irishAnt2": "Ants blessed with more fortunate luck of the Irish grant &#9752 {{i}} more Ambrosia Luck!",
             "overclocked": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!",
             "wowCubeAutomatedShipping": {
                 "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
@@ -1858,6 +1866,8 @@
             "coolQOLCubes": "Cool Qol Cubes",
             "eternalAscensions": "Eternal Ascensions",
             "antGodsCornucopia": "Ant God's Cornucopia",
+            "irishAnt": "Irish Ants",
+            "irishAnt2": "Irish Ants II: Electric Boogaloo",
             "overclocked": "Overclocked",
             "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
             "goldenRevolution": "Golden Revolution",
@@ -2204,7 +2214,8 @@
             "penalties": "Penalties",
             "perks": "Perks",
             "octeracts": "Octeracts",
-            "exalt": "EXALT"
+            "exalt": "EXALT",
+            "ambrosia": "Ambrosia"
         },
         "settings": {
             "languages": "🌐 Languages 🌐",

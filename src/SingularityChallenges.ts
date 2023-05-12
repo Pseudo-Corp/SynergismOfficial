@@ -182,6 +182,7 @@ export const singularityChallengeData: Record<keyof Player['singularityUpgrades'
       return {
         cubes: 1 + 0.5 * n,
         goldenQuarks: 1 + 0.12 * +(n > 0),
+        blueberries: +(n>0),
         shopUpgrade: (n >= 20)
       }
     }

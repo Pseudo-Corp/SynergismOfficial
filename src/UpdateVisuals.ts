@@ -797,6 +797,23 @@ export const visualUpdateOcteracts = () => {
   DOMCacheGetOrSet('totalOcteractObtainiumBonus').innerHTML = i18next.t('octeract.generatedObtainiumBonus', { obtainiumBonus: format(cTOOOB, 3, true) })
 }
 
+export const visualUpdateAmbrosia = () => {
+  if (G.currentTab !== 'singularity') {
+    return
+  }
+
+  const luck = player.caches.ambrosiaLuck.totalVal
+  const guaranteed = 1 + Math.floor(luck/100)
+  const chance = luck - 100 * Math.floor(luck/100)
+
+  DOMCacheGetOrSet('ambrosiaAmount').innerHTML = i18next.t('ambrosia.amount', { ambrosia: format(player.ambrosia, 0, true) })
+  DOMCacheGetOrSet('ambrosiaChance').innerHTML = i18next.t('ambrosia.chance', { chance: format(100 * player.caches.ambrosiaGeneration.totalVal, 2, true) })
+  DOMCacheGetOrSet('ambrosiaAmountPerGeneration').innerHTML = i18next.t('ambrosia.perGen', { guaranteed: format(guaranteed, 0, true), extraChance: format(chance, 0, true), ambrosiaLuck: format(luck, 0, true) })
+  DOMCacheGetOrSet('ambrosiaRNG').innerHTML = i18next.t('ambrosia.blueberrySecond', { blueberrySecond: format(player.ambrosiaRNG, 0, true), RNG: format(player.caches.ambrosiaGeneration.vals.RNG, 2, true) })
+
+
+}
+
 export const visualUpdateShop = () => {
   if (G.currentTab !== 'shop') {
     return

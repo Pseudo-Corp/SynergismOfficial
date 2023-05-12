@@ -1,7 +1,7 @@
 import { updateChallengeDisplay, showCorruptionStatsLoadouts, Prompt, Alert } from './UpdateHTML'
 import { player, format, resetCheck } from './Synergism'
 import { Globals as G } from './Variables'
-import { visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
+import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { calculateRuneLevels } from './Calculate'
 import { reset, resetrepeat } from './Reset'
 import { autoResearchEnabled } from './Research'
@@ -433,10 +433,10 @@ export const toggleSaveOff = () => {
 }
 
 export const toggleSingularityScreen = (index: number) => {
-  const screens = ['shop', 'penalties', 'perks', 'octeracts', 'challenges']
+  const screens = ['shop', 'penalties', 'perks', 'octeracts', 'challenges', 'ambrosia']
   G.singularityscreen = screens[index - 1]
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 6; i++) {
     const a = DOMCacheGetOrSet(`toggleSingularitySubTab${i}`)
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
     if (i === index) {
@@ -451,6 +451,10 @@ export const toggleSingularityScreen = (index: number) => {
 
   if (player.subtabNumber === 3) {
     visualUpdateOcteracts()
+  }
+
+  if (player.subtabNumber === 5) {
+    visualUpdateAmbrosia()
   }
 }
 
