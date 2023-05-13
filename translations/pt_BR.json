@@ -2040,6 +2040,13 @@
             "124": "",
             "125": ""
         },
+        "crystalEffects": {
+            "1": "Crystal production x{{x}}",
+            "2": "Crystal production x{{x}}",
+            "3": "Crystal production x{{x}}",
+            "4": "Coin production multiplier exponent +{{x}}",
+            "5": "Crystal production x{{x}}"
+        },
         "crystalUpgrades": {
             "1": "",
             "2": "",
@@ -2049,6 +2056,18 @@
             "6": "",
             "7": "",
             "8": ""
+        },
+        "constantEffects": {
+            "1": "Tesseract building production x{{x}}",
+            "2": "Tesseract building production x{{x}}",
+            "3": "Offering gain x{{x}}",
+            "4": "Obtainium gain x{{x}}",
+            "5": "Ant Speed x{{x}}",
+            "6": "+{{x}} free Ant Levels",
+            "7": "+{{x}} free Rune Levels, +{{y}} to Rune Cap",
+            "8": "Rune EXP x{{x}}",
+            "9": "Runes effectiveness x{{x}}",
+            "10": "Cubes/Tesseracts on Ascension x{{x}}"
         },
         "constantUpgrades": {
             "1": "",

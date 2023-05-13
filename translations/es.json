@@ -2052,6 +2052,13 @@
             "124": "Gana +3% más de ELO efectivo.",
             "125": "El divisor de Constante de Impuestos es 0,333% más fuerte por desafío 10 finalizado. [Divisor^(1 + mejora)]"
         },
+        "crystalEffects": {
+            "1": "Crystal production x{{x}}",
+            "2": "Crystal production x{{x}}",
+            "3": "Crystal production x{{x}}",
+            "4": "Coin production multiplier exponent +{{x}}",
+            "5": "Crystal production x{{x}}"
+        },
         "crystalUpgrades": {
             "1": "Gana un 5% de impulso multiplicativo a Cristales por PL por nivel.",
             "2": "Gana un impulso a Cristales basado en monedas poseídas por nivel.",
@@ -2061,6 +2068,18 @@
             "6": "¡(No muy) Pronto!",
             "7": "¡(No muy) Pronto!",
             "8": "¡(No muy) Pronto!"
+        },
+        "constantEffects": {
+            "1": "Tesseract building production x{{x}}",
+            "2": "Tesseract building production x{{x}}",
+            "3": "Offering gain x{{x}}",
+            "4": "Obtainium gain x{{x}}",
+            "5": "Ant Speed x{{x}}",
+            "6": "+{{x}} free Ant Levels",
+            "7": "+{{x}} free Rune Levels, +{{y}} to Rune Cap",
+            "8": "Rune EXP x{{x}}",
+            "9": "Runes effectiveness x{{x}}",
+            "10": "Cubes/Tesseracts on Ascension x{{x}}"
         },
         "constantUpgrades": {
             "1": "Hace todos los edificios de Teseracto un {{level}}% más productivos por nivel.",

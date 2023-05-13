@@ -2052,6 +2052,13 @@
             "124": "蚂蚁有效分增加3%。",
             "125": "每完成一次挑战10，数学常数的税收除数效果就增加0.333%。[除数^(1 + 升级效果)]"
         },
+        "crystalEffects": {
+            "1": "Crystal production x{{x}}",
+            "2": "Crystal production x{{x}}",
+            "3": "Crystal production x{{x}}",
+            "4": "Coin production multiplier exponent +{{x}}",
+            "5": "Crystal production x{{x}}"
+        },
         "crystalUpgrades": {
             "1": "每级使每个成就点数增加水晶产量5%(效果叠乘)。",
             "2": "每级根据未花费的金币数量增加水晶产量。",
@@ -2061,6 +2068,18 @@
             "6": "敬请期待(虽然可能没那么快)！",
             "7": "敬请期待(虽然可能没那么快)！",
             "8": "敬请期待(虽然可能没那么快)！"
+        },
+        "constantEffects": {
+            "1": "Tesseract building production x{{x}}",
+            "2": "Tesseract building production x{{x}}",
+            "3": "Offering gain x{{x}}",
+            "4": "Obtainium gain x{{x}}",
+            "5": "Ant Speed x{{x}}",
+            "6": "+{{x}} free Ant Levels",
+            "7": "+{{x}} free Rune Levels, +{{y}} to Rune Cap",
+            "8": "Rune EXP x{{x}}",
+            "9": "Runes effectiveness x{{x}}",
+            "10": "Cubes/Tesseracts on Ascension x{{x}}"
         },
         "constantUpgrades": {
             "1": "每级使所有超立方建筑产量增加{{level}}%。",

@@ -2052,6 +2052,13 @@
             "124": "Получите на +3% больше эффективного ЭЛО.",
             "125": "Налог константы делится на 0.333% сильнее за выполнение испытания 10. [Делитель^(1 + улучшение)]"
         },
+        "crystalEffects": {
+            "1": "Crystal production x{{x}}",
+            "2": "Crystal production x{{x}}",
+            "3": "Crystal production x{{x}}",
+            "4": "Coin production multiplier exponent +{{x}}",
+            "5": "Crystal production x{{x}}"
+        },
         "crystalUpgrades": {
             "1": "Получите мультипликативный прирост Кристаллов на 5% за ОД за уровень.",
             "2": "Усиление Кристаллам основанные на удержанные Монеты за уровень.",
@@ -2061,6 +2068,18 @@
             "6": "Будет (не так) СКОРО!",
             "7": "Будет (не так) СКОРО!",
             "8": "Будет (не так) СКОРО!"
+        },
+        "constantEffects": {
+            "1": "Tesseract building production x{{x}}",
+            "2": "Tesseract building production x{{x}}",
+            "3": "Offering gain x{{x}}",
+            "4": "Obtainium gain x{{x}}",
+            "5": "Ant Speed x{{x}}",
+            "6": "+{{x}} free Ant Levels",
+            "7": "+{{x}} free Rune Levels, +{{y}} to Rune Cap",
+            "8": "Rune EXP x{{x}}",
+            "9": "Runes effectiveness x{{x}}",
+            "10": "Cubes/Tesseracts on Ascension x{{x}}"
         },
         "constantUpgrades": {
             "1": "Сделайте все строения Тессерактов на {{level}}% более продуктивными за уровень.",
