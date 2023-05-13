@@ -1198,6 +1198,10 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
       hold.hepteractCrafts[craftKey].AUTO = player.hepteractCrafts[craftKey].AUTO
     }
   }
+  hold.ambrosia = player.ambrosia
+  hold.ambrosiaRNG = player.ambrosia
+  hold.lifetimeAmbrosia = player.lifetimeAmbrosia
+  hold.visitedAmbrosiaSubtab = player.visitedAmbrosiaSubtab
 
   const saveCode42 = player.codes.get(42) ?? false
   const saveCode43 = player.codes.get(43) ?? false
