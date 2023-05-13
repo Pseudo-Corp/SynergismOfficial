@@ -18,7 +18,7 @@ import { octeractData, OcteractUpgrade } from './Octeracts'
 import type { ISingularityChallengeData } from './SingularityChallenges'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import i18next from 'i18next'
-import { AmbrosiaGenerationCache, AmbrosiaLuckCache, cacheReinitialize } from './StatCache'
+import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -916,11 +916,13 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     player.ambrosia = 0
     player.lifetimeAmbrosia = 0
     player.ambrosiaRNG = 0
+    player.visitedAmbrosiaSubtab = false
   }
 
   player.caches = {
     ambrosiaLuck: new AmbrosiaLuckCache,
-    ambrosiaGeneration: new AmbrosiaGenerationCache
+    ambrosiaGeneration: new AmbrosiaGenerationCache,
+    blueberryInventory: new BlueberryInventoryCache
   }
 
   cacheReinitialize()

@@ -121,6 +121,8 @@ type AmbrosialLuck = 'SingPerks' | 'OcteractBerries'
 
 type AmbrosiaGeneration = 'DefaultVal' | 'SingularityBerries' | 'RNG'
 
+type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade'
+
 export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
 
   vals: Record<AmbrosialLuck, number>
@@ -171,12 +173,11 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
     const oldVal = this.vals[key]
     switch (key) {
       case 'DefaultVal': {
-        this.vals[key] = 1/10000
+        this.vals[key] = 1/10000 * +(player.visitedAmbrosiaSubtab)
         break
       }
       case 'SingularityBerries': {
-        this.vals[key] = +player.singularityUpgrades.blueberries.getEffect().bonus
-        this.vals[key] += +player.singularityChallenges.noSingularityUpgrades.rewards.blueberries
+        this.vals[key] = player.caches.blueberryInventory.totalVal
         break
       }
       case 'RNG': {
@@ -192,7 +193,39 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
   }
 }
 
+export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
+  vals: Record<BlueberryInventory, number>
+  public totalVal: number
+
+  constructor() {
+    super()
+    this.vals = {
+      'Exalt1': 0,
+      'SingularityUpgrade': 0
+    }
+    this.totalVal = 0
+  }
+
+  updateVal(key: BlueberryInventory, init = false): void {
+    const oldVal = this.vals[key]
+    switch (key) {
+      case 'Exalt1': {
+        this.vals[key] = +(player.singularityChallenges.noSingularityUpgrades.completions > 0)
+        break
+      }
+      case 'SingularityUpgrade': {
+        this.vals[key] = +(player.singularityUpgrades.blueberries.getEffect().bonus)
+        break
+      }
+    }
+    const newVal = this.vals[key]
+    this.updateTotal(oldVal, newVal, init)
+  }
+}
+
 export const cacheReinitialize = () => {
+  // TODO: Create a hierarchy of cache dependencies (ambrosia generation depends on blueberry inventory)
+  player.caches.blueberryInventory.initialize()
   player.caches.ambrosiaGeneration.initialize()
   player.caches.ambrosiaLuck.initialize()
 }

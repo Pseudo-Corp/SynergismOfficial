@@ -52,7 +52,7 @@ import { SingularityChallenge, singularityChallengeData } from './SingularityCha
 import { init as i18nInit } from './i18n'
 import i18next from 'i18next'
 import { changeTab, changeSubTab } from './Tabs'
-import { AmbrosiaGenerationCache, AmbrosiaLuckCache, cacheReinitialize } from './StatCache'
+import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -835,10 +835,12 @@ export const player: Player = {
   ambrosia: 0,
   lifetimeAmbrosia: 0,
   ambrosiaRNG: 0,
+  visitedAmbrosiaSubtab: false,
 
   caches: {
     ambrosiaLuck: new AmbrosiaLuckCache(),
-    ambrosiaGeneration: new AmbrosiaGenerationCache()
+    ambrosiaGeneration: new AmbrosiaGenerationCache(),
+    blueberryInventory: new BlueberryInventoryCache()
   }
 }
 

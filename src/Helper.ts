@@ -134,13 +134,9 @@ export const addTimers = (input: TimerInput, time = 0) => {
     }
     case 'ambrosia': {
       const compute = player.caches.ambrosiaGeneration.totalVal
-      const ambrosiaLuck = player.caches.ambrosiaLuck.totalVal
       if (compute === 0) {
         break
       }
-
-      let berryCount = +player.singularityUpgrades.blueberries.getEffect().bonus
-      berryCount += +player.singularityChallenges.noSingularityUpgrades.rewards.blueberries
 
       G.ambrosiaTimer += time * timeMultiplier
 
@@ -148,7 +144,13 @@ export const addTimers = (input: TimerInput, time = 0) => {
         break
       }
 
-      const RNG = Math.random() / Math.floor(G.ambrosiaTimer)
+      const ambrosiaLuck = player.caches.ambrosiaLuck.totalVal
+      const berryCount = player.caches.blueberryInventory.totalVal
+
+      player.ambrosiaRNG += Math.floor(G.ambrosiaTimer) * berryCount
+      player.caches.ambrosiaGeneration.updateVal('RNG')
+
+      const RNG = Math.random()
       G.ambrosiaTimer %= 1
 
       if (RNG < compute) {
@@ -161,11 +163,8 @@ export const addTimers = (input: TimerInput, time = 0) => {
         player.ambrosiaRNG -= 10000
         player.ambrosiaRNG = Math.max(0, player.ambrosiaRNG)
         void Notification(`You have earned ${ambrosiaMult + luckMult} Ambrosia through sheer luck!!! You now have ${format(player.ambrosia)}.`)
-      } else {
-        player.ambrosiaRNG += berryCount
       }
 
-      player.caches.ambrosiaGeneration.updateVal('RNG')
       visualUpdateAmbrosia()
     }
   }
