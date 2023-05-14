@@ -1644,9 +1644,7 @@ export const updateSingularityPerks = (): void => {
   // TODO: Take current perk description and display it here.
   const strD = i18next.t('singularity.perks.description')
 
-  const str = i18next.t('singularity.perks.update', {
-    extra: getAvailablePerksDescription(singularityCount)
-  })
+  const str = `${getAvailablePerksDescription(singularityCount)}`
 
   DOMCacheGetOrSet('singularityPerksHeader').innerHTML = strH
   DOMCacheGetOrSet('singularityPerksDesc').innerHTML = strD
