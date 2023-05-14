@@ -1641,9 +1641,8 @@ export const updateSingularityPerks = (): void => {
   const strH = i18next.t('singularity.perks.header', {
     ord: toOrdinal(singularityCount)
   })
-  const strD = i18next.t('singularity.perks.description', {
-  //Todo: Take current perk description and display it here.
-  })
+  // TODO: Take current perk description and display it here.
+  const strD = i18next.t('singularity.perks.description')
 
   const str = i18next.t('singularity.perks.update', {
     extra: getAvailablePerksDescription(singularityCount)
