@@ -1385,7 +1385,8 @@
         "perks": {
             "improvedIn": "第{{sing}}次进入奇点后将有特权加强",
             "unlockedIn": "第{{sing}}次进入奇点后将解锁新特权",
-            "update": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点。</span><br/>以下是您在奇点中获得的特权(鼠标停留在特权上可以查看效果。<span class=\"newPerk\">金色文本</span>的特权在本次奇点解锁或者加强)<br/>{{extra}}",
+            "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点。</span><br/>以下是您在奇点中获得的特权",
+            "description": "(鼠标停留在特权上可以查看效果。<span style=\"color: gold\">金色文本</span>的特权在本次奇点解锁或者加强)",
             "xyz": {
                 "hasLevel2": "输入“每日”代码后可以获得金夸克和随机奇点升级的免费等级，额外获得0.2级金夸克 I，0.2级金夸克 II和1级金夸克 III，另外再使获得的免费等级数量翻倍！",
                 "hasLevel1": "输入“每日”代码后可以获得金夸克和随机奇点升级的免费等级，还可以额外获得0.2级金夸克 I，0.2级金夸克 II和1级金夸克 III。",

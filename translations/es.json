@@ -1385,7 +1385,8 @@
         "perks": {
             "improvedIn": "Una Ventaja existente se mejorará en la singularidad {{sing}}",
             "unlockedIn": "Desbloquearás una Ventaja nueva en la singularidad {{sing}}",
-            "update": "La mayor Singularidad que has alcanzado es la <span style=\"color: gold\">{{ord}} Singularidad.</span><br/>Aquí tienes la lista de ventajas que has adquirido para compensar las penalizaciones (Pasa el cursor para más detalles. Ventajas en <span class=\"newPerk\">gold text</span> se añadieron o mejoraron en esta Singularidad)<br/>{{extra}}",
+            "header": "La mayor Singularidad que has alcanzado es la <span style=\"color: gold\">{{ord}} Singularidad.</span><br/>Aquí tienes la lista de ventajas que has adquirido para compensar las penalizaciones",
+            "description": "(Pasa el cursor para más detalles. Ventajas en <span style=\"color: gold\">gold text</span> se añadieron o mejoraron en esta Singularidad)",
             "xyz": {
                 "hasLevel2": "Además de GD y niveles gratuitos garantizados de QD 1/2/3 a +0,2/+0,2/+1, ¡obtienes el DOBLE de niveles en mejoras gratuitas de Acción Diaria Especial!",
                 "hasLevel1": "Además de GD y niveles gratuitos de mejoras, la Actividad Diaria Especial te da niveles gratuitos extra de QD 1/2/3 a +0,2/+0,2/+1 respectivamente.",

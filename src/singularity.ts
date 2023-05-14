@@ -1637,12 +1637,18 @@ export const singularityPerks: SingularityPerk[] = [
 
 export const updateSingularityPerks = (): void => {
   const singularityCount = player.highestSingularityCount
-  const str = i18next.t('singularity.perks.update', {
-    ord: toOrdinal(singularityCount),
-    extra: getAvailablePerksDescription(singularityCount)
-  })
 
-  DOMCacheGetOrSet('singularityPerksMultiline').innerHTML = str
+  const strH = i18next.t('singularity.perks.header', {
+    ord: toOrdinal(singularityCount)
+  })
+  // TODO: Take current perk description and display it here.
+  const strD = i18next.t('singularity.perks.description')
+
+  const str = `${getAvailablePerksDescription(singularityCount)}`
+
+  DOMCacheGetOrSet('singularityPerksHeader').innerHTML = strH
+  DOMCacheGetOrSet('singularityPerksDesc').innerHTML = strD
+  DOMCacheGetOrSet('singularityPerksGrid').innerHTML = str
 }
 
 export interface ISingularityPerkDisplayInfo {
@@ -1709,16 +1715,17 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
     return 1
   })
 
+  perksText += '<div id="singularityPerksGrid">'
   for (const availablePerk of availablePerks) {
-    perksText += '<br/>' + formatPerkDescription(availablePerk, singularityCount)
+    perksText += formatPerkDescription(availablePerk, singularityCount)
   }
-  perksText += '<br/>'
+  perksText += '</div>'
   if (singularityCountForNextPerk) {
-    perksText += `<br/>${i18next.t('singularity.perks.unlockedIn', { sing: singularityCountForNextPerk })}`
+    perksText += `${i18next.t('singularity.perks.unlockedIn', { sing: singularityCountForNextPerk })}<br>`
   }
   const singularityCountForNextPerkUpgrade = nextUpgrades.reduce((a, b) => Math.min(a, +b), Infinity)
   if (singularityCountForNextPerkUpgrade < Infinity) {
-    perksText += `<br/>${i18next.t('singularity.perks.improvedIn', { sing: singularityCountForNextPerkUpgrade })}`
+    perksText +=  `${i18next.t('singularity.perks.improvedIn', { sing: singularityCountForNextPerkUpgrade })}`
   }
   return perksText
 }
@@ -1726,9 +1733,9 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
 function formatPerkDescription(perkData: ISingularityPerkDisplayInfo, singularityCount: number): string {
   const singTolerance = getFastForwardTotalMultiplier()
   const isNew = (singularityCount - perkData.lastUpgraded <= singTolerance)
-  const levelInfo = perkData.currentLevel > 1 ? ` - ${i18next.t('general.level')} ${perkData.currentLevel}` : ''
+  const levelInfo = perkData.currentLevel > 1 ? `<br>${i18next.t('general.level')} ${perkData.currentLevel}` : ''
   //const acquiredUpgraded = ' / Acq ' + perkData.acquired + ' / Upg ' + perkData.lastUpgraded;
-  return `<span${isNew?' class="newPerk"':''} title="${perkData.description}">${perkData.name}${levelInfo}</span>`
+  return `<span${isNew?' class="newPerk"':' class="oldPerk"'} title="${perkData.description}">${perkData.name}${levelInfo}</span>`
 }
 
 // Indicates the number of extra Singularity count gained on Singularity reset

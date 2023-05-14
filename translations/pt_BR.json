@@ -1379,7 +1379,8 @@
         "perks": {
             "improvedIn": "",
             "unlockedIn": "",
-            "update": "",
+            "header": "",
+            "description":"",
             "xyz": {
                 "hasLevel2": "",
                 "hasLevel1": "",
