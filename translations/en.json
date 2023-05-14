@@ -2635,7 +2635,7 @@
             },
             "octeractAmbrosiaLuck": {
                 "name": "Berries of an Eight Leaf Clover (WIP)",
-                "description": "Totally not a reskin of the blueberry! Adds +3 Ambrosial Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
+                "description": "Totally not a reskin of the blueberry! Adds +1 Ambrosial Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
                 "effect": "Ambrosial Luck +{{n}}(!)"
             }
         },
@@ -2767,7 +2767,7 @@
             "noSingularityUpgrades": {
                 "name": "No Singularity Upgrades",
                 "description": "Simply put, you have to beat the target singularity without (most) Singularity Upgrades. Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
-                "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks and a Blueberry! 20th awards something `special` ;)"
+                "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks. 20th awards something `special` ;)"
             },
             "oneChallengeCap": {
                 "name": "One Challenge Caps",

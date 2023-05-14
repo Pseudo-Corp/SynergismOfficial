@@ -10,10 +10,10 @@
         "saveToClipboard": "您确定要启用将存档导出到剪贴板吗？"
     },
     "ambrosia": {
-        "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
-        "chance": "<<var(--amber-text-color)|{{chance}}%>> chance next second for generation",
-        "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
-        "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)"
+        "amount": "您有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>神肴！",
+        "chance": "下一秒有<<var(--amber-text-color)|{{chance}}%>>概率产生",
+        "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：&#9752 {{ambrosiaLuck}}>>]",
+        "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！蓝莓秒可以使产生概率<<var(--amber-text-color)|×{{RNG}}>>(在10000蓝莓秒时必定产生)"
     },
     "achievements": {
         "descriptions": {
@@ -1458,8 +1458,8 @@
                 "hasLevel1": "蚂蚁速度变为1e6倍！该效果不受任何等级的任何腐化影响。",
                 "default": "蚂蚁速度变为1000倍！该效果不受任何等级的任何腐化影响。"
             },
-            "irishAnt": "Ants blessed with the luck of the Irish grant &#9752 {{i}} Ambrosia Luck!",
-            "irishAnt2": "Ants blessed with more fortunate luck of the Irish grant &#9752 {{i}} more Ambrosia Luck!",
+            "irishAnt": "受到爱尔兰之运祝福的蚂蚁可以使神肴之运增加{{i}}！",
+            "irishAnt2": "受到爱尔兰之运更多祝福的蚂蚁可以使神肴之运再增加{{i}}！",
             "overclocked": "特定奇点升级的等级上限增加{{i}}！",
             "wowCubeAutomatedShipping": {
                 "hasLevel1": "每次飞升自动购买方盒升级！",
@@ -1866,8 +1866,8 @@
             "coolQOLCubes": "酷炫的开盒体验",
             "eternalAscensions": "永恒飞升",
             "antGodsCornucopia": "蚁神的聚宝盆",
-            "irishAnt": "Irish Ants",
-            "irishAnt2": "Irish Ants II: Electric Boogaloo",
+            "irishAnt": "爱尔兰蚂蚁",
+            "irishAnt2": "爱尔兰蚂蚁 II：电子布加洛舞",
             "overclocked": "超载",
             "wowCubeAutomatedShipping": "惊奇方盒自动运输",
             "goldenRevolution": "金之革命",
@@ -2053,11 +2053,11 @@
             "125": "每完成一次挑战10，数学常数的税收除数效果就增加0.333%。[除数^(1 + 升级效果)]"
         },
         "crystalEffects": {
-            "1": "Crystal production x{{x}}",
-            "2": "Crystal production x{{x}}",
-            "3": "Crystal production x{{x}}",
-            "4": "Coin production multiplier exponent +{{x}}",
-            "5": "Crystal production x{{x}}"
+            "1": "水晶产量变为{{x}}倍",
+            "2": "水晶产量变为{{x}}倍",
+            "3": "水晶产量变为{{x}}倍",
+            "4": "水晶对金币产量提升的指数增加{{x}}",
+            "5": "水晶产量变为{{x}}倍"
         },
         "crystalUpgrades": {
             "1": "每级使每个成就点数增加水晶产量5%(效果叠乘)。",
@@ -2070,16 +2070,16 @@
             "8": "敬请期待(虽然可能没那么快)！"
         },
         "constantEffects": {
-            "1": "Tesseract building production x{{x}}",
-            "2": "Tesseract building production x{{x}}",
-            "3": "Offering gain x{{x}}",
-            "4": "Obtainium gain x{{x}}",
-            "5": "Ant Speed x{{x}}",
-            "6": "+{{x}} free Ant Levels",
-            "7": "+{{x}} free Rune Levels, +{{y}} to Rune Cap",
-            "8": "Rune EXP x{{x}}",
-            "9": "Runes effectiveness x{{x}}",
-            "10": "Cubes/Tesseracts on Ascension x{{x}}"
+            "1": "所有超立方建筑产量变为{{x}}倍",
+            "2": "所有超立方建筑产量变为{{x}}倍",
+            "3": "祭品获取数量变为{{x}}倍",
+            "4": "难得素获取数量变为{{x}}倍",
+            "5": "蚂蚁速度变为{{x}}倍",
+            "6": "免费蚂蚁等级增加{{x}}级",
+            "7": "免费符文等级增加{{x}}级，符文等级上限增加{{y}}",
+            "8": "祭品提供的符文经验值变为{{x}}倍",
+            "9": "符文效果变为{{x}}倍",
+            "10": "飞升的惊奇方盒和惊奇超立方获取数量变为{{x}}倍"
         },
         "constantUpgrades": {
             "1": "每级使所有超立方建筑产量增加{{level}}%。",
@@ -2234,7 +2234,7 @@
             "perks": "特权",
             "octeracts": "惊奇八阶方块",
             "exalt": "拔擢",
-            "ambrosia": "Ambrosia"
+            "ambrosia": "神肴"
         },
         "settings": {
             "languages": "🌐游戏语言🌐",
@@ -2635,7 +2635,7 @@
             },
             "octeractAmbrosiaLuck": {
                 "name": "八叶草之莓",
-                "description": "Totally not a reskin of the blueberry! Adds +3 Ambrosial Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
+                "description": "很显然并不是蓝莓的换皮版本！使神肴之运增加3，它可以在蓝莓产生神肴时，增加神肴的获取数量。",
                 "effect": "获取数量增加{{n}}(!)"
             }
         },
@@ -2767,7 +2767,7 @@
             "noSingularityUpgrades": {
                 "name": "无奇点升级",
                 "description": "简而言之，您需要在没有大部分奇点升级的前提下通过目标奇点。惊奇八阶方块，特权和游戏体验相关的奇点升级将仍然保留。",
-                "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks and a Blueberry! 20th awards something `special` ;)"
+                "rewardDescription": "每完成一阶层就可以使所有类型的方盒、立方和方块获取数量增加50%！完成第一阶层后可以使金夸克获取数量增加12%，并使您获得1个蓝莓！完成第二十阶层后，可以获得一些“特别”的东西 ;)"
             },
             "oneChallengeCap": {
                 "name": "挑战上限恒为一",
