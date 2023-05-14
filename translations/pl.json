@@ -1385,7 +1385,8 @@
         "perks": {
             "improvedIn": "Istniejąca umiejętność zostanie ulepszona w Osobliwości {{sing}}",
             "unlockedIn": "Odblokujesz zupełnie nowy profit w Osobliwości {{sing}}",
-            "update": "Najwyższa osobliwość, jaką osiągnąłeś, to <span style=\"color: gold\">{{ord}} Osobliwość.</span><br/>Oto lista korzyści, które uzyskałeś, aby zrekompensować kary (Najedź kursorem, aby więcej szczegółów. Dodatki w <span class=\"newPerk\">złotym tekście</span> zostały dodane lub ulepszone w tej Osobliwości)<br/>{{extra}}",
+            "header": "Najwyższa osobliwość, jaką osiągnąłeś, to <span style=\"color: gold\">{{ord}} Osobliwość.</span><br/>Oto lista korzyści, które uzyskałeś, aby zrekompensować kary ",
+            "description":"(Najedź kursorem, aby więcej szczegółów. Dodatki w <span style=\"color: gold\">złotym tekście</span> zostały dodane lub ulepszone w tej Osobliwości)",
             "xyz": {
                 "hasLevel2": "Oprócz GQ i gwarantowanych bezpłatnych poziomów do GQ 1/2/3 po +0,2/+0,2/+1, otrzymujesz PODWÓJNIE więcej darmowych poziomów ulepszeń z Codziennej Akcji Specjalnej!",
                 "hasLevel1": "Oprócz poziomów GQ i bezpłatnych ulepszeń, Codziennych akcji specjalnych zapewnia dodatkowe bezpłatne poziomy do GQ 1/2/3 odpowiednio na poziomie +0,2/+0,2/+1.",

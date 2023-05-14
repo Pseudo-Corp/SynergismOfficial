@@ -1385,7 +1385,8 @@
         "perks": {
             "improvedIn": "Ein bestehender Vorteil wird verbessert in Singularity {{sing}}",
             "unlockedIn": "In Singularity {{sing}} schaltest du einen neuen Vorteil frei",
-            "update": "Die höchste erreichte Singularität die du erreicht hast ist die <span style=\"color: gold\">{{ord}} Singularität.</span><br/>Hier ist eine List mit Boni die du gesammelt hast um die Strafen auszugleichen (Fahre darüber für mehr Details. Boni in <span class=\"newPerk\">goldenem Text</span> wurden in dieser Singularität hinzugefügt oder verbessert)<br/>{{extra}}",
+            "header": "Die höchste erreichte Singularität die du erreicht hast ist die <span style=\"color: gold\">{{ord}} Singularität.</span><br/>Hier ist eine List mit Boni die du gesammelt hast um die Strafen auszugleichen",
+            "description": "(Fahre darüber für mehr Details. Boni in <span style=\"color: gold\">goldenem Text</span> wurden in dieser Singularität hinzugefügt oder verbessert)",
             "xyz": {
                 "hasLevel2": "Zusätzlich zu goldenen Quarks und gratis Leveln (+0.2/+0.2/+1) für Upgrades 1/2/3 der goldenen Quarks erhältst du die DOPPELTE Menge an gratis Leven durch die tägliche Spezialaktion!",
                 "hasLevel1": "Zusätzlich zu goldenen Quarks und gratis Leveln erhältst du von der täglichen Spezialaktion entsprechend +0.2/+0.2/+1 gratis Level von Upgrade 1/2/3 der goldenen Quarks!",
