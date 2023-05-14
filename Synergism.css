@@ -3534,9 +3534,28 @@ header #obtainiumDisplay { color: pink; }
     cursor: pointer;
 }
 
-#singularityPenaltiesMultiline,
-#singularityPerksMultiline {
+#singularityPenaltiesMultiline {
     white-space: pre-line;
+    justify-content: center;
+}
+
+#singularityPerksHeader {
+    display: block;
+    justify-content: center;
+}
+
+#singularityPerksDesc {
+    display: block;
+}
+
+#singularityPerksGrid > div {
+    display: grid;
+    grid-template-columns: repeat(5, 250px);
+    grid-template-rows: repeat(10, auto);
+    justify-content: center;
+    align-content: center;
+    grid-gap: 5px;
+    cursor: default;
 }
 
 #testingMultiline,
@@ -3556,7 +3575,32 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .newPerk {
+    display: grid;
+    justify-items: center;
+    align-items: center;
     color: gold;
+    border-style: groove;
+    border-color: gold;
+    background-color: var(--button-color);
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+}
+
+.oldPerk {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    border-style: solid;
+    border-color: gold;
+    background-color: var(--button-color);
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+}
+
+.newPerk:hover {
+    background-color: var(--hover-color);
+}
+
+.oldPerk:hover {
+    background-color: var(--hover-color);
 }
 
 #autoHepteractPercentage {
