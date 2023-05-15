@@ -1386,7 +1386,7 @@
             "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
             "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
             "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties",
-            "description":"(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
+            "description": "(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
             "xyz": {
                 "hasLevel2": "In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!",
                 "hasLevel1": "In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.",
