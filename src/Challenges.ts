@@ -106,7 +106,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     if (player.challengecompletions[i] >= 100) {
       DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
         x: 100,
-        y: format(CalcECC(i), 2, true)
+        y: format(CalcECC('transcend', i), 2, true)
       })
     } else {
       DOMCacheGetOrSet('completionSoftcap').textContent = i18next.t('challenges.perCompletionBonusEmpty')
@@ -119,7 +119,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     if (player.challengecompletions[i] >= 25 && changefocus) {
       DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
         x: 25,
-        y: format(CalcECC(i), 2, true)
+        y: format(CalcECC('reincarnation', i), 2, true)
       })
     } else {
       DOMCacheGetOrSet('completionSoftcap').textContent = i18next.t('challenges.perCompletionBonusEmpty')
@@ -129,7 +129,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
     if (player.challengecompletions[i] >= 10) {
       DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
         x: 10,
-        y: format(CalcECC(i), 2, true)
+        y: format(CalcECC('ascension', i), 2, true)
       })
     } else {
       DOMCacheGetOrSet('completionSoftcap').textContent = i18next.t('challenges.perCompletionBonusEmpty')
@@ -161,82 +161,82 @@ export const challengeDisplay = (i: number, changefocus = true) => {
 
     switch (i) {
       case 1: {
-        current1 = current2 = format(10 * CalcECC(1))
-        current3 = format(0.04 * CalcECC(1), 2, true)
+        current1 = current2 = format(10 * CalcECC('transcend', 1))
+        current3 = format(0.04 * CalcECC('transcend', 1), 2, true)
         break
       }
       case 2: {
-        current1 = current2 = format(5 * CalcECC(2))
+        current1 = current2 = format(5 * CalcECC('transcend', 2))
         break
       }
       case 3: {
         current1 = format(0.04 * player.challengecompletions[3], 2, true)
-        current2 = format(0.5 * CalcECC(3), 2, true)
-        current3 = format(0.01 * CalcECC(3), 2, true)
+        current2 = format(0.5 * CalcECC('transcend', 3), 2, true)
+        current3 = format(0.01 * CalcECC('transcend', 3), 2, true)
         break
       }
       case 4: {
-        current1 = format(5 * CalcECC(4))
-        current2 = format(2 * CalcECC(4))
-        current3 = format(0.5 * CalcECC(4), 2, true)
+        current1 = format(5 * CalcECC('transcend', 4))
+        current2 = format(2 * CalcECC('transcend', 4))
+        current3 = format(0.5 * CalcECC('transcend', 4), 2, true)
         break
       }
       case 5: {
-        current1 = format(0.5 + CalcECC(5) / 100, 2, true)
-        current2 = format(Math.pow(10, CalcECC(5)))
+        current1 = format(0.5 + CalcECC('transcend', 5) / 100, 2, true)
+        current2 = format(Math.pow(10, CalcECC('transcend', 5)))
         break
       }
       case 6: {
-        current1 = format(Math.pow(0.965, CalcECC(6)), 3, true)
-        current2 = format(10 * CalcECC(6))
-        current3 = format(2 * CalcECC(6))
+        current1 = format(Math.pow(0.965, CalcECC('reincarnation', 6)), 3, true)
+        current2 = format(10 * CalcECC('reincarnation', 6))
+        current3 = format(2 * CalcECC('reincarnation', 6))
         break
       }
       case 7: {
-        current1 = format(1 + 0.04 * CalcECC(7), 2, true)
-        current2 = current3 = format(10 * CalcECC(7))
+        current1 = format(1 + 0.04 * CalcECC('reincarnation', 7), 2, true)
+        current2 = current3 = format(10 * CalcECC('reincarnation', 7))
         break
       }
       case 8: {
-        current1 = format(0.25 * CalcECC(8), 2, true)
-        current2 = format(20 * CalcECC(8), 2, true)
-        current3 = format(4 * CalcECC(8), 2, true)
+        current1 = format(0.25 * CalcECC('reincarnation', 8), 2, true)
+        current2 = format(20 * CalcECC('reincarnation', 8), 2, true)
+        current3 = format(4 * CalcECC('reincarnation', 8), 2, true)
         break
       }
       case 9: {
-        current1 = format(CalcECC(9))
-        current2 = format(Math.pow(1.1, CalcECC(9)), 2, true)
-        current3 = format(20 * CalcECC(9), 2, true)
+        current1 = format(CalcECC('reincarnation', 9))
+        current2 = format(Math.pow(1.1, CalcECC('reincarnation', 9)), 2, true)
+        current3 = format(20 * CalcECC('reincarnation', 9), 2, true)
         break
       }
       case 10: {
-        current1 = format(100 * CalcECC(10))
-        current2 = format(2 * CalcECC(10))
-        current3 = format(10 * CalcECC(10), 2, true)
+        current1 = format(100 * CalcECC('reincarnation', 10))
+        current2 = format(2 * CalcECC('reincarnation', 10))
+        current3 = format(10 * CalcECC('reincarnation', 10), 2, true)
         break
       }
       case 11: {
-        current1 = format(12 * CalcECC(11))
-        current2 = format(Decimal.pow(1e5, CalcECC(11)))
-        current3 = format(80 * CalcECC(11))
+        current1 = format(12 * CalcECC('ascension', 11))
+        current2 = format(Decimal.pow(1e5, CalcECC('ascension', 11)))
+        current3 = format(80 * CalcECC('ascension', 11))
         break
       }
       case 12: {
-        current1 = format(50 * CalcECC(12))
-        current2 = format(12 * CalcECC(12))
-        current3 = format(CalcECC(12))
+        current1 = format(50 * CalcECC('ascension', 12))
+        current2 = format(12 * CalcECC('ascension', 12))
+        current3 = format(CalcECC('ascension', 12))
         break
       }
       case 13: {
-        current1 = format(100 - 100 * Math.pow(0.966, CalcECC(13)), 3, true)
-        current2 = format(6 * CalcECC(13))
-        current3 = format(3 * CalcECC(13))
+        current1 = format(100 - 100 * Math.pow(0.966, CalcECC('ascension', 13)), 3, true)
+        current2 = format(6 * CalcECC('ascension', 13))
+        current3 = format(3 * CalcECC('ascension', 13))
         break
       }
       case 14: {
-        current1 = format(50 * CalcECC(14))
+        current1 = format(50 * CalcECC('ascension', 14))
         current2 = format(1 * player.challengecompletions[14])
-        current3 = format(200 * CalcECC(14))
+        current3 = format(200 * CalcECC('ascension', 14))
         break
       }
     }
@@ -478,24 +478,26 @@ export const calculateChallengeRequirementMultiplier = (
 /**
  * Works to mitigate the difficulty of calculating challenge reward multipliers when considering softcapping
  */
-export const CalcECC = (index: number) => { // ECC stands for "Effective Challenge Completions"
+export const CalcECC = (type: 'transcend' | 'reincarnation' | 'ascension', index: number) => { // ECC stands for "Effective Challenge Completions"
   let effective = 0
   const completions = player.challengecompletions[index]
 
-  if (index >= 1 && index <= 5) { //transcend
-    effective += Math.min(100, completions)
-    effective += 1 / 20 * (Math.min(1000, Math.max(100, completions)) - 100)
-    effective += 1 / 100 * (Math.max(1000, completions) - 1000)
-  } else if (index <= 10) { //reincarnation
-    effective += Math.min(25, completions)
-    effective += 1 / 2 * (Math.min(75, Math.max(25, completions)) - 25)
-    effective += 1 / 10 * (Math.max(75, completions) - 75)
-  } else if (index <= 14) { //ascension
-    effective += Math.min(10, completions)
-    effective += 1 / 2 * (Math.max(10, completions) - 10)
+  switch (type) {
+    case 'transcend':
+      effective += Math.min(100, completions)
+      effective += 1 / 20 * (Math.min(1000, Math.max(100, completions)) - 100)
+      effective += 1 / 100 * (Math.max(1000, completions) - 1000)
+      return (effective)
+    case 'reincarnation':
+      effective += Math.min(25, completions)
+      effective += 1 / 2 * (Math.min(75, Math.max(25, completions)) - 25)
+      effective += 1 / 10 * (Math.max(75, completions) - 75)
+      return (effective)
+    case 'ascension':
+      effective += Math.min(10, completions)
+      effective += 1 / 2 * (Math.max(10, completions) - 10)
+      return (effective)
   }
-
-  return effective
 }
 
 export const challengeRequirement = (challenge: number, completion: number, special = 0) => {

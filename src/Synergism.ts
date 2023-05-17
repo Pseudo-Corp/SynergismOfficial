@@ -2215,7 +2215,7 @@ export const updateAllTick = (): void => {
     a += 2
   }
 
-  a += 5 * CalcECC(2)
+  a += 5 * CalcECC('transcend', 2)
   G.freeUpgradeAccelerator = a
   a += G.totalAcceleratorBoost * (4 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20] + G.cubeBonusMultiplier[1])
   if (player.unlocks.prestige) {
@@ -2251,10 +2251,10 @@ export const updateAllTick = (): void => {
   G.acceleratorPower = Math.pow(
     1.1 + G.tuSevenMulti *
         (G.totalAcceleratorBoost / 100)
-        * (1 + CalcECC(2) / 20),
-    1 + 0.04 * CalcECC(7)
+        * (1 + CalcECC('transcend', 2) / 20),
+    1 + 0.04 * CalcECC('reincarnation', 7)
   )
-  G.acceleratorPower += 1 / 200 * Math.floor(CalcECC(2) / 2) * 100 / 100
+  G.acceleratorPower += 1 / 200 * Math.floor(CalcECC('transcend', 2) / 2) * 100 / 100
   for (let i = 1; i <= 5; i++) {
     if (player.achievements[7 * i - 4] > 0) {
       G.acceleratorPower += 0.0005 * i
@@ -2272,7 +2272,7 @@ export const updateAllTick = (): void => {
       G.acceleratorPower = 1
     }
     if (player.currentChallenge.transcension === 3) {
-      G.acceleratorPower = 1.05 + 2 * G.tuSevenMulti * (G.totalAcceleratorBoost / 300) * (1 + CalcECC(2) / 20)
+      G.acceleratorPower = 1.05 + 2 * G.tuSevenMulti * (G.totalAcceleratorBoost / 300) * (1 + CalcECC('transcend', 2) / 20)
     }
   }
   G.acceleratorPower = Math.min(1e300, G.acceleratorPower)
@@ -2385,7 +2385,7 @@ export const updateAllMultiplier = (): void => {
   a *= (1 + player.achievements[59] / 100)
   a *= Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25])
   a *= (1 + 0.03 * player.upgrades[34] + 0.02 * player.upgrades[35])
-  a *= (1 + 1 / 5 * player.researches[2] * (1 + 1 / 2 * CalcECC(14)))
+  a *= (1 + 1 / 5 * player.researches[2] * (1 + 1 / 2 * CalcECC('ascension', 14)))
   a *= (1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15])
   a *= (1 + G.rune2level / 400 * G.effectiveLevelMult)
   a *= (1 + 1 / 20 * player.researches[87])
@@ -2428,10 +2428,10 @@ export const updateAllMultiplier = (): void => {
   b *= (1 + player.researches[89] / 5)
   b *= (1 + 10 * G.effectiveRuneBlessingPower[2])
 
-  c += Math.floor(0.1 * b * CalcECC(1))
-  c += (CalcECC(1) * 10)
+  c += Math.floor(0.1 * b * CalcECC('transcend', 1))
+  c += (CalcECC('transcend', 1) * 10)
   G.freeMultiplierBoost = c
-  G.totalMultiplierBoost = Math.pow(Math.floor(b) + c, 1 + CalcECC(7) * 0.04)
+  G.totalMultiplierBoost = Math.pow(Math.floor(b) + c, 1 + CalcECC('reincarnation', 7) * 0.04)
 
   let c7 = 1
   if (player.challengecompletions[7] > 0.5) {
@@ -2466,7 +2466,7 @@ export const multipliers = (): void => {
   let c = new Decimal(1)
   let crystalExponent = 1 / 3
   crystalExponent += Math.min(10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4) + 20 * calculateCorruptionPoints() / 400 * G.effectiveRuneSpiritPower[3], 0.05 * player.crystalUpgrades[3])
-  crystalExponent += 0.04 * CalcECC(3)
+  crystalExponent += 0.04 * CalcECC('transcend', 3)
   crystalExponent += 0.08 * player.researches[28]
   crystalExponent += 0.08 * player.researches[29]
   crystalExponent += 0.04 * player.researches[30]
@@ -2488,7 +2488,7 @@ export const multipliers = (): void => {
             1 / 40 * player.researches[37] + 1 / 40 *
             player.researches[38]) +
             (c7 + 0.2) * 0.25 / 1.2 *
-            CalcECC(8)
+            CalcECC('reincarnation', 8)
 
   G.buildingPower = Math.pow(G.buildingPower, 1 + player.cubeUpgrades[12] * 0.09)
   G.buildingPower = Math.pow(G.buildingPower, 1 + player.cubeUpgrades[36] * 0.05)
@@ -2635,8 +2635,8 @@ export const multipliers = (): void => {
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(Decimal.min(Decimal.pow(10, 100 + 5 * player.crystalUpgrades[1]), Decimal.pow(Decimal.log(player.coins.add(1), 10), player.crystalUpgrades[1] / 3)))
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(Decimal.pow(1 + Math.min(0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4), 0.001 * player.crystalUpgrades[2]), player.firstOwnedDiamonds + player.secondOwnedDiamonds + player.thirdOwnedDiamonds + player.fourthOwnedDiamonds + player.fifthOwnedDiamonds))
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(Decimal.pow(1.01, (player.challengecompletions[1] + player.challengecompletions[2] + player.challengecompletions[3] + player.challengecompletions[4] + player.challengecompletions[5]) * player.crystalUpgrades[4]))
-  G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(Decimal.pow(10, CalcECC(5)))
-  G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(Decimal.pow(1e4, player.researches[5] * (1 + 1 / 2 * CalcECC(14))))
+  G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(Decimal.pow(10, CalcECC('transcend', 5)))
+  G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(Decimal.pow(1e4, player.researches[5] * (1 + 1 / 2 * CalcECC('ascension', 14))))
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(Decimal.pow(2.5, player.researches[26]))
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(Decimal.pow(2.5, player.researches[27]))
 
@@ -2666,7 +2666,7 @@ export const multipliers = (): void => {
   G.grandmasterMultiplier = new Decimal(1)
   G.totalMythosOwned = player.firstOwnedMythos + player.secondOwnedMythos + player.thirdOwnedMythos + player.fourthOwnedMythos + player.fifthOwnedMythos
 
-  G.mythosBuildingPower = 1 + (CalcECC(3) / 200)
+  G.mythosBuildingPower = 1 + (CalcECC('transcend', 3) / 200)
   G.challengeThreeMultiplier = Decimal.pow(G.mythosBuildingPower, G.totalMythosOwned)
 
   G.grandmasterMultiplier = G.grandmasterMultiplier.times(G.challengeThreeMultiplier)
@@ -2886,7 +2886,7 @@ export const updateAntMultipliers = (): void => {
   G.globalAntMult = G.globalAntMult.times(antSacrificePointsToMultiplier(player.antSacrificePoints))
   G.globalAntMult = G.globalAntMult.times(Decimal.pow(Math.max(1, player.researchPoints), G.effectiveRuneBlessingPower[5]))
   G.globalAntMult = G.globalAntMult.times(Decimal.pow(1 + G.runeSum / 100, G.talisman6Power))
-  G.globalAntMult = G.globalAntMult.times(Decimal.pow(1.1, CalcECC(9)))
+  G.globalAntMult = G.globalAntMult.times(Decimal.pow(1.1, CalcECC('reincarnation', 9)))
   G.globalAntMult = G.globalAntMult.times(G.cubeBonusMultiplier[6])
   if (player.achievements[169] === 1) {
     G.globalAntMult = G.globalAntMult.times(Decimal.log(player.antPoints.add(10), 10))
@@ -2901,7 +2901,7 @@ export const updateAntMultipliers = (): void => {
     G.globalAntMult = G.globalAntMult.times(1.60)
   }
   G.globalAntMult = G.globalAntMult.times(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]))
-  G.globalAntMult = G.globalAntMult.times(Decimal.pow(1e5, CalcECC(11)))
+  G.globalAntMult = G.globalAntMult.times(Decimal.pow(1e5, CalcECC('ascension', 11)))
   if (player.researches[147] > 0) {
     G.globalAntMult = G.globalAntMult.times(Decimal.log(player.antPoints.add(10), 10))
   }
@@ -2990,7 +2990,7 @@ export const createAnts = (dt: number): void => {
 }
 
 export const resetCurrency = (): void => {
-  let prestigePow = 0.5 + CalcECC(5) / 100
+  let prestigePow = 0.5 + CalcECC('transcend', 5) / 100
   let transcendPow = 0.03
 
   // Calculates the conversion exponent for resets (Challenges 5 and 10 reduce the exponent accordingly).
@@ -3674,7 +3674,7 @@ export const updateAll = (): void => {
   }
 
   G.effectiveLevelMult = 1
-  G.effectiveLevelMult *= (1 + player.researches[4] / 10 * (1 + 1 / 2 * CalcECC(14))) //Research 1x4
+  G.effectiveLevelMult *= (1 + player.researches[4] / 10 * (1 + 1 / 2 * CalcECC('ascension', 14))) //Research 1x4
   G.effectiveLevelMult *= (1 + player.researches[21] / 100) //Research 2x6
   G.effectiveLevelMult *= (1 + player.researches[90] / 100) //Research 4x15
   G.effectiveLevelMult *= (1 + player.researches[131] / 200) //Research 6x6

@@ -54,7 +54,7 @@ export const calculateTotalAcceleratorBoost = () => {
 
   b += player.researches[93] * Math.floor(1 / 20 * (G.rune1level + G.rune2level + G.rune3level + G.rune4level + G.rune5level))
   b += Math.floor((0.01 + G.rune1level) * G.effectiveLevelMult / 20)
-  b *= (1 + 1 / 5 * player.researches[3] * (1 + 1 / 2 * CalcECC(14)))
+  b *= (1 + 1 / 5 * player.researches[3] * (1 + 1 / 2 * CalcECC('ascension', 14)))
   b *= (1 + 1 / 20 * player.researches[16] + 1 / 20 * player.researches[17])
   b *= (1 + 1 / 20 * player.researches[88])
   b *= calculateSigmoidExponential(20, (player.antUpgrades[4-1]! + G.bonusant4) / 1000 * 20 / 19)
@@ -80,7 +80,7 @@ export const calculateAcceleratorMultiplier = () => {
   G.acceleratorMultiplier *= (1 + player.achievements[60] / 100)
   G.acceleratorMultiplier *= (1 + player.achievements[61] / 100)
   G.acceleratorMultiplier *= (1 + player.achievements[62] / 100)
-  G.acceleratorMultiplier *= (1 + 1 / 5 * player.researches[1] * (1 + 1 / 2 * CalcECC(14)))
+  G.acceleratorMultiplier *= (1 + 1 / 5 * player.researches[1] * (1 + 1 / 2 * CalcECC('ascension', 14)))
   G.acceleratorMultiplier *= (1 + 1 / 20 * player.researches[6] + 1 / 25 * player.researches[7] + 1 / 40 * player.researches[8] + 3 / 200 * player.researches[9] + 1 / 200 * player.researches[10])
   G.acceleratorMultiplier *= (1 + 1 / 20 * player.researches[86])
   G.acceleratorMultiplier *= (1 + 1 / 100 * player.researches[126])
@@ -172,19 +172,19 @@ export function calculateRuneExpGiven(runeIndex: number, all = false, runeLevel 
   // Rune multiplier that gets applied to specific runes
   const runeExpMultiplier = [
     productContents([
-      1 + (player.researches[78] / 50), 1 + (player.researches[111] / 100), 1 + (CalcECC(7) / 10), droughtEffect
+      1 + (player.researches[78] / 50), 1 + (player.researches[111] / 100), 1 + (CalcECC('reincarnation', 7) / 10), droughtEffect
     ]),
     productContents([
-      1 + (player.researches[80] / 50), 1 + (player.researches[112] / 100), 1 + (CalcECC(7) / 10), droughtEffect
+      1 + (player.researches[80] / 50), 1 + (player.researches[112] / 100), 1 + (CalcECC('reincarnation', 7) / 10), droughtEffect
     ]),
     productContents([
-      1 + (player.researches[79] / 50), 1 + (player.researches[113] / 100), 1 + (CalcECC(8) / 5), droughtEffect
+      1 + (player.researches[79] / 50), 1 + (player.researches[113] / 100), 1 + (CalcECC('reincarnation', 8) / 5), droughtEffect
     ]),
     productContents([
-      1 + (player.researches[77] / 50), 1 + (player.researches[114] / 100), 1 + (CalcECC(6) / 10), droughtEffect
+      1 + (player.researches[77] / 50), 1 + (player.researches[114] / 100), 1 + (CalcECC('reincarnation', 6) / 10), droughtEffect
     ]),
     productContents([
-      1 + (player.researches[83] / 20), 1 + (player.researches[115] / 100), 1 + (CalcECC(9) / 5), droughtEffect
+      1 + (player.researches[83] / 20), 1 + (player.researches[115] / 100), 1 + (CalcECC('reincarnation', 9) / 5), droughtEffect
     ]),
     productContents([1]),
     productContents([1])
@@ -235,8 +235,8 @@ export const calculateMaxRunes = (i: number) => {
   let max = 1000
 
   const increaseAll = 20 * (player.cubeUpgrades[16] + player.cubeUpgrades[37])
-        + 3 * player.constantUpgrades[7] + 80 * CalcECC(11)
-        + 200 * CalcECC(14)
+        + 3 * player.constantUpgrades[7] + 80 * CalcECC('ascension', 11)
+        + 200 * CalcECC('ascension', 14)
         + Math.floor(0.04 * player.researches[200] + 0.04 * player.cubeUpgrades[50])
   const increaseMaxLevel = [
     null,
@@ -306,7 +306,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     b += 0.2 * player.researches[24]
     b += 1 / 200 * G.rune5level * G.effectiveLevelMult * (1 + player.researches[85] / 200)
     b *= (1 + Math.pow(Decimal.log(player.transcendShards.add(1), 10), 1 / 2) / 5)
-    b *= (1 + CalcECC(8) / 25)
+    b *= (1 + CalcECC('reincarnation', 8) / 25)
     b *= Math.min(Math.pow(player.transcendcounter / 10, 2), 1)
     if (player.transcendCount >= 5) {
       b *= Math.max(1, player.transcendcounter / 10)
@@ -329,7 +329,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
   c += 0.2 * player.researches[24]
   c += 1 / 200 * G.rune5level * G.effectiveLevelMult * (1 + player.researches[85] / 200)
   c *= (1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5)
-  c *= (1 + CalcECC(6) / 50)
+  c *= (1 + CalcECC('reincarnation', 6) / 50)
   c *= Math.min(Math.pow(player.prestigecounter / 10, 2), 1)
   if (player.prestigeCount >= 5) {
     c *= Math.max(1, player.prestigecounter / 10)
@@ -350,7 +350,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     G.cubeBonusMultiplier[3], // Brutus
     1 + 0.02 * player.constantUpgrades[3], // Constant Upgrade 3
     1 + 0.0003 * player.talismanLevels[3-1] * player.researches[149] + 0.0004 * player.talismanLevels[3-1] * player.researches[179], // Research 6x24,8x4
-    1 + 0.12 * CalcECC(12), // Challenge 12
+    1 + 0.12 * CalcECC('ascension', 12), // Challenge 12
     1 + 0.01 / 100 * player.researches[200], // Research 8x25
     1 + Math.min(1, player.ascensionCount / 1e6) * player.achievements[187], // Ascension Count Achievement
     1 + .6 * player.achievements[250] + 1 * player.achievements[251], // Sun&Moon Achievements
@@ -440,7 +440,7 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= (1 + 0.04 * player.constantUpgrades[4])
   G.obtainiumGain *= (1 + 0.1 * player.cubeUpgrades[47])
   G.obtainiumGain *= (1 + 0.1 * player.cubeUpgrades[3])
-  G.obtainiumGain *= (1 + 0.5 * CalcECC(12))
+  G.obtainiumGain *= (1 + 0.5 * CalcECC('ascension', 12))
   G.obtainiumGain *= (1 + calculateCorruptionPoints() / 400 * G.effectiveRuneSpiritPower[4])
   G.obtainiumGain *= (1 + 0.03 * Math.log(player.uncommonFragments + 1) / Math.log(4) * player.researches[144])
   G.obtainiumGain *= (1 + 0.02 / 100 * player.cubeUpgrades[50])
@@ -699,9 +699,9 @@ export const calculateAnts = () => {
 
   let bonusLevels = 0
   bonusLevels += 2 * (player.talismanRarity[6-1] - 1)
-  bonusLevels += CalcECC(9)
+  bonusLevels += CalcECC('reincarnation', 9)
   bonusLevels += 2 * player.constantUpgrades[6]
-  bonusLevels += 12 * CalcECC(11)
+  bonusLevels += 12 * CalcECC('ascension', 11)
   bonusLevels += Math.floor(1 / 200 * player.researches[200])
   bonusLevels *= G.challenge15Rewards.bonusAntLevel
   let c11 = 0
@@ -762,7 +762,7 @@ export const calculateAntSacrificeELO = () => {
     G.antELO += 25 * player.researches[108]
     G.antELO += 25 * player.researches[109]
     G.antELO += 40 * player.researches[123]
-    G.antELO += 100 * CalcECC(10)
+    G.antELO += 100 * CalcECC('reincarnation', 10)
     G.antELO += 75 * player.upgrades[80]
     G.antELO = 1 / 10 * Math.floor(10 * G.antELO)
 
@@ -797,7 +797,7 @@ const calculateAntSacrificeMultipliers = () => {
     G.upgradeMultiplier *= 1.25
   }
   G.upgradeMultiplier *= (1 + 20 / 3 * G.effectiveRuneBlessingPower[3])
-  G.upgradeMultiplier *= (1 + 1 / 50 * CalcECC(10))
+  G.upgradeMultiplier *= (1 + 1 / 50 * CalcECC('reincarnation', 10))
   G.upgradeMultiplier *= (1 + 1 / 50 * player.researches[122])
   G.upgradeMultiplier *= (1 + 3 / 100 * player.researches[133])
   G.upgradeMultiplier *= (1 + 2 / 100 * player.researches[163])

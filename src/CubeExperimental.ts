@@ -209,7 +209,7 @@ export class WowCubes extends Cube {
 
     // If you're opening more than 20 cubes, it will consume all cubes until remainder mod 20, giving expected values.
     for (const key of keys) {
-      player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20 * (1 + Math.floor(CalcECC(12)))
+      player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20 * (1 + Math.floor(CalcECC('ascension', 12)))
     }
 
     // Then, the remaining cubes will be opened, simulating the probability [RNG Element]
@@ -217,7 +217,7 @@ export class WowCubes extends Cube {
       const num = 100 * Math.random()
       for (const key of keys) {
         if (blessings[key].pdf(num)) {
-          player.cubeBlessings[key] += (1 + Math.floor(CalcECC(12)))
+          player.cubeBlessings[key] += (1 + Math.floor(CalcECC('ascension', 12)))
         }
       }
     }
