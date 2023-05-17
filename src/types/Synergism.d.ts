@@ -7,6 +7,8 @@ import { IPlatBaseCost } from '../Platonic';
 import type { QuarkHandler } from '../Quark';
 import { SingularityUpgrade } from '../singularity';
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges';
+import type { TabNames } from '../Tabs'
+import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache } from '../StatCache';
 
 export interface Player {
     firstPlayed: string
@@ -554,6 +556,7 @@ export interface Player {
     loadedV2930Hotfix1: boolean
     loadedV2931Hotfix1: boolean
     loadedV21003Hotfix1: boolean,
+    loadedV21007Hotfix1: boolean,
     version: string
 
     rngCode: number
@@ -598,7 +601,16 @@ export interface Player {
     insideSingularityChallenge: boolean
     singularityChallenges: Record<keyof typeof singularityChallengeData, SingularityChallenge>
 
+    ambrosia: number
+    lifetimeAmbrosia: number
+    ambrosiaRNG: number
+    visitedAmbrosiaSubtab: boolean
 
+    caches: {
+        ambrosiaLuck: AmbrosiaLuckCache,
+        ambrosiaGeneration: AmbrosiaGenerationCache
+        blueberryInventory: BlueberryInventoryCache
+    }
 }
 
 export interface GlobalVariables {
@@ -699,19 +711,7 @@ export interface GlobalVariables {
     uFourteenMulti: Decimal
     uFifteenMulti: Decimal
     tuSevenMulti: number
-    currentTab:
-        | 'buildings'
-        | 'upgrades'
-        | 'achievements'
-        | 'challenges'
-        | 'runes'
-        | 'researches'
-        | 'settings'
-        | 'shop'
-        | 'ants'
-        | 'cubes'
-        | 'traits'
-        | 'singularity',
+    currentTab: TabNames,
 
     researchfiller1: string
     researchfiller2: string
@@ -942,6 +942,10 @@ export interface GlobalVariables {
 
     isEvent: boolean
     shopEnhanceVision: boolean
+    
+    eventClicked: boolean
+
+    ambrosiaTimer: number
 }
 
 export interface SynergismEvents {

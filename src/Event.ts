@@ -1,7 +1,8 @@
 import { player, getTimePinnedToLoadDate } from './Synergism'
-import { Globals as G } from './Variables';
-import { DOMCacheGetOrSet } from './Cache/DOM';
-import i18next from 'i18next';
+import { Globals as G } from './Variables'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import i18next from 'i18next'
+import { Alert, revealStuff } from './UpdateHTML'
 
 interface HolidayData {
     name: string
@@ -31,74 +32,74 @@ interface HolidayData {
 // Editing the event is here
 // can change the basic game balance by setting default to event: true, but cannot stack events
 const events: Record<string, HolidayData> = {
-    default: {
-        name: 'Game Modified',
-        color: 'white',
-        url: '',
-        everyYear: true,
-        start: '1/1/2001 00:00:00',
-        end: '12/31/2099 23:59:59',
-        notice: 0,
-        event: false,
-        buffs: {
-            quark: -0.2,
-            goldenQuark: 0,
-            cubes: 0,
-            powderConversion: 0,
-            ascensionSpeed: 0,
-            globalSpeed: 0,
-            ascensionScore: 0,
-            antSacrifice: 0,
-            offering: 0,
-            obtainium: 0
-        }
-    },
-    // Last active event
-    last: {
-        name: 'Platonic\'s Feelin\' 22',
-        color: 'gold',
-        url: 'https://youtu.be/NypS89VNgI8?t=345',
-        everyYear: false,
-        start: '02/22/2022 00:00:00',
-        end: '02/26/2023 23:59:59',
-        notice: 20,
-        event: true,
-        buffs: {
-            quark: 1,
-            globalSpeed: 0.22,
-            ascensionSpeed: 0.22,
-            antSacrifice: 0.22,
-            offering: 0.22,
-            obtainium: 0.22,
-            octeract: 0.22,
-            powderConversion: 0.22,
-            goldenQuark: 0.22,
-            oneMind: 0.022
-        }
-    },
-    khafra: {
-        name: 'Thanks for Boosting the Discord',
-        color: 'var(--green-text-color)', //Plat please use var color instead for any of these (darkorchid, orchid, darkcyan, red, maroon, orangered, crimson, gray, green, lightseagreen)
-        url: 'https://www.youtube.com/watch?v=iYYRH4apXDo',
-        everyYear: false,
-        start: '12/07/2022 00:00:00',
-        end: '12/08/2022 23:59:59',
-        notice: 20,
-        event: true,
-        buffs: {
-            quark: .2,
-            globalSpeed: 0,
-            ascensionSpeed: 0,
-            antSacrifice: 0,
-            offering: 0,
-            obtainium: 0,
-            octeract: 0,
-            powderConversion: 0,
-            goldenQuark: 0,
-            oneMind: 0
-        }
+  default: {
+    name: 'Game Modified',
+    color: 'white',
+    url: '',
+    everyYear: true,
+    start: '1/1/2001 00:00:00',
+    end: '12/31/2099 23:59:59',
+    notice: 0,
+    event: false,
+    buffs: {
+      quark: -0.2,
+      goldenQuark: 0,
+      cubes: 0,
+      powderConversion: 0,
+      ascensionSpeed: 0,
+      globalSpeed: 0,
+      ascensionScore: 0,
+      antSacrifice: 0,
+      offering: 0,
+      obtainium: 0
     }
-    /*next: {
+  },
+  // Last active event
+  last: {
+    name: 'Synergism 3: More Synergies',
+    color: 'white',
+    url: 'https://www.youtube.com/watch?v=M8JO51TLGgg',
+    everyYear: false,
+    start: '05/01/2023 00:00:00',
+    end: '05/07/2023 23:59:59',
+    notice: 20,
+    event: true,
+    buffs: {
+      quark: 0.33,
+      globalSpeed: 0.33,
+      ascensionSpeed: 0.33,
+      antSacrifice: 0.33,
+      offering: 0.33,
+      obtainium: 0.33,
+      octeract: 0.33,
+      powderConversion: 0.33,
+      goldenQuark: 0,
+      oneMind: 0.033
+    }
+  },
+  khafra: {
+    name: 'Thanks for Boosting the Discord',
+    color: 'var(--green-text-color)', //Plat please use var color instead for any of these (darkorchid, orchid, darkcyan, red, maroon, orangered, crimson, gray, green, lightseagreen)
+    url: 'https://www.youtube.com/watch?v=iYYRH4apXDo',
+    everyYear: false,
+    start: '12/07/2022 00:00:00',
+    end: '12/08/2022 23:59:59',
+    notice: 20,
+    event: true,
+    buffs: {
+      quark: .2,
+      globalSpeed: 0,
+      ascensionSpeed: 0,
+      antSacrifice: 0,
+      offering: 0,
+      obtainium: 0,
+      octeract: 0,
+      powderConversion: 0,
+      goldenQuark: 0,
+      oneMind: 0
+    }
+  }
+  /*next: {
         name: 'Derpmas 2022: Daily Extravaganza!',
         color: 'white',
         url: 'https://www.youtube.com/watch?v=A6-vc-R9np8',
@@ -120,8 +121,8 @@ const events: Record<string, HolidayData> = {
             oneMind: 0.05
         }
     }*/
-    // Event example
-    /*
+  // Event example
+  /*
     newyear: {
         name: '&#127881; New Year Event! &#127881;',
         color: 'yellow',
@@ -222,128 +223,138 @@ const events: Record<string, HolidayData> = {
     */
 }
 
-let nowEvent = events.default;
+let nowEvent = events.default
 
 export const getEvent = (): HolidayData => {
-    return nowEvent;
+  return nowEvent
 }
 
 export const eventCheck = () => {
-    if (!player.dayCheck) {
-        return;
-    }
-    const now = new Date(getTimePinnedToLoadDate());
-    let start: Date;
-    let end: Date;
+  if (!player.dayCheck) {
+    return
+  }
+  const now = new Date(getTimePinnedToLoadDate())
+  let start: Date
+  let end: Date
 
-    // Disable the event if there is any fraud, such as setting a device clock in the past
-    /* TODO: Figure out why some people get tagged for cheating even when they are playing legitimately
+  // Disable the event if there is any fraud, such as setting a device clock in the past
+  /* TODO: Figure out why some people get tagged for cheating even when they are playing legitimately
              I have temporarily disabled the checks. */
-    nowEvent = events.default;
-    //if (now.getTime() >= player.dayCheck.getTime()) {
-    // Update currently valid events
-    for (const e in events) {
-        const event = events[e];
-        if (event.name !== 'default' && event.event === true) {
-            start = new Date(event.start);
-            end = new Date(event.end);
-            if (event.everyYear === true) {
-                const nowFullYear = now.getFullYear();
-                start = new Date(event.start);
-                end = new Date(event.end);
-                start.setFullYear(nowFullYear);
-                end.setFullYear(nowFullYear);
-                if (start.getTime() > end.getTime()) {
-                    end.setFullYear(nowFullYear + 1);
-                }
-                if (now.getTime() >= start.getTime() - 31536000000 && now.getTime() <= end.getTime() - 31536000000) {
-                    start.setFullYear(start.getFullYear() - 1);
-                    end.setFullYear(end.getFullYear() - 1);
-                }
-                if (now.getTime() >= end.getTime() + 86400000) {
-                    continue;
-                }
-            } else if (now.getTime() >= end.getTime() + 86400000) {
-                continue;
-            }
-            if (now.getTime() >= start.getTime() - event.notice * 86400000 && now.getTime() <= end.getTime()) {
-                nowEvent = event;
-                if (now.getTime() >= start.getTime() && now.getTime() <= end.getTime()) {
-                    break;
-                }
-            }
+  nowEvent = events.default
+  //if (now.getTime() >= player.dayCheck.getTime()) {
+  // Update currently valid events
+  for (const e in events) {
+    const event = events[e]
+    if (event.name !== 'default' && event.event) {
+      start = new Date(event.start)
+      end = new Date(event.end)
+      if (event.everyYear) {
+        const nowFullYear = now.getFullYear()
+        start = new Date(event.start)
+        end = new Date(event.end)
+        start.setFullYear(nowFullYear)
+        end.setFullYear(nowFullYear)
+        if (start.getTime() > end.getTime()) {
+          end.setFullYear(nowFullYear + 1)
         }
+        if (now.getTime() >= start.getTime() - 31536000000 && now.getTime() <= end.getTime() - 31536000000) {
+          start.setFullYear(start.getFullYear() - 1)
+          end.setFullYear(end.getFullYear() - 1)
+        }
+        if (now.getTime() >= end.getTime() + 86400000) {
+          continue
+        }
+      } else if (now.getTime() >= end.getTime() + 86400000) {
+        continue
+      }
+      if (now.getTime() >= start.getTime() - event.notice * 86400000 && now.getTime() <= end.getTime()) {
+        nowEvent = event
+        if (now.getTime() >= start.getTime() && now.getTime() <= end.getTime()) {
+          break
+        }
+      }
     }
-    //}
-    const happyHolidays = DOMCacheGetOrSet('happyHolidays') as HTMLAnchorElement;
-    const eventBuffs = DOMCacheGetOrSet('eventBuffs');
-    if (nowEvent.event === true) {
-        start = new Date(nowEvent.start);
-        end = new Date(nowEvent.end);
-        if (nowEvent.everyYear === true) {
-            const nowFullYear = now.getFullYear();
-            start.setFullYear(nowFullYear);
-            end.setFullYear(nowFullYear);
-            if (start.getTime() > end.getTime()) {
-                end.setFullYear(nowFullYear + 1);
-            }
-            if (now.getTime() >= start.getTime() - 31536000000 && now.getTime() <= end.getTime() - 31536000000) {
-                start.setFullYear(start.getFullYear() - 1);
-                end.setFullYear(end.getFullYear() - 1);
-            }
-        }
-        G['isEvent'] = now.getTime() >= start.getTime() && now.getTime() <= end.getTime();
-        let buffs = '';
-        for (let i = 0; i < eventBuffType.length; i++) {
-            const eventBuff = calculateEventSourceBuff(eventBuffType[i]);
-            if (eventBuff !== 0) {
-                if (eventBuffType[i] === 'One Mind' && player.singularityUpgrades.oneMind.level > 0) {
-                    buffs += `<span style="color: gold">${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}</span> ,`
-                } else if (eventBuffType[i] !== 'One Mind' || player.singularityUpgrades.oneMind.level === 0) {
-                    buffs += `${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}, `;
-                }
-            }
-        }
-        if (buffs.length > 2) {
-            buffs = buffs.substring(0, buffs.length - 2);
-            buffs += '!';
-        }
-        DOMCacheGetOrSet('eventCurrent').textContent = G['isEvent']
-            ? i18next.t('settings.events.activeUntil', { x: end })
-            : i18next.t('settings.events.starts', { x: start })
-        eventBuffs.innerHTML = G['isEvent'] ? 'Current Buffs: ' + buffs : '';
-        //eventBuffs.style.color = 'lime';
-        happyHolidays.innerHTML = nowEvent.name;
-        happyHolidays.style.color = nowEvent.color;
-        happyHolidays.href = nowEvent.url.length > 0 ? nowEvent.url : '#';
-    } else {
-        G['isEvent'] = false;
-        DOMCacheGetOrSet('eventCurrent').innerHTML = i18next.t('settings.events.inactive')
-        eventBuffs.textContent = now.getTime() >= player.dayCheck.getTime() ? '' : ''
-        eventBuffs.style.color = 'var(--red-text-color)';
-        happyHolidays.innerHTML = '';
-        happyHolidays.href = '';
+  }
+  //}
+  const happyHolidays = DOMCacheGetOrSet('happyHolidays') as HTMLAnchorElement
+  const eventBuffs = DOMCacheGetOrSet('eventBuffs')
+  const updateIsEventCheck = G.isEvent
+  if (nowEvent.event) {
+    start = new Date(nowEvent.start)
+    end = new Date(nowEvent.end)
+    if (nowEvent.everyYear) {
+      const nowFullYear = now.getFullYear()
+      start.setFullYear(nowFullYear)
+      end.setFullYear(nowFullYear)
+      if (start.getTime() > end.getTime()) {
+        end.setFullYear(nowFullYear + 1)
+      }
+      if (now.getTime() >= start.getTime() - 31536000000 && now.getTime() <= end.getTime() - 31536000000) {
+        start.setFullYear(start.getFullYear() - 1)
+        end.setFullYear(end.getFullYear() - 1)
+      }
     }
+    G.isEvent = now.getTime() >= start.getTime() && now.getTime() <= end.getTime()
+    let buffs = ''
+    for (let i = 0; i < eventBuffType.length; i++) {
+      const eventBuff = calculateEventSourceBuff(eventBuffType[i])
+      if (eventBuff !== 0) {
+        if (eventBuffType[i] === 'One Mind' && player.singularityUpgrades.oneMind.level > 0) {
+          buffs += `<span style="color: gold">${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}</span> ,`
+        } else if (eventBuffType[i] !== 'One Mind' || player.singularityUpgrades.oneMind.level === 0) {
+          buffs += `${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}, `
+        }
+      }
+    }
+    if (buffs.length > 2) {
+      buffs = buffs.substring(0, buffs.length - 2)
+      buffs += '!'
+    }
+    DOMCacheGetOrSet('eventCurrent').textContent = G.isEvent
+      ? i18next.t('settings.events.activeUntil', { x: end })
+      : i18next.t('settings.events.starts', { x: start })
+    eventBuffs.innerHTML = G.isEvent ? 'Current Buffs: ' + buffs : ''
+    //eventBuffs.style.color = 'lime';
+    happyHolidays.innerHTML = nowEvent.name
+    happyHolidays.style.color = nowEvent.color
+    happyHolidays.href = nowEvent.url.length > 0 ? nowEvent.url : '#'
+  } else {
+    G.isEvent = false
+    DOMCacheGetOrSet('eventCurrent').innerHTML = i18next.t('settings.events.inactive')
+    eventBuffs.textContent = now.getTime() >= player.dayCheck.getTime() ? '' : ''
+    eventBuffs.style.color = 'var(--red-text-color)'
+    happyHolidays.innerHTML = ''
+    happyHolidays.href = ''
+  }
+  if (G.isEvent !== updateIsEventCheck) {
+    revealStuff()
+  }
 }
 
-const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium', 'Octeract', 'One Mind'];
-const eventBuffName = ['Quarks', 'Golden Quarks', 'Cubes from all type', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice rewards', 'Offering', 'Obtainium', 'Eight Dimensional Hypercubes', 'One Mind Quark Bonus'];
+const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium', 'Octeract', 'One Mind']
+const eventBuffName = ['Quarks', 'Golden Quarks', 'Cubes from all type', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice rewards', 'Offering', 'Obtainium', 'Eight Dimensional Hypercubes', 'One Mind Quark Bonus']
 
 export const calculateEventSourceBuff = (buff: string): number => {
-    const event = getEvent();
-    switch (buff) {
-        case 'Quarks': return event.buffs.quark || 0;
-        case 'Golden Quarks': return event.buffs.goldenQuark || 0;
-        case 'Cubes': return event.buffs.cubes || 0;
-        case 'Powder Conversion': return event.buffs.powderConversion || 0;
-        case 'Ascension Speed': return event.buffs.ascensionSpeed || 0;
-        case 'Global Speed': return event.buffs.globalSpeed || 0;
-        case 'Ascension Score': return event.buffs.ascensionScore || 0;
-        case 'Ant Sacrifice': return event.buffs.antSacrifice || 0;
-        case 'Offering': return event.buffs.offering || 0;
-        case 'Obtainium': return event.buffs.obtainium || 0;
-        case 'Octeract': return event.buffs.octeract || 0;
-        case 'One Mind': return (player.singularityUpgrades.oneMind.level > 0) ? event.buffs.oneMind || 0 : 0
-        default: return 0;
-    }
+  const event = getEvent()
+  switch (buff) {
+    case 'Quarks': return event.buffs.quark ?? 0
+    case 'Golden Quarks': return event.buffs.goldenQuark ?? 0
+    case 'Cubes': return event.buffs.cubes ?? 0
+    case 'Powder Conversion': return event.buffs.powderConversion ?? 0
+    case 'Ascension Speed': return event.buffs.ascensionSpeed ?? 0
+    case 'Global Speed': return event.buffs.globalSpeed ?? 0
+    case 'Ascension Score': return event.buffs.ascensionScore ?? 0
+    case 'Ant Sacrifice': return event.buffs.antSacrifice ?? 0
+    case 'Offering': return event.buffs.offering ?? 0
+    case 'Obtainium': return event.buffs.obtainium ?? 0
+    case 'Octeract': return event.buffs.octeract ?? 0
+    case 'One Mind': return (player.singularityUpgrades.oneMind.level > 0) ? event.buffs.oneMind ?? 0 : 0
+    default: return 0
+  }
+}
+
+export const clickSmith = (): Promise<void> => {
+  G.eventClicked = true
+  DOMCacheGetOrSet('eventClicked').style.display = 'block'
+  return Alert(i18next.t('event.aprilFools.clicked'))
 }

@@ -1,4 +1,4 @@
-export const version = '2.10.5: Febuary 23, 2023: Birth Event!';
+export const version = '3.0.0 pt 1: May 12, 2023: Amberberries!'
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE
@@ -10,7 +10,7 @@ export const version = '2.10.5: Febuary 23, 2023: Birth Event!';
  */
 // eslint-disable-next-line
 export const testing: boolean = false;
-export const lastUpdated = new Date('##LAST_UPDATED##');
+export const lastUpdated = new Date('##LAST_UPDATED##')
 /**
  * CHANGE THIS ONE INSTEAD
  */

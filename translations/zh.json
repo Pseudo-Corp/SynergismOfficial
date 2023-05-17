@@ -1,13 +1,19 @@
 {
     "testing": {
         "saveInLive": "存档无法在正式版本中使用！",
-        "saveInLive2": "",
-        "errorSaving": "",
-        "gameSaved": ""
+        "saveInLive2": "您无法导入该存档！",
+        "errorSaving": "发生错误，导出存档失败。",
+        "gameSaved": "游戏保存成功！"
     },
     "save": {
         "loadFailed": "无法载入存档。",
-        "saveToClipboard": ""
+        "saveToClipboard": "您确定要启用将存档导出到剪贴板吗？"
+    },
+    "ambrosia": {
+        "amount": "您有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>神肴！",
+        "chance": "下一秒有<<var(--amber-text-color)|{{chance}}%>>概率产生",
+        "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：&#9752 {{ambrosiaLuck}}>>]",
+        "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！蓝莓秒可以使产生概率<<var(--amber-text-color)|×{{RNG}}>>(在10000蓝莓秒时必定产生)"
     },
     "achievements": {
         "descriptions": {
@@ -534,7 +540,7 @@
         "upgradeMultiplier": "升级倍率：<<gold|{{x}}倍>>",
         "timeMultiplier": "时间倍率：<<var(--lightseagreen-text-color);|{{x}}倍>>",
         "resetAnthill": "重置蚁丘可获得(下方 分 指强度分)：",
-        "antSacMultiplier": "蚂蚁倍率：×1 --> <<limegreen|×{{x}}>>",
+        "antSacMultiplier": "蚂蚁倍率：×{{y}} --> <<limegreen|×{{x}}>>",
         "autoReset": "这么做将重置银河碎屑，蚂蚁以及蚂蚁升级，但可以获得更高的倍率和一些其他资源。您确定要继续吗？",
         "elo": "+{{x}} [分>{{y}}]"
     },
@@ -619,14 +625,14 @@
             "per": {
                 "1": "转生时金币对钻石的转换指数增加0.01！当前效果：",
                 "2": "水晶产量变为10倍！当前效果：",
-                "3": ""
+                "3": " "
             },
             "first": "无",
             "start": "开始[钻石减少挑战]",
             "current": {
                 "1": "指数变为{{value}}",
                 "2": "水晶产量变为{{value}}倍",
-                "3": ""
+                "3": " "
             }
         },
         "6": {
@@ -804,9 +810,9 @@
             "first": "如果您能做到的话，宇宙将会崩坏！",
             "start": "开始<[(虐待狂挑战 II)]>",
             "current": {
-                "1": "",
-                "2": "",
-                "3": ""
+                "1": " ",
+                "2": " ",
+                "3": " "
             },
             "noGoal": "没有目标，根据您在此挑战中的最高金币数量获得奖励。"
         },
@@ -989,7 +995,7 @@
             "maxLevel": "花费：0惊奇方盒。此升级已满级！真惊奇"
         },
         "noCubesOpened": "好吧。不开了。",
-        "howManyCubesOpen": "您想要开启多少？您目前拥有{{x}}！\\n您可以输入想要开启的百分比，例如输入“50%”或“100%”。\\n您还可以输入以-开头的数字，意味着保留相应数字不开启，并开启剩下的所有(同样可以使用%格式)。",
+        "howManyCubesOpen": "您想要开启多少？您目前拥有{{x}}！\n您可以输入想要开启的百分比，例如输入“50%”或“100%”。\n您还可以输入以-开头的数字，意味着保留相应数字不开启，并开启剩下的所有(同样可以使用%格式)。",
         "validation": {
             "notEnough": "您目前拥有的数量小于想要开启的数量！",
             "negative": "您无法开启负数数量。",
@@ -1379,7 +1385,8 @@
         "perks": {
             "improvedIn": "第{{sing}}次进入奇点后将有特权加强",
             "unlockedIn": "第{{sing}}次进入奇点后将解锁新特权",
-            "update": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点。</span><br/>以下是您在奇点中获得的特权(鼠标停留在特权上可以查看效果。<span class=\"newPerk\">金色文本</span>的特权在本次奇点解锁或者加强)<br/>{{extra}}",
+            "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点。</span><br/>以下是您在奇点中获得的特权",
+            "description": "(鼠标停留在特权上可以查看效果。<span style=\"color: gold\">金色文本</span>的特权在本次奇点解锁或者加强)",
             "xyz": {
                 "hasLevel2": "输入“每日”代码后可以获得金夸克和随机奇点升级的免费等级，额外获得0.2级金夸克 I，0.2级金夸克 II和1级金夸克 III，另外再使获得的免费等级数量翻倍！",
                 "hasLevel1": "输入“每日”代码后可以获得金夸克和随机奇点升级的免费等级，还可以额外获得0.2级金夸克 I，0.2级金夸克 II和1级金夸克 III。",
@@ -1452,6 +1459,8 @@
                 "hasLevel1": "蚂蚁速度变为1e6倍！该效果不受任何等级的任何腐化影响。",
                 "default": "蚂蚁速度变为1000倍！该效果不受任何等级的任何腐化影响。"
             },
+            "irishAnt": "受到爱尔兰之运祝福的蚂蚁可以使神肴之运增加{{i}}！",
+            "irishAnt2": "受到爱尔兰之运更多祝福的蚂蚁可以使神肴之运再增加{{i}}！",
             "overclocked": "特定奇点升级的等级上限增加{{i}}！",
             "wowCubeAutomatedShipping": {
                 "hasLevel1": "每次飞升自动购买方盒升级！",
@@ -1481,7 +1490,7 @@
         },
         "toString": {
             "noMinimum": "无进入奇点次数要求",
-            "costNextLevel": "下一级的花费："
+            "costNextLevel": "下一级的花费"
         },
         "data": {
             "goldenQuarks1": {
@@ -1590,7 +1599,7 @@
             },
             "singCubes1": {
                 "name": "方盒之焰",
-                "description": "购买后，每级使所有类型的方盒、立方和方块获取数量永久增加2%！",
+                "description": "购买后，每级使所有类型的方盒、立方和方块获取数量永久增加1%！",
                 "effect": "使所有类型的方盒及立方获取数量增加{{n}}%。"
             },
             "singCubes2": {
@@ -1723,27 +1732,27 @@
             },
             "singOcteractGain": {
                 "name": "惊奇八阶方块苦艾酒",
-                "description": "想不到吧，这玩意可以增加惊奇八阶方块的获取数量[事实上每级可以使它增加1%！]",
+                "description": "想不到吧，这玩意可以增加惊奇八阶方块的获取数量[事实上每级可以使它增加1.25%！]",
                 "effect": "惊奇八阶方块获取数量增加{{n}}%"
             },
             "singOcteractGain2": {
                 "name": "八个里亚尔",
-                "description": "确实有八个，但每个的加成只有0.5%，所以合起来，每级可以使惊奇八阶方块的获取数量增加4%。",
+                "description": "确实有八个，但每个的加成只有0.625%，所以合起来，每级可以使惊奇八阶方块的获取数量增加5%。",
                 "effect": "惊奇八阶方块获取数量增加{{n}}%"
             },
             "singOcteractGain3": {
                 "name": "八角方尖碑",
-                "description": "PLATONIC要走很远了。每级可以使惊奇八阶方块的获取数量增加2%！",
+                "description": "PLATONIC要走很远了。每级可以使惊奇八阶方块的获取数量增加2.5%！",
                 "effect": "惊奇八阶方块获取数量增加{{n}}%"
             },
             "singOcteractGain4": {
                 "name": "八面合成",
-                "description": "这到底是怎么生效的！？？每级可以使惊奇八阶方块的获取数量增加1%！",
+                "description": "这到底是怎么生效的！？？每级可以使惊奇八阶方块的获取数量增加2%！",
                 "effect": "惊奇八阶方块获取数量增加{{n}}%"
             },
             "singOcteractGain5": {
                 "name": "世界第八大奇迹",
-                "description": "正是我们所生所处的世界。[每级使惊奇八阶方块的获取数量增加0.5%。PLATONIC真是太小气了！但看起来他对此也并不在意。]",
+                "description": "正是我们所生所处的世界。[每级使惊奇八阶方块的获取数量增加1%。PLATONIC真是太小气了！但看起来他对此也并不在意。]",
                 "effect": "惊奇八阶方块获取数量增加{{n}}%"
             },
             "platonicTau": {
@@ -1805,12 +1814,14 @@
             "oneMind": {
                 "name": "一心",
                 "description": "您在地上发现一张纸条，似乎是什么异教的宣传单。“将飞升的速度限制在10倍，然后使所有类型的方盒、立方和方块获取数量乘以飞升的速度变化的倍数。”嗯……",
-                "effect": "您{{n}}加入异教！"
+                "effectHave": "您已加入异教！",
+                "effectHaveNot": "您未加入异教！"
             },
             "wowPass4": {
                 "name": "夸夸夸夸克克克克克克",
                 "description": "就算再怎么贵也要冲鸭！",
-                "effect": "您{{n}}嘎了最后的嘎克"
+                "effectHave": "您已嘎了最后的嘎克",
+                "effectHaveNot": "您未嘎了最后的嘎克"
             },
             "blueberries": {
                 "name": "蓝莓碎片!",
@@ -1856,6 +1867,8 @@
             "coolQOLCubes": "酷炫的开盒体验",
             "eternalAscensions": "永恒飞升",
             "antGodsCornucopia": "蚁神的聚宝盆",
+            "irishAnt": "爱尔兰蚂蚁",
+            "irishAnt2": "爱尔兰蚂蚁 II：电子布加洛舞",
             "overclocked": "超载",
             "wowCubeAutomatedShipping": "惊奇方盒自动运输",
             "goldenRevolution": "金之革命",
@@ -2040,6 +2053,13 @@
             "124": "蚂蚁有效分增加3%。",
             "125": "每完成一次挑战10，数学常数的税收除数效果就增加0.333%。[除数^(1 + 升级效果)]"
         },
+        "crystalEffects": {
+            "1": "水晶产量变为{{x}}倍",
+            "2": "水晶产量变为{{x}}倍",
+            "3": "水晶产量变为{{x}}倍",
+            "4": "水晶对金币产量提升的指数增加{{x}}",
+            "5": "水晶产量变为{{x}}倍"
+        },
         "crystalUpgrades": {
             "1": "每级使每个成就点数增加水晶产量5%(效果叠乘)。",
             "2": "每级根据未花费的金币数量增加水晶产量。",
@@ -2049,6 +2069,18 @@
             "6": "敬请期待(虽然可能没那么快)！",
             "7": "敬请期待(虽然可能没那么快)！",
             "8": "敬请期待(虽然可能没那么快)！"
+        },
+        "constantEffects": {
+            "1": "所有超立方建筑产量变为{{x}}倍",
+            "2": "所有超立方建筑产量变为{{x}}倍",
+            "3": "祭品获取数量变为{{x}}倍",
+            "4": "难得素获取数量变为{{x}}倍",
+            "5": "蚂蚁速度变为{{x}}倍",
+            "6": "免费蚂蚁等级增加{{x}}级",
+            "7": "免费符文等级增加{{x}}级，符文等级上限增加{{y}}",
+            "8": "祭品提供的符文经验值变为{{x}}倍",
+            "9": "符文效果变为{{x}}倍",
+            "10": "飞升的惊奇方盒和惊奇超立方获取数量变为{{x}}倍"
         },
         "constantUpgrades": {
             "1": "每级使所有超立方建筑产量增加{{level}}%。",
@@ -2144,11 +2176,10 @@
             "79": "效果：献祭奖励增加10% =)",
             "80": "效果：蚂蚁强度分增加75。",
             "81": "效果：想要知道的，都在上面了。",
-            "120": "效果：减少50%税收，又开始废话了！",
-            "121": "效果：水晶升级3的上限增加88%，还是废话！",
-            "122": "效果：金币产量变为原来的1.025次方，废话废话！",
-            "123": "效果：蚂蚁有效分增加3%，废话废话废话！",
-            "124": "效果：增加{{x}}%数学常数的税收除数效果。",
+            "121": "效果：减少50%税收，又开始废话了！",
+            "122": "效果：水晶升级3的上限增加88%，还是废话！",
+            "123": "效果：金币产量变为原来的1.025次方，废话废话！",
+            "124": "效果：蚂蚁有效分增加3%，废话废话废话！",
             "125": "效果：增加{{x}}%数学常数的税收除数效果。"
         },
         "shopTitles": {
@@ -2160,7 +2191,7 @@
             "particles": "粒子升级"
         },
         "hover": "将鼠标停在升级图标上可获得相关详情！",
-        "hoverOverUpgrade": ""
+        "hoverOverUpgrade": "把鼠标停在升级上可以查看详细信息！"
     },
     "tabs": {
         "main": {
@@ -2203,7 +2234,8 @@
             "penalties": "惩罚",
             "perks": "特权",
             "octeracts": "惊奇八阶方块",
-            "exalt": "拔擢"
+            "exalt": "拔擢",
+            "ambrosia": "神肴"
         },
         "settings": {
             "languages": "🌐游戏语言🌐",
@@ -2262,7 +2294,7 @@
             "8": "本次飞升，此腐化等级为{{level}}。效果为：金币获取数量指数变为{{effect}}"
         },
         "prototypeLevel": {
-            "1": "此腐化等级将变为{{level}}。效果为：挑战需求指数{{effect}}",
+            "1": "此腐化等级将变为{{level}}。效果为：免费加速器和加倍器指数变为{{effect}}",
             "2": "本次飞升，此腐化等级为{{level}}。效果为：全局速度除以{{effect}}",
             "3": "下次飞升，此腐化等级将变为{{level}}。效果为：挑战需求指数{{effect}}",
             "4": "下次飞升，此腐化等级将变为{{level}}。效果为：难得素获取数量指数变为{{effect}}",
@@ -2459,7 +2491,7 @@
         "data": {
             "octeractStarter": {
                 "name": "萌新的惊奇八阶方块",
-                "description": "您好……我是Derpsmith……蚁神的先祖……没想到您能走到这一步。该升级可以使您的夸克获取数量增加25%，惊奇八阶方块获取数量增加20%，蚂蚁速度变为100000倍……",
+                "description": "您好……我是Derpsmith……蚁神的先祖……没想到您能走到这一步。该升级可以使您的夸克获取数量增加30%，惊奇八阶方块获取数量增加20%，蚂蚁速度变为100000倍……",
                 "effect": "您{{n}}向Derpsmith致敬。"
             },
             "octeractGain": {
@@ -2474,12 +2506,12 @@
             },
             "octeractQuarkGain": {
                 "name": "惊奇八阶方块·夸克",
-                "description": "惊奇七阶立方的变体版本，每级使夸克获取数量增加1%，且效果不衰减。",
+                "description": "惊奇七阶立方的变体版本，每级使夸克获取数量增加1.1%，且效果不衰减。",
                 "effect": "夸克获取数量增加{{n}}%。"
             },
             "octeractQuarkGain2": {
                 "name": "七-八阶原始协同",
-                "description": "惊奇八阶方块·夸克每有199级，惊奇七阶立方·夸克每有一个数量级，每级该升级就可以使夸克获取数量增加0.01%。",
+                "description": "惊奇八阶方块·夸克每有111级，惊奇七阶立方·夸克每有一个数量级，每级该升级就可以使夸克获取数量增加0.01%。",
                 "effect": "七-八阶原始协同效果{{n}}生效。"
             },
             "octeractCorruption": {
@@ -2585,7 +2617,7 @@
             "octeractFastForward": {
                 "name": "Derpsmith的奇点小玩意",
                 "description": "每级使进入奇点的金夸克获取数量增加100%(效果相互叠加)，且在最高奇点次数时进入奇点将使奇点次数增加1次！",
-                "effect": "进入奇点的金夸克获取数量增加{{n}}%，且奇点次数增加{n}次。"
+                "effect": "进入奇点的金夸克获取数量增加{{n100}}%，且奇点次数增加{{n}}次。"
             },
             "octeractAutoPotionSpeed": {
                 "name": "口渴药片",
@@ -2604,7 +2636,7 @@
             },
             "octeractAmbrosiaLuck": {
                 "name": "八叶草之莓",
-                "description": "很显然并不是蓝莓的换皮版本！使神肴之运增加1，它可以在蓝莓产生神肴时，增加神肴的获取数量。",
+                "description": "很显然并不是蓝莓的换皮版本！使神肴之运增加3，它可以在蓝莓产生神肴时，增加神肴的获取数量。",
                 "effect": "获取数量增加{{n}}(!)"
             }
         },
@@ -2736,7 +2768,7 @@
             "noSingularityUpgrades": {
                 "name": "无奇点升级",
                 "description": "简而言之，您需要在没有大部分奇点升级的前提下通过目标奇点。惊奇八阶方块，特权和游戏体验相关的奇点升级将仍然保留。",
-                "rewardDescription": "每完成一阶层就可以使所有类型的方盒、立方和方块获取数量增加50%！完成第一阶层后可以使金夸克获取数量增加12%。完成第二十阶层后，可以获得一些“特别”的东西 ;)"
+                "rewardDescription": "每完成一阶层就可以使所有类型的方盒、立方和方块获取数量增加50%！完成第一阶层后可以使金夸克获取数量增加12%，并使您获得1个蓝莓！完成第二十阶层后，可以获得一些“特别”的东西 ;)"
             },
             "oneChallengeCap": {
                 "name": "挑战上限恒为一",
@@ -2904,7 +2936,7 @@
             "howDidIGetHere": "我是怎么到这里的？",
             "noTimeToWaste": "好吧，没时间管那些了。这就是您的实验室。用惊奇七阶立方弄出一些有用的东西来吧！",
             "noPassiveBonus": "惊奇七阶立方没有任何被动加成。必须通过锻造才能变得有用。",
-            "youPossessHepteracts": "您拥有<<yellow|{{amount}}>>惊奇七阶立方！您应该已经知道这些是哪来的了吧？",
+            "youPossessHepteracts": "您拥有<<yellow|{{x}}>>惊奇七阶立方！您应该已经知道这些是哪来的了吧？",
             "craft": "锻造",
             "max": "最大化",
             "expand": "延展",
@@ -2977,9 +3009,9 @@
         "unlockedCraft": "恭喜，您现在可以在七阶立方锻炉内锻造{{x}}了！",
         "notUnlocked": "这还没有解锁，您要怎么锻造呢？",
         "reachedCapacity": "该七阶立方达到了上限{{x}}。请进行延展。",
-        "craftMax": "这将尽可能进行锻造。\\n您至多可以锻造{{x}}个(上限的{{y}}%)。您确定要这么做吗？",
+        "craftMax": "这将尽可能进行锻造。\n您至多可以锻造{{x}}个(上限的{{y}}%)。您确定要这么做吗？",
         "executionFailed": "执行失败：无法计算原材料。",
-        "craft": "您想要锻造多少？\\n您至多可以锻造{{x}}个(上限的{{y}}%)。",
+        "craft": "您想要锻造多少？\n您至多可以锻造{{x}}个(上限的{{y}}%)。",
         "cancelled": "好吧，下次再说。",
         "notEnough": "未达上限，无法延展。",
         "craftedHepteracts": "您锻造了{{x}}七阶立方。",
@@ -2991,8 +3023,8 @@
         "orbsPurchasedToday": "今日购买的超通量珠数量：{{x}}。",
         "amalgamate": "您可以在此处融合出超通量珠。[注意：所有超通量珠将在当天后粉碎]",
         "cost250k": "每超通量珠需要250000七阶立方",
-        "craftMaxOrbs": "这将尽可能融合超通量珠。\\n您至多可以获得{{x}}个。您确定要这么做吗？",
-        "hepteractInput": "您要购买多少超通量珠？\\n现有的七阶立方最多可以购买{{x}}。",
+        "craftMaxOrbs": "这将尽可能融合超通量珠。\n您至多可以获得{{x}}个。您确定要这么做吗？",
+        "hepteractInput": "您要购买多少超通量珠？\n现有的七阶立方最多可以购买{{x}}。",
         "gainedPowder": "由于商店升级的效果，您还立即获得了{{x}}超通量粉。",
         "purchasedOrbs": "您购买了{{x}}超通量珠[效果增加{{y}}%]。{{z}}祝您开心！",
         "allCubeGain": "所有类型的方盒及立方获取数量增加{{x}}%[叠乘]，夸克获取数量增加{{y}}%[叠乘]",
@@ -3007,10 +3039,10 @@
         "stumbleMachine": "您偶然发现了一台神秘的机器。上面附着一张说明，您可以使用25超通量粉来重置当天开启方盒及立方获得的夸克计数。但现实时间一天只能使用一次。您要使用它吗？",
         "walkAwayMachine": "您离开了那台机器，超通量粉分毫未少。",
         "useMachine": "使用机器后，当天开启方盒及立方获得的夸克计数被重置了！[消耗25超通量粉]",
-        "useAllWarpsPrompt": "关闭后将消耗您今日所有的跃迁次数(但没有任何收益)。\\n您确定要这么做吗？",
+        "useAllWarpsPrompt": "关闭后将消耗您今日所有的跃迁次数(但没有任何收益)。\n您确定要这么做吗？",
         "machineDidNotConsume": "跃迁次数未发生变化。",
-        "boostQuarksPrompt": "机器可以根据剩余的跃迁次数来增加开启方盒及立方的夸克获取数量了。但开启后，您将无法进行跃迁，且将它关闭需要付出一定代价。\\n您确定要开启它吗？",
-        "machineOverdrive": "机器将开始过载工作，\\n但您目前没有跃迁次数。",
+        "boostQuarksPrompt": "机器可以根据剩余的跃迁次数来增加开启方盒及立方的夸克获取数量了。但开启后，您将无法进行跃迁，且将它关闭需要付出一定代价。\n您确定要开启它吗？",
+        "machineOverdrive": "机器将开始过载工作，\n但您目前没有跃迁次数。",
         "machineInOverdrive": "机器开始了过载工作。",
         "machineUsualContinue": "机器将继续正常工作。"
     },
@@ -3019,112 +3051,119 @@
         "copiedFile": "存档已导出！",
         "exportFailed": "导出失败！",
         "unableCopySave": "无法将存档导出至剪贴板。",
-        "reloadDeletePrompt": "下个确认框将删除存档\\n如果您不想这么做，请取消",
+        "reloadDeletePrompt": "下个确认框将删除存档\n如果您不想这么做，请取消",
         "resetPrompt": "如果想要删除存档，请正确回答以下问题：{{a}}加{{b}}等于多少？(提示：答案为{{sum}})",
         "wrongAnswer": "回答错误，不会删除存档！",
         "unableImport": "无法导入该文件！",
         "loadTestInLive": "您尝试导入的存档来自测试版的游戏。",
-        "promocodePrompt": "有奖励代码吗？很好！在这里输入就可以了(注意大小写)。\\n[注意：此处可以输入活动代码或者一些常时代码。\\n您可以考虑输入“synergism2021”或者“Khafra”。]",
+        "promocodePrompt": "有奖励代码吗？很好！在这里输入就可以了(注意大小写)。\n[注意：此处可以输入活动代码或者一些常时代码。\n您可以考虑输入“synergism2021”或者“Khafra”。]",
         "comeBackSoon": "好吧，下次再说！",
         "noAddCodes": "您暂时还没有使用“增加”代码的次数！{{x}}秒后可以获得1次。",
         "useXAdds": "您最多可以同时使用{{x}}次。您想要使用多少次？",
         "cancelAdd": "您没有消耗任何代码次数！下次再说吧！",
-        "daily0Uses": "",
-        "daily1Uses": "",
-        "add1Uses": "",
-        "add0Uses": "",
-        "addUses": "",
-        "timeMultiplier": "",
+        "daily0Uses": "剩余0次使用次数。明日可以获得新的使用次数。",
+        "daily1Uses": "剩余1次使用次数。明日可以获得新的使用次数。",
+        "add1Uses": "剩余{{x}}次使用次数。",
+        "add0Uses": "剩余{{x}}次使用次数。{{y}}秒后可以获得1次使用次数。",
+        "addUses": "剩余{{x}}次使用次数。",
+        "timeMultiplier": "剩余{{x}}次使用次数。奖励倍率为：{{y}}倍",
         "promocodes": {
-            "synergism2021": "",
-            "unsmith": "",
-            "antismith": "",
-            "khafra": "",
+            "synergism2021": "奖励代码“synergism2021”已生效！获得25祭品，50夸克",
+            "unsmith": "意面时间！[获得一个成就！！！]",
+            "antismith": "这不是玩的反物质维度的梗吗？切。[获得一个成就！！！]",
+            "khafra": "Khafra祝福了您，您获得了{{x}}夸克！",
             "daily": {
-                "message": "",
-                "message2": ""
+                "message": "感谢您今日也继续游玩本游戏！\n蚁神奖励了您这些东西：",
+                "message2": "大方的蚁神还给予了您以下奇点升级的免费等级："
             },
             "add": {
-                "calculator3": "",
-                "calculator5": "",
-                "calculator6": "",
-                "calculatorSolution": "",
-                "calculatorPrompt": "",
-                "calculatorMaxed": "",
-                "freeLevel": "",
-                "cancelled": "",
-                "reward": "",
-                "wrong": ""
+                "calculator3": "由于PL-AT Ω的效果，您同时获得了{{x}}秒的飞升时间！",
+                "calculator5": "由于PL-AT Γ的效果，您还使导出存档的金夸克奖励计时增加了{{x}}秒！",
+                "calculator6": "最后，由于PL-AT _的效果，您还获得了相当于{{x}}秒产量的惊奇八阶方块！",
+                "calculatorSolution": "答对可以获得{{w}}夸克，答错则一无所有：{{x}}+{{y}}等于多少？根据计算器，答案应该为{{z}}。",
+                "calculatorPrompt": "答对可以获得{{w}}夸克，答错则一无所有：{{x}}+{{y}}等于多少？",
+                "calculatorMaxed": "您的计算器自动算出了{{a}}+{{b}}={{c}}，因此您直接获得了{{d}}夸克！{{e}}{{f}}{{g}}{{h}}您还有{{i}}次“增加”代码的使用机会。{{j}}秒后可以获得1次。",
+                "freeLevel": "最后的最后，您还获得了{{x}}级的免费金夸克 I升级和{{y}}级的免费金夸克 III升级！！！",
+                "cancelled": "您没有消耗任何代码次数，不必担心！下次再说吧！",
+                "reward": "您获得了{{a}}夸克！{{b}}{{c}}{{d}}您还有{{e}}次“增加”代码的使用机会。{{f}}秒后可以获得1次。",
+                "wrong": "您输入的是{{w}}，但正确答案是{{x}}。您还有{{y}}次“增加”代码的使用机会。{{z}}秒后可以获得1次。"
             },
             "sub": {
-                "subbed": "",
-                "gave": ""
+                "subbed": "感谢您使用“减少”代码！那我就拿走{{x}}夸克了！:)",
+                "gave": "我得先给您{{x}}夸克，这样我才能拿走{{y}}夸克。"
             },
             "gamble": {
-                "wait": "",
-                "prompt": "",
-                "cancelled": "",
-                "betPrompt": "",
-                "cheaters": "",
-                "won": "",
-                "lost": ""
+                "wait": "稍等片刻，等您准备好再输一次的时候再来吧。",
+                "prompt": "您确定吗？要知道，庄家总是赢家！",
+                "cancelled": "怂了吗？也不失为明智之举！",
+                "betPrompt": "您要下注多少夸克？",
+                "cheaters": "由于过多玩家滥用此代码，因此下注上限现在限制为10000。",
+                "won": "您赢了。协同赌场额外返还了下注额的25%给您！[增加{{x}}夸克]",
+                "lost": "不要灰心……下次，一定能赢！[减少{{x}}夸克]"
             },
             "time": {
-                "wait": "",
-                "confirm": "",
-                "won": "",
-                "lost": ""
+                "wait": "导入存档后，您在15分钟内是无法使用此代码的，这是为了防止作弊。\n其他情况下，您需要等待15分钟后才能再度使用。",
+                "confirm": "在接下来的15秒内点击确定按钮，以此来测试运气！如果您在随机生成时间点的{{x}}毫秒范围内点击了按钮，您将获得一份奖励！由于两次使用该代码之间的时间间隔，本次代码的奖励变为{{y}}倍。",
+                "won": "您点击的时机很好！[增加{{x}}夸克]",
+                "lost": "点击的时机不对，下次再来吧！"
             },
             "spoiler": {
-                "moreThan1": "",
-                "one": ""
+                "moreThan1": "如果您已经解锁它们，则每秒可以获得{{x}}惊奇八阶方块！",
+                "one": "如果您已经解锁它们，则每{{x}}秒可以获得1惊奇八阶方块！"
             },
-            "invalid": ""
+            "invalid": "奖励代码输入错误，或者已经使用过。请再次尝试！"
         }
     },
     "toggles": {
-        "percentBetweenInclusive": "",
-        "percentKeptAt": "",
-        "onAscensionHepteractsCraft": "",
-        "autoUpgradeOn": "",
-        "autoUpgradeOff": "",
-        "upgradeMaxIfPossible": "",
-        "upgradeOneLevelWow": "",
-        "saveOfferingsOn": "",
-        "saveOfferingsOff": "",
-        "modeTime": "",
-        "modeAmount": "",
-        "modePercentage": ""
+        "percentBetweenInclusive": "请输入{{x}}至{{y}}之间的数字！",
+        "percentKeptAt": "您的自动锻造比例仍然为{{x}}%。",
+        "onAscensionHepteractsCraft": "好的。飞升时，将有{{x}}%的七阶立方用于锻造。",
+        "autoUpgradeOn": "自动升级：[开]",
+        "autoUpgradeOff": "自动升级：[关]",
+        "upgradeMaxIfPossible": "升级：最大[尽可能]",
+        "upgradeOneLevelWow": "升级：1级(惊奇)",
+        "saveOfferingsOn": "保留祭品[开]",
+        "saveOfferingsOff": "保留祭品[关]",
+        "modeTime": "模式：时间",
+        "modeAmount": "模式：数量",
+        "modePercentage": "模式：百分比"
     },
     "main": {
-        "dataPersistent": "",
-        "starRepo": "",
-        "transferredFromLZ": "",
-        "allCorruptionsZero": "",
-        "corruptionLoadoutApplied": "",
-        "ascendPrompt": "",
-        "reincarnatePrompt": "",
-        "transcendPrompt": "",
-        "prestigePrompt": "",
-        "welcomeToSingularity": "",
-        "singularityCancelled": "",
-        "singularityMessage1": "",
-        "singularityMessage2": "",
-        "singularityMessage3": "",
-        "singularityMessage4": "",
-        "singularityMessage5": "",
-        "singularityConfirm0": "",
-        "singularityConfirm1": "",
-        "singularityConfirm2": "",
-        "singularityConfirm3": "",
-        "noAntiquity": "",
-        "insideSingularityChallenge": "",
-        "gameBeat": "",
-        "exitAscensionChallenge": "",
-        "buyResearch3x11": ""
+        "dataPersistent": "该页面上的数据将持久保存！如果您不知道这句话的意思，则可以忽略它。",
+        "starRepo": "请支持我们，给我们的Github项目加一个星。 ❤️ https://github.com/pseudo-corp/SynergismOfficial",
+        "transferredFromLZ": "成功将存档转换为新格式！",
+        "allCorruptionsZero": "下次飞升时将所有腐化重置为零。",
+        "corruptionLoadoutApplied": "第{{x}}个预设\"{{y}}\"已载入。飞升后即可生效。",
+        "ascendPrompt": "飞升后，之前的所有低阶资源，符文等级[非上限！]，护身符，大部分研究，以及蚁丘都将被重置，但您可以获得方盒的力量。您确定要继续吗？",
+        "reincarnatePrompt": "转世后之前的所有低阶资源都将被重置，但您可以获得强大的粒子，以及解锁一些非常强大的升级和新的游戏机制。您确定要转世吗？[您可以在设置中调整是否弹出此对话框。]",
+        "transcendPrompt": "超越后金币、钻石升级，金币生产者，水晶生产者和钻石都将被重置。首次超越可以解锁新的游戏机制。您确定要超越吗？[您可以在设置中调整是否弹出此对话框。]",
+        "prestigePrompt": "转生后金币升级，金币生产者和水晶都将被重置。首次转生可以解锁新的游戏机制。您确定要转生吗？[您可以在设置中调整是否弹出此对话框。]",
+        "welcomeToSingularity": "欢迎来到第{{x}}次奇点。您回到了熟悉的领域内，但好像有什么东西不大对劲。",
+        "singularityCancelled": "改变主意的话，可以再来找我。————蚁神",
+        "singularityMessage1": "您到达了游戏终点，也就是第{{x}}次奇点。Platonic和蚁神都为您而感到骄傲。",
+        "singularityMessage2": "您可以选择就此封盘，认为您已经“通关”了，又或着您还愿意做一些更有趣的事情。",
+        "singularityMessage3": "这个宇宙已经容纳不了您的力量了。协同放置的多元宇宙可谓无穷无尽，比起现在这个宇宙，还有更多更具挑战性的平行宇宙。",
+        "singularityMessage4": "让我们重新开始，进入第{{x}}次奇点吧。下一个宇宙比目前的宇宙要来得更艰难，但夸克获取数量永久增加10%，飞升次数永久增加10%，且您可以获得{{y}}金夸克，它可以用于购买游戏内最后阶段的升级[Patreon加成了{{z}}%！]。",
+        "singularityMessage5": "但是，您之前的一切成果都将离您而去！所有的挑战完成次数，可重置的商店购买项，升级，符文，所有类型的方盒及立方升级，所有类型的方盒及立方已获取量，七阶立方库存(除了七阶立方·夸克)，成就，一切的一切，都将成为过去。",
+        "singularityConfirm0": "您想要进入第{{x}}次奇点吗？下一个宇宙比目前的宇宙要来得更艰难，但您可以获得{{y}}金夸克。",
+        "singularityConfirm1": "所以，您意下如何？您真的想要进入奇点吗？",
+        "singularityConfirm2": "您……真的想要进入奇点吗？",
+        "singularityConfirm3": "您是真的真的确定了吗？一旦这么做将再也无法反悔(除非您有旧的存档文件)！这是最后一次向您确认。",
+        "noAntiquity": "哼，请带着古物再来。谢谢。————蚁神",
+        "insideSingularityChallenge": "Derpsmith提醒您，您还在奇点挑战中。您可以在奇点选项卡下点击相应挑战的图标退出挑战。",
+        "gameBeat": "很好。您已经到了奇点之眼。我很满意。但这也意味着您无法继续前进了。除非有什么更强的力量，为您开辟新道路……",
+        "exitAscensionChallenge": "您真的确定要退出飞升挑战吗？退出后，您必须完成挑战10以后才能再次进行飞升挑战！",
+        "buyResearch3x11": "[未解锁 - 请先购买研究3x11]"
     },
     "history": {
-        "perSecondOn": "",
-        "perSecondOff": ""
+        "perSecondOn": "每秒产量：开",
+        "perSecondOff": "每秒产量：关"
+    },
+    "event": {
+        "aprilFools": {
+            "introText": "<<white|Unsmith>>向您转了过来，用心灵感应说道：“我保证，这 绝 不是<<white|瑞克>><<red|摇摆>>。点击我就行了！“",
+            "clicked": "看吧？都说了可以相信Unsmith的。因为您点击了我，您的难得素获取数量、祭品获取数量、所有类型的方盒及立方获取数量在刷新页面之前增加5%！",
+            "clickedText": "您点击了<<white|Unsmith>>！在刷新页面之前，可以使<<orange|祭品获取数量增加5%>>，<<pink|难得素获取数量增加5%>>，且<<white|所有类型的方盒及立方产量增加5%>>！"
+        }
     }
 }

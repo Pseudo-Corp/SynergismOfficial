@@ -235,6 +235,7 @@
                 <button class="singularity" id="singularitytab" label="singularitytab" i18n="tabs.main.singularity"></button>
                 <button id="settingstab" label="settingstab" i18n="tabs.main.settings"></button>
                 <button class="reincarnationunlock" id="shoptab" label="shoptab" i18n="tabs.main.shop"></button>
+                <button class="isEvent" id="eventtab" label="eventTab">UNSMITH</button>
             </div>
         </nav>
     </header>
@@ -3013,8 +3014,9 @@ $STAGE$ for synergism stage"></p>
             <p>
                 Interested in providing a translation for your language?  Visit the <a href="https://www.discord.gg/ameCknq">#translations channel on our Discord!</a>
             </p>
-            <p>Visit our POEditor project at <a href="https://poeditor.com/join/project/1up4tT24vG">https://poeditor.com/join/project/1up4tT24vG</a>!</p>
+            <p>Visit our Crowdin project at <a href="https://crowdin.com/project/synergism-official/">https://crowdin.com/project/synergism-official/</a>!</p>
             <p>Contribute directly through Github at <a href="https://github.com/Pseudo-Corp/SynergismOfficial">https://github.com/Pseudo-Corp/SynergismOfficial</a>!</p>
+            <p>P.S. we know this section isn't translated!</p>
         </div>
     </div>
     <div class="subtabContent" id="creditssubtab" alt="creditssubtab" label="creditssubtab">
@@ -3042,6 +3044,9 @@ $STAGE$ for synergism stage"></p>
             <button class="statsNerds singularity" id="kGQMult" alt="kGQMult" label="kGQMult" style="border: 2px solid yellow">Golden Quark Multipliers</button>
             <button class="statsNerds singularity" id="kAddStats" alt="kAddStats" label="kAddStats" style="border: 2px solid green">Add Code Stats</button>
             <button class="statsNerds singularity" id="kOctMult" alt="kOctMult" label="kOctMult" style="border: 2px solid blue">Octeract Multipliers</button>
+            <button class="statsNerds octeracts" id="kAmbrosiaLuck" alt="kAmbrosiaLuck" label="kAmbrosiaLuck" style="border: 2px solid lime">Ambrosia Luck</button>
+            <button class="statsNerds octeracts" id="kAmbrosiaGenMult" alt="kAmbrosiaGenMult" label="kAmbrosiaGenMult" style="border: 2px solid #ffbf00">Ambrosia Generation</button>
+
         </div>
         <div id="miscStats" alt="miscStats" label="miscStats" class="statContainer activeStats">
             <p class="prestigeunlock statPortion" id="settingtitle3" alt="settingtitle3" label="settingtitle3" style="color: plum; font-size: 1.2em">Miscellaneous Stats</p>
@@ -3432,6 +3437,23 @@ $STAGE$ for synergism stage"></p>
                 id="s+capT" alt="s+capT" label="s+capT" class="statNumber statTotal">0</span></p>
 
             <p id="stat+next" alt="s+next" label="stat+next" class="statPortion"><span id="s+next" alt="s+next" label="s+next" class="statNumber">0</span></p>
+        </div>
+
+        <div id="ambrosiaLuckStats" alt="ambrosiaLuckStats" label="ambrosiaLuckStats" class="statContainer activeStats">
+            <p id="ambrosiaLuckStatTitle" alt="ambrosiaLuckStatTitle" label="ambrosiaLuckStatTitle" class="statPortion" style="color: lime; font-size: 1.2em">Ambrosia Luck</p>
+            <p id="statALuckM1" class="statPortion">a<span id="sALuckM1" class="statNumber">0</span></p>
+            <p id="statALuckM2" class="statPortion">a<span id="sALuckM2" class="statNumber">0</span></p>
+            <p id="statALuckMT" class="statPortion statTotal" style="color: orange">TOTAL AMBROSIA LUCK:
+                <span id="sALuckMT" class="statNumber statTotal">0</span></p>
+        </div>
+
+        <div id="ambrosiaGenerationStats" alt="ambrosiaGenerationStats" label="ambrosiaGenerationStats" class="statContainer activeStats">
+            <p id="ambrosiaGenStatTitle" alt="ambrosiaGenStatTitle" label="ambrosiaGenStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Ambrosia Generation Chance</p>
+            <p id="statAGenM1" class="statPortion">a<span id="sAGenM1" class="statNumber">0</span></p>
+            <p id="statAGenM2" class="statPortion">a<span id="sAGenM2" class="statNumber">0</span></p>
+            <p id="statAGenM3" class="statPortion">a<span id="sAGenM3" class="statNumber">0</span></p>
+            <p id="statAGenMT" class="statPortion statTotal" style="color: orange">AMBROSIA GENERATION CHANCE:
+                <span id="sAGenMT" class="statNumber statTotal">0</span></p>
         </div>
 
         <button id="summaryGeneration" style="border: 2px solid grey; height: 20px; width: 250px;">Generate Savefile Stats Summary</button>
@@ -3843,6 +3865,7 @@ $STAGE$ for synergism stage"></p>
             <button id="toggleSingularitySubTab3" label="toggleSingularitySubTab3" style="border: 2px solid greenyellow; color: white" i18n="tabs.singularity.perks"></button>
             <button id="toggleSingularitySubTab4" class="octeracts" label="toggleSingularitySubTab4" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>
             <button id="toggleSingularitySubTab5" class="singChallenges" label="toggleSingularitySubTab5" style="border: 2px solid purple; color: gold" i18n="tabs.singularity.exalt"></button>
+            <button id="toggleSingularitySubTab6" class="ambrosia" label="toggleSingularitySubTab6" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
         </div>
 
         <div id="singularityContainer1" alt="singularityContainer1" label="singularityContainer1">
@@ -4050,7 +4073,9 @@ $STAGE$ for synergism stage"></p>
 
         <div id="singularityContainer3" alt="singularityContainer3" label="singularityContainer3" style="display: none;">
             <div id="singularityPerks" alt="singularityPerks" label="singularityPerks" class="singularityContainer">
-                <p id="singularityPerksMultiline" alt="singularityPerksMultiline" label="singularityPerksMultiline"></p>
+                <p id="singularityPerksHeader" alt="singualrityPerksHeader" label="singualrityPerksHeader"></p>
+                <p id="singularityPerksDesc" alt="singualrityPerksDesc" label="singualrityPerksDesc"></p>
+                <p id="singularityPerksGrid" alt="singularityPerksGrid" label="singularityPerksGrid"></p>
             </div>
         </div>
 
@@ -4197,7 +4222,25 @@ $STAGE$ for synergism stage"></p>
             </div>
         </div>
 
+        <div id="singularityContainer6" alt="singularityContainer6" label="singularityContainer6" style="display: none;">
+            <div id="singularityAmbrosia" alt="singularityAmbrosia" label="singularityAmbrosia" class="singularityContainer">
+                <div id="ambrosiaDisplay" alt="ambrosiaDisplay" label="ambrosiaDisplay">
+                    <img src="Pictures/Default/Ambrosia.png" loading="lazy">
+                    <p id="ambrosiaAmount" alt="ambrosiaAmount" label="ambrosiaAmount" class="amberText"></p>
+                </div>
+                <p id="ambrosiaChance" alt="ambrosiaChance" label="ambrosiaChance" class="lightYellowText"></p>
+                <p id="ambrosiaAmountPerGeneration" alt="ambrosiaAmountPerGeneration" label="ambrosiaAmountPerGeneration" class="lightYellowText"></p>
+                <p id="ambrosiaRNG" alt="ambrosiaRNG" label="ambrosiaRNG" class="lightYellowText"></p>
 
+            </div>
+        </div>
+
+
+    </div>
+    <div id="event">
+        <a target="_blank" href="https://www.youtube.com/watch?v=E9de-cmycx8"><img id="unsmith" src="Pictures/Default/Unsmith.png"></a>
+        <p i18n="event.aprilFools.introText"></p>
+        <p id="eventClicked" style="color: lime; display: none" i18n="event.aprilFools.clickedText"></p>
     </div>
     </body>
 </html>

@@ -1,4 +1,4 @@
-import { player } from '../Synergism';
+import { player } from '../Synergism'
 
 /**
  * Exposes to the global scope.
@@ -8,18 +8,18 @@ import { player } from '../Synergism';
  *      @see {openCube}
  */
 export const main = () => {
-    Object.defineProperties(window, {
-        'openHypercube': {
-            value: player.wowHypercubes.open
-        },
-        'openPlatonic': {
-            value: player.wowTesseracts.open
-        },
-        'openTeseract': {
-            value: player.wowTesseracts.open
-        },
-        'openCube': {
-            value: player.wowCubes.open
-        }
-    });
+  Object.defineProperties(window, {
+    'openHypercube': {
+      value: player.wowHypercubes.open.bind(player.wowHypercubes)
+    },
+    'openPlatonic': {
+      value: player.wowTesseracts.open.bind(player.wowTesseracts)
+    },
+    'openTeseract': {
+      value: player.wowTesseracts.open.bind(player.wowTesseracts)
+    },
+    'openCube': {
+      value: player.wowCubes.open.bind(player.wowCubes)
+    }
+  })
 }

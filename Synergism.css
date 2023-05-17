@@ -68,7 +68,10 @@ body {
     --crimson-text-color: crimson;
     --gray-text-color: gray;
     --green-text-color: green;
+    --lime-text-color: lime;
     --lightseagreen-text-color: lightseagreen;
+    --amber-text-color: #ffbf00;
+    --lightgoldenrodyellow-text-color: lightgoldenrodyellow;
     --header-color: var(--bg-color);
     --bg-color: #111;
     --alert-color: #141414;
@@ -116,6 +119,7 @@ body.loading {
 
 .mainText { color: var(--text-color); }
 .greenText { color: var(--green-text-color); }
+.limeText { color: var(--lime-text-color); }
 .lightseagreenText { color: var(--lightseagreen-text-color); }
 .crimsonText { color: var(--crimson-text-color); }
 .redText { color: var(--red-text-color); }
@@ -124,6 +128,8 @@ body.loading {
 .orchidText { color: var(--orchid-text-color); }
 .darkorchidText { color: var(--darkorchid-text-color); }
 .darkcyanText { color: var(--darkcyan-text-color); }
+.amberText { color: var(--amber-text-color); }
+.lightyellowText { color: var(--lightgoldenrodyellow-text-color); }
 
 .boxColor {
     border: 3px solid;
@@ -641,6 +647,10 @@ nav button {
 
 #shoptab:hover {
     background-color: var(--hovershop-color);
+}
+
+button.isEvent:hover {
+    background-color: gold;
 }
 
 #anttab {
@@ -1224,6 +1234,7 @@ p#prestigehotkeys {
 #runeContainer1,
 #runeContainer3,
 #runeContainer4 {
+    display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
@@ -1901,7 +1912,8 @@ p#reincarnatehotkeys {
 #quarksDisplay,
 #goldenQuarksDisplay,
 #octeractsDisplay,
-#totalOcteractsDisplay {
+#totalOcteractsDisplay,
+#ambrosiaDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1925,6 +1937,11 @@ p#reincarnatehotkeys {
 }
 
 #octeractAmount {
+    font-size: 1.2em;
+    margin-left: 5px;
+}
+
+#ambrosiaAmount {
     font-size: 1.2em;
     margin-left: 5px;
 }
@@ -2099,6 +2116,8 @@ p#reincarnatehotkeys {
 
 .antSacrificeHeader {
     margin-bottom: 4px;
+    overflow-wrap: break-word;
+    white-space: initial;
 }
 
 #antSacrificeTable {
@@ -2783,6 +2802,10 @@ p#ascendHotKeys {
 
 .runeButtonsAvailable:hover {
     background-color: var(--blessings-hover-color);
+}
+
+.runeButtonsAvailable > span {
+    pointer-events: none;
 }
 
 #buyRuneBlessingInput {
@@ -3511,9 +3534,28 @@ header #obtainiumDisplay { color: pink; }
     cursor: pointer;
 }
 
-#singularityPenaltiesMultiline,
-#singularityPerksMultiline {
+#singularityPenaltiesMultiline {
     white-space: pre-line;
+    justify-content: center;
+}
+
+#singularityPerksHeader {
+    display: block;
+    justify-content: center;
+}
+
+#singularityPerksDesc {
+    display: block;
+}
+
+#singularityPerksGrid > div {
+    display: grid;
+    grid-template-columns: repeat(5, 250px);
+    grid-template-rows: repeat(10, auto);
+    justify-content: center;
+    align-content: center;
+    grid-gap: 5px;
+    cursor: default;
 }
 
 #testingMultiline,
@@ -3533,7 +3575,32 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .newPerk {
+    display: grid;
+    justify-items: center;
+    align-items: center;
     color: gold;
+    border-style: groove;
+    border-color: gold;
+    background-color: var(--button-color);
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+}
+
+.oldPerk {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    border-style: solid;
+    border-color: gold;
+    background-color: var(--button-color);
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+}
+
+.newPerk:hover {
+    background-color: var(--hover-color);
+}
+
+.oldPerk:hover {
+    background-color: var(--hover-color);
 }
 
 #autoHepteractPercentage {
@@ -3541,4 +3608,29 @@ header #obtainiumDisplay { color: pink; }
     width: 100%;
     text-align: center;
     padding-bottom: 5px;
+}
+
+#event {
+    position: relative;
+    padding: 0;
+    text-align: center;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+#unsmith {
+    margin: 15px;
+    gap: 10px 15px;
+    height: auto;
+    width: 200px;
+    max-width: 500%;
+    animation: rotation 2s infinite linear;
 }

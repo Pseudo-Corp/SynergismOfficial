@@ -9,12 +9,6 @@
         "loadFailed": "Unable to load save.",
         "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
     },
-    "ambrosia": {
-        "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
-        "chance": "<<var(--amber-text-color)|{{chance}}%>> chance next second for generation",
-        "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
-        "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)"
-    },
     "achievements": {
         "descriptions": {
             "1": "[{{number}}] A Loyal Employee: Hire your first Worker.",
@@ -1376,7 +1370,7 @@
             "transaction": "Transaction of {{spent}} Golden Quarks successful! [-{{cost}} Quarks]",
             "poor": "Sorry, I can't give credit. Come back when you're a little... mmm... richer!",
             "buyPrompt": "You can buy Golden Quarks here for {{cost}} Quarks (Discounted by {{discount}})! You can buy up to {{max}}. How many do you want? Type -1 to buy max!",
-            "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq}} GQ. Type -1 to use max!",
+            "spendPrompt": "How many Golden Quarks would you like to spend? You have {{gq} GQ. Type -1 to use max!",
             "hasUpgrade": "Hey! You have already maxed this upgrade. :D",
             "notHighEnoughLevel": "You're not powerful enough to purchase this yet.",
             "ascensionReset": "You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...",
@@ -1386,7 +1380,7 @@
             "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
             "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
             "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties",
-            "description": "(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
+            "description":"(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
             "xyz": {
                 "hasLevel2": "In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!",
                 "hasLevel1": "In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.",
@@ -1459,8 +1453,6 @@
                 "hasLevel1": "Ant Speed is multiplied by 1 MILLION, this increase is immune to any and all corruption.",
                 "default": "Ant Speed is multiplied by 1,000, this increase is immune to any and all corruption."
             },
-            "irishAnt": "Ants blessed with the luck of the Irish grant &#9752 {{i}} Ambrosia Luck!",
-            "irishAnt2": "Ants blessed with more fortunate luck of the Irish grant &#9752 {{i}} more Ambrosia Luck!",
             "overclocked": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!",
             "wowCubeAutomatedShipping": {
                 "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
@@ -1477,8 +1469,8 @@
             "midasMilleniumAgedGold": "Every use of code `add` gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3.",
             "goldenRevolution4": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!",
             "octeractMetagenesis": {
-                "hasLevel1": "Gives 1% of your purchased Octeract Co AND Trigenesis as bonus levels of themselves per use of code daily!",
-                "default": "Gives 1% of your purchased Octeract Cogenesis as bonus levels of Octeract Cogenesis per use of code daily!"
+                "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
+                "default": "Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge."
             },
             "immaculateAlchemy": {
                 "hasLevel2": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 8.",
@@ -1490,7 +1482,7 @@
         },
         "toString": {
             "noMinimum": "No minimal Singularity to purchase required",
-            "costNextLevel": "Cost for next level"
+            "costNextLevel": "Cost for next level:"
         },
         "data": {
             "goldenQuarks1": {
@@ -1867,8 +1859,6 @@
             "coolQOLCubes": "Cool Qol Cubes",
             "eternalAscensions": "Eternal Ascensions",
             "antGodsCornucopia": "Ant God's Cornucopia",
-            "irishAnt": "Irish Ants",
-            "irishAnt2": "Irish Ants II: Electric Boogaloo",
             "overclocked": "Overclocked",
             "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
             "goldenRevolution": "Golden Revolution",
@@ -2127,7 +2117,7 @@
             "30": "Effect: +{{x}} Multipliers.",
             "31": "Effect: +{{x}} Accelerator Boosts",
             "32": "Effect: +{{x}} Accelerators",
-            "33": "Effect: +{{x}} Multipliers",
+            "33": "Effect: +{{x} Multipliers",
             "34": "Effect: +{{x}} Multipliers",
             "35": "Effect: +{{x}} Multipliers",
             "36": "Effect: All Crystal producers x{{x}}",
@@ -2234,8 +2224,7 @@
             "penalties": "Penalties",
             "perks": "Perks",
             "octeracts": "Octeracts",
-            "exalt": "EXALT",
-            "ambrosia": "Ambrosia"
+            "exalt": "EXALT"
         },
         "settings": {
             "languages": "🌐 Languages 🌐",
@@ -3158,12 +3147,5 @@
     "history": {
         "perSecondOn": "Per second: ON",
         "perSecondOff": "Per second: OFF"
-    },
-    "event": {
-        "aprilFools": {
-            "introText": "The <<white|Unsmith>> spins at you, telepathically communicating: 'This is NOT a <<white|Rick>><<red|Roll>>, I swear. Just click me already!'",
-            "clicked": "See? Yet another reason to trust Unsmith. Ah well. For clicking me, you gain 5% more Offerings, Obtainium, and ALL Cubes until you refresh the page!",
-            "clickedText": "You have clicked the <<white|Unsmith>>! Until refresh, gain <<orange|+5% Offerings>>, <<pink|+5% Obtainium>>, <<white|+5% ALL Cubes>>!"
-        }
     }
 }

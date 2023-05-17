@@ -14,19 +14,20 @@
   },
   "devDependencies": {
     "@types/lz-string": "^1.3.34",
-    "@typescript-eslint/eslint-plugin": "^5.22.0",
-    "@typescript-eslint/parser": "^5.22.0",
-    "esbuild": "^0.14.38",
-    "eslint": "^8.14.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "esbuild": "^0.17.15",
+    "eslint": "^8.37.0",
     "husky": "^8.0.0",
     "stylelint": "^14.8.2",
     "stylelint-config-standard": "^25.0.0",
-    "typescript": "^4.6.4"
+    "typescript": "^5.0.3"
   },
   "scripts": {
     "lint": "npx eslint . --ext .ts",
     "lint:fix": "npx eslint . --ext .ts --fix",
     "csslint": "npx stylelint Synergism.css",
+    "csslint:fix": "npx stylelint Synergism.css --fix",
     "build:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\"",
     "watch:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\" --watch",
     "check:tsc": "npx -p typescript tsc",
