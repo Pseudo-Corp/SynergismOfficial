@@ -1867,7 +1867,7 @@
             "coolQOLCubes": "Genial Cdv de Cubos",
             "eternalAscensions": "Ascensiones Eternas",
             "antGodsCornucopia": "Cornucopia de Dios Hormiga",
-            "irishAnt": "Irish Ants",
+            "irishAnt": "Hormigas Irlandesas",
             "irishAnt2": "Irish Ants II: Electric Boogaloo",
             "overclocked": "Sobreacelerado",
             "wowCubeAutomatedShipping": "Envío Automatizado de Cubos ¡Wow!",
@@ -2054,11 +2054,11 @@
             "125": "El divisor de Constante de Impuestos es 0,333% más fuerte por desafío 10 finalizado. [Divisor^(1 + mejora)]"
         },
         "crystalEffects": {
-            "1": "Crystal production x{{x}}",
-            "2": "Crystal production x{{x}}",
-            "3": "Crystal production x{{x}}",
+            "1": "Producción de Cristales x{{x}}",
+            "2": "Producción de Cristales x{{x}}",
+            "3": "Producción de Cristales x{{x}}",
             "4": "Coin production multiplier exponent +{{x}}",
-            "5": "Crystal production x{{x}}"
+            "5": "Producción de Cristales x{{x}}"
         },
         "crystalUpgrades": {
             "1": "Gana un 5% de impulso multiplicativo a Cristales por PL por nivel.",
@@ -2073,14 +2073,14 @@
         "constantEffects": {
             "1": "Tesseract building production x{{x}}",
             "2": "Tesseract building production x{{x}}",
-            "3": "Offering gain x{{x}}",
-            "4": "Obtainium gain x{{x}}",
-            "5": "Ant Speed x{{x}}",
-            "6": "+{{x}} free Ant Levels",
+            "3": "Ganancia de Ofrendas x{{x}}",
+            "4": "Ganancia de Obtainium x{{x}}",
+            "5": "Velocidad de Hormigas x{{x}}",
+            "6": "+{{x}} Niveles gratis de Hormigas",
             "7": "+{{x}} free Rune Levels, +{{y}} to Rune Cap",
-            "8": "Rune EXP x{{x}}",
-            "9": "Runes effectiveness x{{x}}",
-            "10": "Cubes/Tesseracts on Ascension x{{x}}"
+            "8": "EXP de Runa x{{x}}",
+            "9": "Eficacia de Runas x{{x}}",
+            "10": "Cubos/Teseractos al Ascender x{{x}}"
         },
         "constantUpgrades": {
             "1": "Hace todos los edificios de Teseracto un {{level}}% más productivos por nivel.",
@@ -2235,7 +2235,7 @@
             "perks": "Beneficios",
             "octeracts": "Octeractos",
             "exalt": "EXALTADO",
-            "ambrosia": "Ambrosia"
+            "ambrosia": "Ambrosía"
         },
         "settings": {
             "languages": "🌐 Idiomas 🌐",
