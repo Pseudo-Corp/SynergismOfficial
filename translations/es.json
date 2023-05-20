@@ -10,10 +10,10 @@
         "saveToClipboard": "¿Seguro que quieres permitir copiado al portapapeles?"
     },
     "ambrosia": {
-        "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
-        "chance": "<<var(--amber-text-color)|{{chance}}%>> chance next second for generation",
-        "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
-        "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)"
+        "amount": "¡Tienes <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosía!",
+        "chance": "<<var(--amber-text-color)|{{chance}}%>> posibilidades de generación el siguiente segundo",
+        "perGen": "Actualmente ganando <<var(--amber-text-color)|{{guaranteed}}>> con un <<var(--amber-text-color)|{{extraChance}}%>> probabilidad de otro. [<<var(--lime-text-color)|Suerte: &#9752 {{ambrosiaLuck}}>>]",
+        "blueberrySecond": "¡Actualmente tienes <<var(--amber-text-color)|{{blueberrySecond}}>> Segundos de Arándanos acumulados! Probabilidad de generación de Segundos de arándanos <<var(--amber-text-color)|x{{RNG}}>> (garantizado con 10.000 Segundos de Arándanos)"
     },
     "achievements": {
         "descriptions": {
@@ -1459,8 +1459,8 @@
                 "hasLevel1": "La Velocidad de Hormigas se multiplica por 1 MILLÓN, y es inmune a cualquier corrupción existente.",
                 "default": "La Velocidad de Hormigas se multiplica por 1.000, y es inmune a cualquier corrupción existente."
             },
-            "irishAnt": "Ants blessed with the luck of the Irish grant &#9752 {{i}} Ambrosia Luck!",
-            "irishAnt2": "Ants blessed with more fortunate luck of the Irish grant &#9752 {{i}} more Ambrosia Luck!",
+            "irishAnt": "¡Las Hormigas bendecidas con la suerte Irlandesa dan &#9752 {{i}} más Suerte de Ambrosia!",
+            "irishAnt2": "¡Las Hormigas bendecidas con suerte Irlandesa más afortunada dan &#9752 {{i}} más Suerte de Ambrosia!",
             "overclocked": "¡El nivel máximo de Ciertas Mejoras de Singularidad se incrementan un {{i}}!",
             "wowCubeAutomatedShipping": {
                 "hasLevel1": "¡Compra automáticamente Mejoras de Cubos cada ascensión, sin importar dónde estés!",
@@ -1868,7 +1868,7 @@
             "eternalAscensions": "Ascensiones Eternas",
             "antGodsCornucopia": "Cornucopia de Dios Hormiga",
             "irishAnt": "Hormigas Irlandesas",
-            "irishAnt2": "Irish Ants II: Electric Boogaloo",
+            "irishAnt2": "Hormigas Irlandesas II: La Venganza",
             "overclocked": "Sobreacelerado",
             "wowCubeAutomatedShipping": "Envío Automatizado de Cubos ¡Wow!",
             "goldenRevolution": "Revolución Dorada",
@@ -2057,7 +2057,7 @@
             "1": "Producción de Cristales x{{x}}",
             "2": "Producción de Cristales x{{x}}",
             "3": "Producción de Cristales x{{x}}",
-            "4": "Coin production multiplier exponent +{{x}}",
+            "4": "Exponente multiplicador de producción de Monedas +{{x}}",
             "5": "Producción de Cristales x{{x}}"
         },
         "crystalUpgrades": {
@@ -2071,13 +2071,13 @@
             "8": "¡(No muy) Pronto!"
         },
         "constantEffects": {
-            "1": "Tesseract building production x{{x}}",
-            "2": "Tesseract building production x{{x}}",
+            "1": "Producción de construcciones de Teseracto x{{x}}",
+            "2": "Producción de construcciones de Teseracto x{{x}}",
             "3": "Ganancia de Ofrendas x{{x}}",
             "4": "Ganancia de Obtainium x{{x}}",
             "5": "Velocidad de Hormigas x{{x}}",
             "6": "+{{x}} Niveles gratis de Hormigas",
-            "7": "+{{x}} free Rune Levels, +{{y}} to Rune Cap",
+            "7": "+{{x}} Niveles de Runas gratis, +{{y}} al máximo de Runas",
             "8": "EXP de Runa x{{x}}",
             "9": "Eficacia de Runas x{{x}}",
             "10": "Cubos/Teseractos al Ascender x{{x}}"
