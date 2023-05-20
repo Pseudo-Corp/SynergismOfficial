@@ -1905,6 +1905,7 @@
         "softCapped": "(Limitado parcialmente)",
         "maxed": "(Maximizado)",
         "affordable": "(Asumible)",
+        "enabled": "(Enabled)",
         "infinity": "Infinidad",
         "sacrificeCapital": "SACRIFICIO",
         "multiBuyInstructions": "¡Compra varios niveles a la vez pulsando <<var(--orchid-text-color)|'SHIFT'>> mientras haces clic!",
