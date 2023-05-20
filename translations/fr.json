@@ -1905,6 +1905,7 @@
         "softCapped": "(Softcapped)",
         "maxed": "(Maxed)",
         "affordable": "(Affordable)",
+        "enabled": "(Enabled)",
         "infinity": "Infinity",
         "sacrificeCapital": "SACRIFICE",
         "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!",
