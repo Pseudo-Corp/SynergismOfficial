@@ -1905,6 +1905,7 @@
         "softCapped": "(已达软上限)",
         "maxed": "(已满级)",
         "affordable": "(可购买)",
+        "enabled": "(Enabled)",
         "infinity": "无限",
         "sacrificeCapital": "献祭",
         "multiBuyInstructions": "按住<<var(--orchid-text-color)|'SHIFT'>>键再购买升级，则可以一次性进行多次升级！",

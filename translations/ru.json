@@ -1905,6 +1905,7 @@
         "softCapped": "(Предельное значение)",
         "maxed": "(Макс. Ур.)",
         "affordable": "(Доступно)",
+        "enabled": "(Enabled)",
         "infinity": "Бесконечность",
         "sacrificeCapital": "ЖЕРТВОПРИНОШЕНИЕ",
         "multiBuyInstructions": "Чтобы купить несколько уровней сразу, удерживайте <<var(--orchid-text-color)|'SHIFT'>>!",
