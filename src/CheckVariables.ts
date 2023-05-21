@@ -920,9 +920,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   }
 
   player.caches = {
-    ambrosiaLuck: new AmbrosiaLuckCache,
-    ambrosiaGeneration: new AmbrosiaGenerationCache,
-    blueberryInventory: new BlueberryInventoryCache
+    ambrosiaLuck: new AmbrosiaLuckCache(),
+    ambrosiaGeneration: new AmbrosiaGenerationCache(),
+    blueberryInventory: new BlueberryInventoryCache()
   }
 
   cacheReinitialize()
