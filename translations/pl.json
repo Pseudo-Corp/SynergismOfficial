@@ -3153,18 +3153,18 @@
         "noAntiquity": "Hmph. Please return with an Antiquity. Thank you. -Ant God",
         "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.",
         "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
-        "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
-        "buyResearch3x11": "[LOCKED - Buy Research 3x11]"
+        "exitAscensionChallenge": "Czy na pewno chcesz wyjść z Wyzwania Wniebowstąpienia? Musisz przejść wyzwanie 10 jeszcze raz, zanim będzie można ponownie podejść do wyzwania!",
+        "buyResearch3x11": "[ZABLOKOWANY - Kup badania 3x11]"
     },
     "history": {
-        "perSecondOn": "Per second: ON",
-        "perSecondOff": "Per second: OFF"
+        "perSecondOn": "Na sekundę: WŁĄCZONE",
+        "perSecondOff": "Na sekundę: WYŁĄCZONE"
     },
     "event": {
         "aprilFools": {
             "introText": "The <<white|Unsmith>> spins at you, telepathically communicating: 'This is NOT a <<white|Rick>><<red|Roll>>, I swear. Just click me already!'",
             "clicked": "See? Yet another reason to trust Unsmith. Ah well. For clicking me, you gain 5% more Offerings, Obtainium, and ALL Cubes until you refresh the page!",
-            "clickedText": "You have clicked the <<white|Unsmith>>! Until refresh, gain <<orange|+5% Offerings>>, <<pink|+5% Obtainium>>, <<white|+5% ALL Cubes>>!"
+            "clickedText": "Kliknięto <<white|Unsmith>>! Do odświeżenia, zyskujesz <<orange|+5% Offerings>>, <<pink|+5% Obtainium>>, <<white|+5% ALL Cubes>>!"
         }
     }
 }
