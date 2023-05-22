@@ -487,16 +487,15 @@
                 "out": "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!"
             },
             "reincarnationChallenge": {
-                "in": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} {{requiredUnit}}. TIME SPENT: {{timeSpent}} Seconds.",
+                "in": {
+                    "coins": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
+                    "transcendShards": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Mythos Shards. TIME SPENT: {{timeSpent}} Seconds."
+                },
                 "out": "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?"
             },
             "ascensionChallenge": "Click this if you're in an Ascension Challenge and want to leave. You get it already!",
             "ascension": "Ascend, C-10 is required! +{{cubeAmount}} Wow! Cubes for doing it! Time: {{timeSpent}} Seconds. (Real-time {{realTimeSpent}} Seconds)",
             "singularity": "Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with {{gqAmount}} Golden Quarks. Time: {{timeSpent}} Seconds."
-        },
-        "requiredUnits": {
-            "coins": "Coins",
-            "transcendShards": "Mythos Shards"
         }
     },
     "ants": {

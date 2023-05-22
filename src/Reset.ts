@@ -148,11 +148,10 @@ export const resetdetails = (input: resetNames) => {
         const goal = reincarnationChallenge >= 9 ? 'coins' : 'transcendShards'
 
         resetInfo.style.color = 'silver'
-        resetInfo.textContent = i18next.t('reset.details.reincarnationChallenge.in', {
+        resetInfo.textContent = i18next.t('reset.details.reincarnationChallenge.in.' + goal, {
           n: reincarnationChallenge,
           amount: format(player[goal]),
           required: format(challengeRequirement(reincarnationChallenge, player.challengecompletions[reincarnationChallenge], reincarnationChallenge)),
-          requiredUnit: i18next.t('reset.requiredUnits.' + goal),
           timeSpent: format(player.reincarnationcounter)
         })
       } else {
