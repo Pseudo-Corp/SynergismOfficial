@@ -444,7 +444,12 @@ export const revealStuff = () => {
     item.style.display = player.highestSingularityCount >= 25 ? 'block' : 'none'
   }
 
-  (player.runelevels[6] > 0 || player.highestSingularityCount > 0) ?
+  DOMCacheGetOrSet('toggleSingularitySubTab6').style.display =
+    player.singularityChallenges.noSingularityUpgrades.completions >= 1
+      ? 'block'
+      : 'none'
+
+  player.runelevels[6] > 0 || player.highestSingularityCount > 0 ?
     (DOMCacheGetOrSet('singularitybtn').style.display = 'block') :
     (DOMCacheGetOrSet('singularitybtn').style.display = 'none')
 
