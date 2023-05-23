@@ -10,9 +10,9 @@
         "saveToClipboard": "Weet je zeker dat je opslagbestand kopiëren naar het klembord wilt inschakelen?"
     },
     "ambrosia": {
-        "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
-        "chance": "<<var(--amber-text-color)|{{chance}}%>> chance next second for generation",
-        "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
+        "amount": "Je hebt <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
+        "chance": "<<var(--amber-text-color)|{{chance}}%>> kans volgende seconde om te genereren",
+        "perGen": "Je maakt op het moment <<var(--amber-text-color)|{{guaranteed}}>> met een <<var(--amber-text-color)|{{extraChance}}%>> kans op nog een. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
         "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)"
     },
     "achievements": {
