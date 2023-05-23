@@ -433,9 +433,6 @@ export const toggleSaveOff = () => {
 }
 
 export const toggleSingularityScreen = (index: number) => {
-  const screens = ['shop', 'penalties', 'perks', 'octeracts', 'challenges', 'ambrosia']
-  G.singularityscreen = screens[index - 1]
-
   for (let i = 1; i <= 6; i++) {
     const a = DOMCacheGetOrSet(`toggleSingularitySubTab${i}`)
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
