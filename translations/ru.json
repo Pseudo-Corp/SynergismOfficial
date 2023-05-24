@@ -2859,7 +2859,7 @@
             "hypercubeQuarksToday": "Кварки, полученные от Гиперкубов: <<cyan|{{amount}}>>",
             "hypercubeQuarksOpenRequirement": "Откройте {{amount}} Гиперкубов для следующего кварка.",
             "hypercubeQuarksOpenToday": "Сегодня открыто гиперкубов: <<orchid|{{amount}}>>",
-            "platonicCubeQuarksToday": "Платоновых Кубов, полученных от Кубов: <<cyan|{{amount}}>>",
+            "platonicCubeQuarksToday": "Кварки, полученных от Платоновых Кубов: <<cyan|{{amount}}>>",
             "platonicCubeQuarksOpenRequirement": "Откройте {{amount}} Платоновых Кубов для следующего кварка.",
             "platonicCubeQuarksOpenToday": "Сегодня открыто платоновых кубов: <<orchid|{{amount}}>>"
         },
