@@ -599,9 +599,9 @@ export const loadStatisticsAmbrosiaLuck = () => {
 export const loadStatisticsAmbrosiaGeneration = () => {
   const arr = player.caches.ambrosiaGeneration.flatten()
   const map: Record<number, { acc: number, desc: string }> = {
-    1: { acc: 4, desc: 'Base Chance Multiplier' },
+    1: { acc: 4, desc: 'Visited Ambrosia Subtab' },
     2: { acc: 4, desc: 'Number of Blueberries' },
-    3: { acc: 4, desc: 'Blueberry Second Multiplier' }
+    3: { acc: 4, desc: 'Shop Upgrade Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)
@@ -610,7 +610,7 @@ export const loadStatisticsAmbrosiaGeneration = () => {
   }
 
   const totalVal = arr[arr.length - 1]
-  DOMCacheGetOrSet('sAGenMT').textContent = `${format(100 * totalVal, 3, true)}%`
+  DOMCacheGetOrSet('sAGenMT').textContent = `${format(totalVal, 3, true)}`
 }
 
 export const c15RewardUpdate = () => {

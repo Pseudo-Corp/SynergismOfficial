@@ -923,7 +923,7 @@ export const calculateOffline = async (forceTime = 0) => {
   addTimers('goldenQuarks', timeAdd)
   addTimers('singularity', timeAdd)
   addTimers('octeracts', timeTick)
-  addTimers('ambrosia', timeAdd * 1.96)
+  addTimers('ambrosia', timeAdd)
 
   player.prestigeCount += resetAdd.prestige
   player.transcendCount += resetAdd.transcension
@@ -2148,6 +2148,35 @@ export const calculateSingularityAmbrosiaLuckMilestoneBonus = () => {
   }
 
   return bonus
+}
+
+export const calculateAmbrosiaGenerationShopUpgrade = () => {
+  const multipliers = [
+    1 + player.shopUpgrades.shopAmbrosiaGeneration1 / 100,
+    1 + player.shopUpgrades.shopAmbrosiaGeneration2 / 100,
+    1 + player.shopUpgrades.shopAmbrosiaGeneration3 / 100,
+    1 + player.shopUpgrades.shopAmbrosiaGeneration4 / 1000
+  ]
+
+  return productContents(multipliers)
+}
+
+export const calculateRequiredBlueberryTime = () => {
+  let val = G.TIME_PER_AMBROSIA
+  val += Math.floor(player.lifetimeAmbrosia / 100)
+
+  if (player.lifetimeAmbrosia >= 10000) {
+    val *= 2
+  }
+
+  if (player.lifetimeAmbrosia >= 100000) {
+    val *= 2
+  }
+
+  if (player.lifetimeAmbrosia >= 1e7) {
+    val *= 2
+  }
+  return val
 }
 
 export const dailyResetCheck = () => {

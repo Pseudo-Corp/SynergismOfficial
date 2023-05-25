@@ -381,6 +381,10 @@ export interface Player {
         seasonPassInfinity: number,
         chronometerInfinity: number,
         shopSingularityPenaltyDebuff: number,
+        shopAmbrosiaGeneration1: number,
+        shopAmbrosiaGeneration2: number,
+        shopAmbrosiaGeneration3: number,
+        shopAmbrosiaGeneration4: number,
     },
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean | 'TEN' | 'ANY',
@@ -603,7 +607,8 @@ export interface Player {
 
     ambrosia: number
     lifetimeAmbrosia: number
-    ambrosiaRNG: number
+    blueberryTime: number
+    ambrosiaRNG: number // DEPRECIATED, DO NOT USE
     visitedAmbrosiaSubtab: boolean
 
     caches: {
@@ -946,6 +951,7 @@ export interface GlobalVariables {
     eventClicked: boolean
 
     ambrosiaTimer: number
+    TIME_PER_AMBROSIA: number
 }
 
 export interface SynergismEvents {

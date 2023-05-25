@@ -520,7 +520,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
       improveQuarkHept5: 0,
       seasonPassInfinity: 0,
       chronometerInfinity: 0,
-      shopSingularityPenaltyDebuff: 0
+      shopSingularityPenaltyDebuff: 0,
+      shopAmbrosiaGeneration1: 0,
+      shopAmbrosiaGeneration2: 0,
+      shopAmbrosiaGeneration3: 0,
+      shopAmbrosiaGeneration4: 0
     }
 
     player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false)
@@ -915,8 +919,12 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   if (data.ambrosia === undefined) {
     player.ambrosia = 0
     player.lifetimeAmbrosia = 0
-    player.ambrosiaRNG = 0
+    player.ambrosiaRNG = 0 // NOW DEPRECIATED
     player.visitedAmbrosiaSubtab = false
+  }
+
+  if (data.blueberryTime === undefined) {
+    player.blueberryTime = player.ambrosiaRNG
   }
 
   player.caches = {

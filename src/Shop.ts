@@ -548,6 +548,42 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
+  },
+  shopAmbrosiaGeneration1: {
+    tier: 'SingularityVol2',
+    price: 50000000,
+    priceIncrease: 50000000,
+    maxLevel: 20,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopAmbrosiaGeneration2: {
+    tier: 'SingularityVol3',
+    price: 5e11,
+    priceIncrease: 5e11,
+    maxLevel: 20,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopAmbrosiaGeneration3: {
+    tier: 'SingularityVol4',
+    price: 5e13,
+    priceIncrease: 5e13,
+    maxLevel: 30,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopAmbrosiaGeneration4: {
+    tier: 'SingularityVol4',
+    price: 1e17,
+    priceIncrease: 4 * 1e16,
+    maxLevel: 1000,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
   }
 }
 
@@ -561,7 +597,8 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'calculator3' | 'constantEX' | 'powderEX' | 'powderAuto' | 'challenge15Auto' | 'extraWarp' | 'autoWarp' | //And Golden Quarks
                         'improveQuarkHept' | 'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4' | 'shopImprovedDaily' |
                         'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4' | 'calculator4' | 'calculator5' | 'calculator6' |
-                        'offeringEX3' | 'obtainiumEX3' | 'improveQuarkHept5' | 'seasonPassInfinity' | 'chronometerInfinity' | 'shopSingularityPenaltyDebuff'
+                        'offeringEX3' | 'obtainiumEX3' | 'improveQuarkHept5' | 'seasonPassInfinity' | 'chronometerInfinity' | 'shopSingularityPenaltyDebuff' |
+                        'shopAmbrosiaGeneration1' | 'shopAmbrosiaGeneration2' | 'shopAmbrosiaGeneration3' | 'shopAmbrosiaGeneration4'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -758,6 +795,19 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       break
     case 'shopSingularityPenaltyDebuff':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopSingularityPenaltyDebuff', { amount1: format(player.singularityCount), amount2: format(player.singularityCount - player.shopUpgrades.shopSingularityPenaltyDebuff) })
+      break
+    case 'shopAmbrosiaGeneration1':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaGeneration1', { amount: format(player.shopUpgrades.shopAmbrosiaGeneration1) })
+      break
+    case 'shopAmbrosiaGeneration2':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaGeneration2', { amount: format(player.shopUpgrades.shopAmbrosiaGeneration2) })
+      break
+    case 'shopAmbrosiaGeneration3':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaGeneration3', { amount: format(player.shopUpgrades.shopAmbrosiaGeneration3) })
+      break
+    case 'shopAmbrosiaGeneration4':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaGeneration4', { amount: format(player.shopUpgrades.shopAmbrosiaGeneration4 / 10, 1, true) })
+      break
   }
 
 }
@@ -823,7 +873,11 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
     improveQuarkHept5: 'The final Quark Hepteract Improver',
     chronometerInfinity: 'The final Chronometer',
     seasonPassInfinity: 'The final Season pass',
-    shopSingularityPenaltyDebuff: 'A Singularity Tenderizer'
+    shopSingularityPenaltyDebuff: 'A Singularity Tenderizer',
+    shopAmbrosiaGeneration1: 'Ambrosia Generation Speedup',
+    shopAmbrosiaGeneration2: 'Another Ambrosia Generation Speedup',
+    shopAmbrosiaGeneration3: 'A better Ambrosia Generation Speedup',
+    shopAmbrosiaGeneration4: 'A FINAL Ambrosia Generation Speedup'
   }
 
   return names[input]
@@ -1121,5 +1175,13 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames):boolean => {
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
     case 'shopSingularityPenaltyDebuff':
       return Boolean(player.singularityChallenges.noSingularityUpgrades.rewards.shopUpgrade)
+    case 'shopAmbrosiaGeneration1':
+      return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
+    case 'shopAmbrosiaGeneration2':
+      return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
+    case 'shopAmbrosiaGeneration3':
+      return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+    case 'shopAmbrosiaGeneration4':
+      return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
   }
 }

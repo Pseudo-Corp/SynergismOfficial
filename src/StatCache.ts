@@ -1,4 +1,4 @@
-import { calculateSingularityAmbrosiaLuckMilestoneBonus } from './Calculate'
+import { calculateAmbrosiaGenerationShopUpgrade, calculateSingularityAmbrosiaLuckMilestoneBonus } from './Calculate'
 import { player } from './Synergism'
 import { productContents } from './Utility'
 
@@ -119,7 +119,7 @@ abstract class MultiplicationCache<T extends string> implements StatCache<T> {
 
 type AmbrosialLuck = 'SingPerks' | 'OcteractBerries'
 
-type AmbrosiaGeneration = 'DefaultVal' | 'SingularityBerries' | 'RNG'
+type AmbrosiaGeneration = 'DefaultVal' | 'SingularityBerries' | 'ShopUpgrades'
 
 type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade'
 
@@ -164,7 +164,7 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
     this.vals = {
       'DefaultVal': 1,
       'SingularityBerries': 1,
-      'RNG': 1
+      'ShopUpgrades': 1
     }
     this.totalVal = 1
   }
@@ -173,19 +173,16 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
     const oldVal = this.vals[key]
     switch (key) {
       case 'DefaultVal': {
-        this.vals[key] = 1/10000 * +(player.visitedAmbrosiaSubtab)
+        this.vals[key] = 1 * +(player.visitedAmbrosiaSubtab)
         break
       }
       case 'SingularityBerries': {
         this.vals[key] = player.caches.blueberryInventory.totalVal
         break
       }
-      case 'RNG': {
-        if (player.ambrosiaRNG >= 10000) { // Pity System: Guarantee a drop after 10,000 Blueberry-Seconds
-          this.vals[key] = 100000
-        } else { // Takes on a value in [1, 3] with bias towards 3
-          this.vals[key] = 1 + 2 * Math.sqrt(player.ambrosiaRNG) / 100
-        }
+      case 'ShopUpgrades': {
+        this.vals[key] = calculateAmbrosiaGenerationShopUpgrade()
+        break
       }
     }
     const newVal = this.vals[key]

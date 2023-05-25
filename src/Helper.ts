@@ -1,5 +1,5 @@
 import { sacrificeAnts } from './Ants'
-import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateGoldenQuarkGain, calculateMaxRunes, calculateObtainium, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
+import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateGoldenQuarkGain, calculateMaxRunes, calculateObtainium, calculateRequiredBlueberryTime, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
 import { quarkHandler } from './Quark'
 import { redeemShards, unlockedRune, checkMaxRunes } from './Runes'
 import { format, player } from './Synergism'
@@ -145,24 +145,22 @@ export const addTimers = (input: TimerInput, time = 0) => {
       }
 
       const ambrosiaLuck = player.caches.ambrosiaLuck.totalVal
-      const berryCount = player.caches.blueberryInventory.totalVal
-
-      player.ambrosiaRNG += Math.floor(G.ambrosiaTimer) * berryCount
-      player.caches.ambrosiaGeneration.updateVal('RNG')
-
-      const RNG = Math.random()
+      player.blueberryTime += Math.floor(G.ambrosiaTimer) * player.caches.ambrosiaGeneration.totalVal
       G.ambrosiaTimer %= 1
 
-      if (RNG < compute) {
-        const RNG2 = Math.random()
-        const ambrosiaMult = Math.floor(ambrosiaLuck / 100) + 1
-        const luckMult = (RNG2 < (ambrosiaLuck / 100 - Math.floor(ambrosiaLuck / 100))) ? 1 : 0
+      const timeToAmbrosia = calculateRequiredBlueberryTime()
 
-        player.ambrosia += 1 * (ambrosiaMult + luckMult)
-        player.lifetimeAmbrosia += 1 * (ambrosiaMult + luckMult)
-        player.ambrosiaRNG -= 10000
-        player.ambrosiaRNG = Math.max(0, player.ambrosiaRNG)
-        void Notification(`You have earned ${ambrosiaMult + luckMult} Ambrosia through sheer luck!!! You now have ${format(player.ambrosia)}.`)
+      if (player.blueberryTime >= timeToAmbrosia) {
+        const RNG = Math.random()
+        const ambrosiaMult = Math.floor(ambrosiaLuck / 100) + 1
+        const luckMult = (RNG < (ambrosiaLuck / 100 - Math.floor(ambrosiaLuck / 100))) ? 1 : 0
+        const timeMult = Math.min(100, Math.floor(player.blueberryTime / timeToAmbrosia))
+
+        player.ambrosia += 1 * (ambrosiaMult + luckMult) * timeMult
+        player.lifetimeAmbrosia += 1 * (ambrosiaMult + luckMult) * timeMult
+        player.blueberryTime -= timeToAmbrosia * timeMult
+
+        void Notification(`You have earned ${(ambrosiaMult + luckMult) * timeMult} Ambrosia ${luckMult > 0 ? '[Lucky]' : ''}!!! You now have ${format(player.ambrosia)}.`)
       }
 
       visualUpdateAmbrosia()
