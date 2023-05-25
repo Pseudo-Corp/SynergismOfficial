@@ -9,6 +9,12 @@
         "loadFailed": "Imposible cargar lo guardado.",
         "saveToClipboard": "¿Seguro que quieres permitir copiado al portapapeles?"
     },
+    "ambrosia": {
+        "amount": "¡Tienes <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosía!",
+        "chance": "<<var(--amber-text-color)|{{chance}}%>> posibilidades de generación el siguiente segundo",
+        "perGen": "Actualmente ganando <<var(--amber-text-color)|{{guaranteed}}>> con un <<var(--amber-text-color)|{{extraChance}}%>> probabilidad de otro. [<<var(--lime-text-color)|Suerte: &#9752 {{ambrosiaLuck}}>>]",
+        "blueberrySecond": "¡Actualmente tienes <<var(--amber-text-color)|{{blueberrySecond}}>> Segundos de Arándanos acumulados! Probabilidad de generación de Segundos de arándanos <<var(--amber-text-color)|x{{RNG}}>> (garantizado con 10.000 Segundos de Arándanos)"
+    },
     "achievements": {
         "descriptions": {
             "1": "[{{number}}] Un empleado leal: Contrata tu primer Trabajador.",
@@ -1379,7 +1385,8 @@
         "perks": {
             "improvedIn": "Una Ventaja existente se mejorará en la singularidad {{sing}}",
             "unlockedIn": "Desbloquearás una Ventaja nueva en la singularidad {{sing}}",
-            "update": "La mayor Singularidad que has alcanzado es la <span style=\"color: gold\">{{ord}} Singularidad.</span><br/>Aquí tienes la lista de ventajas que has adquirido para compensar las penalizaciones (Pasa el cursor para más detalles. Ventajas en <span class=\"newPerk\">gold text</span> se añadieron o mejoraron en esta Singularidad)<br/>{{extra}}",
+            "header": "La mayor Singularidad que has alcanzado es la <span style=\"color: gold\">{{ord}} Singularidad.</span><br/>Aquí tienes la lista de ventajas que has adquirido para compensar las penalizaciones",
+            "description": "(Pasa el cursor para más detalles. Ventajas en <span style=\"color: gold\">gold text</span> se añadieron o mejoraron en esta Singularidad)",
             "xyz": {
                 "hasLevel2": "Además de GD y niveles gratuitos garantizados de QD 1/2/3 a +0,2/+0,2/+1, ¡obtienes el DOBLE de niveles en mejoras gratuitas de Acción Diaria Especial!",
                 "hasLevel1": "Además de GD y niveles gratuitos de mejoras, la Actividad Diaria Especial te da niveles gratuitos extra de QD 1/2/3 a +0,2/+0,2/+1 respectivamente.",
@@ -1452,6 +1459,8 @@
                 "hasLevel1": "La Velocidad de Hormigas se multiplica por 1 MILLÓN, y es inmune a cualquier corrupción existente.",
                 "default": "La Velocidad de Hormigas se multiplica por 1.000, y es inmune a cualquier corrupción existente."
             },
+            "irishAnt": "¡Las Hormigas bendecidas con la suerte Irlandesa dan &#9752 {{i}} más Suerte de Ambrosia!",
+            "irishAnt2": "¡Las Hormigas bendecidas con suerte Irlandesa más afortunada dan &#9752 {{i}} más Suerte de Ambrosia!",
             "overclocked": "¡El nivel máximo de Ciertas Mejoras de Singularidad se incrementan un {{i}}!",
             "wowCubeAutomatedShipping": {
                 "hasLevel1": "¡Compra automáticamente Mejoras de Cubos cada ascensión, sin importar dónde estés!",
@@ -1858,6 +1867,8 @@
             "coolQOLCubes": "Genial Cdv de Cubos",
             "eternalAscensions": "Ascensiones Eternas",
             "antGodsCornucopia": "Cornucopia de Dios Hormiga",
+            "irishAnt": "Hormigas Irlandesas",
+            "irishAnt2": "Hormigas Irlandesas II: La Venganza",
             "overclocked": "Sobreacelerado",
             "wowCubeAutomatedShipping": "Envío Automatizado de Cubos ¡Wow!",
             "goldenRevolution": "Revolución Dorada",
@@ -1894,6 +1905,7 @@
         "softCapped": "(Limitado parcialmente)",
         "maxed": "(Maximizado)",
         "affordable": "(Asumible)",
+        "enabled": "(Enabled)",
         "infinity": "Infinidad",
         "sacrificeCapital": "SACRIFICIO",
         "multiBuyInstructions": "¡Compra varios niveles a la vez pulsando <<var(--orchid-text-color)|'SHIFT'>> mientras haces clic!",
@@ -2042,6 +2054,13 @@
             "124": "Gana +3% más de ELO efectivo.",
             "125": "El divisor de Constante de Impuestos es 0,333% más fuerte por desafío 10 finalizado. [Divisor^(1 + mejora)]"
         },
+        "crystalEffects": {
+            "1": "Producción de Cristales x{{x}}",
+            "2": "Producción de Cristales x{{x}}",
+            "3": "Producción de Cristales x{{x}}",
+            "4": "Exponente multiplicador de producción de Monedas +{{x}}",
+            "5": "Producción de Cristales x{{x}}"
+        },
         "crystalUpgrades": {
             "1": "Gana un 5% de impulso multiplicativo a Cristales por PL por nivel.",
             "2": "Gana un impulso a Cristales basado en monedas poseídas por nivel.",
@@ -2051,6 +2070,18 @@
             "6": "¡(No muy) Pronto!",
             "7": "¡(No muy) Pronto!",
             "8": "¡(No muy) Pronto!"
+        },
+        "constantEffects": {
+            "1": "Producción de construcciones de Teseracto x{{x}}",
+            "2": "Producción de construcciones de Teseracto x{{x}}",
+            "3": "Ganancia de Ofrendas x{{x}}",
+            "4": "Ganancia de Obtainium x{{x}}",
+            "5": "Velocidad de Hormigas x{{x}}",
+            "6": "+{{x}} Niveles gratis de Hormigas",
+            "7": "+{{x}} Niveles de Runas gratis, +{{y}} al máximo de Runas",
+            "8": "EXP de Runa x{{x}}",
+            "9": "Eficacia de Runas x{{x}}",
+            "10": "Cubos/Teseractos al Ascender x{{x}}"
         },
         "constantUpgrades": {
             "1": "Hace todos los edificios de Teseracto un {{level}}% más productivos por nivel.",
@@ -2204,7 +2235,8 @@
             "penalties": "Penalizaciones",
             "perks": "Beneficios",
             "octeracts": "Octeractos",
-            "exalt": "EXALTADO"
+            "exalt": "EXALTADO",
+            "ambrosia": "Ambrosía"
         },
         "settings": {
             "languages": "🌐 Idiomas 🌐",
@@ -2605,7 +2637,7 @@
             },
             "octeractAmbrosiaLuck": {
                 "name": "Bayas de un Trevor de Ocho Hojas (WIP)",
-                "description": "¡Totalmente no una retextura de arándanos! Añade +1 Suerte Ambrosial, que puede aumentar la Ambrosia obtenida cuando los Arándanos generan Ambrosia.",
+                "description": "Totally not a reskin of the blueberry! Adds +3 Ambrosial Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
                 "effect": "Suerte Ambrosial +{{n}}(!)"
             }
         },
@@ -2737,7 +2769,7 @@
             "noSingularityUpgrades": {
                 "name": "Sin Mejoras de Singularidad",
                 "description": "En resumen, supera la singularidad objetivo sin (la mayoría de) Mejoras de Singularidad. Las mejoras de Octeractos, QoL y Beneficios se conservan.",
-                "rewardDescription": "¡Cada finalización aumenta la ganancia de cubos de cada dimensión un 50%! La primera da +12% de Quarks Dorados. La 20 premia con algo 'especial' ;)"
+                "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks and a Blueberry! 20th awards something `special` ;)"
             },
             "oneChallengeCap": {
                 "name": "Límites de Un Desafío",

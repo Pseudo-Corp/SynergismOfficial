@@ -166,7 +166,7 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
       'SingularityBerries': 1,
       'ShopUpgrades': 1
     }
-    this.totalVal = 1
+    this.totalVal = 0
   }
 
   updateVal(key: AmbrosiaGeneration, init = false): void {

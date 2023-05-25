@@ -9,6 +9,12 @@
         "loadFailed": "Incapable de charger la sauvegarde.",
         "saveToClipboard": "Êtes-vous sûr de vouloir activer l'enregistrement de la sauvegarde dans le presse-papiers ?"
     },
+    "ambrosia": {
+        "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
+        "chance": "<<var(--amber-text-color)|{{chance}}%>> chance next second for generation",
+        "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
+        "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)"
+    },
     "achievements": {
         "descriptions": {
             "1": "[{{number}}] Un Employé Fidèle : Embauchez votre premier Ouvrier.",
@@ -1379,7 +1385,8 @@
         "perks": {
             "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
             "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
-            "update": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties (Hover for more details. Perks in <span class=\"newPerk\">gold text</span> were added or improved in this Singularity)<br/>{{extra}}",
+            "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties",
+            "description": "(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
             "xyz": {
                 "hasLevel2": "In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!",
                 "hasLevel1": "In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.",
@@ -1452,6 +1459,8 @@
                 "hasLevel1": "Ant Speed is multiplied by 1 MILLION, this increase is immune to any and all corruption.",
                 "default": "Ant Speed is multiplied by 1,000, this increase is immune to any and all corruption."
             },
+            "irishAnt": "Ants blessed with the luck of the Irish grant &#9752 {{i}} Ambrosia Luck!",
+            "irishAnt2": "Ants blessed with more fortunate luck of the Irish grant &#9752 {{i}} more Ambrosia Luck!",
             "overclocked": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!",
             "wowCubeAutomatedShipping": {
                 "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
@@ -1858,6 +1867,8 @@
             "coolQOLCubes": "Cool Qol Cubes",
             "eternalAscensions": "Eternal Ascensions",
             "antGodsCornucopia": "Ant God's Cornucopia",
+            "irishAnt": "Irish Ants",
+            "irishAnt2": "Irish Ants II: Electric Boogaloo",
             "overclocked": "Overclocked",
             "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
             "goldenRevolution": "Golden Revolution",
@@ -1894,6 +1905,7 @@
         "softCapped": "(Softcapped)",
         "maxed": "(Maxed)",
         "affordable": "(Affordable)",
+        "enabled": "(Enabled)",
         "infinity": "Infinity",
         "sacrificeCapital": "SACRIFICE",
         "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!",
@@ -2042,6 +2054,13 @@
             "124": "Gagnez +3% d'ELO efficace en plus.",
             "125": "Constant Tax divisor is 0.333% stronger per challenge 10 completion. [Divisor^(1 + upgrade)]"
         },
+        "crystalEffects": {
+            "1": "Crystal production x{{x}}",
+            "2": "Crystal production x{{x}}",
+            "3": "Crystal production x{{x}}",
+            "4": "Coin production multiplier exponent +{{x}}",
+            "5": "Crystal production x{{x}}"
+        },
         "crystalUpgrades": {
             "1": "Gain a 5% multiplicative boost to Crystals per AP per level.",
             "2": "Gagnez un coup de pouce aux Cristaux en fonction des pièces détenues par niveau.",
@@ -2051,6 +2070,18 @@
             "6": "Arrive (pas si) BIENTÔT !",
             "7": "Arrive (pas si) BIENTÔT !",
             "8": "Arrive (pas si) BIENTÔT !"
+        },
+        "constantEffects": {
+            "1": "Tesseract building production x{{x}}",
+            "2": "Tesseract building production x{{x}}",
+            "3": "Offering gain x{{x}}",
+            "4": "Obtainium gain x{{x}}",
+            "5": "Ant Speed x{{x}}",
+            "6": "+{{x}} free Ant Levels",
+            "7": "+{{x}} free Rune Levels, +{{y}} to Rune Cap",
+            "8": "Rune EXP x{{x}}",
+            "9": "Runes effectiveness x{{x}}",
+            "10": "Cubes/Tesseracts on Ascension x{{x}}"
         },
         "constantUpgrades": {
             "1": "Make all Tesseract buildings {{level}}% more productive per level.",
@@ -2204,7 +2235,8 @@
             "penalties": "Pénalités",
             "perks": "Avantages",
             "octeracts": "Octeractes",
-            "exalt": "EXALTER"
+            "exalt": "EXALTER",
+            "ambrosia": "Ambrosia"
         },
         "settings": {
             "languages": "🌐 Languages 🌐",
@@ -2605,7 +2637,7 @@
             },
             "octeractAmbrosiaLuck": {
                 "name": "Berries of an Eight Leaf Clover (WIP)",
-                "description": "Totally not a reskin of the blueberry! Adds +1 Ambrosial Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
+                "description": "Totally not a reskin of the blueberry! Adds +3 Ambrosial Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
                 "effect": "Ambrosial Luck +{{n}}(!)"
             }
         },
@@ -2737,7 +2769,7 @@
             "noSingularityUpgrades": {
                 "name": "No Singularity Upgrades",
                 "description": "Simply put, you have to beat the target singularity without (most) Singularity Upgrades. Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
-                "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks. 20th awards something `special` ;)"
+                "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks and a Blueberry! 20th awards something `special` ;)"
             },
             "oneChallengeCap": {
                 "name": "One Challenge Caps",

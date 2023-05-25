@@ -805,7 +805,6 @@ export interface GlobalVariables {
 
     runescreen: string
     settingscreen: string
-    singularityscreen: string
 
     talismanResourceObtainiumCosts: number[]
     talismanResourceOfferingCosts: number[]

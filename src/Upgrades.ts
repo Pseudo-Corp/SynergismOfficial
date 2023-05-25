@@ -267,18 +267,28 @@ export const categoryUpgrades = (i: number, auto: boolean) => {
   }
 }
 
-const crystalupgeffect: Record<number, () => string> = {
-  1: () => `Crystal production x${format(Decimal.min(Decimal.pow(10, 50 + 2 * player.crystalUpgrades[0]), Decimal.pow(1.05, player.achievementPoints * player.crystalUpgrades[0])), 2, true)}`,
-  2: () => `Crystal production x${format(Decimal.min(Decimal.pow(10, 100 + 5 * player.crystalUpgrades[1]), Decimal.pow(Decimal.log(player.coins.add(1), 10), player.crystalUpgrades[1] / 3)), 2, true)}`,
-  3: () => `Crystal production x${format(Decimal.pow(1 + Math.min(0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4), 0.001 * player.crystalUpgrades[2]), player.firstOwnedDiamonds + player.secondOwnedDiamonds + player.thirdOwnedDiamonds + player.fourthOwnedDiamonds + player.fifthOwnedDiamonds), 2, true)}`,
-  4: () => `Coin production multiplier exponent +${format(Math.min(10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4) + 20 * calculateCorruptionPoints() / 400 * G.effectiveRuneSpiritPower[3], 0.05 * player.crystalUpgrades[3]), 2, true)}`,
-  5: () => `Crystal production x${format(Decimal.pow(1.01, (player.challengecompletions[1] + player.challengecompletions[2] + player.challengecompletions[3] + player.challengecompletions[4] + player.challengecompletions[5]) * player.crystalUpgrades[4]), 2, true)}`
+const crystalupgeffect: Record<number, () => Record<string, string>> = {
+  1: () => ({
+    x: format(Decimal.min(Decimal.pow(10, 50 + 2 * player.crystalUpgrades[0]), Decimal.pow(1.05, player.achievementPoints * player.crystalUpgrades[0])), 2, true)
+  }),
+  2: () => ({
+    x: format(Decimal.min(Decimal.pow(10, 100 + 5 * player.crystalUpgrades[1]), Decimal.pow(Decimal.log(player.coins.add(1), 10), player.crystalUpgrades[1] / 3)), 2, true)
+  }),
+  3: () => ({
+    x: format(Decimal.pow(1 + Math.min(0.12 + 0.88 * player.upgrades[122] + 0.001 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4), 0.001 * player.crystalUpgrades[2]), player.firstOwnedDiamonds + player.secondOwnedDiamonds + player.thirdOwnedDiamonds + player.fourthOwnedDiamonds + player.fifthOwnedDiamonds), 2, true)
+  }),
+  4: () => ({
+    x: format(Math.min(10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4) + 20 * calculateCorruptionPoints() / 400 * G.effectiveRuneSpiritPower[3], 0.05 * player.crystalUpgrades[3]), 2, true)
+  }),
+  5: () => ({
+    x: format(Decimal.pow(1.01, (player.challengecompletions[1] + player.challengecompletions[2] + player.challengecompletions[3] + player.challengecompletions[4] + player.challengecompletions[5]) * player.crystalUpgrades[4]), 2, true)
+  })
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 const returnCrystalUpgDesc = (i: number) => i18next.t(`upgrades.crystalUpgrades.${i}`, crystalupgdesc[i]?.())
 const returnCrystalUpgEffect = (i: number) => i18next.t('buildings.crystalUpgrades.currentEffect', {
-  effect: i in crystalupgeffect ? crystalupgeffect[i]() : ''
+  effect: i in crystalupgeffect ? i18next.t(`upgrades.crystalEffects.${i}`, crystalupgeffect[i]()) : ''
 })
 
 export const crystalupgradedescriptions = (i: number) => {
@@ -329,23 +339,44 @@ export const ascendBuildingDR = () => {
   }
 }
 
-const constUpgEffect: Record<number, () => string> = {
-  1: () => `Tesseract building production x${format(Decimal.pow(1.05 + 0.01 * player.achievements[270] + 0.001 * player.platonicUpgrades[18], player.constantUpgrades[1]), 2, true)}`,
-  2: () => `Tesseract building production x${format(Decimal.pow(1 + 0.001 * Math.min(100 + 10 * player.achievements[270] + 10 * player.shopUpgrades.constantEX + 3 * player.platonicUpgrades[18] + 1000 * (G.challenge15Rewards.exponent - 1), player.constantUpgrades[2]), ascendBuildingDR()), 2, true)}`,
-  3: () => `Offering gain x${format(1 + 0.02 * player.constantUpgrades[3], 2, true)}`,
-  4: () => `Obtainium gain x${format(1 + 0.04 * player.constantUpgrades[4], 2, true)}`,
-  5: () => `Ant Speed x${format(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]), 2, true)}`,
-  6: () => `+ ${format(2 * player.constantUpgrades[6])} free Ant Levels`,
-  7: () => `+${format(7 * player.constantUpgrades[7])} free Rune Levels, +${format(3 * player.constantUpgrades[7])} to Rune Cap`,
-  8: () => `Rune EXP x${format(1 + 1 / 10 * player.constantUpgrades[8], 2, true)}`,
-  9: () => `Runes effectiveness x${format(1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]), 4, true)}`,
-  10: () => `Cubes/Tesseracts on Ascension x${format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]), 4, true)}`
+const constUpgEffect: Record<number, () => Record<string, string>> = {
+  1: () => ({
+    x: format(Decimal.pow(1.05 + 0.01 * player.achievements[270] + 0.001 * player.platonicUpgrades[18], player.constantUpgrades[1]), 2, true)
+  }),
+  2: () => ({
+    x: format(Decimal.pow(1 + 0.001 * Math.min(100 + 10 * player.achievements[270] + 10 * player.shopUpgrades.constantEX + 3 * player.platonicUpgrades[18] + 1000 * (G.challenge15Rewards.exponent - 1), player.constantUpgrades[2]), ascendBuildingDR()), 2, true)
+  }),
+  3: () => ({
+    x: format(1 + 0.02 * player.constantUpgrades[3], 2, true)
+  }),
+  4: () => ({
+    x: format(1 + 0.04 * player.constantUpgrades[4], 2, true)
+  }),
+  5: () => ({
+    x: format(Decimal.pow(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10), player.constantUpgrades[5]), 2, true)
+  }),
+  6: () => ({
+    x: format(2 * player.constantUpgrades[6])
+  }),
+  7: () => ({
+    x: format(7 * player.constantUpgrades[7]),
+    y: format(3 * player.constantUpgrades[7])
+  }),
+  8: () => ({
+    x: format(1 + 1 / 10 * player.constantUpgrades[8], 2, true)
+  }),
+  9: () => ({
+    x: format(1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]), 4, true)
+  }),
+  10: () => ({
+    x: format(1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]), 4, true)
+  })
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 const returnConstUpgDesc = (i: number) => i18next.t(`upgrades.constantUpgrades.${i}`, constantUpgDesc[i]?.())
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-const returnConstUpgEffect = (i: number) => constUpgEffect[i]?.()
+const returnConstUpgEffect = (i: number) => i18next.t(`upgrades.constantEffects.${i}`, constUpgEffect[i]?.())
 
 export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
   const toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G.constUpgradeCosts[i]!) / Math.log(10)))
