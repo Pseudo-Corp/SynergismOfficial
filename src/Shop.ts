@@ -584,6 +584,42 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
+  },
+  shopAmbrosiaLuck1: {
+    tier: 'SingularityVol2',
+    price: 20000000,
+    priceIncrease: 20000000,
+    maxLevel: 40,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopAmbrosiaLuck2: {
+    tier: 'SingularityVol3',
+    price: 2e11,
+    priceIncrease: 2e11,
+    maxLevel: 50,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopAmbrosiaLuck3: {
+    tier: 'SingularityVol4',
+    price: 2e13,
+    priceIncrease: 2e13,
+    maxLevel: 60,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopAmbrosiaLuck4: {
+    tier: 'SingularityVol4',
+    price: 1e17,
+    priceIncrease: 4 * 1e16,
+    maxLevel: 1000,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
   }
 }
 
@@ -598,7 +634,8 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'improveQuarkHept' | 'improveQuarkHept2' | 'improveQuarkHept3' | 'improveQuarkHept4' | 'shopImprovedDaily' |
                         'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4' | 'calculator4' | 'calculator5' | 'calculator6' |
                         'offeringEX3' | 'obtainiumEX3' | 'improveQuarkHept5' | 'seasonPassInfinity' | 'chronometerInfinity' | 'shopSingularityPenaltyDebuff' |
-                        'shopAmbrosiaGeneration1' | 'shopAmbrosiaGeneration2' | 'shopAmbrosiaGeneration3' | 'shopAmbrosiaGeneration4'
+                        'shopAmbrosiaGeneration1' | 'shopAmbrosiaGeneration2' | 'shopAmbrosiaGeneration3' | 'shopAmbrosiaGeneration4' |
+                        'shopAmbrosiaLuck1' | 'shopAmbrosiaLuck2' | 'shopAmbrosiaLuck3' | 'shopAmbrosiaLuck4'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -615,7 +652,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
   const lol = DOMCacheGetOrSet('quarkeffect')!
   const refundable = DOMCacheGetOrSet('quarkRefundable')!
 
-  rofl.textContent = i18next.t(`shop.upgradeDescriptions.${input}`)
+  rofl.innerHTML = i18next.t(`shop.upgradeDescriptions.${input}`)
 
   shopData[input].refundable ? // TODO(@KhafraDev): i18n
     refundable.textContent = `This item is refundable! Will be set to level ${shopData[input].refundMinimumLevel} when refunded.`:
@@ -808,6 +845,18 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'shopAmbrosiaGeneration4':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaGeneration4', { amount: format(player.shopUpgrades.shopAmbrosiaGeneration4 / 10, 1, true) })
       break
+    case 'shopAmbrosiaLuck1':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck1', { amount: format(player.shopUpgrades.shopAmbrosiaLuck1) })
+      break
+    case 'shopAmbrosiaLuck2':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck2', { amount: format(player.shopUpgrades.shopAmbrosiaLuck2) })
+      break
+    case 'shopAmbrosiaLuck3':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck3', { amount: format(player.shopUpgrades.shopAmbrosiaLuck3) })
+      break
+    case 'shopAmbrosiaLuck4':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck4', { amount: format(3 * player.shopUpgrades.shopAmbrosiaLuck4 / 10, 1, true) })
+      break
   }
 
 }
@@ -877,7 +926,11 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
     shopAmbrosiaGeneration1: 'Ambrosia Generation Speedup',
     shopAmbrosiaGeneration2: 'Another Ambrosia Generation Speedup',
     shopAmbrosiaGeneration3: 'A better Ambrosia Generation Speedup',
-    shopAmbrosiaGeneration4: 'A FINAL Ambrosia Generation Speedup'
+    shopAmbrosiaGeneration4: 'A FINAL Ambrosia Generation Speedup',
+    shopAmbrosiaLuck1: 'Ambrosia Luck Increaser',
+    shopAmbrosiaLuck2: 'Another Ambrosia Luck Increaser',
+    shopAmbrosiaLuck3: 'A better Ambrosia Generation Speedup',
+    shopAmbrosiaLuck4: 'A FINAL Ambrosia Generation Speedup'
   }
 
   return names[input]
@@ -949,6 +1002,8 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     player.worlds.sub(anyData.cost)
     player.shopUpgrades[input] = anyData.levelCanBuy
     revealStuff()
+    player.caches.ambrosiaGeneration.updateVal('ShopUpgrades')
+    player.caches.ambrosiaLuck.updateVal('ShopUpgrades')
     return
   }
 
@@ -959,6 +1014,8 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   if (p) {
     player.worlds.sub(buyCost)
     player.shopUpgrades[input] += buyAmount
+    player.caches.ambrosiaGeneration.updateVal('ShopUpgrades')
+    player.caches.ambrosiaLuck.updateVal('ShopUpgrades')
     revealStuff()
   }
 }
@@ -1182,6 +1239,14 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames):boolean => {
     case 'shopAmbrosiaGeneration3':
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
     case 'shopAmbrosiaGeneration4':
+      return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+    case 'shopAmbrosiaLuck1':
+      return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
+    case 'shopAmbrosiaLuck2':
+      return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
+    case 'shopAmbrosiaLuck3':
+      return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+    case 'shopAmbrosiaLuck4':
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
   }
 }

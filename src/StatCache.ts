@@ -1,4 +1,4 @@
-import { calculateAmbrosiaGenerationShopUpgrade, calculateSingularityAmbrosiaLuckMilestoneBonus } from './Calculate'
+import { calculateAmbrosiaGenerationShopUpgrade, calculateAmbrosiaLuckShopUpgrade, calculateSingularityAmbrosiaLuckMilestoneBonus } from './Calculate'
 import { player } from './Synergism'
 import { productContents } from './Utility'
 
@@ -117,7 +117,7 @@ abstract class MultiplicationCache<T extends string> implements StatCache<T> {
  * Define Types Below. For each one, the union is all statistics of a particular stat.
 */
 
-type AmbrosialLuck = 'SingPerks' | 'OcteractBerries'
+type AmbrosialLuck = 'SingPerks' | 'OcteractBerries' | 'ShopUpgrades'
 
 type AmbrosiaGeneration = 'DefaultVal' | 'SingularityBerries' | 'ShopUpgrades'
 
@@ -132,7 +132,8 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
     super()
     this.vals = {
       'SingPerks': 0,
-      'OcteractBerries': 0
+      'OcteractBerries': 0,
+      'ShopUpgrades': 0
     }
     this.totalVal = 0
   }
@@ -146,6 +147,10 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       }
       case 'OcteractBerries': {
         this.vals[key] = +player.octeractUpgrades.octeractAmbrosiaLuck.getEffect().bonus
+        break
+      }
+      case 'ShopUpgrades': {
+        this.vals[key] = calculateAmbrosiaLuckShopUpgrade()
         break
       }
     }

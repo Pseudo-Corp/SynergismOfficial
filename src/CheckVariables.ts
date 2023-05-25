@@ -524,7 +524,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
       shopAmbrosiaGeneration1: 0,
       shopAmbrosiaGeneration2: 0,
       shopAmbrosiaGeneration3: 0,
-      shopAmbrosiaGeneration4: 0
+      shopAmbrosiaGeneration4: 0,
+      shopAmbrosiaLuck1: 0,
+      shopAmbrosiaLuck2: 0,
+      shopAmbrosiaLuck3: 0,
+      shopAmbrosiaLuck4: 0
     }
 
     player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false)

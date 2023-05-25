@@ -385,6 +385,10 @@ export interface Player {
         shopAmbrosiaGeneration2: number,
         shopAmbrosiaGeneration3: number,
         shopAmbrosiaGeneration4: number,
+        shopAmbrosiaLuck1: number,
+        shopAmbrosiaLuck2: number,
+        shopAmbrosiaLuck3: number,
+        shopAmbrosiaLuck4: number
     },
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean | 'TEN' | 'ANY',

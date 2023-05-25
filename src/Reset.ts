@@ -1232,6 +1232,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   updateSingularityMilestoneAwards()
 
   player.rngCode = Date.now()
+  player.promoCodeTiming.time = Date.now()
 
   // Save again at the end of singularity reset
   void saveSynergy()

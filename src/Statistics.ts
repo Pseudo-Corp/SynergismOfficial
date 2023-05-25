@@ -1,7 +1,7 @@
 import { player, format, formatTimeShort } from './Synergism'
 import { Globals as G } from './Variables'
 import { hepteractEffective } from './Hepteracts'
-import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTimeAcceleration, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus, calculateAscensionSpeedMultiplier, calculateGoldenQuarkMultiplier } from './Calculate'
+import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTimeAcceleration, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus, calculateAscensionSpeedMultiplier, calculateGoldenQuarkMultiplier, calculateAmbrosiaQuarkMult } from './Calculate'
 import { challenge15ScoreMultiplier } from './Challenges'
 import type { GlobalVariables } from './types/Synergism'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -174,6 +174,7 @@ export const loadQuarkMultiplier = () => {
                                                             Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL))),
   3,
   true)
+  DOMCacheGetOrSet('sGQM25').textContent = 'x' + format(calculateAmbrosiaQuarkMult(), 2, true)
   DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
 }
 
@@ -225,7 +226,8 @@ export const loadStatisticsCubeMultipliers = () => {
     21: { acc: 2, desc: 'Citadel [GQ]' },
     22: { acc: 2, desc: 'Citadel 2 [GQ]' },
     23: { acc: 4, desc: 'Platonic DELTA' },
-    24: { acc: 2, desc: 'Wow Pass ∞' }
+    24: { acc: 2, desc: 'Wow Pass ∞' },
+    25: { acc: 2, desc: 'Unspent Ambrosia Bonus' }
   }
   for (let i = 0; i < arr0.length; i++) {
     const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
@@ -373,7 +375,8 @@ export const loadStatisticsCubeMultipliers = () => {
     23: { acc: 2, desc: 'Platonic DELTA' },
     24: { acc: 2, desc: 'No Singularity Upgrades Challenge' },
     25: { acc: 2, desc: 'Wow Pass ∞' },
-    26: { acc: 2, desc: ascensionSpeedDesc }
+    26: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
+    27: { acc: 2, desc: ascensionSpeedDesc }
   }
   for (let i = 0; i < octMults.list.length; i++) {
     const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`)
@@ -584,7 +587,8 @@ export const loadStatisticsAmbrosiaLuck = () => {
   const arr = player.caches.ambrosiaLuck.flatten()
   const map: Record<number, { acc: number, desc: string }> = {
     1: { acc: 0, desc: 'Irish Ants Singularity Perk' },
-    2: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrade' }
+    2: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrade' },
+    3: { acc: 1, desc: 'Shop Upgrade Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
