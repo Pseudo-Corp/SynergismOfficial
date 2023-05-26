@@ -478,7 +478,15 @@ export const player: Player = {
     improveQuarkHept5: 0,
     seasonPassInfinity: 0,
     chronometerInfinity: 0,
-    shopSingularityPenaltyDebuff: 0
+    shopSingularityPenaltyDebuff: 0,
+    shopAmbrosiaGeneration1: 0,
+    shopAmbrosiaGeneration2: 0,
+    shopAmbrosiaGeneration3: 0,
+    shopAmbrosiaGeneration4: 0,
+    shopAmbrosiaLuck1: 0,
+    shopAmbrosiaLuck2: 0,
+    shopAmbrosiaLuck3: 0,
+    shopAmbrosiaLuck4: 0
   },
   shopBuyMaxToggle: false,
   shopHideToggle: false,
@@ -835,6 +843,7 @@ export const player: Player = {
   ambrosia: 0,
   lifetimeAmbrosia: 0,
   ambrosiaRNG: 0,
+  blueberryTime: 0,
   visitedAmbrosiaSubtab: false,
 
   caches: {

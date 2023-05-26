@@ -1115,7 +1115,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         }
       }
     },
-    specialCostForm: 'Exponential2'
+    specialCostForm: 'Exponential2',
+    qualityOfLife: true
   }
 }
 

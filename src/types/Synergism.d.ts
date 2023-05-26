@@ -381,6 +381,14 @@ export interface Player {
         seasonPassInfinity: number,
         chronometerInfinity: number,
         shopSingularityPenaltyDebuff: number,
+        shopAmbrosiaGeneration1: number,
+        shopAmbrosiaGeneration2: number,
+        shopAmbrosiaGeneration3: number,
+        shopAmbrosiaGeneration4: number,
+        shopAmbrosiaLuck1: number,
+        shopAmbrosiaLuck2: number,
+        shopAmbrosiaLuck3: number,
+        shopAmbrosiaLuck4: number
     },
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean | 'TEN' | 'ANY',
@@ -603,7 +611,8 @@ export interface Player {
 
     ambrosia: number
     lifetimeAmbrosia: number
-    ambrosiaRNG: number
+    blueberryTime: number
+    ambrosiaRNG: number // DEPRECIATED, DO NOT USE
     visitedAmbrosiaSubtab: boolean
 
     caches: {
@@ -800,7 +809,6 @@ export interface GlobalVariables {
 
     runescreen: string
     settingscreen: string
-    singularityscreen: string
 
     talismanResourceObtainiumCosts: number[]
     talismanResourceOfferingCosts: number[]
@@ -946,6 +954,7 @@ export interface GlobalVariables {
     eventClicked: boolean
 
     ambrosiaTimer: number
+    TIME_PER_AMBROSIA: number
 }
 
 export interface SynergismEvents {

@@ -693,15 +693,22 @@ export const promocodes = async (input: string | null, amount?: number) => {
       if (diff <= (2500 + 125 * player.cubeUpgrades[61])) {
         const reward = Math.floor(Math.min(1000, (125 + 25 * player.highestSingularityCount)) * (1 + player.cubeUpgrades[61] / 50))
         let actualQuarkAward = player.worlds.applyBonus(reward)
-
+        let blueberryTime = 0
         if (actualQuarkAward > 66666) {
           actualQuarkAward = Math.pow(actualQuarkAward, 0.35) * Math.pow(66666, 0.65)
         }
 
+        if (player.visitedAmbrosiaSubtab) {
+          blueberryTime = 1800 * rewardMult
+        }
+
         player.worlds.add(actualQuarkAward * rewardMult, false)
-        return Alert(i18next.t('importexport.promocodes.time.won', {
+        G.ambrosiaTimer += blueberryTime
+        const winText = i18next.t('importexport.promocodes.time.won', {
           x: format(actualQuarkAward * rewardMult, 0, true)
-        }))
+        })
+        const ambrosiaText = (blueberryTime > 0) ? i18next.t('importexport.promocodes.time.ambrosia', { blueberryTime }) : ''
+        return Alert(winText + ambrosiaText)
       } else {
         return Alert(i18next.t('importexport.promocodes.time.lost'))
       }

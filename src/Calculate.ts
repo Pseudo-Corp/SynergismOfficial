@@ -923,7 +923,7 @@ export const calculateOffline = async (forceTime = 0) => {
   addTimers('goldenQuarks', timeAdd)
   addTimers('singularity', timeAdd)
   addTimers('octeracts', timeTick)
-  addTimers('ambrosia', timeAdd * 1.96)
+  addTimers('ambrosia', timeAdd)
 
   player.prestigeCount += resetAdd.prestige
   player.transcendCount += resetAdd.transcension
@@ -1184,7 +1184,9 @@ export const calculateAllCubeMultiplier = () => {
     // Platonic DELTA
     1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus * Math.min(9, player.singularityCounter / (3600 * 24)),
     // Wow Pass INF
-    Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
+    Math.pow(1.02, player.shopUpgrades.seasonPassInfinity),
+    // Ambrosia Mult
+    calculateAmbrosiaCubeMult()
     // Total Global Cube Multipliers: 19
   ]
 
@@ -1426,7 +1428,9 @@ export const getOcteractValueMultipliers = () => {
     // No Singulairty Upgrades
     +player.singularityChallenges.noSingularityUpgrades.rewards.cubes,
     // Wow Pass INF
-    Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
+    Math.pow(1.02, player.shopUpgrades.seasonPassInfinity),
+    // Ambrosia Mult
+    calculateAmbrosiaCubeMult()
   ]
 }
 
@@ -1676,6 +1680,7 @@ export const calculateQuarkMultiplier = () => {
   multiplier *= 1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus // Doohickey
   multiplier *= calculateTotalOcteractQuarkBonus()
 
+  multiplier *= calculateAmbrosiaQuarkMult()
   if (player.highestSingularityCount === 0) {
     multiplier *= 1.25
   }
@@ -2148,6 +2153,68 @@ export const calculateSingularityAmbrosiaLuckMilestoneBonus = () => {
   }
 
   return bonus
+}
+
+export const calculateAmbrosiaGenerationShopUpgrade = () => {
+  const multipliers = [
+    1 + player.shopUpgrades.shopAmbrosiaGeneration1 / 100,
+    1 + player.shopUpgrades.shopAmbrosiaGeneration2 / 100,
+    1 + player.shopUpgrades.shopAmbrosiaGeneration3 / 100,
+    1 + player.shopUpgrades.shopAmbrosiaGeneration4 / 1000
+  ]
+
+  return productContents(multipliers)
+}
+
+export const calculateAmbrosiaLuckShopUpgrade = () => {
+  const vals = [
+    player.shopUpgrades.shopAmbrosiaLuck1,
+    player.shopUpgrades.shopAmbrosiaLuck2,
+    player.shopUpgrades.shopAmbrosiaLuck3,
+    0.3 * player.shopUpgrades.shopAmbrosiaLuck4
+  ]
+
+  return sumContents(vals)
+}
+
+export const calculateRequiredBlueberryTime = () => {
+  let val = G.TIME_PER_AMBROSIA
+  val += Math.floor(player.lifetimeAmbrosia / 10)
+
+  if (player.lifetimeAmbrosia >= 10000) {
+    val *= 2
+  }
+
+  if (player.lifetimeAmbrosia >= 100000) {
+    val *= 2
+  }
+
+  if (player.lifetimeAmbrosia >= 1e7) {
+    val *= 2
+  }
+  return val
+}
+
+export const calculateAmbrosiaCubeMult = () => {
+  let multiplier = 1
+  multiplier += Math.min(1, Math.floor(player.lifetimeAmbrosia / 100) / 100)
+  if (player.lifetimeAmbrosia >= 10000)
+    multiplier += Math.min(1, Math.floor(player.lifetimeAmbrosia / 1000) / 100)
+  if (player.lifetimeAmbrosia >= 100000)
+    multiplier += Math.floor(player.lifetimeAmbrosia / 10000) / 100
+
+  return multiplier
+}
+
+export const calculateAmbrosiaQuarkMult = () => {
+  let multiplier = 1
+  multiplier += Math.min(0.2, Math.floor(player.lifetimeAmbrosia / 2500) / 100)
+  if (player.lifetimeAmbrosia >= 50000)
+    multiplier += Math.min(0.2, Math.floor(player.lifetimeAmbrosia / 25000) / 100)
+  if (player.lifetimeAmbrosia >= 500000)
+    multiplier += Math.floor(player.lifetimeAmbrosia / 250000) / 100
+
+  return multiplier
 }
 
 export const dailyResetCheck = () => {
