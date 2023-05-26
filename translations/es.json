@@ -13,7 +13,8 @@
         "amount": "¡Tienes <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosía!",
         "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
         "perGen": "Actualmente ganando <<var(--amber-text-color)|{{guaranteed}}>> con un <<var(--amber-text-color)|{{extraChance}}%>> probabilidad de otro. [<<var(--lime-text-color)|Suerte: &#9752 {{ambrosiaLuck}}>>]",
-        "blueberrySecond": "¡Actualmente tienes <<var(--amber-text-color)|{{blueberrySecond}}>> Segundos de Arándanos acumulados! Probabilidad de generación de Segundos de arándanos <<var(--amber-text-color)|x{{RNG}}>> (garantizado con 10.000 Segundos de Arándanos)"
+        "blueberrySecond": "¡Actualmente tienes <<var(--amber-text-color)|{{blueberrySecond}}>> Segundos de Arándanos acumulados! Probabilidad de generación de Segundos de arándanos <<var(--amber-text-color)|x{{RNG}}>> (garantizado con 10.000 Segundos de Arándanos)",
+        "bonuses": "Temporarily, your saved ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!"
     },
     "achievements": {
         "descriptions": {
@@ -1291,7 +1292,11 @@
             "shopAmbrosiaGeneration1": "Buying this charm grants +1% faster Blueberry Time generation per level, for more Ambrosia! Don't know what that means? You soon will.",
             "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% faster Blueberry Time generation per level, stacking multiplicatively.",
             "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% faster Blueberry Time generation per level, stacking multiplicatively.",
-            "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +0.1% faster Blueberry Time generation per level, stacking multiplicatively."
+            "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +0.1% faster Blueberry Time generation per level, stacking multiplicatively.",
+            "shopAmbrosiaLuck1": "Buying this charm grants +1 &#9752 Ambrosia luck per level, for more Ambrosia! Don't know what that means? You soon will.",
+            "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +1 &#9752 Ambrosia luck per level, stacking additively.",
+            "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +1 &#9752 Ambrosia luck per level, stacking additively.",
+            "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.3 &#9752 Ambrosia luck per level, stacking additively."
         },
         "maxed": "¡Maximizado!",
         "upgradeFor": "Mejora por {{x}} Quarks",
@@ -1376,7 +1381,11 @@
             "shopAmbrosiaGeneration1": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
             "shopAmbrosiaGeneration2": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
             "shopAmbrosiaGeneration3": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
-            "shopAmbrosiaGeneration4": "Blueberry Time is generated <<blue|{{amount}}%>> faster."
+            "shopAmbrosiaGeneration4": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaLuck1": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
+            "shopAmbrosiaLuck2": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
+            "shopAmbrosiaLuck3": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
+            "shopAmbrosiaLuck4": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>"
         }
     },
     "singularity": {

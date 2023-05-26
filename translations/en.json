@@ -14,7 +14,7 @@
         "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
         "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
         "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Generating Ambrosia when <<blue|{{thresholdTimer}}>> is accumulated.",
-        "bonuses": "Temporarily, your saved ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!" 
+        "bonuses": "Temporarily, your saved ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!"
     },
     "achievements": {
         "descriptions": {
@@ -1494,8 +1494,8 @@
             "midasMilleniumAgedGold": "Every use of code `add` gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3.",
             "goldenRevolution4": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!",
             "octeractMetagenesis": {
-                "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
-                "default": "Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge."
+                "hasLevel1": "Gives 1% of your purchased Octeract Co AND Trigenesis as bonus levels of themselves per use of code daily!",
+                "default": "Gives 1% of your purchased Octeract Cogenesis as bonus levels of Octeract Cogenesis per use of code daily!"
             },
             "immaculateAlchemy": {
                 "hasLevel2": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 8.",
