@@ -2220,8 +2220,7 @@
             "hepteract": ""
         },
         "singularity": {
-            "penalties": "",
-            "perks": "",
+            "perks-penalties": "",
             "octeracts": "",
             "exalt": ""
         },

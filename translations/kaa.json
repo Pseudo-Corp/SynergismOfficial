@@ -2222,8 +2222,7 @@
             "hepteract": "Hepteract Forge"
         },
         "singularity": {
-            "penalties": "Penalties",
-            "perks": "Perks",
+            "perks-penalties": "Perks / Penalties",
             "octeracts": "Octeracts",
             "exalt": "EXALT"
         },

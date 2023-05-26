@@ -743,7 +743,7 @@ export const visualUpdateSingularity = () => {
       }
     }
   }
-  if (player.subtabNumber === 3) {
+  if (player.subtabNumber === 2) {
     const keys = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[]
     const val = G.shopEnhanceVision
 

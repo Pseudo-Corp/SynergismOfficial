@@ -433,7 +433,7 @@ export const toggleSaveOff = () => {
 }
 
 export const toggleSingularityScreen = (index: number) => {
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= 5; i++) {
     const a = DOMCacheGetOrSet(`toggleSingularitySubTab${i}`)
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
     if (i === index) {
@@ -446,11 +446,11 @@ export const toggleSingularityScreen = (index: number) => {
   }
   player.subtabNumber = index - 1
 
-  if (player.subtabNumber === 3) {
+  if (player.subtabNumber === 2) {
     visualUpdateOcteracts()
   }
 
-  if (player.subtabNumber === 5) {
+  if (player.subtabNumber === 4) {
     visualUpdateAmbrosia()
   }
 }
