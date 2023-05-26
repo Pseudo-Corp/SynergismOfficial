@@ -1785,8 +1785,8 @@ export function addPerkEventHandlers() {
       const levelInfo = `${i18next.t('general.level')} ${currentLevel} - (Singularity ${lastUpgraded})`
       const perkImage = DOMCacheGetOrSet('singularityPerksIcon') as HTMLImageElement
       perkImage.src = `Pictures/Default/perk${perk.ID}.png`
-      DOMCacheGetOrSet('singularityPerksText').textContent = `${levelInfo}`
-      DOMCacheGetOrSet('singularityPerksDesc').textContent = `${perk.description(player.highestSingularityCount, perk.levels)}`
+      DOMCacheGetOrSet('singularityPerksText').textContent = levelInfo
+      DOMCacheGetOrSet('singularityPerksDesc').textContent = perk.description(player.highestSingularityCount, perk.levels)
     })
   }
 }
