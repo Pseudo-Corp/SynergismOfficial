@@ -11,7 +11,7 @@
     },
     "ambrosia": {
         "amount": "您有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>神肴！",
-        "chance": "下一秒有<<var(--amber-text-color)|{{chance}}%>>概率产生",
+        "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
         "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：&#9752 {{ambrosiaLuck}}>>]",
         "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！蓝莓秒可以使产生概率<<var(--amber-text-color)|×{{RNG}}>>(在10000蓝莓秒时必定产生)"
     },
@@ -1287,7 +1287,11 @@
             "seasonPassInfinity": "每级使所有类型的方盒、立方和方块获取数量增加2%，且各级效果叠乘！(即总效果变为1.02的 等级 次方)",
             "shopSingularityPenaltyDebuff": "Derpsmith对您在第一个拔擢里的表现感到很骄傲，他决定让奇点的惩罚弱化一些。但是花费，您懂的。",
             "obtainiumEX2": "对于每次奇点，每级使难得素获取数量增加1%！！！",
-            "improveQuarkHept5": "它的效果只有正常强化的1/50。原因？为了平衡啊……"
+            "improveQuarkHept5": "它的效果只有正常强化的1/50。原因？为了平衡啊……",
+            "shopAmbrosiaGeneration1": "Buying this charm grants +1% faster Blueberry Time generation per level, for more Ambrosia! Don't know what that means? You soon will.",
+            "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% faster Blueberry Time generation per level, stacking multiplicatively.",
+            "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% faster Blueberry Time generation per level, stacking multiplicatively.",
+            "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +0.1% faster Blueberry Time generation per level, stacking multiplicatively."
         },
         "maxed": "已满级！",
         "upgradeFor": "使用{{x}}",
@@ -1368,7 +1372,11 @@
             "obtainiumEX3": "难得素获取数量增加<<pink|{{amount}}%>>！",
             "chronometerInfinity": "飞升的速度增加<<orange|{{amount}}%>>。",
             "seasonPassInfinity": "<<orchid|所有类型的方盒、立方和方块获取数量>>增加<<lightgoldenrodyellow|{{amount}}%>>。",
-            "shopSingularityPenaltyDebuff": "在<<pink|{{amount1}}>>次奇点时，奇点相关惩罚视为在<<pink|{{amount2}}>>次奇点。"
+            "shopSingularityPenaltyDebuff": "在<<pink|{{amount1}}>>次奇点时，奇点相关惩罚视为在<<pink|{{amount2}}>>次奇点。",
+            "shopAmbrosiaGeneration1": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaGeneration2": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaGeneration3": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaGeneration4": "Blueberry Time is generated <<blue|{{amount}}%>> faster."
         }
     },
     "singularity": {
@@ -3106,7 +3114,8 @@
                 "wait": "导入存档后，您在15分钟内是无法使用此代码的，这是为了防止作弊。\n其他情况下，您需要等待15分钟后才能再度使用。",
                 "confirm": "在接下来的15秒内点击确定按钮，以此来测试运气！如果您在随机生成时间点的{{x}}毫秒范围内点击了按钮，您将获得一份奖励！由于两次使用该代码之间的时间间隔，本次代码的奖励变为{{y}}倍。",
                 "won": "您点击的时机很好！[增加{{x}}夸克]",
-                "lost": "点击的时机不对，下次再来吧！"
+                "lost": "点击的时机不对，下次再来吧！",
+                "ambrosia": "Your blueberries resonate slightly, giving {{blueberryTime}} real life seconds of Blueberry Time."
             },
             "spoiler": {
                 "moreThan1": "如果您已经解锁它们，则每秒可以获得{{x}}惊奇八阶方块！",

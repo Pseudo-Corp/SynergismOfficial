@@ -10,9 +10,9 @@
         "saveToClipboard": "Weet je zeker dat je opslagbestand kopiëren naar het klembord wilt inschakelen?"
     },
     "ambrosia": {
-        "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
-        "chance": "<<var(--amber-text-color)|{{chance}}%>> chance next second for generation",
-        "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
+        "amount": "Je hebt <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
+        "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
+        "perGen": "Je maakt op het moment <<var(--amber-text-color)|{{guaranteed}}>> met een <<var(--amber-text-color)|{{extraChance}}%>> kans op nog een. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
         "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)"
     },
     "achievements": {
@@ -1287,7 +1287,11 @@
             "seasonPassInfinity": "Gain +2% more cubes per level, multiplicative! (Multiplier is 1.02^level)",
             "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.",
             "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
-            "improveQuarkHept5": "This is 1/50 as effective as a normal improver. Why? Because of balancing..."
+            "improveQuarkHept5": "This is 1/50 as effective as a normal improver. Why? Because of balancing...",
+            "shopAmbrosiaGeneration1": "Buying this charm grants +1% faster Blueberry Time generation per level, for more Ambrosia! Don't know what that means? You soon will.",
+            "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% faster Blueberry Time generation per level, stacking multiplicatively.",
+            "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% faster Blueberry Time generation per level, stacking multiplicatively.",
+            "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +0.1% faster Blueberry Time generation per level, stacking multiplicatively."
         },
         "maxed": "Maxed!",
         "upgradeFor": "Upgrade for {{x}} Quarks",
@@ -1368,7 +1372,11 @@
             "obtainiumEX3": "You will gain <<pink|{{amount}}%>> more Obtainium!",
             "chronometerInfinity": "Ascension timer increases <<orange|{{amount}}%>> faster.",
             "seasonPassInfinity": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more cubes (of <<orchid|all>> types) on Ascension.",
-            "shopSingularityPenaltyDebuff": "At Singularity <<pink|{{amount1}}>>, your debuffs are as if you were in <<pink|{{amount2}}>>."
+            "shopSingularityPenaltyDebuff": "At Singularity <<pink|{{amount1}}>>, your debuffs are as if you were in <<pink|{{amount2}}>>.",
+            "shopAmbrosiaGeneration1": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaGeneration2": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaGeneration3": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaGeneration4": "Blueberry Time is generated <<blue|{{amount}}%>> faster."
         }
     },
     "singularity": {
@@ -3106,7 +3114,8 @@
                 "wait": "If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.\n\nRegardless, you must wait at least 15 minutes between each use.",
                 "confirm": "Click the button within the next 15 seconds to test your luck! If you click within {{x}} ms of a randomly generated time, you will win a prize! This particular instance has a {{y}}x multiplier due to elapsed time between uses.",
                 "won": "You clicked at the right time! [+{{x}} Quarkies]",
-                "lost": "You didn't guess the right time, try again soon!"
+                "lost": "You didn't guess the right time, try again soon!",
+                "ambrosia": "Your blueberries resonate slightly, giving {{blueberryTime}} real life seconds of Blueberry Time."
             },
             "spoiler": {
                 "moreThan1": "You will gain {{x}} Octeracts (when they come out) every second, assuming you have them unlocked!",
