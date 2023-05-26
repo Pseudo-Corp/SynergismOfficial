@@ -11,7 +11,7 @@
     },
     "ambrosia": {
         "amount": "У вас <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Амброзии!",
-        "chance": "Вероятность <<var(--amber-text-color)|{{chance}}%>> в следующую секунду для создания",
+        "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
         "perGen": "Сейчас получаете <<var(--amber-text-color)|{{guaranteed}}>> с вероятностью <<var(--amber-text-color)|{{extraChance}}%>> на ещё одно. [<<var(--lime-text-color)|Удача: &#9752 {{ambrosiaLuck}}>>]",
         "blueberrySecond": "Сейчас у вас накоплено <<var(--amber-text-color)|{{blueberrySecond}}>> секунд Голубики! Вероятность создания следующей Голубики <<var(--amber-text-color)|x{{RNG}}>> (Гарантирован на 10,000 секунд Голубики)"
     },
@@ -1287,7 +1287,11 @@
             "seasonPassInfinity": "Получите 2% больше Кубов за уровень, многократно! (Множитель равен 1.02^уровень)",
             "shopSingularityPenaltyDebuff": "Кукузнец был так горд вашим результатом в первом ВОЗВЫШЕНИИ, что он хочет сделать ваши штрафы сингулярности слабее. Но у всего есть цена. И не маленькая.",
             "obtainiumEX2": "Получите +1% Обтаниума за каждый уровень за каждую Сингулярность!!!",
-            "improveQuarkHept5": "Это на 1/50 эффективнее обычного улучшителя. Почему? Из-за баланса..."
+            "improveQuarkHept5": "Это на 1/50 эффективнее обычного улучшителя. Почему? Из-за баланса...",
+            "shopAmbrosiaGeneration1": "Buying this charm grants +1% faster Blueberry Time generation per level, for more Ambrosia! Don't know what that means? You soon will.",
+            "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% faster Blueberry Time generation per level, stacking multiplicatively.",
+            "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% faster Blueberry Time generation per level, stacking multiplicatively.",
+            "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +0.1% faster Blueberry Time generation per level, stacking multiplicatively."
         },
         "maxed": "Максимум!",
         "upgradeFor": "Улучшить за {{x}} Кварков",
@@ -1368,7 +1372,11 @@
             "obtainiumEX3": "Вы получите <<pink|{{amount}}%>> больше Обтаниума!",
             "chronometerInfinity": "Таймер Вознесения увеличивается на <<orange|{{amount}}%>> быстрее.",
             "seasonPassInfinity": "Вознесения дают на <<lightgoldenrodyellow|{{amount}}%>> больше кубов (<<orchid|всех>> видов).",
-            "shopSingularityPenaltyDebuff": "В Сингулярности <<pink|{{amount1}}>>, ваши негативные эффекты такие же, как если бы вы были в <<pink|{{amount2}}>>."
+            "shopSingularityPenaltyDebuff": "В Сингулярности <<pink|{{amount1}}>>, ваши негативные эффекты такие же, как если бы вы были в <<pink|{{amount2}}>>.",
+            "shopAmbrosiaGeneration1": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaGeneration2": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaGeneration3": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaGeneration4": "Blueberry Time is generated <<blue|{{amount}}%>> faster."
         }
     },
     "singularity": {
@@ -2859,7 +2867,7 @@
             "hypercubeQuarksToday": "Кварки, полученные от Гиперкубов: <<cyan|{{amount}}>>",
             "hypercubeQuarksOpenRequirement": "Откройте {{amount}} Гиперкубов для следующего кварка.",
             "hypercubeQuarksOpenToday": "Сегодня открыто гиперкубов: <<orchid|{{amount}}>>",
-            "platonicCubeQuarksToday": "Платоновых Кубов, полученных от Кубов: <<cyan|{{amount}}>>",
+            "platonicCubeQuarksToday": "Кварки, полученных от Платоновых Кубов: <<cyan|{{amount}}>>",
             "platonicCubeQuarksOpenRequirement": "Откройте {{amount}} Платоновых Кубов для следующего кварка.",
             "platonicCubeQuarksOpenToday": "Сегодня открыто платоновых кубов: <<orchid|{{amount}}>>"
         },
@@ -3106,7 +3114,8 @@
                 "wait": "Если вы импортировали сохранение, вы не можете использовать этот код в течение 15 минут чтобы предотвратить читеров.\n\nВ любом случае, вы обязаны подождать хотя бы 15 минут между каждым использованием.",
                 "confirm": "Нажмите на кнопку в течение следующих 15 секунд, чтобы испытать свою удачу! Если вы нажмёте в течение {{x}} мс после случайно сгенерированного времени, вы выиграете приз! Этот конкретный экземпляр имеет множитель {{y}}x из-за прошедшего времени между использованием.",
                 "won": "Вы кликнули в нужный момент! [+{{x}} Кварков]",
-                "lost": "Вы не угадали верное время, попробуйте снова позже!"
+                "lost": "Вы не угадали верное время, попробуйте снова позже!",
+                "ambrosia": "Your blueberries resonate slightly, giving {{blueberryTime}} real life seconds of Blueberry Time."
             },
             "spoiler": {
                 "moreThan1": "Вы будете получать {{x}} Октерактов (когда они появятся) каждую секунду, при условии, что они у вас разблокированы!",

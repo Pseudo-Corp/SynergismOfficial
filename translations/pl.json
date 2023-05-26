@@ -11,7 +11,7 @@
     },
     "ambrosia": {
         "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
-        "chance": "<<var(--amber-text-color)|{{chance}}%>> chance next second for generation",
+        "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
         "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
         "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)"
     },
@@ -1287,7 +1287,11 @@
             "seasonPassInfinity": "Zdobądź +2% więcej kostek na poziom, multiplikatywnie! (Mnożnik to poziom 1,02^)",
             "shopSingularityPenaltyDebuff": "Derpsmith był tak dumny z twojego występu w pierwszym EXALT, że chce osłabić twoje osobliwości. Kosztem. Dużym kosztem.",
             "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
-            "improveQuarkHept5": "This is 1/50 as effective as a normal improver. Why? Because of balancing..."
+            "improveQuarkHept5": "This is 1/50 as effective as a normal improver. Why? Because of balancing...",
+            "shopAmbrosiaGeneration1": "Buying this charm grants +1% faster Blueberry Time generation per level, for more Ambrosia! Don't know what that means? You soon will.",
+            "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% faster Blueberry Time generation per level, stacking multiplicatively.",
+            "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% faster Blueberry Time generation per level, stacking multiplicatively.",
+            "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +0.1% faster Blueberry Time generation per level, stacking multiplicatively."
         },
         "maxed": "Maxed!",
         "upgradeFor": "Upgrade for {{x}} Quarks",
@@ -1368,7 +1372,11 @@
             "obtainiumEX3": "You will gain <<pink|{{amount}}%>> more Obtainium!",
             "chronometerInfinity": "Ascension timer increases <<orange|{{amount}}%>> faster.",
             "seasonPassInfinity": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more cubes (of <<orchid|all>> types) on Ascension.",
-            "shopSingularityPenaltyDebuff": "At Singularity <<pink|{{amount1}}>>, your debuffs are as if you were in <<pink|{{amount2}}>>."
+            "shopSingularityPenaltyDebuff": "At Singularity <<pink|{{amount1}}>>, your debuffs are as if you were in <<pink|{{amount2}}>>.",
+            "shopAmbrosiaGeneration1": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaGeneration2": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaGeneration3": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+            "shopAmbrosiaGeneration4": "Blueberry Time is generated <<blue|{{amount}}%>> faster."
         }
     },
     "singularity": {
@@ -3106,7 +3114,8 @@
                 "wait": "If you imported a save, you cannot use this code for 15 minutes to prevent cheaters.\n\nRegardless, you must wait at least 15 minutes between each use.",
                 "confirm": "Click the button within the next 15 seconds to test your luck! If you click within {{x}} ms of a randomly generated time, you will win a prize! This particular instance has a {{y}}x multiplier due to elapsed time between uses.",
                 "won": "You clicked at the right time! [+{{x}} Quarkies]",
-                "lost": "You didn't guess the right time, try again soon!"
+                "lost": "You didn't guess the right time, try again soon!",
+                "ambrosia": "Your blueberries resonate slightly, giving {{blueberryTime}} real life seconds of Blueberry Time."
             },
             "spoiler": {
                 "moreThan1": "You will gain {{x}} Octeracts (when they come out) every second, assuming you have them unlocked!",
@@ -3153,18 +3162,18 @@
         "noAntiquity": "Hmph. Please return with an Antiquity. Thank you. -Ant God",
         "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.",
         "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
-        "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
-        "buyResearch3x11": "[LOCKED - Buy Research 3x11]"
+        "exitAscensionChallenge": "Czy na pewno chcesz wyjść z Wyzwania Wniebowstąpienia? Musisz przejść wyzwanie 10 jeszcze raz, zanim będzie można ponownie podejść do wyzwania!",
+        "buyResearch3x11": "[ZABLOKOWANY - Kup badania 3x11]"
     },
     "history": {
-        "perSecondOn": "Per second: ON",
-        "perSecondOff": "Per second: OFF"
+        "perSecondOn": "Na sekundę: WŁĄCZONE",
+        "perSecondOff": "Na sekundę: WYŁĄCZONE"
     },
     "event": {
         "aprilFools": {
             "introText": "The <<white|Unsmith>> spins at you, telepathically communicating: 'This is NOT a <<white|Rick>><<red|Roll>>, I swear. Just click me already!'",
             "clicked": "See? Yet another reason to trust Unsmith. Ah well. For clicking me, you gain 5% more Offerings, Obtainium, and ALL Cubes until you refresh the page!",
-            "clickedText": "You have clicked the <<white|Unsmith>>! Until refresh, gain <<orange|+5% Offerings>>, <<pink|+5% Obtainium>>, <<white|+5% ALL Cubes>>!"
+            "clickedText": "Kliknięto <<white|Unsmith>>! Do odświeżenia, zyskujesz <<orange|+5% Offerings>>, <<pink|+5% Obtainium>>, <<white|+5% ALL Cubes>>!"
         }
     }
 }
