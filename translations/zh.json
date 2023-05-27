@@ -11,10 +11,10 @@
     },
     "ambrosia": {
         "amount": "您有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>神肴！",
-        "blueberryGeneration": "每秒获得<var(--amber-text-color)|{{chance}}>秒蓝莓时间。",
+        "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>秒蓝莓时间。",
         "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：&#9752 {{ambrosiaLuck}}>>]",
-        "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<blue|{{thresholdTimer}}>>后可以产生神肴。",
-        "bonuses": "您拥有的神肴暂时使所有类型的方盒、立方和方块获取数量增加<var(--amber-text-color)|{{cube}}%>，并且使夸克获取数量增加<cyan|{{quark}}%>！"
+        "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<<blue|{{thresholdTimer}}>>后可以产生神肴。",
+        "bonuses": "您拥有的神肴暂时使所有类型的方盒、立方和方块获取数量增加<<var(--amber-text-color)|{{cube}}%>>，并且使夸克获取数量增加<<cyan|{{quark}}%>>！"
     },
     "achievements": {
         "descriptions": {
@@ -1378,14 +1378,14 @@
             "chronometerInfinity": "飞升的速度增加<<orange|{{amount}}%>>。",
             "seasonPassInfinity": "<<orchid|所有类型的方盒、立方和方块获取数量>>增加<<lightgoldenrodyellow|{{amount}}%>>。",
             "shopSingularityPenaltyDebuff": "在<<pink|{{amount1}}>>次奇点时，奇点相关惩罚视为在<<pink|{{amount2}}>>次奇点。",
-            "shopAmbrosiaGeneration1": "蓝莓时间的产生速度增加<blue|{{amount}}%>。",
-            "shopAmbrosiaGeneration2": "蓝莓时间的产生速度增加<blue|{{amount}}%>。",
-            "shopAmbrosiaGeneration3": "蓝莓时间的产生速度增加<blue|{{amount}}%>。",
-            "shopAmbrosiaGeneration4": "蓝莓时间的产生速度增加<blue|{{amount}}%>。",
-            "shopAmbrosiaLuck1": "使神肴之运增加<lime|&#9752{{amount}}>",
-            "shopAmbrosiaLuck2": "使神肴之运增加<lime|&#9752{{amount}}>",
-            "shopAmbrosiaLuck3": "使神肴之运增加<lime|&#9752{{amount}}>",
-            "shopAmbrosiaLuck4": "使神肴之运增加<lime|&#9752{{amount}}>"
+            "shopAmbrosiaGeneration1": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
+            "shopAmbrosiaGeneration2": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
+            "shopAmbrosiaGeneration3": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
+            "shopAmbrosiaGeneration4": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
+            "shopAmbrosiaLuck1": "使神肴之运增加<<lime|&#9752{{amount}}>>",
+            "shopAmbrosiaLuck2": "使神肴之运增加<<lime|&#9752{{amount}}>>",
+            "shopAmbrosiaLuck3": "使神肴之运增加<<lime|&#9752{{amount}}>>",
+            "shopAmbrosiaLuck4": "使神肴之运增加<<lime|&#9752{{amount}}>>"
         }
     },
     "singularity": {
