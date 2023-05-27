@@ -1780,9 +1780,8 @@ function formatPerkDescription(perkData: ISingularityPerkDisplayInfo, singularit
 export function addPerkEventHandlers() {
   for (const perk of singularityPerks) {
     document.getElementById(perk.ID)!.addEventListener('mouseover', () => {
-      const currentLevel = getLastUpgradeInfo(perk, player.highestSingularityCount).level
-      const lastUpgraded = getLastUpgradeInfo(perk, player.highestSingularityCount).singularity
-      const levelInfo = `${i18next.t('general.level')} ${currentLevel} - (Singularity ${lastUpgraded})`
+      const perkInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
+      const levelInfo = `${i18next.t('general.level')} ${perkInfo.level} - (Singularity ${perkInfo.singularity})`
       const perkImage = DOMCacheGetOrSet('singularityPerksIcon') as HTMLImageElement
       perkImage.src = `Pictures/Default/perk${perk.ID}.png`
       DOMCacheGetOrSet('singularityPerksText').textContent = levelInfo
