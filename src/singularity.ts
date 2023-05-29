@@ -1682,24 +1682,20 @@ export const updateSingularityPerks = (): void => {
   DOMCacheGetOrSet('singularityPerksHeader').innerHTML = strH
   DOMCacheGetOrSet('singularityPerksText').innerHTML = `${i18next.t('general.level')} # - (Singularity #)`
   DOMCacheGetOrSet('singularityPerksDesc').innerHTML = i18next.t('singularity.perks.description')
-  DOMCacheGetOrSet('singularityPerksGrid').innerHTML = `${getAvailablePerksDescription(singularityCount)}`
-  addPerkEventHandlers()
+  handlePerks(singularityCount)
 }
 
 export interface ISingularityPerkDisplayInfo {
     name: string
-    description: string
-    currentLevel: number
     lastUpgraded: number
-    nextUpgrade: number | null
     acquired: number
-    ID: string
+    htmlID: string
 }
 
 /*
 * Indicate current level of the Perk and when it was reached
 */
-const getLastUpgradeInfo = (perk: SingularityPerk, singularityCount: number): {level: number, singularity: number, next: number | null} => {
+export const getLastUpgradeInfo = (perk: SingularityPerk, singularityCount: number): {level: number, singularity: number, next: number | null} => {
   for (let i=perk.levels.length - 1; i >= 0; i--) {
     if (singularityCount >= perk.levels[i]) {
       return {
@@ -1713,33 +1709,31 @@ const getLastUpgradeInfo = (perk: SingularityPerk, singularityCount: number): {l
   return { level: 0, singularity: perk.levels[0], next: perk.levels[0] }
 }
 
-const getAvailablePerksDescription = (singularityCount: number): string => {
-  let perksText = ''
-  let availablePerks: ISingularityPerkDisplayInfo[] = []
-  const nextUpgrades: number[] = []
+const handlePerks = (singularityCount: number) => {
+  const availablePerks: ISingularityPerkDisplayInfo[] = []
   let singularityCountForNextPerk: number | null = null
+  let singularityCountForNextPerkUpgrade = Infinity
   for (const perk of singularityPerks) {
     const upgradeInfo = getLastUpgradeInfo(perk, singularityCount)
     if (upgradeInfo.level > 0) {
       availablePerks.push({
         name: perk.name(),
-        description: perk.description(singularityCount, perk.levels),
-        currentLevel: upgradeInfo.level,
         lastUpgraded: upgradeInfo.singularity,
-        nextUpgrade: upgradeInfo.next,
         acquired: perk.levels[0],
-        ID: perk.ID
+        htmlID: perk.ID
       })
       if (upgradeInfo.next) {
-        nextUpgrades.push(upgradeInfo.next)
+        singularityCountForNextPerkUpgrade = Math.min(singularityCountForNextPerkUpgrade, upgradeInfo.next)
       }
     } else {
-      singularityCountForNextPerk = upgradeInfo.singularity
-      break
+      if (singularityCountForNextPerk === null) {
+        singularityCountForNextPerk = upgradeInfo.singularity
+      }
+      DOMCacheGetOrSet(perk.ID).style.display = 'none'
     }
   }
   // We want to sort the perks so that the most recently upgraded or lastUpgraded are listed first
-  availablePerks = availablePerks.sort((p1, p2) => {
+  availablePerks.sort((p1, p2) => {
     if (p1.acquired == p2.acquired && p1.lastUpgraded == p2.lastUpgraded) {
       return 0
     }
@@ -1751,42 +1745,28 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
     return 1
   })
 
-  perksText += '<div id="singularityPerksButtons">'
   for (const availablePerk of availablePerks) {
-    perksText += formatPerkDescription(availablePerk, singularityCount)
+    const singTolerance = getFastForwardTotalMultiplier()
+    const perkId = DOMCacheGetOrSet(availablePerk.htmlID)
+    perkId.style.display = ''
+    DOMCacheGetOrSet('singularityPerksGrid').append(perkId)
+    singularityCount - availablePerk.lastUpgraded <= singTolerance ? //Is new?
+      perkId.classList.replace('oldPerk', 'newPerk') :
+      perkId.classList.replace('newPerk', 'oldPerk')
   }
-  perksText += '</div>'
+  const nextUnlockedId = DOMCacheGetOrSet('singualrityUnlockNext')
   if (singularityCountForNextPerk) {
-    perksText += `${i18next.t('singularity.perks.unlockedIn', { sing: singularityCountForNextPerk })}<br>`
+    nextUnlockedId.style.display = ''
+    nextUnlockedId.textContent = i18next.t('singularity.perks.unlockedIn', { sing: singularityCountForNextPerk })
+  } else {
+    nextUnlockedId.style.display = 'none'
   }
-  const singularityCountForNextPerkUpgrade = nextUpgrades.reduce((a, b) => Math.min(a, +b), Infinity)
+  const countNext = DOMCacheGetOrSet('singualrityImproveNext')
   if (singularityCountForNextPerkUpgrade < Infinity) {
-    perksText +=  `${i18next.t('singularity.perks.improvedIn', { sing: singularityCountForNextPerkUpgrade })}`
-  }
-  return perksText
-}
-
-function formatPerkDescription(perkData: ISingularityPerkDisplayInfo, singularityCount: number): string {
-  const singTolerance = getFastForwardTotalMultiplier()
-  const isNew = (singularityCount - perkData.lastUpgraded <= singTolerance)
-  //const acquiredUpgraded = ' / Acq ' + perkData.acquired + ' / Upg ' + perkData.lastUpgraded;
-  return `<span${isNew?' class="newPerk"':' class="oldPerk"'} id="${perkData.ID}"> 
-  <img src="Pictures/Default/perk${perkData.ID}.png" loading="lazy">
-  ${perkData.name}
-  </span>`
-}
-
-// Attach EventListener to perks to allow for on hover capabilities.
-export function addPerkEventHandlers() {
-  for (const perk of singularityPerks) {
-    document.getElementById(perk.ID)!.addEventListener('mouseover', () => {
-      const perkInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
-      const levelInfo = `${i18next.t('general.level')} ${perkInfo.level} - (Singularity ${perkInfo.singularity})`
-      const perkImage = DOMCacheGetOrSet('singularityPerksIcon') as HTMLImageElement
-      perkImage.src = `Pictures/Default/perk${perk.ID}.png`
-      DOMCacheGetOrSet('singularityPerksText').textContent = levelInfo
-      DOMCacheGetOrSet('singularityPerksDesc').textContent = perk.description(player.highestSingularityCount, perk.levels)
-    })
+    countNext.style.display = ''
+    countNext.textContent = i18next.t('singularity.perks.improvedIn', { sing: singularityCountForNextPerkUpgrade })
+  } else {
+    countNext.style.display = 'none'
   }
 }
 // Indicates the number of extra Singularity count gained on Singularity reset

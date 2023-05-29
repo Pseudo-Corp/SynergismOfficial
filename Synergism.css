@@ -3590,14 +3590,16 @@ img#singularityPerksIcon {
     text-align: center;
 }
 
-#singularityPerksGrid > div {
+#singularityPerksGrid {
     display: grid;
     grid-template-columns: repeat(5, 250px);
     grid-template-rows: repeat(10, auto);
+    grid-auto-rows: auto;
     justify-content: center;
     align-content: center;
     grid-gap: 4px;
     font-size: 1em;
+    margin-top: 5px;
 }
 
 #testingMultiline,
