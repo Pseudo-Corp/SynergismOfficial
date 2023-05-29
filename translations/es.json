@@ -11,10 +11,10 @@
     },
     "ambrosia": {
         "amount": "¡Tienes <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosía!",
-        "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
+        "blueberryGeneration": "Cada segundo, gana <<var(--amber-text-color)|{{chance}}>> segundos de Tiempo de Arándanos.",
         "perGen": "Actualmente ganando <<var(--amber-text-color)|{{guaranteed}}>> con un <<var(--amber-text-color)|{{extraChance}}%>> probabilidad de otro. [<<var(--lime-text-color)|Suerte: &#9752 {{ambrosiaLuck}}>>]",
         "blueberrySecond": "¡Actualmente tienes <<var(--amber-text-color)|{{blueberrySecond}}>> Segundos de Arándanos acumulados! Probabilidad de generación de Segundos de arándanos <<var(--amber-text-color)|x{{RNG}}>> (garantizado con 10.000 Segundos de Arándanos)",
-        "bonuses": "Temporarily, your saved ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!"
+        "bonuses": "¡Temporalmente, tu ambrosía guardada está dando <<var(--amber-text-color)|+{{cube}}%>> a TODOS los cubos y <<cyan|+{{quark}}%>> Quarks!"
     },
     "achievements": {
         "descriptions": {
@@ -1378,14 +1378,14 @@
             "chronometerInfinity": "El contador de Ascensión sube un <<orange|{{amount}}%>> más rápido.",
             "seasonPassInfinity": "Las Ascensiones dan <<lightgoldenrodyellow|{{amount}}%>> más cubos (de <<orchid|todo>> tipo) al Ascender.",
             "shopSingularityPenaltyDebuff": "En la Singularidad <<pink|{{amount1}}>>, tus desventajas son como si estuvieras en <<pink|{{amount2}}>>.",
-            "shopAmbrosiaGeneration1": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
-            "shopAmbrosiaGeneration2": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
-            "shopAmbrosiaGeneration3": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
-            "shopAmbrosiaGeneration4": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
-            "shopAmbrosiaLuck1": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
-            "shopAmbrosiaLuck2": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
-            "shopAmbrosiaLuck3": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
-            "shopAmbrosiaLuck4": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>"
+            "shopAmbrosiaGeneration1": "El Tiempo de Arándanos se genera <<blue|{{amount}}%>> más rápido.",
+            "shopAmbrosiaGeneration2": "El Tiempo de Arándanos se genera <<blue|{{amount}}%>> más rápido.",
+            "shopAmbrosiaGeneration3": "El Tiempo de Arándanos se genera <<blue|{{amount}}%>> más rápido.",
+            "shopAmbrosiaGeneration4": "El Tiempo de Arándanos se genera <<blue|{{amount}}%>> más rápido.",
+            "shopAmbrosiaLuck1": "Suerte de Ambrosía <<lime|&#9752 +{{amount}}>>",
+            "shopAmbrosiaLuck2": "Suerte de Ambrosía <<lime|&#9752 +{{amount}}>>",
+            "shopAmbrosiaLuck3": "Suerte de Ambrosía <<lime|&#9752 +{{amount}}>>",
+            "shopAmbrosiaLuck4": "Suerte de Ambrosía <<lime|&#9752 +{{amount}}>>"
         }
     },
     "singularity": {
@@ -1922,7 +1922,7 @@
         "softCapped": "(Limitado parcialmente)",
         "maxed": "(Maximizado)",
         "affordable": "(Asumible)",
-        "enabled": "(Enabled)",
+        "enabled": "(Habilitado)",
         "infinity": "Infinidad",
         "sacrificeCapital": "SACRIFICIO",
         "multiBuyInstructions": "¡Compra varios niveles a la vez pulsando <<var(--orchid-text-color)|'SHIFT'>> mientras haces clic!",
@@ -2654,7 +2654,7 @@
             },
             "octeractAmbrosiaLuck": {
                 "name": "Bayas de un Trevor de Ocho Hojas (WIP)",
-                "description": "Totally not a reskin of the blueberry! Adds +3 Ambrosial Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
+                "description": "¡Juro que no es un reskin del arándano! Añade +3 Suerte de Ambrosía, que aumenta la cantidad de Ambrosía ganada cuando los Arándanos generan Ambrosía.",
                 "effect": "Suerte Ambrosial +{{n}}(!)"
             }
         },
@@ -2786,7 +2786,7 @@
             "noSingularityUpgrades": {
                 "name": "Sin Mejoras de Singularidad",
                 "description": "En resumen, supera la singularidad objetivo sin (la mayoría de) Mejoras de Singularidad. Las mejoras de Octeractos, QoL y Beneficios se conservan.",
-                "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks and a Blueberry! 20th awards something `special` ;)"
+                "rewardDescription": "¡Cada finalización aumenta las ganancias de cubos de toda dimensión un 50%! ¡La primera da un +12% de Quarks Dorados y un Arándano! La 20 da algo 'especial' ;)"
             },
             "oneChallengeCap": {
                 "name": "Límites de Un Desafío",
@@ -3124,7 +3124,7 @@
                 "confirm": "¡Haz clic en el botón en los próximos 15 segundos para probar tu suerte! Si haces clic a menos de {{x}} ms de un tiempo generado aleatoriamente, ¡ganarás un premio! Este intento tiene un multiplicador de {{y}}x debido al tiempo transcurrido entre usos.",
                 "won": "¡Has clicado el momento adecuado! [+{{x}} Quarkies]",
                 "lost": "No has clicado el momento adecuado, ¡vuelve a intentarlo pronto!",
-                "ambrosia": "Your blueberries resonate slightly, giving {{blueberryTime}} real life seconds of Blueberry Time."
+                "ambrosia": "Tus arándanos resuenan ligeramente, dando {{blueberryTime}} segundos de vida real de Tiempo de Arándanos."
             },
             "spoiler": {
                 "moreThan1": "Obtendrás {{x}} Octeractos (cuando salgan) cada segundo, ¡suponiendo que los tengas desbloqueados!",
