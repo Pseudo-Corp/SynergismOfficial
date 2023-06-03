@@ -9,6 +9,7 @@ import { SingularityUpgrade } from '../singularity';
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges';
 import type { TabNames } from '../Tabs'
 import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache } from '../StatCache';
+import { BlueberryUpgrade } from '../BlueberryUpgrades';
 
 export interface Player {
     firstPlayed: string
@@ -614,6 +615,7 @@ export interface Player {
     blueberryTime: number
     ambrosiaRNG: number // DEPRECIATED, DO NOT USE
     visitedAmbrosiaSubtab: boolean
+    blueberryUpgrades: Record<keyof typeof blueberryUpgradeData, BlueberryUpgrade>
 
     caches: {
         ambrosiaLuck: AmbrosiaLuckCache,

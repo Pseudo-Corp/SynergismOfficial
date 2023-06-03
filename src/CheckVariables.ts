@@ -19,6 +19,7 @@ import type { ISingularityChallengeData } from './SingularityChallenges'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import i18next from 'i18next'
 import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
+import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -365,6 +366,13 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     oneChallengeCap: new SingularityChallenge(singularityChallengeData.oneChallengeCap, 'oneChallengeCap'),
     noOcteracts: new SingularityChallenge(singularityChallengeData.noOcteracts, 'noOcteracts'),
     limitedAscensions: new SingularityChallenge(singularityChallengeData.limitedAscensions, 'limitedAscensions')
+  }
+
+  player.blueberryUpgrades = {
+    ambrosiaTutorial: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaTutorial, 'ambrosiaTutorial'),
+    ambrosiaQuarks1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarks1, 'ambrosiaQuarks1'),
+    ambrosiaCubes1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubes1, 'ambrosiaQuarks1'),
+    ambrosiaLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuck1, 'ambrosiaLuck1')
   }
 
   if (data.loadedOct4Hotfix === undefined || !player.loadedOct4Hotfix) {
