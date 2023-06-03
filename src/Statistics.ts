@@ -588,7 +588,8 @@ export const loadStatisticsAmbrosiaLuck = () => {
   const map: Record<number, { acc: number, desc: string }> = {
     1: { acc: 0, desc: 'Irish Ants Singularity Perk' },
     2: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrade' },
-    3: { acc: 1, desc: 'Shop Upgrade Bonus' }
+    3: { acc: 1, desc: 'Shop Upgrade Bonus' },
+    4: { acc: 1, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -605,7 +606,8 @@ export const loadStatisticsAmbrosiaGeneration = () => {
   const map: Record<number, { acc: number, desc: string }> = {
     1: { acc: 4, desc: 'Visited Ambrosia Subtab' },
     2: { acc: 4, desc: 'Number of Blueberries' },
-    3: { acc: 4, desc: 'Shop Upgrade Bonus' }
+    3: { acc: 4, desc: 'Shop Upgrade Bonus' },
+    4: { acc: 4, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)

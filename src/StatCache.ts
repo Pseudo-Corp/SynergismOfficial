@@ -1,6 +1,8 @@
+import { calculateEventBuff } from './Calculate'
 import { calculateAmbrosiaGenerationShopUpgrade, calculateAmbrosiaLuckShopUpgrade, calculateSingularityAmbrosiaLuckMilestoneBonus } from './Calculate'
 import { player } from './Synergism'
 import { productContents } from './Utility'
+import { Globals } from './Variables'
 
 interface StatCache<T> {
 
@@ -117,9 +119,9 @@ abstract class MultiplicationCache<T extends string> implements StatCache<T> {
  * Define Types Below. For each one, the union is all statistics of a particular stat.
 */
 
-type AmbrosialLuck = 'SingPerks' | 'OcteractBerries' | 'ShopUpgrades'
+type AmbrosialLuck = 'SingPerks' | 'OcteractBerries' | 'ShopUpgrades' | 'Event'
 
-type AmbrosiaGeneration = 'DefaultVal' | 'SingularityBerries' | 'ShopUpgrades'
+type AmbrosiaGeneration = 'DefaultVal' | 'SingularityBerries' | 'ShopUpgrades' | 'Event'
 
 type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade'
 
@@ -133,7 +135,8 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
     this.vals = {
       'SingPerks': 0,
       'OcteractBerries': 0,
-      'ShopUpgrades': 0
+      'ShopUpgrades': 0,
+      'Event': 0
     }
     this.totalVal = 0
   }
@@ -153,6 +156,10 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
         this.vals[key] = calculateAmbrosiaLuckShopUpgrade()
         break
       }
+      case 'Event': {
+        this.vals[key] = (Globals.isEvent) ? 100 * calculateEventBuff('Ambrosia Luck') : 0
+        break
+      }
     }
     const newVal = this.vals[key]
     this.updateTotal(oldVal, newVal, init)
@@ -169,7 +176,8 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
     this.vals = {
       'DefaultVal': 1,
       'SingularityBerries': 1,
-      'ShopUpgrades': 1
+      'ShopUpgrades': 1,
+      'Event': 1
     }
     this.totalVal = 0
   }
@@ -187,6 +195,10 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
       }
       case 'ShopUpgrades': {
         this.vals[key] = calculateAmbrosiaGenerationShopUpgrade()
+        break
+      }
+      case 'Event': {
+        this.vals[key] = (Globals.isEvent) ? 1 + calculateEventBuff('Blueberry Time') : 1
         break
       }
     }
