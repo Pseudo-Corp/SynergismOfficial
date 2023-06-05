@@ -1382,10 +1382,10 @@
             "shopAmbrosiaGeneration2": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
             "shopAmbrosiaGeneration3": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
             "shopAmbrosiaGeneration4": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
-            "shopAmbrosiaLuck1": "使神肴之运增加<<lime|&#9752{{amount}}>>",
-            "shopAmbrosiaLuck2": "使神肴之运增加<<lime|&#9752{{amount}}>>",
-            "shopAmbrosiaLuck3": "使神肴之运增加<<lime|&#9752{{amount}}>>",
-            "shopAmbrosiaLuck4": "使神肴之运增加<<lime|&#9752{{amount}}>>"
+            "shopAmbrosiaLuck1": "使神肴之运<<lime|&#9752增加{{amount}}>>",
+            "shopAmbrosiaLuck2": "使神肴之运<<lime|&#9752增加{{amount}}>>",
+            "shopAmbrosiaLuck3": "使神肴之运<<lime|&#9752增加{{amount}}>>",
+            "shopAmbrosiaLuck4": "使神肴之运<<lime|&#9752增加{{amount}}>>"
         }
     },
     "singularity": {
