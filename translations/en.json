@@ -10,11 +10,73 @@
         "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
     },
     "ambrosia": {
+        "ambrosia": "Ambrosia",
         "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
         "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
         "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
         "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Generating Ambrosia when <<blue|{{thresholdTimer}}>> is accumulated.",
-        "bonuses": "Temporarily, your saved ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!"
+        "bonuses": "Temporarily, your saved ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
+        "prerequisite": "Prerequisites:",
+        "prereqNotMet": " (Not Met!)",
+        "blueberryCost": "Blueberries (To Activate):",
+        "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
+        "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
+        "availableBlueberries": "You have <<blue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
+        "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
+        "refund": "You have refunded all spent Blueberries and Ambrosia.",
+        "refundWord": "Refund",
+        "data": {
+            "ambrosiaTutorial": {
+                "name": "Ambrosia Tutorial Module",
+                "description": "Blueberries generate Ambrosia over time. Spend them in the Ambrosia tree! +5% Cubes/lvl, +1% Quarks/lvl",
+                "effect": "This tutorial module increases cube gain by {{cubeAmount}}% and quarks by {{quarkAmount}}%"
+            },
+            "ambrosiaQuarks1": {
+                "name": "Ambrosia Quark Module I",
+                "description": "Congrats on completing the tutorial module. You need to have it maxed to buy levels of this. +1% Quarks/lvl.",
+                "effect": "This quark module increases Quark gain by {{amount}}%"
+            },
+            "ambrosiaCubes1": {
+                "name": "Ambrosia Cube Module I",
+                "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 10 levels gives 1.1x Cubes.",
+                "effect": "This cube module increases cube gain by {{amount}}%"
+            },
+            "ambrosiaLuck1": {
+                "name": "Ambrosia Luck Module I",
+                "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. &#9752 +2 Ambrosia Luck/lvl. Every 10 levels gives &#9752 +5 more!",
+                "effect": "This luck module increases &#9752 Ambrosia Luck by {{amount}}"
+            },
+            "ambrosiaCubeQuark1": {
+                "name": "Ambrosia Cube-Quark Hybrid Module I",
+                "description": "A first generation hybrid module. Gain +0.01% Quarks per level per digit in the values of all cube types.",
+                "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
+            },
+            "ambrosiaLuckQuark1": {
+                "name": "Ambrosia Luck-Quark Hybrid Module I",
+                "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck!",
+                "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
+            },
+            "ambrosiaQuarkCube1": {
+                "name": "Ambrosia Quark-Cube Hybrid Module I",
+                "description": "A first generation hybrid module. Gain +0.05% more cubes per level per digit in your Quark balance, squared!",
+                "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
+            },
+            "ambrosiaLuckCube1": {
+                "name": "Ambrosia Luck-Cube Hybrid Module I",
+                "description": "A first generation hybrid module. Gain +0.02% more cubes per level per 1 &#9752 Ambrosia Luck!",
+                "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
+            },
+            "ambrosiaCubeLuck1": {
+                "name": "Ambrosia Cube-Luck Hybrid Module I",
+                "description": "A first generation hybrid module. Gain &#9752 +0.01 Ambrosia Luck per level per digit in the values of all cube types.",
+                "effect": "This first generation hybrid module increases &#9752 Ambrosia Luck by {{amount}}"
+            },
+            "ambrosiaQuarkLuck1": {
+                "name": "Ambrosia Quark-Luck Hybrid Module I",
+                "description": "A first generation hybrid module. Gain &#9752 +0.01 Ambrosia Luck per level per digit in your Quark balance, squared.",
+                "effect": "This first generation hybrid module increases &#9752 Ambrosia Luck by {{amount}}"
+            }
+        }
     },
     "achievements": {
         "descriptions": {
@@ -1483,6 +1545,7 @@
                 "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
                 "default": "Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge."
             },
+            "blueberries": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!",
             "goldenRevolution": "Singularity grants 0.4% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +100%)",
             "goldenRevolutionII": "Golden Quarks are 0.2% cheaper per Singularity. Currently: -{{current}}% (MAX: -50%)",
             "goldenRevolutionIII": "Export gives 2% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +500%)",
@@ -1841,8 +1904,8 @@
                 "effectHaveNot": "You haven't quacked your last QUARK"
             },
             "blueberries": {
-                "name": "Blueberry Shards! (WIP)",
-                "description": "Blueberries! Yeah, Platonic is out of ideas. Well, each Blueberry gives a 0.01% chance per second to generate some Ambrosia!",
+                "name": "Fake Blueberries!",
+                "description": "Blueberries! Yeah, Platonic is out of ideas. Well, each level of this creates one 'imitation blueberry' which works and behaves just like a normal one. Huh.",
                 "effect": "You have purchased {{n}} tasty blueberries."
             }
         },
@@ -1888,6 +1951,7 @@
             "irishAnt2": "Irish Ants II: Electric Boogaloo",
             "overclocked": "Overclocked",
             "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
+            "blueberries": "Congealed Blueberries",
             "goldenRevolution": "Golden Revolution",
             "goldenRevolutionII": "Golden Revolution II",
             "goldenRevolutionIII": "Golden Revolution III",
