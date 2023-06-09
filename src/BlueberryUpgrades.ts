@@ -424,7 +424,7 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
 }
 
 export const resetBlueberryTree = () => {
-  for (const upgrade in player.blueberryUpgrades) {
+  for (const upgrade of Object.keys(player.blueberryUpgrades)) {
     const k = upgrade as keyof Player['blueberryUpgrades']
     player.blueberryUpgrades[k].refund()
   }
