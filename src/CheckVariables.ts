@@ -767,7 +767,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   }
 
   if (data.blueberryUpgrades != null) {
-    for (const item in blankSave.blueberryUpgrades) {
+    for (const item of Object.keys(blankSave.blueberryUpgrades)) {
       const k = item as keyof Player['blueberryUpgrades']
       let updatedData:IBlueberryData
       if (data.blueberryUpgrades[k]) {
