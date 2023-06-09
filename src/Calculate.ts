@@ -2215,10 +2215,11 @@ export const calculateRequiredBlueberryTime = () => {
 
 export const calculateSingularityMilestoneBlueberries = () => {
   let val = 0
-  if (player.highestSingularityCount >= 66) val += 1
-  if (player.highestSingularityCount >= 132) val += 1
-  if (player.highestSingularityCount >= 198) val += 1
-  if (player.highestSingularityCount >= 254) val += 1
+  if (player.highestSingularityCount >= 254) val = 4
+  else if (player.highestSingularityCount >= 198) val = 3
+  else if (player.highestSingularityCount >= 132) val = 2
+  else if (player.highestSingularityCount >= 66) val = 1
+
   return val
 }
 
