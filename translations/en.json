@@ -10,6 +10,7 @@
         "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
     },
     "ambrosia": {
+        "ambrosia": "Ambrosia",
         "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
         "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
         "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",

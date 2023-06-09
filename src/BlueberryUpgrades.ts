@@ -163,9 +163,9 @@ export class BlueberryUpgrade extends DynamicUpgrade {
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color: ${color}"> ${i18next.t('general.level')} ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.rewardDesc}</span>
-                ${i18next.t('octeract.toString.costNextLevel')}: <span style="color:orange">${format(costNextLevel, 2, true, true, true)}</span> Ambrosia ${affordableInfo}
+                ${i18next.t('octeract.toString.costNextLevel')}: <span style="color:orange">${format(costNextLevel, 2, true, true, true)}</span> ${i18next.t('ambrosia.ambrosia')} ${affordableInfo}
                 ${i18next.t('ambrosia.blueberryCost')} <span style="color:blue">${this.blueberryCost}</span>
-                ${i18next.t('general.spent')} Ambrosia: <span style="color:orange">${format(this.ambrosiaInvested, 2, true, true, true)}</span>`
+                ${i18next.t('general.spent')} ${i18next.t('ambrosia.ambrosia')}: <span style="color:orange">${format(this.ambrosiaInvested, 2, true, true, true)}</span>`
   }
 
   updateUpgradeHTML(): void {
