@@ -1,4 +1,4 @@
-import { calculateEventBuff } from './Calculate'
+import { calculateEventBuff, calculateSingularityMilestoneBlueberries } from './Calculate'
 import { calculateAmbrosiaGenerationShopUpgrade, calculateAmbrosiaLuckShopUpgrade, calculateSingularityAmbrosiaLuckMilestoneBonus } from './Calculate'
 import { player } from './Synergism'
 import { productContents } from './Utility'
@@ -124,7 +124,7 @@ type AmbrosialLuck = 'SingPerks' | 'OcteractBerries' | 'ShopUpgrades' | 'Blueber
 
 type AmbrosiaGeneration = 'DefaultVal' | 'SingularityBerries' | 'ShopUpgrades' | 'Event'
 
-type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade'
+type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade' | 'SingularityPerk'
 
 export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
 
@@ -231,7 +231,8 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
     super()
     this.vals = {
       'Exalt1': 0,
-      'SingularityUpgrade': 0
+      'SingularityUpgrade': 0,
+      'SingularityPerk': 0
     }
     this.totalVal = 0
   }
@@ -245,6 +246,10 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
       }
       case 'SingularityUpgrade': {
         this.vals[key] = +(player.singularityUpgrades.blueberries.getEffect().bonus)
+        break
+      }
+      case 'SingularityPerk': {
+        this.vals[key] = calculateSingularityMilestoneBlueberries()
         break
       }
     }

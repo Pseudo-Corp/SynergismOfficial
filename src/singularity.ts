@@ -1505,6 +1505,20 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
+      return i18next.t('singularity.perkNames.blueberries')
+    },
+    levels: [66, 132, 198, 264],
+    description(n, levels) {
+      for (let i = levels.length - 1; i >= 0; i--) {
+        if (n >= levels[i]) {
+          return i18next.t('singularity.perks.blueberries', { i: i + 1 })
+        }
+      }
+      return i18next.t('singularity.perks.evenMoreQuarks.bug')
+    }
+  },
+  {
+    name: () => {
       return i18next.t('singularity.perkNames.goldenRevolution')
     },
     levels: [100],
