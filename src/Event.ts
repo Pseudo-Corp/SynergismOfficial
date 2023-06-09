@@ -76,8 +76,8 @@ const events: Record<string, HolidayData> = {
       octeract: 0,
       powderConversion: 0,
       goldenQuark: 0,
-      blueberryTime: 0.2023,
-      ambrosiaLuck: 2.023,
+      blueberryTime: 0.3,
+      ambrosiaLuck: 3,
       oneMind: 0.02023
     }
   },

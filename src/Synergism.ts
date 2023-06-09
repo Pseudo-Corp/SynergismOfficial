@@ -846,11 +846,18 @@ export const player: Player = {
   ambrosiaRNG: 0,
   blueberryTime: 0,
   visitedAmbrosiaSubtab: false,
+  spentBlueberries: 0,
   blueberryUpgrades: {
     ambrosiaTutorial: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaTutorial, 'ambrosiaTutorial'),
     ambrosiaQuarks1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarks1, 'ambrosiaQuarks1'),
     ambrosiaCubes1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubes1, 'ambrosiaQuarks1'),
-    ambrosiaLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuck1, 'ambrosiaLuck1')
+    ambrosiaLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuck1, 'ambrosiaLuck1'),
+    ambrosiaCubeQuark1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubeQuark1, 'ambrosiaCubeQuark1'),
+    ambrosiaLuckQuark1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckQuark1, 'ambrosiaLuckQuark1'),
+    ambrosiaLuckCube1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckCube1, 'ambrosiaLuckCube1'),
+    ambrosiaQuarkCube1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarkCube1, 'ambrosiaQuarkCube1'),
+    ambrosiaCubeLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubeLuck1, 'ambrosiaCubeLuck1'),
+    ambrosiaQuarkLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarkLuck1, 'ambrosiaQuarkLuck1')
   },
 
   caches: {

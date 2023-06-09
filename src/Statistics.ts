@@ -175,6 +175,10 @@ export const loadQuarkMultiplier = () => {
   3,
   true)
   DOMCacheGetOrSet('sGQM25').textContent = 'x' + format(calculateAmbrosiaQuarkMult(), 2, true)
+  DOMCacheGetOrSet('sGQM26').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaTutorial.bonus.quarks, 2, true)
+  DOMCacheGetOrSet('sGQM27').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaQuarks1.bonus.quarks, 2, true)
+  DOMCacheGetOrSet('sGQM28').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaCubeQuark1.bonus.quarks, 2, true)
+  DOMCacheGetOrSet('sGQM29').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks, 2, true)
   DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
 }
 
@@ -227,7 +231,11 @@ export const loadStatisticsCubeMultipliers = () => {
     22: { acc: 2, desc: 'Citadel 2 [GQ]' },
     23: { acc: 4, desc: 'Platonic DELTA' },
     24: { acc: 2, desc: 'Wow Pass ∞' },
-    25: { acc: 2, desc: 'Unspent Ambrosia Bonus' }
+    25: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
+    26: { acc: 2, desc: 'Module- Tutorial' },
+    27: { acc: 2, desc: 'Module- Cubes 1' },
+    28: { acc: 2, desc: 'Module- Luck-Cube 1' },
+    29: { acc: 2, desc: 'Module- Quark-Cube 1' }
   }
   for (let i = 0; i < arr0.length; i++) {
     const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
@@ -376,7 +384,11 @@ export const loadStatisticsCubeMultipliers = () => {
     24: { acc: 2, desc: 'No Singularity Upgrades Challenge' },
     25: { acc: 2, desc: 'Wow Pass ∞' },
     26: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
-    27: { acc: 2, desc: ascensionSpeedDesc }
+    27: { acc: 2, desc: 'Module- Tutorial' },
+    28: { acc: 2, desc: 'Module- Cubes 1' },
+    29: { acc: 2, desc: 'Module- Luck-Cube 1' },
+    30: { acc: 2, desc: 'Module- Quark-Cube 1' },
+    31: { acc: 2, desc: ascensionSpeedDesc }
   }
   for (let i = 0; i < octMults.list.length; i++) {
     const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`)
@@ -589,7 +601,10 @@ export const loadStatisticsAmbrosiaLuck = () => {
     1: { acc: 0, desc: 'Irish Ants Singularity Perk' },
     2: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrade' },
     3: { acc: 1, desc: 'Shop Upgrade Bonus' },
-    4: { acc: 1, desc: 'Event Bonus' }
+    4: { acc: 0, desc: 'Ambrosia Luck Module I' },
+    5: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
+    6: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
+    7: { acc: 1, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -871,10 +886,10 @@ export const gameStages = (): Stage[] => {
     { stage: 17, tier: 5, name: 'beta-1e15-expo', unlocked: player.challenge15Exponent >= 1e15, reset: player.achievements[183] === 1 },
     { stage: 18, tier: 5, name: '1e15-expo-omega', unlocked: player.platonicUpgrades[15] > 0, reset: player.achievements[183] === 1 },
     { stage: 19, tier: 5, name: 'omega-singularity', unlocked: player.singularityCount > 0 && player.runelevels[6] > 0, reset: player.achievements[183] === 1 },
-    { stage: 20, tier: 6, name: 'singularity-liquidation', unlocked: player.singularityUpgrades.wowPass2.level > 0, reset: player.highestSingularityCount > 0 },
-    { stage: 21, tier: 6, name: 'liquidation-onemind', unlocked: player.singularityUpgrades.oneMind.level > 0, reset: player.highestSingularityCount > 0 },
-    { stage: 22, tier: 6, name: 'onemind-bbshards', unlocked: player.singularityUpgrades.offeringAutomatic.level > 0, reset: player.highestSingularityCount > 0 },
-    { stage: 23, tier: 6, name: 'bbshards-pen', unlocked: player.singularityUpgrades.ultimatePen.level > 0, reset: player.highestSingularityCount > 0 },
+    { stage: 20, tier: 6, name: 'singularity-exalt1x1', unlocked: player.singularityUpgrades.wowPass2.level > 0, reset: player.highestSingularityCount > 0 },
+    { stage: 21, tier: 6, name: 'exalt1x1-onemind', unlocked: player.singularityUpgrades.oneMind.level > 0, reset: player.highestSingularityCount > 0 },
+    { stage: 22, tier: 6, name: 'onemind-end', unlocked: player.singularityUpgrades.offeringAutomatic.level > 0, reset: player.highestSingularityCount > 0 },
+    { stage: 23, tier: 6, name: 'end-pen', unlocked: player.singularityUpgrades.ultimatePen.level > 0, reset: player.highestSingularityCount > 0 },
     { stage: 24, tier: 6, name: 'pen', unlocked: false, reset: player.highestSingularityCount > 0 }
   ]
   return stages

@@ -1099,6 +1099,18 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
       }]
     })
   ) as unknown as Player['octeractUpgrades']
+  hold.blueberryUpgrades = Object.fromEntries(
+    Object.entries(player.blueberryUpgrades).map(([key, value]) => {
+      return [key, {
+        level: value.level,
+        ambrosiaInvested: value.ambrosiaInvested,
+        blueberriesInvested: value.blueberriesInvested,
+        toggleBuy: value.toggleBuy,
+        freeLevels: value.freeLevels
+      }]
+    })
+  ) as unknown as Player['blueberryUpgrades']
+  hold.spentBlueberries = player.spentBlueberries
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString

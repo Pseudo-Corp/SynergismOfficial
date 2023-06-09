@@ -615,6 +615,7 @@ export interface Player {
     blueberryTime: number
     ambrosiaRNG: number // DEPRECIATED, DO NOT USE
     visitedAmbrosiaSubtab: boolean
+    spentBlueberries: number
     blueberryUpgrades: Record<keyof typeof blueberryUpgradeData, BlueberryUpgrade>
 
     caches: {
