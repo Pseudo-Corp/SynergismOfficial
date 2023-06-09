@@ -1,4 +1,4 @@
-import { calculateEventBuff } from './Calculate'
+import { calculateEventBuff, calculateSingularityMilestoneBlueberries } from './Calculate'
 import { calculateAmbrosiaGenerationShopUpgrade, calculateAmbrosiaLuckShopUpgrade, calculateSingularityAmbrosiaLuckMilestoneBonus } from './Calculate'
 import { player } from './Synergism'
 import { productContents } from './Utility'
@@ -119,11 +119,12 @@ abstract class MultiplicationCache<T extends string> implements StatCache<T> {
  * Define Types Below. For each one, the union is all statistics of a particular stat.
 */
 
-type AmbrosialLuck = 'SingPerks' | 'OcteractBerries' | 'ShopUpgrades' | 'Event'
+type AmbrosialLuck = 'SingPerks' | 'OcteractBerries' | 'ShopUpgrades' | 'BlueberryUpgrade1' | 'Event' |
+                     'BlueberryCubeLuck1' | 'BlueberryQuarkLuck1'
 
 type AmbrosiaGeneration = 'DefaultVal' | 'SingularityBerries' | 'ShopUpgrades' | 'Event'
 
-type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade'
+type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade' | 'SingularityPerk'
 
 export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
 
@@ -136,6 +137,9 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       'SingPerks': 0,
       'OcteractBerries': 0,
       'ShopUpgrades': 0,
+      'BlueberryUpgrade1': 0,
+      'BlueberryCubeLuck1': 0,
+      'BlueberryQuarkLuck1': 0,
       'Event': 0
     }
     this.totalVal = 0
@@ -154,6 +158,18 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       }
       case 'ShopUpgrades': {
         this.vals[key] = calculateAmbrosiaLuckShopUpgrade()
+        break
+      }
+      case 'BlueberryUpgrade1': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaLuck1.bonus.ambrosiaLuck
+        break
+      }
+      case 'BlueberryCubeLuck1': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaCubeLuck1.bonus.ambrosiaLuck
+        break
+      }
+      case 'BlueberryQuarkLuck1': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaQuarkLuck1.bonus.ambrosiaLuck
         break
       }
       case 'Event': {
@@ -215,7 +231,8 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
     super()
     this.vals = {
       'Exalt1': 0,
-      'SingularityUpgrade': 0
+      'SingularityUpgrade': 0,
+      'SingularityPerk': 0
     }
     this.totalVal = 0
   }
@@ -231,9 +248,14 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
         this.vals[key] = +(player.singularityUpgrades.blueberries.getEffect().bonus)
         break
       }
+      case 'SingularityPerk': {
+        this.vals[key] = calculateSingularityMilestoneBlueberries()
+        break
+      }
     }
     const newVal = this.vals[key]
     this.updateTotal(oldVal, newVal, init)
+    player.caches.ambrosiaGeneration.updateVal('SingularityBerries') // Dependant cache
   }
 }
 

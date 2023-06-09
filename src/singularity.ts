@@ -40,6 +40,7 @@ export interface ISingularityData extends Omit<IUpgradeData, 'name' | 'descripti
     canExceedCap?: boolean
     specialCostForm?: SingularitySpecialCostFormulae
     qualityOfLife?: boolean
+    cacheUpdates?: (() => void)[] // TODO: Improve this type signature -Plat
 }
 
 /**
@@ -54,6 +55,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
   public canExceedCap: boolean
   public specialCostForm: SingularitySpecialCostFormulae
   public qualityOfLife: boolean
+  readonly cacheUpdates: (() => void)[] | undefined
 
   public constructor(data: ISingularityData, key: string) {
     const name = i18next.t(`singularity.data.${key}.name`)
@@ -65,6 +67,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
     this.canExceedCap = data.canExceedCap ?? false
     this.specialCostForm = data.specialCostForm ?? 'Default'
     this.qualityOfLife = data.qualityOfLife ?? false
+    this.cacheUpdates = data.cacheUpdates ?? undefined
   }
 
   /**
@@ -208,6 +211,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
     }
 
     this.updateUpgradeHTML()
+    this.updateCaches()
     updateSingularityPenalties()
     updateSingularityPerks()
     revealStuff()
@@ -260,6 +264,14 @@ export class SingularityUpgrade extends DynamicUpgrade {
 
   public getEffect(): { bonus: number | boolean, desc: string } {
     return this.effect(this.actualTotalLevels())
+  }
+
+  updateCaches(): void {
+    if (this.cacheUpdates !== undefined) {
+      for (const cache of this.cacheUpdates) {
+        cache()
+      }
+    }
   }
 
   public refund(): void {
@@ -392,7 +404,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   cookies5: {
     maxLevel: 1,
     costPerLevel: 1.66e15,
-    minimumSingularity: 215,
+    minimumSingularity: 209,
     effect: (n: number) => {
       return {
         bonus: (n > 0),
@@ -578,7 +590,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   singCitadel2: {
     maxLevel: 100,
     costPerLevel: 1e14,
-    minimumSingularity: 210,
+    minimumSingularity: 204,
     specialCostForm: 'Quadratic',
     effect: (n: number) => {
       return {
@@ -743,7 +755,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   potionBuff2: {
     maxLevel: 10,
     costPerLevel: 1e8,
-    minimumSingularity: 121,
+    minimumSingularity: 119,
     canExceedCap: true,
     effect: (n: number) => {
       return {
@@ -757,7 +769,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   potionBuff3: {
     maxLevel: 10,
     costPerLevel: 1e12,
-    minimumSingularity: 196,
+    minimumSingularity: 191,
     canExceedCap: true,
     effect: (n: number) => {
       return {
@@ -810,7 +822,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   singQuarkImprover1: {
     maxLevel: 30,
     costPerLevel: 1,
-    minimumSingularity: 177,
+    minimumSingularity: 173,
     canExceedCap: true,
     specialCostForm: 'Exponential2',
     effect: (n: number) => {
@@ -965,7 +977,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   platonicDelta: {
     maxLevel: 1,
     costPerLevel: 5e9,
-    minimumSingularity: 111,
+    minimumSingularity: 110,
     effect: (n: number) => {
       return {
         bonus: n > 0,
@@ -978,7 +990,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   platonicPhi: {
     maxLevel: 1,
     costPerLevel: 2e11,
-    minimumSingularity: 152,
+    minimumSingularity: 149,
     effect: (n: number) => {
       return {
         bonus: n > 0,
@@ -1006,7 +1018,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   singFastForward2: {
     maxLevel: 1,
     costPerLevel: 1e11 - 1,
-    minimumSingularity: 150,
+    minimumSingularity: 147,
     effect: (n: number) => {
       return {
         bonus: n > 0,
@@ -1020,7 +1032,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   singAscensionSpeed: {
     maxLevel: 1,
     costPerLevel: 1e10,
-    minimumSingularity: 130,
+    minimumSingularity: 128,
     effect: (n: number) => {
       return {
         bonus: n,
@@ -1036,7 +1048,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   singAscensionSpeed2: {
     maxLevel: 1,
     costPerLevel: 1e12,
-    minimumSingularity: 150,
+    minimumSingularity: 147,
     effect: (n: number) => {
       return {
         bonus: n,
@@ -1078,7 +1090,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   oneMind: {
     maxLevel: 1,
     costPerLevel: 1.66e13,
-    minimumSingularity: 166,
+    minimumSingularity: 162,
     effect: (n : number) => {
       return {
         bonus: n > 0,
@@ -1092,7 +1104,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   wowPass4: {
     maxLevel: 1,
     costPerLevel: 66666666666,
-    minimumSingularity: 150,
+    minimumSingularity: 147,
     effect: (n : number) => {
       return {
         bonus: n > 0,
@@ -1104,9 +1116,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     qualityOfLife: true
   },
   blueberries: {
-    maxLevel: -1,
+    maxLevel: 10,
     costPerLevel: 1e16,
-    minimumSingularity: 222,
+    minimumSingularity: 215,
     effect: (n: number) => {
       return {
         bonus: n,
@@ -1116,7 +1128,8 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
       }
     },
     specialCostForm: 'Exponential2',
-    qualityOfLife: true
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.blueberryInventory.updateVal('SingularityUpgrade')]
   }
 }
 
@@ -1488,6 +1501,20 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.wowCubeAutomatedShipping.default')
       }
+    }
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perkNames.blueberries')
+    },
+    levels: [66, 132, 198, 264],
+    description(n, levels) {
+      for (let i = levels.length - 1; i >= 0; i--) {
+        if (n >= levels[i]) {
+          return i18next.t('singularity.perks.blueberries', { i: i + 1 })
+        }
+      }
+      return i18next.t('singularity.perks.evenMoreQuarks.bug')
     }
   },
   {
@@ -1943,9 +1970,10 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
       1 + Math.sqrt(effectiveSingularities) / 5:
       1 + Math.pow(effectiveSingularities, 0.75) / 10000
   } else if (debuff === 'Cubes') {
+    const extraMult = (player.singularityCount > 100) ? Math.pow(1.02, player.singularityCount - 100) : 1
     return (player.singularityCount < 150) ?
-      1 + Math.sqrt(effectiveSingularities) / 4:
-      1 + Math.pow(effectiveSingularities, 0.75) / 1000
+      1 + Math.sqrt(effectiveSingularities) * extraMult / 4:
+      1 + Math.pow(effectiveSingularities, 0.75) * extraMult / 1000
   } else if (debuff === 'Platonic Costs') {
     return (singularityCount > 36) ? 1 + Math.pow(effectiveSingularities, 3/10) / 12 : 1
   } else if (debuff === 'Hepteract Costs') {

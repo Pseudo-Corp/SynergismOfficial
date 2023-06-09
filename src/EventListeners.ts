@@ -31,6 +31,7 @@ import { shopMouseover } from './UpdateVisuals'
 import i18next from 'i18next'
 import { clickSmith } from './Event'
 import { changeTab, changeSubTab } from './Tabs'
+import { resetBlueberryTree } from './BlueberryUpgrades'
 
 /* STYLE GUIDE */
 /*
@@ -658,6 +659,14 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', () => player.singularityChallenges[`${String(key)}`].challengeEntryHandler())
   }
 
+  // BLUEBERRY UPGRADES
+  const blueberryUpgrades = Object.keys(player.blueberryUpgrades) as (keyof Player['blueberryUpgrades'])[]
+  for (const key of blueberryUpgrades) {
+    DOMCacheGetOrSet(`${String(key)}`).addEventListener('mouseover', () => player.blueberryUpgrades[`${String(key)}`].updateUpgradeHTML())
+    DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.blueberryUpgrades[`${String(key)}`].buyLevel(event))
+  }
+
+  DOMCacheGetOrSet('refundBlueberries').addEventListener('click', () => resetBlueberryTree())
   //Toggle subtabs of Singularity tab
   for (let index = 0; index < 6; index++) {
     DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => changeSubTab('singularity', { page: index }))
