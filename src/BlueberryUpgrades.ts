@@ -297,12 +297,10 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.0005 * n
-      function val(base: number) {
-        return 1 + base * Math.floor(Math.pow(Math.log10(Number(player.worlds)+1) +1, 2))
-      }
+      const val = 1 + baseVal * Math.floor(Math.pow(Math.log10(Number(player.worlds)+1) +1, 2))
       return {
-        cubes: val(baseVal),
-        desc: String(i18next.t('ambrosia.data.ambrosiaQuarkCube1.effect', { amount: format(100 * (val(baseVal) - 1), 2, true) }))
+        cubes: val,
+        desc: String(i18next.t('ambrosia.data.ambrosiaQuarkCube1.effect', { amount: format(100 * (val - 1), 2, true) }))
       }
     },
     prerequisites: {
@@ -319,12 +317,10 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.0002 * n
-      function val(base: number) {
-        return 1 + base * player.caches.ambrosiaLuck.totalVal
-      }
+      const val = 1 + baseVal * player.caches.ambrosiaLuck.totalVal
       return {
-        cubes: val(baseVal),
-        desc: String(i18next.t('ambrosia.data.ambrosiaLuckCube1.effect', { amount: format(100 * (val(baseVal) - 1), 2, true) }))
+        cubes: val,
+        desc: String(i18next.t('ambrosia.data.ambrosiaLuckCube1.effect', { amount: format(100 * (val - 1), 2, true) }))
       }
     },
     prerequisites: {
@@ -341,17 +337,15 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.0001 * n
-      function val(base: number)  {
-        return 1 + base * (Math.floor(Math.log10(Number(player.wowCubes) + 1)) +
-                       Math.floor(Math.log10(Number(player.wowTesseracts) + 1)) +
-                       Math.floor(Math.log10(Number(player.wowHypercubes) + 1)) +
-                       Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1)) +
-                       Math.floor(Math.log10(player.wowAbyssals + 1)) +
-                       Math.floor(Math.log10(player.wowOcteracts) + 1) + 6)
-      }
+      const val = 1 + baseVal * (Math.floor(Math.log10(Number(player.wowCubes) + 1)) +
+                                Math.floor(Math.log10(Number(player.wowTesseracts) + 1)) +
+                                Math.floor(Math.log10(Number(player.wowHypercubes) + 1)) +
+                                Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1)) +
+                                Math.floor(Math.log10(player.wowAbyssals + 1)) +
+                                Math.floor(Math.log10(player.wowOcteracts) + 1) + 6)
       return {
-        quarks: val(baseVal),
-        desc: String(i18next.t('ambrosia.data.ambrosiaCubeQuark1.effect', { amount: format(100 * (val(baseVal) - 1), 2, true) }))
+        quarks: val,
+        desc: String(i18next.t('ambrosia.data.ambrosiaCubeQuark1.effect', { amount: format(100 * (val - 1), 2, true) }))
       }
     },
     prerequisites: {
@@ -368,12 +362,10 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.0001 * n
-      function val(base: number) {
-        return 1 + base * player.caches.ambrosiaLuck.totalVal
-      }
+      const val = 1 + baseVal * player.caches.ambrosiaLuck.totalVal
       return {
-        quarks: val(baseVal),
-        desc: String(i18next.t('ambrosia.data.ambrosiaLuckQuark1.effect', { amount: format(100 * (val(baseVal) - 1), 2, true) }))
+        quarks: val,
+        desc: String(i18next.t('ambrosia.data.ambrosiaLuckQuark1.effect', { amount: format(100 * (val - 1), 2, true) }))
       }
     },
     prerequisites: {
@@ -390,17 +382,15 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.01 * n
-      function val(base: number)  {
-        return base * (Math.floor(Math.log10(Number(player.wowCubes) + 1)) +
-                       Math.floor(Math.log10(Number(player.wowTesseracts) + 1)) +
-                       Math.floor(Math.log10(Number(player.wowHypercubes) + 1)) +
-                       Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1)) +
-                       Math.floor(Math.log10(player.wowAbyssals + 1)) +
-                       Math.floor(Math.log10(player.wowOcteracts) + 1) + 6)
-      }
+      const val = baseVal * (Math.floor(Math.log10(Number(player.wowCubes) + 1)) +
+                            Math.floor(Math.log10(Number(player.wowTesseracts) + 1)) +
+                            Math.floor(Math.log10(Number(player.wowHypercubes) + 1)) +
+                            Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1)) +
+                            Math.floor(Math.log10(player.wowAbyssals + 1)) +
+                            Math.floor(Math.log10(player.wowOcteracts) + 1) + 6)
       return {
-        ambrosiaLuck: val(baseVal),
-        desc: String(i18next.t('ambrosia.data.ambrosiaCubeLuck1.effect', { amount: val(baseVal) }))
+        ambrosiaLuck: val,
+        desc: String(i18next.t('ambrosia.data.ambrosiaCubeLuck1.effect', { amount: val }))
       }
     },
     prerequisites: {
@@ -418,12 +408,10 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.01 * n
-      function val(base: number)  {
-        return base * Math.floor(Math.pow(Math.log10(Number(player.worlds)+1)+1, 2))
-      }
+      const val = baseVal * Math.floor(Math.pow(Math.log10(Number(player.worlds)+1)+1, 2))
       return {
-        ambrosiaLuck: val(baseVal),
-        desc: String(i18next.t('ambrosia.data.ambrosiaQuarkLuck1.effect', { amount: val(baseVal) }))
+        ambrosiaLuck: val,
+        desc: String(i18next.t('ambrosia.data.ambrosiaQuarkLuck1.effect', { amount: val }))
       }
     },
     prerequisites: {
