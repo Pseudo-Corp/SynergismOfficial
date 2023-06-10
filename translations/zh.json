@@ -10,11 +10,73 @@
         "saveToClipboard": "您确定要启用将存档导出到剪贴板吗？"
     },
     "ambrosia": {
+        "ambrosia": "神肴",
         "amount": "您有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>神肴！",
         "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>秒蓝莓时间。",
         "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：&#9752 {{ambrosiaLuck}}>>]",
         "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<<blue|{{thresholdTimer}}>>后可以产生神肴。",
-        "bonuses": "您拥有的神肴暂时使所有类型的方盒、立方和方块获取数量增加<<var(--amber-text-color)|{{cube}}%>>，并且使夸克获取数量增加<<cyan|{{quark}}%>>！"
+        "bonuses": "您拥有的神肴暂时使所有类型的方盒、立方和方块获取数量增加<<var(--amber-text-color)|{{cube}}%>>，并且使夸克获取数量增加<<cyan|{{quark}}%>>！",
+        "prerequisite": "前提条件：",
+        "prereqNotMet": "（未满足！）",
+        "blueberryCost": "启用花费蓝莓：",
+        "prereqNotMetAlert": "您未满足前提条件，无法购买该升级。",
+        "notEnoughBlueberries": "您的蓝莓不足，无法激活该模块。",
+        "availableBlueberries": "您有<<blue|{{availableBlueberries}}>>蓝莓未花费。您可以使用它解锁下面更高阶的模块！",
+        "ambrosiaBuyPrompt": "您想要花费多少神肴？您拥有{{amount}}神肴。如果想要购买最大数量，请输入-1！",
+        "refund": "所有花费的蓝莓和神肴均已返还。",
+        "refundWord": "返还",
+        "data": {
+            "ambrosiaTutorial": {
+                "name": "神肴教程模块",
+                "description": "蓝莓可以随着时间推移产生神肴。您可以使用神肴来购买升级！每级使所有类型的方盒、立方和方块获取数量增加5%，并且使夸克获取数量增加1%。",
+                "effect": "神肴教程模块使所有类型的方盒、立方和方块获取数量增加了{{cubeAmount}}%，并且使夸克获取数量增加了{{quarkAmount}}%。"
+            },
+            "ambrosiaQuarks1": {
+                "name": "神肴夸克模块 I",
+                "description": "恭喜您完成了教程模块的升级。您需要在它满级后才可以购买该模块。每级使夸克获取数量增加1%。",
+                "effect": "神肴夸克模块使夸克获取数量增加了{{amount}}%。"
+            },
+            "ambrosiaCubes1": {
+                "name": "神肴方盒模块 I",
+                "description": "恭喜您完成了教程模块的升级。您需要在它满级后才可以购买该模块。每级使所有类型的方盒、立方和方块获取数量增加5%，且每10级还可以使所有类型的方盒、立方和方块获取数量变为原来的1.1倍。",
+                "effect": "神肴方盒模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
+            },
+            "ambrosiaLuck1": {
+                "name": "神肴之运模块 I",
+                "description": "恭喜您完成了教程模块的升级。您需要在它满级后才可以购买该模块。每级使&#9752 神肴之运增加2，且每10级还可以使&#9752 神肴之运额外增加5！",
+                "effect": "神肴之运模块使&#9752 神肴之运增加了{{amount}}。"
+            },
+            "ambrosiaCubeQuark1": {
+                "name": "神肴方盒-夸克混合模块 I",
+                "description": "第一代混合模块。所有类型的方盒、立方和方块每有一个数量级，每级该升级就可以使夸克获取数量增加0.01%。",
+                "effect": "第一代混合模块使夸克获取数量增加了{{amount}}%。"
+            },
+            "ambrosiaLuckQuark1": {
+                "name": "神肴之运-夸克混合模块 I",
+                "description": "第一代混合模块。每有1 &#9752 神肴之运，每级该升级就可以使夸克获取数量增加0.01%。",
+                "effect": "第一代混合模块使夸克获取数量增加了{{amount}}%。"
+            },
+            "ambrosiaQuarkCube1": {
+                "name": "神肴夸克-方盒混合模块 I",
+                "description": "第一代混合模块。当前夸克数量每有一个数量级，每级该升级就可以使所有类型的方盒、立方和方块获取数量增加0.05%，然后再乘以当前夸克数量的数量级。",
+                "effect": "第一代混合模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
+            },
+            "ambrosiaLuckCube1": {
+                "name": "神肴之运-方盒混合模块 I",
+                "description": "第一代混合模块。每有1 &#9752 神肴之运，每级该升级就可以使所有类型的方盒、立方和方块获取数量增加0.02%。",
+                "effect": "第一代混合模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
+            },
+            "ambrosiaCubeLuck1": {
+                "name": "神肴方盒-之运混合模块 I",
+                "description": "第一代混合模块。所有类型的方盒、立方和方块每有一个数量级，每级该升级就可以使&#9752 神肴之运增加0.01。",
+                "effect": "第一代混合模块使&#9752 神肴之运增加了{{amount}}。"
+            },
+            "ambrosiaQuarkLuck1": {
+                "name": "神肴夸克-之运混合模块 I",
+                "description": "第一代混合模块。当前夸克数量每有一个数量级，每级该升级就可以使&#9752 神肴之运增加0.01，然后再乘以当前夸克数量的数量级。",
+                "effect": "第一代混合模块使&#9752 神肴之运增加了{{amount}}。"
+            }
+        }
     },
     "achievements": {
         "descriptions": {
@@ -1483,6 +1545,7 @@
                 "hasLevel1": "每次飞升自动购买方盒升级！",
                 "default": "每次飞升自动购买方盒升级，只在奇点挑战中有效"
             },
+            "blueberries": "半固态蓝莓跟普通蓝莓一样。您可以额外获得{{i}}蓝莓，用它们来购买更多升级！",
             "goldenRevolution": "每次奇点使进入奇点的金夸克获取数量增加0.4%。目前增加了{{current}}%(最高增加100%)",
             "goldenRevolutionII": "每次奇点使商店购买金夸克的花费减少0.2%。目前减少了{{current}}%(最高减少50%)",
             "goldenRevolutionIII": "每次奇点使每小时导出存档的金夸克奖励增加2%。目前增加了{{current}}%(最高增加500%)",
@@ -1841,8 +1904,8 @@
                 "effectHaveNot": "您未嘎了最后的嘎克"
             },
             "blueberries": {
-                "name": "蓝莓碎片!",
-                "description": "是蓝莓！啊，Platonic已经无计可施了。嗯，每个蓝莓每秒有0.01%的概率产生神肴！",
+                "name": "伪造蓝莓！",
+                "description": "蓝莓！啊，Platonic真是黔驴技穷了。嗯，它每级可以产生1“仿制蓝莓”，效果跟普通蓝莓完全一样。哈。",
                 "effect": "您购买了{{n}}个美味的蓝莓。"
             }
         },
@@ -1888,6 +1951,7 @@
             "irishAnt2": "爱尔兰蚂蚁 II：电子布加洛舞",
             "overclocked": "超载",
             "wowCubeAutomatedShipping": "惊奇方盒自动运输",
+            "blueberries": "凝结蓝莓",
             "goldenRevolution": "金之革命",
             "goldenRevolutionII": "金之革命 II",
             "goldenRevolutionIII": "金之革命 III",
