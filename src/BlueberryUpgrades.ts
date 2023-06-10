@@ -342,7 +342,7 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
                                 Math.floor(Math.log10(Number(player.wowHypercubes) + 1)) +
                                 Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1)) +
                                 Math.floor(Math.log10(player.wowAbyssals + 1)) +
-                                Math.floor(Math.log10(player.wowOcteracts) + 1) + 6)
+                                Math.floor(Math.log10(player.wowOcteracts + 1)) + 6)
       return {
         quarks: val,
         desc: String(i18next.t('ambrosia.data.ambrosiaCubeQuark1.effect', { amount: format(100 * (val - 1), 2, true) }))
@@ -387,7 +387,7 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
                             Math.floor(Math.log10(Number(player.wowHypercubes) + 1)) +
                             Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1)) +
                             Math.floor(Math.log10(player.wowAbyssals + 1)) +
-                            Math.floor(Math.log10(player.wowOcteracts) + 1) + 6)
+                            Math.floor(Math.log10(player.wowOcteracts + 1)) + 6)
       return {
         ambrosiaLuck: val,
         desc: String(i18next.t('ambrosia.data.ambrosiaCubeLuck1.effect', { amount: val }))

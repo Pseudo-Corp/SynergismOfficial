@@ -67,9 +67,9 @@ const events: Record<string, HolidayData> = {
     notice: 20,
     event: true,
     buffs: {
-      quark: 0.2023,
-      globalSpeed: 0.2023,
-      ascensionSpeed: 0.2023,
+      quark: 0.4,
+      globalSpeed: 0.3,
+      ascensionSpeed: 0.4,
       antSacrifice: 0,
       offering: 0,
       obtainium: 0,
