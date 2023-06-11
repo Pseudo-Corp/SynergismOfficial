@@ -1458,6 +1458,7 @@
                 "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
                 "default": "Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge."
             },
+            "congealedblueberries": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!",
             "goldenRevolution": "Singularity grants 0.4% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +100%)",
             "goldenRevolutionII": "Golden Quarks are 0.2% cheaper per Singularity. Currently: -{{current}}% (MAX: -50%)",
             "goldenRevolutionIII": "Export gives 2% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +500%)",
@@ -1861,6 +1862,7 @@
             "antGodsCornucopia": "Ant God's Cornucopia",
             "overclocked": "Overclocked",
             "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
+            "congealedblueberries": "Congealed Blueberries",
             "goldenRevolution": "Golden Revolution",
             "goldenRevolutionII": "Golden Revolution II",
             "goldenRevolutionIII": "Golden Revolution III",
@@ -2222,8 +2224,7 @@
             "hepteract": "Hepteract Forge"
         },
         "singularity": {
-            "penalties": "Penalties",
-            "perks": "Perks",
+            "perks-penalties": "Perks / Penalties",
             "octeracts": "Octeracts",
             "exalt": "EXALT"
         },

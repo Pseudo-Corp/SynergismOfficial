@@ -12,7 +12,7 @@
     "ambrosia": {
         "amount": "Je hebt <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
         "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
-        "perGen": "Je maakt op het moment <<var(--amber-text-color)|{{guaranteed}}>> met een <<var(--amber-text-color)|{{extraChance}}%>> kans op nog een. [<<var(--lime-text-color)|Luck: &#9752 {{ambrosiaLuck}}>>]",
+        "perGen": "Je maakt op het moment <<var(--amber-text-color)|{{guaranteed}}>> met een <<var(--amber-text-color)|{{extraChance}}%>> kans op nog een. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
         "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
         "bonuses": "Temporarily, your saved ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!"
     },
@@ -1476,13 +1476,14 @@
                 "hasLevel1": "Ant Speed is multiplied by 1 MILLION, this increase is immune to any and all corruption.",
                 "default": "Ant Speed is multiplied by 1,000, this increase is immune to any and all corruption."
             },
-            "irishAnt": "Ants blessed with the luck of the Irish grant &#9752 {{i}} Ambrosia Luck!",
-            "irishAnt2": "Ants blessed with more fortunate luck of the Irish grant &#9752 {{i}} more Ambrosia Luck!",
+            "irishAnt": "Ants blessed with the luck of the Irish grant ☘ {{i}} Ambrosia Luck!",
+            "irishAnt2": "Ants blessed with more fortunate luck of the Irish grant ☘ {{i}} more Ambrosia Luck!",
             "overclocked": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!",
             "wowCubeAutomatedShipping": {
                 "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
                 "default": "Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge."
             },
+            "congealedblueberries": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!",
             "goldenRevolution": "Singularity grants 0.4% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +100%)",
             "goldenRevolutionII": "Golden Quarks are 0.2% cheaper per Singularity. Currently: -{{current}}% (MAX: -50%)",
             "goldenRevolutionIII": "Export gives 2% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +500%)",
@@ -1888,6 +1889,7 @@
             "irishAnt2": "Irish Ants II: Electric Boogaloo",
             "overclocked": "Overclocked",
             "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
+            "congealedblueberries": "Congealed Blueberries",
             "goldenRevolution": "Golden Revolution",
             "goldenRevolutionII": "Golden Revolution II",
             "goldenRevolutionIII": "Golden Revolution III",
@@ -2249,8 +2251,7 @@
             "hepteract": "Hepteract Forge"
         },
         "singularity": {
-            "penalties": "Penalties",
-            "perks": "Perks",
+            "perks-penalties": "Perks / Penalties",
             "octeracts": "Octeracts",
             "exalt": "EXALT",
             "ambrosia": "Ambrosia"

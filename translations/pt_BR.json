@@ -1458,6 +1458,7 @@
                 "hasLevel1": "",
                 "default": ""
             },
+            "congealedblueberries": "",
             "goldenRevolution": "",
             "goldenRevolutionII": "",
             "goldenRevolutionIII": "",
@@ -1859,6 +1860,7 @@
             "antGodsCornucopia": "",
             "overclocked": "",
             "wowCubeAutomatedShipping": "",
+            "congealedblueberries": "",
             "goldenRevolution": "",
             "goldenRevolutionII": "",
             "goldenRevolutionIII": "",
@@ -2220,8 +2222,7 @@
             "hepteract": ""
         },
         "singularity": {
-            "penalties": "",
-            "perks": "",
+            "perks-penalties": "",
             "octeracts": "",
             "exalt": ""
         },

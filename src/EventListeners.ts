@@ -24,7 +24,7 @@ import { displayStats } from './Statistics'
 import { testing } from './Config'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { toggleAnnotation, toggleTheme, toggleIconSet, imgErrorHandler } from './Themes'
-import { buyGoldenQuarks } from './singularity'
+import { buyGoldenQuarks, singularityPerks, getLastUpgradeInfo } from './singularity'
 import { resetHotkeys } from './Hotkeys'
 import { generateExportSummary } from './Summary'
 import { shopMouseover } from './UpdateVisuals'
@@ -642,6 +642,26 @@ TODO: Fix this entire tab it's utter shit
   DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener('mouseover', () => shopMouseover(true))
   DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener('mouseout', () => shopMouseover(false))
 
+  const perkImage  = DOMCacheGetOrSet('singularityPerksIcon') as HTMLImageElement
+  const perksText = DOMCacheGetOrSet('singularityPerksText')
+  const perksDesc = DOMCacheGetOrSet('singularityPerksDesc')
+  for (const perk of singularityPerks) {
+    const perkHTML = document.createElement('span')
+    perkHTML.innerHTML= `<img src="Pictures/Default/perk${perk.ID}.png">${perk.name()}`
+    perkHTML.id = perk.ID
+    perkHTML.classList.add('oldPerk')
+    perkHTML.style.display = 'none' //Ensure the perk is hidden if not unlocked as an anti-spoiler failsafe.
+    DOMCacheGetOrSet('singularityPerksGrid').append(perkHTML)
+    DOMCacheGetOrSet(perk.ID).addEventListener('mouseover', () => {
+      const perkInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
+      const levelInfo = `${i18next.t('general.level')} ${perkInfo.level} - (Singularity ${perkInfo.singularity})`
+      perkImage.src = `Pictures/Default/perk${perk.ID}.png`
+      perksText.textContent = levelInfo
+      perksDesc.textContent = perk.description(player.highestSingularityCount, perk.levels)
+    })
+  }
+
+
   // Octeract Upgrades
   const octeractUpgrades = Object.keys(player.octeractUpgrades) as (keyof Player['octeractUpgrades'])[]
   for (const key of octeractUpgrades) {
@@ -668,7 +688,7 @@ TODO: Fix this entire tab it's utter shit
 
   DOMCacheGetOrSet('refundBlueberries').addEventListener('click', () => resetBlueberryTree())
   //Toggle subtabs of Singularity tab
-  for (let index = 0; index < 6; index++) {
+  for (let index = 0; index < 5; index++) {
     DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => changeSubTab('singularity', { page: index }))
   }
 
