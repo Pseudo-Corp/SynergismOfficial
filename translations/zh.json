@@ -12,10 +12,10 @@
     "ambrosia": {
         "ambrosia": "神肴",
         "amount": "您有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>神肴！",
-        "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>秒蓝莓时间。",
-        "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：&#9752 {{ambrosiaLuck}}>>]",
-        "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<<blue|{{thresholdTimer}}>>后可以产生神肴。",
-        "bonuses": "您拥有的神肴暂时使所有类型的方盒、立方和方块获取数量增加<<var(--amber-text-color)|{{cube}}%>>，并且使夸克获取数量增加<<cyan|{{quark}}%>>！",
+        "blueberryGeneration": "每秒获得<var(--amber-text-color)|{{chance}}>秒蓝莓时间。",
+        "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：☘ {{ambrosiaLuck}}>>]",
+        "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<blue|{{thresholdTimer}}>>后可以产生神肴。",
+        "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
         "prerequisite": "前提条件：",
         "prereqNotMet": "（未满足！）",
         "blueberryCost": "启用花费蓝莓：",
@@ -43,7 +43,7 @@
             },
             "ambrosiaLuck1": {
                 "name": "神肴之运模块 I",
-                "description": "恭喜您完成了教程模块的升级。您需要在它满级后才可以购买该模块。每级使&#9752 神肴之运增加2，且每10级还可以使&#9752 神肴之运额外增加5！",
+                "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. &#9752 +2 Ambrosia Luck/lvl. Every 10 levels gives &#9752 +12 more!",
                 "effect": "神肴之运模块使&#9752 神肴之运增加了{{amount}}。"
             },
             "ambrosiaCubeQuark1": {
@@ -53,7 +53,7 @@
             },
             "ambrosiaLuckQuark1": {
                 "name": "神肴之运-夸克混合模块 I",
-                "description": "第一代混合模块。每有1 &#9752 神肴之运，每级该升级就可以使夸克获取数量增加0.01%。",
+                "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
                 "effect": "第一代混合模块使夸克获取数量增加了{{amount}}%。"
             },
             "ambrosiaQuarkCube1": {
@@ -68,12 +68,12 @@
             },
             "ambrosiaCubeLuck1": {
                 "name": "神肴方盒-之运混合模块 I",
-                "description": "第一代混合模块。所有类型的方盒、立方和方块每有一个数量级，每级该升级就可以使&#9752 神肴之运增加0.01。",
+                "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in the values of all cube types.",
                 "effect": "第一代混合模块使&#9752 神肴之运增加了{{amount}}。"
             },
             "ambrosiaQuarkLuck1": {
                 "name": "神肴夸克-之运混合模块 I",
-                "description": "第一代混合模块。当前夸克数量每有一个数量级，每级该升级就可以使&#9752 神肴之运增加0.01，然后再乘以当前夸克数量的数量级。",
+                "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in your Quark balance, squared.",
                 "effect": "第一代混合模块使&#9752 神肴之运增加了{{amount}}。"
             }
         }
@@ -1355,10 +1355,10 @@
             "shopAmbrosiaGeneration2": "新加强的难度素粉可以使小符饰变得更强大，每级可以使蓝莓时间的产生速度增加1%，效果相互叠乘。",
             "shopAmbrosiaGeneration3": "看来难度素粉越多，小符饰就越强大，多奇怪。每级可以使蓝莓时间的产生速度增加1%，效果相互叠乘。",
             "shopAmbrosiaGeneration4": "如果加入夸克粉，又会怎么样？？？您会知道的。每级可以使蓝莓时间的产生速度增加0.1%，效果相互叠乘。",
-            "shopAmbrosiaLuck1": "购买该小符饰后，每级可以使&#9752 神肴之运增加1，以此获得更多神肴！还不知道这是什么吗？您迟早会知道的。",
-            "shopAmbrosiaLuck2": "您获得了一颗更大了一点的四叶草，每级可以使&#9752 神肴之运增加1，效果相互叠加。",
-            "shopAmbrosiaLuck3": "您获得了一颗更绿了一点的四叶草，每级可以使&#9752 神肴之运增加1，效果相互叠加。",
-            "shopAmbrosiaLuck4": "您获得了一颗更“好”了一点的四叶草，换句话说，每级可以使&#9752 神肴之运增加0.3，效果相互叠加。"
+            "shopAmbrosiaLuck1": "Buying this charm grants +2 ☘ Ambrosia luck per level, for more Ambrosia! Don't know what that means? You soon will.",
+            "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
+            "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
+            "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.6 ☘ Ambrosia luck per level, stacking additively."
         },
         "maxed": "已满级！",
         "upgradeFor": "使用{{x}}",
@@ -1440,10 +1440,10 @@
             "chronometerInfinity": "飞升的速度增加<<orange|{{amount}}%>>。",
             "seasonPassInfinity": "<<orchid|所有类型的方盒、立方和方块获取数量>>增加<<lightgoldenrodyellow|{{amount}}%>>。",
             "shopSingularityPenaltyDebuff": "在<<pink|{{amount1}}>>次奇点时，奇点相关惩罚视为在<<pink|{{amount2}}>>次奇点。",
-            "shopAmbrosiaGeneration1": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
-            "shopAmbrosiaGeneration2": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
-            "shopAmbrosiaGeneration3": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
-            "shopAmbrosiaGeneration4": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
+            "shopAmbrosiaGeneration1": "蓝莓时间的产生速度增加<blue|{{amount}}%>。",
+            "shopAmbrosiaGeneration2": "蓝莓时间的产生速度增加<blue|{{amount}}%>。",
+            "shopAmbrosiaGeneration3": "蓝莓时间的产生速度增加<blue|{{amount}}%>。",
+            "shopAmbrosiaGeneration4": "蓝莓时间的产生速度增加<blue|{{amount}}%>。",
             "shopAmbrosiaLuck1": "使神肴之运<<lime|&#9752增加{{amount}}>>",
             "shopAmbrosiaLuck2": "使神肴之运<<lime|&#9752增加{{amount}}>>",
             "shopAmbrosiaLuck3": "使神肴之运<<lime|&#9752增加{{amount}}>>",
@@ -1545,7 +1545,7 @@
                 "hasLevel1": "每次飞升自动购买方盒升级！",
                 "default": "每次飞升自动购买方盒升级，只在奇点挑战中有效"
             },
-            "blueberries": "半固态蓝莓跟普通蓝莓一样。您可以额外获得{{i}}蓝莓，用它们来购买更多升级！",
+            "congealedblueberries": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!",
             "goldenRevolution": "每次奇点使进入奇点的金夸克获取数量增加0.4%。目前增加了{{current}}%(最高增加100%)",
             "goldenRevolutionII": "每次奇点使商店购买金夸克的花费减少0.2%。目前减少了{{current}}%(最高减少50%)",
             "goldenRevolutionIII": "每次奇点使每小时导出存档的金夸克奖励增加2%。目前增加了{{current}}%(最高增加500%)",
@@ -1904,8 +1904,8 @@
                 "effectHaveNot": "您未嘎了最后的嘎克"
             },
             "blueberries": {
-                "name": "伪造蓝莓！",
-                "description": "蓝莓！啊，Platonic真是黔驴技穷了。嗯，它每级可以产生1“仿制蓝莓”，效果跟普通蓝莓完全一样。哈。",
+                "name": "蓝莓碎片!",
+                "description": "是蓝莓！啊，Platonic已经无计可施了。嗯，每个蓝莓每秒有0.01%的概率产生神肴！",
                 "effect": "您购买了{{n}}个美味的蓝莓。"
             }
         },
@@ -1951,7 +1951,7 @@
             "irishAnt2": "爱尔兰蚂蚁 II：电子布加洛舞",
             "overclocked": "超载",
             "wowCubeAutomatedShipping": "惊奇方盒自动运输",
-            "blueberries": "凝结蓝莓",
+            "congealedblueberries": "Congealed Blueberries",
             "goldenRevolution": "金之革命",
             "goldenRevolutionII": "金之革命 II",
             "goldenRevolutionIII": "金之革命 III",
@@ -2313,8 +2313,7 @@
             "hepteract": "七阶立方的锻炉"
         },
         "singularity": {
-            "penalties": "惩罚",
-            "perks": "特权",
+            "perks-penalties": "特权 / 惩罚",
             "octeracts": "惊奇八阶方块",
             "exalt": "拔擢",
             "ambrosia": "神肴"
