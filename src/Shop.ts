@@ -553,7 +553,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     tier: 'SingularityVol2',
     price: 50000000,
     priceIncrease: 50000000,
-    maxLevel: 20,
+    maxLevel: 25,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
@@ -562,7 +562,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     tier: 'SingularityVol3',
     price: 5e11,
     priceIncrease: 5e11,
-    maxLevel: 20,
+    maxLevel: 30,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
@@ -571,7 +571,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     tier: 'SingularityVol4',
     price: 5e13,
     priceIncrease: 5e13,
-    maxLevel: 30,
+    maxLevel: 35,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
@@ -846,16 +846,16 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaGeneration4', { amount: format(player.shopUpgrades.shopAmbrosiaGeneration4 / 10, 1, true) })
       break
     case 'shopAmbrosiaLuck1':
-      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck1', { amount: format(player.shopUpgrades.shopAmbrosiaLuck1) })
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck1', { amount: format(2 * player.shopUpgrades.shopAmbrosiaLuck1) })
       break
     case 'shopAmbrosiaLuck2':
-      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck2', { amount: format(player.shopUpgrades.shopAmbrosiaLuck2) })
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck2', { amount: format(2 * player.shopUpgrades.shopAmbrosiaLuck2) })
       break
     case 'shopAmbrosiaLuck3':
-      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck3', { amount: format(player.shopUpgrades.shopAmbrosiaLuck3) })
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck3', { amount: format(2 * player.shopUpgrades.shopAmbrosiaLuck3) })
       break
     case 'shopAmbrosiaLuck4':
-      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck4', { amount: format(3 * player.shopUpgrades.shopAmbrosiaLuck4 / 10, 1, true) })
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck4', { amount: format(6 * player.shopUpgrades.shopAmbrosiaLuck4 / 10, 1, true) })
       break
   }
 

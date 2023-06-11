@@ -2189,10 +2189,10 @@ export const calculateAmbrosiaGenerationShopUpgrade = () => {
 
 export const calculateAmbrosiaLuckShopUpgrade = () => {
   const vals = [
-    player.shopUpgrades.shopAmbrosiaLuck1,
-    player.shopUpgrades.shopAmbrosiaLuck2,
-    player.shopUpgrades.shopAmbrosiaLuck3,
-    0.3 * player.shopUpgrades.shopAmbrosiaLuck4
+    2*player.shopUpgrades.shopAmbrosiaLuck1,
+    2*player.shopUpgrades.shopAmbrosiaLuck2,
+    2*player.shopUpgrades.shopAmbrosiaLuck3,
+    0.6 * player.shopUpgrades.shopAmbrosiaLuck4
   ]
 
   return sumContents(vals)
@@ -2200,8 +2200,7 @@ export const calculateAmbrosiaLuckShopUpgrade = () => {
 
 export const calculateRequiredBlueberryTime = () => {
   let val = G.TIME_PER_AMBROSIA // Currently 600
-  val += Math.floor(player.ambrosia / 10)
-  val += Math.floor(player.lifetimeAmbrosia / 50)
+  val += Math.floor(player.lifetimeAmbrosia / 30)
 
   const baseVal = val
 
@@ -2225,22 +2224,22 @@ export const calculateSingularityMilestoneBlueberries = () => {
 
 export const calculateAmbrosiaCubeMult = () => {
   let multiplier = 1
-  multiplier += Math.min(2, Math.floor(player.ambrosia / 50) / 100)
-  if (player.ambrosia >= 10000)
-    multiplier += Math.min(2, Math.floor(player.ambrosia / 500) / 100)
-  if (player.ambrosia >= 100000)
-    multiplier += Math.floor(player.ambrosia / 5000) / 100
+  multiplier += Math.min(1.5, Math.floor(player.lifetimeAmbrosia / 66) / 100)
+  if (player.lifetimeAmbrosia >= 10000)
+    multiplier += Math.min(1.5, Math.floor(player.lifetimeAmbrosia / 666) / 100)
+  if (player.lifetimeAmbrosia >= 100000)
+    multiplier += Math.floor(player.lifetimeAmbrosia / 6666) / 100
 
   return multiplier
 }
 
 export const calculateAmbrosiaQuarkMult = () => {
   let multiplier = 1
-  multiplier += Math.min(0.4, Math.floor(player.ambrosia / 1250) / 100)
-  if (player.ambrosia >= 50000)
-    multiplier += Math.min(0.4, Math.floor(player.ambrosia / 12500) / 100)
-  if (player.ambrosia >= 500000)
-    multiplier += Math.floor(player.ambrosia / 125000) / 100
+  multiplier += Math.min(0.3, Math.floor(player.lifetimeAmbrosia / 1666) / 100)
+  if (player.lifetimeAmbrosia >= 50000)
+    multiplier += Math.min(0.3, Math.floor(player.lifetimeAmbrosia / 16666) / 100)
+  if (player.lifetimeAmbrosia >= 500000)
+    multiplier += Math.floor(player.lifetimeAmbrosia / 166666) / 100
 
   return multiplier
 }

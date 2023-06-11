@@ -15,7 +15,7 @@
         "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
         "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
         "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Generating Ambrosia when <<blue|{{thresholdTimer}}>> is accumulated.",
-        "bonuses": "Temporarily, your saved ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
+        "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
         "prerequisite": "Prerequisites:",
         "prereqNotMet": " (Not Met!)",
         "blueberryCost": "Blueberries (To Activate):",
@@ -43,7 +43,7 @@
             },
             "ambrosiaLuck1": {
                 "name": "Ambrosia Luck Module I",
-                "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. &#9752 +2 Ambrosia Luck/lvl. Every 10 levels gives &#9752 +5 more!",
+                "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. &#9752 +2 Ambrosia Luck/lvl. Every 10 levels gives &#9752 +12 more!",
                 "effect": "This luck module increases &#9752 Ambrosia Luck by {{amount}}"
             },
             "ambrosiaCubeQuark1": {
@@ -53,7 +53,7 @@
             },
             "ambrosiaLuckQuark1": {
                 "name": "Ambrosia Luck-Quark Hybrid Module I",
-                "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck!",
+                "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
                 "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
             },
             "ambrosiaQuarkCube1": {
@@ -68,12 +68,12 @@
             },
             "ambrosiaCubeLuck1": {
                 "name": "Ambrosia Cube-Luck Hybrid Module I",
-                "description": "A first generation hybrid module. Gain &#9752 +0.01 Ambrosia Luck per level per digit in the values of all cube types.",
+                "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in the values of all cube types.",
                 "effect": "This first generation hybrid module increases &#9752 Ambrosia Luck by {{amount}}"
             },
             "ambrosiaQuarkLuck1": {
                 "name": "Ambrosia Quark-Luck Hybrid Module I",
-                "description": "A first generation hybrid module. Gain &#9752 +0.01 Ambrosia Luck per level per digit in your Quark balance, squared.",
+                "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in your Quark balance, squared.",
                 "effect": "This first generation hybrid module increases &#9752 Ambrosia Luck by {{amount}}"
             }
         }
@@ -1355,10 +1355,10 @@
             "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% faster Blueberry Time generation per level, stacking multiplicatively.",
             "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% faster Blueberry Time generation per level, stacking multiplicatively.",
             "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +0.1% faster Blueberry Time generation per level, stacking multiplicatively.",
-            "shopAmbrosiaLuck1": "Buying this charm grants +1 ☘ Ambrosia luck per level, for more Ambrosia! Don't know what that means? You soon will.",
-            "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +1 ☘ Ambrosia luck per level, stacking additively.",
-            "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +1 ☘ Ambrosia luck per level, stacking additively.",
-            "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.3 ☘ Ambrosia luck per level, stacking additively."
+            "shopAmbrosiaLuck1": "Buying this charm grants +2 ☘ Ambrosia luck per level, for more Ambrosia! Don't know what that means? You soon will.",
+            "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
+            "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
+            "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.6 ☘ Ambrosia luck per level, stacking additively."
         },
         "maxed": "Maxed!",
         "upgradeFor": "Upgrade for {{x}} Quarks",

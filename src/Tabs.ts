@@ -287,7 +287,7 @@ export const changeSubTab = (tabOrName: Tab | TabNames, { page, step }: SubTabSw
     }
   } else if (subTabList.unlocked) {
     subTabs.tabSwitcher?.(subTabList.subTabID)
-    if (tabOrName === 'singularity' && page === 5) {
+    if (tabOrName === 'singularity' && page === 4) {
       player.visitedAmbrosiaSubtab = true
       player.caches.ambrosiaGeneration.updateVal('DefaultVal')
     }

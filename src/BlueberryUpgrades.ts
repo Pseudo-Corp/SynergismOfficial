@@ -277,7 +277,7 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
     rewards: (n: number) => {
-      const val = 2 * n + 5 * Math.floor(n/10)
+      const val = 2 * n + 12 * Math.floor(n/10)
       return {
         ambrosiaLuck: val,
         desc: String(i18next.t('ambrosia.data.ambrosiaLuck1.effect', { amount: format(val) }))
@@ -362,7 +362,9 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.0001 * n
-      const val = 1 + baseVal * player.caches.ambrosiaLuck.totalVal
+      const effectiveLuck = Math.min(player.caches.ambrosiaLuck.totalVal,
+        Math.pow(1000, 0.5) * Math.pow(player.caches.ambrosiaLuck.totalVal, 0.5))
+      const val = 1 + baseVal * effectiveLuck
       return {
         quarks: val,
         desc: String(i18next.t('ambrosia.data.ambrosiaLuckQuark1.effect', { amount: format(100 * (val - 1), 2, true) }))
@@ -381,7 +383,7 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
     rewards: (n: number) => {
-      const baseVal = 0.01 * n
+      const baseVal = 0.02 * n
       const val = baseVal * (Math.floor(Math.log10(Number(player.wowCubes) + 1)) +
                             Math.floor(Math.log10(Number(player.wowTesseracts) + 1)) +
                             Math.floor(Math.log10(Number(player.wowHypercubes) + 1)) +
@@ -390,7 +392,7 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
                             Math.floor(Math.log10(player.wowOcteracts + 1)) + 6)
       return {
         ambrosiaLuck: val,
-        desc: String(i18next.t('ambrosia.data.ambrosiaCubeLuck1.effect', { amount: val }))
+        desc: String(i18next.t('ambrosia.data.ambrosiaCubeLuck1.effect', { amount: format(val, 2, true) }))
       }
     },
     prerequisites: {
@@ -407,11 +409,11 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
     rewards: (n: number) => {
-      const baseVal = 0.01 * n
+      const baseVal = 0.02 * n
       const val = baseVal * Math.floor(Math.pow(Math.log10(Number(player.worlds)+1)+1, 2))
       return {
         ambrosiaLuck: val,
-        desc: String(i18next.t('ambrosia.data.ambrosiaQuarkLuck1.effect', { amount: val }))
+        desc: String(i18next.t('ambrosia.data.ambrosiaQuarkLuck1.effect', { amount: format(val, 2, true) }))
       }
     },
     prerequisites: {

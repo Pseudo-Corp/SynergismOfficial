@@ -332,6 +332,8 @@ export const eventCheck = () => {
   }
   if (G.isEvent !== updateIsEventCheck) {
     revealStuff()
+    player.caches.ambrosiaGeneration.updateVal('Event')
+    player.caches.ambrosiaLuck.updateVal('Event')
   }
 }
 
