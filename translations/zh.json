@@ -12,7 +12,7 @@
     "ambrosia": {
         "amount": "您有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>神肴！",
         "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>秒蓝莓时间。",
-        "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：&#9752 {{ambrosiaLuck}}>>]",
+        "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：☘ {{ambrosiaLuck}}>>]",
         "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<<blue|{{thresholdTimer}}>>后可以产生神肴。",
         "bonuses": "您拥有的神肴暂时使所有类型的方盒、立方和方块获取数量增加<<var(--amber-text-color)|{{cube}}%>>，并且使夸克获取数量增加<<cyan|{{quark}}%>>！"
     },
@@ -1483,6 +1483,7 @@
                 "hasLevel1": "每次飞升自动购买方盒升级！",
                 "default": "每次飞升自动购买方盒升级，只在奇点挑战中有效"
             },
+            "congealedblueberries": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!",
             "goldenRevolution": "每次奇点使进入奇点的金夸克获取数量增加0.4%。目前增加了{{current}}%(最高增加100%)",
             "goldenRevolutionII": "每次奇点使商店购买金夸克的花费减少0.2%。目前减少了{{current}}%(最高减少50%)",
             "goldenRevolutionIII": "每次奇点使每小时导出存档的金夸克奖励增加2%。目前增加了{{current}}%(最高增加500%)",
@@ -1888,6 +1889,7 @@
             "irishAnt2": "爱尔兰蚂蚁 II：电子布加洛舞",
             "overclocked": "超载",
             "wowCubeAutomatedShipping": "惊奇方盒自动运输",
+            "congealedblueberries": "Congealed Blueberries",
             "goldenRevolution": "金之革命",
             "goldenRevolutionII": "金之革命 II",
             "goldenRevolutionIII": "金之革命 III",
@@ -2249,8 +2251,7 @@
             "hepteract": "七阶立方的锻炉"
         },
         "singularity": {
-            "penalties": "惩罚",
-            "perks": "特权",
+            "perks-penalties": "特权 / 惩罚",
             "octeracts": "惊奇八阶方块",
             "exalt": "拔擢",
             "ambrosia": "神肴"

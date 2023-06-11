@@ -3922,11 +3922,10 @@ $STAGE$ for synergism stage"></p>
     <div id="singularity" alt="singularity" label="singularity">
         <div id="singularityTabsToggle" alt="singularityTabsToggle" label="singularityTabsToggle">
             <button id="toggleSingularitySubTab1" label="toggleSingularitySubTab1" style="border: 2px solid silver; color: white; background-color: crimson" i18n="tabs.main.shop"></button>
-            <button id="toggleSingularitySubTab2" label="toggleSingularitySubTab2" style="border: 2px solid orange; color: white" i18n="tabs.singularity.penalties"></button>
-            <button id="toggleSingularitySubTab3" label="toggleSingularitySubTab3" style="border: 2px solid greenyellow; color: white" i18n="tabs.singularity.perks"></button>
-            <button id="toggleSingularitySubTab4" class="octeracts" label="toggleSingularitySubTab4" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>
-            <button id="toggleSingularitySubTab5" class="singChallenges" label="toggleSingularitySubTab5" style="border: 2px solid purple; color: gold" i18n="tabs.singularity.exalt"></button>
-            <button id="toggleSingularitySubTab6" class="ambrosia" label="toggleSingularitySubTab6" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
+            <button id="toggleSingularitySubTab2" label="toggleSingularitySubTab2" style="border: 2px solid orange; color: white" i18n="tabs.singularity.perks-penalties"></button>
+            <button id="toggleSingularitySubTab3" class="octeracts" label="toggleSingularitySubTab3" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>
+            <button id="toggleSingularitySubTab4" class="singChallenges" label="toggleSingularitySubTab4" style="border: 2px solid purple; color: gold" i18n="tabs.singularity.exalt"></button>
+            <button id="toggleSingularitySubTab5" class="ambrosia" label="toggleSingularitySubTab5" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
         </div>
 
         <div id="singularityContainer1" alt="singularityContainer1" label="singularityContainer1">
@@ -4127,20 +4126,25 @@ $STAGE$ for synergism stage"></p>
         </div>
 
         <div id="singularityContainer2" alt="singularityContainer2" label="singularityContainer2" style="display: none;">
-            <div id="singularityPenalties" alt="singularityPenalties" label="singularityPenalties" class="singularityContainer">
+            <div id="singularityInfo" alt="singularityInfo" label="singularityInfo" class="singularityContainer">
                 <p id="singularityPenaltiesMultiline" alt="singularityPenaltiesMultiline" label="singularityPenaltiesMultiline"></p>
+                <div id="singularityPerkContainer" alt="singularityPerkContainer" label="singularityPerkContainer">
+                    <p id="singularityPerksHeader" alt="singualrityPerksHeader" label="singualrityPerksHeader"></p>
+                    <div id="singualrityPerksInfo" alt="singualrityPerksInfo" label="singualrityPerksInfo">
+                        <img id="singularityPerksIcon" src="Pictures/Default/perkBorder.png">
+                        <p id="singularityPerksText" alt="singualrityPerksText" label="singualrityPerksText"></p>
+                    </div>
+                    <p id="singularityPerksDesc" alt="singualrityPerksDesc" label="singualrityPerksDesc"></p>
+                </div>
+            </div>
+            <div id="singularityPerks" alt="singularityPerks" label="singularityPerks" class="singularityContainer">
+                <div id="singularityPerksGrid" alt="singularityPerksGrid" label="singularityPerksGrid"></div>
+                <div id="singualrityUnlockNext" alt="singualrityUnlockNext" label="singualrityUnlockNext"></div>
+                <div id="singualrityImproveNext" alt="singualrityImproveNext" label="singualrityImproveNext"></div>
             </div>
         </div>
 
         <div id="singularityContainer3" alt="singularityContainer3" label="singularityContainer3" style="display: none;">
-            <div id="singularityPerks" alt="singularityPerks" label="singularityPerks" class="singularityContainer">
-                <p id="singularityPerksHeader" alt="singualrityPerksHeader" label="singualrityPerksHeader"></p>
-                <p id="singularityPerksDesc" alt="singualrityPerksDesc" label="singualrityPerksDesc"></p>
-                <p id="singularityPerksGrid" alt="singularityPerksGrid" label="singularityPerksGrid"></p>
-            </div>
-        </div>
-
-        <div id="singularityContainer4" alt="singularityContainer4" label="singularityContainer4" style="display: none;">
             <div id="singularityOcteracts" alt="singularityOcteracts" label="singularityOcteracts" class="singularityContainer">
                 <div id="octeractsDisplay" alt="octeractsDisplay" label="octeractsDisplay">
                     <img src="Pictures/Default/Octeract.png" loading="lazy">
@@ -4258,7 +4262,7 @@ $STAGE$ for synergism stage"></p>
             </div>
         </div>
 
-        <div id="singularityContainer5" alt="singularityContainer5" style="display: none;">
+        <div id="singularityContainer4" alt="singularityContainer4" style="display: none;">
             <div id="singularityChallenges" alt="singularityChallenges" class="singularityContainer">
                 <div id="singularityChallengeFlavor" alt="singularityChallengeFlavor">
                     <p id="singularityChallengeIntro" alt="singularityChallengeIntro" i18n="singularityChallenge.intro"></p>
@@ -4283,7 +4287,7 @@ $STAGE$ for synergism stage"></p>
             </div>
         </div>
 
-        <div id="singularityContainer6" alt="singularityContainer6" label="singularityContainer6" style="display: none;">
+        <div id="singularityContainer5" alt="singularityContainer5" label="singularityContainer5" style="display: none;">
             <div id="singularityAmbrosia" alt="singularityAmbrosia" label="singularityAmbrosia" class="singularityContainer">
                 <div id="ambrosiaDisplay" alt="ambrosiaDisplay" label="ambrosiaDisplay">
                     <img src="Pictures/Default/Ambrosia.png" loading="lazy">

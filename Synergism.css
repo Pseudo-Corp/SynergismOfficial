@@ -3549,28 +3549,72 @@ header #obtainiumDisplay { color: pink; }
     cursor: pointer;
 }
 
+#singularityInfo {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    align-content: center;
+}
+
 #singularityPenaltiesMultiline {
     white-space: pre-line;
     justify-content: center;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#singularityPerkContainer {
+    display: grid;
+    grid-template-rows: repeat(2, min-content);
 }
 
 #singularityPerksHeader {
     display: block;
-    justify-content: center;
+    margin: 1px;
+    height: min-content;
+}
+
+#singualrityPerksInfo {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+}
+
+img#singularityPerksIcon {
+    display: grid;
+    justify-self: end;
+    align-self: end;
+    padding-right: 5px;
+}
+
+#singularityPerksText {
+    display: block;
+    justify-self: start;
+    margin-bottom: 1px;
 }
 
 #singularityPerksDesc {
     display: block;
+    white-space: pre-line;
+    border: 2px solid gold;
+    margin: 5px 5px 1px;
+    height: 150px;
+    min-width: 39em;
+    max-width: 39em;
+    padding: 5px;
+    overflow: auto;
+    text-align: center;
 }
 
-#singularityPerksGrid > div {
+#singularityPerksGrid {
     display: grid;
     grid-template-columns: repeat(5, 250px);
     grid-template-rows: repeat(10, auto);
+    grid-auto-rows: auto;
     justify-content: center;
     align-content: center;
-    grid-gap: 5px;
-    cursor: default;
+    grid-gap: 4px;
+    font-size: 1em;
+    margin-top: 5px;
 }
 
 #testingMultiline,
@@ -3592,21 +3636,28 @@ header #obtainiumDisplay { color: pink; }
 
 .newPerk {
     display: grid;
-    justify-items: center;
+    grid-template-columns: repeat(2, auto);
+    justify-items: left;
     align-items: center;
+    text-align: center;
+    padding-left: 2px;
+    cursor: pointer;
     color: gold;
-    border-style: groove;
-    border-color: gold;
+    border: 2px ridge gold;
+    font-weight: bold;
     background-color: var(--button-color);
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
 .oldPerk {
     display: grid;
-    justify-items: center;
+    grid-template-columns: repeat(2, auto);
+    justify-items: left;
     align-items: center;
-    border-style: solid;
-    border-color: gold;
+    text-align: center;
+    padding-left: 2px;
+    cursor: pointer;
+    border: 2px solid gold;
     background-color: var(--button-color);
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
