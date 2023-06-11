@@ -1483,6 +1483,7 @@
                 "hasLevel1": "每次飞升自动购买方盒升级！",
                 "default": "每次飞升自动购买方盒升级，只在奇点挑战中有效"
             },
+            "congealedblueberries": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!",
             "goldenRevolution": "每次奇点使进入奇点的金夸克获取数量增加0.4%。目前增加了{{current}}%(最高增加100%)",
             "goldenRevolutionII": "每次奇点使商店购买金夸克的花费减少0.2%。目前减少了{{current}}%(最高减少50%)",
             "goldenRevolutionIII": "每次奇点使每小时导出存档的金夸克奖励增加2%。目前增加了{{current}}%(最高增加500%)",
@@ -1888,6 +1889,7 @@
             "irishAnt2": "爱尔兰蚂蚁 II：电子布加洛舞",
             "overclocked": "超载",
             "wowCubeAutomatedShipping": "惊奇方盒自动运输",
+            "congealedblueberries": "Congealed Blueberries",
             "goldenRevolution": "金之革命",
             "goldenRevolutionII": "金之革命 II",
             "goldenRevolutionIII": "金之革命 III",

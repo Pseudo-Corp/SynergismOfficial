@@ -47,7 +47,7 @@ import { resetBlueberryTree } from './BlueberryUpgrades'
     Platonic and/or Khafra have the right to close PRs that do not conform to this style guide
 
     If you are editing this script, please update the below time:
-    Last Edited: Sunday, 28-May-23 22:36:58 UTC
+    Last Edited: June 10, 2021 3:04 AM UTC-8
 */
 
 /* eslint-disable @typescript-eslint/no-misused-promises */

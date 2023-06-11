@@ -1483,6 +1483,7 @@
                 "hasLevel1": "¡Compra automáticamente Mejoras de Cubos cada ascensión, sin importar dónde estés!",
                 "default": "Compra automáticamente Mejoras de Cubos cada ascensión, solo si estás en un Desafío de Singularidad."
             },
+            "congealedblueberries": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!",
             "goldenRevolution": "La Singularidad te da 0,4% más Quarks Dorados por Singularidad. Actual: +{{current}}% (MAX: +100%)",
             "goldenRevolutionII": "Los Quarks Dorados son 0,2% más baratos por Singularidad. Actual: -{{current}}% (MAX: -50%)",
             "goldenRevolutionIII": "Exportar te da 2% más Quarks Dorados por Singularidad. Actual:  +{{current}}% (MAX: +500%)",
@@ -1888,6 +1889,7 @@
             "irishAnt2": "Hormigas Irlandesas II: La Venganza",
             "overclocked": "Sobreacelerado",
             "wowCubeAutomatedShipping": "Envío Automatizado de Cubos ¡Wow!",
+            "congealedblueberries": "Congealed Blueberries",
             "goldenRevolution": "Revolución Dorada",
             "goldenRevolutionII": "Revolución Dorada II",
             "goldenRevolutionIII": "Revolución Dorada III",

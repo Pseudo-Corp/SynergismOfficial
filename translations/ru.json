@@ -1483,6 +1483,7 @@
                 "hasLevel1": "Автоматическая покупка улучшений кубов каждое вознесение, вне зависимости от того, где вы!",
                 "default": "Автоматическая покупка Улучшений Кубов каждое вознесение, но только если вы в Испытании Сингулярности."
             },
+            "congealedblueberries": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!",
             "goldenRevolution": "Сингулярность даёт на 0.4% больше Золотых Кварков за Сингулярность. Текущий: +{{current}}% (МАКС: +100%)",
             "goldenRevolutionII": "Золотые Кварки стоят на 0.2% дешевле за Сингулярность. Текущий: -{{current}}% (МАКС: -50%)",
             "goldenRevolutionIII": "Экспорт даёт на 2% больше Золотых Кварков за Сингулярность. Текущий: +{{current}}% (МАКС: +500%)",
@@ -1888,6 +1889,7 @@
             "irishAnt2": "Ирландские Муравьи II: Электрическое Бугало",
             "overclocked": "Разогнанный",
             "wowCubeAutomatedShipping": "Автоматические Поставки Wow! Кубов",
+            "congealedblueberries": "Congealed Blueberries",
             "goldenRevolution": "Золотая Революция",
             "goldenRevolutionII": "Золотая Революция II",
             "goldenRevolutionIII": "Золотая Революция III",

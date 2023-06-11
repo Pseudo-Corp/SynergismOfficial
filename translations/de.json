@@ -1483,6 +1483,7 @@
                 "hasLevel1": "Kaufe beim Aufstieg automatisch Würfel-Upgrades, egal wo du bist!",
                 "default": "Kaufe beim Aufstieg automatisch Würfel-Upgrades, aber nur in Singularitäts-Herausforderungen."
             },
+            "congealedblueberries": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!",
             "goldenRevolution": "Singularität gibt 0.4% mehr goldene Quarks je Singularity. Aktuell: +{{current}}% (MAX: +100%)",
             "goldenRevolutionII": "Goldene Quarks sind 0.2% günstiger je Singularity. Aktuell: -{{current}}% (MAX: -50%)",
             "goldenRevolutionIII": "Export gibt 2% mehr goldene Quarks je Singularity. Aktuell: +{{current}}% (MAX: +500%)",
@@ -1888,6 +1889,7 @@
             "irishAnt2": "Irish Ants II: Electric Boogaloo",
             "overclocked": "Overclocked",
             "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
+            "congealedblueberries": "Congealed Blueberries",
             "goldenRevolution": "Golden Revolution",
             "goldenRevolutionII": "Golden Revolution II",
             "goldenRevolutionIII": "Golden Revolution III",
