@@ -525,7 +525,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   chronometerInfinity: {
     tier: 'SingularityVol4',
     price: 1,
-    priceIncrease: 1.25e12,
+    priceIncrease: 2.5e12,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -534,7 +534,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   seasonPassInfinity: {
     tier: 'SingularityVol4',
     price: 1,
-    priceIncrease: 1.25e12,
+    priceIncrease: 3.75e12,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,

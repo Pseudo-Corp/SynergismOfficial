@@ -1294,9 +1294,9 @@
             "shopAmbrosiaGeneration3": "Оказывается, что если добавить ещё больше Обтаниумовой Пыли, амулет станет ещё сильнее, кэп. +1% к скорости генерации Таймера Голубики за уровень, сочетается перемножаемо.",
             "shopAmbrosiaGeneration4": "А что если также добавить Кварковую Пыль??? Пора это узнать. +0.1% к скорости генерации Таймера Голубики за уровень, сочетается перемножаемо.",
             "shopAmbrosiaLuck1": "Покупка этого амулета даёт +1 &#9752 Удачи Амброзии за уровень, что даёт больше Амброзии! Не знаете, что это значит? Скоро увидите.",
-            "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +1 &#9752 Ambrosia luck per level, stacking additively.",
-            "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +1 &#9752 Ambrosia luck per level, stacking additively.",
-            "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.3 &#9752 Ambrosia luck per level, stacking additively."
+            "shopAmbrosiaLuck2": "Вы получите немного больше четырех лиственный клевер, давая +1 &#9752 удачи Амброзия за уровень, складываясь суммарно.",
+            "shopAmbrosiaLuck3": "Вы получаете четырех лиственный клевер позеленее, дающий +1 &#9752 удачи Амброзии за уровень, складывающаяся суммарно.",
+            "shopAmbrosiaLuck4": "Вы получите немного 'лучше' четырех лиственный клевер, что бы то это значило, давая +0.3 &#9752 удачи Амброзия за уровень, складываясь суммарно."
         },
         "maxed": "Максимум!",
         "upgradeFor": "Улучшить за {{x}} Кварков",
@@ -1382,10 +1382,10 @@
             "shopAmbrosiaGeneration2": "Таймер Голубики генерируется на <<blue|{{amount}}%>> быстрее.",
             "shopAmbrosiaGeneration3": "Таймер Голубики генерируется на <<blue|{{amount}}%>> быстрее.",
             "shopAmbrosiaGeneration4": "Таймер Голубики генерируется на <<blue|{{amount}}%>> быстрее.",
-            "shopAmbrosiaLuck1": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
-            "shopAmbrosiaLuck2": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
-            "shopAmbrosiaLuck3": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
-            "shopAmbrosiaLuck4": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>"
+            "shopAmbrosiaLuck1": "Удача Амброзии <<lime|&#9752 +{{amount}}>>",
+            "shopAmbrosiaLuck2": "Удача Амброзии <<lime|&#9752 +{{amount}}>>",
+            "shopAmbrosiaLuck3": "Удача Амброзии <<lime|&#9752 +{{amount}}>>",
+            "shopAmbrosiaLuck4": "Удача Амброзии <<lime|&#9752 +{{amount}}>>"
         }
     },
     "singularity": {

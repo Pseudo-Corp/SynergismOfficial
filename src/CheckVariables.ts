@@ -19,6 +19,8 @@ import type { ISingularityChallengeData } from './SingularityChallenges'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import i18next from 'i18next'
 import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
+import type { IBlueberryData } from './BlueberryUpgrades'
+import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -367,6 +369,19 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     limitedAscensions: new SingularityChallenge(singularityChallengeData.limitedAscensions, 'limitedAscensions')
   }
 
+  player.blueberryUpgrades = {
+    ambrosiaTutorial: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaTutorial, 'ambrosiaTutorial'),
+    ambrosiaQuarks1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarks1, 'ambrosiaQuarks1'),
+    ambrosiaCubes1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubes1, 'ambrosiaQuarks1'),
+    ambrosiaLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuck1, 'ambrosiaLuck1'),
+    ambrosiaCubeQuark1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubeQuark1, 'ambrosiaCubeQuark1'),
+    ambrosiaLuckQuark1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckQuark1, 'ambrosiaLuckQuark1'),
+    ambrosiaLuckCube1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckCube1, 'ambrosiaLuckCube1'),
+    ambrosiaQuarkCube1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarkCube1, 'ambrosiaQuarkCube1'),
+    ambrosiaCubeLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubeLuck1, 'ambrosiaCubeLuck1'),
+    ambrosiaQuarkLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarkLuck1, 'ambrosiaQuarkLuck1')
+  }
+
   if (data.loadedOct4Hotfix === undefined || !player.loadedOct4Hotfix) {
     player.loadedOct4Hotfix = true
     // Only process refund if the save's researches array is already updated to v2
@@ -699,7 +714,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
           effect: singularityData[k].effect,
           canExceedCap: singularityData[k].canExceedCap,
           specialCostForm: singularityData[k].specialCostForm,
-          qualityOfLife: singularityData[k].qualityOfLife
+          qualityOfLife: singularityData[k].qualityOfLife,
+          cacheUpdates: singularityData[k].cacheUpdates
         }
         player.singularityUpgrades[k] = new SingularityUpgrade(updatedData, k.toString())
 
@@ -746,6 +762,38 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         }
       } else {
         player.octeractUpgrades[k].name = `[NEW!] ${player.octeractUpgrades[k].name}`
+      }
+    }
+  }
+
+  if (data.blueberryUpgrades != null) {
+    for (const item of Object.keys(blankSave.blueberryUpgrades)) {
+      const k = item as keyof Player['blueberryUpgrades']
+      let updatedData:IBlueberryData
+      if (data.blueberryUpgrades[k]) {
+        const { level, ambrosiaInvested, blueberriesInvested, toggleBuy, freeLevels } = data.blueberryUpgrades[k]
+        updatedData = {
+          maxLevel: blueberryUpgradeData[k].maxLevel,
+          costPerLevel: blueberryUpgradeData[k].costPerLevel,
+          level,
+          ambrosiaInvested,
+          blueberriesInvested,
+          toggleBuy,
+          blueberryCost: blueberryUpgradeData[k].blueberryCost,
+          rewards: blueberryUpgradeData[k].rewards,
+          costFormula: blueberryUpgradeData[k].costFormula,
+          freeLevels,
+          prerequisites: blueberryUpgradeData[k].prerequisites,
+          cacheUpdates: blueberryUpgradeData[k].cacheUpdates
+        }
+        player.blueberryUpgrades[k] = new BlueberryUpgrade(updatedData, k.toString())
+
+        if (player.blueberryUpgrades[k].maxLevel !== -1 &&
+                    player.blueberryUpgrades[k].level > player.blueberryUpgrades[k].maxLevel) {
+          player.blueberryUpgrades[k].refund()
+        }
+      } else {
+        player.blueberryUpgrades[k].name = `[NEW!] ${player.blueberryUpgrades[k].name}`
       }
     }
   }
@@ -929,6 +977,22 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
   if (data.blueberryTime === undefined) {
     player.blueberryTime = player.ambrosiaRNG
+  }
+
+  if (data.spentBlueberries === undefined) {
+    player.spentBlueberries = 0
+    if (player.singularityUpgrades.blueberries.level > 10) {
+      player.singularityUpgrades.blueberries.refund()
+    }
+
+    if (player.highestSingularityCount >= 100) {
+      const reduce = Math.min(6, Math.ceil(1/20 * (player.highestSingularityCount - 100)))
+      player.highestSingularityCount -= reduce
+      if (!player.insideSingularityChallenge) {
+        player.singularityCount -= reduce
+      }
+      void Alert(`Due to recent balance changes your highest singularity count was reduced by ${reduce}. This is for your own good!`)
+    }
   }
 
   player.caches = {

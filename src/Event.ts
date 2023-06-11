@@ -1,4 +1,4 @@
-import { player, getTimePinnedToLoadDate } from './Synergism'
+import { player, getTimePinnedToLoadDate, format } from './Synergism'
 import { Globals as G } from './Variables'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import i18next from 'i18next'
@@ -25,6 +25,8 @@ interface HolidayData {
         offering?: number
         obtainium?: number
         octeract?: number
+        blueberryTime?: number
+        ambrosiaLuck?: number
         oneMind?: number
     }
 }
@@ -56,25 +58,27 @@ const events: Record<string, HolidayData> = {
   },
   // Last active event
   last: {
-    name: 'Synergism 3: More Synergies',
-    color: 'white',
-    url: 'https://www.youtube.com/watch?v=M8JO51TLGgg',
+    name: 'MIT 2023 Graduation Reception',
+    color: '#a31f34',
+    url: 'https://youtu.be/1isq6KySUe8?t=34',
     everyYear: false,
-    start: '05/01/2023 00:00:00',
-    end: '05/07/2023 23:59:59',
+    start: '06/01/2023 00:00:00',
+    end: '06/23/2023 20:00:00',
     notice: 20,
     event: true,
     buffs: {
-      quark: 0.33,
-      globalSpeed: 0.33,
-      ascensionSpeed: 0.33,
-      antSacrifice: 0.33,
-      offering: 0.33,
-      obtainium: 0.33,
-      octeract: 0.33,
-      powderConversion: 0.33,
+      quark: 0.4,
+      globalSpeed: 0.3,
+      ascensionSpeed: 0.4,
+      antSacrifice: 0,
+      offering: 0,
+      obtainium: 0,
+      octeract: 0,
+      powderConversion: 0,
       goldenQuark: 0,
-      oneMind: 0.033
+      blueberryTime: 0.3,
+      ambrosiaLuck: 3,
+      oneMind: 0.02023
     }
   },
   khafra: {
@@ -300,9 +304,9 @@ export const eventCheck = () => {
       const eventBuff = calculateEventSourceBuff(eventBuffType[i])
       if (eventBuff !== 0) {
         if (eventBuffType[i] === 'One Mind' && player.singularityUpgrades.oneMind.level > 0) {
-          buffs += `<span style="color: gold">${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}</span> ,`
+          buffs += `<span style="color: gold">${eventBuff >= 0 ? '+' : '-'}${format(100 * eventBuff, 3, true)}% ${eventBuffName[i]}</span> ,`
         } else if (eventBuffType[i] !== 'One Mind' || player.singularityUpgrades.oneMind.level === 0) {
-          buffs += `${eventBuff >= 0 ? '+' : '-'}${Math.round(Math.abs(eventBuff) * 100)}% ${eventBuffName[i]}, `
+          buffs += `${eventBuff >= 0 ? '+' : '-'}${format(100 * eventBuff, 2, true)}% ${eventBuffName[i]}, `
         }
       }
     }
@@ -331,8 +335,8 @@ export const eventCheck = () => {
   }
 }
 
-const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium', 'Octeract', 'One Mind']
-const eventBuffName = ['Quarks', 'Golden Quarks', 'Cubes from all type', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice rewards', 'Offering', 'Obtainium', 'Eight Dimensional Hypercubes', 'One Mind Quark Bonus']
+const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium', 'Octeract', 'Blueberry Time', 'Ambrosia Luck', 'One Mind']
+const eventBuffName = ['Quarks', 'Golden Quarks', 'Cubes from all type', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice rewards', 'Offering', 'Obtainium', 'Eight Dimensional Hypercubes', 'Blueberry Time Generation', 'Ambrosia Luck (Additive)', 'One Mind Quark Bonus']
 
 export const calculateEventSourceBuff = (buff: string): number => {
   const event = getEvent()
@@ -349,6 +353,8 @@ export const calculateEventSourceBuff = (buff: string): number => {
     case 'Obtainium': return event.buffs.obtainium ?? 0
     case 'Octeract': return event.buffs.octeract ?? 0
     case 'One Mind': return (player.singularityUpgrades.oneMind.level > 0) ? event.buffs.oneMind ?? 0 : 0
+    case 'Blueberry Time': return event.buffs.blueberryTime ?? 0
+    case 'Ambrosia Luck': return event.buffs.ambrosiaLuck ?? 0
     default: return 0
   }
 }
