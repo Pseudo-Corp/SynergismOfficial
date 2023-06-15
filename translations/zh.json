@@ -1907,6 +1907,46 @@
                 "name": "蓝莓碎片!",
                 "description": "是蓝莓！啊，Platonic已经无计可施了。嗯，每个蓝莓每秒有0.01%的概率产生神肴！",
                 "effect": "您购买了{{n}}个美味的蓝莓。"
+            },
+            "singAmbrosiaLuck2": {
+                "name": "好运之镀金莓",
+                "description": "就是字面上的意义，把蓝莓镀上金，变得更幸运。每级使☘ 神肴之运增加2！",
+                "effect": "☘ 神肴之运增加{{n}}(!)"
+            },
+            "singAmbrosiaLuck3": {
+                "name": "专注冶金",
+                "description": "使每颗蓝莓浸润更多黄金。每级使☘ 神肴之运增加3！",
+                "effect": "☘ 神肴之运增加{{n}}(!)"
+            },
+            "singAmbrosiaLuck": {
+                "name": "绝对至高温度",
+                "description": "您冶炼黄金的温度已经无限接近绝对至高温度了。每级使☘ 神肴之运增加4，且该升级无上限！",
+                "effect": "☘ 神肴之运增加{{n}}(!)"
+            },
+            "singAmbrosiaLuck4": {
+                "name": "来自游戏最初的炼金术也可以满足您对黄金莓的需求",
+                "description": "是的，升级标题也可以这么长。每级使☘ 神肴之运增加5！",
+                "effect": "☘ 神肴之运增加{{n}}(!)"
+            },
+            "singAmbrosiaGeneration2": {
+                "name": "重要之沙漏",
+                "description": "这个有点重要的沙漏每级可以使蓝莓秒的产生速度增加1%。",
+                "effect": "蓝莓秒的产生速度+{{n}}%(!)"
+            },
+            "singAmbrosiaGeneration3": {
+                "name": "显著之沙漏",
+                "description": "这个沙漏或许更加重要一些。它每级可以使蓝莓秒的产生速度增加1%。",
+                "effect": "蓝莓秒的产生速度+{{n}}%(!)"
+            },
+            "singAmbrosiaGeneration": {
+                "name": "无限之沙漏",
+                "description": "切记——这个沙漏真的很重要。它每级可以使蓝莓秒的产生速度增加1%，且该升级无上限！",
+                "effect": "蓝莓秒的产生速度+{{n}}%(!)"
+            },
+            "singAmbrosiaGeneration4": {
+                "name": "幻想之沙漏",
+                "description": "一个不重要也不那么“及时”的沙漏——至于这是什么意思，管他呢。它每级可以使蓝莓秒的产生速度增加2%。",
+                "effect": "蓝莓秒的产生速度+{{n}}%(!)"
             }
         },
         "goldenQuarkAmount": "您有{{goldenQuarks}}金夸克！",
@@ -2715,10 +2755,45 @@
                 "description": "您想知道这个升级的效果，但Derpsmith只是点了点头。他到底在隐瞒着什么？",
                 "effect": "一心对八阶方块获取数量的加成变为{{n}}次方。"
             },
+            "octeractAmbrosiaLuck2": {
+                "name": "佛罗伦萨蔓越莓",
+                "description": "很显然并不是蓝莓的换皮版本！使☘ 神肴之运增加2，它可以在蓝莓产生神肴时，增加神肴的获取数量。",
+                "effect": "☘ 神肴之运增加{{n}}(!)"
+            },
+            "octeractAmbrosiaLuck3": {
+                "name": "四叶草之莓",
+                "description": "很显然并不是蓝莓的换皮版本！使☘ 神肴之运增加3。",
+                "effect": "☘ 神肴之运增加{{n}}(!)"
+            },
             "octeractAmbrosiaLuck": {
                 "name": "八叶草之莓",
-                "description": "很显然并不是蓝莓的换皮版本！使神肴之运增加3，它可以在蓝莓产生神肴时，增加神肴的获取数量。",
-                "effect": "获取数量增加{{n}}(!)"
+                "description": "很显然并不是蓝莓的换皮版本！使☘ 神肴之运增加4，且该升级无上限！",
+                "effect": "☘ 神肴之运增加{{n}}(!)"
+            },
+            "octeractAmbrosiaLuck4": {
+                "name": "十叶草之莓",
+                "description": "很显然并不是蓝莓的换皮版本！使☘ 神肴之运增加5，它真的很昂贵。",
+                "effect": "☘ 神肴之运增加{{n}}(!)"
+            },
+            "octeractAmbrosiaGeneration2": {
+                "name": "细枝末节之沙漏",
+                "description": "这个有点原始的沙漏每级可以使蓝莓秒的产生速度增加1%。",
+                "effect": "蓝莓秒的产生速度+{{n}}%(!)"
+            },
+            "octeractAmbrosiaGeneration3": {
+                "name": "肌病之沙漏",
+                "description": "这个沙漏略微没那么原始了。它每级可以使蓝莓秒的产生速度增加1%。",
+                "effect": "蓝莓秒的产生速度+{{n}}%(!)"
+            },
+            "octeractAmbrosiaGeneration": {
+                "name": "无穷之沙漏",
+                "description": "别弄错了——这个沙漏真的非常原始。但它每级可以使蓝莓秒的产生速度增加1%，且该升级无上限！",
+                "effect": "蓝莓秒的产生速度+{{n}}%(!)"
+            },
+            "octeractAmbrosiaGeneration4": {
+                "name": "现实之沙漏",
+                "description": "一个不原始而且更加“及时”的沙漏——至于这是什么意思，管他呢。它每级可以使蓝莓秒的产生速度增加2%。",
+                "effect": "蓝莓秒的产生速度+{{n}}%(!)"
             }
         },
         "amount": "您有{{octeracts}}惊奇八阶方块！",
