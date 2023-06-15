@@ -67,17 +67,17 @@ const events: Record<string, HolidayData> = {
     notice: 20,
     event: true,
     buffs: {
-      quark: 0.2023,
-      globalSpeed: 0.2023,
-      ascensionSpeed: 0.2023,
+      quark: 0.4,
+      globalSpeed: 0.3,
+      ascensionSpeed: 0.4,
       antSacrifice: 0,
       offering: 0,
       obtainium: 0,
       octeract: 0,
       powderConversion: 0,
       goldenQuark: 0,
-      blueberryTime: 0.2023,
-      ambrosiaLuck: 2.023,
+      blueberryTime: 0.3,
+      ambrosiaLuck: 3,
       oneMind: 0.02023
     }
   },
@@ -332,6 +332,8 @@ export const eventCheck = () => {
   }
   if (G.isEvent !== updateIsEventCheck) {
     revealStuff()
+    player.caches.ambrosiaGeneration.updateVal('Event')
+    player.caches.ambrosiaLuck.updateVal('Event')
   }
 }
 

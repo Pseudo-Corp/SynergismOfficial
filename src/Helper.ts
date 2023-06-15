@@ -2,13 +2,12 @@ import { sacrificeAnts } from './Ants'
 import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateGoldenQuarkGain, calculateMaxRunes, calculateObtainium, calculateRequiredBlueberryTime, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
 import { quarkHandler } from './Quark'
 import { redeemShards, unlockedRune, checkMaxRunes } from './Runes'
-import { format, player } from './Synergism'
+import { player } from './Synergism'
 import { visualUpdateAmbrosia, visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 import { buyAllBlessings } from './Buy'
 import { buyAllTalismanResources } from './Talismans'
 import { useConsumable } from './Shop'
-import { Notification } from './UpdateHTML'
 
 type TimerInput = 'prestige' | 'transcension' | 'reincarnation' | 'ascension' |
                   'quarks' | 'goldenQuarks' | 'singularity' | 'octeracts' |
@@ -159,8 +158,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
         player.ambrosia += 1 * (ambrosiaMult + luckMult) * timeMult
         player.lifetimeAmbrosia += 1 * (ambrosiaMult + luckMult) * timeMult
         player.blueberryTime -= timeToAmbrosia * timeMult
-
-        void Notification(`You have earned ${(ambrosiaMult + luckMult) * timeMult} Ambrosia ${luckMult > 0 ? '[Lucky]' : ''}!!! You now have ${format(player.ambrosia)}.`)
       }
 
       visualUpdateAmbrosia()
