@@ -933,6 +933,17 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
           enabled: value.enabled
         }]
       })
+    ),
+    blueberryUpgradeData: Object.fromEntries(
+      Object.entries(player.blueberryUpgrades).map(([key, value]) => {
+        return [key, {
+          level: value.level,
+          ambrosiaInvested: value.ambrosiaInvested,
+          blueberriesInvested: value.blueberriesInvested,
+          toggleBuy: value.toggleBuy,
+          freeLevels: value.freeLevels,
+        }]
+      })
     )
   })
 
