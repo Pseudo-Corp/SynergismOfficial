@@ -1050,7 +1050,7 @@
             "67": "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
             "68": "[Cx18] What the heck! These aren't even cookies. +0.01% Quarks per level purchased of this upgrade. +5% more at level 1,000!",
             "69": "[Cx19] Cookies that you'll never remember again. +12% Golden Quarks this Singularity.",
-            "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts on Ascension if every corruption is set to level 14."
+            "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts on Ascension if the average level of all corruptions is at a minimum of 14."
         },
         "cubeMetadata": {
             "cost": "Cost: {{value1}} Wow! Cubes [+{{value2}} Levels]",

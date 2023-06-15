@@ -10,11 +10,73 @@
         "saveToClipboard": "Вы уверены, что хотите включить копирование сохранения в буфер обмена?"
     },
     "ambrosia": {
+        "ambrosia": "Амброзия",
         "amount": "У вас <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Амброзии!",
         "blueberryGeneration": "Каждую секунду, вы получаете <<var(--amber-text-color)|{{chance}}>> секунд Таймера Голубики.",
         "perGen": "Сейчас получаете <<var(--amber-text-color)|{{guaranteed}}>> с вероятностью <<var(--amber-text-color)|{{extraChance}}%>> на ещё одно. [<<var(--lime-text-color)|Удача: ☘ {{ambrosiaLuck}}>>]",
         "blueberrySecond": "Сейчас у вас накоплено <<var(--amber-text-color)|{{blueberrySecond}}>> секунд Голубики! Вероятность создания следующей Голубики <<var(--amber-text-color)|x{{RNG}}>> (Гарантирован на 10,000 секунд Голубики)",
-        "bonuses": "Ваша накопившаяся амброзия временно даёт <<var(--amber-text-color)|+{{cube}}%>> к ВСЕМ кубам и <<cyan|+{{quark}}%>> к Кваркам!"
+        "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
+        "prerequisite": "Необходимо:",
+        "prereqNotMet": " (Не Выполнено!)",
+        "blueberryCost": "Голубики (Для Активации):",
+        "prereqNotMetAlert": "Вы не выполнили необходимые требования для покупки этого улучшения.",
+        "notEnoughBlueberries": "У вас недостаточно Голубики для активации этого модуля.",
+        "availableBlueberries": "У вас <<blue|{{availableBlueberries}}>> не потраченной Голубики. Разблокируйте модули нового уровня, использовав их!",
+        "ambrosiaBuyPrompt": "Сколько Амброзии вы хотели бы потратить? У вас {{amount}} Амброзии. Введите -1, чтобы использовать максимум!",
+        "refund": "Вы вернули всю потраченную Голубику и Амброзию.",
+        "refundWord": "Возврат",
+        "data": {
+            "ambrosiaTutorial": {
+                "name": "Тренировочный Модуль Амброзии",
+                "description": "Голубика со временем создаёт Амброзию. Потратьте её в дереве Амброзии! +5% Кубов/уровень, +1% Кварков/уровень",
+                "effect": "Этот тренировочный модуль увеличивает получение кубов на {{cubeAmount}}% и кварков на {{quarkAmount}}%"
+            },
+            "ambrosiaQuarks1": {
+                "name": "Модуль Амброзии: Кварки I",
+                "description": "Поздравляем с завершением тренировочного модуля. Он нужен максимального уровня, чтобы купить уровень этого. +1% Кварков/ур.",
+                "effect": "Этот модуль кварков увеличивает получение кварков на {{amount}}%"
+            },
+            "ambrosiaCubes1": {
+                "name": "Модуль Амброзии: Кубы I",
+                "description": "Поздравляем с завершением тренировочного модуля. Он нужен максимального уровня, чтобы купить уровень этого. +5% Кубов/ур. Каждые 10 уровней, даёт 1.1х Кубов.",
+                "effect": "Этот модуль кубов увеличивает получение кубов на {{amount}}%"
+            },
+            "ambrosiaLuck1": {
+                "name": "Модуль Амброзии: Удача I",
+                "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. &#9752 +2 Ambrosia Luck/lvl. Every 10 levels gives &#9752 +12 more!",
+                "effect": "Этот модуль удачи увеличивает &#9752 Удачу Амброзии на {{amount}}"
+            },
+            "ambrosiaCubeQuark1": {
+                "name": "Гибридный Модуль Амброзии: Кубы-Кварки I",
+                "description": "Гибридный модуль первого поколения. Даёт +0.01% Кварков за уровень за количество цифр во всех видах кубов.",
+                "effect": "Этот гибридный модуль первого поколения увеличивает получение Кварков на {{amount}}%"
+            },
+            "ambrosiaLuckQuark1": {
+                "name": "Гибридный Модуль Амброзии: Удача-Кварки I",
+                "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
+                "effect": "Этот гибридный модуль первого поколения увеличивает получение Кварков на {{amount}}%"
+            },
+            "ambrosiaQuarkCube1": {
+                "name": "Гибридный Модуль Амброзии: Кварки-Кубы I",
+                "description": "Гибридный модуль первого поколения. Даёт +0.05% кубов за уровень за квадрат количества знаков вашего счёта Кварков!",
+                "effect": "Этот гибридный модуль первого поколения увеличивает получение кубов на {{amount}}%"
+            },
+            "ambrosiaLuckCube1": {
+                "name": "Гибридный Модуль Амброзии: Удача-Кубы I",
+                "description": "Гибридный модуль первого поколения. Даёт +0.02% кубов за уровень за единицу &#9752 Удачи Амброзии!",
+                "effect": "Этот гибридный модуль первого поколения увеличивает получение кубов на {{amount}}%"
+            },
+            "ambrosiaCubeLuck1": {
+                "name": "Гибридный Модуль Амброзии: Кубы-Удача I",
+                "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in the values of all cube types.",
+                "effect": "Этот гибридный модуль первого поколения увеличивает &#9752 Удачу Амброзии на {{amount}}"
+            },
+            "ambrosiaQuarkLuck1": {
+                "name": "Гибридный Модуль Амброзии: Кварки-Удача I",
+                "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in your Quark balance, squared.",
+                "effect": "Этот гибридный модуль первого поколения увеличивает &#9752 Удачу Амброзии на {{amount}}"
+            }
+        }
     },
     "achievements": {
         "descriptions": {
@@ -1293,10 +1355,10 @@
             "shopAmbrosiaGeneration2": "Недавно укреплённая Обтаниумовая Пыль делает ваш амулет ещё сильнее, увеличивая скорость генерации Таймера Голубики на +1% за уровень, сочетается перемножаемо.",
             "shopAmbrosiaGeneration3": "Оказывается, что если добавить ещё больше Обтаниумовой Пыли, амулет станет ещё сильнее, кэп. +1% к скорости генерации Таймера Голубики за уровень, сочетается перемножаемо.",
             "shopAmbrosiaGeneration4": "А что если также добавить Кварковую Пыль??? Пора это узнать. +0.1% к скорости генерации Таймера Голубики за уровень, сочетается перемножаемо.",
-            "shopAmbrosiaLuck1": "Покупка этого амулета даёт +1 &#9752 Удачи Амброзии за уровень, что даёт больше Амброзии! Не знаете, что это значит? Скоро увидите.",
-            "shopAmbrosiaLuck2": "Вы получите немного больше четырех лиственный клевер, давая +1 &#9752 удачи Амброзия за уровень, складываясь суммарно.",
-            "shopAmbrosiaLuck3": "Вы получаете четырех лиственный клевер позеленее, дающий +1 &#9752 удачи Амброзии за уровень, складывающаяся суммарно.",
-            "shopAmbrosiaLuck4": "Вы получите немного 'лучше' четырех лиственный клевер, что бы то это значило, давая +0.3 &#9752 удачи Амброзия за уровень, складываясь суммарно."
+            "shopAmbrosiaLuck1": "Покупка этого амулета даёт +2 ☘ Удачи Амброзии за уровень, что даёт больше Амброзии! Не знаете, что это значит? Скоро увидите.",
+            "shopAmbrosiaLuck2": "Вы получите немного больший четырёхлистный клевер, дающий +2 ☘ удачи Амброзии за уровень, складывающейся суммарно.",
+            "shopAmbrosiaLuck3": "Вы получите четырёхлистный клевер позеленее, дающий +2 ☘ удачи Амброзии за уровень, складывающейся суммарно.",
+            "shopAmbrosiaLuck4": "Вы получите четырёхлистный клевер 'получше' - что бы это не значило -, дающий +0.6 ☘ удачи Амброзии за уровень, складывающейся суммарно."
         },
         "maxed": "Максимум!",
         "upgradeFor": "Улучшить за {{x}} Кварков",
@@ -1483,7 +1545,7 @@
                 "hasLevel1": "Автоматическая покупка улучшений кубов каждое вознесение, вне зависимости от того, где вы!",
                 "default": "Автоматическая покупка Улучшений Кубов каждое вознесение, но только если вы в Испытании Сингулярности."
             },
-            "congealedblueberries": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!",
+            "congealedblueberries": "Полутвёрдая Голубика, выполняет все функции нормальной. Даёт +{{i}} ягод Голубики, которые могут быть использованы в дереве Голубики!",
             "goldenRevolution": "Сингулярность даёт на 0.4% больше Золотых Кварков за Сингулярность. Текущий: +{{current}}% (МАКС: +100%)",
             "goldenRevolutionII": "Золотые Кварки стоят на 0.2% дешевле за Сингулярность. Текущий: -{{current}}% (МАКС: -50%)",
             "goldenRevolutionIII": "Экспорт даёт на 2% больше Золотых Кварков за Сингулярность. Текущий: +{{current}}% (МАКС: +500%)",
@@ -1845,6 +1907,46 @@
                 "name": "Осколки Голубики! (НЗП)",
                 "description": "Голубика! Да, у Platonic закончились идеи. Что ж, каждая Голубика даёт 0.01% вероятности в секунду получить немного Амброзии!",
                 "effect": "Вы купили {{n}} вкусной голубики."
+            },
+            "singAmbrosiaLuck2": {
+                "name": "Gilded Berries of Good Fortune",
+                "description": "Literally put some gold onto 'berries' and become lucky. ☘ +2 Ambrosia Luck per level!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "singAmbrosiaLuck3": {
+                "name": "Dedicated Gold Smelting",
+                "description": "More gold is dipped onto each berry. ☘ +3 Ambrosia Luck per level!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "singAmbrosiaLuck": {
+                "name": "Absolute Hot",
+                "description": "Your gold smelters get arbitrarily close to 'Absolute Hot'. ☘ +4 Ambrosia Luck per level, infinitely levelable!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "singAmbrosiaLuck4": {
+                "name": "The Alchemists from the Beginning of the Game Work for your Golden Berry Needs",
+                "description": "Yeah, these upgrade titles can be arbitrarily long, too. ☘ +5 Ambrosia Luck per level!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "singAmbrosiaGeneration2": {
+                "name": "Hourglass of Importance",
+                "description": "A somewhat important hourglass which somehow makes your blueberries generate seconds 1% faster per level..",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "singAmbrosiaGeneration3": {
+                "name": "Hourglass of Significance",
+                "description": "An hourglass which is still important, perhaps even more so. +1% Blueberry Second Generation per level.",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "singAmbrosiaGeneration": {
+                "name": "Hourglass of Limitlessness",
+                "description": "Remember- this hourglass is really important. But it gives +1% Blueberry Second Generation per level and is infinitely levelable!",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "singAmbrosiaGeneration4": {
+                "name": "Hourglass of Fantasy",
+                "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% Blueberry Second Generation per level.",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             }
         },
         "goldenQuarkAmount": "У вас {{goldenQuarks}} Золотых Кварков!",
@@ -1889,7 +1991,7 @@
             "irishAnt2": "Ирландские Муравьи II: Электрическое Бугало",
             "overclocked": "Разогнанный",
             "wowCubeAutomatedShipping": "Автоматические Поставки Wow! Кубов",
-            "congealedblueberries": "Congealed Blueberries",
+            "congealedblueberries": "Замороженная Голубика",
             "goldenRevolution": "Золотая Революция",
             "goldenRevolutionII": "Золотая Революция II",
             "goldenRevolutionIII": "Золотая Революция III",
@@ -2653,10 +2755,45 @@
                 "description": "Вы спрашиваете, что даёт это улучшение, но Кукузнец просто кивает головой. Что же он от вас прячет?",
                 "effect": "Единый Разум преобразует Скорость Вознесения в Получение Октерактов в степени {{n}}."
             },
+            "octeractAmbrosiaLuck2": {
+                "name": "Florentine Cranberries",
+                "description": "Totally not a reskin of the blueberry! Adds ☘ +2 Ambrosia Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "octeractAmbrosiaLuck3": {
+                "name": "Berries of a Four Leaf Clover",
+                "description": "Totally not a reskin of the blueberry! Adds ☘ +3 Ambrosia Luck per level.",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
             "octeractAmbrosiaLuck": {
-                "name": "Ягоды Восьмилистного Клевера (НЗП)",
-                "description": "Сто процентов не рескин голубики! Добавляет +1 к Удаче Амброзии, которая увеличивает количество выпадения Амброзии, когда Голубика генерирует Амброзию.",
-                "effect": "Удача Амброзии +{{n}} (!)"
+                "name": "Ягоды Восьмилистного Клевера",
+                "description": "Totally not a reskin of the blueberry! Adds ☘ +4 Ambrosial Luck per level, and it is infinitely levelable!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "octeractAmbrosiaLuck4": {
+                "name": "Berries of a Ten Leaf Clover",
+                "description": "Totally not a reskin of the blueberry! Adds ☘ +5 Ambrosial Luck. And it's mega expensive somehow.",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "octeractAmbrosiaGeneration2": {
+                "name": "Hourglass of Minutiae",
+                "description": "A somewhat primative hourglass which somehow makes your blueberries generate seconds 1% faster per level..",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "octeractAmbrosiaGeneration3": {
+                "name": "Hourglass of Myopathy",
+                "description": "An hourglass which is still primative, though somehow less so. +1% Blueberry Second Generation per level.",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "octeractAmbrosiaGeneration": {
+                "name": "Hourglass of Infinitude",
+                "description": "Don't get it twisted- this hourglass is really primative. But it gives +1% Blueberry Second Generation per level and is infinitely levelable!",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "octeractAmbrosiaGeneration4": {
+                "name": "Hourglass of Reality",
+                "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% Blueberry Second Generation per level.",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             }
         },
         "amount": "У вас {{octeracts}} Октерактов!",
