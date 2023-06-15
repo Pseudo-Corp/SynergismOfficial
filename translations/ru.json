@@ -1907,6 +1907,46 @@
                 "name": "Осколки Голубики! (НЗП)",
                 "description": "Голубика! Да, у Platonic закончились идеи. Что ж, каждая Голубика даёт 0.01% вероятности в секунду получить немного Амброзии!",
                 "effect": "Вы купили {{n}} вкусной голубики."
+            },
+            "singAmbrosiaLuck2": {
+                "name": "Gilded Berries of Good Fortune",
+                "description": "Literally put some gold onto 'berries' and become lucky. ☘ +2 Ambrosia Luck per level!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "singAmbrosiaLuck3": {
+                "name": "Dedicated Gold Smelting",
+                "description": "More gold is dipped onto each berry. ☘ +3 Ambrosia Luck per level!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "singAmbrosiaLuck": {
+                "name": "Absolute Hot",
+                "description": "Your gold smelters get arbitrarily close to 'Absolute Hot'. ☘ +4 Ambrosia Luck per level, infinitely levelable!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "singAmbrosiaLuck4": {
+                "name": "The Alchemists from the Beginning of the Game Work for your Golden Berry Needs",
+                "description": "Yeah, these upgrade titles can be arbitrarily long, too. ☘ +5 Ambrosia Luck per level!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "singAmbrosiaGeneration2": {
+                "name": "Hourglass of Importance",
+                "description": "A somewhat important hourglass which somehow makes your blueberries generate seconds 1% faster per level..",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "singAmbrosiaGeneration3": {
+                "name": "Hourglass of Significance",
+                "description": "An hourglass which is still important, perhaps even more so. +1% Blueberry Second Generation per level.",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "singAmbrosiaGeneration": {
+                "name": "Hourglass of Limitlessness",
+                "description": "Remember- this hourglass is really important. But it gives +1% Blueberry Second Generation per level and is infinitely levelable!",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "singAmbrosiaGeneration4": {
+                "name": "Hourglass of Fantasy",
+                "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% Blueberry Second Generation per level.",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             }
         },
         "goldenQuarkAmount": "У вас {{goldenQuarks}} Золотых Кварков!",
@@ -2715,10 +2755,45 @@
                 "description": "Вы спрашиваете, что даёт это улучшение, но Кукузнец просто кивает головой. Что же он от вас прячет?",
                 "effect": "Единый Разум преобразует Скорость Вознесения в Получение Октерактов в степени {{n}}."
             },
+            "octeractAmbrosiaLuck2": {
+                "name": "Florentine Cranberries",
+                "description": "Totally not a reskin of the blueberry! Adds ☘ +2 Ambrosia Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "octeractAmbrosiaLuck3": {
+                "name": "Berries of a Four Leaf Clover",
+                "description": "Totally not a reskin of the blueberry! Adds ☘ +3 Ambrosia Luck per level.",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
             "octeractAmbrosiaLuck": {
-                "name": "Ягоды Восьмилистного Клевера (НЗП)",
-                "description": "Сто процентов не рескин голубики! Добавляет +1 к Удаче Амброзии, которая увеличивает количество выпадения Амброзии, когда Голубика генерирует Амброзию.",
-                "effect": "Удача Амброзии +{{n}} (!)"
+                "name": "Ягоды Восьмилистного Клевера",
+                "description": "Totally not a reskin of the blueberry! Adds ☘ +4 Ambrosial Luck per level, and it is infinitely levelable!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "octeractAmbrosiaLuck4": {
+                "name": "Berries of a Ten Leaf Clover",
+                "description": "Totally not a reskin of the blueberry! Adds ☘ +5 Ambrosial Luck. And it's mega expensive somehow.",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "octeractAmbrosiaGeneration2": {
+                "name": "Hourglass of Minutiae",
+                "description": "A somewhat primative hourglass which somehow makes your blueberries generate seconds 1% faster per level..",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "octeractAmbrosiaGeneration3": {
+                "name": "Hourglass of Myopathy",
+                "description": "An hourglass which is still primative, though somehow less so. +1% Blueberry Second Generation per level.",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "octeractAmbrosiaGeneration": {
+                "name": "Hourglass of Infinitude",
+                "description": "Don't get it twisted- this hourglass is really primative. But it gives +1% Blueberry Second Generation per level and is infinitely levelable!",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "octeractAmbrosiaGeneration4": {
+                "name": "Hourglass of Reality",
+                "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% Blueberry Second Generation per level.",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             }
         },
         "amount": "У вас {{octeracts}} Октерактов!",
