@@ -12,7 +12,7 @@
     "ambrosia": {
         "ambrosia": "神肴",
         "amount": "您有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>神肴！",
-        "blueberryGeneration": "每秒获得<var(--amber-text-color)|{{chance}}>秒蓝莓时间。",
+        "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>秒蓝莓时间。",
         "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：☘ {{ambrosiaLuck}}>>]",
         "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<blue|{{thresholdTimer}}>>后可以产生神肴。",
         "bonuses": "您拥有的神肴使所有类型的方盒、立方和方块获取数量增加<var(--amber-text-color)|{{cube}}%>，并且使夸克获取数量增加<cyan|{{quark}}%>！",
