@@ -10,11 +10,73 @@
         "saveToClipboard": "Êtes-vous sûr de vouloir activer l'enregistrement de la sauvegarde dans le presse-papiers ?"
     },
     "ambrosia": {
+        "ambrosia": "Ambrosia",
         "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
         "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
         "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
         "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
-        "bonuses": "Temporarily, your saved ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!"
+        "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
+        "prerequisite": "Prerequisites:",
+        "prereqNotMet": " (Not Met!)",
+        "blueberryCost": "Blueberries (To Activate):",
+        "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
+        "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
+        "availableBlueberries": "You have <<blue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
+        "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
+        "refund": "You have refunded all spent Blueberries and Ambrosia.",
+        "refundWord": "Refund",
+        "data": {
+            "ambrosiaTutorial": {
+                "name": "Ambrosia Tutorial Module",
+                "description": "Blueberries generate Ambrosia over time. Spend them in the Ambrosia tree! +5% Cubes/lvl, +1% Quarks/lvl",
+                "effect": "This tutorial module increases cube gain by {{cubeAmount}}% and quarks by {{quarkAmount}}%"
+            },
+            "ambrosiaQuarks1": {
+                "name": "Ambrosia Quark Module I",
+                "description": "Congrats on completing the tutorial module. You need to have it maxed to buy levels of this. +1% Quarks/lvl.",
+                "effect": "This quark module increases Quark gain by {{amount}}%"
+            },
+            "ambrosiaCubes1": {
+                "name": "Ambrosia Cube Module I",
+                "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 10 levels gives 1.1x Cubes.",
+                "effect": "This cube module increases cube gain by {{amount}}%"
+            },
+            "ambrosiaLuck1": {
+                "name": "Ambrosia Luck Module I",
+                "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. &#9752 +2 Ambrosia Luck/lvl. Every 10 levels gives &#9752 +12 more!",
+                "effect": "This luck module increases &#9752 Ambrosia Luck by {{amount}}"
+            },
+            "ambrosiaCubeQuark1": {
+                "name": "Ambrosia Cube-Quark Hybrid Module I",
+                "description": "A first generation hybrid module. Gain +0.01% Quarks per level per digit in the values of all cube types.",
+                "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
+            },
+            "ambrosiaLuckQuark1": {
+                "name": "Ambrosia Luck-Quark Hybrid Module I",
+                "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
+                "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
+            },
+            "ambrosiaQuarkCube1": {
+                "name": "Ambrosia Quark-Cube Hybrid Module I",
+                "description": "A first generation hybrid module. Gain +0.05% more cubes per level per digit in your Quark balance, squared!",
+                "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
+            },
+            "ambrosiaLuckCube1": {
+                "name": "Ambrosia Luck-Cube Hybrid Module I",
+                "description": "A first generation hybrid module. Gain +0.02% more cubes per level per 1 &#9752 Ambrosia Luck!",
+                "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
+            },
+            "ambrosiaCubeLuck1": {
+                "name": "Ambrosia Cube-Luck Hybrid Module I",
+                "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in the values of all cube types.",
+                "effect": "This first generation hybrid module increases &#9752 Ambrosia Luck by {{amount}}"
+            },
+            "ambrosiaQuarkLuck1": {
+                "name": "Ambrosia Quark-Luck Hybrid Module I",
+                "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in your Quark balance, squared.",
+                "effect": "This first generation hybrid module increases &#9752 Ambrosia Luck by {{amount}}"
+            }
+        }
     },
     "achievements": {
         "descriptions": {
@@ -1293,10 +1355,10 @@
             "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% faster Blueberry Time generation per level, stacking multiplicatively.",
             "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% faster Blueberry Time generation per level, stacking multiplicatively.",
             "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +0.1% faster Blueberry Time generation per level, stacking multiplicatively.",
-            "shopAmbrosiaLuck1": "Buying this charm grants +1 &#9752 Ambrosia luck per level, for more Ambrosia! Don't know what that means? You soon will.",
-            "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +1 &#9752 Ambrosia luck per level, stacking additively.",
-            "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +1 &#9752 Ambrosia luck per level, stacking additively.",
-            "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.3 &#9752 Ambrosia luck per level, stacking additively."
+            "shopAmbrosiaLuck1": "Buying this charm grants +2 ☘ Ambrosia luck per level, for more Ambrosia! Don't know what that means? You soon will.",
+            "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
+            "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
+            "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.6 ☘ Ambrosia luck per level, stacking additively."
         },
         "maxed": "Max !",
         "upgradeFor": "Upgrade for {{x}} Quarks",
@@ -1845,6 +1907,46 @@
                 "name": "Blueberry Shards! (WIP)",
                 "description": "Blueberries! Yeah, Platonic is out of ideas. Well, each Blueberry gives a 0.01% chance per second to generate some Ambrosia!",
                 "effect": "You have purchased {{n}} tasty blueberries."
+            },
+            "singAmbrosiaLuck2": {
+                "name": "Gilded Berries of Good Fortune",
+                "description": "Literally put some gold onto 'berries' and become lucky. ☘ +2 Ambrosia Luck per level!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "singAmbrosiaLuck3": {
+                "name": "Dedicated Gold Smelting",
+                "description": "More gold is dipped onto each berry. ☘ +3 Ambrosia Luck per level!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "singAmbrosiaLuck": {
+                "name": "Absolute Hot",
+                "description": "Your gold smelters get arbitrarily close to 'Absolute Hot'. ☘ +4 Ambrosia Luck per level, infinitely levelable!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "singAmbrosiaLuck4": {
+                "name": "The Alchemists from the Beginning of the Game Work for your Golden Berry Needs",
+                "description": "Yeah, these upgrade titles can be arbitrarily long, too. ☘ +5 Ambrosia Luck per level!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "singAmbrosiaGeneration2": {
+                "name": "Hourglass of Importance",
+                "description": "A somewhat important hourglass which somehow makes your blueberries generate seconds 1% faster per level..",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "singAmbrosiaGeneration3": {
+                "name": "Hourglass of Significance",
+                "description": "An hourglass which is still important, perhaps even more so. +1% Blueberry Second Generation per level.",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "singAmbrosiaGeneration": {
+                "name": "Hourglass of Limitlessness",
+                "description": "Remember- this hourglass is really important. But it gives +1% Blueberry Second Generation per level and is infinitely levelable!",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "singAmbrosiaGeneration4": {
+                "name": "Hourglass of Fantasy",
+                "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% Blueberry Second Generation per level.",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             }
         },
         "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
@@ -2653,10 +2755,45 @@
                 "description": "You ask what this upgrade does, but Derpsmith just nods his head. What is he hiding from you?",
                 "effect": "One Mind converts Ascension Speed to Octeract Gain to the power of {{n}}."
             },
+            "octeractAmbrosiaLuck2": {
+                "name": "Florentine Cranberries",
+                "description": "Totally not a reskin of the blueberry! Adds ☘ +2 Ambrosia Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "octeractAmbrosiaLuck3": {
+                "name": "Berries of a Four Leaf Clover",
+                "description": "Totally not a reskin of the blueberry! Adds ☘ +3 Ambrosia Luck per level.",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
             "octeractAmbrosiaLuck": {
-                "name": "Berries of an Eight Leaf Clover (WIP)",
-                "description": "Totally not a reskin of the blueberry! Adds +3 Ambrosial Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
-                "effect": "Ambrosial Luck +{{n}}(!)"
+                "name": "Berries of an Eight Leaf Clover",
+                "description": "Totally not a reskin of the blueberry! Adds ☘ +4 Ambrosial Luck per level, and it is infinitely levelable!",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "octeractAmbrosiaLuck4": {
+                "name": "Berries of a Ten Leaf Clover",
+                "description": "Totally not a reskin of the blueberry! Adds ☘ +5 Ambrosial Luck. And it's mega expensive somehow.",
+                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+            },
+            "octeractAmbrosiaGeneration2": {
+                "name": "Hourglass of Minutiae",
+                "description": "A somewhat primative hourglass which somehow makes your blueberries generate seconds 1% faster per level..",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "octeractAmbrosiaGeneration3": {
+                "name": "Hourglass of Myopathy",
+                "description": "An hourglass which is still primative, though somehow less so. +1% Blueberry Second Generation per level.",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "octeractAmbrosiaGeneration": {
+                "name": "Hourglass of Infinitude",
+                "description": "Don't get it twisted- this hourglass is really primative. But it gives +1% Blueberry Second Generation per level and is infinitely levelable!",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+            },
+            "octeractAmbrosiaGeneration4": {
+                "name": "Hourglass of Reality",
+                "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% Blueberry Second Generation per level.",
+                "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             }
         },
         "amount": "You have {{octeracts}} Octeracts!",
