@@ -432,3 +432,97 @@ export const resetBlueberryTree = () => {
   }
   return Alert(i18next.t('ambrosia.refund'))
 }
+
+export const validateBlueberryTree = (modules: BlueberryOpt) => {
+
+  const ambrosiaBudget = player.lifetimeAmbrosia
+  const blueberryBudget = player.caches.blueberryInventory.totalVal
+
+  let spentAmbrosia = 0
+  let spentBlueberries = 0
+
+  let meetsPrerequisites = true
+  let meetsAmbrosia = true
+  let meetsBlueberries = true
+
+  for (const [key, val] of Object.entries(modules)) {
+    const k = key as keyof Player['blueberryUpgrades']
+
+    // Nix malicious or bad values
+    if (val < 0 || !Number.isFinite(val) || !Number.isInteger(val) || Number.isNaN(val)) {
+      return false
+    }
+    // Nix nonexistent modules
+    // eslint-disable-next-line
+    if (player.blueberryUpgrades[k] === undefined) return false
+
+    // Set val to max if it exceeds it, since it is possible module caps change over time.
+    const effectiveVal = Math.min(player.blueberryUpgrades[k].maxLevel, val)
+
+    // Check prereq for this specific module
+    const prereqs = player.blueberryUpgrades[k].preRequisites
+    if (prereqs !== undefined && val > 0) {
+      for (const [key2, val2] of Object.entries(prereqs)) {
+        const k2 = key2 as keyof BlueberryOpt
+        const level = modules[k2] ?? -1 /* If undefined, this is saying 'We need to have module
+        set to level val2 but it isn't even in our module loadout, so it cannot possibly satisfy prereqs'*/
+        if (level < val2) {
+          meetsPrerequisites = false
+        }
+      }
+    }
+
+    // Check blueberry costs
+    if (effectiveVal > 0) {
+      spentBlueberries += player.blueberryUpgrades[k].blueberryCost
+    }
+
+    // Check ambrosia costs
+    if (effectiveVal > 0) {
+      const valFunc = player.blueberryUpgrades[k].costFormula
+      const baseCost = player.blueberryUpgrades[k].costPerLevel
+      let tempCost = 0
+      for (let i = 0; i < val; i++) {
+        tempCost += valFunc(i, baseCost)
+      }
+      spentAmbrosia += tempCost
+    }
+  }
+
+  meetsAmbrosia = (ambrosiaBudget >= spentAmbrosia)
+  meetsBlueberries = (blueberryBudget >= spentBlueberries)
+
+  return (meetsPrerequisites && meetsAmbrosia && meetsBlueberries)
+}
+
+export const getBlueberryTree = () => {
+  return Object.fromEntries(Object.entries(player.blueberryUpgrades).map(([key, value]) => {
+    return [key, value.level]
+  }))
+}
+
+export const exportBlueberryTree = () => {
+
+  const modules = getBlueberryTree()
+  const save = JSON.stringify(modules)
+  const a = document.createElement('a')
+  a.setAttribute('href', 'data:text/plain;charset=utf-8,' + save)
+  a.setAttribute('download', 'Synergism Blueberry Tree Build')
+  a.setAttribute('id', 'downloadSave')
+  // "Starting in Firefox 75, the click() function works even when the element is not attached to a DOM tree."
+  // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click
+  // so let's have it work on older versions of Firefox, doesn't change functionality.
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.copiedFile')
+}
+
+export const importBlueberryTree = async (input: string | null) => {
+  if (typeof input !== 'string') {
+    return Alert(i18next.t('importexport.unableImport'))
+  } else {
+    const modules = JSON.parse(input) as BlueberryOpt
+    return validateBlueberryTree(modules)
+  }
+}
