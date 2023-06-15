@@ -941,7 +941,7 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
           ambrosiaInvested: value.ambrosiaInvested,
           blueberriesInvested: value.blueberriesInvested,
           toggleBuy: value.toggleBuy,
-          freeLevels: value.freeLevels,
+          freeLevels: value.freeLevels
         }]
       })
     )
