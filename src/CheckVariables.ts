@@ -326,7 +326,15 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     oneMind: new SingularityUpgrade(singularityData.oneMind, 'oneMind'),
     wowPass4: new SingularityUpgrade(singularityData.wowPass4, 'wowPass4'),
     offeringAutomatic: new SingularityUpgrade(singularityData.offeringAutomatic, 'offeringAutomatic'),
-    blueberries: new SingularityUpgrade(singularityData.blueberries, 'blueberries')
+    blueberries: new SingularityUpgrade(singularityData.blueberries, 'blueberries'),
+    singAmbrosiaLuck: new SingularityUpgrade(singularityData.singAmbrosiaLuck, 'singAmbrosiaLuck'),
+    singAmbrosiaLuck2: new SingularityUpgrade(singularityData.singAmbrosiaLuck2, 'singAmbrosiaLuck2'),
+    singAmbrosiaLuck3: new SingularityUpgrade(singularityData.singAmbrosiaLuck3, 'singAmbrosiaLuck3'),
+    singAmbrosiaLuck4: new SingularityUpgrade(singularityData.singAmbrosiaLuck4, 'singAmbrosiaLuck4'),
+    singAmbrosiaGeneration: new SingularityUpgrade(singularityData.singAmbrosiaGeneration, 'singAmbrosiaGeneration'),
+    singAmbrosiaGeneration2: new SingularityUpgrade(singularityData.singAmbrosiaGeneration2, 'singAmbrosiaGeneration2'),
+    singAmbrosiaGeneration3: new SingularityUpgrade(singularityData.singAmbrosiaGeneration3, 'singAmbrosiaGeneration3'),
+    singAmbrosiaGeneration4: new SingularityUpgrade(singularityData.singAmbrosiaGeneration4, 'singAmbrosiaGeneration4')
   }
 
   player.octeractUpgrades = {
@@ -359,7 +367,14 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     octeractAutoPotionSpeed: new OcteractUpgrade(octeractData.octeractAutoPotionSpeed, 'octeractAutoPotionSpeed'),
     octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData.octeractAutoPotionEfficiency, 'octeractAutoPotionEfficiency'),
     octeractOneMindImprover: new OcteractUpgrade(octeractData.octeractOneMindImprover, 'octeractOneMindImprover'),
-    octeractAmbrosiaLuck: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck, 'octeractAmbrosiaLuck')
+    octeractAmbrosiaLuck: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck, 'octeractAmbrosiaLuck'),
+    octeractAmbrosiaLuck2: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck2, 'octeractAmbrosiaLuck2'),
+    octeractAmbrosiaLuck3: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck3, 'octeractAmbrosiaLuck3'),
+    octeractAmbrosiaLuck4: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck4, 'octeractAmbrosiaLuck4'),
+    octeractAmbrosiaGeneration: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration, 'octeractAmbrosiaGeneration'),
+    octeractAmbrosiaGeneration2: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration2, 'octeractAmbrosiaGeneration2'),
+    octeractAmbrosiaGeneration3: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration3, 'octeractAmbrosiaGeneration3'),
+    octeractAmbrosiaGeneration4: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration4, 'octeractAmbrosiaGeneration4')
   }
 
   player.singularityChallenges = {
@@ -752,7 +767,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
           effect: octeractData[k].effect,
           costFormula: octeractData[k].costFormula,
           freeLevels,
-          qualityOfLife: octeractData[k].qualityOfLife
+          qualityOfLife: octeractData[k].qualityOfLife,
+          cacheUpdates: octeractData[k].cacheUpdates
         }
         player.octeractUpgrades[k] = new OcteractUpgrade(updatedData, k.toString())
 

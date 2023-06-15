@@ -2198,13 +2198,57 @@ export const calculateAmbrosiaLuckShopUpgrade = () => {
   return sumContents(vals)
 }
 
+export const calculateAmbrosiaGenerationSingularityUpgrade = () => {
+  const vals = [
+    +player.singularityUpgrades.singAmbrosiaGeneration.getEffect().bonus,
+    +player.singularityUpgrades.singAmbrosiaGeneration2.getEffect().bonus,
+    +player.singularityUpgrades.singAmbrosiaGeneration3.getEffect().bonus,
+    +player.singularityUpgrades.singAmbrosiaGeneration4.getEffect().bonus
+  ]
+
+  return productContents(vals)
+}
+
+export const calculateAmbrosiaLuckSingularityUpgrade = () => {
+  const vals = [
+    +player.singularityUpgrades.singAmbrosiaLuck.getEffect().bonus,
+    +player.singularityUpgrades.singAmbrosiaLuck2.getEffect().bonus,
+    +player.singularityUpgrades.singAmbrosiaLuck3.getEffect().bonus,
+    +player.singularityUpgrades.singAmbrosiaLuck4.getEffect().bonus
+  ]
+
+  return sumContents(vals)
+}
+
+export const calculateAmbrosiaGenerationOcteractUpgrade = () => {
+  const vals = [
+    +player.octeractUpgrades.octeractAmbrosiaGeneration.getEffect().bonus,
+    +player.octeractUpgrades.octeractAmbrosiaGeneration2.getEffect().bonus,
+    +player.octeractUpgrades.octeractAmbrosiaGeneration3.getEffect().bonus,
+    +player.octeractUpgrades.octeractAmbrosiaGeneration4.getEffect().bonus
+  ]
+
+  return productContents(vals)
+}
+
+export const calculateAmbrosiaLuckOcteractUpgrade = () => {
+  const vals = [
+    +player.octeractUpgrades.octeractAmbrosiaLuck.getEffect().bonus,
+    +player.octeractUpgrades.octeractAmbrosiaLuck2.getEffect().bonus,
+    +player.octeractUpgrades.octeractAmbrosiaLuck3.getEffect().bonus,
+    +player.octeractUpgrades.octeractAmbrosiaLuck4.getEffect().bonus
+  ]
+
+  return sumContents(vals)
+}
+
 export const calculateRequiredBlueberryTime = () => {
   let val = G.TIME_PER_AMBROSIA // Currently 600
   val += Math.floor(player.lifetimeAmbrosia / 30)
 
   const baseVal = val
 
-  const timeThresholds = [5000, 25000, 125000, 625000, 2e6, 1e7, 2.5e7]
+  const timeThresholds = [5000, 25000, 75000, 250000, 500000, 1e6, 2e6, 4e6, 1e7, 2e7, 4e7, 1e8]
   for (const threshold of timeThresholds) {
     if (baseVal >= threshold)
       val *= 2

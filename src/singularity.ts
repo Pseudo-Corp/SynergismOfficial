@@ -1130,6 +1130,128 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     specialCostForm: 'Exponential2',
     qualityOfLife: true,
     cacheUpdates: [() => player.caches.blueberryInventory.updateVal('SingularityUpgrade')]
+  },
+  singAmbrosiaLuck: {
+    maxLevel: -1,
+    costPerLevel: 1e9,
+    minimumSingularity: 187,
+    effect: (n: number) => {
+      return {
+        bonus: 4 * n,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaLuck.effect', { n: format(4 * n) })
+        }
+      }
+    },
+    specialCostForm: 'Exponential2',
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaLuck2: {
+    maxLevel: 30,
+    costPerLevel: 4e5,
+    minimumSingularity: 50,
+    effect: (n: number) => {
+      return {
+        bonus: 2 * n,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaLuck2.effect', { n: format(2 * n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaLuck3: {
+    maxLevel: 30,
+    costPerLevel: 2e8,
+    minimumSingularity: 119,
+    effect: (n: number) => {
+      return {
+        bonus: 3 * n,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaLuck3.effect', { n: format(3 * n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaLuck4: {
+    maxLevel: 50,
+    costPerLevel: 1e19,
+    minimumSingularity: 256,
+    effect: (n: number) => {
+      return {
+        bonus: 5 * n,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaLuck4.effect', { n: format(5 * n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaGeneration: {
+    maxLevel: -1,
+    costPerLevel: 1e9,
+    minimumSingularity: 187,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + n/100,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaGeneration.effect', { n: format(n) })
+        }
+      }
+    },
+    specialCostForm: 'Exponential2',
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaGeneration2: {
+    maxLevel: 20,
+    costPerLevel: 8e5,
+    minimumSingularity: 50,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + n/100,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaGeneration2.effect', { n: format(n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaGeneration3: {
+    maxLevel: 35,
+    costPerLevel: 3e8,
+    minimumSingularity: 119,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + n/100,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaGeneration3.effect', { n: format(n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaGeneration4: {
+    maxLevel: 50,
+    costPerLevel: 1e19,
+    minimumSingularity: 256,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + 2 * n / 100,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaGeneration4.effect', { n: format(2 * n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('SingularityBerries')]
   }
 }
 
