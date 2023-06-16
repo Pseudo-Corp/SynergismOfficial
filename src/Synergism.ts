@@ -934,7 +934,7 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
         }]
       })
     ),
-    blueberryUpgradeData: Object.fromEntries(
+    blueberryUpgrades: Object.fromEntries(
       Object.entries(player.blueberryUpgrades).map(([key, value]) => {
         return [key, {
           level: value.level,
