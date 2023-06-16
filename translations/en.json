@@ -1904,8 +1904,8 @@
                 "effectHaveNot": "You haven't quacked your last QUARK"
             },
             "blueberries": {
-                "name": "Fake Blueberries!",
-                "description": "Blueberries! Yeah, Platonic is out of ideas. Well, each level of this creates one 'imitation blueberry' which works and behaves just like a normal one. Huh.",
+                "name": "Blueberry Shards! (WIP)",
+                "description": "Blueberries! Yeah, Platonic is out of ideas. Well, each Blueberry gives a 0.01% chance per second to generate some Ambrosia!",
                 "effect": "You have purchased {{n}} tasty blueberries."
             },
             "singAmbrosiaLuck2": {
