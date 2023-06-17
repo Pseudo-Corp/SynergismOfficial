@@ -119,6 +119,7 @@ export const saveFilename = () => {
 }
 
 export const exportSynergism = async () => {
+  player.lastExportedSave = Date.now()
   player.offlinetick = Date.now()
   const quarkData = quarkHandler()
 
