@@ -12,7 +12,7 @@
     "ambrosia": {
         "ambrosia": "神肴",
         "amount": "您有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>神肴！",
-        "blueberryGeneration": "每秒获得<var(--amber-text-color)|{{chance}}>蓝莓秒。",
+        "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>蓝莓秒。",
         "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：☘ {{ambrosiaLuck}}>>]",
         "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<<blue|{{thresholdTimer}}>>后可以产生神肴。",
         "bonuses": "您拥有的神肴使所有类型的方盒、立方和方块获取数量增加<<var(--amber-text-color)|{{cube}}%>>，并且使夸克获取数量增加<<cyan|{{quark}}%>>！",
@@ -1351,10 +1351,10 @@
             "shopSingularityPenaltyDebuff": "Derpsmith对您在第一个拔擢里的表现感到很骄傲，他决定让奇点的惩罚弱化一些。但是花费，您懂的。",
             "obtainiumEX2": "对于每次奇点，每级使难得素获取数量增加1%！！！",
             "improveQuarkHept5": "它的效果只有正常强化的1/50。原因？为了平衡啊……",
-            "shopAmbrosiaGeneration1": "购买该小符饰后，每级可以使蓝莓秒的产生速度增加1%，以此获得更多神肴！还不知道这是什么吗？您迟早会知道的。",
-            "shopAmbrosiaGeneration2": "新加强的难度素粉可以使小符饰变得更强大，每级可以使蓝莓秒的产生速度增加1%，效果相互叠乘。",
-            "shopAmbrosiaGeneration3": "看来难度素粉越多，小符饰就越强大，多奇怪。每级可以使蓝莓秒的产生速度增加1%，效果相互叠乘。",
-            "shopAmbrosiaGeneration4": "如果加入夸克粉，又会怎么样？？？您会知道的。每级可以使蓝莓秒的产生速度增加0.1%，效果相互叠乘。",
+            "shopAmbrosiaGeneration1": "购买该小符饰后，每级可以使蓝莓时间的产生速度增加1%，以此获得更多神肴！还不知道这是什么吗？您迟早会知道的。",
+            "shopAmbrosiaGeneration2": "新加强的难度素粉可以使小符饰变得更强大，每级可以使蓝莓时间的产生速度增加1%，效果相互叠乘。",
+            "shopAmbrosiaGeneration3": "看来难度素粉越多，小符饰就越强大，多奇怪。每级可以使蓝莓时间的产生速度增加1%，效果相互叠乘。",
+            "shopAmbrosiaGeneration4": "如果加入夸克粉，又会怎么样？？？您会知道的。每级可以使蓝莓时间的产生速度增加0.1%，效果相互叠乘。",
             "shopAmbrosiaLuck1": "购买该小符饰后，每级可以使☘ 神肴之运增加2，以此获得更多神肴！还不知道这是什么吗？您迟早会知道的。",
             "shopAmbrosiaLuck2": "您获得了一颗更大了一点的四叶草，每级可以使☘ 神肴之运增加2，效果相互叠加。",
             "shopAmbrosiaLuck3": "您获得了一颗更绿了一点的四叶草，每级可以使☘ 神肴之运增加2，效果相互叠加。",
@@ -1440,10 +1440,10 @@
             "chronometerInfinity": "飞升的速度增加<<orange|{{amount}}%>>。",
             "seasonPassInfinity": "<<orchid|所有类型的方盒、立方和方块获取数量>>增加<<lightgoldenrodyellow|{{amount}}%>>。",
             "shopSingularityPenaltyDebuff": "在<<pink|{{amount1}}>>次奇点时，奇点相关惩罚视为在<<pink|{{amount2}}>>次奇点。",
-            "shopAmbrosiaGeneration1": "蓝莓秒的产生速度增加<blue|{{amount}}%>。",
-            "shopAmbrosiaGeneration2": "蓝莓秒的产生速度增加<blue|{{amount}}%>。",
-            "shopAmbrosiaGeneration3": "蓝莓秒的产生速度增加<blue|{{amount}}%>。",
-            "shopAmbrosiaGeneration4": "蓝莓秒的产生速度增加<blue|{{amount}}%>。",
+            "shopAmbrosiaGeneration1": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
+            "shopAmbrosiaGeneration2": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
+            "shopAmbrosiaGeneration3": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
+            "shopAmbrosiaGeneration4": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
             "shopAmbrosiaLuck1": "使神肴之运<<lime|&#9752增加{{amount}}>>",
             "shopAmbrosiaLuck2": "使神肴之运<<lime|&#9752增加{{amount}}>>",
             "shopAmbrosiaLuck3": "使神肴之运<<lime|&#9752增加{{amount}}>>",
@@ -2045,7 +2045,8 @@
             "v297hotfix1NoSing": "您载入了2.9.7热修复1补丁！",
             "v297hotfix1Sing": "您载入了2.9.7热修复1补丁！部分无上限的奇点升级进行了重置，对此表示抱歉。"
         },
-        "languageChange": "切换语言需要刷新页面，您现在就想要刷新页面吗？"
+        "languageChange": "切换语言需要刷新页面，您现在就想要刷新页面吗？",
+        "exportYourGame": "您有一阵子没有导出存档了，切记，存档不规范，玩家两行泪。"
     },
     "upgrades": {
         "descriptions": {
@@ -3262,7 +3263,7 @@
                 "confirm": "在接下来的15秒内点击确定按钮，以此来测试运气！如果您在随机生成时间点的{{x}}毫秒范围内点击了按钮，您将获得一份奖励！由于两次使用该代码之间的时间间隔，本次代码的奖励变为{{y}}倍。",
                 "won": "您点击的时机很好！[增加{{x}}夸克]",
                 "lost": "点击的时机不对，下次再来吧！",
-                "ambrosia": "您的蓝莓产生了微弱的共鸣，您获得了相当于现实时间{{blueberryTime}}秒的蓝莓秒。"
+                "ambrosia": "您的蓝莓产生了微弱的共鸣，您获得了相当于现实时间{{blueberryTime}}的蓝莓时间。"
             },
             "spoiler": {
                 "moreThan1": "如果您已经解锁它们，则每秒可以获得{{x}}惊奇八阶方块！",
