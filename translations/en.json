@@ -1904,8 +1904,8 @@
                 "effectHaveNot": "You haven't quacked your last QUARK"
             },
             "blueberries": {
-                "name": "Blueberry Shards! (WIP)",
-                "description": "Blueberries! Yeah, Platonic is out of ideas. Well, each Blueberry gives a 0.01% chance per second to generate some Ambrosia!",
+                "name": "Fake Blueberries!",
+                "description": "Blueberries! Yeah, Platonic is out of ideas. Well, each level of this creates one 'imitation blueberry' which works and behaves just like a normal one. Huh.",
                 "effect": "You have purchased {{n}} tasty blueberries."
             },
             "singAmbrosiaLuck2": {
@@ -2045,7 +2045,8 @@
             "v297hotfix1NoSing": "You have loaded into the version 2.9.7 hotfix 1!",
             "v297hotfix1Sing": "You have loaded into the version 2.9.7 hotfix 1! Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience."
         },
-        "languageChange": "Changing the language requires a reload! Would you like to reload now?"
+        "languageChange": "Changing the language requires a reload! Would you like to reload now?",
+        "exportYourGame": "You haven't exported your game in a while, you better export it soon or you could lose it!"
     },
     "upgrades": {
         "descriptions": {
