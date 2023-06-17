@@ -1916,7 +1916,8 @@
             "v297hotfix1NoSing": "You have loaded into the version 2.9.7 hotfix 1!",
             "v297hotfix1Sing": "You have loaded into the version 2.9.7 hotfix 1! Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience."
         },
-        "languageChange": "Changing the language requires a reload! Would you like to reload now?"
+        "languageChange": "Changing the language requires a reload! Would you like to reload now?",
+        "exportYourGame": "You haven't exported your game in a while, you better export it soon or you could lose it!"
     },
     "upgrades": {
         "descriptions": {

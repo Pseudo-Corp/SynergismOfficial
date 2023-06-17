@@ -2045,7 +2045,8 @@
             "v297hotfix1NoSing": "Успешная загрузка в версию 2.9.7, хотфикс 1!",
             "v297hotfix1Sing": "Успешная загрузка в версию 2.9.7, хотфикс 1! Средства за неограниченные ресурсные улучшения сингулярности были возвращены! Приносим извинения за неудобства."
         },
-        "languageChange": "Смена языка требует перезагрузки! Хотите перезагрузить сейчас?"
+        "languageChange": "Смена языка требует перезагрузки! Хотите перезагрузить сейчас?",
+        "exportYourGame": "You haven't exported your game in a while, you better export it soon or you could lose it!"
     },
     "upgrades": {
         "descriptions": {
