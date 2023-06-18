@@ -879,7 +879,9 @@ export const player: Player = {
     ambrosiaLuck: new AmbrosiaLuckCache(),
     ambrosiaGeneration: new AmbrosiaGenerationCache(),
     blueberryInventory: new BlueberryInventoryCache()
-  }
+  },
+
+  lastExportedSave: Date.now()
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -1060,6 +1062,8 @@ const loadSynergy = async () => {
 
       return ((player[prop] as unknown) = data[prop])
     })
+
+    player.lastExportedSave = data.lastExportedSave ?? Date.now()
 
     if (data.offerpromo24used !== undefined) {
       player.codes.set(25, false)
@@ -4207,7 +4211,14 @@ export const reloadShit = async (reset = false) => {
   createTimer()
 
   //Reset Displays
-  changeTab('buildings')
+  if (!playerNeedsReminderToExport()) {
+    changeTab('buildings')
+  } else {
+    changeTab('settings')
+
+    void Alert(i18next.t('general.exportYourGame'))
+  }
+
   changeSubTab('buildings', { page: 0 })
   changeSubTab('runes', { page: 0 }) // Set 'runes' subtab back to 'runes' tab
   changeSubTab('cube', { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
@@ -4257,6 +4268,12 @@ export const reloadShit = async (reset = false) => {
 
   const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
   saveType.checked = localStorage.getItem('copyToClipboard') !== null
+}
+
+function playerNeedsReminderToExport () {
+  const day = 1000 * 60 * 60 * 24
+
+  return Date.now() - player.lastExportedSave > day * 3
 }
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
