@@ -12,9 +12,9 @@
     "ambrosia": {
         "ambrosia": "神肴",
         "amount": "您有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>神肴！",
-        "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>秒蓝莓时间。",
+        "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>蓝莓秒。",
         "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：☘ {{ambrosiaLuck}}>>]",
-        "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<blue|{{thresholdTimer}}>>后可以产生神肴。",
+        "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<<blue|{{thresholdTimer}}>>后可以产生神肴。",
         "bonuses": "您拥有的神肴使所有类型的方盒、立方和方块获取数量增加<<var(--amber-text-color)|{{cube}}%>>，并且使夸克获取数量增加<<cyan|{{quark}}%>>！",
         "prerequisite": "前提条件：",
         "prereqNotMet": "（未满足！）",
@@ -2046,7 +2046,7 @@
             "v297hotfix1Sing": "您载入了2.9.7热修复1补丁！部分无上限的奇点升级进行了重置，对此表示抱歉。"
         },
         "languageChange": "切换语言需要刷新页面，您现在就想要刷新页面吗？",
-        "exportYourGame": "You haven't exported your game in a while, you better export it soon or you could lose it!"
+        "exportYourGame": "您有一阵子没有导出存档了，切记，存档不规范，玩家两行泪。"
     },
     "upgrades": {
         "descriptions": {
