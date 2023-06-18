@@ -230,7 +230,7 @@
             "148": "[{{number}}] Газ газ газ: Купить 5 Ускорителей.",
             "149": "[{{number}}] От 0 до 25: Купить 25 Ускорителей.",
             "150": "[{{number}}] От 0 до 100: Купить 100 Ускорителей",
-            "151": "[{{number}}] Магистраль в Ад: Купить 666 Ускорителей.",
+            "151": "[{{number}}] Highway to Hell: Купить 666 Ускорителей.",
             "152": "[{{number}}] Думаю тебе стоит притормозить: Купить 2,000 Ускорителя.",
             "153": "[{{number}}] Немедленно выйдите из машины!: Купить 12,500 Ускорителя.",
             "154": "[{{number}}] Быстрее скорости света: Купить 100,000 Ускорителей.",
@@ -928,7 +928,7 @@
             "19": "Вау! Я хочу открыть ещё парочку улучшений монет.",
             "20": "Вау! Я хочу улучшить инструменты авто рун.",
             "21": "Вау! Я хочу накрутить побольше очков 1.",
-            "22": "Вау! Если бы мой Artemis был немного лучше 1",
+            "22": "Вау! Если бы мой Артемида был немного лучше 1",
             "23": "Вау! Я хочу при открытии Кубов, давали больше дани 2.",
             "24": "Вау! Я хочу, чтобы бонус Дани Plutus ценился лучше 1",
             "25": "Вау! Я хочу, чтобы бонус Дани Moloch ценился лучше 1",
@@ -1002,7 +1002,7 @@
             "19": "[2x9] Открывает новые улучшения монет, доступные с начала Вознесения до и10 и далее.",
             "20": "[2x10] Автоматизатор рун из магазина теперь тратит все Подношения автоматически, 'разделяя' их между 5 рунами поровну.",
             "21": "[3x1] Возможно, очки принесут вам больше пользы? +5% очков при Вознесении за уровень.",
-            "22": "[3x2] Степень бонуса Artemis увеличивается на 0.05 за уровень.",
+            "22": "[3x2] Степень бонуса Артемида увеличивается на 0.05 за уровень.",
             "23": "[3x3] За каждые 20 открытых Кубов за раз, вы получаете случайно 1 дополнительный дань.",
             "24": "[3x4] Plutus учит вас Искусству заключать сделки. Сила эффекта усиливается на +0.01 (+0.0033 если >1000 дани) за уровень.",
             "25": "[3x5] Moloch помогает вам в общении с Муравьиным Богом. Сила эффекта усиливается на +0.01 (+0.0033 если >1000 дани) за уровень.",
@@ -1909,42 +1909,42 @@
                 "effect": "Вы купили {{n}} вкусной голубики."
             },
             "singAmbrosiaLuck2": {
-                "name": "Gilded Berries of Good Fortune",
-                "description": "Literally put some gold onto 'berries' and become lucky. ☘ +2 Ambrosia Luck per level!",
+                "name": "Позолоченные Ягоды Хорошей Удачи",
+                "description": "Стать везучим, буквально положив немного золота на 'ягоды'. ☘ +2 к Удачи Амброзии за уровень!",
                 "effect": "☘ Ambrosia Luck +{{n}}(!)"
             },
             "singAmbrosiaLuck3": {
-                "name": "Dedicated Gold Smelting",
+                "name": "Выделенная переплавка золота",
                 "description": "More gold is dipped onto each berry. ☘ +3 Ambrosia Luck per level!",
                 "effect": "☘ Ambrosia Luck +{{n}}(!)"
             },
             "singAmbrosiaLuck": {
-                "name": "Absolute Hot",
+                "name": "Абсолютный Жар",
                 "description": "Your gold smelters get arbitrarily close to 'Absolute Hot'. ☘ +4 Ambrosia Luck per level, infinitely levelable!",
                 "effect": "☘ Ambrosia Luck +{{n}}(!)"
             },
             "singAmbrosiaLuck4": {
-                "name": "The Alchemists from the Beginning of the Game Work for your Golden Berry Needs",
+                "name": "Алхимики с самого начала игры работают на ваши нужды к Золотым Ягодам",
                 "description": "Yeah, these upgrade titles can be arbitrarily long, too. ☘ +5 Ambrosia Luck per level!",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "effect": "☘ Удача Амброзии +{{n}}(!)"
             },
             "singAmbrosiaGeneration2": {
-                "name": "Hourglass of Importance",
+                "name": "Часы Важности",
                 "description": "A somewhat important hourglass which somehow makes your blueberries generate seconds 1% faster per level..",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             },
             "singAmbrosiaGeneration3": {
-                "name": "Hourglass of Significance",
+                "name": "Часы Значимости",
                 "description": "An hourglass which is still important, perhaps even more so. +1% Blueberry Second Generation per level.",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             },
             "singAmbrosiaGeneration": {
-                "name": "Hourglass of Limitlessness",
+                "name": "Часы Безграничности",
                 "description": "Remember- this hourglass is really important. But it gives +1% Blueberry Second Generation per level and is infinitely levelable!",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             },
             "singAmbrosiaGeneration4": {
-                "name": "Hourglass of Fantasy",
+                "name": "Часы Фантазии",
                 "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% Blueberry Second Generation per level.",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             }
@@ -2046,7 +2046,7 @@
             "v297hotfix1Sing": "Успешная загрузка в версию 2.9.7, хотфикс 1! Средства за неограниченные ресурсные улучшения сингулярности были возвращены! Приносим извинения за неудобства."
         },
         "languageChange": "Смена языка требует перезагрузки! Хотите перезагрузить сейчас?",
-        "exportYourGame": "You haven't exported your game in a while, you better export it soon or you could lose it!"
+        "exportYourGame": "Вы не экспортировали игру довольно долго, лучше это сделать прямо сейчас, иначе вы можете потерять сохранение!"
     },
     "upgrades": {
         "descriptions": {
@@ -2759,22 +2759,22 @@
             "octeractAmbrosiaLuck2": {
                 "name": "Florentine Cranberries",
                 "description": "Totally not a reskin of the blueberry! Adds ☘ +2 Ambrosia Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "effect": "☘ Удача Амброзии +{{n}}(!)"
             },
             "octeractAmbrosiaLuck3": {
-                "name": "Berries of a Four Leaf Clover",
-                "description": "Totally not a reskin of the blueberry! Adds ☘ +3 Ambrosia Luck per level.",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "name": "Ягоды Четырёх Лиственного Клевера",
+                "description": "Определённо не переделка черники! Добавляет ☘ +3 Удачи Амброзии за уровень.",
+                "effect": "☘ Удача Амброзии +{{n}}(!)"
             },
             "octeractAmbrosiaLuck": {
                 "name": "Ягоды Восьмилистного Клевера",
                 "description": "Totally not a reskin of the blueberry! Adds ☘ +4 Ambrosial Luck per level, and it is infinitely levelable!",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "effect": "☘ Удача Амброзии +{{n}}(!)"
             },
             "octeractAmbrosiaLuck4": {
                 "name": "Berries of a Ten Leaf Clover",
                 "description": "Totally not a reskin of the blueberry! Adds ☘ +5 Ambrosial Luck. And it's mega expensive somehow.",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "effect": "☘ Удача Амброзии +{{n}}(!)"
             },
             "octeractAmbrosiaGeneration2": {
                 "name": "Hourglass of Minutiae",
@@ -2792,7 +2792,7 @@
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             },
             "octeractAmbrosiaGeneration4": {
-                "name": "Hourglass of Reality",
+                "name": "Часы Реальности",
                 "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% Blueberry Second Generation per level.",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             }
@@ -3027,7 +3027,7 @@
             "items": {
                 "1": "Дань Гермесу x{{amount}}: +{{bonus}} Ускорителей за Усилитель Ускорителя",
                 "2": "Дань Афродите x{{amount}}: +{{bonus}}% Множителей",
-                "3": "Награда Плутуса x{{amount}}: +{{bonus}}% к Получению Пожертвований",
+                "3": "Награда Плутуса x{{amount}}: +{{bonus}}% к Получению Подношений",
                 "4": "Награда Ириды x{{amount}}: +{{bonus}}% Опыта Рун",
                 "5": "Награда Афины x{{amount}}: +{{bonus}}% к Получению Обтаниума",
                 "6": "Дань Артемиде x{{amount}}: +{{bonus}}% Скорости Муравьёв",

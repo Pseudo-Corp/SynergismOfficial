@@ -20,14 +20,14 @@
         "prereqNotMet": " (¡No se cumple!)",
         "blueberryCost": "Arándanos (Para Activar):",
         "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
-        "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
+        "notEnoughBlueberries": "No tienes suficientes Arándanos para activar este módulo.",
         "availableBlueberries": "You have <<blue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
         "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
-        "refund": "You have refunded all spent Blueberries and Ambrosia.",
+        "refund": "Se han reembolsado todos los Arándanos y Ambrosía gastados.",
         "refundWord": "Reembolsar",
         "data": {
             "ambrosiaTutorial": {
-                "name": "Ambrosia Tutorial Module",
+                "name": "Módulo Tutorial de Ambrosia",
                 "description": "Blueberries generate Ambrosia over time. Spend them in the Ambrosia tree! +5% Cubes/lvl, +1% Quarks/lvl",
                 "effect": "This tutorial module increases cube gain by {{cubeAmount}}% and quarks by {{quarkAmount}}%"
             },
@@ -1911,40 +1911,40 @@
             "singAmbrosiaLuck2": {
                 "name": "Gilded Berries of Good Fortune",
                 "description": "Literally put some gold onto 'berries' and become lucky. ☘ +2 Ambrosia Luck per level!",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "effect": "☘ Suerte Ambrosial +{{n}}(!)"
             },
             "singAmbrosiaLuck3": {
                 "name": "Dedicated Gold Smelting",
                 "description": "More gold is dipped onto each berry. ☘ +3 Ambrosia Luck per level!",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "effect": "☘ Suerte Ambrosial +{{n}}(!)"
             },
             "singAmbrosiaLuck": {
-                "name": "Absolute Hot",
+                "name": "Absolutamente caliente",
                 "description": "Your gold smelters get arbitrarily close to 'Absolute Hot'. ☘ +4 Ambrosia Luck per level, infinitely levelable!",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "effect": "☘ Suerte Ambrosial +{{n}}(!)"
             },
             "singAmbrosiaLuck4": {
-                "name": "The Alchemists from the Beginning of the Game Work for your Golden Berry Needs",
+                "name": "Los Alquimistas del Inicio del Juego Trabajan Duro por tus Bayas Doradas",
                 "description": "Yeah, these upgrade titles can be arbitrarily long, too. ☘ +5 Ambrosia Luck per level!",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "effect": "☘ Suerte Ambrosial +{{n}}(!)"
             },
             "singAmbrosiaGeneration2": {
-                "name": "Hourglass of Importance",
+                "name": "Reloj de Arena de Importancia",
                 "description": "A somewhat important hourglass which somehow makes your blueberries generate seconds 1% faster per level..",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             },
             "singAmbrosiaGeneration3": {
-                "name": "Hourglass of Significance",
+                "name": "Reloj de Arena de Significación",
                 "description": "An hourglass which is still important, perhaps even more so. +1% Blueberry Second Generation per level.",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             },
             "singAmbrosiaGeneration": {
-                "name": "Hourglass of Limitlessness",
+                "name": "Reloj de Arena sin Límites",
                 "description": "Remember- this hourglass is really important. But it gives +1% Blueberry Second Generation per level and is infinitely levelable!",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             },
             "singAmbrosiaGeneration4": {
-                "name": "Hourglass of Fantasy",
+                "name": "Reloj de Arena de Fantasía",
                 "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% Blueberry Second Generation per level.",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             }
@@ -2758,41 +2758,41 @@
             },
             "octeractAmbrosiaLuck2": {
                 "name": "Florentine Cranberries",
-                "description": "Totally not a reskin of the blueberry! Adds ☘ +2 Ambrosia Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "description": "¡Totalmente no una retextura de arándanos! Añade ☘️ +2 Suerte Ambrosial, que puede aumentar la cantidad de Ambrosía ganada cuando los Arándanos generan Ambrosía.",
+                "effect": "☘ Suerte Ambrosial +{{n}}(!)"
             },
             "octeractAmbrosiaLuck3": {
                 "name": "Berries of a Four Leaf Clover",
-                "description": "Totally not a reskin of the blueberry! Adds ☘ +3 Ambrosia Luck per level.",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "description": "¡Totalmente no una retextura de arándanos! Añade ☘️ +3 Suerte Ambrosial.",
+                "effect": "☘ Suerte Ambrosial +{{n}}(!)"
             },
             "octeractAmbrosiaLuck": {
-                "name": "Berries of an Eight Leaf Clover",
-                "description": "Totally not a reskin of the blueberry! Adds ☘ +4 Ambrosial Luck per level, and it is infinitely levelable!",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "name": "Bayas de un Trébol de Ocho Hojas",
+                "description": "¡Totalmente no una retextura de arándanos! Añade ☘️ +4 Suerte Ambrosial por nivel, ¡Y se puede comprar infinitamente!",
+                "effect": "☘ Suerte Ambrosial +{{n}}(!)"
             },
             "octeractAmbrosiaLuck4": {
-                "name": "Berries of a Ten Leaf Clover",
-                "description": "Totally not a reskin of the blueberry! Adds ☘ +5 Ambrosial Luck. And it's mega expensive somehow.",
-                "effect": "☘ Ambrosia Luck +{{n}}(!)"
+                "name": "Bayas de un Trébol de Diez Hojas",
+                "description": "¡Totalmente no una retextura de arándanos! Añade ☘️ +5 Suerte Ambrosial. Y es mega caro por algo.",
+                "effect": "☘ Suerte Ambrosial +{{n}}(!)"
             },
             "octeractAmbrosiaGeneration2": {
-                "name": "Hourglass of Minutiae",
+                "name": "Reloj de Arena de Minuta",
                 "description": "A somewhat primative hourglass which somehow makes your blueberries generate seconds 1% faster per level..",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             },
             "octeractAmbrosiaGeneration3": {
-                "name": "Hourglass of Myopathy",
+                "name": "Reloj de Arena de Miopatía",
                 "description": "An hourglass which is still primative, though somehow less so. +1% Blueberry Second Generation per level.",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             },
             "octeractAmbrosiaGeneration": {
-                "name": "Hourglass of Infinitude",
+                "name": "Reloj de Arena de Infinidad",
                 "description": "Don't get it twisted- this hourglass is really primative. But it gives +1% Blueberry Second Generation per level and is infinitely levelable!",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             },
             "octeractAmbrosiaGeneration4": {
-                "name": "Hourglass of Reality",
+                "name": "Reloj de Arena de Realidad",
                 "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% Blueberry Second Generation per level.",
                 "effect": "Blueberry Seconds Generation +{{n}}%(!)"
             }
