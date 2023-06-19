@@ -1554,7 +1554,7 @@
                 "default": "Kaufe automatsch platonische Upgrades mit jedem Aufstieg, ohne dafür Obtainium oder Gaben auszugeben. Aber nur in Singularitäts-Herausforderungen."
             },
             "platSigma": "Code 'add' füllt sich {{counter}}% schneller je Level je Singularity. Aktuell: {{current}} (MAX: -60% Abklingzeit)",
-            "midasMilleniumAgedGold": "Jede Verwendung des 'add'-Codes gibt 0,01 gratis Level von Goldene Quarks 1 und 0,05 gratis Level von Goldene Quarks 3. ",
+            "midasMilleniumAgedGold": "Jede Verwendung des 'add'-Codes gibt 0,01 gratis Level von Goldene Quarks 1 und 0,05 gratis Level von Goldene Quarks 3.",
             "goldenRevolution4": "Jeden Okterakt-Tick, erhalte 1/{{gq}} der goldene Quarks die du beim erreichen der Singularität erhalten würdest!",
             "octeractMetagenesis": {
                 "hasLevel1": "Kaufe automatisch Würfel-Upgrades bei jedem Aufstieg, egal wo du bist!",
