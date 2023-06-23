@@ -491,7 +491,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (amount) {
       attemptsUsed = amount.toString()
     } else {
-      attemptsUsed = await Prompt(i18next.t('importexport.useXAdds', { x: availableUses }))
+      attemptsUsed = await Prompt(i18next.t('importexport.useXAdds', { x: availableUses }), availableUses.toString())
     }
 
     if (attemptsUsed === null) {
