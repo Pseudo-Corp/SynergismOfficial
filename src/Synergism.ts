@@ -4192,7 +4192,7 @@ export const reloadShit = async (reset = false) => {
   if (!reset) {
     await calculateOffline()
   } else {
-    player.worlds = new QuarkHandler({ bonus: 0, quarks: 0 })
+    player.worlds.reset()
     // saving is disabled during a singularity event to prevent bug
     // early return here if the save fails can keep game state from properly resetting after a singularity
     if (saveCheck.canSave) {
