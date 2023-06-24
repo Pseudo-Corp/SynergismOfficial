@@ -625,6 +625,11 @@ export interface Player {
         ambrosiaGeneration: AmbrosiaGenerationCache
         blueberryInventory: BlueberryInventoryCache
     }
+
+    /**
+     * When the player last exported the save.
+     */
+    lastExportedSave: number
 }
 
 export interface GlobalVariables {

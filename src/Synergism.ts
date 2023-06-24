@@ -891,7 +891,9 @@ export const player: Player = {
     ambrosiaLuck: new AmbrosiaLuckCache(),
     ambrosiaGeneration: new AmbrosiaGenerationCache(),
     blueberryInventory: new BlueberryInventoryCache()
-  }
+  },
+
+  lastExportedSave: Date.now()
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -945,6 +947,17 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
           enabled: value.enabled
         }]
       })
+    ),
+    blueberryUpgrades: Object.fromEntries(
+      Object.entries(player.blueberryUpgrades).map(([key, value]) => {
+        return [key, {
+          level: value.level,
+          ambrosiaInvested: value.ambrosiaInvested,
+          blueberriesInvested: value.blueberriesInvested,
+          toggleBuy: value.toggleBuy,
+          freeLevels: value.freeLevels
+        }]
+      })
     )
   })
 
@@ -976,7 +989,7 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
  * Map of properties on the Player object to adapt
  */
 const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
-  ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) || 0 })],
+  ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) || 0, bonus: player.worlds.BONUS })],
   ['wowCubes', data => new WowCubes(Number(data.wowCubes) || 0)],
   ['wowTesseracts', data => new WowTesseracts(Number(data.wowTesseracts) || 0)],
   ['wowHypercubes', data => new WowHypercubes(Number(data.wowHypercubes) || 0)],
@@ -1062,6 +1075,8 @@ const loadSynergy = async () => {
       // eslint-disable-next-line
       return ((player[prop] as unknown) = data[prop])
     })
+
+    player.lastExportedSave = data.lastExportedSave ?? Date.now()
 
     if (data.offerpromo24used !== undefined) {
       player.codes.set(25, false)
@@ -4192,7 +4207,7 @@ export const reloadShit = async (reset = false) => {
   if (!reset) {
     await calculateOffline()
   } else {
-    player.worlds = new QuarkHandler({ bonus: 0, quarks: 0 })
+    player.worlds.reset()
     // saving is disabled during a singularity event to prevent bug
     // early return here if the save fails can keep game state from properly resetting after a singularity
     if (saveCheck.canSave) {
@@ -4211,7 +4226,14 @@ export const reloadShit = async (reset = false) => {
   createTimer()
 
   //Reset Displays
-  changeTab('buildings')
+  if (!playerNeedsReminderToExport()) {
+    changeTab('buildings')
+  } else {
+    changeTab('settings')
+
+    void Alert(i18next.t('general.exportYourGame'))
+  }
+
   changeSubTab('buildings', { page: 0 })
   changeSubTab('runes', { page: 0 }) // Set 'runes' subtab back to 'runes' tab
   changeSubTab('cube', { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
@@ -4261,6 +4283,12 @@ export const reloadShit = async (reset = false) => {
 
   const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
   saveType.checked = localStorage.getItem('copyToClipboard') !== null
+}
+
+function playerNeedsReminderToExport () {
+  const day = 1000 * 60 * 60 * 24
+
+  return Date.now() - player.lastExportedSave > day * 3
 }
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
