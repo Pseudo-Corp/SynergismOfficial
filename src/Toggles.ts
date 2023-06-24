@@ -966,6 +966,16 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
   }
 }
 
+export const toggleBlueberryLoadoutmode = () => {
+  if (player.blueberryLoadoutMode === 'saveTree') {
+    player.blueberryLoadoutMode = 'loadTree'
+    DOMCacheGetOrSet('blueberryToggleMode').innerHTML = i18next.t('ambrosia.loadouts.load')
+  } else {
+    player.blueberryLoadoutMode = 'saveTree'
+    DOMCacheGetOrSet('blueberryToggleMode').innerHTML = i18next.t('ambrosia.loadouts.save')
+  }
+}
+
 export const confirmReply = (confirm = true) => {
   if (DOMCacheGetOrSet('alertWrapper').style.display === 'block') {
     (DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click()

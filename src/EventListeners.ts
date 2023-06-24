@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles'
+import { toggleAscStatPerSecond, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle, toggleBlueberryLoadoutmode } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyRuneBonusLevels, buyAllBlessings } from './Buy'
@@ -31,7 +31,7 @@ import { shopMouseover } from './UpdateVisuals'
 import i18next from 'i18next'
 import { clickSmith } from './Event'
 import { changeTab, changeSubTab } from './Tabs'
-import { exportBlueberryTree, importBlueberryTree, resetBlueberryTree } from './BlueberryUpgrades'
+import { createLoadoutDescription, exportBlueberryTree, importBlueberryTree, loadoutHandler, resetBlueberryTree } from './BlueberryUpgrades'
 
 /* STYLE GUIDE */
 /*
@@ -686,10 +686,42 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.blueberryUpgrades[`${String(key)}`].buyLevel(event))
   }
 
-  const testString = '{"ambrosiaTutorial":0,"ambrosiaQuarks1":0,"ambrosiaCubes1":0,"ambrosiaLuck1":0,"ambrosiaCubeQuark1":0,"ambrosiaLuckQuark1":0,"ambrosiaLuckCube1":0,"ambrosiaQuarkCube1":0,"ambrosiaCubeLuck1":0,"ambrosiaQuarkLuck1":0}'
-  DOMCacheGetOrSet('testBlueberries').addEventListener('click', () => importBlueberryTree(testString))
+  // BLUEBERRY LOADOUTS
+  for (let i = 1; i <= 8; i++) {
+    // eslint-disable-next-line
+    DOMCacheGetOrSet(`blueberryLoadout${i}`).addEventListener('mouseover', () => createLoadoutDescription(i, player.blueberryLoadouts[i] ?? { ambrosiaTutorial: 0 }))
+    // eslint-disable-next-line
+    DOMCacheGetOrSet(`blueberryLoadout${i}`).addEventListener('click', () => loadoutHandler(i, player.blueberryLoadouts[i] ?? { ambrosiaTutorial: 0 }))
+  }
+  DOMCacheGetOrSet('blueberryToggleMode').addEventListener('click', () => toggleBlueberryLoadoutmode())
+
   DOMCacheGetOrSet('getBlueberries').addEventListener('click', () => exportBlueberryTree())
   DOMCacheGetOrSet('refundBlueberries').addEventListener('click', () => resetBlueberryTree())
+  // Import blueberries
+  DOMCacheGetOrSet('importBlueberries').addEventListener('change', async e => {
+    const element = e.target as HTMLInputElement
+    const file = element.files![0]
+    let save = ''
+    // https://developer.mozilla.org/en-US/docs/Web/API/Blob/text
+    // not available in (bad) browsers like Safari 11
+    if (typeof Blob.prototype.text === 'function') {
+      save = await file.text()
+    } else {
+      const reader = new FileReader()
+      reader.readAsText(file)
+      const text = await new Promise<string>(res => {
+        reader.addEventListener('load', () => res(reader.result!.toString()))
+      })
+
+      save = text
+    }
+
+    element.value = ''
+    handleLastModified(file.lastModified)
+
+    return importBlueberryTree(save)
+  })
+
   //Toggle subtabs of Singularity tab
   for (let index = 0; index < 5; index++) {
     DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => changeSubTab('singularity', { page: index }))

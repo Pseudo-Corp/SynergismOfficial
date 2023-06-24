@@ -1011,6 +1011,20 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
   }
 
+  if (data.blueberryLoadouts === undefined) {
+    player.blueberryLoadouts = {
+      1: {},
+      2: {},
+      3: {},
+      4: {},
+      5: {},
+      6: {},
+      7: {},
+      8: {}
+    }
+    player.blueberryLoadoutMode = 'saveTree'
+  }
+
   player.caches = {
     ambrosiaLuck: new AmbrosiaLuckCache(),
     ambrosiaGeneration: new AmbrosiaGenerationCache(),

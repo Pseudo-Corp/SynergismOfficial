@@ -1,17 +1,19 @@
 import { DynamicUpgrade } from './DynamicUpgrade'
 import type { IUpgradeData } from './DynamicUpgrade'
-import { Alert, Prompt } from './UpdateHTML'
+import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { visualUpdateAmbrosia } from './UpdateVisuals'
+import { saveFilename } from './ImportExport'
 
 export type blueberryUpgradeNames = 'ambrosiaTutorial' | 'ambrosiaQuarks1' | 'ambrosiaCubes1' | 'ambrosiaLuck1' |
                                     'ambrosiaCubeLuck1' | 'ambrosiaQuarkLuck1' | 'ambrosiaQuarkCube1' | 'ambrosiaLuckCube1' |
                                     'ambrosiaCubeQuark1' | 'ambrosiaLuckQuark1'
 
-type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
+export type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
+export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
 
 export interface IBlueberryData extends Omit<IUpgradeData, 'name' | 'description' | 'effect'> {
     costFormula (this:void, level: number, baseCost: number): number
@@ -425,15 +427,20 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
 
 }
 
-export const resetBlueberryTree = () => {
+export const resetBlueberryTree = (giveAlert = true) => {
   for (const upgrade of Object.keys(player.blueberryUpgrades)) {
     const k = upgrade as keyof Player['blueberryUpgrades']
     player.blueberryUpgrades[k].refund()
   }
-  return Alert(i18next.t('ambrosia.refund'))
+  if (giveAlert) return Alert(i18next.t('ambrosia.refund'))
 }
 
 export const validateBlueberryTree = (modules: BlueberryOpt) => {
+
+  // Check for empty object (perhaps from the loadouts?)
+  if (Object.keys(modules).length === 0) {
+    return false
+  }
 
   const ambrosiaBudget = player.lifetimeAmbrosia
   const blueberryBudget = player.caches.blueberryInventory.totalVal
@@ -498,6 +505,12 @@ export const validateBlueberryTree = (modules: BlueberryOpt) => {
 export const getBlueberryTree = () => {
   return Object.fromEntries(Object.entries(player.blueberryUpgrades).map(([key, value]) => {
     return [key, value.level]
+  })) as BlueberryOpt
+}
+
+export const fixBlueberryLevel = (modules: BlueberryOpt) => {
+  return Object.fromEntries(Object.entries(modules).map(([key, value]) => {
+    return [key, Math.min(value, player.blueberryUpgrades[key].maxLevel)]
   }))
 }
 
@@ -507,7 +520,7 @@ export const exportBlueberryTree = () => {
   const save = JSON.stringify(modules)
   const a = document.createElement('a')
   a.setAttribute('href', 'data:text/plain;charset=utf-8,' + save)
-  a.setAttribute('download', 'Synergism Blueberry Tree Build')
+  a.setAttribute('download', `TreeBuild-${saveFilename()}`)
   a.setAttribute('id', 'downloadSave')
   // "Starting in Firefox 75, the click() function works even when the element is not attached to a DOM tree."
   // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click
@@ -518,11 +531,92 @@ export const exportBlueberryTree = () => {
   DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.copiedFile')
 }
 
+export const createBlueberryTree = (modules: BlueberryOpt) => {
+  // Check to see if tree being created is valid.
+  const isPossible = validateBlueberryTree(modules)
+  if (!isPossible) {
+    void Alert(i18next.t('ambrosia.importTree.failure'))
+    return
+  }
+
+  // If valid, we will create the tree.
+  // Refund (reset) the tree!
+  void resetBlueberryTree(false) // no alert
+
+  // Fix blueberry levels on a valid tree (not done by validation)
+  const actualModules = fixBlueberryLevel(modules)
+
+  for (const [key, val] of Object.entries(actualModules)) {
+    const k = key as keyof Player['blueberryUpgrades']
+    const costFunc = player.blueberryUpgrades[k].costFormula
+    const baseCost = player.blueberryUpgrades[k].costPerLevel
+    const blueberryCost = player.blueberryUpgrades[k].blueberryCost
+
+    if (val > 0) {
+      player.blueberryUpgrades[k].blueberriesInvested = blueberryCost
+      player.spentBlueberries += blueberryCost
+      let tempCost = 0
+      for (let i = 0; i < val; i++) {
+        tempCost += costFunc(i, baseCost)
+      }
+      player.ambrosia -= tempCost
+      player.blueberryUpgrades[k].ambrosiaInvested = tempCost
+      player.blueberryUpgrades[k].level = val
+    }
+  }
+  void Alert(i18next.t('ambrosia.importTree.success'))
+}
+
 export const importBlueberryTree = async (input: string | null) => {
   if (typeof input !== 'string') {
     return Alert(i18next.t('importexport.unableImport'))
   } else {
-    const modules = JSON.parse(input) as BlueberryOpt
-    return validateBlueberryTree(modules)
+    try {
+      const modules = JSON.parse(input) as BlueberryOpt
+      createBlueberryTree(modules)
+    } catch (err) {
+      void Alert(i18next.t('ambrosia.importTree.error'))
+    }
   }
+}
+
+export const loadoutHandler = async (n: number, modules: BlueberryOpt) => {
+  if (player.blueberryLoadoutMode === 'saveTree') {
+    await saveBlueberryTree(n, modules)
+  }
+  if (player.blueberryLoadoutMode === 'loadTree') {
+    loadBlueberryTree(modules)
+  }
+}
+
+export const saveBlueberryTree = async (input: number, previous: BlueberryOpt) => {
+
+  if (Object.entries(previous).length > 0) {
+    const p = await Confirm(i18next.t('ambrosia.loadouts.confirmation'))
+    if (!p) return
+  }
+
+  player.blueberryLoadouts[input] = getBlueberryTree()
+  // eslint-disable-next-line
+  createLoadoutDescription(input, player.blueberryLoadouts[input])
+}
+
+export const loadBlueberryTree = (modules: BlueberryOpt) => {
+  createBlueberryTree(modules)
+}
+
+export const createLoadoutDescription = (input: number, modules: BlueberryOpt) => {
+
+  let str = ''
+  for (const [key, val] of Object.entries(modules)) {
+    const k = key as keyof Player['blueberryUpgrades']
+    const name = player.blueberryUpgrades[k].name
+    str = str + `<span style="color:orange">${name}</span> <span style="color:yellow">lv${val}</span> | `
+  }
+
+  if (Object.entries(modules).length === 0) {
+    str = i18next.t('ambrosia.loadouts.none')
+  }
+  DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = ` ${i18next.t('ambrosia.loadouts.loadout')} ${input}
+  ${str}`
 }

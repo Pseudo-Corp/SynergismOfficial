@@ -875,6 +875,18 @@ export const player: Player = {
     ambrosiaQuarkLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarkLuck1, 'ambrosiaQuarkLuck1')
   },
 
+  blueberryLoadouts: {
+    1: {},
+    2: {},
+    3: {},
+    4: {},
+    5: {},
+    6: {},
+    7: {},
+    8: {}
+  },
+  blueberryLoadoutMode: 'saveTree',
+
   caches: {
     ambrosiaLuck: new AmbrosiaLuckCache(),
     ambrosiaGeneration: new AmbrosiaGenerationCache(),
@@ -1047,6 +1059,7 @@ const loadSynergy = async () => {
         }
       }
 
+      // eslint-disable-next-line
       return ((player[prop] as unknown) = data[prop])
     })
 
@@ -1936,6 +1949,8 @@ const loadSynergy = async () => {
       : i18next.t('general.autoOffColon')
     DOMCacheGetOrSet('hepteractToQuarkTradeAuto').style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'}`
     toggleAutoBuyOrbs(true, true)
+
+    DOMCacheGetOrSet('blueberryToggleMode').innerHTML = (player.blueberryLoadoutMode === 'saveTree') ? i18next.t('ambrosia.loadouts.save') : i18next.t('ambrosia.loadouts.load')
 
     toggleTalismanBuy(player.buyTalismanShardPercent)
     updateTalismanInventory()
