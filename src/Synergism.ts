@@ -977,7 +977,7 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
  * Map of properties on the Player object to adapt
  */
 const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
-  ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) || 0 })],
+  ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) || 0, bonus: player.worlds.BONUS })],
   ['wowCubes', data => new WowCubes(Number(data.wowCubes) || 0)],
   ['wowTesseracts', data => new WowTesseracts(Number(data.wowTesseracts) || 0)],
   ['wowHypercubes', data => new WowHypercubes(Number(data.wowHypercubes) || 0)],
@@ -4192,7 +4192,7 @@ export const reloadShit = async (reset = false) => {
   if (!reset) {
     await calculateOffline()
   } else {
-    player.worlds = new QuarkHandler({ bonus: 0, quarks: 0 })
+    player.worlds.reset()
     // saving is disabled during a singularity event to prevent bug
     // early return here if the save fails can keep game state from properly resetting after a singularity
     if (saveCheck.canSave) {
