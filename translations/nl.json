@@ -12,47 +12,47 @@
   "ambrosia": {
     "ambrosia": "Ambrosia",
     "amount": "Je hebt <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
-    "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
+    "blueberryGeneration": "Elke seconde krijg <<var(--amber-text-color)|{{chance}}>> seconden van Bosbessentijd.",
     "perGen": "Je maakt op het moment <<var(--amber-text-color)|{{guaranteed}}>> met een <<var(--amber-text-color)|{{extraChance}}%>> kans op nog een. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
-    "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
+    "bonuses": "Je ambrosia geeft <<var(--amber-text-color)|+{{cube}}%>> ALLE kubussen en <<cyan|+{{quark}}%>> Quarks!",
     "prerequisite": "Vereisten:",
     "prereqNotMet": " (Niet Voldaan!)",
     "blueberryCost": "Bosbessen (Om te Activeren):",
     "prereqNotMetAlert": "Je hebt niet de benodigde vereisten om deze upgrade te kopen.",
     "notEnoughBlueberries": "Je heeft niet genoeg Bosbessen om deze module te activeren.",
-    "availableBlueberries": "You have <<blue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
-    "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
-    "refund": "You have refunded all spent Blueberries and Ambrosia.",
+    "availableBlueberries": "Je hebt <<blue|{{availableBlueberries}}>> onbestede Bosbessen. Ontgrendel hogere rang modules hieronder door ze te gebruiken!",
+    "ambrosiaBuyPrompt": "Hoeveel Ambrosia wil je uitgeven? Je hebt {{amount}} Ambrosia. Typ -1 om max te gebruiken!",
+    "refund": "U heeft alle bestede Bosbessen en Ambrosia terugbetaald.",
     "refundWord": "Terugbetaling",
     "data": {
       "ambrosiaTutorial": {
         "name": "Ambrosia Tutorial Module",
-        "description": "Blueberries generate Ambrosia over time. Spend them in the Ambrosia tree! +5% Cubes/lvl, +1% Quarks/lvl",
-        "effect": "This tutorial module increases cube gain by {{cubeAmount}}% and quarks by {{quarkAmount}}%"
+        "description": "Bosbessen genereren Ambrosia over tijd. Geef ze uit in de Ambrosia boom! +5% Kubussen/lvl, +1% Quarks/lvl",
+        "effect": "Deze tutorial module verhoogt de kubussen met {{cubeAmount}}% en quarks met {{quarkAmount}}%"
       },
       "ambrosiaQuarks1": {
         "name": "Ambrosia Quark Module I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxed to buy levels of this. +1% Quarks/lvl.",
-        "effect": "This quark module increases Quark gain by {{amount}}%"
+        "description": "Gefeliciteerd met het voltooien van de tutorial-module. Je moet die gemaximaliseerd hebben om niveaus hiervan te kunnen kopen. +1% Quarks/lvl.",
+        "effect": "Deze quark module verhoogt Quarks inkomen met {{amount}}%"
       },
       "ambrosiaCubes1": {
-        "name": "Ambrosia Cube Module I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 10 levels gives 1.1x Cubes.",
-        "effect": "This cube module increases cube gain by {{amount}}%"
+        "name": "Ambrosia Kubus Module I",
+        "description": "Gefeliciteerd met het voltooien van de tutorial-module. Je moet die gemaximaliseerd hebben om niveaus hiervan te kunnen kopen. +5% Kubussen/lvl. Elke 10 niveaus geeft 1.1x Kubussen.",
+        "effect": "Deze kubus module verhoogt het kubus inkomen met {{amount}}%"
       },
       "ambrosiaLuck1": {
-        "name": "Ambrosia Luck Module I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. &#9752 +2 Ambrosia Luck/lvl. Every 10 levels gives &#9752 +12 more!",
+        "name": "Ambrosia Geluk Module I",
+        "description": "Gefeliciteerd met het voltooien van de tutorial-module. Je moet deze gemaximaliseerd hebben om levels hiervan te kopen. &#9752 +2 Ambrosia Luck/lvl. Elke 10 niveaus geeft &#9752 +12 meer!",
         "effect": "This luck module increases &#9752 Ambrosia Luck by {{amount}}"
       },
       "ambrosiaCubeQuark1": {
-        "name": "Ambrosia Cube-Quark Hybrid Module I",
-        "description": "A first generation hybrid module. Gain +0.01% Quarks per level per digit in the values of all cube types.",
-        "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
+        "name": "Ambrosia Kubus-Quark Hybride Module I",
+        "description": "Een eerste generatie hybride module. Verkrijg +0,01% Quarks per niveau per getal in de waarden van alle kubustypen.",
+        "effect": "Deze eerste generatie hybride module verhoogt de Quark winst met {{amount}}%"
       },
       "ambrosiaLuckQuark1": {
-        "name": "Ambrosia Luck-Quark Hybrid Module I",
+        "name": "Ambrosia Geluk-Quark Hybride Module I",
         "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
         "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
       },
@@ -963,20 +963,20 @@
       "54": "Wow! A pile of Vanilla Wafers.",
       "55": "Wow! A pile of White Chocolate Cookies.",
       "56": "Wow! A bag of Snickerdoodles.",
-      "57": "Wow! A bag of Macarons.",
-      "58": "Wow! A bag of Gingerbread Cookies.",
-      "59": "Wow! A bag of Lemon Cookies.",
-      "60": "Wow! A bag of Ginger Snaps.",
-      "61": "Wow! A tin of Whoopie Pies.",
-      "62": "Wow! A tin of Toffee Bars.",
-      "63": "Wow! A tin of Brownie Cookies.",
-      "64": "Wow! A tin of Fortune Cookies.",
-      "65": "Wow! A tin of Biscotti.",
-      "66": "Wow! A box of Mother's Favorite Cookies.",
-      "67": "Wow! A box of Metaphysical Brownies.",
-      "68": "Wow! A box of Not Cookies.",
-      "69": "Wow! A box of Cookies Beyond This World.",
-      "70": "Wow! A box of Perfect Cookies.",
+      "57": "Wow! Een zak met Macarons.",
+      "58": "Wow! Een zak met peperkoekjes.",
+      "59": "Wow! Een zak van Citroenkoekjes.",
+      "60": "Wauw! Een zak met Gemberkoekjes.",
+      "61": "Wow! Een blikje Whoopie Taarten.",
+      "62": "Wauw! Een blik Toffee staven.",
+      "63": "Wow! Een blik Brownie Koekjes.",
+      "64": "Wow! Een blik Gelukskoekjes.",
+      "65": "Wow! Een blikje Biscotti.",
+      "66": "Wow! Een doos van Moeder's Favoriete Koekjes.",
+      "67": "Wow! Een doos met Metafysieke Brownies.",
+      "68": "Wow! Een doos met Geen koekjes.",
+      "69": "Wow! Een doos koekjes Voorbij deze Wereld.",
+      "70": "Wow! Een doos van perfecte koekjes.",
       "71": "Wow! A Singular Cookie of Pandora's Benefactory",
       "72": "Wow! A Singular Cookie of Vyshareth's Benefactory"
     },
