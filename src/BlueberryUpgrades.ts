@@ -6,7 +6,7 @@ import type { Player } from './types/Synergism'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { visualUpdateAmbrosia } from './UpdateVisuals'
-import { saveFilename } from './ImportExport'
+import { exportData, saveFilename } from './ImportExport'
 
 export type blueberryUpgradeNames = 'ambrosiaTutorial' | 'ambrosiaQuarks1' | 'ambrosiaCubes1' | 'ambrosiaLuck1' |
                                     'ambrosiaCubeLuck1' | 'ambrosiaQuarkLuck1' | 'ambrosiaQuarkCube1' | 'ambrosiaLuckCube1' |
@@ -427,7 +427,7 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
 
 }
 
-export const resetBlueberryTree = (giveAlert = true) => {
+export const resetBlueberryTree = async (giveAlert = true) => {
   for (const upgrade of Object.keys(player.blueberryUpgrades)) {
     const k = upgrade as keyof Player['blueberryUpgrades']
     player.blueberryUpgrades[k].refund()
@@ -515,23 +515,13 @@ export const fixBlueberryLevel = (modules: BlueberryOpt) => {
 }
 
 export const exportBlueberryTree = () => {
-
   const modules = getBlueberryTree()
   const save = JSON.stringify(modules)
-  const a = document.createElement('a')
-  a.setAttribute('href', 'data:text/plain;charset=utf-8,' + save)
-  a.setAttribute('download', `TreeBuild-${saveFilename()}`)
-  a.setAttribute('id', 'downloadSave')
-  // "Starting in Firefox 75, the click() function works even when the element is not attached to a DOM tree."
-  // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click
-  // so let's have it work on older versions of Firefox, doesn't change functionality.
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
-  DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.copiedFile')
+  const name = `BBTree-${saveFilename()}`
+  void exportData(save, name)
 }
 
-export const createBlueberryTree = (modules: BlueberryOpt) => {
+export const createBlueberryTree = async (modules: BlueberryOpt) => {
   // Check to see if tree being created is valid.
   const isPossible = validateBlueberryTree(modules)
   if (!isPossible) {
@@ -541,23 +531,21 @@ export const createBlueberryTree = (modules: BlueberryOpt) => {
 
   // If valid, we will create the tree.
   // Refund (reset) the tree!
-  void resetBlueberryTree(false) // no alert
+  await resetBlueberryTree(false) // no alert; return type is undefined
 
   // Fix blueberry levels on a valid tree (not done by validation)
   const actualModules = fixBlueberryLevel(modules)
 
   for (const [key, val] of Object.entries(actualModules)) {
     const k = key as keyof Player['blueberryUpgrades']
-    const costFunc = player.blueberryUpgrades[k].costFormula
-    const baseCost = player.blueberryUpgrades[k].costPerLevel
-    const blueberryCost = player.blueberryUpgrades[k].blueberryCost
+    const { costFormula, costPerLevel, blueberryCost } = player.blueberryUpgrades[k]
 
     if (val > 0) {
       player.blueberryUpgrades[k].blueberriesInvested = blueberryCost
       player.spentBlueberries += blueberryCost
       let tempCost = 0
       for (let i = 0; i < val; i++) {
-        tempCost += costFunc(i, baseCost)
+        tempCost += costFormula(i, costPerLevel)
       }
       player.ambrosia -= tempCost
       player.blueberryUpgrades[k].ambrosiaInvested = tempCost
@@ -573,9 +561,9 @@ export const importBlueberryTree = async (input: string | null) => {
   } else {
     try {
       const modules = JSON.parse(input) as BlueberryOpt
-      createBlueberryTree(modules)
+      await createBlueberryTree(modules)
     } catch (err) {
-      void Alert(i18next.t('ambrosia.importTree.error'))
+      return Alert(i18next.t('ambrosia.importTree.error'))
     }
   }
 }
@@ -585,13 +573,13 @@ export const loadoutHandler = async (n: number, modules: BlueberryOpt) => {
     await saveBlueberryTree(n, modules)
   }
   if (player.blueberryLoadoutMode === 'loadTree') {
-    loadBlueberryTree(modules)
+    await createBlueberryTree(modules)
   }
 }
 
 export const saveBlueberryTree = async (input: number, previous: BlueberryOpt) => {
 
-  if (Object.entries(previous).length > 0) {
+  if (Object.keys(previous).length > 0) {
     const p = await Confirm(i18next.t('ambrosia.loadouts.confirmation'))
     if (!p) return
   }
@@ -599,10 +587,6 @@ export const saveBlueberryTree = async (input: number, previous: BlueberryOpt) =
   player.blueberryLoadouts[input] = getBlueberryTree()
   // eslint-disable-next-line
   createLoadoutDescription(input, player.blueberryLoadouts[input])
-}
-
-export const loadBlueberryTree = (modules: BlueberryOpt) => {
-  createBlueberryTree(modules)
 }
 
 export const createLoadoutDescription = (input: number, modules: BlueberryOpt) => {
@@ -614,7 +598,7 @@ export const createLoadoutDescription = (input: number, modules: BlueberryOpt) =
     str = str + `<span style="color:orange">${name}</span> <span style="color:yellow">lv${val}</span> | `
   }
 
-  if (Object.entries(modules).length === 0) {
+  if (Object.keys(modules).length === 0) {
     str = i18next.t('ambrosia.loadouts.none')
   }
   DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = ` ${i18next.t('ambrosia.loadouts.loadout')} ${input}

@@ -92,8 +92,7 @@
         "exportTree": {
             "exportButton": "Export"
         }
-    }
-  },
+    },
   "achievements": {
     "descriptions": {
       "1": "[{{number}}] A Loyal Employee: Hire your first Worker.",
