@@ -688,13 +688,16 @@ TODO: Fix this entire tab it's utter shit
 
   // BLUEBERRY LOADOUTS
   const blueberryLoadouts = document.querySelectorAll('[id^="blueberryLoadout"]')
-  
-  for (const loadout of blueberryLoadouts) {
+
+  function createBlueberryEvent (value: Element, key: number) {
+    const shiftedKey = key + 1
     // eslint-disable-next-line
-    loadout.addEventListener('mouseover', () => createLoadoutDescription(i, player.blueberryLoadouts[i] ?? { ambrosiaTutorial: 0 }))
+    value.addEventListener('mouseover', () => createLoadoutDescription(shiftedKey, player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 }))
     // eslint-disable-next-line
-   loadout.addEventListener('click', () => loadoutHandler(i, player.blueberryLoadouts[i] ?? { ambrosiaTutorial: 0 }))
+    value.addEventListener('click', () => loadoutHandler(shiftedKey, player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 }))
   }
+  blueberryLoadouts.forEach(createBlueberryEvent)
+
   DOMCacheGetOrSet('blueberryToggleMode').addEventListener('click', () => toggleBlueberryLoadoutmode())
 
   DOMCacheGetOrSet('getBlueberries').addEventListener('click', () => exportBlueberryTree())
