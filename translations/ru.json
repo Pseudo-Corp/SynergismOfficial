@@ -15,7 +15,7 @@
     "blueberryGeneration": "Каждую секунду, вы получаете <<var(--amber-text-color)|{{chance}}>> секунд Таймера Голубики.",
     "perGen": "Сейчас получаете <<var(--amber-text-color)|{{guaranteed}}>> с вероятностью <<var(--amber-text-color)|{{extraChance}}%>> на ещё одно. [<<var(--lime-text-color)|Удача: ☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "Сейчас у вас накоплено <<var(--amber-text-color)|{{blueberrySecond}}>> секунд Голубики! Вероятность создания следующей Голубики <<var(--amber-text-color)|x{{RNG}}>> (Гарантирован на 10,000 секунд Голубики)",
-    "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
+    "bonuses": "Ваша накопившаяся амброзия даёт <<var(--amber-text-color)|+{{cube}}%>> ко ВСЕМ кубам и <<cyan|+{{quark}}%>> к Кваркам!",
     "prerequisite": "Необходимо:",
     "prereqNotMet": " (Не Выполнено!)",
     "blueberryCost": "Голубики (Для Активации):",
@@ -43,7 +43,7 @@
       },
       "ambrosiaLuck1": {
         "name": "Модуль Амброзии: Удача I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. &#9752 +2 Ambrosia Luck/lvl. Every 10 levels gives &#9752 +12 more!",
+        "description": "Поздравляем с завершением тренировочного модуля. Он нужен максимального уровня, чтобы купить уровень этого. &#9752 +2 к Удаче Амброзии/ур. Каждые 10 уровней, даёт ещё &#9752 +12!",
         "effect": "Этот модуль удачи увеличивает &#9752 Удачу Амброзии на {{amount}}"
       },
       "ambrosiaCubeQuark1": {
@@ -53,7 +53,7 @@
       },
       "ambrosiaLuckQuark1": {
         "name": "Гибридный Модуль Амброзии: Удача-Кварки I",
-        "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
+        "description": "Гибридный модуль первого поколения. Даёт +0.01% Кварков за уровень за единицу &#9752 Удачи Амброзии! Убывающая полезность после 1,000 Удачи.",
         "effect": "Этот гибридный модуль первого поколения увеличивает получение Кварков на {{amount}}%"
       },
       "ambrosiaQuarkCube1": {
@@ -68,12 +68,12 @@
       },
       "ambrosiaCubeLuck1": {
         "name": "Гибридный Модуль Амброзии: Кубы-Удача I",
-        "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in the values of all cube types.",
+        "description": "Гибридный модуль первого поколения. Даёт &#9752 +0.02 Удачи Амброзии за уровень за количество цифр в количестве всех видов кубов.",
         "effect": "Этот гибридный модуль первого поколения увеличивает &#9752 Удачу Амброзии на {{amount}}"
       },
       "ambrosiaQuarkLuck1": {
         "name": "Гибридный Модуль Амброзии: Кварки-Удача I",
-        "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in your Quark balance, squared.",
+        "description": "Гибридный модуль первого поколения. Даёт &#9752 +0.02 Удачи Амброзии за уровень за квадрат количества знаков вашего счёта Кварков.",
         "effect": "Этот гибридный модуль первого поколения увеличивает &#9752 Удачу Амброзии на {{amount}}"
       }
     }
@@ -1911,12 +1911,12 @@
       "singAmbrosiaLuck2": {
         "name": "Позолоченные Ягоды Хорошей Удачи",
         "description": "Стать везучим, буквально положив немного золота на 'ягоды'. ☘ +2 к Удачи Амброзии за уровень!",
-        "effect": "☘ Ambrosia Luck +{{n}}(!)"
+        "effect": "☘ Удача Амброзии +{{n}}(!)"
       },
       "singAmbrosiaLuck3": {
         "name": "Выделенная переплавка золота",
         "description": "More gold is dipped onto each berry. ☘ +3 Ambrosia Luck per level!",
-        "effect": "☘ Ambrosia Luck +{{n}}(!)"
+        "effect": "☘ Удача Амброзии +{{n}}(!)"
       },
       "singAmbrosiaLuck": {
         "name": "Абсолютный Жар",
@@ -3216,7 +3216,7 @@
     "promocodePrompt": "У вас есть код? Отлично! Введите его (РеГиСтР ВаЖеН). \n [Примечание: это для событий и некоторый всегда активных кодов. \nМогу ли я посоветовать вам ввести \"synergism2021\" или \"Khafra\"?]",
     "comeBackSoon": "Ладно, до скорой встречи!",
     "noAddCodes": "У вас нет попыток кода 'Add'! Вы получите 1 через {{x}} секунд.",
-    "useXAdds": "Вы можете использовать до {{x}} попыток одновременно. Сколько бы вы хотели использовать?",
+    "useXAdds": "Вы можете использовать до {{x}} попыток сразу. Как много вы бы хотели использовать? Вы можете начать ввод с \"-\" (ввести отрицательное значение), чтобы сохранить заданное количество попыток, и использовать все остальные.",
     "cancelAdd": "Не волнуйтесь, вы не потеряли ни одного из ваших использований! Возвращайтесь позже!",
     "daily0Uses": "Осталось 0 использований. Следующее: Конец дня.",
     "daily1Uses": "Осталось 1 использование. Следующее: Конец дня.",
