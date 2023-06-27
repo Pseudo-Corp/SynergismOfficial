@@ -120,9 +120,10 @@ abstract class MultiplicationCache<T extends string> implements StatCache<T> {
 */
 
 type AmbrosialLuck = 'SingPerks' | 'OcteractBerries' | 'ShopUpgrades' | 'BlueberryUpgrade1' | 'Event' |
-                     'BlueberryCubeLuck1' | 'BlueberryQuarkLuck1' | 'SingularityBerries'
+                     'BlueberryCubeLuck1' | 'BlueberryQuarkLuck1' | 'SingularityBerries' | 'BlueberryUpgrade2'
 
-type AmbrosiaGeneration = 'DefaultVal' | 'Blueberries' | 'SingularityBerries' | 'ShopUpgrades' | 'Event' | 'OcteractBerries'
+type AmbrosiaGeneration = 'DefaultVal' | 'Blueberries' | 'SingularityBerries' | 'ShopUpgrades' | 'Event' | 'OcteractBerries' |
+                          'BlueberryPatreon'
 
 type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade' | 'SingularityPerk'
 
@@ -139,6 +140,7 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       'SingularityBerries': 0,
       'OcteractBerries': 0,
       'BlueberryUpgrade1': 0,
+      'BlueberryUpgrade2': 0,
       'BlueberryCubeLuck1': 0,
       'BlueberryQuarkLuck1': 0,
       'Event': 0
@@ -167,6 +169,10 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       }
       case 'BlueberryUpgrade1': {
         this.vals[key] = +player.blueberryUpgrades.ambrosiaLuck1.bonus.ambrosiaLuck
+        break
+      }
+      case 'BlueberryUpgrade2': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaLuck2.bonus.ambrosiaLuck
         break
       }
       case 'BlueberryCubeLuck1': {
@@ -200,6 +206,7 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
       'ShopUpgrades': 1,
       'SingularityBerries': 1,
       'OcteractBerries': 1,
+      'BlueberryPatreon': 1,
       'Event': 1
     }
     this.totalVal = 0
@@ -226,6 +233,10 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
       }
       case 'OcteractBerries': {
         this.vals[key] = calculateAmbrosiaGenerationOcteractUpgrade()
+        break
+      }
+      case 'BlueberryPatreon': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaPatreon.bonus.blueberryGeneration
         break
       }
       case 'Event': {

@@ -9,7 +9,7 @@ import { visualUpdateAmbrosia } from './UpdateVisuals'
 
 export type blueberryUpgradeNames = 'ambrosiaTutorial' | 'ambrosiaQuarks1' | 'ambrosiaCubes1' | 'ambrosiaLuck1' |
                                     'ambrosiaCubeLuck1' | 'ambrosiaQuarkLuck1' | 'ambrosiaQuarkCube1' | 'ambrosiaLuckCube1' |
-                                    'ambrosiaCubeQuark1' | 'ambrosiaLuckQuark1'
+                                    'ambrosiaCubeQuark1' | 'ambrosiaLuckQuark1' | 'ambrosiaQuarks2' | 'ambrosiaCubes2' | 'ambrosiaLuck2'
 
 type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
 
@@ -286,7 +286,8 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     prerequisites: {
       'ambrosiaTutorial': 10
     },
-    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('BlueberryUpgrade1')]
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('BlueberryUpgrade1'),
+      () => player.caches.ambrosiaLuck.updateVal('BlueberryUpgrade2')]
   },
   ambrosiaQuarkCube1: {
     maxLevel: 25,
@@ -421,8 +422,78 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       'ambrosiaQuarks1': 20
     },
     cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('BlueberryQuarkLuck1')]
+  },
+  ambrosiaQuarks2: {
+    maxLevel: 100,
+    costPerLevel: 500,
+    blueberryCost: 1,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
+    },
+    rewards: (n: number) => {
+      const quarkAmount = 1 + (0.01 + Math.floor(player.blueberryUpgrades.ambrosiaQuarks1.level / 10) / 1000)  * n
+      return {
+        quarks: quarkAmount,
+        desc: String(i18next.t('ambrosia.data.ambrosiaQuarks2.effect', { amount: format(100 * (quarkAmount - 1), 0, true) }))
+      }
+    },
+    prerequisites: {
+      'ambrosiaQuarks1': 40
+    }
+  },
+  ambrosiaCubes2: {
+    maxLevel: 100,
+    costPerLevel: 500,
+    blueberryCost: 1,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
+    },
+    rewards: (n: number) => {
+      const cubeAmount = (1 + (0.06 + 6 * (Math.floor(player.blueberryUpgrades.ambrosiaCubes1.level / 10) / 1000)) * n) * Math.pow(1.13, Math.floor(n / 10))
+      return {
+        cubes: cubeAmount,
+        desc: String(i18next.t('ambrosia.data.ambrosiaCubes2.effect', { amount: format(100 * (cubeAmount - 1), 2, true) }))
+      }
+    },
+    prerequisites: {
+      'ambrosiaCubes1': 40
+    }
+  },
+  ambrosiaLuck2: {
+    maxLevel: 100,
+    costPerLevel: 250,
+    blueberryCost: 1,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
+    },
+    rewards: (n: number) => {
+      const val = (3 + 0.3 * Math.floor(player.blueberryUpgrades.ambrosiaLuck1.level / 10))* n + 40 * Math.floor(n/10)
+      return {
+        ambrosiaLuck: val,
+        desc: String(i18next.t('ambrosia.data.ambrosiaLuck2.effect', { amount: format(val, 1, true) }))
+      }
+    },
+    prerequisites: {
+      'ambrosiaLuck1': 40
+    },
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('BlueberryUpgrade2')]
+  },
+  ambrosiaPatreon: {
+    maxLevel: 1,
+    costPerLevel: 1,
+    blueberryCost: 0,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
+    },
+    rewards: (n: number) => {
+      const val = (1 + n * player.worlds.BONUS / 100)
+      return {
+        blueberryGeneration: val,
+        desc: String(i18next.t('ambrosia.data.ambrosiaPatreon.effect', { amount: format(100 * (val - 1), 0, true) }))
+      }
+    },
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('BlueberryPatreon')]
   }
-
 }
 
 export const resetBlueberryTree = () => {
