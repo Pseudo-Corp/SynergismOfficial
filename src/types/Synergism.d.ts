@@ -617,6 +617,8 @@ export interface Player {
     visitedAmbrosiaSubtab: boolean
     spentBlueberries: number
     blueberryUpgrades: Record<keyof typeof blueberryUpgradeData, BlueberryUpgrade>
+    blueberryLoadouts: Record<number, BlueberryOpt>
+    blueberryLoadoutMode: BlueberryLoadoutMode
 
     caches: {
         ambrosiaLuck: AmbrosiaLuckCache,

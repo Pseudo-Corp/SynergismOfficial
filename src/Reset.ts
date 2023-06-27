@@ -41,6 +41,7 @@ import { sumContents } from './Utility'
 import { setInterval, clearInterval } from './Timers'
 import { IconSets } from './Themes'
 import { changeTab, changeSubTab } from './Tabs'
+import type { BlueberryLoadoutMode } from './BlueberryUpgrades'
 
 let repeatreset: ReturnType<typeof setTimeout>
 
@@ -1213,6 +1214,8 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.lifetimeAmbrosia = player.lifetimeAmbrosia
   hold.visitedAmbrosiaSubtab = player.visitedAmbrosiaSubtab
   hold.blueberryTime = player.blueberryTime
+  hold.blueberryLoadouts = player.blueberryLoadouts
+  hold.blueberryLoadoutMode = player.blueberryLoadoutMode as BlueberryLoadoutMode
 
   const saveCode42 = player.codes.get(42) ?? false
   const saveCode43 = player.codes.get(43) ?? false

@@ -1,17 +1,19 @@
 import { DynamicUpgrade } from './DynamicUpgrade'
 import type { IUpgradeData } from './DynamicUpgrade'
-import { Alert, Prompt } from './UpdateHTML'
+import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { visualUpdateAmbrosia } from './UpdateVisuals'
+import { exportData, saveFilename } from './ImportExport'
 
 export type blueberryUpgradeNames = 'ambrosiaTutorial' | 'ambrosiaQuarks1' | 'ambrosiaCubes1' | 'ambrosiaLuck1' |
                                     'ambrosiaCubeLuck1' | 'ambrosiaQuarkLuck1' | 'ambrosiaQuarkCube1' | 'ambrosiaLuckCube1' |
                                     'ambrosiaCubeQuark1' | 'ambrosiaLuckQuark1' | 'ambrosiaQuarks2' | 'ambrosiaCubes2' | 'ambrosiaLuck2'
 
-type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
+export type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
+export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
 
 export interface IBlueberryData extends Omit<IUpgradeData, 'name' | 'description' | 'effect'> {
     costFormula (this:void, level: number, baseCost: number): number
@@ -496,10 +498,180 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
   }
 }
 
-export const resetBlueberryTree = () => {
+export const resetBlueberryTree = async (giveAlert = true) => {
   for (const upgrade of Object.keys(player.blueberryUpgrades)) {
     const k = upgrade as keyof Player['blueberryUpgrades']
     player.blueberryUpgrades[k].refund()
   }
-  return Alert(i18next.t('ambrosia.refund'))
+  if (giveAlert) return Alert(i18next.t('ambrosia.refund'))
+}
+
+export const validateBlueberryTree = (modules: BlueberryOpt) => {
+
+  // Check for empty object (perhaps from the loadouts?)
+  if (Object.keys(modules).length === 0) {
+    return false
+  }
+
+  const ambrosiaBudget = player.lifetimeAmbrosia
+  const blueberryBudget = player.caches.blueberryInventory.totalVal
+
+  let spentAmbrosia = 0
+  let spentBlueberries = 0
+
+  let meetsPrerequisites = true
+  let meetsAmbrosia = true
+  let meetsBlueberries = true
+
+  for (const [key, val] of Object.entries(modules)) {
+    const k = key as keyof Player['blueberryUpgrades']
+
+    // Nix malicious or bad values
+    if (val < 0 || !Number.isFinite(val) || !Number.isInteger(val) || Number.isNaN(val)) {
+      return false
+    }
+    // Nix nonexistent modules
+    // eslint-disable-next-line
+    if (player.blueberryUpgrades[k] === undefined) return false
+
+    // Set val to max if it exceeds it, since it is possible module caps change over time.
+    const effectiveVal = Math.min(player.blueberryUpgrades[k].maxLevel, val)
+
+    // Check prereq for this specific module
+    const prereqs = player.blueberryUpgrades[k].preRequisites
+    if (prereqs !== undefined && val > 0) {
+      for (const [key2, val2] of Object.entries(prereqs)) {
+        const k2 = key2 as keyof BlueberryOpt
+        const level = modules[k2] ?? -1 /* If undefined, this is saying 'We need to have module
+        set to level val2 but it isn't even in our module loadout, so it cannot possibly satisfy prereqs'*/
+        if (level < val2) {
+          meetsPrerequisites = false
+        }
+      }
+    }
+
+    // Check blueberry costs
+    if (effectiveVal > 0) {
+      spentBlueberries += player.blueberryUpgrades[k].blueberryCost
+    }
+
+    // Check ambrosia costs
+    if (effectiveVal > 0) {
+      const valFunc = player.blueberryUpgrades[k].costFormula
+      const baseCost = player.blueberryUpgrades[k].costPerLevel
+      let tempCost = 0
+      for (let i = 0; i < val; i++) {
+        tempCost += valFunc(i, baseCost)
+      }
+      spentAmbrosia += tempCost
+    }
+  }
+
+  meetsAmbrosia = (ambrosiaBudget >= spentAmbrosia)
+  meetsBlueberries = (blueberryBudget >= spentBlueberries)
+
+  return (meetsPrerequisites && meetsAmbrosia && meetsBlueberries)
+}
+
+export const getBlueberryTree = () => {
+  return Object.fromEntries(Object.entries(player.blueberryUpgrades).map(([key, value]) => {
+    return [key, value.level]
+  })) as BlueberryOpt
+}
+
+export const fixBlueberryLevel = (modules: BlueberryOpt) => {
+  return Object.fromEntries(Object.entries(modules).map(([key, value]) => {
+    return [key, Math.min(value, player.blueberryUpgrades[key].maxLevel)]
+  }))
+}
+
+export const exportBlueberryTree = () => {
+  const modules = getBlueberryTree()
+  const save = JSON.stringify(modules)
+  const name = `BBTree-${saveFilename()}`
+  void exportData(save, name)
+}
+
+export const createBlueberryTree = async (modules: BlueberryOpt) => {
+  // Check to see if tree being created is valid.
+  const isPossible = validateBlueberryTree(modules)
+  if (!isPossible) {
+    void Alert(i18next.t('ambrosia.importTree.failure'))
+    return
+  }
+
+  // If valid, we will create the tree.
+  // Refund (reset) the tree!
+  await resetBlueberryTree(false) // no alert; return type is undefined
+
+  // Fix blueberry levels on a valid tree (not done by validation)
+  const actualModules = fixBlueberryLevel(modules)
+
+  for (const [key, val] of Object.entries(actualModules)) {
+    const k = key as keyof Player['blueberryUpgrades']
+    const { costFormula, costPerLevel, blueberryCost } = player.blueberryUpgrades[k]
+
+    if (val > 0) {
+      player.blueberryUpgrades[k].blueberriesInvested = blueberryCost
+      player.spentBlueberries += blueberryCost
+      let tempCost = 0
+      for (let i = 0; i < val; i++) {
+        tempCost += costFormula(i, costPerLevel)
+      }
+      player.ambrosia -= tempCost
+      player.blueberryUpgrades[k].ambrosiaInvested = tempCost
+      player.blueberryUpgrades[k].level = val
+    }
+  }
+  void Alert(i18next.t('ambrosia.importTree.success'))
+}
+
+export const importBlueberryTree = async (input: string | null) => {
+  if (typeof input !== 'string') {
+    return Alert(i18next.t('importexport.unableImport'))
+  } else {
+    try {
+      const modules = JSON.parse(input) as BlueberryOpt
+      await createBlueberryTree(modules)
+    } catch (err) {
+      return Alert(i18next.t('ambrosia.importTree.error'))
+    }
+  }
+}
+
+export const loadoutHandler = async (n: number, modules: BlueberryOpt) => {
+  if (player.blueberryLoadoutMode === 'saveTree') {
+    await saveBlueberryTree(n, modules)
+  }
+  if (player.blueberryLoadoutMode === 'loadTree') {
+    await createBlueberryTree(modules)
+  }
+}
+
+export const saveBlueberryTree = async (input: number, previous: BlueberryOpt) => {
+
+  if (Object.keys(previous).length > 0) {
+    const p = await Confirm(i18next.t('ambrosia.loadouts.confirmation'))
+    if (!p) return
+  }
+
+  player.blueberryLoadouts[input] = getBlueberryTree()
+  // eslint-disable-next-line
+  createLoadoutDescription(input, player.blueberryLoadouts[input])
+}
+
+export const createLoadoutDescription = (input: number, modules: BlueberryOpt) => {
+
+  let str = ''
+  for (const [key, val] of Object.entries(modules)) {
+    const k = key as keyof Player['blueberryUpgrades']
+    const name = player.blueberryUpgrades[k].name
+    str = str + `<span style="color:orange">${name}</span> <span style="color:yellow">lv${val}</span> | `
+  }
+
+  if (Object.keys(modules).length === 0) {
+    str = i18next.t('ambrosia.loadouts.none')
+  }
+  DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = ` ${i18next.t('ambrosia.loadouts.loadout')} ${input}
+  ${str}`
 }
