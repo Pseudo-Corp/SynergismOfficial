@@ -491,7 +491,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (amount) {
       attemptsUsed = amount.toString()
     } else {
-      attemptsUsed = await Prompt(i18next.t('importexport.useXAdds', { x: availableUses }))
+      attemptsUsed = await Prompt(i18next.t('importexport.useXAdds', { x: availableUses }), availableUses.toString())
     }
 
     if (attemptsUsed === null) {
@@ -501,14 +501,15 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (
       Number.isNaN(toUse) ||
             !Number.isInteger(toUse) ||
-            toUse <= 0
+            toUse === 0 ||
+            (toUse < 0 && -toUse >= availableUses)
     ) {
       return Alert(i18next.t('general.validation.invalidNumber'))
     }
 
     const addEffects = addCodeBonuses()
 
-    const realAttemptsUsed = Math.min(availableUses, toUse)
+    const realAttemptsUsed = toUse > 0 ? Math.min(availableUses, toUse) : availableUses + toUse
     const actualQuarks = Math.floor(addEffects.quarks * realAttemptsUsed)
     const [first, second] = window.crypto.getRandomValues(new Uint8Array(2))
 
