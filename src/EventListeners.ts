@@ -687,11 +687,13 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // BLUEBERRY LOADOUTS
-  for (let i = 1; i <= 8; i++) {
+  const blueberryLoadouts = document.querySelectorAll('[id^="blueberryLoadout"]')
+  
+  for (const loadout of blueberryLoadouts) {
     // eslint-disable-next-line
-    DOMCacheGetOrSet(`blueberryLoadout${i}`).addEventListener('mouseover', () => createLoadoutDescription(i, player.blueberryLoadouts[i] ?? { ambrosiaTutorial: 0 }))
+    loadout.addEventListener('mouseover', () => createLoadoutDescription(i, player.blueberryLoadouts[i] ?? { ambrosiaTutorial: 0 }))
     // eslint-disable-next-line
-    DOMCacheGetOrSet(`blueberryLoadout${i}`).addEventListener('click', () => loadoutHandler(i, player.blueberryLoadouts[i] ?? { ambrosiaTutorial: 0 }))
+   loadout.addEventListener('click', () => loadoutHandler(i, player.blueberryLoadouts[i] ?? { ambrosiaTutorial: 0 }))
   }
   DOMCacheGetOrSet('blueberryToggleMode').addEventListener('click', () => toggleBlueberryLoadoutmode())
 
