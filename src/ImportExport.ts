@@ -241,6 +241,30 @@ export const resetGame = async () => {
   await importSynergism(btoa(JSON.stringify(hold)), true)
 }
 
+export const importData = async (e: Event, importFunc: (save: string | null) => Promise<void> | Promise<undefined>) => {
+  const element = e.target as HTMLInputElement
+  const file = element.files![0]
+  let save = ''
+  // https://developer.mozilla.org/en-US/docs/Web/API/Blob/text
+  // not available in (bad) browsers like Safari 11
+  if (typeof Blob.prototype.text === 'function') {
+    save = await file.text()
+  } else {
+    const reader = new FileReader()
+    reader.readAsText(file)
+    const text = await new Promise<string>(res => {
+      reader.addEventListener('load', () => res(reader.result!.toString()))
+    })
+
+    save = text
+  }
+
+  element.value = ''
+  handleLastModified(file.lastModified)
+
+  return importFunc(save)
+}
+
 export const importSynergism = async (input: string | null, reset = false) => {
   if (typeof input !== 'string') {
     return Alert(i18next.t('importexport.unableImport'))
