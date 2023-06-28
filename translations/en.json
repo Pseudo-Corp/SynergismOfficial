@@ -1,14 +1,14 @@
 {
-    "testing": {
-        "saveInLive": "Savefiles cannot be used in live!",
-        "saveInLive2": "You can't load this save anymore!",
-        "errorSaving": "An error prevented this file from being saved.",
-        "gameSaved": "Game saved successfully!"
-    },
-    "save": {
-        "loadFailed": "Unable to load save.",
-        "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
-    },
+  "testing": {
+    "saveInLive": "Savefiles cannot be used in live!",
+    "saveInLive2": "You can't load this save anymore!",
+    "errorSaving": "An error prevented this file from being saved.",
+    "gameSaved": "Game saved successfully!"
+  },
+  "save": {
+    "loadFailed": "Unable to load save.",
+    "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
+  },
     "ambrosia": {
         "ambrosia": "Ambrosia",
         "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia! [Lifetime: <<white|{{lifetimeAmbrosia}}>>]",
