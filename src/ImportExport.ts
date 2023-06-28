@@ -118,45 +118,15 @@ export const saveFilename = () => {
   return cleanString(t)
 }
 
-export const exportSynergism = async () => {
-  player.lastExportedSave = Date.now()
-  player.offlinetick = Date.now()
-  const quarkData = quarkHandler()
-
-  let bonusGQMultiplier = 1
-  bonusGQMultiplier *= 1 + player.worlds.BONUS / 100
-  bonusGQMultiplier *= (player.highestSingularityCount >= 100 ? 1 + player.highestSingularityCount / 50 : 1)
-  if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
-    player.goldenQuarks += Math.floor(player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)) * bonusGQMultiplier
-    player.goldenQuarksTimer = player.goldenQuarksTimer % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
-  }
-  if (quarkData.gain >= 1) {
-    player.worlds.add(quarkData.gain)
-    player.quarkstimer = (player.quarkstimer % (3600 / quarkData.perHour))
-  }
-
-  const saved = await saveSynergy()
-
-  if (!saved) {
-    return
-  }
+export const exportData = async (text: string, fileName: string) => {
 
   const toClipboard = getElementById<HTMLInputElement>('saveType').checked
-  const save =
-        await localforage.getItem<Blob>('Synergysave2') ??
-        localStorage.getItem('Synergysave2')
-  const saveString = typeof save === 'string' ? save : await save?.text()
-
-  if (saveString === undefined) {
-    return Alert('How?')
-  }
-
   if (toClipboard) {
     try {
       // This can fail for two reasons:
       // - TypeError (browser doesn't support this feature)
       // - Failed to copy (browser limitation; Safari)
-      await navigator.clipboard.writeText(saveString)
+      await navigator.clipboard.writeText(text)
       DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.copiedSave')
     } catch (err) {
       // So we fallback to the deprecated way of doing it,
@@ -167,7 +137,7 @@ export const exportSynergism = async () => {
 
       textArea.setAttribute('style', 'top: 0; left: 0; position: fixed;')
       // For future Khafra: html5 attributes have no limit in length
-      textArea.setAttribute('data-clipboard-text', saveString)
+      textArea.setAttribute('data-clipboard-text', text)
 
       document.body.appendChild(textArea)
       textArea.focus()
@@ -192,8 +162,8 @@ export const exportSynergism = async () => {
     }
   } else {
     const a = document.createElement('a')
-    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + saveString)
-    a.setAttribute('download', saveFilename())
+    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + text)
+    a.setAttribute('download', fileName)
     a.setAttribute('id', 'downloadSave')
     // "Starting in Firefox 75, the click() function works even when the element is not attached to a DOM tree."
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click
@@ -203,6 +173,42 @@ export const exportSynergism = async () => {
     document.body.removeChild(a)
     DOMCacheGetOrSet('exportinfo').textContent = i18next.t('importexport.copiedFile')
   }
+  setTimeout(() => DOMCacheGetOrSet('exportinfo').textContent = '', 15_000)
+}
+
+export const exportSynergism = async () => {
+  player.lastExportedSave = Date.now()
+  player.offlinetick = Date.now()
+  const quarkData = quarkHandler()
+
+  let bonusGQMultiplier = 1
+  bonusGQMultiplier *= 1 + player.worlds.BONUS / 100
+  bonusGQMultiplier *= (player.highestSingularityCount >= 100 ? 1 + player.highestSingularityCount / 50 : 1)
+  if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
+    player.goldenQuarks += Math.floor(player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)) * bonusGQMultiplier
+    player.goldenQuarksTimer = player.goldenQuarksTimer % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
+  }
+  if (quarkData.gain >= 1) {
+    player.worlds.add(quarkData.gain)
+    player.quarkstimer = (player.quarkstimer % (3600 / quarkData.perHour))
+  }
+
+  const saved = await saveSynergy()
+
+  if (!saved) {
+    return
+  }
+
+  const save =
+        await localforage.getItem<Blob>('Synergysave2') ??
+        localStorage.getItem('Synergysave2')
+  const saveString = typeof save === 'string' ? save : await save?.text()
+
+  if (saveString === undefined) {
+    return Alert('How?')
+  }
+
+  await exportData(saveString, saveFilename())
   setTimeout(() => DOMCacheGetOrSet('exportinfo').textContent = '', 15_000)
 }
 
@@ -233,6 +239,30 @@ export const resetGame = async () => {
   changeSubTab('settings', { page: 0 }) // set 'statistics main'
   //Import Game
   await importSynergism(btoa(JSON.stringify(hold)), true)
+}
+
+export const importData = async (e: Event, importFunc: (save: string | null) => Promise<void> | Promise<undefined>) => {
+  const element = e.target as HTMLInputElement
+  const file = element.files![0]
+  let save = ''
+  // https://developer.mozilla.org/en-US/docs/Web/API/Blob/text
+  // not available in (bad) browsers like Safari 11
+  if (typeof Blob.prototype.text === 'function') {
+    save = await file.text()
+  } else {
+    const reader = new FileReader()
+    reader.readAsText(file)
+    const text = await new Promise<string>(res => {
+      reader.addEventListener('load', () => res(reader.result!.toString()))
+    })
+
+    save = text
+  }
+
+  element.value = ''
+  handleLastModified(file.lastModified)
+
+  return importFunc(save)
 }
 
 export const importSynergism = async (input: string | null, reset = false) => {
@@ -491,7 +521,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (amount) {
       attemptsUsed = amount.toString()
     } else {
-      attemptsUsed = await Prompt(i18next.t('importexport.useXAdds', { x: availableUses }))
+      attemptsUsed = await Prompt(i18next.t('importexport.useXAdds', { x: availableUses }), availableUses.toString())
     }
 
     if (attemptsUsed === null) {
@@ -501,14 +531,15 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (
       Number.isNaN(toUse) ||
             !Number.isInteger(toUse) ||
-            toUse <= 0
+            toUse === 0 ||
+            (toUse < 0 && -toUse >= availableUses)
     ) {
       return Alert(i18next.t('general.validation.invalidNumber'))
     }
 
     const addEffects = addCodeBonuses()
 
-    const realAttemptsUsed = Math.min(availableUses, toUse)
+    const realAttemptsUsed = toUse > 0 ? Math.min(availableUses, toUse) : availableUses + toUse
     const actualQuarks = Math.floor(addEffects.quarks * realAttemptsUsed)
     const [first, second] = window.crypto.getRandomValues(new Uint8Array(2))
 
