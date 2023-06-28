@@ -42,6 +42,7 @@ import { setInterval, clearInterval } from './Timers'
 import { IconSets } from './Themes'
 import { changeTab, changeSubTab } from './Tabs'
 import type { BlueberryLoadoutMode } from './BlueberryUpgrades'
+import i18next from 'i18next'
 
 let repeatreset: ReturnType<typeof setTimeout>
 
@@ -80,7 +81,10 @@ export const resetdetails = (input: resetNames) => {
       }
       currencyImage1.style.display = 'block'
       resetCurrencyGain.textContent = '+' + format(G.prestigePointGain)
-      resetInfo.textContent = 'Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: ' + format(player.coinsThisPrestige) + '/1e16 Coins || TIME SPENT: ' + format(player.prestigecounter) + ' Seconds.'
+      resetInfo.textContent = i18next.t('reset.details.prestige', {
+        amount: format(player.coinsThisPrestige),
+        timeSpent: format(player.prestigecounter)
+      })
       resetInfo.style.color = 'turquoise'
       break
     case 'transcension':
@@ -89,7 +93,10 @@ export const resetdetails = (input: resetNames) => {
       }
       currencyImage1.style.display = 'block'
       resetCurrencyGain.textContent = '+' + format(G.transcendPointGain)
-      resetInfo.textContent = 'Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: ' + format(player.coinsThisTranscension) + '/1e100 Coins || TIME SPENT: ' + format(player.transcendcounter) + ' Seconds.'
+      resetInfo.textContent = i18next.t('reset.details.transcension', {
+        amount: format(player.coinsThisTranscension),
+        timeSpent: format(player.transcendcounter)
+      })
       resetInfo.style.color = 'var(--orchid-text-color)'
       break
     case 'reincarnation':
@@ -98,7 +105,10 @@ export const resetdetails = (input: resetNames) => {
       }
       currencyImage1.style.display = 'block'
       resetCurrencyGain.textContent = '+' + format(G.reincarnationPointGain)
-      resetInfo.textContent = 'Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: ' + format(player.transcendShards) + '/1e300 Mythos Shards || TIME SPENT: ' + format(player.reincarnationcounter) + ' Seconds.'
+      resetInfo.textContent = i18next.t('reset.details.reincarnation', {
+        amount: format(player.transcendShards),
+        timeSpent: format(player.reincarnationcounter)
+      })
       resetInfo.style.color = 'limegreen'
       break
     case 'acceleratorBoost':
@@ -107,16 +117,28 @@ export const resetdetails = (input: resetNames) => {
       }
       currencyImage1.style.display = 'block'
       resetCurrencyGain.textContent = '-' + format(player.acceleratorBoostCost)
-      resetInfo.textContent = 'Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: ' + format(player.prestigePoints) + '/' + format(player.acceleratorBoostCost) + ' Diamonds.'
+      resetInfo.textContent = i18next.t('reset.details.acceleratorBoost', {
+        amount: format(player.prestigePoints),
+        required: format(player.acceleratorBoostCost)
+      })
       resetInfo.style.color = 'cyan'
       break
     case 'transcensionChallenge':
       currencyImage1.style.display = 'none'
-      resetCurrencyGain.textContent = '';
+      resetCurrencyGain.textContent = ''
 
-      (transcensionChallenge !== 0)? // TODO(@KhafraDev):
-        (resetInfo.style.color = 'aquamarine', resetInfo.textContent = `Are you tired of being in your Challenge or stuck? Click to leave Challenge ${transcensionChallenge}. Progress: ${format(player.coinsThisTranscension)}/${format(challengeRequirement(transcensionChallenge, player.challengecompletions[transcensionChallenge]))} Coins. TIME SPENT: ${format(player.transcendcounter)} Seconds.`):
-        (resetInfo.style.color = 'var(--crimson-text-color)', resetInfo.textContent = 'You\'re not in a Transcension Challenge right now. Get in one before you can leave it, duh!')
+      if (transcensionChallenge !== 0) {
+        resetInfo.style.color = 'aquamarine'
+        resetInfo.textContent = i18next.t('reset.details.transcensionChallenge.in', {
+          n: transcensionChallenge,
+          amount: format(player.coinsThisTranscension),
+          required: format(challengeRequirement(transcensionChallenge, player.challengecompletions[transcensionChallenge])),
+          timeSpent: format(player.transcendcounter)
+        })
+      } else {
+        resetInfo.style.color = 'var(--crimson-text-color)'
+        resetInfo.textContent = i18next.t('reset.details.transcensionChallenge.out')
+      }
       break
     case 'reincarnationChallenge':
       currencyImage1.style.display = 'none'
@@ -124,31 +146,42 @@ export const resetdetails = (input: resetNames) => {
 
       if (reincarnationChallenge !== 0) {
         const goal = reincarnationChallenge >= 9 ? 'coins' : 'transcendShards'
-        const goaldesc = reincarnationChallenge >= 9 ? ' Coins' : ' Mythos Shards'
 
         resetInfo.style.color = 'silver'
-        resetInfo.textContent = `Are you done or tired of being in your Challenge? Click to leave Challenge ${reincarnationChallenge}. Progress: ${format(player[goal])}/${format(challengeRequirement(reincarnationChallenge, player.challengecompletions[reincarnationChallenge], reincarnationChallenge))} ${goaldesc}. TIME SPENT: ${format(player.reincarnationcounter)} Seconds.`
+        resetInfo.textContent = i18next.t('reset.details.reincarnationChallenge.in.' + goal, {
+          n: reincarnationChallenge,
+          amount: format(player[goal]),
+          required: format(challengeRequirement(reincarnationChallenge, player.challengecompletions[reincarnationChallenge], reincarnationChallenge)),
+          timeSpent: format(player.reincarnationcounter)
+        })
       } else {
         resetInfo.style.color = 'var(--crimson-text-color)'
-        resetInfo.textContent = 'You\'re not in a Reincarnation Challenge right now. How could you leave what you are not in?'
+        resetInfo.textContent = i18next.t('reset.details.reincarnationChallenge.out')
       }
       break
     case 'ascensionChallenge':
       currencyImage1.style.display = 'none'
       resetCurrencyGain.textContent = ''
-      resetInfo.textContent = 'Click this if you\'re in an Ascension Challenge and want to leave. You get it already!'
+      resetInfo.textContent = i18next.t('reset.details.ascensionChallenge')
       resetInfo.style.color = 'gold'
       break
     case 'ascension':
       currencyImage1.style.display = 'none'
       resetCurrencyGain.textContent = ''
-      resetInfo.textContent = 'Ascend, C-10 is required! +' + format(CalcCorruptionStuff()[4], 0, true) + ' Wow! Cubes for doing it! Time: ' + format(player.ascensionCounter, 0, false) + ' Seconds. (Real-time ' + format(player.ascensionCounterRealReal, 0, false) + ' Seconds)'
+      resetInfo.textContent = i18next.t('reset.details.ascension', {
+        cubeAmount: format(CalcCorruptionStuff()[4], 0, true),
+        timeSpent: format(player.ascensionCounter, 0, false),
+        realTimeSpent: format(player.ascensionCounterRealReal, 0, false)
+      })
       resetInfo.style.color = 'gold'
       break
     case 'singularity':
       currencyImage1.style.display = 'none'
       resetCurrencyGain.textContent = ''
-      resetInfo.textContent = 'Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with ' + format(calculateGoldenQuarkGain(), 2, true) + ' Golden Quarks. Time: ' + format(player.singularityCounter, 0, false) + ' Seconds.'
+      resetInfo.textContent = i18next.t('reset.details.singularity', {
+        gqAmount: format(calculateGoldenQuarkGain(), 2, true),
+        timeSpent: format(player.singularityCounter, 0, false)
+      })
       resetInfo.style.color = 'lightgoldenrodyellow'
   }
   DOMCacheGetOrSet('resetofferings2').textContent = '+' + format(offering)
