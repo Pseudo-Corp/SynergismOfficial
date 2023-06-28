@@ -176,80 +176,53 @@ export const showTalismanEffect = (i: number) => {
   const g = DOMCacheGetOrSet('talismanRune5Effect')
   const h = DOMCacheGetOrSet('talismanMythicEffect')
 
+  let talismanKey = ''
+  let effectValue = ''
+
   switch (i) {
     case 0:
-      a.textContent = '=-=-=-= Exemption Talisman Effects =-=-=-='
-      b.textContent = `Taxes -${format(10 * (player.talismanRarity[0] - 1))}%`
-      c.textContent = `Bonus Speed Rune Levels: ${format(G.talisman1Effect[1], 2, true)}`
-      d.textContent = `Bonus Duplication Rune Levels: ${format(G.talisman1Effect[2], 2, true)}`
-      e.textContent = `Bonus Prism Rune Levels: ${format(G.talisman1Effect[3], 2, true)}`
-      f.textContent = `Bonus Thrift Rune Levels: ${format(G.talisman1Effect[4], 2, true)}`
-      g.textContent = `Bonus SI Rune Levels: ${format(G.talisman1Effect[5], 2, true)}`
-      h.textContent = 'Mythic Effect: +400 Duplication Rune Levels!'
+      talismanKey = 'exemption'
+      effectValue = format(10 * (player.talismanRarity[0] - 1))
       break
     case 1:
-      a.textContent = '=-=-=-= Chronos Talisman Effects =-=-=-='
-      b.textContent = `Gain +${format(10 * (player.talismanRarity[1] - 1))}% Global Speed Acceleration.`
-      c.textContent = `Bonus Speed Rune Levels: ${format(G.talisman2Effect[1], 2, true)}`
-      d.textContent = `Bonus Duplication Rune Levels: ${format(G.talisman2Effect[2], 2, true)}`
-      e.textContent = `Bonus Prism Rune Levels: ${format(G.talisman2Effect[3], 2, true)}`
-      f.textContent = `Bonus Thrift Rune Levels: ${format(G.talisman2Effect[4], 2, true)}`
-      g.textContent = `Bonus SI Rune Levels: ${format(G.talisman2Effect[5], 2, true)}`
-      h.textContent = 'Mythic Effect: +400 Speed Rune Levels!'
+      talismanKey = 'chronos'
+      effectValue = format(10 * (player.talismanRarity[1] - 1))
       break
     case 2:
-      a.textContent = '=-=-=-= Midas Talisman Effects =-=-=-='
-      b.textContent = 'Rune Blessing bonuses +' + format(10 * (player.talismanRarity[2] - 1)) + '%'
-      c.textContent = 'Bonus Speed Rune Levels: ' + format(G.talisman3Effect[1], 2, true)
-      d.textContent = 'Bonus Duplication Rune Levels: ' + format(G.talisman3Effect[2], 2, true)
-      e.textContent = 'Bonus Prism Rune Levels: ' + format(G.talisman3Effect[3], 2, true)
-      f.textContent = 'Bonus Thrift Rune Levels: ' + format(G.talisman3Effect[4], 2, true)
-      g.textContent = 'Bonus SI Rune Levels: ' + format(G.talisman3Effect[5], 2, true)
-      h.textContent = 'Mythic Effect: +400 Thrift Rune Levels!'
+      talismanKey = 'midas'
+      effectValue = format(10 * (player.talismanRarity[2] - 1))
       break
     case 3:
-      a.textContent = '=-=-=-= Metaphysics Talisman Effects =-=-=-='
-      b.textContent = 'Talismans\' Bonus Rune Levels +' + format(0.02 * (player.talismanRarity[3] - 1), 2) + ' per level'
-      c.textContent = 'Bonus Speed Rune Levels: ' + format(G.talisman4Effect[1], 2, true)
-      d.textContent = 'Bonus Duplication Rune Levels: ' + format(G.talisman4Effect[2], 2, true)
-      e.textContent = 'Bonus Prism Rune Levels: ' + format(G.talisman4Effect[3], 2, true)
-      f.textContent = 'Bonus Thrift Rune Levels: ' + format(G.talisman4Effect[4], 2, true)
-      g.textContent = 'Bonus SI Rune Levels: ' + format(G.talisman4Effect[5], 2, true)
-      h.textContent = 'Mythic Effect: +400 Prism Rune Levels!'
+      talismanKey = 'metaphysics'
+      effectValue = format(0.02 * (player.talismanRarity[3] - 1))
       break
     case 4:
-      a.textContent = '=-=-=-= Polymath Talisman Effects =-=-=-='
-      b.textContent = 'Rune Spirit Bonuses +' + format(1 * (player.talismanRarity[4] - 1)) + '%'
-      c.textContent = 'Bonus Speed Rune Levels: ' + format(G.talisman5Effect[1], 2, true)
-      d.textContent = 'Bonus Duplication Rune Levels: ' + format(G.talisman5Effect[2], 2, true)
-      e.textContent = 'Bonus Prism Rune Levels: ' + format(G.talisman5Effect[3], 2, true)
-      f.textContent = 'Bonus Thrift Rune Levels: ' + format(G.talisman5Effect[4], 2, true)
-      g.textContent = 'Bonus SI Rune Levels: ' + format(G.talisman5Effect[5], 2, true)
-      h.textContent = 'Mythic Effect: +400 SI Rune Levels!'
+      talismanKey = 'polymath'
+      effectValue = format(1 * (player.talismanRarity[4] - 1))
       break
     case 5:
-      a.textContent = '=-=-=-= Mortuus Est Talisman Effects =-=-=-='
-      b.textContent = 'Bonus Ant Levels: +' + format(2 * (player.talismanRarity[5] - 1))
-      c.textContent = 'Bonus Speed Rune Levels: ' + format(G.talisman6Effect[1], 2, true)
-      d.textContent = 'Bonus Duplication Rune Levels: ' + format(G.talisman6Effect[2], 2, true)
-      e.textContent = 'Bonus Prism Rune Levels: ' + format(G.talisman6Effect[3], 2, true)
-      f.textContent = 'Bonus Thrift Rune Levels: ' + format(G.talisman6Effect[4], 2, true)
-      g.textContent = 'Bonus SI Rune Levels: ' + format(G.talisman6Effect[5], 2, true)
-      h.textContent = 'Mythic Effect: Gain ant speed based on your total rune level!'
+      talismanKey = 'mortuus'
+      effectValue = format(2 * (player.talismanRarity[5] - 1))
       break
     case 6:
-      a.textContent = '=-=-=-= Plastic Talisman Effects =-=-=-='
-      b.textContent = 'Gain 1x normal production (Joke)!'
-      c.textContent = 'Bonus Speed Rune Levels: ' + format(G.talisman7Effect[1], 2, true)
-      d.textContent = 'Bonus Duplication Rune Levels: ' + format(G.talisman7Effect[2], 2, true)
-      e.textContent = 'Bonus Prism Rune Levels: ' + format(G.talisman7Effect[3], 2, true)
-      f.textContent = 'Bonus Thrift Rune Levels: ' + format(G.talisman7Effect[4], 2, true)
-      g.textContent = 'Bonus SI Rune Levels: ' + format(G.talisman7Effect[5], 2, true)
-      h.textContent = 'Mythic Effect: Gain 1x your normal quark values (Joke)!'
+      talismanKey = 'plastic'
+
       break
   }
+
+  const runeEffectName = `talisman${i + 1}Effect` as 'talisman1Effect' | 'talisman2Effect' | 'talisman3Effect' | 'talisman4Effect' | 'talisman5Effect' | 'talisman6Effect' | 'talisman7Effect'
+
+  a.textContent = i18next.t('runes.talismans.summaries.' + talismanKey)
+  b.textContent = i18next.t('runes.talismans.effects.' + talismanKey, { x: effectValue })
+  c.textContent = i18next.t('runes.talismans.bonusRuneLevels.speed', { x: format(G[runeEffectName][1], 2, true) })
+  d.textContent = i18next.t('runes.talismans.bonusRuneLevels.duplication', { x: format(G[runeEffectName][2], 2, true) })
+  e.textContent = i18next.t('runes.talismans.bonusRuneLevels.prism', { x: format(G[runeEffectName][3], 2, true) })
+  f.textContent = i18next.t('runes.talismans.bonusRuneLevels.thrift', { x: format(G[runeEffectName][4], 2, true) })
+  g.textContent = i18next.t('runes.talismans.bonusRuneLevels.SI', { x: format(G[runeEffectName][5], 2, true) })
+  h.textContent = i18next.t('runes.talismans.mythicEffects.' + talismanKey)
+
   if (player.talismanRarity[i] !== 6) {
-    h.textContent = 'Get Max Enhance for a Mythical bonus effect!'
+    h.textContent = i18next.t('runes.talismans.maxEnhance')
   }
 }
 
