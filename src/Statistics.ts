@@ -1,7 +1,7 @@
 import { player, format, formatTimeShort } from './Synergism'
 import { Globals as G } from './Variables'
 import { hepteractEffective } from './Hepteracts'
-import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTimeAcceleration, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus, calculateAscensionSpeedMultiplier, calculateGoldenQuarkMultiplier } from './Calculate'
+import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTimeAcceleration, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus, calculateAscensionSpeedMultiplier, calculateGoldenQuarkMultiplier, calculateAmbrosiaQuarkMult } from './Calculate'
 import { challenge15ScoreMultiplier } from './Challenges'
 import type { GlobalVariables } from './types/Synergism'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -174,6 +174,12 @@ export const loadQuarkMultiplier = () => {
                                                             Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL))),
   3,
   true)
+  DOMCacheGetOrSet('sGQM25').textContent = 'x' + format(calculateAmbrosiaQuarkMult(), 2, true)
+  DOMCacheGetOrSet('sGQM26').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaTutorial.bonus.quarks, 2, true)
+  DOMCacheGetOrSet('sGQM27').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaQuarks1.bonus.quarks, 2, true)
+  DOMCacheGetOrSet('sGQM28').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaCubeQuark1.bonus.quarks, 2, true)
+  DOMCacheGetOrSet('sGQM29').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks, 2, true)
+  DOMCacheGetOrSet('sGQM30').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks, 2, true)
   DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
 }
 
@@ -225,7 +231,13 @@ export const loadStatisticsCubeMultipliers = () => {
     21: { acc: 2, desc: 'Citadel [GQ]' },
     22: { acc: 2, desc: 'Citadel 2 [GQ]' },
     23: { acc: 4, desc: 'Platonic DELTA' },
-    24: { acc: 2, desc: 'Wow Pass ∞' }
+    24: { acc: 2, desc: 'Wow Pass ∞' },
+    25: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
+    26: { acc: 2, desc: 'Module- Tutorial' },
+    27: { acc: 2, desc: 'Module- Cubes 1' },
+    28: { acc: 2, desc: 'Module- Luck-Cube 1' },
+    29: { acc: 2, desc: 'Module- Quark-Cube 1' },
+    30: { acc: 2, desc: 'Module- Cubes 2' }
   }
   for (let i = 0; i < arr0.length; i++) {
     const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
@@ -373,7 +385,13 @@ export const loadStatisticsCubeMultipliers = () => {
     23: { acc: 2, desc: 'Platonic DELTA' },
     24: { acc: 2, desc: 'No Singularity Upgrades Challenge' },
     25: { acc: 2, desc: 'Wow Pass ∞' },
-    26: { acc: 2, desc: ascensionSpeedDesc }
+    26: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
+    27: { acc: 2, desc: 'Module- Tutorial' },
+    28: { acc: 2, desc: 'Module- Cubes 1' },
+    29: { acc: 2, desc: 'Module- Luck-Cube 1' },
+    30: { acc: 2, desc: 'Module- Quark-Cube 1' },
+    31: { acc: 2, desc: 'Module- Cubes 2' },
+    32: { acc: 2, desc: ascensionSpeedDesc }
   }
   for (let i = 0; i < octMults.list.length; i++) {
     const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`)
@@ -584,7 +602,14 @@ export const loadStatisticsAmbrosiaLuck = () => {
   const arr = player.caches.ambrosiaLuck.flatten()
   const map: Record<number, { acc: number, desc: string }> = {
     1: { acc: 0, desc: 'Irish Ants Singularity Perk' },
-    2: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrade' }
+    2: { acc: 1, desc: 'Shop Upgrade Bonus' },
+    3: { acc: 0, desc: 'Singularity Ambrosia Luck Upgrades' },
+    4: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrades' },
+    5: { acc: 0, desc: 'Ambrosia Luck Module I' },
+    6: { acc: 1, desc: 'Ambrosia Luck Module II' },
+    7: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
+    8: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
+    9: { acc: 1, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -599,9 +624,13 @@ export const loadStatisticsAmbrosiaLuck = () => {
 export const loadStatisticsAmbrosiaGeneration = () => {
   const arr = player.caches.ambrosiaGeneration.flatten()
   const map: Record<number, { acc: number, desc: string }> = {
-    1: { acc: 4, desc: 'Base Chance Multiplier' },
+    1: { acc: 4, desc: 'Visited Ambrosia Subtab' },
     2: { acc: 4, desc: 'Number of Blueberries' },
-    3: { acc: 4, desc: 'Blueberry Second Multiplier' }
+    3: { acc: 4, desc: 'Shop Upgrade Bonus' },
+    4: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
+    5: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
+    6: { acc: 4, desc: 'Patreon Bonus' },
+    7: { acc: 4, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)
@@ -610,7 +639,7 @@ export const loadStatisticsAmbrosiaGeneration = () => {
   }
 
   const totalVal = arr[arr.length - 1]
-  DOMCacheGetOrSet('sAGenMT').textContent = `${format(100 * totalVal, 3, true)}%`
+  DOMCacheGetOrSet('sAGenMT').textContent = `${format(totalVal, 3, true)}`
 }
 
 export const c15RewardUpdate = () => {
@@ -865,10 +894,10 @@ export const gameStages = (): Stage[] => {
     { stage: 17, tier: 5, name: 'beta-1e15-expo', unlocked: player.challenge15Exponent >= 1e15, reset: player.achievements[183] === 1 },
     { stage: 18, tier: 5, name: '1e15-expo-omega', unlocked: player.platonicUpgrades[15] > 0, reset: player.achievements[183] === 1 },
     { stage: 19, tier: 5, name: 'omega-singularity', unlocked: player.singularityCount > 0 && player.runelevels[6] > 0, reset: player.achievements[183] === 1 },
-    { stage: 20, tier: 6, name: 'singularity-liquidation', unlocked: player.singularityUpgrades.wowPass2.level > 0, reset: player.highestSingularityCount > 0 },
-    { stage: 21, tier: 6, name: 'liquidation-onemind', unlocked: player.singularityUpgrades.oneMind.level > 0, reset: player.highestSingularityCount > 0 },
-    { stage: 22, tier: 6, name: 'onemind-bbshards', unlocked: player.singularityUpgrades.offeringAutomatic.level > 0, reset: player.highestSingularityCount > 0 },
-    { stage: 23, tier: 6, name: 'bbshards-pen', unlocked: player.singularityUpgrades.ultimatePen.level > 0, reset: player.highestSingularityCount > 0 },
+    { stage: 20, tier: 6, name: 'singularity-exalt1x1', unlocked: player.singularityUpgrades.wowPass2.level > 0, reset: player.highestSingularityCount > 0 },
+    { stage: 21, tier: 6, name: 'exalt1x1-onemind', unlocked: player.singularityUpgrades.oneMind.level > 0, reset: player.highestSingularityCount > 0 },
+    { stage: 22, tier: 6, name: 'onemind-end', unlocked: player.singularityUpgrades.offeringAutomatic.level > 0, reset: player.highestSingularityCount > 0 },
+    { stage: 23, tier: 6, name: 'end-pen', unlocked: player.singularityUpgrades.ultimatePen.level > 0, reset: player.highestSingularityCount > 0 },
     { stage: 24, tier: 6, name: 'pen', unlocked: false, reset: player.highestSingularityCount > 0 }
   ]
   return stages

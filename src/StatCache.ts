@@ -1,6 +1,8 @@
-import { calculateSingularityAmbrosiaLuckMilestoneBonus } from './Calculate'
+import { calculateAmbrosiaGenerationOcteractUpgrade, calculateAmbrosiaGenerationSingularityUpgrade, calculateAmbrosiaLuckOcteractUpgrade, calculateAmbrosiaLuckSingularityUpgrade, calculateEventBuff, calculateSingularityMilestoneBlueberries } from './Calculate'
+import { calculateAmbrosiaGenerationShopUpgrade, calculateAmbrosiaLuckShopUpgrade, calculateSingularityAmbrosiaLuckMilestoneBonus } from './Calculate'
 import { player } from './Synergism'
 import { productContents } from './Utility'
+import { Globals } from './Variables'
 
 interface StatCache<T> {
 
@@ -117,11 +119,13 @@ abstract class MultiplicationCache<T extends string> implements StatCache<T> {
  * Define Types Below. For each one, the union is all statistics of a particular stat.
 */
 
-type AmbrosialLuck = 'SingPerks' | 'OcteractBerries'
+type AmbrosialLuck = 'SingPerks' | 'OcteractBerries' | 'ShopUpgrades' | 'BlueberryUpgrade1' | 'Event' |
+                     'BlueberryCubeLuck1' | 'BlueberryQuarkLuck1' | 'SingularityBerries' | 'BlueberryUpgrade2'
 
-type AmbrosiaGeneration = 'DefaultVal' | 'SingularityBerries' | 'RNG'
+type AmbrosiaGeneration = 'DefaultVal' | 'Blueberries' | 'SingularityBerries' | 'ShopUpgrades' | 'Event' | 'OcteractBerries' |
+                          'BlueberryPatreon'
 
-type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade'
+type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade' | 'SingularityPerk'
 
 export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
 
@@ -132,7 +136,14 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
     super()
     this.vals = {
       'SingPerks': 0,
-      'OcteractBerries': 0
+      'ShopUpgrades': 0,
+      'SingularityBerries': 0,
+      'OcteractBerries': 0,
+      'BlueberryUpgrade1': 0,
+      'BlueberryUpgrade2': 0,
+      'BlueberryCubeLuck1': 0,
+      'BlueberryQuarkLuck1': 0,
+      'Event': 0
     }
     this.totalVal = 0
   }
@@ -144,8 +155,36 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
         this.vals[key] = calculateSingularityAmbrosiaLuckMilestoneBonus()
         break
       }
+      case 'ShopUpgrades': {
+        this.vals[key] = calculateAmbrosiaLuckShopUpgrade()
+        break
+      }
+      case 'SingularityBerries': {
+        this.vals[key] = calculateAmbrosiaLuckSingularityUpgrade()
+        break
+      }
       case 'OcteractBerries': {
-        this.vals[key] = +player.octeractUpgrades.octeractAmbrosiaLuck.getEffect().bonus
+        this.vals[key] = calculateAmbrosiaLuckOcteractUpgrade()
+        break
+      }
+      case 'BlueberryUpgrade1': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaLuck1.bonus.ambrosiaLuck
+        break
+      }
+      case 'BlueberryUpgrade2': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaLuck2.bonus.ambrosiaLuck
+        break
+      }
+      case 'BlueberryCubeLuck1': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaCubeLuck1.bonus.ambrosiaLuck
+        break
+      }
+      case 'BlueberryQuarkLuck1': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaQuarkLuck1.bonus.ambrosiaLuck
+        break
+      }
+      case 'Event': {
+        this.vals[key] = (Globals.isEvent) ? 100 * calculateEventBuff('Ambrosia Luck') : 0
         break
       }
     }
@@ -163,29 +202,46 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
     super()
     this.vals = {
       'DefaultVal': 1,
+      'Blueberries': 1,
+      'ShopUpgrades': 1,
       'SingularityBerries': 1,
-      'RNG': 1
+      'OcteractBerries': 1,
+      'BlueberryPatreon': 1,
+      'Event': 1
     }
-    this.totalVal = 1
+    this.totalVal = 0
   }
 
   updateVal(key: AmbrosiaGeneration, init = false): void {
     const oldVal = this.vals[key]
     switch (key) {
       case 'DefaultVal': {
-        this.vals[key] = 1/10000 * +(player.visitedAmbrosiaSubtab)
+        this.vals[key] = 1 * +(player.visitedAmbrosiaSubtab)
         break
       }
-      case 'SingularityBerries': {
+      case 'Blueberries': {
         this.vals[key] = player.caches.blueberryInventory.totalVal
         break
       }
-      case 'RNG': {
-        if (player.ambrosiaRNG >= 10000) { // Pity System: Guarantee a drop after 10,000 Blueberry-Seconds
-          this.vals[key] = 100000
-        } else { // Takes on a value in [1, 3] with bias towards 3
-          this.vals[key] = 1 + 2 * Math.sqrt(player.ambrosiaRNG) / 100
-        }
+      case 'ShopUpgrades': {
+        this.vals[key] = calculateAmbrosiaGenerationShopUpgrade()
+        break
+      }
+      case 'SingularityBerries': {
+        this.vals[key] = calculateAmbrosiaGenerationSingularityUpgrade()
+        break
+      }
+      case 'OcteractBerries': {
+        this.vals[key] = calculateAmbrosiaGenerationOcteractUpgrade()
+        break
+      }
+      case 'BlueberryPatreon': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaPatreon.bonus.blueberryGeneration
+        break
+      }
+      case 'Event': {
+        this.vals[key] = (Globals.isEvent) ? 1 + calculateEventBuff('Blueberry Time') : 1
+        break
       }
     }
     const newVal = this.vals[key]
@@ -201,7 +257,8 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
     super()
     this.vals = {
       'Exalt1': 0,
-      'SingularityUpgrade': 0
+      'SingularityUpgrade': 0,
+      'SingularityPerk': 0
     }
     this.totalVal = 0
   }
@@ -217,9 +274,14 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
         this.vals[key] = +(player.singularityUpgrades.blueberries.getEffect().bonus)
         break
       }
+      case 'SingularityPerk': {
+        this.vals[key] = calculateSingularityMilestoneBlueberries()
+        break
+      }
     }
     const newVal = this.vals[key]
     this.updateTotal(oldVal, newVal, init)
+    player.caches.ambrosiaGeneration.updateVal('Blueberries') // Dependant cache
   }
 }
 

@@ -53,6 +53,7 @@ import { init as i18nInit } from './i18n'
 import i18next from 'i18next'
 import { changeTab, changeSubTab } from './Tabs'
 import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
+import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -478,7 +479,15 @@ export const player: Player = {
     improveQuarkHept5: 0,
     seasonPassInfinity: 0,
     chronometerInfinity: 0,
-    shopSingularityPenaltyDebuff: 0
+    shopSingularityPenaltyDebuff: 0,
+    shopAmbrosiaGeneration1: 0,
+    shopAmbrosiaGeneration2: 0,
+    shopAmbrosiaGeneration3: 0,
+    shopAmbrosiaGeneration4: 0,
+    shopAmbrosiaLuck1: 0,
+    shopAmbrosiaLuck2: 0,
+    shopAmbrosiaLuck3: 0,
+    shopAmbrosiaLuck4: 0
   },
   shopBuyMaxToggle: false,
   shopHideToggle: false,
@@ -784,7 +793,15 @@ export const player: Player = {
     oneMind: new SingularityUpgrade(singularityData.oneMind, 'oneMind'),
     wowPass4: new SingularityUpgrade(singularityData.wowPass4, 'wowPass4'),
     offeringAutomatic: new SingularityUpgrade(singularityData.offeringAutomatic, 'offeringAutomatic'),
-    blueberries: new SingularityUpgrade(singularityData.blueberries, 'blueberries')
+    blueberries: new SingularityUpgrade(singularityData.blueberries, 'blueberries'),
+    singAmbrosiaLuck: new SingularityUpgrade(singularityData.singAmbrosiaLuck, 'singAmbrosiaLuck'),
+    singAmbrosiaLuck2: new SingularityUpgrade(singularityData.singAmbrosiaLuck2, 'singAmbrosiaLuck2'),
+    singAmbrosiaLuck3: new SingularityUpgrade(singularityData.singAmbrosiaLuck3, 'singAmbrosiaLuck3'),
+    singAmbrosiaLuck4: new SingularityUpgrade(singularityData.singAmbrosiaLuck4, 'singAmbrosiaLuck4'),
+    singAmbrosiaGeneration: new SingularityUpgrade(singularityData.singAmbrosiaGeneration, 'singAmbrosiaGeneration'),
+    singAmbrosiaGeneration2: new SingularityUpgrade(singularityData.singAmbrosiaGeneration2, 'singAmbrosiaGeneration2'),
+    singAmbrosiaGeneration3: new SingularityUpgrade(singularityData.singAmbrosiaGeneration3, 'singAmbrosiaGeneration3'),
+    singAmbrosiaGeneration4: new SingularityUpgrade(singularityData.singAmbrosiaGeneration4, 'singAmbrosiaGeneration4')
   },
 
   octeractUpgrades: {
@@ -817,7 +834,14 @@ export const player: Player = {
     octeractAutoPotionSpeed: new OcteractUpgrade(octeractData.octeractAutoPotionSpeed, 'octeractAutoPotionSpeed'),
     octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData.octeractAutoPotionEfficiency, 'octeractAutoPotionEfficiency'),
     octeractOneMindImprover: new OcteractUpgrade(octeractData.octeractOneMindImprover, 'octeractOneMindImprover'),
-    octeractAmbrosiaLuck: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck, 'octeractAmbrosiaLuck')
+    octeractAmbrosiaLuck: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck, 'octeractAmbrosiaLuck'),
+    octeractAmbrosiaLuck2: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck2, 'octeractAmbrosiaLuck2'),
+    octeractAmbrosiaLuck3: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck3, 'octeractAmbrosiaLuck3'),
+    octeractAmbrosiaLuck4: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck4, 'octeractAmbrosiaLuck4'),
+    octeractAmbrosiaGeneration: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration, 'octeractAmbrosiaGeneration'),
+    octeractAmbrosiaGeneration2: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration2, 'octeractAmbrosiaGeneration2'),
+    octeractAmbrosiaGeneration3: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration3, 'octeractAmbrosiaGeneration3'),
+    octeractAmbrosiaGeneration4: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration4, 'octeractAmbrosiaGeneration4')
   },
 
   dailyCodeUsed: false,
@@ -835,13 +859,45 @@ export const player: Player = {
   ambrosia: 0,
   lifetimeAmbrosia: 0,
   ambrosiaRNG: 0,
+  blueberryTime: 0,
   visitedAmbrosiaSubtab: false,
+  spentBlueberries: 0,
+  blueberryUpgrades: {
+    ambrosiaTutorial: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaTutorial, 'ambrosiaTutorial'),
+    ambrosiaQuarks1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarks1, 'ambrosiaQuarks1'),
+    ambrosiaCubes1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubes1, 'ambrosiaQuarks1'),
+    ambrosiaLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuck1, 'ambrosiaLuck1'),
+    ambrosiaCubeQuark1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubeQuark1, 'ambrosiaCubeQuark1'),
+    ambrosiaLuckQuark1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckQuark1, 'ambrosiaLuckQuark1'),
+    ambrosiaLuckCube1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckCube1, 'ambrosiaLuckCube1'),
+    ambrosiaQuarkCube1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarkCube1, 'ambrosiaQuarkCube1'),
+    ambrosiaCubeLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubeLuck1, 'ambrosiaCubeLuck1'),
+    ambrosiaQuarkLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarkLuck1, 'ambrosiaQuarkLuck1'),
+    ambrosiaQuarks2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarks2, 'ambrosiaQuarks2'),
+    ambrosiaCubes2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubes2, 'ambrosiaQuarks2'),
+    ambrosiaLuck2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuck2, 'ambrosiaLuck2'),
+    ambrosiaPatreon: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaPatreon, 'ambrosiaPatreon')
+  },
+
+  blueberryLoadouts: {
+    1: {},
+    2: {},
+    3: {},
+    4: {},
+    5: {},
+    6: {},
+    7: {},
+    8: {}
+  },
+  blueberryLoadoutMode: 'saveTree',
 
   caches: {
     ambrosiaLuck: new AmbrosiaLuckCache(),
     ambrosiaGeneration: new AmbrosiaGenerationCache(),
     blueberryInventory: new BlueberryInventoryCache()
-  }
+  },
+
+  lastExportedSave: Date.now()
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -895,6 +951,17 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
           enabled: value.enabled
         }]
       })
+    ),
+    blueberryUpgrades: Object.fromEntries(
+      Object.entries(player.blueberryUpgrades).map(([key, value]) => {
+        return [key, {
+          level: value.level,
+          ambrosiaInvested: value.ambrosiaInvested,
+          blueberriesInvested: value.blueberriesInvested,
+          toggleBuy: value.toggleBuy,
+          freeLevels: value.freeLevels
+        }]
+      })
     )
   })
 
@@ -926,7 +993,7 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
  * Map of properties on the Player object to adapt
  */
 const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
-  ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) || 0 })],
+  ['worlds', data => new QuarkHandler({ quarks: Number(data.worlds) || 0, bonus: player.worlds.BONUS })],
   ['wowCubes', data => new WowCubes(Number(data.wowCubes) || 0)],
   ['wowTesseracts', data => new WowTesseracts(Number(data.wowTesseracts) || 0)],
   ['wowHypercubes', data => new WowHypercubes(Number(data.wowHypercubes) || 0)],
@@ -1009,8 +1076,11 @@ const loadSynergy = async () => {
         }
       }
 
+      // eslint-disable-next-line
       return ((player[prop] as unknown) = data[prop])
     })
+
+    player.lastExportedSave = data.lastExportedSave ?? Date.now()
 
     if (data.offerpromo24used !== undefined) {
       player.codes.set(25, false)
@@ -1898,6 +1968,8 @@ const loadSynergy = async () => {
       : i18next.t('general.autoOffColon')
     DOMCacheGetOrSet('hepteractToQuarkTradeAuto').style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'}`
     toggleAutoBuyOrbs(true, true)
+
+    DOMCacheGetOrSet('blueberryToggleMode').innerHTML = (player.blueberryLoadoutMode === 'saveTree') ? i18next.t('ambrosia.loadouts.save') : i18next.t('ambrosia.loadouts.load')
 
     toggleTalismanBuy(player.buyTalismanShardPercent)
     updateTalismanInventory()
@@ -4139,7 +4211,7 @@ export const reloadShit = async (reset = false) => {
   if (!reset) {
     await calculateOffline()
   } else {
-    player.worlds = new QuarkHandler({ bonus: 0, quarks: 0 })
+    player.worlds.reset()
     // saving is disabled during a singularity event to prevent bug
     // early return here if the save fails can keep game state from properly resetting after a singularity
     if (saveCheck.canSave) {
@@ -4158,7 +4230,14 @@ export const reloadShit = async (reset = false) => {
   createTimer()
 
   //Reset Displays
-  changeTab('buildings')
+  if (!playerNeedsReminderToExport()) {
+    changeTab('buildings')
+  } else {
+    changeTab('settings')
+
+    void Alert(i18next.t('general.exportYourGame'))
+  }
+
   changeSubTab('buildings', { page: 0 })
   changeSubTab('runes', { page: 0 }) // Set 'runes' subtab back to 'runes' tab
   changeSubTab('cube', { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
@@ -4208,6 +4287,12 @@ export const reloadShit = async (reset = false) => {
 
   const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
   saveType.checked = localStorage.getItem('copyToClipboard') !== null
+}
+
+function playerNeedsReminderToExport () {
+  const day = 1000 * 60 * 60 * 24
+
+  return Date.now() - player.lastExportedSave > day * 3
 }
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises

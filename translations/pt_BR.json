@@ -1458,6 +1458,7 @@
                 "hasLevel1": "",
                 "default": ""
             },
+            "congealedblueberries": "",
             "goldenRevolution": "",
             "goldenRevolutionII": "",
             "goldenRevolutionIII": "",
@@ -1859,6 +1860,7 @@
             "antGodsCornucopia": "",
             "overclocked": "",
             "wowCubeAutomatedShipping": "",
+            "congealedblueberries": "",
             "goldenRevolution": "",
             "goldenRevolutionII": "",
             "goldenRevolutionIII": "",
@@ -1893,6 +1895,7 @@
         "softCapped": "",
         "maxed": "",
         "affordable": "",
+        "enabled": "(Enabled)",
         "infinity": "",
         "sacrificeCapital": "",
         "multiBuyInstructions": "",
@@ -1911,7 +1914,8 @@
             "v297hotfix1NoSing": "",
             "v297hotfix1Sing": ""
         },
-        "languageChange": ""
+        "languageChange": "",
+        "exportYourGame": "You haven't exported your game in a while, you better export it soon or you could lose it!"
     },
     "upgrades": {
         "descriptions": {
@@ -2219,8 +2223,7 @@
             "hepteract": ""
         },
         "singularity": {
-            "penalties": "",
-            "perks": "",
+            "perks-penalties": "",
             "octeracts": "",
             "exalt": ""
         },

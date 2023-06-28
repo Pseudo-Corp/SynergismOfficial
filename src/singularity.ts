@@ -40,6 +40,7 @@ export interface ISingularityData extends Omit<IUpgradeData, 'name' | 'descripti
     canExceedCap?: boolean
     specialCostForm?: SingularitySpecialCostFormulae
     qualityOfLife?: boolean
+    cacheUpdates?: (() => void)[] // TODO: Improve this type signature -Plat
 }
 
 /**
@@ -54,6 +55,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
   public canExceedCap: boolean
   public specialCostForm: SingularitySpecialCostFormulae
   public qualityOfLife: boolean
+  readonly cacheUpdates: (() => void)[] | undefined
 
   public constructor(data: ISingularityData, key: string) {
     const name = i18next.t(`singularity.data.${key}.name`)
@@ -65,6 +67,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
     this.canExceedCap = data.canExceedCap ?? false
     this.specialCostForm = data.specialCostForm ?? 'Default'
     this.qualityOfLife = data.qualityOfLife ?? false
+    this.cacheUpdates = data.cacheUpdates ?? undefined
   }
 
   /**
@@ -208,6 +211,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
     }
 
     this.updateUpgradeHTML()
+    this.updateCaches()
     updateSingularityPenalties()
     updateSingularityPerks()
     revealStuff()
@@ -260,6 +264,14 @@ export class SingularityUpgrade extends DynamicUpgrade {
 
   public getEffect(): { bonus: number | boolean, desc: string } {
     return this.effect(this.actualTotalLevels())
+  }
+
+  updateCaches(): void {
+    if (this.cacheUpdates !== undefined) {
+      for (const cache of this.cacheUpdates) {
+        cache()
+      }
+    }
   }
 
   public refund(): void {
@@ -392,7 +404,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   cookies5: {
     maxLevel: 1,
     costPerLevel: 1.66e15,
-    minimumSingularity: 215,
+    minimumSingularity: 209,
     effect: (n: number) => {
       return {
         bonus: (n > 0),
@@ -578,7 +590,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   singCitadel2: {
     maxLevel: 100,
     costPerLevel: 1e14,
-    minimumSingularity: 210,
+    minimumSingularity: 204,
     specialCostForm: 'Quadratic',
     effect: (n: number) => {
       return {
@@ -743,7 +755,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   potionBuff2: {
     maxLevel: 10,
     costPerLevel: 1e8,
-    minimumSingularity: 121,
+    minimumSingularity: 119,
     canExceedCap: true,
     effect: (n: number) => {
       return {
@@ -757,7 +769,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   potionBuff3: {
     maxLevel: 10,
     costPerLevel: 1e12,
-    minimumSingularity: 196,
+    minimumSingularity: 191,
     canExceedCap: true,
     effect: (n: number) => {
       return {
@@ -810,7 +822,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   singQuarkImprover1: {
     maxLevel: 30,
     costPerLevel: 1,
-    minimumSingularity: 177,
+    minimumSingularity: 173,
     canExceedCap: true,
     specialCostForm: 'Exponential2',
     effect: (n: number) => {
@@ -965,7 +977,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   platonicDelta: {
     maxLevel: 1,
     costPerLevel: 5e9,
-    minimumSingularity: 111,
+    minimumSingularity: 110,
     effect: (n: number) => {
       return {
         bonus: n > 0,
@@ -978,7 +990,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   platonicPhi: {
     maxLevel: 1,
     costPerLevel: 2e11,
-    minimumSingularity: 152,
+    minimumSingularity: 149,
     effect: (n: number) => {
       return {
         bonus: n > 0,
@@ -1006,7 +1018,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   singFastForward2: {
     maxLevel: 1,
     costPerLevel: 1e11 - 1,
-    minimumSingularity: 150,
+    minimumSingularity: 147,
     effect: (n: number) => {
       return {
         bonus: n > 0,
@@ -1020,7 +1032,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   singAscensionSpeed: {
     maxLevel: 1,
     costPerLevel: 1e10,
-    minimumSingularity: 130,
+    minimumSingularity: 128,
     effect: (n: number) => {
       return {
         bonus: n,
@@ -1036,7 +1048,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   singAscensionSpeed2: {
     maxLevel: 1,
     costPerLevel: 1e12,
-    minimumSingularity: 150,
+    minimumSingularity: 147,
     effect: (n: number) => {
       return {
         bonus: n,
@@ -1078,7 +1090,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   oneMind: {
     maxLevel: 1,
     costPerLevel: 1.66e13,
-    minimumSingularity: 166,
+    minimumSingularity: 162,
     effect: (n : number) => {
       return {
         bonus: n > 0,
@@ -1092,7 +1104,7 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
   wowPass4: {
     maxLevel: 1,
     costPerLevel: 66666666666,
-    minimumSingularity: 150,
+    minimumSingularity: 147,
     effect: (n : number) => {
       return {
         bonus: n > 0,
@@ -1104,9 +1116,9 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     qualityOfLife: true
   },
   blueberries: {
-    maxLevel: -1,
+    maxLevel: 10,
     costPerLevel: 1e16,
-    minimumSingularity: 222,
+    minimumSingularity: 215,
     effect: (n: number) => {
       return {
         bonus: n,
@@ -1115,7 +1127,131 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
         }
       }
     },
-    specialCostForm: 'Exponential2'
+    specialCostForm: 'Exponential2',
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.blueberryInventory.updateVal('SingularityUpgrade')]
+  },
+  singAmbrosiaLuck: {
+    maxLevel: -1,
+    costPerLevel: 1e9,
+    minimumSingularity: 187,
+    effect: (n: number) => {
+      return {
+        bonus: 4 * n,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaLuck.effect', { n: format(4 * n) })
+        }
+      }
+    },
+    specialCostForm: 'Exponential2',
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaLuck2: {
+    maxLevel: 30,
+    costPerLevel: 4e5,
+    minimumSingularity: 50,
+    effect: (n: number) => {
+      return {
+        bonus: 2 * n,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaLuck2.effect', { n: format(2 * n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaLuck3: {
+    maxLevel: 30,
+    costPerLevel: 2e8,
+    minimumSingularity: 119,
+    effect: (n: number) => {
+      return {
+        bonus: 3 * n,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaLuck3.effect', { n: format(3 * n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaLuck4: {
+    maxLevel: 50,
+    costPerLevel: 1e19,
+    minimumSingularity: 256,
+    effect: (n: number) => {
+      return {
+        bonus: 5 * n,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaLuck4.effect', { n: format(5 * n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaGeneration: {
+    maxLevel: -1,
+    costPerLevel: 1e9,
+    minimumSingularity: 187,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + n/100,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaGeneration.effect', { n: format(n) })
+        }
+      }
+    },
+    specialCostForm: 'Exponential2',
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaGeneration2: {
+    maxLevel: 20,
+    costPerLevel: 8e5,
+    minimumSingularity: 50,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + n/100,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaGeneration2.effect', { n: format(n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaGeneration3: {
+    maxLevel: 35,
+    costPerLevel: 3e8,
+    minimumSingularity: 119,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + n/100,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaGeneration3.effect', { n: format(n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('SingularityBerries')]
+  },
+  singAmbrosiaGeneration4: {
+    maxLevel: 50,
+    costPerLevel: 1e19,
+    minimumSingularity: 256,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + 2 * n / 100,
+        get desc () {
+          return i18next.t('singularity.data.singAmbrosiaGeneration4.effect', { n: format(2 * n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('SingularityBerries')]
   }
 }
 
@@ -1127,11 +1263,13 @@ export class SingularityPerk {
   public readonly name: () => string
   public readonly levels: number[]
   public readonly description: (n: number, levels: number[]) => string
+  public readonly ID: string
 
   public constructor(perk: SingularityPerk) {
     this.name = perk.name
     this.levels = perk.levels
     this.description = perk.description
+    this.ID = perk.ID
   }
 }
 
@@ -1151,7 +1289,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.xyz.default')
       }
-    }
+    },
+    ID: 'xyz'
   },
   {
     name: () => {
@@ -1160,7 +1299,8 @@ export const singularityPerks: SingularityPerk[] = [
     levels: [1],
     description: () => {
       return i18next.t('singularity.perks.unlimitedGrowth', { amount: format(10 * player.singularityCount) })
-    }
+    },
+    ID: 'unlimitedGrowth'
   },
   {
     name: () => {
@@ -1169,7 +1309,8 @@ export const singularityPerks: SingularityPerk[] = [
     levels: [1],
     description: () => {
       return i18next.t('singularity.perks.goldenCoins')
-    }
+    },
+    ID: 'goldenCoins'
   },
   {
     name: () => {
@@ -1178,7 +1319,8 @@ export const singularityPerks: SingularityPerk[] = [
     levels: [1],
     description: () => {
       return i18next.t('singularity.perks.hepteractAutocraft')
-    }
+    },
+    ID: 'hepteractAutocraft'
   },
   {
     name: () => {
@@ -1203,7 +1345,8 @@ export const singularityPerks: SingularityPerk[] = [
         }
       }
       return i18next.t('singularity.perks.generousOrbs', { amount: '215' })
-    }
+    },
+    ID: 'generousOrbs'
   },
   {
     name: () => {
@@ -1216,7 +1359,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.researchDummies.otherwise')
       }
-    }
+    },
+    ID: 'researchDummies'
   },
   {
     name: () => {
@@ -1235,7 +1379,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.superStart.default')
       }
-    }
+    },
+    ID: 'superStart'
   },
   {
     name: () => {
@@ -1254,7 +1399,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.notSoChallenging.default')
       }
-    }
+    },
+    ID: 'notSoChallenging'
   },
   {
     name: () => {
@@ -1275,7 +1421,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.automationUpgrades.default')
       }
-    }
+    },
+    ID: 'automationUpgrades'
   },
   {
     name: () => {
@@ -1293,7 +1440,8 @@ export const singularityPerks: SingularityPerk[] = [
       }
 
       return i18next.t('singularity.perks.evenMoreQuarks.bug')
-    }
+    },
+    ID: 'evenMoreQuarks'
   },
   {
     name: () => {
@@ -1308,7 +1456,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.shopSpecialOffer.default')
       }
-    }
+    },
+    ID: 'shopSpecialOffer'
   },
   {
     name: () => {
@@ -1317,7 +1466,8 @@ export const singularityPerks: SingularityPerk[] = [
     levels: [6],
     description: () => {
       return i18next.t('singularity.perks.potionAutogenerator')
-    }
+    },
+    ID: 'potionAutogenerator'
   },
   {
     name: () => {
@@ -1326,7 +1476,8 @@ export const singularityPerks: SingularityPerk[] = [
     levels: [7],
     description: () => {
       return i18next.t('singularity.perks.respecBeGone')
-    }
+    },
+    ID: 'respecBeGone'
   },
   {
     name: () => {
@@ -1341,7 +1492,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.forTheLoveOfTheAntGod.default')
       }
-    }
+    },
+    ID: 'forTheLoveOfTheAntGod'
   },
   {
     name: () => {
@@ -1360,7 +1512,8 @@ export const singularityPerks: SingularityPerk[] = [
       }
 
       return i18next.t('singularity.perks.evenMoreQuarks.bug')
-    }
+    },
+    ID: 'itAllAddsUp'
   },
   {
     name: () => {
@@ -1377,7 +1530,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.automagicalRunes.default')
       }
-    }
+    },
+    ID: 'automagicalRunes'
   },
   {
     name: () => {
@@ -1394,7 +1548,8 @@ export const singularityPerks: SingularityPerk[] = [
       }
 
       return i18next.t('singularity.perks.evenMoreQuarks.bug')
-    }
+    },
+    ID: 'derpSmithsCornucopia'
   },
   {
     name: () => {
@@ -1403,7 +1558,8 @@ export const singularityPerks: SingularityPerk[] = [
     levels: [25],
     description: () => {
       return i18next.t('singularity.perks.exaltedAchievements')
-    }
+    },
+    ID: 'exaltedAchievements'
   },
   {
     name: () => {
@@ -1416,7 +1572,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.coolQOLCubes.default')
       }
-    }
+    },
+    ID: 'coolQOLCubes'
   },
   {
     name: () => {
@@ -1429,7 +1586,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.eternalAscensions.default')
       }
-    }
+    },
+    ID: 'eternalAscensions'
   },
   {
     name: () => {
@@ -1444,7 +1602,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.antGodsCornucopia.default')
       }
-    }
+    },
+    ID: 'antGodsCornucopia'
   },
   {
     name: () => {
@@ -1459,7 +1618,8 @@ export const singularityPerks: SingularityPerk[] = [
       }
 
       return i18next.t('singularity.perks.evenMoreQuarks.bug')
-    }
+    },
+    ID: 'irishAnt'
   },
   {
     name: () => {
@@ -1474,7 +1634,8 @@ export const singularityPerks: SingularityPerk[] = [
       }
 
       return i18next.t('singularity.perks.evenMoreQuarks.bug')
-    }
+    },
+    ID: 'overclocked'
   },
   {
     name: () => {
@@ -1487,7 +1648,23 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.wowCubeAutomatedShipping.default')
       }
-    }
+    },
+    ID: 'wowCubeAutomatedShipping'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perkNames.congealedblueberries')
+    },
+    levels: [66, 132, 198, 264],
+    description(n, levels) {
+      for (let i = levels.length - 1; i >= 0; i--) {
+        if (n >= levels[i]) {
+          return i18next.t('singularity.perks.congealedblueberries', { i: i + 1 })
+        }
+      }
+      return i18next.t('singularity.perks.evenMoreQuarks.bug')
+    },
+    ID: 'congealedblueberries'
   },
   {
     name: () => {
@@ -1498,7 +1675,8 @@ export const singularityPerks: SingularityPerk[] = [
       return i18next.t('singularity.perks.goldenRevolution', {
         current: format(Math.min(100, 0.4 * player.singularityCount), 1)
       })
-    }
+    },
+    ID: 'goldenRevolution'
   },
   {
     name: () => {
@@ -1509,7 +1687,8 @@ export const singularityPerks: SingularityPerk[] = [
       return i18next.t('singularity.perks.goldenRevolutionII', {
         current: format(Math.min(50, 0.2 * player.singularityCount), 1)
       })
-    }
+    },
+    ID: 'goldenRevolutionII'
   },
   {
     name: () => {
@@ -1520,7 +1699,8 @@ export const singularityPerks: SingularityPerk[] = [
       return i18next.t('singularity.perks.goldenRevolutionIII', {
         current: format(Math.min(500, 2 * player.singularityCount))
       })
-    }
+    },
+    ID: 'goldenRevolutionIII'
   },
   {
     name: () => {
@@ -1533,7 +1713,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.platonicClones.default')
       }
-    }
+    },
+    ID: 'platonicClones'
   },
   {
     name: () => {
@@ -1550,9 +1731,10 @@ export const singularityPerks: SingularityPerk[] = [
 
       return i18next.t('singularity.perks.platSigma', {
         counter,
-        current: format(Math.min(50, counter*player.singularityCount), 1)
+        current: format(Math.min(60, counter*player.singularityCount), 1)
       })
-    }
+    },
+    ID: 'platSigma'
   },
   {
     name: () => {
@@ -1567,7 +1749,8 @@ export const singularityPerks: SingularityPerk[] = [
       }
 
       return i18next.t('singularity.perks.evenMoreQuarks.bug')
-    }
+    },
+    ID: 'irishAnt2'
   },
   {
     name: () => {
@@ -1576,7 +1759,8 @@ export const singularityPerks: SingularityPerk[] = [
     levels: [150],
     description: () => {
       return i18next.t('singularity.perks.midasMilleniumAgedGold')
-    }
+    },
+    ID: 'midasMilleniumAgedGold'
   },
   {
     name: () => {
@@ -1593,7 +1777,8 @@ export const singularityPerks: SingularityPerk[] = [
       }
 
       return i18next.t('singularity.perks.goldenRevolution4', { gq: format(perSecond / divisor, 0, true) })
-    }
+    },
+    ID: 'goldenRevolution4'
   },
   {
     name: () => {
@@ -1606,7 +1791,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.octeractMetagenesis.default')
       }
-    }
+    },
+    ID: 'octeractMetagenesis'
   },
   {
     name: () => {
@@ -1621,7 +1807,8 @@ export const singularityPerks: SingularityPerk[] = [
       } else {
         return i18next.t('singularity.perks.immaculateAlchemy.default')
       }
-    }
+    },
+    ID: 'immaculateAlchemy'
   },
   {
     name: () => {
@@ -1629,41 +1816,36 @@ export const singularityPerks: SingularityPerk[] = [
     },
     levels: [200],
     description: () => {
-      const amt = Math.pow((player.singularityCount - 179) / 20, 2)
+      const amt = format(Math.pow((player.singularityCount - 179) / 20, 2), 4)
       return i18next.t('singularity.perks.skrauQ', { amt })
-    }
+    },
+    ID: 'skrauQ'
   }
 ]
 
 export const updateSingularityPerks = (): void => {
   const singularityCount = player.highestSingularityCount
-
   const strH = i18next.t('singularity.perks.header', {
     ord: toOrdinal(singularityCount)
   })
-  // TODO: Take current perk description and display it here.
-  const strD = i18next.t('singularity.perks.description')
-
-  const str = `${getAvailablePerksDescription(singularityCount)}`
 
   DOMCacheGetOrSet('singularityPerksHeader').innerHTML = strH
-  DOMCacheGetOrSet('singularityPerksDesc').innerHTML = strD
-  DOMCacheGetOrSet('singularityPerksGrid').innerHTML = str
+  DOMCacheGetOrSet('singularityPerksText').innerHTML = `${i18next.t('general.level')} # - (Singularity #)`
+  DOMCacheGetOrSet('singularityPerksDesc').innerHTML = i18next.t('singularity.perks.description')
+  handlePerks(singularityCount)
 }
 
 export interface ISingularityPerkDisplayInfo {
     name: string
-    description: string
-    currentLevel: number
     lastUpgraded: number
-    nextUpgrade: number | null
     acquired: number
+    htmlID: string
 }
 
 /*
 * Indicate current level of the Perk and when it was reached
 */
-const getLastUpgradeInfo = (perk: SingularityPerk, singularityCount: number): {level: number, singularity: number, next: number | null} => {
+export const getLastUpgradeInfo = (perk: SingularityPerk, singularityCount: number): {level: number, singularity: number, next: number | null} => {
   for (let i=perk.levels.length - 1; i >= 0; i--) {
     if (singularityCount >= perk.levels[i]) {
       return {
@@ -1677,33 +1859,31 @@ const getLastUpgradeInfo = (perk: SingularityPerk, singularityCount: number): {l
   return { level: 0, singularity: perk.levels[0], next: perk.levels[0] }
 }
 
-const getAvailablePerksDescription = (singularityCount: number): string => {
-  let perksText = ''
-  let availablePerks: ISingularityPerkDisplayInfo[] = []
-  const nextUpgrades: number[] = []
+const handlePerks = (singularityCount: number) => {
+  const availablePerks: ISingularityPerkDisplayInfo[] = []
   let singularityCountForNextPerk: number | null = null
+  let singularityCountForNextPerkUpgrade = Infinity
   for (const perk of singularityPerks) {
     const upgradeInfo = getLastUpgradeInfo(perk, singularityCount)
     if (upgradeInfo.level > 0) {
       availablePerks.push({
         name: perk.name(),
-        description: perk.description(singularityCount, perk.levels),
-        currentLevel: upgradeInfo.level,
         lastUpgraded: upgradeInfo.singularity,
-        nextUpgrade: upgradeInfo.next,
-        acquired: perk.levels[0]
+        acquired: perk.levels[0],
+        htmlID: perk.ID
       })
       if (upgradeInfo.next) {
-        nextUpgrades.push(upgradeInfo.next)
+        singularityCountForNextPerkUpgrade = Math.min(singularityCountForNextPerkUpgrade, upgradeInfo.next)
       }
     } else {
-      singularityCountForNextPerk = upgradeInfo.singularity
-      break
+      if (singularityCountForNextPerk === null) {
+        singularityCountForNextPerk = upgradeInfo.singularity
+      }
+      DOMCacheGetOrSet(perk.ID).style.display = 'none'
     }
   }
-
   // We want to sort the perks so that the most recently upgraded or lastUpgraded are listed first
-  availablePerks = availablePerks.sort((p1, p2) => {
+  availablePerks.sort((p1, p2) => {
     if (p1.acquired == p2.acquired && p1.lastUpgraded == p2.lastUpgraded) {
       return 0
     }
@@ -1715,29 +1895,30 @@ const getAvailablePerksDescription = (singularityCount: number): string => {
     return 1
   })
 
-  perksText += '<div id="singularityPerksGrid">'
   for (const availablePerk of availablePerks) {
-    perksText += formatPerkDescription(availablePerk, singularityCount)
+    const singTolerance = getFastForwardTotalMultiplier()
+    const perkId = DOMCacheGetOrSet(availablePerk.htmlID)
+    perkId.style.display = ''
+    DOMCacheGetOrSet('singularityPerksGrid').append(perkId)
+    singularityCount - availablePerk.lastUpgraded <= singTolerance ? //Is new?
+      perkId.classList.replace('oldPerk', 'newPerk') :
+      perkId.classList.replace('newPerk', 'oldPerk')
   }
-  perksText += '</div>'
+  const nextUnlockedId = DOMCacheGetOrSet('singualrityUnlockNext')
   if (singularityCountForNextPerk) {
-    perksText += `${i18next.t('singularity.perks.unlockedIn', { sing: singularityCountForNextPerk })}<br>`
+    nextUnlockedId.style.display = ''
+    nextUnlockedId.textContent = i18next.t('singularity.perks.unlockedIn', { sing: singularityCountForNextPerk })
+  } else {
+    nextUnlockedId.style.display = 'none'
   }
-  const singularityCountForNextPerkUpgrade = nextUpgrades.reduce((a, b) => Math.min(a, +b), Infinity)
+  const countNext = DOMCacheGetOrSet('singualrityImproveNext')
   if (singularityCountForNextPerkUpgrade < Infinity) {
-    perksText +=  `${i18next.t('singularity.perks.improvedIn', { sing: singularityCountForNextPerkUpgrade })}`
+    countNext.style.display = ''
+    countNext.textContent = i18next.t('singularity.perks.improvedIn', { sing: singularityCountForNextPerkUpgrade })
+  } else {
+    countNext.style.display = 'none'
   }
-  return perksText
 }
-
-function formatPerkDescription(perkData: ISingularityPerkDisplayInfo, singularityCount: number): string {
-  const singTolerance = getFastForwardTotalMultiplier()
-  const isNew = (singularityCount - perkData.lastUpgraded <= singTolerance)
-  const levelInfo = perkData.currentLevel > 1 ? `<br>${i18next.t('general.level')} ${perkData.currentLevel}` : ''
-  //const acquiredUpgraded = ' / Acq ' + perkData.acquired + ' / Upg ' + perkData.lastUpgraded;
-  return `<span${isNew?' class="newPerk"':' class="oldPerk"'} title="${perkData.description}">${perkData.name}${levelInfo}</span>`
-}
-
 // Indicates the number of extra Singularity count gained on Singularity reset
 export const getFastForwardTotalMultiplier = (): number => {
   let fastForward = 0
@@ -1942,9 +2123,10 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
       1 + Math.sqrt(effectiveSingularities) / 5:
       1 + Math.pow(effectiveSingularities, 0.75) / 10000
   } else if (debuff === 'Cubes') {
+    const extraMult = (player.singularityCount > 100) ? Math.pow(1.02, player.singularityCount - 100) : 1
     return (player.singularityCount < 150) ?
-      1 + Math.sqrt(effectiveSingularities) / 4:
-      1 + Math.pow(effectiveSingularities, 0.75) / 1000
+      1 + Math.sqrt(effectiveSingularities) * extraMult / 4:
+      1 + Math.pow(effectiveSingularities, 0.75) * extraMult / 1000
   } else if (debuff === 'Platonic Costs') {
     return (singularityCount > 36) ? 1 + Math.pow(effectiveSingularities, 3/10) / 12 : 1
   } else if (debuff === 'Hepteract Costs') {

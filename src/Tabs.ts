@@ -135,17 +135,14 @@ const subtabInfo: Record<TabNames, SubTab> = {
         return player.highestSingularityCount > 0
       }, buttonID: 'toggleSingularitySubTab2' },
       { subTabID: 3, get unlocked () {
-        return player.highestSingularityCount > 0
+        return Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus)
       }, buttonID: 'toggleSingularitySubTab3' },
       { subTabID: 4, get unlocked () {
-        return Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus)
+        return player.highestSingularityCount >= 25
       }, buttonID: 'toggleSingularitySubTab4' },
       { subTabID: 5, get unlocked () {
-        return player.highestSingularityCount >= 25
-      }, buttonID: 'toggleSingularitySubTab5' },
-      { subTabID: 6, get unlocked () {
         return player.singularityChallenges.noSingularityUpgrades.completions >= 1
-      }, buttonID: 'toggleSingularitySubTab6'
+      }, buttonID: 'toggleSingularitySubTab5'
       }]
   },
   event: { subTabList: [] }
@@ -287,7 +284,7 @@ export const changeSubTab = (tabOrName: Tab | TabNames, { page, step }: SubTabSw
     }
   } else if (subTabList.unlocked) {
     subTabs.tabSwitcher?.(subTabList.subTabID)
-    if (tabOrName === 'singularity' && page === 5) {
+    if (tabOrName === 'singularity' && page === 4) {
       player.visitedAmbrosiaSubtab = true
       player.caches.ambrosiaGeneration.updateVal('DefaultVal')
     }

@@ -433,10 +433,7 @@ export const toggleSaveOff = () => {
 }
 
 export const toggleSingularityScreen = (index: number) => {
-  const screens = ['shop', 'penalties', 'perks', 'octeracts', 'challenges', 'ambrosia']
-  G.singularityscreen = screens[index - 1]
-
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= 5; i++) {
     const a = DOMCacheGetOrSet(`toggleSingularitySubTab${i}`)
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
     if (i === index) {
@@ -449,11 +446,11 @@ export const toggleSingularityScreen = (index: number) => {
   }
   player.subtabNumber = index - 1
 
-  if (player.subtabNumber === 3) {
+  if (player.subtabNumber === 2) {
     visualUpdateOcteracts()
   }
 
-  if (player.subtabNumber === 5) {
+  if (player.subtabNumber === 4) {
     visualUpdateAmbrosia()
   }
 }
@@ -966,6 +963,16 @@ export const toggleHepteractAutoPercentage = async(): Promise<void> => {
     return Alert(i18next.t('toggles.onAscensionHepteractsCraft', {
       x: player.hepteractAutoCraftPercentage
     }))
+  }
+}
+
+export const toggleBlueberryLoadoutmode = () => {
+  if (player.blueberryLoadoutMode === 'saveTree') {
+    player.blueberryLoadoutMode = 'loadTree'
+    DOMCacheGetOrSet('blueberryToggleMode').innerHTML = i18next.t('ambrosia.loadouts.load')
+  } else {
+    player.blueberryLoadoutMode = 'saveTree'
+    DOMCacheGetOrSet('blueberryToggleMode').innerHTML = i18next.t('ambrosia.loadouts.save')
   }
 }
 

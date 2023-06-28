@@ -9,6 +9,7 @@ import { SingularityUpgrade } from '../singularity';
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges';
 import type { TabNames } from '../Tabs'
 import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache } from '../StatCache';
+import { BlueberryUpgrade } from '../BlueberryUpgrades';
 
 export interface Player {
     firstPlayed: string
@@ -381,6 +382,14 @@ export interface Player {
         seasonPassInfinity: number,
         chronometerInfinity: number,
         shopSingularityPenaltyDebuff: number,
+        shopAmbrosiaGeneration1: number,
+        shopAmbrosiaGeneration2: number,
+        shopAmbrosiaGeneration3: number,
+        shopAmbrosiaGeneration4: number,
+        shopAmbrosiaLuck1: number,
+        shopAmbrosiaLuck2: number,
+        shopAmbrosiaLuck3: number,
+        shopAmbrosiaLuck4: number
     },
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean | 'TEN' | 'ANY',
@@ -603,14 +612,24 @@ export interface Player {
 
     ambrosia: number
     lifetimeAmbrosia: number
-    ambrosiaRNG: number
+    blueberryTime: number
+    ambrosiaRNG: number // DEPRECIATED, DO NOT USE
     visitedAmbrosiaSubtab: boolean
+    spentBlueberries: number
+    blueberryUpgrades: Record<keyof typeof blueberryUpgradeData, BlueberryUpgrade>
+    blueberryLoadouts: Record<number, BlueberryOpt>
+    blueberryLoadoutMode: BlueberryLoadoutMode
 
     caches: {
         ambrosiaLuck: AmbrosiaLuckCache,
         ambrosiaGeneration: AmbrosiaGenerationCache
         blueberryInventory: BlueberryInventoryCache
     }
+
+    /**
+     * When the player last exported the save.
+     */
+    lastExportedSave: number
 }
 
 export interface GlobalVariables {
@@ -800,7 +819,6 @@ export interface GlobalVariables {
 
     runescreen: string
     settingscreen: string
-    singularityscreen: string
 
     talismanResourceObtainiumCosts: number[]
     talismanResourceOfferingCosts: number[]
@@ -946,6 +964,7 @@ export interface GlobalVariables {
     eventClicked: boolean
 
     ambrosiaTimer: number
+    TIME_PER_AMBROSIA: number
 }
 
 export interface SynergismEvents {
