@@ -539,6 +539,28 @@
     "completed": " ¡COMPLETADO!",
     "notification": "Has desbloqueado un logro: {{m}}"
   },
+  "reset": {
+    "details": {
+      "prestige": "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: {{amount}}/1e16 Coins || TIME SPENT: {{timeSpent}} Seconds.",
+      "transcension": "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: {{amount}}/1e100 Coins || TIME SPENT: {{timeSpent}} Seconds.",
+      "reincarnation": "Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: {{amount}}/1e300 Mythos Shards || TIME SPENT: {{timeSpent}} Seconds.",
+      "acceleratorBoost": "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: {{amount}}/{{required}} Diamonds.",
+      "transcensionChallenge": {
+        "in": "Are you tired of being in your Challenge or stuck? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
+        "out": "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!"
+      },
+      "reincarnationChallenge": {
+        "in": {
+          "coins": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
+          "transcendShards": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Mythos Shards. TIME SPENT: {{timeSpent}} Seconds."
+        },
+        "out": "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?"
+      },
+      "ascensionChallenge": "Click this if you're in an Ascension Challenge and want to leave. You get it already!",
+      "ascension": "Ascend, C-10 is required! +{{cubeAmount}} Wow! Cubes for doing it! Time: {{timeSpent}} Seconds. (Real-time {{realTimeSpent}} Seconds)",
+      "singularity": "Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with {{gqAmount}} Golden Quarks. Time: {{timeSpent}} Seconds."
+    }
+  },
   "ants": {
     "upgrades": {
       "1": "Promueve unidad y romance dentro de la colonia. [+12% Velocidad de Hormigas / nivel]",
