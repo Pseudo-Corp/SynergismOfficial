@@ -3251,7 +3251,7 @@
     "promocodePrompt": "¿Tienes un código? ¡Genial! Ingrésalo (dIStiNguE MaYÚSculAS). \n [Nota a espectador: esto es para eventos y ciertos códigos siempre activos. \n ¿Puedo sugerir que escribas \"synergism2021\" o \"Khafra\" por ejemplo?]",
     "comeBackSoon": "Bien, ¡Vuelve pronto!",
     "noAddCodes": "¡No tienes un intento de código 'Suma'! Ganarás 1 en {{x}} segundos.",
-    "useXAdds": "Puedes usar hasta {{x}} intentos a la vez. ¿Cuántos te gustaría usar?",
+    "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use? You can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you use all attempts except the specified number.",
     "cancelAdd": "Sin problemas, ¡No has usado ningún uso! ¡Vuelve más tarde!",
     "daily0Uses": "0 usos restantes. Siguiente: Fin del día.",
     "daily1Uses": "1 uso restante. Siguiente: Fin del día.",

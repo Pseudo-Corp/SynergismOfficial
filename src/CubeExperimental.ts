@@ -85,8 +85,9 @@ export abstract class Cube {
      * @description Open a given amount of cubes
      * @param amount Number of cubes to open
      * @param max if true, overwrites amount and opens the max amount of cubes.
+     * @param free if true, does not decrease the amount of cubes.
      */
-    abstract open(amount: number, max: boolean): Promise<void> | void
+    abstract open(amount: number, max: boolean, free: boolean): Promise<void> | void
 
     /** Open a custom amount of cubes */
     async openCustom() {
@@ -116,11 +117,12 @@ export abstract class Cube {
       if (isPercentage) {
         return this.open(
           Math.floor(thisInPlayer.value * (cubesToOpen / 100)),
-          cubesToOpen === 100
+          cubesToOpen === 100,
+          false
         )
       }
 
-      return this.open(cubesToOpen, cubesToOpen === thisInPlayer.value)
+      return this.open(cubesToOpen, cubesToOpen === thisInPlayer.value, false)
     }
 
     /** @description Check how many quarks you should have gained through opening cubes today */
@@ -168,14 +170,16 @@ export class WowCubes extends Cube {
     super('wowCubes', amount)
   }
 
-  open(value: number, max = false) {
-    let toSpend = max ? Number(this) : Math.min(Number(this), value)
+  open(value: number, max = false, free = false) {
+    let toSpend = max ? Number(this) : (free ? value : Math.min(Number(this), value))
 
     if (value === 1 && player.cubeBlessings.accelerator >= 2e11 && player.achievements[246] < 1) {
       achievementaward(246)
     }
 
-    this.sub(toSpend)
+    if (!free) {
+      this.sub(toSpend)
+    }
     player.cubeOpenedDaily += toSpend
 
     const quarkMult = (player.shopUpgrades.cubeToQuark) ? 1.5 : 1
@@ -231,10 +235,12 @@ export class WowTesseracts extends Cube {
     super('wowTesseracts', amount)
   }
 
-  open(value: number, max = false) {
-    const toSpend = max ? Number(this) : Math.min(Number(this), value)
+  open(value: number, max = false, free = false) {
+    const toSpend = max ? Number(this) : (free ? value : Math.min(Number(this), value))
 
-    player.wowTesseracts.sub(toSpend)
+    if (!free) {
+      player.wowTesseracts.sub(toSpend)
+    }
     player.tesseractOpenedDaily += toSpend
 
     const quarkMult = (player.shopUpgrades.tesseractToQuark) ? 1.5 : 1
@@ -262,8 +268,7 @@ export class WowTesseracts extends Cube {
 
     calculateTesseractBlessings()
     const extraCubeBlessings = Math.floor(12 * toSpend * player.researches[153])
-    player.wowCubes.add(extraCubeBlessings)
-    player.wowCubes.open(extraCubeBlessings, false)
+    player.wowCubes.open(extraCubeBlessings, false, true)
   }
 }
 
@@ -272,10 +277,12 @@ export class WowHypercubes extends Cube {
     super('wowHypercubes', amount)
   }
 
-  open(value: number, max = false) {
-    const toSpend = max ? Number(this) : Math.min(Number(this), value)
+  open(value: number, max = false, free = false) {
+    const toSpend = max ? Number(this) : (free ? value : Math.min(Number(this), value))
 
-    player.wowHypercubes.sub(toSpend)
+    if (!free) {
+      player.wowHypercubes.sub(toSpend)
+    }
     player.hypercubeOpenedDaily += toSpend
 
     const quarkMult = (player.shopUpgrades.hypercubeToQuark) ? 1.5 : 1
@@ -302,9 +309,8 @@ export class WowHypercubes extends Cube {
     }
 
     calculateHypercubeBlessings()
-    const extraTesseractBlessings = Math.floor(100 * toSpend * player.researches[153])
-    player.wowTesseracts.add(extraTesseractBlessings)
-    player.wowTesseracts.open(extraTesseractBlessings, false)
+    const extraTesseractBlessings = Math.floor(100 * toSpend * player.researches[183])
+    player.wowTesseracts.open(extraTesseractBlessings, false, true)
   }
 }
 
@@ -313,10 +319,12 @@ export class WowPlatonicCubes extends Cube {
     super('wowPlatonicCubes', amount)
   }
 
-  open(value: number, max = false) {
-    const toSpend = max ? Number(this) : Math.min(Number(this), value)
+  open(value: number, max = false, free = false) {
+    const toSpend = max ? Number(this) : (free ? value : Math.min(Number(this), value))
 
-    player.wowPlatonicCubes.sub(toSpend)
+    if (!free) {
+      player.wowPlatonicCubes.sub(toSpend)
+    }
     player.platonicCubeOpenedDaily += toSpend
 
     const quarkMult = 1.5 // There's no platonic to quark upgrade, default as 1.5
@@ -362,8 +370,7 @@ export class WowPlatonicCubes extends Cube {
     calculatePlatonicBlessings()
     if (player.achievements[271] > 0) {
       const extraHypercubes = Math.floor(toSpend * Math.max(0, Math.min(1, (Decimal.log(player.ascendShards.add(1), 10) - 1e5) / 9e5)))
-      player.wowHypercubes.add(extraHypercubes)
-      player.wowHypercubes.open(extraHypercubes, false)
+      player.wowHypercubes.open(extraHypercubes, false, true)
     }
   }
 }
