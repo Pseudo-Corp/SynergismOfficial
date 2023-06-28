@@ -2871,7 +2871,42 @@
         "polymath": "Polymath",
         "mortuus": "Mortuus Est",
         "plastic": "Plastic"
-      }
+      },
+      "summaries": {
+        "exemption": "=-=-=-= Exemption Talisman Effects =-=-=-=",
+        "chronos": "=-=-=-= Chronos Talisman Effects =-=-=-=",
+        "midas": "=-=-=-= Midas Talisman Effects =-=-=-=",
+        "metaphysics": "=-=-=-= Metaphysics Talisman Effects =-=-=-=",
+        "polymath": "=-=-=-= Polymath Talisman Effects =-=-=-=",
+        "mortuus": "=-=-=-= Mortuus Est Talisman Effects =-=-=-=",
+        "plastic": "=-=-=-= Plastic Talisman Effects =-=-=-="
+      },
+      "effects": {
+        "exemption": "Taxes -{{x}}%",
+        "chronos": "Gain +{{x}}% Global Speed Acceleration.",
+        "midas": "Rune Blessing bonuses +{{x}}%",
+        "metaphysics": "Talismans' Bonus Rune Levels +{{x}} per level",
+        "polymath": "Rune Spirit Bonuses +{{x}}%",
+        "mortuus": "Bonus Ant Levels: +{{x}}",
+        "plastic": "Gain 1x normal production (Joke)!"
+      },
+      "bonusRuneLevels": {
+        "speed": "Bonus Speed Rune Levels: {{x}}",
+        "duplication": "Bonus Duplication Rune Levels: {{x}}",
+        "prism": "Bonus Prism Rune Levels: {{x}}",
+        "thrift": "Bonus Thrift Rune Levels: {{x}}",
+        "SI": "Bonus SI Rune Levels: {{x}}"
+      },
+      "mythicEffects": {
+        "exemption": "Mythic Effect: +400 Duplication Rune Levels!",
+        "chronos": "Mythic Effect: +400 Speed Rune Levels!",
+        "midas": "Mythic Effect: +400 Thrift Rune Levels!",
+        "metaphysics": "Mythic Effect: +400 Prism Rune Levels!",
+        "polymath": "Mythic Effect: +400 SI Rune Levels!",
+        "mortuus": "Mythic Effect: Gain ant speed based on your total rune level!",
+        "plastic": "Mythic Effect: Gain 1x your normal quark values (Joke)!"
+      },
+      "maxEnhance": "Get Max Enhance for a Mythical bonus effect!"
     },
     "blessings": {
       "buyUpTo": "Buy up to <<var(--orchid-text-color);|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]",
