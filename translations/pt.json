@@ -1480,6 +1480,7 @@
                 "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
                 "default": "Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge."
             },
+            "congealedblueberries": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!",
             "goldenRevolution": "Singularity grants 0.4% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +100%)",
             "goldenRevolutionII": "Golden Quarks are 0.2% cheaper per Singularity. Currently: -{{current}}% (MAX: -50%)",
             "goldenRevolutionIII": "Export gives 2% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +500%)",
@@ -1883,6 +1884,7 @@
             "antGodsCornucopia": "Ant God's Cornucopia",
             "overclocked": "Overclocked",
             "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
+            "congealedblueberries": "Congealed Blueberries",
             "goldenRevolution": "Golden Revolution",
             "goldenRevolutionII": "Golden Revolution II",
             "goldenRevolutionIII": "Golden Revolution III",
@@ -1917,6 +1919,7 @@
         "softCapped": "(Softcapped)",
         "maxed": "(Maxed)",
         "affordable": "(Affordable)",
+        "enabled": "(Enabled)",
         "infinity": "Infinity",
         "sacrificeCapital": "SACRIFICE",
         "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!",
@@ -1935,7 +1938,8 @@
             "v297hotfix1NoSing": "You have loaded into the version 2.9.7 hotfix 1!",
             "v297hotfix1Sing": "You have loaded into the version 2.9.7 hotfix 1! Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience."
         },
-        "languageChange": "Changing the language requires a reload! Would you like to reload now?"
+        "languageChange": "Changing the language requires a reload! Would you like to reload now?",
+        "exportYourGame": "You haven't exported your game in a while, you better export it soon or you could lose it!"
     },
     "upgrades": {
         "descriptions": {
@@ -2243,8 +2247,7 @@
             "hepteract": "Hepteract Forge"
         },
         "singularity": {
-            "penalties": "Penalties",
-            "perks": "Perks",
+            "perks-penalties": "Perks / Penalties",
             "octeracts": "Octeracts",
             "exalt": "EXALT"
         },

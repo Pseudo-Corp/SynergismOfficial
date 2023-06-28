@@ -19,6 +19,8 @@ import type { ISingularityChallengeData } from './SingularityChallenges'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import i18next from 'i18next'
 import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
+import type { IBlueberryData } from './BlueberryUpgrades'
+import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
@@ -324,7 +326,15 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     oneMind: new SingularityUpgrade(singularityData.oneMind, 'oneMind'),
     wowPass4: new SingularityUpgrade(singularityData.wowPass4, 'wowPass4'),
     offeringAutomatic: new SingularityUpgrade(singularityData.offeringAutomatic, 'offeringAutomatic'),
-    blueberries: new SingularityUpgrade(singularityData.blueberries, 'blueberries')
+    blueberries: new SingularityUpgrade(singularityData.blueberries, 'blueberries'),
+    singAmbrosiaLuck: new SingularityUpgrade(singularityData.singAmbrosiaLuck, 'singAmbrosiaLuck'),
+    singAmbrosiaLuck2: new SingularityUpgrade(singularityData.singAmbrosiaLuck2, 'singAmbrosiaLuck2'),
+    singAmbrosiaLuck3: new SingularityUpgrade(singularityData.singAmbrosiaLuck3, 'singAmbrosiaLuck3'),
+    singAmbrosiaLuck4: new SingularityUpgrade(singularityData.singAmbrosiaLuck4, 'singAmbrosiaLuck4'),
+    singAmbrosiaGeneration: new SingularityUpgrade(singularityData.singAmbrosiaGeneration, 'singAmbrosiaGeneration'),
+    singAmbrosiaGeneration2: new SingularityUpgrade(singularityData.singAmbrosiaGeneration2, 'singAmbrosiaGeneration2'),
+    singAmbrosiaGeneration3: new SingularityUpgrade(singularityData.singAmbrosiaGeneration3, 'singAmbrosiaGeneration3'),
+    singAmbrosiaGeneration4: new SingularityUpgrade(singularityData.singAmbrosiaGeneration4, 'singAmbrosiaGeneration4')
   }
 
   player.octeractUpgrades = {
@@ -357,7 +367,14 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     octeractAutoPotionSpeed: new OcteractUpgrade(octeractData.octeractAutoPotionSpeed, 'octeractAutoPotionSpeed'),
     octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData.octeractAutoPotionEfficiency, 'octeractAutoPotionEfficiency'),
     octeractOneMindImprover: new OcteractUpgrade(octeractData.octeractOneMindImprover, 'octeractOneMindImprover'),
-    octeractAmbrosiaLuck: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck, 'octeractAmbrosiaLuck')
+    octeractAmbrosiaLuck: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck, 'octeractAmbrosiaLuck'),
+    octeractAmbrosiaLuck2: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck2, 'octeractAmbrosiaLuck2'),
+    octeractAmbrosiaLuck3: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck3, 'octeractAmbrosiaLuck3'),
+    octeractAmbrosiaLuck4: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck4, 'octeractAmbrosiaLuck4'),
+    octeractAmbrosiaGeneration: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration, 'octeractAmbrosiaGeneration'),
+    octeractAmbrosiaGeneration2: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration2, 'octeractAmbrosiaGeneration2'),
+    octeractAmbrosiaGeneration3: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration3, 'octeractAmbrosiaGeneration3'),
+    octeractAmbrosiaGeneration4: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration4, 'octeractAmbrosiaGeneration4')
   }
 
   player.singularityChallenges = {
@@ -365,6 +382,23 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     oneChallengeCap: new SingularityChallenge(singularityChallengeData.oneChallengeCap, 'oneChallengeCap'),
     noOcteracts: new SingularityChallenge(singularityChallengeData.noOcteracts, 'noOcteracts'),
     limitedAscensions: new SingularityChallenge(singularityChallengeData.limitedAscensions, 'limitedAscensions')
+  }
+
+  player.blueberryUpgrades = {
+    ambrosiaTutorial: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaTutorial, 'ambrosiaTutorial'),
+    ambrosiaQuarks1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarks1, 'ambrosiaQuarks1'),
+    ambrosiaCubes1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubes1, 'ambrosiaQuarks1'),
+    ambrosiaLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuck1, 'ambrosiaLuck1'),
+    ambrosiaCubeQuark1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubeQuark1, 'ambrosiaCubeQuark1'),
+    ambrosiaLuckQuark1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckQuark1, 'ambrosiaLuckQuark1'),
+    ambrosiaLuckCube1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckCube1, 'ambrosiaLuckCube1'),
+    ambrosiaQuarkCube1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarkCube1, 'ambrosiaQuarkCube1'),
+    ambrosiaCubeLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubeLuck1, 'ambrosiaCubeLuck1'),
+    ambrosiaQuarkLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarkLuck1, 'ambrosiaQuarkLuck1'),
+    ambrosiaQuarks2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarks2, 'ambrosiaQuarks2'),
+    ambrosiaCubes2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubes2, 'ambrosiaQuarks2'),
+    ambrosiaLuck2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuck2, 'ambrosiaLuck2'),
+    ambrosiaPatreon: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaPatreon, 'ambrosiaPatreon')
   }
 
   if (data.loadedOct4Hotfix === undefined || !player.loadedOct4Hotfix) {
@@ -520,7 +554,15 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
       improveQuarkHept5: 0,
       seasonPassInfinity: 0,
       chronometerInfinity: 0,
-      shopSingularityPenaltyDebuff: 0
+      shopSingularityPenaltyDebuff: 0,
+      shopAmbrosiaGeneration1: 0,
+      shopAmbrosiaGeneration2: 0,
+      shopAmbrosiaGeneration3: 0,
+      shopAmbrosiaGeneration4: 0,
+      shopAmbrosiaLuck1: 0,
+      shopAmbrosiaLuck2: 0,
+      shopAmbrosiaLuck3: 0,
+      shopAmbrosiaLuck4: 0
     }
 
     player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false)
@@ -691,7 +733,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
           effect: singularityData[k].effect,
           canExceedCap: singularityData[k].canExceedCap,
           specialCostForm: singularityData[k].specialCostForm,
-          qualityOfLife: singularityData[k].qualityOfLife
+          qualityOfLife: singularityData[k].qualityOfLife,
+          cacheUpdates: singularityData[k].cacheUpdates
         }
         player.singularityUpgrades[k] = new SingularityUpgrade(updatedData, k.toString())
 
@@ -728,7 +771,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
           effect: octeractData[k].effect,
           costFormula: octeractData[k].costFormula,
           freeLevels,
-          qualityOfLife: octeractData[k].qualityOfLife
+          qualityOfLife: octeractData[k].qualityOfLife,
+          cacheUpdates: octeractData[k].cacheUpdates
         }
         player.octeractUpgrades[k] = new OcteractUpgrade(updatedData, k.toString())
 
@@ -738,6 +782,38 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         }
       } else {
         player.octeractUpgrades[k].name = `[NEW!] ${player.octeractUpgrades[k].name}`
+      }
+    }
+  }
+
+  if (data.blueberryUpgrades != null) {
+    for (const item of Object.keys(blankSave.blueberryUpgrades)) {
+      const k = item as keyof Player['blueberryUpgrades']
+      let updatedData:IBlueberryData
+      if (data.blueberryUpgrades[k]) {
+        const { level, ambrosiaInvested, blueberriesInvested, toggleBuy, freeLevels } = data.blueberryUpgrades[k]
+        updatedData = {
+          maxLevel: blueberryUpgradeData[k].maxLevel,
+          costPerLevel: blueberryUpgradeData[k].costPerLevel,
+          level,
+          ambrosiaInvested,
+          blueberriesInvested,
+          toggleBuy,
+          blueberryCost: blueberryUpgradeData[k].blueberryCost,
+          rewards: blueberryUpgradeData[k].rewards,
+          costFormula: blueberryUpgradeData[k].costFormula,
+          freeLevels,
+          prerequisites: blueberryUpgradeData[k].prerequisites,
+          cacheUpdates: blueberryUpgradeData[k].cacheUpdates
+        }
+        player.blueberryUpgrades[k] = new BlueberryUpgrade(updatedData, k.toString())
+
+        if (player.blueberryUpgrades[k].maxLevel !== -1 &&
+                    player.blueberryUpgrades[k].level > player.blueberryUpgrades[k].maxLevel) {
+          player.blueberryUpgrades[k].refund()
+        }
+      } else {
+        player.blueberryUpgrades[k].name = `[NEW!] ${player.blueberryUpgrades[k].name}`
       }
     }
   }
@@ -915,14 +991,34 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   if (data.ambrosia === undefined) {
     player.ambrosia = 0
     player.lifetimeAmbrosia = 0
-    player.ambrosiaRNG = 0
+    player.ambrosiaRNG = 0 // NOW DEPRECIATED
     player.visitedAmbrosiaSubtab = false
   }
 
+  if (data.blueberryTime === undefined) {
+    player.blueberryTime = player.ambrosiaRNG
+  }
+
+  if (data.spentBlueberries === undefined) {
+    player.spentBlueberries = 0
+    if (player.singularityUpgrades.blueberries.level > 10) {
+      player.singularityUpgrades.blueberries.refund()
+    }
+
+    if (player.highestSingularityCount >= 100) {
+      const reduce = Math.min(6, Math.ceil(1/20 * (player.highestSingularityCount - 100)))
+      player.highestSingularityCount -= reduce
+      if (!player.insideSingularityChallenge) {
+        player.singularityCount -= reduce
+      }
+      void Alert(`Due to recent balance changes your highest singularity count was reduced by ${reduce}. This is for your own good!`)
+    }
+  }
+
   player.caches = {
-    ambrosiaLuck: new AmbrosiaLuckCache,
-    ambrosiaGeneration: new AmbrosiaGenerationCache,
-    blueberryInventory: new BlueberryInventoryCache
+    ambrosiaLuck: new AmbrosiaLuckCache(),
+    ambrosiaGeneration: new AmbrosiaGenerationCache(),
+    blueberryInventory: new BlueberryInventoryCache()
   }
 
   cacheReinitialize()

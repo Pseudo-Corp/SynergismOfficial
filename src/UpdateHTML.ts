@@ -444,7 +444,12 @@ export const revealStuff = () => {
     item.style.display = player.highestSingularityCount >= 25 ? 'block' : 'none'
   }
 
-  (player.runelevels[6] > 0 || player.highestSingularityCount > 0) ?
+  DOMCacheGetOrSet('toggleSingularitySubTab5').style.display =
+    player.singularityChallenges.noSingularityUpgrades.completions >= 1
+      ? 'block'
+      : 'none'
+
+  player.runelevels[6] > 0 || player.highestSingularityCount > 0 ?
     (DOMCacheGetOrSet('singularitybtn').style.display = 'block') :
     (DOMCacheGetOrSet('singularitybtn').style.display = 'none')
 
@@ -1069,7 +1074,7 @@ const AlertCB = (text: string, cb: (value: undefined) => void) => {
     popup.addEventListener('keyup', kbListener)
 }
 
-export const PromptCB = (text: string, cb: (value: string | null) => void) => {
+export const PromptCB = (text: string, cb: (value: string | null) => void, defaultValue?: string) => {
   const conf = DOMCacheGetOrSet('confirmationBox')
   const confWrap = DOMCacheGetOrSet('promptWrapper')
   const overlay = DOMCacheGetOrSet('transparentBG')
@@ -1084,6 +1089,9 @@ export const PromptCB = (text: string, cb: (value: string | null) => void) => {
   confWrap.style.display = 'block'
   overlay.style.display = 'block'
     popup.querySelector('label')!.textContent = text
+    if (defaultValue) {
+      popup.querySelector('input')!.value = defaultValue
+    }
     popup.querySelector('input')!.focus()
 
     // kinda disgusting types but whatever
@@ -1170,7 +1178,7 @@ const NotificationCB = (text: string, time = 30000, cb: () => void) => {
 export const Alert = (text: string): Promise<undefined> => new Promise(res => AlertCB(text, res))
 /*** Promisified version of the PromptCB function. */
 // eslint-disable-next-line no-promise-executor-return
-export const Prompt = (text: string): Promise<string | null> => new Promise(res => PromptCB(text, res))
+export const Prompt = (text: string, defaultValue?: string): Promise<string | null> => new Promise(res => PromptCB(text, res, defaultValue))
 /*** Promisified version of the ConfirmCB function */
 // eslint-disable-next-line no-promise-executor-return
 export const Confirm = (text: string): Promise<boolean> => new Promise(res => ConfirmCB(text, res))

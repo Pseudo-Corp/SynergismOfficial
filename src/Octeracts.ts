@@ -9,6 +9,7 @@ import i18next from 'i18next'
 
 export interface IOcteractData extends Omit<IUpgradeData, 'name' | 'description'> {
     costFormula (this: void, level: number, baseCost: number): number
+    cacheUpdates?: (() => void)[] // TODO: Improve this type signature -Plat
     octeractsInvested?: number
     qualityOfLife?: boolean
 }
@@ -17,6 +18,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
   readonly costFormula: (level: number, baseCost: number) => number
   public octeractsInvested = 0
   public qualityOfLife: boolean
+  readonly cacheUpdates: (() => void)[] | undefined
 
   constructor(data: IOcteractData, key: string) {
     const name = i18next.t(`octeract.data.${key}.name`)
@@ -25,6 +27,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
     this.costFormula = data.costFormula
     this.octeractsInvested = data.octeractsInvested ?? 0
     this.qualityOfLife = data.qualityOfLife ?? false
+    this.cacheUpdates = data.cacheUpdates ?? undefined
   }
 
   getCostTNL(): number {
@@ -97,6 +100,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
       player.caches.ambrosiaLuck.updateVal('OcteractBerries')
     }
 
+    this.updateCaches()
     this.updateUpgradeHTML()
   }
 
@@ -163,6 +167,14 @@ export class OcteractUpgrade extends DynamicUpgrade {
     player.wowOcteracts += this.octeractsInvested
     this.level = 0
     this.octeractsInvested = 0
+  }
+
+  updateCaches(): void {
+    if (this.cacheUpdates !== undefined) {
+      for (const cache of this.cacheUpdates) {
+        cache()
+      }
+    }
   }
 
 }
@@ -632,12 +644,136 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     costPerLevel: 1e60 / 9,
     effect: (n: number) => {
       return {
-        bonus: 3 * n,
+        bonus: 4 * n,
         get desc () {
-          return i18next.t('octeract.data.octeractAmbrosiaLuck.effect', { n: format(n) })
+          return i18next.t('octeract.data.octeractAmbrosiaLuck.effect', { n: format(4 * n) })
         }
       }
-    }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('OcteractBerries')]
+  },
+  octeractAmbrosiaLuck2: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
+    },
+    maxLevel: 30,
+    costPerLevel: 1,
+    effect: (n: number) => {
+      return {
+        bonus: 2 * n,
+        get desc () {
+          return i18next.t('octeract.data.octeractAmbrosiaLuck2.effect', { n: format(2 * n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('OcteractBerries')]
+  },
+  octeractAmbrosiaLuck3: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (Math.pow(level + 1, 8) - Math.pow(level, 8))
+    },
+    maxLevel: 30,
+    costPerLevel: 1e30,
+    effect: (n: number) => {
+      return {
+        bonus: 3 * n,
+        get desc () {
+          return i18next.t('octeract.data.octeractAmbrosiaLuck3.effect', { n: format(3 * n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('OcteractBerries')]
+  },
+  octeractAmbrosiaLuck4: {
+    costFormula: (level: number, baseCost: number) => {
+      const useLevel = level + 1
+      return baseCost * (Math.pow(3, useLevel) - Math.pow(3, useLevel - 1))
+    },
+    maxLevel: 50,
+    costPerLevel: 1e70 / 2,
+    effect: (n: number) => {
+      return {
+        bonus: 5 * n,
+        get desc () {
+          return i18next.t('octeract.data.octeractAmbrosiaLuck4.effect', { n: format(5 * n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('OcteractBerries')]
+  },
+  octeractAmbrosiaGeneration: {
+    costFormula: (level: number, baseCost: number) => {
+      const useLevel = level + 1
+      return baseCost * (Math.pow(10, useLevel) - Math.pow(10, useLevel - 1))
+    },
+    maxLevel: -1,
+    costPerLevel: 1e60 / 9,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + n/100,
+        get desc () {
+          return i18next.t('octeract.data.octeractAmbrosiaGeneration.effect', { n: format(n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('OcteractBerries')]
+  },
+  octeractAmbrosiaGeneration2: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
+    },
+    maxLevel: 20,
+    costPerLevel: 1,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + n/100,
+        get desc () {
+          return i18next.t('octeract.data.octeractAmbrosiaGeneration2.effect', { n: format(n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('OcteractBerries')]
+  },
+  octeractAmbrosiaGeneration3: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (Math.pow(level + 1, 8) - Math.pow(level, 8))
+    },
+    maxLevel: 35,
+    costPerLevel: 1e30,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + n/100,
+        get desc () {
+          return i18next.t('octeract.data.octeractAmbrosiaGeneration3.effect', { n: format(n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('OcteractBerries')]
+  },
+  octeractAmbrosiaGeneration4: {
+    costFormula: (level: number, baseCost: number) => {
+      const useLevel = level + 1
+      return baseCost * (Math.pow(3, useLevel) - Math.pow(3, useLevel - 1))
+    },
+    maxLevel: 50,
+    costPerLevel: 1e70 / 2,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + 2 * n / 100,
+        get desc () {
+          return i18next.t('octeract.data.octeractAmbrosiaGeneration4.effect', { n: format(2 * n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('OcteractBerries')]
   }
 }
 

@@ -84,20 +84,21 @@ export class QuarkHandler {
   /** Quark amount */
   private QUARKS = 0
 
-  private static interval: ReturnType<typeof setInterval> | null = null
+  private interval: ReturnType<typeof setInterval> | null = null
 
   constructor({ bonus, quarks }: { bonus?: number, quarks: number }) {
     this.QUARKS = quarks
+
     if (bonus) {
       this.BONUS = bonus
     } else {
       void this.getBonus()
     }
 
-    if (QuarkHandler.interval === null) {
-      // although the values are cached for 15 mins, refresh every 5
-      QuarkHandler.interval = setInterval(this.getBonus.bind(this), 60 * 1000 * 5)
-    }
+    if (this.interval) clearInterval(this.interval)
+
+    // although the values are cached for 15 mins, refresh every 5
+    this.interval = setInterval(this.getBonus.bind(this), 60 * 1000 * 5)
   }
 
   /*** Calculates the number of quarks to give with the current bonus. */
@@ -156,6 +157,13 @@ export class QuarkHandler {
 
   public toString(val: number): string {
     return format(Math.floor(this.applyBonus(val)), 0, true)
+  }
+
+  /**
+   * Resets the amount of quarks saved but keeps the bonus amount.
+   */
+  public reset () {
+    this.QUARKS = 0
   }
 
   [Symbol.toPrimitive] = (t: string) => t === 'number' ? this.QUARKS : null
