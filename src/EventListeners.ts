@@ -688,12 +688,19 @@ TODO: Fix this entire tab it's utter shit
 
   // BLUEBERRY LOADOUTS
   const blueberryLoadouts = Array.from(document.querySelectorAll('[id^="blueberryLoadout"]'))
+  const loadoutContainer = DOMCacheGetOrSet('blueberryUpgradeContainer')
 
   for (let i = 0; i < blueberryLoadouts.length; i++) {
     const shiftedKey = i + 1
     const el = blueberryLoadouts[i]
+    el.addEventListener('mouseover', () => {
     // eslint-disable-next-line
-    el.addEventListener('mouseover', () => createLoadoutDescription(shiftedKey, player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 }))
+      createLoadoutDescription(shiftedKey, player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 })
+      loadoutContainer.classList.add(`hoveredBlueberryLoadout${shiftedKey}`)
+    })
+    el.addEventListener('mouseout', () => {
+      loadoutContainer.classList.remove(`hoveredBlueberryLoadout${shiftedKey}`)
+    })
     // eslint-disable-next-line
     el.addEventListener('click', () => loadoutHandler(shiftedKey, player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 }))
   }

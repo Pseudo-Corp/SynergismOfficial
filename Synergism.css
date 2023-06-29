@@ -3714,3 +3714,14 @@ img#singularityPerksIcon {
     max-width: 500%;
     animation: rotation 2s infinite linear;
 }
+
+.hoveredBlueberryLoadout1 div.bbPurchasedLoadout1,
+.hoveredBlueberryLoadout2 div.bbPurchasedLoadout2,
+.hoveredBlueberryLoadout3 div.bbPurchasedLoadout3,
+.hoveredBlueberryLoadout4 div.bbPurchasedLoadout4,
+.hoveredBlueberryLoadout5 div.bbPurchasedLoadout5,
+.hoveredBlueberryLoadout6 div.bbPurchasedLoadout6,
+.hoveredBlueberryLoadout7 div.bbPurchasedLoadout7,
+.hoveredBlueberryLoadout8 div.bbPurchasedLoadout8 {
+    background-color: green;
+}
