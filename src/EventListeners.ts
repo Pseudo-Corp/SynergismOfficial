@@ -1,4 +1,4 @@
-import { toggleAscStatPerSecond, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles'
+import { toggleAscStatPerSecond, toggleBuyAmount, toggleAutoTesseracts, toggleSettings, toggleautoreset, toggleautobuytesseract, toggleShops, toggleAutoSacrifice, toggleAutoBuyFragment, toggleautoenhance, toggleautofortify, updateRuneBlessingBuyAmount, toggleSaveOff, toggleChallenges, toggleAutoChallengesIgnore, toggleAutoChallengeRun, updateAutoChallenge, toggleResearchBuy, toggleAutoResearch, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleMaxBuyCube, toggleautoopensCubes, toggleCorruptionLevel, toggleAutoAscend, toggleShopConfirmation, toggleAutoResearchMode, toggleBuyMaxShop, toggleHideShop, toggleHepteractAutoPercentage, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle, toggleBlueberryLoadoutmode } from './Toggles'
 import { resetrepeat, updateAutoReset, updateTesseractAutoBuyAmount, updateAutoCubesOpens } from './Reset'
 import { player, resetCheck, saveSynergy } from './Synergism'
 import { boostAccelerator, buyAccelerator, buyMultiplier, buyProducer, buyCrystalUpgrades, buyParticleBuilding, buyTesseractBuilding, buyRuneBonusLevels, buyAllBlessings } from './Buy'
@@ -12,7 +12,7 @@ import { antRepeat, sacrificeAnts, buyAntProducers, updateAntDescription, antUpg
 import { buyCubeUpgrades, cubeUpgradeDesc } from './Cubes'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
 import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
-import { exportSynergism, updateSaveString, promocodes, promocodesPrompt, promocodesInfo, importSynergism, resetGame, reloadDeleteGame, handleLastModified } from './ImportExport'
+import { exportSynergism, updateSaveString, promocodes, promocodesPrompt, promocodesInfo, importSynergism, resetGame, reloadDeleteGame, importData } from './ImportExport'
 import { resetHistoryTogglePerSecond } from './History'
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable, shopData, shopUpgradeTypes } from './Shop'
 import { Globals as G } from './Variables'
@@ -31,7 +31,7 @@ import { shopMouseover } from './UpdateVisuals'
 import i18next from 'i18next'
 import { clickSmith } from './Event'
 import { changeTab, changeSubTab } from './Tabs'
-import { resetBlueberryTree } from './BlueberryUpgrades'
+import { createLoadoutDescription, exportBlueberryTree, importBlueberryTree, loadoutHandler, resetBlueberryTree } from './BlueberryUpgrades'
 
 /* STYLE GUIDE */
 /*
@@ -686,7 +686,25 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet(`${String(key)}`).addEventListener('click', (event) => player.blueberryUpgrades[`${String(key)}`].buyLevel(event))
   }
 
+  // BLUEBERRY LOADOUTS
+  const blueberryLoadouts = Array.from(document.querySelectorAll('[id^="blueberryLoadout"]'))
+
+  for (let i = 0; i < blueberryLoadouts.length; i++) {
+    const shiftedKey = i + 1
+    const el = blueberryLoadouts[i]
+    // eslint-disable-next-line
+    el.addEventListener('mouseover', () => createLoadoutDescription(shiftedKey, player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 }))
+    // eslint-disable-next-line
+    el.addEventListener('click', () => loadoutHandler(shiftedKey, player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 }))
+  }
+
+  DOMCacheGetOrSet('blueberryToggleMode').addEventListener('click', () => toggleBlueberryLoadoutmode())
+
+  DOMCacheGetOrSet('getBlueberries').addEventListener('click', () => exportBlueberryTree())
   DOMCacheGetOrSet('refundBlueberries').addEventListener('click', () => resetBlueberryTree())
+  // Import blueberries
+  DOMCacheGetOrSet('importBlueberries').addEventListener('change', async (e) => importData(e, importBlueberryTree))
+
   //Toggle subtabs of Singularity tab
   for (let index = 0; index < 5; index++) {
     DOMCacheGetOrSet(`toggleSingularitySubTab${index+1}`).addEventListener('click', () => changeSubTab('singularity', { page: index }))
@@ -699,29 +717,7 @@ TODO: Fix this entire tab it's utter shit
   DOMCacheGetOrSet('unsmith').addEventListener('click', () => clickSmith())
 
   // Import button
-  DOMCacheGetOrSet('importfile').addEventListener('change', async e => {
-    const element = e.target as HTMLInputElement
-    const file = element.files![0]
-    let save = ''
-    // https://developer.mozilla.org/en-US/docs/Web/API/Blob/text
-    // not available in (bad) browsers like Safari 11
-    if (typeof Blob.prototype.text === 'function') {
-      save = await file.text()
-    } else {
-      const reader = new FileReader()
-      reader.readAsText(file)
-      const text = await new Promise<string>(res => {
-        reader.addEventListener('load', () => res(reader.result!.toString()))
-      })
-
-      save = text
-    }
-
-    element.value = ''
-    handleLastModified(file.lastModified)
-
-    return importSynergism(save)
-  })
+  DOMCacheGetOrSet('importfile').addEventListener('change', async (e) => importData(e, importSynergism))
 
   for (let i = 1; i <= 5; i++) {
     DOMCacheGetOrSet(`switchTheme${i}`).addEventListener('click', () => toggleTheme(false, i, true))

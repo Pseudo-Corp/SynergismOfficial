@@ -470,6 +470,28 @@
         "completed": " COMPLETED!",
         "notification": "You unlocked an achievement: {{m}}"
     },
+    "reset": {
+        "details": {
+            "prestige": "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: {{amount}}/1e16 Coins || TIME SPENT: {{timeSpent}} Seconds.",
+            "transcension": "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: {{amount}}/1e100 Coins || TIME SPENT: {{timeSpent}} Seconds.",
+            "reincarnation": "Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: {{amount}}/1e300 Mythos Shards || TIME SPENT: {{timeSpent}} Seconds.",
+            "acceleratorBoost": "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: {{amount}}/{{required}} Diamonds.",
+            "transcensionChallenge": {
+                "in": "Are you tired of being in your Challenge or stuck? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
+                "out": "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!"
+            },
+            "reincarnationChallenge": {
+                "in": {
+                    "coins": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
+                    "transcendShards": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Mythos Shards. TIME SPENT: {{timeSpent}} Seconds."
+                },
+                "out": "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?"
+            },
+            "ascensionChallenge": "Click this if you're in an Ascension Challenge and want to leave. You get it already!",
+            "ascension": "Ascend, C-10 is required! +{{cubeAmount}} Wow! Cubes for doing it! Time: {{timeSpent}} Seconds. (Real-time {{realTimeSpent}} Seconds)",
+            "singularity": "Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with {{gqAmount}} Golden Quarks. Time: {{timeSpent}} Seconds."
+        }
+    },
     "ants": {
         "upgrades": {
             "1": "Promotes romance and unity within the colony. [+12% Ant Speed / level]",
@@ -2684,7 +2706,42 @@
                 "polymath": "Polymath",
                 "mortuus": "Mortuus Est",
                 "plastic": "Plastic"
-            }
+            },
+            "summaries": {
+                "exemption": "=-=-=-= Exemption Talisman Effects =-=-=-=",
+                "chronos": "=-=-=-= Chronos Talisman Effects =-=-=-=",
+                "midas": "=-=-=-= Midas Talisman Effects =-=-=-=",
+                "metaphysics": "=-=-=-= Metaphysics Talisman Effects =-=-=-=",
+                "polymath": "=-=-=-= Polymath Talisman Effects =-=-=-=",
+                "mortuus": "=-=-=-= Mortuus Est Talisman Effects =-=-=-=",
+                "plastic": "=-=-=-= Plastic Talisman Effects =-=-=-="
+            },
+            "effects": {
+                "exemption": "Taxes -{{x}}%",
+                "chronos": "Gain +{{x}}% Global Speed Acceleration.",
+                "midas": "Rune Blessing bonuses +{{x}}%",
+                "metaphysics": "Talismans' Bonus Rune Levels +{{x}} per level",
+                "polymath": "Rune Spirit Bonuses +{{x}}%",
+                "mortuus": "Bonus Ant Levels: +{{x}}",
+                "plastic": "Gain 1x normal production (Joke)!"
+            },
+            "bonusRuneLevels": {
+                "speed": "Bonus Speed Rune Levels: {{x}}",
+                "duplication": "Bonus Duplication Rune Levels: {{x}}",
+                "prism": "Bonus Prism Rune Levels: {{x}}",
+                "thrift": "Bonus Thrift Rune Levels: {{x}}",
+                "SI": "Bonus SI Rune Levels: {{x}}"
+            },
+            "mythicEffects": {
+                "exemption": "Mythic Effect: +400 Duplication Rune Levels!",
+                "chronos": "Mythic Effect: +400 Speed Rune Levels!",
+                "midas": "Mythic Effect: +400 Thrift Rune Levels!",
+                "metaphysics": "Mythic Effect: +400 Prism Rune Levels!",
+                "polymath": "Mythic Effect: +400 SI Rune Levels!",
+                "mortuus": "Mythic Effect: Gain ant speed based on your total rune level!",
+                "plastic": "Mythic Effect: Gain 1x your normal quark values (Joke)!"
+            },
+            "maxEnhance": "Get Max Enhance for a Mythical bonus effect!"
         },
         "blessings": {
             "buyUpTo": "Buy up to <<var(--orchid-text-color);|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]",

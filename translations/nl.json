@@ -44,7 +44,7 @@
       "ambrosiaLuck1": {
         "name": "Ambrosia Geluk Module I",
         "description": "Gefeliciteerd met het voltooien van de tutorial-module. Je moet deze gemaximaliseerd hebben om levels hiervan te kopen. &#9752 +2 Ambrosia Luck/lvl. Elke 10 niveaus geeft &#9752 +12 meer!",
-        "effect": "This luck module increases &#9752 Ambrosia Luck by {{amount}}"
+        "effect": "Deze geluksmodule verhoogt &#9752 Ambrosia geluk met {{amount}}"
       },
       "ambrosiaCubeQuark1": {
         "name": "Ambrosia Kubus-Quark Hybride Module I",
@@ -53,7 +53,7 @@
       },
       "ambrosiaLuckQuark1": {
         "name": "Ambrosia Geluk-Quark Hybride Module I",
-        "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
+        "description": "Een eerste generatie hybride module. Krijg +0.01% meer Quarks per niveau per 1 &#9752 Ambrosia Geluk! Verkleinde terugkrijg na 1,000 geluk.",
         "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
       },
       "ambrosiaQuarkCube1": {
@@ -539,6 +539,28 @@
     "completed": " COMPLETED!",
     "notification": "You unlocked an achievement: {{m}}"
   },
+  "reset": {
+    "details": {
+      "prestige": "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: {{amount}}/1e16 Coins || TIME SPENT: {{timeSpent}} Seconds.",
+      "transcension": "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: {{amount}}/1e100 Coins || TIME SPENT: {{timeSpent}} Seconds.",
+      "reincarnation": "Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: {{amount}}/1e300 Mythos Shards || TIME SPENT: {{timeSpent}} Seconds.",
+      "acceleratorBoost": "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: {{amount}}/{{required}} Diamonds.",
+      "transcensionChallenge": {
+        "in": "Are you tired of being in your Challenge or stuck? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
+        "out": "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!"
+      },
+      "reincarnationChallenge": {
+        "in": {
+          "coins": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
+          "transcendShards": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Mythos Shards. TIME SPENT: {{timeSpent}} Seconds."
+        },
+        "out": "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?"
+      },
+      "ascensionChallenge": "Click this if you're in an Ascension Challenge and want to leave. You get it already!",
+      "ascension": "Ascend, C-10 is required! +{{cubeAmount}} Wow! Cubes for doing it! Time: {{timeSpent}} Seconds. (Real-time {{realTimeSpent}} Seconds)",
+      "singularity": "Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with {{gqAmount}} Golden Quarks. Time: {{timeSpent}} Seconds."
+    }
+  },
   "ants": {
     "upgrades": {
       "1": "Promotes romance and unity within the colony. [+12% Ant Speed / level]",
@@ -550,7 +572,7 @@
       "7": "Helps you build a few things here and there [+3% Building Cost Delay / level, Cap 9,999,999%]",
       "8": "Knows how to salt and pepper food [Up to 1,000x Rune EXP!]",
       "9": "Can make your message to Ant God a little more clear [+1 all Rune Levels / level, Cap 10 Million]",
-      "10": "Has big brain energy [Additional Obtainium!]",
+      "10": "Heeft grote hersenenergie [Extra Obtainium!]",
       "11": "A valuable offering to the Ant God [Gain up to 3x Sacrifice Rewards!]",
       "12": "Betray Ant God increasing the fragility of your dimension [Unlocks ant talisman, Up to 2x faster timers on most things]"
     },
@@ -2849,7 +2871,42 @@
         "polymath": "Polymath",
         "mortuus": "Mortuus Est",
         "plastic": "Plastic"
-      }
+      },
+      "summaries": {
+        "exemption": "=-=-=-= Exemption Talisman Effects =-=-=-=",
+        "chronos": "=-=-=-= Chronos Talisman Effects =-=-=-=",
+        "midas": "=-=-=-= Midas Talisman Effects =-=-=-=",
+        "metaphysics": "=-=-=-= Metaphysics Talisman Effects =-=-=-=",
+        "polymath": "=-=-=-= Polymath Talisman Effects =-=-=-=",
+        "mortuus": "=-=-=-= Mortuus Est Talisman Effects =-=-=-=",
+        "plastic": "=-=-=-= Plastic Talisman Effects =-=-=-="
+      },
+      "effects": {
+        "exemption": "Taxes -{{x}}%",
+        "chronos": "Gain +{{x}}% Global Speed Acceleration.",
+        "midas": "Rune Blessing bonuses +{{x}}%",
+        "metaphysics": "Talismans' Bonus Rune Levels +{{x}} per level",
+        "polymath": "Rune Spirit Bonuses +{{x}}%",
+        "mortuus": "Bonus Ant Levels: +{{x}}",
+        "plastic": "Gain 1x normal production (Joke)!"
+      },
+      "bonusRuneLevels": {
+        "speed": "Bonus Speed Rune Levels: {{x}}",
+        "duplication": "Bonus Duplication Rune Levels: {{x}}",
+        "prism": "Bonus Prism Rune Levels: {{x}}",
+        "thrift": "Bonus Thrift Rune Levels: {{x}}",
+        "SI": "Bonus SI Rune Levels: {{x}}"
+      },
+      "mythicEffects": {
+        "exemption": "Mythic Effect: +400 Duplication Rune Levels!",
+        "chronos": "Mythic Effect: +400 Speed Rune Levels!",
+        "midas": "Mythic Effect: +400 Thrift Rune Levels!",
+        "metaphysics": "Mythic Effect: +400 Prism Rune Levels!",
+        "polymath": "Mythic Effect: +400 SI Rune Levels!",
+        "mortuus": "Mythic Effect: Gain ant speed based on your total rune level!",
+        "plastic": "Mythic Effect: Gain 1x your normal quark values (Joke)!"
+      },
+      "maxEnhance": "Get Max Enhance for a Mythical bonus effect!"
     },
     "blessings": {
       "buyUpTo": "Buy up to <<var(--orchid-text-color);|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]",
@@ -3216,7 +3273,7 @@
     "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism2021\" or \"Khafra\" perchance?]",
     "comeBackSoon": "Alright, come back soon!",
     "noAddCodes": "You do not have an 'Add' code attempt! You will gain 1 in {{x}} seconds.",
-    "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use?",
+    "useXAdds": "Je kunt maximaal {{x}} pogingen tegelijk gebruiken. Hoeveel wilt u gebruiken? Je kunt de invoer beginnen met \"-\" (zet een negatieve waarde neer) om een waarde in te voegen die zal worden bewaard, wat betekent dat u alle pogingen behalve het opgegeven nummer gebruikt.",
     "cancelAdd": "No worries, you didn't lose any of your uses! Come back later!",
     "daily0Uses": "0 toepassingen resterend. Volgende: eind van de dag.",
     "daily1Uses": "1 toepassing resterend. Volgende: eind van de dag.",

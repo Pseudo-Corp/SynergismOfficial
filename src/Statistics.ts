@@ -179,6 +179,7 @@ export const loadQuarkMultiplier = () => {
   DOMCacheGetOrSet('sGQM27').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaQuarks1.bonus.quarks, 2, true)
   DOMCacheGetOrSet('sGQM28').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaCubeQuark1.bonus.quarks, 2, true)
   DOMCacheGetOrSet('sGQM29').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks, 2, true)
+  DOMCacheGetOrSet('sGQM30').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks, 2, true)
   DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
 }
 
@@ -235,7 +236,8 @@ export const loadStatisticsCubeMultipliers = () => {
     26: { acc: 2, desc: 'Module- Tutorial' },
     27: { acc: 2, desc: 'Module- Cubes 1' },
     28: { acc: 2, desc: 'Module- Luck-Cube 1' },
-    29: { acc: 2, desc: 'Module- Quark-Cube 1' }
+    29: { acc: 2, desc: 'Module- Quark-Cube 1' },
+    30: { acc: 2, desc: 'Module- Cubes 2' }
   }
   for (let i = 0; i < arr0.length; i++) {
     const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
@@ -388,7 +390,8 @@ export const loadStatisticsCubeMultipliers = () => {
     28: { acc: 2, desc: 'Module- Cubes 1' },
     29: { acc: 2, desc: 'Module- Luck-Cube 1' },
     30: { acc: 2, desc: 'Module- Quark-Cube 1' },
-    31: { acc: 2, desc: ascensionSpeedDesc }
+    31: { acc: 2, desc: 'Module- Cubes 2' },
+    32: { acc: 2, desc: ascensionSpeedDesc }
   }
   for (let i = 0; i < octMults.list.length; i++) {
     const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`)
@@ -603,9 +606,10 @@ export const loadStatisticsAmbrosiaLuck = () => {
     3: { acc: 0, desc: 'Singularity Ambrosia Luck Upgrades' },
     4: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrades' },
     5: { acc: 0, desc: 'Ambrosia Luck Module I' },
-    6: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
-    7: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
-    8: { acc: 1, desc: 'Event Bonus' }
+    6: { acc: 1, desc: 'Ambrosia Luck Module II' },
+    7: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
+    8: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
+    9: { acc: 1, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -625,7 +629,8 @@ export const loadStatisticsAmbrosiaGeneration = () => {
     3: { acc: 4, desc: 'Shop Upgrade Bonus' },
     4: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
     5: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
-    6: { acc: 4, desc: 'Event Bonus' }
+    6: { acc: 4, desc: 'Patreon Bonus' },
+    7: { acc: 4, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)

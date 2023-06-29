@@ -872,8 +872,24 @@ export const player: Player = {
     ambrosiaLuckCube1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckCube1, 'ambrosiaLuckCube1'),
     ambrosiaQuarkCube1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarkCube1, 'ambrosiaQuarkCube1'),
     ambrosiaCubeLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubeLuck1, 'ambrosiaCubeLuck1'),
-    ambrosiaQuarkLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarkLuck1, 'ambrosiaQuarkLuck1')
+    ambrosiaQuarkLuck1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarkLuck1, 'ambrosiaQuarkLuck1'),
+    ambrosiaQuarks2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarks2, 'ambrosiaQuarks2'),
+    ambrosiaCubes2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubes2, 'ambrosiaQuarks2'),
+    ambrosiaLuck2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuck2, 'ambrosiaLuck2'),
+    ambrosiaPatreon: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaPatreon, 'ambrosiaPatreon')
   },
+
+  blueberryLoadouts: {
+    1: {},
+    2: {},
+    3: {},
+    4: {},
+    5: {},
+    6: {},
+    7: {},
+    8: {}
+  },
+  blueberryLoadoutMode: 'saveTree',
 
   caches: {
     ambrosiaLuck: new AmbrosiaLuckCache(),
@@ -1060,6 +1076,7 @@ const loadSynergy = async () => {
         }
       }
 
+      // eslint-disable-next-line
       return ((player[prop] as unknown) = data[prop])
     })
 
@@ -1951,6 +1968,8 @@ const loadSynergy = async () => {
       : i18next.t('general.autoOffColon')
     DOMCacheGetOrSet('hepteractToQuarkTradeAuto').style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'}`
     toggleAutoBuyOrbs(true, true)
+
+    DOMCacheGetOrSet('blueberryToggleMode').innerHTML = (player.blueberryLoadoutMode === 'saveTree') ? i18next.t('ambrosia.loadouts.save') : i18next.t('ambrosia.loadouts.load')
 
     toggleTalismanBuy(player.buyTalismanShardPercent)
     updateTalismanInventory()

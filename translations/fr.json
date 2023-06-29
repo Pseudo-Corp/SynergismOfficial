@@ -10,54 +10,54 @@
     "saveToClipboard": "Êtes-vous sûr de vouloir activer l'enregistrement de la sauvegarde dans le presse-papiers ?"
   },
   "ambrosia": {
-    "ambrosia": "Ambrosia",
-    "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
+    "ambrosia": "Ambroisie",
+    "amount": "Vous avez <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambroisie!",
     "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
     "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
     "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
-    "prerequisite": "Prerequisites:",
-    "prereqNotMet": " (Not Met!)",
-    "blueberryCost": "Blueberries (To Activate):",
-    "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
-    "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
-    "availableBlueberries": "You have <<blue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
-    "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
-    "refund": "You have refunded all spent Blueberries and Ambrosia.",
-    "refundWord": "Refund",
+    "prerequisite": "Prérequis:",
+    "prereqNotMet": " (Non satisfaits!)",
+    "blueberryCost": "Bleuets (Pour Activer):",
+    "prereqNotMetAlert": "Vous n'avez pas les prérequis nécessaires pour acheter cette amélioration.",
+    "notEnoughBlueberries": "Vous n'avez pas assez de bleuets pour activer ce module.",
+    "availableBlueberries": "Vous avez <blue|{{availableBlueberries}}> bleuets non dépensés. Débloquer des modules de niveaux supérieurs ci-dessous!",
+    "ambrosiaBuyPrompt": "Combien d'Ambroisie vous voulez dépenser? Vous avez {{amount}} Ambroisie. Écrivez -1 pour tout les utiliser!",
+    "refund": "Vous avez tout remboursé les Bleuets et Ambroisie dépensés.",
+    "refundWord": "Rembourser",
     "data": {
       "ambrosiaTutorial": {
-        "name": "Ambrosia Tutorial Module",
-        "description": "Blueberries generate Ambrosia over time. Spend them in the Ambrosia tree! +5% Cubes/lvl, +1% Quarks/lvl",
-        "effect": "This tutorial module increases cube gain by {{cubeAmount}}% and quarks by {{quarkAmount}}%"
+        "name": "Module tutoriel d'Ambroise",
+        "description": "Bleuets génère de l'ambroisie avec le temps. Utilisez-les dans l'arbre d'ambroisie! +5% Cubes/nv, +1% Quarks/nv",
+        "effect": "Ce module de tutoriel augmente les gains de cube par {{cubeAmount}}% et quarks par {{quarkAmount}}%"
       },
       "ambrosiaQuarks1": {
-        "name": "Ambrosia Quark Module I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxed to buy levels of this. +1% Quarks/lvl.",
-        "effect": "This quark module increases Quark gain by {{amount}}%"
+        "name": "Module de Quark d'ambroisie I",
+        "description": "Félicitation pour avoir complété ce module tutoriel. You devez posséder cette habileté au maximum pour acheter des niveaux de celui-ci. +1 Quarks/nv.",
+        "effect": "Ce module de quark augmente le gain de Quark par {{amount}}%"
       },
       "ambrosiaCubes1": {
-        "name": "Ambrosia Cube Module I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 10 levels gives 1.1x Cubes.",
-        "effect": "This cube module increases cube gain by {{amount}}%"
+        "name": "Module de Cube d'ambroisie I",
+        "description": "Félicitations pour avoir complété ce module tutoriel. You devez posséder cette habileté au maximum pour acheter des niveaux de celui-ci. +5% Cubes/nv. Chaque 10 niveaux achetés donnent 1.1x plus de cubes.",
+        "effect": "Ce module de cube augmente le gain de Cube par {{amount}}%"
       },
       "ambrosiaLuck1": {
-        "name": "Ambrosia Luck Module I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. &#9752 +2 Ambrosia Luck/lvl. Every 10 levels gives &#9752 +12 more!",
-        "effect": "This luck module increases &#9752 Ambrosia Luck by {{amount}}"
+        "name": "Module de chance d'ambroisie I",
+        "description": "Félicitations pour avoir complété ce module tutoriel. You devez posséder cette habileté au maximum pour acheter des niveaux de celui-ci. &#9752 +2 chances d'ambroisie/nv. Chaque 2 niveaux achetés donnent &#9752 +12 de plus!",
+        "effect": "Ce module de chance augmente &#9752 la chance d'ambroisie par {{amount}}"
       },
       "ambrosiaCubeQuark1": {
-        "name": "Ambrosia Cube-Quark Hybrid Module I",
-        "description": "A first generation hybrid module. Gain +0.01% Quarks per level per digit in the values of all cube types.",
-        "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
+        "name": "Module hybride Ambroisie Cube-Quark I",
+        "description": "Un module hybride de première génération. Gain de +0.01% Quarks par niveau par chiffre de tout valeur de type de cubes.",
+        "effect": "Ce module hybride de première génération augmente le gain de Quark par {{amount}}%"
       },
       "ambrosiaLuckQuark1": {
-        "name": "Ambrosia Luck-Quark Hybrid Module I",
-        "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
-        "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
+        "name": "Module hybride de chance d'ambroisie-quark I",
+        "description": "Un module hybride de première génération. Gain de +0.01% plus de Quark par niveau par &#9752 chance d'ambroisie. Gain diminutif après 1,000 chance d'ambroisie.",
+        "effect": "Ce module hybride de première génération augmente le gain de Quark par {{amount}}%"
       },
       "ambrosiaQuarkCube1": {
-        "name": "Ambrosia Quark-Cube Hybrid Module I",
+        "name": "Module hybride d'ambroisie Quark-Cube I",
         "description": "A first generation hybrid module. Gain +0.05% more cubes per level per digit in your Quark balance, squared!",
         "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
       },
@@ -387,16 +387,16 @@
       "33": "Gagnez 10% plus Offerings de le réinitialise || +1 Accélérateur par 500 Alchimies!",
       "34": "Gain 15% more Offerings from resets (stacks multiplicatively!) || +1 Multiplier per 1,000 Alchemies!",
       "35": "Gain 25% more Offerings from resets (stacks multiplicatively!) || +1 Accelerator Boost per 2,000 Alchemies!",
-      "36": "Multiply Crystal Production by 2x.",
+      "36": "Multiplie la production de Cristal par 2.",
       "37": "Multiply Crystal Production by the common logarithm of owned Diamonds. Prestiges give more Offerings based on time spent (Up to +15 at 1800 seconds)",
-      "38": "Unlock the Duplication rune!",
+      "38": "Débloquez la rune de Duplication!",
       "43": "Accelerator Boosts can be purchased from any screen. Unlock the Auto-Prestige feature.",
       "44": "Unlock the Prism Rune! Transcensions give more Offerings based on time spent (Up to +15 at 1800 seconds)",
       "45": "Reduce tax scaling by up to 5%, depending on the length of Prestige.",
       "46": "Reduce tax scaling by up to another 5%, depending on length of Prestige.",
       "47": "Reduce tax scaling by up to ANOTHER 10%, depending on length of Prestige!",
       "50": "Unlock new Atomic production and unlock 3 new incredibly difficult Challenges! Gain 2x particles on all future Reincarnations!",
-      "51": "Manual Reincarnations give +4 Obtainium (unaffected by multipliers except time multiplier)!",
+      "51": "Toutes réincarnations donne 4 Obtainium (Aucun multiplicateur affecté sauf lui du temps)!",
       "52": "Reincarnations give more Offerings based on time spent (Up to +25 at 1800 seconds)",
       "53": "Increase the amount of Obtainium gained through all features by 0.125% additive for each rune level.",
       "57": "Gain +1, +1% free Multipliers!",
@@ -416,39 +416,39 @@
       "79": "Achetez automatiquement la première amélioration Crystal si vous pouvez vous le permettre!",
       "80": "Start Transcensions/Challenges with Multiplier Autobuyer unlocked. +5% Offering recycle.",
       "82": "Retarder la croissance fiscale de 4 %.",
-      "84": "+1% Obtainium (stacks additively with other achievement rewards)",
+      "84": "+1% Obtainium (Cumul additionnel avec tout autre récompense à succès)",
       "85": "Start Transcensions/Challenges with 1 Coal Plant and automatically buy Coal Plants.",
       "86": "Automatically buy the second Crystal upgrade if you can afford it!",
       "87": "Start Transcensions/Challenges with Accelerator Autobuyer unlocked. +5% Offering recycle.",
       "89": "Delay tax growth by 4%.",
-      "91": "+3% Obtainium (stacks additively with other Achievement rewards)",
-      "92": "Start Transcensions/Challenges with 1 Coal Rig and automatically buy Coal Rigs.",
-      "93": "Automatically buy the third Crystal upgrade if you can afford it!",
+      "91": "+3% Obtainium (Cumul additionnel avec tout autre récompense à succès)",
+      "92": "Commencez tout Transcension/Défis avec 1 plateforme charbon et les achète automatiquement.",
+      "93": "Achetez automatiquement le 3ᵉ amélioration cristalline si vous pouvez l'obtenir!",
       "94": "+5% Offering recycle.",
       "96": "Delay tax growth by 4%.",
-      "98": "+5% Obtainium (stacks additively with other achievement rewards)",
+      "98": "+5% Obtainium (Cumul additionnel avec tout autre récompense à succès)",
       "99": "Start Transcensions/Challenges with 1 Diamond Pickaxe and automatically buy Diamond Pickaxes.",
       "100": "Automatically buy the fourth Crystal upgrade if you can afford it!",
-      "101": "+5% Offering recycle.",
+      "101": "+5% taux d'offrande recyclables.",
       "102": "Débloquer la rune d’Avarice!",
-      "103": "Delay tax growth by 4%.",
-      "105": "+7% Obtainium (stacks additively with other achievement rewards)",
+      "103": "Retardez la croissance fiscale de 4%.",
+      "105": "+7% Obtainium (Cumul additionnel avec tout autre récompense à succès)",
       "106": "Start Transcensions/Challenges with 1 Pandora's Box and automatically buy Pandora's Boxes.",
       "107": "Automatically buy the fifth Crystal upgrade if you can afford it!",
-      "108": "+5% Offering recycle.",
-      "110": "Delay tax growth by 4%.",
-      "112": "+9% Obtainium (stacks additively with other achievement rewards)",
-      "115": "+5% Offering recycle.",
-      "117": "Delay tax growth by 5.66%.",
+      "108": "+5% taux d'offrande recyclables.",
+      "110": "Retardez la croissance fiscale de 4%.",
+      "112": "+9% Obtainium (Cumul additionnel avec tout autre récompense à succès)",
+      "115": "+5% taux d'offrande recyclables.",
+      "117": "Retardez la croissance fiscale de 5.66%.",
       "118": "Each Reincarnation Challenge completion delays tax growth by 0.75% per level, multiplicative. Effect: {{x}}x",
       "119": "+11% Obtainium. Unlock a nice trinket somewhere...",
-      "122": "+7.5% Offering recycle.",
+      "122": "+7.5% taux d'offrande recyclables.",
       "124": "Delay tax growth by 5.66%. Unlock 5 new incredibly powerful researches!",
-      "126": "+13% Obtainium. You get an accessory to commemorate this moment!",
+      "126": "+13% Obtainium. Vous obtenez un accessoire pour commémorer le moment!",
       "127": "Unlock 20 new incredibly expensive yet good researches. Unlock the [Anthill] feature!",
       "128": "Make researches go Cost-- with 1.5x Obtainium!",
       "129": "+7.5% Offering recycle. Gain another 1.25x Obtainium multiplier!",
-      "131": "Delay tax growth by 5.66%.",
+      "131": "Retardez la croissance fiscale de 5.66%.",
       "132": "Permanently gain +25% more sacrifice reward!",
       "133": "+15% Obtainium. Obtain the gift of Midas himself.",
       "134": "Unlock 10 newer incredibly expensive yet good researches. Unlock <Talismans> in the Runes Tab!",
@@ -502,7 +502,7 @@
       "223": "Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Platonic Cubes +{{x}}% [Max: 200% at 2.674B Ascensions]",
       "240": "Ascension Cube Gain Multipliers is VERY slightly affected by global speed multipliers: {{x}}x (Min: 1.10x, Max: 1.50x)",
       "250": "You gain a permanent +60% Obtainium and Offering bonus, with +6% all Cube types!",
-      "251": "You gain a permanent +100% Obtainium and Offering bonus, with +10% all Cube types!",
+      "251": "Gain +100% d'obtainium et offrandes avec un bonus de 10% de cubes tout types!",
       "253": "You will gain +10% Hypercubes! Why? I don't know.",
       "254": "Cube Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]",
       "255": "Tesseract Gain +{{x}}% [Max: +15% at 1e25 Ascension Score], and allow gain of Hepteracts.",
@@ -523,7 +523,7 @@
       "274": "Ant Speed is permanently multiplied by 4.44! Platonic Upgrades now BuyMax whenever affordable!",
       "275": "You immediately start Singularities with 1 Transcension and 1001 mythos!",
       "276": "You immediately start Singularities with 1 Reincarnation, and 10 particles!",
-      "277": "You immediately start Singularities with 500 Obtainium!",
+      "277": "Vous commencez toute Singularité avec 500 Obtainium!",
       "278": "Gain 5% more Quarks, permanently! Automation regarding Particle Buildings are immediately available.",
       "279": "You immediately start Singularities with a Challenge 7 completion and 1e100 particles. Talismans now buff all runes at all times!",
       "280": "You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 Ant."
@@ -538,6 +538,28 @@
     "rewardGainMessage": "Reward: {{x}} AP. {{y}} Quarks! {{z}}",
     "completed": "␣TERMINÉ !",
     "notification": "You unlocked an achievement: {{m}}"
+  },
+  "reset": {
+    "details": {
+      "prestige": "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: {{amount}}/1e16 Coins || TIME SPENT: {{timeSpent}} Seconds.",
+      "transcension": "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: {{amount}}/1e100 Coins || TIME SPENT: {{timeSpent}} Seconds.",
+      "reincarnation": "Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: {{amount}}/1e300 Mythos Shards || TIME SPENT: {{timeSpent}} Seconds.",
+      "acceleratorBoost": "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: {{amount}}/{{required}} Diamonds.",
+      "transcensionChallenge": {
+        "in": "Are you tired of being in your Challenge or stuck? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
+        "out": "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!"
+      },
+      "reincarnationChallenge": {
+        "in": {
+          "coins": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
+          "transcendShards": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Mythos Shards. TIME SPENT: {{timeSpent}} Seconds."
+        },
+        "out": "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?"
+      },
+      "ascensionChallenge": "Click this if you're in an Ascension Challenge and want to leave. You get it already!",
+      "ascension": "Ascend, C-10 is required! +{{cubeAmount}} Wow! Cubes for doing it! Time: {{timeSpent}} Seconds. (Real-time {{realTimeSpent}} Seconds)",
+      "singularity": "Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with {{gqAmount}} Golden Quarks. Time: {{timeSpent}} Seconds."
+    }
   },
   "ants": {
     "upgrades": {
@@ -819,7 +841,7 @@
       "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Increase Corruption Cap by 2 levels. Finally, unlock two new corruptions! ;)",
       "start": "Start <[(No Reincarnation)]>",
       "current": {
-        "1": "+{{value}}% Obtainium",
+        "1": "{{value}}% d'Obtainium",
         "2": "+{{value}}% Offrandes",
         "3": "+{{value}} additional Cube Tributes"
       }
@@ -1664,8 +1686,8 @@
       },
       "singObtainium1": {
         "name": "Obtainium Wave",
-        "description": "Upgrade this to get +2% Obtainium per level, forever!",
-        "effect": "Permanently gain {{n}}% more Obtainium."
+        "description": "Améliorez-le pour obtenir 2% Obtainium de plus par niveau pour toujours!",
+        "effect": "Gain permanent {{n}}% d'obtainium additionnel."
       },
       "singObtainium2": {
         "name": "Obtainium Flood",
@@ -1954,7 +1976,7 @@
       "globalSpeed": "<<royalblue|Global Speed>> is divided by <<royalblue|{{divisor}}>>.",
       "ascensionSpeed": "<<orange|Ascension Speed>> is divided by <<orange|{{divisor}}>>.",
       "offeringGain": "<<gold|Offering Gain>> is divided by <<gold|{{divisor}}>>.",
-      "obtainiumGain": "<<steelblue|Obtainium Gain>> is divided by <<steelblue|{{divisor}}>>.",
+      "obtainiumGain": "<<steelblue|Obtainium Gain>> est divisé par <<steelblue|{{divisor}}>>.",
       "cubeGain": "<<yellow|Cube Gain>> is divided by <<yellow|{{divisor}}>>.",
       "researchCosts": "<<var(--green-text-color)|Research Costs>> are multiplied by <<var(--green-text-color)|{{multiplier}}>>.",
       "cubeUpgradeCosts": "<<Silver|Cube Upgrade costs>> (Excluding Cookies) are multiplied by <<Silver|{{multiplier}}>>.",
@@ -2378,7 +2400,7 @@
     "currentTranscensionCounter": "Current Transcension Timer: +<<var(--orchid-text-color);|{{value}}>> seconds",
     "reincarnationCount": "Nombre de réincarnation : +<<limegreen|{{value}}>>",
     "currentReincarnationTimer": "Current Reincarnation Timer: +<<limegreen|{{value}}>> seconds",
-    "obtainiumGenerated": "Obtainium Generated: <<pink|{{value}}>>",
+    "obtainiumGenerated": "Obtainium généré: <<pink|{{value}}>>",
     "ingameAntSacTimer": "In-Game Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
     "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
     "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
@@ -2717,9 +2739,9 @@
         "effect": "Offering gain +{{n}}%"
       },
       "octeractObtainium1": {
-        "name": "Obtainium Deluge",
-        "description": "Gain 1% more obtainium per level.",
-        "effect": "Obtainium gain +{{n}}%"
+        "name": "Déluge d'obtainium",
+        "description": "Gain 1% plus d'obtainium par niveau.",
+        "effect": "Gain d'obtainium +{{n}}%"
       },
       "octeractAscensions": {
         "name": "Voided Warranty",
@@ -2849,7 +2871,42 @@
         "polymath": "Polymath",
         "mortuus": "Mortuus Est",
         "plastic": "Plastic"
-      }
+      },
+      "summaries": {
+        "exemption": "=-=-=-= Exemption Talisman Effects =-=-=-=",
+        "chronos": "=-=-=-= Chronos Talisman Effects =-=-=-=",
+        "midas": "=-=-=-= Midas Talisman Effects =-=-=-=",
+        "metaphysics": "=-=-=-= Metaphysics Talisman Effects =-=-=-=",
+        "polymath": "=-=-=-= Polymath Talisman Effects =-=-=-=",
+        "mortuus": "=-=-=-= Mortuus Est Talisman Effects =-=-=-=",
+        "plastic": "=-=-=-= Plastic Talisman Effects =-=-=-="
+      },
+      "effects": {
+        "exemption": "Taxes -{{x}}%",
+        "chronos": "Gain +{{x}}% Global Speed Acceleration.",
+        "midas": "Rune Blessing bonuses +{{x}}%",
+        "metaphysics": "Talismans' Bonus Rune Levels +{{x}} per level",
+        "polymath": "Rune Spirit Bonuses +{{x}}%",
+        "mortuus": "Bonus Ant Levels: +{{x}}",
+        "plastic": "Gain 1x normal production (Joke)!"
+      },
+      "bonusRuneLevels": {
+        "speed": "Bonus Speed Rune Levels: {{x}}",
+        "duplication": "Bonus Duplication Rune Levels: {{x}}",
+        "prism": "Bonus Prism Rune Levels: {{x}}",
+        "thrift": "Bonus Thrift Rune Levels: {{x}}",
+        "SI": "Bonus SI Rune Levels: {{x}}"
+      },
+      "mythicEffects": {
+        "exemption": "Mythic Effect: +400 Duplication Rune Levels!",
+        "chronos": "Mythic Effect: +400 Speed Rune Levels!",
+        "midas": "Mythic Effect: +400 Thrift Rune Levels!",
+        "metaphysics": "Mythic Effect: +400 Prism Rune Levels!",
+        "polymath": "Mythic Effect: +400 SI Rune Levels!",
+        "mortuus": "Mythic Effect: Gain ant speed based on your total rune level!",
+        "plastic": "Mythic Effect: Gain 1x your normal quark values (Joke)!"
+      },
+      "maxEnhance": "Get Max Enhance for a Mythical bonus effect!"
     },
     "blessings": {
       "buyUpTo": "Buy up to <<var(--orchid-text-color);|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]",
@@ -3216,7 +3273,7 @@
     "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism2021\" or \"Khafra\" perchance?]",
     "comeBackSoon": "Alright, come back soon!",
     "noAddCodes": "You do not have an 'Add' code attempt! You will gain 1 in {{x}} seconds.",
-    "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use?",
+    "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use? You can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you use all attempts except the specified number.",
     "cancelAdd": "Pas d'inquiétude, vous n'avez pas perdu vos utilisations! Revenez plus tard!",
     "daily0Uses": "0 uses left. Next: end of the day.",
     "daily1Uses": "1 use left. Next: end of the day.",

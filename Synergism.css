@@ -3504,6 +3504,18 @@ header #obtainiumDisplay { color: pink; }
     cursor: pointer;
 }
 
+.blueberryLoadoutSlot {
+    height: 32px;
+    width: 32px;
+    border: 2px solid blue;
+}
+
+.blueberryLoadoutSetting {
+    height: 32px;
+    width: 192px;
+    border: 2px solid blue;
+}
+
 .singularityChallenges {
     display: flex;
     justify-content: center;
@@ -3622,6 +3634,7 @@ img#singularityPerksIcon {
 #singularityAmbrosiaMultiline {
     white-space: pre-line;
     margin: 15px 0 0;
+    justify-content: center;
 }
 
 #singularityChallengeDetails {

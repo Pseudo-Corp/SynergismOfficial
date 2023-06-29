@@ -1194,8 +1194,10 @@ export const calculateAllCubeMultiplier = () => {
     // Module - Luck-Cube 1
     +player.blueberryUpgrades.ambrosiaLuckCube1.bonus.cubes,
     // Module - Quark-Cube 1
-    +player.blueberryUpgrades.ambrosiaQuarkCube1.bonus.cubes
-    // Total Global Cube Multipliers: 29
+    +player.blueberryUpgrades.ambrosiaQuarkCube1.bonus.cubes,
+    // Module - Cubes 2
+    +player.blueberryUpgrades.ambrosiaCubes2.bonus.cubes
+    // Total Global Cube Multipliers: 30
   ]
 
   const extraMult = (G.isEvent && G.eventClicked) ? 1.05 : 1
@@ -1446,7 +1448,9 @@ export const getOcteractValueMultipliers = () => {
     // Module- Luck-Cube 1
     +player.blueberryUpgrades.ambrosiaLuckCube1.bonus.cubes,
     // Module- Quark-Cube 1
-    +player.blueberryUpgrades.ambrosiaQuarkCube1.bonus.cubes
+    +player.blueberryUpgrades.ambrosiaQuarkCube1.bonus.cubes,
+    // Module- Cubes 2
+    +player.blueberryUpgrades.ambrosiaCubes2.bonus.cubes
   ]
 }
 
@@ -1701,6 +1705,7 @@ export const calculateQuarkMultiplier = () => {
   multiplier *= +player.blueberryUpgrades.ambrosiaQuarks1.bonus.quarks
   multiplier *= +player.blueberryUpgrades.ambrosiaCubeQuark1.bonus.quarks
   multiplier *= +player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks
+  multiplier *= +player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks
 
   if (player.highestSingularityCount === 0) {
     multiplier *= 1.25
