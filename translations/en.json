@@ -102,7 +102,8 @@
             "save": "MODE: SAVE LOADOUT",
             "none": "No loadout saved in this slot!",
             "loadout": "Loadout",
-            "confirmation": "Saving to this slot will override its build. Are you sure?"
+            "confirmation": "Saving to this slot will override its build. Are you sure?",
+            "imported": "Imported loadout"
         },
         "importTree": {
             "success": "Tree successfully imported!",
