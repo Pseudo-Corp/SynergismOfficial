@@ -653,10 +653,10 @@ export const loadoutHandler = async (n: number, modules: BlueberryOpt) => {
 export const updateLoadoutHoverClasses = () => {
   const upgradeNames = Object.keys(blueberryUpgradeData) as blueberryUpgradeNames[]
 
-  for (const loadoutKey in player.blueberryLoadouts) {
+  for (const loadoutKey of Object.keys(player.blueberryLoadouts)) {
     const i = Number.parseInt(loadoutKey, 10)
     // eslint-disable-next-line
-    const loadout = player.blueberryLoadouts[loadoutKey]
+    const loadout = player.blueberryLoadouts[i]
 
     const upgradeHoverClass = `bbPurchasedLoadout${i}`
     for (const upgradeKey of upgradeNames) {
@@ -688,6 +688,12 @@ export const createLoadoutDescription = (input: number, modules: BlueberryOpt) =
 
   let str = ''
   for (const [key, val] of Object.entries(modules)) {
+    /*
+     * If the entry (saved purchase level) for an upgrade is 0, undefined, or null, we skip it.
+     * If 0 - it existed when the loadout was saved; it's just unpurchased
+     * If undefined - it's new, so it's unpurchased - the user couldn't have saved it to a loadout yet
+     * I don't think anything sets an upgrade to null... but we may as well skip then too.
+     */
     if (!val) continue
 
     const k = key as keyof Player['blueberryUpgrades']
@@ -700,8 +706,8 @@ export const createLoadoutDescription = (input: number, modules: BlueberryOpt) =
   }
 
   let loadoutTitle = `${i18next.t('ambrosia.loadouts.loadout')} ${input}`
-  if (input == 0) {
-    loadoutTitle = `${i18next.t('ambrosia.loadouts.imported')}`
+  if (input === 0) {
+    loadoutTitle = i18next.t('ambrosia.loadouts.imported')
   }
   DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = ` ${loadoutTitle}
   ${str}`
