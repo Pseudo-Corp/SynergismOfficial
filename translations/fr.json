@@ -3273,7 +3273,7 @@
     "promocodePrompt": "Got a code? Great! Enter it in (CaSe SeNsItIvE). \n [Note to viewer: this is for events and certain always-active codes. \n May I suggest you type in \"synergism2021\" or \"Khafra\" perchance?]",
     "comeBackSoon": "Alright, come back soon!",
     "noAddCodes": "You do not have an 'Add' code attempt! You will gain 1 in {{x}} seconds.",
-    "useXAdds": "You can use up to {{x}} attempts at once. How many would you like to use? You can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you use all attempts except the specified number.",
+    "useXAdds": "Vous pouvez utiliser jusqu'a {{x}} tentatives d'un coup. Combien de tentatives voulez-vous utiliser? You pouvez entrer une valeur négative \"-\" pour utiliser toutes vos tentatives à l'exception d'un nombre spécifié.",
     "cancelAdd": "Pas d'inquiétude, vous n'avez pas perdu vos utilisations! Revenez plus tard!",
     "daily0Uses": "0 uses left. Next: end of the day.",
     "daily1Uses": "1 use left. Next: end of the day.",
