@@ -3496,6 +3496,19 @@ header #obtainiumDisplay { color: pink; }
     gap: 4px;
 }
 
+#blueberryUpgradeContainer {
+    flex-direction: column;
+}
+
+.blueberryUpgradeTier {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2px;
+    width: 100%;
+    gap: 4px;
+}
+
 .singularityUpgrade,
 .octeractUpgrade,
 .singularityChallenge,
