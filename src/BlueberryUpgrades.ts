@@ -633,6 +633,8 @@ export const importBlueberryTree = async (input: string | null) => {
     try {
       const modules = JSON.parse(input) as BlueberryOpt
       await createBlueberryTree(modules)
+      createLoadoutDescription(0, modules)
+
     } catch (err) {
       return Alert(i18next.t('ambrosia.importTree.error'))
     }
@@ -648,6 +650,26 @@ export const loadoutHandler = async (n: number, modules: BlueberryOpt) => {
   }
 }
 
+export const updateLoadoutHoverClasses = () => {
+  const upgradeNames = Object.keys(blueberryUpgradeData) as blueberryUpgradeNames[]
+
+  for (const loadoutKey of Object.keys(player.blueberryLoadouts)) {
+    const i = Number.parseInt(loadoutKey, 10)
+    // eslint-disable-next-line
+    const loadout = player.blueberryLoadouts[i]
+
+    const upgradeHoverClass = `bbPurchasedLoadout${i}`
+    for (const upgradeKey of upgradeNames) {
+      // eslint-disable-next-line
+      if (loadout[upgradeKey]) {
+        DOMCacheGetOrSet(upgradeKey).parentElement?.classList.add(upgradeHoverClass)
+      } else {
+        DOMCacheGetOrSet(upgradeKey).parentElement?.classList.remove(upgradeHoverClass)
+      }
+    }
+  }
+}
+
 export const saveBlueberryTree = async (input: number, previous: BlueberryOpt) => {
 
   if (Object.keys(previous).length > 0) {
@@ -658,12 +680,22 @@ export const saveBlueberryTree = async (input: number, previous: BlueberryOpt) =
   player.blueberryLoadouts[input] = getBlueberryTree()
   // eslint-disable-next-line
   createLoadoutDescription(input, player.blueberryLoadouts[input])
+
+  updateLoadoutHoverClasses()
 }
 
 export const createLoadoutDescription = (input: number, modules: BlueberryOpt) => {
 
   let str = ''
   for (const [key, val] of Object.entries(modules)) {
+    /*
+     * If the entry (saved purchase level) for an upgrade is 0, undefined, or null, we skip it.
+     * If 0 - it existed when the loadout was saved; it's just unpurchased
+     * If undefined - it's new, so it's unpurchased - the user couldn't have saved it to a loadout yet
+     * I don't think anything sets an upgrade to null... but we may as well skip then too.
+     */
+    if (!val) continue
+
     const k = key as keyof Player['blueberryUpgrades']
     const name = player.blueberryUpgrades[k].name
     str = str + `<span style="color:orange">${name}</span> <span style="color:yellow">lv${val}</span> | `
@@ -672,6 +704,11 @@ export const createLoadoutDescription = (input: number, modules: BlueberryOpt) =
   if (Object.keys(modules).length === 0) {
     str = i18next.t('ambrosia.loadouts.none')
   }
-  DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = ` ${i18next.t('ambrosia.loadouts.loadout')} ${input}
+
+  let loadoutTitle = `${i18next.t('ambrosia.loadouts.loadout')} ${input}`
+  if (input === 0) {
+    loadoutTitle = i18next.t('ambrosia.loadouts.imported')
+  }
+  DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = ` ${loadoutTitle}
   ${str}`
 }
