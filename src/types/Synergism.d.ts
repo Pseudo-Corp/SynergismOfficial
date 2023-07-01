@@ -1,5 +1,5 @@
 import type Decimal from 'break_infinity.js';
-import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental';
+import type { WowCubes, WowHepteracts, WowHypercubes, WowOcteracts, WowPlatonicCubes, WowTesseracts } from '../DynamicCubes';
 import { HepteractCraft } from '../Hepteracts';
 import { Category, ResetHistoryEntryUnion } from '../History';
 import { OcteractUpgrade } from '../Octeracts';
@@ -462,8 +462,8 @@ export interface Player {
     wowTesseracts: WowTesseracts
     wowHypercubes: WowHypercubes
     wowPlatonicCubes: WowPlatonicCubes
-    wowAbyssals: number
-    wowOcteracts: number
+    wowAbyssals: WowHepteracts
+    wowOcteracts: WowOcteracts
     totalWowOcteracts: number
     cubeBlessings: {
         accelerator: number

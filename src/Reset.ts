@@ -2,7 +2,7 @@ import { player, format, blankSave, updateAll, saveSynergy } from './Synergism'
 import {
   calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
   calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
-  calcAscensionCount, calculateGoldenQuarkGain, calculatePowderConversion } from './Calculate'
+  calcAscensionCount, calculateGoldenQuarkGain } from './Calculate'
 import { resetofferings } from './Runes'
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans'
 import { calculateTesseractBlessings } from './Tesseracts'
@@ -23,20 +23,17 @@ import type {
 } from './History'
 import { challengeRequirement } from './Challenges'
 import { Synergism } from './Events'
-import type { Player, resetNames, OneToFive } from './types/Synergism'
+import type { Player, resetNames } from './types/Synergism'
 import { updateClassList } from './Utility'
 import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions'
 import { toggleAutoChallengeModeText } from './Toggles'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { WowCubes } from './CubeExperimental'
+import { WowCubes, WowHepteracts, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './DynamicCubes'
 import { importSynergism } from './ImportExport'
 import { resetShopUpgrades, shopData } from './Shop'
 import { calculateSingularityDebuff, getFastForwardTotalMultiplier } from './singularity'
-import { updateCubeUpgradeBG, awardAutosCookieUpgrade, autoBuyCubeUpgrades } from './Cubes'
-import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
-import { calculateTessBuildingsInBudget, buyTesseractBuilding } from './Buy'
-import { getAutoHepteractCrafts } from './Hepteracts'
-import type { TesseractBuildings } from './Buy'
+import { updateCubeUpgradeBG, awardAutosCookieUpgrade } from './Cubes'
+import { updatePlatonicUpgradeBG } from './Platonic'
 import { sumContents } from './Utility'
 import { setInterval, clearInterval } from './Timers'
 import { IconSets } from './Themes'
@@ -571,7 +568,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.wowTesseracts.add(metaData[5])
         player.wowHypercubes.add(metaData[6])
         player.wowPlatonicCubes.add(metaData[7])
-        player.wowAbyssals = Math.min(1e300, player.wowAbyssals + metaData[8])
+        player.wowAbyssals.add(metaData[8])
       }
     }
 
@@ -668,59 +665,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     updateSingularityMilestoneAwards(false)
   }
 
-  if (input === 'ascension' || input === 'ascensionChallenge') {
-    // Hepteract Autocraft
-    const autoHepteractCrafts = getAutoHepteractCrafts()
-    const numberOfAutoCraftsAndOrbs = autoHepteractCrafts.length + (player.overfluxOrbsAutoBuy ? 1 : 0)
-    if (player.highestSingularityCount >= 1 && numberOfAutoCraftsAndOrbs > 0) {
-      // Computes the max number of Hepteracts to spend on each auto Hepteract craft
-      const heptAutoSpend = Math.floor((player.wowAbyssals / numberOfAutoCraftsAndOrbs) * (player.hepteractAutoCraftPercentage / 100))
-      for (const craft of autoHepteractCrafts) {
-        craft.autoCraft(heptAutoSpend)
-      }
-
-      if (player.overfluxOrbsAutoBuy) {
-        const orbsAmount = Math.floor(heptAutoSpend / 250000)
-        if (player.wowAbyssals - (250000 * orbsAmount) >= 0) {
-          player.overfluxOrbs += orbsAmount
-          player.overfluxPowder += player.shopUpgrades.powderAuto * calculatePowderConversion().mult * orbsAmount / 100
-          player.wowAbyssals -= 250000 * orbsAmount
-        }
-        if (player.wowAbyssals < 0) {
-          player.wowAbyssals = 0
-        }
-      }
-    }
-
-    // Autobuy tesseract buildings (Mode: PERCENTAGE)
-    if (player.researches[190] > 0 && player.tesseractAutoBuyerToggle === 1 && player.resettoggle4 === 2) {
-      const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
-      for (let i = 1; i <= 5; i++) {
-        if (player.autoTesseracts[i]) {
-          ownedBuildings[i-1] = player[`ascendBuilding${i as OneToFive}` as const].owned
-        }
-      }
-      const percentageToSpend = 100 - Math.min(100, player.tesseractAutoBuyerAmount)
-      const budget = Number(player.wowTesseracts) * percentageToSpend / 100
-      const buyToBuildings = calculateTessBuildingsInBudget(ownedBuildings, budget)
-      // Prioritise buying buildings from highest tier to lowest,
-      // in case there are any off-by-ones or floating point errors.
-      for (let i = 5; i >= 1; i--) {
-        const buyFrom = ownedBuildings[i-1]
-        const buyTo = buyToBuildings[i-1]
-        if (buyFrom !== null && buyTo !== null && buyTo !== buyFrom) {
-          buyTesseractBuilding(i as OneToFive, buyTo - buyFrom)
-        }
-      }
-    }
-
-    // Automation Platonic Upgrades
-    autoBuyPlatonicUpgrades()
-
-    // Automation Cube Upgrades
-    autoBuyCubeUpgrades()
-  }
-
   //Always unlocks
   player.unlocks.prestige = true
 
@@ -759,10 +703,10 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.constantUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     player.wowCubes = new WowCubes(0)
-    player.wowTesseracts = new WowCubes(0)
-    player.wowHypercubes = new WowCubes(0)
-    player.wowTesseracts = new WowCubes(0)
-    player.wowAbyssals = 0
+    player.wowTesseracts = new WowTesseracts(0)
+    player.wowHypercubes = new WowHypercubes(0)
+    player.wowPlatonicCubes = new WowPlatonicCubes(0)
+    player.wowAbyssals = new WowHepteracts(0)
 
     for (let index = 1; index <= 50; index++) {
       player.cubeUpgrades[index] = 0

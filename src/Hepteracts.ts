@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js'
 import { calculateCubeMultFromPowder, calculateCubeQuarkMultiplier, calculatePowderConversion, calculateQuarkMultFromPowder, forcedDailyReset } from './Calculate'
-import { Cube } from './CubeExperimental'
+import { Cube } from './DynamicCubes'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
@@ -123,12 +123,12 @@ export class HepteractCraft {
       }
     }
 
-    if (isNaN(player.wowAbyssals) || !isFinite(player.wowAbyssals) || player.wowAbyssals < 0) {
-      player.wowAbyssals = 0
+    if (isNaN(Number(player.wowAbyssals)) || !isFinite(Number(player.wowAbyssals)) || Number(player.wowAbyssals) < 0) {
+      player.wowAbyssals.value = 0
     }
 
     // Calculate the largest craft amount possible, with an upper limit being craftAmount
-    const hepteractLimit = Math.floor((player.wowAbyssals / (this.HEPTERACT_CONVERSION * craftCostMulti)) * 1 / (1 - this.DISCOUNT))
+    const hepteractLimit = Math.floor((Number(player.wowAbyssals) / (this.HEPTERACT_CONVERSION * craftCostMulti)) * 1 / (1 - this.DISCOUNT))
 
     // Create an array of how many we can craft using our conversion limits for additional items
     const itemLimits: number[] = []
@@ -194,10 +194,10 @@ export class HepteractCraft {
     this.BAL = Math.min(heptCap, this.BAL + amountToCraft)
 
     // Subtract spent items from player
-    player.wowAbyssals -= amountToCraft * this.HEPTERACT_CONVERSION * craftCostMulti
+    player.wowAbyssals.sub(amountToCraft * this.HEPTERACT_CONVERSION * craftCostMulti)
 
-    if (player.wowAbyssals < 0) {
-      player.wowAbyssals = 0
+    if (Number(player.wowAbyssals) < 0) {
+      player.wowAbyssals.value = 0
     }
 
     for (const item in this.OTHER_CONVERSIONS) {
@@ -362,9 +362,9 @@ export class HepteractCraft {
       }
     }
 
-    player.wowAbyssals -= amountCrafted * craftCostMulti * this.HEPTERACT_CONVERSION
-    if (player.wowAbyssals < 0) {
-      player.wowAbyssals = 0
+    player.wowAbyssals.sub(amountCrafted * craftCostMulti * this.HEPTERACT_CONVERSION)
+    if (Number(player.wowAbyssals) < 0) {
+      player.wowAbyssals.value = 0
     }
 
     return this
@@ -567,7 +567,7 @@ export const hepteractToOverfluxOrbDescription = () => {
  * @returns Alert of either purchase failure or success
  */
 export const tradeHepteractToOverfluxOrb = async (buyMax?:boolean) => {
-  const maxBuy = Math.floor(player.wowAbyssals / 250000)
+  const maxBuy = Math.floor(Number(player.wowAbyssals) / 250000)
   let toUse: number
 
   if (buyMax) {
@@ -600,11 +600,11 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?:boolean) => {
   const buyAmount = Math.min(maxBuy, Math.floor(toUse))
   const beforeEffect = calculateCubeQuarkMultiplier()
   player.overfluxOrbs += buyAmount
-  player.wowAbyssals -= 250000 * buyAmount
+  player.wowAbyssals.sub(250000 * buyAmount)
   const afterEffect = calculateCubeQuarkMultiplier()
 
-  if (player.wowAbyssals < 0) {
-    player.wowAbyssals = 0
+  if (Number(player.wowAbyssals) < 0) {
+    player.wowAbyssals.value = 0
   }
 
   const powderGain = player.shopUpgrades.powderAuto * calculatePowderConversion().mult * buyAmount / 100
@@ -805,3 +805,28 @@ export const MultiplierHepteract = new HepteractCraft({
   OTHER_CONVERSIONS: { 'researchPoints': 1e130 },
   HTML_STRING: 'multiplier'
 })
+
+export const autoCraftHepteracts = () => {
+  // Hepteract Autocraft
+  const autoHepteractCrafts = getAutoHepteractCrafts()
+  const numberOfAutoCraftsAndOrbs = autoHepteractCrafts.length + (player.overfluxOrbsAutoBuy ? 1 : 0)
+  if (player.highestSingularityCount >= 1 && numberOfAutoCraftsAndOrbs > 0) {
+    // Computes the max number of Hepteracts to spend on each auto Hepteract craft
+    const heptAutoSpend = Math.floor((Number(player.wowAbyssals) / numberOfAutoCraftsAndOrbs) * (player.hepteractAutoCraftPercentage / 100))
+    for (const craft of autoHepteractCrafts) {
+      craft.autoCraft(heptAutoSpend)
+    }
+
+    if (player.overfluxOrbsAutoBuy) {
+      const orbsAmount = Math.floor(heptAutoSpend / 250000)
+      if (Number(player.wowAbyssals) - (250000 * orbsAmount) >= 0) {
+        player.overfluxOrbs += orbsAmount
+        player.overfluxPowder += player.shopUpgrades.powderAuto * calculatePowderConversion().mult * orbsAmount / 100
+        player.wowAbyssals.sub(250000 * orbsAmount)
+      }
+      if (Number(player.wowAbyssals) < 0) {
+        player.wowAbyssals.value = 0
+      }
+    }
+  }
+}

@@ -7,6 +7,9 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { updateResearchBG } from './Research'
 import { calculateSingularityDebuff } from './singularity'
 import i18next from 'i18next'
+import type { TesseractBuildings } from './Buy'
+import { buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy'
+import type { OneToFive } from './types/Synergism'
 
 export interface IMultiBuy {
     levelCanBuy: number
@@ -224,6 +227,30 @@ export const autoBuyCubeUpgrades = () => {
       if (update) {
         revealStuff()
         calculateCubeBlessings()
+      }
+    }
+  }
+}
+
+export const autoTesseractBuildings = () => {
+  // Autobuy tesseract buildings (Mode: PERCENTAGE)
+  if (player.researches[190] > 0 && player.tesseractAutoBuyerToggle === 1 && player.resettoggle4 === 2) {
+    const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
+    for (let i = 1; i <= 5; i++) {
+      if (player.autoTesseracts[i]) {
+        ownedBuildings[i-1] = player[`ascendBuilding${i as OneToFive}` as const].owned
+      }
+    }
+    const percentageToSpend = 100 - Math.min(100, player.tesseractAutoBuyerAmount)
+    const budget = Number(player.wowTesseracts) * percentageToSpend / 100
+    const buyToBuildings = calculateTessBuildingsInBudget(ownedBuildings, budget)
+    // Prioritise buying buildings from highest tier to lowest,
+    // in case there are any off-by-ones or floating point errors.
+    for (let i = 5; i >= 1; i--) {
+      const buyFrom = ownedBuildings[i-1]
+      const buyTo = buyToBuildings[i-1]
+      if (buyFrom !== null && buyTo !== null && buyTo !== buyFrom) {
+        buyTesseractBuilding(i as OneToFive, buyTo - buyFrom)
       }
     }
   }

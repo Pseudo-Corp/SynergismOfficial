@@ -36,7 +36,7 @@ import { autoResearchEnabled } from './Research'
 import { checkVariablesOnLoad } from './CheckVariables'
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, hepteractEffective, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract, toggleAutoBuyOrbs } from './Hepteracts'
 import { QuarkHandler } from './Quark'
-import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
+import { WowCubes, WowHepteracts, WowHypercubes, WowOcteracts, WowPlatonicCubes, WowTesseracts } from './DynamicCubes'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { testing, version, lastUpdated, prod } from './Config'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -558,8 +558,8 @@ export const player: Player = {
   wowHypercubes: new WowHypercubes(0),
   wowPlatonicCubes: new WowPlatonicCubes(0),
   saveOfferingToggle: false,
-  wowAbyssals: 0,
-  wowOcteracts: 0,
+  wowAbyssals: new WowHepteracts(0),
+  wowOcteracts: new WowOcteracts(0),
   totalWowOcteracts: 0,
   cubeBlessings: {
     accelerator: 0,
@@ -924,6 +924,8 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
     wowTesseracts: Number(player.wowTesseracts),
     wowHypercubes: Number(player.wowHypercubes),
     wowPlatonicCubes: Number(player.wowPlatonicCubes),
+    wowAbyssals: Number(player.wowAbyssals),
+    wowOcteracts: Number(player.wowOcteracts),
     singularityUpgrades: Object.fromEntries(
       Object.entries(player.singularityUpgrades).map(([key, value]) => {
         return [key, {
@@ -998,7 +1000,9 @@ const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
   ['wowCubes', data => new WowCubes(Number(data.wowCubes) || 0)],
   ['wowTesseracts', data => new WowTesseracts(Number(data.wowTesseracts) || 0)],
   ['wowHypercubes', data => new WowHypercubes(Number(data.wowHypercubes) || 0)],
-  ['wowPlatonicCubes', data => new WowPlatonicCubes(Number(data.wowPlatonicCubes) || 0)]
+  ['wowPlatonicCubes', data => new WowPlatonicCubes(Number(data.wowPlatonicCubes) || 0)],
+  ['wowAbyssals', data => new WowHepteracts(Number(data.wowAbyssals) || 0)],
+  ['wowOcteracts', data => new WowOcteracts(Number(data.wowOcteracts) || 0)]
 ])
 
 const loadSynergy = async () => {

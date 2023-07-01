@@ -1253,7 +1253,7 @@ export const calculateCubeMultiplier = (score = -1) => {
     // Platonic 1x1
     1 + 0.000090 * sumContents(player.usedCorruptions) * player.platonicUpgrades[1],
     // Cube Upgrade 63 (Cx13)
-    1 + Math.pow(1.03, Math.log10(Math.max(1, player.wowAbyssals))) * player.cubeUpgrades[63] - player.cubeUpgrades[63]
+    1 + Math.pow(1.03, Math.log10(Math.max(1, Number(player.wowAbyssals)))) * player.cubeUpgrades[63] - player.cubeUpgrades[63]
     // Total Multipliers to cubes: 15
   ]
 

@@ -752,7 +752,7 @@ export const visualUpdateSingularity = () => {
       const el = DOMCacheGetOrSet(`${String(key)}`)
       if (octItem.maxLevel !== -1 && octItem.level >= octItem.maxLevel) {
         el.style.filter = val ? 'brightness(.9)' : 'none'
-      } else if  (octItem.getCostTNL() > player.wowOcteracts) {
+      } else if  (octItem.getCostTNL() > Number(player.wowOcteracts)) {
         el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
       } else if (octItem.maxLevel === -1 || octItem.level < octItem.maxLevel) {
         if (octItem.freeLevels > octItem.level) {

@@ -41,6 +41,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       player.ascensionCounter += time * timeMultiplier * ascensionSpeedMulti
       player.ascensionCounterReal += time * timeMultiplier
       break
+
     }
     case 'singularity': {
       player.ascensionCounterRealReal += time
@@ -76,7 +77,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         player.octeractTimer %= 1
 
         const perSecond = octeractGainPerSecond()
-        player.wowOcteracts += amountOfGiveaways * perSecond
+        player.wowOcteracts.add(amountOfGiveaways * perSecond)
         player.totalWowOcteracts += amountOfGiveaways * perSecond
 
         if (player.highestSingularityCount >= 160) {

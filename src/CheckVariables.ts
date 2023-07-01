@@ -8,7 +8,7 @@ import { c15RewardUpdate } from './Statistics'
 import type { LegacyShopUpgrades, PlayerSave } from './types/LegacySynergism'
 import { padArray } from './Utility'
 import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts'
-import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
+import { WowCubes, WowHepteracts, WowHypercubes, WowOcteracts, WowPlatonicCubes, WowTesseracts } from './DynamicCubes'
 import { Alert } from './UpdateHTML'
 import { getQuarkInvestment, shopData } from './Shop'
 import type { ISingularityData } from './singularity'
@@ -64,7 +64,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   }
 
   if (data.wowCubes === undefined) {
-    player.wowCubes = new WowCubes()
+    player.wowCubes = new WowCubes(0)
     player.wowTesseracts = new WowTesseracts(0)
     player.wowHypercubes = new WowHypercubes(0)
     player.cubeUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -442,7 +442,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   }
   if (data.wowPlatonicCubes === undefined) {
     player.wowPlatonicCubes = new WowPlatonicCubes(0)
-    player.wowAbyssals = 0
+    player.wowAbyssals = new WowHepteracts(0)
   }
   if (data.platonicBlessings === undefined) {
     const ascCount = player.ascensionCount
@@ -664,7 +664,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     player.shopUpgrades.calculator = 0
     player.shopUpgrades.calculator2 = 0
     player.shopUpgrades.calculator3 = 0
-    player.wowAbyssals += 1e8 * player.platonicUpgrades[16] // Refund based off of abyss hepteracts spent
+    player.wowAbyssals.add(1e8 * player.platonicUpgrades[16]) // Refund based off of abyss hepteracts spent
     void Alert(i18next.t('general.updateAlerts.june282021'))
   }
 
@@ -904,7 +904,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   }
 
   if (data.wowOcteracts === undefined) {
-    player.wowOcteracts = 0
+    player.wowOcteracts = new WowOcteracts(0)
     player.octeractTimer = 0
   }
 

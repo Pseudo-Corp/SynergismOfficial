@@ -47,7 +47,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
   public async buyLevel(event: MouseEvent): Promise<void> {
     let purchased = 0
     let maxPurchasable = 1
-    let OCTBudget = player.wowOcteracts
+    let OCTBudget = Number(player.wowOcteracts)
 
     if (event.shiftKey) {
       maxPurchasable = 1000000
@@ -58,13 +58,13 @@ export class OcteractUpgrade extends DynamicUpgrade {
       }
 
       if (buy === -1) {
-        OCTBudget = player.wowOcteracts
+        OCTBudget = Number(player.wowOcteracts)
       } else if (buy <= 0) {
         return Alert(i18next.t('octeract.buyLevel.cancelPurchase'))
       } else {
         OCTBudget = buy
       }
-      OCTBudget = Math.min(player.wowOcteracts, OCTBudget)
+      OCTBudget = Math.min(Number(player.wowOcteracts), OCTBudget)
     }
 
     if (this.maxLevel > 0) {
@@ -77,10 +77,10 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
     while (maxPurchasable > 0) {
       const cost = this.getCostTNL()
-      if (player.wowOcteracts < cost || OCTBudget < cost) {
+      if (Number(player.wowOcteracts) < cost || OCTBudget < cost) {
         break
       } else {
-        player.wowOcteracts -= cost
+        player.wowOcteracts.sub(cost)
         OCTBudget -= cost
         this.octeractsInvested += cost
         this.level += 1
@@ -123,11 +123,11 @@ export class OcteractUpgrade extends DynamicUpgrade {
       freeLevelInfo = freeLevelInfo + `<span style="color: var(--maroon-text-color)">${i18next.t('general.softCapped')}</span>`
     }
 
-    const isAffordable = costNextLevel <= player.wowOcteracts
+    const isAffordable = costNextLevel <= Number(player.wowOcteracts)
     let affordTime = ''
     if (!isMaxLevel && !isAffordable) {
       const octPerSecond = octeractGainPerSecond()
-      affordTime = octPerSecond > 0 ? formatTimeShort((costNextLevel - player.wowOcteracts) / octPerSecond) : `${i18next.t('general.infinity')}`
+      affordTime = octPerSecond > 0 ? formatTimeShort((costNextLevel - Number(player.wowOcteracts)) / octPerSecond) : `${i18next.t('general.infinity')}`
     }
     const affordableInfo = isMaxLevel ? `<span style="color: plum"> ${i18next.t('general.maxed')}</span>` :
       isAffordable ? `<span style="color: var(--green-text-color)"> ${i18next.t('general.affordable')}</span>` :
@@ -164,7 +164,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
   }
 
   public refund(): void {
-    player.wowOcteracts += this.octeractsInvested
+    player.wowOcteracts.add(this.octeractsInvested)
     this.level = 0
     this.octeractsInvested = 0
   }

@@ -8,6 +8,12 @@ file without asking me first. You may edit this file as much as you
 want, though!
 Thank you! */
 
+/* Note by Platonic, July 1 2023
+Disregard my old self above.
+This is a non-experimental file for making cubes their own class
+and make them easily re-used for later purposes (yeah, duh, that's what classes are for).
+Edit the file however you want, I really don't care. */
+
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementaward } from './Achievements'
@@ -20,6 +26,9 @@ import { format, player } from './Synergism'
 import { calculateTesseractBlessings } from './Tesseracts'
 import type { Player } from './types/Synergism'
 import { Prompt, Alert } from './UpdateHTML'
+import { autoCraftHepteracts } from './Hepteracts'
+import { autoBuyCubeUpgrades, autoTesseractBuildings } from './Cubes'
+import { autoBuyPlatonicUpgrades } from './Platonic'
 
 /* Constants */
 
@@ -53,20 +62,20 @@ const platonicBlessings: Record <
   globalSpeed: { weight: 1, pdf: (x: number) => 99.9975 < x && x <= 100 }
 }
 
-const autoCubeReq = (percent: number) => {
-  return (player.highestSingularityCount >= 35 && player.autoOpenCubes && percent !== 0 && player.cubeUpgrades[51] > 0)
+const autoCubeReq = () => {
+  return (player.highestSingularityCount >= 35 && player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0)
 }
 
-const autoTessReq = (percent: number) => {
-  return (player.highestSingularityCount >= 35 && player.autoOpenTesseracts && percent !== 0 && player.challengecompletions[11] > 0 && (player.tesseractAutoBuyerToggle !== 1 || player.resettoggle4 === 2))
+const autoTessReq = () => {
+  return (player.highestSingularityCount >= 35 && player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0 && (player.tesseractAutoBuyerToggle !== 1 || player.resettoggle4 === 2))
 }
 
-const autoHypReq = (percent: number) => {
-  return (player.highestSingularityCount >= 35 && player.autoOpenHypercubes && percent !== 0 && player.challengecompletions[13] > 0)
+const autoHypReq = () => {
+  return (player.highestSingularityCount >= 35 && player.autoOpenHypercubes && player.openHypercubes !== 0 && player.challengecompletions[13] > 0)
 }
 
-const autoPlatReq = (percent: number) => {
-  return (player.highestSingularityCount >= 35 && player.autoOpenPlatonicsCubes && percent !== 0 && player.challengecompletions[14] > 0)
+const autoPlatReq = () => {
+  return (player.highestSingularityCount >= 35 && player.autoOpenPlatonicsCubes && player.openTesseracts !== 0 && player.challengecompletions[14] > 0)
 }
 
 export abstract class Cube {
@@ -79,10 +88,6 @@ export abstract class Cube {
   }
 
   abstract add(amount: number): this
-  /*add(amount: number): this {
-    this.value = Math.min(1e300, this.value + amount)
-    return this
-  }*/
 
   sub(amount: number): this {
     this.value = Math.max(0, this.value - amount)
@@ -98,6 +103,18 @@ export abstract class Cube {
   }
 }
 
+export class NonOpenableCube extends Cube {
+  constructor (
+    v = 0
+  ) {
+    super(v)
+  }
+
+  add(amount: number): this {
+    this.value = Math.min(1e300, this.value + amount)
+    return this
+  }
+}
 /**
  * @description Generic class for handling cubes which may be 'opened'.
  * @example
@@ -116,29 +133,31 @@ export abstract class Cube {
 export abstract class OpenableCube extends Cube {
   /** key on the player object */
   private key: keyof Player
-  private autoReq: (percent: number) => boolean
-  private autoPercentage: number
+  public autoCubeKey: keyof Player
+  public autoReq: () => boolean
 
   constructor (
     type: keyof Player,
-    autoReq: (percent: number) => boolean,
-    v = 0,
-    autoPercentage = 0
+    autoType: keyof Player,
+    autoReq: () => boolean,
+    v = 0
   ) {
     super(v)
     this.key = type
+    this.autoCubeKey = autoType
     this.autoReq = autoReq
-    this.autoPercentage = autoPercentage
   }
 
   add(amount: number, max = false): this {
     if (max) {
-      void this.open(amount, max)
+      void this.open(amount, false)
       /* void is fine here since the promise will not be rejected
         and return type is not used anywhere (return type is itself void) */
     } else {
-      const amountToOpen = this.autoReq(this.autoPercentage) ? Math.floor(amount * this.autoPercentage) : 0
-      this.value = Math.min(1e300, this.value + amount - amountToOpen)
+      const percentage = player[this.autoCubeKey] as number
+      const amountToOpen = this.autoReq() ? Math.floor(amount * percentage / 100) : 0
+      const remainder = Math.max(0, amount - amountToOpen)
+      this.value = Math.min(1e300, this.value + remainder)
       void this.open(amountToOpen, false) // ditto
     }
     return this
@@ -211,19 +230,27 @@ export abstract class OpenableCube extends Cube {
       this.value = Math.max(0, this.value - amount)
       return this
     }
-
-    [Symbol.toPrimitive](h: string) {
-      switch (h) {
-        case 'string': return this.value.toString()
-        case 'number': return this.value
-        default: return null
-      }
-    }
 }
 
 export class WowCubes extends OpenableCube {
-  constructor(amount = Number(player.wowCubes), autoPercentage = player.openCubes) {
-    super('wowCubes', autoCubeReq, amount, autoPercentage)
+  constructor(amount = Number(player.wowCubes)) {
+    super('wowCubes', 'openCubes', autoCubeReq, amount)
+  }
+
+  override add(amount: number, max = false) {
+    if (max) {
+      this.open(amount, false)
+      /* void is fine here since the promise will not be rejected
+        and return type is not used anywhere (return type is itself void) */
+    } else {
+      const percentage = player[this.autoCubeKey] as number
+      const amountToOpen = this.autoReq() ? Math.floor(amount * percentage / 100) : 0
+      const remainder = Math.max(0, amount - amountToOpen)
+      this.value = Math.min(1e300, this.value + remainder)
+      this.open(amountToOpen, false) // ditto
+      autoBuyCubeUpgrades()
+    }
+    return this
   }
 
   open(value: number, max = false) {
@@ -285,8 +312,24 @@ export class WowCubes extends OpenableCube {
 }
 
 export class WowTesseracts extends OpenableCube {
-  constructor(amount = Number(player.wowTesseracts), autoPercentage = player.openTesseracts) {
-    super('wowTesseracts', autoTessReq, amount, autoPercentage)
+  constructor(amount = Number(player.wowTesseracts)) {
+    super('wowTesseracts', 'openTesseracts', autoTessReq, amount)
+  }
+
+  override add(amount: number, max = false): this {
+    if (max) {
+      this.open(amount, false)
+      /* void is fine here since the promise will not be rejected
+        and return type is not used anywhere (return type is itself void) */
+    } else {
+      const percentage = player[this.autoCubeKey] as number
+      const amountToOpen = this.autoReq() ? Math.floor(amount * percentage / 100) : 0
+      const remainder = Math.max(0, amount - amountToOpen)
+      this.value = Math.min(1e300, this.value + remainder)
+      this.open(amountToOpen, false) // ditto
+      autoTesseractBuildings()
+    }
+    return this
   }
 
   open(value: number, max = false) {
@@ -320,14 +363,13 @@ export class WowTesseracts extends OpenableCube {
 
     calculateTesseractBlessings()
     const extraCubeBlessings = Math.floor(12 * toSpend * player.researches[153])
-    player.wowCubes.add(extraCubeBlessings)
-    player.wowCubes.open(extraCubeBlessings, false)
+    player.wowCubes.add(extraCubeBlessings, true)
   }
 }
 
 export class WowHypercubes extends OpenableCube {
-  constructor(amount = Number(player.wowHypercubes), autoPercentage = player.openHypercubes) {
-    super('wowHypercubes', autoHypReq, amount, autoPercentage)
+  constructor(amount = Number(player.wowHypercubes)) {
+    super('wowHypercubes', 'openHypercubes', autoHypReq, amount)
   }
 
   open(value: number, max = false) {
@@ -361,14 +403,29 @@ export class WowHypercubes extends OpenableCube {
 
     calculateHypercubeBlessings()
     const extraTesseractBlessings = Math.floor(100 * toSpend * player.researches[153])
-    player.wowTesseracts.add(extraTesseractBlessings)
-    player.wowTesseracts.open(extraTesseractBlessings, false)
+    player.wowTesseracts.add(extraTesseractBlessings, false)
   }
 }
 
 export class WowPlatonicCubes extends OpenableCube {
-  constructor(amount = Number(player.wowPlatonicCubes), autoPercentage = player.openTesseracts) {
-    super('wowPlatonicCubes', autoPlatReq, amount, autoPercentage)
+  constructor(amount = Number(player.wowPlatonicCubes)) {
+    super('wowPlatonicCubes', 'openPlatonicsCubes', autoPlatReq, amount)
+  }
+
+  override add(amount: number, max = false) {
+    if (max) {
+      this.open(amount, false)
+      /* void is fine here since the promise will not be rejected
+        and return type is not used anywhere (return type is itself void) */
+    } else {
+      const percentage = player[this.autoCubeKey] as number
+      const amountToOpen = this.autoReq() ? Math.floor(amount * percentage / 100) : 0
+      const remainder = Math.max(0, amount - amountToOpen)
+      this.value = Math.min(1e300, this.value + remainder)
+      this.open(amountToOpen, false) // ditto
+      autoBuyPlatonicUpgrades()
+    }
+    return this
   }
 
   open(value: number, max = false) {
@@ -420,8 +477,25 @@ export class WowPlatonicCubes extends OpenableCube {
     calculatePlatonicBlessings()
     if (player.achievements[271] > 0) {
       const extraHypercubes = Math.floor(toSpend * Math.max(0, Math.min(1, (Decimal.log(player.ascendShards.add(1), 10) - 1e5) / 9e5)))
-      player.wowHypercubes.add(extraHypercubes)
-      player.wowHypercubes.open(extraHypercubes, false)
+      player.wowHypercubes.add(extraHypercubes, false)
     }
+  }
+}
+
+export class WowHepteracts extends NonOpenableCube {
+  constructor(amount = Number(player.wowAbyssals)) {
+    super(amount)
+  }
+
+  override add(amount: number): this {
+    this.value = Math.min(1e300, this.value + amount)
+    autoCraftHepteracts()
+    return this
+  }
+}
+
+export class WowOcteracts extends NonOpenableCube {
+  constructor(amount = Number(player.wowOcteracts)) {
+    super(amount)
   }
 }
