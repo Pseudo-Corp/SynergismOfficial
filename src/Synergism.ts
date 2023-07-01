@@ -853,7 +853,8 @@ export const player: Player = {
     noSingularityUpgrades: new SingularityChallenge(singularityChallengeData.noSingularityUpgrades, 'noSingularityUpgrades'),
     oneChallengeCap: new SingularityChallenge(singularityChallengeData.oneChallengeCap, 'oneChallengeCap'),
     noOcteracts: new SingularityChallenge(singularityChallengeData.noOcteracts, 'noOcteracts'),
-    limitedAscensions: new SingularityChallenge(singularityChallengeData.limitedAscensions, 'limitedAscensions')
+    limitedAscensions: new SingularityChallenge(singularityChallengeData.limitedAscensions, 'limitedAscensions'),
+    staggeredCubes: new SingularityChallenge(singularityChallengeData.staggeredCubes, 'staggeredCubes')
   },
 
   ambrosia: 0,

@@ -719,24 +719,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     // Automation Cube Upgrades
     autoBuyCubeUpgrades()
-
-    // Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
-    if (player.highestSingularityCount >= 35) {
-      if (player.autoOpenCubes && player.openCubes !== 0 && player.cubeUpgrades[51] > 0) {
-        player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
-      }
-      if (player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0) {
-        if (player.tesseractAutoBuyerToggle !== 1 || player.resettoggle4 === 2) {
-          player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) * player.openTesseracts / 100), false)
-        }
-      }
-      if (player.autoOpenHypercubes && player.openHypercubes !== 0 && player.challengecompletions[13] > 0) {
-        player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) * player.openHypercubes / 100), false)
-      }
-      if (player.autoOpenPlatonicsCubes && player.openPlatonicsCubes !== 0 && player.challengecompletions[14] > 0) {
-        player.wowPlatonicCubes.open(Math.floor(Number(player.wowPlatonicCubes) * player.openPlatonicsCubes / 100), false)
-      }
-    }
   }
 
   //Always unlocks

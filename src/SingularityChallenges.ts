@@ -234,6 +234,22 @@ export const singularityChallengeData: Record<keyof Player['singularityUpgrades'
         calculatorUnlock: (n >= 25)
       }
     }
+  },
+  staggeredCubes: {
+    baseReq: 125,
+    maxCompletions: 16,
+    unlockSingularity: 260,
+    HTMLTag: 'staggeredCubes',
+    singularityRequirement: (baseReq: number, completions: number) => {
+      return baseReq + 5 * completions
+    },
+    effect: (n: number) => {
+      return {
+        ambrosiaLuck: 40 * n,
+        ambrosiaGeneration: 1 + n / 16,
+        cubeAutogen: n/1600 + +(n > 0)/100
+      }
+    }
   }
 }
 

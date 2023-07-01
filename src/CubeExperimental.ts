@@ -53,8 +53,53 @@ const platonicBlessings: Record <
   globalSpeed: { weight: 1, pdf: (x: number) => 99.9975 < x && x <= 100 }
 }
 
+const autoCubeReq = (percent: number) => {
+  return (player.highestSingularityCount >= 35 && player.autoOpenCubes && percent !== 0 && player.cubeUpgrades[51] > 0)
+}
+
+const autoTessReq = (percent: number) => {
+  return (player.highestSingularityCount >= 35 && player.autoOpenTesseracts && percent !== 0 && player.challengecompletions[11] > 0 && (player.tesseractAutoBuyerToggle !== 1 || player.resettoggle4 === 2))
+}
+
+const autoHypReq = (percent: number) => {
+  return (player.highestSingularityCount >= 35 && player.autoOpenHypercubes && percent !== 0 && player.challengecompletions[13] > 0)
+}
+
+const autoPlatReq = (percent: number) => {
+  return (player.highestSingularityCount >= 35 && player.autoOpenPlatonicsCubes && percent !== 0 && player.challengecompletions[14] > 0)
+}
+
+export abstract class Cube {
+  public value: number
+
+  constructor (
+    v = 0
+  ) {
+    this.value = v
+  }
+
+  abstract add(amount: number): this
+  /*add(amount: number): this {
+    this.value = Math.min(1e300, this.value + amount)
+    return this
+  }*/
+
+  sub(amount: number): this {
+    this.value = Math.max(0, this.value - amount)
+    return this
+  }
+
+  [Symbol.toPrimitive](h: string) {
+    switch (h) {
+      case 'string': return this.value.toString()
+      case 'number': return this.value
+      default: return null
+    }
+  }
+}
+
 /**
- * @description Generic class for handling cube subsets.
+ * @description Generic class for handling cubes which may be 'opened'.
  * @example
  * class PlatCubes extends Currency {
  *   constructor() {
@@ -68,17 +113,35 @@ const platonicBlessings: Record <
  *
  * new PlatCubes().openCustom();
  */
-export abstract class Cube {
+export abstract class OpenableCube extends Cube {
   /** key on the player object */
   private key: keyof Player
-  private value: number
+  private autoReq: (percent: number) => boolean
+  private autoPercentage: number
 
   constructor (
     type: keyof Player,
-    v = 0
+    autoReq: (percent: number) => boolean,
+    v = 0,
+    autoPercentage = 0
   ) {
+    super(v)
     this.key = type
-    this.value = v
+    this.autoReq = autoReq
+    this.autoPercentage = autoPercentage
+  }
+
+  add(amount: number, max = false): this {
+    if (max) {
+      void this.open(amount, max)
+      /* void is fine here since the promise will not be rejected
+        and return type is not used anywhere (return type is itself void) */
+    } else {
+      const amountToOpen = this.autoReq(this.autoPercentage) ? Math.floor(amount * this.autoPercentage) : 0
+      this.value = Math.min(1e300, this.value + amount - amountToOpen)
+      void this.open(amountToOpen, false) // ditto
+    }
+    return this
   }
 
     /**
@@ -91,7 +154,7 @@ export abstract class Cube {
     /** Open a custom amount of cubes */
     async openCustom() {
       // TODO: Replace this with `this`?
-      const thisInPlayer = player[this.key] as Cube
+      const thisInPlayer = player[this.key] as OpenableCube
       const amount = await Prompt(i18next.t('cubes.howManyCubesOpen', { x: format(thisInPlayer, 0, true) }))
 
       if (amount === null) {
@@ -144,11 +207,6 @@ export abstract class Cube {
       return Math.ceil(Math.pow(10, (quarks + 1) / player.worlds.applyBonus(multiplier * base)) - cubes)
     }
 
-    add(amount: number): this {
-      this.value = Math.min(1e300, this.value + amount)
-      return this
-    }
-
     sub(amount: number): this {
       this.value = Math.max(0, this.value - amount)
       return this
@@ -163,9 +221,9 @@ export abstract class Cube {
     }
 }
 
-export class WowCubes extends Cube {
-  constructor(amount = Number(player.wowCubes)) {
-    super('wowCubes', amount)
+export class WowCubes extends OpenableCube {
+  constructor(amount = Number(player.wowCubes), autoPercentage = player.openCubes) {
+    super('wowCubes', autoCubeReq, amount, autoPercentage)
   }
 
   open(value: number, max = false) {
@@ -226,9 +284,9 @@ export class WowCubes extends Cube {
   }
 }
 
-export class WowTesseracts extends Cube {
-  constructor(amount = Number(player.wowTesseracts)) {
-    super('wowTesseracts', amount)
+export class WowTesseracts extends OpenableCube {
+  constructor(amount = Number(player.wowTesseracts), autoPercentage = player.openTesseracts) {
+    super('wowTesseracts', autoTessReq, amount, autoPercentage)
   }
 
   open(value: number, max = false) {
@@ -267,9 +325,9 @@ export class WowTesseracts extends Cube {
   }
 }
 
-export class WowHypercubes extends Cube {
-  constructor(amount = Number(player.wowHypercubes)) {
-    super('wowHypercubes', amount)
+export class WowHypercubes extends OpenableCube {
+  constructor(amount = Number(player.wowHypercubes), autoPercentage = player.openHypercubes) {
+    super('wowHypercubes', autoHypReq, amount, autoPercentage)
   }
 
   open(value: number, max = false) {
@@ -308,9 +366,9 @@ export class WowHypercubes extends Cube {
   }
 }
 
-export class WowPlatonicCubes extends Cube {
-  constructor(amount = Number(player.wowPlatonicCubes)) {
-    super('wowPlatonicCubes', amount)
+export class WowPlatonicCubes extends OpenableCube {
+  constructor(amount = Number(player.wowPlatonicCubes), autoPercentage = player.openTesseracts) {
+    super('wowPlatonicCubes', autoPlatReq, amount, autoPercentage)
   }
 
   open(value: number, max = false) {

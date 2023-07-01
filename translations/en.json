@@ -2976,6 +2976,11 @@
         "name": "Twenty Ascensions Challenge",
         "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs! Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
         "rewardDescription": "Each completion grants 0.1% Ascension Speed per completion per digit in your Ascension count! First completion doubles the cap of all hepteract. Final completion adds another calculator in the shop!"
+      },
+      "staggeredCubes": {
+        "name": "Staggered Cubes Challenge",
+        "description": "[HARD!] You cannot ascend. Instead, cubes are granted automatically, but your ascension speed is divided by the square root of your current cubes.",
+        "rewardDescription": "Each completion grants 40 Ambrosia Luck and 6% faster Ambrosia Generation. Every 4 completions, plus the first, unlock automatic cube gain for another tier of cubes."
       }
     },
     "intro": "Do you have what it takes to earn EXALT from Ant God?"
