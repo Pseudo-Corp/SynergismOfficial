@@ -541,24 +541,24 @@
   },
   "reset": {
     "details": {
-      "prestige": "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: {{amount}}/1e16 Coins || TIME SPENT: {{timeSpent}} Seconds.",
-      "transcension": "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: {{amount}}/1e100 Coins || TIME SPENT: {{timeSpent}} Seconds.",
-      "reincarnation": "Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: {{amount}}/1e300 Mythos Shards || TIME SPENT: {{timeSpent}} Seconds.",
-      "acceleratorBoost": "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: {{amount}}/{{required}} Diamonds.",
+      "prestige": "Монеты, Производители Монет, Улучшения Монет и Кристаллы сбросятся, но взамен вы получите алмазы и новые Подношения. Требуется: {{amount}}/1e16 Монет || ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} Секунд.",
+      "transcension": "Сбрасывает все Улучшения/Функции Монет и Алмазов, Производителей и Улучшения Кристаллов, взамен давая Мифосы/Подношения. Требуется: {{amount}}/1e100 Монет || ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} Секунд.",
+      "reincarnation": "Сбрасывает ВСЕ предыдущие уровни сброса, но взамен вы получите Частицы, Обтаниум и Подношения! Требуется: {{amount}}/1e300 Осколков Мифосов || ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} Секунд.",
+      "acceleratorBoost": "Сброс всех Производителей/Улучшений Монет, Кристаллов и Алмазов для того, чтобы увеличить силу ваших Ускорителей. Требуется: {{amount}}/{{required}} Алмазов.",
       "transcensionChallenge": {
-        "in": "Are you tired of being in your Challenge or stuck? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
-        "out": "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!"
+        "in": "Устали быть в Испытании или попросту застряли? Нажмите сюда, чтобы покинуть Испытание {{n}}. Прогресс: {{amount}}/{{required}} Монет. ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} Секунд.",
+        "out": "Прямо сейчас вы не в Испытании Трансценденции. Попадите в него, прежде чем выходить, кэп!"
       },
       "reincarnationChallenge": {
         "in": {
-          "coins": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
-          "transcendShards": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Mythos Shards. TIME SPENT: {{timeSpent}} Seconds."
+          "coins": "Вы закончили или устали быть в Испытании? Нажмите сюда, чтобы покинуть Испытание {{n}}. Прогресс: {{amount}}/{{required}} Монет. ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} Секунд.",
+          "transcendShards": "Устали быть в Испытании или попросту застряли? Нажмите сюда, чтобы покинуть Испытание {{n}}. Прогресс: {{amount}}/{{required}} Осколков Мифосов. ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} Секунд."
         },
-        "out": "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?"
+        "out": "В данный момент вы не в Испытании Реинкарнации. Как можно покинуть что-то, не находясь в нём?"
       },
-      "ascensionChallenge": "Click this if you're in an Ascension Challenge and want to leave. You get it already!",
-      "ascension": "Ascend, C-10 is required! +{{cubeAmount}} Wow! Cubes for doing it! Time: {{timeSpent}} Seconds. (Real-time {{realTimeSpent}} Seconds)",
-      "singularity": "Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with {{gqAmount}} Golden Quarks. Time: {{timeSpent}} Seconds."
+      "ascensionChallenge": "Нажмите, если вы в Испытании Вознесения и хотите покинуть его. Уже должно быть очевидно!",
+      "ascension": "Вознестись, необходимо И-10! Вы получите +{{cubeAmount}} Wow! Кубов за это! Время: {{timeSpent}} Секунд. ({{realTimeSpent}} Реальных Секунд)",
+      "singularity": "Хотите ли вы отказаться от ваших лавр для более великого Испытания? Муравьиный Бог подсластит сделку, дав вам {{gqAmount}} Золотых Кварков. Время: {{timeSpent}} Секунд."
     }
   },
   "ants": {
@@ -1321,7 +1321,7 @@
       "offeringAuto": "Автоматически вливает Подношения в руну. 1-ый уровень открывает возможность, каждый последующий увеличивает получение Подношений на 2%. Каждую секунду, тратится 2^(Уровень) Подношений.",
       "obtainiumEX": "+4% Обтаниума от всех источников!",
       "obtainiumAuto": "Автоматически вливает Обтаниум в исследование. 1-й уровень разблокирует функцию, и каждый уровень увеличивает получение Обтаниума на 2%. Каждая Реинкарнация выбрасывает весь полученный Обтаниум на исследование до тех пор, пока его уровень не достигнет максимума.",
-      "instantChallenge": "Прев. и Р Испытания не вызывают сбросов если включён повтор и набирают до 10 прохождений за такт. Также, при выходе из Р Испытаний, мгновенно получаете прохождение Прев. Испытаний до высшего пройденного.",
+      "instantChallenge": "Т и Р Испытания не вызывают сбросов если включён повтор и набирают до 10 прохождений за такт. Также, при выходе из Р Испытаний, мгновенно получаете прохождение Т Испытаний до высшего пройденного.",
       "antSpeed": "Каждый уровень увеличивает скорость производства всех уровней Муравьёв в 1.2 раза! (Не влияет от порчи!) Коротко и просто.",
       "cashGrab": "Это обдираловка, но она даёт пару интересных статов. +1% добычи к Подношениям и Обтаниуму за уровень.",
       "shopTalisman": "Навсегда открывает талисман Магазина!",
@@ -1937,38 +1937,38 @@
       },
       "singAmbrosiaLuck3": {
         "name": "Выделенная переплавка золота",
-        "description": "More gold is dipped onto each berry. ☘ +3 Ambrosia Luck per level!",
+        "description": "Больше золота погружается на каждую ягоду. ☘ +3 Удачи Амброзии за уровень!",
         "effect": "☘ Удача Амброзии +{{n}}(!)"
       },
       "singAmbrosiaLuck": {
         "name": "Абсолютный Жар",
-        "description": "Your gold smelters get arbitrarily close to 'Absolute Hot'. ☘ +4 Ambrosia Luck per level, infinitely levelable!",
-        "effect": "☘ Ambrosia Luck +{{n}}(!)"
+        "description": "Температуры в ваших золотых плавильнях произвольно близки к 'Абсолютному Жару'. ☘ +4 Удачи Амброзии за уровень, бесконечно улучшаемо!",
+        "effect": "☘ Удача Амброзии +{{n}}(!)"
       },
       "singAmbrosiaLuck4": {
         "name": "Алхимики с самого начала игры работают на ваши нужды к Золотым Ягодам",
-        "description": "Yeah, these upgrade titles can be arbitrarily long, too. ☘ +5 Ambrosia Luck per level!",
+        "description": "Да, эти заголовки улучшений тоже могут быть произвольно длинными. ☘ +5 Удачи Амброзии за уровень!",
         "effect": "☘ Удача Амброзии +{{n}}(!)"
       },
       "singAmbrosiaGeneration2": {
         "name": "Часы Важности",
-        "description": "A somewhat important hourglass which somehow makes your blueberries generate seconds 1% faster per level..",
-        "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+        "description": "Почему-то важные песочные часы, которые почему-то ускоряют генерацию секунд голубики на 1% за уровень..",
+        "effect": "Генерация Секунд Голубики +{{n}}%(!)"
       },
       "singAmbrosiaGeneration3": {
         "name": "Часы Значимости",
-        "description": "An hourglass which is still important, perhaps even more so. +1% Blueberry Second Generation per level.",
-        "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+        "description": "Песочные часы, которые важны до сих пор, возможно, даже важнее прошлых. +1% Генерации Секунд Голубики за уровень.",
+        "effect": "Генерация Секунд Голубики +{{n}}%(!)"
       },
       "singAmbrosiaGeneration": {
         "name": "Часы Безграничности",
-        "description": "Remember- this hourglass is really important. But it gives +1% Blueberry Second Generation per level and is infinitely levelable!",
-        "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+        "description": "Помните - эти песочные часы очень важны. Эти же дают +1% Генерации Секунд Голубики за уровень и бесконечно улучшаемы!",
+        "effect": "Генерация Секунд Голубики +{{n}}%(!)"
       },
       "singAmbrosiaGeneration4": {
         "name": "Часы Фантазии",
-        "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% Blueberry Second Generation per level.",
-        "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+        "description": "Песочные часы, которые не важны и 'немного отстают' - чтобы это ни значило. +2% Генерации Секунд Голубики за уровень.",
+        "effect": "Генерация Секунд Голубики +{{n}}%(!)"
       }
     },
     "goldenQuarkAmount": "У вас {{goldenQuarks}} Золотых Кварков!",
@@ -2779,8 +2779,8 @@
         "effect": "Единый Разум преобразует Скорость Вознесения в Получение Октерактов в степени {{n}}."
       },
       "octeractAmbrosiaLuck2": {
-        "name": "Florentine Cranberries",
-        "description": "Totally not a reskin of the blueberry! Adds ☘ +2 Ambrosia Luck, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
+        "name": "Флорентийская Клюква",
+        "description": "Сто процентов не рескин голубики! Добавляет ☘ +2 к Удаче Амброзии, которая увеличивает количество выпадения Амброзии, когда Голубика генерирует Амброзию.",
         "effect": "☘ Удача Амброзии +{{n}}(!)"
       },
       "octeractAmbrosiaLuck3": {
@@ -2790,33 +2790,33 @@
       },
       "octeractAmbrosiaLuck": {
         "name": "Ягоды Восьмилистного Клевера",
-        "description": "Totally not a reskin of the blueberry! Adds ☘ +4 Ambrosial Luck per level, and it is infinitely levelable!",
+        "description": "Сто процентов не рескин голубики! Добавляет ☘ +4 к Удаче Амброзии за уровень, а также бесконечно улучшаемо!",
         "effect": "☘ Удача Амброзии +{{n}}(!)"
       },
       "octeractAmbrosiaLuck4": {
-        "name": "Berries of a Ten Leaf Clover",
-        "description": "Totally not a reskin of the blueberry! Adds ☘ +5 Ambrosial Luck. And it's mega expensive somehow.",
+        "name": "Ягоды Десятилистного Клевера",
+        "description": "Сто процентов не рескин голубики! Добавляет ☘ +5 к Удаче Амброзии за уровень. Это, почему-то, очень дорогое.",
         "effect": "☘ Удача Амброзии +{{n}}(!)"
       },
       "octeractAmbrosiaGeneration2": {
-        "name": "Hourglass of Minutiae",
-        "description": "A somewhat primative hourglass which somehow makes your blueberries generate seconds 1% faster per level..",
-        "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+        "name": "Часы Мелочей",
+        "description": "Отчасти примитивные песочные часы, которые как-то ускоряют генерацию секунд голубики на 1% за уровень..",
+        "effect": "Генерация Секунд Голубики +{{n}}%(!)"
       },
       "octeractAmbrosiaGeneration3": {
-        "name": "Hourglass of Myopathy",
-        "description": "An hourglass which is still primative, though somehow less so. +1% Blueberry Second Generation per level.",
-        "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+        "name": "Часы Миопатии",
+        "description": "Песочные часы, которые всё ещё примитивные, но почему-то уже меньше. +1% Генерации Секунд Голубики за уровень.",
+        "effect": "Генерация Секунд Голубики +{{n}}%(!)"
       },
       "octeractAmbrosiaGeneration": {
-        "name": "Hourglass of Infinitude",
-        "description": "Don't get it twisted- this hourglass is really primative. But it gives +1% Blueberry Second Generation per level and is infinitely levelable!",
-        "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+        "name": "Часы Бесконечности",
+        "description": "Не поймите неправильно - эти песочные часы очень примитивны. Но они дают +1% Генерации Секунд Голубики за уровень и бесконечно улучшаемы!",
+        "effect": "Генерация Секунд Голубики +{{n}}%(!)"
       },
       "octeractAmbrosiaGeneration4": {
         "name": "Часы Реальности",
-        "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% Blueberry Second Generation per level.",
-        "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+        "description": "Песочные часы, современные и 'более своевременные' - чтобы это ни значило. +2% Генерации Секунд Голубики за уровень.",
+        "effect": "Генерация Секунд Голубики +{{n}}%(!)"
       }
     },
     "amount": "У вас {{octeracts}} Октерактов!",
@@ -2873,40 +2873,40 @@
         "plastic": "Пластик"
       },
       "summaries": {
-        "exemption": "=-=-=-= Exemption Talisman Effects =-=-=-=",
-        "chronos": "=-=-=-= Chronos Talisman Effects =-=-=-=",
-        "midas": "=-=-=-= Midas Talisman Effects =-=-=-=",
-        "metaphysics": "=-=-=-= Metaphysics Talisman Effects =-=-=-=",
-        "polymath": "=-=-=-= Polymath Talisman Effects =-=-=-=",
-        "mortuus": "=-=-=-= Mortuus Est Talisman Effects =-=-=-=",
-        "plastic": "=-=-=-= Plastic Talisman Effects =-=-=-="
+        "exemption": "=-=-=-= Эффекты Талисмана Освобождение =-=-=-=",
+        "chronos": "=-=-=-= Эффекты Талисмана Хронос =-=-=-=",
+        "midas": "=-=-=-= Эффекты Талисмана Мидас =-=-=-=",
+        "metaphysics": "=-=-=-= Эффекты Талисмана Метафизика=-=-=-=",
+        "polymath": "=-=-=-= Эффекты Талисмана Эрудит =-=-=-=",
+        "mortuus": "=-=-=-= Эффекты Талисмана Mortuus Est=-=-=-=",
+        "plastic": "=-=-=-= Эффекты Талисмана Пластик =-=-=-="
       },
       "effects": {
-        "exemption": "Taxes -{{x}}%",
-        "chronos": "Gain +{{x}}% Global Speed Acceleration.",
-        "midas": "Rune Blessing bonuses +{{x}}%",
-        "metaphysics": "Talismans' Bonus Rune Levels +{{x}} per level",
-        "polymath": "Rune Spirit Bonuses +{{x}}%",
-        "mortuus": "Bonus Ant Levels: +{{x}}",
-        "plastic": "Gain 1x normal production (Joke)!"
+        "exemption": "Налоги -{{x}}%",
+        "chronos": "+{{x}}% Ускорения Глобальной Скорости.",
+        "midas": "Бонусы к Благословениям +{{x}}%",
+        "metaphysics": "Бонусные Уровни Рун от Талисманов +{{x}} за уровень",
+        "polymath": "Бонусы к Духам +{{x}}%",
+        "mortuus": "Бонусные Уровни Муравьёв: +{{x}}",
+        "plastic": "Получите 1х нормального производства (Шутка)!"
       },
       "bonusRuneLevels": {
-        "speed": "Bonus Speed Rune Levels: {{x}}",
-        "duplication": "Bonus Duplication Rune Levels: {{x}}",
-        "prism": "Bonus Prism Rune Levels: {{x}}",
-        "thrift": "Bonus Thrift Rune Levels: {{x}}",
-        "SI": "Bonus SI Rune Levels: {{x}}"
+        "speed": "Бонусные Уровни Руны Скорости: {{x}}",
+        "duplication": "Бонусные Уровни Руны Дубликации: {{x}}",
+        "prism": "Бонусные Уровни Руны Призмы: {{x}}",
+        "thrift": "Бонусные Уровни Руны Экономии: {{x}}",
+        "SI": "Бонусные Уровни Руны ВР: {{x}}"
       },
       "mythicEffects": {
-        "exemption": "Mythic Effect: +400 Duplication Rune Levels!",
-        "chronos": "Mythic Effect: +400 Speed Rune Levels!",
-        "midas": "Mythic Effect: +400 Thrift Rune Levels!",
-        "metaphysics": "Mythic Effect: +400 Prism Rune Levels!",
-        "polymath": "Mythic Effect: +400 SI Rune Levels!",
-        "mortuus": "Mythic Effect: Gain ant speed based on your total rune level!",
-        "plastic": "Mythic Effect: Gain 1x your normal quark values (Joke)!"
+        "exemption": "Мифический Эффект: +400 Уровней Руны Дубликации!",
+        "chronos": "Мифический Эффект: +400 Уровней Руны Скорости!",
+        "midas": "Мифический Эффект: +400 Уровней Руны Экономии!",
+        "metaphysics": "Мифический Эффект: +400 Уровней Руны Призмы!",
+        "polymath": "Мифический Эффект: +400 Уровней Руны ВР!",
+        "mortuus": "Мифический Эффект: Бонусная скорость муравьёв, зависящая от общего уровня рун!",
+        "plastic": "Мифический Эффект: 1х к получению кварков (Шутка)!"
       },
-      "maxEnhance": "Get Max Enhance for a Mythical bonus effect!"
+      "maxEnhance": "Максимально Зачаруйте для получения Мифического эффекта!"
     },
     "blessings": {
       "buyUpTo": "Купить до <<var(--orchid-text-color);|{{amount}}>> Уровней за покупку, если возможно. [Введите для переключения]",
