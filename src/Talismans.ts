@@ -194,7 +194,7 @@ export const showTalismanEffect = (i: number) => {
       break
     case 3:
       talismanKey = 'metaphysics'
-      effectValue = format(0.02 * (player.talismanRarity[3] - 1))
+      effectValue = format(0.02 * (player.talismanRarity[3] - 1), 2)
       break
     case 4:
       talismanKey = 'polymath'
