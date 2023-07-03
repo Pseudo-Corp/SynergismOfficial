@@ -915,16 +915,23 @@ p#themesTitle {
 
 div.addCodeBox {
     display: flex;
-    padding: 0;
-    gap: 0 3px;
 }
 
 #addCode {
-    flex-grow: 4;
+    flex-grow: 3;
+    border: 2px solid green;
+}
+
+#addCodeAll {
+    flex-grow: 1;
+    border: 2px solid green;
+    border-left: none;
+    border-right: none;
 }
 
 #addCodeOne {
     flex-grow: 1;
+    border: 2px solid green;
 }
 
 p#promocodeinfo {
