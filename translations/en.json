@@ -95,23 +95,23 @@
         "name": "Shameless, Ambrosial Patreon Reminder",
         "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
         "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
-      },
-      "loadouts": {
-        "load": "MODE: LOAD LOADOUT",
-        "save": "MODE: SAVE LOADOUT",
-        "none": "No loadout saved in this slot!",
-        "loadout": "Loadout",
-        "confirmation": "Saving to this slot will override its build. Are you sure?",
-        "imported": "Imported loadout"
-      },
-      "importTree": {
-        "success": "Tree successfully imported!",
-        "failure": "Could not import tree as it is invalid!",
-        "error": "Could not parse submitted file! Double check that it is a Blueberry Tree loadout file."
-      },
-      "exportTree": {
-        "exportButton": "Export"
       }
+    },
+    "loadouts": {
+      "load": "MODE: LOAD LOADOUT",
+      "save": "MODE: SAVE LOADOUT",
+      "none": "No loadout saved in this slot!",
+      "loadout": "Loadout",
+      "confirmation": "Saving to this slot will override its build. Are you sure?",
+      "imported": "Imported loadout"
+    },
+    "importTree": {
+      "success": "Tree successfully imported!",
+      "failure": "Could not import tree as it is invalid!",
+      "error": "Could not parse submitted file! Double check that it is a Blueberry Tree loadout file."
+    },
+    "exportTree": {
+      "exportButton": "Export"
     }
   },
   "achievements": {
