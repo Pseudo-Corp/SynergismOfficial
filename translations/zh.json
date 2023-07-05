@@ -75,7 +75,43 @@
         "name": "神肴夸克-之运混合模块 I",
         "description": "第一代混合模块。当前夸克数量每有一个数量级，每级该升级就可以使&#9752 神肴之运增加0.02，然后再乘以当前夸克数量的数量级。",
         "effect": "第一代混合模块使&#9752 神肴之运增加了{{amount}}。"
+      },
+      "ambrosiaQuarks2": {
+        "name": "Ambrosia Quark Module II",
+        "description": "Self-Synergies! Gain +1% Quarks per level, +0.1% for every 10 levels in Ambrosia Quark Module I.",
+        "effect": "This second generation Quark module increases Quark gain by {{amount}}%"
+      },
+      "ambrosiaCubes2": {
+        "name": "Ambrosia Cube Module II",
+        "description": "Self-Synergies! Gain +6% cubes / lvl , +0.6% for every 10 levels in Ambrosia Cube Module I. Every 10 levels gives 1.13x cubes.",
+        "effect": "This second generation Cube module increases cube gain by {{amount}}%"
+      },
+      "ambrosiaLuck2": {
+        "name": "Ambrosia Luck Module II",
+        "description": "Self-Synergies! Gain &#9752 +3 Ambrosia Luck/lvl, +0.3 for every 10 levels in Ambrosia Luck Module I. Every 10 levels gives &#9752 +40 more!",
+        "effect": "This second generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
+      },
+      "ambrosiaPatreon": {
+        "name": "Shameless, Ambrosial Patreon Reminder",
+        "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
+        "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
       }
+    },
+    "loadouts": {
+      "load": "MODE: LOAD LOADOUT",
+      "save": "MODE: SAVE LOADOUT",
+      "none": "No loadout saved in this slot!",
+      "loadout": "Loadout",
+      "confirmation": "Saving to this slot will override its build. Are you sure?",
+      "imported": "Imported loadout"
+    },
+    "importTree": {
+      "success": "Tree successfully imported!",
+      "failure": "Could not import tree as it is invalid!",
+      "error": "Could not parse submitted file! Double check that it is a Blueberry Tree loadout file."
+    },
+    "exportTree": {
+      "exportButton": "Export"
     }
   },
   "achievements": {
@@ -3008,8 +3044,8 @@
     "specialActions": "特殊操作",
     "daily": "“每日”代码",
     "add": "“增加”代码",
-    "addAll": "xAll",
-    "add1": "x1",
+    "addAll": "使用全部",
+    "add1": "使用1次",
     "time": "“时间”代码",
     "enterPromoCodeHere": "点击此处输入奖励代码！",
     "currentTheme": "当前主题",
