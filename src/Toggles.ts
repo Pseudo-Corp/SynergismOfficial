@@ -487,72 +487,72 @@ export const setActiveSettingScreen = async (subtab: string, clickedButton: HTML
   switcherEl.querySelectorAll('.buttonActive').forEach(b => b.classList.remove('buttonActive'))
   clickedButton.classList.add('buttonActive')
 
-    subtabEl.parentNode!.querySelectorAll('.subtabActive').forEach(subtab => subtab.classList.remove('subtabActive'))
-    subtabEl.classList.add('subtabActive')
+  subtabEl.parentNode!.querySelectorAll('.subtabActive').forEach(subtab => subtab.classList.remove('subtabActive'))
+  subtabEl.classList.add('subtabActive')
 
-    if (subtab === 'creditssubtab') {
-      const credits = DOMCacheGetOrSet('creditList')
-      const artists = DOMCacheGetOrSet('artistList')
+  if (subtab === 'creditssubtab') {
+    const credits = DOMCacheGetOrSet('creditList')
+    const artists = DOMCacheGetOrSet('artistList')
 
-      if (credits.childElementCount > 0 || artists.childElementCount > 0) {
-        return
-      } else if (!navigator.onLine || document.hidden) {
-        return
-      }
-
-      try {
-        const r = await fetch('https://api.github.com/repos/pseudo-corp/SynergismOfficial/contributors', {
-          headers: {
-            'Accept': 'application/vnd.github.v3+json'
-          }
-        })
-        const j = await r.json() as ChadContributor[]
-
-        for (const contributor of j) {
-          const div = document.createElement('div')
-          div.classList.add('credit')
-
-          const img = new Image(32, 32)
-          img.src = contributor.avatar_url
-          img.alt = contributor.login
-
-          const a = document.createElement('a')
-          a.href = `https://github.com/Pseudo-Corp/SynergismOfficial/commits?author=${contributor.login}`
-          a.textContent = contributor.login
-          a.target = '_blank'
-          a.rel = 'noopener noreferrer nofollow'
-
-          div.appendChild(img)
-          div.appendChild(a)
-
-          credits.appendChild(div)
-        }
-      } catch (e) {
-        const err = e as Error
-        credits.appendChild(document.createTextNode(err.toString()))
-      }
-
-      try {
-        const r = await fetch('https://api.github.com/gists/01917ff476d25a141c5bad38340cd756', {
-          headers: {
-            'Accept': 'application/vnd.github.v3+json'
-          }
-        })
-
-        const j = await r.json() as { files: Record<string, { content: string }> }
-        const f = JSON.parse(j.files['synergism_artists.json'].content) as string[]
-
-        for (const user of f) {
-          const p = document.createElement('p')
-          p.textContent = user
-
-          artists.appendChild(p)
-        }
-      } catch (e) {
-        const err = e as Error
-        credits.appendChild(document.createTextNode(err.toString()))
-      }
+    if (credits.childElementCount > 0 || artists.childElementCount > 0) {
+      return
+    } else if (!navigator.onLine || document.hidden) {
+      return
     }
+
+    try {
+      const r = await fetch('https://api.github.com/repos/pseudo-corp/SynergismOfficial/contributors', {
+        headers: {
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      })
+      const j = await r.json() as ChadContributor[]
+
+      for (const contributor of j) {
+        const div = document.createElement('div')
+        div.classList.add('credit')
+
+        const img = new Image(32, 32)
+        img.src = contributor.avatar_url
+        img.alt = contributor.login
+
+        const a = document.createElement('a')
+        a.href = `https://github.com/Pseudo-Corp/SynergismOfficial/commits?author=${contributor.login}`
+        a.textContent = contributor.login
+        a.target = '_blank'
+        a.rel = 'noopener noreferrer nofollow'
+
+        div.appendChild(img)
+        div.appendChild(a)
+
+        credits.appendChild(div)
+      }
+    } catch (e) {
+      const err = e as Error
+      credits.appendChild(document.createTextNode(err.toString()))
+    }
+
+    try {
+      const r = await fetch('https://api.github.com/gists/01917ff476d25a141c5bad38340cd756', {
+        headers: {
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      })
+
+      const j = await r.json() as { files: Record<string, { content: string }> }
+      const f = JSON.parse(j.files['synergism_artists.json'].content) as string[]
+
+      for (const user of f) {
+        const p = document.createElement('p')
+        p.textContent = user
+
+        artists.appendChild(p)
+      }
+    } catch (e) {
+      const err = e as Error
+      credits.appendChild(document.createTextNode(err.toString()))
+    }
+  }
 }
 
 export const toggleShopConfirmation = () => {

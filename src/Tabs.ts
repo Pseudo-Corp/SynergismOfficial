@@ -48,7 +48,8 @@ const subtabInfo: Record<TabNames, SubTab> = {
         return player.highestSingularityCount > 0
       }
       },
-      { subTabID: 'hotkeys', unlocked: true }
+      { subTabID: 'hotkeys', unlocked: true },
+      { subTabID: 'accountSubTab', unlocked: true }
     ]
   },
   shop: { subTabList: [] },

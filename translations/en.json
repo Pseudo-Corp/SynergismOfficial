@@ -2424,7 +2424,8 @@
       "resetHistory": "Reset History",
       "ascendHistory": "Ascend History",
       "singularityHistory": "Singularity History",
-      "hotkeys": "Hotkeys"
+      "hotkeys": "Hotkeys",
+      "account": "Account"
     }
   },
   "offlineProgress": {
