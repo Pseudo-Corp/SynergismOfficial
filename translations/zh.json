@@ -2424,7 +2424,8 @@
       "resetHistory": "历史重置数据",
       "ascendHistory": "历史飞升数据",
       "singularityHistory": "历史奇点数据",
-      "hotkeys": "快捷键"
+      "hotkeys": "快捷键",
+      "account": "Account"
     }
   },
   "offlineProgress": {
