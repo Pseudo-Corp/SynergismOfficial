@@ -10,34 +10,34 @@
     "saveToClipboard": "Czy na pewno chcesz włączyć kopiowanie zapisów do schowka?"
   },
   "ambrosia": {
-    "ambrosia": "Ambrosia",
-    "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
+    "ambrosia": "Ambrozja",
+    "amount": "Masz <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrozji!",
     "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
     "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
     "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
-    "prerequisite": "Prerequisites:",
-    "prereqNotMet": " (Not Met!)",
-    "blueberryCost": "Blueberries (To Activate):",
-    "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
-    "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
-    "availableBlueberries": "You have <<blue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
-    "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
-    "refund": "You have refunded all spent Blueberries and Ambrosia.",
-    "refundWord": "Refund",
+    "prerequisite": "Wymagania wstępne:",
+    "prereqNotMet": " (Nie spełnione!)",
+    "blueberryCost": "Borówki (Aby aktywować):",
+    "prereqNotMetAlert": "Nie wszystkich warunków, aby zakupić to ulepszenie.",
+    "notEnoughBlueberries": "Nie masz wystarczającej ilości borówek, aby aktywować ten moduł.",
+    "availableBlueberries": "Masz <<blue|{{availableBlueberries}}>> niewydanych borówek. Odblokuj poniżej moduły wyższego poziomu, używając ich!",
+    "ambrosiaBuyPrompt": "Ile Ambrozji chciałbyś wydać? Masz {{amount}} Ambrozji. Wpisz -1, aby użyć wszystko!",
+    "refund": "Zwróciłeś(aś) wszystkie zużyte borówki i Ambrozję.",
+    "refundWord": "Zwróć",
     "data": {
       "ambrosiaTutorial": {
-        "name": "Ambrosia Tutorial Module",
-        "description": "Blueberries generate Ambrosia over time. Spend them in the Ambrosia tree! +5% Cubes/lvl, +1% Quarks/lvl",
+        "name": "Moduł samouczka Ambrozji",
+        "description": "Borówki generują Ambrozję z upływem czasu. Wydaj je w drzewku Ambrozji! +5% Cubes/poziom, +1% Kwarków/poziom",
         "effect": "This tutorial module increases cube gain by {{cubeAmount}}% and quarks by {{quarkAmount}}%"
       },
       "ambrosiaQuarks1": {
-        "name": "Ambrosia Quark Module I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxed to buy levels of this. +1% Quarks/lvl.",
+        "name": "Moduł Kwark Ambrozji I",
+        "description": "Gratulacje za ukończenie modułu samouczka. Musisz mieć maksimum, aby kupić ten poziom. +1% Kwarków/poziom.",
         "effect": "This quark module increases Quark gain by {{amount}}%"
       },
       "ambrosiaCubes1": {
-        "name": "Ambrosia Cube Module I",
+        "name": "Moduł Kostek Ambrozji I",
         "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 10 levels gives 1.1x Cubes.",
         "effect": "This cube module increases cube gain by {{amount}}%"
       },
