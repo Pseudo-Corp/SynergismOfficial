@@ -18,6 +18,7 @@
     "@typescript-eslint/parser": "^5.57.1",
     "esbuild": "^0.17.15",
     "eslint": "^8.37.0",
+    "htmlhint": "^1.1.4",
     "husky": "^8.0.0",
     "stylelint": "^14.8.2",
     "stylelint-config-standard": "^25.0.0",
@@ -28,11 +29,13 @@
     "lint:fix": "npx eslint . --ext .ts --fix",
     "csslint": "npx stylelint Synergism.css",
     "csslint:fix": "npx stylelint Synergism.css --fix",
+    "htmllint": "npx htmlhint index.html",
     "build:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\"",
     "watch:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --sourcemap --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\" --watch",
     "check:tsc": "npx -p typescript tsc",
     "watch:tsc": "npx -p typescript tsc --watch",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "cloudflare:build": "node scripts/needsBundling.js || npm run build:esbuild"
   },
   "repository": {
     "type": "git",
