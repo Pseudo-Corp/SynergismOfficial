@@ -77,41 +77,41 @@
         "effect": "第一代混合模块使&#9752 神肴之运增加了{{amount}}。"
       },
       "ambrosiaQuarks2": {
-        "name": "Ambrosia Quark Module II",
-        "description": "Self-Synergies! Gain +1% Quarks per level, +0.1% for every 10 levels in Ambrosia Quark Module I.",
-        "effect": "This second generation Quark module increases Quark gain by {{amount}}%"
+        "name": "神肴夸克模块 II",
+        "description": "自我协同！每级使夸克获取数量增加1%，且神肴夸克模块 I每有10级，该数值还会再增加0.1%。",
+        "effect": "第二代夸克模块使夸克获取数量增加了{{amount}}%。"
       },
       "ambrosiaCubes2": {
-        "name": "Ambrosia Cube Module II",
-        "description": "Self-Synergies! Gain +6% cubes / lvl , +0.6% for every 10 levels in Ambrosia Cube Module I. Every 10 levels gives 1.13x cubes.",
-        "effect": "This second generation Cube module increases cube gain by {{amount}}%"
+        "name": "神肴方盒模块 II",
+        "description": "自我协同！每级使所有类型的方盒、立方和方块获取数量增加6%，且神肴方盒模块 I每有10级，该数值还会再增加0.6%。另外，每10级还可以使所有类型的方盒、立方和方块获取数量变为原来的1.13倍。",
+        "effect": "第二代方盒模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
       },
       "ambrosiaLuck2": {
-        "name": "Ambrosia Luck Module II",
-        "description": "Self-Synergies! Gain &#9752 +3 Ambrosia Luck/lvl, +0.3 for every 10 levels in Ambrosia Luck Module I. Every 10 levels gives &#9752 +40 more!",
-        "effect": "This second generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
+        "name": "神肴之运模块 II",
+        "description": "自我协同！每级使&#9752 神肴之运增加3，且神肴之运模块 I每有10级，该数值还会再增加0.3。另外，每10级还可以使&#9752 神肴之运额外增加40！",
+        "effect": "第二代神肴之运模块使&#9752 神肴之运增加了{{amount}}。"
       },
       "ambrosiaPatreon": {
-        "name": "Shameless, Ambrosial Patreon Reminder",
-        "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
-        "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
+        "name": "厚颜的蓝莓Patreon提醒",
+        "description": "Platonic到哪都受欢迎。Patreon对夸克获取数量的加成每有1%，就使蓝莓秒的产生速度增加1%！",
+        "effect": "慷慨的Patreon支持者使蓝莓秒的产生速度增加 {{amount}}%。您也可以考虑在Patreon上支持本游戏的开发！"
       }
     },
     "loadouts": {
-      "load": "MODE: LOAD LOADOUT",
-      "save": "MODE: SAVE LOADOUT",
-      "none": "No loadout saved in this slot!",
-      "loadout": "Loadout",
-      "confirmation": "Saving to this slot will override its build. Are you sure?",
-      "imported": "Imported loadout"
+      "load": "模式：载入预设",
+      "save": "模式：保存预设",
+      "none": "该槽位无预设！",
+      "loadout": "预设",
+      "confirmation": "保存至该槽位将覆盖之前的预设。您确定要这么做吗？",
+      "imported": "导入的预设"
     },
     "importTree": {
-      "success": "Tree successfully imported!",
-      "failure": "Could not import tree as it is invalid!",
-      "error": "Could not parse submitted file! Double check that it is a Blueberry Tree loadout file."
+      "success": "蓝莓树已导入！",
+      "failure": "无法导入蓝莓树，该文件有误！",
+      "error": "无法解析上传的文件！请确认它是不是蓝莓树预设的文件。"
     },
     "exportTree": {
-      "exportButton": "Export"
+      "exportButton": "导出"
     }
   },
   "achievements": {
