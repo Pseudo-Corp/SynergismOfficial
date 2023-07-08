@@ -835,7 +835,7 @@ export const addCodeTimeToNextUse = (): number => {
 
   if (timeToFirst > 0) {
     return timeToFirst
-  } else if (addCodeAvailableUses() == addCodeMaxUses().total) {
+  } else if (addCodeAvailableUses() === addCodeMaxUses().total) {
     return 0
   } else {
     const addTimerElapsedTime = Date.now() - player.rngCode

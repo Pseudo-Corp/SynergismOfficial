@@ -1884,12 +1884,12 @@ const handlePerks = (singularityCount: number) => {
   }
   // We want to sort the perks so that the most recently upgraded or lastUpgraded are listed first
   availablePerks.sort((p1, p2) => {
-    if (p1.acquired == p2.acquired && p1.lastUpgraded == p2.lastUpgraded) {
+    if (p1.acquired === p2.acquired && p1.lastUpgraded === p2.lastUpgraded) {
       return 0
     }
     if (p1.lastUpgraded > p2.lastUpgraded) {
       return -1
-    } else if (p1.lastUpgraded == p2.lastUpgraded && p1.acquired > p2.acquired) {
+    } else if (p1.lastUpgraded === p2.lastUpgraded && p1.acquired > p2.acquired) {
       return -1
     }
     return 1
@@ -2002,7 +2002,7 @@ export async function buyGoldenQuarks(): Promise<void> {
   if (Number.isNaN(buyAmount) || !Number.isFinite(buyAmount)) {
     // nan + Infinity checks
     return Alert(i18next.t('general.validation.finite'))
-  } else if (buyAmount <= 0 && buyAmount != -1) {
+  } else if (buyAmount <= 0 && buyAmount !== -1) {
     // 0 or less selected
     return Alert(i18next.t('general.validation.zeroOrLess'))
   } else if (buyAmount > maxBuy) {

@@ -541,7 +541,7 @@ export const loadAddCodeModifiersAndEffects = () => {
   for (let i = 0; i < intervalStats.list.length; i++) {
     const statAddIntervalI = DOMCacheGetOrSet(`stat+time${i + 1}`)
     statAddIntervalI.childNodes[0].textContent = intervalMap[i + 1].desc
-    if (i == 0) {
+    if (i === 0) {
       DOMCacheGetOrSet(`s+time${i + 1}`).textContent = `${format(intervalStats.list[i], intervalMap[i + 1].acc, true)} sec`
     } else {
       DOMCacheGetOrSet(`s+time${i + 1}`).textContent = `x${format(intervalStats.list[i], intervalMap[i + 1].acc, true)}`
@@ -549,7 +549,7 @@ export const loadAddCodeModifiersAndEffects = () => {
   }
 
   DOMCacheGetOrSet('s+timeT').textContent = `${format(intervalStats.time / 1000, 1)} sec`
-  if (availableCount != capacityStats.total) {
+  if (availableCount !== capacityStats.total) {
     DOMCacheGetOrSet('s+next').textContent = `+1 in ${format(timeToNext, 1)} sec`  // is already in sec.
   } else {
     DOMCacheGetOrSet('s+next').textContent = ''
@@ -568,7 +568,7 @@ export const loadAddCodeModifiersAndEffects = () => {
   for (let i = 0; i < capacityStats.list.length; i++) {
     const statAddIntervalI = DOMCacheGetOrSet(`stat+cap${i + 1}`)
     statAddIntervalI.childNodes[0].textContent = capacityMap[i + 1].desc
-    const prefix = i==0 ? '' : (i == 5 ? 'x' : '+')
+    const prefix = i === 0 ? '' : (i === 5 ? 'x' : '+')
     DOMCacheGetOrSet(`s+cap${i + 1}`).textContent = `${prefix}${format(capacityStats.list[i], capacityMap[i + 1].acc, true)}`
   }
 

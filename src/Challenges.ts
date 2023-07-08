@@ -419,9 +419,9 @@ export const calculateChallengeRequirementMultiplier = (
       if (completions >= 90) {
         if (special === 6) {
           requirementMultiplier *= 100
-        } else if (special == 7) {
+        } else if (special === 7) {
           requirementMultiplier *= 50
-        } else if (special == 8) {
+        } else if (special === 8) {
           requirementMultiplier *= 10
         } else {
           requirementMultiplier *= 4

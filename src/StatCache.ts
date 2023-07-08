@@ -91,7 +91,7 @@ abstract class MultiplicationCache<T extends string> implements StatCache<T> {
         this.totalVal *= newVal
       } else {
         // Optimization: if neither old total or new val is 0 then we can safely just compute factor
-        if (this.totalVal != 0 && newVal != 0) this.totalVal *= (newVal / oldVal)
+        if (this.totalVal !== 0 && newVal !== 0) this.totalVal *= (newVal / oldVal)
         // Optimization: if newVal is 0 we don't have to care about computing
         else if (newVal === 0) this.totalVal = 0
         // Else: Brute force compute total val (TODO: Optimize)
