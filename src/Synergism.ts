@@ -2113,12 +2113,12 @@ export const format = (
   if (power < -15) {
     return '0'
   }
-  if (player.notation == 'Pure Engineering') {
+  if (player.notation === 'Pure Engineering') {
     const powerOver = (power % 3 < 0) ? (3 + power % 3) : (power % 3)
     power = power - powerOver
     mantissa = mantissa * Math.pow(10, powerOver)
   }
-  if (player.notation == 'Pure Scientific' || player.notation == 'Pure Engineering') {
+  if (player.notation === 'Pure Scientific' || player.notation === 'Pure Engineering') {
     if (power >= 1e6) {
       if (!Number.isFinite(power)) {
         return 'Infinity'
