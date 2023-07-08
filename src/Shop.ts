@@ -929,8 +929,8 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
     shopAmbrosiaGeneration4: 'A FINAL Ambrosia Generation Speedup',
     shopAmbrosiaLuck1: 'Ambrosia Luck Increaser',
     shopAmbrosiaLuck2: 'Another Ambrosia Luck Increaser',
-    shopAmbrosiaLuck3: 'A better Ambrosia Generation Speedup',
-    shopAmbrosiaLuck4: 'A FINAL Ambrosia Generation Speedup'
+    shopAmbrosiaLuck3: 'A better Ambrosia Luck Increaser',
+    shopAmbrosiaLuck4: 'A FINAL Ambrosia Luck Increaser'
   }
 
   return names[input]
