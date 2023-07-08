@@ -2424,7 +2424,8 @@
       "resetHistory": "Historial de Reseteo",
       "ascendHistory": "Historial de Ascensión",
       "singularityHistory": "Historial de Singularidad",
-      "hotkeys": "Atajos"
+      "hotkeys": "Atajos",
+      "account": "Account"
     }
   },
   "offlineProgress": {
