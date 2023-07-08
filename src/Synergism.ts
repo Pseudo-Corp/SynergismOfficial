@@ -54,6 +54,7 @@ import i18next from 'i18next'
 import { changeTab, changeSubTab } from './Tabs'
 import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
 import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
+import { handleLogin } from './Login'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -4316,6 +4317,9 @@ window.addEventListener('load', async () => {
 
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
+
+  // eslint-disable-next-line no-console
+  handleLogin().catch(console.error)
 })
 
 window.addEventListener('unload', () => {

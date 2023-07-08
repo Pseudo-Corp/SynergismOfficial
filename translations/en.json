@@ -9,110 +9,111 @@
     "loadFailed": "Unable to load save.",
     "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
   },
-    "ambrosia": {
-        "ambrosia": "Ambrosia",
-        "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia! [Lifetime: <<white|{{lifetimeAmbrosia}}>>]",
-        "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
-        "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
-        "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Generating Ambrosia when <<blue|{{thresholdTimer}}>> is accumulated.",
-        "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
-        "prerequisite": "Prerequisites:",
-        "prereqNotMet": " (Not Met!)",
-        "blueberryCost": "Blueberries (To Activate):",
-        "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
-        "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
-        "availableBlueberries": "You have <<blue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
-        "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
-        "refund": "You have refunded all spent Blueberries and Ambrosia.",
-        "refundWord": "Refund",
-        "data": {
-            "ambrosiaTutorial": {
-                "name": "Ambrosia Tutorial Module",
-                "description": "Blueberries generate Ambrosia over time. Spend them in the Ambrosia tree! +5% Cubes/lvl, +1% Quarks/lvl",
-                "effect": "This tutorial module increases cube gain by {{cubeAmount}}% and quarks by {{quarkAmount}}%"
-            },
-            "ambrosiaQuarks1": {
-                "name": "Ambrosia Quark Module I",
-                "description": "Congrats on completing the tutorial module. You need to have it maxed to buy levels of this. +1% Quarks/lvl.",
-                "effect": "This quark module increases Quark gain by {{amount}}%"
-            },
-            "ambrosiaCubes1": {
-                "name": "Ambrosia Cube Module I",
-                "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 10 levels gives 1.1x Cubes.",
-                "effect": "This cube module increases cube gain by {{amount}}%"
-            },
-            "ambrosiaLuck1": {
-                "name": "Ambrosia Luck Module I",
-                "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. &#9752 +2 Ambrosia Luck/lvl. Every 10 levels gives &#9752 +12 more!",
-                "effect": "This luck module increases &#9752 Ambrosia Luck by {{amount}}"
-            },
-            "ambrosiaCubeQuark1": {
-                "name": "Ambrosia Cube-Quark Hybrid Module I",
-                "description": "A first generation hybrid module. Gain +0.01% Quarks per level per digit in the values of all cube types.",
-                "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
-            },
-            "ambrosiaLuckQuark1": {
-                "name": "Ambrosia Luck-Quark Hybrid Module I",
-                "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
-                "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
-            },
-            "ambrosiaQuarkCube1": {
-                "name": "Ambrosia Quark-Cube Hybrid Module I",
-                "description": "A first generation hybrid module. Gain +0.05% more cubes per level per digit in your Quark balance, squared!",
-                "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
-            },
-            "ambrosiaLuckCube1": {
-                "name": "Ambrosia Luck-Cube Hybrid Module I",
-                "description": "A first generation hybrid module. Gain +0.02% more cubes per level per 1 &#9752 Ambrosia Luck!",
-                "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
-            },
-            "ambrosiaCubeLuck1": {
-                "name": "Ambrosia Cube-Luck Hybrid Module I",
-                "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in the values of all cube types.",
-                "effect": "This first generation hybrid module increases &#9752 Ambrosia Luck by {{amount}}"
-            },
-            "ambrosiaQuarkLuck1": {
-                "name": "Ambrosia Quark-Luck Hybrid Module I",
-                "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in your Quark balance, squared.",
-                "effect": "This first generation hybrid module increases &#9752 Ambrosia Luck by {{amount}}"
-            },
-            "ambrosiaQuarks2": {
-                "name": "Ambrosia Quark Module II",
-                "description": "Self-Synergies! Gain +1% Quarks per level, +0.1% for every 10 levels in Ambrosia Quark Module I.",
-                "effect": "This second generation Quark module increases Quark gain by {{amount}}%"
-            },
-            "ambrosiaCubes2": {
-                "name": "Ambrosia Cube Module II",
-                "description": "Self-Synergies! Gain +6% cubes / lvl , +0.6% for every 10 levels in Ambrosia Cube Module I. Every 10 levels gives 1.13x cubes.",
-                "effect": "This second generation Cube module increases cube gain by {{amount}}%"
-            },
-            "ambrosiaLuck2": {
-              "name": "Ambrosia Luck Module II",
-              "description": "Self-Synergies! Gain &#9752 +3 Ambrosia Luck/lvl, +0.3 for every 10 levels in Ambrosia Luck Module I. Every 10 levels gives &#9752 +40 more!",
-              "effect": "This second generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
-            },
-            "ambrosiaPatreon": {
-              "name": "Shameless, Ambrosial Patreon Reminder",
-              "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
-              "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
-            }
-        },
-        "loadouts": {
-            "load": "MODE: LOAD LOADOUT",
-            "save": "MODE: SAVE LOADOUT",
-            "none": "No loadout saved in this slot!",
-            "loadout": "Loadout",
-            "confirmation": "Saving to this slot will override its build. Are you sure?"
-        },
-        "importTree": {
-            "success": "Tree successfully imported!",
-            "failure": "Could not import tree as it is invalid!",
-            "error": "Could not parse submitted file! Double check that it is a Blueberry Tree loadout file."
-        },
-        "exportTree": {
-            "exportButton": "Export"
-        }
+  "ambrosia": {
+    "ambrosia": "Ambrosia",
+    "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia! [Lifetime: <<white|{{lifetimeAmbrosia}}>>]",
+    "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
+    "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
+    "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Generating Ambrosia when <<blue|{{thresholdTimer}}>> is accumulated.",
+    "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
+    "prerequisite": "Prerequisites:",
+    "prereqNotMet": " (Not Met!)",
+    "blueberryCost": "Blueberries (To Activate):",
+    "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
+    "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
+    "availableBlueberries": "You have <<blue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
+    "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
+    "refund": "You have refunded all spent Blueberries and Ambrosia.",
+    "refundWord": "Refund",
+    "data": {
+      "ambrosiaTutorial": {
+        "name": "Ambrosia Tutorial Module",
+        "description": "Blueberries generate Ambrosia over time. Spend them in the Ambrosia tree! +5% Cubes/lvl, +1% Quarks/lvl",
+        "effect": "This tutorial module increases cube gain by {{cubeAmount}}% and quarks by {{quarkAmount}}%"
+      },
+      "ambrosiaQuarks1": {
+        "name": "Ambrosia Quark Module I",
+        "description": "Congrats on completing the tutorial module. You need to have it maxed to buy levels of this. +1% Quarks/lvl.",
+        "effect": "This quark module increases Quark gain by {{amount}}%"
+      },
+      "ambrosiaCubes1": {
+        "name": "Ambrosia Cube Module I",
+        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 10 levels gives 1.1x Cubes.",
+        "effect": "This cube module increases cube gain by {{amount}}%"
+      },
+      "ambrosiaLuck1": {
+        "name": "Ambrosia Luck Module I",
+        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. &#9752 +2 Ambrosia Luck/lvl. Every 10 levels gives &#9752 +12 more!",
+        "effect": "This luck module increases &#9752 Ambrosia Luck by {{amount}}"
+      },
+      "ambrosiaCubeQuark1": {
+        "name": "Ambrosia Cube-Quark Hybrid Module I",
+        "description": "A first generation hybrid module. Gain +0.01% Quarks per level per digit in the values of all cube types.",
+        "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
+      },
+      "ambrosiaLuckQuark1": {
+        "name": "Ambrosia Luck-Quark Hybrid Module I",
+        "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
+        "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
+      },
+      "ambrosiaQuarkCube1": {
+        "name": "Ambrosia Quark-Cube Hybrid Module I",
+        "description": "A first generation hybrid module. Gain +0.05% more cubes per level per digit in your Quark balance, squared!",
+        "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
+      },
+      "ambrosiaLuckCube1": {
+        "name": "Ambrosia Luck-Cube Hybrid Module I",
+        "description": "A first generation hybrid module. Gain +0.02% more cubes per level per 1 &#9752 Ambrosia Luck!",
+        "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
+      },
+      "ambrosiaCubeLuck1": {
+        "name": "Ambrosia Cube-Luck Hybrid Module I",
+        "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in the values of all cube types.",
+        "effect": "This first generation hybrid module increases &#9752 Ambrosia Luck by {{amount}}"
+      },
+      "ambrosiaQuarkLuck1": {
+        "name": "Ambrosia Quark-Luck Hybrid Module I",
+        "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in your Quark balance, squared.",
+        "effect": "This first generation hybrid module increases &#9752 Ambrosia Luck by {{amount}}"
+      },
+      "ambrosiaQuarks2": {
+        "name": "Ambrosia Quark Module II",
+        "description": "Self-Synergies! Gain +1% Quarks per level, +0.1% for every 10 levels in Ambrosia Quark Module I.",
+        "effect": "This second generation Quark module increases Quark gain by {{amount}}%"
+      },
+      "ambrosiaCubes2": {
+        "name": "Ambrosia Cube Module II",
+        "description": "Self-Synergies! Gain +6% cubes / lvl , +0.6% for every 10 levels in Ambrosia Cube Module I. Every 10 levels gives 1.13x cubes.",
+        "effect": "This second generation Cube module increases cube gain by {{amount}}%"
+      },
+      "ambrosiaLuck2": {
+        "name": "Ambrosia Luck Module II",
+        "description": "Self-Synergies! Gain &#9752 +3 Ambrosia Luck/lvl, +0.3 for every 10 levels in Ambrosia Luck Module I. Every 10 levels gives &#9752 +40 more!",
+        "effect": "This second generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
+      },
+      "ambrosiaPatreon": {
+        "name": "Shameless, Ambrosial Patreon Reminder",
+        "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
+        "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
+      }
     },
+    "loadouts": {
+      "load": "MODE: LOAD LOADOUT",
+      "save": "MODE: SAVE LOADOUT",
+      "none": "No loadout saved in this slot!",
+      "loadout": "Loadout",
+      "confirmation": "Saving to this slot will override its build. Are you sure?",
+      "imported": "Imported loadout"
+    },
+    "importTree": {
+      "success": "Tree successfully imported!",
+      "failure": "Could not import tree as it is invalid!",
+      "error": "Could not parse submitted file! Double check that it is a Blueberry Tree loadout file."
+    },
+    "exportTree": {
+      "exportButton": "Export"
+    }
+  },
   "achievements": {
     "descriptions": {
       "1": "[{{number}}] A Loyal Employee: Hire your first Worker.",
@@ -2423,7 +2424,8 @@
       "resetHistory": "Reset History",
       "ascendHistory": "Ascend History",
       "singularityHistory": "Singularity History",
-      "hotkeys": "Hotkeys"
+      "hotkeys": "Hotkeys",
+      "account": "Account"
     }
   },
   "offlineProgress": {
@@ -3042,8 +3044,9 @@
     "noHotkeyAvailable": "These do not work with hotkeys. Too bad!",
     "specialActions": "Special Actions",
     "daily": "Daily",
-    "add1": "Add x1",
     "add": "Add",
+    "addAll": "xAll",
+    "add1": "x1",
     "time": "Time",
     "enterPromoCodeHere": "Enter a promotion code here!",
     "currentTheme": "Current Theme",

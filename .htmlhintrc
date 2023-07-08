@@ -1,0 +1,17 @@
+{
+  "TODO": "enable alt-require",
+  "alt-require": false,
+  "attr-lowercase": ["defaultValue"],
+  "attr-no-duplication": true,
+  "attr-unsafe-chars": true,
+  "attr-value-double-quotes": true,
+  "doctype-first": true,
+  "empty-tag-not-self-closed": true,
+  "id-unique": true,
+  "inline-script-disabled": true,
+  "spec-char-escape": true,
+  "src-not-empty": true,
+  "tag-pair": true,
+  "tagname-lowercase": true,
+  "title-require": true
+}

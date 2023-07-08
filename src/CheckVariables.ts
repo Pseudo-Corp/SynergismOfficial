@@ -19,7 +19,7 @@ import type { ISingularityChallengeData } from './SingularityChallenges'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import i18next from 'i18next'
 import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
-import type { IBlueberryData } from './BlueberryUpgrades'
+import { type IBlueberryData, updateLoadoutHoverClasses } from './BlueberryUpgrades'
 import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
@@ -787,6 +787,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   }
 
   if (data.blueberryUpgrades != null) {
+    // blueberry loading here!
     for (const item of Object.keys(blankSave.blueberryUpgrades)) {
       const k = item as keyof Player['blueberryUpgrades']
       let updatedData:IBlueberryData
@@ -816,6 +817,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         player.blueberryUpgrades[k].name = `[NEW!] ${player.blueberryUpgrades[k].name}`
       }
     }
+
+    updateLoadoutHoverClasses()
   }
 
 

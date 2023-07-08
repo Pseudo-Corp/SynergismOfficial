@@ -12,7 +12,7 @@ import { antRepeat, sacrificeAnts, buyAntProducers, updateAntDescription, antUpg
 import { buyCubeUpgrades, cubeUpgradeDesc } from './Cubes'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
 import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
-import { exportSynergism, updateSaveString, promocodes, promocodesPrompt, promocodesInfo, importSynergism, resetGame, reloadDeleteGame, importData } from './ImportExport'
+import { exportSynergism, updateSaveString, promocodes, promocodesPrompt, promocodesInfo, importSynergism, resetGame, reloadDeleteGame, importData, addCodeAvailableUses } from './ImportExport'
 import { resetHistoryTogglePerSecond } from './History'
 import { resetShopUpgrades, shopDescriptions, buyShopUpgrades, useConsumable, shopData, shopUpgradeTypes } from './Shop'
 import { Globals as G } from './Variables'
@@ -567,10 +567,10 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
   DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => reloadDeleteGame())
   DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
+  DOMCacheGetOrSet('addCodeBox').addEventListener('mouseover', () => promocodesInfo('add'))
   DOMCacheGetOrSet('addCode').addEventListener('click', () => promocodes('add'))
-  DOMCacheGetOrSet('addCode').addEventListener('mouseover', () => promocodesInfo('add'))
+  DOMCacheGetOrSet('addCodeAll').addEventListener('click', () => promocodes('add', addCodeAvailableUses()))
   DOMCacheGetOrSet('addCodeOne').addEventListener('click', () => promocodes('add', 1))
-  DOMCacheGetOrSet('addCodeOne').addEventListener('mouseover', () => promocodesInfo('add'))
   DOMCacheGetOrSet('dailyCode').addEventListener('click', () => promocodes('daily'))
   DOMCacheGetOrSet('dailyCode').addEventListener('mouseover', () => promocodesInfo('daily'))
   DOMCacheGetOrSet('timeCode').addEventListener('click', () => promocodes('time'))
@@ -688,12 +688,19 @@ TODO: Fix this entire tab it's utter shit
 
   // BLUEBERRY LOADOUTS
   const blueberryLoadouts = Array.from(document.querySelectorAll('[id^="blueberryLoadout"]'))
+  const loadoutContainer = DOMCacheGetOrSet('blueberryUpgradeContainer')
 
   for (let i = 0; i < blueberryLoadouts.length; i++) {
     const shiftedKey = i + 1
     const el = blueberryLoadouts[i]
+    el.addEventListener('mouseover', () => {
     // eslint-disable-next-line
-    el.addEventListener('mouseover', () => createLoadoutDescription(shiftedKey, player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 }))
+      createLoadoutDescription(shiftedKey, player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 })
+      loadoutContainer.classList.add(`hoveredBlueberryLoadout${shiftedKey}`)
+    })
+    el.addEventListener('mouseout', () => {
+      loadoutContainer.classList.remove(`hoveredBlueberryLoadout${shiftedKey}`)
+    })
     // eslint-disable-next-line
     el.addEventListener('click', () => loadoutHandler(shiftedKey, player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 }))
   }

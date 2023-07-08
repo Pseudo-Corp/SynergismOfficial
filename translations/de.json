@@ -75,7 +75,43 @@
         "name": "Ambrosia Quark-Glück Hybrid-Modul I",
         "description": "Ein Hybrid-Modul der ersten Generation. Erhalte &#9752 +0.02 Ambrosia-Glück pro Level pro Ziffer in deinem Quark-Guthaben, zum Quadrat.",
         "effect": "Dieses Hybrid-Modul der ersten Generation erhöht &#9752 Ambrosia-Glück um {{amount}}"
+      },
+      "ambrosiaQuarks2": {
+        "name": "Ambrosia Quark Module II",
+        "description": "Self-Synergies! Gain +1% Quarks per level, +0.1% for every 10 levels in Ambrosia Quark Module I.",
+        "effect": "Dieses Quark-Modul der zweiten Generation erhöht den Quark-Gewinn um {{amount}}%"
+      },
+      "ambrosiaCubes2": {
+        "name": "Ambrosia Würfel-Module II",
+        "description": "Self-Synergies! Gain +6% cubes / lvl , +0.6% for every 10 levels in Ambrosia Cube Module I. Every 10 levels gives 1.13x cubes.",
+        "effect": "Dieses Würfel-Modul der zweiten Generation erhöht den Würfel-Gewinn um {{amount}}%"
+      },
+      "ambrosiaLuck2": {
+        "name": "Ambrosia Glück-Modul II",
+        "description": "Self-Synergies! Gain &#9752 +3 Ambrosia Luck/lvl, +0.3 for every 10 levels in Ambrosia Luck Module I. Every 10 levels gives &#9752 +40 more!",
+        "effect": "Dieses Glück-Modul der zweiten Generation erhöht &#9752 Ambrosia Glück um {{amount}}%"
+      },
+      "ambrosiaPatreon": {
+        "name": "Shameless, Ambrosial Patreon Reminder",
+        "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
+        "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
       }
+    },
+    "loadouts": {
+      "load": "Modus: LOADOUT laden",
+      "save": "Modus: LOADOUT speichern",
+      "none": "Kein Loadout in diesem Slot gespeichert!",
+      "loadout": "Loadout",
+      "confirmation": "In diesem Slot zu speichern wird das Build überschreiben. Bist du sicher?",
+      "imported": "Loadout importiert"
+    },
+    "importTree": {
+      "success": "Tree successfully imported!",
+      "failure": "Could not import tree as it is invalid!",
+      "error": "Could not parse submitted file! Double check that it is a Blueberry Tree loadout file."
+    },
+    "exportTree": {
+      "exportButton": "Exportiere"
     }
   },
   "achievements": {
@@ -1573,7 +1609,7 @@
       "goldenRevolutionIII": "Export gibt 2% mehr goldene Quarks je Singularity. Aktuell: +{{current}}% (MAX: +500%)",
       "platonicClones": {
         "hasLevel1": "Kaufe automatsch platonische Upgrades mit jedem Aufstieg, ohne dafür Obtainium oder Gaben auszugeben. Überall!",
-        "default": "Kaufe automatsch platonische Upgrades mit jedem Aufstieg, ohne dafür Obtainium oder Gaben auszugeben. Aber nur in Singularitäts-Herausforderungen."
+        "default": "Kaufe automatisch platonische Upgrades mit jedem Aufstieg, ohne dafür Obtainium oder Gaben auszugeben. Aber nur in Singularität-Herausforderungen."
       },
       "platSigma": "Code 'add' füllt sich {{counter}}% schneller je Level je Singularity. Aktuell: {{current}} (MAX: -60% Abklingzeit)",
       "midasMilleniumAgedGold": "Jede Verwendung des 'add'-Codes gibt 0,01 gratis Level von Goldene Quarks 1 und 0,05 gratis Level von Goldene Quarks 3. ",
@@ -1598,20 +1634,20 @@
       "goldenQuarks1": {
         "name": "Goldene Quarks I",
         "description": "In the future, you will gain 10% more Golden Quarks on Singularities per level!",
-        "effect": "Permanently gain {{n}}% more Golden Quarks on Singularities."
+        "effect": "Erhalte dauerhaft {{n}}% mehr goldene Quarks in Singularitäten."
       },
       "goldenQuarks2": {
-        "name": "Golden Quarks II",
-        "description": "Buying GQ is 0.2% cheaper per level! [After 50%, effect grows much slower]",
+        "name": "Goldene Quarks II",
+        "description": "GQ zu kaufen ist 0,2% billiger pro Level! [Nach 50% wächst der Effekt viel langsamer]",
         "effect": "Golden Quarks im Markt zu kaufen ist {{n}}% günstiger."
       },
       "goldenQuarks3": {
-        "name": "Golden Quarks III",
+        "name": "Goldene Quarks III",
         "description": "If you buy this, you will gain Golden Quarks per hour from Exports. Leveling up gives (level) additional per hour!",
         "effect": "Every hour, you gain {{n}} Golden Quarks from exporting."
       },
       "starterPack": {
-        "name": "Starter Pack",
+        "name": "Anfänger-Paket",
         "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources, post-corruption.",
         "effectHave": "You have unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings.",
         "effectHaveNot": "You have not unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings."
@@ -1641,33 +1677,33 @@
         "effectHaveNot": "You have not appeased the union of Bakers."
       },
       "cookies4": {
-        "name": "Cookie Recipes IV",
-        "description": "This is a small price to pay for Salvation.",
-        "effectHave": "You have paid your price for salvation.",
+        "name": "Keks-Rezepte IV",
+        "description": "Dies ist ein kleiner Preis für Erlösung.",
+        "effectHave": "Du hast den Preis für die Erlösung bezahlt.",
         "effectHaveNot": "You have not paid your price for salvation."
       },
       "cookies5": {
         "name": "Cookie Recipes V (WIP)",
         "description": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
-        "effectHave": "You have paid witness to the suffering of the masses.",
-        "effectHaveNot": "You have not paid witness to the suffering of the masses."
+        "effectHave": "Sie haben das Leiden der Massen bezeugt.",
+        "effectHaveNot": "Sie haben das Leiden der Massen nicht bezeugt."
       },
       "ascensions": {
-        "name": "Improved Ascension Gain",
-        "description": "Buying this, you will gain +2% Ascension Count forever, per level! Every 10 levels grants an additional, multiplicative +1% Ascension Count.",
-        "effect": "Ascension Count increases {{n}}% faster."
+        "name": "Verbesserte Belohnungen beim Aufstieg",
+        "description": "Wenn du dies kaufst, erhältst du +2% Aufstiegspunkte pro Stufe! Alle 10 Stufen gewähren dir zusätzlich, multiplikativ +1% mehr Aufstiegspunkte.",
+        "effect": "Aufstiegspunkte nehmen {{n}}% schneller zu."
       },
       "corruptionFourteen": {
-        "name": "Level Fourteen Corruptions",
-        "description": "Buy this to unlock level fourteen corruptions. :)",
-        "effectHave": "You have gained the ability to use level 14 corruptions. {{m}}",
-        "effectHaveNot": "You have not gained the ability to use level 14 corruptions. {{m}}"
+        "name": "Stufe Vierzehn Korruptionen",
+        "description": "Kaufe dies, um Level vierzehn Korruption freizuschalten. :)",
+        "effectHave": "Du hast die Fähigkeit erlangt, Level Vierzehn Korruptionen zu verwenden. {{m}}",
+        "effectHaveNot": "Du hast die Fähigkeit nicht erlangt, Level Vierzehn Korruptionen zu verwenden. {{m}}"
       },
       "corruptionFifteen": {
-        "name": "Level Fifteen Corruptions",
+        "name": "Level Fünfzehn Korruptionen",
         "description": "This doesn't *really* raise the corruption limit. Rather, it adds one FREE level to corruption multipliers, no matter what (can exceed cap). :)",
-        "effectHave": "You have gained a free corruption level. {{m}}",
-        "effectHaveNot": "You have not gained a free corruption level. {{m}}"
+        "effectHave": "Du hast ein kostenloses Korruptionslevel erhalten. {{m}}",
+        "effectHaveNot": "Du hast kein kostenloses Korruptionslevel erhalten. {{m}}"
       },
       "singOfferings1": {
         "name": "Offering Charge",
@@ -1685,48 +1721,48 @@
         "effect": "Permanently gain {{n}}% more Offerings."
       },
       "singObtainium1": {
-        "name": "Obtainium Wave",
-        "description": "Upgrade this to get +2% Obtainium per level, forever!",
-        "effect": "Permanently gain {{n}}% more Obtainium."
+        "name": "Obtainium-Welle",
+        "description": "Verbessere dies, um +2% Obtainium pro Level zu erhalten, für immer!",
+        "effect": "Erhalte permanent {{n}}% mehr Obtainium."
       },
       "singObtainium2": {
-        "name": "Obtainium Flood",
+        "name": "Obtainium-Flut",
         "description": "Holy crap, water bending! +8% gained Obtainium per level.",
-        "effect": "Permanently gain {{n}}% more Obtainium."
+        "effect": "Erhalte permanent {{n}}% mehr Obtainium."
       },
       "singObtainium3": {
-        "name": "Obtainium Tsunami",
-        "description": "A rising tide lifts all boats. +4% gained Obtainium per level.",
-        "effect": "Permanently gain {{n}}% more Obtainium."
+        "name": "Obtainium-Tsunami",
+        "description": "Eine steigende Flut hebt alle Boote. +4% mehr Obtainium pro Level.",
+        "effect": "Erhalte permanent {{n}}% mehr Obtainium."
       },
       "singCubes1": {
-        "name": "Cube Flame",
-        "description": "Upgrade this to get +1% Cubes per level, forever!",
-        "effect": "Permanently gain {{n}}% more Cubes."
+        "name": "Würfel-Flamme",
+        "description": "Verbessere dies, um +1% Würfel pro Level zu erhalten, für immer!",
+        "effect": "Erhalte permanent {{n}}% mehr Würfel."
       },
       "singCubes2": {
-        "name": "Cube Blaze",
-        "description": "Burn some more Golden Quarks! +8% gained Cubes per level.",
-        "effect": "Permanently gain {{n}}% more Cubes."
+        "name": "Würfel-Brand",
+        "description": "Verbrenne einige weitere goldene Quarks! +8% mehr Würfel pro Stufe.",
+        "effect": "Erhalte permanent {{n}}% mehr Würfel."
       },
       "singCubes3": {
-        "name": "Cube Inferno",
-        "description": "Even Dante is impressed. +4% gained Cubes per level.",
-        "effect": "Permanently gain {{n}}% more Cubes."
+        "name": "Würfel-Inferno",
+        "description": "Sogar Dante ist beeindruckt: +4% mehr Würfel pro Stufe.",
+        "effect": "Erhalte permanent {{n}}% mehr Würfel."
       },
       "singCitadel": {
-        "name": "Citadel of Singularity",
+        "name": "Zitadelle der Singularität",
         "description": "What a unique structual phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
         "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
       },
       "singCitadel2": {
-        "name": "Citadel of 'Singularity': The Real Edition",
+        "name": "Zitadelle der 'Singularität': Die wahre Edition",
         "description": "This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels! Also sets the free level of the fake citadel to whatever level this is.",
         "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
       },
       "octeractUnlock": {
         "name": "Octeracts",
-        "description": "Hey!!! What are you trying to do?!?",
+        "description": "MOMENT MAL!!! Was willst du damit erreichen?!?",
         "effectHave": "You have bought into the Octeract hype.",
         "effectHaveNot": "You have not bought into the Octeract hype."
       },
@@ -1737,85 +1773,85 @@
       },
       "offeringAutomatic": {
         "name": "Blueberry Shards! (WIP)",
-        "description": "The legends are true. \n The Prophecies are fulfilled. \n Ant God has heard your prayers. \n Let there be blueberries! \n And they were good.",
-        "effect": "You have purchased {{n}} tasty blueberries."
+        "description": "Die Legenden sind wahr.\nDie Prophezeiungen wurden erfüllt.\nDer Ameisengott hat deine Gebete erhört.\nEs soll Blaubeeren geben!\nUnd sie waren gut.",
+        "effect": "Du hast {{n}} leckere Blaubeeren gekauft."
       },
       "intermediatePack": {
-        "name": "Intermediate Pack",
+        "name": "Mittleres Paket",
         "description": "Verdopple die Globale-Geschwindigkeit, multipliziere die Aufstiegsgeschwindigkeit mit 1,5 und erhalte +2% Quarks für immer. 2% Quark-Milch... lecker.",
-        "effectHave": "You have upgraded your package to intermediate.",
-        "effectHaveNot": "You have not upgraded your package to intermediate."
+        "effectHave": "Du hast dein Paket zum mittleren Paket aufgewertet.",
+        "effectHaveNot": "Du hast dein Paket nicht zum mittleren Paket aufgewertet."
       },
       "advancedPack": {
-        "name": "Advanced Pack",
+        "name": "Fortgeschrittenes Paket",
         "description": "Now we're cooking with kerosene! Gain +4% Quarks stack with intermediate, +0.33 to all corruption score multipliers, regardless of level!",
-        "effectHave": "You have bought our advanced package.",
-        "effectHaveNot": "You have not bought our advanced package."
+        "effectHave": "Sie haben unser fortgeschrittenes Paket gekauft.",
+        "effectHaveNot": "Sie haben unser fortgeschrittenes Paket nicht gekauft."
       },
       "expertPack": {
-        "name": "Expert Pack",
+        "name": "Expertenpaket",
         "description": "That's a handful! Gain +6% Quarks stack with advanced, 1.5x Ascension Score, Code 'add' gives 1.2x Ascension Timer.",
-        "effectHave": "You have switched to the expert provider.",
-        "effectHaveNot": "You have not switched to the expert provider."
+        "effectHave": "Sie sind zum Experten-Anbieter gewechselt.",
+        "effectHaveNot": "Sie sind nicht zum Experten-Anbieter gewechselt."
       },
       "masterPack": {
-        "name": "Master Pack",
+        "name": "Meister-Paket",
         "description": "A tad insane. Gain +8% Quarks stack with expert, for every level 14 corruption, Ascension score is multiplied by 1.1.",
-        "effectHave": "You have mastered your inner chakras.",
-        "effectHaveNot": "You have not mastered your inner chakras."
+        "effectHave": "Du hast deine inneren Chakras gemeistert.",
+        "effectHaveNot": "Du hast deine inneren Chakras nicht gemeistert."
       },
       "divinePack": {
-        "name": "Divine Pack",
+        "name": "Göttliches Paket",
         "description": "OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14.",
-        "effectHave": "You have found the reason for existence.",
-        "effectHaveNot": "You have not found the reason for existence."
+        "effectHave": "Du hast den Grund für die Existenz gefunden.",
+        "effectHaveNot": "Du hast den Grund für die Existenz nicht gefunden."
       },
       "wowPass2": {
         "name": "Markt-Räumungsverkauf",
         "description": "The Seal Merchant needs to get rid of some exotic goods. Only for a steep price. I do not think that is how sales work.",
-        "effectHave": "You have triggered the Liquidation event!",
-        "effectHaveNot": "You have not triggered the Liquidation event!"
+        "effectHave": "Sie haben das Liquidation Event ausgelöst!",
+        "effectHaveNot": "Sie haben das Liquidation Event nicht ausgelöst!"
       },
       "wowPass3": {
         "name": "QUAAAACK",
         "description": "QUAAAAAAAACK. The Merchant has gone crazy for your QUARKS!",
-        "effectHave": "You have triggered the QUACKSTRAVAGANZA!!",
-        "effectHaveNot": "You have not triggered the QUACKSTRAVAGANZA!!"
+        "effectHave": "Sie haben die QUACKSTRAVAGANZA ausgelöst!!",
+        "effectHaveNot": "Sie haben die QUACKSTRAVAGANZA nicht ausgelöst!!"
       },
       "potionBuff": {
         "name": "Potion Decanter of Enlightenment",
-        "description": "Purported to actually be the fountain of youth, this item powers up potions considerably!",
-        "effect": "Potions currently give {{n}}x items!"
+        "description": "Dieser Gegenstand soll eigentlich die Quelle der Jugend sein, er verstärkt Tränke erheblich!",
+        "effect": "Tränke geben derzeit {{n}}x Items!"
       },
       "potionBuff2": {
         "name": "Potion Decanter of Inquisition",
-        "description": "Staring at the glass, you aren't actually sure what this potion is.",
-        "effect": "Potions currently give {{n}}x items!"
+        "description": "Beim Anblick des Glases bist du dir nicht wirklich sicher, was dieser Trank ist.",
+        "effect": "Tränke geben derzeit {{n}}x Items!"
       },
       "potionBuff3": {
         "name": "Potion Decanter of Maddening Instability",
         "description": "SHE'S GONNA BLOW!!!! Said Midas, the Golden Quark Salesman. Oh yeah, did we mention he's in the game?",
-        "effect": "Potions currently give {{n}}x items!"
+        "effect": "Tränke geben derzeit {{n}}x Items!"
       },
       "singChallengeExtension": {
-        "name": "Bigger Challenge Caps",
+        "name": "Höhere Challenge-Caps",
         "description": "Need more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.",
-        "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+        "effect": "Du fühlst dich motiviert genug, um {{n}} weitere Reinkarnations-Herausforderungen abzuschließen und {{m}} weitere Aufstiegs-Herausforderungen."
       },
       "singChallengeExtension2": {
-        "name": "Biggerer Challenge Caps",
+        "name": "Höherere Challenge-Caps",
         "description": "Need even more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.",
-        "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+        "effect": "Du fühlst dich motiviert genug, um {{n}} weitere Reinkarnations-Herausforderungen abzuschließen und {{m}} weitere Aufstiegs-Herausforderungen."
       },
       "singChallengeExtension3": {
-        "name": "BiggererEST Challenge Caps",
+        "name": "HöherereRE Challenge-Caps",
         "description": "Need even MORE Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level. Does it not seem excessive?",
-        "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+        "effect": "Du fühlst dich motiviert genug, um {{n}} weitere Reinkarnations-Herausforderungen abzuschließen und {{m}} weitere Aufstiegs-Herausforderungen."
       },
       "singQuarkImprover1": {
-        "name": "Marginal Quark Gain Improver Thingy",
+        "name": "Marginales Quark Einkommen Verbesserer Ding",
         "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitarily long?",
-        "effect": "You gain {{n}}% more Quarks!"
+        "effect": "Du erhältst {{n}}% mehr Quarks!"
       },
       "singQuarkHepteract": {
         "name": "I wish my Quark Hepteract was marginally better.",
@@ -1853,36 +1889,36 @@
         "effect": "Octeract Gain +{{n}}%"
       },
       "singOcteractGain5": {
-        "name": "The Eighth Wonder of the World",
+        "name": "Das achte Wunder der Welt",
         "description": "is the wonder of the world we live in. [+1% Octeracts. Platonic, this is so stingy! but, he does not care one bit.]",
         "effect": "Octeract Gain +{{n}}%"
       },
       "platonicTau": {
         "name": "Platonic TAU",
         "description": "Placed in the wrong upgrade section, this will remove any restrictions on corruptions or corruption level caps! Also raises 3d cube gain to the power of 1.01!",
-        "effectHave": "This upgrade has been purchased",
-        "effectHaveNot": "This upgrade has not been purchased"
+        "effectHave": "Dieses Upgrade wurde gekauft",
+        "effectHaveNot": "Dieses Upgrade wurde nicht gekauft"
       },
       "platonicAlpha": {
         "name": "Platonic ALPHA...?",
         "description": "Confusion ensues as to why there are two of these. This one is capitalized, so buying this ensures Platonic Alpha is always maxed!",
-        "effectHave": "This upgrade has been purchased",
-        "effectHaveNot": "This upgrade has not been purchased"
+        "effectHave": "Dieses Upgrade wurde gekauft",
+        "effectHaveNot": "Dieses Upgrade wurde nicht gekauft"
       },
       "platonicDelta": {
         "name": "Platonic DELTA",
         "description": "Time follows you towards the future, after getting this bad boy. Gain +100% more cubes per day in your current singularity, up to +900% at day 9.",
-        "effectHave": "This upgrade has been purchased",
-        "effectHaveNot": "This upgrade has not been purchased"
+        "effectHave": "Dieses Upgrade wurde gekauft",
+        "effectHaveNot": "Dieses Upgrade wurde nicht gekauft"
       },
       "platonicPhi": {
         "name": "Platonic PHI",
         "description": "Die Zeit folgt auch in die Vergangenheit. Erhalte 5 zusätzliche kostenlose Singularität-Upgrades pro Tag in der Singularität vom Code 'daily', bis zu +50 nach 10 Tagen.",
-        "effectHave": "This upgrade has been purchased",
-        "effectHaveNot": "This upgrade has not been purchased"
+        "effectHave": "Dieses Upgrade wurde gekauft",
+        "effectHaveNot": "Dieses Upgrade wurde nicht gekauft"
       },
       "singFastForward": {
-        "name": "Etherflux Singularities",
+        "name": "Etherflux-Singularitäten",
         "description": "Golden Quark gained by Singularity is increased by 100% (additive), and going singular at your all time highest count gives +1 singularity count!",
         "effectHave": "You've transformed the Etherflux!",
         "effectHaveNot": "You haven't transformed the Etherflux!"
@@ -1901,23 +1937,23 @@
       "singAscensionSpeed2": {
         "name": "A mediocre ascension speedup!",
         "description": "Ascension speed is multiplied by 6 if you have not purchased Antiquities in your current Singularity.",
-        "effect": "The effect is clear"
+        "effect": "Der Effekt ist eindeutig"
       },
       "WIP": {
-        "name": "WIP TEMPLATE",
-        "description": "This is a template! Bottom Text.",
-        "effect": "Update this description at a later time!!!!!!!!!!"
+        "name": "WIP VORLAGE",
+        "description": "Dies ist eine Vorlage! Unterer Text.",
+        "effect": "Diese Beschreibung wird zu einem späteren Zeitpunkt aktualisiert!!!!!!!!!!"
       },
       "ultimatePen": {
-        "name": "The Ultimate Pen",
-        "description": "You. It is you who is the author of your own story!",
+        "name": "Der ultimative Stift",
+        "description": "Du. Du bist der Autor deiner eigenen Geschichte!",
         "effect": "You do {{n}} own the Ultimate Pen. {{m}}"
       },
       "oneMind": {
         "name": "ONE MIND",
         "description": "A note, you found on the 'ground': seems like an advertisement for a cult. \"Lock your ascension speed to 10x, and multiply all cubes based on the difference.\" Hmm...",
-        "effectHave": "You have joined the cult!",
-        "effectHaveNot": "You haven't joined the cult!"
+        "effectHave": "Du bist dem Kult beigetreten!",
+        "effectHaveNot": "Du bist dem Kult nicht beigetreten!"
       },
       "wowPass4": {
         "name": "QUQUQUQUAAKCKCKKCKKCKK",
@@ -1931,12 +1967,12 @@
         "effect": "You have purchased {{n}} tasty blueberries."
       },
       "singAmbrosiaLuck2": {
-        "name": "Gilded Berries of Good Fortune",
+        "name": "Vergoldete Beeren des Glücks",
         "description": "Literally put some gold onto 'berries' and become lucky. ☘ +2 Ambrosia Luck per level!",
         "effect": "☘ Ambrosia Luck +{{n}}(!)"
       },
       "singAmbrosiaLuck3": {
-        "name": "Dedicated Gold Smelting",
+        "name": "Dedizierte Goldschmelze",
         "description": "More gold is dipped onto each berry. ☘ +3 Ambrosia Luck per level!",
         "effect": "☘ Ambrosia Luck +{{n}}(!)"
       },
@@ -1961,63 +1997,63 @@
         "effect": "Blueberry Seconds Generation +{{n}}%(!)"
       },
       "singAmbrosiaGeneration": {
-        "name": "Hourglass of Limitlessness",
+        "name": "Stundenglas der Limitlosigkeit",
         "description": "Remember- this hourglass is really important. But it gives +1% Blueberry Second Generation per level and is infinitely levelable!",
         "effect": "Blueberry Seconds Generation +{{n}}%(!)"
       },
       "singAmbrosiaGeneration4": {
-        "name": "Hourglass of Fantasy",
+        "name": "Stundenglas der Fantasie",
         "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% Blueberry Second Generation per level.",
         "effect": "Blueberry Seconds Generation +{{n}}%(!)"
       }
     },
-    "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
+    "goldenQuarkAmount": "Sie haben {{goldenQuarks}} goldene Quarks!",
     "penalties": {
-      "globalSpeed": "<<royalblue|Global Speed>> is divided by <<royalblue|{{divisor}}>>.",
-      "ascensionSpeed": "<<orange|Ascension Speed>> is divided by <<orange|{{divisor}}>>.",
-      "offeringGain": "<<gold|Offering Gain>> is divided by <<gold|{{divisor}}>>.",
-      "obtainiumGain": "<<steelblue|Obtainium Gain>> is divided by <<steelblue|{{divisor}}>>.",
-      "cubeGain": "<<yellow|Cube Gain>> is divided by <<yellow|{{divisor}}>>.",
-      "researchCosts": "<<var(--green-text-color)|Research Costs>> are multiplied by <<var(--green-text-color)|{{multiplier}}>>.",
-      "cubeUpgradeCosts": "<<Silver|Cube Upgrade costs>> (Excluding Cookies) are multiplied by <<Silver|{{multiplier}}>>.",
-      "platonicCosts": "<<var(--orchid-text-color)|Platonic Upgrade costs>> are multiplied by <<var(--orchid-text-color)|{{multiplier}}>>.",
-      "hepteractCosts": "<<Pink|Hepteract Forge costs>> are multiplied by <<Pink|{{multiplier}}>>.",
+      "globalSpeed": "<<royalblue|Global Speed>> wird durch <<royalblue|{{divisor}}> > geteilt.",
+      "ascensionSpeed": "<<orange|Ascension Speed>> wird durch <<orange|{{divisor}}> > geteilt.",
+      "offeringGain": "<<gold|Offering Gain>> wird durch <<gold|{{divisor}}> > geteilt.",
+      "obtainiumGain": "<<steelblue|Obtainium Gain>> wird durch <<steelblue|{{divisor}}> > geteilt.",
+      "cubeGain": "<<yellow|Cube Gain>> wird durch <<yellow|{{divisor}}> > geteilt.",
+      "researchCosts": "<<var(--green-text-color)|Research Costs>> werden mit <<var(--green-text-color)|{{multiplier}}> > multipliziert.",
+      "cubeUpgradeCosts": "<<Silver|Cube Upgrade costs>> (Ausschließende Cookies) werden mit <<Silver|{{multiplier}}> > multipliziert.",
+      "platonicCosts": "<<var(--orchid-text-color)|Platonic Upgrade costs>> werden mit <<var(--orchid-text-color)|{{multiplier}}> > multipliziert.",
+      "hepteractCosts": "<<Pink|Hepteract Forge costs>> werden mit <<Pink|{{multiplier}}> > multipliziert.",
       "penaltySmooth": "You will no longer experience sudden spikes in penalties.",
-      "penaltyRough": "Your penalties will sharply worsen in <<var(--red-text-color)|Singularity {{num}}>>.",
+      "penaltyRough": "Deine Strafen werden in <<var(--red-text-color)|Singularity {{num}}> > stark verschlimmert.",
       "antiquitiesBought": "<<var(--green-text-color)|Antiquities of Ant God is maxed! Penalties are dispelled!>>",
       "antiquitiesNotBought": "<<var(--red-text-color)|Penalties are active because you have not leveled up Antiquities of Ant God!>>"
     },
     "perkNames": {
       "xyz": "XYZ: Xtra dailY rewardZ",
-      "unlimitedGrowth": "Unlimited growth",
-      "goldenCoins": "Golden coins",
+      "unlimitedGrowth": "Unbegrenztes Wachstum",
+      "goldenCoins": "Goldene Münzen",
       "hepteractAutocraft": "Hepteract Autocraft",
       "generousOrbs": "Generous Orbs",
-      "researchDummies": "Research for Dummies",
+      "researchDummies": "Forschung für Dummies",
       "superStart": "Super Start",
-      "notSoChallenging": "Not So Challenging",
-      "automationUpgrades": "Automation Upgrades",
-      "evenMoreQuarks": "Even More Quarks",
+      "notSoChallenging": "Nicht so herausfordernd",
+      "automationUpgrades": "Automatisierungs-Upgrades",
+      "evenMoreQuarks": "Noch mehr Quarks",
       "shopSpecialOffer": "Markt Sonderangebot",
-      "potionAutogenerator": "Potion Autogenerator",
+      "potionAutogenerator": "Trank Autogenerator",
       "respecBeGone": "Respec, be gone!",
-      "forTheLoveOfTheAntGod": "For the love of (the Ant) God!",
+      "forTheLoveOfTheAntGod": "Für die Liebe des (Ameisen) Gottes!",
       "itAllAddsUp": "It all adds up",
-      "automagicalRunes": "Automagical Runes",
-      "exaltedAchievements": "EXALT Vault",
-      "derpSmithsCornucopia": "Derpsmith's Cornucopia",
-      "coolQOLCubes": "Cool Qol Cubes",
-      "eternalAscensions": "Eternal Ascensions",
+      "automagicalRunes": "Automagische Runen",
+      "exaltedAchievements": "EXALT Tresor",
+      "derpSmithsCornucopia": "Kornschmiede von Derpschmied",
+      "coolQOLCubes": "Coole Qol-Würfel",
+      "eternalAscensions": "Ewige Aufstiege",
       "antGodsCornucopia": "Ant God's Cornucopia",
-      "irishAnt": "Irish Ants",
-      "irishAnt2": "Irish Ants II: Electric Boogaloo",
-      "overclocked": "Overclocked",
-      "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
+      "irishAnt": "Irische Ameisen",
+      "irishAnt2": "Irische Ameisen II: Elektrischer Boogaloo",
+      "overclocked": "Übertaktet",
+      "wowCubeAutomatedShipping": "Wow! Würfel automatischer Versand",
       "congealedblueberries": "Congealed Blueberries",
-      "goldenRevolution": "Golden Revolution",
-      "goldenRevolutionII": "Golden Revolution II",
-      "goldenRevolutionIII": "Golden Revolution III",
-      "platonicClones": "Clones of Platonic Clicking at Your Desktop",
+      "goldenRevolution": "Goldene Revolution",
+      "goldenRevolutionII": "Goldene Revolution II",
+      "goldenRevolutionIII": "Goldene Revolution III",
+      "platonicClones": "Klone von Platonic klicken auf Ihrem Desktop",
       "platSigma": "PL-AT Σ",
       "midasMilleniumAgedGold": "Midas' Millenium-Aged Gold",
       "goldenRevolution4": "Golden Revolution IV",
@@ -2388,7 +2424,8 @@
       "resetHistory": "Reset History",
       "ascendHistory": "Ascend History",
       "singularityHistory": "Singularity History",
-      "hotkeys": "Hotkeys"
+      "hotkeys": "Hotkeys",
+      "account": "Account"
     }
   },
   "offlineProgress": {
@@ -3007,8 +3044,9 @@
     "noHotkeyAvailable": "These do not work with hotkeys. Too bad!",
     "specialActions": "Special Actions",
     "daily": "Daily",
-    "add1": "Add x1",
     "add": "Add",
+    "addAll": "xAll",
+    "add1": "x1",
     "time": "Time",
     "enterPromoCodeHere": "Enter a promotion code here!",
     "currentTheme": "Current Theme",
@@ -3292,7 +3330,7 @@
       },
       "add": {
         "calculator3": "Dank PL-AT Ω hast du außerdem {{x}} Sekunden (Echtzeit) für deinen Aufstiegs-Timer erhalten!",
-        "calculator5": "Dank PL-AT Γ hast du außerdem {{x}} Sekunden (Echtzeit) für deinen GQ Export Timer erhalten!",
+        "calculator5": "Dank PL-AT Γ hast du zusätzliche {{x}} Sekunden (Echtzeit) für deinen GQ Export Timer erhalten!",
         "calculator6": "Finally, thanks to PL-AT _ you have gained {{x}} seconds of Octeract generation!",
         "calculatorSolution": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}? The answer is {{z}} according to your calculator.",
         "calculatorPrompt": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}?",

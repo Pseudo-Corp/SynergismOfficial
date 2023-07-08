@@ -126,6 +126,11 @@ export class QuarkHandler {
 
   async getBonus() {
     const el = DOMCacheGetOrSet('currentBonus')
+
+    if (location.hostname === 'synergism.cc') {
+      return
+    }
+
     if (localStorage.getItem('quarkBonus') !== null) { // is in cache
       const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus')!) as { bonus: number, fetched: number }
       if (Date.now() - fetched < 60 * 1000 * 15) { // cache is younger than 15 minutes

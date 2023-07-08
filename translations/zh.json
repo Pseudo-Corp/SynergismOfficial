@@ -75,7 +75,43 @@
         "name": "神肴夸克-之运混合模块 I",
         "description": "第一代混合模块。当前夸克数量每有一个数量级，每级该升级就可以使&#9752 神肴之运增加0.02，然后再乘以当前夸克数量的数量级。",
         "effect": "第一代混合模块使&#9752 神肴之运增加了{{amount}}。"
+      },
+      "ambrosiaQuarks2": {
+        "name": "神肴夸克模块 II",
+        "description": "自我协同！每级使夸克获取数量增加1%，且神肴夸克模块 I每有10级，该数值还会再增加0.1%。",
+        "effect": "第二代夸克模块使夸克获取数量增加了{{amount}}%。"
+      },
+      "ambrosiaCubes2": {
+        "name": "神肴方盒模块 II",
+        "description": "自我协同！每级使所有类型的方盒、立方和方块获取数量增加6%，且神肴方盒模块 I每有10级，该数值还会再增加0.6%。另外，每10级还可以使所有类型的方盒、立方和方块获取数量变为原来的1.13倍。",
+        "effect": "第二代方盒模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
+      },
+      "ambrosiaLuck2": {
+        "name": "神肴之运模块 II",
+        "description": "自我协同！每级使&#9752 神肴之运增加3，且神肴之运模块 I每有10级，该数值还会再增加0.3。另外，每10级还可以使&#9752 神肴之运额外增加40！",
+        "effect": "第二代神肴之运模块使&#9752 神肴之运增加了{{amount}}。"
+      },
+      "ambrosiaPatreon": {
+        "name": "厚颜的蓝莓Patreon提醒",
+        "description": "Platonic到哪都受欢迎。Patreon对夸克获取数量的加成每有1%，就使蓝莓秒的产生速度增加1%！",
+        "effect": "慷慨的Patreon支持者使蓝莓秒的产生速度增加 {{amount}}%。您也可以考虑在Patreon上支持本游戏的开发！"
       }
+    },
+    "loadouts": {
+      "load": "模式：载入预设",
+      "save": "模式：保存预设",
+      "none": "该槽位无预设！",
+      "loadout": "预设",
+      "confirmation": "保存至该槽位将覆盖之前的预设。您确定要这么做吗？",
+      "imported": "导入的预设"
+    },
+    "importTree": {
+      "success": "蓝莓树已导入！",
+      "failure": "无法导入蓝莓树，该文件有误！",
+      "error": "无法解析上传的文件！请确认它是不是蓝莓树预设的文件。"
+    },
+    "exportTree": {
+      "exportButton": "导出"
     }
   },
   "achievements": {
@@ -541,24 +577,24 @@
   },
   "reset": {
     "details": {
-      "prestige": "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: {{amount}}/1e16 Coins || TIME SPENT: {{timeSpent}} Seconds.",
-      "transcension": "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: {{amount}}/1e100 Coins || TIME SPENT: {{timeSpent}} Seconds.",
-      "reincarnation": "Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: {{amount}}/1e300 Mythos Shards || TIME SPENT: {{timeSpent}} Seconds.",
-      "acceleratorBoost": "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: {{amount}}/{{required}} Diamonds.",
+      "prestige": "重置金币、金币生产者、金币升级、水晶，获得钻石和一些祭品。需要：{{amount}}/1e16金币 || 花费时间：{{timeSpent}}秒。",
+      "transcension": "重置所有金币和钻石的升级和机制，以及水晶升级和水晶生产者，获得神话和一些祭品。需要：{{amount}}/1e100金币 || 花费时间：{{timeSpent}}秒。",
+      "reincarnation": "重置之前的所有低阶资源，获得粒子，难得素和一些祭品！需要：{{amount}}/1e300神话碎片 || 花费时间：{{timeSpent}}秒。",
+      "acceleratorBoost": "重置所有金币的生产者和升级，以及水晶和钻石，增加加速器效果。需要：{{amount}}/{{required}}钻石。",
       "transcensionChallenge": {
-        "in": "Are you tired of being in your Challenge or stuck? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
-        "out": "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!"
+        "in": "您已经厌倦了挑战，或者是单纯想退出了吗？点击此处将离开挑战{{n}}。进度：{{amount}}/{{required}}金币。花费时间：{{timeSpent}}秒。",
+        "out": "您目前并未进行超越挑战。进行挑战后再来考虑离开的事，懂了吧！"
       },
       "reincarnationChallenge": {
         "in": {
-          "coins": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
-          "transcendShards": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Mythos Shards. TIME SPENT: {{timeSpent}} Seconds."
+          "coins": "您已经不想再继续了，或者是厌倦了挑战吗？点击此处将离开挑战{{n}}。进度：{{amount}}/{{required}}金币。花费时间：{{timeSpent}}秒。",
+          "transcendShards": "您已经不想再继续了，或者是厌倦了挑战吗？点击此处将离开挑战{{n}}。进度：{{amount}}/{{required}}神话碎片。花费时间：{{timeSpent}}秒。"
         },
-        "out": "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?"
+        "out": "您目前并未进行转世挑战。如果您都没在进行挑战，又要怎么离开？"
       },
-      "ascensionChallenge": "Click this if you're in an Ascension Challenge and want to leave. You get it already!",
-      "ascension": "Ascend, C-10 is required! +{{cubeAmount}} Wow! Cubes for doing it! Time: {{timeSpent}} Seconds. (Real-time {{realTimeSpent}} Seconds)",
-      "singularity": "Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with {{gqAmount}} Golden Quarks. Time: {{timeSpent}} Seconds."
+      "ascensionChallenge": "如果您想要退出飞升挑战，请点击这里。套路您现在应该懂了！",
+      "ascension": "进行飞升。需要完成一次挑战10才可飞升！可获得{{cubeAmount}}惊奇方盒！花费时间：{{timeSpent}}秒。(现实时间{{realTimeSpent}}秒)",
+      "singularity": "您愿意放弃目前的一切荣耀，踏上更大挑战的征途吗？蚁神将赐予您{{gqAmount}}金夸克。花费时间：{{timeSpent}}秒。"
     }
   },
   "ants": {
@@ -2388,7 +2424,8 @@
       "resetHistory": "历史重置数据",
       "ascendHistory": "历史飞升数据",
       "singularityHistory": "历史奇点数据",
-      "hotkeys": "快捷键"
+      "hotkeys": "快捷键",
+      "account": "Account"
     }
   },
   "offlineProgress": {
@@ -2873,40 +2910,40 @@
         "plastic": "信卡"
       },
       "summaries": {
-        "exemption": "=-=-=-= Exemption Talisman Effects =-=-=-=",
-        "chronos": "=-=-=-= Chronos Talisman Effects =-=-=-=",
-        "midas": "=-=-=-= Midas Talisman Effects =-=-=-=",
-        "metaphysics": "=-=-=-= Metaphysics Talisman Effects =-=-=-=",
-        "polymath": "=-=-=-= Polymath Talisman Effects =-=-=-=",
-        "mortuus": "=-=-=-= Mortuus Est Talisman Effects =-=-=-=",
-        "plastic": "=-=-=-= Plastic Talisman Effects =-=-=-="
+        "exemption": "=-=-=-= 免税护身符效果 =-=-=-=",
+        "chronos": "=-=-=-= 时光护身符效果 =-=-=-=",
+        "midas": "=-=-=-= 点金护身符效果 =-=-=-=",
+        "metaphysics": "=-=-=-= 玄学护身符效果 =-=-=-=",
+        "polymath": "=-=-=-= 博识护身符效果 =-=-=-=",
+        "mortuus": "=-=-=-= 虔蚁护身符效果 =-=-=-=",
+        "plastic": "=-=-=-= 信卡护身符效果 =-=-=-="
       },
       "effects": {
-        "exemption": "Taxes -{{x}}%",
-        "chronos": "Gain +{{x}}% Global Speed Acceleration.",
-        "midas": "Rune Blessing bonuses +{{x}}%",
-        "metaphysics": "Talismans' Bonus Rune Levels +{{x}} per level",
-        "polymath": "Rune Spirit Bonuses +{{x}}%",
-        "mortuus": "Bonus Ant Levels: +{{x}}",
-        "plastic": "Gain 1x normal production (Joke)!"
+        "exemption": "税收减少{{x}}%",
+        "chronos": "全局速度增加{{x}}%。",
+        "midas": "符文祝福奖励增加{{x}}%",
+        "metaphysics": "护身符的符文额外等级每级多增加{{x}}",
+        "polymath": "符文魂灵奖励增加{{x}}%",
+        "mortuus": "蚂蚁等级额外增加{{x}}",
+        "plastic": "无"
       },
       "bonusRuneLevels": {
-        "speed": "Bonus Speed Rune Levels: {{x}}",
-        "duplication": "Bonus Duplication Rune Levels: {{x}}",
-        "prism": "Bonus Prism Rune Levels: {{x}}",
-        "thrift": "Bonus Thrift Rune Levels: {{x}}",
-        "SI": "Bonus SI Rune Levels: {{x}}"
+        "speed": "加速符文额外等级：{{x}}",
+        "duplication": "重叠符文额外等级：{{x}}",
+        "prism": "棱柱符文额外等级：{{x}}",
+        "thrift": "节俭符文额外等级：{{x}}",
+        "SI": "卓越智慧额外等级：{{x}}"
       },
       "mythicEffects": {
-        "exemption": "Mythic Effect: +400 Duplication Rune Levels!",
-        "chronos": "Mythic Effect: +400 Speed Rune Levels!",
-        "midas": "Mythic Effect: +400 Thrift Rune Levels!",
-        "metaphysics": "Mythic Effect: +400 Prism Rune Levels!",
-        "polymath": "Mythic Effect: +400 SI Rune Levels!",
-        "mortuus": "Mythic Effect: Gain ant speed based on your total rune level!",
-        "plastic": "Mythic Effect: Gain 1x your normal quark values (Joke)!"
+        "exemption": "神秘效果：重叠符文等级增加400！",
+        "chronos": "神秘效果：加速符文等级增加400！",
+        "midas": "神秘效果：节俭符文等级增加400！",
+        "metaphysics": "神秘效果：棱柱符文等级增加400！",
+        "polymath": "神秘效果：卓越智慧等级增加400！",
+        "mortuus": "神秘效果：根据符文总等级增加蚂蚁速度！",
+        "plastic": "神秘效果：无！"
       },
-      "maxEnhance": "Get Max Enhance for a Mythical bonus effect!"
+      "maxEnhance": "升阶到最大后可获得神秘效果！"
     },
     "blessings": {
       "buyUpTo": "最多一次购买<<var(--orchid-text-color);|{{amount}}>>级。[输入数字来控制]",
@@ -3007,8 +3044,9 @@
     "noHotkeyAvailable": "这些对快捷键无效。糟透了！",
     "specialActions": "特殊操作",
     "daily": "“每日”代码",
-    "add1": "1次“增加”代码",
     "add": "“增加”代码",
+    "addAll": "使用全部",
+    "add1": "使用1次",
     "time": "“时间”代码",
     "enterPromoCodeHere": "点击此处输入奖励代码！",
     "currentTheme": "当前主题",

@@ -10,34 +10,34 @@
     "saveToClipboard": "Czy na pewno chcesz włączyć kopiowanie zapisów do schowka?"
   },
   "ambrosia": {
-    "ambrosia": "Ambrosia",
-    "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
+    "ambrosia": "Ambrozja",
+    "amount": "Masz <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrozji!",
     "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
     "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
     "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
-    "prerequisite": "Prerequisites:",
-    "prereqNotMet": " (Not Met!)",
-    "blueberryCost": "Blueberries (To Activate):",
-    "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
-    "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
-    "availableBlueberries": "You have <<blue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
-    "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
-    "refund": "You have refunded all spent Blueberries and Ambrosia.",
-    "refundWord": "Refund",
+    "prerequisite": "Wymagania wstępne:",
+    "prereqNotMet": " (Nie spełnione!)",
+    "blueberryCost": "Borówki (Aby aktywować):",
+    "prereqNotMetAlert": "Nie wszystkich warunków, aby zakupić to ulepszenie.",
+    "notEnoughBlueberries": "Nie masz wystarczającej ilości borówek, aby aktywować ten moduł.",
+    "availableBlueberries": "Masz <<blue|{{availableBlueberries}}>> niewydanych borówek. Odblokuj poniżej moduły wyższego poziomu, używając ich!",
+    "ambrosiaBuyPrompt": "Ile Ambrozji chciałbyś wydać? Masz {{amount}} Ambrozji. Wpisz -1, aby użyć wszystko!",
+    "refund": "Zwróciłeś(aś) wszystkie zużyte borówki i Ambrozję.",
+    "refundWord": "Zwróć",
     "data": {
       "ambrosiaTutorial": {
-        "name": "Ambrosia Tutorial Module",
-        "description": "Blueberries generate Ambrosia over time. Spend them in the Ambrosia tree! +5% Cubes/lvl, +1% Quarks/lvl",
+        "name": "Moduł samouczka Ambrozji",
+        "description": "Borówki generują Ambrozję z upływem czasu. Wydaj je w drzewku Ambrozji! +5% Cubes/poziom, +1% Kwarków/poziom",
         "effect": "This tutorial module increases cube gain by {{cubeAmount}}% and quarks by {{quarkAmount}}%"
       },
       "ambrosiaQuarks1": {
-        "name": "Ambrosia Quark Module I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxed to buy levels of this. +1% Quarks/lvl.",
+        "name": "Moduł Kwark Ambrozji I",
+        "description": "Gratulacje za ukończenie modułu samouczka. Musisz mieć maksimum, aby kupić ten poziom. +1% Kwarków/poziom.",
         "effect": "This quark module increases Quark gain by {{amount}}%"
       },
       "ambrosiaCubes1": {
-        "name": "Ambrosia Cube Module I",
+        "name": "Moduł Kostek Ambrozji I",
         "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 10 levels gives 1.1x Cubes.",
         "effect": "This cube module increases cube gain by {{amount}}%"
       },
@@ -75,7 +75,43 @@
         "name": "Ambrosia Quark-Luck Hybrid Module I",
         "description": "A first generation hybrid module. Gain &#9752 +0.02 Ambrosia Luck per level per digit in your Quark balance, squared.",
         "effect": "This first generation hybrid module increases &#9752 Ambrosia Luck by {{amount}}"
+      },
+      "ambrosiaQuarks2": {
+        "name": "Ambrosia Quark Module II",
+        "description": "Self-Synergies! Gain +1% Quarks per level, +0.1% for every 10 levels in Ambrosia Quark Module I.",
+        "effect": "This second generation Quark module increases Quark gain by {{amount}}%"
+      },
+      "ambrosiaCubes2": {
+        "name": "Ambrosia Cube Module II",
+        "description": "Self-Synergies! Gain +6% cubes / lvl , +0.6% for every 10 levels in Ambrosia Cube Module I. Every 10 levels gives 1.13x cubes.",
+        "effect": "This second generation Cube module increases cube gain by {{amount}}%"
+      },
+      "ambrosiaLuck2": {
+        "name": "Ambrosia Luck Module II",
+        "description": "Self-Synergies! Gain &#9752 +3 Ambrosia Luck/lvl, +0.3 for every 10 levels in Ambrosia Luck Module I. Every 10 levels gives &#9752 +40 more!",
+        "effect": "This second generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
+      },
+      "ambrosiaPatreon": {
+        "name": "Shameless, Ambrosial Patreon Reminder",
+        "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
+        "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
       }
+    },
+    "loadouts": {
+      "load": "MODE: LOAD LOADOUT",
+      "save": "MODE: SAVE LOADOUT",
+      "none": "No loadout saved in this slot!",
+      "loadout": "Loadout",
+      "confirmation": "Saving to this slot will override its build. Are you sure?",
+      "imported": "Imported loadout"
+    },
+    "importTree": {
+      "success": "Tree successfully imported!",
+      "failure": "Could not import tree as it is invalid!",
+      "error": "Could not parse submitted file! Double check that it is a Blueberry Tree loadout file."
+    },
+    "exportTree": {
+      "exportButton": "Export"
     }
   },
   "achievements": {
@@ -2388,7 +2424,8 @@
       "resetHistory": "Reset History",
       "ascendHistory": "Ascend History",
       "singularityHistory": "Singularity History",
-      "hotkeys": "Hotkeys"
+      "hotkeys": "Hotkeys",
+      "account": "Account"
     }
   },
   "offlineProgress": {
@@ -2542,8 +2579,8 @@
     "multiplierPower": "Multiplier Power: {{power}}x || Multiplier: {{mult}}x",
     "acceleratorBoost": "Reset Diamonds and Prestige Upgrades, but add {{amount}}% Acceleration Power and 5 free Accelerators.",
     "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
-    "costCoins": "Cost: {{coins}} coins.",
-    "costDiamonds": "Cost: {{diamonds}} Diamonds.",
+    "costCoins": "Koszt: {{coins}} monet.",
+    "costDiamonds": "Koszt: {{diamonds}} diamentów.",
     "names": {
       "workers": "Workers: {{amount}} [+{{gain}}]",
       "investments": "Investments: {{amount}} [+{{gain}}]",
@@ -2601,7 +2638,7 @@
     },
     "crystalUpgrades": {
       "currentLevel": "Current Level: <<lightblue|{{amount}}>>",
-      "cost": "Cost: <<lightblue|{{amount}}>> crystals",
+      "cost": "Koszt: <<lightblue|{{amount}}>> kryształów",
       "currentEffect": "Bieżący efekt: <<lightblue|{{effect}}>>"
     },
     "mythosYouHave": "You have {{shards}} Mythos Shards, providing {{mult}} Multiplier Power boosts.",
@@ -3007,8 +3044,9 @@
     "noHotkeyAvailable": "These do not work with hotkeys. Too bad!",
     "specialActions": "Special Actions",
     "daily": "Daily",
-    "add1": "Add x1",
     "add": "Add",
+    "addAll": "xAll",
+    "add1": "x1",
     "time": "Time",
     "enterPromoCodeHere": "Enter a promotion code here!",
     "currentTheme": "Current Theme",
