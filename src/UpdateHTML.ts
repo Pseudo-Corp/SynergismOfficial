@@ -13,6 +13,7 @@ import { updateSingularityPenalties, updateSingularityPerks } from './singularit
 import { revealCorruptions } from './Corruptions'
 import i18next from 'i18next'
 import type { TabNames } from './Tabs'
+import { createDeferredPromise } from './Utility'
 
 export const revealStuff = () => {
   const example = document.getElementsByClassName('coinunlock1') as HTMLCollectionOf<HTMLElement>
@@ -992,7 +993,7 @@ export const changeTabColor = () => {
   tab.style.backgroundColor = color
 }
 
-const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
+export const Confirm = (text: string): Promise<boolean> => {
   const conf = DOMCacheGetOrSet('confirmationBox')
   const confWrap = DOMCacheGetOrSet('confirmWrapper')
   const popup = DOMCacheGetOrSet('confirm')
@@ -1006,43 +1007,43 @@ const ConfirmCB = (text: string, cb: (value: boolean) => void) => {
   conf.style.display = 'block'
   confWrap.style.display = 'block'
   overlay.style.display = 'block'
-    popup.querySelector('p')!.textContent = text
-    popup.focus()
+  popup.querySelector('p')!.textContent = text
+  popup.focus()
 
-    // IF you clean up the typing here also clean up PromptCB
-    const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
-      const targetEl = target as HTMLButtonElement
-      ok.removeEventListener('click', listener)
-      cancel.removeEventListener('click', listener)
-      popup.removeEventListener('keyup', kbListener)
+  const p = createDeferredPromise<boolean>()
 
-      conf.style.display = 'none'
-      confWrap.style.display = 'none'
-      overlay.style.display = 'none'
+  // IF you clean up the typing here also clean up PromptCB
+  const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
+    const targetEl = target as HTMLButtonElement
+    ok.removeEventListener('click', listener)
+    cancel.removeEventListener('click', listener)
+    popup.removeEventListener('keyup', kbListener)
 
-      if (targetEl === ok) {
-        cb(true)
-      } else {
-        cb(false)
-      }
+    conf.style.display = 'none'
+    confWrap.style.display = 'none'
+    overlay.style.display = 'none'
+
+    p.resolve(targetEl === ok)
+  }
+
+  const kbListener = (e: KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      return listener({ target: ok })
+    } else if (e.key === 'Escape') {
+      return listener({ target: cancel })
     }
 
-    const kbListener = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        return listener({ target: ok })
-      } else if (e.key === 'Escape') {
-        return listener({ target: cancel })
-      }
+    return e.preventDefault()
+  }
 
-      return e.preventDefault()
-    }
+  ok.addEventListener('click', listener, { once: true })
+  cancel.addEventListener('click', listener, { once: true })
+  popup.addEventListener('keyup', kbListener)
 
-    ok.addEventListener('click', listener)
-    cancel.addEventListener('click', listener)
-    popup.addEventListener('keyup', kbListener)
+  return p.promise
 }
 
-const AlertCB = (text: string, cb: (value: undefined) => void) => {
+export const Alert = (text: string): Promise<void> => {
   const conf = DOMCacheGetOrSet('confirmationBox')
   const alertWrap = DOMCacheGetOrSet('alertWrapper')
   const overlay = DOMCacheGetOrSet('transparentBG')
@@ -1055,26 +1056,30 @@ const AlertCB = (text: string, cb: (value: undefined) => void) => {
   conf.style.display = 'block'
   alertWrap.style.display = 'block'
   overlay.style.display = 'block'
-    popup.querySelector('p')!.textContent = text
-    popup.focus()
+  popup.querySelector('p')!.textContent = text
+  popup.focus()
 
-    const listener = () => {
-      ok.removeEventListener('click', listener)
-      popup.removeEventListener('keyup', kbListener)
+  const p = createDeferredPromise<void>()
 
-      conf.style.display = 'none'
-      alertWrap.style.display = 'none'
-      overlay.style.display = 'none'
-      cb(undefined)
-    }
+  const listener = () => {
+    ok.removeEventListener('click', listener)
+    popup.removeEventListener('keyup', kbListener)
 
-    const kbListener = (e: KeyboardEvent) => (e.key === 'Enter' || e.key === ' ') && listener()
+    conf.style.display = 'none'
+    alertWrap.style.display = 'none'
+    overlay.style.display = 'none'
+    p.resolve()
+  }
 
-    ok.addEventListener('click', listener)
-    popup.addEventListener('keyup', kbListener)
+  const kbListener = (e: KeyboardEvent) => (e.key === 'Enter' || e.key === ' ') && listener()
+
+  ok.addEventListener('click', listener, { once: true })
+  popup.addEventListener('keyup', kbListener)
+
+  return p.promise
 }
 
-export const PromptCB = (text: string, cb: (value: string | null) => void, defaultValue?: string) => {
+export const Prompt = (text: string, defaultValue?: string): Promise<string | null> => {
   const conf = DOMCacheGetOrSet('confirmationBox')
   const confWrap = DOMCacheGetOrSet('promptWrapper')
   const overlay = DOMCacheGetOrSet('transparentBG')
@@ -1088,54 +1093,54 @@ export const PromptCB = (text: string, cb: (value: string | null) => void, defau
   conf.style.display = 'block'
   confWrap.style.display = 'block'
   overlay.style.display = 'block'
-    popup.querySelector('label')!.textContent = text
-    if (defaultValue) {
-      popup.querySelector('input')!.value = defaultValue
-    }
-    popup.querySelector('input')!.focus()
+  popup.querySelector('label')!.textContent = text
+  if (defaultValue) {
+    popup.querySelector('input')!.value = defaultValue
+  }
+  popup.querySelector('input')!.focus()
 
-    // kinda disgusting types but whatever
-    const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
-      const targetEl = target as HTMLButtonElement
-      const el = targetEl.parentNode!.querySelector('input')!
+  const p = createDeferredPromise<string | null>()
 
-      ok.removeEventListener('click', listener)
-      cancel.removeEventListener('click', listener)
-        popup.querySelector('input')!.removeEventListener('keyup', kbListener)
+  // kinda disgusting types but whatever
+  const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
+    const targetEl = target as HTMLButtonElement
+    const el = targetEl.parentNode!.querySelector('input')!
 
-        conf.style.display = 'none'
-        confWrap.style.display = 'none'
-        overlay.style.display = 'none'
+    ok.removeEventListener('click', listener)
+    cancel.removeEventListener('click', listener)
+    popup.querySelector('input')!.removeEventListener('keyup', kbListener)
 
-        if (targetEl.id === ok.id) {
-          cb(el.value)
-        } else {
-          cb(null)
-        } // canceled
+    conf.style.display = 'none'
+    confWrap.style.display = 'none'
+    overlay.style.display = 'none'
 
-        el.value = el.textContent = ''
-        popup.querySelector('input')!.blur()
-    }
+    p.resolve(targetEl.id === ok.id ? el.value : null)
 
-    const kbListener = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        return listener({ target: ok })
-      } else if (e.key === 'Escape') {
-        return listener({ target: cancel })
-      }
+    el.value = el.textContent = ''
+    popup.querySelector('input')!.blur()
+  }
 
-      return e.preventDefault()
+  const kbListener = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      return listener({ target: ok })
+    } else if (e.key === 'Escape') {
+      return listener({ target: cancel })
     }
 
-    ok.addEventListener('click', listener)
-    cancel.addEventListener('click', listener)
-    popup.querySelector('input')!.addEventListener('keyup', kbListener)
+    return e.preventDefault()
+  }
+
+  ok.addEventListener('click', listener, { once: true })
+  cancel.addEventListener('click', listener, { once: true })
+  popup.querySelector('input')!.addEventListener('keyup', kbListener, { once: true })
+
+  return p.promise
 }
 
 let closeNotification: ReturnType<typeof setTimeout>
 let closedNotification: ReturnType<typeof setTimeout>
 
-const NotificationCB = (text: string, time = 30000, cb: () => void) => {
+export const Notification = (text: string, time = 30000): Promise<void> => {
   const notification = DOMCacheGetOrSet('notification')
   const textNode = document.querySelector<HTMLElement>('#notification > p')!
   const x = DOMCacheGetOrSet('notifx')
@@ -1144,6 +1149,8 @@ const NotificationCB = (text: string, time = 30000, cb: () => void) => {
   notification.style.display = 'block'
   notification.classList.remove('slide-out')
   notification.classList.add('slide-in')
+
+  const p = createDeferredPromise<void>()
 
   const closed = () => {
     notification.style.display = 'none'
@@ -1158,33 +1165,20 @@ const NotificationCB = (text: string, time = 30000, cb: () => void) => {
     closeNotification = 0
     x.removeEventListener('click', close)
     closedNotification = setTimeout(closed, 1000)
-    cb()
+    p.resolve()
   }
 
   x.addEventListener('click', close)
+
   // Reset the close timer if reopened before closed
-  if (closeNotification > 0) {
-    clearTimeout(closeNotification)
-  }
-  if (closedNotification > 0) {
-    clearTimeout(closedNotification)
-  }
+  clearTimeout(closeNotification)
+  clearTimeout(closedNotification)
+
   // automatically close out after <time> ms
   closeNotification = setTimeout(close, time)
-}
 
-/*** Promisified version of the AlertCB function. */
-// eslint-disable-next-line no-promise-executor-return
-export const Alert = (text: string): Promise<undefined> => new Promise(res => AlertCB(text, res))
-/*** Promisified version of the PromptCB function. */
-// eslint-disable-next-line no-promise-executor-return
-export const Prompt = (text: string, defaultValue?: string): Promise<string | null> => new Promise(res => PromptCB(text, res, defaultValue))
-/*** Promisified version of the ConfirmCB function */
-// eslint-disable-next-line no-promise-executor-return
-export const Confirm = (text: string): Promise<boolean> => new Promise(res => ConfirmCB(text, res))
-/*** Promisified version of the NotificationCB function */
-// eslint-disable-next-line no-promise-executor-return
-export const Notification = (text: string, time?: number): Promise<void> => new Promise(res => NotificationCB(text, time, res))
+  return p.promise
+}
 
 /**
  * Create a popunder under an element.
