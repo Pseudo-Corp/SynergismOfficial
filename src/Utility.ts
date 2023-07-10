@@ -172,3 +172,15 @@ export function limitRange (number: number, min: number, max: number): number {
 
   return number
 }
+
+export const createDeferredPromise = <T>() => {
+  let resolve!: (unknown: T) => void
+  let reject!: (err: Error) => void
+
+  const promise = new Promise<T>((res, rej) => {
+    resolve = res
+    reject = rej
+  })
+
+  return { resolve, reject, promise }
+}
