@@ -66,11 +66,11 @@ export const resetdetails = (input: resetNames) => {
   const resetInfo = DOMCacheGetOrSet('resetinfo')
   const resetCurrencyGain = DOMCacheGetOrSet('resetcurrency2');
 
-  (input == 'reincarnation') ?
+  (input === 'reincarnation') ?
     (resetObtainiumImage.style.display = 'block', resetObtainiumText.textContent = format(Math.floor(G.obtainiumGain))):
     (resetObtainiumImage.style.display = 'none', resetObtainiumText.textContent = '');
 
-  (input == 'ascensionChallenge' || input == 'ascension' || input == 'singularity')?
+  (input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity')?
     offeringImage.style.display = offeringText.style.display = 'none':
     offeringImage.style.display = offeringText.style.display = 'block'
 
@@ -445,13 +445,13 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     G.autoResetTimers.transcension = 0
   }
 
-  if (input == 'reincarnation' || input == 'reincarnationChallenge') {
+  if (input === 'reincarnation' || input === 'reincarnationChallenge') {
     if (player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0) {
       player.prestigePoints = player.prestigePoints.add(G.reincarnationPointGain)
     }
   }
 
-  if (input === 'reincarnation' || input === 'reincarnationChallenge' || input === 'ascension' || input === 'ascensionChallenge' || input == 'singularity') {
+  if (input === 'reincarnation' || input === 'reincarnationChallenge' || input === 'ascension' || input === 'ascensionChallenge' || input === 'singularity') {
     // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
     if (player.ascensionCount > 0 && player.achievements[183] < 1) {
       ascensionAchievementCheck(1)
@@ -775,10 +775,10 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   //Always unlocks
   player.unlocks.prestige = true
 
-  if (input == 'transcension' || input == 'transcensionChallenge') {
+  if (input === 'transcension' || input === 'transcensionChallenge') {
     player.unlocks.transcend = true
   }
-  if (input == 'reincarnation' || input == 'reincarnationChallenge') {
+  if (input === 'reincarnation' || input === 'reincarnationChallenge') {
     player.unlocks.reincarnate = true
   }
 

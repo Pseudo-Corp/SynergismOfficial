@@ -209,7 +209,7 @@ export class HepteractCraft {
         (player[item as keyof Player] as number) = 0
       } else if (player[item as keyof Player] instanceof Cube) {
         (player[item as keyof Player] as Cube).sub(amountToCraft * craftCostMulti * this.OTHER_CONVERSIONS[item as keyof Player]!)
-      } else if (item == 'worlds') {
+      } else if (item === 'worlds') {
         player.worlds.sub(amountToCraft * this.OTHER_CONVERSIONS[item]!)
       }
     }
@@ -329,7 +329,7 @@ export class HepteractCraft {
     const itemLimits: number[] = []
     for (const item in this.OTHER_CONVERSIONS) {
       // When Auto is turned on, only Quarks and hepteracts are consumed.
-      if (item == 'worlds') {
+      if (item === 'worlds') {
         itemLimits.push(Math.floor((player[item as keyof Player] as number) / this.OTHER_CONVERSIONS[item as keyof Player]!) * 1 / (1 - this.DISCOUNT))
       }
     }
@@ -357,7 +357,7 @@ export class HepteractCraft {
     }
 
     for (const item in this.OTHER_CONVERSIONS) {
-      if (item == 'worlds') {
+      if (item === 'worlds') {
         player.worlds.sub(amountCrafted * this.OTHER_CONVERSIONS[item]!)
       }
     }

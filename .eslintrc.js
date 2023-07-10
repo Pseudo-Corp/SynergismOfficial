@@ -64,6 +64,7 @@ module.exports = {
     'no-unsafe-optional-chaining': 'error',
     'no-useless-backreference': 'error',
     'no-console': 'error',
+    'eqeqeq': ['error', 'always', { 'null': 'ignore' }],
 
     '@typescript-eslint/no-unused-vars': ['error', { 'varsIgnorePattern': '_' }],
     '@typescript-eslint/no-unnecessary-type-assertion': 'error',

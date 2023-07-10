@@ -292,45 +292,48 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
   }
 }
 
+export enum Notations {
+  PURE_SCIENTIFIC = 'Pure Scientific',
+  PURE_ENGINEERING = 'Pure Engineering',
+  DEFAULT = 'Default'
+}
+
 export const toggleAnnotation = (setting = true) => {
   const notationButton = DOMCacheGetOrSet('notation')
-  const current = notationButton.textContent
+  const current = player.notation
+  let newNotation: string
 
   switch (current) {
-    case 'Pure Scientific':
+    case Notations.PURE_SCIENTIFIC:
       notationButton.textContent = i18next.t('settings.notation.pureEngineering')
+      newNotation = Notations.PURE_ENGINEERING
       break
-    case 'Pure Engineering':
+    case Notations.PURE_ENGINEERING:
       notationButton.textContent = i18next.t('settings.notation.default')
+      newNotation = Notations.DEFAULT
       break
     default:
       notationButton.textContent = i18next.t('settings.notation.pureScientific')
+      newNotation = Notations.PURE_SCIENTIFIC
   }
+
   if (setting) {
-    player.notation = current ?? 'Default'
+    player.notation = newNotation
   }
 }
 
 export const settingAnnotation = () => {
-  let userAnnotation = player.notation
-  const maxAnnotations = 10
   const notationButton = DOMCacheGetOrSet('notation')
-  for (let i = 0; i < maxAnnotations; i++) {
-    const current = notationButton.textContent
-    if (current !== null && userAnnotation.toUpperCase() !== current.toUpperCase()) {
-      toggleAnnotation(false)
-    } else {
-      return
-    }
-  }
-  userAnnotation = 'DEFAULT'
-  for (let i = 0; i < maxAnnotations; i++) {
-    const current = notationButton.textContent
-    if (current !== null && userAnnotation !== current.toUpperCase()) {
-      toggleAnnotation(false)
-    } else {
-      return
-    }
+
+  switch (player.notation) {
+    case Notations.PURE_SCIENTIFIC:
+      notationButton.textContent = i18next.t('settings.notation.pureScientific')
+      break
+    case Notations.PURE_ENGINEERING:
+      notationButton.textContent = i18next.t('settings.notation.pureEngineering')
+      break
+    default:
+      notationButton.textContent = i18next.t('settings.notation.default')
   }
 }
 

@@ -2075,7 +2075,7 @@ export const format = (
     return isNaN(input as number) ? '0 [NaN]' : '0 [und.]'
   } else if ( // this case handles numbers less than 1e-6 and greater than 0
     typeof input === 'number' &&
-        player.notation == 'Default' &&
+        player.notation === 'Default' &&
         input < (!fractional ? 1e-3 : 1e-15) && // arbitrary number, don't change 1e-3
         input > 0 // don't handle negative numbers, probably could be removed
   ) {
@@ -2113,12 +2113,12 @@ export const format = (
   if (power < -15) {
     return '0'
   }
-  if (player.notation == 'Pure Engineering') {
+  if (player.notation === 'Pure Engineering') {
     const powerOver = (power % 3 < 0) ? (3 + power % 3) : (power % 3)
     power = power - powerOver
     mantissa = mantissa * Math.pow(10, powerOver)
   }
-  if (player.notation == 'Pure Scientific' || player.notation == 'Pure Engineering') {
+  if (player.notation === 'Pure Scientific' || player.notation === 'Pure Engineering') {
     if (power >= 1e6) {
       if (!Number.isFinite(power)) {
         return 'Infinity'

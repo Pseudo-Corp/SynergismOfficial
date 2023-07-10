@@ -117,7 +117,7 @@ export const areward = (i: number): string => {
 
 export const achievementAlerts = async (num: number) => {
   if (player.highestSingularityCount === 0) {
-    if (num === 36 || num == 38 || num === 255) {
+    if (num === 36 || num === 38 || num === 255) {
       return Alert(i18next.t(`achievements.alerts.${num}`))
     }
   }

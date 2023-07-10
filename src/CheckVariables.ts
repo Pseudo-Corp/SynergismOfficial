@@ -1028,7 +1028,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
   const oldest = localStorage.getItem('firstPlayed')
 
-  if (data.firstPlayed == undefined) {
+  if (data.firstPlayed == null) {
     // If the save is from before v2.9.7 staticians
     player.firstPlayed = oldest ?? new Date().toISOString()
   } else if (data.firstPlayed?.includes('Before')) {

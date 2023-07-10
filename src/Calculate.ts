@@ -262,7 +262,7 @@ export function calculateOfferings(input: resetNames, calcMult: false, statistic
 export function calculateOfferings(input: resetNames, calcMult: true, statistic: boolean): number
 export function calculateOfferings(input: resetNames, calcMult = true, statistic = false) {
 
-  if (input == 'acceleratorBoost' || input == 'ascension' || input == 'ascensionChallenge') {
+  if (input === 'acceleratorBoost' || input === 'ascension' || input === 'ascensionChallenge') {
     return 0
   }
 
@@ -271,7 +271,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
   let b = 0
   let c = 0
 
-  if (input == 'reincarnation' || input == 'reincarnationChallenge') {
+  if (input === 'reincarnation' || input === 'reincarnationChallenge') {
     a += 3
     if (player.achievements[52] > 0.5) {
       a += (25 * Math.min(player.reincarnationcounter / 1800, 1))
@@ -291,8 +291,8 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     }
 
   }
-  if (input == 'transcension' || input == 'transcensionChallenge' || input == 'reincarnation' ||
-        input == 'reincarnationChallenge') {
+  if (input === 'transcension' || input === 'transcensionChallenge' || input === 'reincarnation' ||
+        input === 'reincarnationChallenge') {
     b += 2
     if (player.reincarnationCount > 0) {
       b += 2
@@ -399,10 +399,10 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
   if (input === 'prestige') {
     persecond = q / (1 + player.prestigecounter)
   }
-  if (input === 'transcension' || input == 'transcensionChallenge') {
+  if (input === 'transcension' || input === 'transcensionChallenge') {
     persecond = q / (1 + player.transcendcounter)
   }
-  if (input === 'reincarnation' || input == 'reincarnationChallenge') {
+  if (input === 'reincarnation' || input === 'reincarnationChallenge') {
     persecond = q / (1 + player.reincarnationcounter)
   }
   if (persecond > player.offeringpersecond) {
@@ -1813,7 +1813,7 @@ export const calculateSummationNonLinear = (
   buyToLevel = Math.min(buyToLevel, buyAmount + baseLevel)
   buyToLevel = Math.max(buyToLevel, baseLevel)
   let totalCost = baseCost * (c * Math.pow(buyToLevel, 2) + buyToLevel * (1 - c)) - alreadySpent
-  if (buyToLevel == baseLevel) {
+  if (buyToLevel === baseLevel) {
     totalCost = baseCost * (1 + 2 * c * baseLevel)
   }
   return {

@@ -729,7 +729,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       lol.innerHTML = i18next.t('shop.upgradeEffects.calculator3', { amount1: format(10 * player.shopUpgrades.calculator3), amount2: format(60 * player.shopUpgrades.calculator3) })
       break
     case 'calculator4':
-      lol.innerHTML = i18next.t('shop.upgradeEffects.calculator4', { amount1: format(2 * player.shopUpgrades.calculator4), amount2: player.shopUpgrades.calculator4 == 10 ? 32 : 0 })
+      lol.innerHTML = i18next.t('shop.upgradeEffects.calculator4', { amount1: format(2 * player.shopUpgrades.calculator4), amount2: player.shopUpgrades.calculator4 === 10 ? 32 : 0 })
       break
     case 'calculator5':
       lol.innerHTML = i18next.t('shop.upgradeEffects.calculator5', { amount1: format(6 * player.shopUpgrades.calculator5), amount2: Math.floor(player.shopUpgrades.calculator5 / 10) + (player.shopUpgrades.calculator4 === shopData.calculator5.maxLevel ? 6 : 0) })

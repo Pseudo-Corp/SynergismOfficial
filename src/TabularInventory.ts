@@ -33,7 +33,7 @@ export class TabularInventory {
       for (let i = 0; i < Math.min(this.rows * this.columns, preset.length); i++) {
         start += 1
         this.items[i] = preset[i]
-        if (preset[i] == NullItem && this.lowestPopulated === -1) {
+        if (preset[i] === NullItem && this.lowestPopulated === -1) {
           this.lowestPopulated = i
         }
       }
@@ -69,7 +69,7 @@ export class TabularInventory {
     //We want to find the next lowest item that can be populated later.
     //(Note: this may be able to be made into O(1) though I'm insure -Platonic)
     for (let i = this.lowestPopulated + 1; i < this.rows * this.columns; i++) {
-      if (this.items[i] == NullItem) {
+      if (this.items[i] === NullItem) {
         updatedPopulated = true
         this.lowestPopulated = i
         break

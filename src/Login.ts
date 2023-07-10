@@ -69,7 +69,7 @@ export async function handleLogin () {
   } else {
     // User is not logged in
     subtabElement.innerHTML = `
-      <img id="discord-logo" alt="discord logo" label="discord logo" src="Pictures/discord-mark-blue.png" loading="lazy">
+      <img id="discord-logo" alt="Discord Logo" src="Pictures/discord-mark-blue.png" loading="lazy">
       <br>
       <form action="https://discord.com/oauth2/authorize">
         <input type="hidden" name="response_type" value="code" />
