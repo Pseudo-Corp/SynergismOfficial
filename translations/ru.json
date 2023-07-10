@@ -2894,12 +2894,29 @@
       "enhance": "ЗАЧАРОВАТЬ",
       "respec": "ПЕРЕНАБОР",
       "respecAll": "ПЕРЕНАБРАТЬ ВСЁ",
+      "respecConfirm": "Confirm [-100,000 Offerings]",
+      "respecConfirmAll": "Confirm All [-400,000 Offerings]",
+      "respecCancel": "Cancel Respec Changes",
+      "respecSummary": "+-==-+ Select for 3 GREEN Runes, for Respec! +-==-+",
       "buy": "КУПИТЬ",
       "buyAll": "КУПИТЬ ВСЕ",
       "autoBuyOn": "Автопокупка: ВКЛ",
       "autoBuyOff": "Автопокупка: ВЫКЛ",
       "clickBuyEveryType": "Нажмите, чтобы купить все виды Осколков Талисманов, если они доступны",
       "costToBuy": "Цена покупки {{name}} ({{buyAmount}}): {{obtainium}} Обтаниума и {{offerings}} Подношений.",
+      "modifiers": {
+        "positive": "{{name}}: Positive",
+        "negative": "{{name}}: Negative"
+      },
+      "shards": {
+        "shard": "Talisman Shard",
+        "commonFragment": "Common Fragment",
+        "uncommonFragment": "Uncommon Fragment",
+        "rareFragment": "Rare Fragment",
+        "epicFragment": "Epic Fragment",
+        "legendaryFragment": "Legendary Fragment",
+        "mythicalFragment": "Mythical Fragment"
+      },
       "names": {
         "exemption": "Освобождение",
         "chronos": "Хронос",

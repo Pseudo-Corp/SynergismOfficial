@@ -2894,12 +2894,29 @@
       "enhance": "升阶",
       "respec": "变配",
       "respecAll": "全部变配",
+      "respecConfirm": "Confirm [-100,000 Offerings]",
+      "respecConfirmAll": "Confirm All [-400,000 Offerings]",
+      "respecCancel": "Cancel Respec Changes",
+      "respecSummary": "+-==-+ Select for 3 GREEN Runes, for Respec! +-==-+",
       "buy": "购买",
       "buyAll": "全部购买",
       "autoBuyOn": "自动购买：开",
       "autoBuyOff": "自动购买：关",
       "clickBuyEveryType": "点击后将尽可能购买所有碎片",
       "costToBuy": "购买{{buyAmount}}个{{name}}花费：{{obtainium}}难得素及{{offerings}}祭品。",
+      "modifiers": {
+        "positive": "{{name}}: Positive",
+        "negative": "{{name}}: Negative"
+      },
+      "shards": {
+        "shard": "Talisman Shard",
+        "commonFragment": "Common Fragment",
+        "uncommonFragment": "Uncommon Fragment",
+        "rareFragment": "Rare Fragment",
+        "epicFragment": "Epic Fragment",
+        "legendaryFragment": "Legendary Fragment",
+        "mythicalFragment": "Mythical Fragment"
+      },
       "names": {
         "exemption": "免税",
         "chronos": "时光",

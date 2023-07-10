@@ -9,38 +9,31 @@ import i18next from 'i18next'
 const talismanResourceCosts = {
   shard: {
     obtainium: 1e13,
-    offerings: 1e2,
-    name: 'Talisman Shard'
+    offerings: 1e2
   },
   commonFragment: {
     obtainium: 1e14,
-    offerings: 1e4,
-    name: 'Common Fragment'
+    offerings: 1e4
   },
   uncommonFragment: {
     obtainium: 1e16,
-    offerings: 1e5,
-    name: 'Uncommon Fragment'
+    offerings: 1e5
   },
   rareFragment: {
     obtainium: 1e18,
-    offerings: 1e6,
-    name: 'Rare Fragment'
+    offerings: 1e6
   },
   epicFragment: {
     obtainium: 1e20,
-    offerings: 1e7,
-    name: 'Epic Fragment'
+    offerings: 1e7
   },
   legendaryFragment: {
     obtainium: 1e22,
-    offerings: 1e8,
-    name: 'Legendary Fragment'
+    offerings: 1e8
   },
   mythicalFragment: {
     obtainium: 1e24,
-    offerings: 1e9,
-    name: 'Mythical Fragment'
+    offerings: 1e9
   }
 }
 
@@ -78,10 +71,10 @@ export const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCos
   const el = DOMCacheGetOrSet('talismanFragmentCost')
   if (type) {
     const talismanCostInfo = getTalismanResourceInfo(type, percentage)
-    const TalismanName = talismanResourceCosts[type].name
+    const talismanShardName = i18next.t('runes.talismans.shards.' + type)
 
     el.textContent = i18next.t('runes.talismans.costToBuy', {
-      name: TalismanName,
+      name: talismanShardName,
       buyAmount: format(talismanCostInfo.buyAmount),
       obtainium: format(talismanCostInfo.obtainiumCost),
       offerings: format(talismanCostInfo.offeringCost)
@@ -294,46 +287,45 @@ export const showRespecInformation = (i: number) => {
   DOMCacheGetOrSet('talismanlevelup').style.display = 'none'
   DOMCacheGetOrSet('talismanrespec').style.display = 'block'
 
-  const runeName = ['Speed Rune', 'Duplication Rune', 'Prism Rune', 'Thrift Rune', 'SI Rune']
-  const runeModifier = ['Positive', 'Positive', 'Positive', 'Positive']
+  const runeName = ['speed', 'duplication', 'prism', 'thrift', 'SI']
+  const runeModifier = ['positive', 'positive', 'positive', 'positive', 'positive']
   if (i <= 6) {
     for (let k = 1; k <= 5; k++) {
       G.mirrorTalismanStats[k] = player[`talisman${num[i]}` as const][k]
     }
-    DOMCacheGetOrSet('confirmTalismanRespec').textContent = 'Confirm [-100,000 Offerings]'
+    DOMCacheGetOrSet('confirmTalismanRespec').textContent = i18next.t('runes.talismans.respecConfirm')
   }
   if (i === 7) {
     for (let k = 1; k <= 5; k++) {
       G.mirrorTalismanStats[k] = 1
     }
-    DOMCacheGetOrSet('confirmTalismanRespec').textContent = 'Confirm ALL [-400,000 Offerings]'
+    DOMCacheGetOrSet('confirmTalismanRespec').textContent = i18next.t('runes.talismans.respecConfirmAll')
   }
   for (let j = 1; j <= 5; j++) {
+    const el = DOMCacheGetOrSet(`talismanRespecButton${j}`)
     if (G.mirrorTalismanStats[j] === 1) {
-      DOMCacheGetOrSet(`talismanRespecButton${j}`).style.border = '2px solid limegreen'
-      runeModifier[j-1] = 'Positive'
+      el.style.border = '2px solid limegreen'
+      runeModifier[j-1] = 'positive'
     } else if (G.mirrorTalismanStats[j] === -1) {
-      DOMCacheGetOrSet(`talismanRespecButton${j}`).style.border = '2px solid crimson'
-      runeModifier[j-1] = 'Negative'
+      el.style.border = '2px solid crimson'
+      runeModifier[j-1] = 'negative'
     }
-    DOMCacheGetOrSet(`talismanRespecButton${j}`).textContent = runeName[j-1] + ': ' + runeModifier[j-1]
+    el.textContent = i18next.t(`runes.talismans.modifiers.${runeModifier[j-1]}`, { name: i18next.t(`runes.names.${runeName[j-1]}`) })
   }
 
   DOMCacheGetOrSet('confirmTalismanRespec').style.display = 'none'
 }
 
 export const changeTalismanModifier = (i: number) => {
-  const runeName = [null, 'Speed Rune', 'Duplication Rune', 'Prism Rune', 'Thrift Rune', 'SI Rune']
+  const runeName = [null, 'speed', 'duplication', 'prism', 'thrift', 'SI']
   const el = DOMCacheGetOrSet(`talismanRespecButton${i}`)
   if (G.mirrorTalismanStats[i] === 1) {
     G.mirrorTalismanStats[i] = (-1)
-    // TODO(@KhafraDev): i18n
-    el.textContent = `${runeName[i]}: Negative`
+    el.textContent = i18next.t('runes.talismans.modifiers.negative', { name: i18next.t(`runes.names.${runeName[i]}`) })
     el.style.border = '2px solid crimson'
   } else {
     G.mirrorTalismanStats[i] = (1)
-    // TODO(@KhafraDev): i18n
-    el.textContent = `${runeName[i]}: Positive`
+    el.textContent = i18next.t('runes.talismans.modifiers.positive', { name: i18next.t(`runes.names.${runeName[i]}`) })
     el.style.border = '2px solid limegreen'
   }
 
@@ -344,7 +336,6 @@ export const changeTalismanModifier = (i: number) => {
   } else {
     DOMCacheGetOrSet('confirmTalismanRespec').style.display = 'none'
   }
-
 }
 
 export const respecTalismanConfirm = (i: number) => {

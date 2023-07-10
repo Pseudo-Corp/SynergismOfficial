@@ -2894,12 +2894,29 @@
       "enhance": "AUMENTAR",
       "respec": "REESPEC",
       "respecAll": "REESPEC TODO",
+      "respecConfirm": "Confirm [-100,000 Offerings]",
+      "respecConfirmAll": "Confirm All [-400,000 Offerings]",
+      "respecCancel": "Cancel Respec Changes",
+      "respecSummary": "+-==-+ Select for 3 GREEN Runes, for Respec! +-==-+",
       "buy": "COMPRA",
       "buyAll": "COMPRA TODO",
       "autoBuyOn": "Auto Compra: ON",
       "autoBuyOff": "Auto Compra: OFF",
       "clickBuyEveryType": "Click para comprar cada tipo de Fragmentos de Talismán y Fragmentos, si se puede comprar",
       "costToBuy": "Coste de comprar {{name}} ({{buyAmount}}): {{obtainium}} Obtainium y {{offerings}} Ofrendas.",
+      "modifiers": {
+        "positive": "{{name}}: Positive",
+        "negative": "{{name}}: Negative"
+      },
+      "shards": {
+        "shard": "Talisman Shard",
+        "commonFragment": "Common Fragment",
+        "uncommonFragment": "Uncommon Fragment",
+        "rareFragment": "Rare Fragment",
+        "epicFragment": "Epic Fragment",
+        "legendaryFragment": "Legendary Fragment",
+        "mythicalFragment": "Mythical Fragment"
+      },
       "names": {
         "exemption": "Exención",
         "chronos": "Cronos",
