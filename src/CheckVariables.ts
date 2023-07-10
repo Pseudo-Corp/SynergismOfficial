@@ -620,6 +620,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
   }
 
+  if (data.wowOcteracts !== undefined || data.wowOcteracts !== null) {
+    player.wowOcteracts = new WowOcteracts(data.wowOcteracts?.value)
+  }
+
   if (data.platonicCubeOpenedDaily === undefined) {
     player.platonicCubeOpenedDaily = 0
     player.platonicCubeQuarkDaily = 0
@@ -851,7 +855,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
   }
 
-  while (player.cubeUpgrades.length < 71) {
+  while (player.cubeUpgrades.length < 81) {
     player.cubeUpgrades.push(0)
   }
 

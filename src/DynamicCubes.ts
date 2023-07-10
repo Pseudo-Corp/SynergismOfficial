@@ -29,6 +29,7 @@ import { Prompt, Alert } from './UpdateHTML'
 import { autoCraftHepteracts } from './Hepteracts'
 import { autoBuyCubeUpgrades, autoTesseractBuildings } from './Cubes'
 import { autoBuyPlatonicUpgrades } from './Platonic'
+import { getNumberOfDigits } from './Utility'
 
 /* Constants */
 
@@ -101,9 +102,13 @@ export abstract class Cube {
       default: return null
     }
   }
+
+  get digits() {
+    return getNumberOfDigits(this.value)
+  }
 }
 
-export class NonOpenableCube extends Cube {
+export abstract class NonOpenableCube extends Cube {
   public autoFunc?: () => void
 
   constructor (
@@ -166,8 +171,7 @@ export abstract class OpenableCube extends Cube {
     } else {
       const percentage = player[this.autoCubeKey] as number
       const amountToOpen = this.autoReq() ? Math.floor(amount * percentage / 100) : 0
-      const remainder = Math.max(0, amount - amountToOpen)
-      this.value = Math.min(1e300, this.value + remainder)
+      this.value = Math.min(1e300, this.value + amount)
       void this.open(amountToOpen, false) // ditto
 
       if (this.autoFunc !== undefined) {
@@ -253,7 +257,6 @@ export class WowCubes extends OpenableCube {
 
   open(value: number, max = false) {
     let toSpend = max ? Number(this) : Math.min(Number(this), value)
-
     if (value === 1 && player.cubeBlessings.accelerator >= 2e11 && player.achievements[246] < 1) {
       achievementaward(246)
     }
@@ -458,4 +461,13 @@ export class WowOcteracts extends NonOpenableCube {
   constructor(amount = Number(player.wowOcteracts)) {
     super(amount)
   }
+}
+
+export const getTotalCubeDigits = () => {
+  return (player.wowCubes.digits +
+          player.wowTesseracts.digits +
+          player.wowHypercubes.digits +
+          player.wowPlatonicCubes.digits +
+          player.wowAbyssals.digits +
+          player.wowOcteracts.digits)
 }

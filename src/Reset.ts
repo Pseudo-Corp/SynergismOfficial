@@ -559,7 +559,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
 
     // If challenge 10 is incomplete, you won't get a cube no matter what
-    if (player.challengecompletions[10] > 0 && player.ascensionCounter > 0) {
+    if (player.challengecompletions[10] > 0 && player.ascensionCounter > 0 && !player.singularityChallenges.staggeredCubes.enabled) {
       player.ascensionCount += calcAscensionCount()
       //Metadata is defined up in the top of the (i > 3.5) case
       // Protect the cube from developer mistakes
@@ -570,6 +570,10 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         player.wowPlatonicCubes.add(metaData[7])
         player.wowAbyssals.add(metaData[8])
       }
+    }
+
+    if (player.singularityChallenges.staggeredCubes.enabled) {
+      player.ascensionCount = 1
     }
 
     for (let j = 1; j <= 10; j++) {

@@ -247,7 +247,11 @@ export const singularityChallengeData: Record<keyof Player['singularityUpgrades'
       return {
         ambrosiaLuck: 40 * n,
         ambrosiaGeneration: 1 + n / 16,
-        cubeAutogen: n/1600 + +(n > 0)/100
+        cubeAuto: (n > 0),
+        tessAuto: (n > 3),
+        hyperAuto: (n > 7),
+        platAuto: (n > 11),
+        heptAuto: (n > 15)
       }
     }
   }

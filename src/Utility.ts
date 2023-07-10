@@ -172,3 +172,15 @@ export function limitRange (number: number, min: number, max: number): number {
 
   return number
 }
+
+export function getNumberOfDigits (number: number): number {
+  if (number < 0) { // Handle negative case gracefully
+    return getNumberOfDigits(-number)
+  }
+
+  if (number >= 0 && number <= 1) {
+    return 1
+  } else {
+    return Math.floor(Math.log10(number)) + 1
+  }
+}

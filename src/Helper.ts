@@ -1,5 +1,5 @@
 import { sacrificeAnts } from './Ants'
-import { calculateAscensionAcceleration, calculateAutomaticObtainium, calculateGoldenQuarkGain, calculateMaxRunes, calculateObtainium, calculateRequiredBlueberryTime, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
+import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateAutomaticObtainium, calculateGoldenQuarkGain, calculateMaxRunes, calculateObtainium, calculateRequiredBlueberryTime, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
 import { quarkHandler } from './Quark'
 import { redeemShards, unlockedRune, checkMaxRunes } from './Runes'
 import { player } from './Synergism'
@@ -40,6 +40,26 @@ export const addTimers = (input: TimerInput, time = 0) => {
       const ascensionSpeedMulti = (player.singularityUpgrades.oneMind.getEffect().bonus) ? 10 : calculateAscensionAcceleration()
       player.ascensionCounter += time * timeMultiplier * ascensionSpeedMulti
       player.ascensionCounterReal += time * timeMultiplier
+
+      const values = CalcCorruptionStuff() // indices 4-8
+      const maxMult = 10
+
+      // Auto Cubes: Tiers 3 through 7
+      if (player.singularityChallenges.staggeredCubes.enabled || player.singularityChallenges.staggeredCubes.rewards.heptAuto) {
+        player.wowAbyssals.add(Math.min(values[8], maxMult * Number(player.wowAbyssals) + 1))
+      }
+      if (player.singularityChallenges.staggeredCubes.enabled || player.singularityChallenges.staggeredCubes.rewards.platAuto) {
+        player.wowPlatonicCubes.add(Math.min(values[7], maxMult * Number(player.wowPlatonicCubes) + 1))
+      }
+      if (player.singularityChallenges.staggeredCubes.enabled || player.singularityChallenges.staggeredCubes.rewards.hyperAuto) {
+        player.wowHypercubes.add(Math.min(values[6], maxMult * Number(player.wowHypercubes) + 1))
+      }
+      if (player.singularityChallenges.staggeredCubes.enabled || player.singularityChallenges.staggeredCubes.rewards.tessAuto) {
+        player.wowTesseracts.add(Math.min(values[5], maxMult * Number(player.wowTesseracts) + 1))
+      }
+      if (player.singularityChallenges.staggeredCubes.enabled || player.singularityChallenges.staggeredCubes.rewards.cubeAuto) {
+        player.wowCubes.add(Math.min(values[4], maxMult * Number(player.wowCubes) + 1))
+      }
       break
 
     }

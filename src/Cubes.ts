@@ -35,7 +35,8 @@ const cubeBaseCost = [
   5e5, 3e5, 2e6, 4e6, 2e6, 4e6, 1e6, 2e7, 5e7, 1e7,
   5e6, 1e7, 1e8, 4e7, 2e7, 4e7, 5e7, 1e8, 5e8, 1e8,
   1, 1e4, 1e8, 1e12, 1e16, 10, 1e5, 1e9, 1e13, 1e17,
-  1e2, 1e6, 1e10, 1e14, 1e18, 1e20, 1e30, 1e40, 1e50, 1e60
+  1e2, 1e6, 1e10, 1e14, 1e18, 1e20, 1e30, 1e40, 1e50, 1e60,
+  0, 0, 1e20, 1e40, 1e60, 1e100, 1e140, 1e170, 1e200, 1e215
 ]
 
 export const cubeMaxLevel = [
@@ -45,10 +46,19 @@ export const cubeMaxLevel = [
   5, 1, 1, 10, 10, 10, 10, 1, 1, 10,
   5, 10, 10, 10, 10, 20, 20, 1, 1, 100000,
   1, 900, 100, 900, 900, 20, 1, 1, 400, 10000,
-  100, 1, 1, 1, 1, 1, 1, 1000, 1, 100000
+  100, 1, 1, 1, 1, 1, 1, 1000, 1, 100000,
+  1, 1, 1, 3, 1, 100, 100, 1, 1, 1
 ]
 
 const getCubeCost = (i: number, buyMax: boolean): IMultiBuy => {
+
+  if (cubeBaseCost[i-1] === 0) {
+    return {
+      levelCanBuy: getCubeMax(i),
+      cost: 0
+    }
+  }
+
   const linGrowth = (i === 50 ? 0.01 : 0)
   const cubic = i > 50
   const maxLevel = getCubeMax(i)

@@ -132,7 +132,7 @@ export const revealStuff = () => {
 
   const example20 = document.getElementsByClassName('chal10') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example20.length; i++) {
-    player.achievements[141] === 1 ? example20[i].style.display = 'block' : example20[i].style.display = 'none'
+    (player.achievements[141] === 1 || player.highestSingularityCount > 0) ? example20[i].style.display = 'block' : example20[i].style.display = 'none'
   }
 
   const example21 = document.getElementsByClassName('ascendunlock') as HTMLCollectionOf<HTMLElement>

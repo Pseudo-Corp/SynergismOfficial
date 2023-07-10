@@ -2042,6 +2042,10 @@ export const CalcCorruptionStuff = () => {
   const bonusCubeExponent = (player.singularityUpgrades.platonicTau.getEffect().bonus) ? 1.01 : 1
   cubeGain = Math.pow(cubeGain, bonusCubeExponent)
 
+  if (player.singularityChallenges.staggeredCubes.enabled) {
+    cubeGain /= Math.pow(1 + Number(player.wowCubes), 0.5)
+  }
+
   // Calculation of Tesseracts :))
   let tesseractGain = 1
   if (effectiveScore >= 100000) {
@@ -2050,20 +2054,36 @@ export const CalcCorruptionStuff = () => {
   tesseractGain *= calculateTesseractMultiplier(effectiveScore).mult
   tesseractGain *= oneMindModifier
 
+  if (player.singularityChallenges.staggeredCubes.enabled) {
+    tesseractGain /= Math.pow(1 + Number(player.wowTesseracts), 0.5)
+  }
+
   // Calculation of Hypercubes :)))
   let hypercubeGain = (effectiveScore >= 1e9) ? 1 : 0
   hypercubeGain *= calculateHypercubeMultiplier(effectiveScore).mult
   hypercubeGain *= oneMindModifier
+
+  if (player.singularityChallenges.staggeredCubes.enabled) {
+    hypercubeGain /= Math.pow(1 + Number(player.wowHypercubes), 0.5)
+  }
 
   // Calculation of Platonic Cubes :))))
   let platonicGain = (effectiveScore >= 2.666e12) ? 1 : 0
   platonicGain *= calculatePlatonicMultiplier(effectiveScore).mult
   platonicGain *= oneMindModifier
 
+  if (player.singularityChallenges.staggeredCubes.enabled) {
+    platonicGain /= Math.pow(1 + Number(player.wowPlatonicCubes), 0.5)
+  }
+
   // Calculation of Hepteracts :)))))
   let hepteractGain = (G.challenge15Rewards.hepteractUnlocked && effectiveScore >= 1.666e17 && player.achievements[255] > 0) ? 1 : 0
   hepteractGain *= calculateHepteractMultiplier(effectiveScore).mult
   hepteractGain *= oneMindModifier
+
+  if (player.singularityChallenges.staggeredCubes.enabled) {
+    hepteractGain /= Math.pow(1 + Number(player.wowAbyssals), 0.5)
+  }
 
   return [
     cubeBank,

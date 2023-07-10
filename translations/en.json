@@ -1012,8 +1012,16 @@
       "68": "Wow! A box of Not Cookies.",
       "69": "Wow! A box of Cookies Beyond This World.",
       "70": "Wow! A box of Perfect Cookies.",
-      "71": "Wow! A Singular Cookie of Pandora's Benefactory",
-      "72": "Wow! A Singular Cookie of Vyshareth's Benefactory"
+      "71": "Wow! A Hydrolyzed Obtainium Cookie.",
+      "72": "Wow! A Galvanized Offering Cookie.",
+      "73": "Wow! A Cookie of the Astrophysic Lifekind.",
+      "74": "Wow! A Cookie of the Infitesimal Abyss Beyond.",
+      "75": "Wow! A Cookie that Shines Thousandfold.",
+      "76": "Wow! A Blueberry-Infused Blueberry Cookie.",
+      "77": "Wow! A ??? Cookie of Green Hue.",
+      "78": "Wow! A Vanilla Cookie.",
+      "79": "Wow! A Cookie of Newfound Revenge",
+      "80": "Wow! The Absolute Perfection Of Pâtissiership."
     },
     "upgradeDescriptions": {
       "1": "[1x1] You got it! +16.666% 3D Cubes from Ascending per level.",
@@ -1085,7 +1093,17 @@
       "67": "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
       "68": "[Cx18] What the heck! These aren't even cookies. +0.01% Quarks per level purchased of this upgrade. +5% more at level 1,000!",
       "69": "[Cx19] Cookies that you'll never remember again. +12% Golden Quarks this Singularity.",
-      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts on Ascension if the average level of all corruptions is at a minimum of 14."
+      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts on Ascension if the average level of all corruptions is at a minimum of 14.",
+      "71": "[Cx21] Derpsmith hands you a Cookie that is somehow naturally blue. He tells you to eat it immediately. +900% Obtainium if you have not yet ascended this Singularity!",
+      "72": "[Cx22] Derpsmith hands you a Cookie that is somehow naturally orange. He tells you to eat it immediately. +400% Offerings if you have not yet ascended this Singularity!",
+      "73": "[Cx23] The Wizards baked this cookie using demystified Mythos Shards. This cookie enlightens you and immediately maxes Cube Upgrade 5x10, no matter how expensive!",
+      "74": "[Cx24] A cookie that, upon eating it, regresses you back in time. Singularity Debuffs are weakened by 1 Singularity per level.",
+      "75": "[Cx25] This cookie might be lemon flavored, or something. This cookie adds new Challenge 15 milestones, up to 1e111 Challenge Score!",
+      "76": "[Cx26] An truly natural blue cookie, though darker in complexion. The sugar hits you slowly, giving up to +18% more Blueberry Generation Speed over the course of 9 days.",
+      "77": "[Cx27] Speakable horrors have made this cookie green. The sugar hits you slowly, giving up to +135 more Ambrosia Luck over the course of 9 days.",
+      "78": "[Cx28] When this cookie is purchased, obtainium and offering gain is divided by 10 whenever 1e300 is obtained at once. However, each time either is divided, Quark gain is increased by 0.2%",
+      "79": "[Cx29] This cookie makes the Mortuus Est Talisman 66x stronger than before! Don't ask how.",
+      "80": "[CxMAX] The pinnacle of baking. Nothing you'll eat will taste better than this."
     },
     "cubeMetadata": {
       "cost": "Cost: {{value1}} Wow! Cubes [+{{value2}} Levels]",

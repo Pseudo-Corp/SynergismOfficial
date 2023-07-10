@@ -94,25 +94,25 @@ const subtabInfo: Record<TabNames, SubTab> = {
     tabSwitcher: (...args: Parameters<typeof toggleCubeSubTab>) => toggleCubeSubTab(...args),
     subTabList: [
       { subTabID: 1, get unlocked () {
-        return player.achievements[141] > 0
+        return player.achievements[141] > 0 || player.highestSingularityCount > 0
       }, buttonID: 'switchCubeSubTab1' },
       { subTabID: 2, get unlocked () {
-        return player.achievements[197] > 0
+        return player.achievements[197] > 0 || player.highestSingularityCount > 0
       }, buttonID: 'switchCubeSubTab2' },
       { subTabID: 3, get unlocked () {
-        return player.achievements[211] > 0
+        return player.achievements[211] > 0 || player.highestSingularityCount > 0
       }, buttonID: 'switchCubeSubTab3' },
       { subTabID: 4, get unlocked () {
-        return player.achievements[218] > 0
+        return player.achievements[218] > 0 || player.highestSingularityCount > 0
       }, buttonID: 'switchCubeSubTab4' },
       { subTabID: 5, get unlocked () {
-        return player.achievements[141] > 0
+        return player.achievements[141] > 0 || player.highestSingularityCount > 0
       }, buttonID: 'switchCubeSubTab5' },
       { subTabID: 6, get unlocked () {
-        return player.achievements[218] > 0
+        return player.achievements[218] > 0 || player.highestSingularityCount > 0
       }, buttonID: 'switchCubeSubTab6' },
       { subTabID: 7, get unlocked () {
-        return player.challenge15Exponent >= 1e15
+        return player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0
       }, buttonID: 'switchCubeSubTab7' }]
   },
   traits: {
@@ -158,7 +158,7 @@ const tabsInfo: Record<TabNames, () => boolean> = {
   challenge: () => player.unlocks.transcend,
   research: () => player.unlocks.reincarnate,
   ant: () => player.achievements[127] > 0,
-  cube: () => player.achievements[141] > 0,
+  cube: () => player.achievements[141] > 0 || player.highestSingularityCount > 0,
   traits: () => player.challengecompletions[11] > 0,
   singularity: () => player.highestSingularityCount > 0,
   event: () => G.isEvent
