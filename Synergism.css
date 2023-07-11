@@ -20,6 +20,10 @@ html {
     scrollbar-width: none;
 }
 
+img {
+    image-rendering: pixelated;
+}
+
 .scrollbar,
 .scrollbarX {
     overflow-y: auto;
@@ -3627,7 +3631,6 @@ img#singularityPerksIcon {
 #singularityPerksDesc {
     display: block;
     white-space: pre-line;
-    border: 2px solid gold;
     margin: 5px 5px 1px;
     height: 150px;
     min-width: 39em;
@@ -3673,7 +3676,7 @@ img#singularityPerksIcon {
     justify-items: left;
     align-items: center;
     text-align: center;
-    padding-left: 2px;
+    padding: 2px;
     cursor: pointer;
     color: gold;
     border: 2px ridge gold;
@@ -3688,7 +3691,7 @@ img#singularityPerksIcon {
     justify-items: left;
     align-items: center;
     text-align: center;
-    padding-left: 2px;
+    padding: 2px;
     cursor: pointer;
     border: 2px solid gold;
     background-color: var(--button-color);
