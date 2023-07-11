@@ -1132,7 +1132,7 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
 
   ok.addEventListener('click', listener, { once: true })
   cancel.addEventListener('click', listener, { once: true })
-  popup.querySelector('input')!.addEventListener('keyup', kbListener, { once: true })
+  popup.querySelector('input')!.addEventListener('keyup', kbListener)
 
   return p.promise
 }
