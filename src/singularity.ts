@@ -1688,7 +1688,7 @@ export const singularityPerks: SingularityPerk[] = [
         current: format(Math.min(50, 0.2 * player.singularityCount), 1)
       })
     },
-    ID: 'goldenRevolutionII'
+    ID: 'goldenRevolution2'
   },
   {
     name: () => {
@@ -1700,7 +1700,7 @@ export const singularityPerks: SingularityPerk[] = [
         current: format(Math.min(500, 2 * player.singularityCount))
       })
     },
-    ID: 'goldenRevolutionIII'
+    ID: 'goldenRevolution3'
   },
   {
     name: () => {
