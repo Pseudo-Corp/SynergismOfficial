@@ -23,7 +23,7 @@ import type { OneToFive, Player } from './types/Synergism'
 import { displayStats } from './Statistics'
 import { testing } from './Config'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { toggleAnnotation, toggleTheme, toggleIconSet, imgErrorHandler } from './Themes'
+import { toggleAnnotation, toggleTheme, toggleIconSet, IconSets, imgErrorHandler } from './Themes'
 import { buyGoldenQuarks, singularityPerks, getLastUpgradeInfo } from './singularity'
 import { resetHotkeys } from './Hotkeys'
 import { generateExportSummary } from './Summary'
@@ -647,7 +647,7 @@ TODO: Fix this entire tab it's utter shit
   const perksDesc = DOMCacheGetOrSet('singularityPerksDesc')
   for (const perk of singularityPerks) {
     const perkHTML = document.createElement('span')
-    perkHTML.innerHTML= `<img src="Pictures/Default/perk${perk.ID}.png">${perk.name()}`
+    perkHTML.innerHTML= `<img src="Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png">${perk.name()}`
     perkHTML.id = perk.ID
     perkHTML.classList.add('oldPerk')
     perkHTML.style.display = 'none' //Ensure the perk is hidden if not unlocked as an anti-spoiler failsafe.
@@ -655,7 +655,7 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet(perk.ID).addEventListener('mouseover', () => {
       const perkInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
       const levelInfo = `${i18next.t('general.level')} ${perkInfo.level} - (Singularity ${perkInfo.singularity})`
-      perkImage.src = `Pictures/Default/perk${perk.ID}.png`
+      perkImage.src = `Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png`
       perksText.textContent = levelInfo
       perksDesc.textContent = perk.description(player.highestSingularityCount, perk.levels)
     })
