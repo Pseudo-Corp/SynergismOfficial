@@ -2894,12 +2894,29 @@
       "enhance": "ENHANCE",
       "respec": "RESPEC",
       "respecAll": "RESPEC ALL",
+      "respecConfirm": "Confirm [-100,000 Offerings]",
+      "respecConfirmAll": "Confirm All [-400,000 Offerings]",
+      "respecCancel": "Cancel Respec Changes",
+      "respecSummary": "+-==-+ Select for 3 GREEN Runes, for Respec! +-==-+",
       "buy": "BUY",
       "buyAll": "BUY ALL",
       "autoBuyOn": "Auto Buy: ON",
       "autoBuyOff": "Auto Buy: OFF",
       "clickBuyEveryType": "Click to buy every type of Talisman Shards and Fragments, if affordable",
       "costToBuy": "Cost to buy {{name}} ({{buyAmount}}): {{obtainium}} Obtainium and {{offerings}} Offerings.",
+      "modifiers": {
+        "positive": "{{name}}: Positive",
+        "negative": "{{name}}: Negative"
+      },
+      "shards": {
+        "shard": "Talisman Shard",
+        "commonFragment": "Common Fragment",
+        "uncommonFragment": "Uncommon Fragment",
+        "rareFragment": "Rare Fragment",
+        "epicFragment": "Epic Fragment",
+        "legendaryFragment": "Legendary Fragment",
+        "mythicalFragment": "Mythical Fragment"
+      },
       "names": {
         "exemption": "Exemption",
         "chronos": "Chronos",
