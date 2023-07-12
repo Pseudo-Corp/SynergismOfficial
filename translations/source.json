@@ -3203,6 +3203,7 @@
       },
       "platonicUpgrades": {
         "header": "===Upgrade Description===",
+        "clickIcon": "Click an icon for info!",
         "level": "Level: {{value1}}/{{value2}}",
         "levelMax": "Level: {{value1}}/{{value2}} [MAX]",
         "costHeader": "===Upgrade Costs===",
