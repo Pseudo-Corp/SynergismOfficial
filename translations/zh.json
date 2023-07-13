@@ -2894,10 +2894,10 @@
       "enhance": "升阶",
       "respec": "变配",
       "respecAll": "全部变配",
-      "respecConfirm": "Confirm [-100,000 Offerings]",
-      "respecConfirmAll": "Confirm All [-400,000 Offerings]",
-      "respecCancel": "Cancel Respec Changes",
-      "respecSummary": "+-==-+ Select for 3 GREEN Runes, for Respec! +-==-+",
+      "respecConfirm": "确认 [-100,000 祭品]",
+      "respecConfirmAll": "确认全部 [-400,000 祭品]",
+      "respecCancel": "取消变配",
+      "respecSummary": "+-==-+ 选中 3 个绿色符文，以变配！+-=-+",
       "buy": "购买",
       "buyAll": "全部购买",
       "autoBuyOn": "自动购买：开",
@@ -2905,17 +2905,17 @@
       "clickBuyEveryType": "点击后将尽可能购买所有碎片",
       "costToBuy": "购买{{buyAmount}}个{{name}}花费：{{obtainium}}难得素及{{offerings}}祭品。",
       "modifiers": {
-        "positive": "{{name}}: Positive",
-        "negative": "{{name}}: Negative"
+        "positive": "{{name}}：是",
+        "negative": "{{name}}：否"
       },
       "shards": {
-        "shard": "Talisman Shard",
-        "commonFragment": "Common Fragment",
-        "uncommonFragment": "Uncommon Fragment",
-        "rareFragment": "Rare Fragment",
-        "epicFragment": "Epic Fragment",
-        "legendaryFragment": "Legendary Fragment",
-        "mythicalFragment": "Mythical Fragment"
+        "shard": "护身符碎片",
+        "commonFragment": "普通碎片",
+        "uncommonFragment": "罕见碎片",
+        "rareFragment": "稀有碎片",
+        "epicFragment": "史诗碎片",
+        "legendaryFragment": "传奇碎片",
+        "mythicalFragment": "神话碎片"
       },
       "names": {
         "exemption": "免税",
