@@ -2894,10 +2894,10 @@
       "enhance": "ЗАЧАРОВАТЬ",
       "respec": "ПЕРЕНАБОР",
       "respecAll": "ПЕРЕНАБРАТЬ ВСЁ",
-      "respecConfirm": "Confirm [-100,000 Offerings]",
-      "respecConfirmAll": "Confirm All [-400,000 Offerings]",
-      "respecCancel": "Cancel Respec Changes",
-      "respecSummary": "+-==-+ Select for 3 GREEN Runes, for Respec! +-==-+",
+      "respecConfirm": "Подтвердить [-100,000 Подношений]",
+      "respecConfirmAll": "Подтвердить Все [-400,000 Подношений]",
+      "respecCancel": "Отменить Изменения Перенабора",
+      "respecSummary": "+-==-+ Для Перенабора, выберите 3 ЗЕЛЁНЫХ Руны +-==-+",
       "buy": "КУПИТЬ",
       "buyAll": "КУПИТЬ ВСЕ",
       "autoBuyOn": "Автопокупка: ВКЛ",
@@ -2905,17 +2905,17 @@
       "clickBuyEveryType": "Нажмите, чтобы купить все виды Осколков Талисманов, если они доступны",
       "costToBuy": "Цена покупки {{name}} ({{buyAmount}}): {{obtainium}} Обтаниума и {{offerings}} Подношений.",
       "modifiers": {
-        "positive": "{{name}}: Positive",
-        "negative": "{{name}}: Negative"
+        "positive": "{{name}}: Активна",
+        "negative": "{{name}}: Неактивна"
       },
       "shards": {
-        "shard": "Talisman Shard",
-        "commonFragment": "Common Fragment",
-        "uncommonFragment": "Uncommon Fragment",
-        "rareFragment": "Rare Fragment",
-        "epicFragment": "Epic Fragment",
-        "legendaryFragment": "Legendary Fragment",
-        "mythicalFragment": "Mythical Fragment"
+        "shard": "Осколок Талисмана",
+        "commonFragment": "Обычный Фрагмент",
+        "uncommonFragment": "Необычный Фрагмент",
+        "rareFragment": "Редкий Фрагмент",
+        "epicFragment": "Эпический Фрагмент",
+        "legendaryFragment": "Легендарный Фрагмент",
+        "mythicalFragment": "Мифический Фрагмент"
       },
       "names": {
         "exemption": "Освобождение",
