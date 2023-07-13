@@ -90,7 +90,7 @@ export async function handleLogin () {
                                <span style="color: green">Reincarnated Baller</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
                                <span style="color: orange">ASCENDED Baller</span> [+4%] - ${hasTier3 ? checkMark(4) : exMark}
                                <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${hasTier4 ? checkMark(5) : exMark}
-                               <span style="color: #f47fff>Boosted the Discord Server</span> [+1%] - ${boosted ? checkMark(1) : exMark}
+                               <span style="color: #f47fff">Boosted the Discord Server</span> [+1%] - ${boosted ? checkMark(1) : exMark} \n
                                The current maximum is 15%, by boosting the server and being an OMEGA Baller on Patreon!
                               
                                More will be incorporated both for general accounts and supporters of the game shortly.
