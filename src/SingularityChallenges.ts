@@ -236,7 +236,7 @@ export const singularityChallengeData: Record<keyof Player['singularityUpgrades'
     }
   },
   staggeredCubes: {
-    baseReq: 125,
+    baseReq: 175,
     maxCompletions: 16,
     unlockSingularity: 260,
     HTMLTag: 'staggeredCubes',

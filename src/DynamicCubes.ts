@@ -348,7 +348,7 @@ export class WowTesseracts extends OpenableCube {
 
     calculateTesseractBlessings()
     const extraCubeBlessings = Math.floor(12 * toSpend * player.researches[153])
-    player.wowCubes.add(extraCubeBlessings, true)
+    player.wowCubes.add(extraCubeBlessings, false)
   }
 }
 
