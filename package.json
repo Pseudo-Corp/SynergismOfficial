@@ -19,7 +19,7 @@
     "esbuild": "^0.17.15",
     "eslint": "^8.37.0",
     "htmlhint": "^1.1.4",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "stylelint": "^14.8.2",
     "stylelint-config-standard": "^25.0.0",
     "typescript": "^5.0.3"

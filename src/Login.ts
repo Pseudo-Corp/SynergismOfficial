@@ -64,7 +64,7 @@ export async function handleLogin () {
 
     player.worlds = new QuarkHandler({
       quarks: Number(player.worlds),
-      bonus: globalBonus * (1 + personalBonus / 100) // Multiplicative
+      bonus: 100 * (1 + globalBonus/100) * (1 + personalBonus/100) - 100 // Multiplicative
     })
 
     DOMCacheGetOrSet('currentBonus').textContent =
@@ -90,11 +90,15 @@ export async function handleLogin () {
                                <span style="color: green">Reincarnated Baller</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
                                <span style="color: orange">ASCENDED Baller</span> [+4%] - ${hasTier3 ? checkMark(4) : exMark}
                                <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${hasTier4 ? checkMark(5) : exMark}
-                               <span style="color: #f47fff">Boosted the Discord Server</span> [+1%] - ${boosted ? checkMark(1) : exMark} \n
-                               The current maximum is 15%, by boosting the server and being an OMEGA Baller on Patreon!
+                               <span style="color: #f47fff">Discord Server Booster</span> [+1%] - ${boosted ? checkMark(1) : exMark}
+                               And Finally...
+                               <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${checkMark(1)}
+
+                               The current maximum is 16%, by being a Discord server booster and an OMEGA Baller on Patreon!
                               
                                More will be incorporated both for general accounts and supporters of the game shortly.
-                               Become a supporter of development via the link below, and get special bonuses!
+                               Become a supporter of development via the link below, and get special bonuses,
+                               while also improving the Global Bonus for all to enjoy!
                                <a href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
                                <span style="color: lightgoldenrodyellow">--> PATREON <--</span>
                                </a>
