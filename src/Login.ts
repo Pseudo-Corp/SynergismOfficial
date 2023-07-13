@@ -2,6 +2,12 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { QuarkHandler } from './Quark'
 import { player } from './Synergism'
 
+// Consts for Patreon Supporter Roles.
+const TRANSCENDED_BALLER = '756419583941804072'
+const REINCARNATED_BALLER = '758859750070026241'
+const ASCENDED_BALLER = '758861068188647444'
+const OMEGA_BALLER = '832099983389097995'
+
 /**
  * @see https://discord.com/developers/docs/resources/user#user-object
  */
@@ -58,14 +64,41 @@ export async function handleLogin () {
 
     player.worlds = new QuarkHandler({
       quarks: Number(player.worlds),
-      bonus: globalBonus + personalBonus
+      bonus: globalBonus * (1 + personalBonus / 100) // Multiplicative
     })
 
     DOMCacheGetOrSet('currentBonus').textContent =
       `Generous patrons give you a bonus of ${globalBonus}% more Quarks! ` +
-      `You also receive an extra ${personalBonus}% bonus for being a Patreon and/or boosting the Discord server!`
+      `You also receive an extra ${personalBonus}% bonus for being a Patreon and/or boosting the Discord server! Multiplicative with global bonus!`
 
-    subtabElement.innerHTML = `Khafra got bored and didn't bother to add an account page! Here is your account info: ${member}`
+    const user = member?.user?.username ?? 'player'
+    const boosted = Boolean(member?.premium_since)
+    const hasTier1 = member?.roles.includes(TRANSCENDED_BALLER) ?? false
+    const hasTier2 = member?.roles.includes(REINCARNATED_BALLER) ?? false
+    const hasTier3 = member?.roles.includes(ASCENDED_BALLER) ?? false
+    const hasTier4 = member?.roles.includes(OMEGA_BALLER) ?? false
+
+    const checkMark = (n: number) => {
+      return `<span style="color: lime">[✔] {+${n}%}</span>`
+    }
+
+    const exMark = '<span style="color: crimson">[✖] {+0%}</span>'
+
+    subtabElement.innerHTML = `Hello, ${user}!\n
+                               Your personal bonus is ${personalBonus}%, computed by the following:
+                               <span style="color: orchid">Transcended Baller</span> [+2%] - ${hasTier1 ? checkMark(2) : exMark}
+                               <span style="color: green">Reincarnated Baller</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
+                               <span style="color: orange">ASCENDED Baller</span> [+4%] - ${hasTier3 ? checkMark(4) : exMark}
+                               <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${hasTier4 ? checkMark(5) : exMark}
+                               <span style="color: #f47fff>Boosted the Discord Server</span> [+1%] - ${boosted ? checkMark(1) : exMark}
+                               The current maximum is 15%, by boosting the server and being an OMEGA Baller on Patreon!
+                              
+                               More will be incorporated both for general accounts and supporters of the game shortly.
+                               Become a supporter of development via the link below, and get special bonuses!
+                               <a href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
+                               <span style="color: lightgoldenrodyellow">--> PATREON <--</span>
+                               </a>
+                               `
   } else {
     // User is not logged in
     subtabElement.innerHTML = `
