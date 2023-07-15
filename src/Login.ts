@@ -54,22 +54,24 @@ interface SynergismUserAPIResponse {
 
 export async function handleLogin () {
   const subtabElement = document.querySelector('#accountSubTab > div.scrollbarX')!
+  const currentBonus = DOMCacheGetOrSet('currentBonus')
+
+  const response = await fetch('https://synergism.cc/api/v1/users/me')
+  const { globalBonus, member, personalBonus } = await response.json() as SynergismUserAPIResponse
+
+  player.worlds = new QuarkHandler({
+    quarks: Number(player.worlds),
+    bonus: 100 * (1 + globalBonus/100) * (1 + personalBonus/100) - 100 // Multiplicative
+  })
+
+  currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 
   if (location.hostname !== 'synergism.cc') {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
   } else if (document.cookie.length) {
-    const response = await fetch('/api/v1/users/me')
-    const { globalBonus, member, personalBonus } = await response.json() as SynergismUserAPIResponse
-
-    player.worlds = new QuarkHandler({
-      quarks: Number(player.worlds),
-      bonus: 100 * (1 + globalBonus/100) * (1 + personalBonus/100) - 100 // Multiplicative
-    })
-
-    DOMCacheGetOrSet('currentBonus').textContent =
-      `Generous patrons give you a bonus of ${globalBonus}% more Quarks! ` +
-      `You also receive an extra ${personalBonus}% bonus for being a Patreon and/or boosting the Discord server! Multiplicative with global bonus!`
+    currentBonus.textContent +=
+      ` You also receive an extra ${personalBonus}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!`
 
     const user = member?.user?.username ?? 'player'
     const boosted = Boolean(member?.premium_since)
