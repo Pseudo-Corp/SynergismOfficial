@@ -57,6 +57,12 @@ export async function handleLogin () {
   const currentBonus = DOMCacheGetOrSet('currentBonus')
 
   const response = await fetch('https://synergism.cc/api/v1/users/me')
+
+  if (!response.ok) {
+    currentBonus.textContent = `Oh no! I couldn't fetch the bonus... Please send this to Khafra in the Discord: ${await response.text()}.`
+    return
+  }
+
   const { globalBonus, member, personalBonus } = await response.json() as SynergismUserAPIResponse
 
   player.worlds = new QuarkHandler({
