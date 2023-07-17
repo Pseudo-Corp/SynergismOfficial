@@ -18,9 +18,12 @@ import { octeractData, OcteractUpgrade } from './Octeracts'
 import type { ISingularityChallengeData } from './SingularityChallenges'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import i18next from 'i18next'
-import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
-import type { IBlueberryData } from './BlueberryUpgrades'
+import { cacheReinitialize } from './StatCache/StatCache'
+import { type IBlueberryData } from './BlueberryUpgrades'
 import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
+import { AmbrosiaLuckCache } from './StatCache/Variants/AdditionCache/AmbrosiaLuck'
+import { BlueberryInventoryCache } from './StatCache/Variants/AdditionCache/BlueberryInventory'
+import { AmbrosiaGenerationCache } from './StatCache/Variants/MultiplicationCache/AmbrosiaGenerationCache'
 
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 

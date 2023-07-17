@@ -8,8 +8,10 @@ import type { QuarkHandler } from '../Quark';
 import { SingularityUpgrade } from '../singularity';
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges';
 import type { TabNames } from '../Tabs'
-import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache } from '../StatCache';
 import { BlueberryUpgrade } from '../BlueberryUpgrades';
+import { AmbrosiaLuckCache } from '../StatCache/Variants/AdditionCache/AmbrosiaLuck';
+import { AmbrosiaGenerationCache } from '../StatCache/Variants/MultiplicationCache/AmbrosiaGenerationCache';
+import { BlueberryInventoryCache } from '../StatCache/Variants/AdditionCache/BlueberryInventory';
 
 export interface Player {
     firstPlayed: string
@@ -600,7 +602,6 @@ export interface Player {
     theme: string
     iconSet: number
     notation: string
-
     singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
     octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade>
     dailyCodeUsed: boolean

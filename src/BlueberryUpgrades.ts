@@ -101,7 +101,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
         break
       } else {
         if (this.level === 0) {
-          const availableBlueberries = player.caches.blueberryInventory.totalVal - player.spentBlueberries
+          const availableBlueberries = player.caches.blueberryInventory.total - player.spentBlueberries
           if (availableBlueberries < this.blueberryCost) {
             return Alert(i18next.t('ambrosia.notEnoughBlueberries'))
           } else {
@@ -321,7 +321,7 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.0002 * n
-      const val = 1 + baseVal * player.caches.ambrosiaLuck.totalVal
+      const val = 1 + baseVal * player.caches.ambrosiaLuck.total
       return {
         cubes: val,
         desc: String(i18next.t('ambrosia.data.ambrosiaLuckCube1.effect', { amount: format(100 * (val - 1), 2, true) }))
@@ -361,8 +361,8 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.0001 * n
-      const effectiveLuck = Math.min(player.caches.ambrosiaLuck.totalVal,
-        Math.pow(1000, 0.5) * Math.pow(player.caches.ambrosiaLuck.totalVal, 0.5))
+      const effectiveLuck = Math.min(player.caches.ambrosiaLuck.total,
+        Math.pow(1000, 0.5) * Math.pow(player.caches.ambrosiaLuck.total, 0.5))
       const val = 1 + baseVal * effectiveLuck
       return {
         quarks: val,
@@ -505,7 +505,7 @@ export const validateBlueberryTree = (modules: BlueberryOpt) => {
   }
 
   const ambrosiaBudget = player.lifetimeAmbrosia
-  const blueberryBudget = player.caches.blueberryInventory.totalVal
+  const blueberryBudget = player.caches.blueberryInventory.total
 
   let spentAmbrosia = 0
   let spentBlueberries = 0

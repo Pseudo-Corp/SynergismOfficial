@@ -52,8 +52,11 @@ import { SingularityChallenge, singularityChallengeData } from './SingularityCha
 import { init as i18nInit } from './i18n'
 import i18next from 'i18next'
 import { changeTab, changeSubTab } from './Tabs'
-import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
+import { cacheReinitialize } from './StatCache/StatCache'
 import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
+import { AmbrosiaLuckCache } from './StatCache/Variants/AdditionCache/AmbrosiaLuck'
+import { AmbrosiaGenerationCache } from './StatCache/Variants/MultiplicationCache/AmbrosiaGenerationCache'
+import { BlueberryInventoryCache } from './StatCache/Variants/AdditionCache/BlueberryInventory'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),

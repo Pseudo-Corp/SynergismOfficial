@@ -802,15 +802,15 @@ export const visualUpdateAmbrosia = () => {
     return
   }
 
-  const luck = player.caches.ambrosiaLuck.totalVal
+  const luck = player.caches.ambrosiaLuck.total
   const guaranteed = 1 + Math.floor(luck/100)
   const chance = luck - 100 * Math.floor(luck/100)
   const requiredTime = calculateRequiredBlueberryTime()
   const cubePercent = 100 * (calculateAmbrosiaCubeMult() - 1)
   const quarkPercent = 100 * (calculateAmbrosiaQuarkMult() - 1)
-  const availableBlueberries = player.caches.blueberryInventory.totalVal - player.spentBlueberries
+  const availableBlueberries = player.caches.blueberryInventory.total - player.spentBlueberries
   DOMCacheGetOrSet('ambrosiaAmount').innerHTML = i18next.t('ambrosia.amount', { ambrosia: format(player.ambrosia, 0, true), lifetimeAmbrosia: format(player.lifetimeAmbrosia, 0, true) })
-  DOMCacheGetOrSet('ambrosiaChance').innerHTML = i18next.t('ambrosia.blueberryGeneration', { chance: format(player.caches.ambrosiaGeneration.totalVal, 2, true) })
+  DOMCacheGetOrSet('ambrosiaChance').innerHTML = i18next.t('ambrosia.blueberryGeneration', { chance: format(player.caches.ambrosiaGeneration.total, 2, true) })
   DOMCacheGetOrSet('ambrosiaAmountPerGeneration').innerHTML = i18next.t('ambrosia.perGen', { guaranteed: format(guaranteed, 0, true), extraChance: format(chance, 0, true), ambrosiaLuck: format(luck, 0, true) })
   DOMCacheGetOrSet('ambrosiaRNG').innerHTML = i18next.t('ambrosia.blueberrySecond', { blueberrySecond: format(player.blueberryTime, 0, true), thresholdTimer: format(requiredTime, 0, true) })
   DOMCacheGetOrSet('ambrosiaRewards').innerHTML = i18next.t('ambrosia.bonuses', { cube: format(cubePercent, 0, true), quark: format(quarkPercent, 0, true) })

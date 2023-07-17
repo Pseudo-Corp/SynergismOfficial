@@ -153,7 +153,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       break
     }
     case 'ambrosia': {
-      const compute = player.caches.ambrosiaGeneration.totalVal
+      const compute = player.caches.ambrosiaGeneration.total
       if (compute === 0) {
         break
       }
@@ -164,8 +164,8 @@ export const addTimers = (input: TimerInput, time = 0) => {
         break
       }
 
-      const ambrosiaLuck = player.caches.ambrosiaLuck.totalVal
-      player.blueberryTime += Math.floor(G.ambrosiaTimer) * player.caches.ambrosiaGeneration.totalVal
+      const ambrosiaLuck = player.caches.ambrosiaLuck.total
+      player.blueberryTime += Math.floor(G.ambrosiaTimer) * player.caches.ambrosiaGeneration.total
       G.ambrosiaTimer %= 1
 
       const timeToAmbrosia = calculateRequiredBlueberryTime()
