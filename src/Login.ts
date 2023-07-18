@@ -93,7 +93,7 @@ export async function handleLogin () {
     const exMark = '<span style="color: crimson">[✖] {+0%}</span>'
 
     subtabElement.innerHTML = `Hello, ${user}!\n
-                               Your personal bonus is ${personalBonus}%, computed by the following:
+                               Your personal Quark bonus is ${personalBonus}%, computed by the following:
                                <span style="color: orchid">Transcended Baller</span> [+2%] - ${hasTier1 ? checkMark(2) : exMark}
                                <span style="color: green">Reincarnated Baller</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
                                <span style="color: orange">ASCENDED Baller</span> [+4%] - ${hasTier3 ? checkMark(4) : exMark}
