@@ -1095,7 +1095,7 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
   overlay.style.display = 'block'
   popup.querySelector('label')!.textContent = text
   if (defaultValue) {
-    popup.querySelector('input')!.value = defaultValue
+    popup.querySelector('input')!.placeholder = defaultValue
   }
   popup.querySelector('input')!.focus()
 
@@ -1114,7 +1114,7 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
     confWrap.style.display = 'none'
     overlay.style.display = 'none'
 
-    p.resolve(targetEl.id === ok.id ? el.value : null)
+    p.resolve(targetEl.id === ok.id ? el.value || el.placeholder : null)
 
     el.value = el.textContent = ''
     popup.querySelector('input')!.blur()
