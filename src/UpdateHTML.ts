@@ -1116,7 +1116,7 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
 
     p.resolve(targetEl.id === ok.id ? el.value || el.placeholder : null)
 
-    el.value = el.textContent = ''
+    el.value = el.textContent = el.placeholder = ''
     popup.querySelector('input')!.blur()
   }
 
