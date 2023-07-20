@@ -54,15 +54,15 @@
       "ambrosiaLuckQuark1": {
         "name": "Ambrosia Geluk-Quark Hybride Module I",
         "description": "Een eerste generatie hybride module. Krijg +0.01% meer Quarks per niveau per 1 &#9752 Ambrosia Geluk! Verkleinde terugkrijg na 1,000 geluk.",
-        "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
+        "effect": "Deze eerste generatie hybride module verhoogt de Quark inkomen met {{amount}}%"
       },
       "ambrosiaQuarkCube1": {
-        "name": "Ambrosia Quark-Cube Hybrid Module I",
-        "description": "A first generation hybrid module. Gain +0.05% more cubes per level per digit in your Quark balance, squared!",
-        "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
+        "name": "Ambrosia Quark-Kubus Hybride module I",
+        "description": "Een eerste generatie hybride module. Verhoog inkomen met +0,05% meer kubussen per niveau per nummer in je Quark balans in het kwadraat!",
+        "effect": "Deze eerste generatie hybride module verhoogt de kubus inkomen met {{amount}}%"
       },
       "ambrosiaLuckCube1": {
-        "name": "Ambrosia Luck-Cube Hybrid Module I",
+        "name": "Ambrosia Geluk-Kubus Hybride Module I",
         "description": "A first generation hybrid module. Gain +0.02% more cubes per level per 1 &#9752 Ambrosia Luck!",
         "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
       },
@@ -111,7 +111,7 @@
       "error": "Could not parse submitted file! Double check that it is a Blueberry Tree loadout file."
     },
     "exportTree": {
-      "exportButton": "Export"
+      "exportButton": "Exporteren"
     }
   },
   "achievements": {
