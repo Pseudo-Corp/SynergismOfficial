@@ -6,7 +6,7 @@
     "gameSaved": "Partie sauvegardée !"
   },
   "save": {
-    "loadFailed": "Incapable de charger la sauvegarde.",
+    "loadFailed": "Impossible de charger la sauvegarde.",
     "saveToClipboard": "Êtes-vous sûr de vouloir activer l'enregistrement de la sauvegarde dans le presse-papiers ?"
   },
   "ambrosia": {
@@ -1232,7 +1232,7 @@
       "96": "[4x21] Ants slow? Add +0.0002 to Ant efficiency increase per Ant purchased per level.",
       "97": "[4x22] Add +4 level to the first six upgradable Ants per level!",
       "98": "[4x23] Add +4 level to the next five upgradable Ants per level!",
-      "99": "[4x24] Est-ce que c'est trop difficile de résister à l'appel de la boutique ? Obtenez +1 Quark par heure lors de l'exportation pour chaque niveau !",
+      "99": "[4x24] La boutique de Quarks est trop tentante ? Pour chaque niveau, obtenez +1 Quark supplémentaire par heure lors de l'exportation !",
       "100": "[4x25] Alright, Platonic is off his rocker. I don't expect you to get this but this will give +1 MORE Quark per hour from Exporting for each level!",
       "101": "[5x1] Alright, you're past the big wall. How about adding +.001 to Inceptus Ant efficiency per level?",
       "102": "[5x2] Gain +1 bonus level to ALL Ants per level! A rainbow attack!",
@@ -1356,9 +1356,9 @@
       "offeringEX": "Obtenez +4% d'Offrandes supplémentaires de toutes les origines !",
       "offeringAuto": "Automatically pour Offerings into a rune. 1st level unlocks feature, and each level increases Offering gain by 2%. Every second, 2^(Level) Offerings are spent.",
       "obtainiumEX": "Obtenez +4% d'Obtainium supplémentaires de toutes les origines !",
-      "obtainiumAuto": "Automatically pour Obtainium into a research. 1st level unlocks feature, and each level increases Obtainium gain by 2%. Every Reincarnation, dump all Obtainium into research until maxed.",
-      "instantChallenge": "T and R Challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Additionally, instantly gain T Challenge completions up to highest completed when exiting R Challenges.",
-      "antSpeed": "Each level gives a 1.2x speed multiplier to all Ant tiers' production! (Uncorruptable!) Short and simple.",
+      "obtainiumAuto": "Dépense automatiquement de l'Obtainium dans une recherche. Le premier niveau débloque la fonctionnalité et chaque niveau augmente les gains d'Obtainium de 2%. À chaque Réincarnation, utilise tout l'Obtainium dans la recherche jusqu'à la compléter.",
+      "instantChallenge": "Les défis T et R ne provoquent plus de réinitialisation si réessayer est activé et ils gagnent jusqu'à 10 complétions par tick. De plus, quand vous quittez un défi R, gagnez automatiquement le plus grand nombre de complétions déjà atteint pour les défis T.",
+      "antSpeed": "Chaque niveau multiplie la vitesse de production de tous les rangs de Fourmis par x1,2 ! (Incorruptible !) Simple et efficace.",
       "cashGrab": "This is a cash grab but it gives a couple cool stats. +1% production per level to Offerings and Obtainium.",
       "shopTalisman": "Débloquez définitivement un Talisman de la Boutique !",
       "seasonPass": "Wow! Cubes is giving you a deal: Buy this totally fair Season Pass and gain +2.25% Cubes and Tesseracts per level when you Ascend!",
@@ -1394,7 +1394,7 @@
       "challenge15Auto": "Your grandparents had to bend dimensions to gain Challenge 15 score, but not you! Updates Challenge 15 Exponent every tick while in challenge 15!",
       "extraWarp": "\"Hey dude, get in this portal I built up last night in my shed!\" said the Quack Merchant",
       "autoWarp": "With the power of Quacks Warp machine will now be able to go into overdrive",
-      "improveQuarkHept": "Did you know that after 1,000 Quark Hepteracts, their effect is raised to ^0.5? The Seal disapproves. Gain +2% to the diminishing return exponent.",
+      "improveQuarkHept": "Saviez-vous qu'après 1000 Hepteracts de Quarks, leur rendement est élevé à la puissance 0,5 ? Le Sceau désapprouve. Obtenez +2% sur la puissance du rendement décroissant.",
       "improveQuarkHept2": "After 1,024,000 Quark Hepts, their effect is raised to ^0.25!!! Nonsense. Gain +2% to all Quark Hept DRs.",
       "improveQuarkHept3": "After ~100 million Quark Hepts, their effect is raised to ^0.16! Absolute rubbish. Gain +2% to all Quark Hept DRs, yet again.",
       "improveQuarkHept4": "Et quand ils t'ont tout donné, certains chancellent et tombent après tout c'est pas facile...",
@@ -1423,12 +1423,12 @@
     "plusForQuarks": "+ {{x}} for {{y}} Quarks",
     "consume": "CONSOMMER",
     "buyYerPotions": "Buy Yer' Potions!",
-    "header": "Bienvenue dans la boutique de Quarks. Vous n'en croyez pas vos yeux en découvrant ce qu'il y a en stock !",
+    "header": "Bienvenue dans la boutique de Quarks. Vous êtes impressionné par le choix disponible !",
     "youHaveQuarks": "You have {{x}} Quarks!",
     "cannotRefund": "Cet article NE PEUT PAS être remboursé ! Soyez prudent.",
-    "resetPermShop": "Rembourser les achats [Coût : 15 Quarks]",
-    "shopConfirmationOn": "Confirmation d'achat : Actif",
-    "shopConfirmationOff": "Confirmation d'achat : Inactif",
+    "resetPermShop": "Tout rembourser [Coût : 15 Quarks]",
+    "shopConfirmationOn": "Confirmation : Activée",
+    "shopConfirmationOff": "Confirmation : Désactivée",
     "hideMaxedOn": "Hide Maxed: ON",
     "hideMaxedOff": "Hide Maxed: OFF",
     "autoCatalyzeOn": "Auto Catalyze: ON",
@@ -2197,7 +2197,7 @@
       "87": "Achetez automatiquement des Multiplicateurs s'ils sont abordables.",
       "88": "Automatically buy Accelerator Boosts if affordable.",
       "89": "Débloquez les Transcensions Automatiques.",
-      "90": "Achetez automatiquement dans la Boutique du Générateur.",
+      "90": "Active les achats automatiques pour la boutique des Générateurs.",
       "91": "Achetez automatiquement les Améliorations des Pièces.",
       "92": "Achetez automatiquement les Améliorations des Diamants.",
       "93": "Generate 1% of Diamond Gain from prestiging per second.",
@@ -2367,8 +2367,8 @@
       "coin": "Améliorations des Pièces",
       "diamond": "Améliorations des Diamants",
       "mythos": "Améliorations des Mythos",
-      "generator": "Magasin de Génératrices",
-      "automation": "Magasin d'Automatisation",
+      "generator": "Boutiques de Générateurs",
+      "automation": "Boutique d'Automatisation",
       "particles": "Améliorations des Particules"
     },
     "hover": "Survolez l'icône d'une amélioration pour voir les détails !",
@@ -2571,7 +2571,7 @@
       "leaveReincarnation": "Pour quitter un défi de réincarnation, appuyez plutôt sur le défi gris \"C\" !"
     },
     "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> researches first. The <<var(--crimson-text-color);|red-bordered>> researches are never reset whereas the <<white;|white-bordered>> researches will reset upon the next reset tier!",
-    "shop": "Survolez chaque partie de la boutique pour voir ce que fait chaque mise à niveau !"
+    "shop": "Survolez-les éléments de la boutique pour voir ce que font les améliorations !"
   },
   "buildings": {
     "taxWarning": "Your tax also caps your Coin gain at {{gain}}/s.",
