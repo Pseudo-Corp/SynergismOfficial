@@ -1,4 +1,4 @@
-import { player, format, blankSave, updateAll, saveSynergy } from './Synergism'
+import { player, format, blankSave, updateAll, updateEffectiveLevelMult, saveSynergy } from './Synergism'
 import {
   calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
   calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
@@ -23,7 +23,7 @@ import type {
 } from './History'
 import { challengeRequirement } from './Challenges'
 import { Synergism } from './Events'
-import type { Player, resetNames, OneToFive } from './types/Synergism'
+import type { Player, resetNames, OneToFive, } from './types/Synergism'
 import { updateClassList } from './Utility'
 import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions'
 import { toggleAutoChallengeModeText } from './Toggles'
@@ -1381,6 +1381,8 @@ const resetUpgrades = (i: number) => {
   if (i > 1.5) {
     player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
     player.crystalUpgradesCost = [7, 15, 20, 40, 100, 200, 500, 1000]
+
+    updateEffectiveLevelMult() //update before prism rune, fixes c15 bug
 
     let m = 0
     m += Math.floor(G.rune3level * G.effectiveLevelMult / 16) * 100 / 100
