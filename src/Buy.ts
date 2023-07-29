@@ -16,7 +16,7 @@ export const getReductionValue = () => {
   let reduction = 1
   reduction += Math.min(1e15, (G.rune4level * G.effectiveLevelMult) / 160)
   reduction += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200
-  reduction += CalcECC('transcend', player.challengecompletions[4]) / 200
+  reduction += CalcECC('transcend', 4) / 200
   reduction += Math.min(99999.9, (3 * (player.antUpgrades[7-1]! + G.bonusant7)) / 100)
   return reduction
 }
@@ -29,15 +29,15 @@ const getCostAccelerator = (buyingTo: number): Decimal => {
 
   cost = cost.times(Decimal.pow(4 / G.costDivisor, buyingTo))
 
-  if (buyingTo > (125 + 5 * CalcECC('transcend', player.challengecompletions[4]))) {
-    const num = buyingTo - 125 - 5 * CalcECC('transcend', player.challengecompletions[4])
+  if (buyingTo > (125 + 5 * CalcECC('transcend', 4))) {
+    const num = buyingTo - 125 - 5 * CalcECC('transcend', 4)
     const factorialBit = new Decimal(num).factorial()
     const multBit = Decimal.pow(4, num)
     cost = cost.times(multBit.times(factorialBit))
   }
 
-  if (buyingTo > (2000 + 5 * CalcECC('transcend', player.challengecompletions[4]))) {
-    const sumNum = buyingTo - 2000 - 5 * CalcECC('transcend', player.challengecompletions[4])
+  if (buyingTo > (2000 + 5 * CalcECC('transcend', 4))) {
+    const sumNum = buyingTo - 2000 - 5 * CalcECC('transcend', 4)
     const sumBit = sumNum * (sumNum + 1) / 2
     cost = cost.times(Decimal.pow(2, sumBit))
   }
@@ -174,15 +174,15 @@ const getCostMultiplier = (buyingTo: number): Decimal => {
   let cost = new Decimal(originalCost)
   cost = cost.times(Decimal.pow(10, buyingTo / G.costDivisor))
 
-  if (buyingTo > (75 + 2 * CalcECC('transcend', player.challengecompletions[4]))) {
-    const num = buyingTo - 75 - 2 * CalcECC('transcend', player.challengecompletions[4])
+  if (buyingTo > (75 + 2 * CalcECC('transcend', 4))) {
+    const num = buyingTo - 75 - 2 * CalcECC('transcend', 4)
     const factorialBit = new Decimal(num).factorial()
     const powBit = Decimal.pow(10, num)
     cost = cost.times(factorialBit.times(powBit))
   }
 
-  if (buyingTo > (2000 + 2 * CalcECC('transcend', player.challengecompletions[4]))) {
-    const sumNum = buyingTo - 2000 - 2 * CalcECC('transcend', player.challengecompletions[4])
+  if (buyingTo > (2000 + 2 * CalcECC('transcend', 4))) {
+    const sumNum = buyingTo - 2000 - 2 * CalcECC('transcend', 4)
     const sumBit = sumNum * (sumNum + 1) / 2
     cost = cost.times(Decimal.pow(2, sumBit))
   }
@@ -586,7 +586,7 @@ export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTyp
   let r = 1
   r += (G.rune4level * G.effectiveLevelMult) / 160
   r += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200
-  r += CalcECC('transcend', player.challengecompletions[4]) / 200
+  r += CalcECC('transcend', 4) / 200
   r += (3 * (G.bonusant7 + player.antUpgrades[7-1]!)) / 100
 
   const posCostType = `${pos}Cost${type}` as const

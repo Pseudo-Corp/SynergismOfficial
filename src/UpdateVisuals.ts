@@ -84,7 +84,7 @@ export const visualUpdateBuildings = () => {
     })
 
     DOMCacheGetOrSet('buildtext16').textContent = i18next.t('buildings.acceleratorBoost', {
-      amount: format(G.tuSevenMulti * (1 + player.researches[16] / 50) * (1 + CalcECC('transcend', player.challengecompletions[2]) / 100), 2)
+      amount: format(G.tuSevenMulti * (1 + player.researches[16] / 50) * (1 + CalcECC('transcend', 2) / 100), 2)
     })
 
     DOMCacheGetOrSet('buyaccelerator').textContent = i18next.t('buildings.costCoins', { coins: format(player.acceleratorCost) })
