@@ -1126,7 +1126,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
     Object.entries(player.octeractUpgrades).map(([key, value]) => {
       return [key, {
         level: value.level,
-        goldenQuarksInvested: value.octeractsInvested,
+        octeractsInvested: value.octeractsInvested,
         toggleBuy: value.toggleBuy,
         freeLevels: value.freeLevels
       }]
