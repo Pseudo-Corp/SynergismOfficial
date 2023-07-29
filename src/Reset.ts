@@ -23,7 +23,7 @@ import type {
 } from './History'
 import { challengeRequirement } from './Challenges'
 import { Synergism } from './Events'
-import type { Player, resetNames, OneToFive, } from './types/Synergism'
+import type { Player, resetNames, OneToFive } from './types/Synergism'
 import { updateClassList } from './Utility'
 import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions'
 import { toggleAutoChallengeModeText } from './Toggles'
