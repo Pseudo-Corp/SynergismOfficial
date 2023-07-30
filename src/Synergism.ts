@@ -1934,7 +1934,7 @@ const loadSynergy = async () => {
       toggleAutoAscend(1)
     }
 
-    DOMCacheGetOrSet('historyTogglePerSecondButton').textContent = 'Per second: ' + (player.historyShowPerSecond ? 'ON' : 'OFF')
+    DOMCacheGetOrSet('historyTogglePerSecondButton').textContent = i18next.t('history.perSecond' + (player.historyShowPerSecond ? 'On' : 'Off'))
     DOMCacheGetOrSet('historyTogglePerSecondButton').style.borderColor = (player.historyShowPerSecond ? 'green' : 'red')
 
     //If auto research is enabled and runing; Make sure there is something to try to research if possible

@@ -479,7 +479,7 @@ export const hepteractDescriptions = (type: hepteractTypes) => {
   const craftCostMulti = calculateSingularityDebuff('Hepteract Costs')
 
   const multiplier = player.hepteractCrafts[type].computeActualCap() / player.hepteractCrafts[type].CAP
-  bonusCapacityText.textContent = (player.hepteractCrafts[type].computeActualCap() / player.hepteractCrafts[type].CAP > 1) ? `Hepteract capacities are currently multiplied by ${multiplier}. Expansions cost what they would if this multiplier were 1.` : ''
+  bonusCapacityText.textContent = (multiplier > 1) ? i18next.t('wowCubes.hepteractForge.bonusCapacity', { multiplier }) : ''
   let currentEffectRecord!: StringMap
   let oneCost!: string | Record<string, string>
 

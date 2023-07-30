@@ -419,13 +419,13 @@ export const toggleSaveOff = () => {
     player.autoSacrificeToggle = true
     el.textContent = i18next.t('toggles.saveOfferingsOff')
     el.style.color = 'white'
-    et.textContent = 'Auto Runes: ON'
+    et.textContent = i18next.t('runes.blessings.autoRuneOn')
     et.style.border = '2px solid green'
   } else {
     player.autoSacrificeToggle = false
     el.textContent = i18next.t('toggles.saveOfferingsOn')
     el.style.color = 'yellow'
-    et.textContent = 'Auto Runes: OFF'
+    et.textContent = i18next.t('runes.blessings.autoRuneOff')
     et.style.border = '2px solid red'
   }
 

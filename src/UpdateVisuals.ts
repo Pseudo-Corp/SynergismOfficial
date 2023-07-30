@@ -583,7 +583,7 @@ export const visualUpdateCubes = () => {
       break
     }
     case 4:
-      DOMCacheGetOrSet('cubeAmount2').textContent = `You have ${format(player.wowCubes, 0, true)} Wow! Cubes =)`
+      DOMCacheGetOrSet('cubeAmount2').textContent = i18next.t('cubes.total', { amount: format(player.wowCubes, 0, true) })
       break
     case 5:
       break

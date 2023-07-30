@@ -1117,6 +1117,7 @@
       },
       "noCubesOpened": "OK. No cubes opened.",
       "howManyCubesOpen": "How many cubes would you like to open? You have {{x}}! \nYou can input a percentage of cubes to open, for example: \"50%\" or \"100%\". \nYou can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number (also works with %).",
+      "total": "You have {{amount}} Wow! Cubes =)",
       "validation": {
           "notEnough": "You don't have enough cubes to open!",
           "negative": "You can't open a negative amount of cubes.",
@@ -2104,7 +2105,8 @@
           "v297hotfix1Sing": "You have loaded into the version 2.9.7 hotfix 1! Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience."
       },
       "languageChange": "Changing the language requires a reload! Would you like to reload now?",
-      "exportYourGame": "You haven't exported your game in a while, you better export it soon or you could lose it!"
+      "exportYourGame": "You haven't exported your game in a while, you better export it soon or you could lose it!",
+      "generateSummary": "Generate Savefile Stats Summary"
   },
   "upgrades": {
       "descriptions": {
@@ -2441,7 +2443,8 @@
       "ingameAntSacTimer": "In-Game Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
       "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
       "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
-      "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
+      "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>",
+      "exit": "That's cool. Take me to the game!"
   },
   "corruptions": {
       "names": {
@@ -2658,6 +2661,7 @@
       "constantHover": "Hover over an icon for a description of the upgrade. Click to buy it!"
   },
   "octeract": {
+      "octeracts": "Octeracts",
       "buyLevel": {
           "buyPrompt": "How many Octeracts would you like to spend? You have {{n}} OCT. Type -1 to use max!",
           "cancelPurchase": "Purchase cancelled!",
@@ -3220,6 +3224,7 @@
           "effect": "Effect:",
           "powder": "Powder:",
           "warps": "Warps:",
+          "bonusCapacity": "Hepteract capacities are currently multiplied by {{multiplier}}. Expansions cost what they would if this multiplier were 1.",
           "descriptions": {
               "chronos": {
                   "effect": "This hepteract bends time, in your favor. +0.06% Ascension Speed per Chronos Hepteract.",
@@ -3427,7 +3432,11 @@
   },
   "history": {
       "perSecondOn": "Per second: ON",
-      "perSecondOff": "Per second: OFF"
+      "perSecondOff": "Per second: OFF",
+      "resetGains": "Here's what you got from your last resets (except challenges):",
+      "antGains": "Your sacrifices got you the following:",
+      "ascensionGains": "Your last ascensions got you the following:",
+      "singularityGains": "Your last singularities got you the following:"
   },
   "event": {
       "aprilFools": {
