@@ -379,13 +379,13 @@ const returnConstUpgDesc = (i: number) => i18next.t(`upgrades.constantUpgrades.$
 const returnConstUpgEffect = (i: number) => i18next.t(`upgrades.constantEffects.${i}`, constUpgEffect[i]?.())
 
 export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
-  const toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G.constUpgradeCosts[i]!) / Math.log(10)))
+  const toBuy = i >= 9 && player.constantUpgrades[i]! >= 1 ? 0 : Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G.constUpgradeCosts[i]!) / Math.log(10)))
   let cost: Decimal
 
   if (toBuy > player.constantUpgrades[i]!) {
     cost = Decimal.pow(10, toBuy - 1).times(G.constUpgradeCosts[i]!)
   } else {
-    cost = Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!)
+    cost = i >= 9 && player.constantUpgrades[i]! >= 1 ? new Decimal(0) : Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!)
   }
 
   return [Math.max(1, toBuy - player.constantUpgrades[i]!), cost]
@@ -401,14 +401,16 @@ export const constantUpgradeDescriptions = (i: number) => {
 
 export const buyConstantUpgrades = (i: number, fast = false) => {
   const [level, cost] = getConstUpgradeMetadata(i)
-  if (player.ascendShards.gte(cost)) {
+  if (i <= 8 || (i >= 9 && player.constantUpgrades[i]! < 1)) {
+    if (player.ascendShards.gte(cost)) {
         player.constantUpgrades[i]! += level
         if (player.researches[175] === 0) {
           player.ascendShards = player.ascendShards.sub(cost)
         }
         if (!fast) {
           constantUpgradeDescriptions(i)
-        }
+        } 
+    }
   }
   calculateAnts()
   calculateRuneLevels()
