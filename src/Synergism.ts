@@ -2134,7 +2134,11 @@ export const format = (
       // returns format (1.23e456,789)
       return `${mantissaLook}e${powerLook}`
     }
-    const mantissaLook = (Math.floor(mantissa * Math.pow(10, power) * Math.pow(10, accuracy)) / Math.pow(10, accuracy)).toLocaleString(undefined, {
+    mantissa = mantissa * Math.pow(10, power)
+    if (mantissa - Math.floor(mantissa) > 0.9999999) {
+      mantissa = Math.ceil(mantissa)
+    }
+    const mantissaLook = (Math.floor(mantissa * Math.pow(10, accuracy)) / Math.pow(10, accuracy)).toLocaleString(undefined, {
       minimumFractionDigits: accuracy, maximumFractionDigits: accuracy
     })
     return `${mantissaLook}`
