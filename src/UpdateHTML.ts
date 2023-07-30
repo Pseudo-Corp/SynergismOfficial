@@ -848,11 +848,11 @@ export const buttoncolorchange = () => {
     for (let i = 9; i <= 10; i++) {
       if (player.constantUpgrades[i]! >= 1) {
         DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeSingle')
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeSingleAvailable')
+        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
       } else if (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!))) {
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeSingleAvailable')
+        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAvailable')
       } else {
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeSingleAvailable')
+        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
         DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeSingle')
       }
     }
