@@ -381,12 +381,17 @@ const returnConstUpgEffect = (i: number) => i18next.t(`upgrades.constantEffects.
 export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
   let toBuy
   let cost: Decimal
-  
+
   if (i >= 9) {
-    if (player.constantUpgrades[i]! >=1) {toBuy = 0}
-    else {toBuy = Math.min(1,Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G.constUpgradeCosts[i]!) / Math.log(10))))}
-  } else {toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G.constUpgradeCosts[i]!) / Math.log(10)))}
-  
+    if (player.constantUpgrades[i]! >=1) {
+      toBuy = 0
+    } else {
+      toBuy = Math.min(1,Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G.constUpgradeCosts[i]!) / Math.log(10))))
+    }
+  } else {
+    toBuy = Math.max(0, Math.floor(1 + Decimal.log(Decimal.max(0.01, player.ascendShards), 10) - Math.log(G.constUpgradeCosts[i]!) / Math.log(10)))
+  }
+
   if (toBuy > player.constantUpgrades[i]!) {
     cost = Decimal.pow(10, toBuy - 1).times(G.constUpgradeCosts[i]!)
   } else {
@@ -414,7 +419,7 @@ export const buyConstantUpgrades = (i: number, fast = false) => {
         }
         if (!fast) {
           constantUpgradeDescriptions(i)
-        } 
+        }
     }
   }
   calculateAnts()
