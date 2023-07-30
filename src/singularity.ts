@@ -28,7 +28,9 @@ export const updateSingularityPenalties = (): void => {
 }
 
 function getSingularityOridnalText(singularityCount: number): string {
-  return `${i18next.t('general.youAreInThe')} <span style="color: gold">${toOrdinal(singularityCount)} ${i18next.t('general.singularity')}</span>`
+  return i18next.t('general.youAreInThe', {
+    number: toOrdinal(singularityCount)
+  })
 }
 
 // Need a better way of handling the ones without a special formulae than 'Default' variant
@@ -1842,14 +1844,16 @@ export const singularityPerks: SingularityPerk[] = [
   }
 ]
 
+// Placeholder text for Perk Info that is seen upon first load, check Line 645 EventListeners.ts for actual Perk Info code.
 export const updateSingularityPerks = (): void => {
   const singularityCount = player.highestSingularityCount
-  const strH = i18next.t('singularity.perks.header', {
+  DOMCacheGetOrSet('singularityPerksHeader').innerHTML = i18next.t('singularity.perks.header', {
     ord: toOrdinal(singularityCount)
   })
-
-  DOMCacheGetOrSet('singularityPerksHeader').innerHTML = strH
-  DOMCacheGetOrSet('singularityPerksText').innerHTML = `${i18next.t('general.level')} # - (Singularity #)`
+  DOMCacheGetOrSet('singularityPerksText').innerHTML = i18next.t('singularity.perks.levelInfo', {
+    level: '#',
+    singularity: '#'
+  })
   DOMCacheGetOrSet('singularityPerksDesc').innerHTML = i18next.t('singularity.perks.description')
   handlePerks(singularityCount)
 }

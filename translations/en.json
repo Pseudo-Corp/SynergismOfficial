@@ -1513,6 +1513,7 @@
       "multiBuyPurchased": "Purchased {{levels}} levels, thanks to Multi Buy!"
     },
     "perks": {
+      "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
       "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
       "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties",
@@ -1528,8 +1529,8 @@
       "hepteractAutocraft": "Hepteract Autocraft will be unlocked",
       "generousOrbs": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%",
       "researchDummies": {
-        "hasLevel1": "You permanently keep Auto Research",
-        "otherwise": "You can Research using Hover to Buy"
+        "hasLevel1": "You permanently keep Auto Research.",
+        "otherwise": "You can Research using Hover to Buy."
       },
       "eternalAscensions": {
         "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
@@ -2064,8 +2065,7 @@
     }
   },
   "general": {
-    "youAreInThe": "You are in the",
-    "singularity": "Singularity",
+    "youAreInThe": "You are in the <<gold|{{number}} Singularity>>",
     "validation": {
       "finite": "Value must be a finite number!",
       "zeroOrLess": "Only numbers greater than zero, please!",

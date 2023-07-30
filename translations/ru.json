@@ -1513,6 +1513,7 @@
       "multiBuyPurchased": "Куплено {{levels}} уровней, благодаря Многоразовой Покупке!"
     },
     "perks": {
+      "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "Уже существующая Привилегия будет улучшена в Сингулярности {{sing}}",
       "unlockedIn": "Вы разблокируете новую Привилегию в Сингулярности {{sing}}",
       "header": "Высшая Сингулярность, которой вы достигли - <span style=\"color: gold\">{{ord}} Сингулярность.</span><br/>Вот список привилегий, которые вы приобрели для компенсации штрафов ",
@@ -2064,8 +2065,7 @@
     }
   },
   "general": {
-    "youAreInThe": "Сейчас вы находитесь в",
-    "singularity": "Singularity",
+    "youAreInThe": "Сейчас вы находитесь в <<gold|{{number}} Singularity>>",
     "validation": {
       "finite": "Значение должно быть конечным числом!",
       "zeroOrLess": "Пожалуйста, только числа больше нуля!",

@@ -1392,6 +1392,7 @@
             "multiBuyPurchased": ""
         },
         "perks": {
+            "levelInfo": "",
             "improvedIn": "",
             "unlockedIn": "",
             "header": "",
@@ -1898,7 +1899,6 @@
     },
     "general": {
         "youAreInThe": "",
-        "singularity": "",
         "validation": {
             "finite": "",
             "zeroOrLess": "",
