@@ -984,7 +984,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     player.researches[135] = 1
     player.researches[145] = 1
   }
-  if (player.highestSingularityCount >= 101 && singularityReset) {
+  if (player.highestSingularityCount >= 100 && singularityReset) {
     player.cubeUpgrades[51] = 1
     awardAutosCookieUpgrade()
   }
