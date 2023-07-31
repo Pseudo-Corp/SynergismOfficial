@@ -782,11 +782,11 @@ export const buttoncolorchange = () => {
       k += 10
     }
 
-    (player.achievements[79] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G.crystalUpgradesCost[0] + G.crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2))))) ? f.style.backgroundColor = 'purple' : f.style.backgroundColor = '';
-    (player.achievements[86] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G.crystalUpgradesCost[1] + G.crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2))))) ? g.style.backgroundColor = 'purple' : g.style.backgroundColor = '';
-    (player.achievements[93] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G.crystalUpgradesCost[2] + G.crystalUpgradeCostIncrement[2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2))))) ? h.style.backgroundColor = 'purple' : h.style.backgroundColor = '';
-    (player.achievements[100] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G.crystalUpgradesCost[3] + G.crystalUpgradeCostIncrement[3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2))))) ? i.style.backgroundColor = 'purple' : i.style.backgroundColor = '';
-    (player.achievements[107] < 1 && player.prestigeShards.gte(Decimal.pow(10, (G.crystalUpgradesCost[4] + G.crystalUpgradeCostIncrement[4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2))))) ? j.style.backgroundColor = 'purple' : j.style.backgroundColor = ''
+    player.achievements[79] < 1 ? (player.prestigeShards.gte(Decimal.pow(10, (G.crystalUpgradesCost[0] + G.crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2)))) ? f.style.backgroundColor = 'purple' : f.style.backgroundColor = '') : f.style.backgroundColor = 'green';
+    player.achievements[86] < 1 ? (player.prestigeShards.gte(Decimal.pow(10, (G.crystalUpgradesCost[1] + G.crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2)))) ? g.style.backgroundColor = 'purple' : g.style.backgroundColor = '') : g.style.backgroundColor = 'green';
+    player.achievements[93] < 1 ? (player.prestigeShards.gte(Decimal.pow(10, (G.crystalUpgradesCost[2] + G.crystalUpgradeCostIncrement[2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2)))) ? h.style.backgroundColor = 'purple' : h.style.backgroundColor = '') : h.style.backgroundColor = 'green';
+    player.achievements[100] < 1 ? (player.prestigeShards.gte(Decimal.pow(10, (G.crystalUpgradesCost[3] + G.crystalUpgradeCostIncrement[3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2)))) ? i.style.backgroundColor = 'purple' : i.style.backgroundColor = '') : i.style.backgroundColor = 'green';
+    player.achievements[107] < 1 ? (player.prestigeShards.gte(Decimal.pow(10, (G.crystalUpgradesCost[4] + G.crystalUpgradeCostIncrement[4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2)))) ? j.style.backgroundColor = 'purple' : j.style.backgroundColor = '') : j.style.backgroundColor = 'green';
   }
 
   if (G.currentTab === 'runes') {
@@ -841,19 +841,26 @@ export const buttoncolorchange = () => {
         : DOMCacheGetOrSet(`buyTesseracts${i}`).classList.remove('buildingPurchaseBtnAvailable')
     }
     for (let i = 1; i <= 8; i++) {
-      (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!)))
+      if (player.researches[190] >= 1) {
+        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
+        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAuto')
+      } else {
+        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAuto');
+        (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!)))
         ? DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAvailable')
         : DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
+      }  
     }
+
     for (let i = 9; i <= 10; i++) {
-      if (player.constantUpgrades[i]! >= 1) {
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeSingle')
+      if (player.researches[190] >= 1 || player.constantUpgrades[i]! >= 1) {
         DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
-      } else if (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!))) {
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAvailable')
+        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAuto')
       } else {
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
-        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeSingle')
+        DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAuto');
+        (player.ascendShards.gte(Decimal.pow(10, player.constantUpgrades[i]!).times(G.constUpgradeCosts[i]!)))
+        ? DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAvailable')
+        : DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
       }
     }
   }
