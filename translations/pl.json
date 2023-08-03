@@ -555,14 +555,7 @@
       "266": "Quarks +{{x}}% [Max: 10% at 1Qa Ascensions]!",
       "267": "Ascension Score is boosted by {{x}}% [Max: 100% at 1e100,000 Const]",
       "270": "Hepteract Gain is boosted by {{x}}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).",
-      "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]",
-      "274": "Ant Speed is permanently multiplied by 4.44! Platonic Upgrades now BuyMax whenever affordable!",
-      "275": "You immediately start Singularities with 1 Transcension and 1001 mythos!",
-      "276": "You immediately start Singularities with 1 Reincarnation, and 10 particles!",
-      "277": "You immediately start Singularities with 500 Obtainium!",
-      "278": "Gain 5% more Quarks, permanently! Automation regarding Particle Buildings are immediately available.",
-      "279": "You immediately start Singularities with a Challenge 7 completion and 1e100 particles. Talismans now buff all runes at all times!",
-      "280": "You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 Ant."
+      "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]"
     },
     "alerts": {
       "36": "Congratulations on your first Prestige. The first of many. You obtain Offerings. You can use them in the new Runes tab! [Unlocked Runes, Achievements, Diamond Buildings and some Upgrades!]",
@@ -1520,22 +1513,38 @@
       "multiBuyPurchased": "Kupiono {{levels}} poziomów dzięki Multi Kupowaniu!"
     },
     "perks": {
+      "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "Istniejąca umiejętność zostanie ulepszona w Osobliwości {{sing}}",
       "unlockedIn": "Odblokujesz zupełnie nowy profit w Osobliwości {{sing}}",
       "header": "Najwyższa osobliwość, jaką osiągnąłeś, to <span style=\"color: gold\">{{ord}} Osobliwość.</span><br/>Oto lista korzyści, które uzyskałeś, aby zrekompensować kary ",
       "description": "(Najedź kursorem, aby więcej szczegółów. Dodatki w <span style=\"color: gold\">złotym tekście</span> zostały dodane lub ulepszone w tej Osobliwości)",
+      "welcometoSingularity": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!",
+      "unlimitedGrowth": "+10% do przyrostu kwarków i liczby Ascendecji dla każdej Osobliwości. Obecnie: +{{amount}}%",
+      "goldenCoins": "Niewydane Złote Kwarki zwiększają przyrost monet. Szczególnie silny dla pierwszych Ascendencji każdej Osobliwości. Obecnie: x{{amount}}",
       "xyz": {
         "hasLevel2": "Oprócz GQ i gwarantowanych bezpłatnych poziomów do GQ 1/2/3 po +0,2/+0,2/+1, otrzymujesz PODWÓJNIE więcej darmowych poziomów ulepszeń z Codziennej Akcji Specjalnej!",
         "hasLevel1": "Oprócz poziomów GQ i bezpłatnych ulepszeń, Codziennych akcji specjalnych zapewnia dodatkowe bezpłatne poziomy do GQ 1/2/3 odpowiednio na poziomie +0,2/+0,2/+1.",
         "default": "Dzienna Akcja Specjalna nagradza Cię teraz Złotymi Kwarkami i darmowymi poziomami losowych ulepszeń Osobliwości, skalujących się wraz z liczbą Osobliwości!"
       },
-      "unlimitedGrowth": "+10% do przyrostu kwarków i liczby Ascendecji dla każdej Osobliwości. Obecnie: +{{amount}}%",
-      "goldenCoins": "Niewydane Złote Kwarki zwiększają przyrost monet. Szczególnie silny dla pierwszych Ascendencji każdej Osobliwości",
       "hepteractAutocraft": "Hepteract Autocraft zostanie odblokowany",
       "generousOrbs": "Efekt Przepływowych Kul przy otwieraniu Kostek dla Kwarków może teraz wzrosnąć do {{amount}}%",
       "researchDummies": {
         "hasLevel1": "You permanently keep Auto Research",
         "otherwise": "You can Research using Hover to Buy"
+      },
+      "eternalAscensions": {
+        "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
+        "default": "Your ascension count is multipled based on your Singularity count! Currently: x{{amount}}"
+      },
+      "antGodsCornucopia": {
+        "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
+        "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
+        "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
+        "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
+      },
+      "sweepomatic":{
+        "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
+        "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
       },
       "superStart": {
         "hasLevel4": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 2.22e2222 Particles and 500 Obtainium",
@@ -1586,15 +1595,6 @@
       "coolQOLCubes": {
         "hasLevel1": "Zachowaj wszystkie badania otwierania kostek ORAZ zyskaj możliwość automatycznego otwierania procentu twoich kostek podczas każdej Ascendencji!",
         "default": "Badania związane z otwieraniem kostek nie będą już resetowane podczas Ascendencji"
-      },
-      "eternalAscensions": {
-        "hasLevel1": "Możesz teraz automatycznie wznosić się na podstawie długości czasu i automatycznie uruchamiać Wyzwania Ascendencji z Instant Challenges 2!",
-        "default": "Możesz teraz automatycznie wznieść się na podstawie długości Ascendencji "
-      },
-      "antGodsCornucopia": {
-        "hasLevel2": "Szybkość mrówki jest pomnożona przez 1 bilion, ten wzrost jest odporny na wszelkie zepsucie.",
-        "hasLevel1": "Szybkość Mrówki jest mnożona przez 1 MILION, ten wzrost jest odporny na wszelkie zepsucie.",
-        "default": "Ant Speed is multiplied by 1,000, this increase is immune to any and all corruption."
       },
       "irishAnt": "Ants blessed with the luck of the Irish grant ☘ {{i}} Ambrosia Luck!",
       "irishAnt2": "Ants blessed with more fortunate luck of the Irish grant ☘ {{i}} more Ambrosia Luck!",
@@ -2024,12 +2024,16 @@
       "antiquitiesNotBought": "<<var(--red-text-color)|Penalties are active because you have not leveled up Antiquities of Ant God!>>"
     },
     "perkNames": {
-      "xyz": "XYZ: Xtra dailY rewardZ",
+      "welcometoSingularity": "Welcome to Singularity!",
       "unlimitedGrowth": "Unlimited growth",
       "goldenCoins": "Golden coins",
+      "xyz": "XYZ: Xtra dailY rewardZ",
       "hepteractAutocraft": "Hepteract Autocraft",
       "generousOrbs": "Generous Orbs",
       "researchDummies": "Research for Dummies",
+      "eternalAscensions": "Eternal Ascensions",
+      "antGodsCornucopia": "Ant God's Cornucopia",
+      "sweepomatic": "Automatic Sweep-o-matic Mk.2",
       "superStart": "Super Start",
       "notSoChallenging": "Not So Challenging",
       "automationUpgrades": "Automation Upgrades",
@@ -2043,8 +2047,6 @@
       "exaltedAchievements": "EXALT Vault",
       "derpSmithsCornucopia": "Derpsmith's Cornucopia",
       "coolQOLCubes": "Cool Qol Cubes",
-      "eternalAscensions": "Eternal Ascensions",
-      "antGodsCornucopia": "Ant God's Cornucopia",
       "irishAnt": "Irish Ants",
       "irishAnt2": "Irish Ants II: Electric Boogaloo",
       "overclocked": "Overclocked",
@@ -2063,7 +2065,7 @@
     }
   },
   "general": {
-    "youAreInThe": "Jesteś w",
+    "youAreInThe": "Jesteś w <<gold|{{number}} Singularity>>",
     "validation": {
       "finite": "Wartość musi być liczbą skończoną!",
       "zeroOrLess": "Proszę tylko liczby większe od zera!",

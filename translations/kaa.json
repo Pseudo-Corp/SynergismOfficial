@@ -450,14 +450,7 @@
             "266": "Quarks +{{x}}% [Max: 10% at 1Qa Ascensions]!",
             "267": "Ascension Score is boosted by {{x}}% [Max: 100% at 1e100,000 Const]",
             "270": "Hepteract Gain is boosted by {{x}}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).",
-            "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]",
-            "274": "Ant Speed is permanently multiplied by 4.44! Platonic Upgrades now BuyMax whenever affordable!",
-            "275": "You immediately start Singularities with 1 Transcension and 1001 mythos!",
-            "276": "You immediately start Singularities with 1 Reincarnation, and 10 particles!",
-            "277": "You immediately start Singularities with 500 Obtainium!",
-            "278": "Gain 5% more Quarks, permanently! Automation regarding Particle Buildings are immediately available.",
-            "279": "You immediately start Singularities with a Challenge 7 completion and 1e100 particles. Talismans now buff all runes at all times!",
-            "280": "You immediately start Singularities with 1 Challenge 8 completion and 1 tier 1 Ant."
+            "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]"
         },
         "alerts": {
             "36": "Congratulations on your first Prestige. The first of many. You obtain Offerings. You can use them in the new Runes tab! [Unlocked Runes, Achievements, Diamond Buildings and some Upgrades!]",
@@ -1399,23 +1392,39 @@
             "multiBuyPurchased": "Purchased {{levels}} levels, thanks to Multi Buy!"
         },
         "perks": {
+            "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
             "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
             "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
             "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties",
             "description":"(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
+            "welcometoSingularity": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!",
+            "unlimitedGrowth": "+10% to Quarks gain and Ascension Count for each Singularity. Currently: +{{amount}}%",
+            "goldenCoins": "Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity. Currently: x{{amount}}",
             "xyz": {
                 "hasLevel2": "In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!",
                 "hasLevel1": "In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.",
                 "default": "The Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades, both scaling with your singularity count!"
             },
-            "unlimitedGrowth": "+10% to Quarks gain and Ascension Count for each Singularity. Currently: +{{amount}}%",
-            "goldenCoins": "Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity",
             "hepteractAutocraft": "Hepteract Autocraft will be unlocked",
             "generousOrbs": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%",
             "researchDummies": {
                 "hasLevel1": "You permanently keep Auto Research",
                 "otherwise": "You can Research using Hover to Buy"
             },
+            "eternalAscensions": {
+                "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
+                "default": "Your ascension count is multipled based on your Singularity count! Currently: x{{amount}}"
+              },
+              "antGodsCornucopia": {
+                "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
+                "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
+                "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
+                "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
+              },
+              "sweepomatic":{
+                "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
+                "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
+              },
             "superStart": {
                 "hasLevel4": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 2.22e2222 Particles and 500 Obtainium",
                 "hasLevel3": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e100 Particles and 500 Obtainium",
@@ -1465,15 +1474,6 @@
             "coolQOLCubes": {
                 "hasLevel1": "Keep all Cube Opening researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
                 "default": "Researches related to opening cubes will no longer reset on Ascension"
-            },
-            "eternalAscensions": {
-                "hasLevel1": "You can now automatically ascend based on time length and autorun Ascension Challenges with Instant Challenges 2!",
-                "default": "You can now automatically ascend based on the length of the Ascension"
-            },
-            "antGodsCornucopia": {
-                "hasLevel2": "Ant Speed is multiplied by 1 TRILLION, this increase is immune to any and all corruption.",
-                "hasLevel1": "Ant Speed is multiplied by 1 MILLION, this increase is immune to any and all corruption.",
-                "default": "Ant Speed is multiplied by 1,000, this increase is immune to any and all corruption."
             },
             "overclocked": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!",
             "wowCubeAutomatedShipping": {
@@ -1861,12 +1861,16 @@
             "antiquitiesNotBought": "<<var(--red-text-color)|Penalties are active because you have not leveled up Antiquities of Ant God!>>"
         },
         "perkNames": {
-            "xyz": "XYZ: Xtra dailY rewardZ",
+            "welcometoSingularity": "Welcome to Singularity!",
             "unlimitedGrowth": "Unlimited growth",
             "goldenCoins": "Golden coins",
+            "xyz": "XYZ: Xtra dailY rewardZ",
             "hepteractAutocraft": "Hepteract Autocraft",
             "generousOrbs": "Generous Orbs",
             "researchDummies": "Research for Dummies",
+            "eternalAscensions": "Eternal Ascensions",
+            "antGodsCornucopia": "Ant God's Cornucopia",
+            "sweepomatic": "Automatic Sweep-o-matic Mk.2",
             "superStart": "Super Start",
             "notSoChallenging": "Not So Challenging",
             "automationUpgrades": "Automation Upgrades",
@@ -1880,8 +1884,6 @@
             "exaltedAchievements": "EXALT Vault",
             "derpSmithsCornucopia": "Derpsmith's Cornucopia",
             "coolQOLCubes": "Cool Qol Cubes",
-            "eternalAscensions": "Eternal Ascensions",
-            "antGodsCornucopia": "Ant God's Cornucopia",
             "overclocked": "Overclocked",
             "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
             "congealedblueberries": "Congealed Blueberries",
@@ -1898,7 +1900,7 @@
         }
     },
     "general": {
-        "youAreInThe": "You are in the",
+        "youAreInThe": "You are in the <<gold|{{number}} Singularity>>",
         "validation": {
             "finite": "Value must be a finite number!",
             "zeroOrLess": "Only numbers greater than zero, please!",
