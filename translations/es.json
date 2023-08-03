@@ -555,14 +555,7 @@
       "266": "Cuarquías +{{x}}% [Max: 10% a 1Qa Ascensiones]!",
       "267": "La puntuación de ascensión aumenta un {{x}}% [Max: 100% a 1e100.000 Const]",
       "270": "La ganancia de Hepteractos aumenta un {{x}}% [Max: 100% a 1e1.000.000 const], Mejora de Constante 1 aumentada a 1,06 (de 1,05), mejora de Constante 2 aumentada a 1,11 (de 1,10).",
-      "271": "Al abrir un Cubo Platónico, obtienes {{x}} Hypercubos, redondeado a menor [Max: 1 a 1e1.000.000 Const]",
-      "274": "¡Velocidad de Hormigas multiplicada permanentemente por 4,44! ¡Se compra máximas Mejoras Platónicas cuando pueda!",
-      "275": "¡Inmediatamente empiezas Singularidades con 1 Trascensión y 1001 mythos!",
-      "276": "¡Inmediatamente empiezas Singularidades con 1 Reencarnación y 10 partículas!",
-      "277": "¡Inmediatamente empiezas Singularidades con 500 Obtainium!",
-      "278": "¡Gana un 5% más de Quarks, permanentemente! La automatización de Edificios de Partículas está disponible inmediatamente.",
-      "279": "Empiezas las Singularidades con un Desafío 7 finalizado y 1e100 partículas. ¡Los Talismanes ahora afectan a todas las runas en todo momento!",
-      "280": "Empiezas las Singularidades con 1 Desafío 8 finalizado y 1 Hormiga de nivel 1."
+      "271": "Al abrir un Cubo Platónico, obtienes {{x}} Hypercubos, redondeado a menor [Max: 1 a 1e1.000.000 Const]"
     },
     "alerts": {
       "36": "Felicidades por tu primer Prestigio. El primero de muchos. Obtienes Ofrendas. ¡Puedes usarlas en la nueva pestaña de Runas! [Runas Desbloqueadas, Logros, Edificios de Diamantes y algunas Mejoras]",
@@ -1520,22 +1513,38 @@
       "multiBuyPurchased": "Comprados {{levels}} niveles, ¡gracias a Multi Compra!"
     },
     "perks": {
+      "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "Una Ventaja existente se mejorará en la singularidad {{sing}}",
       "unlockedIn": "Desbloquearás una Ventaja nueva en la singularidad {{sing}}",
       "header": "La mayor Singularidad que has alcanzado es la <span style=\"color: gold\">{{ord}} Singularidad.</span><br/>Aquí tienes la lista de ventajas que has adquirido para compensar las penalizaciones",
       "description": "(Pasa el cursor para más detalles. Ventajas en <span style=\"color: gold\">gold text</span> se añadieron o mejoraron en esta Singularidad)",
+      "welcometoSingularity": "Welcome to the Singualrity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!",
+      "unlimitedGrowth": "+10% a ganancias de Quarks y Contador de Ascensión por cada Singularidad. Actual: +{{amount}}%",
+      "goldenCoins": "Los Quarks Dorados no gastados aumentan la ganancia de Monedas. Especialmente fuerte en la primera Ascensión de cada Singularidad. Actual: x{{amount}}",
       "xyz": {
         "hasLevel2": "Además de GD y niveles gratuitos garantizados de QD 1/2/3 a +0,2/+0,2/+1, ¡obtienes el DOBLE de niveles en mejoras gratuitas de Acción Diaria Especial!",
         "hasLevel1": "Además de GD y niveles gratuitos de mejoras, la Actividad Diaria Especial te da niveles gratuitos extra de QD 1/2/3 a +0,2/+0,2/+1 respectivamente.",
         "default": "La Actividad Diaria Especial te recompensa ahora con Quarks Dorados y niveles gratuitos para mejoras de Singularidades aleatorias, ¡ambas escalando con tu contador de singularidad!"
       },
-      "unlimitedGrowth": "+10% a ganancias de Quarks y Contador de Ascensión por cada Singularidad. Actual: +{{amount}}%",
-      "goldenCoins": "Los Quarks Dorados no gastados aumentan la ganancia de Monedas. Especialmente fuerte en la primera Ascensión de cada Singularidad.",
       "hepteractAutocraft": "Desbloqueará la Autocreación de Hepteractos",
       "generousOrbs": "El efecto de los Orbes de Sobreflujo al abrir Cubos para Quarks puede llegar a {{amount}}%",
       "researchDummies": {
         "hasLevel1": "Mantienes permanentemente Auto Investigación",
         "otherwise": "Puedes Investigar usando Pasa para Comprar"
+      },
+      "eternalAscensions": {
+        "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
+        "default": "Your ascension count is multipled based on your Singularity count! Currently: x{{amount}}"
+      },
+      "antGodsCornucopia": {
+        "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
+        "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
+        "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
+        "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
+      },
+      "sweepomatic":{
+        "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
+        "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
       },
       "superStart": {
         "hasLevel4": "Empiezas cada Ascensión con 1 Trascensión, 1 Reencarnación, 1001 Mythos, 2,22e2222 Partículas y 500 Obtainium",
@@ -1586,15 +1595,6 @@
       "coolQOLCubes": {
         "hasLevel1": "¡Mantén todas las investigaciones sobre abrir Cubos Y gana la habilidad de abrir un porcentaje de tus cubos cada Ascensión!",
         "default": "Las Investigaciones relacionadas con abrir cubos ya no se resetean al Ascender"
-      },
-      "eternalAscensions": {
-        "hasLevel1": "¡Ahora puedes ascender automáticamente usando tiempo en Ascensión y finaliza automáticamente Desafíos de Ascensión con Desafíos Instantáneos 2!",
-        "default": "Ahora puedes ascender automáticamente usando tiempo en Ascensión"
-      },
-      "antGodsCornucopia": {
-        "hasLevel2": "La Velocidad de Hormigas se multiplica por 1 BILLÓN, y es inmune a cualquier corrupción existente.",
-        "hasLevel1": "La Velocidad de Hormigas se multiplica por 1 MILLÓN, y es inmune a cualquier corrupción existente.",
-        "default": "La Velocidad de Hormigas se multiplica por 1.000, y es inmune a cualquier corrupción existente."
       },
       "irishAnt": "¡Las Hormigas bendecidas con la suerte Irlandesa dan ☘ {{i}} más Suerte de Ambrosia!",
       "irishAnt2": "¡Las Hormigas bendecidas con suerte Irlandesa más afortunada dan ☘ {{i}} más Suerte de Ambrosia!",
@@ -2024,12 +2024,16 @@
       "antiquitiesNotBought": "<<var(--red-text-color)|¡Las Penalizaciones siguen activas porque no has subido de nivel las Antiguedades del Dios Hormiga!>>"
     },
     "perkNames": {
-      "xyz": "ZYX: recompenZas diarYas eXtra",
+      "welcometoSingularity": "Welcome to Singularity!",
       "unlimitedGrowth": "Crecimiento Ilimitado",
       "goldenCoins": "Monedas doradas",
+      "xyz": "ZYX: recompenZas diarYas eXtra",
       "hepteractAutocraft": "Autocreación de Hepteractos",
       "generousOrbs": "Orbes Generosos",
       "researchDummies": "Investigación para Dummies",
+      "eternalAscensions": "Ascensiones Eternas",
+      "antGodsCornucopia": "Cornucopia de Dios Hormiga",
+      "sweepomatic": "Automatic Sweep-o-matic Mk.2",
       "superStart": "Super Comienzo",
       "notSoChallenging": "No Tan Desafiante",
       "automationUpgrades": "Mejoras de Automatización",
@@ -2043,8 +2047,6 @@
       "exaltedAchievements": "Cámara de EXALTADO",
       "derpSmithsCornucopia": "Cornucopia de Derpsmith",
       "coolQOLCubes": "Genial Cdv de Cubos",
-      "eternalAscensions": "Ascensiones Eternas",
-      "antGodsCornucopia": "Cornucopia de Dios Hormiga",
       "irishAnt": "Hormigas Irlandesas",
       "irishAnt2": "Hormigas Irlandesas II: La Venganza",
       "overclocked": "Sobreacelerado",
@@ -2063,7 +2065,7 @@
     }
   },
   "general": {
-    "youAreInThe": "Estás en el",
+    "youAreInThe": "Estás en el <<gold|{{number}} Singularity>>",
     "validation": {
       "finite": "¡El valor ha de ser un número finito!",
       "zeroOrLess": "¡Por favor, solo números mayores a cero!",

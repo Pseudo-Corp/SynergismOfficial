@@ -555,14 +555,7 @@
       "266": "夸克获取数量增加{{x}}%[在1000000000000000(1e15)次飞升时达到上限：10%]！",
       "267": "飞升分数增加{{x}}%[在e100000常数时达到上限：100%]",
       "270": "七阶立方获取数量增加{{x}}%[在e1000000常数时达到上限：100%]，数学常数升级1的效果从1.05变为1.06，数学常数升级2的效果从1.1变为1.11。",
-      "271": "开启一个PLATONIC方盒时，获得{{x}}个五阶立方，向下取整[在e1000000常数时达到上限：1]",
-      "274": "蚂蚁速度永久变为4.44倍！只要资源充足，将最大化购买PLATONIC方盒升级！",
-      "275": "进入奇点后直接获得1次超越和1001神话！",
-      "276": "进入奇点后直接获得1次转世和10粒子！",
-      "277": "进入奇点后直接获得500难得素！",
-      "278": "夸克获取数量永久增加5%！",
-      "279": "进入奇点后直接完成一次挑战7，并获得1e100粒子。护身符的额外等级对所有符文均生效！",
-      "280": "进入奇点后直接完成一次挑战8，并获得一只工蚁。"
+      "271": "开启一个PLATONIC方盒时，获得{{x}}个五阶立方，向下取整[在e1000000常数时达到上限：1]"
     },
     "alerts": {
       "36": "恭喜您完成了第一次转生。当然，有一次，就会有无数次。您获得了祭品，您可以在新解锁的符文选项卡中使用它们！[解锁了符文，成就，钻石建筑和一些其他升级！]",
@@ -1520,22 +1513,38 @@
       "multiBuyPurchased": "一次性升级了{{levels}}级，多重购买真是太棒了！"
     },
     "perks": {
+      "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "第{{sing}}次进入奇点后将有特权加强",
       "unlockedIn": "第{{sing}}次进入奇点后将解锁新特权",
       "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点。</span><br/>以下是您在奇点中获得的特权",
       "description": "(鼠标停留在特权上可以查看效果。<span style=\"color: gold\">金色文本</span>的特权在本次奇点解锁或者加强)",
+      "welcometoSingularity": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!",
+      "unlimitedGrowth": "每进入1次奇点，夸克获取数量和飞升次数获取数量就增加10%(目前增加了{{amount}}%)",
+      "goldenCoins": "根据未花费的金夸克增加金币产量。每次奇点的飞升前阶段效果最好(目前增加了{{amount}}%)",
       "xyz": {
         "hasLevel2": "输入“每日”代码后可以获得金夸克和随机奇点升级的免费等级，额外获得0.2级金夸克 I，0.2级金夸克 II和1级金夸克 III，另外再使获得的免费等级数量翻倍！",
         "hasLevel1": "输入“每日”代码后可以获得金夸克和随机奇点升级的免费等级，还可以额外获得0.2级金夸克 I，0.2级金夸克 II和1级金夸克 III。",
         "default": "输入“每日”代码后可以获得金夸克和随机奇点升级的免费等级，且效果随着奇点次数而增长！"
       },
-      "unlimitedGrowth": "每进入1次奇点，夸克获取数量和飞升次数获取数量就增加10%(目前增加了{{amount}}%)",
-      "goldenCoins": "根据未花费的金夸克增加金币产量。每次奇点的飞升前阶段效果最好",
       "hepteractAutocraft": "可以自动进行七阶立方锻造",
       "generousOrbs": "超通量珠加成夸克获取数量的效果上限变为{{amount}}%",
       "researchDummies": {
         "hasLevel1": "您可以保留更好的自动研究，即方盒升级[1x9]",
         "otherwise": "您可以使用鼠标停留购买升级研究"
+      },
+      "eternalAscensions": {
+        "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
+        "default": "Your ascension count is multipled based on your Singularity count! Currently: x{{amount}}"
+      },
+      "antGodsCornucopia": {
+        "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
+        "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
+        "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
+        "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
+      },
+      "sweepomatic":{
+        "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
+        "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
       },
       "superStart": {
         "hasLevel4": "飞升后初始获得1次超越，1次转世，1001神话，2.22e2222粒子和500难得素",
@@ -1586,15 +1595,6 @@
       "coolQOLCubes": {
         "hasLevel1": "飞升时，研究6x13、7x3、7x18、8x8、8x23不再重置，并可以自动开启特定比例的方盒及立方！",
         "default": "飞升时，研究6x13、7x3、7x18、8x8、8x23不再重置"
-      },
-      "eternalAscensions": {
-        "hasLevel1": "您可以根据现实时间自动飞升了，并且购买立即完成挑战 2后，可以自动扫荡飞升挑战！",
-        "default": "您可以根据现实时间自动飞升了"
-      },
-      "antGodsCornucopia": {
-        "hasLevel2": "蚂蚁速度变为1e12倍！该效果不受任何等级的任何腐化影响。",
-        "hasLevel1": "蚂蚁速度变为1e6倍！该效果不受任何等级的任何腐化影响。",
-        "default": "蚂蚁速度变为1000倍！该效果不受任何等级的任何腐化影响。"
       },
       "irishAnt": "受到爱尔兰之运祝福的蚂蚁可以使神肴之运增加{{i}}！",
       "irishAnt2": "受到爱尔兰之运更多祝福的蚂蚁可以使神肴之运再增加{{i}}！",
@@ -2024,12 +2024,16 @@
       "antiquitiesNotBought": "<<var(--red-text-color)|蚁神之古物未购买。奇点相关惩罚未驱散！>>"
     },
     "perkNames": {
-      "xyz": "“每日”代码额外奖励",
+      "welcometoSingularity": "Welcome to Singularity!",
       "unlimitedGrowth": "无限成长",
       "goldenCoins": "金币之雨",
+      "xyz": "“每日”代码额外奖励",
       "hepteractAutocraft": "七阶立方自动锻造",
       "generousOrbs": "慷慨之珠",
       "researchDummies": "傻瓜式研究教学",
+      "eternalAscensions": "永恒飞升",
+      "antGodsCornucopia": "蚁神的聚宝盆",
+      "sweepomatic": "Automatic Sweep-o-matic Mk.2",
       "superStart": "超级初始",
       "notSoChallenging": "这就是挑战？",
       "automationUpgrades": "永久保留自动升级",
@@ -2043,8 +2047,6 @@
       "exaltedAchievements": "拔擢成就",
       "derpSmithsCornucopia": "Derpsmith的聚宝盆",
       "coolQOLCubes": "酷炫的开盒体验",
-      "eternalAscensions": "永恒飞升",
-      "antGodsCornucopia": "蚁神的聚宝盆",
       "irishAnt": "爱尔兰蚂蚁",
       "irishAnt2": "爱尔兰蚂蚁 II：电子布加洛舞",
       "overclocked": "超载",
@@ -2063,7 +2065,7 @@
     }
   },
   "general": {
-    "youAreInThe": "您目前已进入了",
+    "youAreInThe": "您目前已进入了 <<gold|{{number}} Singularity>>",
     "validation": {
       "finite": "这不是有效的数字啊。",
       "zeroOrLess": "请只输入大于0的数字！",
