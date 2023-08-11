@@ -1100,9 +1100,9 @@
       "73": "[Cx23] The Wizards baked this cookie using demystified Mythos Shards. This cookie enlightens you and immediately maxes Cube Upgrade 5x10, no matter how expensive!",
       "74": "[Cx24] A cookie that, upon eating it, regresses you back in time. Singularity Debuffs are weakened by 1 Singularity per level.",
       "75": "[Cx25] This cookie might be lemon flavored, or something. This cookie adds new Challenge 15 milestones, up to 1e111 Challenge Score!",
-      "76": "[Cx26] An truly natural blue cookie, though darker in complexion. The sugar hits you slowly, giving up to +18% more Blueberry Generation Speed over the course of 9 days.",
-      "77": "[Cx27] Speakable horrors have made this cookie green. The sugar hits you slowly, giving up to +135 more Ambrosia Luck over the course of 9 days.",
-      "78": "[Cx28] When this cookie is purchased, obtainium and offering gain is divided by 10 whenever 1e300 is obtained at once. However, each time either is divided, Quark gain is increased by 0.2%",
+      "76": "[Cx26] An truly natural blue cookie, though darker in complexion. Lifetime Ambrosia Thresholds now have -0.01 power per level! [Base is 2.00]",
+      "77": "[Cx27] Speakable horrors have made this cookie green. For every Lifetime Ambrosia Threshold hit, ☘ Ambrosia Luck +35!",
+      "78": "[Cx28] Platonic cannot break the value caps for Offerings or Obtainium, but he can give you +0.08% more Quarks for each uncut exponent above 300! Check out the values in their respective tabs.",
       "79": "[Cx29] This cookie makes the Mortuus Est Talisman 66x stronger than before! Don't ask how.",
       "80": "[CxMAX] The pinnacle of baking. Nothing you'll eat will taste better than this."
     },

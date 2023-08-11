@@ -383,9 +383,9 @@ export const player: Player = {
   transcendamount: 0,
   reincarnationamount: 0,
 
-  fastestprestige: 0,
-  fastesttranscend: 0,
-  fastestreincarnate: 0,
+  fastestprestige: 1e300,
+  fastesttranscend: 1e300,
+  fastestreincarnate: 1e300,
 
   resettoggle1: 1,
   resettoggle2: 1,
@@ -4031,7 +4031,7 @@ const tack = (dt: number) => {
       }
     }
   }
-  calculateOfferings('reincarnation')
+  calculateOfferings('reincarnation', true)
 }
 
 export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {

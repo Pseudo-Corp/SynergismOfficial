@@ -49,6 +49,17 @@ export const sumContents = (array: number[]): number => {
 export const productContents = (array: number[]): number => array.reduce((a, b) => a * b)
 
 
+/**
+ * From the contents of an array, get log10(product of contents) such that it can support past 1e308.
+ * Uses the (very useful!) fact that log10(a) + log10(b) = log10(a*b) etc
+ * @param array {number[]}
+ * @returns {number}
+ */
+export const logContents = (array: number[]) => {
+  const newArr = array.map((x) => Math.max(-100000, Math.log10(Math.abs(x))))
+  return sumContents(newArr)
+}
+
 export const sortWithIndices = (toSort: number[]) => {
   return Array
     .from([...toSort.keys()])

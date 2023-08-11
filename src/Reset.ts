@@ -53,7 +53,7 @@ export const resetdetails = (input: resetNames) => {
   const transcensionChallenge = player.currentChallenge.transcension
   const reincarnationChallenge = player.currentChallenge.reincarnation
 
-  const offering = calculateOfferings(input)
+  const offering = calculateOfferings(input, true)
   const offeringImage = getElementById<HTMLImageElement>('resetofferings1')
   const offeringText = DOMCacheGetOrSet('resetofferings2')
   const currencyImage1 = getElementById<HTMLImageElement>('resetcurrency1')
@@ -148,7 +148,7 @@ export const resetdetails = (input: resetNames) => {
       resetInfo.textContent = 'Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with ' + format(calculateGoldenQuarkGain(), 2, true) + ' Golden Quarks. Time: ' + format(player.singularityCounter, 0, false) + ' Seconds.'
       resetInfo.style.color = 'lightgoldenrodyellow'
   }
-  DOMCacheGetOrSet('resetofferings2').textContent = '+' + format(offering)
+  DOMCacheGetOrSet('resetofferings2').textContent = '+' + format(offering.toGain)
 }
 
 export const updateAutoReset = (i: number) => {
@@ -194,14 +194,14 @@ export const updateAutoCubesOpens = (i: number) => {
 }
 
 const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
-  const offeringsGiven = calculateOfferings(input)
+  const offeringsGiven = calculateOfferings(input, true)
   const isChallenge = ['enterChallenge', 'leaveChallenge'].includes(from)
 
   if (input === 'prestige') {
     const historyEntry: ResetHistoryEntryPrestige = {
       seconds: player.prestigecounter,
       date: Date.now(),
-      offerings: offeringsGiven,
+      offerings: offeringsGiven.toGain,
       kind: 'prestige',
       diamonds: G.prestigePointGain.toString()
     }
@@ -213,7 +213,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
     const historyEntry: ResetHistoryEntryTranscend = {
       seconds: player.transcendcounter,
       date: Date.now(),
-      offerings: offeringsGiven,
+      offerings: offeringsGiven.toGain,
       kind: 'transcend',
       mythos: G.transcendPointGain.toString()
     }
@@ -226,7 +226,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
       const historyEntry: ResetHistoryEntryReincarnate = {
         seconds: player.reincarnationcounter,
         date: Date.now(),
-        offerings: offeringsGiven,
+        offerings: offeringsGiven.toGain,
         kind: 'reincarnate',
         particles: G.reincarnationPointGain.toString(),
         obtainium: G.obtainiumGain

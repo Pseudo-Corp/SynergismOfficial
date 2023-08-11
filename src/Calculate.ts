@@ -1,5 +1,5 @@
 import { player, saveSynergy, format, resourceGain, updateAll, getTimePinnedToLoadDate } from './Synergism'
-import { sumContents, productContents } from './Utility'
+import { sumContents, productContents, logContents } from './Utility'
 import { Globals as G } from './Variables'
 import { CalcECC } from './Challenges'
 import Decimal from 'break_infinity.js'
@@ -257,10 +257,9 @@ export const calculateEffectiveIALevel = () => {
   return player.runelevels[5] + Math.max(0, player.runelevels[5] - 74) + Math.max(0, player.runelevels[5] - 98)
 }
 
-export function calculateOfferings(input: resetNames): number
-export function calculateOfferings(input: resetNames, calcMult: false, statistic?: boolean): number[]
-export function calculateOfferings(input: resetNames, calcMult: true, statistic: boolean): number
-export function calculateOfferings(input: resetNames, calcMult = true, statistic = false) {
+export function calculateOfferings(input: resetNames | 'statistic', calcMult: false): number[]
+export function calculateOfferings(input: resetNames | 'statistic', calcMult: true): {toGain: number, log10: number}
+export function calculateOfferings(input: resetNames | 'statistic', calcMult = true) {
 
   if (input == 'acceleratorBoost' || input == 'ascension' || input == 'ascensionChallenge') {
     return 0
@@ -336,6 +335,11 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
   }
   q = a + b + c
 
+  if (input == 'statistic') {
+    q = 1
+  }
+  const logQ = Math.max(-100000, Math.log10(q))
+
   const arr = [
     1 + 10 * player.achievements[33] / 100, // Alchemy Achievement 5
     1 + 15 * player.achievements[34] / 100, // Alchemy Achievement 6
@@ -368,48 +372,49 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     +player.singularityUpgrades.singCitadel2.getEffect().bonus, // Citadel 2 GQ Upgrade
     1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
     +player.octeractUpgrades.octeractOfferings1.getEffect().bonus, // Offering Electrolosis OC Upgrade
+    (G.eventClicked && G.isEvent) ? 1.05 : 1, // Event Clickable
+    1 / calculateSingularityDebuff('Offering'), // Singularity Debuff Modifier
+    (player.currentChallenge.ascension === 15) ? 1 + 7 * player.cubeUpgrades[62] : 1, // Cookie Upgrade 12
+    1 + 1/200 * player.shopUpgrades.cashGrab2, // Cash Grab II
+    1 + 1/100 * player.shopUpgrades.offeringEX2 * player.singularityCount, // Offering EX II
+    Math.pow(1.02, player.shopUpgrades.offeringEX3), // Offering EX III
+    calculateTotalOcteractOfferingBonus(), // Octeract Bonus [Exalt IV]
     1 + calculateEventBuff('Offering') // Event
   ]
 
-  if (calcMult) {
-    q *= productContents(arr)
-  } else {
+  const totalLog = logQ + logContents(arr)
+
+  if (!calcMult) {
     return arr
   }
 
-  if (statistic) {
-    return productContents(arr)
+  let toGain = 0
+  if (totalLog < -308) {
+    toGain = 0
+  } else {
+    toGain = Math.pow(10, Math.min(300, totalLog))
   }
 
-  if (G.eventClicked && G.isEvent) {
-    q *= 1.05
-  }
-  q /= calculateSingularityDebuff('Offering')
-  q = Math.floor(q) * 100 / 100
-  if (player.currentChallenge.ascension === 15) {
-    q *= (1 + 7 * player.cubeUpgrades[62])
-  }
-  q *= (1 + 1/200 * player.shopUpgrades.cashGrab2)
-  q *= (1 + 1/100 * player.shopUpgrades.offeringEX2 * player.singularityCount)
-  q *= Math.pow(1.02, player.shopUpgrades.offeringEX3)
-  q *= calculateTotalOcteractOfferingBonus()
-  q = Math.min(1e300, q)
+  toGain = Math.max(1, Math.floor(toGain))
 
   let persecond = 0
   if (input === 'prestige') {
-    persecond = q / (1 + player.prestigecounter)
+    persecond = toGain / (1 + player.prestigecounter)
   }
   if (input === 'transcension' || input == 'transcensionChallenge') {
-    persecond = q / (1 + player.transcendcounter)
+    persecond = toGain / (1 + player.transcendcounter)
   }
   if (input === 'reincarnation' || input == 'reincarnationChallenge') {
-    persecond = q / (1 + player.reincarnationcounter)
+    persecond = toGain / (1 + player.reincarnationcounter)
   }
   if (persecond > player.offeringpersecond) {
     player.offeringpersecond = persecond
   }
 
-  return q
+  return {
+    toGain,
+    log10: totalLog
+  }
 }
 
 export const calculateObtainium = () => {
@@ -1706,6 +1711,7 @@ export const calculateQuarkMultiplier = () => {
   multiplier *= +player.blueberryUpgrades.ambrosiaCubeQuark1.bonus.quarks
   multiplier *= +player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks
   multiplier *= +player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks
+  multiplier *= (player.cubeUpgrades[78] > 0) ? 1 + 0.08 / 100 * Math.max(0, calculateOfferings('statistic', true).log10 - 300) : 1
 
   if (player.highestSingularityCount === 0) {
     multiplier *= 1.25
@@ -2281,7 +2287,9 @@ export const numOfTimeThresholds = () => {
 
 export const thresholdPower = () => {
   // Right now it defaults to 2, will be upgradable in the future. -Plab
-  return 2
+  let val = 2
+  val -= 0.01 * player.cubeUpgrades[76]
+  return val
 }
 
 export const calculateRequiredBlueberryTime = () => {

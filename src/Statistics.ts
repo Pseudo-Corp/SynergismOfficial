@@ -432,18 +432,26 @@ export const loadStatisticsOfferingMultipliers = () => {
     25: { acc: 3, desc: 'Offering Charge [GQ]:' },
     26: { acc: 3, desc: 'Offering Storm [GQ]:' },
     27: { acc: 3, desc: 'Offering Tempest [GQ]:' },
-    28: { acc: 3, desc: 'Citadel [GQ]' },
-    29: { acc: 3, desc: 'Citadel 2 [GQ]' },
+    28: { acc: 3, desc: 'Citadel [GQ]:' },
+    29: { acc: 3, desc: 'Citadel 2 [GQ]:' },
     30: { acc: 3, desc: 'Cube Upgrade Cx4:' },
     31: { acc: 3, desc: 'Offering Electrolosis [OC]:' },
-    32: { acc: 3, desc: 'Event:' }
+    32: { acc: 3, desc: 'Event Clickable:' },
+    33: { acc: 3, desc: 'Singularity Debuff Modifier:' },
+    34: { acc: 3, desc: 'Cube Upgrade Cx12:' },
+    35: { acc: 3, desc: 'Cash Grab II:' },
+    36: { acc: 3, desc: 'Offering EX II:' },
+    37: { acc: 3, desc: 'Offering EX III:' },
+    38: { acc: 3, desc: 'Octeract Bonus [Exalt IV]:' },
+    39: { acc: 3, desc: 'Event:' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`)
     statOffi.childNodes[0].textContent = map[i + 1].desc
     DOMCacheGetOrSet(`sOff${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`
   }
-  DOMCacheGetOrSet('sOffT').textContent = `x${format(calculateOfferings('prestige', true, true), 3)}`
+  const offeringMeta = calculateOfferings('statistic', true)
+  DOMCacheGetOrSet('sOffT').textContent = ` x${format(offeringMeta.toGain, 3)} [Uncut Exponent: ${format(offeringMeta.log10, 2, true)}]`
 }
 
 export const loadPowderMultiplier = () => {
@@ -609,7 +617,8 @@ export const loadStatisticsAmbrosiaLuck = () => {
     6: { acc: 1, desc: 'Ambrosia Luck Module II' },
     7: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
     8: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
-    9: { acc: 1, desc: 'Event Bonus' }
+    9: { acc: 0, desc: 'Cookie Upgrade 3x7' },
+    10: { acc: 1, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)

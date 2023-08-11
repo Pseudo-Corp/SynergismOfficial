@@ -1,10 +1,10 @@
-import { calculateAmbrosiaLuckOcteractUpgrade, calculateAmbrosiaLuckShopUpgrade, calculateAmbrosiaLuckSingularityUpgrade, calculateEventBuff, calculateSingularityAmbrosiaLuckMilestoneBonus } from '../../../Calculate'
+import { calculateAmbrosiaLuckOcteractUpgrade, calculateAmbrosiaLuckShopUpgrade, calculateAmbrosiaLuckSingularityUpgrade, calculateEventBuff, calculateSingularityAmbrosiaLuckMilestoneBonus, numOfTimeThresholds } from '../../../Calculate'
 import { player } from '../../../Synergism'
 import { Globals } from '../../../Variables'
 import { AdditionCache } from './AdditionCache'
 
 type AmbrosialLuck = 'SingPerks' | 'OcteractBerries' | 'ShopUpgrades' | 'BlueberryUpgrade1' | 'Event' |
-                     'BlueberryCubeLuck1' | 'BlueberryQuarkLuck1' | 'SingularityBerries' | 'BlueberryUpgrade2'
+                     'BlueberryCubeLuck1' | 'BlueberryQuarkLuck1' | 'SingularityBerries' | 'BlueberryUpgrade2' | 'CubeUpgrade'
 
 export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
 
@@ -22,6 +22,7 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       'BlueberryUpgrade2': 0,
       'BlueberryCubeLuck1': 0,
       'BlueberryQuarkLuck1': 0,
+      'CubeUpgrade': 0,
       'Event': 0
     }
     this.totalVal = 0
@@ -60,6 +61,10 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       }
       case 'BlueberryQuarkLuck1': {
         this.vals[key] = +player.blueberryUpgrades.ambrosiaQuarkLuck1.bonus.ambrosiaLuck
+        break
+      }
+      case 'CubeUpgrade': {
+        this.vals[key] = player.cubeUpgrades[77] * numOfTimeThresholds().numThresholds * 35
         break
       }
       case 'Event': {
