@@ -337,7 +337,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     singAmbrosiaGeneration: new SingularityUpgrade(singularityData.singAmbrosiaGeneration, 'singAmbrosiaGeneration'),
     singAmbrosiaGeneration2: new SingularityUpgrade(singularityData.singAmbrosiaGeneration2, 'singAmbrosiaGeneration2'),
     singAmbrosiaGeneration3: new SingularityUpgrade(singularityData.singAmbrosiaGeneration3, 'singAmbrosiaGeneration3'),
-    singAmbrosiaGeneration4: new SingularityUpgrade(singularityData.singAmbrosiaGeneration4, 'singAmbrosiaGeneration4')
+    singAmbrosiaGeneration4: new SingularityUpgrade(singularityData.singAmbrosiaGeneration4, 'singAmbrosiaGeneration4'),
+    wowPass5: new SingularityUpgrade(singularityData.wowPass5, 'wowPass5')
   }
 
   player.octeractUpgrades = {
@@ -556,6 +557,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
       offeringEX3: 0,
       obtainiumEX3: 0,
       improveQuarkHept5: 0,
+      improveQuarkHept6: 0,
       seasonPassInfinity: 0,
       chronometerInfinity: 0,
       shopSingularityPenaltyDebuff: 0,
@@ -563,10 +565,12 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
       shopAmbrosiaGeneration2: 0,
       shopAmbrosiaGeneration3: 0,
       shopAmbrosiaGeneration4: 0,
+      shopAmbrosiaGeneration5: 0,
       shopAmbrosiaLuck1: 0,
       shopAmbrosiaLuck2: 0,
       shopAmbrosiaLuck3: 0,
-      shopAmbrosiaLuck4: 0
+      shopAmbrosiaLuck4: 0,
+      shopAmbrosiaLuck5: 0
     }
 
     player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false)

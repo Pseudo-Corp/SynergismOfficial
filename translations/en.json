@@ -15,6 +15,7 @@
         "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
         "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
         "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Generating Ambrosia when <<blue|{{thresholdTimer}}>> is accumulated.",
+        "thresholds": "Your Lifetime Ambrosia has exceeded <<var(--amber-text-color)|{{threshold}}>> thresholds, each one multiplying required time accumulation by <<crimson|{{pow}}>> [Total multiplier: <<var(--orchid-text-color)|{{totalMult}}>> / Next Threshold: <<var(--amber-text-color)|{{nextThresh}}>> Lifetime Ambrosia]",
         "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
         "prerequisite": "Prerequisites:",
         "prereqNotMet": " (Not Met!)",
@@ -1404,14 +1405,17 @@
       "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.",
       "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
       "improveQuarkHept5": "This is 1/50 as effective as a normal improver. Why? Because of balancing...",
+      "improveQuarkHept6": "When all else fails, you can buy this. It is 1/12 as effective as a normal improver, since we want you to buy more than one.",
       "shopAmbrosiaGeneration1": "Buying this charm grants +1% faster Blueberry Time generation per level, for more Ambrosia! Don't know what that means? You soon will.",
       "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% faster Blueberry Time generation per level, stacking multiplicatively.",
       "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% faster Blueberry Time generation per level, stacking multiplicatively.",
       "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +0.1% faster Blueberry Time generation per level, stacking multiplicatively.",
+      "shopAmbrosiaGeneration5": "If you can unite 265 colors of the rainbow, you will gain +15% generation per level. In addition, every 3 Ambrosia divisor thresholds reached pushes back Singularity Debuffs by 1 Singularity, up to +2(!) [capped at shop Level]",
       "shopAmbrosiaLuck1": "Buying this charm grants +2 ☘ Ambrosia luck per level, for more Ambrosia! Don't know what that means? You soon will.",
       "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
       "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
-      "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.6 ☘ Ambrosia luck per level, stacking additively."
+      "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.6 ☘ Ambrosia luck per level, stacking additively.",
+      "shopAmbrosiaLuck5": "If you can unite 21 orders of Gold, you will gain +100 ☘ Ambrosia luck per level, stacking additively. In addition, every 1,500 ☘ Ambrosia Luck pushes back Singularity Debuffs by 1 Singularity, up to +2(!) [capped at shop level]"
     },
     "maxed": "Maxed!",
     "upgradeFor": "Upgrade for {{x}} Quarks",
@@ -1484,6 +1488,7 @@
       "improveQuarkHept3": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
       "improveQuarkHept4": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
       "improveQuarkHept5": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>.",
+      "improveQuarkHept6": "The Diminishing Returns Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}%>>, one last time.",
       "shopImprovedDaily": "Code 'daily' gives <<cyan|+{{amount}}%>> more quarks.",
       "shopImprovedDaily2": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<turquoise|+{{amount2}}%>> more Golden Quarks.",
       "shopImprovedDaily3": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<turquoise|+{{amount2}}%>> more Golden Quarks.",
@@ -1497,10 +1502,12 @@
       "shopAmbrosiaGeneration2": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
       "shopAmbrosiaGeneration3": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
       "shopAmbrosiaGeneration4": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+      "shopAmbrosiaGeneration5": "Blueberry Time is generated <<blue|{{amount}}%>> faster, and Singularity Debuffs are reduced by <<pink|{{amount2}}>> singularities.",
       "shopAmbrosiaLuck1": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
       "shopAmbrosiaLuck2": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
       "shopAmbrosiaLuck3": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
-      "shopAmbrosiaLuck4": "Ambrosia Luck <<lime|☘ +{{amount}}>>"
+      "shopAmbrosiaLuck4": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
+      "shopAmbrosiaLuck5": "Ambrosia Luck <<lime|☘ +{{amount}}>>, and Singularity Debuffs are reduced by <<pink|{{amount2}}>> singularities."
     }
   },
   "singularity": {
@@ -2000,6 +2007,12 @@
         "name": "Hourglass of Fantasy",
         "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% Blueberry Second Generation per level.",
         "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+      },
+      "wowPass5": {
+        "name": "Sue Doe's Shop",
+        "description": "Sue Doe Corporate fired the shop duck for insubordination. Now you're buying from the big boys!",
+        "effectHave": "You have SUED 'DOE last CORP [WOW that joke sucked]",
+        "effectHaveNot": "You do not have permission to buy from Sue Doe Corporate."
       }
     },
     "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
@@ -2059,6 +2072,7 @@
   },
   "general": {
     "youAreInThe": "You are in the",
+    "reducedBy": "[Reduced By <<var(--orchid-text-color)|{{ amount }}>>]",
     "validation": {
       "finite": "Value must be a finite number!",
       "zeroOrLess": "Only numbers greater than zero, please!",

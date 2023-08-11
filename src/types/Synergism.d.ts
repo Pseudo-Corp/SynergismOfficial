@@ -381,6 +381,7 @@ export interface Player {
         offeringEX3: number,
         obtainiumEX3: number,
         improveQuarkHept5: number,
+        improveQuarkHept6: number,
         seasonPassInfinity: number,
         chronometerInfinity: number,
         shopSingularityPenaltyDebuff: number,
@@ -388,10 +389,12 @@ export interface Player {
         shopAmbrosiaGeneration2: number,
         shopAmbrosiaGeneration3: number,
         shopAmbrosiaGeneration4: number,
+        shopAmbrosiaGeneration5: number,
         shopAmbrosiaLuck1: number,
         shopAmbrosiaLuck2: number,
         shopAmbrosiaLuck3: number,
-        shopAmbrosiaLuck4: number
+        shopAmbrosiaLuck4: number,
+        shopAmbrosiaLuck5: number
     },
     shopConfirmationToggle: boolean,
     shopBuyMaxToggle: boolean | 'TEN' | 'ANY',

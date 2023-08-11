@@ -2267,23 +2267,35 @@ export const calculateAmbrosiaLuckOcteractUpgrade = () => {
   return sumContents(vals)
 }
 
+export const numOfTimeThresholds = () => {
+  // Base: 100k, 500k, 1 million, 2.5 mill, 5 mill, 10 mill, 25 mill...
+  const timeThresholds = [1e5, 5e5, 1e6, 2.5e6, 5e6, 1e7, 2.5e7, 5e7, 1e8, 2.5e8, 5e8, 1e9]
+  let n = 0
+  for (const threshold of timeThresholds) {
+    if (player.lifetimeAmbrosia > threshold)
+      n += 1
+  }
+  return { numThresholds: n,
+    nextThreshold: format(timeThresholds[n], 0, true) }
+}
+
+export const thresholdPower = () => {
+  // Right now it defaults to 2, will be upgradable in the future. -Plab
+  return 2
+}
+
 export const calculateRequiredBlueberryTime = () => {
   let val = G.TIME_PER_AMBROSIA // Currently 600
   val += Math.floor(player.lifetimeAmbrosia / 30)
-
-  const baseVal = val
-
-  const timeThresholds = [5000, 25000, 75000, 250000, 500000, 1e6, 2e6, 4e6, 1e7, 2e7, 4e7, 1e8]
-  for (const threshold of timeThresholds) {
-    if (baseVal >= threshold)
-      val *= 2
-  }
+  const numThresholds = numOfTimeThresholds()
+  const thresholdPow = thresholdPower()
+  val *= Math.pow(thresholdPow, numThresholds.numThresholds)
   return val
 }
 
 export const calculateSingularityMilestoneBlueberries = () => {
   let val = 0
-  if (player.highestSingularityCount >= 254) val = 4
+  if (player.highestSingularityCount >= 264) val = 4
   else if (player.highestSingularityCount >= 198) val = 3
   else if (player.highestSingularityCount >= 132) val = 2
   else if (player.highestSingularityCount >= 66) val = 1

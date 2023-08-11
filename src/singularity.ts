@@ -1,4 +1,5 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { numOfTimeThresholds } from './Calculate'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import { format, player } from './Synergism'
@@ -28,7 +29,12 @@ export const updateSingularityPenalties = (): void => {
 }
 
 function getSingularityOridnalText(singularityCount: number): string {
-  return `${i18next.t('general.youAreInThe')} <span style="color: gold">${toOrdinal(singularityCount)} Singularity</span>`
+  const reduceVal = calculateSingularityReduction()
+  let text = `${i18next.t('general.youAreInThe')} <span style="color: gold">${toOrdinal(singularityCount)} Singularity</span>`
+  if (reduceVal > 0) {
+    text = text + `\n ${i18next.t('general.reducedBy', { amount: reduceVal })}`
+  }
+  return text
 }
 
 // Need a better way of handling the ones without a special formulae than 'Default' variant
@@ -1252,6 +1258,20 @@ export const singularityData: Record<keyof Player['singularityUpgrades'], ISingu
     },
     qualityOfLife: true,
     cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('SingularityBerries')]
+  },
+  wowPass5: {
+    maxLevel: 1,
+    costPerLevel: 1e20,
+    minimumSingularity: 244,
+    effect: (n : number) => {
+      return {
+        bonus: n > 0,
+        get desc () {
+          return i18next.t(`singularity.data.wowPass5.effect${n ? 'Have' : 'HaveNot'}`)
+        }
+      }
+    },
+    qualityOfLife: true
   }
 }
 
@@ -2097,6 +2117,16 @@ export const calculateNextSpike = (singularityCount: number = player.singularity
   }
   return -1
 }
+
+export const calculateSingularityReduction = () => {
+  let val = 0
+  val += player.shopUpgrades.shopSingularityPenaltyDebuff
+  val += Math.min(player.shopUpgrades.shopAmbrosiaGeneration5, Math.floor(numOfTimeThresholds().numThresholds / 3))
+  val += Math.min(player.shopUpgrades.shopAmbrosiaLuck5, Math.floor(player.caches.ambrosiaLuck.totalVal / 1500))
+  val += player.cubeUpgrades[74]
+  return val
+}
+
 export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singularityCount: number=player.singularityCount) => {
   if (singularityCount === 0) {
     return 1
@@ -2106,7 +2136,8 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
   }
 
   let constitutiveSingularityCount = singularityCount
-  constitutiveSingularityCount -= player.shopUpgrades.shopSingularityPenaltyDebuff
+  constitutiveSingularityCount -= calculateSingularityReduction()
+  constitutiveSingularityCount = Math.max(0, constitutiveSingularityCount)
 
   const effectiveSingularities = calculateEffectiveSingularities(constitutiveSingularityCount)
 

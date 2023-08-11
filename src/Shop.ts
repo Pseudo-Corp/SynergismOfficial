@@ -1,6 +1,6 @@
 import { player, format } from './Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
-import { calculatePowderConversion, calculateSummationNonLinear, calculateTimeAcceleration } from './Calculate'
+import { calculatePowderConversion, calculateSummationNonLinear, calculateTimeAcceleration, numOfTimeThresholds } from './Calculate'
 import type { Player } from './types/Synergism'
 import type { IMultiBuy } from './Cubes'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -14,7 +14,7 @@ export enum shopUpgradeTypes {
     UPGRADE = 'upgrade'
 }
 
-type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2' | 'SingularityVol3' | 'SingularityVol4' | 'Exalt'
+type shopResetTier = 'Reincarnation' | 'Ascension' | 'Singularity' | 'SingularityVol2' | 'SingularityVol3' | 'SingularityVol4' | 'Exalt' | 'SingularityVol5'
 
 export interface IShopData {
     price: number
@@ -522,6 +522,15 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundable: false,
     refundMinimumLevel: 0
   },
+  improveQuarkHept6: {
+    tier: 'SingularityVol5',
+    price: 2e21,
+    priceIncrease: 1e21,
+    maxLevel: 6,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
   chronometerInfinity: {
     tier: 'SingularityVol4',
     price: 1,
@@ -585,6 +594,15 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundable: false,
     refundMinimumLevel: 0
   },
+  shopAmbrosiaGeneration5: {
+    tier: 'SingularityVol5',
+    price: 4e21,
+    priceIncrease: 2e21,
+    maxLevel: 2,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
   shopAmbrosiaLuck1: {
     tier: 'SingularityVol2',
     price: 20000000,
@@ -620,6 +638,15 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
+  },
+  shopAmbrosiaLuck5: {
+    tier: 'SingularityVol5',
+    price: 4e21,
+    priceIncrease: 2e21,
+    maxLevel: 2,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
   }
 }
 
@@ -635,7 +662,8 @@ type ShopUpgradeNames = 'offeringPotion' | 'obtainiumPotion' |
                         'shopImprovedDaily2' | 'shopImprovedDaily3' | 'shopImprovedDaily4' | 'calculator4' | 'calculator5' | 'calculator6' |
                         'offeringEX3' | 'obtainiumEX3' | 'improveQuarkHept5' | 'seasonPassInfinity' | 'chronometerInfinity' | 'shopSingularityPenaltyDebuff' |
                         'shopAmbrosiaGeneration1' | 'shopAmbrosiaGeneration2' | 'shopAmbrosiaGeneration3' | 'shopAmbrosiaGeneration4' |
-                        'shopAmbrosiaLuck1' | 'shopAmbrosiaLuck2' | 'shopAmbrosiaLuck3' | 'shopAmbrosiaLuck4'
+                        'shopAmbrosiaLuck1' | 'shopAmbrosiaLuck2' | 'shopAmbrosiaLuck3' | 'shopAmbrosiaLuck4' |
+                        'shopAmbrosiaGeneration5' | 'shopAmbrosiaLuck5' | 'improveQuarkHept6'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
 
@@ -824,6 +852,9 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'improveQuarkHept5':
       lol.innerHTML = i18next.t('shop.upgradeEffects.improveQuarkHept5', { amount: format(player.shopUpgrades.improveQuarkHept5 / 25, 2, true) })
       break
+    case 'improveQuarkHept6':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.improveQuarkHept6', { amount: format(player.shopUpgrades.improveQuarkHept6 / 6, 2, true) })
+      break
     case 'seasonPassInfinity':
       lol.innerHTML = i18next.t('shop.upgradeEffects.seasonPassInfinity', { amount: format(100 * (Math.pow(1.02, player.shopUpgrades.seasonPassInfinity) - 1), 2, true) })
       break
@@ -845,6 +876,9 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'shopAmbrosiaGeneration4':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaGeneration4', { amount: format(player.shopUpgrades.shopAmbrosiaGeneration4 / 10, 1, true) })
       break
+    case 'shopAmbrosiaGeneration5':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaGeneration5', { amount: format(15 * Number(player.highestSingularityCount >= 265) * player.shopUpgrades.shopAmbrosiaGeneration5), amount2: format(Math.min(player.shopUpgrades.shopAmbrosiaGeneration5, Math.floor(numOfTimeThresholds().numThresholds / 3))) })
+      break
     case 'shopAmbrosiaLuck1':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck1', { amount: format(2 * player.shopUpgrades.shopAmbrosiaLuck1) })
       break
@@ -857,6 +891,8 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'shopAmbrosiaLuck4':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck4', { amount: format(6 * player.shopUpgrades.shopAmbrosiaLuck4 / 10, 1, true) })
       break
+    case 'shopAmbrosiaLuck5':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck5', { amount: format(100 * Number(player.goldenQuarks > 1e21) * player.shopUpgrades.shopAmbrosiaLuck5), amount2: format(Math.min(player.shopUpgrades.shopAmbrosiaLuck5, Math.floor(player.caches.ambrosiaLuck.totalVal / 1500))) })
   }
 
 }
@@ -919,7 +955,8 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
     shopImprovedDaily4: 'Improved Daily Code 4',
     offeringEX3: 'The final Offering Upgrade',
     obtainiumEX3: 'The final Obtainium Upgrade',
-    improveQuarkHept5: 'The final Quark Hepteract Improver',
+    improveQuarkHept5: 'The penultimate Quark Hepteract Improver',
+    improveQuarkHept6: 'The ultimate Quark Hepteract Improver',
     chronometerInfinity: 'The final Chronometer',
     seasonPassInfinity: 'The final Season pass',
     shopSingularityPenaltyDebuff: 'A Singularity Tenderizer',
@@ -927,10 +964,12 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
     shopAmbrosiaGeneration2: 'Another Ambrosia Generation Speedup',
     shopAmbrosiaGeneration3: 'A better Ambrosia Generation Speedup',
     shopAmbrosiaGeneration4: 'A FINAL Ambrosia Generation Speedup',
+    shopAmbrosiaGeneration5: 'A COOLER FINAL Ambrosia Generation Speedup',
     shopAmbrosiaLuck1: 'Ambrosia Luck Increaser',
     shopAmbrosiaLuck2: 'Another Ambrosia Luck Increaser',
-    shopAmbrosiaLuck3: 'A better Ambrosia Generation Speedup',
-    shopAmbrosiaLuck4: 'A FINAL Ambrosia Generation Speedup'
+    shopAmbrosiaLuck3: 'A better Ambrosia Luck Increaser',
+    shopAmbrosiaLuck4: 'A FINAL Ambrosia Luck Increaser',
+    shopAmbrosiaLuck5: 'A COOLER FINAL Ambrosia Luck Increaser'
   }
 
   return names[input]
@@ -1226,6 +1265,8 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames):boolean => {
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
     case 'improveQuarkHept5':
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+    case 'improveQuarkHept6':
+      return Boolean(player.singularityUpgrades.wowPass5.getEffect().bonus)
     case 'chronometerInfinity':
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
     case 'seasonPassInfinity':
@@ -1240,6 +1281,8 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames):boolean => {
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
     case 'shopAmbrosiaGeneration4':
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+    case 'shopAmbrosiaGeneration5':
+      return Boolean(player.singularityUpgrades.wowPass5.getEffect().bonus)
     case 'shopAmbrosiaLuck1':
       return Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
     case 'shopAmbrosiaLuck2':
@@ -1248,5 +1291,7 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames):boolean => {
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
     case 'shopAmbrosiaLuck4':
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+    case 'shopAmbrosiaLuck5':
+      return Boolean(player.singularityUpgrades.wowPass5.getEffect().bonus)
   }
 }

@@ -3,7 +3,7 @@ import { Globals as G } from './Variables'
 import { player, format, formatTimeShort } from './Synergism'
 import { version } from './Config'
 import { CalcECC } from './Challenges'
-import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear, calculateTotalOcteractCubeBonus, calculateTotalOcteractQuarkBonus, octeractGainPerSecond, calculateTotalOcteractObtainiumBonus, calculateTotalOcteractOfferingBonus, calculateRequiredBlueberryTime, calculateAmbrosiaCubeMult, calculateAmbrosiaQuarkMult } from './Calculate'
+import { calculateSigmoidExponential, calculateMaxRunes, calculateRuneExpToLevel, calculateSummationLinear, calculateRecycleMultiplier, calculateCorruptionPoints, CalcCorruptionStuff, calculateAutomaticObtainium, calculateTimeAcceleration, calcAscensionCount, calculateCubeQuarkMultiplier, calculateSummationNonLinear, calculateTotalOcteractCubeBonus, calculateTotalOcteractQuarkBonus, octeractGainPerSecond, calculateTotalOcteractObtainiumBonus, calculateTotalOcteractOfferingBonus, calculateRequiredBlueberryTime, calculateAmbrosiaCubeMult, calculateAmbrosiaQuarkMult, thresholdPower, numOfTimeThresholds } from './Calculate'
 import { displayRuneInformation } from './Runes'
 import { showSacrifice } from './Ants'
 import { sumContents } from './Utility'
@@ -809,10 +809,14 @@ export const visualUpdateAmbrosia = () => {
   const cubePercent = 100 * (calculateAmbrosiaCubeMult() - 1)
   const quarkPercent = 100 * (calculateAmbrosiaQuarkMult() - 1)
   const availableBlueberries = player.caches.blueberryInventory.total - player.spentBlueberries
+  const thresholdPow = thresholdPower()
+  const { nextThreshold, numThresholds } = numOfTimeThresholds()
+  const totalMult = Math.pow(thresholdPow, numThresholds)
   DOMCacheGetOrSet('ambrosiaAmount').innerHTML = i18next.t('ambrosia.amount', { ambrosia: format(player.ambrosia, 0, true), lifetimeAmbrosia: format(player.lifetimeAmbrosia, 0, true) })
   DOMCacheGetOrSet('ambrosiaChance').innerHTML = i18next.t('ambrosia.blueberryGeneration', { chance: format(player.caches.ambrosiaGeneration.total, 2, true) })
   DOMCacheGetOrSet('ambrosiaAmountPerGeneration').innerHTML = i18next.t('ambrosia.perGen', { guaranteed: format(guaranteed, 0, true), extraChance: format(chance, 0, true), ambrosiaLuck: format(luck, 0, true) })
   DOMCacheGetOrSet('ambrosiaRNG').innerHTML = i18next.t('ambrosia.blueberrySecond', { blueberrySecond: format(player.blueberryTime, 0, true), thresholdTimer: format(requiredTime, 0, true) })
+  DOMCacheGetOrSet('ambrosiaThresholds').innerHTML = i18next.t('ambrosia.thresholds', { threshold: numThresholds, pow: thresholdPow, totalMult, nextThresh: nextThreshold })
   DOMCacheGetOrSet('ambrosiaRewards').innerHTML = i18next.t('ambrosia.bonuses', { cube: format(cubePercent, 0, true), quark: format(quarkPercent, 0, true) })
   DOMCacheGetOrSet('ambrosiaBlueberries').innerHTML = i18next.t('ambrosia.availableBlueberries', { availableBlueberries })
 }

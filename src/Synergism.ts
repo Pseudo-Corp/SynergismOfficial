@@ -383,9 +383,9 @@ export const player: Player = {
   transcendamount: 0,
   reincarnationamount: 0,
 
-  fastestprestige: 9999999999,
-  fastesttranscend: 99999999999,
-  fastestreincarnate: 999999999999,
+  fastestprestige: 0,
+  fastesttranscend: 0,
+  fastestreincarnate: 0,
 
   resettoggle1: 1,
   resettoggle2: 1,
@@ -480,6 +480,7 @@ export const player: Player = {
     offeringEX3: 0,
     obtainiumEX3: 0,
     improveQuarkHept5: 0,
+    improveQuarkHept6: 0,
     seasonPassInfinity: 0,
     chronometerInfinity: 0,
     shopSingularityPenaltyDebuff: 0,
@@ -487,10 +488,12 @@ export const player: Player = {
     shopAmbrosiaGeneration2: 0,
     shopAmbrosiaGeneration3: 0,
     shopAmbrosiaGeneration4: 0,
+    shopAmbrosiaGeneration5: 0,
     shopAmbrosiaLuck1: 0,
     shopAmbrosiaLuck2: 0,
     shopAmbrosiaLuck3: 0,
-    shopAmbrosiaLuck4: 0
+    shopAmbrosiaLuck4: 0,
+    shopAmbrosiaLuck5: 0
   },
   shopBuyMaxToggle: false,
   shopHideToggle: false,
@@ -805,7 +808,8 @@ export const player: Player = {
     singAmbrosiaGeneration: new SingularityUpgrade(singularityData.singAmbrosiaGeneration, 'singAmbrosiaGeneration'),
     singAmbrosiaGeneration2: new SingularityUpgrade(singularityData.singAmbrosiaGeneration2, 'singAmbrosiaGeneration2'),
     singAmbrosiaGeneration3: new SingularityUpgrade(singularityData.singAmbrosiaGeneration3, 'singAmbrosiaGeneration3'),
-    singAmbrosiaGeneration4: new SingularityUpgrade(singularityData.singAmbrosiaGeneration4, 'singAmbrosiaGeneration4')
+    singAmbrosiaGeneration4: new SingularityUpgrade(singularityData.singAmbrosiaGeneration4, 'singAmbrosiaGeneration4'),
+    wowPass5: new SingularityUpgrade(singularityData.wowPass5, 'wowPass5')
   },
 
   octeractUpgrades: {
