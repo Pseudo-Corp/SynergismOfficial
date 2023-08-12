@@ -897,7 +897,7 @@
       "name": "Испытание Без Исследований || {{- value}} Выполнений",
       "flavor": "Измерение, которое никогда не прорвалось через тёмные времена. Многие даже бояться шагнуть.",
       "restrictions": "Вознеситесь и достигните цели, но вы не получаете Обтаниум и не можете приобрести никакие исследования. Производство Муравьёв ^0.2.",
-      "goal": "Цель: {{value}} Монет, но получаете бонус в зависимости от вашей лучшей попытки.",
+      "goal": "Цель: Выполните Испытание 10 [Испытание Садизм I] {{value}} раз.",
       "per": {
         "1": "Эффект исследований с 1х1 по 1х5 сильнее на +50%. Текущий: ",
         "2": "+1 купленное исследование за каждый такт roomba! Текущий: ",
@@ -915,7 +915,7 @@
       "name": "ИСПЫТАНИЕ САДИЗМ II || {{- value}} Выполнений",
       "flavor": "Худшее злодеяние, которое может совершить человек, это без мучений наблюдать за страданиями других.",
       "restrictions": "Вознеситесь и достигните цели, но все ваши порчи 11 уровня, а производство Муравьёв возводится в ^0.01.",
-      "goal": "Цель: Выполните Испытание 10 [Испытание Садизм I] {{value}} раз.",
+      "goal": "Цель: {{value}} Монет, но получаете бонус в зависимости от вашей лучшей попытки.",
       "per": {
         "1": "Глупость человечества: ",
         "2": "верить что они могут победить то ",
@@ -1518,7 +1518,7 @@
       "unlockedIn": "Вы разблокируете новую Привилегию в Сингулярности {{sing}}",
       "header": "Высшая Сингулярность, которой вы достигли - <span style=\"color: gold\">{{ord}} Сингулярность.</span><br/>Вот список привилегий, которые вы приобрели для компенсации штрафов ",
       "description": "(Наведите курсор для получения более подробной информации. В этой Сингулярности были добавлены или улучшены привилегии, <span style=\"color: gold\">отображаемые золотым текстом</span>)",
-      "welcometoSingularity": "Welcome to the Singualrity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will now BuyMax if they are affordable!",
+      "welcometoSingularity": "Добро пожаловать в Сингулярность! За достижение этого этапа, вам положена привилегия: Гептеракты теперь можно создавать автоматически (когда вы откроете их снова), а Платоновы Улучшения теперь КупиМакс, если доступны!",
       "unlimitedGrowth": "+10% к увеличению количества Кварков и счётчику Вознесения для каждой Сингулярности. Текущий: +{{amount}}%",
       "goldenCoins": "Непотраченные Золотые Кварки увеличивают получение Монет. Особенно полезно для первого Вознесения каждой Сингулярности. Текущий: x{{amount}}",
       "xyz": {
@@ -1533,18 +1533,18 @@
         "otherwise": "Вы можете Исследовать, Наведя курсор мыши, чтобы Купить"
       },
       "eternalAscensions": {
-        "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
-        "default": "Your ascension count is multipled based on your Singularity count! Currently: x{{amount}}"
+        "hasLevel1": "Ваш счётчик вознесений получает множитель, зависящий от счётчика Сингулярности. Также открывает новый режим Авто Вознесения - Реальное Время! Текущий: х{{amount}}",
+        "default": "Ваш счётчик вознесений получает множитель, зависящий от счётчика Сингулярности! Текущий: х{{amount}}"
       },
       "antGodsCornucopia": {
-        "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
-        "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
-        "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
-        "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
+        "hasLevel3": "У Скорости Муравьёв теперь есть 'чистый' множитель х4.44, а также истинно чистый множитель х1e12!",
+        "hasLevel2": "У Скорости Муравьёв теперь есть 'чистый' множитель х4.44, а также истинно чистый множитель х1e6!",
+        "hasLevel1": "У Скорости Муравьёв теперь есть 'чистый' множитель х4.44, а также истинно чистый множитель х1,000!",
+        "default": "У Скорости Муравьёв теперь есть 'чистый' множитель х4.44."
       },
-      "sweepomatic":{
-        "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
-        "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
+      "sweepomatic": {
+        "hasLevel1": "Ради экономии ваших кликов, Авто Зачистка Испытаний теперь начинает Испытания Вознесения с И10 и проходит через Испытания Вознесения, если у вас есть Мгновенные Испытания 2!",
+        "otherwise": "Ради экономии ваших кликов, Авто Зачистка Испытаний теперь начинает Испытания Вознесения с И10!"
       },
       "superStart": {
         "hasLevel4": "Вы начинаете каждое Вознесение с 1 Трансценденцией, 1 Реинкарнацией, 1001 Мифосом, 2.22e2222 Частиц и 500 Обтаниума",
@@ -2024,7 +2024,7 @@
       "antiquitiesNotBought": "<var(--red-text-color)|Так как Антикварии Муравьиного Бога не приобретены, штрафы не развеяны!>"
     },
     "perkNames": {
-      "welcometoSingularity": "Welcome to Singularity!",
+      "welcometoSingularity": "Добро пожаловать в Сингулярность!",
       "unlimitedGrowth": "Неограниченный рост",
       "goldenCoins": "Золотые монеты",
       "xyz": "XYZ: Xтра ежедневныY приZ",
@@ -2033,7 +2033,7 @@
       "researchDummies": "Исследования для Чайников",
       "eternalAscensions": "Вечные Вознесения",
       "antGodsCornucopia": "Рог изобилия Муравьиного Бога",
-      "sweepomatic": "Automatic Sweep-o-matic Mk.2",
+      "sweepomatic": "Робот Пыле-сборот Мк.2",
       "superStart": "Супер Старт",
       "notSoChallenging": "Тоже Мне Испытание",
       "automationUpgrades": "Улучшения Автоматизации",
@@ -2065,7 +2065,7 @@
     }
   },
   "general": {
-    "youAreInThe": "Сейчас вы находитесь в <<gold|{{number}} Singularity>>",
+    "youAreInThe": "Сейчас вы находитесь в <<gold|{{number}} Сингулярность>>",
     "validation": {
       "finite": "Значение должно быть конечным числом!",
       "zeroOrLess": "Пожалуйста, только числа больше нуля!",

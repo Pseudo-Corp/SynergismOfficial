@@ -897,7 +897,7 @@
       "name": "Desafío Sin Investigación || {{- value}} Finalizaciones",
       "flavor": "Esta dimensión nunca progresó más allá de la edad oscura. Muchos temen poner un pie en la calle.",
       "restrictions": "Asciende y alcanza la meta pero no ganas Obtanium ni se pueden comprar Investigaciones. Producción de Hormigas ^0,2.",
-      "goal": "Meta: {{value}} Monedas, pero obtienes bonus en función de tu mejor intento.",
+      "goal": "Objetivo: Completa el Desafío 10 [Desafío Sadístico I] {{value}} veces.",
       "per": {
         "1": "+50% al efecto de investigaciones 1x1 hasta 1x5. Actual: ",
         "2": "¡+1 Investigación comprada por tick de roomba! Actual: ",
@@ -915,7 +915,7 @@
       "name": "Desafío Sadismo II || {{- value}} Finalizaciones",
       "flavor": "La peor atrocidad que se puede cometer es ser testigo, sin remordimientos, del sufrimiento de otros.",
       "restrictions": "Asciende y alcanza la meta pero todas tus corrupciones serán de 11, y la producción de Hormigas ^0,01.",
-      "goal": "Meta: Completa el Desafío 10 [Desafío Sadístico I] {{value}} veces.",
+      "goal": "Meta: {{value}} Monedas, pero obtienes bonus en función de tu mejor intento.",
       "per": {
         "1": "Loca está la humanidad: ",
         "2": "Al creer poder derrotar ",
@@ -1542,7 +1542,7 @@
         "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
         "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
       },
-      "sweepomatic":{
+      "sweepomatic": {
         "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
         "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
       },

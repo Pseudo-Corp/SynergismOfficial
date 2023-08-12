@@ -897,7 +897,7 @@
       "name": "Keine Forschung Herausforderung || {{- value}} Abschlüsse",
       "flavor": "Die Dimension, die es nie aus dem Mittelalter geschafft hat. Und viele haben Angst auch nur einen Fuß hinein zu setzten.",
       "restrictions": "Steige auf und erreiche das Ziel, aber du bekommst weder Obtainium noch kannst du Forschungen durchführen. Ameisenproduktion ^0,2.",
-      "goal": "Ziel: {{value}} Münzen, aber du bekommst Boni basierend auf deinem besten Versuch.",
+      "goal": "Ziel: Schließe [Sadistisch I] {{value}} mal ab.",
       "per": {
         "1": "+50% stärkerer Effekt auf Forschungen 1x1 bis 1x5. Aktuell: ",
         "2": "+1 Forschungen pro Roomba-Tick! Aktuell: ",
@@ -915,7 +915,7 @@
       "name": "SADISTISCHE HERAUSFORDERUNG II || {{- value}} Abschlüsse",
       "flavor": "Die schlimmste Gräueltat, die ein Mann begehen kann, ist es ohne Schmerz das Leiden anderer zu beobachten.",
       "restrictions": "Steige auf und erreiche das Ziel, aber alle Korruptionen hängen auf Stufe 11 fest, und Ameisenproduktion ^0,01.",
-      "goal": "Ziel: Schließe [Sadistisch I] {{value}} mal ab.",
+      "goal": "Ziel: {{value}} Münzen, aber du bekommst Boni basierend auf deinem besten Versuch.",
       "per": {
         "1": "Irrsinn der Menschheit: ",
         "2": "zu glauben, dass sie besiegen können ",
@@ -1542,7 +1542,7 @@
         "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
         "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
       },
-      "sweepomatic":{
+      "sweepomatic": {
         "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
         "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
       },
