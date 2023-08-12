@@ -897,7 +897,7 @@
       "name": "Desafío Sin Investigación || {{- value}} Finalizaciones",
       "flavor": "Esta dimensión nunca progresó más allá de la edad oscura. Muchos temen poner un pie en la calle.",
       "restrictions": "Asciende y alcanza la meta pero no ganas Obtanium ni se pueden comprar Investigaciones. Producción de Hormigas ^0,2.",
-      "goal": "Meta: {{value}} Monedas, pero obtienes bonus en función de tu mejor intento.",
+      "goal": "Objetivo: Completa el Desafío 10 [Desafío Sadístico I] {{value}} veces.",
       "per": {
         "1": "+50% al efecto de investigaciones 1x1 hasta 1x5. Actual: ",
         "2": "¡+1 Investigación comprada por tick de roomba! Actual: ",
@@ -915,7 +915,7 @@
       "name": "Desafío Sadismo II || {{- value}} Finalizaciones",
       "flavor": "La peor atrocidad que se puede cometer es ser testigo, sin remordimientos, del sufrimiento de otros.",
       "restrictions": "Asciende y alcanza la meta pero todas tus corrupciones serán de 11, y la producción de Hormigas ^0,01.",
-      "goal": "Meta: Completa el Desafío 10 [Desafío Sadístico I] {{value}} veces.",
+      "goal": "Meta: {{value}} Monedas, pero obtienes bonus en función de tu mejor intento.",
       "per": {
         "1": "Loca está la humanidad: ",
         "2": "Al creer poder derrotar ",
@@ -2065,7 +2065,6 @@
   },
   "general": {
     "youAreInThe": "Estás en el <<gold|{{number}} Singularity>>",
-    "singularity": "Singularity",
     "validation": {
       "finite": "¡El valor ha de ser un número finito!",
       "zeroOrLess": "¡Por favor, solo números mayores a cero!",
