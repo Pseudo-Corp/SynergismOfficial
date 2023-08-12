@@ -2608,12 +2608,16 @@ p#ascendHotKeys {
 }
 
 .constUpgradeAvailable {
-    background-color: green;
+    background-color: purple;
     cursor: pointer;
 }
 
 .constUpgradeAvailable:hover {
-    background-color: #00b300;
+    background-color: #b300b3;
+}
+
+.constUpgradeAuto {
+    background-color: green;
 }
 
 /* .constUpgradeSingle {

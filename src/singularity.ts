@@ -28,7 +28,9 @@ export const updateSingularityPenalties = (): void => {
 }
 
 function getSingularityOridnalText(singularityCount: number): string {
-  return `${i18next.t('general.youAreInThe')} <span style="color: gold">${toOrdinal(singularityCount)} Singularity</span>`
+  return i18next.t('general.youAreInThe', {
+    number: toOrdinal(singularityCount)
+  })
 }
 
 // Need a better way of handling the ones without a special formulae than 'Default' variant
@@ -1278,19 +1280,13 @@ export class SingularityPerk {
 export const singularityPerks: SingularityPerk[] = [
   {
     name: () => {
-      return  i18next.t('singularity.perkNames.xyz')
+      return  i18next.t('singularity.perkNames.welcometoSingularity')
     },
-    levels: [1, 20, 200],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[2]) {
-        return i18next.t('singularity.perks.xyz.hasLevel2')
-      } else if (n >= levels[1]) {
-        return i18next.t('singularity.perks.xyz.hasLevel1')
-      } else {
-        return i18next.t('singularity.perks.xyz.default')
-      }
+    levels: [1],
+    description: () => {
+      return i18next.t('singularity.perks.welcometoSingularity')
     },
-    ID: 'xyz'
+    ID: 'welcometoSingularity'
   },
   {
     name: () => {
@@ -1308,19 +1304,27 @@ export const singularityPerks: SingularityPerk[] = [
     },
     levels: [1],
     description: () => {
-      return i18next.t('singularity.perks.goldenCoins')
+      return i18next.t('singularity.perks.goldenCoins', {
+        amount: format(Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.highestSingularityCount + 1, 2), 2)
+      })
     },
     ID: 'goldenCoins'
   },
   {
     name: () => {
-      return  i18next.t('singularity.perkNames.hepteractAutocraft')
+      return  i18next.t('singularity.perkNames.xyz')
     },
-    levels: [1],
-    description: () => {
-      return i18next.t('singularity.perks.hepteractAutocraft')
+    levels: [1, 20, 200],
+    description: (n: number, levels: number[]) => {
+      if (n >= levels[2]) {
+        return i18next.t('singularity.perks.xyz.hasLevel2')
+      } else if (n >= levels[1]) {
+        return i18next.t('singularity.perks.xyz.hasLevel1')
+      } else {
+        return i18next.t('singularity.perks.xyz.default')
+      }
     },
-    ID: 'hepteractAutocraft'
+    ID: 'xyz'
   },
   {
     name: () => {
@@ -1361,6 +1365,53 @@ export const singularityPerks: SingularityPerk[] = [
       }
     },
     ID: 'researchDummies'
+  },
+  {
+    name: () => {
+      return  i18next.t('singularity.perkNames.eternalAscensions')
+    },
+    levels: [1, 25],
+    description: (n: number, levels: number[]) => {
+      const amount = format(1 + player.singularityCount / 10, 1)
+      if (n >= levels[1]) {
+        return i18next.t('singularity.perks.eternalAscensions.hasLevel1', { amount })
+      } else {
+        return i18next.t('singularity.perks.eternalAscensions.default', { amount })
+      }
+    },
+    ID: 'eternalAscensions'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perkNames.antGodsCornucopia')
+    },
+    levels: [1, 30, 70, 100],
+    description: (n: number, levels: number[]) => {
+      if (n >= levels[3]) {
+        return i18next.t('singularity.perks.antGodsCornucopia.hasLevel3')
+      } else if (n >= levels[2]) {
+        return i18next.t('singularity.perks.antGodsCornucopia.hasLevel2')
+      } else if (n >= levels[1]) {
+        return i18next.t('singularity.perks.antGodsCornucopia.hasLevel1')
+      } else {
+        return i18next.t('singularity.perks.antGodsCornucopia.default')
+      }
+    },
+    ID: 'antGodsCornucopia'
+  },
+  {
+    name: () => {
+      return  i18next.t('singularity.perkNames.sweepomatic')
+    },
+    levels: [2, 101],
+    description: (n: number, levels: number[]) => {
+      if (n >= levels[1]) {
+        return i18next.t('singularity.perks.sweepomatic.hasLevel1')
+      } else {
+        return i18next.t('singularity.perks.sweepomatic.otherwise')
+      }
+    },
+    ID: 'sweepomatic'
   },
   {
     name: () => {
@@ -1574,36 +1625,6 @@ export const singularityPerks: SingularityPerk[] = [
       }
     },
     ID: 'coolQOLCubes'
-  },
-  {
-    name: () => {
-      return  i18next.t('singularity.perkNames.eternalAscensions')
-    },
-    levels: [25, 101],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[1]) {
-        return i18next.t('singularity.perks.eternalAscensions.hasLevel1')
-      } else {
-        return i18next.t('singularity.perks.eternalAscensions.default')
-      }
-    },
-    ID: 'eternalAscensions'
-  },
-  {
-    name: () => {
-      return i18next.t('singularity.perkNames.antGodsCornucopia')
-    },
-    levels: [30, 70, 100],
-    description: (n: number, levels: number[]) => {
-      if (n >= levels[2]) {
-        return i18next.t('singularity.perks.antGodsCornucopia.hasLevel2')
-      } else if (n >= levels[1]) {
-        return i18next.t('singularity.perks.antGodsCornucopia.hasLevel1')
-      } else {
-        return i18next.t('singularity.perks.antGodsCornucopia.default')
-      }
-    },
-    ID: 'antGodsCornucopia'
   },
   {
     name: () => {
@@ -1823,14 +1844,16 @@ export const singularityPerks: SingularityPerk[] = [
   }
 ]
 
+// Placeholder text for Perk Info that is seen upon first load, check Line 645 EventListeners.ts for actual Perk Info code.
 export const updateSingularityPerks = (): void => {
   const singularityCount = player.highestSingularityCount
-  const strH = i18next.t('singularity.perks.header', {
+  DOMCacheGetOrSet('singularityPerksHeader').innerHTML = i18next.t('singularity.perks.header', {
     ord: toOrdinal(singularityCount)
   })
-
-  DOMCacheGetOrSet('singularityPerksHeader').innerHTML = strH
-  DOMCacheGetOrSet('singularityPerksText').innerHTML = `${i18next.t('general.level')} # - (Singularity #)`
+  DOMCacheGetOrSet('singularityPerksText').innerHTML = i18next.t('singularity.perks.levelInfo', {
+    level: '#',
+    singularity: '#'
+  })
   DOMCacheGetOrSet('singularityPerksDesc').innerHTML = i18next.t('singularity.perks.description')
   handlePerks(singularityCount)
 }

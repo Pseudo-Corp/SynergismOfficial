@@ -450,14 +450,7 @@
             "266": "",
             "267": "",
             "270": "",
-            "271": "",
-            "274": "",
-            "275": "",
-            "276": "",
-            "277": "",
-            "278": "",
-            "279": "",
-            "280": ""
+            "271": ""
         },
         "alerts": {
             "36": "",
@@ -1399,20 +1392,36 @@
             "multiBuyPurchased": ""
         },
         "perks": {
+            "levelInfo": "",
             "improvedIn": "",
             "unlockedIn": "",
             "header": "",
             "description":"",
+            "welcometoSingularity": "",
+            "unlimitedGrowth": "",
+            "goldenCoins": "",
             "xyz": {
                 "hasLevel2": "",
                 "hasLevel1": "",
                 "default": ""
             },
-            "unlimitedGrowth": "",
-            "goldenCoins": "",
             "hepteractAutocraft": "",
             "generousOrbs": "",
             "researchDummies": {
+                "hasLevel1": "",
+                "otherwise": ""
+            },
+            "eternalAscensions": {
+                "hasLevel1": "",
+                "default": ""
+            },
+            "antGodsCornucopia": {
+                "hasLevel3": "",
+                "hasLevel2": "",
+                "hasLevel1": "",
+                "default": ""
+              },
+              "sweepomatic":{
                 "hasLevel1": "",
                 "otherwise": ""
             },
@@ -1463,15 +1472,6 @@
             },
             "exaltedAchievements": "",
             "coolQOLCubes": {
-                "hasLevel1": "",
-                "default": ""
-            },
-            "eternalAscensions": {
-                "hasLevel1": "",
-                "default": ""
-            },
-            "antGodsCornucopia": {
-                "hasLevel2": "",
                 "hasLevel1": "",
                 "default": ""
             },
@@ -1859,12 +1859,16 @@
             "antiquitiesNotBought": ""
         },
         "perkNames": {
-            "xyz": "",
+            "welcometoSingularity": "Welcome to Singularity!",
             "unlimitedGrowth": "",
             "goldenCoins": "",
+            "xyz": "",
             "hepteractAutocraft": "",
             "generousOrbs": "",
             "researchDummies": "",
+            "eternalAscensions": "Eternal Ascensions",
+            "antGodsCornucopia": "Ant God's Cornucopia",
+            "sweepomatic": "Automatic Sweep-o-matic Mk.2",
             "superStart": "",
             "notSoChallenging": "",
             "automationUpgrades": "",
@@ -1878,8 +1882,6 @@
             "exaltedAchievements": "",
             "derpSmithsCornucopia": "",
             "coolQOLCubes": "",
-            "eternalAscensions": "",
-            "antGodsCornucopia": "",
             "overclocked": "",
             "wowCubeAutomatedShipping": "",
             "congealedblueberries": "",

@@ -1,4 +1,4 @@
-import { player, format, blankSave, updateAll, saveSynergy } from './Synergism'
+import { player, format, blankSave, updateAll, updateEffectiveLevelMult, saveSynergy } from './Synergism'
 import {
   calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
   calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
@@ -984,7 +984,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     player.researches[135] = 1
     player.researches[145] = 1
   }
-  if (player.highestSingularityCount >= 101 && singularityReset) {
+  if (player.highestSingularityCount >= 100 && singularityReset) {
     player.cubeUpgrades[51] = 1
     awardAutosCookieUpgrade()
   }
@@ -1126,7 +1126,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
     Object.entries(player.octeractUpgrades).map(([key, value]) => {
       return [key, {
         level: value.level,
-        goldenQuarksInvested: value.octeractsInvested,
+        octeractsInvested: value.octeractsInvested,
         toggleBuy: value.toggleBuy,
         freeLevels: value.freeLevels
       }]
@@ -1381,6 +1381,8 @@ const resetUpgrades = (i: number) => {
   if (i > 1.5) {
     player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
     player.crystalUpgradesCost = [7, 15, 20, 40, 100, 200, 500, 1000]
+
+    updateEffectiveLevelMult() //update before prism rune, fixes c15 bug
 
     let m = 0
     m += Math.floor(G.rune3level * G.effectiveLevelMult / 16) * 100 / 100
