@@ -654,7 +654,10 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet('singularityPerksGrid').append(perkHTML)
     DOMCacheGetOrSet(perk.ID).addEventListener('mouseover', () => {
       const perkInfo = getLastUpgradeInfo(perk, player.highestSingularityCount)
-      const levelInfo = `${i18next.t('general.level')} ${perkInfo.level} - (Singularity ${perkInfo.singularity})`
+      const levelInfo = i18next.t('singularity.perks.levelInfo', {
+        level: perkInfo.level,
+        singularity: perkInfo.singularity
+      })
       perkImage.src = `Pictures/${IconSets[player.iconSet][0]}/perk${perk.ID}.png`
       perksText.textContent = levelInfo
       perksDesc.textContent = perk.description(player.highestSingularityCount, perk.levels)

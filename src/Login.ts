@@ -54,22 +54,30 @@ interface SynergismUserAPIResponse {
 
 export async function handleLogin () {
   const subtabElement = document.querySelector('#accountSubTab > div.scrollbarX')!
+  const currentBonus = DOMCacheGetOrSet('currentBonus')
+
+  const response = await fetch('https://synergism.cc/api/v1/users/me')
+
+  if (!response.ok) {
+    currentBonus.textContent = `Oh no! I couldn't fetch the bonus... Please send this to Khafra in the Discord: ${await response.text()}.`
+    return
+  }
+
+  const { globalBonus, member, personalBonus } = await response.json() as SynergismUserAPIResponse
+
+  player.worlds = new QuarkHandler({
+    quarks: Number(player.worlds),
+    bonus: 100 * (1 + globalBonus/100) * (1 + personalBonus/100) - 100 // Multiplicative
+  })
+
+  currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 
   if (location.hostname !== 'synergism.cc') {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
   } else if (document.cookie.length) {
-    const response = await fetch('/api/v1/users/me')
-    const { globalBonus, member, personalBonus } = await response.json() as SynergismUserAPIResponse
-
-    player.worlds = new QuarkHandler({
-      quarks: Number(player.worlds),
-      bonus: 100 * (1 + globalBonus/100) * (1 + personalBonus/100) - 100 // Multiplicative
-    })
-
-    DOMCacheGetOrSet('currentBonus').textContent =
-      `Generous patrons give you a bonus of ${globalBonus}% more Quarks! ` +
-      `You also receive an extra ${personalBonus}% bonus for being a Patreon and/or boosting the Discord server! Multiplicative with global bonus!`
+    currentBonus.textContent +=
+      ` You also receive an extra ${personalBonus}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!`
 
     const user = member?.user?.username ?? 'player'
     const boosted = Boolean(member?.premium_since)
@@ -85,7 +93,7 @@ export async function handleLogin () {
     const exMark = '<span style="color: crimson">[✖] {+0%}</span>'
 
     subtabElement.innerHTML = `Hello, ${user}!\n
-                               Your personal bonus is ${personalBonus}%, computed by the following:
+                               Your personal Quark bonus is ${personalBonus}%, computed by the following:
                                <span style="color: orchid">Transcended Baller</span> [+2%] - ${hasTier1 ? checkMark(2) : exMark}
                                <span style="color: green">Reincarnated Baller</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
                                <span style="color: orange">ASCENDED Baller</span> [+4%] - ${hasTier3 ? checkMark(4) : exMark}

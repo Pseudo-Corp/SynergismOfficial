@@ -2134,7 +2134,11 @@ export const format = (
       // returns format (1.23e456,789)
       return `${mantissaLook}e${powerLook}`
     }
-    const mantissaLook = (Math.floor(mantissa * Math.pow(10, power) * Math.pow(10, accuracy)) / Math.pow(10, accuracy)).toLocaleString(undefined, {
+    mantissa = mantissa * Math.pow(10, power)
+    if (mantissa - Math.floor(mantissa) > 0.9999999) {
+      mantissa = Math.ceil(mantissa)
+    }
+    const mantissaLook = (Math.floor(mantissa * Math.pow(10, accuracy)) / Math.pow(10, accuracy)).toLocaleString(undefined, {
       minimumFractionDigits: accuracy, maximumFractionDigits: accuracy
     })
     return `${mantissaLook}`
@@ -3417,6 +3421,20 @@ export const resetConfirmation = async (i: string): Promise<void> => {
   }
 }
 
+export const updateEffectiveLevelMult = (): void => {
+  G.effectiveLevelMult = 1
+  G.effectiveLevelMult *= (1 + player.researches[4] / 10 * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14]))) //Research 1x4
+  G.effectiveLevelMult *= (1 + player.researches[21] / 100) //Research 2x6
+  G.effectiveLevelMult *= (1 + player.researches[90] / 100) //Research 4x15
+  G.effectiveLevelMult *= (1 + player.researches[131] / 200) //Research 6x6
+  G.effectiveLevelMult *= (1 + player.researches[161] / 200 * 3 / 5) //Research 7x11
+  G.effectiveLevelMult *= (1 + player.researches[176] / 200 * 2 / 5) //Research 8x1
+  G.effectiveLevelMult *= (1 + player.researches[191] / 200 * 1 / 5) //Research 8x16
+  G.effectiveLevelMult *= (1 + player.researches[146] / 200 * 4 / 5) //Research 6x21
+  G.effectiveLevelMult *= (1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]))
+  G.effectiveLevelMult *= G.challenge15Rewards.runeBonus
+}
+
 export const updateAll = (): void => {
   G.uFourteenMulti = new Decimal(1)
   G.uFifteenMulti = new Decimal(1)
@@ -3520,6 +3538,8 @@ export const updateAll = (): void => {
   if (player.toggles[14] && player.achievements[106] === 1 && player.prestigePoints.gte(player.fifthCostDiamonds)) {
     buyMax(5, 'Diamonds')
   }
+
+  updateEffectiveLevelMult() //update before prism rune, fixes c15 bug
 
   let c = 0
   c += Math.floor(G.rune3level / 16 * G.effectiveLevelMult) * 100 / 100
@@ -3751,18 +3771,6 @@ export const updateAll = (): void => {
   if (player.researchPoints > 1e300) {
     player.researchPoints = 1e300
   }
-
-  G.effectiveLevelMult = 1
-  G.effectiveLevelMult *= (1 + player.researches[4] / 10 * (1 + 1 / 2 * CalcECC('ascension', player.challengecompletions[14]))) //Research 1x4
-  G.effectiveLevelMult *= (1 + player.researches[21] / 100) //Research 2x6
-  G.effectiveLevelMult *= (1 + player.researches[90] / 100) //Research 4x15
-  G.effectiveLevelMult *= (1 + player.researches[131] / 200) //Research 6x6
-  G.effectiveLevelMult *= (1 + player.researches[161] / 200 * 3 / 5) //Research 7x11
-  G.effectiveLevelMult *= (1 + player.researches[176] / 200 * 2 / 5) //Research 8x1
-  G.effectiveLevelMult *= (1 + player.researches[191] / 200 * 1 / 5) //Research 8x16
-  G.effectiveLevelMult *= (1 + player.researches[146] / 200 * 4 / 5) //Research 6x21
-  G.effectiveLevelMult *= (1 + 0.01 * Math.log(player.talismanShards + 1) / Math.log(4) * Math.min(1, player.constantUpgrades[9]))
-  G.effectiveLevelMult *= G.challenge15Rewards.runeBonus
 
   G.optimalOfferingTimer = 600 + 30 * player.researches[85] + 0.4 * G.rune5level + 120 * player.shopUpgrades.offeringEX
   G.optimalObtainiumTimer = 3600 + 120 * player.shopUpgrades.obtainiumEX
