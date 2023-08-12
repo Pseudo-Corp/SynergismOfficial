@@ -135,10 +135,10 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
     return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
-                <span style="color: ${color}"> ${i18next.t('general.level')} ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>
+                <span style="color: ${color}">${i18next.t('general.level')} ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.getEffect().desc}</span>
-                ${i18next.t('octeract.toString.costNextLevel')} ${format(costNextLevel, 2, true, true, true)} ${i18next.t('octeract.octeracts')} ${affordableInfo}
-                ${i18next.t('general.spent')} ${i18next.t('octeract.octeracts')}: ${format(this.octeractsInvested, 2, true, true, true)}`
+                ${i18next.t('octeract.toString.costNextLevel', { n: format(costNextLevel, 2, true, true, true) })} ${affordableInfo}
+                ${i18next.t('octeract.toString.spent', { n: format(this.octeractsInvested, 2, true, true, true) })}`
   }
 
   public updateUpgradeHTML(): void {

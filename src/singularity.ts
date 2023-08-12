@@ -95,10 +95,10 @@ export class SingularityUpgrade extends DynamicUpgrade {
     return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color: ${minReqColor}">${minimumSingularity}</span>
-                <span style="color: ${color}"> ${i18next.t('general.level')} ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>
+                <span style="color: ${color}">${i18next.t('general.level')} ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.getEffect().desc}</span>
-                ${i18next.t('singularity.toString.costNextLevel')}: ${format(costNextLevel, 0, true)} ${i18next.t('singularity.goldenQuarkLabel')}.
-                ${i18next.t('general.spent')} ${i18next.t('singularity.goldenQuarkLabel')}: ${format(this.goldenQuarksInvested, 0, true)}`
+                ${i18next.t('singularity.toString.costNextLevel', { n: format(costNextLevel, 0, true) })}
+                ${i18next.t('singularity.toString.spent', { n: format(this.goldenQuarksInvested, 0, true) })}`
   }
 
   public updateUpgradeHTML(): void {
