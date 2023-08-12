@@ -879,7 +879,7 @@
       "name": "Défi Tax+++ || {{- value}} Complétions",
       "flavor": "Bonne chance avec le fisc, camarade.",
       "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. Ant production ^0.23",
-      "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
+      "goal": "But: Complete le Défi 10 [Défi Sadique I] {{value}} fois.",
       "per": {
         "1": "Taxes -3.33%! Multiplicative! Current: ",
         "2": "+6 maximum to Talisman Level Cap! Current: ",
@@ -897,7 +897,7 @@
       "name": "Défi Pas de Recherche || {{- value}} Parachevés",
       "flavor": "La dimension qui n'a jamais dépassé l'âge des ténèbres. Beaucoup craignent même de mettre les pieds.",
       "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.2.",
-      "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
+      "goal": "But: Complete le Défi 10 [Défi Sadique I] {{value}} fois.",
       "per": {
         "1": "+50% stronger effect on researches 1x1 through 1x5. Current: ",
         "2": "+1 recherche achetée par tick de roomba ! Actuellement : ",
@@ -915,7 +915,7 @@
       "name": "DÉFI SADIQUE II || {{- value}} Complétions",
       "flavor": "La pire atrocité qu'un homme puisse commettre est d'assister, sans angoisse, à la souffrance des autres.",
       "restrictions": "Ascend and reach the goal but you're stuck in all corruptions at level 11, and Ant production ^0.01.",
-      "goal": "But: Complète le Défi 10 [Défi Sadique I] {{value}} fois.",
+      "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
       "per": {
         "1": "Folie de l'humanité: ",
         "2": "de croire qu'ils peuvent vaincre ",
@@ -2065,7 +2065,6 @@
   },
   "general": {
     "youAreInThe": "You are in the <<gold|{{number}} Singularity>>",
-    "singularity": "Singularity",
     "validation": {
       "finite": "Value must be a finite number!",
       "zeroOrLess": "Only numbers greater than zero, please!",

@@ -2064,8 +2064,7 @@
     }
   },
   "general": {
-    "youAreInThe": "您目前已进入了 <<gold|{{number}} Singularity>>",
-    "singularity": "奇点",
+    "youAreInThe": "您目前已进入了 <<gold|{{number}} 奇点>>",
     "validation": {
       "finite": "这不是有效的数字啊。",
       "zeroOrLess": "请只输入大于0的数字！",
