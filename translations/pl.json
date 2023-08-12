@@ -897,7 +897,7 @@
       "name": "Wyzwanie Brak badań || {{- value}} Wykonanych",
       "flavor": "Wymiar, który nigdy nie zaznał postępu przez mroczne czasy. Wielu obawia się nawet tam stanąć.",
       "restrictions": "Osiągnij Transcendencję i cel, ale nie generujesz Obtainium i nie możesz kupić żadnych badań. Produkcja mrówek ^0.2.",
-      "goal": "Cel: {{value}} Monet, ale otrzymasz bonus bazujący na twoim najlepszym podejściu.",
+      "goal": "Cel: Ukończ wyzwanie 10 [Sadystyczny I] {{value}} Raz/y.",
       "per": {
         "1": "Badania od 1x1 do 1x5 są 50% mocniejsze. Obecnie: ",
         "2": "+1 kupionych badań za takt roomby! Obecnie: ",
@@ -915,7 +915,7 @@
       "name": "Wyzwanie Sadystyczny II || {{- value}} Wykonanych",
       "flavor": "Największym okrucieństwem, jakiego może dopuścić się człowiek, to bycie świadkiem, bez udręki, cierpienia innych.",
       "restrictions": "Osiągnij Transcendencję i cel, ale tkwisz we wszystkich korupcjach na poziomie 11 oraz produkcja mrówek jest zmniejszona do ^0.01.",
-      "goal": "Cel: Ukończ wyzwanie 10 [Sadystyczny I] {{value}} Raz/y.",
+      "goal": "Cel: {{value}} Monet, ale otrzymasz bonus bazujący na twoim najlepszym podejściu.",
       "per": {
         "1": "Szaleństwo ludzkości: ",
         "2": "to wiara w to, że mogą pokonać ",
@@ -1542,7 +1542,7 @@
         "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
         "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
       },
-      "sweepomatic":{
+      "sweepomatic": {
         "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
         "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
       },

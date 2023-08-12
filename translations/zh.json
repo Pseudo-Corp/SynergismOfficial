@@ -1518,7 +1518,7 @@
       "unlockedIn": "第{{sing}}次进入奇点后将解锁新特权",
       "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点。</span><br/>以下是您在奇点中获得的特权",
       "description": "(鼠标停留在特权上可以查看效果。<span style=\"color: gold\">金色文本</span>的特权在本次奇点解锁或者加强)",
-      "welcometoSingularity": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!",
+      "welcometoSingularity": "欢迎进入奇点时代！您可以在解锁相应七阶立方后，自动进行七阶立方锻造，且只要资源充足，可以最大化购买PLATONIC方盒升级！",
       "unlimitedGrowth": "每进入1次奇点，夸克获取数量和飞升次数获取数量就增加10%(目前增加了{{amount}}%)",
       "goldenCoins": "根据未花费的金夸克增加金币产量。每次奇点的飞升前阶段效果最好(目前增加了{{amount}}%)",
       "xyz": {
@@ -1533,18 +1533,18 @@
         "otherwise": "您可以使用鼠标停留购买升级研究"
       },
       "eternalAscensions": {
-        "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
-        "default": "Your ascension count is multipled based on your Singularity count! Currently: x{{amount}}"
+        "hasLevel1": "使您的飞升次数获取数量根据奇点次数而增加，且可以根据现实时间自动飞升了！目前获取数量倍率：{{amount}}倍",
+        "default": "使您的飞升次数获取数量根据奇点次数而增加！目前获取数量倍率：{{amount}}倍"
       },
       "antGodsCornucopia": {
-        "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
-        "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
-        "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
-        "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
+        "hasLevel3": "蚂蚁速度变为不受腐化影响的4.44倍，且再乘以完全不受任何等级腐化影响的1e12倍！",
+        "hasLevel2": "蚂蚁速度变为不受腐化影响的4.44倍，且再乘以完全不受任何等级腐化影响的1e6倍！",
+        "hasLevel1": "蚂蚁速度变为不受腐化影响的4.44倍，且再乘以完全不受任何等级腐化影响的1000倍！",
+        "default": "蚂蚁速度变为不受腐化影响的4.44倍。"
       },
-      "sweepomatic":{
-        "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
-        "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
+      "sweepomatic": {
+        "hasLevel1": "自动扫荡挑战可以从挑战10开始运行飞升挑战，并且如果您拥有立即完成挑战 2，还可以自动扫荡飞升挑战，节省点击次数！",
+        "otherwise": "自动扫荡挑战可以从挑战10开始运行飞升挑战，节省点击次数！"
       },
       "superStart": {
         "hasLevel4": "飞升后初始获得1次超越，1次转世，1001神话，2.22e2222粒子和500难得素",
@@ -2024,7 +2024,7 @@
       "antiquitiesNotBought": "<<var(--red-text-color)|蚁神之古物未购买。奇点相关惩罚未驱散！>>"
     },
     "perkNames": {
-      "welcometoSingularity": "Welcome to Singularity!",
+      "welcometoSingularity": "欢迎来到奇点时代！",
       "unlimitedGrowth": "无限成长",
       "goldenCoins": "金币之雨",
       "xyz": "“每日”代码额外奖励",
@@ -2033,7 +2033,7 @@
       "researchDummies": "傻瓜式研究教学",
       "eternalAscensions": "永恒飞升",
       "antGodsCornucopia": "蚁神的聚宝盆",
-      "sweepomatic": "Automatic Sweep-o-matic Mk.2",
+      "sweepomatic": "自动扫荡·改 2",
       "superStart": "超级初始",
       "notSoChallenging": "这就是挑战？",
       "automationUpgrades": "永久保留自动升级",
@@ -2065,7 +2065,7 @@
     }
   },
   "general": {
-    "youAreInThe": "您目前已进入了 <<gold|{{number}} Singularity>>",
+    "youAreInThe": "您目前已进入了 <<gold|{{number}} 奇点>>",
     "validation": {
       "finite": "这不是有效的数字啊。",
       "zeroOrLess": "请只输入大于0的数字！",

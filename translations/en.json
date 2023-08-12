@@ -897,7 +897,7 @@
       "name": "No Research Challenge || {{- value}} Completions",
       "flavor": "The dimension that never progressed past the dark ages. Many fear to even step foot.",
       "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.2.",
-      "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
+      "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
       "per": {
         "1": "+50% stronger effect on researches 1x1 through 1x5. Current: ",
         "2": "+1 research purchased per roomba tick! Current: ",
@@ -915,7 +915,7 @@
       "name": "SADISTIC CHALLENGE II || {{- value}} Completions",
       "flavor": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
       "restrictions": "Ascend and reach the goal but you're stuck in all corruptions at level 11, and Ant production ^0.01.",
-      "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
+      "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
       "per": {
         "1": "Folly of mankind: ",
         "2": "to believe they can defeat ",
@@ -1543,6 +1543,20 @@
         "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
       },
       "sweepomatic":{
+        "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
+        "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
+      },
+      "eternalAscensions": {
+        "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
+        "default": "Your ascension count is multipled based on your Singularity count! Currently: x{{amount}}"
+      },
+      "antGodsCornucopia": {
+        "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
+        "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
+        "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
+        "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
+      },
+      "sweepomatic": {
         "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
         "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
       },
