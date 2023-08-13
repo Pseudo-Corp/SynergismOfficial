@@ -1513,7 +1513,6 @@
       "multiBuyPurchased": "Kupiono {{levels}} poziomów dzięki Multi Kupowaniu!"
     },
     "perks": {
-      "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "Istniejąca umiejętność zostanie ulepszona w Osobliwości {{sing}}",
       "unlockedIn": "Odblokujesz zupełnie nowy profit w Osobliwości {{sing}}",
       "header": "Najwyższa osobliwość, jaką osiągnąłeś, to <span style=\"color: gold\">{{ord}} Osobliwość.</span><br/>Oto lista korzyści, które uzyskałeś, aby zrekompensować kary ",
