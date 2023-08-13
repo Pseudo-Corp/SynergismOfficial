@@ -506,12 +506,12 @@
       "180": "Débloque l'auto-acheteur des Fourmis de rang 6, et achète automatiquement les Fourmis Hic et Experientia ! Ajoute +1% d'ELO de Fourmi.",
       "181": "Débloque l'auto-acheteur des Fourmis de rang 7, et achète automatiquement les Fourmis Praemoenio ! Ajoute +2% d'ELO de Fourmi.",
       "182": "Débloque l'auto-acheteur des Fourmis de rang 8, et achète automatiquement les Fourmis Scientia et Phylacterium ! Ajoute +3% d'ELO de Fourmi.",
-      "187": "Gain an Ascension Cubes multiplier based on your score: x{{x}}. Also: Offerings +{{y}}% [Max: 100% at 1M Ascensions]",
-      "188": "Gain +100 Ascension count for all Ascensions longer than 10 seconds. Also: Obtainium +{{x}}% [Max: 100% at 5M Ascensions]",
+      "187": "Obtenez un multiplicateur sur les Cubes des Ascensions en fonction de votre score : x{{x}}. Également : Offrandes +{{y}}% [Maximum : 100% à 1M d'Ascensions]",
+      "188": "Augmentez de +100 le nombre d'Ascensions pour toute Ascension durant plus de 10 secondes. Également : Obtainium +{{x}}% [Maximum : 100% à 5M d'Ascensions]",
       "189": "Gain 20% of Excess time after 10 seconds each Ascension as a linear multiplier to Ascension count. Also: Cubes +{{x}}% [Max: 200% at 500M Ascensions]",
-      "193": "Gain {{x}}% more Cubes on Ascension!",
-      "195": "Gain {{x}}% more Cubes and Tesseracts on Ascension! Multiplicative with the other Ach. bonus [MAX: 25,000% at e100,000 Const]",
-      "196": "Gain {{x}}% more Platonic Cubes on Ascension! [MAX: 2,000% at e100,000 Const]",
+      "193": "Obtenez {{x}}% plus de Cubes lors de l'Ascension !",
+      "195": "Obtenez {{x}}% plus de Cubes et de Tesseracts lors de l'Ascension ! Multiplicatif avec les autres récompenses de succès. [Maximum : 25 000% à 1e100 000 de Constante]",
+      "196": "Obtenez {{x}}% plus de Cubes Platoniques lors de l'Ascension ! [Maximum : 2 000% à 1e100 000 de Constante]",
       "197": "Vous allez débloquer un traqueur pour les Ascensions.",
       "198": "Gagnez +4% de Cubes sur une Ascension !",
       "199": "Gagnez +4% de Cubes sur une Ascension !",
@@ -536,10 +536,10 @@
       "221": "Gagnez +4% de Cubes Platonic sur une Ascension !",
       "222": "Gagnez +3% de Cubes Platonic sur une Ascension !",
       "223": "Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Platonic Cubes +{{x}}% [Max: 200% at 2.674B Ascensions]",
-      "240": "Ascension Cube Gain Multipliers is VERY slightly affected by global speed multipliers: {{x}}x (Min: 1.10x, Max: 1.50x)",
-      "250": "You gain a permanent +60% Obtainium and Offering bonus, with +6% all Cube types!",
+      "240": "Les multiplicateurs de gains de Cubes lors des Ascensions sont TRÈS légèrement influencés par les multiplicateurs de vitesse globale : x{{x}} [Minimum : x1,1, maximum : x1,5]",
+      "250": "Vous obtenez en permanence +60% d'Obtainium et d'Offrandes, et également +6% de tous les types de Cubes !",
       "251": "Gain +100% d'obtainium et offrandes avec un bonus de 10% de cubes tout types!",
-      "253": "You will gain +10% Hypercubes! Why? I don't know.",
+      "253": "Vous obtenez +10% d'Hypercubes ! Pourquoi ? Je n'en sais rien.",
       "254": "Cube Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]",
       "255": "Tesseract Gain +{{x}}% [Max: +15% at 1e25 Ascension Score], and allow gain of Hepteracts.",
       "256": "Hypercube Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!",
@@ -897,7 +897,7 @@
       "name": "Défi Pas de Recherche || {{- value}} Parachevés",
       "flavor": "La dimension qui n'a jamais dépassé l'âge des ténèbres. Beaucoup craignent même de mettre les pieds.",
       "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.2.",
-      "goal": "But: Complete le Défi 10 [Défi Sadique I] {{value}} fois.",
+      "goal": "Objectif : Complétez le Défi 10 [Défi Sadique I] {{value}} fois.",
       "per": {
         "1": "+50% stronger effect on researches 1x1 through 1x5. Current: ",
         "2": "+1 recherche achetée par tick de roomba ! Actuellement : ",
@@ -915,7 +915,7 @@
       "name": "DÉFI SADIQUE II || {{- value}} Complétions",
       "flavor": "La pire atrocité qu'un homme puisse commettre est d'assister, sans angoisse, à la souffrance des autres.",
       "restrictions": "Ascend and reach the goal but you're stuck in all corruptions at level 11, and Ant production ^0.01.",
-      "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
+      "goal": "Objectif : {{value}} Pièces, mais vous obtenez des récompenses selon votre meilleure tentative.",
       "per": {
         "1": "Folie de l'humanité: ",
         "2": "de croire qu'ils peuvent vaincre ",
@@ -1513,7 +1513,6 @@
       "multiBuyPurchased": "Purchased {{levels}} levels, thanks to Multi Buy!"
     },
     "perks": {
-      "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
       "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
       "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties",
@@ -1543,20 +1542,6 @@
         "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
       },
       "sweepomatic": {
-        "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
-        "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
-      },
-      "eternalAscensions": {
-        "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
-        "default": "Your ascension count is multipled based on your Singularity count! Currently: x{{amount}}"
-      },
-      "antGodsCornucopia": {
-        "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
-        "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
-        "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
-        "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
-      },
-      "sweepomatic":{
         "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
         "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
       },
@@ -2079,7 +2064,7 @@
     }
   },
   "general": {
-    "youAreInThe": "You are in the <<gold|{{number}} Singularity>>",
+    "youAreInThe": "Vous êtes dans la <<gold|{{number}} Singularité>>",
     "validation": {
       "finite": "Value must be a finite number!",
       "zeroOrLess": "Only numbers greater than zero, please!",
