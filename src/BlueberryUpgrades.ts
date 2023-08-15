@@ -661,6 +661,9 @@ export const updateLoadoutHoverClasses = () => {
     const upgradeHoverClass = `bbPurchasedLoadout${i}`
     const maxedHoverClass = `bbMaxedLoadout${i}`
     for (const upgradeKey of upgradeNames) {
+      DOMCacheGetOrSet(upgradeKey).parentElement?.classList.remove(upgradeHoverClass)
+      DOMCacheGetOrSet(upgradeKey).parentElement?.classList.remove(maxedHoverClass)
+
       // eslint-disable-next-line
       if (loadout[upgradeKey]) {
         // eslint-disable-next-line
@@ -669,9 +672,6 @@ export const updateLoadoutHoverClasses = () => {
         } else {
           DOMCacheGetOrSet(upgradeKey).parentElement?.classList.add(upgradeHoverClass)
         }
-      } else {
-        DOMCacheGetOrSet(upgradeKey).parentElement?.classList.remove(upgradeHoverClass)
-        DOMCacheGetOrSet(upgradeKey).parentElement?.classList.remove(maxedHoverClass)
       }
     }
   }
