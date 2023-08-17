@@ -78,12 +78,12 @@
       },
       "ambrosiaQuarks2": {
         "name": "Ambrosia Quark Module II",
-        "description": "Self-Synergies! Gain +1% Quarks per level, +0.1% for every 10 levels in Ambrosia Quark Module I.",
+        "description": "Selbst-Synergien! Erhalten Sie +1% Quarks pro Level, +0,1% für alle 10 Stufen in Ambrosia Quark Module I.",
         "effect": "Dieses Quark-Modul der zweiten Generation erhöht den Quark-Gewinn um {{amount}}%"
       },
       "ambrosiaCubes2": {
         "name": "Ambrosia Würfel-Module II",
-        "description": "Self-Synergies! Gain +6% cubes / lvl , +0.6% for every 10 levels in Ambrosia Cube Module I. Every 10 levels gives 1.13x cubes.",
+        "description": "Selbst-Synergien! Erhalten Sie +6% Würfel / Lvl , +0,6% für alle 10 Stufen in Ambrosia Cube Modul I. Alle 10 Stufen geben 1.13x Würfel.",
         "effect": "Dieses Würfel-Modul der zweiten Generation erhöht den Würfel-Gewinn um {{amount}}%"
       },
       "ambrosiaLuck2": {
@@ -1658,13 +1658,13 @@
         "effectHaveNot": "You have not unlocked the Shop Bonanza."
       },
       "cookies": {
-        "name": "Cookie Recipes I",
+        "name": "Keks-Rezepte I",
         "description": "For just a few Golden Quarks, re-open Wow! Bakery, adding five cookie-related Cube upgrades.",
         "effectHave": "You have unlocked volume 1 of the recipe book.",
         "effectHaveNot": "You have not unlocked volume 1 of the recipe book."
       },
       "cookies2": {
-        "name": "Cookie Recipes II",
+        "name": "Keks-Rezepte II",
         "description": "Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related Cube upgrades.",
         "effectHave": "You have unlocked volume 2 of the recipe book.",
         "effectHaveNot": "You have not unlocked volume 2 of the recipe book."
