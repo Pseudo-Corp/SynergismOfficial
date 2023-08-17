@@ -593,7 +593,7 @@
   "ants": {
     "upgrades": {
       "1": "Apporte romance et unité dans la colonie. [+12% vitesse des Fourmis / niveau]",
-      "2": "Sucre les Miettes pour augmenter leur valeur. [Chaque niveau augmente l'efficacité de la conversion Miettes → Pièces, Jusqu'à ^50 000 000]",
+      "2": "Sucre les Miettes pour augmenter leur valeur. [Chaque niveau augmente l'efficacité de la conversion Miettes → Pièces, jusqu'à ^50 000 000]",
       "3": "Soumettez le fisc grâce à l'essaim. [Jusqu'à -99,5% d'impôts !]",
       "4": "Vous effraie pour vous faire accélérer. [Jusqu'à x20]",
       "5": "Copie votre corps avec ses pouvoirs de métamorphose. [Jusqu'à x40]",
@@ -661,52 +661,52 @@
   "challenges": {
     "1": {
       "name": "Défi 'Pas de Multiplicateurs' || {{- value}} Complétions",
-      "flavor": "Les multiplicateurs rendent le jeu un peu trop rapide. Sortons-les !",
-      "restrictions": "Transcendez et atteignez l'objectif, sauf que les Multiplicateurs fonctionne comme des Accélérateurs, qui sont 50% moins efficace!",
-      "goal": "Objectif: Gagner {{value}} Pièces en défi.",
+      "flavor": "Les Multiplicateurs rendent le jeu un peu trop rapide. Enlevons-les !",
+      "restrictions": "Effectuez une Transcendance et atteignez l'objectif, sauf que les Multiplicateurs fonctionnent comme les Accélérateurs, qui sont eux-mêmes 50% moins efficaces !",
+      "goal": "Objectif : obtenir {{value}} Pièces dans le Défi.",
       "per": {
-        "1": "+10 Boosts de Multiplicateurs de base! [+0.05 à leur puissance!] Actuellement: ",
-        "2": "+10% Total Boost de Multiplicateur ! Actuellement: ",
-        "3": "+0.04 EXP de rune de base par Offrande! Current: "
+        "1": "+10 Renforts de Multiplicateur de base ! [+0,05 à leur puissance !] Actuellement : ",
+        "2": "+10% de Renforts de Multiplicateur ! Actuellement : ",
+        "3": "+0,04 EXP de Rune de base par Offrande ! Actuellement : "
       },
-      "first": "+1 Multiplicateur gratuit! +1 EXP de base par offrande faite!",
-      "start": "Commencer [Aucuns Multiplicateurs]",
+      "first": "+1 Multiplicateur gratuit ! +1 EXP de base par Offrande utilisée !",
+      "start": "Commencer [Pas de Multiplicateurs]",
       "current": {
-        "1": "+{{value}} Boosts",
-        "2": "+{{value}}% Plus de Boosts",
-        "3": "+{{value}} EXP de Rune [Plus Grande Complétion]"
+        "1": "+{{value}} Renforts",
+        "2": "+{{value}}% de Renforts supplémentaires",
+        "3": "+{{value}} EXP de Rune [Meilleure complétion]"
       }
     },
     "2": {
       "name": "Défi 'Pas d'Accélérateurs' || {{- value}} Complétions",
-      "flavor": "Qui a besoin d'accélérateurs ? Ils ne font quasiment rien maintenant.",
-      "restrictions": "Transcendez et atteignez l'objectif, sauf que les accélérateurs ne font rien! Les Multiplicateurs sont un aussi un peu moins puissant.",
-      "goal": "Objectif: Gagnez {{value}} Pièces en défi.",
+      "flavor": "Qui a besoin d'Accélérateurs ? Ils ne servent presque plus à rien maintenant.",
+      "restrictions": "Effectuez une Transcendance et atteignez l'objectif, sauf que les Accélérateurs ne font rien ! Les Multiplicateurs sont un également un peu moins puissants.",
+      "goal": "Objectif : obtenez {{value}} Pièces dans le Défi.",
       "per": {
-        "1": "+ 5 Accélérateurs gratuits ! Actuellement: ",
-        "2": "+5% de Puissance de Booster d'Accélérateur! Actuellement: ",
-        "3": "+0,25% de Puissance de l'Accélérateur ! Actuel: "
+        "1": "+ 5 Accélérateurs gratuits ! Actuellement : ",
+        "2": "+5% de puissance des Renforts d'Accélérateur ! Actuellement : ",
+        "3": "+0,25% de puissance des Accélérateurs ! Actuellement : "
       },
       "first": "+1 Offrande de base par Prestige et Transcendance.",
-      "start": "Commencer [Aucuns Accélérateurs]",
+      "start": "Commencer [Pas d'Accélérateurs]",
       "current": {
         "1": "+{{value}} Accélérateurs",
-        "2": "+{{value}}% A.Boost Power",
-        "3": "+{{value}}% Puissance de l'accélérateur"
+        "2": "+{{value}}% de puissance de Renforts d'Accélérateur",
+        "3": "+{{value}}% de puissance des Accélérateurs"
       }
     },
     "3": {
       "name": "Défi 'Pas d'Éclats' || {{- value}} Complétions",
-      "flavor": "D'accord, maintenant vous vous demandez, comment je peux rendre le jeu plus difficile?",
-      "restrictions": "Transcendez et atteignez l'objectif, sauf que vous ne produisez pas de Cristaux ou d'éclats de Mythe.",
-      "goal": "Objectif: Gagnez {{value}} Pièces en défi.",
+      "flavor": "D'accord, maintenant vous vous posez la question : par quel autre moyen je peux rendre le jeu plus difficile ?",
+      "restrictions": "Effectuez une Transcendance et atteignez l'objectif, sauf que vous ne produisez pas de Cristaux ni d'Éclats de Mythos.",
+      "goal": "Objectif : obtenez {{value}} Pièces dans le Défi.",
       "per": {
-        "1": "Cristal --> Exposant de la conversion de Pièces +0.04 ! Actuel:",
-        "2": "+0,5% à la production de Grand Maître par producteur de Mythos acheté. Actuel:",
-        "3": "Lorsque vous utilisez une rune, toutes les autres runes gagnent +0.01 EXP. Current: "
+        "1": "+0,04 à l'exposant de la conversion Cristaux → Pièces ! Actuellement : ",
+        "2": "+0,5% de production des Grands Maîtres par producteur de Mythos acheté. Actuellement : ",
+        "3": "Lorsque vous utilisez une Rune, toutes les autres Runes obtiennent +0,01 EXP. Actuellement : "
       },
-      "first": "Gagnez une offrande automatiquement toutes les 2 secondes!",
-      "start": "Commencer [Aucuns Fragments]",
+      "first": "Obtenez automatiquement une Offrande toutes les 2 secondes !",
+      "start": "Commencer [Pas d'Éclats]",
       "current": {
         "1": "Exposant +{{value}}",
         "2": "+{{value}}%",
@@ -715,34 +715,34 @@
     },
     "4": {
       "name": "Défi 'Coût+' || {{- value}} Complétions",
-      "flavor": "Vous êtes devenu riche mais l'inflation n'a pas encore eu lieu ? N'en soyez pas si sûr !",
-      "restrictions": "Transcendez et atteignez l'objectif, sauf que les bâtiment de pièces et de crystal, ainsi que les accélérateurs et les multiplicateurs coûtent plus cher. [De plus en plus dur à chaque fois!]",
-      "goal": "Objectif: Gagnez {{value}} Pièces en défi.",
+      "flavor": "Vous vous enrichissez pour l'instant, mais l'inflation n'est pas encore arrivée ? N'en soyez pas si sûr·e !",
+      "restrictions": "Effectuez une Transcendance et atteignez l'objectif, sauf que les producteurs de Pièces et de Cristaux, les Accélérateurs et les Multiplicateurs coûtent plus cher. [De plus en plus difficile à chaque fois !]",
+      "goal": "Objectif : obtenez {{value}} Pièces dans le Défi.",
       "per": {
-        "1": "Le coût des Accélérateurs augmente moins vite de 5 achats. Actuellement: ",
-        "2": "Le coût des multiplicateurs augmente moins vite de 2 achats. Actuellement: ",
-        "3": "Délai de coût de Construction +0,5%. Actuel:"
+        "1": "Le coût des Accélérateurs augmente moins vite de 5 achats. Actuellement : ",
+        "2": "Le coût des Multiplicateurs augmente moins vite de 2 achats. Actuellement : ",
+        "3": "Retarde l'augmentation des coûts des bâtiments de +0,5%. Actuellement : "
       },
-      "first": "Nulle",
+      "first": "Aucun",
       "start": "Commencer [Coût+]",
       "current": {
-        "1": "Délai d'accélérateur +{{value}}",
-        "2": "Délai de multiplicateur +{{value}}",
-        "3": "Délai de coût de construction +{{value}}%"
+        "1": "Délai des Accélérateurs +{{value}}",
+        "2": "Délai des Multiplicateurs +{{value}}",
+        "3": "Délai de coût des bâtiments +{{value}}%"
       }
     },
     "5": {
       "name": "Défi 'Moins de Diamants' || {{- value}} Complétions",
-      "flavor": "Vous êtes vous déjà demandez comment vous avez obtenu autant de diamants?",
-      "restrictions": "Transcendez et atteingez l'objectif sauf que vous gagnez beaucoup moins de diamants de toute les sources. [De plus en plus dur à chaque fois!]",
-      "goal": "Objectif: Gagnez {{value}} Pièces en défi.",
+      "flavor": "Vous êtes vous déjà demandé comment vous avez obtenu autant de diamants ?",
+      "restrictions": "Effectuez une Transcendance et atteignez l'objectif, sauf que vous gagnez beaucoup moins de diamants de toutes les origines. [De plus en plus dur à chaque fois !]",
+      "goal": "Objectif : obtenir {{value}} Pièces dans le Défi.",
       "per": {
-        "1": "+0,01 à l'exposant de la conversion Pièce --> Diamant au prestige! Actuellement: ",
-        "2": "Multiplie la production de Crystal par 10! Actuellement: ",
+        "1": "+0,01 à l'exposant de la conversion Pièce → Diamant lors du Prestige ! Actuellement : ",
+        "2": "Production de Cristaux multipliée par 10 ! Actuellement : ",
         "3": " "
       },
-      "first": "Nulle",
-      "start": "Commencer [Diamants Réduits]",
+      "first": "Aucun",
+      "start": "Commencer [Moins de Diamants]",
       "current": {
         "1": "Exposant = ^{{value}}",
         "2": "Production de Cristaux x{{value}}",
@@ -752,368 +752,368 @@
     "6": {
       "name": "Défi 'Plus d'Impôts' || {{- value}} Complétions",
       "flavor": "Le fisc a entendu dire que vous vous étiez réincarné récemment…",
-      "restrictions": "Réincarnez et atteignez l'objectif mais les impôts sont plus sévères, et la production de Pièces est divisée par 1e250.",
-      "goal": "But: Obtenir {{value}} Fragments Mythos dans le défi.",
+      "restrictions": "Effectuez une Réincarnation et atteignez l'objectif, mais les impôts sont plus élevés et la production de Pièces est divisée par 1e250.",
+      "goal": "Objectif : obtenez {{value}} Éclats de Mythos dans le Défi.",
       "per": {
         "1": "-3,5% d'impôts [Multiplicatif] ! Actuellement : ",
-        "2": "Exp Rune Épargne +10%! Actuel: ",
-        "3": "Offrande de Prestige +2%! Current: "
+        "2": "+10% d'EXP de la Rune d'Épargne ! Actuellement : ",
+        "3": "Offrandes lors du Prestige +2% ! Actuellement : "
       },
       "first": "-7,5% d'impôts !",
       "start": "Commencer <Plus d'Impôts>",
       "current": {
         "1": "Multiplicateur d'impôts x{{value}}",
-        "2": "EXP +{{value}}%",
-        "3": "+{{value}}% d'offres de Prestige"
+        "2": "+{{value}}% d'EXP",
+        "3": "+{{value}}% d'Offrandes lors du Prestige"
       }
     },
     "7": {
       "name": "Défi 'Pas de Multiplicateurs / Accélérateurs' | {{- value}} Complétions",
       "flavor": "Vous allez vraiment détester celui-ci.",
-      "restrictions": "Reincarnate and reach the goal except Accelerators and Multipliers do nothing. Coin Production is divided by 1e1,250.",
-      "goal": "Objectif: Gagnez {{value}} Fragments de Mythos en défi.",
+      "restrictions": "Effectuez une Réincarnation et atteignez l'objectif, mais les Accélérateurs et les Multiplicateurs ne font rien. Production des Pièces divisée par 1e1 250.",
+      "goal": "Objectif : obtenez {{value}} Éclats de Mythos dans le Défi.",
       "per": {
-        "1": "Exposant de puissance Accélérateur/Multiplicateur +0.04! Actuel:",
-        "2": "EXP de Rune de Vitesse +10% ! Actuel:",
-        "3": "EXP de Rune de Duplication +10%! Actuel:"
+        "1": "+0,04 à l'exposant des Renforts d'Accélérateur/Multiplicateurs ! Actuellement : ",
+        "2": "+10% d'EXP de la Rune de Célérité ! Actuellement : ",
+        "3": "+10% d'EXP de la Rune de Duplication ! Actuellement : "
       },
-      "first": "Augmentation de la puissance du multiplicateur +25%! La première amélioration globale du diamant de Discord-Booster.",
-      "start": "Start <No Multipliers/Accelerators>",
+      "first": "Augmentation de 25% de la puissance des Renforts de Multiplicateur ! La première amélioration globale des Boosters de Discord.",
+      "start": "Commencer <Pas de Multiplicateurs / Accélérateurs>",
       "current": {
         "1": "Exposant = ^{{value}}",
-        "2": "EXP +{{value}}%",
-        "3": "EXP +{{value}}%"
+        "2": "+{{value}}% d'EXP",
+        "3": "+{{value}}% d'EXP"
       }
     },
     "8": {
       "name": "Défi 'Coût++' || {{- value}} Complétions",
-      "flavor": "Vous pensiez pouvoir dépasser l'inflation en vous réincarnant ?",
-      "restrictions": "Reincarnate and reach the goal except Cost Scaling for producers and Accelerators/Multipliers scale much, much faster.",
-      "goal": "Objectif: Gagnez {{value}} éclats de Mythos en défi.",
+      "flavor": "Vous pensiez pouvoir dépasser l'inflation en vous réincarnant ?",
+      "restrictions": "Effectuez une Réincarnation et atteignez l'objectif, mais la croissance des coûts des producteurs et des Accélérateurs / Multiplicateurs est beaucoup, beaucoup plus rapide.",
+      "goal": "Objectif : obtenez {{value}} Éclats de Mythos dans le Défi.",
       "per": {
-        "1": "Base Building Power +0.25! Current: ",
-        "2": "Prism Rune Exp +20%! Current: ",
-        "3": "Offres transcendes +4%! Actuel: "
+        "1": "+0,25 à la puissance de base des bâtiments ! Actuellement : ",
+        "2": "+20% d'EXP pour la Rune du Prisme ! Actuellement : ",
+        "3": "Offrandes de Transcendance +4% ! Actuellement : "
       },
-      "first": "Débloquer la fonctionnalité Anthill! Inclut 20 nouvelles recherches, plus une amélioration global des diamants.",
-      "start": "Début <Coût++>",
+      "first": "Débloque la fonctionnalité Fourmilière ! Inclut 20 nouvelles Recherches. Une amélioration globale.",
+      "start": "Commencer <Coût++>",
       "current": {
         "1": "+{{value}}",
-        "2": "+{{value}}% EXP",
-        "3": "+{{value}}% Offres basées sur la Transcendance"
+        "2": "+{{value}}% d'EXP",
+        "3": "+{{value}}% Offrandes de Transcendance"
       }
     },
     "9": {
       "name": "Défi 'Pas de Runes' || {{- value}} Complétions",
-      "flavor": "Vous ne vous plaindrez jamais que Prisme soit pire.",
-      "restrictions": "Réincarnez et atteignez l'objectif sauf que les runes ont toujours des effets de niveau 1. Toute la production de pièces est divisée par e2,000,000.",
-      "goal": "Objectif: Gagnez {{value}} Pièces en défi.",
+      "flavor": "Vous ne vous plaindrez plus jamais que Prisme est nulle.",
+      "restrictions": "Effectuez une Réincarnation et atteignez l'objectif, sauf que les Runes ont toujours des effets de niveau 1. Toute la production de Pièces est divisée par 1e2 000 000.",
+      "goal": "Objectif : obtenir {{value}} Pièces dans le Défi.",
       "per": {
-        "1": "+1 niveau de Fourmi gratuit ! Actuel:",
-        "2": "+10% de vitesse de la fourmi [Multiplicatif!] Actuelle:",
-        "3": "EXP Rune SI +20%! Actuel:"
+        "1": "+1 niveau gratuit de Fourmi ! Actuellement : ",
+        "2": "+10% de vitesse des Fourmis [Multiplicatif !] Actuellement : ",
+        "3": "+20% d'EXP de la Rune d'IS ! Actuellement :"
       },
-      "first": "Débloquez la fonctionnalité Talismans! [Dans l'onglet Runes]. Une Amélioration Globale du Diamant.",
-      "start": "Début <Pas de Rune>",
+      "first": "Débloquez la fonctionnalité Talismans ! [Dans l'onglet Runes]. Une amélioration globale.",
+      "start": "Commencer <Pas de Runes>",
       "current": {
         "1": "+{{value}} niveaux gratuits",
-        "2": "x{{value}} Vitesse de la Fourmi",
-        "3": "+{{value}}% EXP"
+        "2": "x{{value}} Vitesse des Fourmis",
+        "3": "+{{value}}% d'EXP"
       }
     },
     "10": {
       "name": "Défi 'Sadique I' || {{- value}} Complétions",
       "flavor": "Je suis désolé pour ce que j'ai déchaîné sur le monde.",
-      "restrictions": "Reincarnate and reach the goal except run the first five challenges AT THE SAME TIME! Coin Production /e12,500,000.",
-      "goal": "Objectif: Gagnez {{value}} Pièces en défi.",
+      "restrictions": "Effectuez une Réincarnation et atteignez l'objectif, mais avec les restrictions des cinq premiers Défis EN MÊME TEMPS ! Production de Pièces / 1e12 500 000.",
+      "goal": "Objectif : obtenez {{value}} Pièces dans le Défi.",
       "per": {
-        "1": "ELO de base +100 pour sacrifier les fourmis! Actuel:",
-        "2": "Récompense de Sacrifice de Fourmi +2% ! Actuel:",
-        "3": "Offres de réincarnation +10% ! Actuel: "
+        "1": "+100 ELO de Fourmi de base pour le sacrifice ! Actuellement : ",
+        "2": "+2% de récompenses du sacrifice de Fourmi ! Actuellement : ",
+        "3": "+10% d'Offrandes de Réincarnation ! Actuellement : "
       },
-      "first": "Débloquez le Palier de réinitialisation de l'Ascension !",
-      "start": "Début <Sadique I>",
+      "first": "Débloquez le palier de réinitialisation Ascension !",
+      "start": "Commencer <Sadique I>",
       "current": {
-        "1": "+{{value}} ELO Fourmi",
-        "2": "+{{value}}% Ant Sacrifice reward",
-        "3": "+{{value}}% Reincarnate-based offerings"
+        "1": "+{{value}} ELO de Fourmi",
+        "2": "+{{value}}% de récompenses de sacrifice",
+        "3": "+{{value}}% d'Offrandes de Réincarnation"
       }
     },
     "11": {
       "name": "Défi 'Moins de Fourmis' || {{- value}} Complétions",
-      "flavor": "The great Ant War of '21 wiped off all of the skilled ants.",
-      "restrictions": "Ascend and reach the goal but only get free ant upgrades and from Challenge8/9 completions. FOR ASCENSION CHALLENGES YOU MUST CLEAR CHALLENGE 10 TO ATTEMPT THEM.",
-      "goal": "But: Complete le Défi 10 [Défi Sadique I] {{value}} fois.",
+      "flavor": "La grande Guerre des Fourmis de '21 a effacé toutes les Fourmis qualifiées.",
+      "restrictions": "Effectuez une Ascension et atteignez l'objectif, mais vous n'obtenez que les niveaux gratuits de Fourmis. POUR LES DÉFIS D'ASCENSION, VOUS DEVEZ COMPLÉTER LE DÉFI 10 POUR LES COMMENCER.",
+      "goal": "Objectif : compléter le Défi 10 [Défi Sadique I] {{value}} fois.",
       "per": {
-        "1": "+12 niveau de Fourmi gratuit ! Actuel: ",
-        "2": "Vitesse de la fourmi x(1e5)^complétions ! Actuellement : ",
-        "3": "+80 to Rune Caps! Current: "
+        "1": "+12 niveaux gratuits de Fourmis ! Actuellement : ",
+        "2": "Vitesse des Fourmis x(1e5)^complétions ! Actuellement : ",
+        "3": "+80 à la limite des Runes ! Actuellement : "
       },
-      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to toggle Corruptions ;)",
-      "start": "Début <[(Fourmis Réduites)]>",
+      "first": "Débloquez 15 Recherches, et débloquez la possibilité d'ouvrir les Tesseracts ! Vous pouvez également activer les Corruptions ;)",
+      "start": "Commencer <[(Moins de Fourmis)]>",
       "current": {
-        "1": "+{{value}} niveaux de fourmi gratuits",
-        "2": "Vitesse des fourmis x{{value}}",
-        "3": "+{{value}} to Rune Caps"
+        "1": "+{{value}} niveaux gratuits de Fourmis",
+        "2": "Vitesse des Fourmis x{{value}}",
+        "3": "+{{value}} à la limite des Runes"
       }
     },
     "12": {
       "name": "Défi 'Pas de Réincarnation' || {{- value}} Complétions",
-      "flavor": "Pour une raison quelconque, vous ne pouvez pas le faire.",
-      "restrictions": "Ascend and reach the goal but you do not gain Particles and you cannot Reincarnate at all! Ant production ^0.5.",
-      "goal": "But: Complete le Défi 10 [Défi Sadique I] {{value}} fois.",
+      "flavor": "Pour une raison quelconque, vous n'arrivez juste pas à le faire.",
+      "restrictions": "Effectuez une Ascension et atteignez l'objectif, mais vous n'obtenez pas de Particules et vous ne pouvez pas du tout effectuer de Réincarnation ! Production des Fourmis ^0,5.",
+      "goal": "Objectif : compléter le Défi 10 [Défi Sadique I] {{value}} fois.",
       "per": {
-        "1": "Obtainium +50% ! Actuel : ",
-        "2": "Offrandes +12% ! Actuel : ",
-        "3": "+1 Hommage au Cube par ouverture! Actuel: "
+        "1": "+50% d'Obtainium ! Actuellement : ",
+        "2": "+12% d'Offrandes ! Actuellement : ",
+        "3": "+1 tribut de Cube par ouverture ! Actuellement : "
       },
-      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Increase Corruption Cap by 2 levels. Finally, unlock two new corruptions! ;)",
-      "start": "Start <[(No Reincarnation)]>",
+      "first": "Débloquez 15 Recherche, et débloquez les pouvoirs mystiques des Esprits ! Retrouvez-les dans l'onglet des Runes. Augmentez la limite des Corruptions de 2 niveaux. Enfin, débloquez deux nouvelles Corruptions ! ;)",
+      "start": "Commencer <[(Pas de Réincarnation)]>",
       "current": {
-        "1": "{{value}}% d'Obtainium",
-        "2": "+{{value}}% Offrandes",
-        "3": "+{{value}} additional Cube Tributes"
+        "1": "+{{value}}% d'Obtainium",
+        "2": "+{{value}}% d'Offrandes",
+        "3": "+{{value}} tributs de Cube additionnels"
       }
     },
     "13": {
       "name": "Défi 'Impôts+++' || {{- value}} Complétions",
       "flavor": "Bonne chance avec le fisc, camarade.",
-      "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. Ant production ^0.23",
-      "goal": "But: Complete le Défi 10 [Défi Sadique I] {{value}} fois.",
+      "restrictions": "Effectuez une Ascension et atteignez l'objectif, mais les impôts sont bien plus élevés et augmentent avec chaque complétion de Défi. Production des Fourmis ^0,23.",
+      "goal": "Objectif : compléter le Défi 10 [Défi Sadique I] {{value}} fois.",
       "per": {
-        "1": "Taxes -3.33%! Multiplicative! Current: ",
-        "2": "+6 maximum to Talisman Level Cap! Current: ",
-        "3": "+3% Spirit Power effectiveness! Current: "
+        "1": "-3,33% d'impôts ! Multiplicatif ! Actuellement : ",
+        "2": "+6 à la limite de niveau des Talismans ! Actuellement : ",
+        "3": "+3% d'efficacité des pouvoirs des Esprits ! Actuellement : "
       },
-      "first": "Unlock 15 Researches, and unlock the power of the Hypercube! Increase Corruption Cap by 2 levels, to 9! Finally, unlock two new corruptions! ;)",
-      "start": "Start <[(Tax+++)]>",
+      "first": "Débloquez 15 Recherches, et débloquez la puissance de l'Hypercube ! Augmentez la limite des Corruptions de 2 niveaux, jusqu'à 9 ! Enfin, débloquez deux nouvelles Corruptions ! ;)",
+      "start": "Commencer <[(Impôts+++)]>",
       "current": {
-        "1": "+{{value}}% Corruption Tax",
-        "2": "+{{value}} Talisman Level Cap",
+        "1": "{{value}}% d'impôts",
+        "2": "+{{value}} à la limite de niveau de Talismans",
         "3": "+{{value}}% d'efficacité"
       }
     },
     "14": {
       "name": "Défi 'Pas de Recherche' || {{- value}} Complétions",
-      "flavor": "La dimension qui n'a jamais dépassé l'âge des ténèbres. Beaucoup craignent même de mettre les pieds.",
-      "restrictions": "Ascend and reach the goal but you do not gain Obtainium nor are any researches purchasable. Ant production ^0.2.",
-      "goal": "Objectif : Complétez le Défi 10 [Défi Sadique I] {{value}} fois.",
+      "flavor": "La dimension qui n'a jamais dépassé l'âge des ténèbres. Beaucoup craignent même d'y mettre les pieds.",
+      "restrictions": "Effectuez une Ascension et atteignez l'objectif, mais vous n'obtenez aucun Obtainium et aucune Recherche n'est achetable. Production des Fourmis ^0,2.",
+      "goal": "Objectif : compléter le Défi 10 [Défi Sadique I] {{value}} fois.",
       "per": {
-        "1": "+50% stronger effect on researches 1x1 through 1x5. Current: ",
+        "1": "Les effets des Recherches 1x1 à 1x5 sont 50% plus puissants. Actuellement : ",
         "2": "+1 recherche achetée par tick de roomba ! Actuellement : ",
-        "3": "+200 to Rune Caps! Current: "
+        "3": "+200 à la limite de niveau des Runes ! Actuellement : "
       },
-      "first": "Unlock 15 Researches, and a way to coalesce your power into the Singularity. Increase Corruption Cap by 2 levels, to 11! Finally, unlock two new corruptions! ;)",
+      "first": "Débloquez 15 Recherches, et débloquez un moyen de fusionner votre puissance dans la Singularité. Augmentez la limite des Corruptions de 2 niveaux, jusqu'à 11 ! Enfin, débloquez deux nouvelles Corruptions ! ;)",
       "start": "Démarrer <[(Pas de Recherche)]>",
       "current": {
-        "1": "+{{value}}% Puissance",
-        "2": "+{{value}} par Tic-tac",
-        "3": "+{{value}} to Rune Caps"
+        "1": "+{{value}}% de puissance",
+        "2": "+{{value}} par tick",
+        "3": "+{{value}} à la limite des Runes"
       }
     },
     "15": {
       "name": "Défi 'SADIQUE II' || {{- value}} Complétions",
       "flavor": "La pire atrocité qu'un homme puisse commettre est d'assister, sans angoisse, à la souffrance des autres.",
-      "restrictions": "Ascend and reach the goal but you're stuck in all corruptions at level 11, and Ant production ^0.01.",
+      "restrictions": "Effectuez une Ascension et atteignez l'objectif, mais vous êtes coincés avec toutes les Corruptions au niveau 11. Production des Fourmis ^0,01.",
       "goal": "Objectif : {{value}} Pièces, mais vous obtenez des récompenses selon votre meilleure tentative.",
       "per": {
-        "1": "Folie de l'humanité: ",
-        "2": "de croire qu'ils peuvent vaincre ",
-        "3": "ce que Dieu Fourmi travaillé "
+        "1": "Folie de l'humanité : ",
+        "2": "croire qu'elle peut vaincre ",
+        "3": "ce que le Dieu Fourmi a créé "
       },
       "first": "Vous briseriez l'univers si vous le pouviez !",
-      "start": "Start <[(Sadistic Challenge II)]>",
+      "start": "Commencer <[(Défi Sadique II)]>",
       "current": {
         "1": " ",
         "2": " ",
         "3": " "
       },
-      "noGoal": "Vous ne trouverez aucun objectif en vue, mais obtenez des bonus en fonction de votre meilleure tentative."
+      "noGoal": "Vous ne trouverez aucun objectif en vue, mais obtiendrez des bonus en fonction de votre meilleure tentative."
     },
-    "header": "Le jeu de base est-il trop facile ? Essayez ces situations ! [Cliquez sur les icônes pour afficher les détails du défi !]",
-    "autoChallengeSweepOn": "Auto Challenge Sweep [ON]",
-    "autoChallengeSweepOff": "Auto Challenge Sweep [OFF]",
-    "retryChallengesOn": "Réessayer les défis : activé",
-    "retryChallengesOff": "Réessayer les défis : désactivé",
+    "header": "Le jeu de base est-il trop facile ? Essayez ces situations ! [Cliquez sur les icônes pour afficher les détails du Défi !]",
+    "autoChallengeSweepOn": "Balayage auto des Défis [ACTIVÉ]",
+    "autoChallengeSweepOff": "Balayage auto des Défis [DÉSACTIVÉ]",
+    "retryChallengesOn": "Réessayer les Défis : activé",
+    "retryChallengesOff": "Réessayer les Défis : désactivé",
     "autoAscRunChalOn": "Auto Ascension Run Chal.{{x}} [ON]",
     "autoAscRunChalOff": "Auto Ascension Run Chal.{{x}} [OFF]",
-    "autoRunChalOn": "Automatically Run Chal.{{x}} [ON]",
-    "autoRunChalOff": "Automatically Run Chal.{{x}} [OFF]",
-    "modeStart": "MODE: START",
-    "modeExit": "MODE: EXIT",
-    "modeWait": "MODE: WAIT",
-    "modeOff": "MODE: OFF",
-    "modeEnter": "MODE: ENTER",
-    "bonusFirstCompletion": "Bonus/déblocage pour le premier achèvement",
-    "timeStartSweep": "Time for start of sweep: <<var(--orchid-text-color)|{{time}}>>/s",
-    "timeExitChallenge": "Time before exiting challenge: <<var(--orchid-text-color)|{{time}}>>s",
-    "timeEnterChallenge": "Time before entering challenge: <<var(--orchid-text-color)|{{time}}>>s",
-    "autoTimer": "<<orange|Auto Timer:>> <<var(--orchid-text-color)|{{time}}s>>",
-    "perCompletionBonus": "Per Completion Bonuses || <<var(--orchid-text-color)|Softcapped pass {{x}}! Effective completion count {{y}}>>",
-    "perCompletionBonusEmpty": "Per Completion Bonuses",
-    "hypercubeOneTimeBonus": "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)",
-    "ascensionBankAdd": "Completing the challenge adds {{x}} to Ascension Bank and increase base Score by {{y}}.",
-    "firstTimeBonus": "Gain {{x}} for completing this challenge [First Time Bonus]!",
-    "firstTimeBonusQuarks": "Gain {{x}} Quarks for completing this challenge [First Time Bonus]!"
+    "autoRunChalOn": "Défi {{x}} automatique [ACTIVÉ]",
+    "autoRunChalOff": "Défi {{x}} automatique [DÉSACTIVÉ]",
+    "modeStart": "MODE : COMMENCER",
+    "modeExit": "MODE : SORTIR",
+    "modeWait": "MODE : ATTENDRE",
+    "modeOff": "MODE : DÉACTIVÉ",
+    "modeEnter": "MODE : ENTRER",
+    "bonusFirstCompletion": "Récompense pour la première complétion",
+    "timeStartSweep": "Temps avant le démarrage du balayage : <<var(--orchid-text-color)|{{time}}>>s",
+    "timeExitChallenge": "Temps avant de sortir d'un Défi : <<var(--orchid-text-color)|{{time}}>>s",
+    "timeEnterChallenge": "Temps avant d'entrer dans un Défi : <<var(--orchid-text-color)|{{time}}>>s",
+    "autoTimer": "<<orange|Chronomètre :>> <<var(--orchid-text-color)|{{time}}s>>",
+    "perCompletionBonus": "Bonus pour chaque complétion || <<var(--orchid-text-color)|Rendement décroissant après {{x}} ! Nombre de complétions effectif {{y}}>>",
+    "perCompletionBonusEmpty": "Bonus pour chaque complétion",
+    "hypercubeOneTimeBonus": "Obtenez 1 HYPERCUBE Wow! pour avoir fini ce Défi (bonus de première complétion).",
+    "ascensionBankAdd": "Compléter ce Défi ajoute {{x}} à la banque d'Ascension et augmente le score de base de {{y}}.",
+    "firstTimeBonus": "Obtenez {{x}} pour avoir fini ce Défi [Bonus de première complétion] !",
+    "firstTimeBonusQuarks": "Obtenez {{x}} Quarks pour avoir fini de Défi [Bonus de première complétion] !"
   },
   "cubes": {
     "upgradeNames": {
-      "1": "Ouah! Je veux plus de Cubes.",
-      "2": "Ouah! Je veux aussi un gain d'offre passive.",
-      "3": "Ouah! Je veux un meilleur Obtainium passif.",
-      "4": "Ouah! Je veux garder mythos construire des autoacheteurs.",
-      "5": "Wow ! Je veux garder l'acheteur automatique des améliorations de Mythos.",
-      "6": "WoW! Je veux garder le gain automatiquement de Mythos.",
-      "7": "Ouah! Je veux les automates de construction de particules.",
-      "8": "Wow ! Je veux automatiser les améliorations des Particules.",
-      "9": "Wow! I want to automate researches better dangit.",
-      "10": "Wow! This is pretty good but expensive.",
-      "11": "Ouah! Je veux plus de Cubes 2.",
-      "12": "Wow! Je veux que la Puissance de Bâtiment soit utile 1.",
+      "1": "Wow! Je veux plus de Cubes.",
+      "2": "Wow! Je veux aussi un gain passif d'Offrandes.",
+      "3": "Wow! Je veux un meilleur Obtainium passif.",
+      "4": "Wow! Je veux garder les auto-acheteurs de bâtiments de Mythos.",
+      "5": "Wow! Je veux garder l'auto-acheteur des améliorations de Mythos.",
+      "6": "Wow! Je veux garder le gain passif de Mythos.",
+      "7": "Wow! Je veux les auto-acheteurs de bâtiments de Particules.",
+      "8": "Wow! Je veux automatiser les améliorations des Particules.",
+      "9": "Wow! Je veux mieux automatiser les Recherches bon sang.",
+      "10": "Wow! C'est bon mais c'est cher.",
+      "11": "Wow! Je veux plus de Cubes 2.",
+      "12": "Wow! Je veux que la puissance des Bâtiments soit utile 1.",
       "13": "Wow! Je veux que les ouvertures de Cubes donnent plus de tributs 1.",
-      "14": "Wow! I want Iris Tribute bonuses to scale better 1.",
-      "15": "Wow! I want Ares Tribute bonuses to scale better 1.",
-      "16": "Ouah! Je veux plus de niveaux de rune 1.",
-      "17": "Ouah! Je veux juste un peu plus de pouvoir Cristal.",
-      "18": "Ouah! Je veux accélérer le temps!",
-      "19": "Wow ! Je veux débloquer des améliorations de Pièces supplémentaires.",
-      "20": "Wow! I want to improve automatic rune tools.",
-      "21": "Wow! I want to hack in more score 1.",
-      "22": "Wow! I wish my Artemis was a little better 1",
-      "23": "Wow! I want opened Cubes to give more tributes 2.",
-      "24": "Wow! I want Plutus Tribute bonuses to scale better 1",
-      "25": "Wow! I want Moloch Tribute bonuses to scale better 1",
-      "26": "WoW! Je veux commencer les Ascensions avec des niveaux de runes.",
-      "27": "Wow! Je veux commencer les Ascensions avec un de chaque Bâtiment de Réincarnation.",
+      "14": "Wow! Je veux que les tributs d'Iris donnent plus de bonus 1.",
+      "15": "Wow! Je veux que les tributs d'Arès donnent plus de bonus 1.",
+      "16": "Wow! Je veux plus de niveaux de Rune 1.",
+      "17": "Wow! Je veux juste un peu plus de puissance de Cristaux.",
+      "18": "Wow! Je veux accélérer le temps !",
+      "19": "Wow! Je veux débloquer des améliorations de Pièces supplémentaires.",
+      "20": "Wow! Je veux améliorer les outils automatiques des Runes.",
+      "21": "Wow! Je veux pirater plus de score 1.",
+      "22": "Wow! J'aimerais que mon Artémis soit un peu meilleure 1.",
+      "23": "Wow! Je veux que les ouvertures de Cubes donnent plus de tributs 2.",
+      "24": "Wow! Je veux que les tributs de Pluton donnent plus de bonus 1.",
+      "25": "Wow! Je veux que les tributs de Moloch donnent plus de bonus 1.",
+      "26": "Wow! Je veux commencer les Ascensions avec des niveaux de Rune.",
+      "27": "Wow! Je veux commencer les Ascensions avec un bâtiment de Réincarnation de chaque type.",
       "28": "Wow! Je veux que les Réincarnations deviennent enfin inutiles.",
-      "29": "Wow! I want to increase maximum Reincarnation Challenge completions.",
-      "30": "Wow! I want to arbitrarily increase my Cube and Tesseract gain.",
-      "31": "Wow! I want to hack in more score 2.",
-      "32": "WoW! Je veux que les runes soit plus facile à monter de niveau au fil du temps.",
-      "33": "Wow! I want opened Cubes to give more tributes 3.",
-      "34": "Wow! I want Chronos Tribute bonuses to scale better 1",
-      "35": "Wow! I want Aphrodite Tribute bonuses to scale better 1",
-      "36": "Wow! I want building power to be useful 2.",
-      "37": "WoW! Je veux plus de niveaux de runes 2.",
-      "38": "WoW! Je veux plus de Tesseract quand corrompu!",
-      "39": "Wow! I want more score from Challenge 10 completions.",
-      "40": "Wow! I want Athena Tribute bonuses to scale better 1.",
-      "41": "Wow! I want to hack in more score 3.",
-      "42": "WoW! Je veux quelque Obtainium Incorruptible.",
-      "43": "WoW! Je veux encore plus de Obtainium Incorruptible!",
-      "44": "Wow! I want Midas Tribute bonus to scale better 1.",
-      "45": "Wow! I want Hermes Tribute bonus to scale better 1.",
-      "46": "WoW! Je veux encore Plus d’offrandes!",
-      "47": "WoW! Je veux encore plus d’Obtainium!",
-      "48": "WoW! Je veux commancer les ascensions avec les fourmis.",
-      "49": "Wow! I want to start ascension with a Challenge 6-8 completion.",
-      "50": "WoW! Je veux être éclairé par le puissance de mille soleils.",
-      "51": "Ouah! Un tas de cookies aux pépites de chocolat.",
-      "52": "Ouah! Un tas de biscuits sucrés.",
-      "53": "Ouah! Un tas de biscuits au beurre.",
-      "54": "Ouah! Un tas de gaufrettes à la vanille.",
-      "55": "Ouah! Un tas de biscuits au chocolat blanc.",
-      "56": "WoW! Un sac de Snickerdoodles.",
-      "57": "Ouah! Un sac de Macarons.",
-      "58": "Ouah! Un sac de biscuits en pain d'épice.",
-      "59": "Ouah! Un sac de biscuits de citron.",
-      "60": "WoW! Un sac de Ginger Snaps.",
-      "61": "Wow! A tin of Whoopie Pies.",
-      "62": "WoW! Une boîte de bars au Caramel.",
-      "63": "WoW! Une boîte de Brookies.",
-      "64": "WoW! Une boîte de Cookies de Fortune.",
-      "65": "WoW! Une boîte de Biscuits.",
-      "66": "Wow! A box of Mother's Favorite Cookies.",
-      "67": "Ouah! Une boîte de Brownies Métaphysiques.",
-      "68": "WoW! Une boîte de Non Cookies.",
-      "69": "Ouah! Une boîte de cookies au delà de ce monde.",
-      "70": "Ouah! Une boîte de biscuits parfaits.",
-      "71": "Wow! A Singular Cookie of Pandora's Benefactory",
-      "72": "Wow! A Singular Cookie of Vyshareth's Benefactory"
+      "29": "Wow! Je veux augmenter le nombre de complétions possibles des Défis de Réincarnation.",
+      "30": "Wow! Je veux augmenter mes gains de Cubes et de Tesseracts de façon arbitraire.",
+      "31": "Wow! Je veux pirater plus de score 2.",
+      "32": "Wow! Je veux que les Runes soient plus faciles à monter de niveau au fil du temps.",
+      "33": "Wow! Je veux que les ouvertures de Cubes donnent plus de tributs 3.",
+      "34": "Wow! Je veux que les tributs de Chronos donnent plus de bonus 1",
+      "35": "Wow! Je veux que les tributs d'Aphrodite donnent plus de bonus 1",
+      "36": "Wow! Je veux que la puissance des bâtiments soit utile 2.",
+      "37": "Wow! Je veux plus de niveaux de Rune 2.",
+      "38": "Wow! Je veux plus de Tesseracts quand Corrompu !",
+      "39": "Wow! Je veux plus de score des complétions du Défi 10.",
+      "40": "Wow! Je veux que les tributs d'Athéna donnent plus de bonus 1.",
+      "41": "Wow! Je veux pirater plus de score 3.",
+      "42": "Wow! Je veux un peu d'Obtainium incorruptible.",
+      "43": "Wow! Je veux encore plus d'Obtainium incorruptible !",
+      "44": "Wow! Je veux que les tributs de Midas donnent plus de bonus 1.",
+      "45": "Wow! Je veux que les tributs d'Hermès donnent plus de bonus 1.",
+      "46": "Wow! Je veux encore PLUS d’Offrandes !",
+      "47": "Wow! Je veux encore PLUS d’Obtainium !",
+      "48": "WoW! Je veux commencer les Ascensions avec une Fourmi.",
+      "49": "Wow ! Je veux commencer les Ascensions avec une complétion des Défis 6 à 8.",
+      "50": "Wow! Je veux être illuminé par la puissance de mille soleils.",
+      "51": "Wow! Un tas de cookies aux pépites de chocolat.",
+      "52": "Wow! Un tas de biscuits sucrés.",
+      "53": "Wow! Un tas de biscuits au beurre.",
+      "54": "Wow! Un tas de gaufrettes à la vanille.",
+      "55": "Wow! Un tas de cookies au chocolat blanc.",
+      "56": "Wow! Un sachet de snickerdoodles.",
+      "57": "Wow! Un sachet de macarons.",
+      "58": "Wow! Un sachet de biscuits de pain d'épice.",
+      "59": "Wow! Un sachet de biscuits au citron.",
+      "60": "Wow! Un sachet de biscuits au gingembre.",
+      "61": "Wow! Une boîte de Whoopie Pies.",
+      "62": "Wow! Une boîte de barres au caramel.",
+      "63": "Wov! Une boîte de brookies.",
+      "64": "Wow! Une boîte de biscuits chinois.",
+      "65": "Wow! Une boîte de biscuits de Prato.",
+      "66": "Wow! Une boîte des biscuits préférés de Maman.",
+      "67": "Wow! Une boîte de brownies métaphysiques.",
+      "68": "Wow! Une boîte de non-cookies.",
+      "69": "Wow! Une boîte de cookies de l'au-delà.",
+      "70": "Wow! Une boîte de biscuits parfaits.",
+      "71": "Wow! Un unique biscuit des bienfaits de Pandora.",
+      "72": "Wow! Un unique biscuit des bienfaits de Vyshareth."
     },
     "upgradeDescriptions": {
-      "1": "[1x1] You got it! +16.666% 3D Cubes from Ascending per level.",
-      "2": "[1x2] Plutus grants you +1 Offering per second, no matter what, per level. Also a +0.5% Recycling chance!",
-      "3": "[1x3] Athena vous accorde +10% d’Obtainium en plus et +80% d’Obtainium Auto par niveau.",
-      "4": "[1x4] Vous gardez ces 5 automatisations bien pratiques dans l'onglet des Améliorations !",
+      "1": "[1x1] Ça roule ! +16,666% de Cubes 3D lors de l'Ascension par niveau.",
+      "2": "[1x2] Pluton vous accorde +1 Offrande par seconde, en toutes circonstances, par niveau. Et aussi +0,5% de chances de recyclage !",
+      "3": "[1x3] Athéna vous accorde +10% d’Obtainium supplémentaire et +80% d’Obtainium auto par niveau.",
+      "4": "[1x4] Vous gardez ces 5 améliorations d'automatisation bien pratiques dans l'onglet des Améliorations !",
       "5": "[1x5] Vous gardez l'automatisation des améliorations de Mythos dans l'onglet des Améliorations !",
-      "6": "[1x6] Vous gardez l'amélioration de gain automatique de Mythos dans l'onglet des Améliorations !",
-      "7": "[1x7] Acheter chaque bâtiments de particules automatiquement dès que c’est possible.",
-      "8": "[1x8] Achète automatiquement les améliorations des Particules.",
+      "6": "[1x6] Vous gardez l'amélioration de gain passif de Mythos dans l'onglet des Améliorations !",
+      "7": "[1x7] Achetez automatiquement chaque bâtiment de Particules dès que c’est possible.",
+      "8": "[1x8] Achetez automatiquement les améliorations de Particules.",
       "9": "[1x9] Quand elle est activée, la recherche automatique de la boutique achète maintenant la recherche la moins chère. C'est un peu comme un roomba !",
-      "10": "[1x10] Débloquer quelques outils pour automatiser les Ascensions ou peu importe. Un peu coûteux mais cool.",
-      "11": "[2x1] You got it again! +9.09% 3D Cubes from Ascending per level.",
-      "12": "[2x2] Raise building power to the power of (1 + level * 0.09).",
-      "13": "[2x3] For each 20 Cubes opened at once, you get 1 additional tribute at random.",
-      "14": "[2x4] Iris shines her light on you. The effect power is now increased by +0.01 (+0.005 if >1000 tributes) per level.",
-      "15": "[2x5] Ares teaches you the Art of War. The effect power is now increased by +0.01 (+0.0033 if >1000 tributes) per level.",
-      "16": "[2x6] You got it buster! +20 ALL max rune levels per level.",
-      "17": "[2x7] Oui. +5 Exposant par niveau aux cristaux.",
-      "18": "[2x8] Quantum tunnelling ftw. +20% global game speed.",
-      "19": "[2x9] Débloque de nouvelles améliorations de Pièces qui vont du début de l'Ascension jusqu'à l'après C10 et plus.",
+      "10": "[1x10] Débloquez quelques outils pour automatiser les Ascensions ou peu importe. Un peu cher mais sympa.",
+      "11": "[2x1] Ça roule toujours ! +9,09% de Cubes 3D lors de l'Ascension par niveau.",
+      "12": "[2x2] Élevez la puissance des bâtiments à la puissance ^(1 + niveau * 0,09).",
+      "13": "[2x3] Tous les 20 Cubes ouverts simultanément, vous trouvez un tribut aléatoire supplémentaire.",
+      "14": "[2x4] Iris rayonne sa lumière sur vous. La puissance de l'effet est augmentée de +0,01 (+0,005 si plus de 1 000 tributs) par niveau.",
+      "15": "[2x5] Arès vous enseigne l'art de la guerre. La puissance de l'effet est augmentée de +0,01 (+0,0033 si plus de 1 000 tributs) par niveau.",
+      "16": "[2x6] Ça arrive tout de suite chef ! +20 à la limite de niveau de TOUTES les Runes, par niveau.",
+      "17": "[2x7] Ouais. +5 d'exposant des Cristaux par niveau.",
+      "18": "[2x8] Effet tunnel garanti. +20% de vitesse globale du jeu.",
+      "19": "[2x9] Débloquez de nouvelles améliorations de Pièces qui vont du début de l'Ascension jusqu'à l'après C10 et plus.",
       "20": "[2x10] L'acheteur automatique de Runes de la boutique partage maintenant les Offrandes équitablement entre les 5 Runes.",
-      "21": "[3x1] Perhaps score will benefit you more? Gain +5% more score on Ascensions per level.",
-      "22": "[3x2] The exponent of the bonus of Artemis is increased by 0.05 per level.",
-      "23": "[3x3] For each 20 Cubes opened at once, you get 1 additional tribute at random.",
-      "24": "[3x4] Plutus teaches you the Art of the Deal. The effect power is now increased by +0.01 (+0.0033 if >1000 tributes) per level.",
-      "25": "[3x5] Moloch lends you a hand in communicating with Ant God. The effect power is now increased by +0.01 (+0.0033 if >1000 tributes) per level.",
-      "26": "[3x6] Start Ascensions with 3 additional rune levels [Does not decrease EXP requirement] per level.",
-      "27": "[3x7] Upon an Ascension, you will start with 1 of each Reincarnation building to speed up Ascensions.",
-      "28": "[3x8] Well, I think you got it? Gain +1% of particles on Reincarnation per second.",
-      "29": "[3x9] Add +4 to Reincarnation Challenge cap per level. Completions after 25 scale faster in requirement!",
-      "30": "[3x10] You now get +40% Cubes and Tesseracts forever!",
-      "31": "[4x1] You again? +5% more score on Ascensions per level.",
-      "32": "[4x2] Gain +0.1% Rune EXP per second you have spent in an Ascension. This has no cap!",
-      "33": "[4x3] For each 20 Cubes opened at once, you get yet another additional tribute at random.",
-      "34": "[4x4] Chronos overclocks the universe for your personal benefit. (Rewards the same as others)",
-      "35": "[4x5] Aphrodite increases the fertility of your coins. (Rewards the same as others)",
-      "36": "[4x6] Raise building power to (1 + 0.05 * Level) once more.",
-      "37": "[4x7] Adds +20 to ALL rune caps again per level.",
-      "38": "[4x8] Gain +0.5% more Tesseracts on Ascension for each additional level in a corruption you enable.",
-      "39": "[4x9] Instead of the multiplier being 1.03^(C10 completions), it is now 1.035^(C10 completions)!",
-      "40": "[4x10] Athena is very smart (Rewards the same as others).",
-      "41": "[5x1] Yeah yeah yeah, +5% score on Ascension per level. Isn't it enough?",
-      "42": "[5x2] You now gain +4% Obtainium per level, which is not dependent on corruptions!",
-      "43": "[5x3] Gain another +3% corruption-independent Obtainium per level.",
-      "44": "[5x4] Blah blah blah Midas works harder (same rewards as before)",
-      "45": "[5x5] Blah blah blah Hermes works harder (same rewards as before)",
-      "46": "[5x6] Obtiens +5% d’Offrendes en plus par niveau!",
-      "47": "[5x7] Obtiens +10% d’Obtainium en plus par niveau!",
-      "48": "[5x8] When you ascend, start with 1 worker Ant (this is a lot better than it sounds!)",
-      "49": "[5x9] When you ascend, gain 1 of each Challenge 6-8 completion.",
-      "50": "[5x10] What doesn't this boost? +0.01% Accelerators, Multipliers, Accelerator Boosts, +0.02% Obtainium, +0.02% Offerings, +0.04 Max Rune Levels, +1 Effective ELO, +0.0004 Talisman bonuses per level, 0.00066% Tax reduction per level.",
-      "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the cube tab, and researches as well.",
-      "52": "[Cx2] These sugar cookies sure boost your blood sugar. Gain +1% global speed per level.",
-      "53": "[Cx3] What a hearty snack. Gain +0.1% Quarks per level.",
-      "54": "[Cx4] Pretty dry, but they suffice. Increase Offering gain by 1% per level.",
-      "55": "[Cx5] An inventive take on the original chip cookie. Increase Obtainium gain by 1% per level.",
-      "56": "[Cx6] These are a little more exotic. Gain +1 more raw score from Challenge 1 completions per level.",
-      "57": "[Cx7] Yum yum! Now we're talking... or maybe not. Increase the cap of Cube Upgrades 1x1, 2x1, 3x1, 4x1, 5x1 by 1.",
-      "58": "[Cx8] A bit festive! If there is an event, All Cube gain is multiplied by 1.25.",
-      "59": "[Cx9] Quite sour for a cookie. But it increases your Ascension speed by 0.25% per level, so who is to complain?",
-      "60": "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the cost of buying Golden Quarks by 0.003% per level.",
-      "61": "[Cx11] Edible but prone to mistakes. Adds 125 whole milliseconds to the tolerance of code 'time', and increases reward by +2% per level.",
-      "62": "[Cx12] Platonic loves toffee. Octuple Obtainium and Offering gain in Challenge 15.",
-      "63": "[Cx13] Brownie Cookies, the best of both worlds. Increase Regular Cube Gain by 1% based on owned Hepteracts (+3% per OOM).",
-      "64": "[Cx14] Some say the Ant God itself penned these fortunes. When you gain a statue from Platonic Cubes, you gain two instead.",
-      "65": "[Cx15] That's amore, but is quite a crumbful! Increase Ant efficiency by 0.4%. (Roughly every 200 Ants purchased doubles crumb production!)",
-      "66": "[Cx16] You just wish you could have one more cookie baked by her. Gain 2x all Cubes until you purchase OMEGA.",
-      "67": "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
-      "68": "[Cx18] What the heck! These aren't even cookies. +0.01% Quarks per level purchased of this upgrade. +5% more at level 1,000!",
-      "69": "[Cx19] Cookies that you'll never remember again. +12% Golden Quarks this Singularity.",
-      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts on Ascension if every corruption is set to level 14."
+      "21": "[3x1] Peut-être que le score vous profitera plus ? Obtenez +5% de score supplémentaire lors des Ascensions par niveau.",
+      "22": "[3x2] L'exposant du bonus d'Artémis est augmenté de 0,05 par niveau.",
+      "23": "[3x3] Tous les 20 Cubes ouverts simultanément, vous trouvez un tribut aléatoire supplémentaire.",
+      "24": "[3x4] Pluton vous enseigne l'art des affaires. La puissance de l'effet est augmentée de +0,01 (+0,0033 si plus de 1 000 tributs) par niveau.",
+      "25": "[3x5] Moloch vous donne un coup de main pour communiquer avec le Dieu Fourmi. La puissance de l'effet est augmentée de +0,01 (+0,0033 si plus de 1 000 tributs) par niveau.",
+      "26": "[3x6] Commencez les Ascensions avec 3 niveaux de Rune additionnels [ne diminue pas l'EXP requise] par niveau.",
+      "27": "[3x7] À chaque Ascension, vous commencerez avec 1 bâtiment de Réincarnation de chaque type, pour accélérer les Ascensions.",
+      "28": "[3x8] Bon, je crois que vous l'avez ? Obtenez +1% des Particules obtenues à la Réincarnation par seconde.",
+      "29": "[3x9] Ajoutez +4 complétions possibles aux Défis de Réincarnation par niveau. Les objectifs des complétions au-delà de 25 augmentent plus vite !",
+      "30": "[3x10] Vous obtenez maintenant +40% de Cubes et de Tesseracts pour toujours !",
+      "31": "[4x1] Encore vous ? +5% plus de score lors des Ascensions par niveau.",
+      "32": "[4x2] Obtenez +0,1% d'EXP de Rune par seconde passée dans l'Ascension. C'est sans limite !",
+      "33": "[4x3] Tous les 20 Cubes ouverts simultanément, vous trouvez encore un tribut aléatoire supplémentaire.",
+      "34": "[4x4] Chronos surcadence l'univers pour votre profit personnel. (Récompenses identiques aux autres)",
+      "35": "[4x5] Aphrodite augmente la fécondité de vos Pièces. (Récompenses identiques aux autres)",
+      "36": "[4x6] Élevez la puissance des bâtiments à la puissance ^(1 + 0,05 * niveau) une fois de plus.",
+      "37": "[4x7] Ajoutez à nouveau +20 de limite de niveau à TOUTES les Runes.",
+      "38": "[4x8] Obtenez +0,5% de Tesseracts supplémentaires lors de l'Ascension pour chaque niveau de Corruption activé.",
+      "39": "[4x9] Le multiplicateur passe de '1,03^(complétions de C10)' à '1,035^(complétions de C10)' !",
+      "40": "[4x10] Athéna est très intelligente. (Récompenses identiques aux autres)",
+      "41": "[5x1] Ouais ouais ouais, +5% de score d'Ascension par niveau. C'est bientôt fini ?",
+      "42": "[5x2] Vous obtenez +4% d'Obtainium par niveau, qui ne dépend pas des Corruptions !",
+      "43": "[5x3] Vous obtenez +3% supplémentaire d'Obtainium garanti sans Corruption par niveau.",
+      "44": "[5x4] Blah blah blah Midas travaille plus dur. (Récompenses identiques aux autres)",
+      "45": "[5x5] Blah blah blah Hermès travaille plus dur (Récompenses identiques aux autres)",
+      "46": "[5x6] Obtenez +5% d’Offrandes supplémentaires par niveau !",
+      "47": "[5x7] Obtenez +10% d’Obtainium supplémentaire par niveau !",
+      "48": "[5x8] Lorsque vous effectuez une Ascension, commencez avec une Fourmi Ouvrière (c'est beaucoup mieux que ça en a l'air !)",
+      "49": "[5x9] Lorsque vous effectuez une Ascension, obtenez une complétion des Défis 6 à 8.",
+      "50": "[5x10] Qu'est-ce qui n'est pas amélioré ? +0,01% d'Accélérateurs, de Multiplicateurs, de Renforts d'Accélérateur, +0,02% d'Obtainium, +0,02% d'Offrandes, +0,04 à la limite de niveau des Runes, +1 ELO de Fourmi effectif, +0,0004 bonus de Talisman par niveau, 0,00066% de réduction d'impôt par niveau.",
+      "51": "[Cx1] Wow! La pâtisserie est ouverte !!! Débloquez immédiatement toutes les automatisations de l'onglet des Cubes et de celui des Recherches.",
+      "52": "[Cx2] Ces biscuits au sucre augmentent sans aucun doute votre glycémie. Obtenez +1% de vitesse globale par niveau.",
+      "53": "[Cx3] Quelle collation copieuse. Obtenez +0,1% de Quarks par niveau.",
+      "54": "[Cx4] Plutôt secs, mais c'est suffisant. Augmentez vos gains d'Offrandes de 1% par niveau.",
+      "55": "[Cx5] Une approche inventive des cookies aux pépites originaux. Augmentez vos gains d'Obtainium de 1% par niveau.",
+      "56": "[Cx6] Ceux-ci sont un peu plus exotiques. Obtenez +1 score brut pour chaque complétion du Défi 1 par niveau.",
+      "57": "[Cx7] Miam miam ! Maintenant ça me parle… ou pas. Augmentez de 1 la limite des améliorations de Cube 1x1, 2x1, 3x1, 4x1 et 5x1.",
+      "58": "[Cx8] Un peu festifs ! Quand il y a un évènement, les gains de tous les Cubes sont multipliés par 1,25.",
+      "59": "[Cx9] Un peu acide pour un biscuit. Mais il augmente votre vitesse d'Ascension de 0,25% par niveau, alors de quoi vous plaignez-vous ?",
+      "60": "[Cx10] Wow! La pâtisserie a des restes de gingembre de leur vente de Noël. Réduisez le prix d'achat des Quarks d'Or de 0,003% par niveau.",
+      "61": "[Cx11] Comestibles mais faciles à rater. Ajoutez 125 millisecondes complètes à la tolérance du code 'temps', et augmentez les récompenses de +2% par niveau.",
+      "62": "[Cx12] Platonic adore le caramel. Octuplez les gains d'Obtainium et d'Offrandes dans le Défi 15.",
+      "63": "[Cx13] Les biscuits Brownie, le meilleur des deux mondes. Augmentez les gains de Cubes normaux en fonction des Hepteracts possédés (+3% par ordre de grandeur).",
+      "64": "[Cx14] Certains disent que le Dieu Fourmi a écrit lui-même ces fortunes. Quand vous obtenez une statue de Cubes Platonics, vous en obtenez deux à la place.",
+      "65": "[Cx15] Ils sont amore, mais ils sont bien friables ! Augmentez l'efficacité des Fourmis de 0,4%. (Toutes les 200 Fourmis achetées environ la production de Miettes est doublée !)",
+      "66": "[Cx16] Vous aimeriez avoir juste un dernier biscuit cuisiné par elle. Obtenez le double de tous les Cubes avant d'avoir acheté OMEGA.",
+      "67": "[Cx17] C'est quoi ces horreurs ??? En tout cas, la limite de niveau du Talisman Métaphysique est augmentée de 1337.",
+      "68": "[Cx18] Mais enfin ! Ce ne sont même pas des biscuits. +0,01% de Quarks par niveau acheté, et +5% supplémentaires au niveau 1000 !",
+      "69": "[Cx19] Des biscuits dont vous ne garderez aucun souvenir. +12% de Quarks d'Or pendant cette Singularité.",
+      "70": "[Cx20] L'apogée de la pâtisserie. Rien de ce que vous pourrez manger ne sera meilleur que ceci. Obtenez +0,01% d'Octeracts supplémentaires lors de l'Ascension si le niveau moyen des Corruptions est au moins de 14."
     },
     "cubeMetadata": {
-      "cost": "Coût: {{value1}} Cubes WoW! [+{{value2} Levels]",
-      "level": "Niveau: {{value1}} / {{value2}}",
-      "maxLevel": "Coût: 0 Cubes WoW! Cette amélioration et maxé! wow"
+      "cost": "Coût : {{value1}} Cubes Wow! [+{{value2}} niveaux]",
+      "level": "Niveau : {{value1}} / {{value2}}",
+      "maxLevel": "Coût : 0 Cubes Wow! Cette amélioration est au maximum ! Wow!"
     },
-    "noCubesOpened": "OK. No cubes opened.",
-    "howManyCubesOpen": "How many cubes would you like to open? You have {{x}}! \nYou can input a percentage of cubes to open, for example: \"50%\" or \"100%\". \nYou can start the input with \"-\" (put in a negative value) to put in a value, that will be saved, which means you open all cubes except the specified number (also works with %).",
+    "noCubesOpened": "Ok. Aucun Cube ouvert.",
+    "howManyCubesOpen": "Combien de Cubes souhaitez-vous ouvrir ? Vous en avez {{x}} ! \nVous pouvez entrer un pourventage de Cubes à ouvrir, par exemple \"50%\" ou \"100%\". \nVous pouvez commencer par un \"-\" (entrez une valeur négative) pour garder cette quantité, ce qui veut dire que vous ouvrirez tous les Cubes sauf le nombre indiqué (fonctionne aussi avec des %).",
     "validation": {
-      "notEnough": "You don't have enough cubes to open!",
-      "negative": "You can't open a negative amount of cubes.",
-      "invalidPercent": "You can't open {{x}}% of your cubes..."
+      "notEnough": "Vous n'avez pas assez de Cubes à ouvrir !",
+      "negative": "Vous ne pouvez pas ouvrir une quantité négative de Cubes.",
+      "invalidPercent": "Vous ne pouvez pas ouvrir {{x}}% de vos Cubes…"
     }
   },
   "calculate": {
@@ -1444,12 +1444,12 @@
       "cashGrab": "You will gain <<gold|{{amount}}%>> more Obtainium and Offerings!",
       "shopTalisman": "Même dans un magasin premium, c'est un peu évident, n'est-ce pas ?",
       "seasonPass": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Wow! Cubes and Tesseracts.",
-      "challengeExtension": "Reincarnation Challenges may be completed an additional <<lime|{{amount}}>> times.",
+      "challengeExtension": "Les Défis de Réincarnation peuvent être complétés <<lime|{{amount}}>> fois supplémentaires.",
       "challengeTome": "Challenge 10 Exponent Requirement reduced by <<lightgoldenrodyellow|{{amount1}}>> Million. Past 60 completions of C9 or C10 the scaling multiplier is [completions * <<lightgoldenrodyellow|{{amount2}}>>]",
       "cubeToQuark": "Même dans un magasin premium, c'est un peu évident, n'est-ce pas ?",
       "tesseractToQuark": "Même dans un magasin premium, c'est un peu évident, n'est-ce pas ?",
       "hypercubeToQuark": "Même dans un magasin premium, c'est un peu évident, n'est-ce pas ?",
-      "seasonPass2": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Hypercubes and Platonic Cubes.",
+      "seasonPass2": "Les Ascensions donnent <<lightgoldenrodyellow|{{amount}}%>> plus d'Hypercubes et de Cubes Platonics.",
       "seasonPass3": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more Hepteracts and Octeracts.",
       "chronometer": "Ascension timer increases <<orange|{{amount}}%>> faster.",
       "infiniteAscent": "The first level gives <<cyan|+10%>> Quarks, for free!",
@@ -1466,7 +1466,7 @@
       "seasonPassY": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more cubes (of <<orchid|all>> types) on Ascension.",
       "seasonPassZ": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more cubes (of <<orchid|all>> types) on Ascension. This one <<red|never>> resets!",
       "challengeTome2": "Challenge 10 Exponent Requirement reduced by <<lightgoldenrodyellow|{{amount1}}>> Million. Past 60 completions of C9 or C10 the scaling multiplier is [completions * <<lightgoldenrodyellow|{{amount2}}>>]",
-      "instantChallenge2": "Instant Challenge does <<orchid|+{{amount}}>> more challenges per tick.",
+      "instantChallenge2": "Les Défis instantanés complètent <<orchid|+{{amount}}>> Défis supplémentaires par tick.",
       "cubeToQuarkAll": "Cube to Quark Corner gives <<cyan|+{{amount}}%>> more Quarks!",
       "cashGrab2": "You will gain <<gold|{{amount}}%>> more Obtainium and Offerings! <<red|Half>> as powerful as the original.",
       "chronometerZ": "Ascension timer increases <<orange|{{amount}}%>> faster! Seems like this model can build <<orchid|momentum>>...",
@@ -1542,8 +1542,8 @@
         "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
       },
       "sweepomatic": {
-        "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
-        "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
+        "hasLevel1": "Le balayage automatique de Défis commencera maintenant les Défis d'Ascension à C10, et vous pouvez maintenant balayer les Défis d'Ascension si vous avez les Défis instantanés 2, pour vous économiser quelques clics !",
+        "otherwise": "Le balayage automatique de Défis commencera maintenant les Défis d'Ascension à C10, pour vous économiser quelques clics !"
       },
       "superStart": {
         "hasLevel4": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 2.22e2222 Particles and 500 Obtainium",
@@ -1553,10 +1553,10 @@
         "default": "You start each Ascension with 1 Transcension and 1001 Mythos"
       },
       "notSoChallenging": {
-        "hasLevel4": "You start each Ascension with 1 completion of Challenges 6, 7 & 9 and 5 completions of Challenge 8",
-        "hasLevel3": "You start each Ascension with 1 completion of Challenges 6 & 7 and 5 completions of Challenge 8",
-        "hasLevel2": "You start each Ascension with 1 completion of Challenges 6, 7 and 8",
-        "hasLevel1": "You start each Ascension with 1 completion of Challenges 6 and 7",
+        "hasLevel4": "Vous commencez chaque Ascension avec une complétion des Défis 6, 7 et 9, et 5 complétions du Défi 8.",
+        "hasLevel3": "Vous commencez chaque Ascension avec une complétion des Défis 6 et 7, et 5 complétions du Défi 8.",
+        "hasLevel2": "Vous commencez chaque Ascension avec une complétion des Défis 6, 7 et 8.",
+        "hasLevel1": "Vous commencez chaque Ascension avec une complétion des Défis 6 et 7.",
         "default": "You start each Ascension with 1 completion of Challenge 6"
       },
       "automationUpgrades": {
@@ -1592,8 +1592,8 @@
       },
       "exaltedAchievements": "Unlocks new, very difficult achievements! They are earned differently from others, however...",
       "coolQOLCubes": {
-        "hasLevel1": "Keep all Cube Opening researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
-        "default": "Researches related to opening cubes will no longer reset on Ascension"
+        "hasLevel1": "Gardez toutes les Recherches d'ouverture de Cubes et obtenez la possibilité d'ouvrir automatiquement un pourcentage de vos Cubes à chaque Ascension !",
+        "default": "Les Recherches relatives à l'ouverture des Cubes ne se réinitialisent plus à chaque Ascension."
       },
       "irishAnt": "Ants blessed with the luck of the Irish grant ☘ {{i}} Ambrosia Luck!",
       "irishAnt2": "Ants blessed with more fortunate luck of the Irish grant ☘ {{i}} more Ambrosia Luck!",
@@ -1747,7 +1747,7 @@
       "singCubes3": {
         "name": "Enfer Cubique",
         "description": "Even Dante is impressed. +4% gained Cubes per level.",
-        "effect": "Permanently gain {{n}}% more Cubes."
+        "effect": "Obtenez {{n}}% de Cubes supplémentaires de façon définitive."
       },
       "singCitadel": {
         "name": "Citadelle de la Singularité",
@@ -1834,18 +1834,18 @@
       },
       "singChallengeExtension": {
         "name": "Bigger Challenge Caps",
-        "description": "Need more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.",
-        "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+        "description": "Besoin de plus de Défis ? Bien, ajoutez 2 à la limite des Défis de Réincarnation et 1 à la limite des Défis d'Ascension, par niveau.",
+        "effect": "Vous êtes assez motivés pour compléter {{n}} Défis de Réincarnations ainsi que {{m}} Défis d'Ascension supplémentaires."
       },
       "singChallengeExtension2": {
         "name": "Biggerer Challenge Caps",
-        "description": "Need even more Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level.",
-        "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+        "description": "Besoin d'encore plus de Défis ? Bien, ajoutez 2 à la limite des Défis de Réincarnation et 1 à la limite des Défis d'Ascension, par niveau.",
+        "effect": "Vous êtes assez motivés pour compléter {{n}} Défis de Réincarnations ainsi que {{m}} Défis d'Ascension supplémentaires."
       },
       "singChallengeExtension3": {
         "name": "BiggererEST Challenge Caps",
-        "description": "Need even MORE Challenges? Well, add 2 more Reincarnation Challenges and 1 Ascension Challenge to the cap, per level. Does it not seem excessive?",
-        "effect": "You feel motivated enough to complete {{n}} more Reincarnation Challenges, and {{m}} more Ascension Challenges."
+        "description": "Besoin d'ENCORE plus de Défis ? Bien, ajoutez 2 à la limite des Défis de Réincarnation et 1 à la limite des Défis d'Ascension, par niveau. Ça ne vous paraît pas un peu excessif ?",
+        "effect": "Vous êtes assez motivés pour compléter {{n}} Défis de Réincarnations ainsi que {{m}} Défis d'Ascension supplémentaires."
       },
       "singQuarkImprover1": {
         "name": "Marginal Quark Gain Improver Thingy",
@@ -2244,7 +2244,7 @@
     },
     "crystalUpgrades": {
       "1": "Obtenez une augmentation de la production des Cristaux de 5% par PS par niveau, de façon multiplicative.",
-      "2": "Gagnez un coup de pouce aux Cristaux en fonction des pièces détenues par niveau.",
+      "2": "Augmentez la production de Cristaux en fonction des Pièces possédées par niveau.",
       "3": "Chaque producteur de Cristaux acheté augmente la génération de Cristaux de 0,1% par niveau. [Maximum : {{max}}%]",
       "4": "Améliorez le multiplicateur de production de Pièces par un exposant de 0,05 par niveau. [Maximum : +{{max}}]",
       "5": "Chaque complétion d'un Défi de Transcendance augmente les gains de Cristaux de 1% par niveau.",
@@ -2259,22 +2259,22 @@
       "4": "Gains d'Obtainium x{{x}}",
       "5": "Vitesse des Fourmis x{{x}}",
       "6": "+{{x}} niveaux de Fourmi gratuits",
-      "7": "+{{x}} niveaux de Rune gratuits, +{{y}} au niveau maximum des Runes",
+      "7": "+{{x}} niveaux de Rune gratuits, niveau maximum des Runes augmenté de +{{y}}",
       "8": "EXP des Runes x{{x}}",
-      "9": "Runes effectiveness x{{x}}",
-      "10": "Cubes/Tesseracts on Ascension x{{x}}"
+      "9": "Efficacité des Runes x{{x}}",
+      "10": "Cubes / Tesseracts lors de l'Ascension x{{x}}"
     },
     "constantUpgrades": {
-      "1": "Make all Tesseract buildings {{level}}% more productive per level.",
-      "2": "Each Tesseract building bought increases the production of all of them by 0.1% per level [Max {{max}}%].",
-      "3": "Increase Offering gain +2% per level.",
-      "4": "Increase Obtainium gain +4% per level.",
-      "5": "Multiply Ant speed by (1 + log10(Constant + 1)/10)^level",
-      "6": "Ajoutez +2 Niveaux de Fourmis gratuits par niveau.",
-      "7": "Provides 7 free rune levels and increases the rune cap by 3 per level.",
-      "8": "Increase the rune EXP given by Offerings by 10% per level [Additive]",
-      "9": "When bought, rune effectiveness is increased by Log4(Talisman Shards +1) %",
-      "10": "Quand acheter, obtenir Log4(Constant + 1)% plus de Cubes Wow! et Tesseracts sur Ascension."
+      "1": "Tous les bâtiments de Tesseracts sont {{level}}% plus productifs par niveau.",
+      "2": "Chaque bâtiment de Tesseracts acheté augmente la production de chacun d'eux de 0,1% par niveau [Maximum {{max}}%].",
+      "3": "Gains d'Offrandes augmentés de +2% par niveau.",
+      "4": "Gains d'Obtainium augmentés de +4% par niveau.",
+      "5": "Vitesse des Fourmis multipliée par '(1 + Log10(Constante + 1) / 10)^niveau'",
+      "6": "Ajoutez +2 niveaux de Fourmis gratuits par niveau.",
+      "7": "Donne 7 niveaux de Rune gratuits et augmente le niveau maximal des Runes de 3 par niveau.",
+      "8": "Augmente l'EXP des Runes de 10% par niveau [de façon additive].",
+      "9": "Lorsque acheté, augmente l'efficacité des Runes de 'Log4(Fragments de Talisman + 1)%'.",
+      "10": "Lorsque acheté, les gains de Cubes Wow! et de Tesseracts lors de l'Ascension sont augmentés de 'Log4(Constante + 1)%'."
     },
     "effects": {
       "1": "Effet : production des Ouvriers x{{x}}.",
@@ -2365,12 +2365,12 @@
       "125": "Effet : +{{x}}% d'exposant du diviseur de la Constante."
     },
     "shopTitles": {
-      "coin": "Améliorations des Pièces",
-      "diamond": "Améliorations des Diamants",
-      "mythos": "Améliorations des Mythos",
-      "generator": "Boutiques de Générateurs",
+      "coin": "Améliorations de Pièces",
+      "diamond": "Améliorations de Diamants",
+      "mythos": "Améliorations de Mythos",
+      "generator": "Boutique de Générateurs",
       "automation": "Boutique d'Automatisation",
-      "particles": "Améliorations des Particules"
+      "particles": "Améliorations de Particules"
     },
     "hover": "Survolez l'icône d'une amélioration pour voir les détails !",
     "hoverOverUpgrade": "Survolez une amélioration pour voir les détails !"
@@ -2567,9 +2567,9 @@
     },
     "runes": "Press [1], [2], [3], [4] or [5] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!",
     "challenges": {
-      "hotkey": "Press [1], [2]... up to [0] to enter challenges 1 to 10. Press [E] to exit your Transcension or Reincarnation challenge if stuck!",
-      "finishTranscension": "If you are unable to finish a Transcension challenge, press the hotkey listed above OR click on the red Challenge \"C\" button on the reset buttons on top.",
-      "leaveReincarnation": "Pour quitter un défi de réincarnation, appuyez plutôt sur le défi gris \"C\" !"
+      "hotkey": "Appuyez sur [1], [2], … jusqu'à [0] pour entrer dans les Défis 1 à 10. Appuyez sur [E] pour sortir du Défi de Transcendance / Réincarnation si vous êtes bloqués !",
+      "finishTranscension": "Si vous n'arrivez pas à finir un Défi de Transcendance, appuyez sur le raccourci indiqué au-dessus OU cliquez sur le bouton de Défi \"C\" rouge en haut, à côté des boutons de réinitialisation.",
+      "leaveReincarnation": "Pour quitter un Défi de réincarnation, cliquez plutôt sur le \"C\" gris !"
     },
     "research": "Bienvenue dans le futur ! L'Obtainium est obtenu avec les <<var(--green-text-color);|Réincarnations>>. Je recommanderais d'acheter en priorité les recherches au <<limegreen;|bords verts>> en premier. Les recherches au <<var(--crimson-text-color);|bords rouges>> ne sont jamais réinitialisées tandis que les recherches au <<white;|bords blancs>> seront perdues au prochain rang de réinitialisation !",
     "shop": "Survolez-les éléments de la boutique pour voir ce que font les améliorations !"
@@ -3041,7 +3041,7 @@
       },
       "oneChallengeCap": {
         "name": "One Challenge Caps",
-        "description": "Beat the target Singularity, but the first 14 Challenges have cap of only 1!",
+        "description": "Complétez la Singularité cible, mais les 14 premiers Défis ne peuvent être complétés qu'une seule fois !",
         "rewardDescription": "Each completion increases Corruption Multiplier Values by 0.03, no matter what. First Completion gives +3 to Reincarnation Challenge Cap. 20th completion grants +1 free Corruption level!"
       },
       "noOcteracts": {
@@ -3108,7 +3108,7 @@
     }
   },
   "wowCubes": {
-    "greenText": "You can also spend them on upgrades that persist through Ascension.",
+    "greenText": "Vous pouvez également les dépenser dans des améliorations qui persistent à chaque Ascension.",
     "open1": "Open x1",
     "open10%": "Open 10%",
     "open50%": "Open 50%",
@@ -3135,7 +3135,7 @@
     "cubes": {
       "intro": "You feel a sense of Pride and Accomplishment... and a hunger for power.",
       "instructions": "Open up some Lootb-- er, Wow! Cubes, to get one of ten permanent bonuses.",
-      "inventory": "You possess <<yellow|{{amount}}>> Wow! Cubes. Get them from ascending!",
+      "inventory": "Vous avez <<yellow|{{amount}}>> Cubes Wow!. Obtenez-en plus en effectuant des Ascensions !",
       "total": "You have a total of <<yellow|{{amount}}>> Cube tributes!",
       "items": {
         "1": "Hermes' Tribute x{{amount}}: +{{bonus}} Accelerators per Accelerator Boost",
@@ -3171,7 +3171,7 @@
     "hypercubes": {
       "intro": "I didn't know that Wow! enterprises made 5-Dimensional Objects.",
       "instructions": "Open up some Lootb-- er, Wow! Hypercubes, to boost blessings from the previous tier.",
-      "inventory": "You possess <<yellow|{{amount}}>> Wow! Hypercubes. Get them from ascending with at least 1e9 score!",
+      "inventory": "Vous avez <<yellow|{{amount}}>> Hypercubes Wow!. Obtenez-en plus en effectuant des Ascensions avec au moins 1e9 de score !",
       "total": "You have a total of <<yellow|{{amount}}>> Hypercube benedictions!",
       "items": {
         "1": "Hermes' Benediction x{{amount}}: +{{bonus}}% Hermes Gift Power",
@@ -3189,7 +3189,7 @@
     "platonics": {
       "intro": "This seems very familiar.",
       "instructions": "Open up some Lootb-- er, Platonic! Cubes, for epic perks!.",
-      "inventory": "You possess <<yellow|{{amount}}>> Wow! Platonic Cubes. Get them from ascending with at least 2.666e12 score!",
+      "inventory": "Vous avez <<yellow|{{amount}}>> Cubes Platonics Wow!. Obtenez-en plus en effectuant des Ascensions avec au moins 2,666e12 de score !",
       "total": "You have a total of <<yellow|{{amount}}>> Platonic Cubes opened!",
       "items": {
         "1": "Cube Shard: x{{amount}}: +{{bonus}}% Bonus Wow! Cubes",
@@ -3240,7 +3240,7 @@
         "challenge": {
           "effect": "That's preposterous. How are you going to gain +0.05% C15 Exponent per Challenge Hepteract? How!?",
           "currentEffect": "Current Effect: C15 Exponent +{{x}}%",
-          "oneCost": "One of these will cost you {{x}} Hepteracts, {{y}} Platonic Cubes and {{z}} Cubes."
+          "oneCost": "En acheter un vous coûtera {{x}} Hepteracts, {{y}} Cubes Platonics et {{z}} Cubes."
         },
         "abyss": {
           "effect": "It seems like this holds the power to be at the End of Time. Do you remember why you need this?",
