@@ -1,13 +1,13 @@
 {
   "testing": {
-    "saveInLive": "Les sauvegardes ne peuvent pas être utilisées en direct  !",
-    "saveInLive2": "Vous ne pouvez plus charger cette sauvegarde !",
+    "saveInLive": "Les sauvegardes ne peuvent pas être utilisées en direct !",
+    "saveInLive2": "Vous ne pouvez plus charger cette sauvegarde !",
     "errorSaving": "Une erreur a empêché la sauvegarde du fichier.",
-    "gameSaved": "Partie sauvegardée !"
+    "gameSaved": "Partie sauvegardée !"
   },
   "save": {
     "loadFailed": "Impossible de charger la sauvegarde.",
-    "saveToClipboard": "Êtes-vous sûr de vouloir activer l'enregistrement de la sauvegarde dans le presse-papiers ?"
+    "saveToClipboard": "Êtes-vous sûr de vouloir activer l'enregistrement de la sauvegarde dans le presse-papiers ?"
   },
   "ambrosia": {
     "ambrosia": "Ambroisie",
@@ -16,11 +16,11 @@
     "perGen": "Actuellement, vous gagnez <<var(--amber-text-color)|{{guaranteed}}>> avec <<var(--amber-text-color)|{{extraChance}}%>> de chance d'une supplémentaire. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
     "bonuses": "Votre ambroisie ajoute <<var(--amber-text-color)|+{{cube}}%>> à TOUS les cubes et <<cyan|+{{quark}}%>> de Quarks !",
-    "prerequisite": "Prérequis:",
+    "prerequisite": "Prérequis :",
     "prereqNotMet": " (Non satisfaits!)",
     "blueberryCost": "Bleuets (Pour Activer):",
     "prereqNotMetAlert": "Vous n'avez pas les prérequis nécessaires pour acheter cette amélioration.",
-    "notEnoughBlueberries": "Vous n'avez pas assez de bleuets pour activer ce module.",
+    "notEnoughBlueberries": "Vous n'avez pas assez de Myrtilles pour activer ce module.",
     "availableBlueberries": "Vous avez <blue|{{availableBlueberries}}> bleuets non dépensés. Débloquer des modules de niveaux supérieurs ci-dessous!",
     "ambrosiaBuyPrompt": "Combien d'Ambroisie vous voulez dépenser? Vous avez {{amount}} Ambroisie. Écrivez -1 pour tout les utiliser!",
     "refund": "Vous avez tout remboursé les Bleuets et Ambroisie dépensés.",
@@ -44,7 +44,7 @@
       "ambrosiaLuck1": {
         "name": "Module de chance d'ambroisie I",
         "description": "Félicitations pour avoir complété ce module tutoriel. You devez posséder cette habileté au maximum pour acheter des niveaux de celui-ci. &#9752 +2 chances d'ambroisie/nv. Chaque 2 niveaux achetés donnent &#9752 +12 de plus!",
-        "effect": "Ce module de chance augmente &#9752 la chance d'ambroisie par {{amount}}"
+        "effect": "Ce module de chance augmente la chance &#9752 d'ambroisie de {{amount}}"
       },
       "ambrosiaCubeQuark1": {
         "name": "Module hybride Ambroisie Cube-Quark I",
@@ -64,7 +64,7 @@
       "ambrosiaLuckCube1": {
         "name": "Module hybride d'ambroisie Chance-Cube I",
         "description": "Un module hybride de première génération. Gagnez +0.02% de cubes par niveau, par unité de &#9752 Chance d'Ambroisie !",
-        "effect": "Ce module hybride de première génération augmente les gains de cubes de {{amount}}%"
+        "effect": "Ce module hybride de première génération augmente les gains de Cubes de {{amount}}%"
       },
       "ambrosiaCubeLuck1": {
         "name": "Module hybride d'ambroisie Cube-Chance I",
@@ -106,7 +106,7 @@
       "imported": "Configuration importée"
     },
     "importTree": {
-      "success": "Arbre importé avec succès !",
+      "success": "Arbre importé avec succès !",
       "failure": "Échec d'import d'arbre car il est invalide !",
       "error": "Impossible d'analyser le fichier soumis ! Vérifiez qu'il s'agit d'un fichier d'Arbre-Myrtille."
     },
@@ -492,7 +492,7 @@
       "136": "Les effets positifs des Talismans sont maintenant encore plus puissants de +0,02 par niveau.",
       "137": "Obtenez +25% de récompenses de sacrifice de manière permanente !",
       "140": "+17% d'Obtainium. Insérez ici une mauvaise blague sur le fait de ne pas dévoiler de Talisman [Vous en obtenez un nouveau]",
-      "141": "Débloquez un nouveau palier de réinitialisation !",
+      "141": "Débloquez un nouveau palier de réinitialisation !",
       "147": "+19% d'Obtainium [Le gain supplémentaire venant des succès atteint maintenant 100% !]. Obtenez le Talisman du Génie Universel !",
       "169": "La vitesse de TOUTES les Fourmis est multipliée par {{x}}",
       "171": "Augmente de +16,666% la vitesse de TOUTES les Fourmis !",
@@ -508,7 +508,7 @@
       "182": "Débloquez l'auto-acheteur des Fourmis de rang 8, et achetez automatiquement les Fourmis Scientia et Phylacterium ! Ajoute +3% d'ELO de Fourmi.",
       "187": "Obtenez un multiplicateur sur les Cubes des Ascensions en fonction de votre score : x{{x}}. De plus : +{{y}}% d'Offrandes [Maximum : 100% à 1M d'Ascensions]",
       "188": "Augmentez de +100 le nombre d'Ascensions pour toute Ascension durant plus de 10 secondes. De plus : +{{x}}% d'Obtainium [Maximum : 100% à 5M d'Ascensions]",
-      "189": "Gain 20% of Excess time after 10 seconds each Ascension as a linear multiplier to Ascension count. Also: Cubes +{{x}}% [Max: 200% at 500M Ascensions]",
+      "189": "Après 10 secondes dans une Ascension, vous obtiendrez un nombre d'Ascensions proportionnel à 20% du temps écoulé. De plus : +{{x}}% de Cubes [Maximum : 200% à 500M d'Ascensions]",
       "193": "Obtenez {{x}}% plus de Cubes lors des Ascensions !",
       "195": "Obtenez {{x}}% plus de Cubes et de Tesseracts lors des Ascensions ! Multiplicatif avec les autres récompenses de succès. [Maximum : 25 000% à 1e100 000 de Constante]",
       "196": "Obtenez {{x}}% plus de Cubes Platonics lors des Ascensions ! [Maximum : 2 000% à 1e100 000 de Constante]",
@@ -517,56 +517,56 @@
       "199": "Obtenez +4% de Cubes lors des Ascensions !",
       "200": "Obtenez +4% de Cubs lors des Ascensions ! J'ai fait une faute ? Bien sûr que oui.",
       "201": "Obtenez +3% de Cubes lors des Ascensions !",
-      "202": "Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Tesseracts +{{x}}% [Max: 200% at 1B Ascensions]",
-      "204": "You will gain 25% of Excess time after 10 seconds each Ascension as a linear multiplier to rewards.",
+      "202": "Après 10 secondes dans une Ascension, vous obtiendrez un nombre d'Ascensions proportionnel à 20% du temps écoulé. De plus : +{{x}}% de Tesseracts [Maximum : 200% à 1Md d'Ascensions]",
+      "204": "Après 10 secondes dans une Ascension, vous multiplierez vos récompenses par 25% du temps écoulé.",
       "205": "Obtenez +4% de Tesseracts lors des Ascensions !",
       "206": "Obtenez +4% de Tesseracts lors des Ascensions !",
       "207": "Obtenez +4% de Tesseracts lors des Ascensions !",
       "208": "Obtenez +3% de Tesseracts lors des Ascensions !",
-      "209": "Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count.",
-      "211": "You will gain 25% MORE Excess time (Total: 50%) after 10 seconds each Ascension as a linear multiplier to rewards.",
+      "209": "Après 10 secondes dans une Ascension, vous obtiendrez un nombre d'Ascensions proportionnel à 20% du temps écoulé.",
+      "211": "Après 10 secondes dans une Ascension, vous multiplierez vos récompenses par 25% en PLUS (total : 50%) du temps écoulé.",
       "212": "Obtenez +4% d'Hypercubes lors des Ascensions !",
       "213": "Obtenez +4% d'Hypercubes lors des Ascensions !",
       "214": "Obtenez +4% d'Hypercubes lors des Ascensions !",
       "215": "Obtenez +3% d'Hypercubes lors des Ascensions !",
-      "216": "Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Hypercubes +{{x}}% [Max: 200% at 2B Ascensions]",
-      "218": "You gain gain 50% MORE MORE excess time (Total: 100%) after 10 seconds each Ascension as a linear multiplier to rewards.",
+      "216": "Après 10 secondes dans une Ascension, vous obtiendrez un nombre d'Ascensions proportionnel à 20% du temps écoulé. De plus : +{{x}}% d'Hypercubes [Maximum : 200% à 2Mds d'Ascensions]",
+      "218": "Après 10 secondes dans une Ascension, vous multiplierez vos récompenses par 50% SUPPLÉMENTAIRE EN PLUS (total : 100%) du temps écoulé.",
       "219": "Obtenez +4% de Cubes Platonics lors des Ascensions !",
       "220": "Obtenez +4% de Cubes Platonics lors des Ascensions !",
       "221": "Obtenez +4% de Cubes Platonics lors des Ascensions !",
       "222": "Obtenez +3% de Cubes Platonics lors des Ascensions !",
-      "223": "Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Platonic Cubes +{{x}}% [Max: 200% at 2.674B Ascensions]",
+      "223": "Après 10 secondes dans une Ascension, vous obtiendrez un nombre d'Ascensions proportionnel à 20% du temps écoulé. De plus : +{{x}}% de Cubes Platonics [Maximum : 200% à 2,674Mds d'Ascensions]",
       "240": "Les multiplicateurs des gains de Cubes lors des Ascensions sont TRÈS légèrement influencés par les multiplicateurs de vitesse globale : x{{x}} [Minimum : x1,1, maximum : x1,5]",
       "250": "Vous obtenez un supplément de +60% d'Obtainium et d'Offrandes en permanence, ainsi que +6% de tous les types de Cubes !",
       "251": "Vous obtenez un supplément de +100% d'Obtainium et d'Offrandes en permanence, ainsi que +10% de tous les types de Cubes !",
       "253": "Vous obtenez +10% d'Hypercubes ! Pourquoi ? Je n'en sais rien.",
-      "254": "Cube Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]",
-      "255": "Tesseract Gain +{{x}}% [Max: +15% at 1e25 Ascension Score], and allow gain of Hepteracts.",
-      "256": "Hypercube Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!",
-      "257": "Platonic Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]. Also, Overflux Powder conversion rate is 5% better!",
-      "258": "Hepteract Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]",
-      "259": "Corruption score is increased by 1% for every expansion of Abyss Hepteract!",
-      "260": "You will gain 10% more Ascension count, forever!",
+      "254": "+{{x}}% de Cubes [Maximum : 15% à 1e25 de score d'Ascension]",
+      "255": "+{{x}}% de Tesseracts [Maximum : 15% à 1e25 de score d'Ascension], et vous permet d'obtenir des Hepteracts.",
+      "256": "+{{x}}% d'Hypercubes [Maximum : 15% à 1e25 de score d'Ascension]. De plus, le taux de conversion de Poudre de Surfusion est 5% meilleur !",
+      "257": "+{{x}}% de Platonics [Maximum : 15% à 1e25 de score d'Ascension]. De plus, le taux de conversion de Poudre de Surfusion est 5% meilleur !",
+      "258": "+{{x}}% d'Hepteracts [Maximum : 15% à 1e25 de score d'Ascension]",
+      "259": "Le score de Corruption est augmenté de 1% pour chaque dilatation des Hepteracts des Abysses !",
+      "260": "Vous obtenez 10% plus d'Ascensions, pour toujours !",
       "261": "Vous obtenez 10% d'Ascensions supplémentaires, pour toujours !",
-      "262": "Ascensions are {{x}}% faster! Max: +10%",
-      "263": "Ascensions are {{x}}% faster! Max: +10%",
-      "264": "Hepteracts +{{x}}% [Max: 40% at 8T Ascensions]!",
-      "265": "Hepteracts +{{x}}% [Max: 20% at 160T Ascensions]!",
-      "266": "Quarks +{{x}}% [Max: 10% at 1Qa Ascensions]!",
-      "267": "Ascension Score is boosted by {{x}}% [Max: 100% at 1e100,000 Const]",
-      "270": "Hepteract Gain is boosted by {{x}}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).",
-      "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]"
+      "262": "Les Ascensions sont {{x}}% plus rapides ! Maximum : +10%",
+      "263": "Les Ascensions sont {{x}}% plus rapides ! Maximum : +10%",
+      "264": "+{{x}}% d'Hepteracts ! [Maximum : 40% à 8e12 Ascensions]",
+      "265": "+{{x}}% d'Hepteracts ! [Maximum : 20% à 1,6e14 Ascensions]",
+      "266": "+{{x}}% de Quarks ! [Maximum : 10% à 1e15 Ascensions]",
+      "267": "Le score des Ascensions est augmenté de {{x}}% [Maximum : 100% à une Constante de 1e100 000]",
+      "270": "Les gains d'Hepteract sont augmentés de {{x}}% [Maximum : 100% à une Constante de 1e1 000 000], amélioration de Constante 1 augmentée à 1,06 (depuis 1,05), amélioration de Constante 2 augmentée à 1,11 (depuis 1,10).",
+      "271": "Quand vous ouvrez un Cube Platonic, obtenez {{x}} Hypercubes, arrondis à l'inférieur [Maximum : 1 à une Constante de 1e1 000 000]"
     },
     "alerts": {
       "36": "Félicitations pour votre premier Prestige. Le premier de beaucoup. Vous obtenez les Offrandes. Vous pouvez les utiliser dans le nouvel onglet des Runes ! [Ont été débloqué : Runes, Réussites, Bâtiments à Diamants et quelques améliorations !]",
-      "38": "Hmm, it seems you are getting richer, being able to get 1 Googol diamonds in a single Prestige. How about we give you another Rune? [Unlocked Duplication Rune in Runes tab!]",
-      "255": "Wow! You gained 1e17 (100 Quadrillion) score in a single Ascension. For that, you can now generate Hepteracts if you get above 1.66e17 (166.6 Quadrillion) score in an Ascension. Good luck!"
+      "38": "Mmh, il semble que vous vous enrichissez, puisque vous avez atteint 1 googol Diamants en un seul Prestige. Que diriez-vous d'une nouvelle Rune ? [La Rune de Duplication est débloquée dans l'onglet des Runes !]",
+      "255": "Wow! Vous avez gagné un score de 1e17 (100 quadrillion) en une seul Ascension. Pour cela, vous pouvez maintenant générer des Hepteracts si vous avez plus de 1,666e17 (166,6 quadrillions) de score dans une Ascension. Bonne chance !"
     },
-    "hover": "Passez la souris sur une réalisation pour afficher des informations.",
+    "hover": "Survolez un succès pour afficher des informations.",
     "totalPoints": "Points de Succès : {{x}}/{{y}} [{{z}}%]",
     "rewardGainMessage": "Récompense : {{x}} PS. {{y}} Quarks ! {{z}}",
-    "completed": "␣TERMINÉ !",
-    "notification": "You unlocked an achievement: {{m}}"
+    "completed": " OBTENU !",
+    "notification": "Vous avez obtenu un succès : {{m}}"
   },
   "reset": {
     "details": {
@@ -721,14 +721,14 @@
       "per": {
         "1": "Le coût des Accélérateurs augmente moins vite de 5 achats. Actuellement : ",
         "2": "Le coût des Multiplicateurs augmente moins vite de 2 achats. Actuellement : ",
-        "3": "Retarde l'augmentation des coûts des bâtiments de +0,5%. Actuellement : "
+        "3": "Augmentation des coûts des bâtiments retardée de +0,5%. Actuellement : "
       },
       "first": "Aucun",
       "start": "Commencer [Coût+]",
       "current": {
         "1": "Délai des Accélérateurs +{{value}}",
         "2": "Délai des Multiplicateurs +{{value}}",
-        "3": "Délai de coût des bâtiments +{{value}}%"
+        "3": "Augmentation des coûts des bâtiments retardée de +{{value}}%"
       }
     },
     "5": {
@@ -1117,9 +1117,9 @@
     }
   },
   "calculate": {
-    "timePrompt": "Jusqu'où aimeriez-vous aller dans le futur ? Tout attend quand c'est la saison des tests.",
-    "timePromptError": "Hé ! Ce n'est pas une heure valide!",
-    "offlineTimer": "Vous avez {{value}} secondes de progression hors ligne !",
+    "timePrompt": "Jusqu'où aimeriez-vous aller dans le futur ? Tout est possible quand c'est la saison des tests.",
+    "timePromptError": "Hé ! Ce n'est pas une heure valide !",
+    "offlineTimer": "Vous avez {{value}} secondes de progression hors ligne !",
     "offlineEarnings": "Hors ligne, les Idle Overlords ont gagné:",
     "quadraticImproperError": "Ce n'est pas une équation quadratique!",
     "quadraticDeterminantError": "Le Déterminant était négatif!",
@@ -1376,7 +1376,7 @@
       "chronometer3": "OKAY. FINE. Here's yet ANOTHER +1.5% Ascension Speed per level, stacking multiplicatively like always.",
       "seasonPassY": "This is even more insane than the last one, but you'll buy it anyway. +0.75% ALL Cubes per level.",
       "seasonPassZ": "This one is arguably very good. Gain +1% ALL Cubes per level, per Singularity!",
-      "challengeTome2": "Vous trouvez les dernières pages du tome perdu. Il fonctionne de la même manière que le reste des pages, mais vous pouvez en avoir jusqu'à cinq de plus !",
+      "challengeTome2": "Vous trouvez les dernières pages du tome perdu. Elles fonctionnent de la même manière que les autres pages, mais vous pouvez en avoir jusqu'à cinq de plus !",
       "instantChallenge2": "Completing an Ascension Challenge doesn't cause a reset (if retry is enabled) and you gain 1 more completion per tick per Singularity.",
       "cubeToQuarkAll": "First up on the menu, why not gain +0.2% Quarks from Cube opening per level?",
       "cashGrab2": "This isn't even as good as the original. +0.5% Offerings and Obtainium per level.",
@@ -1387,11 +1387,11 @@
       "challenge15Auto": "Your grandparents had to bend dimensions to gain Challenge 15 score, but not you! Updates Challenge 15 Exponent every tick while in challenge 15!",
       "extraWarp": "\"Hey dude, get in this portal I built up last night in my shed!\" said the Quack Merchant",
       "autoWarp": "With the power of Quacks Warp machine will now be able to go into overdrive",
-      "improveQuarkHept": "Saviez-vous qu'après 1000 Hepteracts de Quarks, leur rendement est élevé à la puissance 0,5 ? Le Sceau désapprouve. Obtenez +2% sur la puissance du rendement décroissant.",
+      "improveQuarkHept": "Saviez-vous qu'après 1000 Hepteracts de Quarks, leur rendement est élevé à la puissance 0,5 ? Le Phoque désapprouve. Obtenez +2% sur la puissance du rendement décroissant.",
       "improveQuarkHept2": "After 1,024,000 Quark Hepts, their effect is raised to ^0.25!!! Nonsense. Gain +2% to all Quark Hept DRs.",
       "improveQuarkHept3": "After ~100 million Quark Hepts, their effect is raised to ^0.16! Absolute rubbish. Gain +2% to all Quark Hept DRs, yet again.",
       "improveQuarkHept4": "Et quand ils t'ont tout donné, certains chancellent et tombent après tout c'est pas facile...",
-      "shopImprovedDaily": "Hey you. Yeah, you! Quarks make seal merchant happy. Get +5% more of them from code 'daily' per level.",
+      "shopImprovedDaily": "Hé vous. Oui, vous ! Les Quarks rendent heureux le Phoque marchant. Obtenez-en +5% supplémentaires du code 'quotidien' par niveau.",
       "shopImprovedDaily2": "Gain 1 additional free Singularity Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily3": "Gain 1 additional free Singularity Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily4": "Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
@@ -1653,7 +1653,7 @@
       },
       "wowPass": {
         "name": "Shop Bonanza",
-        "description": "This upgrade will convince the seal merchant to sell you more cool stuff, which even persist on Singularity!",
+        "description": "Cette amélioration convaincra le Phoque marchant de vous vendre plus de trucs sympas, qui persistent même lors de la Singularité !",
         "effectHave": "You have unlocked the Shop Bonanza.",
         "effectHaveNot": "You have not unlocked the Shop Bonanza."
       },
@@ -1807,7 +1807,7 @@
       },
       "wowPass2": {
         "name": "Soldes",
-        "description": "The Seal Merchant needs to get rid of some exotic goods. Only for a steep price. I do not think that is how sales work.",
+        "description": "Le Phoque marchant a besoin d'écouler quelques produits exotiques. Mais pour un prix atrocement élevé. Je ne crois pas que les soldes fonctionnent de cette manière.",
         "effectHave": "You have triggered the Liquidation event!",
         "effectHaveNot": "You have not triggered the Liquidation event!"
       },
@@ -2026,7 +2026,7 @@
       "welcometoSingularity": "Welcome to Singularity!",
       "unlimitedGrowth": "Unlimited growth",
       "goldenCoins": "Golden coins",
-      "xyz": "XYZ: Xtra dailY rewardZ",
+      "xyz": "XYZ : eXtra paYe quotidienneZ",
       "hepteractAutocraft": "Hepteract Autocraft",
       "generousOrbs": "Generous Orbs",
       "researchDummies": "La Recherche pour les Nuls",
@@ -2868,139 +2868,139 @@
   },
   "runes": {
     "offeringsYouHave": "Vous avez {{offerings}} Offrandes.",
-    "gainExp": "Gain {{amount}}x EXP per offering sacrificed.",
-    "recycleChance": "You have {{percent}}% chance of recycling your offerings. This multiplies EXP gain by {{mult}}!",
-    "hover": "Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!",
+    "gainExp": "Obtenez {{amount}} fois plus d'EXP par Offrande sacrifiée.",
+    "recycleChance": "Vous avez {{percent}}% de chances de recycler vos Offrandes. Cela multiplie les gains d'EXP par {{mult}} !",
+    "hover": "Hé, survolez les icônes des Runes pour obtenir des détails sur ce qu'elles font et quels avantages elles vous confèrent !",
     "thanksResearches": "Grâce aux recherches, les niveaux effectifs sont augmentés de {{percent}}%",
     "levelup": {
-      "1": "+(Level/4)^1.25 Accelerator, +0.25% Accelerators per level. +1 Accelerator Boost every 20 levels!",
-      "2": "+(Level/10) Multipliers every 10th level, +0.25% Multipliers per level. Tax growth is delayed more for each level!",
-      "3": "~(1 + (Level/2)^2 * 2^(Level/2) / 256)x Crystal Production. +1 free level for each Crystal upgrade per 16 levels!",
-      "4": "+0.125% building cost growth delay per level, +0.0625% Offering recycle chance per level [MAX: 25%], 2^((1000 - Level)/1100) Tax growth multiplier AFTER level 400",
-      "5": "~(1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed, +0.005 base Offerings for each tier per level",
-      "6": "+0.2% Quarks, +1% all Cube types per level! Start with +10% Quarks.",
-      "7": "I wonder what happens if you feed it {{exp}} Rune EXP."
+      "1": "+(niveau/4)^1,25 Accélérateurs, +0,25% d'Accélérateurs par niveau, +1 Renfort d'Accélérateur tous les 20 niveaux !",
+      "2": "+1 Multiplicateur tous les 10 niveaux, +0,25% de Multiplicateurs par niveau. Les impôts sont retardés à chaque niveau !",
+      "3": "Production de Cristaux 'x ~(1 + (niveau/2)^2 * 2^(niveau/2) / 256)'. +1 niveau gratuit de chaque amélioration de Cristal tous les 16 niveaux !",
+      "4": "Augmentation des coûts de bâtiments retardée de +0,125% par niveau, +0,0625% de chances de recyclage d'Offrandes [Maximum : 25%], '2^((1000 - niveau)/1100)' de multiplicateur d'impôts APRÈS le niveau 400",
+      "5": "Obtainium x'~(1 + niveau/200)', vitesse de Fourmi x'1 + niveau^2 / 2500', +0,005 Offrande de base par niveau",
+      "6": "+0,2% de Quarks, +1% de tous les types de Cubes par niveau ! Commence avec +10% de Quarks.",
+      "7": "Je me demande ce qu'il se passe si vous lui donnez {{exp}} EXP de Rune."
     },
     "power": {
-      "1": "Speed Rune Bonus: +{{bonus}} Accelerators, +{{percent}}% Accelerators, +{{boost}} Accelerator Boosts.",
-      "2": "Duplication Rune Bonus: +{{mult1}} Multipliers, +{{mult2}}% Multipliers, -{{tax}}% Tax Growth.",
-      "3": "Prism Rune Bonus: All Crystal Producer production multiplied by {{mult}}, gain +{{gain}}' free crystal levels.",
-      "4": "Thrift Rune Bonus: Delay all producer cost increases by {{delay}}%. Offering recycle chance: +{{chance}}%. -{{tax}}% Tax Growth",
-      "5": "S. Intellect Rune Bonus: Obtainium gain x{{gain}}. Ant Speed: x{{speed}}. Base Offerings: +{{offerings}}",
-      "6": "IA Rune Bonus: Quark Gain +{{percent1}}%, Ascensions give +{{percent2}}% more of all cube types.",
-      "7": "You cannot grasp the true form of Ant God's treasure."
+      "1": "Bonus de la Rune de Célérité : +{{bonus}} Accélérateurs, +{{percent}}% d'Accélérateurs, +{{boost}} Renforts d'Accélérateur.",
+      "2": "Bonus de la Rune de Duplication : +{{mult1}} Multiplicateurs, +{{mult2}}% de Multiplicateurs, -{{tax}}% de croissance des impôts.",
+      "3": "Bonus de la Rune du Prisme : efficacité de tous les producteurs de Cristaux multipliée par {{mult}}, +{{gain}} niveaux d'améliorations de Cristal gratuits.",
+      "4": "Bonus de la Rune de l'Épargne : retarde l'augmentation des coûts des bâtiments de {{delay}}%. +{{chance}}% de chances de recyclage des Offrandes. -{{tax}}% de croissance des impôts.",
+      "5": "Bonus de la Rune d'Intelligence S. : x{{gain}} Obtainium, x{{speed}} vitesse de Fourmi, +{{offerings}} Offrandes de base.",
+      "6": "Bonus de la Rune d'A.I. : +{{percent1}}% de Quarks, +{{percent2}}% de Cubes de tous les types lors des Ascensions.",
+      "7": "Vous ne pouvez pas comprendre la vraie forme du trésor du Dieu Fourmi."
     },
     "talismans": {
       "fortify": "RENFORCER",
-      "enhance": "AMÉLIORER",
-      "respec": "RESPEC",
-      "respecAll": "RESPEC ALL",
-      "respecConfirm": "Confirm [-100,000 Offerings]",
-      "respecConfirmAll": "Confirm All [-400,000 Offerings]",
-      "respecCancel": "Cancel Respec Changes",
-      "respecSummary": "+-==-+ Select for 3 GREEN Runes, for Respec! +-==-+",
+      "enhance": "AUGMENTER",
+      "respec": "SPÉCIALISER",
+      "respecAll": "TOUT SPÉCIALISER",
+      "respecConfirm": "Confirmer [-100 000 Offrandes]",
+      "respecConfirmAll": "Confirmer tout [-400 000 Offrandes]",
+      "respecCancel": "Annuler les changements de respécialisation",
+      "respecSummary": "+-==-+ Sélectionnez 3 Runes VERTES pour la respécialisation ! +-==-+",
       "buy": "ACHETER",
       "buyAll": "TOUT ACHETER",
-      "autoBuyOn": "Auto Buy: ON",
-      "autoBuyOff": "Auto Buy: OFF",
-      "clickBuyEveryType": "Click to buy every type of Talisman Shards and Fragments, if affordable",
-      "costToBuy": "Cost to buy {{name}} ({{buyAmount}}): {{obtainium}} Obtainium and {{offerings}} Offerings.",
+      "autoBuyOn": "Auto-achat : ACTIVÉ",
+      "autoBuyOff": "Auto-achat : DÉSACTIVÉ",
+      "clickBuyEveryType": "Cliquez pour acheter tous les types de fragment de Talisman, si vous en avez les moyens",
+      "costToBuy": "Coût pour acheter {{name}} ({{buyAmount}}) : {{obtainium}} Obtainium et {{offerings}} Offrandes.",
       "modifiers": {
-        "positive": "{{name}}: Positive",
-        "negative": "{{name}}: Negative"
+        "positive": "{{name}} : positif",
+        "negative": "{{name}} : négatif"
       },
       "shards": {
-        "shard": "Talisman Shard",
-        "commonFragment": "Common Fragment",
-        "uncommonFragment": "Uncommon Fragment",
-        "rareFragment": "Rare Fragment",
-        "epicFragment": "Epic Fragment",
-        "legendaryFragment": "Legendary Fragment",
-        "mythicalFragment": "Mythical Fragment"
+        "shard": "Morceau de Talisman",
+        "commonFragment": "Fragment commun",
+        "uncommonFragment": "Fragment peu commun",
+        "rareFragment": "Fragment rare",
+        "epicFragment": "Fragment épique",
+        "legendaryFragment": "Fragment légendaire",
+        "mythicalFragment": "Fragment mythique"
       },
       "names": {
-        "exemption": "Exemption",
+        "exemption": "Exonération",
         "chronos": "Chronos",
         "midas": "Midas",
-        "metaphysics": "Metaphysics",
+        "metaphysics": "Métaphysique",
         "polymath": "Génie Universel",
         "mortuus": "Mortuus Est",
-        "plastic": "Plastic"
+        "plastic": "Plastique"
       },
       "summaries": {
-        "exemption": "=-=-=-= Exemption Talisman Effects =-=-=-=",
-        "chronos": "=-=-=-= Chronos Talisman Effects =-=-=-=",
-        "midas": "=-=-=-= Midas Talisman Effects =-=-=-=",
-        "metaphysics": "=-=-=-= Metaphysics Talisman Effects =-=-=-=",
+        "exemption": "=-=-=-= Effets du Talisman d'Exonération =-=-=-=",
+        "chronos": "=-=-=-= Effets du Talisman de Chronos =-=-=-=",
+        "midas": "=-=-=-= Effets du Talisman de Midas =-=-=-=",
+        "metaphysics": "=-=-=-= Effets du Talisman Métaphysique =-=-=-=",
         "polymath": "=-=-=-= Effets du Talisman du Génie Universel =-=-=-=",
-        "mortuus": "=-=-=-= Mortuus Est Talisman Effects =-=-=-=",
-        "plastic": "=-=-=-= Plastic Talisman Effects =-=-=-="
+        "mortuus": "=-=-=-= Effets du Talisman Mortuus Est =-=-=-=",
+        "plastic": "=-=-=-= Effets du Talisman Plastique =-=-=-="
       },
       "effects": {
-        "exemption": "Taxes -{{x}}%",
-        "chronos": "Gain +{{x}}% Global Speed Acceleration.",
-        "midas": "Rune Blessing bonuses +{{x}}%",
-        "metaphysics": "Talismans' Bonus Rune Levels +{{x}} per level",
-        "polymath": "Rune Spirit Bonuses +{{x}}%",
-        "mortuus": "Bonus Ant Levels: +{{x}}",
-        "plastic": "Gain 1x normal production (Joke)!"
+        "exemption": "-{{x}}% d'impôts",
+        "chronos": "+{{x}}% de vitesse globale",
+        "midas": "+{{x}}% de puissance des Bénédictions",
+        "metaphysics": "+{{x}} niveaux de Rune bonus des Talismans par niveau",
+        "polymath": "+{{x}}% de puissance des Esprits",
+        "mortuus": "+{{x}} niveaux gratuits de Fourmi",
+        "plastic": "Production normale x1 (Blague) !"
       },
       "bonusRuneLevels": {
-        "speed": "Bonus Speed Rune Levels: {{x}}",
-        "duplication": "Bonus Duplication Rune Levels: {{x}}",
-        "prism": "Bonus Prism Rune Levels: {{x}}",
-        "thrift": "Bonus Thrift Rune Levels: {{x}}",
-        "SI": "Bonus SI Rune Levels: {{x}}"
+        "speed": "Niveaux gratuits pour la Rune de Célérité : {{x}}",
+        "duplication": "Niveaux gratuits pour la Rune de Duplication : {{x}}",
+        "prism": "Niveaux gratuits pour la Rune du Prisme : {{x}}",
+        "thrift": "Niveaux gratuits pour la Rune de l'Épargne : {{x}}",
+        "SI": "Niveaux gratuits pour la Rune d'IS : {{x}}"
       },
       "mythicEffects": {
-        "exemption": "Mythic Effect: +400 Duplication Rune Levels!",
-        "chronos": "Mythic Effect: +400 Speed Rune Levels!",
-        "midas": "Mythic Effect: +400 Thrift Rune Levels!",
-        "metaphysics": "Mythic Effect: +400 Prism Rune Levels!",
-        "polymath": "Mythic Effect: +400 SI Rune Levels!",
-        "mortuus": "Mythic Effect: Gain ant speed based on your total rune level!",
-        "plastic": "Mythic Effect: Gain 1x your normal quark values (Joke)!"
+        "exemption": "Effet mythique : +400 niveaux gratuits pour la Rune de Duplication !",
+        "chronos": "Effet mythique : +400 niveaux gratuits pour la Rune de Célérité !",
+        "midas": "Effet mythique : +400 niveaux gratuits pour la Rune de l'Épargne !",
+        "metaphysics": "Effet mythique : +400 niveaux gratuits pour la Rune du Prisme !",
+        "polymath": "Effet mythique : +400 niveaux gratuits pour la Rune d'IS !",
+        "mortuus": "Effet mythique : obtenez de la vitesse de Fourmis en fonction des niveaux des Runes !",
+        "plastic": "Effet mythique : obtenez 1x la valeur normale des Quarks (blague) !"
       },
-      "maxEnhance": "Get Max Enhance for a Mythical bonus effect!"
+      "maxEnhance": "Augmentez un Talisman au maximum pour un effet bonus mythique !"
     },
     "blessings": {
-      "buyUpTo": "Buy up to <<var(--orchid-text-color);|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]",
-      "autoRuneOn": "Auto Rune: ON",
-      "autoRuneOff": "Auto Rune: OFF",
-      "allIncreaseLevel": "TOUS Augmenter le niveau",
-      "blessingLevel": "<<orchid|Blessing level>>: {{amount}}",
-      "blessingPower": "Blessing Power: <<turquoise|{{value}}>> =-=-= Effect: <<gold|{{speed}}>>x {{reward}}!",
+      "buyUpTo": "Achetez jusqu'à <<var(--orchid-text-color);|{{amount}}>> niveau par achat, si vous en avez les moyens. [Changez la valeur ci-dessus]",
+      "autoRuneOn": "Rune auto : ACTIF",
+      "autoRuneOff": "Rune auto : INACTIF",
+      "allIncreaseLevel": "Augmenter TOUS les niveaux",
+      "blessingLevel": "<<orchid|Niveau de Bénédiction>> : {{amount}}",
+      "blessingPower": "Puissance de Bénédiction : <<turquoise|{{value}}>> =-=-= Effet : {{reward}} x<<gold|{{speed}}>> !",
       "rewards": {
         "0": "vitesse globale",
-        "1": "Multiplier Boosts",
-        "2": "Ant Sacrifice Rewards",
-        "3": "Delay for A.Boost Cost",
-        "4": "Obtainium --> Ant Mult."
+        "1": "Renfort de Multiplicateurs",
+        "2": "récompenses de sacrifice",
+        "3": "délai du coût des Renforts d'Accélérateurs",
+        "4": "multiplicateur Obtainium → Fourmis"
       },
-      "increaseLevel": "Increase Level By <<orchid|{{amount}}>> [Cost: <<orchid|{{offerings}}>> Offerings]"
+      "increaseLevel": "Augmenter de <<orchid|{{amount}}>> niveaux [Coût : <<orchid|{{offerings}}>> Offrandes]"
     },
     "spirits": {
-      "spiritLevel": "Spirit level: <<orchid|{{amount}}>>",
-      "spiritPower": "Spirit Power: <<turquoise|{{value}}>> =-=-= Effect: <<gold|{{speed}}>>{{reward}}!",
+      "spiritLevel": "Niveau d'Esprit : <<orchid|{{amount}}>>",
+      "spiritPower": "Puissance d'Esprit : <<turquoise|{{value}}>> =-=-= Effet : {{reward}} x<<gold|{{speed}}>> !",
       "rewards": {
         "0": "vitesse globale",
-        "1": "x WoW! Cubes par Ascension",
-        "2": "x Additional levels to Crystal caps",
-        "3": "x Obtainium",
-        "4": "% stronger Research 4x9 effect"
+        "1": "Wow! Cubes par Ascension",
+        "2": "limite de niveau des améliorations de Cristaux",
+        "3": "Obtainium",
+        "4": "effet de la Recherche 4x9"
       },
-      "buyUpTo": "Buy up to <<var(--orchid-text-color)|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]"
+      "buyUpTo": "Achetez jusqu'à <<var(--orchid-text-color);|{{amount}}>> niveaux par achat, si vous en avez les moyens. [Changez la valeur ci-dessus]"
     },
-    "perOfferingText": "+{{exp}} EXP per offering, {{x}} [{{y}}] Offerings to level up once.",
-    "runeEffectSummaryTitle": "=====RÉSUMÉ DE L'EFFET RUNE=====",
-    "bonusAmount": "[Bonus: {{x}}]",
-    "bonusNope": "[Bonus: Nope!]",
-    "resourcesToEnhance": "=-=-= Resources Required to ENHANCE =-=-=",
-    "resourcesToLevelup": "-=-=- Resources Required to Level Up -=-=-",
-    "autoEnhanceOn": "Auto Enhance: ON",
-    "autoEnhanceOff": "Auto Enhance: OFF",
-    "autoFortifyOn": "Auto Fortify: ON",
-    "autoFortifyOff": "Auto Fortify: OFF",
+    "perOfferingText": "+{{exp}} EXP par Offrande, {{x}} [{{y}}] Offrandes pour monter un niveau.",
+    "runeEffectSummaryTitle": "===== EFFETS DES RUNES =====",
+    "bonusAmount": "[Bonus : {{x}}]",
+    "bonusNope": "[Bonus : Nope !]",
+    "resourcesToEnhance": "=-=-= Ressources requises pour AUGMENTER =-=-=",
+    "resourcesToLevelup": "-=-=- Ressources requises pour RENFORCER -=-=-",
+    "autoEnhanceOn": "Auto augmenter : ACTIVÉ",
+    "autoEnhanceOff": "Auto augmenter : DÉSACTIVÉ",
+    "autoFortifyOn": "Auto fortifier : ACTIVÉ",
+    "autoFortifyOff": "Auto fortifier : DÉSACTIVÉ",
     "names": {
       "speed": "Rune de Célérité",
       "duplication": "Rune de Duplication",
@@ -3109,158 +3109,158 @@
   },
   "wowCubes": {
     "greenText": "Vous pouvez également les dépenser dans des améliorations qui persistent à chaque Ascension.",
-    "open1": "Open x1",
-    "open10%": "Open 10%",
-    "open50%": "Open 50%",
-    "openCustom": "Custom Amount",
-    "openAll": "Open All",
-    "autoOff": "Auto Open [OFF]",
-    "autoOn": "Auto Open {{percent}}%",
+    "open1": "Ouvrir x1",
+    "open10%": "Ouvrir 10%",
+    "open50%": "Ouvrir 50%",
+    "openCustom": "Quantité définie",
+    "openAll": "Tout ouvrir",
+    "autoOff": "Ouverture auto [DESACTIVÉE]",
+    "autoOn": "Ouverture auto {{percent}}%",
     "quarks": {
-      "quarkTitle": "-=- Cube to Quark Corner -=-",
-      "resetInfo": "Quark Rewards reset midnight!",
-      "cubeQuarksToday": "Quarks gained from Cubes: <<cyan|{{amount}}>>",
-      "cubeQuarksOpenRequirement": "Open {{amount}} Cubes for next quark.",
-      "cubeQuarksOpenToday": "Cubes opened today: <<orchid|{{amount}}>>",
-      "tesseractQuarksToday": "Quarks gained from Tesseracts: <<cyan|{{amount}}>>",
-      "tesseractQuarksOpenRequirement": "Open {{amount}} Tesseracts for next quark.",
-      "tesseractQuarksOpenToday": "Tesseracts opened today: <<orchid|{{amount}}>>",
-      "hypercubeQuarksToday": "Quarks gained from Hypercubes: <<cyan|{{amount}}>>",
-      "hypercubeQuarksOpenRequirement": "Open {{amount}} Hypercubes for next quark.",
-      "hypercubeQuarksOpenToday": "Hypercubes opened today: <<orchid|{{amount}}>>",
-      "platonicCubeQuarksToday": "Platonic Cubes gained from Cubes: <<cyan|{{amount}}>>",
-      "platonicCubeQuarksOpenRequirement": "Open {{amount}} Platonic Cubes for next quark.",
-      "platonicCubeQuarksOpenToday": "Platonic Cubes opened today: <<orchid|{{amount}}>>"
+      "quarkTitle": "-=- Coin des Quarks de Cubes -=-",
+      "resetInfo": "Les récompenses de Quarks se réinitialisent à minuit !",
+      "cubeQuarksToday": "Quarks gagnés grâce aux Cubes : <<cyan|{{amount}}>>",
+      "cubeQuarksOpenRequirement": "Ouvrez {{amount}} Cubes pour le prochain Quark.",
+      "cubeQuarksOpenToday": "Cubes ouverts aujourd'hui : <<orchid|{{amount}}>>",
+      "tesseractQuarksToday": "Quarks gagnés grâce aux Tesseracts : <<cyan|{{amount}}>>",
+      "tesseractQuarksOpenRequirement": "Ouvrez {{amount}} Tesseracts pour le prochain Quark.",
+      "tesseractQuarksOpenToday": "Tesseracts ouverts aujourd'hui : <<orchid|{{amount}}>>",
+      "hypercubeQuarksToday": "Quarks gagnés grâce aux Hypercubes : <<cyan|{{amount}}>>",
+      "hypercubeQuarksOpenRequirement": "Ouvrez {{amount}} Hypercubes pour le prochain Quark.",
+      "hypercubeQuarksOpenToday": "Hypercubes ouverts aujourd'hui : <<orchid|{{amount}}>>",
+      "platonicCubeQuarksToday": "Quarks gagnés grâce aux Cubes Platonics : <<cyan|{{amount}}>>",
+      "platonicCubeQuarksOpenRequirement": "Ouvrez {{amount}} Cubes Platonics pour le prochain Quark.",
+      "platonicCubeQuarksOpenToday": "Cubes Platonics ouverts aujourd'hui : <<orchid|{{amount}}>>"
     },
     "cubes": {
-      "intro": "You feel a sense of Pride and Accomplishment... and a hunger for power.",
-      "instructions": "Open up some Lootb-- er, Wow! Cubes, to get one of ten permanent bonuses.",
+      "intro": "Vous êtes envahis par un sentiment de fierté et d'accomplissement… et par une soif de pouvoir.",
+      "instructions": "Ouvrez quelques Lootb--euh, Cubes Wow!, pour obtenir l'un des dix bonus permanents.",
       "inventory": "Vous avez <<yellow|{{amount}}>> Cubes Wow!. Obtenez-en plus en effectuant des Ascensions !",
-      "total": "You have a total of <<yellow|{{amount}}>> Cube tributes!",
+      "total": "Vous avez un total de <<yellow|{{amount}}>> tributs de Cubes !",
       "items": {
-        "1": "Hermes' Tribute x{{amount}}: +{{bonus}} Accelerators per Accelerator Boost",
-        "2": "Aphrodite's Tribute x{{amount}}: +{{bonus}}% Multipliers",
-        "3": "Plutus' Tribute x{{amount}}: +{{bonus}}% Offering Gain",
-        "4": "Iris' Tribute x{{amount}}: +{{bonus}}% Rune EXP",
-        "5": "Athena's Tribute x{{amount}}: +{{bonus}}% Obtainium Gain",
-        "6": "Artemis' Tribute x{{amount}}: +{{bonus}}% Ant Speed",
-        "7": "Ares' Tribute x{{amount}}: +{{bonus}}% Sacrifice Reward",
-        "8": "Moloch's Tribute x{{amount}}: +{{bonus}} Effective ELO",
-        "9": "Midas' Tribute x{{amount}}: +{{bonus}} Bonus Rune Levels on Talismans",
-        "10": "Chronos' Tribute x{{amount}}: +{{bonus}}% Global Time Acceleration"
+        "1": "Tribut d'Hermès x{{amount}} : +{{bonus}} Accélérateurs par Renfort d'Accélérateur",
+        "2": "Tribut d'Aphrodite x{{amount}} : +{{bonus}}% de Multiplicateurs",
+        "3": "Tribut de Pluton x{{amount}} : +{{bonus}}% d'Offrandes",
+        "4": "Tribut d'Iris x{{amount}} : +{{bonus}}% d'EXP de Rune",
+        "5": "Tribut d'Athéna x{{amount}} : +{{bonus}}% d'Obtainium",
+        "6": "Tribut d'Artémis x{{amount}} : +{{bonus}}% de vitesse de Fourmi",
+        "7": "Tribut d'Arès x{{amount}} : +{{bonus}}% de récompenses sacrificielles",
+        "8": "Tribut de Moloch x{{amount}} : +{{bonus}} d'ELO effectif",
+        "9": "Tribut de Midas x{{amount}} : +{{bonus}} niveaux de Rune bonus sur les Talismans",
+        "10": "Tribut de Chronos x{{amount}} : +{{bonus}}% d'accélération globale du temps"
       }
     },
     "tesseracts": {
-      "intro": "You obtain guidance from beings in another dimension!",
-      "instructions": "Open up some Lootb-- er, Wow! Tesseracts, to boost tributes from the previous tier.",
-      "inventory": "You possess <<yellow|{{amount}}>> Wow! Tesseracts. Get them from ascending with at least 100,000 score!",
-      "total": "You have a total of <<yellow|{{amount}}>> Tesseract gifts!",
+      "intro": "Vous obtenez conseil d'êtres d'une autre dimension !",
+      "instructions": "Ouvrez quelques Lootb--euh, Tesseracts Wow!, pour renforcer les tributs de rang inférieur.",
+      "inventory": "Vous avez <<yellow|{{amount}}>> Tesseracts Wow!. Obtenez-en plus en effectuant des Ascensions avec au moins 100 000 de score !",
+      "total": "Vous avez un total de <<yellow|{{amount}}>> cadeaux de Tesseract !",
       "items": {
-        "1": "Hermes' Gift x{{amount}}: +{{bonus}}% Hermes Tribute Power",
-        "2": "Aphrodite's Gift x{{amount}}: +{{bonus}}% Aphrodite Tribute Power",
-        "3": "Plutus' Gift x{{amount}}: +{{bonus}}% Plutus Tribute Power",
-        "4": "Iris' Gift x{{amount}}: +{{bonus}}% Iris Tribute Power",
-        "5": "Athena's Gift x{{amount}}: +{{bonus}}% Athena Tribute Power",
-        "6": "Artemis' Gift x{{amount}}: +{{bonus}}% Artemis Tribute Power",
-        "7": "Ares' Gift x{{amount}}: +{{bonus}}% Ares Tribute Power",
-        "8": "Moloch's Gift x{{amount}}: +{{bonus}}% Moloch Tribute Power",
-        "9": "Midas' Gift x{{amount}}: +{{bonus}}% Midas Tribute Power",
-        "10": "Chronos' Gift x{{amount}}: +{{bonus}}% Chronos Tribute Power"
+        "1": "Cadeaux d'Hermès x{{amount}} : +{{bonus}}% de puissance des tributs d'Hermès",
+        "2": "Cadeaux d'Aphrodite x{{amount}} : +{{bonus}}% de puissance des tributs d'Aphrodite",
+        "3": "Cadeaux de Pluton x{{amount}} : +{{bonus}}% de puissance des tributs de Pluton",
+        "4": "Cadeaux d'Iris x{{amount}} : +{{bonus}}% de puissance des tributs d'Iris",
+        "5": "Cadeaux d'Athéna x{{amount}} : +{{bonus}}% de puissance des tributs d'Athéna",
+        "6": "Cadeaux d'Artémis x{{amount}} : +{{bonus}}% de puissance des tributs d'Artémis",
+        "7": "Cadeaux d'Arès x{{amount}} : +{{bonus}}% de puissance des tributs d'Arès",
+        "8": "Cadeaux de Moloch x{{amount}} : +{{bonus}}% de puissance des tributs de Moloch",
+        "9": "Cadeaux de Midas x{{amount}} : +{{bonus}}% de puissance des tributs de Midas",
+        "10": "Cadeaux de Chronos x{{amount}} : +{{bonus}}% de puissance des tributs de Chronos"
       }
     },
     "hypercubes": {
-      "intro": "I didn't know that Wow! enterprises made 5-Dimensional Objects.",
-      "instructions": "Open up some Lootb-- er, Wow! Hypercubes, to boost blessings from the previous tier.",
+      "intro": "Je ne savais pas que les entreprises Wow! faisaient des objets en 5 dimensions.",
+      "instructions": "Ouvrez quelques Lootb--euh, Hypercubes Wow!, pour renforcer les cadeaux de rang inférieur.",
       "inventory": "Vous avez <<yellow|{{amount}}>> Hypercubes Wow!. Obtenez-en plus en effectuant des Ascensions avec au moins 1e9 de score !",
-      "total": "You have a total of <<yellow|{{amount}}>> Hypercube benedictions!",
+      "total": "Vous avez un total de <<yellow|{{amount}}>> bénédictions d'Hypercubes !",
       "items": {
-        "1": "Hermes' Benediction x{{amount}}: +{{bonus}}% Hermes Gift Power",
-        "2": "Aphrodite's Benediction x{{amount}}: +{{bonus}}% Aphrodite Gift Power",
-        "3": "Plutus' Benediction x{{amount}}: +{{bonus}}% Plutus Gift Power",
-        "4": "Iris' Benediction x{{amount}}: +{{bonus}}% Iris Gift Power",
-        "5": "Athena's Benediction x{{amount}}: +{{bonus}}% Athena Gift Power",
-        "6": "Artemis' Benediction x{{amount}}: +{{bonus}}% Artemis Gift Power",
-        "7": "Ares' Benediction x{{amount}}: +{{bonus}}% Ares Gift Power",
-        "8": "Moloch's Benediction x{{amount}}: +{{bonus}}% Moloch Gift Power",
-        "9": "Midas' Benediction x{{amount}}: +{{bonus}}% Midas Gift Power",
-        "10": "Chronos' Benediction x{{amount}}: +{{bonus}}% Chronos Gift Power"
+        "1": "Bénédiction d'Hermès x{{amount}} : +{{bonus}}% de puissance des cadeaux d'Hermès",
+        "2": "Bénédiction d'Aphrodite x{{amount}} : +{{bonus}}% de puissance des cadeaux d'Aphrodite",
+        "3": "Bénédiction de Pluton x{{amount}} : +{{bonus}}% de puissance des cadeaux de Pluton",
+        "4": "Bénédiction d'Iris x{{amount}} : +{{bonus}}% de puissance des cadeaux d'Iris",
+        "5": "Bénédiction d'Athéna x{{amount}} : +{{bonus}}% de puissance des cadeaux d'Athéna",
+        "6": "Bénédiction d'Artémis x{{amount}} : +{{bonus}}% de puissance des cadeaux d'Artémis",
+        "7": "Bénédiction d'Arès x{{amount}} : +{{bonus}}% de puissance des cadeaux d'Arès",
+        "8": "Bénédiction de Moloch x{{amount}} : +{{bonus}}% de puissance des cadeaux de Moloch",
+        "9": "Bénédiction de Midas x{{amount}} : +{{bonus}}% de puissance des cadeaux de Midas",
+        "10": "Bénédiction de Chronos x{{amount}} : +{{bonus}}% de puissance des cadeaux de Chronos"
       }
     },
     "platonics": {
-      "intro": "This seems very familiar.",
-      "instructions": "Open up some Lootb-- er, Platonic! Cubes, for epic perks!.",
+      "intro": "Cela semble très familier.",
+      "instructions": "Ouvrez quelques Lootb--euh, Cubes Platonics!, pour des avantages épiques !",
       "inventory": "Vous avez <<yellow|{{amount}}>> Cubes Platonics Wow!. Obtenez-en plus en effectuant des Ascensions avec au moins 2,666e12 de score !",
-      "total": "You have a total of <<yellow|{{amount}}>> Platonic Cubes opened!",
+      "total": "Vous avez un total de <<yellow|{{amount}}>> Cubes Platonics ouverts !",
       "items": {
-        "1": "Cube Shard: x{{amount}}: +{{bonus}}% Bonus Wow! Cubes",
-        "2": "Tesseract Shard: x{{amount}}: +{{bonus}}% Bonus Wow! Tesseracts",
-        "3": "Hypercube Shard: x{{amount}}: +{{bonus}}% Bonus Wow! Hypercubes",
-        "4": "Platonic Remnant: x{{amount}}: +{{bonus}}% Bonus Platonic! Cubes",
-        "5": "Hypercube Statue: x{{amount}}: +{{bonus}}% ALL Hypercube bonuses",
-        "6": "Keynesian Statue: x{{amount}}: +{{bonus}}% Bonus Constant exponent on taxes",
-        "7": "High-Scoring Statue: x{{amount}}: +{{bonus}}% More Score on corruptions",
-        "8": "Chronos Statue: x{{amount}}: +{{bonus}}% <<yellow|true>> Global Speed (after speed diminishing returns)"
+        "1": "Fragment de Cube : x{{amount}}: +{{bonus}}% de Cubes Wow! bonus",
+        "2": "Fragment de Tesseract : x{{amount}}: +{{bonus}}% de Tesseracts Wow! bonus",
+        "3": "Fragment d'Hypercube : x{{amount}}: +{{bonus}}% d'Hypercubes Wow! bonus",
+        "4": "Vestige Platonic : x{{amount}}: +{{bonus}}% de Cubes Platonics! bonus",
+        "5": "Statue d'Hypercube : x{{amount}} : +{{bonus}}% sur TOUS les bonus d'Hypercube",
+        "6": "Statue Keynésienne : x{{amount}} : +{{bonus}}% d'exposant de Constante sur les impôts",
+        "7": "Statue des Hauts-Scores : x{{amount}} : +{{bonus}}% de score de Corruptions supplémentaire",
+        "8": "Statue de Chronos : x{{amount}} : +{{bonus}}% de vitesse globale <<yellow|réelle>> (après les rendements décroissants de vitesse)"
       }
     },
     "hepteractForge": {
-      "howDidIGetHere": "How did I get here?",
-      "noTimeToWaste": "Oh well, no time to waste. This is your lab. Make cool stuff with your Hepteracts!",
-      "noPassiveBonus": "Hepteracts do not provide passive bonuses. They must be made useful through crafting.",
-      "youPossessHepteracts": "You possess <<yellow|{{x}}>> Hepteracts! You know where to get these, right?",
-      "craft": "Craft",
-      "max": "Max",
-      "expand": "Expand",
-      "warp": "Warp",
-      "autoSetting": "Auto Setting : {{x}}%",
-      "autoCraftPercentage": "Autocraft Percentage",
-      "autoCraftPercentagePrompt": "Enter a number from 0 to 100 (integer only!) to set autocraft percentage. Every ascension, that percentage of your hepteracts are used to craft equally split between every hepteract with AUTO ON. Auto crafting also does not consume other resources! [Except Quarks, of course...]",
-      "unlocked": "< UNLOCKED >",
-      "locked": "< LOCKED >",
-      "inventory": "Inventory: {{x}} / {{y}}",
-      "orbs": "Orbs:",
-      "effect": "Effect:",
-      "powder": "Powder:",
-      "warps": "Warps:",
+      "howDidIGetHere": "Comment suis-je arrivé ici ?",
+      "noTimeToWaste": "Eh bien, ne perdons pas de temps. Ceci est votre laboratoire. Fabriquez des trucs sympas avec vos Hepteracts !",
+      "noPassiveBonus": "Les Hepteracts ne fournissent pas de bonus passifs. Ils doivent être transformés en quelque chose d'utile.",
+      "youPossessHepteracts": "Vous avez <<yellow|{{x}}>> Hepteracts ! Vous savez où les obtenir n'est-ce pas ?",
+      "craft": "Fabriquer",
+      "max": "Maximum",
+      "expand": "Étendre",
+      "warp": "Saut temporel",
+      "autoSetting": "Paramètre auto : {{x}}%",
+      "autoCraftPercentage": "Pourcentage d'auto-fabrication",
+      "autoCraftPercentagePrompt": "Entrez un nombre entre 0 et 100 (nombre entier !) pour définir un pourcentage d'auto-fabrication. Chaque Ascension, ce pourcentage de vos Hepteracts est utilisé réparti équitablement entre les Hepteracts avec AUTO : OUI pour les fabriquer. L'auto-fabrication ne consomme aucune autre ressource ! [Sauf les Quarks, bien entendu…]",
+      "unlocked": "< DÉVERROUILLÉ >",
+      "locked": "< VERROUILLÉ >",
+      "inventory": "Inventaire : {{x}} / {{y}}",
+      "orbs": "Orbes :",
+      "effect": "Effet :",
+      "powder": "Poudre :",
+      "warps": "Sauts temporels :",
       "descriptions": {
         "chronos": {
-          "effect": "This hepteract bends time, in your favor. +0.06% Ascension Speed per Chronos Hepteract.",
-          "currentEffect": "Current Effect: Ascension Speed +{{x}}%",
-          "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Obtainium!"
+          "effect": "Cet Hepteract courbe le temps en votre faveur. +0,06% de vitesse d'Ascension par Hepteract de Chronos.",
+          "currentEffect": "Effet actuel : vitesse d'Ascension +{{x}}%",
+          "oneCost": "En acheter un vous coûtera {{x}} Hepteracts et {{y}} Obtainium !"
         },
         "hyperrealism": {
-          "effect": "This bad boy can make hypercube gain skyrocket. +0.06% Hypercubes per Hyperreal Hepteract.",
-          "currentEffect": "Current Effect: Hypercubes +{{x}}%",
-          "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Offerings."
+          "effect": "Ce mauvais garçon peut faire décoller vos gains d'Hypercubes. +0,06% d'Hypercubes par Hepteract Hyperréel.",
+          "currentEffect": "Effet actuel : +{{x}}% d'Hypercubes",
+          "oneCost": "En acheter un vous coûtera {{x}} Hepteracts et {{y}} Offrandes."
         },
         "quark": {
-          "effect": "One pound, two pound fish, fishy grant +0.05% Quarks per Quark Hepteract fish fish.",
-          "currentEffect": "Current Effect: Quarks +{{x}}%",
-          "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Quarks."
+          "effect": "Un kilo, deux kilos le poisson vous donne +0,05% de Quarks par Hepteract de Quarks poissi-poisson.",
+          "currentEffect": "Effet actuel : +{{x}}% de Quarks",
+          "oneCost": "En acheter un vous coûtera {{x}} Hepteracts et {{y}} Quarks."
         },
         "challenge": {
-          "effect": "That's preposterous. How are you going to gain +0.05% C15 Exponent per Challenge Hepteract? How!?",
-          "currentEffect": "Current Effect: C15 Exponent +{{x}}%",
+          "effect": "C'est grotesque. Comment allez-vous gagner +0,05% d'exposant dans le Défi C15 pour chaque Hepteract de Défi ? Comment !?",
+          "currentEffect": "Effet actuel : +{{x}}% d'exposant dans C15",
           "oneCost": "En acheter un vous coûtera {{x}} Hepteracts, {{y}} Cubes Platonics et {{z}} Cubes."
         },
         "abyss": {
-          "effect": "It seems like this holds the power to be at the End of Time. Do you remember why you need this?",
-          "currentEffect": "<[You will submit to the Omega Entity of Time]>",
-          "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Cubes (lol)"
+          "effect": "Il semblerait que celui ci détient le pouvoir d'être à la Fin des Temps. Vous souvenez-vous pourquoi vous en avez besoin ?",
+          "currentEffect": "<[Vous vous soumettez à l'entité du Temps Oméga]>",
+          "oneCost": "En acheter un vous coûtera {{x}} Hepteracts et {{y}} Cubes Wow! (mdr)"
         },
         "accelerator": {
-          "effect": "Haha, stupid Corruptions. +2,000 +0.03% Uncorruptable Accelerators per 'Way too many accelerators' Hepteract!",
-          "currentEffect": "Current Effect: Uncorruptable Accelerators +{{x}} + {{y}}%",
-          "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Tesseracts"
+          "effect": "Ahah, stupides Corruptions. +2000 et +0,03% d'Accélérateurs incorruptibles pour chaque Hepteract \"beaucoup trop d'Accélérateurs\" !",
+          "currentEffect": "Effet actuel : +{{x}} et + {{y}}% d'Accélérateurs incorruptibles",
+          "oneCost": "En acheter un vous coûtera {{x}} Hepteracts et {{y}} Tesseracts Wow!"
         },
         "acceleratorBoost": {
-          "effect": "Haha, stupid Corruptions. +0.1% Accelerator Boosts per 'Way too many accelerator boosts' Hepteract!",
-          "currentEffect": "Current Effect: Accelerator Boosts +{{x}}%",
-          "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Hypercubes"
+          "effect": "Ahah, stupides Corruptions. +0,1% de Renforts d'Accélérateur incorruptibles pour chaque Hepteract \"beaucoup trop de Renforts d'Accélérateur\" !",
+          "currentEffect": "Effet actuel : +{{x}}% de Renforts d'Accélérateur",
+          "oneCost": "En acheter un vous coûtera {{x}} Hepteracts et {{y}} Hypercubes"
         },
         "multiplier": {
-          "effect": "Haha, stupid Corruptions. +1,000 +0.03% Uncorruptable Multipliers per 'Way too many multipliers' Hepteract!",
-          "currentEffect": "Current Effect: Uncorruptable Multipliers +{{x}} +{{y}}%",
-          "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Obtainium"
+          "effect": "Ahah, stupides Corruptions. +1000 et +0,03% de Multiplicateurs incorruptibles pour chaque Hepteract \"beaucoup trop de Multiplicateurs\" !",
+          "currentEffect": "Effet actuel : +{{x}} et +{{y}}% de Multiplicateurs incorruptibles",
+          "oneCost": "En acheter un vous coûtera {{x}} Hepteracts et {{y}} Obtainium "
         }
       }
     }
@@ -3276,45 +3276,45 @@
     "toggle": "Your toggle is now set to {{x}}"
   },
   "hepteracts": {
-    "unlockedCraft": "Congratulations. You have unlocked the ability to craft {{x}} in the hepteract forge!",
-    "notUnlocked": "This is not an unlocked craft, thus you cannot craft this item!",
-    "reachedCapacity": "You have reached the current capacity of {{x}}. Please expand to craft more.",
-    "craftMax": "This will attempt to craft as many as possible. \nYou can craft up to {{x}} ({{y}}%). Are you sure?",
-    "executionFailed": "Execution failed: material could not be calculated.",
-    "craft": "How many would you like to craft? \nYou can buy up to {{x}} ({{y}}%) amount.",
-    "cancelled": "Okay, maybe next time.",
-    "notEnough": "Insufficient inventory to expand.",
-    "craftedHepteracts": "You have successfully crafted {{x}} hepteracts.",
-    "craftedHepteractsMax": "You have successfully crafted {{x}} hepteracts. If this is less than your input, you either hit the inventory limit or you had insufficient resources.",
-    "expandPrompt": "This will reduce your balance by {{x}}, but capacity will increase from {{y}} to {{z}} [Expansion Multiplier: {{a}}]. Agree to the terms and conditions and stuff?",
-    "doubleSpent": "Something already modified your balance or cap, try again!",
-    "expandedInventory": "Successfully expanded your inventory. You can now fit {{x}}.",
-    "orbEffect": "Orb Effect: Opening Cubes gives {{x}}% more Quarks.",
-    "orbsPurchasedToday": "Orbs Purchased Today: {{x}}.",
-    "amalgamate": "You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]",
-    "cost250k": "Cost: 250,000 Hepteracts per Overflux Orb",
-    "craftMaxOrbs": "This will attempt to buy as many orbs as possible. \nYou can buy up to {{x}} with your hepteracts. Are you sure?",
-    "hepteractInput": "How many Orbs would you like to purchase?\n You can buy up to {{x}} with your hepteracts.",
-    "gainedPowder": "You have also gained {{x}} powder immediately, thanks to your shop upgrades.",
-    "purchasedOrbs": "You have purchased {{x}} Overflux Orbs [+{{y}}% to effect]. {{z}} Enjoy!",
-    "allCubeGain": "ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative]",
-    "allCubeGainExtended": "ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative], Ascension Count +{{z}}%, Tesseract Building Production x{{a}} [From Platonic Upgrade 4x1]",
-    "powderEffect": "Powder effect: {{x}}",
-    "powderLumps": "You have {{x}} lumps of Overflux Powder.",
-    "expiredOrbs": "Expired Overflux Orbs become powder at a rate of {{x}} Orbs per powder lump!",
-    "dayWarpsRemaining": "Day Warps remaining today: {{x}}",
-    "warpImpossible": "Warping is impossible (you get multiplier to Quarks instead)",
-    "machineCooldown": "Sorry, but this machine is on cooldown.",
-    "atleastPowder": "Sorry, but you need 25 powder to operate the warp machine.",
-    "stumbleMachine": "You stumble upon a mysterious machine. A note attached says that you can reset daily Cube openings for 25 Powder. However it only works once each real life day. You in?",
-    "walkAwayMachine": "You walk away from the machine, powder intact.",
-    "useMachine": "Upon using the machine, your cubes feel just a little more rewarding. Daily cube opening counts have been reset! [-25 Powder]",
-    "useAllWarpsPrompt": "Turning this OFF, will consume all of your remaining Warps (without doing a Warp).\nAre you sure?",
-    "machineDidNotConsume": "Machine didn't consume your Warps.",
-    "boostQuarksPrompt": "This machine will now be able to boost your Quarks gained from opening Cubes, based on how many Warps you have remaining. While its ON, warping will be impossible and turning it OFF won't be so easy.\nAre you sure you want to turn it ON?",
-    "machineOverdrive": "Machine will go into overdrive,\nonce you will have some Warps.",
-    "machineInOverdrive": "Machine is now on overdrive.",
-    "machineUsualContinue": "Machine will continue to work as usual, for now."
+    "unlockedCraft": "Félicitations. Vous avez débloqué la possibilité de forger {{x}} dans la forge d'Hepteracts !",
+    "notUnlocked": "Vous n'avez pas débloqué ce plan, et vous ne pouvez donc pas forger cet objet !",
+    "reachedCapacity": "Vous avez atteint la capacité actuelle de {{x}}. Merci d'étendre pour pouvoir en fabriquer plus.",
+    "craftMax": "Vous allez essayer d'en forger le plus possible.\nVous pouvez en forger jusqu'à {{x}} ({{y}} %). Êtes-vous sûr ?",
+    "executionFailed": "L'exécution a échoué : les matériaux n'ont pu être calculés.",
+    "craft": "Combien voulez-vous en forger ?\nVous pouvez en acheter jusqu'à {{x}} ({{y}} %).",
+    "cancelled": "D'accord, peut-être la prochaine fois.",
+    "notEnough": "Pas assez de stock pour étendre.",
+    "craftedHepteracts": "Vous avez forgé {{x}} Hepteracts avec succès.",
+    "craftedHepteractsMax": "Vous avez forgé {{x}} Hepteracts avec succès. Si cette valeur est plus faible que celle demandée, vous avez atteint la capacité actuelle ou vous n'aviez pas assez de ressources.",
+    "expandPrompt": "Ceci va réduire votre solde de {{x}}, mais la capacité va augmenter de {{y}} à {{z}} [multiplicateur d'extension : {{a}}]. Accepter les conditions générales et tout le tralala ?",
+    "doubleSpent": "Quelque chose a déjà modifié votre solde ou capacité, essayez à nouveau !",
+    "expandedInventory": "Inventaire étendu avec succès. Vous pouvez maintenant stocker {{x}}.",
+    "orbEffect": "Effet des Orbes : l'ouverture des Cubes donne {{x}}% plus de Quarks.",
+    "orbsPurchasedToday": "Orbes achetés aujourd'hui : {{x}}.",
+    "amalgamate": "Vous pouvez fondre des Orbes de Surfusion ici. [REMARQUE : celles-ci expirent à la fin de la journée]",
+    "cost250k": "Coût : 250 000 Hepteracts par Orbe de Surfusion",
+    "craftMaxOrbs": "Vous aller acheter autant d'Orbes que possible.\nVous pouvez en acheter jusqu'à {{x}} avec vos Hepteracts. Êtes-vous sûr ?",
+    "hepteractInput": "Combien d'Orbes voulez-vous acheter ?\nVous pouvez en acheter jusqu'à {{x}} avec vos Hepteracts.",
+    "gainedPowder": "Vous avez également obtenu {{x}} Poudre immédiatement, grâce à vos achats en boutique.",
+    "purchasedOrbs": "Vous avez acheté {{x}} Orbes de Surfusion [+{{y}} à l'effet]. {{z}} Appréciez !",
+    "allCubeGain": "Obtenez +{{x}}% de TOUS les types de Cubes [Multiplicatif] et +{{y}}% de Quarks [Multiplicatif].",
+    "allCubeGainExtended": "Obtenez +{{x}}% de TOUS les types de Cubes [Multiplicatif], +{{y}}% de Quarks [Multiplicatif], +{{z}}% d'Ascensions, et multipliez la production des bâtiments de Tesseract par {{a}} [de l'amélioration Platonic 4x1].",
+    "powderEffect": "Effets de Poudre : {{x}}",
+    "powderLumps": "Vous avez {{x}} grumeaux de Poudre de Surfusion.",
+    "expiredOrbs": "Les Orbes de Surfusion expirés deviennent de la Poudre à un taux de {{x}} Orbes par grumeau de Poudre !",
+    "dayWarpsRemaining": "Sauts Temporels restant aujourd'hui : {{x}}",
+    "warpImpossible": "Les Sauts Temporels sont impossibles (vous obtenez un multiplicateur de Quarks à la place).",
+    "machineCooldown": "Désolé, mais cette machine se recharge.",
+    "atleastPowder": "Désolé, mais vous avez besoin de 25 Poudre pour faire fonctionner la machine temporelle.",
+    "stumbleMachine": "Vous trébuchez sur une mystérieuse machine. Un message joint explique que vous pouvez réinitialiser les ouvertures de Cubes quotidiennes pour 25 Poudre. Cependant, cela ne fonctionne qu'une fois par jour réel. Ça vous branche ?",
+    "walkAwayMachine": "Vous vous éloignez de la machine, sans avoir touché à la Poudre.",
+    "useMachine": "Après avoir utilisé la machine, vos Cubes semblent juste un peu plus en valoir la peine. Le nombre quotidien de Cubes ouverts a été réinitialisé ! [-25 Poudre]",
+    "useAllWarpsPrompt": "Désactiver cette fonctionnalité consommera tous les Sauts Temporels restant (sans effectuer de saut).\nÊtes-vous certain ?",
+    "machineDidNotConsume": "La machine n'a pas consommé les Sauts Temporels.",
+    "boostQuarksPrompt": "La machine est maintenant capable d'augmenter les Quarks obtenus en ouvrant des Cubes, en fonction du nombre de Sauts Temporels disponibles. Si cette fonctionnalité est activée, effectuer un saut temporel sera impossible, et la désactiver ne sera pas facile.\nÊtes-vous sûr de vouloir l'activer ?",
+    "machineOverdrive": "La machine va passer en mode surcadencé,\ndès que vous aurez des Sauts Temporels.",
+    "machineInOverdrive": "La machine est maintenant surcadencée.",
+    "machineUsualContinue": "La machine continue de fonctionner normalement, pour le moment."
   },
   "importexport": {
     "copiedSave": "Sauvegarde copiée dans le presse-papiers !",
@@ -3395,9 +3395,9 @@
     "upgradeOneLevelWow": "Upgrade: 1 Level wow",
     "saveOfferingsOn": "Save Offerings [ON]",
     "saveOfferingsOff": "Save Offerings [OFF]",
-    "modeTime": "Mode: TIME",
-    "modeAmount": "Mode: AMOUNT",
-    "modePercentage": "Mode: PERCENTAGE"
+    "modeTime": "Mode : TEMPS",
+    "modeAmount": "Mode : QUANTITÉ",
+    "modePercentage": "Mode : POURCENTAGE"
   },
   "main": {
     "dataPersistent": "Les données de cette page sont maintenant persistantes ! Si vous ne savez pas ce que cela signifie, vous pouvez ignorer ce message en toute sécurité.",
@@ -3427,14 +3427,14 @@
     "buyResearch3x11": "[VERROUILLÉ - Achetez la Recherche 3x11]"
   },
   "history": {
-    "perSecondOn": "Per second: ON",
-    "perSecondOff": "Per second: OFF"
+    "perSecondOn": "Par seconde : ACTIVÉ",
+    "perSecondOff": "Par seconde : DÉSACTIVÉ"
   },
   "event": {
     "aprilFools": {
-      "introText": "The <<white|Unsmith>> spins at you, telepathically communicating: 'This is NOT a <<white|Rick>><<red|Roll>>, I swear. Just click me already!'",
-      "clicked": "See? Yet another reason to trust Unsmith. Ah well. For clicking me, you gain 5% more Offerings, Obtainium, and ALL Cubes until you refresh the page!",
-      "clickedText": "You have clicked the <<white|Unsmith>>! Until refresh, gain <<orange|+5% Offerings>>, <<pink|+5% Obtainium>>, <<white|+5% ALL Cubes>>!"
+      "introText": "Le <<white|Déforgeron>> se tourne vers vous, en communiquant par télépathie : « Ce n'est PAS un<<white|Rick>><<red|Roll>>, je le jure. Allez, cliquez-moi ! »",
+      "clicked": "Vous voyez ? Encore une raison de faire confiance au Déforgeron. Eh bien. Pour m'avoir cliqué, vous obtenez +5% en plus d'Offrandes, d'Obtainium et de TOUS les Cubes tant que vous ne rafraichissez pas la page !",
+      "clickedText": "Vous avez cliqué le <<white|Déforgeron>> ! Tant que la page n'est pas rechargée, vous gagnez <<orange|+5% d'Offrandes>>, <<pink|+5% d'Obtainium>> et <<white|+5% de TOUS les Cubes>> !"
     }
   }
 }
