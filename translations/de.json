@@ -94,7 +94,7 @@
       "ambrosiaPatreon": {
         "name": "Shameless, Ambrosial Patreon Reminder",
         "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
-        "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
+        "effect": "Großzügige Patreon Unterstützer gewähren dir {{amount}}% mehr Blueberry Time Generation. Wenn du noch nicht bereits bist, erwäge dich als Patreon Unterstützer zu werden, um die Entwicklung zu unterstützen!"
       }
     },
     "loadouts": {
@@ -571,8 +571,8 @@
   "reset": {
     "details": {
       "prestige": "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: {{amount}}/1e16 Coins || TIME SPENT: {{timeSpent}} Seconds.",
-      "transcension": "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: {{amount}}/1e100 Coins || TIME SPENT: {{timeSpent}} Seconds.",
-      "reincarnation": "Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: {{amount}}/1e300 Mythos Shards || TIME SPENT: {{timeSpent}} Seconds.",
+      "transcension": "Setzt alle Münzen und Diamanten Verbesserungen, Kristall Verbesserungen & Hersteller zurück, für Mythos/Offerings. Erfordert: {{amount}}/1e100 Münzen || VERBRACHTE ZEIT: {{timeSpent}}.",
+      "reincarnation": "Setze ALLE vorherigen Reset-Stufen zurück, aber du erhältst Partikel, Obtainium und Offerings! Erfordert: {{amount}}/1e300 Mythos Scherben || VERBRACHTE ZEIT: {{timeSpent}} Sekunden.",
       "acceleratorBoost": "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: {{amount}}/{{required}} Diamonds.",
       "transcensionChallenge": {
         "in": "Are you tired of being in your Challenge or stuck? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
@@ -585,7 +585,7 @@
         },
         "out": "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?"
       },
-      "ascensionChallenge": "Click this if you're in an Ascension Challenge and want to leave. You get it already!",
+      "ascensionChallenge": "Klicke hier, wenn du in einer Ascension Challenge bist und diese verlassen möchtest. Du hast es bereits gekriegt!",
       "ascension": "Ascend, C-10 is required! +{{cubeAmount}} Wow! Cubes for doing it! Time: {{timeSpent}} Seconds. (Real-time {{realTimeSpent}} Seconds)",
       "singularity": "Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with {{gqAmount}} Golden Quarks. Time: {{timeSpent}} Seconds."
     }
@@ -1707,7 +1707,7 @@
       "singOfferings1": {
         "name": "Offering Charge",
         "description": "Upgrade this to get +2% Offerings per level, forever!",
-        "effect": "Permanently gain {{n}}% more Offerings."
+        "effect": "Erhalte permanent {{n}}% mehr Offerings."
       },
       "singOfferings2": {
         "name": "Offering Storm",
@@ -1767,8 +1767,8 @@
       },
       "singOcteractPatreonBonus": {
         "name": "Platonic $ells out!!!",
-        "description": "You know that Patreon bonus? Yeah, that's cool and all, but what if it also boosted Octeract production by the same amount?",
-        "effect": "Octeract production is {{n}}% faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists."
+        "description": "Du weißt vom Patreon-Bonus? Der ist ja auch cool und so, aber was wäre, wenn er auch die Okterakt-Produktion um den gleichen Betrag erhöhen würde?",
+        "effect": "Die Octerakt Produktion ist {{n}}% schneller für jede 10$ die Monatlich auf Patreon gespendet werden! Dasselbe gilt für den bereits bestehenden Quark-Bonus."
       },
       "offeringAutomatic": {
         "name": "Blueberry Shards! (WIP)",
