@@ -583,11 +583,11 @@
           "coins": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
           "transcendShards": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Mythos Shards. TIME SPENT: {{timeSpent}} Seconds."
         },
-        "out": "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?"
+        "out": "Du bist momentan in keiner Wiedergeburt-Challenge. Wie möchtest du willst du das verlassen, wo du nicht bist?"
       },
       "ascensionChallenge": "Klicke hier, wenn du in einer Ascension Challenge bist und diese verlassen möchtest. Du hast es bereits gekriegt!",
-      "ascension": "Ascend, C-10 is required! +{{cubeAmount}} Wow! Cubes for doing it! Time: {{timeSpent}} Seconds. (Real-time {{realTimeSpent}} Seconds)",
-      "singularity": "Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with {{gqAmount}} Golden Quarks. Time: {{timeSpent}} Seconds."
+      "ascension": "Aufstieg, C-10 ist erforderlich! +{{cubeAmount}} Wow! Würfel fürs Durchführen! Time: {{timeSpent}} Sekunden. (Reale Zeit {{realTimeSpent}} Sekunden)",
+      "singularity": "Bist du bereit, deine Lorbeeren für eine größere Herausforderung aufzugeben? Der Ameisen Gott bestecht dich mit {{gqAmount}} Goldenes Quarks. Zeit: {{timeSpent}} Sekunden."
     }
   },
   "ants": {
@@ -1517,7 +1517,7 @@
       "unlockedIn": "In Singularity {{sing}} schaltest du einen neuen Vorteil frei",
       "header": "Die höchste erreichte Singularität die du erreicht hast ist die <span style=\"color: gold\">{{ord}} Singularität.</span><br/>Hier ist eine List mit Boni die du gesammelt hast um die Strafen auszugleichen",
       "description": "(Fahre darüber für mehr Details. Boni in <span style=\"color: gold\">goldenem Text</span> wurden in dieser Singularität hinzugefügt oder verbessert)",
-      "welcometoSingularity": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!",
+      "welcometoSingularity": "Willkommen bei der Singularität! Eine Fähigkeit fürs erreichen: du kannst jetzt Hepteract automatisch herstellen (wenn du diese wieder freigeschaltet hast) und Platonic Verbesserungen werden alle bezahlbaren gekauft!",
       "unlimitedGrowth": "+10% mehr Quarks and Auftstiegswert für jede Singularität. Aktuell: +{{amount}}%",
       "goldenCoins": "Goldene Quarks in der Bank verbessern deine Münzproduktion. Besonders stark beim ersten Aufstieg je Singularität. Aktuell: x{{amount}}",
       "xyz": {
@@ -1532,14 +1532,14 @@
         "otherwise": "Du kannst nun Forschungen durch darüber fahren abschließen."
       },
       "eternalAscensions": {
-        "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
-        "default": "Your ascension count is multipled based on your Singularity count! Currently: x{{amount}}"
+        "hasLevel1": "Dein Aufstiegszähler ist multipliziert basierend auf deine Singularität und automatische Aufstiegsfunktion anhand von der realen Zeit freigeschaltet! Momentan: x{{amount}}",
+        "default": "Deine Aufstiegsanzahl wird aufgrund deiner Singularität multipliziert! Aktuell: x{{amount}}"
       },
       "antGodsCornucopia": {
-        "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
-        "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
-        "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
-        "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
+        "hasLevel3": "Ameisengeschwindigkeit hat nun eine 'unzerstörbare' x4,44 Multiplikator und eine wahre unzerstörbare x1e12 Multiplikator!",
+        "hasLevel2": "Ameisengeschwindigkeit hat nun eine 'unzerstörbare' x4,44 Multiplikator und eine wahre unzerstörbare x1e6 Multiplikator!",
+        "hasLevel1": "Ameisengeschwindigkeit hat nun eine 'unzerstörbare' x4,44 Multiplikator und eine wahre unzerstörbare x1000 Multiplikator!",
+        "default": "Ameisengeschwindigkeit hat nun permanent ein 'unzerstörbare' x4,44 Multiplikator."
       },
       "sweepomatic": {
         "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
@@ -1642,26 +1642,26 @@
       },
       "goldenQuarks3": {
         "name": "Goldene Quarks III",
-        "description": "If you buy this, you will gain Golden Quarks per hour from Exports. Leveling up gives (level) additional per hour!",
-        "effect": "Every hour, you gain {{n}} Golden Quarks from exporting."
+        "description": "Wenn du das kaufst, wirst du Goldenes Quark pro Stunde von Exports kriegen. Hochleveln gibt dir extra (level) pro Stunde!",
+        "effect": "Jede Stunde, kriegst du {{n}} Goldenes Quarks von Exports."
       },
       "starterPack": {
         "name": "Anfänger-Paket",
-        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources, post-corruption.",
-        "effectHave": "You have unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings.",
-        "effectHaveNot": "You have not unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings."
+        "description": "Kauf das! Kauf das! Würfel Gewinn ist permanent um 5 multipliziert, und 6x Gewinn bei Obtanium und Offerings von allen Quellen, nach Zerstörung.",
+        "effectHave": "Du hast ein 5x multiplizierer auf Würfel, und einen 6x multiplizierer auf Obtanium und Offerings freigeschaltet.",
+        "effectHaveNot": "Du hast den 5x Multiplikator für Würfel, und 6x Multiplikator für Obtainium und Offering noch nicht freigeschaltet."
       },
       "wowPass": {
         "name": "Markt Aktionsware",
         "description": "This upgrade will convince the seal merchant to sell you more cool stuff, which even persist on Singularity!",
-        "effectHave": "You have unlocked the Shop Bonanza.",
-        "effectHaveNot": "You have not unlocked the Shop Bonanza."
+        "effectHave": "Du hast den Shop-Bonanza freigeschaltet.",
+        "effectHaveNot": "Du hast den Shop-Bonanza noch nicht freigeschaltet."
       },
       "cookies": {
         "name": "Keks-Rezepte I",
-        "description": "For just a few Golden Quarks, re-open Wow! Bakery, adding five cookie-related Cube upgrades.",
-        "effectHave": "You have unlocked volume 1 of the recipe book.",
-        "effectHaveNot": "You have not unlocked volume 1 of the recipe book."
+        "description": "Für ein paar Goldene Quarks, eröffne Wow! Bäckerei, fügt fünf Keks relevante Würfel Upgrades hinzu.",
+        "effectHave": "Du hast Band 1 des Rezeptbuchs freigeschaltet.",
+        "effectHaveNot": "Du hast Band 1 des Rezeptbuchs noch nicht freigeschaltet."
       },
       "cookies2": {
         "name": "Keks-Rezepte II",
@@ -1670,7 +1670,7 @@
         "effectHaveNot": "You have not unlocked volume 2 of the recipe book."
       },
       "cookies3": {
-        "name": "Cookie Recipes III",
+        "name": "Keks-Rezepte III",
         "description": "Your Bakers threaten to quit without a higher pay. If you do pay them, they will bake even more fancy cookies.",
         "effectHave": "You have appeased the union of Bakers.",
         "effectHaveNot": "You have not appeased the union of Bakers."
@@ -1760,9 +1760,9 @@
         "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
       },
       "octeractUnlock": {
-        "name": "Octeracts",
+        "name": "Okterakte",
         "description": "MOMENT MAL!!! Was willst du damit erreichen?!?",
-        "effectHave": "You have bought into the Octeract hype.",
+        "effectHave": "Du hast den Okterakt Hype gekauft.",
         "effectHaveNot": "You have not bought into the Octeract hype."
       },
       "singOcteractPatreonBonus": {
@@ -1812,8 +1812,8 @@
         "effectHaveNot": "Sie haben das Liquidation Event nicht ausgelöst!"
       },
       "wowPass3": {
-        "name": "QUAAAACK",
-        "description": "QUAAAAAAAACK. The Merchant has gone crazy for your QUARKS!",
+        "name": "QUAAAAKK",
+        "description": "QUAAAAAAAAACK. Der Händler ist für deine QUARKS verrückt geworden!",
         "effectHave": "Sie haben die QUACKSTRAVAGANZA ausgelöst!!",
         "effectHaveNot": "Sie haben die QUACKSTRAVAGANZA nicht ausgelöst!!"
       },
