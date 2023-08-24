@@ -94,7 +94,7 @@
       "ambrosiaPatreon": {
         "name": "Rappel éhonté de Patreon d'Ambroisie",
         "description": "Dans tous les royaumes, Platonic surfe sur la vague. +1% de Vitesse de Génération de Myrtilles par +1% de Quarks par le bonus de Patreon !",
-        "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
+        "effect": "La générosité des membres Patreon vous apporte {{amount}}% plus de temps de génération des Myrtilles. Si vous n'en faites pas encore partie, considérez devenir un membre Patron pour assister le développement !"
       }
     },
     "loadouts": {
@@ -108,7 +108,7 @@
     "importTree": {
       "success": "Arbre importé avec succès !",
       "failure": "Échec d'import d'arbre car il est invalide !",
-      "error": "Impossible d'analyser le fichier soumis ! Vérifiez qu'il s'agit d'un fichier d'Arbre-Myrtille."
+      "error": "Impossible d'analyser le fichier soumis ! Vérifiez qu'il s'agit d'un fichier de configuration d'Arbre-Myrtille."
     },
     "exportTree": {
       "exportButton": "Export"
