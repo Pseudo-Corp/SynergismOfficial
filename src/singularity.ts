@@ -2101,6 +2101,9 @@ export const calculateEffectiveSingularities = (singularityCount: number = playe
   if (singularityCount > 230) {
     effectiveSingularities *= 2
   }
+  if (singularityCount > 264) {
+    effectiveSingularities *= Math.pow(2, (singularityCount - 265)/2)
+  }
 
   return effectiveSingularities
 }
@@ -2142,11 +2145,11 @@ export const calculateSingularityDebuff = (debuff: SingularityDebuffs, singulari
   const effectiveSingularities = calculateEffectiveSingularities(constitutiveSingularityCount)
 
   if (debuff === 'Offering') {
-    return Math.sqrt(Math.min(effectiveSingularities, calculateEffectiveSingularities(150)) + 1)
+    return Math.sqrt(effectiveSingularities + 1)
   } else if (debuff === 'Global Speed') {
     return 1 + Math.sqrt(effectiveSingularities) / 4
   } else if (debuff === 'Obtainium') {
-    return Math.sqrt(Math.min(effectiveSingularities, calculateEffectiveSingularities(150))  + 1)
+    return Math.sqrt(effectiveSingularities + 1)
   } else if (debuff === 'Researches') {
     return 1 + Math.sqrt(effectiveSingularities) / 2
   } else if (debuff === 'Ascension Speed') {

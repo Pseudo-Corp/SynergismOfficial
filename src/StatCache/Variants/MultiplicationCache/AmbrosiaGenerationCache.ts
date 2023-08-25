@@ -4,7 +4,7 @@ import { Globals } from '../../../Variables'
 import { MultiplicationCache } from './MultiplicationCache'
 
 type AmbrosiaGeneration = 'DefaultVal' | 'Blueberries' | 'SingularityBerries' | 'ShopUpgrades' | 'Event' | 'OcteractBerries' |
-                          'BlueberryPatreon'
+                          'BlueberryPatreon' | 'Exalt5'
 
 export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGeneration> {
 
@@ -20,6 +20,7 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
       'SingularityBerries': 1,
       'OcteractBerries': 1,
       'BlueberryPatreon': 1,
+      'Exalt5': 1,
       'Event': 1
     }
     this.totalVal = 0
@@ -50,6 +51,10 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
       }
       case 'BlueberryPatreon': {
         this.vals[key] = +player.blueberryUpgrades.ambrosiaPatreon.bonus.blueberryGeneration
+        break
+      }
+      case 'Exalt5': {
+        this.vals[key] = +player.singularityChallenges.staggeredCubes.rewards.ambrosiaGeneration
         break
       }
       case 'Event': {

@@ -407,7 +407,17 @@ export const Globals: GlobalVariables = {
     powder: 1,
     exponent: 1,
     freeOrbs: 0,
-    ascensionSpeed: 1
+    ascensionSpeed: 1,
+    goldenQuarkGain: 1,
+    obtainium2: 1,
+    offering2: 1,
+    cube6: 1,
+    octeract: 1,
+    ambrosiaLuck: 0,
+    thresholdReduction: 0,
+    quarks2: 1,
+    quarkHeptDR: 0,
+    freeAmbrosiaLevel: 0
   },
 
   autoResetTimers: {

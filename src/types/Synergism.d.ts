@@ -948,6 +948,16 @@ export interface GlobalVariables {
         exponent: number
         freeOrbs: number
         ascensionSpeed: number
+        goldenQuarkGain: number
+        obtainium2: number
+        offering2: number
+        cube6: number
+        octeract: number
+        ambrosiaLuck: number
+        thresholdReduction: number
+        quarks2: number
+        quarkHeptDR: number
+        freeAmbrosiaLevel: number
     },
 
     autoResetTimers: {

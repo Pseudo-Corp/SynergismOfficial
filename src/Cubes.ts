@@ -198,6 +198,10 @@ export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
     }
   }
 
+  if (i === 73 && player.cubeUpgrades[73] > 0) {
+    player.cubeUpgrades[50] = cubeMaxLevel[50 - 1]
+  }
+
   if (!auto) {
     cubeUpgradeDesc(i)
     revealStuff()

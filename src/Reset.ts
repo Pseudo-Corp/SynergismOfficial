@@ -1,8 +1,8 @@
 import { player, format, blankSave, updateAll, saveSynergy } from './Synergism'
 import {
   calculateOfferings, CalcCorruptionStuff, calculateCubeBlessings, calculateRuneLevels,
-  calculateAnts, calculateObtainium, calculateTalismanEffects, calculateAntSacrificeELO,
-  calcAscensionCount, calculateGoldenQuarkGain } from './Calculate'
+  calculateAnts, calculateTalismanEffects, calculateAntSacrificeELO,
+  calcAscensionCount, calculateGoldenQuarkGain, updateObtainiumGain } from './Calculate'
 import { resetofferings } from './Runes'
 import { updateTalismanInventory, updateTalismanAppearance } from './Talismans'
 import { calculateTesseractBlessings } from './Tesseracts'
@@ -604,7 +604,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     calculateRuneLevels()
     calculateAntSacrificeELO()
     calculateTalismanEffects()
-    calculateObtainium()
+    updateObtainiumGain()
     ascensionAchievementCheck(1)
 
     player.ascensionCounter = 0

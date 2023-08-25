@@ -12,7 +12,7 @@ import { updateResearchBG, maxRoombaResearchIndex, buyResearch } from './Researc
 import { updateChallengeDisplay, revealStuff, showCorruptionStatsLoadouts, updateAchievementBG, updateChallengeLevel, buttoncolorchange, htmlInserts, changeTabColor, Confirm, Alert, Notification } from './UpdateHTML'
 import { calculateHypercubeBlessings } from './Hypercubes'
 import { calculateTesseractBlessings } from './Tesseracts'
-import { calculateCubeBlessings, calculateObtainium, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, exitOffline, calculateGoldenQuarkGain } from './Calculate'
+import { calculateCubeBlessings, calculateAnts, calculateRuneLevels, calculateOffline, calculateSigmoidExponential, calculateCorruptionPoints, calculateTotalCoinOwned, calculateTotalAcceleratorBoost, dailyResetCheck, calculateOfferings, calculateAcceleratorMultiplier, calculateTimeAcceleration, exitOffline, calculateGoldenQuarkGain, updateObtainiumGain } from './Calculate'
 import { updateTalismanAppearance, toggleTalismanBuy, updateTalismanInventory, buyTalismanEnhance, buyTalismanLevels, calculateMaxTalismanLevel } from './Talismans'
 import { toggleAscStatPerSecond, toggleChallenges, toggleauto, toggleAutoChallengeModeText, toggleShops, toggleAntMaxBuy, toggleAntAutoSacrifice, toggleAutoAscend, updateAutoChallenge, updateRuneBlessingBuyAmount, autoCubeUpgradesToggle, autoPlatonicUpgradesToggle } from './Toggles'
 import { c15RewardUpdate } from './Statistics'
@@ -1986,7 +1986,7 @@ const loadSynergy = async () => {
 
     toggleTalismanBuy(player.buyTalismanShardPercent)
     updateTalismanInventory()
-    calculateObtainium()
+    updateObtainiumGain()
     calculateAnts()
     calculateRuneLevels()
     resetHistoryRenderAllTables()
@@ -3948,7 +3948,7 @@ const tack = (dt: number) => {
     if (player.researches[61] === 1) {
       automaticTools('addObtainium', dt)
     } else {
-      calculateObtainium()
+      updateObtainiumGain()
     }
 
     //Automatically tries and buys researches lol

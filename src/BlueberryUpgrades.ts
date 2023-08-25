@@ -8,6 +8,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { visualUpdateAmbrosia } from './UpdateVisuals'
 import { exportData, saveFilename } from './ImportExport'
 import { getTotalCubeDigits } from './DynamicCubes'
+import { Globals } from './Variables'
 
 export type blueberryUpgradeNames = 'ambrosiaTutorial' | 'ambrosiaQuarks1' | 'ambrosiaCubes1' | 'ambrosiaLuck1' |
                                     'ambrosiaCubeLuck1' | 'ambrosiaQuarkLuck1' | 'ambrosiaQuarkCube1' | 'ambrosiaLuckCube1' |
@@ -137,8 +138,8 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     const isMaxLevel = this.maxLevel === this.level
     const color = isMaxLevel ? 'plum' : 'white'
 
-    let freeLevelInfo = this.freeLevels > 0 ?
-      `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>` : ''
+    let freeLevelInfo = this.freeLv > 0 ?
+      `<span style="color: aquamarine"> [+${format(this.freeLv, 1, true)}]</span>` : ''
 
     if (this.freeLevels > this.level) {
       freeLevelInfo = freeLevelInfo + `<span style="color: var(--maroon-text-color)">${i18next.t('general.softCapped')}</span>`
@@ -205,16 +206,26 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     this.blueberriesInvested = 0
   }
 
+  public get freeLv(): number {
+    if (this.level === 0) return 0
+    if (this.maxLevel === 1) return 0
+    else {
+      let extraFree = 0
+      extraFree += Globals.challenge15Rewards.freeAmbrosiaLevel // 1e111 challenge 15 score
+      return this.freeLevels + extraFree
+    }
+  }
+
   public get rewardDesc(): string {
     if ('desc' in this.rewards(0)) {
-      return String(this.rewards(this.level).desc)
+      return String(this.rewards(this.level + this.freeLv).desc)
     } else {
       return 'Contact Platonic or Khafra if you see this (should never occur!)'
     }
   }
 
   public get bonus() {
-    return this.rewards(this.level)
+    return this.rewards(this.level + this.freeLv)
   }
 }
 

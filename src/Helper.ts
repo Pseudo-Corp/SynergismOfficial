@@ -1,5 +1,5 @@
 import { sacrificeAnts } from './Ants'
-import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateAutomaticObtainium, calculateGoldenQuarkGain, calculateMaxRunes, calculateObtainium, calculateRequiredBlueberryTime, calculateTimeAcceleration, octeractGainPerSecond } from './Calculate'
+import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateAutomaticObtainium, calculateGoldenQuarkGain, calculateMaxRunes, calculateRequiredBlueberryTime, calculateTimeAcceleration, octeractGainPerSecond, updateObtainiumGain } from './Calculate'
 import { quarkHandler } from './Quark'
 import { redeemShards, unlockedRune, checkMaxRunes } from './Runes'
 import { player } from './Synergism'
@@ -203,7 +203,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
         break
       }
       //Update Obtainium Multipliers + Amount to gain
-      calculateObtainium()
+      updateObtainiumGain()
       const obtainiumGain = calculateAutomaticObtainium()
       //Add Obtainium
       player.researchPoints = Math.min(1e300, player.researchPoints + obtainiumGain * time * timeMultiplier)

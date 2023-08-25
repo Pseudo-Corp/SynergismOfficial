@@ -4,7 +4,8 @@ import { Globals } from '../../../Variables'
 import { AdditionCache } from './AdditionCache'
 
 type AmbrosialLuck = 'SingPerks' | 'OcteractBerries' | 'ShopUpgrades' | 'BlueberryUpgrade1' | 'Event' |
-                     'BlueberryCubeLuck1' | 'BlueberryQuarkLuck1' | 'SingularityBerries' | 'BlueberryUpgrade2' | 'CubeUpgrade'
+                     'BlueberryCubeLuck1' | 'BlueberryQuarkLuck1' | 'SingularityBerries' | 'BlueberryUpgrade2' | 'CubeUpgrade' |
+                     'Exalt5'
 
 export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
 
@@ -23,6 +24,7 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       'BlueberryCubeLuck1': 0,
       'BlueberryQuarkLuck1': 0,
       'CubeUpgrade': 0,
+      'Exalt5': 0,
       'Event': 0
     }
     this.totalVal = 0
@@ -65,6 +67,10 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       }
       case 'CubeUpgrade': {
         this.vals[key] = player.cubeUpgrades[77] * numOfTimeThresholds().numThresholds * 35
+        break
+      }
+      case 'Exalt5': {
+        this.vals[key] = +player.singularityChallenges.staggeredCubes.rewards.ambrosiaLuck
         break
       }
       case 'Event': {

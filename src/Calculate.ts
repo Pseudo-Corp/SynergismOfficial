@@ -262,7 +262,10 @@ export function calculateOfferings(input: resetNames | 'statistic', calcMult: tr
 export function calculateOfferings(input: resetNames | 'statistic', calcMult = true) {
 
   if (input == 'acceleratorBoost' || input == 'ascension' || input == 'ascensionChallenge') {
-    return 0
+    return {
+      toGain: 0,
+      log10: -100000
+    }
   }
 
   let q = 0
@@ -371,6 +374,7 @@ export function calculateOfferings(input: resetNames | 'statistic', calcMult = t
     +player.singularityUpgrades.singCitadel.getEffect().bonus, // Citadel GQ Upgrade
     +player.singularityUpgrades.singCitadel2.getEffect().bonus, // Citadel 2 GQ Upgrade
     1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
+    (player.ascensionCount === 0) ? 1 + 4 * player.cubeUpgrades[72]: 1, // Cube Upgrade 8x2 (Cx22)
     +player.octeractUpgrades.octeractOfferings1.getEffect().bonus, // Offering Electrolosis OC Upgrade
     (G.eventClicked && G.isEvent) ? 1.05 : 1, // Event Clickable
     1 / calculateSingularityDebuff('Offering'), // Singularity Debuff Modifier
@@ -416,113 +420,139 @@ export function calculateOfferings(input: resetNames | 'statistic', calcMult = t
     log10: totalLog
   }
 }
+export function calculateObtainium(calcMult: false): number[]
+export function calculateObtainium(calcMult: true): {toGain: number, log10: number}
+export function calculateObtainium(calcMult: boolean) {
 
-export const calculateObtainium = () => {
-  G.obtainiumGain = 1
-  if (player.upgrades[69] > 0) {
-    G.obtainiumGain *= Math.min(10, new Decimal(Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)).toNumber())
-  }
-  if (player.upgrades[72] > 0) {
-    G.obtainiumGain *= Math.min(50, (1 + 2 * player.challengecompletions[6] + 2 * player.challengecompletions[7] + 2
-             * player.challengecompletions[8] + 2 * player.challengecompletions[9] + 2 * player.challengecompletions[10]))
-  }
-  if (player.upgrades[74] > 0) {
-    G.obtainiumGain *= (1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5)))
-  }
-  G.obtainiumGain *= (1 + player.researches[65] / 5)
-  G.obtainiumGain *= (1 + player.researches[76] / 10)
-  G.obtainiumGain *= (1 + player.researches[81] / 10)
-  G.obtainiumGain *= (1 + player.shopUpgrades.obtainiumAuto / 50)
-  G.obtainiumGain *= (1 + player.shopUpgrades.cashGrab / 100)
-  G.obtainiumGain *= (1 + G.rune5level / 200 * G.effectiveLevelMult * (1 + player.researches[84] / 200 * (1 + 1 * G.effectiveRuneSpiritPower[5] * calculateCorruptionPoints() / 400)))
-  G.obtainiumGain *= (1 + 0.01 * player.achievements[84] + 0.03 * player.achievements[91] + 0.05 * player.achievements[98] + 0.07
-         * player.achievements[105] + 0.09 * player.achievements[112] + 0.11 * player.achievements[119] + 0.13 * player.achievements[126] + 0.15
-         * player.achievements[133] + 0.17 * player.achievements[140] + 0.19 * player.achievements[147])
-  G.obtainiumGain *= (1 + 2 * Math.pow((player.antUpgrades[10-1]! + G.bonusant10) / 50, 2 / 3))
-  G.obtainiumGain *= (1 + player.achievements[188] * Math.min(2, player.ascensionCount / 5e6))
-  G.obtainiumGain *= (1 + 0.6 * player.achievements[250] + 1 * player.achievements[251])
-  G.obtainiumGain *= G.cubeBonusMultiplier[5]
-  G.obtainiumGain *= (1 + 0.04 * player.constantUpgrades[4])
-  G.obtainiumGain *= (1 + 0.1 * player.cubeUpgrades[47])
-  G.obtainiumGain *= (1 + 0.1 * player.cubeUpgrades[3])
-  G.obtainiumGain *= (1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]))
-  G.obtainiumGain *= (1 + calculateCorruptionPoints() / 400 * G.effectiveRuneSpiritPower[4])
-  G.obtainiumGain *= (1 + 0.03 * Math.log(player.uncommonFragments + 1) / Math.log(4) * player.researches[144])
-  G.obtainiumGain *= (1 + 0.02 / 100 * player.cubeUpgrades[50])
-  if (player.achievements[53] > 0) {
-    G.obtainiumGain *= (1 + 1 / 800 * (G.runeSum))
-  }
-  if (player.achievements[128]) {
-    G.obtainiumGain *= 1.5
-  }
-  if (player.achievements[129]) {
-    G.obtainiumGain *= 1.25
-  }
+  // Dear 2019(!) Platonic: Piss right off you pillock
+  /**
+   * Modelled based on the newly written offering gain function, I compute logarithmic value
+   * of to-be-gained. This is especially useful because the corruption 'Scientific Illiteracy'
+   * raises gain to a power. Another log rule: log10(a^k) = k * log10(a), so illiteracy now works with
+   * (basically) arbitrarily small exponents.
+   */
+  let logGain = 0
 
+  let baseObtGain = Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2)
   if (player.achievements[51] > 0) {
-    G.obtainiumGain += 4
+    baseObtGain += 4
   }
   if (player.reincarnationcounter >= 2) {
-    G.obtainiumGain += 1 * player.researches[63]
+    baseObtGain += 1 * player.researches[63]
   }
   if (player.reincarnationcounter >= 5) {
-    G.obtainiumGain += 2 * player.researches[64]
-  }
-  G.obtainiumGain *= Math.min(1, Math.pow(player.reincarnationcounter / 10, 2))
-  G.obtainiumGain *= (1 + 1 / 25 * player.shopUpgrades.obtainiumEX)
-  if (player.reincarnationCount >= 5) {
-    G.obtainiumGain *= Math.max(1, player.reincarnationcounter / 10)
-  }
-  G.obtainiumGain *= Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2)
-  G.obtainiumGain = Math.pow(G.obtainiumGain, Math.min(1, G.illiteracyPower[player.usedCorruptions[5]] * (1 + 9 / 100 * player.platonicUpgrades[9] * Math.min(100, Math.log10(player.researchPoints + 10)))))
-  G.obtainiumGain *= (1 + 4 / 100 * player.cubeUpgrades[42])
-  G.obtainiumGain *= (1 + 3 / 100 * player.cubeUpgrades[43])
-  G.obtainiumGain *= (1 + player.platonicUpgrades[5])
-  G.obtainiumGain *= (1 + 1.5 * player.platonicUpgrades[9])
-  G.obtainiumGain *= (1 + 2.5 * player.platonicUpgrades[10])
-  G.obtainiumGain *= (1 + 5 * player.platonicUpgrades[15])
-  G.obtainiumGain *= G.challenge15Rewards.obtainium
-  G.obtainiumGain *= 1 + 5 * (player.singularityUpgrades.starterPack.getEffect().bonus ? 1 : 0)
-  G.obtainiumGain *= +player.singularityUpgrades.singObtainium1.getEffect().bonus
-  G.obtainiumGain *= +player.singularityUpgrades.singObtainium2.getEffect().bonus
-  G.obtainiumGain *= +player.singularityUpgrades.singObtainium3.getEffect().bonus
-  G.obtainiumGain *= (1 + player.cubeUpgrades[55] / 100) // Cube Upgrade 6x5 (Cx5)
-  G.obtainiumGain *= (1 + 1/200 * player.shopUpgrades.cashGrab2)
-  G.obtainiumGain *= (1 + 1/100 * player.shopUpgrades.obtainiumEX2 * player.singularityCount)
-  G.obtainiumGain *= 1 + calculateEventBuff('Obtainium')
-  G.obtainiumGain *= +player.singularityUpgrades.singCitadel.getEffect().bonus
-  G.obtainiumGain *= +player.singularityUpgrades.singCitadel2.getEffect().bonus
-  G.obtainiumGain *= +player.octeractUpgrades.octeractObtainium1.getEffect().bonus
-  G.obtainiumGain *= Math.pow(1.02, player.shopUpgrades.obtainiumEX3)
-  G.obtainiumGain *= calculateTotalOcteractObtainiumBonus()
-
-  if (G.eventClicked && G.isEvent) {
-    G.obtainiumGain *= 1.05
+    baseObtGain += 2 * player.researches[64]
   }
 
+  const corruptableArr = [
+    (baseObtGain), // Base Value (Computed Above)
+    (Math.min(1, Math.pow(player.reincarnationcounter / 10, 2))), // Reincarnation Timer Modification
+    (player.reincarnationCount >= 5) ? (Math.max(1, player.reincarnationcounter / 10)) : 1, // Reincarnation Timer Modification II
+    (player.upgrades[69] > 0) ? Math.min(10, new Decimal(Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)).toNumber()): 1, // Particle Upgrade 2x4 (9)
+    (player.upgrades[72] > 0) ? Math.min(50, (1 + 2 * player.challengecompletions[6] + 2 * player.challengecompletions[7] + 2
+      * player.challengecompletions[8] + 2 * player.challengecompletions[9] + 2 * player.challengecompletions[10])): 1, // Particle Upgrade 3x2 (12)
+    (player.upgrades[74] > 0) ? (1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5))) : 1, // Particle Upgrade 3x4 (14)
+    (1 + player.researches[65] / 5), // Research 3x15
+    (1 + player.researches[76] / 10), // Research 4x1
+    (1 + player.researches[81] / 10), // Research 4x6
+    (1 + player.shopUpgrades.obtainiumAuto / 50), // Autospend Obtainium Shop Upgrade
+    (1 + 1 / 25 * player.shopUpgrades.obtainiumEX), // Obtainium EX I
+    (1 + player.shopUpgrades.cashGrab / 100), // Cash Grab I
+    (1 + 2 * Math.pow((player.antUpgrades[10-1]! + G.bonusant10) / 50, 2 / 3)), // Scientia Formicidae (The blue ant!)
+    (1 + G.rune5level / 200 * G.effectiveLevelMult * (1 + player.researches[84] / 200 * (1 + 1 * G.effectiveRuneSpiritPower[5] * calculateCorruptionPoints() / 400))), // Superior Intellect (SI) Rune
+    (player.achievements[53] > 0) ? (1 + 1 / 800 * (G.runeSum)) : 1, // Achievement 'Multidimensional Creation'
+    (player.achievements[128] > 0) ? (1.5) : 1, // Achievment: A Costly Mistake
+    (player.achievements[129] > 0) ? (1.25) : 1, // Achievement: Impetus
+    (1 + 0.01 * player.achievements[84] + 0.03 * player.achievements[91] + 0.05 * player.achievements[98] + 0.07
+      * player.achievements[105] + 0.09 * player.achievements[112] + 0.11 * player.achievements[119] + 0.13 * player.achievements[126] + 0.15
+      * player.achievements[133] + 0.17 * player.achievements[140] + 0.19 * player.achievements[147]), // Achievements
+    (1 + player.achievements[188] * Math.min(2, player.ascensionCount / 5e6)), // Achievement 'Give me some arbitrary number I'
+    (1 + 0.75 * player.achievements[250]), // Achievement 'The Thousand Suns' - Changed to +75% 8/13/2023
+    (1 + 0.75 * player.achievements[251]), // Achievement 'The Thousand Moons' - Changed to +75% 8/13/2023
+    (G.cubeBonusMultiplier[5]), // Athena's Tribute
+    (1 + 0.04 * player.constantUpgrades[4]), // 4th Constant Upgrade
+    (1 + 0.1 * player.cubeUpgrades[3]), // Cube Upgrade 1x3
+    (1 + 0.1 * player.cubeUpgrades[47]), // Cube Upgrade 5x7
+    (1 + 0.02 / 100 * player.cubeUpgrades[50]), // Cube Upgrade 5x10, Thousand Moons
+    (1 + 0.5 * CalcECC('ascension', player.challengecompletions[12])), // Challenge 12 Reward
+    (1 + calculateCorruptionPoints() / 400 * G.effectiveRuneSpiritPower[4]), // 4th Spirit
+    (1 + 0.03 * Math.log(player.uncommonFragments + 1) / Math.log(4) * player.researches[144]) // Research 6x19
+  ] // 29 entries
+
+  const corruptableLog = logContents(corruptableArr)
+  const illiteracyMultiplier = Math.min(1, G.illiteracyPower[player.usedCorruptions[5]] * (1 + 9 / 100 * player.platonicUpgrades[9] * Math.min(100, Math.log10(player.researchPoints + 10))))
+  // +1 entry
+  logGain += corruptableLog * illiteracyMultiplier
+
+  const nonCorruptArr = [
+    (1 + 4 / 100 * player.cubeUpgrades[42]), // Cube Upgrade 5x2
+    (G.challenge15Rewards.obtainium), // Challenge 15 Obtainium Reward
+    (1 + player.platonicUpgrades[5]), // Platonic ALPHA (1x5)
+    (1 + 1.5 * player.platonicUpgrades[9]), // Platonic 2x4
+    (1 + 2.5 * player.platonicUpgrades[10]), // Platonic BETA (2x5)
+    (1 + 5 * player.platonicUpgrades[15]), // Platonic OMEGA (3x5)
+    1 / calculateSingularityDebuff('Obtainium'), // Singularity Debuff Modification
+    (player.singularityUpgrades.starterPack.getEffect().bonus) ? (6) : 1, // GQ: Starter Pack
+    (+player.singularityUpgrades.singObtainium1.getEffect().bonus), // GQ: Obtainium Wave
+    (+player.singularityUpgrades.singObtainium2.getEffect().bonus), // GQ: Obtainium Flood
+    (+player.singularityUpgrades.singObtainium3.getEffect().bonus), // GQ: Obtainium Tsunami
+    (+player.singularityUpgrades.singCitadel.getEffect().bonus), // GQ: Citadel of Singularity
+    (+player.singularityUpgrades.singCitadel2.getEffect().bonus), // GQ: Citadel of 'Singularity': The Real Edition
+    (1 + player.cubeUpgrades[55] / 100), // Cube Upgrade 6x5 (Cx5)
+    (player.ascensionCount === 0)  ? (1 + 9 * player.cubeUpgrades[71]) : 1, // Cube Upgrade 8x1 (Cx21)
+    (1 + 1/100 * player.shopUpgrades.obtainiumEX2 * player.singularityCount), // Obtainium EX II
+    (1 + 1/200 * player.shopUpgrades.cashGrab2), // Cash Grab II
+    (Math.pow(1.02, player.shopUpgrades.obtainiumEX3)), // Obtainium EX III (Inf)
+    (calculateTotalOcteractObtainiumBonus()), // Octeract Obtainium Bonus (Exalt IV)
+    (G.eventClicked && G.isEvent) ? (1.05) : 1, // Event Clickable!
+    (1 + calculateEventBuff('Obtainium')) // Event Bonus
+  ] // +20 entries
+
+  const nonCorruptLog = logContents(nonCorruptArr)
+  const nonCorrDivisor = 1 + 3 * Number(player.usedCorruptions[5] >= 15) + 8 * Number(player.usedCorruptions[5] >= 16)
+  // +1 entry
+  logGain += nonCorruptLog / nonCorrDivisor
+
+  if (!calcMult) {
+    let statArr = [...corruptableArr]
+    statArr.push(illiteracyMultiplier)
+    statArr = statArr.concat(nonCorruptArr)
+    statArr.push(1 / nonCorrDivisor) // I hate this (Platonic)
+    return statArr // There are currently **51** entries here!
+  }
+
+  // Modify logGain through particular means.
   if (player.currentChallenge.ascension === 15) {
-    G.obtainiumGain += 1
-    G.obtainiumGain *= (1 + 7 * player.cubeUpgrades[62])
+    logGain = Math.max(Math.log10(2), logGain)
+    if (player.cubeUpgrades[62] > 0) {
+      logGain += 1
+    }
   }
 
-  if (!isFinite(G.obtainiumGain)) {
-    G.obtainiumGain = 1e300
-  }
-  G.obtainiumGain = Math.min(1e300, G.obtainiumGain)
-  G.obtainiumGain /= calculateSingularityDebuff('Obtainium')
+  logGain = Math.max(Math.log10(1 + player.singularityCount), logGain)
 
-  if (player.usedCorruptions[5] >= 15) {
-    G.obtainiumGain = Math.pow(G.obtainiumGain, 1/4)
-  }
-  if (player.usedCorruptions[5] >= 16) {
-    G.obtainiumGain = Math.pow(G.obtainiumGain, 1/3)
-  }
-
-  G.obtainiumGain = Math.max(1 + player.singularityCount, G.obtainiumGain)
   if (player.currentChallenge.ascension === 14) {
-    G.obtainiumGain = 0
+    logGain = -100000
   }
-  player.obtainiumpersecond = Math.min(1e300, G.obtainiumGain) / (0.1 + player.reincarnationcounter)
+
+  let toGain = 0
+  if (logGain < -300) { // 1e-300 is basically 0.
+    toGain = 0
+  } else {
+    toGain = Math.pow(10, Math.min(300, logGain))
+  }
+
+  return {
+    toGain: Math.floor(toGain),
+    log10: logGain
+  }
+}
+
+export const updateObtainiumGain = () => {
+  const valUpdate = calculateObtainium(true).toGain
+  G.obtainiumGain = valUpdate
+  const singPenalty = calculateSingularityDebuff('Global Speed')
+  player.obtainiumpersecond = G.obtainiumGain / Math.max(singPenalty, player.reincarnationcounter)
   player.maxobtainiumpersecond = Math.max(player.maxobtainiumpersecond, player.obtainiumpersecond)
 }
 
@@ -902,7 +932,7 @@ export const calculateOffline = async (forceTime = 0) => {
   player.offlinetick = (player.offlinetick < 1.5e12) ? (Date.now()) : player.offlinetick
 
   G.timeMultiplier = calculateTimeAcceleration().mult
-  calculateObtainium()
+  updateObtainiumGain()
   const obtainiumGain = calculateAutomaticObtainium()
 
   const resetAdd = {
@@ -939,7 +969,7 @@ export const calculateOffline = async (forceTime = 0) => {
   //200 simulated all ticks [July 12, 2021]
   const runOffline = setInterval(() => {
     G.timeMultiplier = calculateTimeAcceleration().mult
-    calculateObtainium()
+    updateObtainiumGain()
 
     //Reset Stuff lmao!
     addTimers('prestige', timeTick)
@@ -1018,7 +1048,7 @@ export const calculateOffline = async (forceTime = 0) => {
   await saveSynergy()
 
   updateTalismanInventory()
-  calculateObtainium()
+  updateObtainiumGain()
   calculateAnts()
   calculateRuneLevels()
 
@@ -1097,7 +1127,7 @@ export const calculateCubeBlessings = () => {
   }
   calculateRuneLevels()
   calculateAntSacrificeELO()
-  calculateObtainium()
+  updateObtainiumGain()
 }
 
 export const calculateTotalOcteractCubeBonus = () => {

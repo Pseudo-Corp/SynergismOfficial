@@ -1,7 +1,7 @@
 import { player, format, formatTimeShort } from './Synergism'
 import { Globals as G } from './Variables'
 import { hepteractEffective } from './Hepteracts'
-import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTimeAcceleration, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus, calculateAscensionSpeedMultiplier, calculateGoldenQuarkMultiplier, calculateAmbrosiaQuarkMult } from './Calculate'
+import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTimeAcceleration, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus, calculateAscensionSpeedMultiplier, calculateGoldenQuarkMultiplier, calculateAmbrosiaQuarkMult, calculateObtainium } from './Calculate'
 import { challenge15ScoreMultiplier } from './Challenges'
 import type { GlobalVariables } from './types/Synergism'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -13,6 +13,7 @@ const associated = new Map<string, string>([
   ['kFreeAccel', 'acceleratorStats'],
   ['kFreeMult', 'multiplierStats'],
   ['kOfferingMult', 'offeringMultiplierStats'],
+  ['kObtainiumMult', 'obtainiumMultiplierStats'],
   ['kGlobalCubeMult', 'globalCubeMultiplierStats'],
   ['kQuarkMult', 'globalQuarkMultiplierStats'],
   ['kGSpeedMult', 'globalSpeedMultiplierStats'],
@@ -60,6 +61,9 @@ export const loadStatisticsUpdate = () => {
         break
       case 'offeringMultiplierStats':
         loadStatisticsOfferingMultipliers()
+        break
+      case 'obtainiumMultiplierStats':
+        loadStatisticsObtainiumMultipliers()
         break
       case 'globalQuarkMultiplierStats':
         loadQuarkMultiplier()
@@ -435,15 +439,16 @@ export const loadStatisticsOfferingMultipliers = () => {
     28: { acc: 3, desc: 'Citadel [GQ]:' },
     29: { acc: 3, desc: 'Citadel 2 [GQ]:' },
     30: { acc: 3, desc: 'Cube Upgrade Cx4:' },
-    31: { acc: 3, desc: 'Offering Electrolosis [OC]:' },
-    32: { acc: 3, desc: 'Event Clickable:' },
-    33: { acc: 3, desc: 'Singularity Debuff Modifier:' },
-    34: { acc: 3, desc: 'Cube Upgrade Cx12:' },
-    35: { acc: 3, desc: 'Cash Grab II:' },
-    36: { acc: 3, desc: 'Offering EX II:' },
-    37: { acc: 3, desc: 'Offering EX III:' },
-    38: { acc: 3, desc: 'Octeract Bonus [Exalt IV]:' },
-    39: { acc: 3, desc: 'Event:' }
+    31: { acc: 3, desc: 'Cube Upgrade Cx22:' },
+    32: { acc: 3, desc: 'Offering Electrolosis [OC]:' },
+    33: { acc: 3, desc: 'Event Clickable:' },
+    34: { acc: 3, desc: 'Singularity Debuff Modifier:' },
+    35: { acc: 3, desc: 'Cube Upgrade Cx12:' },
+    36: { acc: 3, desc: 'Cash Grab II:' },
+    37: { acc: 3, desc: 'Offering EX II:' },
+    38: { acc: 3, desc: 'Offering EX III:' },
+    39: { acc: 3, desc: 'Octeract Bonus [Exalt IV]:' },
+    40: { acc: 3, desc: 'Event:' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`)
@@ -452,6 +457,72 @@ export const loadStatisticsOfferingMultipliers = () => {
   }
   const offeringMeta = calculateOfferings('statistic', true)
   DOMCacheGetOrSet('sOffT').textContent = ` x${format(offeringMeta.toGain, 3)} [Uncut Exponent: ${format(offeringMeta.log10, 2, true)}]`
+}
+
+export const loadStatisticsObtainiumMultipliers = () => {
+  const arr = calculateObtainium(false)
+  const map: Record<number, { acc: number, desc: string, symbol?: 'x' | '^'}> = {
+    1: { acc: 3, desc: 'Base Gain on Reincarnation' },
+    2: { acc: 3, desc: 'Reincarnation Timer Modification I' },
+    3: { acc: 3, desc: 'Reincarnation Timer Modification II' },
+    4: { acc: 3, desc: 'Particle Upgrade 9 (2x4)' },
+    5: { acc: 3, desc: 'Particle Upgrade 12 (3x2)' },
+    6: { acc: 3, desc: 'Particle Upgrade 14 (3x4)' },
+    7: { acc: 3, desc: 'Research 3x15' },
+    8: { acc: 3, desc: 'Research 4x1' },
+    9: { acc: 3, desc: 'Research 4x6' },
+    10: { acc: 3, desc: 'Shop: Autospend Obtainium Bonus' },
+    11: { acc: 3, desc: 'Obtainium EX I' },
+    12: { acc: 3, desc: 'Cash Grab I' },
+    13: { acc: 3, desc: 'Scientia Formicidae' },
+    14: { acc: 3, desc: 'Superior Intellect Rune' },
+    15: { acc: 3, desc: 'Achievement 53 [Multidimensional Creation]' },
+    16: { acc: 3, desc: 'Achievement 128 [A Costly Mistake]' },
+    17: { acc: 3, desc: 'Achievement 129 [Impetus]' },
+    18: { acc: 3, desc: 'Achievements 84,91,...,147' },
+    19: { acc: 3, desc: 'Achievment 188 [Give Me...]' },
+    20: { acc: 3, desc: 'Achievement 250 [A Thousand Suns]' },
+    21: { acc: 3, desc: 'Achievement 251 [A Thousand Moons]' },
+    22: { acc: 3, desc: 'Athena\'s Tribue' },
+    23: { acc: 3, desc: '4th Constant Upgrade' },
+    24: { acc: 3, desc: 'Cube Upgrade 1x3' },
+    25: { acc: 3, desc: 'Cube Upgrade 5x7' },
+    26: { acc: 3, desc: 'Cube Upgrade 5x10' },
+    27: { acc: 3, desc: 'Challenge 12 Reward' },
+    28: { acc: 3, desc: '4th Spirit' },
+    29: { acc: 3, desc: 'Research 6x19' },
+    30: { acc: 3, desc: 'Scientific Illiteracy Corruption Exponent', symbol: '^' },
+    31: { acc: 3, desc: 'Cube Upgrade 5x2' },
+    32: { acc: 3, desc: 'Challenge 15 Obtainium Reward' },
+    33: { acc: 3, desc: 'Platonic ALPHA [1x5]' },
+    34: { acc: 3, desc: 'Platonic 2x4' },
+    35: { acc: 3, desc: 'Platonic BETA [2x5]' },
+    36: { acc: 3, desc: 'Platonic OMEGA [3x5]' },
+    37: { acc: 3, desc: 'Singularity Debuff Modification' },
+    38: { acc: 3, desc: 'GQ: Starter Pack' },
+    39: { acc: 3, desc: 'GQ: Obtainium Wave' },
+    40: { acc: 3, desc: 'GQ: Obtainium Flood' },
+    41: { acc: 3, desc: 'GQ: Obtainium Tsunami' },
+    42: { acc: 3, desc: 'GQ: Citadel of Singularity' },
+    43: { acc: 3, desc: 'GQ: Citadel of \'Singularity\': The Real Edition' },
+    44: { acc: 3, desc: 'Cube Upgrade 6x5 [Cx5]' },
+    45: { acc: 3, desc: 'Cube Upgrade 8x1 [Cx21]' },
+    46: { acc: 3, desc: 'Obtainium EX II' },
+    47: { acc: 3, desc: 'Cash Grab II' },
+    48: { acc: 3, desc: 'Obtainium EX III' },
+    49: { acc: 3, desc: 'Octeract Obtainium Bonus [Exalt IV]' },
+    50: { acc: 3, desc: 'Event Clickable!' },
+    51: { acc: 3, desc: 'Event Bonus!' },
+    52: { acc: 3, desc: 'Sci. Ill. 14+ SUPER CORRUPT EXPONENT', symbol: '^' }
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    const statOffi = DOMCacheGetOrSet(`statObt${i + 1}`)
+    statOffi.childNodes[0].textContent = map[i + 1].desc
+    DOMCacheGetOrSet(`sObt${i + 1}`).textContent = `${map[i+1].symbol ?? 'x'}${format(arr[i], map[i + 1].acc, true)}`
+  }
+  const obtainiumMeta = calculateObtainium(true)
+  DOMCacheGetOrSet('sObtT').textContent = ` x${format(obtainiumMeta.toGain, 3)} [Uncut Exponent: ${format(obtainiumMeta.log10, 2, true)}]`
 }
 
 export const loadPowderMultiplier = () => {
@@ -618,7 +689,8 @@ export const loadStatisticsAmbrosiaLuck = () => {
     7: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
     8: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
     9: { acc: 0, desc: 'Cookie Upgrade 3x7' },
-    10: { acc: 1, desc: 'Event Bonus' }
+    10: { acc: 0, desc: 'EXALT V - Staggered Cubes' },
+    11: { acc: 1, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -639,7 +711,8 @@ export const loadStatisticsAmbrosiaGeneration = () => {
     4: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
     5: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
     6: { acc: 4, desc: 'Patreon Bonus' },
-    7: { acc: 4, desc: 'Event Bonus' }
+    7: { acc: 4, desc: 'EXALT V - Staggered Cubes' },
+    8: { acc: 4, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)
@@ -652,7 +725,9 @@ export const loadStatisticsAmbrosiaGeneration = () => {
 }
 
 export const c15RewardUpdate = () => {
-  const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18]
+  const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8,
+    5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18,
+    1e50, 1e75, 1e75, 1e87, 1e95, 1e100, 1e105, 1e108, 1e110, 1e111]
     type Key = keyof GlobalVariables['challenge15Rewards']
     const keys = Object.keys(G.challenge15Rewards) as Key[]
     const e = player.challenge15Exponent
@@ -798,14 +873,55 @@ export const c15RewardUpdate = () => {
       void player.hepteractCrafts.multiplier.unlock('the Hepteract of Way Too Many Multipliers')
     }
     if (e >= exponentRequirements[33]) {
-      // FREE Daily Orbs
+      // FREE Daily Orbs [2e17]
       G.challenge15Rewards.freeOrbs = Math.floor(200 * Math.pow(e / 2e17, 0.5))
     }
     if (e >= exponentRequirements[34]) {
-      // Ascension Speed
+      // Ascension Speed [1.5e18]
       G.challenge15Rewards.ascensionSpeed = 1 + 5/100 + 2 * Math.log2(e / 1.5e18) / 100
     }
-
+    if (player.cubeUpgrades[75] > 0) { // Cookie Upgrade 25
+      if (e >= exponentRequirements[35]) {
+        // Golden Quarks!!! [1e50]
+        G.challenge15Rewards.goldenQuarkGain = 1 + 0.075 + 1/200 * Math.log10(e / 1e50)
+      }
+      if (e >= exponentRequirements[36]) {
+        // More Obtainium [1e75]
+        G.challenge15Rewards.obtainium2 = 2 * e / 1e75
+      }
+      if (e >= exponentRequirements[37]) {
+        // More Offerings [1e75]
+        G.challenge15Rewards.offering2 = 2 * Math.pow(e / 1e75, 2 / 3)
+      }
+      if (e >= exponentRequirements[38]) {
+        // Cube 6!!!!! [1e87]
+        G.challenge15Rewards.cube6 = 1 + 0.125 + 0.125 * Math.log10(e / 1e87)
+      }
+      if (e >= exponentRequirements[39]) {
+        // Octeract [1e95]
+        G.challenge15Rewards.octeract = 1 + 0.4 + 0.2 * Math.log10(e / 1e95)
+      }
+      if (e >= exponentRequirements[40]) {
+        // Ambrosia Luck! [1e100]
+        G.challenge15Rewards.ambrosiaLuck = 25 + 10 * Math.log10(e / 1e100)
+      }
+      if (e >= exponentRequirements[41]) {
+        // Ambrosia Generation Threshold Reduction!!! [1e105]
+        G.challenge15Rewards.thresholdReduction = Math.min(0.10, 0.02 + 0.01 * Math.log10(e / 1e105))
+      }
+      if (e >= exponentRequirements[42]) {
+        // Quarks II [1e108]
+        G.challenge15Rewards.quarks2 = Math.min(1.5, 1 + 0.05 + 0.05 * Math.log10(e / 1e108))
+      }
+      if (e >= exponentRequirements[43]) {
+        // Quark Hept DR [1e110]
+        G.challenge15Rewards.quarkHeptDR = 0.01
+      }
+      if (e >= exponentRequirements[44]) {
+        // Free Ambrosia Level
+        G.challenge15Rewards.freeAmbrosiaLevel = 1
+      }
+    }
 
     updateDisplayC15Rewards()
 }
@@ -813,7 +929,9 @@ export const c15RewardUpdate = () => {
 const updateDisplayC15Rewards = () => {
   DOMCacheGetOrSet('c15Reward0Num').textContent = format(player.challenge15Exponent, 3, true)
   DOMCacheGetOrSet('c15RequiredExponentNum').textContent = format(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()), 0, true)
-  const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18]
+  const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8,
+    5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18,
+    1e50, 1e75, 1e75, 1e87, 1e95, 1e100, 1e105, 1e108, 1e110, 1e111]
   const isNum: Record<number, boolean> = { // Shit solution to a shit problem -Platonic
     0: true,
     1: true,
@@ -849,16 +967,33 @@ const updateDisplayC15Rewards = () => {
     31: false,
     32: false,
     33: true,
-    34: true
+    34: true,
+    35: true,
+    36: true,
+    37: true,
+    38: true,
+    39: true,
+    40: true,
+    41: true,
+    42: true,
+    43: true,
+    44: true
   }
   const values = Object.values(G.challenge15Rewards)
   let keepExponent: string | number = 'None'
   let skip = 0
+  const hasCookie = (player.cubeUpgrades[75] > 0)
   for (let i = 0; i < exponentRequirements.length; i++) {
-    if (keepExponent === 'None' && player.challenge15Exponent < exponentRequirements[i]) {
+    const requiresCookie5 = (i >= 34)
+    if (keepExponent === 'None' && (player.challenge15Exponent < exponentRequirements[i])
+    // I'm pretty sure this is a TS bug WTF: Unnecessary conditional, value is always truthy (it's not)
+    //eslint-disable-next-line
+        && ((!requiresCookie5) || (hasCookie && requiresCookie5))) {
       keepExponent = exponentRequirements[i]
     }
-    if (player.challenge15Exponent >= exponentRequirements[i]) {
+    if (player.challenge15Exponent >= exponentRequirements[i]
+    //eslint-disable-next-line
+       && ((!requiresCookie5) || (hasCookie && requiresCookie5))) {
       DOMCacheGetOrSet(`c15Reward${i + 1}Num`).textContent = (isNum[i]) ?
         format(100 * values[i - skip] - 100, 2, true):
         'Unlocked!'
@@ -867,12 +1002,14 @@ const updateDisplayC15Rewards = () => {
         skip += 1
       }
 
-      if (i === 33) {
-        DOMCacheGetOrSet('c15Reward34Num').textContent = format(values[i - skip], 0, true)
+      if (i === 33 || i === 40 || i === 41 || i === 43 || i === 44) {
+        DOMCacheGetOrSet(`c15Reward${i+1}Num`).textContent = format(values[i - skip], 2, true)
       }
     }
 
-    DOMCacheGetOrSet(`c15Reward${i + 1}`).style.display = (player.challenge15Exponent >= exponentRequirements[i])? 'block': 'none'
+    DOMCacheGetOrSet(`c15Reward${i + 1}`).style.display = (player.challenge15Exponent >= exponentRequirements[i]
+      //eslint-disable-next-line
+      && ((!requiresCookie5) || (hasCookie && requiresCookie5)))? 'block': 'none'
     DOMCacheGetOrSet('c15RewardList').textContent = typeof keepExponent  === 'string'
       ? 'You have unlocked all reward types from Challenge 15!'
       : 'Next reward type requires ' + format(keepExponent, 0, true) + ' exponent.'
