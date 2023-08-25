@@ -58,27 +58,27 @@ const events: Record<string, HolidayData> = {
   },
   // Last active event
   last: {
-    name: 'MIT 2023 Graduation Reception',
+    name: 'Patreon Compensation I',
     color: '#a31f34',
-    url: 'https://youtu.be/1isq6KySUe8?t=34',
+    url: 'https://www.youtube.com/watch?v=_vD5SWzM41c',
     everyYear: false,
-    start: '06/01/2023 00:00:00',
-    end: '06/23/2023 20:00:00',
+    start: '08/25/2023 00:00:00',
+    end: '08/27/2023 23:59:59',
     notice: 20,
     event: true,
     buffs: {
-      quark: 0.4,
-      globalSpeed: 0.3,
-      ascensionSpeed: 0.4,
+      quark: 0.25,
+      globalSpeed: 0,
+      ascensionSpeed: 0,
       antSacrifice: 0,
       offering: 0,
       obtainium: 0,
       octeract: 0,
       powderConversion: 0,
       goldenQuark: 0,
-      blueberryTime: 0.3,
-      ambrosiaLuck: 3,
-      oneMind: 0.02023
+      blueberryTime: 0.25,
+      ambrosiaLuck: 1,
+      oneMind: 0.05
     }
   },
   khafra: {
