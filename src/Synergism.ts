@@ -976,6 +976,7 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
       return false
     }
 
+    localStorage.setItem('Synergysave2', save)
     await localforage.setItem<Blob>('Synergysave2', saveBlob)
   } else {
     await Alert(i18next.t('testing.errorSaving'))
@@ -4211,6 +4212,7 @@ export const reloadShit = async (reset = false) => {
 
       localStorage.clear()
       const blob = new Blob([saveString], { type: 'text/plain' })
+      localStorage.setItem('Synergysave2', saveString)
       await localforage.setItem<Blob>('Synergysave2', blob)
       await Alert(i18next.t('main.transferredFromLZ'))
     }

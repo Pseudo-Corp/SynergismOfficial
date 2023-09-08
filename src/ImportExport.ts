@@ -289,6 +289,7 @@ export const importSynergism = async (input: string | null, reset = false) => {
 
     saveCheck.canSave = false
     const item = new Blob([saveString], { type: 'text/plain' })
+    localStorage.setItem('Synergysave2', saveString)
     await localforage.setItem<Blob>('Synergysave2', item)
 
     localStorage.setItem('saveScumIsCheating', Date.now().toString())
