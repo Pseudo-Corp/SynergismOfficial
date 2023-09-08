@@ -176,8 +176,11 @@ export const exportData = async (text: string, fileName: string) => {
   setTimeout(() => DOMCacheGetOrSet('exportinfo').textContent = '', 15_000)
 }
 
-export const exportSynergism = async () => {
-  player.lastExportedSave = Date.now()
+export const exportSynergism = async (shouldSetLastSaveSoWeStopFuckingBotheringPeople = true) => {
+  if (shouldSetLastSaveSoWeStopFuckingBotheringPeople) {
+    player.lastExportedSave = Date.now()
+  }
+
   player.offlinetick = Date.now()
   const quarkData = quarkHandler()
 
