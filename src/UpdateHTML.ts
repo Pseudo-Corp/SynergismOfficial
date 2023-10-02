@@ -841,7 +841,7 @@ export const buttoncolorchange = () => {
         : DOMCacheGetOrSet(`buyTesseracts${i}`).classList.remove('buildingPurchaseBtnAvailable')
     }
     for (let i = 1; i <= 8; i++) {
-      if (player.researches[190] >= 1) {
+      if (player.researches[175] >= 1) {
         DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
         DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAuto')
       } else {
@@ -853,7 +853,7 @@ export const buttoncolorchange = () => {
     }
 
     for (let i = 9; i <= 10; i++) {
-      if (player.researches[190] >= 1 || player.constantUpgrades[i]! >= 1) {
+      if (player.researches[175] >= 1 || player.constantUpgrades[i]! >= 1) {
         DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.remove('constUpgradeAvailable')
         DOMCacheGetOrSet(`buyConstantUpgrade${i}`).classList.add('constUpgradeAuto')
       } else {
