@@ -289,6 +289,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     if (player.reincarnationcounter >= 5) {
       a *= Math.max(1, player.reincarnationcounter / 10)
     }
+    a = Math.max(a, 3)
 
   }
   if (input === 'transcension' || input === 'transcensionChallenge' || input === 'reincarnation' ||
@@ -311,6 +312,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     if (player.transcendCount >= 5) {
       b *= Math.max(1, player.transcendcounter / 10)
     }
+    b = Math.max(b, 2)
   }
   // This will always be calculated if '0' is not already returned
   c += 1
@@ -334,6 +336,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
   if (player.prestigeCount >= 5) {
     c *= Math.max(1, player.prestigecounter / 10)
   }
+  c = Math.max(c, 1)
   q = a + b + c
 
   const arr = [
