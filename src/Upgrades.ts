@@ -404,7 +404,9 @@ export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
 export const constantUpgradeDescriptions = (i: number) => {
   const [level, cost] = getConstUpgradeMetadata(i)
   DOMCacheGetOrSet('constUpgradeDescription').textContent = returnConstUpgDesc(i)
-  DOMCacheGetOrSet('constUpgradeLevel2').textContent = format(player.constantUpgrades[i])
+  if (i >= 9) {
+    DOMCacheGetOrSet('constUpgradeLevel2').textContent = format(Math.min(1, player.constantUpgrades[i]!)) + '/1'
+  } else DOMCacheGetOrSet('constUpgradeLevel2').textContent = format(player.constantUpgrades[i])
   DOMCacheGetOrSet('constUpgradeCost2').textContent = format(cost) + ' [+' + format(level) + ' LVL]'
   DOMCacheGetOrSet('constUpgradeEffect2').textContent = returnConstUpgEffect(i)
 }
