@@ -285,7 +285,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     }
     a += 1 / 200 * G.rune5level * G.effectiveLevelMult * (1 + player.researches[85] / 200)
     a *= (1 + Math.pow(Decimal.log(player.reincarnationShards.add(1), 10), 2 / 3) / 4)
-    a *= Math.max(Math.min(Math.pow(player.reincarnationcounter / 10, 2), 1), 1e-14)
+    a *= Math.min(Math.pow(player.reincarnationcounter / 10, 2), 1)
     if (player.reincarnationcounter >= 5) {
       a *= Math.max(1, player.reincarnationcounter / 10)
     }
@@ -307,7 +307,7 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
     b += 1 / 200 * G.rune5level * G.effectiveLevelMult * (1 + player.researches[85] / 200)
     b *= (1 + Math.pow(Decimal.log(player.transcendShards.add(1), 10), 1 / 2) / 5)
     b *= (1 + CalcECC('reincarnation', player.challengecompletions[8]) / 25)
-    b *= Math.max(Math.min(Math.pow(player.transcendcounter / 10, 2), 1), 1e-14)
+    b *= Math.min(Math.pow(player.transcendcounter / 10, 2), 1)
     if (player.transcendCount >= 5) {
       b *= Math.max(1, player.transcendcounter / 10)
     }
@@ -330,11 +330,11 @@ export function calculateOfferings(input: resetNames, calcMult = true, statistic
   c += 1 / 200 * G.rune5level * G.effectiveLevelMult * (1 + player.researches[85] / 200)
   c *= (1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5)
   c *= (1 + CalcECC('reincarnation', player.challengecompletions[6]) / 50)
-  c *= Math.max(Math.min(Math.pow(player.prestigecounter / 10, 2), 1), 1e-14)
+  c *= Math.min(Math.pow(player.prestigecounter / 10, 2), 1)
   if (player.prestigeCount >= 5) {
     c *= Math.max(1, player.prestigecounter / 10)
   }
-  q = a + b + c
+  q = Math.max(a + b + c, 1)
 
   const arr = [
     1 + 10 * player.achievements[33] / 100, // Alchemy Achievement 5
