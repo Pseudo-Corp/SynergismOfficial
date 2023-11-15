@@ -1608,9 +1608,14 @@ export const calculateAscensionSpeedMultiplier = () => {
   // Singularity Penalty
   arr.push(1 / calculateSingularityDebuff('Ascension Speed'))
 
+  let multiplier = productContents(arr)
+  if (!isFinite(multiplier)) {
+    multiplier = 0
+  }
+
   return {
     list: arr,
-    mult: productContents(arr)
+    mult: multiplier
   }
 }
 
@@ -2070,11 +2075,11 @@ export const CalcCorruptionStuff = () => {
     Math.floor(baseScore),
     corruptionMultiplier,
     Math.floor(effectiveScore),
-    Math.floor(cubeGain),
-    Math.max(player.singularityCount, Math.floor(tesseractGain)),
-    Math.floor(hypercubeGain),
-    Math.floor(platonicGain),
-    Math.floor(hepteractGain),
+    Math.min(1e300, Math.floor(cubeGain)),
+    Math.min(1e300, Math.max(player.singularityCount, Math.floor(tesseractGain))),
+    Math.min(1e300, Math.floor(hypercubeGain)),
+    Math.min(1e300, Math.floor(platonicGain)),
+    Math.min(1e300, Math.floor(hepteractGain)),
     bonusMultiplier
   ]
 }

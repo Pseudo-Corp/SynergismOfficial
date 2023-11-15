@@ -746,7 +746,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
                              player.singularityUpgrades[k].costPerLevel / 2
         if (player.singularityUpgrades[k].maxLevel !== -1 &&
                     player.singularityUpgrades[k].level <= player.singularityUpgrades[k].maxLevel &&
-                    player.singularityUpgrades[k].goldenQuarksInvested !== cost &&
+                    player.singularityUpgrades[k].goldenQuarksInvested.toExponential(10) !== cost.toExponential(10) &&
                     player.singularityUpgrades[k].specialCostForm === 'Default') {
           player.singularityUpgrades[k].refund()
         }

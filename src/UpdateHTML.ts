@@ -953,7 +953,11 @@ export const showCorruptionStatsLoadouts = () => {
 }
 
 const updateAscensionStats = () => {
-  const t = player.ascensionCounter
+  let t = player.ascensionCounter
+  // Division by 0 is not defined
+  if (t === 0) {
+    t = 1
+  }
   const [cubes, tess, hyper, platonic, hepteract] = CalcCorruptionStuff().slice(4)
   const addedAsterisk = (player.singularityUpgrades.oneMind.getEffect().bonus)
   const fillers: Record<string, string> = {
