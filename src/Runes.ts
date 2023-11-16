@@ -161,7 +161,9 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
         }
       }
     }
-    displayRuneInformation(runeIndexPlusOne)
+    if (!auto) {
+      displayRuneInformation(runeIndexPlusOne)
+    }
   }
   calculateRuneLevels()
   if (player.runeshards < 0 || !player.runeshards) {
