@@ -58,27 +58,27 @@ const events: Record<string, HolidayData> = {
   },
   // Last active event
   last: {
-    name: 'Patreon Compensation I',
+    name: 'Derpsgiving 2023 I',
     color: '#a31f34',
     url: 'https://www.youtube.com/watch?v=_vD5SWzM41c',
     everyYear: false,
-    start: '08/25/2023 00:00:00',
-    end: '08/27/2023 23:59:59',
+    start: '12/02/2023 00:00:00',
+    end: '12/05/2023 23:59:59',
     notice: 20,
     event: true,
     buffs: {
-      quark: 0.25,
-      globalSpeed: 0,
-      ascensionSpeed: 0,
-      antSacrifice: 0,
-      offering: 0,
-      obtainium: 0,
-      octeract: 0,
-      powderConversion: 0,
-      goldenQuark: 0,
+      quark: 0.30,
+      globalSpeed: 0.30,
+      ascensionSpeed: 0.30,
+      antSacrifice: 0.30,
+      offering: 0.30,
+      obtainium: 0.30,
+      octeract: 0.30,
+      powderConversion: 0.30,
+      goldenQuark: 0.30,
       blueberryTime: 0.25,
       ambrosiaLuck: 1,
-      oneMind: 0.05
+      oneMind: 0.03
     }
   },
   khafra: {
