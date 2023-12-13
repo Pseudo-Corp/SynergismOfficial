@@ -1,4 +1,4 @@
-export const version = '3.0.0 pt 3: December 1, 2023: Derpsgiving! I'
+export const version = '3.0.0 pt 3: December 13, 2023: Quarks'
 
 
 /**

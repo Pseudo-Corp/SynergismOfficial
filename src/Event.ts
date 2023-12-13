@@ -58,27 +58,27 @@ const events: Record<string, HolidayData> = {
   },
   // Last active event
   last: {
-    name: 'Derpsgiving 2023 I',
+    name: 'Quarkstravaganza 2023',
     color: '#a31f34',
-    url: 'https://www.youtube.com/watch?v=_vD5SWzM41c',
+    url: 'https://www.youtube.com/watch?v=eVH5DABrBQ0',
     everyYear: false,
-    start: '12/02/2023 00:00:00',
-    end: '12/05/2023 23:59:59',
+    start: '12/14/2023 00:00:00',
+    end: '12/17/2023 23:59:59',
     notice: 20,
     event: true,
     buffs: {
-      quark: 0.30,
-      globalSpeed: 0.30,
-      ascensionSpeed: 0.30,
-      antSacrifice: 0.30,
-      offering: 0.30,
-      obtainium: 0.30,
-      octeract: 0.30,
-      powderConversion: 0.30,
-      goldenQuark: 0.30,
-      blueberryTime: 0.25,
-      ambrosiaLuck: 1,
-      oneMind: 0.03
+      quark: 2,
+      globalSpeed: 0,
+      ascensionSpeed: 0,
+      antSacrifice: 0,
+      offering: 0,
+      obtainium: 0,
+      octeract: 0,
+      powderConversion: 0,
+      goldenQuark: 0,
+      blueberryTime: 0,
+      ambrosiaLuck: 0,
+      oneMind: 0.02
     }
   },
   khafra: {
