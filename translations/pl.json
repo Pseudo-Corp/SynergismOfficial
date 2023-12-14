@@ -12,7 +12,7 @@
   "ambrosia": {
     "ambrosia": "Ambrozja",
     "amount": "Masz <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrozji!",
-    "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
+    "blueberryGeneration": "Na sekundę, zyskaj <<var(--amber-text-color)|{{chance}}>> sekundy czasu borówki.",
     "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
     "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
