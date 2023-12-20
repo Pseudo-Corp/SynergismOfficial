@@ -1529,22 +1529,8 @@
       "hepteractAutocraft": "Hepteract Autocraft will be unlocked",
       "generousOrbs": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%",
       "researchDummies": {
-        "hasLevel1": "You permanently keep Auto Research.",
-        "otherwise": "You can Research using Hover to Buy."
-      },
-      "eternalAscensions": {
-        "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
-        "default": "Your ascension count is multipled based on your Singularity count! Currently: x{{amount}}"
-      },
-      "antGodsCornucopia": {
-        "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
-        "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
-        "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
-        "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
-      },
-      "sweepomatic":{
-        "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
-        "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
+        "hasLevel1": "You permanently keep Auto Research",
+        "otherwise": "You can Research using Hover to Buy"
       },
       "eternalAscensions": {
         "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",

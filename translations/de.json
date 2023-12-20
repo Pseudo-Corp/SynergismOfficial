@@ -78,12 +78,12 @@
       },
       "ambrosiaQuarks2": {
         "name": "Ambrosia Quark Module II",
-        "description": "Self-Synergies! Gain +1% Quarks per level, +0.1% for every 10 levels in Ambrosia Quark Module I.",
+        "description": "Selbst-Synergien! Erhalten Sie +1% Quarks pro Level, +0,1% für alle 10 Stufen in Ambrosia Quark Module I.",
         "effect": "Dieses Quark-Modul der zweiten Generation erhöht den Quark-Gewinn um {{amount}}%"
       },
       "ambrosiaCubes2": {
         "name": "Ambrosia Würfel-Module II",
-        "description": "Self-Synergies! Gain +6% cubes / lvl , +0.6% for every 10 levels in Ambrosia Cube Module I. Every 10 levels gives 1.13x cubes.",
+        "description": "Selbst-Synergien! Erhalten Sie +6% Würfel / Lvl , +0,6% für alle 10 Stufen in Ambrosia Cube Modul I. Alle 10 Stufen geben 1.13x Würfel.",
         "effect": "Dieses Würfel-Modul der zweiten Generation erhöht den Würfel-Gewinn um {{amount}}%"
       },
       "ambrosiaLuck2": {
@@ -94,7 +94,7 @@
       "ambrosiaPatreon": {
         "name": "Shameless, Ambrosial Patreon Reminder",
         "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
-        "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
+        "effect": "Großzügige Patreon Unterstützer gewähren dir {{amount}}% mehr Blueberry Time Generation. Wenn du noch nicht bereits bist, erwäge dich als Patreon Unterstützer zu werden, um die Entwicklung zu unterstützen!"
       }
     },
     "loadouts": {
@@ -571,8 +571,8 @@
   "reset": {
     "details": {
       "prestige": "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: {{amount}}/1e16 Coins || TIME SPENT: {{timeSpent}} Seconds.",
-      "transcension": "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: {{amount}}/1e100 Coins || TIME SPENT: {{timeSpent}} Seconds.",
-      "reincarnation": "Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: {{amount}}/1e300 Mythos Shards || TIME SPENT: {{timeSpent}} Seconds.",
+      "transcension": "Setzt alle Münzen und Diamanten Verbesserungen, Kristall Verbesserungen & Hersteller zurück, für Mythos/Offerings. Erfordert: {{amount}}/1e100 Münzen || VERBRACHTE ZEIT: {{timeSpent}}.",
+      "reincarnation": "Setze ALLE vorherigen Reset-Stufen zurück, aber du erhältst Partikel, Obtainium und Offerings! Erfordert: {{amount}}/1e300 Mythos Scherben || VERBRACHTE ZEIT: {{timeSpent}} Sekunden.",
       "acceleratorBoost": "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: {{amount}}/{{required}} Diamonds.",
       "transcensionChallenge": {
         "in": "Are you tired of being in your Challenge or stuck? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
@@ -583,11 +583,11 @@
           "coins": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
           "transcendShards": "Are you done or tired of being in your Challenge? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Mythos Shards. TIME SPENT: {{timeSpent}} Seconds."
         },
-        "out": "You're not in a Reincarnation Challenge right now. How could you leave what you are not in?"
+        "out": "Du bist momentan in keiner Wiedergeburt-Challenge. Wie möchtest du willst du das verlassen, wo du nicht bist?"
       },
-      "ascensionChallenge": "Click this if you're in an Ascension Challenge and want to leave. You get it already!",
-      "ascension": "Ascend, C-10 is required! +{{cubeAmount}} Wow! Cubes for doing it! Time: {{timeSpent}} Seconds. (Real-time {{realTimeSpent}} Seconds)",
-      "singularity": "Are you willing to give up your laurels for a greater Challenge? The Ant God bribes you with {{gqAmount}} Golden Quarks. Time: {{timeSpent}} Seconds."
+      "ascensionChallenge": "Klicke hier, wenn du in einer Ascension Challenge bist und diese verlassen möchtest. Du hast es bereits gekriegt!",
+      "ascension": "Aufstieg, C-10 ist erforderlich! +{{cubeAmount}} Wow! Würfel fürs Durchführen! Time: {{timeSpent}} Sekunden. (Reale Zeit {{realTimeSpent}} Sekunden)",
+      "singularity": "Bist du bereit, deine Lorbeeren für eine größere Herausforderung aufzugeben? Der Ameisen Gott bestecht dich mit {{gqAmount}} Goldenes Quarks. Zeit: {{timeSpent}} Sekunden."
     }
   },
   "ants": {
@@ -1518,7 +1518,7 @@
       "unlockedIn": "In Singularity {{sing}} schaltest du einen neuen Vorteil frei",
       "header": "Die höchste erreichte Singularität die du erreicht hast ist die <span style=\"color: gold\">{{ord}} Singularität.</span><br/>Hier ist eine List mit Boni die du gesammelt hast um die Strafen auszugleichen",
       "description": "(Fahre darüber für mehr Details. Boni in <span style=\"color: gold\">goldenem Text</span> wurden in dieser Singularität hinzugefügt oder verbessert)",
-      "welcometoSingularity": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!",
+      "welcometoSingularity": "Willkommen bei der Singularität! Eine Fähigkeit fürs erreichen: du kannst jetzt Hepteract automatisch herstellen (wenn du diese wieder freigeschaltet hast) und Platonic Verbesserungen werden alle bezahlbaren gekauft!",
       "unlimitedGrowth": "+10% mehr Quarks and Auftstiegswert für jede Singularität. Aktuell: +{{amount}}%",
       "goldenCoins": "Goldene Quarks in der Bank verbessern deine Münzproduktion. Besonders stark beim ersten Aufstieg je Singularität. Aktuell: x{{amount}}",
       "xyz": {
@@ -1533,14 +1533,14 @@
         "otherwise": "Du kannst nun Forschungen durch darüber fahren abschließen."
       },
       "eternalAscensions": {
-        "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
-        "default": "Your ascension count is multipled based on your Singularity count! Currently: x{{amount}}"
+        "hasLevel1": "Dein Aufstiegszähler ist multipliziert basierend auf deine Singularität und automatische Aufstiegsfunktion anhand von der realen Zeit freigeschaltet! Momentan: x{{amount}}",
+        "default": "Deine Aufstiegsanzahl wird aufgrund deiner Singularität multipliziert! Aktuell: x{{amount}}"
       },
       "antGodsCornucopia": {
-        "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
-        "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
-        "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
-        "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
+        "hasLevel3": "Ameisengeschwindigkeit hat nun eine 'unzerstörbare' x4,44 Multiplikator und eine wahre unzerstörbare x1e12 Multiplikator!",
+        "hasLevel2": "Ameisengeschwindigkeit hat nun eine 'unzerstörbare' x4,44 Multiplikator und eine wahre unzerstörbare x1e6 Multiplikator!",
+        "hasLevel1": "Ameisengeschwindigkeit hat nun eine 'unzerstörbare' x4,44 Multiplikator und eine wahre unzerstörbare x1000 Multiplikator!",
+        "default": "Ameisengeschwindigkeit hat nun permanent ein 'unzerstörbare' x4,44 Multiplikator."
       },
       "sweepomatic": {
         "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
@@ -1643,35 +1643,35 @@
       },
       "goldenQuarks3": {
         "name": "Goldene Quarks III",
-        "description": "If you buy this, you will gain Golden Quarks per hour from Exports. Leveling up gives (level) additional per hour!",
-        "effect": "Every hour, you gain {{n}} Golden Quarks from exporting."
+        "description": "Wenn du das kaufst, wirst du Goldenes Quark pro Stunde von Exports kriegen. Hochleveln gibt dir extra (level) pro Stunde!",
+        "effect": "Jede Stunde, kriegst du {{n}} Goldenes Quarks von Exports."
       },
       "starterPack": {
         "name": "Anfänger-Paket",
-        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources, post-corruption.",
-        "effectHave": "You have unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings.",
-        "effectHaveNot": "You have not unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings."
+        "description": "Kauf das! Kauf das! Würfel Gewinn ist permanent um 5 multipliziert, und 6x Gewinn bei Obtanium und Offerings von allen Quellen, nach Zerstörung.",
+        "effectHave": "Du hast ein 5x multiplizierer auf Würfel, und einen 6x multiplizierer auf Obtanium und Offerings freigeschaltet.",
+        "effectHaveNot": "Du hast den 5x Multiplikator für Würfel, und 6x Multiplikator für Obtainium und Offering noch nicht freigeschaltet."
       },
       "wowPass": {
         "name": "Markt Aktionsware",
         "description": "This upgrade will convince the seal merchant to sell you more cool stuff, which even persist on Singularity!",
-        "effectHave": "You have unlocked the Shop Bonanza.",
-        "effectHaveNot": "You have not unlocked the Shop Bonanza."
+        "effectHave": "Du hast den Shop-Bonanza freigeschaltet.",
+        "effectHaveNot": "Du hast den Shop-Bonanza noch nicht freigeschaltet."
       },
       "cookies": {
-        "name": "Cookie Recipes I",
-        "description": "For just a few Golden Quarks, re-open Wow! Bakery, adding five cookie-related Cube upgrades.",
-        "effectHave": "You have unlocked volume 1 of the recipe book.",
-        "effectHaveNot": "You have not unlocked volume 1 of the recipe book."
+        "name": "Keks-Rezepte I",
+        "description": "Für ein paar Goldene Quarks, eröffne Wow! Bäckerei, fügt fünf Keks relevante Würfel Upgrades hinzu.",
+        "effectHave": "Du hast Band 1 des Rezeptbuchs freigeschaltet.",
+        "effectHaveNot": "Du hast Band 1 des Rezeptbuchs noch nicht freigeschaltet."
       },
       "cookies2": {
-        "name": "Cookie Recipes II",
+        "name": "Keks-Rezepte II",
         "description": "Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related Cube upgrades.",
         "effectHave": "You have unlocked volume 2 of the recipe book.",
         "effectHaveNot": "You have not unlocked volume 2 of the recipe book."
       },
       "cookies3": {
-        "name": "Cookie Recipes III",
+        "name": "Keks-Rezepte III",
         "description": "Your Bakers threaten to quit without a higher pay. If you do pay them, they will bake even more fancy cookies.",
         "effectHave": "You have appeased the union of Bakers.",
         "effectHaveNot": "You have not appeased the union of Bakers."
@@ -1708,12 +1708,12 @@
       "singOfferings1": {
         "name": "Offering Charge",
         "description": "Upgrade this to get +2% Offerings per level, forever!",
-        "effect": "Permanently gain {{n}}% more Offerings."
+        "effect": "Erhalte permanent {{n}}% mehr Offerings."
       },
       "singOfferings2": {
-        "name": "Offering Storm",
+        "name": "Offering Sturm",
         "description": "Apparently, you can use this bar to attract more Offerings. +8% per level, to be precise.",
-        "effect": "Permanently gain {{n}}% more Offerings."
+        "effect": "Erhalte permanent {{n}}% mehr Offerings."
       },
       "singOfferings3": {
         "name": "Offering Tempest",
@@ -1761,15 +1761,15 @@
         "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
       },
       "octeractUnlock": {
-        "name": "Octeracts",
+        "name": "Okterakte",
         "description": "MOMENT MAL!!! Was willst du damit erreichen?!?",
-        "effectHave": "You have bought into the Octeract hype.",
+        "effectHave": "Du hast den Okterakt Hype gekauft.",
         "effectHaveNot": "You have not bought into the Octeract hype."
       },
       "singOcteractPatreonBonus": {
         "name": "Platonic $ells out!!!",
-        "description": "You know that Patreon bonus? Yeah, that's cool and all, but what if it also boosted Octeract production by the same amount?",
-        "effect": "Octeract production is {{n}}% faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists."
+        "description": "Du weißt vom Patreon-Bonus? Der ist ja auch cool und so, aber was wäre, wenn er auch die Okterakt-Produktion um den gleichen Betrag erhöhen würde?",
+        "effect": "Die Octerakt Produktion ist {{n}}% schneller für jede 10$ die Monatlich auf Patreon gespendet werden! Dasselbe gilt für den bereits bestehenden Quark-Bonus."
       },
       "offeringAutomatic": {
         "name": "Blueberry Shards! (WIP)",
@@ -1813,8 +1813,8 @@
         "effectHaveNot": "Sie haben das Liquidation Event nicht ausgelöst!"
       },
       "wowPass3": {
-        "name": "QUAAAACK",
-        "description": "QUAAAAAAAACK. The Merchant has gone crazy for your QUARKS!",
+        "name": "QUAAAAKK",
+        "description": "QUAAAAAAAAACK. Der Händler ist für deine QUARKS verrückt geworden!",
         "effectHave": "Sie haben die QUACKSTRAVAGANZA ausgelöst!!",
         "effectHaveNot": "Sie haben die QUACKSTRAVAGANZA nicht ausgelöst!!"
       },
@@ -1881,21 +1881,21 @@
       "singOcteractGain3": {
         "name": "The Obelisk Shaped like an Octagon.",
         "description": "Platonic had to reach pretty far here. +2.5% Octeracts yeah!",
-        "effect": "Octeract Gain +{{n}}%"
+        "effect": "Octeract Gewinn +{{n}}%"
       },
       "singOcteractGain4": {
         "name": "Octahedral Synthesis",
-        "description": "How does this even work!?? +2% Octeracts, you bet!",
-        "effect": "Octeract Gain +{{n}}%"
+        "description": "Wie funktioniert das!?? +2% Octeracts, unglaublich!",
+        "effect": "Octeract Gewinn +{{n}}%"
       },
       "singOcteractGain5": {
         "name": "Das achte Wunder der Welt",
         "description": "is the wonder of the world we live in. [+1% Octeracts. Platonic, this is so stingy! but, he does not care one bit.]",
-        "effect": "Octeract Gain +{{n}}%"
+        "effect": "Octeract Gewinn +{{n}}%"
       },
       "platonicTau": {
         "name": "Platonic TAU",
-        "description": "Placed in the wrong upgrade section, this will remove any restrictions on corruptions or corruption level caps! Also raises 3d cube gain to the power of 1.01!",
+        "description": "In die falsche Upgrade-Sektion platziert, das wird alle Beschränkungen bezüglich Corruptions oder Corruption Level entfernen! Auch erhöhte 3d Würfel Produktion um den Exponent 1,01!",
         "effectHave": "Dieses Upgrade wurde gekauft",
         "effectHaveNot": "Dieses Upgrade wurde nicht gekauft"
       },
@@ -1907,7 +1907,7 @@
       },
       "platonicDelta": {
         "name": "Platonic DELTA",
-        "description": "Time follows you towards the future, after getting this bad boy. Gain +100% more cubes per day in your current singularity, up to +900% at day 9.",
+        "description": "Die Zeit folgt dir in die Zukunft, nach Werden des \"bad boy\". Kriege +100% mehr Würfel pro Tag in derselben Singularity, bis zu +900% an Tag 9.",
         "effectHave": "Dieses Upgrade wurde gekauft",
         "effectHaveNot": "Dieses Upgrade wurde nicht gekauft"
       },
@@ -2040,9 +2040,9 @@
       "evenMoreQuarks": "Noch mehr Quarks",
       "shopSpecialOffer": "Markt Sonderangebot",
       "potionAutogenerator": "Trank Autogenerator",
-      "respecBeGone": "Respec, be gone!",
+      "respecBeGone": "Konzentration, ist weg!",
       "forTheLoveOfTheAntGod": "Für die Liebe des (Ameisen) Gottes!",
-      "itAllAddsUp": "It all adds up",
+      "itAllAddsUp": "Es summiert sich alles",
       "automagicalRunes": "Automagische Runen",
       "exaltedAchievements": "EXALT Tresor",
       "derpSmithsCornucopia": "Kornschmiede von Derpschmied",
@@ -2067,46 +2067,46 @@
   "general": {
     "youAreInThe": "Du bist im <<gold|{{number}} Singularity>>",
     "validation": {
-      "finite": "Value must be a finite number!",
+      "finite": "Wert muss endlich sein!",
       "zeroOrLess": "Bitte nur Zahlen größer Null!",
-      "moreThanPlayerHas": "You can't afford this yet!",
+      "moreThanPlayerHas": "Du kannst dir das nicht leisten!",
       "fraction": "Yeah, that isn't an integer. We don't accept fractions here!",
-      "goldenQuarksTooMany": "Sorry, I cannnot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!",
-      "finiteInt": "Value must be a finite, non-decimal number!",
-      "invalidNumber": "Hey! That's not a valid number!"
+      "goldenQuarksTooMany": "Es tut mir leid, ich kann dir nicht diese Menge an Goldenes Quark verkaufen! Versuche weniger zu kaufen oder bei tippen von -1 um das maximum zu kaufen!",
+      "finiteInt": "Wert muss endlich sein, keine Dezimalzahl!",
+      "invalidNumber": "Hey! Das ist keine gültige Zahl!"
     },
-    "cancelled": "Okay, maybe next time!",
+    "cancelled": "Okay, vielleicht nächstes Mal!",
     "level": "Level",
     "minimum": "Minimum",
-    "spent": "Spent",
+    "spent": "Ausgegeben",
     "OK": "OK",
-    "Cancel": "Cancel",
+    "Cancel": "Abbrechen",
     "autoOnBracket": "Auto [ON]",
     "autoOffBracket": "Auto [OFF]",
     "softCapped": "(Softcapped)",
     "maxed": "(Maxed)",
-    "affordable": "(Affordable)",
-    "enabled": "(Enabled)",
-    "infinity": "Infinity",
-    "sacrificeCapital": "SACRIFICE",
-    "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!",
-    "autoOnColon": "Auto: ON",
-    "autoOffColon": "Auto: OFF",
-    "buyMaxOn": "Buy Max: ON",
-    "buyMaxOff": "Buy Max: OFF",
-    "on": "ON",
-    "off": "OFF",
+    "affordable": "(käuflich)",
+    "enabled": "(Aktiviert)",
+    "infinity": "Unendlich",
+    "sacrificeCapital": "AUFGEBEN",
+    "multiBuyInstructions": "Halte <var(--orchid-text-color)|'SHIFT'> um mehrere Level, beim Klicken, auf einmal zu kaufen!",
+    "autoOnColon": "Auto: AN",
+    "autoOffColon": "Auto: AUS",
+    "buyMaxOn": "Max. kaufen: AN",
+    "buyMaxOff": "Max. kaufen: AUS",
+    "on": "AN",
+    "off": "AUS",
     "updateAlerts": {
-      "june282021": "June 28, 2021: V2.5.3. You have been refunded quarks from calculators if you purchased them. They are no longer refundable so be wary!",
-      "july22021": "July 2, 2021: V2.5.5. You have been refunded quarks from Powder EX upgrade, if you purchased levels. Your T1 ants were also reset and base cost set to 1e700 particles. Powder EX is no longer refundable, though, so be careful!",
-      "sing230Balancing": "Due to balancing changes, you were sent back to Singularity 230 to prevent softlocking your savefile!",
-      "december22xxxx": "You have loaded into the December 22 patch v1.",
-      "january42023": "You have loaded into the January 4, 2023 Patch v1.",
-      "v297hotfix1NoSing": "You have loaded into the version 2.9.7 hotfix 1!",
-      "v297hotfix1Sing": "You have loaded into the version 2.9.7 hotfix 1! Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience."
+      "june282021": "28. Juni. 2021: V2.5.3. Du hast deine Quarks von den Taschenrechnern wiedergekriegt, wenn du welche gekauft hattest. Diese sind nicht länger zurücksetzbar, also sei vorsichtig!",
+      "july22021": "2. Juli. 2021: V. 2.5.5. Du hast deine Quarks von dem Powder EX Upgrade wiedergekriegt, wenn du welche gekauft hast. Auch deine T1 Ameisen wurden zurückgesetzt und die Grundkosten auf 1e700 Partikel gesetzt. Powder EX ist nicht länger zurücksetzbar, also sei vorsichtig!",
+      "sing230Balancing": "Aufgrund von Balance Veränderung, wurdest du zu Singularity 230 zurückgesetzt, um dein Speicherstand vor Softlocking zu schützen!",
+      "december22xxxx": "Du wurdest in den Dezember 22 Patch v1 geladen.",
+      "january42023": "Du wurdest in den 4. Januar 2023, Patch v1 geladen.",
+      "v297hotfix1NoSing": "Du wurdest in die Version 2.9.7 Hotfix 1 geladen!",
+      "v297hotfix1Sing": "Du wurdest in die Version 2.9.7 Hotfix 1 geladen! Deine unbegrenzten Singularity Upgrades wurden zurückerstattet! Entschuldung für die Unannehmlichkeiten."
     },
-    "languageChange": "Changing the language requires a reload! Would you like to reload now?",
-    "exportYourGame": "You haven't exported your game in a while, you better export it soon or you could lose it!"
+    "languageChange": "Wechseln der Sprache erfordert ein neu laden! Möchtest du jetzt neu laden?",
+    "exportYourGame": "Du hast länger nicht dein Spiel Exported, mach es besser oder du könntest dein Spielstand verlieren!"
   },
   "upgrades": {
     "descriptions": {
@@ -2154,14 +2154,14 @@
       "42": "Multiply Mythos Shard production based on unspent Diamonds.",
       "43": "Multiply coin production by 1.01 per Transcension (Max: 1e30x).",
       "44": "Multiply Mythos gain on Transcend by 1.01 per Transcension (Max: 1e6x).",
-      "45": "Gain free Accelerators based on Mythos Shards.",
-      "46": "Accelerator Boosts are 5% stronger and do not reset Prestige features.",
-      "47": "Multiply Mythos Shard production based on your AP.",
-      "48": "Multiply production based on owned Accelerators and Multipliers.",
-      "49": "Gain free Multipliers based on unspent Mythos.",
-      "50": "Gain +25% free Accelerators and Multipliers, but ONLY while doing Challenges.",
-      "51": "Increase production of all Mythos buildings based on owned Accelerator Boosts.",
-      "52": "Mythos building exponent +0.025.",
+      "45": "Kriege gratis Beschleuniger basierend auf Mythos Scherben.",
+      "46": "Beschleuniger Boosts sind 5% besser und resetten keine Prestigefeatures.",
+      "47": "Multipliziert deine Mythos-Scherben Produktion basierend auf deine EP.",
+      "48": "Multipliziert Produktion basierend auf gekaufte Beschleuniger und Multiplizierer.",
+      "49": "Erhalte gratis Multiplikator basierend auf gehaltenen Mythos.",
+      "50": "Erhalte +25% gratis Beschleuniger und Multiplizierer, aber NUR während einer Challenge.",
+      "51": "Erhöht Produktion von allen Mythos Gebäuden basieren auf gekauften Beschleuniger Boosts.",
+      "52": "Mythos Gebäude Exponent +0,025.",
       "53": "Augments produce more Shards based on Acceleration Multiplier.",
       "54": "Wizards produce more Enchantments based on Multiplier.",
       "55": "Grandmasters produce more Oracles based on Building power.",
@@ -2170,39 +2170,39 @@
       "58": "Printer production is multiplied by 1e+15000.",
       "59": "Coin Mint production is multiplied by 1e+25000.",
       "60": "Alchemies production is multiplied by 1e+35000.",
-      "61": "Welcome to Reincarnation! +5% Offering Recycle, +2 EXP/Offering!",
-      "62": "Completing Challenges, automatically or manually, increase Offerings gained in Reincarnation. Bonus subject to time multiplier!",
-      "63": "Crystal Production is multiplied based on Particles to the sixth power [Caps at 1e6000x].",
-      "64": "Mythos Shard Production is multiplied by your Particles squared.",
-      "65": "Multiply the gain of Particles from Reincarnation by 5x!",
-      "66": "When you use an Offering, every unlocked rune will get 1 free experience.",
+      "61": "Willkommen zur Reinkarnation! +5% Offering Recycling, +2 EXP/Offering!",
+      "62": "Erledigen von Challenges, automatisch oder manuell, erhöht Offerings in Reinkarnation. Bonues je nach Zeit!",
+      "63": "Kristall Produktion ist multipliziert basierend auf Partikel zu der 6. Potenz [Capped bei 1e6000x].",
+      "64": "Mythos Scherben Produktion ist multipliziert bei deinen Partikeln zum Quadrat.",
+      "65": "Multipliziert den Erhalt von Partikel von Reinkarnation bei 5x!",
+      "66": "Wenn du ein Offering benutzt, jede freigeschaltete Rune wird 1 gratis Erfahrung kriegen.",
       "67": "Atom gain is increased by 3% per Particle producer purchased!",
-      "68": "Gain a free Multiplier for every 1e1000x increase in tax.",
-      "69": "Gain more Obtainium based on your particle gain. [Works with automation at a reduced rate!]",
-      "70": "Time seems to go +0.333*log10(MAX Obtainium +1)% faster when you buy this.",
-      "71": "Runes will gain (Rune Level/25) additional EXP per Offering used.",
-      "72": "Obtainium gain from Reincarnations is multiplied (1 + 2C) where C is #Reincarnation Challenges completed, up to 50x!",
-      "73": "Gain +100% free Accelerator Boosts and +10 free Crystal Upgrade levels, but only in Reincarnation Challenges.",
+      "68": "Kriege ein gratis Multiplizierer für jede 1e1000x Erhöhung in Steuern.",
+      "69": "Krieg mehr Obtanium basierend auf dein Partikel Gewinn. [Funktioniert mit der Automation mit deiner reduzierten Rate!]",
+      "70": "Die Zeit scheint +0.333*log10(MAX Obtainium +1)% schneller zu gehen, wenn du das kaufst.",
+      "71": "Runen erhalten zusätzliche EXP (Rune Level/25) pro genutztem Offering.",
+      "72": "Obtanium Gewinn von Reinkarnation ist multipliziert (1+ 2C) wobei C geschaffte #Reinkarnation Challenges sind und das bis zu 50x!",
+      "73": "Kriege +100% gratis Beschleuniger Boosts und +10 gratis Kristall Upgrade Levels, aber nur in Reinkarnation Challenges.",
       "74": "Erhalte mehr Obtainium basierend auf der höchsten Zahl an jemals gehaltenen Opfergaben. [Max: 100,000]",
-      "75": "Offering gain is increased based on highest ever unspent Obtainium [Max: 30,000,000 Obtainium]",
-      "76": "Ant generation kinda slow? I agree! Make all Ant tiers 5x faster!",
-      "77": "This is Synergism, right? Let's make each purchased Ant make all Ants 0.4% faster.",
+      "75": "Erhalte mehr Offering basierend auf der höchsten Zahl an jemals gehaltenen Obtanium. [Max: 30.000.000 Obtainium]",
+      "76": "Ameisen Generation kinda langsam? Mache alle Ameisenstufen 5x schneller!",
+      "77": "Das ist Synergism, richtig? Jede gekaufte Ameise macht alle Ameisen um 0,4% schneller.",
       "78": "Multipliziert die Geschwindigkeit von Ameisten mit der Formel (1 + 0.005 * (log10(MAX Opfergaben+ 1))^2).",
       "79": "The Ant God will accept an arbitrary number of Particles in order to give you 10% more from sacrifices.",
-      "80": "The Ant God will accept a larger arbitrary number of Particles to give you more Ant ELO.",
-      "81": "Automatically buy Workers if affordable.",
-      "82": "Automatically buy Investments if affordable.",
-      "83": "Automatically buy Printers if affordable.",
-      "84": "Automatically buy Coin Mints if affordable.",
-      "85": "Automatically buy Alchemies if affordable.",
-      "86": "Automatically buy Accelerators if affordable.",
-      "87": "Automatically buy Multipliers if affordable.",
-      "88": "Automatically buy Accelerator Boosts if affordable.",
-      "89": "Unlock Automatic Transcensions.",
+      "80": "Der Ameisen Gott akzeptiert eine willkürlich größere Summe von Partikeln um dir mehr Ameisen ELO zu geben.",
+      "81": "Kaufe automatisch Arbeiter wenn bezahlbar.",
+      "82": "Kaufe automatisch Anlagen wenn bezahlbar.",
+      "83": "Kaufe automatisch Drucker wenn bezahlbar.",
+      "84": "Kaufe automatisch Münzenminze wenn bezahlbar.",
+      "85": "Kaufe automatisch Alchimisten wenn bezahlbar.",
+      "86": "Kaufe automatisch Beschleuniger wenn bezahlbar.",
+      "87": "Kaufe automatisch Multiplizierer wenn bezahlbar.",
+      "88": "Kaufe automatisch Beschleuniger Boosts wenn bezahlbar.",
+      "89": "Automatische Transzendierungen freischalten.",
       "90": "Kauft automatisch vom Generatoren-Markt.",
-      "91": "Automatically buy Coin Upgrades.",
-      "92": "Automatically buy Diamond Upgrades.",
-      "93": "Generate 1% of Diamond Gain from prestiging per second.",
+      "91": "Münz-Upgrades automatisch kaufen.",
+      "92": "Kaufe automatisch Diamant-Upgrades.",
+      "93": "Erzeugt 1% des Diamantengewinns aus durchführen eines Prestige pro Sekunde.",
       "94": "Automatically buy Augments if affordable.",
       "95": "Automatically buy Enchantments if affordable.",
       "96": "Automatically buy Wizards if affordable.",
@@ -2286,17 +2286,17 @@
       "6": "Effect: All Coin production x{{x}}",
       "7": "Effect: Gain {{x}} free Multipliers from bought Alchemies.",
       "8": "Effect: +{{x}} free Accelerators.",
-      "9": "Effect: +{{x}} free Multipliers.",
-      "10": "Effect: Worker Production x{{x}}",
-      "11": "Effect: Generator efficiency x{{x}}",
-      "12": "Effect: All Coin production x{{x}}",
-      "13": "Effect: Investment Production x{{x}}",
-      "14": "Effect: Printer Generation x{{x}}",
-      "15": "Effect: Mint Generation x{{x}}",
-      "16": "Effect: Gain {{x}}x more Diamonds on Prestige",
-      "17": "Effect: Mint Production x1e100 (Duh)",
+      "9": "Effekt: +{{x}} kostenlose Multiplikatoren.",
+      "10": "Effekt: Arbeiterproduktion x{{x}}",
+      "11": "Effekt: Generator-Effizienz x{{x}}",
+      "12": "Effekt: Alle Münzproduktion x{{x}}",
+      "13": "Effekt: Anlagen Produktion x{{x}}",
+      "14": "Effekt: Druckergeneration x{{x}}",
+      "15": "Effekt: Minze Generation x{{x}}",
+      "16": "Effekt: Erhalte {{x}}x mehr Diamanten auf Prestige",
+      "17": "Effekt: Minze Produktion x1e100 (Natürlich)",
       "18": "Effect: Printer Production x",
-      "19": "Effect: Investment Production x{{x}}",
+      "19": "Effekt: Anlagen Produktion x{{x}}",
       "20": "Effect: All coin production is further multiplied by {{x}} [Stacks with upgrade 1]!",
       "21": "Effect: {{x}} Multipliers, +{{y}} Accelerators.",
       "22": "Effect: {{x}} Multipliers, +{{y}} Accelerators.",

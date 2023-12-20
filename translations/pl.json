@@ -12,10 +12,10 @@
   "ambrosia": {
     "ambrosia": "Ambrozja",
     "amount": "Masz <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrozji!",
-    "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
-    "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
+    "blueberryGeneration": "Na sekundę, zyskaj <<var(--amber-text-color)|{{chance}}>> sekundy czasu borówki.",
+    "perGen": "Aktualnie zyskuje <<var(--amber-text-color)|{{guaranteed}}>> z <<var(--amber-text-color)|{{extraChance}}%>> szansę na inne. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
-    "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
+    "bonuses": "Twoja ambrozja daje <<var(--amber-text-color)|+{{cube}}%>> WSZYSTKIE sześciany, a <<cyan|+{{quark}}%>> Kwarków!",
     "prerequisite": "Wymagania wstępne:",
     "prereqNotMet": " (Nie spełnione!)",
     "blueberryCost": "Borówki (Aby aktywować):",
@@ -29,7 +29,7 @@
       "ambrosiaTutorial": {
         "name": "Moduł samouczka Ambrozji",
         "description": "Borówki generują Ambrozję z upływem czasu. Wydaj je w drzewku Ambrozji! +5% Cubes/poziom, +1% Kwarków/poziom",
-        "effect": "This tutorial module increases cube gain by {{cubeAmount}}% and quarks by {{quarkAmount}}%"
+        "effect": "Moduł tego samouczka zwiększa przychód sześcianów o {{cubeAmount}}% i kwarki o {{quarkAmount}}%"
       },
       "ambrosiaQuarks1": {
         "name": "Moduł Kwark Ambrozji I",
@@ -38,33 +38,33 @@
       },
       "ambrosiaCubes1": {
         "name": "Moduł Kostek Ambrozji I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 10 levels gives 1.1x Cubes.",
-        "effect": "This cube module increases cube gain by {{amount}}%"
+        "description": "Gratulacje za ukończenie modułu samouczka. Musisz mieć go maksymalnie ulepszony, aby kupić ten poziom. +5% Sześcianów/lvl. Każde 10 poziomów daje 1.1x kubów.",
+        "effect": "Ten moduł sześcianów zwiększa zysk sześcianów o {{amount}}%"
       },
       "ambrosiaLuck1": {
-        "name": "Ambrosia Luck Module I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. &#9752 +2 Ambrosia Luck/lvl. Every 10 levels gives &#9752 +12 more!",
-        "effect": "This luck module increases &#9752 Ambrosia Luck by {{amount}}"
+        "name": "Moduł Szczęścia Ambrozji I",
+        "description": "Gratulacje za ukończenie modułu samouczka. Musisz mieć go maksymalnie ulepszony, aby kupić ten poziom. &#9752 +2 Szczęście Ambrozy/lvl. Każde 10 poziomów daje &#9752 +12 więcej!",
+        "effect": "Ten moduł szczęścia zwiększa &#9752 Szczęście Ambrozji o {{amount}}"
       },
       "ambrosiaCubeQuark1": {
-        "name": "Ambrosia Cube-Quark Hybrid Module I",
-        "description": "A first generation hybrid module. Gain +0.01% Quarks per level per digit in the values of all cube types.",
-        "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
+        "name": "Hybrydowy Moduł Ambrozji Sześciano-Kwarkowy I",
+        "description": "Moduł hybrydowy pierwszej generacji. Zyskaj +0,01% kwarków na poziom na cyfrę w wartościach wszystkich typów sześcianów.",
+        "effect": "Moduł hybrydowy pierwszej generacji zwiększa zysk kwarków o {{amount}}%"
       },
       "ambrosiaLuckQuark1": {
-        "name": "Ambrosia Luck-Quark Hybrid Module I",
-        "description": "A first generation hybrid module. Gain +0.01% more Quarks per level per 1 &#9752 Ambrosia Luck! Diminishing returns after 1,000 Luck.",
-        "effect": "This first generation hybrid module increases Quark gain by {{amount}}%"
+        "name": "Hybrydowy Moduł I Ambrozji Szczęście-Kwark",
+        "description": "Moduł hybrydowy pierwszej generacji. Zyskaj +0.01% więcej kwarków na poziom za 1 &#9752 Szczęścię Ambrozji! Zmniejszona wydajność po 1 000 Szczęścia.",
+        "effect": "Moduł hybrydowy pierwszej generacji zwiększa zysk kwarków o {{amount}}%"
       },
       "ambrosiaQuarkCube1": {
         "name": "Ambrosia Quark-Cube Hybrid Module I",
-        "description": "A first generation hybrid module. Gain +0.05% more cubes per level per digit in your Quark balance, squared!",
-        "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
+        "description": "Moduł hybrydowy pierwszej generacji. Zyskaj o 0,05% więcej sześcianów na jeden poziom na jedną cyfrę w swoim bilansie Kwarków, do kwadratu!",
+        "effect": "Moduł hybrydowy pierwszej generacji zwiększa przychód sześcianów o {{amount}}%"
       },
       "ambrosiaLuckCube1": {
         "name": "Ambrosia Luck-Cube Hybrid Module I",
-        "description": "A first generation hybrid module. Gain +0.02% more cubes per level per 1 &#9752 Ambrosia Luck!",
-        "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
+        "description": "Moduł hybrydowy pierwszej generacji. Zyskaj +0.02% sześcianów na jeden poziom na 1 &#9752 Szczęścia Ambrozji!",
+        "effect": "Moduł hybrydowy pierwszej generacji zwiększa przychód sześcianów o {{amount}}%"
       },
       "ambrosiaCubeLuck1": {
         "name": "Ambrosia Cube-Luck Hybrid Module I",
