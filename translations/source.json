@@ -1513,6 +1513,7 @@
           "multiBuyPurchased": "Purchased {{levels}} levels, thanks to Multi Buy!"
       },
       "perks": {
+          "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
           "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
           "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
           "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties",
