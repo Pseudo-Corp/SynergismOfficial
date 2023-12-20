@@ -1513,6 +1513,7 @@
       "multiBuyPurchased": "Comprados {{levels}} niveles, ¡gracias a Multi Compra!"
     },
     "perks": {
+      "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "Una Ventaja existente se mejorará en la singularidad {{sing}}",
       "unlockedIn": "Desbloquearás una Ventaja nueva en la singularidad {{sing}}",
       "header": "La mayor Singularidad que has alcanzado es la <span style=\"color: gold\">{{ord}} Singularidad.</span><br/>Aquí tienes la lista de ventajas que has adquirido para compensar las penalizaciones",
