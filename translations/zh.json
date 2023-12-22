@@ -1513,7 +1513,7 @@
       "multiBuyPurchased": "一次性升级了{{levels}}级，多重购买真是太棒了！"
     },
     "perks": {
-      "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
+      "levelInfo": "等级 {{level}} - (奇点 {{singularity}})",
       "improvedIn": "第{{sing}}次进入奇点后将有特权加强",
       "unlockedIn": "第{{sing}}次进入奇点后将解锁新特权",
       "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点。</span><br/>以下是您在奇点中获得的特权",
