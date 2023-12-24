@@ -3,29 +3,7 @@ import { Synergism } from './Events'
 import { Alert, revealStuff } from './UpdateHTML'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSingularityDebuff } from './singularity'
-
-const platonicUpgradeDesc = [
-  '+0.0090% Cubes per Corruption level per level!',
-  '+0.018% Tesseracts per Corruption level per level!',
-  '+0.054% Hypercubes per Corruption level per level!',
-  'Gain +2.4% Platonic Cubes per level! It is that simple.',
-  'C10 Exponent: 1.035 --> 1.0375, Constant tax exponent +0.10, 2x faster Constant production, +20% Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Obtainium and Offerings, ^1.10 coin gain in C15, as well +1 Corruption Cap Level!',
-  'Multiplies Viscosity exponent by (1 + level/30), capacity of ^1 on Multipliers and Accelerators.',
-  'Raises speed below 1x to the power of ^(1 - level/30).',
-  'Divides Hyperchallenged by (1 + 0.4 * level), with a minimum 1x Challenge requirement multiplier!',
-  'Raise Obtainium to the power of (1+(0.09*log10(Obtainium owned))) and add another x2.5 multiplier (Uncorruptable), up until 1e100 Obtainium!',
-  'C10 Exponent: 1.0375 --> 1.04, Constant tax exponent +0.20, 10x faster Constant production, +25% Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 3.5x Obtainium and Offerings, 2x All Cubes, ^1.25 ant exponent in C15, +1 Corruption Cap Level again!',
-  'With this upgrade, you will gain diamonds equal to particle gain on Reincarnation while using Market Deflation 11 or higher! Does not work with Cube upgrade [3x8]!',
-  'Gain (1 + lvl/100)x Ant multiplier per Challenge completion, ignoring corruptions to Ants.',
-  'Effect of Drought is raised to the power of 0.5.',
-  'Reduce the effect of Financial Recession in Challenge 15, multiplying the coin exponent by 1.55.',
-  'You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (Multiplicative), +30% Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Offerings and Obtainium (Uncorruptable)! Talk about a deep dive.',
-  'Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to 100,000. This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.',
-  'If Viscosity Corruption is set to level 10 or higher, score multiplier is raised by an exponent. That exponent is 3 + 0.04 per level of this upgrade.',
-  'Raise the base percentage of Constant Upgrade 1 by 0.1% and increase the base percentage cap of Constant Upgrade 2 by 0.3% per level!',
-  'The diminishing return power on Chronos Hepteract changes from 0.166 to (0.166 + 0.00133 * level) [Max of 0.2333].',
-  'You know, maybe some things should be left unbought.'
-]
+import i18next from 'i18next'
 
 export interface IPlatBaseCost {
     obtainium: number
@@ -292,9 +270,9 @@ const checkPlatonicUpgrade = (index: number, auto = false): Record<keyof (IPlatB
 }
 
 export const createPlatonicDescription = (index: number) => {
-  let maxLevelAppend = ''
+  let levelString = 'level'
   if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
-    maxLevelAppend = ' [MAX]'
+    levelString = 'levelMax'
   }
   const resourceCheck = checkPlatonicUpgrade(index)
 
@@ -304,15 +282,39 @@ export const createPlatonicDescription = (index: number) => {
   }
   priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
 
-  DOMCacheGetOrSet('platonicUpgradeDescription').textContent = platonicUpgradeDesc[index-1]
-  DOMCacheGetOrSet('platonicUpgradeLevel').textContent = 'Level: ' + format(player.platonicUpgrades[index]) + '/' + format(platUpgradeBaseCosts[index].maxLevel) + maxLevelAppend
-  DOMCacheGetOrSet('platonicOfferingCost').textContent = format(player.runeshards) + '/' + format(platUpgradeBaseCosts[index].offerings * priceMultiplier) + ' Offerings'
-  DOMCacheGetOrSet('platonicObtainiumCost').textContent = format(player.researchPoints) + '/' + format(platUpgradeBaseCosts[index].obtainium * priceMultiplier) + ' Obtainium'
-  DOMCacheGetOrSet('platonicCubeCost').textContent = format(player.wowCubes) + '/' + format(platUpgradeBaseCosts[index].cubes * priceMultiplier) + ' Wow! Cubes'
-  DOMCacheGetOrSet('platonicTesseractCost').textContent = format(player.wowTesseracts) + '/' + format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier) + ' Wow! Tesseracts'
-  DOMCacheGetOrSet('platonicHypercubeCost').textContent = format(player.wowHypercubes) + '/' + format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier) + ' Wow! Hypercubes'
-  DOMCacheGetOrSet('platonicPlatonicCost').textContent = format(player.wowPlatonicCubes) + '/' + format(platUpgradeBaseCosts[index].platonics * priceMultiplier) + ' Platonic! Cubes'
-  DOMCacheGetOrSet('platonicHepteractCost').textContent = format(player.hepteractCrafts.abyss.BAL) + '/' + format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true) + ' Hepteracts of the Abyss'
+  DOMCacheGetOrSet('platonicUpgradeDescription').textContent = i18next.t(`wowCubes.platonicUpgrades.upgrades.${index-1}`)
+  DOMCacheGetOrSet('platonicUpgradeLevel').textContent = i18next.t('wowCubes.platonicUpgrades.' + levelString, {
+    value1: format(player.platonicUpgrades[index]),
+    value2: format(platUpgradeBaseCosts[index].maxLevel)
+  })
+  DOMCacheGetOrSet('platonicOfferingCost').textContent = i18next.t('wowCubes.platonicUpgrades.costs.offerings', {
+    value1: format(player.runeshards),
+    value2: format(platUpgradeBaseCosts[index].offerings * priceMultiplier)
+  })
+  DOMCacheGetOrSet('platonicObtainiumCost').textContent = i18next.t('wowCubes.platonicUpgrades.costs.obtainium', {
+    value1: format(player.researchPoints),
+    value2: format(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
+  })
+  DOMCacheGetOrSet('platonicCubeCost').textContent = i18next.t('wowCubes.platonicUpgrades.costs.cubes', {
+    value1: format(player.wowCubes),
+    value2: format(platUpgradeBaseCosts[index].cubes * priceMultiplier)
+  })
+  DOMCacheGetOrSet('platonicTesseractCost').textContent = i18next.t('wowCubes.platonicUpgrades.costs.tesseracts', {
+    value1: format(player.wowTesseracts),
+    value2: format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier)
+  })
+  DOMCacheGetOrSet('platonicHypercubeCost').textContent = i18next.t('wowCubes.platonicUpgrades.costs.hypercubes', {
+    value1: format(player.wowHypercubes),
+    value2: format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier)
+  })
+  DOMCacheGetOrSet('platonicPlatonicCost').textContent = i18next.t('wowCubes.platonicUpgrades.costs.platonics', {
+    value1: format(player.wowPlatonicCubes),
+    value2: format(platUpgradeBaseCosts[index].platonics * priceMultiplier)
+  })
+  DOMCacheGetOrSet('platonicHepteractCost').textContent = i18next.t('wowCubes.platonicUpgrades.costs.abyssals', {
+    value1: format(player.hepteractCrafts.abyss.BAL),
+    value2: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true)
+  })
 
   resourceCheck.offerings ?
     DOMCacheGetOrSet('platonicOfferingCost').style.color = 'lime' :
@@ -344,15 +346,19 @@ export const createPlatonicDescription = (index: number) => {
 
   if (player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
     DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'cyan'
-    resourceCheck.canBuy ?
-      (DOMCacheGetOrSet('platonicCanBuy').style.color = 'gold', DOMCacheGetOrSet('platonicCanBuy').textContent = '===Affordable! Click to buy!===') :
-      (DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--crimson-text-color)', DOMCacheGetOrSet('platonicCanBuy').textContent = '===You cannot afford this!===')
+    if (resourceCheck.canBuy) {
+      DOMCacheGetOrSet('platonicCanBuy').style.color = 'gold'
+      DOMCacheGetOrSet('platonicCanBuy').textContent = i18next.t('wowCubes.platonicUpgrades.canBuy')
+    } else {
+      DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--crimson-text-color)'
+      DOMCacheGetOrSet('platonicCanBuy').textContent = i18next.t('wowCubes.platonicUpgrades.cannotBuy')
+    }
   }
 
   if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
     DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'gold'
     DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--orchid-text-color)'
-    DOMCacheGetOrSet('platonicCanBuy').textContent = '===Maxed==='
+    DOMCacheGetOrSet('platonicCanBuy').textContent = i18next.t('wowCubes.platonicUpgrades.maxed')
   }
 }
 
@@ -394,7 +400,7 @@ export const buyPlatonicUpgrades = (index: number, auto = false) => {
 
       Synergism.emit('boughtPlatonicUpgrade', platUpgradeBaseCosts[index])
       if (index === 20 && !auto && player.singularityCount === 0) {
-        void Alert('While I strongly recommended you not to buy this, you did it anyway. For that, you have unlocked the rune of Grandiloquence, for you are a richass.')
+        void Alert(i18next.t('wowCubes.platonicUpgrades.antiquitiesWarning'))
       }
     } else {
       break
