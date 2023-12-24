@@ -3752,6 +3752,17 @@ img#singularityPerksIcon {
 .hoveredBlueberryLoadout6 div.bbPurchasedLoadout6,
 .hoveredBlueberryLoadout7 div.bbPurchasedLoadout7,
 .hoveredBlueberryLoadout8 div.bbPurchasedLoadout8 {
+    background-color: purple;
+}
+
+.hoveredBlueberryLoadout1 div.bbMaxedLoadout1,
+.hoveredBlueberryLoadout2 div.bbMaxedLoadout2,
+.hoveredBlueberryLoadout3 div.bbMaxedLoadout3,
+.hoveredBlueberryLoadout4 div.bbMaxedLoadout4,
+.hoveredBlueberryLoadout5 div.bbMaxedLoadout5,
+.hoveredBlueberryLoadout6 div.bbMaxedLoadout6,
+.hoveredBlueberryLoadout7 div.bbMaxedLoadout7,
+.hoveredBlueberryLoadout8 div.bbMaxedLoadout8 {
     background-color: green;
 }
 

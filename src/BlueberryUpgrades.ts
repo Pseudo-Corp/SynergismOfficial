@@ -659,12 +659,24 @@ export const updateLoadoutHoverClasses = () => {
     const loadout = player.blueberryLoadouts[i]
 
     const upgradeHoverClass = `bbPurchasedLoadout${i}`
+    const maxedHoverClass = `bbMaxedLoadout${i}`
     for (const upgradeKey of upgradeNames) {
+      const parent = DOMCacheGetOrSet(upgradeKey).parentElement
+      if (!parent) {
+        continue
+      }
+
+      parent.classList.remove(upgradeHoverClass)
+      parent.classList.remove(maxedHoverClass)
+
       // eslint-disable-next-line
       if (loadout[upgradeKey]) {
-        DOMCacheGetOrSet(upgradeKey).parentElement?.classList.add(upgradeHoverClass)
-      } else {
-        DOMCacheGetOrSet(upgradeKey).parentElement?.classList.remove(upgradeHoverClass)
+        // eslint-disable-next-line
+        if (loadout[upgradeKey] === blueberryUpgradeData[upgradeKey].maxLevel) {
+          parent.classList.add(maxedHoverClass)
+        } else {
+          parent.classList.add(upgradeHoverClass)
+        }
       }
     }
   }
