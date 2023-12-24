@@ -159,26 +159,34 @@ export const upgradedescriptions = (i: number) => {
     clickUpgrades(i, false)
   }
 
-  let currency = ''
+  let costCurrency = ''
+  let costProp = ''
   let color = ''
   if ((i <= 20 && i >= 1) || (i <= 110 && i >= 106) || (i <= 125 && i >= 121)) {
-    currency = 'Coins'
+    costCurrency = 'costCoins'
+    costProp = 'coins'
     color = 'yellow'
   }
   if ((i <= 40 && i >= 21) || (i <= 105 && i >= 101) || (i <= 115 && i >= 111) || (i <= 87 && i >= 81)) {
-    currency = 'Diamonds'
+    costCurrency = 'costDiamonds'
+    costProp = 'diamonds'
     color = 'cyan'
   }
   if ((i <= 60 && i >= 41) || (i <= 120 && i >= 116) || (i <= 93 && i >= 88)) {
-    currency = 'Mythos'
+    costCurrency = 'costMythos'
+    costProp = 'mythos'
     color = 'plum'
   }
   if ((i <= 80 && i >= 61) || (i <= 100 && i >= 94)) {
-    currency = 'Particles'
+    costCurrency = 'costParticles'
+    costProp = 'particles'
     color = 'limegreen'
   }
 
-  DOMCacheGetOrSet('upgradecost').textContent = 'Cost: ' + format(Decimal.pow(10, G.upgradeCosts[i])) + ' ' + currency
+  const costParams: Record<string, string> = {}
+  costParams[costProp] = format(Decimal.pow(10, G.upgradeCosts[i]))
+
+  DOMCacheGetOrSet('upgradecost').textContent = i18next.t(`buildings.${costCurrency}`, costParams)
   DOMCacheGetOrSet('upgradecost').style.color = color
   upgradeeffects(i)
 }
