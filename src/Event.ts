@@ -35,7 +35,7 @@ interface HolidayData {
 // can change the basic game balance by setting default to event: true, but cannot stack events
 const events: Record<string, HolidayData> = {
   default: {
-    name: 'Game Modified',
+    name: 'fuck is this shit for?',
     color: 'white',
     url: '',
     everyYear: true,
@@ -58,27 +58,27 @@ const events: Record<string, HolidayData> = {
   },
   // Last active event
   last: {
-    name: 'Quarkstravaganza 2023',
+    name: 'Quarksmas 2023',
     color: '#a31f34',
     url: 'https://www.youtube.com/watch?v=eVH5DABrBQ0',
     everyYear: false,
-    start: '12/14/2023 00:00:00',
-    end: '12/17/2023 23:59:59',
+    start: '12/25/2023 00:00:00',
+    end: '01/01/2024 00:00:00',
     notice: 20,
     event: true,
     buffs: {
-      quark: 2,
-      globalSpeed: 0,
-      ascensionSpeed: 0,
-      antSacrifice: 0,
-      offering: 0,
-      obtainium: 0,
-      octeract: 0,
-      powderConversion: 0,
-      goldenQuark: 0,
-      blueberryTime: 0,
-      ambrosiaLuck: 0,
-      oneMind: 0.02
+      quark: 0.69,
+      globalSpeed: 0.3,
+      ascensionSpeed: 0.3,
+      antSacrifice: 0.3,
+      offering: 0.3,
+      obtainium: 0.3,
+      octeract: 0.3,
+      powderConversion: 0.3,
+      goldenQuark: 0.3,
+      blueberryTime: 0.3,
+      ambrosiaLuck: 0.3,
+      oneMind: 0.03
     }
   },
   khafra: {
