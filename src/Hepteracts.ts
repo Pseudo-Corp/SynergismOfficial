@@ -152,7 +152,7 @@ export class HepteractCraft {
       // The type of player[item] is number | Decimal | Cube.
       if (item === 'worlds') {
         itemLimits.push(
-          Math.floor((player[item as keyof Player] as number) / (this.OTHER_CONVERSIONS[item as keyof Player])) * 1
+          Math.floor((player[item as keyof Player] as number) / (this.OTHER_CONVERSIONS[item as keyof Player] ?? 1)) * 1
             / (1 - this.DISCOUNT)
         )
       } else {
