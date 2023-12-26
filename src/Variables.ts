@@ -2,10 +2,10 @@ import Decimal from 'break_infinity.js'
 import type { GlobalVariables } from './types/Synergism'
 
 export enum Upgrade {
-     coin = 'coins',
-     prestige = 'prestigePoints',
-     transcend = 'transcendPoints',
-     reincarnation = 'reincarnationPoints',
+  coin = 'coins',
+  prestige = 'prestigePoints',
+  transcend = 'transcendPoints',
+  reincarnation = 'reincarnationPoints'
 }
 
 export const Globals: GlobalVariables = {
@@ -14,18 +14,23 @@ export const Globals: GlobalVariables = {
   runeMaxLvl: 40000,
 
   // this shows the logarithm of costs. ex: upgrade one will cost 1e+6 coins, upgrade 2 1e+7, etc.
-  upgradeCosts: [0, 6, 7, 8, 10, 12, 20, 25, 30, 35, 45, 55, 75, 110, 150, 200, 250, 500, 750, 1000, 1500,
+  // dprint-ignore
+  upgradeCosts: [
+    0, 6, 7, 8, 10, 12, 20, 25, 30, 35, 45, 55, 75, 110, 150, 200, 250, 500, 750, 1000, 1500,
     2, 3, 4, 5, 6, 7, 10, 13, 20, 30, 150, 400, 800, 1600, 3200, 10000, 20000, 50000, 100000, 200000,
     1, 2, 3, 5, 6, 7, 42, 65, 87, 150, 300, 500, 1000, 1500, 2000, 3000, 6000, 12000, 25000, 75000,
     0, 1, 2, 2, 3, 5, 6, 10, 15, 22, 30, 37, 45, 52, 60, 1900, 2500, 3000, 7482, 21397,
     3, 6, 9, 12, 15, 20, 30, 6, 8, 8, 10, 13, 60, 1, 2, 4, 8, 16, 25, 40,
     12, 16, 20, 30, 50, 500, 1250, 5000, 25000, 125000, 1500, 7500, 30000, 150000, 1000000, 250, 1000, 5000, 25000, 125000,
-    1e3, 1e6, 1e9, 1e12, 1e15],
+    1e3, 1e6, 1e9, 1e12, 1e15
+  ],
 
   // Mega list of Variables to be used elsewhere
   crystalUpgradesCost: [6, 15, 20, 40, 100, 200, 500, 1000],
   crystalUpgradeCostIncrement: [8, 15, 20, 40, 100, 200, 500, 1000],
-  researchBaseCosts: [1e200,
+  // dprint-ignore
+  researchBaseCosts: [
+    1e200,
     1, 1, 1, 1, 1,
     1, 1e2, 1e4, 1e6, 1e8,
     2, 2e2, 2e4, 2e6, 2e8,
@@ -68,7 +73,9 @@ export const Globals: GlobalVariables = {
     6e48, 2e49, 1e50, 1e51, 4e56
   ],
 
-  researchMaxLevels: [0, 1, 1, 1, 1, 1,
+  // dprint-ignore
+  researchMaxLevels: [
+    0, 1, 1, 1, 1, 1,
     10, 10, 10, 10, 10,
     10, 10, 10, 10, 10,
     10, 10, 1, 1, 1,
@@ -200,7 +207,9 @@ export const Globals: GlobalVariables = {
   researchfiller1: 'Hover over the grid to get details about researches!',
   researchfiller2: 'Level: ',
 
+  // dprint-ignore
   ordinals: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth', 'twentieth'] as const,
+  // dprint-ignore
   cardinals: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'twentyone', 'twentytwo', 'twentythree', 'twentyfour', 'twentyfive', 'twentysix', 'twentyseven', 'twentyeight', 'twentynine', 'thirty', 'thirtyone', 'thirtytwo', 'thirtythree', 'thirtyfour'],
 
   challengeBaseRequirements: [10, 20, 60, 100, 200, 125, 500, 7500, 2.0e8, 3.5e9],
@@ -270,7 +279,6 @@ export const Globals: GlobalVariables = {
   rune4Talisman: 0,
   rune5Talisman: 0,
 
-
   talisman1Effect: [null, 0, 0, 0, 0, 0],
   talisman2Effect: [null, 0, 0, 0, 0, 0],
   talisman3Effect: [null, 0, 0, 0, 0, 0],
@@ -287,7 +295,6 @@ export const Globals: GlobalVariables = {
 
   talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24],
   talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
-
 
   talismanLevelCostMultiplier: [1, 4, 1e4, 1e8, 1e13, 10, 100],
 
@@ -327,16 +334,28 @@ export const Globals: GlobalVariables = {
   prevReductionValue: -1,
 
   buildingSubTab: 'coin',
-  //1,000 of each before Diminishing Returns
+  // 1,000 of each before Diminishing Returns
   blessingbase: [null, 1 / 500, 1 / 5000, 1 / 2000, 1 / 750, 1 / 200, 1 / 10000, 1 / 5000, 1 / 10, 1 / 10000, 1 / 1000],
   blessingDRPower: [null, 1 / 3, 1 / 3, 2 / 3, 1 / 2, 2 / 3, 2, 1 / 3, 1 / 3, 1 / 16, 1 / 16],
   giftbase: [1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000],
   giftDRPower: [1 / 6, 1 / 6, 1 / 3, 1 / 4, 1 / 3, 1, 1 / 6, 1 / 6, 1 / 32, 1 / 32],
-  benedictionbase: [null, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000],
+  benedictionbase: [
+    null,
+    1 / 1000,
+    1 / 1000,
+    1 / 1000,
+    1 / 1000,
+    1 / 1000,
+    1 / 1000,
+    1 / 1000,
+    1 / 1000,
+    1 / 1000,
+    1 / 1000
+  ],
   benedictionDRPower: [null, 1 / 12, 1 / 12, 1 / 6, 1 / 8, 1 / 6, 1 / 2, 1 / 12, 1 / 12, 1 / 64, 1 / 64],
-  //10 Million of each before Diminishing returns on first 3, 200k for second, and 10k for the last few
-  platonicCubeBase: [2/4e6, 1.5/4e6, 1/4e6, 1/8e4, 1/1e4, 1/1e5, 1/1e4, 1/1e4],
-  platonicDRPower: [1/5, 1/5, 1/5, 1/5, 1/16, 1/16, 1/4, 1/8],
+  // 10 Million of each before Diminishing returns on first 3, 200k for second, and 10k for the last few
+  platonicCubeBase: [2 / 4e6, 1.5 / 4e6, 1 / 4e6, 1 / 8e4, 1 / 1e4, 1 / 1e5, 1 / 1e4, 1 / 1e4],
+  platonicDRPower: [1 / 5, 1 / 5, 1 / 5, 1 / 5, 1 / 16, 1 / 16, 1 / 4, 1 / 8],
 
   cubeBonusMultiplier: [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   tesseractBonusMultiplier: [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -347,13 +366,67 @@ export const Globals: GlobalVariables = {
   researchOrderByCost: [],
 
   viscosityPower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05, 0, 0, 0],
-  lazinessMultiplier: [1, 1 / 3, 1 / 10, 1 / 40, 1 / 200, 1 / 1e5, 1 / 1e7, 1 / 1e10, 1/1e13, 1/1e16, 1/1e20, 1/1e25, 1/1e35, 1/1e50, 1/1e65, 1/1e80, 1/1e100],
+  lazinessMultiplier: [
+    1,
+    1 / 3,
+    1 / 10,
+    1 / 40,
+    1 / 200,
+    1 / 1e5,
+    1 / 1e7,
+    1 / 1e10,
+    1 / 1e13,
+    1 / 1e16,
+    1 / 1e20,
+    1 / 1e25,
+    1 / 1e35,
+    1 / 1e50,
+    1 / 1e65,
+    1 / 1e80,
+    1 / 1e100
+  ],
   hyperchallengedMultiplier: [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100, 400, 1600, 7777, 18888, 88888],
   illiteracyPower: [1, 0.8, 0.7, 0.6, 0.5, 0.3, 0.2, 0.15, 0.10, 0.06, 0.04, 0.02, 0.01, 0.005, 0, 0, 0],
-  deflationMultiplier: [1, 0.3, 0.1, 0.03, 0.01, 1/1e6, 1/1e8, 1/1e10, 1/1e12, 1/1e15, 1/1e18, 1/1e25, 1/1e35, 1/1e50, 1/1e77, 0, 0],
+  deflationMultiplier: [
+    1,
+    0.3,
+    0.1,
+    0.03,
+    0.01,
+    1 / 1e6,
+    1 / 1e8,
+    1 / 1e10,
+    1 / 1e12,
+    1 / 1e15,
+    1 / 1e18,
+    1 / 1e25,
+    1 / 1e35,
+    1 / 1e50,
+    1 / 1e77,
+    0,
+    0
+  ],
   extinctionMultiplier: [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.1, 0, 0, 0, 0],
   droughtMultiplier: [1, 5, 25, 200, 1e4, 1e7, 1e11, 1e16, 1e22, 1e30, 1e40, 1e55, 1e80, 1e120, 1e177, 1e200, 1e250],
-  financialcollapsePower: [1, 0.9, 0.7, 0.6, 0.5, 0.37, 0.30, 0.23, 0.18, 0.15, 0.12, 0.09, 0.03, 0.01, 0.007, 0.0007, 0.00007],
+  financialcollapsePower: [
+    1,
+    0.9,
+    0.7,
+    0.6,
+    0.5,
+    0.37,
+    0.30,
+    0.23,
+    0.18,
+    0.15,
+    0.12,
+    0.09,
+    0.03,
+    0.01,
+    0.007,
+    0.0007,
+    0.00007
+  ],
 
   corruptionPointMultipliers: [1, 3, 4, 5, 6, 7, 7.75, 8.5, 9.25, 10, 10.75, 11.5, 12.25, 13, 16, 20, 25, 33, 35],
   ascendBuildingProduction: {

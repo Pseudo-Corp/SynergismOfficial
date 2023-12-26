@@ -1,12 +1,12 @@
 import i18next, { type Resource } from 'i18next'
-import { prod } from './Config'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { prod } from './Config'
 import ColorTextPlugin from './Plugins/ColorText'
 import { Confirm } from './UpdateHTML'
 
 // For 'flag': https://emojipedia.org/emoji-flag-sequence/
 // Searching "flag <country>" in their search bar will help verify the code.
-const supported: Record<string, { name: string, flag: string }> = {
+const supported: Record<string, { name: string; flag: string }> = {
   // Define language properties and mappings here.
   en: { name: 'English', flag: '🇺🇸' }, // Or '🇺🇸 / 🇬🇧', no name?
   zh: { name: 'Chinese', flag: '🇨🇳' },
@@ -56,11 +56,10 @@ export const init = async (): Promise<void> => {
   translateHTML()
 }
 
-function buildLanguageButton(langID: string, name: string, flag: string) {
+function buildLanguageButton (langID: string, name: string, flag: string) {
   const mainButton = document.createElement('button')
   mainButton.id = `language_${langID}`
   mainButton.className = 'language-select'
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   mainButton.addEventListener('click', async () => {
     if (!languageCache.has(langID)) {
       const response = await fetch(`./translations/${langID}.json`)
@@ -94,7 +93,7 @@ function buildLanguageButton(langID: string, name: string, flag: string) {
   return mainButton
 }
 
-function buildLanguageTab() {
+function buildLanguageTab () {
   const langSelector = DOMCacheGetOrSet('languageOptions')
   for (const langID in supported) {
     const langButton = buildLanguageButton(langID, supported[langID].name, supported[langID].flag)
@@ -116,4 +115,3 @@ function translateHTML () {
     }
   }
 }
-

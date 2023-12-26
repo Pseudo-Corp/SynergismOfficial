@@ -1,28 +1,36 @@
-import { player, resetCheck, blankSave } from './Synergism'
-import { testing } from './Config'
-import type { Player } from './types/Synergism'
 import Decimal from 'break_infinity.js'
+import i18next from 'i18next'
+import { type IBlueberryData, updateLoadoutHoverClasses } from './BlueberryUpgrades'
+import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
 import { calculateMaxRunes, calculateTimeAcceleration } from './Calculate'
-import { buyResearch } from './Research'
-import { c15RewardUpdate } from './Statistics'
-import type { LegacyShopUpgrades, PlayerSave } from './types/LegacySynergism'
-import { padArray } from './Utility'
-import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, createHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from './Hepteracts'
+import { testing } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
-import { Alert } from './UpdateHTML'
+import {
+  AbyssHepteract,
+  AcceleratorBoostHepteract,
+  AcceleratorHepteract,
+  ChallengeHepteract,
+  ChronosHepteract,
+  createHepteract,
+  HyperrealismHepteract,
+  MultiplierHepteract,
+  QuarkHepteract
+} from './Hepteracts'
+import type { IOcteractData } from './Octeracts'
+import { octeractData, OcteractUpgrade } from './Octeracts'
+import { buyResearch } from './Research'
 import { getQuarkInvestment, shopData } from './Shop'
 import type { ISingularityData } from './singularity'
 import { singularityData, SingularityUpgrade } from './singularity'
-import type { IOcteractData } from './Octeracts'
-import { octeractData, OcteractUpgrade } from './Octeracts'
 import type { ISingularityChallengeData } from './SingularityChallenges'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
-import i18next from 'i18next'
 import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
-import { type IBlueberryData, updateLoadoutHoverClasses } from './BlueberryUpgrades'
-import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
-
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import { c15RewardUpdate } from './Statistics'
+import { blankSave, player, resetCheck } from './Synergism'
+import type { LegacyShopUpgrades, PlayerSave } from './types/LegacySynergism'
+import type { Player } from './types/Synergism'
+import { Alert } from './UpdateHTML'
+import { padArray } from './Utility'
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -60,13 +68,16 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   // backwards compatibility for v1.0101 (and possibly older) saves
   if (!Array.isArray(data.highestchallengecompletions)) {
     // if highestchallengecompletions is every added onto, this will need to be padded.
-    player.highestchallengecompletions = Object.values(data.highestchallengecompletions as unknown as object) as number[]
+    player.highestchallengecompletions = Object.values(
+      data.highestchallengecompletions as unknown as object
+    ) as number[]
   }
 
   if (data.wowCubes === undefined) {
     player.wowCubes = new WowCubes()
     player.wowTesseracts = new WowTesseracts(0)
     player.wowHypercubes = new WowHypercubes(0)
+    // dprint-ignore
     player.cubeUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   }
   if (data.shoptoggles?.reincarnate === undefined) {
@@ -150,6 +161,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   if (data.autoChallengeRunning === undefined) {
     player.autoChallengeRunning = false
     player.autoChallengeIndex = 1
+    // dprint-ignore
     player.autoChallengeToggles = [false, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false]
     player.autoChallengeStartExponent = 10
     player.autoChallengeTimer = {
@@ -209,7 +221,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     blankSave.corruptionLoadouts
   ) as (`${keyof Player['corruptionLoadouts']}`)[]
 
-  for (const key of corruptionLoadouts.map(k => Number(k))) {
+  for (const key of corruptionLoadouts.map((k) => Number(k))) {
     if (player.corruptionLoadouts[key] !== undefined) {
       continue
     }
@@ -291,7 +303,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     singCitadel: new SingularityUpgrade(singularityData.singCitadel, 'singCitadel'),
     singCitadel2: new SingularityUpgrade(singularityData.singCitadel2, 'singCitadel2'),
     octeractUnlock: new SingularityUpgrade(singularityData.octeractUnlock, 'octeractUnlock'),
-    singOcteractPatreonBonus: new SingularityUpgrade(singularityData.singOcteractPatreonBonus, 'singOcteractPatreonBonus'),
+    singOcteractPatreonBonus: new SingularityUpgrade(
+      singularityData.singOcteractPatreonBonus,
+      'singOcteractPatreonBonus'
+    ),
     intermediatePack: new SingularityUpgrade(singularityData.intermediatePack, 'intermediatePack'),
     advancedPack: new SingularityUpgrade(singularityData.advancedPack, 'advancedPack'),
     expertPack: new SingularityUpgrade(singularityData.expertPack, 'expertPack'),
@@ -350,9 +365,18 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     octeractImprovedDaily2: new OcteractUpgrade(octeractData.octeractImprovedDaily2, 'octeractImprovedDaily2'),
     octeractImprovedDaily3: new OcteractUpgrade(octeractData.octeractImprovedDaily3, 'octeractImprovedDaily3'),
     octeractImprovedQuarkHept: new OcteractUpgrade(octeractData.octeractImprovedQuarkHept, 'octeractImprovedQuarkHept'),
-    octeractImprovedGlobalSpeed: new OcteractUpgrade(octeractData.octeractImprovedGlobalSpeed, 'octeractImprovedGlobalSpeed'),
-    octeractImprovedAscensionSpeed: new OcteractUpgrade(octeractData.octeractImprovedAscensionSpeed, 'octeractImprovedAscensionSpeed'),
-    octeractImprovedAscensionSpeed2: new OcteractUpgrade(octeractData.octeractImprovedAscensionSpeed2, 'octeractImprovedAscensionSpeed2'),
+    octeractImprovedGlobalSpeed: new OcteractUpgrade(
+      octeractData.octeractImprovedGlobalSpeed,
+      'octeractImprovedGlobalSpeed'
+    ),
+    octeractImprovedAscensionSpeed: new OcteractUpgrade(
+      octeractData.octeractImprovedAscensionSpeed,
+      'octeractImprovedAscensionSpeed'
+    ),
+    octeractImprovedAscensionSpeed2: new OcteractUpgrade(
+      octeractData.octeractImprovedAscensionSpeed2,
+      'octeractImprovedAscensionSpeed2'
+    ),
     octeractImprovedFree: new OcteractUpgrade(octeractData.octeractImprovedFree, 'octeractImprovedFree'),
     octeractImprovedFree2: new OcteractUpgrade(octeractData.octeractImprovedFree2, 'octeractImprovedFree2'),
     octeractImprovedFree3: new OcteractUpgrade(octeractData.octeractImprovedFree3, 'octeractImprovedFree3'),
@@ -362,23 +386,44 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     octeractObtainium1: new OcteractUpgrade(octeractData.octeractObtainium1, 'octeractObtainium1'),
     octeractAscensions: new OcteractUpgrade(octeractData.octeractAscensions, 'octeractAscensions'),
     octeractAscensions2: new OcteractUpgrade(octeractData.octeractAscensions2, 'octeractAscensions2'),
-    octeractAscensionsOcteractGain: new OcteractUpgrade(octeractData.octeractAscensionsOcteractGain, 'octeractAscensionsOcteractGain'),
+    octeractAscensionsOcteractGain: new OcteractUpgrade(
+      octeractData.octeractAscensionsOcteractGain,
+      'octeractAscensionsOcteractGain'
+    ),
     octeractFastForward: new OcteractUpgrade(octeractData.octeractFastForward, 'octeractFastForward'),
     octeractAutoPotionSpeed: new OcteractUpgrade(octeractData.octeractAutoPotionSpeed, 'octeractAutoPotionSpeed'),
-    octeractAutoPotionEfficiency: new OcteractUpgrade(octeractData.octeractAutoPotionEfficiency, 'octeractAutoPotionEfficiency'),
+    octeractAutoPotionEfficiency: new OcteractUpgrade(
+      octeractData.octeractAutoPotionEfficiency,
+      'octeractAutoPotionEfficiency'
+    ),
     octeractOneMindImprover: new OcteractUpgrade(octeractData.octeractOneMindImprover, 'octeractOneMindImprover'),
     octeractAmbrosiaLuck: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck, 'octeractAmbrosiaLuck'),
     octeractAmbrosiaLuck2: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck2, 'octeractAmbrosiaLuck2'),
     octeractAmbrosiaLuck3: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck3, 'octeractAmbrosiaLuck3'),
     octeractAmbrosiaLuck4: new OcteractUpgrade(octeractData.octeractAmbrosiaLuck4, 'octeractAmbrosiaLuck4'),
-    octeractAmbrosiaGeneration: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration, 'octeractAmbrosiaGeneration'),
-    octeractAmbrosiaGeneration2: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration2, 'octeractAmbrosiaGeneration2'),
-    octeractAmbrosiaGeneration3: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration3, 'octeractAmbrosiaGeneration3'),
-    octeractAmbrosiaGeneration4: new OcteractUpgrade(octeractData.octeractAmbrosiaGeneration4, 'octeractAmbrosiaGeneration4')
+    octeractAmbrosiaGeneration: new OcteractUpgrade(
+      octeractData.octeractAmbrosiaGeneration,
+      'octeractAmbrosiaGeneration'
+    ),
+    octeractAmbrosiaGeneration2: new OcteractUpgrade(
+      octeractData.octeractAmbrosiaGeneration2,
+      'octeractAmbrosiaGeneration2'
+    ),
+    octeractAmbrosiaGeneration3: new OcteractUpgrade(
+      octeractData.octeractAmbrosiaGeneration3,
+      'octeractAmbrosiaGeneration3'
+    ),
+    octeractAmbrosiaGeneration4: new OcteractUpgrade(
+      octeractData.octeractAmbrosiaGeneration4,
+      'octeractAmbrosiaGeneration4'
+    )
   }
 
   player.singularityChallenges = {
-    noSingularityUpgrades: new SingularityChallenge(singularityChallengeData.noSingularityUpgrades, 'noSingularityUpgrades'),
+    noSingularityUpgrades: new SingularityChallenge(
+      singularityChallengeData.noSingularityUpgrades,
+      'noSingularityUpgrades'
+    ),
     oneChallengeCap: new SingularityChallenge(singularityChallengeData.oneChallengeCap, 'oneChallengeCap'),
     noOcteracts: new SingularityChallenge(singularityChallengeData.noOcteracts, 'noOcteracts'),
     limitedAscensions: new SingularityChallenge(singularityChallengeData.limitedAscensions, 'limitedAscensions')
@@ -428,8 +473,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     player.ascStatToggles[4] = false
   }
 
-  if (player.usedCorruptions[0] > 0 ||
-        (Array.isArray(data.usedCorruptions) && data.usedCorruptions[0] > 0)) {
+  if (
+    player.usedCorruptions[0] > 0
+    || (Array.isArray(data.usedCorruptions) && data.usedCorruptions[0] > 0)
+  ) {
     player.prototypeCorruptions[0] = 0
     player.usedCorruptions[0] = 0
   }
@@ -470,7 +517,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     player.challenge15Exponent = 0
     player.loadedNov13Vers = false
   }
-  if (player.researches.some(k => typeof k !== 'number')) {
+  if (player.researches.some((k) => typeof k !== 'number')) {
     for (let i = 0; i < 200; i++) {
       player.researches[i + 1] = player.researches[i + 1] || 0
     }
@@ -502,7 +549,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
       offeringEX: 0,
       offeringAuto: Math.min(1, Number(shop.offeringAutoLevel)),
       obtainiumEX: 0,
-      obtainiumAuto: Math.min(1, Number(shop.obtainiumAutoLevel)), //Number(shop.obtainiumAutoLevel),
+      obtainiumAuto: Math.min(1, Number(shop.obtainiumAutoLevel)), // Number(shop.obtainiumAutoLevel),
       instantChallenge: Number(shop.instantChallengeBought),
       antSpeed: 0,
       cashGrab: 0,
@@ -565,20 +612,34 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
       shopAmbrosiaLuck4: 0
     }
 
-    player.worlds.add(150 * shop.offeringTimerLevel + 25/2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel, false)
-    player.worlds.add(150 * shop.obtainiumTimerLevel + 25/2 * (shop.obtainiumTimerLevel - 1) * shop.obtainiumTimerLevel, false)
-    player.worlds.add(150 * shop.offeringAutoLevel + 25/2 * (shop.offeringAutoLevel - 1) * shop.offeringAutoLevel - 150 * Math.min(1, shop.offeringAutoLevel), false)
-    player.worlds.add(150 * shop.obtainiumAutoLevel + 25/2 * (shop.obtainiumAutoLevel - 1) * shop.obtainiumAutoLevel - 150 * Math.min(1, shop.obtainiumAutoLevel), false)
-    player.worlds.add(100 * shop.cashGrabLevel + 100/2 * (shop.cashGrabLevel - 1) * shop.cashGrabLevel, false)
-    player.worlds.add(200 * shop.antSpeedLevel + 80/2 * (shop.antSpeedLevel - 1) * shop.antSpeedLevel, false)
+    player.worlds.add(
+      150 * shop.offeringTimerLevel + 25 / 2 * (shop.offeringTimerLevel - 1) * shop.offeringTimerLevel,
+      false
+    )
+    player.worlds.add(
+      150 * shop.obtainiumTimerLevel + 25 / 2 * (shop.obtainiumTimerLevel - 1) * shop.obtainiumTimerLevel,
+      false
+    )
+    player.worlds.add(
+      150 * shop.offeringAutoLevel + 25 / 2 * (shop.offeringAutoLevel - 1) * shop.offeringAutoLevel
+        - 150 * Math.min(1, shop.offeringAutoLevel),
+      false
+    )
+    player.worlds.add(
+      150 * shop.obtainiumAutoLevel + 25 / 2 * (shop.obtainiumAutoLevel - 1) * shop.obtainiumAutoLevel
+        - 150 * Math.min(1, shop.obtainiumAutoLevel),
+      false
+    )
+    player.worlds.add(100 * shop.cashGrabLevel + 100 / 2 * (shop.cashGrabLevel - 1) * shop.cashGrabLevel, false)
+    player.worlds.add(200 * shop.antSpeedLevel + 80 / 2 * (shop.antSpeedLevel - 1) * shop.antSpeedLevel, false)
 
     const tomes = shop.challenge10Tomes ?? shop.challengeTome
-    player.worlds.add(500 * tomes + 250/2 * (tomes - 1) * (tomes), false)
+    player.worlds.add(500 * tomes + 250 / 2 * (tomes - 1) * tomes, false)
 
     player.worlds.add(
       typeof shop.seasonPass === 'number'
-        ? 500 * shop.seasonPass + 250/2 * (shop.seasonPass - 1) * shop.seasonPass
-        : 500 * shop.seasonPassLevel + 250/2 * (shop.seasonPassLevel - 1) * shop.seasonPassLevel,
+        ? 500 * shop.seasonPass + 250 / 2 * (shop.seasonPass - 1) * shop.seasonPass
+        : 500 * shop.seasonPassLevel + 250 / 2 * (shop.seasonPassLevel - 1) * shop.seasonPassLevel,
       false
     )
   }
@@ -657,9 +718,21 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
   if (data.loadedV253 === undefined) {
     player.loadedV253 = true
-    player.worlds.add(10000 * player.shopUpgrades.calculator + 10000 / 2 * (player.shopUpgrades.calculator - 1) * (player.shopUpgrades.calculator), false)
-    player.worlds.add(10000 * player.shopUpgrades.calculator2 + 5000 / 2 * (player.shopUpgrades.calculator2 - 1) * (player.shopUpgrades.calculator2), false)
-    player.worlds.add(25000 * player.shopUpgrades.calculator3 + 25000 / 2 * (player.shopUpgrades.calculator3 - 1) * (player.shopUpgrades.calculator3), false)
+    player.worlds.add(
+      10000 * player.shopUpgrades.calculator
+        + 10000 / 2 * (player.shopUpgrades.calculator - 1) * (player.shopUpgrades.calculator),
+      false
+    )
+    player.worlds.add(
+      10000 * player.shopUpgrades.calculator2
+        + 5000 / 2 * (player.shopUpgrades.calculator2 - 1) * (player.shopUpgrades.calculator2),
+      false
+    )
+    player.worlds.add(
+      25000 * player.shopUpgrades.calculator3
+        + 25000 / 2 * (player.shopUpgrades.calculator3 - 1) * (player.shopUpgrades.calculator3),
+      false
+    )
     player.shopUpgrades.calculator = 0
     player.shopUpgrades.calculator2 = 0
     player.shopUpgrades.calculator3 = 0
@@ -669,7 +742,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
 
   if (data.loadedV255 === undefined) {
     player.loadedV255 = true
-    player.worlds.add(1000 * player.shopUpgrades.powderEX + 1000 / 2 * (player.shopUpgrades.powderEX - 1) * (player.shopUpgrades.powderEX), false)
+    player.worlds.add(
+      1000 * player.shopUpgrades.powderEX
+        + 1000 / 2 * (player.shopUpgrades.powderEX - 1) * (player.shopUpgrades.powderEX),
+      false
+    )
     player.shopUpgrades.powderEX = 0
     void Alert(i18next.t('general.updateAlerts.july22021'))
     player.firstCostAnts = new Decimal('1e700')
@@ -717,7 +794,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     for (const item in blankSave.singularityUpgrades) {
       const k = item as keyof Player['singularityUpgrades']
       // if more crafts are added, some keys might not exist in the save
-      let updatedData:ISingularityData
+      let updatedData: ISingularityData
       if (data.singularityUpgrades[k]) {
         const { level, goldenQuarksInvested, toggleBuy, freeLevels } = data.singularityUpgrades[k]
 
@@ -742,12 +819,14 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
           player.singularityUpgrades[k].refund()
         }
 
-        const cost = player.singularityUpgrades[k].level * (player.singularityUpgrades[k].level + 1) *
-                             player.singularityUpgrades[k].costPerLevel / 2
-        if (player.singularityUpgrades[k].maxLevel !== -1 &&
-                    player.singularityUpgrades[k].level <= player.singularityUpgrades[k].maxLevel &&
-                    player.singularityUpgrades[k].goldenQuarksInvested !== cost &&
-                    player.singularityUpgrades[k].specialCostForm === 'Default') {
+        const cost = player.singularityUpgrades[k].level * (player.singularityUpgrades[k].level + 1)
+          * player.singularityUpgrades[k].costPerLevel / 2
+        if (
+          player.singularityUpgrades[k].maxLevel !== -1
+          && player.singularityUpgrades[k].level <= player.singularityUpgrades[k].maxLevel
+          && player.singularityUpgrades[k].goldenQuarksInvested !== cost
+          && player.singularityUpgrades[k].specialCostForm === 'Default'
+        ) {
           player.singularityUpgrades[k].refund()
         }
       } else {
@@ -759,7 +838,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   if (data.octeractUpgrades != null) { // TODO: Make this more DRY -Platonic, July 15 2022
     for (const item in blankSave.octeractUpgrades) {
       const k = item as keyof Player['octeractUpgrades']
-      let updatedData:IOcteractData
+      let updatedData: IOcteractData
       if (data.octeractUpgrades[k]) {
         const { level, octeractsInvested, toggleBuy, freeLevels } = data.octeractUpgrades[k]
         updatedData = {
@@ -776,8 +855,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         }
         player.octeractUpgrades[k] = new OcteractUpgrade(updatedData, k.toString())
 
-        if (player.octeractUpgrades[k].maxLevel !== -1 &&
-                    player.octeractUpgrades[k].level > player.octeractUpgrades[k].maxLevel) {
+        if (
+          player.octeractUpgrades[k].maxLevel !== -1
+          && player.octeractUpgrades[k].level > player.octeractUpgrades[k].maxLevel
+        ) {
           player.octeractUpgrades[k].refund()
         }
       } else {
@@ -790,7 +871,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     // blueberry loading here!
     for (const item of Object.keys(blankSave.blueberryUpgrades)) {
       const k = item as keyof Player['blueberryUpgrades']
-      let updatedData:IBlueberryData
+      let updatedData: IBlueberryData
       if (data.blueberryUpgrades[k]) {
         const { level, ambrosiaInvested, blueberriesInvested, toggleBuy, freeLevels } = data.blueberryUpgrades[k]
         updatedData = {
@@ -809,8 +890,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         }
         player.blueberryUpgrades[k] = new BlueberryUpgrade(updatedData, k.toString())
 
-        if (player.blueberryUpgrades[k].maxLevel !== -1 &&
-                    player.blueberryUpgrades[k].level > player.blueberryUpgrades[k].maxLevel) {
+        if (
+          player.blueberryUpgrades[k].maxLevel !== -1
+          && player.blueberryUpgrades[k].level > player.blueberryUpgrades[k].maxLevel
+        ) {
           player.blueberryUpgrades[k].refund()
         }
       } else {
@@ -821,13 +904,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     updateLoadoutHoverClasses()
   }
 
-
   if (data.singularityChallenges != null) {
     for (const item in blankSave.singularityChallenges) {
       const k = item as keyof Player['singularityChallenges']
-      let updatedData:ISingularityChallengeData
+      let updatedData: ISingularityChallengeData
       if (data.singularityChallenges[k]) {
-
         // This is a HOTFIX. Please do not remove unless you can think of a better way
         if (data.loadedV2927Hotfix1 === undefined && k === 'noSingularityUpgrades') {
           const comps = data.singularityChallenges[k].completions
@@ -1009,12 +1090,14 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
 
     if (player.highestSingularityCount >= 100) {
-      const reduce = Math.min(6, Math.ceil(1/20 * (player.highestSingularityCount - 100)))
+      const reduce = Math.min(6, Math.ceil(1 / 20 * (player.highestSingularityCount - 100)))
       player.highestSingularityCount -= reduce
       if (!player.insideSingularityChallenge) {
         player.singularityCount -= reduce
       }
-      void Alert(`Due to recent balance changes your highest singularity count was reduced by ${reduce}. This is for your own good!`)
+      void Alert(
+        `Due to recent balance changes your highest singularity count was reduced by ${reduce}. This is for your own good!`
+      )
     }
   }
 

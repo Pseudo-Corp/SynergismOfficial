@@ -1,34 +1,34 @@
-import { player, getTimePinnedToLoadDate, format } from './Synergism'
-import { Globals as G } from './Variables'
-import { DOMCacheGetOrSet } from './Cache/DOM'
 import i18next from 'i18next'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import { format, getTimePinnedToLoadDate, player } from './Synergism'
 import { Alert, revealStuff } from './UpdateHTML'
+import { Globals as G } from './Variables'
 
 interface HolidayData {
-    name: string
-    color: string
-    url: string
-    start: string
-    end: string
-    /** Time in days */
-    notice: number
-    event: boolean
-    buffs: {
-        quark?: number
-        goldenQuark?: number
-        cubes?: number
-        powderConversion?: number
-        ascensionSpeed?: number
-        globalSpeed?: number
-        ascensionScore?: number
-        antSacrifice?: number
-        offering?: number
-        obtainium?: number
-        octeract?: number
-        blueberryTime?: number
-        ambrosiaLuck?: number
-        oneMind?: number
-    }
+  name: string
+  color: string
+  url: string
+  start: string
+  end: string
+  /** Time in days */
+  notice: number
+  event: boolean
+  buffs: {
+    quark?: number
+    goldenQuark?: number
+    cubes?: number
+    powderConversion?: number
+    ascensionSpeed?: number
+    globalSpeed?: number
+    ascensionScore?: number
+    antSacrifice?: number
+    offering?: number
+    obtainium?: number
+    octeract?: number
+    blueberryTime?: number
+    ambrosiaLuck?: number
+    oneMind?: number
+  }
 }
 
 // Editing the event is here
@@ -98,7 +98,7 @@ export const eventCheck = () => {
              I have temporarily disabled the checks. */
   nowEvent = events[0]
 
-  //if (now.getTime() >= player.dayCheck.getTime()) {
+  // if (now.getTime() >= player.dayCheck.getTime()) {
   // Update currently valid events
   for (const event of events) {
     if (event.event) {
@@ -115,7 +115,7 @@ export const eventCheck = () => {
       }
     }
   }
-  //}
+  // }
   const happyHolidays = DOMCacheGetOrSet('happyHolidays') as HTMLAnchorElement
   const eventBuffs = DOMCacheGetOrSet('eventBuffs')
   const updateIsEventCheck = G.isEvent
@@ -128,7 +128,9 @@ export const eventCheck = () => {
       const eventBuff = calculateEventSourceBuff(eventBuffType[i])
       if (eventBuff !== 0) {
         if (eventBuffType[i] === 'One Mind' && player.singularityUpgrades.oneMind.level > 0) {
-          buffs += `<span style="color: gold">${eventBuff >= 0 ? '+' : '-'}${format(100 * eventBuff, 3, true)}% ${eventBuffName[i]}</span> ,`
+          buffs += `<span style="color: gold">${eventBuff >= 0 ? '+' : '-'}${format(100 * eventBuff, 3, true)}% ${
+            eventBuffName[i]
+          }</span> ,`
         } else if (eventBuffType[i] !== 'One Mind' || player.singularityUpgrades.oneMind.level === 0) {
           buffs += `${eventBuff >= 0 ? '+' : '-'}${format(100 * eventBuff, 2, true)}% ${eventBuffName[i]}, `
         }
@@ -141,8 +143,8 @@ export const eventCheck = () => {
     DOMCacheGetOrSet('eventCurrent').textContent = G.isEvent
       ? i18next.t('settings.events.activeUntil', { x: end })
       : i18next.t('settings.events.starts', { x: start })
-    eventBuffs.innerHTML = G.isEvent ? 'Current Buffs: ' + buffs : ''
-    //eventBuffs.style.color = 'lime';
+    eventBuffs.innerHTML = G.isEvent ? `Current Buffs: ${buffs}` : ''
+    // eventBuffs.style.color = 'lime';
     happyHolidays.innerHTML = nowEvent.name
     happyHolidays.style.color = nowEvent.color
     happyHolidays.href = nowEvent.url.length > 0 ? nowEvent.url : '#'
@@ -161,27 +163,72 @@ export const eventCheck = () => {
   }
 }
 
-const eventBuffType = ['Quarks', 'Golden Quarks', 'Cubes', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice', 'Offering', 'Obtainium', 'Octeract', 'Blueberry Time', 'Ambrosia Luck', 'One Mind']
-const eventBuffName = ['Quarks', 'Golden Quarks', 'Cubes from all type', 'Powder Conversion', 'Ascension Speed', 'Global Speed', 'Ascension Score', 'Ant Sacrifice rewards', 'Offering', 'Obtainium', 'Eight Dimensional Hypercubes', 'Blueberry Time Generation', 'Ambrosia Luck (Additive)', 'One Mind Quark Bonus']
+const eventBuffType = [
+  'Quarks',
+  'Golden Quarks',
+  'Cubes',
+  'Powder Conversion',
+  'Ascension Speed',
+  'Global Speed',
+  'Ascension Score',
+  'Ant Sacrifice',
+  'Offering',
+  'Obtainium',
+  'Octeract',
+  'Blueberry Time',
+  'Ambrosia Luck',
+  'One Mind'
+]
+const eventBuffName = [
+  'Quarks',
+  'Golden Quarks',
+  'Cubes from all type',
+  'Powder Conversion',
+  'Ascension Speed',
+  'Global Speed',
+  'Ascension Score',
+  'Ant Sacrifice rewards',
+  'Offering',
+  'Obtainium',
+  'Eight Dimensional Hypercubes',
+  'Blueberry Time Generation',
+  'Ambrosia Luck (Additive)',
+  'One Mind Quark Bonus'
+]
 
 export const calculateEventSourceBuff = (buff: string): number => {
   const event = getEvent()
   switch (buff) {
-    case 'Quarks': return event.buffs.quark ?? 0
-    case 'Golden Quarks': return event.buffs.goldenQuark ?? 0
-    case 'Cubes': return event.buffs.cubes ?? 0
-    case 'Powder Conversion': return event.buffs.powderConversion ?? 0
-    case 'Ascension Speed': return event.buffs.ascensionSpeed ?? 0
-    case 'Global Speed': return event.buffs.globalSpeed ?? 0
-    case 'Ascension Score': return event.buffs.ascensionScore ?? 0
-    case 'Ant Sacrifice': return event.buffs.antSacrifice ?? 0
-    case 'Offering': return event.buffs.offering ?? 0
-    case 'Obtainium': return event.buffs.obtainium ?? 0
-    case 'Octeract': return event.buffs.octeract ?? 0
-    case 'One Mind': return (player.singularityUpgrades.oneMind.level > 0) ? event.buffs.oneMind ?? 0 : 0
-    case 'Blueberry Time': return event.buffs.blueberryTime ?? 0
-    case 'Ambrosia Luck': return event.buffs.ambrosiaLuck ?? 0
-    default: return 0
+    case 'Quarks':
+      return event.buffs.quark ?? 0
+    case 'Golden Quarks':
+      return event.buffs.goldenQuark ?? 0
+    case 'Cubes':
+      return event.buffs.cubes ?? 0
+    case 'Powder Conversion':
+      return event.buffs.powderConversion ?? 0
+    case 'Ascension Speed':
+      return event.buffs.ascensionSpeed ?? 0
+    case 'Global Speed':
+      return event.buffs.globalSpeed ?? 0
+    case 'Ascension Score':
+      return event.buffs.ascensionScore ?? 0
+    case 'Ant Sacrifice':
+      return event.buffs.antSacrifice ?? 0
+    case 'Offering':
+      return event.buffs.offering ?? 0
+    case 'Obtainium':
+      return event.buffs.obtainium ?? 0
+    case 'Octeract':
+      return event.buffs.octeract ?? 0
+    case 'One Mind':
+      return (player.singularityUpgrades.oneMind.level > 0) ? event.buffs.oneMind ?? 0 : 0
+    case 'Blueberry Time':
+      return event.buffs.blueberryTime ?? 0
+    case 'Ambrosia Luck':
+      return event.buffs.ambrosiaLuck ?? 0
+    default:
+      return 0
   }
 }
 

@@ -1,28 +1,39 @@
-import { DynamicUpgrade } from './DynamicUpgrade'
-import type { IUpgradeData } from './DynamicUpgrade'
-import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { format, player } from './Synergism'
-import type { Player } from './types/Synergism'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { visualUpdateAmbrosia } from './UpdateVisuals'
+import { DynamicUpgrade } from './DynamicUpgrade'
+import type { IUpgradeData } from './DynamicUpgrade'
 import { exportData, saveFilename } from './ImportExport'
+import { format, player } from './Synergism'
+import type { Player } from './types/Synergism'
+import { Alert, Confirm, Prompt } from './UpdateHTML'
+import { visualUpdateAmbrosia } from './UpdateVisuals'
 
-export type blueberryUpgradeNames = 'ambrosiaTutorial' | 'ambrosiaQuarks1' | 'ambrosiaCubes1' | 'ambrosiaLuck1' |
-                                    'ambrosiaCubeLuck1' | 'ambrosiaQuarkLuck1' | 'ambrosiaQuarkCube1' | 'ambrosiaLuckCube1' |
-                                    'ambrosiaCubeQuark1' | 'ambrosiaLuckQuark1' | 'ambrosiaQuarks2' | 'ambrosiaCubes2' | 'ambrosiaLuck2'
+export type blueberryUpgradeNames =
+  | 'ambrosiaTutorial'
+  | 'ambrosiaQuarks1'
+  | 'ambrosiaCubes1'
+  | 'ambrosiaLuck1'
+  | 'ambrosiaCubeLuck1'
+  | 'ambrosiaQuarkLuck1'
+  | 'ambrosiaQuarkCube1'
+  | 'ambrosiaLuckCube1'
+  | 'ambrosiaCubeQuark1'
+  | 'ambrosiaLuckQuark1'
+  | 'ambrosiaQuarks2'
+  | 'ambrosiaCubes2'
+  | 'ambrosiaLuck2'
 
 export type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
 export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
 
 export interface IBlueberryData extends Omit<IUpgradeData, 'name' | 'description' | 'effect'> {
-    costFormula (this:void, level: number, baseCost: number): number
-    rewards(this:void, n: number): Record<string, number | boolean | string>
-    blueberryCost: number
-    ambrosiaInvested?: number
-    blueberriesInvested?: number
-    prerequisites?: BlueberryOpt
-    cacheUpdates?: (() => void)[] // TODO: Improve this type signature -Plat
+  costFormula(this: void, level: number, baseCost: number): number
+  rewards(this: void, n: number): Record<string, number | boolean | string>
+  blueberryCost: number
+  ambrosiaInvested?: number
+  blueberriesInvested?: number
+  prerequisites?: BlueberryOpt
+  cacheUpdates?: (() => void)[] // TODO: Improve this type signature -Plat
 }
 
 export class BlueberryUpgrade extends DynamicUpgrade {
@@ -34,7 +45,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   readonly preRequisites: BlueberryOpt | undefined
   readonly cacheUpdates: (() => void)[] | undefined
 
-  constructor(data: IBlueberryData, key: string) {
+  constructor (data: IBlueberryData, key: string) {
     const name = i18next.t(`ambrosia.data.${key}.name`)
     const description = i18next.t(`ambrosia.data.${key}.description`)
 
@@ -48,7 +59,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     this.cacheUpdates = data.cacheUpdates ?? undefined
   }
 
-  getCostTNL(): number {
+  getCostTNL (): number {
     if (this.level === this.maxLevel) {
       return 0
     }
@@ -56,21 +67,24 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   }
 
   /**
-     * Buy levels up until togglebuy or maxed.
-     * @returns An alert indicating cannot afford, already maxed or purchased with how many
-     *          levels purchased
-     */
-  public async buyLevel(event: MouseEvent): Promise<void> {
+   * Buy levels up until togglebuy or maxed.
+   * @returns An alert indicating cannot afford, already maxed or purchased with how many
+   *          levels purchased
+   */
+  public async buyLevel (event: MouseEvent): Promise<void> {
     let purchased = 0
     let maxPurchasable = 1
     let ambrosiaBudget = player.ambrosia
 
-    if (!this.checkPrerequisites())
+    if (!this.checkPrerequisites()) {
       return Alert(i18next.t('ambrosia.prereqNotMetAlert'))
+    }
 
     if (event.shiftKey) {
       maxPurchasable = 1000000
-      const buy = Number(await Prompt(i18next.t('ambrosia.ambrosiaBuyPrompt', { amount: format(player.ambrosia, 0, true) })))
+      const buy = Number(
+        await Prompt(i18next.t('ambrosia.ambrosiaBuyPrompt', { amount: format(player.ambrosia, 0, true) }))
+      )
 
       if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
         return Alert(i18next.t('general.validation.finite'))
@@ -128,7 +142,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     this.updateCaches()
   }
 
-  toString(): string {
+  toString (): string {
     const costNextLevel = this.getCostTNL()
     const maxLevel = this.maxLevel === -1
       ? ''
@@ -136,17 +150,21 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     const isMaxLevel = this.maxLevel === this.level
     const color = isMaxLevel ? 'plum' : 'white'
 
-    let freeLevelInfo = this.freeLevels > 0 ?
-      `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>` : ''
+    let freeLevelInfo = this.freeLevels > 0
+      ? `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>`
+      : ''
 
     if (this.freeLevels > this.level) {
-      freeLevelInfo = freeLevelInfo + `<span style="color: var(--maroon-text-color)">${i18next.t('general.softCapped')}</span>`
+      freeLevelInfo = freeLevelInfo
+        + `<span style="color: var(--maroon-text-color)">${i18next.t('general.softCapped')}</span>`
     }
 
     const isAffordable = costNextLevel <= player.ambrosia
-    const affordableInfo = isMaxLevel ? `<span style="color: plum"> ${i18next.t('general.maxed')}</span>` :
-      isAffordable ? `<span style="color: var(--green-text-color)"> ${i18next.t('general.affordable')}</span>` :
-        `<span style="color: yellow"> ${i18next.t('octeract.buyLevel.cannotAfford')}</span>`
+    const affordableInfo = isMaxLevel
+      ? `<span style="color: plum"> ${i18next.t('general.maxed')}</span>`
+      : isAffordable
+      ? `<span style="color: var(--green-text-color)"> ${i18next.t('general.affordable')}</span>`
+      : `<span style="color: yellow"> ${i18next.t('octeract.buyLevel.cannotAfford')}</span>`
 
     let preReqText = i18next.t('ambrosia.prerequisite')
     if (this.preRequisites !== undefined) {
@@ -154,7 +172,8 @@ export class BlueberryUpgrade extends DynamicUpgrade {
         const k = prereq as keyof Player['blueberryUpgrades']
         const color = (player.blueberryUpgrades[k].level >= val) ? 'green' : 'red'
         const met = (player.blueberryUpgrades[k].level >= val) ? '' : i18next.t('ambrosia.prereqNotMet')
-        preReqText = preReqText + `<span style="color:${color}"> ${player.blueberryUpgrades[k].name} lv.${val} ${met}</span> |`
+        preReqText = preReqText
+          + `<span style="color:${color}"> ${player.blueberryUpgrades[k].name} lv.${val} ${met}</span> |`
       }
 
       preReqText = preReqText.slice(0, -1)
@@ -163,19 +182,25 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     return `<span style="color: gold">${this.name}</span>
                 ${preReqText}
                 <span style="color: lightblue">${this.description}</span>
-                <span style="color: ${color}"> ${i18next.t('general.level')} ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>
+                <span style="color: ${color}"> ${i18next.t('general.level')} ${
+      format(this.level, 0, true)
+    }${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.rewardDesc}</span>
-                ${i18next.t('octeract.toString.costNextLevel')}: <span style="color:orange">${format(costNextLevel, 2, true, true, true)}</span> ${i18next.t('ambrosia.ambrosia')} ${affordableInfo}
+                ${i18next.t('octeract.toString.costNextLevel')}: <span style="color:orange">${
+      format(costNextLevel, 2, true, true, true)
+    }</span> ${i18next.t('ambrosia.ambrosia')} ${affordableInfo}
                 ${i18next.t('ambrosia.blueberryCost')} <span style="color:blue">${this.blueberryCost}</span>
-                ${i18next.t('general.spent')} ${i18next.t('ambrosia.ambrosia')}: <span style="color:orange">${format(this.ambrosiaInvested, 2, true, true, true)}</span>`
+                ${i18next.t('general.spent')} ${i18next.t('ambrosia.ambrosia')}: <span style="color:orange">${
+      format(this.ambrosiaInvested, 2, true, true, true)
+    }</span>`
   }
 
-  updateUpgradeHTML(): void {
+  updateUpgradeHTML (): void {
     DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = this.toString()
     visualUpdateAmbrosia()
   }
 
-  checkPrerequisites(): boolean {
+  checkPrerequisites (): boolean {
     if (this.preRequisites !== undefined) {
       for (const [prereq, val] of Object.entries(this.preRequisites)) {
         const k = prereq as keyof Player['blueberryUpgrades']
@@ -187,7 +212,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     return true
   }
 
-  updateCaches(): void {
+  updateCaches (): void {
     if (this.cacheUpdates !== undefined) {
       for (const cache of this.cacheUpdates) {
         cache()
@@ -195,7 +220,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     }
   }
 
-  refund(): void {
+  refund (): void {
     player.ambrosia += this.ambrosiaInvested
     this.ambrosiaInvested = 0
     this.level = 0
@@ -204,7 +229,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     this.blueberriesInvested = 0
   }
 
-  public get rewardDesc(): string {
+  public get rewardDesc (): string {
     if ('desc' in this.rewards(0)) {
       return String(this.rewards(this.level).desc)
     } else {
@@ -212,7 +237,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     }
   }
 
-  public get bonus() {
+  public get bonus () {
     return this.rewards(this.level)
   }
 }
@@ -231,7 +256,12 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       return {
         quarks: quarkAmount,
         cubes: cubeAmount,
-        desc: String(i18next.t('ambrosia.data.ambrosiaTutorial.effect', { cubeAmount: format(100 * (cubeAmount - 1), 0, true), quarkAmount: format(100 * (quarkAmount - 1), 0, true) }))
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaTutorial.effect', {
+            cubeAmount: format(100 * (cubeAmount - 1), 0, true),
+            quarkAmount: format(100 * (quarkAmount - 1), 0, true)
+          })
+        )
       }
     }
   },
@@ -246,11 +276,13 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       const quarkAmount = 1 + 0.01 * n
       return {
         quarks: quarkAmount,
-        desc: String(i18next.t('ambrosia.data.ambrosiaQuarks1.effect', { amount: format(100 * (quarkAmount - 1), 0, true) }))
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaQuarks1.effect', { amount: format(100 * (quarkAmount - 1), 0, true) })
+        )
       }
     },
     prerequisites: {
-      'ambrosiaTutorial': 10
+      ambrosiaTutorial: 10
     }
   },
   ambrosiaCubes1: {
@@ -264,11 +296,13 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       const cubeAmount = (1 + 0.05 * n) * Math.pow(1.1, Math.floor(n / 10))
       return {
         cubes: cubeAmount,
-        desc: String(i18next.t('ambrosia.data.ambrosiaCubes1.effect', { amount: format(100 * (cubeAmount - 1), 2, true) }))
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaCubes1.effect', { amount: format(100 * (cubeAmount - 1), 2, true) })
+        )
       }
     },
     prerequisites: {
-      'ambrosiaTutorial': 10
+      ambrosiaTutorial: 10
     }
   },
   ambrosiaLuck1: {
@@ -279,17 +313,19 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
     rewards: (n: number) => {
-      const val = 2 * n + 12 * Math.floor(n/10)
+      const val = 2 * n + 12 * Math.floor(n / 10)
       return {
         ambrosiaLuck: val,
         desc: String(i18next.t('ambrosia.data.ambrosiaLuck1.effect', { amount: format(val) }))
       }
     },
     prerequisites: {
-      'ambrosiaTutorial': 10
+      ambrosiaTutorial: 10
     },
-    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('BlueberryUpgrade1'),
-      () => player.caches.ambrosiaLuck.updateVal('BlueberryUpgrade2')]
+    cacheUpdates: [
+      () => player.caches.ambrosiaLuck.updateVal('BlueberryUpgrade1'),
+      () => player.caches.ambrosiaLuck.updateVal('BlueberryUpgrade2')
+    ]
   },
   ambrosiaQuarkCube1: {
     maxLevel: 25,
@@ -300,15 +336,15 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.0005 * n
-      const val = 1 + baseVal * Math.floor(Math.pow(Math.log10(Number(player.worlds)+1) +1, 2))
+      const val = 1 + baseVal * Math.floor(Math.pow(Math.log10(Number(player.worlds) + 1) + 1, 2))
       return {
         cubes: val,
         desc: String(i18next.t('ambrosia.data.ambrosiaQuarkCube1.effect', { amount: format(100 * (val - 1), 2, true) }))
       }
     },
     prerequisites: {
-      'ambrosiaCubes1': 30,
-      'ambrosiaQuarks1': 20
+      ambrosiaCubes1: 30,
+      ambrosiaQuarks1: 20
     }
   },
   ambrosiaLuckCube1: {
@@ -327,8 +363,8 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       }
     },
     prerequisites: {
-      'ambrosiaCubes1': 30,
-      'ambrosiaLuck1': 20
+      ambrosiaCubes1: 30,
+      ambrosiaLuck1: 20
     }
   },
   ambrosiaCubeQuark1: {
@@ -340,20 +376,20 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.0001 * n
-      const val = 1 + baseVal * (Math.floor(Math.log10(Number(player.wowCubes) + 1)) +
-                                Math.floor(Math.log10(Number(player.wowTesseracts) + 1)) +
-                                Math.floor(Math.log10(Number(player.wowHypercubes) + 1)) +
-                                Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1)) +
-                                Math.floor(Math.log10(player.wowAbyssals + 1)) +
-                                Math.floor(Math.log10(player.wowOcteracts + 1)) + 6)
+      const val = 1 + baseVal * (Math.floor(Math.log10(Number(player.wowCubes) + 1))
+            + Math.floor(Math.log10(Number(player.wowTesseracts) + 1))
+            + Math.floor(Math.log10(Number(player.wowHypercubes) + 1))
+            + Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1))
+            + Math.floor(Math.log10(player.wowAbyssals + 1))
+            + Math.floor(Math.log10(player.wowOcteracts + 1)) + 6)
       return {
         quarks: val,
         desc: String(i18next.t('ambrosia.data.ambrosiaCubeQuark1.effect', { amount: format(100 * (val - 1), 2, true) }))
       }
     },
     prerequisites: {
-      'ambrosiaQuarks1': 30,
-      'ambrosiaCubes1': 20
+      ambrosiaQuarks1: 30,
+      ambrosiaCubes1: 20
     }
   },
   ambrosiaLuckQuark1: {
@@ -365,8 +401,10 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.0001 * n
-      const effectiveLuck = Math.min(player.caches.ambrosiaLuck.totalVal,
-        Math.pow(1000, 0.5) * Math.pow(player.caches.ambrosiaLuck.totalVal, 0.5))
+      const effectiveLuck = Math.min(
+        player.caches.ambrosiaLuck.totalVal,
+        Math.pow(1000, 0.5) * Math.pow(player.caches.ambrosiaLuck.totalVal, 0.5)
+      )
       const val = 1 + baseVal * effectiveLuck
       return {
         quarks: val,
@@ -374,8 +412,8 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       }
     },
     prerequisites: {
-      'ambrosiaQuarks1': 30,
-      'ambrosiaLuck1': 20
+      ambrosiaQuarks1: 30,
+      ambrosiaLuck1: 20
     }
   },
   ambrosiaCubeLuck1: {
@@ -387,20 +425,20 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.02 * n
-      const val = baseVal * (Math.floor(Math.log10(Number(player.wowCubes) + 1)) +
-                            Math.floor(Math.log10(Number(player.wowTesseracts) + 1)) +
-                            Math.floor(Math.log10(Number(player.wowHypercubes) + 1)) +
-                            Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1)) +
-                            Math.floor(Math.log10(player.wowAbyssals + 1)) +
-                            Math.floor(Math.log10(player.wowOcteracts + 1)) + 6)
+      const val = baseVal * (Math.floor(Math.log10(Number(player.wowCubes) + 1))
+        + Math.floor(Math.log10(Number(player.wowTesseracts) + 1))
+        + Math.floor(Math.log10(Number(player.wowHypercubes) + 1))
+        + Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1))
+        + Math.floor(Math.log10(player.wowAbyssals + 1))
+        + Math.floor(Math.log10(player.wowOcteracts + 1)) + 6)
       return {
         ambrosiaLuck: val,
         desc: String(i18next.t('ambrosia.data.ambrosiaCubeLuck1.effect', { amount: format(val, 2, true) }))
       }
     },
     prerequisites: {
-      'ambrosiaLuck1': 30,
-      'ambrosiaCubes1': 20
+      ambrosiaLuck1: 30,
+      ambrosiaCubes1: 20
     },
     cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('BlueberryCubeLuck1')]
   },
@@ -413,15 +451,15 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
     },
     rewards: (n: number) => {
       const baseVal = 0.02 * n
-      const val = baseVal * Math.floor(Math.pow(Math.log10(Number(player.worlds)+1)+1, 2))
+      const val = baseVal * Math.floor(Math.pow(Math.log10(Number(player.worlds) + 1) + 1, 2))
       return {
         ambrosiaLuck: val,
         desc: String(i18next.t('ambrosia.data.ambrosiaQuarkLuck1.effect', { amount: format(val, 2, true) }))
       }
     },
     prerequisites: {
-      'ambrosiaLuck1': 30,
-      'ambrosiaQuarks1': 20
+      ambrosiaLuck1: 30,
+      ambrosiaQuarks1: 20
     },
     cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('BlueberryQuarkLuck1')]
   },
@@ -433,14 +471,16 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
     rewards: (n: number) => {
-      const quarkAmount = 1 + (0.01 + Math.floor(player.blueberryUpgrades.ambrosiaQuarks1.level / 10) / 1000)  * n
+      const quarkAmount = 1 + (0.01 + Math.floor(player.blueberryUpgrades.ambrosiaQuarks1.level / 10) / 1000) * n
       return {
         quarks: quarkAmount,
-        desc: String(i18next.t('ambrosia.data.ambrosiaQuarks2.effect', { amount: format(100 * (quarkAmount - 1), 0, true) }))
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaQuarks2.effect', { amount: format(100 * (quarkAmount - 1), 0, true) })
+        )
       }
     },
     prerequisites: {
-      'ambrosiaQuarks1': 40
+      ambrosiaQuarks1: 40
     }
   },
   ambrosiaCubes2: {
@@ -451,14 +491,17 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
     rewards: (n: number) => {
-      const cubeAmount = (1 + (0.06 + 6 * (Math.floor(player.blueberryUpgrades.ambrosiaCubes1.level / 10) / 1000)) * n) * Math.pow(1.13, Math.floor(n / 10))
+      const cubeAmount = (1 + (0.06 + 6 * (Math.floor(player.blueberryUpgrades.ambrosiaCubes1.level / 10) / 1000)) * n)
+        * Math.pow(1.13, Math.floor(n / 10))
       return {
         cubes: cubeAmount,
-        desc: String(i18next.t('ambrosia.data.ambrosiaCubes2.effect', { amount: format(100 * (cubeAmount - 1), 2, true) }))
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaCubes2.effect', { amount: format(100 * (cubeAmount - 1), 2, true) })
+        )
       }
     },
     prerequisites: {
-      'ambrosiaCubes1': 40
+      ambrosiaCubes1: 40
     }
   },
   ambrosiaLuck2: {
@@ -469,14 +512,15 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
     rewards: (n: number) => {
-      const val = (3 + 0.3 * Math.floor(player.blueberryUpgrades.ambrosiaLuck1.level / 10))* n + 40 * Math.floor(n/10)
+      const val = (3 + 0.3 * Math.floor(player.blueberryUpgrades.ambrosiaLuck1.level / 10)) * n
+        + 40 * Math.floor(n / 10)
       return {
         ambrosiaLuck: val,
         desc: String(i18next.t('ambrosia.data.ambrosiaLuck2.effect', { amount: format(val, 1, true) }))
       }
     },
     prerequisites: {
-      'ambrosiaLuck1': 40
+      ambrosiaLuck1: 40
     },
     cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('BlueberryUpgrade2')]
   },
@@ -488,7 +532,7 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
     rewards: (n: number) => {
-      const val = (1 + n * player.worlds.BONUS / 100)
+      const val = 1 + n * player.worlds.BONUS / 100
       return {
         blueberryGeneration: val,
         desc: String(i18next.t('ambrosia.data.ambrosiaPatreon.effect', { amount: format(100 * (val - 1), 0, true) }))
@@ -507,7 +551,6 @@ export const resetBlueberryTree = async (giveAlert = true) => {
 }
 
 export const validateBlueberryTree = (modules: BlueberryOpt) => {
-
   // Check for empty object (perhaps from the loadouts?)
   if (Object.keys(modules).length === 0) {
     return false
@@ -531,7 +574,6 @@ export const validateBlueberryTree = (modules: BlueberryOpt) => {
       return false
     }
     // Nix nonexistent modules
-    // eslint-disable-next-line
     if (player.blueberryUpgrades[k] === undefined) return false
 
     // Set val to max if it exceeds it, since it is possible module caps change over time.
@@ -544,6 +586,7 @@ export const validateBlueberryTree = (modules: BlueberryOpt) => {
         const k2 = key2 as keyof BlueberryOpt
         const level = modules[k2] ?? -1 /* If undefined, this is saying 'We need to have module
         set to level val2 but it isn't even in our module loadout, so it cannot possibly satisfy prereqs'*/
+
         if (level < val2) {
           meetsPrerequisites = false
         }
@@ -567,22 +610,26 @@ export const validateBlueberryTree = (modules: BlueberryOpt) => {
     }
   }
 
-  meetsAmbrosia = (ambrosiaBudget >= spentAmbrosia)
-  meetsBlueberries = (blueberryBudget >= spentBlueberries)
+  meetsAmbrosia = ambrosiaBudget >= spentAmbrosia
+  meetsBlueberries = blueberryBudget >= spentBlueberries
 
   return (meetsPrerequisites && meetsAmbrosia && meetsBlueberries)
 }
 
 export const getBlueberryTree = () => {
-  return Object.fromEntries(Object.entries(player.blueberryUpgrades).map(([key, value]) => {
-    return [key, value.level]
-  })) as BlueberryOpt
+  return Object.fromEntries(
+    Object.entries(player.blueberryUpgrades).map(([key, value]) => {
+      return [key, value.level]
+    })
+  ) as BlueberryOpt
 }
 
 export const fixBlueberryLevel = (modules: BlueberryOpt) => {
-  return Object.fromEntries(Object.entries(modules).map(([key, value]) => {
-    return [key, Math.min(value, player.blueberryUpgrades[key].maxLevel)]
-  }))
+  return Object.fromEntries(
+    Object.entries(modules).map(([key, value]) => {
+      return [key, Math.min(value, player.blueberryUpgrades[key].maxLevel)]
+    })
+  )
 }
 
 export const exportBlueberryTree = () => {
@@ -634,7 +681,6 @@ export const importBlueberryTree = async (input: string | null) => {
       const modules = JSON.parse(input) as BlueberryOpt
       await createBlueberryTree(modules)
       createLoadoutDescription(0, modules)
-
     } catch (err) {
       return Alert(i18next.t('ambrosia.importTree.error'))
     }
@@ -655,12 +701,10 @@ export const updateLoadoutHoverClasses = () => {
 
   for (const loadoutKey of Object.keys(player.blueberryLoadouts)) {
     const i = Number.parseInt(loadoutKey, 10)
-    // eslint-disable-next-line
     const loadout = player.blueberryLoadouts[i]
 
     const upgradeHoverClass = `bbPurchasedLoadout${i}`
     for (const upgradeKey of upgradeNames) {
-      // eslint-disable-next-line
       if (loadout[upgradeKey]) {
         DOMCacheGetOrSet(upgradeKey).parentElement?.classList.add(upgradeHoverClass)
       } else {
@@ -671,21 +715,18 @@ export const updateLoadoutHoverClasses = () => {
 }
 
 export const saveBlueberryTree = async (input: number, previous: BlueberryOpt) => {
-
   if (Object.keys(previous).length > 0) {
     const p = await Confirm(i18next.t('ambrosia.loadouts.confirmation'))
     if (!p) return
   }
 
   player.blueberryLoadouts[input] = getBlueberryTree()
-  // eslint-disable-next-line
   createLoadoutDescription(input, player.blueberryLoadouts[input])
 
   updateLoadoutHoverClasses()
 }
 
 export const createLoadoutDescription = (input: number, modules: BlueberryOpt) => {
-
   let str = ''
   for (const [key, val] of Object.entries(modules)) {
     /*

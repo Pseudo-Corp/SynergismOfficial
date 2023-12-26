@@ -1,0 +1,23 @@
+{
+  "typescript": {
+    "semiColons": "asi",
+    "quoteStyle": "alwaysSingle",
+    "trailingCommas": "never",
+    "arrowFunction.useParentheses": "force",
+    "method.spaceBeforeParentheses": true,
+    "setAccessor.spaceBeforeParentheses": true,
+    "constructor.spaceBeforeParentheses": true,
+    "getAccessor.spaceBeforeParentheses": true,
+    "functionDeclaration.spaceBeforeParentheses": true,
+    "newLineKind": "lf"
+  },
+  "excludes": [
+    "**/node_modules",
+    "**/*-lock.json",
+    "translations/*.json",
+    "dist"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.88.7.wasm"
+  ]
+}
