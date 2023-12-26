@@ -1,30 +1,37 @@
-import { player, format } from './Synergism'
-import { calculateCubeBlessings, calculateCubicSumData, calculateSummationNonLinear } from './Calculate'
-import { upgradeupdate } from './Upgrades'
-import { revealStuff } from './UpdateHTML'
-import { Globals as G } from './Variables'
+import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateCubeBlessings, calculateCubicSumData, calculateSummationNonLinear } from './Calculate'
 import { updateResearchBG } from './Research'
 import { calculateSingularityDebuff } from './singularity'
-import i18next from 'i18next'
+import { format, player } from './Synergism'
+import { revealStuff } from './UpdateHTML'
+import { upgradeupdate } from './Upgrades'
+import { Globals as G } from './Variables'
 
 export interface IMultiBuy {
-    levelCanBuy: number
-    cost: number
+  levelCanBuy: number
+  cost: number
 }
 
-const cubeAutomationIndices = [4, 5, 6, 7, 8, 9, 10, // row 1
+// dprint-ignore
+const cubeAutomationIndices = [
+  4, 5, 6, 7, 8, 9, 10, // row 1
   20,                   // row 2
   26, 27,               // row 3
-  48, 49]               // row 5
+  48, 49                // row 5
+]
 
-const researchAutomationIndices = [41, 42, 43, 44, 45, 46, 47, 48, 49, 50, // row 2
+// dprint-ignore
+const researchAutomationIndices = [
+  41, 42, 43, 44, 45, 46, 47, 48, 49, 50, // row 2
   61, 71, 72, 73, 74, 75, // row 3
   124,                    // row 5
   130, 135, 145, 150,     // row 6
   175,                    // row 7
-  190]                    // row 8
+  190                     // row 8
+]
 
+// dprint-ignore
 const cubeBaseCost = [
   200, 200, 200, 500, 500, 500, 500, 500, 2000, 40000,
   5000, 1000, 10000, 20000, 40000, 10000, 4000, 1e4, 50000, 12500,
@@ -35,6 +42,7 @@ const cubeBaseCost = [
   1e2, 1e6, 1e10, 1e14, 1e18, 1e20, 1e30, 1e40, 1e50, 1e60
 ]
 
+// dprint-ignore
 export const cubeMaxLevel = [
   3, 10, 5, 1, 1, 1, 1, 1, 1, 1,
   3, 10, 1, 10, 10, 10, 5, 1, 1, 1,
@@ -46,32 +54,35 @@ export const cubeMaxLevel = [
 ]
 
 const getCubeCost = (i: number, buyMax: boolean): IMultiBuy => {
-  const linGrowth = (i === 50 ? 0.01 : 0)
+  const linGrowth = i === 50 ? 0.01 : 0
   const cubic = i > 50
   const maxLevel = getCubeMax(i)
-  let amountToBuy = buyMax ? 1e5: 1
+  let amountToBuy = buyMax ? 1e5 : 1
   const cubeUpgrade = player.cubeUpgrades[i]!
   amountToBuy = Math.min(maxLevel - cubeUpgrade, amountToBuy)
-  const singularityMultiplier = (i <= 50) ? calculateSingularityDebuff('Cube Upgrades'): 1
+  const singularityMultiplier = (i <= 50) ? calculateSingularityDebuff('Cube Upgrades') : 1
 
-  let metaData:IMultiBuy
+  let metaData: IMultiBuy
 
   if (cubic) {
     // TODO: Fix this inconsistency later.
-    amountToBuy = buyMax ? maxLevel: Math.min(maxLevel, cubeUpgrade + 1)
-    metaData = calculateCubicSumData(cubeUpgrade, cubeBaseCost[i-1],
-      Number(player.wowCubes), amountToBuy)
+    amountToBuy = buyMax ? maxLevel : Math.min(maxLevel, cubeUpgrade + 1)
+    metaData = calculateCubicSumData(cubeUpgrade, cubeBaseCost[i - 1], Number(player.wowCubes), amountToBuy)
   } else {
-    metaData = calculateSummationNonLinear(cubeUpgrade,
-      cubeBaseCost[i-1] * singularityMultiplier,
-      Number(player.wowCubes), linGrowth, amountToBuy)
+    metaData = calculateSummationNonLinear(
+      cubeUpgrade,
+      cubeBaseCost[i - 1] * singularityMultiplier,
+      Number(player.wowCubes),
+      linGrowth,
+      amountToBuy
+    )
   }
 
   return metaData
 }
 
 const getCubeMax = (i: number) => {
-  let baseValue = cubeMaxLevel[i-1]
+  let baseValue = cubeMaxLevel[i - 1]
 
   if (player.cubeUpgrades[57] > 0 && i < 50 && i % 10 === 1) {
     baseValue += 1
@@ -90,9 +101,15 @@ export const cubeUpgradeDesc = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
 
   a.textContent = i18next.t(`cubes.upgradeNames.${i}`)
   b.textContent = i18next.t(`cubes.upgradeDescriptions.${i}`)
-  c.textContent = i18next.t('cubes.cubeMetadata.cost', { value1: format(metaData.cost, 0, true), value2: format(metaData.levelCanBuy-player.cubeUpgrades[i]!, 0, true) })
+  c.textContent = i18next.t('cubes.cubeMetadata.cost', {
+    value1: format(metaData.cost, 0, true),
+    value2: format(metaData.levelCanBuy - player.cubeUpgrades[i]!, 0, true)
+  })
   c.style.color = 'var(--green-text-color)'
-  d.textContent = i18next.t('cubes.cubeMetadata.level', { value1: format(player.cubeUpgrades[i], 0, true), value2: format(maxLevel, 0, true) })
+  d.textContent = i18next.t('cubes.cubeMetadata.level', {
+    value1: format(player.cubeUpgrades[i], 0, true),
+    value2: format(maxLevel, 0, true)
+  })
   d.style.color = 'white'
 
   // This conditional is true only in the case where you can buy zero levels.
@@ -111,7 +128,7 @@ export const updateCubeUpgradeBG = (i: number) => {
   const maxCubeLevel = getCubeMax(i)
   const cubeUpgrade = player.cubeUpgrades[i]!
   if (cubeUpgrade > maxCubeLevel) {
-    player.wowCubes.add((cubeUpgrade - maxCubeLevel) * cubeBaseCost[i-1])
+    player.wowCubes.add((cubeUpgrade - maxCubeLevel) * cubeBaseCost[i - 1])
     player.cubeUpgrades[i] = maxCubeLevel
   }
   if (player.cubeUpgrades[i] === 0) {
@@ -123,7 +140,6 @@ export const updateCubeUpgradeBG = (i: number) => {
   if (player.cubeUpgrades[i] === maxCubeLevel) {
     a.style.backgroundColor = 'green'
   }
-
 }
 
 export const awardAutosCookieUpgrade = () => {
@@ -143,11 +159,13 @@ export const awardAutosCookieUpgrade = () => {
 
 export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxToggle, auto = false) => {
   // Actually lock for HTML exploit
-  if ((i > 50 && i <= 55 && !player.singularityUpgrades.cookies.getEffect().bonus) ||
-        (i > 55 && i <= 60 && !player.singularityUpgrades.cookies2.getEffect().bonus) ||
-        (i > 60 && i <= 65 && !player.singularityUpgrades.cookies3.getEffect().bonus) ||
-        (i > 65 && i <= 70 && !player.singularityUpgrades.cookies4.getEffect().bonus) ||
-        (i > 70 && !player.singularityUpgrades.cookies5.getEffect().bonus)) {
+  if (
+    (i > 50 && i <= 55 && !player.singularityUpgrades.cookies.getEffect().bonus)
+    || (i > 55 && i <= 60 && !player.singularityUpgrades.cookies2.getEffect().bonus)
+    || (i > 60 && i <= 65 && !player.singularityUpgrades.cookies3.getEffect().bonus)
+    || (i > 65 && i <= 70 && !player.singularityUpgrades.cookies4.getEffect().bonus)
+    || (i > 70 && !player.singularityUpgrades.cookies5.getEffect().bonus)
+  ) {
     return
   }
 
@@ -194,7 +212,11 @@ export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
 }
 
 export const autoBuyCubeUpgrades = () => {
-  if (player.autoCubeUpgradesToggle && ((player.highestSingularityCount >= 50 && player.insideSingularityChallenge) || player.highestSingularityCount >= 150)) {
+  if (
+    player.autoCubeUpgradesToggle
+    && ((player.highestSingularityCount >= 50 && player.insideSingularityChallenge)
+      || player.highestSingularityCount >= 150)
+  ) {
     const cheapet = []
 
     for (let i = 1; i < player.cubeUpgrades.length; i++) {
@@ -215,7 +237,10 @@ export const autoBuyCubeUpgrades = () => {
       for (const value of cheapet) {
         const maxLevel = getCubeMax(value[0])
         const metaData = getCubeCost(value[0], true)
-        if (Number(player.wowCubes) >= metaData.cost && player.cubeUpgrades[value[0]]! < maxLevel && (player.cubeUpgradesBuyMaxToggle || maxLevel === metaData.levelCanBuy)) {
+        if (
+          Number(player.wowCubes) >= metaData.cost && player.cubeUpgrades[value[0]]! < maxLevel
+          && (player.cubeUpgradesBuyMaxToggle || maxLevel === metaData.levelCanBuy)
+        ) {
           buyCubeUpgrades(value[0], true, true)
           update = true
         }

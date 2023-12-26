@@ -1,32 +1,45 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { player } from './Synergism'
 import {
+  setActiveSettingScreen,
   toggleBuildingScreen,
-  toggleRuneScreen,
-  toggleCubeSubTab,
   toggleCorruptionLoadoutsStats,
-  toggleSingularityScreen,
-  setActiveSettingScreen
+  toggleCubeSubTab,
+  toggleRuneScreen,
+  toggleSingularityScreen
 } from './Toggles'
-import { revealStuff, hideStuff } from './UpdateHTML'
+import { hideStuff, revealStuff } from './UpdateHTML'
 import { assert, limitRange } from './Utility'
 import { Globals as G } from './Variables'
 
-export type TabNames = 'settings' | 'shop' | 'buildings' | 'upgrades' | 'achievements' | 'runes' | 'challenge' | 'research' | 'ant' | 'cube' | 'traits' | 'singularity' | 'event'
+export type TabNames =
+  | 'settings'
+  | 'shop'
+  | 'buildings'
+  | 'upgrades'
+  | 'achievements'
+  | 'runes'
+  | 'challenge'
+  | 'research'
+  | 'ant'
+  | 'cube'
+  | 'traits'
+  | 'singularity'
+  | 'event'
 
 /**
  * If step is provided, move the page back/forward {step} pages.
  * If page is provided, change the subtab to {page}
  */
-type SubTabSwitchOptions = { step: number, page?: undefined } | { page: number, step?: undefined }
+type SubTabSwitchOptions = { step: number; page?: undefined } | { page: number; step?: undefined }
 
 interface SubTab {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  tabSwitcher?: ((...args: any[]) => any)
+  // biome-ignore lint/suspicious/noExplicitAny: would if I could
+  tabSwitcher?: (...args: any[]) => any
   subTabList: {
-      subTabID: string | number | boolean
-      unlocked: boolean
-      buttonID?: string
+    subTabID: string | number | boolean
+    unlocked: boolean
+    buttonID?: string
   }[]
 }
 
@@ -38,15 +51,23 @@ const subtabInfo: Record<TabNames, SubTab> = {
       { subTabID: 'languagesubtab', unlocked: true },
       { subTabID: 'creditssubtab', unlocked: true },
       { subTabID: 'statisticsSubTab', unlocked: true },
-      { subTabID: 'resetHistorySubTab', get unlocked () {
-        return player.unlocks.prestige
-      } },
-      { subTabID: 'ascendHistorySubTab', get unlocked () {
-        return player.ascensionCount > 0
-      } },
-      { subTabID: 'singularityHistorySubTab', get unlocked () {
-        return player.highestSingularityCount > 0
-      }
+      {
+        subTabID: 'resetHistorySubTab',
+        get unlocked () {
+          return player.unlocks.prestige
+        }
+      },
+      {
+        subTabID: 'ascendHistorySubTab',
+        get unlocked () {
+          return player.ascensionCount > 0
+        }
+      },
+      {
+        subTabID: 'singularityHistorySubTab',
+        get unlocked () {
+          return player.highestSingularityCount > 0
+        }
       },
       { subTabID: 'hotkeys', unlocked: true },
       { subTabID: 'accountSubTab', unlocked: true }
@@ -57,36 +78,70 @@ const subtabInfo: Record<TabNames, SubTab> = {
     tabSwitcher: (...args: Parameters<typeof toggleBuildingScreen>) => toggleBuildingScreen(...args),
     subTabList: [
       { subTabID: 'coin', unlocked: true, buttonID: 'switchToCoinBuilding' },
-      { subTabID: 'diamond', get unlocked () {
-        return player.unlocks.prestige
-      }, buttonID: 'switchToDiamondBuilding' },
-      { subTabID: 'mythos', get unlocked () {
-        return player.unlocks.transcend
-      }, buttonID: 'switchToMythosBuilding' },
-      { subTabID: 'particle', get unlocked () {
-        return player.unlocks.reincarnate
-      }, buttonID: 'switchToParticleBuilding' },
-      { subTabID: 'tesseract', get unlocked () {
-        return player.achievements[183] > 0
-      }, buttonID: 'switchToTesseractBuilding' }]
+      {
+        subTabID: 'diamond',
+        get unlocked () {
+          return player.unlocks.prestige
+        },
+        buttonID: 'switchToDiamondBuilding'
+      },
+      {
+        subTabID: 'mythos',
+        get unlocked () {
+          return player.unlocks.transcend
+        },
+        buttonID: 'switchToMythosBuilding'
+      },
+      {
+        subTabID: 'particle',
+        get unlocked () {
+          return player.unlocks.reincarnate
+        },
+        buttonID: 'switchToParticleBuilding'
+      },
+      {
+        subTabID: 'tesseract',
+        get unlocked () {
+          return player.achievements[183] > 0
+        },
+        buttonID: 'switchToTesseractBuilding'
+      }
+    ]
   },
   upgrades: { subTabList: [] },
   achievements: { subTabList: [] },
   runes: {
     tabSwitcher: (...args: Parameters<typeof toggleRuneScreen>) => toggleRuneScreen(...args),
     subTabList: [
-      { subTabID: 1, get unlocked () {
-        return player.unlocks.prestige
-      }, buttonID: 'toggleRuneSubTab1' },
-      { subTabID: 2, get unlocked () {
-        return player.achievements[134] > 0
-      }, buttonID: 'toggleRuneSubTab2' },
-      { subTabID: 3, get unlocked () {
-        return player.achievements[134] > 0
-      }, buttonID: 'toggleRuneSubTab3' },
-      { subTabID: 4, get unlocked () {
-        return player.achievements[204] > 0
-      }, buttonID: 'toggleRuneSubTab4' }]
+      {
+        subTabID: 1,
+        get unlocked () {
+          return player.unlocks.prestige
+        },
+        buttonID: 'toggleRuneSubTab1'
+      },
+      {
+        subTabID: 2,
+        get unlocked () {
+          return player.achievements[134] > 0
+        },
+        buttonID: 'toggleRuneSubTab2'
+      },
+      {
+        subTabID: 3,
+        get unlocked () {
+          return player.achievements[134] > 0
+        },
+        buttonID: 'toggleRuneSubTab3'
+      },
+      {
+        subTabID: 4,
+        get unlocked () {
+          return player.achievements[204] > 0
+        },
+        buttonID: 'toggleRuneSubTab4'
+      }
+    ]
   },
   challenge: { subTabList: [] },
   research: { subTabList: [] },
@@ -94,57 +149,115 @@ const subtabInfo: Record<TabNames, SubTab> = {
   cube: {
     tabSwitcher: (...args: Parameters<typeof toggleCubeSubTab>) => toggleCubeSubTab(...args),
     subTabList: [
-      { subTabID: 1, get unlocked () {
-        return player.achievements[141] > 0
-      }, buttonID: 'switchCubeSubTab1' },
-      { subTabID: 2, get unlocked () {
-        return player.achievements[197] > 0
-      }, buttonID: 'switchCubeSubTab2' },
-      { subTabID: 3, get unlocked () {
-        return player.achievements[211] > 0
-      }, buttonID: 'switchCubeSubTab3' },
-      { subTabID: 4, get unlocked () {
-        return player.achievements[218] > 0
-      }, buttonID: 'switchCubeSubTab4' },
-      { subTabID: 5, get unlocked () {
-        return player.achievements[141] > 0
-      }, buttonID: 'switchCubeSubTab5' },
-      { subTabID: 6, get unlocked () {
-        return player.achievements[218] > 0
-      }, buttonID: 'switchCubeSubTab6' },
-      { subTabID: 7, get unlocked () {
-        return player.challenge15Exponent >= 1e15
-      }, buttonID: 'switchCubeSubTab7' }]
+      {
+        subTabID: 1,
+        get unlocked () {
+          return player.achievements[141] > 0
+        },
+        buttonID: 'switchCubeSubTab1'
+      },
+      {
+        subTabID: 2,
+        get unlocked () {
+          return player.achievements[197] > 0
+        },
+        buttonID: 'switchCubeSubTab2'
+      },
+      {
+        subTabID: 3,
+        get unlocked () {
+          return player.achievements[211] > 0
+        },
+        buttonID: 'switchCubeSubTab3'
+      },
+      {
+        subTabID: 4,
+        get unlocked () {
+          return player.achievements[218] > 0
+        },
+        buttonID: 'switchCubeSubTab4'
+      },
+      {
+        subTabID: 5,
+        get unlocked () {
+          return player.achievements[141] > 0
+        },
+        buttonID: 'switchCubeSubTab5'
+      },
+      {
+        subTabID: 6,
+        get unlocked () {
+          return player.achievements[218] > 0
+        },
+        buttonID: 'switchCubeSubTab6'
+      },
+      {
+        subTabID: 7,
+        get unlocked () {
+          return player.challenge15Exponent >= 1e15
+        },
+        buttonID: 'switchCubeSubTab7'
+      }
+    ]
   },
   traits: {
     tabSwitcher: (...args: Parameters<typeof toggleCorruptionLoadoutsStats>) => toggleCorruptionLoadoutsStats(...args),
     subTabList: [
-      { subTabID: true, get unlocked () {
-        return player.achievements[141] > 0
-      }, buttonID: 'corrStatsBtn' },
-      { subTabID: false, get unlocked () {
-        return player.achievements[141] > 0
-      }, buttonID: 'corrLoadoutsBtn' }]
+      {
+        subTabID: true,
+        get unlocked () {
+          return player.achievements[141] > 0
+        },
+        buttonID: 'corrStatsBtn'
+      },
+      {
+        subTabID: false,
+        get unlocked () {
+          return player.achievements[141] > 0
+        },
+        buttonID: 'corrLoadoutsBtn'
+      }
+    ]
   },
   singularity: {
     tabSwitcher: (...args: Parameters<typeof toggleSingularityScreen>) => toggleSingularityScreen(...args),
     subTabList: [
-      { subTabID: 1, get unlocked () {
-        return player.highestSingularityCount > 0
-      }, buttonID: 'toggleSingularitySubTab1' },
-      { subTabID: 2, get unlocked () {
-        return player.highestSingularityCount > 0
-      }, buttonID: 'toggleSingularitySubTab2' },
-      { subTabID: 3, get unlocked () {
-        return Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus)
-      }, buttonID: 'toggleSingularitySubTab3' },
-      { subTabID: 4, get unlocked () {
-        return player.highestSingularityCount >= 25
-      }, buttonID: 'toggleSingularitySubTab4' },
-      { subTabID: 5, get unlocked () {
-        return player.singularityChallenges.noSingularityUpgrades.completions >= 1
-      }, buttonID: 'toggleSingularitySubTab5'
-      }]
+      {
+        subTabID: 1,
+        get unlocked () {
+          return player.highestSingularityCount > 0
+        },
+        buttonID: 'toggleSingularitySubTab1'
+      },
+      {
+        subTabID: 2,
+        get unlocked () {
+          return player.highestSingularityCount > 0
+        },
+        buttonID: 'toggleSingularitySubTab2'
+      },
+      {
+        subTabID: 3,
+        get unlocked () {
+          return Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus)
+        },
+        buttonID: 'toggleSingularitySubTab3'
+      },
+      {
+        subTabID: 4,
+        get unlocked () {
+          return player.highestSingularityCount >= 25
+        },
+        buttonID: 'toggleSingularitySubTab4'
+      },
+      {
+        subTabID: 5,
+        get unlocked () {
+          return player.singularityChallenges.noSingularityUpgrades.completions >= 1
+        },
+        buttonID: 'toggleSingularitySubTab5'
+      }
+    ]
   },
   event: { subTabList: [] }
 }
@@ -225,7 +338,6 @@ export const changeTab = (tabOrName: Tab | TabNames) => {
 
   revealStuff()
   hideStuff()
-
   ;(document.activeElement as HTMLElement | null)?.blur()
 
   const subTabList = subtabInfo[G.currentTab].subTabList
@@ -260,7 +372,7 @@ export const changeTab = (tabOrName: Tab | TabNames) => {
 
 export const changeSubTab = (tabOrName: Tab | TabNames, { page, step }: SubTabSwitchOptions) => {
   const tab = typeof tabOrName === 'string'
-    ? [...tabs.values()].find(tab => tab.name === tabOrName)
+    ? [...tabs.values()].find((tab) => tab.name === tabOrName)
     : tabOrName
 
   assert(tab)
@@ -293,7 +405,7 @@ export const changeSubTab = (tabOrName: Tab | TabNames, { page, step }: SubTabSw
 }
 
 export function subTabsInMainTab (name: TabNames) {
-  const tab = [...tabs.values()].find(tab => tab.name === name)
+  const tab = [...tabs.values()].find((tab) => tab.name === name)
   assert(tab)
 
   return tab.subtabs.subTabList.length

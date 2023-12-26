@@ -1,17 +1,17 @@
-import { updateChallengeDisplay, showCorruptionStatsLoadouts, Prompt, Alert } from './UpdateHTML'
-import { player, format, resetCheck } from './Synergism'
-import { Globals as G } from './Variables'
-import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
-import { calculateRuneLevels } from './Calculate'
-import { reset, resetrepeat } from './Reset'
-import { autoResearchEnabled } from './Research'
+import i18next from 'i18next'
 import { achievementaward } from './Achievements'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateRuneLevels } from './Calculate'
 import { getChallengeConditions } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions'
-import type { BuildingSubtab, Player } from './types/Synergism'
-import { DOMCacheGetOrSet } from './Cache/DOM'
-import i18next from 'i18next'
+import { autoResearchEnabled } from './Research'
+import { reset, resetrepeat } from './Reset'
+import { format, player, resetCheck } from './Synergism'
 import { subTabsInMainTab } from './Tabs'
+import type { BuildingSubtab, Player } from './types/Synergism'
+import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
+import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
+import { Globals as G } from './Variables'
 
 export const toggleSettings = (toggle: HTMLElement) => {
   const toggleId = toggle.getAttribute('toggleId') ?? 1
@@ -29,7 +29,9 @@ export const toggleSettings = (toggle: HTMLElement) => {
     const text = player.toggles[+toggleId] ? i18next.t('shop.autoCatalyzeOn') : i18next.t('shop.autoCatalyzeOff')
     toggle.textContent = text
   } else if (format === 'Hover-to-Buy [$]') {
-    const text = player.toggles[+toggleId] ? i18next.t('researches.hoverToBuyOn') : i18next.t('researches.hoverToBuyOff')
+    const text = player.toggles[+toggleId]
+      ? i18next.t('researches.hoverToBuyOn')
+      : i18next.t('researches.hoverToBuyOff')
     toggle.textContent = text
   } else if (format === 'Auto: $') {
     const text = player.toggles[+toggleId] ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
@@ -43,7 +45,7 @@ export const toggleSettings = (toggle: HTMLElement) => {
       : i18next.t('general.autoOffBracket')
   }
 
-  toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red')
+  toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
 }
 
 export const toggleChallenges = (i: number, auto = false) => {
@@ -67,7 +69,12 @@ export const toggleChallenges = (i: number, auto = false) => {
       resetrepeat('reincarnationChallenge')
     }
   }
-  if (i >= 11 && ((!auto && !player.toggles[31]) || player.challengecompletions[10] > 0 || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0 && player.currentChallenge.ascension === 0))) {
+  if (
+    i >= 11
+    && ((!auto && !player.toggles[31]) || player.challengecompletions[10] > 0
+      || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0
+        && player.currentChallenge.ascension === 0))
+  ) {
     if (player.currentChallenge.ascension === 15) {
       void resetCheck('ascensionChallenge', false, true)
     }
@@ -81,7 +88,10 @@ export const toggleChallenges = (i: number, auto = false) => {
     toggleAutoChallengeRun()
   }
 
-  if (player.currentChallenge.transcension !== 0 && player.currentChallenge.reincarnation !== 0 && player.currentChallenge.ascension !== 0 && player.achievements[238] < 1) {
+  if (
+    player.currentChallenge.transcension !== 0 && player.currentChallenge.reincarnation !== 0
+    && player.currentChallenge.ascension !== 0 && player.achievements[238] < 1
+  ) {
     achievementaward(238)
   }
 }
@@ -133,7 +143,7 @@ export const toggleShops = (toggle?: upgradeAutos) => {
   } else {
     const keys = Object.keys(player.shoptoggles) as (keyof Player['shoptoggles'])[]
     for (const key of keys) {
-      const color = player.shoptoggles[key]? 'green': 'red'
+      const color = player.shoptoggles[key] ? 'green' : 'red'
 
       if (player.shoptoggles[key]) {
         DOMCacheGetOrSet(`${key}AutoUpgrade`).textContent = i18next.t('general.autoOnColon')
@@ -187,7 +197,6 @@ export const toggleautobuytesseract = () => {
     player.tesseractAutoBuyerToggle = 2
     DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOff')
     DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
-
   } else {
     player.tesseractAutoBuyerToggle = 1
     DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOn')
@@ -208,7 +217,9 @@ export const toggleauto = () => {
       const text = player.toggles[+toggleId] ? i18next.t('shop.autoCatalyzeOn') : i18next.t('shop.autoCatalyzeOff')
       toggle.textContent = text
     } else if (format === 'Hover-to-Buy [$]') {
-      const text = player.toggles[+toggleId] ? i18next.t('researches.hoverToBuyOn') : i18next.t('researches.hoverToBuyOff')
+      const text = player.toggles[+toggleId]
+        ? i18next.t('researches.hoverToBuyOn')
+        : i18next.t('researches.hoverToBuyOff')
       toggle.textContent = text
     } else if (format === 'Auto: $') {
       const text = player.toggles[+toggleId] ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
@@ -222,7 +233,7 @@ export const toggleauto = () => {
         : i18next.t('general.autoOffBracket')
     }
 
-    toggle.style.border = '2px solid ' + (player.toggles[+toggleId] ? 'green' : 'red')
+    toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
   }
 
   const tesseractAutos = Array.from<HTMLElement>(document.querySelectorAll('*[id^="tesseractAutoToggle"]'))
@@ -265,7 +276,6 @@ export const toggleAutoResearch = () => {
   if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
     player.autoResearch = G.researchOrderByCost[player.roombaResearchIndex]
   }
-
 }
 
 export const toggleAutoResearchMode = () => {
@@ -330,28 +340,28 @@ export const toggleAutoBuyFragment = () => {
 
 export const toggleBuildingScreen = (input: BuildingSubtab) => {
   G.buildingSubTab = input
-  const screen: Record<string, { screen: string, button: string, subtabNumber: number }> = {
-    'coin': {
+  const screen: Record<string, { screen: string; button: string; subtabNumber: number }> = {
+    coin: {
       screen: 'coinBuildings',
       button: 'switchToCoinBuilding',
       subtabNumber: 0
     },
-    'diamond': {
+    diamond: {
       screen: 'prestige',
       button: 'switchToDiamondBuilding',
       subtabNumber: 1
     },
-    'mythos': {
+    mythos: {
       screen: 'transcension',
       button: 'switchToMythosBuilding',
       subtabNumber: 2
     },
-    'particle': {
+    particle: {
       screen: 'reincarnation',
       button: 'switchToParticleBuilding',
       subtabNumber: 3
     },
-    'tesseract': {
+    tesseract: {
       screen: 'ascension',
       button: 'switchToTesseractBuilding',
       subtabNumber: 4
@@ -456,25 +466,25 @@ export const toggleSingularityScreen = (index: number) => {
 }
 
 interface ChadContributor {
-    login: string
-    id: number
-    node_id: string
-    avatar_url: string
-    gravatar_id: string
-    url: string
-    html_url: string
-    followers_url: string
-    following_url: string
-    gists_url: string
-    starred_url: string
-    subscriptions_url: string
-    organizations_url: string
-    repos_url: string
-    events_url: string
-    received_events_url: string
-    type: string
-    site_admin: boolean
-    contributions: number
+  login: string
+  id: number
+  node_id: string
+  avatar_url: string
+  gravatar_id: string
+  url: string
+  html_url: string
+  followers_url: string
+  following_url: string
+  gists_url: string
+  starred_url: string
+  subscriptions_url: string
+  organizations_url: string
+  repos_url: string
+  events_url: string
+  received_events_url: string
+  type: string
+  site_admin: boolean
+  contributions: number
 }
 
 export const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonElement) => {
@@ -484,10 +494,10 @@ export const setActiveSettingScreen = async (subtab: string, clickedButton: HTML
   }
 
   const switcherEl = clickedButton.parentNode!
-  switcherEl.querySelectorAll('.buttonActive').forEach(b => b.classList.remove('buttonActive'))
+  switcherEl.querySelectorAll('.buttonActive').forEach((b) => b.classList.remove('buttonActive'))
   clickedButton.classList.add('buttonActive')
 
-  subtabEl.parentNode!.querySelectorAll('.subtabActive').forEach(subtab => subtab.classList.remove('subtabActive'))
+  subtabEl.parentNode!.querySelectorAll('.subtabActive').forEach((subtab) => subtab.classList.remove('subtabActive'))
   subtabEl.classList.add('subtabActive')
 
   if (subtab === 'creditssubtab') {
@@ -503,7 +513,7 @@ export const setActiveSettingScreen = async (subtab: string, clickedButton: HTML
     try {
       const r = await fetch('https://api.github.com/repos/pseudo-corp/SynergismOfficial/contributors', {
         headers: {
-          'Accept': 'application/vnd.github.v3+json'
+          Accept: 'application/vnd.github.v3+json'
         }
       })
       const j = await r.json() as ChadContributor[]
@@ -535,7 +545,7 @@ export const setActiveSettingScreen = async (subtab: string, clickedButton: HTML
     try {
       const r = await fetch('https://api.github.com/gists/01917ff476d25a141c5bad38340cd756', {
         headers: {
-          'Accept': 'application/vnd.github.v3+json'
+          Accept: 'application/vnd.github.v3+json'
         }
       })
 
@@ -921,7 +931,6 @@ export const toggleCorruptionLoadoutsStats = (stats: boolean) => {
 export const toggleAscStatPerSecond = (id: number) => {
   const el = DOMCacheGetOrSet(`unit${id}`) as HTMLElement | null
   if (el === null) {
-    // eslint-disable-next-line no-console
     console.log(id, 'platonic needs to fix')
     return
   }
@@ -933,7 +942,7 @@ export const toggleAscStatPerSecond = (id: number) => {
   player.ascStatToggles[id] = !player.ascStatToggles[id]
 }
 
-export const toggleHepteractAutoPercentage = async(): Promise<void> => {
+export const toggleHepteractAutoPercentage = async (): Promise<void> => {
   const amount = await Prompt(i18next.t('wowCubes.hepteractForge.autoCraftPercentagePrompt'))
 
   if (amount === null) {
@@ -978,13 +987,16 @@ export const toggleBlueberryLoadoutmode = () => {
 
 export const confirmReply = (confirm = true) => {
   if (DOMCacheGetOrSet('alertWrapper').style.display === 'block') {
-    (DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click()
+    ;(DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click()
   }
-  if (DOMCacheGetOrSet('confirmWrapper').style.display === 'block' || DOMCacheGetOrSet('promptWrapper').style.display === 'block') {
+  if (
+    DOMCacheGetOrSet('confirmWrapper').style.display === 'block'
+    || DOMCacheGetOrSet('promptWrapper').style.display === 'block'
+  ) {
     if (confirm) {
-      (DOMCacheGetOrSet('ok_confirm') as HTMLButtonElement).click()
+      ;(DOMCacheGetOrSet('ok_confirm') as HTMLButtonElement).click()
     } else {
-      (DOMCacheGetOrSet('cancel_confirm') as HTMLButtonElement).click()
+      ;(DOMCacheGetOrSet('cancel_confirm') as HTMLButtonElement).click()
     }
   }
 }
