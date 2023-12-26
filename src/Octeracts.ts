@@ -1,17 +1,17 @@
-import { format, player, formatTimeShort } from './Synergism'
-import { Alert, Prompt } from './UpdateHTML'
-import type { IUpgradeData } from './DynamicUpgrade'
-import { DynamicUpgrade } from './DynamicUpgrade'
-import type { Player } from './types/Synergism'
+import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { octeractGainPerSecond } from './Calculate'
-import i18next from 'i18next'
+import type { IUpgradeData } from './DynamicUpgrade'
+import { DynamicUpgrade } from './DynamicUpgrade'
+import { format, formatTimeShort, player } from './Synergism'
+import type { Player } from './types/Synergism'
+import { Alert, Prompt } from './UpdateHTML'
 
 export interface IOcteractData extends Omit<IUpgradeData, 'name' | 'description'> {
-    costFormula (this: void, level: number, baseCost: number): number
-    cacheUpdates?: (() => void)[] // TODO: Improve this type signature -Plat
-    octeractsInvested?: number
-    qualityOfLife?: boolean
+  costFormula(this: void, level: number, baseCost: number): number
+  cacheUpdates?: (() => void)[] // TODO: Improve this type signature -Plat
+  octeractsInvested?: number
+  qualityOfLife?: boolean
 }
 
 export class OcteractUpgrade extends DynamicUpgrade {
@@ -20,18 +20,17 @@ export class OcteractUpgrade extends DynamicUpgrade {
   public qualityOfLife: boolean
   readonly cacheUpdates: (() => void)[] | undefined
 
-  constructor(data: IOcteractData, key: string) {
+  constructor (data: IOcteractData, key: string) {
     const name = i18next.t(`octeract.data.${key}.name`)
     const description = i18next.t(`octeract.data.${key}.description`)
-    super({ ... data, name, description })
+    super({ ...data, name, description })
     this.costFormula = data.costFormula
     this.octeractsInvested = data.octeractsInvested ?? 0
     this.qualityOfLife = data.qualityOfLife ?? false
     this.cacheUpdates = data.cacheUpdates ?? undefined
   }
 
-  getCostTNL(): number {
-
+  getCostTNL (): number {
     if (this.level === this.maxLevel) {
       return 0
     }
@@ -40,20 +39,22 @@ export class OcteractUpgrade extends DynamicUpgrade {
   }
 
   /**
-     * Buy levels up until togglebuy or maxed.
-     * @returns An alert indicating cannot afford, already maxed or purchased with how many
-     *          levels purchased
-     */
-  public async buyLevel(event: MouseEvent): Promise<void> {
+   * Buy levels up until togglebuy or maxed.
+   * @returns An alert indicating cannot afford, already maxed or purchased with how many
+   *          levels purchased
+   */
+  public async buyLevel (event: MouseEvent): Promise<void> {
     let purchased = 0
     let maxPurchasable = 1
     let OCTBudget = player.wowOcteracts
 
     if (event.shiftKey) {
       maxPurchasable = 1000000
-      const buy = Number(await Prompt(`${i18next.t('octeract.buyLevel.buyPrompt', { n: format(player.wowOcteracts, 0, true) })}`))
+      const buy = Number(
+        await Prompt(`${i18next.t('octeract.buyLevel.buyPrompt', { n: format(player.wowOcteracts, 0, true) })}`)
+      )
 
-      if (isNaN(buy) || !isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
+      if (Number.isNaN(buy) || !Number.isFinite(buy) || !Number.isInteger(buy)) { // nan + Infinity checks
         return Alert(i18next.t('general.validation.finite'))
       }
 
@@ -105,10 +106,10 @@ export class OcteractUpgrade extends DynamicUpgrade {
   }
 
   /**
-     * Given an upgrade, give a concise information regarding its data.
-     * @returns A string that details the name, description, level statistic, and next level cost.
-     */
-  toString(): string {
+   * Given an upgrade, give a concise information regarding its data.
+   * @returns A string that details the name, description, level statistic, and next level cost.
+   */
+  toString (): string {
     const costNextLevel = this.getCostTNL()
     const maxLevel = this.maxLevel === -1
       ? ''
@@ -116,41 +117,53 @@ export class OcteractUpgrade extends DynamicUpgrade {
     const isMaxLevel = this.maxLevel === this.level
     const color = isMaxLevel ? 'plum' : 'white'
 
-    let freeLevelInfo = this.freeLevels > 0 ?
-      `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>` : ''
+    let freeLevelInfo = this.freeLevels > 0
+      ? `<span style="color: orange"> [+${format(this.freeLevels, 1, true)}]</span>`
+      : ''
 
     if (this.freeLevels > this.level) {
-      freeLevelInfo = freeLevelInfo + `<span style="color: var(--maroon-text-color)">${i18next.t('general.softCapped')}</span>`
+      freeLevelInfo = freeLevelInfo
+        + `<span style="color: var(--maroon-text-color)">${i18next.t('general.softCapped')}</span>`
     }
 
     const isAffordable = costNextLevel <= player.wowOcteracts
     let affordTime = ''
     if (!isMaxLevel && !isAffordable) {
       const octPerSecond = octeractGainPerSecond()
-      affordTime = octPerSecond > 0 ? formatTimeShort((costNextLevel - player.wowOcteracts) / octPerSecond) : `${i18next.t('general.infinity')}`
+      affordTime = octPerSecond > 0
+        ? formatTimeShort((costNextLevel - player.wowOcteracts) / octPerSecond)
+        : `${i18next.t('general.infinity')}`
     }
-    const affordableInfo = isMaxLevel ? `<span style="color: plum"> ${i18next.t('general.maxed')}</span>` :
-      isAffordable ? `<span style="color: var(--green-text-color)"> ${i18next.t('general.affordable')}</span>` :
-        `<span style="color: yellow"> ${i18next.t('octeract.toString.becomeAffordable', { n: affordTime })}</span>`
+    const affordableInfo = isMaxLevel
+      ? `<span style="color: plum"> ${i18next.t('general.maxed')}</span>`
+      : isAffordable
+      ? `<span style="color: var(--green-text-color)"> ${i18next.t('general.affordable')}</span>`
+      : `<span style="color: yellow"> ${i18next.t('octeract.toString.becomeAffordable', { n: affordTime })}</span>`
 
     return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
-                <span style="color: ${color}"> ${i18next.t('general.level')} ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>
+                <span style="color: ${color}"> ${i18next.t('general.level')} ${
+      format(this.level, 0, true)
+    }${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.getEffect().desc}</span>
-                ${i18next.t('octeract.toString.costNextLevel')} ${format(costNextLevel, 2, true, true, true)} Octeracts${affordableInfo}
+                ${i18next.t('octeract.toString.costNextLevel')} ${
+      format(costNextLevel, 2, true, true, true)
+    } Octeracts${affordableInfo}
                 ${i18next.t('general.spent')} Octeracts: ${format(this.octeractsInvested, 2, true, true, true)}`
   }
 
-  public updateUpgradeHTML(): void {
+  public updateUpgradeHTML (): void {
     DOMCacheGetOrSet('singularityOcteractsMultiline').innerHTML = this.toString()
-    DOMCacheGetOrSet('octeractAmount').innerHTML = i18next.t('octeract.amount', { octeracts: format(player.wowOcteracts, 2, true, true, true) })
+    DOMCacheGetOrSet('octeractAmount').innerHTML = i18next.t('octeract.amount', {
+      octeracts: format(player.wowOcteracts, 2, true, true, true)
+    })
   }
 
-  public computeFreeLevelSoftcap(): number {
+  public computeFreeLevelSoftcap (): number {
     return Math.min(this.level, this.freeLevels) + Math.sqrt(Math.max(0, this.freeLevels - this.level))
   }
 
-  public actualTotalLevels(): number {
+  public actualTotalLevels (): number {
     if (player.singularityChallenges.noOcteracts.enabled && !this.qualityOfLife) {
       return 0
     }
@@ -159,24 +172,23 @@ export class OcteractUpgrade extends DynamicUpgrade {
     return linearLevels // There is currently no 'improvement' to oct free upgrades.
   }
 
-  public getEffect(): { bonus: number | boolean, desc: string } {
+  public getEffect (): { bonus: number | boolean; desc: string } {
     return this.effect(this.actualTotalLevels())
   }
 
-  public refund(): void {
+  public refund (): void {
     player.wowOcteracts += this.octeractsInvested
     this.level = 0
     this.octeractsInvested = 0
   }
 
-  updateCaches(): void {
+  updateCaches (): void {
     if (this.cacheUpdates !== undefined) {
       for (const cache of this.cacheUpdates) {
         cache()
       }
     }
   }
-
 }
 
 export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractData> = {
@@ -197,7 +209,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractGain: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
+      return baseCost * ((level + 1) ** 6 - level ** 6)
     },
     maxLevel: 1e8,
     costPerLevel: 1e-8,
@@ -212,7 +224,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractGain2: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(10, Math.pow(level, 0.5) / 3)
+      return baseCost * 10 ** (level ** 0.5 / 3)
     },
     maxLevel: -1,
     costPerLevel: 1e10,
@@ -228,11 +240,12 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   octeractQuarkGain: {
     costFormula: (level: number, baseCost: number) => {
       if (level < 1000) {
-        return baseCost * (Math.pow(level + 1, 7) - Math.pow(level, 7))
+        return baseCost * ((level + 1) ** 7 - level ** 7)
       } else {
-        const fasterMult = (level >= 10000) ? (Math.pow(10, (level - 10000) / 250)) : 1
-        const fasterMult2 = (level >= 15000) ? (Math.pow(10, (level - 15000) / 250)) : 1
-        return baseCost * (Math.pow(1001, 7) - Math.pow(1000, 7)) * Math.pow(10, level / 1000) * fasterMult * fasterMult2
+        const fasterMult = (level >= 10000) ? (10 ** ((level - 10000) / 250)) : 1
+        const fasterMult2 = (level >= 15000) ? (10 ** ((level - 15000) / 250)) : 1
+        return baseCost * (1001 ** 7 - 1000 ** 7) * 10 ** (level / 1000) * fasterMult
+          * fasterMult2
       }
     },
     maxLevel: 20000,
@@ -241,14 +254,14 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       return {
         bonus: 1 + 0.011 * n,
         get desc () {
-          return i18next.t('octeract.data.octeractQuarkGain.effect', { n: format(1.1*n, 0, true) })
+          return i18next.t('octeract.data.octeractQuarkGain.effect', { n: format(1.1 * n, 0, true) })
         }
       }
     }
   },
   octeractQuarkGain2: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(1e20, level)
+      return baseCost * 1e20 ** level
     },
     maxLevel: 5,
     costPerLevel: 1e22,
@@ -263,7 +276,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractCorruption: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(10, level * 10)
+      return baseCost * 10 ** (level * 10)
     },
     maxLevel: 2,
     costPerLevel: 10,
@@ -278,13 +291,13 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractGQCostReduce: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(2, level)
+      return baseCost * 2 ** level
     },
     maxLevel: 50,
     costPerLevel: 1e-9,
     effect: (n: number) => {
       return {
-        bonus: 1 - n/100,
+        bonus: 1 - n / 100,
         get desc () {
           return i18next.t('octeract.data.octeractGQCostReduce.effect', { n })
         }
@@ -293,13 +306,13 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractExportQuarks: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(level + 1, 3)
+      return baseCost * (level + 1) ** 3
     },
     maxLevel: 100,
     costPerLevel: 1,
     effect: (n: number) => {
       return {
-        bonus: 4 * n/10 + 1,
+        bonus: 4 * n / 10 + 1,
         get desc () {
           return i18next.t('octeract.data.octeractExportQuarks.effect', { n: format(40 * n, 0, true) })
         }
@@ -308,7 +321,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractImprovedDaily: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(1.6, level)
+      return baseCost * 1.6 ** level
     },
     maxLevel: 50,
     costPerLevel: 1e-3,
@@ -324,7 +337,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractImprovedDaily2: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(2, level)
+      return baseCost * 2 ** level
     },
     maxLevel: 50,
     costPerLevel: 1e-2,
@@ -340,7 +353,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractImprovedDaily3: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(20, level)
+      return baseCost * 20 ** level
     },
     maxLevel: -1,
     costPerLevel: 1e20,
@@ -356,28 +369,28 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractImprovedQuarkHept: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(1e6, level)
+      return baseCost * 1e6 ** level
     },
     maxLevel: 3,
-    costPerLevel: 1/10,
+    costPerLevel: 1 / 10,
     effect: (n: number) => {
       return {
         bonus: n / 100,
         get desc () {
-          return i18next.t('octeract.data.octeractImprovedQuarkHept.effect', { n: format(n/100, 2, true) })
+          return i18next.t('octeract.data.octeractImprovedQuarkHept.effect', { n: format(n / 100, 2, true) })
         }
       }
     }
   },
   octeractImprovedGlobalSpeed: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(level + 1, 3)
+      return baseCost * (level + 1) ** 3
     },
     maxLevel: 1000,
     costPerLevel: 1e-5,
     effect: (n: number) => {
       return {
-        bonus: n/100,
+        bonus: n / 100,
         get desc () {
           return i18next.t('octeract.data.octeractImprovedGlobalSpeed.effect', { n: format(n, 0, true) })
         }
@@ -386,7 +399,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractImprovedAscensionSpeed: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(1e9, level / 100)
+      return baseCost * 1e9 ** (level / 100)
     },
     maxLevel: 100,
     costPerLevel: 100,
@@ -394,14 +407,14 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       return {
         bonus: n / 2000,
         get desc () {
-          return i18next.t('octeract.data.octeractImprovedAscensionSpeed.effect', { n: format(n/20, 2, true) })
+          return i18next.t('octeract.data.octeractImprovedAscensionSpeed.effect', { n: format(n / 20, 2, true) })
         }
       }
     }
   },
   octeractImprovedAscensionSpeed2: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(1e12, level / 250)
+      return baseCost * 1e12 ** (level / 250)
     },
     maxLevel: 250,
     costPerLevel: 1e5,
@@ -409,14 +422,14 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       return {
         bonus: n / 2000,
         get desc () {
-          return i18next.t('octeract.data.octeractImprovedAscensionSpeed2.effect', { n: format(n/50, 2, true) })
+          return i18next.t('octeract.data.octeractImprovedAscensionSpeed2.effect', { n: format(n / 50, 2, true) })
         }
       }
     }
   },
   octeractImprovedFree: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(level + 1, 3)
+      return baseCost * (level + 1) ** 3
     },
     maxLevel: 1,
     costPerLevel: 100,
@@ -431,7 +444,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractImprovedFree2: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(level + 1, 3)
+      return baseCost * (level + 1) ** 3
     },
     maxLevel: 1,
     costPerLevel: 1e7,
@@ -446,7 +459,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractImprovedFree3: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(level + 1, 3)
+      return baseCost * (level + 1) ** 3
     },
     maxLevel: 1,
     costPerLevel: 1e17,
@@ -454,29 +467,31 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       return {
         bonus: 0.05 * n,
         get desc () {
-          return i18next.t('octeract.data.octeractImprovedFree3.effect', { n: format(n/20, 2, true) })
+          return i18next.t('octeract.data.octeractImprovedFree3.effect', { n: format(n / 20, 2, true) })
         }
       }
     }
   },
   octeractImprovedFree4: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(1e20, level / 40)
+      return baseCost * 1e20 ** (level / 40)
     },
     maxLevel: 40,
     costPerLevel: 1e20,
     effect: (n: number) => {
       return {
-        bonus: 0.001 * n + ((n > 0)? 0.01: 0),
+        bonus: 0.001 * n + ((n > 0) ? 0.01 : 0),
         get desc () {
-          return i18next.t('octeract.data.octeractImprovedFree4.effect', { n: format(0.001 * n + ((n > 0)? 0.01: 0), 3, true) })
+          return i18next.t('octeract.data.octeractImprovedFree4.effect', {
+            n: format(0.001 * n + ((n > 0) ? 0.01 : 0), 3, true)
+          })
         }
       }
     }
   },
   octeractSingUpgradeCap: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(1e3, level)
+      return baseCost * 1e3 ** level
     },
     maxLevel: 10,
     costPerLevel: 1e10,
@@ -493,9 +508,9 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   octeractOfferings1: {
     costFormula: (level: number, baseCost: number) => {
       if (level < 25) {
-        return baseCost * Math.pow(level + 1, 5)
+        return baseCost * (level + 1) ** 5
       } else {
-        return baseCost * 1e15 * Math.pow(10, level / 25 - 1)
+        return baseCost * 1e15 * 10 ** (level / 25 - 1)
       }
     },
     maxLevel: -1,
@@ -512,9 +527,9 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   octeractObtainium1: {
     costFormula: (level: number, baseCost: number) => {
       if (level < 25) {
-        return baseCost * Math.pow(level + 1, 5)
+        return baseCost * (level + 1) ** 5
       } else {
-        return baseCost * 1e15 * Math.pow(10, level / 25 - 1)
+        return baseCost * 1e15 * 10 ** (level / 25 - 1)
       }
     },
     maxLevel: -1,
@@ -530,7 +545,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractAscensions: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(level + 1, 3)
+      return baseCost * (level + 1) ** 3
     },
     maxLevel: 1000000,
     costPerLevel: 1,
@@ -538,14 +553,16 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       return {
         bonus: (1 + n / 100) * (1 + 2 * Math.floor(n / 10) / 100),
         get desc () {
-          return i18next.t('octeract.data.octeractAscensions.effect', { n: format((100 + n) * (1 + 2 * Math.floor(n/10) / 100) - 100, 1, true) })
+          return i18next.t('octeract.data.octeractAscensions.effect', {
+            n: format((100 + n) * (1 + 2 * Math.floor(n / 10) / 100) - 100, 1, true)
+          })
         }
       }
     }
   },
   octeractAscensions2: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(10, Math.pow(level, 0.5) / 3)
+      return baseCost * 10 ** (level ** 0.5 / 3)
     },
     maxLevel: -1,
     costPerLevel: 1e12,
@@ -553,14 +570,16 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       return {
         bonus: (1 + n / 100) * (1 + 2 * Math.floor(n / 10) / 100),
         get desc () {
-          return i18next.t('octeract.data.octeractAscensions2.effect', { n: format((100 + n) * (1 + 2 * Math.floor(n/10) / 100) - 100, 1, true) })
+          return i18next.t('octeract.data.octeractAscensions2.effect', {
+            n: format((100 + n) * (1 + 2 * Math.floor(n / 10) / 100) - 100, 1, true)
+          })
         }
       }
     }
   },
   octeractAscensionsOcteractGain: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(40, level)
+      return baseCost * 40 ** level
     },
     maxLevel: -1,
     costPerLevel: 1000,
@@ -575,7 +594,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractFastForward: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(1e8, level)
+      return baseCost * 1e8 ** level
     },
     maxLevel: 2,
     costPerLevel: 1e8,
@@ -590,7 +609,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractAutoPotionSpeed: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(10, level)
+      return baseCost * 10 ** level
     },
     maxLevel: -1,
     costPerLevel: 1e-10,
@@ -605,10 +624,10 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractAutoPotionEfficiency: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(10, level)
+      return baseCost * 10 ** level
     },
     maxLevel: 100,
-    costPerLevel: 1e-10 * Math.pow(10, 0.5),
+    costPerLevel: 1e-10 * 10 ** 0.5,
     effect: (n: number) => {
       return {
         bonus: 1 + 2 * n / 100,
@@ -620,8 +639,8 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractOneMindImprover: {
     costFormula: (level: number, baseCost: number) => {
-      const fasterMult = (level >= 10) ? (Math.pow(1e3, level - 10)) : 1
-      return baseCost * Math.pow(1e5, level) * fasterMult
+      const fasterMult = (level >= 10) ? (1e3 ** (level - 10)) : 1
+      return baseCost * 1e5 ** level * fasterMult
     },
     maxLevel: 16,
     costPerLevel: 1e25,
@@ -638,7 +657,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   octeractAmbrosiaLuck: {
     costFormula: (level: number, baseCost: number) => {
       const useLevel = level + 1
-      return baseCost * (Math.pow(10, useLevel) - Math.pow(10, useLevel - 1))
+      return baseCost * (10 ** useLevel - 10 ** (useLevel - 1))
     },
     maxLevel: -1,
     costPerLevel: 1e60 / 9,
@@ -655,7 +674,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractAmbrosiaLuck2: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
+      return baseCost * ((level + 1) ** 6 - level ** 6)
     },
     maxLevel: 30,
     costPerLevel: 1,
@@ -672,7 +691,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractAmbrosiaLuck3: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * (Math.pow(level + 1, 8) - Math.pow(level, 8))
+      return baseCost * ((level + 1) ** 8 - level ** 8)
     },
     maxLevel: 30,
     costPerLevel: 1e30,
@@ -690,7 +709,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   octeractAmbrosiaLuck4: {
     costFormula: (level: number, baseCost: number) => {
       const useLevel = level + 1
-      return baseCost * (Math.pow(3, useLevel) - Math.pow(3, useLevel - 1))
+      return baseCost * (3 ** useLevel - 3 ** (useLevel - 1))
     },
     maxLevel: 50,
     costPerLevel: 1e70 / 2,
@@ -708,13 +727,13 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   octeractAmbrosiaGeneration: {
     costFormula: (level: number, baseCost: number) => {
       const useLevel = level + 1
-      return baseCost * (Math.pow(10, useLevel) - Math.pow(10, useLevel - 1))
+      return baseCost * (10 ** useLevel - 10 ** (useLevel - 1))
     },
     maxLevel: -1,
     costPerLevel: 1e60 / 9,
     effect: (n: number) => {
       return {
-        bonus: 1 + n/100,
+        bonus: 1 + n / 100,
         get desc () {
           return i18next.t('octeract.data.octeractAmbrosiaGeneration.effect', { n: format(n) })
         }
@@ -725,13 +744,13 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractAmbrosiaGeneration2: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * (Math.pow(level + 1, 6) - Math.pow(level, 6))
+      return baseCost * ((level + 1) ** 6 - level ** 6)
     },
     maxLevel: 20,
     costPerLevel: 1,
     effect: (n: number) => {
       return {
-        bonus: 1 + n/100,
+        bonus: 1 + n / 100,
         get desc () {
           return i18next.t('octeract.data.octeractAmbrosiaGeneration2.effect', { n: format(n) })
         }
@@ -742,13 +761,13 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractAmbrosiaGeneration3: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * (Math.pow(level + 1, 8) - Math.pow(level, 8))
+      return baseCost * ((level + 1) ** 8 - level ** 8)
     },
     maxLevel: 35,
     costPerLevel: 1e30,
     effect: (n: number) => {
       return {
-        bonus: 1 + n/100,
+        bonus: 1 + n / 100,
         get desc () {
           return i18next.t('octeract.data.octeractAmbrosiaGeneration3.effect', { n: format(n) })
         }
@@ -760,7 +779,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   octeractAmbrosiaGeneration4: {
     costFormula: (level: number, baseCost: number) => {
       const useLevel = level + 1
-      return baseCost * (Math.pow(3, useLevel) - Math.pow(3, useLevel - 1))
+      return baseCost * (3 ** useLevel - 3 ** (useLevel - 1))
     },
     maxLevel: 50,
     costPerLevel: 1e70 / 2,
@@ -776,4 +795,3 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('OcteractBerries')]
   }
 }
-

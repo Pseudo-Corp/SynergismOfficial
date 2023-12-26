@@ -13,13 +13,13 @@ export const calculatePlatonicBlessings = () => {
       effectiveAmount = Math.min(effectiveAmount, 1e20)
     }
     if (i === 6 && effectiveAmount >= 1e20) {
-      effectiveAmount = Math.pow(effectiveAmount, 0.5) * 1e10
+      effectiveAmount = effectiveAmount ** 0.5 * 1e10
     }
     if (platonicArray[i] >= DRThreshold[i]) {
       power = G.platonicDRPower[i]
-      mult *= Math.pow(DRThreshold[i], (1 - G.platonicDRPower[i]))
+      mult *= DRThreshold[i] ** (1 - G.platonicDRPower[i])
     }
 
-    G.platonicBonusMultiplier[i] = 1 + mult * G.platonicCubeBase[i] * Math.pow(effectiveAmount, power)
+    G.platonicBonusMultiplier[i] = 1 + mult * G.platonicCubeBase[i] * effectiveAmount ** power
   }
 }

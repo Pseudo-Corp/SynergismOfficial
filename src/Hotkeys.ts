@@ -1,13 +1,13 @@
 import { sacrificeAnts } from './Ants'
-import { buyAccelerator, boostAccelerator, buyMultiplier } from './Buy'
-import { player, resetCheck, synergismHotkeys } from './Synergism'
-import { toggleAutoChallengeRun, toggleCorruptionLevel, confirmReply } from './Toggles'
-import { Alert, Prompt, Confirm } from './UpdateHTML'
-import { Globals as G } from './Variables'
+import { boostAccelerator, buyAccelerator, buyMultiplier } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { useConsumable } from  './Shop'
 import { promocodes } from './ImportExport'
+import { useConsumable } from './Shop'
+import { player, resetCheck, synergismHotkeys } from './Synergism'
 import { keyboardTabChange as kbTabChange } from './Tabs'
+import { confirmReply, toggleAutoChallengeRun, toggleCorruptionLevel } from './Toggles'
+import { Alert, Confirm, Prompt } from './UpdateHTML'
+import { Globals as G } from './Variables'
 
 export const defaultHotkeys = new Map<string, [string, () => unknown, boolean]>([
   ['A', ['Buy Accelerators', () => buyAccelerator(), false]],
@@ -76,7 +76,8 @@ const eventHotkeys = (event: KeyboardEvent): void => {
   if (document.activeElement?.localName === 'input') {
     // https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
     // finally fixes the bug where hotkeys would be activated when typing in an input field
-    return event.stopPropagation()
+    event.stopPropagation()
+    return
   }
 
   synergismHotkeys(event, event.code.replace(/^(Digit|Numpad)/, '').toUpperCase())
@@ -107,9 +108,9 @@ const eventHotkeys = (event: KeyboardEvent): void => {
 
   let hotkeyName = ''
   if (hotkeys.has(key)) {
-    hotkeyName = '' + hotkeys.get(key)![0]
-        hotkeys.get(key)![1]()
-        event.preventDefault()
+    hotkeyName = `${hotkeys.get(key)![0]}`
+    hotkeys.get(key)![1]()
+    event.preventDefault()
   }
 
   if (G.currentTab === 'settings' && player.subtabNumber === 6) {
@@ -125,13 +126,11 @@ const makeSlot = (key: string, descr: string) => {
   const span = document.createElement('span')
   span.id = 'actualHotkey'
   span.textContent = key
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   span.addEventListener('click', async (e) => {
     const target = e.target as HTMLElement
     const oldKey = target.textContent!.toUpperCase()
-    const name =
-            hotkeys.get(oldKey)?.[0] ??
-            target.nextSibling?.textContent
+    const name = hotkeys.get(oldKey)?.[0]
+      ?? target.nextSibling?.textContent
 
     // new value to set key as, unformatted
     const newKey = await Prompt(`
@@ -153,7 +152,7 @@ const makeSlot = (key: string, descr: string) => {
       return void Alert('You didn\'t enter anything, canceled!')
     }
 
-    if (!isNaN(Number(newKey))) {
+    if (!Number.isNaN(Number(newKey))) {
       return void Alert('Number keys are currently unavailable!')
     }
 
@@ -243,7 +242,9 @@ export const resetHotkeys = async () => {
     }
   }
 
-  const confirmed = await Confirm(`Are you sure you want to default all the changed hotkeys?\nBelow is a history of hotkeys you have changed\n\n${settext}`)
+  const confirmed = await Confirm(
+    `Are you sure you want to default all the changed hotkeys?\nBelow is a history of hotkeys you have changed\n\n${settext}`
+  )
   if (confirmed) {
     hotkeys = new Map(defaultHotkeys)
     player.hotkeys = {}

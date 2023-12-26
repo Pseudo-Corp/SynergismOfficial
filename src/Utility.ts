@@ -3,13 +3,12 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format } from './Synergism'
 
 export const isDecimal = (o: unknown): o is Decimal =>
-  o instanceof Decimal ||
-    (typeof o === 'object' &&
-    o !== null &&
-    Object.keys(o).length === 2 &&
-    'mantissa' in o &&
-    'exponent' in o)
-
+  o instanceof Decimal
+  || (typeof o === 'object'
+    && o !== null
+    && Object.keys(o).length === 2
+    && 'mantissa' in o
+    && 'exponent' in o)
 
 /**
  * This function calculates the smallest integer increment/decrement that can be applied to a number that is
@@ -47,7 +46,6 @@ export const sumContents = (array: number[]): number => {
  */
 // TODO: Add a productContents for Decimal, but callable using productContents...
 export const productContents = (array: number[]): number => array.reduce((a, b) => a * b)
-
 
 export const sortWithIndices = (toSort: number[]) => {
   return Array
@@ -102,7 +100,6 @@ export const btoa = (s: string) => {
   try {
     return window.btoa(s)
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.error('An error occurred:', err)
     // e.code = 5
     return null
@@ -110,36 +107,36 @@ export const btoa = (s: string) => {
 }
 
 /**
- *
  * Creates a string of the ordinal representation of an integer.
  * @param int An integer, which can be negative or positive.
  * @returns A string which follows the conventions of ordinal numbers
  *          in standard English
  */
-export const toOrdinal = (int: number):string => {
+export const toOrdinal = (int: number): string => {
   let suffix = 'th'
   if (int % 10 === 1) {
-    suffix = (int % 100 === 11)? 'th': 'st'
+    suffix = (int % 100 === 11) ? 'th' : 'st'
   }
   if (int % 10 === 2) {
-    suffix = (int % 100 === 12)? 'th': 'nd'
+    suffix = (int % 100 === 12) ? 'th' : 'nd'
   }
   if (int % 10 === 3) {
-    suffix = (int % 100 === 13)? 'th': 'rd'
+    suffix = (int % 100 === 13) ? 'th' : 'rd'
   }
 
-  return format(int, 0, true)+suffix
+  return format(int, 0, true) + suffix
 }
 
-export const formatMS = (ms: number) => Object.entries({
-  d: Math.floor(ms / 86400000),
-  h: Math.floor(ms / 3600000) % 24,
-  m: Math.floor(ms / 60000) % 60,
-  s: Math.floor(ms / 1000) % 60
-})
-  .filter(f => f[1] > 0)
-  .map(t => `${t[1]}${t[0]}`)
-  .join(' ') || '0s'
+export const formatMS = (ms: number) =>
+  Object.entries({
+    d: Math.floor(ms / 86400000),
+    h: Math.floor(ms / 3600000) % 24,
+    m: Math.floor(ms / 60000) % 60,
+    s: Math.floor(ms / 1000) % 60
+  })
+    .filter((f) => f[1] > 0)
+    .map((t) => `${t[1]}${t[0]}`)
+    .join(' ') || '0s'
 
 export const formatS = (s: number) => {
   return formatMS(1000 * s)

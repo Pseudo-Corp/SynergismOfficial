@@ -1,54 +1,295 @@
-import { format, player } from './Synergism'
-import { Globals as G } from './Variables'
-import { Alert, Notification, revealStuff } from './UpdateHTML'
-import { Synergism } from './Events'
-import { sumContents } from './Utility'
 import Decimal from 'break_infinity.js'
-import { CalcCorruptionStuff, calculateTimeAcceleration } from './Calculate'
-import { DOMCacheGetOrSet } from './Cache/DOM'
 import i18next from 'i18next'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import { CalcCorruptionStuff, calculateTimeAcceleration } from './Calculate'
+import { Synergism } from './Events'
+import { format, player } from './Synergism'
+import { Alert, Notification, revealStuff } from './UpdateHTML'
+import { sumContents } from './Utility'
+import { Globals as G } from './Variables'
 
-export const achievementpointvalues = [0,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  2, 8, 10, 2, 8, 10, 10,
-  2, 8, 10, 10, 10, 10, 10,
-  2, 4, 6, 8, 10, 10, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  1, 2, 4, 6, 8, 9, 10,
-  10, 10, 10, 10, 10, 10, 10,
-  10, 10, 10, 10, 10, 10, 10,
-  20, 20, 20, 40, 60, 60, 100,
-  20, 20, 40, 40, 60, 60, 100,
-  20, 20, 40, 40, 60, 60, 100,
-  20, 40, 40, 40, 60, 60, 100,
-  40, 40, 40, 60, 60, 100, 100,
-  40, 40, 60, 60, 100, 100, 100,
-  20, 40, 40, 60, 60, 100, 100,
-  40, 60, 100, 60, 100, 100, 40,
-  40, 40, 40, 40, 40, 40, 40,
-  40, 40, 40, 40, 100, 100, 0,
-  50, 75, 75, 75, 100, 100, 150,
-  50, 75, 75, 75, 100, 100, 150,
-  50, 75, 75, 75, 100, 100, 150,
-  10, 10, 20, 20, 30, 40, 50
+export const achievementpointvalues = [
+  0,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  2,
+  8,
+  10,
+  2,
+  8,
+  10,
+  10,
+  2,
+  8,
+  10,
+  10,
+  10,
+  10,
+  10,
+  2,
+  4,
+  6,
+  8,
+  10,
+  10,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  1,
+  2,
+  4,
+  6,
+  8,
+  9,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  20,
+  20,
+  20,
+  40,
+  60,
+  60,
+  100,
+  20,
+  20,
+  40,
+  40,
+  60,
+  60,
+  100,
+  20,
+  20,
+  40,
+  40,
+  60,
+  60,
+  100,
+  20,
+  40,
+  40,
+  40,
+  60,
+  60,
+  100,
+  40,
+  40,
+  40,
+  60,
+  60,
+  100,
+  100,
+  40,
+  40,
+  60,
+  60,
+  100,
+  100,
+  100,
+  20,
+  40,
+  40,
+  60,
+  60,
+  100,
+  100,
+  40,
+  60,
+  100,
+  60,
+  100,
+  100,
+  40,
+  40,
+  40,
+  40,
+  40,
+  40,
+  40,
+  40,
+  40,
+  40,
+  40,
+  40,
+  100,
+  100,
+  0,
+  50,
+  75,
+  75,
+  75,
+  100,
+  100,
+  150,
+  50,
+  75,
+  75,
+  75,
+  100,
+  100,
+  150,
+  50,
+  75,
+  75,
+  75,
+  100,
+  100,
+  150,
+  10,
+  10,
+  20,
+  20,
+  30,
+  40,
+  50
 ]
 
 export const totalachievementpoints = achievementpointvalues.reduce((a, b) => a + b, 0)
@@ -57,14 +298,23 @@ export const areward = (i: number): string => {
   // May 22, 2021: Allow achievement bonus values display directly in the description
   // Using areward as const object did not allow ${player object}
 
-  //Effective score is 3rd index
+  // Effective score is 3rd index
   const corr = CalcCorruptionStuff()
 
   const extra: Record<number, string | Record<string, string>> = {
-    118: format(Math.pow(0.9925, player.challengecompletions[6] + player.challengecompletions[7] + player.challengecompletions[8] + player.challengecompletions[9] + player.challengecompletions[10]), 4),
+    118: format(
+      0.9925 ** (
+        player.challengecompletions[6] + player.challengecompletions[7] + player.challengecompletions[8]
+        + player.challengecompletions[9] + player.challengecompletions[10]
+      ),
+      4
+    ),
     169: format(Decimal.log(player.antPoints.add(10), 10), 2),
     174: format(0.4 * Decimal.log(player.antPoints.add(1), 10), 2),
-    187: { x: format(Math.max(1, Math.log10(corr[3]+1) - 7), 2), y: format(Math.min(100, player.ascensionCount / 10000), 2) },
+    187: {
+      x: format(Math.max(1, Math.log10(corr[3] + 1) - 7), 2),
+      y: format(Math.min(100, player.ascensionCount / 10000), 2)
+    },
     188: format(Math.min(100, player.ascensionCount / 50000), 2),
     189: format(Math.min(200, player.ascensionCount / 2.5e6), 2),
     193: format(Decimal.log(player.ascendShards.add(1), 10) / 4, 2),
@@ -73,14 +323,14 @@ export const areward = (i: number): string => {
     202: format(Math.min(200, player.ascensionCount / 5e6), 2),
     216: format(Math.min(200, player.ascensionCount / 1e7), 2),
     223: format(Math.min(200, player.ascensionCount / 13370000), 2),
-    240: format(Math.min(1.5, 1 + Math.max(2, Math.log10(calculateTimeAcceleration().mult))/20), 2),
-    254: format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true),
-    255: format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true),
-    256: format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true),
-    257: format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true),
-    258: format(Math.min(15, Math.log10(corr[3]+1) * 0.6), 2, true),
-    262: format(Math.min(10, Math.log10(player.ascensionCount+1)), 2),
-    263: format(Math.min(10, Math.log10(player.ascensionCount+1)), 2),
+    240: format(Math.min(1.5, 1 + Math.max(2, Math.log10(calculateTimeAcceleration().mult)) / 20), 2),
+    254: format(Math.min(15, Math.log10(corr[3] + 1) * 0.6), 2, true),
+    255: format(Math.min(15, Math.log10(corr[3] + 1) * 0.6), 2, true),
+    256: format(Math.min(15, Math.log10(corr[3] + 1) * 0.6), 2, true),
+    257: format(Math.min(15, Math.log10(corr[3] + 1) * 0.6), 2, true),
+    258: format(Math.min(15, Math.log10(corr[3] + 1) * 0.6), 2, true),
+    262: format(Math.min(10, Math.log10(player.ascensionCount + 1)), 2),
+    263: format(Math.min(10, Math.log10(player.ascensionCount + 1)), 2),
     264: format(Math.min(40, player.ascensionCount / 2e11), 2),
     265: format(Math.min(20, player.ascensionCount / 8e12), 2),
     266: format(Math.min(10, player.ascensionCount / 1e14), 2),
@@ -90,18 +340,138 @@ export const areward = (i: number): string => {
   }
 
   const descs: number[] = [
-    3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 17, 18, 19,
-    20, 21, 24, 25, 26, 27, 28, 31, 32, 33, 34, 35,
-    36, 37, 38, 43, 44, 45, 46, 47, 50, 51, 52, 53,
-    57, 58, 59, 60, 61, 62, 71, 72, 73, 74, 75, 76,
-    77, 78, 79, 80, 82, 84, 85, 86, 87, 89, 91, 92,
-    93, 94, 96, 98, 99, 100, 101, 102, 103, 105, 106,
-    107, 108, 110, 112, 115, 117, 119, 122, 124, 126,
-    127, 128, 129, 131, 132, 133, 134, 135, 136, 137,
-    140, 141, 147, 171, 172, 173, 176, 177, 178, 179,
-    180, 181, 182, 197, 198, 199, 200, 201, 204, 205,
-    206, 207, 208, 209, 211, 212, 213, 214, 215, 218,
-    219, 220, 221, 222, 250, 251, 253, 259, 260, 261
+    3,
+    4,
+    5,
+    6,
+    7,
+    10,
+    11,
+    12,
+    13,
+    14,
+    17,
+    18,
+    19,
+    20,
+    21,
+    24,
+    25,
+    26,
+    27,
+    28,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    43,
+    44,
+    45,
+    46,
+    47,
+    50,
+    51,
+    52,
+    53,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    82,
+    84,
+    85,
+    86,
+    87,
+    89,
+    91,
+    92,
+    93,
+    94,
+    96,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    105,
+    106,
+    107,
+    108,
+    110,
+    112,
+    115,
+    117,
+    119,
+    122,
+    124,
+    126,
+    127,
+    128,
+    129,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    140,
+    141,
+    147,
+    171,
+    172,
+    173,
+    176,
+    177,
+    178,
+    179,
+    180,
+    181,
+    182,
+    197,
+    198,
+    199,
+    200,
+    201,
+    204,
+    205,
+    206,
+    207,
+    208,
+    209,
+    211,
+    212,
+    213,
+    214,
+    215,
+    218,
+    219,
+    220,
+    221,
+    222,
+    250,
+    251,
+    253,
+    259,
+    260,
+    261
   ]
 
   if (descs.includes(i) || i in extra) {
@@ -121,7 +491,7 @@ export const achievementAlerts = async (num: number) => {
     }
   }
 }
-//${format(Decimal.log(player.ascendShards.add(1), 10) / 1000, 2)} (log(constant)/1000)%!
+// ${format(Decimal.log(player.ascendShards.add(1), 10) / 1000, 2)} (log(constant)/1000)%!
 
 // TODO: clean this up
 export const resetachievementcheck = (i: number) => {
@@ -137,30 +507,24 @@ export const resetachievementcheck = (i: number) => {
     }
     if (G.prestigePointGain.gte(1)) {
       achievementaward(36)
-
     }
     if (G.prestigePointGain.gte(1e6)) {
       achievementaward(37)
-
     }
     if (G.prestigePointGain.gte(1e100)) {
       achievementaward(38)
     }
     if (G.prestigePointGain.gte('1e1000')) {
       achievementaward(39)
-
     }
     if (G.prestigePointGain.gte('1e10000')) {
       achievementaward(40)
-
     }
     if (G.prestigePointGain.gte('1e77777')) {
       achievementaward(41)
-
     }
     if (G.prestigePointGain.gte('1e250000')) {
       achievementaward(42)
-
     }
   }
   if (i === 2) {
@@ -219,31 +583,24 @@ export const resetachievementcheck = (i: number) => {
     }
     if (G.reincarnationPointGain.gte(1)) {
       achievementaward(50)
-
     }
     if (G.reincarnationPointGain.gte(1e5)) {
       achievementaward(51)
-
     }
     if (G.reincarnationPointGain.gte(1e30)) {
       achievementaward(52)
-
     }
     if (G.reincarnationPointGain.gte(1e200)) {
       achievementaward(53)
-
     }
     if (G.reincarnationPointGain.gte('1e1500')) {
       achievementaward(54)
-
     }
     if (G.reincarnationPointGain.gte('1e5000')) {
       achievementaward(55)
-
     }
     if (G.reincarnationPointGain.gte('1e7777')) {
       achievementaward(56)
-
     }
   }
 }
@@ -252,16 +609,76 @@ export const resetachievementcheck = (i: number) => {
  * Array of [index, bar to get achievement if greater than, achievement number]
  */
 const challengeCompletionsBar: [number, number, number][] = [
-  [1, 0.5, 78], [1, 2.5, 79], [1, 4.5, 80], [1, 9.5, 81], [1, 19.5, 82], [1, 49.5, 83], [1, 74.5, 84],
-  [2, 0.5, 85], [2, 2.5, 86], [2, 4.5, 87], [2, 9.5, 88], [2, 19.5, 89], [2, 49.5, 90], [2, 74.5, 91],
-  [3, 0.5, 92], [3, 2.5, 93], [3, 4.5, 94], [3, 9.5, 95], [3, 19.5, 96], [3, 49.5, 97], [3, 74.5, 98],
-  [4, 0.5, 99], [4, 2.5, 100], [4, 4.5, 101], [4, 9.5, 102], [4, 19.5, 103], [4, 49.5, 104], [4, 74.5, 105],
-  [5, 0.5, 106], [5, 2.5, 107], [5, 4.5, 108], [5, 9.5, 109], [5, 19.5, 110], [5, 49.5, 111], [5, 74.5, 112],
-  [6, 0.5, 113], [6, 1.5, 114], [6, 2.5, 115], [6, 4.5, 116], [6, 9.5, 117], [6, 14.5, 118], [6, 24.5, 119],
-  [7, 0.5, 120], [7, 1.5, 121], [7, 2.5, 122], [7, 4.5, 123], [7, 9.5, 124], [7, 14.5, 125], [7, 24.5, 126],
-  [8, 0.5, 127], [8, 1.5, 128], [8, 2.5, 129], [8, 4.5, 130], [8, 9.5, 131], [8, 19.5, 132], [8, 24.5, 133],
-  [9, 0.5, 134], [9, 1.5, 135], [9, 2.5, 136], [9, 4.5, 137], [9, 9.5, 138], [9, 19.5, 139], [9, 24.5, 140],
-  [10, 0.5, 141], [10, 1.5, 142], [10, 2.5, 143], [10, 4.5, 144], [10, 9.5, 145], [10, 19.5, 146], [10, 24.5, 147],
+  [1, 0.5, 78],
+  [1, 2.5, 79],
+  [1, 4.5, 80],
+  [1, 9.5, 81],
+  [1, 19.5, 82],
+  [1, 49.5, 83],
+  [1, 74.5, 84],
+  [2, 0.5, 85],
+  [2, 2.5, 86],
+  [2, 4.5, 87],
+  [2, 9.5, 88],
+  [2, 19.5, 89],
+  [2, 49.5, 90],
+  [2, 74.5, 91],
+  [3, 0.5, 92],
+  [3, 2.5, 93],
+  [3, 4.5, 94],
+  [3, 9.5, 95],
+  [3, 19.5, 96],
+  [3, 49.5, 97],
+  [3, 74.5, 98],
+  [4, 0.5, 99],
+  [4, 2.5, 100],
+  [4, 4.5, 101],
+  [4, 9.5, 102],
+  [4, 19.5, 103],
+  [4, 49.5, 104],
+  [4, 74.5, 105],
+  [5, 0.5, 106],
+  [5, 2.5, 107],
+  [5, 4.5, 108],
+  [5, 9.5, 109],
+  [5, 19.5, 110],
+  [5, 49.5, 111],
+  [5, 74.5, 112],
+  [6, 0.5, 113],
+  [6, 1.5, 114],
+  [6, 2.5, 115],
+  [6, 4.5, 116],
+  [6, 9.5, 117],
+  [6, 14.5, 118],
+  [6, 24.5, 119],
+  [7, 0.5, 120],
+  [7, 1.5, 121],
+  [7, 2.5, 122],
+  [7, 4.5, 123],
+  [7, 9.5, 124],
+  [7, 14.5, 125],
+  [7, 24.5, 126],
+  [8, 0.5, 127],
+  [8, 1.5, 128],
+  [8, 2.5, 129],
+  [8, 4.5, 130],
+  [8, 9.5, 131],
+  [8, 19.5, 132],
+  [8, 24.5, 133],
+  [9, 0.5, 134],
+  [9, 1.5, 135],
+  [9, 2.5, 136],
+  [9, 4.5, 137],
+  [9, 9.5, 138],
+  [9, 19.5, 139],
+  [9, 24.5, 140],
+  [10, 0.5, 141],
+  [10, 1.5, 142],
+  [10, 2.5, 143],
+  [10, 4.5, 144],
+  [10, 9.5, 145],
+  [10, 19.5, 146],
+  [10, 24.5, 147],
   [15, 0.5, 252]
 ]
 
@@ -286,7 +703,9 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
   if ([1, 2, 3, 5].includes(i) && !auto) {
     const [gte, ach] = challengeCompletionsNotAuto[i]
     if (i === 5) {
-      if (player.coinsThisTranscension.gte(gte) && player.acceleratorBought === 0 && player.acceleratorBoostBought === 0) {
+      if (
+        player.coinsThisTranscension.gte(gte) && player.acceleratorBought === 0 && player.acceleratorBoostBought === 0
+      ) {
         achievementaward(ach)
       }
     } else if (player.coinsThisTranscension.gte(gte) && generatorcheck === 0) {
@@ -303,7 +722,9 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
     }
   }
 
-  if (player.challengecompletions[10] >= 50 && i === 11 && player.usedCorruptions[7] >= 5 && player.achievements[247] < 1) {
+  if (
+    player.challengecompletions[10] >= 50 && i === 11 && player.usedCorruptions[7] >= 5 && player.achievements[247] < 1
+  ) {
     achievementaward(247)
   }
 }
@@ -363,8 +784,24 @@ export const buildingAchievementCheck = () => {
 
 export const ascensionAchievementCheck = (i: number, score = 0) => {
   if (i === 1) {
-    const ascendCountArray = [0, 1, 2, 10, 100, 1000, 14142, 141421, 1414213, //Column 1
-      1e7, 1e8, 2e9, 4e10, 8e11, 1.6e13, 1e14] //Column 2
+    const ascendCountArray = [
+      0,
+      1,
+      2,
+      10,
+      100,
+      1000,
+      14142,
+      141421,
+      1414213, // Column 1
+      1e7,
+      1e8,
+      2e9,
+      4e10,
+      8e11,
+      1.6e13,
+      1e14
+    ] // Column 2
     for (let j = 1; j <= 7; j++) {
       if (player.ascensionCount >= ascendCountArray[j] && player.achievements[182 + j] < 1) {
         achievementaward(182 + j)
@@ -378,8 +815,23 @@ export const ascensionAchievementCheck = (i: number, score = 0) => {
     }
   }
   if (i === 2) {
-    const constantArray = [0, 3.14, 1e6, 4.32e10, 6.9e21, 1.509e33, 1e66, '1.8e308', //Column 1
-      '1e1000', '1e5000', '1e15000', '1e50000', '1e100000', '1e300000', '1e1000000'] //Column 2
+    const constantArray = [
+      0,
+      3.14,
+      1e6,
+      4.32e10,
+      6.9e21,
+      1.509e33,
+      1e66,
+      '1.8e308', // Column 1
+      '1e1000',
+      '1e5000',
+      '1e15000',
+      '1e50000',
+      '1e100000',
+      '1e300000',
+      '1e1000000'
+    ] // Column 2
     for (let j = 1; j <= 7; j++) {
       if (player.ascendShards.gte(constantArray[j]) && player.achievements[189 + j] < 1) {
         achievementaward(189 + j)
@@ -390,8 +842,23 @@ export const ascensionAchievementCheck = (i: number, score = 0) => {
     }
   }
   if (i === 3) {
-    const scoreArray = [0, 1e5, 1e6, 1e7, 1e8, 1e9, 5e9, 2.5e10, //Column 1
-      1e12, 1e14, 1e17, 2e18, 4e19, 1e21, 1e23] //Column 2
+    const scoreArray = [
+      0,
+      1e5,
+      1e6,
+      1e7,
+      1e8,
+      1e9,
+      5e9,
+      2.5e10, // Column 1
+      1e12,
+      1e14,
+      1e17,
+      2e18,
+      4e19,
+      1e21,
+      1e23
+    ] // Column 2
     for (let j = 1; j <= 7; j++) {
       if (score >= scoreArray[j] && player.achievements[224 + j] < 1) {
         achievementaward(224 + j)
@@ -416,7 +883,7 @@ export const getAchievementQuarks = (i: number) => {
   const globalQuarkMultiplier = player.worlds.applyBonus(1)
   let actualMultiplier = multiplier * globalQuarkMultiplier
   if (actualMultiplier > 100) {
-    actualMultiplier = Math.pow(100, 0.6) * Math.pow(actualMultiplier, 0.4)
+    actualMultiplier = 100 ** 0.6 * actualMultiplier ** 0.4
   }
 
   return Math.floor(achievementpointvalues[i] * actualMultiplier)
@@ -465,4 +932,3 @@ export const achievementaward = (num: number) => {
   DOMCacheGetOrSet(`ach${num}`).style.backgroundColor = 'Green'
   Synergism.emit('achievement', num)
 }
-

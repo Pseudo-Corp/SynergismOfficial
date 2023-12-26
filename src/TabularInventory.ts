@@ -18,7 +18,6 @@
 //  We can actually make population an O(n) worst case task through ordering the inventory and tracking the lowest
 //      unpopulated cell
 
-
 export class TabularInventory {
   // Potential Idea: dynamic inventory size based on row, column var defined ?
   rows = 3
@@ -26,7 +25,7 @@ export class TabularInventory {
   items: TabularItem[] = []
   lowestPopulated = -1
 
-  constructor(preset?: [TabularItem]) {
+  constructor (preset?: [TabularItem]) {
     let start = 0
     // If we're given a preset, of arbitrary length, set the first R*C items as preset value
     if (preset) {
@@ -48,17 +47,17 @@ export class TabularInventory {
     }
   }
 
-  /**Deletes an instance of TabularItem from inventory at slot i, leaving behind a Null
-     * Item which is not functional.
-    */
+  /** Deletes an instance of TabularItem from inventory at slot i, leaving behind a Null
+   * Item which is not functional.
+   */
   delete = (i: number) => {
     this.lowestPopulated = Math.min(this.lowestPopulated, i)
     this.items[i] = NullItem
   }
 
-  /**If you have inventory space, create an instance of TabularItem to inventory at slot i, and determine
-     * The next available space for later.
-     */
+  /** If you have inventory space, create an instance of TabularItem to inventory at slot i, and determine
+   * The next available space for later.
+   */
   populate = (item: TabularItem) => {
     if (this.lowestPopulated < this.rows * this.columns) {
       this.items[this.lowestPopulated] = item
@@ -66,8 +65,8 @@ export class TabularInventory {
 
     let updatedPopulated = false
 
-    //We want to find the next lowest item that can be populated later.
-    //(Note: this may be able to be made into O(1) though I'm insure -Platonic)
+    // We want to find the next lowest item that can be populated later.
+    // (Note: this may be able to be made into O(1) though I'm insure -Platonic)
     for (let i = this.lowestPopulated + 1; i < this.rows * this.columns; i++) {
       if (this.items[i] === NullItem) {
         updatedPopulated = true
@@ -80,7 +79,6 @@ export class TabularInventory {
       this.lowestPopulated = this.rows * this.columns
     }
   }
-
 }
 
 /* === Item properties ===
@@ -91,7 +89,7 @@ export class TabularInventory {
 export class TabularItem {
   type: number
   description: string
-  constructor(type: number, description: string) {
+  constructor (type: number, description: string) {
     this.type = type
     this.description = description
   }
@@ -99,4 +97,5 @@ export class TabularItem {
 
 export const NullItem = new TabularItem(
   999,
-  '')
+  ''
+)

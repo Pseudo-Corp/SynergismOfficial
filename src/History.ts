@@ -1,14 +1,14 @@
-import { player, format, formatTimeShort } from './Synergism'
 import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
-import { antSacrificePointsToMultiplier } from './Ants'
-import { Synergism } from './Events'
-import { DOMCacheGetOrSet } from './Cache/DOM'
-import { Globals as G } from './Variables'
-import { applyCorruptions } from './Corruptions'
-import { Notification } from './UpdateHTML'
-import { IconSets } from './Themes'
 import i18next from 'i18next'
+import { antSacrificePointsToMultiplier } from './Ants'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import { applyCorruptions } from './Corruptions'
+import { Synergism } from './Events'
+import { format, formatTimeShort, player } from './Synergism'
+import { IconSets } from './Themes'
+import { Notification } from './UpdateHTML'
+import { Globals as G } from './Variables'
 
 // The categories are the different tables & storages for each type.
 export type Category = 'ants' | 'reset' | 'ascend' | 'singularity'
@@ -17,117 +17,119 @@ export type Kind = 'antsacrifice' | 'prestige' | 'transcend' | 'reincarnate' | '
 
 // Common to every kind
 interface ResetHistoryEntryBase {
-    date: number
-    seconds: number
-    kind: Kind
+  date: number
+  seconds: number
+  kind: Kind
 }
 
 export type ResetHistoryEntryAntSacrifice = ResetHistoryEntryBase & {
-    antSacrificePointsAfter: number
-    antSacrificePointsBefore: number
-    baseELO: number
-    crumbs: string
-    crumbsPerSecond: string
-    effectiveELO: number
-    obtainium: number
-    offerings: number
-    kind: 'antsacrifice'
+  antSacrificePointsAfter: number
+  antSacrificePointsBefore: number
+  baseELO: number
+  crumbs: string
+  crumbsPerSecond: string
+  effectiveELO: number
+  obtainium: number
+  offerings: number
+  kind: 'antsacrifice'
 }
 
 export type ResetHistoryEntryPrestige = ResetHistoryEntryBase & {
-    offerings: number
-    diamonds: string
-    kind: 'prestige'
+  offerings: number
+  diamonds: string
+  kind: 'prestige'
 }
 export type ResetHistoryEntryTranscend = ResetHistoryEntryBase & {
-    offerings: number
-    mythos: string
-    kind: 'transcend'
+  offerings: number
+  mythos: string
+  kind: 'transcend'
 }
 export type ResetHistoryEntryReincarnate = ResetHistoryEntryBase & {
-    offerings: number
-    particles: string
-    obtainium: number
-    kind: 'reincarnate'
+  offerings: number
+  particles: string
+  obtainium: number
+  kind: 'reincarnate'
 }
 
 export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
-    c10Completions: number
-    usedCorruptions: number[]
-    corruptionScore: number
-    wowCubes: number
-    wowTesseracts: number
-    wowHypercubes: number
-    wowPlatonicCubes: number
-    wowHepteracts: number
-    currentChallenge?: number
-    kind: 'ascend'
+  c10Completions: number
+  usedCorruptions: number[]
+  corruptionScore: number
+  wowCubes: number
+  wowTesseracts: number
+  wowHypercubes: number
+  wowPlatonicCubes: number
+  wowHepteracts: number
+  currentChallenge?: number
+  kind: 'ascend'
 }
 
 export interface ResetHistoryEntrySingularity extends ResetHistoryEntryBase {
-    singularityCount: number
-    quarks: number
-    goldenQuarks: number
-    wowTribs: number
-    tessTribs: number
-    hyperTribs: number
-    platTribs: number
-    octeracts: number
-    c15Score: number
-    quarkHept: number
-    kind: 'singularity'
+  singularityCount: number
+  quarks: number
+  goldenQuarks: number
+  wowTribs: number
+  tessTribs: number
+  hyperTribs: number
+  platTribs: number
+  octeracts: number
+  c15Score: number
+  quarkHept: number
+  kind: 'singularity'
 }
 
 // The set of common fields (in practice this is equal to the Base).
 export type ResetHistoryEntryUnion =
-    ResetHistoryEntryAntSacrifice
-    | ResetHistoryEntryPrestige
-    | ResetHistoryEntryTranscend
-    | ResetHistoryEntryReincarnate
-    | ResetHistoryEntryAscend
-    | ResetHistoryEntrySingularity
+  | ResetHistoryEntryAntSacrifice
+  | ResetHistoryEntryPrestige
+  | ResetHistoryEntryTranscend
+  | ResetHistoryEntryReincarnate
+  | ResetHistoryEntryAscend
+  | ResetHistoryEntrySingularity
 
 // The intersection of all of these types is invalid ("never") because of the conflicting `kind` field declarations.
 // Luckily, we can filter the more specific `kind` fields and still end up with a valid type declaration by using
 // the `kind` field from the base.
 // Fun fact: This exact field name also happens to be the example in the TypeScript documentation.
 type RemoveKindField<T> = {
-    [K in keyof T as Exclude<K, 'kind'>]: T[K]
+  [K in keyof T as Exclude<K, 'kind'>]: T[K]
 }
 
 // The intersection of all possible fields we can possibly find in a history row. We'll keep the kind field from the
 // base, which is a simple string.
 type ResetHistoryEntryIntersect =
-    ResetHistoryEntryBase
-    & Partial<RemoveKindField<ResetHistoryEntryAntSacrifice>>
-    & Partial<RemoveKindField<ResetHistoryEntryPrestige>>
-    & Partial<RemoveKindField<ResetHistoryEntryTranscend>>
-    & Partial<RemoveKindField<ResetHistoryEntryReincarnate>>
-    & Partial<RemoveKindField<ResetHistoryEntryAscend>>
-    & Partial<RemoveKindField<ResetHistoryEntrySingularity>>
+  & ResetHistoryEntryBase
+  & Partial<RemoveKindField<ResetHistoryEntryAntSacrifice>>
+  & Partial<RemoveKindField<ResetHistoryEntryPrestige>>
+  & Partial<RemoveKindField<ResetHistoryEntryTranscend>>
+  & Partial<RemoveKindField<ResetHistoryEntryReincarnate>>
+  & Partial<RemoveKindField<ResetHistoryEntryAscend>>
+  & Partial<RemoveKindField<ResetHistoryEntrySingularity>>
 
 // The subset of keys that we'll directly print out using generic code.
-export type ResetHistoryGainType = keyof Pick<ResetHistoryEntryIntersect,
-    'offerings'
-    | 'obtainium'
-    | 'particles'
-    | 'diamonds'
-    | 'mythos'
-    | 'wowCubes'
-    | 'wowTesseracts'
-    | 'wowHypercubes'
-    | 'wowPlatonicCubes'
-    | 'wowHepteracts'
-    | 'singularityCount'
-    | 'quarks'
-    | 'goldenQuarks'
-    | 'wowTribs'
-    | 'tessTribs'
-    | 'hyperTribs'
-    | 'platTribs'
-    | 'octeracts'
-    | 'c15Score'
-    | 'quarkHept'>
+export type ResetHistoryGainType = keyof Pick<
+  ResetHistoryEntryIntersect,
+  | 'offerings'
+  | 'obtainium'
+  | 'particles'
+  | 'diamonds'
+  | 'mythos'
+  | 'wowCubes'
+  | 'wowTesseracts'
+  | 'wowHypercubes'
+  | 'wowPlatonicCubes'
+  | 'wowHepteracts'
+  | 'singularityCount'
+  | 'quarks'
+  | 'goldenQuarks'
+  | 'wowTribs'
+  | 'tessTribs'
+  | 'hyperTribs'
+  | 'platTribs'
+  | 'octeracts'
+  | 'c15Score'
+  | 'quarkHept'
+>
 
 // A formatter that allows formatting a string. The string should be in a form parsable by break_infinity.js.
 const formatDecimalSource = (numOrStr: DecimalSource) => {
@@ -141,26 +143,26 @@ const conditionalFormatPerSecond = (numOrStr: DecimalSource, data: ResetHistoryE
     return formatDecimalSource(numOrStr)
   }
 
-  if (typeof (numOrStr) === 'number' && player.historyShowPerSecond && data.seconds !== 0) {
+  if (typeof numOrStr === 'number' && player.historyShowPerSecond && data.seconds !== 0) {
     if (numOrStr === 0) { // work around format(0, 3) return 0 instead of 0.000, for consistency
       return '0.000/s'
     }
     // Use "long" display for smaller numbers, but once it exceeds 1000, use the "short" display.
     // This'll keep decimals intact until 1000 instead of 10 without creating unwieldy numbers between e6-e13.
-    return format(numOrStr / data.seconds, 3, numOrStr < 1000) + '/s'
+    return `${format(numOrStr / data.seconds, 3, numOrStr < 1000)}/s`
   }
   return format(numOrStr)
 }
 
 // Metadata and formatting tools for simple table cells (gains).
 const historyGains: Record<
-    ResetHistoryGainType,
-    {
-        img: string
-        imgTitle: string
-        formatter?: (str: DecimalSource, data: ResetHistoryEntryUnion) => string
-        onlyif?: (data: ResetHistoryEntryUnion) => boolean
-    }
+  ResetHistoryGainType,
+  {
+    img: string
+    imgTitle: string
+    formatter?: (str: DecimalSource, data: ResetHistoryEntryUnion) => string
+    onlyif?: (data: ResetHistoryEntryUnion) => boolean
+  }
 > = {
   offerings: {
     img: 'Offering.png',
@@ -279,29 +281,44 @@ const historyGains: Record<
 
 // Order in which to display the above
 const historyGainsOrder: ResetHistoryGainType[] = [
-  'offerings', 'obtainium',
-  'particles', 'diamonds', 'mythos',
-  'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowHepteracts',
-  'singularityCount', 'quarks', 'goldenQuarks', 'wowTribs', 'tessTribs',
-  'hyperTribs', 'platTribs', 'octeracts', 'c15Score', 'quarkHept'
+  'offerings',
+  'obtainium',
+  'particles',
+  'diamonds',
+  'mythos',
+  'wowCubes',
+  'wowTesseracts',
+  'wowHypercubes',
+  'wowPlatonicCubes',
+  'wowHepteracts',
+  'singularityCount',
+  'quarks',
+  'goldenQuarks',
+  'wowTribs',
+  'tessTribs',
+  'hyperTribs',
+  'platTribs',
+  'octeracts',
+  'c15Score',
+  'quarkHept'
 ]
 
 // The various kinds and their associated images.
 const historyKinds: Record<Kind, { img: string }> = {
-  'antsacrifice': { img: 'SacrificeNoBorder.png' },
-  'prestige': { img: 'TinyP.png' },
-  'transcend': { img: 'TinyT.png' },
-  'reincarnate': { img: 'TinyR.png' },
-  'ascend': { img: 'TinyA.png' },
-  'singularity': { img: 'TinyS.png' }
+  antsacrifice: { img: 'SacrificeNoBorder.png' },
+  prestige: { img: 'TinyP.png' },
+  transcend: { img: 'TinyT.png' },
+  reincarnate: { img: 'TinyR.png' },
+  ascend: { img: 'TinyA.png' },
+  singularity: { img: 'TinyS.png' }
 }
 
 // List of categories and the IDs of the associated table in the DOM.
 const resetHistoryTableMapping: Record<Category, string> = {
-  'ants': 'historyAntsTable',
-  'reset': 'historyResetTable',
-  'ascend': 'historyAscendTable',
-  'singularity': 'historySingularityTable'
+  ants: 'historyAntsTable',
+  reset: 'historyResetTable',
+  ascend: 'historyAscendTable',
+  singularity: 'historySingularityTable'
 }
 
 // Images associated with the various corruptions.
@@ -358,7 +375,7 @@ const resetHistoryPushNewRow = (category: Category, data: ResetHistoryEntryUnion
   if (category === 'ascend') {
     const loadCorruptionsButtons = Array.from(row.getElementsByClassName('ascendHistoryLoadCorruptions'))
     for (const btn of loadCorruptionsButtons) {
-      btn.addEventListener('click', (e) => clickHandlerForLoadCorruptionsButton((e.target as HTMLElement)))
+      btn.addEventListener('click', (e) => clickHandlerForLoadCorruptionsButton(e.target as HTMLElement))
     }
   }
 }
@@ -375,7 +392,9 @@ const resetHistoryRenderRow = (
   const kindMeta = historyKinds[data.kind]
 
   const localDate = new Date(data.date).toLocaleString()
-  rowContentHtml += `<td class="history-seconds" title="${localDate}"><img alt="${data.kind}" src="Pictures/${IconSets[player.iconSet][0]}/${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`
+  rowContentHtml += `<td class="history-seconds" title="${localDate}"><img alt="${data.kind}" src="Pictures/${
+    IconSets[player.iconSet][0]
+  }/${kindMeta.img}">${formatTimeShort(data.seconds, 60)}</td>`
 
   // Carefully loop through everything we need to print in the right order, and add it to the gains array if present.
   const gains: string[] = []
@@ -386,8 +405,10 @@ const resetHistoryRenderRow = (
       if (gainInfo.onlyif && !gainInfo.onlyif(data)) {
         return
       }
-      const formatter = gainInfo.formatter ?? (() => { /* If no formatter is specified, don't display. */ })
-      const str = `<img alt="${gainInfo.imgTitle}" src="Pictures/${IconSets[player.iconSet][0]}/${gainInfo.img}" title="${gainInfo.imgTitle}">${formatter(dataIntersection[listable]!, data)}`
+      const formatter = gainInfo.formatter ?? (() => {/* If no formatter is specified, don't display. */})
+      const str = `<img alt="${gainInfo.imgTitle}" src="Pictures/${
+        IconSets[player.iconSet][0]
+      }/${gainInfo.img}" title="${gainInfo.imgTitle}">${formatter(dataIntersection[listable]!, data)}`
 
       gains.push(str)
     }
@@ -401,13 +422,23 @@ const resetHistoryRenderRow = (
     const newMulti = antSacrificePointsToMultiplier(data.antSacrificePointsAfter)
     const diff = newMulti - oldMulti
     extra.push(
-      `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${format(newMulti, 3, false)}"><img src="Pictures/${IconSets[player.iconSet][0]}/Multiplier.png" alt="Ant Multiplier">+${format(diff, 3, false)}</span>`,
-      `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/${IconSets[player.iconSet][0]}/TinyCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
-      `<span title="${format(data.baseELO)} base"><img src="Pictures/${IconSets[player.iconSet][0]}/TinyELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
+      `<span title="Ant Multiplier: ${format(oldMulti, 3, false)}--&gt;${
+        format(newMulti, 3, false)
+      }"><img src="Pictures/${IconSets[player.iconSet][0]}/Multiplier.png" alt="Ant Multiplier">+${
+        format(diff, 3, false)
+      }</span>`,
+      `<span title="+${formatDecimalSource(data.crumbsPerSecond)} crumbs/s"><img src="Pictures/${
+        IconSets[player.iconSet][0]
+      }/TinyCrumbs.png" alt="Crumbs">${extractStringExponent(formatDecimalSource(data.crumbs))}</span>`,
+      `<span title="${format(data.baseELO)} base"><img src="Pictures/${
+        IconSets[player.iconSet][0]
+      }/TinyELO.png" alt="ELO">${format(data.effectiveELO)}</span>`
     )
   } else if (data.kind === 'ascend') {
     extra.push(
-      `<img alt="C10" src="Pictures/${IconSets[player.iconSet][0]}/TinyChallenge10.png" title="Challenge 10 completions">${data.c10Completions}`
+      `<img alt="C10" src="Pictures/${
+        IconSets[player.iconSet][0]
+      }/TinyChallenge10.png" title="Challenge 10 completions">${data.c10Completions}`
     )
 
     const corruptions = resetHistoryFormatCorruptions(data)
@@ -455,12 +486,12 @@ const resetHistoryRenderFullTable = (categoryToRender: Category, targetTable: HT
   if (categoryToRender === 'ascend') {
     const loadCorruptionsButtons = Array.from(document.getElementsByClassName('ascendHistoryLoadCorruptions'))
     for (const btn of loadCorruptionsButtons) {
-      btn.addEventListener('click', (e) => clickHandlerForLoadCorruptionsButton((e.target as HTMLElement)))
+      btn.addEventListener('click', (e) => clickHandlerForLoadCorruptionsButton(e.target as HTMLElement))
     }
   }
 }
 
-function clickHandlerForLoadCorruptionsButton(btn: HTMLElement) {
+function clickHandlerForLoadCorruptionsButton (btn: HTMLElement) {
   const corruptions = btn.getAttribute('data-corr')
   if (corruptions) {
     applyCorruptions(corruptions)
@@ -470,8 +501,8 @@ function clickHandlerForLoadCorruptionsButton(btn: HTMLElement) {
 
 // Render every category into their associated table.
 export const resetHistoryRenderAllTables = () => {
-  (Object.keys(resetHistoryTableMapping) as Category[]).forEach(
-    key => resetHistoryRenderFullTable(key, DOMCacheGetOrSet(resetHistoryTableMapping[key]))
+  ;(Object.keys(resetHistoryTableMapping) as Category[]).forEach(
+    (key) => resetHistoryRenderFullTable(key, DOMCacheGetOrSet(resetHistoryTableMapping[key]))
   )
 }
 
@@ -490,21 +521,25 @@ export const resetHistoryTogglePerSecond = () => {
 
 // Helper function to format the corruption display in the ascension table.
 const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, string, string] => {
-  let score = 'Score: ' + format(data.corruptionScore, 0, false)
+  let score = `Score: ${format(data.corruptionScore, 0, false)}`
   let corruptions = ''
   let loadout = ''
   let corrs = 0
   for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
     const corruptionIdx = i + 2
     if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
-      corruptions += `<img alt="${corrs > 0 ? '/' : ''}" src="Pictures/${IconSets[player.iconSet][0]}/${resetHistoryCorruptionImages[i]}" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`
+      corruptions += `<img alt="${corrs > 0 ? '/' : ''}" src="Pictures/${IconSets[player.iconSet][0]}/${
+        resetHistoryCorruptionImages[i]
+      }" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`
     } else {
       corruptions += `<span>${corrs > 0 ? '/0' : '0'}</span>`
     }
     corrs++
   }
   if (corruptions) {
-    loadout += `<button class="corrLoad ascendHistoryLoadCorruptions" data-corr="${data.usedCorruptions.join('/')}">Load</button>`
+    loadout += `<button class="corrLoad ascendHistoryLoadCorruptions" data-corr="${
+      data.usedCorruptions.join('/')
+    }">Load</button>`
   }
   if (data.currentChallenge !== undefined) {
     score += ` / C${data.currentChallenge}`
