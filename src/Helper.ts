@@ -165,12 +165,35 @@ export const addTimers = (input: TimerInput, time = 0) => {
       }
 
       const ambrosiaLuck = player.caches.ambrosiaLuck.total
-      player.blueberryTime += Math.floor(G.ambrosiaTimer) * player.caches.ambrosiaGeneration.total
+      player.blueberryTime += Math.floor(G.ambrosiaTimer) * player.caches.ambrosiaGeneration.total * 100
       G.ambrosiaTimer %= 1
 
       const timeToAmbrosia = calculateRequiredBlueberryTime()
 
       if (player.blueberryTime >= timeToAmbrosia) {
+
+        if (player.blueberryUpgrades.ambrosiaChallenge1.level === 1) {
+          player.ambrosiaChallengeFills[1] += 1
+          player.blueberryTime = 0
+          break
+        }
+        if (player.blueberryUpgrades.ambrosiaChallenge2.level === 1) {
+          player.ambrosiaChallengeFills[2] += 1
+          player.blueberryTime = 0
+          break
+        }
+        if (player.blueberryUpgrades.ambrosiaChallenge3.level === 1) {
+          player.ambrosiaChallengeFills[3] += 1
+          player.blueberryTime = 0
+          break
+        }
+        if (player.blueberryUpgrades.ambrosiaChallenge4.level === 1) {
+          player.ambrosiaChallengeFills[4] += 1
+          player.blueberryTime = 0
+          break
+        }
+
+
         const RNG = Math.random()
         const ambrosiaMult = Math.floor(ambrosiaLuck / 100) + 1
         const luckMult = (RNG < (ambrosiaLuck / 100 - Math.floor(ambrosiaLuck / 100))) ? 1 : 0

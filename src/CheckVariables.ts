@@ -403,7 +403,13 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     ambrosiaQuarks2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaQuarks2, 'ambrosiaQuarks2'),
     ambrosiaCubes2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaCubes2, 'ambrosiaQuarks2'),
     ambrosiaLuck2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuck2, 'ambrosiaLuck2'),
-    ambrosiaPatreon: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaPatreon, 'ambrosiaPatreon')
+    ambrosiaPatreon: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaPatreon, 'ambrosiaPatreon'),
+    ambrosiaDivision1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaDivision1, 'ambrosiaDivision1'),
+    ambrosiaChallenge1: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaChallenge1, 'ambrosiaChallenge1'),
+    ambrosiaChallenge2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaChallenge2, 'ambrosiaChallenge2'),
+    ambrosiaChallenge3: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaChallenge3, 'ambrosiaChallenge3'),
+    ambrosiaChallenge4: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaChallenge4, 'ambrosiaChallenge4'),
+    ambrosiaLuckUlt: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckUlt, 'ambrosiaLuckUlt')
   }
 
   if (data.loadedOct4Hotfix === undefined || !player.loadedOct4Hotfix) {
@@ -816,6 +822,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
           costFormula: blueberryUpgradeData[k].costFormula,
           freeLevels,
           prerequisites: blueberryUpgradeData[k].prerequisites,
+          exclusions: blueberryUpgradeData[k].exclusions,
           cacheUpdates: blueberryUpgradeData[k].cacheUpdates
         }
         player.blueberryUpgrades[k] = new BlueberryUpgrade(updatedData, k.toString())
@@ -1053,5 +1060,14 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   if (data.autoCubeUpgradesToggle === undefined) {
     player.autoCubeUpgradesToggle = false
     player.autoPlatonicUpgradesToggle = false
+  }
+
+  if (data.ambrosiaChallengeFills === undefined) {
+    player.ambrosiaChallengeFills = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0
+    }
   }
 }

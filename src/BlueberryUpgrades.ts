@@ -9,12 +9,15 @@ import { visualUpdateAmbrosia } from './UpdateVisuals'
 import { exportData, saveFilename } from './ImportExport'
 import { getTotalCubeDigits } from './DynamicCubes'
 import { Globals } from './Variables'
+import { numOfTimeThresholds } from './Calculate'
 
 export type blueberryUpgradeNames = 'ambrosiaTutorial' | 'ambrosiaQuarks1' | 'ambrosiaCubes1' | 'ambrosiaLuck1' |
                                     'ambrosiaCubeLuck1' | 'ambrosiaQuarkLuck1' | 'ambrosiaQuarkCube1' | 'ambrosiaLuckCube1' |
-                                    'ambrosiaCubeQuark1' | 'ambrosiaLuckQuark1' | 'ambrosiaQuarks2' | 'ambrosiaCubes2' | 'ambrosiaLuck2'
+                                    'ambrosiaCubeQuark1' | 'ambrosiaLuckQuark1' | 'ambrosiaQuarks2' | 'ambrosiaCubes2' | 'ambrosiaLuck2' |
+                                    'ambrosiaChallenge1' | 'ambrosiaChallenge2' | 'ambrosiaChallenge3' | 'ambrosiaChallenge4' |
+                                    'ambrosiaDivision1' | 'ambrosiaLuckUlt'
 
-export type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
+export type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>> | Record<'Ambrosia Luck', number>
 export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
 
 export interface IBlueberryData extends Omit<IUpgradeData, 'name' | 'description' | 'effect'> {
@@ -24,6 +27,7 @@ export interface IBlueberryData extends Omit<IUpgradeData, 'name' | 'description
     ambrosiaInvested?: number
     blueberriesInvested?: number
     prerequisites?: BlueberryOpt
+    exclusions?: blueberryUpgradeNames[]
     cacheUpdates?: (() => void)[] // TODO: Improve this type signature -Plat
 }
 
@@ -34,6 +38,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   public blueberriesInvested = 0
   public blueberryCost: number
   readonly preRequisites: BlueberryOpt | undefined
+  readonly exclusions: blueberryUpgradeNames[] | undefined
   readonly cacheUpdates: (() => void)[] | undefined
 
   constructor(data: IBlueberryData, key: string) {
@@ -47,6 +52,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     this.ambrosiaInvested = data.ambrosiaInvested ?? 0
     this.blueberriesInvested = data.blueberriesInvested ?? 0
     this.preRequisites = data.prerequisites ?? undefined
+    this.exclusions = data.exclusions ?? undefined
     this.cacheUpdates = data.cacheUpdates ?? undefined
   }
 
@@ -69,6 +75,15 @@ export class BlueberryUpgrade extends DynamicUpgrade {
 
     if (!this.checkPrerequisites())
       return Alert(i18next.t('ambrosia.prereqNotMetAlert'))
+
+    if (this.exclusions !== undefined) {
+      for (const exclusion of this.exclusions) {
+        const c = exclusion as keyof Player['blueberryUpgrades']
+        if (player.blueberryUpgrades[c].level > 0) {
+          return Alert('You cannot purchase due to a conflict!!! 1111')
+        }
+      }
+    }
 
     if (event.shiftKey) {
       maxPurchasable = 1000000
@@ -153,10 +168,16 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     let preReqText = i18next.t('ambrosia.prerequisite')
     if (this.preRequisites !== undefined) {
       for (const [prereq, val] of Object.entries(this.preRequisites)) {
-        const k = prereq as keyof Player['blueberryUpgrades']
-        const color = (player.blueberryUpgrades[k].level >= val) ? 'green' : 'red'
-        const met = (player.blueberryUpgrades[k].level >= val) ? '' : i18next.t('ambrosia.prereqNotMet')
-        preReqText = preReqText + `<span style="color:${color}"> ${player.blueberryUpgrades[k].name} lv.${val} ${met}</span> |`
+        if (prereq === 'Ambrosia Luck') {
+          const color = (player.caches.ambrosiaLuck.totalVal >= val) ? 'green': 'red'
+          const met = (player.caches.ambrosiaLuck.totalVal >= val) ? '' : i18next.t('ambrosia.prereqNotMet')
+          preReqText = preReqText + `<span style="color:${color}"> ${i18next.t('ambrosia.ambrosiaLuck', { amount: val })} ${met}</span> |`
+        } else {
+          const k = prereq as keyof Player['blueberryUpgrades']
+          const color = (player.blueberryUpgrades[k].level >= val) ? 'green' : 'red'
+          const met = (player.blueberryUpgrades[k].level >= val) ? '' : i18next.t('ambrosia.prereqNotMet')
+          preReqText = preReqText + `<span style="color:${color}"> ${player.blueberryUpgrades[k].name} lv.${val} ${met}</span> |`
+        }
       }
 
       preReqText = preReqText.slice(0, -1)
@@ -497,6 +518,108 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       }
     },
     cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('BlueberryPatreon')]
+  },
+  ambrosiaDivision1: {
+    maxLevel: 1,
+    costPerLevel: 750000,
+    blueberryCost: 3,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
+    },
+    rewards: (n: number) => {
+      const val = (n > 0)
+      return {
+        luckDivisor: val ? 2 : 1,
+        generationMultiplier: val ? 3 : 1,
+        desc: String(i18next.t('ambrosia.data.ambrosiaDivision1.effect', { bool: val? 'active' : 'inactive' }))
+      }
+    },
+    prerequisites: {
+      'ambrosiaLuck2': 40
+    }
+  },
+  ambrosiaChallenge1: {
+    maxLevel: 1,
+    costPerLevel: 50000,
+    blueberryCost: 1,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
+    },
+    rewards: (n: number) => {
+      const val = (n > 0)
+      return {
+        presetGenerationRequirement: (val)? 1e8: -1,
+        desc: String(i18next.t('ambrosia.data.ambrosiaChallenge1.effect', { bool: val? 'active' : 'inactive', fills: player.ambrosiaChallengeFills[1] }))
+      }
+    },
+    exclusions: ['ambrosiaChallenge2', 'ambrosiaChallenge3', 'ambrosiaChallenge4']
+  },
+  ambrosiaChallenge2: {
+    maxLevel: 1,
+    costPerLevel: 2000000,
+    blueberryCost: 3,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
+    },
+    rewards: (n: number) => {
+      const val = (n > 0)
+      return {
+        presetGenerationRequirement: (val)? 1e8: -1,
+        desc: String(i18next.t('ambrosia.data.ambrosiaChallenge2.effect', { bool: val? 'active' : 'inactive', fills: player.ambrosiaChallengeFills[2] }))
+      }
+    },
+    exclusions: ['ambrosiaChallenge1', 'ambrosiaChallenge3', 'ambrosiaChallenge4']
+  },
+  ambrosiaChallenge3: {
+    maxLevel: 1,
+    costPerLevel: 25000000,
+    blueberryCost: 5,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
+    },
+    rewards: (n: number) => {
+      const val = (n > 0)
+      return {
+        presetGenerationRequirement: (val)? 1e8: -1,
+        desc: String(i18next.t('ambrosia.data.ambrosiaChallenge3.effect', { bool: val? 'active' : 'inactive', fills: player.ambrosiaChallengeFills[3] }))
+      }
+    },
+    exclusions: ['ambrosiaChallenge1', 'ambrosiaChallenge2', 'ambrosiaChallenge4']
+  },
+  ambrosiaChallenge4: {
+    maxLevel: 1,
+    costPerLevel: 1,
+    blueberryCost: 1,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
+    },
+    rewards: (n: number) => {
+      const val = (n > 0)
+      return {
+        presetGenerationRequirement: (val)? 1e8: -1,
+        desc: String(i18next.t('ambrosia.data.ambrosiaChallenge4.effect', { bool: val? 'active' : 'inactive', fills: player.ambrosiaChallengeFills[4] }))
+      }
+    },
+    exclusions: ['ambrosiaChallenge1', 'ambrosiaChallenge2', 'ambrosiaChallenge3']
+  },
+  ambrosiaLuckUlt: {
+    maxLevel: 4,
+    costPerLevel: 2250000,
+    blueberryCost: 5,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost + 250000 * level
+    },
+    rewards: (n: number) => {
+      const val = 250 * n * numOfTimeThresholds().numThresholds
+      return {
+        ambrosiaLuck: val,
+        desc: String(i18next.t('ambrosia.data.ambrosiaLuckUlt.effect', { amount: format(val, 0, true) }))
+      }
+    },
+    prerequisites: {
+      'Ambrosia Luck': 7000
+    },
+    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('AmbrosiaLuckUlt')]
   }
 }
 
@@ -544,6 +667,7 @@ export const validateBlueberryTree = (modules: BlueberryOpt) => {
     if (prereqs !== undefined && val > 0) {
       for (const [key2, val2] of Object.entries(prereqs)) {
         const k2 = key2 as keyof BlueberryOpt
+        // eslint-disable-next-line
         const level = modules[k2] ?? -1 /* If undefined, this is saying 'We need to have module
         set to level val2 but it isn't even in our module loadout, so it cannot possibly satisfy prereqs'*/
         if (level < val2) {

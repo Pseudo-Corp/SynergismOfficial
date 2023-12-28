@@ -690,7 +690,11 @@ export const loadStatisticsAmbrosiaLuck = () => {
     8: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
     9: { acc: 0, desc: 'Cookie Upgrade 3x7' },
     10: { acc: 0, desc: 'EXALT V - Staggered Cubes' },
-    11: { acc: 1, desc: 'Event Bonus' }
+    11: { acc: 0, desc: 'Ambrosia Challenge 1' },
+    12: { acc: 0, desc: 'Ambrosia Challenge 2' },
+    13: { acc: 0, desc: 'Ambrosia Challenge 3' },
+    14: { acc: 0, desc: 'Ambrosia Luck Infuser Ω' },
+    15: { acc: 1, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -712,7 +716,10 @@ export const loadStatisticsAmbrosiaGeneration = () => {
     5: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
     6: { acc: 4, desc: 'Patreon Bonus' },
     7: { acc: 4, desc: 'EXALT V - Staggered Cubes' },
-    8: { acc: 4, desc: 'Event Bonus' }
+    8: { acc: 2, desc: 'Ambrosia Challenge 1' },
+    9: { acc: 3, desc: 'Ambrosia Challenge 2' },
+    10: { acc: 3, desc: 'Ambrosia Challenge 3' },
+    11: { acc: 4, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)

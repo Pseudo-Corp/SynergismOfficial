@@ -5,7 +5,8 @@ import { AdditionCache } from './AdditionCache'
 
 type AmbrosialLuck = 'SingPerks' | 'OcteractBerries' | 'ShopUpgrades' | 'BlueberryUpgrade1' | 'Event' |
                      'BlueberryCubeLuck1' | 'BlueberryQuarkLuck1' | 'SingularityBerries' | 'BlueberryUpgrade2' | 'CubeUpgrade' |
-                     'Exalt5'
+                     'Exalt5' | 'AmbrosiaLuckUlt' | 'AmbrosiaChallenge1' | 'AmbrosiaChallenge2' |
+                     'AmbrosiaChallenge3'
 
 export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
 
@@ -25,6 +26,10 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       'BlueberryQuarkLuck1': 0,
       'CubeUpgrade': 0,
       'Exalt5': 0,
+      'AmbrosiaChallenge1': 0,
+      'AmbrosiaChallenge2': 0,
+      'AmbrosiaChallenge3': 0,
+      'AmbrosiaLuckUlt': 0,
       'Event': 0
     }
     this.totalVal = 0
@@ -71,6 +76,25 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       }
       case 'Exalt5': {
         this.vals[key] = +player.singularityChallenges.staggeredCubes.rewards.ambrosiaLuck
+        break
+      }
+      case 'AmbrosiaChallenge1': {
+        const amount = Math.min(25, player.ambrosiaChallengeFills[1])
+        this.vals[key] = 4 * amount
+        break
+      }
+      case 'AmbrosiaChallenge2': {
+        const amount = Math.min(400, player.ambrosiaChallengeFills[2])
+        this.vals[key] = amount
+        break
+      }
+      case 'AmbrosiaChallenge3': {
+        const amount = Math.min(1000, player.ambrosiaChallengeFills[3])
+        this.vals[key] = amount
+        break
+      }
+      case 'AmbrosiaLuckUlt': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaLuckUlt.bonus.ambrosiaLuck
         break
       }
       case 'Event': {

@@ -622,8 +622,16 @@ export interface Player {
     spentBlueberries: number
     blueberryUpgrades: Record<keyof typeof blueberryUpgradeData, BlueberryUpgrade>
     blueberryLoadouts: Record<number, BlueberryOpt>
-    blueberryLoadoutMode: BlueberryLoadoutMode
 
+    ambrosiaChallengeFills: {
+        1: number,
+        2: number,
+        3: number,
+        4: number
+    }
+
+    blueberryLoadoutMode: BlueberryLoadoutMode
+    
     caches: {
         ambrosiaLuck: AmbrosiaLuckCache,
         ambrosiaGeneration: AmbrosiaGenerationCache

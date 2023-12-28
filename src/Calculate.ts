@@ -2323,6 +2323,19 @@ export const thresholdPower = () => {
 }
 
 export const calculateRequiredBlueberryTime = () => {
+  if (player.blueberryUpgrades.ambrosiaChallenge1.level === 1) {
+    return 1e6
+  }
+  if (player.blueberryUpgrades.ambrosiaChallenge2.level === 1) {
+    return 1e8
+  }
+  if (player.blueberryUpgrades.ambrosiaChallenge3.level === 1) {
+    return 1e11
+  }
+  if (player.blueberryUpgrades.ambrosiaChallenge4.level === 1) {
+    return Math.pow(2, 63) - 1
+  }
+
   let val = G.TIME_PER_AMBROSIA // Currently 600
   val += Math.floor(player.lifetimeAmbrosia / 30)
   const numThresholds = numOfTimeThresholds()

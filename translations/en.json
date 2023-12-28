@@ -11,6 +11,7 @@
     },
     "ambrosia": {
         "ambrosia": "Ambrosia",
+        "ambrosiaLuck": "&#9752 {{amount}} Ambrosia Luck",
         "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia! [Lifetime: <<white|{{lifetimeAmbrosia}}>>]",
         "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
         "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
@@ -96,6 +97,36 @@
               "name": "Shameless, Ambrosial Patreon Reminder",
               "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
               "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
+            },
+            "ambrosiaDivision1": {
+              "name": "An anti four-leaf clover",
+              "description": "The tutorial guy gives you an item which somehow makes Ambrosia Luck half as effective but divides the Generation requirement by 3(!) Dunno how that works.",
+              "effect": "The anti four-leaf clover is {{bool}}!"
+            },
+            "ambrosiaChallenge1": {
+              "name": "[CHALLENGE MODULE] Ambrosia Nullifier",
+              "description": "Sets your generation requirement to 1,000,000 and disables Ambrosia generation. However, reaching the requirement permanently grants +1% Generation Speed and +4 Ambrosia Luck, capping at 25 fills. Final fill gives 2 Blueberries!",
+              "effect": "The Ambrosia Nullifier is {{bool}}! Total Fills: {{fills}}/25"
+            },
+            "ambrosiaChallenge2": {
+              "name": "[CHALLENGE MODULE] Ambrosia Nullifier 2",
+              "description": "Sets your generation requirement to 100,000,000 and disables Ambrosia generation. However, reaching the requirement permanently grants +0.25% Generation Speed and +1 Ambrosia Luck, capping at 400 fills. Every 100 fills gives 1 blueberry!",
+              "effect": "The Ambrosia Nullifier is {{bool}}! Total Fills: {{fills}}/400"
+            },
+            "ambrosiaChallenge3": {
+              "name": "[CHALLENGE MODULE] Ambrosia Nullifier 3",
+              "description": "Sets your generation requirement to 100,000,000,000 and disables Ambrosia generation. However, reaching the requirement permanently grants +0.1% Generation Speed and +1 Ambrosia Luck, capping at 1,000 fills. Every 200 fills gives 1 blueberry!",
+              "effect": "The Ambrosia Nullifier is {{bool}}! Total Fills: {{fills}}/1000"
+            },
+            "ambrosiaChallenge4": {
+              "name": "[CHALLENGE MODULE] Ambrosia Nullifier Ω",
+              "description": "Okay, what the hell. Sets generation requirement to 2^63 - 1. If you fill it, you win the challenge. Not sure it gives anything though. Sorry!",
+              "effect": "The Ambrosia Nullifier is {{bool}}! Total Fills: {{fills}}/1"
+            },
+            "ambrosiaLuckUlt": {
+              "name": "Ambrosia Luck Infuser Ω",
+              "description": "This infuser grants &#9752 +250 Ambrosia Luck per level per Generation Threshold you have reached.",
+              "effect": "This luck infuser grants &#9752 +{{amount}} Ambrosia Luck!"
             }
         },
         "loadouts": {
