@@ -24,6 +24,7 @@ import {
   calculateTotalOcteractQuarkBonus
 } from './Calculate'
 import { challenge15ScoreMultiplier } from './Challenges'
+import { BuffType } from './Event'
 import { hepteractEffective } from './Hepteracts'
 import {
   addCodeAvailableUses,
@@ -263,7 +264,7 @@ export const loadQuarkMultiplier = () => {
     format(player.worlds.applyBonus(1 / calculateQuarkMultiplier()), 3, true)
   }` // Patreon Bonus
   DOMCacheGetOrSet('sGQM10').textContent = `x${
-    format(G.isEvent ? 1 + calculateEventBuff('Quarks') + calculateEventBuff('One Mind') : 1, 3, true)
+    format(G.isEvent ? 1 + calculateEventBuff(BuffType.Quark) + calculateEventBuff(BuffType.OneMind) : 1, 3, true)
   }` // Event
   DOMCacheGetOrSet('sGQM11').textContent = `x${format(1.1 + 0.15 / 75 * calculateEffectiveIALevel(), 3, true)}` // IA Rune
   DOMCacheGetOrSet('sGQM12').textContent = `x${

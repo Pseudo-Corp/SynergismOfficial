@@ -4864,8 +4864,12 @@ export const reloadShit = async (reset = false) => {
   constantIntervals()
   changeTabColor()
 
-  eventCheck()
-  setInterval(eventCheck, 15000)
+  eventCheck().catch(() => {}).finally(() => {
+    setInterval(() =>
+      eventCheck().catch((error: Error) => {
+        console.error(error)
+      }), 15_000)
+  })
   showExitOffline()
   clearTimeout(preloadDeleteGame)
 

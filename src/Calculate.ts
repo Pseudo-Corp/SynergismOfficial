@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
-import { calculateEventSourceBuff } from './Event'
+import { BuffType, calculateEventSourceBuff } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { hepteractEffective } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
@@ -408,7 +408,7 @@ export function calculateOfferings (input: resetNames, calcMult = true, statisti
     +player.singularityUpgrades.singCitadel2.getEffect().bonus, // Citadel 2 GQ Upgrade
     1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
     +player.octeractUpgrades.octeractOfferings1.getEffect().bonus, // Offering Electrolosis OC Upgrade
-    1 + calculateEventBuff('Offering') // Event
+    1 + calculateEventBuff(BuffType.Offering) // Event
   ]
 
   if (calcMult) {
@@ -543,7 +543,7 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= 1 + player.cubeUpgrades[55] / 100 // Cube Upgrade 6x5 (Cx5)
   G.obtainiumGain *= 1 + 1 / 200 * player.shopUpgrades.cashGrab2
   G.obtainiumGain *= 1 + 1 / 100 * player.shopUpgrades.obtainiumEX2 * player.singularityCount
-  G.obtainiumGain *= 1 + calculateEventBuff('Obtainium')
+  G.obtainiumGain *= 1 + calculateEventBuff(BuffType.Obtainium)
   G.obtainiumGain *= +player.singularityUpgrades.singCitadel.getEffect().bonus
   G.obtainiumGain *= +player.singularityUpgrades.singCitadel2.getEffect().bonus
   G.obtainiumGain *= +player.octeractUpgrades.octeractObtainium1.getEffect().bonus
@@ -950,7 +950,7 @@ const calculateAntSacrificeMultipliers = () => {
   G.upgradeMultiplier *= 1 + 1 / 10 * player.upgrades[79]
   G.upgradeMultiplier *= 1 + 1 / 4 * player.upgrades[40]
   G.upgradeMultiplier *= G.cubeBonusMultiplier[7]
-  G.upgradeMultiplier *= 1 + calculateEventBuff('Ant Sacrifice')
+  G.upgradeMultiplier *= 1 + calculateEventBuff(BuffType.AntSacrifice)
   G.upgradeMultiplier = Math.min(1e300, G.upgradeMultiplier)
 }
 
@@ -1339,7 +1339,7 @@ export const calculateAllCubeMultiplier = () => {
     // Powder Bonus
     calculateCubeMultFromPowder(),
     // Event
-    1 + calculateEventBuff('Cubes'),
+    1 + calculateEventBuff(BuffType.Cubes),
     // Singularity Factor
     1 / calculateSingularityDebuff('Cubes'),
     // Wow Pass Y
@@ -1627,7 +1627,7 @@ export const getOcteractValueMultipliers = () => {
       1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus,
       1 + Math.floor(Math.log10(1 + player.ascensionCount))
     ),
-    1 + calculateEventBuff('Octeract'),
+    1 + calculateEventBuff(BuffType.Octeract),
     1
     + +player.singularityUpgrades.platonicDelta.getEffect().bonus
       * Math.min(9, player.singularityCounter / (3600 * 24)),
@@ -1794,7 +1794,7 @@ export const calculateAscensionSpeedMultiplier = () => {
     1 + 1 / 1000 * player.singularityCount * player.shopUpgrades.chronometerZ, // Chronometer Z
     1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed.getEffect().bonus * player.singularityCount, // Abstract Photokinetics, Oct Upg
     1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed2.getEffect().bonus * player.singularityCount, // Abstract Exokinetics, Oct Upg
-    1 + calculateEventBuff('Ascension Speed'), // Event
+    1 + calculateEventBuff(BuffType.AscensionSpeed), // Event
     (player.singularityUpgrades.singAscensionSpeed2.level > 0 && player.runelevels[6] < 1) ? 6 : 1, // A mediocre ascension speedup!
     Math.pow(1.01, player.shopUpgrades.chronometerInfinity), // Chronometer INF
     1 / calculateLimitedAscensionsDebuff(), // EXALT Debuff
@@ -1882,7 +1882,7 @@ export const calculateQuarkMultiplier = () => {
     multiplier *= 1 + player.singularityCount / 10
   }
   if (G.isEvent) {
-    multiplier *= 1 + calculateEventBuff('Quarks') + calculateEventBuff('One Mind')
+    multiplier *= 1 + calculateEventBuff(BuffType.Quark) + calculateEventBuff(BuffType.OneMind)
   }
   if (player.cubeUpgrades[53] > 0) { // Cube Upgrade 6x3 (Cx3)
     multiplier *= 1 + 0.10 * player.cubeUpgrades[53] / 100
@@ -1951,7 +1951,7 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
     +player.singularityUpgrades.goldenQuarks1.getEffect().bonus, // Golden Quarks I
     1 + 0.12 * player.cubeUpgrades[69], // Cookie Upgrade 19
     +player.singularityChallenges.noSingularityUpgrades.rewards.goldenQuarks, // No Singularity Upgrades
-    1 + calculateEventBuff('Golden Quarks'), // Event
+    1 + calculateEventBuff(BuffType.GoldenQuark), // Event
     1 + getFastForwardTotalMultiplier(), // Singularity Fast Forwards
     player.highestSingularityCount >= 100 ? 1 + Math.min(1, player.highestSingularityCount / 250) : 1, // Golden Revolution II
     perkMultiplier // Immaculate Alchemy
@@ -2150,7 +2150,7 @@ export const computeAscensionScoreBonusMultiplier = () => {
     multiplier *= Math.max(1, Math.pow(1.01, Math.log2(player.hepteractCrafts.abyss.CAP)))
   }
   if (G.isEvent) {
-    multiplier *= 1 + calculateEventBuff('Ascension Score')
+    multiplier *= 1 + calculateEventBuff(BuffType.AscensionScore)
   }
 
   return multiplier
@@ -2353,7 +2353,7 @@ export const calculatePowderConversion = () => {
     1 + player.achievements[256] / 20, // Achievement 256, 5%
     1 + player.achievements[257] / 20, // Achievement 257, 5%
     1 + 0.01 * player.platonicUpgrades[16], // Platonic Upgrade 4x1
-    1 + calculateEventBuff('Powder Conversion') // Event
+    1 + calculateEventBuff(BuffType.PowderConversion) // Event
   ]
 
   return {
@@ -2581,7 +2581,7 @@ export const forcedDailyReset = (rewards = false) => {
   }
 }
 
-export const calculateEventBuff = (buff: string) => {
+export const calculateEventBuff = (buff: BuffType) => {
   if (!G.isEvent) {
     return 0
   }
