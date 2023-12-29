@@ -9,7 +9,7 @@ import {
   toggleSingularityScreen
 } from './Toggles'
 import { hideStuff, revealStuff } from './UpdateHTML'
-import { limitRange } from './Utility'
+import { assert, limitRange } from './Utility'
 import { Globals as G } from './Variables'
 
 export enum Tabs {
@@ -317,14 +317,14 @@ class TabRow extends HTMLDivElement {
     return this.#currentTab
   }
 
-  getNextTab () {
-    const index = this.#list.indexOf(this.#currentTab)
+  getNextTab (tab = this.#currentTab) {
+    const index = this.#list.indexOf(tab)
 
     return this.#list[index + 1] ?? this.#list[0]
   }
 
-  getPreviousTab () {
-    const index = this.#list.indexOf(this.#currentTab)
+  getPreviousTab (tab = this.#currentTab) {
+    const index = this.#list.indexOf(tab)
 
     return this.#list[index - 1] ?? this.#list[this.#list.length - 1]
   }
@@ -430,7 +430,7 @@ export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
   let tab = step === 1 ? tabRow.getNextTab() : tabRow.getPreviousTab()
 
   while (!tab?.isUnlocked()) {
-    tab = step === 1 ? tabRow.getNextTab() : tabRow.getPreviousTab()
+    tab = step === 1 ? tabRow.getNextTab(tab) : tabRow.getPreviousTab(tab)
   }
 
   if (changeSubtab) {
@@ -448,6 +448,14 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   } else {
     while (tabRow.getCurrentTab().getType() !== tabs) {
       tabRow.setNextTab()
+    }
+  }
+
+  while (!tabRow.getCurrentTab().isUnlocked()) {
+    if (step === 1 || step === undefined) {
+      tabRow.setNextTab()
+    } else {
+      tabRow.setPreviousTab()
     }
   }
 
@@ -508,7 +516,13 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
     player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
   }
 
-  const subTabList = subTabs.subTabList[player.subtabNumber]
+  let subTabList = subTabs.subTabList[player.subtabNumber]
+
+  while (!subTabList.unlocked) {
+    assert(page === undefined)
+    player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
+    subTabList = subTabs.subTabList[player.subtabNumber]
+  }
 
   if (subTabList.unlocked) {
     subTabs.tabSwitcher?.()(subTabList.subTabID)
