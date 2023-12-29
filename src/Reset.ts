@@ -39,7 +39,7 @@ import { resetofferings } from './Runes'
 import { resetShopUpgrades, shopData } from './Shop'
 import { calculateSingularityDebuff, getFastForwardTotalMultiplier } from './singularity'
 import { blankSave, format, player, saveSynergy, updateAll, updateEffectiveLevelMult } from './Synergism'
-import { changeSubTab, changeTab } from './Tabs'
+import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { updateTalismanAppearance, updateTalismanInventory } from './Talismans'
 import { calculateTesseractBlessings } from './Tesseracts'
 import { IconSets } from './Themes'
@@ -1178,13 +1178,13 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   }) as Player
 
   // Reset Displays
-  changeTab('buildings')
-  changeSubTab('buildings', { page: 0 })
-  changeSubTab('runes', { page: 0 }) // Set 'runes' subtab back to 'runes' tab
-  changeSubTab('cube', { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
-  changeSubTab('traits', { page: 0 }) // set 'corruption main'
-  changeSubTab('singularity', { page: 0 }) // set 'singularity main'
-  changeSubTab('settings', { page: 0 }) // set 'statistics main'
+  changeTab(Tabs.Buildings)
+  changeSubTab(Tabs.Buildings, { page: 0 })
+  changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
+  changeSubTab(Tabs.WowCubes, { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
+  changeSubTab(Tabs.Corruption, { page: 0 }) // set 'corruption main'
+  changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
+  changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
 
   hold.history.singularity = player.history.singularity
   hold.totalQuarksEver = player.totalQuarksEver

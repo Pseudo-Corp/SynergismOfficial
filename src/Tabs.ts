@@ -1,4 +1,4 @@
-import DoublyLinked from 'doublylinked'
+import DoublyLinked, { type DoublyLinked as $DoublyLinked } from 'doublylinked'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { player } from './Synergism'
 import {
@@ -312,6 +312,18 @@ class TabRow extends HTMLDivElement {
       this.appendChild(element)
     }
   }
+
+  getCurrentTab(): $Tab {
+    return this.#list.cursor.value
+  }
+
+  setNextTab() {
+    this.#list.next()
+  }
+
+  setPreviousTab() {
+    this.#list.prev()
+  }
 }
 
 interface kSubTabOptionsBag {
@@ -427,19 +439,18 @@ export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
   changeTab(tab)
 }
 
-export const changeTab = (tabOrName: Tab | Tabs) => {
-  const [index, tab] = [...tabs.entries()]
-    .find(([, tab]) => tab.name === tabOrName || tab === tabOrName)!
+export const changeTab = (tabs: Tabs) => {
+  tabRow.setNextTab()
 
-  G.currentTab = tab.name
-  player.tabnumber = index
+  G.currentTab = tabs
+  player.tabnumber = 0
 
   revealStuff()
   hideStuff()
   ;(document.activeElement as HTMLElement | null)?.blur()
 
   const subTabList = subtabInfo[G.currentTab].subTabList
-  if (tab.name !== 'settings') {
+  if (G.currentTab !== Tabs.Settings) {
     for (let i = 0; i < subTabList.length; i++) {
       const id = subTabList[i].buttonID
       if (id) {
@@ -473,7 +484,8 @@ export const changeSubTab = (tabOrName: Tab | Tabs, { page, step }: SubTabSwitch
     ? [...tabs.values()].find((tab) => tab.name === tabOrName)
     : tabOrName
 
-  assert(tab)
+  if (!tab) return
+
   const subTabs = tab.subtabs
 
   if (!tab.unlocked || subTabs.subTabList.length === 0) {
@@ -501,4 +513,12 @@ export function subTabsInMainTab (name: Tabs) {
   assert(tab)
 
   return tab.subtabs.subTabList.length
+}
+
+function idToEnum(element: HTMLButtonElement) {
+  switch (element.id) {
+
+  }
+
+  return Tabs.Buildings
 }
