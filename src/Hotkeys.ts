@@ -4,7 +4,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { promocodes } from './ImportExport'
 import { useConsumable } from './Shop'
 import { player, resetCheck, synergismHotkeys } from './Synergism'
-import { keyboardTabChange as kbTabChange } from './Tabs'
+import { keyboardTabChange as kbTabChange, Tabs } from './Tabs'
 import { confirmReply, toggleAutoChallengeRun, toggleCorruptionLevel } from './Toggles'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
@@ -113,7 +113,7 @@ const eventHotkeys = (event: KeyboardEvent): void => {
     event.preventDefault()
   }
 
-  if (G.currentTab === 'settings' && player.subtabNumber === 6) {
+  if (G.currentTab === Tabs.Settings && player.subtabNumber === 6) {
     DOMCacheGetOrSet('lastHotkey').textContent = key
     DOMCacheGetOrSet('lastHotkeyName').textContent = hotkeyName
   }

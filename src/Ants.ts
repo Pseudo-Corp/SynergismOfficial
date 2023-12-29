@@ -23,6 +23,7 @@ import { clearInterval, setInterval } from './Timers'
 import type { FirstToEighth, ZeroToSeven } from './types/Synergism'
 import { Confirm, revealStuff } from './UpdateHTML'
 import { smallestInc } from './Utility'
+import { Tabs } from './Tabs'
 
 const antspecies: Record<`antspecies${number}`, string> = {
   antspecies1: 'Inceptus Formicidae',
@@ -74,7 +75,7 @@ export const antRepeat = (i: number) => {
 }
 
 export const updateAntDescription = (i: number) => {
-  if (G.currentTab !== 'ant') {
+  if (G.currentTab !== Tabs.AntHill) {
     return
   }
   const el = DOMCacheGetOrSet('anttierdescription')

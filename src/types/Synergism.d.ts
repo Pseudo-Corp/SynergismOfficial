@@ -9,7 +9,7 @@ import type { QuarkHandler } from '../Quark'
 import { SingularityUpgrade } from '../singularity'
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
 import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache } from '../StatCache'
-import type { TabNames } from '../Tabs'
+import type { Tabs } from '../Tabs'
 
 export interface Player {
   firstPlayed: string
@@ -729,7 +729,7 @@ export interface GlobalVariables {
   uFourteenMulti: Decimal
   uFifteenMulti: Decimal
   tuSevenMulti: number
-  currentTab: TabNames
+  currentTab: Tabs
 
   researchfiller1: string
   researchfiller2: string

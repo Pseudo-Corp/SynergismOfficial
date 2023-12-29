@@ -1,4 +1,5 @@
 import Decimal from 'break_infinity.js'
+import { Tabs } from './Tabs'
 import type { GlobalVariables } from './types/Synergism'
 
 export enum Upgrade {
@@ -202,7 +203,7 @@ export const Globals: GlobalVariables = {
   uFourteenMulti: new Decimal(1),
   uFifteenMulti: new Decimal(1),
   tuSevenMulti: 1,
-  currentTab: 'buildings',
+  currentTab: Tabs.Buildings,
 
   researchfiller1: 'Hover over the grid to get details about researches!',
   researchfiller2: 'Level: ',

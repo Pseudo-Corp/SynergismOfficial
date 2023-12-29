@@ -35,13 +35,14 @@ import { getShopCosts, isShopUpgradeUnlocked, shopData, shopUpgradeTypes } from 
 import { getGoldenQuarkCost } from './singularity'
 import { loadStatisticsUpdate } from './Statistics'
 import { format, formatTimeShort, player } from './Synergism'
+import { Tabs } from './Tabs'
 import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
 export const visualUpdateBuildings = () => {
-  if (G.currentTab !== 'buildings') {
+  if (G.currentTab !== Tabs.Buildings) {
     return
   }
 
@@ -356,7 +357,7 @@ export const visualUpdateUpgrades = () => {}
 export const visualUpdateAchievements = () => {}
 
 export const visualUpdateRunes = () => {
-  if (G.currentTab !== 'runes') {
+  if (G.currentTab !== Tabs.Runes) {
     return
   }
   if (G.runescreen === 'runes') { // Placeholder and place work similarly to buildings, except for the specific Talismans.
@@ -527,7 +528,7 @@ export const visualUpdateRunes = () => {
 }
 
 export const visualUpdateChallenges = () => {
-  if (G.currentTab !== 'challenge') {
+  if (G.currentTab !== Tabs.Challenges) {
     return
   }
   if (player.researches[150] > 0) {
@@ -538,7 +539,7 @@ export const visualUpdateChallenges = () => {
 }
 
 export const visualUpdateResearch = () => {
-  if (G.currentTab !== 'research') {
+  if (G.currentTab !== Tabs.Research) {
     return
   }
 
@@ -550,7 +551,7 @@ export const visualUpdateResearch = () => {
 }
 
 export const visualUpdateAnts = () => {
-  if (G.currentTab !== 'ant') {
+  if (G.currentTab !== Tabs.AntHill) {
     return
   }
   DOMCacheGetOrSet('crumbcount').textContent = i18next.t('ants.youHaveGalacticCrumbs', {
@@ -587,7 +588,7 @@ interface cubeNames {
 }
 
 export const visualUpdateCubes = () => {
-  if (G.currentTab !== 'cube') {
+  if (G.currentTab !== Tabs.WowCubes) {
     return
   }
 
@@ -859,7 +860,7 @@ const UpdateHeptGridValues = (type: hepteractTypes) => {
 }
 
 export const visualUpdateCorruptions = () => {
-  if (G.currentTab !== 'traits') {
+  if (G.currentTab !== Tabs.Corruption) {
     return
   }
 
@@ -921,7 +922,7 @@ export const visualUpdateCorruptions = () => {
 }
 
 export const visualUpdateSettings = () => {
-  if (G.currentTab !== 'settings') {
+  if (G.currentTab !== Tabs.Settings) {
     return
   }
 
@@ -971,7 +972,7 @@ export const visualUpdateSettings = () => {
 }
 
 export const visualUpdateSingularity = () => {
-  if (G.currentTab !== 'singularity') {
+  if (G.currentTab !== Tabs.Singularity) {
     return
   }
   if (player.subtabNumber === 0) {
@@ -1028,7 +1029,7 @@ export const shopMouseover = (value: boolean) => {
 }
 
 export const visualUpdateOcteracts = () => {
-  if (G.currentTab !== 'singularity') {
+  if (G.currentTab !== Tabs.Singularity) {
     return
   }
   DOMCacheGetOrSet('octeractAmount').innerHTML = i18next.t('octeract.amount', {
@@ -1072,7 +1073,7 @@ export const visualUpdateOcteracts = () => {
 }
 
 export const visualUpdateAmbrosia = () => {
-  if (G.currentTab !== 'singularity') {
+  if (G.currentTab !== Tabs.Singularity) {
     return
   }
 
@@ -1109,7 +1110,7 @@ export const visualUpdateAmbrosia = () => {
 }
 
 export const visualUpdateShop = () => {
-  if (G.currentTab !== 'shop') {
+  if (G.currentTab !== Tabs.Shop) {
     return
   }
   DOMCacheGetOrSet('quarkamount').textContent = i18next.t('shop.youHaveQuarks', { x: format(player.worlds, 0, true) })

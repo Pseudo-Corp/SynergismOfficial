@@ -14,6 +14,7 @@ import { quarkHandler } from './Quark'
 import { checkMaxRunes, redeemShards, unlockedRune } from './Runes'
 import { useConsumable } from './Shop'
 import { player } from './Synergism'
+import { Tabs } from './Tabs'
 import { buyAllTalismanResources } from './Talismans'
 import { visualUpdateAmbrosia, visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals'
 import { Globals as G } from './Variables'
@@ -211,7 +212,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       // Add Obtainium
       player.researchPoints = Math.min(1e300, player.researchPoints + obtainiumGain * time * timeMultiplier)
       // Update visual displays if appropriate
-      if (G.currentTab === 'research') {
+      if (G.currentTab === Tabs.Research) {
         visualUpdateResearch()
       }
       break
