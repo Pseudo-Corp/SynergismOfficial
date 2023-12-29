@@ -89,7 +89,12 @@ export const eventCheck = async () => {
   const events: EventData[] = apiEvents.map((value) => {
     const { name, color, start, end, url, ...buffs } = value
     return {
-      name, color, start, end, url, buffs
+      name,
+      color,
+      start,
+      end,
+      url,
+      buffs
     }
   })
 

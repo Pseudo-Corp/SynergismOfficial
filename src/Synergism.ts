@@ -156,7 +156,6 @@ import {
 } from './Hepteracts'
 import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
-import { exportSynergism } from './ImportExport'
 import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
@@ -4848,7 +4847,7 @@ export const reloadShit = async (reset = false) => {
   } else {
     changeTab('settings')
 
-    void Alert(i18next.t('general.exportYourGame')).finally(() => exportSynergism(false))
+    void Alert(i18next.t('general.exportYourGame'))
   }
 
   changeSubTab('buildings', { page: 0 })
