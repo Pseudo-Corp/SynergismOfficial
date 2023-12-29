@@ -34,10 +34,9 @@ export type TabNames =
 type SubTabSwitchOptions = { step: number; page?: undefined } | { page: number; step?: undefined }
 
 interface SubTab {
-  // biome-ignore lint/suspicious/noExplicitAny: would if I could
-  tabSwitcher?: (...args: any[]) => any
+  tabSwitcher?: () => (id: string) => unknown
   subTabList: {
-    subTabID: string | number | boolean
+    subTabID: string
     unlocked: boolean
     buttonID?: string
   }[]
@@ -45,7 +44,7 @@ interface SubTab {
 
 const subtabInfo: Record<TabNames, SubTab> = {
   settings: {
-    tabSwitcher: (...args: Parameters<typeof setActiveSettingScreen>) => setActiveSettingScreen(...args),
+    tabSwitcher: () => setActiveSettingScreen,
     subTabList: [
       { subTabID: 'settingsubtab', unlocked: true },
       { subTabID: 'languagesubtab', unlocked: true },
@@ -75,7 +74,7 @@ const subtabInfo: Record<TabNames, SubTab> = {
   },
   shop: { subTabList: [] },
   buildings: {
-    tabSwitcher: (...args: Parameters<typeof toggleBuildingScreen>) => toggleBuildingScreen(...args),
+    tabSwitcher: () => toggleBuildingScreen,
     subTabList: [
       { subTabID: 'coin', unlocked: true, buttonID: 'switchToCoinBuilding' },
       {
@@ -111,31 +110,31 @@ const subtabInfo: Record<TabNames, SubTab> = {
   upgrades: { subTabList: [] },
   achievements: { subTabList: [] },
   runes: {
-    tabSwitcher: (...args: Parameters<typeof toggleRuneScreen>) => toggleRuneScreen(...args),
+    tabSwitcher: () => toggleRuneScreen,
     subTabList: [
       {
-        subTabID: 1,
+        subTabID: '1',
         get unlocked () {
           return player.unlocks.prestige
         },
         buttonID: 'toggleRuneSubTab1'
       },
       {
-        subTabID: 2,
+        subTabID: '2',
         get unlocked () {
           return player.achievements[134] > 0
         },
         buttonID: 'toggleRuneSubTab2'
       },
       {
-        subTabID: 3,
+        subTabID: '3',
         get unlocked () {
           return player.achievements[134] > 0
         },
         buttonID: 'toggleRuneSubTab3'
       },
       {
-        subTabID: 4,
+        subTabID: '4',
         get unlocked () {
           return player.achievements[204] > 0
         },
@@ -147,52 +146,52 @@ const subtabInfo: Record<TabNames, SubTab> = {
   research: { subTabList: [] },
   ant: { subTabList: [] },
   cube: {
-    tabSwitcher: (...args: Parameters<typeof toggleCubeSubTab>) => toggleCubeSubTab(...args),
+    tabSwitcher: () => toggleCubeSubTab,
     subTabList: [
       {
-        subTabID: 1,
+        subTabID: '1',
         get unlocked () {
           return player.achievements[141] > 0
         },
         buttonID: 'switchCubeSubTab1'
       },
       {
-        subTabID: 2,
+        subTabID: '2',
         get unlocked () {
           return player.achievements[197] > 0
         },
         buttonID: 'switchCubeSubTab2'
       },
       {
-        subTabID: 3,
+        subTabID: '3',
         get unlocked () {
           return player.achievements[211] > 0
         },
         buttonID: 'switchCubeSubTab3'
       },
       {
-        subTabID: 4,
+        subTabID: '4',
         get unlocked () {
           return player.achievements[218] > 0
         },
         buttonID: 'switchCubeSubTab4'
       },
       {
-        subTabID: 5,
+        subTabID: '5',
         get unlocked () {
           return player.achievements[141] > 0
         },
         buttonID: 'switchCubeSubTab5'
       },
       {
-        subTabID: 6,
+        subTabID: '6',
         get unlocked () {
           return player.achievements[218] > 0
         },
         buttonID: 'switchCubeSubTab6'
       },
       {
-        subTabID: 7,
+        subTabID: '7',
         get unlocked () {
           return player.challenge15Exponent >= 1e15
         },
@@ -201,17 +200,17 @@ const subtabInfo: Record<TabNames, SubTab> = {
     ]
   },
   traits: {
-    tabSwitcher: (...args: Parameters<typeof toggleCorruptionLoadoutsStats>) => toggleCorruptionLoadoutsStats(...args),
+    tabSwitcher: () => toggleCorruptionLoadoutsStats,
     subTabList: [
       {
-        subTabID: true,
+        subTabID: 'true',
         get unlocked () {
           return player.achievements[141] > 0
         },
         buttonID: 'corrStatsBtn'
       },
       {
-        subTabID: false,
+        subTabID: 'false',
         get unlocked () {
           return player.achievements[141] > 0
         },
@@ -220,38 +219,38 @@ const subtabInfo: Record<TabNames, SubTab> = {
     ]
   },
   singularity: {
-    tabSwitcher: (...args: Parameters<typeof toggleSingularityScreen>) => toggleSingularityScreen(...args),
+    tabSwitcher: () => toggleSingularityScreen,
     subTabList: [
       {
-        subTabID: 1,
+        subTabID: '1',
         get unlocked () {
           return player.highestSingularityCount > 0
         },
         buttonID: 'toggleSingularitySubTab1'
       },
       {
-        subTabID: 2,
+        subTabID: '2',
         get unlocked () {
           return player.highestSingularityCount > 0
         },
         buttonID: 'toggleSingularitySubTab2'
       },
       {
-        subTabID: 3,
+        subTabID: '3',
         get unlocked () {
           return Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus)
         },
         buttonID: 'toggleSingularitySubTab3'
       },
       {
-        subTabID: 4,
+        subTabID: '4',
         get unlocked () {
           return player.highestSingularityCount >= 25
         },
         buttonID: 'toggleSingularitySubTab4'
       },
       {
-        subTabID: 5,
+        subTabID: '5',
         get unlocked () {
           return player.singularityChallenges.noSingularityUpgrades.completions >= 1
         },
@@ -389,14 +388,8 @@ export const changeSubTab = (tabOrName: Tab | TabNames, { page, step }: SubTabSw
   }
   const subTabList = subTabs.subTabList[player.subtabNumber]
 
-  if (G.currentTab === 'settings') {
-    // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-    const btn = DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[player.subtabNumber]
-    if (subTabList.unlocked) {
-      subTabs.tabSwitcher?.(subTabList.subTabID, btn)
-    }
-  } else if (subTabList.unlocked) {
-    subTabs.tabSwitcher?.(subTabList.subTabID)
+  if (subTabList.unlocked) {
+    subTabs.tabSwitcher?.()(subTabList.subTabID)
     if (tabOrName === 'singularity' && page === 4) {
       player.visitedAmbrosiaSubtab = true
       player.caches.ambrosiaGeneration.updateVal('DefaultVal')

@@ -823,7 +823,6 @@ export const visualUpdateCubes = () => {
       DOMCacheGetOrSet('heptGridPowderWarps').textContent = format(player.dailyPowderResetUses)
       break
     default:
-      // console.log(`player.subtabNumber (${player.subtabNumber}) was outside of the allowed range (${subTabsInMainTab(8).subTabList.length}) for the cube tab`);
       break
   }
 }
