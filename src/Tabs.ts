@@ -9,7 +9,7 @@ import {
   toggleSingularityScreen
 } from './Toggles'
 import { hideStuff, revealStuff } from './UpdateHTML'
-import { assert, limitRange } from './Utility'
+import { limitRange } from './Utility'
 import { Globals as G } from './Variables'
 
 export enum Tabs {
@@ -262,22 +262,6 @@ const subtabInfo: Record<Tabs, SubTab> = {
   [Tabs.Event]: { subTabList: [] }
 }
 
-const tabsUnlockInfo: Record<Tabs, () => boolean> = {
-  [Tabs.Settings]: () => true,
-  [Tabs.Shop]: () => player.unlocks.reincarnate || player.highestSingularityCount > 0,
-  [Tabs.Buildings]: () => true,
-  [Tabs.Upgrades]: () => true,
-  [Tabs.Achievements]: () => player.unlocks.coinfour,
-  [Tabs.Runes]: () => player.unlocks.prestige,
-  [Tabs.Challenges]: () => player.unlocks.transcend,
-  [Tabs.Research]: () => player.unlocks.reincarnate,
-  [Tabs.AntHill]: () => player.achievements[127] > 0,
-  [Tabs.WowCubes]: () => player.achievements[141] > 0,
-  [Tabs.Corruption]: () => player.challengecompletions[11] > 0,
-  [Tabs.Singularity]: () => player.highestSingularityCount > 0,
-  [Tabs.Event]: () => G.isEvent
-} as const
-
 class TabRow extends HTMLDivElement {
   #list: $Tab[] = []
   #currentTab!: $Tab
@@ -355,6 +339,7 @@ interface kSubTabOptionsBag {
 
 class $Tab extends HTMLButtonElement {
   #unlocked = () => true
+  #type!: Tabs
 
   constructor (options: kSubTabOptionsBag) {
     super()
@@ -379,6 +364,19 @@ class $Tab extends HTMLButtonElement {
   isUnlocked () {
     return this.#unlocked()
   }
+
+  setType (type: Tabs) {
+    this.#type = type
+    return this
+  }
+
+  getType () {
+    return this.#type!
+  }
+
+  getSubTabs () {
+    return subtabInfo[this.#type]
+  }
 }
 
 customElements.define('tab-row', TabRow, { extends: 'div' })
@@ -387,53 +385,39 @@ customElements.define('sub-tab', $Tab, { extends: 'button' })
 const tabRow = new TabRow()
 
 tabRow.appendButton(
-  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings' }),
-  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades' }),
+  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings' }).setType(Tabs.Buildings),
+  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades' }).setType(Tabs.Upgrades),
   new $Tab({ id: 'achievementstab', i18n: 'tabs.main.achievements', class: 'coinunlock4' })
-    .setUnlockedState(() => player.unlocks.coinfour),
+    .setUnlockedState(() => player.unlocks.coinfour)
+    .setType(Tabs.Achievements),
   new $Tab({ class: 'prestigeunlock', id: 'runestab', i18n: 'tabs.main.runes' })
-    .setUnlockedState(() => player.unlocks.prestige),
+    .setUnlockedState(() => player.unlocks.prestige)
+    .setType(Tabs.Runes),
   new $Tab({ class: 'transcendunlock', id: 'challengetab', i18n: 'tabs.main.challenges' })
-    .setUnlockedState(() => player.unlocks.transcend),
+    .setUnlockedState(() => player.unlocks.transcend)
+    .setType(Tabs.Challenges),
   new $Tab({ class: 'reincarnationunlock', id: 'researchtab', i18n: 'tabs.main.research' })
-    .setUnlockedState(() => player.unlocks.reincarnate),
+    .setUnlockedState(() => player.unlocks.reincarnate)
+    .setType(Tabs.Research),
   new $Tab({ class: 'chal8', id: 'anttab', i18n: 'tabs.main.antHill' })
-    .setUnlockedState(() => player.achievements[127] > 0),
+    .setUnlockedState(() => player.achievements[127] > 0)
+    .setType(Tabs.AntHill),
   new $Tab({ class: 'chal10', id: 'cubetab', i18n: 'tabs.main.wowCubes' })
-    .setUnlockedState(() => player.achievements[141] > 0),
+    .setUnlockedState(() => player.achievements[141] > 0)
+    .setType(Tabs.WowCubes),
   new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
-    .setUnlockedState(() => player.challengecompletions[11] > 0),
+    .setUnlockedState(() => player.challengecompletions[11] > 0)
+    .setType(Tabs.Corruption),
   new $Tab({ class: 'singularity', id: 'singularitytab', i18n: 'tabs.main.singularity' })
-    .setUnlockedState(() => player.highestSingularityCount > 0),
-  new $Tab({ id: 'settingstab', i18n: 'tabs.main.settings' }),
+    .setUnlockedState(() => player.highestSingularityCount > 0)
+    .setType(Tabs.Singularity),
+  new $Tab({ id: 'settingstab', i18n: 'tabs.main.settings' }).setType(Tabs.Settings),
   new $Tab({ class: 'reincarnationunlock', id: 'shoptab', i18n: 'tabs.main.shop' })
-    .setUnlockedState(() => player.unlocks.reincarnate || player.highestSingularityCount > 0),
-  new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith' }).setUnlockedState(() => G.isEvent)
-)
-
-export class Tab {
-  name: Tabs
-
-  constructor (_element: HTMLElement) {
-    this.name = Tabs.Buildings
-  }
-
-  get subtabs () {
-    return subtabInfo[this.name]
-  }
-
-  get unlocked () {
-    return tabsUnlockInfo[this.name]()
-  }
-}
-
-/**
- * Map each tab by its "index" (place in the nav row)
- */
-export const tabs = new Map(
-  Array.from(document.querySelectorAll<HTMLElement>('#tabrow > button')).map((tab, index) => {
-    return [index + 1, new Tab(tab)]
-  })
+    .setUnlockedState(() => player.unlocks.reincarnate || player.highestSingularityCount > 0)
+    .setType(Tabs.Shop),
+  new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith' })
+    .setUnlockedState(() => G.isEvent)
+    .setType(Tabs.Event)
 )
 
 /**
@@ -448,9 +432,9 @@ export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
   }
 
   if (changeSubtab) {
-    changeSubTab(tab, { step })
+    changeSubTab(tab.getType(), { step })
   } else {
-    changeTab(idToEnum(tab), step)
+    changeTab(tab.getType(), step)
   }
 }
 
@@ -460,12 +444,12 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   } else if (step === -1) {
     tabRow.setPreviousTab()
   } else {
-    while (idToEnum(tabRow.getCurrentTab()) !== tabs) {
+    while (tabRow.getCurrentTab().getType() !== tabs) {
       tabRow.setNextTab()
     }
   }
 
-  G.currentTab = idToEnum(tabRow.getCurrentTab())
+  G.currentTab = tabRow.getCurrentTab().getType()
   player.tabnumber = 0
 
   revealStuff()
@@ -502,16 +486,17 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   }
 }
 
-export const changeSubTab = (tabOrName: $Tab | Tabs, { page, step }: SubTabSwitchOptions) => {
-  const tab = typeof tabOrName === 'string'
-    ? [...tabs.values()].find((tab) => tab.name === tabOrName)
-    : tabOrName
+export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) => {
+  let tab = tabRow.getCurrentTab()
 
-  if (!tab) return
+  if (tab.getType() !== tabs) {
+    changeTab(tab.getType())
+    tab = tabRow.getCurrentTab()
+  }
 
-  const subTabs = tab.subtabs
+  const subTabs = tab.getSubTabs()
 
-  if (!tab.unlocked || subTabs.subTabList.length === 0) {
+  if (!tab.isUnlocked() || subTabs.subTabList.length === 0) {
     return
   }
 
@@ -520,11 +505,12 @@ export const changeSubTab = (tabOrName: $Tab | Tabs, { page, step }: SubTabSwitc
   } else {
     player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
   }
+
   const subTabList = subTabs.subTabList[player.subtabNumber]
 
   if (subTabList.unlocked) {
     subTabs.tabSwitcher?.()(subTabList.subTabID)
-    if (tabOrName === Tabs.Singularity && page === 4) {
+    if (tab.getType() === Tabs.Singularity && page === 4) {
       player.visitedAmbrosiaSubtab = true
       player.caches.ambrosiaGeneration.updateVal('DefaultVal')
     }
@@ -532,41 +518,11 @@ export const changeSubTab = (tabOrName: $Tab | Tabs, { page, step }: SubTabSwitc
 }
 
 export function subTabsInMainTab (name: Tabs) {
-  const tab = [...tabs.values()].find((tab) => tab.name === name)
-  assert(tab)
+  let tab = tabRow.getCurrentTab()
 
-  return tab.subtabs.subTabList.length
-}
-
-function idToEnum (element: HTMLButtonElement) {
-  switch (element.id) {
-    case 'buildingstab':
-      return Tabs.Buildings
-    case 'upgradestab':
-      return Tabs.Upgrades
-    case 'achievementstab':
-      return Tabs.Achievements
-    case 'runestab':
-      return Tabs.Runes
-    case 'challengetab':
-      return Tabs.Challenges
-    case 'researchtab':
-      return Tabs.Research
-    case 'anttab':
-      return Tabs.AntHill
-    case 'cubetab':
-      return Tabs.WowCubes
-    case 'traitstab':
-      return Tabs.Corruption
-    case 'singularitytab':
-      return Tabs.Singularity
-    case 'settingstab':
-      return Tabs.Settings
-    case 'shoptab':
-      return Tabs.Shop
-    case 'eventtab':
-      return Tabs.Event
+  while (tab.getType() !== name) {
+    tab = tabRow.setNextTab()
   }
 
-  assert(false)
+  return tab.getSubTabs().subTabList.length
 }

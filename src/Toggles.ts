@@ -7,7 +7,7 @@ import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } f
 import { autoResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { format, player, resetCheck } from './Synergism'
-import { subTabsInMainTab } from './Tabs'
+import { subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, Player } from './types/Synergism'
 import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
@@ -685,7 +685,7 @@ export const autoPlatonicUpgradesToggle = (toggle = true) => {
 
 export const toggleCubeSubTab = (indexStr: string) => {
   const i = Number(indexStr)
-  const numSubTabs = subTabsInMainTab('cube')
+  const numSubTabs = subTabsInMainTab(Tabs.WowCubes)
 
   for (let j = 1; j <= numSubTabs; j++) {
     const cubeTab = DOMCacheGetOrSet(`cubeTab${j}`)
