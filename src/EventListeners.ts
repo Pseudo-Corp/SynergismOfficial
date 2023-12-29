@@ -64,7 +64,7 @@ import { buyGoldenQuarks, getLastUpgradeInfo, singularityPerks } from './singula
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
-import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { changeSubTab, Tabs } from './Tabs'
 import {
   buyAllTalismanResources,
   buyTalismanEnhance,
@@ -215,21 +215,6 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('ascendChallengeBtn').addEventListener('click', () => resetCheck('ascensionChallenge'))
   DOMCacheGetOrSet('ascendbtn').addEventListener('click', () => resetCheck('ascension'))
   DOMCacheGetOrSet('singularitybtn').addEventListener('click', () => resetCheck('singularity'))
-  // Part 2: Tabs (sucks)
-  // Onmouseover Events
-  DOMCacheGetOrSet('buildingstab').addEventListener('click', () => changeTab(Tabs.Buildings))
-  DOMCacheGetOrSet('upgradestab').addEventListener('click', () => changeTab(Tabs.Upgrades))
-  DOMCacheGetOrSet('settingstab').addEventListener('click', () => changeTab(Tabs.Settings))
-  DOMCacheGetOrSet('achievementstab').addEventListener('click', () => changeTab(Tabs.Achievements))
-  DOMCacheGetOrSet('runestab').addEventListener('click', () => changeTab(Tabs.Runes))
-  DOMCacheGetOrSet('challengetab').addEventListener('click', () => changeTab(Tabs.Challenges))
-  DOMCacheGetOrSet('researchtab').addEventListener('click', () => changeTab(Tabs.Research))
-  DOMCacheGetOrSet('shoptab').addEventListener('click', () => changeTab(Tabs.Shop))
-  DOMCacheGetOrSet('anttab').addEventListener('click', () => changeTab(Tabs.AntHill))
-  DOMCacheGetOrSet('cubetab').addEventListener('click', () => changeTab(Tabs.WowCubes))
-  DOMCacheGetOrSet('traitstab').addEventListener('click', () => changeTab(Tabs.Corruption))
-  DOMCacheGetOrSet('singularitytab').addEventListener('click', () => changeTab(Tabs.Singularity))
-  DOMCacheGetOrSet('eventtab').addEventListener('click', () => changeTab(Tabs.Event))
 
   // BUILDINGS TAB
   // Part 1: Upper portion (Subtab toggle)

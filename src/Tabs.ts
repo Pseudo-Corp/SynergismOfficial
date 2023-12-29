@@ -367,6 +367,8 @@ class $Tab extends HTMLButtonElement {
 
   setType (type: Tabs) {
     this.#type = type
+    this.addEventListener('click', () => changeTab(this.#type))
+
     return this
   }
 
