@@ -11,6 +11,7 @@ import {
   calculateAmbrosiaLuckShopUpgrade,
   calculateSingularityAmbrosiaLuckMilestoneBonus
 } from './Calculate'
+import { BuffType } from './Event'
 import { player } from './Synergism'
 import { productContents } from './Utility'
 import { Globals } from './Variables'
@@ -205,7 +206,7 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
         break
       }
       case 'Event': {
-        this.vals[key] = (Globals.isEvent) ? 100 * calculateEventBuff('Ambrosia Luck') : 0
+        this.vals[key] = (Globals.isEvent) ? 100 * calculateEventBuff(BuffType.AmbrosiaLuck) : 0
         break
       }
     }
@@ -260,7 +261,7 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
         break
       }
       case 'Event': {
-        this.vals[key] = (Globals.isEvent) ? 1 + calculateEventBuff('Blueberry Time') : 1
+        this.vals[key] = (Globals.isEvent) ? 1 + calculateEventBuff(BuffType.BlueberryTime) : 1
         break
       }
     }

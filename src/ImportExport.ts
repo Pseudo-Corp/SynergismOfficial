@@ -408,7 +408,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     return Alert(i18next.t('importexport.comeBackSoon'))
   }
   if (
-    input === 'synergism2023' && !player.codes.get(46) && G.isEvent && getEvent().name === 'Synergism 3: More Synergies'
+    input === 'synergism2023' && !player.codes.get(46) && G.isEvent && getEvent()?.name === 'Synergism 3: More Synergies'
   ) {
     if (!player.dailyCodeUsed) {
       return Alert(
