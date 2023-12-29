@@ -1,4 +1,3 @@
-import DoublyLinked, { type DoublyLinked as $DoublyLinked } from 'doublylinked'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { player } from './Synergism'
 import {
@@ -13,20 +12,20 @@ import { hideStuff, revealStuff } from './UpdateHTML'
 import { assert, limitRange } from './Utility'
 import { Globals as G } from './Variables'
 
-export const enum Tabs {
-  Buildings,
-  Upgrades,
-  Achievements,
-  Runes,
-  Challenges,
-  Research,
-  AntHill,
-  WowCubes,
-  Corruption,
-  Singularity,
-  Settings,
-  Shop,
-  Event
+export enum Tabs {
+  Buildings = 0,
+  Upgrades = 1,
+  Achievements = 2,
+  Runes = 3,
+  Challenges = 4,
+  Research = 5,
+  AntHill = 6,
+  WowCubes = 7,
+  Corruption = 8,
+  Singularity = 9,
+  Settings = 10,
+  Shop = 11,
+  Event = 12
 }
 
 /**
@@ -280,7 +279,8 @@ const tabsUnlockInfo: Record<Tabs, () => boolean> = {
 } as const
 
 class TabRow extends HTMLDivElement {
-  #list = new DoublyLinked<$Tab>()
+  #list: $Tab[] = []
+  #currentTab!: $Tab
 
   constructor () {
     super()
@@ -303,26 +303,46 @@ class TabRow extends HTMLDivElement {
   }
 
   getSubs () {
-    return this.#list.toArray()
+    return this.#list
   }
 
   appendButton (...elements: $Tab[]) {
     for (const element of elements) {
-      this.#list.insert(element)
+      this.#list.push(element)
       this.appendChild(element)
     }
+
+    this.#currentTab = this.#list[0]
   }
 
-  getCurrentTab(): $Tab {
-    return this.#list.cursor.value
+  getCurrentTab (): $Tab {
+    return this.#currentTab
   }
 
-  setNextTab() {
-    this.#list.next()
+  setNextTab () {
+    const index = this.#list.indexOf(this.#currentTab)
+
+    this.#currentTab = this.#list[index + 1] ?? this.#list[0]
+    return this.#currentTab
   }
 
-  setPreviousTab() {
-    this.#list.prev()
+  setPreviousTab () {
+    const index = this.#list.indexOf(this.#currentTab)
+
+    this.#currentTab = this.#list[index - 1] ?? this.#list[this.#list.length - 1]
+    return this.#currentTab
+  }
+
+  getNextTab () {
+    const index = this.#list.indexOf(this.#currentTab)
+
+    return this.#list[index + 1] ?? this.#list[0]
+  }
+
+  getPreviousTab () {
+    const index = this.#list.indexOf(this.#currentTab)
+
+    return this.#list[index - 1] ?? this.#list[this.#list.length - 1]
   }
 }
 
@@ -421,28 +441,31 @@ export const tabs = new Map(
  * @param changeSubtab true to change the subtab, false to change the main tabs
  */
 export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
-  if (!changeSubtab) {
-    player.tabnumber = limitRange(player.tabnumber + step, 1, tabs.size)
-  }
+  let tab = step === 1 ? tabRow.getNextTab() : tabRow.getPreviousTab()
 
-  let tab = tabs.get(player.tabnumber)
-
-  while (!tab?.unlocked) {
-    player.tabnumber = limitRange(player.tabnumber + step, 1, tabs.size)
-    tab = tabs.get(player.tabnumber)!
+  while (!tab?.isUnlocked()) {
+    tab = step === 1 ? tabRow.getNextTab() : tabRow.getPreviousTab()
   }
 
   if (changeSubtab) {
     changeSubTab(tab, { step })
+  } else {
+    changeTab(idToEnum(tab), step)
   }
-
-  changeTab(tab)
 }
 
-export const changeTab = (tabs: Tabs) => {
-  tabRow.setNextTab()
+export const changeTab = (tabs: Tabs, step?: number) => {
+  if (step === 1) {
+    tabRow.setNextTab()
+  } else if (step === -1) {
+    tabRow.setPreviousTab()
+  } else {
+    while (idToEnum(tabRow.getCurrentTab()) !== tabs) {
+      tabRow.setNextTab()
+    }
+  }
 
-  G.currentTab = tabs
+  G.currentTab = idToEnum(tabRow.getCurrentTab())
   player.tabnumber = 0
 
   revealStuff()
@@ -479,7 +502,7 @@ export const changeTab = (tabs: Tabs) => {
   }
 }
 
-export const changeSubTab = (tabOrName: Tab | Tabs, { page, step }: SubTabSwitchOptions) => {
+export const changeSubTab = (tabOrName: $Tab | Tabs, { page, step }: SubTabSwitchOptions) => {
   const tab = typeof tabOrName === 'string'
     ? [...tabs.values()].find((tab) => tab.name === tabOrName)
     : tabOrName
@@ -515,10 +538,35 @@ export function subTabsInMainTab (name: Tabs) {
   return tab.subtabs.subTabList.length
 }
 
-function idToEnum(element: HTMLButtonElement) {
+function idToEnum (element: HTMLButtonElement) {
   switch (element.id) {
-
+    case 'buildingstab':
+      return Tabs.Buildings
+    case 'upgradestab':
+      return Tabs.Upgrades
+    case 'achievementstab':
+      return Tabs.Achievements
+    case 'runestab':
+      return Tabs.Runes
+    case 'challengetab':
+      return Tabs.Challenges
+    case 'researchtab':
+      return Tabs.Research
+    case 'anttab':
+      return Tabs.AntHill
+    case 'cubetab':
+      return Tabs.WowCubes
+    case 'traitstab':
+      return Tabs.Corruption
+    case 'singularitytab':
+      return Tabs.Singularity
+    case 'settingstab':
+      return Tabs.Settings
+    case 'shoptab':
+      return Tabs.Shop
+    case 'eventtab':
+      return Tabs.Event
   }
 
-  return Tabs.Buildings
+  assert(false)
 }

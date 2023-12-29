@@ -18,12 +18,12 @@ import { Synergism } from './Events'
 import type { ResetHistoryEntryAntSacrifice } from './History'
 import { buyResearch } from './Research'
 import { resetAnts } from './Reset'
+import { Tabs } from './Tabs'
 import { updateTalismanInventory } from './Talismans'
 import { clearInterval, setInterval } from './Timers'
 import type { FirstToEighth, ZeroToSeven } from './types/Synergism'
 import { Confirm, revealStuff } from './UpdateHTML'
 import { smallestInc } from './Utility'
-import { Tabs } from './Tabs'
 
 const antspecies: Record<`antspecies${number}`, string> = {
   antspecies1: 'Inceptus Formicidae',
