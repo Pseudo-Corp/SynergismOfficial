@@ -1,3 +1,4 @@
+import DoublyLinked from 'doublylinked'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { player } from './Synergism'
 import {
@@ -261,7 +262,7 @@ const subtabInfo: Record<TabNames, SubTab> = {
   event: { subTabList: [] }
 }
 
-const tabsInfo: Record<TabNames, () => boolean> = {
+const tabsUnlockInfo: Record<TabNames, () => boolean> = {
   settings: () => true,
   shop: () => player.unlocks.reincarnate || player.highestSingularityCount > 0,
   buildings: () => true,
@@ -277,6 +278,106 @@ const tabsInfo: Record<TabNames, () => boolean> = {
   event: () => G.isEvent
 } as const
 
+class TabRow extends HTMLDivElement {
+  #list = new DoublyLinked<$SubTab>()
+
+  constructor () {
+    super()
+
+    this.id = 'tabrow'
+    this.style.cssText = `
+      text-align: center;
+      width: 100%;
+      list-style: none;
+      margin: 0;
+      margin-inline: unset;
+      margin-block: unset;
+      padding-inline: unset;
+      display: flex;
+      justify-content: center;
+      gap: 0 5px;
+    `
+
+    document.getElementsByClassName('navbar').item(0)?.appendChild(this)
+  }
+
+  getSubs () {
+    return this.#list.toArray()
+  }
+
+  appendButton (...elements: $SubTab[]) {
+    for (const element of elements) {
+      this.#list.insert(element)
+      this.appendChild(element)
+    }
+  }
+}
+
+interface kSubTabOptionsBag {
+  id: string
+  class?: string
+  i18n?: string
+  borderColor?: string
+}
+
+class $SubTab extends HTMLButtonElement {
+  #unlocked = () => true
+
+  constructor (options: kSubTabOptionsBag) {
+    super()
+
+    this.id = options.id
+    if (options.class) {
+      this.classList.add(options.class)
+    }
+    if (options.i18n) {
+      this.setAttribute('i18n', options.i18n)
+    }
+    if (options.borderColor) {
+      this.style.borderColor = options.borderColor
+    }
+  }
+
+  setUnlockedState (fn: () => boolean) {
+    this.#unlocked = fn
+    return this
+  }
+
+  isUnlocked () {
+    return this.#unlocked()
+  }
+}
+
+customElements.define('tab-row', TabRow, { extends: 'div' })
+customElements.define('sub-tab', $SubTab, { extends: 'button' })
+
+const tabRow = new TabRow()
+
+tabRow.appendButton(
+  new $SubTab({ id: 'buildingstab', i18n: 'tabs.main.buildings' }),
+  new $SubTab({ id: 'upgradestab', i18n: 'tabs.main.upgrades' }),
+  new $SubTab({ id: 'achievementstab', i18n: 'tabs.main.achievements', class: 'coinunlock4' })
+    .setUnlockedState(() => player.unlocks.coinfour),
+  new $SubTab({ class: 'prestigeunlock', id: 'runestab', i18n: 'tabs.main.runes' })
+    .setUnlockedState(() => player.unlocks.prestige),
+  new $SubTab({ class: 'transcendunlock', id: 'challengetab', i18n: 'tabs.main.challenges' })
+    .setUnlockedState(() => player.unlocks.transcend),
+  new $SubTab({ class: 'reincarnationunlock', id: 'researchtab', i18n: 'tabs.main.research' })
+    .setUnlockedState(() => player.unlocks.reincarnate),
+  new $SubTab({ class: 'chal8', id: 'anttab', i18n: 'tabs.main.antHill' })
+    .setUnlockedState(() => player.achievements[127] > 0),
+  new $SubTab({ class: 'chal10', id: 'cubetab', i18n: 'tabs.main.wowCubes' })
+    .setUnlockedState(() => player.achievements[141] > 0),
+  new $SubTab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
+    .setUnlockedState(() => player.challengecompletions[11] > 0),
+  new $SubTab({ class: 'singularity', id: 'singularitytab', i18n: 'tabs.main.singularity' })
+    .setUnlockedState(() => player.highestSingularityCount > 0),
+  new $SubTab({ id: 'settingstab', i18n: 'tabs.main.settings' }),
+  new $SubTab({ class: 'reincarnationunlock', id: 'shoptab', i18n: 'tabs.main.shop' })
+    .setUnlockedState(() => player.unlocks.reincarnate || player.highestSingularityCount > 0),
+  new $SubTab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith' }).setUnlockedState(() => G.isEvent)
+)
+
 export class Tab {
   name: TabNames
 
@@ -284,7 +385,7 @@ export class Tab {
     this.name = element.id.split('tab')[0] as TabNames
 
     assert(element.id.endsWith('tab'))
-    assert(this.name in tabsInfo && this.name in subtabInfo)
+    assert(this.name in tabsUnlockInfo && this.name in subtabInfo)
   }
 
   get subtabs () {
@@ -292,7 +393,7 @@ export class Tab {
   }
 
   get unlocked () {
-    return tabsInfo[this.name]()
+    return tabsUnlockInfo[this.name]()
   }
 }
 
