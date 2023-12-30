@@ -330,46 +330,43 @@ class TabRow extends HTMLDivElement {
     return this.#list[index - 1] ?? this.#list[this.#list.length - 1]
   }
 
-  #createDrag() {
+  #createDrag () {
     let dragSrcEl: HTMLElement | null = null
 
-    function handleDragStart (e: DragEvent) {
-      this.style.opacity = '0.4'
+    const handleDragStart = (e: DragEvent) => {
+      assert(e.target instanceof HTMLElement)
 
-      dragSrcEl = this
+      e.target.style.opacity = '0.4'
 
-      e.dataTransfer.effectAllowed = 'move'
+      dragSrcEl = e.target
+
+      e.dataTransfer!.effectAllowed = 'move'
     }
 
-    function handleDragOver (e) {
-      if (e.preventDefault) {
-        e.preventDefault()
+    const handleDragEnter = (e: DragEvent) => {
+      if (e.target instanceof HTMLElement) {
+        e.target.classList.add('over')
       }
-
-      e.dataTransfer.dropEffect = 'move'
-
-      return false
     }
 
-    function handleDragEnter (e) {
-      this.classList.add('over')
+    const handleDragLeave = (e: DragEvent) => {
+      if (e.target instanceof HTMLElement) {
+        e.target.classList.remove('over')
+      }
     }
 
-    function handleDragLeave (e) {
-      this.classList.remove('over')
-    }
+    const handleDrop = (e: DragEvent) => {
+      e.stopPropagation()
 
-    const handleDrop = (e) => {
-      e.stopPropagation() // stops the browser from redirecting.
-
-      if (dragSrcEl !== this) {
-        this.insertBefore(dragSrcEl, e.target)
+      if (dragSrcEl !== e.target && dragSrcEl !== null) {
+        this.insertBefore(dragSrcEl, e.target as HTMLElement)
       }
 
       return false
     }
 
-    const handleDragEnd = (e) => {
+    const handleDragEnd = (e: DragEvent) => {
+      assert(e.target instanceof HTMLElement)
       e.target.style.opacity = '1'
 
       this.#list.forEach((item) => {
@@ -385,7 +382,6 @@ class TabRow extends HTMLDivElement {
       item.addEventListener('drop', handleDrop, false)
       item.addEventListener('dragend', handleDragEnd, false)
     })
-
   }
 }
 
@@ -399,7 +395,6 @@ interface kSubTabOptionsBag {
 class $Tab extends HTMLButtonElement {
   #unlocked = () => true
   #type!: Tabs
-  element: any
 
   constructor (options: kSubTabOptionsBag) {
     super()
