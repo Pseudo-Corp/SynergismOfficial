@@ -482,7 +482,8 @@ tabRow.appendButton(
     .makeDraggable(),
   new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
     .setUnlockedState(() => player.challengecompletions[11] > 0)
-    .setType(Tabs.Corruption),
+    .setType(Tabs.Corruption)
+    .makeDraggable(),
   new $Tab({ class: 'singularity', id: 'singularitytab', i18n: 'tabs.main.singularity' })
     .setUnlockedState(() => player.highestSingularityCount > 0)
     .setType(Tabs.Singularity)
