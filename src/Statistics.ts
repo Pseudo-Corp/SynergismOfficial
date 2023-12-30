@@ -1,12 +1,41 @@
-import { player, format, formatTimeShort } from './Synergism'
-import { Globals as G } from './Variables'
-import { hepteractEffective } from './Hepteracts'
-import { calculateSigmoidExponential, calculateCubeMultiplier, calculateOfferings, calculateTimeAcceleration, calculateTesseractMultiplier, calculateHypercubeMultiplier, calculatePlatonicMultiplier, calculateHepteractMultiplier, calculateAllCubeMultiplier, calculateSigmoid, calculatePowderConversion, calculateEffectiveIALevel, calculateQuarkMultFromPowder, calculateOcteractMultiplier, calculateQuarkMultiplier, calculateEventBuff, calculateSingularityQuarkMilestoneMultiplier, calculateTotalOcteractQuarkBonus, calculateAscensionSpeedMultiplier, calculateGoldenQuarkMultiplier, calculateAmbrosiaQuarkMult } from './Calculate'
-import { challenge15ScoreMultiplier } from './Challenges'
-import type { GlobalVariables } from './types/Synergism'
-import { DOMCacheGetOrSet } from './Cache/DOM'
 import Decimal from 'break_infinity.js'
-import { addCodeMaxUses, addCodeInterval, addCodeAvailableUses, addCodeTimeToNextUse, addCodeBonuses } from './ImportExport'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import {
+  calculateAllCubeMultiplier,
+  calculateAmbrosiaQuarkMult,
+  calculateAscensionSpeedMultiplier,
+  calculateCubeMultiplier,
+  calculateEffectiveIALevel,
+  calculateEventBuff,
+  calculateGoldenQuarkMultiplier,
+  calculateHepteractMultiplier,
+  calculateHypercubeMultiplier,
+  calculateOcteractMultiplier,
+  calculateOfferings,
+  calculatePlatonicMultiplier,
+  calculatePowderConversion,
+  calculateQuarkMultFromPowder,
+  calculateQuarkMultiplier,
+  calculateSigmoid,
+  calculateSigmoidExponential,
+  calculateSingularityQuarkMilestoneMultiplier,
+  calculateTesseractMultiplier,
+  calculateTimeAcceleration,
+  calculateTotalOcteractQuarkBonus
+} from './Calculate'
+import { challenge15ScoreMultiplier } from './Challenges'
+import { BuffType } from './Event'
+import { hepteractEffective } from './Hepteracts'
+import {
+  addCodeAvailableUses,
+  addCodeBonuses,
+  addCodeInterval,
+  addCodeMaxUses,
+  addCodeTimeToNextUse
+} from './ImportExport'
+import { format, formatTimeShort, player } from './Synergism'
+import type { GlobalVariables } from './types/Synergism'
+import { Globals as G } from './Variables'
 
 const associated = new Map<string, string>([
   ['kMisc', 'miscStats'],
@@ -94,93 +123,206 @@ export const loadStatisticsUpdate = () => {
 
 export const loadStatisticsMiscellaneous = () => {
   DOMCacheGetOrSet('sMisc1').textContent = format(player.prestigeCount, 0, true)
-  DOMCacheGetOrSet('sMisc2').textContent = format(1000 * player.fastestprestige) + 'ms'
+  DOMCacheGetOrSet('sMisc2').textContent = `${format(1000 * player.fastestprestige)}ms`
   DOMCacheGetOrSet('sMisc3').textContent = format(player.maxofferings)
   DOMCacheGetOrSet('sMisc4').textContent = format(G.runeSum)
   DOMCacheGetOrSet('sMisc5').textContent = format(player.transcendCount, 0, true)
-  DOMCacheGetOrSet('sMisc6').textContent = format(1000 * player.fastesttranscend) + 'ms'
+  DOMCacheGetOrSet('sMisc6').textContent = `${format(1000 * player.fastesttranscend)}ms`
   DOMCacheGetOrSet('sMisc7').textContent = format(player.reincarnationCount, 0, true)
-  DOMCacheGetOrSet('sMisc8').textContent = format(1000 * player.fastestreincarnate) + 'ms'
+  DOMCacheGetOrSet('sMisc8').textContent = `${format(1000 * player.fastestreincarnate)}ms`
   DOMCacheGetOrSet('sMisc9').textContent = format(player.maxobtainium)
   DOMCacheGetOrSet('sMisc10').textContent = format(player.maxobtainiumpersecond, 2, true)
   DOMCacheGetOrSet('sMisc11').textContent = format(player.obtainiumpersecond, 2, true)
   DOMCacheGetOrSet('sMisc12').textContent = format(player.ascensionCount, 0, true)
   DOMCacheGetOrSet('sMisc13').textContent = format(player.quarksThisSingularity, 0, true)
   DOMCacheGetOrSet('sMisc14').textContent = format(player.totalQuarksEver + player.quarksThisSingularity, 0, true)
-  DOMCacheGetOrSet('sMisc15').textContent = formatTimeShort(player.quarkstimer) + ' / ' + formatTimeShort(90000 + 18000 * player.researches[195])
+  DOMCacheGetOrSet('sMisc15').textContent = `${formatTimeShort(player.quarkstimer)} / ${
+    formatTimeShort(90000 + 18000 * player.researches[195])
+  }`
   DOMCacheGetOrSet('sMisc16').textContent = synergismStage(0)
 }
 
 export const loadStatisticsAccelerator = () => {
-  DOMCacheGetOrSet('sA1').textContent = '+' + format(G.freeUpgradeAccelerator, 0, false)
-  DOMCacheGetOrSet('sA2').textContent = '+' + format(G.totalAcceleratorBoost * (4 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20] + G.cubeBonusMultiplier[1]), 0, false)
-  DOMCacheGetOrSet('sA3').textContent = '+' + format(Math.floor(Math.pow(G.rune1level * G.effectiveLevelMult / 10, 1.1)), 0, true)
-  DOMCacheGetOrSet('sA4').textContent = 'x' + format(1 + G.rune1level * 1 / 200 * G.effectiveLevelMult, 3, true)
-  DOMCacheGetOrSet('sA5').textContent = 'x' + format(Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25]), 3, true)
-  DOMCacheGetOrSet('sA6').textContent = 'x' + format(Math.pow(1.01, player.achievements[60] + player.achievements[61] + player.achievements[62]), 3, true)
-  DOMCacheGetOrSet('sA7').textContent = 'x' + format(1 + 1 / 5 * player.researches[1], 3, true)
-  DOMCacheGetOrSet('sA8').textContent = 'x' + format(1 + 1 / 20 * player.researches[6] + 1 / 25 * player.researches[7] + 1 / 40 * player.researches[8] + 3 / 200 * player.researches[9] + 1 / 200 * player.researches[10], 3, true)
-  DOMCacheGetOrSet('sA9').textContent = 'x' + format(1 + 1 / 20 * player.researches[86], 3, true)
-  DOMCacheGetOrSet('sA10').textContent = 'x' + format(((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5 ? 1.25 : 1), 3, true)
-  DOMCacheGetOrSet('sA11').textContent = '^' + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G.viscosityPower[player.usedCorruptions[2]]), 3, true)
+  DOMCacheGetOrSet('sA1').textContent = `+${format(G.freeUpgradeAccelerator, 0, false)}`
+  DOMCacheGetOrSet('sA2').textContent = `+${
+    format(
+      G.totalAcceleratorBoost
+        * (4 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20]
+          + G.cubeBonusMultiplier[1]),
+      0,
+      false
+    )
+  }`
+  DOMCacheGetOrSet('sA3').textContent = `+${
+    format(Math.floor(Math.pow(G.rune1level * G.effectiveLevelMult / 10, 1.1)), 0, true)
+  }`
+  DOMCacheGetOrSet('sA4').textContent = `x${format(1 + G.rune1level * 1 / 200 * G.effectiveLevelMult, 3, true)}`
+  DOMCacheGetOrSet('sA5').textContent = `x${
+    format(
+      Math.pow(
+        1.01,
+        player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25]
+      ),
+      3,
+      true
+    )
+  }`
+  DOMCacheGetOrSet('sA6').textContent = `x${
+    format(Math.pow(1.01, player.achievements[60] + player.achievements[61] + player.achievements[62]), 3, true)
+  }`
+  DOMCacheGetOrSet('sA7').textContent = `x${format(1 + 1 / 5 * player.researches[1], 3, true)}`
+  DOMCacheGetOrSet('sA8').textContent = `x${
+    format(
+      1 + 1 / 20 * player.researches[6] + 1 / 25 * player.researches[7] + 1 / 40 * player.researches[8]
+        + 3 / 200 * player.researches[9] + 1 / 200 * player.researches[10],
+      3,
+      true
+    )
+  }`
+  DOMCacheGetOrSet('sA9').textContent = `x${format(1 + 1 / 20 * player.researches[86], 3, true)}`
+  DOMCacheGetOrSet('sA10').textContent = `x${
+    format(
+      (player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0)
+        && player.upgrades[50] > 0.5
+        ? 1.25
+        : 1,
+      3,
+      true
+    )
+  }`
+  DOMCacheGetOrSet('sA11').textContent = `^${
+    format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G.viscosityPower[player.usedCorruptions[2]]), 3, true)
+  }`
   DOMCacheGetOrSet('sA12').textContent = format(G.freeAccelerator, 0, true)
 }
 
 export const loadStatisticsMultiplier = () => {
-  DOMCacheGetOrSet('sM1').textContent = '+' + format(G.freeUpgradeMultiplier, 0, true)
-  DOMCacheGetOrSet('sM2').textContent = '+' + format(Math.floor(Math.floor(G.rune2level / 10 * G.effectiveLevelMult) * Math.floor(10 + G.rune2level / 10 * G.effectiveLevelMult) / 2) * 100 / 100, 0, true)
-  DOMCacheGetOrSet('sM3').textContent = 'x' + format(1 + G.rune2level / 200 * G.effectiveLevelMult, 3, true)
-  DOMCacheGetOrSet('sM4').textContent = 'x' + format(Math.pow(1.01, player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25]) * (1 + player.upgrades[34] * 3 / 100) * (1 + player.upgrades[34] * (2 / 103)), 3, true)
-  DOMCacheGetOrSet('sM5').textContent = 'x' + format(Math.pow(1.01, player.achievements[57] + player.achievements[58] + player.achievements[59]), 3, true)
-  DOMCacheGetOrSet('sM6').textContent = 'x' + format(1 + 1 / 5 * player.researches[2], 3, true)
-  DOMCacheGetOrSet('sM7').textContent = 'x' + format(1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13] + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15], 3, true)
-  DOMCacheGetOrSet('sM8').textContent = 'x' + format(1 + 1 / 20 * player.researches[87], 3, true)
-  DOMCacheGetOrSet('sM9').textContent = 'x' + format(calculateSigmoidExponential(40, (player.antUpgrades[4]! + G.bonusant5) / 1000 * 40 / 39), 2, true)
-  DOMCacheGetOrSet('sM10').textContent = 'x' + format(G.cubeBonusMultiplier[2], 3, true)
-  DOMCacheGetOrSet('sM11').textContent = 'x' + format(((player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0) && player.upgrades[50] > 0.5 ? 1.25 : 1), 3, true)
-  DOMCacheGetOrSet('sM12').textContent = '^' + format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G.viscosityPower[player.usedCorruptions[2]]), 3, true)
+  DOMCacheGetOrSet('sM1').textContent = `+${format(G.freeUpgradeMultiplier, 0, true)}`
+  DOMCacheGetOrSet('sM2').textContent = `+${
+    format(
+      Math.floor(
+        Math.floor(G.rune2level / 10 * G.effectiveLevelMult) * Math.floor(10 + G.rune2level / 10 * G.effectiveLevelMult)
+          / 2
+      ) * 100 / 100,
+      0,
+      true
+    )
+  }`
+  DOMCacheGetOrSet('sM3').textContent = `x${format(1 + G.rune2level / 200 * G.effectiveLevelMult, 3, true)}`
+  DOMCacheGetOrSet('sM4').textContent = `x${
+    format(
+      Math.pow(
+        1.01,
+        player.upgrades[21] + player.upgrades[22] + player.upgrades[23] + player.upgrades[24] + player.upgrades[25]
+      ) * (1 + player.upgrades[34] * 3 / 100) * (1 + player.upgrades[34] * (2 / 103)),
+      3,
+      true
+    )
+  }`
+  DOMCacheGetOrSet('sM5').textContent = `x${
+    format(Math.pow(1.01, player.achievements[57] + player.achievements[58] + player.achievements[59]), 3, true)
+  }`
+  DOMCacheGetOrSet('sM6').textContent = `x${format(1 + 1 / 5 * player.researches[2], 3, true)}`
+  DOMCacheGetOrSet('sM7').textContent = `x${
+    format(
+      1 + 1 / 20 * player.researches[11] + 1 / 25 * player.researches[12] + 1 / 40 * player.researches[13]
+        + 3 / 200 * player.researches[14] + 1 / 200 * player.researches[15],
+      3,
+      true
+    )
+  }`
+  DOMCacheGetOrSet('sM8').textContent = `x${format(1 + 1 / 20 * player.researches[87], 3, true)}`
+  DOMCacheGetOrSet('sM9').textContent = `x${
+    format(calculateSigmoidExponential(40, (player.antUpgrades[4]! + G.bonusant5) / 1000 * 40 / 39), 2, true)
+  }`
+  DOMCacheGetOrSet('sM10').textContent = `x${format(G.cubeBonusMultiplier[2], 3, true)}`
+  DOMCacheGetOrSet('sM11').textContent = `x${
+    format(
+      (player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0)
+        && player.upgrades[50] > 0.5
+        ? 1.25
+        : 1,
+      3,
+      true
+    )
+  }`
+  DOMCacheGetOrSet('sM12').textContent = `^${
+    format(Math.min(1, (1 + player.platonicUpgrades[6] / 30) * G.viscosityPower[player.usedCorruptions[2]]), 3, true)
+  }`
   DOMCacheGetOrSet('sM13').textContent = format(G.freeMultiplier, 3, true)
 }
 export const loadQuarkMultiplier = () => {
-  DOMCacheGetOrSet('sGQM1').textContent = 'x' + format(1, 3, true) //Base
-  DOMCacheGetOrSet('sGQM2').textContent = '+' + format(player.achievementPoints / 25000, 3, true) //AP
-  DOMCacheGetOrSet('sGQM3').textContent = '+' + format(player.achievements[250] > 0 ? 0.10 : 0, 3, true) //Max r8x25
-  DOMCacheGetOrSet('sGQM4').textContent = '+' + format(player.achievements[251] > 0 ? 0.10 : 0, 3, true) //Max w5x10
-  DOMCacheGetOrSet('sGQM5').textContent = '+' + format(player.platonicUpgrades[5] > 0 ? 0.20 : 0, 3, true) //ALPHA
-  DOMCacheGetOrSet('sGQM6').textContent = '+' + format(player.platonicUpgrades[10] > 0 ? 0.25 : 0, 3, true) //BETA
-  DOMCacheGetOrSet('sGQM7').textContent = '+' + format(player.platonicUpgrades[15] > 0 ? 0.30 : 0, 3, true) //OMEGA
-  DOMCacheGetOrSet('sGQM8').textContent = '+' + format(G.challenge15Rewards.quarks-1, 3, true) //Challenge 15 Reward
-  DOMCacheGetOrSet('sGQM9').textContent = 'x' + format(player.worlds.applyBonus(1 / calculateQuarkMultiplier()), 3, true) //Patreon Bonus
-  DOMCacheGetOrSet('sGQM10').textContent = 'x' + format((G.isEvent ? 1 + calculateEventBuff('Quarks') + calculateEventBuff('One Mind') : 1), 3, true) //Event
-  DOMCacheGetOrSet('sGQM11').textContent = 'x' + format(1.1 + 0.15 / 75 * calculateEffectiveIALevel(), 3, true) //IA Rune
-  DOMCacheGetOrSet('sGQM12').textContent = 'x' + format(player.challenge15Exponent >= 1e15 ? 1 + 5/10000 * hepteractEffective('quark') : 1, 3, true) //Quark Hepteract
-  DOMCacheGetOrSet('sGQM13').textContent = 'x' + format(calculateQuarkMultFromPowder(), 3, true) //Powder
-  DOMCacheGetOrSet('sGQM14').textContent = 'x' + format(1 + player.achievements[266] * Math.min(0.1, (player.ascensionCount) / 1e16), 3, true) // Achievement 266 [Max: 10% at 1Qa Ascensions]
-  DOMCacheGetOrSet('sGQM15').textContent = 'x' + format(1 + player.singularityCount / 10, 3, true) //Singularity
-  DOMCacheGetOrSet('sGQM16').textContent = 'x' + format(calculateSingularityQuarkMilestoneMultiplier(), 3, true) // Singularity Milestones
-  DOMCacheGetOrSet('sGQM17').textContent = 'x' + format(1 + 0.10 * player.cubeUpgrades[53] / 100, 3, true) // Cube Upgrade 6x3 (Cx3)
-  DOMCacheGetOrSet('sGQM18').textContent = 'x' + format(1 + 1/10000 * player.cubeUpgrades[68] + 0.05 * (Math.floor(player.cubeUpgrades[68] / 1000)), 3, true)
-  DOMCacheGetOrSet('sGQM19').textContent = 'x' + format(1 + 0.02 * player.singularityUpgrades.intermediatePack.level +           // 1.02
-                                                            0.04 * player.singularityUpgrades.advancedPack.level +               // 1.06
-                                                            0.06 * player.singularityUpgrades.expertPack.level +                 // 1.12
-                                                            0.08 * player.singularityUpgrades.masterPack.level +                 // 1.20
-                                                            0.10 * player.singularityUpgrades.divinePack.level, 3, true)
-  DOMCacheGetOrSet('sGQM20').textContent = 'x' + format(1 + 0.25 * +player.octeractUpgrades.octeractStarter.getEffect().bonus, 3, true)
-  DOMCacheGetOrSet('sGQM21').textContent = 'x' + format(+player.octeractUpgrades.octeractQuarkGain.getEffect().bonus, 3, true)
-  DOMCacheGetOrSet('sGQM22').textContent = 'x' + format(calculateTotalOcteractQuarkBonus(), 3, true)
-  DOMCacheGetOrSet('sGQM23').textContent = 'x' + format(1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus, 3, true)
-  DOMCacheGetOrSet('sGQM24').textContent = 'x' + format(1 + 1/10000 * Math.floor(player.octeractUpgrades.octeractQuarkGain.level / 199) *
-                                                            player.octeractUpgrades.octeractQuarkGain2.level *
-                                                            Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL))),
-  3,
-  true)
-  DOMCacheGetOrSet('sGQM25').textContent = 'x' + format(calculateAmbrosiaQuarkMult(), 2, true)
-  DOMCacheGetOrSet('sGQM26').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaTutorial.bonus.quarks, 2, true)
-  DOMCacheGetOrSet('sGQM27').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaQuarks1.bonus.quarks, 2, true)
-  DOMCacheGetOrSet('sGQM28').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaCubeQuark1.bonus.quarks, 2, true)
-  DOMCacheGetOrSet('sGQM29').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks, 2, true)
-  DOMCacheGetOrSet('sGQM30').textContent = 'x' + format(+player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks, 2, true)
-  DOMCacheGetOrSet('sGQMT').textContent = 'x' + format(player.worlds.applyBonus(1), 3, true)
+  DOMCacheGetOrSet('sGQM1').textContent = `x${format(1, 3, true)}` // Base
+  DOMCacheGetOrSet('sGQM2').textContent = `+${format(player.achievementPoints / 25000, 3, true)}` // AP
+  DOMCacheGetOrSet('sGQM3').textContent = `+${format(player.achievements[250] > 0 ? 0.10 : 0, 3, true)}` // Max r8x25
+  DOMCacheGetOrSet('sGQM4').textContent = `+${format(player.achievements[251] > 0 ? 0.10 : 0, 3, true)}` // Max w5x10
+  DOMCacheGetOrSet('sGQM5').textContent = `+${format(player.platonicUpgrades[5] > 0 ? 0.20 : 0, 3, true)}` // ALPHA
+  DOMCacheGetOrSet('sGQM6').textContent = `+${format(player.platonicUpgrades[10] > 0 ? 0.25 : 0, 3, true)}` // BETA
+  DOMCacheGetOrSet('sGQM7').textContent = `+${format(player.platonicUpgrades[15] > 0 ? 0.30 : 0, 3, true)}` // OMEGA
+  DOMCacheGetOrSet('sGQM8').textContent = `+${format(G.challenge15Rewards.quarks - 1, 3, true)}` // Challenge 15 Reward
+  DOMCacheGetOrSet('sGQM9').textContent = `x${
+    format(player.worlds.applyBonus(1 / calculateQuarkMultiplier()), 3, true)
+  }` // Patreon Bonus
+  DOMCacheGetOrSet('sGQM10').textContent = `x${
+    format(G.isEvent ? 1 + calculateEventBuff(BuffType.Quark) + calculateEventBuff(BuffType.OneMind) : 1, 3, true)
+  }` // Event
+  DOMCacheGetOrSet('sGQM11').textContent = `x${format(1.1 + 0.15 / 75 * calculateEffectiveIALevel(), 3, true)}` // IA Rune
+  DOMCacheGetOrSet('sGQM12').textContent = `x${
+    format(player.challenge15Exponent >= 1e15 ? 1 + 5 / 10000 * hepteractEffective('quark') : 1, 3, true)
+  }` // Quark Hepteract
+  DOMCacheGetOrSet('sGQM13').textContent = `x${format(calculateQuarkMultFromPowder(), 3, true)}` // Powder
+  DOMCacheGetOrSet('sGQM14').textContent = `x${
+    format(1 + player.achievements[266] * Math.min(0.1, (player.ascensionCount) / 1e16), 3, true)
+  }` // Achievement 266 [Max: 10% at 1Qa Ascensions]
+  DOMCacheGetOrSet('sGQM15').textContent = `x${format(1 + player.singularityCount / 10, 3, true)}` // Singularity
+  DOMCacheGetOrSet('sGQM16').textContent = `x${format(calculateSingularityQuarkMilestoneMultiplier(), 3, true)}` // Singularity Milestones
+  DOMCacheGetOrSet('sGQM17').textContent = `x${format(1 + 0.10 * player.cubeUpgrades[53] / 100, 3, true)}` // Cube Upgrade 6x3 (Cx3)
+  DOMCacheGetOrSet('sGQM18').textContent = `x${
+    format(1 + 1 / 10000 * player.cubeUpgrades[68] + 0.05 * (Math.floor(player.cubeUpgrades[68] / 1000)), 3, true)
+  }`
+  DOMCacheGetOrSet('sGQM19').textContent = `x${
+    format(
+      1 + 0.02 * player.singularityUpgrades.intermediatePack.level // 1.02
+        + 0.04 * player.singularityUpgrades.advancedPack.level // 1.06
+        + 0.06 * player.singularityUpgrades.expertPack.level // 1.12
+        + 0.08 * player.singularityUpgrades.masterPack.level // 1.20
+        + 0.10 * player.singularityUpgrades.divinePack.level,
+      3,
+      true
+    )
+  }`
+  DOMCacheGetOrSet('sGQM20').textContent = `x${
+    format(1 + 0.25 * +player.octeractUpgrades.octeractStarter.getEffect().bonus, 3, true)
+  }`
+  DOMCacheGetOrSet('sGQM21').textContent = `x${
+    format(+player.octeractUpgrades.octeractQuarkGain.getEffect().bonus, 3, true)
+  }`
+  DOMCacheGetOrSet('sGQM22').textContent = `x${format(calculateTotalOcteractQuarkBonus(), 3, true)}`
+  DOMCacheGetOrSet('sGQM23').textContent = `x${
+    format(1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus, 3, true)
+  }`
+  DOMCacheGetOrSet('sGQM24').textContent = `x${
+    format(
+      1 + 1 / 10000 * Math.floor(player.octeractUpgrades.octeractQuarkGain.level / 199)
+          * player.octeractUpgrades.octeractQuarkGain2.level
+          * Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL))),
+      3,
+      true
+    )
+  }`
+  DOMCacheGetOrSet('sGQM25').textContent = `x${format(calculateAmbrosiaQuarkMult(), 2, true)}`
+  DOMCacheGetOrSet('sGQM26').textContent = `x${
+    format(+player.blueberryUpgrades.ambrosiaTutorial.bonus.quarks, 2, true)
+  }`
+  DOMCacheGetOrSet('sGQM27').textContent = `x${format(+player.blueberryUpgrades.ambrosiaQuarks1.bonus.quarks, 2, true)}`
+  DOMCacheGetOrSet('sGQM28').textContent = `x${
+    format(+player.blueberryUpgrades.ambrosiaCubeQuark1.bonus.quarks, 2, true)
+  }`
+  DOMCacheGetOrSet('sGQM29').textContent = `x${
+    format(+player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks, 2, true)
+  }`
+  DOMCacheGetOrSet('sGQM30').textContent = `x${format(+player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks, 2, true)}`
+  DOMCacheGetOrSet('sGQMT').textContent = `x${format(player.worlds.applyBonus(1), 3, true)}`
 }
 
 export const loadGlobalSpeedMultiplier = () => {
@@ -205,9 +347,8 @@ export const loadGlobalSpeedMultiplier = () => {
 }
 
 export const loadStatisticsCubeMultipliers = () => {
-
   const arr0 = calculateAllCubeMultiplier().list
-  const map0: Record<number, { acc: number, desc: string }> = {
+  const map0: Record<number, { acc: number; desc: string }> = {
     1: { acc: 2, desc: 'Ascension Time Multiplier:' },
     2: { acc: 2, desc: 'Sun and Moon Achievements:' },
     3: { acc: 2, desc: 'Speed Achievement:' },
@@ -248,7 +389,7 @@ export const loadStatisticsCubeMultipliers = () => {
   DOMCacheGetOrSet('sGCMT').textContent = `x${format(calculateAllCubeMultiplier().mult, 3)}`
 
   const arr = calculateCubeMultiplier().list
-  const map: Record<number, { acc: number, desc: string }> = {
+  const map: Record<number, { acc: number; desc: string }> = {
     1: { acc: 2, desc: 'Ascension Score Multiplier:' },
     2: { acc: 2, desc: 'Global Cube Multiplier:' },
     3: { acc: 2, desc: 'Season Pass 1:' },
@@ -275,7 +416,7 @@ export const loadStatisticsCubeMultipliers = () => {
   DOMCacheGetOrSet('sCMT').textContent = `x${format(calculateCubeMultiplier().mult, 3)}`
 
   const arr2 = calculateTesseractMultiplier().list
-  const map2: Record<number, { acc: number, desc: string }> = {
+  const map2: Record<number, { acc: number; desc: string }> = {
     1: { acc: 2, desc: 'Ascension Score Multiplier:' },
     2: { acc: 2, desc: 'Global Cube Multiplier:' },
     3: { acc: 2, desc: 'Season Pass 1:' },
@@ -298,7 +439,7 @@ export const loadStatisticsCubeMultipliers = () => {
   DOMCacheGetOrSet('sTeMT').textContent = `x${format(calculateTesseractMultiplier().mult, 3)}`
 
   const arr3 = calculateHypercubeMultiplier().list
-  const map3: Record<number, { acc: number, desc: string }> = {
+  const map3: Record<number, { acc: number; desc: string }> = {
     1: { acc: 2, desc: 'Ascension Score Multiplier:' },
     2: { acc: 2, desc: 'Global Cube Multiplier:' },
     3: { acc: 2, desc: 'Season Pass 2:' },
@@ -320,7 +461,7 @@ export const loadStatisticsCubeMultipliers = () => {
   DOMCacheGetOrSet('sHyMT').textContent = `x${format(calculateHypercubeMultiplier().mult, 3)}`
 
   const arr4 = calculatePlatonicMultiplier().list
-  const map4: Record<number, { acc: number, desc: string }> = {
+  const map4: Record<number, { acc: number; desc: string }> = {
     1: { acc: 2, desc: 'Ascension Score Multiplier:' },
     2: { acc: 2, desc: 'Global Cube Multiplier:' },
     3: { acc: 2, desc: 'Season Pass 2:' },
@@ -340,7 +481,7 @@ export const loadStatisticsCubeMultipliers = () => {
   DOMCacheGetOrSet('sPlMT').textContent = `x${format(calculatePlatonicMultiplier().mult, 3)}`
 
   const arr5 = calculateHepteractMultiplier().list
-  const map5: Record<number, { acc: number, desc: string }> = {
+  const map5: Record<number, { acc: number; desc: string }> = {
     1: { acc: 2, desc: 'Ascension Score Multiplier:' },
     2: { acc: 2, desc: 'Global Cube Multiplier:' },
     3: { acc: 2, desc: 'Season Pass 3:' },
@@ -358,8 +499,10 @@ export const loadStatisticsCubeMultipliers = () => {
   DOMCacheGetOrSet('sHeMT').textContent = `x${format(calculateHepteractMultiplier().mult, 3)}`
 
   const octMults = calculateOcteractMultiplier()
-  const ascensionSpeedDesc = (player.singularityUpgrades.oneMind.getEffect().bonus) ? 'One Mind Multiplier' : 'Ascension Speed Multiplier'
-  const map6: Record<number, { acc: number, desc: string }> = {
+  const ascensionSpeedDesc = (player.singularityUpgrades.oneMind.getEffect().bonus)
+    ? 'One Mind Multiplier'
+    : 'Ascension Speed Multiplier'
+  const map6: Record<number, { acc: number; desc: string }> = {
     1: { acc: 2, desc: 'Ascension Score Multiplier:' },
     2: { acc: 2, desc: 'Season Pass 3:' },
     3: { acc: 2, desc: 'Season Pass Y:' },
@@ -404,7 +547,7 @@ export const loadStatisticsCubeMultipliers = () => {
 
 export const loadStatisticsOfferingMultipliers = () => {
   const arr = calculateOfferings('prestige', false)
-  const map: Record<number, { acc: number, desc: string }> = {
+  const map: Record<number, { acc: number; desc: string }> = {
     1: { acc: 3, desc: 'Alchemy Achievement 5:' },
     2: { acc: 3, desc: 'Alchemy Achievement 6:' },
     3: { acc: 3, desc: 'Alchemy Achievement 7:' },
@@ -448,7 +591,7 @@ export const loadStatisticsOfferingMultipliers = () => {
 
 export const loadPowderMultiplier = () => {
   const arr0 = calculatePowderConversion().list
-  const map0: Record<number, { acc: number, desc: string }> = {
+  const map0: Record<number, { acc: number; desc: string }> = {
     1: { acc: 2, desc: 'Base:' },
     2: { acc: 2, desc: 'Challenge 15 Bonus:' },
     3: { acc: 2, desc: 'Powder EX:' },
@@ -468,7 +611,7 @@ export const loadPowderMultiplier = () => {
 
 export const loadStatisticsAscensionSpeedMultipliers = () => {
   const arr = calculateAscensionSpeedMultiplier()
-  const map7: Record<number, { acc: number, desc: string }> = {
+  const map7: Record<number, { acc: number; desc: string }> = {
     1: { acc: 2, desc: 'Chronometer:' },
     2: { acc: 2, desc: 'Chronometer 2:' },
     3: { acc: 2, desc: 'Chronometer 3:' },
@@ -501,7 +644,7 @@ export const loadStatisticsAscensionSpeedMultipliers = () => {
 
 export const loadStatisticsGoldenQuarkMultipliers = () => {
   const arr = calculateGoldenQuarkMultiplier()
-  const map: Record<number, { acc: number, desc: string }> = {
+  const map: Record<number, { acc: number; desc: string }> = {
     1: { acc: 2, desc: 'Challenge 15 Exponent:' },
     2: { acc: 2, desc: 'Patreon Bonus:' },
     3: { acc: 2, desc: 'Golden Quarks I:' },
@@ -529,7 +672,7 @@ export const loadAddCodeModifiersAndEffects = () => {
   const timeToNext = addCodeTimeToNextUse()
 
   // Add interval stats
-  const intervalMap: Record<number, { acc: number, desc: string }> = {
+  const intervalMap: Record<number, { acc: number; desc: string }> = {
     1: { acc: 0, desc: 'Base:' },
     2: { acc: 2, desc: 'PL-AT δ calculator:' },
     3: { acc: 2, desc: 'PL-AT Σ sing perk:' },
@@ -542,7 +685,9 @@ export const loadAddCodeModifiersAndEffects = () => {
     const statAddIntervalI = DOMCacheGetOrSet(`stat+time${i + 1}`)
     statAddIntervalI.childNodes[0].textContent = intervalMap[i + 1].desc
     if (i === 0) {
-      DOMCacheGetOrSet(`s+time${i + 1}`).textContent = `${format(intervalStats.list[i], intervalMap[i + 1].acc, true)} sec`
+      DOMCacheGetOrSet(`s+time${i + 1}`).textContent = `${
+        format(intervalStats.list[i], intervalMap[i + 1].acc, true)
+      } sec`
     } else {
       DOMCacheGetOrSet(`s+time${i + 1}`).textContent = `x${format(intervalStats.list[i], intervalMap[i + 1].acc, true)}`
     }
@@ -550,13 +695,13 @@ export const loadAddCodeModifiersAndEffects = () => {
 
   DOMCacheGetOrSet('s+timeT').textContent = `${format(intervalStats.time / 1000, 1)} sec`
   if (availableCount !== capacityStats.total) {
-    DOMCacheGetOrSet('s+next').textContent = `+1 in ${format(timeToNext, 1)} sec`  // is already in sec.
+    DOMCacheGetOrSet('s+next').textContent = `+1 in ${format(timeToNext, 1)} sec` // is already in sec.
   } else {
     DOMCacheGetOrSet('s+next').textContent = ''
   }
 
   // Add capacity stats
-  const capacityMap: Record<number, { acc: number, desc: string }> = {
+  const capacityMap: Record<number, { acc: number; desc: string }> = {
     1: { acc: 0, desc: 'Base:' },
     2: { acc: 0, desc: 'PL-AT X:' },
     3: { acc: 0, desc: 'PL-AT δ:' },
@@ -569,7 +714,9 @@ export const loadAddCodeModifiersAndEffects = () => {
     const statAddIntervalI = DOMCacheGetOrSet(`stat+cap${i + 1}`)
     statAddIntervalI.childNodes[0].textContent = capacityMap[i + 1].desc
     const prefix = i === 0 ? '' : (i === 5 ? 'x' : '+')
-    DOMCacheGetOrSet(`s+cap${i + 1}`).textContent = `${prefix}${format(capacityStats.list[i], capacityMap[i + 1].acc, true)}`
+    DOMCacheGetOrSet(`s+cap${i + 1}`).textContent = `${prefix}${
+      format(capacityStats.list[i], capacityMap[i + 1].acc, true)
+    }`
   }
 
   DOMCacheGetOrSet('s+capT').textContent = `${format(availableCount, 0)} / ${format(capacityStats.total, 0)}`
@@ -582,7 +729,9 @@ export const loadAddCodeModifiersAndEffects = () => {
 
   DOMCacheGetOrSet('stat+eff1').childNodes[0].textContent = 'Quarks: '
   if (Math.abs(addEffectStats.maxQuarks - addEffectStats.minQuarks) >= 0.5) { // b/c floating-point errors
-    DOMCacheGetOrSet('s+eff1').textContent = `+${format(qbr * addEffectStats.minQuarks, 3)} ~ ${format(qbr * addEffectStats.maxQuarks, 3)}`
+    DOMCacheGetOrSet('s+eff1').textContent = `+${format(qbr * addEffectStats.minQuarks, 3)} ~ ${
+      format(qbr * addEffectStats.maxQuarks, 3)
+    }`
   } else {
     DOMCacheGetOrSet('s+eff1').textContent = `+${format(qbr * addEffectStats.quarks, 3)}`
   }
@@ -600,7 +749,7 @@ export const loadAddCodeModifiersAndEffects = () => {
 
 export const loadStatisticsAmbrosiaLuck = () => {
   const arr = player.caches.ambrosiaLuck.flatten()
-  const map: Record<number, { acc: number, desc: string }> = {
+  const map: Record<number, { acc: number; desc: string }> = {
     1: { acc: 0, desc: 'Irish Ants Singularity Perk' },
     2: { acc: 1, desc: 'Shop Upgrade Bonus' },
     3: { acc: 0, desc: 'Singularity Ambrosia Luck Upgrades' },
@@ -623,7 +772,7 @@ export const loadStatisticsAmbrosiaLuck = () => {
 
 export const loadStatisticsAmbrosiaGeneration = () => {
   const arr = player.caches.ambrosiaGeneration.flatten()
-  const map: Record<number, { acc: number, desc: string }> = {
+  const map: Record<number, { acc: number; desc: string }> = {
     1: { acc: 4, desc: 'Visited Ambrosia Subtab' },
     2: { acc: 4, desc: 'Number of Blueberries' },
     3: { acc: 4, desc: 'Shop Upgrade Bonus' },
@@ -643,167 +792,172 @@ export const loadStatisticsAmbrosiaGeneration = () => {
 }
 
 export const c15RewardUpdate = () => {
+  // dprint-ignore
   const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18]
-    type Key = keyof GlobalVariables['challenge15Rewards']
-    const keys = Object.keys(G.challenge15Rewards) as Key[]
-    const e = player.challenge15Exponent
+  type Key = keyof GlobalVariables['challenge15Rewards']
+  const keys = Object.keys(G.challenge15Rewards) as Key[]
+  const e = player.challenge15Exponent
 
-    for (const obj in G.challenge15Rewards) {
-      G.challenge15Rewards[obj as Key] = 1
-    }
-    G.challenge15Rewards.freeOrbs = 0
+  for (const obj in G.challenge15Rewards) {
+    G.challenge15Rewards[obj as Key] = 1
+  }
+  G.challenge15Rewards.freeOrbs = 0
 
-    if (e >= exponentRequirements[0]) {
-      //All Cube Types 1 [750]
-      G.challenge15Rewards[keys[0]] = 1 + 1 / 50 * Math.log(e / 175) / Math.log(2)
+  if (e >= exponentRequirements[0]) {
+    // All Cube Types 1 [750]
+    G.challenge15Rewards[keys[0]] = 1 + 1 / 50 * Math.log(e / 175) / Math.log(2)
+  }
+  if (e >= exponentRequirements[1]) {
+    // Ascension Count [1500]
+    G.challenge15Rewards[keys[1]] = 1 + 1 / 20 * Math.log(e / 375) / Math.log(2)
+  }
+  if (e >= exponentRequirements[2]) {
+    // Coin Exponent [3000]
+    G.challenge15Rewards[keys[2]] = 1 + 1 / 150 * Math.log(e / 750) / Math.log(2)
+  }
+  if (e >= exponentRequirements[3]) {
+    // Taxes [5000]
+    G.challenge15Rewards[keys[3]] = Math.pow(0.98, Math.log(e / 1.25e3) / Math.log(2))
+  }
+  if (e >= exponentRequirements[4]) {
+    // Obtainium [7500]
+    G.challenge15Rewards[keys[4]] = 1 + 1 / 5 * Math.pow(e / 7.5e3, 0.75)
+  }
+  if (e >= exponentRequirements[5]) {
+    // Offerings [7500]
+    G.challenge15Rewards[keys[5]] = 1 + 1 / 5 * Math.pow(e / 7.5e3, 0.75)
+  }
+  if (e >= exponentRequirements[6]) {
+    // Accelerator Boost (Uncorruptable) [10000]
+    G.challenge15Rewards[keys[6]] = 1 + 1 / 20 * Math.log(e / 2.5e3) / Math.log(2)
+  }
+  if (e >= exponentRequirements[7]) {
+    // Multiplier Boost (Uncorruptable) [10000]
+    G.challenge15Rewards[keys[7]] = 1 + 1 / 20 * Math.log(e / 2.5e3) / Math.log(2)
+  }
+  if (e >= exponentRequirements[8]) {
+    // Rune EXP [20000]
+    G.challenge15Rewards[keys[8]] = 1 + Math.pow(e / 2e4, 1.5)
+  }
+  if (e >= exponentRequirements[9]) {
+    // Rune Effectiveness [40000]
+    G.challenge15Rewards[keys[9]] = 1 + 1 / 33 * Math.log(e / 1e4) / Math.log(2)
+  }
+  if (e >= exponentRequirements[10]) {
+    // All Cube Types II [60000]
+    G.challenge15Rewards[keys[10]] = 1 + 1 / 100 * Math.log(e / 1.5e4) / Math.log(2)
+  }
+  if (e >= exponentRequirements[11]) {
+    // Chal 1-5 Scaling [100000]
+    G.challenge15Rewards[keys[11]] = Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2))
+  }
+  if (e >= exponentRequirements[12]) {
+    // Chal 6-10 Scaling [100000]
+    G.challenge15Rewards[keys[12]] = Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2))
+  }
+  if (e >= exponentRequirements[13]) {
+    // Ant Speed [200k]
+    G.challenge15Rewards[keys[13]] = Math.pow(1 + Math.log(e / 2e5) / Math.log(2), 4)
+  }
+  if (e >= exponentRequirements[14]) {
+    // Ant Bonus Levels [500k]
+    G.challenge15Rewards[keys[14]] = 1 + 1 / 20 * Math.log(e / 1.5e5) / Math.log(2)
+  }
+  if (e >= exponentRequirements[15]) {
+    // All Cube Types III [1m]
+    G.challenge15Rewards[keys[15]] = 1 + 1 / 150 * Math.log(e / 2.5e5) / Math.log(2)
+  }
+  if (e >= exponentRequirements[16]) {
+    // Talisman Effectiveness [3m]
+    G.challenge15Rewards[keys[16]] = 1 + 1 / 20 * Math.log(e / 7.5e5) / Math.log(2)
+  }
+  if (e >= exponentRequirements[17]) {
+    // Global Speed [10m]
+    G.challenge15Rewards[keys[17]] = 1 + 1 / 20 * Math.log(e / 2.5e6) / Math.log(2)
+  }
+  if (e >= exponentRequirements[18]) {
+    // Blessing Effectiveness [30m]
+    G.challenge15Rewards[keys[18]] = 1 + 1 / 5 * Math.pow(e / 3e7, 1 / 4)
+  }
+  if (e >= exponentRequirements[19]) {
+    // Tesseract Building Speed [100m]
+    G.challenge15Rewards[keys[19]] = 1 + 1 / 5 * Math.pow(e / 1e8, 2 / 3)
+  }
+  if (e >= exponentRequirements[20]) {
+    // All Cube Types IV [500m]
+    G.challenge15Rewards[keys[20]] = 1 + 1 / 200 * Math.log(e / 1.25e8) / Math.log(2)
+  }
+  if (e >= exponentRequirements[21]) {
+    // Spirit Effectiveness [2b]
+    G.challenge15Rewards[keys[21]] = 1 + 1 / 5 * Math.pow(e / 2e9, 1 / 4)
+  }
+  if (e >= exponentRequirements[22]) {
+    // Ascension Score [10b]
+    G.challenge15Rewards[keys[22]] = 1 + 1 / 4 * Math.pow(e / 1e10, 1 / 4)
+    if (e >= 1e20) {
+      G.challenge15Rewards[keys[22]] = 1 + 1 / 4 * Math.pow(e / 1e10, 1 / 8) * Math.pow(1e10, 1 / 8)
     }
-    if (e >= exponentRequirements[1]) {
-      //Ascension Count [1500]
-      G.challenge15Rewards[keys[1]] = 1 + 1 / 20 * Math.log(e / 375) / Math.log(2)
-    }
-    if (e >= exponentRequirements[2]) {
-      //Coin Exponent [3000]
-      G.challenge15Rewards[keys[2]] = 1 + 1 / 150 * Math.log(e / 750) / Math.log(2)
-    }
-    if (e >= exponentRequirements[3]) {
-      //Taxes [5000]
-      G.challenge15Rewards[keys[3]] = Math.pow(0.98, Math.log(e / 1.25e3) / Math.log(2))
-    }
-    if (e >= exponentRequirements[4]) {
-      //Obtainium [7500]
-      G.challenge15Rewards[keys[4]] = 1 + 1 / 5 * Math.pow(e / 7.5e3, 0.75)
-    }
-    if (e >= exponentRequirements[5]) {
-      //Offerings [7500]
-      G.challenge15Rewards[keys[5]] = 1 + 1 / 5 * Math.pow(e / 7.5e3, 0.75)
-    }
-    if (e >= exponentRequirements[6]) {
-      //Accelerator Boost (Uncorruptable) [10000]
-      G.challenge15Rewards[keys[6]] = 1 + 1 / 20 * Math.log(e / 2.5e3) / Math.log(2)
-    }
-    if (e >= exponentRequirements[7]) {
-      //Multiplier Boost (Uncorruptable) [10000]
-      G.challenge15Rewards[keys[7]] = 1 + 1 / 20 * Math.log(e / 2.5e3) / Math.log(2)
-    }
-    if (e >= exponentRequirements[8]) {
-      //Rune EXP [20000]
-      G.challenge15Rewards[keys[8]] = 1 + Math.pow(e / 2e4, 1.5)
-    }
-    if (e >= exponentRequirements[9]) {
-      //Rune Effectiveness [40000]
-      G.challenge15Rewards[keys[9]] = 1 + 1 / 33 * Math.log(e / 1e4) / Math.log(2)
-    }
-    if (e >= exponentRequirements[10]) {
-      //All Cube Types II [60000]
-      G.challenge15Rewards[keys[10]] = 1 + 1 / 100 * Math.log(e / 1.5e4) / Math.log(2)
-    }
-    if (e >= exponentRequirements[11]) {
-      //Chal 1-5 Scaling [100000]
-      G.challenge15Rewards[keys[11]] = Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2))
-    }
-    if (e >= exponentRequirements[12]) {
-      //Chal 6-10 Scaling [100000]
-      G.challenge15Rewards[keys[12]] = Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2))
-    }
-    if (e >= exponentRequirements[13]) {
-      //Ant Speed [200k]
-      G.challenge15Rewards[keys[13]] = Math.pow(1 + Math.log(e / 2e5) / Math.log(2), 4)
-    }
-    if (e >= exponentRequirements[14]) {
-      //Ant Bonus Levels [500k]
-      G.challenge15Rewards[keys[14]] = 1 + 1 / 20 * Math.log(e / 1.5e5) /Math.log(2)
-    }
-    if (e >= exponentRequirements[15]) {
-      //All Cube Types III [1m]
-      G.challenge15Rewards[keys[15]] = 1 + 1 / 150 * Math.log(e / 2.5e5) / Math.log(2)
-    }
-    if (e >= exponentRequirements[16]) {
-      //Talisman Effectiveness [3m]
-      G.challenge15Rewards[keys[16]] = 1 + 1 / 20 * Math.log(e / 7.5e5) / Math.log(2)
-    }
-    if (e >= exponentRequirements[17]) {
-      //Global Speed [10m]
-      G.challenge15Rewards[keys[17]] = 1 + 1 / 20 * Math.log(e / 2.5e6) / Math.log(2)
-    }
-    if (e >= exponentRequirements[18]) {
-      //Blessing Effectiveness [30m]
-      G.challenge15Rewards[keys[18]] = 1 + 1 / 5 * Math.pow(e / 3e7, 1 / 4)
-    }
-    if (e >= exponentRequirements[19]) {
-      //Tesseract Building Speed [100m]
-      G.challenge15Rewards[keys[19]] = 1 + 1 / 5 * Math.pow(e / 1e8, 2 / 3)
-    }
-    if (e >= exponentRequirements[20]) {
-      //All Cube Types IV [500m]
-      G.challenge15Rewards[keys[20]] = 1 + 1 / 200 * Math.log(e / 1.25e8) / Math.log(2)
-    }
-    if (e >= exponentRequirements[21]) {
-      //Spirit Effectiveness [2b]
-      G.challenge15Rewards[keys[21]] = 1 + 1 / 5 * Math.pow(e / 2e9, 1 / 4)
-    }
-    if (e >= exponentRequirements[22]) {
-      //Ascension Score [10b]
-      G.challenge15Rewards[keys[22]] = 1 + 1 / 4 * Math.pow(e / 1e10, 1 / 4)
-      if (e >= 1e20) {
-        G.challenge15Rewards[keys[22]] = 1 + 1 / 4 * Math.pow(e / 1e10, 1 / 8) * Math.pow(1e10, 1 / 8)
-      }
-    }
-    if (e >= exponentRequirements[23]) {
-      //Quark Gain [100b]
-      G.challenge15Rewards[keys[23]] = 1 + 1 / 100 * Math.log(e * 32 / 1e11) / Math.log(2)
-    }
-    if (e >= exponentRequirements[24]) {
-      //Unlock Hepteract gain [1Qa]
-      G.challenge15Rewards[keys[24]] = 2
-    }
-    if (e >= exponentRequirements[25]) {
-      //Unlock Challenge hepteract [2Qa]
-      void player.hepteractCrafts.challenge.unlock('the Hepteract of Challenge')
-    }
-    if (e >= exponentRequirements[26]) {
-      //All Cube Types V [4Qa]
-      G.challenge15Rewards[keys[25]] = 1 + 1 / 300 * Math.log2(e / (4e15 / 1024))
-    }
-    if (e >= exponentRequirements[27]) {
-      //Powder Gain [7Qa]
-      G.challenge15Rewards[keys[26]] = 1 + 1 / 50 * Math.log2(e / (7e15 / 32))
-    }
-    if (e >= exponentRequirements[28]) {
-      //Unlock Abyss Hepteract [10Qa]
-      void player.hepteractCrafts.abyss.unlock('the Hepteract of the Abyss')
-    }
-    if (e >= exponentRequirements[29]) {
-      //Constant Upgrade 2 [20Qa]
-      G.challenge15Rewards[keys[27]] = calculateSigmoid(1.05, e, 1e18)
-    }
-    if (e >= exponentRequirements[30]) {
-      //Unlock ACCELERATOR HEPT [33.33Qa]
-      void player.hepteractCrafts.accelerator.unlock('the Hepteract of Way Too Many Accelerators')
-    }
-    if (e >= exponentRequirements[31]) {
-      //Unlock ACCELERATOR BOOST HEPT [33.33Qa]
-      void player.hepteractCrafts.acceleratorBoost.unlock('the Hepteract of Way Too Many Accelerator Boosts')
-    }
-    if (e >= exponentRequirements[32]) {
-      //Unlock MULTIPLIER Hept [33.33Qa]
-      void player.hepteractCrafts.multiplier.unlock('the Hepteract of Way Too Many Multipliers')
-    }
-    if (e >= exponentRequirements[33]) {
-      // FREE Daily Orbs
-      G.challenge15Rewards.freeOrbs = Math.floor(200 * Math.pow(e / 2e17, 0.5))
-    }
-    if (e >= exponentRequirements[34]) {
-      // Ascension Speed
-      G.challenge15Rewards.ascensionSpeed = 1 + 5/100 + 2 * Math.log2(e / 1.5e18) / 100
-    }
+  }
+  if (e >= exponentRequirements[23]) {
+    // Quark Gain [100b]
+    G.challenge15Rewards[keys[23]] = 1 + 1 / 100 * Math.log(e * 32 / 1e11) / Math.log(2)
+  }
+  if (e >= exponentRequirements[24]) {
+    // Unlock Hepteract gain [1Qa]
+    G.challenge15Rewards[keys[24]] = 2
+  }
+  if (e >= exponentRequirements[25]) {
+    // Unlock Challenge hepteract [2Qa]
+    void player.hepteractCrafts.challenge.unlock('the Hepteract of Challenge')
+  }
+  if (e >= exponentRequirements[26]) {
+    // All Cube Types V [4Qa]
+    G.challenge15Rewards[keys[25]] = 1 + 1 / 300 * Math.log2(e / (4e15 / 1024))
+  }
+  if (e >= exponentRequirements[27]) {
+    // Powder Gain [7Qa]
+    G.challenge15Rewards[keys[26]] = 1 + 1 / 50 * Math.log2(e / (7e15 / 32))
+  }
+  if (e >= exponentRequirements[28]) {
+    // Unlock Abyss Hepteract [10Qa]
+    void player.hepteractCrafts.abyss.unlock('the Hepteract of the Abyss')
+  }
+  if (e >= exponentRequirements[29]) {
+    // Constant Upgrade 2 [20Qa]
+    G.challenge15Rewards[keys[27]] = calculateSigmoid(1.05, e, 1e18)
+  }
+  if (e >= exponentRequirements[30]) {
+    // Unlock ACCELERATOR HEPT [33.33Qa]
+    void player.hepteractCrafts.accelerator.unlock('the Hepteract of Way Too Many Accelerators')
+  }
+  if (e >= exponentRequirements[31]) {
+    // Unlock ACCELERATOR BOOST HEPT [33.33Qa]
+    void player.hepteractCrafts.acceleratorBoost.unlock('the Hepteract of Way Too Many Accelerator Boosts')
+  }
+  if (e >= exponentRequirements[32]) {
+    // Unlock MULTIPLIER Hept [33.33Qa]
+    void player.hepteractCrafts.multiplier.unlock('the Hepteract of Way Too Many Multipliers')
+  }
+  if (e >= exponentRequirements[33]) {
+    // FREE Daily Orbs
+    G.challenge15Rewards.freeOrbs = Math.floor(200 * Math.pow(e / 2e17, 0.5))
+  }
+  if (e >= exponentRequirements[34]) {
+    // Ascension Speed
+    G.challenge15Rewards.ascensionSpeed = 1 + 5 / 100 + 2 * Math.log2(e / 1.5e18) / 100
+  }
 
-
-    updateDisplayC15Rewards()
+  updateDisplayC15Rewards()
 }
 
 const updateDisplayC15Rewards = () => {
   DOMCacheGetOrSet('c15Reward0Num').textContent = format(player.challenge15Exponent, 3, true)
-  DOMCacheGetOrSet('c15RequiredExponentNum').textContent = format(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()), 0, true)
+  DOMCacheGetOrSet('c15RequiredExponentNum').textContent = format(
+    Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),
+    0,
+    true
+  )
+  // dprint-ignore
   const exponentRequirements = [750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5, 5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15, 1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18]
   const isNum: Record<number, boolean> = { // Shit solution to a shit problem -Platonic
     0: true,
@@ -850,9 +1004,9 @@ const updateDisplayC15Rewards = () => {
       keepExponent = exponentRequirements[i]
     }
     if (player.challenge15Exponent >= exponentRequirements[i]) {
-      DOMCacheGetOrSet(`c15Reward${i + 1}Num`).textContent = (isNum[i]) ?
-        format(100 * values[i - skip] - 100, 2, true):
-        'Unlocked!'
+      DOMCacheGetOrSet(`c15Reward${i + 1}Num`).textContent = (isNum[i])
+        ? format(100 * values[i - skip] - 100, 2, true)
+        : 'Unlocked!'
 
       if (!isNum[i] && i !== 24) { // TODO: This sucks -Platonic
         skip += 1
@@ -863,41 +1017,181 @@ const updateDisplayC15Rewards = () => {
       }
     }
 
-    DOMCacheGetOrSet(`c15Reward${i + 1}`).style.display = (player.challenge15Exponent >= exponentRequirements[i])? 'block': 'none'
-    DOMCacheGetOrSet('c15RewardList').textContent = typeof keepExponent  === 'string'
+    DOMCacheGetOrSet(`c15Reward${i + 1}`).style.display = (player.challenge15Exponent >= exponentRequirements[i])
+      ? 'block'
+      : 'none'
+    DOMCacheGetOrSet('c15RewardList').textContent = typeof keepExponent === 'string'
       ? 'You have unlocked all reward types from Challenge 15!'
-      : 'Next reward type requires ' + format(keepExponent, 0, true) + ' exponent.'
+      : `Next reward type requires ${format(keepExponent, 0, true)} exponent.`
   }
 }
 
-interface Stage { stage: number, tier: number, name: string, unlocked: boolean, reset: boolean }
+interface Stage {
+  stage: number
+  tier: number
+  name: string
+  unlocked: boolean
+  reset: boolean
+}
 
 export const gameStages = (): Stage[] => {
   const stages: Stage[] = [
     { stage: 0, tier: 1, name: 'start', unlocked: true, reset: true },
     { stage: 1, tier: 1, name: 'start-prestige', unlocked: player.unlocks.prestige, reset: player.unlocks.prestige },
-    { stage: 2, tier: 2, name: 'prestige-transcend', unlocked: player.unlocks.transcend, reset: player.unlocks.transcend },
-    { stage: 3, tier: 3, name: 'transcend-reincarnate', unlocked: player.unlocks.reincarnate, reset: player.unlocks.reincarnate },
-    { stage: 4, tier: 4, name: 'reincarnate-ant', unlocked: player.firstOwnedAnts !== 0, reset: player.unlocks.reincarnate },
-    { stage: 5, tier: 4, name: 'ant-sacrifice', unlocked: player.achievements[173] === 1, reset: player.unlocks.reincarnate },
-    { stage: 6, tier: 4, name: 'sacrifice-ascension', unlocked: player.achievements[183] === 1, reset: player.unlocks.reincarnate },
-    { stage: 7, tier: 5, name: 'ascension-challenge10', unlocked: player.ascensionCount > 1, reset: player.achievements[183] === 1 },
-    { stage: 8, tier: 5, name: 'challenge10-challenge11', unlocked: player.achievements[197] === 1, reset: player.achievements[183] === 1 },
-    { stage: 9, tier: 5, name: 'challenge11-challenge12', unlocked: player.achievements[204] === 1, reset: player.achievements[183] === 1 },
-    { stage: 10, tier: 5, name: 'challenge12-challenge13', unlocked: player.achievements[211] === 1, reset: player.achievements[183] === 1 },
-    { stage: 11, tier: 5, name: 'challenge13-challenge14', unlocked: player.achievements[218] === 1, reset: player.achievements[183] === 1 },
-    { stage: 12, tier: 5, name: 'challenge14-w5x10max', unlocked: player.cubeUpgrades[50] >= 100000, reset: player.achievements[183] === 1 },
-    { stage: 13, tier: 5, name: 'w5x10max-alpha', unlocked: player.platonicUpgrades[5] > 0, reset: player.achievements[183] === 1 },
-    { stage: 14, tier: 5, name: 'alpha-p2x1x10', unlocked: player.platonicUpgrades[6] >= 10, reset: player.achievements[183] === 1 },
-    { stage: 15, tier: 5, name: 'p2x1x10-p3x1', unlocked: player.platonicUpgrades[11] > 0, reset: player.achievements[183] === 1 },
-    { stage: 16, tier: 5, name: 'p3x1-beta', unlocked: player.platonicUpgrades[10] > 0, reset: player.achievements[183] === 1 },
-    { stage: 17, tier: 5, name: 'beta-1e15-expo', unlocked: player.challenge15Exponent >= 1e15, reset: player.achievements[183] === 1 },
-    { stage: 18, tier: 5, name: '1e15-expo-omega', unlocked: player.platonicUpgrades[15] > 0, reset: player.achievements[183] === 1 },
-    { stage: 19, tier: 5, name: 'omega-singularity', unlocked: player.singularityCount > 0 && player.runelevels[6] > 0, reset: player.achievements[183] === 1 },
-    { stage: 20, tier: 6, name: 'singularity-exalt1x1', unlocked: player.singularityChallenges.noSingularityUpgrades.completions > 0, reset: player.highestSingularityCount > 0 },
-    { stage: 21, tier: 6, name: 'exalt1x1-onemind', unlocked: player.singularityUpgrades.oneMind.level > 0, reset: player.highestSingularityCount > 0 },
-    { stage: 22, tier: 6, name: 'onemind-end', unlocked: player.singularityUpgrades.offeringAutomatic.level > 0, reset: player.highestSingularityCount > 0 },
-    { stage: 23, tier: 6, name: 'end-pen', unlocked: player.singularityUpgrades.ultimatePen.level > 0, reset: player.highestSingularityCount > 0 },
+    {
+      stage: 2,
+      tier: 2,
+      name: 'prestige-transcend',
+      unlocked: player.unlocks.transcend,
+      reset: player.unlocks.transcend
+    },
+    {
+      stage: 3,
+      tier: 3,
+      name: 'transcend-reincarnate',
+      unlocked: player.unlocks.reincarnate,
+      reset: player.unlocks.reincarnate
+    },
+    {
+      stage: 4,
+      tier: 4,
+      name: 'reincarnate-ant',
+      unlocked: player.firstOwnedAnts !== 0,
+      reset: player.unlocks.reincarnate
+    },
+    {
+      stage: 5,
+      tier: 4,
+      name: 'ant-sacrifice',
+      unlocked: player.achievements[173] === 1,
+      reset: player.unlocks.reincarnate
+    },
+    {
+      stage: 6,
+      tier: 4,
+      name: 'sacrifice-ascension',
+      unlocked: player.achievements[183] === 1,
+      reset: player.unlocks.reincarnate
+    },
+    {
+      stage: 7,
+      tier: 5,
+      name: 'ascension-challenge10',
+      unlocked: player.ascensionCount > 1,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 8,
+      tier: 5,
+      name: 'challenge10-challenge11',
+      unlocked: player.achievements[197] === 1,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 9,
+      tier: 5,
+      name: 'challenge11-challenge12',
+      unlocked: player.achievements[204] === 1,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 10,
+      tier: 5,
+      name: 'challenge12-challenge13',
+      unlocked: player.achievements[211] === 1,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 11,
+      tier: 5,
+      name: 'challenge13-challenge14',
+      unlocked: player.achievements[218] === 1,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 12,
+      tier: 5,
+      name: 'challenge14-w5x10max',
+      unlocked: player.cubeUpgrades[50] >= 100000,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 13,
+      tier: 5,
+      name: 'w5x10max-alpha',
+      unlocked: player.platonicUpgrades[5] > 0,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 14,
+      tier: 5,
+      name: 'alpha-p2x1x10',
+      unlocked: player.platonicUpgrades[6] >= 10,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 15,
+      tier: 5,
+      name: 'p2x1x10-p3x1',
+      unlocked: player.platonicUpgrades[11] > 0,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 16,
+      tier: 5,
+      name: 'p3x1-beta',
+      unlocked: player.platonicUpgrades[10] > 0,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 17,
+      tier: 5,
+      name: 'beta-1e15-expo',
+      unlocked: player.challenge15Exponent >= 1e15,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 18,
+      tier: 5,
+      name: '1e15-expo-omega',
+      unlocked: player.platonicUpgrades[15] > 0,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 19,
+      tier: 5,
+      name: 'omega-singularity',
+      unlocked: player.singularityCount > 0 && player.runelevels[6] > 0,
+      reset: player.achievements[183] === 1
+    },
+    {
+      stage: 20,
+      tier: 6,
+      name: 'singularity-exalt1x1',
+      unlocked: player.singularityChallenges.noSingularityUpgrades.completions > 0,
+      reset: player.highestSingularityCount > 0
+    },
+    {
+      stage: 21,
+      tier: 6,
+      name: 'exalt1x1-onemind',
+      unlocked: player.singularityUpgrades.oneMind.level > 0,
+      reset: player.highestSingularityCount > 0
+    },
+    {
+      stage: 22,
+      tier: 6,
+      name: 'onemind-end',
+      unlocked: player.singularityUpgrades.offeringAutomatic.level > 0,
+      reset: player.highestSingularityCount > 0
+    },
+    {
+      stage: 23,
+      tier: 6,
+      name: 'end-pen',
+      unlocked: player.singularityUpgrades.ultimatePen.level > 0,
+      reset: player.highestSingularityCount > 0
+    },
     { stage: 24, tier: 6, name: 'pen', unlocked: false, reset: player.highestSingularityCount > 0 }
   ]
   return stages

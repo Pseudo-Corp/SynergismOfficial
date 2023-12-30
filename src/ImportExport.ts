@@ -1,25 +1,25 @@
-import { player, saveSynergy, blankSave, reloadShit, format, saveCheck } from './Synergism'
-import { octeractGainPerSecond } from './Calculate'
-import { testing, version } from './Config'
-import { cleanString, getElementById, productContents, sumContents } from './Utility'
-import LZString from 'lz-string'
-import { achievementaward } from './Achievements'
-import type { Player } from './types/Synergism'
-import { Synergism } from './Events'
-import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { quarkHandler } from './Quark'
-import { shopData } from './Shop'
-import { addTimers } from './Helper'
-import { btoa } from './Utility'
-import { DOMCacheGetOrSet } from './Cache/DOM'
-import localforage from 'localforage'
-import { Globals as G } from './Variables'
-import { singularityData } from './singularity'
-import { getEvent } from './Event'
-import { synergismStage } from './Statistics'
 import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
-import { changeTab, changeSubTab } from './Tabs'
+import localforage from 'localforage'
+import LZString from 'lz-string'
+import { achievementaward } from './Achievements'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import { octeractGainPerSecond } from './Calculate'
+import { testing, version } from './Config'
+import { getEvent } from './Event'
+import { Synergism } from './Events'
+import { addTimers } from './Helper'
+import { quarkHandler } from './Quark'
+import { shopData } from './Shop'
+import { singularityData } from './singularity'
+import { synergismStage } from './Statistics'
+import { blankSave, format, player, reloadShit, saveCheck, saveSynergy } from './Synergism'
+import { changeSubTab, changeTab } from './Tabs'
+import type { Player } from './types/Synergism'
+import { Alert, Confirm, Prompt } from './UpdateHTML'
+import { cleanString, getElementById, productContents, sumContents } from './Utility'
+import { btoa } from './Utility'
+import { Globals as G } from './Variables'
 
 const format24 = new Intl.DateTimeFormat('EN-GB', {
   year: 'numeric',
@@ -47,31 +47,42 @@ const getRealTime = (type = 'default', use12 = false) => {
   const datePartsArr = format
     .formatToParts(new Date())
     .filter((x) => x.type !== 'literal')
-    .map(p => ({ [p.type]: p.value }))
+    .map((p) => ({ [p.type]: p.value }))
 
   const dateParts = Object.assign({}, ...datePartsArr) as Record<string, string>
 
   const period = use12 ? ` ${dateParts.dayPeriod.toUpperCase()}` : ''
   const weekday = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
   switch (type) {
-    case 'default': return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`
-    case 'short': return `${dateParts.year}${dateParts.month}${dateParts.day}${dateParts.hour}${dateParts.minute}${dateParts.second}`
-    case 'year': return `${dateParts.year}`
-    case 'month': return `${dateParts.month}`
-    case 'day': return `${dateParts.day}`
-    case 'hour': return `${dateParts.hour}`
-    case 'minute': return `${dateParts.minute}`
-    case 'second': return `${dateParts.second}`
-    case 'period': return `${dateParts.dayPeriod.toUpperCase()}`
-    case 'weekday': return `${weekday[new Date().getUTCDay()]}`
-    default: return type
+    case 'default':
+      return `${dateParts.year}-${dateParts.month}-${dateParts.day} ${dateParts.hour}_${dateParts.minute}_${dateParts.second}${period}`
+    case 'short':
+      return `${dateParts.year}${dateParts.month}${dateParts.day}${dateParts.hour}${dateParts.minute}${dateParts.second}`
+    case 'year':
+      return `${dateParts.year}`
+    case 'month':
+      return `${dateParts.month}`
+    case 'day':
+      return `${dateParts.day}`
+    case 'hour':
+      return `${dateParts.hour}`
+    case 'minute':
+      return `${dateParts.minute}`
+    case 'second':
+      return `${dateParts.second}`
+    case 'period':
+      return `${dateParts.dayPeriod.toUpperCase()}`
+    case 'weekday':
+      return `${weekday[new Date().getUTCDay()]}`
+    default:
+      return type
   }
 }
 
 export const updateSaveString = (input: HTMLInputElement) => {
   const value = input.value.slice(0, 100)
-  player.saveString = value === '' ? blankSave.saveString : cleanString(value);
-  (DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = player.saveString
+  player.saveString = value === '' ? blankSave.saveString : cleanString(value)
+  ;(DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = player.saveString
 }
 
 export const getVer = () => /[\d?=.]+/.exec(version)?.[0] ?? version
@@ -80,38 +91,70 @@ export const saveFilename = () => {
   const s = player.saveString
   const t = s.replace(/\$(.*?)\$/g, (_, b) => {
     switch (b) {
-      case 'VERSION': return `v${version}`
-      case 'TIME': return getRealTime()
-      case 'TIME12': return getRealTime(undefined, true)
-      case 'SING': return `Singularity ${player.singularityCount}`
-      case 'SINGS': return `${player.singularityCount}`
-      case 'VER': return getVer()
-      case 'TIMES': return getRealTime('short')
-      case 'YEAR': return getRealTime('year')
-      case 'Y': return getRealTime('year')
-      case 'MONTH': return getRealTime('month')
-      case 'M': return getRealTime('month')
-      case 'DAY': return getRealTime('day')
-      case 'D': return getRealTime('day')
-      case 'HOUR': return getRealTime('hour')
-      case 'H': return getRealTime('hour')
-      case 'H12': return getRealTime('hour', true)
-      case 'MINUTE': return getRealTime('minute')
-      case 'MI': return getRealTime('minute')
-      case 'SECOND': return getRealTime('second')
-      case 'S': return getRealTime('second')
-      case 'PERIOD': return getRealTime('period', true)
-      case 'P': return getRealTime('period', true)
-      case 'WEEKDAY': return getRealTime('weekday')
-      case 'W': return getRealTime('weekday')
-      case 'DATE': return `${Date.now()}`
-      case 'DATES': return `${Math.floor(Date.now() / 1000)}`
-      case 'QUARK': return `${Math.floor(Number(player.worlds))}`
-      case 'QUARKS': return format(Number(player.worlds))
-      case 'GQ': return `${Math.floor(player.goldenQuarks)}`
-      case 'GQS': return format(player.goldenQuarks)
-      case 'STAGE': return synergismStage(0)
-      default: return `${b}`
+      case 'VERSION':
+        return `v${version}`
+      case 'TIME':
+        return getRealTime()
+      case 'TIME12':
+        return getRealTime(undefined, true)
+      case 'SING':
+        return `Singularity ${player.singularityCount}`
+      case 'SINGS':
+        return `${player.singularityCount}`
+      case 'VER':
+        return getVer()
+      case 'TIMES':
+        return getRealTime('short')
+      case 'YEAR':
+        return getRealTime('year')
+      case 'Y':
+        return getRealTime('year')
+      case 'MONTH':
+        return getRealTime('month')
+      case 'M':
+        return getRealTime('month')
+      case 'DAY':
+        return getRealTime('day')
+      case 'D':
+        return getRealTime('day')
+      case 'HOUR':
+        return getRealTime('hour')
+      case 'H':
+        return getRealTime('hour')
+      case 'H12':
+        return getRealTime('hour', true)
+      case 'MINUTE':
+        return getRealTime('minute')
+      case 'MI':
+        return getRealTime('minute')
+      case 'SECOND':
+        return getRealTime('second')
+      case 'S':
+        return getRealTime('second')
+      case 'PERIOD':
+        return getRealTime('period', true)
+      case 'P':
+        return getRealTime('period', true)
+      case 'WEEKDAY':
+        return getRealTime('weekday')
+      case 'W':
+        return getRealTime('weekday')
+      case 'DATE':
+        return `${Date.now()}`
+      case 'DATES':
+        return `${Math.floor(Date.now() / 1000)}`
+      case 'QUARK':
+        return `${Math.floor(Number(player.worlds))}`
+      case 'QUARKS':
+        return format(Number(player.worlds))
+      case 'GQ':
+        return `${Math.floor(player.goldenQuarks)}`
+      case 'GQS':
+        return format(player.goldenQuarks)
+      case 'STAGE':
+        return synergismStage(0)
+      default:
+        return `${b}`
     }
   })
 
@@ -119,7 +162,6 @@ export const saveFilename = () => {
 }
 
 export const exportData = async (text: string, fileName: string) => {
-
   const toClipboard = getElementById<HTMLInputElement>('saveType').checked
   if (toClipboard) {
     try {
@@ -162,7 +204,7 @@ export const exportData = async (text: string, fileName: string) => {
     }
   } else {
     const a = document.createElement('a')
-    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + text)
+    a.setAttribute('href', `data:text/plain;charset=utf-8,${text}`)
     a.setAttribute('download', fileName)
     a.setAttribute('id', 'downloadSave')
     // "Starting in Firefox 75, the click() function works even when the element is not attached to a DOM tree."
@@ -186,14 +228,17 @@ export const exportSynergism = async (shouldSetLastSaveSoWeStopFuckingBotheringP
 
     let bonusGQMultiplier = 1
     bonusGQMultiplier *= 1 + player.worlds.BONUS / 100
-    bonusGQMultiplier *= (player.highestSingularityCount >= 100 ? 1 + player.highestSingularityCount / 50 : 1)
+    bonusGQMultiplier *= player.highestSingularityCount >= 100 ? 1 + player.highestSingularityCount / 50 : 1
     if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
-      player.goldenQuarks += Math.floor(player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)) * bonusGQMultiplier
-      player.goldenQuarksTimer = player.goldenQuarksTimer % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
+      player.goldenQuarks +=
+        Math.floor(player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus))
+        * bonusGQMultiplier
+      player.goldenQuarksTimer = player.goldenQuarksTimer
+        % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
     }
     if (quarkData.gain >= 1) {
       player.worlds.add(quarkData.gain)
-      player.quarkstimer = (player.quarkstimer % (3600 / quarkData.perHour))
+      player.quarkstimer = player.quarkstimer % (3600 / quarkData.perHour)
     }
   }
 
@@ -203,9 +248,8 @@ export const exportSynergism = async (shouldSetLastSaveSoWeStopFuckingBotheringP
     return
   }
 
-  const save =
-        await localforage.getItem<Blob>('Synergysave2') ??
-        localStorage.getItem('Synergysave2')
+  const save = await localforage.getItem<Blob>('Synergysave2')
+    ?? localStorage.getItem('Synergysave2')
   const saveString = typeof save === 'string' ? save : await save?.text()
 
   if (saveString === undefined) {
@@ -233,7 +277,7 @@ export const resetGame = async () => {
   const hold = Object.assign({}, blankSave, {
     codes: Array.from(blankSave.codes)
   }) as Player
-  //Reset Displays
+  // Reset Displays
   changeTab('buildings')
   changeSubTab('buildings', { page: 0 })
   changeSubTab('runes', { page: 0 }) // Set 'runes' subtab back to 'runes' tab
@@ -241,7 +285,7 @@ export const resetGame = async () => {
   changeSubTab('traits', { page: 0 }) // set 'corruption main'
   changeSubTab('singularity', { page: 0 }) // set 'singularity main'
   changeSubTab('settings', { page: 0 }) // set 'statistics main'
-  //Import Game
+  // Import Game
   await importSynergism(btoa(JSON.stringify(hold)), true)
 }
 
@@ -256,7 +300,7 @@ export const importData = async (e: Event, importFunc: (save: string | null) => 
   } else {
     const reader = new FileReader()
     reader.readAsText(file)
-    const text = await new Promise<string>(res => {
+    const text = await new Promise<string>((res) => {
       reader.addEventListener('load', () => res(reader.result!.toString()))
     })
 
@@ -278,9 +322,9 @@ export const importSynergism = async (input: string | null, reset = false) => {
   const f = d ? JSON.parse(d) as Player : JSON.parse(atob(input)) as Player
 
   if (
-    (f.exporttest === 'YES!' || f.exporttest === true) ||
-        (f.exporttest === false && testing) ||
-        (f.exporttest === 'NO!' && testing)
+    (f.exporttest === 'YES!' || f.exporttest === true)
+    || (f.exporttest === false && testing)
+    || (f.exporttest === 'NO!' && testing)
   ) {
     const saveString = btoa(JSON.stringify(f))
 
@@ -363,10 +407,14 @@ export const promocodes = async (input: string | null, amount?: number) => {
   if (input === null) {
     return Alert(i18next.t('importexport.comeBackSoon'))
   }
-  if (input === 'synergism2023' && !player.codes.get(46) && G.isEvent && getEvent().name === 'Synergism 3: More Synergies') {
-
+  if (
+    input === 'synergism2023' && !player.codes.get(46) && G.isEvent
+    && getEvent()?.name === 'Synergism 3: More Synergies'
+  ) {
     if (!player.dailyCodeUsed) {
-      return Alert('This event code gives you another usage of code \'daily\'. Please use that code and try this event code again.')
+      return Alert(
+        'This event code gives you another usage of code \'daily\'. Please use that code and try this event code again.'
+      )
     }
 
     player.codes.set(46, true)
@@ -377,7 +425,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     if (player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0) {
       player.hepteractCrafts.quark.CAP *= 2
-      player.hepteractCrafts.quark.BAL += Math.min(1e13, player.hepteractCrafts.quark.CAP/2)
+      player.hepteractCrafts.quark.BAL += Math.min(1e13, player.hepteractCrafts.quark.CAP / 2)
     }
     if (player.highestSingularityCount > 0) {
       player.singularityUpgrades.goldenQuarks1.freeLevels += 1 + Math.floor(player.highestSingularityCount / 25)
@@ -388,10 +436,20 @@ export const promocodes = async (input: string | null, amount?: number) => {
       }
     }
 
-    return Alert(`Happy 3rd anniversary of Synergism!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! Your daily code has also been reset for you.
-                      ${(player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0)? 'Derpsmith also hacked your save to expand Quark Hepteract for free, and (to a limit) automatically filled the extra amount! What a generous, handsome fella.' : ''}
+    return Alert(
+      `Happy 3rd anniversary of Synergism!!!! Your Quark timer(s) have been replenished and you have been given 4 real life hours of Ascension progress! Your daily code has also been reset for you.
+                      ${
+        (player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0)
+          ? 'Derpsmith also hacked your save to expand Quark Hepteract for free, and (to a limit) automatically filled the extra amount! What a generous, handsome fella.'
+          : ''
+      }
                       ${(player.highestSingularityCount > 0) ? 'You were also given free levels of GQ1-3!' : ''} 
-                      ${(player.singularityUpgrades.octeractUnlock.getEffect().bonus) ? 'Finally, you were given free levels of Octeract Accumulator!': ''}`)
+                      ${
+        (player.singularityUpgrades.octeractUnlock.getEffect().bonus)
+          ? 'Finally, you were given free levels of Octeract Accumulator!'
+          : ''
+      }`
+    )
   }
   if (input === 'synergism2021' && !player.codes.get(1)) {
     player.codes.set(1, true)
@@ -432,32 +490,28 @@ export const promocodes = async (input: string | null, amount?: number) => {
     await Alert(rewardMessage)
 
     if (player.highestSingularityCount > 0) {
-      const upgradeDistribution: Record<
-            'goldenQuarks1' | 'goldenQuarks2' | 'goldenQuarks3' | 'singCubes1' | 'singCubes2' | 'singCubes3' |
-            'singOfferings1' | 'singOfferings2' | 'singOfferings3' |
-            'singObtainium1' | 'singObtainium2' | 'singObtainium3' | 'ascensions',
-            {value: number, pdf: (x: number) => boolean}> = {
-              goldenQuarks3: { value: 0.2, pdf: (x: number) => 0 <= x && x <= 1 },
-              goldenQuarks2: { value: 0.2, pdf: (x: number) => 1 <= x && x <= 3 },
-              goldenQuarks1: { value: 0.2, pdf: (x: number) => 3 <= x && x <= 10 },
-              singCubes3: { value: 0.25, pdf: (x: number) => 10 < x && x <= 15 },
-              singObtainium3: { value: 0.25, pdf: (x: number) => 15 < x && x <= 20 },
-              singOfferings3: { value: 0.25, pdf: (x: number) => 20 < x && x <= 25 },
-              singCubes2: { value: 0.5, pdf: (x: number) => 25 < x && x <= 80 },
-              singObtainium2: { value: 0.5, pdf: (x: number) => 80 < x && x <= 140 },
-              singOfferings2: { value: 0.5, pdf: (x: number) => 140 < x && x <= 200 },
-              singCubes1: { value: 1, pdf: (x: number) => 200 < x && x <= 400 },
-              singObtainium1: { value: 1, pdf: (x: number) => 400 < x && x <= 600 },
-              singOfferings1: { value: 1, pdf: (x: number) => 600 < x && x <= 800 },
-              ascensions: { value: 1, pdf: (x: number) => 800 < x && x <= 1000 }
-            }
+      const upgradeDistribution = {
+        goldenQuarks3: { value: 0.2, pdf: (x: number) => 0 <= x && x <= 1 },
+        goldenQuarks2: { value: 0.2, pdf: (x: number) => 1 <= x && x <= 3 },
+        goldenQuarks1: { value: 0.2, pdf: (x: number) => 3 <= x && x <= 10 },
+        singCubes3: { value: 0.25, pdf: (x: number) => 10 < x && x <= 15 },
+        singObtainium3: { value: 0.25, pdf: (x: number) => 15 < x && x <= 20 },
+        singOfferings3: { value: 0.25, pdf: (x: number) => 20 < x && x <= 25 },
+        singCubes2: { value: 0.5, pdf: (x: number) => 25 < x && x <= 80 },
+        singObtainium2: { value: 0.5, pdf: (x: number) => 80 < x && x <= 140 },
+        singOfferings2: { value: 0.5, pdf: (x: number) => 140 < x && x <= 200 },
+        singCubes1: { value: 1, pdf: (x: number) => 200 < x && x <= 400 },
+        singObtainium1: { value: 1, pdf: (x: number) => 400 < x && x <= 600 },
+        singOfferings1: { value: 1, pdf: (x: number) => 600 < x && x <= 800 },
+        ascensions: { value: 1, pdf: (x: number) => 800 < x && x <= 1000 }
+      }
       let rolls = 3 * Math.sqrt(player.highestSingularityCount)
       rolls += +player.octeractUpgrades.octeractImprovedDaily.getEffect().bonus
       rolls += player.shopUpgrades.shopImprovedDaily2
       rolls += player.shopUpgrades.shopImprovedDaily3
       rolls += player.shopUpgrades.shopImprovedDaily4
-      rolls += (+player.singularityUpgrades.platonicPhi.getEffect().bonus *
-                        Math.min(50, 5 * player.singularityCounter / (3600 * 24)))
+      rolls += +player.singularityUpgrades.platonicPhi.getEffect().bonus
+        * Math.min(50, 5 * player.singularityCounter / (3600 * 24))
       rolls += +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus
       rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
       rolls *= 1 + +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus / 200
@@ -470,7 +524,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
       const keys = Object
         .keys(player.singularityUpgrades)
-        .filter(key => key in upgradeDistribution) as (keyof typeof upgradeDistribution)[]
+        .filter((key) => key in upgradeDistribution) as (keyof typeof upgradeDistribution)[]
 
       rewardMessage = i18next.t('importexport.promocodes.daily.message2')
       // The same upgrade can be drawn several times, so we save the sum of the levels gained, to display them only once at the end
@@ -480,7 +534,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
         for (const key of keys) {
           if (upgradeDistribution[key].pdf(num)) {
             player.singularityUpgrades[key].freeLevels += upgradeDistribution[key].value
-            freeLevels[key] ? freeLevels[key] += upgradeDistribution[key].value : freeLevels[key] = upgradeDistribution[key].value
+            freeLevels[key]
+              ? freeLevels[key] += upgradeDistribution[key].value
+              : freeLevels[key] = upgradeDistribution[key].value
           }
         }
       }
@@ -492,16 +548,15 @@ export const promocodes = async (input: string | null, amount?: number) => {
         freeLevels.goldenQuarks2 ? freeLevels.goldenQuarks2 += 0.2 : freeLevels.goldenQuarks2 = 0.2
         player.singularityUpgrades.goldenQuarks3.freeLevels += 1
         freeLevels.goldenQuarks3 ? freeLevels.goldenQuarks3 += 1 : freeLevels.goldenQuarks3 = 1
-
       }
 
       if (player.highestSingularityCount >= 200) {
-        player.octeractUpgrades.octeractGain.freeLevels += (player.octeractUpgrades.octeractGain.level / 100)
+        player.octeractUpgrades.octeractGain.freeLevels += player.octeractUpgrades.octeractGain.level / 100
         freeLevels.octeractGain = player.octeractUpgrades.octeractGain.level / 100
       }
 
       if (player.highestSingularityCount >= 205) {
-        player.octeractUpgrades.octeractGain2.freeLevels += (player.octeractUpgrades.octeractGain2.level / 100)
+        player.octeractUpgrades.octeractGain2.freeLevels += player.octeractUpgrades.octeractGain2.level / 100
         freeLevels.octeractGain2 = player.octeractUpgrades.octeractGain2.level / 100
       }
 
@@ -534,10 +589,10 @@ export const promocodes = async (input: string | null, amount?: number) => {
     }
     const toUse = Number(attemptsUsed)
     if (
-      Number.isNaN(toUse) ||
-            !Number.isInteger(toUse) ||
-            toUse === 0 ||
-            (toUse < 0 && -toUse >= availableUses)
+      Number.isNaN(toUse)
+      || !Number.isInteger(toUse)
+      || toUse === 0
+      || (toUse < 0 && -toUse >= availableUses)
     ) {
       return Alert(i18next.t('general.validation.invalidNumber'))
     }
@@ -548,8 +603,11 @@ export const promocodes = async (input: string | null, amount?: number) => {
     const actualQuarks = Math.floor(addEffects.quarks * realAttemptsUsed)
     const [first, second] = window.crypto.getRandomValues(new Uint8Array(2))
 
-    //Allows storage of up to (24 + 2 * calc2 levels) Add Codes, lol!
-    const v = Math.max(Date.now() - (maxUses - realAttemptsUsed) * timeInterval, player.rngCode + timeInterval * realAttemptsUsed)
+    // Allows storage of up to (24 + 2 * calc2 levels) Add Codes, lol!
+    const v = Math.max(
+      Date.now() - (maxUses - realAttemptsUsed) * timeInterval,
+      player.rngCode + timeInterval * realAttemptsUsed
+    )
     const remaining = Math.floor((Date.now() - v) / timeInterval)
     const timeToNext = Math.floor((timeInterval - (Date.now() - v - timeInterval * remaining)) / 1000)
 
@@ -654,7 +712,6 @@ export const promocodes = async (input: string | null, amount?: number) => {
         z: timeToNext.toLocaleString(navigator.language)
       }))
     }
-
   } else if (input === 'sub') {
     const amount = 1 + window.crypto.getRandomValues(new Uint16Array(1))[0] % 16 // [1, 16]
     const quarks = Number(player.worlds)
@@ -670,12 +727,12 @@ export const promocodes = async (input: string | null, amount?: number) => {
     player.worlds.sub(quarks < amount ? amount - quarks : amount)
   } else if (input === 'gamble') {
     if (
-      typeof player.skillCode === 'number' ||
-            typeof localStorage.getItem('saveScumIsCheating') === 'string'
+      typeof player.skillCode === 'number'
+      || typeof localStorage.getItem('saveScumIsCheating') === 'string'
     ) {
       if (
-        (Date.now() - player.skillCode!) / 1000 < 3600 ||
-                (Date.now() - Number(localStorage.getItem('saveScumIsCheating'))) / 1000 < 3600
+        (Date.now() - player.skillCode!) / 1000 < 3600
+        || (Date.now() - Number(localStorage.getItem('saveScumIsCheating'))) / 1000 < 3600
       ) {
         return el.textContent = i18next.t('importexport.promocodes.gamble.wait')
       }
@@ -728,7 +785,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
       player.promoCodeTiming.time = Date.now()
 
       if (diff <= (2500 + 125 * player.cubeUpgrades[61])) {
-        const reward = Math.floor(Math.min(1000, (125 + 25 * player.highestSingularityCount)) * (1 + player.cubeUpgrades[61] / 50))
+        const reward = Math.floor(
+          Math.min(1000, 125 + 25 * player.highestSingularityCount) * (1 + player.cubeUpgrades[61] / 50)
+        )
         let actualQuarkAward = player.worlds.applyBonus(reward)
         let blueberryTime = 0
         if (actualQuarkAward > 66666) {
@@ -744,7 +803,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
         const winText = i18next.t('importexport.promocodes.time.won', {
           x: format(actualQuarkAward * rewardMult, 0, true)
         })
-        const ambrosiaText = (blueberryTime > 0) ? i18next.t('importexport.promocodes.time.ambrosia', { blueberryTime }) : ''
+        const ambrosiaText = (blueberryTime > 0)
+          ? i18next.t('importexport.promocodes.time.ambrosia', { blueberryTime })
+          : ''
         return Alert(winText + ambrosiaText)
       } else {
         return Alert(i18next.t('importexport.promocodes.time.lost'))
@@ -757,7 +818,6 @@ export const promocodes = async (input: string | null, amount?: number) => {
     } else {
       return Alert(i18next.t('importexport.promocodes.spoiler.one', { x: format(1 / perSecond, 2, true) }))
     }
-
   } else {
     el.textContent = i18next.t('importexport.promocodes.invalid')
   }
@@ -773,13 +833,12 @@ export const promocodes = async (input: string | null, amount?: number) => {
   setTimeout(() => el.textContent = '', 15000)
 }
 
-const addCodeSingularityPerkBonus = () : number => {
+const addCodeSingularityPerkBonus = (): number => {
   const levels = [10, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 235, 240]
   let count = 0
   for (let i = 0; i < levels.length; i++) {
     if (player.highestSingularityCount >= levels[i]) {
       count += 1
-      continue
     } else {
       break
     }
@@ -794,11 +853,11 @@ export const addCodeMaxUses = () => {
   }
 
   const arr = [
-    24,                                                                                 // base
-    2 * player.shopUpgrades.calculator2,                                                // PL-AT X
-    player.shopUpgrades.calculator4 === shopData.calculator4.maxLevel ? 32 : 0,         // PL-AT δ
-    calc5uses,                                                                          // PL-AT Γ
-    player.shopUpgrades.calculator6 === shopData.calculator6.maxLevel ? 24 : 0          // PL_AT _
+    24, // base
+    2 * player.shopUpgrades.calculator2, // PL-AT X
+    player.shopUpgrades.calculator4 === shopData.calculator4.maxLevel ? 32 : 0, // PL-AT δ
+    calc5uses, // PL-AT Γ
+    player.shopUpgrades.calculator6 === shopData.calculator6.maxLevel ? 24 : 0 // PL_AT _
   ]
 
   let maxUses = sumContents(arr)
@@ -814,10 +873,13 @@ export const addCodeMaxUses = () => {
 
 export const addCodeInterval = () => {
   const arr = [
-    hour,  // base value
-    (1 - 0.04 * player.shopUpgrades.calculator4),
-    (1 - Math.min(.6, (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 800 : 0)
-                            + (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 800 : 0))),
+    hour, // base value
+    1 - 0.04 * player.shopUpgrades.calculator4,
+    1 - Math.min(
+      .6,
+      (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 800 : 0)
+        + (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 800 : 0)
+    ),
     player.runelevels[6] > 0 ? 0.8 : 1,
     1 / addCodeSingularityPerkBonus()
   ]
@@ -836,7 +898,7 @@ export const addCodeAvailableUses = (): number => {
 }
 
 export const addCodeTimeToNextUse = (): number => {
-  const timeToFirst = Math.floor(addCodeInterval().time + player.rngCode - Date.now())/1000
+  const timeToFirst = Math.floor(addCodeInterval().time + player.rngCode - Date.now()) / 1000
 
   if (timeToFirst > 0) {
     return timeToFirst
@@ -854,10 +916,13 @@ export const addCodeBonuses = () => {
   const perkRewardDivisor = addCodeSingularityPerkBonus()
 
   let commonQuarkMult = 1 + 0.14 * player.shopUpgrades.calculator // Calculator Shop Upgrade (+14% / level)
-  commonQuarkMult *= (player.shopUpgrades.calculator2 === shopData.calculator2.maxLevel)? 1.25: 1 // Calculator 2 Max Level (+25%)
+  commonQuarkMult *= (player.shopUpgrades.calculator2 === shopData.calculator2.maxLevel) ? 1.25 : 1 // Calculator 2 Max Level (+25%)
   commonQuarkMult /= perkRewardDivisor
 
-  const sampledMult = Math.max(0.4 + 0.02 * player.shopUpgrades.calculator3, 2/5 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 640) // [0.4, 0.6], slightly biased in favor of 0.4. =)
+  const sampledMult = Math.max(
+    0.4 + 0.02 * player.shopUpgrades.calculator3,
+    2 / 5 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 640
+  ) // [0.4, 0.6], slightly biased in favor of 0.4. =)
   const minMult = 0.4 + 0.02 * player.shopUpgrades.calculator3
   const maxMult = 0.6
 
@@ -868,10 +933,10 @@ export const addCodeBonuses = () => {
   const ascensionTimer = 60 * player.shopUpgrades.calculator3 * ascMult / perkRewardDivisor
 
   // Calculator 5: Adds GQ export timer.
-  const gqTimer = 6 * player.shopUpgrades.calculator5  / perkRewardDivisor
+  const gqTimer = 6 * player.shopUpgrades.calculator5 / perkRewardDivisor
 
   // Calculator 6: Octeract Generation
-  const octeractTime = player.shopUpgrades.calculator6  / perkRewardDivisor
+  const octeractTime = player.shopUpgrades.calculator6 / perkRewardDivisor
 
   return {
     quarks: sampledMult * quarkBase, // The quarks to actually reward (if not for stats)
@@ -913,7 +978,7 @@ const dailyCodeReward = () => {
   }
   if (player.challengecompletions[6] > 0 || ascended || singularity) {
     quarks += 20
-  }  // 40
+  } // 40
   if (player.challengecompletions[7] > 0 || ascended || singularity) {
     quarks += 30
   } // 70

@@ -1,8 +1,8 @@
-import { player, format } from './Synergism'
-import { Synergism } from './Events'
-import { Alert, revealStuff } from './UpdateHTML'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { Synergism } from './Events'
 import { calculateSingularityDebuff } from './singularity'
+import { format, player } from './Synergism'
+import { Alert, revealStuff } from './UpdateHTML'
 
 const platonicUpgradeDesc = [
   '+0.0090% Cubes per Corruption level per level!',
@@ -28,15 +28,15 @@ const platonicUpgradeDesc = [
 ]
 
 export interface IPlatBaseCost {
-    obtainium: number
-    offerings: number
-    cubes: number
-    tesseracts: number
-    hypercubes: number
-    platonics: number
-    abyssals: number
-    maxLevel: number
-    priceMult?: number
+  obtainium: number
+  offerings: number
+  cubes: number
+  tesseracts: number
+  hypercubes: number
+  platonics: number
+  abyssals: number
+  maxLevel: number
+  priceMult?: number
 }
 
 export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
@@ -250,10 +250,21 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
   }
 }
 
-const checkPlatonicUpgrade = (index: number, auto = false): Record<keyof (IPlatBaseCost & { canBuy: boolean }), boolean> => {
+const checkPlatonicUpgrade = (
+  index: number,
+  auto = false
+): Record<keyof (IPlatBaseCost & { canBuy: boolean }), boolean> => {
   let checksum = 0
   const resources = ['obtainium', 'offerings', 'cubes', 'tesseracts', 'hypercubes', 'platonics', 'abyssals'] as const
-  const resourceNames = ['researchPoints', 'runeshards', 'wowCubes', 'wowTesseracts', 'wowHypercubes', 'wowPlatonicCubes', 'wowAbyssals'] as const
+  const resourceNames = [
+    'researchPoints',
+    'runeshards',
+    'wowCubes',
+    'wowTesseracts',
+    'wowHypercubes',
+    'wowPlatonicCubes',
+    'wowAbyssals'
+  ] as const
   const checks: Record<string, boolean> = {
     obtainium: false,
     offerings: false,
@@ -266,7 +277,10 @@ const checkPlatonicUpgrade = (index: number, auto = false): Record<keyof (IPlatB
   }
   let priceMultiplier = 1
   if (platUpgradeBaseCosts[index].priceMult) {
-    priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
+    priceMultiplier = Math.pow(
+      platUpgradeBaseCosts[index].priceMult!,
+      Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25)
+    )
   }
   priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
 
@@ -274,14 +288,19 @@ const checkPlatonicUpgrade = (index: number, auto = false): Record<keyof (IPlatB
     if (auto && (resources[i] === 'obtainium' || resources[i] === 'offerings')) {
       checksum++
       checks[resources[i]] = true
-    } else if (Math.floor(platUpgradeBaseCosts[index][resources[i]] * priceMultiplier) <= (player[resourceNames[i]] as number)) {
+    } else if (
+      Math.floor(platUpgradeBaseCosts[index][resources[i]] * priceMultiplier) <= (player[resourceNames[i]] as number)
+    ) {
       checksum++
       checks[resources[i]] = true
     }
   }
 
-  if (player.hepteractCrafts.abyss.BAL >= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier) || platUpgradeBaseCosts[index].abyssals === 0) {
-    checksum ++
+  if (
+    player.hepteractCrafts.abyss.BAL >= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier)
+    || platUpgradeBaseCosts[index].abyssals === 0
+  ) {
+    checksum++
     checks.abyssals = true
   }
 
@@ -300,53 +319,77 @@ export const createPlatonicDescription = (index: number) => {
 
   let priceMultiplier = 1
   if (platUpgradeBaseCosts[index].priceMult) {
-    priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
+    priceMultiplier = Math.pow(
+      platUpgradeBaseCosts[index].priceMult!,
+      Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25)
+    )
   }
   priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
 
-  DOMCacheGetOrSet('platonicUpgradeDescription').textContent = platonicUpgradeDesc[index-1]
-  DOMCacheGetOrSet('platonicUpgradeLevel').textContent = 'Level: ' + format(player.platonicUpgrades[index]) + '/' + format(platUpgradeBaseCosts[index].maxLevel) + maxLevelAppend
-  DOMCacheGetOrSet('platonicOfferingCost').textContent = format(player.runeshards) + '/' + format(platUpgradeBaseCosts[index].offerings * priceMultiplier) + ' Offerings'
-  DOMCacheGetOrSet('platonicObtainiumCost').textContent = format(player.researchPoints) + '/' + format(platUpgradeBaseCosts[index].obtainium * priceMultiplier) + ' Obtainium'
-  DOMCacheGetOrSet('platonicCubeCost').textContent = format(player.wowCubes) + '/' + format(platUpgradeBaseCosts[index].cubes * priceMultiplier) + ' Wow! Cubes'
-  DOMCacheGetOrSet('platonicTesseractCost').textContent = format(player.wowTesseracts) + '/' + format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier) + ' Wow! Tesseracts'
-  DOMCacheGetOrSet('platonicHypercubeCost').textContent = format(player.wowHypercubes) + '/' + format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier) + ' Wow! Hypercubes'
-  DOMCacheGetOrSet('platonicPlatonicCost').textContent = format(player.wowPlatonicCubes) + '/' + format(platUpgradeBaseCosts[index].platonics * priceMultiplier) + ' Platonic! Cubes'
-  DOMCacheGetOrSet('platonicHepteractCost').textContent = format(player.hepteractCrafts.abyss.BAL) + '/' + format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true) + ' Hepteracts of the Abyss'
+  DOMCacheGetOrSet('platonicUpgradeDescription').textContent = platonicUpgradeDesc[index - 1]
+  DOMCacheGetOrSet('platonicUpgradeLevel').textContent = `Level: ${format(player.platonicUpgrades[index])}/${
+    format(platUpgradeBaseCosts[index].maxLevel)
+  }${maxLevelAppend}`
+  DOMCacheGetOrSet('platonicOfferingCost').textContent = `${format(player.runeshards)}/${
+    format(platUpgradeBaseCosts[index].offerings * priceMultiplier)
+  } Offerings`
+  DOMCacheGetOrSet('platonicObtainiumCost').textContent = `${format(player.researchPoints)}/${
+    format(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
+  } Obtainium`
+  DOMCacheGetOrSet('platonicCubeCost').textContent = `${format(player.wowCubes)}/${
+    format(platUpgradeBaseCosts[index].cubes * priceMultiplier)
+  } Wow! Cubes`
+  DOMCacheGetOrSet('platonicTesseractCost').textContent = `${format(player.wowTesseracts)}/${
+    format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier)
+  } Wow! Tesseracts`
+  DOMCacheGetOrSet('platonicHypercubeCost').textContent = `${format(player.wowHypercubes)}/${
+    format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier)
+  } Wow! Hypercubes`
+  DOMCacheGetOrSet('platonicPlatonicCost').textContent = `${format(player.wowPlatonicCubes)}/${
+    format(platUpgradeBaseCosts[index].platonics * priceMultiplier)
+  } Platonic! Cubes`
+  DOMCacheGetOrSet('platonicHepteractCost').textContent = `${format(player.hepteractCrafts.abyss.BAL)}/${
+    format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true)
+  } Hepteracts of the Abyss`
 
-  resourceCheck.offerings ?
-    DOMCacheGetOrSet('platonicOfferingCost').style.color = 'lime' :
-    DOMCacheGetOrSet('platonicOfferingCost').style.color = 'var(--crimson-text-color)'
+  resourceCheck.offerings
+    ? DOMCacheGetOrSet('platonicOfferingCost').style.color = 'lime'
+    : DOMCacheGetOrSet('platonicOfferingCost').style.color = 'var(--crimson-text-color)'
 
-  resourceCheck.obtainium ?
-    DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'lime' :
-    DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'var(--crimson-text-color)'
+  resourceCheck.obtainium
+    ? DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'lime'
+    : DOMCacheGetOrSet('platonicObtainiumCost').style.color = 'var(--crimson-text-color)'
 
-  resourceCheck.cubes ?
-    DOMCacheGetOrSet('platonicCubeCost').style.color = 'lime' :
-    DOMCacheGetOrSet('platonicCubeCost').style.color = 'var(--crimson-text-color)'
+  resourceCheck.cubes
+    ? DOMCacheGetOrSet('platonicCubeCost').style.color = 'lime'
+    : DOMCacheGetOrSet('platonicCubeCost').style.color = 'var(--crimson-text-color)'
 
-  resourceCheck.tesseracts ?
-    DOMCacheGetOrSet('platonicTesseractCost').style.color = 'lime' :
-    DOMCacheGetOrSet('platonicTesseractCost').style.color = 'var(--crimson-text-color)'
+  resourceCheck.tesseracts
+    ? DOMCacheGetOrSet('platonicTesseractCost').style.color = 'lime'
+    : DOMCacheGetOrSet('platonicTesseractCost').style.color = 'var(--crimson-text-color)'
 
-  resourceCheck.hypercubes ?
-    DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'lime' :
-    DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'var(--crimson-text-color)'
+  resourceCheck.hypercubes
+    ? DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'lime'
+    : DOMCacheGetOrSet('platonicHypercubeCost').style.color = 'var(--crimson-text-color)'
 
-  resourceCheck.platonics ?
-    DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'lime' :
-    DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'var(--crimson-text-color)'
+  resourceCheck.platonics
+    ? DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'lime'
+    : DOMCacheGetOrSet('platonicPlatonicCost').style.color = 'var(--crimson-text-color)'
 
-  resourceCheck.abyssals ?
-    DOMCacheGetOrSet('platonicHepteractCost').style.color = 'lime' :
-    DOMCacheGetOrSet('platonicHepteractCost').style.color = 'var(--crimson-text-color)'
+  resourceCheck.abyssals
+    ? DOMCacheGetOrSet('platonicHepteractCost').style.color = 'lime'
+    : DOMCacheGetOrSet('platonicHepteractCost').style.color = 'var(--crimson-text-color)'
 
   if (player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
     DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'cyan'
-    resourceCheck.canBuy ?
-      (DOMCacheGetOrSet('platonicCanBuy').style.color = 'gold', DOMCacheGetOrSet('platonicCanBuy').textContent = '===Affordable! Click to buy!===') :
-      (DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--crimson-text-color)', DOMCacheGetOrSet('platonicCanBuy').textContent = '===You cannot afford this!===')
+
+    if (resourceCheck.canBuy) {
+      DOMCacheGetOrSet('platonicCanBuy').style.color = 'gold'
+      DOMCacheGetOrSet('platonicCanBuy').textContent = '===Affordable! Click to buy!==='
+    } else {
+      DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--crimson-text-color)'
+      DOMCacheGetOrSet('platonicCanBuy').textContent = '===You cannot afford this!==='
+    }
   }
 
   if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
@@ -367,7 +410,6 @@ export const updatePlatonicUpgradeBG = (i: number) => {
   } else if (player.platonicUpgrades[i] === maxLevel) {
     a.style.backgroundColor = 'green'
   }
-
 }
 
 export const buyPlatonicUpgrades = (index: number, auto = false) => {
@@ -375,7 +417,10 @@ export const buyPlatonicUpgrades = (index: number, auto = false) => {
     const resourceCheck = checkPlatonicUpgrade(index, auto)
     let priceMultiplier = 1
     if (platUpgradeBaseCosts[index].priceMult) {
-      priceMultiplier = Math.pow(platUpgradeBaseCosts[index].priceMult!, Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25))
+      priceMultiplier = Math.pow(
+        platUpgradeBaseCosts[index].priceMult!,
+        Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25)
+      )
     }
     priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
 
@@ -394,7 +439,9 @@ export const buyPlatonicUpgrades = (index: number, auto = false) => {
 
       Synergism.emit('boughtPlatonicUpgrade', platUpgradeBaseCosts[index])
       if (index === 20 && !auto && player.singularityCount === 0) {
-        void Alert('While I strongly recommended you not to buy this, you did it anyway. For that, you have unlocked the rune of Grandiloquence, for you are a richass.')
+        void Alert(
+          'While I strongly recommended you not to buy this, you did it anyway. For that, you have unlocked the rune of Grandiloquence, for you are a richass.'
+        )
       }
     } else {
       break
@@ -410,7 +457,11 @@ export const buyPlatonicUpgrades = (index: number, auto = false) => {
 }
 
 export const autoBuyPlatonicUpgrades = () => {
-  if (player.autoPlatonicUpgradesToggle && ((player.highestSingularityCount >= 100 && player.insideSingularityChallenge) || player.highestSingularityCount >= 200)) {
+  if (
+    player.autoPlatonicUpgradesToggle
+    && ((player.highestSingularityCount >= 100 && player.insideSingularityChallenge)
+      || player.highestSingularityCount >= 200)
+  ) {
     for (let i = 1; i < player.platonicUpgrades.length; i++) {
       if (player.platonicUpgrades[i] < platUpgradeBaseCosts[i].maxLevel) {
         const resourceCheck = checkPlatonicUpgrade(i, true)

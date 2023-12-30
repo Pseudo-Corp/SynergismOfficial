@@ -1,16 +1,22 @@
-import { player, format } from './Synergism'
-import { calculateSummationNonLinear, calculateRuneLevels, calculateAnts } from './Calculate'
-import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
-import { Globals as G } from './Variables'
-import { updateClassList } from './Utility'
+import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateAnts, calculateRuneLevels, calculateSummationNonLinear } from './Calculate'
 import type { IMultiBuy } from './Cubes'
 import { calculateSingularityDebuff } from './singularity'
-import i18next from 'i18next'
+import { format, player } from './Synergism'
+import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
+import { updateClassList } from './Utility'
+import { Globals as G } from './Variables'
 
 const getResearchCost = (index: number, buyAmount = 1, linGrowth = 0): IMultiBuy => {
   buyAmount = Math.min(G.researchMaxLevels[index] - player.researches[index], buyAmount)
-  const metaData = calculateSummationNonLinear(player.researches[index], G.researchBaseCosts[index] * calculateSingularityDebuff('Researches'), player.researchPoints, linGrowth, buyAmount)
+  const metaData = calculateSummationNonLinear(
+    player.researches[index],
+    G.researchBaseCosts[index] * calculateSingularityDebuff('Researches'),
+    player.researchPoints,
+    linGrowth,
+    buyAmount
+  )
   return metaData
 }
 
@@ -18,7 +24,6 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
   /* If Cube Upgrade 9 (1x9) is purchased, then automation behaves differently.
      If not purchased, then clicking on a research icon while auto toggled will update research for you.*/
   if (autoResearchEnabled() && auto && player.autoResearchMode === 'cheapest') {
-
     player.autoResearch = G.researchOrderByCost[player.roombaResearchIndex]
 
     // Checks if this is maxed. If so we proceed to the next research.
@@ -69,7 +74,7 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
     return
   } else {
     return
-  } //There might be code needed here. I don't quite know yet. -Platonic
+  } // There might be code needed here. I don't quite know yet. -Platonic
 }
 
 /**
@@ -87,11 +92,10 @@ export const autoResearchEnabled = (): boolean => {
  * @returns
  */
 export const buyResearch = (index: number, auto = false, linGrowth = 0, hover = false): boolean => {
-
   // Get our costs, and determine if anything is purchasable.
-  const buyAmount = (player.researchBuyMaxToggle || auto || hover) ? 1e5: 1
+  const buyAmount = (player.researchBuyMaxToggle || auto || hover) ? 1e5 : 1
   const metaData = getResearchCost(index, buyAmount, linGrowth) /* Destructuring FTW! */
-  const canBuy = (player.researchPoints >= metaData.cost)
+  const canBuy = player.researchPoints >= metaData.cost
 
   if (canBuy && isResearchUnlocked(index) && !isResearchMaxed(index)) {
     player.researches[index] = metaData.levelCanBuy
@@ -147,7 +151,7 @@ export const maxRoombaResearchIndex = (p = player) => {
 
 export const isResearchUnlocked = (index: number) => {
   // https://stackoverflow.com/questions/20477177/creating-an-array-of-cumulative-sum-in-javascript
-  const cumuSum = (sum => (value: number) => sum += value)(0)
+  const cumuSum = ((sum) => (value: number) => sum += value)(0)
   const indices = [3 * 25, 5, 20, 10, 15, 15, 15, 15, 15, 15].map(cumuSum)
   const chievos = [50, 124, 127, 134, 141, 183, 197, 204, 211, 218]
   for (let i = 0; i < indices.length; i++) {
@@ -187,7 +191,11 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     DOMCacheGetOrSet('researchcost').style.color = 'limegreen'
     DOMCacheGetOrSet('researchinfo3').style.color = 'white'
     if (player.researches[i] > 0) {
-      updateClassList(p, ['researchPurchased', 'researchPurchasedAvailable'], ['researchAvailable', 'researchMaxed', 'researchUnpurchased'])
+      updateClassList(p, ['researchPurchased', 'researchPurchasedAvailable'], [
+        'researchAvailable',
+        'researchMaxed',
+        'researchUnpurchased'
+      ])
     } else {
       updateClassList(p, ['researchAvailable'], ['researchPurchased', 'researchMaxed', 'researchUnpurchased'])
     }
@@ -200,14 +208,13 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
 
   DOMCacheGetOrSet('researchinfo2').textContent = y
   DOMCacheGetOrSet('researchcost').textContent = z
-  DOMCacheGetOrSet('researchinfo3').textContent =  i18next.t('researches.level', {
+  DOMCacheGetOrSet('researchinfo3').textContent = i18next.t('researches.level', {
     x: player.researches[i],
     y: G.researchMaxLevels[i]
   })
 }
 
 export const updateResearchBG = (j: number) => {
-
   if (player.researches[j] > G.researchMaxLevels[j]) {
     player.researchPoints += (player.researches[j] - G.researchMaxLevels[j]) * G.researchBaseCosts[j]
     player.researches[j] = G.researchMaxLevels[j]

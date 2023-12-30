@@ -59,7 +59,8 @@ export async function handleLogin () {
   const response = await fetch('https://synergism.cc/api/v1/users/me')
 
   if (!response.ok) {
-    currentBonus.textContent = `Oh no! I couldn't fetch the bonus... Please send this to Khafra in the Discord: ${await response.text()}.`
+    currentBonus.textContent =
+      `Oh no! I couldn't fetch the bonus... Please send this to Khafra in the Discord: ${await response.text()}.`
     return
   }
 
@@ -67,7 +68,7 @@ export async function handleLogin () {
 
   player.worlds = new QuarkHandler({
     quarks: Number(player.worlds),
-    bonus: 100 * (1 + globalBonus/100) * (1 + personalBonus/100) - 100 // Multiplicative
+    bonus: 100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100 // Multiplicative
   })
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
@@ -94,13 +95,25 @@ export async function handleLogin () {
 
     subtabElement.innerHTML = `Hello, ${user}!\n
                                Your personal Quark bonus is ${personalBonus}%, computed by the following:
-                               <span style="color: orchid">Transcended Baller</span> [+2%] - ${hasTier1 ? checkMark(2) : exMark}
-                               <span style="color: green">Reincarnated Baller</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
-                               <span style="color: orange">ASCENDED Baller</span> [+4%] - ${hasTier3 ? checkMark(4) : exMark}
-                               <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${hasTier4 ? checkMark(5) : exMark}
-                               <span style="color: #f47fff">Discord Server Booster</span> [+1%] - ${boosted ? checkMark(1) : exMark}
+                               <span style="color: orchid">Transcended Baller</span> [+2%] - ${
+      hasTier1 ? checkMark(2) : exMark
+    }
+                               <span style="color: green">Reincarnated Baller</span> [+3%] - ${
+      hasTier2 ? checkMark(3) : exMark
+    }
+                               <span style="color: orange">ASCENDED Baller</span> [+4%] - ${
+      hasTier3 ? checkMark(4) : exMark
+    }
+                               <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${
+      hasTier4 ? checkMark(5) : exMark
+    }
+                               <span style="color: #f47fff">Discord Server Booster</span> [+1%] - ${
+      boosted ? checkMark(1) : exMark
+    }
                                And Finally...
-                               <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${checkMark(1)}
+                               <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${
+      checkMark(1)
+    }
 
                                The current maximum is 16%, by being a Discord server booster and an OMEGA Baller on Patreon!
                               

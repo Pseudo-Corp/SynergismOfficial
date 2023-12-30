@@ -1,10 +1,10 @@
-import { player, format } from './Synergism'
-import { Globals as G } from './Variables'
-import { CalcECC } from './Challenges'
-import { calculateRuneLevels } from './Calculate'
+import i18next from 'i18next'
 import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import i18next from 'i18next'
+import { calculateRuneLevels } from './Calculate'
+import { CalcECC } from './Challenges'
+import { format, player } from './Synergism'
+import { Globals as G } from './Variables'
 
 const talismanResourceCosts = {
   shard: {
@@ -51,27 +51,33 @@ export const calculateMaxTalismanLevel = (i: number) => {
   return maxLevel
 }
 
-const getTalismanResourceInfo = (type: keyof typeof talismanResourceCosts, percentage = player.buyTalismanShardPercent) => {
+const getTalismanResourceInfo = (
+  type: keyof typeof talismanResourceCosts,
+  percentage = player.buyTalismanShardPercent
+) => {
   const obtainiumCost = talismanResourceCosts[type].obtainium
   const offeringCost = talismanResourceCosts[type].offerings
 
   const maxBuyObtainium = Math.max(1, Math.floor(player.researchPoints / obtainiumCost))
-  const maxBuyOffering = Math.max(1, Math.floor(player.runeshards / (offeringCost)))
+  const maxBuyOffering = Math.max(1, Math.floor(player.runeshards / offeringCost))
   const amountToBuy = Math.max(1, Math.floor(percentage / 100 * Math.min(maxBuyObtainium, maxBuyOffering)))
   const canBuy = (obtainiumCost <= player.researchPoints && offeringCost <= player.runeshards) ? true : false
   return {
-    canBuy, //Boolean, if false will not buy any fragments
-    buyAmount: amountToBuy, //Integer, will buy as specified above.
-    obtainiumCost: obtainiumCost * amountToBuy, //Integer, cost in obtainium to buy (buyAmount) resource
-    offeringCost: offeringCost * amountToBuy //Integer, cost in offerings to buy (buyAmount) resource
+    canBuy, // Boolean, if false will not buy any fragments
+    buyAmount: amountToBuy, // Integer, will buy as specified above.
+    obtainiumCost: obtainiumCost * amountToBuy, // Integer, cost in obtainium to buy (buyAmount) resource
+    offeringCost: offeringCost * amountToBuy // Integer, cost in offerings to buy (buyAmount) resource
   }
 }
 
-export const updateTalismanCostDisplay = (type: keyof typeof talismanResourceCosts | null, percentage = player.buyTalismanShardPercent) => {
+export const updateTalismanCostDisplay = (
+  type: keyof typeof talismanResourceCosts | null,
+  percentage = player.buyTalismanShardPercent
+) => {
   const el = DOMCacheGetOrSet('talismanFragmentCost')
   if (type) {
     const talismanCostInfo = getTalismanResourceInfo(type, percentage)
-    const talismanShardName = i18next.t('runes.talismans.shards.' + type)
+    const talismanShardName = i18next.t(`runes.talismans.shards.${type}`)
 
     el.textContent = i18next.t('runes.talismans.costToBuy', {
       name: talismanShardName,
@@ -116,13 +122,24 @@ export const updateTalismanInventory = () => {
 }
 
 export const buyAllTalismanResources = () => {
-  const talismanItemNames = ['shard', 'commonFragment', 'uncommonFragment', 'rareFragment', 'epicFragment', 'legendaryFragment', 'mythicalFragment'] as const
+  const talismanItemNames = [
+    'shard',
+    'commonFragment',
+    'uncommonFragment',
+    'rareFragment',
+    'epicFragment',
+    'legendaryFragment',
+    'mythicalFragment'
+  ] as const
   for (let index = talismanItemNames.length - 1; index >= 0; index--) {
     buyTalismanResources(talismanItemNames[index])
   }
 }
 
-export const buyTalismanResources = (type: keyof typeof talismanResourceCosts, percentage = player.buyTalismanShardPercent) => {
+export const buyTalismanResources = (
+  type: keyof typeof talismanResourceCosts,
+  percentage = player.buyTalismanShardPercent
+) => {
   const talismanResourcesData = getTalismanResourceInfo(type, percentage)
 
   if (talismanResourcesData.canBuy) {
@@ -203,16 +220,23 @@ export const showTalismanEffect = (i: number) => {
       break
   }
 
-  const runeEffectName = `talisman${i + 1}Effect` as 'talisman1Effect' | 'talisman2Effect' | 'talisman3Effect' | 'talisman4Effect' | 'talisman5Effect' | 'talisman6Effect' | 'talisman7Effect'
+  const runeEffectName = `talisman${i + 1}Effect` as
+    | 'talisman1Effect'
+    | 'talisman2Effect'
+    | 'talisman3Effect'
+    | 'talisman4Effect'
+    | 'talisman5Effect'
+    | 'talisman6Effect'
+    | 'talisman7Effect'
 
-  a.textContent = i18next.t('runes.talismans.summaries.' + talismanKey)
-  b.textContent = i18next.t('runes.talismans.effects.' + talismanKey, { x: effectValue })
+  a.textContent = i18next.t(`runes.talismans.summaries.${talismanKey}`)
+  b.textContent = i18next.t(`runes.talismans.effects.${talismanKey}`, { x: effectValue })
   c.textContent = i18next.t('runes.talismans.bonusRuneLevels.speed', { x: format(G[runeEffectName][1], 2, true) })
   d.textContent = i18next.t('runes.talismans.bonusRuneLevels.duplication', { x: format(G[runeEffectName][2], 2, true) })
   e.textContent = i18next.t('runes.talismans.bonusRuneLevels.prism', { x: format(G[runeEffectName][3], 2, true) })
   f.textContent = i18next.t('runes.talismans.bonusRuneLevels.thrift', { x: format(G[runeEffectName][4], 2, true) })
   g.textContent = i18next.t('runes.talismans.bonusRuneLevels.SI', { x: format(G[runeEffectName][5], 2, true) })
-  h.textContent = i18next.t('runes.talismans.mythicEffects.' + talismanKey)
+  h.textContent = i18next.t(`runes.talismans.mythicEffects.${talismanKey}`)
 
   if (player.talismanRarity[i] !== 6) {
     h.textContent = i18next.t('runes.talismans.maxEnhance')
@@ -268,9 +292,16 @@ export const showEnhanceTalismanPrices = (i: number) => {
   DOMCacheGetOrSet('talismanLevelUpSummary').textContent = i18next.t('runes.resourcesToEnhance')
   DOMCacheGetOrSet('talismanLevelUpSummary').style.color = 'gold'
 
-  const array = [G.commonTalismanEnhanceCost, G.uncommonTalismanEnchanceCost, G.rareTalismanEnchanceCost, G.epicTalismanEnhanceCost, G.legendaryTalismanEnchanceCost, G.mythicalTalismanEnchanceCost]
+  const array = [
+    G.commonTalismanEnhanceCost,
+    G.uncommonTalismanEnchanceCost,
+    G.rareTalismanEnchanceCost,
+    G.epicTalismanEnhanceCost,
+    G.legendaryTalismanEnchanceCost,
+    G.mythicalTalismanEnchanceCost
+  ]
   const index = player.talismanRarity[i]
-  const costArray = array[index-1]
+  const costArray = array[index - 1]
   const m = G.talismanLevelCostMultiplier[i]
   a.textContent = format(m * costArray[1])
   b.textContent = format(m * costArray[2])
@@ -305,12 +336,14 @@ export const showRespecInformation = (i: number) => {
     const el = DOMCacheGetOrSet(`talismanRespecButton${j}`)
     if (G.mirrorTalismanStats[j] === 1) {
       el.style.border = '2px solid limegreen'
-      runeModifier[j-1] = 'positive'
+      runeModifier[j - 1] = 'positive'
     } else if (G.mirrorTalismanStats[j] === -1) {
       el.style.border = '2px solid crimson'
-      runeModifier[j-1] = 'negative'
+      runeModifier[j - 1] = 'negative'
     }
-    el.textContent = i18next.t(`runes.talismans.modifiers.${runeModifier[j-1]}`, { name: i18next.t(`runes.names.${runeName[j-1]}`) })
+    el.textContent = i18next.t(`runes.talismans.modifiers.${runeModifier[j - 1]}`, {
+      name: i18next.t(`runes.names.${runeName[j - 1]}`)
+    })
   }
 
   DOMCacheGetOrSet('confirmTalismanRespec').style.display = 'none'
@@ -320,11 +353,11 @@ export const changeTalismanModifier = (i: number) => {
   const runeName = [null, 'speed', 'duplication', 'prism', 'thrift', 'SI']
   const el = DOMCacheGetOrSet(`talismanRespecButton${i}`)
   if (G.mirrorTalismanStats[i] === 1) {
-    G.mirrorTalismanStats[i] = (-1)
+    G.mirrorTalismanStats[i] = -1
     el.textContent = i18next.t('runes.talismans.modifiers.negative', { name: i18next.t(`runes.names.${runeName[i]}`) })
     el.style.border = '2px solid crimson'
   } else {
-    G.mirrorTalismanStats[i] = (1)
+    G.mirrorTalismanStats[i] = 1
     el.textContent = i18next.t('runes.talismans.modifiers.positive', { name: i18next.t(`runes.names.${runeName[i]}`) })
     el.style.border = '2px solid limegreen'
   }
@@ -370,7 +403,7 @@ export const respecTalismanCancel = (i: number) => {
 }
 
 export const updateTalismanAppearance = (i: number) => {
-  const el = DOMCacheGetOrSet(`talisman${i+1}`)
+  const el = DOMCacheGetOrSet(`talisman${i + 1}`)
   const la = DOMCacheGetOrSet(`talisman${i + 1}level`)
 
   const rarity = player.talismanRarity[i]
@@ -425,37 +458,63 @@ export const buyTalismanLevels = (i: number, auto = false): boolean => {
     }
 
     if (player.talismanLevels[i] < calculateMaxTalismanLevel(i)) {
-      if (player.talismanShards >= priceMult * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i], 3)))) {
+      if (
+        player.talismanShards >= priceMult * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i], 3)))
+      ) {
         checkSum++
       }
-      if (player.commonFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 32 * Math.pow(player.talismanLevels[i] - 30, 3)))) {
+      if (
+        player.commonFragments
+          >= priceMult * Math.max(0, Math.floor(1 + 1 / 32 * Math.pow(player.talismanLevels[i] - 30, 3)))
+      ) {
         checkSum++
       }
-      if (player.uncommonFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 384 * Math.pow(player.talismanLevels[i] - 60, 3)))) {
+      if (
+        player.uncommonFragments
+          >= priceMult * Math.max(0, Math.floor(1 + 1 / 384 * Math.pow(player.talismanLevels[i] - 60, 3)))
+      ) {
         checkSum++
       }
-      if (player.rareFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 500 * Math.pow(player.talismanLevels[i] - 90, 3)))) {
+      if (
+        player.rareFragments
+          >= priceMult * Math.max(0, Math.floor(1 + 1 / 500 * Math.pow(player.talismanLevels[i] - 90, 3)))
+      ) {
         checkSum++
       }
-      if (player.epicFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 375 * Math.pow(player.talismanLevels[i] - 120, 3)))) {
+      if (
+        player.epicFragments
+          >= priceMult * Math.max(0, Math.floor(1 + 1 / 375 * Math.pow(player.talismanLevels[i] - 120, 3)))
+      ) {
         checkSum++
       }
-      if (player.legendaryFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 192 * Math.pow(player.talismanLevels[i] - 150, 3)))) {
+      if (
+        player.legendaryFragments
+          >= priceMult * Math.max(0, Math.floor(1 + 1 / 192 * Math.pow(player.talismanLevels[i] - 150, 3)))
+      ) {
         checkSum++
       }
-      if (player.mythicalFragments >= priceMult * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i] - 150, 3)))) {
+      if (
+        player.mythicalFragments
+          >= priceMult * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i] - 150, 3)))
+      ) {
         checkSum++
       }
     }
 
     if (checkSum === 7) {
       player.talismanShards -= priceMult * Math.max(0, Math.floor(1 + 1 / 8 * Math.pow(player.talismanLevels[i], 3)))
-      player.commonFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 32 * Math.pow(player.talismanLevels[i] - 30, 3)))
-      player.uncommonFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 384 * Math.pow(player.talismanLevels[i] - 60, 3)))
-      player.rareFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 500 * Math.pow(player.talismanLevels[i] - 90, 3)))
-      player.epicFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 375 * Math.pow(player.talismanLevels[i] - 120, 3)))
-      player.legendaryFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 192 * Math.pow(player.talismanLevels[i] - 150, 3)))
-      player.mythicalFragments -= priceMult * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i] - 150, 3)))
+      player.commonFragments -= priceMult
+        * Math.max(0, Math.floor(1 + 1 / 32 * Math.pow(player.talismanLevels[i] - 30, 3)))
+      player.uncommonFragments -= priceMult
+        * Math.max(0, Math.floor(1 + 1 / 384 * Math.pow(player.talismanLevels[i] - 60, 3)))
+      player.rareFragments -= priceMult
+        * Math.max(0, Math.floor(1 + 1 / 500 * Math.pow(player.talismanLevels[i] - 90, 3)))
+      player.epicFragments -= priceMult
+        * Math.max(0, Math.floor(1 + 1 / 375 * Math.pow(player.talismanLevels[i] - 120, 3)))
+      player.legendaryFragments -= priceMult
+        * Math.max(0, Math.floor(1 + 1 / 192 * Math.pow(player.talismanLevels[i] - 150, 3)))
+      player.mythicalFragments -= priceMult
+        * Math.max(0, Math.floor(1 + 1 / 1280 * Math.pow(player.talismanLevels[i] - 150, 3)))
       player.talismanLevels[i] += 1
       hasPurchased = true
     } else {
@@ -477,7 +536,14 @@ export const buyTalismanEnhance = (i: number, auto = false): boolean => {
   let checkSum = 0
   if (player.talismanRarity[i] < 6) {
     const priceMult = G.talismanLevelCostMultiplier[i]
-    const array = [G.commonTalismanEnhanceCost, G.uncommonTalismanEnchanceCost, G.rareTalismanEnchanceCost, G.epicTalismanEnhanceCost, G.legendaryTalismanEnchanceCost, G.mythicalTalismanEnchanceCost]
+    const array = [
+      G.commonTalismanEnhanceCost,
+      G.uncommonTalismanEnchanceCost,
+      G.rareTalismanEnchanceCost,
+      G.epicTalismanEnhanceCost,
+      G.legendaryTalismanEnchanceCost,
+      G.mythicalTalismanEnchanceCost
+    ]
     const index = player.talismanRarity[i] - 1
     const costArray = array[index]
     if (player.commonFragments >= priceMult * costArray[2]) {
@@ -499,14 +565,13 @@ export const buyTalismanEnhance = (i: number, auto = false): boolean => {
       checkSum++
     }
 
-
     if (checkSum === 6) {
-      player.commonFragments -= (priceMult * costArray[2])
-      player.uncommonFragments -= (priceMult * costArray[3])
-      player.rareFragments -= (priceMult * costArray[4])
-      player.epicFragments -= (priceMult * costArray[5])
-      player.legendaryFragments -= (priceMult * costArray[6])
-      player.mythicalFragments -= (priceMult * costArray[7])
+      player.commonFragments -= priceMult * costArray[2]
+      player.uncommonFragments -= priceMult * costArray[3]
+      player.rareFragments -= priceMult * costArray[4]
+      player.epicFragments -= priceMult * costArray[5]
+      player.legendaryFragments -= priceMult * costArray[6]
+      player.mythicalFragments -= priceMult * costArray[7]
       player.talismanRarity[i] += 1
 
       // Appearance always needs updating if bought

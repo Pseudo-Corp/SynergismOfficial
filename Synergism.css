@@ -679,12 +679,12 @@ button.isEvent:hover {
 }
 
 .subTabWrapper {
-    display: flex;
-    flex-direction: row;
-    flex-flow: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 145px);
     justify-content: center;
-    margin-top: 15px;
     gap: 10px 15px;
+    width: 90%;
+    margin: 15px auto 0;
 }
 
 .subTabWrapper > button {
