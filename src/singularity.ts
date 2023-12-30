@@ -2203,6 +2203,9 @@ export const calculateSingularityDebuff = (
 
   let constitutiveSingularityCount = singularityCount
   constitutiveSingularityCount -= player.shopUpgrades.shopSingularityPenaltyDebuff
+  if (constitutiveSingularityCount < 1) {
+    return 1
+  }
 
   const effectiveSingularities = calculateEffectiveSingularities(constitutiveSingularityCount)
 

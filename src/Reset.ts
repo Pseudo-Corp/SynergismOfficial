@@ -82,7 +82,7 @@ export const resetdetails = (input: resetNames) => {
     resetObtainiumText.textContent = ''
   }
 
-  ;(input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity')
+  ; (input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity')
     ? offeringImage.style.display = offeringText.style.display = 'none'
     : offeringImage.style.display = offeringText.style.display = 'block'
 
@@ -590,6 +590,16 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.antSacrificePoints = 0
     player.antSacrificeTimer = 0
     player.antSacrificeTimerReal = 0
+    player.sacrificeTimer = 0
+    // Ascension early automation timer
+    if (player.autoSacrificeToggle) {
+      player.sacrificeTimer = 0.9
+    }
+    if (player.autoAntSacrifice && player.autoAntSacrificeMode === 2) {
+      player.antSacrificeTimer = Math.max(0, player.autoAntSacTimer - 0.1)
+      player.antSacrificeTimerReal = player.antSacrificeTimer
+    }
+
     player.antUpgrades[12 - 1] = 0
     for (let j = 61; j <= 80; j++) {
       player.upgrades[j] = 0
@@ -733,7 +743,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       if (index >= 2 && index <= 9) {
         return Math.min(
           maxLevel * (player.challengecompletions[corrChallengeMinimum(index)] > 0
-              || player.singularityUpgrades.platonicTau.getEffect().bonus
+            || player.singularityUpgrades.platonicTau.getEffect().bonus
             ? 1
             : 0),
           curr

@@ -622,12 +622,12 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     )
     player.worlds.add(
       150 * shop.offeringAutoLevel + 25 / 2 * (shop.offeringAutoLevel - 1) * shop.offeringAutoLevel
-        - 150 * Math.min(1, shop.offeringAutoLevel),
+      - 150 * Math.min(1, shop.offeringAutoLevel),
       false
     )
     player.worlds.add(
       150 * shop.obtainiumAutoLevel + 25 / 2 * (shop.obtainiumAutoLevel - 1) * shop.obtainiumAutoLevel
-        - 150 * Math.min(1, shop.obtainiumAutoLevel),
+      - 150 * Math.min(1, shop.obtainiumAutoLevel),
       false
     )
     player.worlds.add(100 * shop.cashGrabLevel + 100 / 2 * (shop.cashGrabLevel - 1) * shop.cashGrabLevel, false)
@@ -720,17 +720,17 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     player.loadedV253 = true
     player.worlds.add(
       10000 * player.shopUpgrades.calculator
-        + 10000 / 2 * (player.shopUpgrades.calculator - 1) * (player.shopUpgrades.calculator),
+      + 10000 / 2 * (player.shopUpgrades.calculator - 1) * (player.shopUpgrades.calculator),
       false
     )
     player.worlds.add(
       10000 * player.shopUpgrades.calculator2
-        + 5000 / 2 * (player.shopUpgrades.calculator2 - 1) * (player.shopUpgrades.calculator2),
+      + 5000 / 2 * (player.shopUpgrades.calculator2 - 1) * (player.shopUpgrades.calculator2),
       false
     )
     player.worlds.add(
       25000 * player.shopUpgrades.calculator3
-        + 25000 / 2 * (player.shopUpgrades.calculator3 - 1) * (player.shopUpgrades.calculator3),
+      + 25000 / 2 * (player.shopUpgrades.calculator3 - 1) * (player.shopUpgrades.calculator3),
       false
     )
     player.shopUpgrades.calculator = 0
@@ -744,7 +744,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     player.loadedV255 = true
     player.worlds.add(
       1000 * player.shopUpgrades.powderEX
-        + 1000 / 2 * (player.shopUpgrades.powderEX - 1) * (player.shopUpgrades.powderEX),
+      + 1000 / 2 * (player.shopUpgrades.powderEX - 1) * (player.shopUpgrades.powderEX),
       false
     )
     player.shopUpgrades.powderEX = 0
@@ -824,7 +824,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         if (
           player.singularityUpgrades[k].maxLevel !== -1
           && player.singularityUpgrades[k].level <= player.singularityUpgrades[k].maxLevel
-          && player.singularityUpgrades[k].goldenQuarksInvested !== cost
+          && player.singularityUpgrades[k].goldenQuarksInvested.toExponential(10) !== cost.toExponential(10)
           && player.singularityUpgrades[k].specialCostForm === 'Default'
         ) {
           player.singularityUpgrades[k].refund()

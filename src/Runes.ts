@@ -148,7 +148,7 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
     const mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)
     while (toSpendTotal > 0 && levelsAdded < levelsToAdd && player.runelevels[runeIndex] < maxLevel) {
       const exp = calculateRuneExpToLevel(runeIndex, player.runelevels[runeIndex]) - player.runeexp[runeIndex]
-      const expPerOff = (add + a * player.runelevels[runeIndex]) * mult
+      const expPerOff = Math.min(1e300, (add + a * player.runelevels[runeIndex]) * mult)
       let toSpend = Math.min(toSpendTotal, Math.ceil(exp / expPerOff))
       if (isNaN(toSpend)) {
         toSpend = toSpendTotal
@@ -177,7 +177,9 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
         }
       }
     }
-    displayRuneInformation(runeIndexPlusOne)
+    if (!auto) {
+      displayRuneInformation(runeIndexPlusOne)
+    }
   }
   calculateRuneLevels()
   if (player.runeshards < 0 || !player.runeshards) {
