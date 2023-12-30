@@ -432,10 +432,6 @@ export const revealStuff = () => {
     DOMCacheGetOrSet('runeshowpower7').style.display = 'none'
   }
 
-  player.highestSingularityCount > 0
-    ? (DOMCacheGetOrSet('singularitytab').style.display = 'block')
-    : (DOMCacheGetOrSet('singularitytab').style.display = 'none')
-
   player.highestSingularityCount > 0 // Save Offerings
     ? DOMCacheGetOrSet('saveOffToggle').style.display = 'block'
     : DOMCacheGetOrSet('saveOffToggle').style.display = 'none'
@@ -481,10 +477,6 @@ export const revealStuff = () => {
     : (DOMCacheGetOrSet('heptnotificationpic').style.display = 'none')
 
   DOMCacheGetOrSet('warpAuto').style.display = player.shopUpgrades.autoWarp > 0 ? '' : 'none'
-
-  if (player.unlocks.reincarnate || player.highestSingularityCount > 0) {
-    DOMCacheGetOrSet('shoptab').style.display = 'block'
-  }
 
   const octeractUnlocks = document.getElementsByClassName('octeracts') as HTMLCollectionOf<HTMLElement>
   for (const item of Array.from(octeractUnlocks)) { // Stuff that you need octeracts to access

@@ -1,4 +1,5 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { pressedKeys } from './Hotkeys'
 import { player } from './Synergism'
 import {
   setActiveSettingScreen,
@@ -8,7 +9,7 @@ import {
   toggleRuneScreen,
   toggleSingularityScreen
 } from './Toggles'
-import { hideStuff, revealStuff } from './UpdateHTML'
+import { changeTabColor, hideStuff, revealStuff } from './UpdateHTML'
 import { assert, limitRange } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -330,6 +331,16 @@ class TabRow extends HTMLDivElement {
     return this.#list[index - 1] ?? this.#list[this.#list.length - 1]
   }
 
+  reappend () {
+    this.replaceChildren()
+
+    for (const item of this.#list) {
+      this.appendChild(item)
+    }
+
+    this.#list.forEach((el) => el.resetHidden())
+  }
+
   #createDrag () {
     let dragSrcEl: HTMLElement | null = null
 
@@ -401,6 +412,8 @@ interface kSubTabOptionsBag {
 class $Tab extends HTMLButtonElement {
   #unlocked = () => true
   #type!: Tabs
+  #removeable = false
+  #hidden = false
 
   constructor (options: kSubTabOptionsBag) {
     super()
@@ -415,6 +428,19 @@ class $Tab extends HTMLButtonElement {
     if (options.borderColor) {
       this.style.borderColor = options.borderColor
     }
+
+    this.addEventListener('click', () => {
+      if (this.#removeable && pressedKeys.has('ControlLeft') && pressedKeys.has('KeyX')) {
+        // When clicking on a tab while holding CTRL + X
+        if (G.currentTab !== this.#type) {
+          tabRow.removeChild(this)
+          this.#hidden = true
+        }
+      } else {
+        changeTab(this.#type)
+        changeTabColor()
+      }
+    })
   }
 
   setUnlockedState (fn: () => boolean) {
@@ -423,13 +449,11 @@ class $Tab extends HTMLButtonElement {
   }
 
   isUnlocked () {
-    return this.#unlocked()
+    return this.#unlocked() && !this.#hidden
   }
 
   setType (type: Tabs) {
     this.#type = type
-    this.addEventListener('click', () => changeTab(this.#type))
-
     return this
   }
 
@@ -443,59 +467,86 @@ class $Tab extends HTMLButtonElement {
 
   makeDraggable () {
     this.setAttribute('draggable', 'true')
-
     return this
+  }
+
+  makeRemoveable () {
+    this.#removeable = true
+    return this
+  }
+
+  resetHidden() {
+    this.#hidden = false
   }
 }
 
 customElements.define('tab-row', TabRow, { extends: 'div' })
 customElements.define('sub-tab', $Tab, { extends: 'button' })
 
-const tabRow = new TabRow()
+export const tabRow = new TabRow()
 
 tabRow.appendButton(
-  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings' }).setType(Tabs.Buildings).makeDraggable(),
-  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades' }).setType(Tabs.Upgrades).makeDraggable(),
+  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings' })
+    .setType(Tabs.Buildings)
+    .makeDraggable()
+    .makeRemoveable(),
+  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades' })
+    .setType(Tabs.Upgrades)
+    .makeDraggable()
+    .makeRemoveable(),
   new $Tab({ id: 'achievementstab', i18n: 'tabs.main.achievements', class: 'coinunlock4' })
     .setUnlockedState(() => player.unlocks.coinfour)
     .setType(Tabs.Achievements)
-    .makeDraggable(),
+    .makeDraggable()
+    .makeRemoveable(),
   new $Tab({ class: 'prestigeunlock', id: 'runestab', i18n: 'tabs.main.runes' })
     .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Runes)
-    .makeDraggable(),
+    .makeDraggable()
+    .makeRemoveable(),
   new $Tab({ class: 'transcendunlock', id: 'challengetab', i18n: 'tabs.main.challenges' })
     .setUnlockedState(() => player.unlocks.transcend)
     .setType(Tabs.Challenges)
-    .makeDraggable(),
+    .makeDraggable()
+    .makeRemoveable(),
   new $Tab({ class: 'reincarnationunlock', id: 'researchtab', i18n: 'tabs.main.research' })
     .setUnlockedState(() => player.unlocks.reincarnate)
     .setType(Tabs.Research)
-    .makeDraggable(),
+    .makeDraggable()
+    .makeRemoveable(),
   new $Tab({ class: 'chal8', id: 'anttab', i18n: 'tabs.main.antHill' })
     .setUnlockedState(() => player.achievements[127] > 0)
     .setType(Tabs.AntHill)
-    .makeDraggable(),
+    .makeDraggable()
+    .makeRemoveable(),
   new $Tab({ class: 'chal10', id: 'cubetab', i18n: 'tabs.main.wowCubes' })
     .setUnlockedState(() => player.achievements[141] > 0)
     .setType(Tabs.WowCubes)
-    .makeDraggable(),
+    .makeDraggable()
+    .makeRemoveable(),
   new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
     .setUnlockedState(() => player.challengecompletions[11] > 0)
     .setType(Tabs.Corruption)
-    .makeDraggable(),
+    .makeDraggable()
+    .makeRemoveable(),
   new $Tab({ class: 'singularity', id: 'singularitytab', i18n: 'tabs.main.singularity' })
     .setUnlockedState(() => player.highestSingularityCount > 0)
     .setType(Tabs.Singularity)
+    .makeDraggable()
+    .makeRemoveable(),
+  new $Tab({ id: 'settingstab', i18n: 'tabs.main.settings' })
+    .setType(Tabs.Settings)
     .makeDraggable(),
-  new $Tab({ id: 'settingstab', i18n: 'tabs.main.settings' }).setType(Tabs.Settings).makeDraggable(),
   new $Tab({ class: 'reincarnationunlock', id: 'shoptab', i18n: 'tabs.main.shop' })
     .setUnlockedState(() => player.unlocks.reincarnate || player.highestSingularityCount > 0)
-    .setType(Tabs.Shop).makeDraggable(),
+    .setType(Tabs.Shop)
+    .makeDraggable()
+    .makeRemoveable(),
   new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith' })
     .setUnlockedState(() => G.isEvent)
     .setType(Tabs.Event)
     .makeDraggable()
+    .makeRemoveable()
 )
 
 /**

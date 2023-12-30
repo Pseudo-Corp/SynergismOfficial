@@ -117,7 +117,7 @@ import {
   updateRuneBlessingBuyAmount
 } from './Toggles'
 import type { OneToFive, Player } from './types/Synergism'
-import { changeTabColor, Confirm } from './UpdateHTML'
+import { Confirm } from './UpdateHTML'
 import { shopMouseover } from './UpdateVisuals'
 import {
   buyConstantUpgrades,
@@ -957,9 +957,6 @@ TODO: Fix this entire tab it's utter shit
       () => changeSubTab(Tabs.Singularity, { page: index })
     )
   }
-
-  const tabs = document.querySelectorAll<HTMLElement>('#tabrow > button')
-  tabs.forEach((b) => b.addEventListener('click', () => changeTabColor()))
 
   // EVENT TAB (Replace as events are created)
   DOMCacheGetOrSet('unsmith').addEventListener('click', () => clickSmith())

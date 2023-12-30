@@ -4,12 +4,12 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { promocodes } from './ImportExport'
 import { useConsumable } from './Shop'
 import { player, resetCheck, synergismHotkeys } from './Synergism'
-import { keyboardTabChange as kbTabChange, Tabs } from './Tabs'
+import { keyboardTabChange as kbTabChange, tabRow, Tabs } from './Tabs'
 import { confirmReply, toggleAutoChallengeRun, toggleCorruptionLevel } from './Toggles'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
-export const defaultHotkeys = new Map<string, [string, () => unknown, boolean]>([
+export const defaultHotkeys = new Map<string, [string, () => unknown, /* hide during notification */ boolean]>([
   ['A', ['Buy Accelerators', () => buyAccelerator(), false]],
   ['B', ['Boost Accelerator', () => boostAccelerator(), false]],
   ['C', ['Auto Challenge', () => {
@@ -39,7 +39,8 @@ export const defaultHotkeys = new Map<string, [string, () => unknown, boolean]>(
   ['SHIFT+E', ['Exit Asc. Challenge', () => resetCheck('ascensionChallenge'), false]], // Its already checks if inside Asc. Challenge
   ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion'), false]],
   ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion'), false]],
-  ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity'), false]]
+  ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity'), false]],
+  ['CTRL+B', ['Un-hide Tabs', () => tabRow.reappend(), false]]
 ])
 
 export let hotkeysEnabled = false
@@ -92,6 +93,7 @@ const eventHotkeys = (event: KeyboardEvent): void => {
   if (event.altKey) {
     keyPrefix += 'ALT+'
   }
+
   const key = keyPrefix + event.key.toUpperCase()
 
   // Disable the TAB key as it may allow unexpected operations
@@ -252,4 +254,12 @@ export const resetHotkeys = async () => {
   }
 }
 
-document.addEventListener('keydown', eventHotkeys)
+export const pressedKeys = new Set<string>()
+
+document.addEventListener('keydown', (event) => {
+  eventHotkeys(event)
+
+  pressedKeys.add(event.code)
+})
+
+document.addEventListener('keyup', (event) => pressedKeys.delete(event.code))
