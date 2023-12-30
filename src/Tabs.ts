@@ -360,6 +360,12 @@ class TabRow extends HTMLDivElement {
 
       if (dragSrcEl !== e.target && dragSrcEl !== null) {
         this.insertBefore(dragSrcEl, e.target as HTMLElement)
+
+        const dragIndex = this.#list.indexOf(dragSrcEl as $Tab)
+        const targetIndex = this.#list.indexOf(e.target as $Tab)
+
+        this.#list.splice(targetIndex, 0, this.#list[dragIndex])
+        this.#list.splice(this.#list.indexOf(dragSrcEl as $Tab, dragIndex), 1)
       }
 
       return false
