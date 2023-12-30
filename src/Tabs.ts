@@ -297,6 +297,7 @@ class TabRow extends HTMLDivElement {
     }
 
     this.#currentTab = this.#list[0]
+    this.#createDrag()
   }
 
   getCurrentTab (): $Tab {
@@ -328,6 +329,64 @@ class TabRow extends HTMLDivElement {
 
     return this.#list[index - 1] ?? this.#list[this.#list.length - 1]
   }
+
+  #createDrag() {
+    let dragSrcEl: HTMLElement | null = null
+
+    function handleDragStart (e: DragEvent) {
+      this.style.opacity = '0.4'
+
+      dragSrcEl = this
+
+      e.dataTransfer.effectAllowed = 'move'
+    }
+
+    function handleDragOver (e) {
+      if (e.preventDefault) {
+        e.preventDefault()
+      }
+
+      e.dataTransfer.dropEffect = 'move'
+
+      return false
+    }
+
+    function handleDragEnter (e) {
+      this.classList.add('over')
+    }
+
+    function handleDragLeave (e) {
+      this.classList.remove('over')
+    }
+
+    const handleDrop = (e) => {
+      e.stopPropagation() // stops the browser from redirecting.
+
+      if (dragSrcEl !== this) {
+        this.insertBefore(dragSrcEl, e.target)
+      }
+
+      return false
+    }
+
+    const handleDragEnd = (e) => {
+      e.target.style.opacity = '1'
+
+      this.#list.forEach((item) => {
+        item.classList.remove('over')
+      })
+    }
+
+    this.#list.forEach((item) => {
+      item.addEventListener('dragstart', handleDragStart, false)
+      item.addEventListener('dragenter', handleDragEnter, false)
+      item.addEventListener('dragover', handleDrop, false)
+      item.addEventListener('dragleave', handleDragLeave, false)
+      item.addEventListener('drop', handleDrop, false)
+      item.addEventListener('dragend', handleDragEnd, false)
+    })
+
+  }
 }
 
 interface kSubTabOptionsBag {
@@ -340,6 +399,7 @@ interface kSubTabOptionsBag {
 class $Tab extends HTMLButtonElement {
   #unlocked = () => true
   #type!: Tabs
+  element: any
 
   constructor (options: kSubTabOptionsBag) {
     super()
@@ -379,6 +439,12 @@ class $Tab extends HTMLButtonElement {
   getSubTabs () {
     return subtabInfo[this.#type]
   }
+
+  makeDraggable () {
+    this.setAttribute('draggable', 'true')
+
+    return this
+  }
 }
 
 customElements.define('tab-row', TabRow, { extends: 'div' })
@@ -387,39 +453,47 @@ customElements.define('sub-tab', $Tab, { extends: 'button' })
 const tabRow = new TabRow()
 
 tabRow.appendButton(
-  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings' }).setType(Tabs.Buildings),
-  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades' }).setType(Tabs.Upgrades),
+  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings' }).setType(Tabs.Buildings).makeDraggable(),
+  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades' }).setType(Tabs.Upgrades).makeDraggable(),
   new $Tab({ id: 'achievementstab', i18n: 'tabs.main.achievements', class: 'coinunlock4' })
     .setUnlockedState(() => player.unlocks.coinfour)
-    .setType(Tabs.Achievements),
+    .setType(Tabs.Achievements)
+    .makeDraggable(),
   new $Tab({ class: 'prestigeunlock', id: 'runestab', i18n: 'tabs.main.runes' })
     .setUnlockedState(() => player.unlocks.prestige)
-    .setType(Tabs.Runes),
+    .setType(Tabs.Runes)
+    .makeDraggable(),
   new $Tab({ class: 'transcendunlock', id: 'challengetab', i18n: 'tabs.main.challenges' })
     .setUnlockedState(() => player.unlocks.transcend)
-    .setType(Tabs.Challenges),
+    .setType(Tabs.Challenges)
+    .makeDraggable(),
   new $Tab({ class: 'reincarnationunlock', id: 'researchtab', i18n: 'tabs.main.research' })
     .setUnlockedState(() => player.unlocks.reincarnate)
-    .setType(Tabs.Research),
+    .setType(Tabs.Research)
+    .makeDraggable(),
   new $Tab({ class: 'chal8', id: 'anttab', i18n: 'tabs.main.antHill' })
     .setUnlockedState(() => player.achievements[127] > 0)
-    .setType(Tabs.AntHill),
+    .setType(Tabs.AntHill)
+    .makeDraggable(),
   new $Tab({ class: 'chal10', id: 'cubetab', i18n: 'tabs.main.wowCubes' })
     .setUnlockedState(() => player.achievements[141] > 0)
-    .setType(Tabs.WowCubes),
+    .setType(Tabs.WowCubes)
+    .makeDraggable(),
   new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
     .setUnlockedState(() => player.challengecompletions[11] > 0)
     .setType(Tabs.Corruption),
   new $Tab({ class: 'singularity', id: 'singularitytab', i18n: 'tabs.main.singularity' })
     .setUnlockedState(() => player.highestSingularityCount > 0)
-    .setType(Tabs.Singularity),
-  new $Tab({ id: 'settingstab', i18n: 'tabs.main.settings' }).setType(Tabs.Settings),
+    .setType(Tabs.Singularity)
+    .makeDraggable(),
+  new $Tab({ id: 'settingstab', i18n: 'tabs.main.settings' }).setType(Tabs.Settings).makeDraggable(),
   new $Tab({ class: 'reincarnationunlock', id: 'shoptab', i18n: 'tabs.main.shop' })
     .setUnlockedState(() => player.unlocks.reincarnate || player.highestSingularityCount > 0)
-    .setType(Tabs.Shop),
+    .setType(Tabs.Shop).makeDraggable(),
   new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith' })
     .setUnlockedState(() => G.isEvent)
     .setType(Tabs.Event)
+    .makeDraggable()
 )
 
 /**
