@@ -538,6 +538,25 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       'ambrosiaLuck2': 40
     }
   },
+  ambrosiaMultiplication1: {
+    maxLevel: 3,
+    costPerLevel: 300000,
+    blueberryCost: 3,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost + 100000 * level
+    },
+    rewards: (n: number) => {
+      const val = (n > 0)
+      return {
+        luckMultiplier: n + 1,
+        generationMultiplier: val ? 0.5 : 1,
+        desc: String(i18next.t('ambrosia.data.ambrosiaMultiplication1.effect', { bool: val? 'active' : 'inactive', amount: format(100 * n, 0, true) }))
+      }
+    },
+    prerequisites: {
+      'ambrosiaLuck2': 40
+    }
+  },
   ambrosiaChallenge1: {
     maxLevel: 1,
     costPerLevel: 50000,

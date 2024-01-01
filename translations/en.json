@@ -103,6 +103,11 @@
               "description": "The tutorial guy gives you an item which somehow makes Ambrosia Luck half as effective but divides the Generation requirement by 3(!) Dunno how that works.",
               "effect": "The anti four-leaf clover is {{bool}}!"
             },
+            "ambrosiaMultiplication1": {
+              "name": "A heavy four-leaf clover",
+              "description": "[WIP FLAVOR TEXT] Multiplies the Generation Requirement by 2, but for every level increases the effectiveness of Ambrosia Luck by 100% (additive).",
+              "effect": "The heavy four-leaf clover is {{bool}}! Ambrosia Luck is {{amount}}% more effective."
+            },
             "ambrosiaChallenge1": {
               "name": "[CHALLENGE MODULE] Ambrosia Nullifier",
               "description": "Sets your generation requirement to 1,000,000 and disables Ambrosia generation. However, reaching the requirement permanently grants +1% Generation Speed and +4 Ambrosia Luck, capping at 25 fills. Final fill gives 2 Blueberries!",
