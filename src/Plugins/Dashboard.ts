@@ -3,6 +3,7 @@ import { DOMCacheGetOrSet } from '../Cache/DOM'
 import { CalcCorruptionStuff } from '../Calculate'
 import { platUpgradeBaseCosts } from '../Platonic'
 import { format, player } from '../Synergism'
+import { Tabs } from '../Tabs'
 import { toggleAntAutoSacrifice, toggleAutoChallengeRun, toggleAutoResearch, toggleAutoSacrifice } from '../Toggles'
 import { visualUpdateCubes } from '../UpdateVisuals'
 import { getElementById, stripIndents } from '../Utility'
@@ -198,7 +199,7 @@ const renderDashboardSlow = () => {
 }
 
 const renderDashboardFast = () => {
-  if (G.currentTab !== 'settings') {
+  if (G.currentTab !== Tabs.Settings) {
     open = false
     return exitDashboard()
   }
@@ -209,12 +210,12 @@ const renderDashboardFast = () => {
 const openDashboard = () => {
   // compute blessings total amounts
   const n = player.subtabNumber
-  G.currentTab = 'cube'
+  G.currentTab = Tabs.WowCubes
   ;[0, 1, 2, 3].forEach((i) => {
     player.subtabNumber = i
     visualUpdateCubes()
   })
-  G.currentTab = 'settings'
+  G.currentTab = Tabs.Settings
   player.subtabNumber = n
   // render and display dashboard
   renderDashboardFast()

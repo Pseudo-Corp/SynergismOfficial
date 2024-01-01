@@ -18,6 +18,7 @@ import { Synergism } from './Events'
 import type { ResetHistoryEntryAntSacrifice } from './History'
 import { buyResearch } from './Research'
 import { resetAnts } from './Reset'
+import { Tabs } from './Tabs'
 import { updateTalismanInventory } from './Talismans'
 import { clearInterval, setInterval } from './Timers'
 import type { FirstToEighth, ZeroToSeven } from './types/Synergism'
@@ -74,7 +75,7 @@ export const antRepeat = (i: number) => {
 }
 
 export const updateAntDescription = (i: number) => {
-  if (G.currentTab !== 'ant') {
+  if (G.currentTab !== Tabs.AntHill) {
     return
   }
   const el = DOMCacheGetOrSet('anttierdescription')

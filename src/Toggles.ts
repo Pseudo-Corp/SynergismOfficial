@@ -7,7 +7,7 @@ import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } f
 import { autoResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { format, player, resetCheck } from './Synergism'
-import { subTabsInMainTab } from './Tabs'
+import { subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, Player } from './types/Synergism'
 import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
@@ -338,8 +338,8 @@ export const toggleAutoBuyFragment = () => {
   player.autoBuyFragment = !player.autoBuyFragment
 }
 
-export const toggleBuildingScreen = (input: BuildingSubtab) => {
-  G.buildingSubTab = input
+export const toggleBuildingScreen = (input: string) => {
+  G.buildingSubTab = input as BuildingSubtab
   const screen: Record<string, { screen: string; button: string; subtabNumber: number }> = {
     coin: {
       screen: 'coinBuildings',
@@ -367,6 +367,7 @@ export const toggleBuildingScreen = (input: BuildingSubtab) => {
       subtabNumber: 4
     }
   }
+
   for (const key in screen) {
     DOMCacheGetOrSet(screen[key].screen).style.display = 'none'
     DOMCacheGetOrSet(screen[key].button).style.backgroundColor = ''
@@ -376,7 +377,8 @@ export const toggleBuildingScreen = (input: BuildingSubtab) => {
   player.subtabNumber = screen[G.buildingSubTab].subtabNumber
 }
 
-export const toggleRuneScreen = (index: number) => {
+export const toggleRuneScreen = (indexStr: string) => {
+  const index = Number(indexStr)
   const screens = ['runes', 'talismans', 'blessings', 'spirits']
   G.runescreen = screens[index - 1]
 
@@ -442,7 +444,9 @@ export const toggleSaveOff = () => {
   player.saveOfferingToggle = !player.saveOfferingToggle
 }
 
-export const toggleSingularityScreen = (index: number) => {
+export const toggleSingularityScreen = (indexStr: string) => {
+  const index = Number(indexStr)
+
   for (let i = 1; i <= 5; i++) {
     const a = DOMCacheGetOrSet(`toggleSingularitySubTab${i}`)
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
@@ -454,6 +458,7 @@ export const toggleSingularityScreen = (index: number) => {
       b.style.display = 'none'
     }
   }
+
   player.subtabNumber = index - 1
 
   if (player.subtabNumber === 2) {
@@ -487,7 +492,9 @@ interface ChadContributor {
   contributions: number
 }
 
-export const setActiveSettingScreen = async (subtab: string, clickedButton: HTMLButtonElement) => {
+export const setActiveSettingScreen = async (subtab: string) => {
+  const clickedButton =
+    DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[player.subtabNumber]
   const subtabEl = DOMCacheGetOrSet(subtab)
   if (subtabEl.classList.contains('subtabActive')) {
     return
@@ -676,8 +683,9 @@ export const autoPlatonicUpgradesToggle = (toggle = true) => {
   }
 }
 
-export const toggleCubeSubTab = (i: number) => {
-  const numSubTabs = subTabsInMainTab('cube')
+export const toggleCubeSubTab = (indexStr: string) => {
+  const i = Number(indexStr)
+  const numSubTabs = subTabsInMainTab(Tabs.WowCubes)
 
   for (let j = 1; j <= numSubTabs; j++) {
     const cubeTab = DOMCacheGetOrSet(`cubeTab${j}`)
@@ -923,7 +931,8 @@ export const toggleCorruptionLevel = (index: number, value: number) => {
   corruptionLoadoutTableUpdate()
 }
 
-export const toggleCorruptionLoadoutsStats = (stats: boolean) => {
+export const toggleCorruptionLoadoutsStats = (statsStr: string) => {
+  const stats = statsStr === 'true'
   player.corruptionShowStats = stats
   showCorruptionStatsLoadouts()
 }

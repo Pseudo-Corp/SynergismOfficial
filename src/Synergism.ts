@@ -163,7 +163,7 @@ import { QuarkHandler } from './Quark'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import { AmbrosiaGenerationCache, AmbrosiaLuckCache, BlueberryInventoryCache, cacheReinitialize } from './StatCache'
-import { changeSubTab, changeTab } from './Tabs'
+import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 import type { PlayerSave } from './types/LegacySynergism'
@@ -4685,7 +4685,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
     case '5': {
       const num = Number(key) as OneToFive
 
-      if (G.currentTab === 'buildings') {
+      if (G.currentTab === Tabs.Buildings) {
         if (type === 'Particles') {
           buyParticleBuilding(num)
         } else if (type === 'Tesseracts') {
@@ -4694,10 +4694,10 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
           buyMax(num, type)
         }
       }
-      if (G.currentTab === 'upgrades') {
+      if (G.currentTab === Tabs.Upgrades) {
         categoryUpgrades(num, false)
       }
-      if (G.currentTab === 'runes') {
+      if (G.currentTab === Tabs.Runes) {
         if (G.runescreen === 'runes') {
           redeemShards(num)
         }
@@ -4708,7 +4708,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
           buyRuneBonusLevels('Spirits', num)
         }
       }
-      if (G.currentTab === 'challenge') {
+      if (G.currentTab === Tabs.Challenges) {
         toggleChallenges(num)
         challengeDisplay(num)
       }
@@ -4716,49 +4716,49 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
     }
 
     case '6':
-      if (G.currentTab === 'upgrades') {
+      if (G.currentTab === Tabs.Upgrades) {
         categoryUpgrades(6, false)
       }
-      if (G.currentTab === 'buildings' && G.buildingSubTab === 'diamond') {
+      if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(1)
       }
-      if (G.currentTab === 'challenge' && player.reincarnationCount > 0) {
+      if (G.currentTab === Tabs.Challenges && player.reincarnationCount > 0) {
         toggleChallenges(6)
         challengeDisplay(6)
       }
       break
     case '7':
-      if (G.currentTab === 'buildings' && G.buildingSubTab === 'diamond') {
+      if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(2)
       }
-      if (G.currentTab === 'challenge' && player.achievements[113] === 1) {
+      if (G.currentTab === Tabs.Buildings && player.achievements[113] === 1) {
         toggleChallenges(7)
         challengeDisplay(7)
       }
       break
     case '8':
-      if (G.currentTab === 'buildings' && G.buildingSubTab === 'diamond') {
+      if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(3)
       }
-      if (G.currentTab === 'challenge' && player.achievements[120] === 1) {
+      if (G.currentTab === Tabs.Challenges && player.achievements[120] === 1) {
         toggleChallenges(8)
         challengeDisplay(8)
       }
       break
     case '9':
-      if (G.currentTab === 'buildings' && G.buildingSubTab === 'diamond') {
+      if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(4)
       }
-      if (G.currentTab === 'challenge' && player.achievements[127] === 1) {
+      if (G.currentTab === Tabs.Challenges && player.achievements[127] === 1) {
         toggleChallenges(9)
         challengeDisplay(9)
       }
       break
     case '0':
-      if (G.currentTab === 'buildings' && G.buildingSubTab === 'diamond') {
+      if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(5)
       }
-      if (G.currentTab === 'challenge' && player.achievements[134] === 1) {
+      if (G.currentTab === Tabs.Challenges && player.achievements[134] === 1) {
         toggleChallenges(10)
         challengeDisplay(10)
       }
@@ -4843,19 +4843,19 @@ export const reloadShit = async (reset = false) => {
 
   // Reset Displays
   if (!playerNeedsReminderToExport()) {
-    changeTab('buildings')
+    changeTab(Tabs.Buildings)
   } else {
-    changeTab('settings')
+    changeTab(Tabs.Settings)
 
     void Alert(i18next.t('general.exportYourGame'))
   }
 
-  changeSubTab('buildings', { page: 0 })
-  changeSubTab('runes', { page: 0 }) // Set 'runes' subtab back to 'runes' tab
-  changeSubTab('cube', { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
-  changeSubTab('traits', { page: 0 }) // set 'corruption main'
-  changeSubTab('singularity', { page: 0 }) // set 'singularity main'
-  changeSubTab('settings', { page: 0 }) // set 'statistics main'
+  changeSubTab(Tabs.Buildings, { page: 0 })
+  changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
+  changeSubTab(Tabs.WowCubes, { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
+  changeSubTab(Tabs.Corruption, { page: 0 }) // set 'corruption main'
+  changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
+  changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
 
   dailyResetCheck()
   setInterval(dailyResetCheck, 30000)

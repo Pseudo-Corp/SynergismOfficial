@@ -9,7 +9,7 @@ import { autoResearchEnabled } from './Research'
 import { displayRuneInformation } from './Runes'
 import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
-import type { TabNames } from './Tabs'
+import { Tabs } from './Tabs'
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism'
 import {
   visualUpdateAchievements,
@@ -432,10 +432,6 @@ export const revealStuff = () => {
     DOMCacheGetOrSet('runeshowpower7').style.display = 'none'
   }
 
-  player.highestSingularityCount > 0
-    ? (DOMCacheGetOrSet('singularitytab').style.display = 'block')
-    : (DOMCacheGetOrSet('singularitytab').style.display = 'none')
-
   player.highestSingularityCount > 0 // Save Offerings
     ? DOMCacheGetOrSet('saveOffToggle').style.display = 'block'
     : DOMCacheGetOrSet('saveOffToggle').style.display = 'none'
@@ -481,10 +477,6 @@ export const revealStuff = () => {
     : (DOMCacheGetOrSet('heptnotificationpic').style.display = 'none')
 
   DOMCacheGetOrSet('warpAuto').style.display = player.shopUpgrades.autoWarp > 0 ? '' : 'none'
-
-  if (player.unlocks.reincarnate || player.highestSingularityCount > 0) {
-    DOMCacheGetOrSet('shoptab').style.display = 'block'
-  }
 
   const octeractUnlocks = document.getElementsByClassName('octeracts') as HTMLCollectionOf<HTMLElement>
   for (const item of Array.from(octeractUnlocks)) { // Stuff that you need octeracts to access
@@ -617,22 +609,22 @@ export const hideStuff = () => {
   tab.style.backgroundColor = ''
   tab.style.borderColor = 'white'
 
-  if (G.currentTab === 'buildings') {
+  if (G.currentTab === Tabs.Buildings) {
     DOMCacheGetOrSet('buildingstab').style.backgroundColor = 'orange'
     DOMCacheGetOrSet('buildings').style.display = 'block'
   }
-  if (G.currentTab === 'upgrades') {
+  if (G.currentTab === Tabs.Upgrades) {
     DOMCacheGetOrSet('upgrades').style.display = 'block'
     DOMCacheGetOrSet('upgradestab').style.backgroundColor = 'orange'
     DOMCacheGetOrSet('upgradedescription').textContent = i18next.t('upgrades.hoverOverUpgrade')
   }
-  if (G.currentTab === 'settings') {
+  if (G.currentTab === Tabs.Settings) {
     DOMCacheGetOrSet('settings').style.display = 'block'
     const tab = DOMCacheGetOrSet('settingstab')!
     tab.style.backgroundColor = 'orange'
     tab.style.borderColor = 'gold'
   }
-  if (G.currentTab === 'achievements') {
+  if (G.currentTab === Tabs.Achievements) {
     DOMCacheGetOrSet('statistics').style.display = 'block'
     DOMCacheGetOrSet('achievementstab').style.backgroundColor = 'white'
     DOMCacheGetOrSet('achievementstab').style.color = 'black'
@@ -641,7 +633,7 @@ export const hideStuff = () => {
       y: format(totalachievementpoints),
       z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
     })
-  } else if (G.currentTab === 'runes') {
+  } else if (G.currentTab === Tabs.Runes) {
     DOMCacheGetOrSet('runes').style.display = 'block'
     DOMCacheGetOrSet('runestab').style.backgroundColor = 'blue'
     DOMCacheGetOrSet('runeshowlevelup').textContent = i18next.t('runes.hover')
@@ -656,58 +648,58 @@ export const hideStuff = () => {
     displayRuneInformation(6, false)
     displayRuneInformation(7, false)
   }
-  if (G.currentTab === 'challenge') {
+  if (G.currentTab === Tabs.Challenges) {
     DOMCacheGetOrSet('challenges').style.display = 'block'
     DOMCacheGetOrSet('challengetab').style.backgroundColor = 'purple'
   }
-  if (G.currentTab === 'research') {
+  if (G.currentTab === Tabs.Research) {
     DOMCacheGetOrSet('research').style.display = 'block'
     DOMCacheGetOrSet('researchtab').style.backgroundColor = 'green'
   }
-  if (G.currentTab === 'shop') {
+  if (G.currentTab === Tabs.Shop) {
     DOMCacheGetOrSet('shop').style.display = 'block'
     DOMCacheGetOrSet('shoptab').style.backgroundColor = 'limegreen'
   }
-  if (G.currentTab === 'ant') {
+  if (G.currentTab === Tabs.AntHill) {
     DOMCacheGetOrSet('ants').style.display = 'block'
     DOMCacheGetOrSet('anttab').style.backgroundColor = 'brown'
   }
-  if (G.currentTab === 'cube') {
+  if (G.currentTab === Tabs.WowCubes) {
     DOMCacheGetOrSet('cubes').style.display = 'flex'
     DOMCacheGetOrSet('cubetab').style.backgroundColor = 'white'
   }
-  if (G.currentTab === 'traits') {
+  if (G.currentTab === Tabs.Corruption) {
     DOMCacheGetOrSet('traits').style.display = 'flex'
     DOMCacheGetOrSet('traitstab').style.backgroundColor = 'white'
   }
 
-  if (G.currentTab === 'singularity') {
+  if (G.currentTab === Tabs.Singularity) {
     DOMCacheGetOrSet('singularity').style.display = 'block'
     DOMCacheGetOrSet('singularitytab').style.backgroundColor = 'lightgoldenrodyellow'
     updateSingularityPenalties()
     updateSingularityPerks()
   }
 
-  if (G.currentTab === 'event') {
+  if (G.currentTab === Tabs.Event) {
     DOMCacheGetOrSet('event').style.display = 'block'
     DOMCacheGetOrSet('eventtab').style.backgroundColor = 'gold'
   }
 }
 
-const visualTab: Record<TabNames, () => void> = {
-  buildings: visualUpdateBuildings,
-  upgrades: visualUpdateUpgrades,
-  achievements: visualUpdateAchievements,
-  runes: visualUpdateRunes,
-  challenge: visualUpdateChallenges,
-  research: visualUpdateResearch,
-  settings: visualUpdateSettings,
-  shop: visualUpdateShop,
-  ant: visualUpdateAnts,
-  cube: visualUpdateCubes,
-  traits: visualUpdateCorruptions,
-  singularity: visualUpdateSingularity,
-  event: visualUpdateEvent
+const visualTab: Record<Tabs, () => void> = {
+  [Tabs.Buildings]: visualUpdateBuildings,
+  [Tabs.Upgrades]: visualUpdateUpgrades,
+  [Tabs.Achievements]: visualUpdateAchievements,
+  [Tabs.Runes]: visualUpdateRunes,
+  [Tabs.Challenges]: visualUpdateChallenges,
+  [Tabs.Research]: visualUpdateResearch,
+  [Tabs.Settings]: visualUpdateSettings,
+  [Tabs.Shop]: visualUpdateShop,
+  [Tabs.AntHill]: visualUpdateAnts,
+  [Tabs.WowCubes]: visualUpdateCubes,
+  [Tabs.Corruption]: visualUpdateCorruptions,
+  [Tabs.Singularity]: visualUpdateSingularity,
+  [Tabs.Event]: visualUpdateEvent
 }
 
 export const htmlInserts = () => {
@@ -802,7 +794,7 @@ export const buttoncolorchange = () => {
     }
   }
 
-  if (G.currentTab === 'buildings' && G.buildingSubTab === 'coin') {
+  if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'coin') {
     const a = DOMCacheGetOrSet('buycoin1')
     const b = DOMCacheGetOrSet('buycoin2')
     const c = DOMCacheGetOrSet('buycoin3')
@@ -837,7 +829,7 @@ export const buttoncolorchange = () => {
       : h.classList.remove('buildingPurchaseBtnAvailable')
   }
 
-  if (G.currentTab === 'buildings' && G.buildingSubTab === 'diamond') {
+  if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
     const a = DOMCacheGetOrSet('buydiamond1')
     const b = DOMCacheGetOrSet('buydiamond2')
     const c = DOMCacheGetOrSet('buydiamond3')
@@ -926,7 +918,7 @@ export const buttoncolorchange = () => {
       : j.style.backgroundColor = 'green'
   }
 
-  if (G.currentTab === 'runes') {
+  if (G.currentTab === Tabs.Runes) {
     if (G.runescreen === 'runes') {
       for (let i = 1; i <= 7; i++) {
         player.runeshards > 0.5
@@ -952,7 +944,7 @@ export const buttoncolorchange = () => {
     }
   }
 
-  if (G.currentTab === 'buildings' && G.buildingSubTab === 'mythos') {
+  if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'mythos') {
     for (let i = 1; i <= 5; i++) {
       const toggle = player.toggles[i + 15]
       const mythos = player[`${G.ordinals[i - 1 as ZeroToFour]}CostMythos` as const]
@@ -962,7 +954,7 @@ export const buttoncolorchange = () => {
     }
   }
 
-  if (G.currentTab === 'buildings' && G.buildingSubTab === 'particle') {
+  if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'particle') {
     for (let i = 1; i <= 5; i++) {
       const costParticles = player[`${G.ordinals[i - 1 as ZeroToFour]}CostParticles` as const]
       player.reincarnationPoints.gte(costParticles)
@@ -971,7 +963,7 @@ export const buttoncolorchange = () => {
     }
   }
 
-  if (G.currentTab === 'buildings' && G.buildingSubTab === 'tesseract') {
+  if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'tesseract') {
     for (let i = 1; i <= 5; i++) {
       const ascendBuilding = player[`ascendBuilding${i as OneToFive}` as const].cost
       Number(player.wowTesseracts) >= ascendBuilding
@@ -1003,7 +995,7 @@ export const buttoncolorchange = () => {
     }
   }
 
-  if (G.currentTab === 'ant') {
+  if (G.currentTab === Tabs.AntHill) {
     ;(player.reincarnationPoints.gte(player.firstCostAnts))
       ? DOMCacheGetOrSet('anttier1').classList.add('antTierBtnAvailable')
       : DOMCacheGetOrSet('anttier1').classList.remove('antTierBtnAvailable')
@@ -1126,25 +1118,23 @@ const updateAscensionStats = () => {
   }
 }
 
-const tabColors: Record<string, string> = {
-  buildings: 'yellow',
-  upgrades: 'yellow',
-  achievements: 'white',
-  runes: 'cyan',
-  challenges: 'plum',
-  researches: 'green',
-  ants: 'brown',
-  cubes: 'purple',
-  traits: 'orange',
-  settings: 'white',
-  shop: 'limegreen'
+const tabColors: Partial<Record<Tabs, string>> = {
+  [Tabs.Buildings]: 'yellow',
+  [Tabs.Upgrades]: 'yellow',
+  [Tabs.Achievements]: 'white',
+  [Tabs.Runes]: 'cyan',
+  [Tabs.Challenges]: 'plum',
+  [Tabs.Research]: 'green',
+  [Tabs.AntHill]: 'brown',
+  [Tabs.WowCubes]: 'purple',
+  [Tabs.Corruption]: 'orange',
+  [Tabs.Settings]: 'white',
+  [Tabs.Shop]: 'limegreen'
 }
 
 export const changeTabColor = () => {
   const tab = DOMCacheGetOrSet('tabBorder')
-  const color = G.currentTab in tabColors
-    ? tabColors[G.currentTab]
-    : 'yellow'
+  const color = tabColors[G.currentTab] ?? 'yellow'
 
   tab.style.backgroundColor = color
 }
