@@ -2389,7 +2389,8 @@
       "corruption": "Corrupción",
       "singularity": "Singularidad",
       "settings": "Ajustes",
-      "shop": "Tienda"
+      "shop": "Tienda",
+      "unsmith": "UNSMITH"
     },
     "buildings": {
       "coin": "Edificios de Moneda",
