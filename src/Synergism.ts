@@ -1,3 +1,4 @@
+import '@ungap/custom-elements'
 import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
 import LZString from 'lz-string'
