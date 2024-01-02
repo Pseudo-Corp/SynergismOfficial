@@ -2389,7 +2389,8 @@
       "corruption": "Порча",
       "singularity": "Сингулярность",
       "settings": "Настройки",
-      "shop": "Магазин"
+      "shop": "Магазин",
+      "unsmith": "UNSMITH"
     },
     "buildings": {
       "coin": "Строения Монет",
