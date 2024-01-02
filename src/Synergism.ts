@@ -4732,7 +4732,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(2)
       }
-      if (G.currentTab === Tabs.Buildings && player.achievements[113] === 1) {
+      if (G.currentTab === Tabs.Challenges && player.achievements[113] === 1) {
         toggleChallenges(7)
         challengeDisplay(7)
       }

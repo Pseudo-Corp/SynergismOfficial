@@ -475,7 +475,7 @@ class $Tab extends HTMLButtonElement {
     return this
   }
 
-  resetHidden() {
+  resetHidden () {
     this.#hidden = false
   }
 }

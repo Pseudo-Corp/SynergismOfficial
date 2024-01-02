@@ -82,7 +82,7 @@ export const resetdetails = (input: resetNames) => {
     resetObtainiumText.textContent = ''
   }
 
-  ; (input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity')
+  ;(input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity')
     ? offeringImage.style.display = offeringText.style.display = 'none'
     : offeringImage.style.display = offeringText.style.display = 'block'
 
@@ -743,7 +743,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       if (index >= 2 && index <= 9) {
         return Math.min(
           maxLevel * (player.challengecompletions[corrChallengeMinimum(index)] > 0
-            || player.singularityUpgrades.platonicTau.getEffect().bonus
+              || player.singularityUpgrades.platonicTau.getEffect().bonus
             ? 1
             : 0),
           curr
