@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/bundle.js",
   "dependencies": {
+    "@ungap/custom-elements": "^1.3.0",
     "break_infinity.js": "^2.0.0",
     "clipboard": "^2.0.11",
     "eventemitter3": "^4.0.7",
