@@ -2389,7 +2389,8 @@
       "corruption": "Corruption",
       "singularity": "Singularity",
       "settings": "Settings",
-      "shop": "Markt"
+      "shop": "Markt",
+      "unsmith": "UNSMITH"
     },
     "buildings": {
       "coin": "Coin Buildings",
