@@ -590,15 +590,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.antSacrificePoints = 0
     player.antSacrificeTimer = 0
     player.antSacrificeTimerReal = 0
-    player.sacrificeTimer = 0
-    // Ascension early automation timer
-    if (player.autoSacrificeToggle) {
-      player.sacrificeTimer = 0.9
-    }
-    if (player.autoAntSacrifice && player.autoAntSacrificeMode === 2) {
-      player.antSacrificeTimer = Math.max(0, player.autoAntSacTimer - 0.1)
-      player.antSacrificeTimerReal = player.antSacrificeTimer
-    }
 
     player.antUpgrades[12 - 1] = 0
     for (let j = 61; j <= 80; j++) {
