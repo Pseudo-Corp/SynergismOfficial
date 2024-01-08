@@ -155,8 +155,9 @@ export class BlueberryUpgrade extends DynamicUpgrade {
       : ''
 
     if (this.freeLevels > this.level) {
-      freeLevelInfo = freeLevelInfo
-        + `<span style="color: var(--maroon-text-color)">${i18next.t('general.softCapped')}</span>`
+      freeLevelInfo = `${freeLevelInfo}<span style="color: var(--maroon-text-color)">${
+        i18next.t('general.softCapped')
+      }</span>`
     }
 
     const isAffordable = costNextLevel <= player.ambrosia
@@ -172,8 +173,9 @@ export class BlueberryUpgrade extends DynamicUpgrade {
         const k = prereq as keyof Player['blueberryUpgrades']
         const color = (player.blueberryUpgrades[k].level >= val) ? 'green' : 'red'
         const met = (player.blueberryUpgrades[k].level >= val) ? '' : i18next.t('ambrosia.prereqNotMet')
-        preReqText = preReqText
-          + `<span style="color:${color}"> ${player.blueberryUpgrades[k].name} lv.${val} ${met}</span> |`
+        preReqText = `${preReqText}<span style="color:${color}"> ${
+          player.blueberryUpgrades[k].name
+        } lv.${val} ${met}</span> |`
       }
 
       preReqText = preReqText.slice(0, -1)
@@ -739,7 +741,7 @@ export const createLoadoutDescription = (input: number, modules: BlueberryOpt) =
 
     const k = key as keyof Player['blueberryUpgrades']
     const name = player.blueberryUpgrades[k].name
-    str = str + `<span style="color:orange">${name}</span> <span style="color:yellow">lv${val}</span> | `
+    str = `${str}<span style="color:orange">${name}</span> <span style="color:yellow">lv${val}</span> | `
   }
 
   if (Object.keys(modules).length === 0) {

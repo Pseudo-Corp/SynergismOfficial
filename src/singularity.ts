@@ -19,56 +19,55 @@ export const updateSingularityPenalties = (): void => {
       multiplier: format(calculateSingularityDebuff('Hepteract Costs', singularityCount), 2, true)
     })
     : '<span class="grayText">????????? ????? ????? ??? ?????????? ?? ???</span> <span class="redText">(51)</span>'
-  const str = getSingularityOridnalText(singularityCount)
-    + `<br>${
-      i18next.t('singularity.penalties.globalSpeed', {
-        divisor: format(calculateSingularityDebuff('Global Speed', singularityCount), 2, true)
-      })
-    }
+  const str = `${getSingularityOridnalText(singularityCount)}<br>${
+    i18next.t('singularity.penalties.globalSpeed', {
+      divisor: format(calculateSingularityDebuff('Global Speed', singularityCount), 2, true)
+    })
+  }
         ${
-      i18next.t('singularity.penalties.ascensionSpeed', {
-        divisor: format(calculateSingularityDebuff('Ascension Speed', singularityCount), 2, true)
-      })
-    }
+    i18next.t('singularity.penalties.ascensionSpeed', {
+      divisor: format(calculateSingularityDebuff('Ascension Speed', singularityCount), 2, true)
+    })
+  }
         ${
-      i18next.t('singularity.penalties.offeringGain', {
-        divisor: format(calculateSingularityDebuff('Offering', singularityCount), 2, true)
-      })
-    }
+    i18next.t('singularity.penalties.offeringGain', {
+      divisor: format(calculateSingularityDebuff('Offering', singularityCount), 2, true)
+    })
+  }
         ${
-      i18next.t('singularity.penalties.obtainiumGain', {
-        divisor: format(calculateSingularityDebuff('Obtainium', singularityCount), 2, true)
-      })
-    }
+    i18next.t('singularity.penalties.obtainiumGain', {
+      divisor: format(calculateSingularityDebuff('Obtainium', singularityCount), 2, true)
+    })
+  }
         ${
-      i18next.t('singularity.penalties.cubeGain', {
-        divisor: format(calculateSingularityDebuff('Cubes', singularityCount), 2, true)
-      })
-    }
+    i18next.t('singularity.penalties.cubeGain', {
+      divisor: format(calculateSingularityDebuff('Cubes', singularityCount), 2, true)
+    })
+  }
         ${
-      i18next.t('singularity.penalties.researchCosts', {
-        multiplier: format(calculateSingularityDebuff('Researches', singularityCount), 2, true)
-      })
-    }
+    i18next.t('singularity.penalties.researchCosts', {
+      multiplier: format(calculateSingularityDebuff('Researches', singularityCount), 2, true)
+    })
+  }
         ${
-      i18next.t('singularity.penalties.cubeUpgradeCosts', {
-        multiplier: format(calculateSingularityDebuff('Cube Upgrades', singularityCount), 2, true)
-      })
-    }
+    i18next.t('singularity.penalties.cubeUpgradeCosts', {
+      multiplier: format(calculateSingularityDebuff('Cube Upgrades', singularityCount), 2, true)
+    })
+  }
         ${platonic}
         ${hepteract}
         ${
-      (singularityCount >= 230)
-        ? i18next.t('singularity.penalties.penaltySmooth')
-        : i18next.t('singularity.penalties.penaltyRough', {
-          num: format(calculateNextSpike(player.singularityCount), 0, true)
-        })
-    }
+    (singularityCount >= 230)
+      ? i18next.t('singularity.penalties.penaltySmooth')
+      : i18next.t('singularity.penalties.penaltyRough', {
+        num: format(calculateNextSpike(player.singularityCount), 0, true)
+      })
+  }
         ${
-      (player.runelevels[6] > 0)
-        ? i18next.t('singularity.penalties.antiquitiesBought')
-        : i18next.t('singularity.penalties.antiquitiesNotBought')
-    }`
+    (player.runelevels[6] > 0)
+      ? i18next.t('singularity.penalties.antiquitiesBought')
+      : i18next.t('singularity.penalties.antiquitiesNotBought')
+  }`
 
   DOMCacheGetOrSet('singularityPenaltiesMultiline').innerHTML = str
 }
@@ -139,8 +138,9 @@ export class SingularityUpgrade extends DynamicUpgrade {
       : ''
 
     if (this.freeLevels > this.level) {
-      freeLevelInfo = freeLevelInfo
-        + `<span style="color: var(--maroon-text-color)"> ${i18next.t('general.softCapped')}</span>`
+      freeLevelInfo = `${freeLevelInfo}<span style="color: var(--maroon-text-color)"> ${
+        i18next.t('general.softCapped')
+      }</span>`
     }
 
     return `<span style="color: gold">${this.name}</span>
@@ -2097,7 +2097,7 @@ export async function buyGoldenQuarks (): Promise<void> {
     return Alert(i18next.t('general.validation.fraction'))
   }
 
-  let cost
+  let cost: number
 
   if (buyAmount === -1) {
     cost = maxBuy * goldenQuarkCost.cost

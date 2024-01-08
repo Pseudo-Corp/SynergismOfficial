@@ -345,7 +345,7 @@ export const IconSets: [string, number][] = [
   ['Simplified', 1],
   ['Monotonous', 1]
 ]
-export const IconSetsRegex = new RegExp('Default|Simplified|Monotonous|Legacy')
+export const IconSetsRegex = /Default|Simplified|Monotonous|Legacy/
 
 export const toggleIconSet = (changeTo = player.iconSet) => {
   if ((changeTo > (IconSets.length - 1)) || (changeTo < 0)) {

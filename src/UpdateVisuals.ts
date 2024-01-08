@@ -644,7 +644,8 @@ export const visualUpdateCubes = () => {
       : 'white'
   }
 
-  let accuracy
+  // TODO: this code is fucking terrible holy shit. Also pretty sure there's a bug.
+  let accuracy: [null | number, ...number[]]
   switch (player.subtabNumber) {
     case 0: {
       if (player.autoOpenCubes) {
@@ -790,7 +791,7 @@ export const visualUpdateCubes = () => {
         }
         DOMCacheGetOrSet(`platonicCube${i + 1}Bonus`).innerHTML = i18next.t(`wowCubes.platonics.items.${i + 1}`, {
           amount: format(platonicArray[i], 0, true),
-          bonus: format(100 * (G.platonicBonusMultiplier[i] - 1), accuracy[i] + augmentAccuracy, true)
+          bonus: format(100 * (G.platonicBonusMultiplier[i] - 1), accuracy[i]! + augmentAccuracy, true)
         })
       }
       DOMCacheGetOrSet('platonicBlessingsTotal').innerHTML = i18next.t('wowCubes.platonics.total', {

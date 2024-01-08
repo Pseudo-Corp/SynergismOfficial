@@ -176,7 +176,7 @@ export const corruptionButtonsAdd = () => {
     p.appendChild(span)
     row.appendChild(p)
 
-    let btn
+    let btn: HTMLButtonElement
     btn = document.createElement('button')
     btn.className = 'corrBtn corruptionMax'
     btn.textContent = `+${i18next.t('corruptions.max')}`

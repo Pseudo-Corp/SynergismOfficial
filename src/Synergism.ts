@@ -1726,7 +1726,7 @@ const loadSynergy = async () => {
     }
     for (let j = 0; j <= 5; j++) {
       for (let k = 0; k < 4; k++) {
-        let d
+        let d = ''
         if (k === 0) {
           d = 'one'
         }
@@ -1742,7 +1742,7 @@ const loadSynergy = async () => {
         const e = `${q[j]}${d}`
         DOMCacheGetOrSet(e).style.backgroundColor = ''
       }
-      let c
+      let c = ''
       const curBuyAmount = player[`${q[j]}buyamount` as const]
       if (curBuyAmount === 1) {
         c = 'one'
@@ -2388,7 +2388,7 @@ export const format = (
     // If the power is less than 6 or format long and less than 7 use standard formatting (1,234,567)
     // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 7
     let standard = mantissa * Math.pow(10, power)
-    let standardString
+    let standardString: string
     // Rounds up if the number experiences a rounding error
     if (standard - Math.floor(standard) > 0.9999999) {
       standard = Math.ceil(standard)
@@ -4476,7 +4476,7 @@ const tick = () => {
   let delta = now - lastUpdate
   // compute pseudo-average delta cf. https://stackoverflow.com/a/5111475/343834
   deltaMean += (delta - deltaMean) / filterStrength
-  let dtEffective
+  let dtEffective: number
   while (delta > 5) {
     // tack will compute dtEffective milliseconds of game time
     dtEffective = dt
@@ -4920,9 +4920,9 @@ window.addEventListener('load', async () => {
         addZero(lastUpdated.getDate())
       }-${lastUpdated.toLocaleString('en-us', { month: 'short' })}-${lastUpdated.getFullYear()}].`
       : ''
-    ver.textContent = `You're ${testing ? 'testing' : 'playing'} v${version} - The Alternate Reality`
-      + textUpdate
-      + ` ${testing ? i18next.t('testing.saveInLive') : ''}`
+    ver.textContent = `You're ${testing ? 'testing' : 'playing'} v${version} - The Alternate Reality${textUpdate} ${
+      testing ? i18next.t('testing.saveInLive') : ''
+    }`
   }
   document.title = `Synergism v${version}`
 

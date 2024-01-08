@@ -1218,9 +1218,9 @@ export const buyTesseractBuilding = (index: OneToFive, amount = player.tesseract
 export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number) => {
   const unlocked = type === 'Spirits' ? player.challengecompletions[12] > 0 : player.achievements[134] === 1
   if (unlocked && isFinite(player.runeshards) && player.runeshards > 0) {
-    let baseCost
-    let baseLevels
-    let levelCap
+    let baseCost: number
+    let baseLevels: number
+    let levelCap: number
     if (type === 'Spirits') {
       baseCost = G.spiritBaseCost
       baseLevels = player.runeSpiritLevels[index]
@@ -1293,8 +1293,8 @@ export const buyAllBlessings = (type: 'Blessings' | 'Spirits', percentage = 100,
     const runeshards = Math.floor(player.runeshards / 100 * percentage / 5)
     for (let index = 1; index < 6; index++) {
       if (isFinite(player.runeshards) && player.runeshards > 0) {
-        let baseCost
-        let baseLevels
+        let baseCost: number
+        let baseLevels: number
         const levelCap = 1e300
         if (type === 'Spirits') {
           baseCost = G.spiritBaseCost
