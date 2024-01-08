@@ -122,8 +122,9 @@ export class OcteractUpgrade extends DynamicUpgrade {
       : ''
 
     if (this.freeLevels > this.level) {
-      freeLevelInfo = freeLevelInfo
-        + `<span style="color: var(--maroon-text-color)">${i18next.t('general.softCapped')}</span>`
+      freeLevelInfo = `${freeLevelInfo}<span style="color: var(--maroon-text-color)">${
+        i18next.t('general.softCapped')
+      }</span>`
     }
 
     const isAffordable = costNextLevel <= player.wowOcteracts

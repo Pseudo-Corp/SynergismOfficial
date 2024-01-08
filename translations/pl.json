@@ -3,7 +3,7 @@
     "saveInLive": "Ten zapis gry nie może zostać użyty w tej wersji!",
     "saveInLive2": "Ten zapis gry nie może zostać wczytany!",
     "errorSaving": "Błąd uniemożliwił zapisanie pliku.",
-    "gameSaved": "Zapisano pomyślnie!"
+    "gameSaved": "Stan gry zapisany pomyślnie!"
   },
   "save": {
     "loadFailed": "Nie można wczytać stanu gry.",
@@ -13,23 +13,23 @@
     "ambrosia": "Ambrozja",
     "amount": "Masz <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrozji!",
     "blueberryGeneration": "Na sekundę, zyskaj <<var(--amber-text-color)|{{chance}}>> sekundy czasu borówki.",
-    "perGen": "Aktualnie zyskuje <<var(--amber-text-color)|{{guaranteed}}>> z <<var(--amber-text-color)|{{extraChance}}%>> szansę na inne. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
-    "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
+    "perGen": "Aktualnie zyskuje <<var(--amber-text-color)|{{guaranteed}}>> z <<var(--amber-text-color)|{{extraChance}}%>> szansy na inne. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
+    "blueberrySecond": "Obecnie masz<<var(--amber-text-color)|{{blueberrySecond}}>> zgromadzonych sekund borówek! Produkuję Ambrozję kiedy <<blue|{{thresholdTimer}}>> jest zgomadzone.",
     "bonuses": "Twoja ambrozja daje <<var(--amber-text-color)|+{{cube}}%>> WSZYSTKIE sześciany, a <<cyan|+{{quark}}%>> Kwarków!",
     "prerequisite": "Wymagania wstępne:",
     "prereqNotMet": " (Nie spełnione!)",
     "blueberryCost": "Borówki (Aby aktywować):",
-    "prereqNotMetAlert": "Nie wszystkich warunków, aby zakupić to ulepszenie.",
+    "prereqNotMetAlert": "Nie spełniasz wszystkich warunków, aby zakupić to ulepszenie.",
     "notEnoughBlueberries": "Nie masz wystarczającej ilości borówek, aby aktywować ten moduł.",
-    "availableBlueberries": "Masz <<blue|{{availableBlueberries}}>> niewydanych borówek. Odblokuj poniżej moduły wyższego poziomu, używając ich!",
+    "availableBlueberries": "Masz <<blue|{{availableBlueberries}}>> niewydanych borówek. Odblokuj moduły wyższego poziomu, używając ich!",
     "ambrosiaBuyPrompt": "Ile Ambrozji chciałbyś wydać? Masz {{amount}} Ambrozji. Wpisz -1, aby użyć wszystko!",
-    "refund": "Zwróciłeś(aś) wszystkie zużyte borówki i Ambrozję.",
+    "refund": "Wszystkie zużyte borówki i Ambrozja zostały zwrócone.",
     "refundWord": "Zwróć",
     "data": {
       "ambrosiaTutorial": {
         "name": "Moduł samouczka Ambrozji",
-        "description": "Borówki generują Ambrozję z upływem czasu. Wydaj je w drzewku Ambrozji! +5% Cubes/poziom, +1% Kwarków/poziom",
-        "effect": "Moduł tego samouczka zwiększa przychód sześcianów o {{cubeAmount}}% i kwarki o {{quarkAmount}}%"
+        "description": "Borówki generują Ambrozję z upływem czasu. Wydaj je w drzewku Ambrozji! +5% Sześcianów/poziom, +1% Kwarków/poziom",
+        "effect": "Moduł tego samouczka zwiększa przychód sześcianów o {{cubeAmount}}% i kwarków o {{quarkAmount}}%"
       },
       "ambrosiaQuarks1": {
         "name": "Moduł Kwark Ambrozji I",
@@ -706,7 +706,7 @@
         "3": "Kiedy używasz runy, wszystkie pozostałe otrzymują +0.01 EXP'a. Obecnie: "
       },
       "first": "Automatycznie zyskuj dar co 2 sekundy!",
-      "start": "Rozpocznij [Brak odkłamków]",
+      "start": "Rozpocznij [Brak odłamków]",
       "current": {
         "1": "Wykładnik potęgi +{{value}}",
         "2": "+{{value}}%",
@@ -1940,7 +1940,7 @@
         "effect": "The effect is clear"
       },
       "WIP": {
-        "name": "Tymczasowy szablon",
+        "name": "Szablon roboczy",
         "description": "To jest szablon! dolny tekst.",
         "effect": "Zaktualizuj ten opis później!!!!!!!!!!"
       },

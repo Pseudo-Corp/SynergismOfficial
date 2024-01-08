@@ -524,7 +524,7 @@ const returnConstUpgDesc = (i: number) => i18next.t(`upgrades.constantUpgrades.$
 const returnConstUpgEffect = (i: number) => i18next.t(`upgrades.constantEffects.${i}`, constUpgEffect[i]?.())
 
 export const getConstUpgradeMetadata = (i: number): [number, Decimal] => {
-  let toBuy
+  let toBuy: number
   let cost: Decimal
 
   if (i >= 9) {

@@ -1158,8 +1158,8 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
 
   let buyData: IMultiBuy
   const maxBuyAmount = shopItem.maxLevel - player.shopUpgrades[input]
-  let buyAmount
-  let buyCost
+  let buyAmount: number
+  let buyCost: number
   switch (player.shopBuyMaxToggle) {
     case false:
       buyAmount = 1
@@ -1202,7 +1202,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
         friendlyShopName(input)
       } for ${buyCost.toLocaleString()} Quarks. How many would you like to buy?${maxPots + noRefunds}`
     )
-    let buyAny
+    let buyAny: number
     if (Number(buyInput) === -1 && shopItem.type === shopUpgradeTypes.CONSUMABLE) {
       const other = input === 'offeringPotion' ? 'obtainiumPotion' : 'offeringPotion'
       const toSpend = Math.max(+player.worlds / 2, +player.worlds - buyCost)

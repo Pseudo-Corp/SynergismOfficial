@@ -24,7 +24,7 @@
         "noForEach": "off"
       }
     },
-    "ignore": ["dist", "node_modules"]
+    "ignore": ["./dist/*", "**/node_modules/*"]
   },
   "formatter": {
     "enabled": false
