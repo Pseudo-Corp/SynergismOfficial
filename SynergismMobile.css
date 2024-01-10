@@ -1,0 +1,47 @@
+@media screen and (max-width: 767px) {
+  .buttonRow > div:not(.buildingSpacer) {
+    display: grid;
+    grid-template-columns: 1.5em 15em 4.5em;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "header header header"
+      "img rsrc rsrc"
+      "cost cost autobuy";
+    border: 2px solid gold;
+    border-radius: 5px;
+    padding-bottom: 5px;
+  }
+
+  .buttonRow > div > img {
+    grid-area: img;
+    padding-left: 5px;
+  }
+
+  .buttonRow > div > span.desc {
+    grid-area: rsrc;
+    width: 100%;
+    text-align: center;
+  }
+
+  .buttonRow > div > span.stats {
+    grid-area: header;
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid gold;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .buttonRow > div > button.buildingPurchaseBtn {
+    grid-area: cost;
+    align-self: center;
+    margin: 5px 0 0 5px;
+  }
+
+  .buttonRow > div > button[id^="toggle"] {
+    grid-area: autobuy;
+    min-width: initial;
+    width: initial;
+    margin-right: 5px;
+  }
+}
