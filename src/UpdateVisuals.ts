@@ -50,7 +50,6 @@ export const visualUpdateBuildings = () => {
   if (G.buildingSubTab === 'coin') {
     // For the display of Coin Buildings
     const upper = ['produceFirst', 'produceSecond', 'produceThird', 'produceFourth', 'produceFifth'] as const
-    const names = [null, 'workers', 'investments', 'printers', 'coinMints', 'alchemies']
 
     let totalProductionDivisor = new Decimal(G.produceTotal)
     if (totalProductionDivisor.equals(0)) {
@@ -61,8 +60,7 @@ export const visualUpdateBuildings = () => {
       const place = G[upper[i - 1]]
       const ith = G.ordinals[i - 1 as ZeroToFour]
 
-      DOMCacheGetOrSet(`buildname${i}`).textContent = i18next.t(`buildings.names.${names[i]}`)
-      DOMCacheGetOrSet(`buildtext${2 * i - 1}`).textContent = `${format(player[`${ith}OwnedCoin` as const], 0, true)} ${format(player[`${ith}GeneratedCoin` as const])}`
+      DOMCacheGetOrSet(`buildtext${2 * i - 1}`).textContent = `${format(player[`${ith}OwnedCoin` as const], 0, true)} [+${format(player[`${ith}GeneratedCoin` as const])}]`
 
       DOMCacheGetOrSet(`buycoin${i}`).textContent = i18next.t('buildings.costCoins', {
         coins: format(player[`${ith}CostCoin` as const])

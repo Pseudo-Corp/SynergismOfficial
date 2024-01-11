@@ -13,10 +13,13 @@
       "coins coins toggle"
       "cost cost toggle";
     align-items: center;
-    border: 2px solid #ffa800;
+    border: 2px solid darkslategray;
+    color: darkslategray;
     border-radius: 8px;
     padding: 8px 12px 12px;
     gap: 8px 2px;
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
   }
 
   .buttonRow > div > .desc > span:first-of-type {
@@ -32,7 +35,7 @@
   .buttonRow > div > .buildingPurchaseBtn {
     grid-area: cost;
     text-align: start;
-    color: gold;
+    color: inherit;
     background-color: unset;
     font-size: min(1em, 20px);
     width: unset;
@@ -54,4 +57,19 @@
 
   .buttonRow > div > .desc { display: contents; }
   /* .buttonRow > div > .stats { line-height: 1em; } */
+
+  .buttonRow > div:not(.buildingSpacer):not(.goldBuild) { /* Remove later */
+    border: 2px solid gold;
+    background-color: #1f1a00;
+    color: gold;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.goldBuild {
+    border: 2px solid gold;
+    background-color: #1f1a00;
+    color: gold;
+  }
+
+  .buildingPurchaseAvailable { cursor: pointer; }
+  .buildingPurchaseAvailable > .buildingPurchaseBtn:hover { background-color: unset; }
 }

@@ -195,10 +195,11 @@ input[type="checkbox"] {
 button {
     min-height: 30px;
     color: white;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
     outline: none;
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 body button:hover,
@@ -312,9 +313,10 @@ body button:active {
     font-size: 0;
     z-index: 1;
     color: white;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 #notifx:hover {
@@ -864,7 +866,8 @@ p#themesTitle {
     min-height: 20px;
     margin: 2px auto;
     box-sizing: border-box;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 #importFileButton:hover {
@@ -1015,6 +1018,8 @@ p#promocodeinfo {
     width: 22em;
 }
 
+.goldBuild { color: gold; }
+
 .buildingPurchaseBtn {
     width: 15em;
     border-radius: 8px;
@@ -1027,12 +1032,12 @@ p#promocodeinfo {
     background-color: var(--buttonbuy-color);
 }
 
-.buildingPurchaseBtn.buildingPurchaseBtnAvailable {
+.buildingPurchaseAvailable > .buildingPurchaseBtn {
     cursor: pointer;
     background-color: var(--buildings-canbuy-color);
 }
 
-.buildingPurchaseBtn.buildingPurchaseBtnAvailable:hover {
+.buildingPurchaseAvailable > .buildingPurchaseBtn:hover {
     background-color: var(--buildings-hover-color);
 }
 
@@ -1183,7 +1188,8 @@ p#promocodeinfo {
 .buyAmountBtn {
     background-color: var(--button-color);
     cursor: pointer;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 .buyAmountBtn:hover {
@@ -1329,7 +1335,8 @@ p#prestigehotkeys {
 .runeTypeElement {
     margin: 0;
     text-align: center;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 img.runeTypeElement {
@@ -1700,7 +1707,8 @@ p#transcendhotkeys {
 
 .challenge {
     background-color: var(--button-color);
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 .challenge:hover {
@@ -1823,7 +1831,8 @@ p#reincarnatehotkeys {
 
 #researchtable .researchAvailable {
     cursor: pointer;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 #researchtable .researchAvailable:hover {
@@ -1836,7 +1845,8 @@ p#reincarnatehotkeys {
 
 #researchtable .researchPurchasedAvailable {
     cursor: pointer;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 #researchtable .researchPurchasedAvailable:hover {
@@ -2604,7 +2614,8 @@ p#ascendHotKeys {
 
 .constUpgrade {
     background-color: var(--button-color);
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 .constUpgradeAvailable {
@@ -3688,7 +3699,8 @@ img#singularityPerksIcon {
     border: 2px ridge gold;
     font-weight: bold;
     background-color: var(--button-color);
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 .oldPerk {
@@ -3701,7 +3713,8 @@ img#singularityPerksIcon {
     cursor: pointer;
     border: 2px solid gold;
     background-color: var(--button-color);
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 .newPerk:hover {
