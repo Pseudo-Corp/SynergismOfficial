@@ -32,22 +32,22 @@ import { Globals as G } from './Variables'
 export const revealStuff = () => {
   const example = document.getElementsByClassName('coinunlock1') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example.length; i++) {
-    example[i].style.display = player.unlocks.coinone ? 'block' : 'none'
+    example[i].style.display = player.unlocks.coinone ? '' : 'none'
   }
 
   const example2 = document.getElementsByClassName('coinunlock2') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example2.length; i++) {
-    example2[i].style.display = player.unlocks.cointwo ? 'block' : 'none'
+    example2[i].style.display = player.unlocks.cointwo ? '' : 'none'
   }
 
   const example3 = document.getElementsByClassName('coinunlock3') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example3.length; i++) {
-    example3[i].style.display = player.unlocks.cointhree ? 'block' : 'none'
+    example3[i].style.display = player.unlocks.cointhree ? '' : 'none'
   }
 
   const example4 = document.getElementsByClassName('coinunlock4') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example4.length; i++) {
-    example4[i].style.display = player.unlocks.coinfour ? 'block' : 'none'
+    example4[i].style.display = player.unlocks.coinfour ? '' : 'none'
   }
 
   const example5 = document.getElementsByClassName('prestigeunlock') as HTMLCollectionOf<HTMLElement>
