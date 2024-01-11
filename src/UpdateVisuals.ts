@@ -61,10 +61,8 @@ export const visualUpdateBuildings = () => {
       const place = G[upper[i - 1]]
       const ith = G.ordinals[i - 1 as ZeroToFour]
 
-      DOMCacheGetOrSet(`buildtext${2 * i - 1}`).textContent = i18next.t(`buildings.names.${names[i]}`, {
-        amount: format(player[`${ith}OwnedCoin` as const], 0, true),
-        gain: format(player[`${ith}GeneratedCoin` as const])
-      })
+      DOMCacheGetOrSet(`buildname${i}`).textContent = i18next.t(`buildings.names.${names[i]}`)
+      DOMCacheGetOrSet(`buildtext${2 * i - 1}`).textContent = `${format(player[`${ith}OwnedCoin` as const], 0, true)} ${format(player[`${ith}GeneratedCoin` as const])}`
 
       DOMCacheGetOrSet(`buycoin${i}`).textContent = i18next.t('buildings.costCoins', {
         coins: format(player[`${ith}CostCoin` as const])

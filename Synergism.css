@@ -692,7 +692,7 @@ button.isEvent:hover {
     text-align: center;
 }
 
-#coinBuildings {
+.buildingMainContainer {
     display: flex;
     position: relative;
     padding: 0;
@@ -702,7 +702,7 @@ button.isEvent:hover {
     margin: 0 auto;
 }
 
-#coinBuildings p {
+#buildingtext p {
     margin: 0;
 }
 
@@ -3812,3 +3812,5 @@ form input:hover {
     background-color: var(--hover-color);
     cursor: pointer;
 }
+
+.mobileShow { display: none; }
