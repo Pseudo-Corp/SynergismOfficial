@@ -365,10 +365,8 @@ export const revealStuff = () => {
     ? DOMCacheGetOrSet('toggleautoenhance').style.display = 'block'
     : DOMCacheGetOrSet('toggleautoenhance').style.display = 'none'
 
-  for (let z = 1; z <= 5; z++) {
-    ;(player.researches[190] > 0) // 8x15 Research [Auto Tesseracts]
-      ? DOMCacheGetOrSet(`tesseractAutoToggle${z}`).style.display = 'block'
-      : DOMCacheGetOrSet(`tesseractAutoToggle${z}`).style.display = 'none'
+  for (let z = 1; z <= 5; z++) { // 8x15 Research [Auto Tesseracts]
+    DOMCacheGetOrSet(`tesseractAutoToggle${z}`).style.display = player.researches[190] > 0 ? '' : 'none'
   }
   player.researches[190] > 0 // 8x15 Research [Auto Tesseracts]
     ? DOMCacheGetOrSet('tesseractautobuytoggle').style.display = 'block'
@@ -565,7 +563,7 @@ export const revealStuff = () => {
       return
     }
 
-    el.style.display = automationUnlocks[key] ? 'block' : 'none'
+    el.style.display = automationUnlocks[key] ? '' : 'none'
   })
 
   revealCorruptions()

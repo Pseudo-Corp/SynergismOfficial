@@ -21,6 +21,7 @@ export const toggleSettings = (toggle: HTMLElement) => {
     player.toggles[+toggleId] = true
   }
   const format = toggle.getAttribute('format')
+  const statusData = toggle.dataset.status
 
   if (format === '$' || format === '[$]') {
     const text = player.toggles[+toggleId] ? i18next.t('general.on') : i18next.t('general.off')
@@ -44,8 +45,11 @@ export const toggleSettings = (toggle: HTMLElement) => {
       ? i18next.t('general.autoOnBracket')
       : i18next.t('general.autoOffBracket')
   }
-
-  toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
+  if (statusData !== undefined) {
+    toggle.dataset.status = player.toggles[+toggleId] ? 'on' : 'off'
+  } else {
+    toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
+  }
 }
 
 export const toggleChallenges = (i: number, auto = false) => {
@@ -209,6 +213,7 @@ export const toggleauto = () => {
   for (const toggle of toggles) {
     const format = toggle.getAttribute('format')
     const toggleId = toggle.getAttribute('toggleId') ?? 1
+    const statusData = toggle.dataset.status
 
     if (format === '$') {
       const text = player.toggles[+toggleId] ? i18next.t('general.on') : i18next.t('general.off')
@@ -233,7 +238,11 @@ export const toggleauto = () => {
         : i18next.t('general.autoOffBracket')
     }
 
-    toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
+    if (statusData !== undefined) {
+      toggle.dataset.status = player.toggles[+toggleId] ? 'on' : 'off'
+    } else {
+      toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
+    }
   }
 
   const tesseractAutos = Array.from<HTMLElement>(document.querySelectorAll('*[id^="tesseractAutoToggle"]'))
@@ -243,10 +252,10 @@ export const toggleauto = () => {
 
     if (player.autoTesseracts[j + 1]) {
       auto.textContent = i18next.t('general.autoOnBracket')
-      auto.style.border = '2px solid green'
+      auto.dataset.status = 'on'
     } else {
       auto.textContent = i18next.t('general.autoOffBracket')
-      auto.style.border = '2px solid red'
+      auto.dataset.status = 'off'
     }
   }
 }
@@ -892,10 +901,10 @@ export const toggleAutoTesseracts = (i: number) => {
   const el = DOMCacheGetOrSet(`tesseractAutoToggle${i}`)
   if (player.autoTesseracts[i]) {
     el.textContent = i18next.t('general.autoOffBracket')
-    el.style.border = '2px solid red'
+    el.dataset.status = 'off'
   } else {
     el.textContent = i18next.t('general.autoOnBracket')
-    el.style.border = '2px solid green'
+    el.dataset.status = 'on'
   }
 
   player.autoTesseracts[i] = !player.autoTesseracts[i]

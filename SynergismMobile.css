@@ -59,14 +59,41 @@
 
   .buttonRow > div > .auto {
     grid-area: toggle;
-    border: none !important;
     height: 90%;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
   }
+
+  .buttonRow > div > .auto::after {
+    content: '';
+    width: 25px;
+    height: 25px;
+    display: block;
+    border: 2px solid white;
+    border-radius: 4px;
+  }
+
+  .buttonRow > div > .auto[data-status="on"]::after {
+    background-color: white;
+    box-shadow: inset 0 0 0 2px #002400;
+  }
+
+  .buttonRow > div > .auto[data-status="on"] { background-color: #002400; }
+  .buttonRow > div > .auto[data-status="off"] { background-color: #330000; }
 
   .buttonRow > div > img {
     grid-area: img;
     filter: brightness(0.33) grayscale(1);
+  }
+
+  body.legacyIcons .buttonRow > div > img {
+    padding: 3px;
+    object-fit: none;
+    box-sizing: border-box;
+    background-color: unset;
   }
 
   .buttonRow > div > .stats { grid-area: coins; }

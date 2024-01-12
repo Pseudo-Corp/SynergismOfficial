@@ -1010,10 +1010,12 @@ p#promocodeinfo {
     margin-top: 0.25em;
 }
 
-.buttonRow > div > .image {
+.buttonRow > div > img {
     height: 32px;
     width: 32px;
 }
+
+body.legacyIcons .buttonRow > div > img { background-color: black; }
 
 .buttonRow > div > .desc {
     width: 22em;
@@ -1054,7 +1056,12 @@ p#promocodeinfo {
 .buttonRow > div > .auto {
     width: 6em;
     min-width: 80px;
+    border: 2px solid;
+    background-color: var(--button-color);
 }
+
+.buttonRow .auto[data-status="on"] { border-color: green; }
+.buttonRow .auto[data-status="off"] { border-color: red; }
 
 .autobuyerToggleButton {
     background-color: var(--button-color);
@@ -2777,6 +2784,8 @@ p#ascendHotKeys {
     max-height: 650px;
     overflow-y: auto;
 }
+
+body.legacyIcons .historyTableWrap img { background-color: black; }
 
 #historyAscend .historyTableWrap,
 #historySingularity .historyTableWrap {

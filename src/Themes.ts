@@ -357,6 +357,7 @@ export const toggleIconSet = (changeTo = player.iconSet) => {
       img.src = img.src.replace(IconSetsRegex, IconSets[player.iconSet][0])
     }
   )
+  document.body.classList[changeTo === 0 ? 'add' : 'remove']('legacyIcons')
   DOMCacheGetOrSet('iconSet').textContent = i18next.t(`settings.iconSets.${IconSets[player.iconSet][0].toLowerCase()}`)
 }
 
