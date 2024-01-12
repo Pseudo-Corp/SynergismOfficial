@@ -2,7 +2,7 @@
   .mobileShow { display: unset; }
   .mobileHide { display: none; }
 
-  .buttonRow { row-gap: 6px; }
+  /* .subTabWrapper { width: 100vw; } */
 
   #multiplier > .desc { color: unset; }
   #accelerator > .stats { color: unset; }
@@ -13,6 +13,17 @@
     display: flex;
     flex-direction: column;
     row-gap: 8px;
+  }
+
+  .buyAmount {
+    margin: 16px 0 22px;
+    position: unset;
+    /* left: unset; */
+  }
+
+  .buttonRow {
+    row-gap: 6px;
+    margin: 0 0 20px;
   }
 
   .buttonRow > div:not(.buildingSpacer) {
@@ -147,4 +158,15 @@
 
   .buildingPurchaseAvailable { cursor: pointer; }
   .buildingPurchaseAvailable > .buildingPurchaseBtn:hover { background-color: unset; }
+
+  .resetautomation { margin-top: 40px !important; }
+  #taxinfo { margin: 0; }
+
+  #coinBuildings,
+  #prestige,
+  #transcension,
+  #reincarnation,
+  #ascension {
+    margin-bottom: 20px;
+  }
 }

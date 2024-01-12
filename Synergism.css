@@ -681,10 +681,10 @@ button.isEvent:hover {
 }
 
 .subTabWrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 145px);
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 10px 15px;
+    gap: 15px 10px;
     width: 90%;
     margin: 15px auto 0;
 }
@@ -704,19 +704,11 @@ button.isEvent:hover {
     margin: 0 auto;
 }
 
-#buildingtext p {
-    margin: 0;
-}
-
 p#buildinghotkeys,
 p#buildinghotkeys2 {
-    margin-top: 15px;
     color: lightgray;
     text-align: center;
-}
-
-p#buildinghotkeys2 {
-    margin-top: 0;
+    margin: 0;
 }
 
 #buildingtext {
@@ -1081,7 +1073,7 @@ body.legacyIcons .buttonRow > div > img { background-color: black; }
 #taxinfo {
     text-align: center;
     font-size: 1em;
-    margin-top: 30px;
+    margin: 30px 0 15px;
 }
 
 .tightText {
@@ -1193,11 +1185,10 @@ body.legacyIcons .buttonRow > div > img { background-color: black; }
     gap: 5px;
 }
 
-#buyamountcoin,
-#buyamountcrystal,
-#buyamountmythos,
-#buyamountparticle,
-#buyAmountTesseract {
+.buyAmount {
+    display: flex;
+    margin: 4px 0;
+    column-gap: 4px;
     position: absolute;
     left: 80%;
 }

@@ -238,17 +238,13 @@
             <button class="ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid orange" i18n="tabs.buildings.tesseract"></button>
         </div>
         <div id="coinBuildings">
-            <div id="buyamountcoin">
-                <table class="coinunlock3" id="coinbuyamount" title="Toggle amount to buy">
-                    <tr>
-                    <td><img id="coinone" alt="One Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinOne.png" style="background-color: green;" loading="lazy"></td>
-                    <td><img id="cointen" alt="Ten Coin buildings" class="buyAmountBtn" src="Pictures/Default/CoinTen.png" loading="lazy"></td>
-                    <td><img id="coinhundred" alt="100 Coin Buildings" class="buyAmountBtn" src="Pictures/Default/CoinHundred.png" loading="lazy"></td>
-                    <td><img id="cointhousand" alt="1000 Coin Buildings" class="buyAmountBtn" src="Pictures/Default/CoinThousand.png" loading="lazy"></td>
-                    <td><img id="coin10k" alt="10000 Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinTenThousand.png" loading="lazy"></td>
-                    <td><img id="coin100k" alt="100000 Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinHundredThousand.png" loading="lazy"></td>
-                    </tr>
-                </table>
+            <div class="coinunlock3 buyAmount" title="Toggle amount to buy">
+                <img id="coinone" alt="One Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinOne.png" style="background-color: green;" loading="lazy">
+                <img id="cointen" alt="Ten Coin buildings" class="buyAmountBtn" src="Pictures/Default/CoinTen.png" loading="lazy">
+                <img id="coinhundred" alt="100 Coin Buildings" class="buyAmountBtn" src="Pictures/Default/CoinHundred.png" loading="lazy">
+                <img id="cointhousand" alt="1000 Coin Buildings" class="buyAmountBtn" src="Pictures/Default/CoinThousand.png" loading="lazy">
+                <img id="coin10k" alt="10000 Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinTenThousand.png" loading="lazy">
+                <img id="coin100k" alt="100000 Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinHundredThousand.png" loading="lazy">
             </div>
 
             <!--
@@ -338,22 +334,18 @@
 
             <div id="buildingtext">
                 <p class="prestigeunlock" id="taxinfo" style="color: orange;"></p>
-                <p class="prestigeunlock" id="buildinghotkeys" i18n="footnotes.buildings"></p>
-                <p class="prestigeunlock" id="buildinghotkeys2" i18n="footnotes.buildings2"></p>
+                <p class="prestigeunlock mobileHide" id="buildinghotkeys" i18n="footnotes.buildings"></p>
+                <p class="prestigeunlock mobileHide" id="buildinghotkeys2" i18n="footnotes.buildings2"></p>
             </div>
         </div>
         <div id="prestige" style="display: none;">
-            <div id="buyamountcrystal">
-                <table id="crystalbuyamount" title="Toggle amount to buy">
-                    <tr>
-                    <td><img id="crystalone" alt="One Crystal Building" class="buyAmountBtn" src="Pictures/Default/CrystalOne.png" style="background-color: green;" loading="lazy"></td>
-                    <td><img id="crystalten" alt="Ten Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalTen.png" loading="lazy"></td>
-                    <td><img id="crystalhundred" alt="100 Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalHundred.png" loading="lazy"></td>
-                    <td><img id="crystalthousand" alt="1000 Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalThousand.png" loading="lazy"></td>
-                    <td><img id="crystal10k" alt="10k Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalTenThousand.png" loading="lazy"></td>
-                    <td><img id="crystal100k" alt="100k Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalHundredThousand.png" loading="lazy"></td>
-                    </tr>
-                </table>
+            <div class="buyAmount" title="Toggle amount to buy">
+                <img id="crystalone" alt="One Crystal Building" class="buyAmountBtn" src="Pictures/Default/CrystalOne.png" style="background-color: green;" loading="lazy">
+                <img id="crystalten" alt="Ten Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalTen.png" loading="lazy">
+                <img id="crystalhundred" alt="100 Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalHundred.png" loading="lazy">
+                <img id="crystalthousand" alt="1000 Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalThousand.png" loading="lazy">
+                <img id="crystal10k" alt="10k Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalTenThousand.png" loading="lazy">
+                <img id="crystal100k" alt="100k Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalHundredThousand.png" loading="lazy">
             </div>
 
             <div class="buttonRow">
@@ -427,21 +419,17 @@
                 <button id="prestigeautotoggle" style="border:2px solid green;"></button>
                 <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1">
                 <p class="transcendunlock mainText" id="autoprestige"></p>
-                <p id="prestigehotkeys" class="grayText" i18n="footnotes.crystals"></p>
+                <p id="prestigehotkeys" class="grayText mobileHide" i18n="footnotes.crystals"></p>
             </div>
         </div>
         <div id="transcension" style="display: none;">
-            <div id="buyamountmythos">
-                <table id="mythosbuyamount" title="Toggle amount to buy">
-                    <tr>
-                    <td><img id="mythosone" alt="One Mythos Building" class="buyAmountBtn" src="Pictures/Default/MythosOne.png" style="background-color: green;" loading="lazy"></td>
-                    <td><img id="mythosten" alt="Ten Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosTen.png" loading="lazy"></td>
-                    <td><img id="mythoshundred" alt="100 Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosHundred.png" loading="lazy"></td>
-                    <td><img id="mythosthousand" alt="1000 Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosThousand.png" loading="lazy"></td>
-                    <td><img id="mythos10k" alt="10k Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosTenThousand.png" loading="lazy"></td>
-                    <td><img id="mythos100k" alt="100k Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosHundredThousand.png" loading="lazy"></td>
-                    </tr>
-                </table>
+            <div class="buyAmount" title="Toggle amount to buy">
+                <img id="mythosone" alt="One Mythos Building" class="buyAmountBtn" src="Pictures/Default/MythosOne.png" style="background-color: green;" loading="lazy">
+                <img id="mythosten" alt="Ten Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosTen.png" loading="lazy">
+                <img id="mythoshundred" alt="100 Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosHundred.png" loading="lazy">
+                <img id="mythosthousand" alt="1000 Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosThousand.png" loading="lazy">
+                <img id="mythos10k" alt="10k Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosTenThousand.png" loading="lazy">
+                <img id="mythos100k" alt="100k Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosHundredThousand.png" loading="lazy">
             </div>
 
             <div class="buttonRow">
@@ -502,20 +490,16 @@
                 <p class="transcendunlock" id="autotranscend"></p>
             </div>
 
-            <p id="transcendhotkeys" class="grayText" i18n="footnotes.mythos"></p>
+            <p id="transcendhotkeys" class="grayText mobileHide" i18n="footnotes.mythos"></p>
         </div>
         <div id="reincarnation" style="display: none;">
-            <div id="buyamountparticle">
-                <table id="particlebuyamount" title="Toggle amount to buy">
-                    <tr>
-                    <td><img id="particleone" alt="One Particle Building" class="buyAmountBtn" src="Pictures/Default/ParticleOne.png" style="background-color: green;" loading="lazy"></td>
-                    <td><img id="particleten" alt="Ten Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleTen.png" loading="lazy"></td>
-                    <td><img id="particlehundred" alt="100 Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleHundred.png" loading="lazy"></td>
-                    <td><img id="particlethousand" alt="1000 Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleThousand.png" loading="lazy"></td>
-                    <td><img id="particle10k" alt="10k Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleTenThousand.png" loading="lazy"></td>
-                    <td><img id="particle100k" alt="100k Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleHundredThousand.png" loading="lazy"></td>
-                    </tr>
-                </table>
+            <div class="buyAmount" title="Toggle amount to buy">
+                <img id="particleone" alt="One Particle Building" class="buyAmountBtn" src="Pictures/Default/ParticleOne.png" style="background-color: green;" loading="lazy">
+                <img id="particleten" alt="Ten Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleTen.png" loading="lazy">
+                <img id="particlehundred" alt="100 Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleHundred.png" loading="lazy">
+                <img id="particlethousand" alt="1000 Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleThousand.png" loading="lazy">
+                <img id="particle10k" alt="10k Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleTenThousand.png" loading="lazy">
+                <img id="particle100k" alt="100k Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleHundredThousand.png" loading="lazy">
             </div>
 
             <div class="buttonRow">
@@ -580,20 +564,16 @@
                     <p class="reincarnationunlock mainText" id="autoreincarnate"></p>
                 </div>
             </div>
-            <p id="reincarnatehotkeys" class="grayText" i18n="footnotes.particle"></p>
+            <p id="reincarnatehotkeys" class="grayText mobileHide" i18n="footnotes.particle"></p>
         </div>
         <div id="ascension" style="display: none">
-            <div id="buyAmountTesseract">
-                <table id="buyTesseractToggles" title="Toggle amount to buy">
-                    <tr>
-                        <td><img id="tesseractone" alt="One Tesseract Building" class="buyAmountBtn" src="Pictures/Default/TesseractOne.png" style="background-color: green;" loading="lazy"></td>
-                        <td><img id="tesseractten" alt="Ten Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractTen.png" loading="lazy"></td>
-                        <td><img id="tesseracthundred" alt="100 Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractHundred.png" loading="lazy"></td>
-                        <td><img id="tesseractthousand" alt="1000 Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractThousand.png" loading="lazy"></td>
-                        <td><img id="tesseract10k" alt="10k Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractTenThousand.png" loading="lazy"></td>
-                        <td><img id="tesseract100k" alt="100k Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractHundredThousand.png" loading="lazy"></td>
-                    </tr>
-                </table>
+            <div class="buyAmount" title="Toggle amount to buy">
+                <img id="tesseractone" alt="One Tesseract Building" class="buyAmountBtn" src="Pictures/Default/TesseractOne.png" style="background-color: green;" loading="lazy">
+                <img id="tesseractten" alt="Ten Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractTen.png" loading="lazy">
+                <img id="tesseracthundred" alt="100 Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractHundred.png" loading="lazy">
+                <img id="tesseractthousand" alt="1000 Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractThousand.png" loading="lazy">
+                <img id="tesseract10k" alt="10k Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractTenThousand.png" loading="lazy">
+                <img id="tesseract100k" alt="100k Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractHundredThousand.png" loading="lazy">
             </div>
 
             <div class="buttonRow">
@@ -695,7 +675,7 @@
                 <input class="tesseractautobuyamount" type="number" id="tesseractAmount" min="1" max="999999999" defaultValue="1">
                 <p class="tesseractautobuyamount mainText" id="autotessbuyeramount"></p>
             </div>
-            <p id="ascendHotKeys" class="grayText" i18n="footnotes.particle"></p>
+            <p id="ascendHotKeys" class="grayText mobileHide" i18n="footnotes.particle"></p>
         </div>
     </div>
 
