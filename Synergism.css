@@ -694,7 +694,7 @@ button.isEvent:hover {
     text-align: center;
 }
 
-.buildingMainContainer {
+#coinBuildings {
     display: flex;
     position: relative;
     padding: 0;
@@ -756,6 +756,7 @@ p#buildinghotkeys2 {
     font-size: 0;
     min-height: 182px;
     text-align: center;
+    display: block;
 }
 
 #upgradesFlex > div > table img {
@@ -1019,6 +1020,15 @@ p#promocodeinfo {
 }
 
 .goldBuild { color: gold; }
+.yellowBuild { color: yellow; }
+.pinkBuild { color: pink; }
+.cyanBuild { color: cyan; }
+.plumBuild { color: plum; }
+.limegreenBuild { color: limegreen; }
+.orangeBuild { color: orange; }
+
+#multiplier > .desc { color: yellow; }
+#accelerator > .stats { color: cyan; }
 
 .buildingPurchaseBtn {
     width: 15em;
@@ -1055,9 +1065,9 @@ p#promocodeinfo {
     line-height: 1em;
 }
 
-#buildtext12,
-#buildtext14,
-#buildtext16 {
+#accelerator > .stats,
+#multiplier > .stats,
+#acceleratorboost > .stats {
     min-height: 2em;
 }
 
@@ -1199,7 +1209,6 @@ p#promocodeinfo {
 #prestige {
     position: relative;
     padding: 0;
-    color: cyan;
     flex-direction: column;
     align-items: center;
     max-width: 1600px;
@@ -1526,10 +1535,6 @@ img.runeTypeElement:hover {
     text-align: center;
 }
 
-#transcension > .buttonRow {
-    color: plum;
-}
-
 #transcendshardbonus {
     margin-top: 2px;
 }
@@ -1726,7 +1731,6 @@ p#transcendhotkeys {
 #reincarnation {
     position: relative;
     padding: 0;
-    color: limegreen;
     flex-direction: column;
     align-items: center;
     max-width: 1600px;
@@ -2455,7 +2459,6 @@ button.language-select span.lang-name {
 #ascension {
     position: relative;
     padding: 0;
-    color: orange;
     flex-direction: column;
     align-items: center;
     max-width: 1600px;

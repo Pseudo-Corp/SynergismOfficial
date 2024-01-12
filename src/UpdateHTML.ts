@@ -52,12 +52,7 @@ export const revealStuff = () => {
 
   const example5 = document.getElementsByClassName('prestigeunlock') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example5.length; i++) {
-    const parent = example5[i].parentElement!
-    if (parent.classList.contains('offlineStats')) {
-      example5[i].style.display = player.unlocks.prestige ? 'flex' : 'none'
-    } else {
-      example5[i].style.display = player.unlocks.prestige ? 'block' : 'none'
-    }
+    example5[i].style.display = player.unlocks.prestige ? '' : 'none'
   }
 
   const example6 = document.getElementsByClassName('generationunlock') as HTMLCollectionOf<HTMLElement>
@@ -800,9 +795,9 @@ export const buttoncolorchange = () => {
     const c = DOMCacheGetOrSet('coin3')
     const d = DOMCacheGetOrSet('coin4')
     const e = DOMCacheGetOrSet('coin5')
-    const f = DOMCacheGetOrSet('buyaccelerator')
-    const g = DOMCacheGetOrSet('buymultiplier')
-    const h = DOMCacheGetOrSet('buyacceleratorboost')
+    const f = DOMCacheGetOrSet('accelerator')
+    const g = DOMCacheGetOrSet('multiplier')
+    const h = DOMCacheGetOrSet('acceleratorboost')
     ;((!player.toggles[1] || player.upgrades[81] === 0) && player.coins.gte(player.firstCostCoin))
       ? a.classList.add('buildingPurchaseAvailable')
       : a.classList.remove('buildingPurchaseAvailable')
@@ -830,11 +825,11 @@ export const buttoncolorchange = () => {
   }
 
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
-    const a = DOMCacheGetOrSet('buydiamond1')
-    const b = DOMCacheGetOrSet('buydiamond2')
-    const c = DOMCacheGetOrSet('buydiamond3')
-    const d = DOMCacheGetOrSet('buydiamond4')
-    const e = DOMCacheGetOrSet('buydiamond5')
+    const a = DOMCacheGetOrSet('diamond1')
+    const b = DOMCacheGetOrSet('diamond2')
+    const c = DOMCacheGetOrSet('diamond3')
+    const d = DOMCacheGetOrSet('diamond4')
+    const e = DOMCacheGetOrSet('diamond5')
     const f = DOMCacheGetOrSet('buycrystalupgrade1')
     const g = DOMCacheGetOrSet('buycrystalupgrade2')
     const h = DOMCacheGetOrSet('buycrystalupgrade3')
@@ -949,8 +944,8 @@ export const buttoncolorchange = () => {
       const toggle = player.toggles[i + 15]
       const mythos = player[`${G.ordinals[i - 1 as ZeroToFour]}CostMythos` as const]
       ;(!toggle || !player.upgrades[93 + i]) && player.transcendPoints.gte(mythos)
-        ? DOMCacheGetOrSet(`buymythos${i}`).classList.add('buildingPurchaseAvailable')
-        : DOMCacheGetOrSet(`buymythos${i}`).classList.remove('buildingPurchaseAvailable')
+        ? DOMCacheGetOrSet(`mythos${i}`).classList.add('buildingPurchaseAvailable')
+        : DOMCacheGetOrSet(`mythos${i}`).classList.remove('buildingPurchaseAvailable')
     }
   }
 
@@ -958,8 +953,8 @@ export const buttoncolorchange = () => {
     for (let i = 1; i <= 5; i++) {
       const costParticles = player[`${G.ordinals[i - 1 as ZeroToFour]}CostParticles` as const]
       player.reincarnationPoints.gte(costParticles)
-        ? DOMCacheGetOrSet(`buyparticles${i}`).classList.add('buildingPurchaseAvailable')
-        : DOMCacheGetOrSet(`buyparticles${i}`).classList.remove('buildingPurchaseAvailable')
+        ? DOMCacheGetOrSet(`particles${i}`).classList.add('buildingPurchaseAvailable')
+        : DOMCacheGetOrSet(`particles${i}`).classList.remove('buildingPurchaseAvailable')
     }
   }
 
@@ -967,8 +962,8 @@ export const buttoncolorchange = () => {
     for (let i = 1; i <= 5; i++) {
       const ascendBuilding = player[`ascendBuilding${i as OneToFive}` as const].cost
       Number(player.wowTesseracts) >= ascendBuilding
-        ? DOMCacheGetOrSet(`buyTesseracts${i}`).classList.add('buildingPurchaseAvailable')
-        : DOMCacheGetOrSet(`buyTesseracts${i}`).classList.remove('buildingPurchaseAvailable')
+        ? DOMCacheGetOrSet(`tesseracts${i}`).classList.add('buildingPurchaseAvailable')
+        : DOMCacheGetOrSet(`tesseracts${i}`).classList.remove('buildingPurchaseAvailable')
     }
     for (let i = 1; i <= 8; i++) {
       if (player.researches[175] >= 1) {

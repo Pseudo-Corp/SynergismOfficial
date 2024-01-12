@@ -4,6 +4,17 @@
 
   .buttonRow { row-gap: 6px; }
 
+  #multiplier > .desc { color: unset; }
+  #accelerator > .stats { color: unset; }
+  #acceleratorboost:not(.buildingPurchaseAvailable) .crimsonText { color: #49494a; }
+
+  #accelerator > .stats,
+  #multiplier > .stats {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  }
+
   .buttonRow > div:not(.buildingSpacer) {
     display: grid;
     grid-template-columns: 32px;
@@ -13,8 +24,9 @@
       "coins coins toggle"
       "cost cost toggle";
     align-items: center;
-    border: 2px solid darkslategray;
-    color: darkslategray;
+    border: 2px solid #49494a;
+    background-color: #121212;
+    color: #49494a;
     border-radius: 8px;
     padding: 8px 12px 12px;
     gap: 8px 2px;
@@ -52,23 +64,59 @@
     border-radius: 8px;
   }
 
-  .buttonRow > div > img { grid-area: img; }
+  .buttonRow > div > img {
+    grid-area: img;
+    filter: brightness(0.33) grayscale(1);
+  }
+
   .buttonRow > div > .stats { grid-area: coins; }
 
   .buttonRow > div > .desc { display: contents; }
   /* .buttonRow > div > .stats { line-height: 1em; } */
 
-  .buttonRow > div:not(.buildingSpacer):not(.goldBuild) { /* Remove later */
-    border: 2px solid gold;
+  .buttonRow > .buildingPurchaseAvailable.goldBuild {
+    border-color: gold;
     background-color: #1f1a00;
     color: gold;
   }
 
-  .buttonRow > .buildingPurchaseAvailable.goldBuild {
-    border: 2px solid gold;
-    background-color: #1f1a00;
-    color: gold;
+  .buttonRow > .buildingPurchaseAvailable.yellowBuild {
+    border-color: yellow;
+    background-color: #242400;
+    color: yellow;
   }
+
+  .buttonRow > .buildingPurchaseAvailable.pinkBuild {
+    border-color: pink;
+    background-color: #291e20;
+    color: pink;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.cyanBuild {
+    border-color: cyan;
+    background-color: #002424;
+    color: cyan;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.plumBuild {
+    border-color: plum;
+    background-color: #1a091a;
+    color: plum;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.limegreenBuild {
+    border-color: limegreen;
+    background-color: #071d07;
+    color: limegreen;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.orangeBuild {
+    border-color: orange;
+    background-color: #241700;
+    color: orange;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable > img { filter: unset; }
 
   .buildingPurchaseAvailable { cursor: pointer; }
   .buildingPurchaseAvailable > .buildingPurchaseBtn:hover { background-color: unset; }

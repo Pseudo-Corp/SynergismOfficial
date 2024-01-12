@@ -79,30 +79,25 @@ export const visualUpdateBuildings = () => {
       })
     }
 
-    DOMCacheGetOrSet('buildtext11').textContent = i18next.t('buildings.names.accelerators', {
-      amount: format(player.acceleratorBought, 0, true),
-      gain: format(G.freeAccelerator, 0, true)
-    })
+    DOMCacheGetOrSet('buildtext11').textContent = `${format(player.acceleratorBought, 0, true)} [+${format(G.freeAccelerator, 0, true)}]`
 
-    DOMCacheGetOrSet('buildtext12').textContent = i18next.t('buildings.acceleratorPower', {
-      power: format((G.acceleratorPower - 1) * 100, 2),
+    DOMCacheGetOrSet('buildtext12p1').textContent = i18next.t('buildings.acceleratorPower', {
+      power: format((G.acceleratorPower - 1) * 100, 2)
+    })
+    DOMCacheGetOrSet('buildtext12p2').textContent = i18next.t('buildings.acceleratorEffect', {
       mult: format(G.acceleratorEffect, 2)
     })
 
-    DOMCacheGetOrSet('buildtext13').textContent = i18next.t('buildings.names.multipliers', {
-      amount: format(player.multiplierBought, 0, true),
-      gain: format(G.freeMultiplier, 0, true)
-    })
+    DOMCacheGetOrSet('buildtext13').textContent = `${format(player.multiplierBought, 0, true)} [+${format(G.freeMultiplier, 0, true)}]`
 
-    DOMCacheGetOrSet('buildtext14').textContent = i18next.t('buildings.multiplierPower', {
-      power: format(G.multiplierPower, 2),
+    DOMCacheGetOrSet('buildtext14p1').textContent = i18next.t('buildings.multiplierPower', {
+      power: format(G.multiplierPower, 2)
+    })
+    DOMCacheGetOrSet('buildtext14p2').textContent = i18next.t('buildings.multiplierEffect', {
       mult: format(G.multiplierEffect, 2)
     })
 
-    DOMCacheGetOrSet('buildtext15').textContent = i18next.t('buildings.names.acceleratorBoost', {
-      amount: format(player.acceleratorBoostBought, 0, true),
-      gain: format(G.freeAcceleratorBoost, 0, false)
-    })
+    DOMCacheGetOrSet('buildtext15').textContent = `${format(player.acceleratorBoostBought, 0, true)} [+${format(G.freeAcceleratorBoost, 0, false)}]`
 
     DOMCacheGetOrSet('buildtext16').textContent = i18next.t('buildings.acceleratorBoost', {
       amount: format(
@@ -142,7 +137,6 @@ export const visualUpdateBuildings = () => {
       'produceFourthDiamonds',
       'produceFifthDiamonds'
     ] as const
-    const names = ['refineries', 'coalPlants', 'coalRigs', 'pickaxes', 'pandorasBoxes']
     const perSecNames = ['crystal', 'ref', 'plants', 'rigs', 'pickaxes']
 
     DOMCacheGetOrSet('prestigeshardinfo').textContent = i18next.t('buildings.crystalMult', {
@@ -154,10 +148,7 @@ export const visualUpdateBuildings = () => {
       const place = G[upper[i - 1]]
       const ith = G.ordinals[i - 1 as ZeroToFour]
 
-      DOMCacheGetOrSet(`prestigetext${2 * i - 1}`).textContent = i18next.t(`buildings.names.${names[i - 1]}`, {
-        amount: format(player[`${ith}OwnedDiamonds` as const], 0, true),
-        gain: format(player[`${ith}GeneratedDiamonds` as const], 2)
-      })
+      DOMCacheGetOrSet(`prestigetext${2 * i - 1}`).textContent = `${format(player[`${ith}OwnedDiamonds` as const], 0, true)} [+${format(player[`${ith}GeneratedDiamonds` as const], 2)}]`
 
       DOMCacheGetOrSet(`prestigetext${2 * i}`).textContent = i18next.t(`buildings.per.${perSecNames[i - 1]}`, {
         amount: format(place.times(40), 2)
@@ -195,7 +186,6 @@ export const visualUpdateBuildings = () => {
       'produceFourthMythos',
       'produceFifthMythos'
     ] as const
-    const names = ['augments', 'enchantments', 'wizards', 'oracles', 'grandmasters']
     const perSecNames = ['shards', 'augments', 'enchantments', 'wizards', 'oracles']
 
     DOMCacheGetOrSet('transcendshardinfo').textContent = i18next.t('buildings.mythosYouHave', {
@@ -207,10 +197,7 @@ export const visualUpdateBuildings = () => {
       const place = G[upper[i - 1]]
       const ith = G.ordinals[i - 1 as ZeroToFour]
 
-      DOMCacheGetOrSet(`transcendtext${2 * i - 1}`).textContent = i18next.t(`buildings.names.${names[i - 1]}`, {
-        amount: format(player[`${ith}OwnedMythos` as const], 0, true),
-        gain: format(player[`${ith}GeneratedMythos` as const], 2)
-      })
+      DOMCacheGetOrSet(`transcendtext${2 * i - 1}`).textContent = `${format(player[`${ith}OwnedMythos` as const], 0, true)} [+${format(player[`${ith}GeneratedMythos` as const], 2)}]`
 
       DOMCacheGetOrSet(`transcendtext${2 * i}`).textContent = i18next.t(`buildings.per.${perSecNames[i - 1]}`, {
         amount: format(place.times(40), 2)
@@ -245,17 +232,13 @@ export const visualUpdateBuildings = () => {
   } else if (G.buildingSubTab === 'particle') {
     // For the display of Particle Buildings
     const upper = ['FirstParticles', 'SecondParticles', 'ThirdParticles', 'FourthParticles', 'FifthParticles'] as const
-    const names = ['protons', 'elements', 'pulsars', 'quasars', 'galacticNuclei']
     const perSecNames = ['atoms', 'protons', 'elements', 'pulsars', 'quasars']
 
     for (let i = 1; i <= 5; i++) {
       const ith = G.ordinals[i - 1 as ZeroToFour]
       const place = G[`produce${upper[i - 1]}` as const]
 
-      DOMCacheGetOrSet(`reincarnationtext${i}`).textContent = i18next.t(`buildings.names.${names[i - 1]}`, {
-        amount: format(player[`${ith}OwnedParticles` as const], 0, true),
-        gain: format(player[`${ith}GeneratedParticles` as const], 2)
-      })
+      DOMCacheGetOrSet(`reincarnationtext${i}`).textContent = `${format(player[`${ith}OwnedParticles` as const], 0, true)} [+${format(player[`${ith}GeneratedParticles` as const], 2)}]`
       DOMCacheGetOrSet(`reincarnationtext${i + 5}`).textContent = i18next.t(`buildings.per.${perSecNames[i - 1]}`, {
         amount: format(place.times(40), 2)
       })
@@ -299,16 +282,12 @@ export const visualUpdateBuildings = () => {
       })
     }
   } else if (G.buildingSubTab === 'tesseract') {
-    const names = ['dot', 'vector', 'threeSpace', 'bentTime', 'hilbertSpace']
     const perSecNames = ['constant', 'dot', 'vector', 'threeSpace', 'bentTime']
 
     for (let i = 1; i <= 5; i++) {
       const ascendBuildingI = `ascendBuilding${i as 1 | 2 | 3 | 4 | 5}` as const
 
-      DOMCacheGetOrSet(`ascendText${i}`).textContent = i18next.t(`buildings.names.${names[i - 1]}`, {
-        amount: format(player[ascendBuildingI].owned, 0, true),
-        gain: format(player[ascendBuildingI].generated, 2)
-      })
+      DOMCacheGetOrSet(`ascendText${i}`).textContent = `${format(player[ascendBuildingI].owned, 0, true)} [+${format(player[ascendBuildingI].generated, 2)}]`
 
       DOMCacheGetOrSet(`ascendText${5 + i}`).textContent = i18next.t(`buildings.per.${perSecNames[i - 1]}`, {
         amount: format((G.ascendBuildingProduction as Record<string, Decimal>)[G.ordinals[i - 1]], 2)
