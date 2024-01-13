@@ -237,18 +237,14 @@
             <button class="reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow" i18n="tabs.buildings.particle"></button>
             <button class="ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid orange" i18n="tabs.buildings.tesseract"></button>
         </div>
-        <div id="coinBuildings" class="buildingMainContainer">
-            <div id="buyamountcoin">
-                <table class="coinunlock3" id="coinbuyamount" title="Toggle amount to buy">
-                    <tr>
-                    <td><img id="coinone" alt="One Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinOne.png" style="background-color: green;" loading="lazy"></td>
-                    <td><img id="cointen" alt="Ten Coin buildings" class="buyAmountBtn" src="Pictures/Default/CoinTen.png" loading="lazy"></td>
-                    <td><img id="coinhundred" alt="100 Coin Buildings" class="buyAmountBtn" src="Pictures/Default/CoinHundred.png" loading="lazy"></td>
-                    <td><img id="cointhousand" alt="1000 Coin Buildings" class="buyAmountBtn" src="Pictures/Default/CoinThousand.png" loading="lazy"></td>
-                    <td><img id="coin10k" alt="10000 Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinTenThousand.png" loading="lazy"></td>
-                    <td><img id="coin100k" alt="100000 Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinHundredThousand.png" loading="lazy"></td>
-                    </tr>
-                </table>
+        <div id="coinBuildings">
+            <div class="coinunlock3 buyAmount" title="Toggle amount to buy">
+                <img id="coinone" alt="One Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinOne.png" style="background-color: green;" loading="lazy">
+                <img id="cointen" alt="Ten Coin buildings" class="buyAmountBtn" src="Pictures/Default/CoinTen.png" loading="lazy">
+                <img id="coinhundred" alt="100 Coin Buildings" class="buyAmountBtn" src="Pictures/Default/CoinHundred.png" loading="lazy">
+                <img id="cointhousand" alt="1000 Coin Buildings" class="buyAmountBtn" src="Pictures/Default/CoinThousand.png" loading="lazy">
+                <img id="coin10k" alt="10000 Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinTenThousand.png" loading="lazy">
+                <img id="coin100k" alt="100000 Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinHundredThousand.png" loading="lazy">
             </div>
 
             <!--
@@ -257,129 +253,145 @@
                 the element children inside.
             -->
             <div class="buttonRow">
-                <div>
-                    <img class="image" id="coin1" alt="Worker" src="Pictures/Default/Tier1.png" loading="lazy">
-                    <span class="desc" style="color: gold">
-                        <span id="buildname1"></span><span><span class="mobileShow">Total</span>: <span id="buildtext1"></span></span>
+                <div id="coin1" class="goldBuild">
+                    <img alt="Worker" src="Pictures/Default/Tier1.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.workers"></span><span><span class="mobileShow">Total</span>: <span id="buildtext1"></span></span>
                     </span>
                     <button class="buildingPurchaseBtn" id="buycoin1"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle1" toggleid="1"></button>
-                    <span class="stats" id="buildtext2" style="color: gold"></span>
+                    <button class="auto" id="toggle1" toggleid="1" data-status="off"></button>
+                    <span class="stats" id="buildtext2"></span>
                 </div>
-                <div>
-                    <img class="coinunlock1 image" id="coin2" alt="Investment" src="Pictures/Default/Tier2.png" loading="lazy">
-                    <span class="desc coinunlock1" style="color: gold">
-                        <span id="buildname2"></span><span><span class="mobileShow">Total</span>: <span id="buildtext3"></span></span>
+                <div id="coin2" class="coinunlock1 goldBuild">
+                    <img alt="Investment" src="Pictures/Default/Tier2.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.investments"></span><span><span class="mobileShow">Total</span>: <span id="buildtext3"></span></span>
                     </span>
-                    <button class="coinunlock1 buildingPurchaseBtn" id="buycoin2"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle2" toggleid="2"></button>
-                    <span class="coinunlock1 stats" id="buildtext4" style="color: gold">0 </span>
+                    <button class="buildingPurchaseBtn" id="buycoin2"></button>
+                    <button class="auto" id="toggle2" toggleid="2" data-status="off"></button>
+                    <span class="stats" id="buildtext4">0 </span>
                 </div>
-                <div>
-                    <img class="coinunlock2 image" id="coin3" alt="Printer" src="Pictures/Default/Tier3.png" loading="lazy">
-                    <span class="desc coinunlock2" style="color: gold">
-                        <span id="buildname3"></span><span><span class="mobileShow">Total</span>: <span id="buildtext5"></span></span>
+                <div id="coin3" class="coinunlock2 goldBuild">
+                    <img alt="Printer" src="Pictures/Default/Tier3.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.printers"></span><span><span class="mobileShow">Total</span>: <span id="buildtext5"></span></span>
                     </span>
-                    <button class="coinunlock2 buildingPurchaseBtn" id="buycoin3"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle3" toggleid="3"></button>
-                    <span class="coinunlock2 stats" id="buildtext6" style="color: gold"></span>
+                    <button class="buildingPurchaseBtn" id="buycoin3"></button>
+                    <button class="auto" id="toggle3" toggleid="3" data-status="off"></button>
+                    <span class="stats" id="buildtext6"></span>
                 </div>
-                <div>
-                    <img class="coinunlock3 image" id="coin4" alt="Coin Mint" src="Pictures/Default/Tier4.png" loading="lazy">
-                    <span class="desc coinunlock3" style="color: gold">
-                        <span id="buildname4"></span><span><span class="mobileShow">Total</span>: <span id="buildtext7"></span></span>
+                <div id="coin4" class="coinunlock3 goldBuild">
+                    <img alt="Coin Mint" src="Pictures/Default/Tier4.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.coinMints"></span><span><span class="mobileShow">Total</span>: <span id="buildtext7"></span></span>
                     </span>
-                    <button class="coinunlock3 buildingPurchaseBtn" id="buycoin4"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle4" toggleid="4"></button>
-                    <span class="coinunlock3 stats" id="buildtext8" style="color: gold"></span>
+                    <button class="buildingPurchaseBtn" id="buycoin4"></button>
+                    <button class="auto" id="toggle4" toggleid="4" data-status="off"></button>
+                    <span class="stats" id="buildtext8"></span>
                 </div>
-                <div>
-                    <img class="coinunlock4 image" id="coin5" alt="Alchemy" src="Pictures/Default/Tier5.png" loading="lazy">
-                    <span class="desc coinunlock4" style="color: gold">
-                        <span id="buildname5"></span><span><span class="mobileShow">Total</span>: <span id="buildtext9"></span></span>
+                <div id="coin5" class="coinunlock4 goldBuild">
+                    <img alt="Alchemy" src="Pictures/Default/Tier5.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.alchemies"></span><span><span class="mobileShow">Total</span>: <span id="buildtext9"></span></span>
                     </span>
-                    <button class="coinunlock4 buildingPurchaseBtn" id="buycoin5"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle5" toggleid="5"></button>
-                    <span class="coinunlock4 stats" id="buildtext10" style="color: gold"></span>
+                    <button class="buildingPurchaseBtn" id="buycoin5"></button>
+                    <button class="auto" id="toggle5" toggleid="5" data-status="off"></button>
+                    <span class="stats" id="buildtext10"></span>
                 </div>
                 <div class="buildingSpacer"></div>
-                <div>
-                    <img class="coinunlock1 image" id="accelerator" alt="Accelerator" src="Pictures/Default/Accelerator.png" loading="lazy">
-                    <span class="coinunlock1 desc" id="buildtext11" style="color: yellow">Accelerators: 0 [+0]</span>
-                    <button class="coinunlock1 buildingPurchaseBtn" id="buyaccelerator">Cost: 500 Coins.</button>
-                    <button class="auto autobuyerToggleButton" id="toggle6" toggleid="6"></button>
-                    <span class="coinunlock1 stats" id="buildtext12" style="color: cyan">Acceleration Factor: 10.0%. Acceleration Multiplier: 1.00x</span>
+                <div id="accelerator" class="coinunlock1 yellowBuild">
+                    <img alt="Accelerator" src="Pictures/Default/Accelerator.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.accelerators"></span><span><span class="mobileShow">Total</span>: <span id="buildtext11"></span></span>
+                    </span>
+                    <button class="buildingPurchaseBtn" id="buyaccelerator">Cost: 500 Coins.</button>
+                    <button class="auto" id="toggle6" toggleid="6" data-status="off"></button>
+                    <span class="stats">
+                        <span id="buildtext12p1"></span><span class="mobileHide"> || </span><span id="buildtext12p2"></span>
+                    </span>
                 </div>
-                <div>
-                    <img class="coinunlock2 image" id="multiplier" alt="Multiplier" src="Pictures/Default/Multiplier.png" loading="lazy">
-                    <span class="coinunlock2 desc" id="buildtext13" style="color: yellow">Multipliers: 0 [+0]</span>
-                    <button class="coinunlock2 buildingPurchaseBtn" id="buymultiplier">Cost: 500 Coins.</button>
-                    <button class="auto autobuyerToggleButton" id="toggle7" toggleid="7"></button>
-                    <span class="coinunlock2 stats" id="buildtext14" style="color: pink"></span>
+                <div id="multiplier" class="coinunlock2 pinkBuild">
+                    <img alt="Multiplier" src="Pictures/Default/Multiplier.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.multipliers"></span><span><span class="mobileShow">Total</span>: <span id="buildtext13"></span></span>
+                    </span>
+                    <button class="buildingPurchaseBtn" id="buymultiplier">Cost: 500 Coins.</button>
+                    <button class="auto" id="toggle7" toggleid="7" data-status="off"></button>
+                    <span class="stats">
+                        <span id="buildtext14p1"></span><span class="mobileHide"> || </span><span id="buildtext14p2"></span>
+                    </span>
                 </div>
-                <div>
-                    <img class="prestigeunlock image" id="acceleratorboost" alt="Accelerator Boost" src="Pictures/Default/AcceleratorBoost.png" loading="lazy">
-                    <span class="prestigeunlock desc" id="buildtext15" style="color: cyan">Accelerator Boosts: 0 [+0]</span>
-                    <button class="prestigeunlock buildingPurchaseBtn" id="buyacceleratorboost">Cost: 500 Coins.</button>
-                    <button class="auto autobuyerToggleButton" id="toggle8" toggleid="8"></button>
-                    <span class="prestigeunlock stats crimsonText" id="buildtext16">Next one adds 1.00% Acceleration Factor.</span>
+                <div id="acceleratorboost" class="prestigeunlock cyanBuild">
+                    <img alt="Accelerator Boost" src="Pictures/Default/AcceleratorBoost.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.acceleratorBoost"></span><span><span class="mobileShow">Total</span>: <span id="buildtext15"></span></span>
+                    </span>
+                    <button class="buildingPurchaseBtn" id="buyacceleratorboost">Cost: 500 Coins.</button>
+                    <button class="auto" id="toggle8" toggleid="8" data-status="off"></button>
+                    <span class="stats crimsonText" id="buildtext16">Next one adds 1.00% Acceleration Factor.</span>
                 </div>
             </div>
 
             <div id="buildingtext">
                 <p class="prestigeunlock" id="taxinfo" style="color: orange;"></p>
-                <p class="prestigeunlock" id="buildinghotkeys" i18n="footnotes.buildings"></p>
-                <p class="prestigeunlock" id="buildinghotkeys2" i18n="footnotes.buildings2"></p>
+                <p class="prestigeunlock mobileHide" id="buildinghotkeys" i18n="footnotes.buildings"></p>
+                <p class="prestigeunlock mobileHide" id="buildinghotkeys2" i18n="footnotes.buildings2"></p>
             </div>
         </div>
         <div id="prestige" style="display: none;">
-            <div id="buyamountcrystal">
-                <table id="crystalbuyamount" title="Toggle amount to buy">
-                    <tr>
-                    <td><img id="crystalone" alt="One Crystal Building" class="buyAmountBtn" src="Pictures/Default/CrystalOne.png" style="background-color: green;" loading="lazy"></td>
-                    <td><img id="crystalten" alt="Ten Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalTen.png" loading="lazy"></td>
-                    <td><img id="crystalhundred" alt="100 Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalHundred.png" loading="lazy"></td>
-                    <td><img id="crystalthousand" alt="1000 Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalThousand.png" loading="lazy"></td>
-                    <td><img id="crystal10k" alt="10k Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalTenThousand.png" loading="lazy"></td>
-                    <td><img id="crystal100k" alt="100k Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalHundredThousand.png" loading="lazy"></td>
-                    </tr>
-                </table>
+            <div class="buyAmount" title="Toggle amount to buy">
+                <img id="crystalone" alt="One Crystal Building" class="buyAmountBtn" src="Pictures/Default/CrystalOne.png" style="background-color: green;" loading="lazy">
+                <img id="crystalten" alt="Ten Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalTen.png" loading="lazy">
+                <img id="crystalhundred" alt="100 Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalHundred.png" loading="lazy">
+                <img id="crystalthousand" alt="1000 Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalThousand.png" loading="lazy">
+                <img id="crystal10k" alt="10k Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalTenThousand.png" loading="lazy">
+                <img id="crystal100k" alt="100k Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalHundredThousand.png" loading="lazy">
             </div>
 
             <div class="buttonRow">
-                <div>
-                    <img id="diamond1" alt="Refinery" class="image" src="Pictures/Default/DiamondTier1.png" loading="lazy">
-                    <span id="prestigetext1" class="desc">Refineries: 0 [+0]</span>
+                <div id="diamond1" class="cyanBuild">
+                    <img alt="Refinery" src="Pictures/Default/DiamondTier1.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.refineries"></span><span><span class="mobileShow">Total</span>: <span id="prestigetext1"></span></span>
+                    </span>
                     <button id="buydiamond1" class="buildingPurchaseBtn"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle10" toggleid="10"></button>
+                    <button class="auto" id="toggle10" toggleid="10" data-status="off"></button>
                     <span id="prestigetext2" class="stats">100 Shards/sec</span>
                 </div>
-                <div>
-                    <img id="diamond2" alt="Coal Plant" class="image" src="Pictures/Default/DiamondTier2.png" loading="lazy">
-                    <span id="prestigetext3" class="desc">Coal Plants: 0 [+0]</span>
+                <div id="diamond2" class="cyanBuild">
+                    <img alt="Coal Plant" src="Pictures/Default/DiamondTier2.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.coalPlants"></span><span><span class="mobileShow">Total</span>: <span id="prestigetext3"></span></span>
+                    </span>
                     <button id="buydiamond2" class="buildingPurchaseBtn"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle11" toggleid="11"></button>
+                    <button class="auto" id="toggle11" toggleid="11" data-status="off"></button>
                     <span id="prestigetext4" class="stats">100 Augments/sec</span>
                 </div>
-                <div>
-                    <img id="diamond3" alt="Coal Rig" class="image" src="Pictures/Default/DiamondTier3.png" loading="lazy">
-                    <span id="prestigetext5" class="desc">Coal Rigs: 0 [+0]</span>
+                <div id="diamond3" class="cyanBuild">
+                    <img alt="Coal Rig" src="Pictures/Default/DiamondTier3.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.coalRigs"></span><span><span class="mobileShow">Total</span>: <span id="prestigetext5"></span></span>
+                    </span>
                     <button id="buydiamond3" class="buildingPurchaseBtn"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle12" toggleid="12"></button>
+                    <button class="auto" id="toggle12" toggleid="12" data-status="off"></button>
                     <span id="prestigetext6" class="stats">100 Enhancements/sec</span>
                 </div>
-                <div>
-                    <img id="diamond4" alt="Pickaxe" class="image" src="Pictures/Default/DiamondTier4.png" loading="lazy">
-                    <span id="prestigetext7" class="desc">Diamond Pickaxes: 0 [+0]</span>
+                <div id="diamond4" class="cyanBuild">
+                    <img alt="Pickaxe" src="Pictures/Default/DiamondTier4.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.pickaxes"></span><span><span class="mobileShow">Total</span>: <span id="prestigetext7"></span></span>
+                    </span>
                     <button id="buydiamond4" class="buildingPurchaseBtn"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle13" toggleid="13"></button>
+                    <button class="auto" id="toggle13" toggleid="13" data-status="off"></button>
                     <span id="prestigetext8" class="stats">100 Wizards/sec</span>
                 </div>
-                <div>
-                    <img id="diamond5" alt="Pandora's Box" class="image" src="Pictures/Default/DiamondTier5.png" loading="lazy">
-                    <span id="prestigetext9" class="desc">Pandora's Box: 0 [+0]</span>
+                <div id="diamond5" class="cyanBuild">
+                    <img alt="Pandora's Box" src="Pictures/Default/DiamondTier5.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.pandorasBoxes"></span><span><span class="mobileShow">Total</span>: <span id="prestigetext9"></span></span>
+                    </span>
                     <button id="buydiamond5" class="buildingPurchaseBtn"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle14" toggleid="14"></button>
+                    <button class="auto" id="toggle14" toggleid="14" data-status="off"></button>
                     <span id="prestigetext10" class="stats">100 Oracles/sec</span>
                 </div>
             </div>
@@ -407,57 +419,63 @@
                 <button id="prestigeautotoggle" style="border:2px solid green;"></button>
                 <input class="transcendunlock" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1">
                 <p class="transcendunlock mainText" id="autoprestige"></p>
-                <p id="prestigehotkeys" class="grayText" i18n="footnotes.crystals"></p>
+                <p id="prestigehotkeys" class="grayText mobileHide" i18n="footnotes.crystals"></p>
             </div>
         </div>
         <div id="transcension" style="display: none;">
-            <div id="buyamountmythos">
-                <table id="mythosbuyamount" title="Toggle amount to buy">
-                    <tr>
-                    <td><img id="mythosone" alt="One Mythos Building" class="buyAmountBtn" src="Pictures/Default/MythosOne.png" style="background-color: green;" loading="lazy"></td>
-                    <td><img id="mythosten" alt="Ten Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosTen.png" loading="lazy"></td>
-                    <td><img id="mythoshundred" alt="100 Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosHundred.png" loading="lazy"></td>
-                    <td><img id="mythosthousand" alt="1000 Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosThousand.png" loading="lazy"></td>
-                    <td><img id="mythos10k" alt="10k Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosTenThousand.png" loading="lazy"></td>
-                    <td><img id="mythos100k" alt="100k Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosHundredThousand.png" loading="lazy"></td>
-                    </tr>
-                </table>
+            <div class="buyAmount" title="Toggle amount to buy">
+                <img id="mythosone" alt="One Mythos Building" class="buyAmountBtn" src="Pictures/Default/MythosOne.png" style="background-color: green;" loading="lazy">
+                <img id="mythosten" alt="Ten Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosTen.png" loading="lazy">
+                <img id="mythoshundred" alt="100 Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosHundred.png" loading="lazy">
+                <img id="mythosthousand" alt="1000 Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosThousand.png" loading="lazy">
+                <img id="mythos10k" alt="10k Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosTenThousand.png" loading="lazy">
+                <img id="mythos100k" alt="100k Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosHundredThousand.png" loading="lazy">
             </div>
 
             <div class="buttonRow">
-                <div>
-                    <img id="mythos1" alt="Augment" class="image" src="Pictures/Default/MythosTier1.png" loading="lazy">
-                    <span id="transcendtext1" class="desc">Augments: 0 [+0]</span>
+                <div id="mythos1" class="plumBuild">
+                    <img alt="Augment" src="Pictures/Default/MythosTier1.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.augments"></span><span><span class="mobileShow">Total</span>: <span id="transcendtext1"></span></span>
+                    </span>
                     <button id="buymythos1" class="buildingPurchaseBtn"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle16" toggleid="16"></button>
+                    <button class="auto" id="toggle16" toggleid="16" data-status="off"></button>
                     <span id="transcendtext2" class="stats">100 Shards/sec</span>
                 </div>
-                <div>
-                    <img id="mythos2" alt="Enchantment" class="image" src="Pictures/Default/MythosTier2.png" loading="lazy">
-                    <span id="transcendtext3" class="desc">Enhancements: 0 [+0]</span>
+                <div id="mythos2" class="plumBuild">
+                    <img alt="Enchantment" src="Pictures/Default/MythosTier2.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.enchantments"></span><span><span class="mobileShow">Total</span>: <span id="transcendtext3"></span></span>
+                    </span>
                     <button id="buymythos2" class="buildingPurchaseBtn"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle17" toggleid="17"></button>
+                    <button class="auto" id="toggle17" toggleid="17" data-status="off"></button>
                     <span id="transcendtext4" class="stats">100 Augments/sec</span>
                 </div>
-                <div>
-                    <img id="mythos3" alt="Wizard" class="image" src="Pictures/Default/MythosTier3.png" loading="lazy">
-                    <span id="transcendtext5" class="desc">Wizards: 0 [+0]</span>
+                <div id="mythos3" class="plumBuild">
+                    <img alt="Wizard" src="Pictures/Default/MythosTier3.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.wizards"></span><span><span class="mobileShow">Total</span>: <span id="transcendtext5"></span></span>
+                    </span>
                     <button id="buymythos3" class="buildingPurchaseBtn"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle18" toggleid="18"></button>
+                    <button class="auto" id="toggle18" toggleid="18" data-status="off"></button>
                     <span id="transcendtext6" class="stats">100 Enhancements/sec</span>
                 </div>
-                <div>
-                    <img id="mythos4" alt="Oracle" class="image" src="Pictures/Default/MythosTier4.png" loading="lazy">
-                    <span id="transcendtext7" class="desc">Oracles: 0 [+0]</span>
+                <div id="mythos4" class="plumBuild">
+                    <img alt="Oracle" src="Pictures/Default/MythosTier4.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.oracles"></span><span><span class="mobileShow">Total</span>: <span id="transcendtext7"></span></span>
+                    </span>
                     <button id="buymythos4" class="buildingPurchaseBtn"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle19" toggleid="19"></button>
+                    <button class="auto" id="toggle19" toggleid="19" data-status="off"></button>
                     <span id="transcendtext8" class="stats">100 Wizards/sec</span>
                 </div>
-                <div>
-                    <img id="mythos5" alt="Grandmaster" class="image" src="Pictures/Default/MythosTier5.png" loading="lazy">
-                    <span id="transcendtext9" class="desc">Grandmasters: 0 [+0]</span>
+                <div id="mythos5" class="plumBuild">
+                    <img alt="Grandmaster" src="Pictures/Default/MythosTier5.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.grandmasters"></span><span><span class="mobileShow">Total</span>: <span id="transcendtext9"></span></span>
+                    </span>
                     <button id="buymythos5" class="buildingPurchaseBtn"></button>
-                    <button class="auto autobuyerToggleButton" id="toggle20" toggleid="20"></button>
+                    <button class="auto" id="toggle20" toggleid="20" data-status="off"></button>
                     <span id="transcendtext10" class="stats">100 Oracles/sec</span>
                 </div>
             </div>
@@ -472,56 +490,62 @@
                 <p class="transcendunlock" id="autotranscend"></p>
             </div>
 
-            <p id="transcendhotkeys" class="grayText" i18n="footnotes.mythos"></p>
+            <p id="transcendhotkeys" class="grayText mobileHide" i18n="footnotes.mythos"></p>
         </div>
         <div id="reincarnation" style="display: none;">
-            <div id="buyamountparticle">
-                <table id="particlebuyamount" title="Toggle amount to buy">
-                    <tr>
-                    <td><img id="particleone" alt="One Particle Building" class="buyAmountBtn" src="Pictures/Default/ParticleOne.png" style="background-color: green;" loading="lazy"></td>
-                    <td><img id="particleten" alt="Ten Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleTen.png" loading="lazy"></td>
-                    <td><img id="particlehundred" alt="100 Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleHundred.png" loading="lazy"></td>
-                    <td><img id="particlethousand" alt="1000 Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleThousand.png" loading="lazy"></td>
-                    <td><img id="particle10k" alt="10k Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleTenThousand.png" loading="lazy"></td>
-                    <td><img id="particle100k" alt="100k Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleHundredThousand.png" loading="lazy"></td>
-                    </tr>
-                </table>
+            <div class="buyAmount" title="Toggle amount to buy">
+                <img id="particleone" alt="One Particle Building" class="buyAmountBtn" src="Pictures/Default/ParticleOne.png" style="background-color: green;" loading="lazy">
+                <img id="particleten" alt="Ten Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleTen.png" loading="lazy">
+                <img id="particlehundred" alt="100 Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleHundred.png" loading="lazy">
+                <img id="particlethousand" alt="1000 Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleThousand.png" loading="lazy">
+                <img id="particle10k" alt="10k Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleTenThousand.png" loading="lazy">
+                <img id="particle100k" alt="100k Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleHundredThousand.png" loading="lazy">
             </div>
 
             <div class="buttonRow">
-                <div>
-                    <img id="particles1" alt="Proton" src="Pictures/Default/ParticlesTier1.png" loading="lazy">
-                    <span id="reincarnationtext1" class="desc">Protons: 0 [+0]</span>
+                <div id="particles1" class="limegreenBuild">
+                    <img alt="Proton" src="Pictures/Default/ParticlesTier1.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.protons"></span><span><span class="mobileShow">Total</span>: <span id="reincarnationtext1"></span></span>
+                    </span>
                     <button id="buyparticles1" class="buildingPurchaseBtn">Cost: 1 Particles</button>
-                    <button class="auto autobuyerToggleButton" id="toggle22" toggleid="22"></button>
+                    <button class="auto" id="toggle22" toggleid="22" data-status="off"></button>
                     <span id="reincarnationtext6" class="stats">100 Elements/sec</span>
                 </div>
-                <div>
-                    <img id="particles2" alt="Element" class="image" src="Pictures/Default/ParticlesTier2.png" loading="lazy">
-                    <span id="reincarnationtext2" class="desc">Elements: 0 [+0]</span>
+                <div id="particles2" class="limegreenBuild">
+                    <img alt="Element" src="Pictures/Default/ParticlesTier2.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.elements"></span><span><span class="mobileShow">Total</span>: <span id="reincarnationtext2"></span></span>
+                    </span>
                     <button id="buyparticles2" class="buildingPurchaseBtn">Cost: 100 Particles</button>
-                    <button class="auto autobuyerToggleButton" id="toggle23" toggleid="23"></button>
+                    <button class="auto" id="toggle23" toggleid="23" data-status="off"></button>
                     <span id="reincarnationtext7" class="stats">Black Holes: 0 [+0]</span>
                 </div>
-                <div>
-                    <img id="particles3" alt="Pulsar" class="image" src="Pictures/Default/ParticlesTier3.png" loading="lazy">
-                    <span id="reincarnationtext3" class="desc">100 Atoms/sec</span>
+                <div id="particles3" class="limegreenBuild">
+                    <img alt="Pulsar" src="Pictures/Default/ParticlesTier3.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.pulsars"></span><span><span class="mobileShow">Total</span>: <span id="reincarnationtext3"></span></span>
+                    </span>
                     <button id="buyparticles3" class="buildingPurchaseBtn">Cost: 1e+4 Particles</button>
-                    <button class="auto autobuyerToggleButton" id="toggle24" toggleid="24"></button>
+                    <button class="auto" id="toggle24" toggleid="24" data-status="off"></button>
                     <span id="reincarnationtext8" class="stats">100 Pulsars/sec</span>
                 </div>
-                <div>
-                    <img id="particles4" alt="Quasar" class="image" src="Pictures/Default/ParticlesTier4.png" loading="lazy">
-                    <span id="reincarnationtext4" class="desc">100 Protons/sec</span>
+                <div id="particles4" class="limegreenBuild">
+                    <img alt="Quasar" src="Pictures/Default/ParticlesTier4.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.quasars"></span><span><span class="mobileShow">Total</span>: <span id="reincarnationtext4"></span></span>
+                    </span>
                     <button id="buyparticles4" class="buildingPurchaseBtn">Cost: 1e+8 Particles</button>
-                    <button class="auto autobuyerToggleButton" id="toggle25" toggleid="25"></button>
+                    <button class="auto" id="toggle25" toggleid="25" data-status="off"></button>
                     <span id="reincarnationtext9" class="stats">Quasars: 0 [+0]</span>
                 </div>
-                <div>
-                    <img id="particles5" alt="Galactic Nucleus" class="image" src="Pictures/Default/ParticlesTier5.png" loading="lazy">
-                    <span id="reincarnationtext5" class="desc">Pulsars: 0 [+0]</span>
+                <div id="particles5" class="limegreenBuild">
+                    <img alt="Galactic Nucleus" src="Pictures/Default/ParticlesTier5.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.galacticNuclei"></span><span><span class="mobileShow">Total</span>: <span id="reincarnationtext5"></span></span>
+                    </span>
                     <button id="buyparticles5" class="buildingPurchaseBtn">Cost: 1e+16 Particles</button>
-                    <button class="auto autobuyerToggleButton" id="toggle26" toggleid="26"></button>
+                    <button class="auto" id="toggle26" toggleid="26" data-status="off"></button>
                     <span id="reincarnationtext10" class="stats">100 Black Holes/sec</span>
                 </div>
             </div>
@@ -540,56 +564,62 @@
                     <p class="reincarnationunlock mainText" id="autoreincarnate"></p>
                 </div>
             </div>
-            <p id="reincarnatehotkeys" class="grayText" i18n="footnotes.particle"></p>
+            <p id="reincarnatehotkeys" class="grayText mobileHide" i18n="footnotes.particle"></p>
         </div>
         <div id="ascension" style="display: none">
-            <div id="buyAmountTesseract">
-                <table id="buyTesseractToggles" title="Toggle amount to buy">
-                    <tr>
-                        <td><img id="tesseractone" alt="One Tesseract Building" class="buyAmountBtn" src="Pictures/Default/TesseractOne.png" style="background-color: green;" loading="lazy"></td>
-                        <td><img id="tesseractten" alt="Ten Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractTen.png" loading="lazy"></td>
-                        <td><img id="tesseracthundred" alt="100 Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractHundred.png" loading="lazy"></td>
-                        <td><img id="tesseractthousand" alt="1000 Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractThousand.png" loading="lazy"></td>
-                        <td><img id="tesseract10k" alt="10k Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractTenThousand.png" loading="lazy"></td>
-                        <td><img id="tesseract100k" alt="100k Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractHundredThousand.png" loading="lazy"></td>
-                    </tr>
-                </table>
+            <div class="buyAmount" title="Toggle amount to buy">
+                <img id="tesseractone" alt="One Tesseract Building" class="buyAmountBtn" src="Pictures/Default/TesseractOne.png" style="background-color: green;" loading="lazy">
+                <img id="tesseractten" alt="Ten Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractTen.png" loading="lazy">
+                <img id="tesseracthundred" alt="100 Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractHundred.png" loading="lazy">
+                <img id="tesseractthousand" alt="1000 Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractThousand.png" loading="lazy">
+                <img id="tesseract10k" alt="10k Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractTenThousand.png" loading="lazy">
+                <img id="tesseract100k" alt="100k Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractHundredThousand.png" loading="lazy">
             </div>
 
             <div class="buttonRow">
-                <div>
-                    <img class="image" id="tesseracts1" alt="Dot" src="Pictures/Default/TesseractTier1.png" loading="lazy">
-                    <span class="desc" id="ascendText1">Dot: 0 [+0]</span>
+                <div id="tesseracts1" class="orangeBuild">
+                    <img alt="Dot" src="Pictures/Default/TesseractTier1.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.dot"></span><span><span class="mobileShow">Total</span>: <span id="ascendText1"></span></span>
+                    </span>
                     <button class="buildingPurchaseBtn" id="buyTesseracts1">Cost: 1 Tesseracts</button>
-                    <button class="auto autobuyerToggleButton" id="tesseractAutoToggle1"></button>
+                    <button class="auto" id="tesseractAutoToggle1" data-status="off"></button>
                     <span class="stats" id="ascendText6">+100 Constant/sec</span>
                 </div>
-                <div>
-                    <img class="image" id="tesseracts2" alt="Vector" src="Pictures/Default/TesseractTier2.png" loading="lazy">
-                    <span class="desc" id="ascendText2">Vector: 0 [+0]</span>
+                <div id="tesseracts2" class="orangeBuild">
+                    <img alt="Vector" src="Pictures/Default/TesseractTier2.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.vector"></span><span><span class="mobileShow">Total</span>: <span id="ascendText2"></span></span>
+                    </span>
                     <button class="buildingPurchaseBtn" id="buyTesseracts2">Cost: 10 Tesseracts</button>
-                    <button class="auto autobuyerToggleButton" id="tesseractAutoToggle2"></button>
+                    <button class="auto" id="tesseractAutoToggle2" data-status="off"></button>
                     <span class="stats" id="ascendText7">100 Dots/sec</span>
                 </div>
-                <div>
-                    <img class="image" id="tesseracts3" alt="Three-Space" src="Pictures/Default/TesseractTier3.png" loading="lazy">
-                    <span class="desc" id="ascendText3">Three-Space: 0 [+0]</span>
+                <div id="tesseracts3" class="orangeBuild">
+                    <img alt="Three-Space" src="Pictures/Default/TesseractTier3.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.threeSpace"></span><span><span class="mobileShow">Total</span>: <span id="ascendText3"></span></span>
+                    </span>
                     <button class="buildingPurchaseBtn" id="buyTesseracts3">Cost: 100 Tesseracts</button>
-                    <button class="auto autobuyerToggleButton" id="tesseractAutoToggle3"></button>
+                    <button class="auto" id="tesseractAutoToggle3" data-status="off"></button>
                     <span class="stats" id="ascendText8">100 Vectors/sec</span>
                 </div>
-                <div>
-                    <img class="image" id="tesseracts4" alt="Bent Time" src="Pictures/Default/TesseractTier4.png" loading="lazy">
-                    <span class="desc" id="ascendText4">Bent Time: 0 [+0]</span>
+                <div id="tesseracts4" class="orangeBuild">
+                    <img alt="Bent Time" src="Pictures/Default/TesseractTier4.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.bentTime"></span><span><span class="mobileShow">Total</span>: <span id="ascendText4"></span></span>
+                    </span>
                     <button class="buildingPurchaseBtn" id="buyTesseracts4">Cost: 1000 Tesseracts</button>
-                    <button class="auto autobuyerToggleButton" id="tesseractAutoToggle4"></button>
+                    <button class="auto" id="tesseractAutoToggle4" data-status="off"></button>
                     <span class="stats" id="ascendText9">100 Three-Spaces/sec</span>
                 </div>
-                <div>
-                    <img class="image" id="tesseracts5" alt="Hilbert Space" src="Pictures/Default/TesseractTier5.png" loading="lazy">
-                    <span class="desc" id="ascendText5">Hilbert Space: 0 [+0]</span>
+                <div id="tesseracts5" class="orangeBuild">
+                    <img alt="Hilbert Space" src="Pictures/Default/TesseractTier5.png" loading="lazy">
+                    <span class="desc">
+                        <span i18n="buildings.names.hilbertSpace"></span><span><span class="mobileShow">Total</span>: <span id="ascendText5"></span></span>
+                    </span>
                     <button class="buildingPurchaseBtn" id="buyTesseracts5">Cost: 10000 Tesseracts</button>
-                    <button class="auto autobuyerToggleButton" id="tesseractAutoToggle5"></button>
+                    <button class="auto" id="tesseractAutoToggle5" data-status="off"></button>
                     <span class="stats" id="ascendText10">100 Bent Time/sec</span>
                 </div>
             </div>
@@ -645,7 +675,7 @@
                 <input class="tesseractautobuyamount" type="number" id="tesseractAmount" min="1" max="999999999" defaultValue="1">
                 <p class="tesseractautobuyamount mainText" id="autotessbuyeramount"></p>
             </div>
-            <p id="ascendHotKeys" class="grayText" i18n="footnotes.particle"></p>
+            <p id="ascendHotKeys" class="grayText mobileHide" i18n="footnotes.particle"></p>
         </div>
     </div>
 
@@ -2583,7 +2613,7 @@
                                 <td><img id="platUpg20" alt="platUpg20" src="Pictures/Default/PlatonicUpgrade20.png" class="platonicUpgradeImage" loading="lazy"></td>
                             </tr>
                         </table>
-                        <div class="platonicUpgrades2">
+                        <div class="platonicUpgradesToggles">
                             <button id="saveOffToggle" style="border: 2px solid gold" title="If ON, then it will turn OFF Auto Runes toggle">Save Offerings [OFF]</button>
                             <button id="toggleAutoPlatonicUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
                         </div>

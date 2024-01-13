@@ -52,12 +52,7 @@ export const revealStuff = () => {
 
   const example5 = document.getElementsByClassName('prestigeunlock') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example5.length; i++) {
-    const parent = example5[i].parentElement!
-    if (parent.classList.contains('offlineStats')) {
-      example5[i].style.display = player.unlocks.prestige ? 'flex' : 'none'
-    } else {
-      example5[i].style.display = player.unlocks.prestige ? 'block' : 'none'
-    }
+    example5[i].style.display = player.unlocks.prestige ? '' : 'none'
   }
 
   const example6 = document.getElementsByClassName('generationunlock') as HTMLCollectionOf<HTMLElement>
@@ -370,10 +365,8 @@ export const revealStuff = () => {
     ? DOMCacheGetOrSet('toggleautoenhance').style.display = 'block'
     : DOMCacheGetOrSet('toggleautoenhance').style.display = 'none'
 
-  for (let z = 1; z <= 5; z++) {
-    ;(player.researches[190] > 0) // 8x15 Research [Auto Tesseracts]
-      ? DOMCacheGetOrSet(`tesseractAutoToggle${z}`).style.display = 'block'
-      : DOMCacheGetOrSet(`tesseractAutoToggle${z}`).style.display = 'none'
+  for (let z = 1; z <= 5; z++) { // 8x15 Research [Auto Tesseracts]
+    DOMCacheGetOrSet(`tesseractAutoToggle${z}`).style.display = player.researches[190] > 0 ? '' : 'none'
   }
   player.researches[190] > 0 // 8x15 Research [Auto Tesseracts]
     ? DOMCacheGetOrSet('tesseractautobuytoggle').style.display = 'block'
@@ -570,7 +563,7 @@ export const revealStuff = () => {
       return
     }
 
-    el.style.display = automationUnlocks[key] ? 'block' : 'none'
+    el.style.display = automationUnlocks[key] ? '' : 'none'
   })
 
   revealCorruptions()
@@ -795,66 +788,66 @@ export const buttoncolorchange = () => {
   }
 
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'coin') {
-    const a = DOMCacheGetOrSet('buycoin1')
-    const b = DOMCacheGetOrSet('buycoin2')
-    const c = DOMCacheGetOrSet('buycoin3')
-    const d = DOMCacheGetOrSet('buycoin4')
-    const e = DOMCacheGetOrSet('buycoin5')
-    const f = DOMCacheGetOrSet('buyaccelerator')
-    const g = DOMCacheGetOrSet('buymultiplier')
-    const h = DOMCacheGetOrSet('buyacceleratorboost')
+    const a = DOMCacheGetOrSet('coin1')
+    const b = DOMCacheGetOrSet('coin2')
+    const c = DOMCacheGetOrSet('coin3')
+    const d = DOMCacheGetOrSet('coin4')
+    const e = DOMCacheGetOrSet('coin5')
+    const f = DOMCacheGetOrSet('accelerator')
+    const g = DOMCacheGetOrSet('multiplier')
+    const h = DOMCacheGetOrSet('acceleratorboost')
     ;((!player.toggles[1] || player.upgrades[81] === 0) && player.coins.gte(player.firstCostCoin))
-      ? a.classList.add('buildingPurchaseBtnAvailable')
-      : a.classList.remove('buildingPurchaseBtnAvailable')
+      ? a.classList.add('buildingPurchaseAvailable')
+      : a.classList.remove('buildingPurchaseAvailable')
     ;((!player.toggles[2] || player.upgrades[82] === 0) && player.coins.gte(player.secondCostCoin))
-      ? b.classList.add('buildingPurchaseBtnAvailable')
-      : b.classList.remove('buildingPurchaseBtnAvailable')
+      ? b.classList.add('buildingPurchaseAvailable')
+      : b.classList.remove('buildingPurchaseAvailable')
     ;((!player.toggles[3] || player.upgrades[83] === 0) && player.coins.gte(player.thirdCostCoin))
-      ? c.classList.add('buildingPurchaseBtnAvailable')
-      : c.classList.remove('buildingPurchaseBtnAvailable')
+      ? c.classList.add('buildingPurchaseAvailable')
+      : c.classList.remove('buildingPurchaseAvailable')
     ;((!player.toggles[4] || player.upgrades[84] === 0) && player.coins.gte(player.fourthCostCoin))
-      ? d.classList.add('buildingPurchaseBtnAvailable')
-      : d.classList.remove('buildingPurchaseBtnAvailable')
+      ? d.classList.add('buildingPurchaseAvailable')
+      : d.classList.remove('buildingPurchaseAvailable')
     ;((!player.toggles[5] || player.upgrades[85] === 0) && player.coins.gte(player.fifthCostCoin))
-      ? e.classList.add('buildingPurchaseBtnAvailable')
-      : e.classList.remove('buildingPurchaseBtnAvailable')
+      ? e.classList.add('buildingPurchaseAvailable')
+      : e.classList.remove('buildingPurchaseAvailable')
     ;((!player.toggles[6] || player.upgrades[86] === 0) && player.coins.gte(player.acceleratorCost))
-      ? f.classList.add('buildingPurchaseBtnAvailable')
-      : f.classList.remove('buildingPurchaseBtnAvailable')
+      ? f.classList.add('buildingPurchaseAvailable')
+      : f.classList.remove('buildingPurchaseAvailable')
     ;((!player.toggles[7] || player.upgrades[87] === 0) && player.coins.gte(player.multiplierCost))
-      ? g.classList.add('buildingPurchaseBtnAvailable')
-      : g.classList.remove('buildingPurchaseBtnAvailable')
+      ? g.classList.add('buildingPurchaseAvailable')
+      : g.classList.remove('buildingPurchaseAvailable')
     ;((!player.toggles[8] || player.upgrades[88] === 0) && player.prestigePoints.gte(player.acceleratorBoostCost))
-      ? h.classList.add('buildingPurchaseBtnAvailable')
-      : h.classList.remove('buildingPurchaseBtnAvailable')
+      ? h.classList.add('buildingPurchaseAvailable')
+      : h.classList.remove('buildingPurchaseAvailable')
   }
 
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
-    const a = DOMCacheGetOrSet('buydiamond1')
-    const b = DOMCacheGetOrSet('buydiamond2')
-    const c = DOMCacheGetOrSet('buydiamond3')
-    const d = DOMCacheGetOrSet('buydiamond4')
-    const e = DOMCacheGetOrSet('buydiamond5')
+    const a = DOMCacheGetOrSet('diamond1')
+    const b = DOMCacheGetOrSet('diamond2')
+    const c = DOMCacheGetOrSet('diamond3')
+    const d = DOMCacheGetOrSet('diamond4')
+    const e = DOMCacheGetOrSet('diamond5')
     const f = DOMCacheGetOrSet('buycrystalupgrade1')
     const g = DOMCacheGetOrSet('buycrystalupgrade2')
     const h = DOMCacheGetOrSet('buycrystalupgrade3')
     const i = DOMCacheGetOrSet('buycrystalupgrade4')
     const j = DOMCacheGetOrSet('buycrystalupgrade5')
     ;((!player.toggles[10] || player.achievements[78] === 0) && player.prestigePoints.gte(player.firstCostDiamonds))
-      ? a.classList.add('buildingPurchaseBtnAvailable')
-      : a.classList.remove('buildingPurchaseBtnAvailable')
+      ? a.classList.add('buildingPurchaseAvailable')
+      : a.classList.remove('buildingPurchaseAvailable')
     ;((!player.toggles[11] || player.achievements[85] === 0) && player.prestigePoints.gte(player.secondCostDiamonds))
-      ? b.classList.add('buildingPurchaseBtnAvailable')
-      : b.classList.remove('buildingPurchaseBtnAvailable')
+      ? b.classList.add('buildingPurchaseAvailable')
+      : b.classList.remove('buildingPurchaseAvailable')
     ;((!player.toggles[12] || player.achievements[92] === 0) && player.prestigePoints.gte(player.thirdCostDiamonds))
-      ? c.classList.add('buildingPurchaseBtnAvailable')
-      : c.classList.remove('buildingPurchaseBtnAvailable')
+      ? c.classList.add('buildingPurchaseAvailable')
+      : c.classList.remove('buildingPurchaseAvailable')
     ;((!player.toggles[13] || player.achievements[99] === 0) && player.prestigePoints.gte(player.fourthCostDiamonds))
-      ? d.classList.add('buildingPurchaseBtnAvailable')
-      : d.classList.remove('buildingPurchaseBtnAvailable')
+      ? d.classList.add('buildingPurchaseAvailable')
+      : d.classList.remove('buildingPurchaseAvailable')
     ;((!player.toggles[14] || player.achievements[106] === 0) && player.prestigePoints.gte(player.fifthCostDiamonds))
-      ? e.classList.add('buildingPurchaseBtnAvailable')
-      : e.classList.remove('buildingPurchaseBtnAvailable')
+      ? e.classList.add('buildingPurchaseAvailable')
+      : e.classList.remove('buildingPurchaseAvailable')
     let k = 0
     k += Math.floor(G.rune3level / 16 * G.effectiveLevelMult) * 100 / 100
     if (player.upgrades[73] === 1 && player.currentChallenge.reincarnation !== 0) {
@@ -949,8 +942,8 @@ export const buttoncolorchange = () => {
       const toggle = player.toggles[i + 15]
       const mythos = player[`${G.ordinals[i - 1 as ZeroToFour]}CostMythos` as const]
       ;(!toggle || !player.upgrades[93 + i]) && player.transcendPoints.gte(mythos)
-        ? DOMCacheGetOrSet(`buymythos${i}`).classList.add('buildingPurchaseBtnAvailable')
-        : DOMCacheGetOrSet(`buymythos${i}`).classList.remove('buildingPurchaseBtnAvailable')
+        ? DOMCacheGetOrSet(`mythos${i}`).classList.add('buildingPurchaseAvailable')
+        : DOMCacheGetOrSet(`mythos${i}`).classList.remove('buildingPurchaseAvailable')
     }
   }
 
@@ -958,8 +951,8 @@ export const buttoncolorchange = () => {
     for (let i = 1; i <= 5; i++) {
       const costParticles = player[`${G.ordinals[i - 1 as ZeroToFour]}CostParticles` as const]
       player.reincarnationPoints.gte(costParticles)
-        ? DOMCacheGetOrSet(`buyparticles${i}`).classList.add('buildingPurchaseBtnAvailable')
-        : DOMCacheGetOrSet(`buyparticles${i}`).classList.remove('buildingPurchaseBtnAvailable')
+        ? DOMCacheGetOrSet(`particles${i}`).classList.add('buildingPurchaseAvailable')
+        : DOMCacheGetOrSet(`particles${i}`).classList.remove('buildingPurchaseAvailable')
     }
   }
 
@@ -967,8 +960,8 @@ export const buttoncolorchange = () => {
     for (let i = 1; i <= 5; i++) {
       const ascendBuilding = player[`ascendBuilding${i as OneToFive}` as const].cost
       Number(player.wowTesseracts) >= ascendBuilding
-        ? DOMCacheGetOrSet(`buyTesseracts${i}`).classList.add('buildingPurchaseBtnAvailable')
-        : DOMCacheGetOrSet(`buyTesseracts${i}`).classList.remove('buildingPurchaseBtnAvailable')
+        ? DOMCacheGetOrSet(`tesseracts${i}`).classList.add('buildingPurchaseAvailable')
+        : DOMCacheGetOrSet(`tesseracts${i}`).classList.remove('buildingPurchaseAvailable')
     }
     for (let i = 1; i <= 8; i++) {
       if (player.researches[175] >= 1) {

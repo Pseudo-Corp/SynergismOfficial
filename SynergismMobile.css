@@ -2,7 +2,29 @@
   .mobileShow { display: unset; }
   .mobileHide { display: none; }
 
-  .buttonRow { row-gap: 6px; }
+  /* .subTabWrapper { width: 100vw; } */
+
+  #multiplier > .desc { color: unset; }
+  #accelerator > .stats { color: unset; }
+  #acceleratorboost:not(.buildingPurchaseAvailable) .crimsonText { color: #49494a; }
+
+  #accelerator > .stats,
+  #multiplier > .stats {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  }
+
+  .buyAmount {
+    margin: 16px 0 22px;
+    position: unset;
+    /* left: unset; */
+  }
+
+  .buttonRow {
+    row-gap: 6px;
+    margin: 0 0 20px;
+  }
 
   .buttonRow > div:not(.buildingSpacer) {
     display: grid;
@@ -13,10 +35,14 @@
       "coins coins toggle"
       "cost cost toggle";
     align-items: center;
-    border: 2px solid #ffa800;
+    border: 2px solid #49494a;
+    background-color: #121212;
+    color: #49494a;
     border-radius: 8px;
     padding: 8px 12px 12px;
     gap: 8px 2px;
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
   }
 
   .buttonRow > div > .desc > span:first-of-type {
@@ -32,7 +58,7 @@
   .buttonRow > div > .buildingPurchaseBtn {
     grid-area: cost;
     text-align: start;
-    color: gold;
+    color: inherit;
     background-color: unset;
     font-size: min(1em, 20px);
     width: unset;
@@ -44,14 +70,103 @@
 
   .buttonRow > div > .auto {
     grid-area: toggle;
-    border: none !important;
     height: 90%;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
   }
 
-  .buttonRow > div > img { grid-area: img; }
+  .buttonRow > div > .auto::after {
+    content: '';
+    width: 25px;
+    height: 25px;
+    display: block;
+    border: 2px solid white;
+    border-radius: 4px;
+  }
+
+  .buttonRow > div > .auto[data-status="on"]::after {
+    background-color: white;
+    box-shadow: inset 0 0 0 2px #002400;
+  }
+
+  .buttonRow > div > .auto[data-status="on"] { background-color: #002400; }
+  .buttonRow > div > .auto[data-status="off"] { background-color: #330000; }
+
+  .buttonRow > div > img {
+    grid-area: img;
+    filter: brightness(0.33) grayscale(1);
+  }
+
+  body.legacyIcons .buttonRow > div > img {
+    padding: 3px;
+    object-fit: none;
+    box-sizing: border-box;
+    background-color: unset;
+  }
+
   .buttonRow > div > .stats { grid-area: coins; }
 
   .buttonRow > div > .desc { display: contents; }
   /* .buttonRow > div > .stats { line-height: 1em; } */
+
+  .buttonRow > .buildingPurchaseAvailable.goldBuild {
+    border-color: gold;
+    background-color: #1f1a00;
+    color: gold;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.yellowBuild {
+    border-color: yellow;
+    background-color: #242400;
+    color: yellow;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.pinkBuild {
+    border-color: pink;
+    background-color: #291e20;
+    color: pink;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.cyanBuild {
+    border-color: cyan;
+    background-color: #002424;
+    color: cyan;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.plumBuild {
+    border-color: plum;
+    background-color: #1a091a;
+    color: plum;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.limegreenBuild {
+    border-color: limegreen;
+    background-color: #071d07;
+    color: limegreen;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.orangeBuild {
+    border-color: orange;
+    background-color: #241700;
+    color: orange;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable > img { filter: unset; }
+
+  .buildingPurchaseAvailable { cursor: pointer; }
+  .buildingPurchaseAvailable > .buildingPurchaseBtn:hover { background-color: unset; }
+
+  .resetautomation { margin-top: 40px !important; }
+  #taxinfo { margin: 0; }
+
+  #coinBuildings,
+  #prestige,
+  #transcension,
+  #reincarnation,
+  #ascension {
+    margin-bottom: 20px;
+  }
 }

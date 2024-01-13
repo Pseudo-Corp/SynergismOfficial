@@ -195,10 +195,11 @@ input[type="checkbox"] {
 button {
     min-height: 30px;
     color: white;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
     outline: none;
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 body button:hover,
@@ -312,9 +313,10 @@ body button:active {
     font-size: 0;
     z-index: 1;
     color: white;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 #notifx:hover {
@@ -679,10 +681,10 @@ button.isEvent:hover {
 }
 
 .subTabWrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 145px);
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 10px 15px;
+    gap: 15px 10px;
     width: 90%;
     margin: 15px auto 0;
 }
@@ -692,7 +694,7 @@ button.isEvent:hover {
     text-align: center;
 }
 
-.buildingMainContainer {
+#coinBuildings {
     display: flex;
     position: relative;
     padding: 0;
@@ -702,19 +704,11 @@ button.isEvent:hover {
     margin: 0 auto;
 }
 
-#buildingtext p {
-    margin: 0;
-}
-
 p#buildinghotkeys,
 p#buildinghotkeys2 {
-    margin-top: 15px;
     color: lightgray;
     text-align: center;
-}
-
-p#buildinghotkeys2 {
-    margin-top: 0;
+    margin: 0;
 }
 
 #buildingtext {
@@ -754,6 +748,7 @@ p#buildinghotkeys2 {
     font-size: 0;
     min-height: 182px;
     text-align: center;
+    display: block;
 }
 
 #upgradesFlex > div > table img {
@@ -864,7 +859,8 @@ p#themesTitle {
     min-height: 20px;
     margin: 2px auto;
     box-sizing: border-box;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 #importFileButton:hover {
@@ -1006,14 +1002,27 @@ p#promocodeinfo {
     margin-top: 0.25em;
 }
 
-.buttonRow > div > .image {
+.buttonRow > div > img {
     height: 32px;
     width: 32px;
 }
 
+body.legacyIcons .buttonRow > div > img { background-color: black; }
+
 .buttonRow > div > .desc {
     width: 22em;
 }
+
+.goldBuild { color: gold; }
+.yellowBuild { color: yellow; }
+.pinkBuild { color: pink; }
+.cyanBuild { color: cyan; }
+.plumBuild { color: plum; }
+.limegreenBuild { color: limegreen; }
+.orangeBuild { color: orange; }
+
+#multiplier > .desc { color: yellow; }
+#accelerator > .stats { color: cyan; }
 
 .buildingPurchaseBtn {
     width: 15em;
@@ -1027,19 +1036,24 @@ p#promocodeinfo {
     background-color: var(--buttonbuy-color);
 }
 
-.buildingPurchaseBtn.buildingPurchaseBtnAvailable {
+.buildingPurchaseAvailable > .buildingPurchaseBtn {
     cursor: pointer;
     background-color: var(--buildings-canbuy-color);
 }
 
-.buildingPurchaseBtn.buildingPurchaseBtnAvailable:hover {
+.buildingPurchaseAvailable > .buildingPurchaseBtn:hover {
     background-color: var(--buildings-hover-color);
 }
 
 .buttonRow > div > .auto {
     width: 6em;
     min-width: 80px;
+    border: 2px solid;
+    background-color: var(--button-color);
 }
+
+.buttonRow .auto[data-status="on"] { border-color: green; }
+.buttonRow .auto[data-status="off"] { border-color: red; }
 
 .autobuyerToggleButton {
     background-color: var(--button-color);
@@ -1050,16 +1064,16 @@ p#promocodeinfo {
     line-height: 1em;
 }
 
-#buildtext12,
-#buildtext14,
-#buildtext16 {
+#accelerator > .stats,
+#multiplier > .stats,
+#acceleratorboost > .stats {
     min-height: 2em;
 }
 
 #taxinfo {
     text-align: center;
     font-size: 1em;
-    margin-top: 30px;
+    margin: 30px 0 15px;
 }
 
 .tightText {
@@ -1171,11 +1185,10 @@ p#promocodeinfo {
     gap: 5px;
 }
 
-#buyamountcoin,
-#buyamountcrystal,
-#buyamountmythos,
-#buyamountparticle,
-#buyAmountTesseract {
+.buyAmount {
+    display: flex;
+    margin: 4px 0;
+    column-gap: 4px;
     position: absolute;
     left: 80%;
 }
@@ -1183,7 +1196,8 @@ p#promocodeinfo {
 .buyAmountBtn {
     background-color: var(--button-color);
     cursor: pointer;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 .buyAmountBtn:hover {
@@ -1193,7 +1207,6 @@ p#promocodeinfo {
 #prestige {
     position: relative;
     padding: 0;
-    color: cyan;
     flex-direction: column;
     align-items: center;
     max-width: 1600px;
@@ -1329,7 +1342,8 @@ p#prestigehotkeys {
 .runeTypeElement {
     margin: 0;
     text-align: center;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 img.runeTypeElement {
@@ -1519,10 +1533,6 @@ img.runeTypeElement:hover {
     text-align: center;
 }
 
-#transcension > .buttonRow {
-    color: plum;
-}
-
 #transcendshardbonus {
     margin-top: 2px;
 }
@@ -1700,7 +1710,8 @@ p#transcendhotkeys {
 
 .challenge {
     background-color: var(--button-color);
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 .challenge:hover {
@@ -1718,7 +1729,6 @@ p#transcendhotkeys {
 #reincarnation {
     position: relative;
     padding: 0;
-    color: limegreen;
     flex-direction: column;
     align-items: center;
     max-width: 1600px;
@@ -1823,7 +1833,8 @@ p#reincarnatehotkeys {
 
 #researchtable .researchAvailable {
     cursor: pointer;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 #researchtable .researchAvailable:hover {
@@ -1836,7 +1847,8 @@ p#reincarnatehotkeys {
 
 #researchtable .researchPurchasedAvailable {
     cursor: pointer;
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 #researchtable .researchPurchasedAvailable:hover {
@@ -2445,7 +2457,6 @@ button.language-select span.lang-name {
 #ascension {
     position: relative;
     padding: 0;
-    color: orange;
     flex-direction: column;
     align-items: center;
     max-width: 1600px;
@@ -2604,7 +2615,8 @@ p#ascendHotKeys {
 
 .constUpgrade {
     background-color: var(--button-color);
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 .constUpgradeAvailable {
@@ -2763,6 +2775,8 @@ p#ascendHotKeys {
     max-height: 650px;
     overflow-y: auto;
 }
+
+body.legacyIcons .historyTableWrap img { background-color: black; }
 
 #historyAscend .historyTableWrap,
 #historySingularity .historyTableWrap {
@@ -3688,7 +3702,8 @@ img#singularityPerksIcon {
     border: 2px ridge gold;
     font-weight: bold;
     background-color: var(--button-color);
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 .oldPerk {
@@ -3701,7 +3716,8 @@ img#singularityPerksIcon {
     cursor: pointer;
     border: 2px solid gold;
     background-color: var(--button-color);
-    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    transition-property: border-color, background-color;
+    transition-duration: var(--transition-extra);
 }
 
 .newPerk:hover {
