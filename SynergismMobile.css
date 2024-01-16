@@ -2,7 +2,49 @@
   .mobileShow { display: unset; }
   .mobileHide { display: none; }
 
-  /* .subTabWrapper { width: 100vw; } */
+  /* For testing: */
+  /* header { display: none; }
+  html { min-width: unset; } */
+
+  /* html { min-width: unset; } */ /* Uncomment after fixing scroll on all tabs */
+  body { margin-bottom: 60px; }
+
+  /* Buggy: (but everything can be fixed with just adding minimum-scale=1.0 to viewport meta)
+    Doesn't fit properly with current header and html min-width;
+    Moves on scrolling and chaning tabs;
+  */
+  /* .navbar {
+    align-self: normal;
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
+  }
+
+  #tabrow {
+    border-top: 2px solid var(--scrollbar-color);
+    justify-content: unset;
+    overflow-x: scroll;
+    width: 100vw;
+    gap: 0;
+  }
+
+  #tabrow::-webkit-scrollbar-track {
+    background-color: var(--button-color);
+    border-top: 2px solid var(--scrollbar-color);
+  }
+
+  #tabrow button {
+    min-width: unset;
+    padding: 0 8px;
+    height: 40px;
+    border: none;
+    border-radius: 0;
+    background-color: var(--button-color);
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+
+  #tabrow button:hover { background-color: var(--hover-color); } */
 
   #multiplier > .desc { color: unset; }
   #accelerator > .stats { color: unset; }
@@ -28,20 +70,21 @@
 
   .buttonRow > div:not(.buildingSpacer) {
     display: grid;
-    grid-template-columns: 32px;
+    grid-template-columns: 32px 1fr;
     grid-template-areas:
       "img name toggle"
       "total total toggle"
       "coins coins toggle"
       "cost cost toggle";
     align-items: center;
+    justify-content: space-between;
     border: 2px solid #49494a;
     background-color: #121212;
     color: #49494a;
     border-radius: 8px;
     padding: 8px 12px 12px;
     gap: 8px 2px;
-    transition-property: border-color, background-color;
+    min-width: 20em;
     transition-duration: var(--transition-extra);
   }
 
@@ -66,6 +109,11 @@
     border: none;
     padding: 0;
     line-height: 1em;
+  }
+
+  .buttonRow > div > *:not(.auto) {
+    pointer-events: none;
+    width: unset;
   }
 
   .buttonRow > div > .auto {
@@ -160,13 +208,6 @@
   .buildingPurchaseAvailable > .buildingPurchaseBtn:hover { background-color: unset; }
 
   .resetautomation { margin-top: 40px !important; }
+  #buildingtext { width: unset; }
   #taxinfo { margin: 0; }
-
-  #coinBuildings,
-  #prestige,
-  #transcension,
-  #reincarnation,
-  #ascension {
-    margin-bottom: 20px;
-  }
 }

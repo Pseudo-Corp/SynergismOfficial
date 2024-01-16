@@ -1,6 +1,7 @@
 body *,
 body {
-    transition: background-color var(--transition), border-color var(--transition);
+    transition-property: background-color, border-color;
+    transition-duration: var(--transition);
 }
 
 html {
@@ -198,7 +199,6 @@ button {
     cursor: pointer;
     background-color: var(--button-color);
     outline: none;
-    transition-property: border-color, background-color;
     transition-duration: var(--transition-extra);
 }
 
@@ -315,7 +315,6 @@ body button:active {
     color: white;
     cursor: pointer;
     background-color: var(--button-color);
-    transition-property: border-color, background-color;
     transition-duration: var(--transition-extra);
 }
 
@@ -581,20 +580,11 @@ body button:active {
 #tabrow {
     text-align: center;
     width: 100%;
-    list-style: none;
     margin: 0;
-    margin-inline: unset;
-    margin-block: unset;
-    padding-inline: unset;
     display: flex;
     justify-content: center;
     gap: 0 5px;
-}
-
-.navbar {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+    overflow-x: visible;
 }
 
 nav button {
@@ -859,7 +849,6 @@ p#themesTitle {
     min-height: 20px;
     margin: 2px auto;
     box-sizing: border-box;
-    transition-property: border-color, background-color;
     transition-duration: var(--transition-extra);
 }
 
@@ -1196,7 +1185,6 @@ body.legacyIcons .buttonRow > div > img { background-color: black; }
 .buyAmountBtn {
     background-color: var(--button-color);
     cursor: pointer;
-    transition-property: border-color, background-color;
     transition-duration: var(--transition-extra);
 }
 
@@ -1342,7 +1330,6 @@ p#prestigehotkeys {
 .runeTypeElement {
     margin: 0;
     text-align: center;
-    transition-property: border-color, background-color;
     transition-duration: var(--transition-extra);
 }
 
@@ -1710,7 +1697,6 @@ p#transcendhotkeys {
 
 .challenge {
     background-color: var(--button-color);
-    transition-property: border-color, background-color;
     transition-duration: var(--transition-extra);
 }
 
@@ -1833,7 +1819,6 @@ p#reincarnatehotkeys {
 
 #researchtable .researchAvailable {
     cursor: pointer;
-    transition-property: border-color, background-color;
     transition-duration: var(--transition-extra);
 }
 
@@ -1847,7 +1832,6 @@ p#reincarnatehotkeys {
 
 #researchtable .researchPurchasedAvailable {
     cursor: pointer;
-    transition-property: border-color, background-color;
     transition-duration: var(--transition-extra);
 }
 
@@ -2615,7 +2599,6 @@ p#ascendHotKeys {
 
 .constUpgrade {
     background-color: var(--button-color);
-    transition-property: border-color, background-color;
     transition-duration: var(--transition-extra);
 }
 
@@ -3702,7 +3685,6 @@ img#singularityPerksIcon {
     border: 2px ridge gold;
     font-weight: bold;
     background-color: var(--button-color);
-    transition-property: border-color, background-color;
     transition-duration: var(--transition-extra);
 }
 
@@ -3716,7 +3698,6 @@ img#singularityPerksIcon {
     cursor: pointer;
     border: 2px solid gold;
     background-color: var(--button-color);
-    transition-property: border-color, background-color;
     transition-duration: var(--transition-extra);
 }
 
