@@ -128,6 +128,7 @@ import {
   upgradedescriptions
 } from './Upgrades'
 import { Globals as G } from './Variables'
+import { isLargeScreen } from './Utility'
 
 /* STYLE GUIDE */
 /*
@@ -244,8 +245,20 @@ export const generateEventHandlers = () => {
   // Part 3: Building Purchasers + Upgrades
   // Accelerator, Multiplier, Accelerator Boost
   DOMCacheGetOrSet('buyaccelerator').addEventListener('click', () => buyAccelerator())
+  DOMCacheGetOrSet('accelerator').addEventListener('click', () => {
+    if (isLargeScreen()) return
+    buyAccelerator()
+  })
   DOMCacheGetOrSet('buymultiplier').addEventListener('click', () => buyMultiplier())
+  DOMCacheGetOrSet('multiplier').addEventListener('click', () => {
+    if (isLargeScreen()) return
+    buyMultiplier()
+  })
   DOMCacheGetOrSet('buyacceleratorboost').addEventListener('click', () => boostAccelerator())
+  DOMCacheGetOrSet('acceleratorboost').addEventListener('click', () => {
+    if (isLargeScreen()) return
+    boostAccelerator()
+  })
 
   // Coin, Diamond and Mythos Buildings
   const buildingTypesAlternate2 = ['coin', 'diamond', 'mythos']
@@ -261,6 +274,14 @@ export const generateEventHandlers = () => {
             index === 0 ? index2 : index2 * (index2 + 1) / 2
           )
       )
+      DOMCacheGetOrSet(`${buildingTypesAlternate2[index]}${index2}`).addEventListener('click', () => {
+        if (isLargeScreen()) return
+        buyProducer(
+          ordinals[index2 as OneToFive],
+          buildingTypesAlternate3[index],
+          index === 0 ? index2 : index2 * (index2 + 1) / 2
+        )
+      })
     }
   }
 
@@ -276,6 +297,10 @@ export const generateEventHandlers = () => {
       buyParticleBuilding(
         index + 1 as OneToFive
       ))
+    DOMCacheGetOrSet(`particles${index + 1}`).addEventListener('click', () => {
+      if (isLargeScreen()) return
+      buyParticleBuilding(index + 1 as OneToFive)
+    })
   }
 
   // Tesseract Buildings
@@ -284,7 +309,14 @@ export const generateEventHandlers = () => {
       'click',
       () => buyTesseractBuilding(index + 1 as OneToFive)
     )
-    DOMCacheGetOrSet(`tesseractAutoToggle${index + 1}`).addEventListener('click', () => toggleAutoTesseracts(index + 1))
+    DOMCacheGetOrSet(`tesseracts${index + 1}`).addEventListener('click', () => {
+      if (isLargeScreen()) return
+      buyTesseractBuilding(index + 1 as OneToFive)
+    })
+    DOMCacheGetOrSet(`tesseractAutoToggle${index + 1}`).addEventListener('click', (event: MouseEvent) => {
+      event.stopPropagation()
+      toggleAutoTesseracts(index + 1)
+    })
   }
 
   // Constant Upgrades
@@ -299,7 +331,10 @@ export const generateEventHandlers = () => {
   // Part 4: Toggles
   // I'm just addressing all global toggles here
   const toggles = document.querySelectorAll<HTMLElement>('.auto[toggleid]')
-  toggles.forEach((b) => b.addEventListener('click', () => toggleSettings(b)))
+  toggles.forEach((b) => b.addEventListener('click', (event: MouseEvent) => {
+    event.stopPropagation()
+    toggleSettings(b)
+  }))
   // Toggles auto reset type (between TIME and AMOUNT for 3 first Tiers, and between PERCENTAGE and AMOUNT for Tesseracts)
   DOMCacheGetOrSet('prestigeautotoggle').addEventListener('click', () => toggleautoreset(1))
   DOMCacheGetOrSet('transcendautotoggle').addEventListener('click', () => toggleautoreset(2))

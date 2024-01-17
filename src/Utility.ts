@@ -170,6 +170,8 @@ export function limitRange (number: number, min: number, max: number): number {
   return number
 }
 
+export const isLargeScreen = () => window.innerWidth > 767 && window.screen.width > 767
+
 export const createDeferredPromise = <T>() => {
   let resolve!: (unknown: T) => void
   let reject!: (err: Error) => void
