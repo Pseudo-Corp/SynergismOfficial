@@ -93,37 +93,35 @@ export async function handleLogin () {
 
     const exMark = '<span style="color: crimson">[✖] {+0%}</span>'
 
-    subtabElement.innerHTML = `Hello, ${user}!\n
-                               Your personal Quark bonus is ${personalBonus}%, computed by the following:
-                               <span style="color: orchid">Transcended Baller</span> [+2%] - ${
-      hasTier1 ? checkMark(2) : exMark
-    }
-                               <span style="color: green">Reincarnated Baller</span> [+3%] - ${
-      hasTier2 ? checkMark(3) : exMark
-    }
-                               <span style="color: orange">ASCENDED Baller</span> [+4%] - ${
-      hasTier3 ? checkMark(4) : exMark
-    }
-                               <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${
-      hasTier4 ? checkMark(5) : exMark
-    }
-                               <span style="color: #f47fff">Discord Server Booster</span> [+1%] - ${
-      boosted ? checkMark(1) : exMark
-    }
-                               And Finally...
-                               <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${
+    subtabElement.innerHTML = `
+      Hello, ${user}!\n
+      Your personal Quark bonus is ${personalBonus}%, computed by the following:
+      <span style="color: orchid">Transcended Baller</span> [+2%] - ${hasTier1 ? checkMark(2) : exMark}
+      <span style="color: green">Reincarnated Baller</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
+      <span style="color: orange">ASCENDED Baller</span> [+4%] - ${hasTier3 ? checkMark(4) : exMark}
+      <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${hasTier4 ? checkMark(5) : exMark}
+      <span style="color: #f47fff">Discord Server Booster</span> [+1%] - ${boosted ? checkMark(1) : exMark}
+      And Finally...
+      <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${
       checkMark(1)
     }
 
-                               The current maximum is 16%, by being a Discord server booster and an OMEGA Baller on Patreon!
-                              
-                               More will be incorporated both for general accounts and supporters of the game shortly.
-                               Become a supporter of development via the link below, and get special bonuses,
-                               while also improving the Global Bonus for all to enjoy!
-                               <a href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
-                               <span style="color: lightgoldenrodyellow">--> PATREON <--</span>
-                               </a>
-                               `
+      The current maximum is 16%, by being a Discord server booster and an OMEGA Baller on Patreon!
+
+      More will be incorporated both for general accounts and supporters of the game shortly.
+      Become a supporter of development via the link below, and get special bonuses,
+      while also improving the Global Bonus for all to enjoy!
+      <a href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
+      <span style="color: lightgoldenrodyellow">--> PATREON <--</span>
+      </a>
+    `.trim()
+
+    const logoutElement = document.createElement('button')
+    logoutElement.addEventListener('click', logout, { once: true })
+    logoutElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
+    logoutElement.textContent = 'Log Out'
+
+    subtabElement.appendChild(logoutElement)
   } else {
     // User is not logged in
     subtabElement.innerHTML = `
@@ -138,5 +136,13 @@ export async function handleLogin () {
         <input type="submit" value="Login" style="border: 2px solid #5865F2; height: 20px; width: 250px;" />
       </form>
     `
+  }
+}
+
+async function logout () {
+  if ('cookieStore' in window) {
+    await (window.cookieStore as { delete: (id: string) => Promise<void> }).delete('id')
+  } else {
+    document.cookie = 'id=; Max-Age=0'
   }
 }
