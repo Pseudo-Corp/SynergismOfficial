@@ -1,6 +1,8 @@
+import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { QuarkHandler } from './Quark'
 import { player } from './Synergism'
+import { Alert } from './UpdateHTML'
 
 // Consts for Patreon Supporter Roles.
 const TRANSCENDED_BALLER = '756419583941804072'
@@ -145,4 +147,8 @@ async function logout () {
   } else {
     document.cookie = 'id=; Max-Age=0'
   }
+
+  await Alert(i18next.t('account.logout'))
+
+  location.reload()
 }

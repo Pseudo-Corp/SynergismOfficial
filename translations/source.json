@@ -3438,5 +3438,8 @@
           "clicked": "See? Yet another reason to trust Unsmith. Ah well. For clicking me, you gain 5% more Offerings, Obtainium, and ALL Cubes until you refresh the page!",
           "clickedText": "You have clicked the <<white|Unsmith>>! Until refresh, gain <<orange|+5% Offerings>>, <<pink|+5% Obtainium>>, <<white|+5% ALL Cubes>>!"
       }
+  },
+  "account": {
+    "logout": "The page will now reload. You are logged out! Goodbye!!"
   }
 }
