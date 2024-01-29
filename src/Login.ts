@@ -82,7 +82,7 @@ export async function handleLogin () {
     currentBonus.textContent +=
       ` You also receive an extra ${personalBonus}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!`
 
-    const user = member?.user?.username ?? 'player'
+    const user = member?.nick ?? member?.user?.username ?? member?.user?.global_name
     const boosted = Boolean(member?.premium_since)
     const hasTier1 = member?.roles.includes(TRANSCENDED_BALLER) ?? false
     const hasTier2 = member?.roles.includes(REINCARNATED_BALLER) ?? false
@@ -96,7 +96,7 @@ export async function handleLogin () {
     const exMark = '<span style="color: crimson">[✖] {+0%}</span>'
 
     subtabElement.innerHTML = `
-      Hello, ${user}!\n
+      ${user ? `Hello, ${user}` : 'Hello'}!\n
       Your personal Quark bonus is ${personalBonus}%, computed by the following:
       <span style="color: orchid">Transcended Baller</span> [+2%] - ${hasTier1 ? checkMark(2) : exMark}
       <span style="color: green">Reincarnated Baller</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
