@@ -639,7 +639,36 @@ export const blueberryUpgradeData: Record<keyof Player['blueberryUpgrades'], IBl
       'Ambrosia Luck': 7000
     },
     cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('AmbrosiaLuckUlt')]
+  },
+  ambrosiaLuckScaler: {
+    maxLevel: 10,
+    costPerLevel: 750000,
+    blueberryCost: 4,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost + 50000 * level
+    },
+    rewards: (n: number) => {
+      const capacities = [0, 2e6, 5e6, 1e7, 2e7, 3e7, 4e7, 5e7, 6e7, 8e7, 1e8]
+      let usedCapacity: number
+      let divisor: number
+      if (n >= 11) {
+        usedCapacity = capacities[10] * (1 + 0.5 * (n - 10))
+        divisor = 1000 - 25 * (n - 10)
+      } else {
+        usedCapacity = capacities[n]
+        divisor = 2000 - 100 * n
+      }
+      const effectiveAmbrosia = Math.min(usedCapacity, player.lifetimeAmbrosia)
+      const val = Math.min(100, effectiveAmbrosia / 10000) + Math.pow(effectiveAmbrosia / divisor, 0.75)
+      return {
+        ambrosiaLuck: val,
+        divisor,
+        capacity: usedCapacity,
+        desc: String(i18next.t('ambrosia.data.ambrosiaLuckScaler.effect', { amount: format(val, 0, true), capacity: format(usedCapacity, 0, true), divisor: format(divisor, 0, true) }))
+      }
+    }
   }
+
 }
 
 export const resetBlueberryTree = async (giveAlert = true) => {

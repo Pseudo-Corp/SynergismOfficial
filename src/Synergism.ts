@@ -892,7 +892,8 @@ export const player: Player = {
     ambrosiaChallenge2: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaChallenge2, 'ambrosiaChallenge2'),
     ambrosiaChallenge3: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaChallenge3, 'ambrosiaChallenge3'),
     ambrosiaChallenge4: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaChallenge4, 'ambrosiaChallenge4'),
-    ambrosiaLuckUlt: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckUlt, 'ambrosiaLuckUlt')
+    ambrosiaLuckUlt: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckUlt, 'ambrosiaLuckUlt'),
+    ambrosiaLuckScaler: new BlueberryUpgrade(blueberryUpgradeData.ambrosiaLuckScaler, 'ambrosiaLuckScaler')
   },
 
   ambrosiaChallengeFills: {

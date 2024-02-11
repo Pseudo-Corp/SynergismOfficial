@@ -132,6 +132,11 @@
               "name": "Ambrosia Luck Infuser Ω",
               "description": "This infuser grants &#9752 +250 Ambrosia Luck per level per Generation Threshold you have reached.",
               "effect": "This luck infuser grants &#9752 +{{amount}} Ambrosia Luck!"
+            },
+            "ambrosiaLuckScaler": {
+              "name": "Ambrosia Luck Scaler",
+              "description": "Gain more luck based on your lifetime Ambrosia. Amount depends on level as well!",
+              "effect": "Gain luck according to the formula (Min({{capacity}},Ambrosia) / {{divisor}})^0.75! Current: {{amount}}"
             }
         },
         "loadouts": {
