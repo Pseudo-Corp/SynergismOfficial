@@ -976,11 +976,14 @@ p#promocodeinfo {
     align-items: center;
     gap: 10px;
     min-height: 35px;
+    pointer-events: none;
 }
 
 .buildingSpacer {
     height: 35px;
 }
+
+.buttonRow > div > button { pointer-events: auto; }
 
 .buttonRow > div > p {
     margin-top: 0.25em;

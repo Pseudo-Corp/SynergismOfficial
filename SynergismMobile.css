@@ -115,6 +115,7 @@
     gap: 8px 2px;
     min-width: 20em;
     transition-duration: var(--transition-extra);
+    pointer-events: auto;
   }
 
   .buttonRow > div > .desc > span:first-of-type {

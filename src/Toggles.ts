@@ -21,7 +21,6 @@ export const toggleSettings = (toggle: HTMLElement) => {
     player.toggles[+toggleId] = true
   }
   const format = toggle.getAttribute('format')
-  const statusData = toggle.dataset.status
 
   if (format === '$' || format === '[$]') {
     const text = player.toggles[+toggleId] ? i18next.t('general.on') : i18next.t('general.off')
@@ -45,7 +44,7 @@ export const toggleSettings = (toggle: HTMLElement) => {
       ? i18next.t('general.autoOnBracket')
       : i18next.t('general.autoOffBracket')
   }
-  if (statusData !== undefined) {
+  if (toggle.dataset.status !== undefined) {
     toggle.dataset.status = player.toggles[+toggleId] ? 'on' : 'off'
   } else {
     toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
@@ -213,7 +212,6 @@ export const toggleauto = () => {
   for (const toggle of toggles) {
     const format = toggle.getAttribute('format')
     const toggleId = toggle.getAttribute('toggleId') ?? 1
-    const statusData = toggle.dataset.status
 
     if (format === '$') {
       const text = player.toggles[+toggleId] ? i18next.t('general.on') : i18next.t('general.off')
@@ -238,7 +236,7 @@ export const toggleauto = () => {
         : i18next.t('general.autoOffBracket')
     }
 
-    if (statusData !== undefined) {
+    if (toggle.dataset.status !== undefined) {
       toggle.dataset.status = player.toggles[+toggleId] ? 'on' : 'off'
     } else {
       toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
