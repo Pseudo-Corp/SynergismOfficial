@@ -560,21 +560,16 @@ body button:active {
     width: 32px;
 }
 
+#resetrow > div {
+    margin: auto 5px auto 2px;
+}
+
 #resetinfo {
     text-align: left; /* Keeps text from bouncing around */
     font-variant-numeric: tabular-nums;
     height: 3.6em;
     overflow: hidden;
     white-space: pre-line;
-}
-
-#resetrewards > div {
-    display: flex;
-    align-items: center;
-}
-
-#resetrewards > div > div {
-    margin: auto 5px auto 2px;
 }
 
 #tabrow {
@@ -981,11 +976,14 @@ p#promocodeinfo {
     align-items: center;
     gap: 10px;
     min-height: 35px;
+    pointer-events: none;
 }
 
 .buildingSpacer {
     height: 35px;
 }
+
+.buttonRow > div > button { pointer-events: auto; }
 
 .buttonRow > div > p {
     margin-top: 0.25em;

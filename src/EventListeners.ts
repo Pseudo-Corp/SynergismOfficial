@@ -128,7 +128,6 @@ import {
   upgradedescriptions
 } from './Upgrades'
 import { Globals as G } from './Variables'
-import { isLargeScreen } from './Utility'
 
 /* STYLE GUIDE */
 /*
@@ -244,28 +243,16 @@ export const generateEventHandlers = () => {
   }
   // Part 3: Building Purchasers + Upgrades
   // Accelerator, Multiplier, Accelerator Boost
-  DOMCacheGetOrSet('buyaccelerator').addEventListener('click', () => buyAccelerator())
-  DOMCacheGetOrSet('accelerator').addEventListener('click', () => {
-    if (isLargeScreen()) return
-    buyAccelerator()
-  })
-  DOMCacheGetOrSet('buymultiplier').addEventListener('click', () => buyMultiplier())
-  DOMCacheGetOrSet('multiplier').addEventListener('click', () => {
-    if (isLargeScreen()) return
-    buyMultiplier()
-  })
-  DOMCacheGetOrSet('buyacceleratorboost').addEventListener('click', () => boostAccelerator())
-  DOMCacheGetOrSet('acceleratorboost').addEventListener('click', () => {
-    if (isLargeScreen()) return
-    boostAccelerator()
-  })
+  DOMCacheGetOrSet('accelerator').addEventListener('click', () => buyAccelerator())
+  DOMCacheGetOrSet('multiplier').addEventListener('click', () => buyMultiplier())
+  DOMCacheGetOrSet('acceleratorboost').addEventListener('click', () => boostAccelerator())
 
   // Coin, Diamond and Mythos Buildings
   const buildingTypesAlternate2 = ['coin', 'diamond', 'mythos']
   const buildingTypesAlternate3 = ['Coin', 'Diamonds', 'Mythos'] as const // TODO: A cleaner way to implement this dumb shit
   for (let index = 0; index < 3; index++) {
     for (let index2 = 1; index2 <= 5; index2++) {
-      DOMCacheGetOrSet(`buy${buildingTypesAlternate2[index]}${index2}`).addEventListener(
+      DOMCacheGetOrSet(`${buildingTypesAlternate2[index]}${index2}`).addEventListener(
         'click',
         () =>
           buyProducer(
@@ -274,14 +261,6 @@ export const generateEventHandlers = () => {
             index === 0 ? index2 : index2 * (index2 + 1) / 2
           )
       )
-      DOMCacheGetOrSet(`${buildingTypesAlternate2[index]}${index2}`).addEventListener('click', () => {
-        if (isLargeScreen()) return
-        buyProducer(
-          ordinals[index2 as OneToFive],
-          buildingTypesAlternate3[index],
-          index === 0 ? index2 : index2 * (index2 + 1) / 2
-        )
-      })
     }
   }
 
@@ -293,26 +272,18 @@ export const generateEventHandlers = () => {
 
   // Particle Buildings
   for (let index = 0; index < 5; index++) {
-    DOMCacheGetOrSet(`buyparticles${index + 1}`).addEventListener('click', () =>
+    DOMCacheGetOrSet(`particles${index + 1}`).addEventListener('click', () =>
       buyParticleBuilding(
         index + 1 as OneToFive
       ))
-    DOMCacheGetOrSet(`particles${index + 1}`).addEventListener('click', () => {
-      if (isLargeScreen()) return
-      buyParticleBuilding(index + 1 as OneToFive)
-    })
   }
 
   // Tesseract Buildings
   for (let index = 0; index < 5; index++) {
-    DOMCacheGetOrSet(`buyTesseracts${index + 1}`).addEventListener(
+    DOMCacheGetOrSet(`tesseracts${index + 1}`).addEventListener(
       'click',
       () => buyTesseractBuilding(index + 1 as OneToFive)
     )
-    DOMCacheGetOrSet(`tesseracts${index + 1}`).addEventListener('click', () => {
-      if (isLargeScreen()) return
-      buyTesseractBuilding(index + 1 as OneToFive)
-    })
     DOMCacheGetOrSet(`tesseractAutoToggle${index + 1}`).addEventListener('click', (event: MouseEvent) => {
       event.stopPropagation()
       toggleAutoTesseracts(index + 1)
