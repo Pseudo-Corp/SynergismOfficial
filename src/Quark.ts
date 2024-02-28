@@ -109,6 +109,13 @@ export class QuarkHandler {
 
   /** Subtracts quarks, as the name suggests. */
   add(amount: number, useBonus = true) {
+    // must be a valid number
+    if (!Number.isFinite(amount)) {
+      // eslint-disable-next-line no-console
+      console.log('platonic needs to fix')
+      return this
+    }
+
     this.QUARKS += useBonus ? this.applyBonus(amount) : amount
     player.quarksThisSingularity += useBonus ? this.applyBonus(amount) : amount
     return this

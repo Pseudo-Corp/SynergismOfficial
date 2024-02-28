@@ -1147,6 +1147,9 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.blueberryLoadouts = player.blueberryLoadouts
   hold.blueberryLoadoutMode = player.blueberryLoadoutMode as BlueberryLoadoutMode
 
+  // Required to prevent calls to player.caches.ambrosiaLuck.total
+  hold.loadedOct4Hotfix = true
+
   const saveCode42 = player.codes.get(42) ?? false
   const saveCode43 = player.codes.get(43) ?? false
   const saveCode44 = player.codes.get(44) ?? false
