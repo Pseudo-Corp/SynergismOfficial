@@ -1,6 +1,8 @@
+import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { QuarkHandler } from './Quark'
 import { player } from './Synergism'
+import { Alert } from './UpdateHTML'
 
 // Consts for Patreon Supporter Roles.
 const TRANSCENDED_BALLER = '756419583941804072'
@@ -80,7 +82,7 @@ export async function handleLogin () {
     currentBonus.textContent +=
       ` You also receive an extra ${personalBonus}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!`
 
-    const user = member?.user?.username ?? 'player'
+    const user = member?.nick ?? member?.user?.username ?? member?.user?.global_name
     const boosted = Boolean(member?.premium_since)
     const hasTier1 = member?.roles.includes(TRANSCENDED_BALLER) ?? false
     const hasTier2 = member?.roles.includes(REINCARNATED_BALLER) ?? false
@@ -93,37 +95,35 @@ export async function handleLogin () {
 
     const exMark = '<span style="color: crimson">[✖] {+0%}</span>'
 
-    subtabElement.innerHTML = `Hello, ${user}!\n
-                               Your personal Quark bonus is ${personalBonus}%, computed by the following:
-                               <span style="color: orchid">Transcended Baller</span> [+2%] - ${
-      hasTier1 ? checkMark(2) : exMark
-    }
-                               <span style="color: green">Reincarnated Baller</span> [+3%] - ${
-      hasTier2 ? checkMark(3) : exMark
-    }
-                               <span style="color: orange">ASCENDED Baller</span> [+4%] - ${
-      hasTier3 ? checkMark(4) : exMark
-    }
-                               <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${
-      hasTier4 ? checkMark(5) : exMark
-    }
-                               <span style="color: #f47fff">Discord Server Booster</span> [+1%] - ${
-      boosted ? checkMark(1) : exMark
-    }
-                               And Finally...
-                               <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${
+    subtabElement.innerHTML = `
+      ${user ? `Hello, ${user}` : 'Hello'}!\n
+      Your personal Quark bonus is ${personalBonus}%, computed by the following:
+      <span style="color: orchid">Transcended Baller</span> [+2%] - ${hasTier1 ? checkMark(2) : exMark}
+      <span style="color: green">Reincarnated Baller</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
+      <span style="color: orange">ASCENDED Baller</span> [+4%] - ${hasTier3 ? checkMark(4) : exMark}
+      <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${hasTier4 ? checkMark(5) : exMark}
+      <span style="color: #f47fff">Discord Server Booster</span> [+1%] - ${boosted ? checkMark(1) : exMark}
+      And Finally...
+      <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${
       checkMark(1)
     }
 
-                               The current maximum is 16%, by being a Discord server booster and an OMEGA Baller on Patreon!
-                              
-                               More will be incorporated both for general accounts and supporters of the game shortly.
-                               Become a supporter of development via the link below, and get special bonuses,
-                               while also improving the Global Bonus for all to enjoy!
-                               <a href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
-                               <span style="color: lightgoldenrodyellow">--> PATREON <--</span>
-                               </a>
-                               `
+      The current maximum is 16%, by being a Discord server booster and an OMEGA Baller on Patreon!
+
+      More will be incorporated both for general accounts and supporters of the game shortly.
+      Become a supporter of development via the link below, and get special bonuses,
+      while also improving the Global Bonus for all to enjoy!
+      <a href="https://www.patreon.com/synergism" target="_blank" rel="noopener noreferrer nofollow">
+      <span style="color: lightgoldenrodyellow">--> PATREON <--</span>
+      </a>
+    `.trim()
+
+    const logoutElement = document.createElement('button')
+    logoutElement.addEventListener('click', logout, { once: true })
+    logoutElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
+    logoutElement.textContent = 'Log Out'
+
+    subtabElement.appendChild(logoutElement)
   } else {
     // User is not logged in
     subtabElement.innerHTML = `
@@ -139,4 +139,16 @@ export async function handleLogin () {
       </form>
     `
   }
+}
+
+async function logout () {
+  if ('cookieStore' in window) {
+    await (window.cookieStore as { delete: (id: string) => Promise<void> }).delete('id')
+  } else {
+    document.cookie = 'id=; Max-Age=0'
+  }
+
+  await Alert(i18next.t('account.logout'))
+
+  location.reload()
 }
