@@ -95,6 +95,21 @@
         "name": "Shameless, Ambrosial Patreon Reminder",
         "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
         "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
+      },
+      "ambrosiaObtainium1": {
+        "name": "RNG-based Obtainium Booster",
+        "description": "Gain +0.1% Obtainium per &#9752 Ambrosia Luck!",
+        "effect": "This module increases Obtainium gain by {{amount}}%!"
+      },
+      "ambrosiaOffering1": {
+        "name": "RNG-based Offering Booster",
+        "description": "Gain +0.1% Offerings per &#9752 Ambrosia Luck!",
+        "effect": "This module increases Offering gain by {{amount}}%!"
+      },
+      "ambrosiaHyperflux": {
+        "name": "Hyperfluxed Wow! Cube Industrial Production",
+        "description": "Gain +1% cubes per level, per level of Platonic Upgrade 4x4 purchased (multiplicative!!!)",
+        "effect": "This module increases Cubes gain by {{amount}}%!"
       }
     },
     "loadouts": {
