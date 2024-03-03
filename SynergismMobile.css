@@ -1,0 +1,213 @@
+@media screen and (max-width: 767px) {
+  .mobileShow { display: unset; }
+  .mobileHide { display: none; }
+
+  /* For testing: */
+  /* header { display: none; }
+  html { min-width: unset; } */
+
+  /* html { min-width: unset; } */ /* Uncomment after fixing scroll on all tabs */
+  body { margin-bottom: 60px; }
+
+  /* Buggy: (but everything can be fixed with just adding minimum-scale=1.0 to viewport meta)
+    Doesn't fit properly with current header and html min-width;
+    Moves on scrolling and chaning tabs;
+  */
+  /* .navbar {
+    align-self: normal;
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
+  }
+
+  #tabrow {
+    border-top: 2px solid var(--scrollbar-color);
+    justify-content: unset;
+    overflow-x: scroll;
+    width: 100vw;
+    gap: 0;
+  }
+
+  #tabrow::-webkit-scrollbar-track {
+    background-color: var(--button-color);
+    border-top: 2px solid var(--scrollbar-color);
+  }
+
+  #tabrow button {
+    min-width: unset;
+    padding: 0 8px;
+    height: 40px;
+    border: none;
+    border-radius: 0;
+    background-color: var(--button-color);
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+
+  #tabrow button:hover { background-color: var(--hover-color); } */
+
+  #multiplier > .desc { color: unset; }
+  #accelerator > .stats { color: unset; }
+  #acceleratorboost:not(.buildingPurchaseAvailable) .crimsonText { color: #49494a; }
+
+  #accelerator > .stats,
+  #multiplier > .stats {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  }
+
+  .buyAmount {
+    margin: 16px 0 22px;
+    position: unset;
+    /* left: unset; */
+  }
+
+  .buttonRow {
+    row-gap: 6px;
+    margin: 0 0 20px;
+  }
+
+  .buttonRow > div:not(.buildingSpacer) {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    grid-template-areas:
+      "img name toggle"
+      "total total toggle"
+      "coins coins toggle"
+      "cost cost toggle";
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid #49494a;
+    background-color: #121212;
+    color: #49494a;
+    border-radius: 8px;
+    padding: 8px 12px 12px;
+    gap: 8px 2px;
+    min-width: 20em;
+    transition-duration: var(--transition-extra);
+  }
+
+  .buttonRow > div > .desc > span:first-of-type {
+    grid-area: name;
+    font-size: 1.4em;
+  }
+
+  .buttonRow > div > .desc > span:last-of-type {
+    grid-area: total;
+    line-height: 1em;
+  }
+
+  .buttonRow > div > .buildingPurchaseBtn {
+    grid-area: cost;
+    text-align: start;
+    color: inherit;
+    background-color: unset;
+    font-size: min(1em, 20px);
+    width: unset;
+    min-height: unset;
+    border: none;
+    padding: 0;
+    line-height: 1em;
+  }
+
+  .buttonRow > div > *:not(.auto) {
+    pointer-events: none;
+    width: unset;
+  }
+
+  .buttonRow > div > .auto {
+    grid-area: toggle;
+    height: 90%;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .buttonRow > div > .auto::after {
+    content: '';
+    width: 25px;
+    height: 25px;
+    display: block;
+    border: 2px solid white;
+    border-radius: 4px;
+  }
+
+  .buttonRow > div > .auto[data-status="on"]::after {
+    background-color: white;
+    box-shadow: inset 0 0 0 2px #002400;
+  }
+
+  .buttonRow > div > .auto[data-status="on"] { background-color: #002400; }
+  .buttonRow > div > .auto[data-status="off"] { background-color: #330000; }
+
+  .buttonRow > div > img {
+    grid-area: img;
+    filter: brightness(0.33) grayscale(1);
+  }
+
+  body.legacyIcons .buttonRow > div > img {
+    padding: 3px;
+    object-fit: none;
+    box-sizing: border-box;
+    background-color: unset;
+  }
+
+  .buttonRow > div > .stats { grid-area: coins; }
+
+  .buttonRow > div > .desc { display: contents; }
+  /* .buttonRow > div > .stats { line-height: 1em; } */
+
+  .buttonRow > .buildingPurchaseAvailable.goldBuild {
+    border-color: gold;
+    background-color: #1f1a00;
+    color: gold;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.yellowBuild {
+    border-color: yellow;
+    background-color: #242400;
+    color: yellow;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.pinkBuild {
+    border-color: pink;
+    background-color: #291e20;
+    color: pink;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.cyanBuild {
+    border-color: cyan;
+    background-color: #002424;
+    color: cyan;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.plumBuild {
+    border-color: plum;
+    background-color: #1a091a;
+    color: plum;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.limegreenBuild {
+    border-color: limegreen;
+    background-color: #071d07;
+    color: limegreen;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable.orangeBuild {
+    border-color: orange;
+    background-color: #241700;
+    color: orange;
+  }
+
+  .buttonRow > .buildingPurchaseAvailable > img { filter: unset; }
+
+  .buildingPurchaseAvailable { cursor: pointer; }
+  .buildingPurchaseAvailable > .buildingPurchaseBtn:hover { background-color: unset; }
+
+  .resetautomation { margin-top: 40px !important; }
+  #buildingtext { width: unset; }
+  #taxinfo { margin: 0; }
+}

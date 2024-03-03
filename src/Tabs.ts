@@ -271,18 +271,7 @@ class TabRow extends HTMLDivElement {
     super()
 
     this.id = 'tabrow'
-    this.style.cssText = `
-      text-align: center;
-      width: 100%;
-      list-style: none;
-      margin: 0;
-      margin-inline: unset;
-      margin-block: unset;
-      padding-inline: unset;
-      display: flex;
-      justify-content: center;
-      gap: 0 5px;
-    `
+    this.classList.add('scrollbarX')
 
     document.getElementsByClassName('navbar').item(0)?.appendChild(this)
   }
