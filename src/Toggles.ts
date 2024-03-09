@@ -705,7 +705,7 @@ export const toggleCubeSubTab = (indexStr: string) => {
 export const updateAutoChallenge = (i: number) => {
   switch (i) {
     case 1: {
-      const t = parseFloat((DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value) || 0
+      const t = Number.parseFloat((DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value) || 0
       player.autoChallengeTimer.start = Math.max(t, 0)
       DOMCacheGetOrSet('startTimerValue').innerHTML = i18next.t('challenges.timeStartSweep', {
         time: format(player.autoChallengeTimer.start, 2, true)
@@ -713,7 +713,7 @@ export const updateAutoChallenge = (i: number) => {
       return
     }
     case 2: {
-      const u = parseFloat((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value) || 0
+      const u = Number.parseFloat((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value) || 0
       player.autoChallengeTimer.exit = Math.max(u, 0)
 
       DOMCacheGetOrSet('exitTimerValue').innerHTML = i18next.t('challenges.timeExitChallenge', {
@@ -723,7 +723,7 @@ export const updateAutoChallenge = (i: number) => {
       return
     }
     case 3: {
-      const v = parseFloat((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value) || 0
+      const v = Number.parseFloat((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value) || 0
       player.autoChallengeTimer.enter = Math.max(v, 0)
 
       DOMCacheGetOrSet('enterTimerValue').innerHTML = i18next.t('challenges.timeEnterChallenge', {
@@ -870,7 +870,7 @@ export const toggleautoopensCubes = (i: number) => {
 export const updateRuneBlessingBuyAmount = (i: number) => {
   switch (i) {
     case 1: {
-      const t = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value)) || 1
+      const t = Math.floor(Number.parseFloat((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value)) || 1
       player.runeBlessingBuyAmount = Math.max(t, 1)
       DOMCacheGetOrSet('buyRuneBlessingToggle').innerHTML = i18next.t('runes.blessings.buyUpTo', {
         amount: format(player.runeBlessingBuyAmount)
@@ -878,7 +878,7 @@ export const updateRuneBlessingBuyAmount = (i: number) => {
       return
     }
     case 2: {
-      const u = Math.floor(parseFloat((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value)) || 1
+      const u = Math.floor(Number.parseFloat((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value)) || 1
       player.runeSpiritBuyAmount = Math.max(u, 1)
       DOMCacheGetOrSet('buyRuneSpiritToggleValue').innerHTML = i18next.t('runes.spirits.buyUpTo', {
         amount: format(player.runeSpiritBuyAmount)

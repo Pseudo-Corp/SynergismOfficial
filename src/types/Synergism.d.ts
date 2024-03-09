@@ -1,14 +1,14 @@
 import type Decimal from 'break_infinity.js'
-import { BlueberryUpgrade } from '../BlueberryUpgrades'
+import type { BlueberryUpgrade } from '../BlueberryUpgrades'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
-import { HepteractCraft } from '../Hepteracts'
-import { Category, ResetHistoryEntryUnion } from '../History'
-import { OcteractUpgrade } from '../Octeracts'
-import { IPlatBaseCost } from '../Platonic'
+import type { HepteractCraft } from '../Hepteracts'
+import type { Category, ResetHistoryEntryUnion } from '../History'
+import type { OcteractUpgrade } from '../Octeracts'
+import type { IPlatBaseCost } from '../Platonic'
 import type { QuarkHandler } from '../Quark'
-import { SingularityUpgrade } from '../singularity'
-import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
-import {
+import type { SingularityUpgrade } from '../singularity'
+import type { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
+import type {
   AmbrosiaGenerationCache,
   AmbrosiaLuckAdditiveMultCache,
   AmbrosiaLuckCache,

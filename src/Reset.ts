@@ -210,25 +210,25 @@ export const resetdetails = (input: resetNames) => {
 export const updateAutoReset = (i: number) => {
   let value = null
   if (i === 1) {
-    value = parseFloat((DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value) || 0
+    value = Number.parseFloat((DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value) || 0
     player.prestigeamount = Math.max(value, 0)
   } else if (i === 2) {
-    value = parseFloat((DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value) || 0
+    value = Number.parseFloat((DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value) || 0
     player.transcendamount = Math.max(value, 0)
   } else if (i === 3) {
-    value = parseFloat((DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value) || 0
+    value = Number.parseFloat((DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value) || 0
     player.reincarnationamount = Math.max(value, 0)
   } else if (i === 4) {
-    value = Math.floor(parseFloat((DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value)) || 1
+    value = Math.floor(Number.parseFloat((DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value)) || 1
     player.autoAscendThreshold = Math.max(value, 1)
   } else if (i === 5) {
-    value = parseFloat((DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value) || 0
+    value = Number.parseFloat((DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value) || 0
     player.autoAntSacTimer = Math.max(value, 0)
   }
 }
 
 export const updateTesseractAutoBuyAmount = () => {
-  const value = Math.floor(parseFloat((DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value)) || 0
+  const value = Math.floor(Number.parseFloat((DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value)) || 0
   player.tesseractAutoBuyerAmount = Math.max(value, 0)
 }
 

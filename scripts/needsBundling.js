@@ -1,4 +1,4 @@
-const { existsSync } = require('fs')
+const { existsSync } = require('node:fs')
 
 if (existsSync('dist')) {
   console.log('Skipping, build output already exists!')

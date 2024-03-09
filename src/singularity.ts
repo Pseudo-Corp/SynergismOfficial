@@ -2285,7 +2285,7 @@ export const getLastUpgradeInfo = (
 const handlePerks = (singularityCount: number) => {
   const availablePerks: ISingularityPerkDisplayInfo[] = []
   let singularityCountForNextPerk: number | null = null
-  let singularityCountForNextPerkUpgrade = Infinity
+  let singularityCountForNextPerkUpgrade = Number.POSITIVE_INFINITY
   for (const perk of singularityPerks) {
     const upgradeInfo = getLastUpgradeInfo(perk, singularityCount)
     if (upgradeInfo.level > 0) {
@@ -2343,7 +2343,7 @@ const handlePerks = (singularityCount: number) => {
     nextUnlockedId.style.display = 'none'
   }
   const countNext = DOMCacheGetOrSet('singualrityImproveNext')
-  if (singularityCountForNextPerkUpgrade < Infinity) {
+  if (singularityCountForNextPerkUpgrade < Number.POSITIVE_INFINITY) {
     countNext.style.display = ''
     countNext.innerHTML = i18next.t('singularity.perks.improvedIn', {
       sing: singularityCountForNextPerkUpgrade

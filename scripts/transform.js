@@ -1,4 +1,4 @@
-const { readFileSync, writeFileSync } = require('fs')
+const { readFileSync, writeFileSync } = require('node:fs')
 
 const SynergismCss = `${__dirname}/../Synergism.css`
 // https://stackoverflow.com/a/41407246/15299271

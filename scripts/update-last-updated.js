@@ -1,4 +1,4 @@
-const { readFileSync, writeFileSync } = require('fs')
+const { readFileSync, writeFileSync } = require('node:fs')
 
 const currentDate = new Date()
 const UTC =
