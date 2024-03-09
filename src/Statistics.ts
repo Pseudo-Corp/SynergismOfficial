@@ -1093,7 +1093,9 @@ export const loadStatisticsAmbrosiaLuck = () => {
     6: { acc: 1, desc: "Ambrosia Luck Module II" },
     7: { acc: 2, desc: "Ambrosia Cube-Luck Hybrid Module I" },
     8: { acc: 2, desc: "Ambrosia Quark-Luck Hybrid Module I" },
-    9: { acc: 1, desc: "Event Bonus" },
+    9: { acc: 0, desc: "Perk: Two Hundred Sixty Nine!" },
+    10: { acc: 0, desc: "Shop: Octeract-Based Ambrosia Luck" },
+    11: { acc: 1, desc: "Event Bonus" },
   };
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`);
@@ -1105,7 +1107,15 @@ export const loadStatisticsAmbrosiaLuck = () => {
     )}`;
   }
 
-  const totalVal = arr[arr.length - 1];
+  DOMCacheGetOrSet("sALuckMult").textContent = `x${format(
+    player.caches.ambrosiaLuckAdditiveMult.totalVal,
+    2,
+    true
+  )}`;
+
+  const totalVal = Math.floor(
+    arr[arr.length - 1] * player.caches.ambrosiaLuckAdditiveMult.totalVal
+  );
   DOMCacheGetOrSet("sALuckMT").innerHTML = `&#9752 ${format(totalVal, 0)}`;
 };
 

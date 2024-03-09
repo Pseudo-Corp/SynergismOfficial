@@ -37,6 +37,7 @@ import {
 } from "./SingularityChallenges";
 import {
   AmbrosiaGenerationCache,
+  AmbrosiaLuckAdditiveMultCache,
   AmbrosiaLuckCache,
   BlueberryInventoryCache,
   cacheReinitialize,
@@ -1009,6 +1010,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
       calculator4: 0,
       calculator5: 0,
       calculator6: 0,
+      calculator7: 0,
       constantEX: 0,
       powderEX: 0,
       chronometer2: 0,
@@ -1041,6 +1043,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
       seasonPassInfinity: 0,
       chronometerInfinity: 0,
       shopSingularityPenaltyDebuff: 0,
+      shopAmbrosiaLuckMultiplier4: 0,
+      shopOcteractAmbrosiaLuck: 0,
       shopAmbrosiaGeneration1: 0,
       shopAmbrosiaGeneration2: 0,
       shopAmbrosiaGeneration3: 0,
@@ -1436,6 +1440,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
           singularityRequirement:
             singularityChallengeData[k].singularityRequirement,
           effect: singularityChallengeData[k].effect,
+          cacheUpdates: singularityChallengeData[k].cacheUpdates,
         };
         player.singularityChallenges[k] = new SingularityChallenge(
           updatedData,
@@ -1634,6 +1639,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
   }
 
   player.caches = {
+    ambrosiaLuckAdditiveMult: new AmbrosiaLuckAdditiveMultCache(),
     ambrosiaLuck: new AmbrosiaLuckCache(),
     ambrosiaGeneration: new AmbrosiaGenerationCache(),
     blueberryInventory: new BlueberryInventoryCache(),

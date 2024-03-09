@@ -412,7 +412,7 @@ export const blueberryUpgradeData: Record<
     },
     rewards: (n: number) => {
       const baseVal = 0.0002 * n;
-      const val = 1 + baseVal * player.caches.ambrosiaLuck.totalVal;
+      const val = 1 + baseVal * player.caches.ambrosiaLuck.usedTotal;
       return {
         cubes: val,
         desc: String(
@@ -470,8 +470,9 @@ export const blueberryUpgradeData: Record<
     rewards: (n: number) => {
       const baseVal = 0.0001 * n;
       const effectiveLuck = Math.min(
-        player.caches.ambrosiaLuck.totalVal,
-        Math.pow(1000, 0.5) * Math.pow(player.caches.ambrosiaLuck.totalVal, 0.5)
+        player.caches.ambrosiaLuck.usedTotal,
+        Math.pow(1000, 0.5) *
+          Math.pow(player.caches.ambrosiaLuck.usedTotal, 0.5)
       );
       const val = 1 + baseVal * effectiveLuck;
       return {
@@ -667,7 +668,7 @@ export const blueberryUpgradeData: Record<
       return baseCost + 0 * level;
     },
     rewards: (n: number) => {
-      const luck = player.caches.ambrosiaLuck.totalVal;
+      const luck = player.caches.ambrosiaLuck.usedTotal;
       return {
         luckMult: n,
         obtainiumMult: n * luck,
@@ -687,7 +688,7 @@ export const blueberryUpgradeData: Record<
       return baseCost + 0 * level;
     },
     rewards: (n: number) => {
-      const luck = player.caches.ambrosiaLuck.totalVal;
+      const luck = player.caches.ambrosiaLuck.usedTotal;
       return {
         luckMult: n,
         offeringMult: n * luck,

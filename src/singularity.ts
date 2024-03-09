@@ -2070,6 +2070,24 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
+      return i18next.t("singularity.perkNames.dilatedFiveLeaf");
+    },
+    levels: [100, 200, 250, 260, 266],
+    description: (n: number, levels: number[]) => {
+      for (let i = levels.length - 1; i >= 0; i--) {
+        if (n >= levels[i]) {
+          return i18next.t("singularity.perks.dilatedFiveLeaf.desc", {
+            percent: i + 1,
+          });
+        }
+      }
+
+      return i18next.t("singularity.perks.evenMoreQuarks.bug");
+    },
+    ID: "dilatedFiveLeaf",
+  },
+  {
+    name: () => {
       return i18next.t("singularity.perkNames.platSigma");
     },
     levels: [125, 200],
@@ -2174,6 +2192,16 @@ export const singularityPerks: SingularityPerk[] = [
       return i18next.t("singularity.perks.skrauQ", { amt });
     },
     ID: "skrauQ",
+  },
+  {
+    name: () => {
+      return i18next.t("singularity.perkNames.twoHundredSixtyNine");
+    },
+    levels: [269],
+    description: () => {
+      return i18next.t("singularity.perks.twoHundredSixtyNine");
+    },
+    ID: "twoHundredSixtyNine",
   },
 ];
 
@@ -2280,7 +2308,7 @@ const handlePerks = (singularityCount: number) => {
   const nextUnlockedId = DOMCacheGetOrSet("singualrityUnlockNext");
   if (singularityCountForNextPerk) {
     nextUnlockedId.style.display = "";
-    nextUnlockedId.textContent = i18next.t("singularity.perks.unlockedIn", {
+    nextUnlockedId.innerHTML = i18next.t("singularity.perks.unlockedIn", {
       sing: singularityCountForNextPerk,
     });
   } else {
@@ -2289,7 +2317,7 @@ const handlePerks = (singularityCount: number) => {
   const countNext = DOMCacheGetOrSet("singualrityImproveNext");
   if (singularityCountForNextPerkUpgrade < Infinity) {
     countNext.style.display = "";
-    countNext.textContent = i18next.t("singularity.perks.improvedIn", {
+    countNext.innerHTML = i18next.t("singularity.perks.improvedIn", {
       sing: singularityCountForNextPerkUpgrade,
     });
   } else {

@@ -2408,9 +2408,9 @@ export const calculateSingularityQuarkMilestoneMultiplier = () => {
   let multiplier = 1;
   // dprint-ignore
   const singThresholds = [
-    5, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170, 175, 180,
-    190, 196, 200, 200, 201, 202, 203, 204, 205, 210, 212, 214, 216, 218, 220,
-    225, 250,
+    5, 7, 10, 20, 35, 50, 65, 80, 90, 100, 121, 144, 150, 160, 166, 169, 170,
+    175, 180, 190, 196, 200, 201, 202, 203, 204, 205, 210, 212, 214, 216, 218,
+    220, 225, 250, 255, 260, 261, 262,
   ];
   for (const sing of singThresholds) {
     if (player.highestSingularityCount >= sing) {
@@ -3242,7 +3242,7 @@ export const calculateRequiredBlueberryTime = () => {
 
 export const calculateSingularityMilestoneBlueberries = () => {
   let val = 0;
-  if (player.highestSingularityCount >= 254) val = 4;
+  if (player.highestSingularityCount >= 264) val = 4;
   else if (player.highestSingularityCount >= 198) val = 3;
   else if (player.highestSingularityCount >= 132) val = 2;
   else if (player.highestSingularityCount >= 66) val = 1;
@@ -3280,6 +3280,15 @@ export const calculateAmbrosiaQuarkMult = () => {
   }
 
   return multiplier;
+};
+
+export const calculateDilatedFiveLeafBonus = () => {
+  const singThresholds = [100, 200, 250, 260, 266];
+  for (let i = 0; i < singThresholds.length; i++) {
+    if (player.highestSingularityCount <= singThresholds[i]) return i / 100;
+  }
+
+  return singThresholds.length / 100;
 };
 
 export const dailyResetCheck = () => {
