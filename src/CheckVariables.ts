@@ -1666,4 +1666,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     player.autoCubeUpgradesToggle = false;
     player.autoPlatonicUpgradesToggle = false;
   }
+
+  if (player.shopUpgrades.calculator7 === undefined) {
+    player.shopUpgrades.calculator7 = 0;
+    player.shopUpgrades.shopAmbrosiaLuckMultiplier4 = 0;
+    player.shopUpgrades.shopOcteractAmbrosiaLuck = 0;
+  }
 };
