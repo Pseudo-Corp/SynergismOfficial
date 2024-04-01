@@ -514,12 +514,12 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     const cap = craft.computeActualCap()
 
-    if (cap <= craft.BAL + 1) {
+    if (cap >= 1e300) {
       return Alert(i18next.t('importexport.promocodes.bribe.overCapacity'))
     }
 
     player.codes.set(47, true)
-    craft.BAL++
+    craft.CAP = Math.min(1e300, craft.CAP * 2)
 
     return Alert(i18next.t('importexport.promocodes.bribe.thanks'))
   } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
