@@ -505,6 +505,23 @@ export const promocodes = async (input: string | null, amount?: number) => {
     el.textContent = i18next.t('importexport.promocodes.khafra', {
       x: player.worlds.applyBonus(quarks)
     })
+  } else if (input === 'alonso bribe' && !player.codes.get(47)) {
+    const craft = player.hepteractCrafts.quark
+
+    if (!craft.UNLOCKED) {
+      return Alert(i18next.t('importexport.promocodes.bribe.notUnlocked'))
+    }
+
+    const cap = craft.computeActualCap()
+
+    if (cap <= craft.BAL + 1) {
+      return Alert(i18next.t('importexport.promocodes.bribe.overCapacity'))
+    }
+
+    player.codes.set(47, true)
+    craft.BAL++
+
+    return Alert(i18next.t('importexport.promocodes.bribe.thanks'))
   } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
     player.dailyCodeUsed = true
     let rewardMessage = i18next.t('importexport.promocodes.daily.message')
