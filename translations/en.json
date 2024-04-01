@@ -3413,7 +3413,12 @@
         "moreThan1": "You will gain {{x}} Octeracts (when they come out) every second, assuming you have them unlocked!",
         "one": "You will gain an Octeract (when they come out) every {{x}} seconds, assuming you have them unlocked!"
       },
-      "invalid": "Your code is either invalid or already used. Try again!"
+      "invalid": "Your code is either invalid or already used. Try again!",
+      "bribe": {
+        "notUnlocked": "Hmmm... you aren't ready yet.",
+        "overCapacity": "You can't hold more!",
+        "thanks": "Thank Alonso (in Discord) for the bribe."
+      }
     }
   },
   "toggles": {
