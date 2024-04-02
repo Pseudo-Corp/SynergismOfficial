@@ -3,6 +3,7 @@ import {
   calculateAmbrosiaGenerationSingularityUpgrade,
   calculateAmbrosiaLuckOcteractUpgrade,
   calculateAmbrosiaLuckSingularityUpgrade,
+  calculateCashGrabBlueberryBonus,
   calculateDilatedFiveLeafBonus,
   calculateEventBuff,
   calculateSingularityMilestoneBlueberries
@@ -141,6 +142,7 @@ type AmbrosialLuck =
   | 'BlueberryUpgrade2'
   | 'ShopOcteractAmbrosiaLuck'
   | 'TwoHundredSixtyNine'
+  | 'OneHundredThirtyOne'
 
 type AmbrosiaGeneration =
   | 'DefaultVal'
@@ -150,6 +152,7 @@ type AmbrosiaGeneration =
   | 'Event'
   | 'OcteractBerries'
   | 'BlueberryPatreon'
+  | 'CashGrabUltra'
 
 type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade' | 'SingularityPerk'
 
@@ -217,6 +220,7 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       BlueberryUpgrade2: 0,
       BlueberryCubeLuck1: 0,
       BlueberryQuarkLuck1: 0,
+      OneHundredThirtyOne: 0,
       TwoHundredSixtyNine: 0,
       ShopOcteractAmbrosiaLuck: 0,
       Event: 0
@@ -260,6 +264,10 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
         this.vals[key] = +player.blueberryUpgrades.ambrosiaQuarkLuck1.bonus.ambrosiaLuck
         break
       }
+      case 'OneHundredThirtyOne': {
+        this.vals[key] = player.highestSingularityCount >= 131 ? 131 : 0
+        break
+      }
       case 'TwoHundredSixtyNine': {
         this.vals[key] = player.highestSingularityCount >= 269 ? 269 : 0
         break
@@ -297,6 +305,7 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
       SingularityBerries: 1,
       OcteractBerries: 1,
       BlueberryPatreon: 1,
+      CashGrabUltra: 1,
       Event: 1
     }
     this.totalVal = 0
@@ -333,6 +342,10 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
         this.vals[key] = Globals.isEvent
           ? 1 + calculateEventBuff(BuffType.BlueberryTime)
           : 1
+        break
+      }
+      case 'CashGrabUltra': {
+        this.vals[key] = calculateCashGrabBlueberryBonus()
         break
       }
     }

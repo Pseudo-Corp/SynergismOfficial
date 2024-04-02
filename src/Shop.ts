@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculatePowderConversion, calculateSummationNonLinear, calculateTimeAcceleration } from './Calculate'
+import { calculateCashGrabBlueberryBonus, calculateCashGrabCubeBonus, calculateCashGrabQuarkBonus, calculatePowderConversion, calculateSummationNonLinear, calculateTimeAcceleration } from './Calculate'
 import type { IMultiBuy } from './Cubes'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
@@ -25,6 +25,7 @@ type shopResetTier =
   | 'Exalt2'
   | 'Exalt3'
   | 'Exalt4'
+  | 'Exalt1x30'
 
 export interface IShopData {
   price: number
@@ -183,8 +184,8 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   seasonPass2: {
     tier: 'Ascension',
-    price: 2500,
-    priceIncrease: 250,
+    price: 2000,
+    priceIncrease: 200,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
@@ -201,8 +202,8 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   chronometer: {
     tier: 'Ascension',
-    price: 2000,
-    priceIncrease: 500,
+    price: 1600,
+    priceIncrease: 400,
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     refundable: true,
@@ -210,7 +211,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   infiniteAscent: {
     tier: 'Ascension',
-    price: 50000,
+    price: 25000,
     priceIncrease: 9999999,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
@@ -219,8 +220,8 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   calculator: {
     tier: 'Reincarnation',
-    price: 1000,
-    priceIncrease: 500,
+    price: 500,
+    priceIncrease: 300,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -228,8 +229,8 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   calculator2: {
     tier: 'Ascension',
-    price: 3000,
-    priceIncrease: 1000,
+    price: 2500,
+    priceIncrease: 800,
     maxLevel: 12,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -237,8 +238,8 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   calculator3: {
     tier: 'Ascension',
-    price: 10000,
-    priceIncrease: 2000,
+    price: 7500,
+    priceIncrease: 1500,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -657,6 +658,15 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
+  },
+  shopCashGrabUltra: {
+    tier: 'Exalt1x30',
+    price: 1,
+    priceIncrease: 1.5e22,
+    maxLevel: 3,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0,
   }
 }
 
@@ -732,6 +742,7 @@ type ShopUpgradeNames =
   | 'shopAmbrosiaLuck2'
   | 'shopAmbrosiaLuck3'
   | 'shopAmbrosiaLuck4'
+  | 'shopCashGrabUltra'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
   if (
@@ -1205,6 +1216,13 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         )
       })
       break
+    case 'shopCashGrabUltra':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopCashGrabUltra', {
+        amount: format(100 * (calculateCashGrabBlueberryBonus() - 1), 2, true),
+        amount2: format(100 * (calculateCashGrabCubeBonus() - 1), 2, true),
+        amount3: format(100 * (calculateCashGrabQuarkBonus() - 1), 2, true)
+      })
+      break
   }
 }
 
@@ -1280,7 +1298,8 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
     shopAmbrosiaLuck1: 'Ambrosia Luck Increaser',
     shopAmbrosiaLuck2: 'Another Ambrosia Luck Increaser',
     shopAmbrosiaLuck3: 'A better Ambrosia Generation Speedup',
-    shopAmbrosiaLuck4: 'A FINAL Ambrosia Generation Speedup'
+    shopAmbrosiaLuck4: 'A FINAL Ambrosia Generation Speedup',
+    shopCashGrabUltra: 'It\'s the FINAL CASHGRAB!'
   }
 
   return names[input]
@@ -1773,5 +1792,7 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
     case 'shopAmbrosiaLuck4':
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+    case 'shopCashGrabUltra':
+      return Boolean(player.singularityChallenges.noSingularityUpgrades.rewards.shopUpgrade2)
   }
 }

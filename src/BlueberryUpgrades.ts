@@ -669,11 +669,11 @@ export const blueberryUpgradeData: Record<
     ]
   },
   ambrosiaObtainium1: {
-    maxLevel: 1,
+    maxLevel: 2,
     costPerLevel: 50000,
     blueberryCost: 1,
     costFormula: (level: number, baseCost: number): number => {
-      return baseCost + 0 * level
+      return baseCost * Math.pow(25, level)
     },
     rewards: (n: number) => {
       const luck = player.caches.ambrosiaLuck.usedTotal
@@ -689,11 +689,11 @@ export const blueberryUpgradeData: Record<
     }
   },
   ambrosiaOffering1: {
-    maxLevel: 1,
+    maxLevel: 2,
     costPerLevel: 50000,
     blueberryCost: 1,
     costFormula: (level: number, baseCost: number): number => {
-      return baseCost + 0 * level
+      return baseCost * Math.pow(25, level)
     },
     rewards: (n: number) => {
       const luck = player.caches.ambrosiaLuck.usedTotal
@@ -709,11 +709,11 @@ export const blueberryUpgradeData: Record<
     }
   },
   ambrosiaHyperflux: {
-    maxLevel: 5,
+    maxLevel: 7,
     costPerLevel: 33333,
     blueberryCost: 3,
     costFormula: (level: number, baseCost: number): number => {
-      return baseCost + 33333 * level
+      return (baseCost + 33333 * level) * Math.max(1, Math.pow(4, level - 4))
     },
     rewards: (n: number) => {
       const fourByFourBase = n

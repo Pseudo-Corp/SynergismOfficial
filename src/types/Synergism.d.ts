@@ -398,6 +398,7 @@ export interface Player {
     shopAmbrosiaLuck2: number
     shopAmbrosiaLuck3: number
     shopAmbrosiaLuck4: number
+    shopCashGrabUltra: number
   }
   shopConfirmationToggle: boolean
   shopBuyMaxToggle: boolean | 'TEN' | 'ANY'

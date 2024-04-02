@@ -611,7 +611,8 @@ export const player: Player = {
     shopAmbrosiaLuck1: 0,
     shopAmbrosiaLuck2: 0,
     shopAmbrosiaLuck3: 0,
-    shopAmbrosiaLuck4: 0
+    shopAmbrosiaLuck4: 0,
+    shopCashGrabUltra: 0,
   },
   shopBuyMaxToggle: false,
   shopHideToggle: false,

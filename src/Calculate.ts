@@ -19,6 +19,10 @@ import { Alert, Prompt } from './UpdateHTML'
 import { productContents, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
+const CASH_GRAB_ULTRA_QUARK = 0.12
+const CASH_GRAB_ULTRA_CUBE = 0.8
+const CASH_GRAB_ULTRA_BLUEBERRY = 0.2
+
 export const calculateTotalCoinOwned = () => {
   G.totalCoinOwned = player.firstOwnedCoin
     + player.secondOwnedCoin
@@ -1758,8 +1762,10 @@ export const calculateAllCubeMultiplier = () => {
     // Module - Cubes 2
     +player.blueberryUpgrades.ambrosiaCubes2.bonus.cubes,
     // Module - Hyperflux
-    +player.blueberryUpgrades.ambrosiaHyperflux.bonus.hyperFlux
-    // Total Global Cube Multipliers: 30
+    +player.blueberryUpgrades.ambrosiaHyperflux.bonus.hyperFlux,
+    // Cash Grab Ultra
+    +calculateCashGrabCubeBonus()
+    // Total Global Cube Multipliers: 31
   ]
 
   const extraMult = G.isEvent && G.eventClicked ? 1.05 : 1
@@ -2094,7 +2100,9 @@ export const getOcteractValueMultipliers = () => {
     // Module- Quark-Cube 1
     +player.blueberryUpgrades.ambrosiaQuarkCube1.bonus.cubes,
     // Module- Cubes 2
-    +player.blueberryUpgrades.ambrosiaCubes2.bonus.cubes
+    +player.blueberryUpgrades.ambrosiaCubes2.bonus.cubes,
+    // Cash Grab ULTRA
+    +calculateCashGrabCubeBonus()
   ]
 }
 
@@ -2429,6 +2437,7 @@ export const calculateQuarkMultiplier = () => {
   multiplier *= +player.blueberryUpgrades.ambrosiaCubeQuark1.bonus.quarks
   multiplier *= +player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks
   multiplier *= +player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks
+  multiplier *= calculateCashGrabQuarkBonus()
 
   if (player.highestSingularityCount === 0) {
     multiplier *= 1.25
@@ -3157,10 +3166,11 @@ export const calculateRequiredBlueberryTime = () => {
 
 export const calculateSingularityMilestoneBlueberries = () => {
   let val = 0
-  if (player.highestSingularityCount >= 264) val = 4
-  else if (player.highestSingularityCount >= 198) val = 3
-  else if (player.highestSingularityCount >= 132) val = 2
-  else if (player.highestSingularityCount >= 66) val = 1
+  if (player.highestSingularityCount >= 270) val = 5
+  else if (player.highestSingularityCount >= 256) val = 4
+  else if (player.highestSingularityCount >= 192) val = 3
+  else if (player.highestSingularityCount >= 128) val = 2
+  else if (player.highestSingularityCount >= 64) val = 1
 
   return val
 }
@@ -3195,6 +3205,22 @@ export const calculateAmbrosiaQuarkMult = () => {
   }
 
   return multiplier
+}
+
+export const calculateCashGrabBonus = (extra: number) => {
+  return 1 + player.shopUpgrades.shopCashGrabUltra * extra * Math.min(1, Math.pow(player.lifetimeAmbrosia / 1e7, 1/3))
+}
+
+export const calculateCashGrabBlueberryBonus = () => {
+  return calculateCashGrabBonus(CASH_GRAB_ULTRA_BLUEBERRY)
+}
+
+export const calculateCashGrabCubeBonus = () => {
+  return calculateCashGrabBonus(CASH_GRAB_ULTRA_CUBE)
+}
+
+export const calculateCashGrabQuarkBonus = () => {
+  return calculateCashGrabBonus(CASH_GRAB_ULTRA_QUARK)
 }
 
 export const calculateDilatedFiveLeafBonus = () => {

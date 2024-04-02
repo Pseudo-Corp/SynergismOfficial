@@ -96,7 +96,7 @@ export const updateSingularityPenalties = (): void => {
         ${platonic}
         ${hepteract}
         ${
-    singularityCount >= 230
+    singularityCount >= 270
       ? i18next.t('singularity.penalties.penaltySmooth')
       : i18next.t('singularity.penalties.penaltyRough', {
         num: format(
@@ -2033,7 +2033,7 @@ export const singularityPerks: SingularityPerk[] = [
     name: () => {
       return i18next.t('singularity.perkNames.congealedblueberries')
     },
-    levels: [66, 132, 198, 264],
+    levels: [64, 128, 192, 256, 270],
     description (n, levels) {
       for (let i = levels.length - 1; i >= 0; i--) {
         if (n >= levels[i]) {
@@ -2133,6 +2133,16 @@ export const singularityPerks: SingularityPerk[] = [
       })
     },
     ID: 'platSigma'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perkNames.oneHundredThirtyOne')
+    },
+    levels: [131],
+    description: () => {
+      return i18next.t('singularity.perks.oneHundredThirtyOne')
+    },
+    ID: 'oneHundredThirtyOne'
   },
   {
     name: () => {
@@ -2553,6 +2563,10 @@ export const calculateEffectiveSingularities = (
   if (singularityCount > 230) {
     effectiveSingularities *= 2
   }
+  if (singularityCount > 269) {
+    effectiveSingularities *= 3
+    effectiveSingularities *= Math.pow(3, singularityCount - 269)
+  }
 
   return effectiveSingularities
 }
@@ -2560,7 +2574,7 @@ export const calculateEffectiveSingularities = (
 export const calculateNextSpike = (
   singularityCount: number = player.singularityCount
 ): number => {
-  const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 216, 230]
+  const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 216, 230, 270]
   let penaltyDebuff = 0
   penaltyDebuff += player.shopUpgrades.shopSingularityPenaltyDebuff
 

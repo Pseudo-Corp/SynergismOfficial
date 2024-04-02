@@ -4,6 +4,7 @@ import {
   calculateAllCubeMultiplier,
   calculateAmbrosiaQuarkMult,
   calculateAscensionSpeedMultiplier,
+  calculateCashGrabQuarkBonus,
   calculateCubeMultiplier,
   calculateEffectiveIALevel,
   calculateEventBuff,
@@ -648,6 +649,7 @@ export const loadQuarkMultiplier = () => {
       true
     )
   }`
+  DOMCacheGetOrSet('sGQM31').textContent = `x${format(calculateCashGrabQuarkBonus(), 3, true)}`
   DOMCacheGetOrSet('sGQMT').textContent = `x${
     format(
       player.worlds.applyBonus(1),
@@ -729,7 +731,8 @@ export const loadStatisticsCubeMultipliers = () => {
     28: { acc: 2, desc: 'Module- Luck-Cube 1' },
     29: { acc: 2, desc: 'Module- Quark-Cube 1' },
     30: { acc: 2, desc: 'Module- Cubes 2' },
-    31: { acc: 2, desc: 'Module- Hyperflux' }
+    31: { acc: 2, desc: 'Module- Hyperflux' },
+    32: { acc: 2, desc: 'Cash Grab ULTIMATE'}
   }
   for (let i = 0; i < arr0.length; i++) {
     const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
@@ -952,7 +955,8 @@ export const loadStatisticsCubeMultipliers = () => {
     29: { acc: 2, desc: 'Module- Luck-Cube 1' },
     30: { acc: 2, desc: 'Module- Quark-Cube 1' },
     31: { acc: 2, desc: 'Module- Cubes 2' },
-    32: { acc: 2, desc: ascensionSpeedDesc }
+    32: { acc: 2, desc: 'Cash Grab ULTIMATE'},
+    33: { acc: 2, desc: ascensionSpeedDesc }
   }
   for (let i = 0; i < octMults.list.length; i++) {
     const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`)
@@ -1271,9 +1275,10 @@ export const loadStatisticsAmbrosiaLuck = () => {
     6: { acc: 1, desc: 'Ambrosia Luck Module II' },
     7: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
     8: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
-    9: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
-    10: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
-    11: { acc: 1, desc: 'Event Bonus' }
+    9: { acc: 0, desc: 'Perk: One Hundred Thirty One!' },
+    10: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
+    11: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
+    12: { acc: 1, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -1310,7 +1315,8 @@ export const loadStatisticsAmbrosiaGeneration = () => {
     4: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
     5: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
     6: { acc: 4, desc: 'Patreon Bonus' },
-    7: { acc: 4, desc: 'Event Bonus' }
+    7: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
+    8: { acc: 4, desc: 'Event Bonus'}
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)

@@ -262,7 +262,8 @@ export const singularityChallengeData: Record<
         goldenQuarks: 1 + 0.12 * +(n > 0),
         blueberries: +(n > 0),
         shopUpgrade: n >= 20,
-        luckBonus: n >= 30 ? 0.04 : 0
+        luckBonus: n >= 30 ? 0.04 : 0,
+        shopUpgrade2: n >= 30
       }
     },
     cacheUpdates: [

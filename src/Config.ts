@@ -1,4 +1,4 @@
-export const version = '3.0.0 pt 4: March 9, 2024: EXALTed Upgrades'
+export const version = '3.0.0 pt 4.1: April 1: Unsmith III'
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE
