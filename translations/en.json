@@ -1427,7 +1427,8 @@
       "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
       "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.6 ☘ Ambrosia luck per level, stacking additively.",
       "shopAmbrosiaLuckMultiplier4": "Gain ☘ +1% Ambrosia Luck per level! Simple as that.",
-      "shopOcteractAmbrosiaLuck": "Gain ☘ +1 Ambrosia Luck per digit in your Wow! Octeract inventory per level. Simple as that."
+      "shopOcteractAmbrosiaLuck": "Gain ☘ +1 Ambrosia Luck per digit in your Wow! Octeract inventory per level. Simple as that.",
+      "shopCashGrabUltra": "For a nominal price, gain up to +20% Blueberry Speed, +80% Cubes and +12% Quarks per level based on Ambrosia, scaling nonlinearly until 10,000,000 lifetime earned."
     },
     "maxed": "Maxed!",
     "upgradeFor": "Upgrade for {{x}} Quarks",
@@ -1435,7 +1436,7 @@
     "consume": "CONSUME",
     "buyYerPotions": "Buy Yer' Potions!",
     "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
-    "youHaveQuarks": "You have {{x}} Quarks!",
+    "youHaveQuarks": "You have {{x}} Unsmiths!",
     "cannotRefund": "This item CANNOT be refunded! Take caution.",
     "resetPermShop": "Reset Perm Shop [Cost: 15 Quarks]",
     "shopConfirmationOn": "Shop Confirmations: ON",
@@ -1519,7 +1520,8 @@
       "shopAmbrosiaLuck1": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
       "shopAmbrosiaLuck2": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
       "shopAmbrosiaLuck3": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
-      "shopAmbrosiaLuck4": "Ambrosia Luck <<lime|☘ +{{amount}}>>"
+      "shopAmbrosiaLuck4": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
+      "shopCashGrabUltra": "Blueberry Generation is <<blue|{{amount}}%>> faster. Also, Cubes <<white|+{{amount2}}%>>! Finally, Quarks <<cyan|+{{amount3}}%>>!"
     }
   },
   "singularity": {
@@ -1649,6 +1651,7 @@
       },
       "skrauQ": "Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: {{amt}}... Yes, it's that good.",
       "derpSmithsCornucopia": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!",
+      "oneHundredThirtyOne": "Gain <<green|☘ +131>> Ambrosia Luck!",
       "twoHundredSixtyNine": "Gain <<green|☘ +269>> Ambrosia Luck!"
     },
     "toString": {
@@ -2088,7 +2091,8 @@
       "octeractMetagenesis": "Octeract Metagenesis",
       "immaculateAlchemy": "Immaculate Alchemy",
       "skrauQ": "skrauQ",
-      "twoHundredSixtyNine": "Two Hundred and Sixty Nine!"
+      "twoHundredSixtyNine": "Two Hundred and Sixty Nine!",
+      "oneHundredThirtyOne": "One Hundred and Thirty One!"
     }
   },
   "general": {
@@ -3067,7 +3071,7 @@
       "noSingularityUpgrades": {
         "name": "No Singularity Upgrades",
         "description": "Simply put, you have to beat the target singularity without (most) Singularity Upgrades. Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
-        "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks and a Blueberry! 20th awards exclusive shop upgrade! 30th awards +4% Ambrosia Luck for free!"
+        "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks and a Blueberry! 20th awards exclusive shop upgrade! 30th awards +6% Ambrosia Luck for free, and another exclusive shop upgrade for NOT FREE!"
       },
       "oneChallengeCap": {
         "name": "One Challenge Caps",
