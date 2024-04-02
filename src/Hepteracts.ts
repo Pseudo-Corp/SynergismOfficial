@@ -223,17 +223,17 @@ export class HepteractCraft {
       player.wowAbyssals = 0
     }
 
-    for (const item in this.OTHER_CONVERSIONS) {
-      if (typeof player[item as keyof Player] === 'number') {
-        ;(player[item as keyof Player] as number) -= amountToCraft * craftCostMulti
-          * this.OTHER_CONVERSIONS[item as keyof Player]!
+    for (const item of (Object.keys(this.OTHER_CONVERSIONS) as (keyof Player)[])) {
+      if (typeof player[item] === 'number') {
+        ;(player[item] as number) -= amountToCraft * craftCostMulti
+          * this.OTHER_CONVERSIONS[item]!
       }
 
-      if ((player[item as keyof Player] as number) < 0) {
-        ;(player[item as keyof Player] as number) = 0
-      } else if (player[item as keyof Player] instanceof Cube) {
-        ;(player[item as keyof Player] as Cube).sub(
-          amountToCraft * craftCostMulti * this.OTHER_CONVERSIONS[item as keyof Player]!
+      if ((player[item] as number) < 0) {
+        ;(player[item] as number) = 0
+      } else if (player[item] instanceof Cube) {
+        ;(player[item] as Cube).sub(
+          amountToCraft * craftCostMulti * this.OTHER_CONVERSIONS[item]!
         )
       } else if (item === 'worlds') {
         player.worlds.sub(amountToCraft * this.OTHER_CONVERSIONS[item]!)
