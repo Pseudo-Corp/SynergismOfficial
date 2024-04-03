@@ -3076,7 +3076,7 @@
       "oneChallengeCap": {
         "name": "One Challenge Caps",
         "description": "Beat the target Singularity, but the first 14 Challenges have cap of only 1!",
-        "rewardDescription": "Each completion increases Corruption Multiplier Values by 0.03, no matter what. First Completion gives +3 to Reincarnation Challenge Cap. 20th completion grants +1 free Corruption level and an exclusive shop upgrade!"
+        "rewardDescription": "Each completion increases Corruption Multiplier Values by 0.03, no matter what, and adds +1% Blueberry Generation Speed! First Completion gives +3 to Reincarnation Challenge Cap. 20th completion grants +1 free Corruption level and an exclusive shop upgrade!"
       },
       "noOcteracts": {
         "name": "No Octeract Effects",
@@ -3086,7 +3086,7 @@
       "limitedAscensions": {
         "name": "Twenty Ascensions Challenge",
         "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs! Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
-        "rewardDescription": "Each completion grants 0.1% Ascension Speed per completion per digit in your Ascension count! First completion doubles the cap of all hepteract. Final completion adds another calculator in the shop!"
+        "rewardDescription": "Each completion grants 0.1% Ascension Speed per completion per digit in your Ascension count. First completion doubles the cap of all hepteract, plus a new feature ;) Final completion adds another calculator in the shop!"
       }
     },
     "intro": "Do you have what it takes to earn EXALT from Ant God?"
