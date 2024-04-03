@@ -80,4 +80,28 @@ export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
     const ref = this.get(key)
     return ref.raw() as CurrentPlayer[K]
   }
+
+  /**
+   * Saves the game.
+   */
+  save () {
+
+  }
+
+  /**
+   * Loads the game given a savefile.
+   * TODO: do we want to load the data here, or pass it from elsewhere?
+   */
+  load () {
+
+  }
+
+  /**
+   * Resets the game.
+   */
+  reset () {
+    for (const value of this.#store.values()) {
+      value.reset()
+    }
+  }
 }

@@ -1,9 +1,12 @@
 import { Player as IPlayer } from '../types/Synergism'
+import { assert } from '../Utility'
+
+const noop = () => {}
 
 export class ValueRef<K, V> {
   #key: K
   protected value: V
-  #default: (() => V) | (() => void) = () => {}
+  #default: (() => V) | (() => void) = noop
   #transform: (input: IPlayer) => V = (player) => {
     return player[this.#key as keyof IPlayer]
   }
@@ -11,12 +14,20 @@ export class ValueRef<K, V> {
   constructor (key: K, value: V) {
     this.#key = key
     this.value = value
+
+    queueMicrotask(() => {
+      // If a default value is not set, set the default value to the initial value.
+
+      if (this.#default === noop) {
+        this.#default = () => value
+      }
+    })
   }
 
   /**
    * The default value to be set if one in the provided savefile does NOT exist.
    * 
-   * If the function passed returns `undefined`, the value is ignored.
+   * If no default is set, the default is set to the initial value passed.
    */
   default (value: () => V) {
     this.#default = value
@@ -43,5 +54,11 @@ export class ValueRef<K, V> {
 
   raw () {
     return this.value
+  }
+
+  reset () {
+    const ret = this.#default()
+    assert(ret !== undefined)
+    this.set(ret)
   }
 }
