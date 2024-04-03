@@ -1,0 +1,61 @@
+import type { Player as IPlayer } from '../types/Synergism'
+import type { PlayerSave as ILegacyPlayer } from '../types/LegacySynergism'
+
+import { ValueRef } from './PlayerValue'
+import { NumberValue } from './NumberValue'
+import { type DefaultTransformer, TransformRef } from './TransformRef'
+
+export type InferRefType<K, V> = V extends number
+  ? NumberValue<K>
+  : ValueRef<K, V>
+
+export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
+  static #player: Player
+  
+  static {
+    Player.#player = new Player()
+  }
+  
+  static get () {
+    return Player.#player
+  }
+
+  #store = new Map<
+    keyof CurrentPlayer,
+    ValueRef<keyof CurrentPlayer, CurrentPlayer[keyof CurrentPlayer]>
+  >()
+
+  #transforms = new Map<
+    keyof LegacyPlayer,
+    TransformRef<keyof LegacyPlayer>
+  >()
+
+  add <K extends keyof CurrentPlayer>(key: K, value: CurrentPlayer[K]) {
+    let ref: InferRefType<K, CurrentPlayer[K]>
+    
+    if (typeof value === 'number') {
+      ref = new NumberValue(key, value) as any
+    } else {
+      ref = new ValueRef(key, value) as any
+    }
+
+    this.#store.set(key, ref as any)
+    return ref
+  }
+
+  transform <K extends keyof LegacyPlayer> (key: K, transform: DefaultTransformer) {
+    const ref = new TransformRef(key, transform)
+    this.#transforms.set(key, ref)
+    return ref
+  }
+
+  get <K extends keyof CurrentPlayer> (key: K) {
+    const ref = this.#store.get(key)
+    return ref as InferRefType<K, CurrentPlayer[K]>
+  }
+
+  raw <K extends keyof CurrentPlayer>(key: K) {
+    return this.#store.get(key)!.raw()
+  }
+}
+  
