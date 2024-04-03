@@ -1315,8 +1315,9 @@ export const loadStatisticsAmbrosiaGeneration = () => {
     4: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
     5: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
     6: { acc: 4, desc: 'Patreon Bonus' },
-    7: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
-    8: { acc: 4, desc: 'Event Bonus'}
+    7: { acc: 4, desc: 'One Ascension Challenge'},
+    8: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
+    9: { acc: 4, desc: 'Event Bonus'}
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)

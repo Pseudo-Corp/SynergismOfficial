@@ -713,7 +713,7 @@ export const blueberryUpgradeData: Record<
     costPerLevel: 33333,
     blueberryCost: 3,
     costFormula: (level: number, baseCost: number): number => {
-      return (baseCost + 33333 * level) * Math.max(1, Math.pow(4, level - 4))
+      return (baseCost + 33333 * Math.min(4, level)) * Math.max(1, Math.pow(3, level - 4))
     },
     rewards: (n: number) => {
       const fourByFourBase = n

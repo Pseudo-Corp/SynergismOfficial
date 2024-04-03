@@ -282,6 +282,7 @@ export const singularityChallengeData: Record<
     effect: (n: number) => {
       return {
         corrScoreIncrease: 0.03 * n,
+        blueberrySpeedMult: (1 + n/100),
         capIncrease: 3 * +(n > 0),
         freeCorruptionLevel: n >= 20,
         shopUpgrade: n >= 20
@@ -315,6 +316,7 @@ export const singularityChallengeData: Record<
     },
     effect: (n: number) => {
       return {
+        ultimateProgressBarUnlock: (n > 0),
         ascensionSpeedMult: (0.1 * n) / 100,
         hepteractCap: n > 0,
         shopUpgrade: n >= 25

@@ -152,6 +152,7 @@ type AmbrosiaGeneration =
   | 'Event'
   | 'OcteractBerries'
   | 'BlueberryPatreon'
+  | 'Exalt2'
   | 'CashGrabUltra'
 
 type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade' | 'SingularityPerk'
@@ -305,6 +306,7 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
       SingularityBerries: 1,
       OcteractBerries: 1,
       BlueberryPatreon: 1,
+      Exalt2: 1,
       CashGrabUltra: 1,
       Event: 1
     }
@@ -336,6 +338,10 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
       }
       case 'BlueberryPatreon': {
         this.vals[key] = +player.blueberryUpgrades.ambrosiaPatreon.bonus.blueberryGeneration
+        break
+      }
+      case 'Exalt2': {
+        this.vals[key] = +player.singularityChallenges.oneChallengeCap.rewards.blueberrySpeedMult
         break
       }
       case 'Event': {

@@ -1477,6 +1477,9 @@ export const player: Player = {
   },
   blueberryLoadoutMode: 'saveTree',
 
+  ultimateProgress: 0,
+  ultimatePixels: 0,
+
   caches: {
     ambrosiaLuckAdditiveMult: new AmbrosiaLuckAdditiveMultCache(),
     ambrosiaLuck: new AmbrosiaLuckCache(),

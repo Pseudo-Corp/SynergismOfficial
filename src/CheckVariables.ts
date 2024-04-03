@@ -1655,4 +1655,9 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     player.shopUpgrades.shopAmbrosiaLuckMultiplier4 = 0
     player.shopUpgrades.shopOcteractAmbrosiaLuck = 0
   }
+
+  if (player.ultimatePixels === undefined) {
+    player.ultimatePixels = 0
+    player.ultimateProgress = 0
+  }
 }

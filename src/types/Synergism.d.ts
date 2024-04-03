@@ -634,6 +634,9 @@ export interface Player {
   blueberryLoadouts: Record<number, BlueberryOpt>
   blueberryLoadoutMode: BlueberryLoadoutMode
 
+  ultimateProgress: number
+  ultimatePixels: number
+
   caches: {
     ambrosiaLuckAdditiveMult: AmbrosiaLuckAdditiveMultCache
     ambrosiaLuck: AmbrosiaLuckCache
