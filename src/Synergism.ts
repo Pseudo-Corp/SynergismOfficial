@@ -174,6 +174,23 @@ import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 import type { PlayerSave } from './types/LegacySynergism'
+import { Player as $Player } from './Player/PlayerManager'
+
+export const player$ = $Player.get()
+player$.add('firstPlayed').default(() => new Date().toISOString())
+player$.add('worlds')
+  .default(() => new QuarkHandler({ quarks: 0, bonus: 0 }))
+  .transform((data) => new QuarkHandler({ quarks: Number(data.worlds) || 0 }))
+player$.addDec('coins', '1e2')
+player$.addDec('coinsThisPrestige', '1e2')
+player$.addDec('coinsThisTranscension', '1e2')
+player$.addDec('coinsThisReincarnation', '1e2')
+player$.addDec('coinsTotal', '1e2')
+
+player$.addNum('firstOwnedCoin', 0)
+player$.addDec('firstGeneratedCoin', '0')
+player$.addDec('firstCostCoin', '1e2')
+player$.addNum('firstProduceCoin', 0.25)
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),

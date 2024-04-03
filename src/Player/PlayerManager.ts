@@ -1,13 +1,17 @@
 import type { Player as IPlayer } from '../types/Synergism'
 import type { PlayerSave as ILegacyPlayer } from '../types/LegacySynergism'
+import type Decimal from 'break_infinity.js'
 
 import { ValueRef } from './PlayerValue'
 import { NumberValue } from './NumberValue'
+import { DecimalValue } from './DecimalValue'
 import { type DefaultTransformer, TransformRef } from './TransformRef'
 
 export type InferRefType<K, V> = V extends number
   ? NumberValue<K>
-  : ValueRef<K, V>
+  : V extends Decimal
+    ? DecimalValue<K>
+    : ValueRef<K, V>
 
 export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
   static #player: Player
@@ -22,7 +26,7 @@ export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
 
   #store = new Map<
     keyof CurrentPlayer,
-    ValueRef<keyof CurrentPlayer, CurrentPlayer[keyof CurrentPlayer]>
+    ValueRef<keyof CurrentPlayer, unknown>
   >()
 
   #transforms = new Map<
@@ -30,16 +34,25 @@ export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
     TransformRef<keyof LegacyPlayer>
   >()
 
-  add <K extends keyof CurrentPlayer>(key: K, value: CurrentPlayer[K]) {
-    let ref: InferRefType<K, CurrentPlayer[K]>
-    
-    if (typeof value === 'number') {
-      ref = new NumberValue(key, value) as any
-    } else {
-      ref = new ValueRef(key, value) as any
-    }
+  add <K extends keyof CurrentPlayer>(key: K, value?: CurrentPlayer[K]) {
+    const ref = new ValueRef(key, value)
+    this.#store.set(key, ref)
+    return ref
+  }
 
-    this.#store.set(key, ref as any)
+  addNum <K extends keyof CurrentPlayer>(key: K, value = 0) {
+    const ref = new NumberValue(key, value)
+    this.#store.set(key, ref)
+    return ref
+  }
+
+  addDec <K extends keyof CurrentPlayer>(
+    key: K,
+    //  value: Decimal | null = null,
+    defaultValue: string
+  ) {
+    const ref = new DecimalValue(key, null, defaultValue)
+    this.#store.set(key, ref)
     return ref
   }
 
