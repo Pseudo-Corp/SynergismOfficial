@@ -192,6 +192,26 @@ player$.addDec('firstGeneratedCoin', '0')
 player$.addDec('firstCostCoin', '1e2')
 player$.addNum('firstProduceCoin', 0.25)
 
+player$.addNum('secondOwnedCoin', 0)
+player$.addDec('secondGeneratedCoin', '0')
+player$.addDec('secondCostCoin', '1e2')
+player$.addNum('secondProduceCoin', 0.25)
+
+player$.addNum('thirdOwnedCoin', 0)
+player$.addDec('thirdGeneratedCoin', '0')
+player$.addDec('thirdCostCoin', '1e2')
+player$.addNum('thirdProduceCoin', 0.25)
+
+player$.addNum('fourthOwnedCoin', 0)
+player$.addDec('fourthGeneratedCoin', '0')
+player$.addDec('fourthCostCoin', '1e2')
+player$.addNum('fourthProduceCoin', 0.25)
+
+player$.addNum('fifthOwnedCoin', 0)
+player$.addDec('fifthGeneratedCoin', '0')
+player$.addDec('fifthCostCoin', '1e2')
+player$.addNum('fifthProduceCoin', 0.25)
+
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
   worlds: new QuarkHandler({ quarks: 0, bonus: 0 }),

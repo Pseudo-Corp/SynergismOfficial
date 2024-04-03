@@ -6,12 +6,15 @@ import { ValueRef } from './PlayerValue'
 import { NumberValue } from './NumberValue'
 import { DecimalValue } from './DecimalValue'
 import { type DefaultTransformer, TransformRef } from './TransformRef'
+import { BooleanValue } from './BooleanValue'
 
 export type InferRefType<K, V> = V extends number
   ? NumberValue<K>
   : V extends Decimal
     ? DecimalValue<K>
-    : ValueRef<K, V>
+    : V extends boolean
+      ? BooleanValue<K>  
+      : ValueRef<K, V>
 
 export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
   static #player: Player
@@ -52,6 +55,12 @@ export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
     defaultValue: string
   ) {
     const ref = new DecimalValue(key, null, defaultValue)
+    this.#store.set(key, ref)
+    return ref
+  }
+
+  addBool <K extends keyof CurrentPlayer>(key: K, state = false) {
+    const ref = new BooleanValue(key, state)
     this.#store.set(key, ref)
     return ref
   }
