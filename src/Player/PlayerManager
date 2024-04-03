@@ -55,7 +55,7 @@ export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
   }
 
   raw <K extends keyof CurrentPlayer>(key: K) {
-    return this.#store.get(key)!.raw()
+    const ref = this.get(key)
+    return ref.raw() as CurrentPlayer[K]
   }
 }
-  
