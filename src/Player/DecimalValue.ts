@@ -1,4 +1,4 @@
-import { ValueRef } from './PlayerValue'
+import { ValueRef } from './Value'
 import Decimal from 'break_infinity.js'
 
 export class DecimalValue<K> extends ValueRef<K, Decimal> {

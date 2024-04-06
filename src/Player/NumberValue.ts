@@ -1,4 +1,4 @@
-import { ValueRef } from './PlayerValue'
+import { ValueRef } from './Value'
 
 export class NumberValue<K> extends ValueRef<K, number> {
   add (amount: number) {

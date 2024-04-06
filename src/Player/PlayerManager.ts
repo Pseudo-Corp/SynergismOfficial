@@ -2,7 +2,7 @@ import type { Player as IPlayer } from '../types/Synergism'
 import type { PlayerSave as ILegacyPlayer } from '../types/LegacySynergism'
 import type Decimal from 'break_infinity.js'
 
-import { ValueRef } from './PlayerValue'
+import { ValueRef } from './Value'
 import { NumberValue } from './NumberValue'
 import { DecimalValue } from './DecimalValue'
 import { type DefaultTransformer, TransformRef } from './TransformRef'
@@ -85,7 +85,15 @@ export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
    * Saves the game.
    */
   save () {
+    const obj: Record<string, unknown> = {}
 
+    for (const [key, value] of this.#store.entries()) {
+      obj[key as string] = value
+    }
+
+    const file = btoa(JSON.stringify(obj))
+
+    // TODO: do something with it.
   }
 
   /**

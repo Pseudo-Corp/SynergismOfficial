@@ -61,4 +61,8 @@ export class ValueRef<K, V> {
     assert(ret !== undefined)
     this.set(ret)
   }
+
+  toJSON () {
+    return this.value
+  }
 }
