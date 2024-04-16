@@ -173,7 +173,7 @@
                     <div class="prestigeunlock statDisplay" id="offeringDisplay">1</div>
                 </div>
                 <div class="currencyContainer">
-                    <img class="img quark" src="Pictures/Default/Unsmith.png" alt="Quark" title="Quark" loading="lazy">
+                    <img class="img quark" src="Pictures/Default/Quark.png" alt="Quark" title="Quark" loading="lazy">
                     <div class="statDisplay" id="quarkDisplay">1</div>
                 </div>
                 <div class="currencyContainer">
@@ -3115,7 +3115,8 @@
                 <p id="statOff30" class="statPortion">Cube Upgrade Cx4: <span id="sOff30" class="statNumber">0</span></p>
                 <p id="statOff31" class="statPortion">Offering Electrolosis [OC]: <span id="sOff31" class="statNumber">0</span></p>
                 <p id="statOff32" class="statPortion">RNG-Based Offering Multiplier: <span id="sOff32" class="statNumber">0</span></p>
-                <p id="statOff33" class="statPortion">Event: <span id="sOff33" class="statNumber">0</span></p>
+                <p id="statOff33" class="statPortion">Shop EX ULTIMATE: <span id="sOff33" class="statNumber">0</span></p>
+                <p id="statOff34" class="statPortion">Event: <span id="sOff34" class="statNumber">0</span></p>
                 <p id="statOffT" class="statPortion statTotal" style="color: gold">TOTAL OFFERING MULTIPLIER: <span id="sOffT" class="statNumber statTotal">0</span></p>
             </div>
             <div id="globalSpeedMultiplierStats" class="statContainer" style="display: none;">
@@ -3249,6 +3250,7 @@
                 <p id="statGCM30" class="statPortion">-<span id="sGCM30" class="statNumber">-</span></p>
                 <p id="statGCM31" class="statPortion">-<span id="sGCM31" class="statNumber">-</span></p>
                 <p id="statGCM32" class="statPortion">-<span id="sGCM32" class="statNumber">-</span></p>
+                <p id="statGCM33" class="statPortion">-<span id="sGCM33" class="statNumber">-</span></p>
                 <p id="statGCMT" class="statPortion statTotal" style="color: orange">TOTAL GLOBAL CUBE MULTIPLIER: <span
                     id="sGCMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -3399,6 +3401,8 @@
                 <p id="statOcM31" class="statPortion singularity"> <span id="sOcM31" class="statNumber">0</span></p>
                 <p id="statOcM32" class="statPortion singularity"> <span id="sOcM32" class="statNumber">0</span></p>
                 <p id="statOcM33" class="statPortion singularity"> <span id="sOcM33" class="statNumber">0</span></p>
+                <p id="statOcM34" class="statPortion singularity"> <span id="sOcM34" class="statNumber">0</span></p>
+                <p id="statOcM35" class="statPortion singularity"> <span id="sOcM35" class="statNumber">0</span></p>
                 <p id="statOcMT" class="statPortion statTotal" style="color: orange">TOTAL OCTERACT MULTIPLIER: <span
                         id="sOcMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -3460,6 +3464,7 @@
                 <p id="statALuckM10" class="statPortion">a<span id="sALuckM10" class="statNumber">0</span></p>
                 <p id="statALuckM11" class="statPortion">a<span id="sALuckM11" class="statNumber">0</span></p>
                 <p id="statALuckM12" class="statPortion">a<span id="sALuckM12" class="statNumber">0</span></p>
+                <p id="statALuckM13" class="statPortion">a<span id="sALuckM13" class="statNumber">0</span></p>
                 <p id="statALuckMult" class="statPortion">Multipliers (Additive)<span id="sALuckMult" class="statNumber">0</span></p>
                 <p id="statALuckMT" class="statPortion statTotal" style="color: orange">TOTAL AMBROSIA LUCK:
                     <span id="sALuckMT" class="statNumber statTotal">0</span></p>
@@ -3476,6 +3481,7 @@
                 <p id="statAGenM7" class="statPortion">a<span id="sAGenM7" class="statNumber">0</span></p>
                 <p id="statAGenM8" class="statPortion">a<span id="sAGenM8" class="statNumber">0</span></p>
                 <p id="statAGenM9" class="statPortion">a<span id="sAGenM9" class="statNumber">0</span></p>
+                <p id="statAGenM10" class="statPortion">a<span id="sAGenM10" class="statNumber">0</span></p>
                 <p id="statAGenMT" class="statPortion statTotal" style="color: orange">BLUEBERRY TIME /S:
                     <span id="sAGenMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -3570,7 +3576,7 @@
                         </div>
                     </div>
                     <div id="quarksDisplay">
-                        <img src="Pictures/Default/Unsmith.png" width="32" height="32" loading="lazy">
+                        <img src="Pictures/Default/Quark.png" width="32" height="32" loading="lazy">
                         <p id="quarkamount"></p>
                     </div>
                 </div>
@@ -3921,6 +3927,16 @@
                             <img id="shopCashGrabUltra" alt="The ULTIMATE Cash Grab" src="Pictures/Default/ShopCashGrabUltra.png" loading="lazy">
                             <p id="shopCashGrabUltraLevel"></p>
                             <button class="permshopbutton" id="shopCashGrabUltraButton" style="border: 2px solid gold"></button>
+                        </div>
+                        <div class="exalt5Unlock" id="shopAmbrosiaAcceleratorHide">
+                            <img id="shopAmbrosiaAccelerator" alt="An Ambrosia Accelerator" src="Pictures/Default/ShopAmbrosiaAccelerator.png" loading="lazy">
+                            <p id="shopAmbrosiaAcceleratorLevel"></p>
+                            <button class="permshopbutton" id="shopAmbrosiaAcceleratorButton" style="border: 2px solid pink"></button>
+                        </div>
+                        <div class="exalt5X20Unlock" id="shopEXUltraHide">
+                            <img id="shopEXUltra" alt="The ULTIMATE EX" src="Pictures/Default/ShopEXUltra.png" loading="lazy">
+                            <p id="shopEXUltraLevel"></p>
+                            <button class="permshopbutton" id="shopEXUltraButton" style="border: 2px solid gold"></button>
                         </div>
                     </div>
                     <div id="shopButtons">
@@ -4348,6 +4364,9 @@
                     </div>
                     <div id="noOcteractsDiv" class="rainbowBorder">
                         <img id="noOcteracts" src="Pictures/Default/ExaltChalNoOcteracts.png">
+                    </div>
+                    <div id="noAmbrosiaUpgradesDiv" class="rainbowBorder">
+                        <img id="noAmbrosiaUpgrades" src="Pictures/Default/ExaltChalNoAmbrosiaUpgrades.png">
                     </div>
                 </div>
                 <div id="singularityChallengeDetails">
