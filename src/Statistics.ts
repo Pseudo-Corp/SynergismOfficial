@@ -732,7 +732,8 @@ export const loadStatisticsCubeMultipliers = () => {
     29: { acc: 2, desc: 'Module- Quark-Cube 1' },
     30: { acc: 2, desc: 'Module- Cubes 2' },
     31: { acc: 2, desc: 'Module- Hyperflux' },
-    32: { acc: 2, desc: 'Cash Grab ULTIMATE'}
+    32: { acc: 2, desc: 'Cash Grab ULTIMATE'},
+    33: { acc: 2, desc: 'Shop EX ULTIMATE'}
   }
   for (let i = 0; i < arr0.length; i++) {
     const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
@@ -956,7 +957,8 @@ export const loadStatisticsCubeMultipliers = () => {
     30: { acc: 2, desc: 'Module- Quark-Cube 1' },
     31: { acc: 2, desc: 'Module- Cubes 2' },
     32: { acc: 2, desc: 'Cash Grab ULTIMATE'},
-    33: { acc: 2, desc: ascensionSpeedDesc }
+    33: { acc: 2, desc: 'Shop EX ULTIMATE'},
+    34: { acc: 2, desc: ascensionSpeedDesc }
   }
   for (let i = 0; i < octMults.list.length; i++) {
     const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`)
@@ -1008,7 +1010,8 @@ export const loadStatisticsOfferingMultipliers = () => {
     30: { acc: 3, desc: 'Cube Upgrade Cx4:' },
     31: { acc: 3, desc: 'Offering Electrolosis [OC]:' },
     32: { acc: 3, desc: 'RNG-based Offering Booster:' },
-    33: { acc: 3, desc: 'Event:' }
+    33: { acc: 3, desc: 'Shop EX ULTIMATE' },
+    34: { acc: 3, desc: 'Event:' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`)
@@ -1267,18 +1270,19 @@ export const loadAddCodeModifiersAndEffects = () => {
 export const loadStatisticsAmbrosiaLuck = () => {
   const arr = player.caches.ambrosiaLuck.flatten()
   const map: Record<number, { acc: number; desc: string }> = {
-    1: { acc: 0, desc: 'Irish Ants Singularity Perk' },
-    2: { acc: 1, desc: 'Shop Upgrade Bonus' },
-    3: { acc: 0, desc: 'Singularity Ambrosia Luck Upgrades' },
-    4: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrades' },
-    5: { acc: 0, desc: 'Ambrosia Luck Module I' },
-    6: { acc: 1, desc: 'Ambrosia Luck Module II' },
-    7: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
-    8: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
-    9: { acc: 0, desc: 'Perk: One Hundred Thirty One!' },
-    10: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
-    11: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
-    12: { acc: 1, desc: 'Event Bonus' }
+    1: { acc: 0, desc: 'Base Value'},
+    2: { acc: 0, desc: 'Irish Ants Singularity Perk' },
+    3: { acc: 1, desc: 'Shop Upgrade Bonus' },
+    4: { acc: 0, desc: 'Singularity Ambrosia Luck Upgrades' },
+    5: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrades' },
+    6: { acc: 0, desc: 'Ambrosia Luck Module I' },
+    7: { acc: 1, desc: 'Ambrosia Luck Module II' },
+    8: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
+    9: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
+    10: { acc: 0, desc: 'Perk: One Hundred Thirty One!' },
+    11: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
+    12: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
+    13: { acc: 0, desc: 'No Ambrosia Upgrades EXALT'},
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -1295,7 +1299,7 @@ export const loadStatisticsAmbrosiaLuck = () => {
   DOMCacheGetOrSet('sALuckMult').textContent = `x${
     format(
       player.caches.ambrosiaLuckAdditiveMult.totalVal,
-      2,
+      3,
       true
     )
   }`
@@ -1315,9 +1319,10 @@ export const loadStatisticsAmbrosiaGeneration = () => {
     4: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
     5: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
     6: { acc: 4, desc: 'Patreon Bonus' },
-    7: { acc: 4, desc: 'One Ascension Challenge'},
-    8: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
-    9: { acc: 4, desc: 'Event Bonus'}
+    7: { acc: 4, desc: 'One Ascension Challenge EXALT'},
+    8: { acc: 4, desc: 'No Ambrosia Upgrades EXALT' },
+    9: { acc: 4, desc: 'Cash-Grab ULTIMATE'},
+    10: { acc: 4, desc: 'Event Bonus'}
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)

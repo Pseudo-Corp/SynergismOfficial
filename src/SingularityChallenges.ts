@@ -322,5 +322,25 @@ export const singularityChallengeData: Record<
         shopUpgrade: n >= 25
       }
     }
+  },
+  noAmbrosiaUpgrades: {
+    baseReq: 150,
+    maxCompletions: 20,
+    unlockSingularity: 166,
+    HTMLTag: 'noAmbrosiaUpgrades',
+    singularityRequirement: (baseReq: number, completions: number) => {
+      return baseReq + 6 * completions
+    },
+    effect: (n: number) => {
+      return {
+        bonusAmbrosia: +(n > 0),
+        blueberries: Math.floor(n/10) + +(n > 0),
+        luckBonus: n/200,
+        additiveLuck: 15 * n,
+        blueberrySpeedMult: (1 + n/50),
+        shopUpgrade: n >= 15,
+        shopUpgrade2: n >= 20
+      }
+    }
   }
 }

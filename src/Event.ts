@@ -185,7 +185,7 @@ export const eventCheck = async () => {
   if (G.isEvent !== updateIsEventCheck) {
     revealStuff()
     player.caches.ambrosiaGeneration.updateVal('Event')
-    player.caches.ambrosiaLuck.updateVal('Event')
+    player.caches.ambrosiaLuckAdditiveMult.updateVal('Event')
   }
 }
 
@@ -218,7 +218,7 @@ const eventBuffName = [
   'Obtainium',
   'Eight Dimensional Hypercubes',
   'Blueberry Time Generation',
-  'Ambrosia Luck (Additive)',
+  'Ambrosia Luck (Additive Mult)',
   'One Mind Quark Bonus'
 ]
 

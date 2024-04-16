@@ -1558,7 +1558,7 @@ export const visualUpdateAmbrosia = () => {
   const luck = player.caches.ambrosiaLuck.usedTotal
   const baseLuck = player.caches.ambrosiaLuck.totalVal
   const luckBonusPercent = 100 * (player.caches.ambrosiaLuckAdditiveMult.totalVal - 1)
-  const guaranteed = 1 + Math.floor(luck / 100)
+  const guaranteed = Math.floor(luck / 100)
   const chance = luck - 100 * Math.floor(luck / 100)
   const requiredTime = calculateRequiredBlueberryTime()
   const cubePercent = 100 * (calculateAmbrosiaCubeMult() - 1)
@@ -1572,7 +1572,7 @@ export const visualUpdateAmbrosia = () => {
         0,
         true
       )
-    } +${format(luckBonusPercent, 0, true)}%</span>]`
+    } +${format(luckBonusPercent, 2, true)}%</span>]`
     : ''
 
   DOMCacheGetOrSet('ambrosiaAmount').innerHTML = i18next.t('ambrosia.amount', {

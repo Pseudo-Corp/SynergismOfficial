@@ -26,6 +26,8 @@ type shopResetTier =
   | 'Exalt3'
   | 'Exalt4'
   | 'Exalt1x30'
+  | 'Exalt5'
+  | 'Exalt5x20'
 
 export interface IShopData {
   price: number
@@ -667,6 +669,24 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0,
+  },
+  shopAmbrosiaAccelerator: {
+    tier: 'Exalt5',
+    price: 1e21,
+    priceIncrease: 2e21,
+    maxLevel: 5,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0,
+  },
+  shopEXUltra: {
+    tier: 'Exalt5x20',
+    price: 1e22,
+    priceIncrease: 0,
+    maxLevel: 80,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0,
   }
 }
 
@@ -743,6 +763,8 @@ type ShopUpgradeNames =
   | 'shopAmbrosiaLuck3'
   | 'shopAmbrosiaLuck4'
   | 'shopCashGrabUltra'
+  | 'shopAmbrosiaAccelerator'
+  | 'shopEXUltra'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
   if (
@@ -1223,6 +1245,17 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         amount3: format(100 * (calculateCashGrabQuarkBonus() - 1), 2, true)
       })
       break
+    case 'shopAmbrosiaAccelerator':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaAccelerator', {
+        amount: format(0.2 * player.shopUpgrades.shopAmbrosiaAccelerator, 1, true),
+        amount2: format(player.shopUpgrades.shopAmbrosiaAccelerator * 0.2 * player.caches.ambrosiaGeneration.totalVal, 0, true)
+      })
+      break
+    case 'shopEXUltra':
+      const capacity = 125000 * player.shopUpgrades.shopEXUltra
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopEXUltra', {
+        amount: format(0.1 * Math.floor(Math.min(capacity, player.lifetimeAmbrosia)/1000), 1, true)
+      })
   }
 }
 
@@ -1299,7 +1332,9 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
     shopAmbrosiaLuck2: 'Another Ambrosia Luck Increaser',
     shopAmbrosiaLuck3: 'A better Ambrosia Generation Speedup',
     shopAmbrosiaLuck4: 'A FINAL Ambrosia Generation Speedup',
-    shopCashGrabUltra: 'It\'s the FINAL CASHGRAB!'
+    shopCashGrabUltra: 'It\'s the FINAL CASHGRAB!',
+    shopAmbrosiaAccelerator: 'An Ambrosial Accelerator!',
+    shopEXUltra: 'It\'s the FINAL E X!'
   }
 
   return names[input]
@@ -1794,5 +1829,9 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
     case 'shopCashGrabUltra':
       return Boolean(player.singularityChallenges.noSingularityUpgrades.rewards.shopUpgrade2)
+    case 'shopAmbrosiaAccelerator':
+      return Boolean(player.singularityChallenges.noAmbrosiaUpgrades.rewards.shopUpgrade)
+    case 'shopEXUltra':
+      return Boolean(player.singularityChallenges.noAmbrosiaUpgrades.rewards.shopUpgrade2)
   }
 }

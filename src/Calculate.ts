@@ -23,6 +23,10 @@ const CASH_GRAB_ULTRA_QUARK = 0.12
 const CASH_GRAB_ULTRA_CUBE = 0.8
 const CASH_GRAB_ULTRA_BLUEBERRY = 0.2
 
+const EX_ULTRA_OFFERING = 0.125
+const EX_ULTRA_OBTAINIUM = 0.125
+const EX_ULTRA_CUBES = 0.125
+
 export const calculateTotalCoinOwned = () => {
   G.totalCoinOwned = player.firstOwnedCoin
     + player.secondOwnedCoin
@@ -492,6 +496,7 @@ export function calculateOfferings (
     1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
     +player.octeractUpgrades.octeractOfferings1.getEffect().bonus, // Offering Electrolosis OC Upgrade
     1 + 0.001 * +player.blueberryUpgrades.ambrosiaOffering1.bonus.offeringMult, // Ambrosia!!
+    calculateEXUltraOfferingBonus(), // EX Ultra Shop Upgrade
     1 + calculateEventBuff(BuffType.Offering) // Event
   ]
 
@@ -668,6 +673,8 @@ export const calculateObtainium = () => {
 
   G.obtainiumGain *= 1
     + 0.001 * +player.blueberryUpgrades.ambrosiaObtainium1.bonus.obtainiumMult
+
+  G.obtainiumGain *= calculateEXUltraObtainiumBonus()
 
   if (!isFinite(G.obtainiumGain)) {
     G.obtainiumGain = 1e300
@@ -1764,8 +1771,10 @@ export const calculateAllCubeMultiplier = () => {
     // Module - Hyperflux
     +player.blueberryUpgrades.ambrosiaHyperflux.bonus.hyperFlux,
     // Cash Grab Ultra
-    +calculateCashGrabCubeBonus()
-    // Total Global Cube Multipliers: 31
+    +calculateCashGrabCubeBonus(),
+    // EX Ultra
+    +calculateEXUltraCubeBonus(),
+    // Total Global Cube Multipliers: 32
   ]
 
   const extraMult = G.isEvent && G.eventClicked ? 1.05 : 1
@@ -2102,7 +2111,9 @@ export const getOcteractValueMultipliers = () => {
     // Module- Cubes 2
     +player.blueberryUpgrades.ambrosiaCubes2.bonus.cubes,
     // Cash Grab ULTRA
-    +calculateCashGrabCubeBonus()
+    +calculateCashGrabCubeBonus(),
+    // EX ULTRA
+    +calculateEXUltraCubeBonus(),
   ]
 }
 
@@ -3176,32 +3187,34 @@ export const calculateSingularityMilestoneBlueberries = () => {
 }
 
 export const calculateAmbrosiaCubeMult = () => {
+  const effectiveAmbrosia = (player.singularityChallenges.noAmbrosiaUpgrades.enabled) ? 0 : player.lifetimeAmbrosia
   let multiplier = 1
-  multiplier += Math.min(1.5, Math.floor(player.lifetimeAmbrosia / 66) / 100)
-  if (player.lifetimeAmbrosia >= 10000) {
+  multiplier += Math.min(1.5, Math.floor(effectiveAmbrosia / 66) / 100)
+  if (effectiveAmbrosia >= 10000) {
     multiplier += Math.min(
       1.5,
-      Math.floor(player.lifetimeAmbrosia / 666) / 100
+      Math.floor(effectiveAmbrosia / 666) / 100
     )
   }
-  if (player.lifetimeAmbrosia >= 100000) {
-    multiplier += Math.floor(player.lifetimeAmbrosia / 6666) / 100
+  if (effectiveAmbrosia >= 100000) {
+    multiplier += Math.floor(effectiveAmbrosia / 6666) / 100
   }
 
   return multiplier
 }
 
 export const calculateAmbrosiaQuarkMult = () => {
+  const effectiveAmbrosia = (player.singularityChallenges.noAmbrosiaUpgrades.enabled) ? 0 : player.lifetimeAmbrosia
   let multiplier = 1
-  multiplier += Math.min(0.3, Math.floor(player.lifetimeAmbrosia / 1666) / 100)
-  if (player.lifetimeAmbrosia >= 50000) {
+  multiplier += Math.min(0.3, Math.floor(effectiveAmbrosia / 1666) / 100)
+  if (effectiveAmbrosia >= 50000) {
     multiplier += Math.min(
       0.3,
-      Math.floor(player.lifetimeAmbrosia / 16666) / 100
+      Math.floor(effectiveAmbrosia / 16666) / 100
     )
   }
-  if (player.lifetimeAmbrosia >= 500000) {
-    multiplier += Math.floor(player.lifetimeAmbrosia / 166666) / 100
+  if (effectiveAmbrosia >= 500000) {
+    multiplier += Math.floor(effectiveAmbrosia / 166666) / 100
   }
 
   return multiplier
@@ -3221,6 +3234,22 @@ export const calculateCashGrabCubeBonus = () => {
 
 export const calculateCashGrabQuarkBonus = () => {
   return calculateCashGrabBonus(CASH_GRAB_ULTRA_QUARK)
+}
+
+export const calculateEXUltraBonus = (extra: number) => {
+  return 1 + extra * Math.min(player.shopUpgrades.shopEXUltra, Math.floor(player.lifetimeAmbrosia / 1000) / 125)
+}
+
+export const calculateEXUltraOfferingBonus = () => {
+  return calculateEXUltraBonus(EX_ULTRA_OFFERING)
+}
+
+export const calculateEXUltraObtainiumBonus = () => {
+  return calculateEXUltraBonus(EX_ULTRA_OBTAINIUM)
+}
+
+export const calculateEXUltraCubeBonus = () => {
+  return calculateEXUltraBonus(EX_ULTRA_CUBES)
 }
 
 export const calculateDilatedFiveLeafBonus = () => {

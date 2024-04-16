@@ -613,6 +613,8 @@ export const player: Player = {
     shopAmbrosiaLuck3: 0,
     shopAmbrosiaLuck4: 0,
     shopCashGrabUltra: 0,
+    shopAmbrosiaAccelerator: 0,
+    shopEXUltra: 0,
   },
   shopBuyMaxToggle: false,
   shopHideToggle: false,
@@ -1385,6 +1387,10 @@ export const player: Player = {
     limitedAscensions: new SingularityChallenge(
       singularityChallengeData.limitedAscensions,
       'limitedAscensions'
+    ),
+    noAmbrosiaUpgrades: new SingularityChallenge(
+      singularityChallengeData.noAmbrosiaUpgrades,
+      'noAmbrosiaUpgrades'
     )
   },
 
