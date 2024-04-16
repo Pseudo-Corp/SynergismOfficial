@@ -1251,11 +1251,13 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         amount2: format(player.shopUpgrades.shopAmbrosiaAccelerator * 0.2 * player.caches.ambrosiaGeneration.totalVal, 0, true)
       })
       break
-    case 'shopEXUltra':
+    case 'shopEXUltra': {
       const capacity = 125000 * player.shopUpgrades.shopEXUltra
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopEXUltra', {
         amount: format(0.1 * Math.floor(Math.min(capacity, player.lifetimeAmbrosia)/1000), 1, true)
       })
+      break
+    }
   }
 }
 

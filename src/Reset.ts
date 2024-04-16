@@ -1101,7 +1101,7 @@ export const updateSingularityGlobalPerks = () => {
     'cashGrab'
   ] as const
   for (const key of shopItemPerk_20) {
-    shopData[key].refundable = perk_20 ? false : true
+    shopData[key].refundable = !perk_20
   }
 
   const perk_51 = player.highestSingularityCount >= 51
@@ -1114,7 +1114,7 @@ export const updateSingularityGlobalPerks = () => {
     'chronometer2'
   ] as const
   for (const key of shopItemPerk_51) {
-    shopData[key].refundable = perk_51 ? false : true
+    shopData[key].refundable = !perk_51
   }
 }
 
