@@ -36,3 +36,28 @@ jobs:
         run: |
           npm run lint
           npm run csslint
+      - name: Check translation files
+        if: matrix.os == 'ubuntu-latest' && ${{ github.event_name == 'pull_request' }}
+        uses: actions/github-script@v7
+        id: check-translation-files
+        with:
+          result-encoding: string
+          script: |
+            var fs = require('fs');
+            var path = require('path');
+            var { addedDiff: diff } = require('deep-object-diff');
+            var { inspect } = require('util');
+
+            var source = JSON.parse(fs.readFileSync('./translations/source.json'));
+            var translations = fs.readdirSync('./translations')
+              .map(f => path.join('./translations', f))
+              .map(j => ({ path: j, json: JSON.parse(fs.readFileSync(j)) }));
+
+            for (var json of translations) {
+              const added = diff(source, json.json)
+
+              if (Object.keys(added).length) {
+                console.log(inspect(added, undefined, 100, true), json.path)
+                process.exitCode = 1
+              }
+            }
