@@ -1438,7 +1438,7 @@
     "consume": "CONSUME",
     "buyYerPotions": "Buy Yer' Potions!",
     "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
-    "youHaveQuarks": "You have {{x}} Unsmiths!",
+    "youHaveQuarks": "You have {{x}} Quarks!",
     "cannotRefund": "This item CANNOT be refunded! Take caution.",
     "resetPermShop": "Reset Perm Shop [Cost: 15 Quarks]",
     "shopConfirmationOn": "Shop Confirmations: ON",
@@ -3090,7 +3090,7 @@
       "limitedAscensions": {
         "name": "Twenty Ascensions Challenge",
         "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs! Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
-        "rewardDescription": "Each completion grants 0.1% Ascension Speed per completion per digit in your Ascension count. First completion doubles the cap of all hepteract, plus a new feature ;) Final completion adds another calculator in the shop!"
+        "rewardDescription": "Each completion grants 0.1% Ascension Speed per completion per digit in your Ascension count. First completion doubles the cap of all hepteract, plus a new feature ;) [WIP]. 20th completion adds a bonus to Cubes, Obtainium and Offerings in EXALTs based on total completed for that EXALT! Final completion adds another calculator in the shop!"
       },
       "noAmbrosiaUpgrades": {
         "name": "No Ambrosia Upgrades",

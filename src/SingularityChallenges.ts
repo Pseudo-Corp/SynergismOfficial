@@ -6,12 +6,13 @@ import { player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm } from './UpdateHTML'
 import { toOrdinal } from './Utility'
+import { Globals as G } from './Variables'
 
 export interface ISingularityChallengeData {
   baseReq: number
   maxCompletions: number
   unlockSingularity: number
-  HTMLTag: string
+  HTMLTag: keyof Player['singularityChallenges']
   singularityRequirement: (baseReq: number, completions: number) => number
   effect: (n: number) => Record<string, number | boolean>
   completions?: number
@@ -109,6 +110,7 @@ export class SingularityChallenge {
       const goldenQuarkGain = calculateGoldenQuarkGain()
       const currentGQ = player.goldenQuarks
       this.enabled = true
+      G.currentSingChallenge = this.HTMLTag
       player.insideSingularityChallenge = true
       await singularity(setSingularity)
       player.singularityCounter = holdSingTimer
@@ -149,6 +151,7 @@ export class SingularityChallenge {
     }
 
     this.enabled = false
+    G.currentSingChallenge = undefined
     player.insideSingularityChallenge = false
     const highestSingularityHold = player.highestSingularityCount
     const holdSingTimer = player.singularityCounter
@@ -236,7 +239,7 @@ export class SingularityChallenge {
 
   public updateIconHTML (): void {
     const color = this.enabled ? 'orchid' : ''
-    DOMCacheGetOrSet(`${this.HTMLTag}`).style.backgroundColor = color
+    DOMCacheGetOrSet(`${String(this.HTMLTag)}`).style.backgroundColor = color
   }
 
   public get rewards () {
@@ -319,6 +322,7 @@ export const singularityChallengeData: Record<
         ultimateProgressBarUnlock: (n > 0),
         ascensionSpeedMult: (0.1 * n) / 100,
         hepteractCap: n > 0,
+        exaltBonus: n >= 20,
         shopUpgrade: n >= 25
       }
     }

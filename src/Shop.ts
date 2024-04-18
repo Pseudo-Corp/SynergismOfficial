@@ -664,8 +664,8 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   shopCashGrabUltra: {
     tier: 'Exalt1x30',
     price: 1,
-    priceIncrease: 1.5e22,
-    maxLevel: 3,
+    priceIncrease: 2e22,
+    maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0,

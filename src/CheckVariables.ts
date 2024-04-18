@@ -37,6 +37,7 @@ import type { LegacyShopUpgrades, PlayerSave } from './types/LegacySynergism'
 import type { Player } from './types/Synergism'
 import { Alert } from './UpdateHTML'
 import { padArray } from './Utility'
+import { Globals } from './Variables'
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -1431,6 +1432,11 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
           effect: singularityChallengeData[k].effect,
           cacheUpdates: singularityChallengeData[k].cacheUpdates
         }
+
+        if (enabled) {
+          Globals.currentSingChallenge = singularityChallengeData[k].HTMLTag
+        }
+        
         player.singularityChallenges[k] = new SingularityChallenge(
           updatedData,
           k.toString()

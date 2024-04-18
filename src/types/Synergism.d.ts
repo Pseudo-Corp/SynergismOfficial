@@ -994,6 +994,8 @@ export interface GlobalVariables {
 
   ambrosiaTimer: number
   TIME_PER_AMBROSIA: number
+
+  currentSingChallenge: keyof Player['singularityChallenges'] | undefined
 }
 
 export interface SynergismEvents {
