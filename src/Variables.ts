@@ -505,7 +505,9 @@ export const Globals: GlobalVariables = {
   eventClicked: false,
 
   ambrosiaTimer: 0,
-  TIME_PER_AMBROSIA: 600
+  TIME_PER_AMBROSIA: 600,
+
+  currentSingChallenge: undefined
 }
 
 export const blankGlobals = { ...Globals }

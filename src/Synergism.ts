@@ -534,7 +534,7 @@ export const player: Player = {
   subtabNumber: 0,
 
   // create a Map with keys defaulting to false
-  codes: new Map(Array.from({ length: 47 }, (_, i) => [i + 1, false])),
+  codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false])),
 
   loaded1009: true,
   loaded1009hotfix1: true,
@@ -1497,7 +1497,7 @@ export const player: Player = {
 }
 
 export const blankSave = Object.assign({}, player, {
-  codes: new Map(Array.from({ length: 44 }, (_, i) => [i + 1, false]))
+  codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false]))
 })
 
 // The main cause of the double singularity bug was caused by a race condition

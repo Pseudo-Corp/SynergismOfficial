@@ -732,8 +732,9 @@ export const loadStatisticsCubeMultipliers = () => {
     29: { acc: 2, desc: 'Module- Quark-Cube 1' },
     30: { acc: 2, desc: 'Module- Cubes 2' },
     31: { acc: 2, desc: 'Module- Hyperflux' },
-    32: { acc: 2, desc: 'Cash Grab ULTIMATE'},
-    33: { acc: 2, desc: 'Shop EX ULTIMATE'}
+    32: { acc: 2, desc: '20 Ascensions X20 Bonus [EXALT ONLY]'},
+    33: { acc: 2, desc: 'Cash Grab ULTIMATE'},
+    34: { acc: 2, desc: 'Shop EX ULTIMATE'},
   }
   for (let i = 0; i < arr0.length; i++) {
     const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
@@ -1010,8 +1011,9 @@ export const loadStatisticsOfferingMultipliers = () => {
     30: { acc: 3, desc: 'Cube Upgrade Cx4:' },
     31: { acc: 3, desc: 'Offering Electrolosis [OC]:' },
     32: { acc: 3, desc: 'RNG-based Offering Booster:' },
-    33: { acc: 3, desc: 'Shop EX ULTIMATE' },
-    34: { acc: 3, desc: 'Event:' }
+    33: { acc: 3, desc: '20 Ascensions X20 [EXALT ONLY]' },
+    34: { acc: 3, desc: 'Shop EX ULTIMATE' },
+    35: { acc: 3, desc: 'Event:' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`)

@@ -19,9 +19,9 @@ import { Alert, Prompt } from './UpdateHTML'
 import { productContents, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
-const CASH_GRAB_ULTRA_QUARK = 0.12
-const CASH_GRAB_ULTRA_CUBE = 0.8
-const CASH_GRAB_ULTRA_BLUEBERRY = 0.2
+const CASH_GRAB_ULTRA_QUARK = 0.08
+const CASH_GRAB_ULTRA_CUBE = 1.2
+const CASH_GRAB_ULTRA_BLUEBERRY = 0.15
 
 const EX_ULTRA_OFFERING = 0.125
 const EX_ULTRA_OBTAINIUM = 0.125
@@ -496,6 +496,7 @@ export function calculateOfferings (
     1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
     +player.octeractUpgrades.octeractOfferings1.getEffect().bonus, // Offering Electrolosis OC Upgrade
     1 + 0.001 * +player.blueberryUpgrades.ambrosiaOffering1.bonus.offeringMult, // Ambrosia!!
+    calculateEXALTBonusMult(), // 20 Ascensions X20 Bonus [EXALT ONLY]
     calculateEXUltraOfferingBonus(), // EX Ultra Shop Upgrade
     1 + calculateEventBuff(BuffType.Offering) // Event
   ]
@@ -675,6 +676,7 @@ export const calculateObtainium = () => {
     + 0.001 * +player.blueberryUpgrades.ambrosiaObtainium1.bonus.obtainiumMult
 
   G.obtainiumGain *= calculateEXUltraObtainiumBonus()
+  G.obtainiumGain *= calculateEXALTBonusMult()
 
   if (!isFinite(G.obtainiumGain)) {
     G.obtainiumGain = 1e300
@@ -1770,11 +1772,13 @@ export const calculateAllCubeMultiplier = () => {
     +player.blueberryUpgrades.ambrosiaCubes2.bonus.cubes,
     // Module - Hyperflux
     +player.blueberryUpgrades.ambrosiaHyperflux.bonus.hyperFlux,
+    // 20 Ascension Challenge - X20 Bonus
+    +calculateEXALTBonusMult(),
     // Cash Grab Ultra
     +calculateCashGrabCubeBonus(),
     // EX Ultra
     +calculateEXUltraCubeBonus(),
-    // Total Global Cube Multipliers: 32
+    // Total Global Cube Multipliers: 33
   ]
 
   const extraMult = G.isEvent && G.eventClicked ? 1.05 : 1
@@ -3250,6 +3254,16 @@ export const calculateEXUltraObtainiumBonus = () => {
 
 export const calculateEXUltraCubeBonus = () => {
   return calculateEXUltraBonus(EX_ULTRA_CUBES)
+}
+
+export const calculateEXALTBonusMult = () => {
+  if (!player.singularityChallenges.limitedAscensions.rewards.exaltBonus)
+    return 1
+
+  if (G.currentSingChallenge !== undefined) {
+    return Math.pow(1.04, player.singularityChallenges[G.currentSingChallenge].completions)
+  }
+    return 1
 }
 
 export const calculateDilatedFiveLeafBonus = () => {
