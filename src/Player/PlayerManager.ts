@@ -16,15 +16,21 @@ export type InferRefType<K, V> = V extends number
       ? BooleanValue<K>  
       : ValueRef<K, V>
 
+export type ManyKeysRaw<Interface, Keys extends (keyof Interface)[]> = Pick<Interface, Keys[number]>
+
+export type ManyKeys<Interface, Keys extends (keyof Interface)[]> = {
+  [K in Keys[number]]: InferRefType<K, Interface[K]>
+}
+
 export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
-  static #player: Player
+  private static player: Player
   
   static {
-    Player.#player = new Player()
+    Player.player = new Player()
   }
   
   static get () {
-    return Player.#player
+    return Player.player
   }
 
   #store = new Map<
@@ -79,6 +85,20 @@ export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
   raw <K extends keyof CurrentPlayer>(key: K) {
     const ref = this.get(key)
     return ref.raw() as CurrentPlayer[K]
+  }
+
+  manyRaw <K extends (keyof CurrentPlayer)[]>(...keys: K) {
+    return keys.reduce((obj, key) => {
+      obj[key] = this.raw(key)
+      return obj
+    }, {} as ManyKeysRaw<CurrentPlayer, K>)
+  }
+
+  getMany <K extends (keyof CurrentPlayer)[]>(...keys: K) {
+    return keys.reduce((obj, key) => {
+      obj[key] = this.get(key)
+      return obj
+    }, {} as ManyKeys<CurrentPlayer, K>)
   }
 
   /**
