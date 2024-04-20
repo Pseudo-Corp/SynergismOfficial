@@ -1,6 +1,6 @@
 import type { Player as IPlayer } from '../types/Synergism'
 import type { PlayerSave as ILegacyPlayer } from '../types/LegacySynergism'
-import type Decimal from 'break_infinity.js'
+import Decimal from 'break_infinity.js'
 
 import { ValueRef } from './Value'
 import { NumberValue } from './NumberValue'
@@ -33,52 +33,52 @@ export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
     return Player.player
   }
 
-  #store = new Map<
+  private store = new Map<
     keyof CurrentPlayer,
     ValueRef<keyof CurrentPlayer, unknown>
   >()
 
-  #transforms = new Map<
+  private transforms = new Map<
     keyof LegacyPlayer,
     TransformRef<keyof LegacyPlayer>
   >()
 
   add <K extends keyof CurrentPlayer>(key: K, value?: CurrentPlayer[K]) {
     const ref = new ValueRef(key, value)
-    this.#store.set(key, ref)
+    this.store.set(key, ref)
     return ref
   }
 
   addNum <K extends keyof CurrentPlayer>(key: K, value = 0) {
     const ref = new NumberValue(key, value)
-    this.#store.set(key, ref)
+    this.store.set(key, ref)
     return ref
   }
 
   addDec <K extends keyof CurrentPlayer>(
     key: K,
     //  value: Decimal | null = null,
-    defaultValue: string
+    defaultValue: string | Decimal
   ) {
-    const ref = new DecimalValue(key, null, defaultValue)
-    this.#store.set(key, ref)
+    const ref = new DecimalValue(key, defaultValue, defaultValue)
+    this.store.set(key, ref)
     return ref
   }
 
   addBool <K extends keyof CurrentPlayer>(key: K, state = false) {
     const ref = new BooleanValue(key, state)
-    this.#store.set(key, ref)
+    this.store.set(key, ref)
     return ref
   }
 
   transform <K extends keyof LegacyPlayer> (key: K, transform: DefaultTransformer) {
     const ref = new TransformRef(key, transform)
-    this.#transforms.set(key, ref)
+    this.transforms.set(key, ref)
     return ref
   }
 
   get <K extends keyof CurrentPlayer> (key: K) {
-    const ref = this.#store.get(key)
+    const ref = this.store.get(key)
     return ref as InferRefType<K, CurrentPlayer[K]>
   }
 
@@ -101,17 +101,37 @@ export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
     }, {} as ManyKeys<CurrentPlayer, K>)
   }
 
+  holyShitTheFuckDoWeNameThis(rawPlayer: IPlayer) {
+    type Entries<T> = {
+      [K in keyof T]: [K, T[K]]
+    }[keyof T][]
+
+    for (const [key, value] of Object.entries(rawPlayer) as Entries<CurrentPlayer>) {
+      if (typeof value === 'number') {
+        this.addNum(key, value)
+      } else if (typeof value === 'boolean') {
+        this.addBool(key, value)
+      } else if (value instanceof Decimal) {
+        this.addDec(key, value)
+      } else {
+        this.add(key, value)
+      }
+    }
+  }
+
   /**
    * Saves the game.
    */
   save () {
     const obj: Record<string, unknown> = {}
 
-    for (const [key, value] of this.#store.entries()) {
+    for (const [key, value] of this.store.entries()) {
       obj[key as string] = value
     }
 
     const file = btoa(JSON.stringify(obj))
+
+    file.toLowerCase()
 
     // TODO: do something with it.
   }
@@ -128,7 +148,7 @@ export class Player<CurrentPlayer = IPlayer, LegacyPlayer = ILegacyPlayer> {
    * Resets the game.
    */
   reset () {
-    for (const value of this.#store.values()) {
+    for (const value of this.store.values()) {
       value.reset()
     }
   }

@@ -2,10 +2,10 @@ import { ValueRef } from './Value'
 import Decimal from 'break_infinity.js'
 
 export class DecimalValue<K> extends ValueRef<K, Decimal> {
-  constructor (key: K, value: Decimal | null, defaultValue: string) {
-    super(key, value!)
+  constructor (key: K, value: string | Decimal, defaultValue: string | Decimal) {
+    super(key, typeof value === 'string' ? new Decimal(value) : value)
 
-    super.default(() => new Decimal(defaultValue))
+    super.default(() => typeof defaultValue === 'string' ? new Decimal(defaultValue) : defaultValue)
   }
 
   add (amount: number) {

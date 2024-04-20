@@ -177,40 +177,6 @@ import type { PlayerSave } from './types/LegacySynergism'
 import { Player as $Player } from './Player/PlayerManager'
 
 export const player$ = $Player.get()
-player$.add('firstPlayed').default(() => new Date().toISOString())
-player$.add('worlds')
-  .default(() => new QuarkHandler({ quarks: 0, bonus: 0 }))
-  .transform((data) => new QuarkHandler({ quarks: Number(data.worlds) || 0 }))
-player$.addDec('coins', '1e2')
-player$.addDec('coinsThisPrestige', '1e2')
-player$.addDec('coinsThisTranscension', '1e2')
-player$.addDec('coinsThisReincarnation', '1e2')
-player$.addDec('coinsTotal', '1e2')
-
-player$.addNum('firstOwnedCoin', 0)
-player$.addDec('firstGeneratedCoin', '0')
-player$.addDec('firstCostCoin', '1e2')
-player$.addNum('firstProduceCoin', 0.25)
-
-player$.addNum('secondOwnedCoin', 0)
-player$.addDec('secondGeneratedCoin', '0')
-player$.addDec('secondCostCoin', '1e2')
-player$.addNum('secondProduceCoin', 0.25)
-
-player$.addNum('thirdOwnedCoin', 0)
-player$.addDec('thirdGeneratedCoin', '0')
-player$.addDec('thirdCostCoin', '1e2')
-player$.addNum('thirdProduceCoin', 0.25)
-
-player$.addNum('fourthOwnedCoin', 0)
-player$.addDec('fourthGeneratedCoin', '0')
-player$.addDec('fourthCostCoin', '1e2')
-player$.addNum('fourthProduceCoin', 0.25)
-
-player$.addNum('fifthOwnedCoin', 0)
-player$.addDec('fifthGeneratedCoin', '0')
-player$.addDec('fifthCostCoin', '1e2')
-player$.addNum('fifthProduceCoin', 0.25)
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -1526,6 +1492,8 @@ export const player: Player = {
 
   lastExportedSave: 0
 }
+
+player$.holyShitTheFuckDoWeNameThis(player)
 
 export const blankSave = Object.assign({}, player, {
   codes: new Map(Array.from({ length: 44 }, (_, i) => [i + 1, false]))

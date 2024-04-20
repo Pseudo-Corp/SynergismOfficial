@@ -4,22 +4,22 @@ import { assert } from '../Utility'
 const noop = () => {}
 
 export class ValueRef<K, V> {
-  #key: K
+  private key: K
   protected value: V
-  #default: (() => V) | (() => void) = noop
-  #transform: (input: IPlayer) => V = (player) => {
-    return player[this.#key as keyof IPlayer]
+  private defaultFn: (() => V) | (() => void) = noop
+  private transformFn: (input: IPlayer) => V = (player) => {
+    return player[this.key as keyof IPlayer]
   }
 
   constructor (key: K, value: V) {
-    this.#key = key
+    this.key = key
     this.value = value
 
     queueMicrotask(() => {
       // If a default value is not set, set the default value to the initial value.
 
-      if (this.#default === noop) {
-        this.#default = () => value
+      if (this.defaultFn === noop) {
+        this.defaultFn = () => value
       }
     })
   }
@@ -30,7 +30,7 @@ export class ValueRef<K, V> {
    * If no default is set, the default is set to the initial value passed.
    */
   default (value: () => V) {
-    this.#default = value
+    this.defaultFn = value
 
     return this
   }
@@ -41,7 +41,7 @@ export class ValueRef<K, V> {
    * The input passed is the entire savefile.
    */
   transform (t: (input: IPlayer) => V) {
-    this.#transform = t
+    this.transformFn = t
   }
 
   get () {
@@ -57,7 +57,7 @@ export class ValueRef<K, V> {
   }
 
   reset () {
-    const ret = this.#default()
+    const ret = this.defaultFn()
     assert(ret !== undefined)
     this.set(ret)
   }

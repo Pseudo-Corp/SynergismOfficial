@@ -5,11 +5,11 @@ type Transformer<V extends PlayerSave, K extends keyof V> = (key: K, value: V[K]
 export type DefaultTransformer = Transformer<PlayerSave, keyof PlayerSave>
 
 export class TransformRef<K> {
-  #key: K
-  #transform: DefaultTransformer
+  private key: K
+  private transform: DefaultTransformer
 
   constructor (key: K, transform: DefaultTransformer) {
-    this.#key = key
-    this.#transform = transform
+    this.key = key
+    this.transform = transform
   }
 }

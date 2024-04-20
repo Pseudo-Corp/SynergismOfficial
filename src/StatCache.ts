@@ -200,7 +200,6 @@ export class AmbrosiaLuckAdditiveMultCache extends AdditionCache<AmbrosiaLuckAdd
     }
     const newVal = this.vals[key]
     this.updateTotal(oldVal, newVal, init)
-    console.log(this.totalVal)
     player.caches.ambrosiaLuck.updateVal('Event') // Dependant cache, though maybe need a better system than calling Event
   }
 }
