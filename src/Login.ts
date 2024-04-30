@@ -68,12 +68,14 @@ export async function handleLogin () {
     return
   }
 
-  const { globalBonus, member, personalBonus } = await response.json() as SynergismUserAPIResponse
+  const { globalBonus, member, personalBonus, save } = await response.json() as SynergismUserAPIResponse
 
   player.worlds = new QuarkHandler({
     quarks: Number(player.worlds),
     bonus: 100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100 // Multiplicative
   })
+
+  importSynergism(save)
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 
