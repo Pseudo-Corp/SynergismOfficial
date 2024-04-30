@@ -3,6 +3,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { QuarkHandler } from './Quark'
 import { player } from './Synergism'
 import { Alert } from './UpdateHTML'
+import { importSynergism } from './ImportExport'
 
 // Consts for Patreon Supporter Roles.
 const TRANSCENDED_BALLER = '756419583941804072'
@@ -52,6 +53,7 @@ interface SynergismUserAPIResponse {
   personalBonus: number
   globalBonus: number
   member: RawMember | null
+  save: string
 }
 
 export async function handleLogin () {
@@ -119,9 +121,21 @@ export async function handleLogin () {
     `.trim()
 
     const logoutElement = document.createElement('button')
+    const cloudSaveElement = document.createElement('button')
+    const loadCloudSaveElement = document.createElement('button')
+
     logoutElement.addEventListener('click', logout, { once: true })
     logoutElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
     logoutElement.textContent = 'Log Out'
+
+    cloudSaveElement.addEventListener('click', saveToCloud, { once: true })
+    cloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 75px; width: 150px;'
+    cloudSaveElement.textContent = 'Save to Cloud ☁'
+
+    loadCloudSaveElement.addEventListener('click', loadFromCloud, { once: true })
+    loadCloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 75px; width: 150px;'
+    loadCloudSaveElement.textContent = 'Load from Cloud ☽'
+
 
     subtabElement.appendChild(logoutElement)
   } else {
@@ -151,4 +165,26 @@ async function logout () {
   await Alert(i18next.t('account.logout'))
 
   location.reload()
+}
+
+async function saveToCloud () {
+  const body = new FormData()
+  body.set('savefile', new File([/* base64 string here */], 'file.txt'), 'file.txt')
+
+  await fetch('https://synergism.cc/api/v1/upload', {
+    method: 'POST',
+    body
+  })
+
+  return Alert('You have saved to the cloud!')
+}
+
+async function loadFromCloud () {
+  const response = await fetch('https://synergism.cc/api/v1/users/me')
+
+  const { save } = await response.json() as SynergismUserAPIResponse
+
+  await importSynergism(save) // Need to look into typing.
+
+  return Alert('You have loaded from the cloud!') // TODO: Error handle???
 }
