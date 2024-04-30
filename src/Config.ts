@@ -1,4 +1,4 @@
-export const version = '3.0.0 pt 5.1: April 18: Rise of the Ambrosium'
+export const version = '3.0.0 pt 5.2: April 29: Progress Bar!!'
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE

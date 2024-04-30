@@ -188,13 +188,15 @@ export const addTimers = (input: TimerInput, time = 0) => {
 
       G.ambrosiaTimer += time * timeMultiplier
 
-      if (G.ambrosiaTimer < 1) {
+      if (G.ambrosiaTimer < 0.125) {
         break
       }
 
       const ambrosiaLuck = player.caches.ambrosiaLuck.usedTotal
-      player.blueberryTime += Math.floor(G.ambrosiaTimer) * player.caches.ambrosiaGeneration.totalVal
-      G.ambrosiaTimer %= 1
+      const baseBlueberryTime = player.caches.ambrosiaGeneration.totalVal
+      player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * baseBlueberryTime
+      player.ultimateProgress += Math.floor(8 * G.ambrosiaTimer) / 8 * Math.min(baseBlueberryTime, Math.pow(1000 * baseBlueberryTime, 1/2)) * 0.02
+      G.ambrosiaTimer %= 0.125
 
       let timeToAmbrosia = calculateRequiredBlueberryTime()
 
@@ -211,6 +213,11 @@ export const addTimers = (input: TimerInput, time = 0) => {
 
         G.ambrosiaTimer += ambrosiaToGain * 0.2 * player.shopUpgrades.shopAmbrosiaAccelerator
         timeToAmbrosia = calculateRequiredBlueberryTime()
+      }
+
+      if (player.ultimateProgress > 1e6) {
+        player.ultimatePixels += Math.floor(player.ultimateProgress / 1e6)
+        player.ultimateProgress -= 1e6 * Math.floor(player.ultimateProgress / 1e6)
       }
 
       visualUpdateAmbrosia()
