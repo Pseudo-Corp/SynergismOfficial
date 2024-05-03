@@ -1,4 +1,5 @@
 import i18next from 'i18next'
+import localforage from 'localforage'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { QuarkHandler } from './Quark'
 import { player } from './Synergism'
@@ -119,9 +120,22 @@ export async function handleLogin () {
     `.trim()
 
     const logoutElement = document.createElement('button')
+    const cloudSaveElement = document.createElement('button')
+    // const loadCloudSaveElement = document.createElement('button')
+
     logoutElement.addEventListener('click', logout, { once: true })
     logoutElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
     logoutElement.textContent = 'Log Out'
+
+    if (personalBonus > 1) {
+      cloudSaveElement.addEventListener('click', saveToCloud)
+      cloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 75px; width: 150px;'
+      cloudSaveElement.textContent = 'Save to Cloud ☁'
+    }
+
+    // loadCloudSaveElement.addEventListener('click', loadFromCloud)
+    // loadCloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 75px; width: 150px;'
+    // loadCloudSaveElement.textContent = 'Load from Cloud ☽'
 
     subtabElement.appendChild(logoutElement)
   } else {
@@ -151,4 +165,28 @@ async function logout () {
   await Alert(i18next.t('account.logout'))
 
   location.reload()
+}
+
+async function saveToCloud () {
+  const save = (await localforage.getItem<Blob>('Synergysave2')
+    .then(b => b?.text())
+    .catch(() => null)) ?? localStorage.getItem('Synergysave2')
+
+  if (typeof save !== 'string') {
+    console.log('Yeah, no save here.')
+    return
+  }
+
+  const body = new FormData()
+  body.set('savefile', new File([save], 'file.txt'), 'file.txt')
+
+  const response = await fetch('https://synergism.cc/api/v1/saves/upload', {
+    method: 'POST',
+    body
+  })
+
+  if (!response.ok) {
+    await Alert(`Received an error: ${await response.text()}`)
+    return
+  }
 }
