@@ -138,6 +138,7 @@ export async function handleLogin () {
     // loadCloudSaveElement.textContent = 'Load from Cloud ☽'
 
     subtabElement.appendChild(logoutElement)
+    subtabElement.appendChild(cloudSaveElement)
   } else {
     // User is not logged in
     subtabElement.innerHTML = `
