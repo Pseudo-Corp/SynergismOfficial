@@ -121,7 +121,7 @@ export async function handleLogin () {
 
     const logoutElement = document.createElement('button')
     const cloudSaveElement = document.createElement('button')
-    // const loadCloudSaveElement = document.createElement('button')
+    const loadCloudSaveElement = document.createElement('button')
 
     logoutElement.addEventListener('click', logout, { once: true })
     logoutElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
@@ -129,16 +129,22 @@ export async function handleLogin () {
 
     if (personalBonus > 1) {
       cloudSaveElement.addEventListener('click', saveToCloud)
-      cloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 75px; width: 150px;'
+      cloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
       cloudSaveElement.textContent = 'Save to Cloud ☁'
     }
 
     // loadCloudSaveElement.addEventListener('click', loadFromCloud)
-    // loadCloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 75px; width: 150px;'
-    // loadCloudSaveElement.textContent = 'Load from Cloud ☽'
+    loadCloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
+    loadCloudSaveElement.textContent = 'Load from Cloud ☽ [WIP]'
+
+    const cloudSaveParent = document.createElement('div')
+    cloudSaveParent.style.cssText = 'display: flex; flex-direction: row; justify-content: space-evenly; padding: 5px; width: 45%; margin: 0 auto;'
+
+    cloudSaveParent.appendChild(cloudSaveElement)
+    cloudSaveParent.appendChild(loadCloudSaveElement)
 
     subtabElement.appendChild(logoutElement)
-    subtabElement.appendChild(cloudSaveElement)
+    subtabElement.appendChild(cloudSaveParent)
   } else {
     // User is not logged in
     subtabElement.innerHTML = `
