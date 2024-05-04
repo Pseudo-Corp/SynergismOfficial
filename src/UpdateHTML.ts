@@ -488,7 +488,7 @@ export const revealStuff = () => {
     item.style.display = player.highestSingularityCount >= 25 ? 'block' : 'none'
   }
 
-  DOMCacheGetOrSet('toggleSingularitySubTab5').style.display =
+  DOMCacheGetOrSet('toggleSingularitySubTab4').style.display =
     player.singularityChallenges.noSingularityUpgrades.completions >= 1
       ? 'block'
       : 'none'
