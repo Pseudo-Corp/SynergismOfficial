@@ -2405,6 +2405,10 @@
       "blessings": "Благословения",
       "spirits": "[=-Духи-=]"
     },
+    "challenges":{
+      "normal": "Normal",
+      "exalt": "ВОЗВЫШЕНИЕ"
+    },
     "cubes": {
       "cubeTributes": "Дань Кубов",
       "tesseract": "Подарки Тессерактов",
@@ -2417,7 +2421,6 @@
     "singularity": {
       "perks-penalties": "Привилегии / Штрафы",
       "octeracts": "Октеракты",
-      "exalt": "ВОЗВЫШЕНИЕ",
       "ambrosia": "Амброзия"
     },
     "settings": {

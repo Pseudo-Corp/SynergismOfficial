@@ -2235,6 +2235,10 @@
             "blessings": "",
             "spirits": ""
         },
+        "challenges":{
+            "normal": "",
+            "exalt": ""
+        },
         "cubes": {
             "cubeTributes": "",
             "tesseract": "",
@@ -2246,8 +2250,7 @@
         },
         "singularity": {
             "perks-penalties": "",
-            "octeracts": "",
-            "exalt": ""
+            "octeracts": ""
         },
         "settings": {
             "languages": "",

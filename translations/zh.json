@@ -2405,6 +2405,10 @@
       "blessings": "祝福",
       "spirits": "[=-魂灵-=]"
     },
+    "challenges":{
+      "normal": "Normal",
+      "exalt": "拔擢"
+    },
     "cubes": {
       "cubeTributes": "方盒的贡品",
       "tesseract": "超立方的赠礼",
@@ -2417,7 +2421,6 @@
     "singularity": {
       "perks-penalties": "特权 / 惩罚",
       "octeracts": "惊奇八阶方块",
-      "exalt": "拔擢",
       "ambrosia": "神肴"
     },
     "settings": {

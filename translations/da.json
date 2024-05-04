@@ -2239,6 +2239,10 @@
             "blessings": "Blessings",
             "spirits": "[=-Spirits-=]"
         },
+        "challenges":{
+            "normal": "Normal",
+            "exalt": "EXALT"
+          },
         "cubes": {
             "cubeTributes": "Cube Tributes",
             "tesseract": "Tesseract Gifts",
@@ -2250,8 +2254,7 @@
         },
         "singularity": {
             "perks-penalties": "Perks / Penalties",
-            "octeracts": "Octeracts",
-            "exalt": "EXALT"
+            "octeracts": "Octeracts"
         },
         "settings": {
             "languages": "🌐 Languages 🌐",

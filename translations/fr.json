@@ -2405,6 +2405,10 @@
       "blessings": "Bénédictions",
       "spirits": "[=- Esprits -=]"
     },
+    "challenges":{
+      "normal": "Normal",
+      "exalt": "EXALTER"
+    },
     "cubes": {
       "cubeTributes": "Tributs de Cubes",
       "tesseract": "Cadeaux de Tesseracts",
@@ -2417,7 +2421,6 @@
     "singularity": {
       "perks-penalties": "Avantages / Pénalités",
       "octeracts": "Octeracts",
-      "exalt": "EXALTER",
       "ambrosia": "Ambroisie"
     },
     "settings": {
