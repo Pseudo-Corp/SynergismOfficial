@@ -661,7 +661,7 @@ export const loadQuarkMultiplier = () => {
     )
   }`
   DOMCacheGetOrSet('sGQM31').textContent = `x${format(calculateCashGrabQuarkBonus(), 3, true)}`
-  DOMCacheGetOrSet('sGQM32').textContent = `x${format( player.highestSingularityCount == 0 ? 1.25 : 1, 2, true)}` //Buff in s0
+  DOMCacheGetOrSet('sGQM32').textContent = `x${format( player.highestSingularityCount === 0 ? 1.25 : 1, 2, true)}` //Buff in s0
 
   DOMCacheGetOrSet('sGQMT').textContent = `x${
     format(
