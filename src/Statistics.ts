@@ -14,7 +14,6 @@ import {
   calculateGoldenQuarkMultiplier,
   calculateHepteractMultiplier,
   calculateHypercubeMultiplier,
-  calculateObtainium,
   calculateOcteractMultiplier,
   calculateOfferings,
   calculatePlatonicMultiplier,
