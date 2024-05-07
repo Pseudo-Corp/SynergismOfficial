@@ -170,7 +170,7 @@ import {
   BlueberryInventoryCache,
   cacheReinitialize
 } from './StatCache'
-import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { resetSubTabs, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 import type { PlayerSave } from './types/LegacySynergism'
@@ -6377,6 +6377,7 @@ export const reloadShit = async (reset = false) => {
   createTimer()
 
   // Reset Displays
+  resetSubTabs()
   if (!playerNeedsReminderToExport()) {
     changeTab(Tabs.Buildings)
   } else {
@@ -6384,13 +6385,6 @@ export const reloadShit = async (reset = false) => {
 
     void Alert(i18next.t('general.exportYourGame'))
   }
-
-  changeSubTab(Tabs.Buildings, { page: 0 })
-  changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
-  changeSubTab(Tabs.WowCubes, { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
-  changeSubTab(Tabs.Corruption, { page: 0 }) // set 'corruption main'
-  changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
-  changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
 
   dailyResetCheck()
   setInterval(dailyResetCheck, 30000)

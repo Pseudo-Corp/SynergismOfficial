@@ -64,7 +64,7 @@ import { buyGoldenQuarks, getLastUpgradeInfo, singularityPerks } from './singula
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
-import { changeSubTab, Tabs } from './Tabs'
+import { subtabInfo, changeSubTab, Tabs } from './Tabs'
 import {
   buyAllTalismanResources,
   buyTalismanEnhance,
@@ -241,12 +241,10 @@ export const generateEventHandlers = () => {
 
   // BUILDINGS TAB
   // Part 1: Upper portion (Subtab toggle)
-  const buildingTypes = ['Coin', 'Diamond', 'Mythos', 'Particle', 'Tesseract']
-  for (let index = 0; index < buildingTypes.length; index++) {
-    DOMCacheGetOrSet(
-      `switchTo${buildingTypes[index]}Building`
-    ).addEventListener('click', () => changeSubTab(Tabs.Buildings, { page: index }))
+  for (const [index, subtab] of subtabInfo[Tabs.Buildings].subTabList.entries()) {
+    DOMCacheGetOrSet(subtab.buttonID).addEventListener('click', () => changeSubTab(Tabs.Buildings, { page: index }))
   }
+
   // Part 2: Building Amount Toggles
   const buildingTypesAlternate = [
     'coin',
@@ -398,11 +396,8 @@ export const generateEventHandlers = () => {
   // Auto sacrifice toggle button
   DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice(0))
   // Toggle subtabs of Runes tab
-  for (let index = 0; index < 4; index++) {
-    DOMCacheGetOrSet(`toggleRuneSubTab${index + 1}`).addEventListener(
-      'click',
-      () => changeSubTab(Tabs.Runes, { page: index })
-    )
+  for (const [index, subtab] of subtabInfo[Tabs.Runes].subTabList.entries()) {
+    DOMCacheGetOrSet(subtab.buttonID).addEventListener('click', () => changeSubTab(Tabs.Runes, { page: index }))
   }
 
   // Part 1: Runes Subtab
@@ -543,11 +538,8 @@ export const generateEventHandlers = () => {
     () => updateAutoChallenge(3)
   )
   // Part 3: Subtabs because Mixelz doesn't know what the fuck he's doing
-  for (let index = 0; index < 2; index++) {
-    DOMCacheGetOrSet(`toggleChallengesSubTab${index + 1}`).addEventListener(
-      'click',
-      () => changeSubTab(Tabs.Challenges, { page: index })
-    )
+  for (const [index, subtab] of subtabInfo[Tabs.Challenges].subTabList.entries()) {
+    DOMCacheGetOrSet(subtab.buttonID).addEventListener('click', () => changeSubTab(Tabs.Challenges, { page: index }))
   }
 
   // RESEARCH TAB
@@ -627,11 +619,8 @@ export const generateEventHandlers = () => {
 
   // WOW! Cubes Tab
   // Part 0: Subtab UI
-  for (let index = 0; index < 7; index++) {
-    DOMCacheGetOrSet(`switchCubeSubTab${index + 1}`).addEventListener(
-      'click',
-      () => changeSubTab(Tabs.WowCubes, { page: index })
-    )
+  for (const [index, subtab] of subtabInfo[Tabs.WowCubes].subTabList.entries()) {
+    DOMCacheGetOrSet(subtab.buttonID).addEventListener('click', () => changeSubTab(Tabs.WowCubes, { page: index }))
   }
 
   // Part 1: Cube Upgrades
@@ -832,8 +821,9 @@ export const generateEventHandlers = () => {
 
   // CORRUPTION TAB
   // Part 0: Subtabs
-  DOMCacheGetOrSet('corrStatsBtn').addEventListener('click', () => changeSubTab(Tabs.Corruption, { page: 0 }))
-  DOMCacheGetOrSet('corrLoadoutsBtn').addEventListener('click', () => changeSubTab(Tabs.Corruption, { page: 1 }))
+  for (const [index, subtab] of subtabInfo[Tabs.Corruption].subTabList.entries()) {
+    DOMCacheGetOrSet(subtab.buttonID).addEventListener('click', () => changeSubTab(Tabs.Corruption, { page: index }))
+  }
 
   // Part 1: Displays
   DOMCacheGetOrSet('corruptionDisplays').addEventListener('click', () => corruptionDisplay(10))
@@ -1087,11 +1077,8 @@ TODO: Fix this entire tab it's utter shit
   DOMCacheGetOrSet('importBlueberries').addEventListener('change', async (e) => importData(e, importBlueberryTree))
 
   // Toggle subtabs of Singularity tab
-  for (let index = 0; index < 4; index++) {
-    DOMCacheGetOrSet(`toggleSingularitySubTab${index + 1}`).addEventListener(
-      'click',
-      () => changeSubTab(Tabs.Singularity, { page: index })
-    )
+  for (const [index, subtab] of subtabInfo[Tabs.Singularity].subTabList.entries()) {
+    DOMCacheGetOrSet(subtab.buttonID).addEventListener('click', () => changeSubTab(Tabs.Singularity, { page: index }))
   }
 
   // EVENT TAB (Replace as events are created)

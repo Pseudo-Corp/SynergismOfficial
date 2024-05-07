@@ -41,45 +41,76 @@ interface SubTab {
   subTabList: {
     subTabID: string
     unlocked: boolean
-    buttonID?: string
+    buttonID: string
   }[]
 }
 
-const subtabInfo: Record<Tabs, SubTab> = {
+export const subtabInfo: Record<Tabs, SubTab> = {
   [Tabs.Settings]: {
     tabSwitcher: () => setActiveSettingScreen,
     subTabList: [
-      { subTabID: 'settingsubtab', unlocked: true },
-      { subTabID: 'languagesubtab', unlocked: true },
-      { subTabID: 'creditssubtab', unlocked: true },
-      { subTabID: 'statisticsSubTab', unlocked: true },
+      {
+        subTabID: 'settingsubtab',
+        unlocked: true,
+        buttonID: 'switchSettingSubTab1'
+      },
+      {
+        subTabID: 'languagesubtab',
+        unlocked: true,
+        buttonID: 'switchSettingSubTab2'
+      },
+      {
+        subTabID: 'creditssubtab',
+        unlocked: true,
+        buttonID: 'switchSettingSubTab3'
+      },
+      {
+        subTabID: 'statisticsSubTab',
+        unlocked: true,
+        buttonID: 'switchSettingSubTab4'
+      },
       {
         subTabID: 'resetHistorySubTab',
         get unlocked () {
           return player.unlocks.prestige
-        }
+        }, 
+        buttonID: 'switchSettingSubTab5'
       },
       {
         subTabID: 'ascendHistorySubTab',
         get unlocked () {
           return player.ascensionCount > 0
-        }
+        }, 
+        buttonID: 'switchSettingSubTab6'
       },
       {
         subTabID: 'singularityHistorySubTab',
         get unlocked () {
           return player.highestSingularityCount > 0
-        }
+        }, 
+        buttonID: 'switchSettingSubTab7'
       },
-      { subTabID: 'hotkeys', unlocked: true },
-      { subTabID: 'accountSubTab', unlocked: true }
+      {
+        subTabID: 'hotkeys', 
+        unlocked: true, 
+        buttonID: 'switchSettingSubTab8'
+      },
+      {
+        subTabID: 'accountSubTab', 
+        unlocked: true, 
+        buttonID: 'switchSettingSubTab9'
+      }
     ]
   },
   [Tabs.Shop]: { subTabList: [] },
   [Tabs.Buildings]: {
     tabSwitcher: () => toggleBuildingScreen,
     subTabList: [
-      { subTabID: 'coin', unlocked: true, buttonID: 'switchToCoinBuilding' },
+      {
+        subTabID: 'coin',
+        unlocked: true,
+        buttonID: 'switchToCoinBuilding'
+      },
       {
         subTabID: 'diamond',
         get unlocked () {
@@ -148,7 +179,11 @@ const subtabInfo: Record<Tabs, SubTab> = {
   [Tabs.Challenges]: { 
     tabSwitcher: () => toggleChallengesScreen,
     subTabList: [
-      { subTabID: '1', unlocked: true, buttonID: 'toggleChallengesSubTab1' },
+      {
+        subTabID: '1',
+        unlocked: true,
+        buttonID: 'toggleChallengesSubTab1'
+      },
       {
         subTabID: '2',
         get unlocked () {
@@ -593,35 +628,30 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   }
 
   G.currentTab = tabRow.getCurrentTab().getType()
-  player.tabnumber = 0
 
   revealStuff()
   hideStuff()
   ;(document.activeElement as HTMLElement | null)?.blur()
 
   const subTabList = subtabInfo[G.currentTab].subTabList
-  if (G.currentTab !== Tabs.Settings) {
-    for (let i = 0; i < subTabList.length; i++) {
-      const id = subTabList[i].buttonID
-      if (id) {
-        const button = DOMCacheGetOrSet(id)
-
-        if (button.style.backgroundColor === 'crimson') { // handles every tab except settings and corruptions
-          player.subtabNumber = i
-          break
-        }
-        // what in the shit is this?!
-        if (player.tabnumber === 9 && button.style.borderColor === 'dodgerblue') { // handle corruption tab
-          player.subtabNumber = i
-          break
-        }
+  for (let i = 0; i < subTabList.length; i++) {
+    const id = subTabList[i].buttonID
+    const button = DOMCacheGetOrSet(id)
+    if (G.currentTab === Tabs.Settings) {
+      // handle settings tab
+      if (button.classList.contains('buttonActive')) {
+        player.subtabNumber = i
+        break
       }
-    }
-  } else { // handle settings tab
-    // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-    const btns = document.querySelectorAll('[id^="switchSettingSubTab"]')
-    for (let i = 0; i < btns.length; i++) {
-      if (btns[i].classList.contains('buttonActive')) {
+    } else if (G.currentTab === Tabs.Corruption) {
+      // handle corruption tab
+      if (button.style.borderColor === 'dodgerblue') {
+        player.subtabNumber = i
+        break
+      }
+    } else {
+      // handles every tab except settings and corruptions
+      if (button.style.backgroundColor === 'crimson') {
         player.subtabNumber = i
         break
       }
@@ -674,4 +704,22 @@ export function subTabsInMainTab (name: Tabs) {
   }
 
   return tab.getSubTabs().subTabList.length
+}
+
+export const resetSubTabs = () => {
+  for (const tab of Object.values(subtabInfo)) {
+    const subTabList = tab.subTabList
+    tab.tabSwitcher?.()(subTabList[0].subTabID)
+  }
+
+  // Resetting Stats for Nerds may be unnecessary
+  // const btn = document.querySelector<HTMLElement>('button.statsNerds')
+  // if (btn) {
+  //   displayStats(btn);
+  // }
+
+  revealStuff()
+  hideStuff()
+
+  player.subtabNumber = 0
 }

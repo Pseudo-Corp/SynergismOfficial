@@ -13,7 +13,7 @@ import { shopData } from './Shop'
 import { singularityData } from './singularity'
 import { synergismStage } from './Statistics'
 import { blankSave, format, player, reloadShit, saveCheck, saveSynergy } from './Synergism'
-import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { resetSubTabs, changeTab, Tabs } from './Tabs'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { cleanString, getElementById, productContents, sumContents } from './Utility'
@@ -296,12 +296,7 @@ export const resetGame = async () => {
   }) as Player
   // Reset Displays
   changeTab(Tabs.Buildings)
-  changeSubTab(Tabs.Buildings, { page: 0 })
-  changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
-  changeSubTab(Tabs.WowCubes, { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
-  changeSubTab(Tabs.Corruption, { page: 0 }) // set 'corruption main'
-  changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
-  changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
+  resetSubTabs()
   // Import Game
   await importSynergism(btoa(JSON.stringify(hold)), true)
 }
