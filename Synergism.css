@@ -3696,19 +3696,50 @@ img#singularityPerksIcon {
 }
 
 #singularityChallengeDetails {
-    width: 50%;
-    margin-left: 25%;
+    display: block;
+    justify-content: center;
 }
 
 #singularityChallengesInfo {
     white-space: pre-line;
-    margin: 15px 0 0;
+    margin-top: 10px;
+    margin-bottom: 5px;
     text-align: center;
 }
 
-#singularityChallengesRewards {
+#singularityChallengeAllRewards {
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(2, 375px);
+    justify-content: center;
+    grid-gap: 10px;
+}
+
+#singularityChallengeScalingHeader {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    margin: 0;
+}
+
+#singularityChallengeUniqueHeader {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    margin: 0;
+}
+
+#singularityChallengesScalingRewards {
+    display: block;
+    white-space: pre-line;
+    margin: 0;
+    text-align: center;
+}
+
+#singularityChallengesUniqueRewards {
+    display: block;
+    white-space: pre-line;
+    margin: 0;
 }
 
 .newPerk {

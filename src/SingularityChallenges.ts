@@ -26,7 +26,6 @@ export interface ISingularityChallengeData {
 export class SingularityChallenge {
   public name
   public description
-  public rewardDescription
   public baseReq
   public completions
   public maxCompletions
@@ -45,12 +44,8 @@ export class SingularityChallenge {
     const description = i18next.t(
       `singularityChallenge.data.${key}.description`
     )
-    const rewardDescription = i18next.t(
-      `singularityChallenge.data.${key}.rewardDescription`
-    )
     this.name = name
     this.description = description
-    this.rewardDescription = rewardDescription
     this.baseReq = data.baseReq
     this.completions = data.completions ?? 0
     this.maxCompletions = data.maxCompletions
@@ -235,12 +230,34 @@ export class SingularityChallenge {
         this.completions
       )
     }</span></span>
-                <span style="color: lightblue">${this.description}</span>
-                <span>${this.rewardDescription}</span>`
+                <span style="color: lightblue">${this.description}</span>`
+  }
+  //Numerates through total reward count for Scaling & Unique string for EXALTS.
+  ScaleString (): string {
+    let text = ''
+    for (let i = 1; i <= this.scalingrewardcount; i++) {
+      const list = i18next.t(`singularityChallenge.data.${String(this.HTMLTag)}.ScalingReward${i}`);
+     if (i > this.scalingrewardcount) {}
+    text += i > 1 ? `\n${list}` : list
+    }
+     return text
+  }
+
+  //Ditto. Also worth mentioning this implementation means the list size can be arbitrary!
+  UniqueString (): string {
+    let text = ''
+    for (let i = 1; i <= this.uniquerewardcount; i++) {
+      const list = i18next.t(`singularityChallenge.data.${String(this.HTMLTag)}.UniqueReward${i}`);
+     if (i > this.scalingrewardcount) {}
+    text += i > 1 ? `\n${list}` : list
+    }
+     return text
   }
 
   public updateChallengeHTML (): void {
     DOMCacheGetOrSet('singularityChallengesInfo').innerHTML = this.toString()
+    DOMCacheGetOrSet('singularityChallengesScalingRewards').innerHTML = this.ScaleString()
+    DOMCacheGetOrSet('singularityChallengesUniqueRewards').innerHTML = this.UniqueString()
   }
 
   public updateIconHTML (): void {
@@ -266,7 +283,7 @@ export const singularityChallengeData: Record<
       return baseReq + 8 * completions
     },
     scalingrewardcount: 1,
-    uniquerewardcount: 6,
+    uniquerewardcount: 5,
     effect: (n: number) => {
       return {
         cubes: 1 + 0.5 * n,
