@@ -3700,10 +3700,15 @@ img#singularityPerksIcon {
     margin-left: 25%;
 }
 
-#singularityChallengesMultiline {
+#singularityChallengesInfo {
     white-space: pre-line;
     margin: 15px 0 0;
     text-align: center;
+}
+
+#singularityChallengesRewards {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
 }
 
 .newPerk {

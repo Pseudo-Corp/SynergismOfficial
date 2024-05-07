@@ -1429,6 +1429,8 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
           highestSingularityCompleted,
           enabled,
           singularityRequirement: singularityChallengeData[k].singularityRequirement,
+          scalingrewardcount: singularityChallengeData[k].scalingrewardcount,
+          uniquerewardcount: singularityChallengeData[k].uniquerewardcount,
           effect: singularityChallengeData[k].effect,
           cacheUpdates: singularityChallengeData[k].cacheUpdates
         }
