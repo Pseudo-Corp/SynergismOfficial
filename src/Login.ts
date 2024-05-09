@@ -80,6 +80,10 @@ export async function handleLogin () {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
   } else if (document.cookie.length) {
+    if (!member) {
+      console.log(response, globalBonus, member, personalBonus, document.cookie)
+    }
+
     currentBonus.textContent +=
       ` You also receive an extra ${personalBonus}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!`
 
@@ -148,17 +152,13 @@ export async function handleLogin () {
   } else {
     // User is not logged in
     subtabElement.innerHTML = `
-      <img id="discord-logo" alt="Discord Logo" src="Pictures/discord-mark-blue.png" loading="lazy">
-      <br>
-      <form action="https://discord.com/oauth2/authorize">
-        <input type="hidden" name="response_type" value="code" />
-        <input type="hidden" name="client_id" value="1124509674536972329" />
-        <input type="hidden" name="scope" value="guilds guilds.members.read identify" />
-        <input type="hidden" name="redirect_uri" value="https://synergism.cc/discord/oauth/" />
-        <input type="hidden" name="prompt" value="consent" />
-        <input type="submit" value="Login" style="border: 2px solid #5865F2; height: 20px; width: 250px;" />
-      </form>
+      <img id="discord-logo" alt="Discord Logo" src="Pictures/discord-mark-blue.png" loading="lazy" />
+      <button value="Login" style="border: 2px solid #5865F2; height: 20px; width: 250px;">Login with Discord</button>
     `
+
+    subtabElement.querySelector('button[value="Login"]')?.addEventListener('click', () => {
+      location.assign('https://discord.com/oauth2/authorize?response_type=code&client_id=1124509674536972329&scope=guilds+guilds.members.read+identify&redirect_uri=https%3A%2F%2Fsynergism.cc%2Fdiscord%2Foauth%2F&prompt=consent')
+    })
   }
 }
 
