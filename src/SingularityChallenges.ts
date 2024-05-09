@@ -233,7 +233,7 @@ export class SingularityChallenge {
                 <span style="color: lightblue">${this.description}</span>`
   }
   //Numerates through total reward count for Scaling & Unique string for EXALTS.
-  ScaleString (): string {
+  scaleString (): string {
     let text = ''
     for (let i = 1; i <= this.scalingrewardcount; i++) {
       const list = i18next.t(`singularityChallenge.data.${String(this.HTMLTag)}.ScalingReward${i}`);
@@ -244,7 +244,7 @@ export class SingularityChallenge {
   }
 
   //Ditto. Also worth mentioning this implementation means the list size can be arbitrary!
-  UniqueString (): string {
+  uniqueString (): string {
     let text = ''
     for (let i = 1; i <= this.uniquerewardcount; i++) {
       const list = i18next.t(`singularityChallenge.data.${String(this.HTMLTag)}.UniqueReward${i}`);
@@ -256,8 +256,8 @@ export class SingularityChallenge {
 
   public updateChallengeHTML (): void {
     DOMCacheGetOrSet('singularityChallengesInfo').innerHTML = this.toString()
-    DOMCacheGetOrSet('singularityChallengesScalingRewards').innerHTML = this.ScaleString()
-    DOMCacheGetOrSet('singularityChallengesUniqueRewards').innerHTML = this.UniqueString()
+    DOMCacheGetOrSet('singularityChallengesScalingRewards').innerHTML = this.scaleString()
+    DOMCacheGetOrSet('singularityChallengesUniqueRewards').innerHTML = this.uniqueString()
   }
 
   public updateIconHTML (): void {
