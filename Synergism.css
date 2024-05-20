@@ -20,6 +20,10 @@ html {
     scrollbar-width: none;
 }
 
+img {
+    image-rendering: pixelated;
+}
+
 .scrollbar,
 .scrollbarX {
     overflow-y: auto;
@@ -675,12 +679,12 @@ button.isEvent:hover {
 }
 
 .subTabWrapper {
-    display: flex;
-    flex-direction: row;
-    flex-flow: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 145px);
     justify-content: center;
-    margin-top: 15px;
     gap: 10px 15px;
+    width: 90%;
+    margin: 15px auto 0;
 }
 
 .subTabWrapper > button {
@@ -891,6 +895,7 @@ p#themesTitle {
     flex-wrap: wrap;
     display: flex;
     flex-direction: column;
+    image-rendering: auto;
 }
 
 #thirdParty > div > a {
@@ -2603,12 +2608,16 @@ p#ascendHotKeys {
 }
 
 .constUpgradeAvailable {
-    background-color: green;
+    background-color: purple;
     cursor: pointer;
 }
 
 .constUpgradeAvailable:hover {
-    background-color: #00b300;
+    background-color: #b300b3;
+}
+
+.constUpgradeAuto {
+    background-color: green;
 }
 
 /* .constUpgradeSingle {
@@ -3627,7 +3636,6 @@ img#singularityPerksIcon {
 #singularityPerksDesc {
     display: block;
     white-space: pre-line;
-    border: 2px solid gold;
     margin: 5px 5px 1px;
     height: 150px;
     min-width: 39em;
@@ -3651,7 +3659,8 @@ img#singularityPerksIcon {
 
 #testingMultiline,
 #singularityOcteractsMultiline,
-#singularityAmbrosiaMultiline {
+#singularityAmbrosiaMultiline,
+#accountSubTab {
     white-space: pre-line;
     margin: 15px 0 0;
     justify-content: center;
@@ -3673,7 +3682,7 @@ img#singularityPerksIcon {
     justify-items: left;
     align-items: center;
     text-align: center;
-    padding-left: 2px;
+    padding: 2px;
     cursor: pointer;
     color: gold;
     border: 2px ridge gold;
@@ -3688,7 +3697,7 @@ img#singularityPerksIcon {
     justify-items: left;
     align-items: center;
     text-align: center;
-    padding-left: 2px;
+    padding: 2px;
     cursor: pointer;
     border: 2px solid gold;
     background-color: var(--button-color);
@@ -3796,6 +3805,67 @@ img#singularityPerksIcon {
     /* A 1.3 width x height ratio */
     width: 96px;
     height: 72px;
+    image-rendering: auto;
+}
+
+#pixelProgressBar {
+    width: 25%;
+    height: 30px;
+    background-color: black;
+    border: solid white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+    position: relative;
+}
+
+#pixelProgress {
+    height: 100%;
+    background: linear-gradient(to right, maroon, red);
+    border-radius: 5px;
+    transition: width 0.4s ease;
+}
+
+#pixelProgressText {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center; /* Center the text vertically */
+    justify-content: center; /* Center the text horizontally */
+    color: white;
+    font-weight: bold;
+}
+
+#ambrosiaProgressBar {
+    width: 25%;
+    height: 30px;
+    background-color: black;
+    border: solid white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+    position: relative;
+}
+
+#ambrosiaProgress {
+    height: 100%;
+    background: linear-gradient(to right, navy, darkturquoise);
+    border-radius: 5px;
+    transition: width 0.4s ease;
+}
+
+#ambrosiaProgressText {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center; /* Center the text vertically */
+    justify-content: center; /* Center the text horizontally */
+    color: white;
+    font-weight: bold;
 }
 
 form input:hover {

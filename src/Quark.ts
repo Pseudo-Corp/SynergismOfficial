@@ -1,9 +1,9 @@
 /* Functions which Handle Quark Gains,  */
 
+import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateCubeQuarkMultiplier, calculateQuarkMultiplier } from './Calculate'
 import { format, player } from './Synergism'
 import { Alert } from './UpdateHTML'
-import { DOMCacheGetOrSet } from './Cache/DOM'
 
 const getBonus = async (): Promise<null | number> => {
   if (!navigator.onLine) {
@@ -19,14 +19,13 @@ const getBonus = async (): Promise<null | number> => {
 
     return j.bonus
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.log(`workers.dev: ${(e as Error).message}`)
   }
 
   try {
     const r = await fetch('https://api.github.com/gists/44be6ad2dcf0d44d6a29dffe1d66a84a', {
       headers: {
-        'Accept': 'application/vnd.github.v3+json'
+        Accept: 'application/vnd.github.v3+json'
       }
     })
 
@@ -35,7 +34,6 @@ const getBonus = async (): Promise<null | number> => {
 
     return b
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.log(`GitHub Gist: ${(e as Error).message}`)
   }
 
@@ -43,12 +41,12 @@ const getBonus = async (): Promise<null | number> => {
 }
 
 export const quarkHandler = () => {
-  let maxTime = 90000 //In Seconds
+  let maxTime = 90000 // In Seconds
   if (player.researches[195] > 0) {
     maxTime += 18000 * player.researches[195] // Research 8x20
   }
 
-  //Part 2: Calculate quark gain per hour
+  // Part 2: Calculate quark gain per hour
   let baseQuarkPerHour = 5
 
   const quarkResearches = [99, 100, 125, 180, 195]
@@ -60,15 +58,15 @@ export const quarkHandler = () => {
 
   const quarkPerHour = baseQuarkPerHour
 
-  //Part 3: Calculates capacity of quarks on export
+  // Part 3: Calculates capacity of quarks on export
   const capacity = Math.floor(quarkPerHour * maxTime / 3600)
 
-  //Part 4: Calculate how many quarks are to be gained.
+  // Part 4: Calculate how many quarks are to be gained.
   const quarkGain = Math.floor(player.quarkstimer * quarkPerHour / 3600)
 
-  //Part 5 [June 9, 2021]: Calculate bonus awarded to cube quarks.
+  // Part 5 [June 9, 2021]: Calculate bonus awarded to cube quarks.
   const cubeMult = calculateCubeQuarkMultiplier()
-  //Return maxTime, quarkPerHour, capacity and quarkGain as object
+  // Return maxTime, quarkPerHour, capacity and quarkGain as object
   return {
     maxTime,
     perHour: quarkPerHour,
@@ -86,7 +84,7 @@ export class QuarkHandler {
 
   private interval: ReturnType<typeof setInterval> | null = null
 
-  constructor({ bonus, quarks }: { bonus?: number, quarks: number }) {
+  constructor ({ bonus, quarks }: { bonus?: number; quarks: number }) {
     this.QUARKS = quarks
 
     if (bonus) {
@@ -102,20 +100,20 @@ export class QuarkHandler {
   }
 
   /*** Calculates the number of quarks to give with the current bonus. */
-  applyBonus(amount: number) {
+  applyBonus (amount: number) {
     const nonPatreon = calculateQuarkMultiplier()
     return amount * (1 + (this.BONUS / 100)) * nonPatreon
   }
 
   /** Subtracts quarks, as the name suggests. */
-  add(amount: number, useBonus = true) {
+  add (amount: number, useBonus = true) {
     this.QUARKS += useBonus ? this.applyBonus(amount) : amount
     player.quarksThisSingularity += useBonus ? this.applyBonus(amount) : amount
     return this
   }
 
   /** Add quarks, as suggested by the function's name. */
-  sub(amount: number) {
+  sub (amount: number) {
     this.QUARKS -= amount
     if (this.QUARKS < 0) {
       this.QUARKS = 0
@@ -124,7 +122,7 @@ export class QuarkHandler {
     return this
   }
 
-  async getBonus() {
+  async getBonus () {
     const el = DOMCacheGetOrSet('currentBonus')
 
     if (location.hostname === 'synergism.cc') {
@@ -132,7 +130,7 @@ export class QuarkHandler {
     }
 
     if (localStorage.getItem('quarkBonus') !== null) { // is in cache
-      const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus')!) as { bonus: number, fetched: number }
+      const { bonus, fetched } = JSON.parse(localStorage.getItem('quarkBonus')!) as { bonus: number; fetched: number }
       if (Date.now() - fetched < 60 * 1000 * 15) { // cache is younger than 15 minutes
         el.textContent = `Generous patrons give you a bonus of ${bonus}% more Quarks!`
         return this.BONUS = bonus
@@ -160,7 +158,7 @@ export class QuarkHandler {
     this.BONUS = b
   }
 
-  public toString(val: number): string {
+  public toString (val: number): string {
     return format(Math.floor(this.applyBonus(val)), 0, true)
   }
 

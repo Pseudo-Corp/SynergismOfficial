@@ -1,15 +1,24 @@
-import { player, format } from './Synergism'
-import { calculateRuneExpGiven, calculateCorruptionPoints, calculateOfferings, calculateMaxRunes, calculateRuneExpToLevel, calculateRuneLevels, calculateEffectiveIALevel } from './Calculate'
+import {
+  calculateCorruptionPoints,
+  calculateEffectiveIALevel,
+  calculateMaxRunes,
+  calculateOfferings,
+  calculateRuneExpGiven,
+  calculateRuneExpToLevel,
+  calculateRuneLevels
+} from './Calculate'
+import { format, player } from './Synergism'
 import { Globals as G } from './Variables'
 
 import Decimal from 'break_infinity.js'
-import type { resetNames } from './types/Synergism'
-import { DOMCacheGetOrSet } from './Cache/DOM'
 import i18next, { type StringMap } from 'i18next'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import type { resetNames } from './types/Synergism'
 
 export const displayRuneInformation = (i: number, updatelevelup = true) => {
   const m = G.effectiveLevelMult
-  const SILevelMult = (1 + player.researches[84] / 200 * (1 + 1 * G.effectiveRuneSpiritPower[5] * calculateCorruptionPoints()/400))
+  const SILevelMult = 1
+    + player.researches[84] / 200 * (1 + 1 * G.effectiveRuneSpiritPower[5] * calculateCorruptionPoints() / 400)
   const amountPerOffering = calculateRuneExpGiven(i - 1, false, player.runelevels[i - 1])
 
   let options: StringMap
@@ -17,7 +26,7 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
   if (i === 1) {
     options = {
       bonus: format(Math.floor(Math.pow(G.rune1level * m / 4, 1.25))),
-      percent: format((G.rune1level / 4 * m), 2, true),
+      percent: format(G.rune1level / 4 * m, 2, true),
       boost: format(Math.floor(G.rune1level / 20 * m))
     }
   } else if (i === 2) {
@@ -39,13 +48,13 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
     }
   } else if (i === 5) {
     options = {
-      gain: format((1 + G.rune5level / 200 * m * SILevelMult), 2, true),
+      gain: format(1 + G.rune5level / 200 * m * SILevelMult, 2, true),
       speed: format(1 + Math.pow(G.rune5level * m * SILevelMult, 2) / 2500),
-      offerings: format((G.rune5level * m * SILevelMult * 0.005), 3, true)
+      offerings: format(G.rune5level * m * SILevelMult * 0.005, 3, true)
     }
   } else if (i === 6) {
     options = {
-      percent1: format(10 + 15/75 * calculateEffectiveIALevel(), 1, true),
+      percent1: format(10 + 15 / 75 * calculateEffectiveIALevel(), 1, true),
       percent2: format(1 * calculateEffectiveIALevel(), 0, true)
     }
   } else if (i === 7 && updatelevelup) {
@@ -74,7 +83,6 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
       y: s
     })
   }
-
 }
 
 export const resetofferings = (input: resetNames) => {
@@ -123,7 +131,10 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
     levelsToAdd = Math.min(1e4, calculateMaxRunes(runeIndex + 1)) // limit to max 10k levels per call so the execution doesn't take too long if things get stuck
   }
   let levelsAdded = 0
-  if (player.runeshards > 0 && player.runelevels[runeIndex] < calculateMaxRunes(runeIndex + 1) && unlockedRune(runeIndex + 1)) {
+  if (
+    player.runeshards > 0 && player.runelevels[runeIndex] < calculateMaxRunes(runeIndex + 1)
+    && unlockedRune(runeIndex + 1)
+  ) {
     let all = 0
     const maxLevel = calculateMaxRunes(runeIndex + 1)
     const amountArr = calculateOfferingsToLevelXTimes(runeIndex, player.runelevels[runeIndex], levelsToAdd)
@@ -137,7 +148,7 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
     const mult = fact.slice(1, fact.length).reduce((x, y) => x * y, 1)
     while (toSpendTotal > 0 && levelsAdded < levelsToAdd && player.runelevels[runeIndex] < maxLevel) {
       const exp = calculateRuneExpToLevel(runeIndex, player.runelevels[runeIndex]) - player.runeexp[runeIndex]
-      const expPerOff = (add + a * player.runelevels[runeIndex]) * mult
+      const expPerOff = Math.min(1e300, (add + a * player.runelevels[runeIndex]) * mult)
       let toSpend = Math.min(toSpendTotal, Math.ceil(exp / expPerOff))
       if (isNaN(toSpend)) {
         toSpend = toSpendTotal
@@ -146,7 +157,9 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
       player.runeshards -= toSpend
       player.runeexp[runeIndex] += toSpend * expPerOff
       all += toSpend
-      while (player.runeexp[runeIndex] >= calculateRuneExpToLevel(runeIndex) && player.runelevels[runeIndex] < maxLevel) {
+      while (
+        player.runeexp[runeIndex] >= calculateRuneExpToLevel(runeIndex) && player.runelevels[runeIndex] < maxLevel
+      ) {
         player.runelevels[runeIndex] += 1
         levelsAdded++
       }
@@ -156,12 +169,17 @@ export const redeemShards = (runeIndexPlusOne: number, auto = false, cubeUpgrade
         if (runeToUpdate !== runeIndex) {
           player.runeexp[runeToUpdate] += all * calculateRuneExpGiven(runeToUpdate, true)
         }
-        while (player.runeexp[runeToUpdate] >= calculateRuneExpToLevel(runeToUpdate) && player.runelevels[runeToUpdate] < calculateMaxRunes(runeToUpdate + 1)) {
+        while (
+          player.runeexp[runeToUpdate] >= calculateRuneExpToLevel(runeToUpdate)
+          && player.runelevels[runeToUpdate] < calculateMaxRunes(runeToUpdate + 1)
+        ) {
           player.runelevels[runeToUpdate] += 1
         }
       }
     }
-    displayRuneInformation(runeIndexPlusOne)
+    if (!auto) {
+      displayRuneInformation(runeIndexPlusOne)
+    }
   }
   calculateRuneLevels()
   if (player.runeshards < 0 || !player.runeshards) {
@@ -187,7 +205,7 @@ export const calculateOfferingsToLevelXTimes = (runeIndex: number, runeLevel: nu
     arr.push(amount)
     levelsAdded += 1
     exp = calculateRuneExpToLevel(runeIndex, runeLevel + levelsAdded)
-            - calculateRuneExpToLevel(runeIndex, runeLevel + levelsAdded - 1)
+      - calculateRuneExpToLevel(runeIndex, runeLevel + levelsAdded - 1)
   }
   return arr
 }

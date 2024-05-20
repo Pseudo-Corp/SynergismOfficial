@@ -9,16 +9,16 @@ import { player } from '../Synergism'
  */
 export const main = () => {
   Object.defineProperties(window, {
-    'openHypercube': {
+    openHypercube: {
       value: player.wowHypercubes.open.bind(player.wowHypercubes)
     },
-    'openPlatonic': {
+    openPlatonic: {
       value: player.wowTesseracts.open.bind(player.wowTesseracts)
     },
-    'openTeseract': {
+    openTeseract: {
       value: player.wowTesseracts.open.bind(player.wowTesseracts)
     },
-    'openCube': {
+    openCube: {
       value: player.wowCubes.open.bind(player.wowCubes)
     }
   })

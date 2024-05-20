@@ -1,13 +1,11 @@
-import { player, format } from './Synergism'
-import { Globals as G } from './Variables'
-import { toggleCorruptionLevel } from './Toggles'
-import { getElementById } from './Utility'
-import { Alert, Prompt } from './UpdateHTML'
-import { DOMCacheGetOrSet } from './Cache/DOM'
-import { IconSets } from './Themes'
 import i18next from 'i18next'
-
-//
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import { format, player } from './Synergism'
+import { IconSets } from './Themes'
+import { toggleCorruptionLevel } from './Toggles'
+import { Alert, Prompt } from './UpdateHTML'
+import { getElementById } from './Utility'
+import { Globals as G } from './Variables'
 
 export const maxCorruptionLevel = () => {
   let max = 0
@@ -52,8 +50,12 @@ export const corruptionDisplay = (index: number) => {
     DOMCacheGetOrSet('corruptionSelectedPic').style.visibility = 'visible'
   }
   G.corruptionTrigger = index
-  const currentExponent = ((index === 2) && player.usedCorruptions[index] >= 10) ? 1 + 0.04 * player.platonicUpgrades[17] + 2 * Math.min(1, player.platonicUpgrades[17]) : 1
-  const protoExponent = ((index === 2) && player.prototypeCorruptions[index] >= 10) ? 1 + 0.04 * player.platonicUpgrades[17] + 2 * Math.min(1, player.platonicUpgrades[17]) : 1
+  const currentExponent = ((index === 2) && player.usedCorruptions[index] >= 10)
+    ? 1 + 0.04 * player.platonicUpgrades[17] + 2 * Math.min(1, player.platonicUpgrades[17])
+    : 1
+  const protoExponent = ((index === 2) && player.prototypeCorruptions[index] >= 10)
+    ? 1 + 0.04 * player.platonicUpgrades[17] + 2 * Math.min(1, player.platonicUpgrades[17])
+    : 1
   let bonusLevel = (player.singularityUpgrades.corruptionFifteen.level > 0) ? 1 : 0
   bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
   const bonusText = (bonusLevel > 0) ? `[+${bonusLevel}]` : ''
@@ -81,8 +83,7 @@ export const corruptionDisplay = (index: number) => {
     '/CorruptFinancialCollapse.png'
   ]
 
-
-  let text: Record<'name' | 'description' | 'current' | 'planned' | 'multiplier' | 'spiritContribution' | 'image', string> = {
+  let text = {
     name: i18next.t('corruptions.exitCorruption.name'),
     description: i18next.t('corruptions.exitCorruption.description'),
     current: i18next.t('corruptions.exitCorruption.current'),
@@ -90,17 +91,35 @@ export const corruptionDisplay = (index: number) => {
     multiplier: i18next.t('corruptions.exitCorruption.multiplier'),
     spiritContribution: '',
     image: `Pictures/${IconSets[player.iconSet][0]}/CorruptExit.png`
-  }
+  } satisfies Record<string, string>
 
   if (index < 10) {
     text = {
-      name: i18next.t(`corruptions.names.${index-1}`),
-      description: i18next.t(`corruptions.descriptions.${index-1}`),
-      current: i18next.t(`corruptions.currentLevel.${index-1}`, { level: format(player.usedCorruptions[index]) + bonusText, effect: format(corruptEffectValues[index-2][player.usedCorruptions[index]], 3) }),
-      planned: i18next.t(`corruptions.prototypeLevel.${index-1}`, { level: format(player.prototypeCorruptions[index]) + bonusText, effect: format(corruptEffectValues[index-2][player.prototypeCorruptions[index]], 3) }),
-      multiplier: i18next.t('corruptions.scoreMultiplier', { curr: format(Math.pow(G.corruptionPointMultipliers[player.usedCorruptions[index] + bonusLevel], currentExponent), 1), next: format(Math.pow(G.corruptionPointMultipliers[player.prototypeCorruptions[index] + bonusLevel], protoExponent), 1) }),
-      spiritContribution: i18next.t('corruptions.spiritEffect', { curr: format(4 * Math.pow(player.usedCorruptions[index] + bonusLevel, 2), 1), next: format(4 * Math.pow(player.prototypeCorruptions[index] + bonusLevel, 2), 1) }),
-      image: `Pictures/${IconSets[player.iconSet][0]}${iconExtensions[index-2]}`
+      name: i18next.t(`corruptions.names.${index - 1}`),
+      description: i18next.t(`corruptions.descriptions.${index - 1}`),
+      current: i18next.t(`corruptions.currentLevel.${index - 1}`, {
+        level: format(player.usedCorruptions[index]) + bonusText,
+        effect: format(corruptEffectValues[index - 2][player.usedCorruptions[index]], 3)
+      }),
+      planned: i18next.t(`corruptions.prototypeLevel.${index - 1}`, {
+        level: format(player.prototypeCorruptions[index]) + bonusText,
+        effect: format(corruptEffectValues[index - 2][player.prototypeCorruptions[index]], 3)
+      }),
+      multiplier: i18next.t('corruptions.scoreMultiplier', {
+        curr: format(
+          Math.pow(G.corruptionPointMultipliers[player.usedCorruptions[index] + bonusLevel], currentExponent),
+          1
+        ),
+        next: format(
+          Math.pow(G.corruptionPointMultipliers[player.prototypeCorruptions[index] + bonusLevel], protoExponent),
+          1
+        )
+      }),
+      spiritContribution: i18next.t('corruptions.spiritEffect', {
+        curr: format(4 * Math.pow(player.usedCorruptions[index] + bonusLevel, 2), 1),
+        next: format(4 * Math.pow(player.prototypeCorruptions[index] + bonusLevel, 2), 1)
+      }),
+      image: `Pictures/${IconSets[player.iconSet][0]}${iconExtensions[index - 2]}`
     }
   }
 
@@ -144,20 +163,20 @@ export const corruptionButtonsAdd = () => {
     let text = document.createTextNode(i18next.t('corruptions.current'))
     p.appendChild(text)
     let span = document.createElement('span')
-    span.id = `corrCurrent${i+2}`
-    span.textContent = `${player.usedCorruptions[i+2]}`
+    span.id = `corrCurrent${i + 2}`
+    span.textContent = `${player.usedCorruptions[i + 2]}`
     p.appendChild(span)
 
     text = document.createTextNode(i18next.t('corruptions.next'))
     p.appendChild(text)
 
     span = document.createElement('span')
-    span.id = `corrNext${i+2}`
-    span.textContent = `${player.prototypeCorruptions[i+2]}`
+    span.id = `corrNext${i + 2}`
+    span.textContent = `${player.prototypeCorruptions[i + 2]}`
     p.appendChild(span)
     row.appendChild(p)
 
-    let btn
+    let btn: HTMLButtonElement
     btn = document.createElement('button')
     btn.className = 'corrBtn corruptionMax'
     btn.textContent = `+${i18next.t('corruptions.max')}`
@@ -209,19 +228,18 @@ export const corruptionLoadoutTableCreate = () => {
           // Custom loadout names are loaded later, via updateCorruptionLoadoutNames()
           cell.title = i18next.t('corruptions.loadoutTable.otherRowTitle', { value: i })
         }
-
       } else if (j <= corrCount) {
         if (i === 0) { // Next Ascension Corruption values
-          cell.textContent = player.prototypeCorruptions[j+1].toString()
+          cell.textContent = player.prototypeCorruptions[j + 1].toString()
         } else { // Loadout Corruption values
-          cell.textContent = player.corruptionLoadouts[i][j+1].toString()
+          cell.textContent = player.corruptionLoadouts[i][j + 1].toString()
         }
       }
     }
     if (i === 0) {
       // First line is special : "Import" and "Zero" buttons
       let cell = row.insertCell()
-      let btn: HTMLButtonElement= document.createElement('button')
+      let btn: HTMLButtonElement = document.createElement('button')
       btn.className = 'corrImport'
       btn.textContent = i18next.t('corruptions.loadoutTable.import')
       btn.addEventListener('click', () => void importCorruptionsPrompt())
@@ -260,7 +278,8 @@ export const corruptionLoadoutTableUpdate = (updateRow = 0) => {
     if (i > 8) {
       break
     }
-    row[i].textContent = ((updateRow === 0) ? player.prototypeCorruptions[i+1] : player.corruptionLoadouts[updateRow][i+1]).toString()
+    row[i].textContent =
+      ((updateRow === 0) ? player.prototypeCorruptions[i + 1] : player.corruptionLoadouts[updateRow][i + 1]).toString()
   }
 }
 
@@ -282,14 +301,14 @@ export const corruptionLoadoutSaveLoad = (save = true, loadout = 1) => {
 export const applyCorruptions = (corruptions: string) => {
   if (corruptions.includes('/') && corruptions.split('/').length === 13) {
     // Converts the '/' separated string into a number[]
-    const newCorruptions = corruptions.split('/').map(corr => Number(corr))
+    const newCorruptions = corruptions.split('/').map((corr) => Number(corr))
 
     for (const value of newCorruptions) {
       if (
-        !Number.isInteger(value) ||
-        Number.isNaN(value) ||
-        value < 0 ||
-        value > maxCorruptionLevel()
+        !Number.isInteger(value)
+        || Number.isNaN(value)
+        || value < 0
+        || value > maxCorruptionLevel()
       ) {
         return false
       }
@@ -304,7 +323,7 @@ export const applyCorruptions = (corruptions: string) => {
   return false
 }
 
-async function importCorruptionsPrompt() {
+async function importCorruptionsPrompt () {
   const input = await Prompt(i18next.t('corruptions.importCorruptionsPrompt.import'))
 
   if (!applyCorruptions(`0/0/${input}/0/0/0`)) {
@@ -312,11 +331,13 @@ async function importCorruptionsPrompt() {
   }
 }
 
-async function corruptionLoadoutGetNewName(loadout = 0) {
+async function corruptionLoadoutGetNewName (loadout = 0) {
   const maxChars = 9
-  // eslint-disable-next-line
-    const regex = /^[\x00-\xFF]*$/
-  const renamePrompt = await Prompt(i18next.t('corruptions.corruptionLoadoutName.loadoutPrompt', { loadNum: loadout + 1, maxChars }))
+  // biome-ignore lint/suspicious/noControlCharactersInRegex: I use control characters in my regex for fun!
+  const regex = /^[\x00-\xFF]*$/
+  const renamePrompt = await Prompt(
+    i18next.t('corruptions.corruptionLoadoutName.loadoutPrompt', { loadNum: loadout + 1, maxChars })
+  )
 
   if (!renamePrompt) {
     return Alert(i18next.t('corruptions.corruptionLoadoutName.errors.noName'))
@@ -336,10 +357,9 @@ async function corruptionLoadoutGetNewName(loadout = 0) {
 export const updateCorruptionLoadoutNames = () => {
   const rows = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows
   for (let i = 0; i < Object.keys(player.corruptionLoadouts).length; i++) {
-    const cells = rows[i + 2].cells  //start changes on 2nd row
-    if (cells[0].textContent!.length === 0) {  //first time setup
-
-      cells[0].addEventListener('click', () => void corruptionLoadoutGetNewName(i)) //get name function handles -1 for array
+    const cells = rows[i + 2].cells // start changes on 2nd row
+    if (cells[0].textContent!.length === 0) { // first time setup
+      cells[0].addEventListener('click', () => void corruptionLoadoutGetNewName(i)) // get name function handles -1 for array
       cells[0].classList.add('corrLoadoutName')
     }
     cells[0].textContent = `${player.corruptionLoadoutNames[i]}:`
@@ -364,7 +384,7 @@ export const corruptionCleanseConfirm = () => {
 
 export const revealCorruptions = () => {
   const corruptions = document.getElementsByClassName('corruptionStatRow') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < corruptions.length; i ++) {
+  for (let i = 0; i < corruptions.length; i++) {
     corruptions[i].style.display = 'none'
   }
 
@@ -395,7 +415,7 @@ export const revealCorruptions = () => {
   }
 }
 
-export function corrChallengeMinimum(index: number): number {
+export function corrChallengeMinimum (index: number): number {
   switch (index) {
     case 2:
       return 11

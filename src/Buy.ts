@@ -1,28 +1,29 @@
-import { player, updateAllTick, updateAllMultiplier, format } from './Synergism'
-import { CalcECC } from './Challenges'
 import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
-import { achievementaward } from './Achievements'
-import { smallestInc } from './Utility'
-import { upgradeupdate, crystalupgradedescriptions } from './Upgrades'
-import { reset } from './Reset'
-import { calculateSummationLinear, calculateCorruptionPoints, calculateRuneBonuses } from './Calculate'
-import { Globals as G, Upgrade } from './Variables'
-import type { FirstToFifth, OneToFive, ZeroToFour } from './types/Synergism'
-import { DOMCacheGetOrSet } from './Cache/DOM'
 import i18next from 'i18next'
+import { achievementaward } from './Achievements'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateCorruptionPoints, calculateRuneBonuses, calculateSummationLinear } from './Calculate'
+import { CalcECC } from './Challenges'
+import { reset } from './Reset'
+import { format, player, updateAllMultiplier, updateAllTick } from './Synergism'
+import type { FirstToFifth, OneToFive, ZeroToFour } from './types/Synergism'
+import { crystalupgradedescriptions, upgradeupdate } from './Upgrades'
+import { smallestInc } from './Utility'
+import { Globals as G, Upgrade } from './Variables'
 
 export const getReductionValue = () => {
   let reduction = 1
   reduction += Math.min(1e15, (G.rune4level * G.effectiveLevelMult) / 160)
-  reduction += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200
+  reduction += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59]
+    + player.researches[60]) / 200
   reduction += CalcECC('transcend', player.challengecompletions[4]) / 200
-  reduction += Math.min(99999.9, (3 * (player.antUpgrades[7-1]! + G.bonusant7)) / 100)
+  reduction += Math.min(99999.9, (3 * (player.antUpgrades[7 - 1]! + G.bonusant7)) / 100)
   return reduction
 }
 
 const getCostAccelerator = (buyingTo: number): Decimal => {
-  --buyingTo
+  ;--buyingTo
 
   const originalCost = 500
   let cost = new Decimal(originalCost)
@@ -53,7 +54,7 @@ const getCostAccelerator = (buyingTo: number): Decimal => {
   }
   const buymax = Math.pow(10, 15)
   if (buyingTo > buymax) {
-    const diminishingExponent = 1/8
+    const diminishingExponent = 1 / 8
 
     const QuadrillionCost = getCostAccelerator(buymax)
 
@@ -72,7 +73,7 @@ export const buyAccelerator = (autobuyer?: boolean) => {
   const buymax = Math.pow(10, 15)
   // If at least buymax, we will use a different formulae
   if (buyStart >= buymax) {
-    const diminishingExponent = 1/8
+    const diminishingExponent = 1 / 8
 
     const log10Resource = Decimal.log10(player.coins)
     const log10QuadrillionCost = Decimal.log10(getCostAccelerator(buymax))
@@ -168,7 +169,7 @@ export const buyAccelerator = (autobuyer?: boolean) => {
 }
 
 const getCostMultiplier = (buyingTo: number): Decimal => {
-  --buyingTo
+  ;--buyingTo
 
   const originalCost = 1e4
   let cost = new Decimal(originalCost)
@@ -196,7 +197,7 @@ const getCostMultiplier = (buyingTo: number): Decimal => {
   }
   const buymax = Math.pow(10, 15)
   if (buyingTo > buymax) {
-    const diminishingExponent = 1/8
+    const diminishingExponent = 1 / 8
 
     const QuadrillionCost = getCostMultiplier(buymax)
 
@@ -215,7 +216,7 @@ export const buyMultiplier = (autobuyer?: boolean) => {
   const buymax = Math.pow(10, 15)
   // If at least buymax, we will use a different formulae
   if (buyStart >= buymax) {
-    const diminishingExponent = 1/8
+    const diminishingExponent = 1 / 8
 
     const log10Resource = Decimal.log10(player.coins)
     const log10QuadrillionCost = Decimal.log10(getCostMultiplier(buymax))
@@ -327,7 +328,8 @@ const factorialByExponent = (fact: number) => {
   if (++fact === 0) {
     return 0
   }
-  return ((Math.log10(fact * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6)))) - exponentFactorialPartExtra) * fact) + ((mantissaFactorialPartExtra - Math.log10(fact)) / 2)
+  return ((Math.log10(fact * Math.sqrt(fact * Math.sinh(1 / fact) + 1 / (810 * Math.pow(fact, 6))))
+    - exponentFactorialPartExtra) * fact) + ((mantissaFactorialPartExtra - Math.log10(fact)) / 2)
 }
 
 const fact100exponent = Math.log10(9.332621544394e+157)
@@ -339,7 +341,7 @@ const fact100exponent = Math.log10(9.332621544394e+157)
 // xn ~= 188.582
 // x ~= 188.582/n
 const precision16_loss_addition_of_ones = 188.582
-const known_log10s = function () {
+const known_log10s = (() => {
   // needed logs
   const needed = [1.03, 1.25]
   const nums = [1, 2, 3, 4, 5, 6, 10, 15]
@@ -362,15 +364,21 @@ const known_log10s = function () {
     }
   }
   return obj
-}()
+})()
 
 const coinBuildingCosts = [100, 1000, 2e4, 4e5, 8e6] as const
 const diamondBuildingCosts = [100, 1e5, 1e15, 1e40, 1e100] as const
 const mythosAndParticleBuildingCosts = [1, 1e2, 1e4, 1e8, 1e16] as const
 
-const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: keyof typeof buyProducerTypes, num: number, r: number): Decimal => {
+const getCostInternal = (
+  originalCost: DecimalSource,
+  buyingTo: number,
+  type: keyof typeof buyProducerTypes,
+  num: number,
+  r: number
+): Decimal => {
   // It's 0 indexed by mistake so you have to subtract 1 somewhere.
-  --buyingTo
+  ;--buyingTo
   const buymax = Math.pow(10, 15)
   // Accounts for the multiplies by 1.25^num buyingTo times
   const cost = new Decimal(originalCost)
@@ -384,7 +392,7 @@ const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: ke
   let fr = Math.floor(r * 1000)
   if (buyingTo >= r * 1000) {
     // This code is such a mess at this point, just know that this is equivalent to what it was before
-    ++fastFactMultBuyTo
+    ;++fastFactMultBuyTo
     cost.exponent -= factorialByExponent(fr)
     cost.exponent += (-3 + Math.log10(1 + (num / 2))) * (buyingTo - fr)
   }
@@ -392,7 +400,7 @@ const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: ke
   fr = Math.floor(r * 5000)
   if (buyingTo >= r * 5000) {
     // This code is such a mess at this point, just know that this is equivalent to what it was before
-    ++fastFactMultBuyTo
+    ;++fastFactMultBuyTo
     cost.exponent -= factorialByExponent(fr)
     cost.exponent += ((known_log10s[10 + num * 10] + 1) * (buyingTo - fr - 1)) + 1
   }
@@ -407,7 +415,7 @@ const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: ke
 
   fr = Math.floor(r * 250000)
   if (buyingTo >= r * 250000) {
-    //1.03^x*1.03^y = 1.03^(x+y), we'll abuse this for this section of the algorithm
+    // 1.03^x*1.03^y = 1.03^(x+y), we'll abuse this for this section of the algorithm
     // 1.03^(x+y-((number of terms)250000*r))
     // up to 250003 case
     // assume r = 1 for this case
@@ -424,29 +432,36 @@ const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: ke
   if ((player.currentChallenge.transcension === 4) && (type === 'Coin' || type === 'Diamonds')) {
     // you would not fucking believe how long it took me to figure this out
     // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-    ++fastFactMultBuyTo100
+    ;++fastFactMultBuyTo100
     if (buyingTo >= (1000 - (10 * player.challengecompletions[4]))) {
       // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
-      mlog10125 += (buyingTo * (buyingTo + 1) / 2)
+      mlog10125 += buyingTo * (buyingTo + 1) / 2
     }
   }
   if ((player.currentChallenge.reincarnation === 10) && (type === 'Coin' || type === 'Diamonds')) {
     // you would not fucking believe how long it took me to figure this out
     // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-    ++fastFactMultBuyTo100
+    ;++fastFactMultBuyTo100
     if (buyingTo >= (r * 25000)) {
       // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
-      mlog10125 += (buyingTo * (buyingTo + 1) / 2)
+      mlog10125 += buyingTo * (buyingTo + 1) / 2
     }
   }
   // Applies the factorial w/ formula from earlier n times to avoid multiple computations
-  cost.exponent += fastFactMultBuyTo100 * ((factorialByExponent(buyingTo + 100) - fact100exponent + (2 * buyingTo)) * (1.25 + (player.challengecompletions[4] / 4)))
+  cost.exponent += fastFactMultBuyTo100
+    * ((factorialByExponent(buyingTo + 100) - fact100exponent + (2 * buyingTo))
+      * (1.25 + (player.challengecompletions[4] / 4)))
   // Applies all the Math.log10(1.25)s from earlier n times to avoid multiple computations
   // log10(1.25)
   cost.exponent += known_log10s[1.25] * mlog10125
   fr = Math.floor(r * 1000 * player.challengecompletions[8])
-  if (player.currentChallenge.reincarnation === 8 && (type === 'Coin' || type === 'Diamonds' || type === 'Mythos') && buyingTo >= (1000 * player.challengecompletions[8] * r)) {
-    cost.exponent += ((known_log10s[2] * ((buyingTo - fr + 1) / 2)) - known_log10s[1 + (player.challengecompletions[8] / 2)]) * (buyingTo - fr)
+  if (
+    player.currentChallenge.reincarnation === 8 && (type === 'Coin' || type === 'Diamonds' || type === 'Mythos')
+    && buyingTo >= (1000 * player.challengecompletions[8] * r)
+  ) {
+    cost.exponent +=
+      ((known_log10s[2] * ((buyingTo - fr + 1) / 2)) - known_log10s[1 + (player.challengecompletions[8] / 2)])
+      * (buyingTo - fr)
   }
 
   const extra = cost.exponent - Math.floor(cost.exponent)
@@ -454,7 +469,7 @@ const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: ke
   cost.mantissa *= Math.pow(10, extra)
   cost.normalize()
   if (buyingTo > buymax) {
-    const diminishingExponent = 1/8
+    const diminishingExponent = 1 / 8
 
     const QuadrillionCost = getCostInternal(originalCost, buymax, type, num, r)
 
@@ -469,12 +484,11 @@ const getCostInternal = (originalCost: DecimalSource, buyingTo: number, type: ke
 }
 
 const getOriginalCostAndNum = (index: OneToFive, type: keyof typeof buyProducerTypes) => {
-  const originalCostArray = (
-    type === 'Coin'
-      ? coinBuildingCosts
-      : type === 'Diamonds'
-        ? diamondBuildingCosts
-        : mythosAndParticleBuildingCosts)
+  const originalCostArray = type === 'Coin'
+    ? coinBuildingCosts
+    : type === 'Diamonds'
+    ? diamondBuildingCosts
+    : mythosAndParticleBuildingCosts
   const num = type === 'Coin' ? index : index * (index + 1) / 2
   const originalCost = originalCostArray[index - 1 as ZeroToFour]
   return [originalCost, num] as const
@@ -486,7 +500,7 @@ export const getCost = (index: OneToFive, type: keyof typeof buyProducerTypes, b
 }
 
 export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) => {
-  const zeroIndex = index-1 as ZeroToFour
+  const zeroIndex = index - 1 as ZeroToFour
   const pos = G.ordinals[zeroIndex]
   const [originalCost, num] = getOriginalCostAndNum(index, type)
 
@@ -500,7 +514,7 @@ export const buyMax = (index: OneToFive, type: keyof typeof buyProducerTypes) =>
   const buyStart = player[posOwnedType]
   // If at least buymax, we will use a different formulae
   if (buyStart >= buymax) {
-    const diminishingExponent = 1/8
+    const diminishingExponent = 1 / 8
 
     const log10Resource = Decimal.log10(player[tag])
     const log10QuadrillionCost = Decimal.log10(getCostInternal(originalCost, buymax, type, num, r))
@@ -580,20 +594,27 @@ const buyProducerTypes = {
   Coin: ['coins', 'coin']
 } as const
 
-export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTypes, num: number, autobuyer?: boolean) => {
+export const buyProducer = (
+  pos: FirstToFifth,
+  type: keyof typeof buyProducerTypes,
+  num: number,
+  autobuyer?: boolean
+) => {
   const [tag, amounttype] = buyProducerTypes[type]
   const buythisamount = autobuyer ? 500 : player[`${amounttype}buyamount` as const]
   let r = 1
   r += (G.rune4level * G.effectiveLevelMult) / 160
-  r += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60]) / 200
+  r += (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59]
+    + player.researches[60]) / 200
   r += CalcECC('transcend', player.challengecompletions[4]) / 200
-  r += (3 * (G.bonusant7 + player.antUpgrades[7-1]!)) / 100
+  r += (3 * (G.bonusant7 + player.antUpgrades[7 - 1]!)) / 100
 
   const posCostType = `${pos}Cost${type}` as const
   const posOwnedType = `${pos}Owned${type}` as const
 
-
-  while (player[tag].gte(player[posCostType]) && G.ticker < buythisamount && player[posOwnedType] < Number.MAX_SAFE_INTEGER) {
+  while (
+    player[tag].gte(player[posCostType]) && G.ticker < buythisamount && player[posOwnedType] < Number.MAX_SAFE_INTEGER
+  ) {
     player[tag] = player[tag].sub(player[posCostType])
     player[posOwnedType] += 1
     player[posCostType] = player[posCostType].times(Decimal.pow(1.25, num))
@@ -605,19 +626,32 @@ export const buyProducer = (pos: FirstToFifth, type: keyof typeof buyProducerTyp
       player[posCostType] = player[posCostType].times(player[posOwnedType]).times(10).times(10 + num * 10)
     }
     if (player[posOwnedType] >= (20000 * r)) {
-      player[posCostType] = player[posCostType].times(Decimal.pow(player[posOwnedType], 3)).times(100000).times(100 + num * 100)
+      player[posCostType] = player[posCostType].times(Decimal.pow(player[posOwnedType], 3)).times(100000).times(
+        100 + num * 100
+      )
     }
     if (player[posOwnedType] >= (250000 * r)) {
       player[posCostType] = player[posCostType].times(Decimal.pow(1.03, player[posOwnedType] - 250000 * r))
     }
     if (player.currentChallenge.transcension === 4 && (type === 'Coin' || type === 'Diamonds')) {
-      player[posCostType] = player[posCostType].times(Math.pow(100 * player[posOwnedType] + 10000, 1.25 + 1 / 4 * player.challengecompletions[4]))
+      player[posCostType] = player[posCostType].times(
+        Math.pow(100 * player[posOwnedType] + 10000, 1.25 + 1 / 4 * player.challengecompletions[4])
+      )
       if (player[posOwnedType] >= 1000 - (10 * player.challengecompletions[4])) {
         player[posCostType] = player[posCostType].times(Decimal.pow(1.25, player[posOwnedType]))
       }
     }
-    if (player.currentChallenge.reincarnation === 8 && (type === 'Coin' || type === 'Diamonds' || type === 'Mythos') && player[posOwnedType] >= (1000 * player.challengecompletions[8] * r)) {
-      player[posCostType] = player[posCostType].times(Decimal.pow(2, (player[posOwnedType] - (1000 * player.challengecompletions[8] * r)) / (1 + (player.challengecompletions[8] / 2))))
+    if (
+      player.currentChallenge.reincarnation === 8 && (type === 'Coin' || type === 'Diamonds' || type === 'Mythos')
+      && player[posOwnedType] >= (1000 * player.challengecompletions[8] * r)
+    ) {
+      player[posCostType] = player[posCostType].times(
+        Decimal.pow(
+          2,
+          (player[posOwnedType] - (1000 * player.challengecompletions[8] * r))
+            / (1 + (player.challengecompletions[8] / 2))
+        )
+      )
     }
     G.ticker += 1
   }
@@ -651,14 +685,16 @@ export const buyUpgrades = (type: Upgrade, pos: number, state?: boolean) => {
     player.reincarnatenocoinprestigeortranscendupgrades = false
     player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false
   }
-
 }
 
 export const calculateCrystalBuy = (i: number) => {
   const u = i - 1
   const exponent = Decimal.log(player.prestigeShards.add(1), 10)
 
-  const toBuy = Math.floor(Math.pow(Math.max(0, 2 * (exponent - G.crystalUpgradesCost[u]) / G.crystalUpgradeCostIncrement[u] + 1 / 4), 1 / 2) + 1 / 2)
+  const toBuy = Math.floor(
+    Math.pow(Math.max(0, 2 * (exponent - G.crystalUpgradesCost[u]) / G.crystalUpgradeCostIncrement[u] + 1 / 4), 1 / 2)
+      + 1 / 2
+  )
   return toBuy
 }
 
@@ -676,7 +712,12 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
   if (toBuy + c > player.crystalUpgrades[u]) {
     player.crystalUpgrades[u] = 100 / 100 * (toBuy + c)
     if (toBuy > 0) {
-      player.prestigeShards = player.prestigeShards.sub(Decimal.pow(10, G.crystalUpgradesCost[u] + G.crystalUpgradeCostIncrement[u] * (1 / 2 * Math.pow(toBuy - 1 / 2, 2) - 1 / 8)))
+      player.prestigeShards = player.prestigeShards.sub(
+        Decimal.pow(
+          10,
+          G.crystalUpgradesCost[u] + G.crystalUpgradeCostIncrement[u] * (1 / 2 * Math.pow(toBuy - 1 / 2, 2) - 1 / 8)
+        )
+      )
       if (!auto) {
         crystalupgradedescriptions(i)
       }
@@ -694,9 +735,17 @@ export const boostAccelerator = (automated?: boolean) => {
     while (player.prestigePoints.gte(player.acceleratorBoostCost) && G.ticker < buyamount) {
       if (player.prestigePoints.gte(player.acceleratorBoostCost)) {
         player.acceleratorBoostBought += 1
-        player.acceleratorBoostCost = player.acceleratorBoostCost.times(1e10).times(Decimal.pow(10, player.acceleratorBoostBought))
+        player.acceleratorBoostCost = player.acceleratorBoostCost.times(1e10).times(
+          Decimal.pow(10, player.acceleratorBoostBought)
+        )
         if (player.acceleratorBoostBought > (1000 * (1 + 2 * G.effectiveRuneBlessingPower[4]))) {
-          player.acceleratorBoostCost = player.acceleratorBoostCost.times(Decimal.pow(10, Math.pow(player.acceleratorBoostBought - (1000 * (1 + 2 * G.effectiveRuneBlessingPower[4])), 2) / (1 + 2 * G.effectiveRuneBlessingPower[4])))
+          player.acceleratorBoostCost = player.acceleratorBoostCost.times(
+            Decimal.pow(
+              10,
+              Math.pow(player.acceleratorBoostBought - (1000 * (1 + 2 * G.effectiveRuneBlessingPower[4])), 2)
+                / (1 + 2 * G.effectiveRuneBlessingPower[4])
+            )
+          )
         }
         player.transcendnoaccelerator = false
         player.reincarnatenoaccelerator = false
@@ -714,7 +763,7 @@ export const boostAccelerator = (automated?: boolean) => {
     const buymax = Math.pow(10, 15)
     // If at least buymax, we will use a different formulae
     if (buyStart >= buymax) {
-      const diminishingExponent = 1/8
+      const diminishingExponent = 1 / 8
 
       const log10Resource = Decimal.log10(player.prestigePoints)
       const log10QuadrillionCost = Decimal.log10(getAcceleratorBoostCost(buymax))
@@ -801,8 +850,6 @@ export const boostAccelerator = (automated?: boolean) => {
   if (player.acceleratorBoostBought >= 15000 && player.achievements[168] === 0) {
     achievementaward(168)
   }
-
-
 }
 
 const getAcceleratorBoostCost = (level = 1): Decimal => {
@@ -815,14 +862,17 @@ const getAcceleratorBoostCost = (level = 1): Decimal => {
   const sqrSum = (n: number) => n * (n + 1) * (2 * n + 1) / 6
   let cost = base
   if (level > 1000 * eff) {
-    cost = base.times(Decimal.pow(10, 10 * level
-            + linSum(level) // each level increases the exponent by 1 more each time
-            + sqrSum(level - 1000 * eff) / eff)) // after cost delay is passed each level increases the cost by the square each time
+    cost = base.times(Decimal.pow(
+      10,
+      10 * level
+        + linSum(level) // each level increases the exponent by 1 more each time
+        + sqrSum(level - 1000 * eff) / eff
+    )) // after cost delay is passed each level increases the cost by the square each time
   } else {
     cost = base.times(Decimal.pow(10, 10 * level + linSum(level)))
   }
   if (level > buymax) {
-    const diminishingExponent = 1/8
+    const diminishingExponent = 1 / 8
 
     const QuadrillionCost = getAcceleratorBoostCost(buymax)
 
@@ -837,18 +887,18 @@ const getAcceleratorBoostCost = (level = 1): Decimal => {
 }
 
 const getParticleCost = (originalCost: DecimalSource, buyTo: number): Decimal => {
-  --buyTo
+  ;--buyTo
   originalCost = new Decimal(originalCost)
   let cost = originalCost.times(Decimal.pow(2, buyTo))
 
-  const DR = (player.currentChallenge.ascension !== 15)? 325000: 1000
+  const DR = (player.currentChallenge.ascension !== 15) ? 325000 : 1000
 
   if (buyTo > DR) {
     cost = cost.times(Decimal.pow(1.001, (buyTo - DR) * ((buyTo - DR + 1) / 2)))
   }
   const buymax = Math.pow(10, 15)
   if (buyTo > buymax) {
-    const diminishingExponent = 1/8
+    const diminishingExponent = 1 / 8
 
     const QuadrillionCost = getParticleCost(originalCost, buymax)
 
@@ -866,7 +916,7 @@ export const buyParticleBuilding = (
   index: OneToFive,
   autobuyer = false
 ) => {
-  const zeroIndex = index-1 as ZeroToFour
+  const zeroIndex = index - 1 as ZeroToFour
   const originalCost = mythosAndParticleBuildingCosts[zeroIndex]
   const pos = G.ordinals[zeroIndex]
   const key = `${pos}OwnedParticles` as const
@@ -874,7 +924,7 @@ export const buyParticleBuilding = (
   const buymax = Math.pow(10, 15)
   // If at least buymax, we will use a different formulae
   if (buyStart >= buymax) {
-    const diminishingExponent = 1/8
+    const diminishingExponent = 1 / 8
 
     const log10Resource = Decimal.log10(player.reincarnationPoints)
     const log10QuadrillionCost = Decimal.log10(getParticleCost(originalCost, buymax))
@@ -947,9 +997,12 @@ export const tesseractBuildingCosts = [1, 10, 100, 1000, 10000] as const
 // in total. Use cost(owned+buyAmount) - cost(owned) to figure the cost of
 // buying multiple buildings.
 
-export type TesseractBuildings = [number|null, number|null, number|null, number|null, number|null]
+export type TesseractBuildings = [number | null, number | null, number | null, number | null, number | null]
 
-const buyTessBuildingsToCheapestPrice = (ownedBuildings: TesseractBuildings, cheapestPrice: number): [number, TesseractBuildings] => {
+const buyTessBuildingsToCheapestPrice = (
+  ownedBuildings: TesseractBuildings,
+  cheapestPrice: number
+): [number, TesseractBuildings] => {
   const buyToBuildings = ownedBuildings.map((currentlyOwned, index) => {
     if (currentlyOwned === null) {
       return null
@@ -959,7 +1012,7 @@ const buyTessBuildingsToCheapestPrice = (ownedBuildings: TesseractBuildings, che
     // If buyTo has a fractional part, we want to round UP so that this
     // price costs more than the cheapest price.
     // If buyTo doesn't have a fractional part, thisPrice = cheapestPrice.
-    const buyTo = Math.ceil(Math.pow(cheapestPrice / tesseractBuildingCosts[index], 1/3) - 1)
+    const buyTo = Math.ceil(Math.pow(cheapestPrice / tesseractBuildingCosts[index], 1 / 3) - 1)
     // It could be possible that cheapestPrice is less than the CURRENT
     // price of this building, so take the max of the number of buildings
     // we currently have.
@@ -973,7 +1026,8 @@ const buyTessBuildingsToCheapestPrice = (ownedBuildings: TesseractBuildings, che
     if (buyFrom === null || buyTo === null) {
       continue
     }
-    price += tesseractBuildingCosts[i] * (Math.pow(buyTo * (buyTo + 1) / 2, 2) - Math.pow(buyFrom * (buyFrom + 1) / 2, 2))
+    price += tesseractBuildingCosts[i]
+      * (Math.pow(buyTo * (buyTo + 1) / 2, 2) - Math.pow(buyFrom * (buyFrom + 1) / 2, 2))
   }
 
   return [price, buyToBuildings]
@@ -1003,10 +1057,13 @@ const buyTessBuildingsToCheapestPrice = (ownedBuildings: TesseractBuildings, che
  * @returns The amount of buildings owned after repeatedly buying the cheapest
  * building with the budget.
  */
-export const calculateTessBuildingsInBudget = (ownedBuildings: TesseractBuildings, budget: number): TesseractBuildings => {
+export const calculateTessBuildingsInBudget = (
+  ownedBuildings: TesseractBuildings,
+  budget: number
+): TesseractBuildings => {
   // Nothing is affordable.
   // Also catches the case when budget <= 0, and all values are null.
-  let minCurrentPrice: number|null = null
+  let minCurrentPrice: number | null = null
   for (let i = 0; i < ownedBuildings.length; i++) {
     const owned = ownedBuildings[i]
     if (owned === null) {
@@ -1083,11 +1140,11 @@ export const calculateTessBuildingsInBudget = (ownedBuildings: TesseractBuilding
     if (num === null) {
       return null
     }
-    return tesseractBuildingCosts[index] * Math.pow(num+1, 3)
+    return tesseractBuildingCosts[index] * Math.pow(num + 1, 3)
   })
 
   for (let iteration = 1; iteration <= 5; iteration++) {
-    let minimum: {price: number, index: number}|null = null
+    let minimum: { price: number; index: number } | null = null
     for (let index = 0; index < currentPrices.length; index++) {
       const price = currentPrices[index]
       if (price === null) {
@@ -1101,13 +1158,13 @@ export const calculateTessBuildingsInBudget = (ownedBuildings: TesseractBuilding
     }
     if (minimum !== null && minimum.price <= remainingBudget) {
       remainingBudget -= minimum.price
-            // buildings[minimum.index] should always be a number.
-            // In extreme situations (when buildings[minimum.index] is bigger
-            // than Number.MAX_SAFE_INTEGER), this below increment won't work.
-            // However, that requires 1e47 tesseracts to get to, which shouldn't
-            // ever happen.
-            buildings[minimum.index]!++
-            currentPrices[minimum.index] = tesseractBuildingCosts[minimum.index] * Math.pow(buildings[minimum.index]!+1, 3)
+      // buildings[minimum.index] should always be a number.
+      // In extreme situations (when buildings[minimum.index] is bigger
+      // than Number.MAX_SAFE_INTEGER), this below increment won't work.
+      // However, that requires 1e47 tesseracts to get to, which shouldn't
+      // ever happen.
+      buildings[minimum.index]!++
+      currentPrices[minimum.index] = tesseractBuildingCosts[minimum.index] * Math.pow(buildings[minimum.index]! + 1, 3)
     } else {
       // Can't afford cheapest any more - break.
       break
@@ -1123,7 +1180,12 @@ export const calculateTessBuildingsInBudget = (ownedBuildings: TesseractBuilding
  * @param checkCanAfford Whether to limit the purchase amount to the number of buildings the player can afford.
  * @returns A pair of [number of buildings after purchase, cost of purchase].
  */
-export const getTesseractCost = (index: OneToFive, amount?: number, checkCanAfford = true, buyFrom?: number): [number, number] => {
+export const getTesseractCost = (
+  index: OneToFive,
+  amount?: number,
+  checkCanAfford = true,
+  buyFrom?: number
+): [number, number] => {
   amount ??= player.tesseractbuyamount
   buyFrom ??= player[`ascendBuilding${index}` as const].owned
   const intCost = tesseractBuildingCosts[index - 1]
@@ -1131,7 +1193,9 @@ export const getTesseractCost = (index: OneToFive, amount?: number, checkCanAffo
 
   let actualBuy: number
   if (checkCanAfford) {
-    const buyTo = Math.floor(-1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow((Number(player.wowTesseracts) + subCost) / intCost, 1 / 2), 1 / 2))
+    const buyTo = Math.floor(
+      -1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow((Number(player.wowTesseracts) + subCost) / intCost, 1 / 2), 1 / 2)
+    )
     actualBuy = Math.min(buyTo, buyFrom + amount)
   } else {
     actualBuy = buyFrom + amount
@@ -1154,9 +1218,9 @@ export const buyTesseractBuilding = (index: OneToFive, amount = player.tesseract
 export const buyRuneBonusLevels = (type: 'Blessings' | 'Spirits', index: number) => {
   const unlocked = type === 'Spirits' ? player.challengecompletions[12] > 0 : player.achievements[134] === 1
   if (unlocked && isFinite(player.runeshards) && player.runeshards > 0) {
-    let baseCost
-    let baseLevels
-    let levelCap
+    let baseCost: number
+    let baseLevels: number
+    let levelCap: number
     if (type === 'Spirits') {
       baseCost = G.spiritBaseCost
       baseLevels = player.runeSpiritLevels[index]
@@ -1210,9 +1274,9 @@ export const updateRuneBlessing = (type: 'Blessings' | 'Spirits', index: number)
       value: format(G.runeBlessings[index]),
       speed: format(1 - t + blessingMultiplierArray[index] * G.effectiveRuneBlessingPower[index], 4, true)
     })
-  } else if (type === 'Spirits') { // eslint-disable-line @typescript-eslint/no-unnecessary-condition
+  } else if (type === 'Spirits') {
     const spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
-    spiritMultiplierArray[index] *= (calculateCorruptionPoints() / 400)
+    spiritMultiplierArray[index] *= calculateCorruptionPoints() / 400
     const t = (index === 3) ? 1 : 0
 
     DOMCacheGetOrSet(`runeSpiritPower${index}Value1`).innerHTML = i18next.t('runes.spirits.spiritPower', {
@@ -1229,8 +1293,8 @@ export const buyAllBlessings = (type: 'Blessings' | 'Spirits', percentage = 100,
     const runeshards = Math.floor(player.runeshards / 100 * percentage / 5)
     for (let index = 1; index < 6; index++) {
       if (isFinite(player.runeshards) && player.runeshards > 0) {
-        let baseCost
-        let baseLevels
+        let baseCost: number
+        let baseLevels: number
         const levelCap = 1e300
         if (type === 'Spirits') {
           baseCost = G.spiritBaseCost

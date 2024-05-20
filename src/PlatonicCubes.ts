@@ -17,7 +17,7 @@ export const calculatePlatonicBlessings = () => {
     }
     if (platonicArray[i] >= DRThreshold[i]) {
       power = G.platonicDRPower[i]
-      mult *= Math.pow(DRThreshold[i], (1 - G.platonicDRPower[i]))
+      mult *= Math.pow(DRThreshold[i], 1 - G.platonicDRPower[i])
     }
 
     G.platonicBonusMultiplier[i] = 1 + mult * G.platonicCubeBase[i] * Math.pow(effectiveAmount, power)

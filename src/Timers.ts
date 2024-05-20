@@ -1,8 +1,8 @@
 import * as workerTimers from 'worker-timers'
 
 interface ActiveTimer {
-	id: number
-	type: 'interval' | 'timeout'
+  id: number
+  type: 'interval' | 'timeout'
 }
 
 const activeTimers: ActiveTimer[] = []

@@ -1,0 +1,28 @@
+name: Purge Cache After Deploy
+on:
+  push:
+    branches: master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+    - uses: actions/checkout@v3
+    - name: Wait for CF Pages
+      id: cf-pages
+      uses: WalshyDev/cf-pages-await@v1
+      with:
+        apiToken: ${{ secrets.CF_API_TOKEN }}
+        accountId: 'bd22ac056a23329365c8a57927490701'
+        project: 'synergism'
+        # Add this if you want GitHub Deployments (see below)
+        githubToken: ${{ secrets.API_TOKEN_GITHUB }}
+    - run: |
+        curl -X POST "https://api.cloudflare.com/client/v4/zones/418cbe6ba02822b5065295e82b6b2ea9/purge_cache" \
+          -H "Authorization: Bearer ${{ secrets.CF_API_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          --data "{\"purge_everything\":true}"
+

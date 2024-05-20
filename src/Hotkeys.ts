@@ -1,15 +1,15 @@
 import { sacrificeAnts } from './Ants'
-import { buyAccelerator, boostAccelerator, buyMultiplier } from './Buy'
-import { player, resetCheck, synergismHotkeys } from './Synergism'
-import { toggleAutoChallengeRun, toggleCorruptionLevel, confirmReply } from './Toggles'
-import { Alert, Prompt, Confirm } from './UpdateHTML'
-import { Globals as G } from './Variables'
+import { boostAccelerator, buyAccelerator, buyMultiplier } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { useConsumable } from  './Shop'
 import { promocodes } from './ImportExport'
-import { keyboardTabChange as kbTabChange } from './Tabs'
+import { useConsumable } from './Shop'
+import { player, resetCheck, synergismHotkeys } from './Synergism'
+import { keyboardTabChange as kbTabChange, tabRow, Tabs } from './Tabs'
+import { confirmReply, toggleAutoChallengeRun, toggleCorruptionLevel } from './Toggles'
+import { Alert, Confirm, Prompt } from './UpdateHTML'
+import { Globals as G } from './Variables'
 
-export const defaultHotkeys = new Map<string, [string, () => unknown, boolean]>([
+export const defaultHotkeys = new Map<string, [string, () => unknown, /* hide during notification */ boolean]>([
   ['A', ['Buy Accelerators', () => buyAccelerator(), false]],
   ['B', ['Boost Accelerator', () => boostAccelerator(), false]],
   ['C', ['Auto Challenge', () => {
@@ -39,7 +39,8 @@ export const defaultHotkeys = new Map<string, [string, () => unknown, boolean]>(
   ['SHIFT+E', ['Exit Asc. Challenge', () => resetCheck('ascensionChallenge'), false]], // Its already checks if inside Asc. Challenge
   ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion'), false]],
   ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion'), false]],
-  ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity'), false]]
+  ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity'), false]],
+  ['CTRL+B', ['Un-hide Tabs', () => tabRow.reappend(), false]]
 ])
 
 export let hotkeysEnabled = false
@@ -76,7 +77,8 @@ const eventHotkeys = (event: KeyboardEvent): void => {
   if (document.activeElement?.localName === 'input') {
     // https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
     // finally fixes the bug where hotkeys would be activated when typing in an input field
-    return event.stopPropagation()
+    event.stopPropagation()
+    return
   }
 
   synergismHotkeys(event, event.code.replace(/^(Digit|Numpad)/, '').toUpperCase())
@@ -91,6 +93,7 @@ const eventHotkeys = (event: KeyboardEvent): void => {
   if (event.altKey) {
     keyPrefix += 'ALT+'
   }
+
   const key = keyPrefix + event.key.toUpperCase()
 
   // Disable the TAB key as it may allow unexpected operations
@@ -107,12 +110,12 @@ const eventHotkeys = (event: KeyboardEvent): void => {
 
   let hotkeyName = ''
   if (hotkeys.has(key)) {
-    hotkeyName = '' + hotkeys.get(key)![0]
-        hotkeys.get(key)![1]()
-        event.preventDefault()
+    hotkeyName = `${hotkeys.get(key)![0]}`
+    hotkeys.get(key)![1]()
+    event.preventDefault()
   }
 
-  if (G.currentTab === 'settings' && player.subtabNumber === 6) {
+  if (G.currentTab === Tabs.Settings && player.subtabNumber === 6) {
     DOMCacheGetOrSet('lastHotkey').textContent = key
     DOMCacheGetOrSet('lastHotkeyName').textContent = hotkeyName
   }
@@ -125,13 +128,11 @@ const makeSlot = (key: string, descr: string) => {
   const span = document.createElement('span')
   span.id = 'actualHotkey'
   span.textContent = key
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   span.addEventListener('click', async (e) => {
     const target = e.target as HTMLElement
     const oldKey = target.textContent!.toUpperCase()
-    const name =
-            hotkeys.get(oldKey)?.[0] ??
-            target.nextSibling?.textContent
+    const name = hotkeys.get(oldKey)?.[0]
+      ?? target.nextSibling?.textContent
 
     // new value to set key as, unformatted
     const newKey = await Prompt(`
@@ -243,7 +244,9 @@ export const resetHotkeys = async () => {
     }
   }
 
-  const confirmed = await Confirm(`Are you sure you want to default all the changed hotkeys?\nBelow is a history of hotkeys you have changed\n\n${settext}`)
+  const confirmed = await Confirm(
+    `Are you sure you want to default all the changed hotkeys?\nBelow is a history of hotkeys you have changed\n\n${settext}`
+  )
   if (confirmed) {
     hotkeys = new Map(defaultHotkeys)
     player.hotkeys = {}
@@ -251,4 +254,12 @@ export const resetHotkeys = async () => {
   }
 }
 
-document.addEventListener('keydown', eventHotkeys)
+export const pressedKeys = new Set<string>()
+
+document.addEventListener('keydown', (event) => {
+  eventHotkeys(event)
+
+  pressedKeys.add(event.code)
+})
+
+document.addEventListener('keyup', (event) => pressedKeys.delete(event.code))
