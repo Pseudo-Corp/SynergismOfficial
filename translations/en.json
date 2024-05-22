@@ -3070,7 +3070,7 @@
       "acceptFailure": "You have been transported back to your highest reached Singularity. Try again soon! -Derpsmith"
     },
     "toString": {
-      "canEnter": "Can be entered at highest Singularity {{unlockSing}} [Your highest: {{highestSing}}]",
+      "canEnter": "Can be entered after reaching Singularity {{unlockSing}} [Your highest: {{highestSing}}]",
       "tiersCompleted": "Tiers completed",
       "currentTierSingularity": "The current tier of this challenge takes place in Singularity"
     },
@@ -3114,7 +3114,7 @@
       "noAmbrosiaUpgrades": {
         "name": "No Ambrosia Upgrades",
         "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
-        "ScalingReward1":" +15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
+        "ScalingReward1":"+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
         "ScalingReward2":"+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
         "UniqueReward1":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
         "UniqueReward2":"1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
@@ -3126,7 +3126,7 @@
     },
     "intro": "Do you have what it takes to earn EXALT from Ant God?",
     "ScalingHeader": "Scaling Effects (Per Completion)",
-    "UniqueHeader": "Unique Effects (Once on Completion #)"
+    "UniqueHeader": "Unique Effects (On Completion #)"
   },
   "settings": {
     "confirmationTitle": "Confirmation Toggles",
