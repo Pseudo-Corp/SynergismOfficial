@@ -412,6 +412,7 @@ export const toggleChallengesScreen = (indexStr: string) => {
       b.style.display = 'none'
     }
   }
+  player.subtabNumber = index - 1
 }
 
 export const toggleautofortify = () => {
