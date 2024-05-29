@@ -542,6 +542,13 @@ export const generateEventHandlers = () => {
     'input',
     () => updateAutoChallenge(3)
   )
+  // Part 3: Subtabs because Mixelz doesn't know what the fuck he's doing
+  for (let index = 0; index < 2; index++) {
+    DOMCacheGetOrSet(`toggleChallengesSubTab${index + 1}`).addEventListener(
+      'click',
+      () => changeSubTab(Tabs.Challenges, { page: index })
+    )
+  }
 
   // RESEARCH TAB
   // Part 1: Researches
@@ -1080,7 +1087,7 @@ TODO: Fix this entire tab it's utter shit
   DOMCacheGetOrSet('importBlueberries').addEventListener('change', async (e) => importData(e, importBlueberryTree))
 
   // Toggle subtabs of Singularity tab
-  for (let index = 0; index < 5; index++) {
+  for (let index = 0; index < 4; index++) {
     DOMCacheGetOrSet(`toggleSingularitySubTab${index + 1}`).addEventListener(
       'click',
       () => changeSubTab(Tabs.Singularity, { page: index })

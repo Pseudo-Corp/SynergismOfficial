@@ -398,6 +398,23 @@ export const toggleRuneScreen = (indexStr: string) => {
   player.subtabNumber = index - 1
 }
 
+export const toggleChallengesScreen = (indexStr: string) => {
+  const index = Number(indexStr)
+
+  for (let i = 1; i <= 2; i++) {
+    const a = DOMCacheGetOrSet(`toggleChallengesSubTab${i}`)
+    const b = DOMCacheGetOrSet(`challengesWrapper${i}`)
+    if (i === index) {
+      a.style.backgroundColor = 'crimson'
+      b.style.display = 'block'
+    } else {
+      a.style.backgroundColor = ''
+      b.style.display = 'none'
+    }
+  }
+  player.subtabNumber = index - 1
+}
+
 export const toggleautofortify = () => {
   const el = DOMCacheGetOrSet('toggleautofortify')
   if (player.autoFortifyToggle) {
@@ -447,7 +464,7 @@ export const toggleSaveOff = () => {
 export const toggleSingularityScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 4; i++) {
     const a = DOMCacheGetOrSet(`toggleSingularitySubTab${i}`)
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
     if (i === index) {
@@ -465,7 +482,7 @@ export const toggleSingularityScreen = (indexStr: string) => {
     visualUpdateOcteracts()
   }
 
-  if (player.subtabNumber === 4) {
+  if (player.subtabNumber === 3) {
     visualUpdateAmbrosia()
   }
 }

@@ -7,6 +7,7 @@ import {
   toggleCorruptionLoadoutsStats,
   toggleCubeSubTab,
   toggleRuneScreen,
+  toggleChallengesScreen,
   toggleSingularityScreen
 } from './Toggles'
 import { changeTabColor, hideStuff, revealStuff } from './UpdateHTML'
@@ -144,7 +145,19 @@ const subtabInfo: Record<Tabs, SubTab> = {
       }
     ]
   },
-  [Tabs.Challenges]: { subTabList: [] },
+  [Tabs.Challenges]: { 
+    tabSwitcher: () => toggleChallengesScreen,
+    subTabList: [
+      { subTabID: '1', unlocked: true, buttonID: 'toggleChallengesSubTab1' },
+      {
+        subTabID: '2',
+        get unlocked () {
+          return player.highestSingularityCount >= 25
+        },
+        buttonID: 'toggleChallengesSubTab2'
+      },
+    ] 
+  },
   [Tabs.Research]: { subTabList: [] },
   [Tabs.AntHill]: { subTabList: [] },
   [Tabs.WowCubes]: {
@@ -247,16 +260,9 @@ const subtabInfo: Record<Tabs, SubTab> = {
       {
         subTabID: '4',
         get unlocked () {
-          return player.highestSingularityCount >= 25
-        },
-        buttonID: 'toggleSingularitySubTab4'
-      },
-      {
-        subTabID: '5',
-        get unlocked () {
           return player.singularityChallenges.noSingularityUpgrades.completions >= 1
         },
-        buttonID: 'toggleSingularitySubTab5'
+        buttonID: 'toggleSingularitySubTab4'
       }
     ]
   },

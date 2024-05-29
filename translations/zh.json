@@ -2405,6 +2405,10 @@
       "blessings": "祝福",
       "spirits": "[=-魂灵-=]"
     },
+    "challenges":{
+      "normal": "Normal",
+      "exalt": "拔擢"
+    },
     "cubes": {
       "cubeTributes": "方盒的贡品",
       "tesseract": "超立方的赠礼",
@@ -2417,7 +2421,6 @@
     "singularity": {
       "perks-penalties": "特权 / 惩罚",
       "octeracts": "惊奇八阶方块",
-      "exalt": "拔擢",
       "ambrosia": "神肴"
     },
     "settings": {
@@ -3039,25 +3042,55 @@
       "noSingularityUpgrades": {
         "name": "无奇点升级",
         "description": "简而言之，您需要在没有大部分奇点升级的前提下通过目标奇点。惊奇八阶方块，特权和游戏体验相关的奇点升级将仍然保留。",
-        "rewardDescription": "每完成一阶层就可以使所有类型的方盒、立方和方块获取数量增加50%！完成第一阶层后可以使金夸克获取数量增加12%，并使您获得1个蓝莓！完成第二十阶层后，可以获得一些“特别”的东西 ;)"
+        "ScalingReward1":"+50% increase to <<yellow|ALL Cube>> gain",
+        "UniqueReward1":"1st - +12% <<gold|Golden Quarks>>!",
+        "UniqueReward2":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
+        "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward4":"30th - +6% <<lime|&#9752 Ambrosia Luck>> for free!",
+        "UniqueReward5":"30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
       },
       "oneChallengeCap": {
         "name": "挑战上限恒为一",
         "description": "您需要在前14个挑战的上限只有1的前提下通过目标奇点！",
-        "rewardDescription": "每完成一阶层就可以使腐化的相关加成倍率增加0.03。完成第一阶层后可以使转世挑战次数上限增加3。完成第二十阶层后，可以使腐化的相关加成倍率直接视为增加1级！"
+        "ScalingReward1":"+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
+        "ScalingReward2":"+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+        "UniqueReward1":"1st - +3 <<green|Reincarnation Challenge>> Cap!",
+        "UniqueReward2":"20th - +1 Free <<var(--red-text-color)|Corruption Level>>",
+        "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!"
       },
       "noOcteracts": {
         "name": "无八阶方块效果",
         "description": "您需要在惊奇八阶方块和相应升级没有效果的前提下通过目标奇点！另外，奇点相关惩罚也会根据当前阶层数量变得更高。",
-        "rewardDescription": "每完成一阶层就可以使惊奇八阶方块对惊奇方盒至惊奇七阶立方获取数量的加成指数增加0.02(基础值为2)。完成第一阶层后可以使惊奇八阶方块增加对祭品获取数量的加成。完成最后一阶层后，可以使惊奇八阶方块增加对难得素获取数量的加成。"
+        "ScalingReward1":"+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
+        "UniqueReward1":"1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
+        "UniqueReward2":"10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
+        "UniqueReward3":"10th - A new <<orchid|Quark Shop>> upgrade!"
       },
       "limitedAscensions": {
         "name": "二十飞升挑战",
         "description": "Derpsmith颁布了飞升禁令。整个奇点只能进行 (20 - 阶层完成数) 次飞升，之后将触发极其巨大的惩罚！飞升次数倍率锁定为1。哦对了，PLATONIC·德尔塔在该挑战中失效，哈。",
-        "rewardDescription": "每完成一阶层，飞升次数每有一个数量级，就可以使飞升的速度增加0.1%！完成第一阶层后可以使所有七阶立方的上限翻倍。完成最后一阶层后，可以解锁商店中的另一个计算器！"
+        "ScalingReward1":"<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
+        "UniqueReward1":"1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
+        "UniqueReward2":"1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
+        "UniqueReward3":"20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
+        "UniqueReward4":"25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
+      },
+      "noAmbrosiaUpgrades": {
+        "name": "No Ambrosia Upgrades",
+        "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
+        "ScalingReward1":"+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
+        "ScalingReward2":"+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+        "UniqueReward1":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
+        "UniqueReward2":"1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
+        "UniqueReward3":"10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
+        "UniqueReward4":"15th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward5":"20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
+        "UniqueReward6":"20th - An <<gold|ULTRA Quark Shop>> upgrade!"
       }
     },
-    "intro": "过蒙拔擢，宠命优渥。"
+    "intro": "过蒙拔擢，宠命优渥。",
+    "ScalingHeader": "Scaling Effects (Per Completion)",
+    "UniqueHeader": "Unique Effects (On Completion #)"
   },
   "settings": {
     "confirmationTitle": "相应重置时是否弹窗确认",

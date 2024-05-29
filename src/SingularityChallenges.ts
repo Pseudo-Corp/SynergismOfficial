@@ -15,6 +15,8 @@ export interface ISingularityChallengeData {
   HTMLTag: keyof Player['singularityChallenges']
   singularityRequirement: (baseReq: number, completions: number) => number
   effect: (n: number) => Record<string, number | boolean>
+  scalingrewardcount: number
+  uniquerewardcount: number
   completions?: number
   enabled?: boolean
   highestSingularityCompleted?: number
@@ -24,7 +26,6 @@ export interface ISingularityChallengeData {
 export class SingularityChallenge {
   public name
   public description
-  public rewardDescription
   public baseReq
   public completions
   public maxCompletions
@@ -34,6 +35,8 @@ export class SingularityChallenge {
   public enabled
   public singularityRequirement
   public effect
+  public scalingrewardcount
+  public uniquerewardcount
   readonly cacheUpdates: (() => void)[] | undefined
 
   public constructor (data: ISingularityChallengeData, key: string) {
@@ -41,12 +44,8 @@ export class SingularityChallenge {
     const description = i18next.t(
       `singularityChallenge.data.${key}.description`
     )
-    const rewardDescription = i18next.t(
-      `singularityChallenge.data.${key}.rewardDescription`
-    )
     this.name = name
     this.description = description
-    this.rewardDescription = rewardDescription
     this.baseReq = data.baseReq
     this.completions = data.completions ?? 0
     this.maxCompletions = data.maxCompletions
@@ -56,6 +55,8 @@ export class SingularityChallenge {
     this.enabled = data.enabled ?? false
     this.singularityRequirement = data.singularityRequirement
     this.effect = data.effect
+    this.scalingrewardcount = data.scalingrewardcount
+    this.uniquerewardcount = data.uniquerewardcount
 
     this.updateIconHTML()
     this.updateChallengeCompletions()
@@ -205,8 +206,12 @@ export class SingularityChallenge {
       }</span>`
       : ''
     return `<span style="color: gold">${this.name}</span> ${enabled}
-                <span style="color: lightblue">${this.description}</span>
-                <span style="color: pink">${
+      ${
+      i18next.t(
+        'singularityChallenge.toString.tiersCompleted'
+      )
+    }: <span style="color: ${color}">${this.completions}/${this.maxCompletions}</span>
+      <span style="color: pink">${
       i18next.t(
         'singularityChallenge.toString.canEnter',
         {
@@ -215,12 +220,7 @@ export class SingularityChallenge {
         }
       )
     }</span>
-                ${
-      i18next.t(
-        'singularityChallenge.toString.tiersCompleted'
-      )
-    }: <span style="color: ${color}">${this.completions}/${this.maxCompletions}</span>
-                <span style="color: gold">${
+    <span style="color: gold">${
       i18next.t(
         'singularityChallenge.toString.currentTierSingularity'
       )
@@ -230,11 +230,32 @@ export class SingularityChallenge {
         this.completions
       )
     }</span></span>
-                <span>${this.rewardDescription}</span>`
+    <span style="color: lightblue">${this.description}</span>`
+  }
+  //Numerates through total reward count for Scaling & Unique string for EXALTS.
+  scaleString (): string {
+    let text = ''
+    for (let i = 1; i <= this.scalingrewardcount; i++) {
+    const list = i18next.t(`singularityChallenge.data.${String(this.HTMLTag)}.ScalingReward${i}`);
+    text += i > 1 ? `\n${list}` : list
+    }
+     return text
+  }
+
+  //Ditto. Also worth mentioning this implementation means the list size can be arbitrary!
+  uniqueString (): string {
+    let text = ''
+    for (let i = 1; i <= this.uniquerewardcount; i++) {
+    const list = i18next.t(`singularityChallenge.data.${String(this.HTMLTag)}.UniqueReward${i}`);
+    text += i > 1 ? `\n${list}` : list
+    }
+     return text
   }
 
   public updateChallengeHTML (): void {
-    DOMCacheGetOrSet('singularityChallengesMultiline').innerHTML = this.toString()
+    DOMCacheGetOrSet('singularityChallengesInfo').innerHTML = this.toString()
+    DOMCacheGetOrSet('singularityChallengesScalingRewards').innerHTML = this.scaleString()
+    DOMCacheGetOrSet('singularityChallengesUniqueRewards').innerHTML = this.uniqueString()
   }
 
   public updateIconHTML (): void {
@@ -259,6 +280,8 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 8 * completions
     },
+    scalingrewardcount: 1,
+    uniquerewardcount: 5,
     effect: (n: number) => {
       return {
         cubes: 1 + 0.5 * n,
@@ -282,6 +305,8 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 11 * completions
     },
+    scalingrewardcount: 2,
+    uniquerewardcount: 3,
     effect: (n: number) => {
       return {
         corrScoreIncrease: 0.03 * n,
@@ -300,6 +325,8 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 13 * completions
     },
+    scalingrewardcount: 1,
+    uniquerewardcount: 3,
     effect: (n: number) => {
       return {
         octeractPow: 0.02 * n,
@@ -317,6 +344,8 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 10 * completions
     },
+    scalingrewardcount: 1,
+    uniquerewardcount: 4,
     effect: (n: number) => {
       return {
         ultimateProgressBarUnlock: (n > 0),
@@ -335,6 +364,8 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 6 * completions
     },
+    scalingrewardcount: 2,
+    uniquerewardcount: 6,
     effect: (n: number) => {
       return {
         bonusAmbrosia: +(n > 0),
