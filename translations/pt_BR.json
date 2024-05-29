@@ -2235,6 +2235,10 @@
             "blessings": "",
             "spirits": ""
         },
+        "challenges":{
+            "normal": "",
+            "exalt": ""
+        },
         "cubes": {
             "cubeTributes": "",
             "tesseract": "",
@@ -2246,8 +2250,7 @@
         },
         "singularity": {
             "perks-penalties": "",
-            "octeracts": "",
-            "exalt": ""
+            "octeracts": ""
         },
         "settings": {
             "languages": "",
@@ -2815,25 +2818,55 @@
             "noSingularityUpgrades": {
                 "name": "",
                 "description": "",
-                "rewardDescription": ""
+                "ScalingReward1":"",
+                "UniqueReward1":"",
+                "UniqueReward2":"",
+                "UniqueReward3":"",
+                "UniqueReward4":"",
+                "UniqueReward5":""
             },
             "oneChallengeCap": {
                 "name": "",
                 "description": "",
-                "rewardDescription": ""
+                "ScalingReward1":"",
+                "ScalingReward2":"",
+                "UniqueReward1":"",
+                "UniqueReward2":"",
+                "UniqueReward3":""
             },
             "noOcteracts": {
                 "name": "",
                 "description": "",
-                "rewardDescription": ""
+                "ScalingReward1":"",
+                "UniqueReward1":"",
+                "UniqueReward2":"",
+                "UniqueReward3":""
             },
             "limitedAscensions": {
                 "name": "",
                 "description": "",
-                "rewardDescription": ""
+                "ScalingReward1":"",
+                "UniqueReward1":"",
+                "UniqueReward2":"",
+                "UniqueReward3":"",
+                "UniqueReward4":""
+            },
+            "noAmbrosiaUpgrades": {
+                "name": "",
+                "description": "",
+                "ScalingReward1":"",
+                "ScalingReward2":"",
+                "UniqueReward1":"",
+                "UniqueReward2":"",
+                "UniqueReward3":"",
+                "UniqueReward4":"",
+                "UniqueReward5":"",
+                "UniqueReward6":""
             }
         },
-        "intro": ""
+        "intro": "",
+        "ScalingHeader": "",
+        "UniqueHeader": ""
     },
     "settings": {
         "confirmationTitle": "",

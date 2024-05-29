@@ -2405,6 +2405,10 @@
       "blessings": "Bendiciones",
       "spirits": "[=-Espíritus-=]"
     },
+    "challenges":{
+      "normal": "Normal",
+      "exalt": "EXALTADO"
+    },
     "cubes": {
       "cubeTributes": "Tributos de Cubo",
       "tesseract": "Regalos de Teseracto",
@@ -2417,7 +2421,6 @@
     "singularity": {
       "perks-penalties": "Beneficios / Penalizaciones",
       "octeracts": "Octeractos",
-      "exalt": "EXALTADO",
       "ambrosia": "Ambrosía"
     },
     "settings": {
@@ -3039,25 +3042,55 @@
       "noSingularityUpgrades": {
         "name": "Sin Mejoras de Singularidad",
         "description": "En resumen, supera la singularidad objetivo sin (la mayoría de) Mejoras de Singularidad. Las mejoras de Octeractos, QoL y Beneficios se conservan.",
-        "rewardDescription": "¡Cada finalización aumenta las ganancias de cubos de toda dimensión un 50%! ¡La primera da un +12% de Quarks Dorados y un Arándano! La 20 da algo 'especial' ;)"
+        "ScalingReward1":"+50% increase to <<yellow|ALL Cube>> gain",
+        "UniqueReward1":"1st - +12% <<gold|Golden Quarks>>!",
+        "UniqueReward2":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
+        "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward4":"30th - +6% <<lime|&#9752 Ambrosia Luck>> for free!",
+        "UniqueReward5":"30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
       },
       "oneChallengeCap": {
         "name": "Límites de Un Desafío",
         "description": "Supera la Singularidad, ¡Pero los primeros 14 desafíos tienen un límite de solo 1!",
-        "rewardDescription": "Cada finalización incrementa los Valores del Multiplicador de Corrupción en 0,03, sin importar qué. La primera da +3 al límite de Desafíos de Reencarnación. ¡La 20ª otorga +1 nivel de Corrupción gratis!"
+        "ScalingReward1":"+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
+        "ScalingReward2":"+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+        "UniqueReward1":"1st - +3 <<green|Reincarnation Challenge>> Cap!",
+        "UniqueReward2":"20th - +1 Free <<var(--red-text-color)|Corruption Level>>",
+        "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!"
       },
       "noOcteracts": {
         "name": "Sin Efectos de Octeracto",
         "description": "Supera la singularidad, ¡Pero los octeractos y sus mejoras no hacen nada! La Singularidad Efectiva es también mucho más alta basada en el rango.",
-        "rewardDescription": "Cada finalización incrementa el poder del bonus Octeracto a Cubo 0,02 (BASE: 2.00). La primera agrega un bonus a las Ofrendas basadas en Octeractos. La última añade un bono a Obtainium basado en Octeractos."
+        "ScalingReward1":"+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
+        "UniqueReward1":"1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
+        "UniqueReward2":"10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
+        "UniqueReward3":"10th - A new <<orchid|Quark Shop>> upgrade!"
       },
       "limitedAscensions": {
         "name": "Desafío de Veinte Ascensiones",
         "description": "Derpsmith ha embargado las Ascensiones. Sólo (20 - finalizaciones) están permitidas en esta Singularidad, antes de que las Ascensiones causen desventajas masivas! El Multiplicador de Cuenta de Ascensión es 1. Y Delta está deshabilitado. Ha.",
-        "rewardDescription": "¡Cada finalización da un 0,1% de Velocidad de Ascensión por finalización y dígito en cuenta de Ascensiones! La primera duplica el límite de todo hepteracto. La última añade otra calculadora en la tienda!"
+        "ScalingReward1":"<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
+        "UniqueReward1":"1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
+        "UniqueReward2":"1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
+        "UniqueReward3":"20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
+        "UniqueReward4":"25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
+      },
+      "noAmbrosiaUpgrades": {
+        "name": "No Ambrosia Upgrades",
+        "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
+        "ScalingReward1":"+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
+        "ScalingReward2":"+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+        "UniqueReward1":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
+        "UniqueReward2":"1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
+        "UniqueReward3":"10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
+        "UniqueReward4":"15th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward5":"20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
+        "UniqueReward6":"20th - An <<gold|ULTRA Quark Shop>> upgrade!"
       }
     },
-    "intro": "¿Tienes lo que hay que tener para ganar el EXALTADO de Dios Hormiga?"
+    "intro": "¿Tienes lo que hay que tener para ganar el EXALTADO de Dios Hormiga?",
+    "ScalingHeader": "Scaling Effects (Per Completion)",
+    "UniqueHeader": "Unique Effects (On Completion #)"
   },
   "settings": {
     "confirmationTitle": "Confirmación",

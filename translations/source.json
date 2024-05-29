@@ -2441,6 +2441,10 @@
           "blessings": "Blessings",
           "spirits": "[=-Spirits-=]"
       },
+      "challenges":{
+        "normal": "Normal",
+        "exalt": "EXALT"
+      },
       "cubes": {
           "cubeTributes": "Cube Tributes",
           "tesseract": "Tesseract Gifts",
@@ -2453,7 +2457,6 @@
       "singularity": {
           "perks-penalties": "Perks / Penalties",
           "octeracts": "Octeracts",
-          "exalt": "EXALT",
           "ambrosia": "Ambrosia"
       },
       "settings": {
@@ -3074,31 +3077,56 @@
       "data": {
           "noSingularityUpgrades": {
               "name": "No Singularity Upgrades",
-              "description": "Simply put, you have to beat the target singularity without (most) Singularity Upgrades. Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
-              "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks and a Blueberry! 20th awards something `special` ;)"
+              "description": "Simply put, you have to beat the target singularity without (most) Singularity Upgrades.<br/>Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
+              "ScalingReward1":"+50% increase to <<yellow|ALL Cube>> gain",
+              "UniqueReward1":"1st - +12% <<gold|Golden Quarks>>!",
+              "UniqueReward2":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
+              "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!",
+              "UniqueReward4":"30th - +6% <<lime|&#9752 Ambrosia Luck>> for free!",
+              "UniqueReward5":"30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
           },
           "oneChallengeCap": {
               "name": "One Challenge Caps",
               "description": "Beat the target Singularity, but the first 14 Challenges have cap of only 1!",
-              "rewardDescription": "Each completion increases Corruption Multiplier Values by 0.03, no matter what. First Completion gives +3 to Reincarnation Challenge Cap. 20th completion grants +1 free Corruption level!"
+              "ScalingReward1":"+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
+              "ScalingReward2":"+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+              "UniqueReward1":"1st - +3 <<green|Reincarnation Challenge>> Cap!",
+              "UniqueReward2":"20th - +1 Free <<var(--red-text-color)|Corruption Level>>",
+              "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!"
           },
           "noOcteracts": {
               "name": "No Octeract Effects",
-              "description": "Beat the target Singularity, but octeracts and their upgrades do nothing! Effective Singularity is also much higher based on tier.",
-              "rewardDescription": "Each completion increases Octeract to Cube Bonus power by 0.02 (BASE: 2.00). First completion adds a bonus to Offerings based on Octeracts. Final completion adds a bonus to Obtainium based on Octeracts."
+              "description": "Beat the target Singularity, but octeracts and their upgrades do nothing!<br/>Effective Singularity is also much higher based on tier.",
+              "ScalingReward1":"+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
+              "UniqueReward1":"1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
+              "UniqueReward2":"10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
+              "UniqueReward3":"10th - A new <<orchid|Quark Shop>> upgrade!"
           },
           "limitedAscensions": {
               "name": "Twenty Ascensions Challenge",
-              "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs! Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
-              "rewardDescription": "Each completion grants 0.1% Ascension Speed per completion per digit in your Ascension count! First completion doubles the cap of all hepteract, plus a new feature ;) [WIP]. 20th completion adds a bonus to Cubes, Obtainium and Offerings in EXALTs based on total completed for that EXALT! Final completion adds another calculator in the shop!"
+              "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs!<br/>Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
+              "ScalingReward1":"<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
+              "UniqueReward1":"1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
+              "UniqueReward2":"1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
+              "UniqueReward3":"20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
+              "UniqueReward4":"25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
           },
           "noAmbrosiaUpgrades": {
-            "name": "No Ambrosia Upgrades",
-            "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help. Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
-            "rewardDescription": "Each completion grants <<lime|&#9752 +15 +0.5% Ambrosia Luck>>, <<blue| +2% Blueberry Generation Speed>>! First completion awards a blueberry and +1 Ambrosia every time Ambrosia is gained! 10th completion awards a blueberry. 15th completion awards a <<orchid|shop upgrade>>! The final completion awards, you guessed it, a blueberry AND an <<gold|ULTRA shop upgrade>>!"
+              "name": "No Ambrosia Upgrades",
+              "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
+              "ScalingReward1":"+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
+              "ScalingReward2":"+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+              "UniqueReward1":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
+              "UniqueReward2":"1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
+              "UniqueReward3":"10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
+              "UniqueReward4":"15th - A new <<orchid|Quark Shop>> upgrade!",
+              "UniqueReward5":"20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
+              "UniqueReward6":"20th - An <<gold|ULTRA Quark Shop>> upgrade!"
           }
-      },
-      "intro": "Do you have what it takes to earn EXALT from Ant God?"
+        },
+      "intro": "Do you have what it takes to earn EXALT from Ant God?",
+      "ScalingHeader": "Scaling Effects (Per Completion)",
+      "UniqueHeader": "Unique Effects (On Completion #)"
   },
   "settings": {
       "confirmationTitle": "Confirmation Toggles",
@@ -3470,7 +3498,7 @@
       "singularityConfirm2": "Are you sure you wish to enter the Singularity?",
       "singularityConfirm3": "Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.",
       "noAntiquity": "Hmph. Please return with an Antiquity. Thank you. -Ant God",
-      "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Singularity tab.",
+      "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Exalt tab.",
       "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
       "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
       "buyResearch3x11": "[LOCKED - Buy Research 3x11]"

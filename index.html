@@ -1547,7 +1547,12 @@
     </div>
 
     <div id="challenges" style="display: none;">
-        <div id="challengesWrapper">
+        <div id="challengesTabsToggle">
+            <button id="toggleChallengesSubTab1" style="border: 2px solid green; color: white; background-color: crimson" i18n="tabs.challenges.normal"></button>
+            <button id="toggleChallengesSubTab2" class="singChallenges" style="border: 2px solid purple; color: gold" i18n="tabs.challenges.exalt"></button>
+        </div>
+        <!-- You call containers "Steamed Wrappers" despite the fact they contain multiple elements? -->
+        <div id="challengesWrapper1">
             <p id="challengeIntroduction" style="color: white" i18n="challenges.header"></p>
             <div id="challengesAutoToggles">
                 <button class="research150" id="toggleAutoChallengeStart"></button>
@@ -1653,6 +1658,39 @@
                 <p id="challengehotkeys" i18n="footnotes.challenges.hotkey"></p>
                 <p id="challengewarning" i18n="footnotes.challenges.finishTranscension"></p>
                 <p class="reincarnationunlock" id="challengewarningreincarnation" i18n="footnotes.challenges.leaveReincarnation"></p>
+            </div>
+        </div>
+        <div id="challengesWrapper2" style="display: none;">
+            <div id="singularityChallenges">
+                <div id="singularityChallengeFlavor">
+                    <p id="ExaltIntroduction" i18n="singularityChallenge.intro"></p>
+                </div>
+                <div class="singularityChallenges">
+                    <div id="noSingularityUpgradesDiv" class="rainbowBorder">
+                        <img id="noSingularityUpgrades" class="challenge" src="Pictures/Default/ExaltChalNoSingularityUpgrade.png">
+                    </div>
+                    <div id="oneChallengeCapDiv" class="rainbowBorder">
+                        <img id="oneChallengeCap" class="challenge" src="Pictures/Default/ExaltChalOneChallengeCap.png">
+                    </div>
+                    <div id="limitedAscensionsDiv" class="rainbowBorder">
+                        <img id="limitedAscensions" class="challenge" src="Pictures/Default/ExaltChalLimitedAscensions.png">
+                    </div>
+                    <div id="noOcteractsDiv" class="rainbowBorder">
+                        <img id="noOcteracts" class="challenge" src="Pictures/Default/ExaltChalNoOcteracts.png">
+                    </div>
+                    <div id="noAmbrosiaUpgradesDiv" class="rainbowBorder">
+                        <img id="noAmbrosiaUpgrades" class="challenge" src="Pictures/Default/ExaltChalNoAmbrosiaUpgrades.png">
+                    </div>
+                </div>
+                <div id="singularityChallengeDetails">
+                    <p id="singularityChallengesInfo"></p>
+                    <div id="singularityChallengeAllRewards">
+                        <p id="singularityChallengeScalingHeader" i18n="singularityChallenge.ScalingHeader"></p>
+                        <p id="singularityChallengeUniqueHeader" i18n="singularityChallenge.UniqueHeader"></p>
+                        <p id="singularityChallengesScalingRewards"></p>
+                        <p id="singularityChallengesUniqueRewards"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -3967,8 +4005,7 @@
             <button id="toggleSingularitySubTab1" style="border: 2px solid silver; color: white; background-color: crimson" i18n="tabs.main.shop"></button>
             <button id="toggleSingularitySubTab2" style="border: 2px solid orange; color: white" i18n="tabs.singularity.perks-penalties"></button>
             <button id="toggleSingularitySubTab3" class="octeracts" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>
-            <button id="toggleSingularitySubTab4" class="singChallenges" style="border: 2px solid purple; color: gold" i18n="tabs.singularity.exalt"></button>
-            <button id="toggleSingularitySubTab5" class="ambrosia" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
+            <button id="toggleSingularitySubTab4" class="ambrosia" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
         </div>
 
         <div id="singularityContainer1">
@@ -4350,34 +4387,6 @@
         </div>
 
         <div id="singularityContainer4" style="display: none;">
-            <div id="singularityChallenges" class="singularityContainer">
-                <div id="singularityChallengeFlavor">
-                    <p id="singularityChallengeIntro" i18n="singularityChallenge.intro"></p>
-                </div>
-                <div class="singularityChallenges">
-                    <div id="noSingularityUpgradesDiv" class="rainbowBorder">
-                        <img id="noSingularityUpgrades" src="Pictures/Default/ExaltChalNoSingularityUpgrade.png">
-                    </div>
-                    <div id="oneChallengeCapDiv" class="rainbowBorder">
-                        <img id="oneChallengeCap" src="Pictures/Default/ExaltChalOneChallengeCap.png">
-                    </div>
-                    <div id="limitedAscensionsDiv" class="rainbowBorder">
-                        <img id="limitedAscensions" src="Pictures/Default/ExaltChalLimitedAscensions.png">
-                    </div>
-                    <div id="noOcteractsDiv" class="rainbowBorder">
-                        <img id="noOcteracts" src="Pictures/Default/ExaltChalNoOcteracts.png">
-                    </div>
-                    <div id="noAmbrosiaUpgradesDiv" class="rainbowBorder">
-                        <img id="noAmbrosiaUpgrades" src="Pictures/Default/ExaltChalNoAmbrosiaUpgrades.png">
-                    </div>
-                </div>
-                <div id="singularityChallengeDetails">
-                    <p id="singularityChallengesMultiline"></p>
-                </div>
-            </div>
-        </div>
-
-        <div id="singularityContainer5" style="display: none;">
             <div id="singularityAmbrosia" class="singularityContainer">
                 <div id="ambrosiaDisplay">
                     <img src="Pictures/Default/Ambrosia.png" loading="lazy">
