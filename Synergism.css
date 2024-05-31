@@ -2460,6 +2460,7 @@ button.language-select span.lang-name {
 
 #creditssubtab {
     margin-top: 20px;
+    flex-direction: column;
 }
 
 #creditssubtab > * {
@@ -2663,8 +2664,25 @@ p#ascendHotKeys {
     background-color: #fff4b3;
 } */
 
-.subtabSwitcher > button.buttonActive {
+body button.buttonActive {
     background-color: crimson;
+    transition: none;
+}
+
+#runesToggle > button.subtabButton {
+    border: 2px solid silver;
+}
+
+#runesToggle > button.subtabButton.buttonActive {
+    border: 2px solid gold;
+}
+
+#corrButtonRow > button {
+    border-color: white;
+}
+
+#corrButtonRow > button.buttonActive {
+    border-color: dodgerblue;
 }
 
 .subtabContent {
@@ -2685,7 +2703,7 @@ p#ascendHotKeys {
     justify-content: center;
 }
 
-.subtabContent.subtabActive.historySubTab.subtabDisplayFlex > div {
+.historySubTab > .scrollbarX {
     display: flex;
 }
 
@@ -3840,10 +3858,6 @@ img#singularityPerksIcon {
     z-index: -1;
     animation: animatedgradient 3s ease alternate infinite;
     background-size: 300% 300%;
-}
-
-#switchSettingSubTab9:hover {
-    background-color: var(--hover-color);
 }
 
 @keyframes animatedgradient {

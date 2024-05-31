@@ -229,7 +229,7 @@
 
     <div id="buildings">
         <div class="subTabWrapper">
-            <button id="switchToCoinBuilding" style="border: 2px solid yellow; background-color: crimson;" i18n="tabs.buildings.coin"></button>
+            <button id="switchToCoinBuilding" style="border: 2px solid yellow;" i18n="tabs.buildings.coin"></button>
             <button class="prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan" i18n="tabs.buildings.diamond"></button>
             <button class="transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum" i18n="tabs.buildings.mythos"></button>
             <button class="reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow" i18n="tabs.buildings.particle"></button>
@@ -1189,10 +1189,10 @@
     <div id="runes" style="display: none;">
         <div id="runesToggle">
             <button id="toggleautosacrifice" style="border: 2px solid orangered"></button>
-            <button id="toggleRuneSubTab1" style="border: 2px solid gold" i18n="tabs.runes.runes"></button>
-            <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid silver" i18n="tabs.runes.talismans"></button>
-            <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid silver" i18n="tabs.runes.blessings"></button>
-            <button class="chal12" id="toggleRuneSubTab4" style="border: 2px solid silver" i18n="tabs.runes.spirits"></button>
+            <button class="subtabButton" id="toggleRuneSubTab1" i18n="tabs.runes.runes"></button>
+            <button class="subtabButton chal9" id="toggleRuneSubTab2" i18n="tabs.runes.talismans"></button>
+            <button class="subtabButton chal9" id="toggleRuneSubTab3" i18n="tabs.runes.blessings"></button>
+            <button class="subtabButton chal12" id="toggleRuneSubTab4" i18n="tabs.runes.spirits"></button>
         </div>
         <div id="runeContainer1">
             <div id="buyamountoffering">
@@ -1548,7 +1548,8 @@
 
     <div id="challenges" style="display: none;">
         <div id="challengesTabsToggle">
-            <button id="toggleChallengesSubTab1" style="border: 2px solid green; color: white; background-color: crimson" i18n="tabs.challenges.normal"></button>
+            <button id="toggleChallengesSubTab1" style="border: 2px solid green; color: white;"
+                i18n="tabs.challenges.normal"></button>
             <button id="toggleChallengesSubTab2" class="singChallenges" style="border: 2px solid purple; color: gold" i18n="tabs.challenges.exalt"></button>
         </div>
         <!-- You call containers "Steamed Wrappers" despite the fact they contain multiple elements? -->
@@ -2055,7 +2056,8 @@
         <div id="cubesWrapper">
             <div id="wowCubeSidebar">
                 <div id="wowCubeSidebarButtons">
-                    <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold; background-color: crimson;" i18n="tabs.cubes.cubeTributes"></button>
+                    <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold;"
+                        i18n="tabs.cubes.cubeTributes"></button>
                     <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid orange;" i18n="tabs.cubes.tesseract"></button>
                     <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;" i18n="tabs.cubes.hypercube"></button>
                     <button id="switchCubeSubTab4" class="cubeSwitchTabBtn chal14" style="border: 2px solid orchid;" i18n="tabs.cubes.platonic"></button>
@@ -2888,7 +2890,7 @@
 
     <div id="settings" style="display: none;">
         <div class="subtabSwitcher subTabWrapper">
-            <button id="switchSettingSubTab1" class="buttonActive" style="border: 2px solid white" i18n="tabs.main.settings"></button>
+            <button id="switchSettingSubTab1" style="border: 2px solid white" i18n="tabs.main.settings"></button>
             <button id="switchSettingSubTab2" style="border: 2px solid cyan" i18n="tabs.settings.languages"></button>
             <button id="switchSettingSubTab3" style="border: 2px solid gold" i18n="tabs.settings.credit"></button>
             <button id="switchSettingSubTab4" style="border: 2px solid orange" i18n="tabs.settings.stats"></button>
@@ -3048,7 +3050,7 @@
         </div>
         <div class="subtabContent subtabDisplayFlex" id="statisticsSubTab">
             <div id="statsForNerds">
-                <button class="statsNerds" id="kMisc" style="border: 2px solid gold; background-color: crimson;">Miscellaneous Stats</button>
+                <button class="statsNerds" id="kMisc" style="border: 2px solid gold">Miscellaneous Stats</button>
                 <button class="statsNerds" id="kFreeAccel" style="border: 2px solid yellow">Free Accelerators</button>
                 <button class="statsNerds" id="kFreeMult" style="border: 2px solid lawngreen">Free Multipliers</button>
                 <button class="statsNerds" id="kOfferingMult" style="border: 2px solid palegreen">Offering Multipliers</button>
@@ -4002,13 +4004,16 @@
 
     <div id="singularity" style="display: none;">
         <div id="singularityTabsToggle">
-            <button id="toggleSingularitySubTab1" style="border: 2px solid silver; color: white; background-color: crimson" i18n="tabs.main.shop"></button>
-            <button id="toggleSingularitySubTab2" style="border: 2px solid orange; color: white" i18n="tabs.singularity.perks-penalties"></button>
-            <button id="toggleSingularitySubTab3" class="octeracts" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>
-            <button id="toggleSingularitySubTab4" class="ambrosia" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
+            <button id="toggleSingularitySubTabShop" style="border: 2px solid silver; color: white" i18n="tabs.main.shop"></button>
+            <button id="toggleSingularitySubTabPerks" style="border: 2px solid orange; color: white"
+                i18n="tabs.singularity.perks-penalties"></button>
+            <button id="toggleSingularitySubTabOcteracts" class="octeracts" style="border: 2px solid blue; color: white"
+                i18n="tabs.singularity.octeracts"></button>
+            <button id="toggleSingularitySubTabAmbrosia" class="ambrosia" style="border: 2px solid #ffbf00; color: gold"
+                i18n="tabs.singularity.ambrosia"></button>
         </div>
 
-        <div id="singularityContainer1">
+        <div id="singularityContainerShop">
             <div id="singularityUpgradeContainer">
                 <div id="goldenQuarksDisplay">
                     <img src="Pictures/Default/GoldenQuark.png" width="32" height="32" loading="lazy">
@@ -4229,7 +4234,7 @@
             </div>
         </div>
 
-        <div id="singularityContainer2" style="display: none;">
+        <div id="singularityContainerPerks" style="display: none;">
             <div id="singularityInfo" class="singularityContainer">
                 <p id="singularityPenaltiesMultiline"></p>
                 <div id="singularityPerkContainer">
@@ -4248,7 +4253,7 @@
             </div>
         </div>
 
-        <div id="singularityContainer3" style="display: none;">
+        <div id="singularityContainerOcteracts" style="display: none;">
             <div id="singularityOcteracts" class="singularityContainer">
                 <div id="octeractsDisplay">
                     <img src="Pictures/Default/Octeract.png" loading="lazy">
@@ -4386,7 +4391,7 @@
             </div>
         </div>
 
-        <div id="singularityContainer4" style="display: none;">
+        <div id="singularityContainerAmbrosia" style="display: none;">
             <div id="singularityAmbrosia" class="singularityContainer">
                 <div id="ambrosiaDisplay">
                     <img src="Pictures/Default/Ambrosia.png" loading="lazy">

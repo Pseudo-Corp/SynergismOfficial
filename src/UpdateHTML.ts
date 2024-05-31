@@ -7,7 +7,6 @@ import { getMaxChallenges } from './Challenges'
 import { revealCorruptions } from './Corruptions'
 import { autoResearchEnabled } from './Research'
 import { displayRuneInformation } from './Runes'
-import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
 import { Tabs } from './Tabs'
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism'
@@ -488,7 +487,7 @@ export const revealStuff = () => {
     item.style.display = player.highestSingularityCount >= 25 ? 'block' : 'none'
   }
 
-  DOMCacheGetOrSet('toggleSingularitySubTab4').style.display =
+  DOMCacheGetOrSet('toggleSingularitySubTabAmbrosia').style.display =
     player.singularityChallenges.noSingularityUpgrades.completions >= 1
       ? 'block'
       : 'none'
@@ -681,8 +680,6 @@ export const hideStuff = () => {
   if (G.currentTab === Tabs.Singularity) {
     DOMCacheGetOrSet('singularity').style.display = 'block'
     DOMCacheGetOrSet('singularitytab').style.backgroundColor = 'lightgoldenrodyellow'
-    updateSingularityPenalties()
-    updateSingularityPerks()
   }
 
   if (G.currentTab === Tabs.Event) {
@@ -1077,20 +1074,6 @@ export const updateAchievementBG = () => {
     if (player.achievements[i] > 0.5) {
       achievementaward(i) // This sets all completed ach to green
     }
-  }
-}
-
-export const showCorruptionStatsLoadouts = () => {
-  if (player.corruptionShowStats) {
-    DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
-    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
-    DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'dodgerblue'
-    DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'white'
-  } else {
-    DOMCacheGetOrSet('corruptionStats').style.display = 'none'
-    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'flex'
-    DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'white'
-    DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'dodgerblue'
   }
 }
 

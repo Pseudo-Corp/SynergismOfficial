@@ -6,10 +6,10 @@ import { getChallengeConditions } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions'
 import { autoResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
+import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { format, player, resetCheck } from './Synergism'
-import { subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, Player } from './types/Synergism'
-import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
+import { Alert, Prompt, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
@@ -338,80 +338,25 @@ export const toggleAutoBuyFragment = () => {
   player.autoBuyFragment = !player.autoBuyFragment
 }
 
-export const toggleBuildingScreen = (input: string) => {
-  G.buildingSubTab = input as BuildingSubtab
-  const screen: Record<string, { screen: string; button: string; subtabNumber: number }> = {
-    coin: {
-      screen: 'coinBuildings',
-      button: 'switchToCoinBuilding',
-      subtabNumber: 0
-    },
-    diamond: {
-      screen: 'prestige',
-      button: 'switchToDiamondBuilding',
-      subtabNumber: 1
-    },
-    mythos: {
-      screen: 'transcension',
-      button: 'switchToMythosBuilding',
-      subtabNumber: 2
-    },
-    particle: {
-      screen: 'reincarnation',
-      button: 'switchToParticleBuilding',
-      subtabNumber: 3
-    },
-    tesseract: {
-      screen: 'ascension',
-      button: 'switchToTesseractBuilding',
-      subtabNumber: 4
-    }
+export const toggleBuildingScreen = (subTabID: string) => {
+  const screen: Record<string, BuildingSubtab> = {
+    coinBuildings: 'coin',
+    prestige: 'diamond',
+    transcension: 'mythos',
+    reincarnation: 'particle',
+    ascension: 'tesseract'
   }
-
-  for (const key in screen) {
-    DOMCacheGetOrSet(screen[key].screen).style.display = 'none'
-    DOMCacheGetOrSet(screen[key].button).style.backgroundColor = ''
-  }
-  DOMCacheGetOrSet(screen[G.buildingSubTab].screen).style.display = 'flex'
-  DOMCacheGetOrSet(screen[G.buildingSubTab].button).style.backgroundColor = 'crimson'
-  player.subtabNumber = screen[G.buildingSubTab].subtabNumber
+  G.buildingSubTab = screen[subTabID]
 }
 
-export const toggleRuneScreen = (indexStr: string) => {
-  const index = Number(indexStr)
-  const screens = ['runes', 'talismans', 'blessings', 'spirits']
-  G.runescreen = screens[index - 1]
-
-  for (let i = 1; i <= 4; i++) {
-    const a = DOMCacheGetOrSet(`toggleRuneSubTab${i}`)
-    const b = DOMCacheGetOrSet(`runeContainer${i}`)
-    if (i === index) {
-      a.style.border = '2px solid gold'
-      a.style.backgroundColor = 'crimson'
-      b.style.display = 'flex'
-    } else {
-      a.style.border = '2px solid silver'
-      a.style.backgroundColor = ''
-      b.style.display = 'none'
-    }
+export const toggleRuneScreen = (subTabID: string) => {
+  const screen: Record<string, string> = {
+    runeContainer1: 'runes',
+    runeContainer2: 'talismans',
+    runeContainer3: 'blessings',
+    runeContainer4: 'spirits'
   }
-  player.subtabNumber = index - 1
-}
-
-export const toggleChallengesScreen = (indexStr: string) => {
-  const index = Number(indexStr)
-
-  for (let i = 1; i <= 2; i++) {
-    const a = DOMCacheGetOrSet(`toggleChallengesSubTab${i}`)
-    const b = DOMCacheGetOrSet(`challengesWrapper${i}`)
-    if (i === index) {
-      a.style.backgroundColor = 'crimson'
-      b.style.display = 'block'
-    } else {
-      a.style.backgroundColor = ''
-      b.style.display = 'none'
-    }
-  }
+  G.runescreen = screen[subTabID]
 }
 
 export const toggleautofortify = () => {
@@ -460,28 +405,25 @@ export const toggleSaveOff = () => {
   player.saveOfferingToggle = !player.saveOfferingToggle
 }
 
-export const toggleSingularityScreen = (indexStr: string) => {
-  const index = Number(indexStr)
+export const toggleChallengesScreen = (subTabID: string) => {
+  if (subTabID === 'challengesWrapper1') {
+    updateChallengeDisplay()
+  }
+}
 
-  for (let i = 1; i <= 4; i++) {
-    const a = DOMCacheGetOrSet(`toggleSingularitySubTab${i}`)
-    const b = DOMCacheGetOrSet(`singularityContainer${i}`)
-    if (i === index) {
-      a.style.backgroundColor = 'crimson'
-      b.style.display = 'block'
-    } else {
-      a.style.backgroundColor = ''
-      b.style.display = 'none'
-    }
+export const toggleSingularityScreen = (subTabID: string) => {
+  if (subTabID === 'singularityContainerPerks') {
+    updateSingularityPenalties()
+    updateSingularityPerks()
   }
 
-  player.subtabNumber = index - 1
-
-  if (player.subtabNumber === 2) {
+  if (subTabID === 'singularityContainerOcteracts') {
     visualUpdateOcteracts()
   }
 
-  if (player.subtabNumber === 3) {
+  if (subTabID === 'singularityContainerAmbrosia') {
+    player.visitedAmbrosiaSubtab = true
+    player.caches.ambrosiaGeneration.updateVal('DefaultVal')
     visualUpdateAmbrosia()
   }
 }
@@ -508,22 +450,8 @@ interface ChadContributor {
   contributions: number
 }
 
-export const setActiveSettingScreen = async (subtab: string) => {
-  const clickedButton =
-    DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[player.subtabNumber]
-  const subtabEl = DOMCacheGetOrSet(subtab)
-  if (subtabEl.classList.contains('subtabActive')) {
-    return
-  }
-
-  const switcherEl = clickedButton.parentNode!
-  switcherEl.querySelectorAll('.buttonActive').forEach((b) => b.classList.remove('buttonActive'))
-  clickedButton.classList.add('buttonActive')
-
-  subtabEl.parentNode!.querySelectorAll('.subtabActive').forEach((subtab) => subtab.classList.remove('subtabActive'))
-  subtabEl.classList.add('subtabActive')
-
-  if (subtab === 'creditssubtab') {
+export const setActiveSettingScreen = async (subTabID: string) => {
+  if (subTabID === 'creditssubtab') {
     const credits = DOMCacheGetOrSet('creditList')
     const artists = DOMCacheGetOrSet('artistList')
 
@@ -699,22 +627,7 @@ export const autoPlatonicUpgradesToggle = (toggle = true) => {
   }
 }
 
-export const toggleCubeSubTab = (indexStr: string) => {
-  const i = Number(indexStr)
-  const numSubTabs = subTabsInMainTab(Tabs.WowCubes)
-
-  for (let j = 1; j <= numSubTabs; j++) {
-    const cubeTab = DOMCacheGetOrSet(`cubeTab${j}`)
-    if (cubeTab.style.display === 'flex' && j !== i) {
-      cubeTab.style.display = 'none'
-    }
-    if (cubeTab.style.display === 'none' && j === i) {
-      cubeTab.style.display = 'flex'
-      player.subtabNumber = j - 1
-    }
-    DOMCacheGetOrSet(`switchCubeSubTab${j}`).style.backgroundColor = i === j ? 'crimson' : ''
-  }
-
+export const toggleCubeSubTab = () => {
   visualUpdateCubes()
 }
 
@@ -947,10 +860,9 @@ export const toggleCorruptionLevel = (index: number, value: number) => {
   corruptionLoadoutTableUpdate()
 }
 
-export const toggleCorruptionLoadoutsStats = (statsStr: string) => {
-  const stats = statsStr === 'true'
+export const toggleCorruptionLoadoutsStats = (subTabID: string) => {
+  const stats = subTabID === 'corruptionStats'
   player.corruptionShowStats = stats
-  showCorruptionStatsLoadouts()
 }
 
 export const toggleAscStatPerSecond = (id: number) => {

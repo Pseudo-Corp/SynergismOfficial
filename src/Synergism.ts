@@ -121,7 +121,6 @@ import {
   htmlInserts,
   Notification,
   revealStuff,
-  showCorruptionStatsLoadouts,
   updateAchievementBG,
   updateChallengeDisplay,
   updateChallengeLevel
@@ -2373,7 +2372,6 @@ const loadSynergy = async () => {
     for (let i = 0; i < corrs; i++) {
       corruptionLoadoutTableUpdate(i)
     }
-    showCorruptionStatsLoadouts()
     updateCorruptionLoadoutNames()
 
     DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t(
@@ -5931,8 +5929,9 @@ export const updateAll = (): void => {
     && player.usedCorruptions.slice(2, 10).every((a) => a === 11)
   ) {
     const c15SM = challenge15ScoreMultiplier()
-    if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
+    if (player.coins.gte(Decimal.pow(10, (player.challenge15Exponent * 1.0000001) / c15SM))) {
       player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM
+      updateChallengeDisplay()
       c15RewardUpdate()
     }
   }
