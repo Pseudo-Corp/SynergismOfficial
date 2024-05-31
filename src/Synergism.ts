@@ -2195,9 +2195,9 @@ const loadSynergy = async () => {
         if (index >= 2 && index <= 9) {
           return Math.min(
             maxLevel
-              * (player.challengecompletions[corrChallengeMinimum(index)] > 0
-                ? 1
-                : 0),
+            * (player.challengecompletions[corrChallengeMinimum(index)] > 0
+              ? 1
+              : 0),
             curr
           )
         }
@@ -2230,7 +2230,7 @@ const loadSynergy = async () => {
         ? 'Synergism-$VERSION$-$TIME$.txt'
         : 'Synergism-$VERSION$-$TIME$-$SING$.txt'
     }
-    ;(DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = cleanString(player.saveString)
+    ; (DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = cleanString(player.saveString)
 
     for (let j = 1; j < 126; j++) {
       upgradeupdate(j, true)
@@ -2413,7 +2413,7 @@ const loadSynergy = async () => {
         .value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(
+      ; (
         DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement
       ).value = `${player.autoChallengeTimer.start || blankSave.autoChallengeTimer.start}`.replace(omit, 'e')
       updateAutoChallenge(1)
@@ -2432,7 +2432,7 @@ const loadSynergy = async () => {
         .value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(
+      ; (
         DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement
       ).value = `${player.autoChallengeTimer.exit || blankSave.autoChallengeTimer.exit}`.replace(omit, 'e')
       updateAutoChallenge(2)
@@ -2451,7 +2451,7 @@ const loadSynergy = async () => {
         .value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(
+      ; (
         DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement
       ).value = `${player.autoChallengeTimer.enter || blankSave.autoChallengeTimer.enter}`.replace(omit, 'e')
       updateAutoChallenge(3)
@@ -2469,9 +2469,8 @@ const loadSynergy = async () => {
       (DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value = `${
-        player.prestigeamount || blankSave.prestigeamount
-      }`.replace(omit, 'e')
+      ; (DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value = `${player.prestigeamount || blankSave.prestigeamount
+        }`.replace(omit, 'e')
       updateAutoReset(1)
     }
     inputd = player.transcendamount
@@ -2479,9 +2478,8 @@ const loadSynergy = async () => {
       (DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value = `${
-        player.transcendamount || blankSave.transcendamount
-      }`.replace(omit, 'e')
+      ; (DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value = `${player.transcendamount || blankSave.transcendamount
+        }`.replace(omit, 'e')
       updateAutoReset(2)
     }
     inputd = player.reincarnationamount
@@ -2489,9 +2487,8 @@ const loadSynergy = async () => {
       (DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value = `${
-        player.reincarnationamount || blankSave.reincarnationamount
-      }`.replace(omit, 'e')
+      ; (DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value = `${player.reincarnationamount || blankSave.reincarnationamount
+        }`.replace(omit, 'e')
       updateAutoReset(3)
     }
     inputd = player.autoAscendThreshold
@@ -2499,9 +2496,8 @@ const loadSynergy = async () => {
       (DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value = `${
-        player.autoAscendThreshold || blankSave.autoAscendThreshold
-      }`.replace(omit, 'e')
+      ; (DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value = `${player.autoAscendThreshold || blankSave.autoAscendThreshold
+        }`.replace(omit, 'e')
       updateAutoReset(4)
     }
     inputd = player.autoAntSacTimer
@@ -2509,12 +2505,11 @@ const loadSynergy = async () => {
       (DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value = `${
-        player.autoAntSacTimer || blankSave.autoAntSacTimer
-      }`.replace(
-        omit,
-        'e'
-      )
+      ; (DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value = `${player.autoAntSacTimer || blankSave.autoAntSacTimer
+        }`.replace(
+          omit,
+          'e'
+        )
       updateAutoReset(5)
     }
     inputd = player.tesseractAutoBuyerAmount
@@ -2522,9 +2517,8 @@ const loadSynergy = async () => {
       (DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value = `${
-        player.tesseractAutoBuyerAmount || blankSave.tesseractAutoBuyerAmount
-      }`.replace(omit, 'e')
+      ; (DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value = `${player.tesseractAutoBuyerAmount || blankSave.tesseractAutoBuyerAmount
+        }`.replace(omit, 'e')
       updateTesseractAutoBuyAmount()
     }
     inputd = player.openCubes
@@ -2532,7 +2526,7 @@ const loadSynergy = async () => {
       (DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value = `${player.openCubes || blankSave.openCubes}`
+      ; (DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value = `${player.openCubes || blankSave.openCubes}`
         .replace(omit, 'e')
       updateAutoCubesOpens(1)
     }
@@ -2541,9 +2535,8 @@ const loadSynergy = async () => {
       (DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value = `${
-        player.openTesseracts || blankSave.openTesseracts
-      }`.replace(omit, 'e')
+      ; (DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value = `${player.openTesseracts || blankSave.openTesseracts
+        }`.replace(omit, 'e')
       updateAutoCubesOpens(2)
     }
     inputd = player.openHypercubes
@@ -2551,9 +2544,8 @@ const loadSynergy = async () => {
       (DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value = `${
-        player.openHypercubes || blankSave.openHypercubes
-      }`.replace(omit, 'e')
+      ; (DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value = `${player.openHypercubes || blankSave.openHypercubes
+        }`.replace(omit, 'e')
       updateAutoCubesOpens(3)
     }
     inputd = player.openPlatonicsCubes
@@ -2561,12 +2553,11 @@ const loadSynergy = async () => {
       (DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value = `${
-        player.openPlatonicsCubes || blankSave.openPlatonicsCubes
-      }`.replace(
-        omit,
-        'e'
-      )
+      ; (DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value = `${player.openPlatonicsCubes || blankSave.openPlatonicsCubes
+        }`.replace(
+          omit,
+          'e'
+        )
       updateAutoCubesOpens(4)
     }
     inputd = player.runeBlessingBuyAmount
@@ -2574,9 +2565,8 @@ const loadSynergy = async () => {
       (DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value = `${
-        player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount
-      }`.replace(omit, 'e')
+      ; (DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value = `${player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount
+        }`.replace(omit, 'e')
       updateRuneBlessingBuyAmount(1)
     }
 
@@ -2592,9 +2582,8 @@ const loadSynergy = async () => {
       (DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value = `${
-        player.runeSpiritBuyAmount || blankSave.runeSpiritBuyAmount
-      }`.replace(omit, 'e')
+      ; (DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value = `${player.runeSpiritBuyAmount || blankSave.runeSpiritBuyAmount
+        }`.replace(omit, 'e')
       updateRuneBlessingBuyAmount(2)
     }
     DOMCacheGetOrSet('buyRuneSpiritToggleValue').innerHTML = i18next.t(
@@ -2885,9 +2874,8 @@ const loadSynergy = async () => {
     DOMCacheGetOrSet('hepteractToQuarkTradeAuto').textContent = player.overfluxOrbsAutoBuy
       ? i18next.t('general.autoOnColon')
       : i18next.t('general.autoOffColon')
-    DOMCacheGetOrSet('hepteractToQuarkTradeAuto').style.border = `2px solid ${
-      player.overfluxOrbsAutoBuy ? 'green' : 'red'
-    }`
+    DOMCacheGetOrSet('hepteractToQuarkTradeAuto').style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'
+      }`
     toggleAutoBuyOrbs(true, true)
 
     DOMCacheGetOrSet('blueberryToggleMode').innerHTML = player.blueberryLoadoutMode === 'saveTree'
@@ -3063,7 +3051,7 @@ const padEvery = (str: string, places = 3) => {
     newStr += dec + strParts[1]
   } // see https://www.npmjs.com/package/flatstr
 
-  ;(newStr as unknown as number) | 0
+  ; (newStr as unknown as number) | 0
   return newStr
 }
 
@@ -3130,7 +3118,7 @@ export const format = (
   // This prevents numbers from jittering between two different powers by rounding errors
   if (mantissa > 9.9999999) {
     mantissa = 1
-    ;++power
+      ; ++power
   }
 
   if (mantissa < 1 && mantissa > 0.9999999) {
@@ -3183,44 +3171,39 @@ export const format = (
   // If the power is negative, then we will want to address that separately.
   if (power < 0 && !isDecimal(input) && fractional) {
     if (power <= -15) {
-      return `${format(mantissa, accuracy, long)} / ${
-        Math.pow(
-          10,
-          -power - 15
-        )
-      }Qa`
+      return `${format(mantissa, accuracy, long)} / ${Math.pow(
+        10,
+        -power - 15
+      )
+        }Qa`
     }
     if (power <= -12) {
-      return `${format(mantissa, accuracy, long)} / ${
-        Math.pow(
-          10,
-          -power - 12
-        )
-      }T`
+      return `${format(mantissa, accuracy, long)} / ${Math.pow(
+        10,
+        -power - 12
+      )
+        }T`
     }
     if (power <= -9) {
-      return `${format(mantissa, accuracy, long)} / ${
-        Math.pow(
-          10,
-          -power - 9
-        )
-      }B`
+      return `${format(mantissa, accuracy, long)} / ${Math.pow(
+        10,
+        -power - 9
+      )
+        }B`
     }
     if (power <= -6) {
-      return `${format(mantissa, accuracy, long)} / ${
-        Math.pow(
-          10,
-          -power - 6
-        )
-      }M`
+      return `${format(mantissa, accuracy, long)} / ${Math.pow(
+        10,
+        -power - 6
+      )
+        }M`
     }
     if (power <= -3) {
-      return `${format(mantissa, accuracy, long)} / ${
-        Math.pow(
-          10,
-          -power - 3
-        )
-      }K`
+      return `${format(mantissa, accuracy, long)} / ${Math.pow(
+        10,
+        -power - 3
+      )
+        }K`
     }
     return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
   } else if (power < 6 || (long && power < 7)) {
@@ -3303,15 +3286,13 @@ export const formatTimeShort = (
     + (seconds >= 60 ? `${format(Math.floor(seconds / 60) % 60)}m` : '')
     + (seconds >= 8640000
       ? ''
-      : `${
-        format(Math.floor(seconds) % 60)
-        + (msMaxSeconds && seconds < msMaxSeconds // Don't show seconds when you're over 100 days, like honestly
-          ? `.${
-            Math.floor((seconds % 1) * 1000)
-              .toString()
-              .padStart(3, '0')
-          }`
-          : '')
+      : `${format(Math.floor(seconds) % 60)
+      + (msMaxSeconds && seconds < msMaxSeconds // Don't show seconds when you're over 100 days, like honestly
+        ? `.${Math.floor((seconds % 1) * 1000)
+          .toString()
+          .padStart(3, '0')
+        }`
+        : '')
       }s`)
   )
 }
@@ -3356,7 +3337,7 @@ export const updateAllTick = (): void => {
           + player.thirdOwnedCoin
           + player.fourthOwnedCoin
           + player.fifthOwnedCoin)
-          / 80
+        / 80
       )
     )
   }
@@ -3417,7 +3398,7 @@ export const updateAllTick = (): void => {
     Math.min(
       1,
       (1 + player.platonicUpgrades[6] / 30)
-        * G.viscosityPower[player.usedCorruptions[2]]
+      * G.viscosityPower[player.usedCorruptions[2]]
     )
   )
   a += 2000 * hepteractEffective('accelerator')
@@ -3443,9 +3424,9 @@ export const updateAllTick = (): void => {
 
   G.acceleratorPower = Math.pow(
     1.1
-      + G.tuSevenMulti
-        * (G.totalAcceleratorBoost / 100)
-        * (1 + CalcECC('transcend', player.challengecompletions[2]) / 20),
+    + G.tuSevenMulti
+    * (G.totalAcceleratorBoost / 100)
+    * (1 + CalcECC('transcend', player.challengecompletions[2]) / 20),
     1 + 0.04 * CalcECC('reincarnation', player.challengecompletions[7])
   )
   G.acceleratorPower += ((1 / 200)
@@ -3474,9 +3455,9 @@ export const updateAllTick = (): void => {
     if (player.currentChallenge.transcension === 3) {
       G.acceleratorPower = 1.05
         + 2
-          * G.tuSevenMulti
-          * (G.totalAcceleratorBoost / 300)
-          * (1 + CalcECC('transcend', player.challengecompletions[2]) / 20)
+        * G.tuSevenMulti
+        * (G.totalAcceleratorBoost / 300)
+        * (1 + CalcECC('transcend', player.challengecompletions[2]) / 20)
     }
   }
   G.acceleratorPower = Math.min(1e300, G.acceleratorPower)
@@ -3546,7 +3527,7 @@ export const updateAllMultiplier = (): void => {
           + player.thirdOwnedCoin
           + player.fourthOwnedCoin
           + player.fifthOwnedCoin)
-          / 160
+        / 160
       )
     )
   }
@@ -3601,7 +3582,7 @@ export const updateAllMultiplier = (): void => {
         + G.rune3level
         + G.rune4level
         + G.rune5level)
-        / 8
+      / 8
     )
 
   G.freeUpgradeMultiplier = Math.min(1e100, a)
@@ -3610,7 +3591,7 @@ export const updateAllMultiplier = (): void => {
     a += (Math.floor(
       (Math.floor((G.rune2level / 10) * G.effectiveLevelMult)
         * Math.floor(1 + (G.rune2level / 10) * G.effectiveLevelMult))
-        / 2
+      / 2
     )
       * 100)
       / 100
@@ -3622,16 +3603,16 @@ export const updateAllMultiplier = (): void => {
   a *= Math.pow(
     1.01,
     player.upgrades[21]
-      + player.upgrades[22]
-      + player.upgrades[23]
-      + player.upgrades[24]
-      + player.upgrades[25]
+    + player.upgrades[22]
+    + player.upgrades[23]
+    + player.upgrades[24]
+    + player.upgrades[25]
   )
   a *= 1 + 0.03 * player.upgrades[34] + 0.02 * player.upgrades[35]
   a *= 1
     + (1 / 5)
-      * player.researches[2]
-      * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14]))
+    * player.researches[2]
+    * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14]))
   a *= 1
     + (1 / 20) * player.researches[11]
     + (1 / 25) * player.researches[12]
@@ -3664,7 +3645,7 @@ export const updateAllMultiplier = (): void => {
     Math.min(
       1,
       (1 + player.platonicUpgrades[6] / 30)
-        * G.viscosityPower[player.usedCorruptions[2]]
+      * G.viscosityPower[player.usedCorruptions[2]]
     )
   )
   a += 1000 * hepteractEffective('multiplier')
@@ -3740,10 +3721,10 @@ export const multipliers = (): void => {
   let crystalExponent = 1 / 3
   crystalExponent += Math.min(
     10
-      + (0.05 * player.researches[129] * Math.log(player.commonFragments + 1))
-        / Math.log(4)
-      + ((20 * calculateCorruptionPoints()) / 400)
-        * G.effectiveRuneSpiritPower[3],
+    + (0.05 * player.researches[129] * Math.log(player.commonFragments + 1))
+    / Math.log(4)
+    + ((20 * calculateCorruptionPoints()) / 400)
+    * G.effectiveRuneSpiritPower[3],
     0.05 * player.crystalUpgrades[3]
   )
   crystalExponent += 0.04 * CalcECC('transcend', player.challengecompletions[3])
@@ -3766,14 +3747,14 @@ export const multipliers = (): void => {
 
   G.buildingPower = 1
     + (1 - Math.pow(2, -1 / 160))
-      * c7
-      * Decimal.log(player.reincarnationShards.add(1), 10)
-      * (1
-        + (1 / 20) * player.researches[36]
-        + (1 / 40) * player.researches[37]
-        + (1 / 40) * player.researches[38])
+    * c7
+    * Decimal.log(player.reincarnationShards.add(1), 10)
+    * (1
+      + (1 / 20) * player.researches[36]
+      + (1 / 40) * player.researches[37]
+      + (1 / 40) * player.researches[38])
     + (((c7 + 0.2) * 0.25) / 1.2)
-      * CalcECC('reincarnation', player.challengecompletions[8])
+    * CalcECC('reincarnation', player.challengecompletions[8])
 
   G.buildingPower = Math.pow(
     G.buildingPower,
@@ -3803,7 +3784,7 @@ export const multipliers = (): void => {
   if (player.highestSingularityCount > 0) {
     s = s.times(
       Math.pow(player.goldenQuarks + 1, 1.5)
-        * Math.pow(player.highestSingularityCount + 1, 2)
+      * Math.pow(player.highestSingularityCount + 1, 2)
     )
   }
   if (player.upgrades[6] > 0.5) {
@@ -3856,10 +3837,10 @@ export const multipliers = (): void => {
     lol = Decimal.pow(
       lol,
       1
-        + ((1 / 20)
-            * player.usedCorruptions[9]
-            * Decimal.log(player.coins.add(1), 10))
-          / (1e7 + Decimal.log(player.coins.add(1), 10))
+      + ((1 / 20)
+        * player.usedCorruptions[9]
+        * Decimal.log(player.coins.add(1), 10))
+      / (1e7 + Decimal.log(player.coins.add(1), 10))
     )
   }
   if (
@@ -3994,20 +3975,20 @@ export const multipliers = (): void => {
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
     Decimal.pow(
       1
-        + Math.min(
-          0.12
-            + 0.88 * player.upgrades[122]
-            + (0.001
-                * player.researches[129]
-                * Math.log(player.commonFragments + 1))
-              / Math.log(4),
-          0.001 * player.crystalUpgrades[2]
-        ),
+      + Math.min(
+        0.12
+        + 0.88 * player.upgrades[122]
+        + (0.001
+          * player.researches[129]
+          * Math.log(player.commonFragments + 1))
+        / Math.log(4),
+        0.001 * player.crystalUpgrades[2]
+      ),
       player.firstOwnedDiamonds
-        + player.secondOwnedDiamonds
-        + player.thirdOwnedDiamonds
-        + player.fourthOwnedDiamonds
-        + player.fifthOwnedDiamonds
+      + player.secondOwnedDiamonds
+      + player.thirdOwnedDiamonds
+      + player.fourthOwnedDiamonds
+      + player.fifthOwnedDiamonds
     )
   )
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
@@ -4018,7 +3999,7 @@ export const multipliers = (): void => {
         + player.challengecompletions[3]
         + player.challengecompletions[4]
         + player.challengecompletions[5])
-        * player.crystalUpgrades[4]
+      * player.crystalUpgrades[4]
     )
   )
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
@@ -4028,7 +4009,7 @@ export const multipliers = (): void => {
     Decimal.pow(
       1e4,
       player.researches[5]
-        * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14]))
+      * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14]))
     )
   )
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
@@ -4120,23 +4101,23 @@ export const multipliers = (): void => {
   G.globalConstantMult = G.globalConstantMult.times(
     Decimal.pow(
       1.05
-        + 0.01 * player.achievements[270]
-        + 0.001 * player.platonicUpgrades[18],
+      + 0.01 * player.achievements[270]
+      + 0.001 * player.platonicUpgrades[18],
       player.constantUpgrades[1]
     )
   )
   G.globalConstantMult = G.globalConstantMult.times(
     Decimal.pow(
       1
-        + 0.001
-          * Math.min(
-            100
-              + 10 * player.achievements[270]
-              + 10 * player.shopUpgrades.constantEX
-              + 1000 * (G.challenge15Rewards.exponent - 1)
-              + 3 * player.platonicUpgrades[18],
-            player.constantUpgrades[2]
-          ),
+      + 0.001
+      * Math.min(
+        100
+        + 10 * player.achievements[270]
+        + 10 * player.shopUpgrades.constantEX
+        + 1000 * (G.challenge15Rewards.exponent - 1)
+        + 3 * player.platonicUpgrades[18],
+        player.constantUpgrades[2]
+      ),
       ascendBuildingDR()
     )
   )
@@ -4303,10 +4284,10 @@ export const resourceGain = (dt: number): void => {
       Decimal.pow(
         1.03,
         player.firstOwnedParticles
-          + player.secondOwnedParticles
-          + player.thirdOwnedParticles
-          + player.fourthOwnedParticles
-          + player.fifthOwnedParticles
+        + player.secondOwnedParticles
+        + player.thirdOwnedParticles
+        + player.fourthOwnedParticles
+        + player.fifthOwnedParticles
       )
     )
   }
@@ -4390,16 +4371,16 @@ export const resourceGain = (dt: number): void => {
   if (
     player.researches[71] > 0.5
     && player.challengecompletions[1]
-      < Math.min(
-        player.highestchallengecompletions[1],
-        25 + 5 * player.researches[66] + 925 * player.researches[105]
-      )
+    < Math.min(
+      player.highestchallengecompletions[1],
+      25 + 5 * player.researches[66] + 925 * player.researches[105]
+    )
     && player.coins.gte(
       Decimal.pow(
         10,
         1.25
-          * G.challengeBaseRequirements[0]
-          * Math.pow(1 + player.challengecompletions[1], 2)
+        * G.challengeBaseRequirements[0]
+        * Math.pow(1 + player.challengecompletions[1], 2)
       )
     )
   ) {
@@ -4410,16 +4391,16 @@ export const resourceGain = (dt: number): void => {
   if (
     player.researches[72] > 0.5
     && player.challengecompletions[2]
-      < Math.min(
-        player.highestchallengecompletions[2],
-        25 + 5 * player.researches[67] + 925 * player.researches[105]
-      )
+    < Math.min(
+      player.highestchallengecompletions[2],
+      25 + 5 * player.researches[67] + 925 * player.researches[105]
+    )
     && player.coins.gte(
       Decimal.pow(
         10,
         1.6
-          * G.challengeBaseRequirements[1]
-          * Math.pow(1 + player.challengecompletions[2], 2)
+        * G.challengeBaseRequirements[1]
+        * Math.pow(1 + player.challengecompletions[2], 2)
       )
     )
   ) {
@@ -4430,16 +4411,16 @@ export const resourceGain = (dt: number): void => {
   if (
     player.researches[73] > 0.5
     && player.challengecompletions[3]
-      < Math.min(
-        player.highestchallengecompletions[3],
-        25 + 5 * player.researches[68] + 925 * player.researches[105]
-      )
+    < Math.min(
+      player.highestchallengecompletions[3],
+      25 + 5 * player.researches[68] + 925 * player.researches[105]
+    )
     && player.coins.gte(
       Decimal.pow(
         10,
         1.7
-          * G.challengeBaseRequirements[2]
-          * Math.pow(1 + player.challengecompletions[3], 2)
+        * G.challengeBaseRequirements[2]
+        * Math.pow(1 + player.challengecompletions[3], 2)
       )
     )
   ) {
@@ -4450,16 +4431,16 @@ export const resourceGain = (dt: number): void => {
   if (
     player.researches[74] > 0.5
     && player.challengecompletions[4]
-      < Math.min(
-        player.highestchallengecompletions[4],
-        25 + 5 * player.researches[69] + 925 * player.researches[105]
-      )
+    < Math.min(
+      player.highestchallengecompletions[4],
+      25 + 5 * player.researches[69] + 925 * player.researches[105]
+    )
     && player.coins.gte(
       Decimal.pow(
         10,
         1.45
-          * G.challengeBaseRequirements[3]
-          * Math.pow(1 + player.challengecompletions[4], 2)
+        * G.challengeBaseRequirements[3]
+        * Math.pow(1 + player.challengecompletions[4], 2)
       )
     )
   ) {
@@ -4470,16 +4451,16 @@ export const resourceGain = (dt: number): void => {
   if (
     player.researches[75] > 0.5
     && player.challengecompletions[5]
-      < Math.min(
-        player.highestchallengecompletions[5],
-        25 + 5 * player.researches[70] + 925 * player.researches[105]
-      )
+    < Math.min(
+      player.highestchallengecompletions[5],
+      25 + 5 * player.researches[70] + 925 * player.researches[105]
+    )
     && player.coins.gte(
       Decimal.pow(
         10,
         2
-          * G.challengeBaseRequirements[4]
-          * Math.pow(1 + player.challengecompletions[5], 2)
+        * G.challengeBaseRequirements[4]
+        * Math.pow(1 + player.challengecompletions[5], 2)
       )
     )
   ) {
@@ -4532,11 +4513,11 @@ export const resourceGain = (dt: number): void => {
   if (ascendchal !== 0 && ascendchal < 15) {
     if (
       player.challengecompletions[10]
-        >= (challengeRequirement(
-          ascendchal,
-          player.challengecompletions[ascendchal],
-          ascendchal
-        ) as number)
+      >= (challengeRequirement(
+        ascendchal,
+        player.challengecompletions[ascendchal],
+        ascendchal
+      ) as number)
     ) {
       void resetCheck('ascensionChallenge', false)
       challengeachievementcheck(ascendchal, true)
@@ -4564,19 +4545,19 @@ export const updateAntMultipliers = (): void => {
   G.globalAntMult = G.globalAntMult.times(5)
   G.globalAntMult = G.globalAntMult.times(
     1
-      + (1 / 2500)
-        * Math.pow(
-          G.rune5level
-            * G.effectiveLevelMult
-            * (1
-              + (player.researches[84] / 200)
-                * (1
-                  + (1
-                      * G.effectiveRuneSpiritPower[5]
-                      * calculateCorruptionPoints())
-                    / 400)),
-          2
-        )
+    + (1 / 2500)
+    * Math.pow(
+      G.rune5level
+      * G.effectiveLevelMult
+      * (1
+        + (player.researches[84] / 200)
+        * (1
+          + (1
+            * G.effectiveRuneSpiritPower[5]
+            * calculateCorruptionPoints())
+          / 400)),
+      2
+    )
   )
   if (player.upgrades[76] === 1) {
     G.globalAntMult = G.globalAntMult.times(5)
@@ -4584,24 +4565,24 @@ export const updateAntMultipliers = (): void => {
   G.globalAntMult = G.globalAntMult.times(
     Decimal.pow(
       1
-        + player.upgrades[77] / 250
-        + player.researches[96] / 5000
-        + player.cubeUpgrades[65] / 250,
+      + player.upgrades[77] / 250
+      + player.researches[96] / 5000
+      + player.cubeUpgrades[65] / 250,
       player.firstOwnedAnts
-        + player.secondOwnedAnts
-        + player.thirdOwnedAnts
-        + player.fourthOwnedAnts
-        + player.fifthOwnedAnts
-        + player.sixthOwnedAnts
-        + player.seventhOwnedAnts
-        + player.eighthOwnedAnts
+      + player.secondOwnedAnts
+      + player.thirdOwnedAnts
+      + player.fourthOwnedAnts
+      + player.fifthOwnedAnts
+      + player.sixthOwnedAnts
+      + player.seventhOwnedAnts
+      + player.eighthOwnedAnts
     )
   )
   G.globalAntMult = G.globalAntMult.times(
     1
-      + player.upgrades[78]
-        * 0.005
-        * Math.pow(Math.log10(player.maxofferings + 1), 2)
+    + player.upgrades[78]
+    * 0.005
+    * Math.pow(Math.log10(player.maxofferings + 1), 2)
   )
   G.globalAntMult = G.globalAntMult.times(
     Decimal.pow(
@@ -4636,7 +4617,7 @@ export const updateAntMultipliers = (): void => {
   if (player.achievements[172] === 1) {
     G.globalAntMult = G.globalAntMult.times(
       1
-        + 2 * (1 - Math.pow(2, -Math.min(1, player.reincarnationcounter / 7200)))
+      + 2 * (1 - Math.pow(2, -Math.min(1, player.reincarnationcounter / 7200)))
     )
   }
   if (player.upgrades[39] === 1) {
@@ -5075,11 +5056,11 @@ export const resetCheck = async (
     if (a !== 0 && a < 15) {
       if (
         player.challengecompletions[10]
-          >= (challengeRequirement(
-            a,
-            player.challengecompletions[a],
-            a
-          ) as number)
+        >= (challengeRequirement(
+          a,
+          player.challengecompletions[a],
+          a
+        ) as number)
         && player.challengecompletions[a] < maxCompletions
       ) {
         player.challengecompletions[a] += 1
@@ -5260,7 +5241,7 @@ export const updateEffectiveLevelMult = (): void => {
   G.effectiveLevelMult = 1
   G.effectiveLevelMult *= 1
     + (player.researches[4] / 10)
-      * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14])) // Research 1x4
+    * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14])) // Research 1x4
   G.effectiveLevelMult *= 1 + player.researches[21] / 100 // Research 2x6
   G.effectiveLevelMult *= 1 + player.researches[90] / 100 // Research 4x15
   G.effectiveLevelMult *= 1 + player.researches[131] / 200 // Research 6x6
@@ -5270,7 +5251,7 @@ export const updateEffectiveLevelMult = (): void => {
   G.effectiveLevelMult *= 1 + ((player.researches[146] / 200) * 4) / 5 // Research 6x21
   G.effectiveLevelMult *= 1
     + ((0.01 * Math.log(player.talismanShards + 1)) / Math.log(4))
-      * Math.min(1, player.constantUpgrades[9])
+    * Math.min(1, player.constantUpgrades[9])
   G.effectiveLevelMult *= G.challenge15Rewards.runeBonus
 }
 
@@ -5446,8 +5427,8 @@ export const updateAll = (): void => {
       Decimal.pow(
         10,
         G.crystalUpgradesCost[0]
-          + G.crystalUpgradeCostIncrement[0]
-            * Math.floor(Math.pow(player.crystalUpgrades[0] - 0.5 - c, 2) / 2)
+        + G.crystalUpgradeCostIncrement[0]
+        * Math.floor(Math.pow(player.crystalUpgrades[0] - 0.5 - c, 2) / 2)
       )
     )
   ) {
@@ -5459,8 +5440,8 @@ export const updateAll = (): void => {
       Decimal.pow(
         10,
         G.crystalUpgradesCost[1]
-          + G.crystalUpgradeCostIncrement[1]
-            * Math.floor(Math.pow(player.crystalUpgrades[1] - 0.5 - c, 2) / 2)
+        + G.crystalUpgradeCostIncrement[1]
+        * Math.floor(Math.pow(player.crystalUpgrades[1] - 0.5 - c, 2) / 2)
       )
     )
   ) {
@@ -5472,8 +5453,8 @@ export const updateAll = (): void => {
       Decimal.pow(
         10,
         G.crystalUpgradesCost[2]
-          + G.crystalUpgradeCostIncrement[2]
-            * Math.floor(Math.pow(player.crystalUpgrades[2] - 0.5 - c, 2) / 2)
+        + G.crystalUpgradeCostIncrement[2]
+        * Math.floor(Math.pow(player.crystalUpgrades[2] - 0.5 - c, 2) / 2)
       )
     )
   ) {
@@ -5485,8 +5466,8 @@ export const updateAll = (): void => {
       Decimal.pow(
         10,
         G.crystalUpgradesCost[3]
-          + G.crystalUpgradeCostIncrement[3]
-            * Math.floor(Math.pow(player.crystalUpgrades[3] - 0.5 - c, 2) / 2)
+        + G.crystalUpgradeCostIncrement[3]
+        * Math.floor(Math.pow(player.crystalUpgrades[3] - 0.5 - c, 2) / 2)
       )
     )
   ) {
@@ -5498,8 +5479,8 @@ export const updateAll = (): void => {
       Decimal.pow(
         10,
         G.crystalUpgradesCost[4]
-          + G.crystalUpgradeCostIncrement[4]
-            * Math.floor(Math.pow(player.crystalUpgrades[4] - 0.5 - c, 2) / 2)
+        + G.crystalUpgradeCostIncrement[4]
+        * Math.floor(Math.pow(player.crystalUpgrades[4] - 0.5 - c, 2) / 2)
       )
     )
   ) {
@@ -5831,7 +5812,7 @@ export const updateAll = (): void => {
     if (
       player.autoAscendMode === 'realAscensionTime'
       && player.ascensionCounterRealReal
-        >= Math.max(0.1, player.autoAscendThreshold)
+      >= Math.max(0.1, player.autoAscendThreshold)
     ) {
       ascension = true
     }
@@ -6392,7 +6373,7 @@ export const reloadShit = async (reset = false) => {
   changeTabColor()
 
   eventCheck()
-    .catch(() => {})
+    .catch(() => { })
     .finally(() => {
       setInterval(
         () =>
@@ -6435,7 +6416,7 @@ export const reloadShit = async (reset = false) => {
   saveType.checked = localStorage.getItem('copyToClipboard') !== null
 }
 
-function playerNeedsReminderToExport () {
+function playerNeedsReminderToExport() {
   const day = 1000 * 60 * 60 * 24
 
   return Date.now() - player.lastExportedSave > day * 3
@@ -6448,20 +6429,17 @@ window.addEventListener('load', async () => {
   const addZero = (n: number) => `${n}`.padStart(2, '0')
   if (ver instanceof HTMLElement) {
     const textUpdate = !isNaN(lastUpdated.getTime())
-      ? ` [Last Update: ${addZero(lastUpdated.getHours())}:${
-        addZero(
-          lastUpdated.getMinutes()
-        )
-      } UTC ${addZero(lastUpdated.getDate())}-${
-        lastUpdated.toLocaleString(
-          'en-us',
-          { month: 'short' }
-        )
+      ? ` [Last Update: ${addZero(lastUpdated.getHours())}:${addZero(
+        lastUpdated.getMinutes()
+      )
+      } UTC ${addZero(lastUpdated.getDate())}-${lastUpdated.toLocaleString(
+        'en-us',
+        { month: 'short' }
+      )
       }-${lastUpdated.getFullYear()}].`
       : ''
-    ver.textContent = `You're ${testing ? 'testing' : 'playing'} v${version} - The Alternate Reality${textUpdate} ${
-      testing ? i18next.t('testing.saveInLive') : ''
-    }`
+    ver.textContent = `You're ${testing ? 'testing' : 'playing'} v${version} - The Alternate Reality${textUpdate} ${testing ? i18next.t('testing.saveInLive') : ''
+      }`
   }
   document.title = `Synergism v${version}`
 

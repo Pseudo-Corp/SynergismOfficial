@@ -84,7 +84,7 @@ const getRealTime = (type = 'default', use12 = false) => {
 export const updateSaveString = (input: HTMLInputElement) => {
   const value = input.value.slice(0, 100)
   player.saveString = value === '' ? blankSave.saveString : cleanString(value)
-  ;(DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = player.saveString
+    ; (DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = player.saveString
 }
 
 export const getVer = () => /[\d?=.]+/.exec(version)?.[0] ?? version
@@ -246,7 +246,7 @@ export const exportSynergism = async (
     if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
       player.goldenQuarks += Math.floor(
         player.goldenQuarksTimer
-          / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
+        / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
       ) * bonusGQMultiplier
       player.goldenQuarksTimer = player.goldenQuarksTimer
         % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
@@ -461,22 +461,19 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     return Alert(
       `Not sponsored by the company! Your Quark timer(s) have been replenished and you have been given 8 real life hours of Ascension progress! Your daily code has also been reset for you.
-                      ${
-        player.challenge15Exponent >= 1e15
-          || player.highestSingularityCount > 0
-          ? 'Derpsmith also hacked your save to expand Quark Hepteract for free, and (to a limit) automatically filled the extra amount! What a generous, handsome gigachad.'
-          : ''
+                      ${player.challenge15Exponent >= 1e15
+        || player.highestSingularityCount > 0
+        ? 'Derpsmith also hacked your save to expand Quark Hepteract for free, and (to a limit) automatically filled the extra amount! What a generous, handsome gigachad.'
+        : ''
       }
-                      ${
-        player.highestSingularityCount > 0
-          ? 'You were also given free levels of GQ1-3!'
-          : ''
+                      ${player.highestSingularityCount > 0
+        ? 'You were also given free levels of GQ1-3!'
+        : ''
       } 
-                      ${
-        player.singularityUpgrades.octeractUnlock.getEffect()
-            .bonus
-          ? 'Finally, you were given a tiny amount of free Octeract Quark Hepteract Improver upgrade!'
-          : ''
+                      ${player.singularityUpgrades.octeractUnlock.getEffect()
+        .bonus
+        ? 'Finally, you were given a tiny amount of free Octeract Quark Hepteract Improver upgrade!'
+        : ''
       }`
     )
   }
@@ -533,13 +530,12 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     rewardMessage += `\n${format(actualQuarkAward, 0, true)} Quarks`
     if (rewards.goldenQuarks > 0) {
-      rewardMessage += `\n${
-        format(
-          rewards.goldenQuarks,
-          0,
-          true
-        )
-      } Golden Quarks`
+      rewardMessage += `\n${format(
+        rewards.goldenQuarks,
+        0,
+        true
+      )
+        } Golden Quarks`
     }
     await Alert(rewardMessage)
 
@@ -826,8 +822,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
       if (
         (Date.now() - player.skillCode!) / 1000 < 3600
         || (Date.now() - Number(localStorage.getItem('saveScumIsCheating')))
-              / 1000
-          < 3600
+        / 1000
+        < 3600
       ) {
         return (el.textContent = i18next.t(
           'importexport.promocodes.gamble.wait'
@@ -900,7 +896,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       if (diff <= 2500 + 125 * player.cubeUpgrades[61]) {
         const reward = Math.floor(
           Math.min(1000, 125 + 25 * player.highestSingularityCount)
-            * (1 + player.cubeUpgrades[61] / 50)
+          * (1 + player.cubeUpgrades[61] / 50)
         )
         let actualQuarkAward = player.worlds.applyBonus(reward)
         let blueberryTime = 0
@@ -1022,9 +1018,9 @@ export const addCodeInterval = () => {
       (player.highestSingularityCount >= 125
         ? player.highestSingularityCount / 800
         : 0)
-        + (player.highestSingularityCount >= 200
-          ? player.highestSingularityCount / 800
-          : 0)
+      + (player.highestSingularityCount >= 200
+        ? player.highestSingularityCount / 800
+        : 0)
     ),
     player.runelevels[6] > 0 ? 0.8 : 1,
     1 / addCodeSingularityPerkBonus()

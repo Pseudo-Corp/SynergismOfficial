@@ -924,16 +924,16 @@ export const toggleBlueberryLoadoutmode = () => {
 
 export const confirmReply = (confirm = true) => {
   if (DOMCacheGetOrSet('alertWrapper').style.display === 'block') {
-    ;(DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click()
+    ; (DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click()
   }
   if (
     DOMCacheGetOrSet('confirmWrapper').style.display === 'block'
     || DOMCacheGetOrSet('promptWrapper').style.display === 'block'
   ) {
     if (confirm) {
-      ;(DOMCacheGetOrSet('ok_confirm') as HTMLButtonElement).click()
+      ; (DOMCacheGetOrSet('ok_confirm') as HTMLButtonElement).click()
     } else {
-      ;(DOMCacheGetOrSet('cancel_confirm') as HTMLButtonElement).click()
+      ; (DOMCacheGetOrSet('cancel_confirm') as HTMLButtonElement).click()
     }
   }
 }

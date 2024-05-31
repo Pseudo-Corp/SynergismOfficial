@@ -206,12 +206,12 @@ export class SingularityChallenge {
       }</span>`
       : ''
     return `<span style="color: gold">${this.name}</span> ${enabled}
-                ${
+      ${
       i18next.t(
         'singularityChallenge.toString.tiersCompleted'
       )
     }: <span style="color: ${color}">${this.completions}/${this.maxCompletions}</span>
-                                <span style="color: pink">${
+      <span style="color: pink">${
       i18next.t(
         'singularityChallenge.toString.canEnter',
         {
@@ -230,14 +230,13 @@ export class SingularityChallenge {
         this.completions
       )
     }</span></span>
-                <span style="color: lightblue">${this.description}</span>`
+    <span style="color: lightblue">${this.description}</span>`
   }
   //Numerates through total reward count for Scaling & Unique string for EXALTS.
   scaleString (): string {
     let text = ''
     for (let i = 1; i <= this.scalingrewardcount; i++) {
-      const list = i18next.t(`singularityChallenge.data.${String(this.HTMLTag)}.ScalingReward${i}`);
-     if (i > this.scalingrewardcount) {}
+    const list = i18next.t(`singularityChallenge.data.${String(this.HTMLTag)}.ScalingReward${i}`);
     text += i > 1 ? `\n${list}` : list
     }
      return text
@@ -247,8 +246,7 @@ export class SingularityChallenge {
   uniqueString (): string {
     let text = ''
     for (let i = 1; i <= this.uniquerewardcount; i++) {
-      const list = i18next.t(`singularityChallenge.data.${String(this.HTMLTag)}.UniqueReward${i}`);
-     if (i > this.scalingrewardcount) {}
+    const list = i18next.t(`singularityChallenge.data.${String(this.HTMLTag)}.UniqueReward${i}`);
     text += i > 1 ? `\n${list}` : list
     }
      return text
