@@ -289,8 +289,6 @@ class TabRow extends HTMLDivElement {
       justify-content: center;
       gap: 0 5px;
     `
-
-    document.getElementsByClassName('navbar').item(0)?.appendChild(this)
   }
 
   getSubs () {
@@ -490,6 +488,7 @@ customElements.define('tab-row', TabRow, { extends: 'div' })
 customElements.define('sub-tab', $Tab, { extends: 'button' })
 
 export const tabRow = new TabRow()
+document.getElementsByClassName('navbar').item(0)?.appendChild(tabRow)
 
 tabRow.appendButton(
   new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings' })
