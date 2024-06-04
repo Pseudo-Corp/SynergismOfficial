@@ -64,7 +64,6 @@ import { buyGoldenQuarks, getLastUpgradeInfo, singularityPerks } from './singula
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
-import { subTubsEventListener } from './Tabs'
 import {
   buyAllTalismanResources,
   buyTalismanEnhance,
@@ -238,9 +237,6 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('ascendChallengeBtn').addEventListener('click', () => resetCheck('ascensionChallenge'))
   DOMCacheGetOrSet('ascendbtn').addEventListener('click', () => resetCheck('ascension'))
   DOMCacheGetOrSet('singularitybtn').addEventListener('click', () => resetCheck('singularity'))
-
-  // Toggle All SubTubs
-  subTubsEventListener()
 
   // Part 2: Building Amount Toggles
   const buildingTypesAlternate = [

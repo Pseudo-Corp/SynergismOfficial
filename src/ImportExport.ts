@@ -296,7 +296,7 @@ export const resetGame = async () => {
   }) as Player
   // Reset Displays
   changeTab(Tabs.Buildings)
-  resetSubTabs()
+  resetSubTabs(true)
   // Import Game
   await importSynergism(btoa(JSON.stringify(hold)), true)
 }

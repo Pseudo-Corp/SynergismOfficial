@@ -1180,7 +1180,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
 
   // Reset Displays
   changeTab(Tabs.Buildings)
-  resetSubTabs()
+  resetSubTabs(true)
 
   hold.history.singularity = player.history.singularity
   hold.totalQuarksEver = player.totalQuarksEver

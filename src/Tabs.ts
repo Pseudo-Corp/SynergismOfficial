@@ -37,14 +37,90 @@ export enum Tabs {
  */
 type SubTabSwitchOptions = { step: number; page?: undefined } | { page: number; step?: undefined }
 
+interface SubTabList {
+  subTabID: string
+  unlocked: boolean
+  buttonID: string
+}
+
 interface SubTab {
-  tabSwitcher?: () => (id: string) => unknown
+  tabSwitcher?: () => (subTabID: string) => void
   subTabDisplay?: 'block' | 'flex'
-  subTabList: {
-    subTabID: string
-    unlocked: boolean
-    buttonID: string
-  }[]
+  subTabList: SubTabList[]
+}
+
+interface TabInfo {
+  subTabID: string
+  buttonID: string
+  tabDisplay: 'block' | 'flex'
+}
+
+const tabInfo: Record<Tabs, TabInfo> = {
+  [Tabs.Settings]: {
+    subTabID: 'settings',
+    buttonID: 'settingstab',
+    tabDisplay: 'block'
+  },
+  [Tabs.Buildings]: {
+    subTabID: 'buildings',
+    buttonID: 'buildingstab',
+    tabDisplay: 'block'
+  },
+  [Tabs.Upgrades]: {
+    subTabID: 'upgrades',
+    buttonID: 'upgradestab',
+    tabDisplay: 'block'
+  },
+  [Tabs.Achievements]: {
+    subTabID: 'statistics',
+    buttonID: 'achievementstab',
+    tabDisplay: 'block'
+  },
+  [Tabs.Runes]: {
+    subTabID: 'runes',
+    buttonID: 'runestab',
+    tabDisplay: 'block'
+  },
+  [Tabs.Challenges]: {
+    subTabID: 'challenges',
+    buttonID: 'challengetab',
+    tabDisplay: 'block'
+  },
+  [Tabs.Research]: {
+    subTabID: 'research',
+    buttonID: 'researchtab',
+    tabDisplay: 'block'
+  },
+  [Tabs.AntHill]: {
+    subTabID: 'ants',
+    buttonID: 'anttab',
+    tabDisplay: 'block'
+  },
+  [Tabs.WowCubes]: {
+    subTabID: 'cubes',
+    buttonID: 'cubetab',
+    tabDisplay: 'flex'
+  },
+  [Tabs.Corruption]: {
+    subTabID: 'traits',
+    buttonID: 'traitstab',
+    tabDisplay: 'flex'
+  },
+  [Tabs.Singularity]: {
+    subTabID: 'singularity',
+    buttonID: 'singularitytab',
+    tabDisplay: 'block'
+  },
+  [Tabs.Shop]: {
+    subTabID: 'shop',
+    buttonID: 'shoptab',
+    tabDisplay: 'block'
+  },
+  [Tabs.Event]: {
+    subTabID: 'event',
+    buttonID: 'eventtab',
+    tabDisplay: 'block'
+  }
 }
 
 const subtabInfo: Record<Tabs, SubTab> = {
@@ -333,8 +409,6 @@ class TabRow extends HTMLDivElement {
       justify-content: center;
       gap: 0 5px;
     `
-
-    document.getElementsByClassName('navbar').item(0)?.appendChild(this)
   }
 
   getSubs () {
@@ -356,6 +430,11 @@ class TabRow extends HTMLDivElement {
   }
 
   getCurrentTab (): $Tab {
+    return this.#currentTab
+  }
+
+  setTab(tab: Tabs) {
+    this.#currentTab = this.getTab(tab)
     return this.#currentTab
   }
 
@@ -385,7 +464,7 @@ class TabRow extends HTMLDivElement {
     return this.#list[index - 1] ?? this.#list[this.#list.length - 1]
   }
 
-  reappend () {
+  reappend() {
     this.replaceChildren()
 
     for (const item of this.#list) {
@@ -395,7 +474,7 @@ class TabRow extends HTMLDivElement {
     this.#list.forEach((el) => el.resetHidden())
   }
 
-  #createDrag () {
+  #createDrag() {
     let dragSrcEl: HTMLElement | null = null
 
     const handleDragStart = (e: DragEvent) => {
@@ -454,6 +533,72 @@ class TabRow extends HTMLDivElement {
       item.addEventListener('dragend', handleDragEnd, false)
     })
   }
+
+  changeTab(tabs: Tabs, step?: number) {
+    if (step === 1) {
+      this.setNextTab()
+    } else if (step === -1) {
+      this.setPreviousTab()
+    } else {
+      this.setTab(tabs)
+    }
+
+    while (!this.getCurrentTab().isUnlocked()) {
+      if (step === 1 || step === undefined) {
+        this.setNextTab()
+      } else {
+        this.setPreviousTab()
+      }
+    }
+
+    G.currentTab = this.getCurrentTab().getType()
+    this.getCurrentTab().updateTab()
+
+    // Updates the state of a subtab
+    player.subtabNumber = this.getCurrentTab().getShowSubTab()
+    this.getCurrentTab().updateSubTab(player.subtabNumber)
+
+    revealStuff()
+    hideStuff()
+  }
+
+  changeSubTab(tabs: Tabs, { page, step }: SubTabSwitchOptions) {
+    if (!this.getTab(tabs).isUnlocked()) {
+      return
+    }
+
+    if (this.getCurrentTab().getType() !== tabs) {
+      this.changeTab(tabs)
+    }
+
+    const tab = this.getCurrentTab()
+    const subTabs = tab.getSubTabs()
+
+    if (subTabs.subTabList.length === 0) {
+      return
+    }
+
+    if (page !== undefined) {
+      player.subtabNumber = limitRange(page, 0, subTabs.subTabList.length - 1)
+    } else {
+      player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
+    }
+
+    let subTabList = subTabs.subTabList[player.subtabNumber]
+
+    if (step !== undefined) {
+      while (!subTabList.unlocked) {
+        assert(page === undefined)
+        player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
+        subTabList = subTabs.subTabList[player.subtabNumber]
+      }
+    }
+
+    if (subTabList.unlocked) {
+      tab.updateSubTab(player.subtabNumber)
+    }
+  }
+
 }
 
 interface kSubTabOptionsBag {
@@ -468,9 +613,17 @@ class $Tab extends HTMLButtonElement {
   #type!: Tabs
   #removeable = false
   #hidden = false
+  #subtabNumber = 0
 
   constructor (options: kSubTabOptionsBag) {
     super()
+
+    // Opera is bad - Jun 04 2024
+    // https://cohost.org/corru/post/6223172-opera-gx-s-cool-ai
+    if (options?.id === undefined) {
+      this.remove()
+      return
+    }
 
     this.id = options.id
     if (options.class) {
@@ -515,8 +668,16 @@ class $Tab extends HTMLButtonElement {
     return this.#type!
   }
 
+  getTabInfo() {
+    return tabInfo[this.#type]
+  }
+
   getSubTabs () {
     return subtabInfo[this.#type]
+  }
+
+  get subTabList() {
+    return this.getSubTabs().subTabList
   }
 
   makeDraggable () {
@@ -532,75 +693,155 @@ class $Tab extends HTMLButtonElement {
   resetHidden () {
     this.#hidden = false
   }
+
+  getSubtabNumber() {
+    return this.#subtabNumber
+  }
+
+  // Update the display state of the subtabs
+  updateTab() {
+    tabRow.getSubs().forEach((tab) => {
+      const tabInfo = tab.getTabInfo()
+      const buttonEl = DOMCacheGetOrSet(tabInfo.buttonID)
+      buttonEl.classList.toggle('tabButtonActive', tab.getType() === this.getType())
+
+      const subtabEl = DOMCacheGetOrSet(tabInfo.subTabID)
+      subtabEl.classList.toggle('tabActive', tab.getType() === this.getType())
+      subtabEl.classList.toggle('tabInactive', tab.getType() !== this.getType())
+      subtabEl.style.display = tab.getType() === this.getType() ? tabInfo.tabDisplay : 'none'
+    })
+  }
+
+  setSubTub() {
+    this.subTabList.forEach((subTab, index) => {
+      DOMCacheGetOrSet(subTab.buttonID).addEventListener('click', () => {
+        changeSubTab(this.getType(), { page: index })
+      })
+    })
+    return this
+  }
+
+  setSubtabNumber(subtabNumber: number) {
+    if (this.isSubTab(subtabNumber)) {
+      this.#subtabNumber = subtabNumber
+    } else {
+      console.error('setSubtabNumber', subtabNumber)
+    }
+  }
+
+  isSubTab(subtabNumber: number) {
+    return this.subTabList[subtabNumber] !== undefined
+  }
+
+  // Update the display state of the subtabs
+  updateSubTab(subtabNumber: number) {
+    const subTabs = this.getSubTabs()
+    if (this.isSubTab(subtabNumber)) {
+      subTabs.subTabList.forEach((subTab, index) => {
+        const buttonEl = DOMCacheGetOrSet(subTab.buttonID)
+        buttonEl.classList.toggle('subtabButtonActive', index === subtabNumber)
+
+        const subtabEl = DOMCacheGetOrSet(subTab.subTabID)
+        subtabEl.classList.toggle('subtabActive', index === subtabNumber)
+        subtabEl.classList.toggle('subtabInactive', index !== subtabNumber)
+        if (subTabs.subTabDisplay) {
+          subtabEl.style.display = index === subtabNumber ? subTabs.subTabDisplay : 'none'
+        }
+      })
+
+      this.setSubtabNumber(subtabNumber)
+      subTabs.tabSwitcher?.()(subTabs.subTabList[subtabNumber].subTabID)
+    }
+  }
+
+  // Find the buttonActive class on the subtab element to get the open tab number
+  getShowSubTab() {
+    return this.isUnlocked() && this.subTabList[this.getSubtabNumber()]?.unlocked ? this.getSubtabNumber() : 0
+  }
+
 }
 
 customElements.define('tab-row', TabRow, { extends: 'div' })
 customElements.define('sub-tab', $Tab, { extends: 'button' })
 
 export const tabRow = new TabRow()
+document.getElementsByClassName('navbar').item(0)?.appendChild(tabRow)
 
 tabRow.appendButton(
   new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings' })
     .setType(Tabs.Buildings)
     .makeDraggable()
-    .makeRemoveable(),
+    .makeRemoveable()
+    .setSubTub(),
   new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades' })
     .setType(Tabs.Upgrades)
     .makeDraggable()
-    .makeRemoveable(),
+    .makeRemoveable()
+    .setSubTub(),
   new $Tab({ id: 'achievementstab', i18n: 'tabs.main.achievements', class: 'coinunlock4' })
     .setUnlockedState(() => player.unlocks.coinfour)
     .setType(Tabs.Achievements)
     .makeDraggable()
-    .makeRemoveable(),
+    .makeRemoveable()
+    .setSubTub(),
   new $Tab({ class: 'prestigeunlock', id: 'runestab', i18n: 'tabs.main.runes' })
     .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Runes)
     .makeDraggable()
-    .makeRemoveable(),
+    .makeRemoveable()
+    .setSubTub(),
   new $Tab({ class: 'transcendunlock', id: 'challengetab', i18n: 'tabs.main.challenges' })
     .setUnlockedState(() => player.unlocks.transcend)
     .setType(Tabs.Challenges)
     .makeDraggable()
-    .makeRemoveable(),
+    .makeRemoveable()
+    .setSubTub(),
   new $Tab({ class: 'reincarnationunlock', id: 'researchtab', i18n: 'tabs.main.research' })
     .setUnlockedState(() => player.unlocks.reincarnate)
     .setType(Tabs.Research)
     .makeDraggable()
-    .makeRemoveable(),
+    .makeRemoveable()
+    .setSubTub(),
   new $Tab({ class: 'chal8', id: 'anttab', i18n: 'tabs.main.antHill' })
     .setUnlockedState(() => player.achievements[127] > 0)
     .setType(Tabs.AntHill)
     .makeDraggable()
-    .makeRemoveable(),
+    .makeRemoveable()
+    .setSubTub(),
   new $Tab({ class: 'chal10', id: 'cubetab', i18n: 'tabs.main.wowCubes' })
     .setUnlockedState(() => player.achievements[141] > 0)
     .setType(Tabs.WowCubes)
     .makeDraggable()
-    .makeRemoveable(),
+    .makeRemoveable()
+    .setSubTub(),
   new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
     .setUnlockedState(() => player.challengecompletions[11] > 0)
     .setType(Tabs.Corruption)
     .makeDraggable()
-    .makeRemoveable(),
+    .makeRemoveable()
+    .setSubTub(),
   new $Tab({ class: 'singularity', id: 'singularitytab', i18n: 'tabs.main.singularity' })
     .setUnlockedState(() => player.highestSingularityCount > 0)
     .setType(Tabs.Singularity)
     .makeDraggable()
-    .makeRemoveable(),
+    .makeRemoveable()
+    .setSubTub(),
   new $Tab({ id: 'settingstab', i18n: 'tabs.main.settings' })
     .setType(Tabs.Settings)
-    .makeDraggable(),
+    .makeDraggable()
+    .setSubTub(),
   new $Tab({ class: 'reincarnationunlock', id: 'shoptab', i18n: 'tabs.main.shop' })
     .setUnlockedState(() => player.unlocks.reincarnate || player.highestSingularityCount > 0)
     .setType(Tabs.Shop)
     .makeDraggable()
-    .makeRemoveable(),
+    .makeRemoveable()
+    .setSubTub(),
   new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith' })
     .setUnlockedState(() => G.isEvent)
     .setType(Tabs.Event)
     .makeDraggable()
     .makeRemoveable()
+    .setSubTub()
 )
 
 /**
@@ -608,144 +849,26 @@ tabRow.appendButton(
  * @param changeSubtab true to change the subtab, false to change the main tabs
  */
 export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
-  let tab = step === 1 ? tabRow.getNextTab() : tabRow.getPreviousTab()
-
-  while (!tab?.isUnlocked()) {
-    tab = step === 1 ? tabRow.getNextTab(tab) : tabRow.getPreviousTab(tab)
-  }
-
   if (changeSubtab) {
-    changeSubTab(tab.getType(), { step })
+    changeSubTab(tabRow.getCurrentTab().getType(), { step })
   } else {
-    changeTab(tab.getType(), step)
+    changeTab(tabRow.getCurrentTab().getType(), step)
   }
 }
 
 export const changeTab = (tabs: Tabs, step?: number) => {
-  if (step === 1) {
-    tabRow.setNextTab()
-  } else if (step === -1) {
-    tabRow.setPreviousTab()
-  } else {
-    while (tabRow.getCurrentTab().getType() !== tabs) {
-      tabRow.setNextTab()
-    }
-  }
-
-  while (!tabRow.getCurrentTab().isUnlocked()) {
-    if (step === 1 || step === undefined) {
-      tabRow.setNextTab()
-    } else {
-      tabRow.setPreviousTab()
-    }
-  }
-
-  G.currentTab = tabRow.getCurrentTab().getType()
-
-  // Updates the state of a subtab
-  player.subtabNumber = getShowSubTab(tabRow.getCurrentTab())
-  const subTabs = tabRow.getCurrentTab().getSubTabs()
-  updateSubTab(subTabs, player.subtabNumber)
-  subTabs.tabSwitcher?.()(subTabs.subTabList[player.subtabNumber].subTabID)
-
-  revealStuff()
-  hideStuff()
-    ; (document.activeElement as HTMLElement | null)?.blur()
+  tabRow.changeTab(tabs, step)
 }
 
-export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) => {
-  let tab = tabRow.getCurrentTab()
-
-  if (tab.getType() !== tabs) {
-    changeTab(tab.getType())
-    tab = tabRow.getCurrentTab()
-  }
-
-  const subTabs = tab.getSubTabs()
-
-  if (!tab.isUnlocked() || subTabs.subTabList.length === 0) {
-    return
-  }
-
-  if (page !== undefined) {
-    player.subtabNumber = limitRange(page, 0, subTabs.subTabList.length - 1)
-  } else {
-    player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
-  }
-
-  let subTabList = subTabs.subTabList[player.subtabNumber]
-
-  if (step !== undefined) {
-    while (!subTabList.unlocked) {
-      assert(page === undefined)
-      player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
-      subTabList = subTabs.subTabList[player.subtabNumber]
-    }
-  }
-
-  if (subTabList.unlocked) {
-    updateSubTab(subTabs, player.subtabNumber)
-
-    subTabs.tabSwitcher?.()(subTabList.subTabID)
-  }
-}
-
-export function subTabsInMainTab (name: Tabs) {
-  let tab = tabRow.getCurrentTab()
-
-  while (tab.getType() !== name) {
-    tab = tabRow.setNextTab()
-  }
-
-  return tab.getSubTabs().subTabList.length
-}
-
-// Find the buttonActive class on the subtab element to get the open tab number
-export function getShowSubTab(tab: $Tab) {
-  let subtabNumber = 0
-  const tabUnlocked = tab.isUnlocked()
-
-  const subTabList = tab.getSubTabs().subTabList
-  for (let i = 0; i < subTabList.length; i++) {
-    const subTab = subTabList[i]
-    const buttonEl = DOMCacheGetOrSet(subTab.buttonID)
-    if (buttonEl.classList.contains('buttonActive')) {
-      if (subtabNumber === 0 && tabUnlocked && subTab.unlocked) {
-        subtabNumber = i
-      } else {
-        buttonEl.classList.remove('buttonActive')
-      }
-    }
-  }
-
-  return subtabNumber
-}
-
-// Update the display state of the subtabs
-export function updateSubTab(subTabs: SubTab, subtabNumber: number) {
-  const subTabList = subTabs.subTabList
-  for (let i = 0; i < subTabList.length; i++) {
-    const subTab = subTabList[i]
-    const buttonEl = DOMCacheGetOrSet(subTab.buttonID)
-    buttonEl.classList.toggle('buttonActive', i === subtabNumber)
-
-    const subtabEl = DOMCacheGetOrSet(subTab.subTabID)
-    subtabEl.classList.toggle('subtabActive', i === subtabNumber)
-    if (subTabs.subTabDisplay) {
-      subtabEl.style.display = i === subtabNumber ? subTabs.subTabDisplay : 'none'
-    }
-  }
+export const changeSubTab = (tabs: Tabs, options: SubTabSwitchOptions) => {
+  tabRow.changeSubTab(tabs, options)
 }
 
 // Checks all subtabs and resets them if they are locked
-export const resetSubTabs = () => {
+export const resetSubTabs = (reset = false) => {
   tabRow.getSubs().forEach((tab) => {
-    const subTabs = tab.getSubTabs()
-    const resetSubtabNumber = getShowSubTab(tab)
-    updateSubTab(subTabs, resetSubtabNumber)
-    subTabs.tabSwitcher?.()(subTabs.subTabList[resetSubtabNumber].subTabID)
+    changeSubTab(tab.getType(), { page: reset ? 0 : tab.getShowSubTab() })
   })
-  player.subtabNumber = getShowSubTab(tabRow.getCurrentTab())
 
   // Stats for Nerds
   document.querySelectorAll<HTMLElement>('button.statsNerds').forEach((button, _, arr) => {
@@ -757,15 +880,4 @@ export const resetSubTabs = () => {
 
   revealStuff()
   hideStuff()
-}
-
-export const subTubsEventListener = () => {
-  // Toggle All SubTubs
-  tabRow.getSubs().forEach((tab) => {
-    tab.getSubTabs().subTabList.forEach((subtab, index) => {
-      DOMCacheGetOrSet(subtab.buttonID).addEventListener('click', () => {
-        changeSubTab(tab.getType(), { page: index })
-      })
-    })
-  })
 }

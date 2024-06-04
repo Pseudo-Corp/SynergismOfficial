@@ -95,6 +95,7 @@ body {
     --blessings-hover-color: #444;
     --tab-color: #171717;
     --singtab-color: black;
+    --tab-red-color: red;
     --buttonimg-color: black;
     --hoversing-color: #252525;
     --shoptab-color: purple;
@@ -616,8 +617,16 @@ nav button {
     border-color: orange;
 }
 
+#buildingstab.tabButtonActive {
+    background-color: orange;
+}
+
 #upgradestab {
     border-color: orange;
+}
+
+#upgradestab.tabButtonActive {
+    background-color: orange;
 }
 
 #settingstab {
@@ -625,20 +634,43 @@ nav button {
     border-color: white;
 }
 
+#settingstab.tabButtonActive {
+    background-color: orange;
+    border-color: gold;
+}
+
 #achievementstab {
+    color: white;
     border-color: white;
+}
+
+#achievementstab.tabButtonActive {
+    background-color: white;
+    color: black;
 }
 
 #runestab {
     border-color: cyan;
 }
 
+#runestab.tabButtonActive {
+    background-color: blue;
+}
+
 #challengetab {
     border-color: plum;
 }
 
+#challengetab.tabButtonActive {
+    background-color: purple;
+}
+
 #researchtab {
     border-color: green;
+}
+
+#researchtab.tabButtonActive {
+    background-color: green;
 }
 
 #shoptab {
@@ -646,18 +678,34 @@ nav button {
     background-color: var(--shoptab-color);
 }
 
+#shoptab:hover {
+    background-color: var(--hovershop-color);
+}
+
+#shoptab.tabButtonActive {
+    background-color: limegreen;
+}
+
 #singularitytab {
     border-color: lightgoldenrodyellow;
     background-color: var(--singtab-color);
-    color: red;
+    color: var(--tab-red-color);
 }
 
 #singularitytab:hover {
     background-color: var(--hoversing-color);
 }
 
-#shoptab:hover {
-    background-color: var(--hovershop-color);
+#singularitytab.tabButtonActive {
+    background-color: lightgoldenrodyellow;
+}
+
+#eventtab:hover {
+    background-color: gold;
+}
+
+#eventtab.tabButtonActive {
+    background-color: gold;
 }
 
 button.isEvent:hover {
@@ -668,14 +716,26 @@ button.isEvent:hover {
     border-color: maroon;
 }
 
+#anttab.tabButtonActive {
+    background-color: brown;
+}
+
 #cubetab {
     border-color: orange;
-    color: red;
+    color: var(--tab-red-color);
+}
+
+#cubetab.tabButtonActive {
+    background-color: white;
 }
 
 #traitstab {
     border-color: orange;
-    color: red;
+    color: var(--tab-red-color);
+}
+
+#traitstab.tabButtonActive {
+    background-color: white;
 }
 
 .subTabWrapper {
@@ -2195,7 +2255,6 @@ p#reincarnatehotkeys {
 }
 
 #cubes {
-    display: flex;
     justify-content: center;
     position: relative;
 }
@@ -2664,7 +2723,7 @@ p#ascendHotKeys {
     background-color: #fff4b3;
 } */
 
-body button.buttonActive {
+body button.subtabButtonActive {
     background-color: crimson;
     transition: none;
 }
@@ -2673,7 +2732,7 @@ body button.buttonActive {
     border: 2px solid silver;
 }
 
-#runesToggle > button.subtabButton.buttonActive {
+#runesToggle > button.subtabButton.subtabButtonActive {
     border: 2px solid gold;
 }
 
@@ -2681,7 +2740,7 @@ body button.buttonActive {
     border-color: white;
 }
 
-#corrButtonRow > button.buttonActive {
+#corrButtonRow > button.subtabButtonActive {
     border-color: dodgerblue;
 }
 

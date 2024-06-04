@@ -45,6 +45,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     body.style.removeProperty('--blessings-hover-color')
     body.style.removeProperty('--tab-color')
     body.style.removeProperty('--singtab-color')
+    body.style.removeProperty('--tab-red-color')
     body.style.removeProperty('--hoversing-color')
     body.style.removeProperty('--shoptab-color')
     body.style.removeProperty('--hovershop-color')
@@ -77,9 +78,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('bonussummation').style.color = 'orangered' // CSS colors, instead of having '', will write out full color, in case someone will move CSS color into HTML
     DOMCacheGetOrSet('corruptionDescription').style.color = 'darkviolet'
     DOMCacheGetOrSet('versionnumber').style.color = 'fuchsia'
-    DOMCacheGetOrSet('singularitytab').style.color = 'red'
-    DOMCacheGetOrSet('traitstab').style.color = 'red'
-    DOMCacheGetOrSet('cubetab').style.color = 'red'
     DOMCacheGetOrSet('ascTimeAccel').style.color = 'royalblue'
     DOMCacheGetOrSet('buildinghotkeys').style.color = 'lightgray'
     DOMCacheGetOrSet('buildinghotkeys2').style.color = 'lightgray'
@@ -182,6 +180,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     body.style.setProperty('--blessings-hover-color', '#7c7990')
     body.style.setProperty('--tab-color', '#105254')
     body.style.setProperty('--singtab-color', '#00d')
+    body.style.setProperty('--tab-red-color', '#ff5252')
     body.style.setProperty('--hoversing-color', '#1052B6')
     body.style.setProperty('--hepteract-bar-empty', '#858199')
     body.style.setProperty('--hepteract-bar-red', '#ea1741')
@@ -205,9 +204,6 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('corruptionTesseracts').style.color = '#d272ff'
     DOMCacheGetOrSet('antwelcome').style.color = '#b1b1b1'
     DOMCacheGetOrSet('versionnumber').style.color = '#ff5aff'
-    DOMCacheGetOrSet('singularitytab').style.color = '#ff5252'
-    DOMCacheGetOrSet('traitstab').style.color = '#ff5252'
-    DOMCacheGetOrSet('cubetab').style.color = '#ff5252'
     DOMCacheGetOrSet('antspecies').style.color = '#8da9ff'
     DOMCacheGetOrSet('ascTimeAccel').style.color = '#97b0ff'
     DOMCacheGetOrSet('cube6Bonus').style.color = '#a5a5a5'
