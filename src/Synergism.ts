@@ -1625,7 +1625,7 @@ const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
   ]
 ])
 
-const loadSynergy = async () => {
+export const loadSynergy = async () => {
   const save = (await localforage.getItem<Blob>('Synergysave2'))
     ?? localStorage.getItem('Synergysave2')
 
