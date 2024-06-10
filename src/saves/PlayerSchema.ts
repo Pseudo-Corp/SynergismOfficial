@@ -12,6 +12,7 @@ import {
   QuarkHepteract
 } from '../Hepteracts'
 import { QuarkHandler } from '../Quark'
+import { blankSave } from '../Synergism'
 
 const decimalSchema = z.custom<Decimal>((value) => {
   try {
@@ -524,8 +525,8 @@ export const playerSchema = z.object({
   blueberryLoadouts: z.record(z.string().regex(/^\d+$/), z.any()),
   blueberryLoadoutMode: z.string(),
 
-  ultimateProgress: z.number(),
-  ultimatePixels: z.number(),
+  ultimateProgress: z.number().default(() => blankSave.ultimateProgress),
+  ultimatePixels: z.number().default(() => blankSave.ultimatePixels),
 
   // TODO: what type?
   caches: z.record(z.string(), z.any()),
