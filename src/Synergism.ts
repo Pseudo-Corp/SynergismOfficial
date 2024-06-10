@@ -161,6 +161,7 @@ import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { QuarkHandler } from './Quark'
+import { playerSchema } from './saves/PlayerSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import {
@@ -174,7 +175,6 @@ import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 import type { PlayerSave } from './types/LegacySynergism'
-import { playerSchema } from './saves/PlayerSchema'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -6360,6 +6360,9 @@ export const reloadShit = async (reset = false) => {
 
     const parsed = playerSchema.safeParse(JSON.parse(atob(saveObject)))
     console.log(parsed.data, parsed.error)
+
+    // @ts-ignore
+    globalThis.zodPlayer = parsed
 
     await loadSynergy()
   }

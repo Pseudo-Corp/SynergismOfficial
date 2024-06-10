@@ -1,7 +1,16 @@
 import Decimal from 'break_infinity.js'
 import { z, ZodType } from 'zod'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
-import { AbyssHepteract, AcceleratorBoostHepteract, AcceleratorHepteract, ChallengeHepteract, ChronosHepteract, HyperrealismHepteract, MultiplierHepteract, QuarkHepteract } from '../Hepteracts'
+import {
+  AbyssHepteract,
+  AcceleratorBoostHepteract,
+  AcceleratorHepteract,
+  ChallengeHepteract,
+  ChronosHepteract,
+  HyperrealismHepteract,
+  MultiplierHepteract,
+  QuarkHepteract
+} from '../Hepteracts'
 import { QuarkHandler } from '../Quark'
 
 const decimalSchema = z.custom<Decimal>((value) => {
@@ -13,13 +22,14 @@ const decimalSchema = z.custom<Decimal>((value) => {
   }
 }).transform((decimalSource) => new Decimal(decimalSource))
 
-const arrayStartingWithNull = (s: ZodType) => z.array(z.union([z.null(), s]))
-  .refine((arr) => arr.length > 0 && arr[0] === null, {
-    message: 'First element must be null'
-  })
-  .refine((arr) => arr.slice(1).every((element) => typeof element === 'number'), {
-    message: 'All elements after the first must be numbers'
-  })
+const arrayStartingWithNull = (s: ZodType) =>
+  z.array(z.union([z.null(), s]))
+    .refine((arr) => arr.length > 0 && arr[0] === null, {
+      message: 'First element must be null'
+    })
+    .refine((arr) => arr.slice(1).every((element) => typeof element === 'number'), {
+      message: 'All elements after the first must be numbers'
+    })
 
 const ascendBuildingSchema = z.object({
   cost: z.number(),
@@ -28,11 +38,18 @@ const ascendBuildingSchema = z.object({
   multiplier: z.number()
 })
 
-const singularityUpgradeSchema = (key: string) => z.object({
-  level: z.number(),
-  toggleBuy: z.number(),
-  freeLevels: z.number(),
-  [key]: z.number()
+const singularityUpgradeSchema = (key: string) =>
+  z.object({
+    level: z.number(),
+    toggleBuy: z.number(),
+    freeLevels: z.number(),
+    [key]: z.number()
+  })
+
+const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
+  return Object.fromEntries(
+    Object.entries(record).filter(([key, _value]) => /^\d+$/.test(key))
+  )
 })
 
 export const playerSchema = z.object({
@@ -215,7 +232,7 @@ export const playerSchema = z.object({
   transcendShards: decimalSchema,
   reincarnationShards: decimalSchema,
 
-  toggles: z.record(z.string().regex(/^\d+$/), z.boolean().default(false)),
+  toggles: toggleSchema,
 
   challengecompletions: z.number().array(),
   highestchallengecompletions: z.union([z.number(), z.null()]).array(),
@@ -381,7 +398,7 @@ export const playerSchema = z.object({
   hepteractCrafts: z.object({
     chronos: z.any().transform(() => ChronosHepteract),
     hyperrealism: z.any().transform(() => HyperrealismHepteract),
-    quark: z.any().transform(() =>QuarkHepteract),
+    quark: z.any().transform(() => QuarkHepteract),
     challenge: z.any().transform(() => ChallengeHepteract),
     abyss: z.any().transform(() => AbyssHepteract),
     accelerator: z.any().transform(() => AcceleratorHepteract),
@@ -485,11 +502,14 @@ export const playerSchema = z.object({
   octeractTimer: z.number(),
   insideSingularityChallenge: z.boolean(),
 
-  singularityChallenges: z.record(z.string(), z.object({
-    completions: z.number(),
-    highestSingularityCompleted: z.number(),
-    enabled: z.boolean()
-  })),
+  singularityChallenges: z.record(
+    z.string(),
+    z.object({
+      completions: z.number(),
+      highestSingularityCompleted: z.number(),
+      enabled: z.boolean()
+    })
+  ),
 
   ambrosia: z.number(),
   lifetimeAmbrosia: z.number(),
@@ -498,7 +518,7 @@ export const playerSchema = z.object({
   visitedAmbrosiaSubtab: z.boolean(),
   spentBlueberries: z.number(),
   // TODO: is this right?
-  blueberryUpgrades:  z.record(z.string(), singularityUpgradeSchema('blueberriesInvested')),
+  blueberryUpgrades: z.record(z.string(), singularityUpgradeSchema('blueberriesInvested')),
 
   // TODO: what type?
   blueberryLoadouts: z.record(z.string().regex(/^\d+$/), z.any()),
