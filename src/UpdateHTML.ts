@@ -492,11 +492,10 @@ export const revealStuff = () => {
     player.singularityChallenges.noSingularityUpgrades.completions >= 1
       ? 'block'
       : 'none'
-  //Hide Challenge Subtabs until Exalts are unlocked
-  DOMCacheGetOrSet('challengesTabsToggle').style.display =
-    player.highestSingularityCount >= 25
-      ? 'flex'
-      : 'none'
+  // Hide Challenge Subtabs until Exalts are unlocked
+  DOMCacheGetOrSet('challengesTabsToggle').style.display = player.highestSingularityCount >= 25
+    ? 'flex'
+    : 'none'
 
   player.runelevels[6] > 0 || player.highestSingularityCount > 0
     ? (DOMCacheGetOrSet('singularitybtn').style.display = 'block')

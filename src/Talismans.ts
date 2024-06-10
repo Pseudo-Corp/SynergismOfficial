@@ -61,7 +61,7 @@ const getTalismanResourceInfo = (
   const maxBuyObtainium = Math.max(1, Math.floor(player.researchPoints / obtainiumCost))
   const maxBuyOffering = Math.max(1, Math.floor(player.runeshards / offeringCost))
   const amountToBuy = Math.max(1, Math.floor(percentage / 100 * Math.min(maxBuyObtainium, maxBuyOffering)))
-  const canBuy = (obtainiumCost <= player.researchPoints && offeringCost <= player.runeshards)
+  const canBuy = obtainiumCost <= player.researchPoints && offeringCost <= player.runeshards
   return {
     canBuy, // Boolean, if false will not buy any fragments
     buyAmount: amountToBuy, // Integer, will buy as specified above.

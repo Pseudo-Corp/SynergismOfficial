@@ -1777,7 +1777,7 @@ export const calculateAllCubeMultiplier = () => {
     // Cash Grab Ultra
     +calculateCashGrabCubeBonus(),
     // EX Ultra
-    +calculateEXUltraCubeBonus(),
+    +calculateEXUltraCubeBonus()
     // Total Global Cube Multipliers: 33
   ]
 
@@ -2117,7 +2117,7 @@ export const getOcteractValueMultipliers = () => {
     // Cash Grab ULTRA
     +calculateCashGrabCubeBonus(),
     // EX ULTRA
-    +calculateEXUltraCubeBonus(),
+    +calculateEXUltraCubeBonus()
   ]
 }
 
@@ -3225,7 +3225,7 @@ export const calculateAmbrosiaQuarkMult = () => {
 }
 
 export const calculateCashGrabBonus = (extra: number) => {
-  return 1 + player.shopUpgrades.shopCashGrabUltra * extra * Math.min(1, Math.pow(player.lifetimeAmbrosia / 1e7, 1/3))
+  return 1 + player.shopUpgrades.shopCashGrabUltra * extra * Math.min(1, Math.pow(player.lifetimeAmbrosia / 1e7, 1 / 3))
 }
 
 export const calculateCashGrabBlueberryBonus = () => {
@@ -3257,13 +3257,14 @@ export const calculateEXUltraCubeBonus = () => {
 }
 
 export const calculateEXALTBonusMult = () => {
-  if (!player.singularityChallenges.limitedAscensions.rewards.exaltBonus)
+  if (!player.singularityChallenges.limitedAscensions.rewards.exaltBonus) {
     return 1
+  }
 
   if (G.currentSingChallenge !== undefined) {
     return Math.pow(1.04, player.singularityChallenges[G.currentSingChallenge].completions)
   }
-    return 1
+  return 1
 }
 
 export const calculateDilatedFiveLeafBonus = () => {

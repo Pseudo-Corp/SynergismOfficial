@@ -179,7 +179,7 @@ export class AmbrosiaLuckAdditiveMultCache extends AdditionCache<AmbrosiaLuckAdd
       SingularityPerk: 0,
       ShopUpgrades: 0,
       Exalt5: 0,
-      Event: 0,
+      Event: 0
     }
     this.totalVal = 1
   }
@@ -240,7 +240,7 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       OneHundredThirtyOne: 0,
       TwoHundredSixtyNine: 0,
       ShopOcteractAmbrosiaLuck: 0,
-      Exalt5: 0,
+      Exalt5: 0
     }
     this.totalVal = 0
     this.usedTotal = 0
@@ -393,7 +393,7 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
       Exalt1: 0,
       SingularityUpgrade: 0,
       SingularityPerk: 0,
-      Exalt5: 0,
+      Exalt5: 0
     }
     this.totalVal = 0
   }

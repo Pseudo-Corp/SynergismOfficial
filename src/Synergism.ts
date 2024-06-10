@@ -614,7 +614,7 @@ export const player: Player = {
     shopAmbrosiaLuck4: 0,
     shopCashGrabUltra: 0,
     shopAmbrosiaAccelerator: 0,
-    shopEXUltra: 0,
+    shopEXUltra: 0
   },
   shopBuyMaxToggle: false,
   shopHideToggle: false,
@@ -6352,7 +6352,7 @@ export const reloadShit = async (reset = false) => {
       await Alert(i18next.t('main.transferredFromLZ'))
     }
 
-    await loadSynergy()
+    // await loadSynergy()
   }
 
   if (!reset) {

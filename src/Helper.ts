@@ -195,7 +195,8 @@ export const addTimers = (input: TimerInput, time = 0) => {
       const ambrosiaLuck = player.caches.ambrosiaLuck.usedTotal
       const baseBlueberryTime = player.caches.ambrosiaGeneration.totalVal
       player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * baseBlueberryTime
-      player.ultimateProgress += Math.floor(8 * G.ambrosiaTimer) / 8 * Math.min(baseBlueberryTime, Math.pow(1000 * baseBlueberryTime, 1/2)) * 0.02
+      player.ultimateProgress += Math.floor(8 * G.ambrosiaTimer) / 8
+        * Math.min(baseBlueberryTime, Math.pow(1000 * baseBlueberryTime, 1 / 2)) * 0.02
       G.ambrosiaTimer %= 0.125
 
       let timeToAmbrosia = calculateRequiredBlueberryTime()
@@ -204,7 +205,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         const RNG = Math.random()
         const ambrosiaMult = Math.floor(ambrosiaLuck / 100)
         const luckMult = RNG < ambrosiaLuck / 100 - Math.floor(ambrosiaLuck / 100) ? 1 : 0
-        const bonusAmbrosia = (player.singularityChallenges.noAmbrosiaUpgrades.rewards.bonusAmbrosia) ? 1: 0
+        const bonusAmbrosia = (player.singularityChallenges.noAmbrosiaUpgrades.rewards.bonusAmbrosia) ? 1 : 0
         const ambrosiaToGain = (ambrosiaMult + luckMult) + bonusAmbrosia
 
         player.ambrosia += ambrosiaToGain
