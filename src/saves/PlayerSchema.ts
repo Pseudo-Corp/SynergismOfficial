@@ -28,10 +28,17 @@ const ascendBuildingSchema = z.object({
   multiplier: z.number()
 })
 
+const singularityUpgradeSchema = (key: string) => z.object({
+  level: z.number(),
+  toggleBuy: z.number(),
+  freeLevels: z.number(),
+  [key]: z.number()
+})
+
 export const playerSchema = z.object({
-  firstPlayed: z.string().date().optional().default(() => new Date().toISOString()),
-  worlds: z.object({ worlds: z.number() }).transform((obj) => {
-    return new QuarkHandler({ quarks: obj.worlds })
+  firstPlayed: z.string().datetime().optional().default(() => new Date().toISOString()),
+  worlds: z.number().transform((obj) => {
+    return new QuarkHandler({ quarks: obj })
   }),
   coins: decimalSchema,
   coinsThisPrestige: decimalSchema,
@@ -208,10 +215,10 @@ export const playerSchema = z.object({
   transcendShards: decimalSchema,
   reincarnationShards: decimalSchema,
 
-  toggles: z.record(z.number(), z.boolean().default(false)),
+  toggles: z.record(z.string().regex(/^\d+$/), z.boolean().default(false)),
 
   challengecompletions: z.number().array(),
-  highestchallengecompletions: z.number().array(),
+  highestchallengecompletions: z.union([z.number(), z.null()]).array(),
   challenge15Exponent: z.number(),
   highestChallenge15Exponent: z.number(),
 
@@ -297,7 +304,7 @@ export const playerSchema = z.object({
   loaded1010: z.boolean(),
   loaded10101: z.boolean(),
 
-  shopUpgrades: z.record(z.string(), z.number()),
+  shopUpgrades: z.record(z.string(), z.union([z.number(), z.null()])),
 
   shopBuyMaxToggle: z.boolean(),
   shopHideToggle: z.boolean(),
@@ -395,11 +402,11 @@ export const playerSchema = z.object({
   autoOpenPlatonicsCubes: z.boolean(),
   openPlatonicsCubes: z.number(),
   roombaResearchIndex: z.number(),
-  ascStatToggles: z.record(z.number(), z.boolean()),
+  ascStatToggles: z.record(z.string().regex(/^\d+$/), z.boolean()),
 
   prototypeCorruptions: z.number().array(),
   usedCorruptions: z.number().array(),
-  corruptionLoadouts: z.record(z.number(), z.number().array()),
+  corruptionLoadouts: z.record(z.string().regex(/^\d+$/), z.number().array()),
   corruptionLoadoutNames: z.string().array(),
   corruptionShowStats: z.boolean(),
 
@@ -417,5 +424,91 @@ export const playerSchema = z.object({
   autoChallengeIndex: z.number(),
   autoChallengeToggles: z.boolean().array(),
   autoChallengeStartExponent: z.number(),
-  autoChallengeTimer: z.record(z.string(), z.number())
+  autoChallengeTimer: z.record(z.string(), z.number()),
+
+  runeBlessingLevels: z.number().array(),
+  runeSpiritLevels: z.number().array(),
+  runeBlessingBuyAmount: z.number(),
+  runeSpiritBuyAmount: z.number(),
+
+  autoTesseracts: z.boolean().array(),
+
+  saveString: z.string(),
+  exporttest: z.boolean(),
+
+  dayCheck: z.string().datetime().nullable(),
+  dayTimer: z.number(),
+  cubeOpenedDaily: z.number(),
+  cubeQuarkDaily: z.number(),
+  tesseractOpenedDaily: z.number(),
+  tesseractQuarkDaily: z.number(),
+  hypercubeOpenedDaily: z.number(),
+  hypercubeQuarkDaily: z.number(),
+  platonicCubeOpenedDaily: z.number(),
+  platonicCubeQuarkDaily: z.number(),
+  overfluxOrbs: z.number(),
+  overfluxOrbsAutoBuy: z.boolean(),
+  overfluxPowder: z.number(),
+  dailyPowderResetUses: z.number(),
+  autoWarpCheck: z.boolean(),
+  loadedOct4Hotfix: z.boolean(),
+  loadedNov13Vers: z.boolean(),
+  loadedDec16Vers: z.boolean(),
+  loadedV253: z.boolean(),
+  loadedV255: z.boolean(),
+  loadedV297Hotfix1: z.boolean(),
+  loadedV2927Hotfix1: z.boolean(),
+  loadedV2930Hotfix1: z.boolean(),
+  loadedV2931Hotfix1: z.boolean(),
+  loadedV21003Hotfix1: z.boolean(),
+  loadedV21007Hotfix1: z.boolean(),
+  version: z.string(),
+  rngCode: z.number(),
+  promoCodeTiming: z.record(z.string(), z.number()),
+  singularityCount: z.number(),
+  highestSingularityCount: z.number(),
+  singularityCounter: z.number(),
+  goldenQuarks: z.number(),
+  quarksThisSingularity: z.number().nullable(),
+  totalQuarksEver: z.number(),
+  hotkeys: z.record(z.number(), z.string().array()),
+  theme: z.string(),
+  iconSet: z.number(),
+  notation: z.string(),
+
+  // TODO: why is this on player?
+  singularityUpgrades: z.record(z.string(), singularityUpgradeSchema('goldenQuarksInvested')),
+  octeractUpgrades: z.record(z.string(), singularityUpgradeSchema('octeractsInvested')),
+
+  dailyCodeUsed: z.boolean(),
+  hepteractAutoCraftPercentage: z.number(),
+  octeractTimer: z.number(),
+  insideSingularityChallenge: z.boolean(),
+
+  singularityChallenges: z.record(z.string(), z.object({
+    completions: z.number(),
+    highestSingularityCompleted: z.number(),
+    enabled: z.boolean()
+  })),
+
+  ambrosia: z.number(),
+  lifetimeAmbrosia: z.number(),
+  ambrosiaRNG: z.number(),
+  blueberryTime: z.number(),
+  visitedAmbrosiaSubtab: z.boolean(),
+  spentBlueberries: z.number(),
+  // TODO: is this right?
+  blueberryUpgrades:  z.record(z.string(), singularityUpgradeSchema('blueberriesInvested')),
+
+  // TODO: what type?
+  blueberryLoadouts: z.record(z.string().regex(/^\d+$/), z.any()),
+  blueberryLoadoutMode: z.string(),
+
+  ultimateProgress: z.number(),
+  ultimatePixels: z.number(),
+
+  // TODO: what type?
+  caches: z.record(z.string(), z.any()),
+
+  lastExportedSave: z.number()
 })

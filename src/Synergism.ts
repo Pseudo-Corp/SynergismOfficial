@@ -174,6 +174,7 @@ import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 import type { PlayerSave } from './types/LegacySynergism'
+import { playerSchema } from './saves/PlayerSchema'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -1625,7 +1626,7 @@ const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
   ]
 ])
 
-export const loadSynergy = async () => {
+const loadSynergy = async () => {
   const save = (await localforage.getItem<Blob>('Synergysave2'))
     ?? localStorage.getItem('Synergysave2')
 
@@ -6352,7 +6353,15 @@ export const reloadShit = async (reset = false) => {
       await Alert(i18next.t('main.transferredFromLZ'))
     }
 
-    // await loadSynergy()
+    // @ts-ignore
+    globalThis.player = player
+    // @ts-ignore
+    globalThis.unvalidatedPlayer = JSON.parse(atob(saveObject))
+
+    const parsed = playerSchema.safeParse(JSON.parse(atob(saveObject)))
+    console.log(parsed.data, parsed.error)
+
+    await loadSynergy()
   }
 
   if (!reset) {
