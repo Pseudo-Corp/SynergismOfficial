@@ -296,9 +296,9 @@ export const playerSchema = z.object({
   reincarnationcounter: z.number(),
   offlinetick: z.number(),
 
-  prestigeamount: z.union([z.number(), decimalStringSchema]),
-  transcendamount: z.union([z.number(), decimalStringSchema]),
-  reincarnationamount: z.union([z.number(), decimalStringSchema]),
+  prestigeamount: z.union([z.number(), decimalStringSchema.transform(Number)]),
+  transcendamount: z.union([z.number(), decimalStringSchema.transform(Number)]),
+  reincarnationamount: z.union([z.number(), decimalStringSchema.transform(Number)]),
 
   fastestprestige: z.number(),
   fastesttranscend: z.number(),
