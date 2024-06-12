@@ -643,8 +643,8 @@ export const playerSchema = z.object({
   )
     .transform((upgrades) =>
       Object.fromEntries(
-        Object.keys(blankSave.singularityChallenges).filter((k) => upgrades[k]).map((k) => {
-          const { completions, highestSingularityCompleted, enabled } = upgrades[k]
+        Object.keys(blankSave.singularityChallenges).map((k) => {
+          const { completions, highestSingularityCompleted, enabled } = upgrades[k] ?? blankSave.singularityChallenges[k]
 
           return [
             k,
@@ -678,8 +678,8 @@ export const playerSchema = z.object({
   blueberryUpgrades: z.record(z.string(), singularityUpgradeSchema('blueberriesInvested'))
     .transform((upgrades) =>
       Object.fromEntries(
-        Object.keys(blankSave.blueberryUpgrades).filter((k) => upgrades[k]).map((k) => {
-          const { level, ambrosiaInvested, blueberriesInvested, toggleBuy, freeLevels } = upgrades[k]
+        Object.keys(blankSave.blueberryUpgrades).map((k) => {
+          const { level, ambrosiaInvested, blueberriesInvested, toggleBuy, freeLevels } = upgrades[k] ?? blankSave.blueberryUpgrades[k]
 
           return [
             k,
