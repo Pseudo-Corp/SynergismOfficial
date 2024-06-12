@@ -2055,6 +2055,7 @@ const loadSynergy = async () => {
       Object.assign(player, validatedPlayer.data)
     } else {
       console.log(validatedPlayer.error)
+      console.log(data)
       resetGame(true)
       return
     }
@@ -6361,17 +6362,6 @@ export const reloadShit = async (reset = false) => {
       await localforage.setItem<Blob>('Synergysave2', blob)
       await Alert(i18next.t('main.transferredFromLZ'))
     }
-
-    // @ts-ignore
-    globalThis.player = player
-    // @ts-ignore
-    globalThis.unvalidatedPlayer = JSON.parse(atob(saveObject))
-
-    const parsed = playerSchema.safeParse(JSON.parse(atob(saveObject)))
-    console.log(parsed.data, parsed.error)
-
-    // @ts-ignore
-    globalThis.zodPlayer = parsed
 
     await loadSynergy()
   }
