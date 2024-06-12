@@ -571,8 +571,26 @@ export const playerSchema = z.object({
 
   // TODO: why is this on player?
   singularityUpgrades: z.record(z.string(), singularityUpgradeSchema('goldenQuarksInvested'))
-    .transform(() =>
-      Object.fromEntries(Object.keys(singularityData).map((k) => [k, new SingularityUpgrade(singularityData[k], k)]))
+    .transform((upgrades) =>
+      Object.fromEntries(Object.keys(singularityData).map((k) => {
+        const { level, goldenQuarksInvested, toggleBuy, freeLevels } = upgrades[k] ?? singularityData[k]
+
+        return [k, new SingularityUpgrade({
+          maxLevel: singularityData[k].maxLevel,
+          costPerLevel: singularityData[k].costPerLevel,
+
+          level: level as number,
+          goldenQuarksInvested,
+          toggleBuy: toggleBuy as number,
+          freeLevels: freeLevels as number,
+          minimumSingularity: singularityData[k].minimumSingularity,
+          effect: singularityData[k].effect,
+          canExceedCap: singularityData[k].canExceedCap,
+          specialCostForm: singularityData[k].specialCostForm,
+          qualityOfLife: singularityData[k].qualityOfLife,
+          cacheUpdates: singularityData[k].cacheUpdates
+        }, k)]
+      }))
     )
     .default(() => {
       const v = JSON.parse(JSON.stringify(blankSave.singularityUpgrades))
