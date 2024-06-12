@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js'
 import { z, ZodType } from 'zod'
+import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import {
   AbyssHepteract,
@@ -11,7 +12,10 @@ import {
   MultiplierHepteract,
   QuarkHepteract
 } from '../Hepteracts'
+import { octeractData, OcteractUpgrade } from '../Octeracts'
 import { QuarkHandler } from '../Quark'
+import { singularityData, SingularityUpgrade } from '../singularity'
+import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
 import { blankSave } from '../Synergism'
 import { deepClone, padArray } from '../Utility'
 
@@ -316,7 +320,7 @@ export const playerSchema = z.object({
   crystalUpgradesCost: z.number().array().default(() => [...blankSave.crystalUpgradesCost]),
 
   runelevels: z.number().array(),
-  runeexp: z.number().array(),
+  runeexp: z.union([z.number(), z.null()]).array().transform((value) => value.map((val) => val === null ? 0 : val)),
   runeshards: z.number(),
   maxofferings: z.number().default(() => blankSave.maxofferings),
   offeringpersecond: z.number().default(() => blankSave.offeringpersecond),
@@ -564,8 +568,14 @@ export const playerSchema = z.object({
 
   // TODO: why is this on player?
   singularityUpgrades: z.record(z.string(), singularityUpgradeSchema('goldenQuarksInvested'))
+    .transform(() =>
+      Object.fromEntries(Object.keys(singularityData).map((k) => [k, new SingularityUpgrade(singularityData[k], k)]))
+    )
     .default(() => JSON.parse(JSON.stringify(blankSave.singularityUpgrades))),
   octeractUpgrades: z.record(z.string(), singularityUpgradeSchema('octeractsInvested'))
+    .transform(() =>
+      Object.fromEntries(Object.keys(octeractData).map((k) => [k, new OcteractUpgrade(octeractData[k], k)]))
+    )
     .default(() => JSON.parse(JSON.stringify(blankSave.octeractUpgrades))),
 
   dailyCodeUsed: z.boolean().default(() => blankSave.dailyCodeUsed),
@@ -580,7 +590,13 @@ export const playerSchema = z.object({
       highestSingularityCompleted: z.number(),
       enabled: z.boolean()
     })
-  ).default(() => JSON.parse(JSON.stringify(blankSave.singularityChallenges))),
+  )
+    .transform(() =>
+      Object.fromEntries(
+        Object.keys(singularityChallengeData).map((k) => [k, new SingularityChallenge(singularityChallengeData[k], k)])
+      )
+    )
+    .default(() => JSON.parse(JSON.stringify(blankSave.singularityChallenges))),
 
   ambrosia: z.number().default(() => blankSave.ambrosia),
   lifetimeAmbrosia: z.number().default(() => blankSave.lifetimeAmbrosia),
@@ -590,6 +606,11 @@ export const playerSchema = z.object({
   spentBlueberries: z.number().default(() => blankSave.spentBlueberries),
   // TODO: is this right?
   blueberryUpgrades: z.record(z.string(), singularityUpgradeSchema('blueberriesInvested'))
+    .transform(() =>
+      Object.fromEntries(
+        Object.keys(blueberryUpgradeData).map((k) => [k, new BlueberryUpgrade(blueberryUpgradeData[k], k)])
+      )
+    )
     .default(() => JSON.parse(JSON.stringify(blankSave.blueberryUpgrades))),
 
   // TODO: what type?
@@ -600,7 +621,10 @@ export const playerSchema = z.object({
   ultimatePixels: z.number().default(() => blankSave.ultimatePixels),
 
   // TODO: what type?
-  caches: z.record(z.string(), z.any()).default(() => blankSave.caches),
+  caches: z.record(z.string(), z.any()).default(() => {
+    Object.values(blankSave.caches).map((cache) => cache.reset())
+    return blankSave.caches
+  }),
 
   lastExportedSave: z.number().default(() => blankSave.lastExportedSave)
 })

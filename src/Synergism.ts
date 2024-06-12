@@ -139,7 +139,6 @@ import i18next from 'i18next'
 import localforage from 'localforage'
 import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { checkVariablesOnLoad } from './CheckVariables'
 import { lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
@@ -157,6 +156,7 @@ import {
 } from './Hepteracts'
 import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
+import { resetGame } from './ImportExport'
 import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
@@ -2049,7 +2049,16 @@ const loadSynergy = async () => {
       player.firstOwnedAnts = 0
     }
 
-    checkVariablesOnLoad(data)
+    // checkVariablesOnLoad(data)
+    const validatedPlayer = playerSchema.safeParse(data)
+    if (validatedPlayer.success) {
+      Object.assign(player, validatedPlayer.data)
+    } else {
+      console.log(validatedPlayer.error)
+      resetGame(true)
+      return
+    }
+
     if (data.ascensionCount === undefined || player.ascensionCount === 0) {
       player.ascensionCount = 0
       if (player.ascensionCounter === 0 && player.prestigeCount > 0) {

@@ -280,15 +280,17 @@ export const reloadDeleteGame = async () => {
   await resetGame()
 }
 
-export const resetGame = async () => {
-  const a = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
-  const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
+export const resetGame = async (force = true) => {
+  if (!force) {
+    const a = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
+    const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
 
-  const result = await Prompt(
-    i18next.t('importexport.resetPrompt', { a, b, sum: a + b })
-  )
-  if (result === null || Number(result) !== a + b) {
-    return Alert(i18next.t('importexport.wrongAnswer'))
+    const result = await Prompt(
+      i18next.t('importexport.resetPrompt', { a, b, sum: a + b })
+    )
+    if (result === null || Number(result) !== a + b) {
+      return Alert(i18next.t('importexport.wrongAnswer'))
+    }
   }
 
   const hold = Object.assign({}, blankSave, {
