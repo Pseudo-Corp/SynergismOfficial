@@ -150,33 +150,33 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: 'resetHistorySubTab',
-        get unlocked () {
+        get unlocked() {
           return player.unlocks.prestige
-        }, 
+        },
         buttonID: 'switchSettingSubTab5'
       },
       {
         subTabID: 'ascendHistorySubTab',
-        get unlocked () {
+        get unlocked() {
           return player.ascensionCount > 0
-        }, 
+        },
         buttonID: 'switchSettingSubTab6'
       },
       {
         subTabID: 'singularityHistorySubTab',
-        get unlocked () {
+        get unlocked() {
           return player.highestSingularityCount > 0
-        }, 
+        },
         buttonID: 'switchSettingSubTab7'
       },
       {
-        subTabID: 'hotkeys', 
-        unlocked: true, 
+        subTabID: 'hotkeys',
+        unlocked: true,
         buttonID: 'switchSettingSubTab8'
       },
       {
-        subTabID: 'accountSubTab', 
-        unlocked: true, 
+        subTabID: 'accountSubTab',
+        unlocked: true,
         buttonID: 'switchSettingSubTab9'
       }
     ]
@@ -193,28 +193,28 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: 'prestige',
-        get unlocked () {
+        get unlocked() {
           return player.unlocks.prestige
         },
         buttonID: 'switchToDiamondBuilding'
       },
       {
         subTabID: 'transcension',
-        get unlocked () {
+        get unlocked() {
           return player.unlocks.transcend
         },
         buttonID: 'switchToMythosBuilding'
       },
       {
         subTabID: 'reincarnation',
-        get unlocked () {
+        get unlocked() {
           return player.unlocks.reincarnate
         },
         buttonID: 'switchToParticleBuilding'
       },
       {
         subTabID: 'ascension',
-        get unlocked () {
+        get unlocked() {
           return player.achievements[183] > 0
         },
         buttonID: 'switchToTesseractBuilding'
@@ -229,28 +229,28 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: 'runeContainer1',
-        get unlocked () {
+        get unlocked() {
           return player.unlocks.prestige
         },
         buttonID: 'toggleRuneSubTab1'
       },
       {
         subTabID: 'runeContainer2',
-        get unlocked () {
+        get unlocked() {
           return player.achievements[134] > 0
         },
         buttonID: 'toggleRuneSubTab2'
       },
       {
         subTabID: 'runeContainer3',
-        get unlocked () {
+        get unlocked() {
           return player.achievements[134] > 0
         },
         buttonID: 'toggleRuneSubTab3'
       },
       {
         subTabID: 'runeContainer4',
-        get unlocked () {
+        get unlocked() {
           return player.achievements[204] > 0
         },
         buttonID: 'toggleRuneSubTab4'
@@ -268,7 +268,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       },
       {
         subTabID: 'challengesWrapper2',
-        get unlocked () {
+        get unlocked() {
           return player.highestSingularityCount >= 25
         },
         buttonID: 'toggleChallengesSubTab2'
@@ -283,49 +283,49 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: 'cubeTab1',
-        get unlocked () {
+        get unlocked() {
           return player.achievements[141] > 0
         },
         buttonID: 'switchCubeSubTab1'
       },
       {
         subTabID: 'cubeTab2',
-        get unlocked () {
+        get unlocked() {
           return player.achievements[197] > 0
         },
         buttonID: 'switchCubeSubTab2'
       },
       {
         subTabID: 'cubeTab3',
-        get unlocked () {
+        get unlocked() {
           return player.achievements[211] > 0
         },
         buttonID: 'switchCubeSubTab3'
       },
       {
         subTabID: 'cubeTab4',
-        get unlocked () {
+        get unlocked() {
           return player.achievements[218] > 0
         },
         buttonID: 'switchCubeSubTab4'
       },
       {
         subTabID: 'cubeTab5',
-        get unlocked () {
+        get unlocked() {
           return player.achievements[141] > 0
         },
         buttonID: 'switchCubeSubTab5'
       },
       {
         subTabID: 'cubeTab6',
-        get unlocked () {
+        get unlocked() {
           return player.achievements[218] > 0
         },
         buttonID: 'switchCubeSubTab6'
       },
       {
         subTabID: 'cubeTab7',
-        get unlocked () {
+        get unlocked() {
           return player.challenge15Exponent >= 1e15
         },
         buttonID: 'switchCubeSubTab7'
@@ -338,14 +338,14 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: 'corruptionStats',
-        get unlocked () {
+        get unlocked() {
           return player.achievements[141] > 0
         },
         buttonID: 'corrStatsBtn'
       },
       {
         subTabID: 'corruptionLoadouts',
-        get unlocked () {
+        get unlocked() {
           return player.achievements[141] > 0
         },
         buttonID: 'corrLoadoutsBtn'
@@ -358,28 +358,28 @@ const subtabInfo: Record<Tabs, SubTab> = {
     subTabList: [
       {
         subTabID: 'singularityContainerShop',
-        get unlocked () {
+        get unlocked() {
           return player.highestSingularityCount > 0
         },
         buttonID: 'toggleSingularitySubTabShop'
       },
       {
         subTabID: 'singularityContainerPerks',
-        get unlocked () {
+        get unlocked() {
           return player.highestSingularityCount > 0
         },
         buttonID: 'toggleSingularitySubTabPerks'
       },
       {
         subTabID: 'singularityContainerOcteracts',
-        get unlocked () {
+        get unlocked() {
           return Boolean(player.singularityUpgrades.octeractUnlock.getEffect().bonus)
         },
         buttonID: 'toggleSingularitySubTabOcteracts'
       },
       {
         subTabID: 'singularityContainerAmbrosia',
-        get unlocked () {
+        get unlocked() {
           return player.singularityChallenges.noSingularityUpgrades.completions >= 1
         },
         buttonID: 'toggleSingularitySubTabAmbrosia'
@@ -393,7 +393,7 @@ class TabRow extends HTMLDivElement {
   #list: $Tab[] = []
   #currentTab!: $Tab
 
-  constructor () {
+  constructor() {
     super()
 
     this.id = 'tabrow'
@@ -411,7 +411,7 @@ class TabRow extends HTMLDivElement {
     `
   }
 
-  getSubs () {
+  getSubs() {
     return this.#list
   }
 
@@ -419,7 +419,7 @@ class TabRow extends HTMLDivElement {
     return this.#list[tab]
   }
 
-  appendButton (...elements: $Tab[]) {
+  appendButton(...elements: $Tab[]) {
     for (const element of elements) {
       this.#list.push(element)
       this.appendChild(element)
@@ -429,7 +429,7 @@ class TabRow extends HTMLDivElement {
     this.#createDrag()
   }
 
-  getCurrentTab (): $Tab {
+  getCurrentTab(): $Tab {
     return this.#currentTab
   }
 
@@ -438,27 +438,27 @@ class TabRow extends HTMLDivElement {
     return this.#currentTab
   }
 
-  setNextTab () {
+  setNextTab() {
     const index = this.#list.indexOf(this.#currentTab)
 
     this.#currentTab = this.#list[index + 1] ?? this.#list[0]
     return this.#currentTab
   }
 
-  setPreviousTab () {
+  setPreviousTab() {
     const index = this.#list.indexOf(this.#currentTab)
 
     this.#currentTab = this.#list[index - 1] ?? this.#list[this.#list.length - 1]
     return this.#currentTab
   }
 
-  getNextTab (tab = this.#currentTab) {
+  getNextTab(tab = this.#currentTab) {
     const index = this.#list.indexOf(tab)
 
     return this.#list[index + 1] ?? this.#list[0]
   }
 
-  getPreviousTab (tab = this.#currentTab) {
+  getPreviousTab(tab = this.#currentTab) {
     const index = this.#list.indexOf(tab)
 
     return this.#list[index - 1] ?? this.#list[this.#list.length - 1]
@@ -615,7 +615,7 @@ class $Tab extends HTMLButtonElement {
   #hidden = false
   #subtabNumber = 0
 
-  constructor (options: kSubTabOptionsBag) {
+  constructor(options: kSubTabOptionsBag) {
     super()
 
     // Opera is bad - Jun 04 2024
@@ -650,21 +650,21 @@ class $Tab extends HTMLButtonElement {
     })
   }
 
-  setUnlockedState (fn: () => boolean) {
+  setUnlockedState(fn: () => boolean) {
     this.#unlocked = fn
     return this
   }
 
-  isUnlocked () {
+  isUnlocked() {
     return this.#unlocked() && !this.#hidden
   }
 
-  setType (type: Tabs) {
+  setType(type: Tabs) {
     this.#type = type
     return this
   }
 
-  getType () {
+  getType() {
     return this.#type!
   }
 
@@ -672,7 +672,7 @@ class $Tab extends HTMLButtonElement {
     return tabInfo[this.#type]
   }
 
-  getSubTabs () {
+  getSubTabs() {
     return subtabInfo[this.#type]
   }
 
@@ -680,17 +680,17 @@ class $Tab extends HTMLButtonElement {
     return this.getSubTabs().subTabList
   }
 
-  makeDraggable () {
+  makeDraggable() {
     this.setAttribute('draggable', 'true')
     return this
   }
 
-  makeRemoveable () {
+  makeRemoveable() {
     this.#removeable = true
     return this
   }
 
-  resetHidden () {
+  resetHidden() {
     this.#hidden = false
   }
 
