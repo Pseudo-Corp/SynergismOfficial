@@ -159,6 +159,7 @@ import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { QuarkHandler } from './Quark'
+import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerSchema } from './saves/PlayerSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
@@ -1510,69 +1511,9 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
   player.loaded1009 = true
   player.loaded1009hotfix1 = true
 
-  // shallow hold, doesn't modify OG object nor is affected by modifications to OG
-  const p = Object.assign({}, player, {
-    codes: Array.from(player.codes),
-    worlds: Number(player.worlds),
-    wowCubes: Number(player.wowCubes),
-    wowTesseracts: Number(player.wowTesseracts),
-    wowHypercubes: Number(player.wowHypercubes),
-    wowPlatonicCubes: Number(player.wowPlatonicCubes),
-    singularityUpgrades: Object.fromEntries(
-      Object.entries(player.singularityUpgrades).map(([key, value]) => {
-        return [
-          key,
-          {
-            level: value.level,
-            goldenQuarksInvested: value.goldenQuarksInvested,
-            toggleBuy: value.toggleBuy,
-            freeLevels: value.freeLevels
-          }
-        ]
-      })
-    ),
-    octeractUpgrades: Object.fromEntries(
-      Object.entries(player.octeractUpgrades).map(([key, value]) => {
-        return [
-          key,
-          {
-            level: value.level,
-            octeractsInvested: value.octeractsInvested,
-            toggleBuy: value.toggleBuy,
-            freeLevels: value.freeLevels
-          }
-        ]
-      })
-    ),
-    singularityChallenges: Object.fromEntries(
-      Object.entries(player.singularityChallenges).map(([key, value]) => {
-        return [
-          key,
-          {
-            completions: value.completions,
-            highestSingularityCompleted: value.highestSingularityCompleted,
-            enabled: value.enabled
-          }
-        ]
-      })
-    ),
-    blueberryUpgrades: Object.fromEntries(
-      Object.entries(player.blueberryUpgrades).map(([key, value]) => {
-        return [
-          key,
-          {
-            level: value.level,
-            ambrosiaInvested: value.ambrosiaInvested,
-            blueberriesInvested: value.blueberriesInvested,
-            toggleBuy: value.toggleBuy,
-            freeLevels: value.freeLevels
-          }
-        ]
-      })
-    )
-  })
-
+  const p = playerJsonSchema.parse(player)
   const save = btoa(JSON.stringify(p))
+
   if (save !== null) {
     const saveBlob = new Blob([save], { type: 'text/plain' })
 
