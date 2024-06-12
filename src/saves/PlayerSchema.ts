@@ -372,7 +372,8 @@ export const playerSchema = z.object({
   shopUpgrades: z.record(z.string(), z.union([z.number(), z.null(), z.boolean()]))
     .transform((object) => {
       return Object.fromEntries(
-        Object.entries(object).map(([key, value]) => {
+        Object.keys(blankSave.shopUpgrades).map((key) => {
+          const value = object[key] ?? blankSave.shopUpgrades[key as keyof typeof blankSave['shopUpgrades']]
           return value === null ? [key, 0] : [key, Number(value)]
         })
       )

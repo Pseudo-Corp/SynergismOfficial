@@ -1,5 +1,4 @@
 import '@ungap/custom-elements'
-import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
 import LZString from 'lz-string'
 
@@ -156,7 +155,6 @@ import {
 } from './Hepteracts'
 import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
-import { resetGame } from './ImportExport'
 import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
@@ -1599,33 +1597,6 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
   return true
 }
 
-/**
- * Map of properties on the Player object to adapt
- */
-const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
-  [
-    'worlds',
-    (data) =>
-      new QuarkHandler({
-        quarks: Number(data.worlds) || 0,
-        bonus: player.worlds.BONUS
-      })
-  ],
-  ['wowCubes', (data) => new WowCubes(Number(data.wowCubes) || 0)],
-  [
-    'wowTesseracts',
-    (data) => new WowTesseracts(Number(data.wowTesseracts) || 0)
-  ],
-  [
-    'wowHypercubes',
-    (data) => new WowHypercubes(Number(data.wowHypercubes) || 0)
-  ],
-  [
-    'wowPlatonicCubes',
-    (data) => new WowPlatonicCubes(Number(data.wowPlatonicCubes) || 0)
-  ]
-])
-
 const loadSynergy = async () => {
   const save = (await localforage.getItem<Blob>('Synergysave2'))
     ?? localStorage.getItem('Synergysave2')
@@ -1655,11 +1626,6 @@ const loadSynergy = async () => {
       return Alert(i18next.t('testing.saveInLive2'))
     }
 
-    const oldCodesUsed = Array.from(
-      { length: 24 }, // old codes only went up to 24
-      (_, i) => `offerpromo${i + 1}used`
-    )
-
     // size before loading
     const size = player.codes.size
 
@@ -1672,38 +1638,16 @@ const loadSynergy = async () => {
       })
     }
 
-    Object.keys(data).forEach((stringProp) => {
-      const prop = stringProp as keyof Player
-      if (!(prop in player)) {
-        return
-      } else if (toAdapt.has(prop)) {
-        return ((player[prop] as unknown) = toAdapt.get(prop)!(data))
-      } else if (isDecimal(player[prop])) {
-        return ((player[prop] as Decimal) = new Decimal(
-          data[prop] as DecimalSource
-        ))
-      } else if (prop === 'codes') {
-        const codes = data[prop]
-        if (codes != null) {
-          return (player.codes = new Map(codes))
-        }
-      } else if (oldCodesUsed.includes(prop)) {
-        return
-      } else if (Array.isArray(data[prop])) {
-        const arr = data[prop] as unknown[]
-        // in old savefiles, some arrays may be 1-based instead of 0-based (newer)
-        // so if the lengths of the savefile key is greater than that of the player obj
-        // it means a key was removed; likely a 1-based index where array[0] was null
-        // so we can get rid of it entirely.
-        if ((player[prop] as unknown[]).length < arr.length) {
-          return ((player[prop] as unknown[]) = arr.slice(
-            arr.length - (player[prop] as unknown[]).length
-          ))
-        }
-      }
+    const validatedPlayer = playerSchema.safeParse(data)
 
-      return ((player[prop] as unknown) = data[prop])
-    })
+    if (validatedPlayer.success) {
+      Object.assign(player, validatedPlayer.data)
+    } else {
+      console.log(validatedPlayer.error)
+      console.log(data)
+      clearTimers()
+      return
+    }
 
     player.lastExportedSave = data.lastExportedSave ?? 0
 
@@ -2050,16 +1994,6 @@ const loadSynergy = async () => {
     }
 
     // checkVariablesOnLoad(data)
-    const validatedPlayer = playerSchema.safeParse(data)
-
-    if (validatedPlayer.success) {
-      Object.assign(player, validatedPlayer.data)
-    } else {
-      console.log(validatedPlayer.error)
-      console.log(data)
-      resetGame(true)
-      return
-    }
 
     if (data.ascensionCount === undefined || player.ascensionCount === 0) {
       player.ascensionCount = 0
