@@ -572,25 +572,30 @@ export const playerSchema = z.object({
   // TODO: why is this on player?
   singularityUpgrades: z.record(z.string(), singularityUpgradeSchema('goldenQuarksInvested'))
     .transform((upgrades) =>
-      Object.fromEntries(Object.keys(singularityData).map((k) => {
-        const { level, goldenQuarksInvested, toggleBuy, freeLevels } = upgrades[k] ?? singularityData[k]
+      Object.fromEntries(
+        Object.keys(singularityData).map((k) => {
+          const { level, goldenQuarksInvested, toggleBuy, freeLevels } = upgrades[k] ?? singularityData[k]
 
-        return [k, new SingularityUpgrade({
-          maxLevel: singularityData[k].maxLevel,
-          costPerLevel: singularityData[k].costPerLevel,
+          return [
+            k,
+            new SingularityUpgrade({
+              maxLevel: singularityData[k].maxLevel,
+              costPerLevel: singularityData[k].costPerLevel,
 
-          level: level as number,
-          goldenQuarksInvested,
-          toggleBuy: toggleBuy as number,
-          freeLevels: freeLevels as number,
-          minimumSingularity: singularityData[k].minimumSingularity,
-          effect: singularityData[k].effect,
-          canExceedCap: singularityData[k].canExceedCap,
-          specialCostForm: singularityData[k].specialCostForm,
-          qualityOfLife: singularityData[k].qualityOfLife,
-          cacheUpdates: singularityData[k].cacheUpdates
-        }, k)]
-      }))
+              level: level as number,
+              goldenQuarksInvested,
+              toggleBuy: toggleBuy as number,
+              freeLevels: freeLevels as number,
+              minimumSingularity: singularityData[k].minimumSingularity,
+              effect: singularityData[k].effect,
+              canExceedCap: singularityData[k].canExceedCap,
+              specialCostForm: singularityData[k].specialCostForm,
+              qualityOfLife: singularityData[k].qualityOfLife,
+              cacheUpdates: singularityData[k].cacheUpdates
+            }, k)
+          ]
+        })
+      )
     )
     .default(() => {
       const v = JSON.parse(JSON.stringify(blankSave.singularityUpgrades))
@@ -598,8 +603,28 @@ export const playerSchema = z.object({
       return v
     }),
   octeractUpgrades: z.record(z.string(), singularityUpgradeSchema('octeractsInvested'))
-    .transform(() =>
-      Object.fromEntries(Object.keys(octeractData).map((k) => [k, new OcteractUpgrade(octeractData[k], k)]))
+    .transform((upgrades) =>
+      Object.fromEntries(
+        Object.keys(octeractData).map((k) => {
+          const { level, octeractsInvested, toggleBuy, freeLevels } = upgrades[k] ?? octeractData[k]
+
+          return [
+            k,
+            new OcteractUpgrade({
+              maxLevel: octeractData[k].maxLevel,
+              costPerLevel: octeractData[k].costPerLevel,
+              level: level as number,
+              octeractsInvested,
+              toggleBuy: toggleBuy as number,
+              effect: octeractData[k].effect,
+              costFormula: octeractData[k].costFormula,
+              freeLevels: freeLevels as number,
+              qualityOfLife: octeractData[k].qualityOfLife,
+              cacheUpdates: octeractData[k].cacheUpdates
+            }, k)
+          ]
+        })
+      )
     )
     .default(() => JSON.parse(JSON.stringify(blankSave.octeractUpgrades))),
 
@@ -616,9 +641,29 @@ export const playerSchema = z.object({
       enabled: z.boolean()
     })
   )
-    .transform(() =>
+    .transform((upgrades) =>
       Object.fromEntries(
-        Object.keys(singularityChallengeData).map((k) => [k, new SingularityChallenge(singularityChallengeData[k], k)])
+        Object.keys(blankSave.singularityChallenges).filter((k) => upgrades[k]).map((k) => {
+          const { completions, highestSingularityCompleted, enabled } = upgrades[k]
+
+          return [
+            k,
+            new SingularityChallenge({
+              baseReq: singularityChallengeData[k].baseReq,
+              completions,
+              maxCompletions: singularityChallengeData[k].maxCompletions,
+              unlockSingularity: singularityChallengeData[k].unlockSingularity,
+              HTMLTag: singularityChallengeData[k].HTMLTag,
+              highestSingularityCompleted,
+              enabled,
+              singularityRequirement: singularityChallengeData[k].singularityRequirement,
+              scalingrewardcount: singularityChallengeData[k].scalingrewardcount,
+              uniquerewardcount: singularityChallengeData[k].uniquerewardcount,
+              effect: singularityChallengeData[k].effect,
+              cacheUpdates: singularityChallengeData[k].cacheUpdates
+            }, k)
+          ]
+        })
       )
     )
     .default(() => JSON.parse(JSON.stringify(blankSave.singularityChallenges))),
@@ -631,9 +676,29 @@ export const playerSchema = z.object({
   spentBlueberries: z.number().default(() => blankSave.spentBlueberries),
   // TODO: is this right?
   blueberryUpgrades: z.record(z.string(), singularityUpgradeSchema('blueberriesInvested'))
-    .transform(() =>
+    .transform((upgrades) =>
       Object.fromEntries(
-        Object.keys(blueberryUpgradeData).map((k) => [k, new BlueberryUpgrade(blueberryUpgradeData[k], k)])
+        Object.keys(blankSave.blueberryUpgrades).filter((k) => upgrades[k]).map((k) => {
+          const { level, ambrosiaInvested, blueberriesInvested, toggleBuy, freeLevels } = upgrades[k]
+
+          return [
+            k,
+            new BlueberryUpgrade({
+              maxLevel: blueberryUpgradeData[k].maxLevel,
+              costPerLevel: blueberryUpgradeData[k].costPerLevel,
+              level: level as number,
+              ambrosiaInvested,
+              blueberriesInvested,
+              toggleBuy: toggleBuy as number,
+              blueberryCost: blueberryUpgradeData[k].blueberryCost,
+              rewards: blueberryUpgradeData[k].rewards,
+              costFormula: blueberryUpgradeData[k].costFormula,
+              freeLevels: freeLevels as number,
+              prerequisites: blueberryUpgradeData[k].prerequisites,
+              cacheUpdates: blueberryUpgradeData[k].cacheUpdates
+            }, k)
+          ]
+        })
       )
     )
     .default(() => JSON.parse(JSON.stringify(blankSave.blueberryUpgrades))),
