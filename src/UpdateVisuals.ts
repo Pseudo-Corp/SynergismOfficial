@@ -1430,7 +1430,7 @@ export const visualUpdateSingularity = () => {
     const val = G.shopEnhanceVision
 
     for (const key of keys) {
-      if (key === 'offeringAutomatic') {
+      if (key === 'offeringAutomatic' || key === 'WIP') {
         continue
       }
       const singItem = player.singularityUpgrades[key]
