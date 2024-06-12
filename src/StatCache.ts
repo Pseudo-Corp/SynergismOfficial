@@ -442,7 +442,8 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
 }
 
 export const cacheReinitialize = () => {
-  // TODO: Create a hierarchy of cache dependencies (ambrosia generation depends on blueberry inventory)
+  // TODO: REMOVE THIS FUCKING SHIT ASS CODE
+  // WHY THE FUCK ARE WE CACHING MATH OPERATIONS???
   player.caches.ambrosiaLuckAdditiveMult.initialize()
   player.caches.blueberryInventory.initialize()
   player.caches.ambrosiaGeneration.initialize()

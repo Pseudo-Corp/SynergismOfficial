@@ -401,7 +401,9 @@ export const playerSchema = z.object({
   antPoints: decimalSchema,
   antUpgrades: z.union([z.number().array(), arrayStartingWithNull(z.number()).transform((array) => array.slice(1))])
     .default(() => [...blankSave.antUpgrades]),
-  antSacrificePoints: z.number().default(() => blankSave.antSacrificePoints),
+  antSacrificePoints: z.union([z.number(), z.null().transform(() => Number.MAX_VALUE)]).default(() =>
+    blankSave.antSacrificePoints
+  ),
   antSacrificeTimer: z.number().default(() => blankSave.antSacrificeTimer),
   antSacrificeTimerReal: z.number().default(() => blankSave.antSacrificeTimerReal),
 
@@ -571,7 +573,11 @@ export const playerSchema = z.object({
     .transform(() =>
       Object.fromEntries(Object.keys(singularityData).map((k) => [k, new SingularityUpgrade(singularityData[k], k)]))
     )
-    .default(() => JSON.parse(JSON.stringify(blankSave.singularityUpgrades))),
+    .default(() => {
+      const v = JSON.parse(JSON.stringify(blankSave.singularityUpgrades))
+      console.log('DEFAULT SING UPGRADES', v)
+      return v
+    }),
   octeractUpgrades: z.record(z.string(), singularityUpgradeSchema('octeractsInvested'))
     .transform(() =>
       Object.fromEntries(Object.keys(octeractData).map((k) => [k, new OcteractUpgrade(octeractData[k], k)]))
@@ -621,10 +627,15 @@ export const playerSchema = z.object({
   ultimatePixels: z.number().default(() => blankSave.ultimatePixels),
 
   // TODO: what type?
-  caches: z.record(z.string(), z.any()).default(() => {
-    Object.values(blankSave.caches).map((cache) => cache.reset())
-    return blankSave.caches
-  }),
+  caches: z.record(z.string(), z.any())
+    .transform(() => {
+      Object.values(blankSave.caches).map((cache) => cache.reset())
+      return blankSave.caches
+    })
+    .default(() => {
+      Object.values(blankSave.caches).map((cache) => cache.reset())
+      return blankSave.caches
+    }),
 
   lastExportedSave: z.number().default(() => blankSave.lastExportedSave)
 })

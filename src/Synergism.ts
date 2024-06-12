@@ -2051,6 +2051,7 @@ const loadSynergy = async () => {
 
     // checkVariablesOnLoad(data)
     const validatedPlayer = playerSchema.safeParse(data)
+
     if (validatedPlayer.success) {
       Object.assign(player, validatedPlayer.data)
     } else {
