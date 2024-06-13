@@ -1,6 +1,9 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
+  calculateAdditiveLuckMult,
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
   calculateCashGrabBlueberryBonus,
   calculateCashGrabCubeBonus,
   calculateCashGrabQuarkBonus,
@@ -12,6 +15,7 @@ import type { IMultiBuy } from './Cubes'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
+import { Globals as G } from './Variables'
 
 /**
  * Standardization of metadata contained for each shop upgrade.
@@ -1256,7 +1260,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaAccelerator', {
         amount: format(0.2 * player.shopUpgrades.shopAmbrosiaAccelerator, 1, true),
         amount2: format(
-          player.shopUpgrades.shopAmbrosiaAccelerator * 0.2 * player.caches.ambrosiaGeneration.totalVal,
+          player.shopUpgrades.shopAmbrosiaAccelerator * 0.2 * G.ambrosiaCurrStats.ambrosiaGenerationSpeed,
           0,
           true
         )
@@ -1475,8 +1479,10 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     player.worlds.sub(anyData.cost)
     player.shopUpgrades[input] = anyData.levelCanBuy
     revealStuff()
-    player.caches.ambrosiaGeneration.updateVal('ShopUpgrades')
-    player.caches.ambrosiaLuck.updateVal('ShopUpgrades')
+
+    G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+    G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value
+    G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     return
   }
 
@@ -1496,8 +1502,9 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   if (p) {
     player.worlds.sub(buyCost)
     player.shopUpgrades[input] += buyAmount
-    player.caches.ambrosiaGeneration.updateVal('ShopUpgrades')
-    player.caches.ambrosiaLuck.updateVal('ShopUpgrades')
+    G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+    G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value
+    G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     revealStuff()
   }
 }

@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateGoldenQuarkGain } from './Calculate'
+import { calculateAdditiveLuckMult, calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculateBlueberryInventory, calculateGoldenQuarkGain } from './Calculate'
 import { singularity } from './Reset'
 import { player } from './Synergism'
 import type { Player } from './types/Synergism'
@@ -293,8 +293,12 @@ export const singularityChallengeData: Record<
       }
     },
     cacheUpdates: [
-      () => player.caches.blueberryInventory.updateVal('Exalt1'),
-      () => player.caches.ambrosiaLuckAdditiveMult.updateVal('Exalt1')
+      () => {G.ambrosiaCurrStats = {
+        ambrosiaAdditiveLuckMult: calculateAdditiveLuckMult().value,
+        ambrosiaLuck: calculateAmbrosiaLuck().value,
+        ambrosiaBlueberries: calculateBlueberryInventory().value,
+        ambrosiaGenerationSpeed: calculateAmbrosiaGenerationSpeed().value
+      }}
     ]
   },
   oneChallengeCap: {

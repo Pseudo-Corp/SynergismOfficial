@@ -1555,16 +1555,16 @@ export const visualUpdateAmbrosia = () => {
     return
   }
 
-  const luck = player.caches.ambrosiaLuck.usedTotal
-  const baseLuck = player.caches.ambrosiaLuck.totalVal
-  const luckBonusPercent = 100 * (player.caches.ambrosiaLuckAdditiveMult.totalVal - 1)
+  const luck = G.ambrosiaCurrStats.ambrosiaLuck
+  const baseLuck = G.ambrosiaCurrStats.ambrosiaLuck / G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult
+  const luckBonusPercent = 100 * (G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult - 1)
   const guaranteed = Math.floor(luck / 100)
   const chance = luck - 100 * Math.floor(luck / 100)
   const requiredTime = calculateRequiredBlueberryTime()
   const cubePercent = 100 * (calculateAmbrosiaCubeMult() - 1)
   const quarkPercent = 100 * (calculateAmbrosiaQuarkMult() - 1)
-  const availableBlueberries = player.caches.blueberryInventory.totalVal - player.spentBlueberries
-  const totalTimePerSecond = player.caches.ambrosiaGeneration.totalVal
+  const availableBlueberries = G.ambrosiaCurrStats.ambrosiaBlueberries - player.spentBlueberries
+  const totalTimePerSecond = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
   const progressTimePerSecond = Math.min(totalTimePerSecond, Math.pow(1000 * totalTimePerSecond, 1 / 2))
   const barWidth = 100 * Math.min(1, player.blueberryTime / requiredTime)
   const pixelBarWidth = 100 * Math.min(1, player.ultimateProgress / 1e6)

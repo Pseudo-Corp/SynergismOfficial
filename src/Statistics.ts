@@ -2,6 +2,8 @@ import Decimal from 'break_infinity.js'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateAllCubeMultiplier,
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
   calculateAmbrosiaQuarkMult,
   calculateAscensionSpeedMultiplier,
   calculateCashGrabQuarkBonus,
@@ -1270,7 +1272,8 @@ export const loadAddCodeModifiersAndEffects = () => {
 }
 
 export const loadStatisticsAmbrosiaLuck = () => {
-  const arr = player.caches.ambrosiaLuck.flatten()
+  const stats = calculateAmbrosiaLuck()
+  const arr = stats.array
   const map: Record<number, { acc: number; desc: string }> = {
     1: { acc: 0, desc: 'Base Value' },
     2: { acc: 0, desc: 'Irish Ants Singularity Perk' },
@@ -1298,22 +1301,15 @@ export const loadStatisticsAmbrosiaLuck = () => {
     }`
   }
 
-  DOMCacheGetOrSet('sALuckMult').textContent = `x${
-    format(
-      player.caches.ambrosiaLuckAdditiveMult.totalVal,
-      3,
-      true
-    )
-  }`
+  DOMCacheGetOrSet('sALuckMult').textContent = `x${format(arr[arr.length - 1],3,true)}`
 
-  const totalVal = Math.floor(
-    arr[arr.length - 1] * player.caches.ambrosiaLuckAdditiveMult.totalVal
-  )
+  const totalVal = Math.floor(stats.value)
   DOMCacheGetOrSet('sALuckMT').innerHTML = `&#9752 ${format(totalVal, 0)}`
 }
 
 export const loadStatisticsAmbrosiaGeneration = () => {
-  const arr = player.caches.ambrosiaGeneration.flatten()
+  const stats = calculateAmbrosiaGenerationSpeed()
+  const arr = stats.array
   const map: Record<number, { acc: number; desc: string }> = {
     1: { acc: 4, desc: 'Visited Ambrosia Subtab' },
     2: { acc: 4, desc: 'Number of Blueberries' },
@@ -1326,19 +1322,13 @@ export const loadStatisticsAmbrosiaGeneration = () => {
     9: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
     10: { acc: 4, desc: 'Event Bonus' }
   }
-  for (let i = 0; i < arr.length - 1; i++) {
+  for (let i = 0; i < arr.length; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)
     statAGenMi.childNodes[0].textContent = map[i + 1].desc
-    DOMCacheGetOrSet(`sAGenM${i + 1}`).textContent = `x${
-      format(
-        arr[i],
-        map[i + 1].acc,
-        true
-      )
-    }`
+    DOMCacheGetOrSet(`sAGenM${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`
   }
 
-  const totalVal = arr[arr.length - 1]
+  const totalVal = stats.value
   DOMCacheGetOrSet('sAGenMT').textContent = `${format(totalVal, 3, true)}`
 }
 

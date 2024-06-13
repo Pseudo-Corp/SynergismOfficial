@@ -1,8 +1,12 @@
 import {
+  calculateAdditiveLuckMult,
   calculateAmbrosiaGenerationOcteractUpgrade,
   calculateAmbrosiaGenerationSingularityUpgrade,
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
   calculateAmbrosiaLuckOcteractUpgrade,
   calculateAmbrosiaLuckSingularityUpgrade,
+  calculateBlueberryInventory,
   calculateCashGrabBlueberryBonus,
   calculateDilatedFiveLeafBonus,
   calculateEventBuff,
@@ -444,8 +448,18 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
 export const cacheReinitialize = () => {
   // TODO: REMOVE THIS FUCKING SHIT ASS CODE
   // WHY THE FUCK ARE WE CACHING MATH OPERATIONS???
-  player.caches.ambrosiaLuckAdditiveMult.initialize()
+  /*player.caches.ambrosiaLuckAdditiveMult.initialize()
   player.caches.blueberryInventory.initialize()
   player.caches.ambrosiaGeneration.initialize()
-  player.caches.ambrosiaLuck.initialize()
+  player.caches.ambrosiaLuck.initialize() */
+
+  // As of 6/13/2024, caches are no longer used. Instead calculations are done directly and the end value is stored in a Global variable
+  // which is not stored in the save.
+
+  Globals.ambrosiaCurrStats = {
+    ambrosiaAdditiveLuckMult: calculateAdditiveLuckMult().value,
+    ambrosiaLuck: calculateAmbrosiaLuck().value,
+    ambrosiaBlueberries: calculateBlueberryInventory().value,
+    ambrosiaGenerationSpeed: calculateAmbrosiaGenerationSpeed().value
+  }
 }

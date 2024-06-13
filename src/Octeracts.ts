@@ -1,11 +1,12 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { octeractGainPerSecond } from './Calculate'
+import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, octeractGainPerSecond } from './Calculate'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import { format, formatTimeShort, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
+import { Globals as G } from './Variables'
 
 export interface IOcteractData extends Omit<IUpgradeData, 'name' | 'description'> {
   costFormula(this: void, level: number, baseCost: number): number
@@ -95,10 +96,6 @@ export class OcteractUpgrade extends DynamicUpgrade {
     }
     if (purchased > 1) {
       return Alert(`${i18next.t('octeract.buyLevel.multiBuy', { n: format(purchased) })}`)
-    }
-
-    if (this.name === player.octeractUpgrades.octeractAmbrosiaLuck.name) {
-      player.caches.ambrosiaLuck.updateVal('OcteractBerries')
     }
 
     this.updateCaches()
@@ -671,7 +668,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       }
     },
     qualityOfLife: true,
-    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('OcteractBerries')]
+    cacheUpdates: [() => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}]
   },
   octeractAmbrosiaLuck2: {
     costFormula: (level: number, baseCost: number) => {
@@ -688,7 +685,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       }
     },
     qualityOfLife: true,
-    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('OcteractBerries')]
+    cacheUpdates: [() => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}]
   },
   octeractAmbrosiaLuck3: {
     costFormula: (level: number, baseCost: number) => {
@@ -705,7 +702,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       }
     },
     qualityOfLife: true,
-    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('OcteractBerries')]
+    cacheUpdates: [() => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}]
   },
   octeractAmbrosiaLuck4: {
     costFormula: (level: number, baseCost: number) => {
@@ -723,7 +720,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       }
     },
     qualityOfLife: true,
-    cacheUpdates: [() => player.caches.ambrosiaLuck.updateVal('OcteractBerries')]
+    cacheUpdates: [() => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}]
   },
   octeractAmbrosiaGeneration: {
     costFormula: (level: number, baseCost: number) => {
@@ -741,7 +738,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       }
     },
     qualityOfLife: true,
-    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('OcteractBerries')]
+    cacheUpdates: [() => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}]
   },
   octeractAmbrosiaGeneration2: {
     costFormula: (level: number, baseCost: number) => {
@@ -758,7 +755,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       }
     },
     qualityOfLife: true,
-    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('OcteractBerries')]
+    cacheUpdates: [() => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}]
   },
   octeractAmbrosiaGeneration3: {
     costFormula: (level: number, baseCost: number) => {
@@ -775,7 +772,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       }
     },
     qualityOfLife: true,
-    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('OcteractBerries')]
+    cacheUpdates: [() => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}]
   },
   octeractAmbrosiaGeneration4: {
     costFormula: (level: number, baseCost: number) => {
@@ -793,6 +790,6 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       }
     },
     qualityOfLife: true,
-    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('OcteractBerries')]
+    cacheUpdates: [() => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}]
   }
 }
