@@ -191,6 +191,27 @@ type AmbrosiaLuckAdditiveMult =
   | 'ShopUpgrades'
   | 'Exalt5'
   | 'Event'
+  
+type UltimatePixelGeneration =
+  | 'Base'
+  | 'BarLevel'
+
+type UltimatePixelLuck =
+  | 'Base'
+  | 'BarLevel'
+  | 'PixelUpgrade1'
+  | 'SingularityPixelLuck1'
+  | 'SingularityPixelLuck2'
+  | 'OcteractPixelLuck1'
+  | 'OcteractPixelLuck2'
+  | 'BlueberryPixelLuck1'
+  | 'BlueberryPixelLuck2'
+
+type UltimatePixelLuckAdditiveMult =
+  | 'Base'
+  | 'BarLevel'
+  | 'Exalt1'
+  | 'Event'
 
 type UltimatePixelGeneration =
   | 'Base'

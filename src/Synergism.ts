@@ -178,6 +178,7 @@ import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 import type { PlayerSave } from './types/LegacySynergism'
+import { pixelData, PixelUpgrade } from './PixelUpgrades'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),

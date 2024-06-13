@@ -256,6 +256,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   updateUpgradeHTML (): void {
     DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = this.toString()
     visualUpdateAmbrosia()
+    visualUpdateProgressPixels()
   }
 
   checkPrerequisites (): boolean {

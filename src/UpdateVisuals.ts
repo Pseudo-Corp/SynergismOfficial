@@ -41,6 +41,7 @@ import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
+import { computeMetaBarLevel, LEVEL_REQ_ARR } from './PixelUpgrades'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {

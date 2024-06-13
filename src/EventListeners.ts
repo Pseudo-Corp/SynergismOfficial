@@ -1158,7 +1158,7 @@ TODO: Fix this entire tab it's utter shit
     )
   }
   // Toggle subtabs of Singularity tab
-  for (let index = 0; index < 5; index++) {
+  for (let index = 0; index < 6; index++) {
     DOMCacheGetOrSet(`toggleSingularitySubTab${index + 1}`).addEventListener(
       'click',
       () => changeSubTab(Tabs.Singularity, { page: index })

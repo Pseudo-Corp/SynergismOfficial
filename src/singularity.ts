@@ -1620,7 +1620,48 @@ export const singularityData: Record<
     cacheUpdates: [
       () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value}
     ]
-  }
+  },
+  singPixelLuck: {
+    maxLevel: 0,
+    costPerLevel: 1e7,
+    minimumSingularity: 60,
+    canExceedCap: true,
+    effect: (n: number) => {
+      return {
+        bonus: 1 * n,
+        get desc () {
+          return i18next.t('singularity.data.singPixelLuck.effect', {
+            n: format(n)
+          })
+        }
+      }
+    },
+    specialCostForm: 'Exponential2',
+    qualityOfLife: false,
+    cacheUpdates: [
+      () => player.caches.ultimatePixelLuck.updateVal('SingularityPixelLuck1')
+    ]
+  },
+  singPixelLuck2: {
+    maxLevel: 15,
+    costPerLevel: 1e20,
+    minimumSingularity: 271,
+    effect: (n: number) => {
+      return {
+        bonus: 1 * n,
+        get desc () {
+          return i18next.t('singularity.data.singPixelLuck2.effect', {
+            n: format(n)
+          })
+        }
+      }
+    },
+    specialCostForm: 'Exponential2',
+    qualityOfLife: false,
+    cacheUpdates: [
+      () => player.caches.ultimatePixelLuck.updateVal('SingularityPixelLuck2')
+    ]
+  },
 }
 
 /**
