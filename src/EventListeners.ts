@@ -1126,7 +1126,7 @@ TODO: Fix this entire tab it's utter shit
     const singPic = document.querySelector<HTMLElement>('#ascSingularityCountStats')
 
     singPic?.addEventListener('mouseenter', () => {
-      alert('What the fuck do you want!?')
+      alert('The testing works! The sailor mouth from earlier got fired.')
     })
 
     pixelBar?.addEventListener('mouseleave', () => {
