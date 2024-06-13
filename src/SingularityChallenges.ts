@@ -265,7 +265,7 @@ export const singularityChallengeData: Record<
         goldenQuarks: 1 + 0.12 * +(n > 0),
         blueberries: +(n > 0),
         shopUpgrade: n >= 20,
-        luckBonus: n >= 30 ? 0.04 : 0,
+        luckBonus: n >= 30 ? 0.06 : 0,
         shopUpgrade2: n >= 30
       }
     },
@@ -293,19 +293,19 @@ export const singularityChallengeData: Record<
     }
   },
   noOcteracts: {
-    baseReq: 75,
-    maxCompletions: 10,
+    baseReq: 55,
+    maxCompletions: 25,
     unlockSingularity: 100,
     HTMLTag: 'noOcteracts',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 13 * completions
+      return baseReq + 7 * completions
     },
     effect: (n: number) => {
       return {
-        octeractPow: 0.02 * n,
+        octeractPow: 0.01 * n,
         offeringBonus: n > 0,
-        obtainiumBonus: n >= 10,
-        shopUpgrade: n >= 10
+        obtainiumBonus: n >= 20,
+        shopUpgrade: n >= 20
       }
     }
   },

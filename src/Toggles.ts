@@ -10,7 +10,7 @@ import { format, player, resetCheck } from './Synergism'
 import { subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, Player } from './types/Synergism'
 import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
-import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
+import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts, visualUpdateProgressPixels } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 export const toggleSettings = (toggle: HTMLElement) => {
@@ -447,7 +447,7 @@ export const toggleSaveOff = () => {
 export const toggleSingularityScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 6; i++) {
     const a = DOMCacheGetOrSet(`toggleSingularitySubTab${i}`)
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
     if (i === index) {
@@ -467,6 +467,10 @@ export const toggleSingularityScreen = (indexStr: string) => {
 
   if (player.subtabNumber === 4) {
     visualUpdateAmbrosia()
+  }
+
+  if (player.subtabNumber === 5) {
+    visualUpdateProgressPixels()
   }
 }
 

@@ -29,6 +29,9 @@ import {
   AmbrosiaLuckAdditiveMultCache,
   AmbrosiaLuckCache,
   BlueberryInventoryCache,
+  UltimatePixelGenerationCache,
+  UltimatePixelLuckAdditiveMultCache,
+  UltimatePixelLuckCache,
   cacheReinitialize
 } from './StatCache'
 import { c15RewardUpdate } from './Statistics'
@@ -38,6 +41,7 @@ import type { Player } from './types/Synergism'
 import { Alert } from './UpdateHTML'
 import { padArray } from './Utility'
 import { Globals } from './Variables'
+import { type IPixelData, PixelUpgrade, pixelData } from './PixelUpgrades'
 
 /**
  * Given player data, it checks, on load if variables are undefined
@@ -621,7 +625,15 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     singAmbrosiaGeneration4: new SingularityUpgrade(
       singularityData.singAmbrosiaGeneration4,
       'singAmbrosiaGeneration4'
-    )
+    ),
+    singPixelLuck: new SingularityUpgrade(
+      singularityData.singPixelLuck,
+      'singPixelLuck'
+    ),
+    singPixelLuck2: new SingularityUpgrade(
+      singularityData.singPixelLuck2,
+      'singPixelLuck2'
+    ),
   }
 
   player.octeractUpgrades = {
@@ -772,7 +784,15 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     octeractAmbrosiaGeneration4: new OcteractUpgrade(
       octeractData.octeractAmbrosiaGeneration4,
       'octeractAmbrosiaGeneration4'
-    )
+    ),
+    octeractPixelLuck: new OcteractUpgrade(
+      octeractData.octeractPixelLuck,
+      'octeractPixelLuck'
+    ),
+    octeractPixelLuck2: new OcteractUpgrade(
+      octeractData.octeractPixelLuck2,
+      'octeractPixelLuck2'
+    ),
   }
 
   player.singularityChallenges = {
@@ -866,7 +886,46 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     ambrosiaHyperflux: new BlueberryUpgrade(
       blueberryUpgradeData.ambrosiaHyperflux,
       'ambrosiaHyperflux'
+    ),
+    ambrosiaPixelLuck: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaPixelLuck,
+      'ambrosiaPixelLuck'
+    ),
+    ambrosiaPixelLuck2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaPixelLuck2,
+      'ambrosiaPixelLuck2'
+    ),
+    ambrosiaLuckDilator: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaLuckDilator,
+      'ambrosiaLuckDilator'
     )
+  }
+
+  player.pixelUpgrades = {
+    pixelTutorial: new PixelUpgrade(pixelData.pixelTutorial, 'pixelTutorial'),
+    pixelPixelLuck: new PixelUpgrade(pixelData.pixelPixelLuck, 'pixelPixelLuck'),
+    pixelPixelLuckConverter: new PixelUpgrade(pixelData.pixelPixelLuckConverter, 'pixelPixelLuckConverter'),
+    pixelPixelLuckConverter2: new PixelUpgrade(pixelData.pixelPixelLuckConverter2, 'pixelPixelLuckConverter2'),
+    pixelPixelGeneration: new PixelUpgrade(pixelData.pixelPixelGeneration, 'pixelPixelGeneration'),
+    pixelPixelGeneration2: new PixelUpgrade(pixelData.pixelPixelGeneration2, 'pixelPixelGeneration2'),
+    pixelPixelGeneration3: new PixelUpgrade(pixelData.pixelPixelGeneration3, 'pixelPixelGeneration3'),
+    pixelAmbrosiaGeneration: new PixelUpgrade(pixelData.pixelAmbrosiaGeneration, 'pixelAmbrosiaGeneration'),
+    pixelAmbrosiaGeneration2: new PixelUpgrade(pixelData.pixelAmbrosiaGeneration2, 'pixelAmbrosiaGeneration2'),
+    pixelAmbrosiaGeneration3: new PixelUpgrade(pixelData.pixelAmbrosiaGeneration3, 'pixelAmbrosiaGeneration3'),
+    pixelAmbrosiaLuck: new PixelUpgrade(pixelData.pixelAmbrosiaLuck, 'pixelAmbrosiaLuck'),
+    pixelAmbrosiaLuck2: new PixelUpgrade(pixelData.pixelAmbrosiaLuck2, 'pixelAmbrosiaLuck2'),
+    pixelAmbrosiaLuck3: new PixelUpgrade(pixelData.pixelAmbrosiaLuck3, 'pixelAmbrosiaLuck3'),
+    pixelCubes: new PixelUpgrade(pixelData.pixelCubes, 'pixelCubes'),
+    pixelQuarks: new PixelUpgrade(pixelData.pixelQuarks, 'pixelQuarks'),
+    pixelObtainium: new PixelUpgrade(pixelData.pixelObtainium, 'pixelObtainium'),
+    pixelOfferings: new PixelUpgrade(pixelData.pixelOfferings, 'pixelOfferings'),
+    pixelBlueberry: new PixelUpgrade(pixelData.pixelBlueberry, 'pixelBlueberry'),
+    pixelBlueberry2: new PixelUpgrade(pixelData.pixelBlueberry2, 'pixelBlueberry2'),
+    pixelBlueberry3: new PixelUpgrade(pixelData.pixelBlueberry3, 'pixelBlueberry3'),
+    pixelRoleBonus: new PixelUpgrade(pixelData.pixelRoleBonus, 'pixelRoleBonus'),
+    pixelFreeUpgradeImprovement: new PixelUpgrade(pixelData.pixelFreeUpgradeImprovement, 'pixelFreeUpgradeImprovement'),
+    pixelFreeUpgradeImprovement2: new PixelUpgrade(pixelData.pixelFreeUpgradeImprovement2, 'pixelFreeUpgradeImprovement2'),
+    pixelFreeUpgradeImprovement3: new PixelUpgrade(pixelData.pixelFreeUpgradeImprovement3, 'pixelFreeUpgradeImprovement3'),
   }
 
   if (data.loadedOct4Hotfix === undefined || !player.loadedOct4Hotfix) {
@@ -1354,6 +1413,44 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     }
   }
 
+  if (data.pixelUpgrades != null) {
+    // TODO: Make this more DRY -Platonic, July 15 2022
+    for (const item in blankSave.pixelUpgrades) {
+      const k = item as keyof Player['pixelUpgrades']
+      let updatedData: IPixelData
+      if (data.pixelUpgrades[k]) {
+        const { level, pixelsInvested, toggleBuy, freeLevels } = data.pixelUpgrades[k]
+        updatedData = {
+          maxLevel: pixelData[k].maxLevel,
+          costPerLevel: pixelData[k].costPerLevel,
+          level,
+          pixelsInvested,
+          toggleBuy,
+          rewards: pixelData[k].rewards,
+          freeLevels,
+          qualityOfLife: pixelData[k].qualityOfLife,
+          cacheUpdates: pixelData[k].cacheUpdates,
+          IconSrc: pixelData[k].IconSrc
+        }
+        player.pixelUpgrades[k] = new PixelUpgrade(
+          updatedData,
+          k.toString()
+        )
+
+        if (
+          player.pixelUpgrades[k].maxLevel !== -1
+          && player.pixelUpgrades[k].level > player.pixelUpgrades[k].maxLevel
+        ) {
+          player.pixelUpgrades[k].refund()
+        }
+      } else {
+        player.pixelUpgrades[
+          k
+        ].name = `[NEW!] ${player.pixelUpgrades[k].name}`
+      }
+    }
+  }
+
   if (data.blueberryUpgrades != null) {
     // blueberry loading here!
     for (const item of Object.keys(blankSave.blueberryUpgrades)) {
@@ -1637,7 +1734,10 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     ambrosiaLuckAdditiveMult: new AmbrosiaLuckAdditiveMultCache(),
     ambrosiaLuck: new AmbrosiaLuckCache(),
     ambrosiaGeneration: new AmbrosiaGenerationCache(),
-    blueberryInventory: new BlueberryInventoryCache()
+    blueberryInventory: new BlueberryInventoryCache(),
+    ultimatePixelAdditiveMult: new UltimatePixelLuckAdditiveMultCache(),
+    ultimatePixelGeneration: new UltimatePixelGenerationCache(),
+    ultimatePixelLuck: new UltimatePixelLuckCache()
   }
 
   cacheReinitialize()

@@ -12,9 +12,13 @@ import type {
   AmbrosiaGenerationCache,
   AmbrosiaLuckAdditiveMultCache,
   AmbrosiaLuckCache,
-  BlueberryInventoryCache
+  BlueberryInventoryCache,
+  UltimatePixelGenerationCache,
+  UltimatePixelLuckAdditiveMultCache,
+  UltimatePixelLuckCache
 } from '../StatCache'
 import type { Tabs } from '../Tabs'
+import type { PixelUpgrade } from '../PixelUpgrades'
 
 export interface Player {
   firstPlayed: string
@@ -613,6 +617,7 @@ export interface Player {
 
   singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
   octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade>
+  pixelUpgrades: Record<keyof typeof pixelData, PixelUpgrade>
   dailyCodeUsed: boolean
   hepteractAutoCraftPercentage: number
   octeractTimer: number
@@ -638,12 +643,16 @@ export interface Player {
 
   ultimateProgress: number
   ultimatePixels: number
+  lifetimeUltimatePixels: number
 
   caches: {
     ambrosiaLuckAdditiveMult: AmbrosiaLuckAdditiveMultCache
     ambrosiaLuck: AmbrosiaLuckCache
     ambrosiaGeneration: AmbrosiaGenerationCache
     blueberryInventory: BlueberryInventoryCache
+    ultimatePixelGeneration: UltimatePixelGenerationCache
+    ultimatePixelLuck: UltimatePixelLuckCache
+    ultimatePixelAdditiveMult: UltimatePixelLuckAdditiveMultCache
   }
 
   /**
@@ -993,6 +1002,7 @@ export interface GlobalVariables {
   eventClicked: boolean
 
   ambrosiaTimer: number
+  pixelTimer: number
   TIME_PER_AMBROSIA: number
 
   currentSingChallenge: keyof Player['singularityChallenges'] | undefined

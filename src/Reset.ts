@@ -1226,6 +1226,16 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
       }]
     })
   ) as unknown as Player['blueberryUpgrades']
+  hold.pixelUpgrades = Object.fromEntries(
+    Object.entries(player.pixelUpgrades).map(([key, value]) => {
+      return [key, {
+        level: value.level,
+        pixelsInvested: value.pixelsInvested,
+        toggleBuy: value.toggleBuy,
+        freeLevels: value.freeLevels
+      }]
+    })
+  ) as unknown as Player['pixelUpgrades']
   hold.spentBlueberries = player.spentBlueberries
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer

@@ -300,7 +300,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
       GQBudget = Math.min(player.goldenQuarks, GQBudget)
     }
 
-    if (this.maxLevel > 0) {
+    if (this.computeMaxLevel() > 0) {
       maxPurchasable = Math.min(
         maxPurchasable,
         this.computeMaxLevel() - this.level
@@ -1559,7 +1559,48 @@ export const singularityData: Record<
     cacheUpdates: [
       () => player.caches.ambrosiaGeneration.updateVal('SingularityBerries')
     ]
-  }
+  },
+  singPixelLuck: {
+    maxLevel: 0,
+    costPerLevel: 1e7,
+    minimumSingularity: 60,
+    canExceedCap: true,
+    effect: (n: number) => {
+      return {
+        bonus: 1 * n,
+        get desc () {
+          return i18next.t('singularity.data.singPixelLuck.effect', {
+            n: format(n)
+          })
+        }
+      }
+    },
+    specialCostForm: 'Exponential2',
+    qualityOfLife: false,
+    cacheUpdates: [
+      () => player.caches.ultimatePixelLuck.updateVal('SingularityPixelLuck1')
+    ]
+  },
+  singPixelLuck2: {
+    maxLevel: 15,
+    costPerLevel: 1e20,
+    minimumSingularity: 271,
+    effect: (n: number) => {
+      return {
+        bonus: 1 * n,
+        get desc () {
+          return i18next.t('singularity.data.singPixelLuck2.effect', {
+            n: format(n)
+          })
+        }
+      }
+    },
+    specialCostForm: 'Exponential2',
+    qualityOfLife: false,
+    cacheUpdates: [
+      () => player.caches.ultimatePixelLuck.updateVal('SingularityPixelLuck2')
+    ]
+  },
 }
 
 /**
@@ -2641,4 +2682,16 @@ export const calculateSingularityDebuff = (
     // Cube upgrades
     return Math.cbrt(effectiveSingularities + 1)
   }
+}
+
+export const calculateTotalCacheSeconds = () => {
+
+  const singularity = player.singularityCount
+
+  const linearScale = (singularity >= 25) ? singularity * 8 : 0
+  const quadraticFactor = (singularity > 100) ?  singularity / 100: 1;
+  const cubicFactor = (singularity > 200) ? singularity / 150: 1;
+  const quarticFactor = (singularity > 250) ? 1 + (singularity - 250) / 25: 1;
+
+  return linearScale * quadraticFactor * cubicFactor * quarticFactor
 }

@@ -57,7 +57,9 @@ const associated = new Map<string, string>([
   ['kGQMult', 'goldenQuarkMultiplierStats'],
   ['kAddStats', 'addCodeStats'],
   ['kAmbrosiaLuck', 'ambrosiaLuckStats'],
-  ['kAmbrosiaGenMult', 'ambrosiaGenerationStats']
+  ['kAmbrosiaGenMult', 'ambrosiaGenerationStats'],
+  ['kPixelLuck', 'pixelLuckStats'],
+  ['kPixelGenMult', 'pixelGenerationStats']
 ])
 
 export const displayStats = (btn: HTMLElement) => {
@@ -116,6 +118,12 @@ export const loadStatisticsUpdate = () => {
         break
       case 'ambrosiaGenerationStats':
         loadStatisticsAmbrosiaGeneration()
+        break
+      case 'pixelLuckStats':
+        loadStatisticsPixelLuck()
+        break
+      case 'pixelGenerationStats':
+        loadStatisticsPixelGeneration()
         break
       default:
         loadStatisticsCubeMultipliers()
@@ -1281,10 +1289,14 @@ export const loadStatisticsAmbrosiaLuck = () => {
     7: { acc: 1, desc: 'Ambrosia Luck Module II' },
     8: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
     9: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
-    10: { acc: 0, desc: 'Perk: One Hundred Thirty One!' },
-    11: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
-    12: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
-    13: { acc: 0, desc: 'No Ambrosia Upgrades EXALT'},
+    10: { acc: 0, desc: 'Progress Bar Level Bonus'},
+    11: { acc: 0, desc: 'A Pixelated Ambrosia Luck Inducer' },
+    12: { acc: 0, desc: 'A Pixelated Ambrosia Luck Deducer' },
+    13: { acc: 0, desc: 'A Pixelated Ambrosia Luck Convector' },
+    14: { acc: 0, desc: 'Perk: One Hundred Thirty One!' },
+    15: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
+    16: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
+    17: { acc: 0, desc: 'No Ambrosia Upgrades EXALT'},
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -1321,10 +1333,14 @@ export const loadStatisticsAmbrosiaGeneration = () => {
     4: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
     5: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
     6: { acc: 4, desc: 'Patreon Bonus' },
-    7: { acc: 4, desc: 'One Ascension Challenge EXALT'},
-    8: { acc: 4, desc: 'No Ambrosia Upgrades EXALT' },
-    9: { acc: 4, desc: 'Cash-Grab ULTIMATE'},
-    10: { acc: 4, desc: 'Event Bonus'}
+    7: { acc: 4, desc: 'Progress Bar Level Bonus'},
+    8: { acc: 4, desc: 'A Pixelated Ambrosia Quickener'},
+    9: { acc: 4, desc: 'A Pixelated Ambrosia Hastener'},
+    10: { acc: 4, desc: 'A Pixelated Ambrosia Rapidity'},
+    11: { acc: 4, desc: 'One Ascension Challenge EXALT'},
+    12: { acc: 4, desc: 'No Ambrosia Upgrades EXALT' },
+    13: { acc: 4, desc: 'Cash-Grab ULTIMATE'},
+    14: { acc: 4, desc: 'Event Bonus'}
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)
@@ -1341,6 +1357,36 @@ export const loadStatisticsAmbrosiaGeneration = () => {
   const totalVal = arr[arr.length - 1]
   DOMCacheGetOrSet('sAGenMT').textContent = `${format(totalVal, 3, true)}`
 }
+
+export const loadStatisticsPixelLuck = () => {
+  const arr = player.caches.ultimatePixelLuck.flatten()
+  const map: Record<number, { acc: number; desc: string }> = {
+    1: { acc: 0, desc: 'Base Luck:' },
+    2: { acc: 0, desc: 'Progress Bar Level Bonus:' },
+    3: { acc: 0, desc: 'Pixel Luck Enhancer I' },
+    4: { acc: 0, desc: 'Lucky Little Pixels' },
+    5: { acc: 0, desc: 'Lucky Big Pixels' },
+    6: { acc: 0, desc: 'Mega Pixel Luck Bonus' },
+    7: { acc: 0, desc: 'Tera Pixel Luck Bonus' },
+    8: { acc: 0, desc: 'Blueberry-Infused Pixel Luck Enhancer'},
+    9: { acc: 0, desc: 'Blueberry-Refined Pixel Luck Enhancer' },
+  }
+
+  for (let i = 0; i < arr.length - 1; i++) {
+    const statPLuckMi = DOMCacheGetOrSet(`statPLuckM${i + 1}`)
+    statPLuckMi.childNodes[0].textContent = map[i + 1].desc
+    DOMCacheGetOrSet(`sPLuckM${i + 1}`).textContent = `+${format(arr[i], map[i + 1].acc, true)}`
+  }
+
+  DOMCacheGetOrSet('sPLuckMult').textContent = `x${format(player.caches.ultimatePixelAdditiveMult.totalVal, 3, true)}`
+
+  const totalVal = Math.floor(
+    arr[arr.length - 1] * player.caches.ultimatePixelAdditiveMult.totalVal
+  )
+  DOMCacheGetOrSet('sPLuckMT').innerHTML = `❖ ${format(totalVal, 0)}`
+}
+
+export const loadStatisticsPixelGeneration = () => {}
 
 export const c15RewardUpdate = () => {
   // dprint-ignore

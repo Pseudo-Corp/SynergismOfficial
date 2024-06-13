@@ -106,6 +106,14 @@
                 <img src="Pictures/Default/BackedQuark.png" class="offlineStatIcon">
                 <span id="offlineQuarkCount" class="offlineStatElement" i18n="offlineProgress.exportQuarks"></span>
             </div>
+            <div class="offlineStat" id="offlineAmbrosiaCountDiv">
+                <img src="Pictures/Default/Ambrosia.png" class="offlineStatIcon">
+                <span id="offlineAmbrosiaCount" class="offlineStatElement" i18n="offlineProgress.lifetimeAmbrosia"></span>
+            </div>
+            <div class="offlineStat" id="offlinePixelCountDiv">
+                <img src="Pictures/Default/UltimatePixel.png" class="offlineStatIcon">
+                <span id="offlinePixelCount" class="offlineStatElement" i18n="offlineProgress.pixels"></span>
+            </div>
         </div>
 
         <button id="exitOffline" class="subtabContent" style="visibility: hidden">That's cool. Take me to the game!</button>
@@ -3029,6 +3037,8 @@
                 <button class="statsNerds singularity" id="kOctMult" style="border: 2px solid blue">Octeract Multipliers</button>
                 <button class="statsNerds octeracts" id="kAmbrosiaLuck" style="border: 2px solid lime">Ambrosia Luck</button>
                 <button class="statsNerds octeracts" id="kAmbrosiaGenMult" style="border: 2px solid #ffbf00">Ambrosia Generation</button>
+                <button class="statsNerds octeracts" id="kPixelLuck" style="border: 2px solid orchid">Pixel Luck</button>
+                <button class="statsNerds octeracts" id="kPixelGenMult" style="border: 2px solid red">Pixel Generation</button>
 
             </div>
             <div id="miscStats" class="statContainer activeStats">
@@ -3467,6 +3477,10 @@
                 <p id="statALuckM11" class="statPortion">a<span id="sALuckM11" class="statNumber">0</span></p>
                 <p id="statALuckM12" class="statPortion">a<span id="sALuckM12" class="statNumber">0</span></p>
                 <p id="statALuckM13" class="statPortion">a<span id="sALuckM13" class="statNumber">0</span></p>
+                <p id="statALuckM14" class="statPortion">a<span id="sALuckM14" class="statNumber">0</span></p>
+                <p id="statALuckM15" class="statPortion">a<span id="sALuckM15" class="statNumber">0</span></p>
+                <p id="statALuckM16" class="statPortion">a<span id="sALuckM16" class="statNumber">0</span></p>
+                <p id="statALuckM17" class="statPortion">a<span id="sALuckM17" class="statNumber">0</span></p>
                 <p id="statALuckMult" class="statPortion">Multipliers (Additive)<span id="sALuckMult" class="statNumber">0</span></p>
                 <p id="statALuckMT" class="statPortion statTotal" style="color: orange">TOTAL AMBROSIA LUCK:
                     <span id="sALuckMT" class="statNumber statTotal">0</span></p>
@@ -3484,8 +3498,35 @@
                 <p id="statAGenM8" class="statPortion">a<span id="sAGenM8" class="statNumber">0</span></p>
                 <p id="statAGenM9" class="statPortion">a<span id="sAGenM9" class="statNumber">0</span></p>
                 <p id="statAGenM10" class="statPortion">a<span id="sAGenM10" class="statNumber">0</span></p>
+                <p id="statAGenM11" class="statPortion">a<span id="sAGenM11" class="statNumber">0</span></p>
+                <p id="statAGenM12" class="statPortion">a<span id="sAGenM12" class="statNumber">0</span></p>
+                <p id="statAGenM13" class="statPortion">a<span id="sAGenM13" class="statNumber">0</span></p>
+                <p id="statAGenM14" class="statPortion">a<span id="sAGenM14" class="statNumber">0</span></p>
                 <p id="statAGenMT" class="statPortion statTotal" style="color: orange">BLUEBERRY TIME /S:
                     <span id="sAGenMT" class="statNumber statTotal">0</span></p>
+            </div>
+
+            <div id="pixelLuckStats" class="statContainer activeStats">
+                <p id="pixelLuckStatTitle" class="statPortion" style="color: orchid; font-size: 1.2em">Pixel Luck</p>
+                <p id="statPLuckM1" class="statPortion">a<span id="sPLuckM1" class="statNumber">A</span></p>
+                <p id="statPLuckM2" class="statPortion">a<span id="sPLuckM2" class="statNumber">A</span></p>
+                <p id="statPLuckM3" class="statPortion">a<span id="sPLuckM3" class="statNumber">A</span></p>
+                <p id="statPLuckM4" class="statPortion">a<span id="sPLuckM4" class="statNumber">A</span></p>
+                <p id="statPLuckM5" class="statPortion">a<span id="sPLuckM5" class="statNumber">A</span></p>
+                <p id="statPLuckM6" class="statPortion">a<span id="sPLuckM6" class="statNumber">A</span></p>
+                <p id="statPLuckM7" class="statPortion">a<span id="sPLuckM7" class="statNumber">A</span></p>
+                <p id="statPLuckM8" class="statPortion">a<span id="sPLuckM8" class="statNumber">A</span></p>
+                <p id="statPLuckM9" class="statPortion">a<span id="sPLuckM9" class="statNumber">A</span></p>
+                <p id="statPLuckMult" class="statPortion">Multipliers (Additive)<span id="sPLuckMult" class="statNumber">0</span></p>
+                <p id="statPLuckMT" class="statPortion statTotal" style="color: orange">TOTAL PIXEL LUCK:
+                    <span id="sPLuckMT" class="statNumber statTotal">0</span></p> 
+            </div>
+
+            <div id="pixelGenerationStats" class="statContainer activeStats">
+                <p id="pixelGenerationStatTitle" class="statPortion" style="color: red; font-size: 1.2em">Pixel Generation</p>
+                <p id="statPGenM1" class="statPortion">a<span id="sPGenM1" class="statNumber">A</span></p>
+                <p id="statPGenMT" class="statPortion statTotal" style="color: orange">PIXEL GENERATION /S:
+                    <span id="sPGenMT" class="statNumber statTotal">0</span></p> 
             </div>
 
             <button id="summaryGeneration" style="border: 2px solid grey; height: 20px; width: 250px;">Generate Savefile Stats Summary</button>
@@ -3969,6 +4010,7 @@
             <button id="toggleSingularitySubTab3" class="octeracts" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>
             <button id="toggleSingularitySubTab4" class="singChallenges" style="border: 2px solid purple; color: gold" i18n="tabs.singularity.exalt"></button>
             <button id="toggleSingularitySubTab5" class="ambrosia" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
+            <button id="toggleSingularitySubTab6" class="UPB" style="border: 2px solid maroon; color: gold" i18n="tabs.singularity.progress"></button>
         </div>
 
         <div id="singularityContainer1">
@@ -3976,6 +4018,9 @@
                 <div id="goldenQuarksDisplay">
                     <img src="Pictures/Default/GoldenQuark.png" width="32" height="32" loading="lazy">
                     <p id="goldenQuarkamount"></p>
+                </div>
+                <div id="goldenQuarkResetFunction" style="border: 6px solid lightgoldenrodyellow">
+                    <p>Set your Singularity here!</p>
                 </div>
                 <div id="goldenQuarksMultiBuyInfo">
                     <p id="goldenQuarkMultiBuyText" i18n="general.multiBuyInstructions"></p>
@@ -4185,6 +4230,12 @@
                     <div class="singularityUpgrade">
                         <img id="singAmbrosiaGeneration4" src="Pictures/Default/SingularityAmbrosiaGeneration4.png" style="cursor: pointer">
                     </div>
+                    <div class="singularityUpgrade">
+                        <img id="singPixelLuck" src="Pictures/Default/SingularityPixelLuck.png" style="cursor: pointer">
+                    </div>
+                    <div class="singularityUpgrade">
+                        <img id="singPixelLuck2" src="Pictures/Default/SingularityPixelLuck2.png" style="cursor: pointer">
+                    </div>
                 </div>
             </div>
             <div id="singularityUpgradeShit">
@@ -4341,6 +4392,12 @@
                     <div class="octeractUpgrade">
                         <img id="octeractAmbrosiaGeneration4" src="Pictures/Default/OcteractAmbrosiaGeneration4.png" style="cursor: pointer">
                     </div>
+                    <div class="octeractUpgrade">
+                        <img id="octeractPixelLuck" src="Pictures/Default/OcteractPixelLuck.png" style="cursor: pointer">
+                    </div>
+                    <div class="octeractUpgrade">
+                        <img id="octeractPixelLuck2" src="Pictures/Default/OcteractPixelLuck2.png" style="cursor: pointer">
+                    </div>
                 </div>
 
                 <div id="octeractUpgradeValues">
@@ -4384,19 +4441,13 @@
                     <p id="ambrosiaAmount" class="amberText"></p>
                 </div>
                 <div id="ambrosiaTexts">
-                <!--    <p id="ambrosiaChance" class="lightYellowText"></p> -->
                     <p id="ambrosiaAmountPerGeneration" class="lightYellowText"></p>
-                <!--    <p id="ambrosiaRNG" class="lightYellowText"></p> -->
                     <p id="ambrosiaRewards" class="lightYellowText"></p>
                     <p id="ambrosiaBlueberries" class="lightYellowText"></p>
                 </div>
                 <div id="ambrosiaProgressBar">
                     <div id="ambrosiaProgress" style="width: 70%;"></div>
                     <span id="ambrosiaProgressText">EVAL 492942 + 4294256!</span>
-                </div>
-                <div id="pixelProgressBar">
-                    <div id="pixelProgress" style="width: 70%;"></div>
-                    <span id="pixelProgressText">EVAL 492942 + 4294256!</span>
                 </div>
                 <div class="blueberryBoxColor" id="blueberryUpgradeContainer">
                     <div class="blueberryUpgradeTier">
@@ -4425,6 +4476,9 @@
                         </div>
                         <div class="blueberryUpgrade">
                             <img id="ambrosiaLuck1" src="Pictures/Default/BlueberryLuck.png">
+                        </div>
+                        <div class="blueberryUpgrade">
+                            <img id="ambrosiaPixelLuck" src="Pictures/Default/BlueberryPixelLuck.png">
                         </div>
                     </div>
                     <div class="blueberryUpgradeTier">
@@ -4457,6 +4511,14 @@
                         <div class="blueberryUpgrade">
                             <img id="ambrosiaLuck2" src="Pictures/Default/BlueberryLuck2.png">
                         </div>
+                        <div class="blueberryUpgrade">
+                            <img id="ambrosiaPixelLuck2" src="Pictures/Default/BlueberryPixelLuck.png">
+                        </div>
+                    </div>
+                    <div class="blueberryUpgradeTier">
+                        <div class="blueberryUpgrade">
+                            <img id="ambrosiaLuckDilator" src="Pictures/Default/BlueberryLuckDilator.png">
+                        </div>
                     </div>
                     <div class="blueberryUpgradeTier">
                         <button id="refundBlueberries" style="border: 2px solid blue" i18n="ambrosia.refundWord"></button>
@@ -4478,6 +4540,143 @@
                 </div>
                 <div id="ambrosiaUpgradeValues">
                     <p id="singularityAmbrosiaMultiline"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="singularityContainer6" style="display: none;">
+            <div id="singularityUltimatePixels" class="singularityContainer">
+                <div id="ultimatePixelDisplay">
+                    <img src="Pictures/Default/UltimatePixel.png" loading="lazy">
+                    <p id="ultimatePixelAmount" class="redText">You have 10,000 Ultimate Pixels!</p>
+                </div>
+                <div id="ultimatePixelTexts">
+                    <p id="ultimatePixelAmountPerGeneration" class="lightYellowText"></p>
+                </div>
+                <div id="pixelProgressBar">
+                    <div id="pixelProgress" style="width: 70%;"></div>
+                    <span id="pixelProgressText">EVAL 492942 + 4294256!</span>
+                </div>
+                <div id="metaPixelProgressBar">
+                    <div id="metaPixelProgress" style="width: 70%;"></div>
+                    <span id="metaPixelProgressText">EVAL 492942 + 4294256!</span>
+                </div>
+                <div class="pixelBoxColor" id="pixelUpgradeContainer">
+                    <div class="pixelUpgrade">
+                        <img id="pixelTutorial" src="Pictures/Default/PixelTutorial.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelPixelGeneration" src="Pictures/Default/PixelPixelGeneration.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelPixelGeneration2" src="Pictures/Default/PixelPixelGeneration2.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelPixelGeneration3" src="Pictures/Default/PixelPixelGeneration3.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelQuarks" src="Pictures/Default/PixelQuarks.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelOfferings" src="Pictures/Default/PixelOfferings.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelObtainium" src="Pictures/Default/PixelObtainium.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelCubes" src="Pictures/Default/PixelCubes.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelAmbrosiaGeneration" src="Pictures/Default/PixelAmbrosiaGeneration.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelAmbrosiaGeneration2" src="Pictures/Default/PixelAmbrosiaGeneration2.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelAmbrosiaGeneration3" src="Pictures/Default/PixelAmbrosiaGeneration3.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelAmbrosiaLuck" src="Pictures/Default/PixelAmbrosiaLuck.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelAmbrosiaLuck2" src="Pictures/Default/PixelAmbrosiaLuck2.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelAmbrosiaLuck3" src="Pictures/Default/PixelAmbrosiaLuck3.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelPixelLuck" src="Pictures/Default/PixelPixelLuck.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelPixelLuckConverter" src="Pictures/Default/PixelPixelLuckConverter.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelPixelLuckConverter2" src="Pictures/Default/PixelPixelLuckConverter2.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelBlueberry" src="Pictures/Default/PixelBlueberry.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelBlueberry2" src="Pictures/Default/PixelBlueberry2.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelBlueberry3" src="Pictures/Default/PixelBlueberry3.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelRoleBonus" src="Pictures/Default/PixelRoleBonus.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelFreeUpgradeImprovement" src="Pictures/Default/PixelFreeUpgradeImprovement.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelFreeUpgradeImprovement2" src="Pictures/Default/PixelFreeUpgradeImprovement2.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelFreeUpgradeImprovement3" src="Pictures/Default/PixelFreeUpgradeImprovement3.png">
+                    </div>
+                    <div id="pixelTextBox">
+                        <p id="pixelUpgradeName"></p>
+                        <p id="pixelUpgradeDescription"></p>
+                        <p id="pixelUpgradeLevel"></p>
+                        <p id="pixelUpgradeEffect"></p>
+                        <p id="pixelUpgradeCost"></p>
+                        <img id="pixelUpgradeImage" src="Pictures/Default/PixelTutorial.png">
+                    </div>
+                    <div id="pixelBarLevelBonusTextBox">
+                        <p>Progress Bar Level 91 Rewards</p>
+                        <div class="pixelBarBonus" style="color: lime">
+                            <img src="Pictures/Default/AmbrosiaLuck.png">
+                            <p id="pixelBarLuckBonus">+718 +18%</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: lightsteelblue">
+                            <img src="Pictures/Default/BlueberryTime.gif">
+                            <p id="pixelBarBlueberrySpeedBonus">2.72x</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: purple">
+                            <img src="Pictures/Default/PixelPixelLuck.png">
+                            <p id="pixelBarPixelLuckBonus">+9 +4%</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: red">
+                            <img src="Pictures/Default/UltimatePixel.png">
+                            <p id="pixelBarPixelProgressBonus">x1.74</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: white">
+                            <img src="Pictures/Default/PixelCubes.png">
+                            <p id="pixelBarCubeMultBonus">x11.27</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: orange">
+                            <img src="Pictures/Default/PixelOfferings.png">
+                            <p id="pixelBarOfferingMultBonus">x11.27</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: pink">
+                            <img src="Pictures/Default/PixelObtainium.png">
+                            <p id="pixelBarObtainiumMultBonus">x11.27</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: cyan">
+                            <img src="Pictures/Default/Quark.png">
+                            <p id="pixelBarQuarkBonus">1.8x</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

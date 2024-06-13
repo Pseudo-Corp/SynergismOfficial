@@ -18,6 +18,7 @@ import type { resetNames } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { productContents, sumContents } from './Utility'
 import { Globals as G } from './Variables'
+import { computeMetaBarLevel } from './PixelUpgrades'
 
 const CASH_GRAB_ULTRA_QUARK = 0.08
 const CASH_GRAB_ULTRA_CUBE = 1.2
@@ -521,7 +522,7 @@ export function calculateOfferings (
   }
   q *= 1 + (1 / 200) * player.shopUpgrades.cashGrab2
   q *= 1 + (1 / 100) * player.shopUpgrades.offeringEX2 * player.singularityCount
-  q *= Math.pow(1.02, player.shopUpgrades.offeringEX3)
+  q *= 1 + 1/50 * Math.pow(player.shopUpgrades.offeringEX3, 2)
   q *= calculateTotalOcteractOfferingBonus()
   q = Math.min(1e300, q)
 
@@ -660,7 +661,7 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= +player.singularityUpgrades.singCitadel.getEffect().bonus
   G.obtainiumGain *= +player.singularityUpgrades.singCitadel2.getEffect().bonus
   G.obtainiumGain *= +player.octeractUpgrades.octeractObtainium1.getEffect().bonus
-  G.obtainiumGain *= Math.pow(1.02, player.shopUpgrades.obtainiumEX3)
+  G.obtainiumGain *= 1 + 1/50 * Math.pow(player.shopUpgrades.obtainiumEX3, 2)
   G.obtainiumGain *= calculateTotalOcteractObtainiumBonus()
 
   if (G.eventClicked && G.isEvent) {
@@ -1395,7 +1396,9 @@ export const calculateOffline = async (forceTime = 0) => {
     ants: timeAdd * G.timeMultiplier,
     antsReal: timeAdd,
     ascension: player.ascensionCounter, // Calculate this after the fact
-    quarks: quarkHandler().gain // Calculate this after the fact
+    quarks: quarkHandler().gain, // Calculate this after the fact
+    ambrosia: player.lifetimeAmbrosia,
+    pixels: player.ultimatePixels
   }
 
   addTimers('ascension', timeAdd)
@@ -1404,12 +1407,15 @@ export const calculateOffline = async (forceTime = 0) => {
   addTimers('singularity', timeAdd)
   addTimers('octeracts', timeTick)
   addTimers('ambrosia', timeAdd)
+  addTimers('pixel', timeAdd)
 
   player.prestigeCount += resetAdd.prestige
   player.transcendCount += resetAdd.transcension
   player.reincarnationCount += resetAdd.reincarnation
   timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
   timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
+  timerAdd.ambrosia = player.lifetimeAmbrosia - timerAdd.ambrosia
+  timerAdd.pixels = player.ultimatePixels - timerAdd.pixels
 
   // 200 simulated all ticks [July 12, 2021]
   const runOffline = setInterval(() => {
@@ -1523,6 +1529,18 @@ export const calculateOffline = async (forceTime = 0) => {
     'offlineProgress.exportQuarks',
     {
       value: format(timerAdd.quarks, 0, true)
+    }
+  )
+  DOMCacheGetOrSet('offlineAmbrosiaCount').innerHTML = i18next.t(
+    'offlineProgress.lifetimeAmbrosia',
+    {
+      value: format(timerAdd.ambrosia, 0, true)
+    }
+  )
+  DOMCacheGetOrSet('offlinePixelCount').innerHTML = i18next.t(
+    'offlineProgress.pixels',
+    {
+      value: format(timerAdd.pixels, 0, true)
     }
   )
 
@@ -1757,7 +1775,7 @@ export const calculateAllCubeMultiplier = () => {
     + +player.singularityUpgrades.platonicDelta.getEffect().bonus
       * Math.min(9, player.singularityCounter / (3600 * 24)),
     // Wow Pass INF
-    Math.pow(1.02, player.shopUpgrades.seasonPassInfinity),
+    1 + 1/100 * Math.pow(player.shopUpgrades.seasonPassInfinity, 2),
     // Ambrosia Mult
     calculateAmbrosiaCubeMult(),
     // Module - Tutorial
@@ -2101,7 +2119,7 @@ export const getOcteractValueMultipliers = () => {
     // No Singulairty Upgrades
     +player.singularityChallenges.noSingularityUpgrades.rewards.cubes,
     // Wow Pass INF
-    Math.pow(1.02, player.shopUpgrades.seasonPassInfinity),
+    1 + 1/100 * Math.pow(player.shopUpgrades.seasonPassInfinity, 2),
     // Ambrosia Mult
     calculateAmbrosiaCubeMult(),
     // Module- Tutorial
@@ -2301,7 +2319,7 @@ export const calculateAscensionSpeedMultiplier = () => {
       && player.runelevels[6] < 1
       ? 6
       : 1, // A mediocre ascension speedup!
-    Math.pow(1.01, player.shopUpgrades.chronometerInfinity), // Chronometer INF
+    1 + 0.01 * Math.pow(player.shopUpgrades.chronometerInfinity, 2), // Chronometer INF
     1 / calculateLimitedAscensionsDebuff(), // EXALT Debuff
     Math.pow(
       1
@@ -3176,6 +3194,11 @@ export const calculateRequiredBlueberryTime = () => {
       val *= 2
     }
   }
+
+  if (player.blueberryUpgrades.ambrosiaLuckDilator.level > 0) {
+    val *= 2
+  }
+
   return val
 }
 
@@ -3254,6 +3277,75 @@ export const calculateEXUltraObtainiumBonus = () => {
 
 export const calculateEXUltraCubeBonus = () => {
   return calculateEXUltraBonus(EX_ULTRA_CUBES)
+}
+
+type BarBonuses = {
+  AmbrosiaLuck: number,
+  AmbrosiaLuckMult: number,
+  PixelLuck: number,
+  PixelLuckMult: number,
+  OfferingMult: number,
+  ObtainiumMult: number,
+  CubeMult: number,
+  QuarkMult: number,
+  BlueberrySpeedMult: number,
+  PixelProgressMult: number,
+}
+
+export const calculatePixelBarLevelBonuses = (): BarBonuses => {
+  const level = computeMetaBarLevel()
+  return {
+    AmbrosiaLuck: calculatePixelBarLevelLuckBonus(level),
+    AmbrosiaLuckMult: calculatePixelBarLevelLuckAdditiveMultBonus(level),
+    PixelLuck: calculatePixelBarLevelPixelLuckBonus(level),
+    PixelLuckMult: calculatePixelBarLevelPixelLuckAdditiveMultBonus(level),
+    OfferingMult: calculatePixelBarLevelOfferingMult(level),
+    ObtainiumMult: calculatePixelBarLevelObtainiumMult(level),
+    CubeMult: calculatePixelBarLevelCubeMult(level),
+    QuarkMult: calculatePixelBarLevelQuarkMult(level),
+    BlueberrySpeedMult: calculatePixelBarLevelBlueberrySpeedMult(level),
+    PixelProgressMult: calculatePixelBarLevelProgressSpeedMult(level)
+  }
+}
+
+export const calculatePixelBarLevelLuckBonus = (level: number) => {
+  return Math.floor(Math.pow(2, level / 100) * 5 * level)
+}
+
+export const calculatePixelBarLevelLuckAdditiveMultBonus = (level: number) => {
+  return Math.floor(level / 10) / 100
+}
+
+export const calculatePixelBarLevelPixelLuckBonus = (level: number) => {
+  return Math.floor(level / 10)
+}
+
+export const calculatePixelBarLevelPixelLuckAdditiveMultBonus = (level: number) => {
+  return Math.floor(level / 20) / 100
+}
+
+export const calculatePixelBarLevelCubeMult = (level: number) => {
+  return Math.pow(1.03, level)
+}
+
+export const calculatePixelBarLevelOfferingMult = (level: number) => {
+  return Math.pow(1.03, level)
+}
+
+export const calculatePixelBarLevelObtainiumMult = (level: number) => {
+  return Math.pow(1.03, level)
+}
+
+export const calculatePixelBarLevelQuarkMult = (level: number) => {
+  return 1 + 0.5 * level / 100 * Math.pow(2, level / 100)
+}
+
+export const calculatePixelBarLevelBlueberrySpeedMult = (level: number) => {
+  return 1 + level / 100 * Math.pow(2, level / 100)
+}
+
+export const calculatePixelBarLevelProgressSpeedMult = (level: number) => {
+  return 1 + level / 200 * Math.pow(2, level / 100)
 }
 
 export const calculateEXALTBonusMult = () => {

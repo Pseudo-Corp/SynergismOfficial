@@ -128,6 +128,8 @@ import {
   upgradedescriptions
 } from './Upgrades'
 import { Globals as G } from './Variables'
+import { showBarLevelBonuses } from './PixelUpgrades'
+//import { SingularityChallenge } from './SingularityChallenges'
 
 /* STYLE GUIDE */
 /*
@@ -1079,8 +1081,77 @@ TODO: Fix this entire tab it's utter shit
   // Import blueberries
   DOMCacheGetOrSet('importBlueberries').addEventListener('change', async (e) => importData(e, importBlueberryTree))
 
+
+  
+  // Pixel Upgrades
+    const icons = document.querySelectorAll<HTMLElement>('.pixelUpgrade');
+    //const upgradeContainer = document.querySelector<HTMLElement>('#pixelUpgradeContainer')
+    //const rect2 = upgradeContainer?.getBoundingClientRect();
+
+    icons.forEach(icon => {
+        icon.addEventListener('mouseenter', () => {
+            // Position the textbox
+            const upgradeContainer = document.querySelector<HTMLElement>('#pixelUpgradeContainer')
+            const textBox = document.querySelector<HTMLElement>('#pixelTextBox')
+            const rect = icon.getBoundingClientRect();
+            const rect2 = upgradeContainer?.getBoundingClientRect()
+            if (textBox != null && rect2 != null) {
+              textBox.style.top = `${rect.bottom - rect2.top + 16}px`; // 5px below the icon
+              textBox.style.left = `${rect.left - rect2.left + icon.offsetWidth/2}px`;
+              textBox.style.visibility = 'visible';
+            }
+        });
+
+        icon.addEventListener('mouseleave', () => {
+          const textBox = document.querySelector<HTMLElement>('#pixelTextBox')
+          if (textBox != null) {
+            textBox.style.visibility = 'hidden';
+          }
+        });
+    });
+
+    const pixelBar = document.querySelector<HTMLElement>('#metaPixelProgressBar')
+
+    pixelBar?.addEventListener('mouseenter', () => {
+      const rect = pixelBar.getBoundingClientRect();
+      const textBox = document.querySelector<HTMLElement>('#pixelBarLevelBonusTextBox')
+      void showBarLevelBonuses();
+      if (rect != null && textBox != null) {
+            textBox.style.top = `${rect.bottom - rect.top - 16}px`; // 5px below the icon
+            textBox.style.left = `${pixelBar.offsetWidth * 13/32}px`;
+            textBox.style.visibility = 'visible';
+      }
+    })
+
+    const singPic = document.querySelector<HTMLElement>('#ascSingularityCountStats')
+
+    singPic?.addEventListener('mouseenter', () => {
+      alert('What the fuck do you want!?')
+    })
+
+    pixelBar?.addEventListener('mouseleave', () => {
+      const textBox = document.querySelector<HTMLElement>('#pixelBarLevelBonusTextBox')
+      if (textBox != null) {
+        textBox.style.visibility = 'hidden'
+      }
+    });
+
+
+    const pixelUpgrades = Object.keys(
+      player.pixelUpgrades
+    ) as (keyof Player['pixelUpgrades'])[]
+    for (const key of pixelUpgrades) {
+      DOMCacheGetOrSet(`${String(key)}`).addEventListener(
+        'mouseover',
+        () => player.pixelUpgrades[`${String(key)}`].updateUpgradeHTML()
+      )
+      DOMCacheGetOrSet(`${String(key)}`).addEventListener(
+        'click',
+        (event) => player.pixelUpgrades[`${String(key)}`].buyLevel(event)
+      )
+    }
   // Toggle subtabs of Singularity tab
-  for (let index = 0; index < 5; index++) {
+  for (let index = 0; index < 6; index++) {
     DOMCacheGetOrSet(`toggleSingularitySubTab${index + 1}`).addEventListener(
       'click',
       () => changeSubTab(Tabs.Singularity, { page: index })
@@ -1120,4 +1191,6 @@ TODO: Fix this entire tab it's utter shit
 
   // Window
   window.addEventListener('error', imgErrorHandler, { capture: true })
+
+  //goldenQuarkResetFunction.addEventListener('onclick')
 }

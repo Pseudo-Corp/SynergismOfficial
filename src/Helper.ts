@@ -16,7 +16,7 @@ import { useConsumable } from './Shop'
 import { player } from './Synergism'
 import { Tabs } from './Tabs'
 import { buyAllTalismanResources } from './Talismans'
-import { visualUpdateAmbrosia, visualUpdateOcteracts, visualUpdateResearch } from './UpdateVisuals'
+import { visualUpdateAmbrosia, visualUpdateOcteracts, visualUpdateProgressPixels, visualUpdateResearch } from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 type TimerInput =
@@ -30,6 +30,7 @@ type TimerInput =
   | 'octeracts'
   | 'autoPotion'
   | 'ambrosia'
+  | 'pixel'
 
 /**
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
@@ -44,6 +45,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       || input === 'octeracts'
       || input === 'autoPotion'
       || input === 'ambrosia'
+      || input === 'pixel'
     ? 1
     : calculateTimeAcceleration().mult
 
@@ -193,9 +195,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       }
 
       const ambrosiaLuck = player.caches.ambrosiaLuck.usedTotal
-      const baseBlueberryTime = player.caches.ambrosiaGeneration.totalVal
-      player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * baseBlueberryTime
-      player.ultimateProgress += Math.floor(8 * G.ambrosiaTimer) / 8 * Math.min(baseBlueberryTime, Math.pow(1000 * baseBlueberryTime, 1/2)) * 0.02
+      player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * compute
       G.ambrosiaTimer %= 0.125
 
       let timeToAmbrosia = calculateRequiredBlueberryTime()
@@ -211,16 +211,46 @@ export const addTimers = (input: TimerInput, time = 0) => {
         player.lifetimeAmbrosia += ambrosiaToGain
         player.blueberryTime -= timeToAmbrosia
 
-        G.ambrosiaTimer += ambrosiaToGain * 0.2 * player.shopUpgrades.shopAmbrosiaAccelerator
         timeToAmbrosia = calculateRequiredBlueberryTime()
-      }
-
-      if (player.ultimateProgress > 1e6) {
-        player.ultimatePixels += Math.floor(player.ultimateProgress / 1e6)
-        player.ultimateProgress -= 1e6 * Math.floor(player.ultimateProgress / 1e6)
+        const ambrosiaTimeGain = Math.min(timeToAmbrosia / compute * 0.9, 0.2 * ambrosiaToGain * player.shopUpgrades.shopAmbrosiaAccelerator)
+        G.ambrosiaTimer += ambrosiaTimeGain
+        
       }
 
       visualUpdateAmbrosia()
+      break
+    }
+    case 'pixel': {
+      const compute = player.caches.ultimatePixelGeneration.totalVal
+      if (compute === 0) {
+        break
+      }
+
+      G.pixelTimer += time * timeMultiplier
+
+      if (G.pixelTimer < 0.125) {
+        break
+      }
+
+      const pixelLuck = player.caches.ultimatePixelLuck.usedTotal
+      player.ultimateProgress += Math.floor(8 * G.pixelTimer) / 8 * compute
+      G.pixelTimer %= 0.125
+
+      while (player.ultimateProgress > 1e6) {
+        const maxAllowed = player.ultimatePixels / 1e6
+        const speedMult = Math.max(1, Math.min(Math.floor(maxAllowed / 25), Math.floor(player.ultimateProgress / 1e6)))
+        const RNG2 = Math.random()
+        const pixelMult = Math.floor(pixelLuck / 100)
+        const luckMult2 = RNG2 < pixelLuck / 100 - Math.floor(pixelLuck / 100) ? 1 : 0
+        const pixelToGain = (pixelMult + luckMult2)
+
+        player.ultimatePixels += pixelToGain * speedMult
+        player.lifetimeUltimatePixels += pixelToGain * speedMult
+        player.ultimateProgress -= 1e6 * speedMult
+      }
+
+      visualUpdateProgressPixels()
+      break
     }
   }
 }

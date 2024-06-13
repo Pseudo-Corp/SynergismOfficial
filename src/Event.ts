@@ -186,6 +186,7 @@ export const eventCheck = async () => {
     revealStuff()
     player.caches.ambrosiaGeneration.updateVal('Event')
     player.caches.ambrosiaLuckAdditiveMult.updateVal('Event')
+    player.caches.ultimatePixelAdditiveMult.updateVal('Event')
   }
 }
 

@@ -450,7 +450,7 @@ export const generateExportSummary = async (): Promise<void> => {
       }
 
       upgradeText = upgradeText + unicodeSymbol
-      upgradeText = `${upgradeText + octUpg.name}:`
+      upgradeText = `${upgradeText} ${octUpg.name}:`
       upgradeText = upgradeText + (octUpg.maxLevel === -1
         ? ` Level ${octUpg.level}`
         : ` Level ${octUpg.level}/${octUpg.maxLevel}`)
@@ -473,8 +473,114 @@ export const generateExportSummary = async (): Promise<void> => {
     octeractUpgradeStats = octeractUpgradeStats + subCategoryDivisor
   }
 
+  // Create Blueberry Stuff
+  let blueberryUpgradeStats = '\n'
+  if (player.visitedAmbrosiaSubtab) {
+    blueberryUpgradeStats =
+      '===== AMBROSIA UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [∞]: Upgrade is infinite - \n - [ ]: Upgrade INCOMPLETE - \n'
+    const bluUpgrade = Object.keys(player.blueberryUpgrades) as (keyof Player['blueberryUpgrades'])[]
+    let totalBluUpgradeCount = 0
+    let totalBluUpgradeMax = 0
+    let totalAmbrosiaSpent = 0
+
+    for (const key of bluUpgrade) {
+      let upgradeText = ''
+      const bluUpg = player.blueberryUpgrades[key]
+
+      if (bluUpg.maxLevel !== -1) {
+        totalBluUpgradeCount += 1
+      }
+      if (bluUpg.level === bluUpg.maxLevel) {
+        totalBluUpgradeMax += 1
+      }
+      totalAmbrosiaSpent += bluUpg.ambrosiaInvested
+
+      let unicodeSymbol = '[ ]'
+      if (bluUpg.maxLevel === -1) {
+        unicodeSymbol = '[∞]'
+      } else if (bluUpg.level === bluUpg.maxLevel) {
+        unicodeSymbol = '[★]'
+      }
+
+      upgradeText = upgradeText + unicodeSymbol
+      upgradeText = `${upgradeText} ${bluUpg.name}:`
+      upgradeText = upgradeText + (bluUpg.maxLevel === -1
+        ? ` Level ${bluUpg.level}`
+        : ` Level ${bluUpg.level}/${bluUpg.maxLevel}`)
+      upgradeText = upgradeText + (bluUpg.freeLevels > 0
+        ? ` [+${format(bluUpg.freeLevels, 0, true)}]`
+        : '')
+
+      upgradeText = upgradeText + (bluUpg.freeLevels > 0
+        ? ` =+= Effective Level: ${format(bluUpg.level + bluUpg.freeLevels, 0, true)}`
+        : '')
+
+      upgradeText = `${upgradeText}\n`
+      blueberryUpgradeStats = blueberryUpgradeStats + upgradeText
+    }
+    blueberryUpgradeStats = blueberryUpgradeStats + subCategoryDivisor
+    blueberryUpgradeStats = `${blueberryUpgradeStats}Upgrades MAXED: ${totalBluUpgradeMax}/${totalBluUpgradeCount}\n`
+    blueberryUpgradeStats = `${blueberryUpgradeStats}Ambrosia Spent on Upgrades: ${
+      format(totalAmbrosiaSpent, 0, true)
+    }\n`
+    blueberryUpgradeStats = blueberryUpgradeStats + subCategoryDivisor
+  }
+
+    // Create Blueberry Stuff
+    let pixelUpgradeStats = '\n'
+    if (player.singularityChallenges.limitedAscensions.rewards.ultimateProgressBarUnlock) {
+      pixelUpgradeStats =
+        '===== PIXEL UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [∞]: Upgrade is infinite - \n - [ ]: Upgrade INCOMPLETE - \n'
+      const pixelUpgrade = Object.keys(player.pixelUpgrades) as (keyof Player['pixelUpgrades'])[]
+      let totalPixelUpgradeCount = 0
+      let totalPixelUpgradeMax = 0
+      let totalPixelsSpent = 0
+  
+      for (const key of pixelUpgrade) {
+        let upgradeText = ''
+        const pixUpg = player.pixelUpgrades[key]
+  
+        if (pixUpg.maxLevel !== -1) {
+          totalPixelUpgradeCount += 1
+        }
+        if (pixUpg.level === pixUpg.maxLevel) {
+          totalPixelUpgradeMax += 1
+        }
+        totalPixelsSpent += pixUpg.pixelsInvested
+  
+        let unicodeSymbol = '[ ]'
+        if (pixUpg.maxLevel === -1) {
+          unicodeSymbol = '[∞]'
+        } else if (pixUpg.level === pixUpg.maxLevel) {
+          unicodeSymbol = '[★]'
+        }
+  
+        upgradeText = upgradeText + unicodeSymbol
+        upgradeText = `${upgradeText} ${pixUpg.name}:`
+        upgradeText = upgradeText + (pixUpg.maxLevel === -1
+          ? ` Level ${pixUpg.level}`
+          : ` Level ${pixUpg.level}/${pixUpg.maxLevel}`)
+        upgradeText = upgradeText + (pixUpg.freeLevels > 0
+          ? ` [+${format(pixUpg.freeLevels, 0, true)}]`
+          : '')
+  
+        upgradeText = upgradeText + (pixUpg.freeLevels > 0
+          ? ` =+= Effective Level: ${format(pixUpg.level + pixUpg.freeLevels, 0, true)}`
+          : '')
+  
+        upgradeText = `${upgradeText}\n`
+        pixelUpgradeStats = pixelUpgradeStats + upgradeText
+      }
+      pixelUpgradeStats = pixelUpgradeStats + subCategoryDivisor
+      pixelUpgradeStats = `${pixelUpgradeStats}Upgrades MAXED: ${totalPixelUpgradeMax}/${totalPixelUpgradeCount}\n`
+      pixelUpgradeStats = `${pixelUpgradeStats}Ultimate Pixels Spent on Upgrades: ${
+        format(totalPixelsSpent, 0, true)
+      }\n`
+      pixelUpgradeStats = pixelUpgradeStats + subCategoryDivisor
+    }
+
   const returnString =
-    `${titleText}\n${time}\n${ver}\n${firstPlayed}${resources}${octeract}${singularity}${ascension}${reincarnation}${transcension}${prestige}${shopUpgradeStats}${singularityUpgradeStats}${octeractUpgradeStats}`
+    `${titleText}\n${time}\n${ver}\n${firstPlayed}${resources}${octeract}${singularity}${ascension}${reincarnation}${transcension}${prestige}${shopUpgradeStats}${singularityUpgradeStats}${octeractUpgradeStats}${blueberryUpgradeStats}${pixelUpgradeStats}`
 
   try {
     await navigator.clipboard.writeText(returnString)

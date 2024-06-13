@@ -794,5 +794,41 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     qualityOfLife: true,
     cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('OcteractBerries')]
-  }
+  },
+  octeractPixelLuck: {
+    costFormula: (level: number, baseCost: number) => {
+      const useLevel = level 
+      return baseCost * (Math.pow(1e7, useLevel) - Math.pow(1e7, useLevel - 1))
+    },
+    maxLevel: 10,
+    costPerLevel: 1e5,
+    effect: (n: number) => {
+      return {
+        bonus: 1 * n,
+        get desc () {
+          return i18next.t('octeract.data.octeractPixelLuck.effect', { n: format(n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ultimatePixelLuck.updateVal('OcteractPixelLuck1')]
+  },
+  octeractPixelLuck2: {
+    costFormula: (level: number, baseCost: number) => {
+      const useLevel = level 
+      return baseCost * (Math.pow(1e4, useLevel) - Math.pow(1e4, useLevel - 1))
+    },
+    maxLevel: 20,
+    costPerLevel: 1e52,
+    effect: (n: number) => {
+      return {
+        bonus: 1 * n,
+        get desc () {
+          return i18next.t('octeract.data.octeractPixelLuck2.effect', { n: format(n) })
+        }
+      }
+    },
+    qualityOfLife: true,
+    cacheUpdates: [() => player.caches.ultimatePixelLuck.updateVal('OcteractPixelLuck2')]
+  },
 }

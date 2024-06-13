@@ -6,7 +6,7 @@ import { exportData, saveFilename } from './ImportExport'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { visualUpdateAmbrosia } from './UpdateVisuals'
+import { visualUpdateAmbrosia, visualUpdateProgressPixels } from './UpdateVisuals'
 
 export type blueberryUpgradeNames =
   | 'ambrosiaTutorial'
@@ -24,6 +24,8 @@ export type blueberryUpgradeNames =
   | 'ambrosiaLuck2'
   | 'ambrosiaObtainium1'
   | 'ambrosiaOffering1'
+  | 'ambrosiaPixelLuck'
+  | 'ambrosiaPixelLuck2'
 
 export type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
 export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
@@ -251,6 +253,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   updateUpgradeHTML (): void {
     DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = this.toString()
     visualUpdateAmbrosia()
+    visualUpdateProgressPixels()
   }
 
   checkPrerequisites (): boolean {
@@ -738,6 +741,77 @@ export const blueberryUpgradeData: Record<
         )
       }
     }
+  },
+  ambrosiaPixelLuck: {
+    maxLevel: 10,
+    costPerLevel: 50,
+    blueberryCost: 1,
+    costFormula: (level: number, baseCost: number): number => {
+      return (baseCost * (Math.pow(level + 1, 4) - Math.pow(level, 4)))
+    },
+    rewards: (n: number) => {
+      const pixelLuck = n
+      return {
+        pixelLuck: n,
+        desc: String(i18next.t('ambrosia.data.ambrosiaPixelLuck.effect', {
+          pixelLuck: pixelLuck
+        }))
+      }
+    },
+    prerequisites: {
+      ambrosiaTutorial: 10,
+    },
+    cacheUpdates: [
+      () => player.caches.ultimatePixelLuck.updateVal('BlueberryPixelLuck1')
+    ]
+  },
+  ambrosiaPixelLuck2: {
+    maxLevel: 15,
+    costPerLevel: 500,
+    blueberryCost: 2,
+    costFormula: (level: number, baseCost: number): number => {
+      return (baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3)))
+    },
+    rewards: (n: number) => {
+      const pixelLuck = n
+      return {
+        pixelLuck: n,
+        desc: String(i18next.t('ambrosia.data.ambrosiaPixelLuck2.effect', {
+          pixelLuck: pixelLuck
+        }))
+      }
+    },
+    prerequisites: {
+      ambrosiaLuck1: 80,
+      ambrosiaPixelLuck: 8
+    },
+    cacheUpdates: [
+      () => player.caches.ultimatePixelLuck.updateVal('BlueberryPixelLuck2')
+    ]
+  },
+  ambrosiaLuckDilator: {
+    maxLevel: 5,
+    costPerLevel: 100000,
+    blueberryCost: 2,
+    costFormula: (level: number, baseCost: number): number => {
+      return (baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2)))
+    },
+    rewards: (n: number) => {
+      const ambrosiaLuckMult = +(n>0) + (+(n>1) * (n-1)/20)
+      return {
+        ambrosiaLuckMult: ambrosiaLuckMult,
+        desc: String(i18next.t('ambrosia.data.ambrosiaLuckDilator.effect', {
+          ambrosiaLuckMult: ambrosiaLuckMult
+        }))
+      }
+    },
+    prerequisites: {
+      ambrosiaTutorial: 10,
+      ambrosiaLuck1: 100
+    },
+    cacheUpdates: [
+      () => player.caches.ambrosiaLuckAdditiveMult.updateVal('BlueberryLuckDilator')
+    ]
   }
 }
 
