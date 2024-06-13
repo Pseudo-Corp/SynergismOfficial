@@ -2,23 +2,14 @@ import Decimal from 'break_infinity.js'
 import { z, type ZodType } from 'zod'
 import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
-import {
-  AbyssHepteract,
-  AcceleratorBoostHepteract,
-  AcceleratorHepteract,
-  ChallengeHepteract,
-  ChronosHepteract,
-  HyperrealismHepteract,
-  MultiplierHepteract,
-  QuarkHepteract
-} from '../Hepteracts'
+import { createHepteract } from '../Hepteracts'
 import { octeractData, OcteractUpgrade } from '../Octeracts'
 import { QuarkHandler } from '../Quark'
 import { singularityData, SingularityUpgrade } from '../singularity'
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
 import { blankSave } from '../Synergism'
-import { deepClone, padArray } from '../Utility'
 import type { Player } from '../types/Synergism'
+import { deepClone, padArray } from '../Utility'
 
 const decimalSchema = z.custom<Decimal>((value) => {
   try {
@@ -68,6 +59,18 @@ const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
 
 const decimalStringSchema = z.string().regex(/^|-?\d+(\.\d{1,2})?$/)
 const integerStringSchema = z.string().regex(/^\d+$/)
+
+const hepteractCraftSchema = z.object({
+  AUTO: z.boolean(),
+  BAL: z.number(),
+  BASE_CAP: z.number(),
+  CAP: z.number(),
+  DISCOUNT: z.number(),
+  HEPTERACT_CONVERSION: z.number(),
+  HTML_STRING: z.string(),
+  OTHER_CONVERSIONS: z.record(z.string(), z.number()),
+  UNLOCKED: z.boolean()
+})
 
 export const playerSchema = z.object({
   firstPlayed: z.string().datetime().optional().default(() => new Date().toISOString()),
@@ -440,18 +443,22 @@ export const playerSchema = z.object({
   ascensionCounter: z.number().default(() => blankSave.ascensionCounter),
   ascensionCounterReal: z.number().default(() => blankSave.ascensionCounterReal),
   ascensionCounterRealReal: z.number().default(() => blankSave.ascensionCounterRealReal),
-  //cubeUpgrades: arrayStartingWithNull(z.number()).default(() => [...blankSave.cubeUpgrades]),
-  //cubeUpgrades: z.number().array().transform((array) => arrayExtend(array, 'cubeUpgrades')),
-  cubeUpgrades: arrayStartingWithNull(z.number()).transform((array) => arrayExtend(array, 'cubeUpgrades')),
+  cubeUpgrades: arrayStartingWithNull(z.number())
+    .transform((array) => arrayExtend(array, 'cubeUpgrades'))
+    .default(() => [...blankSave.cubeUpgrades]),
   cubeUpgradesBuyMaxToggle: z.boolean().default(() => blankSave.cubeUpgradesBuyMaxToggle),
   autoCubeUpgradesToggle: z.boolean().default(() => blankSave.autoCubeUpgradesToggle),
   autoPlatonicUpgradesToggle: z.boolean().default(() => blankSave.autoPlatonicUpgradesToggle),
   platonicUpgrades: z.number().array().default(() => [...blankSave.platonicUpgrades]),
-  wowCubes: z.number().default(() => Number(blankSave.wowCubes)).transform(() => new WowCubes(0)),
-  wowTesseracts: z.number().default(() => Number(blankSave.wowTesseracts)).transform(() => new WowTesseracts(0)),
-  wowHypercubes: z.number().default(() => Number(blankSave.wowHypercubes)).transform(() => new WowHypercubes(0)),
-  wowPlatonicCubes: z.number().default(() => Number(blankSave.wowPlatonicCubes)).transform(() =>
-    new WowPlatonicCubes(0)
+  wowCubes: z.number().default(() => Number(blankSave.wowCubes)).transform((cubes) => new WowCubes(cubes)),
+  wowTesseracts: z.number().default(() => Number(blankSave.wowTesseracts)).transform((tesseract) =>
+    new WowTesseracts(tesseract)
+  ),
+  wowHypercubes: z.number().default(() => Number(blankSave.wowHypercubes)).transform((cubes) =>
+    new WowHypercubes(cubes)
+  ),
+  wowPlatonicCubes: z.number().default(() => Number(blankSave.wowPlatonicCubes)).transform((cubes) =>
+    new WowPlatonicCubes(cubes)
   ),
   saveOfferingToggle: z.boolean().default(() => blankSave.saveOfferingToggle),
   wowAbyssals: z.number().default(() => blankSave.wowAbyssals),
@@ -462,16 +469,27 @@ export const playerSchema = z.object({
   hypercubeBlessings: z.record(z.string(), z.number()).default(() => ({ ...blankSave.hypercubeBlessings })),
   platonicBlessings: z.record(z.string(), z.number()).default(() => ({ ...blankSave.platonicBlessings })),
 
-  // TODO: why are these on player?
   hepteractCrafts: z.object({
-    chronos: z.any().transform(() => ChronosHepteract),
-    hyperrealism: z.any().transform(() => HyperrealismHepteract),
-    quark: z.any().transform(() => QuarkHepteract),
-    challenge: z.any().transform(() => ChallengeHepteract),
-    abyss: z.any().transform(() => AbyssHepteract),
-    accelerator: z.any().transform(() => AcceleratorHepteract),
-    acceleratorBoost: z.any().transform(() => AcceleratorBoostHepteract),
-    multiplier: z.any().transform(() => MultiplierHepteract)
+    chronos: hepteractCraftSchema,
+    hyperrealism: hepteractCraftSchema,
+    quark: hepteractCraftSchema,
+    challenge: hepteractCraftSchema,
+    abyss: hepteractCraftSchema,
+    accelerator: hepteractCraftSchema,
+    acceleratorBoost: hepteractCraftSchema,
+    multiplier: hepteractCraftSchema
+  }).transform((crafts) => {
+    return Object.fromEntries(
+      Object.entries(blankSave.hepteractCrafts).map(([key, value]) => {
+        return [
+          key,
+          createHepteract({
+            ...value,
+            ...crafts[key as keyof typeof crafts]
+          })
+        ]
+      })
+    )
   }).default(() => blankSave.hepteractCrafts),
 
   ascendShards: decimalSchema.default(() => deepClone(blankSave.ascendShards)),
@@ -648,7 +666,8 @@ export const playerSchema = z.object({
     .transform((upgrades) =>
       Object.fromEntries(
         Object.keys(blankSave.singularityChallenges).map((k) => {
-          const { completions, highestSingularityCompleted, enabled } = upgrades[k] ?? blankSave.singularityChallenges[k]
+          const { completions, highestSingularityCompleted, enabled } = upgrades[k]
+            ?? blankSave.singularityChallenges[k]
 
           return [
             k,
@@ -683,7 +702,8 @@ export const playerSchema = z.object({
     .transform((upgrades) =>
       Object.fromEntries(
         Object.keys(blankSave.blueberryUpgrades).map((k) => {
-          const { level, ambrosiaInvested, blueberriesInvested, toggleBuy, freeLevels } = upgrades[k] ?? blankSave.blueberryUpgrades[k]
+          const { level, ambrosiaInvested, blueberriesInvested, toggleBuy, freeLevels } = upgrades[k]
+            ?? blankSave.blueberryUpgrades[k]
 
           return [
             k,

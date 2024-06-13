@@ -71,5 +71,5 @@ export const playerJsonSchema = playerSchema.extend({
     )
   ),
 
-  dayCheck: z.any().transform((dayCheck: Player['dayCheck']) => dayCheck?.toISOString() ?? null),
+  dayCheck: z.any().transform((dayCheck: Player['dayCheck']) => dayCheck?.toISOString() ?? null)
 })
