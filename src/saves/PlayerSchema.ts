@@ -1,5 +1,5 @@
 import Decimal from 'break_infinity.js'
-import { z, type ZodType } from 'zod'
+import { z, type ZodNumber, type ZodType } from 'zod'
 import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { createHepteract } from '../Hepteracts'
@@ -43,13 +43,17 @@ const ascendBuildingSchema = z.object({
   multiplier: z.number()
 })
 
-const singularityUpgradeSchema = (key: string) =>
-  z.object({
+const singularityUpgradeSchema = (...keys: string[]) => {
+  return z.object<Record<'level' | 'toggleBuy' | 'freeLevels' | typeof keys[number], ZodNumber>>({
     level: z.number(),
     toggleBuy: z.number(),
     freeLevels: z.number(),
-    [key]: z.number()
+    ...keys.reduce((accum, value) => {
+      accum[value] = z.number()
+      return accum
+    }, {} as Record<string, ZodType>)
   })
+}
 
 const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
   return Object.fromEntries(
@@ -698,7 +702,7 @@ export const playerSchema = z.object({
   visitedAmbrosiaSubtab: z.boolean().default(() => blankSave.visitedAmbrosiaSubtab),
   spentBlueberries: z.number().default(() => blankSave.spentBlueberries),
   // TODO: is this right?
-  blueberryUpgrades: z.record(z.string(), singularityUpgradeSchema('blueberriesInvested'))
+  blueberryUpgrades: z.record(z.string(), singularityUpgradeSchema('blueberriesInvested', 'ambrosiaInvested'))
     .transform((upgrades) =>
       Object.fromEntries(
         Object.keys(blankSave.blueberryUpgrades).map((k) => {

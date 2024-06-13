@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calculate'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { exportData, saveFilename } from './ImportExport'
@@ -8,7 +9,6 @@ import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { visualUpdateAmbrosia } from './UpdateVisuals'
 import { Globals as G } from './Variables'
-import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calculate'
 
 export type blueberryUpgradeNames =
   | 'ambrosiaTutorial'
@@ -391,7 +391,9 @@ export const blueberryUpgradeData: Record<
       ambrosiaTutorial: 10
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value},
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      }
     ]
   },
   ambrosiaQuarkCube1: {
@@ -536,7 +538,9 @@ export const blueberryUpgradeData: Record<
       ambrosiaCubes1: 20
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      }
     ]
   },
   ambrosiaQuarkLuck1: {
@@ -564,7 +568,9 @@ export const blueberryUpgradeData: Record<
       ambrosiaQuarks1: 20
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      }
     ]
   },
   ambrosiaQuarks2: {
@@ -646,7 +652,9 @@ export const blueberryUpgradeData: Record<
       ambrosiaLuck1: 40
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      }
     ]
   },
   ambrosiaPatreon: {
@@ -668,7 +676,9 @@ export const blueberryUpgradeData: Record<
       }
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ]
   },
   ambrosiaObtainium1: {

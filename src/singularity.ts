@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculateBlueberryInventory } from './Calculate'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import { format, player } from './Synergism'
@@ -7,7 +8,6 @@ import type { Player } from './types/Synergism'
 import { Alert, Prompt, revealStuff } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 import { Globals as G } from './Variables'
-import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculateBlueberryInventory } from './Calculate'
 
 export const updateSingularityPenalties = (): void => {
   const singularityCount = player.singularityCount
@@ -1401,8 +1401,12 @@ export const singularityData: Record<
     specialCostForm: 'Exponential2',
     qualityOfLife: true,
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaBlueberries = calculateBlueberryInventory().value},
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaBlueberries = calculateBlueberryInventory().value
+      },
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ]
   },
   singAmbrosiaLuck: {
@@ -1422,7 +1426,9 @@ export const singularityData: Record<
     specialCostForm: 'Exponential2',
     qualityOfLife: true,
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      }
     ]
   },
   singAmbrosiaLuck2: {
@@ -1441,7 +1447,9 @@ export const singularityData: Record<
     },
     qualityOfLife: true,
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      }
     ]
   },
   singAmbrosiaLuck3: {
@@ -1460,7 +1468,9 @@ export const singularityData: Record<
     },
     qualityOfLife: true,
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      }
     ]
   },
   singAmbrosiaLuck4: {
@@ -1479,7 +1489,9 @@ export const singularityData: Record<
     },
     qualityOfLife: true,
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      }
     ]
   },
   singAmbrosiaGeneration: {
@@ -1499,7 +1511,9 @@ export const singularityData: Record<
     specialCostForm: 'Exponential2',
     qualityOfLife: true,
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ]
   },
   singAmbrosiaGeneration2: {
@@ -1518,7 +1532,9 @@ export const singularityData: Record<
     },
     qualityOfLife: true,
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ]
   },
   singAmbrosiaGeneration3: {
@@ -1537,7 +1553,9 @@ export const singularityData: Record<
     },
     qualityOfLife: true,
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ]
   },
   singAmbrosiaGeneration4: {
@@ -1556,7 +1574,9 @@ export const singularityData: Record<
     },
     qualityOfLife: true,
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ]
   }
 }

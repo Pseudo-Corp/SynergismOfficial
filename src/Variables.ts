@@ -511,7 +511,7 @@ export const Globals: GlobalVariables = {
     ambrosiaAdditiveLuckMult: 1,
     ambrosiaLuck: 100,
     ambrosiaBlueberries: 0,
-    ambrosiaGenerationSpeed: 1,
+    ambrosiaGenerationSpeed: 1
   },
 
   currentSingChallenge: undefined

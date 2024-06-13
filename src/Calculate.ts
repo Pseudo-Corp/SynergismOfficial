@@ -11,6 +11,7 @@ import { quarkHandler } from './Quark'
 import { reset } from './Reset'
 import { calculateSingularityDebuff } from './singularity'
 import { getFastForwardTotalMultiplier } from './singularity'
+import { cacheReinitialize } from './StatCache'
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
 import { clearInterval, setInterval } from './Timers'
@@ -18,7 +19,6 @@ import type { resetNames } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { productContents, sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { cacheReinitialize } from './StatCache'
 
 const CASH_GRAB_ULTRA_QUARK = 0.08
 const CASH_GRAB_ULTRA_CUBE = 1.2
@@ -1399,7 +1399,7 @@ export const calculateOffline = async (forceTime = 0) => {
     quarks: quarkHandler().gain // Calculate this after the fact
   }
 
-  cacheReinitialize();
+  cacheReinitialize()
 
   addTimers('ascension', timeAdd)
   addTimers('quarks', timeAdd)
@@ -3286,12 +3286,12 @@ export const calculateDilatedFiveLeafBonus = () => {
 export const calculateAdditiveLuckMult = () => {
   const arr = [
     1,
-    +player.singularityChallenges.noSingularityUpgrades.rewards.luckBonus, //No Singularity Upgrade 1x30
+    +player.singularityChallenges.noSingularityUpgrades.rewards.luckBonus, // No Singularity Upgrade 1x30
     calculateDilatedFiveLeafBonus(), // Dilated Five Leaf Clover Perk
     player.shopUpgrades.shopAmbrosiaLuckMultiplier4 / 100, // EXALT-unlocked shop upgrade
     +player.singularityChallenges.noAmbrosiaUpgrades.rewards.luckBonus, // No Ambrosia Challenge Reward
     G.isEvent ? calculateEventBuff(BuffType.AmbrosiaLuck) : 0 // Event
-  ]  
+  ]
 
   return {
     value: sumContents(arr),
@@ -3317,7 +3317,7 @@ export const calculateAmbrosiaLuck = () => {
     player.highestSingularityCount >= 131 ? 131 : 0, // Singularity Perk "One Hundred Thirty One!"
     player.highestSingularityCount >= 269 ? 269 : 0, // Singularity Perk "Two Hundred Sixty Nine!"
     player.shopUpgrades.shopOcteractAmbrosiaLuck * (1 + Math.floor(Math.log10(player.totalWowOcteracts + 1))), // Octeract -> Ambrosia Shop Upgrade
-    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.additiveLuck, // No Ambrosia Challenge Reward
+    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.additiveLuck // No Ambrosia Challenge Reward
   ]
 
   const multiplicativeLuck = calculateAdditiveLuckMult().value
@@ -3327,7 +3327,6 @@ export const calculateAmbrosiaLuck = () => {
     array: arr.concat(multiplicativeLuck)
   }
 }
-
 
 /**
  * Calculates the total number of Blueberries unlocked

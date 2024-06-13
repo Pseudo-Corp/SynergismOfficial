@@ -1301,7 +1301,7 @@ export const loadStatisticsAmbrosiaLuck = () => {
     }`
   }
 
-  DOMCacheGetOrSet('sALuckMult').textContent = `x${format(arr[arr.length - 1],3,true)}`
+  DOMCacheGetOrSet('sALuckMult').textContent = `x${format(arr[arr.length - 1], 3, true)}`
 
   const totalVal = Math.floor(stats.value)
   DOMCacheGetOrSet('sALuckMT').innerHTML = `&#9752 ${format(totalVal, 0)}`
