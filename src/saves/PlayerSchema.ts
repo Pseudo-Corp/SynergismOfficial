@@ -17,8 +17,8 @@ import { QuarkHandler } from '../Quark'
 import { singularityData, SingularityUpgrade } from '../singularity'
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
 import { blankSave } from '../Synergism'
-import { deepClone, padArray } from '../Utility'
 import type { Player } from '../types/Synergism'
+import { deepClone, padArray } from '../Utility'
 
 const decimalSchema = z.custom<Decimal>((value) => {
   try {
@@ -440,18 +440,22 @@ export const playerSchema = z.object({
   ascensionCounter: z.number().default(() => blankSave.ascensionCounter),
   ascensionCounterReal: z.number().default(() => blankSave.ascensionCounterReal),
   ascensionCounterRealReal: z.number().default(() => blankSave.ascensionCounterRealReal),
-  //cubeUpgrades: arrayStartingWithNull(z.number()).default(() => [...blankSave.cubeUpgrades]),
-  //cubeUpgrades: z.number().array().transform((array) => arrayExtend(array, 'cubeUpgrades')),
+  // cubeUpgrades: arrayStartingWithNull(z.number()).default(() => [...blankSave.cubeUpgrades]),
+  // cubeUpgrades: z.number().array().transform((array) => arrayExtend(array, 'cubeUpgrades')),
   cubeUpgrades: arrayStartingWithNull(z.number()).transform((array) => arrayExtend(array, 'cubeUpgrades')),
   cubeUpgradesBuyMaxToggle: z.boolean().default(() => blankSave.cubeUpgradesBuyMaxToggle),
   autoCubeUpgradesToggle: z.boolean().default(() => blankSave.autoCubeUpgradesToggle),
   autoPlatonicUpgradesToggle: z.boolean().default(() => blankSave.autoPlatonicUpgradesToggle),
   platonicUpgrades: z.number().array().default(() => [...blankSave.platonicUpgrades]),
-  wowCubes: z.number().default(() => Number(blankSave.wowCubes)).transform(() => new WowCubes(0)),
-  wowTesseracts: z.number().default(() => Number(blankSave.wowTesseracts)).transform(() => new WowTesseracts(0)),
-  wowHypercubes: z.number().default(() => Number(blankSave.wowHypercubes)).transform(() => new WowHypercubes(0)),
-  wowPlatonicCubes: z.number().default(() => Number(blankSave.wowPlatonicCubes)).transform(() =>
-    new WowPlatonicCubes(0)
+  wowCubes: z.number().default(() => Number(blankSave.wowCubes)).transform((cubes) => new WowCubes(cubes)),
+  wowTesseracts: z.number().default(() => Number(blankSave.wowTesseracts)).transform((tesseract) =>
+    new WowTesseracts(tesseract)
+  ),
+  wowHypercubes: z.number().default(() => Number(blankSave.wowHypercubes)).transform((cubes) =>
+    new WowHypercubes(cubes)
+  ),
+  wowPlatonicCubes: z.number().default(() => Number(blankSave.wowPlatonicCubes)).transform((cubes) =>
+    new WowPlatonicCubes(cubes)
   ),
   saveOfferingToggle: z.boolean().default(() => blankSave.saveOfferingToggle),
   wowAbyssals: z.number().default(() => blankSave.wowAbyssals),
@@ -648,7 +652,8 @@ export const playerSchema = z.object({
     .transform((upgrades) =>
       Object.fromEntries(
         Object.keys(blankSave.singularityChallenges).map((k) => {
-          const { completions, highestSingularityCompleted, enabled } = upgrades[k] ?? blankSave.singularityChallenges[k]
+          const { completions, highestSingularityCompleted, enabled } = upgrades[k]
+            ?? blankSave.singularityChallenges[k]
 
           return [
             k,
@@ -683,7 +688,8 @@ export const playerSchema = z.object({
     .transform((upgrades) =>
       Object.fromEntries(
         Object.keys(blankSave.blueberryUpgrades).map((k) => {
-          const { level, ambrosiaInvested, blueberriesInvested, toggleBuy, freeLevels } = upgrades[k] ?? blankSave.blueberryUpgrades[k]
+          const { level, ambrosiaInvested, blueberriesInvested, toggleBuy, freeLevels } = upgrades[k]
+            ?? blankSave.blueberryUpgrades[k]
 
           return [
             k,
