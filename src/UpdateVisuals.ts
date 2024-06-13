@@ -29,6 +29,7 @@ import { version } from './Config'
 import type { IMultiBuy } from './Cubes'
 import type { hepteractTypes } from './Hepteracts'
 import { hepteractTypeList } from './Hepteracts'
+import { computeMetaBarLevel, LEVEL_REQ_ARR } from './PixelUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { displayRuneInformation } from './Runes'
 import { getShopCosts, isShopUpgradeUnlocked, shopData, shopUpgradeTypes } from './Shop'
@@ -1300,8 +1301,8 @@ export const visualUpdateCorruptions = () => {
     'corruptions.antExponent',
     {
       exponent: format(
-        (1 - (0.9 / 90) * sumContents(player.usedCorruptions))
-          * G.extinctionMultiplier[player.usedCorruptions[7]],
+        (1 - (0.9 / 90) * Math.min(99, player.corruptions.used.totalLevels)
+          * player.corruptions.used.corruptionEffects('extinction')),
         3
       )
     }
@@ -1563,20 +1564,15 @@ export const visualUpdateAmbrosia = () => {
   const requiredTime = calculateRequiredBlueberryTime()
   const cubePercent = 100 * (calculateAmbrosiaCubeMult() - 1)
   const quarkPercent = 100 * (calculateAmbrosiaQuarkMult() - 1)
-  const availableBlueberries = G.ambrosiaCurrStats.ambrosiaBlueberries - player.spentBlueberries
-  const totalTimePerSecond = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
-  const progressTimePerSecond = Math.min(totalTimePerSecond, Math.pow(1000 * totalTimePerSecond, 1 / 2))
+  const availableBlueberries = player.caches.blueberryInventory.totalVal - player.spentBlueberries
+  const totalTimePerSecond = player.caches.ambrosiaGeneration.totalVal
   const barWidth = 100 * Math.min(1, player.blueberryTime / requiredTime)
-  const pixelBarWidth = 100 * Math.min(1, player.ultimateProgress / 1e6)
+  const pixelBarWidth = 100 * Math.min(1, player.ultimateProgress / 1000000)
   DOMCacheGetOrSet('ambrosiaProgress').style.width = `${barWidth}%`
   DOMCacheGetOrSet('ambrosiaProgressText').textContent = `${format(player.blueberryTime, 0, true)} / ${
     format(requiredTime, 0, true)
   } [+${format(totalTimePerSecond, 0, true)}/s]`
 
-  DOMCacheGetOrSet('pixelProgress').style.width = `${pixelBarWidth}%`
-  DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.ultimateProgress, 0, true)} / ${
-    format(1000000, 0, true)
-  } [+${format(progressTimePerSecond * 0.02, 2, true)}/s]`
   const extraLuckHTML = luckBonusPercent > 0.01
     ? `[<span style='color: var(--amber-text-color)'>☘${
       format(
@@ -1591,12 +1587,7 @@ export const visualUpdateAmbrosia = () => {
     ambrosia: format(player.ambrosia, 0, true),
     lifetimeAmbrosia: format(player.lifetimeAmbrosia, 0, true)
   })
-  /*DOMCacheGetOrSet('ambrosiaChance').innerHTML = i18next.t(
-    'ambrosia.blueberryGeneration',
-    {
-      chance: format(totalTimePerSecond, 2, true)
-    }
-  )*/
+
   DOMCacheGetOrSet('ambrosiaAmountPerGeneration').innerHTML = i18next.t(
     'ambrosia.perGen',
     {
@@ -1606,13 +1597,6 @@ export const visualUpdateAmbrosia = () => {
       extra: extraLuckHTML
     }
   )
-  /* DOMCacheGetOrSet('ambrosiaRNG').innerHTML = i18next.t(
-    'ambrosia.blueberrySecond',
-    {
-      blueberrySecond: format(player.blueberryTime, 0, true),
-      thresholdTimer: format(requiredTime, 0, true)
-    }
-  )*/
   DOMCacheGetOrSet('ambrosiaRewards').innerHTML = i18next.t(
     'ambrosia.bonuses',
     {
@@ -1624,6 +1608,73 @@ export const visualUpdateAmbrosia = () => {
     'ambrosia.availableBlueberries',
     {
       availableBlueberries
+    }
+  )
+}
+
+export const visualUpdateProgressPixels = () => {
+  if (G.currentTab !== Tabs.Singularity) {
+    return
+  }
+
+  const luck = G.pixelCurrStats.pixelLuck
+  const baseLuck = luck / G.pixelCurrStats.pixelAdditiveLuckMult
+  const luckBonusPercent = 100 * (G.pixelCurrStats.pixelAdditiveLuckMult - 1)
+  const guaranteed = Math.floor(luck / 100)
+  const chance = luck - 100 * Math.floor(luck / 100)
+  const requiredTime = 1e6
+  const totalTimePerSecond = G.pixelCurrStats.pixelGenerationSpeed
+  const pixelBarWidth = 100 * Math.min(1, player.ultimateProgress / 1e6)
+
+  const metaBarLevel = computeMetaBarLevel()
+  const metaPixelBarWidth = 100 * Math.min(1, player.lifetimeUltimatePixels / LEVEL_REQ_ARR[metaBarLevel + 1])
+
+  DOMCacheGetOrSet('pixelProgress').style.width = `${pixelBarWidth}%`
+  DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.ultimateProgress, 0, true)} / ${
+    format(requiredTime, 0, true)
+  } [+${format(totalTimePerSecond, 0, true)}/s]`
+
+  if (metaBarLevel < 100) {
+    DOMCacheGetOrSet('metaPixelProgress').style.background = 'linear-gradient(to right, #ff5e0f, orange)'
+    DOMCacheGetOrSet('metaPixelProgressText').style.color = 'white'
+  } else {
+    DOMCacheGetOrSet('metaPixelProgress').style.background = 'linear-gradient(to right, lightgoldenrodyellow, white)'
+    DOMCacheGetOrSet('metaPixelProgressText').style.color = 'crimson'
+  }
+
+  if (metaBarLevel < (LEVEL_REQ_ARR.length - 1)) {
+    DOMCacheGetOrSet('metaPixelProgress').style.width = `${metaPixelBarWidth}%`
+    DOMCacheGetOrSet('metaPixelProgressText').textContent = `Level: ${metaBarLevel} | Lifetime Pixels: ${
+      format(player.lifetimeUltimatePixels, 0, true)
+    }/${format(LEVEL_REQ_ARR[metaBarLevel + 1], 0, true)}`
+  } else {
+    DOMCacheGetOrSet('metaPixelProgress').style.width = '100%'
+    DOMCacheGetOrSet('metaPixelProgressText').textContent = `Level: 100 | Lifetime Pixels: ${
+      format(player.lifetimeUltimatePixels, 0, true)
+    }`
+  }
+
+  const extraLuckHTML = luckBonusPercent > 0.01
+    ? `[<span style='color: var(--amber-text-color)'>❖${
+      format(
+        baseLuck,
+        0,
+        true
+      )
+    } +${format(luckBonusPercent, 2, true)}%</span>]`
+    : ''
+
+  DOMCacheGetOrSet('ultimatePixelAmount').innerHTML = i18next.t('ultimatePixels.amount', {
+    pixels: format(player.ultimatePixels, 0, true)
+  })
+
+  DOMCacheGetOrSet('ultimatePixelAmountPerGeneration').innerHTML = i18next.t(
+    'ultimatePixels.perGen',
+    {
+      guaranteed: format(guaranteed, 0, true),
+      extraChance: format(chance, 0, true),
+      ultimatePixelLuck: format(luck, 0, true),
+      extra: extraLuckHTML
     }
   )
 }
@@ -1776,3 +1827,5 @@ export const visualUpdateShop = () => {
 }
 
 export const visualUpdateEvent = () => {}
+
+export const visualUpdateTesting = () => {}

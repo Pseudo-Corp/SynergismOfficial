@@ -192,3 +192,8 @@ export const deepClone = (value: unknown) => {
     return value
   })
 }
+
+
+export const validateNonnegativeInteger = (n: number | string):boolean => {
+  return Number.isFinite(n) && !Number.isNaN(n) && Number.isInteger(n)
+}

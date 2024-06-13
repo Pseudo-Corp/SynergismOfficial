@@ -3,14 +3,19 @@ import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateRuneLevels } from './Calculate'
 import { getChallengeConditions } from './Challenges'
-import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions'
+import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } from './Corruptions'
 import { autoResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { format, player, resetCheck } from './Synergism'
 import { subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, Player } from './types/Synergism'
 import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
-import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
+import {
+  visualUpdateAmbrosia,
+  visualUpdateCubes,
+  visualUpdateOcteracts,
+  visualUpdateProgressPixels
+} from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 export const toggleSettings = (toggle: HTMLElement) => {
@@ -398,6 +403,25 @@ export const toggleRuneScreen = (indexStr: string) => {
   player.subtabNumber = index - 1
 }
 
+export const toggleAchievementScreen = (indexStr: string) => {
+  const index = Number(indexStr)
+  G.achievementScreen = index
+  for (let i = 1; i <= 2; i++) {
+    const a = DOMCacheGetOrSet(`toggleAchievementSubTab${i}`)
+    const b = DOMCacheGetOrSet(`achievementContainer${i}`)
+    if (i === index) {
+      a.style.border = '2px solid gold'
+      a.style.backgroundColor = 'gold'
+      b.style.display = 'flex'
+    } else {
+      a.style.border = '2px solid silver'
+      a.style.backgroundColor = ''
+      b.style.display = 'none'
+    }
+  }
+  player.subtabNumber = index - 1
+}
+
 export const toggleChallengesScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
@@ -464,7 +488,7 @@ export const toggleSaveOff = () => {
 export const toggleSingularityScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= 6; i++) {
     const a = DOMCacheGetOrSet(`toggleSingularitySubTab${i}`)
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
     if (i === index) {
@@ -484,6 +508,10 @@ export const toggleSingularityScreen = (indexStr: string) => {
 
   if (player.subtabNumber === 3) {
     visualUpdateAmbrosia()
+  }
+
+  if (player.subtabNumber === 5) {
+    visualUpdateProgressPixels()
   }
 }
 
@@ -918,24 +946,11 @@ export const toggleAutoTesseracts = (i: number) => {
   player.autoTesseracts[i] = !player.autoTesseracts[i]
 }
 
-export const toggleCorruptionLevel = (index: number, value: number) => {
-  const current = player.prototypeCorruptions[index]
-  const maxCorruption = maxCorruptionLevel()
-  if (value > 0 && current < maxCorruption && 0 < index && index <= 9) {
-    player.prototypeCorruptions[index] += Math.min(maxCorruption - current, value)
-  }
-  if (value < 0 && current > 0 && 0 < index && index <= 9) {
-    player.prototypeCorruptions[index] -= Math.min(current, -value)
-  }
-  player.prototypeCorruptions[index] = Math.min(maxCorruption, Math.max(0, player.prototypeCorruptions[index]))
-  if (value === 999 && player.currentChallenge.ascension !== 15) {
-    for (let i = 0; i <= 9; i++) {
-      player.usedCorruptions[i] = 0
-      player.prototypeCorruptions[i] = 0
-      if (i > 1) {
-        corruptionDisplay(i)
-      }
-    }
+export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number, reset = false) => {
+
+  if (reset && player.currentChallenge.ascension !== 15) {
+    player.corruptions.used.resetCorruptions()
+    player.corruptions.next.resetCorruptions()
 
     corruptionDisplay(G.corruptionTrigger)
     DOMCacheGetOrSet('corruptionCleanseConfirm').style.visibility = 'hidden'
@@ -943,14 +958,17 @@ export const toggleCorruptionLevel = (index: number, value: number) => {
     if (player.currentChallenge.ascension === 15) {
       void resetCheck('ascensionChallenge', false, true)
     }
+    return
   }
-  corruptionDisplay(index)
-  corruptionLoadoutTableUpdate()
+
+  player.corruptions.next.incrementDecrementLevel(corr, value)
+  corruptionDisplay(corr)
+  corruptionLoadoutTableUpdate(true, 0)
 }
 
 export const toggleCorruptionLoadoutsStats = (statsStr: string) => {
   const stats = statsStr === 'true'
-  player.corruptionShowStats = stats
+  player.corruptions.showStats = stats
   showCorruptionStatsLoadouts()
 }
 

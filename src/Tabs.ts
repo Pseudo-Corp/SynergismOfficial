@@ -1,9 +1,11 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed } from './Calculate'
+import { testing } from './Config'
 import { pressedKeys } from './Hotkeys'
 import { player } from './Synergism'
 import {
   setActiveSettingScreen,
+  toggleAchievementScreen,
   toggleBuildingScreen,
   toggleChallengesScreen,
   toggleCorruptionLoadoutsStats,
@@ -28,7 +30,8 @@ export enum Tabs {
   Singularity = 9,
   Settings = 10,
   Shop = 11,
-  Event = 12
+  Event = 12,
+  Testing = 13
 }
 
 /**
@@ -112,7 +115,24 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Upgrades]: { subTabList: [] },
-  [Tabs.Achievements]: { subTabList: [] },
+  [Tabs.Achievements]: { 
+    tabSwitcher: () => toggleAchievementScreen,
+    subTabList: [
+      {
+        subTabID: '1',
+        get unlocked () {
+          return true
+        },
+        buttonID: 'toggleAchievementSubTab1'
+      },
+      {
+        subTabID: '2',
+        get unlocked () {
+          return true
+        },
+        buttonID: 'toggleAchievementSubTab2'
+      },
+  ] },
   [Tabs.Runes]: {
     tabSwitcher: () => toggleRuneScreen,
     subTabList: [
@@ -264,10 +284,18 @@ const subtabInfo: Record<Tabs, SubTab> = {
           return player.singularityChallenges.noSingularityUpgrades.completions >= 1
         },
         buttonID: 'toggleSingularitySubTab4'
+      },
+      {
+        subTabID: '5',
+        get unlocked () {
+          return player.singularityChallenges.limitedAscensions.completions >= 1
+        },
+        buttonID: 'toggleSingularitySubTab5'
       }
     ]
   },
-  [Tabs.Event]: { subTabList: [] }
+  [Tabs.Event]: { subTabList: [] },
+  [Tabs.Testing]: { subTabList: [] }
 }
 
 class TabRow extends HTMLDivElement {
@@ -551,6 +579,11 @@ tabRow.appendButton(
   new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith' })
     .setUnlockedState(() => G.isEvent)
     .setType(Tabs.Event)
+    .makeDraggable()
+    .makeRemoveable(),
+  new $Tab({ class: 'testingTab', id: 'testingtab', i18n: 'tabs.main.testing' })
+    .setUnlockedState(() => testing)
+    .setType(Tabs.Testing)
     .makeDraggable()
     .makeRemoveable()
 )

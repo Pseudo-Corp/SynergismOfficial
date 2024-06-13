@@ -50,7 +50,9 @@ export const achievementpointvalues = [
   50, 75, 75, 75, 100, 100, 150,
   50, 75, 75, 75, 100, 100, 150,
   50, 75, 75, 75, 100, 100, 150,
-  10, 10, 20, 20, 30, 40, 50
+  10, 10, 20, 20, 30, 40, 50,
+  20, 30, 40, 50, 60, 70, 80,
+  20, 30, 40, 50, 60, 70, 80
 ]
 
 export const totalachievementpoints = achievementpointvalues.reduce((a, b) => a + b, 0)
@@ -114,7 +116,8 @@ export const areward = (i: number): string => {
     140, 141, 147, 171, 172, 173, 176, 177, 178, 179,
     180, 181, 182, 197, 198, 199, 200, 201, 204, 205,
     206, 207, 208, 209, 211, 212, 213, 214, 215, 218,
-    219, 220, 221, 222, 250, 251, 253, 259, 260, 261
+    219, 220, 221, 222, 250, 251, 253, 259, 260, 261,
+    284, 285, 286, 287, 289, 291, 293, 294,
   ]
 
   if (descs.includes(i) || i in extra) {
@@ -307,7 +310,7 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
   }
 
   if (
-    player.challengecompletions[10] >= 50 && i === 11 && player.usedCorruptions[7] >= 5 && player.achievements[247] < 1
+    player.challengecompletions[10] >= 50 && i === 11 && player.corruptions.used.getLevel('drought') >= 5 && player.achievements[247] < 1
   ) {
     achievementaward(247)
   }

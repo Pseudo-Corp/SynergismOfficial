@@ -1,6 +1,20 @@
 import { z } from 'zod'
 import type { Player } from '../types/Synergism'
 import { playerSchema } from './PlayerSchema'
+import type { Corruptions } from '../Corruptions'
+
+const convertArrayToCorruption = (array: number[]): Corruptions => {
+  return {
+    viscosity: array[2],
+    dilation: array[3],
+    hyperchallenge: array[4],
+    illiteracy: array[5],
+    deflation: array[6],
+    extinction: array[7],
+    drought: array[8],
+    recession: array[9],
+  }
+}
 
 export const playerJsonSchema = playerSchema.extend({
   codes: z.any().transform((codes: Player['codes']) => Array.from(codes)),
@@ -10,6 +24,19 @@ export const playerJsonSchema = playerSchema.extend({
   wowHypercubes: z.any().transform((hypercubes: Player['wowHypercubes']) => Number(hypercubes)),
   wowPlatonicCubes: z.any().transform((cubes: Player['wowPlatonicCubes']) => Number(cubes)),
 
+  corruptions: z.any().transform((stuff: Player['corruptions']) => {
+    return {
+      used: stuff.used.getLoadout(),
+      next: stuff.next.getLoadout(),
+      saves: Object.fromEntries(
+        stuff.saves.getSaves().map((save) => {
+          return [save.name, save.loadout.getLoadout()]
+        })
+      ),
+      showStats: stuff.showStats
+    }
+  }
+  ),
   singularityUpgrades: z.any().transform((upgrades: Player['singularityUpgrades']) =>
     Object.fromEntries(
       Object.entries(upgrades).map(([key, value]) => {
@@ -70,6 +97,53 @@ export const playerJsonSchema = playerSchema.extend({
       })
     )
   ),
+  pixelUpgrades: z.any().transform((upgrades: Player['pixelUpgrades']) =>
+    Object.fromEntries(
+      Object.entries(upgrades).map(([key, value]) => {
+        return [
+          key,
+          {
+            level: value.level,
+            pixelsInvested: value.pixelsInvested,
+            toggleBuy: value.toggleBuy,
+            freeLevels: value.freeLevels
+          }
+        ]
+      })
+    )
+  ),
+  dayCheck: z.any().transform((dayCheck: Player['dayCheck']) => dayCheck?.toISOString() ?? null),
+}).transform((player) => {
+  
+  if (player.usedCorruptions !== undefined) {
+    const corrLoadout = convertArrayToCorruption(player.usedCorruptions)
+    player.corruptions.used = corrLoadout
+  }
 
-  dayCheck: z.any().transform((dayCheck: Player['dayCheck']) => dayCheck?.toISOString() ?? null)
+  if (player.prototypeCorruptions !== undefined) {
+    const corrLoadout = convertArrayToCorruption(player.prototypeCorruptions)
+    player.corruptions.next = corrLoadout
+  }
+
+  if (player.corruptionShowStats !== undefined) {
+    player.corruptions.showStats = player.corruptionShowStats
+  }
+
+  player.corruptions.showStats = player.corruptionShowStats ?? player.corruptions.showStats
+
+  if (player.corruptionLoadouts !== undefined && player.corruptionLoadoutNames !== undefined) {
+    const corruptionSaveStuff: { [key: string]: Corruptions } = player.corruptionLoadoutNames.reduce((map, key, index) => {
+      map[key] = convertArrayToCorruption(player.corruptionLoadouts![index + 1])
+      return map
+    }, {} as Record<string, Corruptions>)
+
+    player.corruptions.saves = corruptionSaveStuff
+  }
+
+  player.usedCorruptions = undefined
+  player.prototypeCorruptions = undefined
+  player.corruptionLoadoutNames = undefined
+  player.corruptionLoadouts = undefined
+
+  return player
 })
