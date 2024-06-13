@@ -2,16 +2,7 @@ import Decimal from 'break_infinity.js'
 import { z, type ZodType } from 'zod'
 import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
-import {
-  AbyssHepteract,
-  AcceleratorBoostHepteract,
-  AcceleratorHepteract,
-  ChallengeHepteract,
-  ChronosHepteract,
-  HyperrealismHepteract,
-  MultiplierHepteract,
-  QuarkHepteract
-} from '../Hepteracts'
+import { createHepteract } from '../Hepteracts'
 import { octeractData, OcteractUpgrade } from '../Octeracts'
 import { QuarkHandler } from '../Quark'
 import { singularityData, SingularityUpgrade } from '../singularity'
@@ -68,6 +59,18 @@ const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
 
 const decimalStringSchema = z.string().regex(/^|-?\d+(\.\d{1,2})?$/)
 const integerStringSchema = z.string().regex(/^\d+$/)
+
+const hepteractCraftSchema = z.object({
+  AUTO: z.boolean(),
+  BAL: z.number(),
+  BASE_CAP: z.number(),
+  CAP: z.number(),
+  DISCOUNT: z.number(),
+  HEPTERACT_CONVERSION: z.number(),
+  HTML_STRING: z.string(),
+  OTHER_CONVERSIONS: z.record(z.string(), z.number()),
+  UNLOCKED: z.boolean()
+})
 
 export const playerSchema = z.object({
   firstPlayed: z.string().datetime().optional().default(() => new Date().toISOString()),
@@ -440,9 +443,9 @@ export const playerSchema = z.object({
   ascensionCounter: z.number().default(() => blankSave.ascensionCounter),
   ascensionCounterReal: z.number().default(() => blankSave.ascensionCounterReal),
   ascensionCounterRealReal: z.number().default(() => blankSave.ascensionCounterRealReal),
-  // cubeUpgrades: arrayStartingWithNull(z.number()).default(() => [...blankSave.cubeUpgrades]),
-  // cubeUpgrades: z.number().array().transform((array) => arrayExtend(array, 'cubeUpgrades')),
-  cubeUpgrades: arrayStartingWithNull(z.number()).transform((array) => arrayExtend(array, 'cubeUpgrades')),
+  cubeUpgrades: arrayStartingWithNull(z.number())
+    .transform((array) => arrayExtend(array, 'cubeUpgrades'))
+    .default(() => [...blankSave.cubeUpgrades]),
   cubeUpgradesBuyMaxToggle: z.boolean().default(() => blankSave.cubeUpgradesBuyMaxToggle),
   autoCubeUpgradesToggle: z.boolean().default(() => blankSave.autoCubeUpgradesToggle),
   autoPlatonicUpgradesToggle: z.boolean().default(() => blankSave.autoPlatonicUpgradesToggle),
@@ -466,16 +469,27 @@ export const playerSchema = z.object({
   hypercubeBlessings: z.record(z.string(), z.number()).default(() => ({ ...blankSave.hypercubeBlessings })),
   platonicBlessings: z.record(z.string(), z.number()).default(() => ({ ...blankSave.platonicBlessings })),
 
-  // TODO: why are these on player?
   hepteractCrafts: z.object({
-    chronos: z.any().transform(() => ChronosHepteract),
-    hyperrealism: z.any().transform(() => HyperrealismHepteract),
-    quark: z.any().transform(() => QuarkHepteract),
-    challenge: z.any().transform(() => ChallengeHepteract),
-    abyss: z.any().transform(() => AbyssHepteract),
-    accelerator: z.any().transform(() => AcceleratorHepteract),
-    acceleratorBoost: z.any().transform(() => AcceleratorBoostHepteract),
-    multiplier: z.any().transform(() => MultiplierHepteract)
+    chronos: hepteractCraftSchema,
+    hyperrealism: hepteractCraftSchema,
+    quark: hepteractCraftSchema,
+    challenge: hepteractCraftSchema,
+    abyss: hepteractCraftSchema,
+    accelerator: hepteractCraftSchema,
+    acceleratorBoost: hepteractCraftSchema,
+    multiplier: hepteractCraftSchema
+  }).transform((crafts) => {
+    return Object.fromEntries(
+      Object.entries(blankSave.hepteractCrafts).map(([key, value]) => {
+        return [
+          key,
+          createHepteract({
+            ...value,
+            ...crafts[key as keyof typeof crafts]
+          })
+        ]
+      })
+    )
   }).default(() => blankSave.hepteractCrafts),
 
   ascendShards: decimalSchema.default(() => deepClone(blankSave.ascendShards)),
