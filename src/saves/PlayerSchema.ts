@@ -1,5 +1,5 @@
 import Decimal from 'break_infinity.js'
-import { z, ZodType } from 'zod'
+import { z, type ZodType } from 'zod'
 import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import {
@@ -18,6 +18,7 @@ import { singularityData, SingularityUpgrade } from '../singularity'
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
 import { blankSave } from '../Synergism'
 import { deepClone, padArray } from '../Utility'
+import type { Player } from '../types/Synergism'
 
 const decimalSchema = z.custom<Decimal>((value) => {
   try {
@@ -36,6 +37,13 @@ const arrayStartingWithNull = (s: ZodType) =>
     .refine((arr) => arr.slice(1).every((element) => typeof element === 'number'), {
       message: 'All elements after the first must be numbers'
     })
+
+const arrayExtend = (array: number[], k: keyof Player) => {
+  if (array.length < blankSave[k].length) {
+    array.push(...Array(blankSave[k].length - array.length).fill(0))
+  }
+  return array
+}
 
 const ascendBuildingSchema = z.object({
   cost: z.number(),
@@ -292,13 +300,7 @@ export const playerSchema = z.object({
   researches: z.number().array(),
 
   unlocks: z.record(z.string(), z.boolean()),
-  achievements: z.number().array().transform((array) => {
-    if (array.length < blankSave.achievements.length) {
-      array.push(...blankSave.achievements.slice(0, blankSave.achievements.length - array.length))
-    }
-
-    return array
-  }),
+  achievements: z.number().array().transform((array) => arrayExtend(array, 'achievements')),
 
   achievementPoints: z.number(),
 
@@ -438,7 +440,9 @@ export const playerSchema = z.object({
   ascensionCounter: z.number().default(() => blankSave.ascensionCounter),
   ascensionCounterReal: z.number().default(() => blankSave.ascensionCounterReal),
   ascensionCounterRealReal: z.number().default(() => blankSave.ascensionCounterRealReal),
-  cubeUpgrades: arrayStartingWithNull(z.number()).default(() => [...blankSave.cubeUpgrades]),
+  //cubeUpgrades: arrayStartingWithNull(z.number()).default(() => [...blankSave.cubeUpgrades]),
+  //cubeUpgrades: z.number().array().transform((array) => arrayExtend(array, 'cubeUpgrades')),
+  cubeUpgrades: arrayStartingWithNull(z.number()).transform((array) => arrayExtend(array, 'cubeUpgrades')),
   cubeUpgradesBuyMaxToggle: z.boolean().default(() => blankSave.cubeUpgradesBuyMaxToggle),
   autoCubeUpgradesToggle: z.boolean().default(() => blankSave.autoCubeUpgradesToggle),
   autoPlatonicUpgradesToggle: z.boolean().default(() => blankSave.autoPlatonicUpgradesToggle),
