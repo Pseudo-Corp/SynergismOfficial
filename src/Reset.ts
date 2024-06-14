@@ -39,7 +39,7 @@ import { resetofferings } from './Runes'
 import { resetShopUpgrades, shopData } from './Shop'
 import { calculateSingularityDebuff, getFastForwardTotalMultiplier } from './singularity'
 import { blankSave, format, player, saveSynergy, updateAll, updateEffectiveLevelMult } from './Synergism'
-import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { resetSubTabs, changeTab, Tabs } from './Tabs'
 import { updateTalismanAppearance, updateTalismanInventory } from './Talismans'
 import { calculateTesseractBlessings } from './Tesseracts'
 import { IconSets } from './Themes'
@@ -82,7 +82,7 @@ export const resetdetails = (input: resetNames) => {
     resetObtainiumText.textContent = ''
   }
 
-  ;(input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity')
+  ; (input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity')
     ? offeringImage.style.display = offeringText.style.display = 'none'
     : offeringImage.style.display = offeringText.style.display = 'block'
 
@@ -734,7 +734,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       if (index >= 2 && index <= 9) {
         return Math.min(
           maxLevel * (player.challengecompletions[corrChallengeMinimum(index)] > 0
-              || player.singularityUpgrades.platonicTau.getEffect().bonus
+            || player.singularityUpgrades.platonicTau.getEffect().bonus
             ? 1
             : 0),
           curr
@@ -1180,13 +1180,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
 
   // Reset Displays
   changeTab(Tabs.Buildings)
-  changeSubTab(Tabs.Buildings, { page: 0 })
-  changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
-  changeSubTab(Tabs.Challenges, { page: 0 }) // Set 'challenges' subtab back to 'normal' tab
-  changeSubTab(Tabs.WowCubes, { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
-  changeSubTab(Tabs.Corruption, { page: 0 }) // set 'corruption main'
-  changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
-  changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
+  resetSubTabs(true)
 
   hold.history.singularity = player.history.singularity
   hold.totalQuarksEver = player.totalQuarksEver

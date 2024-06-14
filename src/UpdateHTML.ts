@@ -7,7 +7,6 @@ import { getMaxChallenges } from './Challenges'
 import { revealCorruptions } from './Corruptions'
 import { autoResearchEnabled } from './Research'
 import { displayRuneInformation } from './Runes'
-import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
 import { Tabs } from './Tabs'
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism'
@@ -488,7 +487,7 @@ export const revealStuff = () => {
     item.style.display = player.highestSingularityCount >= 25 ? 'block' : 'none'
   }
 
-  DOMCacheGetOrSet('toggleSingularitySubTab4').style.display =
+  DOMCacheGetOrSet('toggleSingularitySubTabAmbrosia').style.display =
     player.singularityChallenges.noSingularityUpgrades.completions >= 1
       ? 'block'
       : 'none'
@@ -582,65 +581,15 @@ export const revealStuff = () => {
 }
 
 export const hideStuff = () => {
-  DOMCacheGetOrSet('buildings').style.display = 'none'
-  DOMCacheGetOrSet('buildingstab').style.backgroundColor = ''
-  DOMCacheGetOrSet('upgrades').style.display = 'none'
-  DOMCacheGetOrSet('upgradestab').style.backgroundColor = ''
-  DOMCacheGetOrSet('settings').style.display = 'none'
-
-  DOMCacheGetOrSet('statistics').style.display = 'none'
-  DOMCacheGetOrSet('achievementstab').style.backgroundColor = ''
-  DOMCacheGetOrSet('achievementstab').style.color = 'white'
-  DOMCacheGetOrSet('runes').style.display = 'none'
-  DOMCacheGetOrSet('runestab').style.backgroundColor = ''
-  DOMCacheGetOrSet('challenges').style.display = 'none'
-  DOMCacheGetOrSet('challengetab').style.backgroundColor = ''
-  DOMCacheGetOrSet('research').style.display = 'none'
-  DOMCacheGetOrSet('researchtab').style.backgroundColor = ''
-  DOMCacheGetOrSet('shop').style.display = 'none'
-  DOMCacheGetOrSet('shoptab').style.backgroundColor = ''
-  DOMCacheGetOrSet('ants').style.display = 'none'
-  DOMCacheGetOrSet('anttab').style.backgroundColor = ''
-  DOMCacheGetOrSet('cubetab').style.backgroundColor = ''
-  DOMCacheGetOrSet('traitstab').style.backgroundColor = ''
-  DOMCacheGetOrSet('cubes').style.display = 'none'
-  DOMCacheGetOrSet('traits').style.display = 'none'
-  DOMCacheGetOrSet('singularity').style.display = 'none'
-  DOMCacheGetOrSet('singularitytab').style.backgroundColor = ''
-  DOMCacheGetOrSet('event').style.display = 'none'
-  DOMCacheGetOrSet('eventtab').style.backgroundColor = ''
-
-  const tab = DOMCacheGetOrSet('settingstab')!
-  tab.style.backgroundColor = ''
-  tab.style.borderColor = 'white'
-
-  if (G.currentTab === Tabs.Buildings) {
-    DOMCacheGetOrSet('buildingstab').style.backgroundColor = 'orange'
-    DOMCacheGetOrSet('buildings').style.display = 'block'
-  }
   if (G.currentTab === Tabs.Upgrades) {
-    DOMCacheGetOrSet('upgrades').style.display = 'block'
-    DOMCacheGetOrSet('upgradestab').style.backgroundColor = 'orange'
     DOMCacheGetOrSet('upgradedescription').textContent = i18next.t('upgrades.hoverOverUpgrade')
-  }
-  if (G.currentTab === Tabs.Settings) {
-    DOMCacheGetOrSet('settings').style.display = 'block'
-    const tab = DOMCacheGetOrSet('settingstab')!
-    tab.style.backgroundColor = 'orange'
-    tab.style.borderColor = 'gold'
-  }
-  if (G.currentTab === Tabs.Achievements) {
-    DOMCacheGetOrSet('statistics').style.display = 'block'
-    DOMCacheGetOrSet('achievementstab').style.backgroundColor = 'white'
-    DOMCacheGetOrSet('achievementstab').style.color = 'black'
+  } else if (G.currentTab === Tabs.Achievements) {
     DOMCacheGetOrSet('achievementprogress').textContent = i18next.t('achievements.totalPoints', {
       x: format(player.achievementPoints),
       y: format(totalachievementpoints),
       z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
     })
   } else if (G.currentTab === Tabs.Runes) {
-    DOMCacheGetOrSet('runes').style.display = 'block'
-    DOMCacheGetOrSet('runestab').style.backgroundColor = 'blue'
     DOMCacheGetOrSet('runeshowlevelup').textContent = i18next.t('runes.hover')
     DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t('runes.thanksResearches', {
       percent: format(100 * G.effectiveLevelMult - 100, 4, true)
@@ -652,42 +601,6 @@ export const hideStuff = () => {
     displayRuneInformation(5, false)
     displayRuneInformation(6, false)
     displayRuneInformation(7, false)
-  }
-  if (G.currentTab === Tabs.Challenges) {
-    DOMCacheGetOrSet('challenges').style.display = 'block'
-    DOMCacheGetOrSet('challengetab').style.backgroundColor = 'purple'
-  }
-  if (G.currentTab === Tabs.Research) {
-    DOMCacheGetOrSet('research').style.display = 'block'
-    DOMCacheGetOrSet('researchtab').style.backgroundColor = 'green'
-  }
-  if (G.currentTab === Tabs.Shop) {
-    DOMCacheGetOrSet('shop').style.display = 'block'
-    DOMCacheGetOrSet('shoptab').style.backgroundColor = 'limegreen'
-  }
-  if (G.currentTab === Tabs.AntHill) {
-    DOMCacheGetOrSet('ants').style.display = 'block'
-    DOMCacheGetOrSet('anttab').style.backgroundColor = 'brown'
-  }
-  if (G.currentTab === Tabs.WowCubes) {
-    DOMCacheGetOrSet('cubes').style.display = 'flex'
-    DOMCacheGetOrSet('cubetab').style.backgroundColor = 'white'
-  }
-  if (G.currentTab === Tabs.Corruption) {
-    DOMCacheGetOrSet('traits').style.display = 'flex'
-    DOMCacheGetOrSet('traitstab').style.backgroundColor = 'white'
-  }
-
-  if (G.currentTab === Tabs.Singularity) {
-    DOMCacheGetOrSet('singularity').style.display = 'block'
-    DOMCacheGetOrSet('singularitytab').style.backgroundColor = 'lightgoldenrodyellow'
-    updateSingularityPenalties()
-    updateSingularityPerks()
-  }
-
-  if (G.currentTab === Tabs.Event) {
-    DOMCacheGetOrSet('event').style.display = 'block'
-    DOMCacheGetOrSet('eventtab').style.backgroundColor = 'gold'
   }
 }
 
@@ -1077,20 +990,6 @@ export const updateAchievementBG = () => {
     if (player.achievements[i] > 0.5) {
       achievementaward(i) // This sets all completed ach to green
     }
-  }
-}
-
-export const showCorruptionStatsLoadouts = () => {
-  if (player.corruptionShowStats) {
-    DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
-    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
-    DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'dodgerblue'
-    DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'white'
-  } else {
-    DOMCacheGetOrSet('corruptionStats').style.display = 'none'
-    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'flex'
-    DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'white'
-    DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'dodgerblue'
   }
 }
 

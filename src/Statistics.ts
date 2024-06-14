@@ -64,11 +64,11 @@ export const displayStats = (btn: HTMLElement) => {
   for (const e of Array.from(btn.parentElement!.children) as HTMLElement[]) {
     const statsEl = DOMCacheGetOrSet(associated.get(e.id)!)
     if (e.id !== btn.id) {
-      e.style.backgroundColor = ''
+      e.classList.remove('buttonActive')
       statsEl.style.display = 'none'
       statsEl.classList.remove('activeStats')
     } else {
-      e.style.backgroundColor = 'crimson'
+      e.classList.add('buttonActive')
       statsEl.style.display = 'block'
       statsEl.classList.add('activeStats')
     }
