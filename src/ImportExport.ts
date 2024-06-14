@@ -13,7 +13,6 @@ import { shopData } from './Shop'
 import { singularityData } from './singularity'
 import { synergismStage } from './Statistics'
 import { blankSave, format, player, reloadShit, saveCheck, saveSynergy } from './Synergism'
-import { resetSubTabs, changeTab, Tabs } from './Tabs'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { cleanString, getElementById, productContents, sumContents } from './Utility'
@@ -294,9 +293,7 @@ export const resetGame = async () => {
   const hold = Object.assign({}, blankSave, {
     codes: Array.from(blankSave.codes)
   }) as Player
-  // Reset Displays
-  changeTab(Tabs.Buildings)
-  resetSubTabs(true)
+
   // Import Game
   await importSynergism(btoa(JSON.stringify(hold)), true)
 }

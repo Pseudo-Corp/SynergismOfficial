@@ -393,24 +393,6 @@ class TabRow extends HTMLDivElement {
   #list: $Tab[] = []
   #currentTab!: $Tab
 
-  constructor() {
-    super()
-
-    this.id = 'tabrow'
-    this.style.cssText = `
-      text-align: center;
-      width: 100%;
-      list-style: none;
-      margin: 0;
-      margin-inline: unset;
-      margin-block: unset;
-      padding-inline: unset;
-      display: flex;
-      justify-content: center;
-      gap: 0 5px;
-    `
-  }
-
   getSubs() {
     return this.#list
   }
@@ -558,6 +540,7 @@ class TabRow extends HTMLDivElement {
     player.subtabNumber = this.getCurrentTab().getShowSubTab()
     this.getCurrentTab().updateSubTab(player.subtabNumber)
 
+    changeTabColor()
     revealStuff()
     hideStuff()
   }
@@ -618,13 +601,6 @@ class $Tab extends HTMLButtonElement {
   constructor(options: kSubTabOptionsBag) {
     super()
 
-    // Opera is bad - Jun 04 2024
-    // https://cohost.org/corru/post/6223172-opera-gx-s-cool-ai
-    if (options?.id === undefined) {
-      this.remove()
-      return
-    }
-
     this.id = options.id
     if (options.class) {
       this.classList.add(options.class)
@@ -645,7 +621,6 @@ class $Tab extends HTMLButtonElement {
         }
       } else {
         changeTab(this.#type)
-        changeTabColor()
       }
     })
   }
@@ -724,8 +699,6 @@ class $Tab extends HTMLButtonElement {
   setSubtabNumber(subtabNumber: number) {
     if (this.isSubTab(subtabNumber)) {
       this.#subtabNumber = subtabNumber
-    } else {
-      console.error('setSubtabNumber', subtabNumber)
     }
   }
 
@@ -765,6 +738,7 @@ customElements.define('tab-row', TabRow, { extends: 'div' })
 customElements.define('sub-tab', $Tab, { extends: 'button' })
 
 export const tabRow = new TabRow()
+tabRow.id = 'tabrow'
 document.getElementsByClassName('navbar').item(0)?.appendChild(tabRow)
 
 tabRow.appendButton(
