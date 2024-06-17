@@ -572,6 +572,7 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= 1 + player.researches[81] / 10
   G.obtainiumGain *= 1 + player.shopUpgrades.obtainiumAuto / 50
   G.obtainiumGain *= 1 + player.shopUpgrades.cashGrab / 100
+  G.obtainiumGain *= 1 + (1 / 25) * player.shopUpgrades.obtainiumEX
   G.obtainiumGain *= 1
     + (G.rune5level / 200)
       * G.effectiveLevelMult
@@ -624,7 +625,6 @@ export const calculateObtainium = () => {
     G.obtainiumGain += 2 * player.researches[64]
   }
   G.obtainiumGain *= Math.min(1, Math.pow(player.reincarnationcounter / 10, 2))
-  G.obtainiumGain *= 1 + (1 / 25) * player.shopUpgrades.obtainiumEX
   if (player.reincarnationCount >= 5) {
     G.obtainiumGain *= Math.max(1, player.reincarnationcounter / 10)
   }
