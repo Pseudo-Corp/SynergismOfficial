@@ -9,10 +9,10 @@ import {
   calculateCashGrabQuarkBonus,
   calculateCorruptionPoints,
   calculateCubeMultiplier,
-  calculateEXALTBonusMult,
-  calculateEXUltraObtainiumBonus,
   calculateEffectiveIALevel,
   calculateEventBuff,
+  calculateEXALTBonusMult,
+  calculateEXUltraObtainiumBonus,
   calculateGoldenQuarkMultiplier,
   calculateHepteractMultiplier,
   calculateHypercubeMultiplier,
@@ -40,10 +40,10 @@ import {
   addCodeMaxUses,
   addCodeTimeToNextUse
 } from './ImportExport'
+import { calculateSingularityDebuff } from './singularity'
 import { format, formatTimeShort, player } from './Synergism'
 import type { GlobalVariables } from './types/Synergism'
 import { Globals as G } from './Variables'
-import { calculateSingularityDebuff } from './singularity'
 
 const associated = new Map<string, string>([
   ['kMisc', 'miscStats'],
@@ -507,8 +507,9 @@ export const loadQuarkMultiplier = () => {
   }` // Event
   DOMCacheGetOrSet('sGQM11').textContent = `x${
     format(
-      calculateEffectiveIALevel() > 0 ?
-      1.1 + (0.15 / 75) * calculateEffectiveIALevel() : 1.0,
+      calculateEffectiveIALevel() > 0
+        ? 1.1 + (0.15 / 75) * calculateEffectiveIALevel()
+        : 1.0,
       3,
       true
     )
@@ -662,7 +663,7 @@ export const loadQuarkMultiplier = () => {
     )
   }`
   DOMCacheGetOrSet('sGQM31').textContent = `x${format(calculateCashGrabQuarkBonus(), 3, true)}`
-  DOMCacheGetOrSet('sGQM32').textContent = `x${format( player.highestSingularityCount === 0 ? 1.25 : 1, 2, true)}` //Buff in s0
+  DOMCacheGetOrSet('sGQM32').textContent = `x${format(player.highestSingularityCount === 0 ? 1.25 : 1, 2, true)}` // Buff in s0
 
   DOMCacheGetOrSet('sGQMT').textContent = `x${
     format(
@@ -1050,35 +1051,38 @@ export const loadStatisticsOfferingMultipliers = () => {
 export const loadObtainiumMultipliers = () => {
   DOMCacheGetOrSet('sObt1').textContent = `x${
     format(
-      player.upgrades[69] > 0 ?
-      Math.min(
-        10,
-        new Decimal(
-          Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)
-        ).toNumber()
-      ) : 1,
+      player.upgrades[69] > 0
+        ? Math.min(
+          10,
+          new Decimal(
+            Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)
+          ).toNumber()
+        )
+        : 1,
       2
     )
   }`
   DOMCacheGetOrSet('sObt2').textContent = `x${
     format(
-      player.upgrades[72] > 0 ?
-      Math.min(
-        50,
-        1
-          + 2 * player.challengecompletions[6]
-          + 2 * player.challengecompletions[7]
-          + 2 * player.challengecompletions[8]
-          + 2 * player.challengecompletions[9]
-          + 2 * player.challengecompletions[10]
-      ) : 1,
+      player.upgrades[72] > 0
+        ? Math.min(
+          50,
+          1
+            + 2 * player.challengecompletions[6]
+            + 2 * player.challengecompletions[7]
+            + 2 * player.challengecompletions[8]
+            + 2 * player.challengecompletions[9]
+            + 2 * player.challengecompletions[10]
+        )
+        : 1,
       2
     )
   }`
   DOMCacheGetOrSet('sObt3').textContent = `x${
     format(
-      player.upgrades[74] > 0 ?
-      1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5)): 1,
+      player.upgrades[74] > 0
+        ? 1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5))
+        : 1,
       2
     )
   }`
@@ -1121,29 +1125,29 @@ export const loadObtainiumMultipliers = () => {
   DOMCacheGetOrSet('sObt10').textContent = `x${
     format(
       1
-    + (G.rune5level / 200)
-      * G.effectiveLevelMult
-      * (1
-        + (player.researches[84] / 200)
+        + (G.rune5level / 200)
+          * G.effectiveLevelMult
           * (1
-            + (1 * G.effectiveRuneSpiritPower[5] * calculateCorruptionPoints())
-              / 400)),
+            + (player.researches[84] / 200)
+              * (1
+                + (1 * G.effectiveRuneSpiritPower[5] * calculateCorruptionPoints())
+                  / 400)),
       3
     )
   }`
   DOMCacheGetOrSet('sObt11').textContent = `x${
     format(
       1
-    + 0.01 * player.achievements[84]
-    + 0.03 * player.achievements[91]
-    + 0.05 * player.achievements[98]
-    + 0.07 * player.achievements[105]
-    + 0.09 * player.achievements[112]
-    + 0.11 * player.achievements[119]
-    + 0.13 * player.achievements[126]
-    + 0.15 * player.achievements[133]
-    + 0.17 * player.achievements[140]
-    + 0.19 * player.achievements[147],
+        + 0.01 * player.achievements[84]
+        + 0.03 * player.achievements[91]
+        + 0.05 * player.achievements[98]
+        + 0.07 * player.achievements[105]
+        + 0.09 * player.achievements[112]
+        + 0.11 * player.achievements[119]
+        + 0.13 * player.achievements[126]
+        + 0.15 * player.achievements[133]
+        + 0.17 * player.achievements[140]
+        + 0.19 * player.achievements[147],
       2
     )
   }`
@@ -1204,8 +1208,8 @@ export const loadObtainiumMultipliers = () => {
   DOMCacheGetOrSet('sObt21').textContent = `x${
     format(
       1
-    + ((0.03 * Math.log(player.uncommonFragments + 1)) / Math.log(4))
-      * player.researches[144],
+        + ((0.03 * Math.log(player.uncommonFragments + 1)) / Math.log(4))
+          * player.researches[144],
       3
     )
   }`
@@ -1235,15 +1239,15 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt26').textContent = `+${
     format(
-      (player.reincarnationcounter >= 2 ? 1 * player.researches[63] : 1) +
-      (player.reincarnationcounter >= 5 ? 2 * player.researches[64] : 1),
+      (player.reincarnationcounter >= 2 ? 1 * player.researches[63] : 1)
+        + (player.reincarnationcounter >= 5 ? 2 * player.researches[64] : 1),
       2
     )
   }`
   DOMCacheGetOrSet('sObt27').textContent = `x${
     format(
-      (player.reincarnationcounter >= 5 ? Math.max(1, player.reincarnationcounter / 10) : 1)*
-      Math.min(1, Math.pow(player.reincarnationcounter / 10, 2)),
+      (player.reincarnationcounter >= 5 ? Math.max(1, player.reincarnationcounter / 10) : 1)
+        * Math.min(1, Math.pow(player.reincarnationcounter / 10, 2)),
       3
     )
   }`
@@ -1251,7 +1255,7 @@ export const loadObtainiumMultipliers = () => {
     format(
       Math.pow(
         Decimal.log(player.transcendShards.add(1), 10) / 300,
-        2,
+        2
       ),
       2
     )
@@ -1264,14 +1268,15 @@ export const loadObtainiumMultipliers = () => {
           * (1
             + (9 / 100)
               * player.platonicUpgrades[9]
-              * Math.min(100, Math.log10(player.researchPoints + 10)))),
+              * Math.min(100, Math.log10(player.researchPoints + 10)))
+      ),
       3
     )
   }`
   DOMCacheGetOrSet('sObt30').textContent = `x${
     format(
-      1 + (4 / 100) * player.cubeUpgrades[42] +
-      1 + (3 / 100) * player.cubeUpgrades[43],
+      1 + (4 / 100) * player.cubeUpgrades[42]
+        + 1 + (3 / 100) * player.cubeUpgrades[43],
       2
     )
   }`
@@ -1385,15 +1390,16 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt49').textContent = `x${
     format(
-      player.currentChallenge.ascension === 15 ?
-      1 + 7 * player.cubeUpgrades[62] : 1,
+      player.currentChallenge.ascension === 15
+        ? 1 + 7 * player.cubeUpgrades[62]
+        : 1,
       2
     )
   }`
   DOMCacheGetOrSet('sObt50').textContent = `x${
     format(
       1
-    + 0.001 * +player.blueberryUpgrades.ambrosiaObtainium1.bonus.obtainiumMult,
+        + 0.001 * +player.blueberryUpgrades.ambrosiaObtainium1.bonus.obtainiumMult,
       2
     )
   }`
@@ -1417,22 +1423,25 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt54').textContent = `^${
     format(
-      player.usedCorruptions[5] >= 15 ?
-         1 / 4 : 1,
+      player.usedCorruptions[5] >= 15
+        ? 1 / 4
+        : 1,
       2
     )
   }`
   DOMCacheGetOrSet('sObt55').textContent = `^${
     format(
-      player.usedCorruptions[5] >= 16 ?
-        1 / 4: 1,
+      player.usedCorruptions[5] >= 16
+        ? 1 / 4
+        : 1,
       2
     )
   }`
   DOMCacheGetOrSet('sObt56').textContent = `x${
     format(
-      player.currentChallenge.ascension === 14 ?
-        0 : 1,
+      player.currentChallenge.ascension === 14
+        ? 0
+        : 1,
       2
     )
   }`
@@ -1442,10 +1451,6 @@ export const loadObtainiumMultipliers = () => {
       3
     )
   }`
-
-
-
-  
 }
 
 export const loadPowderMultiplier = () => {
@@ -2223,4 +2228,3 @@ export const synergismStage = (
   const stagesZero = stages[0]
   return stagesZero.name
 }
-
