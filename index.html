@@ -3051,7 +3051,8 @@
                 <button class="statsNerds" id="kMisc" style="border: 2px solid gold; background-color: crimson;">Miscellaneous Stats</button>
                 <button class="statsNerds" id="kFreeAccel" style="border: 2px solid yellow">Free Accelerators</button>
                 <button class="statsNerds" id="kFreeMult" style="border: 2px solid lawngreen">Free Multipliers</button>
-                <button class="statsNerds" id="kOfferingMult" style="border: 2px solid palegreen">Offering Multipliers</button>
+                <button class="prestigeunlock statsNerds" id="kOfferingMult" style="border: 2px solid palegreen">Offering Multipliers</button>
+                <button class="reincarnationunlock statsNerds" id="kObtMult" style="border: 2px solid rgb(22, 9, 175)">Obtainium Multipliers</button>
                 <button class="statsNerds" id="kQuarkMult" style="border: 2px solid white">Global Quark Multipliers</button>
                 <button class="statsNerds reincarnationunlock" id="kGSpeedMult" style="border: 2px solid blue">Global Speed Multipliers</button>
                 <button class="statsNerds ascendunlock" id="kASCMult" style="border: 2px solid orange">Ascension Speed Multipliers</button>
@@ -3063,7 +3064,7 @@
                 <button class="statsNerds hepteracts" id="kHeptMult" style="border: 2px solid rosybrown">Hepteract Multipliers</button>
                 <button class="statsNerds hepteracts" id="kOrbPowderMult" style="border: 2px solid orchid">Orb to Powder Multipliers</button>
                 <button class="statsNerds singularity" id="kGQMult" style="border: 2px solid yellow">Golden Quark Multipliers</button>
-                <button class="statsNerds singularity" id="kAddStats" style="border: 2px solid green">Add Code Stats</button>
+                <button class="statsNerds" id="kAddStats" style="border: 2px solid green">Add Code Stats</button>
                 <button class="statsNerds singularity" id="kOctMult" style="border: 2px solid blue">Octeract Multipliers</button>
                 <button class="statsNerds octeracts" id="kAmbrosiaLuck" style="border: 2px solid lime">Ambrosia Luck</button>
                 <button class="statsNerds octeracts" id="kAmbrosiaGenMult" style="border: 2px solid #ffbf00">Ambrosia Generation</button>
@@ -3091,39 +3092,39 @@
             <div id="acceleratorStats" class="statContainer" style="display: none;">
                 <p id="acceleratorStatTitle" class="statPortion" style="color: goldenrod; font-size: 1.2em">Free Accelerators</p>
                 <p id="statA1" class="statPortion">Accelerators from Upgrades/Misc: <span id="sA1" class="statNumber">0</span></p>
-                <p id="statA2" class="statPortion">Accelerators from Boosts: <span id="sA2" class="statNumber">0</span></p>
-                <p id="statA3" class="statPortion">Accelerators from Speed Rune: <span id="sA3" class="statNumber">0</span></p>
-                <p id="statA4" class="statPortion">Speed Rune Multiplier: <span id="sA4" class="statNumber">0</span></p>
-                <p id="statA5" class="statPortion">Upgrade Multiplier: <span id="sA5" class="statNumber">0</span></p>
-                <p id="statA6" class="statPortion">Achievement Multiplier: <span id="sA6" class="statNumber">0</span></p>
-                <p id="statA7" class="statPortion">Research [1x1] Multiplier: <span id="sA7" class="statNumber">0</span></p>
-                <p id="statA8" class="statPortion">Research [1x6]-[1x10] Multiplier: <span id="sA8" class="statNumber">0</span></p>
-                <p id="statA9" class="statPortion">Research [4x11] Multiplier: <span id="sA9" class="statNumber">0</span></p>
-                <p id="statA10" class="statPortion">Challenge Multiplier: <span id="sA10" class="statNumber">0</span></p>
-                <p id="statA11" class="statPortion">Corruption Exponent: <span id="sA11" class="statNumber">0</span></p>
+                <p id="statA2" class="prestigeunlock statPortion">Accelerators from Boosts: <span id="sA2" class="statNumber">0</span></p>
+                <p id="statA3" class="prestigeunlock statPortion">Accelerators from Speed Rune: <span id="sA3" class="statNumber">0</span></p>
+                <p id="statA4" class="prestigeunlock statPortion">Speed Rune Multiplier: <span id="sA4" class="statNumber">0</span></p>
+                <p id="statA5" class="prestigeunlock statPortion">Upgrade Multiplier: <span id="sA5" class="statNumber">0</span></p>
+                <p id="statA6" class="prestigeunlock statPortion">Achievement Multiplier: <span id="sA6" class="statNumber">0</span></p>
+                <p id="statA7" class="reincarnationunlock statPortion">Research [1x1] Multiplier: <span id="sA7" class="statNumber">0</span></p>
+                <p id="statA8" class="reincarnationunlock statPortion">Research [1x6]-[1x10] Multiplier: <span id="sA8" class="statNumber">0</span></p>
+                <p id="statA9" class="reincarnationunlock statPortion">Research [4x11] Multiplier: <span id="sA9" class="statNumber">0</span></p>
+                <p id="statA10" class="transcendunlock statPortion">Challenge Multiplier: <span id="sA10" class="statNumber">0</span></p>
+                <p id="statA11" class="statPortion chal11">Corruption Exponent: <span id="sA11" class="statNumber">0</span></p>
                 <p id="statA12" class="statPortion statTotal">TOTAL FREE ACCELERATORS: <span id="sA12" class="statNumber statTotal">0</span></p>
             </div>
             <div id="multiplierStats" class="statContainer" style="display: none;">
                 <p id="multiplierStatTitle" class="statPortion" style="color: cyan; font-size: 1.2em">Free Multipliers</p>
                 <p id="statM1" class="statPortion">Multipliers from upgrades/misc<span id="sM1" class="statNumber"></span></p>
-                <p id="statM2" class="statPortion">Multipliers from Duplication Rune<span id="sM2" class="statNumber"></span></p>
-                <p id="statM3" class="statPortion">Duplication Rune Multiplier<span id="sM3" class="statNumber"></span></p>
-                <p id="statM4" class="statPortion">Upgrade Multiplier<span id="sM4" class="statNumber"></span></p>
-                <p id="statM5" class="statPortion">Achievement Multiplier<span id="sM5" class="statNumber"></span></p>
-                <p id="statM6" class="statPortion">Research [1x2] Multiplier<span id="sM6" class="statNumber"></span></p>
-                <p id="statM7" class="statPortion">Research [1x11]-[1x15] Multiplier<span id="sM7" class="statNumber"></span></p>
-                <p id="statM8" class="statPortion">Research [4x12] Multiplier<span id="sM8" class="statNumber"></span></p>
-                <p id="statM9" class="statPortion">Multa Formicidae Ant Multiplier<span id="sM9" class="statNumber"></span></p>
-                <p id="statM10" class="statPortion">Aphrodite Tribute Multiplier<span id="sM10" class="statNumber"></span></p>
-                <p id="statM11" class="statPortion">Challenge Multiplier<span id="sM11" class="statNumber"></span></p>
-                <p id="statM12" class="statPortion">Corruption Exponent<span id="sM12" class="statNumber"></span></p>
+                <p id="statM2" class="prestigeunlock statPortion">Multipliers from Duplication Rune<span id="sM2" class="statNumber"></span></p>
+                <p id="statM3" class="prestigeunlock statPortion">Duplication Rune Multiplier<span id="sM3" class="statNumber"></span></p>
+                <p id="statM4" class="prestigeunlock statPortion">Upgrade Multiplier<span id="sM4" class="statNumber"></span></p>
+                <p id="statM5" class="prestigeunlock statPortion">Achievement Multiplier<span id="sM5" class="statNumber"></span></p>
+                <p id="statM6" class="reincarnationunlock statPortion">Research [1x2] Multiplier<span id="sM6" class="statNumber"></span></p>
+                <p id="statM7" class="reincarnationunlock statPortion">Research [1x11]-[1x15] Multiplier<span id="sM7" class="statNumber"></span></p>
+                <p id="statM8" class="reincarnationunlock statPortion">Research [4x12] Multiplier<span id="sM8" class="statNumber"></span></p>
+                <p id="statM9" class="chal8 statPortion">Multa Formicidae Ant Multiplier<span id="sM9" class="statNumber"></span></p>
+                <p id="statM10" class="chal8 statPortion">Aphrodite Tribute Multiplier<span id="sM10" class="statNumber"></span></p>
+                <p id="statM11" class="transcendunlock statPortion">Challenge Multiplier<span id="sM11" class="statNumber"></span></p>
+                <p id="statM12" class="chal11 statPortion">Corruption Exponent<span id="sM12" class="statNumber"></span></p>
                 <p id="statM13" class="statPortion statTotal">TOTAL FREE MULTIPLIERS: <span id="sM13" class="statNumber statTotal">0</span></p>
             </div>
             <div id="offeringMultiplierStats" class="statContainer" style="display: none;">
                 <p id="offeringStatTitle" class="statPortion orangeredText" style="font-size: 1.2em">Offering Multipliers</p>
-                <p id="statOff1" class="statPortion">Alchemy Achievement 5:<span id="sOff1" class="statNumber">0</span></p>
-                <p id="statOff2" class="statPortion">Alchemy Achievement 6:<span id="sOff2" class="statNumber">0</span></p>
-                <p id="statOff3" class="statPortion">Alchemy Achievement 7:<span id="sOff3" class="statNumber">0</span></p>
+                <p id="statOff1" class="prestigeunlock statPortion">Alchemy Achievement 5:<span id="sOff1" class="statNumber">0</span></p>
+                <p id="statOff2" class="prestigeunlock statPortion">Alchemy Achievement 6:<span id="sOff2" class="statNumber">0</span></p>
+                <p id="statOff3" class="prestigeunlock statPortion">Alchemy Achievement 7:<span id="sOff3" class="statNumber">0</span></p>
                 <p id="statOff4" class="statPortion reincarnationunlock">Diamond Upgrade 4x3:<span id="sOff4" class="statNumber">0</span></p>
                 <p id="statOff5" class="statPortion reincarnationunlock">Particle Upgrade 3x5:<span id="sOff5" class="statNumber">0</span></p>
                 <p id="statOff6" class="statPortion reincarnationunlock">Auto Offering Shop Upgrade:<span id="sOff6" class="statNumber">0</span></p>
@@ -3150,13 +3151,75 @@
                 <p id="statOff27" class="statPortion singularity">Offering Tempest [GQ]: <span id="sOff27" class="statNumber">0</span></p>
                 <p id="statOff28" class="statPortion singularity">Citadel [GQ]: <span id="sOff28" class="statNumber">0</span></p>
                 <p id="statOff29" class="statPortion singularity">Citadel 2 [GQ]: <span id="sOff29" class="statNumber">0</span></p>
-                <p id="statOff30" class="statPortion">Cube Upgrade Cx4: <span id="sOff30" class="statNumber">0</span></p>
-                <p id="statOff31" class="statPortion">Offering Electrolosis [OC]: <span id="sOff31" class="statNumber">0</span></p>
-                <p id="statOff32" class="statPortion">RNG-Based Offering Multiplier: <span id="sOff32" class="statNumber">0</span></p>
-                <p id="statOff33" class="statPortion">20 Ascensions X20 [EXALT ONLY]: <span id="sOff33" class="statNumber">0</span></p>
-                <p id="statOff34" class="statPortion">Shop EX ULTIMATE: <span id="sOff34" class="statNumber">0</span></p>
+                <p id="statOff30" class="statPortion singularity">Cube Upgrade Cx4: <span id="sOff30" class="statNumber">0</span></p>
+                <p id="statOff31" class="statPortion singularity">Offering Electrolosis [OC]: <span id="sOff31" class="statNumber">0</span></p>
+                <p id="statOff32" class="statPortion singularity">RNG-Based Offering Multiplier: <span id="sOff32" class="statNumber">0</span></p>
+                <p id="statOff33" class="statPortion singularity">20 Ascensions X20 [EXALT ONLY]: <span id="sOff33" class="statNumber">0</span></p>
+                <p id="statOff34" class="statPortion singularity">Shop EX ULTIMATE: <span id="sOff34" class="statNumber">0</span></p>
                 <p id="statOff35" class="statPortion">Event: <span id="sOff35" class="statNumber">0</span></p>
                 <p id="statOffT" class="statPortion statTotal" style="color: gold">TOTAL OFFERING MULTIPLIER: <span id="sOffT" class="statNumber statTotal">0</span></p>
+            </div>
+            <div id="obtainiumMultiplierStats" class="statContainer" style="display: none;">
+                <p id="obtainiumStatTitle" class="statPortion" style="font-size: 1.2em; color:rgb(22, 9, 175)">Obtainium Multipliers</p>
+                <p id="statObt1" class="statPortion reinrow2">Particle Upgrade 2x4:<span id="sObt1" class="statNumber">0</span></p>
+                <p id="statObt2" class="statPortion reinrow3">Particle Upgrade 3x2:<span id="sObt2" class="statNumber">0</span></p>
+                <p id="statObt3" class="statPortion reinrow3">Particle Upgrade 3x4:<span id="sObt3" class="statNumber">0</span></p>
+                <p id="statObt4" class="statPortion">Research 3x15:<span id="sObt4" class="statNumber">0</span></p>
+                <p id="statObt5" class="statPortion chal7x10">Research 4x1:<span id="sObt5" class="statNumber">0</span></p>
+                <p id="statObt6" class="statPortion chal8">Research 4x6:<span id="sObt6" class="statNumber">0</span></p>
+                <p id="statObt7" class="statPortion">Auto Obtainium Shop Upgrade:<span id="sObt7" class="statNumber">0</span></p>
+                <p id="statObt8" class="statPortion">Cash Grab Shop Upgrade:<span id="sObt8" class="statNumber">0</span></p>
+                <p id="statObt9" class="statPortion">Obtainium EX Shop Upgrade:<span id="sObt9" class="statNumber">0</span></p>
+                <p id="statObt10" class="statPortion chal8">SI Rune:<span id="sObt10" class="statNumber">0</span></p>
+                <p id="statObt11" class="statPortion">Reincarnation/Transcension Challenge Achievements:<span id="sObt11" class="statNumber">0</span></p>
+                <p id="statObt12" class="statPortion chal8">Scientia Formicidae:<span id="sObt12" class="statNumber">0</span></p>
+                <p id="statObt13" class="statPortion ascendunlock">Achievement 188:<span id="sObt13" class="statNumber">0</span></p>
+                <p id="statObt14" class="statPortion chal14">Sun &amp; Moon Achievements:<span id="sObt14" class="statNumber">0</span></p>
+                <p id="statObt15" class="statPortion ascendunlock">Athena's Tribute:<span id="sObt15" class="statNumber">0</span></p>
+                <p id="statObt16" class="statPortion ascendunlock">Constant Upgrade 4:<span id="sObt16" class="statNumber">0</span></p>
+                <p id="statObt17" class="statPortion ascendunlock">Cube Upgrade 1x3:<span id="sObt17" class="statNumber">0</span></p>
+                <p id="statObt18" class="statPortion ascendunlock">Cube Upgrade 5x7:<span id="sObt18" class="statNumber">0</span></p>
+                <p id="statObt19" class="statPortion chal12">Challenge 12:<span id="sObt19" class="statNumber">0</span></p>
+                <p id="statObt20" class="statPortion chal12">Thrift Spirit:<span id="sObt20" class="statNumber">0</span></p>
+                <p id="statObt21" class="statPortion chal11">Research 6x19:<span id="sObt21" class="statNumber">0</span></p>
+                <p id="statObt22" class="statPortion ascendunlock">Cube Upgrade 5x10:<span id="sObt22" class="statNumber">0</span></p>
+                <p id="statObt23" class="statPortion">Achievement 53:<span id="sObt23" class="statNumber">0</span></p>
+                <p id="statObt24" class="statPortion chal8">Achievements 128-129:<span id="sObt24" class="statNumber">0</span></p>
+                <p id="statObt25" class="statPortion">Achievement 51:<span id="sObt25" class="statNumber">0</span></p>
+                <p id="statObt26" class="statPortion">Researches 3x13-14:<span id="sObt26" class="statNumber">0</span></p>
+                <p id="statObt27" class="statPortion">Reincarnation Time:<span id="sObt27" class="statNumber">0</span></p>
+                <p id="statObt28" class="statPortion">Mythos Shards:<span id="sObt28" class="statNumber">0</span></p>
+                <p id="statObt29" class="statPortion chal11">Corruption Exponent:<span id="sObt29" class="statNumber">0</span></p>
+                <p id="statObt30" class="statPortion ascendunlock">Cube Upgrades 5x2-3:<span id="sObt30" class="statNumber">0</span></p>
+                <p id="statObt31" class="statPortion chal14">Platonic ALPHA:<span id="sObt31" class="statNumber">0</span></p>
+                <p id="statObt32" class="statPortion chal14">Platonic 2x4:<span id="sObt32" class="statNumber">0</span></p>
+                <p id="statObt33" class="statPortion chal14">Platonic BETA:<span id="sObt33" class="statNumber">0</span></p>
+                <p id="statObt34" class="statPortion chal14">Platonic OMEGA:<span id="sObt34" class="statNumber">0</span></p>
+                <p id="statObt35" class="statPortion chal14">Challenge 15 Reward:<span id="sObt35" class="statNumber">0</span></p>
+                <p id="statObt36" class="statPortion singularity">Starter Pack:<span id="sObt36" class="statNumber">0</span></p>
+                <p id="statObt37" class="statPortion singularity">Obtainium Wave [GQ]:<span id="sObt37" class="statNumber">0</span></p>
+                <p id="statObt38" class="statPortion singularity">Obtainium Flood [GQ]:<span id="sObt38" class="statNumber">0</span></p>
+                <p id="statObt39" class="statPortion singularity">Obtainium Tsunami [GQ]:<span id="sObt39" class="statNumber">0</span></p>
+                <p id="statObt40" class="statPortion singularity">Cube Upgrade Cx5:<span id="sObt40" class="statNumber">0</span></p>
+                <p id="statObt41" class="statPortion singularity">Cash Grab 2:<span id="sObt41" class="statNumber">0</span></p>
+                <p id="statObt42" class="statPortion singularity">Obtainium EX 2:<span id="sObt42" class="statNumber">0</span></p>
+                <p id="statObt43" class="statPortion">Event:<span id="sObt43" class="statNumber">0</span></p>
+                <p id="statObt44" class="statPortion singularity">Citadel [GQ]:<span id="sObt44" class="statNumber">0</span></p>
+                <p id="statObt45" class="statPortion singularity">Citadel 2 [GQ]:<span id="sObt45" class="statNumber">0</span></p>
+                <p id="statObt46" class="statPortion octeracts">Octeract Obtainium Upgrade:<span id="sObt46" class="statNumber">0</span></p>
+                <p id="statObt47" class="statPortion octeracts">Obtainium EX 3:<span id="sObt47" class="statNumber">0</span></p>
+                <p id="statObt48" class="statPortion octeracts">Octeract Obtainium Bonus:<span id="sObt48" class="statNumber">0</span></p>
+                <p id="statObt49" class="statPortion chal14">Active Challenge 15 Bonuses:<span id="sObt49" class="statNumber">0</span></p>
+                <p id="statObt50" class="statPortion octeracts">Ambrosia Obtainium Upgrade:<span id="sObt50" class="statNumber">0</span></p>
+                <p id="statObt51" class="statPortion octeracts">Obtainium EX ULTRA:<span id="sObt51" class="statNumber">0</span></p>
+                <p id="statObt52" class="statPortion octeracts">Exalt Bonus:<span id="sObt52" class="statNumber">0</span></p>
+                <p id="statObt53" class="statPortion singularity">Singularity Debuff:<span id="sObt53" class="statNumber">0</span></p>
+                <p id="statObt54" class="statPortion octeracts">Scientific Illiteracy 15:<span id="sObt54" class="statNumber">0</span></p>
+                <p id="statObt55" class="statPortion octeracts">Scientific Illiteracy 16:<span id="sObt55" class="statNumber">0</span></p>
+                <p id="statObt56" class="statPortion chal14">Active Challenge 14:<span id="sObt56" class="statNumber">0</span></p>
+                <p id="statObtT" class="statPortion statTotal" style="color: rgb(81, 134, 219)">TOTAL OBTAINIUM MULTIPLIER: <span id="sObtT" class="statNumber statTotal">0</span></p>
+
+
             </div>
             <div id="globalSpeedMultiplierStats" class="statContainer" style="display: none;">
                 <p id="GlobalSpeedStatTitle" class="statPortion" style="color: blue; font-size: 1.2em">Global Speed Multipliers</p>
@@ -3169,7 +3232,7 @@
                 <p id="statGSMa5" class="statPortion reincarnationunlock">Research 7x16:<span id="sGSMa5" class="statNumber">0</span></p>
                 <p id="statGSMa6" class="statPortion reincarnationunlock">Research 8x6:<span id="sGSMa6" class="statNumber">0</span></p>
                 <p id="statGSMa7" class="statPortion reincarnationunlock">Research 8x21:<span id="sGSMa7" class="statNumber">0</span></p>
-                <p id="statGSMa8" class="statPortion reincarnationunlock">Blessing Power:<span id="sGSMa8" class="statNumber">0</span></p>
+                <p id="statGSMa8" class="statPortion chal9">Blessing Power:<span id="sGSMa8" class="statNumber">0</span></p>
                 <p id="statGSMa9" class="statPortion chal12">Spirit Power:<span id="sGSMa9" class="statNumber">0</span></p>
                 <p id="statGSMa10" class="statPortion ascendunlock">Chronos' Tribute Multiplier:<span id="sGSMa10" class="statNumber">0</span></p>
                 <p id="statGSMa11" class="statPortion ascendunlock">Cube Upgrade 2x8:<span id="sGSMa11" class="statNumber">0</span></p>
@@ -3198,7 +3261,7 @@
             <div id="globalQuarkMultiplierStats" class="statContainer" style="display: none;">
                 <p id="GlobalQuarkStatTitle" class="statPortion" style="color: white; font-size: 1.2em">Global Quark Multipliers</p>
                 <p id="statGQM1" class="statPortion">Base:<span id="sGQM1" class="statNumber">0</span></p>
-                <p id="statGQM2" class="statPortion">AP Bonus:<span id="sGQM2" class="statNumber">0</span></p>
+                <p id="statGQM2" class="statPortion prestigeunlock">AP Bonus:<span id="sGQM2" class="statNumber">0</span></p>
                 <p id="statGQM3" class="statPortion chal14">Maxed Research 8x25:<span id="sGQM3" class="statNumber">0</span></p>
                 <p id="statGQM4" class="statPortion chal14">Maxed Cube upgrade 5x10:<span id="sGQM4" class="statNumber">0</span></p>
                 <p id="statGQM5" class="statPortion chal14">Platonic ALPHA:<span id="sGQM5" class="statNumber">0</span></p>
@@ -3208,9 +3271,9 @@
                 <p id="statGQM9" class="statPortion">Patreon Bonus:<span id="sGQM9" class="statNumber">0</span></p>
                 <p id="statGQM10" class="statPortion">Event Bonus:<span id="sGQM10" class="statNumber">0</span></p>
                 <p id="statGQM11" class="statPortion chal14">Infinite Ascent Rune Bonus:<span id="sGQM11" class="statNumber">0</span></p>
-                <p id="statGQM12" class="statPortion heptecracts">Quark Hept Bonus:<span id="sGQM12" class="statNumber">0</span></p>
-                <p id="statGQM13" class="statPortion heptecracts">Powder Bonus:<span id="sGQM13" class="statNumber">0</span></p>
-                <p id="statGQM14" class="statPortion heptecracts">Achievement 266 Reward:<span id="sGQM14" class="statNumber">0</span></p>
+                <p id="statGQM12" class="statPortion hepteracts">Quark Hept Bonus:<span id="sGQM12" class="statNumber">0</span></p>
+                <p id="statGQM13" class="statPortion hepteracts">Powder Bonus:<span id="sGQM13" class="statNumber">0</span></p>
+                <p id="statGQM14" class="statPortion hepteracts">Achievement 266 Reward:<span id="sGQM14" class="statNumber">0</span></p>
                 <p id="statGQM15" class="statPortion singularity">Singularity Bonus:<span id="sGQM15" class="statNumber">0</span></p>
                 <p id="statGQM16" class="statPortion singularity">Singularity Milestones:<span id="sGQM16" class="statNumber">0</span></p>
                 <p id="statGQM17" class="statPortion singularity">Cookie 3 Bonus:<span id="sGQM17" class="statNumber">0</span></p>
@@ -3225,22 +3288,23 @@
                 <p id="statGQM26" class="statPortion singularity">Module- Tutorial:<span id="sGQM26" class="statNumber">0</span></p>
                 <p id="statGQM27" class="statPortion singularity">Module- Quark 1:<span id="sGQM27" class="statNumber">0</span></p>
                 <p id="statGQM28" class="statPortion singularity">Module- Cube-Quark 1:<span id="sGQM28" class="statNumber">0</span></p>
-                <p id="statGQM29" class="statPortion singularity">Module- Luck-Quark 1:<span id="sGQM29" class="statNumber">0</span></p>
+                <p id="statGQM29" class="statPortion c">Module- Luck-Quark 1:<span id="sGQM29" class="statNumber">0</span></p>
                 <p id="statGQM30" class="statPortion singularity">Module- Quark 2:<span id="sGQM30" class="statNumber">0</span></p>
                 <p id="statGQM31" class="statPortion singularity">Cash Grab ULTIMATE:<span id="sGQM31" class="statNumber">0</span></p>
+                <p id="statGQM32" class="statPortion">Noobie Bonus:<span id="sGQM32" class="statNumber">0</span></p>
                 <p id ="statGQMT" class="statPortion statTotal" style="color: white">TOTAL QUARK MULTIPLIER:<span id="sGQMT" class="statNumber statTotal">0</span></p>
             </div>
             <div id="ascensionSpeedMultiplierStats" class="statContainer" style="display: none;">
                 <p id="asmStatTitle" class="statPortion" style="color: orange; font-size: 1.2em;">Ascension Speed Multipliers</p>
-                <p id="statASM1" class="statPortion">Chronometer:<span id="sASM1" class="statNumber">0</span></p>
-                <p id="statASM2" class="statPortion">Chronometer 2:<span id="sASM2" class="statNumber">0</span></p>
-                <p id="statASM3" class="statPortion">Chronometer 3:<span id="sASM3" class="statNumber">0</span></p>
-                <p id="statASM4" class="statPortion ascendunlock">Chronos Hepteract:<span id="sASM4" class="statNumber">0</span></p>
-                <p id="statASM5" class="statPortion ascendunlock">Achievement 262 Bonus:<span id="sASM5" class="statNumber">0</span></p>
-                <p id="statASM6" class="statPortion ascendunlock">Achievement 263 Bonus:<span id="sASM6" class="statNumber">0</span></p>
-                <p id="statASM7" class="statPortion ascendunlock">Platonic Omega:<span id="sASM7" class="statNumber">0</span></p>
-                <p id="statASM8" class="statPortion ascendunlock">Challenge 15 Reward:<span id="sASM8" class="statNumber">0</span></p>
-                <p id="statASM9" class="statPortion ascendunlock">Cookie Upgrade 9:<span id="sASM9" class="statNumber">0</span></p>
+                <p id="statASM1" class="statPortion chal12">Chronometer:<span id="sASM1" class="statNumber">0</span></p>
+                <p id="statASM2" class="statPortion hepteracts">Chronometer 2:<span id="sASM2" class="statNumber">0</span></p>
+                <p id="statASM3" class="statPortion singularity">Chronometer 3:<span id="sASM3" class="statNumber">0</span></p>
+                <p id="statASM4" class="statPortion hepteracts">Chronos Hepteract:<span id="sASM4" class="statNumber">0</span></p>
+                <p id="statASM5" class="statPortion chal14">Achievement 262 Bonus:<span id="sASM5" class="statNumber">0</span></p>
+                <p id="statASM6" class="statPortion chal14">Achievement 263 Bonus:<span id="sASM6" class="statNumber">0</span></p>
+                <p id="statASM7" class="statPortion chal14">Platonic Omega:<span id="sASM7" class="statNumber">0</span></p>
+                <p id="statASM8" class="statPortion chal14">Challenge 15 Reward:<span id="sASM8" class="statNumber">0</span></p>
+                <p id="statASM9" class="statPortion singularity">Cookie Upgrade 9:<span id="sASM9" class="statNumber">0</span></p>
                 <p id="statASM10" class="statPortion singularity">Intermediate Pack:<span id="sASM10" class="statNumber">0</span></p>
                 <p id="statASM11" class="statPortion singularity">Chronometer Z:<span id="sASM11" class="statNumber">0</span></p>
                 <p id="statASM12" class="statPortion singularity">Abstract Photokinetics:<span id="sASM12" class="statNumber">0</span></p>
@@ -3259,38 +3323,38 @@
                 <p id="globalCubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Global Cube Multipliers</p>
                 <p id="statGCM1" class="statPortion">Ascend Time Multi:<span id="sGCM1" class="statNumber">0</span></p>
                 <p id="statGCM2" class="statPortion">Season pass:<span id="sGCM2" class="statNumber">0</span></p>
-                <p id="statGCM3" class="statPortion ">Research 5x19:<span id="sGCM3" class="statNumber">0</span></p>
-                <p id="statGCM4" class="statPortion">Research 5x20:<span id="sGCM4" class="statNumber">0</span></p>
-                <p id="statGCM5" class="statPortion">Cube upgrade 1x1:<span id="sGCM5" class="statNumber">0</span></p>
-                <p id="statGCM6" class="statPortion">Cube upgrade 1x1:<span id="sGCM6" class="statNumber">0</span></p>
-                <p id="statGCM7" class="statPortion">Cube upgrade 1x1:<span id="sGCM7" class="statNumber">0</span></p>
-                <p id="statGCM8" class="statPortion">Cube upgrade 1x1:<span id="sGCM8" class="statNumber">0</span></p>
+                <p id="statGCM3" class="statPortion">Research 5x19:<span id="sGCM3" class="statNumber">0</span></p>
+                <p id="statGCM4" class="statPortion chal14">Research 5x20:<span id="sGCM4" class="statNumber">0</span></p>
+                <p id="statGCM5" class="statPortion chal14">Cube upgrade 1x1:<span id="sGCM5" class="statNumber">0</span></p>
+                <p id="statGCM6" class="statPortion chal14">Cube upgrade 1x1:<span id="sGCM6" class="statNumber">0</span></p>
+                <p id="statGCM7" class="statPortion chal14">Cube upgrade 1x1:<span id="sGCM7" class="statNumber">0</span></p>
+                <p id="statGCM8" class="statPortion hepteracts">Cube upgrade 1x1:<span id="sGCM8" class="statNumber">0</span></p>
                 <p id="statGCM9" class="statPortion">Event:<span id="sGCM9" class="statNumber">0</span></p>
-                <p id="statGCM10" class="statPortion">Singularity:<span id="sGCM10" class="statNumber">0</span></p>
-                <p id="statGCM11" class="statPortion">-<span id="sGCM11" class="statNumber">-</span></p>
-                <p id="statGCM12" class="statPortion">-<span id="sGCM12" class="statNumber">-</span></p>
-                <p id="statGCM13" class="statPortion">-<span id="sGCM13" class="statNumber">-</span></p>
-                <p id="statGCM14" class="statPortion">-<span id="sGCM14" class="statNumber">-</span></p>
-                <p id="statGCM15" class="statPortion">-<span id="sGCM15" class="statNumber">-</span></p>
-                <p id="statGCM16" class="statPortion">-<span id="sGCM16" class="statNumber">-</span></p>
-                <p id="statGCM17" class="statPortion">-<span id="sGCM17" class="statNumber">-</span></p>
-                <p id="statGCM18" class="statPortion">-<span id="sGCM18" class="statNumber">-</span></p>
-                <p id="statGCM19" class="statPortion">-<span id="sGCM19" class="statNumber">-</span></p>
-                <p id="statGCM20" class="statPortion">-<span id="sGCM20" class="statNumber">-</span></p>
-                <p id="statGCM21" class="statPortion">-<span id="sGCM21" class="statNumber">-</span></p>
-                <p id="statGCM22" class="statPortion">-<span id="sGCM22" class="statNumber">-</span></p>
-                <p id="statGCM23" class="statPortion">-<span id="sGCM23" class="statNumber">-</span></p>
-                <p id="statGCM24" class="statPortion">-<span id="sGCM24" class="statNumber">-</span></p>
-                <p id="statGCM25" class="statPortion">-<span id="sGCM25" class="statNumber">-</span></p>
-                <p id="statGCM26" class="statPortion">-<span id="sGCM26" class="statNumber">-</span></p>
-                <p id="statGCM27" class="statPortion">-<span id="sGCM27" class="statNumber">-</span></p>
-                <p id="statGCM28" class="statPortion">-<span id="sGCM28" class="statNumber">-</span></p>
-                <p id="statGCM29" class="statPortion">-<span id="sGCM29" class="statNumber">-</span></p>
-                <p id="statGCM30" class="statPortion">-<span id="sGCM30" class="statNumber">-</span></p>
-                <p id="statGCM31" class="statPortion">-<span id="sGCM31" class="statNumber">-</span></p>
-                <p id="statGCM32" class="statPortion">-<span id="sGCM32" class="statNumber">-</span></p>
-                <p id="statGCM33" class="statPortion">-<span id="sGCM33" class="statNumber">-</span></p>
-                <p id="statGCM34" class="statPortion">-<span id="sGCM34" class="statNumber">-</span></p>
+                <p id="statGCM10" class="statPortion singularity">Singularity:<span id="sGCM10" class="statNumber">0</span></p>
+                <p id="statGCM11" class="statPortion singularity">-<span id="sGCM11" class="statNumber">-</span></p>
+                <p id="statGCM12" class="statPortion singularity">-<span id="sGCM12" class="statNumber">-</span></p>
+                <p id="statGCM13" class="statPortion singularity">-<span id="sGCM13" class="statNumber">-</span></p>
+                <p id="statGCM14" class="statPortion singularity">-<span id="sGCM14" class="statNumber">-</span></p>
+                <p id="statGCM15" class="statPortion singularity">-<span id="sGCM15" class="statNumber">-</span></p>
+                <p id="statGCM16" class="statPortion singularity">-<span id="sGCM16" class="statNumber">-</span></p>
+                <p id="statGCM17" class="statPortion singularity">-<span id="sGCM17" class="statNumber">-</span></p>
+                <p id="statGCM18" class="statPortion singularity">-<span id="sGCM18" class="statNumber">-</span></p>
+                <p id="statGCM19" class="statPortion singularity">-<span id="sGCM19" class="statNumber">-</span></p>
+                <p id="statGCM20" class="statPortion singularity">-<span id="sGCM20" class="statNumber">-</span></p>
+                <p id="statGCM21" class="statPortion singularity">-<span id="sGCM21" class="statNumber">-</span></p>
+                <p id="statGCM22" class="statPortion singularity">-<span id="sGCM22" class="statNumber">-</span></p>
+                <p id="statGCM23" class="statPortion singularity">-<span id="sGCM23" class="statNumber">-</span></p>
+                <p id="statGCM24" class="statPortion singularity">-<span id="sGCM24" class="statNumber">-</span></p>
+                <p id="statGCM25" class="statPortion singularity">-<span id="sGCM25" class="statNumber">-</span></p>
+                <p id="statGCM26" class="statPortion singularity">-<span id="sGCM26" class="statNumber">-</span></p>
+                <p id="statGCM27" class="statPortion singularity">-<span id="sGCM27" class="statNumber">-</span></p>
+                <p id="statGCM28" class="statPortion singularity">-<span id="sGCM28" class="statNumber">-</span></p>
+                <p id="statGCM29" class="statPortion singularity">-<span id="sGCM29" class="statNumber">-</span></p>
+                <p id="statGCM30" class="statPortion singularity">-<span id="sGCM30" class="statNumber">-</span></p>
+                <p id="statGCM31" class="statPortion singularity">-<span id="sGCM31" class="statNumber">-</span></p>
+                <p id="statGCM32" class="statPortion singularity">-<span id="sGCM32" class="statNumber">-</span></p>
+                <p id="statGCM33" class="statPortion singularity">-<span id="sGCM33" class="statNumber">-</span></p>
+                <p id="statGCM34" class="statPortion singularity">-<span id="sGCM34" class="statNumber">-</span></p>
                 <p id="statGCMT" class="statPortion statTotal" style="color: orange">TOTAL GLOBAL CUBE MULTIPLIER: <span
                     id="sGCMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -3298,7 +3362,7 @@
                 <p id="cubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Cube Multipliers</p>
                 <p id="statCM1" class="statPortion">Ascend Time Multi:<span id="sCM1" class="statNumber">0</span></p>
                 <p id="statCM2" class="statPortion">Season pass:<span id="sCM2" class="statNumber">0</span></p>
-                <p id="statCM3" class="statPortion ">Research 5x19:<span id="sCM3" class="statNumber">0</span></p>
+                <p id="statCM3" class="statPortion">Research 5x19:<span id="sCM3" class="statNumber">0</span></p>
                 <p id="statCM4" class="statPortion">Research 5x20:<span id="sCM4" class="statNumber">0</span></p>
                 <p id="statCM5" class="statPortion">Cube upgrade 1x1:<span id="sCM5" class="statNumber">0</span></p>
                 <p id="statCM6" class="statPortion">Cube upgrade 2x1: <span id="sCM6" class="statNumber">0</span></p>
