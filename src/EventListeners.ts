@@ -866,7 +866,7 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('exportgame').addEventListener('click', () => exportSynergism())
   DOMCacheGetOrSet('saveStringInput').addEventListener('blur', (e) => updateSaveString(e.target as HTMLInputElement))
   DOMCacheGetOrSet('savegame').addEventListener('click', () => saveSynergy(true))
-  DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
+  DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame(false))
   DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => reloadDeleteGame())
   DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
   DOMCacheGetOrSet('addCodeBox').addEventListener('mouseover', () => promocodesInfo('add'))
