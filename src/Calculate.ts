@@ -3271,9 +3271,9 @@ export const calculateEXALTBonusMult = () => {
 }
 
 export const calculateDilatedFiveLeafBonus = () => {
-  const singThresholds = [100, 200, 250, 260, 266]
+  const singThresholds = [100, 150, 200, 225, 250, 255, 260, 265, 269, 272]
   for (let i = 0; i < singThresholds.length; i++) {
-    if (player.highestSingularityCount <= singThresholds[i]) return i / 100
+    if (player.highestSingularityCount < singThresholds[i]) return i / 100
   }
 
   return singThresholds.length / 100

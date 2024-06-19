@@ -2119,7 +2119,7 @@ export const singularityPerks: SingularityPerk[] = [
     name: () => {
       return i18next.t('singularity.perkNames.dilatedFiveLeaf')
     },
-    levels: [100, 200, 250, 260, 266],
+    levels: [100, 150, 200, 225, 250, 265, 260, 265, 269, 272],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
         if (n >= levels[i]) {
