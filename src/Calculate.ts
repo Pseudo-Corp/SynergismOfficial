@@ -3348,7 +3348,7 @@ export const calculateBlueberryInventory = () => {
 
 export const calculateAmbrosiaGenerationSpeed = () => {
   const arr = [
-    +player.visitedAmbrosiaSubtab,
+    +(player.visitedAmbrosiaSubtab),
     calculateBlueberryInventory().value,
     calculateAmbrosiaGenerationShopUpgrade(),
     calculateAmbrosiaGenerationSingularityUpgrade(),

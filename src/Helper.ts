@@ -201,6 +201,10 @@ export const addTimers = (input: TimerInput, time = 0) => {
 
       let timeToAmbrosia = calculateRequiredBlueberryTime()
 
+      const maxAccelMultiplier = (1/2) + (3/5 - 1/2) * +(player.singularityChallenges.noAmbrosiaUpgrades.completions >= 15) 
+                                  + (2/3 - 3/5) * +(player.singularityChallenges.noAmbrosiaUpgrades.completions >= 19)
+                                  + (3/4 - 2/3) * +(player.singularityChallenges.noAmbrosiaUpgrades.completions >= 20)
+
       while (player.blueberryTime >= timeToAmbrosia) {
         const RNG = Math.random()
         const ambrosiaMult = Math.floor(ambrosiaLuck / 100)
@@ -212,7 +216,10 @@ export const addTimers = (input: TimerInput, time = 0) => {
         player.lifetimeAmbrosia += ambrosiaToGain
         player.blueberryTime -= timeToAmbrosia
 
-        G.ambrosiaTimer += ambrosiaToGain * 0.2 * player.shopUpgrades.shopAmbrosiaAccelerator
+        timeToAmbrosia = calculateRequiredBlueberryTime()
+        const secondsToNextAmbrosia = timeToAmbrosia / G.ambrosiaCurrStats.ambrosiaGenerationSpeed
+
+        G.ambrosiaTimer += Math.min(secondsToNextAmbrosia * maxAccelMultiplier, ambrosiaToGain * 0.2 * player.shopUpgrades.shopAmbrosiaAccelerator)
         timeToAmbrosia = calculateRequiredBlueberryTime()
       }
 
