@@ -11,6 +11,7 @@ import { quarkHandler } from './Quark'
 import { reset } from './Reset'
 import { calculateSingularityDebuff } from './singularity'
 import { getFastForwardTotalMultiplier } from './singularity'
+import { cacheReinitialize } from './StatCache'
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
 import { clearInterval, setInterval } from './Timers'
@@ -571,6 +572,7 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= 1 + player.researches[81] / 10
   G.obtainiumGain *= 1 + player.shopUpgrades.obtainiumAuto / 50
   G.obtainiumGain *= 1 + player.shopUpgrades.cashGrab / 100
+  G.obtainiumGain *= 1 + (1 / 25) * player.shopUpgrades.obtainiumEX
   G.obtainiumGain *= 1
     + (G.rune5level / 200)
       * G.effectiveLevelMult
@@ -623,7 +625,6 @@ export const calculateObtainium = () => {
     G.obtainiumGain += 2 * player.researches[64]
   }
   G.obtainiumGain *= Math.min(1, Math.pow(player.reincarnationcounter / 10, 2))
-  G.obtainiumGain *= 1 + (1 / 25) * player.shopUpgrades.obtainiumEX
   if (player.reincarnationCount >= 5) {
     G.obtainiumGain *= Math.max(1, player.reincarnationcounter / 10)
   }
@@ -1398,6 +1399,8 @@ export const calculateOffline = async (forceTime = 0) => {
     quarks: quarkHandler().gain // Calculate this after the fact
   }
 
+  cacheReinitialize()
+
   addTimers('ascension', timeAdd)
   addTimers('quarks', timeAdd)
   addTimers('goldenQuarks', timeAdd)
@@ -1777,7 +1780,7 @@ export const calculateAllCubeMultiplier = () => {
     // Cash Grab Ultra
     +calculateCashGrabCubeBonus(),
     // EX Ultra
-    +calculateEXUltraCubeBonus(),
+    +calculateEXUltraCubeBonus()
     // Total Global Cube Multipliers: 33
   ]
 
@@ -2117,7 +2120,7 @@ export const getOcteractValueMultipliers = () => {
     // Cash Grab ULTRA
     +calculateCashGrabCubeBonus(),
     // EX ULTRA
-    +calculateEXUltraCubeBonus(),
+    +calculateEXUltraCubeBonus()
   ]
 }
 
@@ -3225,7 +3228,7 @@ export const calculateAmbrosiaQuarkMult = () => {
 }
 
 export const calculateCashGrabBonus = (extra: number) => {
-  return 1 + player.shopUpgrades.shopCashGrabUltra * extra * Math.min(1, Math.pow(player.lifetimeAmbrosia / 1e7, 1/3))
+  return 1 + player.shopUpgrades.shopCashGrabUltra * extra * Math.min(1, Math.pow(player.lifetimeAmbrosia / 1e7, 1 / 3))
 }
 
 export const calculateCashGrabBlueberryBonus = () => {
@@ -3257,13 +3260,14 @@ export const calculateEXUltraCubeBonus = () => {
 }
 
 export const calculateEXALTBonusMult = () => {
-  if (!player.singularityChallenges.limitedAscensions.rewards.exaltBonus)
+  if (!player.singularityChallenges.limitedAscensions.rewards.exaltBonus) {
     return 1
+  }
 
   if (G.currentSingChallenge !== undefined) {
     return Math.pow(1.04, player.singularityChallenges[G.currentSingChallenge].completions)
   }
-    return 1
+  return 1
 }
 
 export const calculateDilatedFiveLeafBonus = () => {
@@ -3273,6 +3277,93 @@ export const calculateDilatedFiveLeafBonus = () => {
   }
 
   return singThresholds.length / 100
+}
+
+/**
+ * Computs Additive Luck Multiplier for Ambrosia Luck. Base = 1.00
+ * @returns Additive Luck Multiplier and array of modifiers
+ */
+export const calculateAdditiveLuckMult = () => {
+  const arr = [
+    1,
+    +player.singularityChallenges.noSingularityUpgrades.rewards.luckBonus, // No Singularity Upgrade 1x30
+    calculateDilatedFiveLeafBonus(), // Dilated Five Leaf Clover Perk
+    player.shopUpgrades.shopAmbrosiaLuckMultiplier4 / 100, // EXALT-unlocked shop upgrade
+    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.luckBonus, // No Ambrosia Challenge Reward
+    G.isEvent ? calculateEventBuff(BuffType.AmbrosiaLuck) : 0 // Event
+  ]
+
+  return {
+    value: sumContents(arr),
+    array: arr
+  }
+}
+
+/**
+ * Computs Ambrosia Luck. Base = 100
+ * @returns Ambrosia Luck * Additive Luck Multiplier, and array of modifiers (last entry is multiplier)
+ */
+export const calculateAmbrosiaLuck = () => {
+  const arr = [
+    100, // Base
+    calculateSingularityAmbrosiaLuckMilestoneBonus(), // Ambrosia Luck Milestones
+    calculateAmbrosiaLuckShopUpgrade(), // Ambrosia Luck from Shop Upgrades (I-IV)
+    calculateAmbrosiaLuckSingularityUpgrade(), // Ambrosia Luck from Singularity Upgrades (I-IV)
+    calculateAmbrosiaLuckOcteractUpgrade(), // Ambrosia Luck from Octeract Upgrades (I-IV)
+    +player.blueberryUpgrades.ambrosiaLuck1.bonus.ambrosiaLuck, // Ambrosia Luck from Luck Module I
+    +player.blueberryUpgrades.ambrosiaLuck2.bonus.ambrosiaLuck, // Ambrosia Luck from Luck Module II
+    +player.blueberryUpgrades.ambrosiaCubeLuck1.bonus.ambrosiaLuck, // Ambrosia Luck from Cube-Luck Synergy Module
+    +player.blueberryUpgrades.ambrosiaQuarkLuck1.bonus.ambrosiaLuck, // Ambrosia Luck from Quark-Luck Synergy Module
+    player.highestSingularityCount >= 131 ? 131 : 0, // Singularity Perk "One Hundred Thirty One!"
+    player.highestSingularityCount >= 269 ? 269 : 0, // Singularity Perk "Two Hundred Sixty Nine!"
+    player.shopUpgrades.shopOcteractAmbrosiaLuck * (1 + Math.floor(Math.log10(player.totalWowOcteracts + 1))), // Octeract -> Ambrosia Shop Upgrade
+    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.additiveLuck // No Ambrosia Challenge Reward
+  ]
+
+  const multiplicativeLuck = calculateAdditiveLuckMult().value
+
+  return {
+    value: sumContents(arr) * multiplicativeLuck,
+    array: arr.concat(multiplicativeLuck)
+  }
+}
+
+/**
+ * Calculates the total number of Blueberries unlocked
+ * @returns Blueberry Count, and array of modifiers
+ */
+export const calculateBlueberryInventory = () => {
+  const arr = [
+    +(player.singularityChallenges.noSingularityUpgrades.completions > 0), // E1x1 Clear!
+    +player.singularityUpgrades.blueberries.getEffect().bonus, // Singularity Blueberry Upgrade
+    calculateSingularityMilestoneBlueberries(), // Singularity Milestones (Congealed Blueberries)
+    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberries // No Ambrosia Challenge Reward
+  ]
+
+  return {
+    value: sumContents(arr),
+    array: arr
+  }
+}
+
+export const calculateAmbrosiaGenerationSpeed = () => {
+  const arr = [
+    +player.visitedAmbrosiaSubtab,
+    calculateBlueberryInventory().value,
+    calculateAmbrosiaGenerationShopUpgrade(),
+    calculateAmbrosiaGenerationSingularityUpgrade(),
+    calculateAmbrosiaGenerationOcteractUpgrade(),
+    +player.blueberryUpgrades.ambrosiaPatreon.bonus.blueberryGeneration,
+    +player.singularityChallenges.oneChallengeCap.rewards.blueberrySpeedMult,
+    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberrySpeedMult,
+    G.isEvent ? 1 + calculateEventBuff(BuffType.BlueberryTime) : 1,
+    calculateCashGrabBlueberryBonus()
+  ]
+
+  return {
+    value: productContents(arr),
+    array: arr
+  }
 }
 
 export const dailyResetCheck = () => {

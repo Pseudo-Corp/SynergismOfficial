@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateAdditiveLuckMult, calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calculate'
 import { format, getTimePinnedToLoadDate, player } from './Synergism'
 import { Alert, revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables'
@@ -184,8 +185,9 @@ export const eventCheck = async () => {
 
   if (G.isEvent !== updateIsEventCheck) {
     revealStuff()
-    player.caches.ambrosiaGeneration.updateVal('Event')
-    player.caches.ambrosiaLuckAdditiveMult.updateVal('Event')
+    G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value
+    G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+    G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
   }
 }
 

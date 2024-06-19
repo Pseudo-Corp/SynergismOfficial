@@ -10,11 +10,14 @@
     "eventemitter3": "^4.0.7",
     "i18next": "^22.4.9",
     "localforage": "^1.10.0",
+    "lodash.clonedeepwith": "^4.5.0",
     "lz-string": "^1.4.4",
-    "worker-timers": "^7.0.53"
+    "worker-timers": "^7.0.53",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.4.1",
+    "@types/lodash.clonedeepwith": "^4.5.9",
     "@types/lz-string": "^1.3.34",
     "deep-object-diff": "^1.1.9",
     "dprint": "^0.45.0",

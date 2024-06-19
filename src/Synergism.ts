@@ -1,5 +1,4 @@
 import '@ungap/custom-elements'
-import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
 import LZString from 'lz-string'
 
@@ -139,7 +138,6 @@ import i18next from 'i18next'
 import localforage from 'localforage'
 import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { checkVariablesOnLoad } from './CheckVariables'
 import { lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
@@ -161,6 +159,8 @@ import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { QuarkHandler } from './Quark'
+import { playerJsonSchema } from './saves/PlayerJsonSchema'
+import { playerSchema } from './saves/PlayerSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import {
@@ -614,7 +614,7 @@ export const player: Player = {
     shopAmbrosiaLuck4: 0,
     shopCashGrabUltra: 0,
     shopAmbrosiaAccelerator: 0,
-    shopEXUltra: 0,
+    shopEXUltra: 0
   },
   shopBuyMaxToggle: false,
   shopHideToggle: false,
@@ -1511,69 +1511,9 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
   player.loaded1009 = true
   player.loaded1009hotfix1 = true
 
-  // shallow hold, doesn't modify OG object nor is affected by modifications to OG
-  const p = Object.assign({}, player, {
-    codes: Array.from(player.codes),
-    worlds: Number(player.worlds),
-    wowCubes: Number(player.wowCubes),
-    wowTesseracts: Number(player.wowTesseracts),
-    wowHypercubes: Number(player.wowHypercubes),
-    wowPlatonicCubes: Number(player.wowPlatonicCubes),
-    singularityUpgrades: Object.fromEntries(
-      Object.entries(player.singularityUpgrades).map(([key, value]) => {
-        return [
-          key,
-          {
-            level: value.level,
-            goldenQuarksInvested: value.goldenQuarksInvested,
-            toggleBuy: value.toggleBuy,
-            freeLevels: value.freeLevels
-          }
-        ]
-      })
-    ),
-    octeractUpgrades: Object.fromEntries(
-      Object.entries(player.octeractUpgrades).map(([key, value]) => {
-        return [
-          key,
-          {
-            level: value.level,
-            octeractsInvested: value.octeractsInvested,
-            toggleBuy: value.toggleBuy,
-            freeLevels: value.freeLevels
-          }
-        ]
-      })
-    ),
-    singularityChallenges: Object.fromEntries(
-      Object.entries(player.singularityChallenges).map(([key, value]) => {
-        return [
-          key,
-          {
-            completions: value.completions,
-            highestSingularityCompleted: value.highestSingularityCompleted,
-            enabled: value.enabled
-          }
-        ]
-      })
-    ),
-    blueberryUpgrades: Object.fromEntries(
-      Object.entries(player.blueberryUpgrades).map(([key, value]) => {
-        return [
-          key,
-          {
-            level: value.level,
-            ambrosiaInvested: value.ambrosiaInvested,
-            blueberriesInvested: value.blueberriesInvested,
-            toggleBuy: value.toggleBuy,
-            freeLevels: value.freeLevels
-          }
-        ]
-      })
-    )
-  })
-
+  const p = playerJsonSchema.parse(player)
   const save = btoa(JSON.stringify(p))
+
   if (save !== null) {
     const saveBlob = new Blob([save], { type: 'text/plain' })
 
@@ -1597,33 +1537,6 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
 
   return true
 }
-
-/**
- * Map of properties on the Player object to adapt
- */
-const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
-  [
-    'worlds',
-    (data) =>
-      new QuarkHandler({
-        quarks: Number(data.worlds) || 0,
-        bonus: player.worlds.BONUS
-      })
-  ],
-  ['wowCubes', (data) => new WowCubes(Number(data.wowCubes) || 0)],
-  [
-    'wowTesseracts',
-    (data) => new WowTesseracts(Number(data.wowTesseracts) || 0)
-  ],
-  [
-    'wowHypercubes',
-    (data) => new WowHypercubes(Number(data.wowHypercubes) || 0)
-  ],
-  [
-    'wowPlatonicCubes',
-    (data) => new WowPlatonicCubes(Number(data.wowPlatonicCubes) || 0)
-  ]
-])
 
 const loadSynergy = async () => {
   const save = (await localforage.getItem<Blob>('Synergysave2'))
@@ -1654,11 +1567,6 @@ const loadSynergy = async () => {
       return Alert(i18next.t('testing.saveInLive2'))
     }
 
-    const oldCodesUsed = Array.from(
-      { length: 24 }, // old codes only went up to 24
-      (_, i) => `offerpromo${i + 1}used`
-    )
-
     // size before loading
     const size = player.codes.size
 
@@ -1671,38 +1579,16 @@ const loadSynergy = async () => {
       })
     }
 
-    Object.keys(data).forEach((stringProp) => {
-      const prop = stringProp as keyof Player
-      if (!(prop in player)) {
-        return
-      } else if (toAdapt.has(prop)) {
-        return ((player[prop] as unknown) = toAdapt.get(prop)!(data))
-      } else if (isDecimal(player[prop])) {
-        return ((player[prop] as Decimal) = new Decimal(
-          data[prop] as DecimalSource
-        ))
-      } else if (prop === 'codes') {
-        const codes = data[prop]
-        if (codes != null) {
-          return (player.codes = new Map(codes))
-        }
-      } else if (oldCodesUsed.includes(prop)) {
-        return
-      } else if (Array.isArray(data[prop])) {
-        const arr = data[prop] as unknown[]
-        // in old savefiles, some arrays may be 1-based instead of 0-based (newer)
-        // so if the lengths of the savefile key is greater than that of the player obj
-        // it means a key was removed; likely a 1-based index where array[0] was null
-        // so we can get rid of it entirely.
-        if ((player[prop] as unknown[]).length < arr.length) {
-          return ((player[prop] as unknown[]) = arr.slice(
-            arr.length - (player[prop] as unknown[]).length
-          ))
-        }
-      }
+    const validatedPlayer = playerSchema.safeParse(data)
 
-      return ((player[prop] as unknown) = data[prop])
-    })
+    if (validatedPlayer.success) {
+      Object.assign(player, validatedPlayer.data)
+    } else {
+      console.log(validatedPlayer.error)
+      console.log(data)
+      clearTimers()
+      return
+    }
 
     player.lastExportedSave = data.lastExportedSave ?? 0
 
@@ -2048,7 +1934,8 @@ const loadSynergy = async () => {
       player.firstOwnedAnts = 0
     }
 
-    checkVariablesOnLoad(data)
+    // checkVariablesOnLoad(data)
+
     if (data.ascensionCount === undefined || player.ascensionCount === 0) {
       player.ascensionCount = 0
       if (player.ascensionCounter === 0 && player.prestigeCount > 0) {

@@ -1,8 +1,12 @@
 import {
+  calculateAdditiveLuckMult,
   calculateAmbrosiaGenerationOcteractUpgrade,
   calculateAmbrosiaGenerationSingularityUpgrade,
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
   calculateAmbrosiaLuckOcteractUpgrade,
   calculateAmbrosiaLuckSingularityUpgrade,
+  calculateBlueberryInventory,
   calculateCashGrabBlueberryBonus,
   calculateDilatedFiveLeafBonus,
   calculateEventBuff,
@@ -168,18 +172,22 @@ type AmbrosiaLuckAdditiveMult =
   | 'Event'
 
 export class AmbrosiaLuckAdditiveMultCache extends AdditionCache<AmbrosiaLuckAdditiveMult> {
-  vals: Record<AmbrosiaLuckAdditiveMult, number>
-  public totalVal: number
+  vals!: Record<AmbrosiaLuckAdditiveMult, number>
+  totalVal!: number
 
   constructor () {
     super()
+    this.reset()
+  }
+
+  reset () {
     this.vals = {
       Base: 1,
       Exalt1: 0,
       SingularityPerk: 0,
       ShopUpgrades: 0,
       Exalt5: 0,
-      Event: 0,
+      Event: 0
     }
     this.totalVal = 1
   }
@@ -221,12 +229,16 @@ export class AmbrosiaLuckAdditiveMultCache extends AdditionCache<AmbrosiaLuckAdd
 }
 
 export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
-  vals: Record<AmbrosialLuck, number>
-  public totalVal: number
-  public usedTotal: number
+  vals!: Record<AmbrosialLuck, number>
+  totalVal!: number
+  usedTotal!: number
 
   constructor () {
     super()
+    this.reset()
+  }
+
+  reset () {
     this.vals = {
       Base: 100,
       SingPerks: 0,
@@ -240,7 +252,7 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       OneHundredThirtyOne: 0,
       TwoHundredSixtyNine: 0,
       ShopOcteractAmbrosiaLuck: 0,
-      Exalt5: 0,
+      Exalt5: 0
     }
     this.totalVal = 0
     this.usedTotal = 0
@@ -312,11 +324,15 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
 }
 
 export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGeneration> {
-  vals: Record<AmbrosiaGeneration, number>
-  public totalVal: number
+  vals!: Record<AmbrosiaGeneration, number>
+  totalVal!: number
 
   constructor () {
     super()
+    this.reset()
+  }
+
+  reset () {
     this.vals = {
       DefaultVal: 1,
       Blueberries: 1,
@@ -384,16 +400,20 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
 }
 
 export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
-  vals: Record<BlueberryInventory, number>
-  public totalVal: number
+  vals!: Record<BlueberryInventory, number>
+  totalVal!: number
 
   constructor () {
     super()
+    this.reset()
+  }
+
+  reset () {
     this.vals = {
       Exalt1: 0,
       SingularityUpgrade: 0,
       SingularityPerk: 0,
-      Exalt5: 0,
+      Exalt5: 0
     }
     this.totalVal = 0
   }
@@ -426,9 +446,20 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
 }
 
 export const cacheReinitialize = () => {
-  // TODO: Create a hierarchy of cache dependencies (ambrosia generation depends on blueberry inventory)
-  player.caches.ambrosiaLuckAdditiveMult.initialize()
+  // TODO: REMOVE THIS FUCKING SHIT ASS CODE
+  // WHY THE FUCK ARE WE CACHING MATH OPERATIONS???
+  /*player.caches.ambrosiaLuckAdditiveMult.initialize()
   player.caches.blueberryInventory.initialize()
   player.caches.ambrosiaGeneration.initialize()
-  player.caches.ambrosiaLuck.initialize()
+  player.caches.ambrosiaLuck.initialize() */
+
+  // As of 6/13/2024, caches are no longer used. Instead calculations are done directly and the end value is stored in a Global variable
+  // which is not stored in the save.
+
+  Globals.ambrosiaCurrStats = {
+    ambrosiaAdditiveLuckMult: calculateAdditiveLuckMult().value,
+    ambrosiaLuck: calculateAmbrosiaLuck().value,
+    ambrosiaBlueberries: calculateBlueberryInventory().value,
+    ambrosiaGenerationSpeed: calculateAmbrosiaGenerationSpeed().value
+  }
 }

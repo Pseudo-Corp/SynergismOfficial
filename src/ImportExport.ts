@@ -9,6 +9,7 @@ import { testing, version } from './Config'
 import { Synergism } from './Events'
 import { addTimers } from './Helper'
 import { quarkHandler } from './Quark'
+import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { shopData } from './Shop'
 import { singularityData } from './singularity'
 import { synergismStage } from './Statistics'
@@ -277,23 +278,24 @@ export const exportSynergism = async (
 
 export const reloadDeleteGame = async () => {
   await Alert(i18next.t('importexport.reloadDeletePrompt'))
-  await resetGame()
+  await resetGame(true)
 }
 
-export const resetGame = async () => {
-  const a = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
-  const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
+export const resetGame = async (force = true) => {
+  if (!force) {
+    const a = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
+    const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
 
-  const result = await Prompt(
-    i18next.t('importexport.resetPrompt', { a, b, sum: a + b })
-  )
-  if (result === null || Number(result) !== a + b) {
-    return Alert(i18next.t('importexport.wrongAnswer'))
+    const result = await Prompt(
+      i18next.t('importexport.resetPrompt', { a, b, sum: a + b })
+    )
+    if (result === null || Number(result) !== a + b) {
+      return Alert(i18next.t('importexport.wrongAnswer'))
+    }
   }
 
-  const hold = Object.assign({}, blankSave, {
-    codes: Array.from(blankSave.codes)
-  }) as Player
+  const hold = playerJsonSchema.safeParse(blankSave)
+
   // Reset Displays
   changeTab(Tabs.Buildings)
   changeSubTab(Tabs.Buildings, { page: 0 })
@@ -304,7 +306,7 @@ export const resetGame = async () => {
   changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
   changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
   // Import Game
-  await importSynergism(btoa(JSON.stringify(hold)), true)
+  await importSynergism(btoa(JSON.stringify(hold.data)), true)
 }
 
 export const importData = async (

@@ -1048,7 +1048,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
       shopAmbrosiaLuck4: 0,
       shopCashGrabUltra: 0,
       shopAmbrosiaAccelerator: 0,
-      shopEXUltra: 0,
+      shopEXUltra: 0
     }
 
     player.worlds.add(
@@ -1438,7 +1438,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
         if (enabled) {
           Globals.currentSingChallenge = singularityChallengeData[k].HTMLTag
         }
-        
+
         player.singularityChallenges[k] = new SingularityChallenge(
           updatedData,
           k.toString()
@@ -1675,7 +1675,7 @@ export const checkVariablesOnLoad = (data: PlayerSave) => {
     player.ultimateProgress = 0
   }
 
-  if (player.shopUpgrades.shopAmbrosiaAccelerator === undefined) { 
+  if (player.shopUpgrades.shopAmbrosiaAccelerator === undefined) {
     player.shopUpgrades.shopCashGrabUltra = 0
     player.shopUpgrades.shopAmbrosiaAccelerator = 0
     player.shopUpgrades.shopEXUltra = 0
