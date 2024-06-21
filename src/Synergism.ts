@@ -136,7 +136,7 @@ import {
 
 import i18next from 'i18next'
 import localforage from 'localforage'
-import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
+import { BlueberryUpgrade, blueberryUpgradeData, updateLoadoutHoverClasses } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
@@ -1589,6 +1589,8 @@ const loadSynergy = async () => {
       clearTimers()
       return
     }
+
+    updateLoadoutHoverClasses()
 
     player.lastExportedSave = data.lastExportedSave ?? 0
 
