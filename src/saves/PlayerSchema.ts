@@ -29,9 +29,9 @@ const arrayStartingWithNull = (s: ZodType) =>
       message: 'All elements after the first must be numbers'
     })
 
-const arrayExtend = (array: number[], k: keyof Player) => {
+const arrayExtend = <K extends keyof Player, Value extends Player[K]>(array: Value, k: K) => {
   if (array.length < blankSave[k].length) {
-    array.push(...Array(blankSave[k].length - array.length).fill(0))
+    array.push(...blankSave[k].slice(array.length))
   }
   return array
 }
@@ -304,7 +304,7 @@ export const playerSchema = z.object({
   maxobtainiumpersecond: z.number().default(() => blankSave.maxobtainiumpersecond),
   maxobtainium: z.number().default(() => blankSave.maxobtainium),
 
-  researches: z.number().array(),
+  researches: z.number().array().transform((array) => arrayExtend(array, 'researches')),
 
   unlocks: z.record(z.string(), z.boolean()),
   achievements: z.number().array().transform((array) => arrayExtend(array, 'achievements')),
@@ -448,7 +448,7 @@ export const playerSchema = z.object({
   ascensionCounterReal: z.number().default(() => blankSave.ascensionCounterReal),
   ascensionCounterRealReal: z.number().default(() => blankSave.ascensionCounterRealReal),
   cubeUpgrades: arrayStartingWithNull(z.number())
-    .transform((array) => arrayExtend(array, 'cubeUpgrades'))
+    .transform((array) => arrayExtend(array as [null, ...number[]], 'cubeUpgrades'))
     .default(() => [...blankSave.cubeUpgrades]),
   cubeUpgradesBuyMaxToggle: z.boolean().default(() => blankSave.cubeUpgradesBuyMaxToggle),
   autoCubeUpgradesToggle: z.boolean().default(() => blankSave.autoCubeUpgradesToggle),
@@ -623,11 +623,7 @@ export const playerSchema = z.object({
         })
       )
     )
-    .default(() => {
-      const v = JSON.parse(JSON.stringify(blankSave.singularityUpgrades))
-      console.log('DEFAULT SING UPGRADES', v)
-      return v
-    }),
+    .default(() => JSON.parse(JSON.stringify(blankSave.singularityUpgrades))),
   octeractUpgrades: z.record(z.string(), singularityUpgradeSchema('octeractsInvested'))
     .transform((upgrades) =>
       Object.fromEntries(
