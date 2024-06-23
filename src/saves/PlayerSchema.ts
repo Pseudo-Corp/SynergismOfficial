@@ -20,14 +20,7 @@ const decimalSchema = z.custom<Decimal>((value) => {
   }
 }).transform((decimalSource) => new Decimal(decimalSource))
 
-const arrayStartingWithNull = (s: ZodType) =>
-  z.array(z.union([z.null(), s]))
-    .refine((arr) => arr.length > 0 && arr[0] === null, {
-      message: 'First element must be null'
-    })
-    .refine((arr) => arr.slice(1).every((element) => typeof element === 'number'), {
-      message: 'All elements after the first must be numbers'
-    })
+const arrayStartingWithNull = (s: ZodType) => z.tuple([z.null()]).rest(s)
 
 const arrayExtend = <K extends keyof Player, Value extends Player[K]>(array: Value, k: K) => {
   if (array.length < blankSave[k].length) {
@@ -449,7 +442,7 @@ export const playerSchema = z.object({
   ascensionCounterRealReal: z.number().default(() => blankSave.ascensionCounterRealReal),
   cubeUpgrades: arrayStartingWithNull(z.number())
     .transform((array) => arrayExtend(array as [null, ...number[]], 'cubeUpgrades'))
-    .default(() => [...blankSave.cubeUpgrades]),
+    .default((): [null, ...number[]] => [...blankSave.cubeUpgrades]),
   cubeUpgradesBuyMaxToggle: z.boolean().default(() => blankSave.cubeUpgradesBuyMaxToggle),
   autoCubeUpgradesToggle: z.boolean().default(() => blankSave.autoCubeUpgradesToggle),
   autoPlatonicUpgradesToggle: z.boolean().default(() => blankSave.autoPlatonicUpgradesToggle),
@@ -521,7 +514,10 @@ export const playerSchema = z.object({
   ),
   corruptionShowStats: z.boolean().default(() => blankSave.corruptionShowStats),
 
-  constantUpgrades: arrayStartingWithNull(z.number()).default(() => [...blankSave.constantUpgrades]),
+  constantUpgrades: arrayStartingWithNull(z.number()).default((): [
+    null,
+    ...number[]
+  ] => [...blankSave.constantUpgrades]),
   // TODO: real types
   history: z.object({
     ants: z.any().array(),
