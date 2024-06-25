@@ -154,12 +154,21 @@ export async function handleLogin () {
     // User is not logged in
     subtabElement.innerHTML = `
       <img id="discord-logo" alt="Discord Logo" src="Pictures/discord-mark-blue.png" loading="lazy" />
-      <button value="Login" style="border: 2px solid #5865F2; height: 20px; width: 250px;">Login with Discord</button>
+      <button value="discord" style="border: 2px solid #5865F2; height: 20px; width: 250px;">Login with Discord</button>
+
+      <img id="patreon-logo" alt="Discord Logo" src="Pictures/PATREON_SYMBOL_1_BLACK_RGB.png" loading="lazy" />
+      <button value="patreon" style="border: 2px solid #ff5900; height: 20px; width: 250px;">Login with Patreon</button>
     `
 
-    subtabElement.querySelector('button[value="Login"]')?.addEventListener('click', () => {
+    subtabElement.querySelector('button[value="discord"]')?.addEventListener('click', () => {
       location.assign(
         'https://discord.com/oauth2/authorize?response_type=code&client_id=1124509674536972329&scope=guilds+guilds.members.read+identify&redirect_uri=https%3A%2F%2Fsynergism.cc%2Fdiscord%2Foauth%2F&prompt=consent'
+      )
+    })
+
+    subtabElement.querySelector('button[value="patreon"]')?.addEventListener('click', () => {
+      location.assign(
+        'https://www.patreon.com/oauth2/authorize?response_type=code&client_id=mARrL2U1X5TUvl6YoFbfIEmsouJ0eCuETeEbkG1-Wmm5eNko6gzWgOUCuyejpTpA&redirect_uri=https%3A%2F%2Fsynergism.cc%2Fpatreon%2Foauth%2F&scope=identity'
       )
     })
   }

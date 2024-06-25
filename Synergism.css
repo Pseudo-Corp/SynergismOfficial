@@ -3866,7 +3866,7 @@ img#singularityPerksIcon {
     padding-top: 10px;
 }
 
-#accountSubTab > div.scrollbarX > img#discord-logo {
+#accountSubTab > div.scrollbarX > img {
     /* A 1.3 width x height ratio */
     width: 96px;
     height: 72px;
