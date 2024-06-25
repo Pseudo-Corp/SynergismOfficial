@@ -619,14 +619,19 @@ export const promocodes = async (input: string | null, amount?: number) => {
           : (freeLevels.goldenQuarks3 = 1)
       }
 
-      if (player.highestSingularityCount >= 200) {
-        player.octeractUpgrades.octeractGain.freeLevels += player.octeractUpgrades.octeractGain.level / 100
-        freeLevels.octeractGain = player.octeractUpgrades.octeractGain.level / 100
+      if (player.highestSingularityCount >= 200 && player.highestSingularityCount < 205) {
+        const freeLevelOct1 = Math.max(player.octeractUpgrades.octeractGain.level / 100, Math.pow(player.octeractUpgrades.octeractGain.level * player.octeractUpgrades.octeractGain.freeLevels / 100, 0.5))
+        player.octeractUpgrades.octeractGain.freeLevels += freeLevelOct1
+        freeLevels.octeractGain = freeLevelOct1
       }
+      else if (player.highestSingularityCount >= 205) {
+        const freeLevelOct1 = Math.max(player.octeractUpgrades.octeractGain.level / 100, Math.pow(player.octeractUpgrades.octeractGain.level * player.octeractUpgrades.octeractGain.freeLevels / 50, 0.5))
+        const freeLevelOct2 = Math.max(player.octeractUpgrades.octeractGain2.level / 100, Math.pow(player.octeractUpgrades.octeractGain2.level * player.octeractUpgrades.octeractGain2.freeLevels / 125, 0.5))
 
-      if (player.highestSingularityCount >= 205) {
-        player.octeractUpgrades.octeractGain2.freeLevels += player.octeractUpgrades.octeractGain2.level / 100
-        freeLevels.octeractGain2 = player.octeractUpgrades.octeractGain2.level / 100
+        player.octeractUpgrades.octeractGain.freeLevels += freeLevelOct1
+        player.octeractUpgrades.octeractGain2.freeLevels += freeLevelOct2
+        freeLevels.octeractGain = freeLevelOct1
+        freeLevels.octeractGain2 = freeLevelOct2
       }
 
       for (const key of Object.keys(freeLevels)) {
@@ -1132,7 +1137,7 @@ const dailyCodeFormatFreeLevelMessage = (
   const upgradeNiceName = upgradeKey in singularityData
     ? i18next.t(`singularity.data.${upgradeKey}.name`)
     : i18next.t(`octeract.data.${upgradeKey}.name`)
-  return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`
+  return `\n+${format(freeLevelAmount, 0, true)} extra levels of '${upgradeNiceName}'`
 }
 
 const dailyCodeReward = () => {
