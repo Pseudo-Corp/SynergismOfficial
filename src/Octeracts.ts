@@ -158,7 +158,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
   }
 
   public computeFreeLevelSoftcap (): number {
-    return Math.min(this.level, this.freeLevels) + Math.sqrt(Math.max(0, this.freeLevels - this.level))
+    return this.freeLevels
   }
 
   public actualTotalLevels (): number {
