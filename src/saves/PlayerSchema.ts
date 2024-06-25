@@ -20,18 +20,11 @@ const decimalSchema = z.custom<Decimal>((value) => {
   }
 }).transform((decimalSource) => new Decimal(decimalSource))
 
-const arrayStartingWithNull = (s: ZodType) =>
-  z.array(z.union([z.null(), s]))
-    .refine((arr) => arr.length > 0 && arr[0] === null, {
-      message: 'First element must be null'
-    })
-    .refine((arr) => arr.slice(1).every((element) => typeof element === 'number'), {
-      message: 'All elements after the first must be numbers'
-    })
+const arrayStartingWithNull = (s: ZodType) => z.tuple([z.null()]).rest(s)
 
-const arrayExtend = (array: number[], k: keyof Player) => {
+const arrayExtend = <K extends keyof Player, Value extends Player[K]>(array: Value, k: K) => {
   if (array.length < blankSave[k].length) {
-    array.push(...Array(blankSave[k].length - array.length).fill(0))
+    array.push(...blankSave[k].slice(array.length))
   }
   return array
 }
@@ -64,17 +57,18 @@ const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
 const decimalStringSchema = z.string().regex(/^|-?\d+(\.\d{1,2})?$/)
 const integerStringSchema = z.string().regex(/^\d+$/)
 
-const hepteractCraftSchema = z.object({
-  AUTO: z.boolean(),
-  BAL: z.number(),
-  BASE_CAP: z.number(),
-  CAP: z.number(),
-  DISCOUNT: z.number(),
-  HEPTERACT_CONVERSION: z.number(),
-  HTML_STRING: z.string(),
-  OTHER_CONVERSIONS: z.record(z.string(), z.number()),
-  UNLOCKED: z.boolean()
-})
+const hepteractCraftSchema = (k: keyof Player['hepteractCrafts']) =>
+  z.object({
+    AUTO: z.boolean().default(() => blankSave.hepteractCrafts[k].AUTO),
+    BAL: z.number().default(() => blankSave.hepteractCrafts[k].BAL),
+    BASE_CAP: z.number(),
+    CAP: z.number().default(() => blankSave.hepteractCrafts[k].CAP),
+    DISCOUNT: z.number().default(() => blankSave.hepteractCrafts[k].DISCOUNT),
+    HEPTERACT_CONVERSION: z.number(),
+    HTML_STRING: z.string().default(() => blankSave.hepteractCrafts[k].HTML_STRING),
+    OTHER_CONVERSIONS: z.record(z.string(), z.number()),
+    UNLOCKED: z.boolean().default(() => blankSave.hepteractCrafts[k].UNLOCKED)
+  })
 
 export const playerSchema = z.object({
   firstPlayed: z.string().datetime().optional().default(() => new Date().toISOString()),
@@ -304,7 +298,7 @@ export const playerSchema = z.object({
   maxobtainiumpersecond: z.number().default(() => blankSave.maxobtainiumpersecond),
   maxobtainium: z.number().default(() => blankSave.maxobtainium),
 
-  researches: z.number().array(),
+  researches: z.number().array().transform((array) => arrayExtend(array, 'researches')),
 
   unlocks: z.record(z.string(), z.boolean()),
   achievements: z.number().array().transform((array) => arrayExtend(array, 'achievements')),
@@ -448,8 +442,8 @@ export const playerSchema = z.object({
   ascensionCounterReal: z.number().default(() => blankSave.ascensionCounterReal),
   ascensionCounterRealReal: z.number().default(() => blankSave.ascensionCounterRealReal),
   cubeUpgrades: arrayStartingWithNull(z.number())
-    .transform((array) => arrayExtend(array, 'cubeUpgrades'))
-    .default(() => [...blankSave.cubeUpgrades]),
+    .transform((array) => arrayExtend(array as [null, ...number[]], 'cubeUpgrades'))
+    .default((): [null, ...number[]] => [...blankSave.cubeUpgrades]),
   cubeUpgradesBuyMaxToggle: z.boolean().default(() => blankSave.cubeUpgradesBuyMaxToggle),
   autoCubeUpgradesToggle: z.boolean().default(() => blankSave.autoCubeUpgradesToggle),
   autoPlatonicUpgradesToggle: z.boolean().default(() => blankSave.autoPlatonicUpgradesToggle),
@@ -474,14 +468,14 @@ export const playerSchema = z.object({
   platonicBlessings: z.record(z.string(), z.number()).default(() => ({ ...blankSave.platonicBlessings })),
 
   hepteractCrafts: z.object({
-    chronos: hepteractCraftSchema,
-    hyperrealism: hepteractCraftSchema,
-    quark: hepteractCraftSchema,
-    challenge: hepteractCraftSchema,
-    abyss: hepteractCraftSchema,
-    accelerator: hepteractCraftSchema,
-    acceleratorBoost: hepteractCraftSchema,
-    multiplier: hepteractCraftSchema
+    chronos: hepteractCraftSchema('chronos'),
+    hyperrealism: hepteractCraftSchema('hyperrealism'),
+    quark: hepteractCraftSchema('quark'),
+    challenge: hepteractCraftSchema('challenge'),
+    abyss: hepteractCraftSchema('abyss'),
+    accelerator: hepteractCraftSchema('accelerator'),
+    acceleratorBoost: hepteractCraftSchema('acceleratorBoost'),
+    multiplier: hepteractCraftSchema('multiplier')
   }).transform((crafts) => {
     return Object.fromEntries(
       Object.entries(blankSave.hepteractCrafts).map(([key, value]) => {
@@ -521,7 +515,10 @@ export const playerSchema = z.object({
   ),
   corruptionShowStats: z.boolean().default(() => blankSave.corruptionShowStats),
 
-  constantUpgrades: arrayStartingWithNull(z.number()).default(() => [...blankSave.constantUpgrades]),
+  constantUpgrades: arrayStartingWithNull(z.number()).default((): [
+    null,
+    ...number[]
+  ] => [...blankSave.constantUpgrades]),
   // TODO: real types
   history: z.object({
     ants: z.any().array(),
@@ -623,11 +620,7 @@ export const playerSchema = z.object({
         })
       )
     )
-    .default(() => {
-      const v = JSON.parse(JSON.stringify(blankSave.singularityUpgrades))
-      console.log('DEFAULT SING UPGRADES', v)
-      return v
-    }),
+    .default(() => JSON.parse(JSON.stringify(blankSave.singularityUpgrades))),
   octeractUpgrades: z.record(z.string(), singularityUpgradeSchema('octeractsInvested'))
     .transform((upgrades) =>
       Object.fromEntries(
