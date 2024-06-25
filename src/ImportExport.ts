@@ -626,7 +626,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       }
       else if (player.highestSingularityCount >= 205) {
         const freeLevelOct1 = Math.max(player.octeractUpgrades.octeractGain.level / 100, Math.pow(player.octeractUpgrades.octeractGain.level * player.octeractUpgrades.octeractGain.freeLevels / 50, 0.5))
-        const freeLevelOct2 = Math.max(player.octeractUpgrades.octeractGain2.level / 100, Math.pow(player.octeractUpgrades.octeractGain2.level * player.octeractUpgrades.octeractGain2.freeLevels / 125, 0.5))
+        const freeLevelOct2 = Math.max(player.octeractUpgrades.octeractGain2.level / 100, Math.pow(Math.pow(player.octeractUpgrades.octeractGain2.level, 2) * player.octeractUpgrades.octeractGain2.freeLevels / 125, 0.333))
 
         player.octeractUpgrades.octeractGain.freeLevels += freeLevelOct1
         player.octeractUpgrades.octeractGain2.freeLevels += freeLevelOct2
