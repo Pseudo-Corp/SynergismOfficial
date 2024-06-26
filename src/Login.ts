@@ -206,7 +206,7 @@ function parseDocumentCookie () {
     if (!item.includes('=')) return obj
 
     const split = item.split('=')
-    obj[split[0]] = split[1]
+    obj[split[0].trim()] = split[1].trim()
     return obj
   }, {} as Record<string, string>)
 }
