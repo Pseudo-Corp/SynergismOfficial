@@ -79,7 +79,7 @@ export async function handleLogin () {
   if (location.hostname !== 'synergism.cc') {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
-  } else if (Object.keys(parseDocumentCookie()).length === 0) {
+  } else if (parseDocumentCookie().id) {
     if (!member) {
       console.log(response, globalBonus, member, personalBonus, document.cookie)
     }
