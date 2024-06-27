@@ -79,7 +79,7 @@ export async function handleLogin () {
   if (location.hostname !== 'synergism.cc') {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
-  } else if (document.cookie.length) {
+  } else if (parseDocumentCookie().id) {
     if (!member) {
       console.log(response, globalBonus, member, personalBonus, document.cookie)
     }
@@ -199,4 +199,14 @@ async function saveToCloud () {
     await Alert(`Received an error: ${await response.text()}`)
     return
   }
+}
+
+function parseDocumentCookie () {
+  return document.cookie.split(';').reduce((obj, item) => {
+    if (!item.includes('=')) return obj
+
+    const split = item.split('=')
+    obj[split[0].trim()] = split[1].trim()
+    return obj
+  }, {} as Record<string, string>)
 }
