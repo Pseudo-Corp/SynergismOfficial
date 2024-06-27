@@ -179,7 +179,7 @@ export async function handleLogin () {
       <img id="discord-logo" alt="Discord Logo" src="Pictures/discord-mark-blue.png" loading="lazy" />
       <button value="discord" style="border: 2px solid #5865F2; height: 20px; width: 250px;">Login with Discord</button>
 
-      <img id="patreon-logo" alt="Discord Logo" src="Pictures/PATREON_SYMBOL_1_BLACK_RGB.png" loading="lazy" />
+      <img id="patreon-logo" alt="Discord Logo" src="Pictures/patreon-logo.png" loading="lazy" />
       <button value="patreon" style="border: 2px solid #ff5900; height: 20px; width: 250px;">Login with Patreon</button>
     `
 
