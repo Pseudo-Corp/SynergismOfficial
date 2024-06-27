@@ -166,8 +166,13 @@ export class OcteractUpgrade extends DynamicUpgrade {
       return 0
     }
     const actualFreeLevels = this.computeFreeLevelSoftcap()
-    const decayLevel = Math.min(actualFreeLevels + this.level, 2 * Math.sqrt(actualFreeLevels * this.level))
-    return decayLevel // There is currently no 'improvement' to oct free upgrades.
+
+    if (this.level >= actualFreeLevels) {
+      return actualFreeLevels + this.level
+    }
+    else {
+      return 2 * Math.sqrt(actualFreeLevels * this.level)
+    }
   }
 
   public getEffect (): { bonus: number | boolean; desc: string } {
