@@ -1645,8 +1645,8 @@
       "midasMilleniumAgedGold": "Every use of code `add` gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3.",
       "goldenRevolution4": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!",
       "octeractMetagenesis": {
-        "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 50)^0.5, (level^2 * free/125)^0.333 respectively ",
-        "default": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 100)^0.5"
+        "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 640)^0.5, (level^2 * free/125000)^0.333 respectively ",
+        "default": "Gives free levels of Octeract Cogenesis based on your current free levels and purchased levels: (level * free / 1000)^0.5"
       },
       "immaculateAlchemy": {
         "hasLevel2": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 8.",
