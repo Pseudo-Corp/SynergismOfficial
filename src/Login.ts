@@ -198,12 +198,7 @@ export async function handleLogin () {
 }
 
 async function logout () {
-  if ('cookieStore' in window) {
-    await (window.cookieStore as { delete: (id: string) => Promise<void> }).delete('id')
-  } else {
-    document.cookie = 'id=; Max-Age=0'
-  }
-
+  await fetch('https://synergism.cc/api/v1/users/logout')
   await Alert(i18next.t('account.logout'))
 
   location.reload()
