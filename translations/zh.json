@@ -1543,7 +1543,7 @@
       "researchDummies": {
         "name": "傻瓜式研究教学",
         "hasLevel1": "您可以保留更好的自动研究，即方盒升级[1x9]",
-        "otherwise": "您可以使用鼠标停留购买升级研究"
+        "default": "您可以使用鼠标停留购买升级研究"
       },
       "antGodsCornucopia": {
         "name": "蚁神的聚宝盆",
