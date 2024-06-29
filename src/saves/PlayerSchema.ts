@@ -4,6 +4,7 @@ import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { createHepteract } from '../Hepteracts'
 import { octeractData, OcteractUpgrade } from '../Octeracts'
+import { pixelData, PixelUpgrade } from '../PixelUpgrades'
 import { QuarkHandler } from '../Quark'
 import { singularityData, SingularityUpgrade } from '../singularity'
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
@@ -730,6 +731,30 @@ export const playerSchema = z.object({
 
   ultimateProgress: z.number().default(() => blankSave.ultimateProgress),
   ultimatePixels: z.number().default(() => blankSave.ultimatePixels),
+
+  pixelUpgrades: z.record(z.string(), singularityUpgradeSchema('pixelsInvested'))
+    .transform((upgrades) =>
+      Object.fromEntries(
+        Object.keys(blankSave.pixelUpgrades).map((k) => {
+          const { level, pixelsInvested, toggleBuy, freeLevels } = upgrades[k] ?? blankSave.pixelUpgrades[k]
+
+          return [
+            k,
+            new PixelUpgrade({
+              maxLevel: pixelData[k].maxLevel,
+              costPerLevel: pixelData[k].costPerLevel,
+              level: level as number,
+              pixelsInvested,
+              toggleBuy: toggleBuy as number,
+              rewards: pixelData[k].rewards,
+              freeLevels: freeLevels as number,
+              cacheUpdates: pixelData[k].cacheUpdates,
+              IconSrc: pixelData[k].IconSrc
+            }, k)
+          ]
+        })
+      )
+    ),
 
   // TODO: what type?
   caches: z.record(z.string(), z.any())

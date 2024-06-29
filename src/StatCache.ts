@@ -170,7 +170,14 @@ type AmbrosiaGeneration =
   | 'CashGrabUltra'
   | 'Exalt5'
 
-type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade' | 'SingularityPerk' | 'Exalt5' | 'PixelUpgrade1' | 'PixelUpgrade2' | 'PixelUpgrade3'
+type BlueberryInventory =
+  | 'Exalt1'
+  | 'SingularityUpgrade'
+  | 'SingularityPerk'
+  | 'Exalt5'
+  | 'PixelUpgrade1'
+  | 'PixelUpgrade2'
+  | 'PixelUpgrade3'
 
 type AmbrosiaLuckAdditiveMult =
   | 'Base'
@@ -181,7 +188,7 @@ type AmbrosiaLuckAdditiveMult =
   | 'ShopUpgrades'
   | 'Exalt5'
   | 'Event'
-  
+
 type UltimatePixelGeneration =
   | 'Base'
   | 'BarLevel'
@@ -499,7 +506,7 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
       PixelUpgrade1: 0,
       PixelUpgrade2: 0,
       PixelUpgrade3: 0,
-      Exalt5: 0,
+      Exalt5: 0
     }
     this.totalVal = 0
   }
@@ -544,14 +551,16 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
   }
 }
 
-
-
 export class UltimatePixelGenerationCache extends MultiplicationCache<UltimatePixelGeneration> {
-  vals: Record<UltimatePixelGeneration, number>
-  public totalVal: number
+  vals!: Record<UltimatePixelGeneration, number>
+  public totalVal!: number
 
   constructor () {
     super()
+    this.reset()
+  }
+
+  reset () {
     this.vals = {
       Base: 1,
       BarLevel: 1
@@ -559,20 +568,21 @@ export class UltimatePixelGenerationCache extends MultiplicationCache<UltimatePi
     this.totalVal = 1
   }
 
-  updateVal(key: UltimatePixelGeneration, init = false): void {
+  updateVal (key: UltimatePixelGeneration, init = false): void {
     const oldVal = this.vals[key]
     switch (key) {
       case 'Base': {
-        if (!player.singularityChallenges.limitedAscensions.rewards.ultimateProgressBarUnlock)
+        if (!player.singularityChallenges.limitedAscensions.rewards.ultimateProgressBarUnlock) {
           this.vals[key] = 0
-        else {
+        } else {
           const ambrosiaGen = player.caches.ambrosiaGeneration.totalVal
           const addedBase = +player.pixelUpgrades.pixelPixelGeneration.bonus.pixelGenerationAdd
           const addedBase2 = +player.pixelUpgrades.pixelPixelGeneration2.bonus.pixelGenerationAdd
           const addedBase3 = +player.pixelUpgrades.pixelPixelGeneration3.bonus.pixelGenerationAdd
-          this.vals[key] = (Math.max(1, Math.min(ambrosiaGen, Math.pow(1000000 * ambrosiaGen, 1/3))) + addedBase + addedBase2 + addedBase3)
+          this.vals[key] = Math.max(1, Math.min(ambrosiaGen, Math.pow(1000000 * ambrosiaGen, 1 / 3))) + addedBase
+            + addedBase2 + addedBase3
         }
-        break 
+        break
       }
       case 'BarLevel': {
         this.vals[key] = calculatePixelBarLevelBonuses().PixelProgressMult
@@ -585,12 +595,16 @@ export class UltimatePixelGenerationCache extends MultiplicationCache<UltimatePi
 }
 
 export class UltimatePixelLuckCache extends AdditionCache<UltimatePixelLuck> {
-  vals: Record<UltimatePixelLuck, number>
-  public totalVal: number
-  public usedTotal: number
+  vals!: Record<UltimatePixelLuck, number>
+  public totalVal!: number
+  public usedTotal!: number
 
   constructor () {
     super()
+    this.reset()
+  }
+
+  reset () {
     this.vals = {
       Base: 100,
       BarLevel: 0,
@@ -600,13 +614,13 @@ export class UltimatePixelLuckCache extends AdditionCache<UltimatePixelLuck> {
       OcteractPixelLuck1: 0,
       OcteractPixelLuck2: 0,
       BlueberryPixelLuck1: 0,
-      BlueberryPixelLuck2: 0,
+      BlueberryPixelLuck2: 0
     }
     this.totalVal = 100
     this.usedTotal = 100
   }
 
-  updateVal(key: UltimatePixelLuck, init = false): void {
+  updateVal (key: UltimatePixelLuck, init = false): void {
     const oldVal = this.vals[key]
     switch (key) {
       case 'Base': {
@@ -655,11 +669,15 @@ export class UltimatePixelLuckCache extends AdditionCache<UltimatePixelLuck> {
 }
 
 export class UltimatePixelLuckAdditiveMultCache extends AdditionCache<UltimatePixelLuckAdditiveMult> {
-  vals: Record<UltimatePixelLuckAdditiveMult, number>
-  public totalVal: number
+  vals!: Record<UltimatePixelLuckAdditiveMult, number>
+  public totalVal!: number
 
   constructor () {
     super()
+    this.reset()
+  }
+
+  reset () {
     this.vals = {
       Base: 1,
       BarLevel: 0,
@@ -669,7 +687,7 @@ export class UltimatePixelLuckAdditiveMultCache extends AdditionCache<UltimatePi
     this.totalVal = 1
   }
 
-  updateVal(key: UltimatePixelLuckAdditiveMult, init = false): void {
+  updateVal (key: UltimatePixelLuckAdditiveMult, init = false): void {
     const oldVal = this.vals[key]
     switch (key) {
       case 'Base': {

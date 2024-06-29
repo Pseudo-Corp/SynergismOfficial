@@ -157,6 +157,7 @@ import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
+import { pixelData, PixelUpgrade } from './PixelUpgrades'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { QuarkHandler } from './Quark'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
@@ -177,7 +178,6 @@ import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 import type { PlayerSave } from './types/LegacySynergism'
-import { pixelData, PixelUpgrade } from './PixelUpgrades'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -1224,7 +1224,7 @@ export const player: Player = {
     singPixelLuck2: new SingularityUpgrade(
       singularityData.singPixelLuck2,
       'singPixelLuck2'
-    ),
+    )
   },
 
   octeractUpgrades: {
@@ -1383,7 +1383,7 @@ export const player: Player = {
     octeractPixelLuck2: new OcteractUpgrade(
       octeractData.octeractPixelLuck2,
       'octeractPixelLuck2'
-    ),
+    )
   },
 
   dailyCodeUsed: false,
@@ -1542,8 +1542,14 @@ export const player: Player = {
     pixelBlueberry3: new PixelUpgrade(pixelData.pixelBlueberry3, 'pixelBlueberry3'),
     pixelRoleBonus: new PixelUpgrade(pixelData.pixelRoleBonus, 'pixelRoleBonus'),
     pixelFreeUpgradeImprovement: new PixelUpgrade(pixelData.pixelFreeUpgradeImprovement, 'pixelFreeUpgradeImprovement'),
-    pixelFreeUpgradeImprovement2: new PixelUpgrade(pixelData.pixelFreeUpgradeImprovement2, 'pixelFreeUpgradeImprovement2'),
-    pixelFreeUpgradeImprovement3: new PixelUpgrade(pixelData.pixelFreeUpgradeImprovement3, 'pixelFreeUpgradeImprovement3'),
+    pixelFreeUpgradeImprovement2: new PixelUpgrade(
+      pixelData.pixelFreeUpgradeImprovement2,
+      'pixelFreeUpgradeImprovement2'
+    ),
+    pixelFreeUpgradeImprovement3: new PixelUpgrade(
+      pixelData.pixelFreeUpgradeImprovement3,
+      'pixelFreeUpgradeImprovement3'
+    )
   },
 
   caches: {

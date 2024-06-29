@@ -255,7 +255,6 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   updateUpgradeHTML (): void {
     DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = this.toString()
     visualUpdateAmbrosia()
-    visualUpdateProgressPixels()
   }
 
   checkPrerequisites (): boolean {
@@ -770,7 +769,7 @@ export const blueberryUpgradeData: Record<
       }
     },
     prerequisites: {
-      ambrosiaTutorial: 10,
+      ambrosiaTutorial: 10
     },
     cacheUpdates: [
       () => player.caches.ultimatePixelLuck.updateVal('BlueberryPixelLuck1')
@@ -808,7 +807,7 @@ export const blueberryUpgradeData: Record<
       return (baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2)))
     },
     rewards: (n: number) => {
-      const ambrosiaLuckMult = +(n>0) + (+(n>1) * (n-1)/20)
+      const ambrosiaLuckMult = +(n > 0) + (+(n > 1) * (n - 1) / 20)
       return {
         ambrosiaLuckMult: ambrosiaLuckMult,
         desc: String(i18next.t('ambrosia.data.ambrosiaLuckDilator.effect', {

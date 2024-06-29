@@ -1,12 +1,12 @@
-import i18next from "i18next"
-import { DynamicUpgrade, type IUpgradeData } from "./DynamicUpgrade"
-import { format, player } from "./Synergism"
-import { Alert, Prompt } from "./UpdateHTML"
-import { visualUpdateProgressPixels } from "./UpdateVisuals"
-import { DOMCacheGetOrSet } from "./Cache/DOM"
-import type { Player } from "./types/Synergism"
-import { IconSets } from "./Themes"
-import { calculatePixelBarLevelBonuses } from "./Calculate"
+import i18next from 'i18next'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculatePixelBarLevelBonuses } from './Calculate'
+import { DynamicUpgrade, type IUpgradeData } from './DynamicUpgrade'
+import { format, player } from './Synergism'
+import { IconSets } from './Themes'
+import type { Player } from './types/Synergism'
+import { Alert, Prompt } from './UpdateHTML'
+import { visualUpdateProgressPixels } from './UpdateVisuals'
 
 export type pixelUpgradeNames =
   | 'pixelTutorial'
@@ -34,7 +34,7 @@ export class PixelUpgrade extends DynamicUpgrade {
   readonly rewards: (n: number) => Record<string, number | boolean | string>
   public IconSrc
 
-  constructor(data: IPixelData, key: string) {
+  constructor (data: IPixelData, key: string) {
     const name = i18next.t(`ultimatePixels.data.${key}.name`)
     const description = i18next.t(`ultimatePixels.data.${key}.description`)
 
@@ -47,11 +47,11 @@ export class PixelUpgrade extends DynamicUpgrade {
     this.IconSrc = data.IconSrc
   }
 
-  getCostTNL(): number {
+  getCostTNL (): number {
     if (this.level >= this.maxLevel) {
-        return 0
+      return 0
     } else {
-        return this.costPerLevel
+      return this.costPerLevel
     }
   }
 
@@ -124,7 +124,7 @@ export class PixelUpgrade extends DynamicUpgrade {
   }
 
   // We do not need this method!
-  toString(): string {
+  toString (): string {
     return ''
   }
 
@@ -142,17 +142,24 @@ export class PixelUpgrade extends DynamicUpgrade {
     return this.rewards(effectiveLevel)
   }
 
-  updateUpgradeHTML(): void {
-      DOMCacheGetOrSet('pixelUpgradeName').textContent = this.name
-      DOMCacheGetOrSet('pixelUpgradeDescription').innerHTML = this.description
-      DOMCacheGetOrSet('pixelUpgradeCost').innerHTML = i18next.t('ultimatePixels.cost', {pixels: format(this.getCostTNL(), 0, true)})
+  updateUpgradeHTML (): void {
+    DOMCacheGetOrSet('pixelUpgradeName').textContent = this.name
+    DOMCacheGetOrSet('pixelUpgradeDescription').innerHTML = this.description
+    DOMCacheGetOrSet('pixelUpgradeCost').innerHTML = i18next.t('ultimatePixels.cost', {
+      pixels: format(this.getCostTNL(), 0, true)
+    })
 
-      const levelColor = (this.level === this.maxLevel) ? 'orchid' : 'white' 
+    const levelColor = (this.level === this.maxLevel) ? 'orchid' : 'white'
 
-      DOMCacheGetOrSet('pixelUpgradeLevel').innerHTML = `<span style="color: ${levelColor}">${i18next.t('main.levelText', {level: this.level, maxLevel: this.maxLevel})}</span>`
-      DOMCacheGetOrSet('pixelUpgradeEffect').innerHTML = this.rewardDesc
+    DOMCacheGetOrSet('pixelUpgradeLevel').innerHTML = `<span style="color: ${levelColor}">${
+      i18next.t('main.levelText', { level: this.level, maxLevel: this.maxLevel })
+    }</span>`
+    DOMCacheGetOrSet('pixelUpgradeEffect').innerHTML = this.rewardDesc
 
-      DOMCacheGetOrSet('pixelUpgradeImage').setAttribute('src', `Pictures/${IconSets[player.iconSet][0]}/${this.IconSrc}.png`)
+    DOMCacheGetOrSet('pixelUpgradeImage').setAttribute(
+      'src',
+      `Pictures/${IconSets[player.iconSet][0]}/${this.IconSrc}.png`
+    )
   }
 
   refund (): void {
@@ -163,477 +170,566 @@ export class PixelUpgrade extends DynamicUpgrade {
 }
 
 export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
-    pixelTutorial: {
-        maxLevel: 10,
-        costPerLevel: 1,
-        rewards: (n: number) => {
-            const cubeAmount = 1 + 0.05 * n
-            const quarkAmount = 1 + 0.01 * n
-            return {
-                cubes: cubeAmount,
-                quarks: quarkAmount,
-                get desc () {
-                    return i18next.t('ultimatePixels.data.pixelTutorial.effect', { 
-                        cubeAmount: format(100 * (cubeAmount - 1), 0, true),
-                        quarkAmount: format(100 * (quarkAmount - 1), 0, true)
-                     })
-                }
-            }
-        },
-        IconSrc: 'PixelTutorial'
+  pixelTutorial: {
+    maxLevel: 10,
+    costPerLevel: 1,
+    rewards: (n: number) => {
+      const cubeAmount = 1 + 0.05 * n
+      const quarkAmount = 1 + 0.01 * n
+      return {
+        cubes: cubeAmount,
+        quarks: quarkAmount,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelTutorial.effect', {
+            cubeAmount: format(100 * (cubeAmount - 1), 0, true),
+            quarkAmount: format(100 * (quarkAmount - 1), 0, true)
+          })
+        }
+      }
     },
-    pixelPixelLuck: {
-        maxLevel: 10,
-        costPerLevel: 10,
-        rewards: (n: number) => {
-            return {
-                pixelLuck: n,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelPixelLuck.effect', {
-                        pixelLuck: n
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.ultimatePixelLuck.updateVal('PixelUpgrade1')
-        ],
-        IconSrc: 'PixelPixelLuck'
+    IconSrc: 'PixelTutorial'
+  },
+  pixelPixelLuck: {
+    maxLevel: 10,
+    costPerLevel: 10,
+    rewards: (n: number) => {
+      return {
+        pixelLuck: n,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelPixelLuck.effect', {
+            pixelLuck: n
+          })
+        }
+      }
     },
-    pixelAmbrosiaGeneration: {
-        maxLevel: 100,
-        costPerLevel: 1,
-        rewards: (n: number) => {
-            const genMult = 1 + n/200
-            return {
-                ambrosiaGeneration: genMult,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelAmbrosiaGeneration.effect', {
-                        ambrosiaGeneration: format(100 * (genMult - 1), 2, true)
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.ambrosiaGeneration.updateVal('PixelUpgrade1')
-        ],
-        IconSrc: 'PixelAmbrosiaGeneration'
+    cacheUpdates: [
+      () => player.caches.ultimatePixelLuck.updateVal('PixelUpgrade1')
+    ],
+    IconSrc: 'PixelPixelLuck'
+  },
+  pixelAmbrosiaGeneration: {
+    maxLevel: 100,
+    costPerLevel: 1,
+    rewards: (n: number) => {
+      const genMult = 1 + n / 200
+      return {
+        ambrosiaGeneration: genMult,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelAmbrosiaGeneration.effect', {
+            ambrosiaGeneration: format(100 * (genMult - 1), 2, true)
+          })
+        }
+      }
     },
-    pixelAmbrosiaGeneration2: {
-        maxLevel: 100,
-        costPerLevel: 10,
-        rewards: (n: number) => {
-            const genMult = 1 + n/250
-            return {
-                ambrosiaGeneration: genMult,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelAmbrosiaGeneration2.effect', {
-                        ambrosiaGeneration: format(100 * (genMult - 1), 2, true)
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.ambrosiaGeneration.updateVal('PixelUpgrade2')
-        ],
-        IconSrc: 'PixelAmbrosiaGeneration2'
+    cacheUpdates: [
+      () => player.caches.ambrosiaGeneration.updateVal('PixelUpgrade1')
+    ],
+    IconSrc: 'PixelAmbrosiaGeneration'
+  },
+  pixelAmbrosiaGeneration2: {
+    maxLevel: 100,
+    costPerLevel: 10,
+    rewards: (n: number) => {
+      const genMult = 1 + n / 250
+      return {
+        ambrosiaGeneration: genMult,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelAmbrosiaGeneration2.effect', {
+            ambrosiaGeneration: format(100 * (genMult - 1), 2, true)
+          })
+        }
+      }
     },
-    pixelAmbrosiaGeneration3: {
-        maxLevel: 100,
-        costPerLevel: 200,
-        rewards: (n: number) => {
-            const genMult = 1 + 3*n/1000
-            return {
-                ambrosiaGeneration: genMult,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelAmbrosiaGeneration3.effect', {
-                        ambrosiaGeneration: format(100 * (genMult - 1), 2, true)
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.ambrosiaGeneration.updateVal('PixelUpgrade3')
-        ],
-        IconSrc: 'PixelAmbrosiaGeneration3'
+    cacheUpdates: [
+      () => player.caches.ambrosiaGeneration.updateVal('PixelUpgrade2')
+    ],
+    IconSrc: 'PixelAmbrosiaGeneration2'
+  },
+  pixelAmbrosiaGeneration3: {
+    maxLevel: 100,
+    costPerLevel: 200,
+    rewards: (n: number) => {
+      const genMult = 1 + 3 * n / 1000
+      return {
+        ambrosiaGeneration: genMult,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelAmbrosiaGeneration3.effect', {
+            ambrosiaGeneration: format(100 * (genMult - 1), 2, true)
+          })
+        }
+      }
     },
-    pixelAmbrosiaLuck: {
-        maxLevel: 100,
-        costPerLevel: 1,
-        rewards: (n: number) => {
-            return {
-                ambrosiaLuck: 3 * n,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelAmbrosiaLuck.effect', {
-                        ambrosiaLuck: 3 * n
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.ambrosiaLuck.updateVal('PixelUpgrade1')
-        ],
-        IconSrc: 'PixelAmbrosiaLuck'
+    cacheUpdates: [
+      () => player.caches.ambrosiaGeneration.updateVal('PixelUpgrade3')
+    ],
+    IconSrc: 'PixelAmbrosiaGeneration3'
+  },
+  pixelAmbrosiaLuck: {
+    maxLevel: 100,
+    costPerLevel: 1,
+    rewards: (n: number) => {
+      return {
+        ambrosiaLuck: 3 * n,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelAmbrosiaLuck.effect', {
+            ambrosiaLuck: 3 * n
+          })
+        }
+      }
     },
-    pixelAmbrosiaLuck2: {
-        maxLevel: 100,
-        costPerLevel: 10,
-        rewards: (n: number) => {
-            return {
-                ambrosiaLuck: 4 * n,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelAmbrosiaLuck2.effect', {
-                        ambrosiaLuck: 4 * n
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.ambrosiaLuck.updateVal('PixelUpgrade2')
-        ],
-        IconSrc: 'PixelAmbrosiaLuck2'
+    cacheUpdates: [
+      () => player.caches.ambrosiaLuck.updateVal('PixelUpgrade1')
+    ],
+    IconSrc: 'PixelAmbrosiaLuck'
+  },
+  pixelAmbrosiaLuck2: {
+    maxLevel: 100,
+    costPerLevel: 10,
+    rewards: (n: number) => {
+      return {
+        ambrosiaLuck: 4 * n,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelAmbrosiaLuck2.effect', {
+            ambrosiaLuck: 4 * n
+          })
+        }
+      }
     },
-    pixelAmbrosiaLuck3: {
-        maxLevel: 100,
-        costPerLevel: 200,
-        rewards: (n: number) => {
-            return {
-                ambrosiaLuck: 5 * n,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelAmbrosiaLuck3.effect', {
-                        ambrosiaLuck: 5 * n
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.ambrosiaLuck.updateVal('PixelUpgrade3')
-        ],
-        IconSrc: 'PixelAmbrosiaLuck3'
+    cacheUpdates: [
+      () => player.caches.ambrosiaLuck.updateVal('PixelUpgrade2')
+    ],
+    IconSrc: 'PixelAmbrosiaLuck2'
+  },
+  pixelAmbrosiaLuck3: {
+    maxLevel: 100,
+    costPerLevel: 200,
+    rewards: (n: number) => {
+      return {
+        ambrosiaLuck: 5 * n,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelAmbrosiaLuck3.effect', {
+            ambrosiaLuck: 5 * n
+          })
+        }
+      }
     },
-    pixelCubes: {
-        maxLevel: 100,
-        costPerLevel: 1,
-        rewards: (n: number) => {
-            const cubeMult = 1 + 3 * n / 200
-            return {
-                cubes: cubeMult,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelCubes.effect', {
-                        cubeAmount: format(100 * (cubeMult - 1), 2, true)
-                    })
-                }
-            }
-        },
-        IconSrc: 'PixelCubes'
+    cacheUpdates: [
+      () => player.caches.ambrosiaLuck.updateVal('PixelUpgrade3')
+    ],
+    IconSrc: 'PixelAmbrosiaLuck3'
+  },
+  pixelCubes: {
+    maxLevel: 100,
+    costPerLevel: 1,
+    rewards: (n: number) => {
+      const cubeMult = 1 + 3 * n / 200
+      return {
+        cubes: cubeMult,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelCubes.effect', {
+            cubeAmount: format(100 * (cubeMult - 1), 2, true)
+          })
+        }
+      }
     },
-    pixelQuarks: {
-        maxLevel: 100,
-        costPerLevel: 1,
-        rewards: (n: number) => {
-            const quarkMult = 1 + n / 500
-            return {
-                quarks: quarkMult,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelQuarks.effect', {
-                        quarkAmount: format(100 * (quarkMult - 1), 2, true)
-                    })
-                }
-            }
-        },
-        IconSrc: 'PixelQuarks'
+    IconSrc: 'PixelCubes'
+  },
+  pixelQuarks: {
+    maxLevel: 100,
+    costPerLevel: 1,
+    rewards: (n: number) => {
+      const quarkMult = 1 + n / 500
+      return {
+        quarks: quarkMult,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelQuarks.effect', {
+            quarkAmount: format(100 * (quarkMult - 1), 2, true)
+          })
+        }
+      }
     },
-    pixelObtainium: {
-        maxLevel: 100,
-        costPerLevel: 1,
-        rewards: (n: number) => {
-            const obtainiumMult = 1 + n/100
-            return {
-                obtainium: obtainiumMult,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelObtainium.effect', {
-                        obtainiumAmount: format(100 * (obtainiumMult - 1), 2, true)
-                    })
-                }
-            }
-        },
-        IconSrc: 'PixelObtainium'
+    IconSrc: 'PixelQuarks'
+  },
+  pixelObtainium: {
+    maxLevel: 100,
+    costPerLevel: 1,
+    rewards: (n: number) => {
+      const obtainiumMult = 1 + n / 100
+      return {
+        obtainium: obtainiumMult,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelObtainium.effect', {
+            obtainiumAmount: format(100 * (obtainiumMult - 1), 2, true)
+          })
+        }
+      }
     },
-    pixelOfferings: {
-        maxLevel: 100,
-        costPerLevel: 1,
-        rewards: (n: number) => {
-            const offeringMult = 1 + n/100
-            return {
-                offerings: offeringMult,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelOfferings.effect', {
-                        offeringAmount: format(100 * (offeringMult - 1), 2, true)
-                    })
-                }
-            }
-        },
-        IconSrc: 'PixelOfferings'
+    IconSrc: 'PixelObtainium'
+  },
+  pixelOfferings: {
+    maxLevel: 100,
+    costPerLevel: 1,
+    rewards: (n: number) => {
+      const offeringMult = 1 + n / 100
+      return {
+        offerings: offeringMult,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelOfferings.effect', {
+            offeringAmount: format(100 * (offeringMult - 1), 2, true)
+          })
+        }
+      }
     },
-    pixelPixelGeneration: {
-        maxLevel: 40,
-        costPerLevel: 1,
-        rewards: (n: number) => {
-            const addedGeneration = 5 * n
-            return {
-                pixelGenerationAdd: addedGeneration,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelPixelGeneration.effect', {
-                        pixelGeneration: format(addedGeneration, 0, true)
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.ultimatePixelGeneration.updateVal('Base')
-        ],
-        IconSrc: 'PixelPixelGeneration'
+    IconSrc: 'PixelOfferings'
+  },
+  pixelPixelGeneration: {
+    maxLevel: 40,
+    costPerLevel: 1,
+    rewards: (n: number) => {
+      const addedGeneration = 5 * n
+      return {
+        pixelGenerationAdd: addedGeneration,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelPixelGeneration.effect', {
+            pixelGeneration: format(addedGeneration, 0, true)
+          })
+        }
+      }
     },
-    pixelPixelGeneration2: {
-        maxLevel: 75,
-        costPerLevel: 10,
-        rewards: (n: number) => {
-            const addedGeneration = 8 * n
-            return {
-                pixelGenerationAdd: addedGeneration,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelPixelGeneration2.effect', {
-                        pixelGeneration: format(addedGeneration, 0, true)
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.ultimatePixelGeneration.updateVal('Base')
-        ],
-        IconSrc: 'PixelPixelGeneration2'
+    cacheUpdates: [
+      () => player.caches.ultimatePixelGeneration.updateVal('Base')
+    ],
+    IconSrc: 'PixelPixelGeneration'
+  },
+  pixelPixelGeneration2: {
+    maxLevel: 75,
+    costPerLevel: 10,
+    rewards: (n: number) => {
+      const addedGeneration = 8 * n
+      return {
+        pixelGenerationAdd: addedGeneration,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelPixelGeneration2.effect', {
+            pixelGeneration: format(addedGeneration, 0, true)
+          })
+        }
+      }
     },
-    pixelPixelGeneration3: {
-        maxLevel: 100,
-        costPerLevel: 200,
-        rewards: (n: number) => {
-            const addedGeneration = 12 * n
-            return {
-                pixelGenerationAdd: addedGeneration,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelPixelGeneration3.effect', {
-                        pixelGeneration: format(addedGeneration, 0, true)
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.ultimatePixelGeneration.updateVal('Base')
-        ],
-        IconSrc: 'PixelPixelGeneration3'
+    cacheUpdates: [
+      () => player.caches.ultimatePixelGeneration.updateVal('Base')
+    ],
+    IconSrc: 'PixelPixelGeneration2'
+  },
+  pixelPixelGeneration3: {
+    maxLevel: 100,
+    costPerLevel: 200,
+    rewards: (n: number) => {
+      const addedGeneration = 12 * n
+      return {
+        pixelGenerationAdd: addedGeneration,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelPixelGeneration3.effect', {
+            pixelGeneration: format(addedGeneration, 0, true)
+          })
+        }
+      }
     },
-    pixelBlueberry: {
-        maxLevel: 1,
-        costPerLevel: 50,
-        rewards: (n: number) => {
-            const blueberry = (n > 0)
-            return {
-                blueberry: blueberry,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelBlueberry.effect', {
-                        blueberry: (blueberry) ? '[✔]' : '[✖]'
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.blueberryInventory.updateVal('PixelUpgrade1')
-        ],
-        IconSrc: 'PixelBlueberry'
+    cacheUpdates: [
+      () => player.caches.ultimatePixelGeneration.updateVal('Base')
+    ],
+    IconSrc: 'PixelPixelGeneration3'
+  },
+  pixelBlueberry: {
+    maxLevel: 1,
+    costPerLevel: 50,
+    rewards: (n: number) => {
+      const blueberry = n > 0
+      return {
+        blueberry: blueberry,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelBlueberry.effect', {
+            blueberry: blueberry ? '[✔]' : '[✖]'
+          })
+        }
+      }
     },
-    pixelBlueberry2: {
-        maxLevel: 1,
-        costPerLevel: 500,
-        rewards: (n: number) => {
-            const blueberry = (n > 0)
-            return {
-                blueberry: blueberry,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelBlueberry2.effect', {
-                        blueberry: (blueberry) ? '[✔]' : '[✖]'
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.blueberryInventory.updateVal('PixelUpgrade2')
-        ],
-        IconSrc: 'PixelBlueberry2'
+    cacheUpdates: [
+      () => player.caches.blueberryInventory.updateVal('PixelUpgrade1')
+    ],
+    IconSrc: 'PixelBlueberry'
+  },
+  pixelBlueberry2: {
+    maxLevel: 1,
+    costPerLevel: 500,
+    rewards: (n: number) => {
+      const blueberry = n > 0
+      return {
+        blueberry: blueberry,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelBlueberry2.effect', {
+            blueberry: blueberry ? '[✔]' : '[✖]'
+          })
+        }
+      }
     },
-    pixelBlueberry3: {
-        maxLevel: 1,
-        costPerLevel: 5000,
-        rewards: (n: number) => {
-            const blueberry = (n > 0)
-            return {
-                blueberry: blueberry,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelBlueberry3.effect', {
-                        blueberry: (blueberry) ? '[✔]' : '[✖]'
-                    })
-                }
-            }
-        },
-        cacheUpdates: [
-            () => player.caches.blueberryInventory.updateVal('PixelUpgrade3')
-        ],
-        IconSrc: 'PixelBlueberry3'
+    cacheUpdates: [
+      () => player.caches.blueberryInventory.updateVal('PixelUpgrade2')
+    ],
+    IconSrc: 'PixelBlueberry2'
+  },
+  pixelBlueberry3: {
+    maxLevel: 1,
+    costPerLevel: 5000,
+    rewards: (n: number) => {
+      const blueberry = n > 0
+      return {
+        blueberry: blueberry,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelBlueberry3.effect', {
+            blueberry: blueberry ? '[✔]' : '[✖]'
+          })
+        }
+      }
     },
-    pixelRoleBonus: {
-        maxLevel: 1,
-        costPerLevel: 77777,
-        rewards: (n: number) => {
-            const purchased = (n > 0)
-            return {
-                purchased: purchased,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelRoleBonus.effect', {
-                        purchased: (purchased) ? '[✔]' : '[✖]'
-                    })
-                }
-            }
-        },
-        IconSrc: 'PixelRoleBonus'
+    cacheUpdates: [
+      () => player.caches.blueberryInventory.updateVal('PixelUpgrade3')
+    ],
+    IconSrc: 'PixelBlueberry3'
+  },
+  pixelRoleBonus: {
+    maxLevel: 1,
+    costPerLevel: 77777,
+    rewards: (n: number) => {
+      const purchased = n > 0
+      return {
+        purchased: purchased,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelRoleBonus.effect', {
+            purchased: purchased ? '[✔]' : '[✖]'
+          })
+        }
+      }
     },
-    pixelPixelLuckConverter: {
-        maxLevel: 1,
-        costPerLevel: 250,
-        rewards(n) {
-            const purchased = (n > 0)
-            const bonus = +(purchased) * Math.floor(player.caches.ambrosiaLuck.usedTotal / 1000)
-            return {
-                purchased: purchased,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelPixelLuckConverter.effect', {
-                        purchased: (purchased) ? '[✔]' : '[✖]',
-                        luck: bonus
-                    })
-                }
-            }
-        },
-        IconSrc: 'PixelPixelLuckConverter'
+    IconSrc: 'PixelRoleBonus'
+  },
+  pixelPixelLuckConverter: {
+    maxLevel: 1,
+    costPerLevel: 250,
+    rewards (n) {
+      const purchased = n > 0
+      const bonus = +purchased * Math.floor(player.caches.ambrosiaLuck.usedTotal / 1000)
+      return {
+        purchased: purchased,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelPixelLuckConverter.effect', {
+            purchased: purchased ? '[✔]' : '[✖]',
+            luck: bonus
+          })
+        }
+      }
     },
-    pixelPixelLuckConverter2: {
-        maxLevel: 1,
-        costPerLevel: 10000,
-        rewards(n) {
-            const purchased = (n > 0)
-            const bonus = +(purchased) * Math.floor(player.caches.ambrosiaLuck.usedTotal / 1000)
-            return {
-                purchased: purchased,
-                get desc() {
-                    return i18next.t('ultimatePixels.data.pixelPixelLuckConverter2.effect', {
-                        purchased: (purchased) ? '[✔]' : '[✖]',
-                        luck: bonus
-                    })
-                }
-            }
-        },
-        IconSrc: 'PixelPixelLuckConverter'
+    IconSrc: 'PixelPixelLuckConverter'
+  },
+  pixelPixelLuckConverter2: {
+    maxLevel: 1,
+    costPerLevel: 10000,
+    rewards (n) {
+      const purchased = n > 0
+      const bonus = +purchased * Math.floor(player.caches.ambrosiaLuck.usedTotal / 1000)
+      return {
+        purchased: purchased,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelPixelLuckConverter2.effect', {
+            purchased: purchased ? '[✔]' : '[✖]',
+            luck: bonus
+          })
+        }
+      }
     },
-    pixelFreeUpgradeImprovement: {
-        maxLevel: 10,
-        costPerLevel: 25,
-        rewards(n) {
-            const proportion = n/1000
-            return {
-                proportion: proportion,
-                get desc () {
-                    return i18next.t('ultimatePixels.data.pixelFreeUpgradeImprovement.effect', {
-                        proportion: format(100 * proportion, 1, true)
-                    })
-                }
-            }
-        },
-        IconSrc: 'PixelFreeUpgradeImprovement'
+    IconSrc: 'PixelPixelLuckConverter'
+  },
+  pixelFreeUpgradeImprovement: {
+    maxLevel: 10,
+    costPerLevel: 25,
+    rewards (n) {
+      const proportion = n / 1000
+      return {
+        proportion: proportion,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelFreeUpgradeImprovement.effect', {
+            proportion: format(100 * proportion, 1, true)
+          })
+        }
+      }
     },
-    pixelFreeUpgradeImprovement2: {
-        maxLevel: 10,
-        costPerLevel: 500,
-        rewards(n) {
-            const proportion = n/1000
-            return {
-                proportion: proportion,
-                get desc () {
-                    return i18next.t('ultimatePixels.data.pixelFreeUpgradeImprovement2.effect', {
-                        proportion: format(100 * proportion, 1, true)
-                    })
-                }
-            }
-        },
-        IconSrc: 'PixelFreeUpgradeImprovement2'
+    IconSrc: 'PixelFreeUpgradeImprovement'
+  },
+  pixelFreeUpgradeImprovement2: {
+    maxLevel: 10,
+    costPerLevel: 500,
+    rewards (n) {
+      const proportion = n / 1000
+      return {
+        proportion: proportion,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelFreeUpgradeImprovement2.effect', {
+            proportion: format(100 * proportion, 1, true)
+          })
+        }
+      }
     },
-    pixelFreeUpgradeImprovement3: {
-        maxLevel: 10,
-        costPerLevel: 5000,
-        rewards(n) {
-            const proportion = n/1000
-            return {
-                proportion: proportion,
-                get desc () {
-                    return i18next.t('ultimatePixels.data.pixelFreeUpgradeImprovement3.effect', {
-                        proportion: format(100 * proportion, 1, true)
-                    })
-                }
-            }
-        },
-        IconSrc: 'PixelFreeUpgradeImprovement3'
+    IconSrc: 'PixelFreeUpgradeImprovement2'
+  },
+  pixelFreeUpgradeImprovement3: {
+    maxLevel: 10,
+    costPerLevel: 5000,
+    rewards (n) {
+      const proportion = n / 1000
+      return {
+        proportion: proportion,
+        get desc () {
+          return i18next.t('ultimatePixels.data.pixelFreeUpgradeImprovement3.effect', {
+            proportion: format(100 * proportion, 1, true)
+          })
+        }
+      }
     },
+    IconSrc: 'PixelFreeUpgradeImprovement3'
+  }
 }
 
-export const LEVEL_REQ_ARR = [0,
-    1, 2, 3, 4, 5, 10, 15, 20, 25, 30, // 1-10
-    40, 50, 60, 70, 80, 90, 100, 125, 150, 175, // 11-20
-    200, 250, 300, 350, 400, 450, 500, 550, 600, 650, // 21-30
-    700, 750, 800, 850, 900, 950, 1000, 1100, 1200, 1300, // 31-40
-    1400, 1500, 1750, 2000, 2250, 2500, 3000, 3500, 4000, 5000, // 41-50
-    6000, 7000, 8000, 9000, 10000, 12000, 14000, 16000, 18000, 20000, // 51-60
-    25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 70000, 80000, // 61-70
-    90000, 1e5, 1.1e5, 1.2e5, 1.3e5, 1.4e5, 1.5e5, 1.6e5, 1.7e5, 1.8e5, // 71-80
-    1.9e5, 2e5, 2.25e5, 2.5e5, 2.75e5, 3e5, 3.5e5, 4e5, 4.5e5, 5e5, // 91-100
-    5.5e5, 6e5, 6.5e5, 7e5, 7.5e5, 8e5, 8.5e5, 9e5, 9.5e5, 1e6 // 91-100]
+export const LEVEL_REQ_ARR = [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  10,
+  15,
+  20,
+  25,
+  30, // 1-10
+  40,
+  50,
+  60,
+  70,
+  80,
+  90,
+  100,
+  125,
+  150,
+  175, // 11-20
+  200,
+  250,
+  300,
+  350,
+  400,
+  450,
+  500,
+  550,
+  600,
+  650, // 21-30
+  700,
+  750,
+  800,
+  850,
+  900,
+  950,
+  1000,
+  1100,
+  1200,
+  1300, // 31-40
+  1400,
+  1500,
+  1750,
+  2000,
+  2250,
+  2500,
+  3000,
+  3500,
+  4000,
+  5000, // 41-50
+  6000,
+  7000,
+  8000,
+  9000,
+  10000,
+  12000,
+  14000,
+  16000,
+  18000,
+  20000, // 51-60
+  25000,
+  30000,
+  35000,
+  40000,
+  45000,
+  50000,
+  55000,
+  60000,
+  70000,
+  80000, // 61-70
+  90000,
+  1e5,
+  1.1e5,
+  1.2e5,
+  1.3e5,
+  1.4e5,
+  1.5e5,
+  1.6e5,
+  1.7e5,
+  1.8e5, // 71-80
+  1.9e5,
+  2e5,
+  2.25e5,
+  2.5e5,
+  2.75e5,
+  3e5,
+  3.5e5,
+  4e5,
+  4.5e5,
+  5e5, // 91-100
+  5.5e5,
+  6e5,
+  6.5e5,
+  7e5,
+  7.5e5,
+  8e5,
+  8.5e5,
+  9e5,
+  9.5e5,
+  1e6 // 91-100]
 ]
 
 export const computeMetaBarLevel = () => {
-    const toCompare = player.lifetimeUltimatePixels
+  const toCompare = player.lifetimeUltimatePixels
 
-    let levelLow = 0
-    let levelHigh = LEVEL_REQ_ARR.length - 1
+  let levelLow = 0
+  let levelHigh = LEVEL_REQ_ARR.length - 1
 
-    // Extreme case:
-    if (player.lifetimeUltimatePixels >= LEVEL_REQ_ARR[levelHigh]) {
-        return levelHigh
+  // Extreme case:
+  if (player.lifetimeUltimatePixels >= LEVEL_REQ_ARR[levelHigh]) {
+    return levelHigh
+  }
+
+  while (true) {
+    const i = Math.floor(1 / 2 * (levelLow + levelHigh))
+    if (toCompare >= LEVEL_REQ_ARR[i]) {
+      const newIndex = Math.floor(1 / 2 * (i + levelHigh))
+      if (i === newIndex) {
+        break
+      }
+      levelLow = i
+    } else {
+      const newIndex = Math.floor(1 / 2 * i)
+      if (i === newIndex) {
+        break
+      }
+      levelHigh = i
     }
-
-    while (true) {
-        const i = Math.floor(1/2 * (levelLow + levelHigh))
-        if (toCompare >= LEVEL_REQ_ARR[i]) {
-            const newIndex = Math.floor(1/2 * (i + levelHigh))
-            if (i === newIndex) {
-                break
-            }
-            levelLow = i
-        }
-        else {
-            const newIndex = Math.floor(1/2 * i)
-            if (i === newIndex) {
-                break
-            }
-            levelHigh = i
-        }
-    }
-    return Math.floor(1/2 * (levelLow + levelHigh))
-
+  }
+  return Math.floor(1 / 2 * (levelLow + levelHigh))
 }
 /*
 | 'pixelTutorial'
@@ -646,14 +742,22 @@ export const computeMetaBarLevel = () => {
 | 'pixelOfferings' */
 
 export const showBarLevelBonuses = () => {
-    const bonuses = calculatePixelBarLevelBonuses()
+  const bonuses = calculatePixelBarLevelBonuses()
 
-    DOMCacheGetOrSet('pixelBarLuckBonus').textContent = `+${bonuses.AmbrosiaLuck} +${bonuses.AmbrosiaLuckMult * 100}% ☘ Ambrosia Luck`
-    DOMCacheGetOrSet('pixelBarBlueberrySpeedBonus').textContent = `${format(bonuses.BlueberrySpeedMult, 2, true)}x Blueberry Second Generation`
-    DOMCacheGetOrSet('pixelBarPixelLuckBonus').textContent = `${bonuses.PixelLuck} +${bonuses.PixelLuckMult * 100}% ❖ Pixel Luck`
-    DOMCacheGetOrSet('pixelBarPixelProgressBonus').textContent = `${format(bonuses.PixelProgressMult,3,true)}x Bar Progress Speed`
-    DOMCacheGetOrSet('pixelBarCubeMultBonus').textContent = `${format(bonuses.CubeMult, 2, true)}x Cubes`
-    DOMCacheGetOrSet('pixelBarObtainiumMultBonus').textContent = `${format(bonuses.ObtainiumMult, 2, true)}x Obtainium`
-    DOMCacheGetOrSet('pixelBarOfferingMultBonus').textContent = `${format(bonuses.OfferingMult, 2, true)}x Offerings`
-    DOMCacheGetOrSet('pixelBarQuarkBonus').textContent = `${format(bonuses.QuarkMult, 3, true)}x Quarks`
+  DOMCacheGetOrSet('pixelBarLuckBonus').textContent = `+${bonuses.AmbrosiaLuck} +${
+    bonuses.AmbrosiaLuckMult * 100
+  }% ☘ Ambrosia Luck`
+  DOMCacheGetOrSet('pixelBarBlueberrySpeedBonus').textContent = `${
+    format(bonuses.BlueberrySpeedMult, 2, true)
+  }x Blueberry Second Generation`
+  DOMCacheGetOrSet('pixelBarPixelLuckBonus').textContent = `${bonuses.PixelLuck} +${
+    bonuses.PixelLuckMult * 100
+  }% ❖ Pixel Luck`
+  DOMCacheGetOrSet('pixelBarPixelProgressBonus').textContent = `${
+    format(bonuses.PixelProgressMult, 3, true)
+  }x Bar Progress Speed`
+  DOMCacheGetOrSet('pixelBarCubeMultBonus').textContent = `${format(bonuses.CubeMult, 2, true)}x Cubes`
+  DOMCacheGetOrSet('pixelBarObtainiumMultBonus').textContent = `${format(bonuses.ObtainiumMult, 2, true)}x Obtainium`
+  DOMCacheGetOrSet('pixelBarOfferingMultBonus').textContent = `${format(bonuses.OfferingMult, 2, true)}x Offerings`
+  DOMCacheGetOrSet('pixelBarQuarkBonus').textContent = `${format(bonuses.QuarkMult, 3, true)}x Quarks`
 }

@@ -1132,7 +1132,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'offeringEX3':
       lol.innerHTML = i18next.t('shop.upgradeEffects.offeringEX3', {
         amount: format(
-          100 * 1/50 * Math.pow(player.shopUpgrades.offeringEX3, 2),
+          100 * 1 / 50 * Math.pow(player.shopUpgrades.offeringEX3, 2),
           2,
           true
         )
@@ -1141,7 +1141,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'obtainiumEX3':
       lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumEX3', {
         amount: format(
-          100 * 1/50 * Math.pow(player.shopUpgrades.obtainiumEX3, 2),
+          100 * 1 / 50 * Math.pow(player.shopUpgrades.obtainiumEX3, 2),
           2,
           true
         )
@@ -1164,7 +1164,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'chronometerInfinity':
       lol.innerHTML = i18next.t('shop.upgradeEffects.chronometerInfinity', {
         amount: format(
-          100 * (player.shopUpgrades.chronometerInfinity/100),
+          100 * (player.shopUpgrades.chronometerInfinity / 100),
           2,
           true
         )

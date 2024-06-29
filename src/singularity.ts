@@ -1619,7 +1619,7 @@ export const singularityData: Record<
     cacheUpdates: [
       () => player.caches.ultimatePixelLuck.updateVal('SingularityPixelLuck2')
     ]
-  },
+  }
 }
 
 /**
@@ -2704,13 +2704,12 @@ export const calculateSingularityDebuff = (
 }
 
 export const calculateTotalCacheSeconds = () => {
-
   const singularity = player.singularityCount
 
   const linearScale = (singularity >= 25) ? singularity * 8 : 0
-  const quadraticFactor = (singularity > 100) ?  singularity / 100: 1;
-  const cubicFactor = (singularity > 200) ? singularity / 150: 1;
-  const quarticFactor = (singularity > 250) ? 1 + (singularity - 250) / 25: 1;
+  const quadraticFactor = (singularity > 100) ? singularity / 100 : 1
+  const cubicFactor = (singularity > 200) ? singularity / 150 : 1
+  const quarticFactor = (singularity > 250) ? 1 + (singularity - 250) / 25 : 1
 
   return linearScale * quadraticFactor * cubicFactor * quarticFactor
 }

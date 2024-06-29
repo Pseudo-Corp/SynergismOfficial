@@ -1709,14 +1709,14 @@ export const loadStatisticsAmbrosiaLuck = () => {
     7: { acc: 1, desc: 'Ambrosia Luck Module II' },
     8: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
     9: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
-    10: { acc: 0, desc: 'Progress Bar Level Bonus'},
+    10: { acc: 0, desc: 'Progress Bar Level Bonus' },
     11: { acc: 0, desc: 'A Pixelated Ambrosia Luck Inducer' },
     12: { acc: 0, desc: 'A Pixelated Ambrosia Luck Deducer' },
     13: { acc: 0, desc: 'A Pixelated Ambrosia Luck Convector' },
     14: { acc: 0, desc: 'Perk: One Hundred Thirty One!' },
     15: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
     16: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
-    17: { acc: 0, desc: 'No Ambrosia Upgrades EXALT'},
+    17: { acc: 0, desc: 'No Ambrosia Upgrades EXALT' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -1746,14 +1746,14 @@ export const loadStatisticsAmbrosiaGeneration = () => {
     4: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
     5: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
     6: { acc: 4, desc: 'Patreon Bonus' },
-    7: { acc: 4, desc: 'Progress Bar Level Bonus'},
-    8: { acc: 4, desc: 'A Pixelated Ambrosia Quickener'},
-    9: { acc: 4, desc: 'A Pixelated Ambrosia Hastener'},
-    10: { acc: 4, desc: 'A Pixelated Ambrosia Rapidity'},
-    11: { acc: 4, desc: 'One Ascension Challenge EXALT'},
+    7: { acc: 4, desc: 'Progress Bar Level Bonus' },
+    8: { acc: 4, desc: 'A Pixelated Ambrosia Quickener' },
+    9: { acc: 4, desc: 'A Pixelated Ambrosia Hastener' },
+    10: { acc: 4, desc: 'A Pixelated Ambrosia Rapidity' },
+    11: { acc: 4, desc: 'One Ascension Challenge EXALT' },
     12: { acc: 4, desc: 'No Ambrosia Upgrades EXALT' },
-    13: { acc: 4, desc: 'Cash-Grab ULTIMATE'},
-    14: { acc: 4, desc: 'Event Bonus'}
+    13: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
+    14: { acc: 4, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)
@@ -1775,8 +1775,8 @@ export const loadStatisticsPixelLuck = () => {
     5: { acc: 0, desc: 'Lucky Big Pixels' },
     6: { acc: 0, desc: 'Mega Pixel Luck Bonus' },
     7: { acc: 0, desc: 'Tera Pixel Luck Bonus' },
-    8: { acc: 0, desc: 'Blueberry-Infused Pixel Luck Enhancer'},
-    9: { acc: 0, desc: 'Blueberry-Refined Pixel Luck Enhancer' },
+    8: { acc: 0, desc: 'Blueberry-Infused Pixel Luck Enhancer' },
+    9: { acc: 0, desc: 'Blueberry-Refined Pixel Luck Enhancer' }
   }
 
   for (let i = 0; i < arr.length - 1; i++) {

@@ -169,8 +169,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
     if (this.level >= actualFreeLevels) {
       return actualFreeLevels + this.level
-    }
-    else {
+    } else {
       return 2 * Math.sqrt(actualFreeLevels * this.level)
     }
   }
@@ -813,7 +812,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractPixelLuck: {
     costFormula: (level: number, baseCost: number) => {
-      const useLevel = level 
+      const useLevel = level
       return baseCost * (Math.pow(1e7, useLevel) - Math.pow(1e7, useLevel - 1))
     },
     maxLevel: 10,
@@ -831,7 +830,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
   },
   octeractPixelLuck2: {
     costFormula: (level: number, baseCost: number) => {
-      const useLevel = level 
+      const useLevel = level
       return baseCost * (Math.pow(1e4, useLevel) - Math.pow(1e4, useLevel - 1))
     },
     maxLevel: 20,
@@ -846,5 +845,5 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     qualityOfLife: true,
     cacheUpdates: [() => player.caches.ultimatePixelLuck.updateVal('OcteractPixelLuck2')]
-  },
+  }
 }

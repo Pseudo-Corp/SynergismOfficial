@@ -16,7 +16,12 @@ import { useConsumable } from './Shop'
 import { player } from './Synergism'
 import { Tabs } from './Tabs'
 import { buyAllTalismanResources } from './Talismans'
-import { visualUpdateAmbrosia, visualUpdateOcteracts, visualUpdateProgressPixels, visualUpdateResearch } from './UpdateVisuals'
+import {
+  visualUpdateAmbrosia,
+  visualUpdateOcteracts,
+  visualUpdateProgressPixels,
+  visualUpdateResearch
+} from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 type TimerInput =
@@ -227,9 +232,11 @@ export const addTimers = (input: TimerInput, time = 0) => {
           ambrosiaToGain * 0.2 * player.shopUpgrades.shopAmbrosiaAccelerator
         )
         timeToAmbrosia = calculateRequiredBlueberryTime()
-        const ambrosiaTimeGain = Math.min(timeToAmbrosia / compute * 0.9, 0.2 * ambrosiaToGain * player.shopUpgrades.shopAmbrosiaAccelerator)
+        const ambrosiaTimeGain = Math.min(
+          timeToAmbrosia / compute * 0.9,
+          0.2 * ambrosiaToGain * player.shopUpgrades.shopAmbrosiaAccelerator
+        )
         G.ambrosiaTimer += ambrosiaTimeGain
-        
       }
 
       visualUpdateAmbrosia()
@@ -257,7 +264,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         const RNG2 = Math.random()
         const pixelMult = Math.floor(pixelLuck / 100)
         const luckMult2 = RNG2 < pixelLuck / 100 - Math.floor(pixelLuck / 100) ? 1 : 0
-        const pixelToGain = (pixelMult + luckMult2)
+        const pixelToGain = pixelMult + luckMult2
 
         player.ultimatePixels += pixelToGain * speedMult
         player.lifetimeUltimatePixels += pixelToGain * speedMult

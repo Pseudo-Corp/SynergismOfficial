@@ -7,6 +7,7 @@ import { BuffType, calculateEventSourceBuff } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { hepteractEffective } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
+import { computeMetaBarLevel } from './PixelUpgrades'
 import { quarkHandler } from './Quark'
 import { reset } from './Reset'
 import { calculateSingularityDebuff } from './singularity'
@@ -19,7 +20,6 @@ import type { resetNames } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { productContents, sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { computeMetaBarLevel } from './PixelUpgrades'
 
 const CASH_GRAB_ULTRA_QUARK = 0.08
 const CASH_GRAB_ULTRA_CUBE = 1.2
@@ -523,7 +523,7 @@ export function calculateOfferings (
   }
   q *= 1 + (1 / 200) * player.shopUpgrades.cashGrab2
   q *= 1 + (1 / 100) * player.shopUpgrades.offeringEX2 * player.singularityCount
-  q *= 1 + 1/50 * Math.pow(player.shopUpgrades.offeringEX3, 2)
+  q *= 1 + 1 / 50 * Math.pow(player.shopUpgrades.offeringEX3, 2)
   q *= calculateTotalOcteractOfferingBonus()
   q = Math.min(1e300, q)
 
@@ -662,7 +662,7 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= +player.singularityUpgrades.singCitadel.getEffect().bonus
   G.obtainiumGain *= +player.singularityUpgrades.singCitadel2.getEffect().bonus
   G.obtainiumGain *= +player.octeractUpgrades.octeractObtainium1.getEffect().bonus
-  G.obtainiumGain *= 1 + 1/50 * Math.pow(player.shopUpgrades.obtainiumEX3, 2)
+  G.obtainiumGain *= 1 + 1 / 50 * Math.pow(player.shopUpgrades.obtainiumEX3, 2)
   G.obtainiumGain *= calculateTotalOcteractObtainiumBonus()
 
   if (G.eventClicked && G.isEvent) {
@@ -1778,7 +1778,7 @@ export const calculateAllCubeMultiplier = () => {
     + +player.singularityUpgrades.platonicDelta.getEffect().bonus
       * Math.min(9, player.singularityCounter / (3600 * 24)),
     // Wow Pass INF
-    1 + 1/100 * Math.pow(player.shopUpgrades.seasonPassInfinity, 2),
+    1 + 1 / 100 * Math.pow(player.shopUpgrades.seasonPassInfinity, 2),
     // Ambrosia Mult
     calculateAmbrosiaCubeMult(),
     // Module - Tutorial
@@ -2122,7 +2122,7 @@ export const getOcteractValueMultipliers = () => {
     // No Singulairty Upgrades
     +player.singularityChallenges.noSingularityUpgrades.rewards.cubes,
     // Wow Pass INF
-    1 + 1/100 * Math.pow(player.shopUpgrades.seasonPassInfinity, 2),
+    1 + 1 / 100 * Math.pow(player.shopUpgrades.seasonPassInfinity, 2),
     // Ambrosia Mult
     calculateAmbrosiaCubeMult(),
     // Module- Tutorial
@@ -3283,16 +3283,16 @@ export const calculateEXUltraCubeBonus = () => {
 }
 
 type BarBonuses = {
-  AmbrosiaLuck: number,
-  AmbrosiaLuckMult: number,
-  PixelLuck: number,
-  PixelLuckMult: number,
-  OfferingMult: number,
-  ObtainiumMult: number,
-  CubeMult: number,
-  QuarkMult: number,
-  BlueberrySpeedMult: number,
-  PixelProgressMult: number,
+  AmbrosiaLuck: number
+  AmbrosiaLuckMult: number
+  PixelLuck: number
+  PixelLuckMult: number
+  OfferingMult: number
+  ObtainiumMult: number
+  CubeMult: number
+  QuarkMult: number
+  BlueberrySpeedMult: number
+  PixelProgressMult: number
 }
 
 export const calculatePixelBarLevelBonuses = (): BarBonuses => {

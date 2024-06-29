@@ -4,6 +4,7 @@ import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '.
 import type { HepteractCraft } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrade } from '../Octeracts'
+import type { PixelUpgrade } from '../PixelUpgrades'
 import type { IPlatBaseCost } from '../Platonic'
 import type { QuarkHandler } from '../Quark'
 import type { SingularityUpgrade } from '../singularity'
@@ -18,7 +19,6 @@ import type {
   UltimatePixelLuckCache
 } from '../StatCache'
 import type { Tabs } from '../Tabs'
-import type { PixelUpgrade } from '../PixelUpgrades'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 

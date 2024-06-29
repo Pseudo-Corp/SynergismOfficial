@@ -10,7 +10,12 @@ import { format, player, resetCheck } from './Synergism'
 import { subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, Player } from './types/Synergism'
 import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
-import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts, visualUpdateProgressPixels } from './UpdateVisuals'
+import {
+  visualUpdateAmbrosia,
+  visualUpdateCubes,
+  visualUpdateOcteracts,
+  visualUpdateProgressPixels
+} from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 export const toggleSettings = (toggle: HTMLElement) => {

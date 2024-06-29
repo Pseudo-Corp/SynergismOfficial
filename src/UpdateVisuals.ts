@@ -29,6 +29,7 @@ import { version } from './Config'
 import type { IMultiBuy } from './Cubes'
 import type { hepteractTypes } from './Hepteracts'
 import { hepteractTypeList } from './Hepteracts'
+import { computeMetaBarLevel, LEVEL_REQ_ARR } from './PixelUpgrades'
 import { quarkHandler } from './Quark'
 import { displayRuneInformation } from './Runes'
 import { getShopCosts, isShopUpgradeUnlocked, shopData, shopUpgradeTypes } from './Shop'
@@ -40,7 +41,6 @@ import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { computeMetaBarLevel, LEVEL_REQ_ARR } from './PixelUpgrades'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -1568,6 +1568,7 @@ export const visualUpdateAmbrosia = () => {
   const totalTimePerSecond = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
   const progressTimePerSecond = Math.min(totalTimePerSecond, Math.pow(1000 * totalTimePerSecond, 1 / 2))
   const barWidth = 100 * Math.min(1, player.blueberryTime / requiredTime)
+  const pixelBarWidth = 100 * Math.min(1, player.ultimateProgress / 1000000)
   DOMCacheGetOrSet('ambrosiaProgress').style.width = `${barWidth}%`
   DOMCacheGetOrSet('ambrosiaProgressText').textContent = `${format(player.blueberryTime, 0, true)} / ${
     format(requiredTime, 0, true)
@@ -1641,32 +1642,36 @@ export const visualUpdateProgressPixels = () => {
   const metaPixelBarWidth = 100 * Math.min(1, player.lifetimeUltimatePixels / LEVEL_REQ_ARR[metaBarLevel + 1])
 
   DOMCacheGetOrSet('pixelProgress').style.width = `${pixelBarWidth}%`
-  DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.ultimateProgress, 0, true)} / ${format(requiredTime, 0, true)} [+${format(totalTimePerSecond, 0, true)}/s]`
+  DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.ultimateProgress, 0, true)} / ${
+    format(requiredTime, 0, true)
+  } [+${format(totalTimePerSecond, 0, true)}/s]`
 
   if (metaBarLevel < LEVEL_REQ_ARR.length - 1) {
     DOMCacheGetOrSet('metaPixelProgress').style.width = `${metaPixelBarWidth}%`
-    DOMCacheGetOrSet('metaPixelProgressText').textContent = `Level: ${metaBarLevel} | Lifetime Pixels: ${format(player.lifetimeUltimatePixels, 0, true)}/${format(LEVEL_REQ_ARR[metaBarLevel + 1], 0, true)}`
-  }
-  else {
-    DOMCacheGetOrSet('metaPixelProgress').style.width = "100%"
+    DOMCacheGetOrSet('metaPixelProgressText').textContent = `Level: ${metaBarLevel} | Lifetime Pixels: ${
+      format(player.lifetimeUltimatePixels, 0, true)
+    }/${format(LEVEL_REQ_ARR[metaBarLevel + 1], 0, true)}`
+  } else {
+    DOMCacheGetOrSet('metaPixelProgress').style.width = '100%'
     DOMCacheGetOrSet('metaPixelProgress').style.background = 'linear-gradient(to right, lightgoldenrodyellow, white)'
     DOMCacheGetOrSet('metaPixelProgressText').style.color = 'black'
-    DOMCacheGetOrSet('metaPixelProgressText').textContent = `Level: 100 | Lifetime Pixels: ${format(player.lifetimeUltimatePixels, 0, true)}`
+    DOMCacheGetOrSet('metaPixelProgressText').textContent = `Level: 100 | Lifetime Pixels: ${
+      format(player.lifetimeUltimatePixels, 0, true)
+    }`
   }
 
-
   const extraLuckHTML = luckBonusPercent > 0.01
-  ? `[<span style='color: var(--amber-text-color)'>❖${
-    format(
-      baseLuck,
-      0,
-      true
-    )
-  } +${format(luckBonusPercent, 2, true)}%</span>]`
-  : ''
+    ? `[<span style='color: var(--amber-text-color)'>❖${
+      format(
+        baseLuck,
+        0,
+        true
+      )
+    } +${format(luckBonusPercent, 2, true)}%</span>]`
+    : ''
 
   DOMCacheGetOrSet('ultimatePixelAmount').innerHTML = i18next.t('ultimatePixels.amount', {
-    pixels: format(player.ultimatePixels, 0, true),
+    pixels: format(player.ultimatePixels, 0, true)
   })
 
   DOMCacheGetOrSet('ultimatePixelAmountPerGeneration').innerHTML = i18next.t(
