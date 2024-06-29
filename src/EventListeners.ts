@@ -545,6 +545,13 @@ export const generateEventHandlers = () => {
     () => updateAutoChallenge(3)
   )
 
+  for (let index = 0; index < 2; index++) {
+    DOMCacheGetOrSet(`toggleChallengesSubTab${index + 1}`).addEventListener(
+      'click',
+      () => changeSubTab(Tabs.Challenges, { page: index })
+    )
+  }
+
   // RESEARCH TAB
   // Part 1: Researches
   // There are 200 researches, ideally in rewrite 200 would instead be length of research list/array
@@ -861,7 +868,7 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('exportgame').addEventListener('click', () => exportSynergism())
   DOMCacheGetOrSet('saveStringInput').addEventListener('blur', (e) => updateSaveString(e.target as HTMLInputElement))
   DOMCacheGetOrSet('savegame').addEventListener('click', () => saveSynergy(true))
-  DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame())
+  DOMCacheGetOrSet('deleteGame').addEventListener('click', () => resetGame(false))
   DOMCacheGetOrSet('preloadDeleteGame').addEventListener('click', () => reloadDeleteGame())
   DOMCacheGetOrSet('promocodes').addEventListener('click', () => promocodesPrompt())
   DOMCacheGetOrSet('addCodeBox').addEventListener('mouseover', () => promocodesInfo('add'))
@@ -1151,7 +1158,7 @@ TODO: Fix this entire tab it's utter shit
       )
     }
   // Toggle subtabs of Singularity tab
-  for (let index = 0; index < 6; index++) {
+  for (let index = 0; index < 5; index++) {
     DOMCacheGetOrSet(`toggleSingularitySubTab${index + 1}`).addEventListener(
       'click',
       () => changeSubTab(Tabs.Singularity, { page: index })

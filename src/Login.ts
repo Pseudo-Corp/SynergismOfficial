@@ -1,4 +1,5 @@
 import i18next from 'i18next'
+import localforage from 'localforage'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { QuarkHandler } from './Quark'
 import { player } from './Synergism'
@@ -51,7 +52,22 @@ interface RawMember {
 interface SynergismUserAPIResponse {
   personalBonus: number
   globalBonus: number
+  type: string
+}
+
+interface SynergismDiscordUserAPIResponse extends SynergismUserAPIResponse {
   member: RawMember | null
+  type: 'discord'
+}
+
+interface SynergismPatreonUserAPIResponse extends SynergismUserAPIResponse {
+  member: {
+    user: {
+      username: string | null
+    }
+    roles: string[]
+  }
+  type: 'patreon'
 }
 
 export async function handleLogin () {
@@ -66,7 +82,9 @@ export async function handleLogin () {
     return
   }
 
-  const { globalBonus, member, personalBonus } = await response.json() as SynergismUserAPIResponse
+  const { globalBonus, member, personalBonus, type } = await response.json() as
+    | SynergismDiscordUserAPIResponse
+    | SynergismPatreonUserAPIResponse
 
   player.worlds = new QuarkHandler({
     quarks: Number(player.worlds),
@@ -78,12 +96,23 @@ export async function handleLogin () {
   if (location.hostname !== 'synergism.cc') {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
-  } else if (document.cookie.length) {
+  } else if (parseDocumentCookie().id || parseDocumentCookie().patreonId) {
+    if (!member) {
+      console.log(response, globalBonus, member, personalBonus, document.cookie)
+    }
+
     currentBonus.textContent +=
       ` You also receive an extra ${personalBonus}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!`
 
-    const user = member?.nick ?? member?.user?.username ?? member?.user?.global_name
-    const boosted = Boolean(member?.premium_since)
+    let user: string | null
+
+    if (type === 'discord') {
+      user = member?.nick ?? member?.user?.username ?? member?.user?.global_name ?? null
+    } else {
+      user = member.user.username
+    }
+
+    const boosted = type === 'discord' ? Boolean(member?.premium_since) : false
     const hasTier1 = member?.roles.includes(TRANSCENDED_BALLER) ?? false
     const hasTier2 = member?.roles.includes(REINCARNATED_BALLER) ?? false
     const hasTier3 = member?.roles.includes(ASCENDED_BALLER) ?? false
@@ -119,36 +148,92 @@ export async function handleLogin () {
     `.trim()
 
     const logoutElement = document.createElement('button')
+    const cloudSaveElement = document.createElement('button')
+    const loadCloudSaveElement = document.createElement('button')
+
     logoutElement.addEventListener('click', logout, { once: true })
     logoutElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
     logoutElement.textContent = 'Log Out'
 
+    if (personalBonus > 1) {
+      cloudSaveElement.addEventListener('click', saveToCloud)
+      cloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
+      cloudSaveElement.textContent = 'Save to Cloud ☁'
+
+      loadCloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
+      loadCloudSaveElement.textContent = 'Load from Cloud ☽ [WIP]'
+    }
+
+    const cloudSaveParent = document.createElement('div')
+    cloudSaveParent.style.cssText =
+      'display: flex; flex-direction: row; justify-content: space-evenly; padding: 5px; width: 45%; margin: 0 auto;'
+
+    cloudSaveParent.appendChild(cloudSaveElement)
+    cloudSaveParent.appendChild(loadCloudSaveElement)
+
     subtabElement.appendChild(logoutElement)
+    subtabElement.appendChild(cloudSaveParent)
   } else {
     // User is not logged in
     subtabElement.innerHTML = `
-      <img id="discord-logo" alt="Discord Logo" src="Pictures/discord-mark-blue.png" loading="lazy">
-      <br>
-      <form action="https://discord.com/oauth2/authorize">
-        <input type="hidden" name="response_type" value="code" />
-        <input type="hidden" name="client_id" value="1124509674536972329" />
-        <input type="hidden" name="scope" value="guilds guilds.members.read identify" />
-        <input type="hidden" name="redirect_uri" value="https://synergism.cc/discord/oauth/" />
-        <input type="hidden" name="prompt" value="consent" />
-        <input type="submit" value="Login" style="border: 2px solid #5865F2; height: 20px; width: 250px;" />
-      </form>
+      <img id="discord-logo" alt="Discord Logo" src="Pictures/discord-mark-blue.png" loading="lazy" />
+      <button value="discord" style="border: 2px solid #5865F2; height: 20px; width: 250px;">Login with Discord</button>
+
+      <img id="patreon-logo" alt="Discord Logo" src="Pictures/patreon-logo.png" loading="lazy" />
+      <button value="patreon" style="border: 2px solid #ff5900; height: 20px; width: 250px;">Login with Patreon</button>
     `
+
+    subtabElement.querySelector('button[value="discord"]')?.addEventListener('click', () => {
+      location.assign(
+        'https://discord.com/oauth2/authorize?response_type=code&client_id=1124509674536972329&scope=guilds+guilds.members.read+identify&redirect_uri=https%3A%2F%2Fsynergism.cc%2Fdiscord%2Foauth%2F&prompt=consent'
+      )
+    })
+
+    subtabElement.querySelector('button[value="patreon"]')?.addEventListener('click', () => {
+      location.assign(
+        'https://www.patreon.com/oauth2/authorize?response_type=code&client_id=mARrL2U1X5TUvl6YoFbfIEmsouJ0eCuETeEbkG1-Wmm5eNko6gzWgOUCuyejpTpA&redirect_uri=https%3A%2F%2Fsynergism.cc%2Fpatreon%2Foauth%2F&scope=identity%20campaigns%20identity.memberships'
+      )
+    })
   }
 }
 
 async function logout () {
-  if ('cookieStore' in window) {
-    await (window.cookieStore as { delete: (id: string) => Promise<void> }).delete('id')
-  } else {
-    document.cookie = 'id=; Max-Age=0'
-  }
-
+  await fetch('https://synergism.cc/api/v1/users/logout')
   await Alert(i18next.t('account.logout'))
 
   location.reload()
+}
+
+async function saveToCloud () {
+  const save = (await localforage.getItem<Blob>('Synergysave2')
+    .then((b) => b?.text())
+    .catch(() => null)) ?? localStorage.getItem('Synergysave2')
+
+  if (typeof save !== 'string') {
+    console.log('Yeah, no save here.')
+    return
+  }
+
+  const body = new FormData()
+  body.set('savefile', new File([save], 'file.txt'), 'file.txt')
+
+  const response = await fetch('https://synergism.cc/api/v1/saves/upload', {
+    method: 'POST',
+    body
+  })
+
+  if (!response.ok) {
+    await Alert(`Received an error: ${await response.text()}`)
+    return
+  }
+}
+
+function parseDocumentCookie () {
+  return document.cookie.split(';').reduce((obj, item) => {
+    if (!item.includes('=')) return obj
+
+    const split = item.split('=')
+    obj[split[0].trim()] = split[1].trim()
+    return obj
+  }, {} as Record<string, string>)
 }

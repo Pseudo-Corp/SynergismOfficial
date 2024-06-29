@@ -20,6 +20,8 @@ import type {
 import type { Tabs } from '../Tabs'
 import type { PixelUpgrade } from '../PixelUpgrades'
 
+type ArrayStartingWithNull<T> = [null, ...T[]]
+
 export interface Player {
   firstPlayed: string
   worlds: QuarkHandler
@@ -426,20 +428,20 @@ export interface Player {
   goldenQuarksTimer: number
 
   antPoints: Decimal
-  antUpgrades: (null | number)[]
+  antUpgrades: number[]
   antSacrificePoints: number
   antSacrificeTimer: number
   antSacrificeTimerReal: number
 
   talismanLevels: number[]
   talismanRarity: number[]
-  talismanOne: (null | number)[]
-  talismanTwo: (null | number)[]
-  talismanThree: (null | number)[]
-  talismanFour: (null | number)[]
-  talismanFive: (null | number)[]
-  talismanSix: (null | number)[]
-  talismanSeven: (null | number)[]
+  talismanOne: ArrayStartingWithNull<number>
+  talismanTwo: ArrayStartingWithNull<number>
+  talismanThree: ArrayStartingWithNull<number>
+  talismanFour: ArrayStartingWithNull<number>
+  talismanFive: ArrayStartingWithNull<number>
+  talismanSix: ArrayStartingWithNull<number>
+  talismanSeven: ArrayStartingWithNull<number>
   talismanShards: number
   commonFragments: number
   uncommonFragments: number
@@ -467,7 +469,7 @@ export interface Player {
   openHypercubes: number
   autoOpenPlatonicsCubes: boolean
   openPlatonicsCubes: number
-  cubeUpgrades: [null, ...number[]]
+  cubeUpgrades: ArrayStartingWithNull<number>
   cubeUpgradesBuyMaxToggle: boolean
   autoCubeUpgradesToggle: boolean
   autoPlatonicUpgradesToggle: boolean
@@ -539,7 +541,7 @@ export interface Player {
   corruptionLoadoutNames: string[]
   corruptionShowStats: boolean
 
-  constantUpgrades: [null, ...number[]]
+  constantUpgrades: ArrayStartingWithNull<number>
   history: Record<Category, ResetHistoryEntryUnion[]>
   historyShowPerSecond: boolean
 
@@ -844,13 +846,13 @@ export interface GlobalVariables {
   rune4Talisman: number
   rune5Talisman: number
 
-  talisman1Effect: [null, ...number[]]
-  talisman2Effect: [null, ...number[]]
-  talisman3Effect: [null, ...number[]]
-  talisman4Effect: [null, ...number[]]
-  talisman5Effect: [null, ...number[]]
-  talisman6Effect: [null, ...number[]]
-  talisman7Effect: [null, ...number[]]
+  talisman1Effect: ArrayStartingWithNull<number>
+  talisman2Effect: ArrayStartingWithNull<number>
+  talisman3Effect: ArrayStartingWithNull<number>
+  talisman4Effect: ArrayStartingWithNull<number>
+  talisman5Effect: ArrayStartingWithNull<number>
+  talisman6Effect: ArrayStartingWithNull<number>
+  talisman7Effect: ArrayStartingWithNull<number>
 
   talisman6Power: number
   talisman7Quarks: number
@@ -863,21 +865,21 @@ export interface GlobalVariables {
 
   talismanLevelCostMultiplier: number[]
 
-  talismanPositiveModifier: [null, ...number[]]
-  talismanNegativeModifier: [null, ...number[]]
+  talismanPositiveModifier: ArrayStartingWithNull<number>
+  talismanNegativeModifier: ArrayStartingWithNull<number>
 
-  commonTalismanEnhanceCost: [null, ...number[]]
-  uncommonTalismanEnchanceCost: [null, ...number[]]
-  rareTalismanEnchanceCost: [null, ...number[]]
-  epicTalismanEnhanceCost: [null, ...number[]]
-  legendaryTalismanEnchanceCost: [null, ...number[]]
-  mythicalTalismanEnchanceCost: [null, ...number[]]
+  commonTalismanEnhanceCost: ArrayStartingWithNull<number>
+  uncommonTalismanEnchanceCost: ArrayStartingWithNull<number>
+  rareTalismanEnchanceCost: ArrayStartingWithNull<number>
+  epicTalismanEnhanceCost: ArrayStartingWithNull<number>
+  legendaryTalismanEnchanceCost: ArrayStartingWithNull<number>
+  mythicalTalismanEnchanceCost: ArrayStartingWithNull<number>
 
   talismanRespec: number
 
   obtainiumGain: number
 
-  mirrorTalismanStats: [null, ...number[]]
+  mirrorTalismanStats: ArrayStartingWithNull<number>
   antELO: number
   effectiveELO: number
 
@@ -900,19 +902,19 @@ export interface GlobalVariables {
 
   buildingSubTab: BuildingSubtab
   // number000 of each before Diminishing Returns
-  blessingbase: [null, ...number[]]
-  blessingDRPower: [null, ...number[]]
+  blessingbase: ArrayStartingWithNull<number>
+  blessingDRPower: ArrayStartingWithNull<number>
   giftbase: number[]
   giftDRPower: number[]
-  benedictionbase: [null, ...number[]]
-  benedictionDRPower: [null, ...number[]]
+  benedictionbase: ArrayStartingWithNull<number>
+  benedictionDRPower: ArrayStartingWithNull<number>
   // 10 Million of each before Diminishing returns on first number 200k for second, and 10k for the last few
   platonicCubeBase: number[]
   platonicDRPower: number[]
 
-  cubeBonusMultiplier: [null, ...number[]]
-  tesseractBonusMultiplier: [null, ...number[]]
-  hypercubeBonusMultiplier: [null, ...number[]]
+  cubeBonusMultiplier: ArrayStartingWithNull<number>
+  tesseractBonusMultiplier: ArrayStartingWithNull<number>
+  hypercubeBonusMultiplier: ArrayStartingWithNull<number>
   platonicBonusMultiplier: number[]
 
   autoOfferingCounter: number
@@ -943,7 +945,7 @@ export interface GlobalVariables {
   acceleratorMultiplier: number
   multiplierMultiplier: number
 
-  constUpgradeCosts: [null, ...number[]]
+  constUpgradeCosts: ArrayStartingWithNull<number>
 
   globalConstantMult: Decimal
   autoTalismanTimer: number
@@ -1005,6 +1007,13 @@ export interface GlobalVariables {
   pixelTimer: number
   TIME_PER_AMBROSIA: number
 
+  ambrosiaCurrStats: {
+    ambrosiaAdditiveLuckMult: number
+    ambrosiaLuck: number
+    ambrosiaBlueberries: number
+    ambrosiaGenerationSpeed: number
+  }
+
   currentSingChallenge: keyof Player['singularityChallenges'] | undefined
 }
 
@@ -1052,3 +1061,5 @@ export type ZeroToSeven = ZeroToFour | 5 | 6 | 7
 export type FirstToFifth = GlobalVariables['ordinals'][ZeroToFour]
 
 export type FirstToEighth = GlobalVariables['ordinals'][ZeroToSeven]
+
+export type SaveSupplier<K extends keyof Player = keyof Player> = Map<K, (value: unknown) => Player[K]>

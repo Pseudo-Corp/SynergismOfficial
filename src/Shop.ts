@@ -1,10 +1,21 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateCashGrabBlueberryBonus, calculateCashGrabCubeBonus, calculateCashGrabQuarkBonus, calculatePowderConversion, calculateSummationNonLinear, calculateTimeAcceleration } from './Calculate'
+import {
+  calculateAdditiveLuckMult,
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
+  calculateCashGrabBlueberryBonus,
+  calculateCashGrabCubeBonus,
+  calculateCashGrabQuarkBonus,
+  calculatePowderConversion,
+  calculateSummationNonLinear,
+  calculateTimeAcceleration
+} from './Calculate'
 import type { IMultiBuy } from './Cubes'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
+import { Globals as G } from './Variables'
 
 /**
  * Standardization of metadata contained for each shop upgrade.
@@ -668,7 +679,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
-    refundMinimumLevel: 0,
+    refundMinimumLevel: 0
   },
   shopAmbrosiaAccelerator: {
     tier: 'Exalt5',
@@ -677,7 +688,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
-    refundMinimumLevel: 0,
+    refundMinimumLevel: 0
   },
   shopEXUltra: {
     tier: 'Exalt5x20',
@@ -686,7 +697,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     maxLevel: 80,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
-    refundMinimumLevel: 0,
+    refundMinimumLevel: 0
   }
 }
 
@@ -1248,13 +1259,17 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'shopAmbrosiaAccelerator':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaAccelerator', {
         amount: format(0.2 * player.shopUpgrades.shopAmbrosiaAccelerator, 1, true),
-        amount2: format(player.shopUpgrades.shopAmbrosiaAccelerator * 0.2 * player.caches.ambrosiaGeneration.totalVal, 0, true)
+        amount2: format(
+          player.shopUpgrades.shopAmbrosiaAccelerator * 0.2 * G.ambrosiaCurrStats.ambrosiaGenerationSpeed,
+          0,
+          true
+        )
       })
       break
     case 'shopEXUltra': {
       const capacity = 125000 * player.shopUpgrades.shopEXUltra
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopEXUltra', {
-        amount: format(0.1 * Math.floor(Math.min(capacity, player.lifetimeAmbrosia)/1000), 1, true)
+        amount: format(0.1 * Math.floor(Math.min(capacity, player.lifetimeAmbrosia) / 1000), 1, true)
       })
       break
     }
@@ -1464,8 +1479,10 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     player.worlds.sub(anyData.cost)
     player.shopUpgrades[input] = anyData.levelCanBuy
     revealStuff()
-    player.caches.ambrosiaGeneration.updateVal('ShopUpgrades')
-    player.caches.ambrosiaLuck.updateVal('ShopUpgrades')
+
+    G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+    G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value
+    G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     return
   }
 
@@ -1485,8 +1502,9 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   if (p) {
     player.worlds.sub(buyCost)
     player.shopUpgrades[input] += buyAmount
-    player.caches.ambrosiaGeneration.updateVal('ShopUpgrades')
-    player.caches.ambrosiaLuck.updateVal('ShopUpgrades')
+    G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+    G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value
+    G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     revealStuff()
   }
 }

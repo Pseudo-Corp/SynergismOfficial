@@ -1,9 +1,11 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateAmbrosiaGenerationSpeed } from './Calculate'
 import { pressedKeys } from './Hotkeys'
 import { player } from './Synergism'
 import {
   setActiveSettingScreen,
   toggleBuildingScreen,
+  toggleChallengesScreen,
   toggleCorruptionLoadoutsStats,
   toggleCubeSubTab,
   toggleRuneScreen,
@@ -144,7 +146,19 @@ const subtabInfo: Record<Tabs, SubTab> = {
       }
     ]
   },
-  [Tabs.Challenges]: { subTabList: [] },
+  [Tabs.Challenges]: {
+    tabSwitcher: () => toggleChallengesScreen,
+    subTabList: [
+      { subTabID: '1', unlocked: true, buttonID: 'toggleChallengesSubTab1' },
+      {
+        subTabID: '2',
+        get unlocked () {
+          return player.highestSingularityCount >= 25
+        },
+        buttonID: 'toggleChallengesSubTab2'
+      }
+    ]
+  },
   [Tabs.Research]: { subTabList: [] },
   [Tabs.AntHill]: { subTabList: [] },
   [Tabs.WowCubes]: {
@@ -247,23 +261,9 @@ const subtabInfo: Record<Tabs, SubTab> = {
       {
         subTabID: '4',
         get unlocked () {
-          return player.highestSingularityCount >= 25
-        },
-        buttonID: 'toggleSingularitySubTab4'
-      },
-      {
-        subTabID: '5',
-        get unlocked () {
           return player.singularityChallenges.noSingularityUpgrades.completions >= 1
         },
-        buttonID: 'toggleSingularitySubTab5'
-      },
-      {
-        subTabID: '6',
-        get unlocked () {
-          return player.singularityChallenges.limitedAscensions.completions >= 1
-        },
-        buttonID: 'toggleSingularitySubTab6'
+        buttonID: 'toggleSingularitySubTab4'
       }
     ]
   },
@@ -290,8 +290,6 @@ class TabRow extends HTMLDivElement {
       justify-content: center;
       gap: 0 5px;
     `
-
-    document.getElementsByClassName('navbar').item(0)?.appendChild(this)
   }
 
   getSubs () {
@@ -491,6 +489,7 @@ customElements.define('tab-row', TabRow, { extends: 'div' })
 customElements.define('sub-tab', $Tab, { extends: 'button' })
 
 export const tabRow = new TabRow()
+document.getElementsByClassName('navbar').item(0)?.appendChild(tabRow)
 
 tabRow.appendButton(
   new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings' })
@@ -660,9 +659,9 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
 
   if (subTabList.unlocked) {
     subTabs.tabSwitcher?.()(subTabList.subTabID)
-    if (tab.getType() === Tabs.Singularity && page === 4) {
+    if (tab.getType() === Tabs.Singularity && page === 3) {
       player.visitedAmbrosiaSubtab = true
-      player.caches.ambrosiaGeneration.updateVal('DefaultVal')
+      G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     }
   }
 }

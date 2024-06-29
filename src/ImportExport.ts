@@ -9,6 +9,7 @@ import { testing, version } from './Config'
 import { Synergism } from './Events'
 import { addTimers } from './Helper'
 import { quarkHandler } from './Quark'
+import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { shopData } from './Shop'
 import { singularityData } from './singularity'
 import { synergismStage } from './Statistics'
@@ -277,33 +278,35 @@ export const exportSynergism = async (
 
 export const reloadDeleteGame = async () => {
   await Alert(i18next.t('importexport.reloadDeletePrompt'))
-  await resetGame()
+  await resetGame(true)
 }
 
-export const resetGame = async () => {
-  const a = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
-  const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
+export const resetGame = async (force = true) => {
+  if (!force) {
+    const a = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
+    const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
 
-  const result = await Prompt(
-    i18next.t('importexport.resetPrompt', { a, b, sum: a + b })
-  )
-  if (result === null || Number(result) !== a + b) {
-    return Alert(i18next.t('importexport.wrongAnswer'))
+    const result = await Prompt(
+      i18next.t('importexport.resetPrompt', { a, b, sum: a + b })
+    )
+    if (result === null || Number(result) !== a + b) {
+      return Alert(i18next.t('importexport.wrongAnswer'))
+    }
   }
 
-  const hold = Object.assign({}, blankSave, {
-    codes: Array.from(blankSave.codes)
-  }) as Player
+  const hold = playerJsonSchema.safeParse(blankSave)
+
   // Reset Displays
   changeTab(Tabs.Buildings)
   changeSubTab(Tabs.Buildings, { page: 0 })
   changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
+  changeSubTab(Tabs.Challenges, { page: 0 }) // Set 'challenges' subtab back to 'normal' tab
   changeSubTab(Tabs.WowCubes, { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
   changeSubTab(Tabs.Corruption, { page: 0 }) // set 'corruption main'
   changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
   changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
   // Import Game
-  await importSynergism(btoa(JSON.stringify(hold)), true)
+  await importSynergism(btoa(JSON.stringify(hold.data)), true)
 }
 
 export const importData = async (
@@ -616,14 +619,19 @@ export const promocodes = async (input: string | null, amount?: number) => {
           : (freeLevels.goldenQuarks3 = 1)
       }
 
-      if (player.highestSingularityCount >= 200) {
-        player.octeractUpgrades.octeractGain.freeLevels += player.octeractUpgrades.octeractGain.level / 100
-        freeLevels.octeractGain = player.octeractUpgrades.octeractGain.level / 100
+      if (player.highestSingularityCount >= 200 && player.highestSingularityCount < 205) {
+        const freeLevelOct1 = Math.max(player.octeractUpgrades.octeractGain.level / 100, Math.pow(player.octeractUpgrades.octeractGain.level * player.octeractUpgrades.octeractGain.freeLevels / 1000, 0.5))
+        player.octeractUpgrades.octeractGain.freeLevels += freeLevelOct1
+        freeLevels.octeractGain = freeLevelOct1
       }
+      else if (player.highestSingularityCount >= 205) {
+        const freeLevelOct1 = Math.max(player.octeractUpgrades.octeractGain.level / 100, Math.pow(player.octeractUpgrades.octeractGain.level * player.octeractUpgrades.octeractGain.freeLevels / 640, 0.5))
+        const freeLevelOct2 = Math.max(player.octeractUpgrades.octeractGain2.level / 100, Math.pow(Math.pow(player.octeractUpgrades.octeractGain2.level, 2) * player.octeractUpgrades.octeractGain2.freeLevels / 125000, 0.333))
 
-      if (player.highestSingularityCount >= 205) {
-        player.octeractUpgrades.octeractGain2.freeLevels += player.octeractUpgrades.octeractGain2.level / 100
-        freeLevels.octeractGain2 = player.octeractUpgrades.octeractGain2.level / 100
+        player.octeractUpgrades.octeractGain.freeLevels += freeLevelOct1
+        player.octeractUpgrades.octeractGain2.freeLevels += freeLevelOct2
+        freeLevels.octeractGain = freeLevelOct1
+        freeLevels.octeractGain2 = freeLevelOct2
       }
 
       for (const key of Object.keys(freeLevels)) {
@@ -1129,7 +1137,7 @@ const dailyCodeFormatFreeLevelMessage = (
   const upgradeNiceName = upgradeKey in singularityData
     ? i18next.t(`singularity.data.${upgradeKey}.name`)
     : i18next.t(`octeract.data.${upgradeKey}.name`)
-  return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`
+  return `\n+${format(freeLevelAmount, 0, true)} extra levels of '${upgradeNiceName}'`
 }
 
 const dailyCodeReward = () => {

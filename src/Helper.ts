@@ -183,7 +183,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       break
     }
     case 'ambrosia': {
-      const compute = player.caches.ambrosiaGeneration.totalVal
+      const compute = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
       if (compute === 0) {
         break
       }
@@ -194,23 +194,38 @@ export const addTimers = (input: TimerInput, time = 0) => {
         break
       }
 
-      const ambrosiaLuck = player.caches.ambrosiaLuck.usedTotal
-      player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * compute
+      const ambrosiaLuck = G.ambrosiaCurrStats.ambrosiaLuck
+      const baseBlueberryTime = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
+      player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * baseBlueberryTime
+      player.ultimateProgress += Math.floor(8 * G.ambrosiaTimer) / 8
+        * Math.min(baseBlueberryTime, Math.pow(1000 * baseBlueberryTime, 1 / 2)) * 0.02
       G.ambrosiaTimer %= 0.125
 
       let timeToAmbrosia = calculateRequiredBlueberryTime()
+
+      const maxAccelMultiplier = (1 / 2)
+        + (3 / 5 - 1 / 2) * +(player.singularityChallenges.noAmbrosiaUpgrades.completions >= 15)
+        + (2 / 3 - 3 / 5) * +(player.singularityChallenges.noAmbrosiaUpgrades.completions >= 19)
+        + (3 / 4 - 2 / 3) * +(player.singularityChallenges.noAmbrosiaUpgrades.completions >= 20)
 
       while (player.blueberryTime >= timeToAmbrosia) {
         const RNG = Math.random()
         const ambrosiaMult = Math.floor(ambrosiaLuck / 100)
         const luckMult = RNG < ambrosiaLuck / 100 - Math.floor(ambrosiaLuck / 100) ? 1 : 0
-        const bonusAmbrosia = (player.singularityChallenges.noAmbrosiaUpgrades.rewards.bonusAmbrosia) ? 1: 0
+        const bonusAmbrosia = (player.singularityChallenges.noAmbrosiaUpgrades.rewards.bonusAmbrosia) ? 1 : 0
         const ambrosiaToGain = (ambrosiaMult + luckMult) + bonusAmbrosia
 
         player.ambrosia += ambrosiaToGain
         player.lifetimeAmbrosia += ambrosiaToGain
         player.blueberryTime -= timeToAmbrosia
 
+        timeToAmbrosia = calculateRequiredBlueberryTime()
+        const secondsToNextAmbrosia = timeToAmbrosia / G.ambrosiaCurrStats.ambrosiaGenerationSpeed
+
+        G.ambrosiaTimer += Math.min(
+          secondsToNextAmbrosia * maxAccelMultiplier,
+          ambrosiaToGain * 0.2 * player.shopUpgrades.shopAmbrosiaAccelerator
+        )
         timeToAmbrosia = calculateRequiredBlueberryTime()
         const ambrosiaTimeGain = Math.min(timeToAmbrosia / compute * 0.9, 0.2 * ambrosiaToGain * player.shopUpgrades.shopAmbrosiaAccelerator)
         G.ambrosiaTimer += ambrosiaTimeGain
