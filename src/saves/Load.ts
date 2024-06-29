@@ -61,6 +61,7 @@ import { playerSchema } from './PlayerSchema'
 
 export const loadSynergism = async () => {
   let saveString: string | null = null
+  let data: unknown
 
   try {
     const blob = await localforage.getItem<Blob>('Synergysave2')
@@ -70,18 +71,15 @@ export const loadSynergism = async () => {
     } else {
       saveString = await blob.text()
     }
+
+    if (saveString) {
+      data = JSON.parse(atob(saveString))
+    }
   } catch (e) {
     console.log(e)
     Alert('Failed to load save!')
     return
   }
-
-  if (saveString === null) {
-    Alert('Really failed to load save!')
-    return
-  }
-
-  const data: unknown = saveString ? JSON.parse(atob(saveString)) : null
 
   if (testing || !prod) {
     Object.defineProperties(window, {
