@@ -731,6 +731,7 @@ export const playerSchema = z.object({
 
   ultimateProgress: z.number().default(() => blankSave.ultimateProgress),
   ultimatePixels: z.number().default(() => blankSave.ultimatePixels),
+  lifetimeUltimatePixels: z.number().default(() => blankSave.lifetimeUltimatePixels),
 
   pixelUpgrades: z.record(z.string(), singularityUpgradeSchema('pixelsInvested'))
     .transform((upgrades) =>
@@ -754,7 +755,8 @@ export const playerSchema = z.object({
           ]
         })
       )
-    ),
+    )
+    .default(() => JSON.parse(JSON.stringify(blankSave.pixelUpgrades))),
 
   // TODO: what type?
   caches: z.record(z.string(), z.any())
