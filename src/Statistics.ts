@@ -1701,8 +1701,8 @@ export const loadStatisticsAmbrosiaLuck = () => {
     7: { acc: 1, desc: 'Ambrosia Luck Module II' },
     8: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
     9: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
-    10: { acc: 0, desc: 'Perk: One Hundred Thirty One!' },
-    11: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
+    10: { acc: 0, desc: 'Primal Power: One Hundred Thirty One!' },
+    11: { acc: 0, desc: 'Primal Power: Two Hundred Sixty Nine!' },
     12: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
     13: { acc: 0, desc: 'No Ambrosia Upgrades EXALT' }
   }
