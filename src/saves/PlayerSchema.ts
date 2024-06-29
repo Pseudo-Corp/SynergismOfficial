@@ -758,6 +758,30 @@ export const playerSchema = z.object({
     )
     .default(() => JSON.parse(JSON.stringify(blankSave.pixelUpgrades))),
 
+  pixelUpgrades: z.record(z.string(), singularityUpgradeSchema('pixelsInvested'))
+    .transform((upgrades) =>
+      Object.fromEntries(
+        Object.keys(blankSave.pixelUpgrades).map((k) => {
+          const { level, pixelsInvested, toggleBuy, freeLevels } = upgrades[k] ?? blankSave.pixelUpgrades[k]
+
+          return [
+            k,
+            new PixelUpgrade({
+              maxLevel: pixelData[k].maxLevel,
+              costPerLevel: pixelData[k].costPerLevel,
+              level: level as number,
+              pixelsInvested,
+              toggleBuy: toggleBuy as number,
+              rewards: pixelData[k].rewards,
+              freeLevels: freeLevels as number,
+              cacheUpdates: pixelData[k].cacheUpdates,
+              IconSrc: pixelData[k].IconSrc
+            }, k)
+          ]
+        })
+      )
+    ),
+
   // TODO: what type?
   caches: z.record(z.string(), z.any())
     .transform(() => {

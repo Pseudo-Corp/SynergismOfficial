@@ -1661,7 +1661,7 @@ export const singularityData: Record<
     cacheUpdates: [
       () => player.caches.ultimatePixelLuck.updateVal('SingularityPixelLuck2')
     ]
-  },
+  }
 }
 
 /**

@@ -191,7 +191,7 @@ type AmbrosiaLuckAdditiveMult =
   | 'ShopUpgrades'
   | 'Exalt5'
   | 'Event'
-  
+
 type UltimatePixelGeneration =
   | 'Base'
   | 'BarLevel'

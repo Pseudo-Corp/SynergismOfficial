@@ -19,7 +19,6 @@ import type {
   UltimatePixelLuckCache
 } from '../StatCache'
 import type { Tabs } from '../Tabs'
-import type { PixelUpgrade } from '../PixelUpgrades'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 
