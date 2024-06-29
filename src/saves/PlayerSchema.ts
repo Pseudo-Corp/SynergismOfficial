@@ -780,7 +780,8 @@ export const playerSchema = z.object({
           ]
         })
       )
-    ),
+    )
+    .default(() => JSON.parse(JSON.stringify(blankSave.pixelUpgrades))),
 
   // TODO: what type?
   caches: z.record(z.string(), z.any())
