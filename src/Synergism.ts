@@ -536,6 +536,7 @@ export const player: Player = {
   // create a Map with keys defaulting to false
   codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false])),
 
+  // TODO: change these to a bitwise flag
   loaded1009: true,
   loaded1009hotfix1: true,
   loaded10091: true,
