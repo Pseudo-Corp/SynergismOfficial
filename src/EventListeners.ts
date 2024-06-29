@@ -59,11 +59,12 @@ import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
 import { buyResearch, researchDescriptions } from './Research'
 import { resetrepeat, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { displayRuneInformation, redeemShards } from './Runes'
+import { saveSynergy } from './saves/Save'
 import { buyShopUpgrades, resetShopUpgrades, shopData, shopDescriptions, shopUpgradeTypes, useConsumable } from './Shop'
 import { buyGoldenQuarks, getLastUpgradeInfo, singularityPerks } from './singularity'
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
-import { player, resetCheck, saveSynergy } from './Synergism'
+import { player, resetCheck } from './Synergism'
 import { changeSubTab, Tabs } from './Tabs'
 import {
   buyAllTalismanResources,

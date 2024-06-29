@@ -1,3 +1,4 @@
+import AsyncLock from 'async-lock'
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import localforage from 'localforage'
@@ -46,7 +47,7 @@ import {
   updateAutoChallenge,
   updateRuneBlessingBuyAmount
 } from '../Toggles'
-import { OneToFive } from '../types/Synergism'
+import type { OneToFive } from '../types/Synergism'
 import {
   Alert,
   revealStuff,
@@ -58,6 +59,8 @@ import { upgradeupdate } from '../Upgrades'
 import { cleanString, sortWithIndices } from '../Utility'
 import { blankGlobals, Globals as G } from '../Variables'
 import { playerSchema } from './PlayerSchema'
+
+export const saveLock = new AsyncLock()
 
 export const loadSynergism = async () => {
   let saveString: string | null = null

@@ -87,8 +87,8 @@ import { buyResearch, maxRoombaResearchIndex } from './Research'
 import { autoResearchEnabled } from './Research'
 import { reset, singularity } from './Reset'
 import { redeemShards } from './Runes'
-import { loadSynergism } from './saves/Load'
-import { playerJsonSchema } from './saves/PlayerJsonSchema'
+import { loadSynergism, saveLock } from './saves/Load'
+import { saveSynergy } from './saves/Save'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import {
@@ -1445,44 +1445,6 @@ export const player: Player = {
 export const blankSave = Object.assign({}, player, {
   codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false]))
 })
-
-// The main cause of the double singularity bug was caused by a race condition
-// when the game was saving just as the user was entering a Singularity. To fix
-// this, hopefully, we disable saving the game when in the prompt or currently
-// entering a Singularity.
-export const saveCheck = { canSave: true }
-
-export const saveSynergy = async (button?: boolean): Promise<boolean> => {
-  player.offlinetick = Date.now()
-  player.loaded1009 = true
-  player.loaded1009hotfix1 = true
-
-  const p = playerJsonSchema.parse(player)
-  const save = btoa(JSON.stringify(p))
-
-  if (save !== null) {
-    const saveBlob = new Blob([save], { type: 'text/plain' })
-
-    // Should prevent overwritting of localforage that is currently used
-    if (!saveCheck.canSave) {
-      return false
-    }
-
-    localStorage.setItem('Synergysave2', save)
-    await localforage.setItem<Blob>('Synergysave2', saveBlob)
-  } else {
-    await Alert(i18next.t('testing.errorSaving'))
-    return false
-  }
-
-  if (button) {
-    const el = DOMCacheGetOrSet('saveinfo')
-    el.textContent = i18next.t('testing.gameSaved')
-    setTimeout(() => (el.textContent = ''), 4000)
-  }
-
-  return true
-}
 
 // dprint-ignore
 const FormatList = [
@@ -4909,11 +4871,14 @@ export const reloadShit = async (reset = false) => {
         return Alert(i18next.t('save.loadFailed'))
       }
 
-      localStorage.clear()
-      const blob = new Blob([saveString], { type: 'text/plain' })
-      localStorage.setItem('Synergysave2', saveString)
-      await localforage.setItem<Blob>('Synergysave2', blob)
-      await Alert(i18next.t('main.transferredFromLZ'))
+      await saveLock.acquire('load', async (done) => {
+        localStorage.clear()
+        const blob = new Blob([saveString], { type: 'text/plain' })
+        localStorage.setItem('Synergysave2', saveString)
+        await localforage.setItem<Blob>('Synergysave2', blob)
+        await Alert(i18next.t('main.transferredFromLZ'))
+        done()
+      })
     }
 
     await loadSynergism()
@@ -4925,11 +4890,9 @@ export const reloadShit = async (reset = false) => {
     player.worlds.reset()
     // saving is disabled during a singularity event to prevent bug
     // early return here if the save fails can keep game state from properly resetting after a singularity
-    if (saveCheck.canSave) {
-      const saved = await saveSynergy()
-      if (!saved) {
-        return
-      }
+    const saved = await saveSynergy()
+    if (!saved) {
+      return
     }
   }
 
