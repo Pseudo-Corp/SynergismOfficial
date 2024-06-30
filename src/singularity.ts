@@ -1659,7 +1659,7 @@ export const singularityData: Record<
     specialCostForm: 'Exponential2',
     qualityOfLife: false,
     cacheUpdates: [
-      () => player.caches.ultimatePixelLuck.updateVal('SingularityPixelLuck2')
+      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value}
     ]
   }
 }
