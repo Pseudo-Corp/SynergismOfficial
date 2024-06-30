@@ -243,7 +243,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       break
     }
     case 'pixel': {
-      const compute = player.caches.ultimatePixelGeneration.totalVal
+      const compute = G.pixelCurrStats.pixelGenerationSpeed
       if (compute === 0) {
         break
       }
@@ -254,7 +254,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         break
       }
 
-      const pixelLuck = player.caches.ultimatePixelLuck.usedTotal
+      const pixelLuck = G.pixelCurrStats.pixelLuck
       player.ultimateProgress += Math.floor(8 * G.pixelTimer) / 8 * compute
       G.pixelTimer %= 0.125
 

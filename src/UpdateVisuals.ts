@@ -1629,13 +1629,13 @@ export const visualUpdateProgressPixels = () => {
     return
   }
 
-  const luck = player.caches.ultimatePixelLuck.usedTotal
-  const baseLuck = player.caches.ultimatePixelLuck.totalVal
-  const luckBonusPercent = 100 * (player.caches.ultimatePixelAdditiveMult.totalVal - 1)
+  const luck = G.pixelCurrStats.pixelLuck
+  const baseLuck = luck / G.pixelCurrStats.pixelAdditiveLuckMult
+  const luckBonusPercent = 100 * (G.pixelCurrStats.pixelAdditiveLuckMult - 1)
   const guaranteed = Math.floor(luck / 100)
   const chance = luck - 100 * Math.floor(luck / 100)
   const requiredTime = 1e6
-  const totalTimePerSecond = player.caches.ultimatePixelGeneration.totalVal
+  const totalTimePerSecond = G.pixelCurrStats.pixelGenerationSpeed
   const pixelBarWidth = 100 * Math.min(1, player.ultimateProgress / 1e6)
 
   const metaBarLevel = computeMetaBarLevel()

@@ -1,12 +1,13 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculatePixelBarLevelBonuses } from './Calculate'
+import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculateBlueberryInventory, calculatePixelBarLevelBonuses, calculatePixelGenerationSpeed, calculatePixelLuck } from './Calculate'
 import { DynamicUpgrade, type IUpgradeData } from './DynamicUpgrade'
 import { format, player } from './Synergism'
 import { IconSets } from './Themes'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { visualUpdateProgressPixels } from './UpdateVisuals'
+import { Globals as G } from './Variables'
 
 export type pixelUpgradeNames =
   | 'pixelTutorial'
@@ -203,7 +204,7 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.ultimatePixelLuck.updateVal('PixelUpgrade1')
+      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value}
     ],
     IconSrc: 'PixelPixelLuck'
   },
@@ -222,7 +223,7 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.ambrosiaGeneration.updateVal('PixelUpgrade1')
+      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
     ],
     IconSrc: 'PixelAmbrosiaGeneration'
   },
@@ -241,7 +242,7 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.ambrosiaGeneration.updateVal('PixelUpgrade2')
+      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
     ],
     IconSrc: 'PixelAmbrosiaGeneration2'
   },
@@ -260,7 +261,7 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.ambrosiaGeneration.updateVal('PixelUpgrade3')
+      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
     ],
     IconSrc: 'PixelAmbrosiaGeneration3'
   },
@@ -278,7 +279,7 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.ambrosiaLuck.updateVal('PixelUpgrade1')
+      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
     ],
     IconSrc: 'PixelAmbrosiaLuck'
   },
@@ -296,7 +297,7 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.ambrosiaLuck.updateVal('PixelUpgrade2')
+      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
     ],
     IconSrc: 'PixelAmbrosiaLuck2'
   },
@@ -314,7 +315,7 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.ambrosiaLuck.updateVal('PixelUpgrade3')
+      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
     ],
     IconSrc: 'PixelAmbrosiaLuck3'
   },
@@ -397,7 +398,7 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.ultimatePixelGeneration.updateVal('Base')
+      () => {G.pixelCurrStats.pixelGenerationSpeed = calculatePixelGenerationSpeed().value}
     ],
     IconSrc: 'PixelPixelGeneration'
   },
@@ -416,7 +417,7 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.ultimatePixelGeneration.updateVal('Base')
+      () => {G.pixelCurrStats.pixelGenerationSpeed = calculatePixelGenerationSpeed().value}
     ],
     IconSrc: 'PixelPixelGeneration2'
   },
@@ -435,7 +436,7 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.ultimatePixelGeneration.updateVal('Base')
+      () => {G.pixelCurrStats.pixelGenerationSpeed = calculatePixelGenerationSpeed().value}
     ],
     IconSrc: 'PixelPixelGeneration3'
   },
@@ -454,7 +455,8 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.blueberryInventory.updateVal('PixelUpgrade1')
+      () => {G.ambrosiaCurrStats.ambrosiaBlueberries = calculateBlueberryInventory().value},
+      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value},
     ],
     IconSrc: 'PixelBlueberry'
   },
@@ -473,7 +475,8 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.blueberryInventory.updateVal('PixelUpgrade2')
+      () => {G.ambrosiaCurrStats.ambrosiaBlueberries = calculateBlueberryInventory().value},
+      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value},
     ],
     IconSrc: 'PixelBlueberry2'
   },
@@ -492,7 +495,8 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => player.caches.blueberryInventory.updateVal('PixelUpgrade3')
+      () => {G.ambrosiaCurrStats.ambrosiaBlueberries = calculateBlueberryInventory().value},
+      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value},
     ],
     IconSrc: 'PixelBlueberry3'
   },
@@ -517,17 +521,20 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
     costPerLevel: 250,
     rewards (n) {
       const purchased = n > 0
-      const bonus = +purchased * Math.floor(player.caches.ambrosiaLuck.usedTotal / 1000)
+      const bonus = +purchased * G.ambrosiaCurrStats.ambrosiaLuck / 1000
       return {
         purchased: purchased,
         get desc () {
           return i18next.t('ultimatePixels.data.pixelPixelLuckConverter.effect', {
             purchased: purchased ? '[✔]' : '[✖]',
-            luck: bonus
+            luck: format(bonus, 2, true)
           })
         }
       }
     },
+    cacheUpdates: [
+      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value},
+    ],
     IconSrc: 'PixelPixelLuckConverter'
   },
   pixelPixelLuckConverter2: {
@@ -535,17 +542,20 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
     costPerLevel: 10000,
     rewards (n) {
       const purchased = n > 0
-      const bonus = +purchased * Math.floor(player.caches.ambrosiaLuck.usedTotal / 1000)
+      const bonus = +purchased * G.ambrosiaCurrStats.ambrosiaLuck / 1000
       return {
         purchased: purchased,
         get desc () {
           return i18next.t('ultimatePixels.data.pixelPixelLuckConverter2.effect', {
             purchased: purchased ? '[✔]' : '[✖]',
-            luck: bonus
+            luck: format(bonus, 2, true)
           })
         }
       }
     },
+    cacheUpdates: [
+      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value},
+    ],
     IconSrc: 'PixelPixelLuckConverter'
   },
   pixelFreeUpgradeImprovement: {

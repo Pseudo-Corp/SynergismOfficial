@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculateBlueberryInventory } from './Calculate'
+import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculateBlueberryInventory, calculatePixelLuck } from './Calculate'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import { format, player } from './Synergism'
@@ -1597,7 +1597,7 @@ export const singularityData: Record<
     specialCostForm: 'Exponential2',
     qualityOfLife: false,
     cacheUpdates: [
-      () => player.caches.ultimatePixelLuck.updateVal('SingularityPixelLuck1')
+      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value}
     ]
   },
   singPixelLuck2: {
@@ -1617,7 +1617,7 @@ export const singularityData: Record<
     specialCostForm: 'Exponential2',
     qualityOfLife: false,
     cacheUpdates: [
-      () => player.caches.ultimatePixelLuck.updateVal('SingularityPixelLuck2')
+      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value}
     ]
   }
 }

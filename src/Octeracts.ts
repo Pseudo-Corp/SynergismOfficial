@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, octeractGainPerSecond } from './Calculate'
+import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculatePixelLuck, octeractGainPerSecond } from './Calculate'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import { format, formatTimeShort, player } from './Synergism'
@@ -808,7 +808,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       }
     },
     qualityOfLife: true,
-    cacheUpdates: [() => player.caches.ambrosiaGeneration.updateVal('OcteractBerries')]
+    cacheUpdates: [() => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}]
   },
   octeractPixelLuck: {
     costFormula: (level: number, baseCost: number) => {
@@ -826,7 +826,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       }
     },
     qualityOfLife: true,
-    cacheUpdates: [() => player.caches.ultimatePixelLuck.updateVal('OcteractPixelLuck1')]
+    cacheUpdates: [() => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value}]
   },
   octeractPixelLuck2: {
     costFormula: (level: number, baseCost: number) => {
@@ -844,6 +844,6 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       }
     },
     qualityOfLife: true,
-    cacheUpdates: [() => player.caches.ultimatePixelLuck.updateVal('OcteractPixelLuck2')]
+    cacheUpdates: [() => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value}]
   }
 }

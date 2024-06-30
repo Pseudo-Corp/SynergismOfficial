@@ -1322,6 +1322,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.insideSingularityChallenge = player.insideSingularityChallenge
   hold.ultimatePixels = player.ultimatePixels
   hold.ultimateProgress = player.ultimateProgress
+  hold.lifetimeUltimatePixels = player.lifetimeUltimatePixels
   hold.singularityChallenges = Object.fromEntries(
     Object.entries(player.singularityChallenges).map(([key, value]) => {
       return [key, {

@@ -264,6 +264,13 @@ const subtabInfo: Record<Tabs, SubTab> = {
           return player.singularityChallenges.noSingularityUpgrades.completions >= 1
         },
         buttonID: 'toggleSingularitySubTab4'
+      },
+      {
+        subTabID: '5',
+        get unlocked () {
+          return player.singularityChallenges.limitedAscensions.completions >= 1
+        },
+        buttonID: 'toggleSingularityTab5'
       }
     ]
   },

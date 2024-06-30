@@ -1014,6 +1014,12 @@ export interface GlobalVariables {
     ambrosiaGenerationSpeed: number
   }
 
+  pixelCurrStats: {
+    pixelAdditiveLuckMult: number
+    pixelLuck: number
+    pixelGenerationSpeed: number
+  }
+
   currentSingChallenge: keyof Player['singularityChallenges'] | undefined
 }
 

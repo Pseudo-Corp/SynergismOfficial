@@ -1,5 +1,6 @@
 import {
   calculateAdditiveLuckMult,
+  calculateAdditivePixelLuckMult,
   calculateAmbrosiaGenerationOcteractUpgrade,
   calculateAmbrosiaGenerationSingularityUpgrade,
   calculateAmbrosiaGenerationSpeed,
@@ -11,6 +12,8 @@ import {
   calculateDilatedFiveLeafBonus,
   calculateEventBuff,
   calculatePixelBarLevelBonuses,
+  calculatePixelGenerationSpeed,
+  calculatePixelLuck,
   calculateSingularityMilestoneBlueberries
 } from './Calculate'
 import {
@@ -731,5 +734,11 @@ export const cacheReinitialize = () => {
     ambrosiaLuck: calculateAmbrosiaLuck().value,
     ambrosiaBlueberries: calculateBlueberryInventory().value,
     ambrosiaGenerationSpeed: calculateAmbrosiaGenerationSpeed().value
+  }
+
+  Globals.pixelCurrStats = {
+    pixelAdditiveLuckMult: calculateAdditivePixelLuckMult().value,
+    pixelLuck: calculatePixelLuck().value,
+    pixelGenerationSpeed: calculatePixelGenerationSpeed().value
   }
 }

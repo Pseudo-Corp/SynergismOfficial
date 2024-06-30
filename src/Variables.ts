@@ -515,6 +515,12 @@ export const Globals: GlobalVariables = {
     ambrosiaGenerationSpeed: 1
   },
 
+  pixelCurrStats: {
+    pixelAdditiveLuckMult: 1,
+    pixelLuck: 100,
+    pixelGenerationSpeed: 1,
+  },
+
   currentSingChallenge: undefined
 }
 

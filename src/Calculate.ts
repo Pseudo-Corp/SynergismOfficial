@@ -3379,7 +3379,9 @@ export const calculateAdditiveLuckMult = () => {
   const arr = [
     1,
     +player.singularityChallenges.noSingularityUpgrades.rewards.luckBonus, // No Singularity Upgrade 1x30
+    +player.blueberryUpgrades.ambrosiaLuckDilator.bonus.ambrosiaLuckMult, // Blueberry Upgrade (Dilator)
     calculateDilatedFiveLeafBonus(), // Dilated Five Leaf Clover Perk
+    calculatePixelBarLevelBonuses().AmbrosiaLuckMult, // Computed Bar Level Bonus
     player.shopUpgrades.shopAmbrosiaLuckMultiplier4 / 100, // EXALT-unlocked shop upgrade
     +player.singularityChallenges.noAmbrosiaUpgrades.rewards.luckBonus, // No Ambrosia Challenge Reward
     G.isEvent ? calculateEventBuff(BuffType.AmbrosiaLuck) : 0 // Event
@@ -3406,6 +3408,10 @@ export const calculateAmbrosiaLuck = () => {
     +player.blueberryUpgrades.ambrosiaLuck2.bonus.ambrosiaLuck, // Ambrosia Luck from Luck Module II
     +player.blueberryUpgrades.ambrosiaCubeLuck1.bonus.ambrosiaLuck, // Ambrosia Luck from Cube-Luck Synergy Module
     +player.blueberryUpgrades.ambrosiaQuarkLuck1.bonus.ambrosiaLuck, // Ambrosia Luck from Quark-Luck Synergy Module
+    calculatePixelBarLevelBonuses().AmbrosiaLuck, // Bar Level Ambrosia Luck Bonuses!
+    +player.pixelUpgrades.pixelAmbrosiaLuck.bonus.ambrosiaLuck, // Pixel Upgrade Inducer
+    +player.pixelUpgrades.pixelAmbrosiaLuck2.bonus.ambrosiaLuck, // Pixel Upgrade Deducer
+    +player.pixelUpgrades.pixelAmbrosiaLuck3.bonus.ambrosiaLuck, // Pixel Upgrade Convector
     player.highestSingularityCount >= 131 ? 131 : 0, // Singularity Perk "One Hundred Thirty One!"
     player.highestSingularityCount >= 269 ? 269 : 0, // Singularity Perk "Two Hundred Sixty Nine!"
     player.shopUpgrades.shopOcteractAmbrosiaLuck * (1 + Math.floor(Math.log10(player.totalWowOcteracts + 1))), // Octeract -> Ambrosia Shop Upgrade
@@ -3429,7 +3435,10 @@ export const calculateBlueberryInventory = () => {
     +(player.singularityChallenges.noSingularityUpgrades.completions > 0), // E1x1 Clear!
     +player.singularityUpgrades.blueberries.getEffect().bonus, // Singularity Blueberry Upgrade
     calculateSingularityMilestoneBlueberries(), // Singularity Milestones (Congealed Blueberries)
-    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberries // No Ambrosia Challenge Reward
+    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberries, // No Ambrosia Challenge Reward
+    +player.pixelUpgrades.pixelBlueberry.bonus.blueberry,
+    +player.pixelUpgrades.pixelBlueberry2.bonus.blueberry,
+    +player.pixelUpgrades.pixelBlueberry3.bonus.blueberry
   ]
 
   return {
@@ -3446,10 +3455,70 @@ export const calculateAmbrosiaGenerationSpeed = () => {
     calculateAmbrosiaGenerationSingularityUpgrade(),
     calculateAmbrosiaGenerationOcteractUpgrade(),
     +player.blueberryUpgrades.ambrosiaPatreon.bonus.blueberryGeneration,
+    calculatePixelBarLevelBonuses().BlueberrySpeedMult, // Bar Level Bonus!
+    +player.pixelUpgrades.pixelAmbrosiaGeneration.bonus.ambrosiaGeneration,
+    +player.pixelUpgrades.pixelAmbrosiaGeneration2.bonus.ambrosiaGeneration,
+    +player.pixelUpgrades.pixelAmbrosiaGeneration3.bonus.ambrosiaGeneration,
     +player.singularityChallenges.oneChallengeCap.rewards.blueberrySpeedMult,
     +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberrySpeedMult,
     G.isEvent ? 1 + calculateEventBuff(BuffType.BlueberryTime) : 1,
     calculateCashGrabBlueberryBonus()
+  ]
+
+  return {
+    value: productContents(arr),
+    array: arr
+  }
+}
+
+export const calculateAdditivePixelLuckMult = () => {
+  const arr = [
+    1,
+    calculatePixelBarLevelBonuses().PixelLuckMult,
+    +player.singularityChallenges.noSingularityUpgrades.rewards.luckBonus,
+    G.isEvent ? calculateEventBuff(BuffType.AmbrosiaLuck) : 0
+  ]
+
+  return {
+    value: sumContents(arr),
+    array: arr
+  }
+}
+
+export const calculatePixelLuck = () => {
+  const ambrosiaLuck = calculateAmbrosiaLuck().value
+  console.log(ambrosiaLuck)
+  const arr = [
+    100,
+    calculatePixelBarLevelBonuses().PixelLuck,
+    +player.pixelUpgrades.pixelPixelLuck.bonus.pixelLuck,
+    +player.singularityUpgrades.singPixelLuck.getEffect().bonus,
+    +player.singularityUpgrades.singPixelLuck2.getEffect().bonus,
+    +player.octeractUpgrades.octeractPixelLuck.getEffect().bonus,
+    +player.octeractUpgrades.octeractPixelLuck2.getEffect().bonus,
+    +player.blueberryUpgrades.ambrosiaPixelLuck.bonus.pixelLuck,
+    +player.blueberryUpgrades.ambrosiaPixelLuck2.bonus.pixelLuck,
+    Math.floor((+player.pixelUpgrades.pixelPixelLuckConverter.bonus.purchased + +player.pixelUpgrades.pixelPixelLuckConverter2.bonus.purchased) * ambrosiaLuck / 1000)
+  ]
+
+  const multiplicativeLuck = calculateAdditivePixelLuckMult().value
+
+  return {
+    value: sumContents(arr) * multiplicativeLuck,
+    array: arr.concat(multiplicativeLuck)
+  }
+}
+
+export const calculatePixelGenerationSpeed = () => {
+  const ambrosiaGen = calculateAmbrosiaGenerationSpeed().value
+
+  const arr = [
+    20 * +player.singularityChallenges.limitedAscensions.rewards.ultimateProgressBarUnlock,
+    Math.min(ambrosiaGen, Math.pow(1000000 * ambrosiaGen, 1 / 3)) + 
+    +player.pixelUpgrades.pixelPixelGeneration.bonus.pixelGenerationAdd + 
+    +player.pixelUpgrades.pixelPixelGeneration2.bonus.pixelGenerationAdd + 
+    +player.pixelUpgrades.pixelPixelGeneration3.bonus.pixelGenerationAdd,
+    calculatePixelBarLevelBonuses().PixelProgressMult
   ]
 
   return {

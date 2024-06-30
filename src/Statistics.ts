@@ -18,6 +18,7 @@ import {
   calculateHypercubeMultiplier,
   calculateOcteractMultiplier,
   calculateOfferings,
+  calculatePixelLuck,
   calculatePlatonicMultiplier,
   calculatePowderConversion,
   calculateQuarkMultFromPowder,
@@ -1766,7 +1767,8 @@ export const loadStatisticsAmbrosiaGeneration = () => {
 }
 
 export const loadStatisticsPixelLuck = () => {
-  const arr = player.caches.ultimatePixelLuck.flatten()
+  const stats = calculatePixelLuck()
+  const arr = stats.array
   const map: Record<number, { acc: number; desc: string }> = {
     1: { acc: 0, desc: 'Base Luck:' },
     2: { acc: 0, desc: 'Progress Bar Level Bonus:' },
@@ -1776,7 +1778,8 @@ export const loadStatisticsPixelLuck = () => {
     6: { acc: 0, desc: 'Mega Pixel Luck Bonus' },
     7: { acc: 0, desc: 'Tera Pixel Luck Bonus' },
     8: { acc: 0, desc: 'Blueberry-Infused Pixel Luck Enhancer' },
-    9: { acc: 0, desc: 'Blueberry-Refined Pixel Luck Enhancer' }
+    9: { acc: 0, desc: 'Blueberry-Refined Pixel Luck Enhancer' },
+    10: { acc: 2, desc: 'Ambrosia2Pixel Lucks' }
   }
 
   for (let i = 0; i < arr.length - 1; i++) {
@@ -1785,11 +1788,9 @@ export const loadStatisticsPixelLuck = () => {
     DOMCacheGetOrSet(`sPLuckM${i + 1}`).textContent = `+${format(arr[i], map[i + 1].acc, true)}`
   }
 
-  DOMCacheGetOrSet('sPLuckMult').textContent = `x${format(player.caches.ultimatePixelAdditiveMult.totalVal, 3, true)}`
+  DOMCacheGetOrSet('sPLuckMult').textContent = `x${format(arr[arr.length - 1], 3, true)}`
 
-  const totalVal = Math.floor(
-    arr[arr.length - 1] * player.caches.ultimatePixelAdditiveMult.totalVal
-  )
+  const totalVal = Math.floor(stats.value)
   DOMCacheGetOrSet('sPLuckMT').innerHTML = `❖ ${format(totalVal, 0)}`
 }
 
