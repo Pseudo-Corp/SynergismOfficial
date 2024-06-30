@@ -93,10 +93,19 @@ export async function handleLogin () {
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 
+  const cookies = parseDocumentCookie()
+
+  if (cookies.id || cookies.patreonId) {
+    Alert('You may need to login to your account again for bonuses to apply! Thank you!')
+  }
+
+  if (cookies.id) document.cookie = 'id=;Max-Age=0'
+  if (cookies.patreonId) document.cookie = 'patreonId=;Max-Age=0'
+
   if (location.hostname !== 'synergism.cc') {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
-  } else if (parseDocumentCookie().id || parseDocumentCookie().patreonId) {
+  } else if (cookies.token) {
     if (!member) {
       console.log(response, globalBonus, member, personalBonus, document.cookie)
     }
