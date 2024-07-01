@@ -169,8 +169,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
 
     if (this.level >= actualFreeLevels) {
       return actualFreeLevels + this.level
-    }
-    else {
+    } else {
       return 2 * Math.sqrt(actualFreeLevels * this.level)
     }
   }

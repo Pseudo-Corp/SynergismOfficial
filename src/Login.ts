@@ -108,6 +108,8 @@ export async function handleLogin () {
   } else if (cookies.token) {
     if (!member) {
       console.log(response, globalBonus, member, personalBonus, document.cookie)
+      Alert('Your individual bonuses were not applied. Try refreshing the page!')
+      return
     }
 
     currentBonus.textContent +=
