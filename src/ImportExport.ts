@@ -9,15 +9,17 @@ import { testing, version } from './Config'
 import { Synergism } from './Events'
 import { addTimers } from './Helper'
 import { quarkHandler } from './Quark'
+import { saveLock } from './saves/Load'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
+import { playerSchema } from './saves/PlayerSchema'
+import { saveSynergy } from './saves/Save'
 import { shopData } from './Shop'
 import { singularityData } from './singularity'
 import { synergismStage } from './Statistics'
-import { blankSave, format, player, reloadShit, saveCheck, saveSynergy } from './Synergism'
+import { blankSave, format, player, reloadShit } from './Synergism'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
-import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { cleanString, getElementById, productContents, sumContents } from './Utility'
+import { assert, cleanString, getElementById, productContents, sumContents } from './Utility'
 import { btoa } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -246,8 +248,9 @@ export const exportSynergism = async (
       : 1
     if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
       player.goldenQuarks += Math.floor(
-        player.goldenQuarksTimer
-          / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
+        player.goldenQuarksTimer / (
+          3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus
+        )
       ) * bonusGQMultiplier
       player.goldenQuarksTimer = player.goldenQuarksTimer
         % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
@@ -338,33 +341,47 @@ export const importData = async (
 
 export const importSynergism = async (input: string | null, reset = false) => {
   if (typeof input !== 'string') {
-    return Alert(i18next.t('importexport.unableImport'))
+    await Alert(i18next.t('importexport.unableImport'))
+    return
   }
 
   const d = LZString.decompressFromBase64(input)
-  const f = d ? (JSON.parse(d) as Player) : (JSON.parse(atob(input)) as Player)
+  let f: unknown
 
-  if (
-    f.exporttest === 'YES!'
-    || f.exporttest === true
-    || (f.exporttest === false && testing)
-    || (f.exporttest === 'NO!' && testing)
-  ) {
-    const saveString = btoa(JSON.stringify(f))
+  try {
+    f = d ? JSON.parse(d) : JSON.parse(atob(input))
+  } catch (e) {
+    await Alert(i18next.t('importexport.unableImport'))
+    return
+  }
+
+  const save = playerSchema.safeParse(f)
+
+  if (!save.success) {
+    console.log(save.error)
+    await Alert(i18next.t('importexport.unableImport'))
+    return
+  }
+
+  if (save.data.exporttest === true || (!save.data.exporttest && testing)) {
+    const { data: hold, success } = playerJsonSchema.safeParse(save.data)
+    assert(success)
+    const saveString = btoa(JSON.stringify(hold))
 
     if (saveString === null) {
       return Alert(i18next.t('importexport.unableImport'))
     }
 
-    saveCheck.canSave = false
-    const item = new Blob([saveString], { type: 'text/plain' })
-    localStorage.setItem('Synergysave2', saveString)
-    await localforage.setItem<Blob>('Synergysave2', item)
+    await saveLock.acquire('load', async (done) => {
+      const item = new Blob([saveString], { type: 'text/plain' })
+      localStorage.setItem('Synergysave2', saveString)
+      await localforage.setItem<Blob>('Synergysave2', item)
 
-    localStorage.setItem('saveScumIsCheating', Date.now().toString())
+      localStorage.setItem('saveScumIsCheating', Date.now().toString())
 
-    await reloadShit(reset)
-    saveCheck.canSave = true
+      await reloadShit(reset)
+      done()
+    })
     return
   } else {
     return Alert(i18next.t('importexport.loadTestInLive'))

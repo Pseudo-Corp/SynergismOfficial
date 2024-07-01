@@ -234,13 +234,7 @@ export const playerSchema = z.object({
   acceleratorBoostBought: z.number(),
   acceleratorBoostCost: decimalSchema,
 
-  upgrades: z.number().array().transform((array) => {
-    if (array.length < blankSave.upgrades.length) {
-      array.push(...blankSave.upgrades.slice(0, blankSave.upgrades.length - array.length))
-    }
-
-    return array
-  }),
+  upgrades: z.number().array().transform((array) => arrayExtend(array, 'upgrades')),
 
   prestigeCount: z.number(),
   transcendCount: z.number(),
@@ -366,6 +360,7 @@ export const playerSchema = z.object({
     deepClone([...blankSave.codes])
   ),
 
+  // TODO: should these default to false?
   loaded1009: z.boolean().default(() => blankSave.loaded1009),
   loaded1009hotfix1: z.boolean().default(() => blankSave.loaded1009hotfix1),
   loaded10091: z.boolean().default(() => blankSave.loaded10091),
