@@ -140,7 +140,10 @@ import { BlueberryUpgrade, blueberryUpgradeData, updateLoadoutHoverClasses } fro
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
-import { eventCheck } from './Event'
+import { 
+  eventCheck, 
+  eventUpdate
+} from './Event'
 import {
   AbyssHepteract,
   AcceleratorBoostHepteract,
@@ -6212,6 +6215,28 @@ export const reloadShit = async (reset = false) => {
     await loadSynergy()
   }
 
+  // wait for login and event acquisition on loading
+  // export or singularity won't update them
+  if (saveCheck.canSave) {
+    await Promise.allSettled([
+      handleLogin().catch(console.error),
+      eventCheck()
+        .finally(() => {
+          setInterval(
+            () =>
+              eventCheck().catch((error: Error) => {
+                console.error(error)
+              }),
+            15_000
+          )
+        })
+    ])
+  } else {
+    eventUpdate()
+  }
+  cacheReinitialize()
+  dailyResetCheck()
+
   if (!reset) {
     await calculateOffline()
   } else {
@@ -6250,23 +6275,11 @@ export const reloadShit = async (reset = false) => {
   changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
   changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
 
-  dailyResetCheck()
   setInterval(dailyResetCheck, 30000)
 
   constantIntervals()
   changeTabColor()
 
-  eventCheck()
-    .catch(() => {})
-    .finally(() => {
-      setInterval(
-        () =>
-          eventCheck().catch((error: Error) => {
-            console.error(error)
-          }),
-        15_000
-      )
-    })
   showExitOffline()
   clearTimeout(preloadDeleteGame)
 
@@ -6336,8 +6349,6 @@ window.addEventListener('load', async () => {
 
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
-
-  handleLogin().catch(console.error)
 })
 
 window.addEventListener('unload', () => {

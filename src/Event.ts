@@ -74,6 +74,8 @@ let nowEvent: EventData | null = null
 
 export const getEvent = () => nowEvent
 
+let cacheEvents: EventData[] | null = null
+
 export const eventCheck = async () => {
   if (!player.dayCheck) {
     return
@@ -99,6 +101,19 @@ export const eventCheck = async () => {
     }
   })
 
+  cacheEvents = events
+
+  eventUpdate()
+}
+
+export const eventUpdate = async () => {
+  if (cacheEvents === null) {
+    await eventCheck()
+  }
+  if (cacheEvents === null) {
+    return
+  }
+
   const activeEvents: EventData[] = []
   nowEvent = null
 
@@ -106,7 +121,7 @@ export const eventCheck = async () => {
   let start: Date
   let end: Date
 
-  for (const event of events) {
+  for (const event of cacheEvents) {
     // TODO: use setDate instead to set the correct day.
     start = new Date(event.start)
     end = new Date(event.end)
