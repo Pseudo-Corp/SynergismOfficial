@@ -4,6 +4,7 @@ import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calcu
 import { DynamicUpgrade } from './DynamicUpgrade'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { exportData, saveFilename } from './ImportExport'
+import { getQuarkBonus } from './Quark'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
@@ -665,7 +666,7 @@ export const blueberryUpgradeData: Record<
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
     rewards: (n: number) => {
-      const val = 1 + (n * player.worlds.BONUS) / 100
+      const val = 1 + (n * getQuarkBonus()) / 100
       return {
         blueberryGeneration: val,
         desc: String(

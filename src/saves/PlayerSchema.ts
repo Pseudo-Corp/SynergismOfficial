@@ -72,7 +72,7 @@ const hepteractCraftSchema = (k: keyof Player['hepteractCrafts']) =>
 
 export const playerSchema = z.object({
   firstPlayed: z.string().datetime().optional().default(() => new Date().toISOString()),
-  worlds: z.number().transform((quarks) => new QuarkHandler({ quarks })),
+  worlds: z.number().transform((quarks) => new QuarkHandler(quarks)),
   coins: decimalSchema,
   coinsThisPrestige: decimalSchema,
   coinsThisTranscension: decimalSchema,

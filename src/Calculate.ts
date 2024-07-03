@@ -7,7 +7,7 @@ import { BuffType, calculateEventSourceBuff } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { hepteractEffective } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
-import { quarkHandler } from './Quark'
+import { getQuarkBonus, quarkHandler } from './Quark'
 import { reset } from './Reset'
 import { calculateSingularityDebuff } from './singularity'
 import { getFastForwardTotalMultiplier } from './singularity'
@@ -2082,7 +2082,7 @@ export const getOcteractValueMultipliers = () => {
     +player.singularityUpgrades.singOcteractGain5.getEffect().bonus,
     // Patreon bonus
     1
-    + (player.worlds.BONUS / 100)
+    + (getQuarkBonus() / 100)
       * +player.singularityUpgrades.singOcteractPatreonBonus.getEffect().bonus,
     // octeracts for dummies
     1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
@@ -2488,7 +2488,7 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
 
   const arr = [
     1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2, // Challenge 15 Exponent
-    1 + player.worlds.BONUS / 100, // Patreon Bonus
+    1 + getQuarkBonus() / 100, // Patreon Bonus
     +player.singularityUpgrades.goldenQuarks1.getEffect().bonus, // Golden Quarks I
     1 + 0.12 * player.cubeUpgrades[69], // Cookie Upgrade 19
     +player.singularityChallenges.noSingularityUpgrades.rewards.goldenQuarks, // No Singularity Upgrades

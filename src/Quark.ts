@@ -37,24 +37,23 @@ export const quarkHandler = () => {
   }
 }
 
+let bonus = 0
+
+export const setQuarkBonus = (newBonus: number) => bonus = newBonus
+export const getQuarkBonus = () => bonus
+
 export class QuarkHandler {
-  /** Global quark bonus */
-  public BONUS = 0
   /** Quark amount */
   private QUARKS = 0
 
-  constructor ({ bonus, quarks }: { bonus?: number; quarks: number }) {
+  constructor (quarks: number) {
     this.QUARKS = quarks
-
-    if (bonus) {
-      this.BONUS = bonus
-    }
   }
 
   /*** Calculates the number of quarks to give with the current bonus. */
   applyBonus (amount: number) {
     const nonPatreon = calculateQuarkMultiplier()
-    return amount * (1 + (this.BONUS / 100)) * nonPatreon
+    return amount * (1 + (getQuarkBonus() / 100)) * nonPatreon
   }
 
   /** Subtracts quarks, as the name suggests. */

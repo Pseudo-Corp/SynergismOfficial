@@ -158,7 +158,7 @@ import { init as i18nInit } from './i18n'
 import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
-import { QuarkHandler } from './Quark'
+import { getQuarkBonus, QuarkHandler } from './Quark'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerSchema } from './saves/PlayerSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
@@ -177,7 +177,7 @@ import type { PlayerSave } from './types/LegacySynergism'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
-  worlds: new QuarkHandler({ quarks: 0, bonus: 0 }),
+  worlds: new QuarkHandler(0),
   coins: new Decimal('1e2'),
   coinsThisPrestige: new Decimal('1e2'),
   coinsThisTranscension: new Decimal('1e2'),
@@ -5040,7 +5040,7 @@ export const resetCheck = async (
         i18next.t('main.singularityMessage4', {
           x: format(nextSingularityNumber),
           y: format(calculateGoldenQuarkGain(), 2, true),
-          z: format(player.worlds.BONUS)
+          z: format(getQuarkBonus())
         })
       )
       await Alert(i18next.t('main.singularityMessage5'))

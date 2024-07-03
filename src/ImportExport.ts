@@ -8,7 +8,7 @@ import { octeractGainPerSecond } from './Calculate'
 import { testing, version } from './Config'
 import { Synergism } from './Events'
 import { addTimers } from './Helper'
-import { quarkHandler } from './Quark'
+import { getQuarkBonus, quarkHandler } from './Quark'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { shopData } from './Shop'
 import { singularityData } from './singularity'
@@ -240,7 +240,7 @@ export const exportSynergism = async (
     const quarkData = quarkHandler()
 
     let bonusGQMultiplier = 1
-    bonusGQMultiplier *= 1 + player.worlds.BONUS / 100
+    bonusGQMultiplier *= 1 + getQuarkBonus() / 100
     bonusGQMultiplier *= player.highestSingularityCount >= 100
       ? 1 + player.highestSingularityCount / 50
       : 1

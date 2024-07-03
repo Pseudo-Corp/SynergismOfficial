@@ -29,7 +29,7 @@ import { version } from './Config'
 import type { IMultiBuy } from './Cubes'
 import type { hepteractTypes } from './Hepteracts'
 import { hepteractTypeList } from './Hepteracts'
-import { quarkHandler } from './Quark'
+import { getQuarkBonus, quarkHandler } from './Quark'
 import { displayRuneInformation } from './Runes'
 import { getShopCosts, isShopUpgradeUnlocked, shopData, shopUpgradeTypes } from './Shop'
 import { getGoldenQuarkCost } from './singularity'
@@ -1342,7 +1342,7 @@ export const visualUpdateSettings = () => {
     const maxExportQuarks = quarkData.capacity
 
     let goldenQuarkMultiplier = 1
-    goldenQuarkMultiplier *= 1 + player.worlds.BONUS / 100
+    goldenQuarkMultiplier *= 1 + getQuarkBonus() / 100
     goldenQuarkMultiplier *= player.highestSingularityCount >= 100
       ? 1 + player.highestSingularityCount / 50
       : 1

@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import localforage from 'localforage'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { QuarkHandler } from './Quark'
+import { QuarkHandler, setQuarkBonus } from './Quark'
 import { player } from './Synergism'
 import { Alert } from './UpdateHTML'
 
@@ -86,10 +86,8 @@ export async function handleLogin () {
     | SynergismDiscordUserAPIResponse
     | SynergismPatreonUserAPIResponse
 
-  player.worlds = new QuarkHandler({
-    quarks: Number(player.worlds),
-    bonus: 100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100 // Multiplicative
-  })
+  setQuarkBonus(100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100)
+  player.worlds = new QuarkHandler(Number(player.worlds))
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 
