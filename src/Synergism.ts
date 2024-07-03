@@ -6176,12 +6176,6 @@ export const reloadShit = async (reset = false) => {
 
   disableHotkeys()
 
-  // Wait a tick to continue. This is a (likely futile) attempt to see if this solves save corrupting.
-  // This ensures all queued tasks are executed before continuing on.
-  await new Promise((res) => {
-    setTimeout(res, 0)
-  })
-
   const save = (await localforage.getItem<Blob>('Synergysave2'))
     ?? localStorage.getItem('Synergysave2')
 
@@ -6256,17 +6250,6 @@ export const reloadShit = async (reset = false) => {
   constantIntervals()
   changeTabColor()
 
-  eventCheck()
-    .catch(() => {})
-    .finally(() => {
-      setInterval(
-        () =>
-          eventCheck().catch((error: Error) => {
-            console.error(error)
-          }),
-        15_000
-      )
-    })
   showExitOffline()
   clearTimeout(preloadDeleteGame)
 
@@ -6331,13 +6314,20 @@ window.addEventListener('load', async () => {
   document.title = `Synergism v${version}`
 
   generateEventHandlers()
-
-  void reloadShit()
-
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
 
-  handleLogin().catch(console.error)
+  await Promise.allSettled([
+    handleLogin(),
+    eventCheck()
+      .catch(() => {})
+      .finally(() => {
+        setInterval(
+          () => eventCheck().catch(() => {}),
+          15_000
+        )
+      })
+  ]).finally(() => reloadShit())
 })
 
 window.addEventListener('unload', () => {
