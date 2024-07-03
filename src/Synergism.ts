@@ -6320,10 +6320,10 @@ window.addEventListener('load', async () => {
   await Promise.allSettled([
     handleLogin(),
     eventCheck()
-      .catch(() => {})
+      .catch(console.error)
       .finally(() => {
         setInterval(
-          () => eventCheck().catch(() => {}),
+          () => eventCheck().catch(console.error),
           15_000
         )
       })
