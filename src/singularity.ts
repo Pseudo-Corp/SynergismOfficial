@@ -2112,7 +2112,7 @@ export const singularityPerks: SingularityPerk[] = [
     name: () => {
       return i18next.t('singularity.perks.irishAnt2.name')
     },
-    levels: [100, 150, 200, 225, 250, 265, 260, 265, 269, 272],
+    levels: [100, 150, 200, 225, 250, 255, 260, 265, 269, 272],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
         if (n >= levels[i]) {
