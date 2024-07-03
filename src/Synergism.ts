@@ -6161,11 +6161,13 @@ export const showExitOffline = () => {
   setTimeout(() => el.focus(), 100)
 }
 
+let loggedIn = false
+
 /**
  * Reloads shit.
  * @param reset if this param is passed, offline progression will not be calculated.
  */
-export const reloadShit = async (reset = false) => {
+export const reloadShit = async (reset: boolean) => {
   clearTimers()
 
   // Shows a reset button when page loading seems to stop or cause an error
@@ -6207,6 +6209,18 @@ export const reloadShit = async (reset = false) => {
   }
 
   if (!reset) {
+    loggedIn ||= !!await Promise.allSettled([
+      handleLogin(),
+      eventCheck()
+        .catch(console.error)
+        .finally(() => {
+          setInterval(
+            () => eventCheck().catch(console.error),
+            15_000
+          )
+        })
+    ])
+
     await calculateOffline()
   } else {
     player.worlds.reset()
@@ -6317,17 +6331,7 @@ window.addEventListener('load', async () => {
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
 
-  await Promise.allSettled([
-    handleLogin(),
-    eventCheck()
-      .catch(console.error)
-      .finally(() => {
-        setInterval(
-          () => eventCheck().catch(console.error),
-          15_000
-        )
-      })
-  ]).finally(() => reloadShit())
+  reloadShit(false)
 })
 
 window.addEventListener('unload', () => {

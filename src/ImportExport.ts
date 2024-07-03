@@ -311,7 +311,7 @@ export const resetGame = async (force = true) => {
 
 export const importData = async (
   e: Event,
-  importFunc: (save: string | null) => Promise<void> | Promise<undefined>
+  importFunc: typeof importSynergism
 ) => {
   const element = e.target as HTMLInputElement
   const file = element.files![0]
@@ -333,10 +333,10 @@ export const importData = async (
   element.value = ''
   handleLastModified(file.lastModified)
 
-  return importFunc(save)
+  return importFunc(save, false)
 }
 
-export const importSynergism = async (input: string | null, reset = false) => {
+export const importSynergism = async (input: string | null, reset: boolean) => {
   if (typeof input !== 'string') {
     return Alert(i18next.t('importexport.unableImport'))
   }
