@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import localforage from 'localforage'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
 import { player } from './Synergism'
 import { Alert } from './UpdateHTML'
@@ -70,6 +71,8 @@ interface SynergismPatreonUserAPIResponse extends SynergismUserAPIResponse {
   type: 'patreon'
 }
 
+type CloudSave = null | { save: string }
+
 export async function handleLogin () {
   const subtabElement = document.querySelector('#accountSubTab > div.scrollbarX')!
   const currentBonus = DOMCacheGetOrSet('currentBonus')
@@ -118,7 +121,7 @@ export async function handleLogin () {
     if (type === 'discord') {
       user = member?.nick ?? member?.user?.username ?? member?.user?.global_name ?? null
     } else {
-      user = member.user.username
+      user = member?.user.username
     }
 
     const boosted = type === 'discord' ? Boolean(member?.premium_since) : false
@@ -169,8 +172,9 @@ export async function handleLogin () {
       cloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
       cloudSaveElement.textContent = 'Save to Cloud ☁'
 
+      loadCloudSaveElement.addEventListener('click', getCloudSave)
       loadCloudSaveElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
-      loadCloudSaveElement.textContent = 'Load from Cloud ☽ [WIP]'
+      loadCloudSaveElement.textContent = 'Load from Cloud ☽'
     }
 
     const cloudSaveParent = document.createElement('div')
@@ -235,6 +239,13 @@ async function saveToCloud () {
     await Alert(`Received an error: ${await response.text()}`)
     return
   }
+}
+
+async function getCloudSave () {
+  const response = await fetch('https://synergism.cc/api/v1/saves/get')
+  const save = await response.json() as CloudSave
+
+  await importSynergism(save?.save ?? null)
 }
 
 function parseDocumentCookie () {
