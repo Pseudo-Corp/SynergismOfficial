@@ -73,7 +73,7 @@ export const playerJsonSchema = playerSchema.extend({
   pixelUpgrades: z.any().transform((upgrades: Player['pixelUpgrades']) =>
     Object.fromEntries(
       Object.entries(upgrades).map(([key, value]) => {
-        return[
+        return [
           key,
           {
             level: value.level,

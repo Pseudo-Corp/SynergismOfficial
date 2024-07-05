@@ -662,7 +662,7 @@ export interface Player {
    */
   lastExportedSave: number
 
-  seed: number
+  seed: number[]
 }
 
 export interface GlobalVariables {

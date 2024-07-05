@@ -771,5 +771,5 @@ export const playerSchema = z.object({
 
   lastExportedSave: z.number().default(() => blankSave.lastExportedSave),
 
-  seed: z.number().default(() => Date.now())
+  seed: z.number().array().default(() => blankSave.seed).transform((value) => arrayExtend(value, 'seed'))
 })

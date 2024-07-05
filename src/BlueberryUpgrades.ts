@@ -1,6 +1,11 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAdditiveLuckMult, calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculatePixelLuck } from './Calculate'
+import {
+  calculateAdditiveLuckMult,
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
+  calculatePixelLuck
+} from './Calculate'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { exportData, saveFilename } from './ImportExport'
@@ -773,7 +778,9 @@ export const blueberryUpgradeData: Record<
       ambrosiaTutorial: 10
     },
     cacheUpdates: [
-      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value}
+      () => {
+        G.pixelCurrStats.pixelLuck = calculatePixelLuck().value
+      }
     ]
   },
   ambrosiaPixelLuck2: {
@@ -797,7 +804,9 @@ export const blueberryUpgradeData: Record<
       ambrosiaPixelLuck: 8
     },
     cacheUpdates: [
-      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value}
+      () => {
+        G.pixelCurrStats.pixelLuck = calculatePixelLuck().value
+      }
     ]
   },
   ambrosiaLuckDilator: {
@@ -821,9 +830,15 @@ export const blueberryUpgradeData: Record<
       ambrosiaLuck1: 100
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value},
-      () => {G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value},
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      },
+      () => {
+        G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value
+      },
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ]
   }
 }

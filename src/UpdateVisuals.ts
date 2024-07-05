@@ -1649,8 +1649,7 @@ export const visualUpdateProgressPixels = () => {
   if (metaBarLevel < 100) {
     DOMCacheGetOrSet('metaPixelProgress').style.background = 'linear-gradient(to right, #ff5e0f, orange)'
     DOMCacheGetOrSet('metaPixelProgressText').style.color = 'white'
-  }
-  else {
+  } else {
     DOMCacheGetOrSet('metaPixelProgress').style.background = 'linear-gradient(to right, lightgoldenrodyellow, white)'
     DOMCacheGetOrSet('metaPixelProgressText').style.color = 'crimson'
   }

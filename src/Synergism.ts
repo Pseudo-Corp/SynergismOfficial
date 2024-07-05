@@ -1564,7 +1564,7 @@ export const player: Player = {
 
   lastExportedSave: 0,
 
-  seed: -1
+  seed: Array.from({ length: 1 }, () => Date.now())
 }
 
 export const blankSave = Object.assign({}, player, {
