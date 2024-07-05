@@ -3526,7 +3526,7 @@ export const calculatePixelGenerationSpeed = () => {
   const ambrosiaGen = calculateAmbrosiaGenerationSpeed().value
 
   const arr = [
-    20 * +player.singularityChallenges.limitedAscensions.rewards.ultimateProgressBarUnlock,
+    +player.singularityChallenges.limitedAscensions.rewards.ultimateProgressBarUnlock,
     Math.min(ambrosiaGen, Math.pow(1000000 * ambrosiaGen, 1 / 3)) + 
     +player.pixelUpgrades.pixelPixelGeneration.bonus.pixelGenerationAdd + 
     +player.pixelUpgrades.pixelPixelGeneration2.bonus.pixelGenerationAdd + 
