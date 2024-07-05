@@ -2612,9 +2612,11 @@
           "hepteract": "Hepteract Forge"
       },
       "singularity": {
-          "perks-penalties": "Perks / Penalties",
-          "octeracts": "Octeracts",
-          "ambrosia": "Ambrosia"
+        "perks-penalties": "Perks / Penalties",
+        "octeracts": "Octeracts",
+        "exalt": "EXALT",
+        "ambrosia": "Ambrosia",
+        "progress": "BAR"
       },
       "settings": {
           "languages": "🌐 Languages 🌐",
@@ -2640,7 +2642,9 @@
       "ingameAntSacTimer": "In-Game Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
       "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
       "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
-      "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
+      "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>",
+      "lifetimeAmbrosia": "Ambrosia: +<<orange|{{value}}>>",
+        "pixels": "Ultimate Pixels: +<<red|{{value}}>>"
   },
   "corruptions": {
       "names": {
