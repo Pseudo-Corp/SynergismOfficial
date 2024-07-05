@@ -2307,7 +2307,7 @@ export const singularityPerks: SingularityPerk[] = [
 // Placeholder text for Perk Info that is seen upon first load, check Line 645 EventListeners.ts for actual Perk Info code.
 export const updateSingularityPerks = (): void => {
   const singularityCount = player.singularityCount
-  
+
   DOMCacheGetOrSet('singularityPerksHeader').innerHTML = i18next.t(
     'singularity.perks.header',
     {
@@ -2718,6 +2718,10 @@ export const calculateTotalCacheSeconds = () => {
 
 export const setSingularity = async () => {
   // TODO: Make this i18 compatible. This function was honestly made in a hurry to get the beta out
+
+  if (player.insideSingularityChallenge) {
+    return Alert('The elevator does not function properly in these EXALTs.')
+  }
 
   const c = Number(await Prompt(`What singularity would you like to travel to?
                     Your highest singularity is ${player.highestSingularityCount} 
