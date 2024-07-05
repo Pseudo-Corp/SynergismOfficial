@@ -769,5 +769,7 @@ export const playerSchema = z.object({
       return blankSave.caches
     }),
 
-  lastExportedSave: z.number().default(() => blankSave.lastExportedSave)
+  lastExportedSave: z.number().default(() => blankSave.lastExportedSave),
+
+  seed: z.number().default(() => Date.now())
 })
