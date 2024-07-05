@@ -270,7 +270,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
         get unlocked () {
           return player.singularityChallenges.limitedAscensions.completions >= 1
         },
-        buttonID: 'toggleSingularityTab5'
+        buttonID: 'toggleSingularitySubTab5'
       }
     ]
   },
