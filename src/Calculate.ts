@@ -3500,7 +3500,6 @@ export const calculateAdditivePixelLuckMult = () => {
 
 export const calculatePixelLuck = () => {
   const ambrosiaLuck = calculateAmbrosiaLuck().value
-  console.log(ambrosiaLuck)
   const arr = [
     100,
     calculatePixelBarLevelBonuses().PixelLuck,
