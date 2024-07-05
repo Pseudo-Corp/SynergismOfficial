@@ -150,6 +150,9 @@
     "perGen": "Currently gaining <<red|{{guaranteed}}>> Pixels with a <<red|{{extraChance}}%>> chance of another. [<<orchid|Luck: ❖ {{ultimatePixelLuck}}>>] {{extra}}",
     "spendPrompt": "How many Ultimate Pixels would you like to spend? You have {{pixels}} Ultimate Pixels. Type -1 to use max!",
     "cost": "Cost: {{pixels}} <<red|Ultimate Pixels>>!",
+    "bar": {
+      "level": "Progress Bar Level {{level}} Rewards"
+    },
     "data": {
       "pixelTutorial": {
         "name": "The 'Ultimate Progress Bar' Handbook",

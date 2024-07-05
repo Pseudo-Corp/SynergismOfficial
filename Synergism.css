@@ -4051,3 +4051,13 @@ form input:hover {
     padding: 0;
     margin: 0 12px;
 }
+
+#goldenQuarkResetFunction {
+    padding: 3;
+    margin: 3 3px;
+    cursor: pointer;
+}
+
+#ascSingularityCountStats {
+    cursor: pointer;
+}

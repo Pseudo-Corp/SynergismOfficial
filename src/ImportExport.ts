@@ -245,10 +245,7 @@ export const exportSynergism = async (
       ? 1 + player.highestSingularityCount / 50
       : 1
     if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
-      player.goldenQuarks += Math.floor(
-        player.goldenQuarksTimer
-          / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
-      ) * bonusGQMultiplier
+      player.goldenQuarks += Math.floor(player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)) * bonusGQMultiplier
       player.goldenQuarksTimer = player.goldenQuarksTimer
         % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
     }
@@ -567,6 +564,32 @@ export const promocodes = async (input: string | null, amount?: number) => {
         singOfferings1: { value: 1, pdf: (x: number) => 600 < x && x <= 800 },
         ascensions: { value: 1, pdf: (x: number) => 800 < x && x <= 1000 }
       }
+
+      const upgradeDistributionOcts = {
+        octeractImprovedQuarkHept: { value: 0.03, pdf: (x: number) => 0 <= x && x < 4, limit: 1 },
+        octeractOneMindImprover: { value: 0.03, pdf: (x: number) => 4 <= x && x < 12, limit: 1 },
+        octeractAscensionsOcteractGain: { value: 0.09, pdf: (x: number) => 12 <= x && x < 20, limit: 3 },
+        octeractImprovedDaily3: { value: 0.1, pdf: (x: number) => 20 <= x && x < 40, limit: 5 },
+        octeractImprovedDaily2: { value: 0.1, pdf: (x: number) => 40 <= x && x < 60, limit: 5 },
+        octeractImprovedDaily: { value: 0.1, pdf: (x: number) => 60 <= x && x < 80, limit: 5 },
+        octeractImprovedFree4: { value: 0.2, pdf: (x: number) => 80 <= x && x < 100, limit: 10 },
+        octeractQuarkGain: { value: 20, pdf: (x: number) => 100 <= x && x < 200, limit: 2000 },
+        octeractImprovedGlobalSpeed: { value: 2, pdf: (x: number) => 200 <= x && x < 300, limit: 200 },
+        octeractImprovedAscensionSpeed: { value: 0.3, pdf: (x: number) => 300 <= x && x < 400, limit: 30 },
+        octeractImprovedAscensionSpeed2: { value: 1, pdf: (x: number) => 400 <= x && x < 500, limit: 100 },
+        octeractAmbrosiaGeneration: { value: 0.05, pdf: (x: number) => 500 <= x && x < 525, limit: 5 },
+        octeractAmbrosiaGeneration2: { value: 0.05, pdf: (x: number) => 525 <= x && x < 550, limit: 5 },
+        octeractAmbrosiaGeneration3: { value: 0.05, pdf: (x: number) => 550 <= x && x < 575, limit: 5 },
+        octeractAmbrosiaGeneration4: { value: 0.05, pdf: (x: number) => 575 <= x && x < 600, limit: 5 },
+        octeractAmbrosiaLuck: { value: 0.2, pdf: (x: number) => 600 <= x && x < 625, limit: 20 },
+        octeractAmbrosiaLuck2: { value: 0.2, pdf: (x: number) => 625 <= x && x < 650, limit: 20 },
+        octeractAmbrosiaLuck3: { value: 0.2, pdf: (x: number) => 650 <= x && x < 675, limit: 20 },
+        octeractAmbrosiaLuck4: { value: 0.2, pdf: (x: number) => 675 <= x && x < 700, limit: 20 },
+        octeractAscensions2: { value: 10, pdf: (x: number) => 700 <= x && x < 800, limit: -1 },
+        octeractObtainium1: { value: 5, pdf: (x: number) => 800 <= x && x < 900, limit: -1 },
+        octeractOfferings1: { value: 5, pdf: (x: number) => 900 <= x && x <= 1000, limit: -1 }
+      }
+
       let rolls = 3 * Math.sqrt(player.highestSingularityCount)
       rolls += +player.octeractUpgrades.octeractImprovedDaily.getEffect().bonus
       rolls += player.shopUpgrades.shopImprovedDaily2
@@ -582,12 +605,32 @@ export const promocodes = async (input: string | null, amount?: number) => {
       if (player.highestSingularityCount >= 200) {
         rolls *= 2
       }
+      if (player.highestSingularityCount >= 250) {
+        rolls *= 30
+      }
 
       rolls = Math.floor(rolls)
+
+      const transfiguration = +player.pixelUpgrades.pixelFreeUpgradeImprovement.bonus.proportion +
+                              +player.pixelUpgrades.pixelFreeUpgradeImprovement2.bonus.proportion +
+                              +player.pixelUpgrades.pixelFreeUpgradeImprovement3.bonus.proportion
+      
+      let transfigured = 0
+      for (let i = 1; i <= rolls; i++) {
+        if (Math.random() < transfiguration) {
+          transfigured += 1
+        }
+      }
+
+      rolls -= transfigured
 
       const keys = Object.keys(player.singularityUpgrades).filter(
         (key) => key in upgradeDistribution
       ) as (keyof typeof upgradeDistribution)[]
+
+      const transfiguredKeys = Object.keys(player.octeractUpgrades).filter(
+        (key) => key in upgradeDistributionOcts
+      ) as (keyof typeof upgradeDistributionOcts)[]
 
       rewardMessage = i18next.t('importexport.promocodes.daily.message2')
       // The same upgrade can be drawn several times, so we save the sum of the levels gained, to display them only once at the end
@@ -600,6 +643,32 @@ export const promocodes = async (input: string | null, amount?: number) => {
             freeLevels[key]
               ? (freeLevels[key] += upgradeDistribution[key].value)
               : (freeLevels[key] = upgradeDistribution[key].value)
+          }
+        }
+      }
+
+      const transfiguredFreeLevels: Record<string, number> = {}
+      while (transfigured > 0) {
+        const num = 1000 * Math.random()
+        for (const key of transfiguredKeys) {
+          if (upgradeDistributionOcts[key].pdf(num)) {
+            const limit = upgradeDistributionOcts[key].limit
+            const value = upgradeDistributionOcts[key].value
+            if (player.octeractUpgrades[key].freeLevels >= limit && limit !== -1) {
+              break
+            }
+            else {
+              if (limit !== -1) {
+                player.octeractUpgrades[key].freeLevels = Math.min(limit, player.octeractUpgrades[key].freeLevels + value)
+              }
+              else {
+                player.octeractUpgrades[key].freeLevels += value
+              }
+              transfigured -= 1
+              transfiguredFreeLevels[key]
+              ? (freeLevels[key] += value)
+              : (freeLevels[key] = value)
+            }
           }
         }
       }
@@ -654,6 +723,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
       for (const key of Object.keys(freeLevels)) {
         rewardMessage += dailyCodeFormatFreeLevelMessage(key, freeLevels[key])
+      }
+      for (const key of Object.keys(transfiguredFreeLevels)) {
+        rewardMessage += dailyCodeFormatFreeLevelMessage(key, transfiguredFreeLevels[key])
       }
       await Alert(rewardMessage)
     }
@@ -1155,7 +1227,7 @@ const dailyCodeFormatFreeLevelMessage = (
   const upgradeNiceName = upgradeKey in singularityData
     ? i18next.t(`singularity.data.${upgradeKey}.name`)
     : i18next.t(`octeract.data.${upgradeKey}.name`)
-  return `\n+${format(freeLevelAmount, 0, true)} extra levels of '${upgradeNiceName}'`
+  return `\n+${format(freeLevelAmount, 2, true)} extra levels of '${upgradeNiceName}'`
 }
 
 const dailyCodeReward = () => {

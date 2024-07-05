@@ -709,7 +709,18 @@ export const LEVEL_REQ_ARR = [
   8.5e5,
   9e5,
   9.5e5,
-  1e6 // 91-100]
+  1e6, // 91-100]
+  1.2e6,
+  1.4e6,
+  1.6e6,
+  1.8e6,
+  2e6,
+  2.2e6,
+  2.4e6,
+  2.6e6,
+  2.8e6,
+  3e6, // 101 - 110
+  3.333e6
 ]
 
 export const computeMetaBarLevel = () => {
@@ -754,6 +765,7 @@ export const computeMetaBarLevel = () => {
 export const showBarLevelBonuses = () => {
   const bonuses = calculatePixelBarLevelBonuses()
 
+  DOMCacheGetOrSet('pixelBarLevelText').textContent = i18next.t('ultimatePixels.bar.level', {level: computeMetaBarLevel()})
   DOMCacheGetOrSet('pixelBarLuckBonus').textContent = `+${bonuses.AmbrosiaLuck} +${
     bonuses.AmbrosiaLuckMult * 100
   }% ☘ Ambrosia Luck`

@@ -1646,15 +1646,22 @@ export const visualUpdateProgressPixels = () => {
     format(requiredTime, 0, true)
   } [+${format(totalTimePerSecond, 0, true)}/s]`
 
-  if (metaBarLevel < LEVEL_REQ_ARR.length - 1) {
+  if (metaBarLevel < 100) {
+    DOMCacheGetOrSet('metaPixelProgress').style.background = 'linear-gradient(to right, #ff5e0f, orange)'
+    DOMCacheGetOrSet('metaPixelProgressText').style.color = 'white'
+  }
+  else {
+    DOMCacheGetOrSet('metaPixelProgress').style.background = 'linear-gradient(to right, lightgoldenrodyellow, white)'
+    DOMCacheGetOrSet('metaPixelProgressText').style.color = 'crimson'
+  }
+
+  if (metaBarLevel < (LEVEL_REQ_ARR.length - 1)) {
     DOMCacheGetOrSet('metaPixelProgress').style.width = `${metaPixelBarWidth}%`
     DOMCacheGetOrSet('metaPixelProgressText').textContent = `Level: ${metaBarLevel} | Lifetime Pixels: ${
       format(player.lifetimeUltimatePixels, 0, true)
     }/${format(LEVEL_REQ_ARR[metaBarLevel + 1], 0, true)}`
   } else {
     DOMCacheGetOrSet('metaPixelProgress').style.width = '100%'
-    DOMCacheGetOrSet('metaPixelProgress').style.background = 'linear-gradient(to right, lightgoldenrodyellow, white)'
-    DOMCacheGetOrSet('metaPixelProgressText').style.color = 'black'
     DOMCacheGetOrSet('metaPixelProgressText').textContent = `Level: 100 | Lifetime Pixels: ${
       format(player.lifetimeUltimatePixels, 0, true)
     }`

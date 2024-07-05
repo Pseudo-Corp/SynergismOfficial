@@ -61,7 +61,7 @@ import { buyResearch, researchDescriptions } from './Research'
 import { resetrepeat, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { displayRuneInformation, redeemShards } from './Runes'
 import { buyShopUpgrades, resetShopUpgrades, shopData, shopDescriptions, shopUpgradeTypes, useConsumable } from './Shop'
-import { buyGoldenQuarks, getLastUpgradeInfo, singularityPerks } from './singularity'
+import { buyGoldenQuarks, getLastUpgradeInfo, setSingularity, singularityPerks } from './singularity'
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
@@ -949,6 +949,9 @@ TODO: Fix this entire tab it's utter shit
   }
   DOMCacheGetOrSet('buySingularityQuarksButton').addEventListener('click', () => buyGoldenQuarks())
   // SINGULARITY TAB
+
+  DOMCacheGetOrSet('goldenQuarkResetFunction').addEventListener('click', () => setSingularity())
+
   const singularityUpgrades = Object.keys(
     player.singularityUpgrades
   ) as (keyof Player['singularityUpgrades'])[]
@@ -1130,8 +1133,8 @@ TODO: Fix this entire tab it's utter shit
 
   const singPic = document.querySelector<HTMLElement>('#ascSingularityCountStats')
 
-  singPic?.addEventListener('mouseenter', () => {
-    alert('The testing works! The sailor mouth from earlier got fired.')
+  singPic?.addEventListener('click', () => {
+    setSingularity()
   })
 
   pixelBar?.addEventListener('mouseleave', () => {

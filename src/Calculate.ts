@@ -498,6 +498,8 @@ export function calculateOfferings (
     1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
     +player.octeractUpgrades.octeractOfferings1.getEffect().bonus, // Offering Electrolosis OC Upgrade
     1 + 0.001 * +player.blueberryUpgrades.ambrosiaOffering1.bonus.offeringMult, // Ambrosia!!
+    calculatePixelBarLevelBonuses().OfferingMult,
+    +player.pixelUpgrades.pixelOfferings.bonus.offerings,
     calculateEXALTBonusMult(), // 20 Ascensions X20 Bonus [EXALT ONLY]
     calculateEXUltraOfferingBonus(), // EX Ultra Shop Upgrade
     1 + calculateEventBuff(BuffType.Offering) // Event
@@ -679,6 +681,8 @@ export const calculateObtainium = () => {
 
   G.obtainiumGain *= calculateEXUltraObtainiumBonus()
   G.obtainiumGain *= calculateEXALTBonusMult()
+  G.obtainiumGain *= calculatePixelBarLevelBonuses().ObtainiumMult
+  G.obtainiumGain *= +player.pixelUpgrades.pixelObtainium.bonus.obtainium
 
   if (!isFinite(G.obtainiumGain)) {
     G.obtainiumGain = 1e300
@@ -1769,6 +1773,12 @@ export const calculateAllCubeMultiplier = () => {
     calculateTotalOcteractCubeBonus(),
     // No Singularity Upgrades Challenge
     +player.singularityChallenges.noSingularityUpgrades.rewards.cubes,
+    // Pixel Tutorial
+    +player.pixelUpgrades.pixelTutorial.bonus.cubes,
+    // Pixel Bar Level
+    calculatePixelBarLevelBonuses().CubeMult,
+    // Pixel Upgrade: Cubes!!!
+    +player.pixelUpgrades.pixelCubes.bonus.cubes,
     // Singularity Citadel
     +player.singularityUpgrades.singCitadel.getEffect().bonus,
     // Singularity Citadel 2
@@ -2474,6 +2484,9 @@ export const calculateQuarkMultiplier = () => {
   multiplier *= +player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks
   multiplier *= +player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks
   multiplier *= calculateCashGrabQuarkBonus()
+  multiplier *= +player.pixelUpgrades.pixelTutorial.bonus.quarks
+  multiplier *= calculatePixelBarLevelBonuses().QuarkMult
+  multiplier *= +player.pixelUpgrades.pixelQuarks.bonus.quarks
 
   if (player.highestSingularityCount === 0) {
     multiplier *= 1.25

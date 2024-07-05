@@ -1157,8 +1157,10 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   player.goldenQuarks += calculateGoldenQuarkGain()
 
   if (setSingNumber === -1) {
-    const incrementSingCount = 1 + getFastForwardTotalMultiplier()
-    player.singularityCount += incrementSingCount
+    if (player.singularityCount === player.highestSingularityCount) {
+      const incrementSingCount = 1 + getFastForwardTotalMultiplier()
+      player.singularityCount += incrementSingCount
+    }
     if (player.singularityCount >= player.highestSingularityCount) {
       player.highestSingularityCount = player.singularityCount
 

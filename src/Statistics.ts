@@ -745,20 +745,23 @@ export const loadStatisticsCubeMultipliers = () => {
     18: { acc: 2, desc: 'Cookie Upgrade 8:' },
     19: { acc: 2, desc: 'Total Octeract Bonus:' },
     20: { acc: 2, desc: 'No Singularity Upgrades Challenge:' },
-    21: { acc: 2, desc: 'Citadel [GQ]' },
-    22: { acc: 2, desc: 'Citadel 2 [GQ]' },
-    23: { acc: 4, desc: 'Platonic DELTA' },
-    24: { acc: 2, desc: 'Wow Pass ∞' },
-    25: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
-    26: { acc: 2, desc: 'Module- Tutorial' },
-    27: { acc: 2, desc: 'Module- Cubes 1' },
-    28: { acc: 2, desc: 'Module- Luck-Cube 1' },
-    29: { acc: 2, desc: 'Module- Quark-Cube 1' },
-    30: { acc: 2, desc: 'Module- Cubes 2' },
-    31: { acc: 2, desc: 'Module- Hyperflux' },
-    32: { acc: 2, desc: '20 Ascensions X20 Bonus [EXALT ONLY]' },
-    33: { acc: 2, desc: 'Cash Grab ULTIMATE' },
-    34: { acc: 2, desc: 'Shop EX ULTIMATE' }
+    21: { acc: 2, desc: 'Pixel Tutorial:' },
+    22: { acc: 2, desc: 'Pixel Bar Level:' },
+    23: { acc: 2, desc: 'Pixel "Cubes!!!" Upgrade:' },
+    24: { acc: 2, desc: 'Citadel [GQ]' },
+    25: { acc: 2, desc: 'Citadel 2 [GQ]' },
+    26: { acc: 4, desc: 'Platonic DELTA' },
+    27: { acc: 2, desc: 'Wow Pass ∞' },
+    28: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
+    29: { acc: 2, desc: 'Module- Tutorial' },
+    30: { acc: 2, desc: 'Module- Cubes 1' },
+    31: { acc: 2, desc: 'Module- Luck-Cube 1' },
+    32: { acc: 2, desc: 'Module- Quark-Cube 1' },
+    33: { acc: 2, desc: 'Module- Cubes 2' },
+    34: { acc: 2, desc: 'Module- Hyperflux' },
+    35: { acc: 2, desc: '20 Ascensions X20 Bonus [EXALT ONLY]' },
+    36: { acc: 2, desc: 'Cash Grab ULTIMATE' },
+    37: { acc: 2, desc: 'Shop EX ULTIMATE' }
   }
   for (let i = 0; i < arr0.length; i++) {
     const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
@@ -1035,9 +1038,11 @@ export const loadStatisticsOfferingMultipliers = () => {
     30: { acc: 3, desc: 'Cube Upgrade Cx4:' },
     31: { acc: 3, desc: 'Offering Electrolosis [OC]:' },
     32: { acc: 3, desc: 'RNG-based Offering Booster:' },
-    33: { acc: 3, desc: '20 Ascensions X20 [EXALT ONLY]' },
-    34: { acc: 3, desc: 'Shop EX ULTIMATE' },
-    35: { acc: 3, desc: 'Event:' }
+    33: { acc: 3, desc: 'Pixel Bar Level Bonus' },
+    34: { acc: 3, desc: 'Pixel Upgrade \'Offered Pixels\'' },
+    35: { acc: 3, desc: '20 Ascensions X20 [EXALT ONLY]:' },
+    36: { acc: 3, desc: 'Shop EX ULTIMATE:' },
+    37: { acc: 3, desc: 'Event:' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`)
