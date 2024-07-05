@@ -312,7 +312,7 @@ export const calculateRuneExpToLevel = (
     multiplier = Math.pow(100, runeLevel)
   }
   if (runeIndex === 6) {
-    multiplier = Math.pow(1e25, runeLevel) * (player.highestSingularityCount + 1)
+    multiplier = Math.pow(1e25, runeLevel) * (player.singularityCount + 1)
   }
   return multiplier * G.runeexpbase[runeIndex]
 }
@@ -2378,13 +2378,13 @@ export const calculateSingularityQuarkMilestoneMultiplier = () => {
     220, 225, 250, 255, 260, 261, 262,
   ];
   for (const sing of singThresholds) {
-    if (player.highestSingularityCount >= sing) {
+    if (player.singularityCount >= sing) {
       multiplier *= 1.05
     }
   }
 
-  if (player.highestSingularityCount >= 200) {
-    multiplier *= Math.pow((player.highestSingularityCount - 179) / 20, 2)
+  if (player.singularityCount >= 200) {
+    multiplier *= Math.pow((player.singularityCount - 179) / 20, 2)
   }
 
   return multiplier
@@ -2507,13 +2507,13 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
   }
 
   let perkMultiplier = 1
-  if (player.highestSingularityCount >= 200) {
+  if (player.singularityCount >= 200) {
     perkMultiplier = 3
   }
-  if (player.highestSingularityCount >= 208) {
+  if (player.singularityCount >= 208) {
     perkMultiplier = 5
   }
-  if (player.highestSingularityCount >= 221) {
+  if (player.singularityCount >= 221) {
     perkMultiplier = 8
   }
 
@@ -2525,8 +2525,8 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
     +player.singularityChallenges.noSingularityUpgrades.rewards.goldenQuarks, // No Singularity Upgrades
     1 + calculateEventBuff(BuffType.GoldenQuark), // Event
     1 + getFastForwardTotalMultiplier(), // Singularity Fast Forwards
-    player.highestSingularityCount >= 100
-      ? 1 + Math.min(1, player.highestSingularityCount / 250)
+    player.singularityCount >= 100
+      ? 1 + Math.min(1, player.singularityCount / 250)
       : 1, // Golden Revolution II
     perkMultiplier // Immaculate Alchemy
   ]
@@ -3029,55 +3029,55 @@ export const calculateCubeQuarkMultiplier = () => {
       + calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 640)
       + calculateSigmoid(
         1.15,
-        +(player.highestSingularityCount >= 1)
+        +(player.singularityCount >= 1)
           * Math.pow(player.overfluxOrbs, 0.45),
         2560
       )
       + calculateSigmoid(
         1.15,
-        +(player.highestSingularityCount >= 2)
+        +(player.singularityCount >= 2)
           * Math.pow(player.overfluxOrbs, 0.4),
         10000
       )
       + calculateSigmoid(
         1.25,
-        +(player.highestSingularityCount >= 5)
+        +(player.singularityCount >= 5)
           * Math.pow(player.overfluxOrbs, 0.35),
         40000
       )
       + calculateSigmoid(
         1.25,
-        +(player.highestSingularityCount >= 10)
+        +(player.singularityCount >= 10)
           * Math.pow(player.overfluxOrbs, 0.32),
         160000
       )
       + calculateSigmoid(
         1.35,
-        +(player.highestSingularityCount >= 15)
+        +(player.singularityCount >= 15)
           * Math.pow(player.overfluxOrbs, 0.27),
         640000
       )
       + calculateSigmoid(
         1.45,
-        +(player.highestSingularityCount >= 20)
+        +(player.singularityCount >= 20)
           * Math.pow(player.overfluxOrbs, 0.24),
         2e6
       )
       + calculateSigmoid(
         1.55,
-        +(player.highestSingularityCount >= 25)
+        +(player.singularityCount >= 25)
           * Math.pow(player.overfluxOrbs, 0.21),
         1e7
       )
       + calculateSigmoid(
         1.85,
-        +(player.highestSingularityCount >= 30)
+        +(player.singularityCount >= 30)
           * Math.pow(player.overfluxOrbs, 0.18),
         4e7
       )
       + calculateSigmoid(
         3,
-        +(player.highestSingularityCount >= 35)
+        +(player.singularityCount >= 35)
           * Math.pow(player.overfluxOrbs, 0.15),
         1e8
       )
@@ -3105,13 +3105,13 @@ export const calculateSingularityAmbrosiaLuckMilestoneBonus = () => {
   const singThresholds2 = [135, 142, 149, 156, 163, 170, 177]
 
   for (const sing of singThresholds1) {
-    if (player.highestSingularityCount >= sing) {
+    if (player.singularityCount >= sing) {
       bonus += 5
     }
   }
 
   for (const sing of singThresholds2) {
-    if (player.highestSingularityCount >= sing) {
+    if (player.singularityCount >= sing) {
       bonus += 6
     }
   }
@@ -3378,7 +3378,7 @@ export const calculateEXALTBonusMult = () => {
 export const calculateDilatedFiveLeafBonus = () => {
   const singThresholds = [100, 150, 200, 225, 250, 255, 260, 265, 269, 272]
   for (let i = 0; i < singThresholds.length; i++) {
-    if (player.highestSingularityCount < singThresholds[i]) return i / 100
+    if (player.singularityCount < singThresholds[i]) return i / 100
   }
 
   return singThresholds.length / 100
@@ -3620,10 +3620,10 @@ export const derpsmithCornucopiaBonus = () => {
     248
   ]
   for (const sing of singCounts) {
-    if (player.highestSingularityCount >= sing) {
+    if (player.singularityCount >= sing) {
       counter += 1
     }
   }
 
-  return 1 + (counter * player.highestSingularityCount) / 100
+  return 1 + (counter * player.singularityCount) / 100
 }

@@ -2644,7 +2644,7 @@
       "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
       "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>",
       "lifetimeAmbrosia": "Ambrosia: +<<orange|{{value}}>>",
-        "pixels": "Ultimate Pixels: +<<red|{{value}}>>"
+      "pixels": "Ultimate Pixels: +<<red|{{value}}>>"
   },
   "corruptions": {
       "names": {
