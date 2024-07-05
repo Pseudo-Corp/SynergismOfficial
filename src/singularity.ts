@@ -2348,7 +2348,6 @@ export const singularityPerks: SingularityPerk[] = [
 // Placeholder text for Perk Info that is seen upon first load, check Line 645 EventListeners.ts for actual Perk Info code.
 export const updateSingularityPerks = (): void => {
   const singularityCount = player.singularityCount
-
   DOMCacheGetOrSet('singularityPerksHeader').innerHTML = i18next.t(
     'singularity.perks.header',
     {
