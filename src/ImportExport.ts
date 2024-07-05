@@ -9,6 +9,7 @@ import { testing, version } from './Config'
 import { Synergism } from './Events'
 import { addTimers } from './Helper'
 import { getQuarkBonus, quarkHandler } from './Quark'
+import { Seed, seededBetween, seededRandom } from './RNG'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { shopData } from './Shop'
 import { singularityData } from './singularity'
@@ -245,7 +246,9 @@ export const exportSynergism = async (
       ? 1 + player.highestSingularityCount / 50
       : 1
     if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
-      player.goldenQuarks += Math.floor(player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)) * bonusGQMultiplier
+      player.goldenQuarks +=
+        Math.floor(player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus))
+        * bonusGQMultiplier
       player.goldenQuarksTimer = player.goldenQuarksTimer
         % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
     }
@@ -357,8 +360,6 @@ export const importSynergism = async (input: string | null, reset = false) => {
     const item = new Blob([saveString], { type: 'text/plain' })
     localStorage.setItem('Synergysave2', saveString)
     await localforage.setItem<Blob>('Synergysave2', item)
-
-    localStorage.setItem('saveScumIsCheating', Date.now().toString())
 
     await reloadShit(reset)
     saveCheck.canSave = true
@@ -498,7 +499,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     el.textContent = i18next.t('importexport.promocodes.antismith')
   } else if (input === 'Khafra' && !player.codes.get(26)) {
     player.codes.set(26, true)
-    const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100)
+    const quarks = Math.floor(seededRandom(Seed.PromoCodes) * (400 - 100 + 1) + 100)
     player.worlds.add(quarks)
     el.textContent = i18next.t('importexport.promocodes.khafra', {
       x: player.worlds.applyBonus(quarks)
@@ -611,10 +612,10 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
       rolls = Math.floor(rolls)
 
-      const transfiguration = +player.pixelUpgrades.pixelFreeUpgradeImprovement.bonus.proportion +
-                              +player.pixelUpgrades.pixelFreeUpgradeImprovement2.bonus.proportion +
-                              +player.pixelUpgrades.pixelFreeUpgradeImprovement3.bonus.proportion
-      
+      const transfiguration = +player.pixelUpgrades.pixelFreeUpgradeImprovement.bonus.proportion
+        + +player.pixelUpgrades.pixelFreeUpgradeImprovement2.bonus.proportion
+        + +player.pixelUpgrades.pixelFreeUpgradeImprovement3.bonus.proportion
+
       let transfigured = 0
       for (let i = 1; i <= rolls; i++) {
         if (Math.random() < transfiguration) {
@@ -636,7 +637,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       // The same upgrade can be drawn several times, so we save the sum of the levels gained, to display them only once at the end
       const freeLevels: Record<string, number> = {}
       for (let i = 0; i < rolls; i++) {
-        const num = 1000 * Math.random()
+        const num = 1000 * seededRandom(Seed.PromoCodes)
         for (const key of keys) {
           if (upgradeDistribution[key].pdf(num)) {
             player.singularityUpgrades[key].freeLevels += upgradeDistribution[key].value
@@ -656,18 +657,19 @@ export const promocodes = async (input: string | null, amount?: number) => {
             const value = upgradeDistributionOcts[key].value
             if (player.octeractUpgrades[key].freeLevels >= limit && limit !== -1) {
               break
-            }
-            else {
+            } else {
               if (limit !== -1) {
-                player.octeractUpgrades[key].freeLevels = Math.min(limit, player.octeractUpgrades[key].freeLevels + value)
-              }
-              else {
+                player.octeractUpgrades[key].freeLevels = Math.min(
+                  limit,
+                  player.octeractUpgrades[key].freeLevels + value
+                )
+              } else {
                 player.octeractUpgrades[key].freeLevels += value
               }
               transfigured -= 1
               transfiguredFreeLevels[key]
-              ? (freeLevels[key] += value)
-              : (freeLevels[key] = value)
+                ? (freeLevels[key] += value)
+                : (freeLevels[key] = value)
             }
           }
         }
@@ -924,13 +926,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
   } else if (input === 'gamble') {
     if (
       typeof player.skillCode === 'number'
-      || typeof localStorage.getItem('saveScumIsCheating') === 'string'
     ) {
       if (
-        (Date.now() - player.skillCode!) / 1000 < 3600
-        || (Date.now() - Number(localStorage.getItem('saveScumIsCheating')))
-              / 1000
-          < 3600
+        (Date.now() - player.skillCode) / 1000 < 3600
       ) {
         return (el.textContent = i18next.t(
           'importexport.promocodes.gamble.wait'
@@ -939,7 +937,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     }
 
     const confirmed = await Confirm(
-      i18next.t('importexport.promocodes.gamble.confirm')
+      i18next.t('importexport.promocodes.gamble.prompt')
     )
     if (!confirmed) {
       return (el.textContent = i18next.t(
@@ -962,8 +960,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       ))
     }
 
-    localStorage.setItem('saveScumIsCheating', Date.now().toString())
-    const dice = (window.crypto.getRandomValues(new Uint8Array(1))[0] % 6) + 1 // [1, 6]
+    const dice = seededBetween(Seed.PromoCodes, 1, 6)
 
     if (dice === 1) {
       const won = bet * 0.25 // lmao
@@ -987,7 +984,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     const rewardMult = timeCodeRewardMultiplier()
 
-    const random = Math.random() * 15000 // random time within 15 seconds
+    const random = seededRandom(Seed.PromoCodes) * 15000 // random time within 15 seconds
     const start = Date.now()
     const playerConfirmed = await Confirm(
       i18next.t('importexport.promocodes.time.confirm', {
@@ -1174,7 +1171,7 @@ export const addCodeBonuses = () => {
 
   const sampledMult = Math.max(
     0.4 + 0.02 * player.shopUpgrades.calculator3,
-    2 / 5 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 640
+    2 / 5 + seededBetween(Seed.PromoCodes, 0, 127) / 640
   ) // [0.4, 0.6], slightly biased in favor of 0.4. =)
   const minMult = 0.4 + 0.02 * player.shopUpgrades.calculator3
   const maxMult = 0.6

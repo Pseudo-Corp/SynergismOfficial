@@ -1,14 +1,19 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculateBlueberryInventory, calculatePixelLuck } from './Calculate'
+import {
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
+  calculateBlueberryInventory,
+  calculatePixelLuck
+} from './Calculate'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
+import { singularity } from './Reset'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 import { Globals as G } from './Variables'
-import { singularity } from './Reset'
 
 export const updateSingularityPenalties = (): void => {
   const singularityCount = player.singularityCount
@@ -1598,7 +1603,9 @@ export const singularityData: Record<
     specialCostForm: 'Exponential2',
     qualityOfLife: false,
     cacheUpdates: [
-      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value}
+      () => {
+        G.pixelCurrStats.pixelLuck = calculatePixelLuck().value
+      }
     ]
   },
   singPixelLuck2: {
@@ -1618,7 +1625,9 @@ export const singularityData: Record<
     specialCostForm: 'Exponential2',
     qualityOfLife: false,
     cacheUpdates: [
-      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value}
+      () => {
+        G.pixelCurrStats.pixelLuck = calculatePixelLuck().value
+      }
     ]
   }
 }
@@ -2723,10 +2732,12 @@ export const setSingularity = async () => {
     return Alert('The elevator does not function properly in these EXALTs.')
   }
 
-  const c = Number(await Prompt(`What singularity would you like to travel to?
+  const c = Number(
+    await Prompt(`What singularity would you like to travel to?
                     Your highest singularity is ${player.highestSingularityCount} 
                     Your current singularity is ${player.singularityCount} 
-                    You may only select an integer between 1 and the highest singularity, inclusive. If you select a higher number than your current singularity, the singularity resets!`))
+                    You may only select an integer between 1 and the highest singularity, inclusive. If you select a higher number than your current singularity, the singularity resets!`)
+  )
 
   if (isNaN(c) || !isFinite(c) || !Number.isInteger(c)) {
     // nan + Infinity checks
@@ -2740,25 +2751,25 @@ export const setSingularity = async () => {
   if (c > player.highestSingularityCount) {
     return Alert('You have to reach this singularity before you can elevate to it!')
   }
-  
+
   if (c > player.singularityCount) {
     const c2 = await Confirm(`Are you sure you want to go to Singularity ${c}? Your singularity will reset!`)
     if (c2) {
       singularity(c)
-    }
-    else {
+    } else {
       return Alert(`You remain at Singularity ${player.singularityCount}.`)
     }
-  }  
+  }
 
   if (c <= player.singularityCount) {
-    const c2 = await Confirm(`This will take you to Singularity ${c} where your progress will not be reset, but Penalties are lighter and Perks are weaker. Proceed?`)
+    const c2 = await Confirm(
+      `This will take you to Singularity ${c} where your progress will not be reset, but Penalties are lighter and Perks are weaker. Proceed?`
+    )
     if (c2) {
       player.singularityCount = c
       return Alert(`You are now at Singularity ${c} and nothing has been reset. Enjoy!`)
-    }
-    else {
+    } else {
       return Alert(`You remain at Singularity ${player.singularityCount}.`)
     }
-  }           
+  }
 }

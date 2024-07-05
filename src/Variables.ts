@@ -518,7 +518,7 @@ export const Globals: GlobalVariables = {
   pixelCurrStats: {
     pixelAdditiveLuckMult: 1,
     pixelLuck: 100,
-    pixelGenerationSpeed: 1,
+    pixelGenerationSpeed: 1
   },
 
   currentSingChallenge: undefined

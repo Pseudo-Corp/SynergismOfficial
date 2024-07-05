@@ -3510,7 +3510,10 @@ export const calculatePixelLuck = () => {
     +player.octeractUpgrades.octeractPixelLuck2.getEffect().bonus,
     +player.blueberryUpgrades.ambrosiaPixelLuck.bonus.pixelLuck,
     +player.blueberryUpgrades.ambrosiaPixelLuck2.bonus.pixelLuck,
-    Math.floor((+player.pixelUpgrades.pixelPixelLuckConverter.bonus.purchased + +player.pixelUpgrades.pixelPixelLuckConverter2.bonus.purchased) * ambrosiaLuck / 1000)
+    Math.floor(
+      (+player.pixelUpgrades.pixelPixelLuckConverter.bonus.purchased
+        + +player.pixelUpgrades.pixelPixelLuckConverter2.bonus.purchased) * ambrosiaLuck / 1000
+    )
   ]
 
   const multiplicativeLuck = calculateAdditivePixelLuckMult().value
@@ -3526,10 +3529,10 @@ export const calculatePixelGenerationSpeed = () => {
 
   const arr = [
     +player.singularityChallenges.limitedAscensions.rewards.ultimateProgressBarUnlock,
-    Math.min(ambrosiaGen, Math.pow(1000000 * ambrosiaGen, 1 / 3)) + 
-    +player.pixelUpgrades.pixelPixelGeneration.bonus.pixelGenerationAdd + 
-    +player.pixelUpgrades.pixelPixelGeneration2.bonus.pixelGenerationAdd + 
-    +player.pixelUpgrades.pixelPixelGeneration3.bonus.pixelGenerationAdd,
+    Math.min(ambrosiaGen, Math.pow(1000000 * ambrosiaGen, 1 / 3))
+    + +player.pixelUpgrades.pixelPixelGeneration.bonus.pixelGenerationAdd
+    + +player.pixelUpgrades.pixelPixelGeneration2.bonus.pixelGenerationAdd
+    + +player.pixelUpgrades.pixelPixelGeneration3.bonus.pixelGenerationAdd,
     calculatePixelBarLevelBonuses().PixelProgressMult
   ]
 
