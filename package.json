@@ -8,6 +8,7 @@
     "break_infinity.js": "^2.0.0",
     "clipboard": "^2.0.11",
     "eventemitter3": "^4.0.7",
+    "fast-mersenne-twister": "^1.0.3",
     "i18next": "^22.4.9",
     "localforage": "^1.10.0",
     "lodash.clonedeepwith": "^4.5.0",

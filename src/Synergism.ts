@@ -1562,7 +1562,9 @@ export const player: Player = {
     ultimatePixelLuck: new UltimatePixelLuckCache()
   },
 
-  lastExportedSave: 0
+  lastExportedSave: 0,
+
+  seed: -1
 }
 
 export const blankSave = Object.assign({}, player, {
