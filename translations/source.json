@@ -110,6 +110,21 @@
               "name": "Hyperfluxed Wow! Cube Industrial Production",
               "description": "Gain +1% cubes per level, per level of Platonic Upgrade 4x4 purchased (multiplicative!!!)",
               "effect": "This module increases Cubes gain by {{amount}}%!"
+          },
+          "ambrosiaPixelLuck": {
+            "name": "Blueberry-Infused Pixel Luck Enhancer",
+            "description": "Gain +1 ❖ Pixel Luck per level!",
+            "effect": "This module increases ❖ Pixel Luck by {{pixelLuck}}!"
+          },
+          "ambrosiaPixelLuck2": {
+            "name": "Blueberry-Refined Pixel Luck Enhancer",
+            "description": "Gain +1 ❖ Pixel Luck per level!",
+            "effect": "This module increases ❖ Pixel Luck by {{pixelLuck}}!"
+          },
+          "ambrosiaLuckDilator": {
+            "name": "Ambrosia Luck Dilator",
+            "description": "Doubles the Blueberry Second requirement to generate Ambrosia, but adds +100% to your &#9752 Ambrosia Luck multiplier! (+4%/lv after level 1!)",
+            "effect": "Your &#9752 Ambrosia Luck Additive Multiplier has been increased by {{ambrosiaLuckMult}}%!"
           }
       },
       "loadouts": {
@@ -128,6 +143,138 @@
       "exportTree": {
           "exportButton": "Export"
       }
+  },
+  "ultimatePixels": {
+    "ultimatePixels": "Ultimate Pixels",
+    "amount": "You have <<red|{{pixels}}>> Ultimate Pixels!",
+    "perGen": "Currently gaining <<red|{{guaranteed}}>> Pixels with a <<red|{{extraChance}}%>> chance of another. [<<orchid|Luck: ❖ {{ultimatePixelLuck}}>>] {{extra}}",
+    "spendPrompt": "How many Ultimate Pixels would you like to spend? You have {{pixels}} Ultimate Pixels. Type -1 to use max!",
+    "cost": "Cost: {{pixels}} <<red|Ultimate Pixels>>!",
+    "bar": {
+      "level": "Progress Bar Level {{level}} Rewards"
+    },
+    "data": {
+      "pixelTutorial": {
+        "name": "The 'Ultimate Progress Bar' Handbook",
+        "description": "The Ruby Guy (possibly not his real identity) hands you a book on how the Singularities were once united by an Ultimate Progress Bar. All that is left are pixels from the Bar. \n Every time you generate <<lightblue|Blueberry Seconds>>, you also fill up the Progress Bar! It is 1:1 until 1,000 BBS/s, but then is ^1/3 afterwards.",
+        "effect": "This handbook increases cube gain by <<white|{{cubeAmount}}%>> and quarks by <<cyan|{{quarkAmount}}%>>"
+      },
+      "pixelPixelLuck": {
+        "name": "Pixel Luck Enhancer I",
+        "description": "It's questionable why different lucks exist, but they do! Gain <<orchid|+1 ❖ Pixel Luck>> per level!",
+        "effect": "This enhancer increases your <<orchid|❖ Pixel Luck>> by <<orchid|{{pixelLuck}}>>(!)"
+      },
+      "pixelAmbrosiaGeneration": {
+        "name": "A Pixelated Ambrosia Quickener",
+        "description": "This hourglass is not really pixelated. +0.5% Blueberry Generation Speed per level!",
+        "effect": "This quickener increases your <<lightblue|Blueberry Generation Speed>> by <<lightblue|{{ambrosiaGeneration}}%>>"
+      },
+      "pixelAmbrosiaGeneration2": {
+        "name": "A Pixelated Ambrosia Hastener",
+        "description": "This hourglass is not really pixelated. +0.4% Blueberry Generation Speed per level!",
+        "effect": "This hastener increases your <<lightblue|Blueberry Generation Speed>> by <<lightblue|{{ambrosiaGeneration}}%>>"
+      },
+      "pixelAmbrosiaGeneration3": {
+        "name": "A Pixelated Ambrosia Rapidity",
+        "description": "This hourglass is not really pixelated. +0.3% Blueberry Generation Speed per level!",
+        "effect": "This rapid hourglass increases your <<lightblue|Blueberry Generation Speed>> by <<lightblue|{{ambrosiaGeneration}}%>>"
+      },
+      "pixelAmbrosiaLuck": {
+        "name": "A pixelated Ambrosia Luck Inducer",
+        "description": "This Inducer is not really pixelated. <<green|+3 ☘ Ambrosia Luck>> per level!",
+        "effect": "This inducer adds <<green|+{{ambrosiaLuck}} ☘ Ambrosia Luck>>!"
+      },
+      "pixelAmbrosiaLuck2": {
+        "name": "A pixelated Ambrosia Luck Deducer",
+        "description": "This deducer is not really pixelated. <<green|+4 ☘ Ambrosia Luck>> per level!",
+        "effect": "This deducer adds <<green|+{{ambrosiaLuck}} ☘ Ambrosia Luck>>!"
+      },
+      "pixelAmbrosiaLuck3": {
+        "name": "A pixelated Ambrosia Luck Convector",
+        "description": "This convector is not really pixelated. <<green|+5 ☘ Ambrosia Luck>> per level!",
+        "effect": "This convector adds <<green|+{{ambrosiaLuck}} ☘ Ambrosia Luck>>!"
+      },
+      "pixelCubes": {
+        "name": "Cubes!!!!",
+        "description": "Gain +1.5% more cubes per level! Flavor text goes here",
+        "effect": "This lore-filled upgrade increases cube gain by {{cubeAmount}}%."
+      },
+      "pixelQuarks": {
+        "name": "Pixel-Perfect Quarks",
+        "description": "By exploiting a frame-perfect respec, gain <<cyan|+0.2% Quarks>> per level!",
+        "effect": "<<cyan|+{{quarkAmount}}% Quarks>>!"
+      },
+      "pixelObtainium": {
+        "name": "Obtained Pixels",
+        "description": "Gain +1% Obtainium per level!",
+        "effect": "<<pink|+{{obtainiumAmount}}% Obtainium>>!"
+      },
+      "pixelOfferings": {
+        "name": "Offered Pixels",
+        "description": "Gain +1% Offerings per level!",
+        "effect": "<<orange|+{{offeringAmount}}% Offerings>>!"
+      },
+      "pixelPixelGeneration": {
+        "name": "Progress Bar Enzyme",
+        "description": "Every <<red|1,000,000 Progress>> gives you an <<red|Ultimate Pixel>> Generation! Adds <<red|5 Progress/sec>> per level, before any multipliers!",
+        "effect": "Base <<red|Progress/sec>> is increased by <<red|{{pixelGeneration}}>>!"
+      },
+      "pixelPixelGeneration2": {
+        "name": "Progress Bar Catalyst",
+        "description": "Adds <<red|8 Progress/sec>> per level, before any multipliers!",
+        "effect": "Base <<red|Progress/sec>> is increased by <<red|{{pixelGeneration}}>>!"
+      },
+      "pixelPixelGeneration3": {
+        "name": "Progress Bar Precursor",
+        "description": "Adds <<red|12 Progress/sec>> per level, before any multipliers!",
+        "effect": "Base <<red|Progress/sec>> is increased by <<red|{{pixelGeneration}}>>!"
+      },
+      "pixelBlueberry": {
+        "name": "You'll want to purchase this",
+        "description": "Everyone wants it, you want it, Gold Guy wants it! An additional <<lightblue|blueberry>>!",
+        "effect": "<<lightblue|Blueberry>> purchased: {{blueberry}}"
+      },
+      "pixelBlueberry2": {
+        "name": "A blueberry!",
+        "description": "Everyone wants it, you want it, Gold Guy wants it! An additional <<lightblue|blueberry>>!",
+        "effect": "<<lightblue|Blueberry>> purchased: {{blueberry}}"
+      },
+      "pixelBlueberry3": {
+        "name": "A blue... berry??",
+        "description": "An additional <<lightblue|blueberry>>, at a not too reasonable price!",
+        "effect": "<<lightblue|Blueberry>> purchased: {{blueberry}}"
+      },
+      "pixelRoleBonus": {
+        "name": "A title of nobility",
+        "description": "With this upgrade, you can proclaim yourself to Platonic himself (on the Discord server) to become a Viscount of Ruby Guy, which is a cool role! You also get +1% Global Luck!",
+        "effect": "<<red|Title>> purchased: {{purchased}}"
+      },
+      "pixelPixelLuckConverter": {
+        "name": "Ambrosia2Pixel Luck I",
+        "description": "A converter which (very inefficiently) converts ☘ Ambrosia Luck to ❖ Pixel Luck! For every 1,000 ☘ Ambrosia Luck you have, gain 1 ❖ Pixel Luck (rounded down!)",
+        "effect": "Purchased: {{purchased}} | <<orchid|❖ Pixel Luck +{{luck}}>>"
+      },
+      "pixelPixelLuckConverter2": {
+        "name": "Ambrosia2Pixel Luck II",
+        "description": "A converter which (very inefficiently) converts ☘ Ambrosia Luck to Pixel Luck! For every 1,000 ☘ Ambrosia Luck you have, gain 1 Pixel Luck (rounded down!)",
+        "effect": "Purchased: {{purchased}} | <<orchid|❖ Pixel Luck +{{luck}}>>"
+      },
+      "pixelFreeUpgradeImprovement": {
+        "name": "Transfigured Free Upgrades I",
+        "description": "When you get a free upgrade from code 'daily', there is a +0.1% chance per level that you instead get a free upgrade from a pool of exclusive Octeract Upgrades! Ranges from okay to absolutely game-changing Octeract Upgrades.",
+        "effect": "Gain a +{{proportion}}% chance to convert a Singularity free upgrade into an Octeract free upgrade."
+      },
+      "pixelFreeUpgradeImprovement2": {
+        "name": "Transfigured Free Upgrades II",
+        "description": "When you get a free upgrade from code 'daily', there is a +0.1% chance per level that you instead get a free upgrade from a pool of exclusive Octeract Upgrades! Ranges from okay to absolutely game-changing Octeract Upgrades.",
+        "effect": "Gain a +{{proportion}}% chance to convert a Singularity free upgrade into an Octeract free upgrade."
+      },
+      "pixelFreeUpgradeImprovement3": {
+        "name": "Transfigured Free Upgrades III",
+        "description": "When you get a free upgrade from code 'daily', there is a +0.1% chance per level that you instead get a free upgrade from a pool of exclusive Octeract Upgrades! Ranges from okay to absolutely game-changing Octeract Upgrades.",
+        "effect": "Gain a +{{proportion}}% chance to convert a Singularity free upgrade into an Octeract free upgrade."
+      }
+    }
   },
   "achievements": {
       "descriptions": {
@@ -2037,6 +2184,16 @@
               "name": "Hourglass of Fantasy",
               "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% Blueberry Second Generation per level.",
               "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+          },
+          "singPixelLuck": {
+            "name": "Lucky Little Pixels",
+            "description": "Like Ambrosia, you can be luckier when harvesting pixels from the Ultimate Progress Bar! +1 ❖ Pixel Luck per level!",
+            "effect": "❖ Pixel luck +{{n}}(!)"
+          },
+          "singPixelLuck2": {
+            "name": "Lucky Big Pixels",
+            "description": "The amount you will spend for very minor stat bonuses is commendable! +1 ❖ Pixel Luck per level!",
+            "effect": "❖ Pixel luck +{{n}}(!)"
           }
       },
       "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
@@ -2896,6 +3053,16 @@
               "name": "Hourglass of Reality",
               "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% Blueberry Second Generation per level.",
               "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+          },
+          "octeractPixelLuck": {
+            "name": "Mega Pixel Luck Bonus",
+            "description": "Pay a lot of Octeracts, get a few ❖ Pixel Luck. +1 per level, to be precise.",
+            "effect": "Gain +{{n}} ❖ Pixel Luck!"
+          },
+          "octeractPixelLuck2": {
+            "name": "Tera Pixel Luck Bonus",
+            "description": "Pay a LOT of Octeracts, get a few ❖ Pixel Luck. +1 per level, to be precise.",
+            "effect": "Gain +{{n}} ❖ Pixel Luck!"
           }
       },
       "amount": "You have {{octeracts}} Octeracts!",
@@ -3501,7 +3668,8 @@
       "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Exalt tab.",
       "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
       "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
-      "buyResearch3x11": "[LOCKED - Buy Research 3x11]"
+      "buyResearch3x11": "[LOCKED - Buy Research 3x11]",
+      "levelText": "Level {{level}}/{{maxLevel}}"
   },
   "history": {
       "perSecondOn": "Per second: ON",
