@@ -33,6 +33,7 @@
     "lint:fix": "npx @biomejs/biome lint --apply .",
     "lint:fix-unsafe": "npx @biomejs/biome lint --apply-unsafe .",
     "fmt": "npx dprint fmt",
+    "format": "npx dprint fmt",
     "csslint": "npx stylelint Synergism.css",
     "csslint:fix": "npx stylelint Synergism.css --fix",
     "htmllint": "npx htmlhint index.html",

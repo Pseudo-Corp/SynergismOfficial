@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import localforage from 'localforage'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { QuarkHandler } from './Quark'
+import { QuarkHandler, setQuarkBonus } from './Quark'
 import { player } from './Synergism'
 import { Alert } from './UpdateHTML'
 
@@ -86,19 +86,28 @@ export async function handleLogin () {
     | SynergismDiscordUserAPIResponse
     | SynergismPatreonUserAPIResponse
 
-  player.worlds = new QuarkHandler({
-    quarks: Number(player.worlds),
-    bonus: 100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100 // Multiplicative
-  })
+  setQuarkBonus(100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100)
+  player.worlds = new QuarkHandler(Number(player.worlds))
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
+
+  const cookies = parseDocumentCookie()
+
+  if (cookies.id || cookies.patreonId) {
+    Alert('You may need to login to your account again for bonuses to apply! Thank you!')
+  }
+
+  if (cookies.id) document.cookie = 'id=;Max-Age=0'
+  if (cookies.patreonId) document.cookie = 'patreonId=;Max-Age=0'
 
   if (location.hostname !== 'synergism.cc') {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
-  } else if (parseDocumentCookie().id || parseDocumentCookie().patreonId) {
+  } else if (cookies.token) {
     if (!member) {
       console.log(response, globalBonus, member, personalBonus, document.cookie)
+      Alert('Your individual bonuses were not applied. Try refreshing the page!')
+      return
     }
 
     currentBonus.textContent +=
