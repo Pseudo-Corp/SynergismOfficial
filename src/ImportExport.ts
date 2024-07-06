@@ -618,7 +618,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
       let transfigured = 0
       for (let i = 1; i <= rolls; i++) {
-        if (Math.random() < transfiguration) {
+        if (seededRandom(Seed.PromoCodes) < transfiguration) {
           transfigured += 1
         }
       }
@@ -650,7 +650,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
       const transfiguredFreeLevels: Record<string, number> = {}
       while (transfigured > 0) {
-        const num = 1000 * Math.random()
+        const num = 1000 * seededRandom(Seed.PromoCodes)
         for (const key of transfiguredKeys) {
           if (upgradeDistributionOcts[key].pdf(num)) {
             const limit = upgradeDistributionOcts[key].limit
