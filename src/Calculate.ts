@@ -7,6 +7,7 @@ import { BuffType, calculateEventSourceBuff } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { hepteractEffective } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { reset } from './Reset'
 import { calculateSingularityDebuff } from './singularity'
@@ -342,10 +343,12 @@ export const calculateMaxRunes = (i: number) => {
 }
 
 export const calculateEffectiveIALevel = () => {
+  const bonus = PCoinUpgradeEffects.INSTANT_UNLOCK_2 ? 6 : 0
   return (
     player.runelevels[5]
     + Math.max(0, player.runelevels[5] - 74)
     + Math.max(0, player.runelevels[5] - 98)
+    + bonus
   )
 }
 
@@ -1352,9 +1355,11 @@ export const calculateOffline = async (forceTime = 0) => {
   G.timeWarp = true
 
   // Variable Declarations i guess
-  const maximumTimer = 86400 * 3
+  const maximumTimer = (86400 * 3
     + 7200 * 2 * player.researches[31]
-    + 7200 * 2 * player.researches[32]
+    + 7200 * 2 * player.researches[32])
+    * PCoinUpgradeEffects.OFFLINE_TIMER_CAP_BUFF
+
   const updatedTime = Date.now()
   const timeAdd = Math.min(
     maximumTimer,
@@ -1689,6 +1694,8 @@ export const calculateTotalOcteractObtainiumBonus = () => {
 
 export const calculateAllCubeMultiplier = () => {
   const arr = [
+    // Pseudocoin Multiplier
+    PCoinUpgradeEffects.CUBE_BUFF,
     // Ascension Time Multiplier to cubes
     Math.pow(Math.min(1, player.ascensionCounter / 10), 2)
     * (1
@@ -2061,6 +2068,7 @@ export const calculateHepteractMultiplier = (score = -1) => {
 export const getOcteractValueMultipliers = () => {
   const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
   return [
+    PCoinUpgradeEffects.CUBE_BUFF,
     1 + (1.5 * player.shopUpgrades.seasonPass3) / 100,
     1 + (0.75 * player.shopUpgrades.seasonPassY) / 100,
     1 + (player.shopUpgrades.seasonPassZ * player.singularityCount) / 100,
@@ -2392,8 +2400,8 @@ export const calculateQuarkMultiplier = () => {
     // Challenge 15: Exceed 1e11 exponent reward
     multiplier += G.challenge15Rewards.quarks - 1
   }
-  if (player.shopUpgrades.infiniteAscent) {
-    // Purchased Infinite Ascent Rune
+  if (isIARuneUnlocked()) {
+    // Purchased Infinite Ascent Rune (or corresponding PCoin Upgrade)
     multiplier *= 1.1 + (0.15 / 75) * calculateEffectiveIALevel()
   }
   if (player.challenge15Exponent >= 1e15) {
@@ -2487,6 +2495,7 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
   }
 
   const arr = [
+    PCoinUpgradeEffects.GOLDEN_QUARK_BUFF, // Golden Quark Buff from PseudoCoins
     1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2, // Challenge 15 Exponent
     1 + getQuarkBonus() / 100, // Patreon Bonus
     +player.singularityUpgrades.goldenQuarks1.getEffect().bonus, // Golden Quarks I
@@ -3306,6 +3315,7 @@ export const calculateAdditiveLuckMult = () => {
 export const calculateAmbrosiaLuck = () => {
   const arr = [
     100, // Base
+    PCoinUpgradeEffects.AMBROSIA_LUCK_BUFF, // Platonic Coin Upgrade
     calculateSingularityAmbrosiaLuckMilestoneBonus(), // Ambrosia Luck Milestones
     calculateAmbrosiaLuckShopUpgrade(), // Ambrosia Luck from Shop Upgrades (I-IV)
     calculateAmbrosiaLuckSingularityUpgrade(), // Ambrosia Luck from Singularity Upgrades (I-IV)
@@ -3349,6 +3359,7 @@ export const calculateBlueberryInventory = () => {
 export const calculateAmbrosiaGenerationSpeed = () => {
   const arr = [
     +(player.visitedAmbrosiaSubtab),
+    PCoinUpgradeEffects.AMBROSIA_GENERATION_BUFF,
     calculateBlueberryInventory().value,
     calculateAmbrosiaGenerationShopUpgrade(),
     calculateAmbrosiaGenerationSingularityUpgrade(),
@@ -3452,4 +3463,12 @@ export const derpsmithCornucopiaBonus = () => {
   }
 
   return 1 + (counter * player.highestSingularityCount) / 100
+}
+
+export const isIARuneUnlocked = () => {
+  return player.shopUpgrades.infiniteAscent > 0 || PCoinUpgradeEffects.INSTANT_UNLOCK_2
+}
+
+export const isShopTalismanUnlocked = () => {
+  return player.shopUpgrades.shopTalisman > 0 || PCoinUpgradeEffects.INSTANT_UNLOCK_1
 }

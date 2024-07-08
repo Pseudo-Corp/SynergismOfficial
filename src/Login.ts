@@ -25,6 +25,9 @@ const SMITH_GOD = '1045562390995009606'
 const GOLDEN_SMITH_GOD = '1178125584061173800'
 const DIAMOND_SMITH_MESSIAH = '1311165096378105906'
 
+let loggedIn = false
+export const isLoggedIn = () => loggedIn
+
 /**
  * @see https://discord.com/developers/docs/resources/user#user-object
  */
@@ -110,6 +113,7 @@ export async function handleLogin () {
 
   setQuarkBonus(100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100)
   player.worlds = new QuarkHandler(Number(player.worlds))
+  loggedIn = member !== null
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 

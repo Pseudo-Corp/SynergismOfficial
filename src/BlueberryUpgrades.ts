@@ -4,6 +4,7 @@ import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calcu
 import { DynamicUpgrade } from './DynamicUpgrade'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { exportData, saveFilename } from './ImportExport'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus } from './Quark'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
@@ -753,6 +754,20 @@ export const blueberryUpgradeData: Record<
   }
 }
 
+export const displayProperLoadoutCount = () => {
+  const loadoutCount = 8 + PCoinUpgradeEffects.AMBROSIA_LOADOUT_SLOT_QOL
+  if (loadoutCount < 16) {
+    for (let i = 1; i <= 16; i++) {
+      const elm = DOMCacheGetOrSet(`blueberryLoadout${i}`)
+      if (i <= loadoutCount) {
+        elm.style.display = 'flex'
+      } else {
+        elm.style.display = 'none'
+      }
+    }
+  }
+}
+
 export const resetBlueberryTree = async (giveAlert = true) => {
   for (const upgrade of Object.keys(player.blueberryUpgrades)) {
     const k = upgrade as keyof Player['blueberryUpgrades']
@@ -983,4 +998,15 @@ export const createLoadoutDescription = (
   }
   DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = ` ${loadoutTitle}
   ${str}`
+}
+
+export const updateBlueberryLoadoutCount = () => {
+  const maxLoadouts = 16
+  const loadoutCount = Object.keys(player.blueberryLoadouts).length
+
+  if (loadoutCount < maxLoadouts) {
+    for (let i = loadoutCount + 1; i <= maxLoadouts; i++) {
+      player.blueberryLoadouts[i] = {}
+    }
+  }
 }

@@ -2426,7 +2426,8 @@
           "singularity": "Singularity",
           "settings": "Settings",
           "shop": "Shop",
-          "unsmith": "UNSMITH"
+          "unsmith": "UNSMITH",
+          "purchase": "PseudoCoins"
       },
       "buildings": {
           "coin": "Coin Buildings",
@@ -2468,6 +2469,10 @@
           "singularityHistory": "Singularity History",
           "hotkeys": "Hotkeys",
           "account": "Account"
+      },
+      "pseudocoins": {
+          "buy": "Purchase Coins",
+          "upgrades": "Buy Upgrades"
       }
   },
   "offlineProgress": {

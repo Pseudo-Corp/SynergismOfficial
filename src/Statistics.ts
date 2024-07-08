@@ -715,45 +715,49 @@ export const loadGlobalSpeedMultiplier = () => {
 
 export const loadStatisticsCubeMultipliers = () => {
   const arr0 = calculateAllCubeMultiplier().list
-  const map0: Record<number, { acc: number; desc: string }> = {
-    1: { acc: 2, desc: 'Ascension Time Multiplier:' },
-    2: { acc: 2, desc: 'Sun and Moon Achievements:' },
-    3: { acc: 2, desc: 'Speed Achievement:' },
-    4: { acc: 2, desc: 'Challenge 15 All Cube Bonus:' },
-    5: { acc: 2, desc: 'Rune 6 - Infinite Ascent:' },
-    6: { acc: 2, desc: 'Platonic Beta:' },
-    7: { acc: 2, desc: 'Platonic Omega:' },
-    8: { acc: 2, desc: 'Overflux Powder:' },
-    9: { acc: 2, desc: 'Event:' },
-    10: { acc: 2, desc: 'Singularity Factor:' },
-    11: { acc: 2, desc: 'Wow Pass Y' },
-    12: { acc: 2, desc: 'Starter Pack:' },
-    13: { acc: 2, desc: 'Cube Flame [GQ]:' },
-    14: { acc: 2, desc: 'Cube Blaze [GQ]:' },
-    15: { acc: 2, desc: 'Cube Inferno [GQ]:' },
-    16: { acc: 2, desc: 'Wow Pass Z:' },
-    17: { acc: 2, desc: 'Cookie Upgrade 16:' },
-    18: { acc: 2, desc: 'Cookie Upgrade 8:' },
-    19: { acc: 2, desc: 'Total Octeract Bonus:' },
-    20: { acc: 2, desc: 'No Singularity Upgrades Challenge:' },
-    21: { acc: 2, desc: 'Citadel [GQ]' },
-    22: { acc: 2, desc: 'Citadel 2 [GQ]' },
-    23: { acc: 4, desc: 'Platonic DELTA' },
-    24: { acc: 2, desc: 'Wow Pass ∞' },
-    25: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
-    26: { acc: 2, desc: 'Module- Tutorial' },
-    27: { acc: 2, desc: 'Module- Cubes 1' },
-    28: { acc: 2, desc: 'Module- Luck-Cube 1' },
-    29: { acc: 2, desc: 'Module- Quark-Cube 1' },
-    30: { acc: 2, desc: 'Module- Cubes 2' },
-    31: { acc: 2, desc: 'Module- Hyperflux' },
-    32: { acc: 2, desc: '20 Ascensions X20 Bonus [EXALT ONLY]' },
-    33: { acc: 2, desc: 'Cash Grab ULTIMATE' },
-    34: { acc: 2, desc: 'Shop EX ULTIMATE' }
+  const map0: Record<number, { acc: number; desc: string; color?: string }> = {
+    1: { acc: 2, desc: 'PseudoCoin Upgrade:', color: 'gold' },
+    2: { acc: 2, desc: 'Ascension Time Multiplier:' },
+    3: { acc: 2, desc: 'Sun and Moon Achievements:' },
+    4: { acc: 2, desc: 'Speed Achievement:' },
+    5: { acc: 2, desc: 'Challenge 15 All Cube Bonus:' },
+    6: { acc: 2, desc: 'Rune 6 - Infinite Ascent:' },
+    7: { acc: 2, desc: 'Platonic Beta:' },
+    8: { acc: 2, desc: 'Platonic Omega:' },
+    9: { acc: 2, desc: 'Overflux Powder:' },
+    10: { acc: 2, desc: 'Event:' },
+    11: { acc: 2, desc: 'Singularity Factor:' },
+    12: { acc: 2, desc: 'Wow Pass Y' },
+    13: { acc: 2, desc: 'Starter Pack:' },
+    14: { acc: 2, desc: 'Cube Flame [GQ]:' },
+    15: { acc: 2, desc: 'Cube Blaze [GQ]:' },
+    16: { acc: 2, desc: 'Cube Inferno [GQ]:' },
+    17: { acc: 2, desc: 'Wow Pass Z:' },
+    18: { acc: 2, desc: 'Cookie Upgrade 16:' },
+    19: { acc: 2, desc: 'Cookie Upgrade 8:' },
+    20: { acc: 2, desc: 'Total Octeract Bonus:' },
+    21: { acc: 2, desc: 'No Singularity Upgrades Challenge:' },
+    22: { acc: 2, desc: 'Citadel [GQ]' },
+    23: { acc: 2, desc: 'Citadel 2 [GQ]' },
+    24: { acc: 4, desc: 'Platonic DELTA' },
+    25: { acc: 2, desc: 'Wow Pass ∞' },
+    26: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
+    27: { acc: 2, desc: 'Module- Tutorial' },
+    28: { acc: 2, desc: 'Module- Cubes 1' },
+    29: { acc: 2, desc: 'Module- Luck-Cube 1' },
+    30: { acc: 2, desc: 'Module- Quark-Cube 1' },
+    31: { acc: 2, desc: 'Module- Cubes 2' },
+    32: { acc: 2, desc: 'Module- Hyperflux' },
+    33: { acc: 2, desc: '20 Ascensions X20 Bonus [EXALT ONLY]' },
+    34: { acc: 2, desc: 'Cash Grab ULTIMATE' },
+    35: { acc: 2, desc: 'Shop EX ULTIMATE' }
   }
   for (let i = 0; i < arr0.length; i++) {
     const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
     statGCMi.childNodes[0].textContent = map0[i + 1].desc
+    if (map0[i + 1].color) {
+      statGCMi.style.color = map0[i + 1].color ?? 'white'
+    }
     DOMCacheGetOrSet(`sGCM${i + 1}`).textContent = `x${
       format(
         arr0[i],
@@ -940,45 +944,49 @@ export const loadStatisticsCubeMultipliers = () => {
       .bonus
     ? 'One Mind Multiplier'
     : 'Ascension Speed Multiplier'
-  const map6: Record<number, { acc: number; desc: string }> = {
+  const map6: Record<number, { acc: number; desc: string; color?: string }> = {
     1: { acc: 2, desc: 'Ascension Score Multiplier:' },
-    2: { acc: 2, desc: 'Season Pass 3:' },
-    3: { acc: 2, desc: 'Season Pass Y:' },
-    4: { acc: 2, desc: 'Season Pass Z:' },
-    5: { acc: 2, desc: 'Season Pass Lost:' },
-    6: { acc: 2, desc: 'Cookie Upgrade 20:' },
-    7: { acc: 2, desc: 'Divine Pack:' },
-    8: { acc: 2, desc: 'Cube Flame:' },
-    9: { acc: 2, desc: 'Cube Blaze:' },
-    10: { acc: 2, desc: 'Cube Inferno:' },
-    11: { acc: 2, desc: 'Octeract Absinthe' },
-    12: { acc: 2, desc: 'Pieces of Eight' },
-    13: { acc: 2, desc: 'Obelisk Shaped Like an Octagon' },
-    14: { acc: 2, desc: 'Octahedral Synthesis' },
-    15: { acc: 2, desc: 'Eighth Wonder of the World' },
-    16: { acc: 2, desc: 'Platonic is a fat sellout' },
-    17: { acc: 2, desc: 'Octeracts for Dummies' },
-    18: { acc: 2, desc: 'Octeract Cogenesis' },
-    19: { acc: 2, desc: 'Octeract Trigenesis' },
-    20: { acc: 2, desc: 'Singularity Factor' },
-    21: { acc: 2, desc: 'Digital Octeract Accumulator' },
-    22: { acc: 2, desc: 'Event Buff' },
-    23: { acc: 2, desc: 'Platonic DELTA' },
-    24: { acc: 2, desc: 'No Singularity Upgrades Challenge' },
-    25: { acc: 2, desc: 'Wow Pass ∞' },
-    26: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
-    27: { acc: 2, desc: 'Module- Tutorial' },
-    28: { acc: 2, desc: 'Module- Cubes 1' },
-    29: { acc: 2, desc: 'Module- Luck-Cube 1' },
-    30: { acc: 2, desc: 'Module- Quark-Cube 1' },
-    31: { acc: 2, desc: 'Module- Cubes 2' },
-    32: { acc: 2, desc: 'Cash Grab ULTIMATE' },
-    33: { acc: 2, desc: 'Shop EX ULTIMATE' },
-    34: { acc: 2, desc: ascensionSpeedDesc }
+    2: { acc: 2, desc: 'PseudoCoin Upgrade:', color: 'gold' },
+    3: { acc: 2, desc: 'Season Pass 3:' },
+    4: { acc: 2, desc: 'Season Pass Y:' },
+    5: { acc: 2, desc: 'Season Pass Z:' },
+    6: { acc: 2, desc: 'Season Pass Lost:' },
+    7: { acc: 2, desc: 'Cookie Upgrade 20:' },
+    8: { acc: 2, desc: 'Divine Pack:' },
+    9: { acc: 2, desc: 'Cube Flame:' },
+    10: { acc: 2, desc: 'Cube Blaze:' },
+    11: { acc: 2, desc: 'Cube Inferno:' },
+    12: { acc: 2, desc: 'Octeract Absinthe' },
+    13: { acc: 2, desc: 'Pieces of Eight' },
+    14: { acc: 2, desc: 'Obelisk Shaped Like an Octagon' },
+    15: { acc: 2, desc: 'Octahedral Synthesis' },
+    16: { acc: 2, desc: 'Eighth Wonder of the World' },
+    17: { acc: 2, desc: 'Platonic is a fat sellout' },
+    18: { acc: 2, desc: 'Octeracts for Dummies' },
+    19: { acc: 2, desc: 'Octeract Cogenesis' },
+    20: { acc: 2, desc: 'Octeract Trigenesis' },
+    21: { acc: 2, desc: 'Singularity Factor' },
+    22: { acc: 2, desc: 'Digital Octeract Accumulator' },
+    23: { acc: 2, desc: 'Event Buff' },
+    24: { acc: 2, desc: 'Platonic DELTA' },
+    25: { acc: 2, desc: 'No Singularity Upgrades Challenge' },
+    26: { acc: 2, desc: 'Wow Pass ∞' },
+    27: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
+    28: { acc: 2, desc: 'Module- Tutorial' },
+    29: { acc: 2, desc: 'Module- Cubes 1' },
+    30: { acc: 2, desc: 'Module- Luck-Cube 1' },
+    31: { acc: 2, desc: 'Module- Quark-Cube 1' },
+    32: { acc: 2, desc: 'Module- Cubes 2' },
+    33: { acc: 2, desc: 'Cash Grab ULTIMATE' },
+    34: { acc: 2, desc: 'Shop EX ULTIMATE' },
+    35: { acc: 2, desc: ascensionSpeedDesc }
   }
   for (let i = 0; i < octMults.list.length; i++) {
     const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`)
     statOcMi.childNodes[0].textContent = map6[i + 1].desc
+    if (map6[i + 1].color) {
+      statOcMi.style.color = map6[i + 1].color ?? 'white'
+    }
     DOMCacheGetOrSet(`sOcM${i + 1}`).textContent = `x${
       format(
         octMults.list[i],
@@ -1691,24 +1699,28 @@ export const loadAddCodeModifiersAndEffects = () => {
 export const loadStatisticsAmbrosiaLuck = () => {
   const stats = calculateAmbrosiaLuck()
   const arr = stats.array
-  const map: Record<number, { acc: number; desc: string }> = {
+  const map: Record<number, { acc: number; desc: string; color?: string }> = {
     1: { acc: 0, desc: 'Base Value' },
-    2: { acc: 0, desc: 'Irish Ants Singularity Perk' },
-    3: { acc: 1, desc: 'Shop Upgrade Bonus' },
-    4: { acc: 0, desc: 'Singularity Ambrosia Luck Upgrades' },
-    5: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrades' },
-    6: { acc: 0, desc: 'Ambrosia Luck Module I' },
-    7: { acc: 1, desc: 'Ambrosia Luck Module II' },
-    8: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
-    9: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
-    10: { acc: 0, desc: 'Perk: One Hundred Thirty One!' },
-    11: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
-    12: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
-    13: { acc: 0, desc: 'No Ambrosia Upgrades EXALT' }
+    2: { acc: 0, desc: 'PseudoCoin Upgrade', color: 'gold' },
+    3: { acc: 0, desc: 'Irish Ants Singularity Perk' },
+    4: { acc: 1, desc: 'Shop Upgrade Bonus' },
+    5: { acc: 0, desc: 'Singularity Ambrosia Luck Upgrades' },
+    6: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrades' },
+    7: { acc: 0, desc: 'Ambrosia Luck Module I' },
+    8: { acc: 1, desc: 'Ambrosia Luck Module II' },
+    9: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
+    10: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
+    11: { acc: 0, desc: 'Perk: One Hundred Thirty One!' },
+    12: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
+    13: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
+    14: { acc: 0, desc: 'No Ambrosia Upgrades EXALT' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
     statALuckMi.childNodes[0].textContent = map[i + 1].desc
+    if (map[i + 1].color) {
+      statALuckMi.style.color = map[i + 1].color ?? 'white'
+    }
     DOMCacheGetOrSet(`sALuckM${i + 1}`).textContent = `+${
       format(
         arr[i],
@@ -1727,21 +1739,25 @@ export const loadStatisticsAmbrosiaLuck = () => {
 export const loadStatisticsAmbrosiaGeneration = () => {
   const stats = calculateAmbrosiaGenerationSpeed()
   const arr = stats.array
-  const map: Record<number, { acc: number; desc: string }> = {
+  const map: Record<number, { acc: number; desc: string; color?: string }> = {
     1: { acc: 4, desc: 'Visited Ambrosia Subtab' },
-    2: { acc: 4, desc: 'Number of Blueberries' },
-    3: { acc: 4, desc: 'Shop Upgrade Bonus' },
-    4: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
-    5: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
-    6: { acc: 4, desc: 'Patreon Bonus' },
-    7: { acc: 4, desc: 'One Ascension Challenge EXALT' },
-    8: { acc: 4, desc: 'No Ambrosia Upgrades EXALT' },
-    9: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
-    10: { acc: 4, desc: 'Event Bonus' }
+    2: { acc: 4, desc: 'PseudoCoin Upgrade', color: 'gold' },
+    3: { acc: 4, desc: 'Number of Blueberries' },
+    4: { acc: 4, desc: 'Shop Upgrade Bonus' },
+    5: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
+    6: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
+    7: { acc: 4, desc: 'Patreon Bonus' },
+    8: { acc: 4, desc: 'One Ascension Challenge EXALT' },
+    9: { acc: 4, desc: 'No Ambrosia Upgrades EXALT' },
+    10: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
+    11: { acc: 4, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)
     statAGenMi.childNodes[0].textContent = map[i + 1].desc
+    if (map[i + 1].color) {
+      statAGenMi.style.color = map[i + 1].color ?? 'white'
+    }
     DOMCacheGetOrSet(`sAGenM${i + 1}`).textContent = `x${format(arr[i], map[i + 1].acc, true)}`
   }
 

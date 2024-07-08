@@ -3,6 +3,7 @@ import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateRuneLevels } from './Calculate'
 import { CalcECC } from './Challenges'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { format, player } from './Synergism'
 import { Globals as G } from './Variables'
 
@@ -43,6 +44,10 @@ export const calculateMaxTalismanLevel = (i: number) => {
   let maxLevel = 30 * player.talismanRarity[i]
   maxLevel += 6 * CalcECC('ascension', player.challengecompletions[13])
   maxLevel += Math.floor(player.researches[200] / 400)
+
+  if (i === 6) {
+    maxLevel += PCoinUpgradeEffects.INSTANT_UNLOCK_1 ? 10 : 0
+  }
 
   if (player.cubeUpgrades[67] > 0 && i === 3) {
     maxLevel += 1337

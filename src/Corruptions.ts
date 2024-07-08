@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { format, player } from './Synergism'
 import { IconSets } from './Themes'
 import { toggleCorruptionLevel } from './Toggles'
@@ -213,7 +214,8 @@ export const corruptionLoadoutTableCreate = () => {
     table.deleteRow(i)
   }
 
-  for (let i = 0; i < Object.keys(player.corruptionLoadouts).length + 1; i++) {
+  const totalSlots = 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
+  for (let i = 0; i < totalSlots + 1; i++) {
     const row = table.insertRow()
     for (let j = 0; j <= corrCount; j++) {
       const cell = row.insertCell()
@@ -349,14 +351,15 @@ async function corruptionLoadoutGetNewName (loadout = 0) {
     player.corruptionLoadoutNames[loadout] = renamePrompt
     updateCorruptionLoadoutNames()
     if (renamePrompt === 'crazy') {
-      return Alert(i18next.t('corruptions.loadoutPrompt.errors.crazyJoke'))
+      return Alert(i18next.t('corruptions.corruptionLoadoutName.errors.crazyJoke'))
     }
   }
 }
 
 export const updateCorruptionLoadoutNames = () => {
   const rows = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows
-  for (let i = 0; i < Object.keys(player.corruptionLoadouts).length; i++) {
+  const totalSlots = 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
+  for (let i = 0; i < totalSlots; i++) {
     const cells = rows[i + 2].cells // start changes on 2nd row
     if (cells[0].textContent!.length === 0) { // first time setup
       cells[0].addEventListener('click', () => void corruptionLoadoutGetNewName(i)) // get name function handles -1 for array
@@ -373,6 +376,21 @@ const corruptionLoadoutGetExport = async () => {
       .catch((e: Error) => Alert(i18next.t('corruptions.loadoutExport.saveErrorNavigator', { message: e.message })))
   } else {
     void Alert(i18next.t('corruptions.loadoutExport.saveErrorNavigator', { message: str }))
+  }
+}
+
+export const updateUndefinedLoadouts = () => {
+  // Sanity checks that you have 16 loadouts and 16 loadout names in the Player object
+  // The monetization update adds more loadouts, so this is to ensure that the player object is up to date
+  // And because the validation schema does not take into account length of object
+
+  const maxLoadoutCount = 16 // Update if more loadouts are added
+  const currLoadoutCount = Object.keys(player.corruptionLoadouts).length
+  if (currLoadoutCount < maxLoadoutCount) {
+    for (let i = currLoadoutCount + 1; i <= maxLoadoutCount; i++) {
+      player.corruptionLoadouts[i] = Array(13).fill(0)
+      player.corruptionLoadoutNames.push(`Loadout ${i}`)
+    }
   }
 }
 

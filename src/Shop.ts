@@ -12,6 +12,7 @@ import {
   calculateTimeAcceleration
 } from './Calculate'
 import type { IMultiBuy } from './Cubes'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
@@ -1537,6 +1538,7 @@ export const useConsumable = async (
   used = 1,
   spend = true
 ) => {
+  const infiniteAutoBrew = PCoinUpgradeEffects.AUTO_POTION_FREE_POTIONS_QOL
   const p = player.shopConfirmationToggle && !automatic
     ? await Confirm('Would you like to use some of this potion?')
     : true
@@ -1549,7 +1551,15 @@ export const useConsumable = async (
       * used
 
     if (input === 'offeringPotion') {
-      if (player.shopUpgrades.offeringPotion >= used || !spend) {
+      if (infiniteAutoBrew && automatic) {
+        player.runeshards += Math.floor(
+          7200
+            * player.offeringpersecond
+            * calculateTimeAcceleration().mult
+            * multiplier
+        )
+        player.runeshards = Math.min(1e300, player.runeshards)
+      } else if (player.shopUpgrades.offeringPotion >= used || !spend) {
         player.shopUpgrades.offeringPotion -= spend ? used : 0
         player.runeshards += Math.floor(
           7200
@@ -1560,7 +1570,15 @@ export const useConsumable = async (
         player.runeshards = Math.min(1e300, player.runeshards)
       }
     } else if (input === 'obtainiumPotion') {
-      if (player.shopUpgrades.obtainiumPotion >= used || !spend) {
+      if (infiniteAutoBrew && automatic) {
+        player.researchPoints += Math.floor(
+          7200
+            * player.maxobtainiumpersecond
+            * calculateTimeAcceleration().mult
+            * multiplier
+        )
+        player.researchPoints = Math.min(1e300, player.researchPoints)
+      } else if (player.shopUpgrades.obtainiumPotion >= used || !spend) {
         player.shopUpgrades.obtainiumPotion -= spend ? used : 0
         player.researchPoints += Math.floor(
           7200

@@ -18,3 +18,5 @@ export const DOMCacheGetOrSet = (id: string) => {
   DOMCache.set(id, el)
   return el
 }
+
+export const DOMCacheHas = (id: string) => DOMCache.has(id)
