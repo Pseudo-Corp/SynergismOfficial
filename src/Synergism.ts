@@ -1619,7 +1619,7 @@ const loadSynergy = async () => {
     // fix current sing challenge blank
     if (player.insideSingularityChallenge) {
       let challenges = Object.keys(player.singularityChallenges);
-      for (var i = 0; i < challenges.length(); i++) {
+      for (var i = 0; i < challenges.length; i++) {
         if (player.singularityChallenges[challenges[i]].enabled) {
           G.currentSingChallenge = challenges[i];
           break;
