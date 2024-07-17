@@ -1616,6 +1616,18 @@ const loadSynergy = async () => {
       }
     }
 
+    // TODO(@KhafraDev): remove G.currentSingChallenge
+    // fix current sing challenge blank
+    if (player.insideSingularityChallenge) {
+      const challenges = Object.keys(player.singularityChallenges);
+      for (let i = 0; i < challenges.length; i++) {
+        if (player.singularityChallenges[challenges[i]].enabled) {
+          G.currentSingChallenge = singularityChallengeData[challenges[i]].HTMLTag;
+          break;
+        }
+      }
+    }
+
     if (!('rngCode' in data)) {
       player.rngCode = 0
     }
