@@ -1616,6 +1616,7 @@ const loadSynergy = async () => {
       }
     }
 
+    // TODO(@KhafraDev): remove G.currentSingChallenge
     // fix current sing challenge blank
     if (player.insideSingularityChallenge) {
       const challenges = Object.keys(player.singularityChallenges);
