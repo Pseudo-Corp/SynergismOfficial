@@ -75,10 +75,6 @@ let nowEvent: EventData | null = null
 export const getEvent = () => nowEvent
 
 export const eventCheck = async () => {
-  if (!player.dayCheck) {
-    return
-  }
-
   const response = await fetch('https://synergism.cc/api/v1/events/get')
 
   if (!response.ok) {

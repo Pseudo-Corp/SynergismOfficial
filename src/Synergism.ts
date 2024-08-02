@@ -6173,11 +6173,13 @@ export const showExitOffline = () => {
   setTimeout(() => el.focus(), 100)
 }
 
+let loggedIn = false
+
 /**
  * Reloads shit.
  * @param reset if this param is passed, offline progression will not be calculated.
  */
-export const reloadShit = async (reset = false) => {
+export const reloadShit = async (reset: boolean) => {
   clearTimers()
 
   // Shows a reset button when page loading seems to stop or cause an error
@@ -6187,12 +6189,6 @@ export const reloadShit = async (reset = false) => {
   )
 
   disableHotkeys()
-
-  // Wait a tick to continue. This is a (likely futile) attempt to see if this solves save corrupting.
-  // This ensures all queued tasks are executed before continuing on.
-  await new Promise((res) => {
-    setTimeout(res, 0)
-  })
 
   const save = (await localforage.getItem<Blob>('Synergysave2'))
     ?? localStorage.getItem('Synergysave2')
@@ -6225,6 +6221,18 @@ export const reloadShit = async (reset = false) => {
   }
 
   if (!reset) {
+    loggedIn ||= !!await Promise.allSettled([
+      handleLogin(),
+      eventCheck()
+        .catch(console.error)
+        .finally(() => {
+          setInterval(
+            () => eventCheck().catch(console.error),
+            15_000
+          )
+        })
+    ])
+
     await calculateOffline()
   } else {
     player.worlds.reset()
@@ -6268,17 +6276,6 @@ export const reloadShit = async (reset = false) => {
   constantIntervals()
   changeTabColor()
 
-  eventCheck()
-    .catch(() => {})
-    .finally(() => {
-      setInterval(
-        () =>
-          eventCheck().catch((error: Error) => {
-            console.error(error)
-          }),
-        15_000
-      )
-    })
   showExitOffline()
   clearTimeout(preloadDeleteGame)
 
@@ -6343,13 +6340,10 @@ window.addEventListener('load', async () => {
   document.title = `Synergism v${version}`
 
   generateEventHandlers()
-
-  void reloadShit()
-
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
 
-  handleLogin().catch(console.error)
+  reloadShit(false)
 })
 
 window.addEventListener('unload', () => {
