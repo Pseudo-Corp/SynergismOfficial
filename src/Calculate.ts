@@ -525,7 +525,7 @@ export function calculateOfferings (
   }
   q *= 1 + (1 / 200) * player.shopUpgrades.cashGrab2
   q *= 1 + (1 / 100) * player.shopUpgrades.offeringEX2 * player.singularityCount
-  q *= 1 + 1 / 50 * Math.pow(player.shopUpgrades.offeringEX3, 2)
+  q *= Math.pow(1.02, player.shopUpgrades.offeringEX3)
   q *= calculateTotalOcteractOfferingBonus()
   q = Math.min(1e300, q)
 
@@ -664,7 +664,7 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= +player.singularityUpgrades.singCitadel.getEffect().bonus
   G.obtainiumGain *= +player.singularityUpgrades.singCitadel2.getEffect().bonus
   G.obtainiumGain *= +player.octeractUpgrades.octeractObtainium1.getEffect().bonus
-  G.obtainiumGain *= 1 + 1 / 50 * Math.pow(player.shopUpgrades.obtainiumEX3, 2)
+  G.obtainiumGain *= Math.pow(1.02, player.shopUpgrades.obtainiumEX3)
   G.obtainiumGain *= calculateTotalOcteractObtainiumBonus()
 
   if (G.eventClicked && G.isEvent) {
@@ -1788,7 +1788,7 @@ export const calculateAllCubeMultiplier = () => {
     + +player.singularityUpgrades.platonicDelta.getEffect().bonus
       * Math.min(9, player.singularityCounter / (3600 * 24)),
     // Wow Pass INF
-    1 + 1 / 100 * Math.pow(player.shopUpgrades.seasonPassInfinity, 2),
+    Math.pow(1.02, player.shopUpgrades.seasonPassInfinity),
     // Ambrosia Mult
     calculateAmbrosiaCubeMult(),
     // Module - Tutorial
@@ -2132,7 +2132,7 @@ export const getOcteractValueMultipliers = () => {
     // No Singulairty Upgrades
     +player.singularityChallenges.noSingularityUpgrades.rewards.cubes,
     // Wow Pass INF
-    1 + 1 / 100 * Math.pow(player.shopUpgrades.seasonPassInfinity, 2),
+    Math.pow(1.02, player.shopUpgrades.seasonPassInfinity),
     // Ambrosia Mult
     calculateAmbrosiaCubeMult(),
     // Module- Tutorial
@@ -2332,7 +2332,7 @@ export const calculateAscensionSpeedMultiplier = () => {
       && player.runelevels[6] < 1
       ? 6
       : 1, // A mediocre ascension speedup!
-    1 + 0.01 * Math.pow(player.shopUpgrades.chronometerInfinity, 2), // Chronometer INF
+    Math.pow(1.01, player.shopUpgrades.chronometerInfinity), // Chronometer INF
     1 / calculateLimitedAscensionsDebuff(), // EXALT Debuff
     Math.pow(
       1
@@ -3333,11 +3333,11 @@ export const calculatePixelBarLevelLuckAdditiveMultBonus = (level: number) => {
 }
 
 export const calculatePixelBarLevelPixelLuckBonus = (level: number) => {
-  return Math.floor(level / 10)
+  return Math.floor(level / 2)
 }
 
 export const calculatePixelBarLevelPixelLuckAdditiveMultBonus = (level: number) => {
-  return Math.floor(level / 20) / 100
+  return Math.floor(level / 10) / 100
 }
 
 export const calculatePixelBarLevelCubeMult = (level: number) => {
@@ -3510,7 +3510,7 @@ export const calculatePixelLuck = () => {
     +player.octeractUpgrades.octeractPixelLuck2.getEffect().bonus,
     +player.blueberryUpgrades.ambrosiaPixelLuck.bonus.pixelLuck,
     +player.blueberryUpgrades.ambrosiaPixelLuck2.bonus.pixelLuck,
-    Math.floor((+player.pixelUpgrades.pixelPixelLuckConverter.bonus.purchased + +player.pixelUpgrades.pixelPixelLuckConverter2.bonus.purchased) * ambrosiaLuck / 1000)
+    Math.floor((+player.pixelUpgrades.pixelPixelLuckConverter.bonus.purchased + +player.pixelUpgrades.pixelPixelLuckConverter2.bonus.purchased) * ambrosiaLuck / 400)
   ]
 
   const multiplicativeLuck = calculateAdditivePixelLuckMult().value

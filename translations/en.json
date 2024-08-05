@@ -113,17 +113,17 @@
       },
       "ambrosiaPixelLuck": {
         "name": "Blueberry-Infused Pixel Luck Enhancer",
-        "description": "Gain +1 ❖ Pixel Luck per level!",
+        "description": "Gain +2 ❖ Pixel Luck per level!",
         "effect": "This module increases ❖ Pixel Luck by {{pixelLuck}}!"
       },
       "ambrosiaPixelLuck2": {
         "name": "Blueberry-Refined Pixel Luck Enhancer",
-        "description": "Gain +1 ❖ Pixel Luck per level!",
+        "description": "Gain +3 ❖ Pixel Luck per level!",
         "effect": "This module increases ❖ Pixel Luck by {{pixelLuck}}!"
       },
       "ambrosiaLuckDilator": {
         "name": "Ambrosia Luck Dilator",
-        "description": "Doubles the Blueberry Second requirement to generate Ambrosia, but adds +100% to your &#9752 Ambrosia Luck multiplier! (+4%/lv after level 1!)",
+        "description": "Doubles the Blueberry Second requirement to generate Ambrosia, but adds +60% to your &#9752 Ambrosia Luck multiplier! (+10% per level after level 1)",
         "effect": "Your &#9752 Ambrosia Luck Additive Multiplier has been increased by {{ambrosiaLuckMult}}%!"
       }
     },
@@ -161,7 +161,7 @@
       },
       "pixelPixelLuck": {
         "name": "Pixel Luck Enhancer I",
-        "description": "It's questionable why different lucks exist, but they do! Gain <<orchid|+1 ❖ Pixel Luck>> per level!",
+        "description": "It's questionable why different lucks exist, but they do! Gain <<orchid|+4 ❖ Pixel Luck>> per level!",
         "effect": "This enhancer increases your <<orchid|❖ Pixel Luck>> by <<orchid|{{pixelLuck}}>>(!)"
       },
       "pixelAmbrosiaGeneration": {
@@ -251,12 +251,12 @@
       },
       "pixelPixelLuckConverter": {
         "name": "Ambrosia2Pixel Luck I",
-        "description": "A converter which (very inefficiently) converts ☘ Ambrosia Luck to ❖ Pixel Luck! For every 1,000 ☘ Ambrosia Luck you have, gain 1 ❖ Pixel Luck (rounded down!)",
+        "description": "A converter which (very inefficiently) converts ☘ Ambrosia Luck to ❖ Pixel Luck! For every 400 ☘ Ambrosia Luck you have, gain 1 ❖ Pixel Luck (rounded down!)",
         "effect": "Purchased: {{purchased}} | <<orchid|❖ Pixel Luck +{{luck}}>>"
       },
       "pixelPixelLuckConverter2": {
         "name": "Ambrosia2Pixel Luck II",
-        "description": "A converter which (very inefficiently) converts ☘ Ambrosia Luck to Pixel Luck! For every 1,000 ☘ Ambrosia Luck you have, gain 1 Pixel Luck (rounded down!)",
+        "description": "A converter which (very inefficiently) converts ☘ Ambrosia Luck to Pixel Luck! For every 400 ☘ Ambrosia Luck you have, gain 1 Pixel Luck (rounded down with the other upgrade!)",
         "effect": "Purchased: {{purchased}} | <<orchid|❖ Pixel Luck +{{luck}}>>"
       },
       "pixelFreeUpgradeImprovement": {
@@ -557,7 +557,21 @@
       "277": "[{{number}}] SingularRity: Singularity 4 times.",
       "278": "[{{number}}] SiINguLaRrRity: Singularity 5 times.",
       "279": "[{{number}}] SiIINGuLArRrIiTyY: Singularity 7 times.",
-      "280": "[{{number}}] Inception: Singularity 10 times."
+      "280": "[{{number}}] Inception: Singularity 10 times.",
+      "281": "[{{number}}] WIP Luck be a Lady: Obtain 300 ☘ Ambrosia Luck at once!",
+      "282": "[{{number}}] WIP A couple modules later: Obtain 750 ☘ Ambrosia Luck at once!",
+      "283": "[{{number}}] WIP A baker's 15/13 dozen: Obtain 1,500 ☘ Ambrosia Luck at once!",
+      "284": "[{{number}}] WIP <3(,001): Obtain 3,000 ☘ Ambrosia Luck at once!",
+      "285": "[{{number}}] WIP If you gaze long into an abyss: Obtain 5,000 ☘ Ambrosia Luck at once!",
+      "286": "[{{number}}] WIP The abyss will also gaze into thee: Obtain 10,000 ☘ Ambrosia Luck at once!",
+      "287": "[{{number}}] WIP 20,000 Lucks Under The Sea: Obtain 20,000 ☘ Ambrosia Luck at once!",
+      "288": "[{{number}}] WIP Tutorial Module Unlocked!: Obtain 50 lifetime Ambrosia.",
+      "289": "[{{number}}] WIP A thousanddaire: Obtain 1,000 lifetime Ambrosia",
+      "290": "[{{number}}] WIP Enchanted Ambrosia Block: Obtain 25,600 lifetime Ambrosia",
+      "291": "[{{number}}] WIP Gold Guy's Go-to: Obtain 256,000 lifetime Ambrosia",
+      "292": "[{{number}}] WIP Maxxed Luck Module: Obtain 1,000,000 lifetime Ambrosia",
+      "293": "[{{number}}] WIP Just a regular number: Obtain 3,141,592 lifetime Ambrosia",
+      "294": "[{{number}}] WIP The Egg of ULTRA Acceleration: Obtain 9,999,999 lifetime Ambrosia"
     },
     "rewards": {
       "3": "Gain +.05% to Accelerator Power.",
@@ -717,7 +731,15 @@
       "266": "Quarks +{{x}}% [Max: 10% at 1Qa Ascensions]!",
       "267": "Ascension Score is boosted by {{x}}% [Max: 100% at 1e100,000 Const]",
       "270": "Hepteract Gain is boosted by {{x}}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).",
-      "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]"
+      "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]",
+      "284": "+1% Global Luck!",
+      "285": "Every time the Blueberry bar fills up, you get 2 additional Ambrosia for free!",
+      "286": "If you have under 5,000 Ambrosia Luck, you are guaranteed at least 50 Ambrosia for each time the Blueberry bar fills up",
+      "287": "Every 1,000,000 Blueberry seconds, gain +0.1s real-life Ascension timer! (Caps at 0.1s per tick)",
+      "289": "Gain +1% more Blueberry Generation Speed for every unique module activated!",
+      "291": "Gain 1.01x Blueberry Generation Speed for every blueberry that you have!",
+      "293": "Your Constant adds +1% Blueberry Generation Speed for every digit in its base-10 exponent.",
+      "294": "Unlocks a special shop upgrade!"
     },
     "alerts": {
       "36": "Congratulations on your first Prestige. The first of many. You obtain Offerings. You can use them in the new Runes tab! [Unlocked Runes, Achievements, Diamond Buildings and some Upgrades!]",
@@ -1558,10 +1580,10 @@
       "shopImprovedDaily2": "Gain 1 additional free Singularity Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily3": "Gain 1 additional free Singularity Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily4": "Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
-      "offeringEX3": "Gain 2% more Offerings per level, Squared! (Multiplier is (1 + level/50)^2)",
-      "obtainiumEX3": "Gain 2% more Obtainium per level, Squared! (Multiplier is (1 + level/50)^2)",
-      "chronometerInfinity": "Gain +1% Ascension Speed per level!",
-      "seasonPassInfinity": "Gain +2% more cubes per level, squared! (Value is (1 + 2 * lvl/100)^2!",
+      "offeringEX3": "Gain 2% more Offerings per level, exponentially!",
+      "obtainiumEX3": "Gain 2% more Obtainium per level, exponentially!",
+      "chronometerInfinity": "Gain +1% Ascension Speed per level, exponentially!",
+      "seasonPassInfinity": "Gain +2% more Cubes per level, exponentially!",
       "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.",
       "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
       "improveQuarkHept5": "This is 1/50 as effective as a normal improver. Why? Because of balancing...",
@@ -2187,12 +2209,12 @@
       },
       "singPixelLuck": {
         "name": "Lucky Little Pixels",
-        "description": "Like Ambrosia, you can be luckier when harvesting pixels from the Ultimate Progress Bar! +1 ❖ Pixel Luck per level!",
+        "description": "Like Ambrosia, you can be luckier when harvesting pixels from the Ultimate Progress Bar! +2 ❖ Pixel Luck per level!",
         "effect": "❖ Pixel luck +{{n}}(!)"
       },
       "singPixelLuck2": {
         "name": "Lucky Big Pixels",
-        "description": "The amount you will spend for very minor stat bonuses is commendable! +1 ❖ Pixel Luck per level!",
+        "description": "The amount you will spend for very minor stat bonuses is commendable! +3 ❖ Pixel Luck per level!",
         "effect": "❖ Pixel luck +{{n}}(!)"
       }
     },
@@ -2583,7 +2605,8 @@
       "singularity": "Singularity",
       "settings": "Settings",
       "shop": "Shop",
-      "unsmith": "UNSMITH"
+      "unsmith": "UNSMITH",
+      "testing": "Testing β"
     },
     "buildings": {
       "coin": "Coin Buildings",
@@ -3060,12 +3083,12 @@
       },
       "octeractPixelLuck": {
         "name": "Mega Pixel Luck Bonus",
-        "description": "Pay a lot of Octeracts, get a few ❖ Pixel Luck. +1 per level, to be precise.",
+        "description": "Pay a lot of Octeracts, get a few ❖ Pixel Luck. +2 per level, to be precise.",
         "effect": "Gain +{{n}} ❖ Pixel Luck!"
       },
       "octeractPixelLuck2": {
         "name": "Tera Pixel Luck Bonus",
-        "description": "Pay a LOT of Octeracts, get a few ❖ Pixel Luck. +1 per level, to be precise.",
+        "description": "Pay a LOT of Octeracts, get a few ❖ Pixel Luck. +3 per level, to be precise.",
         "effect": "Gain +{{n}} ❖ Pixel Luck!"
       }
     },

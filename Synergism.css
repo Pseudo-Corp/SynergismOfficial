@@ -3802,6 +3802,12 @@ img#singularityPerksIcon {
     text-align: center;
 }
 
+#testing {
+    position: relative;
+    padding: 0;
+    text-align: center;
+}
+
 @keyframes rotation {
     from {
         transform: rotate(0deg);

@@ -859,6 +859,7 @@ export interface GlobalVariables {
 
   runescreen: string
   settingscreen: string
+  achievementScreen: number
 
   talismanResourceObtainiumCosts: number[]
   talismanResourceOfferingCosts: number[]

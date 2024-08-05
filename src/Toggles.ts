@@ -403,6 +403,25 @@ export const toggleRuneScreen = (indexStr: string) => {
   player.subtabNumber = index - 1
 }
 
+export const toggleAchievementScreen = (indexStr: string) => {
+  const index = Number(indexStr)
+  G.achievementScreen = index
+  for (let i = 1; i <= 2; i++) {
+    const a = DOMCacheGetOrSet(`toggleAchievementSubTab${i}`)
+    const b = DOMCacheGetOrSet(`achievementContainer${i}`)
+    if (i === index) {
+      a.style.border = '2px solid gold'
+      a.style.backgroundColor = 'gold'
+      b.style.display = 'flex'
+    } else {
+      a.style.border = '2px solid silver'
+      a.style.backgroundColor = ''
+      b.style.display = 'none'
+    }
+  }
+  player.subtabNumber = index - 1
+}
+
 export const toggleChallengesScreen = (indexStr: string) => {
   const index = Number(indexStr)
 

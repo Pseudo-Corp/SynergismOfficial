@@ -191,14 +191,14 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
     IconSrc: 'PixelTutorial'
   },
   pixelPixelLuck: {
-    maxLevel: 10,
-    costPerLevel: 10,
+    maxLevel: 5,
+    costPerLevel: 25,
     rewards: (n: number) => {
       return {
-        pixelLuck: n,
+        pixelLuck: 4 * n,
         get desc () {
           return i18next.t('ultimatePixels.data.pixelPixelLuck.effect', {
-            pixelLuck: n
+            pixelLuck: 4 * n
           })
         }
       }
@@ -521,7 +521,7 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
     costPerLevel: 250,
     rewards (n) {
       const purchased = n > 0
-      const bonus = +purchased * G.ambrosiaCurrStats.ambrosiaLuck / 1000
+      const bonus = +purchased * G.ambrosiaCurrStats.ambrosiaLuck / 400
       return {
         purchased: purchased,
         get desc () {
@@ -542,7 +542,7 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
     costPerLevel: 10000,
     rewards (n) {
       const purchased = n > 0
-      const bonus = +purchased * G.ambrosiaCurrStats.ambrosiaLuck / 1000
+      const bonus = +purchased * G.ambrosiaCurrStats.ambrosiaLuck / 400
       return {
         purchased: purchased,
         get desc () {
@@ -559,15 +559,15 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
     IconSrc: 'PixelPixelLuckConverter'
   },
   pixelFreeUpgradeImprovement: {
-    maxLevel: 10,
+    maxLevel: 15,
     costPerLevel: 25,
     rewards (n) {
-      const proportion = n / 1000
+      const upgrades = n
       return {
-        proportion: proportion,
+        proportion: upgrades,
         get desc () {
           return i18next.t('ultimatePixels.data.pixelFreeUpgradeImprovement.effect', {
-            proportion: format(100 * proportion, 1, true)
+            proportion: upgrades
           })
         }
       }
@@ -575,15 +575,15 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
     IconSrc: 'PixelFreeUpgradeImprovement'
   },
   pixelFreeUpgradeImprovement2: {
-    maxLevel: 10,
-    costPerLevel: 500,
+    maxLevel: 20,
+    costPerLevel: 750,
     rewards (n) {
-      const proportion = n / 1000
+      const upgrades = n
       return {
-        proportion: proportion,
+        proportion: upgrades,
         get desc () {
           return i18next.t('ultimatePixels.data.pixelFreeUpgradeImprovement2.effect', {
-            proportion: format(100 * proportion, 1, true)
+            proportion: upgrades
           })
         }
       }
@@ -591,15 +591,15 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
     IconSrc: 'PixelFreeUpgradeImprovement2'
   },
   pixelFreeUpgradeImprovement3: {
-    maxLevel: 10,
-    costPerLevel: 5000,
+    maxLevel: 25,
+    costPerLevel: 10000,
     rewards (n) {
-      const proportion = n / 1000
+      const upgrades = n
       return {
-        proportion: proportion,
+        proportion: upgrades,
         get desc () {
           return i18next.t('ultimatePixels.data.pixelFreeUpgradeImprovement3.effect', {
-            proportion: format(100 * proportion, 1, true)
+            proportion: upgrades
           })
         }
       }
@@ -660,56 +660,47 @@ export const LEVEL_REQ_ARR = [
   3500,
   4000,
   5000, // 41-50
-  6000,
-  7000,
+  6500,
   8000,
-  9000,
+  9500,
   10000,
   12000,
   14000,
   16000,
   18000,
-  20000, // 51-60
-  25000,
+  20000,
+  25000, // 51-60
   30000,
   35000,
-  40000,
-  45000,
+  42500,
   50000,
-  55000,
   60000,
   70000,
-  80000, // 61-70
+  80000,
   90000,
-  1e5,
-  1.1e5,
-  1.2e5,
-  1.3e5,
+  100000,
+  1.1e5, // 61-70
+  1.25e5,
   1.4e5,
   1.5e5,
-  1.6e5,
-  1.7e5,
-  1.8e5, // 71-80
-  1.9e5,
+  1.75e5,
   2e5,
   2.25e5,
   2.5e5,
   2.75e5,
   3e5,
-  3.5e5,
-  4e5,
-  4.5e5,
-  5e5, // 91-100
+  3.4e5, // 71-80
+  3.8e5,
+  4.2e5,
+  4.6e5,
+  5e5,
   5.5e5,
   6e5,
-  6.5e5,
   7e5,
-  7.5e5,
   8e5,
-  8.5e5,
   9e5,
-  9.5e5,
-  1e6, // 91-100]
+  1e6, // 91-100
+  1.1e6,
   1.2e6,
   1.4e6,
   1.6e6,
@@ -717,10 +708,19 @@ export const LEVEL_REQ_ARR = [
   2e6,
   2.2e6,
   2.4e6,
-  2.6e6,
-  2.8e6,
-  3e6, // 101 - 110
-  3.333e6
+  2.7e6,
+  3e6, // 91-100]
+  3.5e6,
+  4e6,
+  4.5e6,
+  5e6,
+  5.5e6,
+  6e6,
+  7e6,
+  8e6,
+  9e6,
+  1e7, // 101 - 110
+  1.337e7
 ]
 
 export const computeMetaBarLevel = () => {

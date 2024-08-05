@@ -1840,3 +1840,5 @@ export const visualUpdateShop = () => {
 }
 
 export const visualUpdateEvent = () => {}
+
+export const visualUpdateTesting = () => {}

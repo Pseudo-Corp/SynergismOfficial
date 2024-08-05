@@ -763,7 +763,7 @@ export const blueberryUpgradeData: Record<
     rewards: (n: number) => {
       const pixelLuck = n
       return {
-        pixelLuck: n,
+        pixelLuck: 2 * n,
         desc: String(i18next.t('ambrosia.data.ambrosiaPixelLuck.effect', {
           pixelLuck: pixelLuck
         }))
@@ -777,8 +777,8 @@ export const blueberryUpgradeData: Record<
     ]
   },
   ambrosiaPixelLuck2: {
-    maxLevel: 15,
-    costPerLevel: 500,
+    maxLevel: 20,
+    costPerLevel: 300,
     blueberryCost: 2,
     costFormula: (level: number, baseCost: number): number => {
       return (baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3)))
@@ -786,7 +786,7 @@ export const blueberryUpgradeData: Record<
     rewards: (n: number) => {
       const pixelLuck = n
       return {
-        pixelLuck: n,
+        pixelLuck: 3 * n,
         desc: String(i18next.t('ambrosia.data.ambrosiaPixelLuck2.effect', {
           pixelLuck: pixelLuck
         }))
@@ -808,11 +808,11 @@ export const blueberryUpgradeData: Record<
       return (baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2)))
     },
     rewards: (n: number) => {
-      const ambrosiaLuckMult = +(n > 0) + (+(n > 1) * (n - 1) / 20)
+      const ambrosiaLuckMult = 0.6 * +(n > 0) + (+(n > 1) * (n - 1) / 10)
       return {
         ambrosiaLuckMult: ambrosiaLuckMult,
         desc: String(i18next.t('ambrosia.data.ambrosiaLuckDilator.effect', {
-          ambrosiaLuckMult: ambrosiaLuckMult
+          ambrosiaLuckMult: format(100 * ambrosiaLuckMult, 0, true)
         }))
       }
     },

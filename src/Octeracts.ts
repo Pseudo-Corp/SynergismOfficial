@@ -819,9 +819,9 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     costPerLevel: 1e5,
     effect: (n: number) => {
       return {
-        bonus: 1 * n,
+        bonus: 2 * n,
         get desc () {
-          return i18next.t('octeract.data.octeractPixelLuck.effect', { n: format(n) })
+          return i18next.t('octeract.data.octeractPixelLuck.effect', { n: format(2*n) })
         }
       }
     },
@@ -837,9 +837,9 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     costPerLevel: 1e52,
     effect: (n: number) => {
       return {
-        bonus: 1 * n,
+        bonus: 3 * n,
         get desc () {
-          return i18next.t('octeract.data.octeractPixelLuck2.effect', { n: format(n) })
+          return i18next.t('octeract.data.octeractPixelLuck2.effect', { n: format(3*n) })
         }
       }
     },

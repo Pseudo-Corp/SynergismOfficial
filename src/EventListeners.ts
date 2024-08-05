@@ -395,6 +395,13 @@ export const generateEventHandlers = () => {
     DOMCacheGetOrSet(`ach${index}`).addEventListener('mouseover', () => achievementdescriptions(index))
   }
 
+  for (let index = 0; index < 2; index++) {
+    DOMCacheGetOrSet(`toggleAchievementSubTab${index + 1}`).addEventListener(
+      'click',
+      () => changeSubTab(Tabs.Achievements, {page: index})
+    )
+  }
+
   // RUNES TAB [And all corresponding subtabs]
   // Part 0: Upper UI portion
   // Auto sacrifice toggle button

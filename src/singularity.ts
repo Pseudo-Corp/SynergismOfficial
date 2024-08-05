@@ -1587,10 +1587,10 @@ export const singularityData: Record<
     canExceedCap: true,
     effect: (n: number) => {
       return {
-        bonus: 1 * n,
+        bonus: 2 * n,
         get desc () {
           return i18next.t('singularity.data.singPixelLuck.effect', {
-            n: format(n)
+            n: format(2 * n)
           })
         }
       }
@@ -1607,10 +1607,10 @@ export const singularityData: Record<
     minimumSingularity: 271,
     effect: (n: number) => {
       return {
-        bonus: 1 * n,
+        bonus: 3 * n,
         get desc () {
           return i18next.t('singularity.data.singPixelLuck2.effect', {
-            n: format(n)
+            n: format(3 * n)
           })
         }
       }
@@ -2626,8 +2626,16 @@ export const calculateEffectiveSingularities = (
     effectiveSingularities *= 2
   }
   if (singularityCount > 269) {
-    effectiveSingularities *= 3
-    effectiveSingularities *= Math.pow(3, singularityCount - 269)
+    effectiveSingularities *= 2
+  }
+  if (singularityCount > 279) {
+    effectiveSingularities *= 2
+  }
+  if (singularityCount > 289) {
+    effectiveSingularities *= 2
+  }
+  if (singularityCount === 300) {
+    effectiveSingularities = 4.44e44
   }
 
   return effectiveSingularities
