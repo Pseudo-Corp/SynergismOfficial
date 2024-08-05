@@ -1,6 +1,13 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculateBlueberryInventory, calculatePixelBarLevelBonuses, calculatePixelGenerationSpeed, calculatePixelLuck } from './Calculate'
+import {
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
+  calculateBlueberryInventory,
+  calculatePixelBarLevelBonuses,
+  calculatePixelGenerationSpeed,
+  calculatePixelLuck
+} from './Calculate'
 import { DynamicUpgrade, type IUpgradeData } from './DynamicUpgrade'
 import { format, player } from './Synergism'
 import { IconSets } from './Themes'
@@ -204,7 +211,9 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value}
+      () => {
+        G.pixelCurrStats.pixelLuck = calculatePixelLuck().value
+      }
     ],
     IconSrc: 'PixelPixelLuck'
   },
@@ -223,7 +232,9 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ],
     IconSrc: 'PixelAmbrosiaGeneration'
   },
@@ -242,7 +253,9 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ],
     IconSrc: 'PixelAmbrosiaGeneration2'
   },
@@ -261,7 +274,9 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ],
     IconSrc: 'PixelAmbrosiaGeneration3'
   },
@@ -279,7 +294,9 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      }
     ],
     IconSrc: 'PixelAmbrosiaLuck'
   },
@@ -297,7 +314,9 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      }
     ],
     IconSrc: 'PixelAmbrosiaLuck2'
   },
@@ -315,7 +334,9 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value}
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      }
     ],
     IconSrc: 'PixelAmbrosiaLuck3'
   },
@@ -398,7 +419,9 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.pixelCurrStats.pixelGenerationSpeed = calculatePixelGenerationSpeed().value}
+      () => {
+        G.pixelCurrStats.pixelGenerationSpeed = calculatePixelGenerationSpeed().value
+      }
     ],
     IconSrc: 'PixelPixelGeneration'
   },
@@ -417,7 +440,9 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.pixelCurrStats.pixelGenerationSpeed = calculatePixelGenerationSpeed().value}
+      () => {
+        G.pixelCurrStats.pixelGenerationSpeed = calculatePixelGenerationSpeed().value
+      }
     ],
     IconSrc: 'PixelPixelGeneration2'
   },
@@ -436,7 +461,9 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.pixelCurrStats.pixelGenerationSpeed = calculatePixelGenerationSpeed().value}
+      () => {
+        G.pixelCurrStats.pixelGenerationSpeed = calculatePixelGenerationSpeed().value
+      }
     ],
     IconSrc: 'PixelPixelGeneration3'
   },
@@ -455,8 +482,12 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaBlueberries = calculateBlueberryInventory().value},
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value},
+      () => {
+        G.ambrosiaCurrStats.ambrosiaBlueberries = calculateBlueberryInventory().value
+      },
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ],
     IconSrc: 'PixelBlueberry'
   },
@@ -475,8 +506,12 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaBlueberries = calculateBlueberryInventory().value},
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value},
+      () => {
+        G.ambrosiaCurrStats.ambrosiaBlueberries = calculateBlueberryInventory().value
+      },
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ],
     IconSrc: 'PixelBlueberry2'
   },
@@ -495,8 +530,12 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.ambrosiaCurrStats.ambrosiaBlueberries = calculateBlueberryInventory().value},
-      () => {G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value},
+      () => {
+        G.ambrosiaCurrStats.ambrosiaBlueberries = calculateBlueberryInventory().value
+      },
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
     ],
     IconSrc: 'PixelBlueberry3'
   },
@@ -533,7 +572,9 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value},
+      () => {
+        G.pixelCurrStats.pixelLuck = calculatePixelLuck().value
+      }
     ],
     IconSrc: 'PixelPixelLuckConverter'
   },
@@ -554,7 +595,9 @@ export const pixelData: Record<keyof Player['pixelUpgrades'], IPixelData> = {
       }
     },
     cacheUpdates: [
-      () => {G.pixelCurrStats.pixelLuck = calculatePixelLuck().value},
+      () => {
+        G.pixelCurrStats.pixelLuck = calculatePixelLuck().value
+      }
     ],
     IconSrc: 'PixelPixelLuckConverter'
   },
@@ -765,7 +808,9 @@ export const computeMetaBarLevel = () => {
 export const showBarLevelBonuses = () => {
   const bonuses = calculatePixelBarLevelBonuses()
 
-  DOMCacheGetOrSet('pixelBarLevelText').textContent = i18next.t('ultimatePixels.bar.level', {level: computeMetaBarLevel()})
+  DOMCacheGetOrSet('pixelBarLevelText').textContent = i18next.t('ultimatePixels.bar.level', {
+    level: computeMetaBarLevel()
+  })
   DOMCacheGetOrSet('pixelBarLuckBonus').textContent = `+${bonuses.AmbrosiaLuck} +${
     bonuses.AmbrosiaLuckMult * 100
   }% ☘ Ambrosia Luck`

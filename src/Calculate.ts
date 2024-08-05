@@ -3526,10 +3526,10 @@ export const calculatePixelGenerationSpeed = () => {
 
   const arr = [
     +player.singularityChallenges.limitedAscensions.rewards.ultimateProgressBarUnlock,
-    Math.min(ambrosiaGen, Math.pow(1000000 * ambrosiaGen, 1 / 3)) + 
-    +player.pixelUpgrades.pixelPixelGeneration.bonus.pixelGenerationAdd + 
-    +player.pixelUpgrades.pixelPixelGeneration2.bonus.pixelGenerationAdd + 
-    +player.pixelUpgrades.pixelPixelGeneration3.bonus.pixelGenerationAdd,
+    Math.min(ambrosiaGen, Math.pow(1000000 * ambrosiaGen, 1 / 3))
+    + +player.pixelUpgrades.pixelPixelGeneration.bonus.pixelGenerationAdd
+    + +player.pixelUpgrades.pixelPixelGeneration2.bonus.pixelGenerationAdd
+    + +player.pixelUpgrades.pixelPixelGeneration3.bonus.pixelGenerationAdd,
     calculatePixelBarLevelBonuses().PixelProgressMult
   ]
 
