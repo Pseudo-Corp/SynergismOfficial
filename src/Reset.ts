@@ -1157,8 +1157,10 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   player.goldenQuarks += calculateGoldenQuarkGain()
 
   if (setSingNumber === -1) {
-    const incrementSingCount = 1 + getFastForwardTotalMultiplier()
-    player.singularityCount += incrementSingCount
+    if (player.singularityCount === player.highestSingularityCount) {
+      const incrementSingCount = 1 + getFastForwardTotalMultiplier()
+      player.singularityCount += incrementSingCount
+    }
     if (player.singularityCount >= player.highestSingularityCount) {
       player.highestSingularityCount = player.singularityCount
 
@@ -1229,6 +1231,16 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
       }]
     })
   ) as unknown as Player['blueberryUpgrades']
+  hold.pixelUpgrades = Object.fromEntries(
+    Object.entries(player.pixelUpgrades).map(([key, value]) => {
+      return [key, {
+        level: value.level,
+        pixelsInvested: value.pixelsInvested,
+        toggleBuy: value.toggleBuy,
+        freeLevels: value.freeLevels
+      }]
+    })
+  ) as unknown as Player['pixelUpgrades']
   hold.spentBlueberries = player.spentBlueberries
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
@@ -1312,6 +1324,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.insideSingularityChallenge = player.insideSingularityChallenge
   hold.ultimatePixels = player.ultimatePixels
   hold.ultimateProgress = player.ultimateProgress
+  hold.lifetimeUltimatePixels = player.lifetimeUltimatePixels
   hold.singularityChallenges = Object.fromEntries(
     Object.entries(player.singularityChallenges).map(([key, value]) => {
       return [key, {

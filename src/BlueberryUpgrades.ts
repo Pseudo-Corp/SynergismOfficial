@@ -1,6 +1,11 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calculate'
+import {
+  calculateAdditiveLuckMult,
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
+  calculatePixelLuck
+} from './Calculate'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { exportData, saveFilename } from './ImportExport'
@@ -27,6 +32,8 @@ export type blueberryUpgradeNames =
   | 'ambrosiaLuck2'
   | 'ambrosiaObtainium1'
   | 'ambrosiaOffering1'
+  | 'ambrosiaPixelLuck'
+  | 'ambrosiaPixelLuck2'
 
 export type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
 export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
@@ -750,6 +757,89 @@ export const blueberryUpgradeData: Record<
         )
       }
     }
+  },
+  ambrosiaPixelLuck: {
+    maxLevel: 10,
+    costPerLevel: 50,
+    blueberryCost: 1,
+    costFormula: (level: number, baseCost: number): number => {
+      return (baseCost * (Math.pow(level + 1, 4) - Math.pow(level, 4)))
+    },
+    rewards: (n: number) => {
+      const pixelLuck = n
+      return {
+        pixelLuck: 2 * n,
+        desc: String(i18next.t('ambrosia.data.ambrosiaPixelLuck.effect', {
+          pixelLuck: pixelLuck
+        }))
+      }
+    },
+    prerequisites: {
+      ambrosiaTutorial: 10
+    },
+    cacheUpdates: [
+      () => {
+        G.pixelCurrStats.pixelLuck = calculatePixelLuck().value
+      }
+    ]
+  },
+  ambrosiaPixelLuck2: {
+    maxLevel: 20,
+    costPerLevel: 300,
+    blueberryCost: 2,
+    costFormula: (level: number, baseCost: number): number => {
+      return (baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3)))
+    },
+    rewards: (n: number) => {
+      const pixelLuck = n
+      return {
+        pixelLuck: 3 * n,
+        desc: String(i18next.t('ambrosia.data.ambrosiaPixelLuck2.effect', {
+          pixelLuck: pixelLuck
+        }))
+      }
+    },
+    prerequisites: {
+      ambrosiaLuck1: 80,
+      ambrosiaPixelLuck: 8
+    },
+    cacheUpdates: [
+      () => {
+        G.pixelCurrStats.pixelLuck = calculatePixelLuck().value
+      }
+    ]
+  },
+  ambrosiaLuckDilator: {
+    maxLevel: 5,
+    costPerLevel: 100000,
+    blueberryCost: 2,
+    costFormula: (level: number, baseCost: number): number => {
+      return (baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2)))
+    },
+    rewards: (n: number) => {
+      const ambrosiaLuckMult = 0.6 * +(n > 0) + (+(n > 1) * (n - 1) / 10)
+      return {
+        ambrosiaLuckMult: ambrosiaLuckMult,
+        desc: String(i18next.t('ambrosia.data.ambrosiaLuckDilator.effect', {
+          ambrosiaLuckMult: format(100 * ambrosiaLuckMult, 0, true)
+        }))
+      }
+    },
+    prerequisites: {
+      ambrosiaTutorial: 10,
+      ambrosiaLuck1: 100
+    },
+    cacheUpdates: [
+      () => {
+        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
+      },
+      () => {
+        G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value
+      },
+      () => {
+        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
+      }
+    ]
   }
 }
 

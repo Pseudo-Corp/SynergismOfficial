@@ -10,7 +10,12 @@ import { format, player, resetCheck } from './Synergism'
 import { subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, Player } from './types/Synergism'
 import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
-import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
+import {
+  visualUpdateAmbrosia,
+  visualUpdateCubes,
+  visualUpdateOcteracts,
+  visualUpdateProgressPixels
+} from './UpdateVisuals'
 import { Globals as G } from './Variables'
 
 export const toggleSettings = (toggle: HTMLElement) => {
@@ -398,6 +403,25 @@ export const toggleRuneScreen = (indexStr: string) => {
   player.subtabNumber = index - 1
 }
 
+export const toggleAchievementScreen = (indexStr: string) => {
+  const index = Number(indexStr)
+  G.achievementScreen = index
+  for (let i = 1; i <= 2; i++) {
+    const a = DOMCacheGetOrSet(`toggleAchievementSubTab${i}`)
+    const b = DOMCacheGetOrSet(`achievementContainer${i}`)
+    if (i === index) {
+      a.style.border = '2px solid gold'
+      a.style.backgroundColor = 'gold'
+      b.style.display = 'flex'
+    } else {
+      a.style.border = '2px solid silver'
+      a.style.backgroundColor = ''
+      b.style.display = 'none'
+    }
+  }
+  player.subtabNumber = index - 1
+}
+
 export const toggleChallengesScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
@@ -464,7 +488,7 @@ export const toggleSaveOff = () => {
 export const toggleSingularityScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= 5; i++) {
     const a = DOMCacheGetOrSet(`toggleSingularitySubTab${i}`)
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
     if (i === index) {
@@ -484,6 +508,10 @@ export const toggleSingularityScreen = (indexStr: string) => {
 
   if (player.subtabNumber === 3) {
     visualUpdateAmbrosia()
+  }
+
+  if (player.subtabNumber === 5) {
+    visualUpdateProgressPixels()
   }
 }
 

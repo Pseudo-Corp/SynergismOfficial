@@ -1,5 +1,6 @@
 import {
   calculateAdditiveLuckMult,
+  calculateAdditivePixelLuckMult,
   calculateAmbrosiaGenerationOcteractUpgrade,
   calculateAmbrosiaGenerationSingularityUpgrade,
   calculateAmbrosiaGenerationSpeed,
@@ -10,6 +11,9 @@ import {
   calculateCashGrabBlueberryBonus,
   calculateDilatedFiveLeafBonus,
   calculateEventBuff,
+  calculatePixelBarLevelBonuses,
+  calculatePixelGenerationSpeed,
+  calculatePixelLuck,
   calculateSingularityMilestoneBlueberries
 } from './Calculate'
 import {
@@ -144,6 +148,10 @@ type AmbrosialLuck =
   | 'BlueberryQuarkLuck1'
   | 'SingularityBerries'
   | 'BlueberryUpgrade2'
+  | 'BarLevel'
+  | 'PixelUpgrade1'
+  | 'PixelUpgrade2'
+  | 'PixelUpgrade3'
   | 'ShopOcteractAmbrosiaLuck'
   | 'TwoHundredSixtyNine'
   | 'OneHundredThirtyOne'
@@ -157,18 +165,52 @@ type AmbrosiaGeneration =
   | 'Event'
   | 'OcteractBerries'
   | 'BlueberryPatreon'
+  | 'BarLevel'
+  | 'PixelUpgrade1'
+  | 'PixelUpgrade2'
+  | 'PixelUpgrade3'
   | 'Exalt2'
   | 'CashGrabUltra'
   | 'Exalt5'
 
-type BlueberryInventory = 'Exalt1' | 'SingularityUpgrade' | 'SingularityPerk' | 'Exalt5'
+type BlueberryInventory =
+  | 'Exalt1'
+  | 'SingularityUpgrade'
+  | 'SingularityPerk'
+  | 'Exalt5'
+  | 'PixelUpgrade1'
+  | 'PixelUpgrade2'
+  | 'PixelUpgrade3'
 
 type AmbrosiaLuckAdditiveMult =
   | 'Base'
   | 'Exalt1'
+  | 'BlueberryLuckDilator'
   | 'SingularityPerk'
+  | 'BarLevel'
   | 'ShopUpgrades'
   | 'Exalt5'
+  | 'Event'
+
+type UltimatePixelGeneration =
+  | 'Base'
+  | 'BarLevel'
+
+type UltimatePixelLuck =
+  | 'Base'
+  | 'BarLevel'
+  | 'PixelUpgrade1'
+  | 'SingularityPixelLuck1'
+  | 'SingularityPixelLuck2'
+  | 'OcteractPixelLuck1'
+  | 'OcteractPixelLuck2'
+  | 'BlueberryPixelLuck1'
+  | 'BlueberryPixelLuck2'
+
+type UltimatePixelLuckAdditiveMult =
+  | 'Base'
+  | 'BarLevel'
+  | 'Exalt1'
   | 'Event'
 
 export class AmbrosiaLuckAdditiveMultCache extends AdditionCache<AmbrosiaLuckAdditiveMult> {
@@ -184,7 +226,9 @@ export class AmbrosiaLuckAdditiveMultCache extends AdditionCache<AmbrosiaLuckAdd
     this.vals = {
       Base: 1,
       Exalt1: 0,
+      BlueberryLuckDilator: 0,
       SingularityPerk: 0,
+      BarLevel: 0,
       ShopUpgrades: 0,
       Exalt5: 0,
       Event: 0
@@ -203,8 +247,16 @@ export class AmbrosiaLuckAdditiveMultCache extends AdditionCache<AmbrosiaLuckAdd
         this.vals[key] = +player.singularityChallenges.noSingularityUpgrades.rewards.luckBonus
         break
       }
+      case 'BlueberryLuckDilator': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaLuckDilator.bonus.ambrosiaLuckMult
+        break
+      }
       case 'SingularityPerk': {
         this.vals[key] = calculateDilatedFiveLeafBonus()
+        break
+      }
+      case 'BarLevel': {
+        this.vals[key] = calculatePixelBarLevelBonuses().AmbrosiaLuckMult
         break
       }
       case 'ShopUpgrades': {
@@ -249,13 +301,17 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       BlueberryUpgrade2: 0,
       BlueberryCubeLuck1: 0,
       BlueberryQuarkLuck1: 0,
+      BarLevel: 0,
+      PixelUpgrade1: 0,
+      PixelUpgrade2: 0,
+      PixelUpgrade3: 0,
       OneHundredThirtyOne: 0,
       TwoHundredSixtyNine: 0,
       ShopOcteractAmbrosiaLuck: 0,
       Exalt5: 0
     }
-    this.totalVal = 0
-    this.usedTotal = 0
+    this.totalVal = 100
+    this.usedTotal = 100
   }
 
   updateVal (key: AmbrosialLuck, init = false): void {
@@ -295,6 +351,22 @@ export class AmbrosiaLuckCache extends AdditionCache<AmbrosialLuck> {
       }
       case 'BlueberryQuarkLuck1': {
         this.vals[key] = +player.blueberryUpgrades.ambrosiaQuarkLuck1.bonus.ambrosiaLuck
+        break
+      }
+      case 'BarLevel': {
+        this.vals[key] = calculatePixelBarLevelBonuses().AmbrosiaLuck
+        break
+      }
+      case 'PixelUpgrade1': {
+        this.vals[key] = +player.pixelUpgrades.pixelAmbrosiaLuck.bonus.ambrosiaLuck
+        break
+      }
+      case 'PixelUpgrade2': {
+        this.vals[key] = +player.pixelUpgrades.pixelAmbrosiaLuck2.bonus.ambrosiaLuck
+        break
+      }
+      case 'PixelUpgrade3': {
+        this.vals[key] = +player.pixelUpgrades.pixelAmbrosiaLuck3.bonus.ambrosiaLuck
         break
       }
       case 'OneHundredThirtyOne': {
@@ -340,12 +412,16 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
       SingularityBerries: 1,
       OcteractBerries: 1,
       BlueberryPatreon: 1,
+      BarLevel: 1,
+      PixelUpgrade1: 1,
+      PixelUpgrade2: 1,
+      PixelUpgrade3: 1,
       Exalt2: 1,
       Exalt5: 1,
       CashGrabUltra: 1,
       Event: 1
     }
-    this.totalVal = 0
+    this.totalVal = 2
   }
 
   updateVal (key: AmbrosiaGeneration, init = false): void {
@@ -375,6 +451,22 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
         this.vals[key] = +player.blueberryUpgrades.ambrosiaPatreon.bonus.blueberryGeneration
         break
       }
+      case 'BarLevel': {
+        this.vals[key] = calculatePixelBarLevelBonuses().BlueberrySpeedMult
+        break
+      }
+      case 'PixelUpgrade1': {
+        this.vals[key] = +player.pixelUpgrades.pixelAmbrosiaGeneration.bonus.ambrosiaGeneration
+        break
+      }
+      case 'PixelUpgrade2': {
+        this.vals[key] = +player.pixelUpgrades.pixelAmbrosiaGeneration2.bonus.ambrosiaGeneration
+        break
+      }
+      case 'PixelUpgrade3': {
+        this.vals[key] = +player.pixelUpgrades.pixelAmbrosiaGeneration3.bonus.ambrosiaGeneration
+        break
+      }
       case 'Exalt2': {
         this.vals[key] = +player.singularityChallenges.oneChallengeCap.rewards.blueberrySpeedMult
         break
@@ -396,6 +488,7 @@ export class AmbrosiaGenerationCache extends MultiplicationCache<AmbrosiaGenerat
     }
     const newVal = this.vals[key]
     this.updateTotal(oldVal, newVal, init)
+    player.caches.ultimatePixelGeneration.updateVal('Base')
   }
 }
 
@@ -413,6 +506,9 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
       Exalt1: 0,
       SingularityUpgrade: 0,
       SingularityPerk: 0,
+      PixelUpgrade1: 0,
+      PixelUpgrade2: 0,
+      PixelUpgrade3: 0,
       Exalt5: 0
     }
     this.totalVal = 0
@@ -437,11 +533,188 @@ export class BlueberryInventoryCache extends AdditionCache<BlueberryInventory> {
       }
       case 'Exalt5': {
         this.vals[key] = +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberries
+        break
+      }
+      case 'PixelUpgrade1': {
+        this.vals[key] = +player.pixelUpgrades.pixelBlueberry.bonus.blueberry
+        break
+      }
+      case 'PixelUpgrade2': {
+        this.vals[key] = +player.pixelUpgrades.pixelBlueberry2.bonus.blueberry
+        break
+      }
+      case 'PixelUpgrade3': {
+        this.vals[key] = +player.pixelUpgrades.pixelBlueberry3.bonus.blueberry
+        break
       }
     }
     const newVal = this.vals[key]
     this.updateTotal(oldVal, newVal, init)
     player.caches.ambrosiaGeneration.updateVal('Blueberries') // Dependant cache
+  }
+}
+
+export class UltimatePixelGenerationCache extends MultiplicationCache<UltimatePixelGeneration> {
+  vals!: Record<UltimatePixelGeneration, number>
+  public totalVal!: number
+
+  constructor () {
+    super()
+    this.reset()
+  }
+
+  reset () {
+    this.vals = {
+      Base: 1,
+      BarLevel: 1
+    }
+    this.totalVal = 1
+  }
+
+  updateVal (key: UltimatePixelGeneration, init = false): void {
+    const oldVal = this.vals[key]
+    switch (key) {
+      case 'Base': {
+        if (!player.singularityChallenges.limitedAscensions.rewards.ultimateProgressBarUnlock) {
+          this.vals[key] = 0
+        } else {
+          const ambrosiaGen = player.caches.ambrosiaGeneration.totalVal
+          const addedBase = +player.pixelUpgrades.pixelPixelGeneration.bonus.pixelGenerationAdd
+          const addedBase2 = +player.pixelUpgrades.pixelPixelGeneration2.bonus.pixelGenerationAdd
+          const addedBase3 = +player.pixelUpgrades.pixelPixelGeneration3.bonus.pixelGenerationAdd
+          this.vals[key] = Math.max(1, Math.min(ambrosiaGen, Math.pow(1000000 * ambrosiaGen, 1 / 3))) + addedBase
+            + addedBase2 + addedBase3
+        }
+        break
+      }
+      case 'BarLevel': {
+        this.vals[key] = calculatePixelBarLevelBonuses().PixelProgressMult
+        break
+      }
+    }
+    const newVal = this.vals[key]
+    this.updateTotal(oldVal, newVal, init)
+  }
+}
+
+export class UltimatePixelLuckCache extends AdditionCache<UltimatePixelLuck> {
+  vals!: Record<UltimatePixelLuck, number>
+  public totalVal!: number
+  public usedTotal!: number
+
+  constructor () {
+    super()
+    this.reset()
+  }
+
+  reset () {
+    this.vals = {
+      Base: 100,
+      BarLevel: 0,
+      PixelUpgrade1: 0,
+      SingularityPixelLuck1: 0,
+      SingularityPixelLuck2: 0,
+      OcteractPixelLuck1: 0,
+      OcteractPixelLuck2: 0,
+      BlueberryPixelLuck1: 0,
+      BlueberryPixelLuck2: 0
+    }
+    this.totalVal = 100
+    this.usedTotal = 100
+  }
+
+  updateVal (key: UltimatePixelLuck, init = false): void {
+    const oldVal = this.vals[key]
+    switch (key) {
+      case 'Base': {
+        this.vals[key] = 100
+        break
+      }
+      case 'BarLevel': {
+        this.vals[key] = calculatePixelBarLevelBonuses().PixelLuck
+        break
+      }
+      case 'PixelUpgrade1': {
+        this.vals[key] = +player.pixelUpgrades.pixelPixelLuck.bonus.pixelLuck
+        break
+      }
+      case 'SingularityPixelLuck1': {
+        this.vals[key] = +player.singularityUpgrades.singPixelLuck.getEffect().bonus
+        break
+      }
+      case 'SingularityPixelLuck2': {
+        this.vals[key] = +player.singularityUpgrades.singPixelLuck2.getEffect().bonus
+        break
+      }
+      case 'OcteractPixelLuck1': {
+        this.vals[key] = +player.octeractUpgrades.octeractPixelLuck.getEffect().bonus
+        break
+      }
+      case 'OcteractPixelLuck2': {
+        this.vals[key] = +player.octeractUpgrades.octeractPixelLuck2.getEffect().bonus
+        break
+      }
+      case 'BlueberryPixelLuck1': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaPixelLuck.bonus.pixelLuck
+        break
+      }
+      case 'BlueberryPixelLuck2': {
+        this.vals[key] = +player.blueberryUpgrades.ambrosiaPixelLuck2.bonus.pixelLuck
+        break
+      }
+    }
+    const newVal = this.vals[key]
+    this.updateTotal(oldVal, newVal, init)
+    this.usedTotal = Math.floor(
+      this.totalVal * player.caches.ultimatePixelAdditiveMult.totalVal
+    )
+  }
+}
+
+export class UltimatePixelLuckAdditiveMultCache extends AdditionCache<UltimatePixelLuckAdditiveMult> {
+  vals!: Record<UltimatePixelLuckAdditiveMult, number>
+  public totalVal!: number
+
+  constructor () {
+    super()
+    this.reset()
+  }
+
+  reset () {
+    this.vals = {
+      Base: 1,
+      BarLevel: 0,
+      Exalt1: 0,
+      Event: 0
+    }
+    this.totalVal = 1
+  }
+
+  updateVal (key: UltimatePixelLuckAdditiveMult, init = false): void {
+    const oldVal = this.vals[key]
+    switch (key) {
+      case 'Base': {
+        this.vals[key] = 1
+        break
+      }
+      case 'BarLevel': {
+        this.vals[key] = calculatePixelBarLevelBonuses().PixelLuckMult
+        break
+      }
+      case 'Exalt1': {
+        this.vals[key] = +player.singularityChallenges.noSingularityUpgrades.rewards.luckBonus
+        break
+      }
+      case 'Event': {
+        this.vals[key] = Globals.isEvent
+          ? calculateEventBuff(BuffType.AmbrosiaLuck)
+          : 0
+        break
+      }
+    }
+    const newVal = this.vals[key]
+    this.updateTotal(oldVal, newVal, init)
+    player.caches.ultimatePixelLuck.updateVal('Base') // Dependant cache, though maybe need a better system than calling Base
   }
 }
 
@@ -461,5 +734,11 @@ export const cacheReinitialize = () => {
     ambrosiaLuck: calculateAmbrosiaLuck().value,
     ambrosiaBlueberries: calculateBlueberryInventory().value,
     ambrosiaGenerationSpeed: calculateAmbrosiaGenerationSpeed().value
+  }
+
+  Globals.pixelCurrStats = {
+    pixelAdditiveLuckMult: calculateAdditivePixelLuckMult().value,
+    pixelLuck: calculatePixelLuck().value,
+    pixelGenerationSpeed: calculatePixelGenerationSpeed().value
   }
 }

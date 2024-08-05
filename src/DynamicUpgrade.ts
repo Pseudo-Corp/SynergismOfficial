@@ -11,6 +11,7 @@ export interface IUpgradeData {
   toggleBuy?: number
   effect?(this: void, n: number): { bonus: number | boolean; desc: string }
   freeLevels?: number
+  cacheUpdates?: (() => void)[]
 }
 
 export abstract class DynamicUpgrade {
@@ -22,6 +23,7 @@ export abstract class DynamicUpgrade {
   readonly costPerLevel: number
   public toggleBuy = 1 // -1 = buy MAX (or 1000 in case of infinity levels!)
   readonly effect: (n: number) => { bonus: number | boolean; desc: string }
+  readonly cacheUpdates: (() => void)[] | undefined
 
   constructor (data: IUpgradeData) {
     this.name = data.name
@@ -32,6 +34,7 @@ export abstract class DynamicUpgrade {
     this.costPerLevel = data.costPerLevel
     this.toggleBuy = data.toggleBuy ?? 1
     this.effect = data.effect ?? ((n: number) => ({ bonus: n, desc: 'WIP not implemented' }))
+    this.cacheUpdates = data.cacheUpdates ?? undefined
   }
 
   public async changeToggle (): Promise<void> {
@@ -65,6 +68,14 @@ export abstract class DynamicUpgrade {
     const effectiveLevel = this.level + Math.min(this.level, this.freeLevels)
       + Math.sqrt(Math.max(0, this.freeLevels - this.level))
     return this.effect(effectiveLevel)
+  }
+
+  public updateCaches (): void {
+    if (this.cacheUpdates !== undefined) {
+      for (const cache of this.cacheUpdates) {
+        cache()
+      }
+    }
   }
 
   abstract toString (): string

@@ -7,6 +7,7 @@ import { BuffType, calculateEventSourceBuff } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { hepteractEffective } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
+import { computeMetaBarLevel } from './PixelUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { reset } from './Reset'
 import { calculateSingularityDebuff } from './singularity'
@@ -311,7 +312,7 @@ export const calculateRuneExpToLevel = (
     multiplier = Math.pow(100, runeLevel)
   }
   if (runeIndex === 6) {
-    multiplier = Math.pow(1e25, runeLevel) * (player.highestSingularityCount + 1)
+    multiplier = Math.pow(1e25, runeLevel) * (player.singularityCount + 1)
   }
   return multiplier * G.runeexpbase[runeIndex]
 }
@@ -497,6 +498,8 @@ export function calculateOfferings (
     1 + player.cubeUpgrades[54] / 100, // Cube upgrade 6x4 (Cx4)
     +player.octeractUpgrades.octeractOfferings1.getEffect().bonus, // Offering Electrolosis OC Upgrade
     1 + 0.001 * +player.blueberryUpgrades.ambrosiaOffering1.bonus.offeringMult, // Ambrosia!!
+    calculatePixelBarLevelBonuses().OfferingMult,
+    +player.pixelUpgrades.pixelOfferings.bonus.offerings,
     calculateEXALTBonusMult(), // 20 Ascensions X20 Bonus [EXALT ONLY]
     calculateEXUltraOfferingBonus(), // EX Ultra Shop Upgrade
     1 + calculateEventBuff(BuffType.Offering) // Event
@@ -678,6 +681,8 @@ export const calculateObtainium = () => {
 
   G.obtainiumGain *= calculateEXUltraObtainiumBonus()
   G.obtainiumGain *= calculateEXALTBonusMult()
+  G.obtainiumGain *= calculatePixelBarLevelBonuses().ObtainiumMult
+  G.obtainiumGain *= +player.pixelUpgrades.pixelObtainium.bonus.obtainium
 
   if (!isFinite(G.obtainiumGain)) {
     G.obtainiumGain = 1e300
@@ -1396,7 +1401,9 @@ export const calculateOffline = async (forceTime = 0) => {
     ants: timeAdd * G.timeMultiplier,
     antsReal: timeAdd,
     ascension: player.ascensionCounter, // Calculate this after the fact
-    quarks: quarkHandler().gain // Calculate this after the fact
+    quarks: quarkHandler().gain, // Calculate this after the fact
+    ambrosia: player.lifetimeAmbrosia,
+    pixels: player.ultimatePixels
   }
 
   cacheReinitialize()
@@ -1407,12 +1414,15 @@ export const calculateOffline = async (forceTime = 0) => {
   addTimers('singularity', timeAdd)
   addTimers('octeracts', timeTick)
   addTimers('ambrosia', timeAdd)
+  addTimers('pixel', timeAdd)
 
   player.prestigeCount += resetAdd.prestige
   player.transcendCount += resetAdd.transcension
   player.reincarnationCount += resetAdd.reincarnation
   timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
   timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
+  timerAdd.ambrosia = player.lifetimeAmbrosia - timerAdd.ambrosia
+  timerAdd.pixels = player.ultimatePixels - timerAdd.pixels
 
   // 200 simulated all ticks [July 12, 2021]
   const runOffline = setInterval(() => {
@@ -1526,6 +1536,18 @@ export const calculateOffline = async (forceTime = 0) => {
     'offlineProgress.exportQuarks',
     {
       value: format(timerAdd.quarks, 0, true)
+    }
+  )
+  DOMCacheGetOrSet('offlineAmbrosiaCount').innerHTML = i18next.t(
+    'offlineProgress.lifetimeAmbrosia',
+    {
+      value: format(timerAdd.ambrosia, 0, true)
+    }
+  )
+  DOMCacheGetOrSet('offlinePixelCount').innerHTML = i18next.t(
+    'offlineProgress.pixels',
+    {
+      value: format(timerAdd.pixels, 0, true)
     }
   )
 
@@ -1751,6 +1773,12 @@ export const calculateAllCubeMultiplier = () => {
     calculateTotalOcteractCubeBonus(),
     // No Singularity Upgrades Challenge
     +player.singularityChallenges.noSingularityUpgrades.rewards.cubes,
+    // Pixel Tutorial
+    +player.pixelUpgrades.pixelTutorial.bonus.cubes,
+    // Pixel Bar Level
+    calculatePixelBarLevelBonuses().CubeMult,
+    // Pixel Upgrade: Cubes!!!
+    +player.pixelUpgrades.pixelCubes.bonus.cubes,
     // Singularity Citadel
     +player.singularityUpgrades.singCitadel.getEffect().bonus,
     // Singularity Citadel 2
@@ -2350,13 +2378,13 @@ export const calculateSingularityQuarkMilestoneMultiplier = () => {
     220, 225, 250, 255, 260, 261, 262,
   ];
   for (const sing of singThresholds) {
-    if (player.highestSingularityCount >= sing) {
+    if (player.singularityCount >= sing) {
       multiplier *= 1.05
     }
   }
 
-  if (player.highestSingularityCount >= 200) {
-    multiplier *= Math.pow((player.highestSingularityCount - 179) / 20, 2)
+  if (player.singularityCount >= 200) {
+    multiplier *= Math.pow((player.singularityCount - 179) / 20, 2)
   }
 
   return multiplier
@@ -2456,6 +2484,9 @@ export const calculateQuarkMultiplier = () => {
   multiplier *= +player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks
   multiplier *= +player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks
   multiplier *= calculateCashGrabQuarkBonus()
+  multiplier *= +player.pixelUpgrades.pixelTutorial.bonus.quarks
+  multiplier *= calculatePixelBarLevelBonuses().QuarkMult
+  multiplier *= +player.pixelUpgrades.pixelQuarks.bonus.quarks
 
   if (player.highestSingularityCount === 0) {
     multiplier *= 1.25
@@ -2476,13 +2507,13 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
   }
 
   let perkMultiplier = 1
-  if (player.highestSingularityCount >= 200) {
+  if (player.singularityCount >= 200) {
     perkMultiplier = 3
   }
-  if (player.highestSingularityCount >= 208) {
+  if (player.singularityCount >= 208) {
     perkMultiplier = 5
   }
-  if (player.highestSingularityCount >= 221) {
+  if (player.singularityCount >= 221) {
     perkMultiplier = 8
   }
 
@@ -2494,8 +2525,8 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
     +player.singularityChallenges.noSingularityUpgrades.rewards.goldenQuarks, // No Singularity Upgrades
     1 + calculateEventBuff(BuffType.GoldenQuark), // Event
     1 + getFastForwardTotalMultiplier(), // Singularity Fast Forwards
-    player.highestSingularityCount >= 100
-      ? 1 + Math.min(1, player.highestSingularityCount / 250)
+    player.singularityCount >= 100
+      ? 1 + Math.min(1, player.singularityCount / 250)
       : 1, // Golden Revolution II
     perkMultiplier // Immaculate Alchemy
   ]
@@ -2998,55 +3029,55 @@ export const calculateCubeQuarkMultiplier = () => {
       + calculateSigmoid(1.5, Math.pow(player.overfluxOrbs, 0.5), 640)
       + calculateSigmoid(
         1.15,
-        +(player.highestSingularityCount >= 1)
+        +(player.singularityCount >= 1)
           * Math.pow(player.overfluxOrbs, 0.45),
         2560
       )
       + calculateSigmoid(
         1.15,
-        +(player.highestSingularityCount >= 2)
+        +(player.singularityCount >= 2)
           * Math.pow(player.overfluxOrbs, 0.4),
         10000
       )
       + calculateSigmoid(
         1.25,
-        +(player.highestSingularityCount >= 5)
+        +(player.singularityCount >= 5)
           * Math.pow(player.overfluxOrbs, 0.35),
         40000
       )
       + calculateSigmoid(
         1.25,
-        +(player.highestSingularityCount >= 10)
+        +(player.singularityCount >= 10)
           * Math.pow(player.overfluxOrbs, 0.32),
         160000
       )
       + calculateSigmoid(
         1.35,
-        +(player.highestSingularityCount >= 15)
+        +(player.singularityCount >= 15)
           * Math.pow(player.overfluxOrbs, 0.27),
         640000
       )
       + calculateSigmoid(
         1.45,
-        +(player.highestSingularityCount >= 20)
+        +(player.singularityCount >= 20)
           * Math.pow(player.overfluxOrbs, 0.24),
         2e6
       )
       + calculateSigmoid(
         1.55,
-        +(player.highestSingularityCount >= 25)
+        +(player.singularityCount >= 25)
           * Math.pow(player.overfluxOrbs, 0.21),
         1e7
       )
       + calculateSigmoid(
         1.85,
-        +(player.highestSingularityCount >= 30)
+        +(player.singularityCount >= 30)
           * Math.pow(player.overfluxOrbs, 0.18),
         4e7
       )
       + calculateSigmoid(
         3,
-        +(player.highestSingularityCount >= 35)
+        +(player.singularityCount >= 35)
           * Math.pow(player.overfluxOrbs, 0.15),
         1e8
       )
@@ -3074,13 +3105,13 @@ export const calculateSingularityAmbrosiaLuckMilestoneBonus = () => {
   const singThresholds2 = [135, 142, 149, 156, 163, 170, 177]
 
   for (const sing of singThresholds1) {
-    if (player.highestSingularityCount >= sing) {
+    if (player.singularityCount >= sing) {
       bonus += 5
     }
   }
 
   for (const sing of singThresholds2) {
-    if (player.highestSingularityCount >= sing) {
+    if (player.singularityCount >= sing) {
       bonus += 6
     }
   }
@@ -3179,6 +3210,11 @@ export const calculateRequiredBlueberryTime = () => {
       val *= 2
     }
   }
+
+  if (player.blueberryUpgrades.ambrosiaLuckDilator.level > 0) {
+    val *= 2
+  }
+
   return val
 }
 
@@ -3259,6 +3295,75 @@ export const calculateEXUltraCubeBonus = () => {
   return calculateEXUltraBonus(EX_ULTRA_CUBES)
 }
 
+type BarBonuses = {
+  AmbrosiaLuck: number
+  AmbrosiaLuckMult: number
+  PixelLuck: number
+  PixelLuckMult: number
+  OfferingMult: number
+  ObtainiumMult: number
+  CubeMult: number
+  QuarkMult: number
+  BlueberrySpeedMult: number
+  PixelProgressMult: number
+}
+
+export const calculatePixelBarLevelBonuses = (): BarBonuses => {
+  const level = computeMetaBarLevel()
+  return {
+    AmbrosiaLuck: calculatePixelBarLevelLuckBonus(level),
+    AmbrosiaLuckMult: calculatePixelBarLevelLuckAdditiveMultBonus(level),
+    PixelLuck: calculatePixelBarLevelPixelLuckBonus(level),
+    PixelLuckMult: calculatePixelBarLevelPixelLuckAdditiveMultBonus(level),
+    OfferingMult: calculatePixelBarLevelOfferingMult(level),
+    ObtainiumMult: calculatePixelBarLevelObtainiumMult(level),
+    CubeMult: calculatePixelBarLevelCubeMult(level),
+    QuarkMult: calculatePixelBarLevelQuarkMult(level),
+    BlueberrySpeedMult: calculatePixelBarLevelBlueberrySpeedMult(level),
+    PixelProgressMult: calculatePixelBarLevelProgressSpeedMult(level)
+  }
+}
+
+export const calculatePixelBarLevelLuckBonus = (level: number) => {
+  return Math.floor(Math.pow(2, level / 100) * 5 * level)
+}
+
+export const calculatePixelBarLevelLuckAdditiveMultBonus = (level: number) => {
+  return Math.floor(level / 10) / 100
+}
+
+export const calculatePixelBarLevelPixelLuckBonus = (level: number) => {
+  return Math.floor(level / 2)
+}
+
+export const calculatePixelBarLevelPixelLuckAdditiveMultBonus = (level: number) => {
+  return Math.floor(level / 10) / 100
+}
+
+export const calculatePixelBarLevelCubeMult = (level: number) => {
+  return Math.pow(1.03, level)
+}
+
+export const calculatePixelBarLevelOfferingMult = (level: number) => {
+  return Math.pow(1.03, level)
+}
+
+export const calculatePixelBarLevelObtainiumMult = (level: number) => {
+  return Math.pow(1.03, level)
+}
+
+export const calculatePixelBarLevelQuarkMult = (level: number) => {
+  return 1 + 0.5 * level / 100 * Math.pow(2, level / 100)
+}
+
+export const calculatePixelBarLevelBlueberrySpeedMult = (level: number) => {
+  return 1 + level / 100 * Math.pow(2, level / 100)
+}
+
+export const calculatePixelBarLevelProgressSpeedMult = (level: number) => {
+  return 1 + level / 200 * Math.pow(2, level / 100)
+}
+
 export const calculateEXALTBonusMult = () => {
   if (!player.singularityChallenges.limitedAscensions.rewards.exaltBonus) {
     return 1
@@ -3273,7 +3378,7 @@ export const calculateEXALTBonusMult = () => {
 export const calculateDilatedFiveLeafBonus = () => {
   const singThresholds = [100, 150, 200, 225, 250, 255, 260, 265, 269, 272]
   for (let i = 0; i < singThresholds.length; i++) {
-    if (player.highestSingularityCount < singThresholds[i]) return i / 100
+    if (player.singularityCount < singThresholds[i]) return i / 100
   }
 
   return singThresholds.length / 100
@@ -3287,7 +3392,9 @@ export const calculateAdditiveLuckMult = () => {
   const arr = [
     1,
     +player.singularityChallenges.noSingularityUpgrades.rewards.luckBonus, // No Singularity Upgrade 1x30
+    +player.blueberryUpgrades.ambrosiaLuckDilator.bonus.ambrosiaLuckMult, // Blueberry Upgrade (Dilator)
     calculateDilatedFiveLeafBonus(), // Dilated Five Leaf Clover Perk
+    calculatePixelBarLevelBonuses().AmbrosiaLuckMult, // Computed Bar Level Bonus
     player.shopUpgrades.shopAmbrosiaLuckMultiplier4 / 100, // EXALT-unlocked shop upgrade
     +player.singularityChallenges.noAmbrosiaUpgrades.rewards.luckBonus, // No Ambrosia Challenge Reward
     G.isEvent ? calculateEventBuff(BuffType.AmbrosiaLuck) : 0 // Event
@@ -3314,6 +3421,10 @@ export const calculateAmbrosiaLuck = () => {
     +player.blueberryUpgrades.ambrosiaLuck2.bonus.ambrosiaLuck, // Ambrosia Luck from Luck Module II
     +player.blueberryUpgrades.ambrosiaCubeLuck1.bonus.ambrosiaLuck, // Ambrosia Luck from Cube-Luck Synergy Module
     +player.blueberryUpgrades.ambrosiaQuarkLuck1.bonus.ambrosiaLuck, // Ambrosia Luck from Quark-Luck Synergy Module
+    calculatePixelBarLevelBonuses().AmbrosiaLuck, // Bar Level Ambrosia Luck Bonuses!
+    +player.pixelUpgrades.pixelAmbrosiaLuck.bonus.ambrosiaLuck, // Pixel Upgrade Inducer
+    +player.pixelUpgrades.pixelAmbrosiaLuck2.bonus.ambrosiaLuck, // Pixel Upgrade Deducer
+    +player.pixelUpgrades.pixelAmbrosiaLuck3.bonus.ambrosiaLuck, // Pixel Upgrade Convector
     player.highestSingularityCount >= 131 ? 131 : 0, // Singularity Perk "One Hundred Thirty One!"
     player.highestSingularityCount >= 269 ? 269 : 0, // Singularity Perk "Two Hundred Sixty Nine!"
     player.shopUpgrades.shopOcteractAmbrosiaLuck * (1 + Math.floor(Math.log10(player.totalWowOcteracts + 1))), // Octeract -> Ambrosia Shop Upgrade
@@ -3337,7 +3448,10 @@ export const calculateBlueberryInventory = () => {
     +(player.singularityChallenges.noSingularityUpgrades.completions > 0), // E1x1 Clear!
     +player.singularityUpgrades.blueberries.getEffect().bonus, // Singularity Blueberry Upgrade
     calculateSingularityMilestoneBlueberries(), // Singularity Milestones (Congealed Blueberries)
-    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberries // No Ambrosia Challenge Reward
+    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberries, // No Ambrosia Challenge Reward
+    +player.pixelUpgrades.pixelBlueberry.bonus.blueberry,
+    +player.pixelUpgrades.pixelBlueberry2.bonus.blueberry,
+    +player.pixelUpgrades.pixelBlueberry3.bonus.blueberry
   ]
 
   return {
@@ -3354,10 +3468,69 @@ export const calculateAmbrosiaGenerationSpeed = () => {
     calculateAmbrosiaGenerationSingularityUpgrade(),
     calculateAmbrosiaGenerationOcteractUpgrade(),
     +player.blueberryUpgrades.ambrosiaPatreon.bonus.blueberryGeneration,
+    calculatePixelBarLevelBonuses().BlueberrySpeedMult, // Bar Level Bonus!
+    +player.pixelUpgrades.pixelAmbrosiaGeneration.bonus.ambrosiaGeneration,
+    +player.pixelUpgrades.pixelAmbrosiaGeneration2.bonus.ambrosiaGeneration,
+    +player.pixelUpgrades.pixelAmbrosiaGeneration3.bonus.ambrosiaGeneration,
     +player.singularityChallenges.oneChallengeCap.rewards.blueberrySpeedMult,
     +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberrySpeedMult,
     G.isEvent ? 1 + calculateEventBuff(BuffType.BlueberryTime) : 1,
     calculateCashGrabBlueberryBonus()
+  ]
+
+  return {
+    value: productContents(arr),
+    array: arr
+  }
+}
+
+export const calculateAdditivePixelLuckMult = () => {
+  const arr = [
+    1,
+    calculatePixelBarLevelBonuses().PixelLuckMult,
+    +player.singularityChallenges.noSingularityUpgrades.rewards.luckBonus,
+    G.isEvent ? calculateEventBuff(BuffType.AmbrosiaLuck) : 0
+  ]
+
+  return {
+    value: sumContents(arr),
+    array: arr
+  }
+}
+
+export const calculatePixelLuck = () => {
+  const ambrosiaLuck = calculateAmbrosiaLuck().value
+  const arr = [
+    100,
+    calculatePixelBarLevelBonuses().PixelLuck,
+    +player.pixelUpgrades.pixelPixelLuck.bonus.pixelLuck,
+    +player.singularityUpgrades.singPixelLuck.getEffect().bonus,
+    +player.singularityUpgrades.singPixelLuck2.getEffect().bonus,
+    +player.octeractUpgrades.octeractPixelLuck.getEffect().bonus,
+    +player.octeractUpgrades.octeractPixelLuck2.getEffect().bonus,
+    +player.blueberryUpgrades.ambrosiaPixelLuck.bonus.pixelLuck,
+    +player.blueberryUpgrades.ambrosiaPixelLuck2.bonus.pixelLuck,
+    Math.floor((+player.pixelUpgrades.pixelPixelLuckConverter.bonus.purchased + +player.pixelUpgrades.pixelPixelLuckConverter2.bonus.purchased) * ambrosiaLuck / 400)
+  ]
+
+  const multiplicativeLuck = calculateAdditivePixelLuckMult().value
+
+  return {
+    value: sumContents(arr) * multiplicativeLuck,
+    array: arr.concat(multiplicativeLuck)
+  }
+}
+
+export const calculatePixelGenerationSpeed = () => {
+  const ambrosiaGen = calculateAmbrosiaGenerationSpeed().value
+
+  const arr = [
+    +player.singularityChallenges.limitedAscensions.rewards.ultimateProgressBarUnlock,
+    Math.min(ambrosiaGen, Math.pow(1000000 * ambrosiaGen, 1 / 3))
+    + +player.pixelUpgrades.pixelPixelGeneration.bonus.pixelGenerationAdd
+    + +player.pixelUpgrades.pixelPixelGeneration2.bonus.pixelGenerationAdd
+    + +player.pixelUpgrades.pixelPixelGeneration3.bonus.pixelGenerationAdd,
+    calculatePixelBarLevelBonuses().PixelProgressMult
   ]
 
   return {
@@ -3446,10 +3619,10 @@ export const derpsmithCornucopiaBonus = () => {
     248
   ]
   for (const sing of singCounts) {
-    if (player.highestSingularityCount >= sing) {
+    if (player.singularityCount >= sing) {
       counter += 1
     }
   }
 
-  return 1 + (counter * player.highestSingularityCount) / 100
+  return 1 + (counter * player.singularityCount) / 100
 }

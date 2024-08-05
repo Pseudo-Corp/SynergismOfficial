@@ -293,6 +293,7 @@ export const Globals: GlobalVariables = {
 
   runescreen: 'runes',
   settingscreen: 'settings',
+  achievementScreen: 1,
 
   talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24],
   talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
@@ -505,6 +506,7 @@ export const Globals: GlobalVariables = {
   eventClicked: false,
 
   ambrosiaTimer: 0,
+  pixelTimer: 0,
   TIME_PER_AMBROSIA: 600,
 
   ambrosiaCurrStats: {
@@ -512,6 +514,12 @@ export const Globals: GlobalVariables = {
     ambrosiaLuck: 100,
     ambrosiaBlueberries: 0,
     ambrosiaGenerationSpeed: 1
+  },
+
+  pixelCurrStats: {
+    pixelAdditiveLuckMult: 1,
+    pixelLuck: 100,
+    pixelGenerationSpeed: 1
   },
 
   currentSingChallenge: undefined

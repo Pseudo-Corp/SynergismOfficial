@@ -157,6 +157,7 @@ import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
+import { pixelData, PixelUpgrade } from './PixelUpgrades'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { getQuarkBonus, QuarkHandler } from './Quark'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
@@ -168,7 +169,10 @@ import {
   AmbrosiaLuckAdditiveMultCache,
   AmbrosiaLuckCache,
   BlueberryInventoryCache,
-  cacheReinitialize
+  cacheReinitialize,
+  UltimatePixelGenerationCache,
+  UltimatePixelLuckAdditiveMultCache,
+  UltimatePixelLuckCache
 } from './StatCache'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
@@ -468,7 +472,7 @@ export const player: Player = {
     rrow3: false,
     rrow4: false
   },
-  achievements: Array(281).fill(0) as number[],
+  achievements: Array(295).fill(0) as number[],
 
   achievementPoints: 0,
 
@@ -1212,6 +1216,14 @@ export const player: Player = {
     singAmbrosiaGeneration4: new SingularityUpgrade(
       singularityData.singAmbrosiaGeneration4,
       'singAmbrosiaGeneration4'
+    ),
+    singPixelLuck: new SingularityUpgrade(
+      singularityData.singPixelLuck,
+      'singPixelLuck'
+    ),
+    singPixelLuck2: new SingularityUpgrade(
+      singularityData.singPixelLuck2,
+      'singPixelLuck2'
     )
   },
 
@@ -1363,6 +1375,14 @@ export const player: Player = {
     octeractAmbrosiaGeneration4: new OcteractUpgrade(
       octeractData.octeractAmbrosiaGeneration4,
       'octeractAmbrosiaGeneration4'
+    ),
+    octeractPixelLuck: new OcteractUpgrade(
+      octeractData.octeractPixelLuck,
+      'octeractPixelLuck'
+    ),
+    octeractPixelLuck2: new OcteractUpgrade(
+      octeractData.octeractPixelLuck2,
+      'octeractPixelLuck2'
     )
   },
 
@@ -1468,6 +1488,18 @@ export const player: Player = {
     ambrosiaHyperflux: new BlueberryUpgrade(
       blueberryUpgradeData.ambrosiaHyperflux,
       'ambrosiaHyperflux'
+    ),
+    ambrosiaPixelLuck: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaPixelLuck,
+      'ambrosiaPixelLuck'
+    ),
+    ambrosiaPixelLuck2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaPixelLuck2,
+      'ambrosiaPixelLuck2'
+    ),
+    ambrosiaLuckDilator: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaLuckDilator,
+      'ambrosiaLuckDilator'
     )
   },
 
@@ -1485,15 +1517,54 @@ export const player: Player = {
 
   ultimateProgress: 0,
   ultimatePixels: 0,
+  lifetimeUltimatePixels: 0,
+
+  pixelUpgrades: {
+    pixelTutorial: new PixelUpgrade(pixelData.pixelTutorial, 'pixelTutorial'),
+    pixelPixelLuck: new PixelUpgrade(pixelData.pixelPixelLuck, 'pixelPixelLuck'),
+    pixelPixelLuckConverter: new PixelUpgrade(pixelData.pixelPixelLuckConverter, 'pixelPixelLuckConverter'),
+    pixelPixelLuckConverter2: new PixelUpgrade(pixelData.pixelPixelLuckConverter2, 'pixelPixelLuckConverter2'),
+    pixelPixelGeneration: new PixelUpgrade(pixelData.pixelPixelGeneration, 'pixelPixelGeneration'),
+    pixelPixelGeneration2: new PixelUpgrade(pixelData.pixelPixelGeneration2, 'pixelPixelGeneration2'),
+    pixelPixelGeneration3: new PixelUpgrade(pixelData.pixelPixelGeneration3, 'pixelPixelGeneration3'),
+    pixelAmbrosiaGeneration: new PixelUpgrade(pixelData.pixelAmbrosiaGeneration, 'pixelAmbrosiaGeneration'),
+    pixelAmbrosiaGeneration2: new PixelUpgrade(pixelData.pixelAmbrosiaGeneration2, 'pixelAmbrosiaGeneration2'),
+    pixelAmbrosiaGeneration3: new PixelUpgrade(pixelData.pixelAmbrosiaGeneration3, 'pixelAmbrosiaGeneration3'),
+    pixelAmbrosiaLuck: new PixelUpgrade(pixelData.pixelAmbrosiaLuck, 'pixelAmbrosiaLuck'),
+    pixelAmbrosiaLuck2: new PixelUpgrade(pixelData.pixelAmbrosiaLuck2, 'pixelAmbrosiaLuck2'),
+    pixelAmbrosiaLuck3: new PixelUpgrade(pixelData.pixelAmbrosiaLuck3, 'pixelAmbrosiaLuck3'),
+    pixelCubes: new PixelUpgrade(pixelData.pixelCubes, 'pixelCubes'),
+    pixelQuarks: new PixelUpgrade(pixelData.pixelQuarks, 'pixelQuarks'),
+    pixelObtainium: new PixelUpgrade(pixelData.pixelObtainium, 'pixelObtainium'),
+    pixelOfferings: new PixelUpgrade(pixelData.pixelOfferings, 'pixelOfferings'),
+    pixelBlueberry: new PixelUpgrade(pixelData.pixelBlueberry, 'pixelBlueberry'),
+    pixelBlueberry2: new PixelUpgrade(pixelData.pixelBlueberry2, 'pixelBlueberry2'),
+    pixelBlueberry3: new PixelUpgrade(pixelData.pixelBlueberry3, 'pixelBlueberry3'),
+    pixelRoleBonus: new PixelUpgrade(pixelData.pixelRoleBonus, 'pixelRoleBonus'),
+    pixelFreeUpgradeImprovement: new PixelUpgrade(pixelData.pixelFreeUpgradeImprovement, 'pixelFreeUpgradeImprovement'),
+    pixelFreeUpgradeImprovement2: new PixelUpgrade(
+      pixelData.pixelFreeUpgradeImprovement2,
+      'pixelFreeUpgradeImprovement2'
+    ),
+    pixelFreeUpgradeImprovement3: new PixelUpgrade(
+      pixelData.pixelFreeUpgradeImprovement3,
+      'pixelFreeUpgradeImprovement3'
+    )
+  },
 
   caches: {
     ambrosiaLuckAdditiveMult: new AmbrosiaLuckAdditiveMultCache(),
     ambrosiaLuck: new AmbrosiaLuckCache(),
     ambrosiaGeneration: new AmbrosiaGenerationCache(),
-    blueberryInventory: new BlueberryInventoryCache()
+    blueberryInventory: new BlueberryInventoryCache(),
+    ultimatePixelAdditiveMult: new UltimatePixelLuckAdditiveMultCache(),
+    ultimatePixelGeneration: new UltimatePixelGenerationCache(),
+    ultimatePixelLuck: new UltimatePixelLuckCache()
   },
 
-  lastExportedSave: 0
+  lastExportedSave: 0,
+
+  seed: Array.from({ length: 1 }, () => Date.now())
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -5885,6 +5956,7 @@ const tack = (dt: number) => {
     addTimers('singularity', dt)
     addTimers('autoPotion', dt)
     addTimers('ambrosia', dt)
+    addTimers('pixel', dt)
 
     // Triggers automatic rune sacrifice (adds milliseconds to payload timer)
     if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle) {

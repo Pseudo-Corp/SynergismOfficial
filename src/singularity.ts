@@ -1,11 +1,17 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculateBlueberryInventory } from './Calculate'
+import {
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
+  calculateBlueberryInventory,
+  calculatePixelLuck
+} from './Calculate'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
+import { singularity } from './Reset'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
-import { Alert, Prompt, revealStuff } from './UpdateHTML'
+import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -302,7 +308,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
       GQBudget = Math.min(player.goldenQuarks, GQBudget)
     }
 
-    if (this.maxLevel > 0) {
+    if (this.computeMaxLevel() > 0) {
       maxPurchasable = Math.min(
         maxPurchasable,
         this.computeMaxLevel() - this.level
@@ -1578,6 +1584,51 @@ export const singularityData: Record<
         G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
       }
     ]
+  },
+  singPixelLuck: {
+    maxLevel: 0,
+    costPerLevel: 1e7,
+    minimumSingularity: 60,
+    canExceedCap: true,
+    effect: (n: number) => {
+      return {
+        bonus: 2 * n,
+        get desc () {
+          return i18next.t('singularity.data.singPixelLuck.effect', {
+            n: format(2 * n)
+          })
+        }
+      }
+    },
+    specialCostForm: 'Exponential2',
+    qualityOfLife: false,
+    cacheUpdates: [
+      () => {
+        G.pixelCurrStats.pixelLuck = calculatePixelLuck().value
+      }
+    ]
+  },
+  singPixelLuck2: {
+    maxLevel: 15,
+    costPerLevel: 1e20,
+    minimumSingularity: 271,
+    effect: (n: number) => {
+      return {
+        bonus: 3 * n,
+        get desc () {
+          return i18next.t('singularity.data.singPixelLuck2.effect', {
+            n: format(3 * n)
+          })
+        }
+      }
+    },
+    specialCostForm: 'Exponential2',
+    qualityOfLife: false,
+    cacheUpdates: [
+      () => {
+        G.pixelCurrStats.pixelLuck = calculatePixelLuck().value
+      }
+    ]
   }
 }
 
@@ -2264,7 +2315,8 @@ export const singularityPerks: SingularityPerk[] = [
 
 // Placeholder text for Perk Info that is seen upon first load, check Line 645 EventListeners.ts for actual Perk Info code.
 export const updateSingularityPerks = (): void => {
-  const singularityCount = player.highestSingularityCount
+  const singularityCount = player.singularityCount
+
   DOMCacheGetOrSet('singularityPerksHeader').innerHTML = i18next.t(
     'singularity.perks.header',
     {
@@ -2583,8 +2635,16 @@ export const calculateEffectiveSingularities = (
     effectiveSingularities *= 2
   }
   if (singularityCount > 269) {
-    effectiveSingularities *= 3
-    effectiveSingularities *= Math.pow(3, singularityCount - 269)
+    effectiveSingularities *= 2
+  }
+  if (singularityCount > 279) {
+    effectiveSingularities *= 2
+  }
+  if (singularityCount > 289) {
+    effectiveSingularities *= 2
+  }
+  if (singularityCount === 300) {
+    effectiveSingularities = 4.44e44
   }
 
   return effectiveSingularities
@@ -2659,5 +2719,65 @@ export const calculateSingularityDebuff = (
   } else {
     // Cube upgrades
     return Math.cbrt(effectiveSingularities + 1)
+  }
+}
+
+export const calculateTotalCacheSeconds = () => {
+  const singularity = player.singularityCount
+
+  const linearScale = (singularity >= 25) ? singularity * 8 : 0
+  const quadraticFactor = (singularity > 100) ? singularity / 100 : 1
+  const cubicFactor = (singularity > 200) ? singularity / 150 : 1
+  const quarticFactor = (singularity > 250) ? 1 + (singularity - 250) / 25 : 1
+
+  return linearScale * quadraticFactor * cubicFactor * quarticFactor
+}
+
+export const setSingularity = async () => {
+  // TODO: Make this i18 compatible. This function was honestly made in a hurry to get the beta out
+
+  if (player.insideSingularityChallenge) {
+    return Alert('The elevator does not function properly in these EXALTs.')
+  }
+
+  const c = Number(
+    await Prompt(`What singularity would you like to travel to?
+                    Your highest singularity is ${player.highestSingularityCount} 
+                    Your current singularity is ${player.singularityCount} 
+                    You may only select an integer between 1 and the highest singularity, inclusive. If you select a higher number than your current singularity, the singularity resets!`)
+  )
+
+  if (isNaN(c) || !isFinite(c) || !Number.isInteger(c)) {
+    // nan + Infinity checks
+    return Alert(i18next.t('general.validation.finite'))
+  }
+
+  if (c < 1) {
+    return Alert('You are not allowed to break the time-space continuum!')
+  }
+
+  if (c > player.highestSingularityCount) {
+    return Alert('You have to reach this singularity before you can elevate to it!')
+  }
+
+  if (c > player.singularityCount) {
+    const c2 = await Confirm(`Are you sure you want to go to Singularity ${c}? Your singularity will reset!`)
+    if (c2) {
+      singularity(c)
+    } else {
+      return Alert(`You remain at Singularity ${player.singularityCount}.`)
+    }
+  }
+
+  if (c <= player.singularityCount) {
+    const c2 = await Confirm(
+      `This will take you to Singularity ${c} where your progress will not be reset, but Penalties are lighter and Perks are weaker. Proceed?`
+    )
+    if (c2) {
+      player.singularityCount = c
+      return Alert(`You are now at Singularity ${c} and nothing has been reset. Enjoy!`)
+    } else {
+      return Alert(`You remain at Singularity ${player.singularityCount}.`)
+    }
   }
 }
