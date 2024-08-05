@@ -1,4 +1,4 @@
-export const version = '3.0.0 pt 6: July 4, 2024: Pixel Update Beta [I]'
+export const version = '3.0.0 pt 6: August 5, 2024: Pixel Update Beta [II]'
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE
