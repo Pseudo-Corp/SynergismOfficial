@@ -11,6 +11,7 @@ import { subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, Player } from './types/Synergism'
 import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
+import { getElementById } from './Utility'
 import { Globals as G } from './Variables'
 
 export const toggleSettings = (toggle: HTMLElement) => {
@@ -1013,16 +1014,16 @@ export const toggleBlueberryLoadoutmode = () => {
 
 export const confirmReply = (confirm = true) => {
   if (DOMCacheGetOrSet('alertWrapper').style.display === 'block') {
-    ;(DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click()
+    getElementById<HTMLButtonElement>('ok_alert').click()
   }
   if (
     DOMCacheGetOrSet('confirmWrapper').style.display === 'block'
     || DOMCacheGetOrSet('promptWrapper').style.display === 'block'
   ) {
     if (confirm) {
-      ;(DOMCacheGetOrSet('ok_confirm') as HTMLButtonElement).click()
+      getElementById<HTMLButtonElement>('ok_confirm').click()
     } else {
-      ;(DOMCacheGetOrSet('cancel_confirm') as HTMLButtonElement).click()
+      getElementById<HTMLButtonElement>('cancel_confirm').click()
     }
   }
 }

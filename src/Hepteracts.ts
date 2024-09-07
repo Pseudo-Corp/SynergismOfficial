@@ -232,7 +232,7 @@ export class HepteractCraft {
       if ((player[item] as number) < 0) {
         ;(player[item] as number) = 0
       } else if (player[item] instanceof Cube) {
-        ;(player[item] as Cube).sub(
+        <Cube> player[item].sub(
           amountToCraft * craftCostMulti * this.OTHER_CONVERSIONS[item]!
         )
       } else if (item === 'worlds') {

@@ -23,7 +23,7 @@ export const getReductionValue = () => {
 }
 
 const getCostAccelerator = (buyingTo: number): Decimal => {
-  ;--buyingTo
+  buyingTo--
 
   const originalCost = 500
   let cost = new Decimal(originalCost)
@@ -169,7 +169,7 @@ export const buyAccelerator = (autobuyer?: boolean) => {
 }
 
 const getCostMultiplier = (buyingTo: number): Decimal => {
-  ;--buyingTo
+  buyingTo--
 
   const originalCost = 1e4
   let cost = new Decimal(originalCost)
@@ -378,7 +378,7 @@ const getCostInternal = (
   r: number
 ): Decimal => {
   // It's 0 indexed by mistake so you have to subtract 1 somewhere.
-  ;--buyingTo
+  buyingTo--
   const buymax = Math.pow(10, 15)
   // Accounts for the multiplies by 1.25^num buyingTo times
   const cost = new Decimal(originalCost)
@@ -392,7 +392,7 @@ const getCostInternal = (
   let fr = Math.floor(r * 1000)
   if (buyingTo >= r * 1000) {
     // This code is such a mess at this point, just know that this is equivalent to what it was before
-    ;++fastFactMultBuyTo
+    fastFactMultBuyTo++
     cost.exponent -= factorialByExponent(fr)
     cost.exponent += (-3 + Math.log10(1 + (num / 2))) * (buyingTo - fr)
   }
@@ -400,7 +400,7 @@ const getCostInternal = (
   fr = Math.floor(r * 5000)
   if (buyingTo >= r * 5000) {
     // This code is such a mess at this point, just know that this is equivalent to what it was before
-    ;++fastFactMultBuyTo
+    fastFactMultBuyTo++
     cost.exponent -= factorialByExponent(fr)
     cost.exponent += ((known_log10s[10 + num * 10] + 1) * (buyingTo - fr - 1)) + 1
   }
@@ -432,7 +432,7 @@ const getCostInternal = (
   if ((player.currentChallenge.transcension === 4) && (type === 'Coin' || type === 'Diamonds')) {
     // you would not fucking believe how long it took me to figure this out
     // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-    ;++fastFactMultBuyTo100
+    fastFactMultBuyTo100++
     if (buyingTo >= (1000 - (10 * player.challengecompletions[4]))) {
       // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
       mlog10125 += buyingTo * (buyingTo + 1) / 2
@@ -441,7 +441,7 @@ const getCostInternal = (
   if ((player.currentChallenge.reincarnation === 10) && (type === 'Coin' || type === 'Diamonds')) {
     // you would not fucking believe how long it took me to figure this out
     // (100*costofcurrent + 10000)^n = (((100+buyingTo)!/100!)*100^buyingTo)^n
-    ;++fastFactMultBuyTo100
+    fastFactMultBuyTo100++
     if (buyingTo >= (r * 25000)) {
       // and I changed this to be a summation of all the previous buys 1.25 to the sum from 1 to buyingTo
       mlog10125 += buyingTo * (buyingTo + 1) / 2
@@ -887,7 +887,7 @@ const getAcceleratorBoostCost = (level = 1): Decimal => {
 }
 
 const getParticleCost = (originalCost: DecimalSource, buyTo: number): Decimal => {
-  ;--buyTo
+  buyTo--
   originalCost = new Decimal(originalCost)
   let cost = originalCost.times(Decimal.pow(2, buyTo))
 

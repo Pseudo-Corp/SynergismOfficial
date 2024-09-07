@@ -211,10 +211,10 @@ const openDashboard = () => {
   // compute blessings total amounts
   const n = player.subtabNumber
   G.currentTab = Tabs.WowCubes
-  ;[0, 1, 2, 3].forEach((i) => {
+  for (const i of [0, 1, 2, 3]) {
     player.subtabNumber = i
     visualUpdateCubes()
-  })
+  }
   G.currentTab = Tabs.Settings
   player.subtabNumber = n
   // render and display dashboard

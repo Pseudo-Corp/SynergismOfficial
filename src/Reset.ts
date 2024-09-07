@@ -83,7 +83,7 @@ export const resetdetails = (input: resetNames) => {
     resetObtainiumText.textContent = ''
   }
 
-  ;(input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity')
+  input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity'
     ? offeringImage.style.display = offeringText.style.display = 'none'
     : offeringImage.style.display = offeringText.style.display = 'block'
 

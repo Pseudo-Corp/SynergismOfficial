@@ -133,7 +133,7 @@ export const updateAntDescription = (i: number) => {
 }
 
 const getAntCost = (originalCost: Decimal, buyTo: number, index: number) => {
-  ;--buyTo
+  buyTo--
 
   // Determine how much the cost is for buyTo
   const cost = originalCost
@@ -144,7 +144,7 @@ const getAntCost = (originalCost: Decimal, buyTo: number, index: number) => {
 }
 
 const getAntUpgradeCost = (originalCost: Decimal, buyTo: number, index: number) => {
-  ;--buyTo
+  buyTo--
 
   const cost = originalCost.times(Decimal.pow(G.antUpgradeCostIncreases[index - 1], buyTo))
   return cost
