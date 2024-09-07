@@ -2280,8 +2280,7 @@ const loadSynergy = async () => {
     const omit = /e\+/
     let inputd = player.autoChallengeTimer.start
     let inpute = Number(
-      (DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement)
-        .value
+      getElementById<HTMLInputElement>('startAutoChallengeTimerInput').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('startAutoChallengeTimerInput')
@@ -2332,7 +2331,7 @@ const loadSynergy = async () => {
 
     inputd = player.prestigeamount
     inpute = Number(
-      (DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('prestigeamount').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('prestigeamount').value = `${player.prestigeamount || blankSave.prestigeamount}`
@@ -2341,7 +2340,7 @@ const loadSynergy = async () => {
     }
     inputd = player.transcendamount
     inpute = Number(
-      (DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('transcendamount').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('transcendamount').value = `${
@@ -2351,7 +2350,7 @@ const loadSynergy = async () => {
     }
     inputd = player.reincarnationamount
     inpute = Number(
-      (DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('reincarnationamount').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('reincarnationamount').value = `${
@@ -2361,7 +2360,7 @@ const loadSynergy = async () => {
     }
     inputd = player.autoAscendThreshold
     inpute = Number(
-      (DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('ascensionAmount').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('ascensionAmount').value = `${
@@ -2371,20 +2370,17 @@ const loadSynergy = async () => {
     }
     inputd = player.autoAntSacTimer
     inpute = Number(
-      (DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('autoAntSacrificeAmount').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('autoAntSacrificeAmount').value = `${
         player.autoAntSacTimer || blankSave.autoAntSacTimer
-      }`.replace(
-        omit,
-        'e'
-      )
+      }`.replace(omit, 'e')
       updateAutoReset(5)
     }
     inputd = player.tesseractAutoBuyerAmount
     inpute = Number(
-      (DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('tesseractAmount').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('tesseractAmount').value = `${
@@ -2393,18 +2389,14 @@ const loadSynergy = async () => {
       updateTesseractAutoBuyAmount()
     }
     inputd = player.openCubes
-    inpute = Number(
-      (DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value
-    )
+    inpute = Number(getElementById<HTMLInputElement>('cubeOpensInput').value)
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('cubeOpensInput').value = `${player.openCubes || blankSave.openCubes}`
         .replace(omit, 'e')
       updateAutoCubesOpens(1)
     }
     inputd = player.openTesseracts
-    inpute = Number(
-      (DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value
-    )
+    inpute = Number(getElementById<HTMLInputElement>('tesseractsOpensInput').value)
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('tesseractsOpensInput').value = `${
         player.openTesseracts || blankSave.openTesseracts
@@ -2412,9 +2404,7 @@ const loadSynergy = async () => {
       updateAutoCubesOpens(2)
     }
     inputd = player.openHypercubes
-    inpute = Number(
-      (DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value
-    )
+    inpute = Number(getElementById<HTMLInputElement>('hypercubesOpensInput').value)
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('hypercubesOpensInput').value = `${
         player.openHypercubes || blankSave.openHypercubes
@@ -2422,22 +2412,15 @@ const loadSynergy = async () => {
       updateAutoCubesOpens(3)
     }
     inputd = player.openPlatonicsCubes
-    inpute = Number(
-      (DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value
-    )
+    inpute = Number(getElementById<HTMLInputElement>('platonicCubeOpensInput').value)
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('platonicCubeOpensInput').value = `${
         player.openPlatonicsCubes || blankSave.openPlatonicsCubes
-      }`.replace(
-        omit,
-        'e'
-      )
+      }`.replace(omit, 'e')
       updateAutoCubesOpens(4)
     }
     inputd = player.runeBlessingBuyAmount
-    inpute = Number(
-      (DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value
-    )
+    inpute = Number(getElementById<HTMLInputElement>('buyRuneBlessingInput').value)
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('buyRuneBlessingInput').value = `${
         player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount
@@ -2454,7 +2437,7 @@ const loadSynergy = async () => {
 
     inputd = player.runeSpiritBuyAmount
     inpute = Number(
-      (DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('buyRuneSpiritInput').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
       getElementById<HTMLInputElement>('buyRuneSpiritInput').value = `${
@@ -2928,7 +2911,7 @@ const padEvery = (str: string, places = 3) => {
     newStr += dec + strParts[1]
   } // see https://www.npmjs.com/package/flatstr
 
-  ;(newStr as unknown as number) | 0
+  <number> <unknown> newStr | 0
   return newStr
 }
 
@@ -6302,7 +6285,7 @@ export const reloadShit = async (reset = false) => {
     }
   }
 
-  const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
+  const saveType = getElementById<HTMLInputElement>('saveType')
   saveType.checked = localStorage.getItem('copyToClipboard') !== null
 }
 
