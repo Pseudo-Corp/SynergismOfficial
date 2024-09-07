@@ -972,7 +972,7 @@ export const buyParticleBuilding = (
 
   if (!autobuyer) {
     if (player.particlebuyamount + buyStart < buyTo) {
-      buyTo = buyStart + player.particlebuyamount + smallestInc(player[key] + player.particlebuyamount)
+      buyTo = buyStart + player.particlebuyamount - 1 + smallestInc(player[key] + player.particlebuyamount)
     }
   }
 

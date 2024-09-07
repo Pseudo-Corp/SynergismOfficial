@@ -959,9 +959,11 @@ export const buttoncolorchange = () => {
   }
 
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'particle') {
+    const unlocked = player.cubeUpgrades[7]
     for (let i = 1; i <= 5; i++) {
+      const toggle = player.toggles[i + 21]
       const costParticles = player[`${G.ordinals[i - 1 as ZeroToFour]}CostParticles` as const]
-      player.reincarnationPoints.gte(costParticles)
+      player.reincarnationPoints.gte(costParticles) && (!toggle || !unlocked)
         ? DOMCacheGetOrSet(`buyparticles${i}`).classList.add('buildingPurchaseBtnAvailable')
         : DOMCacheGetOrSet(`buyparticles${i}`).classList.remove('buildingPurchaseBtnAvailable')
     }
