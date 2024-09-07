@@ -2941,7 +2941,7 @@
             "hypercubeQuarksToday": "Quarks gained from Hypercubes: <<cyan|{{amount}}>>",
             "hypercubeQuarksOpenRequirement": "Open {{amount}} Hypercubes for next quark.",
             "hypercubeQuarksOpenToday": "Hypercubes opened today: <<orchid|{{amount}}>>",
-            "platonicCubeQuarksToday": "Platonic Cubes gained from Cubes: <<cyan|{{amount}}>>",
+            "platonicCubeQuarksToday": "Quarks gained from Platonic Cubes: <<cyan|{{amount}}>>",
             "platonicCubeQuarksOpenRequirement": "Open {{amount}} Platonic Cubes for next quark.",
             "platonicCubeQuarksOpenToday": "Platonic Cubes opened today: <<orchid|{{amount}}>>"
         },
