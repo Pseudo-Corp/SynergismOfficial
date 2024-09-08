@@ -443,7 +443,6 @@ class $Tab extends HTMLButtonElement {
         }
       } else {
         changeTab(this.#type)
-        changeTabColor()
       }
     })
   }
@@ -595,6 +594,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   G.currentTab = tabRow.getCurrentTab().getType()
   player.tabnumber = 0
 
+  changeTabColor()
   revealStuff()
   hideStuff()
   ;(document.activeElement as HTMLElement | null)?.blur()
