@@ -11,6 +11,7 @@ import { SingularityChallenge, singularityChallengeData } from '../SingularityCh
 import { blankSave } from '../Synergism'
 import type { Player } from '../types/Synergism'
 import { deepClone, padArray } from '../Utility'
+import { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 
 const decimalSchema = z.custom<Decimal>((value) => {
   try {
@@ -54,6 +55,30 @@ const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
     Object.entries(record).filter(([key, _value]) => /^\d+$/.test(key))
   )
 })
+
+const optionalCorruptionSchema = z.object({
+  viscosity: z.number().optional(),
+  drought: z.number().optional(),
+  deflation: z.number().optional(),
+  extinction: z.number().optional(),
+  illiteracy: z.number().optional(),
+  recession: z.number().optional(),
+  dilation: z.number().optional(),
+  hyperchallenge: z.number().optional()
+})
+
+const convertArrayToCorruption = (array: number[]): Partial<Corruptions> => {
+  return {
+    viscosity: array[1],
+    dilation: array[2],
+    hyperchallenge: array[3],
+    illiteracy: array[4],
+    deflation: array[5],
+    extinction: array[6],
+    drought: array[7],
+    recession: array[8],
+  }
+}
 
 const decimalStringSchema = z.string().regex(/^|-?\d+(\.\d{1,2})?$/)
 const integerStringSchema = z.string().regex(/^\d+$/)
@@ -506,15 +531,72 @@ export const playerSchema = z.object({
   roombaResearchIndex: z.number().default(() => blankSave.roombaResearchIndex),
   ascStatToggles: z.record(integerStringSchema, z.boolean()).default(() => ({ ...blankSave.ascStatToggles })),
 
-  prototypeCorruptions: z.number().array().default(() => [...blankSave.prototypeCorruptions]),
-  usedCorruptions: z.number().array().default(() => [...blankSave.usedCorruptions]),
-  corruptionLoadouts: z.record(integerStringSchema, z.number().array()).default(() =>
-    deepClone(blankSave.corruptionLoadouts)
-  ),
-  corruptionLoadoutNames: z.string().array().default(() => blankSave.corruptionLoadoutNames.slice()).default(
-    () => [...blankSave.corruptionLoadoutNames]
-  ),
-  corruptionShowStats: z.boolean().default(() => blankSave.corruptionShowStats),
+  corruptions: z.object({
+    used: optionalCorruptionSchema.transform((value) => {
+      return new CorruptionLoadout(value)
+    }),
+    prototype: optionalCorruptionSchema.transform((value) => {
+      return new CorruptionLoadout(value)
+    }),
+    saves: z.record(z.string(), optionalCorruptionSchema).transform((value) => {
+      return new CorruptionSaves(value)
+    }),
+    showStats: z.boolean()
+  }).default(() => JSON.parse(JSON.stringify(blankSave.corruptions))),
+
+  /*prototypeCorruptions: z.union([z.record(z.string(), z.number()).transform((value) => {
+    return new CorruptionLoadout(value)
+  }), arrayStartingWithNull(z.number()).transform((value): CorruptionLoadout => {
+    const corrLoadout = {
+      viscosity: value[1],
+      dilation: value[2],
+      hyperchallenge: value[3],
+      illiteracy: value[4],
+      deflation: value[5],
+      extinction: value[6],
+      drought: value[7],
+      recession: value[8],
+    }
+    return new CorruptionLoadout(corrLoadout)
+  }
+  )]).default(() => JSON.parse(JSON.stringify(blankSave.prototypeCorruptions))),*/
+  prototypeCorruptions: arrayStartingWithNull(z.number()).transform((value): CorruptionLoadout => {
+      const corrLoadout = convertArrayToCorruption(value)
+      return new CorruptionLoadout(corrLoadout)
+  }).optional(),
+
+  /*usedCorruptions: z.union([z.record(z.string(), z.number()).transform((value) => {
+    return new CorruptionLoadout(value)
+  }), arrayStartingWithNull(z.number()).transform((value): CorruptionLoadout => {
+    const corrLoadout = {
+      viscosity: value[1],
+      dilation: value[2],
+      hyperchallenge: value[3],
+      illiteracy: value[4],
+      deflation: value[5],
+      extinction: value[6],
+      drought: value[7],
+      recession: value[8],
+    }
+    return new CorruptionLoadout(corrLoadout)
+  }
+  )]).default(() => JSON.parse(JSON.stringify(blankSave.usedCorruptions))),*/
+  usedCorruptions: arrayStartingWithNull(z.number()).transform((value): CorruptionLoadout => {
+    const corrLoadout = convertArrayToCorruption(value)
+    return new CorruptionLoadout(corrLoadout)
+  }).optional(),
+
+  //usedCorruptions: z.number().array().default(() => [...blankSave.usedCorruptions]),
+  corruptionLoadouts: z.record(integerStringSchema, z.number().array()).transform((values) => {
+    const corrLoadoutArray = []
+    for (const arr of Object.values(values)) {
+      corrLoadoutArray.push(convertArrayToCorruption(arr))
+    }
+    return corrLoadoutArray
+  }).optional(),
+
+  corruptionLoadoutNames: z.string().array().optional(),
+  corruptionShowStats: z.boolean().optional(),
 
   constantUpgrades: arrayStartingWithNull(z.number()).default((): [
     null,
@@ -772,4 +854,42 @@ export const playerSchema = z.object({
   lastExportedSave: z.number().default(() => blankSave.lastExportedSave),
 
   seed: z.number().array().default(() => blankSave.seed).transform((value) => arrayExtend(value, 'seed'))
-})
+})/*.transform((player) => {
+  
+  player.corruptions.used = player.usedCorruptions ?? player.corruptions.used
+  player.corruptions.prototype = player.prototypeCorruptions ?? player.corruptions.prototype
+  player.corruptions.showStats = player.corruptionShowStats ?? player.corruptions.showStats
+
+  if (player.corruptionLoadouts !== undefined && player.corruptionLoadoutNames !== undefined) {
+
+    const corruptionSaveStuff: { [key: string]: Partial<Record<Corruptions, number>> } = player.corruptionLoadoutNames.reduce((map, key, index) => {
+      map[key] = player.corruptionLoadouts![index]
+      return map
+    }, {} as Record<string, Partial<Record<Corruptions, number>>>)
+
+    player.corruptions.saves = new CorruptionSaves(corruptionSaveStuff)
+  }
+
+
+  return player
+})*/
+/*export function refinePlayerSchema(schema: ZodRawShape) {
+  return playerSchema
+    .extend(schema)
+    .transform((player) => {
+      player.corruptions.used = player.usedCorruptions ?? player.corruptions.used
+      player.corruptions.prototype = player.prototypeCorruptions ?? player.corruptions.prototype
+      player.corruptions.showStats = player.corruptionShowStats ?? player.corruptions.showStats
+
+      if (player.corruptionLoadouts !== undefined && player.corruptionLoadoutNames !== undefined) {
+
+      const corruptionSaveStuff: { [key: string]: Partial<Record<Corruptions, number>> } = player.corruptionLoadoutNames.reduce((map, key, index) => {
+        map[key] = player.corruptionLoadouts![index]
+        return map
+      }, {} as Record<string, Partial<Record<Corruptions, number>>>)
+
+      player.corruptions.saves = new CorruptionSaves(corruptionSaveStuff)
+    }
+      return player
+    });
+}*/

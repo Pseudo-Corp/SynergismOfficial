@@ -60,9 +60,11 @@ import {
 import {
   corrChallengeMinimum,
   corruptionButtonsAdd,
+  CorruptionLoadout,
   corruptionLoadoutSaveLoad,
   corruptionLoadoutTableCreate,
   corruptionLoadoutTableUpdate,
+  CorruptionSaves,
   corruptionStatsUpdate,
   maxCorruptionLevel,
   updateCorruptionLoadoutNames
@@ -862,8 +864,25 @@ export const player: Player = {
     6: false
   },
 
-  prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  corruptions: {
+    prototype: new CorruptionLoadout({}),
+    used: new CorruptionLoadout({}),
+    saves: new CorruptionSaves({
+      'Loadout 1': {},
+      'Loadout 2': {},
+      'Loadout 3': {},
+      'Loadout 4': {},
+      'Loadout 5': {},
+      'Loadout 6': {},
+      'Loadout 7': {},
+      'Loadout 8': {}
+    }),
+    showStats: true
+  },
+
+  /*prototypeCorruptions: new CorruptionLoadout({}),
+  usedCorruptions: new CorruptionLoadout({}),
+
   corruptionLoadouts: {
     // If you add loadouts don't forget to add loadout names!
     1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -884,8 +903,8 @@ export const player: Player = {
     'Loadout 6',
     'Loadout 7',
     'Loadout 8'
-  ],
-  corruptionShowStats: true,
+  ], */
+  //corruptionShowStats: true,
 
   constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   history: { ants: [], ascend: [], reset: [], singularity: [] },
@@ -2116,22 +2135,6 @@ const loadSynergy = async () => {
       player.dayCheck.getFullYear(),
       player.dayCheck.getMonth(),
       player.dayCheck.getDate()
-    )
-
-    const maxLevel = maxCorruptionLevel()
-    player.usedCorruptions = player.usedCorruptions.map(
-      (curr: number, index: number) => {
-        if (index >= 2 && index <= 9) {
-          return Math.min(
-            maxLevel
-              * (player.challengecompletions[corrChallengeMinimum(index)] > 0
-                ? 1
-                : 0),
-            curr
-          )
-        }
-        return curr
-      }
     )
 
     for (let i = 1; i <= 5; i++) {

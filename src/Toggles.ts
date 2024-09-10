@@ -3,7 +3,7 @@ import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateRuneLevels } from './Calculate'
 import { getChallengeConditions } from './Challenges'
-import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions'
+import { corruptionDisplay, corruptionLoadoutTableUpdate, Corruptions, maxCorruptionLevel } from './Corruptions'
 import { autoResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { format, player, resetCheck } from './Synergism'
@@ -946,7 +946,15 @@ export const toggleAutoTesseracts = (i: number) => {
   player.autoTesseracts[i] = !player.autoTesseracts[i]
 }
 
-export const toggleCorruptionLevel = (index: number, value: number) => {
+export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number, reset = false) => {
+
+  player.corruptions.prototype.incrementDecrementLevel(corr, value)
+
+  if (reset && player.currentChallenge.ascension !== 15) {
+    player.corruptions.used.resetCorruptions()
+    player.corruptions.prototype.resetCorruptions()
+  }
+
   const current = player.prototypeCorruptions[index]
   const maxCorruption = maxCorruptionLevel()
   if (value > 0 && current < maxCorruption && 0 < index && index <= 9) {

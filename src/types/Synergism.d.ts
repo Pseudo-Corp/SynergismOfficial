@@ -19,6 +19,7 @@ import type {
   UltimatePixelLuckCache
 } from '../StatCache'
 import type { Tabs } from '../Tabs'
+import { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 
@@ -535,11 +536,18 @@ export interface Player {
   roombaResearchIndex: number
   ascStatToggles: Record<number, boolean>
 
-  prototypeCorruptions: number[]
-  usedCorruptions: number[]
-  corruptionLoadouts: Record<number, number[]>
-  corruptionLoadoutNames: string[]
-  corruptionShowStats: boolean
+  corruptions: {
+    prototype: CorruptionLoadout
+    used: CorruptionLoadout
+    saves: CorruptionSaves
+    showStats: boolean
+  }
+
+  //prototypeCorruptions: CorruptionLoadout
+  //usedCorruptions: CorruptionLoadout
+  //corruptionLoadouts: Record<number, number[]>
+  //corruptionLoadoutNames: string[]
+  //corruptionShowStats: boolean
 
   constantUpgrades: ArrayStartingWithNull<number>
   history: Record<Category, ResetHistoryEntryUnion[]>
@@ -925,13 +933,13 @@ export interface GlobalVariables {
   researchOrderByCost: number[]
 
   viscosityPower: number[]
-  lazinessMultiplier: number[]
-  hyperchallengedMultiplier: number[]
+  dilationMultiplier: number[]
+  hyperchallengeMultiplier: number[]
   illiteracyPower: number[]
   deflationMultiplier: number[]
   extinctionMultiplier: number[]
   droughtMultiplier: number[]
-  financialcollapsePower: number[]
+  recessionPower: number[]
 
   corruptionPointMultipliers: number[]
 

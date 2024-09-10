@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import type { Player } from '../types/Synergism'
 import { playerSchema } from './PlayerSchema'
+import { Corruptions, CorruptionSaves } from '../Corruptions'
 
 export const playerJsonSchema = playerSchema.extend({
   codes: z.any().transform((codes: Player['codes']) => Array.from(codes)),
@@ -85,5 +86,34 @@ export const playerJsonSchema = playerSchema.extend({
       })
     )
   ),
-  dayCheck: z.any().transform((dayCheck: Player['dayCheck']) => dayCheck?.toISOString() ?? null)
+  dayCheck: z.any().transform((dayCheck: Player['dayCheck']) => dayCheck?.toISOString() ?? null),
+  //usedCorruptions: z.any().transform(() => undefined),
+  //prototypeCorruptions: z.any().transform(() => undefined),
+  //corruptionLoadouts: z.any().transform(() => undefined),
+  //corruptionLoadoutNames: z.any().transform(() => undefined),
+  //corruptionShowStats: z.any().transform(() => undefined)
+
+}).transform((player) => {
+  
+  player.corruptions.used = player.usedCorruptions ?? player.corruptions.used
+  player.corruptions.prototype = player.prototypeCorruptions ?? player.corruptions.prototype
+  player.corruptions.showStats = player.corruptionShowStats ?? player.corruptions.showStats
+
+  if (player.corruptionLoadouts !== undefined && player.corruptionLoadoutNames !== undefined) {
+
+    const corruptionSaveStuff: { [key: string]: Partial<Corruptions> } = player.corruptionLoadoutNames.reduce((map, key, index) => {
+      map[key] = player.corruptionLoadouts![index]
+      return map
+    }, {} as Record<string, Partial<Corruptions>>)
+
+    player.corruptions.saves = new CorruptionSaves(corruptionSaveStuff)
+  }
+
+  player.usedCorruptions = undefined
+  player.prototypeCorruptions = undefined
+  player.corruptionShowStats = undefined
+  player.corruptionLoadoutNames = undefined
+  player.corruptionLoadouts = undefined
+
+  return player
 })

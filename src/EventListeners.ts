@@ -1075,6 +1075,7 @@ TODO: Fix this entire tab it's utter shit
     const shiftedKey = i + 1
     const el = blueberryLoadouts[i]
     el.addEventListener('mouseover', () => {
+      console.log(player.blueberryLoadouts[shiftedKey])
       createLoadoutDescription(
         shiftedKey,
         player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 }

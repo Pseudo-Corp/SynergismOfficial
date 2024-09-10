@@ -4,8 +4,225 @@ import { format, player } from './Synergism'
 import { IconSets } from './Themes'
 import { toggleCorruptionLevel } from './Toggles'
 import { Alert, Prompt } from './UpdateHTML'
-import { getElementById } from './Utility'
+import { getElementById, productContents, sumContents, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
+
+//export const corruptions = ['viscosity', 'drought', 'deflation', 'extinction', 'illiteracy', 'recession', 'dilation', 'hyperchallenge'] as const
+//export type Corruptions = typeof corruptions[number]
+
+export type Corruptions = {
+  viscosity: number,
+  drought: number,
+  deflation: number,
+  extinction: number,
+  illiteracy: number,
+  recession: number,
+  dilation: number,
+  hyperchallenge: number
+}
+
+export class CorruptionLoadout {
+  #totalScoreMult = 1
+  #corruptionScoreMults = [1, 3, 4, 5, 6, 7, 7.75, 8.5, 9.25, 10, 10.75, 11.5, 12.25, 13, 16, 20, 25, 33, 35]
+  #levels: Corruptions = { 
+    viscosity: 0,
+    drought: 0,
+    deflation: 0,
+    extinction: 0,
+    illiteracy: 0,
+    recession: 0,
+    dilation: 0,
+    hyperchallenge: 0
+  }
+  #bonusLevels = 0
+
+  constructor (p: Partial<Corruptions>) {
+    Object.assign(this.#levels, p)
+    this.clipCorruptionLevels()
+    this.#totalScoreMult = this.#calcTotalScoreMult()
+    this.#bonusLevels = this.#calcBonusLevels()
+  }
+
+  public clipCorruptionLevels() {
+    const minLevel = 0
+    const maxLevel = maxCorruptionLevel()
+
+    for (const [corr, level] of Object.entries(this.#levels)) {
+      const corruption = corr as keyof Corruptions
+      
+      // Standard Validation
+      if (!validateNonnegativeInteger(level)) {
+        this.#levels[corruption] = 0
+      }
+
+      this.#levels[corruption] = Math.max(minLevel, this.#levels[corruption])
+      this.#levels[corruption] = Math.min(maxLevel, this.#levels[corruption])
+    }
+  }
+
+  public multInterpolation(level: number) {
+    const scoreMultLength = this.#corruptionScoreMults.length
+    if (level < scoreMultLength - 1) {
+      const portionBelowLevel = level - Math.floor(level)
+      const portionAboveLevel = Math.ceil(level) - level
+      return portionBelowLevel * this.#corruptionScoreMults[Math.floor(level)] + 
+              portionAboveLevel * this.#corruptionScoreMults[Math.ceil(level)]
+    }
+    else {
+      return this.#corruptionScoreMults[scoreMultLength - 1] * 
+              Math.pow(1.2, level - scoreMultLength + 1)
+    }
+  }
+
+  #viscosityEffect() {
+    const base = G['viscosityPower'][this.#levels['viscosity']]
+    const multiplier = 1 + player.platonicUpgrades[6]
+    return Math.min(base * multiplier, 1)
+  }
+
+  #droughtEffect() {
+    return G['droughtMultiplier'][this.#levels['drought']]
+  }
+
+  #deflationEffect() {
+    return G['deflationMultiplier'][this.#levels['deflation']]
+  }
+
+  #extinctionEffect() {
+    return G['extinctionMultiplier'][this.#levels['extinction']]
+  }
+
+  #illiteracyEffect() {
+    return G['illiteracyPower'][this.#levels['illiteracy']]
+  }
+
+  #recessionEffect() {
+    return G['recessionPower'][this.#levels['recession']]
+  }
+
+  #dilationEffect() {
+    return G['dilationMultiplier'][this.#levels['dilation']]
+  }
+
+  #hyperchallengeEffect() {
+    return G['hyperchallengeMultiplier'][this.#levels['hyperchallenge']]
+  }
+
+  corruptionEffects(corr: keyof Corruptions) {
+    switch(corr) {
+      case 'deflation': {
+        return this.#viscosityEffect()
+      }
+      case 'dilation': {
+        return this.#dilationEffect()
+      }
+      case 'drought': {
+        return this.#droughtEffect()
+      }
+      case 'extinction': {
+        return this.#extinctionEffect()
+      }
+      case 'hyperchallenge': {
+        return this.#hyperchallengeEffect()
+      }
+      case 'illiteracy': {
+        return this.#illiteracyEffect()
+      }
+      case 'recession': {
+        return this.#recessionEffect()
+      }
+      case 'viscosity': {
+        return this.#viscosityEffect()
+      }
+    }
+  }
+
+  get totalLevels() {
+    return sumContents(Object.values(this.#levels))
+  }
+
+  #calcBonusLevels() {
+    let bonusLevel = (player.singularityUpgrades.corruptionFifteen.level > 0) ? 1 : 0
+    bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
+    return bonusLevel
+  }
+
+  public scoreMult(corruption: keyof Corruptions) {
+    if (corruption !== 'viscosity') {
+      return this.multInterpolation(this.#levels[corruption] + this.#bonusLevels)
+    }
+    else {
+      // player.platonicUpgrades[17] is the 17th platonic upgrade, known usually as P4x2, makes
+      // Exponent 3 + 0.04 * level if the corr is viscosity and it is set at least level 10.
+      const power = (player.platonicUpgrades[17] > 0 && this.#levels['viscosity'] >= 10) ?
+      3 + 0.04 * player.platonicUpgrades[17] :
+      1
+      return Math.pow(this.multInterpolation(this.#levels[corruption] + this.#bonusLevels), power)
+     }
+  }
+
+  #calcTotalScoreMult() {
+    return productContents(Object.keys(this.#levels).map((key) => {
+      const corrKey = key as keyof Corruptions 
+      return this.scoreMult(corrKey)
+    }))
+  }
+
+  getLevel(corr: keyof Corruptions) {
+    return this.#levels[corr]
+  }
+
+  getLoadout() {
+    return this.#levels
+  }
+
+  getBonusLevel() {
+    return this.#bonusLevels
+  }
+
+  setLevel(corr: keyof Corruptions, newLevel: number) {
+    const oldScore = this.scoreMult(corr)
+    this.#levels[corr] = newLevel
+    const newScore = this.scoreMult(corr)
+
+    this.#totalScoreMult *= newScore / oldScore
+  }
+
+  resetCorruptions() {
+    for (const corr in this.#levels) {
+      const corrKey = corr as keyof Corruptions
+    }
+  }
+
+  incrementDecrementLevel(corr: keyof Corruptions, val: number) {
+    const level = this.getLevel(corr)
+    const minLevel = 0
+    const maxLevel = maxCorruptionLevel()
+
+    let newLevel = Math.max(minLevel, Math.min(maxLevel, level + val))
+    this.setLevel(corr, newLevel)
+  }
+
+
+  getTotalScore() {
+    return this.#totalScoreMult
+  }
+
+}
+
+export type SavedCorruption = {
+  name: string
+  loadout: CorruptionLoadout 
+}
+
+export class CorruptionSaves {
+  saves: Array<SavedCorruption> = []
+  constructor (corrSaveData: Record<string, Partial<Corruptions>>) {
+    for (const saveKey of Object.keys(corrSaveData).slice(0,8)) {
+      this.saves.push({name: saveKey, loadout: new CorruptionLoadout(corrSaveData[saveKey])})
+    }
+  }
+}
 
 export const maxCorruptionLevel = () => {
   let max = 0
@@ -42,47 +259,27 @@ export const maxCorruptionLevel = () => {
   return max
 }
 
-export const corruptionDisplay = (index: number) => {
+const corrIcons: Record<keyof Corruptions, string> = {
+  viscosity: '/CorruptViscosity.png',
+  drought: '/CorruptDrought.png',
+  deflation: '/CorruptDeflation.png',
+  extinction: '/CorruptExtinction.png',
+  illiteracy: '/CorruptIlliteracy.png',
+  recession: '/CorruptRecession.png',
+  dilation: '/CorruptDilation.png',
+  hyperchallenge: '/CorruptHyperchallenge.png'
+}
+
+
+
+export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
   if (DOMCacheGetOrSet('corruptionDetails').style.visibility !== 'visible') {
     DOMCacheGetOrSet('corruptionDetails').style.visibility = 'visible'
   }
   if (DOMCacheGetOrSet('corruptionSelectedPic').style.visibility !== 'visible') {
     DOMCacheGetOrSet('corruptionSelectedPic').style.visibility = 'visible'
   }
-  G.corruptionTrigger = index
-  const currentExponent = ((index === 2) && player.usedCorruptions[index] >= 10)
-    ? 1 + 0.04 * player.platonicUpgrades[17] + 2 * Math.min(1, player.platonicUpgrades[17])
-    : 1
-  const protoExponent = ((index === 2) && player.prototypeCorruptions[index] >= 10)
-    ? 1 + 0.04 * player.platonicUpgrades[17] + 2 * Math.min(1, player.platonicUpgrades[17])
-    : 1
-  let bonusLevel = (player.singularityUpgrades.corruptionFifteen.level > 0) ? 1 : 0
-  bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
-  const bonusText = (bonusLevel > 0) ? `[+${bonusLevel}]` : ''
-
-  const corruptEffectValues: number[][] = [
-    G.viscosityPower,
-    G.lazinessMultiplier,
-    G.hyperchallengedMultiplier,
-    G.illiteracyPower,
-    G.deflationMultiplier,
-    G.extinctionMultiplier,
-    G.droughtMultiplier,
-    G.financialcollapsePower,
-    [0]
-  ]
-
-  const iconExtensions: string[] = [
-    '/CorruptViscocity.png',
-    '/CorruptSpatialDilation.png',
-    '/CorruptHyperchallenged.png',
-    '/CorruptScientificIlliteracy.png',
-    '/CorruptDeflation.png',
-    '/CorruptExtinction.png',
-    '/CorruptDrought.png',
-    '/CorruptFinancialCollapse.png'
-  ]
-
+  
   let text = {
     name: i18next.t('corruptions.exitCorruption.name'),
     description: i18next.t('corruptions.exitCorruption.description'),
@@ -93,33 +290,15 @@ export const corruptionDisplay = (index: number) => {
     image: `Pictures/${IconSets[player.iconSet][0]}/CorruptExit.png`
   } satisfies Record<string, string>
 
-  if (index < 10) {
+  if (corr !== 'exit') {
     text = {
-      name: i18next.t(`corruptions.names.${index - 1}`),
-      description: i18next.t(`corruptions.descriptions.${index - 1}`),
-      current: i18next.t(`corruptions.currentLevel.${index - 1}`, {
-        level: format(player.usedCorruptions[index]) + bonusText,
-        effect: format(corruptEffectValues[index - 2][player.usedCorruptions[index]], 3)
-      }),
-      planned: i18next.t(`corruptions.prototypeLevel.${index - 1}`, {
-        level: format(player.prototypeCorruptions[index]) + bonusText,
-        effect: format(corruptEffectValues[index - 2][player.prototypeCorruptions[index]], 3)
-      }),
-      multiplier: i18next.t('corruptions.scoreMultiplier', {
-        curr: format(
-          Math.pow(G.corruptionPointMultipliers[player.usedCorruptions[index] + bonusLevel], currentExponent),
-          1
-        ),
-        next: format(
-          Math.pow(G.corruptionPointMultipliers[player.prototypeCorruptions[index] + bonusLevel], protoExponent),
-          1
-        )
-      }),
-      spiritContribution: i18next.t('corruptions.spiritEffect', {
-        curr: format(4 * Math.pow(player.usedCorruptions[index] + bonusLevel, 2), 1),
-        next: format(4 * Math.pow(player.prototypeCorruptions[index] + bonusLevel, 2), 1)
-      }),
-      image: `Pictures/${IconSets[player.iconSet][0]}${iconExtensions[index - 2]}`
+      name: i18next.t(`corruptions.names.${corr}`),
+      description: i18next.t(`corruptions.descriptions.${corr}`),
+      current: i18next.t(`corruptions.currentLevel.${corr}`, {level: player.corruptions.used.getLevel(corr), effect: player.corruptions.used.corruptionEffects(corr)}),
+      planned: i18next.t(`corruptions.prototypeLevel.${corr}`, {level: player.corruptions.prototype.getLevel(corr), effect: player.corruptions.prototype.corruptionEffects(corr)}),
+      multiplier: i18next.t(`corruptions.scoreMultiplier`, {curr: player.corruptions.used.scoreMult(corr), next: player.corruptions.prototype.scoreMult(corr)}),
+      spiritContribution: i18next.t(`corruptions.spiritEffect`, {curr: 1, next: 1}),
+      image: `Pictures/${IconSets[player.iconSet][0]}${corrIcons[corr]}`
     }
   }
 
@@ -131,27 +310,32 @@ export const corruptionDisplay = (index: number) => {
   DOMCacheGetOrSet('corruptionSpiritContribution').textContent = text.spiritContribution
   DOMCacheGetOrSet('corruptionSelectedPic').setAttribute('src', text.image)
 
-  if (index < 10) {
-    DOMCacheGetOrSet(`corrCurrent${index}`).textContent = format(player.usedCorruptions[index])
-    DOMCacheGetOrSet(`corrNext${index}`).textContent = format(player.prototypeCorruptions[index])
+  if (corr !== 'exit') {
+    DOMCacheGetOrSet(`corrCurrent${corr}`).textContent = format(player.corruptions.used.getLevel(corr))
+    DOMCacheGetOrSet(`corrNext${corr}`).textContent = format(player.corruptions.prototype.getLevel(corr))
   }
 }
 
 export const corruptionStatsUpdate = () => {
-  for (let i = 2; i <= 9; i++) {
+
+  for (const corr in player.corruptions.used) {
+    const corrKey = corr as keyof Corruptions
     // https://discord.com/channels/677271830838640680/706329553639047241/841749032841379901
-    const a = DOMCacheGetOrSet(`corrCurrent${i}`)
-    const b = DOMCacheGetOrSet(`corrNext${i}`)
-    a.textContent = format(player.usedCorruptions[i])
-    b.textContent = format(player.prototypeCorruptions[i])
+    const a = DOMCacheGetOrSet(`corrCurrent${corrKey}`)
+    const b = DOMCacheGetOrSet(`corrNext${corrKey}`)
+    a.textContent = format(player.corruptions.used.getLevel(corrKey))
+    b.textContent = format(player.corruptions.prototype.getLevel(corrKey))
   }
+  
 }
 
 export const corruptionButtonsAdd = () => {
   const rows = document.getElementsByClassName('corruptionStatRow')
+  const keys = Object.keys(player.corruptions.used.getLoadout())
 
   for (let i = 0; i < rows.length; i++) {
     const row = rows[i]
+    const key = keys[i] as keyof Corruptions
 
     // Delete rows that already exist
     for (let i = row.children.length - 1; i >= 1; i--) {
@@ -163,16 +347,16 @@ export const corruptionButtonsAdd = () => {
     let text = document.createTextNode(i18next.t('corruptions.current'))
     p.appendChild(text)
     let span = document.createElement('span')
-    span.id = `corrCurrent${i + 2}`
-    span.textContent = `${player.usedCorruptions[i + 2]}`
+    span.id = `corrCurrent${key}`
+    span.textContent = `${player.corruptions.used.getLevel(key)}`
     p.appendChild(span)
 
     text = document.createTextNode(i18next.t('corruptions.next'))
     p.appendChild(text)
 
     span = document.createElement('span')
-    span.id = `corrNext${i + 2}`
-    span.textContent = `${player.prototypeCorruptions[i + 2]}`
+    span.id = `corrNext${key}`
+    span.textContent = `${player.corruptions.prototype.getLevel(key)}`
     p.appendChild(span)
     row.appendChild(p)
 
@@ -180,27 +364,27 @@ export const corruptionButtonsAdd = () => {
     btn = document.createElement('button')
     btn.className = 'corrBtn corruptionMax'
     btn.textContent = `+${i18next.t('corruptions.max')}`
-    btn.addEventListener('click', () => toggleCorruptionLevel(i + 2, 99))
+    btn.addEventListener('click', () => toggleCorruptionLevel(key, 99))
     row.appendChild(btn)
 
     btn = document.createElement('button')
     btn.className = 'corrBtn corruptionUp'
     btn.textContent = '+1'
-    btn.addEventListener('click', () => toggleCorruptionLevel(i + 2, 1))
+    btn.addEventListener('click', () => toggleCorruptionLevel(key, 1))
     row.appendChild(btn)
 
     btn = document.createElement('button')
     btn.className = 'corrBtn corruptionDown'
     btn.textContent = '-1'
-    btn.addEventListener('click', () => toggleCorruptionLevel(i + 2, -1))
+    btn.addEventListener('click', () => toggleCorruptionLevel(key, -1))
     row.appendChild(btn)
 
     btn = document.createElement('button')
     btn.className = 'corrBtn corruptionReset'
     btn.textContent = `-${i18next.t('corruptions.max')}`
-    btn.addEventListener('click', () => toggleCorruptionLevel(i + 2, -99))
+    btn.addEventListener('click', () => toggleCorruptionLevel(key, -99))
     row.appendChild(btn)
-    row.addEventListener('click', () => corruptionDisplay(i + 2))
+    row.addEventListener('click', () => corruptionDisplay(key))
   }
 }
 
