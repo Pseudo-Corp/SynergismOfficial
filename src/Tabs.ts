@@ -611,7 +611,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
           break
         }
         // what in the shit is this?!
-        if (player.tabnumber === 9 && button.style.borderColor === 'dodgerblue') { // handle corruption tab
+        if (G.currentTab === Tabs.Corruption && button.style.borderColor === 'dodgerblue') { // handle corruption tab
           player.subtabNumber = i
           break
         }
