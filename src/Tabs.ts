@@ -604,14 +604,9 @@ export const changeTab = (tabs: Tabs, step?: number) => {
     for (let i = 0; i < subTabList.length; i++) {
       const id = subTabList[i].buttonID
       if (id) {
-        const button = DOMCacheGetOrSet(id)
+        const color = DOMCacheGetOrSet(id).style.backgroundColor
 
-        if (button.style.backgroundColor === 'crimson') { // handles every tab except settings and corruptions
-          player.subtabNumber = i
-          break
-        }
-        // what in the shit is this?!
-        if (G.currentTab === Tabs.Corruption && button.style.borderColor === 'dodgerblue') { // handle corruption tab
+        if (color === 'crimson' || color === 'mediumblue') { // handles every tab except settings
           player.subtabNumber = i
           break
         }

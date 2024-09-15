@@ -1085,13 +1085,13 @@ export const showCorruptionStatsLoadouts = () => {
   if (player.corruptionShowStats) {
     DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
-    DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'dodgerblue'
-    DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'white'
+    DOMCacheGetOrSet('corrStatsBtn').style.backgroundColor = 'mediumblue'
+    DOMCacheGetOrSet('corrLoadoutsBtn').style.backgroundColor = ''
   } else {
     DOMCacheGetOrSet('corruptionStats').style.display = 'none'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'flex'
-    DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'white'
-    DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'dodgerblue'
+    DOMCacheGetOrSet('corrStatsBtn').style.backgroundColor = ''
+    DOMCacheGetOrSet('corrLoadoutsBtn').style.backgroundColor = 'mediumblue'
   }
 }
 
