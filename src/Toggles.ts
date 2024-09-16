@@ -375,7 +375,7 @@ export const toggleBuildingScreen = (input: string) => {
   }
   DOMCacheGetOrSet(screen[G.buildingSubTab].screen).style.display = 'flex'
   DOMCacheGetOrSet(screen[G.buildingSubTab].button).style.backgroundColor = 'crimson'
-  player.subtabNumber = screen[G.buildingSubTab].subtabNumber
+  G.currentSubTab = screen[G.buildingSubTab].subtabNumber
 }
 
 export const toggleRuneScreen = (indexStr: string) => {
@@ -396,7 +396,7 @@ export const toggleRuneScreen = (indexStr: string) => {
       b.style.display = 'none'
     }
   }
-  player.subtabNumber = index - 1
+  G.currentSubTab = index - 1
 }
 
 export const toggleChallengesScreen = (indexStr: string) => {
@@ -413,7 +413,7 @@ export const toggleChallengesScreen = (indexStr: string) => {
       b.style.display = 'none'
     }
   }
-  player.subtabNumber = index - 1
+  G.currentSubTab = index - 1
 }
 
 export const toggleautofortify = () => {
@@ -477,13 +477,13 @@ export const toggleSingularityScreen = (indexStr: string) => {
     }
   }
 
-  player.subtabNumber = index - 1
+  G.currentSubTab = index - 1
 
-  if (player.subtabNumber === 2) {
+  if (G.currentSubTab === 2) {
     visualUpdateOcteracts()
   }
 
-  if (player.subtabNumber === 3) {
+  if (G.currentSubTab === 3) {
     visualUpdateAmbrosia()
   }
 }
@@ -512,7 +512,7 @@ interface ChadContributor {
 
 export const setActiveSettingScreen = async (subtab: string) => {
   const clickedButton =
-    DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[player.subtabNumber]
+    DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[G.currentSubTab]
   const subtabEl = DOMCacheGetOrSet(subtab)
   if (subtabEl.classList.contains('subtabActive')) {
     return
@@ -712,7 +712,7 @@ export const toggleCubeSubTab = (indexStr: string) => {
     }
     if (cubeTab.style.display === 'none' && j === i) {
       cubeTab.style.display = 'flex'
-      player.subtabNumber = j - 1
+      G.currentSubTab = j - 1
     }
     DOMCacheGetOrSet(`switchCubeSubTab${j}`).style.backgroundColor = i === j ? 'crimson' : ''
   }

@@ -592,7 +592,6 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   }
 
   G.currentTab = tabRow.getCurrentTab().getType()
-  player.tabnumber = 0
 
   changeTabColor()
   revealStuff()
@@ -607,7 +606,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
         const color = DOMCacheGetOrSet(id).style.backgroundColor
 
         if (color === 'crimson' || color === 'mediumblue') { // handles every tab except settings
-          player.subtabNumber = i
+          G.currentSubTab = i
           break
         }
       }
@@ -617,7 +616,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
     const btns = document.querySelectorAll('[id^="switchSettingSubTab"]')
     for (let i = 0; i < btns.length; i++) {
       if (btns[i].classList.contains('buttonActive')) {
-        player.subtabNumber = i
+        G.currentSubTab = i
         break
       }
     }
@@ -639,17 +638,17 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
   }
 
   if (page !== undefined) {
-    player.subtabNumber = limitRange(page, 0, subTabs.subTabList.length - 1)
+    G.currentSubTab = limitRange(page, 0, subTabs.subTabList.length - 1)
   } else {
-    player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
+    G.currentSubTab = limitRange(G.currentSubTab + step, 0, subTabs.subTabList.length - 1)
   }
 
-  let subTabList = subTabs.subTabList[player.subtabNumber]
+  let subTabList = subTabs.subTabList[G.currentSubTab]
 
   while (!subTabList.unlocked) {
     assert(page === undefined)
-    player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
-    subTabList = subTabs.subTabList[player.subtabNumber]
+    G.currentSubTab = limitRange(G.currentSubTab + step, 0, subTabs.subTabList.length - 1)
+    subTabList = subTabs.subTabList[G.currentSubTab]
   }
 
   if (subTabList.unlocked) {

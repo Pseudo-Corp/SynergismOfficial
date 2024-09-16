@@ -209,14 +209,14 @@ const renderDashboardFast = () => {
 
 const openDashboard = () => {
   // compute blessings total amounts
-  const n = player.subtabNumber
+  const n = G.currentSubTab
   G.currentTab = Tabs.WowCubes
   for (const i of [0, 1, 2, 3]) {
-    player.subtabNumber = i
+    G.currentSubTab = i
     visualUpdateCubes()
   }
   G.currentTab = Tabs.Settings
-  player.subtabNumber = n
+  G.currentSubTab = n
   // render and display dashboard
   renderDashboardFast()
   renderDashboardSlow()

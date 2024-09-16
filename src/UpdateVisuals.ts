@@ -926,7 +926,7 @@ export const visualUpdateCubes = () => {
 
   // TODO: this code is fucking terrible holy shit. Also pretty sure there's a bug.
   let accuracy: [null | number, ...number[]]
-  switch (player.subtabNumber) {
+  switch (G.currentSubTab) {
     case 0: {
       if (player.autoOpenCubes) {
         DOMCacheGetOrSet('openCubes').textContent = i18next.t(
@@ -1329,7 +1329,7 @@ export const visualUpdateSettings = () => {
     return
   }
 
-  if (player.subtabNumber === 0) {
+  if (G.currentSubTab === 0) {
     DOMCacheGetOrSet('saveString').textContent = i18next.t(
       'settings.currently',
       {
@@ -1407,7 +1407,7 @@ export const visualUpdateSettings = () => {
       }
     )
   }
-  if (player.subtabNumber === 3) {
+  if (G.currentSubTab === 3) {
     loadStatisticsUpdate()
   }
 }
@@ -1416,7 +1416,7 @@ export const visualUpdateSingularity = () => {
   if (G.currentTab !== Tabs.Singularity) {
     return
   }
-  if (player.subtabNumber === 0) {
+  if (G.currentSubTab === 0) {
     DOMCacheGetOrSet('goldenQuarkamount').textContent = i18next.t(
       'singularity.goldenQuarkAmount',
       {
@@ -1457,7 +1457,7 @@ export const visualUpdateSingularity = () => {
       }
     }
   }
-  if (player.subtabNumber === 2) {
+  if (G.currentSubTab === 2) {
     const keys = Object.keys(
       player.octeractUpgrades
     ) as (keyof Player['octeractUpgrades'])[]

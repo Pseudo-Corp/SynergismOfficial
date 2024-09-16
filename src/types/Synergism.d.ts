@@ -318,8 +318,6 @@ export interface Player {
     generators: boolean
     reincarnate: boolean
   }
-  tabnumber: number
-  subtabNumber: number
 
   // create a Map with keys defaulting to boolean
   codes: Map<number, boolean>
@@ -753,6 +751,7 @@ export interface GlobalVariables {
   uFifteenMulti: Decimal
   tuSevenMulti: number
   currentTab: Tabs
+  currentSubTab: number
 
   researchfiller1: string
   researchfiller2: string
