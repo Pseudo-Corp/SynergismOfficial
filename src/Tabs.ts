@@ -435,7 +435,7 @@ class $Tab extends HTMLButtonElement {
     }
 
     this.addEventListener('click', () => {
-      if (this.#removeable && pressedKeys.has('ControlLeft') && pressedKeys.has('KeyX')) {
+      if (this.#removeable && pressedKeys.has('Control') && (pressedKeys.has('X') || pressedKeys.has('x'))) {
         // When clicking on a tab while holding CTRL + X
         if (G.currentTab !== this.#type) {
           tabRow.removeChild(this)

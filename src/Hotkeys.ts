@@ -115,7 +115,7 @@ const eventHotkeys = (event: KeyboardEvent): void => {
     event.preventDefault()
   }
 
-  if (G.currentTab === Tabs.Settings && G.currentSubTab === 6) {
+  if (G.currentTab === Tabs.Settings && G.currentSubTab === 7) {
     DOMCacheGetOrSet('lastHotkey').textContent = key
     DOMCacheGetOrSet('lastHotkeyName').textContent = hotkeyName
   }
@@ -259,7 +259,7 @@ export const pressedKeys = new Set<string>()
 document.addEventListener('keydown', (event) => {
   eventHotkeys(event)
 
-  pressedKeys.add(event.code)
+  pressedKeys.add(event.key)
 })
 
-document.addEventListener('keyup', (event) => pressedKeys.delete(event.code))
+document.addEventListener('keyup', (event) => pressedKeys.delete(event.key))
