@@ -1152,10 +1152,11 @@ const dailyCodeFormatFreeLevelMessage = (
   upgradeKey: string,
   freeLevelAmount: number
 ): string => {
+  const accuracy = Number.isInteger(freeLevelAmount) ? 0 : 2
   const upgradeNiceName = upgradeKey in singularityData
     ? i18next.t(`singularity.data.${upgradeKey}.name`)
     : i18next.t(`octeract.data.${upgradeKey}.name`)
-  return `\n+${format(freeLevelAmount, 0, true)} extra levels of '${upgradeNiceName}'`
+  return `\n+${format(freeLevelAmount, accuracy, true)} extra levels of '${upgradeNiceName}'`
 }
 
 const dailyCodeReward = () => {
