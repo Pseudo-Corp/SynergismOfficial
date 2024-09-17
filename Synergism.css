@@ -1832,9 +1832,8 @@ p#reincarnatehotkeys {
 
 #researchToggles {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: center;
-    flex-flow: wrap;
     gap: 10px 15px;
     margin: 15px 0;
 }
