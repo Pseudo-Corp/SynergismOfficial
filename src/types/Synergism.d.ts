@@ -533,7 +533,6 @@ export interface Player {
   usedCorruptions: number[]
   corruptionLoadouts: Record<number, number[]>
   corruptionLoadoutNames: string[]
-  corruptionShowStats: boolean
 
   constantUpgrades: ArrayStartingWithNull<number>
   history: Record<Category, ResetHistoryEntryUnion[]>

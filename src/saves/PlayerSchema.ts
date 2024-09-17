@@ -511,7 +511,6 @@ export const playerSchema = z.object({
   corruptionLoadoutNames: z.string().array().default(() => blankSave.corruptionLoadoutNames.slice()).default(
     () => [...blankSave.corruptionLoadoutNames]
   ),
-  corruptionShowStats: z.boolean().default(() => blankSave.corruptionShowStats),
 
   constantUpgrades: arrayStartingWithNull(z.number()).default((): [
     null,

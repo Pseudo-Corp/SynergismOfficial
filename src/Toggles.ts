@@ -950,8 +950,7 @@ export const toggleCorruptionLevel = (index: number, value: number) => {
 }
 
 export const toggleCorruptionLoadoutsStats = (statsStr: string) => {
-  const stats = statsStr === 'true'
-  player.corruptionShowStats = stats
+  G.currentSubTab = statsStr === 'true' ? 0 : 1
   showCorruptionStatsLoadouts()
 }
 

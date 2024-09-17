@@ -1082,7 +1082,7 @@ export const updateAchievementBG = () => {
 }
 
 export const showCorruptionStatsLoadouts = () => {
-  if (player.corruptionShowStats) {
+  if (G.currentSubTab === 0) {
     DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
     DOMCacheGetOrSet('corrStatsBtn').style.backgroundColor = 'mediumblue'

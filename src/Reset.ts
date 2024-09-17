@@ -1235,7 +1235,6 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.saveString = player.saveString
   hold.corruptionLoadouts = player.corruptionLoadouts
   hold.corruptionLoadoutNames = player.corruptionLoadoutNames
-  hold.corruptionShowStats = player.corruptionShowStats
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
   hold.resettoggle1 = player.resettoggle1

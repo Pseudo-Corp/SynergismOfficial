@@ -120,7 +120,6 @@ import {
   htmlInserts,
   Notification,
   revealStuff,
-  showCorruptionStatsLoadouts,
   updateAchievementBG,
   updateChallengeDisplay,
   updateChallengeLevel
@@ -879,7 +878,6 @@ export const player: Player = {
     'Loadout 7',
     'Loadout 8'
   ],
-  corruptionShowStats: true,
 
   constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   history: { ants: [], ascend: [], reset: [], singularity: [] },
@@ -2174,7 +2172,6 @@ const loadSynergy = async () => {
     for (let i = 0; i < corrs; i++) {
       corruptionLoadoutTableUpdate(i)
     }
-    showCorruptionStatsLoadouts()
     updateCorruptionLoadoutNames()
 
     DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t(
