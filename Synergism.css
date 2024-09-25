@@ -1840,7 +1840,6 @@ p#reincarnatehotkeys {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    flex-flow: wrap;
     gap: 10px 15px;
     margin: 15px 0;
 }
