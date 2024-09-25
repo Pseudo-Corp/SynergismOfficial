@@ -104,9 +104,6 @@ export class CorruptionLoadout {
     const totalLevel = this.#levels[corr] + this.#bonusLevels 
     const scoreMultLength = this.#corruptionScoreMults.length
 
-    console.log('level:' + totalLevel)
-    console.log('length:' + scoreMultLength)
-
     if (totalLevel < scoreMultLength - 1) {
       const portionAboveLevel = Math.ceil(totalLevel) - totalLevel
       return this.#corruptionScoreMults[Math.floor(totalLevel)] + 
@@ -573,7 +570,7 @@ export const applyCorruptions = (corruptions: string) => {
 async function importCorruptionsPrompt () {
   const input = await Prompt(i18next.t('corruptions.importCorruptionsPrompt.import'))
 
-  if (!applyCorruptions(`0/0/${input}/0/0/0`)) {
+  if (!applyCorruptions(input as string)) {
     void Alert(i18next.t('corruptions.importCorruptionsPrompt.importError'))
   }
 }
