@@ -2305,6 +2305,9 @@ const loadSynergy = async () => {
     showCorruptionStatsLoadouts()
     updateCorruptionLoadoutNames()
 
+    player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.used.getLoadout())
+    player.corruptions.prototype.setCorruptionLevelsWithChallengeRequirement(player.corruptions.prototype.getLoadout())
+
     DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t(
       'runes.thanksResearches',
       {

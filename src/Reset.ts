@@ -19,7 +19,7 @@ import {
   calculateTalismanEffects
 } from './Calculate'
 import { challengeRequirement } from './Challenges'
-import { corruptionStatsUpdate } from './Corruptions'
+import { c15Corruptions, corruptionStatsUpdate } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
 import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
 import { Synergism } from './Events'
@@ -732,6 +732,9 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     if (player.currentChallenge.ascension !== 15) {
       player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.prototype.getLoadout())
+    }
+    else {
+      player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(c15Corruptions)
     }
 
     corruptionStatsUpdate()

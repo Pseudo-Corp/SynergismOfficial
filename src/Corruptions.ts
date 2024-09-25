@@ -21,6 +21,17 @@ export type Corruptions = {
   hyperchallenge: number
 }
 
+export const c15Corruptions:Corruptions = {
+  viscosity: 11,
+  drought: 11,
+  deflation: 11,
+  extinction: 11,
+  illiteracy: 11,
+  recession: 11,
+  dilation: 11,
+  hyperchallenge: 11,
+}
+
 export class CorruptionLoadout {
   #totalScoreMult = 1
   #corruptionScoreMults = [1, 3, 4, 5, 6, 7, 7.75, 8.5, 9.25, 10, 10.75, 11.5, 12.25, 13, 16, 20, 25, 33, 35]
@@ -56,9 +67,9 @@ export class CorruptionLoadout {
         this.setLevel(corrKey, 0)
       }
     }
+    this.#bonusLevels = this.#calcBonusLevels()
     this.clipCorruptionLevels()
     this.#totalScoreMult = this.#calcTotalScoreMult()
-    this.#bonusLevels = this.#calcBonusLevels()
   }
 
   public clipCorruptionLevels() {
@@ -93,10 +104,12 @@ export class CorruptionLoadout {
     const totalLevel = this.#levels[corr] + this.#bonusLevels 
     const scoreMultLength = this.#corruptionScoreMults.length
 
+    console.log('level:' + totalLevel)
+    console.log('length:' + scoreMultLength)
+
     if (totalLevel < scoreMultLength - 1) {
-      const portionBelowLevel = totalLevel - Math.floor(totalLevel)
       const portionAboveLevel = Math.ceil(totalLevel) - totalLevel
-      return portionBelowLevel * this.#corruptionScoreMults[Math.floor(totalLevel)] + 
+      return this.#corruptionScoreMults[Math.floor(totalLevel)] + 
               portionAboveLevel * this.#corruptionScoreMults[Math.ceil(totalLevel)]
     }
     else {
@@ -217,11 +230,7 @@ export class CorruptionLoadout {
   }
 
   setLevel(corr: keyof Corruptions, newLevel: number) {
-    const oldScore = this.scoreMult(corr)
     this.#levels[corr] = newLevel
-    const newScore = this.scoreMult(corr)
-
-    this.#totalScoreMult *= newScore / oldScore
   }
 
   resetCorruptions() {
@@ -230,6 +239,8 @@ export class CorruptionLoadout {
       this.setLevel(corrKey, 0)
       corruptionDisplay(corrKey)
     }
+    this.#totalScoreMult = this.#calcTotalScoreMult()
+    corruptionLoadoutTableUpdate(true, 0)
   }
 
   incrementDecrementLevel(corr: keyof Corruptions, val: number) {
@@ -333,6 +344,7 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
   } satisfies Record<string, string>
 
   if (corr !== 'exit') {
+    console.log(player.corruptions.prototype.scoreMult(corr))
     text = {
       name: i18next.t(`corruptions.names.${corr}`),
       description: i18next.t(`corruptions.descriptions.${corr}`),
