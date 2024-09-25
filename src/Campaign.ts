@@ -4,7 +4,7 @@ import { player } from "./Synergism"
 
 export type AscensionModifiers = 'GlobalSpeed'
 
-export type CampaignLoadout = Partial<Record<Corruptions, number>>
+export type CampaignLoadout = Partial<Corruptions>
 export type CampaignModifiers = Partial<Record<AscensionModifiers, number>>
 
 export type CampaignKeys = 'test1' | 'test2' | 'test3'
@@ -39,7 +39,7 @@ export class CampaignManager {
 
         if (currentKey !== undefined) {
             this.currentCampaign = this.campaigns[currentKey]
-            player.usedCorruptions = this.currentCampaign.createUsableLoadout()
+            player.corruptions.used = this.currentCampaign.createUsableLoadout()
         }
         else {
             this.currentCampaign = undefined

@@ -1225,7 +1225,11 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString
-  hold.corruptions.saves = player.corruptions.saves
+  hold.corruptions.saves = Object.fromEntries(
+    player.corruptions.saves.getSaves().map((save) => {
+      return [save.name, save.loadout.getLoadout()]
+    })
+  )
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
   hold.resettoggle1 = player.resettoggle1
