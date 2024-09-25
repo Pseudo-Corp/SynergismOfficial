@@ -1,5 +1,5 @@
 import i18next from "i18next"
-import { CorruptionLoadout, Corruptions } from "./Corruptions"
+import { CorruptionLoadout, type Corruptions } from "./Corruptions"
 import { player } from "./Synergism"
 
 export type AscensionModifiers = 'GlobalSpeed'

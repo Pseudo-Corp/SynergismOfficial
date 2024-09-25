@@ -20,6 +20,7 @@ import type { resetNames } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { productContents, sumContents } from './Utility'
 import { Globals as G } from './Variables'
+import type { Corruptions } from './Corruptions'
 
 const CASH_GRAB_ULTRA_QUARK = 0.08
 const CASH_GRAB_ULTRA_CUBE = 1.2
@@ -233,7 +234,7 @@ export function calculateRuneExpGiven (
   // Corruption Divisor
   const droughtEffect = 1
     / Math.pow(
-      G.droughtMultiplier[player.usedCorruptions[8]],
+      player.corruptions.used.corruptionEffects('drought'),
       1 - (1 / 2) * player.platonicUpgrades[13]
     )
 
@@ -639,7 +640,7 @@ export const calculateObtainium = () => {
     G.obtainiumGain,
     Math.min(
       1,
-      G.illiteracyPower[player.usedCorruptions[5]]
+      player.corruptions.used.corruptionEffects('illiteracy')
         * (1
           + (9 / 100)
             * player.platonicUpgrades[9]
@@ -690,10 +691,10 @@ export const calculateObtainium = () => {
   G.obtainiumGain = Math.min(1e300, G.obtainiumGain)
   G.obtainiumGain /= calculateSingularityDebuff('Obtainium')
 
-  if (player.usedCorruptions[5] >= 15) {
+  if (player.corruptions.used.getLevel('illiteracy') >= 15) {
     G.obtainiumGain = Math.pow(G.obtainiumGain, 1 / 4)
   }
-  if (player.usedCorruptions[5] >= 16) {
+  if (player.corruptions.used.getLevel('illiteracy') >= 16) {
     G.obtainiumGain = Math.pow(G.obtainiumGain, 1 / 3)
   }
 
@@ -1884,7 +1885,7 @@ export const calculateCubeMultiplier = (score = -1) => {
     // Platonic 1x1
     1
     + 0.00009
-      * sumContents(player.usedCorruptions)
+      * player.corruptions.used.totalLevels
       * player.platonicUpgrades[1],
     // Cube Upgrade 63 (Cx13)
     1
@@ -1906,7 +1907,7 @@ export const calculateTesseractMultiplier = (score = -1) => {
     score = calculateAscensionScore().effectiveScore
   }
 
-  const corrSum = sumContents(player.usedCorruptions.slice(2, 10))
+  const corrSum = player.corruptions.used.totalLevels
   const arr = [
     // Ascension Score Multiplier
     Math.pow(1 + Math.max(0, score - 1e5) / 1e4, 0.35),
@@ -1991,7 +1992,7 @@ export const calculateHypercubeMultiplier = (score = -1) => {
     // Platonic Upgrade 1x3
     1
     + 0.00054
-      * sumContents(player.usedCorruptions)
+      * player.corruptions.used.totalLevels
       * player.platonicUpgrades[3],
     // Hyperreal Hepteract Bonus
     1 + (0.6 / 1000) * hepteractEffective('hyperrealism')
@@ -2087,7 +2088,7 @@ export const calculateHepteractMultiplier = (score = -1) => {
 }
 
 export const getOcteractValueMultipliers = () => {
-  const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
+  const corruptionLevelSum = player.corruptions.used.totalLevels
   return [
     1 + (1.5 * player.shopUpgrades.seasonPass3) / 100,
     1 + (0.75 * player.shopUpgrades.seasonPassY) / 100,
@@ -2229,7 +2230,7 @@ export const calculateTimeAcceleration = () => {
 
   // Global Speed softcap + Corruption / Corruption-like effects
   const corruptionArr: number[] = [
-    G.lazinessMultiplier[player.usedCorruptions[3]] // Corruption:  Spacial Dilation
+    player.corruptions.used.corruptionEffects('dilation') // Corruption:  Spacial Dilation
   ]
 
   const corruptableTimeMult = productContents(preCorruptionArr) * corruptionArr[0] // DR applies after base corruption.
@@ -2270,7 +2271,7 @@ export const calculateTimeAcceleration = () => {
     * productContents(corruptionArr)
     * productContents(postCorruptionArr)
 
-  if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
+  if (player.corruptions.used.getLevel('dilation') >= 6 && player.achievements[241] < 1) {
     achievementaward(241)
   }
   if (timeMult > 3600 && player.achievements[242] < 1) {
@@ -2312,7 +2313,7 @@ export const calculateAscensionSpeedMultiplier = () => {
     + Math.min(0.1, (1 / 100) * Math.log10(player.ascensionCount + 1))
       * player.achievements[263], // Achievement 263 Bonus
     1
-    + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15], // Platonic Omega
+    + 0.002 * player.corruptions.used.totalLevels * player.platonicUpgrades[15], // Platonic Omega
     G.challenge15Rewards.ascensionSpeed, // Challenge 15 Reward
     1 + (1 / 400) * player.cubeUpgrades[59], // Cookie Upgrade 9
     1
@@ -2552,13 +2553,10 @@ export const calculateGoldenQuarkGain = (computeMultiplier = false): number => {
 
 export const calculateCorruptionPoints = () => {
   let basePoints = 400
-  const bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect()
-      .bonus
-    ? 1
-    : 0
 
-  for (let i = 1; i <= 9; i++) {
-    basePoints += 16 * Math.pow(player.usedCorruptions[i] + bonusLevel, 2)
+  for (const corr in player.corruptions.used) {
+    const corrKey = corr as keyof Corruptions
+    basePoints += 16 * Math.pow(player.corruptions.used.getLevel(corrKey) + player.corruptions.used.getBonusLevel(), 2)
   }
 
   return basePoints
@@ -2835,30 +2833,8 @@ export const calculateAscensionScore = () => {
       + 0.0025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10]),
     player.highestchallengecompletions[10]
   )
-  // Corruption Multiplier is the product of all Corruption Score multipliers based on used corruptions
-  let bonusVal = player.singularityUpgrades.advancedPack.getEffect().bonus
-    ? 0.33
-    : 0
-  bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
-  for (let i = 2; i < 10; i++) {
-    const exponent = i === 2 && player.usedCorruptions[i] >= 10
-      ? 1
-        + 2 * Math.min(1, player.platonicUpgrades[17])
-        + 0.04 * player.platonicUpgrades[17]
-      : 1
-    corruptionMultiplier *= Math.pow(
-      G.corruptionPointMultipliers[player.usedCorruptions[i] + bonusLevel],
-      exponent
-    ) + bonusVal
-
-    if (
-      player.usedCorruptions[i] >= 14
-      && player.singularityUpgrades.masterPack.getEffect().bonus
-    ) {
-      corruptionMultiplier *= 1.1
-    }
-  }
-
+  
+  corruptionMultiplier = player.corruptions.used.getTotalScore()
   const bonusMultiplier = computeAscensionScoreBonusMultiplier()
 
   effectiveScore = baseScore * corruptionMultiplier * bonusMultiplier

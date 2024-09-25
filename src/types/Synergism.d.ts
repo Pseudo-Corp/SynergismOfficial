@@ -19,7 +19,7 @@ import type {
   UltimatePixelLuckCache
 } from '../StatCache'
 import type { Tabs } from '../Tabs'
-import { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
+import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 
@@ -543,12 +543,6 @@ export interface Player {
     showStats: boolean
   }
 
-  //prototypeCorruptions: CorruptionLoadout
-  //usedCorruptions: CorruptionLoadout
-  //corruptionLoadouts: Record<number, number[]>
-  //corruptionLoadoutNames: string[]
-  //corruptionShowStats: boolean
-
   constantUpgrades: ArrayStartingWithNull<number>
   history: Record<Category, ResetHistoryEntryUnion[]>
   historyShowPerSecond: boolean
@@ -962,7 +956,7 @@ export interface GlobalVariables {
   autoTalismanTimer: number
 
   autoChallengeTimerIncrement: number
-  corruptionTrigger: number
+  corruptionTrigger: keyof Corruptions
 
   challenge15Rewards: {
     cube1: number

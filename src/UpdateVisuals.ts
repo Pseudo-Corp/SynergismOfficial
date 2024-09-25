@@ -1301,8 +1301,8 @@ export const visualUpdateCorruptions = () => {
     'corruptions.antExponent',
     {
       exponent: format(
-        (1 - (0.9 / 90) * sumContents(player.usedCorruptions))
-          * G.extinctionMultiplier[player.usedCorruptions[7]],
+        (1 - (0.9 / 90) * Math.min(99, player.corruptions.used.totalLevels)
+          * player.corruptions.used.corruptionEffects('extinction')),
         3
       )
     }

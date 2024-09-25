@@ -1025,7 +1025,7 @@ export const buttoncolorchange = () => {
       player.antPoints.gte(
           Decimal.pow(
             G.antUpgradeCostIncreases[i - 1],
-            player.antUpgrades[i - 1]! * G.extinctionMultiplier[player.usedCorruptions[10]]
+            player.antUpgrades[i - 1]! * player.corruptions.used.corruptionEffects('extinction')
           ).times(G.antUpgradeBaseCost[i - 1])
         )
         ? DOMCacheGetOrSet(`antUpgrade${i}`).classList.add('antUpgradeBtnAvailable')
@@ -1092,7 +1092,7 @@ export const updateAchievementBG = () => {
 }
 
 export const showCorruptionStatsLoadouts = () => {
-  if (player.corruptionShowStats) {
+  if (player.corruptions.showStats) {
     DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
     DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'dodgerblue'

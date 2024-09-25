@@ -310,11 +310,7 @@ export const loadStatisticsAccelerator = () => {
   }`
   DOMCacheGetOrSet('sA11').textContent = `^${
     format(
-      Math.min(
-        1,
-        (1 + player.platonicUpgrades[6] / 30)
-          * G.viscosityPower[player.usedCorruptions[2]]
-      ),
+      player.corruptions.used.corruptionEffects('viscosity'),
       3,
       true
     )
@@ -434,11 +430,7 @@ export const loadStatisticsMultiplier = () => {
   }`
   DOMCacheGetOrSet('sM12').textContent = `^${
     format(
-      Math.min(
-        1,
-        (1 + player.platonicUpgrades[6] / 30)
-          * G.viscosityPower[player.usedCorruptions[2]]
-      ),
+      player.corruptions.used.corruptionEffects('viscosity'),
       3,
       true
     )
@@ -1278,11 +1270,7 @@ export const loadObtainiumMultipliers = () => {
     format(
       Math.min(
         1,
-        G.illiteracyPower[player.usedCorruptions[5]]
-          * (1
-            + (9 / 100)
-              * player.platonicUpgrades[9]
-              * Math.min(100, Math.log10(player.researchPoints + 10)))
+        player.corruptions.used.corruptionEffects('illiteracy')
       ),
       3
     )
@@ -1437,7 +1425,7 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt54').textContent = `^${
     format(
-      player.usedCorruptions[5] >= 15
+      player.corruptions.used.getLevel('illiteracy') >= 15
         ? 1 / 4
         : 1,
       2
@@ -1445,7 +1433,7 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt55').textContent = `^${
     format(
-      player.usedCorruptions[5] >= 16
+      player.corruptions.used.getLevel('illiteracy') >= 16
         ? 1 / 4
         : 1,
       2
