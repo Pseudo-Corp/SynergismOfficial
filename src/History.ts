@@ -323,14 +323,14 @@ const resetHistoryTableMapping: Record<Category, string> = {
 
 // Images associated with the various corruptions.
 const resetHistoryCorruptionImages = [
-  'CorruptViscocity.png',
-  'CorruptSpatialDilation.png',
-  'CorruptHyperchallenged.png',
-  'CorruptScientificIlliteracy.png',
+  'CorruptViscosity.png',
+  'CorruptDilation.png',
+  'CorruptHyperchallenge.png',
+  'CorruptIlliteracy.png',
   'CorruptDeflation.png',
   'CorruptExtinction.png',
   'CorruptDrought.png',
-  'CorruptFinancialCollapse.png'
+  'CorruptRecession.png'
 ]
 
 const resetHistoryCorruptionTitles = [
