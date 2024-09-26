@@ -10,6 +10,19 @@ import { Globals as G } from './Variables'
 //export const corruptions = ['viscosity', 'drought', 'deflation', 'extinction', 'illiteracy', 'recession', 'dilation', 'hyperchallenge'] as const
 //export type Corruptions = typeof corruptions[number]
 
+export const convertInputToCorruption = (array: number[]): Corruptions => {
+  return {
+    viscosity: array[0],
+    dilation: array[1],
+    hyperchallenge: array[2],
+    illiteracy: array[3],
+    deflation: array[4],
+    extinction: array[5],
+    drought: array[6],
+    recession: array[7],
+  }
+}
+
 export type Corruptions = {
   viscosity: number,
   drought: number,
@@ -554,12 +567,23 @@ export const corruptionLoadLoadout = (loadoutNum: number) => {
 }
 
 export const applyCorruptions = (corruptions: string) => {
+  let corr:Corruptions
+  if (!corruptions) {
+    return false
+  }
 
-  const corr = JSON.parse(corruptions) as Corruptions
+  console.log(corruptions)
+
+  if (corruptions.includes('/') && corruptions.split('/').length === 8) {
+    corr = convertInputToCorruption(corruptions.split('/').map(Number))
+  }
+  else {
+    corr = JSON.parse(corruptions) as Corruptions
+  }
 
   if (corr) {
     player.corruptions.prototype.setCorruptionLevels(corr)
-    corruptionLoadoutTableUpdate()
+    corruptionLoadoutTableUpdate(true, 0)
     corruptionStatsUpdate()
     return true
   }
@@ -611,7 +635,7 @@ export const updateCorruptionLoadoutNames = () => {
 }
 
 const corruptionLoadoutGetExport = async () => {
-  const str = JSON.stringify(player.corruptions.used.getLoadout())
+  const str = JSON.stringify(player.corruptions.prototype.getLoadout())
   if ('clipboard' in navigator) {
     await navigator.clipboard.writeText(str)
       .catch((e: Error) => Alert(i18next.t('corruptions.loadoutExport.saveErrorNavigator', { message: e.message })))

@@ -299,7 +299,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         seconds: player.ascensionCounter,
         date: Date.now(),
         c10Completions: player.challengecompletions[10],
-        usedCorruptions: Object.values(player.corruptions.used.getLoadout()),
+        usedCorruptions: player.corruptions.used.getLoadout(),
         corruptionScore: corruptionMetaData[3],
         wowCubes: corruptionMetaData[4],
         wowTesseracts: corruptionMetaData[5],
@@ -308,6 +308,8 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         wowHepteracts: corruptionMetaData[8],
         kind: 'ascend'
       }
+
+      console.log('historyEntry: ' + historyEntry.usedCorruptions)
 
       // If we are _leaving_ an ascension challenge, log that too.
       if (from !== 'enterChallenge' && player.currentChallenge.ascension !== 0) {
