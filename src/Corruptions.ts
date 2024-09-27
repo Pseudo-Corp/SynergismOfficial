@@ -354,18 +354,18 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
   } satisfies Record<string, string>
 
   if (corr !== 'exit') {
-    console.log(player.corruptions.prototype.scoreMult(corr))
+    console.log(player.corruptions.next.scoreMult(corr))
     text = {
       name: i18next.t(`corruptions.names.${corr}`),
       description: i18next.t(`corruptions.descriptions.${corr}`),
       current: i18next.t(`corruptions.currentLevel.${corr}`, {level: player.corruptions.used.getLevel(corr), effect: player.corruptions.used.corruptionEffects(corr)}),
-      planned: i18next.t(`corruptions.prototypeLevel.${corr}`, {level: player.corruptions.prototype.getLevel(corr), effect: player.corruptions.prototype.corruptionEffects(corr)}),
-      multiplier: i18next.t('corruptions.scoreMultiplier', {curr: player.corruptions.used.scoreMult(corr), next: player.corruptions.prototype.scoreMult(corr)}),
+      planned: i18next.t(`corruptions.prototypeLevel.${corr}`, {level: player.corruptions.next.getLevel(corr), effect: player.corruptions.next.corruptionEffects(corr)}),
+      multiplier: i18next.t('corruptions.scoreMultiplier', {curr: player.corruptions.used.scoreMult(corr), next: player.corruptions.next.scoreMult(corr)}),
       spiritContribution: i18next.t('corruptions.spiritEffect', {curr: 1, next: 1}),
       image: `Pictures/${IconSets[player.iconSet][0]}${corrIcons[corr]}`
     }
     DOMCacheGetOrSet(`corrCurrent${corr}`).textContent = format(player.corruptions.used.getLevel(corr))
-    DOMCacheGetOrSet(`corrNext${corr}`).textContent = format(player.corruptions.prototype.getLevel(corr))
+    DOMCacheGetOrSet(`corrNext${corr}`).textContent = format(player.corruptions.next.getLevel(corr))
   }
 
   DOMCacheGetOrSet('corruptionName').textContent = text.name
@@ -385,7 +385,7 @@ export const corruptionStatsUpdate = () => {
     const a = DOMCacheGetOrSet(`corrCurrent${corrKey}`)
     const b = DOMCacheGetOrSet(`corrNext${corrKey}`)
     a.textContent = format(player.corruptions.used.getLevel(corrKey))
-    b.textContent = format(player.corruptions.prototype.getLevel(corrKey))
+    b.textContent = format(player.corruptions.next.getLevel(corrKey))
   }
   
 }
@@ -417,7 +417,7 @@ export const corruptionButtonsAdd = () => {
 
     span = document.createElement('span')
     span.id = `corrNext${key}`
-    span.textContent = `${player.corruptions.prototype.getLevel(key)}`
+    span.textContent = `${player.corruptions.next.getLevel(key)}`
     p.appendChild(span)
     row.appendChild(p)
 
@@ -452,7 +452,7 @@ export const corruptionButtonsAdd = () => {
 export const corruptionLoadoutTableCreate = () => {
   const table = getElementById<HTMLTableElement>('corruptionLoadoutTable')
 
-  const corrNext = player.corruptions.prototype.getLoadout()
+  const corrNext = player.corruptions.next.getLoadout()
   const corrSaves = player.corruptions.saves.getSaves()
 
   // Delete rows that already exist
@@ -493,7 +493,7 @@ export const corruptionLoadoutTableCreate = () => {
   const zeroBtn = document.createElement('button')
   zeroBtn.className = 'corrLoad'
   zeroBtn.textContent = i18next.t('corruptions.loadoutTable.zero')
-  zeroBtn.addEventListener('click', () => player.corruptions.prototype.resetCorruptions())
+  zeroBtn.addEventListener('click', () => player.corruptions.next.resetCorruptions())
   zeroCell.appendChild(zeroBtn)
   zeroCell.title = i18next.t('corruptions.loadoutTable.zeroTitle')
 
@@ -531,10 +531,10 @@ export const corruptionLoadoutTableCreate = () => {
   }
 }
 
-export const corruptionLoadoutTableUpdate = (updatePrototype = false, updateRow = 0) => {
+export const corruptionLoadoutTableUpdate = (updateNext = false, updateRow = 0) => {
   const row = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows[updateRow + 1].cells
-  if (updatePrototype) {
-    const corrNext = player.corruptions.prototype.getLoadout()
+  if (updateNext) {
+    const corrNext = player.corruptions.next.getLoadout()
     let index = 0
     for (const corr in corrNext) {
       const corrKey = corr as keyof Corruptions
@@ -554,14 +554,14 @@ export const corruptionLoadoutTableUpdate = (updatePrototype = false, updateRow 
 }
 
 export const corruptionSaveLoadout = (loadoutNum: number) => {
-  const buildToSave = player.corruptions.prototype.getLoadout()
+  const buildToSave = player.corruptions.next.getLoadout()
   player.corruptions.saves.getSaves()[loadoutNum].loadout.setCorruptionLevels(buildToSave)
   corruptionLoadoutTableUpdate(false, loadoutNum + 1)
 }
 
 export const corruptionLoadLoadout = (loadoutNum: number) => {
   const buildToLoad = player.corruptions.saves.getSaves()[loadoutNum].loadout.getLoadout()
-  player.corruptions.prototype.setCorruptionLevels(buildToLoad)
+  player.corruptions.next.setCorruptionLevels(buildToLoad)
   corruptionLoadoutTableUpdate(true)
   corruptionStatsUpdate()
 }
@@ -582,7 +582,7 @@ export const applyCorruptions = (corruptions: string) => {
   }
 
   if (corr) {
-    player.corruptions.prototype.setCorruptionLevels(corr)
+    player.corruptions.next.setCorruptionLevels(corr)
     corruptionLoadoutTableUpdate(true, 0)
     corruptionStatsUpdate()
     return true
@@ -635,7 +635,7 @@ export const updateCorruptionLoadoutNames = () => {
 }
 
 const corruptionLoadoutGetExport = async () => {
-  const str = JSON.stringify(player.corruptions.prototype.getLoadout())
+  const str = JSON.stringify(player.corruptions.next.getLoadout())
   if ('clipboard' in navigator) {
     await navigator.clipboard.writeText(str)
       .catch((e: Error) => Alert(i18next.t('corruptions.loadoutExport.saveErrorNavigator', { message: e.message })))

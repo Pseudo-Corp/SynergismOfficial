@@ -950,7 +950,7 @@ export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number, re
 
   if (reset && player.currentChallenge.ascension !== 15) {
     player.corruptions.used.resetCorruptions()
-    player.corruptions.prototype.resetCorruptions()
+    player.corruptions.next.resetCorruptions()
 
     corruptionDisplay(G.corruptionTrigger)
     DOMCacheGetOrSet('corruptionCleanseConfirm').style.visibility = 'hidden'
@@ -961,7 +961,7 @@ export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number, re
     return
   }
 
-  player.corruptions.prototype.incrementDecrementLevel(corr, value)
+  player.corruptions.next.incrementDecrementLevel(corr, value)
   corruptionDisplay(corr)
   corruptionLoadoutTableUpdate(true, 0)
 }

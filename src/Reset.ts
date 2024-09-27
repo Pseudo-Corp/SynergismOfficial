@@ -309,8 +309,6 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         kind: 'ascend'
       }
 
-      console.log('historyEntry: ' + historyEntry.usedCorruptions)
-
       // If we are _leaving_ an ascension challenge, log that too.
       if (from !== 'enterChallenge' && player.currentChallenge.ascension !== 0) {
         historyEntry.currentChallenge = player.currentChallenge.ascension
@@ -733,7 +731,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
 
     if (player.currentChallenge.ascension !== 15) {
-      player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.prototype.getLoadout())
+      player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.next.getLoadout())
     }
     else {
       player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(c15Corruptions)

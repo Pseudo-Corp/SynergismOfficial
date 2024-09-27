@@ -27,7 +27,7 @@ export const playerJsonSchema = playerSchema.extend({
   corruptions: z.any().transform((stuff: Player['corruptions']) => {
     return {
       used: stuff.used.getLoadout(),
-      prototype: stuff.prototype.getLoadout(),
+      next: stuff.next.getLoadout(),
       saves: Object.fromEntries(
         stuff.saves.getSaves().map((save) => {
           return [save.name, save.loadout.getLoadout()]
@@ -122,7 +122,7 @@ export const playerJsonSchema = playerSchema.extend({
 
   if (player.prototypeCorruptions !== undefined) {
     const corrLoadout = convertArrayToCorruption(player.prototypeCorruptions)
-    player.corruptions.prototype = corrLoadout
+    player.corruptions.next = corrLoadout
   }
 
   if (player.corruptionShowStats !== undefined) {

@@ -537,7 +537,7 @@ export interface Player {
   ascStatToggles: Record<number, boolean>
 
   corruptions: {
-    prototype: CorruptionLoadout
+    next: CorruptionLoadout
     used: CorruptionLoadout
     saves: CorruptionSaves
     showStats: boolean

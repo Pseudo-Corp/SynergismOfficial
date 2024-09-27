@@ -161,7 +161,6 @@ import { pixelData, PixelUpgrade } from './PixelUpgrades'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { getQuarkBonus, QuarkHandler } from './Quark'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
-import { playerSchema } from './saves/PlayerSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import {
@@ -178,6 +177,7 @@ import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 import type { PlayerSave } from './types/LegacySynergism'
+import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -863,7 +863,7 @@ export const player: Player = {
   },
 
   corruptions: {
-    prototype: new CorruptionLoadout({}),
+    next: new CorruptionLoadout({}),
     used: new CorruptionLoadout({}),
     saves: new CorruptionSaves({
       'Loadout 1': {},
@@ -1665,7 +1665,7 @@ const loadSynergy = async () => {
       })
     }
 
-    const validatedPlayer = playerSchema.safeParse(data)
+    const validatedPlayer = playerUpdateVarSchema.safeParse(data)
 
     if (validatedPlayer.success) {
       Object.assign(player, validatedPlayer.data)
@@ -2306,7 +2306,7 @@ const loadSynergy = async () => {
     updateCorruptionLoadoutNames()
 
     player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.used.getLoadout())
-    player.corruptions.prototype.setCorruptionLevelsWithChallengeRequirement(player.corruptions.prototype.getLoadout())
+    player.corruptions.next.setCorruptionLevelsWithChallengeRequirement(player.corruptions.next.getLoadout())
 
     DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t(
       'runes.thanksResearches',
@@ -6127,7 +6127,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         if (player.toggles[41]) {
           void Notification(i18next.t('main.allCorruptionsZero'), 5000)
         }
-        player.corruptions.prototype.resetCorruptions()
+        player.corruptions.next.resetCorruptions()
       }
       event.preventDefault()
     }

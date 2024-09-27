@@ -522,7 +522,7 @@ export const playerSchema = z.object({
     used: optionalCorruptionSchema.transform((value) => {
       return new CorruptionLoadout(value)
     }),
-    prototype: optionalCorruptionSchema.transform((value) => {
+    next: optionalCorruptionSchema.transform((value) => {
       console.log(Object.values(value))
       return new CorruptionLoadout(value)
     }),

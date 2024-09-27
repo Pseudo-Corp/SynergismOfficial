@@ -3,7 +3,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { antSacrificePointsToMultiplier } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { applyCorruptions, convertInputToCorruption, Corruptions } from './Corruptions'
+import { applyCorruptions, convertInputToCorruption, type Corruptions } from './Corruptions'
 import { Synergism } from './Events'
 import { format, formatTimeShort, player } from './Synergism'
 import { IconSets } from './Themes'
@@ -546,7 +546,6 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
   let corrToLoad: Corruptions
   // Support old format (which is bad)
   if (Array.isArray(data.usedCorruptions)) {
-    console.log('old data: '+ data.usedCorruptions)
     corrToLoad = convertInputToCorruption(data.usedCorruptions.slice(2, 10))
   }
   else {
