@@ -198,7 +198,7 @@ export async function handleLogin () {
 
     subtabElement.querySelector('button[value="discord"]')?.addEventListener('click', () => {
       location.assign(
-        'https://discord.com/oauth2/authorize?response_type=code&client_id=1124509674536972329&scope=guilds+guilds.members.read+identify&redirect_uri=https%3A%2F%2Fsynergism.cc%2Fdiscord%2Foauth%2F&prompt=consent'
+        'https://discord.com/oauth2/authorize?client_id=1289303422939562128&response_type=code&redirect_uri=https%3A%2F%2Fsynergism.cc%2Fdiscord%2Foauth%2F&scope=identify+guilds+guilds.members.read'
       )
     })
 
