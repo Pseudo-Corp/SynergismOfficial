@@ -1,7 +1,6 @@
 import i18next from 'i18next'
-import localforage from 'localforage'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { importSynergism } from './ImportExport'
+import { getSaveString, importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
 import { player } from './Synergism'
 import { Alert } from './UpdateHTML'
@@ -218,11 +217,9 @@ async function logout () {
 }
 
 async function saveToCloud () {
-  const save = (await localforage.getItem<Blob>('Synergysave2')
-    .then((b) => b?.text())
-    .catch(() => null)) ?? localStorage.getItem('Synergysave2')
+  const save = await getSaveString()
 
-  if (typeof save !== 'string') {
+  if (save === null) {
     console.log('Yeah, no save here.')
     return
   }
