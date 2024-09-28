@@ -94,7 +94,11 @@ const eventHotkeys = (event: KeyboardEvent): void => {
     keyPrefix += 'ALT+'
   }
 
-  const key = keyPrefix + event.key.toUpperCase()
+  let actual = ''
+  if (event.key !== 'Control' && event.key !== 'Shift' && event.key !== 'Alt') {
+    actual = event.key.toUpperCase()
+  }
+  const key = keyPrefix + actual
 
   // Disable the TAB key as it may allow unexpected operations
   if (key === 'TAB') {
