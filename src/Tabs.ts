@@ -653,7 +653,7 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
 
   if (subTabList.unlocked) {
     subTabs.tabSwitcher?.()(subTabList.subTabID)
-    if (tab.getType() === Tabs.Singularity && page === 3) {
+    if (tab.getType() === Tabs.Singularity && subTabList.subTabID === '4') {
       player.visitedAmbrosiaSubtab = true
       G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     }
