@@ -11,6 +11,7 @@ const TRANSCENDED_BALLER = '756419583941804072'
 const REINCARNATED_BALLER = '758859750070026241'
 const ASCENDED_BALLER = '758861068188647444'
 const OMEGA_BALLER = '832099983389097995'
+const BOOSTER = '677272036820910098'
 
 /**
  * @see https://discord.com/developers/docs/resources/user#user-object
@@ -94,41 +95,26 @@ export async function handleLogin () {
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 
-  const cookies = parseDocumentCookie()
-
-  if (cookies.id || cookies.patreonId) {
-    Alert('You may need to login to your account again for bonuses to apply! Thank you!')
-  }
-
-  if (cookies.id) document.cookie = 'id=;Max-Age=0'
-  if (cookies.patreonId) document.cookie = 'patreonId=;Max-Age=0'
-
   if (location.hostname !== 'synergism.cc') {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
-  } else if (cookies.token) {
-    if (!member) {
-      console.log(response, globalBonus, member, personalBonus, document.cookie)
-      Alert('Your individual bonuses were not applied. Try refreshing the page!')
-      return
-    }
-
+  } else if (member !== null) {
     currentBonus.textContent +=
       ` You also receive an extra ${personalBonus}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!`
 
     let user: string | null
 
     if (type === 'discord') {
-      user = member?.nick ?? member?.user?.username ?? member?.user?.global_name ?? null
+      user = member.nick ?? member.user?.username ?? member.user?.global_name ?? null
     } else {
-      user = member?.user.username
+      user = member.user.username
     }
 
-    const boosted = type === 'discord' ? Boolean(member?.premium_since) : false
-    const hasTier1 = member?.roles.includes(TRANSCENDED_BALLER) ?? false
-    const hasTier2 = member?.roles.includes(REINCARNATED_BALLER) ?? false
-    const hasTier3 = member?.roles.includes(ASCENDED_BALLER) ?? false
-    const hasTier4 = member?.roles.includes(OMEGA_BALLER) ?? false
+    const boosted = type === 'discord' ? Boolean(member?.premium_since) || member?.roles.includes(BOOSTER) : false
+    const hasTier1 = member.roles.includes(TRANSCENDED_BALLER) ?? false
+    const hasTier2 = member.roles.includes(REINCARNATED_BALLER) ?? false
+    const hasTier3 = member.roles.includes(ASCENDED_BALLER) ?? false
+    const hasTier4 = member.roles.includes(OMEGA_BALLER) ?? false
 
     const checkMark = (n: number) => {
       return `<span style="color: lime">[✔] {+${n}%}</span>`
@@ -246,14 +232,4 @@ async function getCloudSave () {
   const save = await response.json() as CloudSave
 
   await importSynergism(save?.save ?? null)
-}
-
-function parseDocumentCookie () {
-  return document.cookie.split(';').reduce((obj, item) => {
-    if (!item.includes('=')) return obj
-
-    const split = item.split('=')
-    obj[split[0].trim()] = split[1].trim()
-    return obj
-  }, {} as Record<string, string>)
 }
