@@ -94,7 +94,11 @@ const eventHotkeys = (event: KeyboardEvent): void => {
     keyPrefix += 'ALT+'
   }
 
-  const key = keyPrefix + event.key.toUpperCase()
+  let actual = ''
+  if (event.key !== 'Control' && event.key !== 'Shift' && event.key !== 'Alt') {
+    actual = event.key.toUpperCase()
+  }
+  const key = keyPrefix + actual
 
   // Disable the TAB key as it may allow unexpected operations
   if (key === 'TAB') {
@@ -115,7 +119,7 @@ const eventHotkeys = (event: KeyboardEvent): void => {
     event.preventDefault()
   }
 
-  if (G.currentTab === Tabs.Settings && player.subtabNumber === 6) {
+  if (G.currentTab === Tabs.Settings && G.currentSubTab === 7) {
     DOMCacheGetOrSet('lastHotkey').textContent = key
     DOMCacheGetOrSet('lastHotkeyName').textContent = hotkeyName
   }
@@ -259,7 +263,7 @@ export const pressedKeys = new Set<string>()
 document.addEventListener('keydown', (event) => {
   eventHotkeys(event)
 
-  pressedKeys.add(event.code)
+  pressedKeys.add(event.key)
 })
 
-document.addEventListener('keyup', (event) => pressedKeys.delete(event.code))
+document.addEventListener('keyup', (event) => pressedKeys.delete(event.key))

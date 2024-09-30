@@ -204,6 +204,7 @@ export const Globals: GlobalVariables = {
   uFifteenMulti: new Decimal(1),
   tuSevenMulti: 1,
   currentTab: Tabs.Buildings,
+  currentSubTab: 0,
 
   researchfiller1: 'Hover over the grid to get details about researches!',
   researchfiller2: 'Level: ',

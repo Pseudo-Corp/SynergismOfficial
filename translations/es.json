@@ -2889,10 +2889,10 @@
     "power": {
       "1": "Bonus de Runa de Velocidad: +{{bonus}} Aceleradores, +{{percent}}% Aceleradores, +{{boost}} Potenciadores de Acelerador.",
       "2": "Bonus de Runa de Duplicación: +{{mult1}} Multiplicadores, +{{mult2}}% Multiplicadores, -{{tax}}% Crecimiento de Impuestos.",
-      "3": "Bonificación de Runa Prismática: Toda la producción del Productor de Cristal multiplicada por {{mult}}, gana +{{gain}}' niveles de cristal gratuitos.",
-      "4": "Bonus de Runa de Ahorro: Retrasa el incremento de coste de productores un {{delay}}%. Posibilidad de Reciclaje de Ofrendas: +{{chance}}%. -{{tax}}% Crecimiento de impuestos",
-      "5": "Bonus de Runa Intelecto Superior: Obtención de Obtainium x{{gain}}. Velocidad: x{{speed}}. Ofrendas base: +{{offerings}}",
-      "6": "Bonificación de Runa AI: Ganancia Quarks +{{percent1}}%, las Ascensiones dan +{{percent2}}% más de todos los tipos de cubos.",
+      "3": "Bonificación de Runa Prismática: Toda la producción del Productor de Cristal multiplicada por {{mult}}, gana +{{gain}} niveles de cristal gratuitos.",
+      "4": "Bonus de Runa de Ahorro: Retrasa el incremento de coste de productores un {{delay}}%, Posibilidad de Reciclaje de Ofrendas: +{{chance}}%, -{{tax}}% Crecimiento de impuestos.",
+      "5": "Bonus de Runa Intelecto Superior: Obtención de Obtainium x{{gain}}, Velocidad: x{{speed}}, Ofrendas base: +{{offerings}}.",
+      "6": "Bonificación de Runa Ascenso Infinito: Ganancia Quarks +{{percent1}}%, las Ascensiones dan +{{percent2}}% más de todos los tipos de cubos.",
       "7": "No puedes comprender la verdadera forma del tesoro de Dios Hormiga."
     },
     "talismans": {

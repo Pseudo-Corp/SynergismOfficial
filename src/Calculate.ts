@@ -1350,6 +1350,17 @@ export const calculateOffline = async (forceTime = 0) => {
   disableHotkeys()
 
   G.timeWarp = true
+  const offlineDialog = player.offlinetick > 0
+
+  if (player.offlinetick === 0) {
+    const startTime = Date.now()
+    player.offlinetick = startTime
+    player.prestigecounter = startTime
+    player.transcendcounter = startTime
+    player.reincarnationcounter = startTime
+    player.ascensionCounter = startTime
+    player.singularityCounter = startTime
+  }
 
   // Variable Declarations i guess
   const maximumTimer = 86400 * 3
@@ -1372,10 +1383,6 @@ export const calculateOffline = async (forceTime = 0) => {
   // Some one-time tick things that are relatively important
   toggleTalismanBuy(player.buyTalismanShardPercent)
   updateTalismanInventory()
-
-  const offlineDialog = player.offlinetick > 0
-
-  player.offlinetick = player.offlinetick < 1.5e12 ? Date.now() : player.offlinetick
 
   G.timeMultiplier = calculateTimeAcceleration().mult
   calculateObtainium()

@@ -2890,9 +2890,9 @@
       "1": "Bonus de la Rune de Célérité : +{{bonus}} Accélérateurs, +{{percent}}% d'Accélérateurs, +{{boost}} Renforts d'Accélérateur.",
       "2": "Bonus de la Rune de Duplication : +{{mult1}} Multiplicateurs, +{{mult2}}% de Multiplicateurs, -{{tax}}% de croissance des impôts.",
       "3": "Bonus de la Rune du Prisme : efficacité de tous les producteurs de Cristaux multipliée par {{mult}}, +{{gain}} niveaux d'améliorations de Cristal gratuits.",
-      "4": "Bonus de la Rune de l'Épargne : retarde l'augmentation des coûts des bâtiments de {{delay}}%. +{{chance}}% de chances de recyclage des Offrandes. -{{tax}}% de croissance des impôts.",
-      "5": "Bonus de la Rune d'Intelligence S. : x{{gain}} Obtainium, x{{speed}} vitesse de Fourmi, +{{offerings}} Offrandes de base.",
-      "6": "Bonus de la Rune d'A.I. : +{{percent1}}% de Quarks, +{{percent2}}% de Cubes de tous les types lors des Ascensions.",
+      "4": "Bonus de la Rune de l'Épargne : retarde l'augmentation des coûts des bâtiments de {{delay}}%, +{{chance}}% de chances de recyclage des Offrandes, -{{tax}}% de croissance des impôts.",
+      "5": "Bonus de la Rune d'Intelligence Supérieure : x{{gain}} Obtainium, x{{speed}} vitesse de Fourmi, +{{offerings}} Offrandes de base.",
+      "6": "Bonus de la Rune d'Ascension Infinie : +{{percent1}}% de Quarks, +{{percent2}}% de Cubes de tous les types lors des Ascensions.",
       "7": "Vous ne pouvez pas comprendre la vraie forme du trésor du Dieu Fourmi."
     },
     "talismans": {
