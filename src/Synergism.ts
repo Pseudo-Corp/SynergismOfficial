@@ -135,7 +135,6 @@ import {
 // import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import i18next from 'i18next'
-import localforage from 'localforage'
 import { BlueberryUpgrade, blueberryUpgradeData, updateLoadoutHoverClasses } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { lastUpdated, prod, testing, version } from './Config'
@@ -174,6 +173,8 @@ import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 import type { PlayerSave } from './types/LegacySynergism'
+import { getSaveString, safeLocalStorage, setSave } from './ImportExport'
+import { patchUrlMappings } from '@discord/embedded-app-sdk'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -1515,15 +1516,12 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
   const save = btoa(JSON.stringify(p))
 
   if (save !== null) {
-    const saveBlob = new Blob([save], { type: 'text/plain' })
-
     // Should prevent overwritting of localforage that is currently used
     if (!saveCheck.canSave) {
       return false
     }
 
-    localStorage.setItem('Synergysave2', save)
-    await localforage.setItem<Blob>('Synergysave2', saveBlob)
+    await setSave(save)
   } else {
     await Alert(i18next.t('testing.errorSaving'))
     return false
@@ -1539,10 +1537,7 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
 }
 
 const loadSynergy = async () => {
-  const save = (await localforage.getItem<Blob>('Synergysave2'))
-    ?? localStorage.getItem('Synergysave2')
-
-  const saveString = typeof save === 'string' ? save : await save?.text()
+  const saveString = await getSaveString()
   const data = saveString
     ? (JSON.parse(atob(saveString)) as PlayerSave & Record<string, unknown>)
     : null
@@ -6194,13 +6189,10 @@ export const reloadShit = async (reset = false) => {
     setTimeout(res, 0)
   })
 
-  const save = (await localforage.getItem<Blob>('Synergysave2'))
-    ?? localStorage.getItem('Synergysave2')
+  const saveString = await getSaveString()
 
-  const saveObject = typeof save === 'string' ? save : await save?.text()
-
-  if (saveObject) {
-    const dec = LZString.decompressFromBase64(saveObject)
+  if (saveString) {
+    const dec = LZString.decompressFromBase64(saveString)
     const isLZString = dec !== ''
 
     if (isLZString) {
@@ -6214,10 +6206,8 @@ export const reloadShit = async (reset = false) => {
         return Alert(i18next.t('save.loadFailed'))
       }
 
-      localStorage.clear()
-      const blob = new Blob([saveString], { type: 'text/plain' })
-      localStorage.setItem('Synergysave2', saveString)
-      await localforage.setItem<Blob>('Synergysave2', blob)
+      safeLocalStorage.clear()
+      await setSave(saveString)
       await Alert(i18next.t('main.transferredFromLZ'))
     }
 
@@ -6284,9 +6274,9 @@ export const reloadShit = async (reset = false) => {
 
   setInterval(cacheReinitialize, 15000)
 
-  if (localStorage.getItem('pleaseStar') === null) {
+  if (safeLocalStorage.getItem('pleaseStar') === null) {
     void Alert(i18next.t('main.starRepo'))
-    localStorage.setItem('pleaseStar', '')
+    safeLocalStorage.setItem('pleaseStar', '')
   }
 
   // All versions of Chrome and Firefox supported by the game have this API,
@@ -6309,7 +6299,7 @@ export const reloadShit = async (reset = false) => {
   }
 
   const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
-  saveType.checked = localStorage.getItem('copyToClipboard') !== null
+  saveType.checked = safeLocalStorage.getItem('copyToClipboard') !== null
 }
 
 function playerNeedsReminderToExport () {
@@ -6319,7 +6309,16 @@ function playerNeedsReminderToExport () {
 }
 
 window.addEventListener('load', async () => {
-  await i18nInit()
+  if (location.host.endsWith('.discordsays.com')) {
+    patchUrlMappings([
+      {
+        prefix: '/',
+        target: 'discord-activities-suck.synergism-cus.pages.dev/'
+      }
+    ])
+  }
+
+  await i18nInit().catch((e) => console.error('error caught', e))
 
   const ver = DOMCacheGetOrSet('versionnumber')
   const addZero = (n: number) => `${n}`.padStart(2, '0')
@@ -6349,7 +6348,7 @@ window.addEventListener('load', async () => {
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
 
-  handleLogin().catch(console.error)
+  handleLogin().catch((e) => console.error('caught error', e))
 })
 
 window.addEventListener('unload', () => {

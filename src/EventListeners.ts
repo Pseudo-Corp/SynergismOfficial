@@ -53,6 +53,7 @@ import {
   promocodesPrompt,
   reloadDeleteGame,
   resetGame,
+  safeLocalStorage,
   updateSaveString
 } from './ImportExport'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
@@ -1108,7 +1109,7 @@ TODO: Fix this entire tab it's utter shit
     const element = event.target as HTMLInputElement
 
     if (!element.checked) {
-      localStorage.removeItem('copyToClipboard')
+      safeLocalStorage.removeItem('copyToClipboard')
       event.stopPropagation()
       return
     }
@@ -1119,9 +1120,9 @@ TODO: Fix this entire tab it's utter shit
 
     if (confirmed) {
       element.checked = !element.checked
-      localStorage.setItem('copyToClipboard', '')
+      safeLocalStorage.setItem('copyToClipboard', '')
     } else {
-      localStorage.removeItem('copyToClipboard')
+      safeLocalStorage.removeItem('copyToClipboard')
     }
   })
 
