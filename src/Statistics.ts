@@ -18,6 +18,7 @@ import {
   calculateHypercubeMultiplier,
   calculateOcteractMultiplier,
   calculateOfferings,
+  calculatePixelLuck,
   calculatePlatonicMultiplier,
   calculatePowderConversion,
   calculateQuarkMultFromPowder,
@@ -65,7 +66,9 @@ const associated = new Map<string, string>([
   ['kGQMult', 'goldenQuarkMultiplierStats'],
   ['kAddStats', 'addCodeStats'],
   ['kAmbrosiaLuck', 'ambrosiaLuckStats'],
-  ['kAmbrosiaGenMult', 'ambrosiaGenerationStats']
+  ['kAmbrosiaGenMult', 'ambrosiaGenerationStats'],
+  ['kPixelLuck', 'pixelLuckStats'],
+  ['kPixelGenMult', 'pixelGenerationStats']
 ])
 
 export const displayStats = (btn: HTMLElement) => {
@@ -127,6 +130,12 @@ export const loadStatisticsUpdate = () => {
         break
       case 'ambrosiaGenerationStats':
         loadStatisticsAmbrosiaGeneration()
+        break
+      case 'pixelLuckStats':
+        loadStatisticsPixelLuck()
+        break
+      case 'pixelGenerationStats':
+        loadStatisticsPixelGeneration()
         break
       default:
         loadStatisticsCubeMultipliers()
@@ -301,11 +310,7 @@ export const loadStatisticsAccelerator = () => {
   }`
   DOMCacheGetOrSet('sA11').textContent = `^${
     format(
-      Math.min(
-        1,
-        (1 + player.platonicUpgrades[6] / 30)
-          * G.viscosityPower[player.usedCorruptions[2]]
-      ),
+      player.corruptions.used.corruptionEffects('viscosity'),
       3,
       true
     )
@@ -425,11 +430,7 @@ export const loadStatisticsMultiplier = () => {
   }`
   DOMCacheGetOrSet('sM12').textContent = `^${
     format(
-      Math.min(
-        1,
-        (1 + player.platonicUpgrades[6] / 30)
-          * G.viscosityPower[player.usedCorruptions[2]]
-      ),
+      player.corruptions.used.corruptionEffects('viscosity'),
       3,
       true
     )
@@ -736,20 +737,23 @@ export const loadStatisticsCubeMultipliers = () => {
     18: { acc: 2, desc: 'Cookie Upgrade 8:' },
     19: { acc: 2, desc: 'Total Octeract Bonus:' },
     20: { acc: 2, desc: 'No Singularity Upgrades Challenge:' },
-    21: { acc: 2, desc: 'Citadel [GQ]' },
-    22: { acc: 2, desc: 'Citadel 2 [GQ]' },
-    23: { acc: 4, desc: 'Platonic DELTA' },
-    24: { acc: 2, desc: 'Wow Pass ∞' },
-    25: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
-    26: { acc: 2, desc: 'Module- Tutorial' },
-    27: { acc: 2, desc: 'Module- Cubes 1' },
-    28: { acc: 2, desc: 'Module- Luck-Cube 1' },
-    29: { acc: 2, desc: 'Module- Quark-Cube 1' },
-    30: { acc: 2, desc: 'Module- Cubes 2' },
-    31: { acc: 2, desc: 'Module- Hyperflux' },
-    32: { acc: 2, desc: '20 Ascensions X20 Bonus [EXALT ONLY]' },
-    33: { acc: 2, desc: 'Cash Grab ULTIMATE' },
-    34: { acc: 2, desc: 'Shop EX ULTIMATE' }
+    21: { acc: 2, desc: 'Pixel Tutorial:' },
+    22: { acc: 2, desc: 'Pixel Bar Level:' },
+    23: { acc: 2, desc: 'Pixel "Cubes!!!" Upgrade:' },
+    24: { acc: 2, desc: 'Citadel [GQ]' },
+    25: { acc: 2, desc: 'Citadel 2 [GQ]' },
+    26: { acc: 4, desc: 'Platonic DELTA' },
+    27: { acc: 2, desc: 'Wow Pass ∞' },
+    28: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
+    29: { acc: 2, desc: 'Module- Tutorial' },
+    30: { acc: 2, desc: 'Module- Cubes 1' },
+    31: { acc: 2, desc: 'Module- Luck-Cube 1' },
+    32: { acc: 2, desc: 'Module- Quark-Cube 1' },
+    33: { acc: 2, desc: 'Module- Cubes 2' },
+    34: { acc: 2, desc: 'Module- Hyperflux' },
+    35: { acc: 2, desc: '20 Ascensions X20 Bonus [EXALT ONLY]' },
+    36: { acc: 2, desc: 'Cash Grab ULTIMATE' },
+    37: { acc: 2, desc: 'Shop EX ULTIMATE' }
   }
   for (let i = 0; i < arr0.length; i++) {
     const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
@@ -1026,9 +1030,11 @@ export const loadStatisticsOfferingMultipliers = () => {
     30: { acc: 3, desc: 'Cube Upgrade Cx4:' },
     31: { acc: 3, desc: 'Offering Electrolosis [OC]:' },
     32: { acc: 3, desc: 'RNG-based Offering Booster:' },
-    33: { acc: 3, desc: '20 Ascensions X20 [EXALT ONLY]' },
-    34: { acc: 3, desc: 'Shop EX ULTIMATE' },
-    35: { acc: 3, desc: 'Event:' }
+    33: { acc: 3, desc: 'Pixel Bar Level Bonus' },
+    34: { acc: 3, desc: 'Pixel Upgrade \'Offered Pixels\'' },
+    35: { acc: 3, desc: '20 Ascensions X20 [EXALT ONLY]:' },
+    36: { acc: 3, desc: 'Shop EX ULTIMATE:' },
+    37: { acc: 3, desc: 'Event:' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`)
@@ -1264,11 +1270,7 @@ export const loadObtainiumMultipliers = () => {
     format(
       Math.min(
         1,
-        G.illiteracyPower[player.usedCorruptions[5]]
-          * (1
-            + (9 / 100)
-              * player.platonicUpgrades[9]
-              * Math.min(100, Math.log10(player.researchPoints + 10)))
+        player.corruptions.used.corruptionEffects('illiteracy')
       ),
       3
     )
@@ -1423,7 +1425,7 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt54').textContent = `^${
     format(
-      player.usedCorruptions[5] >= 15
+      player.corruptions.used.getLevel('illiteracy') >= 15
         ? 1 / 4
         : 1,
       2
@@ -1431,7 +1433,7 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt55').textContent = `^${
     format(
-      player.usedCorruptions[5] >= 16
+      player.corruptions.used.getLevel('illiteracy') >= 16
         ? 1 / 4
         : 1,
       2
@@ -1701,10 +1703,14 @@ export const loadStatisticsAmbrosiaLuck = () => {
     7: { acc: 1, desc: 'Ambrosia Luck Module II' },
     8: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
     9: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
-    10: { acc: 0, desc: 'Perk: One Hundred Thirty One!' },
-    11: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
-    12: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
-    13: { acc: 0, desc: 'No Ambrosia Upgrades EXALT' }
+    10: { acc: 0, desc: 'Progress Bar Level Bonus' },
+    11: { acc: 0, desc: 'A Pixelated Ambrosia Luck Inducer' },
+    12: { acc: 0, desc: 'A Pixelated Ambrosia Luck Deducer' },
+    13: { acc: 0, desc: 'A Pixelated Ambrosia Luck Convector' },
+    14: { acc: 0, desc: 'Perk: One Hundred Thirty One!' },
+    15: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
+    16: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
+    17: { acc: 0, desc: 'No Ambrosia Upgrades EXALT' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -1734,10 +1740,14 @@ export const loadStatisticsAmbrosiaGeneration = () => {
     4: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
     5: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
     6: { acc: 4, desc: 'Patreon Bonus' },
-    7: { acc: 4, desc: 'One Ascension Challenge EXALT' },
-    8: { acc: 4, desc: 'No Ambrosia Upgrades EXALT' },
-    9: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
-    10: { acc: 4, desc: 'Event Bonus' }
+    7: { acc: 4, desc: 'Progress Bar Level Bonus' },
+    8: { acc: 4, desc: 'A Pixelated Ambrosia Quickener' },
+    9: { acc: 4, desc: 'A Pixelated Ambrosia Hastener' },
+    10: { acc: 4, desc: 'A Pixelated Ambrosia Rapidity' },
+    11: { acc: 4, desc: 'One Ascension Challenge EXALT' },
+    12: { acc: 4, desc: 'No Ambrosia Upgrades EXALT' },
+    13: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
+    14: { acc: 4, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)
@@ -1748,6 +1758,36 @@ export const loadStatisticsAmbrosiaGeneration = () => {
   const totalVal = stats.value
   DOMCacheGetOrSet('sAGenMT').textContent = `${format(totalVal, 3, true)}`
 }
+
+export const loadStatisticsPixelLuck = () => {
+  const stats = calculatePixelLuck()
+  const arr = stats.array
+  const map: Record<number, { acc: number; desc: string }> = {
+    1: { acc: 0, desc: 'Base Luck:' },
+    2: { acc: 0, desc: 'Progress Bar Level Bonus:' },
+    3: { acc: 0, desc: 'Pixel Luck Enhancer I' },
+    4: { acc: 0, desc: 'Lucky Little Pixels' },
+    5: { acc: 0, desc: 'Lucky Big Pixels' },
+    6: { acc: 0, desc: 'Mega Pixel Luck Bonus' },
+    7: { acc: 0, desc: 'Tera Pixel Luck Bonus' },
+    8: { acc: 0, desc: 'Blueberry-Infused Pixel Luck Enhancer' },
+    9: { acc: 0, desc: 'Blueberry-Refined Pixel Luck Enhancer' },
+    10: { acc: 2, desc: 'Ambrosia2Pixel Lucks' }
+  }
+
+  for (let i = 0; i < arr.length - 1; i++) {
+    const statPLuckMi = DOMCacheGetOrSet(`statPLuckM${i + 1}`)
+    statPLuckMi.childNodes[0].textContent = map[i + 1].desc
+    DOMCacheGetOrSet(`sPLuckM${i + 1}`).textContent = `+${format(arr[i], map[i + 1].acc, true)}`
+  }
+
+  DOMCacheGetOrSet('sPLuckMult').textContent = `x${format(arr[arr.length - 1], 3, true)}`
+
+  const totalVal = Math.floor(stats.value)
+  DOMCacheGetOrSet('sPLuckMT').innerHTML = `❖ ${format(totalVal, 0)}`
+}
+
+export const loadStatisticsPixelGeneration = () => {}
 
 export const c15RewardUpdate = () => {
   // dprint-ignore

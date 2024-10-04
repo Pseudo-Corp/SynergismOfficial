@@ -148,6 +148,12 @@ body.loading {
     background-color: var(--box-color);
 }
 
+.pixelBoxColor {
+    border: 3px solid;
+    border-color: var(--red-text-color);
+    background-color: var(--box-color);
+}
+
 a {
     color: white;
     text-decoration: none;
@@ -1961,7 +1967,8 @@ p#reincarnatehotkeys {
 #goldenQuarksDisplay,
 #octeractsDisplay,
 #totalOcteractsDisplay,
-#ambrosiaDisplay {
+#ambrosiaDisplay,
+#ultimatePixelDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1993,7 +2000,8 @@ p#reincarnatehotkeys {
     margin-left: 5px;
 }
 
-#ambrosiaAmount {
+#ambrosiaAmount,
+#ultimatePixelAmount {
     font-size: 1.2em;
     margin-left: 5px;
 }
@@ -3523,7 +3531,8 @@ header #obtainiumDisplay { color: pink; }
 
 #singularityUpgradeContainer,
 #singularityOcteracts,
-#singularityAmbrosia {
+#singularityAmbrosia,
+#singularityUltimatePixels {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3531,7 +3540,9 @@ header #obtainiumDisplay { color: pink; }
 
 #actualSingularityUpgradeContainer,
 #octeractUpgradeContainer,
-#blueberryUpgradeContainer {
+#blueberryUpgradeContainer,
+#pixelUpgradeContainer {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -3557,7 +3568,8 @@ header #obtainiumDisplay { color: pink; }
 .singularityUpgrade,
 .octeractUpgrade,
 .singularityChallenge,
-.blueberryUpgrade {
+.blueberryUpgrade,
+.pixelUpgrade {
     font-size: 0;
     cursor: pointer;
 }
@@ -3789,6 +3801,12 @@ img#singularityPerksIcon {
     text-align: center;
 }
 
+#testing {
+    position: relative;
+    padding: 0;
+    text-align: center;
+}
+
 @keyframes rotation {
     from {
         transform: rotate(0deg);
@@ -3872,6 +3890,36 @@ img#singularityPerksIcon {
     image-rendering: auto;
 }
 
+#metaPixelProgressBar {
+    width: 25%;
+    height: 30px;
+    background-color: black;
+    border: solid white;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+    position: relative;
+}
+
+#metaPixelProgress {
+    height: 100%;
+    background: linear-gradient(to right, #ff5e0f, orange);
+    border-radius: 0;
+    transition: width 0.4s ease;
+}
+
+#metaPixelProgressText {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center; /* Center the text vertically */
+    justify-content: center; /* Center the text horizontally */
+    color: white;
+    font-weight: bold;
+}
+
 #pixelProgressBar {
     width: 25%;
     height: 30px;
@@ -3885,7 +3933,7 @@ img#singularityPerksIcon {
 #pixelProgress {
     height: 100%;
     background: linear-gradient(to right, maroon, red);
-    border-radius: 5px;
+    border-radius: 0;
     transition: width 0.4s ease;
 }
 
@@ -3934,5 +3982,87 @@ img#singularityPerksIcon {
 
 form input:hover {
     background-color: var(--hover-color);
+    cursor: pointer;
+}
+
+#pixelTextBox {
+    visibility: hidden;
+    width: 500px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    border: 3px solid gold;
+    justify-content: center;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+}
+
+#pixelTextBox p {
+    padding: 0;
+    margin: 0 12px;
+}
+
+#pixelUpgradeName {
+    font-size: 1.1em;
+    color: gold;
+}
+
+#pixelUpgradeDescription {
+    border: 1px gold;
+    border-style: none none solid;
+    padding: 0 8px;
+    margin: 0 8px;
+}
+
+.pixelBarBonus {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    z-index: 3;
+    margin-bottom: 2px;
+}
+
+.pixelBarBonus > p {
+    display: flex;
+    z-index: 5;
+}
+
+#pixelBarLevelBonusTextBox {
+    visibility: hidden;
+    width: 500px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    border: 3px solid red;
+    justify-content: center;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+}
+
+#pixelBarLevelBonusTextBox div {
+    padding: 0;
+    margin: 0 12px;
+}
+
+.pixelBarBonus p {
+    padding: 0;
+    margin: 0 12px;
+}
+
+#goldenQuarkResetFunction {
+    padding: 3;
+    margin: 3 3px;
+    cursor: pointer;
+}
+
+#ascSingularityCountStats {
     cursor: pointer;
 }
