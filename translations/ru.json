@@ -97,19 +97,19 @@
         "effect": "Щедрые спонсоры с Patreon даруют вам {{amount}}% Скорости Генерации Голубики. Рассмотрите вариант стать одним из них, если ещё не стали, для поддержки разработки!"
       },
       "ambrosiaObtainium1": {
-        "name": "RNG-based Obtainium Booster",
+        "name": "Рандомный Усилитель Обтаниума",
         "description": "Gain +0.1% Obtainium per &#9752 Ambrosia Luck!",
         "effect": "This module increases Obtainium gain by {{amount}}%!"
       },
       "ambrosiaOffering1": {
-        "name": "RNG-based Offering Booster",
+        "name": "Рандомный Усилитель Подношений",
         "description": "Gain +0.1% Offerings per &#9752 Ambrosia Luck!",
         "effect": "This module increases Offering gain by {{amount}}%!"
       },
       "ambrosiaHyperflux": {
         "name": "Hyperfluxed Wow! Cube Industrial Production",
         "description": "Gain +1% cubes per level, per level of Platonic Upgrade 4x4 purchased (multiplicative!!!)",
-        "effect": "This module increases Cubes gain by {{amount}}%!"
+        "effect": "Этот модуль увеличивает получение Кубов на {{amount}}%!"
       }
     },
     "loadouts": {
@@ -2095,8 +2095,8 @@
       "octeractMetagenesis": "Метагенезис Октерактов",
       "immaculateAlchemy": "Безупречная Алхимия",
       "skrauQ": "икравК",
-      "twoHundredSixtyNine": "Two Hundred and Sixty Nine!",
-      "oneHundredThirtyOne": "One Hundred and Thirty One!"
+      "twoHundredSixtyNine": "Двести и Шестьдесят Девять!",
+      "oneHundredThirtyOne": "Сто и Тридцать Один!"
     }
   },
   "general": {
@@ -2394,7 +2394,7 @@
       "79": "Эффект: Вы будете получать на +10% больше наград =)",
       "80": "Эффект: +75 к Муравьиному ЭЛО если это улучшение куплено.",
       "81": "Эффект: Вся информация прямо над этим сообщением.",
-      "120": "Effect: All you need to know is right above this message!",
+      "120": "Эффект: Вся информация прямо над этим сообщением!",
       "121": "Эффект: -50% Налогов, кэп!",
       "122": "Эффект: +88% к лимиту Улучшения Кристаллов 3, кэп!",
       "123": "Эффект: Производство Монет ^1.025, кэп!",
@@ -3112,7 +3112,7 @@
         "UniqueReward4": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
       },
       "noAmbrosiaUpgrades": {
-        "name": "No Ambrosia Upgrades",
+        "name": "Без Улучшений Амброзии",
         "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
         "ScalingReward1": "+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
         "ScalingReward2": "+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
@@ -3456,9 +3456,9 @@
       },
       "invalid": "Ваш код либо недействителен или уже использован. Попробуйте снова!",
       "bribe": {
-        "notUnlocked": "Hmmm... you aren't ready yet.",
+        "notUnlocked": "Хммм... вы ещё не готовы.",
         "overCapacity": "You can't hold more!",
-        "thanks": "Thank Alonso (in Discord) for the bribe."
+        "thanks": "Поблагодарите Alonso (в Дискорде) за взятку."
       }
     }
   },
@@ -3515,6 +3515,6 @@
     }
   },
   "account": {
-    "logout": "The page will now reload. You are logged out! Goodbye!!"
+    "logout": "Страница сейчас обновится. Вы вышли из аккаунта! Пока!!"
   }
 }
