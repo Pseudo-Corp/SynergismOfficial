@@ -97,19 +97,19 @@
         "effect": "慷慨的Patreon支持者使蓝莓秒的产生速度增加 {{amount}}%。您也可以考虑在Patreon上支持本游戏的开发！"
       },
       "ambrosiaObtainium1": {
-        "name": "RNG-based Obtainium Booster",
-        "description": "Gain +0.1% Obtainium per &#9752 Ambrosia Luck!",
-        "effect": "This module increases Obtainium gain by {{amount}}%!"
+        "name": "基于随机数的难得素加成",
+        "description": "每有1 &#9752 神肴之运，就使难得素获取数量增加0.1%！",
+        "effect": "该模块使难得素获取数量增加{{amount}}%！"
       },
       "ambrosiaOffering1": {
-        "name": "RNG-based Offering Booster",
-        "description": "Gain +0.1% Offerings per &#9752 Ambrosia Luck!",
-        "effect": "This module increases Offering gain by {{amount}}%!"
+        "name": "基于随机数的祭品加成",
+        "description": "每有1 &#9752 神肴之运，就使祭品获取数量增加0.1%！",
+        "effect": "该模块使祭品获取数量增加{{amount}}%！"
       },
       "ambrosiaHyperflux": {
-        "name": "Hyperfluxed Wow! Cube Industrial Production",
-        "description": "Gain +1% cubes per level, per level of Platonic Upgrade 4x4 purchased (multiplicative!!!)",
-        "effect": "This module increases Cubes gain by {{amount}}%!"
+        "name": "惊奇方盒终级工业生产",
+        "description": "Platonic升级4x4每有1级，每级就可以使方盒获取数量增加1%(效果叠乘！！！)",
+        "effect": "该模块使方盒获取数量增加{{amount}}%！"
       }
     },
     "loadouts": {
@@ -1385,7 +1385,7 @@
       "calculator4": "PL-AT δ的主频为4096Hz，这是一项巨大的进步。每级使“增加”代码的使用次数加快4%恢复。另外，最后一级可以使您使用“增加”代码的次数上限增加32。",
       "calculator5": "PL-AT Γ可以进行“更强大”的计算。每级使您使用“增加”代码时导出存档的金夸克奖励计时增加6秒。另外，每10级使您使用“增加”代码的次数上限增加1，且最后一级可以使您使用“增加”代码的次数上限再增加6。",
       "calculator6": "PL-AT _由Derpsmith制造，之后他就被永远逐出了这个行业。每级使您使用“增加”代码时获得相当于1秒产量的惊奇八阶方块。另外，最后一级可以使您使用“增加”代码的次数上限增加24。",
-      "calculator7": "The PL-AT ΩΩ model was made by Derpsmith Ω, before he was banished from the industry forever. Gain 1 second of Blueberry Time per usage per level. Final level grants 48 additional capacity!",
+      "calculator7": "PL-AT ΩΩ由Derpsmith Ω制造，之后他就被永远逐出了这个行业。每级使您使用“增加”代码时获得相当于1秒产量的蓝莓时间。另外，最后一级可以使您使用“增加”代码的次数上限增加48。",
       "constantEX": "商人居然还留了一手……它可以使数学常数升级2的效果稍微再好一些，但它的价格也是天文数字了！之前的上限为10%(或者在获得特定成就后变为11%)，每级还可以使这个数字再增加1%。",
       "powderEX": "Platonic使您的超通量粉转换效率每级增加2%。超通量珠粉碎时生效。",
       "chronometer2": "嗯，很好。飞升的速度每级再增加0.6%，效果与第一个升级叠乘！",
@@ -1426,11 +1426,11 @@
       "shopAmbrosiaLuck2": "您获得了一颗更大了一点的四叶草，每级可以使☘ 神肴之运增加2，效果相互叠加。",
       "shopAmbrosiaLuck3": "您获得了一颗更绿了一点的四叶草，每级可以使☘ 神肴之运增加2，效果相互叠加。",
       "shopAmbrosiaLuck4": "您获得了一颗更“好”了一点的四叶草，换句话说，每级可以使☘ 神肴之运增加0.6，效果相互叠加。",
-      "shopAmbrosiaLuckMultiplier4": "Gain ☘ +1% Ambrosia Luck per level! Simple as that.",
-      "shopOcteractAmbrosiaLuck": "Gain ☘ +1 Ambrosia Luck per digit in your Wow! Octeract inventory per level. Simple as that.",
-      "shopCashGrabUltra": "For a nominal price, gain up to +15% Blueberry Speed, +120% Cubes and +8% Quarks per level based on Ambrosia, scaling nonlinearly until 10,000,000 lifetime earned.",
-      "shopAmbrosiaAccelerator": "Each level of this 'accelerator' provides <<cyan|+0.2>> real-life seconds of Blueberry Generation for every <<orange|1>> Ambrosia gained, from any source!",
-      "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!"
+      "shopAmbrosiaLuckMultiplier4": "每级使☘ 神肴之运增加1%！就这么简单。",
+      "shopOcteractAmbrosiaLuck": "惊奇八阶方块每有一个数量级，每级就使☘ 神肴之运增加1%！就这么简单。",
+      "shopCashGrabUltra": "象征性地支付一点费用，根据神肴数量，每级至多使蓝莓秒的产生速度增加15%，方盒获取数量增加120%，夸克获取数量增加8%。效果增长非线性，直到一共获得10000000神肴为止。",
+      "shopAmbrosiaAccelerator": "每次获得<<orange|1>>神肴之运时(无论来自何处)，每级该升级可以使蓝莓秒立刻增加<<cyan|0.2>>。",
+      "shopEXUltra": "拥有该额外升级吼，每有1000神肴，就使<<orchid|难得素>>获取数量、<<orange|祭品>>获取数量和<<white|方盒>>获取数量增加0.1%！该效果的上限为125000×该升级等级！"
     },
     "maxed": "已满级！",
     "upgradeFor": "使用{{x}}",
@@ -1480,7 +1480,7 @@
       "calculator4": "使“增加”代码的使用次数加快<<orchid|{{amount1}}%>>恢复。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
       "calculator5": "使用“增加”代码时导出存档的金夸克奖励计时增加<<orchid|{{amount1}}>>。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
       "calculator6": "使用“增加”代码时获得相当于<<orchid|{{amount1}}>>秒产量的惊奇八阶方块。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
-      "calculator7": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Blueberry Generation. Capacity is increased by <<orchid|+{{amount2}}>>.",
+      "calculator7": "使用“增加”代码时获得相当于<<orchid|{{amount1}}>>秒的蓝莓时间。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
       "constantEX": "数学常数升级2的效果再增加<<orange|{{amount}}>>。",
       "powderEX": "超通量粉转换效率增加<<red|{{amount}}%>>。",
       "chronometer2": "飞升的速度增加<<orange|{{amount}}%>>！",
@@ -1513,8 +1513,8 @@
       "chronometerInfinity": "飞升的速度增加<<orange|{{amount}}%>>。",
       "seasonPassInfinity": "<<orchid|所有类型的方盒、立方和方块获取数量>>增加<<lightgoldenrodyellow|{{amount}}%>>。",
       "shopSingularityPenaltyDebuff": "在<<pink|{{amount1}}>>次奇点时，奇点相关惩罚视为在<<pink|{{amount2}}>>次奇点。",
-      "shopAmbrosiaLuckMultiplier4": "Gain <<green|☘ +{{amount}}%>> Ambrosia Luck!",
-      "shopOcteractAmbrosiaLuck": "Octeracts grant <<green|☘ +{{amount}}>> Ambrosia Luck!",
+      "shopAmbrosiaLuckMultiplier4": "使<<green|☘>> 神肴之运增加<<green|{{amount}}%>>！",
+      "shopOcteractAmbrosiaLuck": "由于八阶方块，<<green|☘>> 神肴之运增加了<<green|{{amount}}>>！",
       "shopAmbrosiaGeneration1": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
       "shopAmbrosiaGeneration2": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
       "shopAmbrosiaGeneration3": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
