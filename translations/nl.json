@@ -95,6 +95,21 @@
         "name": "Schaamteloze, Ambrosiale Patreon Herinnering",
         "description": "In elke realm, Platonische uit verkoop. +1% Bosbes Generatie Snelheid voor elke +1% Quarks door de Patreon bonus!",
         "effect": "Genereuze Patreon supporters geven jou {{amount}}% meer Bosbessen Tijd Generatie. Als je dat nog niet bent, overweeg dan om Patreon supporter te worden om ontwikkeling te ondersteunen!"
+      },
+      "ambrosiaObtainium1": {
+        "name": "RNG-based Obtainium Booster",
+        "description": "Gain +0.1% Obtainium per &#9752 Ambrosia Luck!",
+        "effect": "This module increases Obtainium gain by {{amount}}%!"
+      },
+      "ambrosiaOffering1": {
+        "name": "RNG-based Offering Booster",
+        "description": "Gain +0.1% Offerings per &#9752 Ambrosia Luck!",
+        "effect": "This module increases Offering gain by {{amount}}%!"
+      },
+      "ambrosiaHyperflux": {
+        "name": "Hyperfluxed Wow! Cube Industrial Production",
+        "description": "Gain +1% cubes per level, per level of Platonic Upgrade 4x4 purchased (multiplicative!!!)",
+        "effect": "This module increases Cubes gain by {{amount}}%!"
       }
     },
     "loadouts": {
@@ -1370,6 +1385,7 @@
       "calculator4": "The PL-AT δ runs at 4,096Hz, which is a huge improvement over previous models. Add attempts refill 4% faster per level! Final level adds 32 additional capacity!",
       "calculator5": "The PL-AT Γ model somehow performs more 'powerful' computations, whatever that means. +6 seconds of GQ Export timer per level. +1 capacity every 10 levels, with 6 more at final level!",
       "calculator6": "The PL-AT _ model was made by Derpsmith, before he was banished from the industry forever. Gain 1 second of Octeract per usage per level. Final level grants 24 additional capacity!",
+      "calculator7": "The PL-AT ΩΩ model was made by Derpsmith Ω, before he was banished from the industry forever. Gain 1 second of Blueberry Time per usage per level. Final level grants 48 additional capacity!",
       "constantEX": "The merchant has one last trick up its sleeve: It can augment your second constant upgrade to be marginally better, but it'll cost an arm and a leg! Instead of the cap being 10% (or 11% with achievements) it will be raised by 1% per level.",
       "powderEX": "Platonic himself gives you 2% better conversion rate on Overflux Orbs to Powder per level. This activates when Orbs expire.",
       "chronometer2": "Okay, fine. Here's another +0.6% Ascension Speed per level, stacks multiplicatively with the first upgrade!",
@@ -1409,7 +1425,12 @@
       "shopAmbrosiaLuck1": "Buying this charm grants +2 ☘ Ambrosia luck per level, for more Ambrosia! Don't know what that means? You soon will.",
       "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
       "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
-      "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.6 ☘ Ambrosia luck per level, stacking additively."
+      "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.6 ☘ Ambrosia luck per level, stacking additively.",
+      "shopAmbrosiaLuckMultiplier4": "Gain ☘ +1% Ambrosia Luck per level! Simple as that.",
+      "shopOcteractAmbrosiaLuck": "Gain ☘ +1 Ambrosia Luck per digit in your Wow! Octeract inventory per level. Simple as that.",
+      "shopCashGrabUltra": "For a nominal price, gain up to +15% Blueberry Speed, +120% Cubes and +8% Quarks per level based on Ambrosia, scaling nonlinearly until 10,000,000 lifetime earned.",
+      "shopAmbrosiaAccelerator": "Each level of this 'accelerator' provides <<cyan|+0.2>> real-life seconds of Blueberry Generation for every <<orange|1>> Ambrosia gained, from any source!",
+      "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!"
     },
     "maxed": "Maxed!",
     "upgradeFor": "Upgrade for {{x}} Quarks",
@@ -1459,6 +1480,7 @@
       "calculator4": "Code 'add' refills <<orchid|{{amount1}}%>> faster. Capacity is increased by <<orchid|+{{amount2}}>>.",
       "calculator5": "Code 'add' generates <<orchid|{{amount1}}>> seconds of GQ export timer. Capacity is increased by <<orchid|+{{amount2}}>>.",
       "calculator6": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Octeracts. Capacity is increased by <<orchid|+{{amount2}}>>.",
+      "calculator7": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Blueberry Generation. Capacity is increased by <<orchid|+{{amount2}}>>.",
       "constantEX": "<<orange|+{{amount}}>> max percent on Constant Upgrade 2",
       "powderEX": "Gain <<red|+{{amount}}%>> Overflux Powder when Overflux Orbs expire (midnight, daily).",
       "chronometer2": "Ascension timer increases <<orange|{{amount}}%>> faster!",
@@ -1491,6 +1513,8 @@
       "chronometerInfinity": "Ascension timer increases <<orange|{{amount}}%>> faster.",
       "seasonPassInfinity": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more cubes (of <<orchid|all>> types) on Ascension.",
       "shopSingularityPenaltyDebuff": "At Singularity <<pink|{{amount1}}>>, your debuffs are as if you were in <<pink|{{amount2}}>>.",
+      "shopAmbrosiaLuckMultiplier4": "Gain <<green|☘ +{{amount}}%>> Ambrosia Luck!",
+      "shopOcteractAmbrosiaLuck": "Octeracts grant <<green|☘ +{{amount}}>> Ambrosia Luck!",
       "shopAmbrosiaGeneration1": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
       "shopAmbrosiaGeneration2": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
       "shopAmbrosiaGeneration3": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
@@ -1498,7 +1522,10 @@
       "shopAmbrosiaLuck1": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
       "shopAmbrosiaLuck2": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
       "shopAmbrosiaLuck3": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
-      "shopAmbrosiaLuck4": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>"
+      "shopAmbrosiaLuck4": "Ambrosia Luck <<lime|&#9752 +{{amount}}>>",
+      "shopCashGrabUltra": "Blueberry Generation is <<blue|{{amount}}%>> faster. Also, Cubes <<white|+{{amount2}}%>>! Finally, Quarks <<cyan|+{{amount3}}%>>!",
+      "shopAmbrosiaAccelerator": "For every <<orange|Ambrosia>> gained, add <<cyan|{{amount}}>> seconds of Blueberry Generation (<<cyan|{{amount2}}>> Blueberry Seconds)!",
+      "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}%>>!"
     }
   },
   "singularity": {
@@ -1611,6 +1638,9 @@
         "hasLevel1": "Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, anywhere!",
         "default": "Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, but only in a Singularity Challenge."
       },
+      "dilatedFiveLeaf": {
+        "desc": "Increase your base ☘ Ambrosia Luck by <<limegreen|{{percent}}%>>! +1% per perk level."
+      },
       "platSigma": "Code 'add' refills {{counter}}% faster per level per Singularity. Currently: {{current}} (MAX: -60% Cooldown)",
       "midasMilleniumAgedGold": "Every use of code `add` gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3.",
       "goldenRevolution4": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!",
@@ -1624,7 +1654,9 @@
         "default": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 3."
       },
       "skrauQ": "Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: {{amt}}... Yes, it's that good.",
-      "derpSmithsCornucopia": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!"
+      "derpSmithsCornucopia": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!",
+      "oneHundredThirtyOne": "Gain <<green|☘ +131>> Ambrosia Luck!",
+      "twoHundredSixtyNine": "Gain <<green|☘ +269>> Ambrosia Luck!"
     },
     "toString": {
       "noMinimum": "No minimal Singularity to purchase required",
@@ -2048,6 +2080,7 @@
       "derpSmithsCornucopia": "Derpsmith's Cornucopia",
       "coolQOLCubes": "Cool Qol Cubes",
       "irishAnt": "Irish Ants",
+      "dilatedFiveLeaf": "Dilated Five Leaf Clover!",
       "irishAnt2": "Irish Ants II: Electric Boogaloo",
       "overclocked": "Overclocked",
       "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
@@ -2061,7 +2094,9 @@
       "goldenRevolution4": "Golden Revolution IV",
       "octeractMetagenesis": "Octeract Metagenesis",
       "immaculateAlchemy": "Vlekkeloze alchemie",
-      "skrauQ": "skrauQ"
+      "skrauQ": "skrauQ",
+      "twoHundredSixtyNine": "Two Hundred and Sixty Nine!",
+      "oneHundredThirtyOne": "One Hundred and Thirty One!"
     }
   },
   "general": {
@@ -2359,6 +2394,7 @@
       "79": "Effect: You will gain +10% rewards =)",
       "80": "Effect: Ant ELO +75 if this upgrade is purchased.",
       "81": "Effect: All you need is right above this message.",
+      "120": "Effect: All you need to know is right above this message!",
       "121": "Effect: -50% belasting duh!",
       "122": "Effect: +88% capaciteit voor Kristal Upgrade 3, duh!",
       "123": "Effect: Munt Productie ^ 1.025, duh!",
@@ -2405,7 +2441,7 @@
       "blessings": "Blessings",
       "spirits": "[=-Spirits-=]"
     },
-    "challenges":{
+    "challenges": {
       "normal": "Normal",
       "exalt": "EXALT"
     },
@@ -3042,50 +3078,50 @@
       "noSingularityUpgrades": {
         "name": "No Singularity Upgrades",
         "description": "Simply put, you have to beat the target singularity without (most) Singularity Upgrades.<br/>Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
-        "ScalingReward1":"+50% increase to <<yellow|ALL Cube>> gain",
-        "UniqueReward1":"1st - +12% <<gold|Golden Quarks>>!",
-        "UniqueReward2":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
-        "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward4":"30th - +6% <<lime|&#9752 Ambrosia Luck>> for free!",
-        "UniqueReward5":"30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
+        "ScalingReward1": "+50% increase to <<yellow|ALL Cube>> gain",
+        "UniqueReward1": "1st - +12% <<gold|Golden Quarks>>!",
+        "UniqueReward2": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
+        "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward4": "30th - +6% <<lime|&#9752 Ambrosia Luck>> for free!",
+        "UniqueReward5": "30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
       },
       "oneChallengeCap": {
         "name": "One Challenge Caps",
         "description": "Beat the target Singularity, but the first 14 Challenges have cap of only 1!",
-        "ScalingReward1":"+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
-        "ScalingReward2":"+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
-        "UniqueReward1":"1st - +3 <<green|Reincarnation Challenge>> Cap!",
-        "UniqueReward2":"20th - +1 Free <<var(--red-text-color)|Corruption Level>>",
-        "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!"
+        "ScalingReward1": "+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
+        "ScalingReward2": "+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+        "UniqueReward1": "1st - +3 <<green|Reincarnation Challenge>> Cap!",
+        "UniqueReward2": "20th - +1 Free <<var(--red-text-color)|Corruption Level>>",
+        "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!"
       },
       "noOcteracts": {
         "name": "No Octeract Effects",
         "description": "Beat the target Singularity, but octeracts and their upgrades do nothing!<br/>Effective Singularity is also much higher based on tier.",
-        "ScalingReward1":"+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
-        "UniqueReward1":"1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
-        "UniqueReward2":"10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
-        "UniqueReward3":"10th - A new <<orchid|Quark Shop>> upgrade!"
+        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
+        "UniqueReward1": "1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
+        "UniqueReward2": "10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
+        "UniqueReward3": "10th - A new <<orchid|Quark Shop>> upgrade!"
       },
       "limitedAscensions": {
         "name": "Twenty Ascensions Challenge",
         "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs!<br/>Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
-        "ScalingReward1":"<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
-        "UniqueReward1":"1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
-        "UniqueReward2":"1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
-        "UniqueReward3":"20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
-        "UniqueReward4":"25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
+        "ScalingReward1": "<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
+        "UniqueReward1": "1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
+        "UniqueReward2": "1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
+        "UniqueReward3": "20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
+        "UniqueReward4": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
       },
       "noAmbrosiaUpgrades": {
         "name": "No Ambrosia Upgrades",
         "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
-        "ScalingReward1":"+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
-        "ScalingReward2":"+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
-        "UniqueReward1":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
-        "UniqueReward2":"1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
-        "UniqueReward3":"10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
-        "UniqueReward4":"15th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward5":"20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
-        "UniqueReward6":"20th - An <<gold|ULTRA Quark Shop>> upgrade!"
+        "ScalingReward1": "+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
+        "ScalingReward2": "+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+        "UniqueReward1": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
+        "UniqueReward2": "1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
+        "UniqueReward3": "10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
+        "UniqueReward4": "15th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward5": "20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
+        "UniqueReward6": "20th - An <<gold|ULTRA Quark Shop>> upgrade!"
       }
     },
     "intro": "Do you have what it takes to earn EXALT from Ant God?",
@@ -3385,6 +3421,7 @@
         "calculator3": "Thanks to PL-AT Ω you have also gained {{x}} real-life seconds to your Ascension Timer!",
         "calculator5": "Thanks to PL-AT Γ you have additionally gained {{x}} real-life seconds to your GQ Export Timer!",
         "calculator6": "Finally, thanks to PL-AT _ you have gained {{x}} seconds of Octeract generation!",
+        "calculator7": "Finally, thanks to PL-AT Ω you have gained {{x}} seconds of Blueberry Time Generation!",
         "calculatorSolution": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}? The answer is {{z}} according to your calculator.",
         "calculatorPrompt": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}?",
         "calculatorMaxed": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks! {{e}} {{f}} {{g}} {{h}} You have {{i}} uses of Add. You will gain 1 in {{j}} seconds.",
@@ -3417,7 +3454,12 @@
         "moreThan1": "You will gain {{x}} Octeracts (when they come out) every second, assuming you have them unlocked!",
         "one": "You will gain an Octeract (when they come out) every {{x}} seconds, assuming you have them unlocked!"
       },
-      "invalid": "Your code is either invalid or already used. Try again!"
+      "invalid": "Your code is either invalid or already used. Try again!",
+      "bribe": {
+        "notUnlocked": "Hmmm... you aren't ready yet.",
+        "overCapacity": "You can't hold more!",
+        "thanks": "Thank Alonso (in Discord) for the bribe."
+      }
     }
   },
   "toggles": {
@@ -3471,5 +3513,8 @@
       "clicked": "See? Yet another reason to trust Unsmith. Ah well. For clicking me, you gain 5% more Offerings, Obtainium, and ALL Cubes until you refresh the page!",
       "clickedText": "You have clicked the <<white|Unsmith>>! Until refresh, gain <<orange|+5% Offerings>>, <<pink|+5% Obtainium>>, <<white|+5% ALL Cubes>>!"
     }
+  },
+  "account": {
+    "logout": "The page will now reload. You are logged out! Goodbye!!"
   }
 }
