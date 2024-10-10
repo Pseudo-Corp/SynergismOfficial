@@ -98,17 +98,17 @@
       },
       "ambrosiaObtainium1": {
         "name": "Рандомный Усилитель Обтаниума",
-        "description": "Gain +0.1% Obtainium per &#9752 Ambrosia Luck!",
-        "effect": "This module increases Obtainium gain by {{amount}}%!"
+        "description": "+0.1% Обтаниума за каждое очко &#9752 Удачи Амброзии!",
+        "effect": "Этот модуль увеличивает получение Обтаниума на {{amount}}%!"
       },
       "ambrosiaOffering1": {
         "name": "Рандомный Усилитель Подношений",
-        "description": "Gain +0.1% Offerings per &#9752 Ambrosia Luck!",
-        "effect": "This module increases Offering gain by {{amount}}%!"
+        "description": "+0.1% Подношений за каждое очко &#9752 Удачи Амброзии!",
+        "effect": "Этот модуль увеличивает получение Подношений на {{amount}}%!"
       },
       "ambrosiaHyperflux": {
-        "name": "Hyperfluxed Wow! Cube Industrial Production",
-        "description": "Gain +1% cubes per level, per level of Platonic Upgrade 4x4 purchased (multiplicative!!!)",
+        "name": "Гипперзаряженное Промышленное Производство Вау! Кубов",
+        "description": "+1% кубов за уровень, за каждый купленный уровень Платонового Улучшения 4х4 (перемножаемо!!!)",
         "effect": "Этот модуль увеличивает получение Кубов на {{amount}}%!"
       }
     },
@@ -1426,10 +1426,10 @@
       "shopAmbrosiaLuck2": "Вы получите немного больший четырёхлистный клевер, дающий +2 ☘ удачи Амброзии за уровень, складывающейся суммарно.",
       "shopAmbrosiaLuck3": "Вы получите четырёхлистный клевер позеленее, дающий +2 ☘ удачи Амброзии за уровень, складывающейся суммарно.",
       "shopAmbrosiaLuck4": "Вы получите четырёхлистный клевер 'получше' - что бы это не значило -, дающий +0.6 ☘ удачи Амброзии за уровень, складывающейся суммарно.",
-      "shopAmbrosiaLuckMultiplier4": "Gain ☘ +1% Ambrosia Luck per level! Simple as that.",
+      "shopAmbrosiaLuckMultiplier4": "☘ +1% Удачи Амброзии за уровень! Проще некуда.",
       "shopOcteractAmbrosiaLuck": "Gain ☘ +1 Ambrosia Luck per digit in your Wow! Octeract inventory per level. Simple as that.",
-      "shopCashGrabUltra": "For a nominal price, gain up to +15% Blueberry Speed, +120% Cubes and +8% Quarks per level based on Ambrosia, scaling nonlinearly until 10,000,000 lifetime earned.",
-      "shopAmbrosiaAccelerator": "Each level of this 'accelerator' provides <<cyan|+0.2>> real-life seconds of Blueberry Generation for every <<orange|1>> Ambrosia gained, from any source!",
+      "shopCashGrabUltra": "Всего лишь за символическую сумму, даёт до +15% Скорости Голубики, +120% Кубов и +8% Кварков за уровень, в зависимости от Амброзии, бонусы увеличиваются нелинейно пока не получено 10,000,000 Амброзии за всё время.",
+      "shopAmbrosiaAccelerator": "Каждый уровень этого 'ускорителя' даёт <<cyan|+0.2>> реальных секунд Генерации Голубики за каждую <<orange|1>> полученную из любых источников Амброзию!",
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!"
     },
     "maxed": "Максимум!",
@@ -3125,8 +3125,8 @@
       }
     },
     "intro": "Есть ли у вас всё необходимое, чтобы заслужить ВОЗВЫШЕНИЯ от Муравьиного Бога?",
-    "ScalingHeader": "Scaling Effects (Per Completion)",
-    "UniqueHeader": "Unique Effects (On Completion #)"
+    "ScalingHeader": "Растущие Эффекты (За Каждое Выполнение)",
+    "UniqueHeader": "Уникальные Эффекты (За Прохождение #)"
   },
   "settings": {
     "confirmationTitle": "Настройки Подтверждения",
