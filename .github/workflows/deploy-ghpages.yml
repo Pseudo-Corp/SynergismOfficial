@@ -11,11 +11,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           persist-credentials: false 
-      - name: Use Node.js 18
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-          cache: npm
+          node-version: lts/*
       - name: Install deps
         run: |
           npm install
@@ -31,7 +30,7 @@ jobs:
         run: |
           rm -rf targetdir
           mkdir -p targetdir
-          mv dist Pictures translations index.html Synergism.css favicon.ico targetdir/
+          mv dist Pictures translations index.html Synergism.css favicon.ico package.json targetdir/
       - name: Deploy with the $GME emoji for some reason 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
