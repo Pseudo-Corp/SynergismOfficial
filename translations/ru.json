@@ -3106,7 +3106,7 @@
         "name": "Испытание Двадцати Вознесений",
         "description": "Кукузнец наложил эмбарго на Вознесения. На всю сингулярность дано только (20-выполнения), прежде чем Вознесения активируют негативные эффекты! Множитель Счётчика Вознесения не может быть выше 1. Ах, да, Дельта тоже отключена. Хе.",
         "ScalingReward1": "<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
-        "UniqueReward1": "1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
+        "UniqueReward1": "1-ое - Навсегда бесплатно удваивает лимит <<Pink|всех Гептерактов>>!!! (Это отличная награда!)",
         "UniqueReward2": "1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
         "UniqueReward3": "20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
         "UniqueReward4": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
