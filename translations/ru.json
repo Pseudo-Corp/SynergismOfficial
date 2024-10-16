@@ -1427,7 +1427,7 @@
       "shopAmbrosiaLuck3": "Вы получите четырёхлистный клевер позеленее, дающий +2 ☘ удачи Амброзии за уровень, складывающейся суммарно.",
       "shopAmbrosiaLuck4": "Вы получите четырёхлистный клевер 'получше' - что бы это не значило -, дающий +0.6 ☘ удачи Амброзии за уровень, складывающейся суммарно.",
       "shopAmbrosiaLuckMultiplier4": "☘ +1% Удачи Амброзии за уровень! Проще некуда.",
-      "shopOcteractAmbrosiaLuck": "Gain ☘ +1 Ambrosia Luck per digit in your Wow! Octeract inventory per level. Simple as that.",
+      "shopOcteractAmbrosiaLuck": "☘ +1 Удача Амброзии за цифру в вашем инвентаре Вау! Октерактов за уровень. Проще некуда.",
       "shopCashGrabUltra": "Всего лишь за символическую сумму, даёт до +15% Скорости Голубики, +120% Кубов и +8% Кварков за уровень, в зависимости от Амброзии, бонусы увеличиваются нелинейно пока не получено 10,000,000 Амброзии за всё время.",
       "shopAmbrosiaAccelerator": "Каждый уровень этого 'ускорителя' даёт <<cyan|+0.2>> реальных секунд Генерации Голубики за каждую <<orange|1>> полученную из любых источников Амброзию!",
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!"
@@ -1480,7 +1480,7 @@
       "calculator4": "Код \"add\" заполняется на <<orchid|{{amount1}}%>> быстрее. Ёмкость увеличивается на <<orchid|+{{amount2}}>>.",
       "calculator5": "Код \"add\" генерирует <<orchid|{{amount1}}>> секунд для таймера экспорта ЗК. Ёмкость увеличивается на <<orchid|+{{amount2}}>>.",
       "calculator6": "Код \"add\" генерирует <<orchid|{{amount1}}>> секунд для Октерактов. Ёмкость увеличивается на <<orchid|+{{amount2}}>>.",
-      "calculator7": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Blueberry Generation. Capacity is increased by <<orchid|+{{amount2}}>>.",
+      "calculator7": "Код 'add' генерирует <<orchid|{{amount1}}>> секунд Генерации Голубики. Ёмкость увеличивается на <<orchid|+{{amount2}}>>.",
       "constantEX": "<<orange|+{{amount}}>> к максимальному проценту для Улучшения Константы 2'",
       "powderEX": "Получите <<red|+{{amount}}%>> Порошка Изобильного Потока, когда истечет срок действия Сфер Изобильного Потока (полночь, ежедневно).",
       "chronometer2": "Таймер Вознесения увеличивается на <<orange|{{amount}}%>> быстрее!",
@@ -1513,8 +1513,8 @@
       "chronometerInfinity": "Таймер Вознесения увеличивается на <<orange|{{amount}}%>> быстрее.",
       "seasonPassInfinity": "Вознесения дают на <<lightgoldenrodyellow|{{amount}}%>> больше кубов (<<orchid|всех>> видов).",
       "shopSingularityPenaltyDebuff": "В Сингулярности <<pink|{{amount1}}>>, ваши негативные эффекты такие же, как если бы вы были в <<pink|{{amount2}}>>.",
-      "shopAmbrosiaLuckMultiplier4": "Gain <<green|☘ +{{amount}}%>> Ambrosia Luck!",
-      "shopOcteractAmbrosiaLuck": "Octeracts grant <<green|☘ +{{amount}}>> Ambrosia Luck!",
+      "shopAmbrosiaLuckMultiplier4": "<<green|☘ +{{amount}}%>> Удачи Амброзии!",
+      "shopOcteractAmbrosiaLuck": "Октеракты дают <<green|☘ +{{amount}}>> Удачи Амброзии!",
       "shopAmbrosiaGeneration1": "Таймер Голубики генерируется на <<blue|{{amount}}%>> быстрее.",
       "shopAmbrosiaGeneration2": "Таймер Голубики генерируется на <<blue|{{amount}}%>> быстрее.",
       "shopAmbrosiaGeneration3": "Таймер Голубики генерируется на <<blue|{{amount}}%>> быстрее.",
@@ -1524,8 +1524,8 @@
       "shopAmbrosiaLuck3": "Удача Амброзии <<lime|☘ +{{amount}}>>",
       "shopAmbrosiaLuck4": "Удача Амброзии <<lime|☘ +{{amount}}>>",
       "shopCashGrabUltra": "Blueberry Generation is <<blue|{{amount}}%>> faster. Also, Cubes <<white|+{{amount2}}%>>! Finally, Quarks <<cyan|+{{amount3}}%>>!",
-      "shopAmbrosiaAccelerator": "For every <<orange|Ambrosia>> gained, add <<cyan|{{amount}}>> seconds of Blueberry Generation (<<cyan|{{amount2}}>> Blueberry Seconds)!",
-      "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}%>>!"
+      "shopAmbrosiaAccelerator": "За каждую полученную <<orange|Амброзию>>, добавляет <<cyan|{{amount}}>> секунд Генерации Голубики (<<cyan|{{amount2}}>> Секунд Голубики)!",
+      "shopEXUltra": "Амброзия увеличивает <<orange|Подношения>>, <<orchid|Обтаниум>> и <<white|Кубы>> на <<gold|{{amount}}%>>!"
     }
   },
   "singularity": {
@@ -1639,7 +1639,7 @@
         "default": "Автоматическая покупка Платоновых Улучшений каждое вознесение, без траты Обтаниума или Подношений, но только в Испытаниях Сингулярности."
       },
       "dilatedFiveLeaf": {
-        "desc": "Increase your base ☘ Ambrosia Luck by <<limegreen|{{percent}}%>>! +1% per perk level."
+        "desc": "Увеличивает базовую ☘ Удачу Амброзии на <<limegreen|{{percent}}%>>! +1% за уровень навыка."
       },
       "platSigma": "Код 'add' восполняется на {{counter}}% быстрее за каждый уровень за Сингулярность. Текущий: {{current}} (МАКС: Время перезарядки -60%)",
       "midasMilleniumAgedGold": "Каждое использование кода 'add' даёт 0.01 бесплатных уровней ЗК1 и 0.05 бесплатных уровней ЗК3.",
@@ -1655,8 +1655,8 @@
       },
       "skrauQ": "Умножает все Получения Кварков на ((Сингулярность - 179)/20)^2. Текущий: {{amt}}... Да, это настолько хорошо.",
       "derpSmithsCornucopia": "С благословением от Кукузнеца, каждая сингулярность даёт +{{counter}}% больше Октерактов!",
-      "oneHundredThirtyOne": "Gain <<green|☘ +131>> Ambrosia Luck!",
-      "twoHundredSixtyNine": "Gain <<green|☘ +269>> Ambrosia Luck!"
+      "oneHundredThirtyOne": "<<green|☘ +131>> Удачи Амброзии!",
+      "twoHundredSixtyNine": "<<green|☘ +269>> Удачи Амброзии!"
     },
     "toString": {
       "noMinimum": "Никакой минимальной Сингулярности для покупки не требуется",
@@ -3079,9 +3079,9 @@
         "name": "Без Улучшений Сингулярности",
         "description": "Простыми словами, вам нужно пройти целевую Сингулярность без большинства Улучшений Сингулярности. Октеракты, Перки и Улучшения Качества Жизни сохранены.",
         "ScalingReward1": "+50% к получению <<yellow|ВСЕХ Кубов>>",
-        "UniqueReward1": "1st - +12% <<gold|Golden Quarks>>!",
-        "UniqueReward2": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
-        "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward1": "1-ое - +12% <<gold|Золотых Кварков>>!",
+        "UniqueReward2": "1-ое - Бесплатная <<var(--blueberry-box-color)|Голубика>>!",
+        "UniqueReward3": "20-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
         "UniqueReward4": "30th - +6% <<lime|&#9752 Ambrosia Luck>> for free!",
         "UniqueReward5": "30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
       },
@@ -3091,8 +3091,8 @@
         "ScalingReward1": "+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
         "ScalingReward2": "+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
         "UniqueReward1": "1st - +3 <<green|Reincarnation Challenge>> Cap!",
-        "UniqueReward2": "20th - +1 Free <<var(--red-text-color)|Corruption Level>>",
-        "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!"
+        "UniqueReward2": "20-ое +1 Бесплатный <<var(--red-text-color)|Уровень Порчиl>>",
+        "UniqueReward3": "20-ое - Новое улучшение <<orchid|Магазина Кварков>>!"
       },
       "noOcteracts": {
         "name": "Без Эффектов Октерактов",
@@ -3100,13 +3100,13 @@
         "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
         "UniqueReward1": "1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
         "UniqueReward2": "10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
-        "UniqueReward3": "10th - A new <<orchid|Quark Shop>> upgrade!"
+        "UniqueReward3": "10-ое - Новое улучшение <<orchid|Магазина Кварков>>!"
       },
       "limitedAscensions": {
         "name": "Испытание Двадцати Вознесений",
         "description": "Кукузнец наложил эмбарго на Вознесения. На всю сингулярность дано только (20-выполнения), прежде чем Вознесения активируют негативные эффекты! Множитель Счётчика Вознесения не может быть выше 1. Ах, да, Дельта тоже отключена. Хе.",
         "ScalingReward1": "<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
-        "UniqueReward1": "1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
+        "UniqueReward1": "1-ое - Навсегда бесплатно удваивает лимит <<Pink|всех Гептерактов>>!!! (Это отличная награда!)",
         "UniqueReward2": "1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
         "UniqueReward3": "20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
         "UniqueReward4": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
