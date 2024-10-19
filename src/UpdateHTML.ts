@@ -1420,6 +1420,7 @@ export const TicTacToe = (): Promise<TicTacToeGame> => {
 
         if (game.board[i] === 'O' || game.board[i] === 'X') {
           button.textContent = game.board[i]
+          button.disabled = true
         }
       }
 
@@ -1492,8 +1493,6 @@ export const TicTacToe = (): Promise<TicTacToeGame> => {
     return promise
   })
 }
-
-Object.defineProperty(globalThis, 'ttt', { value: TicTacToe })
 
 function iLoveKillingChildren (element: HTMLElement) {
   while (element.firstChild) {

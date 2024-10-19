@@ -201,8 +201,8 @@ button {
     outline: none;
 }
 
-body button:hover,
-body button:active {
+body button:hover:not(:disabled),
+body button:active:not(:disabled) {
     background-color: var(--hover-color);
 }
 
