@@ -3137,6 +3137,7 @@
     "addAll": "xAll",
     "add1": "Add x1",
     "time": "Time",
+    "tictactoe": "Tic-Tac-Toe",
     "enterPromoCodeHere": "Enter a promotion code here!",
     "currentTheme": "Current Theme",
     "themes": {
@@ -3459,6 +3460,13 @@
         "notUnlocked": "Hmmm... you aren't ready yet.",
         "overCapacity": "You can't hold more!",
         "thanks": "Thank Alonso (in Discord) for the bribe."
+      },
+      "tictactoe": {
+        "lostToBot": "You lost to a bot. Lol",
+        "beatBot": "Wow, you're good! You only had to tie.",
+        "tiedBot": "You tied Tic-Tac-Toe!",
+        "yourTurn": "It is your turn!",
+        "botTurn": "Synergism is thinking..."
       }
     }
   },

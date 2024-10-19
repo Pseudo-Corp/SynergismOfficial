@@ -16,7 +16,7 @@ import { synergismStage } from './Statistics'
 import { blankSave, format, player, reloadShit, saveCheck, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import type { Player } from './types/Synergism'
-import { Alert, Confirm, Prompt } from './UpdateHTML'
+import { Alert, Confirm, Prompt, TicTacToe } from './UpdateHTML'
 import { cleanString, getElementById, productContents, sumContents } from './Utility'
 import { btoa } from './Utility'
 import { Globals as G } from './Variables'
@@ -246,8 +246,7 @@ export const exportSynergism = async (
       : 1
     if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
       player.goldenQuarks += Math.floor(
-        player.goldenQuarksTimer
-          / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
+        player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
       ) * bonusGQMultiplier
       player.goldenQuarksTimer = player.goldenQuarksTimer
         % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
@@ -973,6 +972,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
         })
       )
     }
+  } else if (input === 'tictactoe') {
+    await TicTacToe()
   } else {
     el.textContent = i18next.t('importexport.promocodes.invalid')
   }

@@ -877,6 +877,8 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('dailyCode').addEventListener('mouseover', () => promocodesInfo('daily'))
   DOMCacheGetOrSet('timeCode').addEventListener('click', () => promocodes('time'))
   DOMCacheGetOrSet('timeCode').addEventListener('mouseover', () => promocodesInfo('time'))
+  DOMCacheGetOrSet('tictactoeCode').addEventListener('click', () => promocodes('tictactoe'))
+  DOMCacheGetOrSet('tictactoeCode').addEventListener('mouseover', () => promocodesInfo('tictactoe'))
   DOMCacheGetOrSet('historyTogglePerSecondButton').addEventListener(
     'click',
     () => resetHistoryTogglePerSecond()

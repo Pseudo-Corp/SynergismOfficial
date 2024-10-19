@@ -5,6 +5,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAcceleration } from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { revealCorruptions } from './Corruptions'
+import { TicTacToe as TicTacToeGame } from './minigames/TicTacToe'
 import { autoResearchEnabled } from './Research'
 import { displayRuneInformation } from './Runes'
 import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
@@ -1143,148 +1144,194 @@ export const changeTabColor = () => {
   tab.style.backgroundColor = color
 }
 
-export const Confirm = (text: string): Promise<boolean> => {
-  const conf = DOMCacheGetOrSet('confirmationBox')
-  const confWrap = DOMCacheGetOrSet('confirmWrapper')
-  const popup = DOMCacheGetOrSet('confirm')
-  const overlay = DOMCacheGetOrSet('transparentBG')
-  const ok = DOMCacheGetOrSet('ok_confirm')
-  const cancel = DOMCacheGetOrSet('cancel_confirm')
+interface Queued<T> {
+  resolve: (val: T) => void
+  reject: (err: Error) => void
+  operation: () => Promise<T>
+}
 
-  DOMCacheGetOrSet('alertWrapper').style.display = 'none'
-  DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+class AsyncQueue<T extends unknown> {
+  #queue: Queued<T>[] = []
+  #processing = false
 
-  conf.style.display = 'block'
-  confWrap.style.display = 'block'
-  overlay.style.display = 'block'
-  popup.querySelector('p')!.textContent = text
-  popup.focus()
-
-  const p = createDeferredPromise<boolean>()
-
-  // IF you clean up the typing here also clean up PromptCB
-  const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
-    const targetEl = target as HTMLButtonElement
-    ok.removeEventListener('click', listener)
-    cancel.removeEventListener('click', listener)
-    popup.removeEventListener('keyup', kbListener)
-
-    conf.style.display = 'none'
-    confWrap.style.display = 'none'
-    overlay.style.display = 'none'
-
-    p.resolve(targetEl === ok)
+  async enqueue (operation: () => Promise<T>) {
+    const { resolve, reject, promise } = createDeferredPromise<T>()
+    this.#queue.push({ operation, resolve, reject })
+    this.processQueue()
+    return promise
   }
 
-  const kbListener = (e: KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      return listener({ target: ok })
-    } else if (e.key === 'Escape') {
-      return listener({ target: cancel })
+  async processQueue () {
+    if (this.#processing || this.#queue.length === 0) {
+      return
     }
 
-    return e.preventDefault()
+    this.#processing = true
+
+    const { operation, resolve, reject } = this.#queue.shift()!
+
+    try {
+      const result = await operation()
+      resolve(result)
+    } catch (error) {
+      reject(error as Error)
+    } finally {
+      this.#processing = false
+      this.processQueue()
+    }
   }
+}
 
-  ok.addEventListener('click', listener, { once: true })
-  cancel.addEventListener('click', listener, { once: true })
-  popup.addEventListener('keyup', kbListener)
+// biome-ignore lint/suspicious/noExplicitAny:
+const asyncQueue = new AsyncQueue<any>()
 
-  return p.promise
+export const Confirm = (text: string): Promise<boolean> => {
+  return asyncQueue.enqueue(() => {
+    const conf = DOMCacheGetOrSet('confirmationBox')
+    const confWrap = DOMCacheGetOrSet('confirmWrapper')
+    const popup = DOMCacheGetOrSet('confirm')
+    const overlay = DOMCacheGetOrSet('transparentBG')
+    const ok = DOMCacheGetOrSet('ok_confirm')
+    const cancel = DOMCacheGetOrSet('cancel_confirm')
+
+    DOMCacheGetOrSet('alertWrapper').style.display = 'none'
+    DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+
+    conf.style.display = 'block'
+    confWrap.style.display = 'block'
+    overlay.style.display = 'block'
+    popup.querySelector('p')!.textContent = text
+    popup.focus()
+
+    const p = createDeferredPromise<boolean>()
+
+    const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
+      const targetEl = target as HTMLButtonElement
+      ok.removeEventListener('click', listener)
+      cancel.removeEventListener('click', listener)
+      popup.removeEventListener('keyup', kbListener)
+
+      conf.style.display = 'none'
+      confWrap.style.display = 'none'
+      overlay.style.display = 'none'
+
+      p.resolve(targetEl === ok)
+    }
+
+    const kbListener = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        return listener({ target: ok })
+      } else if (e.key === 'Escape') {
+        return listener({ target: cancel })
+      }
+
+      return e.preventDefault()
+    }
+
+    ok.addEventListener('click', listener, { once: true })
+    cancel.addEventListener('click', listener, { once: true })
+    popup.addEventListener('keyup', kbListener)
+
+    return p.promise
+  })
 }
 
 export const Alert = (text: string): Promise<void> => {
-  const conf = DOMCacheGetOrSet('confirmationBox')
-  const alertWrap = DOMCacheGetOrSet('alertWrapper')
-  const overlay = DOMCacheGetOrSet('transparentBG')
-  const popup = DOMCacheGetOrSet('alert')
-  const ok = DOMCacheGetOrSet('ok_alert')
+  return asyncQueue.enqueue(() => {
+    const conf = DOMCacheGetOrSet('confirmationBox')
+    const alertWrap = DOMCacheGetOrSet('alertWrapper')
+    const overlay = DOMCacheGetOrSet('transparentBG')
+    const popup = DOMCacheGetOrSet('alert')
+    const ok = DOMCacheGetOrSet('ok_alert')
 
-  DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
-  DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
+    DOMCacheGetOrSet('promptWrapper').style.display = 'none'
 
-  conf.style.display = 'block'
-  alertWrap.style.display = 'block'
-  overlay.style.display = 'block'
-  popup.querySelector('p')!.textContent = text
-  popup.focus()
+    conf.style.display = 'block'
+    alertWrap.style.display = 'block'
+    overlay.style.display = 'block'
+    popup.querySelector('p')!.textContent = text
+    popup.focus()
 
-  const p = createDeferredPromise<void>()
+    const p = createDeferredPromise<void>()
 
-  const listener = () => {
-    ok.removeEventListener('click', listener)
-    popup.removeEventListener('keyup', kbListener)
+    const listener = () => {
+      ok.removeEventListener('click', listener)
+      popup.removeEventListener('keyup', kbListener)
 
-    conf.style.display = 'none'
-    alertWrap.style.display = 'none'
-    overlay.style.display = 'none'
-    p.resolve()
-  }
+      conf.style.display = 'none'
+      alertWrap.style.display = 'none'
+      overlay.style.display = 'none'
+      p.resolve()
+    }
 
-  const kbListener = (e: KeyboardEvent) => (e.key === 'Enter' || e.key === ' ') && listener()
+    const kbListener = (e: KeyboardEvent) => (e.key === 'Enter' || e.key === ' ') && listener()
 
-  ok.addEventListener('click', listener, { once: true })
-  popup.addEventListener('keyup', kbListener)
+    ok.addEventListener('click', listener, { once: true })
+    popup.addEventListener('keyup', kbListener)
 
-  return p.promise
+    return p.promise
+  })
 }
 
 export const Prompt = (text: string, defaultValue?: string): Promise<string | null> => {
-  const conf = DOMCacheGetOrSet('confirmationBox')
-  const confWrap = DOMCacheGetOrSet('promptWrapper')
-  const overlay = DOMCacheGetOrSet('transparentBG')
-  const popup = DOMCacheGetOrSet('prompt')
-  const ok = DOMCacheGetOrSet('ok_prompt')
-  const cancel = DOMCacheGetOrSet('cancel_prompt')
+  return asyncQueue.enqueue(() => {
+    const conf = DOMCacheGetOrSet('confirmationBox')
+    const confWrap = DOMCacheGetOrSet('promptWrapper')
+    const overlay = DOMCacheGetOrSet('transparentBG')
+    const popup = DOMCacheGetOrSet('prompt')
+    const ok = DOMCacheGetOrSet('ok_prompt')
+    const cancel = DOMCacheGetOrSet('cancel_prompt')
 
-  DOMCacheGetOrSet('alertWrapper').style.display = 'none'
-  DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
+    DOMCacheGetOrSet('alertWrapper').style.display = 'none'
+    DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
 
-  conf.style.display = 'block'
-  confWrap.style.display = 'block'
-  overlay.style.display = 'block'
-  popup.querySelector('label')!.textContent = text
-  if (defaultValue) {
-    popup.querySelector('input')!.placeholder = defaultValue
-  }
-  popup.querySelector('input')!.focus()
+    conf.style.display = 'block'
+    confWrap.style.display = 'block'
+    overlay.style.display = 'block'
+    popup.querySelector('label')!.textContent = text
+    if (defaultValue) {
+      popup.querySelector('input')!.placeholder = defaultValue
+    }
+    popup.querySelector('input')!.focus()
 
-  const p = createDeferredPromise<string | null>()
+    const p = createDeferredPromise<string | null>()
 
-  // kinda disgusting types but whatever
-  const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
-    const targetEl = target as HTMLButtonElement
-    const el = targetEl.parentNode!.querySelector('input')!
+    // kinda disgusting types but whatever
+    const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
+      const targetEl = target as HTMLButtonElement
+      const el = targetEl.parentNode!.querySelector('input')!
 
-    ok.removeEventListener('click', listener)
-    cancel.removeEventListener('click', listener)
-    popup.querySelector('input')!.removeEventListener('keyup', kbListener)
+      ok.removeEventListener('click', listener)
+      cancel.removeEventListener('click', listener)
+      popup.querySelector('input')!.removeEventListener('keyup', kbListener)
 
-    conf.style.display = 'none'
-    confWrap.style.display = 'none'
-    overlay.style.display = 'none'
+      conf.style.display = 'none'
+      confWrap.style.display = 'none'
+      overlay.style.display = 'none'
 
-    p.resolve(targetEl.id === ok.id ? el.value || el.placeholder : null)
+      p.resolve(targetEl.id === ok.id ? el.value || el.placeholder : null)
 
-    el.value = el.textContent = el.placeholder = ''
-    popup.querySelector('input')!.blur()
-  }
-
-  const kbListener = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      return listener({ target: ok })
-    } else if (e.key === 'Escape') {
-      return listener({ target: cancel })
+      el.value = el.textContent = el.placeholder = ''
+      popup.querySelector('input')!.blur()
     }
 
-    return e.preventDefault()
-  }
+    const kbListener = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        return listener({ target: ok })
+      } else if (e.key === 'Escape') {
+        return listener({ target: cancel })
+      }
 
-  ok.addEventListener('click', listener, { once: true })
-  cancel.addEventListener('click', listener, { once: true })
-  popup.querySelector('input')!.addEventListener('keyup', kbListener)
+      return e.preventDefault()
+    }
 
-  return p.promise
+    ok.addEventListener('click', listener, { once: true })
+    cancel.addEventListener('click', listener, { once: true })
+    popup.querySelector('input')!.addEventListener('keyup', kbListener)
+
+    return p.promise
+  })
 }
 
 let closeNotification: ReturnType<typeof setTimeout>
@@ -1328,6 +1375,130 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
   closeNotification = setTimeout(close, time)
 
   return p.promise
+}
+
+export const TicTacToe = (): Promise<TicTacToeGame> => {
+  return asyncQueue.enqueue(() => {
+    const { resolve, promise } = createDeferredPromise<TicTacToeGame>()
+    const game = new TicTacToeGame('impossible')
+
+    const conf = DOMCacheGetOrSet('confirmationBox')
+    const wrapper = document.getElementById('blankWrapper')!
+
+    iLoveKillingChildren(wrapper)
+
+    conf.style.display = 'block'
+    wrapper.style.display = 'block'
+
+    const board = document.createElement('div')
+    board.id = 'promocode-tictactoe'
+
+    const buttons: HTMLButtonElement[] = []
+
+    function disableButtons () {
+      for (const button of buttons) {
+        button.disabled = true
+      }
+    }
+
+    function replaceCancelWithExit () {
+      // updateBoard -> replaceCancelWithExit can be called twice
+      // when the game ends with the player's turn and the bot attempts to move.
+      if (board.contains(cancel)) {
+        board.removeChild(cancel)
+      }
+
+      board.prepend(exit)
+
+      cancel.removeEventListener('click', listener)
+      exit.addEventListener('click', listener)
+    }
+
+    function updateBoard () {
+      for (let i = 0; i < buttons.length; i++) {
+        const button = buttons[i]
+
+        if (game.board[i] === 'O' || game.board[i] === 'X') {
+          button.textContent = game.board[i]
+        }
+      }
+
+      if (game.winner()) {
+        if (game.isBotTurn()) {
+          text.textContent = i18next.t('importexport.promocodes.tictactoe.lostToBot')
+        } else {
+          text.textContent = i18next.t('importexport.promocodes.tictactoe.beatBot')
+        }
+
+        disableButtons()
+        replaceCancelWithExit()
+      } else if (game.isFull()) {
+        text.textContent = i18next.t('importexport.promocodes.tictactoe.tiedBot')
+        disableButtons()
+        replaceCancelWithExit()
+      } else if (!game.isBotTurn()) {
+        text.textContent = i18next.t('importexport.promocodes.tictactoe.yourTurn')
+      } else {
+        text.textContent = i18next.t('importexport.promocodes.tictactoe.botTurn')
+      }
+    }
+
+    for (let i = 0; i < 9; i++) {
+      const button = document.createElement('button')
+
+      button.addEventListener('click', () => {
+        if (game.isBotTurn()) return
+
+        game.go(i)
+        updateBoard()
+
+        setTimeout(() => {
+          game.botGo()
+          updateBoard()
+        }, 500)
+      }, { once: true })
+
+      board.appendChild(button)
+      buttons.push(button)
+    }
+
+    const listener = () => {
+      cancel.removeEventListener('click', listener)
+      exit.removeEventListener('click', listener)
+
+      conf.style.display = 'none'
+      wrapper.style.display = 'none'
+
+      resolve(game)
+      iLoveKillingChildren(wrapper)
+    }
+
+    const cancel = document.createElement('button')
+    cancel.textContent = i18next.t('general.Cancel')
+    cancel.id = 'cancel'
+    cancel.addEventListener('click', listener, { once: true })
+
+    const exit = document.createElement('button')
+    exit.textContent = i18next.t('general.OK')
+    exit.id = 'exit'
+
+    const text = document.createElement('p')
+    text.textContent = i18next.t('importexport.promocodes.tictactoe.yourTurn')
+
+    board.appendChild(cancel)
+    board.appendChild(text)
+    wrapper.appendChild(board)
+
+    return promise
+  })
+}
+
+Object.defineProperty(globalThis, 'ttt', { value: TicTacToe })
+
+function iLoveKillingChildren (element: HTMLElement) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild)
+  }
 }
 
 /**

@@ -345,7 +345,8 @@ body button:active {
 
 #confirmWrapper,
 #alertWrapper,
-#promptWrapper {
+#promptWrapper,
+#blankWrapper {
     height: 100%;
     display: none;
 }
@@ -430,6 +431,48 @@ body button:active {
 .confirmBox {
     display: flex;
     align-items: center;
+}
+
+#promocode-tictactoe {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+        "b1 b2 b3"
+        "b4 b5 b6"
+        "b7 b8 b9"
+        "txt txt txt"
+        ". exit .";
+    gap: 1%;
+}
+
+#promocode-tictactoe > button {
+    border: 2px solid white;
+    font-size: xxx-large;
+}
+
+#promocode-tictactoe > button#cancel {
+    grid-area: exit;
+    border: 2px solid red;
+    font-size: large;
+    width: 50%;
+    margin: 0 auto;
+}
+
+#promocode-tictactoe > button#exit {
+    grid-area: exit;
+    border: 2px solid green;
+    font-size: large;
+    width: 50%;
+    margin: 0 auto;
+}
+
+#promocode-tictactoe > p {
+    grid-area: txt;
+    text-align: center;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 #preloadDeleteGame {
