@@ -63,9 +63,9 @@ export const eventCheck = async () => {
 
   nowEvent = null
 
-  const now = new Date(getTimePinnedToLoadDate())
+  const now = new Date(getTimePinnedToLoadDate()).getTime()
 
-  if (now.getTime() >= apiEvents.start && now.getTime() <= apiEvents.end) {
+  if (now >= apiEvents.start && now <= apiEvents.end && apiEvents.name.length) {
     nowEvent = apiEvents
   }
 
