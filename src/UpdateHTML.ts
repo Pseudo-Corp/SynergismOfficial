@@ -10,6 +10,7 @@ import { displayRuneInformation } from './Runes'
 import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
 import { Tabs } from './Tabs'
+import { toggleAchievementScreen } from './Toggles'
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism'
 import {
   visualUpdateAchievements,
@@ -29,7 +30,6 @@ import {
 } from './UpdateVisuals'
 import { createDeferredPromise } from './Utility'
 import { Globals as G } from './Variables'
-import { toggleAchievementScreen } from './Toggles'
 
 export const revealStuff = () => {
   const example = document.getElementsByClassName('coinunlock1') as HTMLCollectionOf<HTMLElement>
@@ -642,7 +642,6 @@ export const hideStuff = () => {
       z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
     })
     toggleAchievementScreen(String(G.achievementScreen))
-
   } else if (G.currentTab === Tabs.Runes) {
     DOMCacheGetOrSet('runes').style.display = 'block'
     DOMCacheGetOrSet('runestab').style.backgroundColor = 'blue'

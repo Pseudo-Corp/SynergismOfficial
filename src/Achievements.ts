@@ -310,7 +310,8 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
   }
 
   if (
-    player.challengecompletions[10] >= 50 && i === 11 && player.corruptions.used.getLevel('drought') >= 5 && player.achievements[247] < 1
+    player.challengecompletions[10] >= 50 && i === 11 && player.corruptions.used.getLevel('drought') >= 5
+    && player.achievements[247] < 1
   ) {
     achievementaward(247)
   }

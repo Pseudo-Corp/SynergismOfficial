@@ -115,7 +115,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
     ]
   },
   [Tabs.Upgrades]: { subTabList: [] },
-  [Tabs.Achievements]: { 
+  [Tabs.Achievements]: {
     tabSwitcher: () => toggleAchievementScreen,
     subTabList: [
       {
@@ -131,8 +131,9 @@ const subtabInfo: Record<Tabs, SubTab> = {
           return true
         },
         buttonID: 'toggleAchievementSubTab2'
-      },
-  ] },
+      }
+    ]
+  },
   [Tabs.Runes]: {
     tabSwitcher: () => toggleRuneScreen,
     subTabList: [

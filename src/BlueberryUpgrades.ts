@@ -13,8 +13,8 @@ import { getQuarkBonus } from './Quark'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { Globals as G } from './Variables'
 import { visualUpdateAmbrosia } from './UpdateVisuals'
+import { Globals as G } from './Variables'
 
 export type blueberryUpgradeNames =
   | 'ambrosiaTutorial'

@@ -1,21 +1,21 @@
-import { CorruptionLoadout, type Corruptions, CorruptionSaves } from "../Corruptions";
-import { playerSchema } from "./PlayerSchema";
+import { CorruptionLoadout, type Corruptions, CorruptionSaves } from '../Corruptions'
+import { playerSchema } from './PlayerSchema'
 
 const convertArrayToCorruption = (array: number[]): Corruptions => {
-    return {
-      viscosity: array[2],
-      dilation: array[3],
-      hyperchallenge: array[4],
-      illiteracy: array[5],
-      deflation: array[6],
-      extinction: array[7],
-      drought: array[8],
-      recession: array[9],
-    }
+  return {
+    viscosity: array[2],
+    dilation: array[3],
+    hyperchallenge: array[4],
+    illiteracy: array[5],
+    deflation: array[6],
+    extinction: array[7],
+    drought: array[8],
+    recession: array[9]
+  }
 }
 
 export const playerUpdateVarSchema = playerSchema.transform((player) => {
-    if (player.usedCorruptions !== undefined) {
+  if (player.usedCorruptions !== undefined) {
     const corrLoadout = convertArrayToCorruption(player.usedCorruptions)
     player.corruptions.used = new CorruptionLoadout(corrLoadout)
   }
@@ -30,10 +30,13 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
   }
 
   if (player.corruptionLoadouts !== undefined && player.corruptionLoadoutNames !== undefined) {
-    const corruptionSaveStuff: { [key: string]: Corruptions } = player.corruptionLoadoutNames.reduce((map, key, index) => {
-      map[key] = convertArrayToCorruption(player.corruptionLoadouts![index + 1])
-      return map
-    }, {} as Record<string, Corruptions>)
+    const corruptionSaveStuff: { [key: string]: Corruptions } = player.corruptionLoadoutNames.reduce(
+      (map, key, index) => {
+        map[key] = convertArrayToCorruption(player.corruptionLoadouts![index + 1])
+        return map
+      },
+      {} as Record<string, Corruptions>
+    )
 
     player.corruptions.saves = new CorruptionSaves(corruptionSaveStuff)
   }

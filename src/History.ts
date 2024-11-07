@@ -322,7 +322,7 @@ const resetHistoryTableMapping: Record<Category, string> = {
 }
 
 type corruptionInfo = {
-  image: string,
+  image: string
   title: string
 }
 
@@ -334,7 +334,7 @@ const resetHistoryCorruptionInfo: Record<keyof Corruptions, corruptionInfo> = {
   },
   dilation: {
     image: 'CorruptDilation.png',
-    title: 'Spacial Dilation [Time]',
+    title: 'Spacial Dilation [Time]'
   },
   hyperchallenge: {
     image: 'CorruptHyperchallenge.png',
@@ -354,7 +354,7 @@ const resetHistoryCorruptionInfo: Record<keyof Corruptions, corruptionInfo> = {
   },
   drought: {
     image: 'CorruptDrought.png',
-    title: 'Drought [Offering EXP]',
+    title: 'Drought [Offering EXP]'
   },
   recession: {
     image: 'CorruptRecession.png',
@@ -547,8 +547,7 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
   // Support old format (which is bad)
   if (Array.isArray(data.usedCorruptions)) {
     corrToLoad = convertInputToCorruption(data.usedCorruptions.slice(2, 10))
-  }
-  else {
+  } else {
     corrToLoad = data.usedCorruptions
   }
 
@@ -565,9 +564,7 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
   const corr_str = JSON.stringify(corrToLoad)
 
   if (corruptions) {
-    loadout += `<button class="corrLoad ascendHistoryLoadCorruptions" data-corr='${
-      corr_str
-    }'>Load</button>`
+    loadout += `<button class="corrLoad ascendHistoryLoadCorruptions" data-corr='${corr_str}'>Load</button>`
   }
   if (data.currentChallenge !== undefined) {
     score += ` / C${data.currentChallenge}`

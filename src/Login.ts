@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import localforage from 'localforage'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { testing } from './Config'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
 import { player } from './Synergism'
@@ -75,7 +76,6 @@ interface SynergismPatreonUserAPIResponse extends SynergismUserAPIResponse {
 type CloudSave = null | { save: string }
 
 export async function handleLogin () {
-  const subtabElement = document.querySelector('#accountSubTab > div.scrollbarX')!
   const currentBonus = DOMCacheGetOrSet('currentBonus')
 
   const response = await fetch('https://synergism.cc/api/v1/users/me')
@@ -86,16 +86,59 @@ export async function handleLogin () {
     return
   }
 
-  const { globalBonus, member, personalBonus, type } = await response.json() as
-    | SynergismDiscordUserAPIResponse
-    | SynergismPatreonUserAPIResponse
+  setAccount(await response.json())
+}
+
+async function logout () {
+  await fetch('https://synergism.cc/api/v1/users/logout')
+  await Alert(i18next.t('account.logout'))
+
+  location.reload()
+}
+
+async function saveToCloud () {
+  const save = (await localforage.getItem<Blob>('Synergysave2')
+    .then((b) => b?.text())
+    .catch(() => null)) ?? localStorage.getItem('Synergysave2')
+
+  if (typeof save !== 'string') {
+    console.log('Yeah, no save here.')
+    return
+  }
+
+  const body = new FormData()
+  body.set('savefile', new File([save], 'file.txt'), 'file.txt')
+
+  const response = await fetch('https://synergism.cc/api/v1/saves/upload', {
+    method: 'POST',
+    body
+  })
+
+  if (!response.ok) {
+    await Alert(`Received an error: ${await response.text()}`)
+    return
+  }
+}
+
+async function getCloudSave () {
+  const response = await fetch('https://synergism.cc/api/v1/saves/get')
+  const save = await response.json() as CloudSave
+
+  await importSynergism(save?.save ?? null)
+}
+
+export function setAccount (
+  { globalBonus, member, personalBonus, type }: SynergismDiscordUserAPIResponse | SynergismPatreonUserAPIResponse
+) {
+  const subtabElement = document.querySelector('#accountSubTab > div.scrollbarX')!
+  const currentBonus = DOMCacheGetOrSet('currentBonus')
 
   setQuarkBonus(100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100)
   player.worlds = new QuarkHandler(Number(player.worlds))
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 
-  if (location.hostname !== 'synergism.cc') {
+  if (location.hostname !== 'synergism.cc' && !testing) {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
   } else if (member !== null) {
@@ -172,7 +215,7 @@ export async function handleLogin () {
 
     subtabElement.appendChild(logoutElement)
     subtabElement.appendChild(cloudSaveParent)
-  } else {
+  } else if (!testing) {
     // User is not logged in
     subtabElement.innerHTML = `
       <img id="discord-logo" alt="Discord Logo" src="Pictures/discord-mark-blue.png" loading="lazy" />
@@ -194,42 +237,4 @@ export async function handleLogin () {
       )
     })
   }
-}
-
-async function logout () {
-  await fetch('https://synergism.cc/api/v1/users/logout')
-  await Alert(i18next.t('account.logout'))
-
-  location.reload()
-}
-
-async function saveToCloud () {
-  const save = (await localforage.getItem<Blob>('Synergysave2')
-    .then((b) => b?.text())
-    .catch(() => null)) ?? localStorage.getItem('Synergysave2')
-
-  if (typeof save !== 'string') {
-    console.log('Yeah, no save here.')
-    return
-  }
-
-  const body = new FormData()
-  body.set('savefile', new File([save], 'file.txt'), 'file.txt')
-
-  const response = await fetch('https://synergism.cc/api/v1/saves/upload', {
-    method: 'POST',
-    body
-  })
-
-  if (!response.ok) {
-    await Alert(`Received an error: ${await response.text()}`)
-    return
-  }
-}
-
-async function getCloudSave () {
-  const response = await fetch('https://synergism.cc/api/v1/saves/get')
-  const save = await response.json() as CloudSave
-
-  await importSynergism(save?.save ?? null)
 }

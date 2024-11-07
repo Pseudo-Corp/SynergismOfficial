@@ -1,5 +1,6 @@
 import type Decimal from 'break_infinity.js'
 import type { BlueberryUpgrade } from '../BlueberryUpgrades'
+import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { HepteractCraft } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
@@ -19,7 +20,6 @@ import type {
   UltimatePixelLuckCache
 } from '../StatCache'
 import type { Tabs } from '../Tabs'
-import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 

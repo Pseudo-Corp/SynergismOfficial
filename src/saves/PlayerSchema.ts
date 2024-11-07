@@ -1,6 +1,7 @@
 import Decimal from 'break_infinity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
 import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
+import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { createHepteract } from '../Hepteracts'
 import { octeractData, OcteractUpgrade } from '../Octeracts'
@@ -11,7 +12,6 @@ import { SingularityChallenge, singularityChallengeData } from '../SingularityCh
 import { blankSave } from '../Synergism'
 import type { Player } from '../types/Synergism'
 import { deepClone, padArray } from '../Utility'
-import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 
 const decimalSchema = z.custom<Decimal>((value) => {
   try {

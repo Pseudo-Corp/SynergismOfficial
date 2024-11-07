@@ -398,7 +398,7 @@ export const generateEventHandlers = () => {
   for (let index = 0; index < 2; index++) {
     DOMCacheGetOrSet(`toggleAchievementSubTab${index + 1}`).addEventListener(
       'click',
-      () => changeSubTab(Tabs.Achievements, {page: index})
+      () => changeSubTab(Tabs.Achievements, { page: index })
     )
   }
 
@@ -847,7 +847,10 @@ export const generateEventHandlers = () => {
   // Part 1: Displays
   DOMCacheGetOrSet('corruptionDisplays').addEventListener('click', () => corruptionDisplay('exit'))
   DOMCacheGetOrSet('corruptionCleanse').addEventListener('click', () => corruptionCleanseConfirm())
-  DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener('click', () => toggleCorruptionLevel('illiteracy', 999, true))
+  DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener(
+    'click',
+    () => toggleCorruptionLevel('illiteracy', 999, true)
+  )
 
   // Extra toggle
   DOMCacheGetOrSet('ascensionAutoEnable').addEventListener('click', () => toggleAutoAscend(0))

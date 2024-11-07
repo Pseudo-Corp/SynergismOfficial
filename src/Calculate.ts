@@ -3,6 +3,7 @@ import i18next from 'i18next'
 import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
+import type { Corruptions } from './Corruptions'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { hepteractEffective } from './Hepteracts'
@@ -20,7 +21,6 @@ import type { resetNames } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { productContents, sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import type { Corruptions } from './Corruptions'
 
 const CASH_GRAB_ULTRA_QUARK = 0.08
 const CASH_GRAB_ULTRA_CUBE = 1.2
@@ -2833,7 +2833,7 @@ export const calculateAscensionScore = () => {
       + 0.0025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10]),
     player.highestchallengecompletions[10]
   )
-  
+
   corruptionMultiplier = player.corruptions.used.getTotalScore()
   const bonusMultiplier = computeAscensionScoreBonusMultiplier()
 

@@ -947,7 +947,6 @@ export const toggleAutoTesseracts = (i: number) => {
 }
 
 export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number, reset = false) => {
-
   if (reset && player.currentChallenge.ascension !== 15) {
     player.corruptions.used.resetCorruptions()
     player.corruptions.next.resetCorruptions()

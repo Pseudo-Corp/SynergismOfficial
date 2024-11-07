@@ -155,9 +155,9 @@ export const cleanString = (s: string): string => {
   return cleaned
 }
 
-export function assert (condition: unknown): asserts condition {
+export function assert (condition: unknown, message?: string): asserts condition {
   if (!condition) {
-    throw new TypeError('assertion failed')
+    throw new TypeError(message || 'assertion failed')
   }
 }
 
@@ -193,7 +193,6 @@ export const deepClone = (value: unknown) => {
   })
 }
 
-
-export const validateNonnegativeInteger = (n: number | string):boolean => {
+export const validateNonnegativeInteger = (n: number | string): boolean => {
   return Number.isFinite(n) && !Number.isNaN(n) && Number.isInteger(n)
 }

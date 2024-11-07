@@ -732,8 +732,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
 
     if (player.currentChallenge.ascension !== 15) {
       player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.next.getLoadout())
-    }
-    else {
+    } else {
       player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(c15Corruptions)
     }
 

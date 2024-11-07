@@ -1,7 +1,7 @@
 import { z } from 'zod'
+import type { Corruptions } from '../Corruptions'
 import type { Player } from '../types/Synergism'
 import { playerSchema } from './PlayerSchema'
-import type { Corruptions } from '../Corruptions'
 
 const convertArrayToCorruption = (array: number[]): Corruptions => {
   return {
@@ -12,7 +12,7 @@ const convertArrayToCorruption = (array: number[]): Corruptions => {
     deflation: array[6],
     extinction: array[7],
     drought: array[8],
-    recession: array[9],
+    recession: array[9]
   }
 }
 
@@ -35,8 +35,7 @@ export const playerJsonSchema = playerSchema.extend({
       ),
       showStats: stuff.showStats
     }
-  }
-  ),
+  }),
   singularityUpgrades: z.any().transform((upgrades: Player['singularityUpgrades']) =>
     Object.fromEntries(
       Object.entries(upgrades).map(([key, value]) => {
@@ -112,9 +111,8 @@ export const playerJsonSchema = playerSchema.extend({
       })
     )
   ),
-  dayCheck: z.any().transform((dayCheck: Player['dayCheck']) => dayCheck?.toISOString() ?? null),
+  dayCheck: z.any().transform((dayCheck: Player['dayCheck']) => dayCheck?.toISOString() ?? null)
 }).transform((player) => {
-  
   if (player.usedCorruptions !== undefined) {
     const corrLoadout = convertArrayToCorruption(player.usedCorruptions)
     player.corruptions.used = corrLoadout
@@ -132,10 +130,13 @@ export const playerJsonSchema = playerSchema.extend({
   player.corruptions.showStats = player.corruptionShowStats ?? player.corruptions.showStats
 
   if (player.corruptionLoadouts !== undefined && player.corruptionLoadoutNames !== undefined) {
-    const corruptionSaveStuff: { [key: string]: Corruptions } = player.corruptionLoadoutNames.reduce((map, key, index) => {
-      map[key] = convertArrayToCorruption(player.corruptionLoadouts![index + 1])
-      return map
-    }, {} as Record<string, Corruptions>)
+    const corruptionSaveStuff: { [key: string]: Corruptions } = player.corruptionLoadoutNames.reduce(
+      (map, key, index) => {
+        map[key] = convertArrayToCorruption(player.corruptionLoadouts![index + 1])
+        return map
+      },
+      {} as Record<string, Corruptions>
+    )
 
     player.corruptions.saves = corruptionSaveStuff
   }
