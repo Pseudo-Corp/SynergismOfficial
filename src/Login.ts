@@ -2,10 +2,12 @@
 
 import i18next from 'i18next'
 import localforage from 'localforage'
+import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { testing } from './Config'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
+import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { player } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
 
@@ -231,8 +233,9 @@ export function setAccount (
       turnstile.execute(element, {
         sitekey: '0x4AAAAAAAzaJ55G9OiCeFUV',
         callback (token) {
-          fetch(`https://synergism.cc/${token}`)
-            .finally(() => wrapper.style.display = 'none')
+          uploadValues(token).finally(
+            () => wrapper.style.display = 'none'
+          )
         },
         'error-callback' (error) {
           // TODO: https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/error-codes/
@@ -267,4 +270,24 @@ export function setAccount (
       )
     })
   }
+}
+
+async function uploadValues (token: string) {
+  const response1 = await fetch('https://synergism.cc/api/v1/roles/upload')
+  const fields: (keyof z.infer<typeof playerJsonSchema>)[] = await response1.json()
+
+  const p = playerJsonSchema.parse(player)
+
+  const fd = new FormData()
+  fd.set('cf-token', token)
+
+  for (const field of fields) {
+    fd.set(field, JSON.stringify(p[field]))
+  }
+
+  const response2 = await fetch('https://synergism.cc/api/v1/roles/upload', {
+    method: 'POST'
+  })
+
+  Notification(await response2.text())
 }
