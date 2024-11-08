@@ -1,3 +1,5 @@
+/// <reference types="@types/cloudflare-turnstile" />
+
 import i18next from 'i18next'
 import localforage from 'localforage'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -5,7 +7,7 @@ import { testing } from './Config'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
 import { player } from './Synergism'
-import { Alert } from './UpdateHTML'
+import { Alert, Notification } from './UpdateHTML'
 
 // Consts for Patreon Supporter Roles.
 const TRANSCENDED_BALLER = '756419583941804072'
@@ -213,7 +215,35 @@ export function setAccount (
     cloudSaveParent.appendChild(cloudSaveElement)
     cloudSaveParent.appendChild(loadCloudSaveElement)
 
+    const submitValuesButton = document.createElement('button')
+    submitValuesButton.textContent = 'Submit Achievement Scores'
+    submitValuesButton.addEventListener('click', () => {
+      if (typeof turnstile === 'undefined') {
+        Alert('You are blocking the captcha script.')
+        return
+      }
+
+      const wrapper = document.getElementById('captchaHolder')!
+      const element = wrapper.querySelector<HTMLElement>('div.cf-turnstile')!
+
+      wrapper.style.display = 'block'
+
+      turnstile.execute(element, {
+        sitekey: '0x4AAAAAAAzaJ55G9OiCeFUV',
+        callback (token) {
+          fetch(`https://synergism.cc/${token}`)
+            .finally(() => wrapper.style.display = 'none')
+        },
+        'error-callback' (error) {
+          // TODO: https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/error-codes/
+          Notification(`An error occurred: ${error}`)
+          wrapper.style.display = 'none'
+        }
+      })
+    })
+
     subtabElement.appendChild(logoutElement)
+    subtabElement.appendChild(submitValuesButton)
     subtabElement.appendChild(cloudSaveParent)
   } else if (!testing) {
     // User is not logged in
