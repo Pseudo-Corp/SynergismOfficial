@@ -327,7 +327,8 @@ body button:active {
     background-color: var(--hover-color);
 }
 
-#confirmationBox {
+#confirmationBox,
+#captchaHolder {
     display: none;
     position: fixed;
     top: 50vh;
@@ -4065,4 +4066,10 @@ form input:hover {
 
 #ascSingularityCountStats {
     cursor: pointer;
+}
+
+#captchaHolder > .cf-turnstile {
+    max-width: fit-content;
+    max-height: fit-content;
+    margin: auto;
 }

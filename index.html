@@ -16,9 +16,15 @@
 
     <link rel="stylesheet" href="Synergism.css">
     <title>Synergism</title>
+
     <script src="./dist/out.js" defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="bodycolor loading">
+    <div id="captchaHolder">
+      <div class="cf-turnstile" data-site-key="0x4AAAAAAAzaJ55G9OiCeFUV"></div>
+    </div>
+
     <div id="transparentBG" style="display: block;"></div>
     <div id="notification">
         <div id="notifx">
