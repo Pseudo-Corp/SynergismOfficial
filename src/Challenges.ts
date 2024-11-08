@@ -403,14 +403,9 @@ export const calculateChallengeRequirementMultiplier = (
   completions: number,
   special = 0
 ) => {
-  let requirementMultiplier = Math.max(
-    1,
-    G.hyperchallengedMultiplier[player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5)
-  )
-  if (type === 'ascension') {
-    // Normalize back to 1 if looking at ascension challenges in particular.
-    requirementMultiplier = 1
-  }
+  let requirementMultiplier = (type === 'ascension')
+    ? 1
+    : player.corruptions.used.corruptionEffects('hyperchallenge')
   switch (type) {
     case 'transcend':
       requirementMultiplier *= G.challenge15Rewards.transcendChallengeReduction

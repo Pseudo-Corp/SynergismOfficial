@@ -1,9 +1,11 @@
 import Decimal from 'break_infinity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
 import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
+import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { createHepteract } from '../Hepteracts'
 import { octeractData, OcteractUpgrade } from '../Octeracts'
+import { pixelData, PixelUpgrade } from '../PixelUpgrades'
 import { QuarkHandler } from '../Quark'
 import { singularityData, SingularityUpgrade } from '../singularity'
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
@@ -52,6 +54,17 @@ const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
   return Object.fromEntries(
     Object.entries(record).filter(([key, _value]) => /^\d+$/.test(key))
   )
+})
+
+const optionalCorruptionSchema = z.object({
+  viscosity: z.number().optional(),
+  drought: z.number().optional(),
+  deflation: z.number().optional(),
+  extinction: z.number().optional(),
+  illiteracy: z.number().optional(),
+  recession: z.number().optional(),
+  dilation: z.number().optional(),
+  hyperchallenge: z.number().optional()
 })
 
 const decimalStringSchema = z.string().regex(/^|-?\d+(\.\d{1,2})?$/)
@@ -505,15 +518,26 @@ export const playerSchema = z.object({
   roombaResearchIndex: z.number().default(() => blankSave.roombaResearchIndex),
   ascStatToggles: z.record(integerStringSchema, z.boolean()).default(() => ({ ...blankSave.ascStatToggles })),
 
-  prototypeCorruptions: z.number().array().default(() => [...blankSave.prototypeCorruptions]),
-  usedCorruptions: z.number().array().default(() => [...blankSave.usedCorruptions]),
-  corruptionLoadouts: z.record(integerStringSchema, z.number().array()).default(() =>
-    deepClone(blankSave.corruptionLoadouts)
-  ),
-  corruptionLoadoutNames: z.string().array().default(() => blankSave.corruptionLoadoutNames.slice()).default(
-    () => [...blankSave.corruptionLoadoutNames]
-  ),
-  corruptionShowStats: z.boolean().default(() => blankSave.corruptionShowStats),
+  corruptions: z.object({
+    used: optionalCorruptionSchema.transform((value) => {
+      return new CorruptionLoadout(value)
+    }),
+    next: optionalCorruptionSchema.transform((value) => {
+      console.log(Object.values(value))
+      return new CorruptionLoadout(value)
+    }),
+    saves: z.record(z.string(), optionalCorruptionSchema).transform((value) => {
+      return new CorruptionSaves(value)
+    }),
+    showStats: z.boolean()
+  }).default(() => JSON.parse(JSON.stringify(blankSave.corruptions))),
+
+  prototypeCorruptions: z.number().array().optional(),
+  usedCorruptions: z.number().array().optional(),
+  corruptionLoadouts: z.record(integerStringSchema, z.number().array()).optional(),
+
+  corruptionLoadoutNames: z.string().array().optional(),
+  corruptionShowStats: z.boolean().optional(),
 
   constantUpgrades: arrayStartingWithNull(z.number()).default((): [
     null,
@@ -730,6 +754,32 @@ export const playerSchema = z.object({
 
   ultimateProgress: z.number().default(() => blankSave.ultimateProgress),
   ultimatePixels: z.number().default(() => blankSave.ultimatePixels),
+  lifetimeUltimatePixels: z.number().default(() => blankSave.lifetimeUltimatePixels),
+
+  pixelUpgrades: z.record(z.string(), singularityUpgradeSchema('pixelsInvested'))
+    .transform((upgrades) =>
+      Object.fromEntries(
+        Object.keys(blankSave.pixelUpgrades).map((k) => {
+          const { level, pixelsInvested, toggleBuy, freeLevels } = upgrades[k] ?? blankSave.pixelUpgrades[k]
+
+          return [
+            k,
+            new PixelUpgrade({
+              maxLevel: pixelData[k].maxLevel,
+              costPerLevel: pixelData[k].costPerLevel,
+              level: level as number,
+              pixelsInvested,
+              toggleBuy: toggleBuy as number,
+              rewards: pixelData[k].rewards,
+              freeLevels: freeLevels as number,
+              cacheUpdates: pixelData[k].cacheUpdates,
+              IconSrc: pixelData[k].IconSrc
+            }, k)
+          ]
+        })
+      )
+    )
+    .default(() => JSON.parse(JSON.stringify(blankSave.pixelUpgrades))),
 
   // TODO: what type?
   caches: z.record(z.string(), z.any())
@@ -742,5 +792,7 @@ export const playerSchema = z.object({
       return blankSave.caches
     }),
 
-  lastExportedSave: z.number().default(() => blankSave.lastExportedSave)
+  lastExportedSave: z.number().default(() => blankSave.lastExportedSave),
+
+  seed: z.number().array().default(() => blankSave.seed).transform((value) => arrayExtend(value, 'seed'))
 })

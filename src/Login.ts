@@ -1,10 +1,15 @@
+/// <reference types="@types/cloudflare-turnstile" />
+
 import i18next from 'i18next'
 import localforage from 'localforage'
+import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { testing } from './Config'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
+import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { player } from './Synergism'
-import { Alert } from './UpdateHTML'
+import { Alert, Notification } from './UpdateHTML'
 
 // Consts for Patreon Supporter Roles.
 const TRANSCENDED_BALLER = '756419583941804072'
@@ -75,7 +80,6 @@ interface SynergismPatreonUserAPIResponse extends SynergismUserAPIResponse {
 type CloudSave = null | { save: string }
 
 export async function handleLogin () {
-  const subtabElement = document.querySelector('#accountSubTab > div.scrollbarX')!
   const currentBonus = DOMCacheGetOrSet('currentBonus')
 
   const response = await fetch('https://synergism.cc/api/v1/users/me')
@@ -86,16 +90,59 @@ export async function handleLogin () {
     return
   }
 
-  const { globalBonus, member, personalBonus, type } = await response.json() as
-    | SynergismDiscordUserAPIResponse
-    | SynergismPatreonUserAPIResponse
+  setAccount(await response.json())
+}
+
+async function logout () {
+  await fetch('https://synergism.cc/api/v1/users/logout')
+  await Alert(i18next.t('account.logout'))
+
+  location.reload()
+}
+
+async function saveToCloud () {
+  const save = (await localforage.getItem<Blob>('Synergysave2')
+    .then((b) => b?.text())
+    .catch(() => null)) ?? localStorage.getItem('Synergysave2')
+
+  if (typeof save !== 'string') {
+    console.log('Yeah, no save here.')
+    return
+  }
+
+  const body = new FormData()
+  body.set('savefile', new File([save], 'file.txt'), 'file.txt')
+
+  const response = await fetch('https://synergism.cc/api/v1/saves/upload', {
+    method: 'POST',
+    body
+  })
+
+  if (!response.ok) {
+    await Alert(`Received an error: ${await response.text()}`)
+    return
+  }
+}
+
+async function getCloudSave () {
+  const response = await fetch('https://synergism.cc/api/v1/saves/get')
+  const save = await response.json() as CloudSave
+
+  await importSynergism(save?.save ?? null)
+}
+
+export function setAccount (
+  { globalBonus, member, personalBonus, type }: SynergismDiscordUserAPIResponse | SynergismPatreonUserAPIResponse
+) {
+  const subtabElement = document.querySelector('#accountSubTab > div.scrollbarX')!
+  const currentBonus = DOMCacheGetOrSet('currentBonus')
 
   setQuarkBonus(100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100)
   player.worlds = new QuarkHandler(Number(player.worlds))
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 
-  if (location.hostname !== 'synergism.cc') {
+  if (location.hostname !== 'synergism.cc' && !testing) {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
   } else if (member !== null) {
@@ -170,9 +217,38 @@ export async function handleLogin () {
     cloudSaveParent.appendChild(cloudSaveElement)
     cloudSaveParent.appendChild(loadCloudSaveElement)
 
+    const submitValuesButton = document.createElement('button')
+    submitValuesButton.textContent = 'Submit Achievement Scores'
+    submitValuesButton.addEventListener('click', () => {
+      if (typeof turnstile === 'undefined') {
+        Alert('You are blocking the captcha script.')
+        return
+      }
+
+      const wrapper = document.getElementById('captchaHolder')!
+      const element = wrapper.querySelector<HTMLElement>('div.cf-turnstile')!
+
+      wrapper.style.display = 'block'
+
+      turnstile.execute(element, {
+        sitekey: '0x4AAAAAAAzaJ55G9OiCeFUV',
+        callback (token) {
+          uploadValues(token).finally(
+            () => wrapper.style.display = 'none'
+          )
+        },
+        'error-callback' (error) {
+          // TODO: https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/error-codes/
+          Notification(`An error occurred: ${error}`)
+          wrapper.style.display = 'none'
+        }
+      })
+    })
+
     subtabElement.appendChild(logoutElement)
+    subtabElement.appendChild(submitValuesButton)
     subtabElement.appendChild(cloudSaveParent)
-  } else {
+  } else if (!testing) {
     // User is not logged in
     subtabElement.innerHTML = `
       <img id="discord-logo" alt="Discord Logo" src="Pictures/discord-mark-blue.png" loading="lazy" />
@@ -196,40 +272,22 @@ export async function handleLogin () {
   }
 }
 
-async function logout () {
-  await fetch('https://synergism.cc/api/v1/users/logout')
-  await Alert(i18next.t('account.logout'))
+async function uploadValues (token: string) {
+  const response1 = await fetch('https://synergism.cc/api/v1/roles/upload')
+  const fields: (keyof z.infer<typeof playerJsonSchema>)[] = await response1.json()
 
-  location.reload()
-}
+  const p = playerJsonSchema.parse(player)
 
-async function saveToCloud () {
-  const save = (await localforage.getItem<Blob>('Synergysave2')
-    .then((b) => b?.text())
-    .catch(() => null)) ?? localStorage.getItem('Synergysave2')
+  const fd = new FormData()
+  fd.set('cf-token', token)
 
-  if (typeof save !== 'string') {
-    console.log('Yeah, no save here.')
-    return
+  for (const field of fields) {
+    fd.set(field, JSON.stringify(p[field]))
   }
 
-  const body = new FormData()
-  body.set('savefile', new File([save], 'file.txt'), 'file.txt')
-
-  const response = await fetch('https://synergism.cc/api/v1/saves/upload', {
-    method: 'POST',
-    body
+  const response2 = await fetch('https://synergism.cc/api/v1/roles/upload', {
+    method: 'POST'
   })
 
-  if (!response.ok) {
-    await Alert(`Received an error: ${await response.text()}`)
-    return
-  }
-}
-
-async function getCloudSave () {
-  const response = await fetch('https://synergism.cc/api/v1/saves/get')
-  const save = await response.json() as CloudSave
-
-  await importSynergism(save?.save ?? null)
+  Notification(await response2.text())
 }

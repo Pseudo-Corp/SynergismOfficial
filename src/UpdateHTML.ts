@@ -10,6 +10,7 @@ import { displayRuneInformation } from './Runes'
 import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
 import { Tabs } from './Tabs'
+import { toggleAchievementScreen } from './Toggles'
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism'
 import {
   visualUpdateAchievements,
@@ -24,6 +25,7 @@ import {
   visualUpdateSettings,
   visualUpdateShop,
   visualUpdateSingularity,
+  visualUpdateTesting,
   visualUpdateUpgrades
 } from './UpdateVisuals'
 import { createDeferredPromise } from './Utility'
@@ -608,6 +610,8 @@ export const hideStuff = () => {
   DOMCacheGetOrSet('singularitytab').style.backgroundColor = ''
   DOMCacheGetOrSet('event').style.display = 'none'
   DOMCacheGetOrSet('eventtab').style.backgroundColor = ''
+  DOMCacheGetOrSet('testing').style.display = 'none'
+  DOMCacheGetOrSet('testingtab').style.backgroundColor = ''
 
   const tab = DOMCacheGetOrSet('settingstab')!
   tab.style.backgroundColor = ''
@@ -637,6 +641,7 @@ export const hideStuff = () => {
       y: format(totalachievementpoints),
       z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
     })
+    toggleAchievementScreen(String(G.achievementScreen))
   } else if (G.currentTab === Tabs.Runes) {
     DOMCacheGetOrSet('runes').style.display = 'block'
     DOMCacheGetOrSet('runestab').style.backgroundColor = 'blue'
@@ -688,6 +693,11 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('event').style.display = 'block'
     DOMCacheGetOrSet('eventtab').style.backgroundColor = 'gold'
   }
+
+  if (G.currentTab === Tabs.Testing) {
+    DOMCacheGetOrSet('testing').style.display = 'block'
+    DOMCacheGetOrSet('testingtab').style.backgroundColor = 'red'
+  }
 }
 
 const visualTab: Record<Tabs, () => void> = {
@@ -703,7 +713,8 @@ const visualTab: Record<Tabs, () => void> = {
   [Tabs.WowCubes]: visualUpdateCubes,
   [Tabs.Corruption]: visualUpdateCorruptions,
   [Tabs.Singularity]: visualUpdateSingularity,
-  [Tabs.Event]: visualUpdateEvent
+  [Tabs.Event]: visualUpdateEvent,
+  [Tabs.Testing]: visualUpdateTesting
 }
 
 export const htmlInserts = () => {
@@ -1013,7 +1024,7 @@ export const buttoncolorchange = () => {
       player.antPoints.gte(
           Decimal.pow(
             G.antUpgradeCostIncreases[i - 1],
-            player.antUpgrades[i - 1]! * G.extinctionMultiplier[player.usedCorruptions[10]]
+            player.antUpgrades[i - 1]! * player.corruptions.used.corruptionEffects('extinction')
           ).times(G.antUpgradeBaseCost[i - 1])
         )
         ? DOMCacheGetOrSet(`antUpgrade${i}`).classList.add('antUpgradeBtnAvailable')
@@ -1080,7 +1091,7 @@ export const updateAchievementBG = () => {
 }
 
 export const showCorruptionStatsLoadouts = () => {
-  if (player.corruptionShowStats) {
+  if (player.corruptions.showStats) {
     DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
     DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'dodgerblue'
@@ -1133,7 +1144,9 @@ const tabColors: Partial<Record<Tabs, string>> = {
   [Tabs.WowCubes]: 'purple',
   [Tabs.Corruption]: 'orange',
   [Tabs.Settings]: 'white',
-  [Tabs.Shop]: 'limegreen'
+  [Tabs.Shop]: 'limegreen',
+  [Tabs.Event]: 'gold',
+  [Tabs.Testing]: 'red'
 }
 
 export const changeTabColor = () => {

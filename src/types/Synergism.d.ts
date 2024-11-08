@@ -1,9 +1,11 @@
 import type Decimal from 'break_infinity.js'
 import type { BlueberryUpgrade } from '../BlueberryUpgrades'
+import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { HepteractCraft } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrade } from '../Octeracts'
+import type { PixelUpgrade } from '../PixelUpgrades'
 import type { IPlatBaseCost } from '../Platonic'
 import type { QuarkHandler } from '../Quark'
 import type { SingularityUpgrade } from '../singularity'
@@ -12,7 +14,10 @@ import type {
   AmbrosiaGenerationCache,
   AmbrosiaLuckAdditiveMultCache,
   AmbrosiaLuckCache,
-  BlueberryInventoryCache
+  BlueberryInventoryCache,
+  UltimatePixelGenerationCache,
+  UltimatePixelLuckAdditiveMultCache,
+  UltimatePixelLuckCache
 } from '../StatCache'
 import type { Tabs } from '../Tabs'
 
@@ -531,11 +536,12 @@ export interface Player {
   roombaResearchIndex: number
   ascStatToggles: Record<number, boolean>
 
-  prototypeCorruptions: number[]
-  usedCorruptions: number[]
-  corruptionLoadouts: Record<number, number[]>
-  corruptionLoadoutNames: string[]
-  corruptionShowStats: boolean
+  corruptions: {
+    next: CorruptionLoadout
+    used: CorruptionLoadout
+    saves: CorruptionSaves
+    showStats: boolean
+  }
 
   constantUpgrades: ArrayStartingWithNull<number>
   history: Record<Category, ResetHistoryEntryUnion[]>
@@ -615,6 +621,7 @@ export interface Player {
 
   singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
   octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade>
+  pixelUpgrades: Record<keyof typeof pixelData, PixelUpgrade>
   dailyCodeUsed: boolean
   hepteractAutoCraftPercentage: number
   octeractTimer: number
@@ -640,18 +647,24 @@ export interface Player {
 
   ultimateProgress: number
   ultimatePixels: number
+  lifetimeUltimatePixels: number
 
   caches: {
     ambrosiaLuckAdditiveMult: AmbrosiaLuckAdditiveMultCache
     ambrosiaLuck: AmbrosiaLuckCache
     ambrosiaGeneration: AmbrosiaGenerationCache
     blueberryInventory: BlueberryInventoryCache
+    ultimatePixelGeneration: UltimatePixelGenerationCache
+    ultimatePixelLuck: UltimatePixelLuckCache
+    ultimatePixelAdditiveMult: UltimatePixelLuckAdditiveMultCache
   }
 
   /**
    * When the player last exported the save.
    */
   lastExportedSave: number
+
+  seed: number[]
 }
 
 export interface GlobalVariables {
@@ -850,6 +863,7 @@ export interface GlobalVariables {
 
   runescreen: string
   settingscreen: string
+  achievementScreen: number
 
   talismanResourceObtainiumCosts: number[]
   talismanResourceOfferingCosts: number[]
@@ -913,13 +927,13 @@ export interface GlobalVariables {
   researchOrderByCost: number[]
 
   viscosityPower: number[]
-  lazinessMultiplier: number[]
-  hyperchallengedMultiplier: number[]
+  dilationMultiplier: number[]
+  hyperchallengeMultiplier: number[]
   illiteracyPower: number[]
   deflationMultiplier: number[]
   extinctionMultiplier: number[]
   droughtMultiplier: number[]
-  financialcollapsePower: number[]
+  recessionPower: number[]
 
   corruptionPointMultipliers: number[]
 
@@ -942,7 +956,7 @@ export interface GlobalVariables {
   autoTalismanTimer: number
 
   autoChallengeTimerIncrement: number
-  corruptionTrigger: number
+  corruptionTrigger: keyof Corruptions
 
   challenge15Rewards: {
     cube1: number
@@ -995,6 +1009,7 @@ export interface GlobalVariables {
   eventClicked: boolean
 
   ambrosiaTimer: number
+  pixelTimer: number
   TIME_PER_AMBROSIA: number
 
   ambrosiaCurrStats: {
@@ -1002,6 +1017,12 @@ export interface GlobalVariables {
     ambrosiaLuck: number
     ambrosiaBlueberries: number
     ambrosiaGenerationSpeed: number
+  }
+
+  pixelCurrStats: {
+    pixelAdditiveLuckMult: number
+    pixelLuck: number
+    pixelGenerationSpeed: number
   }
 
   currentSingChallenge: keyof Player['singularityChallenges'] | undefined

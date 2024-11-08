@@ -58,13 +58,13 @@ import {
   exitOffline
 } from './Calculate'
 import {
-  corrChallengeMinimum,
   corruptionButtonsAdd,
-  corruptionLoadoutSaveLoad,
+  corruptionLoadLoadout,
+  CorruptionLoadout,
   corruptionLoadoutTableCreate,
   corruptionLoadoutTableUpdate,
+  CorruptionSaves,
   corruptionStatsUpdate,
-  maxCorruptionLevel,
   updateCorruptionLoadoutNames
 } from './Corruptions'
 import { updateCubeUpgradeBG } from './Cubes'
@@ -157,10 +157,11 @@ import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
+import { pixelData, PixelUpgrade } from './PixelUpgrades'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { getQuarkBonus, QuarkHandler } from './Quark'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
-import { playerSchema } from './saves/PlayerSchema'
+import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import {
@@ -168,9 +169,13 @@ import {
   AmbrosiaLuckAdditiveMultCache,
   AmbrosiaLuckCache,
   BlueberryInventoryCache,
-  cacheReinitialize
+  cacheReinitialize,
+  UltimatePixelGenerationCache,
+  UltimatePixelLuckAdditiveMultCache,
+  UltimatePixelLuckCache
 } from './StatCache'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { setupTestingTab } from './Test'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 import type { PlayerSave } from './types/LegacySynergism'
@@ -468,7 +473,7 @@ export const player: Player = {
     rrow3: false,
     rrow4: false
   },
-  achievements: Array(281).fill(0) as number[],
+  achievements: Array(295).fill(0) as number[],
 
   achievementPoints: 0,
 
@@ -858,8 +863,25 @@ export const player: Player = {
     6: false
   },
 
-  prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  corruptions: {
+    next: new CorruptionLoadout({}),
+    used: new CorruptionLoadout({}),
+    saves: new CorruptionSaves({
+      'Loadout 1': {},
+      'Loadout 2': {},
+      'Loadout 3': {},
+      'Loadout 4': {},
+      'Loadout 5': {},
+      'Loadout 6': {},
+      'Loadout 7': {},
+      'Loadout 8': {}
+    }),
+    showStats: true
+  },
+
+  /*prototypeCorruptions: new CorruptionLoadout({}),
+  usedCorruptions: new CorruptionLoadout({}),
+
   corruptionLoadouts: {
     // If you add loadouts don't forget to add loadout names!
     1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -880,9 +902,7 @@ export const player: Player = {
     'Loadout 6',
     'Loadout 7',
     'Loadout 8'
-  ],
-  corruptionShowStats: true,
-
+  ], */
   constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   history: { ants: [], ascend: [], reset: [], singularity: [] },
   historyShowPerSecond: false,
@@ -1212,6 +1232,14 @@ export const player: Player = {
     singAmbrosiaGeneration4: new SingularityUpgrade(
       singularityData.singAmbrosiaGeneration4,
       'singAmbrosiaGeneration4'
+    ),
+    singPixelLuck: new SingularityUpgrade(
+      singularityData.singPixelLuck,
+      'singPixelLuck'
+    ),
+    singPixelLuck2: new SingularityUpgrade(
+      singularityData.singPixelLuck2,
+      'singPixelLuck2'
     )
   },
 
@@ -1363,6 +1391,14 @@ export const player: Player = {
     octeractAmbrosiaGeneration4: new OcteractUpgrade(
       octeractData.octeractAmbrosiaGeneration4,
       'octeractAmbrosiaGeneration4'
+    ),
+    octeractPixelLuck: new OcteractUpgrade(
+      octeractData.octeractPixelLuck,
+      'octeractPixelLuck'
+    ),
+    octeractPixelLuck2: new OcteractUpgrade(
+      octeractData.octeractPixelLuck2,
+      'octeractPixelLuck2'
     )
   },
 
@@ -1468,6 +1504,18 @@ export const player: Player = {
     ambrosiaHyperflux: new BlueberryUpgrade(
       blueberryUpgradeData.ambrosiaHyperflux,
       'ambrosiaHyperflux'
+    ),
+    ambrosiaPixelLuck: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaPixelLuck,
+      'ambrosiaPixelLuck'
+    ),
+    ambrosiaPixelLuck2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaPixelLuck2,
+      'ambrosiaPixelLuck2'
+    ),
+    ambrosiaLuckDilator: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaLuckDilator,
+      'ambrosiaLuckDilator'
     )
   },
 
@@ -1485,15 +1533,54 @@ export const player: Player = {
 
   ultimateProgress: 0,
   ultimatePixels: 0,
+  lifetimeUltimatePixels: 0,
+
+  pixelUpgrades: {
+    pixelTutorial: new PixelUpgrade(pixelData.pixelTutorial, 'pixelTutorial'),
+    pixelPixelLuck: new PixelUpgrade(pixelData.pixelPixelLuck, 'pixelPixelLuck'),
+    pixelPixelLuckConverter: new PixelUpgrade(pixelData.pixelPixelLuckConverter, 'pixelPixelLuckConverter'),
+    pixelPixelLuckConverter2: new PixelUpgrade(pixelData.pixelPixelLuckConverter2, 'pixelPixelLuckConverter2'),
+    pixelPixelGeneration: new PixelUpgrade(pixelData.pixelPixelGeneration, 'pixelPixelGeneration'),
+    pixelPixelGeneration2: new PixelUpgrade(pixelData.pixelPixelGeneration2, 'pixelPixelGeneration2'),
+    pixelPixelGeneration3: new PixelUpgrade(pixelData.pixelPixelGeneration3, 'pixelPixelGeneration3'),
+    pixelAmbrosiaGeneration: new PixelUpgrade(pixelData.pixelAmbrosiaGeneration, 'pixelAmbrosiaGeneration'),
+    pixelAmbrosiaGeneration2: new PixelUpgrade(pixelData.pixelAmbrosiaGeneration2, 'pixelAmbrosiaGeneration2'),
+    pixelAmbrosiaGeneration3: new PixelUpgrade(pixelData.pixelAmbrosiaGeneration3, 'pixelAmbrosiaGeneration3'),
+    pixelAmbrosiaLuck: new PixelUpgrade(pixelData.pixelAmbrosiaLuck, 'pixelAmbrosiaLuck'),
+    pixelAmbrosiaLuck2: new PixelUpgrade(pixelData.pixelAmbrosiaLuck2, 'pixelAmbrosiaLuck2'),
+    pixelAmbrosiaLuck3: new PixelUpgrade(pixelData.pixelAmbrosiaLuck3, 'pixelAmbrosiaLuck3'),
+    pixelCubes: new PixelUpgrade(pixelData.pixelCubes, 'pixelCubes'),
+    pixelQuarks: new PixelUpgrade(pixelData.pixelQuarks, 'pixelQuarks'),
+    pixelObtainium: new PixelUpgrade(pixelData.pixelObtainium, 'pixelObtainium'),
+    pixelOfferings: new PixelUpgrade(pixelData.pixelOfferings, 'pixelOfferings'),
+    pixelBlueberry: new PixelUpgrade(pixelData.pixelBlueberry, 'pixelBlueberry'),
+    pixelBlueberry2: new PixelUpgrade(pixelData.pixelBlueberry2, 'pixelBlueberry2'),
+    pixelBlueberry3: new PixelUpgrade(pixelData.pixelBlueberry3, 'pixelBlueberry3'),
+    pixelRoleBonus: new PixelUpgrade(pixelData.pixelRoleBonus, 'pixelRoleBonus'),
+    pixelFreeUpgradeImprovement: new PixelUpgrade(pixelData.pixelFreeUpgradeImprovement, 'pixelFreeUpgradeImprovement'),
+    pixelFreeUpgradeImprovement2: new PixelUpgrade(
+      pixelData.pixelFreeUpgradeImprovement2,
+      'pixelFreeUpgradeImprovement2'
+    ),
+    pixelFreeUpgradeImprovement3: new PixelUpgrade(
+      pixelData.pixelFreeUpgradeImprovement3,
+      'pixelFreeUpgradeImprovement3'
+    )
+  },
 
   caches: {
     ambrosiaLuckAdditiveMult: new AmbrosiaLuckAdditiveMultCache(),
     ambrosiaLuck: new AmbrosiaLuckCache(),
     ambrosiaGeneration: new AmbrosiaGenerationCache(),
-    blueberryInventory: new BlueberryInventoryCache()
+    blueberryInventory: new BlueberryInventoryCache(),
+    ultimatePixelAdditiveMult: new UltimatePixelLuckAdditiveMultCache(),
+    ultimatePixelGeneration: new UltimatePixelGenerationCache(),
+    ultimatePixelLuck: new UltimatePixelLuckCache()
   },
 
-  lastExportedSave: 0
+  lastExportedSave: 0,
+
+  seed: Array.from({ length: 1 }, () => Date.now())
 }
 
 export const blankSave = Object.assign({}, player, {
@@ -1579,7 +1666,7 @@ const loadSynergy = async () => {
       })
     }
 
-    const validatedPlayer = playerSchema.safeParse(data)
+    const validatedPlayer = playerUpdateVarSchema.safeParse(data)
 
     if (validatedPlayer.success) {
       Object.assign(player, validatedPlayer.data)
@@ -1619,11 +1706,11 @@ const loadSynergy = async () => {
     // TODO(@KhafraDev): remove G.currentSingChallenge
     // fix current sing challenge blank
     if (player.insideSingularityChallenge) {
-      const challenges = Object.keys(player.singularityChallenges);
+      const challenges = Object.keys(player.singularityChallenges)
       for (let i = 0; i < challenges.length; i++) {
         if (player.singularityChallenges[challenges[i]].enabled) {
-          G.currentSingChallenge = singularityChallengeData[challenges[i]].HTMLTag;
-          break;
+          G.currentSingChallenge = singularityChallengeData[challenges[i]].HTMLTag
+          break
         }
       }
     }
@@ -2059,22 +2146,6 @@ const loadSynergy = async () => {
       player.dayCheck.getDate()
     )
 
-    const maxLevel = maxCorruptionLevel()
-    player.usedCorruptions = player.usedCorruptions.map(
-      (curr: number, index: number) => {
-        if (index >= 2 && index <= 9) {
-          return Math.min(
-            maxLevel
-              * (player.challengecompletions[corrChallengeMinimum(index)] > 0
-                ? 1
-                : 0),
-            curr
-          )
-        }
-        return curr
-      }
-    )
-
     for (let i = 1; i <= 5; i++) {
       const ascendBuildingI = `ascendBuilding${i as OneToFive}` as const
       player[ascendBuildingI].generated = new Decimal(
@@ -2238,12 +2309,17 @@ const loadSynergy = async () => {
     }
 
     corruptionStatsUpdate()
-    const corrs = Math.min(8, Object.keys(player.corruptionLoadouts).length) + 1
-    for (let i = 0; i < corrs; i++) {
-      corruptionLoadoutTableUpdate(i)
+    const numSavefiles = player.corruptions.saves.getSaves().length
+
+    corruptionLoadoutTableUpdate(true, 0)
+    for (let i = 0; i < numSavefiles; i++) {
+      corruptionLoadoutTableUpdate(false, i + 1)
     }
     showCorruptionStatsLoadouts()
     updateCorruptionLoadoutNames()
+
+    player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.used.getLoadout())
+    player.corruptions.next.setCorruptionLevelsWithChallengeRequirement(player.corruptions.next.getLoadout())
 
     DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t(
       'runes.thanksResearches',
@@ -3285,21 +3361,17 @@ export const updateAllTick = (): void => {
   a *= G.acceleratorMultiplier
   a = Math.pow(
     a,
-    Math.min(
-      1,
-      (1 + player.platonicUpgrades[6] / 30)
-        * G.viscosityPower[player.usedCorruptions[2]]
-    )
+    player.corruptions.used.corruptionEffects('viscosity')
   )
   a += 2000 * hepteractEffective('accelerator')
   a *= G.challenge15Rewards.accelerator
   a *= 1 + (3 / 10000) * hepteractEffective('accelerator')
   a = Math.floor(Math.min(1e100, a))
 
-  if (player.usedCorruptions[2] >= 15) {
+  if (player.corruptions.used.getLevel('viscosity') >= 15) {
     a = Math.pow(a, 0.2)
   }
-  if (player.usedCorruptions[2] >= 16) {
+  if (player.corruptions.used.getLevel('viscosity') >= 16) {
     a = 1
   }
 
@@ -3532,21 +3604,17 @@ export const updateAllMultiplier = (): void => {
   }
   a = Math.pow(
     a,
-    Math.min(
-      1,
-      (1 + player.platonicUpgrades[6] / 30)
-        * G.viscosityPower[player.usedCorruptions[2]]
-    )
+    player.corruptions.used.corruptionEffects('viscosity')
   )
   a += 1000 * hepteractEffective('multiplier')
   a *= G.challenge15Rewards.multiplier
   a *= 1 + (3 / 10000) * hepteractEffective('multiplier')
   a = Math.floor(Math.min(1e100, a))
 
-  if (player.usedCorruptions[2] >= 15) {
+  if (player.corruptions.used.getLevel('viscosity') >= 15) {
     a = Math.pow(a, 0.2)
   }
-  if (player.usedCorruptions[2] >= 16) {
+  if (player.corruptions.used.getLevel('viscosity') >= 16) {
     a = 1
   }
 
@@ -3728,7 +3796,7 @@ export const multipliers = (): void => {
       lol,
       1
         + ((1 / 20)
-            * player.usedCorruptions[9]
+            * player.corruptions.used.getLevel('recession')
             * Decimal.log(player.coins.add(1), 10))
           / (1e7 + Decimal.log(player.coins.add(1), 10))
     )
@@ -3743,7 +3811,7 @@ export const multipliers = (): void => {
   G.globalCoinMultiplier = lol
   G.globalCoinMultiplier = Decimal.pow(
     G.globalCoinMultiplier,
-    G.financialcollapsePower[player.usedCorruptions[9]]
+    player.corruptions.used.corruptionEffects('recession')
   )
 
   G.coinOneMulti = new Decimal(1)
@@ -4549,7 +4617,7 @@ export const updateAntMultipliers = (): void => {
   if (player.currentChallenge.ascension !== 15) {
     G.globalAntMult = Decimal.pow(
       G.globalAntMult,
-      1 - (0.9 / 90) * Math.min(99, sumContents(player.usedCorruptions))
+      1 - (0.9 / 90) * Math.min(99, player.corruptions.used.totalLevels)
     )
   } else {
     // C15 used to have 9 corruptions set to 11, which above would provide a power of 0.01. Now it's hardcoded this way.
@@ -4558,7 +4626,7 @@ export const updateAntMultipliers = (): void => {
 
   G.globalAntMult = Decimal.pow(
     G.globalAntMult,
-    G.extinctionMultiplier[player.usedCorruptions[7]]
+    player.corruptions.used.corruptionEffects('extinction')
   )
   G.globalAntMult = G.globalAntMult.times(G.challenge15Rewards.antSpeed)
   // V2.5.0: Moved ant shop upgrade as 'uncorruptable'
@@ -4584,13 +4652,13 @@ export const updateAntMultipliers = (): void => {
     G.globalAntMult = G.globalAntMult.times(4.44)
   }
 
-  if (player.usedCorruptions[7] >= 14) {
+  if (player.corruptions.used.getLevel('extinction') >= 14) {
     G.globalAntMult = Decimal.pow(G.globalAntMult, 0.02)
   }
-  if (player.usedCorruptions[7] >= 15) {
+  if (player.corruptions.used.getLevel('extinction') >= 15) {
     G.globalAntMult = Decimal.pow(G.globalAntMult, 0.02)
   }
-  if (player.usedCorruptions[7] >= 16) {
+  if (player.corruptions.used.getLevel('extinction') >= 16) {
     G.globalAntMult = Decimal.pow(G.globalAntMult, 0.02)
   }
 
@@ -4683,7 +4751,7 @@ export const resetCurrency = (): void => {
     prestigePow = 1e-4 / (1 + player.challengecompletions[10])
     transcendPow = 0.001
   }
-  prestigePow *= G.deflationMultiplier[player.usedCorruptions[6]]
+  prestigePow *= player.corruptions.used.corruptionEffects('deflation')
   // Prestige Point Formulae
   G.prestigePointGain = Decimal.floor(
     Decimal.pow(player.coinsThisPrestige.dividedBy(1e12), prestigePow)
@@ -4698,7 +4766,7 @@ export const resetCurrency = (): void => {
         Decimal.pow(10, 1e33),
         Decimal.pow(
           G.acceleratorEffect,
-          (1 / 3) * G.deflationMultiplier[player.usedCorruptions[6]]
+          (1 / 3) * player.corruptions.used.corruptionEffects('deflation')
         )
       )
     )
@@ -4973,7 +5041,7 @@ export const resetCheck = async (
       }
       if (
         (manual || leaving || player.shopUpgrades.challenge15Auto > 0)
-        && player.usedCorruptions.slice(2, 10).every((a) => a === 11)
+        && Object.values(player.corruptions.used.getLoadout()).every((a) => a === 11)
       ) {
         if (
           player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))
@@ -5797,7 +5865,7 @@ export const updateAll = (): void => {
   if (
     player.shopUpgrades.challenge15Auto > 0
     && player.currentChallenge.ascension === 15
-    && player.usedCorruptions.slice(2, 10).every((a) => a === 11)
+    && Object.values(player.corruptions.used.getLoadout()).every((a) => a === 11)
   ) {
     const c15SM = challenge15ScoreMultiplier()
     if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
@@ -5885,6 +5953,7 @@ const tack = (dt: number) => {
     addTimers('singularity', dt)
     addTimers('autoPotion', dt)
     addTimers('ambrosia', dt)
+    addTimers('pixel', dt)
 
     // Triggers automatic rune sacrifice (adds milliseconds to payload timer)
     if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle) {
@@ -6056,22 +6125,22 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       num = -1
     }
     if (player.challengecompletions[11] > 0 && !isNaN(num)) {
-      if (num >= 0 && num < player.corruptionLoadoutNames.length) {
+      if (num >= 0 && num < player.corruptions.saves.getSaves().length) {
         if (player.toggles[41]) {
           void Notification(
             i18next.t('main.corruptionLoadoutApplied', {
               x: num + 1,
-              y: player.corruptionLoadoutNames[num]
+              y: player.corruptions.saves.getSaves()[num].name
             }),
             5000
           )
         }
-        corruptionLoadoutSaveLoad(false, num + 1)
+        corruptionLoadLoadout(num)
       } else {
         if (player.toggles[41]) {
           void Notification(i18next.t('main.allCorruptionsZero'), 5000)
         }
-        corruptionLoadoutSaveLoad(false, 0)
+        player.corruptions.next.resetCorruptions()
       }
       event.preventDefault()
     }
@@ -6350,6 +6419,10 @@ window.addEventListener('load', async () => {
   corruptionLoadoutTableCreate()
 
   handleLogin().catch(console.error)
+
+  if (testing) {
+    setupTestingTab()
+  }
 })
 
 window.addEventListener('unload', () => {

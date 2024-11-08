@@ -282,7 +282,7 @@ export const antUpgradeDescription = (i: number) => {
     x: format(
       Decimal.pow(
         G.antUpgradeCostIncreases[i - 1],
-        player.antUpgrades[i - 1]! * G.extinctionMultiplier[player.usedCorruptions[10]]
+        player.antUpgrades[i - 1]! * player.corruptions.used.corruptionEffects('extinction')
       ).times(G.antUpgradeBaseCost[i - 1])
     )
   })

@@ -293,6 +293,7 @@ export const Globals: GlobalVariables = {
 
   runescreen: 'runes',
   settingscreen: 'settings',
+  achievementScreen: 1,
 
   talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24],
   talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
@@ -367,7 +368,7 @@ export const Globals: GlobalVariables = {
   researchOrderByCost: [],
 
   viscosityPower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05, 0, 0, 0],
-  lazinessMultiplier: [
+  dilationMultiplier: [
     1,
     1 / 3,
     1 / 10,
@@ -386,7 +387,7 @@ export const Globals: GlobalVariables = {
     1 / 1e80,
     1 / 1e100
   ],
-  hyperchallengedMultiplier: [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100, 400, 1600, 7777, 18888, 88888],
+  hyperchallengeMultiplier: [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100, 400, 1600, 7777, 18888, 88888],
   illiteracyPower: [1, 0.8, 0.7, 0.6, 0.5, 0.3, 0.2, 0.15, 0.10, 0.06, 0.04, 0.02, 0.01, 0.005, 0, 0, 0],
   deflationMultiplier: [
     1,
@@ -409,7 +410,7 @@ export const Globals: GlobalVariables = {
   ],
   extinctionMultiplier: [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.1, 0, 0, 0, 0],
   droughtMultiplier: [1, 5, 25, 200, 1e4, 1e7, 1e11, 1e16, 1e22, 1e30, 1e40, 1e55, 1e80, 1e120, 1e177, 1e200, 1e250],
-  financialcollapsePower: [
+  recessionPower: [
     1,
     0.9,
     0.7,
@@ -449,7 +450,7 @@ export const Globals: GlobalVariables = {
   autoTalismanTimer: 0,
 
   autoChallengeTimerIncrement: 0,
-  corruptionTrigger: 1,
+  corruptionTrigger: 'illiteracy',
 
   challenge15Rewards: {
     cube1: 1,
@@ -505,6 +506,7 @@ export const Globals: GlobalVariables = {
   eventClicked: false,
 
   ambrosiaTimer: 0,
+  pixelTimer: 0,
   TIME_PER_AMBROSIA: 600,
 
   ambrosiaCurrStats: {
@@ -512,6 +514,12 @@ export const Globals: GlobalVariables = {
     ambrosiaLuck: 100,
     ambrosiaBlueberries: 0,
     ambrosiaGenerationSpeed: 1
+  },
+
+  pixelCurrStats: {
+    pixelAdditiveLuckMult: 1,
+    pixelLuck: 100,
+    pixelGenerationSpeed: 1
   },
 
   currentSingChallenge: undefined

@@ -16,9 +16,15 @@
 
     <link rel="stylesheet" href="Synergism.css">
     <title>Synergism</title>
+
     <script src="./dist/out.js" defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="bodycolor loading">
+    <div id="captchaHolder">
+      <div class="cf-turnstile" data-site-key="0x4AAAAAAAzaJ55G9OiCeFUV"></div>
+    </div>
+
     <div id="transparentBG" style="display: block;"></div>
     <div id="notification">
         <div id="notifx">
@@ -105,6 +111,14 @@
             <div class="offlineStat" id="offlineQuarkCountDiv">
                 <img src="Pictures/Default/BackedQuark.png" class="offlineStatIcon">
                 <span id="offlineQuarkCount" class="offlineStatElement" i18n="offlineProgress.exportQuarks"></span>
+            </div>
+            <div class="offlineStat" id="offlineAmbrosiaCountDiv">
+                <img src="Pictures/Default/Ambrosia.png" class="offlineStatIcon">
+                <span id="offlineAmbrosiaCount" class="offlineStatElement" i18n="offlineProgress.lifetimeAmbrosia"></span>
+            </div>
+            <div class="offlineStat" id="offlinePixelCountDiv">
+                <img src="Pictures/Default/UltimatePixel.png" class="offlineStatIcon">
+                <span id="offlinePixelCount" class="offlineStatElement" i18n="offlineProgress.pixels"></span>
             </div>
         </div>
 
@@ -873,9 +887,13 @@
             <img class="achNotification" id="achnotificationpic" alt="Notification" src="Pictures/Default/Notifications.png" title="Notifications" loading="lazy">
             <button class="auto nonSquare" id="toggle34" toggleid="34" format="[$]" style="border: 2px solid green">[ON]</button>
         </div>
+        <div id="achievementSubTabButtons">
+            <button id="toggleAchievementSubTab1">Page 1</button>
+            <button id="toggleAchievementSubTab2">Page 2</button>
+        </div>
         <div id="achievements">
-            <div class="achievementstables scrollbarX">
-            <table id="achievementstable" style="padding: 0; font-size:0;">
+            <div id="achievementContainer1">
+            <table id="achievementstable1" style="padding: 0; font-size:0;">
                 <tr>
                     <td><img src="Pictures/Default/ach1.png" id="ach1" alt="ach1" loading="lazy"></td>
                     <td><img src="Pictures/Default/ach2.png" id="ach8" alt="ach8" loading="lazy"></td>
@@ -903,20 +921,6 @@
                     <td><img class="reincarnationunlock redach" src="Pictures/Default/ach295.png" id="ach141" alt="ach141" loading="lazy"></td>
                     <td><img class="chal8 purpleach" src="Pictures/Default/ach302.png" id="ach169" alt="ach169" loading="lazy"></td>
                     <td><img class="chal8 redach" src="Pictures/Default/ach309.png" id="ach176" alt="ach176" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach316.png" id="ach183" alt="ach183" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach323.png" id="ach190" alt="ach190" loading="lazy"></td>
-                    <td><img class="ascendunlock redach" src="Pictures/Default/ach330.png" id="ach197" alt="ach197" loading="lazy"></td>
-                    <td><img class="chal11 redach" src="Pictures/Default/ach337.png" id="ach204" alt="ach204" loading="lazy"></td>
-                    <td><img class="chal12 redach" src="Pictures/Default/ach344.png" id="ach211" alt="ach211" loading="lazy"></td>
-                    <td><img class="chal13 redach" src="Pictures/Default/ach351.png" id="ach218" alt="ach218" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach358.png" id="ach225" alt="ach225" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach365.png" id="ach232" alt="ach232" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach372.png" id="ach239" alt="ach239" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach379.png" id="ach246" alt="ach246" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach386.png" id="ach253" alt="ach253" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach393.png" id="ach260" alt="ach260" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach400.png" id="ach267" alt="ach267" loading="lazy"></td>
-                    <td><img class="singularity" src="Pictures/Default/ach407.png" id="ach274" alt="ach274" loading="lazy"></td>
                 </tr>
                 <tr>
                     <td><img src="Pictures/Default/ach42.png" id="ach2" alt="ach2" loading="lazy"></td>
@@ -945,20 +949,6 @@
                     <td><img style="display: none;" class="reincarnationunlock" src="Pictures/Default/ach296.png" id="ach142" alt="ach142" loading="lazy"></td>
                     <td><img style="display: none;" class="chal8" src="Pictures/Default/ach303.png" id="ach170" alt="ach170" loading="lazy"></td>
                     <td><img class="chal8 redach" src="Pictures/Default/ach310.png" id="ach177" alt="ach177" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach317.png" id="ach184" alt="ach184" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach324.png" id="ach191" alt="ach191" loading="lazy"></td>
-                    <td><img class="ascendunlock purpleach" src="Pictures/Default/ach331.png" id="ach198" alt="ach198" loading="lazy"></td>
-                    <td><img class="chal11 purpleach" src="Pictures/Default/ach338.png" id="ach205" alt="ach205" loading="lazy"></td>
-                    <td><img class="chal12 purpleach" src="Pictures/Default/ach345.png" id="ach212" alt="ach212" loading="lazy"></td>
-                    <td><img class="chal13 purpleach" src="Pictures/Default/ach352.png" id="ach219" alt="ach219" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach359.png" id="ach226" alt="ach226" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach366.png" id="ach233" alt="ach233" loading="lazy"></td>
-                    <td><img class="ascendunlock purpleach" src="Pictures/Default/ach373.png" id="ach240" alt="ach240" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach380.png" id="ach247" alt="ach247" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach387.png" id="ach254" alt="ach254" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach394.png" id="ach261" alt="ach261" loading="lazy"></td>
-                    <td><img class="chal14" src="Pictures/Default/ach401.png" id="ach268" alt="ach268" loading="lazy"></td>
-                    <td><img class="singularity" src="Pictures/Default/ach408.png" id="ach275" alt="ach275" loading="lazy"></td>
                 </tr>
                 <tr>
                     <td><img src="Pictures/Default/ach83.png" id="ach3" alt="ach3" class="purpleach" loading="lazy"></td>
@@ -987,20 +977,6 @@
                     <td><img style="display: none;" class="reincarnationunlock" src="Pictures/Default/ach297.png" id="ach143" alt="ach143" loading="lazy"></td>
                     <td><img class="chal8 purpleach" src="Pictures/Default/ach304.png" id="ach171" alt="ach171" loading="lazy"></td>
                     <td><img class="chal8 redach" src="Pictures/Default/ach311.png" id="ach178" alt="ach178" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach318.png" id="ach185" alt="ach185" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach325.png" id="ach192" alt="ach192" loading="lazy"></td>
-                    <td><img class="ascendunlock purpleach" src="Pictures/Default/ach332.png" id="ach199" alt="ach199" loading="lazy"></td>
-                    <td><img class="chal11 purpleach" src="Pictures/Default/ach339.png" id="ach206" alt="ach206" loading="lazy"></td>
-                    <td><img class="chal12 purpleach" src="Pictures/Default/ach346.png" id="ach213" alt="ach213" loading="lazy"></td>
-                    <td><img class="chal13 purpleach" src="Pictures/Default/ach353.png" id="ach220" alt="ach220" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach360.png" id="ach227" alt="ach227" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach367.png" id="ach234" alt="ach234" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach374.png" id="ach241" alt="ach241" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach381.png" id="ach248" alt="ach248" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach388.png" id="ach255" alt="ach255" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach395.png" id="ach262" alt="ach262" loading="lazy"></td>
-                    <td><img class="chal14" src="Pictures/Default/ach402.png" id="ach269" alt="ach269" loading="lazy"></td>
-                    <td><img class="singularity" src="Pictures/Default/ach409.png" id="ach276" alt="ach276" loading="lazy"></td>
                 </tr>
                 <tr>
                     <td><img src="Pictures/Default/ach124.png" id="ach4" alt="ach4" class="redach" loading="lazy"></td>
@@ -1029,20 +1005,6 @@
                     <td><img style="display: none;" class="reincarnationunlock" src="Pictures/Default/ach298.png" id="ach144" alt="ach144" loading="lazy"></td>
                     <td><img class="chal8 purpleach" src="Pictures/Default/ach305.png" id="ach172" alt="ach172" loading="lazy"></td>
                     <td><img class="chal8 redach" src="Pictures/Default/ach312.png" id="ach179" alt="ach179" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach319.png" id="ach186" alt="ach186" loading="lazy"></td>
-                    <td><img class="ascendunlock purpleach" src="Pictures/Default/ach326.png" id="ach193" alt="ach193" loading="lazy"></td>
-                    <td><img class="ascendunlock purpleach" src="Pictures/Default/ach333.png" id="ach200" alt="ach200" loading="lazy"></td>
-                    <td><img class="chal11 purpleach" src="Pictures/Default/ach340.png" id="ach207" alt="ach207" loading="lazy"></td>
-                    <td><img class="chal12 purpleach" src="Pictures/Default/ach347.png" id="ach214" alt="ach214" loading="lazy"></td>
-                    <td><img class="chal13 purpleach" src="Pictures/Default/ach354.png" id="ach221" alt="ach221" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach361.png" id="ach228" alt="ach228" loading="lazy"></td>
-                    <td><img class="chal12" src="Pictures/Default/ach368.png" id="ach235" alt="ach235" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach375.png" id="ach242" alt="ach242" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach382.png" id="ach249" alt="ach249" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach389.png" id="ach256" alt="ach256" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach396.png" id="ach263" alt="ach263" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach403.png" id="ach270" alt="ach270" loading="lazy"></td>
-                    <td><img class="singularity" src="Pictures/Default/ach410.png" id="ach277" alt="ach277" loading="lazy"></td>
                 </tr>
                 <tr>
                     <td><img class="purpleach" src="Pictures/Default/ach165.png" id="ach5" alt="ach5" loading="lazy"></td>
@@ -1071,20 +1033,6 @@
                     <td><img style="display: none;" class="reincarnationunlock" src="Pictures/Default/ach299.png" id="ach145" alt="ach145" loading="lazy"></td>
                     <td><img class="chal8 redach" src="Pictures/Default/ach306.png" id="ach173" alt="ach173" loading="lazy"></td>
                     <td><img class="chal8 redach" src="Pictures/Default/ach313.png" id="ach180" alt="ach180" loading="lazy"></td>
-                    <td><img class="ascendunlock purpleach" src="Pictures/Default/ach320.png" id="ach187" alt="ach187" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach327.png" id="ach194" alt="ach194" loading="lazy"></td>
-                    <td><img class="ascendunlock purpleach" src="Pictures/Default/ach334.png" id="ach201" alt="ach201" loading="lazy"></td>
-                    <td><img class="chal11 purpleach" src="Pictures/Default/ach341.png" id="ach208" alt="ach208" loading="lazy"></td>
-                    <td><img class="chal12 purpleach" src="Pictures/Default/ach348.png" id="ach215" alt="ach215" loading="lazy"></td>
-                    <td><img class="chal13 purpleach" src="Pictures/Default/ach355.png" id="ach222" alt="ach222" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach362.png" id="ach229" alt="ach229" loading="lazy"></td>
-                    <td><img class="chal12" src="Pictures/Default/ach369.png" id="ach236" alt="ach236" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach376.png" id="ach243" alt="ach243" loading="lazy"></td>
-                    <td><img class="ascendunlock purpleach" src="Pictures/Default/ach383.png" id="ach250" alt="ach250" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach390.png" id="ach257" alt="ach257" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach397.png" id="ach264" alt="ach264" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach404.png" id="ach271" alt="ach271" loading="lazy"></td>
-                    <td><img class="singularity" src="Pictures/Default/ach411.png" id="ach278" alt="ach278" loading="lazy"></td>
                 </tr>
                 <tr>
                     <td><img src="Pictures/Default/ach206.png" id="ach6" alt="ach6" class="purpleach" loading="lazy"></td>
@@ -1113,20 +1061,6 @@
                     <td><img style="display: none;" class="reincarnationunlock" src="Pictures/Default/ach300.png" id="ach146" alt="ach146" loading="lazy"></td>
                     <td><img style="display: none;" class="chal8 purpleach" src="Pictures/Default/ach307.png" id="ach174" alt="ach174" loading="lazy"></td>
                     <td><img class="chal8 redach" src="Pictures/Default/ach314.png" id="ach181" alt="ach181" loading="lazy"></td>
-                    <td><img class="ascendunlock purpleach" src="Pictures/Default/ach321.png" id="ach188" alt="ach188" loading="lazy"></td>
-                    <td><img class="ascendunlock purpleach" src="Pictures/Default/ach328.png" id="ach195" alt="ach195" loading="lazy"></td>
-                    <td><img class="ascendunlock redach" src="Pictures/Default/ach335.png" id="ach202" alt="ach202" loading="lazy"></td>
-                    <td><img class="chal11 redach" src="Pictures/Default/ach342.png" id="ach209" alt="ach209" loading="lazy"></td>
-                    <td><img class="chal12 redach" src="Pictures/Default/ach349.png" id="ach216" alt="ach216" loading="lazy"></td>
-                    <td><img class="chal13 redach" src="Pictures/Default/ach356.png" id="ach223" alt="ach223" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach363.png" id="ach230" alt="ach230" loading="lazy"></td>
-                    <td><img class="chal12" src="Pictures/Default/ach370.png" id="ach237" alt="ach237" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach377.png" id="ach244" alt="ach244" loading="lazy"></td>
-                    <td><img class="ascendunlock purpleach" src="Pictures/Default/ach384.png" id="ach251" alt="ach251" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach391.png" id="ach258" alt="ach258" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach398.png" id="ach265" alt="ach265" loading="lazy"></td>
-                    <td><img class="chal14" src="Pictures/Default/ach405.png" id="ach272" alt="ach272" loading="lazy"></td>
-                    <td><img class="singularity" src="Pictures/Default/ach412.png" id="ach279" alt="ach279" loading="lazy"></td>
                 </tr>
                 <tr>
                     <td><img src="Pictures/Default/ach247.png" id="ach7" alt="ach7" class="purpleach" loading="lazy"></td>
@@ -1155,23 +1089,139 @@
                     <td><img style="display: none;" class="reincarnationunlock redach" src="Pictures/Default/ach301.png" id="ach147" alt="ach147" loading="lazy"></td>
                     <td><img style="display: none;" class="chal8" src="Pictures/Default/ach308.png" id="ach175" alt="ach175" loading="lazy"></td>
                     <td><img class="chal8 redach" src="Pictures/Default/ach315.png" id="ach182" alt="ach182" loading="lazy"></td>
-                    <td><img class="ascendunlock redach" src="Pictures/Default/ach322.png" id="ach189" alt="ach189" loading="lazy"></td>
-                    <td><img class="ascendunlock purpleach" src="Pictures/Default/ach329.png" id="ach196" alt="ach196" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach336.png" id="ach203" alt="ach203" loading="lazy"></td>
-                    <td><img class="chal11" src="Pictures/Default/ach343.png" id="ach210" alt="ach210" loading="lazy"></td>
-                    <td><img class="chal12" src="Pictures/Default/ach350.png" id="ach217" alt="ach217" loading="lazy"></td>
-                    <td><img class="chal13" src="Pictures/Default/ach357.png" id="ach224" alt="ach224" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach364.png" id="ach231" alt="ach231" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach371.png" id="ach238" alt="ach238" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach378.png" id="ach245" alt="ach245" loading="lazy"></td>
-                    <td><img class="ascendunlock" src="Pictures/Default/ach385.png" id="ach252" alt="ach252" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach392.png" id="ach259" alt="ach259" loading="lazy"></td>
-                    <td><img class="chal14 purpleach" src="Pictures/Default/ach399.png" id="ach266" alt="ach266" loading="lazy"></td>
-                    <td><img class="chal14" src="Pictures/Default/ach406.png" id="ach273" alt="ach273" loading="lazy"></td>
-                    <td><img class="singularity" src="Pictures/Default/ach413.png" id="ach280" alt="ach280" loading="lazy"></td>
                 </tr>
                 </table>
             </div>
+            <div id="achievementContainer2">
+                <table id="achievementsTable2" style="padding: 0; font-size: 0">
+                    <tr>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach316.png" id="ach183" alt="ach183" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach323.png" id="ach190" alt="ach190" loading="lazy"></td>
+                        <td><img class="ascendunlock redach" src="Pictures/Default/ach330.png" id="ach197" alt="ach197" loading="lazy"></td>
+                        <td><img class="chal11 redach" src="Pictures/Default/ach337.png" id="ach204" alt="ach204" loading="lazy"></td>
+                        <td><img class="chal12 redach" src="Pictures/Default/ach344.png" id="ach211" alt="ach211" loading="lazy"></td>
+                        <td><img class="chal13 redach" src="Pictures/Default/ach351.png" id="ach218" alt="ach218" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach358.png" id="ach225" alt="ach225" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach365.png" id="ach232" alt="ach232" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach372.png" id="ach239" alt="ach239" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach379.png" id="ach246" alt="ach246" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach386.png" id="ach253" alt="ach253" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach393.png" id="ach260" alt="ach260" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach400.png" id="ach267" alt="ach267" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach407.png" id="ach274" alt="ach274" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach414.png" id="ach281" alt="ach281" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach421.png" id="ach288" alt="ach288" loading="lazy"></td>
+                    </tr>
+                    <tr>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach317.png" id="ach184" alt="ach184" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach324.png" id="ach191" alt="ach191" loading="lazy"></td>
+                        <td><img class="ascendunlock purpleach" src="Pictures/Default/ach331.png" id="ach198" alt="ach198" loading="lazy"></td>
+                        <td><img class="chal11 purpleach" src="Pictures/Default/ach338.png" id="ach205" alt="ach205" loading="lazy"></td>
+                        <td><img class="chal12 purpleach" src="Pictures/Default/ach345.png" id="ach212" alt="ach212" loading="lazy"></td>
+                        <td><img class="chal13 purpleach" src="Pictures/Default/ach352.png" id="ach219" alt="ach219" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach359.png" id="ach226" alt="ach226" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach366.png" id="ach233" alt="ach233" loading="lazy"></td>
+                        <td><img class="ascendunlock purpleach" src="Pictures/Default/ach373.png" id="ach240" alt="ach240" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach380.png" id="ach247" alt="ach247" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach387.png" id="ach254" alt="ach254" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach394.png" id="ach261" alt="ach261" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Default/ach401.png" id="ach268" alt="ach268" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach408.png" id="ach275" alt="ach275" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach415.png" id="ach282" alt="ach282" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach422.png" id="ach289" alt="ach289" loading="lazy"></td>
+                    </tr>
+                    <tr>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach318.png" id="ach185" alt="ach185" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach325.png" id="ach192" alt="ach192" loading="lazy"></td>
+                        <td><img class="ascendunlock purpleach" src="Pictures/Default/ach332.png" id="ach199" alt="ach199" loading="lazy"></td>
+                        <td><img class="chal11 purpleach" src="Pictures/Default/ach339.png" id="ach206" alt="ach206" loading="lazy"></td>
+                        <td><img class="chal12 purpleach" src="Pictures/Default/ach346.png" id="ach213" alt="ach213" loading="lazy"></td>
+                        <td><img class="chal13 purpleach" src="Pictures/Default/ach353.png" id="ach220" alt="ach220" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach360.png" id="ach227" alt="ach227" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach367.png" id="ach234" alt="ach234" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach374.png" id="ach241" alt="ach241" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach381.png" id="ach248" alt="ach248" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach388.png" id="ach255" alt="ach255" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach395.png" id="ach262" alt="ach262" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Default/ach402.png" id="ach269" alt="ach269" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach409.png" id="ach276" alt="ach276" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach416.png" id="ach283" alt="ach283" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach423.png" id="ach290" alt="ach290" loading="lazy"></td>
+                    </tr>
+                    <tr>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach319.png" id="ach186" alt="ach186" loading="lazy"></td>
+                        <td><img class="ascendunlock purpleach" src="Pictures/Default/ach326.png" id="ach193" alt="ach193" loading="lazy"></td>
+                        <td><img class="ascendunlock purpleach" src="Pictures/Default/ach333.png" id="ach200" alt="ach200" loading="lazy"></td>
+                        <td><img class="chal11 purpleach" src="Pictures/Default/ach340.png" id="ach207" alt="ach207" loading="lazy"></td>
+                        <td><img class="chal12 purpleach" src="Pictures/Default/ach347.png" id="ach214" alt="ach214" loading="lazy"></td>
+                        <td><img class="chal13 purpleach" src="Pictures/Default/ach354.png" id="ach221" alt="ach221" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach361.png" id="ach228" alt="ach228" loading="lazy"></td>
+                        <td><img class="chal12" src="Pictures/Default/ach368.png" id="ach235" alt="ach235" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach375.png" id="ach242" alt="ach242" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach382.png" id="ach249" alt="ach249" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach389.png" id="ach256" alt="ach256" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach396.png" id="ach263" alt="ach263" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach403.png" id="ach270" alt="ach270" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach410.png" id="ach277" alt="ach277" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach417.png" id="ach284" alt="ach284" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach424.png" id="ach291" alt="ach291" loading="lazy"></td>
+                    </tr>
+                    <tr>
+                        <td><img class="ascendunlock purpleach" src="Pictures/Default/ach320.png" id="ach187" alt="ach187" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach327.png" id="ach194" alt="ach194" loading="lazy"></td>
+                        <td><img class="ascendunlock purpleach" src="Pictures/Default/ach334.png" id="ach201" alt="ach201" loading="lazy"></td>
+                        <td><img class="chal11 purpleach" src="Pictures/Default/ach341.png" id="ach208" alt="ach208" loading="lazy"></td>
+                        <td><img class="chal12 purpleach" src="Pictures/Default/ach348.png" id="ach215" alt="ach215" loading="lazy"></td>
+                        <td><img class="chal13 purpleach" src="Pictures/Default/ach355.png" id="ach222" alt="ach222" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach362.png" id="ach229" alt="ach229" loading="lazy"></td>
+                        <td><img class="chal12" src="Pictures/Default/ach369.png" id="ach236" alt="ach236" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach376.png" id="ach243" alt="ach243" loading="lazy"></td>
+                        <td><img class="ascendunlock purpleach" src="Pictures/Default/ach383.png" id="ach250" alt="ach250" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach390.png" id="ach257" alt="ach257" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach397.png" id="ach264" alt="ach264" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach404.png" id="ach271" alt="ach271" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach411.png" id="ach278" alt="ach278" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach418.png" id="ach285" alt="ach285" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach425.png" id="ach292" alt="ach292" loading="lazy"></td>
+                    </tr>
+                    <tr>
+                        <td><img class="ascendunlock purpleach" src="Pictures/Default/ach321.png" id="ach188" alt="ach188" loading="lazy"></td>
+                        <td><img class="ascendunlock purpleach" src="Pictures/Default/ach328.png" id="ach195" alt="ach195" loading="lazy"></td>
+                        <td><img class="ascendunlock redach" src="Pictures/Default/ach335.png" id="ach202" alt="ach202" loading="lazy"></td>
+                        <td><img class="chal11 redach" src="Pictures/Default/ach342.png" id="ach209" alt="ach209" loading="lazy"></td>
+                        <td><img class="chal12 redach" src="Pictures/Default/ach349.png" id="ach216" alt="ach216" loading="lazy"></td>
+                        <td><img class="chal13 redach" src="Pictures/Default/ach356.png" id="ach223" alt="ach223" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach363.png" id="ach230" alt="ach230" loading="lazy"></td>
+                        <td><img class="chal12" src="Pictures/Default/ach370.png" id="ach237" alt="ach237" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach377.png" id="ach244" alt="ach244" loading="lazy"></td>
+                        <td><img class="ascendunlock purpleach" src="Pictures/Default/ach384.png" id="ach251" alt="ach251" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach391.png" id="ach258" alt="ach258" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach398.png" id="ach265" alt="ach265" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Default/ach405.png" id="ach272" alt="ach272" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach412.png" id="ach279" alt="ach279" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach419.png" id="ach286" alt="ach286" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach426.png" id="ach293" alt="ach293" loading="lazy"></td>
+                    </tr>
+                    <tr>
+                        <td><img class="ascendunlock redach" src="Pictures/Default/ach322.png" id="ach189" alt="ach189" loading="lazy"></td>
+                        <td><img class="ascendunlock purpleach" src="Pictures/Default/ach329.png" id="ach196" alt="ach196" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach336.png" id="ach203" alt="ach203" loading="lazy"></td>
+                        <td><img class="chal11" src="Pictures/Default/ach343.png" id="ach210" alt="ach210" loading="lazy"></td>
+                        <td><img class="chal12" src="Pictures/Default/ach350.png" id="ach217" alt="ach217" loading="lazy"></td>
+                        <td><img class="chal13" src="Pictures/Default/ach357.png" id="ach224" alt="ach224" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach364.png" id="ach231" alt="ach231" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach371.png" id="ach238" alt="ach238" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach378.png" id="ach245" alt="ach245" loading="lazy"></td>
+                        <td><img class="ascendunlock" src="Pictures/Default/ach385.png" id="ach252" alt="ach252" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach392.png" id="ach259" alt="ach259" loading="lazy"></td>
+                        <td><img class="chal14 purpleach" src="Pictures/Default/ach399.png" id="ach266" alt="ach266" loading="lazy"></td>
+                        <td><img class="chal14" src="Pictures/Default/ach406.png" id="ach273" alt="ach273" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach413.png" id="ach280" alt="ach280" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach420.png" id="ach287" alt="ach287" loading="lazy"></td>
+                        <td><img class="singularity" src="Pictures/Default/ach427.png" id="ach294" alt="ach294" loading="lazy"></td>
+                    </tr>
+                </table>
+            </div>      
         </div>
         <div id="achievementinfo">
             <p class="mainText" id="achievementtutorial" i18n="achievements.hover"></p>
@@ -2790,16 +2840,10 @@
             </span>
             <div id="corruptionStats" class="corruptionContainer">
                 <span class="corruptionStatRow chal11Corruption">
-                    <img src="Pictures/Default/CorruptViscocity.png" class="corruptionImg" title="Viscocity" loading="lazy">
+                    <img src="Pictures/Default/CorruptViscosity.png" class="corruptionImg" title="Viscocity" loading="lazy">
                 </span>
-                <span class="corruptionStatRow chal14Corruption">
-                    <img src="Pictures/Default/CorruptSpatialDilation.png" class="corruptionImg" title="Spatial Dilation" loading="lazy">
-                </span>
-                <span class="corruptionStatRow chal14Corruption">
-                    <img src="Pictures/Default/CorruptHyperchallenged.png" class="corruptionImg" title="Hyperchallenged" loading="lazy">
-                </span>
-                <span class="corruptionStatRow chal13Corruption">
-                    <img src="Pictures/Default/CorruptScientificIlliteracy.png" class="corruptionImg" title="Scientific Illiteracy" loading="lazy">
+                <span class="corruptionStatRow chal11Corruption">
+                    <img src="Pictures/Default/CorruptDrought.png" class="corruptionImg" title="Drought" loading="lazy">
                 </span>
                 <span class="corruptionStatRow chal12Corruption">
                     <img src="Pictures/Default/CorruptDeflation.png" class="corruptionImg" title="Deflation" loading="lazy">
@@ -2807,11 +2851,17 @@
                 <span class="corruptionStatRow chal12Corruption">
                     <img src="Pictures/Default/CorruptExtinction.png" class="corruptionImg" title="Extinction" loading="lazy">
                 </span>
-                <span class="corruptionStatRow chal11Corruption">
-                    <img src="Pictures/Default/CorruptDrought.png" class="corruptionImg" title="Drought" loading="lazy">
+                <span class="corruptionStatRow chal13Corruption">
+                    <img src="Pictures/Default/CorruptIlliteracy.png" class="corruptionImg" title="Scientific Illiteracy" loading="lazy">
                 </span>
                 <span class="corruptionStatRow chal13Corruption">
-                    <img src="Pictures/Default/CorruptFinancialCollapse.png" class="corruptionImg" title="Financial Collapse" loading="lazy">
+                    <img src="Pictures/Default/CorruptRecession.png" class="corruptionImg" title="Financial Collapse" loading="lazy">
+                </span>
+                <span class="corruptionStatRow chal14Corruption">
+                    <img src="Pictures/Default/CorruptDilation.png" class="corruptionImg" title="Spatial Dilation" loading="lazy">
+                </span>
+                <span class="corruptionStatRow chal14Corruption">
+                    <img src="Pictures/Default/CorruptHyperchallenge.png" class="corruptionImg" title="Hyperchallenged" loading="lazy">
                 </span>
                 <!-- TODO: <script>corruptionButtonsAdd()</script> -->
             </div>
@@ -2820,16 +2870,10 @@
                     <tr>
                         <th class="corrLoadoutNameCol"></th>
                         <th>
-                            <img src="Pictures/Default/CorruptViscocity.png" class="corruptionImg small" title="Viscocity" loading="lazy">
+                            <img src="Pictures/Default/CorruptViscosity.png" class="corruptionImg small" title="Viscocity" loading="lazy">
                         </th>
                         <th>
-                            <img src="Pictures/Default/CorruptSpatialDilation.png" class="corruptionImg small" title="Spatial Dilation" loading="lazy">
-                        </th>
-                        <th>
-                            <img src="Pictures/Default/CorruptHyperchallenged.png" class="corruptionImg small" title="Hyperchallenged" loading="lazy">
-                        </th>
-                        <th>
-                            <img src="Pictures/Default/CorruptScientificIlliteracy.png" class="corruptionImg small" title="Scientific Illiteracy" loading="lazy">
+                            <img src="Pictures/Default/CorruptDrought.png" class="corruptionImg small" title="Drought" loading="lazy">
                         </th>
                         <th>
                             <img src="Pictures/Default/CorruptDeflation.png" class="corruptionImg small" title="Deflation" loading="lazy">
@@ -2838,10 +2882,16 @@
                             <img src="Pictures/Default/CorruptExtinction.png" class="corruptionImg small" title="Extinction" loading="lazy">
                         </th>
                         <th>
-                            <img src="Pictures/Default/CorruptDrought.png" class="corruptionImg small" title="Drought" loading="lazy">
+                            <img src="Pictures/Default/CorruptIlliteracy.png" class="corruptionImg small" title="Scientific Illiteracy" loading="lazy">
                         </th>
                         <th>
-                            <img src="Pictures/Default/CorruptFinancialCollapse.png" class="corruptionImg small" title="Financial Collapse" loading="lazy">
+                            <img src="Pictures/Default/CorruptRecession.png" class="corruptionImg small" title="Financial Collapse" loading="lazy">
+                        </th>
+                        <th>
+                            <img src="Pictures/Default/CorruptDilation.png" class="corruptionImg small" title="Spatial Dilation" loading="lazy">
+                        </th>
+                        <th>
+                            <img src="Pictures/Default/CorruptHyperchallenge.png" class="corruptionImg small" title="Hyperchallenged" loading="lazy">
                         </th>
                     </tr>
                 </table>
@@ -3068,6 +3118,8 @@
                 <button class="statsNerds singularity" id="kOctMult" style="border: 2px solid blue">Octeract Multipliers</button>
                 <button class="statsNerds octeracts" id="kAmbrosiaLuck" style="border: 2px solid lime">Ambrosia Luck</button>
                 <button class="statsNerds octeracts" id="kAmbrosiaGenMult" style="border: 2px solid #ffbf00">Ambrosia Generation</button>
+                <button class="statsNerds octeracts" id="kPixelLuck" style="border: 2px solid orchid">Pixel Luck</button>
+                <button class="statsNerds octeracts" id="kPixelGenMult" style="border: 2px solid red">Pixel Generation</button>
 
             </div>
             <div id="miscStats" class="statContainer activeStats">
@@ -3155,8 +3207,10 @@
                 <p id="statOff31" class="statPortion singularity">Offering Electrolosis [OC]: <span id="sOff31" class="statNumber">0</span></p>
                 <p id="statOff32" class="statPortion singularity">RNG-Based Offering Multiplier: <span id="sOff32" class="statNumber">0</span></p>
                 <p id="statOff33" class="statPortion singularity">20 Ascensions X20 [EXALT ONLY]: <span id="sOff33" class="statNumber">0</span></p>
-                <p id="statOff34" class="statPortion singularity">Shop EX ULTIMATE: <span id="sOff34" class="statNumber">0</span></p>
-                <p id="statOff35" class="statPortion">Event: <span id="sOff35" class="statNumber">0</span></p>
+                <p id="statOff34" class="statPortion singularity">20 Ascensions X20 [EXALT ONLY]: <span id="sOff34" class="statNumber">0</span></p>
+                <p id="statOff35" class="statPortion singularity">20 Ascensions X20 [EXALT ONLY]: <span id="sOff35" class="statNumber">0</span></p>
+                <p id="statOff36" class="statPortion singularity">Shop EX ULTIMATE: <span id="sOff36" class="statNumber">0</span></p>
+                <p id="statOff37" class="statPortion">Event: <span id="sOff37" class="statNumber">0</span></p>
                 <p id="statOffT" class="statPortion statTotal" style="color: gold">TOTAL OFFERING MULTIPLIER: <span id="sOffT" class="statNumber statTotal">0</span></p>
             </div>
             <div id="obtainiumMultiplierStats" class="statContainer" style="display: none;">
@@ -3355,6 +3409,9 @@
                 <p id="statGCM32" class="statPortion singularity">-<span id="sGCM32" class="statNumber">-</span></p>
                 <p id="statGCM33" class="statPortion singularity">-<span id="sGCM33" class="statNumber">-</span></p>
                 <p id="statGCM34" class="statPortion singularity">-<span id="sGCM34" class="statNumber">-</span></p>
+                <p id="statGCM35" class="statPortion singularity">-<span id="sGCM35" class="statNumber">-</span></p>
+                <p id="statGCM36" class="statPortion singularity">-<span id="sGCM36" class="statNumber">-</span></p>
+                <p id="statGCM37" class="statPortion singularity">-<span id="sGCM37" class="statNumber">-</span></p>
                 <p id="statGCMT" class="statPortion statTotal" style="color: orange">TOTAL GLOBAL CUBE MULTIPLIER: <span
                     id="sGCMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -3569,6 +3626,10 @@
                 <p id="statALuckM11" class="statPortion">a<span id="sALuckM11" class="statNumber">0</span></p>
                 <p id="statALuckM12" class="statPortion">a<span id="sALuckM12" class="statNumber">0</span></p>
                 <p id="statALuckM13" class="statPortion">a<span id="sALuckM13" class="statNumber">0</span></p>
+                <p id="statALuckM14" class="statPortion">a<span id="sALuckM14" class="statNumber">0</span></p>
+                <p id="statALuckM15" class="statPortion">a<span id="sALuckM15" class="statNumber">0</span></p>
+                <p id="statALuckM16" class="statPortion">a<span id="sALuckM16" class="statNumber">0</span></p>
+                <p id="statALuckM17" class="statPortion">a<span id="sALuckM17" class="statNumber">0</span></p>
                 <p id="statALuckMult" class="statPortion">Multipliers (Additive)<span id="sALuckMult" class="statNumber">0</span></p>
                 <p id="statALuckMT" class="statPortion statTotal" style="color: orange">TOTAL AMBROSIA LUCK:
                     <span id="sALuckMT" class="statNumber statTotal">0</span></p>
@@ -3586,8 +3647,36 @@
                 <p id="statAGenM8" class="statPortion">a<span id="sAGenM8" class="statNumber">0</span></p>
                 <p id="statAGenM9" class="statPortion">a<span id="sAGenM9" class="statNumber">0</span></p>
                 <p id="statAGenM10" class="statPortion">a<span id="sAGenM10" class="statNumber">0</span></p>
+                <p id="statAGenM11" class="statPortion">a<span id="sAGenM11" class="statNumber">0</span></p>
+                <p id="statAGenM12" class="statPortion">a<span id="sAGenM12" class="statNumber">0</span></p>
+                <p id="statAGenM13" class="statPortion">a<span id="sAGenM13" class="statNumber">0</span></p>
+                <p id="statAGenM14" class="statPortion">a<span id="sAGenM14" class="statNumber">0</span></p>
                 <p id="statAGenMT" class="statPortion statTotal" style="color: orange">BLUEBERRY TIME /S:
                     <span id="sAGenMT" class="statNumber statTotal">0</span></p>
+            </div>
+
+            <div id="pixelLuckStats" class="statContainer activeStats">
+                <p id="pixelLuckStatTitle" class="statPortion" style="color: orchid; font-size: 1.2em">Pixel Luck</p>
+                <p id="statPLuckM1" class="statPortion">a<span id="sPLuckM1" class="statNumber">A</span></p>
+                <p id="statPLuckM2" class="statPortion">a<span id="sPLuckM2" class="statNumber">A</span></p>
+                <p id="statPLuckM3" class="statPortion">a<span id="sPLuckM3" class="statNumber">A</span></p>
+                <p id="statPLuckM4" class="statPortion">a<span id="sPLuckM4" class="statNumber">A</span></p>
+                <p id="statPLuckM5" class="statPortion">a<span id="sPLuckM5" class="statNumber">A</span></p>
+                <p id="statPLuckM6" class="statPortion">a<span id="sPLuckM6" class="statNumber">A</span></p>
+                <p id="statPLuckM7" class="statPortion">a<span id="sPLuckM7" class="statNumber">A</span></p>
+                <p id="statPLuckM8" class="statPortion">a<span id="sPLuckM8" class="statNumber">A</span></p>
+                <p id="statPLuckM9" class="statPortion">a<span id="sPLuckM9" class="statNumber">A</span></p>
+                <p id="statPLuckM10" class="statPortion">a<span id="sPLuckM10" class="statNumber">A</span></p>
+                <p id="statPLuckMult" class="statPortion">Multipliers (Additive)<span id="sPLuckMult" class="statNumber">0</span></p>
+                <p id="statPLuckMT" class="statPortion statTotal" style="color: orange">TOTAL PIXEL LUCK:
+                    <span id="sPLuckMT" class="statNumber statTotal">0</span></p> 
+            </div>
+
+            <div id="pixelGenerationStats" class="statContainer activeStats">
+                <p id="pixelGenerationStatTitle" class="statPortion" style="color: red; font-size: 1.2em">Pixel Generation</p>
+                <p id="statPGenM1" class="statPortion">a<span id="sPGenM1" class="statNumber">A</span></p>
+                <p id="statPGenMT" class="statPortion statTotal" style="color: orange">PIXEL GENERATION /S:
+                    <span id="sPGenMT" class="statNumber statTotal">0</span></p> 
             </div>
 
             <button id="summaryGeneration" style="border: 2px solid grey; height: 20px; width: 250px;">Generate Savefile Stats Summary</button>
@@ -4069,7 +4158,9 @@
             <button id="toggleSingularitySubTab1" style="border: 2px solid silver; color: white; background-color: crimson" i18n="tabs.main.shop"></button>
             <button id="toggleSingularitySubTab2" style="border: 2px solid orange; color: white" i18n="tabs.singularity.perks-penalties"></button>
             <button id="toggleSingularitySubTab3" class="octeracts" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>
-            <button id="toggleSingularitySubTab4" class="ambrosia" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
+            <button id="toggleSingularitySubTab4" class="singChallenges" style="border: 2px solid purple; color: gold" i18n="tabs.singularity.exalt"></button>
+            <button id="toggleSingularitySubTab5" class="ambrosia" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
+            <button id="toggleSingularitySubTab6" class="UPB" style="border: 2px solid maroon; color: gold" i18n="tabs.singularity.progress"></button>
         </div>
 
         <div id="singularityContainer1">
@@ -4077,6 +4168,9 @@
                 <div id="goldenQuarksDisplay">
                     <img src="Pictures/Default/GoldenQuark.png" width="32" height="32" loading="lazy">
                     <p id="goldenQuarkamount"></p>
+                </div>
+                <div id="goldenQuarkResetFunction" style="border: 6px solid lightgoldenrodyellow">
+                    <p> Set your Singularity here! [WIP Box to be replaced with an icon] </p>
                 </div>
                 <div id="goldenQuarksMultiBuyInfo">
                     <p id="goldenQuarkMultiBuyText" i18n="general.multiBuyInstructions"></p>
@@ -4286,6 +4380,12 @@
                     <div class="singularityUpgrade">
                         <img id="singAmbrosiaGeneration4" src="Pictures/Default/SingularityAmbrosiaGeneration4.png" style="cursor: pointer">
                     </div>
+                    <div class="singularityUpgrade">
+                        <img id="singPixelLuck" src="Pictures/Default/SingularityPixelLuck.png" style="cursor: pointer">
+                    </div>
+                    <div class="singularityUpgrade">
+                        <img id="singPixelLuck2" src="Pictures/Default/SingularityPixelLuck2.png" style="cursor: pointer">
+                    </div>
                 </div>
             </div>
             <div id="singularityUpgradeShit">
@@ -4442,6 +4542,12 @@
                     <div class="octeractUpgrade">
                         <img id="octeractAmbrosiaGeneration4" src="Pictures/Default/OcteractAmbrosiaGeneration4.png" style="cursor: pointer">
                     </div>
+                    <div class="octeractUpgrade">
+                        <img id="octeractPixelLuck" src="Pictures/Default/OcteractPixelLuck.png" style="cursor: pointer">
+                    </div>
+                    <div class="octeractUpgrade">
+                        <img id="octeractPixelLuck2" src="Pictures/Default/OcteractPixelLuck2.png" style="cursor: pointer">
+                    </div>
                 </div>
 
                 <div id="octeractUpgradeValues">
@@ -4457,19 +4563,13 @@
                     <p id="ambrosiaAmount" class="amberText"></p>
                 </div>
                 <div id="ambrosiaTexts">
-                <!--    <p id="ambrosiaChance" class="lightYellowText"></p> -->
                     <p id="ambrosiaAmountPerGeneration" class="lightYellowText"></p>
-                <!--    <p id="ambrosiaRNG" class="lightYellowText"></p> -->
                     <p id="ambrosiaRewards" class="lightYellowText"></p>
                     <p id="ambrosiaBlueberries" class="lightYellowText"></p>
                 </div>
                 <div id="ambrosiaProgressBar">
                     <div id="ambrosiaProgress" style="width: 70%;"></div>
                     <span id="ambrosiaProgressText">EVAL 492942 + 4294256!</span>
-                </div>
-                <div id="pixelProgressBar">
-                    <div id="pixelProgress" style="width: 70%;"></div>
-                    <span id="pixelProgressText">EVAL 492942 + 4294256!</span>
                 </div>
                 <div class="blueberryBoxColor" id="blueberryUpgradeContainer">
                     <div class="blueberryUpgradeTier">
@@ -4498,6 +4598,9 @@
                         </div>
                         <div class="blueberryUpgrade">
                             <img id="ambrosiaLuck1" src="Pictures/Default/BlueberryLuck.png">
+                        </div>
+                        <div class="blueberryUpgrade">
+                            <img id="ambrosiaPixelLuck" src="Pictures/Default/BlueberryPixelLuck.png">
                         </div>
                     </div>
                     <div class="blueberryUpgradeTier">
@@ -4530,6 +4633,14 @@
                         <div class="blueberryUpgrade">
                             <img id="ambrosiaLuck2" src="Pictures/Default/BlueberryLuck2.png">
                         </div>
+                        <div class="blueberryUpgrade">
+                            <img id="ambrosiaPixelLuck2" src="Pictures/Default/BlueberryPixelLuck.png">
+                        </div>
+                    </div>
+                    <div class="blueberryUpgradeTier">
+                        <div class="blueberryUpgrade">
+                            <img id="ambrosiaLuckDilator" src="Pictures/Default/BlueberryLuckDilator.png">
+                        </div>
                     </div>
                     <div class="blueberryUpgradeTier">
                         <button id="refundBlueberries" style="border: 2px solid blue" i18n="ambrosia.refundWord"></button>
@@ -4554,12 +4665,162 @@
                 </div>
             </div>
         </div>
+        <div id="singularityContainer5" style="display: none;">
+            <div id="singularityUltimatePixels" class="singularityContainer">
+                <div id="ultimatePixelDisplay">
+                    <img src="Pictures/Default/UltimatePixel.png" loading="lazy">
+                    <p id="ultimatePixelAmount" class="redText">You have 10,000 Ultimate Pixels!</p>
+                </div>
+                <div id="ultimatePixelTexts">
+                    <p id="ultimatePixelAmountPerGeneration" class="lightYellowText"></p>
+                </div>
+                <div id="pixelProgressBar">
+                    <div id="pixelProgress" style="width: 70%;"></div>
+                    <span id="pixelProgressText">EVAL 492942 + 4294256!</span>
+                </div>
+                <div id="metaPixelProgressBar">
+                    <div id="metaPixelProgress" style="width: 70%;"></div>
+                    <span id="metaPixelProgressText">EVAL 492942 + 4294256!</span>
+                </div>
+                <div class="pixelBoxColor" id="pixelUpgradeContainer">
+                    <div class="pixelUpgrade">
+                        <img id="pixelTutorial" src="Pictures/Default/PixelTutorial.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelPixelGeneration" src="Pictures/Default/PixelPixelGeneration.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelPixelGeneration2" src="Pictures/Default/PixelPixelGeneration2.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelPixelGeneration3" src="Pictures/Default/PixelPixelGeneration3.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelQuarks" src="Pictures/Default/PixelQuarks.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelOfferings" src="Pictures/Default/PixelOfferings.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelObtainium" src="Pictures/Default/PixelObtainium.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelCubes" src="Pictures/Default/PixelCubes.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelAmbrosiaGeneration" src="Pictures/Default/PixelAmbrosiaGeneration.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelAmbrosiaGeneration2" src="Pictures/Default/PixelAmbrosiaGeneration2.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelAmbrosiaGeneration3" src="Pictures/Default/PixelAmbrosiaGeneration3.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelAmbrosiaLuck" src="Pictures/Default/PixelAmbrosiaLuck.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelAmbrosiaLuck2" src="Pictures/Default/PixelAmbrosiaLuck2.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelAmbrosiaLuck3" src="Pictures/Default/PixelAmbrosiaLuck3.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelPixelLuck" src="Pictures/Default/PixelPixelLuck.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelPixelLuckConverter" src="Pictures/Default/PixelPixelLuckConverter.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelPixelLuckConverter2" src="Pictures/Default/PixelPixelLuckConverter2.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelBlueberry" src="Pictures/Default/PixelBlueberry.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelBlueberry2" src="Pictures/Default/PixelBlueberry2.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelBlueberry3" src="Pictures/Default/PixelBlueberry3.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelRoleBonus" src="Pictures/Default/PixelRoleBonus.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelFreeUpgradeImprovement" src="Pictures/Default/PixelFreeUpgradeImprovement.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelFreeUpgradeImprovement2" src="Pictures/Default/PixelFreeUpgradeImprovement2.png">
+                    </div>
+                    <div class="pixelUpgrade">
+                        <img id="pixelFreeUpgradeImprovement3" src="Pictures/Default/PixelFreeUpgradeImprovement3.png">
+                    </div>
+                    <div id="pixelTextBox">
+                        <p id="pixelUpgradeName"></p>
+                        <p id="pixelUpgradeDescription"></p>
+                        <p id="pixelUpgradeLevel"></p>
+                        <p id="pixelUpgradeEffect"></p>
+                        <p id="pixelUpgradeCost"></p>
+                        <img id="pixelUpgradeImage" src="Pictures/Default/PixelTutorial.png">
+                    </div>
+                    <div id="pixelBarLevelBonusTextBox">
+                        <p id="pixelBarLevelText" i18n="ultimatePixels.bar.level"></p>
+                        <div class="pixelBarBonus" style="color: lime">
+                            <img src="Pictures/Default/AmbrosiaLuck.png">
+                            <p id="pixelBarLuckBonus">+718 +18%</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: lightsteelblue">
+                            <img src="Pictures/Default/BlueberryTime.gif">
+                            <p id="pixelBarBlueberrySpeedBonus">2.72x</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: purple">
+                            <img src="Pictures/Default/PixelPixelLuck.png">
+                            <p id="pixelBarPixelLuckBonus">+9 +4%</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: red">
+                            <img src="Pictures/Default/UltimatePixel.png">
+                            <p id="pixelBarPixelProgressBonus">x1.74</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: white">
+                            <img src="Pictures/Default/PixelCubes.png">
+                            <p id="pixelBarCubeMultBonus">x11.27</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: orange">
+                            <img src="Pictures/Default/PixelOfferings.png">
+                            <p id="pixelBarOfferingMultBonus">x11.27</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: pink">
+                            <img src="Pictures/Default/PixelObtainium.png">
+                            <p id="pixelBarObtainiumMultBonus">x11.27</p>
+                        </div>
+                        <div class="pixelBarBonus" style="color: cyan">
+                            <img src="Pictures/Default/Quark.png">
+                            <p id="pixelBarQuarkBonus">1.8x</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="event">
         <a target="_blank" href="https://www.youtube.com/watch?v=E9de-cmycx8"><img id="unsmith" src="Pictures/Default/Unsmith.png"></a>
         <p i18n="event.aprilFools.introText"></p>
         <p id="eventClicked" style="color: lime; display: none" i18n="event.aprilFools.clickedText"></p>
+    </div>
+
+    <div id="testing">
+        <p>Welcome to the exclusive testing realm!</p>
+
+        <label for="account-type-select">Select an Account Type:</label>
+
+        <select name="account-type-select" id="account-type-select">
+          <option value="booster">Booster</option>
+          <option value="donator1">Transcended Baller</option>
+          <option value="donator2">Reincarnated Baller</option>
+          <option value="donator3">ASCENDED Baller</option>
+          <option value="donator4">OMEGA Baller</option>
+        </select>
     </div>
 </body>
 </html>

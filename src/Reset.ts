@@ -19,7 +19,7 @@ import {
   calculateTalismanEffects
 } from './Calculate'
 import { challengeRequirement } from './Challenges'
-import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions'
+import { c15Corruptions, corruptionStatsUpdate } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
 import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
 import { Synergism } from './Events'
@@ -299,7 +299,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         seconds: player.ascensionCounter,
         date: Date.now(),
         c10Completions: player.challengecompletions[10],
-        usedCorruptions: player.usedCorruptions.slice(0), // shallow copy,
+        usedCorruptions: player.corruptions.used.getLoadout(),
         corruptionScore: corruptionMetaData[3],
         wowCubes: corruptionMetaData[4],
         wowTesseracts: corruptionMetaData[5],
@@ -474,7 +474,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   }
 
   if (input === 'reincarnation' || input === 'reincarnationChallenge') {
-    if (player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0) {
+    if (player.corruptions.used.getLevel('deflation') > 10 && player.platonicUpgrades[11] > 0) {
       player.prestigePoints = player.prestigePoints.add(G.reincarnationPointGain)
     }
   }
@@ -730,28 +730,10 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       }
     }
 
-    const maxLevel = maxCorruptionLevel()
-    player.usedCorruptions = player.prototypeCorruptions.map((curr: number, index: number) => {
-      if (index >= 2 && index <= 9) {
-        return Math.min(
-          maxLevel * (player.challengecompletions[corrChallengeMinimum(index)] > 0
-              || player.singularityUpgrades.platonicTau.getEffect().bonus
-            ? 1
-            : 0),
-          curr
-        )
-      }
-      return curr
-    })
-    player.usedCorruptions[1] = 0
-    player.prototypeCorruptions[1] = 0
-    // fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving
-    if (player.currentChallenge.ascension === 15 && (input === 'ascension' || input === 'ascensionChallenge')) {
-      player.usedCorruptions[0] = 0
-      player.prototypeCorruptions[0] = 0
-      for (let i = 2; i <= 9; i++) {
-        player.usedCorruptions[i] = 11
-      }
+    if (player.currentChallenge.ascension !== 15) {
+      player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.next.getLoadout())
+    } else {
+      player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(c15Corruptions)
     }
 
     corruptionStatsUpdate()
@@ -1157,8 +1139,10 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   player.goldenQuarks += calculateGoldenQuarkGain()
 
   if (setSingNumber === -1) {
-    const incrementSingCount = 1 + getFastForwardTotalMultiplier()
-    player.singularityCount += incrementSingCount
+    if (player.singularityCount === player.highestSingularityCount) {
+      const incrementSingCount = 1 + getFastForwardTotalMultiplier()
+      player.singularityCount += incrementSingCount
+    }
     if (player.singularityCount >= player.highestSingularityCount) {
       player.highestSingularityCount = player.singularityCount
 
@@ -1229,13 +1213,25 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
       }]
     })
   ) as unknown as Player['blueberryUpgrades']
+  hold.pixelUpgrades = Object.fromEntries(
+    Object.entries(player.pixelUpgrades).map(([key, value]) => {
+      return [key, {
+        level: value.level,
+        pixelsInvested: value.pixelsInvested,
+        toggleBuy: value.toggleBuy,
+        freeLevels: value.freeLevels
+      }]
+    })
+  ) as unknown as Player['pixelUpgrades']
   hold.spentBlueberries = player.spentBlueberries
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString
-  hold.corruptionLoadouts = player.corruptionLoadouts
-  hold.corruptionLoadoutNames = player.corruptionLoadoutNames
-  hold.corruptionShowStats = player.corruptionShowStats
+  hold.corruptions.saves = Object.fromEntries(
+    player.corruptions.saves.getSaves().map((save) => {
+      return [save.name, save.loadout.getLoadout()]
+    })
+  )
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
   hold.resettoggle1 = player.resettoggle1
@@ -1312,6 +1308,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.insideSingularityChallenge = player.insideSingularityChallenge
   hold.ultimatePixels = player.ultimatePixels
   hold.ultimateProgress = player.ultimateProgress
+  hold.lifetimeUltimatePixels = player.lifetimeUltimatePixels
   hold.singularityChallenges = Object.fromEntries(
     Object.entries(player.singularityChallenges).map(([key, value]) => {
       return [key, {

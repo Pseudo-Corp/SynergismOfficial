@@ -110,6 +110,21 @@
               "name": "Hyperfluxed Wow! Cube Industrial Production",
               "description": "Gain +1% cubes per level, per level of Platonic Upgrade 4x4 purchased (multiplicative!!!)",
               "effect": "This module increases Cubes gain by {{amount}}%!"
+          },
+          "ambrosiaPixelLuck": {
+            "name": "Blueberry-Infused Pixel Luck Enhancer",
+            "description": "Gain +1 ❖ Pixel Luck per level!",
+            "effect": "This module increases ❖ Pixel Luck by {{pixelLuck}}!"
+          },
+          "ambrosiaPixelLuck2": {
+            "name": "Blueberry-Refined Pixel Luck Enhancer",
+            "description": "Gain +1 ❖ Pixel Luck per level!",
+            "effect": "This module increases ❖ Pixel Luck by {{pixelLuck}}!"
+          },
+          "ambrosiaLuckDilator": {
+            "name": "Ambrosia Luck Dilator",
+            "description": "Doubles the Blueberry Second requirement to generate Ambrosia, but adds +100% to your &#9752 Ambrosia Luck multiplier! (+4%/lv after level 1!)",
+            "effect": "Your &#9752 Ambrosia Luck Additive Multiplier has been increased by {{ambrosiaLuckMult}}%!"
           }
       },
       "loadouts": {
@@ -128,6 +143,138 @@
       "exportTree": {
           "exportButton": "Export"
       }
+  },
+  "ultimatePixels": {
+    "ultimatePixels": "Ultimate Pixels",
+    "amount": "You have <<red|{{pixels}}>> Ultimate Pixels!",
+    "perGen": "Currently gaining <<red|{{guaranteed}}>> Pixels with a <<red|{{extraChance}}%>> chance of another. [<<orchid|Luck: ❖ {{ultimatePixelLuck}}>>] {{extra}}",
+    "spendPrompt": "How many Ultimate Pixels would you like to spend? You have {{pixels}} Ultimate Pixels. Type -1 to use max!",
+    "cost": "Cost: {{pixels}} <<red|Ultimate Pixels>>!",
+    "bar": {
+      "level": "Progress Bar Level {{level}} Rewards"
+    },
+    "data": {
+      "pixelTutorial": {
+        "name": "The 'Ultimate Progress Bar' Handbook",
+        "description": "The Ruby Guy (possibly not his real identity) hands you a book on how the Singularities were once united by an Ultimate Progress Bar. All that is left are pixels from the Bar. \n Every time you generate <<lightblue|Blueberry Seconds>>, you also fill up the Progress Bar! It is 1:1 until 1,000 BBS/s, but then is ^1/3 afterwards.",
+        "effect": "This handbook increases cube gain by <<white|{{cubeAmount}}%>> and quarks by <<cyan|{{quarkAmount}}%>>"
+      },
+      "pixelPixelLuck": {
+        "name": "Pixel Luck Enhancer I",
+        "description": "It's questionable why different lucks exist, but they do! Gain <<orchid|+1 ❖ Pixel Luck>> per level!",
+        "effect": "This enhancer increases your <<orchid|❖ Pixel Luck>> by <<orchid|{{pixelLuck}}>>(!)"
+      },
+      "pixelAmbrosiaGeneration": {
+        "name": "A Pixelated Ambrosia Quickener",
+        "description": "This hourglass is not really pixelated. +0.5% Blueberry Generation Speed per level!",
+        "effect": "This quickener increases your <<lightblue|Blueberry Generation Speed>> by <<lightblue|{{ambrosiaGeneration}}%>>"
+      },
+      "pixelAmbrosiaGeneration2": {
+        "name": "A Pixelated Ambrosia Hastener",
+        "description": "This hourglass is not really pixelated. +0.4% Blueberry Generation Speed per level!",
+        "effect": "This hastener increases your <<lightblue|Blueberry Generation Speed>> by <<lightblue|{{ambrosiaGeneration}}%>>"
+      },
+      "pixelAmbrosiaGeneration3": {
+        "name": "A Pixelated Ambrosia Rapidity",
+        "description": "This hourglass is not really pixelated. +0.3% Blueberry Generation Speed per level!",
+        "effect": "This rapid hourglass increases your <<lightblue|Blueberry Generation Speed>> by <<lightblue|{{ambrosiaGeneration}}%>>"
+      },
+      "pixelAmbrosiaLuck": {
+        "name": "A pixelated Ambrosia Luck Inducer",
+        "description": "This Inducer is not really pixelated. <<green|+3 ☘ Ambrosia Luck>> per level!",
+        "effect": "This inducer adds <<green|+{{ambrosiaLuck}} ☘ Ambrosia Luck>>!"
+      },
+      "pixelAmbrosiaLuck2": {
+        "name": "A pixelated Ambrosia Luck Deducer",
+        "description": "This deducer is not really pixelated. <<green|+4 ☘ Ambrosia Luck>> per level!",
+        "effect": "This deducer adds <<green|+{{ambrosiaLuck}} ☘ Ambrosia Luck>>!"
+      },
+      "pixelAmbrosiaLuck3": {
+        "name": "A pixelated Ambrosia Luck Convector",
+        "description": "This convector is not really pixelated. <<green|+5 ☘ Ambrosia Luck>> per level!",
+        "effect": "This convector adds <<green|+{{ambrosiaLuck}} ☘ Ambrosia Luck>>!"
+      },
+      "pixelCubes": {
+        "name": "Cubes!!!!",
+        "description": "Gain +1.5% more cubes per level! Flavor text goes here",
+        "effect": "This lore-filled upgrade increases cube gain by {{cubeAmount}}%."
+      },
+      "pixelQuarks": {
+        "name": "Pixel-Perfect Quarks",
+        "description": "By exploiting a frame-perfect respec, gain <<cyan|+0.2% Quarks>> per level!",
+        "effect": "<<cyan|+{{quarkAmount}}% Quarks>>!"
+      },
+      "pixelObtainium": {
+        "name": "Obtained Pixels",
+        "description": "Gain +1% Obtainium per level!",
+        "effect": "<<pink|+{{obtainiumAmount}}% Obtainium>>!"
+      },
+      "pixelOfferings": {
+        "name": "Offered Pixels",
+        "description": "Gain +1% Offerings per level!",
+        "effect": "<<orange|+{{offeringAmount}}% Offerings>>!"
+      },
+      "pixelPixelGeneration": {
+        "name": "Progress Bar Enzyme",
+        "description": "Every <<red|1,000,000 Progress>> gives you an <<red|Ultimate Pixel>> Generation! Adds <<red|5 Progress/sec>> per level, before any multipliers!",
+        "effect": "Base <<red|Progress/sec>> is increased by <<red|{{pixelGeneration}}>>!"
+      },
+      "pixelPixelGeneration2": {
+        "name": "Progress Bar Catalyst",
+        "description": "Adds <<red|8 Progress/sec>> per level, before any multipliers!",
+        "effect": "Base <<red|Progress/sec>> is increased by <<red|{{pixelGeneration}}>>!"
+      },
+      "pixelPixelGeneration3": {
+        "name": "Progress Bar Precursor",
+        "description": "Adds <<red|12 Progress/sec>> per level, before any multipliers!",
+        "effect": "Base <<red|Progress/sec>> is increased by <<red|{{pixelGeneration}}>>!"
+      },
+      "pixelBlueberry": {
+        "name": "You'll want to purchase this",
+        "description": "Everyone wants it, you want it, Gold Guy wants it! An additional <<lightblue|blueberry>>!",
+        "effect": "<<lightblue|Blueberry>> purchased: {{blueberry}}"
+      },
+      "pixelBlueberry2": {
+        "name": "A blueberry!",
+        "description": "Everyone wants it, you want it, Gold Guy wants it! An additional <<lightblue|blueberry>>!",
+        "effect": "<<lightblue|Blueberry>> purchased: {{blueberry}}"
+      },
+      "pixelBlueberry3": {
+        "name": "A blue... berry??",
+        "description": "An additional <<lightblue|blueberry>>, at a not too reasonable price!",
+        "effect": "<<lightblue|Blueberry>> purchased: {{blueberry}}"
+      },
+      "pixelRoleBonus": {
+        "name": "A title of nobility",
+        "description": "With this upgrade, you can proclaim yourself to Platonic himself (on the Discord server) to become a Viscount of Ruby Guy, which is a cool role! You also get +1% Global Luck!",
+        "effect": "<<red|Title>> purchased: {{purchased}}"
+      },
+      "pixelPixelLuckConverter": {
+        "name": "Ambrosia2Pixel Luck I",
+        "description": "A converter which (very inefficiently) converts ☘ Ambrosia Luck to ❖ Pixel Luck! For every 1,000 ☘ Ambrosia Luck you have, gain 1 ❖ Pixel Luck (rounded down!)",
+        "effect": "Purchased: {{purchased}} | <<orchid|❖ Pixel Luck +{{luck}}>>"
+      },
+      "pixelPixelLuckConverter2": {
+        "name": "Ambrosia2Pixel Luck II",
+        "description": "A converter which (very inefficiently) converts ☘ Ambrosia Luck to Pixel Luck! For every 1,000 ☘ Ambrosia Luck you have, gain 1 Pixel Luck (rounded down!)",
+        "effect": "Purchased: {{purchased}} | <<orchid|❖ Pixel Luck +{{luck}}>>"
+      },
+      "pixelFreeUpgradeImprovement": {
+        "name": "Transfigured Free Upgrades I",
+        "description": "When you get a free upgrade from code 'daily', there is a +0.1% chance per level that you instead get a free upgrade from a pool of exclusive Octeract Upgrades! Ranges from okay to absolutely game-changing Octeract Upgrades.",
+        "effect": "Gain a +{{proportion}}% chance to convert a Singularity free upgrade into an Octeract free upgrade."
+      },
+      "pixelFreeUpgradeImprovement2": {
+        "name": "Transfigured Free Upgrades II",
+        "description": "When you get a free upgrade from code 'daily', there is a +0.1% chance per level that you instead get a free upgrade from a pool of exclusive Octeract Upgrades! Ranges from okay to absolutely game-changing Octeract Upgrades.",
+        "effect": "Gain a +{{proportion}}% chance to convert a Singularity free upgrade into an Octeract free upgrade."
+      },
+      "pixelFreeUpgradeImprovement3": {
+        "name": "Transfigured Free Upgrades III",
+        "description": "When you get a free upgrade from code 'daily', there is a +0.1% chance per level that you instead get a free upgrade from a pool of exclusive Octeract Upgrades! Ranges from okay to absolutely game-changing Octeract Upgrades.",
+        "effect": "Gain a +{{proportion}}% chance to convert a Singularity free upgrade into an Octeract free upgrade."
+      }
+    }
   },
   "achievements": {
       "descriptions": {
@@ -410,7 +557,21 @@
           "277": "[{{number}}] SingularRity: Singularity 4 times.",
           "278": "[{{number}}] SiINguLaRrRity: Singularity 5 times.",
           "279": "[{{number}}] SiIINGuLArRrIiTyY: Singularity 7 times.",
-          "280": "[{{number}}] Inception: Singularity 10 times."
+          "280": "[{{number}}] Inception: Singularity 10 times.",
+          "281": "[{{number}}] WIP Luck be a Lady: Obtain 300 ☘ Ambrosia Luck at once!",
+          "282": "[{{number}}] WIP A couple modules later: Obtain 750 ☘ Ambrosia Luck at once!",
+          "283": "[{{number}}] WIP A baker's 15/13 dozen: Obtain 1,500 ☘ Ambrosia Luck at once!",
+          "284": "[{{number}}] WIP <3(,001): Obtain 3,000 ☘ Ambrosia Luck at once!",
+          "285": "[{{number}}] WIP If you gaze long into an abyss: Obtain 5,000 ☘ Ambrosia Luck at once!",
+          "286": "[{{number}}] WIP The abyss will also gaze into thee: Obtain 10,000 ☘ Ambrosia Luck at once!",
+          "287": "[{{number}}] WIP 20,000 Lucks Under The Sea: Obtain 20,000 ☘ Ambrosia Luck at once!",
+          "288": "[{{number}}] WIP Tutorial Module Unlocked!: Obtain 50 lifetime Ambrosia.",
+          "289": "[{{number}}] WIP A thousanddaire: Obtain 1,000 lifetime Ambrosia",
+          "290": "[{{number}}] WIP Enchanted Ambrosia Block: Obtain 25,600 lifetime Ambrosia",
+          "291": "[{{number}}] WIP Gold Guy's Go-to: Obtain 256,000 lifetime Ambrosia",
+          "292": "[{{number}}] WIP Maxxed Luck Module: Obtain 1,000,000 lifetime Ambrosia",
+          "293": "[{{number}}] WIP Just a regular number: Obtain 3,141,592 lifetime Ambrosia",
+          "294": "[{{number}}] WIP The Egg of ULTRA Acceleration: Obtain 9,999,999 lifetime Ambrosia"
       },
       "rewards": {
           "3": "Gain +.05% to Accelerator Power.",
@@ -570,7 +731,15 @@
           "266": "Quarks +{{x}}% [Max: 10% at 1Qa Ascensions]!",
           "267": "Ascension Score is boosted by {{x}}% [Max: 100% at 1e100,000 Const]",
           "270": "Hepteract Gain is boosted by {{x}}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).",
-          "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]"
+          "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]",
+          "284": "+1% Global Luck!",
+          "285": "Every time the Blueberry bar fills up, you get 2 additional Ambrosia for free!",
+          "286": "If you have under 5,000 Ambrosia Luck, you are guaranteed at least 50 Ambrosia for each time the Blueberry bar fills up",
+          "287": "Every 1,000,000 Blueberry seconds, gain +0.1s real-life Ascension timer! (Caps at 0.1s per tick)",
+          "289": "Gain +1% more Blueberry Generation Speed for every unique module activated!",
+          "291": "Gain 1.01x Blueberry Generation Speed for every blueberry that you have!",
+          "293": "Your Constant adds +1% Blueberry Generation Speed for every digit in its base-10 exponent.",
+          "294": "Unlocks a special shop upgrade!"
       },
       "alerts": {
           "36": "Congratulations on your first Prestige. The first of many. You obtain Offerings. You can use them in the new Runes tab! [Unlocked Runes, Achievements, Diamond Buildings and some Upgrades!]",
@@ -1411,10 +1580,10 @@
           "shopImprovedDaily2": "Gain 1 additional free Singularity Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
           "shopImprovedDaily3": "Gain 1 additional free Singularity Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
           "shopImprovedDaily4": "Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
-          "offeringEX3": "Gain 2% more Offerings per level, multiplicative! (Multiplier is 1.02^level)",
-          "obtainiumEX3": "Gain 2% more Obtainium per level, multiplicative! (Multiplier is 1.02^level)",
-          "chronometerInfinity": "Gain +1% Ascension Speed per level, multiplicative! (Multiplier is 1.01^level)",
-          "seasonPassInfinity": "Gain +2% more cubes per level, multiplicative! (Multiplier is 1.02^level)",
+          "offeringEX3": "Gain 2% more Offerings per level, exponentially!",
+          "obtainiumEX3": "Gain 2% more Obtainium per level, exponentially!",
+          "chronometerInfinity": "Gain +1% Ascension Speed per level, exponentially!",
+          "seasonPassInfinity": "Gain +2% more Cubes per level, exponentially!",
           "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.",
           "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
           "improveQuarkHept5": "This is 1/50 as effective as a normal improver. Why? Because of balancing...",
@@ -2037,6 +2206,16 @@
               "name": "Hourglass of Fantasy",
               "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% Blueberry Second Generation per level.",
               "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+          },
+          "singPixelLuck": {
+            "name": "Lucky Little Pixels",
+            "description": "Like Ambrosia, you can be luckier when harvesting pixels from the Ultimate Progress Bar! +1 ❖ Pixel Luck per level!",
+            "effect": "❖ Pixel luck +{{n}}(!)"
+          },
+          "singPixelLuck2": {
+            "name": "Lucky Big Pixels",
+            "description": "The amount you will spend for very minor stat bonuses is commendable! +1 ❖ Pixel Luck per level!",
+            "effect": "❖ Pixel luck +{{n}}(!)"
           }
       },
       "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
@@ -2426,7 +2605,8 @@
           "singularity": "Singularity",
           "settings": "Settings",
           "shop": "Shop",
-          "unsmith": "UNSMITH"
+          "unsmith": "UNSMITH",
+          "testing": "Testing β"
       },
       "buildings": {
           "coin": "Coin Buildings",
@@ -2455,9 +2635,11 @@
           "hepteract": "Hepteract Forge"
       },
       "singularity": {
-          "perks-penalties": "Perks / Penalties",
-          "octeracts": "Octeracts",
-          "ambrosia": "Ambrosia"
+        "perks-penalties": "Perks / Penalties",
+        "octeracts": "Octeracts",
+        "exalt": "EXALT",
+        "ambrosia": "Ambrosia",
+        "progress": "BAR"
       },
       "settings": {
           "languages": "🌐 Languages 🌐",
@@ -2483,115 +2665,117 @@
       "ingameAntSacTimer": "In-Game Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
       "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
       "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
-      "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
+      "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>",
+      "lifetimeAmbrosia": "Ambrosia: +<<orange|{{value}}>>",
+      "pixels": "Ultimate Pixels: +<<red|{{value}}>>"
   },
   "corruptions": {
       "names": {
-          "1": "Corruption I: Viscosity",
-          "2": "Corruption II: Spacial Dilation",
-          "3": "Corruption III: Hyperchallenged",
-          "4": "Corruption IV: Scientific Illiteracy",
-          "5": "Corruption V: Market Deflation",
-          "6": "Corruption VI: Extinction",
-          "7": "Corruption VII: Drought",
-          "8": "Corruption VIII: Financial Recession"
-      },
-      "descriptions": {
-          "1": "You feel lethargic across the universe...",
-          "2": "Way to go, Albert.",
-          "3": "What's in a challenge?",
-          "4": "Maybe Albert wouldn't have theorized Dilation after all.",
-          "5": "Diamond Mine destroyed... no more monopolies!",
-          "6": "It killed the dinosaurs too, ya Dingus.",
-          "7": "More like California, am I right?",
-          "8": "Yet another 2020 catastrophe."
-      },
-      "currentLevel": {
-          "1": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-          "2": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-          "3": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-          "4": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-          "5": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-          "6": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
-          "7": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-          "8": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
-      },
-      "prototypeLevel": {
-          "1": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-          "2": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-          "3": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-          "4": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-          "5": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-          "6": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
-          "7": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-          "8": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
-      },
-      "scoreMultiplier": "Current Score Multiplier: {{ curr }} / Next Ascension Score Multiplier: {{ next }}",
-      "spiritEffect": "This corruption gives Rune Spirit Effect +{{curr}}% / Next Ascension Rune Spirit Effect +{{next}}%",
-      "exitCorruption": {
-          "name": "CLEANSE THE CORRUPTION",
-          "description": "Free this world of sin.",
-          "current": "Reset all Corruptions to level 0 for your current ascension. Does not reset your current ascension.",
-          "planned": "Push that big 'Reset Corruptions' button to confirm your decision.",
-          "multiplier": "Note: if you need to do this, you may have bitten off more than you can chew."
-      },
-      "max": "MAX",
-      "current": "Current: ",
-      "next": " / Next: ",
-      "loadoutTable": {
-          "next": "Next:",
-          "firstRowTitle": "Click to copy the next Corruptions to the clipboard. This is the format that can be imported",
-          "otherRowTitle": "Click to rename. Hotkey: SHIFT+{{ value }}",
-          "import": "Import",
-          "importTitle": "Import Corruption Loadout in text format",
-          "zero": "Zero",
-          "zeroTitle": "Reset Corruptions to zero on your next Ascension. Hotkey: SHIFT+9",
-          "save": "Save",
-          "saveTitle": "Save current Corruptions to this Loadout",
-          "load": "Load"
-      },
-      "importCorruptionsPrompt": {
-          "import": "Enter a Corruption Loadout to import for next Ascension. It must be in the following text format: 1/2/3/4/5/6/7/8",
-          "importError": "Your input was not in the correct format, try again."
-      },
-      "corruptionLoadoutName": {
-          "loadoutPrompt": "What would you like to name Loadout {{ loadNum }}? Names cannot be longer than {{ maxChars }} characters. Nothing crazy!",
-          "errors": {
-              "noName": "Okay, maybe next time.",
-              "exceedsCharacterLimit": "The name you provided is too long! Try again.",
-              "regexError": "The Loadout Renamer didn't like a character in your name! Try something else.",
-              "crazyJoke": "Ant God approves of your joke!"
-          }
-      },
-      "loadoutExport": {
-          "saveErrorNavigator": "Unable to write the save to clipboard: {{ message }}"
-      },
-      "corrStatsBtn": "Corruption Stats",
-      "corrLoadoutsBtn": "Corruption Loadouts",
-      "cleanse": "Cleanse",
-      "confirm": "Confirm",
-      "intro": "The most rewarding ventures are those few would dare to embark.",
-      "traitInfo": "Select the trait levels you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
-      "antExponent": "This Ascension's climate raises Ant production to the power of <<var(--darkorchid-text-color)|{{exponent}}>>.",
-      "spiritBonus": "However, it also multiplies Rune Spirit Effects by <<wheat|{{multiplier}}>>.",
-      "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
-      "corruptionScore": "Your Ascension Score is <<goldenrod|{{ascScore}}>></span> (base) * <<var(--crimson-text-color)|{{corrMult}}>> (Corruption mult) * <<var(--orchid-text-color)|{{bonusMult}}>> (Bonus mult) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
-      "ascensionCount": "If you Ascend now, <<darkorange|{{ascCount}}>> will be added to your ascension count.",
-      "corruptionCubes": "If you Ascend now, you will gain <<yellow|{{cubeAmount}}>> Wow! Cubes.",
-      "corruptionTesseracts": "If you Ascend now, you will gain <<orange|{{tesseractAmount}}>> Wow! Tesseracts. [<<var(--orange-text-color)|Get more if Score >100,000>>]",
-      "corruptionHypercubes": "If you Ascend now, you will gain <<var(--crimson-text-color)|{{hypercubeAmount}}>> Wow! Hypercubes. [<<var(--red-text-color)|Req Score: >1,000,000,000>>]",
-      "corruptionPlatonics": "If you Ascend now, you will gain <<orchid|{{platonicAmount}}>> PLATONIC CUBES. [<<var(--orchid-text-color)|Req Score: >2,666,000,000,000>>]",
-      "corruptionHepteracts": "If you Ascend now, you will gain <<mediumpurple|{{hepteractAmount}}>> HEPTERACTS. [<<mediumpurple|Req Score: >1.666e17>>]",
-      "autoAscend": {
-          "c10Completions": "Ascend when you've completed Sadistic Challenge I a total of <<var(--violet-text-color)|{{input}}>> times, Currently <<gold|{{completions}}>>",
-          "realTime": "Ascend when the timer is at least <<var(--violet-text-color)|{{input}}>> seconds (Real-time), Currently <<gold|{{time}}>>",
-          "on": "Auto Ascend [ON]",
-          "off": "Auto Ascend [OFF]",
-          "modeCompletions": "Mode: C10 Completions",
-          "modeRealTime": "Mode: Real time"
-      },
-      "importLoadoutInTextFormat": "Import Corruption Loadout in text format",
-      "loadoutApplied": "Corruption Loadout from previous run has been applied. This will take effect on the next Ascension."
+      "viscosity": "Corruption I: Viscosity",
+      "dilation": "Corruption II: Spacial Dilation",
+      "hyperchallenge": "Corruption III: Hyperchallenged",
+      "illiteracy": "Corruption IV: Scientific Illiteracy",
+      "deflation": "Corruption V: Market Deflation",
+      "extinction": "Corruption VI: Extinction",
+      "drought": "Corruption VII: Drought",
+      "recession": "Corruption VIII: Financial Recession"
+    },
+    "descriptions": {
+      "viscosity": "You feel lethargic across the universe...",
+      "dilation": "You feel as though seconds go by in years.",
+      "hyperchallenge": "You want me to get HOW Many coins??",
+      "illiteracy": "In the year 2505...",
+      "deflation": "This ascension lacks carbon...",
+      "extinction": "It killed the dinosaurs too, ya Dingus.",
+      "drought": "Where will I grow my offering trees now?",
+      "recession": "Yet another 2020 catastrophe."
+    },
+    "currentLevel": {
+      "viscosity": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
+      "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+      "hyperchallenge": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+      "illiteracy": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+      "deflation": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+      "extinction": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
+      "drought": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+      "recession": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+    },
+    "prototypeLevel": {
+      "viscosity": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
+      "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+      "hyperchallenge": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+      "illiteracy": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+      "deflation": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+      "extinction": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
+      "drought": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+      "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+    },
+    "scoreMultiplier": "Current Score Multiplier: {{ curr }} / Next Ascension Score Multiplier: {{ next }}",
+    "spiritEffect": "This corruption gives Rune Spirit Effect +{{curr}}% / Next Ascension Rune Spirit Effect +{{next}}%",
+    "exitCorruption": {
+      "name": "CLEANSE THE CORRUPTION",
+      "description": "Free this world of sin.",
+      "current": "Reset all Corruptions to level 0 for your current ascension. Does not reset your current ascension.",
+      "planned": "Push that big 'Reset Corruptions' button to confirm your decision.",
+      "multiplier": "Note: if you need to do this, you may have bitten off more than you can chew."
+    },
+    "max": "MAX",
+    "current": "Current: ",
+    "next": " / Next: ",
+    "loadoutTable": {
+      "next": "Next:",
+      "firstRowTitle": "Click to copy the next Corruptions to the clipboard. This is the format that can be imported",
+      "otherRowTitle": "Click to rename. Hotkey: SHIFT+{{ value }}",
+      "import": "Import",
+      "importTitle": "Import Corruption Loadout in text format",
+      "zero": "Zero",
+      "zeroTitle": "Reset Corruptions to zero on your next Ascension. Hotkey: SHIFT+9",
+      "save": "Save",
+      "saveTitle": "Save current Corruptions to this Loadout",
+      "load": "Load"
+    },
+    "importCorruptionsPrompt": {
+      "import": "Enter a Corruption Loadout to import for next Ascension. It must be in the following text format: 1/2/3/4/5/6/7/8",
+      "importError": "Your input was not in the correct format, try again."
+    },
+    "corruptionLoadoutName": {
+      "loadoutPrompt": "What would you like to name Loadout {{ loadNum }}? Names cannot be longer than {{ maxChars }} characters. Nothing crazy!",
+      "errors": {
+        "noName": "Okay, maybe next time.",
+        "exceedsCharacterLimit": "The name you provided is too long! Try again.",
+        "regexError": "The Loadout Renamer didn't like a character in your name! Try something else.",
+        "crazyJoke": "Ant God approves of your joke!"
+      }
+    },
+    "loadoutExport": {
+      "saveErrorNavigator": "Unable to write the save to clipboard: {{ message }}"
+    },
+    "corrStatsBtn": "Corruption Stats",
+    "corrLoadoutsBtn": "Corruption Loadouts",
+    "cleanse": "Cleanse",
+    "confirm": "Confirm",
+    "intro": "The most rewarding ventures are those few would dare to embark.",
+    "traitInfo": "Select the trait levels you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
+    "antExponent": "This Ascension's climate raises Ant production to the power of <<var(--darkorchid-text-color)|{{exponent}}>>.",
+    "spiritBonus": "However, it also multiplies Rune Spirit Effects by <<wheat|{{multiplier}}>>.",
+    "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
+    "corruptionScore": "Your Ascension Score is <<goldenrod|{{ascScore}}>></span> (base) * <<var(--crimson-text-color)|{{corrMult}}>> (Corruption mult) * <<var(--orchid-text-color)|{{bonusMult}}>> (Bonus mult) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
+    "ascensionCount": "If you Ascend now, <<darkorange|{{ascCount}}>> will be added to your ascension count.",
+    "corruptionCubes": "If you Ascend now, you will gain <<yellow|{{cubeAmount}}>> Wow! Cubes.",
+    "corruptionTesseracts": "If you Ascend now, you will gain <<orange|{{tesseractAmount}}>> Wow! Tesseracts. [<<var(--orange-text-color)|Get more if Score >100,000>>]",
+    "corruptionHypercubes": "If you Ascend now, you will gain <<var(--crimson-text-color)|{{hypercubeAmount}}>> Wow! Hypercubes. [<<var(--red-text-color)|Req Score: >1,000,000,000>>]",
+    "corruptionPlatonics": "If you Ascend now, you will gain <<orchid|{{platonicAmount}}>> PLATONIC CUBES. [<<var(--orchid-text-color)|Req Score: >2,666,000,000,000>>]",
+    "corruptionHepteracts": "If you Ascend now, you will gain <<mediumpurple|{{hepteractAmount}}>> HEPTERACTS. [<<mediumpurple|Req Score: >1.666e17>>]",
+    "autoAscend": {
+      "c10Completions": "Ascend when you've completed Sadistic Challenge I a total of <<var(--violet-text-color)|{{input}}>> times, Currently <<gold|{{completions}}>>",
+      "realTime": "Ascend when the timer is at least <<var(--violet-text-color)|{{input}}>> seconds (Real-time), Currently <<gold|{{time}}>>",
+      "on": "Auto Ascend [ON]",
+      "off": "Auto Ascend [OFF]",
+      "modeCompletions": "Mode: C10 Completions",
+      "modeRealTime": "Mode: Real time"
+    },
+    "importLoadoutInTextFormat": "Import Corruption Loadout in text format",
+    "loadoutApplied": "Corruption Loadout from previous run has been applied. This will take effect on the next Ascension."
   },
   "footnotes": {
       "buildings": "Press [1], [2], [3], [4], or [5] to buy the corresponding tier starting from the top. Press [A] to buy Accelerator, [M] to buy Multiplier, or [B] to buy Accelerator Boost.",
@@ -2896,6 +3080,16 @@
               "name": "Hourglass of Reality",
               "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% Blueberry Second Generation per level.",
               "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+          },
+          "octeractPixelLuck": {
+            "name": "Mega Pixel Luck Bonus",
+            "description": "Pay a lot of Octeracts, get a few ❖ Pixel Luck. +1 per level, to be precise.",
+            "effect": "Gain +{{n}} ❖ Pixel Luck!"
+          },
+          "octeractPixelLuck2": {
+            "name": "Tera Pixel Luck Bonus",
+            "description": "Pay a LOT of Octeracts, get a few ❖ Pixel Luck. +1 per level, to be precise.",
+            "effect": "Gain +{{n}} ❖ Pixel Luck!"
           }
       },
       "amount": "You have {{octeracts}} Octeracts!",
@@ -3501,7 +3695,8 @@
       "insideSingularityChallenge": "Derpsmith thinks you are in a Singularity Challenge. You may exit it by clicking on the challenge icon in the Exalt tab.",
       "gameBeat": "Well. It seems you've reached the eye of the Singularity. I'm pleased. This also means there is nowhere to go from here. At least, not until higher powers expand your journey.",
       "exitAscensionChallenge": "Are you absolutely sure that you want to exit the Ascension Challenge? You will need to clear challenge 10 again before you can attempt the challenge again!",
-      "buyResearch3x11": "[LOCKED - Buy Research 3x11]"
+      "buyResearch3x11": "[LOCKED - Buy Research 3x11]",
+      "levelText": "Level {{level}}/{{maxLevel}}"
   },
   "history": {
       "perSecondOn": "Per second: ON",
