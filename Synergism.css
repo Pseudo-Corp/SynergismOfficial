@@ -3694,6 +3694,10 @@ img#singularityPerksIcon {
     justify-content: center;
 }
 
+#accountSubTab {
+    flex-direction: column;
+}
+
 #singularityChallengeDetails {
     display: block;
 }
@@ -3935,4 +3939,13 @@ img#singularityPerksIcon {
 form input:hover {
     background-color: var(--hover-color);
     cursor: pointer;
+}
+
+#logoutButton {
+    border: 2px solid #5865f2;
+    height: 25px;
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
 }

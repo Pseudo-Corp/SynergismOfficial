@@ -78,6 +78,12 @@ export async function handleLogin () {
   const subtabElement = document.querySelector('#accountSubTab > div.scrollbarX')!
   const currentBonus = DOMCacheGetOrSet('currentBonus')
 
+  const logoutElement = document.getElementById('logoutButton')
+  if (logoutElement !== null) {
+    logoutElement.addEventListener('click', logout, { once: true })
+    document.getElementById('accountSubTab')?.appendChild(logoutElement)
+  }
+
   const response = await fetch('https://synergism.cc/api/v1/users/me')
 
   if (!response.ok) {
@@ -145,13 +151,8 @@ export async function handleLogin () {
       </a>
     `.trim()
 
-    const logoutElement = document.createElement('button')
     const cloudSaveElement = document.createElement('button')
     const loadCloudSaveElement = document.createElement('button')
-
-    logoutElement.addEventListener('click', logout, { once: true })
-    logoutElement.style.cssText = 'border: 2px solid #5865F2; height: 25px; width: 150px;'
-    logoutElement.textContent = 'Log Out'
 
     if (personalBonus > 1) {
       cloudSaveElement.addEventListener('click', saveToCloud)
@@ -170,7 +171,6 @@ export async function handleLogin () {
     cloudSaveParent.appendChild(cloudSaveElement)
     cloudSaveParent.appendChild(loadCloudSaveElement)
 
-    subtabElement.appendChild(logoutElement)
     subtabElement.appendChild(cloudSaveParent)
   } else {
     // User is not logged in
