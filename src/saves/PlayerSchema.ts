@@ -322,7 +322,7 @@ export const playerSchema = z.object({
   crystalUpgrades: z.number().array(),
   crystalUpgradesCost: z.number().array().default(() => [...blankSave.crystalUpgradesCost]),
 
-  runelevels: z.number().array(),
+  runelevels: z.number().array().transform((array) => arrayExtend(array, 'runelevels')),
   runeexp: z.union([z.number(), z.null()]).array().transform((value) => value.map((val) => val === null ? 0 : val)),
   runeshards: z.number(),
   maxofferings: z.number().default(() => blankSave.maxofferings),
@@ -508,7 +508,9 @@ export const playerSchema = z.object({
   ascStatToggles: z.record(integerStringSchema, z.boolean()).default(() => ({ ...blankSave.ascStatToggles })),
 
   prototypeCorruptions: z.number().array().default(() => [...blankSave.prototypeCorruptions]),
-  usedCorruptions: z.number().array().default(() => [...blankSave.usedCorruptions]),
+  usedCorruptions: z.number().array().transform((array) => arrayExtend(array, 'usedCorruptions')).default(
+    () => [...blankSave.usedCorruptions]
+  ),
   corruptionLoadouts: z.record(integerStringSchema, z.number().array()).default(() =>
     deepClone(blankSave.corruptionLoadouts)
   ),
