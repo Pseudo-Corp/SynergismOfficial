@@ -447,7 +447,9 @@ export const playerSchema = z.object({
   cubeUpgradesBuyMaxToggle: z.boolean().default(() => blankSave.cubeUpgradesBuyMaxToggle),
   autoCubeUpgradesToggle: z.boolean().default(() => blankSave.autoCubeUpgradesToggle),
   autoPlatonicUpgradesToggle: z.boolean().default(() => blankSave.autoPlatonicUpgradesToggle),
-  platonicUpgrades: z.number().array().default(() => [...blankSave.platonicUpgrades]),
+  platonicUpgrades: z.number().array().transform((array) => arrayExtend(array, 'platonicUpgrades')).default(
+    () => [...blankSave.platonicUpgrades]
+  ),
   wowCubes: z.number().default(() => Number(blankSave.wowCubes)).transform((cubes) => new WowCubes(cubes)),
   wowTesseracts: z.number().default(() => Number(blankSave.wowTesseracts)).transform((tesseract) =>
     new WowTesseracts(tesseract)
