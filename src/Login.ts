@@ -3,7 +3,7 @@ import localforage from 'localforage'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
-import { player } from './Synergism'
+import { format, player } from './Synergism'
 import { Alert } from './UpdateHTML'
 
 // Consts for Patreon Supporter Roles.
@@ -143,7 +143,7 @@ export async function handleLogin () {
 
     subtabElement.innerHTML = `
       ${user ? `Hello, ${user}` : 'Hello'}!\n
-      Your personal Quark bonus is ${personalBonus}%, computed by the following:
+      Your personal Quark bonus is ${format(personalBonus, 2, true)}%, computed by the following:
       Donator Bonuses (Multiplicative with other bonuses):
       <span style="color: orchid">Transcended Baller</span> [+2%] - ${hasTier1 ? checkMark(2) : exMark}
       <span style="color: green">Reincarnated Baller</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
@@ -162,7 +162,7 @@ export async function handleLogin () {
       <span style="color: #ffcc00">Smith God</span> [+0.7%] - ${member.roles.includes(SMITH_GOD) ? checkMark(0.7) : exMark}
       <span style="color: #ffcc00">Golden Smith God</span> [+0.8%] - ${member.roles.includes(GOLDEN_SMITH_GOD) ? checkMark(0.8) : exMark}
       <span style="color: #ffcc00">Diamond Smith Messiah</span> [+1%] - ${member.roles.includes(DIAMOND_SMITH_MESSIAH) ? checkMark(1.2) : exMark}
-      
+
       And Finally...
       <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${
       checkMark(1)
