@@ -13,6 +13,19 @@ const ASCENDED_BALLER = '758861068188647444'
 const OMEGA_BALLER = '832099983389097995'
 const BOOSTER = '677272036820910098'
 
+
+// Const for Event Roles.
+const THANKSGIVING_2023 = '1177364773986386021'
+const THANKSGIVING_2024 = '1311161342987603979'
+const CONDUCTOR_2023 = '1178131525049520138'
+const CONDUCTOR_2024 = '1311164406209450064'
+const EIGHT_LEAF = '983484264865730560'
+const TEN_LEAF = '1045560188574380042'
+const SMITH_INCARNATE = '1045560846169935922'
+const SMITH_GOD = '1045562390995009606'
+const GOLDEN_SMITH_GOD = '1178125584061173800'
+const DIAMOND_SMITH_MESSIAH = '1311165096378105906'
+
 /**
  * @see https://discord.com/developers/docs/resources/user#user-object
  */
@@ -131,11 +144,25 @@ export async function handleLogin () {
     subtabElement.innerHTML = `
       ${user ? `Hello, ${user}` : 'Hello'}!\n
       Your personal Quark bonus is ${personalBonus}%, computed by the following:
+      Donator Bonuses (Multiplicative with other bonuses):
       <span style="color: orchid">Transcended Baller</span> [+2%] - ${hasTier1 ? checkMark(2) : exMark}
       <span style="color: green">Reincarnated Baller</span> [+3%] - ${hasTier2 ? checkMark(3) : exMark}
       <span style="color: orange">ASCENDED Baller</span> [+4%] - ${hasTier3 ? checkMark(4) : exMark}
       <span style="color: lightgoldenrodyellow">OMEGA Baller</span> [+5%] - ${hasTier4 ? checkMark(5) : exMark}
       <span style="color: #f47fff">Discord Server Booster</span> [+1%] - ${boosted ? checkMark(1) : exMark}
+
+      Event Bonuses:
+      <span style="color: #ffcc00">Thanksgiving 2023</span> [+0.2%] - ${member.roles.includes(THANKSGIVING_2023) ? checkMark(0.2) : exMark}
+      <span style="color: #ffcc00">Thanksgiving 2024</span> [+0.3%] - ${member.roles.includes(THANKSGIVING_2024) ? checkMark(0.3) : exMark}
+      <span style="color: #ffcc00">Conductor 2023</span> [+0.3%] - ${member.roles.includes(CONDUCTOR_2023) ? checkMark(0.3) : exMark}
+      <span style="color: #ffcc00">Conductor 2024</span> [+0.4%] - ${member.roles.includes(CONDUCTOR_2024) ? checkMark(0.4) : exMark}
+      <span style="color: #ffcc00">Eight Leaf</span> [+0.3%] - ${member.roles.includes(EIGHT_LEAF) ? checkMark(0.3) : exMark}
+      <span style="color: #ffcc00">Ten Leaf</span> [+0.4%] - ${member.roles.includes(TEN_LEAF) ? checkMark(0.4) : exMark}
+      <span style="color: #ffcc00">Smith Incarnate</span> [+0.6%] - ${member.roles.includes(SMITH_INCARNATE) ? checkMark(0.6) : exMark}
+      <span style="color: #ffcc00">Smith God</span> [+0.7%] - ${member.roles.includes(SMITH_GOD) ? checkMark(0.7) : exMark}
+      <span style="color: #ffcc00">Golden Smith God</span> [+0.8%] - ${member.roles.includes(GOLDEN_SMITH_GOD) ? checkMark(0.8) : exMark}
+      <span style="color: #ffcc00">Diamond Smith Messiah</span> [+1%] - ${member.roles.includes(DIAMOND_SMITH_MESSIAH) ? checkMark(1.2) : exMark}
+      
       And Finally...
       <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${
       checkMark(1)
