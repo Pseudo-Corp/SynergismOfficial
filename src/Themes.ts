@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { safeLocalStorage } from './ImportExport'
 import { player } from './Synergism'
 
 export const toggleTheme = (initial = false, themeNumber = 1, change = false) => {
@@ -7,11 +8,11 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
   const body = document.body
 
   if (change) {
-    localStorage.setItem('theme', `${themeNumber}`)
+    safeLocalStorage.setItem('theme', `${themeNumber}`)
     body.style.setProperty('--transition', '750ms')
     body.style.setProperty('--transition-extra', '600ms')
   } else {
-    themeNumber = Number(localStorage.getItem('theme') ?? 1)
+    themeNumber = Number(safeLocalStorage.getItem('theme') ?? 1)
   }
 
   /* Full reset for easy out of order change */
@@ -107,7 +108,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
   }
 
   if (themeNumber === 1) {
-    localStorage.removeItem('theme')
+    safeLocalStorage.removeItem('theme')
     themeButton.textContent = 'Dark Mode'
   } else if (themeNumber === 2) { // 'Darker Mode'
     body.style.setProperty('--header-color', 'black')
