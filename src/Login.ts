@@ -13,7 +13,6 @@ const ASCENDED_BALLER = '758861068188647444'
 const OMEGA_BALLER = '832099983389097995'
 const BOOSTER = '677272036820910098'
 
-
 // Const for Event Roles.
 const THANKSGIVING_2023 = '1177364773986386021'
 const THANKSGIVING_2024 = '1311161342987603979'
@@ -129,7 +128,9 @@ export async function handleLogin () {
       user = member.user.username
     }
 
-    const boosted = accountType === 'discord' ? Boolean(member?.premium_since) || member?.roles.includes(BOOSTER) : false
+    const boosted = accountType === 'discord'
+      ? Boolean(member?.premium_since) || member?.roles.includes(BOOSTER)
+      : false
     const hasTier1 = member.roles.includes(TRANSCENDED_BALLER) ?? false
     const hasTier2 = member.roles.includes(REINCARNATED_BALLER) ?? false
     const hasTier3 = member.roles.includes(ASCENDED_BALLER) ?? false
@@ -152,16 +153,36 @@ export async function handleLogin () {
       <span style="color: #f47fff">Discord Server Booster</span> [+1%] - ${boosted ? checkMark(1) : exMark}
 
       Event Bonuses:
-      <span style="color: #ffcc00">Thanksgiving 2023</span> [+0.2%] - ${member.roles.includes(THANKSGIVING_2023) ? checkMark(0.2) : exMark}
-      <span style="color: #ffcc00">Thanksgiving 2024</span> [+0.3%] - ${member.roles.includes(THANKSGIVING_2024) ? checkMark(0.3) : exMark}
-      <span style="color: #ffcc00">Conductor 2023</span> [+0.3%] - ${member.roles.includes(CONDUCTOR_2023) ? checkMark(0.3) : exMark}
-      <span style="color: #ffcc00">Conductor 2024</span> [+0.4%] - ${member.roles.includes(CONDUCTOR_2024) ? checkMark(0.4) : exMark}
-      <span style="color: #ffcc00">Eight Leaf</span> [+0.3%] - ${member.roles.includes(EIGHT_LEAF) ? checkMark(0.3) : exMark}
-      <span style="color: #ffcc00">Ten Leaf</span> [+0.4%] - ${member.roles.includes(TEN_LEAF) ? checkMark(0.4) : exMark}
-      <span style="color: #ffcc00">Smith Incarnate</span> [+0.6%] - ${member.roles.includes(SMITH_INCARNATE) ? checkMark(0.6) : exMark}
-      <span style="color: #ffcc00">Smith God</span> [+0.7%] - ${member.roles.includes(SMITH_GOD) ? checkMark(0.7) : exMark}
-      <span style="color: #ffcc00">Golden Smith God</span> [+0.8%] - ${member.roles.includes(GOLDEN_SMITH_GOD) ? checkMark(0.8) : exMark}
-      <span style="color: #ffcc00">Diamond Smith Messiah</span> [+1%] - ${member.roles.includes(DIAMOND_SMITH_MESSIAH) ? checkMark(1.2) : exMark}
+      <span style="color: #ffcc00">Thanksgiving 2023</span> [+0.2%] - ${
+      member.roles.includes(THANKSGIVING_2023) ? checkMark(0.2) : exMark
+    }
+      <span style="color: #ffcc00">Thanksgiving 2024</span> [+0.3%] - ${
+      member.roles.includes(THANKSGIVING_2024) ? checkMark(0.3) : exMark
+    }
+      <span style="color: #ffcc00">Conductor 2023</span> [+0.3%] - ${
+      member.roles.includes(CONDUCTOR_2023) ? checkMark(0.3) : exMark
+    }
+      <span style="color: #ffcc00">Conductor 2024</span> [+0.4%] - ${
+      member.roles.includes(CONDUCTOR_2024) ? checkMark(0.4) : exMark
+    }
+      <span style="color: #ffcc00">Eight Leaf</span> [+0.3%] - ${
+      member.roles.includes(EIGHT_LEAF) ? checkMark(0.3) : exMark
+    }
+      <span style="color: #ffcc00">Ten Leaf</span> [+0.4%] - ${
+      member.roles.includes(TEN_LEAF) ? checkMark(0.4) : exMark
+    }
+      <span style="color: #ffcc00">Smith Incarnate</span> [+0.6%] - ${
+      member.roles.includes(SMITH_INCARNATE) ? checkMark(0.6) : exMark
+    }
+      <span style="color: #ffcc00">Smith God</span> [+0.7%] - ${
+      member.roles.includes(SMITH_GOD) ? checkMark(0.7) : exMark
+    }
+      <span style="color: #ffcc00">Golden Smith God</span> [+0.8%] - ${
+      member.roles.includes(GOLDEN_SMITH_GOD) ? checkMark(0.8) : exMark
+    }
+      <span style="color: #ffcc00">Diamond Smith Messiah</span> [+1%] - ${
+      member.roles.includes(DIAMOND_SMITH_MESSIAH) ? checkMark(1.2) : exMark
+    }
 
       And Finally...
       <span style="color: lime"> Being <span style="color: lightgoldenrodyellow"> YOURSELF! </span></span> [+1%] - ${
@@ -203,23 +224,17 @@ export async function handleLogin () {
     // User is not logged in
     subtabElement.innerHTML = `
       <img id="discord-logo" alt="Discord Logo" src="Pictures/discord-mark-blue.png" loading="lazy" />
-      <button value="discord" style="border: 2px solid #5865F2; height: 20px; width: 250px;">Login with Discord</button>
+      <a
+        href="https://synergism.cc/login?with=discord"
+        style="display:inline-block;border: 2px solid #5865F2; height: 25px; width: 250px;"
+      >Login with Discord</a>
 
-      <img id="patreon-logo" alt="Discord Logo" src="Pictures/patreon-logo.png" loading="lazy" />
-      <button value="patreon" style="border: 2px solid #ff5900; height: 20px; width: 250px;">Login with Patreon</button>
+      <img id="patreon-logo" alt="Patreon Logo" src="Pictures/patreon-logo.png" loading="lazy" />
+      <a
+        href="https://synergism.cc/login?with=patreon"
+        style="display:inline-block;border: 2px solid #ff5900; height: 25px; width: 250px;"
+      >Login with Patreon</a>
     `
-
-    subtabElement.querySelector('button[value="discord"]')?.addEventListener('click', () => {
-      location.assign(
-        'https://discord.com/oauth2/authorize?client_id=1289303422939562128&response_type=code&redirect_uri=https%3A%2F%2Fsynergism.cc%2Fdiscord%2Foauth%2F&scope=identify+guilds+guilds.members.read'
-      )
-    })
-
-    subtabElement.querySelector('button[value="patreon"]')?.addEventListener('click', () => {
-      location.assign(
-        'https://www.patreon.com/oauth2/authorize?response_type=code&client_id=mARrL2U1X5TUvl6YoFbfIEmsouJ0eCuETeEbkG1-Wmm5eNko6gzWgOUCuyejpTpA&redirect_uri=https%3A%2F%2Fsynergism.cc%2Fpatreon%2Foauth%2F&scope=identity%20campaigns%20identity.memberships'
-      )
-    })
   }
 }
 
