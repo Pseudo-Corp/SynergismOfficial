@@ -67,12 +67,12 @@ interface RawMember {
 interface SynergismUserAPIResponse {
   personalBonus: number
   globalBonus: number
-  type: string
+  accountType: string
 }
 
 interface SynergismDiscordUserAPIResponse extends SynergismUserAPIResponse {
   member: RawMember | null
-  type: 'discord'
+  accountType: 'discord'
 }
 
 interface SynergismPatreonUserAPIResponse extends SynergismUserAPIResponse {
@@ -82,7 +82,7 @@ interface SynergismPatreonUserAPIResponse extends SynergismUserAPIResponse {
     }
     roles: string[]
   }
-  type: 'patreon'
+  accountType: 'patreon'
 }
 
 type CloudSave = null | { save: string }
@@ -105,7 +105,7 @@ export async function handleLogin () {
     return
   }
 
-  const { globalBonus, member, personalBonus, type } = await response.json() as
+  const { globalBonus, member, personalBonus, accountType } = await response.json() as
     | SynergismDiscordUserAPIResponse
     | SynergismPatreonUserAPIResponse
 
@@ -123,13 +123,13 @@ export async function handleLogin () {
 
     let user: string | null
 
-    if (type === 'discord') {
+    if (accountType === 'discord') {
       user = member.nick ?? member.user?.username ?? member.user?.global_name ?? null
     } else {
       user = member.user.username
     }
 
-    const boosted = type === 'discord' ? Boolean(member?.premium_since) || member?.roles.includes(BOOSTER) : false
+    const boosted = accountType === 'discord' ? Boolean(member?.premium_since) || member?.roles.includes(BOOSTER) : false
     const hasTier1 = member.roles.includes(TRANSCENDED_BALLER) ?? false
     const hasTier2 = member.roles.includes(REINCARNATED_BALLER) ?? false
     const hasTier3 = member.roles.includes(ASCENDED_BALLER) ?? false
