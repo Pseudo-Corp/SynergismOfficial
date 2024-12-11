@@ -108,8 +108,8 @@
       },
       "ambrosiaHyperflux": {
         "name": "Hyperfluxed Wow! Cube Industrial Production",
-        "description": "Gain +1% cubes per level, per level of Platonic Upgrade 4x4 purchased (multiplicative!!!)",
-        "effect": "This module increases Cubes gain by {{amount}}%!"
+        "description": "Gagnez +1% de cubes par niveau, par niveau d'amélioration Platonique 4x4 achetés (multiplicatif !!!)",
+        "effect": "Ce module de cube augmente le gain de Cube par {{amount}}% !"
       }
     },
     "loadouts": {
@@ -126,7 +126,7 @@
       "error": "Impossible d'analyser le fichier soumis ! Vérifiez qu'il s'agit d'un fichier de configuration d'Arbre-Myrtille."
     },
     "exportTree": {
-      "exportButton": "Export"
+      "exportButton": "Exporter"
     }
   },
   "achievements": {
@@ -3458,17 +3458,17 @@
       "bribe": {
         "notUnlocked": "Hmmm... you aren't ready yet.",
         "overCapacity": "You can't hold more!",
-        "thanks": "Thank Alonso (in Discord) for the bribe."
+        "thanks": "Merci à Alonso (dans Discord) pour le pot-de-vin."
       }
     }
   },
   "toggles": {
-    "percentBetweenInclusive": "Value must be a number between {{x}} and {{y}}, inclusive!",
-    "percentKeptAt": "Your percentage is kept at {{x}}%.",
-    "onAscensionHepteractsCraft": "Okay. On Ascension, {{x}}% of your Hepteracts will be used in crafting.",
-    "autoUpgradeOn": "Auto Upgrades: [ON]",
-    "autoUpgradeOff": "Auto Upgrades: [OFF]",
-    "upgradeMaxIfPossible": "Upgrade: MAX [if possible wow]",
+    "percentBetweenInclusive": "La valeur doit être un nombre entre {{x}} et {{y}}, inclus !",
+    "percentKeptAt": "Votre pourcentage est maintenu à {{x}}%.",
+    "onAscensionHepteractsCraft": "D'accord. Lors de l'Ascension, {{x}}% de vos Hepteracts seront utilisés dans l'artisanat.",
+    "autoUpgradeOn": "Améliorations automatiques : [ACTIVÉ]",
+    "autoUpgradeOff": "Améliorations automatiques : [DÉSACTIVÉ]",
+    "upgradeMaxIfPossible": "Améliorer : Maximum [si possible ouah]",
     "upgradeOneLevelWow": "Upgrade: 1 Level wow",
     "saveOfferingsOn": "Save Offerings [ON]",
     "saveOfferingsOff": "Save Offerings [OFF]",
