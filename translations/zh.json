@@ -1430,7 +1430,12 @@
       "shopOcteractAmbrosiaLuck": "惊奇八阶方块每有一个数量级，每级就使☘ 神肴之运增加1%！就这么简单。",
       "shopCashGrabUltra": "象征性地支付一点费用，根据神肴数量，每级至多使蓝莓秒的产生速度增加15%，方盒获取数量增加120%，夸克获取数量增加8%。效果增长非线性，直到一共获得10000000神肴为止。",
       "shopAmbrosiaAccelerator": "每获得<<orange|1>>神肴时(无论来自何处)，每级该升级可以使蓝莓秒立刻增加<<cyan|0.2>>。",
-      "shopEXUltra": "拥有该额外升级吼，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！"
+      "shopEXUltra": "拥有该额外升级吼，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！",
+      "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
+      "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
+      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 20 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 666% more effective (so, each is worth the equivalent to 7.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
+      "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
     },
     "maxed": "已满级！",
     "upgradeFor": "使用{{x}}",
@@ -1525,7 +1530,12 @@
       "shopAmbrosiaLuck4": "使神肴之运<<lime|&#9752增加{{amount}}>>",
       "shopCashGrabUltra": "使蓝莓秒的产生速度增加<<blue|{{amount}}%>>。使方盒获取数量增加<<white|{{amount2}}%>>。使夸克获取数量增加<<cyan|{{amount3}}%>>。",
       "shopAmbrosiaAccelerator": "每获得1<<orange|神肴>>时，可以增加相当于<<cyan|{{amount}}>>秒产量的蓝莓时间(即增加<<cyan|{{amount2}}>>蓝莓秒)。",
-      "shopEXUltra": "神肴使<<orange|祭品获取数量>>、<<orchid|难得素获取数量>>和<<white|方盒获取数量>>增加<<gold|{{amount}}%>>！"
+      "shopEXUltra": "神肴使<<orange|祭品获取数量>>、<<orchid|难得素获取数量>>和<<white|方盒获取数量>>增加<<gold|{{amount}}%>>！",
+      "shopChronometerS": "Ascension Speed and Global Speed are both increased by <<orange|{{amount}}%>>!",
+      "shopAmbrosiaUltra": "Gain <<lime|☘ +{{amount}}>> Ambrosia Luck from your EXALT completions!",
+      "shopSingularitySpeedup": "Singularity Perks and Upgrades accumulate <<gray|{{amount}}>> times faster!",
+      "shopSingularityPotency": "Free Singularity Upgrades are as if you had <<gray|{{amount}}>> of them.",
+      "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know."
     }
   },
   "singularity": {
@@ -3092,7 +3102,8 @@
         "ScalingReward2": "使<<var(--blueberry-box-color)|蓝莓秒产生速度>>增加1%",
         "UniqueReward1": "第1次 - 使<<green|转世挑战>>的完成次数上限增加3次！",
         "UniqueReward2": "第20次 - 使<<var(--red-text-color)|腐化等级>>免费增加1级",
-        "UniqueReward3": "第20次 - 新的<<orchid|夸克商店>>升级！"
+        "UniqueReward3": "第20次 - 新的<<orchid|夸克商店>>升级！",
+        "UniqueReward4": "25th - +7 <<green|Reincarnation Challenge>> Cap! And +2 to Ascension Challenge caps."
       },
       "noOcteracts": {
         "name": "无八阶方块效果",
@@ -3122,6 +3133,26 @@
         "UniqueReward4": "第15次 - 新的<<orchid|夸克商店>>升级！",
         "UniqueReward5": "第20次 - 第3次免费获得1颗<<var(--blueberry-box-color)|蓝莓>>？！？！",
         "UniqueReward6": "第20次 - 新的<<orchid|超究夸克商店>>升级！"
+      },
+      "limitedTime": {
+        "name": "The Grand Singularity Speedrun!",
+        "description": "Derpsmith has a stopwatch and he's not afraid to use it! Beat the target Singularity in a limited time frame!<br/>The time limit is based on the tier of the challenge. After (600 - 20 * completion) seconds, your obt/off/cube production shatters (Divides by (10 + completions) every minute, self-multiplicatively). [WARNING: THIS CHALLENGE WILL PERMANENTLY RESET YOUR SINGULARITY TIMER. ENTER WITH CAUTION!]",
+        "ScalingReward1": "+4% <<orange|Global Speed>>!",
+        "ScalingReward2": "+4% <<orange|Ascension Speed>>!",
+        "ScalingReward3": "+1% <<cyan|Quarks>>!",
+        "UniqueReward1": "1st - your quarks no longer reset on singulatity!",
+        "UniqueReward2": "15th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward3": "25th - A very expensive, not good, pretty bad <<orange|Quark Shop>> upgrade!"
+      },
+      "sadisticPrequel": {
+        "name": "SADISTIC EXALT III - The Prequel",
+        "description": "How much more will Platonic misuse the word 'Sadistic'? [No Sing Upgrade, Oct Upgrades OR Ambrosia Upgrades]",
+        "ScalingReward1": "+2% <<cyan|Quarks>> per completion!",
+        "ScalingReward2": "+2% more <<orange|Free Upgrades>> from code 'Daily' per completion!",
+        "UniqueReward1": "1st - +50 Free Upgrades from code 'Daily'!",
+        "UniqueReward2": "10th - A first-tier <<pink|Exalt Upgrade>>",
+        "UniqueReward3": "20th - A second-tier <<pink|Exalt Upgrade>>",
+        "UniqueReward4": "30th - A particularly Sadistic <<gray|ULTRA Upgrade>>!"
       }
     },
     "intro": "过蒙拔擢，宠命优渥。",
