@@ -162,7 +162,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
   }
 
   public actualTotalLevels (): number {
-    if (player.singularityChallenges.noOcteracts.enabled && !this.qualityOfLife) {
+    if ((player.singularityChallenges.noOcteracts.enabled || player.singularityChallenges.sadisticPrequel.enabled) && !this.qualityOfLife) {
       return 0
     }
     const actualFreeLevels = this.computeFreeLevelSoftcap()

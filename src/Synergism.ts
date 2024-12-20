@@ -614,7 +614,12 @@ export const player: Player = {
     shopAmbrosiaLuck4: 0,
     shopCashGrabUltra: 0,
     shopAmbrosiaAccelerator: 0,
-    shopEXUltra: 0
+    shopEXUltra: 0,
+    shopChronometerS: 0,
+    shopAmbrosiaUltra: 0,
+    shopSingularitySpeedup: 0,
+    shopSingularityPotency: 0,
+    shopSadisticRune: 0,
   },
   shopBuyMaxToggle: false,
   shopHideToggle: false,
@@ -1391,7 +1396,15 @@ export const player: Player = {
     noAmbrosiaUpgrades: new SingularityChallenge(
       singularityChallengeData.noAmbrosiaUpgrades,
       'noAmbrosiaUpgrades'
-    )
+    ),
+    limitedTime: new SingularityChallenge(
+      singularityChallengeData.limitedTime,
+      'limitedTime'
+    ),
+    sadisticPrequel: new SingularityChallenge(
+      singularityChallengeData.sadisticPrequel,
+      'sadisticPrequel'
+    ),
   },
 
   ambrosia: 0,
@@ -6227,7 +6240,9 @@ export const reloadShit = async (reset = false) => {
   if (!reset) {
     await calculateOffline()
   } else {
-    player.worlds.reset()
+    if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
+      player.worlds.reset()
+    }
     // saving is disabled during a singularity event to prevent bug
     // early return here if the save fails can keep game state from properly resetting after a singularity
     if (saveCheck.canSave) {

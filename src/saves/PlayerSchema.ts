@@ -680,6 +680,7 @@ export const playerSchema = z.object({
               HTMLTag: singularityChallengeData[k].HTMLTag,
               highestSingularityCompleted,
               enabled,
+              resetTime: singularityChallengeData[k].resetTime,
               singularityRequirement: singularityChallengeData[k].singularityRequirement,
               scalingrewardcount: singularityChallengeData[k].scalingrewardcount,
               uniquerewardcount: singularityChallengeData[k].uniquerewardcount,

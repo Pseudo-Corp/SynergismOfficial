@@ -286,7 +286,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   }
 
   public get rewardDesc (): string {
-    const effectiveLevel = (player.singularityChallenges.noAmbrosiaUpgrades.enabled) ? 0 : this.level
+    const effectiveLevel = (player.singularityChallenges.noAmbrosiaUpgrades.enabled || player.singularityChallenges.sadisticPrequel.enabled) ? 0 : this.level
     if ('desc' in this.rewards(0)) {
       return String(this.rewards(effectiveLevel).desc)
     } else {
@@ -295,7 +295,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   }
 
   public get bonus () {
-    const effectiveLevel = (player.singularityChallenges.noAmbrosiaUpgrades.enabled) ? 0 : this.level
+    const effectiveLevel = (player.singularityChallenges.noAmbrosiaUpgrades.enabled || player.singularityChallenges.sadisticPrequel.enabled) ? 0 : this.level
     return this.rewards(effectiveLevel)
   }
 }

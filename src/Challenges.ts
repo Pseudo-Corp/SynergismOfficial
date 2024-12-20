@@ -55,6 +55,7 @@ export const getMaxChallenges = (i: number) => {
     maxChallenge += 2 * +player.singularityUpgrades.singChallengeExtension3.getEffect().bonus
 
     maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.capIncrease
+    maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.reinCapIncrease2
     return maxChallenge
   }
   // Ascension Challenge
@@ -84,6 +85,7 @@ export const getMaxChallenges = (i: number) => {
     maxChallenge += +player.singularityUpgrades.singChallengeExtension.getEffect().bonus
     maxChallenge += +player.singularityUpgrades.singChallengeExtension2.getEffect().bonus
     maxChallenge += +player.singularityUpgrades.singChallengeExtension3.getEffect().bonus
+    maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.ascCapIncrease2
     return maxChallenge
   }
 

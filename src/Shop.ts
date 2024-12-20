@@ -9,7 +9,8 @@ import {
   calculateCashGrabQuarkBonus,
   calculatePowderConversion,
   calculateSummationNonLinear,
-  calculateTimeAcceleration
+  calculateTimeAcceleration,
+  sumOfExaltCompletions
 } from './Calculate'
 import type { IMultiBuy } from './Cubes'
 import { format, player } from './Synergism'
@@ -39,6 +40,11 @@ type shopResetTier =
   | 'Exalt1x30'
   | 'Exalt5'
   | 'Exalt5x20'
+  | 'Exalt6x15'
+  | 'Exalt6x25'
+  | 'Exalt7x10'
+  | 'Exalt7x20'
+  | 'Exalt7x30'
 
 export interface IShopData {
   price: number
@@ -698,6 +704,51 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
+  },
+  shopChronometerS: {
+    tier: 'Exalt6x15',
+    price: 1e22,
+    priceIncrease: 0,
+    maxLevel: 1,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopAmbrosiaUltra: {
+    tier: 'Exalt6x25',
+    price: 8e23,
+    priceIncrease: 8e23,
+    maxLevel: 5,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopSingularitySpeedup: {
+    tier: 'Exalt7x10',
+    price: 2e23,
+    priceIncrease: 0,
+    maxLevel: 1,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopSingularityPotency: {
+    tier: 'Exalt7x20',
+    price: 2e24,
+    priceIncrease: 0,
+    maxLevel: 1,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopSadisticRune: {
+    tier: 'Exalt7x30',
+    price: 2e25,
+    priceIncrease: 0,
+    maxLevel: 1,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
   }
 }
 
@@ -776,6 +827,11 @@ type ShopUpgradeNames =
   | 'shopCashGrabUltra'
   | 'shopAmbrosiaAccelerator'
   | 'shopEXUltra'
+  | 'shopChronometerS'
+  | 'shopAmbrosiaUltra'
+  | 'shopSingularitySpeedup'
+  | 'shopSingularityPotency'
+  | 'shopSadisticRune'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
   if (
@@ -1271,7 +1327,39 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopEXUltra', {
         amount: format(0.1 * Math.floor(Math.min(capacity, player.lifetimeAmbrosia) / 1000), 1, true)
       })
+    }
       break
+    case 'shopChronometerS': {
+      const singularity = player.singularityCount
+      const obtained = player.shopUpgrades.shopChronometerS > 0
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopChronometerS', {
+        amount: format(Math.max(0, 100 * (Math.pow(1.01, (singularity - 200) * +obtained) - 1)), 2, true)
+      })
+    }
+      break
+    case 'shopAmbrosiaUltra': {
+      const exaltCompletions = sumOfExaltCompletions()
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaUltra', {
+        amount: format(player.shopUpgrades.shopAmbrosiaUltra * exaltCompletions, 0, true)
+      })
+    }
+      break
+    case 'shopSingularitySpeedup': {
+      const obtained = player.shopUpgrades.shopSingularitySpeedup > 0
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopSingularitySpeedup', {
+        amount: obtained ? 20 : 1
+      })
+      break
+    }
+    case 'shopSingularityPotency': {
+      const obtained = player.shopUpgrades.shopSingularityPotency > 0
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopSingularityPotency', {
+        amount: obtained ? 7.66 : 1
+      })
+    }
+      break
+    case 'shopSadisticRune': {
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopSadisticRune')
     }
   }
 }
@@ -1351,7 +1439,12 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
     shopAmbrosiaLuck4: 'A FINAL Ambrosia Generation Speedup',
     shopCashGrabUltra: 'It\'s the FINAL CASHGRAB!',
     shopAmbrosiaAccelerator: 'An Ambrosial Accelerator!',
-    shopEXUltra: 'It\'s the FINAL E X!'
+    shopEXUltra: 'It\'s the FINAL E X!',
+    shopChronometerS: 'The FINAL Chronometer',
+    shopAmbrosiaUltra: 'The FINAL Ambrosia Exaltation... I don\'t flippin know!',
+    shopSingularitySpeedup: 'Singularity Timed-Perks Speedup',
+    shopSingularityPotency: 'Singularity Passives Potency',
+    shopSadisticRune: 'Sadistic Rune Unlock! Or does it?'
   }
 
   return names[input]
@@ -1853,5 +1946,15 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
       return Boolean(player.singularityChallenges.noAmbrosiaUpgrades.rewards.shopUpgrade)
     case 'shopEXUltra':
       return Boolean(player.singularityChallenges.noAmbrosiaUpgrades.rewards.shopUpgrade2)
+    case 'shopChronometerS':
+      return Boolean(player.singularityChallenges.limitedTime.rewards.tier1Upgrade)
+    case 'shopAmbrosiaUltra':
+      return Boolean(player.singularityChallenges.limitedTime.rewards.tier2Upgrade)
+    case 'shopSingularitySpeedup':
+      return Boolean(player.singularityChallenges.sadisticPrequel.rewards.shopUpgrade)
+    case 'shopSingularityPotency':
+      return Boolean(player.singularityChallenges.sadisticPrequel.rewards.shopUpgrade2)
+    case 'shopSadisticRune':
+      return Boolean(player.singularityChallenges.sadisticPrequel.rewards.shopUpgrade3)
   }
 }

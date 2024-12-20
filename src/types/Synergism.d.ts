@@ -403,6 +403,11 @@ export interface Player {
     shopCashGrabUltra: number
     shopAmbrosiaAccelerator: number
     shopEXUltra: number
+    shopChronometerS: number
+    shopAmbrosiaUltra: number
+    shopSingularitySpeedup: number
+    shopSingularityPotency: number
+    shopSadisticRune: number
   }
   shopConfirmationToggle: boolean
   shopBuyMaxToggle: boolean | 'TEN' | 'ANY'
