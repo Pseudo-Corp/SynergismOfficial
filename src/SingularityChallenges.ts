@@ -411,7 +411,6 @@ export const singularityChallengeData: Record<
     },
     scalingrewardcount: 3,
     uniquerewardcount: 3,
-    resetTime: true,
     effect: (n: number) => {
       return {
         preserveQuarks: +(n > 0),

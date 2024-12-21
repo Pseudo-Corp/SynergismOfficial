@@ -365,7 +365,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
       Math.min(this.level, baseRealFreeLevels)
       + Math.sqrt(Math.max(0, baseRealFreeLevels - this.level))
     )
-    
+
   }
 
   public computeMaxLevel (): number {
@@ -395,7 +395,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
     }
 
     if (
-      (player.singularityChallenges.limitedAscensions.enabled || player.singularityChallenges.sadisticPrequel.enabled)
+      (player.singularityChallenges.limitedAscensions.enabled || player.singularityChallenges.limitedTime.enabled || player.singularityChallenges.sadisticPrequel.enabled)
       && this.name === player.singularityUpgrades.platonicDelta.name
     ) {
       return 0
