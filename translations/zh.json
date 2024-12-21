@@ -1430,9 +1430,9 @@
       "shopOcteractAmbrosiaLuck": "惊奇八阶方块每有一个数量级，每级就使☘ 神肴之运增加1%！就这么简单。",
       "shopCashGrabUltra": "象征性地支付一点费用，根据神肴数量，每级至多使蓝莓秒的产生速度增加15%，方盒获取数量增加120%，夸克获取数量增加8%。效果增长非线性，直到一共获得10000000神肴为止。",
       "shopAmbrosiaAccelerator": "每获得<<orange|1>>神肴时(无论来自何处)，每级该升级可以使蓝莓秒立刻增加<<cyan|0.2>>。",
-      "shopEXUltra": "拥有该额外升级吼，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！",
-      "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
-      "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
+      "shopEXUltra": "拥有该额外升级后，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！",
+      "shopChronometerS": "200次进入奇点后，每有1次奇点次数，该升级就使飞升的速度和全局速度增加1%！",
+      "shopAmbrosiaUltra": "拥有该额外升级(价格高到离谱)后，每完成1阶层拔擢，每级该升级就可以使☘ 神肴之运增加1。",
       "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 20 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 666% more effective (so, each is worth the equivalent to 7.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
