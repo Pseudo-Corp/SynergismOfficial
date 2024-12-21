@@ -1430,7 +1430,12 @@
       "shopOcteractAmbrosiaLuck": "惊奇八阶方块每有一个数量级，每级就使☘ 神肴之运增加1%！就这么简单。",
       "shopCashGrabUltra": "象征性地支付一点费用，根据神肴数量，每级至多使蓝莓秒的产生速度增加15%，方盒获取数量增加120%，夸克获取数量增加8%。效果增长非线性，直到一共获得10000000神肴为止。",
       "shopAmbrosiaAccelerator": "每获得<<orange|1>>神肴时(无论来自何处)，每级该升级可以使蓝莓秒立刻增加<<cyan|0.2>>。",
-      "shopEXUltra": "拥有该额外升级吼，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！"
+      "shopEXUltra": "拥有该额外升级后，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！",
+      "shopChronometerS": "200次进入奇点后，每有1次奇点次数，该升级就使飞升的速度和全局速度增加1%！",
+      "shopAmbrosiaUltra": "拥有该额外升级(价格高到离谱)后，每完成1阶层拔擢，每级该升级就可以使☘ 神肴之运增加1。",
+      "shopSingularitySpeedup": "您知道那些由时间控制的奇点升级和惊奇八阶方块升级吧？它们增长的速度将变为原来的20倍！多亏了这个甚至能改变<<gray|奇点时长>>的奇怪时钟……",
+      "shopSingularityPotency": "您知道那些免费奇点升级吧？它们的效果将增加666%(换句话说，不计算软上限的话，每级都将是之前7.66级的效果)。原因？是这个有点奇怪的<<gray|奇点传输仪式装置>>！别多问了。",
+      "shopSadisticRune": "多奇怪的符文。店主(您永远也无法再见的那位)通过心灵感应说道，这是浸入某种<<gray|奇点物质>>的无限晋升符文。难道无限晋升符文不止一个？"
     },
     "maxed": "已满级！",
     "upgradeFor": "使用{{x}}",
@@ -1525,7 +1530,12 @@
       "shopAmbrosiaLuck4": "使神肴之运<<lime|&#9752增加{{amount}}>>",
       "shopCashGrabUltra": "使蓝莓秒的产生速度增加<<blue|{{amount}}%>>。使方盒获取数量增加<<white|{{amount2}}%>>。使夸克获取数量增加<<cyan|{{amount3}}%>>。",
       "shopAmbrosiaAccelerator": "每获得1<<orange|神肴>>时，可以增加相当于<<cyan|{{amount}}>>秒产量的蓝莓时间(即增加<<cyan|{{amount2}}>>蓝莓秒)。",
-      "shopEXUltra": "神肴使<<orange|祭品获取数量>>、<<orchid|难得素获取数量>>和<<white|方盒获取数量>>增加<<gold|{{amount}}%>>！"
+      "shopEXUltra": "神肴使<<orange|祭品获取数量>>、<<orchid|难得素获取数量>>和<<white|方盒获取数量>>增加<<gold|{{amount}}%>>！",
+      "shopChronometerS": "飞升的速度和全局速度均增加<<orange|{{amount}}%>>！",
+      "shopAmbrosiaUltra": "<<lime|&#9752>>神肴之运基于拔擢阶层完成数增加<<lime|{{amount}}>>。",
+      "shopSingularitySpeedup": "奇点特权和升级的增长速度变为原来的<<gray|{{amount}}>>倍！",
+      "shopSingularityPotency": "免费奇点升级的效果变为原来的<<gray|{{amount}}>>倍。",
+      "shopSadisticRune": "我也不知道这个符文有什么用。您已经买了吗？总之您知道的，我看不见。"
     }
   },
   "singularity": {
@@ -3092,7 +3102,8 @@
         "ScalingReward2": "使<<var(--blueberry-box-color)|蓝莓秒产生速度>>增加1%",
         "UniqueReward1": "第1次 - 使<<green|转世挑战>>的完成次数上限增加3次！",
         "UniqueReward2": "第20次 - 使<<var(--red-text-color)|腐化等级>>免费增加1级",
-        "UniqueReward3": "第20次 - 新的<<orchid|夸克商店>>升级！"
+        "UniqueReward3": "第20次 - 新的<<orchid|夸克商店>>升级！",
+        "UniqueReward4": "第25次 - 使<<green|转世挑战>>的完成次数上限增加7次！使飞升挑战的完成次数上限增加2次。"
       },
       "noOcteracts": {
         "name": "无八阶方块效果",
@@ -3122,6 +3133,26 @@
         "UniqueReward4": "第15次 - 新的<<orchid|夸克商店>>升级！",
         "UniqueReward5": "第20次 - 第3次免费获得1颗<<var(--blueberry-box-color)|蓝莓>>？！？！",
         "UniqueReward6": "第20次 - 新的<<orchid|超究夸克商店>>升级！"
+      },
+      "limitedTime": {
+        "name": "奇点大竞速赛！",
+        "description": "Derpsmith正在计时。在限定时间内通过目标奇点！<br/>时间限制与该拔擢的阶层完成数有关，在 (600 - 20 × 阶层完成数) 秒后，您的难得素、祭品和所有类型的方盒、立方和方块获取数量将每分钟除以 (10 + 阶层完成数)。[警告：该拔擢将清空本次奇点的时长，且无法恢复，请谨慎进入！]",
+        "ScalingReward1": "使<<orange|全局速度>>增加4%！",
+        "ScalingReward2": "使<<orange|飞升的速度>>增加4%！",
+        "ScalingReward3": "使<<cyan|夸克获取数量>>增加1%！",
+        "UniqueReward1": "第1次 - 进入奇点时不再重置夸克数量！",
+        "UniqueReward2": "第15次 - 新的<<orchid|夸克商店>>升级！",
+        "UniqueReward3": "第25次 - 非常昂贵、不好、很坏的<<orange|夸克商店>>升级！"
+      },
+      "sadisticPrequel": {
+        "name": "虐待狂拔擢 III - 前传",
+        "description": "Platonic还要滥用多少次“虐待狂”？[无奇点升级、八阶方块升级或神肴升级]",
+        "ScalingReward1": "使<<cyan|夸克获取数量>>增加2%！",
+        "ScalingReward2": "使“每日”代码可以多提供2%<<orange|免费奇点升级>>！",
+        "UniqueReward1": "第1次 - 使“每日”代码可以多提供50级免费奇点升级！",
+        "UniqueReward2": "第10次 - 一阶<<pink|拔擢升级>>",
+        "UniqueReward3": "第20次 - 二阶<<pink|拔擢升级>>",
+        "UniqueReward4": "第30次 - 特别虐待的<<gray|超究升级>>！"
       }
     },
     "intro": "过蒙拔擢，宠命优渥。",
