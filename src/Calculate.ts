@@ -2479,7 +2479,6 @@ export const calculateQuarkMultiplier = () => {
   multiplier *= +player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks
   multiplier *= +player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks
   multiplier *= calculateCashGrabQuarkBonus()
-  multiplier *= +player.singularityChallenges.limitedTime.rewards.quarkMult
   multiplier *= (1 + +player.singularityChallenges.limitedTime.rewards.quarkMult)
   multiplier *= (1 + +player.singularityChallenges.sadisticPrequel.rewards.quarkMult)
 

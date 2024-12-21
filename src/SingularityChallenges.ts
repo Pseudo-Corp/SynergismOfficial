@@ -409,7 +409,7 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 3 * completions
     },
-    scalingrewardcount: 2,
+    scalingrewardcount: 3,
     uniquerewardcount: 3,
     resetTime: true,
     effect: (n: number) => {
@@ -424,12 +424,12 @@ export const singularityChallengeData: Record<
     }
   },
   sadisticPrequel: {
-    baseReq: 180,
+    baseReq: 135,
     maxCompletions: 30,
     unlockSingularity: 273,
     HTMLTag: 'sadisticPrequel',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 2 * completions
+      return baseReq + 3 * completions
     },
     scalingrewardcount: 2,
     uniquerewardcount: 4,
