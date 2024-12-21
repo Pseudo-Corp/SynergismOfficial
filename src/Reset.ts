@@ -1199,8 +1199,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
     player.worlds.reset()
     hold.worlds = Number(hold.worlds)
-  }
-  else {
+  } else {
     hold.worlds = Number(player.worlds)
   }
 

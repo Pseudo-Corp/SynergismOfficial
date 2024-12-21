@@ -619,7 +619,7 @@ export const player: Player = {
     shopAmbrosiaUltra: 0,
     shopSingularitySpeedup: 0,
     shopSingularityPotency: 0,
-    shopSadisticRune: 0,
+    shopSadisticRune: 0
   },
   shopBuyMaxToggle: false,
   shopHideToggle: false,
@@ -1404,7 +1404,7 @@ export const player: Player = {
     sadisticPrequel: new SingularityChallenge(
       singularityChallengeData.sadisticPrequel,
       'sadisticPrequel'
-    ),
+    )
   },
 
   ambrosia: 0,

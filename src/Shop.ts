@@ -1322,27 +1322,30 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         )
       })
       break
-    case 'shopEXUltra': {
-      const capacity = 125000 * player.shopUpgrades.shopEXUltra
-      lol.innerHTML = i18next.t('shop.upgradeEffects.shopEXUltra', {
-        amount: format(0.1 * Math.floor(Math.min(capacity, player.lifetimeAmbrosia) / 1000), 1, true)
-      })
-    }
+    case 'shopEXUltra':
+      {
+        const capacity = 125000 * player.shopUpgrades.shopEXUltra
+        lol.innerHTML = i18next.t('shop.upgradeEffects.shopEXUltra', {
+          amount: format(0.1 * Math.floor(Math.min(capacity, player.lifetimeAmbrosia) / 1000), 1, true)
+        })
+      }
       break
-    case 'shopChronometerS': {
-      const singularity = player.singularityCount
-      const obtained = player.shopUpgrades.shopChronometerS > 0
-      lol.innerHTML = i18next.t('shop.upgradeEffects.shopChronometerS', {
-        amount: format(Math.max(0, 100 * (Math.pow(1.01, (singularity - 200) * +obtained) - 1)), 2, true)
-      })
-    }
+    case 'shopChronometerS':
+      {
+        const singularity = player.singularityCount
+        const obtained = player.shopUpgrades.shopChronometerS > 0
+        lol.innerHTML = i18next.t('shop.upgradeEffects.shopChronometerS', {
+          amount: format(Math.max(0, 100 * (Math.pow(1.01, (singularity - 200) * +obtained) - 1)), 2, true)
+        })
+      }
       break
-    case 'shopAmbrosiaUltra': {
-      const exaltCompletions = sumOfExaltCompletions()
-      lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaUltra', {
-        amount: format(player.shopUpgrades.shopAmbrosiaUltra * exaltCompletions, 0, true)
-      })
-    }
+    case 'shopAmbrosiaUltra':
+      {
+        const exaltCompletions = sumOfExaltCompletions()
+        lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaUltra', {
+          amount: format(player.shopUpgrades.shopAmbrosiaUltra * exaltCompletions, 0, true)
+        })
+      }
       break
     case 'shopSingularitySpeedup': {
       const obtained = player.shopUpgrades.shopSingularitySpeedup > 0
@@ -1351,12 +1354,13 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       })
       break
     }
-    case 'shopSingularityPotency': {
-      const obtained = player.shopUpgrades.shopSingularityPotency > 0
-      lol.innerHTML = i18next.t('shop.upgradeEffects.shopSingularityPotency', {
-        amount: obtained ? 7.66 : 1
-      })
-    }
+    case 'shopSingularityPotency':
+      {
+        const obtained = player.shopUpgrades.shopSingularityPotency > 0
+        lol.innerHTML = i18next.t('shop.upgradeEffects.shopSingularityPotency', {
+          amount: obtained ? 7.66 : 1
+        })
+      }
       break
     case 'shopSadisticRune': {
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopSadisticRune')
