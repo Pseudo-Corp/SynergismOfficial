@@ -1430,7 +1430,12 @@
       "shopOcteractAmbrosiaLuck": "Gain ☘ +1 Ambrosia Luck per digit in your Wow! Octeract inventory per level. Simple as that.",
       "shopCashGrabUltra": "For a nominal price, gain up to +15% Blueberry Speed, +120% Cubes and +8% Quarks per level based on Ambrosia, scaling nonlinearly until 10,000,000 lifetime earned.",
       "shopAmbrosiaAccelerator": "Each level of this 'accelerator' provides <<cyan|+0.2>> real-life seconds of Blueberry Generation for every <<orange|1>> Ambrosia gained, from any source!",
-      "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!"
+      "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
+      "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
+      "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
+      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 20 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 666% more effective (so, each is worth the equivalent to 7.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
+      "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
     },
     "maxed": "¡Maximizado!",
     "upgradeFor": "Mejora por {{x}} Quarks",
@@ -1525,7 +1530,12 @@
       "shopAmbrosiaLuck4": "Suerte de Ambrosía <<lime|&#9752 +{{amount}}>>",
       "shopCashGrabUltra": "Blueberry Generation is <<blue|{{amount}}%>> faster. Also, Cubes <<white|+{{amount2}}%>>! Finally, Quarks <<cyan|+{{amount3}}%>>!",
       "shopAmbrosiaAccelerator": "For every <<orange|Ambrosia>> gained, add <<cyan|{{amount}}>> seconds of Blueberry Generation (<<cyan|{{amount2}}>> Blueberry Seconds)!",
-      "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}%>>!"
+      "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}%>>!",
+      "shopChronometerS": "Ascension Speed and Global Speed are both increased by <<orange|{{amount}}%>>!",
+      "shopAmbrosiaUltra": "Gain <<lime|☘ +{{amount}}>> Ambrosia Luck from your EXALT completions!",
+      "shopSingularitySpeedup": "Singularity Perks and Upgrades accumulate <<gray|{{amount}}>> times faster!",
+      "shopSingularityPotency": "Free Singularity Upgrades are as if you had <<gray|{{amount}}>> of them.",
+      "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know."
     }
   },
   "singularity": {
@@ -3092,7 +3102,8 @@
         "ScalingReward2": "+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
         "UniqueReward1": "1st - +3 <<green|Reincarnation Challenge>> Cap!",
         "UniqueReward2": "20th - +1 Free <<var(--red-text-color)|Corruption Level>>",
-        "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!"
+        "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward4": "25th - +7 <<green|Reincarnation Challenge>> Cap! And +2 to Ascension Challenge caps."
       },
       "noOcteracts": {
         "name": "Sin Efectos de Octeracto",
@@ -3122,6 +3133,26 @@
         "UniqueReward4": "15th - A new <<orchid|Quark Shop>> upgrade!",
         "UniqueReward5": "20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
         "UniqueReward6": "20th - An <<gold|ULTRA Quark Shop>> upgrade!"
+      },
+      "limitedTime": {
+        "name": "The Grand Singularity Speedrun!",
+        "description": "Derpsmith has a stopwatch and he's not afraid to use it! Beat the target Singularity in a limited time frame!<br/>The time limit is based on the tier of the challenge. After (600 - 20 * completion) seconds, your obt/off/cube production shatters (Divides by (10 + completions) every minute, self-multiplicatively). [WARNING: THIS CHALLENGE WILL PERMANENTLY RESET YOUR SINGULARITY TIMER. ENTER WITH CAUTION!]",
+        "ScalingReward1": "+4% <<orange|Global Speed>>!",
+        "ScalingReward2": "+4% <<orange|Ascension Speed>>!",
+        "ScalingReward3": "+1% <<cyan|Quarks>>!",
+        "UniqueReward1": "1st - your quarks no longer reset on singulatity!",
+        "UniqueReward2": "15th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward3": "25th - A very expensive, not good, pretty bad <<orange|Quark Shop>> upgrade!"
+      },
+      "sadisticPrequel": {
+        "name": "SADISTIC EXALT III - The Prequel",
+        "description": "How much more will Platonic misuse the word 'Sadistic'? [No Sing Upgrade, Oct Upgrades OR Ambrosia Upgrades]",
+        "ScalingReward1": "+2% <<cyan|Quarks>> per completion!",
+        "ScalingReward2": "+2% more <<orange|Free Upgrades>> from code 'Daily' per completion!",
+        "UniqueReward1": "1st - +50 Free Upgrades from code 'Daily'!",
+        "UniqueReward2": "10th - A first-tier <<pink|Exalt Upgrade>>",
+        "UniqueReward3": "20th - A second-tier <<pink|Exalt Upgrade>>",
+        "UniqueReward4": "30th - A particularly Sadistic <<gray|ULTRA Upgrade>>!"
       }
     },
     "intro": "¿Tienes lo que hay que tener para ganar el EXALTADO de Dios Hormiga?",
