@@ -415,8 +415,8 @@ export const singularityChallengeData: Record<
       return {
         preserveQuarks: +(n > 0),
         quarkMult: 0.01 * n,
-        globalSpeed: 0.04 * n,
-        ascensionSpeed: 0.04 * n,
+        globalSpeed: 0.06 * n,
+        ascensionSpeed: 0.06 * n,
         tier1Upgrade: n >= 15,
         tier2Upgrade: n >= 25,
       }
@@ -435,11 +435,11 @@ export const singularityChallengeData: Record<
     effect: (n: number) => {
       return {
         extraFree: 50 * +(n > 0),
-        quarkMult: 0.02 * n,
-        freeUpgradeMult: 0.02 * n,
-        shopUpgrade: n >= 5,
-        shopUpgrade2: n >= 10,
-        shopUpgrade3: n >= 16
+        quarkMult: 0.03 * n,
+        freeUpgradeMult: 0.03 * n,
+        shopUpgrade: n >= 10,
+        shopUpgrade2: n >= 20,
+        shopUpgrade3: n >= 30
       }
     }
   }

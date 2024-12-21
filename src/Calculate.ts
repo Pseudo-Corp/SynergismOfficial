@@ -526,7 +526,7 @@ export function calculateOfferings (
   q *= calculateTotalOcteractOfferingBonus()
   if (player.singularityChallenges.limitedTime.enabled) {
     const comps = player.singularityChallenges.limitedTime.completions
-    const time = player.singularityCounter
+    const time = player.singChallengeTimer
     q *= calculateExalt6Penalty(comps, time)
   }
   q = Math.min(1e300, q)
@@ -686,7 +686,7 @@ export const calculateObtainium = () => {
 
   if (player.singularityChallenges.limitedTime.enabled) {
     const comps = player.singularityChallenges.limitedTime.completions
-    const time = player.singularityCounter
+    const time = player.singChallengeTimer
     G.obtainiumGain *= calculateExalt6Penalty(comps, time)
   }
 
@@ -1702,7 +1702,7 @@ export const calculateAllCubeMultiplier = () => {
   let exaltPenalty = 1
   if (player.singularityChallenges.limitedTime.enabled) {
     const comps = player.singularityChallenges.limitedTime.completions
-    const time = player.singularityCounter
+    const time = player.singChallengeTimer
     exaltPenalty = calculateExalt6Penalty(comps, time)
   }
   const arr = [

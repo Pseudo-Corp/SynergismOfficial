@@ -1112,12 +1112,22 @@ const updateAscensionStats = () => {
     ascTimeAccel: `${format(calculateTimeAcceleration().mult, 3)}x`,
     ascAscensionTimeAccel: `${format(calculateAscensionAcceleration(), 3)}x${addedAsterisk ? '*' : ''}`,
     ascSingularityCount: format(player.singularityCount),
-    ascSingLen: formatTimeShort(player.singularityCounter)
+    ascSingLen: formatTimeShort(player.singularityCounter),
+    ascSingChallengeLen: formatTimeShort(player.singChallengeTimer)
   }
   for (const key in fillers) {
     const dom = DOMCacheGetOrSet(key)
     if (dom.textContent !== fillers[key]) {
       dom.textContent = fillers[key]
+    }
+    if (key === 'ascSingChallengeLen') {
+      if ( player.singularityChallenges.limitedTime.enabled &&
+           player.singChallengeTimer > 600 - 20 * player.singularityChallenges.limitedTime.completions) {
+        dom.style.color = 'red'
+      }
+      else {
+        dom.style.color = 'white'
+      }
     }
   }
 }

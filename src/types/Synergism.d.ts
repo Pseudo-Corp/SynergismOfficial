@@ -646,6 +646,8 @@ export interface Player {
   ultimateProgress: number
   ultimatePixels: number
 
+  singChallengeTimer: number
+
   caches: {
     ambrosiaLuckAdditiveMult: AmbrosiaLuckAdditiveMultCache
     ambrosiaLuck: AmbrosiaLuckCache

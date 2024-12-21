@@ -860,7 +860,7 @@ export const player: Player = {
     3: false,
     4: false,
     5: false,
-    6: false
+    6: false,
   },
 
   prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -1498,6 +1498,8 @@ export const player: Player = {
 
   ultimateProgress: 0,
   ultimatePixels: 0,
+
+  singChallengeTimer: 0,
 
   caches: {
     ambrosiaLuckAdditiveMult: new AmbrosiaLuckAdditiveMultCache(),

@@ -73,6 +73,14 @@ export const addTimers = (input: TimerInput, time = 0) => {
     case 'singularity': {
       player.ascensionCounterRealReal += time
       player.singularityCounter += time * timeMultiplier
+
+      if (player.insideSingularityChallenge) {
+        player.singChallengeTimer += time * timeMultiplier
+      }
+      else {
+        player.singChallengeTimer = 0
+      }
+
       break
     }
     case 'quarks': {
