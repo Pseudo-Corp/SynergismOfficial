@@ -2724,7 +2724,7 @@
     "data": {
       "octeractStarter": {
         "name": "萌新的惊奇八阶方块",
-        "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 40% More Quarks, 20% More Octeracts, And 100,000x Ant Speed...",
+        "description": "您好……我是Derpsmith……蚁神的先祖……没想到您能走到这一步。该升级可以使您的夸克获取数量增加40%，惊奇八阶方块获取数量增加20%，蚂蚁速度变为100000倍……",
         "effect": "您{{n}}向Derpsmith致敬。"
       },
       "octeractGain": {
