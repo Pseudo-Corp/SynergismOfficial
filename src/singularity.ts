@@ -931,8 +931,8 @@ export const singularityData: Record<
   },
   wowPass2: {
     maxLevel: 1,
-    costPerLevel: 19999,
-    minimumSingularity: 11,
+    costPerLevel: 12500,
+    minimumSingularity: 9,
     effect: (n: number) => {
       return {
         bonus: n > 0,

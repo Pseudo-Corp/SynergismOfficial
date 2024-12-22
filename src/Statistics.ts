@@ -581,7 +581,7 @@ export const loadQuarkMultiplier = () => {
   }`
   DOMCacheGetOrSet('sGQM20').textContent = `x${
     format(
-      1 + 0.25 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
+      1 + 0.4 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
       3,
       true
     )

@@ -928,7 +928,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (playerConfirmed) {
       const diff = Math.abs(Date.now() - (start + random))
       player.promoCodeTiming.time = Date.now()
-
+      
       if (diff <= 2500 + 125 * player.cubeUpgrades[61]) {
         const reward = Math.floor(
           Math.min(1000, 125 + 25 * player.highestSingularityCount)

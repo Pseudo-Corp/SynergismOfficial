@@ -2454,7 +2454,7 @@ export const calculateQuarkMultiplier = () => {
   multiplier *= calculateSingularityQuarkMilestoneMultiplier()
 
   multiplier *= +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus // Oct Improver 1
-  multiplier *= 1 + 0.3 * +player.octeractUpgrades.octeractStarter.getEffect().bonus // Oct Starter Pack
+  multiplier *= 1 + 0.4 * +player.octeractUpgrades.octeractStarter.getEffect().bonus // Oct Starter Pack
 
   multiplier *= 1
     + (1 / 10000)
