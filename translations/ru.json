@@ -2724,7 +2724,7 @@
     "data": {
       "octeractStarter": {
         "name": "Октеракты для Чайников",
-        "description": "Приветствую... Я Есть Кукузнец... Предок Муравьиного Бога... Я Не Ожидал, Что Вы До Сюда Доберётесь. Вот Вам 30% к Кваркам, 20% к Октерактам и 100,000х к Скорости Муравьёв...",
+        "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 40% More Quarks, 20% More Octeracts, And 100,000x Ant Speed...",
         "effect": "Вы {{n}} выразили своё почтение Кукузнецу."
       },
       "octeractGain": {
