@@ -1535,7 +1535,7 @@
       "shopAmbrosiaUltra": "Gain <<lime|☘ +{{amount}}>> Ambrosia Luck from your EXALT completions!",
       "shopSingularitySpeedup": "Singularity Perks and Upgrades accumulate <<gray|{{amount}}>> times faster!",
       "shopSingularityPotency": "Free Singularity Upgrades are as if you had <<gray|{{amount}}>> of them.",
-      "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know."
+      "shopSadisticRune": "Я даже не уверен, на что эта руна способна. Ты купил её? Я же не вижу тебя, если что."
     }
   },
   "singularity": {
@@ -2724,7 +2724,7 @@
     "data": {
       "octeractStarter": {
         "name": "Октеракты для Чайников",
-        "description": "Приветствую... Я Есть Кукузнец... Предок Муравьиного Бога... Я Не Ожидал, Что Вы До Сюда Доберётесь. Вот Вам 30% к Кваркам, 20% к Октерактам и 100,000х к Скорости Муравьёв...",
+        "description": "Приветствую... Я Есть Кукузнец... Предок Муравьиного Бога... Я Не Ожидал, Что Вы До Сюда Доберётесь. Вот Вам 40% к Кваркам, 20% к Октерактам и 100,000х к Скорости Муравьёв...",
         "effect": "Вы {{n}} выразили своё почтение Кукузнецу."
       },
       "octeractGain": {
@@ -3130,15 +3130,15 @@
         "UniqueReward1": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
         "UniqueReward2": "1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
         "UniqueReward3": "10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
-        "UniqueReward4": "15th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward4": "15-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
         "UniqueReward5": "20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
         "UniqueReward6": "20th - An <<gold|ULTRA Quark Shop>> upgrade!"
       },
       "limitedTime": {
-        "name": "The Grand Singularity Speedrun!",
-        "description": "Derpsmith has a stopwatch and he's not afraid to use it! Beat the target Singularity in a limited time frame!<br/>The time limit is based on the tier of the challenge. After (600 - 20 * completion) seconds, your obt/off/cube production shatters (Divides by (10 + completions) every minute, self-multiplicatively). [WARNING: THIS CHALLENGE WILL PERMANENTLY RESET YOUR SINGULARITY TIMER. ENTER WITH CAUTION!]",
-        "ScalingReward1": "+4% <<orange|Global Speed>>!",
-        "ScalingReward2": "+4% <<orange|Ascension Speed>>!",
+        "name": "Великий Спидран Сингулярности!",
+        "description": "У Кукузнеца есть секундомер, и он не побоится его использовать! Пройдите целевую Сингулярность за ограниченное время! <br/><red|Лимит времени зависит от уровня испытания.><br/>После (600 - 20 * прохождения) секунд, ваше производство обт./подн./кубов разрушается (Уменьшается в (10 + прохождения) раз) каждую минуту.",
+        "ScalingReward1": "+6% к <<orange|Глобальной Скорости>>!",
+        "ScalingReward2": "+6% к <<orange|Скорости Вознесения>>!",
         "ScalingReward3": "+1% <<cyan|Quarks>>!",
         "UniqueReward1": "1st - your quarks no longer reset on singulatity!",
         "UniqueReward2": "15th - A new <<orchid|Quark Shop>> upgrade!",
@@ -3147,9 +3147,9 @@
       "sadisticPrequel": {
         "name": "SADISTIC EXALT III - The Prequel",
         "description": "How much more will Platonic misuse the word 'Sadistic'? [No Sing Upgrade, Oct Upgrades OR Ambrosia Upgrades]",
-        "ScalingReward1": "+2% <<cyan|Quarks>> per completion!",
-        "ScalingReward2": "+2% more <<orange|Free Upgrades>> from code 'Daily' per completion!",
-        "UniqueReward1": "1st - +50 Free Upgrades from code 'Daily'!",
+        "ScalingReward1": "+3% <<cyan|Кварков>> за каждое прохождение!",
+        "ScalingReward2": "Ещё +3% <<orange|Бесплатных Улучшений>> от кода 'Daily' за каждое прохождение!",
+        "UniqueReward1": "1-ое - +50 Бесплатных Улучшений от кода 'Daily\"!",
         "UniqueReward2": "10th - A first-tier <<pink|Exalt Upgrade>>",
         "UniqueReward3": "20th - A second-tier <<pink|Exalt Upgrade>>",
         "UniqueReward4": "30th - A particularly Sadistic <<gray|ULTRA Upgrade>>!"
