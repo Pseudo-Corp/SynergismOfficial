@@ -3136,9 +3136,9 @@
       },
       "limitedTime": {
         "name": "奇点大竞速赛！",
-        "description": "Derpsmith has a stopwatch and he's not afraid to use it! Beat the target Singularity in a limited time frame!<br/><<red|The time limit is based on the tier of the challenge.>> <br/>After (600 - 20 * completion) seconds, your obt/off/cube production shatters (Divides by (10 + completions) every minute.",
-        "ScalingReward1": "+6% <<orange|Global Speed>>!",
-        "ScalingReward2": "+6% <<orange|Ascension Speed>>!",
+        "description": "Derpsmith正在计时。在限定时间内通过目标奇点！<br/><<red|时间限制与该拔擢的阶层完成数有关。>>在 (600 - 20 × 阶层完成数) 秒后，您的难得素、祭品和所有类型的方盒、立方和方块获取数量将每分钟除以 (10 + 阶层完成数)。",
+        "ScalingReward1": "使<<orange|全局速度>>增加6%！",
+        "ScalingReward2": "使<<orange|飞升的速度>>增加6%！",
         "ScalingReward3": "使<<cyan|夸克获取数量>>增加1%！",
         "UniqueReward1": "第1次 - 进入奇点时不再重置夸克数量！",
         "UniqueReward2": "第15次 - 新的<<orchid|夸克商店>>升级！",
@@ -3147,8 +3147,8 @@
       "sadisticPrequel": {
         "name": "虐待狂拔擢 III - 前传",
         "description": "Platonic还要滥用多少次“虐待狂”？[无奇点升级、八阶方块升级或神肴升级]",
-        "ScalingReward1": "+3% <<cyan|Quarks>> per completion!",
-        "ScalingReward2": "+3% more <<orange|Free Upgrades>> from code 'Daily' per completion!",
+        "ScalingReward1": "使<<cyan|夸克获取数量>>增加3%！",
+        "ScalingReward2": "使“每日”代码获得的<<orange|免费奇点升级>>增加3%！",
         "UniqueReward1": "第1次 - 使“每日”代码可以多提供50级免费奇点升级！",
         "UniqueReward2": "第10次 - 一阶<<pink|拔擢升级>>",
         "UniqueReward3": "第20次 - 二阶<<pink|拔擢升级>>",
