@@ -2724,7 +2724,7 @@
     "data": {
       "octeractStarter": {
         "name": "萌新的惊奇八阶方块",
-        "description": "您好……我是Derpsmith……蚁神的先祖……没想到您能走到这一步。该升级可以使您的夸克获取数量增加30%，惊奇八阶方块获取数量增加20%，蚂蚁速度变为100000倍……",
+        "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 40% More Quarks, 20% More Octeracts, And 100,000x Ant Speed...",
         "effect": "您{{n}}向Derpsmith致敬。"
       },
       "octeractGain": {
@@ -3136,9 +3136,9 @@
       },
       "limitedTime": {
         "name": "奇点大竞速赛！",
-        "description": "Derpsmith正在计时。在限定时间内通过目标奇点！<br/>时间限制与该拔擢的阶层完成数有关，在 (600 - 20 × 阶层完成数) 秒后，您的难得素、祭品和所有类型的方盒、立方和方块获取数量将每分钟除以 (10 + 阶层完成数)。[警告：该拔擢将清空本次奇点的时长，且无法恢复，请谨慎进入！]",
-        "ScalingReward1": "使<<orange|全局速度>>增加4%！",
-        "ScalingReward2": "使<<orange|飞升的速度>>增加4%！",
+        "description": "Derpsmith正在计时。在限定时间内通过目标奇点！<br/><<red|时间限制与该拔擢的阶层完成数有关。>>在 (600 - 20 × 阶层完成数) 秒后，您的难得素、祭品和所有类型的方盒、立方和方块获取数量将每分钟除以 (10 + 阶层完成数)。",
+        "ScalingReward1": "使<<orange|全局速度>>增加6%！",
+        "ScalingReward2": "使<<orange|飞升的速度>>增加6%！",
         "ScalingReward3": "使<<cyan|夸克获取数量>>增加1%！",
         "UniqueReward1": "第1次 - 进入奇点时不再重置夸克数量！",
         "UniqueReward2": "第15次 - 新的<<orchid|夸克商店>>升级！",
@@ -3147,8 +3147,8 @@
       "sadisticPrequel": {
         "name": "虐待狂拔擢 III - 前传",
         "description": "Platonic还要滥用多少次“虐待狂”？[无奇点升级、八阶方块升级或神肴升级]",
-        "ScalingReward1": "使<<cyan|夸克获取数量>>增加2%！",
-        "ScalingReward2": "使“每日”代码可以多提供2%<<orange|免费奇点升级>>！",
+        "ScalingReward1": "使<<cyan|夸克获取数量>>增加3%！",
+        "ScalingReward2": "使“每日”代码获得的<<orange|免费奇点升级>>增加3%！",
         "UniqueReward1": "第1次 - 使“每日”代码可以多提供50级免费奇点升级！",
         "UniqueReward2": "第10次 - 一阶<<pink|拔擢升级>>",
         "UniqueReward3": "第20次 - 二阶<<pink|拔擢升级>>",

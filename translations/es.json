@@ -2724,7 +2724,7 @@
     "data": {
       "octeractStarter": {
         "name": "Octeractos para Dummies",
-        "description": "Hola... Soy Derpsmith... El Ancestro de Dios Hormiga... No esperaba que llegases aquí. Toma un 30% más de Quarks, 20% más Octeractos, y 100.000X velocidad de Hormigas...",
+        "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 40% More Quarks, 20% More Octeracts, And 100,000x Ant Speed...",
         "effect": "{{n}} has presentado sus respetos a Derpsmith."
       },
       "octeractGain": {
@@ -3136,9 +3136,9 @@
       },
       "limitedTime": {
         "name": "The Grand Singularity Speedrun!",
-        "description": "Derpsmith has a stopwatch and he's not afraid to use it! Beat the target Singularity in a limited time frame!<br/>The time limit is based on the tier of the challenge. After (600 - 20 * completion) seconds, your obt/off/cube production shatters (Divides by (10 + completions) every minute, self-multiplicatively). [WARNING: THIS CHALLENGE WILL PERMANENTLY RESET YOUR SINGULARITY TIMER. ENTER WITH CAUTION!]",
-        "ScalingReward1": "+4% <<orange|Global Speed>>!",
-        "ScalingReward2": "+4% <<orange|Ascension Speed>>!",
+        "description": "Derpsmith has a stopwatch and he's not afraid to use it! Beat the target Singularity in a limited time frame!<br/><<red|The time limit is based on the tier of the challenge.>> <br/>After (600 - 20 * completion) seconds, your obt/off/cube production shatters (Divides by (10 + completions) every minute.",
+        "ScalingReward1": "+6% <<orange|Global Speed>>!",
+        "ScalingReward2": "+6% <<orange|Ascension Speed>>!",
         "ScalingReward3": "+1% <<cyan|Quarks>>!",
         "UniqueReward1": "1st - your quarks no longer reset on singulatity!",
         "UniqueReward2": "15th - A new <<orchid|Quark Shop>> upgrade!",
@@ -3147,8 +3147,8 @@
       "sadisticPrequel": {
         "name": "SADISTIC EXALT III - The Prequel",
         "description": "How much more will Platonic misuse the word 'Sadistic'? [No Sing Upgrade, Oct Upgrades OR Ambrosia Upgrades]",
-        "ScalingReward1": "+2% <<cyan|Quarks>> per completion!",
-        "ScalingReward2": "+2% more <<orange|Free Upgrades>> from code 'Daily' per completion!",
+        "ScalingReward1": "+3% <<cyan|Quarks>> per completion!",
+        "ScalingReward2": "+3% more <<orange|Free Upgrades>> from code 'Daily' per completion!",
         "UniqueReward1": "1st - +50 Free Upgrades from code 'Daily'!",
         "UniqueReward2": "10th - A first-tier <<pink|Exalt Upgrade>>",
         "UniqueReward3": "20th - A second-tier <<pink|Exalt Upgrade>>",
