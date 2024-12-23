@@ -516,7 +516,6 @@ export function calculateOfferings (
     q *= 1.05
   }
   q /= calculateSingularityDebuff('Offering')
-  q = (Math.floor(q) * 100) / 100
   if (player.currentChallenge.ascension === 15) {
     q *= 1 + 7 * player.cubeUpgrades[62]
   }
