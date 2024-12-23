@@ -246,8 +246,7 @@ export const exportSynergism = async (
       : 1
     if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
       player.goldenQuarks += Math.floor(
-        player.goldenQuarksTimer
-          / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
+        player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
       ) * bonusGQMultiplier
       player.goldenQuarksTimer = player.goldenQuarksTimer
         % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
@@ -264,11 +263,9 @@ export const exportSynergism = async (
     return
   }
 
-  const save = (await localforage.getItem<Blob>('Synergysave2'))
-    ?? localStorage.getItem('Synergysave2')
-  const saveString = typeof save === 'string' ? save : await save?.text()
+  const saveString = await getSaveString()
 
-  if (saveString === undefined) {
+  if (saveString === null) {
     return Alert('How?')
   }
 
@@ -357,11 +354,8 @@ export const importSynergism = async (input: string | null, reset = false) => {
     }
 
     saveCheck.canSave = false
-    const item = new Blob([saveString], { type: 'text/plain' })
-    localStorage.setItem('Synergysave2', saveString)
-    await localforage.setItem<Blob>('Synergysave2', item)
-
-    localStorage.setItem('saveScumIsCheating', Date.now().toString())
+    await setSave(saveString)
+    safeLocalStorage.setItem('saveScumIsCheating', Date.now().toString())
 
     await reloadShit(reset)
     saveCheck.canSave = true
@@ -853,11 +847,11 @@ export const promocodes = async (input: string | null, amount?: number) => {
   } else if (input === 'gamble') {
     if (
       typeof player.skillCode === 'number'
-      || typeof localStorage.getItem('saveScumIsCheating') === 'string'
+      || typeof safeLocalStorage.getItem('saveScumIsCheating') === 'string'
     ) {
       if (
         (Date.now() - player.skillCode!) / 1000 < 3600
-        || (Date.now() - Number(localStorage.getItem('saveScumIsCheating')))
+        || (Date.now() - Number(safeLocalStorage.getItem('saveScumIsCheating')))
               / 1000
           < 3600
       ) {
@@ -891,7 +885,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       ))
     }
 
-    localStorage.setItem('saveScumIsCheating', Date.now().toString())
+    safeLocalStorage.setItem('saveScumIsCheating', Date.now().toString())
     const dice = (window.crypto.getRandomValues(new Uint8Array(1))[0] % 6) + 1 // [1, 6]
 
     if (dice === 1) {
@@ -1237,11 +1231,11 @@ const dailyCodeReward = () => {
 }
 
 export const handleLastModified = (lastModified: number) => {
-  const localStorageFirstPlayed = localStorage.getItem('firstPlayed')
+  const localStorageFirstPlayed = safeLocalStorage.getItem('firstPlayed')
   const lastModifiedDate = new Date(lastModified)
 
   if (localStorageFirstPlayed === null) {
-    localStorage.setItem('firstPlayed', lastModifiedDate.toISOString())
+    safeLocalStorage.setItem('firstPlayed', lastModifiedDate.toISOString())
     return
   }
 
@@ -1252,6 +1246,66 @@ export const handleLastModified = (lastModified: number) => {
   // for the new file, set the oldest date to the last modified.
   if (localFirstPlayedDate.getTime() > lastModifiedDate.getTime()) {
     player.firstPlayed = lastModifiedDate.toISOString()
-    localStorage.setItem('firstPlayed', player.firstPlayed)
+    safeLocalStorage.setItem('firstPlayed', player.firstPlayed)
+  }
+}
+
+export const getSaveString = async () => {
+  try {
+    const save = (await localforage.getItem<Blob>('Synergysave2'))
+      ?? localStorage.getItem('Synergysave2')
+
+    return typeof save === 'string' ? save : await save?.text() ?? null
+  } catch (e) {
+    const p = playerJsonSchema.parse(player)
+    return btoa(JSON.stringify(p))
+  }
+}
+
+export const setSave = async (saveString: string) => {
+  try {
+    const item = new Blob([saveString], { type: 'text/plain' })
+    localStorage.setItem('Synergysave2', saveString)
+    await localforage.setItem<Blob>('Synergysave2', item)
+  } catch {}
+}
+
+export const safeLocalStorage = {
+  /**
+   * Same as localStorage.setItem, but errors are swallowed
+   */
+  setItem (key: string, value: string) {
+    try {
+      localStorage.setItem(key, value)
+    } catch {}
+  },
+
+  /**
+   * Same as localStorage.removeItem, but errors are swallowed
+   */
+  removeItem (key: string) {
+    try {
+      localStorage.removeItem(key)
+    } catch {}
+  },
+
+  /**
+   * Same as localStorage.getItem, but errors are swallowed
+   */
+  getItem (key: string) {
+    try {
+      return localStorage.getItem(key)
+    } catch {
+      return null
+    }
+  },
+
+  /**
+   * Same as localStorage.clear, but errors are swallowed
+   */
+  clear () {
+    try {
+      localStorage.clear()
+    } catch {}
   }
 }

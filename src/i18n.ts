@@ -1,6 +1,7 @@
 import i18next, { type Resource } from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { prod } from './Config'
+import { safeLocalStorage } from './ImportExport'
 import ColorTextPlugin from './Plugins/ColorText'
 import { Confirm } from './UpdateHTML'
 
@@ -21,7 +22,7 @@ const languageCache = new Map<string, { translation: Resource }>()
 
 export const init = async (): Promise<void> => {
   const resources: Record<string, Resource> = {}
-  const language = localStorage.getItem('language') ?? 'en'
+  const language = safeLocalStorage.getItem('language') ?? 'en'
 
   const response = await fetch(`./translations/${language}.json`)
   const file = await response.json() as Resource
@@ -71,7 +72,7 @@ function buildLanguageButton (langID: string, name: string, flag: string) {
 
     // i18next.addResourceBundle
     await i18next.changeLanguage(langID)
-    localStorage.setItem('language', langID)
+    safeLocalStorage.setItem('language', langID)
 
     const shouldReload = await Confirm(i18next.t('general.languageChange'))
 
