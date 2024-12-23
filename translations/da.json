@@ -2686,10 +2686,10 @@
         "power": {
             "1": "Speed Rune Bonus: +{{bonus}} Accelerators, +{{percent}}% Accelerators, +{{boost}} Accelerator Boosts.",
             "2": "Duplication Rune Bonus: +{{mult1}} Multipliers, +{{mult2}}% Multipliers, -{{tax}}% Tax Growth.",
-            "3": "Prism Rune Bonus: All Crystal Producer production multiplied by {{mult}}, gain +{{gain}}' free crystal levels.",
-            "4": "Thrift Rune Bonus: Delay all producer cost increases by {{delay}}%. Offering recycle chance: +{{chance}}%. -{{tax}}% Tax Growth",
-            "5": "S. Intellect Rune Bonus: Obtainium gain x{{gain}}. Ant Speed: x{{speed}}. Base Offerings: +{{offerings}}",
-            "6": "IA Rune Bonus: Quark Gain +{{percent1}}%, Ascensions give +{{percent2}}% more of all cube types.",
+            "3": "Prism Rune Bonus: All Crystal Producer production multiplied by {{mult}}, gain +{{gain}} free crystal levels.",
+            "4": "Thrift Rune Bonus: Delay all producer cost increases by {{delay}}%, Offering recycle chance: +{{chance}}%, -{{tax}}% Tax Growth.",
+            "5": "Superior Intellect Rune Bonus: Obtainium gain x{{gain}}, Ant Speed: x{{speed}}, Base Offerings: +{{offerings}}.",
+            "6": "Infinite Ascent Rune Bonus: Quark Gain +{{percent1}}%, Ascensions give +{{percent2}}% more of all cube types.",
             "7": "You cannot grasp the true form of Ant God's treasure."
         },
         "talismans": {
@@ -2942,7 +2942,7 @@
             "hypercubeQuarksToday": "Quarks gained from Hypercubes: <<cyan|{{amount}}>>",
             "hypercubeQuarksOpenRequirement": "Open {{amount}} Hypercubes for next quark.",
             "hypercubeQuarksOpenToday": "Hypercubes opened today: <<orchid|{{amount}}>>",
-            "platonicCubeQuarksToday": "Platonic Cubes gained from Cubes: <<cyan|{{amount}}>>",
+            "platonicCubeQuarksToday": "Quarks gained from Platonic Cubes: <<cyan|{{amount}}>>",
             "platonicCubeQuarksOpenRequirement": "Open {{amount}} Platonic Cubes for next quark.",
             "platonicCubeQuarksOpenToday": "Platonic Cubes opened today: <<orchid|{{amount}}>>"
         },

@@ -11,6 +11,7 @@ import { subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, Player } from './types/Synergism'
 import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
+import { getElementById } from './Utility'
 import { Globals as G } from './Variables'
 
 export const toggleSettings = (toggle: HTMLElement) => {
@@ -374,7 +375,7 @@ export const toggleBuildingScreen = (input: string) => {
   }
   DOMCacheGetOrSet(screen[G.buildingSubTab].screen).style.display = 'flex'
   DOMCacheGetOrSet(screen[G.buildingSubTab].button).style.backgroundColor = 'crimson'
-  player.subtabNumber = screen[G.buildingSubTab].subtabNumber
+  G.currentSubTab = screen[G.buildingSubTab].subtabNumber
 }
 
 export const toggleRuneScreen = (indexStr: string) => {
@@ -395,7 +396,7 @@ export const toggleRuneScreen = (indexStr: string) => {
       b.style.display = 'none'
     }
   }
-  player.subtabNumber = index - 1
+  G.currentSubTab = index - 1
 }
 
 export const toggleChallengesScreen = (indexStr: string) => {
@@ -412,7 +413,7 @@ export const toggleChallengesScreen = (indexStr: string) => {
       b.style.display = 'none'
     }
   }
-  player.subtabNumber = index - 1
+  G.currentSubTab = index - 1
 }
 
 export const toggleautofortify = () => {
@@ -476,13 +477,13 @@ export const toggleSingularityScreen = (indexStr: string) => {
     }
   }
 
-  player.subtabNumber = index - 1
+  G.currentSubTab = index - 1
 
-  if (player.subtabNumber === 2) {
+  if (G.currentSubTab === 2) {
     visualUpdateOcteracts()
   }
 
-  if (player.subtabNumber === 3) {
+  if (G.currentSubTab === 3) {
     visualUpdateAmbrosia()
   }
 }
@@ -511,7 +512,7 @@ interface ChadContributor {
 
 export const setActiveSettingScreen = async (subtab: string) => {
   const clickedButton =
-    DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[player.subtabNumber]
+    DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[G.currentSubTab]
   const subtabEl = DOMCacheGetOrSet(subtab)
   if (subtabEl.classList.contains('subtabActive')) {
     return
@@ -711,7 +712,7 @@ export const toggleCubeSubTab = (indexStr: string) => {
     }
     if (cubeTab.style.display === 'none' && j === i) {
       cubeTab.style.display = 'flex'
-      player.subtabNumber = j - 1
+      G.currentSubTab = j - 1
     }
     DOMCacheGetOrSet(`switchCubeSubTab${j}`).style.backgroundColor = i === j ? 'crimson' : ''
   }
@@ -722,7 +723,7 @@ export const toggleCubeSubTab = (indexStr: string) => {
 export const updateAutoChallenge = (i: number) => {
   switch (i) {
     case 1: {
-      const t = Number.parseFloat((DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement).value) || 0
+      const t = Number.parseFloat(getElementById<HTMLInputElement>('startAutoChallengeTimerInput').value) || 0
       player.autoChallengeTimer.start = Math.max(t, 0)
       DOMCacheGetOrSet('startTimerValue').innerHTML = i18next.t('challenges.timeStartSweep', {
         time: format(player.autoChallengeTimer.start, 2, true)
@@ -730,7 +731,7 @@ export const updateAutoChallenge = (i: number) => {
       return
     }
     case 2: {
-      const u = Number.parseFloat((DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement).value) || 0
+      const u = Number.parseFloat(getElementById<HTMLInputElement>('exitAutoChallengeTimerInput').value) || 0
       player.autoChallengeTimer.exit = Math.max(u, 0)
 
       DOMCacheGetOrSet('exitTimerValue').innerHTML = i18next.t('challenges.timeExitChallenge', {
@@ -740,7 +741,7 @@ export const updateAutoChallenge = (i: number) => {
       return
     }
     case 3: {
-      const v = Number.parseFloat((DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement).value) || 0
+      const v = Number.parseFloat(getElementById<HTMLInputElement>('enterAutoChallengeTimerInput').value) || 0
       player.autoChallengeTimer.enter = Math.max(v, 0)
 
       DOMCacheGetOrSet('enterTimerValue').innerHTML = i18next.t('challenges.timeEnterChallenge', {
@@ -887,7 +888,7 @@ export const toggleautoopensCubes = (i: number) => {
 export const updateRuneBlessingBuyAmount = (i: number) => {
   switch (i) {
     case 1: {
-      const t = Math.floor(Number.parseFloat((DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value)) || 1
+      const t = Math.floor(Number.parseFloat(getElementById<HTMLInputElement>('buyRuneBlessingInput').value)) || 1
       player.runeBlessingBuyAmount = Math.max(t, 1)
       DOMCacheGetOrSet('buyRuneBlessingToggle').innerHTML = i18next.t('runes.blessings.buyUpTo', {
         amount: format(player.runeBlessingBuyAmount)
@@ -895,7 +896,7 @@ export const updateRuneBlessingBuyAmount = (i: number) => {
       return
     }
     case 2: {
-      const u = Math.floor(Number.parseFloat((DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value)) || 1
+      const u = Math.floor(Number.parseFloat(getElementById<HTMLInputElement>('buyRuneSpiritInput').value)) || 1
       player.runeSpiritBuyAmount = Math.max(u, 1)
       DOMCacheGetOrSet('buyRuneSpiritToggleValue').innerHTML = i18next.t('runes.spirits.buyUpTo', {
         amount: format(player.runeSpiritBuyAmount)
@@ -949,8 +950,7 @@ export const toggleCorruptionLevel = (index: number, value: number) => {
 }
 
 export const toggleCorruptionLoadoutsStats = (statsStr: string) => {
-  const stats = statsStr === 'true'
-  player.corruptionShowStats = stats
+  G.currentSubTab = statsStr === 'true' ? 0 : 1
   showCorruptionStatsLoadouts()
 }
 
@@ -1013,16 +1013,16 @@ export const toggleBlueberryLoadoutmode = () => {
 
 export const confirmReply = (confirm = true) => {
   if (DOMCacheGetOrSet('alertWrapper').style.display === 'block') {
-    ;(DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click()
+    getElementById<HTMLButtonElement>('ok_alert').click()
   }
   if (
     DOMCacheGetOrSet('confirmWrapper').style.display === 'block'
     || DOMCacheGetOrSet('promptWrapper').style.display === 'block'
   ) {
     if (confirm) {
-      ;(DOMCacheGetOrSet('ok_confirm') as HTMLButtonElement).click()
+      getElementById<HTMLButtonElement>('ok_confirm').click()
     } else {
-      ;(DOMCacheGetOrSet('cancel_confirm') as HTMLButtonElement).click()
+      getElementById<HTMLButtonElement>('cancel_confirm').click()
     }
   }
 }

@@ -83,7 +83,7 @@ export const resetdetails = (input: resetNames) => {
     resetObtainiumText.textContent = ''
   }
 
-  ;(input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity')
+  input === 'ascensionChallenge' || input === 'ascension' || input === 'singularity'
     ? offeringImage.style.display = offeringText.style.display = 'none'
     : offeringImage.style.display = offeringText.style.display = 'block'
 
@@ -211,41 +211,41 @@ export const resetdetails = (input: resetNames) => {
 export const updateAutoReset = (i: number) => {
   let value = null
   if (i === 1) {
-    value = Number.parseFloat((DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value) || 0
+    value = Number.parseFloat(getElementById<HTMLInputElement>('prestigeamount').value) || 0
     player.prestigeamount = Math.max(value, 0)
   } else if (i === 2) {
-    value = Number.parseFloat((DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value) || 0
+    value = Number.parseFloat(getElementById<HTMLInputElement>('transcendamount').value) || 0
     player.transcendamount = Math.max(value, 0)
   } else if (i === 3) {
-    value = Number.parseFloat((DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value) || 0
+    value = Number.parseFloat(getElementById<HTMLInputElement>('reincarnationamount').value) || 0
     player.reincarnationamount = Math.max(value, 0)
   } else if (i === 4) {
-    value = Math.floor(Number.parseFloat((DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value)) || 1
+    value = Math.floor(Number.parseFloat(getElementById<HTMLInputElement>('ascensionAmount').value)) || 1
     player.autoAscendThreshold = Math.max(value, 1)
   } else if (i === 5) {
-    value = Number.parseFloat((DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value) || 0
+    value = Number.parseFloat(getElementById<HTMLInputElement>('autoAntSacrificeAmount').value) || 0
     player.autoAntSacTimer = Math.max(value, 0)
   }
 }
 
 export const updateTesseractAutoBuyAmount = () => {
-  const value = Math.floor(Number.parseFloat((DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value)) || 0
+  const value = Math.floor(Number.parseFloat(getElementById<HTMLInputElement>('tesseractAmount').value)) || 0
   player.tesseractAutoBuyerAmount = Math.max(value, 0)
 }
 
 export const updateAutoCubesOpens = (i: number) => {
   let value = null
   if (i === 1) {
-    value = Number((DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value) || 0
+    value = Number(getElementById<HTMLInputElement>('cubeOpensInput').value) || 0
     player.openCubes = Math.max(Math.min(value, 100), 0)
   } else if (i === 2) {
-    value = Number((DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value) || 0
+    value = Number(getElementById<HTMLInputElement>('tesseractsOpensInput').value) || 0
     player.openTesseracts = Math.max(Math.min(value, 100), 0)
   } else if (i === 3) {
-    value = Number((DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value) || 0
+    value = Number(getElementById<HTMLInputElement>('hypercubesOpensInput').value) || 0
     player.openHypercubes = Math.max(Math.min(value, 100), 0)
   } else if (i === 4) {
-    value = Number((DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value) || 0
+    value = Number(getElementById<HTMLInputElement>('platonicCubeOpensInput').value) || 0
     player.openPlatonicsCubes = Math.max(Math.min(value, 100), 0)
   }
 }
@@ -1242,7 +1242,6 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.saveString = player.saveString
   hold.corruptionLoadouts = player.corruptionLoadouts
   hold.corruptionLoadoutNames = player.corruptionLoadoutNames
-  hold.corruptionShowStats = player.corruptionShowStats
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
   hold.resettoggle1 = player.resettoggle1

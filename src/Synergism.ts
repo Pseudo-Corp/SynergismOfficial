@@ -14,7 +14,7 @@ import {
   highestChallengeRewards,
   runChallengeSweep
 } from './Challenges'
-import { btoa, cleanString, isDecimal, sortWithIndices, sumContents } from './Utility'
+import { btoa, cleanString, getElementById, isDecimal, sortWithIndices, sumContents } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {
@@ -120,7 +120,6 @@ import {
   htmlInserts,
   Notification,
   revealStuff,
-  showCorruptionStatsLoadouts,
   updateAchievementBG,
   updateChallengeDisplay,
   updateChallengeLevel
@@ -530,8 +529,6 @@ export const player: Player = {
     generators: true,
     reincarnate: true
   },
-  tabnumber: 1,
-  subtabNumber: 0,
 
   // create a Map with keys defaulting to false
   codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false])),
@@ -886,7 +883,6 @@ export const player: Player = {
     'Loadout 7',
     'Loadout 8'
   ],
-  corruptionShowStats: true,
 
   constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   history: { ants: [], ascend: [], reset: [], singularity: [] },
@@ -2115,7 +2111,7 @@ const loadSynergy = async () => {
         ? 'Synergism-$VERSION$-$TIME$.txt'
         : 'Synergism-$VERSION$-$TIME$-$SING$.txt'
     }
-    ;(DOMCacheGetOrSet('saveStringInput') as HTMLInputElement).value = cleanString(player.saveString)
+    getElementById<HTMLInputElement>('saveStringInput').value = cleanString(player.saveString)
 
     for (let j = 1; j < 126; j++) {
       upgradeupdate(j, true)
@@ -2132,97 +2128,31 @@ const loadSynergy = async () => {
       updatePlatonicUpgradeBG(j)
     }
 
-    const q = [
-      'coin',
-      'crystal',
-      'mythos',
-      'particle',
-      'offering',
-      'tesseract'
-    ] as const
-    if (
-      player.coinbuyamount !== 1
-      && player.coinbuyamount !== 10
-      && player.coinbuyamount !== 100
-      && player.coinbuyamount !== 1000
-    ) {
-      player.coinbuyamount = 1
-    }
-    if (
-      player.crystalbuyamount !== 1
-      && player.crystalbuyamount !== 10
-      && player.crystalbuyamount !== 100
-      && player.crystalbuyamount !== 1000
-    ) {
-      player.crystalbuyamount = 1
-    }
-    if (
-      player.mythosbuyamount !== 1
-      && player.mythosbuyamount !== 10
-      && player.mythosbuyamount !== 100
-      && player.mythosbuyamount !== 1000
-    ) {
-      player.mythosbuyamount = 1
-    }
-    if (
-      player.particlebuyamount !== 1
-      && player.particlebuyamount !== 10
-      && player.particlebuyamount !== 100
-      && player.particlebuyamount !== 1000
-    ) {
-      player.particlebuyamount = 1
-    }
-    if (
-      player.offeringbuyamount !== 1
-      && player.offeringbuyamount !== 10
-      && player.offeringbuyamount !== 100
-      && player.offeringbuyamount !== 1000
-    ) {
-      player.offeringbuyamount = 1
-    }
-    if (
-      player.tesseractbuyamount !== 1
-      && player.tesseractbuyamount !== 10
-      && player.tesseractbuyamount !== 100
-      && player.tesseractbuyamount !== 1000
-    ) {
-      player.tesseractbuyamount = 1
-    }
-    for (let j = 0; j <= 5; j++) {
-      for (let k = 0; k < 4; k++) {
-        let d = ''
-        if (k === 0) {
-          d = 'one'
-        }
-        if (k === 1) {
-          d = 'ten'
-        }
-        if (k === 2) {
-          d = 'hundred'
-        }
-        if (k === 3) {
-          d = 'thousand'
-        }
-        const e = `${q[j]}${d}`
-        DOMCacheGetOrSet(e).style.backgroundColor = ''
+    const buyamount = [1, 10, 100, 1000, 10000, 100000]
+    for (const itm of ['coin', 'crystal', 'mythos', 'particle', 'offering', 'tesseract'] as const) {
+      if (!buyamount.includes(player[`${itm}buyamount`])) {
+        player[`${itm}buyamount` as const] = 1
+      }
+      for (const amt of ['one', 'ten', 'hundred', 'thousand', '10k', '100k'] as const) {
+        DOMCacheGetOrSet(itm + amt).style.backgroundColor = ''
       }
       let c = ''
-      const curBuyAmount = player[`${q[j]}buyamount` as const]
+      const curBuyAmount = player[`${itm}buyamount`]
       if (curBuyAmount === 1) {
         c = 'one'
-      }
-      if (curBuyAmount === 10) {
+      } else if (curBuyAmount === 10) {
         c = 'ten'
-      }
-      if (curBuyAmount === 100) {
+      } else if (curBuyAmount === 100) {
         c = 'hundred'
-      }
-      if (curBuyAmount === 1000) {
+      } else if (curBuyAmount === 1000) {
         c = 'thousand'
+      } else if (curBuyAmount === 10000) {
+        c = '10k'
+      } else if (curBuyAmount === 100000) {
+        c = '100k'
       }
 
-      const b = `${q[j]}${c}`
-      DOMCacheGetOrSet(b).style.backgroundColor = 'green'
+      DOMCacheGetOrSet(itm + c).style.backgroundColor = 'green'
     }
 
     const testArray = []
@@ -2257,7 +2187,6 @@ const loadSynergy = async () => {
     for (let i = 0; i < corrs; i++) {
       corruptionLoadoutTableUpdate(i)
     }
-    showCorruptionStatsLoadouts()
     updateCorruptionLoadoutNames()
 
     DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t(
@@ -2295,13 +2224,11 @@ const loadSynergy = async () => {
     const omit = /e\+/
     let inputd = player.autoChallengeTimer.start
     let inpute = Number(
-      (DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement)
-        .value
+      getElementById<HTMLInputElement>('startAutoChallengeTimerInput').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(
-        DOMCacheGetOrSet('startAutoChallengeTimerInput') as HTMLInputElement
-      ).value = `${player.autoChallengeTimer.start || blankSave.autoChallengeTimer.start}`.replace(omit, 'e')
+      getElementById<HTMLInputElement>('startAutoChallengeTimerInput')
+        .value = `${player.autoChallengeTimer.start || blankSave.autoChallengeTimer.start}`.replace(omit, 'e')
       updateAutoChallenge(1)
     }
 
@@ -2314,13 +2241,11 @@ const loadSynergy = async () => {
 
     inputd = player.autoChallengeTimer.exit
     inpute = Number(
-      (DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement)
-        .value
+      getElementById<HTMLInputElement>('exitAutoChallengeTimerInput').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(
-        DOMCacheGetOrSet('exitAutoChallengeTimerInput') as HTMLInputElement
-      ).value = `${player.autoChallengeTimer.exit || blankSave.autoChallengeTimer.exit}`.replace(omit, 'e')
+      getElementById<HTMLInputElement>('exitAutoChallengeTimerInput')
+        .value = `${player.autoChallengeTimer.exit || blankSave.autoChallengeTimer.exit}`.replace(omit, 'e')
       updateAutoChallenge(2)
     }
 
@@ -2333,13 +2258,11 @@ const loadSynergy = async () => {
 
     inputd = player.autoChallengeTimer.enter
     inpute = Number(
-      (DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement)
-        .value
+      getElementById<HTMLInputElement>('enterAutoChallengeTimerInput').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(
-        DOMCacheGetOrSet('enterAutoChallengeTimerInput') as HTMLInputElement
-      ).value = `${player.autoChallengeTimer.enter || blankSave.autoChallengeTimer.enter}`.replace(omit, 'e')
+      getElementById<HTMLInputElement>('enterAutoChallengeTimerInput')
+        .value = `${player.autoChallengeTimer.enter || blankSave.autoChallengeTimer.enter}`.replace(omit, 'e')
       updateAutoChallenge(3)
     }
 
@@ -2352,115 +2275,98 @@ const loadSynergy = async () => {
 
     inputd = player.prestigeamount
     inpute = Number(
-      (DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('prestigeamount').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('prestigeamount') as HTMLInputElement).value = `${
-        player.prestigeamount || blankSave.prestigeamount
-      }`.replace(omit, 'e')
+      getElementById<HTMLInputElement>('prestigeamount').value = `${player.prestigeamount || blankSave.prestigeamount}`
+        .replace(omit, 'e')
       updateAutoReset(1)
     }
     inputd = player.transcendamount
     inpute = Number(
-      (DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('transcendamount').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('transcendamount') as HTMLInputElement).value = `${
+      getElementById<HTMLInputElement>('transcendamount').value = `${
         player.transcendamount || blankSave.transcendamount
       }`.replace(omit, 'e')
       updateAutoReset(2)
     }
     inputd = player.reincarnationamount
     inpute = Number(
-      (DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('reincarnationamount').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value = `${
+      getElementById<HTMLInputElement>('reincarnationamount').value = `${
         player.reincarnationamount || blankSave.reincarnationamount
       }`.replace(omit, 'e')
       updateAutoReset(3)
     }
     inputd = player.autoAscendThreshold
     inpute = Number(
-      (DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('ascensionAmount').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value = `${
+      getElementById<HTMLInputElement>('ascensionAmount').value = `${
         player.autoAscendThreshold || blankSave.autoAscendThreshold
       }`.replace(omit, 'e')
       updateAutoReset(4)
     }
     inputd = player.autoAntSacTimer
     inpute = Number(
-      (DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('autoAntSacrificeAmount').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value = `${
+      getElementById<HTMLInputElement>('autoAntSacrificeAmount').value = `${
         player.autoAntSacTimer || blankSave.autoAntSacTimer
-      }`.replace(
-        omit,
-        'e'
-      )
+      }`.replace(omit, 'e')
       updateAutoReset(5)
     }
     inputd = player.tesseractAutoBuyerAmount
     inpute = Number(
-      (DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('tesseractAmount').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('tesseractAmount') as HTMLInputElement).value = `${
+      getElementById<HTMLInputElement>('tesseractAmount').value = `${
         player.tesseractAutoBuyerAmount || blankSave.tesseractAutoBuyerAmount
       }`.replace(omit, 'e')
       updateTesseractAutoBuyAmount()
     }
     inputd = player.openCubes
-    inpute = Number(
-      (DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value
-    )
+    inpute = Number(getElementById<HTMLInputElement>('cubeOpensInput').value)
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('cubeOpensInput') as HTMLInputElement).value = `${player.openCubes || blankSave.openCubes}`
+      getElementById<HTMLInputElement>('cubeOpensInput').value = `${player.openCubes || blankSave.openCubes}`
         .replace(omit, 'e')
       updateAutoCubesOpens(1)
     }
     inputd = player.openTesseracts
-    inpute = Number(
-      (DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value
-    )
+    inpute = Number(getElementById<HTMLInputElement>('tesseractsOpensInput').value)
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('tesseractsOpensInput') as HTMLInputElement).value = `${
+      getElementById<HTMLInputElement>('tesseractsOpensInput').value = `${
         player.openTesseracts || blankSave.openTesseracts
       }`.replace(omit, 'e')
       updateAutoCubesOpens(2)
     }
     inputd = player.openHypercubes
-    inpute = Number(
-      (DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value
-    )
+    inpute = Number(getElementById<HTMLInputElement>('hypercubesOpensInput').value)
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('hypercubesOpensInput') as HTMLInputElement).value = `${
+      getElementById<HTMLInputElement>('hypercubesOpensInput').value = `${
         player.openHypercubes || blankSave.openHypercubes
       }`.replace(omit, 'e')
       updateAutoCubesOpens(3)
     }
     inputd = player.openPlatonicsCubes
-    inpute = Number(
-      (DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value
-    )
+    inpute = Number(getElementById<HTMLInputElement>('platonicCubeOpensInput').value)
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('platonicCubeOpensInput') as HTMLInputElement).value = `${
+      getElementById<HTMLInputElement>('platonicCubeOpensInput').value = `${
         player.openPlatonicsCubes || blankSave.openPlatonicsCubes
-      }`.replace(
-        omit,
-        'e'
-      )
+      }`.replace(omit, 'e')
       updateAutoCubesOpens(4)
     }
     inputd = player.runeBlessingBuyAmount
-    inpute = Number(
-      (DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value
-    )
+    inpute = Number(getElementById<HTMLInputElement>('buyRuneBlessingInput').value)
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('buyRuneBlessingInput') as HTMLInputElement).value = `${
+      getElementById<HTMLInputElement>('buyRuneBlessingInput').value = `${
         player.runeBlessingBuyAmount || blankSave.runeBlessingBuyAmount
       }`.replace(omit, 'e')
       updateRuneBlessingBuyAmount(1)
@@ -2475,10 +2381,10 @@ const loadSynergy = async () => {
 
     inputd = player.runeSpiritBuyAmount
     inpute = Number(
-      (DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value
+      getElementById<HTMLInputElement>('buyRuneSpiritInput').value
     )
     if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('buyRuneSpiritInput') as HTMLInputElement).value = `${
+      getElementById<HTMLInputElement>('buyRuneSpiritInput').value = `${
         player.runeSpiritBuyAmount || blankSave.runeSpiritBuyAmount
       }`.replace(omit, 'e')
       updateRuneBlessingBuyAmount(2)
@@ -2949,7 +2855,7 @@ const padEvery = (str: string, places = 3) => {
     newStr += dec + strParts[1]
   } // see https://www.npmjs.com/package/flatstr
 
-  ;(newStr as unknown as number) | 0
+  <number> <unknown> newStr | 0
   return newStr
 }
 
@@ -3016,7 +2922,7 @@ export const format = (
   // This prevents numbers from jittering between two different powers by rounding errors
   if (mantissa > 9.9999999) {
     mantissa = 1
-    ;++power
+    power++
   }
 
   if (mantissa < 1 && mantissa > 0.9999999) {
@@ -6138,7 +6044,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'diamond') {
         buyCrystalUpgrades(1)
       }
-      if (G.currentTab === Tabs.Challenges && player.reincarnationCount > 0) {
+      if (G.currentTab === Tabs.Challenges && player.achievements[50] === 1) {
         toggleChallenges(6)
         challengeDisplay(6)
       }
@@ -6325,7 +6231,7 @@ export const reloadShit = async (reset = false) => {
     }
   }
 
-  const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
+  const saveType = getElementById<HTMLInputElement>('saveType')
   saveType.checked = localStorage.getItem('copyToClipboard') !== null
 }
 

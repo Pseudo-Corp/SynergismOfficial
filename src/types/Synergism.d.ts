@@ -318,8 +318,6 @@ export interface Player {
     generators: boolean
     reincarnate: boolean
   }
-  tabnumber: number
-  subtabNumber: number
 
   // create a Map with keys defaulting to boolean
   codes: Map<number, boolean>
@@ -540,7 +538,6 @@ export interface Player {
   usedCorruptions: number[]
   corruptionLoadouts: Record<number, number[]>
   corruptionLoadoutNames: string[]
-  corruptionShowStats: boolean
 
   constantUpgrades: ArrayStartingWithNull<number>
   history: Record<Category, ResetHistoryEntryUnion[]>
@@ -760,6 +757,7 @@ export interface GlobalVariables {
   uFifteenMulti: Decimal
   tuSevenMulti: number
   currentTab: Tabs
+  currentSubTab: number
 
   researchfiller1: string
   researchfiller2: string

@@ -435,7 +435,7 @@ class $Tab extends HTMLButtonElement {
     }
 
     this.addEventListener('click', () => {
-      if (this.#removeable && pressedKeys.has('ControlLeft') && pressedKeys.has('KeyX')) {
+      if (this.#removeable && pressedKeys.has('Control') && (pressedKeys.has('X') || pressedKeys.has('x'))) {
         // When clicking on a tab while holding CTRL + X
         if (G.currentTab !== this.#type) {
           tabRow.removeChild(this)
@@ -443,7 +443,6 @@ class $Tab extends HTMLButtonElement {
         }
       } else {
         changeTab(this.#type)
-        changeTabColor()
       }
     })
   }
@@ -593,8 +592,8 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   }
 
   G.currentTab = tabRow.getCurrentTab().getType()
-  player.tabnumber = 0
 
+  changeTabColor()
   revealStuff()
   hideStuff()
   ;(document.activeElement as HTMLElement | null)?.blur()
@@ -604,15 +603,10 @@ export const changeTab = (tabs: Tabs, step?: number) => {
     for (let i = 0; i < subTabList.length; i++) {
       const id = subTabList[i].buttonID
       if (id) {
-        const button = DOMCacheGetOrSet(id)
+        const color = DOMCacheGetOrSet(id).style.backgroundColor
 
-        if (button.style.backgroundColor === 'crimson') { // handles every tab except settings and corruptions
-          player.subtabNumber = i
-          break
-        }
-        // what in the shit is this?!
-        if (player.tabnumber === 9 && button.style.borderColor === 'dodgerblue') { // handle corruption tab
-          player.subtabNumber = i
+        if (color === 'crimson' || color === 'mediumblue') { // handles every tab except settings
+          G.currentSubTab = i
           break
         }
       }
@@ -622,7 +616,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
     const btns = document.querySelectorAll('[id^="switchSettingSubTab"]')
     for (let i = 0; i < btns.length; i++) {
       if (btns[i].classList.contains('buttonActive')) {
-        player.subtabNumber = i
+        G.currentSubTab = i
         break
       }
     }
@@ -644,22 +638,22 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
   }
 
   if (page !== undefined) {
-    player.subtabNumber = limitRange(page, 0, subTabs.subTabList.length - 1)
+    G.currentSubTab = limitRange(page, 0, subTabs.subTabList.length - 1)
   } else {
-    player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
+    G.currentSubTab = limitRange(G.currentSubTab + step, 0, subTabs.subTabList.length - 1)
   }
 
-  let subTabList = subTabs.subTabList[player.subtabNumber]
+  let subTabList = subTabs.subTabList[G.currentSubTab]
 
   while (!subTabList.unlocked) {
     assert(page === undefined)
-    player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
-    subTabList = subTabs.subTabList[player.subtabNumber]
+    G.currentSubTab = limitRange(G.currentSubTab + step, 0, subTabs.subTabList.length - 1)
+    subTabList = subTabs.subTabList[G.currentSubTab]
   }
 
   if (subTabList.unlocked) {
     subTabs.tabSwitcher?.()(subTabList.subTabID)
-    if (tab.getType() === Tabs.Singularity && page === 3) {
+    if (tab.getType() === Tabs.Singularity && subTabList.subTabID === '4') {
       player.visitedAmbrosiaSubtab = true
       G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     }

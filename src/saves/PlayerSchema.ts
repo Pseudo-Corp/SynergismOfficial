@@ -359,8 +359,6 @@ export const playerSchema = z.object({
   tesseractbuyamount: z.number().default(() => blankSave.tesseractbuyamount),
 
   shoptoggles: z.record(z.string(), z.boolean()),
-  tabnumber: z.number(),
-  subtabNumber: z.number().default(() => blankSave.subtabNumber),
 
   codes: z.array(z.tuple([z.number(), z.boolean()])).transform((tuple) => new Map(tuple)).default(() =>
     deepClone([...blankSave.codes])
@@ -517,7 +515,6 @@ export const playerSchema = z.object({
   corruptionLoadoutNames: z.string().array().default(() => blankSave.corruptionLoadoutNames.slice()).default(
     () => [...blankSave.corruptionLoadoutNames]
   ),
-  corruptionShowStats: z.boolean().default(() => blankSave.corruptionShowStats),
 
   constantUpgrades: arrayStartingWithNull(z.number()).default((): [
     null,
