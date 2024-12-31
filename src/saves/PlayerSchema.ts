@@ -323,7 +323,7 @@ export const playerSchema = z.object({
   crystalUpgradesCost: z.number().array().default(() => [...blankSave.crystalUpgradesCost]),
 
   runelevels: z.number().array().transform((array) => arrayExtend(array, 'runelevels')),
-  runeexp: z.union([z.number(), z.null()]).array().transform((value) => value.map((val) => val === null ? 0 : val)),
+  runeexp: z.union([z.number(), z.null().transform(() => 0)]).array().transform((value) => arrayExtend(value, 'runeexp')),
   runeshards: z.number(),
   maxofferings: z.number().default(() => blankSave.maxofferings),
   offeringpersecond: z.number().default(() => blankSave.offeringpersecond),
