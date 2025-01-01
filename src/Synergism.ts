@@ -6293,7 +6293,7 @@ export const reloadShit = async (reset = false) => {
           eventCheck().catch((error: Error) => {
             console.error(error)
           }),
-        15_000
+        1000 * 60 * 5
       )
     })
   showExitOffline()
