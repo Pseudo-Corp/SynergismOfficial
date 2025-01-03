@@ -1121,11 +1121,12 @@ const updateAscensionStats = () => {
       dom.textContent = fillers[key]
     }
     if (key === 'ascSingChallengeLen') {
-      if ( player.singularityChallenges.limitedTime.enabled &&
-           player.singChallengeTimer > 600 - 20 * player.singularityChallenges.limitedTime.completions) {
+      if (
+        player.singularityChallenges.limitedTime.enabled
+        && player.singChallengeTimer > 600 - 20 * player.singularityChallenges.limitedTime.completions
+      ) {
         dom.style.color = 'red'
-      }
-      else {
+      } else {
         dom.style.color = 'white'
       }
     }

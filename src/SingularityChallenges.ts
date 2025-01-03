@@ -23,7 +23,7 @@ export interface ISingularityChallengeData {
   effect: (n: number) => Record<string, number | boolean>
   scalingrewardcount: number
   uniquerewardcount: number
-  resetTime ?: boolean
+  resetTime?: boolean
   completions?: number
   enabled?: boolean
   highestSingularityCompleted?: number
@@ -123,11 +123,10 @@ export class SingularityChallenge {
       G.currentSingChallenge = this.HTMLTag
       player.insideSingularityChallenge = true
       await singularity(setSingularity)
-      
+
       if (!this.resetTime) {
         player.singularityCounter = holdSingTimer
-      }
-      else {
+      } else {
         player.singularityCounter = 0
       }
       player.goldenQuarks = currentGQ + goldenQuarkGain
@@ -418,7 +417,7 @@ export const singularityChallengeData: Record<
         globalSpeed: 0.06 * n,
         ascensionSpeed: 0.06 * n,
         tier1Upgrade: n >= 15,
-        tier2Upgrade: n >= 25,
+        tier2Upgrade: n >= 25
       }
     }
   },

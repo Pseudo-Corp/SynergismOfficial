@@ -573,13 +573,18 @@ export const promocodes = async (input: string | null, amount?: number) => {
       rolls += player.shopUpgrades.shopImprovedDaily3
       rolls += player.shopUpgrades.shopImprovedDaily4
       rolls += +player.singularityUpgrades.platonicPhi.getEffect().bonus
-        * Math.min(50, (player.shopUpgrades.shopSingularitySpeedup) ? (100 * player.singularityCounter) / (3600 * 24) : (5 * player.singularityCounter) / (3600 * 24))
+        * Math.min(
+          50,
+          (player.shopUpgrades.shopSingularitySpeedup)
+            ? (100 * player.singularityCounter) / (3600 * 24)
+            : (5 * player.singularityCounter) / (3600 * 24)
+        )
       rolls += +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus
       rolls += +player.singularityChallenges.sadisticPrequel.rewards.extraFree
       rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
       rolls *= 1
         + +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus / 200
-      rolls *= (1 + +player.singularityChallenges.sadisticPrequel.rewards.freeUpgradeMult)
+      rolls *= 1 + +player.singularityChallenges.sadisticPrequel.rewards.freeUpgradeMult
       if (player.highestSingularityCount >= 200) {
         rolls *= 2
       }
@@ -928,7 +933,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (playerConfirmed) {
       const diff = Math.abs(Date.now() - (start + random))
       player.promoCodeTiming.time = Date.now()
-      
+
       if (diff <= 2500 + 125 * player.cubeUpgrades[61]) {
         const reward = Math.floor(
           Math.min(1000, 125 + 25 * player.highestSingularityCount)

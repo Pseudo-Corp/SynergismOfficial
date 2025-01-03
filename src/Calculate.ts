@@ -1774,7 +1774,12 @@ export const calculateAllCubeMultiplier = () => {
     // Platonic DELTA
     1
     + +player.singularityUpgrades.platonicDelta.getEffect().bonus
-      * Math.min(9, (player.shopUpgrades.shopSingularitySpeedup > 0) ? player.singularityCounter * 20 / (3600 * 24) : player.singularityCounter / (3600 * 24)),
+      * Math.min(
+        9,
+        (player.shopUpgrades.shopSingularitySpeedup > 0)
+          ? player.singularityCounter * 20 / (3600 * 24)
+          : player.singularityCounter / (3600 * 24)
+      ),
     // Wow Pass INF
     Math.pow(1.02, player.shopUpgrades.seasonPassInfinity),
     // Ambrosia Mult
@@ -2118,7 +2123,12 @@ export const getOcteractValueMultipliers = () => {
     1 + calculateEventBuff(BuffType.Octeract),
     1
     + +player.singularityUpgrades.platonicDelta.getEffect().bonus
-      * Math.min(9, (player.shopUpgrades.shopSingularitySpeedup > 0) ? player.singularityCounter * 20 / (3600 * 24) : player.singularityCounter / (3600 * 24)),
+      * Math.min(
+        9,
+        (player.shopUpgrades.shopSingularitySpeedup > 0)
+          ? player.singularityCounter * 20 / (3600 * 24)
+          : player.singularityCounter / (3600 * 24)
+      ),
     // No Singulairty Upgrades
     +player.singularityChallenges.noSingularityUpgrades.rewards.cubes,
     // Wow Pass INF
@@ -2214,7 +2224,7 @@ export const calculateTimeAcceleration = () => {
     calculateSigmoid(2, player.antUpgrades[12 - 1]! + G.bonusant12, 69), // ant 12
     1 + 0.1 * (player.talismanRarity[2 - 1] - 1), // Chronos Talisman bonus
     G.challenge15Rewards.globalSpeed, // Challenge 15 reward
-    1 + 0.01 * player.cubeUpgrades[52], // cube upgrade 6x2 (Cx2)
+    1 + 0.01 * player.cubeUpgrades[52] // cube upgrade 6x2 (Cx2)
   ]
 
   // Global Speed softcap + Corruption / Corruption-like effects
@@ -2478,8 +2488,8 @@ export const calculateQuarkMultiplier = () => {
   multiplier *= +player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks
   multiplier *= +player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks
   multiplier *= calculateCashGrabQuarkBonus()
-  multiplier *= (1 + +player.singularityChallenges.limitedTime.rewards.quarkMult)
-  multiplier *= (1 + +player.singularityChallenges.sadisticPrequel.rewards.quarkMult)
+  multiplier *= 1 + +player.singularityChallenges.limitedTime.rewards.quarkMult
+  multiplier *= 1 + +player.singularityChallenges.sadisticPrequel.rewards.quarkMult
 
   if (player.highestSingularityCount === 0) {
     multiplier *= 1.25
@@ -2521,7 +2531,7 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
     player.highestSingularityCount >= 100
       ? 1 + Math.min(1, player.highestSingularityCount / 250)
       : 1, // Golden Revolution II
-    perkMultiplier, // Immaculate Alchemy
+    perkMultiplier // Immaculate Alchemy
   ]
 
   // Total Quarks Coefficient
@@ -3298,9 +3308,8 @@ export const calculateExalt6Penalty = (comps: number, time: number) => {
   const displacedTime = Math.max(0, time - 600 + 20 * comps)
   if (displacedTime === 0) {
     return 1
-  }
-  else {
-    return Math.pow(10 + comps, -displacedTime/60)
+  } else {
+    return Math.pow(10 + comps, -displacedTime / 60)
   }
 }
 
@@ -3492,8 +3501,7 @@ export const derpsmithCornucopiaBonus = () => {
 export const sing6Mult = () => {
   if (player.singularityCount <= 200) {
     return 1
-  }
-  else {
+  } else {
     return Math.pow(1.01, player.singularityCount - 200)
   }
 }
