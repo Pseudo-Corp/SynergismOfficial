@@ -23,6 +23,7 @@ export interface ISingularityChallengeData {
   effect: (n: number) => Record<string, number | boolean>
   scalingrewardcount: number
   uniquerewardcount: number
+  resetTime?: boolean
   completions?: number
   enabled?: boolean
   highestSingularityCompleted?: number
@@ -39,6 +40,7 @@ export class SingularityChallenge {
   public HTMLTag
   public highestSingularityCompleted
   public enabled
+  public resetTime
   public singularityRequirement
   public effect
   public scalingrewardcount
@@ -59,6 +61,7 @@ export class SingularityChallenge {
     this.HTMLTag = data.HTMLTag
     this.highestSingularityCompleted = data.highestSingularityCompleted ?? 0
     this.enabled = data.enabled ?? false
+    this.resetTime = data.resetTime ?? false
     this.singularityRequirement = data.singularityRequirement
     this.effect = data.effect
     this.scalingrewardcount = data.scalingrewardcount
@@ -120,7 +123,12 @@ export class SingularityChallenge {
       G.currentSingChallenge = this.HTMLTag
       player.insideSingularityChallenge = true
       await singularity(setSingularity)
-      player.singularityCounter = holdSingTimer
+
+      if (!this.resetTime) {
+        player.singularityCounter = holdSingTimer
+      } else {
+        player.singularityCounter = 0
+      }
       player.goldenQuarks = currentGQ + goldenQuarkGain
       player.quarkstimer = holdQuarkExport
       player.goldenQuarksTimer = holdGoldenQuarkExport
@@ -318,14 +326,16 @@ export const singularityChallengeData: Record<
       return baseReq + 11 * completions
     },
     scalingrewardcount: 2,
-    uniquerewardcount: 3,
+    uniquerewardcount: 4,
     effect: (n: number) => {
       return {
         corrScoreIncrease: 0.03 * n,
         blueberrySpeedMult: (1 + n / 100),
         capIncrease: 3 * +(n > 0),
         freeCorruptionLevel: n >= 20,
-        shopUpgrade: n >= 20
+        shopUpgrade: n >= 20,
+        reinCapIncrease2: 7 * +(n >= 25),
+        ascCapIncrease2: 2 * +(n >= 25)
       }
     }
   },
@@ -387,6 +397,48 @@ export const singularityChallengeData: Record<
         blueberrySpeedMult: (1 + n / 50),
         shopUpgrade: n >= 15,
         shopUpgrade2: n >= 20
+      }
+    }
+  },
+  limitedTime: {
+    baseReq: 203,
+    maxCompletions: 25,
+    unlockSingularity: 216,
+    HTMLTag: 'limitedTime',
+    singularityRequirement: (baseReq: number, completions: number) => {
+      return baseReq + 3 * completions
+    },
+    scalingrewardcount: 3,
+    uniquerewardcount: 3,
+    effect: (n: number) => {
+      return {
+        preserveQuarks: +(n > 0),
+        quarkMult: 0.01 * n,
+        globalSpeed: 0.06 * n,
+        ascensionSpeed: 0.06 * n,
+        tier1Upgrade: n >= 15,
+        tier2Upgrade: n >= 25
+      }
+    }
+  },
+  sadisticPrequel: {
+    baseReq: 135,
+    maxCompletions: 30,
+    unlockSingularity: 273,
+    HTMLTag: 'sadisticPrequel',
+    singularityRequirement: (baseReq: number, completions: number) => {
+      return baseReq + 3 * completions
+    },
+    scalingrewardcount: 2,
+    uniquerewardcount: 4,
+    effect: (n: number) => {
+      return {
+        extraFree: 50 * +(n > 0),
+        quarkMult: 0.03 * n,
+        freeUpgradeMult: 0.03 * n,
+        shopUpgrade: n >= 10,
+        shopUpgrade2: n >= 20,
+        shopUpgrade3: n >= 30
       }
     }
   }

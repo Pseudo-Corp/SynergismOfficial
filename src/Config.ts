@@ -1,4 +1,4 @@
-export const version = '3.0.0 pt 5.2: June 27, 2024: Fall of the Octeracts 2'
+export const version = '3.0.0 pt 6: December 21, 2024: Rise of the Singular Entities, pt 1.0.4'
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE

@@ -581,7 +581,7 @@ export const loadQuarkMultiplier = () => {
   }`
   DOMCacheGetOrSet('sGQM20').textContent = `x${
     format(
-      1 + 0.25 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
+      1 + 0.4 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
       3,
       true
     )
@@ -663,7 +663,13 @@ export const loadQuarkMultiplier = () => {
     )
   }`
   DOMCacheGetOrSet('sGQM31').textContent = `x${format(calculateCashGrabQuarkBonus(), 3, true)}`
-  DOMCacheGetOrSet('sGQM32').textContent = `x${format(player.highestSingularityCount === 0 ? 1.25 : 1, 2, true)}` // Buff in s0
+  DOMCacheGetOrSet('sGQM32').textContent = `x${
+    format(1 + +player.singularityChallenges.limitedTime.rewards.quarkMult, 2, true)
+  }`
+  DOMCacheGetOrSet('sGQM33').textContent = `x${
+    format(1 + +player.singularityChallenges.sadisticPrequel.rewards.quarkMult, 2, true)
+  }`
+  DOMCacheGetOrSet('sGQM34').textContent = `x${format(player.highestSingularityCount === 0 ? 1.25 : 1, 2, true)}` // Buff in s0
 
   DOMCacheGetOrSet('sGQMT').textContent = `x${
     format(
@@ -750,7 +756,8 @@ export const loadStatisticsCubeMultipliers = () => {
     32: { acc: 2, desc: 'Module- Hyperflux' },
     33: { acc: 2, desc: '20 Ascensions X20 Bonus [EXALT ONLY]' },
     34: { acc: 2, desc: 'Cash Grab ULTIMATE' },
-    35: { acc: 2, desc: 'Shop EX ULTIMATE' }
+    35: { acc: 2, desc: 'Shop EX ULTIMATE' },
+    36: { acc: 2, desc: 'Exalt 6 Penalty (for being too slow!)' }
   }
   for (let i = 0; i < arr0.length; i++) {
     const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
@@ -1514,7 +1521,9 @@ export const loadStatisticsAscensionSpeedMultipliers = () => {
     17: { acc: 2, desc: 'Limited Ascensions Penalty:' },
     18: { acc: 2, desc: 'Limited Ascensions Reward:' },
     19: { acc: 2, desc: 'Ascension Speedup [GQ]:' },
-    20: { acc: 2, desc: 'Singularity Penalty:' }
+    20: { acc: 2, desc: 'Singularity Penalty:' },
+    21: { acc: 2, desc: 'EXALT 6: The Great Singularity Speedrun:' },
+    22: { acc: 2, desc: 'Shop Chronometer S:' }
   }
   for (let i = 0; i < arr.list.length; i++) {
     const statASMi = DOMCacheGetOrSet(`statASM${i + 1}`)
@@ -1713,7 +1722,8 @@ export const loadStatisticsAmbrosiaLuck = () => {
     11: { acc: 0, desc: 'Perk: One Hundred Thirty One!' },
     12: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
     13: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
-    14: { acc: 0, desc: 'No Ambrosia Upgrades EXALT' }
+    14: { acc: 0, desc: 'No Ambrosia Upgrades EXALT' },
+    15: { acc: 0, desc: 'ULTRA Upgrade: Ambrosia Exalter' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)

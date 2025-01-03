@@ -403,6 +403,11 @@ export interface Player {
     shopCashGrabUltra: number
     shopAmbrosiaAccelerator: number
     shopEXUltra: number
+    shopChronometerS: number
+    shopAmbrosiaUltra: number
+    shopSingularitySpeedup: number
+    shopSingularityPotency: number
+    shopSadisticRune: number
   }
   shopConfirmationToggle: boolean
   shopBuyMaxToggle: boolean | 'TEN' | 'ANY'
@@ -640,6 +645,8 @@ export interface Player {
 
   ultimateProgress: number
   ultimatePixels: number
+
+  singChallengeTimer: number
 
   caches: {
     ambrosiaLuckAdditiveMult: AmbrosiaLuckAdditiveMultCache

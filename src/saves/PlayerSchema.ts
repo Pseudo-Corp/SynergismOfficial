@@ -323,7 +323,9 @@ export const playerSchema = z.object({
   crystalUpgradesCost: z.number().array().default(() => [...blankSave.crystalUpgradesCost]),
 
   runelevels: z.number().array().transform((array) => arrayExtend(array, 'runelevels')),
-  runeexp: z.union([z.number(), z.null()]).array().transform((value) => value.map((val) => val === null ? 0 : val)),
+  runeexp: z.union([z.number(), z.null().transform(() => 0)]).array().transform((value) =>
+    arrayExtend(value, 'runeexp')
+  ),
   runeshards: z.number(),
   maxofferings: z.number().default(() => blankSave.maxofferings),
   offeringpersecond: z.number().default(() => blankSave.offeringpersecond),
@@ -680,6 +682,7 @@ export const playerSchema = z.object({
               HTMLTag: singularityChallengeData[k].HTMLTag,
               highestSingularityCompleted,
               enabled,
+              resetTime: singularityChallengeData[k].resetTime,
               singularityRequirement: singularityChallengeData[k].singularityRequirement,
               scalingrewardcount: singularityChallengeData[k].scalingrewardcount,
               uniquerewardcount: singularityChallengeData[k].uniquerewardcount,
@@ -734,6 +737,8 @@ export const playerSchema = z.object({
 
   ultimateProgress: z.number().default(() => blankSave.ultimateProgress),
   ultimatePixels: z.number().default(() => blankSave.ultimatePixels),
+
+  singChallengeTimer: z.number().default(() => blankSave.singChallengeTimer),
 
   // TODO: what type?
   caches: z.record(z.string(), z.any())

@@ -359,9 +359,10 @@ export class SingularityUpgrade extends DynamicUpgrade {
   }
 
   public computeFreeLevelSoftcap (): number {
+    const baseRealFreeLevels = player.shopUpgrades.shopSingularityPotency > 0 ? 7.66 * this.freeLevels : this.freeLevels
     return (
-      Math.min(this.level, this.freeLevels)
-      + Math.sqrt(Math.max(0, this.freeLevels - this.level))
+      Math.min(this.level, baseRealFreeLevels)
+      + Math.sqrt(Math.max(0, baseRealFreeLevels - this.level))
     )
   }
 
@@ -385,14 +386,16 @@ export class SingularityUpgrade extends DynamicUpgrade {
 
   public actualTotalLevels (): number {
     if (
-      player.singularityChallenges.noSingularityUpgrades.enabled
+      (player.singularityChallenges.noSingularityUpgrades.enabled
+        || player.singularityChallenges.sadisticPrequel.enabled)
       && !this.qualityOfLife
     ) {
       return 0
     }
 
     if (
-      player.singularityChallenges.limitedAscensions.enabled
+      (player.singularityChallenges.limitedAscensions.enabled || player.singularityChallenges.limitedTime.enabled
+        || player.singularityChallenges.sadisticPrequel.enabled)
       && this.name === player.singularityUpgrades.platonicDelta.name
     ) {
       return 0
@@ -928,8 +931,8 @@ export const singularityData: Record<
   },
   wowPass2: {
     maxLevel: 1,
-    costPerLevel: 19999,
-    minimumSingularity: 11,
+    costPerLevel: 12500,
+    minimumSingularity: 9,
     effect: (n: number) => {
       return {
         bonus: n > 0,

@@ -48,7 +48,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     hypercubes: 1e5,
     platonics: 1e4,
     abyssals: 0,
-    maxLevel: 250,
+    maxLevel: 300,
     priceMult: 2
   },
   2: {
@@ -59,7 +59,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     hypercubes: 1e5,
     platonics: 1e4,
     abyssals: 0,
-    maxLevel: 250,
+    maxLevel: 300,
     priceMult: 2
   },
   3: {
@@ -70,7 +70,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     hypercubes: 1e7,
     platonics: 1e4,
     abyssals: 0,
-    maxLevel: 250,
+    maxLevel: 300,
     priceMult: 2
   },
   4: {
@@ -81,7 +81,7 @@ export const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     hypercubes: 1e6,
     platonics: 1e6,
     abyssals: 0,
-    maxLevel: 250,
+    maxLevel: 300,
     priceMult: 2
   },
   5: {
