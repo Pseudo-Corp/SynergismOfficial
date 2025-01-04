@@ -3882,12 +3882,11 @@ img#singularityPerksIcon {
 #accountSubTab > div.scrollbarX > form > * {
     font-size: medium;
     margin: 2px auto 2px auto;
-    width: 25%;
+    width: 20%;
 }
 
 #accountSubTab > div.scrollbarX > form > input[type="submit"] {
     border: 2px solid gold;
-    height: auto * 2;
 }
 
 #pixelProgressBar {
