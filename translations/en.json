@@ -1646,7 +1646,7 @@
       },
       "itAllAddsUp": {
         "name": "It all adds up",
-        "default": "The 'Add' Special Action reward & cooldown is divided by {{div}} while its maximum capacity is multiplied the same amount! (Rounded Up)."
+        "default": "The 'Add' Special Action reward & cooldown are divided by {{div}} while its maximum capacity is multiplied the same amount! (Rounded Up)."
       },
       "automagicalRunes": {
         "name": "Automagical Runes",
