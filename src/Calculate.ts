@@ -3515,6 +3515,7 @@ export const isIARuneUnlocked = () => {
 
 export const isShopTalismanUnlocked = () => {
   return player.shopUpgrades.shopTalisman > 0 || PCoinUpgradeEffects.INSTANT_UNLOCK_1
+}
 
 export const sing6Mult = () => {
   if (player.singularityCount <= 200) {

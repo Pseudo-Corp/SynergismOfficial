@@ -1542,20 +1542,24 @@ export const loadStatisticsAscensionSpeedMultipliers = () => {
 
 export const loadStatisticsGoldenQuarkMultipliers = () => {
   const arr = calculateGoldenQuarkMultiplier()
-  const map: Record<number, { acc: number; desc: string }> = {
-    1: { acc: 2, desc: 'Challenge 15 Exponent:' },
-    2: { acc: 2, desc: 'Patreon Bonus:' },
-    3: { acc: 2, desc: 'Golden Quarks I:' },
-    4: { acc: 2, desc: 'Cookie Upgrade 19:' },
-    5: { acc: 2, desc: 'No Singularity Upgrades:' },
-    6: { acc: 2, desc: 'Event:' },
-    7: { acc: 2, desc: 'Singularity Fast Forwards:' },
-    8: { acc: 2, desc: 'Golden Revolution II:' },
-    9: { acc: 2, desc: 'Immaculate Alchemy:' },
-    10: { acc: 2, desc: 'Total Quarks Coefficient:' }
+  const map: Record<number, { acc: number; desc: string; color?: string }> = {
+    1: { acc: 2, desc: 'PseudoCoin Bonus:', color: 'gold' },
+    2: { acc: 2, desc: 'Challenge 15 Exponent:' },
+    3: { acc: 2, desc: 'Patreon Bonus:' },
+    4: { acc: 2, desc: 'Golden Quarks I:' },
+    5: { acc: 2, desc: 'Cookie Upgrade 19:' },
+    6: { acc: 2, desc: 'No Singularity Upgrades:' },
+    7: { acc: 2, desc: 'Event:' },
+    8: { acc: 2, desc: 'Singularity Fast Forwards:' },
+    9: { acc: 2, desc: 'Golden Revolution II:' },
+    10: { acc: 2, desc: 'Immaculate Alchemy:' },
+    11: { acc: 2, desc: 'Total Quarks Coefficient:' }
   }
   for (let i = 0; i < arr.list.length; i++) {
     const statGQMi = DOMCacheGetOrSet(`statGQMS${i + 1}`)
+    if (map[i + 1].color) {
+      statGQMi.style.color = map[i + 1].color ?? 'white'
+    }
     statGQMi.childNodes[0].textContent = map[i + 1].desc
     DOMCacheGetOrSet(`sGQMS${i + 1}`).textContent = `x${
       format(
@@ -1625,20 +1629,24 @@ export const loadAddCodeModifiersAndEffects = () => {
   }
 
   // Add capacity stats
-  const capacityMap: Record<number, { acc: number; desc: string }> = {
+  const capacityMap: Record<number, { acc: number; desc: string; color?: string }> = {
     1: { acc: 0, desc: 'Base:' },
     2: { acc: 0, desc: 'PL-AT X:' },
     3: { acc: 0, desc: 'PL-AT δ:' },
     4: { acc: 0, desc: 'PL-AT Γ:' },
     5: { acc: 0, desc: 'PL-AT _:' },
     6: { acc: 0, desc: 'PL-AT ΩΩ' },
-    7: { acc: 3, desc: 'Singularity factor:' }
+    7: { acc: 3, desc: 'Singularity factor:' },
+    8: { acc: 0, desc: 'Plat-P:', color: 'gold' }
   }
 
   for (let i = 0; i < capacityStats.list.length; i++) {
     const statAddIntervalI = DOMCacheGetOrSet(`stat+cap${i + 1}`)
+    if (capacityMap[i + 1].color) {
+      statAddIntervalI.style.color = capacityMap[i + 1].color ?? 'white'
+    }
     statAddIntervalI.childNodes[0].textContent = capacityMap[i + 1].desc
-    const prefix = i === 0 ? '' : i === 5 ? 'x' : '+'
+    const prefix = i === 0 ? '' : (i === 5 || i === 7) ? 'x' : '+'
     DOMCacheGetOrSet(`s+cap${i + 1}`).textContent = `${prefix}${
       format(
         capacityStats.list[i],
