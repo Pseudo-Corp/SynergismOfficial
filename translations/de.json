@@ -1710,7 +1710,6 @@
         "hasLevel1": "Kaufe automatsch platonische Upgrades mit jedem Aufstieg, ohne dafür Obtainium oder Gaben auszugeben. Überall!",
         "default": "Kaufe automatisch platonische Upgrades mit jedem Aufstieg, ohne dafür Obtainium oder Gaben auszugeben. Aber nur in Singularität-Herausforderungen."
       },
-
       "platSigma": {
         "name": "PL-AT Σ",
         "default": "Code 'add' füllt sich {{counter}}% schneller je Level je Singularity. Aktuell: {{current}} (MAX: -60% Abklingzeit)"
