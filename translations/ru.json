@@ -95,6 +95,21 @@
         "name": "Модуль Амброзии: Бесстыжее Напоминание о Patreon",
         "description": "В каждом измерении, Platonic продажный. +1% Скорости Генерации Голубики за каждый +1% Бонуса Кварков от Patreon!",
         "effect": "Щедрые спонсоры с Patreon даруют вам {{amount}}% Скорости Генерации Голубики. Рассмотрите вариант стать одним из них, если ещё не стали, для поддержки разработки!"
+      },
+      "ambrosiaObtainium1": {
+        "name": "Рандомный Усилитель Обтаниума",
+        "description": "+0.1% Обтаниума за каждое очко &#9752 Удачи Амброзии!",
+        "effect": "Этот модуль увеличивает получение Обтаниума на {{amount}}%!"
+      },
+      "ambrosiaOffering1": {
+        "name": "Рандомный Усилитель Подношений",
+        "description": "+0.1% Подношений за каждое очко &#9752 Удачи Амброзии!",
+        "effect": "Этот модуль увеличивает получение Подношений на {{amount}}%!"
+      },
+      "ambrosiaHyperflux": {
+        "name": "Гипперзаряженное Промышленное Производство Вау! Кубов",
+        "description": "+1% кубов за уровень, за каждый купленный уровень Платонового Улучшения 4х4 (перемножаемо!!!)",
+        "effect": "Этот модуль увеличивает получение Кубов на {{amount}}%!"
       }
     },
     "loadouts": {
@@ -1370,6 +1385,7 @@
       "calculator4": "PL-AT δ работает на частоте 4096 Гц, что является огромным улучшением по сравнению с предыдущими моделями. Попытки 'add' восполняются на 4% быстрее за каждый уровень! Финальный уровень добавляет 32 к максимуму попыток!",
       "calculator5": "Модель PL-AT Γ каким-то образом выполняет более \"мощные\" вычисления, что бы это ни значило. +6 секунд к таймеру Экспорта ЗК за каждый уровень. +1 ёмкость каждые 10 уровней, и еще 6 на финальном уровне!",
       "calculator6": "Модель PL-AT _ была изготовлена Кукузнецом до того, как он был навсегда изгнан из индустрии. Получите 1 секунду Октерактов за использование за каждый уровень. Финальный уровень дает 24 дополнительных использования!",
+      "calculator7": "Модель PL-AT ΩΩ была изготовлена Кукузнецом Ω до того, как он был навсегда изгнан из индустрии. За каждый уровень, +1 секунда Времени Голубики за использование. Финальный уровень дает 48 дополнительных использований!",
       "constantEX": "У торговца остался последний туз в рукаве: это может незначительно усилить ваше второе улучшение константы, но это будет стоить вам целое состояние! С 10% (11% с учётом достижений), предел будет увеличен на 1% за уровень.",
       "powderEX": "Platonic сам даёт вам на 2% лучший коэффициент конверсии Сфер Изобильного Потока в Порошок за каждый уровень. Это активируется, когда срок действия Сфер истекает.",
       "chronometer2": "Ладно, хорошо. Вот ещё +0.6% к скорости Вознесения за каждый уровень, которая перемножается с первым улучшением!",
@@ -1409,7 +1425,17 @@
       "shopAmbrosiaLuck1": "Покупка этого амулета даёт +2 ☘ Удачи Амброзии за уровень, что даёт больше Амброзии! Не знаете, что это значит? Скоро увидите.",
       "shopAmbrosiaLuck2": "Вы получите немного больший четырёхлистный клевер, дающий +2 ☘ удачи Амброзии за уровень, складывающейся суммарно.",
       "shopAmbrosiaLuck3": "Вы получите четырёхлистный клевер позеленее, дающий +2 ☘ удачи Амброзии за уровень, складывающейся суммарно.",
-      "shopAmbrosiaLuck4": "Вы получите четырёхлистный клевер 'получше' - что бы это не значило -, дающий +0.6 ☘ удачи Амброзии за уровень, складывающейся суммарно."
+      "shopAmbrosiaLuck4": "Вы получите четырёхлистный клевер 'получше' - что бы это не значило -, дающий +0.6 ☘ удачи Амброзии за уровень, складывающейся суммарно.",
+      "shopAmbrosiaLuckMultiplier4": "☘ +1% Удачи Амброзии за уровень! Проще некуда.",
+      "shopOcteractAmbrosiaLuck": "☘ +1 Удача Амброзии за цифру в вашем инвентаре Вау! Октерактов за уровень. Проще некуда.",
+      "shopCashGrabUltra": "Всего лишь за символическую сумму, даёт до +15% Скорости Голубики, +120% Кубов и +8% Кварков за уровень, в зависимости от Амброзии, бонусы увеличиваются нелинейно пока не получено 10,000,000 Амброзии за всё время.",
+      "shopAmbrosiaAccelerator": "Каждый уровень этого 'ускорителя' даёт <<cyan|+0.2>> реальных секунд Генерации Голубики за каждую <<orange|1>> полученную из любых источников Амброзию!",
+      "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
+      "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
+      "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
+      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 20 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 666% more effective (so, each is worth the equivalent to 7.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
+      "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
     },
     "maxed": "Максимум!",
     "upgradeFor": "Улучшить за {{x}} Кварков",
@@ -1459,6 +1485,7 @@
       "calculator4": "Код \"add\" заполняется на <<orchid|{{amount1}}%>> быстрее. Ёмкость увеличивается на <<orchid|+{{amount2}}>>.",
       "calculator5": "Код \"add\" генерирует <<orchid|{{amount1}}>> секунд для таймера экспорта ЗК. Ёмкость увеличивается на <<orchid|+{{amount2}}>>.",
       "calculator6": "Код \"add\" генерирует <<orchid|{{amount1}}>> секунд для Октерактов. Ёмкость увеличивается на <<orchid|+{{amount2}}>>.",
+      "calculator7": "Код 'add' генерирует <<orchid|{{amount1}}>> секунд Генерации Голубики. Ёмкость увеличивается на <<orchid|+{{amount2}}>>.",
       "constantEX": "<<orange|+{{amount}}>> к максимальному проценту для Улучшения Константы 2'",
       "powderEX": "Получите <<red|+{{amount}}%>> Порошка Изобильного Потока, когда истечет срок действия Сфер Изобильного Потока (полночь, ежедневно).",
       "chronometer2": "Таймер Вознесения увеличивается на <<orange|{{amount}}%>> быстрее!",
@@ -1491,6 +1518,8 @@
       "chronometerInfinity": "Таймер Вознесения увеличивается на <<orange|{{amount}}%>> быстрее.",
       "seasonPassInfinity": "Вознесения дают на <<lightgoldenrodyellow|{{amount}}%>> больше кубов (<<orchid|всех>> видов).",
       "shopSingularityPenaltyDebuff": "В Сингулярности <<pink|{{amount1}}>>, ваши негативные эффекты такие же, как если бы вы были в <<pink|{{amount2}}>>.",
+      "shopAmbrosiaLuckMultiplier4": "<<green|☘ +{{amount}}%>> Удачи Амброзии!",
+      "shopOcteractAmbrosiaLuck": "Октеракты дают <<green|☘ +{{amount}}>> Удачи Амброзии!",
       "shopAmbrosiaGeneration1": "Таймер Голубики генерируется на <<blue|{{amount}}%>> быстрее.",
       "shopAmbrosiaGeneration2": "Таймер Голубики генерируется на <<blue|{{amount}}%>> быстрее.",
       "shopAmbrosiaGeneration3": "Таймер Голубики генерируется на <<blue|{{amount}}%>> быстрее.",
@@ -1498,7 +1527,15 @@
       "shopAmbrosiaLuck1": "Удача Амброзии <<lime|☘ +{{amount}}>>",
       "shopAmbrosiaLuck2": "Удача Амброзии <<lime|☘ +{{amount}}>>",
       "shopAmbrosiaLuck3": "Удача Амброзии <<lime|☘ +{{amount}}>>",
-      "shopAmbrosiaLuck4": "Удача Амброзии <<lime|☘ +{{amount}}>>"
+      "shopAmbrosiaLuck4": "Удача Амброзии <<lime|☘ +{{amount}}>>",
+      "shopCashGrabUltra": "Blueberry Generation is <<blue|{{amount}}%>> faster. Also, Cubes <<white|+{{amount2}}%>>! Finally, Quarks <<cyan|+{{amount3}}%>>!",
+      "shopAmbrosiaAccelerator": "За каждую полученную <<orange|Амброзию>>, добавляет <<cyan|{{amount}}>> секунд Генерации Голубики (<<cyan|{{amount2}}>> Секунд Голубики)!",
+      "shopEXUltra": "Амброзия увеличивает <<orange|Подношения>>, <<orchid|Обтаниум>> и <<white|Кубы>> на <<gold|{{amount}}%>>!",
+      "shopChronometerS": "Ascension Speed and Global Speed are both increased by <<orange|{{amount}}%>>!",
+      "shopAmbrosiaUltra": "Gain <<lime|☘ +{{amount}}>> Ambrosia Luck from your EXALT completions!",
+      "shopSingularitySpeedup": "Singularity Perks and Upgrades accumulate <<gray|{{amount}}>> times faster!",
+      "shopSingularityPotency": "Free Singularity Upgrades are as if you had <<gray|{{amount}}>> of them.",
+      "shopSadisticRune": "Я даже не уверен, на что эта руна способна. Ты купил её? Я же не вижу тебя, если что."
     }
   },
   "singularity": {
@@ -2399,6 +2436,7 @@
       "79": "Эффект: Вы будете получать на +10% больше наград =)",
       "80": "Эффект: +75 к Муравьиному ЭЛО если это улучшение куплено.",
       "81": "Эффект: Вся информация прямо над этим сообщением.",
+      "120": "Эффект: Вся информация прямо над этим сообщением!",
       "121": "Эффект: -50% Налогов, кэп!",
       "122": "Эффект: +88% к лимиту Улучшения Кристаллов 3, кэп!",
       "123": "Эффект: Производство Монет ^1.025, кэп!",
@@ -2445,8 +2483,8 @@
       "blessings": "Благословения",
       "spirits": "[=-Духи-=]"
     },
-    "challenges":{
-      "normal": "Normal",
+    "challenges": {
+      "normal": "Обычные",
       "exalt": "ВОЗВЫШЕНИЕ"
     },
     "cubes": {
@@ -2718,7 +2756,7 @@
     "data": {
       "octeractStarter": {
         "name": "Октеракты для Чайников",
-        "description": "Приветствую... Я Есть Кукузнец... Предок Муравьиного Бога... Я Не Ожидал, Что Вы До Сюда Доберётесь. Вот Вам 30% к Кваркам, 20% к Октерактам и 100,000х к Скорости Муравьёв...",
+        "description": "Приветствую... Я Есть Кукузнец... Предок Муравьиного Бога... Я Не Ожидал, Что Вы До Сюда Доберётесь. Вот Вам 40% к Кваркам, 20% к Октерактам и 100,000х к Скорости Муравьёв...",
         "effect": "Вы {{n}} выразили своё почтение Кукузнецу."
       },
       "octeractGain": {
@@ -3082,55 +3120,76 @@
       "noSingularityUpgrades": {
         "name": "Без Улучшений Сингулярности",
         "description": "Простыми словами, вам нужно пройти целевую Сингулярность без большинства Улучшений Сингулярности. Октеракты, Перки и Улучшения Качества Жизни сохранены.",
-        "ScalingReward1":"+50% increase to <<yellow|ALL Cube>> gain",
-        "UniqueReward1":"1st - +12% <<gold|Golden Quarks>>!",
-        "UniqueReward2":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
-        "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward4":"30th - +6% <<lime|&#9752 Ambrosia Luck>> for free!",
-        "UniqueReward5":"30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
+        "ScalingReward1": "+50% к получению <<yellow|ВСЕХ Кубов>>",
+        "UniqueReward1": "1-ое - +12% <<gold|Золотых Кварков>>!",
+        "UniqueReward2": "1-ое - Бесплатная <<var(--blueberry-box-color)|Голубика>>!",
+        "UniqueReward3": "20-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
+        "UniqueReward4": "30th - +6% <<lime|&#9752 Ambrosia Luck>> for free!",
+        "UniqueReward5": "30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
       },
       "oneChallengeCap": {
         "name": "Предел в Одно Выполнение",
         "description": "Завершите необходимую Сингулярность, но лимит выполнений первых 14 Испытаний - 1!",
-        "ScalingReward1":"+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
-        "ScalingReward2":"+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
-        "UniqueReward1":"1st - +3 <<green|Reincarnation Challenge>> Cap!",
-        "UniqueReward2":"20th - +1 Free <<var(--red-text-color)|Corruption Level>>",
-        "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!"
+        "ScalingReward1": "+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
+        "ScalingReward2": "+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+        "UniqueReward1": "1st - +3 <<green|Reincarnation Challenge>> Cap!",
+        "UniqueReward2": "20-ое +1 Бесплатный <<var(--red-text-color)|Уровень Порчиl>>",
+        "UniqueReward3": "20-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
+        "UniqueReward4": "25th - +7 <<green|Reincarnation Challenge>> Cap! And +2 to Ascension Challenge caps."
       },
       "noOcteracts": {
         "name": "Без Эффектов Октерактов",
         "description": "Пройдите целевую Сингулярность, но октеракты и их улучшения ничего не делают! Эффективная Сингулярность также сильно растёт в зависимости от уровня.",
-        "ScalingReward1":"+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
-        "UniqueReward1":"1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
-        "UniqueReward2":"10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
-        "UniqueReward3":"10th - A new <<orchid|Quark Shop>> upgrade!"
+        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
+        "UniqueReward1": "1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
+        "UniqueReward2": "10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
+        "UniqueReward3": "10-ое - Новое улучшение <<orchid|Магазина Кварков>>!"
       },
       "limitedAscensions": {
         "name": "Испытание Двадцати Вознесений",
         "description": "Кукузнец наложил эмбарго на Вознесения. На всю сингулярность дано только (20-выполнения), прежде чем Вознесения активируют негативные эффекты! Множитель Счётчика Вознесения не может быть выше 1. Ах, да, Дельта тоже отключена. Хе.",
-        "ScalingReward1":"<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
-        "UniqueReward1":"1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
-        "UniqueReward2":"1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
-        "UniqueReward3":"20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
-        "UniqueReward4":"25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
+        "ScalingReward1": "<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
+        "UniqueReward1": "1-ое - Навсегда бесплатно удваивает лимит <<Pink|всех Гептерактов>>!!! (Это отличная награда!)",
+        "UniqueReward2": "1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
+        "UniqueReward3": "20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
+        "UniqueReward4": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
       },
       "noAmbrosiaUpgrades": {
-        "name": "No Ambrosia Upgrades",
+        "name": "Без Улучшений Амброзии",
         "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
-        "ScalingReward1":"+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
-        "ScalingReward2":"+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
-        "UniqueReward1":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
-        "UniqueReward2":"1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
-        "UniqueReward3":"10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
-        "UniqueReward4":"15th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward5":"20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
-        "UniqueReward6":"20th - An <<gold|ULTRA Quark Shop>> upgrade!"
+        "ScalingReward1": "+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
+        "ScalingReward2": "+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+        "UniqueReward1": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
+        "UniqueReward2": "1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
+        "UniqueReward3": "10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
+        "UniqueReward4": "15-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
+        "UniqueReward5": "20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
+        "UniqueReward6": "20th - An <<gold|ULTRA Quark Shop>> upgrade!"
+      },
+      "limitedTime": {
+        "name": "Великий Спидран Сингулярности!",
+        "description": "У Кукузнеца есть секундомер, и он не побоится его использовать! Пройдите целевую Сингулярность за ограниченное время! <br/><red|Лимит времени зависит от уровня испытания.><br/>После (600 - 20 * прохождения) секунд, ваше производство обт./подн./кубов разрушается (Уменьшается в (10 + прохождения) раз) каждую минуту.",
+        "ScalingReward1": "+6% к <<orange|Глобальной Скорости>>!",
+        "ScalingReward2": "+6% к <<orange|Скорости Вознесения>>!",
+        "ScalingReward3": "+1% <<cyan|Quarks>>!",
+        "UniqueReward1": "1st - your quarks no longer reset on singulatity!",
+        "UniqueReward2": "15th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward3": "25th - A very expensive, not good, pretty bad <<orange|Quark Shop>> upgrade!"
+      },
+      "sadisticPrequel": {
+        "name": "SADISTIC EXALT III - The Prequel",
+        "description": "How much more will Platonic misuse the word 'Sadistic'? [No Sing Upgrade, Oct Upgrades OR Ambrosia Upgrades]",
+        "ScalingReward1": "+3% <<cyan|Кварков>> за каждое прохождение!",
+        "ScalingReward2": "Ещё +3% <<orange|Бесплатных Улучшений>> от кода 'Daily' за каждое прохождение!",
+        "UniqueReward1": "1-ое - +50 Бесплатных Улучшений от кода 'Daily\"!",
+        "UniqueReward2": "10th - A first-tier <<pink|Exalt Upgrade>>",
+        "UniqueReward3": "20th - A second-tier <<pink|Exalt Upgrade>>",
+        "UniqueReward4": "30th - A particularly Sadistic <<gray|ULTRA Upgrade>>!"
       }
     },
     "intro": "Есть ли у вас всё необходимое, чтобы заслужить ВОЗВЫШЕНИЯ от Муравьиного Бога?",
-    "ScalingHeader": "Scaling Effects (Per Completion)",
-    "UniqueHeader": "Unique Effects (On Completion #)"
+    "ScalingHeader": "Растущие Эффекты (За Каждое Выполнение)",
+    "UniqueHeader": "Уникальные Эффекты (За Прохождение #)"
   },
   "settings": {
     "confirmationTitle": "Настройки Подтверждения",
@@ -3425,6 +3484,7 @@
         "calculator3": "Благодаря ПЛ-АТ Ω вы также получаете {{x}} реальных секунд к вашему Таймеру Вознесения!",
         "calculator5": "Благодаря PL-AT Γ вы также получаете {{x}} реальных секунд к вашему Таймеру Экспорта ЗК!",
         "calculator6": "Наконец, благодаря PL-AT _ вы получаете {{x}} секунд к созданию Октерактов!",
+        "calculator7": "Finally, thanks to PL-AT Ω you have gained {{x}} seconds of Blueberry Time Generation!",
         "calculatorSolution": "За {{w}} Кварков или ничего: Что есть {{x}} + {{y}}? В соответствии с вашим калькулятором, ответ {{z}}.",
         "calculatorPrompt": "За {{w}} Кварков или ничего: Что есть {{x}} + {{y}}?",
         "calculatorMaxed": "Ваш калькулятор сам понял что {{a}} + {{b}} = {{c}}, так что вам было выдано {{d}} Кварков! {{e}} {{f}} {{g}} {{h}} У вас есть {{i}} использований Add. Вы получите одно через {{j}} секунд.",
@@ -3457,7 +3517,12 @@
         "moreThan1": "Вы будете получать {{x}} Октерактов (когда они появятся) каждую секунду, при условии, что они у вас разблокированы!",
         "one": "Вы будете получать Октеракт (когда они появятся) каждые {{x}} секунд, при условии, что они у вас разблокированы!"
       },
-      "invalid": "Ваш код либо недействителен или уже использован. Попробуйте снова!"
+      "invalid": "Ваш код либо недействителен или уже использован. Попробуйте снова!",
+      "bribe": {
+        "notUnlocked": "Хммм... вы ещё не готовы.",
+        "overCapacity": "You can't hold more!",
+        "thanks": "Поблагодарите Alonso (в Дискорде) за взятку."
+      }
     }
   },
   "toggles": {
@@ -3511,5 +3576,8 @@
       "clicked": "Видишь? Ещё одна причина доверять Unsmith. Ну что ж. За то, что вы нажали на меня, вы получите на 5% больше Подношений, Обтаниума, и ВСЕХ Кубов, пока не обновите страницу!",
       "clickedText": "Вы нажали на <<white|Unsmith>>! До обновления, получаете <<orange|+5% Подношений>>, <<pink|+5% Обтаниума>>, <<white|+5% ВСЕХ Кубов>>!"
     }
+  },
+  "account": {
+    "logout": "Страница сейчас обновится. Вы вышли из аккаунта! Пока!!"
   }
 }

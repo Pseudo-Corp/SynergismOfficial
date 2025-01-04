@@ -4,6 +4,8 @@ import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calcu
 import { DynamicUpgrade } from './DynamicUpgrade'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { exportData, saveFilename } from './ImportExport'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getQuarkBonus } from './Quark'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
@@ -285,7 +287,10 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   }
 
   public get rewardDesc (): string {
-    const effectiveLevel = (player.singularityChallenges.noAmbrosiaUpgrades.enabled) ? 0 : this.level
+    const effectiveLevel =
+      (player.singularityChallenges.noAmbrosiaUpgrades.enabled || player.singularityChallenges.sadisticPrequel.enabled)
+        ? 0
+        : this.level
     if ('desc' in this.rewards(0)) {
       return String(this.rewards(effectiveLevel).desc)
     } else {
@@ -294,7 +299,10 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   }
 
   public get bonus () {
-    const effectiveLevel = (player.singularityChallenges.noAmbrosiaUpgrades.enabled) ? 0 : this.level
+    const effectiveLevel =
+      (player.singularityChallenges.noAmbrosiaUpgrades.enabled || player.singularityChallenges.sadisticPrequel.enabled)
+        ? 0
+        : this.level
     return this.rewards(effectiveLevel)
   }
 }
@@ -665,7 +673,7 @@ export const blueberryUpgradeData: Record<
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
     rewards: (n: number) => {
-      const val = 1 + (n * player.worlds.BONUS) / 100
+      const val = 1 + (n * getQuarkBonus()) / 100
       return {
         blueberryGeneration: val,
         desc: String(
@@ -747,6 +755,20 @@ export const blueberryUpgradeData: Record<
             )
           })
         )
+      }
+    }
+  }
+}
+
+export const displayProperLoadoutCount = () => {
+  const loadoutCount = 8 + PCoinUpgradeEffects.AMBROSIA_LOADOUT_SLOT_QOL
+  if (loadoutCount < 16) {
+    for (let i = 1; i <= 16; i++) {
+      const elm = DOMCacheGetOrSet(`blueberryLoadout${i}`)
+      if (i <= loadoutCount) {
+        elm.style.display = 'flex'
+      } else {
+        elm.style.display = 'none'
       }
     }
   }
@@ -982,4 +1004,15 @@ export const createLoadoutDescription = (
   }
   DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = ` ${loadoutTitle}
   ${str}`
+}
+
+export const updateBlueberryLoadoutCount = () => {
+  const maxLoadouts = 16
+  const loadoutCount = Object.keys(player.blueberryLoadouts).length
+
+  if (loadoutCount < maxLoadouts) {
+    for (let i = loadoutCount + 1; i <= maxLoadouts; i++) {
+      player.blueberryLoadouts[i] = {}
+    }
+  }
 }

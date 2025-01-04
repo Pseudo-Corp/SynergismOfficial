@@ -157,6 +157,10 @@
                 <img src="Pictures/Default/TinySTime.png" class="corruptionImg singularity" title="Singularity Timer" loading="lazy">
                 <span id="ascSingLen" class="singularity">x</span>
             </span>
+            <span id="ascSingChallengeTimeTakenStats">
+                <img src="Pictures/Default/TinySChalTime.png" class="corruptionImg singularity" title="Singularity Challenge Timer" loading="lazy">
+                <span id="ascSingChallengeLen" class="singularity">x</span>
+            </span>
         </div>
         <div class="subHeader">
             <div class="currenciesContainer">
@@ -1681,6 +1685,12 @@
                     <div id="noAmbrosiaUpgradesDiv" class="rainbowBorder">
                         <img id="noAmbrosiaUpgrades" class="challenge" src="Pictures/Default/ExaltChalNoAmbrosiaUpgrades.png">
                     </div>
+                    <div id="limitedTimeDiv" class="rainbowBorder">
+                        <img id="limitedTime" class="challenge" src="Pictures/Default/ExaltChalLimitedTime.png">
+                    </div>
+                    <div id="sadisticPrequelDiv" class="rainbowBorder">
+                        <img id="sadisticPrequel" class="challenge" src="Pictures/Default/ExaltChalRainbowEffects.png">
+                    </div>
                 </div>
                 <div id="singularityChallengeDetails">
                     <p id="singularityChallengesInfo"></p>
@@ -3014,7 +3024,7 @@
                         <p id="currentBonus" style="color: springgreen">Current Bonus: 0%</p>
                     </div>
                     <div id="patchnotes">
-                        <a href="https://docs.google.com/document/d/1x0ljqZi5vsNE5FitoCsp6zbKGlZRvZ3tt-kZ96ngzSY/edit?usp=sharing" target="_blank" rel="noopener noreferrer nofollow">
+                        <a href="https://docs.google.com/document/d/1pyxbvacfMgfdPXed1Ga433s_ZuzTY9YcwPAHyuWYaDA/edit?usp=sharing" target="_blank" rel="noopener noreferrer nofollow">
                             <img id="patchnotesicon" alt="Patch Notes Icon" src="Pictures/Default/patchnotes.png" title="Click to read the latest patch notes!" loading="lazy">
                         </a>
                     </div>
@@ -3255,6 +3265,8 @@
                 <p id="statGSMc1" class="statPortion chal14">Chronos Statue:<span id="sGSMc1" class="statNumber">0</span></p>
                 <p id="statGSMc2" class="statPortion singularity">Intermediate Pack:<span id="sGSMc2" class="statNumber">0</span></p>
                 <p id="statGSMc3" class="statPortion singularity">Forbidden Clock of Time:<span id="sGSMc3" class="statNumber">0</span></p>
+                <p id="statGSMc4" class="statPortion singularity">EXALT 6: The Great Singularity Speedrun<span id="sGSMc4" class="statNumber">0</span></p>
+                <p id="statGSMc5" class="statPortion singularity">Shop Chronometer S<span id="sGSMc5" class="statNumber">0</span></p>
 
                 <p id ="statGSMT" class="statPortion statTotal" style="color: white">TOTAL GLOBAL SPEED MULTIPLIER:<span id="sGSMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -3291,7 +3303,9 @@
                 <p id="statGQM29" class="statPortion c">Module- Luck-Quark 1:<span id="sGQM29" class="statNumber">0</span></p>
                 <p id="statGQM30" class="statPortion singularity">Module- Quark 2:<span id="sGQM30" class="statNumber">0</span></p>
                 <p id="statGQM31" class="statPortion singularity">Cash Grab ULTIMATE:<span id="sGQM31" class="statNumber">0</span></p>
-                <p id="statGQM32" class="statPortion">Noobie Bonus:<span id="sGQM32" class="statNumber">0</span></p>
+                <p id="statGQM32" class="statPortion singularity">Exalt 6: The Great Singularity Speedrun<span id="sGQM32" class="statNumber">0</span></p>
+                <p id="statGQM33" class="statPortion singularity">Exalt 7: SADISTIC III: The Prequel<span id="sGQM33" class="statNumber">0</span></p>
+                <p id="statGQM34" class="statPortion">Noobie Bonus:<span id="sGQM34" class="statNumber">0</span></p>
                 <p id ="statGQMT" class="statPortion statTotal" style="color: white">TOTAL QUARK MULTIPLIER:<span id="sGQMT" class="statNumber statTotal">0</span></p>
             </div>
             <div id="ascensionSpeedMultiplierStats" class="statContainer" style="display: none;">
@@ -3316,6 +3330,8 @@
                 <p id="statASM18" class="statPortion singularity">Singularity Penalty:<span id="sASM18" class="statNumber">0</span></p>
                 <p id="statASM19" class="statPortion singularity">Limited Ascensions Penalty:<span id="sASM19" class="statNumber">0</span></p>
                 <p id="statASM20" class="statPortion singularity">Limited Ascensions Buff:<span id="sASM20" class="statNumber">0</span></p>
+                <p id="statASM21" class="statPortion singularity">EXALT 6: The Great Singularity Speedrun<span id="sASM21" class="statNumber">0</span></p>
+                <p id="statASM22" class="statPortion singularity">Shop Chronometer S<span id="sASM22" class="statNumber">0</span></p>
                 <p id="statASMT" class="statPortion statTotal" style="color: orange">TOTAL ASCENSION SPEED MULTIPLIER: <span
                         id="sASMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -3355,6 +3371,8 @@
                 <p id="statGCM32" class="statPortion singularity">-<span id="sGCM32" class="statNumber">-</span></p>
                 <p id="statGCM33" class="statPortion singularity">-<span id="sGCM33" class="statNumber">-</span></p>
                 <p id="statGCM34" class="statPortion singularity">-<span id="sGCM34" class="statNumber">-</span></p>
+                <p id="statGCM35" class="statPortion singularity">-<span id="sGCM35" class="statNumber">-</span></p>
+                <p id="statGCM36" class="statPortion singularity">-<span id="sGCM36" class="statNumber">-</span></p>
                 <p id="statGCMT" class="statPortion statTotal" style="color: orange">TOTAL GLOBAL CUBE MULTIPLIER: <span
                     id="sGCMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -3466,6 +3484,7 @@
                 <p id="statGQMS8" class="statPortion">Golden Revolution II:<span id="sGQMS8" class="statNumber">0</span></p>
                 <p id="statGQMS9" class="statPortion">Immaculate Alchemy:<span id="sGQMS9" class="statNumber">0</span></p>
                 <p id="statGQMS10" class="statPortion">Total Quarks Coefficient:<span id="sGQMS10" class="statNumber">0</span></p>
+                <p id="statGQMS11" class="statPortion">Total Quarks Coefficient:<span id="sGQMS11" class="statNumber">0</span></p>
                 <p id="statGQMST" class="statPortion statTotal" style="color: orange">TOTAL GOLDEN QUARK MULTIPLIER: <span
                         id="sGQMST" class="statNumber statTotal">0</span></p>
             </div>
@@ -3545,6 +3564,7 @@
                 <p id="stat+cap6" class="statPortion singularity">PL-AT _:<span id="s+cap6" class="statNumber">0</span></p>
                 <!--"It all adds up"-->
                 <p id="stat+cap7" class="statPortion singularity">Singularity factor:<span id="s+cap7" class="statNumber">0</span></p>
+                <p id="stat+cap8" class="statPortion ascendunlock">Singularity factor:<span id="s+cap8" class="statNumber">0</span></p>
 
                 <p id="statAddSep3" class="statPortion">&nbsp;</p>
 
@@ -3569,13 +3589,15 @@
                 <p id="statALuckM11" class="statPortion">a<span id="sALuckM11" class="statNumber">0</span></p>
                 <p id="statALuckM12" class="statPortion">a<span id="sALuckM12" class="statNumber">0</span></p>
                 <p id="statALuckM13" class="statPortion">a<span id="sALuckM13" class="statNumber">0</span></p>
+                <p id="statALuckM14" class="statPortion">a<span id="sALuckM14" class="statNumber">0</span></p>
+                <p id="statALuckM15" class="statPortion">a<span id="sALuckM15" class="statNumber">0</span></p>
                 <p id="statALuckMult" class="statPortion">Multipliers (Additive)<span id="sALuckMult" class="statNumber">0</span></p>
                 <p id="statALuckMT" class="statPortion statTotal" style="color: orange">TOTAL AMBROSIA LUCK:
                     <span id="sALuckMT" class="statNumber statTotal">0</span></p>
             </div>
 
             <div id="ambrosiaGenerationStats" class="statContainer activeStats">
-                <p id="ambrosiaGenStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Ambrosia Generation Chance</p>
+                <p id="ambrosiaGenStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Ambrosia Generation Speed</p>
                 <p id="statAGenM1" class="statPortion">a<span id="sAGenM1" class="statNumber">0</span></p>
                 <p id="statAGenM2" class="statPortion">a<span id="sAGenM2" class="statNumber">0</span></p>
                 <p id="statAGenM3" class="statPortion">a<span id="sAGenM3" class="statNumber">0</span></p>
@@ -3586,6 +3608,7 @@
                 <p id="statAGenM8" class="statPortion">a<span id="sAGenM8" class="statNumber">0</span></p>
                 <p id="statAGenM9" class="statPortion">a<span id="sAGenM9" class="statNumber">0</span></p>
                 <p id="statAGenM10" class="statPortion">a<span id="sAGenM10" class="statNumber">0</span></p>
+                <p id="statAGenM11" class="statPortion">a<span id="sAGenM11" class="statNumber">0</span></p>
                 <p id="statAGenMT" class="statPortion statTotal" style="color: orange">BLUEBERRY TIME /S:
                     <span id="sAGenMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -3654,7 +3677,9 @@
             </div>
         </div>
         <div class="subtabContent subtabDisplayFlex" id="accountSubTab">
-        <div class="scrollbarX"></div>
+          <div class="scrollbarX"></div>
+          <!-- TODO: i18n (not done because of potential conflicts with pixel-update) -->
+          <button id="logoutButton">Logout</button>
         </div>
     </div>
 
@@ -4041,6 +4066,31 @@
                             <img id="shopEXUltra" alt="The ULTIMATE EX" src="Pictures/Default/ShopEXUltra.png" loading="lazy">
                             <p id="shopEXUltraLevel"></p>
                             <button class="permshopbutton" id="shopEXUltraButton" style="border: 2px solid gold"></button>
+                        </div>
+                        <div class="exalt6X15Unlock" id="shopChronometerSHide">
+                            <img id="shopChronometerS" alt="Chronometer S" src="Pictures/Default/ShopChronometerS.png" loading="lazy">
+                            <p id="shopChronometerSLevel"></p>
+                            <button class="permshopbutton" id="shopChronometerSButton" style="border: 2px solid pink"></button>
+                        </div>
+                        <div class="exalt6X25Unlock" id="shopAmbrosiaUltraHide">
+                            <img id="shopAmbrosiaUltra" alt="The ULTIMATE Ambrosia" src="Pictures/Default/ShopAmbrosiaUltra.png" loading="lazy">
+                            <p id="shopAmbrosiaUltraLevel"></p>
+                            <button class="permshopbutton" id="shopAmbrosiaUltraButton" style="border: 2px solid gold"></button>
+                        </div>
+                        <div class="exalt7X10Unlock" id="shopSingularitySpeedupHide">
+                            <img id="shopSingularitySpeedup" alt="Singularity Timers Speedup" src="Pictures/Default/ShopSingularitySpeedup.png" loading="lazy">
+                            <p id="shopSingularitySpeedupLevel"></p>
+                            <button class="permshopbutton" id="shopSingularitySpeedupButton" style="border: 2px solid pink"></button>
+                        </div>
+                        <div class="exalt7X20Unlock" id="shopSingularityPotencyHide">
+                            <img id="shopSingularityPotency" alt="Singularity Passives Potency" src="Pictures/Default/ShopSingularityPotency.png" loading="lazy">
+                            <p id="shopSingularityPotencyLevel"></p>
+                            <button class="permshopbutton" id="shopSingularityPotencyButton" style="border: 2px solid pink"></button>
+                        </div>
+                        <div class="exalt7X30Unlock" id="shopSadisticRuneHide">
+                            <img id="shopSadisticRune" alt="Sadistic Rune" src="Pictures/Default/ShopSadisticRune.png" loading="lazy">
+                            <p id="shopSadisticRuneLevel"></p>
+                            <button class="permshopbutton" id="shopSadisticRuneButton" style="border: 2px solid pink"></button>
                         </div>
                     </div>
                     <div id="shopButtons">
@@ -4547,6 +4597,14 @@
                     <button class="blueberryLoadoutSlot" id="blueberryLoadout6">6</button>
                     <button class="blueberryLoadoutSlot" id="blueberryLoadout7">7</button>
                     <button class="blueberryLoadoutSlot" id="blueberryLoadout8">8</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout9">9</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout10">10</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout11">11</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout12">12</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout13">13</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout14">14</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout15">15</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout16">16</button>
                     <button class="blueberryLoadoutSetting" id="blueberryToggleMode">-</button>
                 </div>
                 <div id="ambrosiaUpgradeValues">
@@ -4560,6 +4618,85 @@
         <a target="_blank" href="https://www.youtube.com/watch?v=E9de-cmycx8"><img id="unsmith" src="Pictures/Default/Unsmith.png"></a>
         <p i18n="event.aprilFools.introText"></p>
         <p id="eventClicked" style="color: lime; display: none" i18n="event.aprilFools.clickedText"></p>
+    </div>
+
+    <div id="pseudoCoins">
+      <div class="subtabSwitcher subTabWrapper">
+        <button
+          id="cartSubTab1"
+          style="border: 2px solid white"
+          i18n="tabs.pseudocoins.buy"
+        ></button>
+        <button
+          id="cartSubTab2"
+          style="border: 2px solid cyan"
+          i18n="tabs.pseudocoins.upgrades"
+        ></button>
+        <span style="position:relative">
+          <button
+            id="cartSubTab3"
+            style="display: flex; align-items: center; justify-content: center; border: 2px solid cornflowerblue; width: 100%"
+          >
+            <p style="margin: 0">Checkout</p>
+            <img src="./Pictures/cart.png" alt="Shopping Cart" height="16px">
+          </button>
+          <span
+            id="notification-count"
+            style="background-color: #fa3e3e; border-radius: 2px; color: white; padding: 1px 3px; font-size: 10px; position: absolute; top: 0; right: 0; display: none;"
+          ></span>
+        </span>
+      </div>
+      <div id="productContainer" class="pseudoUpgradeContainer">
+      </div>
+      <div id="upgradesContainer">
+        <div id="pseudoCoinAmounts">
+            <img src="Pictures/PseudoShop/PseudoCoins.png" alt="PseudoCoins">
+            <p id="currentCoinBalance"></p>
+        </div>
+        <div id="upgradeGrid">
+        </div>
+        <div id="upgradeInfo">
+          <div id="pseudoCoinUpgradeName">
+            <h1 id="pCoinUpgradeName">Welcome to the PseudoShop!</h1>
+          </div>
+          <div id="pseudoCoinUpgradeDescription">
+            <div id="pseudoCoinUpgradeIcon">
+                <img id="pCoinUpgradeIcon" src="Pictures/PseudoShop/PseudoCoins.png" alt="Upgrade Icon">
+            </div>
+            <div id="pseudoCoinUpgradeTexts">
+                <div id="pCoinUpgradeDesc">
+                    <p id="description">Buy PseudoCoin upgrades, get exclusive bonuses and support development! &#10084</p>
+                    <p id="pCoinEffectCurr">Click on an icon to see what you can get!</p>
+                    <p id="pCoinEffectNext">Note: you must be logged in to buy or use these!</p>
+                </div>
+                <div id="pCoinButton">
+                    <button id="buy" style="display: none"></button>
+                </div>                
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="cartContainer">
+        <div
+          class="cartList scrollbar"
+          style="color: white"
+        >
+          <div id="itemList">
+          </div>
+
+          <p id="totalCost"></p>
+
+          <section style="display:flex;margin:0 auto">
+            <input type="radio" id="tosAgree" name="tosAgree" style="margin-right:2px">
+            <label for="tosAgree">
+              I agree to the <a href="https://synergism.cc/terms-of-service" style="color:cyan">Terms of Service</a>
+            </label>
+          </section>
+
+          <button id="checkout" type="submit">Checkout</button>
+          <button id="closeCart" type="button">Close</button>
+        </div>
+      </div>
     </div>
 </body>
 </html>

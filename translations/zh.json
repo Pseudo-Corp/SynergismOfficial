@@ -95,6 +95,21 @@
         "name": "厚颜的蓝莓Patreon提醒",
         "description": "Platonic到哪都受欢迎。Patreon对夸克获取数量的加成每有1%，就使蓝莓秒的产生速度增加1%！",
         "effect": "慷慨的Patreon支持者使蓝莓秒的产生速度增加 {{amount}}%。您也可以考虑在Patreon上支持本游戏的开发！"
+      },
+      "ambrosiaObtainium1": {
+        "name": "基于随机数的难得素加成",
+        "description": "每有1 &#9752 神肴之运，就使难得素获取数量增加0.1%！",
+        "effect": "该模块使难得素获取数量增加{{amount}}%！"
+      },
+      "ambrosiaOffering1": {
+        "name": "基于随机数的祭品加成",
+        "description": "每有1 &#9752 神肴之运，就使祭品获取数量增加0.1%！",
+        "effect": "该模块使祭品获取数量增加{{amount}}%！"
+      },
+      "ambrosiaHyperflux": {
+        "name": "惊奇方盒终级工业生产",
+        "description": "Platonic升级4x4每有1级，每级就可以使方盒获取数量增加1%(效果叠乘！！！)",
+        "effect": "该模块使方盒获取数量增加{{amount}}%！"
       }
     },
     "loadouts": {
@@ -1370,6 +1385,7 @@
       "calculator4": "PL-AT δ的主频为4096Hz，这是一项巨大的进步。每级使“增加”代码的使用次数加快4%恢复。另外，最后一级可以使您使用“增加”代码的次数上限增加32。",
       "calculator5": "PL-AT Γ可以进行“更强大”的计算。每级使您使用“增加”代码时导出存档的金夸克奖励计时增加6秒。另外，每10级使您使用“增加”代码的次数上限增加1，且最后一级可以使您使用“增加”代码的次数上限再增加6。",
       "calculator6": "PL-AT _由Derpsmith制造，之后他就被永远逐出了这个行业。每级使您使用“增加”代码时获得相当于1秒产量的惊奇八阶方块。另外，最后一级可以使您使用“增加”代码的次数上限增加24。",
+      "calculator7": "PL-AT ΩΩ由Derpsmith Ω制造，之后他就被永远逐出了这个行业。每级使您使用“增加”代码时获得相当于1秒产量的蓝莓时间。另外，最后一级可以使您使用“增加”代码的次数上限增加48。",
       "constantEX": "商人居然还留了一手……它可以使数学常数升级2的效果稍微再好一些，但它的价格也是天文数字了！之前的上限为10%(或者在获得特定成就后变为11%)，每级还可以使这个数字再增加1%。",
       "powderEX": "Platonic使您的超通量粉转换效率每级增加2%。超通量珠粉碎时生效。",
       "chronometer2": "嗯，很好。飞升的速度每级再增加0.6%，效果与第一个升级叠乘！",
@@ -1409,7 +1425,17 @@
       "shopAmbrosiaLuck1": "购买该小符饰后，每级可以使☘ 神肴之运增加2，以此获得更多神肴！还不知道这是什么吗？您迟早会知道的。",
       "shopAmbrosiaLuck2": "您获得了一颗更大了一点的四叶草，每级可以使☘ 神肴之运增加2，效果相互叠加。",
       "shopAmbrosiaLuck3": "您获得了一颗更绿了一点的四叶草，每级可以使☘ 神肴之运增加2，效果相互叠加。",
-      "shopAmbrosiaLuck4": "您获得了一颗更“好”了一点的四叶草，换句话说，每级可以使☘ 神肴之运增加0.6，效果相互叠加。"
+      "shopAmbrosiaLuck4": "您获得了一颗更“好”了一点的四叶草，换句话说，每级可以使☘ 神肴之运增加0.6，效果相互叠加。",
+      "shopAmbrosiaLuckMultiplier4": "每级使☘ 神肴之运增加1%！就这么简单。",
+      "shopOcteractAmbrosiaLuck": "惊奇八阶方块每有一个数量级，每级就使☘ 神肴之运增加1%！就这么简单。",
+      "shopCashGrabUltra": "象征性地支付一点费用，根据神肴数量，每级至多使蓝莓秒的产生速度增加15%，方盒获取数量增加120%，夸克获取数量增加8%。效果增长非线性，直到一共获得10000000神肴为止。",
+      "shopAmbrosiaAccelerator": "每获得<<orange|1>>神肴时(无论来自何处)，每级该升级可以使蓝莓秒立刻增加<<cyan|0.2>>。",
+      "shopEXUltra": "拥有该额外升级后，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！",
+      "shopChronometerS": "200次进入奇点后，每有1次奇点次数，该升级就使飞升的速度和全局速度增加1%！",
+      "shopAmbrosiaUltra": "拥有该额外升级(价格高到离谱)后，每完成1阶层拔擢，每级该升级就可以使☘ 神肴之运增加1。",
+      "shopSingularitySpeedup": "您知道那些由时间控制的奇点升级和惊奇八阶方块升级吧？它们增长的速度将变为原来的20倍！多亏了这个甚至能改变<<gray|奇点时长>>的奇怪时钟……",
+      "shopSingularityPotency": "您知道那些免费奇点升级吧？它们的效果将增加666%(换句话说，不计算软上限的话，每级都将是之前7.66级的效果)。原因？是这个有点奇怪的<<gray|奇点传输仪式装置>>！别多问了。",
+      "shopSadisticRune": "多奇怪的符文。店主(您永远也无法再见的那位)通过心灵感应说道，这是浸入某种<<gray|奇点物质>>的无限晋升符文。难道无限晋升符文不止一个？"
     },
     "maxed": "已满级！",
     "upgradeFor": "使用{{x}}",
@@ -1459,6 +1485,7 @@
       "calculator4": "使“增加”代码的使用次数加快<<orchid|{{amount1}}%>>恢复。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
       "calculator5": "使用“增加”代码时导出存档的金夸克奖励计时增加<<orchid|{{amount1}}>>。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
       "calculator6": "使用“增加”代码时获得相当于<<orchid|{{amount1}}>>秒产量的惊奇八阶方块。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
+      "calculator7": "使用“增加”代码时获得相当于<<orchid|{{amount1}}>>秒的蓝莓时间。使“增加”代码的次数上限增加<<orchid|{{amount2}}>>。",
       "constantEX": "数学常数升级2的效果再增加<<orange|{{amount}}>>。",
       "powderEX": "超通量粉转换效率增加<<red|{{amount}}%>>。",
       "chronometer2": "飞升的速度增加<<orange|{{amount}}%>>！",
@@ -1491,6 +1518,8 @@
       "chronometerInfinity": "飞升的速度增加<<orange|{{amount}}%>>。",
       "seasonPassInfinity": "<<orchid|所有类型的方盒、立方和方块获取数量>>增加<<lightgoldenrodyellow|{{amount}}%>>。",
       "shopSingularityPenaltyDebuff": "在<<pink|{{amount1}}>>次奇点时，奇点相关惩罚视为在<<pink|{{amount2}}>>次奇点。",
+      "shopAmbrosiaLuckMultiplier4": "使<<green|☘>> 神肴之运增加<<green|{{amount}}%>>！",
+      "shopOcteractAmbrosiaLuck": "由于八阶方块，<<green|☘>> 神肴之运增加了<<green|{{amount}}>>！",
       "shopAmbrosiaGeneration1": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
       "shopAmbrosiaGeneration2": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
       "shopAmbrosiaGeneration3": "蓝莓时间的产生速度增加<<blue|{{amount}}%>>。",
@@ -1498,7 +1527,15 @@
       "shopAmbrosiaLuck1": "使神肴之运<<lime|&#9752增加{{amount}}>>",
       "shopAmbrosiaLuck2": "使神肴之运<<lime|&#9752增加{{amount}}>>",
       "shopAmbrosiaLuck3": "使神肴之运<<lime|&#9752增加{{amount}}>>",
-      "shopAmbrosiaLuck4": "使神肴之运<<lime|&#9752增加{{amount}}>>"
+      "shopAmbrosiaLuck4": "使神肴之运<<lime|&#9752增加{{amount}}>>",
+      "shopCashGrabUltra": "使蓝莓秒的产生速度增加<<blue|{{amount}}%>>。使方盒获取数量增加<<white|{{amount2}}%>>。使夸克获取数量增加<<cyan|{{amount3}}%>>。",
+      "shopAmbrosiaAccelerator": "每获得1<<orange|神肴>>时，可以增加相当于<<cyan|{{amount}}>>秒产量的蓝莓时间(即增加<<cyan|{{amount2}}>>蓝莓秒)。",
+      "shopEXUltra": "神肴使<<orange|祭品获取数量>>、<<orchid|难得素获取数量>>和<<white|方盒获取数量>>增加<<gold|{{amount}}%>>！",
+      "shopChronometerS": "飞升的速度和全局速度均增加<<orange|{{amount}}%>>！",
+      "shopAmbrosiaUltra": "<<lime|&#9752>>神肴之运基于拔擢阶层完成数增加<<lime|{{amount}}>>。",
+      "shopSingularitySpeedup": "奇点特权和升级的增长速度变为原来的<<gray|{{amount}}>>倍！",
+      "shopSingularityPotency": "免费奇点升级的效果变为原来的<<gray|{{amount}}>>倍。",
+      "shopSadisticRune": "我也不知道这个符文有什么用。您已经买了吗？总之您知道的，我看不见。"
     }
   },
   "singularity": {
@@ -2399,6 +2436,7 @@
       "79": "效果：献祭奖励增加10% =)",
       "80": "效果：蚂蚁强度分增加75。",
       "81": "效果：想要知道的，都在上面了。",
+      "120": "效果：想要知道的，都在上面了！",
       "121": "效果：减少50%税收，又开始废话了！",
       "122": "效果：水晶升级3的上限增加88%，还是废话！",
       "123": "效果：金币产量变为原来的1.025次方，废话废话！",
@@ -2445,8 +2483,8 @@
       "blessings": "祝福",
       "spirits": "[=-魂灵-=]"
     },
-    "challenges":{
-      "normal": "Normal",
+    "challenges": {
+      "normal": "普通",
       "exalt": "拔擢"
     },
     "cubes": {
@@ -2530,7 +2568,7 @@
       "7": "下次飞升，此腐化等级将变为{{level}}。效果为：祭品经验值除以{{effect}}",
       "8": "下次飞升，此腐化等级将变为{{level}}。效果为：金币获取数量指数变为{{effect}}"
     },
-    "scoreMultiplier": "当前分数倍率: {{curr}} / 下次飞升分数倍率{{next}}",
+    "scoreMultiplier": "当前分数倍率：{{curr}} / 下次飞升分数倍率：{{next}}",
     "spiritEffect": "当前魂灵效果加成：+{{curr}}% / 下次飞升魂灵效果加成：+{{next}}",
     "exitCorruption": {
       "name": "清除腐化",
@@ -2718,7 +2756,7 @@
     "data": {
       "octeractStarter": {
         "name": "萌新的惊奇八阶方块",
-        "description": "您好……我是Derpsmith……蚁神的先祖……没想到您能走到这一步。该升级可以使您的夸克获取数量增加30%，惊奇八阶方块获取数量增加20%，蚂蚁速度变为100000倍……",
+        "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 40% More Quarks, 20% More Octeracts, And 100,000x Ant Speed...",
         "effect": "您{{n}}向Derpsmith致敬。"
       },
       "octeractGain": {
@@ -3082,55 +3120,76 @@
       "noSingularityUpgrades": {
         "name": "无奇点升级",
         "description": "简而言之，您需要在没有大部分奇点升级的前提下通过目标奇点。惊奇八阶方块，特权和游戏体验相关的奇点升级将仍然保留。",
-        "ScalingReward1":"+50% increase to <<yellow|ALL Cube>> gain",
-        "UniqueReward1":"1st - +12% <<gold|Golden Quarks>>!",
-        "UniqueReward2":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
-        "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward4":"30th - +6% <<lime|&#9752 Ambrosia Luck>> for free!",
-        "UniqueReward5":"30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
+        "ScalingReward1": "使<<yellow|所有类型的方盒、立方和方块获取数量>>增加50%",
+        "UniqueReward1": "第1次 - 使<<gold|金夸克>>获取数量增加12%！",
+        "UniqueReward2": "第1次 - 免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！",
+        "UniqueReward3": "第20次 - 新的<<orchid|夸克商店>>升级！",
+        "UniqueReward4": "第30次 - 使<<lime|&#9752 神肴之运>>免费增加6%！",
+        "UniqueReward5": "第30次 - 新的<<orchid|夸克商店>>升级！当然，不免费。"
       },
       "oneChallengeCap": {
         "name": "挑战上限恒为一",
         "description": "您需要在前14个挑战的上限只有1的前提下通过目标奇点！",
-        "ScalingReward1":"+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
-        "ScalingReward2":"+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
-        "UniqueReward1":"1st - +3 <<green|Reincarnation Challenge>> Cap!",
-        "UniqueReward2":"20th - +1 Free <<var(--red-text-color)|Corruption Level>>",
-        "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!"
+        "ScalingReward1": "使<<var(--red-text-color)|腐化的相关加成倍率>>增加0.03",
+        "ScalingReward2": "使<<var(--blueberry-box-color)|蓝莓秒产生速度>>增加1%",
+        "UniqueReward1": "第1次 - 使<<green|转世挑战>>的完成次数上限增加3次！",
+        "UniqueReward2": "第20次 - 使<<var(--red-text-color)|腐化等级>>免费增加1级",
+        "UniqueReward3": "第20次 - 新的<<orchid|夸克商店>>升级！",
+        "UniqueReward4": "第25次 - 使<<green|转世挑战>>的完成次数上限增加7次！使飞升挑战的完成次数上限增加2次。"
       },
       "noOcteracts": {
         "name": "无八阶方块效果",
         "description": "您需要在惊奇八阶方块和相应升级没有效果的前提下通过目标奇点！另外，奇点相关惩罚也会根据当前阶层数量变得更高。",
-        "ScalingReward1":"+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
-        "UniqueReward1":"1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
-        "UniqueReward2":"10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
-        "UniqueReward3":"10th - A new <<orchid|Quark Shop>> upgrade!"
+        "ScalingReward1": "使<<var(--lightseagreen-text-color)|惊奇八阶方块对惊奇方盒至惊奇七阶立方>>的加成指数增加0.02(基础值为2.00)",
+        "UniqueReward1": "第1次 - 根据<<var(--lightseagreen-text-color)|八阶方块>>数量，增加<<Gold|祭品>>获取数量！",
+        "UniqueReward2": "第10次 - 根据<<var(--lightseagreen-text-color)|八阶方块>>数量，增加<<steelblue|难得素>>获取数量！",
+        "UniqueReward3": "第10次 - 新的<<orchid|夸克商店>>升级！"
       },
       "limitedAscensions": {
         "name": "二十飞升挑战",
         "description": "Derpsmith颁布了飞升禁令。整个奇点只能进行 (20 - 阶层完成数) 次飞升，之后将触发极其巨大的惩罚！飞升次数倍率锁定为1。哦对了，PLATONIC·德尔塔在该挑战中失效，哈。",
-        "ScalingReward1":"<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
-        "UniqueReward1":"1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
-        "UniqueReward2":"1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
-        "UniqueReward3":"20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
-        "UniqueReward4":"25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
+        "ScalingReward1": "<<orange|飞升次数>>每个数量级可以使<<orange|飞升的速度增加0.1%！>>",
+        "UniqueReward1": "第1次 - 永久使<<Pink|所有七阶立方>>的上限翻倍！！！(效果拔群！)",
+        "UniqueReward2": "第1次 - 新的游戏机制 ;) <<var(--red-text-color)|[未完工]>>",
+        "UniqueReward3": "第20次 - 在拔擢中使<<Yellow|方盒获取数量>>、<<steelblue|难得素获取数量>>和<<Gold|祭品获取数量>>增加！(数值与拔擢的总阶层完成数有关！)",
+        "UniqueReward4": "第25次 - 新的<<orchid|夸克商店>>计算器，真棒！"
       },
       "noAmbrosiaUpgrades": {
-        "name": "No Ambrosia Upgrades",
-        "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
-        "ScalingReward1":"+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
-        "ScalingReward2":"+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
-        "UniqueReward1":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
-        "UniqueReward2":"1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
-        "UniqueReward3":"10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
-        "UniqueReward4":"15th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward5":"20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
-        "UniqueReward6":"20th - An <<gold|ULTRA Quark Shop>> upgrade!"
+        "name": "无神肴升级",
+        "description": "那个金色家伙失去了热情，连名字也记不起来了，他需要您的帮助。<br/>您需要在神肴和神肴升级没有效果的前提下通过目标奇点！",
+        "ScalingReward1": "使<<lime|&#9752 神肴之运>>增加15，再增加0.5%",
+        "ScalingReward2": "使<<var(--blueberry-box-color)|蓝莓秒产生速度>>增加2%",
+        "UniqueReward1": "第1次 - 免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！",
+        "UniqueReward2": "第1次 - 每次获得<<var(--amber-text-color)|神肴>>时，使<<var(--amber-text-color)|神肴>>增加1！",
+        "UniqueReward3": "第10次 - 再次免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！！！",
+        "UniqueReward4": "第15次 - 新的<<orchid|夸克商店>>升级！",
+        "UniqueReward5": "第20次 - 第3次免费获得1颗<<var(--blueberry-box-color)|蓝莓>>？！？！",
+        "UniqueReward6": "第20次 - 新的<<orchid|超究夸克商店>>升级！"
+      },
+      "limitedTime": {
+        "name": "奇点大竞速赛！",
+        "description": "Derpsmith正在计时。在限定时间内通过目标奇点！<br/><<red|时间限制与该拔擢的阶层完成数有关。>>在 (600 - 20 × 阶层完成数) 秒后，您的难得素、祭品和所有类型的方盒、立方和方块获取数量将每分钟除以 (10 + 阶层完成数)。",
+        "ScalingReward1": "使<<orange|全局速度>>增加6%！",
+        "ScalingReward2": "使<<orange|飞升的速度>>增加6%！",
+        "ScalingReward3": "使<<cyan|夸克获取数量>>增加1%！",
+        "UniqueReward1": "第1次 - 进入奇点时不再重置夸克数量！",
+        "UniqueReward2": "第15次 - 新的<<orchid|夸克商店>>升级！",
+        "UniqueReward3": "第25次 - 非常昂贵、不好、很坏的<<orange|夸克商店>>升级！"
+      },
+      "sadisticPrequel": {
+        "name": "虐待狂拔擢 III - 前传",
+        "description": "Platonic还要滥用多少次“虐待狂”？[无奇点升级、八阶方块升级或神肴升级]",
+        "ScalingReward1": "使<<cyan|夸克获取数量>>增加3%！",
+        "ScalingReward2": "使“每日”代码获得的<<orange|免费奇点升级>>增加3%！",
+        "UniqueReward1": "第1次 - 使“每日”代码可以多提供50级免费奇点升级！",
+        "UniqueReward2": "第10次 - 一阶<<pink|拔擢升级>>",
+        "UniqueReward3": "第20次 - 二阶<<pink|拔擢升级>>",
+        "UniqueReward4": "第30次 - 特别虐待的<<gray|超究升级>>！"
       }
     },
     "intro": "过蒙拔擢，宠命优渥。",
-    "ScalingHeader": "Scaling Effects (Per Completion)",
-    "UniqueHeader": "Unique Effects (On Completion #)"
+    "ScalingHeader": "每次完成叠加的效果",
+    "UniqueHeader": "特定完成次数的独特效果"
   },
   "settings": {
     "confirmationTitle": "相应重置时是否弹窗确认",
@@ -3425,6 +3484,7 @@
         "calculator3": "由于PL-AT Ω的效果，您同时获得了{{x}}秒的飞升时间！",
         "calculator5": "由于PL-AT Γ的效果，您还使导出存档的金夸克奖励计时增加了{{x}}秒！",
         "calculator6": "最后，由于PL-AT _的效果，您还获得了相当于{{x}}秒产量的惊奇八阶方块！",
+        "calculator7": "最后，由于PL-AT Ω的效果，您还获得了相当于{{x}}秒产量的蓝莓时间！",
         "calculatorSolution": "答对可以获得{{w}}夸克，答错则一无所有：{{x}}+{{y}}等于多少？根据计算器，答案应该为{{z}}。",
         "calculatorPrompt": "答对可以获得{{w}}夸克，答错则一无所有：{{x}}+{{y}}等于多少？",
         "calculatorMaxed": "您的计算器自动算出了{{a}}+{{b}}={{c}}，因此您直接获得了{{d}}夸克！{{e}}{{f}}{{g}}{{h}}您还有{{i}}次“增加”代码的使用机会。{{j}}秒后可以获得1次。",
@@ -3457,7 +3517,12 @@
         "moreThan1": "如果您已经解锁它们，则每秒可以获得{{x}}惊奇八阶方块！",
         "one": "如果您已经解锁它们，则每{{x}}秒可以获得1惊奇八阶方块！"
       },
-      "invalid": "奖励代码输入错误，或者已经使用过。请再次尝试！"
+      "invalid": "奖励代码输入错误，或者已经使用过。请再次尝试！",
+      "bribe": {
+        "notUnlocked": "嗯……您还没准备好。",
+        "overCapacity": "不能再拿了！",
+        "thanks": "感谢Discord上Alonso提供的馈赠。"
+      }
     }
   },
   "toggles": {
@@ -3511,5 +3576,8 @@
       "clicked": "看吧？都说了可以相信Unsmith的。因为您点击了我，您的难得素获取数量、祭品获取数量、所有类型的方盒及立方获取数量在刷新页面之前增加5%！",
       "clickedText": "您点击了<<white|Unsmith>>！在刷新页面之前，可以使<<orange|祭品获取数量增加5%>>，<<pink|难得素获取数量增加5%>>，且<<white|所有类型的方盒及立方产量增加5%>>！"
     }
+  },
+  "account": {
+    "logout": "该页面将进行刷新。您已注销！再见！！"
   }
 }

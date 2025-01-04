@@ -29,7 +29,8 @@ import { version } from './Config'
 import type { IMultiBuy } from './Cubes'
 import type { hepteractTypes } from './Hepteracts'
 import { hepteractTypeList } from './Hepteracts'
-import { quarkHandler } from './Quark'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getQuarkBonus, quarkHandler } from './Quark'
 import { displayRuneInformation } from './Runes'
 import { getShopCosts, isShopUpgradeUnlocked, shopData, shopUpgradeTypes } from './Shop'
 import { getGoldenQuarkCost } from './singularity'
@@ -593,6 +594,10 @@ export const visualUpdateRunes = () => {
             )
           }
         )
+      } else if (i === 6) {
+        DOMCacheGetOrSet(`bonusrune${i}`).textContent = i18next.t('runes.bonusAmount', {
+          x: PCoinUpgradeEffects.INSTANT_UNLOCK_2 ? 6 : 0
+        })
       } else {
         DOMCacheGetOrSet(`bonusrune${i}`).textContent = i18next.t('runes.bonusNope')
       }
@@ -1342,7 +1347,7 @@ export const visualUpdateSettings = () => {
     const maxExportQuarks = quarkData.capacity
 
     let goldenQuarkMultiplier = 1
-    goldenQuarkMultiplier *= 1 + player.worlds.BONUS / 100
+    goldenQuarkMultiplier *= 1 + getQuarkBonus() / 100
     goldenQuarkMultiplier *= player.highestSingularityCount >= 100
       ? 1 + player.highestSingularityCount / 50
       : 1
@@ -1776,3 +1781,5 @@ export const visualUpdateShop = () => {
 }
 
 export const visualUpdateEvent = () => {}
+
+export const visualUpdatePurchase = () => {}

@@ -55,7 +55,8 @@ import {
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
   dailyResetCheck,
-  exitOffline
+  exitOffline,
+  isShopTalismanUnlocked
 } from './Calculate'
 import {
   corrChallengeMinimum,
@@ -65,7 +66,8 @@ import {
   corruptionLoadoutTableUpdate,
   corruptionStatsUpdate,
   maxCorruptionLevel,
-  updateCorruptionLoadoutNames
+  updateCorruptionLoadoutNames,
+  updateUndefinedLoadouts
 } from './Corruptions'
 import { updateCubeUpgradeBG } from './Cubes'
 import { generateEventHandlers } from './EventListeners'
@@ -136,7 +138,13 @@ import {
 
 import i18next from 'i18next'
 import localforage from 'localforage'
-import { BlueberryUpgrade, blueberryUpgradeData, updateLoadoutHoverClasses } from './BlueberryUpgrades'
+import {
+  BlueberryUpgrade,
+  blueberryUpgradeData,
+  displayProperLoadoutCount,
+  updateBlueberryLoadoutCount,
+  updateLoadoutHoverClasses
+} from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
@@ -158,7 +166,8 @@ import { init as i18nInit } from './i18n'
 import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
-import { QuarkHandler } from './Quark'
+import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getQuarkBonus, QuarkHandler } from './Quark'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerSchema } from './saves/PlayerSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
@@ -177,7 +186,7 @@ import type { PlayerSave } from './types/LegacySynergism'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
-  worlds: new QuarkHandler({ quarks: 0, bonus: 0 }),
+  worlds: new QuarkHandler(0),
   coins: new Decimal('1e2'),
   coinsThisPrestige: new Decimal('1e2'),
   coinsThisTranscension: new Decimal('1e2'),
@@ -614,7 +623,12 @@ export const player: Player = {
     shopAmbrosiaLuck4: 0,
     shopCashGrabUltra: 0,
     shopAmbrosiaAccelerator: 0,
-    shopEXUltra: 0
+    shopEXUltra: 0,
+    shopChronometerS: 0,
+    shopAmbrosiaUltra: 0,
+    shopSingularitySpeedup: 0,
+    shopSingularityPotency: 0,
+    shopSadisticRune: 0
   },
   shopBuyMaxToggle: false,
   shopHideToggle: false,
@@ -869,7 +883,15 @@ export const player: Player = {
     5: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     6: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     7: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    8: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    8: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    9: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    10: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    11: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    12: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    13: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    14: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    15: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    16: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   },
   corruptionLoadoutNames: [
     'Loadout 1',
@@ -879,7 +901,15 @@ export const player: Player = {
     'Loadout 5',
     'Loadout 6',
     'Loadout 7',
-    'Loadout 8'
+    'Loadout 8',
+    'Loadout 9',
+    'Loadout 10',
+    'Loadout 11',
+    'Loadout 12',
+    'Loadout 13',
+    'Loadout 14',
+    'Loadout 15',
+    'Loadout 16'
   ],
   corruptionShowStats: true,
 
@@ -1391,6 +1421,14 @@ export const player: Player = {
     noAmbrosiaUpgrades: new SingularityChallenge(
       singularityChallengeData.noAmbrosiaUpgrades,
       'noAmbrosiaUpgrades'
+    ),
+    limitedTime: new SingularityChallenge(
+      singularityChallengeData.limitedTime,
+      'limitedTime'
+    ),
+    sadisticPrequel: new SingularityChallenge(
+      singularityChallengeData.sadisticPrequel,
+      'sadisticPrequel'
     )
   },
 
@@ -1479,12 +1517,22 @@ export const player: Player = {
     5: {},
     6: {},
     7: {},
-    8: {}
+    8: {},
+    9: {},
+    10: {},
+    11: {},
+    12: {},
+    13: {},
+    14: {},
+    15: {},
+    16: {}
   },
   blueberryLoadoutMode: 'saveTree',
 
   ultimateProgress: 0,
   ultimatePixels: 0,
+
+  singChallengeTimer: 0,
 
   caches: {
     ambrosiaLuckAdditiveMult: new AmbrosiaLuckAdditiveMultCache(),
@@ -1612,6 +1660,18 @@ const loadSynergy = async () => {
       for (let i = player.codes.size + 1; i <= size; i++) {
         if (!player.codes.has(i)) {
           player.codes.set(i, false)
+        }
+      }
+    }
+
+    // TODO(@KhafraDev): remove G.currentSingChallenge
+    // fix current sing challenge blank
+    if (player.insideSingularityChallenge) {
+      const challenges = Object.keys(player.singularityChallenges)
+      for (let i = 0; i < challenges.length; i++) {
+        if (player.singularityChallenges[challenges[i]].enabled) {
+          G.currentSingChallenge = singularityChallengeData[challenges[i]].HTMLTag
+          break
         }
       }
     }
@@ -2226,12 +2286,19 @@ const loadSynergy = async () => {
     }
 
     corruptionStatsUpdate()
-    const corrs = Math.min(8, Object.keys(player.corruptionLoadouts).length) + 1
+    updateUndefinedLoadouts() // Monetization update added more corruption loadout slots
+    updateBlueberryLoadoutCount() // Monetization update also added more Blueberry loadout slots
+
+    const corrs = 1 + 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
+    // const corrs = Math.min(8, Object.keys(player.corruptionLoadouts).length) + 1
     for (let i = 0; i < corrs; i++) {
       corruptionLoadoutTableUpdate(i)
     }
     showCorruptionStatsLoadouts()
     updateCorruptionLoadoutNames()
+
+    // For blueberry upgrades!
+    displayProperLoadoutCount()
 
     DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t(
       'runes.thanksResearches',
@@ -5040,7 +5107,7 @@ export const resetCheck = async (
         i18next.t('main.singularityMessage4', {
           x: format(nextSingularityNumber),
           y: format(calculateGoldenQuarkGain(), 2, true),
-          z: format(player.worlds.BONUS)
+          z: format(getQuarkBonus())
         })
       )
       await Alert(i18next.t('main.singularityMessage5'))
@@ -5487,7 +5554,7 @@ export const updateAll = (): void => {
       player.achievements[140] > 0,
       player.achievements[147] > 0,
       player.antUpgrades[11]! > 0 || player.ascensionCount > 0,
-      player.shopUpgrades.shopTalisman > 0
+      isShopTalismanUnlocked()
     ]
     let upgradedTalisman = false
 
@@ -6215,7 +6282,9 @@ export const reloadShit = async (reset = false) => {
   if (!reset) {
     await calculateOffline()
   } else {
-    player.worlds.reset()
+    if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
+      player.worlds.reset()
+    }
     // saving is disabled during a singularity event to prevent bug
     // early return here if the save fails can keep game state from properly resetting after a singularity
     if (saveCheck.canSave) {
@@ -6264,7 +6333,7 @@ export const reloadShit = async (reset = false) => {
           eventCheck().catch((error: Error) => {
             console.error(error)
           }),
-        15_000
+        1000 * 60 * 5
       )
     })
   showExitOffline()
@@ -6308,6 +6377,19 @@ function playerNeedsReminderToExport () {
 
 window.addEventListener('load', async () => {
   await i18nInit()
+  handleLogin().catch(console.error)
+
+  try {
+    await initializePCoinCache()
+  } catch (e) {
+    console.error(e)
+    const response = await Confirm(
+      'PseudoCoin bonuses weren\'t fetched, if you have purchased upgrades they will not take effect. '
+        + 'Press OK to continue to the game without upgrades.'
+    )
+
+    if (!response) return
+  }
 
   const ver = DOMCacheGetOrSet('versionnumber')
   const addZero = (n: number) => `${n}`.padStart(2, '0')
@@ -6336,8 +6418,6 @@ window.addEventListener('load', async () => {
 
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
-
-  handleLogin().catch(console.error)
 })
 
 window.addEventListener('unload', () => {

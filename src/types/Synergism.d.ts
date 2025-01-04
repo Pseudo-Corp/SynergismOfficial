@@ -403,6 +403,11 @@ export interface Player {
     shopCashGrabUltra: number
     shopAmbrosiaAccelerator: number
     shopEXUltra: number
+    shopChronometerS: number
+    shopAmbrosiaUltra: number
+    shopSingularitySpeedup: number
+    shopSingularityPotency: number
+    shopSadisticRune: number
   }
   shopConfirmationToggle: boolean
   shopBuyMaxToggle: boolean | 'TEN' | 'ANY'
@@ -640,6 +645,8 @@ export interface Player {
 
   ultimateProgress: number
   ultimatePixels: number
+
+  singChallengeTimer: number
 
   caches: {
     ambrosiaLuckAdditiveMult: AmbrosiaLuckAdditiveMultCache
@@ -1053,3 +1060,19 @@ export type FirstToFifth = GlobalVariables['ordinals'][ZeroToFour]
 export type FirstToEighth = GlobalVariables['ordinals'][ZeroToSeven]
 
 export type SaveSupplier<K extends keyof Player = keyof Player> = Map<K, (value: unknown) => Player[K]>
+
+export type PseudoCoinUpgradeNames =
+  | 'INSTANT_UNLOCK_1'
+  | 'INSTANT_UNLOCK_2'
+  | 'CUBE_BUFF'
+  | 'AMBROSIA_LUCK_BUFF'
+  | 'AMBROSIA_GENERATION_BUFF'
+  | 'GOLDEN_QUARK_BUFF'
+  | 'FREE_UPGRADE_PROMOCODE_BUFF'
+  | 'CORRUPTION_LOADOUT_SLOT_QOL'
+  | 'AMBROSIA_LOADOUT_SLOT_QOL'
+  | 'AUTO_POTION_FREE_POTIONS_QOL'
+  | 'OFFLINE_TIMER_CAP_BUFF'
+  | 'ADD_CODE_CAP_BUFF'
+
+export type PseudoCoinUpgrades = Record<PseudoCoinUpgradeNames, number>

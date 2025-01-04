@@ -8,7 +8,8 @@ import { octeractGainPerSecond } from './Calculate'
 import { testing, version } from './Config'
 import { Synergism } from './Events'
 import { addTimers } from './Helper'
-import { quarkHandler } from './Quark'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getQuarkBonus, quarkHandler } from './Quark'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { shopData } from './Shop'
 import { singularityData } from './singularity'
@@ -240,7 +241,7 @@ export const exportSynergism = async (
     const quarkData = quarkHandler()
 
     let bonusGQMultiplier = 1
-    bonusGQMultiplier *= 1 + player.worlds.BONUS / 100
+    bonusGQMultiplier *= 1 + getQuarkBonus() / 100
     bonusGQMultiplier *= player.highestSingularityCount >= 100
       ? 1 + player.highestSingularityCount / 50
       : 1
@@ -573,15 +574,23 @@ export const promocodes = async (input: string | null, amount?: number) => {
       rolls += player.shopUpgrades.shopImprovedDaily3
       rolls += player.shopUpgrades.shopImprovedDaily4
       rolls += +player.singularityUpgrades.platonicPhi.getEffect().bonus
-        * Math.min(50, (5 * player.singularityCounter) / (3600 * 24))
+        * Math.min(
+          50,
+          (player.shopUpgrades.shopSingularitySpeedup)
+            ? (100 * player.singularityCounter) / (3600 * 24)
+            : (5 * player.singularityCounter) / (3600 * 24)
+        )
       rolls += +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus
+      rolls += +player.singularityChallenges.sadisticPrequel.rewards.extraFree
       rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
       rolls *= 1
         + +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus / 200
-
+      rolls *= 1 + +player.singularityChallenges.sadisticPrequel.rewards.freeUpgradeMult
       if (player.highestSingularityCount >= 200) {
         rolls *= 2
       }
+
+      rolls *= PCoinUpgradeEffects.FREE_UPGRADE_PROMOCODE_BUFF
 
       rolls = Math.floor(rolls)
 
@@ -620,13 +629,31 @@ export const promocodes = async (input: string | null, amount?: number) => {
       }
 
       if (player.highestSingularityCount >= 200 && player.highestSingularityCount < 205) {
-        const freeLevelOct1 = Math.max(player.octeractUpgrades.octeractGain.level / 100, Math.pow(player.octeractUpgrades.octeractGain.level * player.octeractUpgrades.octeractGain.freeLevels / 1000, 0.5))
+        const freeLevelOct1 = Math.max(
+          player.octeractUpgrades.octeractGain.level / 100,
+          Math.pow(
+            player.octeractUpgrades.octeractGain.level * player.octeractUpgrades.octeractGain.freeLevels / 1000,
+            0.5
+          )
+        )
         player.octeractUpgrades.octeractGain.freeLevels += freeLevelOct1
         freeLevels.octeractGain = freeLevelOct1
-      }
-      else if (player.highestSingularityCount >= 205) {
-        const freeLevelOct1 = Math.max(player.octeractUpgrades.octeractGain.level / 100, Math.pow(player.octeractUpgrades.octeractGain.level * player.octeractUpgrades.octeractGain.freeLevels / 640, 0.5))
-        const freeLevelOct2 = Math.max(player.octeractUpgrades.octeractGain2.level / 100, Math.pow(Math.pow(player.octeractUpgrades.octeractGain2.level, 2) * player.octeractUpgrades.octeractGain2.freeLevels / 125000, 0.333))
+      } else if (player.highestSingularityCount >= 205) {
+        const freeLevelOct1 = Math.max(
+          player.octeractUpgrades.octeractGain.level / 100,
+          Math.pow(
+            player.octeractUpgrades.octeractGain.level * player.octeractUpgrades.octeractGain.freeLevels / 640,
+            0.5
+          )
+        )
+        const freeLevelOct2 = Math.max(
+          player.octeractUpgrades.octeractGain2.level / 100,
+          Math.pow(
+            Math.pow(player.octeractUpgrades.octeractGain2.level, 2) * player.octeractUpgrades.octeractGain2.freeLevels
+              / 125000,
+            0.333
+          )
+        )
 
         player.octeractUpgrades.octeractGain.freeLevels += freeLevelOct1
         player.octeractUpgrades.octeractGain2.freeLevels += freeLevelOct2
@@ -1015,6 +1042,7 @@ export const addCodeMaxUses = () => {
   ]
 
   let maxUses = sumContents(arr)
+  maxUses *= PCoinUpgradeEffects.ADD_CODE_CAP_BUFF
 
   arr.push(addCodeSingularityPerkBonus())
   maxUses *= addCodeSingularityPerkBonus()

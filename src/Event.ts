@@ -5,8 +5,6 @@ import { format, getTimePinnedToLoadDate, player } from './Synergism'
 import { Alert, revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
-const dayMs = 60 * 1000 * 60 * 24
-
 export enum BuffType {
   Quark = 0,
   GoldenQuark = 1,
@@ -24,35 +22,11 @@ export enum BuffType {
   OneMind = 13
 }
 
-interface EventData {
-  name: string
-  color: string
-  url: string
-  start: string
-  end: string
-  buffs: {
-    quark?: number
-    goldenQuark?: number
-    cubes?: number
-    powderConversion?: number
-    ascensionSpeed?: number
-    globalSpeed?: number
-    ascensionScore?: number
-    antSacrifice?: number
-    offering?: number
-    obtainium?: number
-    octeract?: number
-    blueberryTime?: number
-    ambrosiaLuck?: number
-    oneMind?: number
-  }
-}
-
-interface APIEventData {
-  name: string
-  url: string
-  start: `${number}-${number}-${number}T${number}:${number}`
-  end: `${number}-${number}-${number}T${number}:${number}`
+interface GameEvent {
+  name: string[]
+  url: string[]
+  start: number
+  end: number
   quark: number
   goldenQuark: number
   cubes: number
@@ -67,10 +41,10 @@ interface APIEventData {
   blueberryTime: number
   ambrosiaLuck: number
   oneMind: number
-  color: string
+  color: string[]
 }
 
-let nowEvent: EventData | null = null
+let nowEvent: GameEvent | null = null
 
 export const getEvent = () => nowEvent
 
@@ -79,75 +53,28 @@ export const eventCheck = async () => {
     return
   }
 
-  const response = await fetch('https://synergism.cc/api/v1/events/get')
+  const response = await fetch('https://synergism.cc/api/v2/events/get')
 
   if (!response.ok) {
     throw new Error('God fucking dammit')
   }
 
-  const apiEvents = await response.json() as APIEventData[]
+  const apiEvents = await response.json() as GameEvent
 
-  const events: EventData[] = apiEvents.map((value) => {
-    const { name, color, start, end, url, ...buffs } = value
-    return {
-      name,
-      color,
-      start,
-      end,
-      url,
-      buffs
-    }
-  })
-
-  const activeEvents: EventData[] = []
   nowEvent = null
 
-  const now = new Date(getTimePinnedToLoadDate())
-  let start: Date
-  let end: Date
+  const now = new Date(getTimePinnedToLoadDate()).getTime()
 
-  for (const event of events) {
-    // TODO: use setDate instead to set the correct day.
-    start = new Date(event.start)
-    end = new Date(event.end)
-
-    if (now.getTime() >= end.getTime() + dayMs) {
-      continue
-    }
-
-    if (now.getTime() >= start.getTime() && now.getTime() <= end.getTime()) {
-      activeEvents.push(event)
-    }
+  if (now >= apiEvents.start && now <= apiEvents.end && apiEvents.name.length) {
+    nowEvent = apiEvents
   }
 
   const happyHolidays = DOMCacheGetOrSet('happyHolidays') as HTMLAnchorElement
   const eventBuffs = DOMCacheGetOrSet('eventBuffs')
   const updateIsEventCheck = G.isEvent
 
-  if (activeEvents.length) {
-    nowEvent = activeEvents.slice(1).reduce((prev, curr) => {
-      prev.name += `, ${curr.name}`
-
-      for (const key of (Object.keys(curr.buffs) as (keyof EventData['buffs'])[])) {
-        prev.buffs[key] ??= 0
-        // biome-ignore lint/suspicious/noExtraNonNullAssertion: rule is broken
-        prev.buffs[key]! += curr.buffs[key]!
-      }
-
-      // Pick the oldest time as the start, and the furthest time away as the end.
-      if (new Date(prev.start).getTime() > new Date(curr.start).getTime()) {
-        prev.start = curr.start
-      }
-      if (new Date(prev.end).getTime() < new Date(curr.end).getTime()) {
-        prev.end = curr.end
-      }
-
-      return prev
-    }, cloneEvent(activeEvents[0]))
-
-    start = new Date(nowEvent.start)
-    end = new Date(nowEvent.end)
-    G.isEvent = activeEvents.length > 0
+  if (nowEvent) {
+    G.isEvent = true
     const buffs: string[] = []
 
     for (let i = 0; i < eventBuffType.length; i++) {
@@ -166,14 +93,15 @@ export const eventCheck = async () => {
       }
     }
 
-    DOMCacheGetOrSet('eventCurrent').textContent = G.isEvent
-      ? i18next.t('settings.events.activeUntil', { x: end })
-      : i18next.t('settings.events.starts', { x: start })
+    DOMCacheGetOrSet('eventCurrent').textContent = i18next.t('settings.events.activeUntil', {
+      x: new Date(nowEvent.end)
+    })
+
     eventBuffs.innerHTML = G.isEvent && buffs.length ? `Current Buffs: ${buffs.join(', ')}` : ''
     // eventBuffs.style.color = 'lime';
-    happyHolidays.innerHTML = `(${activeEvents.length}) ${nowEvent.name}`
-    happyHolidays.style.color = nowEvent.color
-    happyHolidays.href = nowEvent.url.length > 0 ? nowEvent.url : '#'
+    happyHolidays.innerHTML = `(${nowEvent.name.length}) ${nowEvent.name.join(', ')}`
+    happyHolidays.style.color = nowEvent.color[Math.floor(Math.random() * nowEvent.color.length)]
+    happyHolidays.href = nowEvent.url.length > 0 ? nowEvent.url[Math.floor(Math.random() * nowEvent.url.length)] : '#'
   } else {
     G.isEvent = false
     DOMCacheGetOrSet('eventCurrent').innerHTML = i18next.t('settings.events.inactive')
@@ -233,33 +161,33 @@ export const calculateEventSourceBuff = (buff: BuffType): number => {
 
   switch (buff) {
     case BuffType.Quark:
-      return event.buffs.quark ?? 0
+      return event.quark ?? 0
     case BuffType.GoldenQuark:
-      return event.buffs.goldenQuark ?? 0
+      return event.goldenQuark ?? 0
     case BuffType.Cubes:
-      return event.buffs.cubes ?? 0
+      return event.cubes ?? 0
     case BuffType.PowderConversion:
-      return event.buffs.powderConversion ?? 0
+      return event.powderConversion ?? 0
     case BuffType.AscensionSpeed:
-      return event.buffs.ascensionSpeed ?? 0
+      return event.ascensionSpeed ?? 0
     case BuffType.GlobalSpeed:
-      return event.buffs.globalSpeed ?? 0
+      return event.globalSpeed ?? 0
     case BuffType.AscensionScore:
-      return event.buffs.ascensionScore ?? 0
+      return event.ascensionScore ?? 0
     case BuffType.AntSacrifice:
-      return event.buffs.antSacrifice ?? 0
+      return event.antSacrifice ?? 0
     case BuffType.Offering:
-      return event.buffs.offering ?? 0
+      return event.offering ?? 0
     case BuffType.Obtainium:
-      return event.buffs.obtainium ?? 0
+      return event.obtainium ?? 0
     case BuffType.Octeract:
-      return event.buffs.octeract ?? 0
+      return event.octeract ?? 0
     case BuffType.OneMind:
-      return (player.singularityUpgrades.oneMind.level > 0) ? event.buffs.oneMind ?? 0 : 0
+      return player.singularityUpgrades.oneMind.level > 0 ? event.oneMind : 0
     case BuffType.BlueberryTime:
-      return event.buffs.blueberryTime ?? 0
+      return event.blueberryTime ?? 0
     case BuffType.AmbrosiaLuck:
-      return event.buffs.ambrosiaLuck ?? 0
+      return event.ambrosiaLuck ?? 0
   }
 }
 
@@ -267,8 +195,4 @@ export const clickSmith = (): Promise<void> => {
   G.eventClicked = true
   DOMCacheGetOrSet('eventClicked').style.display = 'block'
   return Alert(i18next.t('event.aprilFools.clicked'))
-}
-
-const cloneEvent = (event: EventData): EventData => {
-  return { ...event, buffs: { ...event.buffs } }
 }

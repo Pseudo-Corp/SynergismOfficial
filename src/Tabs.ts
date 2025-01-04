@@ -1,6 +1,8 @@
-import { DOMCacheGetOrSet } from './Cache/DOM'
+import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed } from './Calculate'
 import { pressedKeys } from './Hotkeys'
+import { isLoggedIn } from './Login'
+import { initializeCart } from './purchases/CartTab'
 import { player } from './Synergism'
 import {
   setActiveSettingScreen,
@@ -28,7 +30,8 @@ export enum Tabs {
   Singularity = 9,
   Settings = 10,
   Shop = 11,
-  Event = 12
+  Event = 12,
+  Purchase = 13
 }
 
 /**
@@ -267,7 +270,31 @@ const subtabInfo: Record<Tabs, SubTab> = {
       }
     ]
   },
-  [Tabs.Event]: { subTabList: [] }
+  [Tabs.Event]: { subTabList: [] },
+  [Tabs.Purchase]: {
+    tabSwitcher: () => initializeCart,
+    subTabList: [
+      {
+        subTabID: 'productContainer',
+        get unlocked () {
+          return isLoggedIn()
+        },
+        buttonID: 'cartSubTab1'
+      },
+      {
+        subTabID: 'upgradesContainer',
+        unlocked: true,
+        buttonID: 'cartSubTab2'
+      },
+      {
+        subTabID: 'cartContainer',
+        get unlocked () {
+          return isLoggedIn()
+        },
+        buttonID: 'cartSubTab3'
+      }
+    ]
+  }
 }
 
 class TabRow extends HTMLDivElement {
@@ -552,7 +579,10 @@ tabRow.appendButton(
     .setUnlockedState(() => G.isEvent)
     .setType(Tabs.Event)
     .makeDraggable()
-    .makeRemoveable()
+    .makeRemoveable(),
+  new $Tab({ id: 'pseudoCoinstab', i18n: 'tabs.main.purchase' })
+    .setType(Tabs.Purchase)
+    .makeDraggable()
 )
 
 /**
@@ -603,7 +633,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   if (G.currentTab !== Tabs.Settings) {
     for (let i = 0; i < subTabList.length; i++) {
       const id = subTabList[i].buttonID
-      if (id) {
+      if (id && DOMCacheHas(id)) {
         const button = DOMCacheGetOrSet(id)
 
         if (button.style.backgroundColor === 'crimson') { // handles every tab except settings and corruptions

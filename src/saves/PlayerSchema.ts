@@ -72,7 +72,7 @@ const hepteractCraftSchema = (k: keyof Player['hepteractCrafts']) =>
 
 export const playerSchema = z.object({
   firstPlayed: z.string().datetime().optional().default(() => new Date().toISOString()),
-  worlds: z.number().transform((quarks) => new QuarkHandler({ quarks })),
+  worlds: z.number().transform((quarks) => new QuarkHandler(quarks)),
   coins: decimalSchema,
   coinsThisPrestige: decimalSchema,
   coinsThisTranscension: decimalSchema,
@@ -322,8 +322,10 @@ export const playerSchema = z.object({
   crystalUpgrades: z.number().array(),
   crystalUpgradesCost: z.number().array().default(() => [...blankSave.crystalUpgradesCost]),
 
-  runelevels: z.number().array(),
-  runeexp: z.union([z.number(), z.null()]).array().transform((value) => value.map((val) => val === null ? 0 : val)),
+  runelevels: z.number().array().transform((array) => arrayExtend(array, 'runelevels')),
+  runeexp: z.union([z.number(), z.null().transform(() => 0)]).array().transform((value) =>
+    arrayExtend(value, 'runeexp')
+  ),
   runeshards: z.number(),
   maxofferings: z.number().default(() => blankSave.maxofferings),
   offeringpersecond: z.number().default(() => blankSave.offeringpersecond),
@@ -447,7 +449,9 @@ export const playerSchema = z.object({
   cubeUpgradesBuyMaxToggle: z.boolean().default(() => blankSave.cubeUpgradesBuyMaxToggle),
   autoCubeUpgradesToggle: z.boolean().default(() => blankSave.autoCubeUpgradesToggle),
   autoPlatonicUpgradesToggle: z.boolean().default(() => blankSave.autoPlatonicUpgradesToggle),
-  platonicUpgrades: z.number().array().default(() => [...blankSave.platonicUpgrades]),
+  platonicUpgrades: z.number().array().transform((array) => arrayExtend(array, 'platonicUpgrades')).default(
+    () => [...blankSave.platonicUpgrades]
+  ),
   wowCubes: z.number().default(() => Number(blankSave.wowCubes)).transform((cubes) => new WowCubes(cubes)),
   wowTesseracts: z.number().default(() => Number(blankSave.wowTesseracts)).transform((tesseract) =>
     new WowTesseracts(tesseract)
@@ -506,7 +510,9 @@ export const playerSchema = z.object({
   ascStatToggles: z.record(integerStringSchema, z.boolean()).default(() => ({ ...blankSave.ascStatToggles })),
 
   prototypeCorruptions: z.number().array().default(() => [...blankSave.prototypeCorruptions]),
-  usedCorruptions: z.number().array().default(() => [...blankSave.usedCorruptions]),
+  usedCorruptions: z.number().array().transform((array) => arrayExtend(array, 'usedCorruptions')).default(
+    () => [...blankSave.usedCorruptions]
+  ),
   corruptionLoadouts: z.record(integerStringSchema, z.number().array()).default(() =>
     deepClone(blankSave.corruptionLoadouts)
   ),
@@ -676,6 +682,7 @@ export const playerSchema = z.object({
               HTMLTag: singularityChallengeData[k].HTMLTag,
               highestSingularityCompleted,
               enabled,
+              resetTime: singularityChallengeData[k].resetTime,
               singularityRequirement: singularityChallengeData[k].singularityRequirement,
               scalingrewardcount: singularityChallengeData[k].scalingrewardcount,
               uniquerewardcount: singularityChallengeData[k].uniquerewardcount,
@@ -730,6 +737,8 @@ export const playerSchema = z.object({
 
   ultimateProgress: z.number().default(() => blankSave.ultimateProgress),
   ultimatePixels: z.number().default(() => blankSave.ultimatePixels),
+
+  singChallengeTimer: z.number().default(() => blankSave.singChallengeTimer),
 
   // TODO: what type?
   caches: z.record(z.string(), z.any())

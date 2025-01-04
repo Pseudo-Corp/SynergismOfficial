@@ -5,7 +5,8 @@ import {
   calculateOfferings,
   calculateRuneExpGiven,
   calculateRuneExpToLevel,
-  calculateRuneLevels
+  calculateRuneLevels,
+  isIARuneUnlocked
 } from './Calculate'
 import { format, player } from './Synergism'
 import { Globals as G } from './Variables'
@@ -98,7 +99,7 @@ export const unlockedRune = (runeIndexPlusOne: number) => {
     player.achievements[44] > 0.5,
     player.achievements[102] > 0.5,
     player.researches[82] > 0.5,
-    player.shopUpgrades.infiniteAscent,
+    isIARuneUnlocked(),
     player.platonicUpgrades[20] > 0
   ]
   return unlockedRune[runeIndexPlusOne]
