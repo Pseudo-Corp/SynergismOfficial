@@ -55,7 +55,8 @@ import {
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
   dailyResetCheck,
-  exitOffline
+  exitOffline,
+  isShopTalismanUnlocked
 } from './Calculate'
 import {
   corrChallengeMinimum,
@@ -65,7 +66,8 @@ import {
   corruptionLoadoutTableUpdate,
   corruptionStatsUpdate,
   maxCorruptionLevel,
-  updateCorruptionLoadoutNames
+  updateCorruptionLoadoutNames,
+  updateUndefinedLoadouts
 } from './Corruptions'
 import { updateCubeUpgradeBG } from './Cubes'
 import { generateEventHandlers } from './EventListeners'
@@ -136,7 +138,13 @@ import {
 
 import i18next from 'i18next'
 import localforage from 'localforage'
-import { BlueberryUpgrade, blueberryUpgradeData, updateLoadoutHoverClasses } from './BlueberryUpgrades'
+import {
+  BlueberryUpgrade,
+  blueberryUpgradeData,
+  displayProperLoadoutCount,
+  updateBlueberryLoadoutCount,
+  updateLoadoutHoverClasses
+} from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
@@ -158,6 +166,7 @@ import { init as i18nInit } from './i18n'
 import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
+import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, QuarkHandler } from './Quark'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerSchema } from './saves/PlayerSchema'
@@ -874,7 +883,15 @@ export const player: Player = {
     5: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     6: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     7: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    8: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    8: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    9: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    10: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    11: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    12: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    13: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    14: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    15: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    16: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   },
   corruptionLoadoutNames: [
     'Loadout 1',
@@ -884,7 +901,15 @@ export const player: Player = {
     'Loadout 5',
     'Loadout 6',
     'Loadout 7',
-    'Loadout 8'
+    'Loadout 8',
+    'Loadout 9',
+    'Loadout 10',
+    'Loadout 11',
+    'Loadout 12',
+    'Loadout 13',
+    'Loadout 14',
+    'Loadout 15',
+    'Loadout 16'
   ],
   corruptionShowStats: true,
 
@@ -1492,7 +1517,15 @@ export const player: Player = {
     5: {},
     6: {},
     7: {},
-    8: {}
+    8: {},
+    9: {},
+    10: {},
+    11: {},
+    12: {},
+    13: {},
+    14: {},
+    15: {},
+    16: {}
   },
   blueberryLoadoutMode: 'saveTree',
 
@@ -2253,12 +2286,19 @@ const loadSynergy = async () => {
     }
 
     corruptionStatsUpdate()
-    const corrs = Math.min(8, Object.keys(player.corruptionLoadouts).length) + 1
+    updateUndefinedLoadouts() // Monetization update added more corruption loadout slots
+    updateBlueberryLoadoutCount() // Monetization update also added more Blueberry loadout slots
+
+    const corrs = 1 + 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
+    // const corrs = Math.min(8, Object.keys(player.corruptionLoadouts).length) + 1
     for (let i = 0; i < corrs; i++) {
       corruptionLoadoutTableUpdate(i)
     }
     showCorruptionStatsLoadouts()
     updateCorruptionLoadoutNames()
+
+    // For blueberry upgrades!
+    displayProperLoadoutCount()
 
     DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t(
       'runes.thanksResearches',
@@ -5514,7 +5554,7 @@ export const updateAll = (): void => {
       player.achievements[140] > 0,
       player.achievements[147] > 0,
       player.antUpgrades[11]! > 0 || player.ascensionCount > 0,
-      player.shopUpgrades.shopTalisman > 0
+      isShopTalismanUnlocked()
     ]
     let upgradedTalisman = false
 
@@ -6337,6 +6377,19 @@ function playerNeedsReminderToExport () {
 
 window.addEventListener('load', async () => {
   await i18nInit()
+  handleLogin().catch(console.error)
+
+  try {
+    await initializePCoinCache()
+  } catch (e) {
+    console.error(e)
+    const response = await Confirm(
+      'PseudoCoin bonuses weren\'t fetched, if you have purchased upgrades they will not take effect. '
+        + 'Press OK to continue to the game without upgrades.'
+    )
+
+    if (!response) return
+  }
 
   const ver = DOMCacheGetOrSet('versionnumber')
   const addZero = (n: number) => `${n}`.padStart(2, '0')
@@ -6365,8 +6418,6 @@ window.addEventListener('load', async () => {
 
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
-
-  handleLogin().catch(console.error)
 })
 
 window.addEventListener('unload', () => {
