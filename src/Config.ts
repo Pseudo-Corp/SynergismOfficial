@@ -13,4 +13,4 @@ export const lastUpdated = new Date('##LAST_UPDATED##')
 /**
  * CHANGE THIS ONE INSTEAD
  */
-export const prod: boolean = true
+export const prod: boolean = false
