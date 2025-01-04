@@ -16,7 +16,9 @@
 
     <link rel="stylesheet" href="Synergism.css">
     <title>Synergism</title>
+
     <script src="./dist/out.js" defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="bodycolor loading">
     <div id="transparentBG" style="display: block;"></div>
@@ -3677,7 +3679,25 @@
             </div>
         </div>
         <div class="subtabContent subtabDisplayFlex" id="accountSubTab">
-          <div class="scrollbarX"></div>
+          <div class="scrollbarX">
+            <form action="/register">
+              <label for="email">Email Address</label>
+              <input type="text" id="email" name="email" placeholder="you@gmail.com">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="......">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAAzaJ55G9OiCeFUV"></div>
+              <input type="submit" value="Register">
+            </form>
+
+            <a
+              href="https://synergism.cc/login?with=discord"
+              style="display:inline-block;border: 2px solid #5865F2; height: 25px; width: 20%; margin-bottom:5px;"
+            >Login with Discord</a>
+            <a
+              href="https://synergism.cc/login?with=patreon"
+              style="display:inline-block;border: 2px solid #ff5900; height: 25px; width: 20%;"
+            >Login with Patreon</a>
+          </div>
           <!-- TODO: i18n (not done because of potential conflicts with pixel-update) -->
           <button id="logoutButton">Logout</button>
         </div>
