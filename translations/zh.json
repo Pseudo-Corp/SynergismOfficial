@@ -3581,12 +3581,12 @@
       "AMBROSIA_LUCK_BUFF": "Ambrosia Luck is increased by <<gold | {{amount}}>>",
       "AMBROSIA_GENERATION_BUFF": "Blueberry Generation Speed is multiplied by <<gold | {{amount}}>>",
       "GOLDEN_QUARK_BUFF": "Golden Quark Gain is multiplied by <<gold | {{amount}}>>",
-      "FREE_UPGRADE_PROMOCODE_BUFF": "Code 'Daily' gives <<gold | {{amount}}x>> the Free Upgrades!",
-      "CORRUPTION_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Corruption Loadout slots!",
-      "AMBROSIA_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Ambrosia Loadout slots!",
-      "AUTO_POTION_FREE_POTIONS_QOL": "Auto-Potion is <<gold | {{descriptor}}>> FREE!",
-      "OFFLINE_TIMER_CAP_BUFF": "Offline Time Capacity is multiplied by <<gold | {{amount}}>>",
-      "ADD_CODE_CAP_BUFF": "Code 'add' Capacity is multiplied by <<gold | {{amount}}>>"
+      "FREE_UPGRADE_PROMOCODE_BUFF": "使“每日”代码获得的免费奇点升级变为原来的<<gold|{{amount}}倍>>！",
+      "CORRUPTION_LOADOUT_SLOT_QOL": "您额外获得<<gold | {{amount}}>>个腐化预设槽位！",
+      "AMBROSIA_LOADOUT_SLOT_QOL": "您额外获得<<gold | {{amount}}>>个神肴预设槽位！",
+      "AUTO_POTION_FREE_POTIONS_QOL": "自动使用药剂时<<gold | {{descriptor}}>>消耗药剂！",
+      "OFFLINE_TIMER_CAP_BUFF": "使离线时间上限变为原来的<<gold | {{amount}}>>倍",
+      "ADD_CODE_CAP_BUFF": "使“增加”代码的次数上限变为原来的<<gold | {{amount}}>>倍"
     }
   }
 }
