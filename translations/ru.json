@@ -2481,8 +2481,8 @@
       "account": "Аккаунт"
     },
     "pseudocoins": {
-      "buy": "Purchase Coins",
-      "upgrades": "Buy Upgrades"
+      "buy": "Купить Монеты",
+      "upgrades": "Купить Улучшения"
     }
   },
   "offlineProgress": {
@@ -3586,7 +3586,7 @@
       "AMBROSIA_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Ambrosia Loadout slots!",
       "AUTO_POTION_FREE_POTIONS_QOL": "Auto-Potion is <<gold | {{descriptor}}>> FREE!",
       "OFFLINE_TIMER_CAP_BUFF": "Offline Time Capacity is multiplied by <<gold | {{amount}}>>",
-      "ADD_CODE_CAP_BUFF": "Code 'add' Capacity is multiplied by <<gold | {{amount}}>>"
+      "ADD_CODE_CAP_BUFF": "Ёмкость кода 'add' умножена на <<gold | {{amount}}>>"
     }
   }
 }
