@@ -344,11 +344,11 @@ export const calculateMaxRunes = (i: number) => {
 
 export const calculateEffectiveIALevel = () => {
   const bonus = PCoinUpgradeEffects.INSTANT_UNLOCK_2 ? 6 : 0
+  const totalRawLevel = player.runelevels[5] + bonus
   return (
-    player.runelevels[5]
-    + Math.max(0, player.runelevels[5] - 74)
-    + Math.max(0, player.runelevels[5] - 98)
-    + bonus
+    totalRawLevel
+    + Math.max(0, totalRawLevel - 74)
+    + Math.max(0, totalRawLevel - 98)
   )
 }
 
