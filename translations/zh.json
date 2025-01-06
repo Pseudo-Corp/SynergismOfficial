@@ -1434,7 +1434,7 @@
       "shopChronometerS": "200次进入奇点后，每有1次奇点次数，该升级就使飞升的速度和全局速度增加1%！",
       "shopAmbrosiaUltra": "拥有该额外升级(价格高到离谱)后，每完成1阶层拔擢，每级该升级就可以使☘ 神肴之运增加1。",
       "shopSingularitySpeedup": "您知道那些由时间控制的奇点升级和惊奇八阶方块升级吧？它们增长的速度将变为原来的20倍！多亏了这个甚至能改变<<gray|奇点时长>>的奇怪时钟……",
-      "shopSingularityPotency": "您知道那些免费奇点升级吧？它们的效果将增加666%(换句话说，不计算软上限的话，每级都将是之前7.66级的效果)。原因？是这个有点奇怪的<<gray|奇点传输仪式装置>>！别多问了。",
+      "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "多奇怪的符文。店主(您永远也无法再见的那位)通过心灵感应说道，这是浸入某种<<gray|奇点物质>>的无限晋升符文。难道无限晋升符文不止一个？"
     },
     "maxed": "已满级！",
