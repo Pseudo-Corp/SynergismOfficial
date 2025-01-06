@@ -226,6 +226,15 @@ export async function handleLogin () {
     subtabElement.appendChild(cloudSaveParent)
   } else {
     // User is not logged in
+    subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
+      subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
+      subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
+    })
+
+    subtabElement.querySelector('#open-signin')?.addEventListener('click', () => {
+      subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
+      subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'flex')
+    })
   }
 }
 

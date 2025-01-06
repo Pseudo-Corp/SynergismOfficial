@@ -3680,14 +3680,30 @@
         </div>
         <div class="subtabContent subtabDisplayFlex" id="accountSubTab">
           <div class="scrollbarX">
-            <form action="https://synergism.cc/register" method="POST">
-              <label for="email">Email Address</label>
-              <input type="text" id="email" name="email" placeholder="you@gmail.com">
-              <label for="password">Password</label>
-              <input type="password" id="password" name="password" placeholder="......">
-              <div class="cf-turnstile" data-sitekey="0x4AAAAAAA4kwOTMEdx48IMm"></div>
-              <input type="submit" value="Register">
-            </form>
+            <div id="button-holder">
+              <button id="open-register">Register</button>
+              <button id="open-signin">Login</button>
+            </div>
+            <div id="register">
+              <form action="https://synergism.cc/register" method="POST">
+                <label for="email">Email Address</label>
+                <input type="text" id="email" name="email" placeholder="you@gmail.com">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="......">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAA4kwOTMEdx48IMm"></div>
+                <input type="submit" value="Register">
+              </form>
+            </div>
+            <div id="login">
+              <form action="https://synergism.cc/signin" method="POST">
+                <label for="email">Email Address</label>
+                <input type="text" id="email" name="email" placeholder="you@gmail.com">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="......">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAA4kwOTMEdx48IMm"></div>
+                <input type="submit" value="Login">
+              </form>
+            </div>
 
             <a
               href="https://synergism.cc/login?with=discord"
