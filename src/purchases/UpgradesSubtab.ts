@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
-import { displayPCoinEffect, type PseudoCoinUpgradeNames, updatePCoinCache } from '../PseudoCoinUpgrades'
+import { displayPCoinEffect, type PseudoCoinUpgradeNames, showCostAndEffect, updatePCoinCache } from '../PseudoCoinUpgrades'
 import { Alert } from '../UpdateHTML'
 import { memoize } from '../Utility'
 
@@ -68,6 +68,9 @@ function setActiveUpgrade (upgrade: UpgradesList | undefined) {
     i18next.t(displayPCoinEffect(upgrade!.internalName, upgrade!.playerLevel + 1))
   }`
 
+  const costs = DOMCacheGetOrSet('pCoinScalingCosts')
+  const effects = DOMCacheGetOrSet('pCoinScalingEffect')
+
   if (upgrade && upgrade.playerLevel === upgrade.maxLevel) {
     buy?.setAttribute('disabled', '')
     buy!.setAttribute('style', 'display: none')
@@ -81,6 +84,9 @@ function setActiveUpgrade (upgrade: UpgradesList | undefined) {
         i18next.t('pseudoCoins.buyButton', { amount: Intl.NumberFormat().format(upgrade.cost[upgrade.playerLevel]) })
       }`
       : 'Cannot buy. Sorry!'
+    const info = showCostAndEffect(upgrade!.internalName)
+    costs.innerHTML = info.cost
+    effects.innerHTML = info.effect
   }
 }
 

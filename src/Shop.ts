@@ -682,7 +682,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   shopCashGrabUltra: {
     tier: 'Exalt1x30',
     price: 1,
-    priceIncrease: 2e22,
+    priceIncrease: 1e22,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -699,7 +699,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   shopEXUltra: {
     tier: 'Exalt5x20',
-    price: 1e22,
+    price: 5e21,
     priceIncrease: 0,
     maxLevel: 80,
     type: shopUpgradeTypes.UPGRADE,
@@ -708,7 +708,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   shopChronometerS: {
     tier: 'Exalt6x15',
-    price: 1e22,
+    price: 5e21,
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
@@ -718,7 +718,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   shopAmbrosiaUltra: {
     tier: 'Exalt6x25',
     price: 8e23,
-    priceIncrease: 8e23,
+    priceIncrease: 2e23,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -726,7 +726,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   shopSingularitySpeedup: {
     tier: 'Exalt7x10',
-    price: 2e23,
+    price: 2e22,
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
@@ -735,7 +735,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   shopSingularityPotency: {
     tier: 'Exalt7x20',
-    price: 2e24,
+    price: 2e23,
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
@@ -744,7 +744,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   },
   shopSadisticRune: {
     tier: 'Exalt7x30',
-    price: 2e25,
+    price: 4.44e24,
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
