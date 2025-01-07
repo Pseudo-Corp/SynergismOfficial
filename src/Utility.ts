@@ -155,9 +155,9 @@ export const cleanString = (s: string): string => {
   return cleaned
 }
 
-export function assert (condition: unknown): asserts condition {
+export function assert (condition: unknown, message?: string): asserts condition {
   if (!condition) {
-    throw new TypeError('assertion failed')
+    throw new TypeError('assertion failed', { cause: new TypeError(message) })
   }
 }
 

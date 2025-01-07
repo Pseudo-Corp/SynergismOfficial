@@ -11,6 +11,7 @@ import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { visualUpdateAmbrosia } from './UpdateVisuals'
 import { Globals as G } from './Variables'
+import { assert } from './Utility'
 
 export type blueberryUpgradeNames =
   | 'ambrosiaTutorial'
@@ -762,14 +763,14 @@ export const blueberryUpgradeData: Record<
 
 export const displayProperLoadoutCount = () => {
   const loadoutCount = 8 + PCoinUpgradeEffects.AMBROSIA_LOADOUT_SLOT_QOL
-  if (loadoutCount < 16) {
-    for (let i = 1; i <= 16; i++) {
-      const elm = DOMCacheGetOrSet(`blueberryLoadout${i}`)
-      if (i <= loadoutCount) {
-        elm.style.display = 'flex'
-      } else {
-        elm.style.display = 'none'
-      }
+  assert(loadoutCount <= 16, 'Yeah. Nice try.')
+
+  for (let i = 1; i <= 16; i++) {
+    const elm = DOMCacheGetOrSet(`blueberryLoadout${i}`)
+    if (i <= loadoutCount) {
+      elm.style.display = 'flex'
+    } else {
+      elm.style.display = 'none'
     }
   }
 }
