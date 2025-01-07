@@ -1,5 +1,6 @@
 import { format } from '../Synergism'
 import { Alert, Notification } from '../UpdateHTML'
+import { memoize } from '../Utility'
 import type { Product } from './CartTab'
 import { addToCart } from './CartUtil'
 
@@ -23,7 +24,7 @@ const clickHandler = (e: HTMLElementEventMap['click']) => {
   Notification(`Added ${productName} to the cart!`)
 }
 
-export const initializeProductPage = (products: Product[]) => {
+export const initializeProductPage = memoize((products: Product[]) => {
   productContainer!.innerHTML = products.map((product) => (`
     <section class="pseudoCoinContainer" key="${product.id}">
       <div>
@@ -43,13 +44,13 @@ export const initializeProductPage = (products: Product[]) => {
   document.querySelectorAll<HTMLButtonElement>('.pseudoCoinContainer > div > button[data-id]').forEach((element) => {
     element.addEventListener('click', clickHandler)
   })
-}
+})
 
 export const clearProductPage = () => {
-  productContainer!.innerHTML = ''
   productContainer!.style.display = 'none'
+}
 
-  document.querySelectorAll<HTMLButtonElement>('.pseudoCoinContainer > div > button[data-id]').forEach((element) => {
-    element.removeEventListener('click', clickHandler)
-  })
+export const toggleProductPage = (products: Product[]) => {
+  initializeProductPage(products)
+  productContainer!.style.display = 'grid'
 }

@@ -1,3 +1,4 @@
+import { prod } from '../Config'
 import { isLoggedIn } from '../Login'
 import { player } from '../Synergism'
 import { changeSubTab, Tabs } from '../Tabs'
@@ -5,7 +6,7 @@ import { Alert } from '../UpdateHTML'
 import { createDeferredPromise, type DeferredPromise, memoize } from '../Utility'
 import { setEmptyProductMap } from './CartUtil'
 import { clearCheckoutTab, toggleCheckoutTab } from './CheckoutTab'
-import { clearProductPage, initializeProductPage } from './ProductSubtab'
+import { clearProductPage, toggleProductPage } from './ProductSubtab'
 import { clearUpgradeSubtab, toggleUpgradeSubtab } from './UpgradesSubtab'
 
 export type Product = {
@@ -61,7 +62,7 @@ class CartTab {
   static applySubtabListeners () {
     for (const [index, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
       element.addEventListener('click', () => {
-        if (isLoggedIn()) {
+        if (isLoggedIn() || !prod) {
           changeSubTab(Tabs.Purchase, { page: index })
         } else {
           Alert('Note: you must be logged in to view this tab!')
@@ -85,13 +86,21 @@ class CartTab {
 
     switch (player.subtabNumber) {
       case cartSubTabs.Coins:
-        CartTab.fetchProducts().then(() => initializeProductPage(CartTab.#products))
+        CartTab.fetchProducts().then(() => {
+          if (player.subtabNumber === cartSubTabs.Coins) {
+            toggleProductPage(CartTab.#products)
+          }
+        })
         break
       case cartSubTabs.Upgrades:
         toggleUpgradeSubtab()
         break
       case cartSubTabs.Checkout:
-        CartTab.fetchProducts().then(() => toggleCheckoutTab(CartTab.#products))
+        CartTab.fetchProducts().then(() => {
+          if (player.subtabNumber === cartSubTabs.Checkout) {
+            toggleCheckoutTab(CartTab.#products)
+          }
+        })
         break
     }
   }
@@ -102,7 +111,7 @@ const onInit = memoize(() => {
   CartTab.applySubtabListeners()
 
   // Switch to the upgrades tab if not logged in
-  if (!isLoggedIn()) {
+  if (!isLoggedIn() || !prod) {
     changeSubTab(Tabs.Purchase, { step: 1 })
   }
 })

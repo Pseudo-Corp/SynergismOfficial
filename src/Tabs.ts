@@ -1,5 +1,6 @@
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed } from './Calculate'
+import { prod } from './Config'
 import { pressedKeys } from './Hotkeys'
 import { isLoggedIn } from './Login'
 import { initializeCart } from './purchases/CartTab'
@@ -277,7 +278,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       {
         subTabID: 'productContainer',
         get unlocked () {
-          return isLoggedIn()
+          return isLoggedIn() || !prod
         },
         buttonID: 'cartSubTab1'
       },
@@ -289,7 +290,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       {
         subTabID: 'cartContainer',
         get unlocked () {
-          return isLoggedIn()
+          return isLoggedIn() || !prod
         },
         buttonID: 'cartSubTab3'
       }

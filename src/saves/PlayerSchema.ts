@@ -52,6 +52,16 @@ const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
   return Object.fromEntries(
     Object.entries(record).filter(([key, _value]) => /^\d+$/.test(key))
   )
+}).transform((record) => {
+  const entries = Object.entries(blankSave.toggles)
+
+  for (const entry of entries) {
+    if (!Object.hasOwn(record, entry[0])) {
+      record[entry[0]] = entry[1]
+    }
+  }
+
+  return record
 })
 
 const decimalStringSchema = z.string().regex(/^|-?\d+(\.\d{1,2})?$/)
