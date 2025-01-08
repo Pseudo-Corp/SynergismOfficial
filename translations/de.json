@@ -1555,35 +1555,47 @@
       "unlockedIn": "In Singularity {{sing}} schaltest du einen neuen Vorteil frei",
       "header": "Die höchste erreichte Singularität die du erreicht hast ist die <span style=\"color: gold\">{{ord}} Singularität.</span><br/>Hier ist eine List mit Boni die du gesammelt hast um die Strafen auszugleichen",
       "description": "(Fahre darüber für mehr Details. Boni in <span style=\"color: gold\">goldenem Text</span> wurden in dieser Singularität hinzugefügt oder verbessert)",
-      "welcometoSingularity": "Willkommen bei der Singularität! Eine Fähigkeit fürs erreichen: du kannst jetzt Hepteract automatisch herstellen (wenn du diese wieder freigeschaltet hast) und Platonic Verbesserungen werden alle bezahlbaren gekauft!",
-      "unlimitedGrowth": "+10% mehr Quarks and Auftstiegswert für jede Singularität. Aktuell: +{{amount}}%",
-      "goldenCoins": "Goldene Quarks in der Bank verbessern deine Münzproduktion. Besonders stark beim ersten Aufstieg je Singularität. Aktuell: x{{amount}}",
+      "welcometoSingularity": {
+        "name": "Willkommen bei Singularität!",
+        "default": "Willkommen bei der Singularität! Eine Fähigkeit fürs erreichen: du kannst jetzt Hepteract automatisch herstellen (wenn du diese wieder freigeschaltet hast) und Platonic Verbesserungen werden alle bezahlbaren gekauft!"
+      },
+      "unlimitedGrowth": {
+        "name": "Unbegrenztes Wachstum",
+        "default": "+10% mehr Quarks and Auftstiegswert für jede Singularität. Aktuell: +{{amount}}%"
+      },
+      "goldenCoins": {
+        "name": "Goldene Münzen",
+        "default": "Goldene Quarks in der Bank verbessern deine Münzproduktion. Besonders stark beim ersten Aufstieg je Singularität. Aktuell: x{{amount}}"
+      },
       "xyz": {
+        "name": "XYZ: Xtra dailY rewardZ",
         "hasLevel2": "Zusätzlich zu goldenen Quarks und gratis Leveln (+0.2/+0.2/+1) für Upgrades 1/2/3 der goldenen Quarks erhältst du die DOPPELTE Menge an gratis Leven durch die tägliche Spezialaktion!",
         "hasLevel1": "Zusätzlich zu goldenen Quarks und gratis Leveln erhältst du von der täglichen Spezialaktion entsprechend +0.2/+0.2/+1 gratis Level von Upgrade 1/2/3 der goldenen Quarks!",
         "default": "Die tägliche Spezialaktion belohnt dich jetzt mit goldenen Quarks und gratis Leveln für zufällige Singularitäts-Upgrades. Beide skalieren mit deiner Singularitätszahl!"
       },
-      "hepteractAutocraft": "Automatisierung der Hepterakt-Schmiede wird freigeschaltet",
-      "generousOrbs": "Beim Öffnen von Würfeln, kann der Effect von Orbs des Überflusses auf Quarks, jetzt bis {{amount}}% gehen.",
-      "researchDummies": {
-        "hasLevel1": "Du behältst automatische Forschung dauerhaft",
-        "otherwise": "Du kannst nun Forschungen durch darüber fahren abschließen."
+      "generousOrbs": {
+        "name": "Generous Orbs",
+        "default": "Beim Öffnen von Würfeln, kann der Effect von Orbs des Überflusses auf Quarks, jetzt bis {{amount}}% gehen."
       },
-      "eternalAscensions": {
-        "hasLevel1": "Dein Aufstiegszähler ist multipliziert basierend auf deine Singularität und automatische Aufstiegsfunktion anhand von der realen Zeit freigeschaltet! Momentan: x{{amount}}",
-        "default": "Deine Aufstiegsanzahl wird aufgrund deiner Singularität multipliziert! Aktuell: x{{amount}}"
+      "researchDummies": {
+        "name": "Forschung für Dummies",
+        "hasLevel1": "Du behältst automatische Forschung dauerhaft",
+        "default": "Du kannst nun Forschungen durch darüber fahren abschließen."
       },
       "antGodsCornucopia": {
+        "name": "Ant God's Cornucopia",
         "hasLevel3": "Ameisengeschwindigkeit hat nun eine 'unzerstörbare' x4,44 Multiplikator und eine wahre unzerstörbare x1e12 Multiplikator!",
         "hasLevel2": "Ameisengeschwindigkeit hat nun eine 'unzerstörbare' x4,44 Multiplikator und eine wahre unzerstörbare x1e6 Multiplikator!",
         "hasLevel1": "Ameisengeschwindigkeit hat nun eine 'unzerstörbare' x4,44 Multiplikator und eine wahre unzerstörbare x1000 Multiplikator!",
         "default": "Ameisengeschwindigkeit hat nun permanent ein 'unzerstörbare' x4,44 Multiplikator."
       },
       "sweepomatic": {
+        "name": "Automatic Sweep-o-matic Mk.2",
         "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
-        "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
+        "default": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
       },
       "superStart": {
+        "name": "Super Start",
         "hasLevel4": "Du startest jeden Aufstieg mit einer Transzendenz, einer Reinkarnation, 1001 Mythos, 2,22e2222 Teilchen und 500 Obtainium",
         "hasLevel3": "Du startest jeden Aufstieg mit einer Transzendenz, einer Reinkarnation, 1001 Mythos, 1e100 Teilchen und 500 Obtainium",
         "hasLevel2": "Du startest jeden Aufstieg mit einer Transzendenz, einer Reinkarnation, 1001 Mythos, 1e16 Teilchen und 500 Obtainium",
@@ -1591,6 +1603,7 @@
         "default": "Du startest jeden Aufstieg mit einer Transzendenz und 1001 Mythos"
       },
       "notSoChallenging": {
+        "name": "Nicht so herausfordernd",
         "hasLevel4": "Du beginnst jeden Aufstieg mit einem Abschluss von Herausforderung 6, 7 & 9 und 5 Abschlüssen von Herausforderung 8",
         "hasLevel3": "Du beginnst jeden Aufstieg mit einem Abschluss von Herausforderung 6 & 7 und 5 Abschlüssen von Herausforderung 8",
         "hasLevel2": "Du beginnst jeden Aufstieg mit einem Abschluss von Herausforderung 6, 7 und 8",
@@ -1598,6 +1611,7 @@
         "default": "Du beginnst jeden Aufstieg mit einem Abschluss von Herausforderung 6"
       },
       "automationUpgrades": {
+        "name": "Automatisierungs-Upgrades",
         "hasLevel5": "Nach erreichen der 100sten Singularität wirst du den Geschmack von 'Wow! Ein Haufen Schokoladenplätzchen' nie vergessen!",
         "hasLevel4": "Du behältst w1x4 bis w1x8, w2x10, r6x5, r6x10 und r6x20. Der Automatisierungs-Markt wird ebenfalls automatisch gekauft!",
         "hasLevel3": "Du behältst w1x4 bis w1x8 und w2x10. Der Automatisierungs-Markt wird jetzt automatisch gekauft!",
@@ -1606,67 +1620,128 @@
         "default": "You hast immer w1x7. (Autokäufer für Teilchen-Gebäude)"
       },
       "evenMoreQuarks": {
+        "name": "Noch mehr Quarks",
         "bug": "Das ist ein Bug! Kontaktiere Platonic wenn du aus irgendeinem Grund diese Nachricht siehts.",
-        "m": "Du erhältst {{stack}} Level von +5% Quarks! Gesamte Verbesserung: +{{inc}}%"
+        "default": "Du erhältst <<cyan|{{stack}}>> Level von <<cyan|+5%>> Quarks! Gesamte Verbesserung: <<cyan|+{{inc}}>>%"
       },
       "shopSpecialOffer": {
+        "name": "Markt Sonderangebot",
         "hasLevel2": "Marktupgrades aus der Reinkarnations und Aufstiegsstufe behältst du nun dauerhaft!",
         "hasLevel1": "Du behältst dauerhaft 100 Level aller Marktupgrades in der ersten Reihe.",
         "default": "You startest jede Singularität mit 10 gratis Leveln von jedem Marktupgrade in der ersten Reihe."
       },
-      "potionAutogenerator": "Alle 180 Sekunden wird automatisch ein gratis Gaben & Obtainium-Trank  verwendet! Je Singularität wird das Intervall um 3% reduziert.",
-      "respecBeGone": "Talismane verstärken nun all Runen gleichzeitig!",
+      "potionAutogenerator": {
+        "name": "Trank Autogenerator",
+        "default": "Alle 180 Sekunden wird automatisch ein gratis Gaben & Obtainium-Trank  verwendet! Je Singularität wird das Intervall um 3% reduziert."
+      },
+      "respecBeGone": {
+        "name": "Konzentration, ist weg!",
+        "default": "Talismane verstärken nun all Runen gleichzeitig!"
+      },
       "forTheLoveOfTheAntGod": {
+        "name": "Für die Liebe des (Ameisen) Gottes!",
         "hasLevel2": "Du behältst dauerhaft die Ameisen-Autokäufer und beginnst jeden Aufstieg mit einer Stufe 8 Ameise.",
         "hasLevel1": "Du behältst dauerhaft die Ameisen-Autokäufer und beginnst jeden Aufstieg mit einer Stufe 5 Ameise.",
         "default": "Du behältst dauerhaft die Ameisen-Autokäufer und beginnst jeden Aufstieg mit einer Stufe 1 Ameise."
       },
-      "itAllAddsUp": "Die ADD-Code Belohnung wir durch {{div}} geteilt aber die Abklingzeit wird ebenfalls durch {{div2}} geteilt und die Kapazität wird mit {{cap}} multipliziert (aufgerundet).",
+      "itAllAddsUp": {
+        "name": "Es summiert sich alles",
+        "default": "The 'Add' Special Action reward & cooldown is divided by {{div}} while its maximum capacity is multiplied the same amount! (Rounded Up)."
+      },
       "automagicalRunes": {
+        "name": "Automagische Runen",
         "hasLevel3": "Runen-Autokäufer kaufen jetzt auch Segen, Geister, Talisman-Splitter, Fragmente and verbessern Unendlicher Aufstieg UND Antiquitäten des Ameisengottes",
         "hasLevel2": "Runen-Autokäufer kaufen jetzt auch Segen, Geister, Talisman-Splitter, Fragmente and verbessern Unendlicher Aufstieg",
         "hasLevel1": "Runen-Autokäufer kaufen jetzt auch Segen & Geister and verbessern Unendlicher Aufstieg",
         "default": "Runen-Autokäufer kaufen jetzt auch Segen und Geister"
       },
-      "exaltedAchievements": "Schaltet neue, sehr schwere Erfolge frei! Du musst sie dir aber auf andere Weise verdienen als andere.",
+      "eternalAscensions": {
+        "name": "Ewige Aufstiege",
+        "default": "Unlock a new Real Time based Auto Ascension mode!"
+      },
+      "exaltedAchievements": {
+        "name": "EXALT Tresor",
+        "default": "Unlocks new, very difficult challenges! They may only be entered after reaching high enough Singularities!"
+      },
+      "derpSmithsCornucopia": {
+        "name": "Kornschmiede von Derpschmied",
+        "default": "Mit dem Segen von Derpsmith gewährt dir jede Singularität +{{counter}}% mehr Okterakte!"
+      },
       "coolQOLCubes": {
+        "name": "Coole Qol-Würfel",
         "hasLevel1": "Behalte alle Würfelöffnungs-Forschungen UND schalte die Möglichkeit frei beim Aufstieg automatisch einen Prozentsatz deiner Würfel zu öffnen!",
         "default": "Forschungen mit Bezug auf das Öffnen von Würfeln werden beim Aufstieg nicht mehr zurückgesetzt"
       },
-      "irishAnt": "Ants blessed with the luck of the Irish grant ☘ {{i}} Ambrosia Luck!",
-      "irishAnt2": "Ants blessed with more fortunate luck of the Irish grant ☘ {{i}} more Ambrosia Luck!",
-      "overclocked": "Levellimits für bestimmte Singularitätsupgrades werden um {{i}} erhöht!",
+      "irishAnt": {
+        "name": "Irische Ameisen",
+        "default": "Ants blessed with the luck of the Irish grant <<limegreen|☘ {{i}}>> Ambrosia Luck!"
+      },
+      "irishAnt2": {
+        "name": "Irische Ameisen II: Elektrischer Boogaloo",
+        "default": "Ants blessed with more fortunate luck of the Irish increase base ☘ Ambrosia Luck by <<limegreen|{{percent}}%>>! +1% per perk level."
+      },
+      "overclocked": {
+        "name": "Übertaktet",
+        "default": "Levellimits für bestimmte Singularitätsupgrades werden um {{i}} erhöht!"
+      },
       "wowCubeAutomatedShipping": {
+        "name": "Wow! Würfel automatischer Versand",
         "hasLevel1": "Kaufe beim Aufstieg automatisch Würfel-Upgrades, egal wo du bist!",
         "default": "Kaufe beim Aufstieg automatisch Würfel-Upgrades, aber nur in Singularitäts-Herausforderungen."
       },
-      "congealedblueberries": "Halbfeste Blaubeeren verhalten sich wie normale Blaubeeren. Erhalte +{{i}} Blaubeeren, die im Blaubeeren-Baum verwendet werden können!",
-      "goldenRevolution": "Singularität gibt 0.4% mehr goldene Quarks je Singularity. Aktuell: +{{current}}% (MAX: +100%)",
-      "goldenRevolutionII": "Goldene Quarks sind 0.2% günstiger je Singularity. Aktuell: -{{current}}% (MAX: -50%)",
-      "goldenRevolutionIII": "Export gibt 2% mehr goldene Quarks je Singularity. Aktuell: +{{current}}% (MAX: +500%)",
+      "congealedblueberries": {
+        "name": "Congealed Blueberries",
+        "default": "Halbfeste Blaubeeren verhalten sich wie normale Blaubeeren. Erhalte +{{i}} Blaubeeren, die im Blaubeeren-Baum verwendet werden können!"
+      },
+      "goldenRevolution": {
+        "name": "Goldene Revolution",
+        "default": "Singularität gibt 0.4% mehr goldene Quarks je Singularity. Aktuell: +{{current}}% (MAX: +100%)"
+      },
+      "goldenRevolutionII": {
+        "name": "Goldene Revolution II",
+        "default": "Goldene Quarks sind 0.2% günstiger je Singularity. Aktuell: -{{current}}% (MAX: -50%)"
+      },
+      "goldenRevolutionIII": {
+        "name": "Goldene Revolution III",
+        "default": "Export gibt 2% mehr goldene Quarks je Singularity. Aktuell: +{{current}}% (MAX: +500%)"
+      },
       "platonicClones": {
+        "name": "Klone von Platonic klicken auf Ihrem Desktop",
         "hasLevel1": "Kaufe automatsch platonische Upgrades mit jedem Aufstieg, ohne dafür Obtainium oder Gaben auszugeben. Überall!",
         "default": "Kaufe automatisch platonische Upgrades mit jedem Aufstieg, ohne dafür Obtainium oder Gaben auszugeben. Aber nur in Singularität-Herausforderungen."
       },
-      "dilatedFiveLeaf": {
-        "desc": "Increase your base ☘ Ambrosia Luck by <<limegreen|{{percent}}%>>! +1% per perk level."
+      "platSigma": {
+        "name": "PL-AT Σ",
+        "default": "Code 'add' füllt sich {{counter}}% schneller je Level je Singularity. Aktuell: {{current}} (MAX: -60% Abklingzeit)"
       },
-      "platSigma": "Code 'add' füllt sich {{counter}}% schneller je Level je Singularity. Aktuell: {{current}} (MAX: -60% Abklingzeit)",
-      "midasMilleniumAgedGold": "Jede Verwendung des 'add'-Codes gibt 0,01 gratis Level von Goldene Quarks 1 und 0,05 gratis Level von Goldene Quarks 3. ",
-      "goldenRevolution4": "Jeden Okterakt-Tick, erhalte 1/{{gq}} der goldene Quarks die du beim erreichen der Singularität erhalten würdest!",
+      "midasMilleniumAgedGold": {
+        "name": "Midas' Millenium-Aged Gold",
+        "default": "Jede Verwendung des 'add'-Codes gibt 0,01 gratis Level von Goldene Quarks 1 und 0,05 gratis Level von Goldene Quarks 3."
+      },
+      "goldenRevolution4": {
+        "name": "Goldene Revolution IV",
+        "default": "Jeden Okterakt-Tick, erhalte 1/{{gq}} der goldene Quarks die du beim erreichen der Singularität erhalten würdest!"
+      },
       "octeractMetagenesis": {
-        "hasLevel1": "Kaufe automatisch Würfel-Upgrades bei jedem Aufstieg, egal wo du bist!",
-        "default": "Kaufe automatisch Würfel-Upgrades bei jedem Aufstieg. Aber nur in Singularitäts-Herausforderungen."
+        "name": "Octeract Metagenesis",
+        "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 640)^0.5, (level^2 * free/125000)^0.333 respectively ",
+        "default": "Gives free levels of Octeract Cogenesis based on your current free levels and purchased levels: (level * free / 1000)^0.5"
       },
       "immaculateAlchemy": {
+        "name": "Immaculate Alchemy",
         "hasLevel2": "Nach Singularität 200 funktioniert Zeitraffer nicht mehr! Stattdessen wird dein GQ Gewinn mit 8 multipliziert und deine GQ Kaufkosten durch 8 dividiert.",
         "hasLevel1": "Nach Singularität 200 funktioniert Zeitraffer nicht mehr! Stattdessen wird dein GQ Gewinn mit 5 multipliziert und deine GQ Kaufkosten durch 5 dividiert.",
         "default": "Nach Singularität 200 funktioniert Zeitraffer nicht mehr! Stattdessen wird dein GQ Gewinn mit 3 multipliziert und deine GQ Kaufkosten durch 3 dividiert."
       },
-      "skrauQ": "Multiplizieren alle deine Quark-Gewinne mit ((Singularität - 179)/20)^2. Aktuell: {{amt}}... Ja, es ist so gut.",
-      "derpSmithsCornucopia": "Mit dem Segen von Derpsmith gewährt dir jede Singularität +{{counter}}% mehr Okterakte!",
-      "oneHundredThirtyOne": "Gain <<green|☘ +131>> Ambrosia Luck!",
-      "twoHundredSixtyNine": "Gain <<green|☘ +269>> Ambrosia Luck!"
+      "skrauQ": {
+        "name": "skrauQ",
+        "default": "Multiplizieren alle deine Quark-Gewinne mit ((Singularität - 179)/20)^2. Aktuell: {{amt}}... Ja, es ist so gut."
+      },
+      "primalPower": {
+        "name": "Primal Power!",
+        "hasLevel1": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> Ambrosia Luck!",
+        "default": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|☘ +131>> Ambrosia Luck!"
+      }
     },
     "toString": {
       "noMinimum": "Keine minimale Menge an Singularitäten zum Kaufen erforderlich",
@@ -2064,49 +2139,6 @@
       "penaltyRough": "Deine Strafen werden in <<var(--red-text-color)|Singularity {{num}}>> stark verschlimmert.",
       "antiquitiesBought": "<<var(--green-text-color)|Antiquities of Ant God is maxed! Penalties are dispelled!>>",
       "antiquitiesNotBought": "<<var(--red-text-color)|Penalties are active because you have not leveled up Antiquities of Ant God!>>"
-    },
-    "perkNames": {
-      "welcometoSingularity": "Welcome to Singularity!",
-      "unlimitedGrowth": "Unbegrenztes Wachstum",
-      "goldenCoins": "Goldene Münzen",
-      "xyz": "XYZ: Xtra dailY rewardZ",
-      "hepteractAutocraft": "Hepteract Autocraft",
-      "generousOrbs": "Generous Orbs",
-      "researchDummies": "Forschung für Dummies",
-      "eternalAscensions": "Ewige Aufstiege",
-      "antGodsCornucopia": "Ant God's Cornucopia",
-      "sweepomatic": "Automatic Sweep-o-matic Mk.2",
-      "superStart": "Super Start",
-      "notSoChallenging": "Nicht so herausfordernd",
-      "automationUpgrades": "Automatisierungs-Upgrades",
-      "evenMoreQuarks": "Noch mehr Quarks",
-      "shopSpecialOffer": "Markt Sonderangebot",
-      "potionAutogenerator": "Trank Autogenerator",
-      "respecBeGone": "Konzentration, ist weg!",
-      "forTheLoveOfTheAntGod": "Für die Liebe des (Ameisen) Gottes!",
-      "itAllAddsUp": "Es summiert sich alles",
-      "automagicalRunes": "Automagische Runen",
-      "exaltedAchievements": "EXALT Tresor",
-      "derpSmithsCornucopia": "Kornschmiede von Derpschmied",
-      "coolQOLCubes": "Coole Qol-Würfel",
-      "irishAnt": "Irische Ameisen",
-      "dilatedFiveLeaf": "Dilated Five Leaf Clover!",
-      "irishAnt2": "Irische Ameisen II: Elektrischer Boogaloo",
-      "overclocked": "Übertaktet",
-      "wowCubeAutomatedShipping": "Wow! Würfel automatischer Versand",
-      "congealedblueberries": "Congealed Blueberries",
-      "goldenRevolution": "Goldene Revolution",
-      "goldenRevolutionII": "Goldene Revolution II",
-      "goldenRevolutionIII": "Goldene Revolution III",
-      "platonicClones": "Klone von Platonic klicken auf Ihrem Desktop",
-      "platSigma": "PL-AT Σ",
-      "midasMilleniumAgedGold": "Midas' Millenium-Aged Gold",
-      "goldenRevolution4": "Golden Revolution IV",
-      "octeractMetagenesis": "Octeract Metagenesis",
-      "immaculateAlchemy": "Immaculate Alchemy",
-      "skrauQ": "skrauQ",
-      "twoHundredSixtyNine": "Two Hundred and Sixty Nine!",
-      "oneHundredThirtyOne": "One Hundred and Thirty One!"
     }
   },
   "general": {
@@ -2134,7 +2166,7 @@
     "enabled": "(Aktiviert)",
     "infinity": "Unendlich",
     "sacrificeCapital": "AUFGEBEN",
-    "multiBuyInstructions": "Halte <var(--orchid-text-color)|'SHIFT'> um mehrere Level, beim Klicken, auf einmal zu kaufen!",
+    "multiBuyInstructions": "Halte <<var(--orchid-text-color)|'SHIFT'>> um mehrere Level, beim Klicken, auf einmal zu kaufen!",
     "autoOnColon": "Auto: AN",
     "autoOffColon": "Auto: AUS",
     "buyMaxOn": "Max. kaufen: AN",
