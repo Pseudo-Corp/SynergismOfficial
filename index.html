@@ -16,7 +16,9 @@
 
     <link rel="stylesheet" href="Synergism.css">
     <title>Synergism</title>
+
     <script src="./dist/out.js" defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="bodycolor loading">
     <div id="transparentBG" style="display: block;"></div>
@@ -3677,7 +3679,53 @@
             </div>
         </div>
         <div class="subtabContent subtabDisplayFlex" id="accountSubTab">
-          <div class="scrollbarX"></div>
+          <div class="scrollbarX">
+            <div id="button-holder">
+              <button id="open-register">Register</button>
+              <button id="open-signin">Login</button>
+              <button id="open-forgotpassword">Forgot Password</button>
+            </div>
+            <div id="register">
+              <form action="https://synergism.cc/register" method="POST">
+                <label for="email">Email Address</label>
+                <input type="text" id="email" name="email" placeholder="you@gmail.com">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="......">
+                <label for="password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="......">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAA4kwOTMEdx48IMm"></div>
+                <input type="submit" value="Register">
+              </form>
+            </div>
+            <div id="login">
+              <form action="https://synergism.cc/signin" method="POST">
+                <label for="email-si">Email Address</label>
+                <input type="text" id="email-si" name="email" placeholder="you@gmail.com">
+                <label for="password-si">Password</label>
+                <input type="password" id="password-si" name="password" placeholder="......">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAA4kwOTMEdx48IMm"></div>
+                <input type="submit" value="Login">
+              </form>
+            </div>
+            <div id="forgotpassword">
+              <form action="https://synergism.cc/forgot-password" method="POST">
+                <label for="email-fp">Email Address</label>
+                <input type="text" id="email-fp" name="email" placeholder="you@gmail.com">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAA4kwOTMEdx48IMm"></div>
+                <p>This can only be once a day!</p>
+                <input type="submit" value="Send Reset Password Email">
+              </form>
+            </div>
+
+            <a
+              href="https://synergism.cc/login?with=discord"
+              style="display:inline-block;border: 2px solid #5865F2; height: 25px; width: 20%; margin-bottom:5px;"
+            >Login with Discord</a>
+            <a
+              href="https://synergism.cc/login?with=patreon"
+              style="display:inline-block;border: 2px solid #ff5900; height: 25px; width: 20%;"
+            >Login with Patreon</a>
+          </div>
           <!-- TODO: i18n (not done because of potential conflicts with pixel-update) -->
           <button id="logoutButton">Logout</button>
         </div>
