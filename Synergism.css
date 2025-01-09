@@ -3887,7 +3887,7 @@ img#singularityPerksIcon {
   margin: 2px;
 }
 
-#accountSubTab > div.scrollbarX > div:is(#register, #login) {
+#accountSubTab > div.scrollbarX > div:is(#register, #login, #forgotpassword) {
   display: flex;
   flex-direction: column;
   border: 1px solid gold;
@@ -3895,7 +3895,7 @@ img#singularityPerksIcon {
   margin: 0 auto;
 }
 
-#accountSubTab > div.scrollbarX > div:is(#login) {
+#accountSubTab > div.scrollbarX > div:is(#login, #forgotpassword) {
   display: none;
 }
 
