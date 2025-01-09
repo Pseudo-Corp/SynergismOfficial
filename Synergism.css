@@ -3875,28 +3875,28 @@ img#singularityPerksIcon {
 /* // Stolen from https://codepen.io/mike-schultz/pen/NgQvGO */
 
 #accountSubTab > div.scrollbarX > div[id="button-holder"] {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 #accountSubTab > div.scrollbarX > div[id="button-holder"] > button {
-  border: 2px solid red;
-  min-width: 150px;
-  min-height: 30px;
-  margin: 2px;
+    border: 2px solid red;
+    min-width: 150px;
+    min-height: 30px;
+    margin: 2px;
 }
 
 #accountSubTab > div.scrollbarX > div:is(#register, #login, #forgotpassword) {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid gold;
-  width: max-content;
-  margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gold;
+    width: max-content;
+    margin: 0 auto;
 }
 
 #accountSubTab > div.scrollbarX > div:is(#login, #forgotpassword) {
-  display: none;
+    display: none;
 }
 
 /** Remove vertical spacing */
@@ -3906,12 +3906,12 @@ img#singularityPerksIcon {
 
 #accountSubTab > div.scrollbarX > div > form > * {
     font-size: medium;
-    margin: 2px 10px 2px 10px;
+    margin: 2px 10px;
 }
 
 #accountSubTab > div.scrollbarX > div > form > input[type="submit"] {
     border: 1px solid gold;
-    padding: 3px 5px 3px 5px;
+    padding: 3px 5px;
 }
 
 #pixelProgressBar {

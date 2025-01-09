@@ -119,7 +119,7 @@ export async function handleLogin () {
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 
-  if (location.hostname !== 'synergism.cc' && false) {
+  if (location.hostname !== 'synergism.cc') {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
   } else if (member !== null) {
