@@ -2481,9 +2481,9 @@
       "account": "Account"
     },
     "pseudocoins": {
-        "buy": "Purchase Coins",
-        "upgrades": "Buy Upgrades",
-        "merch": "Purchase Merch"
+      "buy": "Purchase Coins",
+      "upgrades": "Buy Upgrades",
+      "merch": "Purchase Merch"
     }
   },
   "offlineProgress": {
