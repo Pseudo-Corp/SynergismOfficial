@@ -11,6 +11,7 @@ import {
   octeractGainPerSecond
 } from './Calculate'
 import { quarkHandler } from './Quark'
+import { Seed, seededRandom } from './RNG'
 import { checkMaxRunes, redeemShards, unlockedRune } from './Runes'
 import { useConsumable } from './Shop'
 import { player } from './Synergism'
@@ -214,7 +215,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         + (3 / 4 - 2 / 3) * +(player.singularityChallenges.noAmbrosiaUpgrades.completions >= 20)
 
       while (player.blueberryTime >= timeToAmbrosia) {
-        const RNG = Math.random()
+        const RNG = seededRandom(Seed.Ambrosia)
         const ambrosiaMult = Math.floor(ambrosiaLuck / 100)
         const luckMult = RNG < ambrosiaLuck / 100 - Math.floor(ambrosiaLuck / 100) ? 1 : 0
         const bonusAmbrosia = (player.singularityChallenges.noAmbrosiaUpgrades.rewards.bonusAmbrosia) ? 1 : 0

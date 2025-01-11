@@ -12,7 +12,8 @@ export const seededBetween = (index: SeedValues, min: number, max: number) =>
   Math.floor(seededRandom(index) * (max - min + 1) + min)
 
 export const Seed = {
-  PromoCodes: 0
+  PromoCodes: 0,
+  Ambrosia: 1
 } as const
 
 export type SeedValues = typeof Seed[keyof typeof Seed]
