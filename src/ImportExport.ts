@@ -4,7 +4,6 @@ import localforage from 'localforage'
 import LZString from 'lz-string'
 import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { octeractGainPerSecond } from './Calculate'
 import { testing, version } from './Config'
 import { Synergism } from './Events'
 import { addTimers } from './Helper'
@@ -18,7 +17,7 @@ import { synergismStage } from './Statistics'
 import { blankSave, format, player, reloadShit, saveCheck, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import type { Player } from './types/Synergism'
-import { Alert, Confirm, Prompt } from './UpdateHTML'
+import { Alert, Prompt } from './UpdateHTML'
 import { cleanString, getElementById, productContents, sumContents } from './Utility'
 import { btoa } from './Utility'
 import { Globals as G } from './Variables'
@@ -248,8 +247,9 @@ export const exportSynergism = async (
       : 1
     if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
       player.goldenQuarks += Math.floor(
-        player.goldenQuarksTimer
-          / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
+        player.goldenQuarksTimer / (
+          3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus
+        )
       ) * bonusGQMultiplier
       player.goldenQuarksTimer = player.goldenQuarksTimer
         % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
@@ -431,81 +431,13 @@ export const promocodes = async (input: string | null, amount?: number) => {
   if (input === null) {
     return Alert(i18next.t('importexport.comeBackSoon'))
   }
-  if (
-    input === '23andme'
-    && !player.codes.get(48)
-    && G.isEvent
-  ) {
-    if (!player.dailyCodeUsed) {
-      return Alert(
-        'This event code gives you another usage of code \'daily\'. Please use that code and try this event code again.'
-      )
-    }
 
-    player.codes.set(48, true)
-    player.quarkstimer = quarkHandler().maxTime
-    player.goldenQuarksTimer = 3600 * 24
-    addTimers('ascension', 8 * 3600)
-    player.dailyCodeUsed = false
-
-    if (
-      player.challenge15Exponent >= 1e15
-      || player.highestSingularityCount > 0
-    ) {
-      player.hepteractCrafts.quark.CAP *= 2
-      player.hepteractCrafts.quark.BAL += Math.min(
-        1e13,
-        player.hepteractCrafts.quark.CAP / 2
-      )
-    }
-    if (player.highestSingularityCount > 0) {
-      player.singularityUpgrades.goldenQuarks1.freeLevels += 1 + Math.floor(player.highestSingularityCount / 10)
-      player.singularityUpgrades.goldenQuarks2.freeLevels += 1 + Math.floor(player.highestSingularityCount / 10)
-      player.singularityUpgrades.goldenQuarks3.freeLevels += 1 + Math.floor(player.highestSingularityCount / 10)
-      if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
-        player.octeractUpgrades.octeractImprovedQuarkHept.freeLevels += 0.05
-      }
-    }
-
-    return Alert(
-      `Not sponsored by the company! Your Quark timer(s) have been replenished and you have been given 8 real life hours of Ascension progress! Your daily code has also been reset for you.
-                      ${
-        player.challenge15Exponent >= 1e15
-          || player.highestSingularityCount > 0
-          ? 'Derpsmith also hacked your save to expand Quark Hepteract for free, and (to a limit) automatically filled the extra amount! What a generous, handsome gigachad.'
-          : ''
-      }
-                      ${
-        player.highestSingularityCount > 0
-          ? 'You were also given free levels of GQ1-3!'
-          : ''
-      } 
-                      ${
-        player.singularityUpgrades.octeractUnlock.getEffect()
-            .bonus
-          ? 'Finally, you were given a tiny amount of free Octeract Quark Hepteract Improver upgrade!'
-          : ''
-      }`
-    )
-  }
-  if (input === 'synergism2021' && !player.codes.get(1)) {
-    player.codes.set(1, true)
-    player.runeshards += 25
-    player.worlds.add(50)
-    el.textContent = i18next.t('importexport.promocodes.synergism2021')
-  } else if (input === ':unsmith:' && player.achievements[243] < 1) {
+  if (input === ':unsmith:' && player.achievements[243] < 1) {
     achievementaward(243)
     el.textContent = i18next.t('importexport.promocodes.unsmith')
   } else if (input === ':antismith:' && player.achievements[244] < 1) {
     achievementaward(244)
     el.textContent = i18next.t('importexport.promocodes.antismith')
-  } else if (input === 'Khafra' && !player.codes.get(26)) {
-    player.codes.set(26, true)
-    const quarks = Math.floor(seededRandom(Seed.PromoCodes) * (400 - 100 + 1) + 100)
-    player.worlds.add(quarks)
-    el.textContent = i18next.t('importexport.promocodes.khafra', {
-      x: player.worlds.applyBonus(quarks)
-    })
   } else if (input === 'alonso bribe' && !player.codes.get(47)) {
     const craft = player.hepteractCrafts.quark
 
@@ -839,135 +771,6 @@ export const promocodes = async (input: string | null, amount?: number) => {
           x: first + second,
           y: remaining,
           z: timeToNext.toLocaleString(navigator.language)
-        })
-      )
-    }
-  } else if (input === 'sub') {
-    const amount = 1 + (window.crypto.getRandomValues(new Uint16Array(1))[0] % 16) // [1, 16]
-    const quarks = Number(player.worlds)
-    await Alert(i18next.t('importexport.promocodes.sub.subbed', { x: amount }))
-
-    if (quarks < amount) {
-      await Alert(
-        i18next.t('importexport.promocodes.sub.gave', {
-          x: amount - quarks,
-          y: amount
-        })
-      )
-    }
-
-    player.worlds.sub(quarks < amount ? amount - quarks : amount)
-  } else if (input === 'gamble') {
-    if (typeof player.skillCode === 'number') {
-      if ((Date.now() - player.skillCode!) / 1000 < 3600) {
-        return (el.textContent = i18next.t(
-          'importexport.promocodes.gamble.wait'
-        ))
-      }
-    }
-
-    const confirmed = await Confirm(i18next.t('importexport.promocodes.gamble.prompt'))
-
-    if (!confirmed) {
-      return (el.textContent = i18next.t(
-        'importexport.promocodes.gamble.cancelled'
-      ))
-    }
-
-    const bet = Number(
-      await Prompt(i18next.t('importexport.promocodes.gamble.betPrompt'))
-    )
-    if (Number.isNaN(bet) || bet <= 0) {
-      return (el.textContent = i18next.t('general.validation.zeroOrLess'))
-    } else if (bet > 1e4) {
-      return (el.textContent = i18next.t(
-        'importexport.promocodes.gamble.cheaters'
-      ))
-    } else if (Number(player.worlds) < bet) {
-      return (el.textContent = i18next.t(
-        'general.validation.moreThanPlayerHas'
-      ))
-    }
-
-    const dice = seededBetween(Seed.PromoCodes, 1, 6) // [1, 6]
-
-    if (dice === 1) {
-      const won = bet * 0.25 // lmao
-      player.worlds.add(won, false)
-
-      player.skillCode = Date.now()
-      return (el.textContent = i18next.t('importexport.promocodes.gamble.won', {
-        x: won
-      }))
-    }
-
-    player.worlds.sub(bet)
-    el.textContent = i18next.t('importexport.promocodes.gamble.lost', {
-      x: bet
-    })
-  } else if (input === 'time') {
-    const availableUses = timeCodeAvailableUses()
-    if (availableUses === 0) {
-      return Alert(i18next.t('importexport.promocodes.time.wait'))
-    }
-
-    const rewardMult = timeCodeRewardMultiplier()
-
-    const random = seededRandom(Seed.PromoCodes) * 15000 // random time within 15 seconds
-    const start = Date.now()
-    const playerConfirmed = await Confirm(
-      i18next.t('importexport.promocodes.time.confirm', {
-        x: format(2500 + 125 * player.cubeUpgrades[61], 0, true),
-        y: format(rewardMult, 2, true)
-      })
-    )
-
-    if (playerConfirmed) {
-      const diff = Math.abs(Date.now() - (start + random))
-      player.promoCodeTiming.time = Date.now()
-
-      if (diff <= 2500 + 125 * player.cubeUpgrades[61]) {
-        const reward = Math.floor(
-          Math.min(1000, 125 + 25 * player.highestSingularityCount)
-            * (1 + player.cubeUpgrades[61] / 50)
-        )
-        let actualQuarkAward = player.worlds.applyBonus(reward)
-        let blueberryTime = 0
-        if (actualQuarkAward > 66666) {
-          actualQuarkAward = Math.pow(actualQuarkAward, 0.35) * Math.pow(66666, 0.65)
-        }
-
-        if (player.visitedAmbrosiaSubtab) {
-          blueberryTime = 1800 * rewardMult
-        }
-
-        player.worlds.add(actualQuarkAward * rewardMult, false)
-        G.ambrosiaTimer += blueberryTime
-        const winText = i18next.t('importexport.promocodes.time.won', {
-          x: format(actualQuarkAward * rewardMult, 0, true)
-        })
-        const ambrosiaText = blueberryTime > 0
-          ? i18next.t('importexport.promocodes.time.ambrosia', {
-            blueberryTime
-          })
-          : ''
-        return Alert(winText + ambrosiaText)
-      } else {
-        return Alert(i18next.t('importexport.promocodes.time.lost'))
-      }
-    }
-  } else if (input === 'spoiler') {
-    const perSecond = octeractGainPerSecond()
-    if (perSecond > 1) {
-      return Alert(
-        i18next.t('importexport.promocodes.spoiler.moreThan1', {
-          x: format(perSecond, 2, true)
-        })
-      )
-    } else {
-      return Alert(
-        i18next.t('importexport.promocodes.spoiler.one', {
-          x: format(1 / perSecond, 2, true)
         })
       )
     }
