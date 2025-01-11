@@ -289,15 +289,19 @@ async function getCloudSave () {
   await importSynergism(save?.save ?? null)
 }
 
+const hasCaptcha = new WeakSet<HTMLElement>()
+
 export function renderCaptcha () {
   const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
   const visible = captchaElements.find((el) => el.offsetParent !== null)
 
-  if (visible) {
+  if (visible && !hasCaptcha.has(visible)) {
     turnstile.render(visible, {
       sitekey: visible.getAttribute('data-sitekey')!,
       'error-callback' () {},
       retry: 'never'
     })
+
+    hasCaptcha.add(visible)
   }
 }
