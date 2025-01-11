@@ -137,6 +137,15 @@ body.loading {
 .amberText { color: var(--amber-text-color); }
 .lightyellowText { color: var(--lightgoldenrodyellow-text-color); }
 
+.active-subtab {
+    background-color: crimson;
+}
+
+#corrStatsBtn.active-subtab,
+#corrLoadoutsBtn.active-subtab {
+    background-color: dodgerblue;
+}
+
 .boxColor {
     border: 3px solid;
     border-color: var(--boxmain-bordercolor);
@@ -2655,24 +2664,6 @@ p#ascendHotKeys {
 
 .constUpgradeAuto {
     background-color: green;
-}
-
-/* .constUpgradeSingle {
-    background-color: gold;
-}
-
-.constUpgradeSingleAvailable {
-    background-color: gold;
-    cursor: pointer;
-}
-
-.constUpgradeSingleAvailable:hover {
-    background-color: #fff4b3;
-} */
-
-.subtabSwitcher > * > button.buttonActive,
-.subtabSwitcher > button.buttonActive {
-    background-color: crimson;
 }
 
 .subtabContent {

@@ -1098,16 +1098,19 @@ export const updateAchievementBG = () => {
 }
 
 export const showCorruptionStatsLoadouts = () => {
+  const statsButton = DOMCacheGetOrSet('corrStatsBtn')
+  const corrLoadoutsButton = DOMCacheGetOrSet('corrLoadoutsBtn')
+
   if (player.corruptionShowStats) {
     DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
-    DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'dodgerblue'
-    DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'white'
+    statsButton.classList.add('subtab-active')
+    corrLoadoutsButton.classList.remove('subtab-active')
   } else {
     DOMCacheGetOrSet('corruptionStats').style.display = 'none'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'flex'
-    DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'white'
-    DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'dodgerblue'
+    statsButton.classList.remove('subtab-active')
+    corrLoadoutsButton.classList.add('subtab-active')
   }
 }
 

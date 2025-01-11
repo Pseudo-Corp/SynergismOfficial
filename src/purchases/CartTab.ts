@@ -76,9 +76,9 @@ class CartTab {
   #updateSubtabs () {
     for (const [index, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
       if (player.subtabNumber === index) {
-        element.classList.add('buttonActive')
+        element.classList.add('active-subtab')
       } else {
-        element.classList.remove('buttonActive')
+        element.classList.remove('active-subtab')
       }
     }
 
