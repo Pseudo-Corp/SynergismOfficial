@@ -4236,3 +4236,101 @@ form input:hover {
     max-height: fit-content;
     margin: auto;
 }
+
+#merchContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#merchContainer > a {
+    text-decoration: none;
+    margin-top: 10px;
+    border: 2px solid purple;
+    min-width: 150px;
+    text-align: center;
+}
+
+#merchContainer > a:hover {
+    background-color: var(--hover-color);
+}
+
+#merchContainer > #slideshows {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+.slideshow-container .slide {
+    display: none;
+}
+
+.slideshow-container .prev,
+.slideshow-container .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.slideshow-container .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.slideshow-container .prev:hover,
+.slideshow-container .next:hover {
+    background-color: rgba(0 0 0 / 80%);
+}
+
+.slideshow-container .text {
+    color: black;
+    background-color: #e3e3e3;
+    width: max-content;
+    font-weight: bold;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.slideshow-container .pageNumber {
+    color: black;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.slideshow-container .active {
+    background-color: #717171;
+    display: block;
+}
+
+.slideshow-container .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}

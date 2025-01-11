@@ -190,7 +190,7 @@ export const displayPCoinEffect = (name: PseudoCoinUpgradeNames, level: number) 
 }
 
 export const showCostAndEffect = (name: PseudoCoinUpgradeNames) => {
-  switch(name) {
+  switch (name) {
     case 'INSTANT_UNLOCK_1':
       return {
         cost: 'Cost: 400 PseudoCoins',

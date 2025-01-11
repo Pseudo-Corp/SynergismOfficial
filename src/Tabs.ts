@@ -293,6 +293,11 @@ const subtabInfo: Record<Tabs, SubTab> = {
           return isLoggedIn() || !prod
         },
         buttonID: 'cartSubTab3'
+      },
+      {
+        subTabID: 'merchContainer',
+        unlocked: true,
+        buttonID: 'cartSubTab4'
       }
     ]
   }

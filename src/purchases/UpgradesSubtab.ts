@@ -1,7 +1,12 @@
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
-import { displayPCoinEffect, type PseudoCoinUpgradeNames, showCostAndEffect, updatePCoinCache } from '../PseudoCoinUpgrades'
+import {
+  displayPCoinEffect,
+  type PseudoCoinUpgradeNames,
+  showCostAndEffect,
+  updatePCoinCache
+} from '../PseudoCoinUpgrades'
 import { Alert } from '../UpdateHTML'
 import { memoize } from '../Utility'
 
@@ -131,7 +136,7 @@ async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
   }
 }
 
-export const initializeUpgradeSubtab = memoize(() => {
+const initializeUpgradeSubtab = memoize(() => {
   ;(async () => {
     const response = await fetch('https://synergism.cc/stripe/upgrades')
     const upgradesList = await response.json() as UpgradesResponse
