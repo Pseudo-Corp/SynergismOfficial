@@ -76,8 +76,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
 
       if (player.insideSingularityChallenge) {
         player.singChallengeTimer += time * timeMultiplier
-      }
-      else {
+      } else {
         player.singChallengeTimer = 0
       }
 

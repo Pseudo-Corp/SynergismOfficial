@@ -1,6 +1,9 @@
-import { DOMCacheGetOrSet } from './Cache/DOM'
+import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed } from './Calculate'
+import { prod } from './Config'
 import { pressedKeys } from './Hotkeys'
+import { isLoggedIn } from './Login'
+import { initializeCart } from './purchases/CartTab'
 import { player } from './Synergism'
 import {
   setActiveSettingScreen,
@@ -28,7 +31,8 @@ export enum Tabs {
   Singularity = 9,
   Settings = 10,
   Shop = 11,
-  Event = 12
+  Event = 12,
+  Purchase = 13
 }
 
 /**
@@ -50,30 +54,33 @@ const subtabInfo: Record<Tabs, SubTab> = {
   [Tabs.Settings]: {
     tabSwitcher: () => setActiveSettingScreen,
     subTabList: [
-      { subTabID: 'settingsubtab', unlocked: true },
-      { subTabID: 'languagesubtab', unlocked: true },
-      { subTabID: 'creditssubtab', unlocked: true },
-      { subTabID: 'statisticsSubTab', unlocked: true },
+      { subTabID: 'settingsubtab', unlocked: true, buttonID: 'switchSettingSubTab1' },
+      { subTabID: 'languagesubtab', unlocked: true, buttonID: 'switchSettingSubTab2' },
+      { subTabID: 'creditssubtab', unlocked: true, buttonID: 'switchSettingSubTab3' },
+      { subTabID: 'statisticsSubTab', unlocked: true, buttonID: 'switchSettingSubTab4' },
       {
         subTabID: 'resetHistorySubTab',
         get unlocked () {
           return player.unlocks.prestige
-        }
+        },
+        buttonID: 'switchSettingSubTab5'
       },
       {
         subTabID: 'ascendHistorySubTab',
         get unlocked () {
           return player.ascensionCount > 0
-        }
+        },
+        buttonID: 'switchSettingSubTab6'
       },
       {
         subTabID: 'singularityHistorySubTab',
         get unlocked () {
           return player.highestSingularityCount > 0
-        }
+        },
+        buttonID: 'switchSettingSubTab7'
       },
-      { subTabID: 'hotkeys', unlocked: true },
-      { subTabID: 'accountSubTab', unlocked: true }
+      { subTabID: 'hotkeys', unlocked: true, buttonID: 'switchSettingSubTab8' },
+      { subTabID: 'accountSubTab', unlocked: true, buttonID: 'switchSettingSubTab9' }
     ]
   },
   [Tabs.Shop]: { subTabList: [] },
@@ -267,7 +274,36 @@ const subtabInfo: Record<Tabs, SubTab> = {
       }
     ]
   },
-  [Tabs.Event]: { subTabList: [] }
+  [Tabs.Event]: { subTabList: [] },
+  [Tabs.Purchase]: {
+    tabSwitcher: () => initializeCart,
+    subTabList: [
+      {
+        subTabID: 'productContainer',
+        get unlocked () {
+          return isLoggedIn() || !prod
+        },
+        buttonID: 'cartSubTab1'
+      },
+      {
+        subTabID: 'upgradesContainer',
+        unlocked: true,
+        buttonID: 'cartSubTab2'
+      },
+      {
+        subTabID: 'cartContainer',
+        get unlocked () {
+          return isLoggedIn() || !prod
+        },
+        buttonID: 'cartSubTab3'
+      },
+      {
+        subTabID: 'merchContainer',
+        unlocked: true,
+        buttonID: 'cartSubTab4'
+      }
+    ]
+  }
 }
 
 class TabRow extends HTMLDivElement {
@@ -552,7 +588,10 @@ tabRow.appendButton(
     .setUnlockedState(() => G.isEvent)
     .setType(Tabs.Event)
     .makeDraggable()
-    .makeRemoveable()
+    .makeRemoveable(),
+  new $Tab({ id: 'pseudoCoinstab', i18n: 'tabs.main.purchase' })
+    .setType(Tabs.Purchase)
+    .makeDraggable()
 )
 
 /**
@@ -600,28 +639,12 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   ;(document.activeElement as HTMLElement | null)?.blur()
 
   const subTabList = subtabInfo[G.currentTab].subTabList
-  if (G.currentTab !== Tabs.Settings) {
-    for (let i = 0; i < subTabList.length; i++) {
-      const id = subTabList[i].buttonID
-      if (id) {
-        const button = DOMCacheGetOrSet(id)
+  for (let i = 0; i < subTabList.length; i++) {
+    const id = subTabList[i].buttonID
+    if (id && DOMCacheHas(id)) {
+      const button = DOMCacheGetOrSet(id)
 
-        if (button.style.backgroundColor === 'crimson') { // handles every tab except settings and corruptions
-          player.subtabNumber = i
-          break
-        }
-        // what in the shit is this?!
-        if (player.tabnumber === 9 && button.style.borderColor === 'dodgerblue') { // handle corruption tab
-          player.subtabNumber = i
-          break
-        }
-      }
-    }
-  } else { // handle settings tab
-    // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-    const btns = document.querySelectorAll('[id^="switchSettingSubTab"]')
-    for (let i = 0; i < btns.length; i++) {
-      if (btns[i].classList.contains('buttonActive')) {
+      if (button.classList.contains('active-subtab')) {
         player.subtabNumber = i
         break
       }
@@ -658,6 +681,18 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
   }
 
   if (subTabList.unlocked) {
+    for (const subtab of subTabs.subTabList) {
+      if (!subtab.buttonID) continue
+
+      const element = DOMCacheGetOrSet(subtab.buttonID)
+
+      if (subtab === subTabList) {
+        element.classList.add('active-subtab')
+      } else {
+        element.classList.remove('active-subtab')
+      }
+    }
+
     subTabs.tabSwitcher?.()(subTabList.subTabID)
     if (tab.getType() === Tabs.Singularity && page === 3) {
       player.visitedAmbrosiaSubtab = true

@@ -10,6 +10,7 @@ import {
   calculateTimeAcceleration,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractQuarkBonus,
+  isIARuneUnlocked,
   octeractGainPerSecond
 } from './Calculate'
 import { getMaxChallenges } from './Challenges'
@@ -292,7 +293,7 @@ export const generateExportSummary = async (): Promise<void> => {
         format(calculateMaxRunes(5))
       } [Bonus: ${format(G.rune5level - player.runelevels[4], 0, true)}]\n`
     }
-    if (player.shopUpgrades.infiniteAscent > 0 || player.highestSingularityCount > 0) {
+    if (isIARuneUnlocked() || player.highestSingularityCount > 0) {
       prestige = `${prestige}Infinite Ascent: Level ${format(player.runelevels[5], 0, true)}/${
         format(calculateMaxRunes(6))
       }\n`

@@ -16,7 +16,9 @@
 
     <link rel="stylesheet" href="Synergism.css">
     <title>Synergism</title>
+
     <script src="./dist/out.js" defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="bodycolor loading">
     <div id="transparentBG" style="display: block;"></div>
@@ -233,7 +235,7 @@
 
     <div id="buildings">
         <div class="subTabWrapper">
-            <button id="switchToCoinBuilding" style="border: 2px solid yellow; background-color: crimson;" i18n="tabs.buildings.coin"></button>
+            <button id="switchToCoinBuilding" class="active-subtab" style="border: 2px solid yellow;" i18n="tabs.buildings.coin"></button>
             <button class="prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan" i18n="tabs.buildings.diamond"></button>
             <button class="transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum" i18n="tabs.buildings.mythos"></button>
             <button class="reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow" i18n="tabs.buildings.particle"></button>
@@ -1193,7 +1195,7 @@
     <div id="runes" style="display: none;">
         <div id="runesToggle">
             <button id="toggleautosacrifice" style="border: 2px solid orangered"></button>
-            <button id="toggleRuneSubTab1" style="border: 2px solid gold" i18n="tabs.runes.runes"></button>
+            <button id="toggleRuneSubTab1" class="active-subtab" style="border: 2px solid gold" i18n="tabs.runes.runes"></button>
             <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid silver" i18n="tabs.runes.talismans"></button>
             <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid silver" i18n="tabs.runes.blessings"></button>
             <button class="chal12" id="toggleRuneSubTab4" style="border: 2px solid silver" i18n="tabs.runes.spirits"></button>
@@ -1552,7 +1554,7 @@
 
     <div id="challenges" style="display: none;">
         <div id="challengesTabsToggle">
-            <button id="toggleChallengesSubTab1" style="border: 2px solid green; color: white; background-color: crimson" i18n="tabs.challenges.normal"></button>
+            <button id="toggleChallengesSubTab1" class="active-subtab" style="border: 2px solid green; color: white;" i18n="tabs.challenges.normal"></button>
             <button id="toggleChallengesSubTab2" class="singChallenges" style="border: 2px solid purple; color: gold" i18n="tabs.challenges.exalt"></button>
         </div>
         <!-- You call containers "Steamed Wrappers" despite the fact they contain multiple elements? -->
@@ -2065,7 +2067,7 @@
         <div id="cubesWrapper">
             <div id="wowCubeSidebar">
                 <div id="wowCubeSidebarButtons">
-                    <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold; background-color: crimson;" i18n="tabs.cubes.cubeTributes"></button>
+                    <button id="switchCubeSubTab1" class="cubeSwitchTabBtn active-subtab" style="border: 2px solid gold;" i18n="tabs.cubes.cubeTributes"></button>
                     <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid orange;" i18n="tabs.cubes.tesseract"></button>
                     <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;" i18n="tabs.cubes.hypercube"></button>
                     <button id="switchCubeSubTab4" class="cubeSwitchTabBtn chal14" style="border: 2px solid orchid;" i18n="tabs.cubes.platonic"></button>
@@ -2795,7 +2797,7 @@
     <div id="traits" style="display: none;">
         <div id="corruptionStatsLoadouts" class="flex column">
             <span id="corrButtonRow" class="flex row center">
-                <button id="corrStatsBtn" i18n="corruptions.corrStatsBtn"></button>
+                <button id="corrStatsBtn" class="active-subtab" i18n="corruptions.corrStatsBtn"></button>
                 <button id="corrLoadoutsBtn" i18n="corruptions.corrLoadoutsBtn"></button>
             </span>
             <div id="corruptionStats" class="corruptionContainer">
@@ -2898,7 +2900,7 @@
 
     <div id="settings" style="display: none;">
         <div class="subtabSwitcher subTabWrapper">
-            <button id="switchSettingSubTab1" class="buttonActive" style="border: 2px solid white" i18n="tabs.main.settings"></button>
+            <button id="switchSettingSubTab1" class="active-subtab" style="border: 2px solid white" i18n="tabs.main.settings"></button>
             <button id="switchSettingSubTab2" style="border: 2px solid cyan" i18n="tabs.settings.languages"></button>
             <button id="switchSettingSubTab3" style="border: 2px solid gold" i18n="tabs.settings.credit"></button>
             <button id="switchSettingSubTab4" style="border: 2px solid orange" i18n="tabs.settings.stats"></button>
@@ -3024,7 +3026,7 @@
                         <p id="currentBonus" style="color: springgreen">Current Bonus: 0%</p>
                     </div>
                     <div id="patchnotes">
-                        <a href="https://docs.google.com/document/d/1x0ljqZi5vsNE5FitoCsp6zbKGlZRvZ3tt-kZ96ngzSY/edit?usp=sharing" target="_blank" rel="noopener noreferrer nofollow">
+                        <a href="https://docs.google.com/document/d/1pyxbvacfMgfdPXed1Ga433s_ZuzTY9YcwPAHyuWYaDA/edit?usp=sharing" target="_blank" rel="noopener noreferrer nofollow">
                             <img id="patchnotesicon" alt="Patch Notes Icon" src="Pictures/Default/patchnotes.png" title="Click to read the latest patch notes!" loading="lazy">
                         </a>
                     </div>
@@ -3372,6 +3374,7 @@
                 <p id="statGCM33" class="statPortion singularity">-<span id="sGCM33" class="statNumber">-</span></p>
                 <p id="statGCM34" class="statPortion singularity">-<span id="sGCM34" class="statNumber">-</span></p>
                 <p id="statGCM35" class="statPortion singularity">-<span id="sGCM35" class="statNumber">-</span></p>
+                <p id="statGCM36" class="statPortion singularity">-<span id="sGCM36" class="statNumber">-</span></p>
                 <p id="statGCMT" class="statPortion statTotal" style="color: orange">TOTAL GLOBAL CUBE MULTIPLIER: <span
                     id="sGCMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -3483,6 +3486,7 @@
                 <p id="statGQMS8" class="statPortion">Golden Revolution II:<span id="sGQMS8" class="statNumber">0</span></p>
                 <p id="statGQMS9" class="statPortion">Immaculate Alchemy:<span id="sGQMS9" class="statNumber">0</span></p>
                 <p id="statGQMS10" class="statPortion">Total Quarks Coefficient:<span id="sGQMS10" class="statNumber">0</span></p>
+                <p id="statGQMS11" class="statPortion">Total Quarks Coefficient:<span id="sGQMS11" class="statNumber">0</span></p>
                 <p id="statGQMST" class="statPortion statTotal" style="color: orange">TOTAL GOLDEN QUARK MULTIPLIER: <span
                         id="sGQMST" class="statNumber statTotal">0</span></p>
             </div>
@@ -3562,6 +3566,7 @@
                 <p id="stat+cap6" class="statPortion singularity">PL-AT _:<span id="s+cap6" class="statNumber">0</span></p>
                 <!--"It all adds up"-->
                 <p id="stat+cap7" class="statPortion singularity">Singularity factor:<span id="s+cap7" class="statNumber">0</span></p>
+                <p id="stat+cap8" class="statPortion ascendunlock">Singularity factor:<span id="s+cap8" class="statNumber">0</span></p>
 
                 <p id="statAddSep3" class="statPortion">&nbsp;</p>
 
@@ -3587,13 +3592,14 @@
                 <p id="statALuckM12" class="statPortion">a<span id="sALuckM12" class="statNumber">0</span></p>
                 <p id="statALuckM13" class="statPortion">a<span id="sALuckM13" class="statNumber">0</span></p>
                 <p id="statALuckM14" class="statPortion">a<span id="sALuckM14" class="statNumber">0</span></p>
+                <p id="statALuckM15" class="statPortion">a<span id="sALuckM15" class="statNumber">0</span></p>
                 <p id="statALuckMult" class="statPortion">Multipliers (Additive)<span id="sALuckMult" class="statNumber">0</span></p>
                 <p id="statALuckMT" class="statPortion statTotal" style="color: orange">TOTAL AMBROSIA LUCK:
                     <span id="sALuckMT" class="statNumber statTotal">0</span></p>
             </div>
 
             <div id="ambrosiaGenerationStats" class="statContainer activeStats">
-                <p id="ambrosiaGenStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Ambrosia Generation Chance</p>
+                <p id="ambrosiaGenStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Ambrosia Generation Speed</p>
                 <p id="statAGenM1" class="statPortion">a<span id="sAGenM1" class="statNumber">0</span></p>
                 <p id="statAGenM2" class="statPortion">a<span id="sAGenM2" class="statNumber">0</span></p>
                 <p id="statAGenM3" class="statPortion">a<span id="sAGenM3" class="statNumber">0</span></p>
@@ -3604,6 +3610,7 @@
                 <p id="statAGenM8" class="statPortion">a<span id="sAGenM8" class="statNumber">0</span></p>
                 <p id="statAGenM9" class="statPortion">a<span id="sAGenM9" class="statNumber">0</span></p>
                 <p id="statAGenM10" class="statPortion">a<span id="sAGenM10" class="statNumber">0</span></p>
+                <p id="statAGenM11" class="statPortion">a<span id="sAGenM11" class="statNumber">0</span></p>
                 <p id="statAGenMT" class="statPortion statTotal" style="color: orange">BLUEBERRY TIME /S:
                     <span id="sAGenMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -3672,7 +3679,53 @@
             </div>
         </div>
         <div class="subtabContent subtabDisplayFlex" id="accountSubTab">
-          <div class="scrollbarX"></div>
+          <div class="scrollbarX">
+            <div id="button-holder">
+              <button id="open-register">Register</button>
+              <button id="open-signin">Login</button>
+              <button id="open-forgotpassword">Forgot Password</button>
+            </div>
+            <div id="register">
+              <form action="https://synergism.cc/register" method="POST">
+                <label for="email">Email Address</label>
+                <input type="text" id="email" name="email" placeholder="you@gmail.com">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="......">
+                <label for="password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="......">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAA4kwOTMEdx48IMm"></div>
+                <input type="submit" value="Register">
+              </form>
+            </div>
+            <div id="login">
+              <form action="https://synergism.cc/signin" method="POST">
+                <label for="email-si">Email Address</label>
+                <input type="text" id="email-si" name="email" placeholder="you@gmail.com">
+                <label for="password-si">Password</label>
+                <input type="password" id="password-si" name="password" placeholder="......">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAA4kwOTMEdx48IMm"></div>
+                <input type="submit" value="Login">
+              </form>
+            </div>
+            <div id="forgotpassword">
+              <form action="https://synergism.cc/forgot-password" method="POST">
+                <label for="email-fp">Email Address</label>
+                <input type="text" id="email-fp" name="email" placeholder="you@gmail.com">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAAA4kwOTMEdx48IMm"></div>
+                <p>This can only be once a day!</p>
+                <input type="submit" value="Send Reset Password Email">
+              </form>
+            </div>
+
+            <a
+              href="https://synergism.cc/login?with=discord"
+              style="display:inline-block;border: 2px solid #5865F2; height: 25px; width: 20%; margin-bottom:5px;"
+            >Login with Discord</a>
+            <a
+              href="https://synergism.cc/login?with=patreon"
+              style="display:inline-block;border: 2px solid #ff5900; height: 25px; width: 20%;"
+            >Login with Patreon</a>
+          </div>
           <!-- TODO: i18n (not done because of potential conflicts with pixel-update) -->
           <button id="logoutButton">Logout</button>
         </div>
@@ -4111,7 +4164,7 @@
 
     <div id="singularity">
         <div id="singularityTabsToggle">
-            <button id="toggleSingularitySubTab1" style="border: 2px solid silver; color: white; background-color: crimson" i18n="tabs.main.shop"></button>
+            <button id="toggleSingularitySubTab1" class="active-subtab" style="border: 2px solid silver; color: white;" i18n="tabs.main.shop"></button>
             <button id="toggleSingularitySubTab2" style="border: 2px solid orange; color: white" i18n="tabs.singularity.perks-penalties"></button>
             <button id="toggleSingularitySubTab3" class="octeracts" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>
             <button id="toggleSingularitySubTab4" class="ambrosia" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
@@ -4592,6 +4645,14 @@
                     <button class="blueberryLoadoutSlot" id="blueberryLoadout6">6</button>
                     <button class="blueberryLoadoutSlot" id="blueberryLoadout7">7</button>
                     <button class="blueberryLoadoutSlot" id="blueberryLoadout8">8</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout9">9</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout10">10</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout11">11</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout12">12</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout13">13</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout14">14</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout15">15</button>
+                    <button class="blueberryLoadoutSlot" id="blueberryLoadout16">16</button>
                     <button class="blueberryLoadoutSetting" id="blueberryToggleMode">-</button>
                 </div>
                 <div id="ambrosiaUpgradeValues">
@@ -4605,6 +4666,96 @@
         <a target="_blank" href="https://www.youtube.com/watch?v=E9de-cmycx8"><img id="unsmith" src="Pictures/Default/Unsmith.png"></a>
         <p i18n="event.aprilFools.introText"></p>
         <p id="eventClicked" style="color: lime; display: none" i18n="event.aprilFools.clickedText"></p>
+    </div>
+
+    <div id="pseudoCoins">
+      <div class="subtabSwitcher subTabWrapper">
+        <button
+          id="cartSubTab1"
+          style="border: 2px solid white"
+          i18n="tabs.pseudocoins.buy"
+        ></button>
+        <button
+          id="cartSubTab2"
+          style="border: 2px solid cyan"
+          i18n="tabs.pseudocoins.upgrades"
+        ></button>
+        <span style="position:relative">
+          <button
+            id="cartSubTab3"
+            style="display: flex; align-items: center; justify-content: center; border: 2px solid cornflowerblue; width: 100%"
+          >
+            <p style="margin: 0">Checkout</p>
+            <img src="./Pictures/cart.png" alt="Shopping Cart" height="16px">
+          </button>
+          <span
+            id="notification-count"
+            style="background-color: #fa3e3e; border-radius: 2px; color: white; padding: 1px 3px; font-size: 10px; position: absolute; top: 0; right: 0; display: none;"
+          ></span>
+        </span>
+        <button
+          id="cartSubTab4"
+          style="border: 2px solid white"
+          i18n="tabs.pseudocoins.merch"
+        ></button>
+      </div>
+      <div id="productContainer" class="pseudoUpgradeContainer">
+      </div>
+      <div id="upgradesContainer">
+        <div id="pseudoCoinAmounts">
+            <img src="Pictures/PseudoShop/PseudoCoins.png" alt="PseudoCoins">
+            <p id="currentCoinBalance"></p>
+        </div>
+        <div id="upgradeGrid">
+        </div>
+        <div id="upgradeInfo">
+          <div id="pseudoCoinUpgradeName">
+            <h1 id="pCoinUpgradeName">Welcome to the PseudoShop!</h1>
+          </div>
+          <div id="pseudoCoinUpgradeDescription">
+            <div id="pseudoCoinUpgradeIcon">
+                <img id="pCoinUpgradeIcon" src="Pictures/PseudoShop/PseudoCoins.png" alt="Upgrade Icon">
+            </div>
+            <div id="pseudoCoinUpgradeTexts">
+                <div id="pCoinUpgradeDesc">
+                    <p id="description">Buy PseudoCoin upgrades, get exclusive bonuses and support development! &#10084</p>
+                    <p id="pCoinEffectCurr">Click on an icon to see what you can get!</p>
+                    <p id="pCoinEffectNext">Note: you must be logged in to buy or use these!</p>
+                    <p id="pCoinScalingEffect"></p>
+                    <p id="pCoinScalingCosts"></p>
+                </div>
+                <div id="pCoinButton">
+                    <button id="buy" style="display: none"></button>
+                </div>                
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="cartContainer">
+        <div
+          class="cartList scrollbar"
+          style="color: white"
+        >
+          <div id="itemList">
+          </div>
+
+          <p id="totalCost"></p>
+
+          <section style="display:flex;margin:0 auto">
+            <input type="radio" id="tosAgree" name="tosAgree" style="margin-right:2px">
+            <label for="tosAgree">
+              I agree to the <a href="https://synergism.cc/terms-of-service" style="color:cyan">Terms of Service</a>
+            </label>
+          </section>
+
+          <button id="checkout" type="submit">Checkout</button>
+          <button id="closeCart" type="button">Close</button>
+        </div>
+      </div>
+      <div id="merchContainer">
+        <a href="https://merch.synergism.cc">Go to Merch Site</a>
+        <div id="slideshows"></div>
+      </div>
     </div>
 </body>
 </html>

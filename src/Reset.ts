@@ -1199,9 +1199,8 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
     player.worlds.reset()
     hold.worlds = Number(hold.worlds)
-  }
-  else {
-    hold.worlds = Number(player.worlds)
+  } else {
+    hold.worlds = Number(player.worlds) * 0.9
   }
 
   // Exclude potentially non-latin1 characters from the save

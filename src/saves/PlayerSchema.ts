@@ -52,6 +52,16 @@ const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
   return Object.fromEntries(
     Object.entries(record).filter(([key, _value]) => /^\d+$/.test(key))
   )
+}).transform((record) => {
+  const entries = Object.entries(blankSave.toggles)
+
+  for (const entry of entries) {
+    if (!Object.hasOwn(record, entry[0])) {
+      record[entry[0]] = entry[1]
+    }
+  }
+
+  return record
 })
 
 const decimalStringSchema = z.string().regex(/^|-?\d+(\.\d{1,2})?$/)
@@ -323,7 +333,9 @@ export const playerSchema = z.object({
   crystalUpgradesCost: z.number().array().default(() => [...blankSave.crystalUpgradesCost]),
 
   runelevels: z.number().array().transform((array) => arrayExtend(array, 'runelevels')),
-  runeexp: z.union([z.number(), z.null()]).array().transform((value) => value.map((val) => val === null ? 0 : val)),
+  runeexp: z.union([z.number(), z.null().transform(() => 0)]).array().transform((value) =>
+    arrayExtend(value, 'runeexp')
+  ),
   runeshards: z.number(),
   maxofferings: z.number().default(() => blankSave.maxofferings),
   offeringpersecond: z.number().default(() => blankSave.offeringpersecond),

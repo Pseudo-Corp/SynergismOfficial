@@ -155,9 +155,9 @@ export const cleanString = (s: string): string => {
   return cleaned
 }
 
-export function assert (condition: unknown): asserts condition {
+export function assert (condition: unknown, message?: string): asserts condition {
   if (!condition) {
-    throw new TypeError('assertion failed')
+    throw new TypeError('assertion failed', { cause: new TypeError(message) })
   }
 }
 
@@ -171,7 +171,13 @@ export function limitRange (number: number, min: number, max: number): number {
   return number
 }
 
-export const createDeferredPromise = <T>() => {
+export interface DeferredPromise<T> {
+  promise: Promise<T>
+  resolve: (value: T) => void
+  reject: (err: Error) => void
+}
+
+export const createDeferredPromise = <T>(): DeferredPromise<T> => {
   let resolve!: (unknown: T) => void
   let reject!: (err: Error) => void
 
@@ -191,4 +197,18 @@ export const deepClone = (value: unknown) => {
 
     return value
   })
+}
+
+export function memoize<Args extends unknown[], Ret> (fn: (...args: Args) => Ret) {
+  let ran = false
+  let ret: Ret
+
+  return (...args: Args): Ret => {
+    if (!ran) {
+      ran = true
+      ret = fn(...args)
+    }
+
+    return ret
+  }
 }
