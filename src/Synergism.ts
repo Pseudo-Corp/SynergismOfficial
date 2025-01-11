@@ -1541,7 +1541,9 @@ export const player: Player = {
     blueberryInventory: new BlueberryInventoryCache()
   },
 
-  lastExportedSave: 0
+  lastExportedSave: 0,
+
+  seed: Array.from({ length: 2 }, () => Date.now())
 }
 
 export const blankSave = Object.assign({}, player, {

@@ -10,6 +10,7 @@ import { Synergism } from './Events'
 import { addTimers } from './Helper'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
+import { Seed, seededBetween, seededRandom } from './RNG'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { shopData } from './Shop'
 import { singularityData } from './singularity'
@@ -362,8 +363,6 @@ export const importSynergism = async (input: string | null, reset = false) => {
     localStorage.setItem('Synergysave2', saveString)
     await localforage.setItem<Blob>('Synergysave2', item)
 
-    localStorage.setItem('saveScumIsCheating', Date.now().toString())
-
     await reloadShit(reset)
     saveCheck.canSave = true
     return
@@ -502,7 +501,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     el.textContent = i18next.t('importexport.promocodes.antismith')
   } else if (input === 'Khafra' && !player.codes.get(26)) {
     player.codes.set(26, true)
-    const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100)
+    const quarks = Math.floor(seededRandom(Seed.PromoCodes) * (400 - 100 + 1) + 100)
     player.worlds.add(quarks)
     el.textContent = i18next.t('importexport.promocodes.khafra', {
       x: player.worlds.applyBonus(quarks)
@@ -602,7 +601,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       // The same upgrade can be drawn several times, so we save the sum of the levels gained, to display them only once at the end
       const freeLevels: Record<string, number> = {}
       for (let i = 0; i < rolls; i++) {
-        const num = 1000 * Math.random()
+        const num = 1000 * seededRandom(Seed.PromoCodes)
         for (const key of keys) {
           if (upgradeDistribution[key].pdf(num)) {
             player.singularityUpgrades[key].freeLevels += upgradeDistribution[key].value
@@ -859,25 +858,16 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     player.worlds.sub(quarks < amount ? amount - quarks : amount)
   } else if (input === 'gamble') {
-    if (
-      typeof player.skillCode === 'number'
-      || typeof localStorage.getItem('saveScumIsCheating') === 'string'
-    ) {
-      if (
-        (Date.now() - player.skillCode!) / 1000 < 3600
-        || (Date.now() - Number(localStorage.getItem('saveScumIsCheating')))
-              / 1000
-          < 3600
-      ) {
+    if (typeof player.skillCode === 'number') {
+      if ((Date.now() - player.skillCode!) / 1000 < 3600) {
         return (el.textContent = i18next.t(
           'importexport.promocodes.gamble.wait'
         ))
       }
     }
 
-    const confirmed = await Confirm(
-      i18next.t('importexport.promocodes.gamble.confirm')
-    )
+    const confirmed = await Confirm(i18next.t('importexport.promocodes.gamble.prompt'))
+
     if (!confirmed) {
       return (el.textContent = i18next.t(
         'importexport.promocodes.gamble.cancelled'
@@ -899,8 +889,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       ))
     }
 
-    localStorage.setItem('saveScumIsCheating', Date.now().toString())
-    const dice = (window.crypto.getRandomValues(new Uint8Array(1))[0] % 6) + 1 // [1, 6]
+    const dice = seededBetween(Seed.PromoCodes, 1, 6) // [1, 6]
 
     if (dice === 1) {
       const won = bet * 0.25 // lmao
@@ -924,7 +913,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     const rewardMult = timeCodeRewardMultiplier()
 
-    const random = Math.random() * 15000 // random time within 15 seconds
+    const random = seededRandom(Seed.PromoCodes) * 15000 // random time within 15 seconds
     const start = Date.now()
     const playerConfirmed = await Confirm(
       i18next.t('importexport.promocodes.time.confirm', {
@@ -1112,7 +1101,7 @@ export const addCodeBonuses = () => {
 
   const sampledMult = Math.max(
     0.4 + 0.02 * player.shopUpgrades.calculator3,
-    2 / 5 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 640
+    2 / 5 + seededBetween(Seed.PromoCodes, 0, 127) / 640
   ) // [0.4, 0.6], slightly biased in favor of 0.4. =)
   const minMult = 0.4 + 0.02 * player.shopUpgrades.calculator3
   const maxMult = 0.6
