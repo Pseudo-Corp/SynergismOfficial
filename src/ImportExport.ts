@@ -397,22 +397,6 @@ export const promocodesInfo = (input: string) => {
       }
 
       break
-    case 'time':
-      availableUses = timeCodeAvailableUses()
-
-      if (availableUses === 0) {
-        textMessage += i18next.t('importexport.add0Uses', {
-          x: 0,
-          y: format(timeCodeTimeToNextUse(), 0)
-        })
-      } else {
-        textMessage += i18next.t('importexport.timeMultiplier', {
-          x: availableUses,
-          y: format(timeCodeRewardMultiplier(), 2, true)
-        })
-      }
-
-      break
     default:
       textMessage = ''
   }
@@ -933,21 +917,6 @@ export const addCodeBonuses = () => {
     octeractTime,
     blueberryTime
   }
-}
-
-const timeCodeAvailableUses = (): number => {
-  return (Date.now() - player.promoCodeTiming.time) / 1000 < 900 ? 0 : 1
-}
-
-const timeCodeTimeToNextUse = (): number => {
-  return 900 - (Date.now() - player.promoCodeTiming.time) / 1000
-}
-
-const timeCodeRewardMultiplier = (): number => {
-  return Math.min(
-    24,
-    (Date.now() - player.promoCodeTiming.time) / (1000 * 3600)
-  )
 }
 
 const dailyCodeFormatFreeLevelMessage = (

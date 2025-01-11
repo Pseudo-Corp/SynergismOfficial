@@ -1348,28 +1348,13 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.wowHypercubes = Number(player.wowHypercubes)
   hold.wowPlatonicCubes = Number(player.wowPlatonicCubes)
 
-  const saveCode42 = player.codes.get(42) ?? false
-  const saveCode43 = player.codes.get(43) ?? false
-  const saveCode44 = player.codes.get(44) ?? false
-  const saveCode45 = player.codes.get(45) ?? false
-  const saveCode46 = player.codes.get(46) ?? false
   const saveCode47 = player.codes.get(47) ?? false
-  const saveCode48 = player.codes.get(48) ?? false
 
   await importSynergism(btoa(JSON.stringify(hold)), true)
   // Techically possible to import game during reset. But that will only "hurt" that imported save
 
   // TODO: Do not enable data that has never used an event code
-  player.codes.set(39, true)
-  player.codes.set(40, true)
-  player.codes.set(41, true)
-  player.codes.set(42, saveCode42)
-  player.codes.set(43, saveCode43)
-  player.codes.set(44, saveCode44)
-  player.codes.set(45, saveCode45)
-  player.codes.set(46, saveCode46)
   player.codes.set(47, saveCode47)
-  player.codes.set(48, saveCode48)
   updateSingularityMilestoneAwards()
 
   player.rngCode = Date.now()

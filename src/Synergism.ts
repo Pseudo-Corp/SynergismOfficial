@@ -1617,18 +1617,6 @@ const loadSynergy = async () => {
       return Alert(i18next.t('testing.saveInLive2'))
     }
 
-    // size before loading
-    const size = player.codes.size
-
-    const oldPromoKeys = Object.keys(data).filter((k) => k.includes('offerpromo'))
-    if (oldPromoKeys.length > 0) {
-      oldPromoKeys.forEach((k) => {
-        const value = data[k]
-        const num = +k.replace(/[^\d]/g, '')
-        player.codes.set(num, Boolean(value))
-      })
-    }
-
     const validatedPlayer = playerSchema.safeParse(data)
 
     if (validatedPlayer.success) {
@@ -1643,28 +1631,6 @@ const loadSynergy = async () => {
     updateLoadoutHoverClasses()
 
     player.lastExportedSave = data.lastExportedSave ?? 0
-
-    if (data.offerpromo24used !== undefined) {
-      player.codes.set(25, false)
-    }
-
-    // sets all non-existent codes to default value false
-    if (player.codes.size < size) {
-      for (let i = player.codes.size + 1; i <= size; i++) {
-        if (!player.codes.has(i)) {
-          player.codes.set(i, false)
-        }
-      }
-    }
-
-    // sets all non-existent codes to default value false
-    if (player.codes.size < size) {
-      for (let i = player.codes.size + 1; i <= size; i++) {
-        if (!player.codes.has(i)) {
-          player.codes.set(i, false)
-        }
-      }
-    }
 
     // TODO(@KhafraDev): remove G.currentSingChallenge
     // fix current sing challenge blank
@@ -1699,7 +1665,6 @@ const loadSynergy = async () => {
     }
 
     if (typeof player.researches[76] === 'undefined') {
-      player.codes.set(13, false)
       player.researches.push(
         0,
         0,
@@ -1783,11 +1748,9 @@ const loadSynergy = async () => {
       player.autoSacrifice = 0
       player.sacrificeTimer = 0
       player.loaded1009 = true
-      player.codes.set(18, false)
     }
     if (!data.loaded1009hotfix1) {
       player.loaded1009hotfix1 = true
-      player.codes.set(19, true)
       player.firstOwnedParticles = 0
       player.secondOwnedParticles = 0
       player.thirdOwnedParticles = 0
@@ -1840,7 +1803,6 @@ const loadSynergy = async () => {
       || data.loaded1010 === false
     ) {
       player.loaded1010 = true
-      player.codes.set(21, false)
 
       player.firstOwnedAnts = 0
       player.firstGeneratedAnts = new Decimal('0')

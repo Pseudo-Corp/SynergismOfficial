@@ -586,7 +586,6 @@ export interface Player {
   version: string
 
   rngCode: number
-  skillCode?: number
   promoCodeTiming: {
     time: number
   }
