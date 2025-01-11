@@ -2482,7 +2482,8 @@
     },
     "pseudocoins": {
       "buy": "购买伪币",
-      "upgrades": "购买升级"
+      "upgrades": "购买升级",
+      "merch": "Purchase Merch"
     }
   },
   "offlineProgress": {
