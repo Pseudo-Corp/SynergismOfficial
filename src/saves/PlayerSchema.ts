@@ -761,5 +761,9 @@ export const playerSchema = z.object({
       return blankSave.caches
     }),
 
-  lastExportedSave: z.number().default(() => blankSave.lastExportedSave)
+  lastExportedSave: z.number().default(() => blankSave.lastExportedSave),
+
+  seed: z.number().array().default(() => blankSave.seed)
+    .transform((value) => arrayExtend(value, 'seed'))
+    .refine((value) => value.every((seed) => seed > Date.parse('2020-01-01T00:00:00Z') && seed < Date.now() + 1000))
 })

@@ -659,6 +659,8 @@ export interface Player {
    * When the player last exported the save.
    */
   lastExportedSave: number
+
+  seed: number[]
 }
 
 export interface GlobalVariables {
