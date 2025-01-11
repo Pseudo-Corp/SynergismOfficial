@@ -1,3 +1,5 @@
+/// <reference types="@types/cloudflare-turnstile" />
+
 import i18next from 'i18next'
 import localforage from 'localforage'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -230,18 +232,21 @@ export async function handleLogin () {
       subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
       subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
       subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
+      renderCaptcha()
     })
 
     subtabElement.querySelector('#open-signin')?.addEventListener('click', () => {
       subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
       subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'flex')
       subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
+      renderCaptcha()
     })
 
     subtabElement.querySelector('#open-forgotpassword')?.addEventListener('click', () => {
       subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
       subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
       subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'flex')
+      renderCaptcha()
     })
   }
 }
@@ -282,4 +287,17 @@ async function getCloudSave () {
   const save = await response.json() as CloudSave
 
   await importSynergism(save?.save ?? null)
+}
+
+export function renderCaptcha () {
+  const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
+  const visible = captchaElements.find((el) => el.offsetParent !== null)
+
+  if (visible) {
+    turnstile.render(visible, {
+      sitekey: visible.getAttribute('data-sitekey')!,
+      'error-callback' () {},
+      retry: 'never'
+    })
+  }
 }

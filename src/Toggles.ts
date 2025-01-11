@@ -4,6 +4,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateRuneLevels } from './Calculate'
 import { getChallengeConditions } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions'
+import { renderCaptcha } from './Login'
 import { autoResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { format, player, resetCheck } from './Synergism'
@@ -571,6 +572,8 @@ export const setActiveSettingScreen = async (subtab: string) => {
       const err = e as Error
       credits.appendChild(document.createTextNode(err.toString()))
     }
+  } else if (subtab === 'accountSubTab') {
+    renderCaptcha()
   }
 }
 
