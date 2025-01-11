@@ -1431,10 +1431,10 @@
       "shopCashGrabUltra": "Всего лишь за символическую сумму, даёт до +15% Скорости Голубики, +120% Кубов и +8% Кварков за уровень, в зависимости от Амброзии, бонусы увеличиваются нелинейно пока не получено 10,000,000 Амброзии за всё время.",
       "shopAmbrosiaAccelerator": "Каждый уровень этого 'ускорителя' даёт <<cyan|+0.2>> реальных секунд Генерации Голубики за каждую <<orange|1>> полученную из любых источников Амброзию!",
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
-      "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
-      "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
+      "shopChronometerS": "Это улучшение даёт +1% к Скорости Вознесения и Глобальной Скорости за каждый номер текущей Сингулярности выше 200!",
+      "shopAmbrosiaUltra": "Это абсурдно дорогое EX Улучшение даёт +1 постоянную ☘ Удачу Амброзии за каждое выполнение ВОЗВЫШЕНИЯ за уровень.",
       "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 20 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
-      "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 666% more effective (so, each is worth the equivalent to 7.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
+      "shopSingularityPotency": "Помните эти бесплатные Улучшения Сингулярности? Они теперь на 266% эффективнее (то есть, каждый теперь эквивалентен 3.66 уровням, до предела). Почему? Из-за вот этого <<gray | Ритуального Передатчика Сингулярности>>! Не спрашивайте.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
     },
     "maxed": "Максимум!",
@@ -2436,7 +2436,8 @@
       "singularity": "Сингулярность",
       "settings": "Настройки",
       "shop": "Магазин",
-      "unsmith": "РАСКУЗНЕЦ"
+      "unsmith": "РАСКУЗНЕЦ",
+      "purchase": "ПсевдоМонеты"
     },
     "buildings": {
       "coin": "Строения Монет",
@@ -2478,6 +2479,11 @@
       "singularityHistory": "История Сингулярности",
       "hotkeys": "Горячие клавиши",
       "account": "Аккаунт"
+    },
+    "pseudocoins": {
+      "buy": "Купить Монеты",
+      "upgrades": "Купить Улучшения",
+      "merch": "Purchase Merch"
     }
   },
   "offlineProgress": {
@@ -3092,8 +3098,8 @@
         "UniqueReward1": "1-ое - +12% <<gold|Золотых Кварков>>!",
         "UniqueReward2": "1-ое - Бесплатная <<var(--blueberry-box-color)|Голубика>>!",
         "UniqueReward3": "20-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
-        "UniqueReward4": "30th - +6% <<lime|&#9752 Ambrosia Luck>> for free!",
-        "UniqueReward5": "30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
+        "UniqueReward4": "30-ое +6% <<lime|&#9752 Удачи Амброзии>> бесплатно!",
+        "UniqueReward5": "30-ое Новое улучшение в <<orchid|Магазине Кварков>>: НЕ БЕСПЛАТНОЕ!"
       },
       "oneChallengeCap": {
         "name": "Предел в Одно Выполнение",
@@ -3140,12 +3146,12 @@
         "ScalingReward1": "+6% к <<orange|Глобальной Скорости>>!",
         "ScalingReward2": "+6% к <<orange|Скорости Вознесения>>!",
         "ScalingReward3": "+1% <<cyan|Quarks>>!",
-        "UniqueReward1": "1st - your quarks no longer reset on singulatity!",
-        "UniqueReward2": "15th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward1": "1-ое - кварки больше не сбрасываются после сингулярности!",
+        "UniqueReward2": "15-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
         "UniqueReward3": "25th - A very expensive, not good, pretty bad <<orange|Quark Shop>> upgrade!"
       },
       "sadisticPrequel": {
-        "name": "SADISTIC EXALT III - The Prequel",
+        "name": "ВОЗВЫШЕНИЕ САДИЗМ III - Приквел",
         "description": "How much more will Platonic misuse the word 'Sadistic'? [No Sing Upgrade, Oct Upgrades OR Ambrosia Upgrades]",
         "ScalingReward1": "+3% <<cyan|Кварков>> за каждое прохождение!",
         "ScalingReward2": "Ещё +3% <<orange|Бесплатных Улучшений>> от кода 'Daily' за каждое прохождение!",
@@ -3547,5 +3553,41 @@
   },
   "account": {
     "logout": "Страница сейчас обновится. Вы вышли из аккаунта! Пока!!"
+  },
+  "pseudoCoins": {
+    "coinCount": "You have <<gold|{{amount}} PseudoCoins>>!",
+    "cost": "Cost: <<gold|{{amount}} PseudoCoins>>",
+    "maxxed": "<<gold|Maxed!>>",
+    "buyButton": "Buy! <<gold|-{{amount}} PseudoCoins>>",
+    "currEffect": "Текущий Уровень:",
+    "nextEffect": "Следующий Уровень:",
+    "upgradeNames": {
+      "INSTANT_UNLOCK_1": "Активатор-Инатор Талисмана",
+      "INSTANT_UNLOCK_2": "Обнаружитель-Инатор Рун",
+      "CUBE_BUFF": "Gold-Infused Cubes",
+      "AMBROSIA_LUCK_BUFF": "Клевера с Золотыми Листьями",
+      "AMBROSIA_GENERATION_BUFF": "Алхимически Ускоренная Амброзия",
+      "GOLDEN_QUARK_BUFF": "Even Golder Quarks",
+      "FREE_UPGRADE_PROMOCODE_BUFF": "Взятка Коду Daily",
+      "CORRUPTION_LOADOUT_SLOT_QOL": "Больше Заготовок Порчи!",
+      "AMBROSIA_LOADOUT_SLOT_QOL": "Больше Заготовок Амброзии!",
+      "AUTO_POTION_FREE_POTIONS_QOL": "Potion Duplication Glitch",
+      "OFFLINE_TIMER_CAP_BUFF": "Оправленные Золотом Мягкие Кровати",
+      "ADD_CODE_CAP_BUFF": "Эксклюзивный PLAT-P Калькулятор"
+    },
+    "upgradeEffects": {
+      "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
+      "INSTANT_UNLOCK_2": "The Rune of Infinite Ascent is <<gold | {{descriptor}}>> always unlocked! <<orange | Bonus Levels +{{amount}}>>",
+      "CUBE_BUFF": "Cube Gain is multiplied by <<gold | {{amount}}>>",
+      "AMBROSIA_LUCK_BUFF": "Ambrosia Luck is increased by <<gold | {{amount}}>>",
+      "AMBROSIA_GENERATION_BUFF": "Blueberry Generation Speed is multiplied by <<gold | {{amount}}>>",
+      "GOLDEN_QUARK_BUFF": "Golden Quark Gain is multiplied by <<gold | {{amount}}>>",
+      "FREE_UPGRADE_PROMOCODE_BUFF": "Code 'Daily' gives <<gold | {{amount}}x>> the Free Upgrades!",
+      "CORRUPTION_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Corruption Loadout slots!",
+      "AMBROSIA_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Ambrosia Loadout slots!",
+      "AUTO_POTION_FREE_POTIONS_QOL": "Авто-Зелья <<gold | {{descriptor}}>> БЕСПЛАТНЫ!",
+      "OFFLINE_TIMER_CAP_BUFF": "Лимит Офлайн Времени увеличен в <<gold | {{amount}}>> раз",
+      "ADD_CODE_CAP_BUFF": "Ёмкость кода 'add' увеличена в <<gold | {{amount}}>> раз"
+    }
   }
 }

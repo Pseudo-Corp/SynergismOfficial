@@ -1434,7 +1434,7 @@
       "shopChronometerS": "200次进入奇点后，每有1次奇点次数，该升级就使飞升的速度和全局速度增加1%！",
       "shopAmbrosiaUltra": "拥有该额外升级(价格高到离谱)后，每完成1阶层拔擢，每级该升级就可以使☘ 神肴之运增加1。",
       "shopSingularitySpeedup": "您知道那些由时间控制的奇点升级和惊奇八阶方块升级吧？它们增长的速度将变为原来的20倍！多亏了这个甚至能改变<<gray|奇点时长>>的奇怪时钟……",
-      "shopSingularityPotency": "您知道那些免费奇点升级吧？它们的效果将增加666%(换句话说，不计算软上限的话，每级都将是之前7.66级的效果)。原因？是这个有点奇怪的<<gray|奇点传输仪式装置>>！别多问了。",
+      "shopSingularityPotency": "您知道那些免费奇点升级吧？它们的效果将增加266%(换句话说，不计算软上限的话，每级都将是之前3.66级的效果)。原因？是这个有点奇怪的<<gray|奇点传输仪式装置>>！别多问了。",
       "shopSadisticRune": "多奇怪的符文。店主(您永远也无法再见的那位)通过心灵感应说道，这是浸入某种<<gray|奇点物质>>的无限晋升符文。难道无限晋升符文不止一个？"
     },
     "maxed": "已满级！",
@@ -2436,7 +2436,8 @@
       "singularity": "奇点",
       "settings": "设置",
       "shop": "商店",
-      "unsmith": "UNSMITH"
+      "unsmith": "UNSMITH",
+      "purchase": "伪币"
     },
     "buildings": {
       "coin": "金币建筑",
@@ -2478,6 +2479,11 @@
       "singularityHistory": "历史奇点数据",
       "hotkeys": "快捷键",
       "account": "账户"
+    },
+    "pseudocoins": {
+      "buy": "购买伪币",
+      "upgrades": "购买升级",
+      "merch": "Purchase Merch"
     }
   },
   "offlineProgress": {
@@ -2724,7 +2730,7 @@
     "data": {
       "octeractStarter": {
         "name": "萌新的惊奇八阶方块",
-        "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 40% More Quarks, 20% More Octeracts, And 100,000x Ant Speed...",
+        "description": "您好……我是Derpsmith……蚁神的先祖……没想到您能走到这一步。该升级可以使您的夸克获取数量增加40%，惊奇八阶方块获取数量增加20%，蚂蚁速度变为100000倍……",
         "effect": "您{{n}}向Derpsmith致敬。"
       },
       "octeractGain": {
@@ -3547,5 +3553,41 @@
   },
   "account": {
     "logout": "该页面将进行刷新。您已注销！再见！！"
+  },
+  "pseudoCoins": {
+    "coinCount": "您拥有<<gold|{{amount}}伪币>>！",
+    "cost": "花费：<<gold|{{amount}}伪币>>",
+    "maxxed": "<<gold|已满级！>>",
+    "buyButton": "购买！<<gold|花费{{amount}}伪币>>",
+    "currEffect": "当前等级：",
+    "nextEffect": "下级：",
+    "upgradeNames": {
+      "INSTANT_UNLOCK_1": "护身符激活器",
+      "INSTANT_UNLOCK_2": "符文发现器",
+      "CUBE_BUFF": "嵌金方盒",
+      "AMBROSIA_LUCK_BUFF": "金叶四叶草",
+      "AMBROSIA_GENERATION_BUFF": "神肴炼金加速",
+      "GOLDEN_QUARK_BUFF": "金上加金的金夸克",
+      "FREE_UPGRADE_PROMOCODE_BUFF": "贿赂“每日”代码",
+      "CORRUPTION_LOADOUT_SLOT_QOL": "更多腐化预设槽位！",
+      "AMBROSIA_LOADOUT_SLOT_QOL": "更多神肴预设槽位！",
+      "AUTO_POTION_FREE_POTIONS_QOL": "药剂复制漏洞",
+      "OFFLINE_TIMER_CAP_BUFF": "镶金的舒适之床",
+      "ADD_CODE_CAP_BUFF": "限定版PLAT-P计算器"
+    },
+    "upgradeEffects": {
+      "INSTANT_UNLOCK_1": "使信卡护身符<<gold|{{descriptor}}>>常时解锁！<<orange|等级上限增加{{amount}}>>",
+      "INSTANT_UNLOCK_2": "使无限晋升符文<<gold|{{descriptor}}>>常时解锁！<<orange|额外等级增加{{amount}}>>",
+      "CUBE_BUFF": "使方盒获取数量增加<<gold|{{amount}}>>",
+      "AMBROSIA_LUCK_BUFF": "使神肴之运增加<<gold|{{amount}}>>",
+      "AMBROSIA_GENERATION_BUFF": "使蓝莓秒产生速度变为原来的<<gold|{{amount}}>>倍",
+      "GOLDEN_QUARK_BUFF": "使金夸克获取数量变为原来的<<gold|{{amount}}>>倍",
+      "FREE_UPGRADE_PROMOCODE_BUFF": "使“每日”代码获得的免费奇点升级变为原来的<<gold|{{amount}}倍>>！",
+      "CORRUPTION_LOADOUT_SLOT_QOL": "您额外获得<<gold|{{amount}}>>个腐化预设槽位！",
+      "AMBROSIA_LOADOUT_SLOT_QOL": "您额外获得<<gold | {{amount}}>>个神肴预设槽位！",
+      "AUTO_POTION_FREE_POTIONS_QOL": "自动使用药剂时<<gold|{{descriptor}}>>消耗药剂！",
+      "OFFLINE_TIMER_CAP_BUFF": "使离线时间上限变为原来的<<gold|{{amount}}>>倍",
+      "ADD_CODE_CAP_BUFF": "使“增加”代码的次数上限变为原来的<<gold|{{amount}}>>倍"
+    }
   }
 }

@@ -1434,7 +1434,7 @@
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
       "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 20 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
-      "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 666% more effective (so, each is worth the equivalent to 7.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
+      "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
     },
     "maxed": "¡Maximizado!",
@@ -2436,7 +2436,8 @@
       "singularity": "Singularidad",
       "settings": "Ajustes",
       "shop": "Tienda",
-      "unsmith": "UNSMITH"
+      "unsmith": "UNSMITH",
+      "purchase": "PseudoCoins"
     },
     "buildings": {
       "coin": "Edificios de Moneda",
@@ -2478,6 +2479,11 @@
       "singularityHistory": "Historial de Singularidad",
       "hotkeys": "Atajos",
       "account": "Account"
+    },
+    "pseudocoins": {
+      "buy": "Purchase Coins",
+      "upgrades": "Buy Upgrades",
+      "merch": "Purchase Merch"
     }
   },
   "offlineProgress": {
@@ -3547,5 +3553,41 @@
   },
   "account": {
     "logout": "The page will now reload. You are logged out! Goodbye!!"
+  },
+  "pseudoCoins": {
+    "coinCount": "You have <<gold|{{amount}} PseudoCoins>>!",
+    "cost": "Cost: <<gold|{{amount}} PseudoCoins>>",
+    "maxxed": "<<gold|Maxed!>>",
+    "buyButton": "Buy! <<gold|-{{amount}} PseudoCoins>>",
+    "currEffect": "Current Level:",
+    "nextEffect": "Next Level:",
+    "upgradeNames": {
+      "INSTANT_UNLOCK_1": "The Talisman Activator-inator",
+      "INSTANT_UNLOCK_2": "The Rune Discoverer-inator",
+      "CUBE_BUFF": "Gold-Infused Cubes",
+      "AMBROSIA_LUCK_BUFF": "The Gold Leaf Clovers",
+      "AMBROSIA_GENERATION_BUFF": "Alchemized Ambrosia Speedup",
+      "GOLDEN_QUARK_BUFF": "Even Golder Quarks",
+      "FREE_UPGRADE_PROMOCODE_BUFF": "Bribing the Daily Code",
+      "CORRUPTION_LOADOUT_SLOT_QOL": "More Corruption Loadouts!",
+      "AMBROSIA_LOADOUT_SLOT_QOL": "More Ambrosia Loadouts!",
+      "AUTO_POTION_FREE_POTIONS_QOL": "Potion Duplication Glitch",
+      "OFFLINE_TIMER_CAP_BUFF": "Cozier Beds Enshrined in Gold",
+      "ADD_CODE_CAP_BUFF": "The Limited-Edition PLAT-P Calculator"
+    },
+    "upgradeEffects": {
+      "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
+      "INSTANT_UNLOCK_2": "The Rune of Infinite Ascent is <<gold | {{descriptor}}>> always unlocked! <<orange | Bonus Levels +{{amount}}>>",
+      "CUBE_BUFF": "Cube Gain is multiplied by <<gold | {{amount}}>>",
+      "AMBROSIA_LUCK_BUFF": "Ambrosia Luck is increased by <<gold | {{amount}}>>",
+      "AMBROSIA_GENERATION_BUFF": "Blueberry Generation Speed is multiplied by <<gold | {{amount}}>>",
+      "GOLDEN_QUARK_BUFF": "Golden Quark Gain is multiplied by <<gold | {{amount}}>>",
+      "FREE_UPGRADE_PROMOCODE_BUFF": "Code 'Daily' gives <<gold | {{amount}}x>> the Free Upgrades!",
+      "CORRUPTION_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Corruption Loadout slots!",
+      "AMBROSIA_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Ambrosia Loadout slots!",
+      "AUTO_POTION_FREE_POTIONS_QOL": "Auto-Potion is <<gold | {{descriptor}}>> FREE!",
+      "OFFLINE_TIMER_CAP_BUFF": "Offline Time Capacity is multiplied by <<gold | {{amount}}>>",
+      "ADD_CODE_CAP_BUFF": "Code 'add' Capacity is multiplied by <<gold | {{amount}}>>"
+    }
   }
 }
