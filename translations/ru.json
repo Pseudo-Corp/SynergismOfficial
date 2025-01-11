@@ -2482,7 +2482,8 @@
     },
     "pseudocoins": {
       "buy": "Купить Монеты",
-      "upgrades": "Купить Улучшения"
+      "upgrades": "Купить Улучшения",
+      "merch": "Purchase Merch"
     }
   },
   "offlineProgress": {
