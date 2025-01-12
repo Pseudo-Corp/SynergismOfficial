@@ -2645,8 +2645,8 @@ export const calculateSingularityDebuff = (
       ? 1 + Math.sqrt(effectiveSingularities) / 5
       : 1 + Math.pow(effectiveSingularities, 0.75) / 10000
   } else if (debuff === 'Cubes') {
-    const extraMult = player.singularityCount > 100
-      ? Math.pow(1.02, player.singularityCount - 100)
+    const extraMult = player.constitutiveSingularityCount > 100
+      ? Math.pow(1.02, player.constitutiveSingularityCount - 100)
       : 1
     return player.singularityCount < 150
       ? 1 + (Math.sqrt(effectiveSingularities) * extraMult) / 4
