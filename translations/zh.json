@@ -2483,7 +2483,7 @@
     "pseudocoins": {
       "buy": "购买伪币",
       "upgrades": "购买升级",
-      "merch": "Purchase Merch"
+      "merch": "购买游戏周边"
     }
   },
   "offlineProgress": {
@@ -3584,8 +3584,8 @@
       "GOLDEN_QUARK_BUFF": "使金夸克获取数量变为原来的<<gold|{{amount}}>>倍",
       "FREE_UPGRADE_PROMOCODE_BUFF": "使“每日”代码获得的免费奇点升级变为原来的<<gold|{{amount}}倍>>！",
       "CORRUPTION_LOADOUT_SLOT_QOL": "您额外获得<<gold|{{amount}}>>个腐化预设槽位！",
-      "AMBROSIA_LOADOUT_SLOT_QOL": "您额外获得<<gold | {{amount}}>>个神肴预设槽位！",
-      "AUTO_POTION_FREE_POTIONS_QOL": "自动使用药剂时<<gold|{{descriptor}}>>消耗药剂！",
+      "AMBROSIA_LOADOUT_SLOT_QOL": "您额外获得<<gold|{{amount}}>>个神肴预设槽位！",
+      "AUTO_POTION_FREE_POTIONS_QOL": "自动使用药剂时并非<<gold|{{descriptor}}>>消耗药剂！",
       "OFFLINE_TIMER_CAP_BUFF": "使离线时间上限变为原来的<<gold|{{amount}}>>倍",
       "ADD_CODE_CAP_BUFF": "使“增加”代码的次数上限变为原来的<<gold|{{amount}}>>倍"
     }
