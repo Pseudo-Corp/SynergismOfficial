@@ -60,25 +60,27 @@ const initializeMerchSubtab = memoize(() => {
       for (let j = 0; j < merch[i].variants.length; j++) {
         const variant = merch[i].variants[j]
 
-        const slide = document.createElement('div')
-        slide.classList.add('slide', 'fade')
+        for (let k = 0; k < variant.images.length; k++) {
+          const slide = document.createElement('div')
+          slide.classList.add('slide', 'fade')
 
-        const pageNumber = document.createElement('div')
-        pageNumber.classList.add('pageNumber')
-        pageNumber.textContent = `${j + 1}/${merch[i].variants.length}`
+          const pageNumber = document.createElement('div')
+          pageNumber.classList.add('pageNumber')
+          pageNumber.textContent = `${j + 1}/${merch[i].variants.length}`
 
-        const img = document.createElement('img')
-        img.src = variant.images[j].url
-        img.width = img.height = 400
+          const img = document.createElement('img')
+          img.src = variant.images[k].url
+          img.width = img.height = 400
 
-        const text = document.createElement('div')
-        text.classList.add('text')
-        text.textContent = variant.name
+          const text = document.createElement('div')
+          text.classList.add('text')
+          text.textContent = variant.name
 
-        slideshow.appendChild(slide)
-        slide.appendChild(pageNumber)
-        slide.appendChild(img)
-        slide.appendChild(text)
+          slideshow.appendChild(slide)
+          slide.appendChild(pageNumber)
+          slide.appendChild(img)
+          slide.appendChild(text)
+        }
       }
 
       const prev = document.createElement('a')
