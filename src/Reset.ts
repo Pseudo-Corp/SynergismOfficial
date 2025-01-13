@@ -1376,7 +1376,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   player.promoCodeTiming.time = Date.now()
 
   // Save again at the end of singularity reset
-  void saveSynergy()
+  saveSynergy()
 }
 
 const resetUpgrades = (i: number) => {
