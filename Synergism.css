@@ -4252,12 +4252,12 @@ form input:hover {
     justify-content: center;
     width: 100%;
     margin-top: 10px;
+    flex-wrap: wrap;
 }
 
 .slideshow-container {
     max-width: 1000px;
     position: relative;
-    margin: auto;
 }
 
 .slideshow-container .slide {
