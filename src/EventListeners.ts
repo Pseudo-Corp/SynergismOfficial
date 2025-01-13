@@ -956,11 +956,11 @@ TODO: Fix this entire tab it's utter shit
     }
     DOMCacheGetOrSet(`${String(key)}`).addEventListener(
       'mouseover',
-      () => player.singularityUpgrades[`${String(key)}`].updateUpgradeHTML()
+      () => player.singularityUpgrades[key].updateUpgradeHTML()
     )
     DOMCacheGetOrSet(`${String(key)}`).addEventListener(
       'click',
-      (event) => player.singularityUpgrades[`${String(key)}`].buyLevel(event)
+      (event) => player.singularityUpgrades[key].buyLevel(event)
     )
   }
   DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener(
@@ -1006,11 +1006,11 @@ TODO: Fix this entire tab it's utter shit
   for (const key of octeractUpgrades) {
     DOMCacheGetOrSet(`${String(key)}`).addEventListener(
       'mouseover',
-      () => player.octeractUpgrades[`${String(key)}`].updateUpgradeHTML()
+      () => player.octeractUpgrades[key].updateUpgradeHTML()
     )
     DOMCacheGetOrSet(`${String(key)}`).addEventListener(
       'click',
-      (event) => player.octeractUpgrades[`${String(key)}`].buyLevel(event)
+      (event) => player.octeractUpgrades[key].buyLevel(event)
     )
   }
 
@@ -1030,11 +1030,11 @@ TODO: Fix this entire tab it's utter shit
   for (const key of singularityChallenges) {
     DOMCacheGetOrSet(`${String(key)}`).addEventListener(
       'mouseover',
-      () => player.singularityChallenges[`${String(key)}`].updateChallengeHTML()
+      () => player.singularityChallenges[key].updateChallengeHTML()
     )
     DOMCacheGetOrSet(`${String(key)}`).addEventListener(
       'click',
-      () => player.singularityChallenges[`${String(key)}`].challengeEntryHandler()
+      () => player.singularityChallenges[key].challengeEntryHandler()
     )
   }
 
@@ -1045,11 +1045,11 @@ TODO: Fix this entire tab it's utter shit
   for (const key of blueberryUpgrades) {
     DOMCacheGetOrSet(`${String(key)}`).addEventListener(
       'mouseover',
-      () => player.blueberryUpgrades[`${String(key)}`].updateUpgradeHTML()
+      () => player.blueberryUpgrades[key].updateUpgradeHTML()
     )
     DOMCacheGetOrSet(`${String(key)}`).addEventListener(
       'click',
-      (event) => player.blueberryUpgrades[`${String(key)}`].buyLevel(event)
+      (event) => player.blueberryUpgrades[key].buyLevel(event)
     )
   }
 

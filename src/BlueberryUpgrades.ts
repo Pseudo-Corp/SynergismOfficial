@@ -308,8 +308,27 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   }
 }
 
+export type BlueberryUpgradeDataKeys =
+  | 'ambrosiaTutorial'
+  | 'ambrosiaQuarks1'
+  | 'ambrosiaCubes1'
+  | 'ambrosiaLuck1'
+  | 'ambrosiaQuarkCube1'
+  | 'ambrosiaLuckCube1'
+  | 'ambrosiaCubeQuark1'
+  | 'ambrosiaLuckQuark1'
+  | 'ambrosiaCubeLuck1'
+  | 'ambrosiaQuarkLuck1'
+  | 'ambrosiaQuarks2'
+  | 'ambrosiaCubes2'
+  | 'ambrosiaLuck2'
+  | 'ambrosiaPatreon'
+  | 'ambrosiaObtainium1'
+  | 'ambrosiaOffering1'
+  | 'ambrosiaHyperflux'
+
 export const blueberryUpgradeData: Record<
-  keyof Player['blueberryUpgrades'],
+  BlueberryUpgradeDataKeys,
   IBlueberryData
 > = {
   ambrosiaTutorial: {
@@ -867,7 +886,7 @@ export const getBlueberryTree = () => {
 export const fixBlueberryLevel = (modules: BlueberryOpt) => {
   return Object.fromEntries(
     Object.entries(modules).map(([key, value]) => {
-      return [key, Math.min(value, player.blueberryUpgrades[key].maxLevel)]
+      return [key, Math.min(value, player.blueberryUpgrades[key as BlueberryUpgradeDataKeys].maxLevel)]
     })
   )
 }

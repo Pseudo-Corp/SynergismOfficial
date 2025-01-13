@@ -293,6 +293,7 @@ export function renderCaptcha () {
   const visible = captchaElements.find((el) => el.offsetParent !== null)
 
   if (visible && !hasCaptcha.has(visible)) {
+    // biome-ignore lint/correctness/noUndeclaredVariables: declared in reference type
     turnstile.render(visible, {
       sitekey: visible.getAttribute('data-sitekey')!,
       'error-callback' () {},

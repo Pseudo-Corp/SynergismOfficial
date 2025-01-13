@@ -1,12 +1,16 @@
 import Decimal from 'break_infinity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
-import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
+import { BlueberryUpgrade, blueberryUpgradeData, type BlueberryUpgradeDataKeys } from '../BlueberryUpgrades'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { createHepteract } from '../Hepteracts'
-import { octeractData, OcteractUpgrade } from '../Octeracts'
+import { octeractData, type OcteractDataKeys, OcteractUpgrade } from '../Octeracts'
 import { QuarkHandler } from '../Quark'
-import { singularityData, SingularityUpgrade } from '../singularity'
-import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
+import { singularityData, type SingularityDataKeys, SingularityUpgrade } from '../singularity'
+import {
+  SingularityChallenge,
+  singularityChallengeData,
+  type SingularityChallengeDataKeys
+} from '../SingularityChallenges'
 import { blankSave } from '../Synergism'
 import type { Player } from '../types/Synergism'
 import { deepClone, padArray } from '../Utility'
@@ -22,9 +26,13 @@ const decimalSchema = z.custom<Decimal>((value) => {
 
 const arrayStartingWithNull = (s: ZodType) => z.tuple([z.null()]).rest(s)
 
-const arrayExtend = <K extends keyof Player, Value extends Player[K]>(array: Value, k: K) => {
-  if (array.length < blankSave[k].length) {
-    array.push(...blankSave[k].slice(array.length))
+const arrayExtend = <
+  K extends keyof Player,
+  Value extends Player[K] extends Array<infer V> ? V[] : never
+>(array: Value, k: K) => {
+  const b = blankSave[k] as Value
+  if (array.length < b.length) {
+    array.push(...b.slice(array.length))
   }
   return array
 }
@@ -612,7 +620,7 @@ export const playerSchema = z.object({
   singularityUpgrades: z.record(z.string(), singularityUpgradeSchema('goldenQuarksInvested'))
     .transform((upgrades) =>
       Object.fromEntries(
-        Object.keys(singularityData).map((k) => {
+        (Object.keys(singularityData) as SingularityDataKeys[]).map((k) => {
           const { level, goldenQuarksInvested, toggleBuy, freeLevels } = upgrades[k] ?? singularityData[k]
 
           return [
@@ -640,7 +648,7 @@ export const playerSchema = z.object({
   octeractUpgrades: z.record(z.string(), singularityUpgradeSchema('octeractsInvested'))
     .transform((upgrades) =>
       Object.fromEntries(
-        Object.keys(octeractData).map((k) => {
+        (Object.keys(octeractData) as OcteractDataKeys[]).map((k) => {
           const { level, octeractsInvested, toggleBuy, freeLevels } = upgrades[k] ?? octeractData[k]
 
           return [
@@ -678,7 +686,7 @@ export const playerSchema = z.object({
   )
     .transform((upgrades) =>
       Object.fromEntries(
-        Object.keys(blankSave.singularityChallenges).map((k) => {
+        (Object.keys(blankSave.singularityChallenges) as SingularityChallengeDataKeys[]).map((k) => {
           const { completions, highestSingularityCompleted, enabled } = upgrades[k]
             ?? blankSave.singularityChallenges[k]
 
@@ -715,7 +723,7 @@ export const playerSchema = z.object({
   blueberryUpgrades: z.record(z.string(), singularityUpgradeSchema('blueberriesInvested', 'ambrosiaInvested'))
     .transform((upgrades) =>
       Object.fromEntries(
-        Object.keys(blankSave.blueberryUpgrades).map((k) => {
+        (Object.keys(blankSave.blueberryUpgrades) as BlueberryUpgradeDataKeys[]).map((k) => {
           const { level, ambrosiaInvested, blueberriesInvested, toggleBuy, freeLevels } = upgrades[k]
             ?? blankSave.blueberryUpgrades[k]
 

@@ -4,7 +4,6 @@ import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, octeractGainPe
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import { format, formatTimeShort, player } from './Synergism'
-import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
@@ -196,7 +195,46 @@ export class OcteractUpgrade extends DynamicUpgrade {
   }
 }
 
-export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractData> = {
+export type OcteractDataKeys =
+  | 'octeractStarter'
+  | 'octeractGain'
+  | 'octeractGain2'
+  | 'octeractQuarkGain'
+  | 'octeractQuarkGain2'
+  | 'octeractCorruption'
+  | 'octeractGQCostReduce'
+  | 'octeractExportQuarks'
+  | 'octeractImprovedDaily'
+  | 'octeractImprovedDaily2'
+  | 'octeractImprovedDaily3'
+  | 'octeractImprovedQuarkHept'
+  | 'octeractImprovedGlobalSpeed'
+  | 'octeractImprovedAscensionSpeed'
+  | 'octeractImprovedAscensionSpeed2'
+  | 'octeractImprovedFree'
+  | 'octeractImprovedFree2'
+  | 'octeractImprovedFree3'
+  | 'octeractImprovedFree4'
+  | 'octeractSingUpgradeCap'
+  | 'octeractOfferings1'
+  | 'octeractObtainium1'
+  | 'octeractAscensions'
+  | 'octeractAscensions2'
+  | 'octeractAscensionsOcteractGain'
+  | 'octeractFastForward'
+  | 'octeractAutoPotionSpeed'
+  | 'octeractAutoPotionEfficiency'
+  | 'octeractOneMindImprover'
+  | 'octeractAmbrosiaLuck'
+  | 'octeractAmbrosiaLuck2'
+  | 'octeractAmbrosiaLuck3'
+  | 'octeractAmbrosiaLuck4'
+  | 'octeractAmbrosiaGeneration'
+  | 'octeractAmbrosiaGeneration2'
+  | 'octeractAmbrosiaGeneration3'
+  | 'octeractAmbrosiaGeneration4'
+
+export const octeractData: Record<OcteractDataKeys, IOcteractData> = {
   octeractStarter: {
     costFormula: (level: number, baseCost: number) => {
       return baseCost * (level + 1)
