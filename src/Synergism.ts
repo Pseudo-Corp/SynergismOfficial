@@ -6305,13 +6305,7 @@ export const reloadShit = async (reset = false) => {
   createTimer()
 
   // Reset Displays
-  if (!playerNeedsReminderToExport()) {
-    changeTab(Tabs.Buildings)
-  } else {
-    changeTab(Tabs.Settings)
-
-    void Alert(i18next.t('general.exportYourGame'))
-  }
+  changeTab(Tabs.Buildings)
 
   changeSubTab(Tabs.Buildings, { page: 0 })
   changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
@@ -6369,12 +6363,6 @@ export const reloadShit = async (reset = false) => {
 
   const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
   saveType.checked = localStorage.getItem('copyToClipboard') !== null
-}
-
-function playerNeedsReminderToExport () {
-  const day = 1000 * 60 * 60 * 24
-
-  return Date.now() - player.lastExportedSave > day * 3
 }
 
 window.addEventListener('load', async () => {
