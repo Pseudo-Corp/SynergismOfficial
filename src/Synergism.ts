@@ -6313,7 +6313,7 @@ export const reloadShit = (reset = false) => {
     && typeof navigator.storage?.persisted === 'function'
   ) {
     navigator.storage.persisted()
-      .then((persistent) => persistent ? Promise.resolve(true) : navigator.storage.persist())
+      .then((persistent) => persistent ? Promise.resolve(false) : navigator.storage.persist())
       .then((isPersistentNow) => {
         if (isPersistentNow) {
           void Alert(i18next.t('main.dataPersistent'))
