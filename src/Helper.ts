@@ -237,6 +237,9 @@ export const addTimers = (input: TimerInput, time = 0) => {
 
       if (player.ultimateProgress > 1e6) {
         player.ultimatePixels += Math.floor(player.ultimateProgress / 1e6)
+        if (player.cubeUpgrades[79] > 0) {
+          player.cubeUpgradeRedBarFilled += Math.floor(player.ultimateProgress / 1e6)
+        }
         player.ultimateProgress -= 1e6 * Math.floor(player.ultimateProgress / 1e6)
       }
 

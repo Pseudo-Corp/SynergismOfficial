@@ -596,7 +596,7 @@ export const visualUpdateRunes = () => {
         )
       } else if (i === 6) {
         DOMCacheGetOrSet(`bonusrune${i}`).textContent = i18next.t('runes.bonusAmount', {
-          x: PCoinUpgradeEffects.INSTANT_UNLOCK_2 ? 6 : 0
+          x: player.cubeUpgrades[73] + (PCoinUpgradeEffects.INSTANT_UNLOCK_2 ? 6 : 0)
         })
       } else {
         DOMCacheGetOrSet(`bonusrune${i}`).textContent = i18next.t('runes.bonusNope')

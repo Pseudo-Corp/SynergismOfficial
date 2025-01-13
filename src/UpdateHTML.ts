@@ -245,6 +245,8 @@ export const revealStuff = () => {
   const cookies2 = document.getElementsByClassName('assortedCookies2') as HTMLCollectionOf<HTMLElement>
   const cookies3 = document.getElementsByClassName('assortedCookies3') as HTMLCollectionOf<HTMLElement>
   const cookies4 = document.getElementsByClassName('assortedCookies4') as HTMLCollectionOf<HTMLElement>
+  const cookies5 = document.getElementsByClassName('assortedCookies4') as HTMLCollectionOf<HTMLElement>
+
   for (const HTML of Array.from(cookies1)) {
     HTML.style.display = player.singularityUpgrades.cookies.getEffect().bonus ? 'block' : 'none'
   }
@@ -256,6 +258,9 @@ export const revealStuff = () => {
   }
   for (const HTML of Array.from(cookies4)) {
     HTML.style.display = player.singularityUpgrades.cookies4.getEffect().bonus ? 'block' : 'none'
+  }
+  for (const HTML of Array.from(cookies5)) {
+    HTML.style.display = player.singularityUpgrades.cookies5.getEffect().bonus ? 'block' : 'none'
   }
 
   const goldenQuarks3 = document.getElementsByClassName('goldenQuark3Upg') as HTMLCollectionOf<HTMLElement>
