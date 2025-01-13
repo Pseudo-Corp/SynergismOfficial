@@ -1351,7 +1351,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'shopSingularitySpeedup': {
       const obtained = player.shopUpgrades.shopSingularitySpeedup > 0
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopSingularitySpeedup', {
-        amount: obtained ? 20 : 1
+        amount: obtained ? 50 : 1
       })
       break
     }
@@ -1359,7 +1359,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       {
         const obtained = player.shopUpgrades.shopSingularityPotency > 0
         lol.innerHTML = i18next.t('shop.upgradeEffects.shopSingularityPotency', {
-          amount: obtained ? 7.66 : 1
+          amount: obtained ? 3.66 : 1
         })
       }
       break

@@ -359,7 +359,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
   }
 
   public computeFreeLevelSoftcap (): number {
-    const baseRealFreeLevels = player.shopUpgrades.shopSingularityPotency > 0 ? 7.66 * this.freeLevels : this.freeLevels
+    const baseRealFreeLevels = player.shopUpgrades.shopSingularityPotency > 0 ? 3.66 * this.freeLevels : this.freeLevels
     return (
       Math.min(this.level, baseRealFreeLevels)
       + Math.sqrt(Math.max(0, baseRealFreeLevels - this.level))

@@ -1784,7 +1784,7 @@ export const calculateAllCubeMultiplier = () => {
       * Math.min(
         9,
         (player.shopUpgrades.shopSingularitySpeedup > 0)
-          ? player.singularityCounter * 20 / (3600 * 24)
+          ? player.singularityCounter * 50 / (3600 * 24)
           : player.singularityCounter / (3600 * 24)
       ),
     // Wow Pass INF
@@ -2134,7 +2134,7 @@ export const getOcteractValueMultipliers = () => {
       * Math.min(
         9,
         (player.shopUpgrades.shopSingularitySpeedup > 0)
-          ? player.singularityCounter * 20 / (3600 * 24)
+          ? player.singularityCounter * 50 / (3600 * 24)
           : player.singularityCounter / (3600 * 24)
       ),
     // No Singulairty Upgrades
