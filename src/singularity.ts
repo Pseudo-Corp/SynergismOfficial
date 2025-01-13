@@ -491,7 +491,6 @@ export type SingularityDataKeys =
   | 'singFastForward2'
   | 'singAscensionSpeed'
   | 'singAscensionSpeed2'
-  | 'WIP'
   | 'ultimatePen'
   | 'oneMind'
   | 'wowPass4'
@@ -1393,19 +1392,6 @@ export const singularityData: Record<
         bonus: n,
         get desc () {
           return i18next.t('singularity.data.singAscensionSpeed2.effect')
-        }
-      }
-    }
-  },
-  WIP: {
-    maxLevel: 100,
-    costPerLevel: 1e300,
-    minimumSingularity: 251,
-    effect: (n: number) => {
-      return {
-        bonus: n,
-        get desc () {
-          return i18next.t('singularity.data.WIP.effect')
         }
       }
     }

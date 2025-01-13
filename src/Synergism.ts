@@ -1244,10 +1244,6 @@ export const player: Player = {
     singAmbrosiaGeneration4: new SingularityUpgrade(
       singularityData.singAmbrosiaGeneration4,
       'singAmbrosiaGeneration4'
-    ),
-    WIP: new SingularityUpgrade(
-      singularityData.WIP,
-      'WIP'
     )
   },
 
