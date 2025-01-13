@@ -2150,8 +2150,7 @@
       "v297hotfix1NoSing": "Du wurdest in die Version 2.9.7 Hotfix 1 geladen!",
       "v297hotfix1Sing": "Du wurdest in die Version 2.9.7 Hotfix 1 geladen! Deine unbegrenzten Singularity Upgrades wurden zurückerstattet! Entschuldung für die Unannehmlichkeiten."
     },
-    "languageChange": "Wechseln der Sprache erfordert ein neu laden! Möchtest du jetzt neu laden?",
-    "exportYourGame": "Du hast länger nicht dein Spiel Exported, mach es besser oder du könntest dein Spielstand verlieren!"
+    "languageChange": "Wechseln der Sprache erfordert ein neu laden! Möchtest du jetzt neu laden?"
   },
   "upgrades": {
     "descriptions": {

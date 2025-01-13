@@ -2150,8 +2150,7 @@
       "v297hotfix1NoSing": "¡Has cargado la revisión 1 de la versión 2.9.7!",
       "v297hotfix1Sing": "¡Has cargado la revisión 1 de la versión 2.9.7! ¡Tus mejoras de singularidad sin límite se han devuelto! Disculpa los inconvenientes."
     },
-    "languageChange": "¡Para cambiar de lenguaje se necesita recargar! ¿Quieres hacerlo ahora?",
-    "exportYourGame": "You haven't exported your game in a while, you better export it soon or you could lose it!"
+    "languageChange": "¡Para cambiar de lenguaje se necesita recargar! ¿Quieres hacerlo ahora?"
   },
   "upgrades": {
     "descriptions": {

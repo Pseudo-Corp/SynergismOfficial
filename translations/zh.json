@@ -2150,8 +2150,7 @@
       "v297hotfix1NoSing": "您载入了2.9.7热修复1补丁！",
       "v297hotfix1Sing": "您载入了2.9.7热修复1补丁！部分无上限的奇点升级进行了重置，对此表示抱歉。"
     },
-    "languageChange": "切换语言需要刷新页面，您现在就想要刷新页面吗？",
-    "exportYourGame": "您有一阵子没有导出存档了，切记，存档不规范，玩家两行泪。"
+    "languageChange": "切换语言需要刷新页面，您现在就想要刷新页面吗？"
   },
   "upgrades": {
     "descriptions": {
