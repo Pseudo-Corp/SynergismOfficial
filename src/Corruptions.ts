@@ -221,7 +221,6 @@ export const corruptionLoadoutTableCreate = () => {
     const row = table.insertRow()
     for (let j = 0; j <= corrCount; j++) {
       const cell = row.insertCell()
-      cell.className = `test${j}`
       if (j === 0) { // First column
         if (i === 0) { // First row
           cell.textContent = i18next.t('corruptions.loadoutTable.next')
@@ -274,6 +273,8 @@ export const corruptionLoadoutTableCreate = () => {
       cell.appendChild(btn)
     }
   }
+
+  updateCorruptionLoadoutNames()
 }
 
 export const corruptionLoadoutTableUpdate = (updateRow = 0) => {
