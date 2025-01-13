@@ -283,7 +283,7 @@ async function getCloudSave () {
   const response = await fetch('https://synergism.cc/api/v1/saves/get')
   const save = await response.json() as CloudSave
 
-  await importSynergism(save?.save ?? null)
+  importSynergism(save?.save ?? null)
 }
 
 const hasCaptcha = new WeakSet<HTMLElement>()

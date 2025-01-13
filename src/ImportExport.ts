@@ -302,12 +302,12 @@ export const resetGame = async (force = true) => {
   changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
   changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
   // Import Game
-  await importSynergism(btoa(JSON.stringify(hold.data)), true)
+  importSynergism(btoa(JSON.stringify(hold.data)), true)
 }
 
 export const importData = async (
   e: Event,
-  importFunc: (save: string | null) => Promise<void> | Promise<undefined>
+  importFunc: (save: string | null) => void
 ) => {
   const element = e.target as HTMLInputElement
   const file = element.files![0]
@@ -332,7 +332,7 @@ export const importData = async (
   return importFunc(save)
 }
 
-export const importSynergism = async (input: string | null, reset = false) => {
+export const importSynergism = (input: string | null, reset = false) => {
   if (typeof input !== 'string') {
     return Alert(i18next.t('importexport.unableImport'))
   }
