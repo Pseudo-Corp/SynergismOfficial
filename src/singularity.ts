@@ -2641,22 +2641,22 @@ export const calculateSingularityDebuff = (
   } else if (debuff === 'Researches') {
     return 1 + Math.sqrt(effectiveSingularities) / 2
   } else if (debuff === 'Ascension Speed') {
-    return singularityCount < 150
+    return constitutiveSingularityCount < 150
       ? 1 + Math.sqrt(effectiveSingularities) / 5
       : 1 + Math.pow(effectiveSingularities, 0.75) / 10000
   } else if (debuff === 'Cubes') {
     const extraMult = constitutiveSingularityCount > 100
       ? Math.pow(1.02, constitutiveSingularityCount - 100)
       : 1
-    return player.singularityCount < 150
+    return constitutiveSingularityCount < 150
       ? 1 + (Math.sqrt(effectiveSingularities) * extraMult) / 4
       : 1 + (Math.pow(effectiveSingularities, 0.75) * extraMult) / 1000
   } else if (debuff === 'Platonic Costs') {
-    return singularityCount > 36
+    return constitutiveSingularityCount > 36
       ? 1 + Math.pow(effectiveSingularities, 3 / 10) / 12
       : 1
   } else if (debuff === 'Hepteract Costs') {
-    return singularityCount > 50
+    return constitutiveSingularityCount > 50
       ? 1 + Math.pow(effectiveSingularities, 11 / 50) / 25
       : 1
   } else {
