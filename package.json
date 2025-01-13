@@ -10,7 +10,6 @@
     "eventemitter3": "^4.0.7",
     "fast-mersenne-twister": "^1.0.3",
     "i18next": "^22.4.9",
-    "localforage": "^1.10.0",
     "lodash.clonedeepwith": "^4.5.0",
     "lz-string": "^1.4.4",
     "worker-timers": "^7.0.53",

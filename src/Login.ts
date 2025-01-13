@@ -1,7 +1,6 @@
 /// <reference types="@types/cloudflare-turnstile" />
 
 import i18next from 'i18next'
-import localforage from 'localforage'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
@@ -259,9 +258,7 @@ async function logout () {
 }
 
 async function saveToCloud () {
-  const save = (await localforage.getItem<Blob>('Synergysave2')
-    .then((b) => b?.text())
-    .catch(() => null)) ?? localStorage.getItem('Synergysave2')
+  const save = localStorage.getItem('Synergysave2')
 
   if (typeof save !== 'string') {
     console.log('Yeah, no save here.')

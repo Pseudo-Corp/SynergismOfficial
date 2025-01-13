@@ -137,7 +137,6 @@ import {
 // import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import i18next from 'i18next'
-import localforage from 'localforage'
 import {
   BlueberryUpgrade,
   blueberryUpgradeData,
@@ -182,7 +181,6 @@ import {
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
-import type { PlayerSave } from './types/LegacySynergism'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -1550,13 +1548,7 @@ export const blankSave = Object.assign({}, player, {
   codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false]))
 })
 
-// The main cause of the double singularity bug was caused by a race condition
-// when the game was saving just as the user was entering a Singularity. To fix
-// this, hopefully, we disable saving the game when in the prompt or currently
-// entering a Singularity.
-export const saveCheck = { canSave: true }
-
-export const saveSynergy = async (button?: boolean): Promise<boolean> => {
+export const saveSynergy = (button?: boolean) => {
   player.offlinetick = Date.now()
   player.loaded1009 = true
   player.loaded1009hotfix1 = true
@@ -1565,17 +1557,9 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
   const save = btoa(JSON.stringify(p))
 
   if (save !== null) {
-    const saveBlob = new Blob([save], { type: 'text/plain' })
-
-    // Should prevent overwritting of localforage that is currently used
-    if (!saveCheck.canSave) {
-      return false
-    }
-
     localStorage.setItem('Synergysave2', save)
-    await localforage.setItem<Blob>('Synergysave2', saveBlob)
   } else {
-    await Alert(i18next.t('testing.errorSaving'))
+    void Alert(i18next.t('testing.errorSaving'))
     return false
   }
 
@@ -1588,14 +1572,9 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
   return true
 }
 
-const loadSynergy = async () => {
-  const save = (await localforage.getItem<Blob>('Synergysave2'))
-    ?? localStorage.getItem('Synergysave2')
-
-  const saveString = typeof save === 'string' ? save : await save?.text()
-  const data = saveString
-    ? (JSON.parse(atob(saveString)) as PlayerSave & Record<string, unknown>)
-    : null
+const loadSynergy = () => {
+  const saveString = localStorage.getItem('Synergysave2')
+  const data = saveString ? JSON.parse(atob(saveString)) : null
 
   if (testing || !prod) {
     Object.defineProperties(window, {
@@ -5127,7 +5106,7 @@ export const resetCheck = async (
       return Alert(i18next.t('main.singularityCancelled'))
     } else {
       await singularity()
-      await saveSynergy()
+      saveSynergy()
       return Alert(
         i18next.t('main.welcomeToSingularity', {
           x: format(player.singularityCount)
@@ -6234,7 +6213,7 @@ export const showExitOffline = () => {
  * Reloads shit.
  * @param reset if this param is passed, offline progression will not be calculated.
  */
-export const reloadShit = async (reset = false) => {
+export const reloadShit = (reset = false) => {
   clearTimers()
 
   // Shows a reset button when page loading seems to stop or cause an error
@@ -6245,16 +6224,7 @@ export const reloadShit = async (reset = false) => {
 
   disableHotkeys()
 
-  // Wait a tick to continue. This is a (likely futile) attempt to see if this solves save corrupting.
-  // This ensures all queued tasks are executed before continuing on.
-  await new Promise((res) => {
-    setTimeout(res, 0)
-  })
-
-  const save = (await localforage.getItem<Blob>('Synergysave2'))
-    ?? localStorage.getItem('Synergysave2')
-
-  const saveObject = typeof save === 'string' ? save : await save?.text()
+  const saveObject = localStorage.getItem('Synergysave2')
 
   if (saveObject) {
     const dec = LZString.decompressFromBase64(saveObject)
@@ -6272,28 +6242,22 @@ export const reloadShit = async (reset = false) => {
       }
 
       localStorage.clear()
-      const blob = new Blob([saveString], { type: 'text/plain' })
       localStorage.setItem('Synergysave2', saveString)
-      await localforage.setItem<Blob>('Synergysave2', blob)
-      await Alert(i18next.t('main.transferredFromLZ'))
+      Alert(i18next.t('main.transferredFromLZ'))
     }
 
-    await loadSynergy()
+    loadSynergy()
   }
 
   if (!reset) {
-    await calculateOffline()
+    calculateOffline()
   } else {
     if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
       player.worlds.reset()
     }
-    // saving is disabled during a singularity event to prevent bug
-    // early return here if the save fails can keep game state from properly resetting after a singularity
-    if (saveCheck.canSave) {
-      const saved = await saveSynergy()
-      if (!saved) {
-        return
-      }
+
+    if (!saveSynergy()) {
+      return
     }
   }
 
@@ -6348,17 +6312,13 @@ export const reloadShit = async (reset = false) => {
     typeof navigator.storage?.persist === 'function'
     && typeof navigator.storage?.persisted === 'function'
   ) {
-    const persistent = await navigator.storage.persisted()
-
-    if (!persistent) {
-      const isPersistentNow = await navigator.storage.persist()
-
-      if (isPersistentNow) {
-        void Alert(i18next.t('main.dataPersistent'))
-      }
-    } else {
-      console.log(`Storage is persistent! (persistent = ${persistent})`)
-    }
+    navigator.storage.persisted()
+      .then((persistent) => persistent ? Promise.resolve(false) : navigator.storage.persist())
+      .then((isPersistentNow) => {
+        if (isPersistentNow) {
+          void Alert(i18next.t('main.dataPersistent'))
+        }
+      })
   }
 
   const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
@@ -6403,12 +6363,11 @@ window.addEventListener('load', async () => {
   document.title = `Synergism v${version}`
 
   generateEventHandlers()
-
-  void reloadShit()
+  reloadShit()
 
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
-})
+}, { once: true })
 
 window.addEventListener('unload', () => {
   // This fixes a bug in Chrome (who would have guessed?) that

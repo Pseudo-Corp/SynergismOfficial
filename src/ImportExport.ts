@@ -1,6 +1,5 @@
 import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
-import localforage from 'localforage'
 import LZString from 'lz-string'
 import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -15,7 +14,7 @@ import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { shopData } from './Shop'
 import { singularityData } from './singularity'
 import { synergismStage } from './Statistics'
-import { blankSave, format, player, reloadShit, saveCheck, saveSynergy } from './Synergism'
+import { blankSave, format, player, reloadShit, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
@@ -248,8 +247,7 @@ export const exportSynergism = async (
       : 1
     if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
       player.goldenQuarks += Math.floor(
-        player.goldenQuarksTimer
-          / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
+        player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
       ) * bonusGQMultiplier
       player.goldenQuarksTimer = player.goldenQuarksTimer
         % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
@@ -260,17 +258,13 @@ export const exportSynergism = async (
     }
   }
 
-  const saved = await saveSynergy()
-
-  if (!saved) {
+  if (!saveSynergy()) {
     return
   }
 
-  const save = (await localforage.getItem<Blob>('Synergysave2'))
-    ?? localStorage.getItem('Synergysave2')
-  const saveString = typeof save === 'string' ? save : await save?.text()
+  const saveString = localStorage.getItem('Synergysave2')
 
-  if (saveString === undefined) {
+  if (!saveString) {
     return Alert('How?')
   }
 
@@ -358,13 +352,9 @@ export const importSynergism = async (input: string | null, reset = false) => {
       return Alert(i18next.t('importexport.unableImport'))
     }
 
-    saveCheck.canSave = false
-    const item = new Blob([saveString], { type: 'text/plain' })
     localStorage.setItem('Synergysave2', saveString)
-    await localforage.setItem<Blob>('Synergysave2', item)
 
-    await reloadShit(reset)
-    saveCheck.canSave = true
+    reloadShit(reset)
     return
   } else {
     return Alert(i18next.t('importexport.loadTestInLive'))
@@ -975,9 +965,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     el.textContent = i18next.t('importexport.promocodes.invalid')
   }
 
-  const saved = await saveSynergy() // should fix refresh bug where you can continuously enter promocodes
-
-  if (!saved) {
+  if (!saveSynergy()) {
     return
   }
 
