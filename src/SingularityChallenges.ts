@@ -341,7 +341,7 @@ export const singularityChallengeData: Record<
   },
   noOcteracts: {
     baseReq: 75,
-    maxCompletions: 10,
+    maxCompletions: 15,
     unlockSingularity: 100,
     HTMLTag: 'noOcteracts',
     singularityRequirement: (baseReq: number, completions: number) => {
@@ -351,7 +351,7 @@ export const singularityChallengeData: Record<
     uniquerewardcount: 3,
     effect: (n: number) => {
       return {
-        octeractPow: 0.02 * n,
+        octeractPow: (n >= 10) ? 0.02 * n : 0.2 + (n - 20) / 100,
         offeringBonus: n > 0,
         obtainiumBonus: n >= 10,
         shopUpgrade: n >= 10
