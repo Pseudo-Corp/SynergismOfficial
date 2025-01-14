@@ -694,7 +694,7 @@ export const calculateObtainium = () => {
     G.obtainiumGain *= calculateExalt6Penalty(comps, time)
   }
 
-  G.obtainiumGain = Math.pow(1.04, player.cubeUpgrades[71] * sumContents(player.talismanRarity))
+  G.obtainiumGain *= Math.pow(1.04, player.cubeUpgrades[71] * sumContents(player.talismanRarity))
 
   if (!isFinite(G.obtainiumGain)) {
     G.obtainiumGain = 1e300
