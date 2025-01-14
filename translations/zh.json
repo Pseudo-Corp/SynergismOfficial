@@ -22,6 +22,8 @@
     "prereqNotMetAlert": "您未满足前提条件，无法购买该升级。",
     "notEnoughBlueberries": "您的蓝莓不足，无法激活该模块。",
     "availableBlueberries": "您有<<blue|{{availableBlueberries}}>>蓝莓未花费。您可以使用它解锁下面更高阶的模块！",
+    "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
+    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "您想要花费多少神肴？您拥有{{amount}}神肴。如果想要购买最大数量，请输入-1！",
     "refund": "所有花费的蓝莓和神肴均已返还。",
     "refundWord": "返还",
@@ -1043,8 +1045,16 @@
       "68": "真惊奇！这是一盒非曲奇。",
       "69": "真惊奇！这是一盒绝世出尘的饼干。",
       "70": "真惊奇！这是一盒完美的饼干。",
-      "71": "真惊奇！这是一块潘多拉的恩惠饼干。",
-      "72": "真惊奇！这是一块腐化女神的恩惠饼干。"
+      "71": "Wow! A Singular Cookie of Pandora's Benefactory.",
+      "72": "Wow! A Singular Cookie of Vyshareth's Benefactory.",
+      "73": "Wow! A Singular Cookie of the Giant Steps.",
+      "74": "Wow! A Singular Cookie of the Lilliput Steps.",
+      "75": "Wow! A Singular Cookie of another reference.",
+      "76": "Wow! A Singular Cookie of the Blue Variety.",
+      "77": "Wow! A Singular Cookie of Tyche's Benefactory.",
+      "78": "Wow! A Singular Cookie of Derpsmith's Benefactory",
+      "79": "Wow! A Singular Cookie of the Corrupt Beyond",
+      "80": "Wow! A Singular Cookie of the Grandma at the end of the Universe."
     },
     "upgradeDescriptions": {
       "1": "[1x1]好！每级增加16.666%飞升时惊奇方盒获取数量。",
@@ -1116,7 +1126,17 @@
       "67": "[Cx17]这里面都是什么玩意？？？不管了，总之玄学护身符的等级上限增加1337。",
       "68": "[Cx18]什么情况，这根本就不是饼干！每级使夸克获取数量增加0.01%，达到等级上限1000时可以使夸克获取数量再增加5%！",
       "69": "[Cx19]永远无法再回忆起来的饼干。使本次进入奇点的金夸克获取数量增加12%。",
-      "70": "[Cx20]烘焙之理的具现化。其美味已臻于食物之巅。如果腐化等级总和(不考虑视为增加的等级)超过14×8，则使惊奇八阶方块产量增加0.01%。"
+      "70": "[Cx20]烘焙之理的具现化。其美味已臻于食物之巅。如果腐化等级总和(不考虑视为增加的等级)超过14×8，则使惊奇八阶方块产量增加0.01%。",
+      "71": "[Cx21] For each talisman rarity upgrade, multiply Obtainium gain by 1.04",
+      "72": "[Cx22] For each talisman rarity upgrade, multiply Offering gain by 1.04",
+      "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
+      "74": "[Cx24] Add +0.30 to all Corruption Multiplier values.",
+      "75": "[Cx25] Each level adds +0.3% effectiveness to free Singularity-tier Upgrades per level! (additive with all other boosts)",
+      "76": "[Cx26] Each level adds <<blue | +1% Blueberry Speed>> for each time threshold you have reached!",
+      "77": "[Cx27] Each level adds <<green | +2 +0.1% ☘ Ambrosia Luck>>!",
+      "78": "[Cx28] Each level adds +0.3% effectiveness to free Octeract-tier Upgrades per level!",
+      "79": "[Cx29] If your Red Bar fills up with this upgrade purchased, you gain <<green | +0.02 ☘ Ambrosia Luck>>, permanently! Stacks up to 5,000 times.",
+      "80": "[Cx30] You intercept a singular message: <<gray|'Why don't you visit more often?'>>..."
     },
     "cubeMetadata": {
       "cost": "花费：{{value1}}惊奇方盒[可提升{{value2}}级]",
@@ -1433,7 +1453,7 @@
       "shopEXUltra": "拥有该额外升级后，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！",
       "shopChronometerS": "200次进入奇点后，每有1次奇点次数，该升级就使飞升的速度和全局速度增加1%！",
       "shopAmbrosiaUltra": "拥有该额外升级(价格高到离谱)后，每完成1阶层拔擢，每级该升级就可以使☘ 神肴之运增加1。",
-      "shopSingularitySpeedup": "您知道那些由时间控制的奇点升级和惊奇八阶方块升级吧？它们增长的速度将变为原来的20倍！多亏了这个甚至能改变<<gray|奇点时长>>的奇怪时钟……",
+      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "您知道那些免费奇点升级吧？它们的效果将增加266%(换句话说，不计算软上限的话，每级都将是之前3.66级的效果)。原因？是这个有点奇怪的<<gray|奇点传输仪式装置>>！别多问了。",
       "shopSadisticRune": "多奇怪的符文。店主(您永远也无法再见的那位)通过心灵感应说道，这是浸入某种<<gray|奇点物质>>的无限晋升符文。难道无限晋升符文不止一个？"
     },
@@ -1725,7 +1745,7 @@
         "effectHaveNot": "您未替饼干付费。"
       },
       "cookies5": {
-        "name": "饼干配方 V(制作中)",
+        "name": "Cookie Recipes V",
         "description": "袖手旁观是人类最大的原罪。",
         "effectHave": "您已见证大众的苦难。",
         "effectHaveNot": "您未见证大众的苦难。"
