@@ -52,6 +52,16 @@ const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
   return Object.fromEntries(
     Object.entries(record).filter(([key, _value]) => /^\d+$/.test(key))
   )
+}).transform((record) => {
+  const entries = Object.entries(blankSave.toggles)
+
+  for (const entry of entries) {
+    if (!Object.hasOwn(record, entry[0])) {
+      record[entry[0]] = entry[1]
+    }
+  }
+
+  return record
 })
 
 const decimalStringSchema = z.string().regex(/^|-?\d+(\.\d{1,2})?$/)
@@ -737,6 +747,7 @@ export const playerSchema = z.object({
 
   ultimateProgress: z.number().default(() => blankSave.ultimateProgress),
   ultimatePixels: z.number().default(() => blankSave.ultimatePixels),
+  cubeUpgradeRedBarFilled: z.number().default(() => blankSave.cubeUpgradeRedBarFilled),
 
   singChallengeTimer: z.number().default(() => blankSave.singChallengeTimer),
 
@@ -751,5 +762,9 @@ export const playerSchema = z.object({
       return blankSave.caches
     }),
 
-  lastExportedSave: z.number().default(() => blankSave.lastExportedSave)
+  lastExportedSave: z.number().default(() => blankSave.lastExportedSave),
+
+  seed: z.number().array().default(() => blankSave.seed)
+    .transform((value) => arrayExtend(value, 'seed'))
+    .refine((value) => value.every((seed) => seed > Date.parse('2020-01-01T00:00:00Z') && seed < Date.now() + 1000))
 })

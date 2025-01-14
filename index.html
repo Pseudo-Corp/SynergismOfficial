@@ -16,7 +16,9 @@
 
     <link rel="stylesheet" href="Synergism.css">
     <title>Synergism</title>
+
     <script src="./dist/out.js" defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="bodycolor loading">
     <div id="transparentBG" style="display: block;"></div>
@@ -233,7 +235,7 @@
 
     <div id="buildings">
         <div class="subTabWrapper">
-            <button id="switchToCoinBuilding" style="border: 2px solid yellow; background-color: crimson;" i18n="tabs.buildings.coin"></button>
+            <button id="switchToCoinBuilding" class="active-subtab" style="border: 2px solid yellow;" i18n="tabs.buildings.coin"></button>
             <button class="prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan" i18n="tabs.buildings.diamond"></button>
             <button class="transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum" i18n="tabs.buildings.mythos"></button>
             <button class="reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow" i18n="tabs.buildings.particle"></button>
@@ -1193,7 +1195,7 @@
     <div id="runes" style="display: none;">
         <div id="runesToggle">
             <button id="toggleautosacrifice" style="border: 2px solid orangered"></button>
-            <button id="toggleRuneSubTab1" style="border: 2px solid gold" i18n="tabs.runes.runes"></button>
+            <button id="toggleRuneSubTab1" class="active-subtab" style="border: 2px solid gold" i18n="tabs.runes.runes"></button>
             <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid silver" i18n="tabs.runes.talismans"></button>
             <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid silver" i18n="tabs.runes.blessings"></button>
             <button class="chal12" id="toggleRuneSubTab4" style="border: 2px solid silver" i18n="tabs.runes.spirits"></button>
@@ -1552,7 +1554,7 @@
 
     <div id="challenges" style="display: none;">
         <div id="challengesTabsToggle">
-            <button id="toggleChallengesSubTab1" style="border: 2px solid green; color: white; background-color: crimson" i18n="tabs.challenges.normal"></button>
+            <button id="toggleChallengesSubTab1" class="active-subtab" style="border: 2px solid green; color: white;" i18n="tabs.challenges.normal"></button>
             <button id="toggleChallengesSubTab2" class="singChallenges" style="border: 2px solid purple; color: gold" i18n="tabs.challenges.exalt"></button>
         </div>
         <!-- You call containers "Steamed Wrappers" despite the fact they contain multiple elements? -->
@@ -2065,7 +2067,7 @@
         <div id="cubesWrapper">
             <div id="wowCubeSidebar">
                 <div id="wowCubeSidebarButtons">
-                    <button id="switchCubeSubTab1" class="cubeSwitchTabBtn" style="border: 2px solid gold; background-color: crimson;" i18n="tabs.cubes.cubeTributes"></button>
+                    <button id="switchCubeSubTab1" class="cubeSwitchTabBtn active-subtab" style="border: 2px solid gold;" i18n="tabs.cubes.cubeTributes"></button>
                     <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid orange;" i18n="tabs.cubes.tesseract"></button>
                     <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid red;" i18n="tabs.cubes.hypercube"></button>
                     <button id="switchCubeSubTab4" class="cubeSwitchTabBtn chal14" style="border: 2px solid orchid;" i18n="tabs.cubes.platonic"></button>
@@ -2532,6 +2534,18 @@
                             <td><img id="cubeUpg69" alt="cubeUpg69" class="assortedCookies4 gridImg" src="Pictures/Default/CubeUpgrade69.png" loading="lazy"></td>
                             <td><img id="cubeUpg70" alt="cubeUpg70" class="assortedCookies4 gridImg" src="Pictures/Default/CubeUpgrade70.png" loading="lazy"></td>
                         </tr>
+                        <tr>
+                            <td><img id="cubeUpg71" alt="cubeUpg71" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade71.png" loading="lazy"></td>
+                            <td><img id="cubeUpg72" alt="cubeUpg72" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade72.png" loading="lazy"></td>
+                            <td><img id="cubeUpg73" alt="cubeUpg73" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade73.png" loading="lazy"></td>
+                            <td><img id="cubeUpg74" alt="cubeUpg74" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade74.png" loading="lazy"></td>
+                            <td><img id="cubeUpg75" alt="cubeUpg75" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade75.png" loading="lazy"></td>
+                            <td><img id="cubeUpg76" alt="cubeUpg76" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade76.png" loading="lazy"></td>
+                            <td><img id="cubeUpg77" alt="cubeUpg77" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade77.png" loading="lazy"></td>
+                            <td><img id="cubeUpg78" alt="cubeUpg78" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade78.png" loading="lazy"></td>
+                            <td><img id="cubeUpg79" alt="cubeUpg79" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade79.png" loading="lazy"></td>
+                            <td><img id="cubeUpg80" alt="cubeUpg80" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade80.png" loading="lazy"></td>
+                        </tr>
                     </table>
                     <div class="cubeUpgradeInfo">
                         <p id="cubeUpgradeName" style="text-align:center;">Wow! Hover over the upgrades you want to look at!</p>
@@ -2795,7 +2809,7 @@
     <div id="traits" style="display: none;">
         <div id="corruptionStatsLoadouts" class="flex column">
             <span id="corrButtonRow" class="flex row center">
-                <button id="corrStatsBtn" i18n="corruptions.corrStatsBtn"></button>
+                <button id="corrStatsBtn" class="active-subtab" i18n="corruptions.corrStatsBtn"></button>
                 <button id="corrLoadoutsBtn" i18n="corruptions.corrLoadoutsBtn"></button>
             </span>
             <div id="corruptionStats" class="corruptionContainer">
@@ -2898,7 +2912,7 @@
 
     <div id="settings" style="display: none;">
         <div class="subtabSwitcher subTabWrapper">
-            <button id="switchSettingSubTab1" class="buttonActive" style="border: 2px solid white" i18n="tabs.main.settings"></button>
+            <button id="switchSettingSubTab1" class="active-subtab" style="border: 2px solid white" i18n="tabs.main.settings"></button>
             <button id="switchSettingSubTab2" style="border: 2px solid cyan" i18n="tabs.settings.languages"></button>
             <button id="switchSettingSubTab3" style="border: 2px solid gold" i18n="tabs.settings.credit"></button>
             <button id="switchSettingSubTab4" style="border: 2px solid orange" i18n="tabs.settings.stats"></button>
@@ -3164,9 +3178,10 @@
                 <p id="statOff30" class="statPortion singularity">Cube Upgrade Cx4: <span id="sOff30" class="statNumber">0</span></p>
                 <p id="statOff31" class="statPortion singularity">Offering Electrolosis [OC]: <span id="sOff31" class="statNumber">0</span></p>
                 <p id="statOff32" class="statPortion singularity">RNG-Based Offering Multiplier: <span id="sOff32" class="statNumber">0</span></p>
-                <p id="statOff33" class="statPortion singularity">20 Ascensions X20 [EXALT ONLY]: <span id="sOff33" class="statNumber">0</span></p>
-                <p id="statOff34" class="statPortion singularity">Shop EX ULTIMATE: <span id="sOff34" class="statNumber">0</span></p>
-                <p id="statOff35" class="statPortion">Event: <span id="sOff35" class="statNumber">0</span></p>
+                <p id="statOff33" class="statPortion singularity">Cube Upgrade Cx22: <span id="sOff33" class="statNumber">0</span></p>
+                <p id="statOff34" class="statPortion singularity">20 Ascensions X20 [EXALT ONLY]: <span id="sOff34" class="statNumber">0</span></p>
+                <p id="statOff35" class="statPortion singularity">Shop EX ULTIMATE: <span id="sOff35" class="statNumber">0</span></p>
+                <p id="statOff36" class="statPortion">Event: <span id="sOff36" class="statNumber">0</span></p>
                 <p id="statOffT" class="statPortion statTotal" style="color: gold">TOTAL OFFERING MULTIPLIER: <span id="sOffT" class="statNumber statTotal">0</span></p>
             </div>
             <div id="obtainiumMultiplierStats" class="statContainer" style="display: none;">
@@ -3223,10 +3238,11 @@
                 <p id="statObt50" class="statPortion octeracts">Ambrosia Obtainium Upgrade:<span id="sObt50" class="statNumber">0</span></p>
                 <p id="statObt51" class="statPortion octeracts">Obtainium EX ULTRA:<span id="sObt51" class="statNumber">0</span></p>
                 <p id="statObt52" class="statPortion octeracts">Exalt Bonus:<span id="sObt52" class="statNumber">0</span></p>
-                <p id="statObt53" class="statPortion singularity">Singularity Debuff:<span id="sObt53" class="statNumber">0</span></p>
-                <p id="statObt54" class="statPortion octeracts">Scientific Illiteracy 15:<span id="sObt54" class="statNumber">0</span></p>
-                <p id="statObt55" class="statPortion octeracts">Scientific Illiteracy 16:<span id="sObt55" class="statNumber">0</span></p>
-                <p id="statObt56" class="statPortion chal14">Active Challenge 14:<span id="sObt56" class="statNumber">0</span></p>
+                <p id="statObt53" class="statPortion octeracts">Cube Upgrade Cx21:<span id="sObt53" class="statNumber">0</span></p>
+                <p id="statObt54" class="statPortion singularity">Singularity Debuff:<span id="sObt54" class="statNumber">0</span></p>
+                <p id="statObt55" class="statPortion octeracts">Scientific Illiteracy 15:<span id="sObt55" class="statNumber">0</span></p>
+                <p id="statObt56" class="statPortion octeracts">Scientific Illiteracy 16:<span id="sObt56" class="statNumber">0</span></p>
+                <p id="statObt57" class="statPortion chal14">Active Challenge 14:<span id="sObt57" class="statNumber">0</span></p>
                 <p id="statObtT" class="statPortion statTotal" style="color: rgb(81, 134, 219)">TOTAL OBTAINIUM MULTIPLIER: <span id="sObtT" class="statNumber statTotal">0</span></p>
 
 
@@ -3591,6 +3607,8 @@
                 <p id="statALuckM13" class="statPortion">a<span id="sALuckM13" class="statNumber">0</span></p>
                 <p id="statALuckM14" class="statPortion">a<span id="sALuckM14" class="statNumber">0</span></p>
                 <p id="statALuckM15" class="statPortion">a<span id="sALuckM15" class="statNumber">0</span></p>
+                <p id="statALuckM16" class="statPortion">a<span id="sALuckM16" class="statNumber">0</span></p>
+                <p id="statALuckM17" class="statPortion">a<span id="sALuckM17" class="statNumber">0</span></p>
                 <p id="statALuckMult" class="statPortion">Multipliers (Additive)<span id="sALuckMult" class="statNumber">0</span></p>
                 <p id="statALuckMT" class="statPortion statTotal" style="color: orange">TOTAL AMBROSIA LUCK:
                     <span id="sALuckMT" class="statNumber statTotal">0</span></p>
@@ -3609,6 +3627,7 @@
                 <p id="statAGenM9" class="statPortion">a<span id="sAGenM9" class="statNumber">0</span></p>
                 <p id="statAGenM10" class="statPortion">a<span id="sAGenM10" class="statNumber">0</span></p>
                 <p id="statAGenM11" class="statPortion">a<span id="sAGenM11" class="statNumber">0</span></p>
+                <p id="statAGenM12" class="statPortion">a<span id="sAGenM12" class="statNumber">0</span></p>
                 <p id="statAGenMT" class="statPortion statTotal" style="color: orange">BLUEBERRY TIME /S:
                     <span id="sAGenMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -3677,7 +3696,53 @@
             </div>
         </div>
         <div class="subtabContent subtabDisplayFlex" id="accountSubTab">
-          <div class="scrollbarX"></div>
+          <div class="scrollbarX">
+            <div id="button-holder">
+              <button id="open-register">Register</button>
+              <button id="open-signin">Login</button>
+              <button id="open-forgotpassword">Forgot Password</button>
+            </div>
+            <div id="register">
+              <form action="https://synergism.cc/register" method="POST">
+                <label for="email">Email Address</label>
+                <input type="text" id="email" name="email" placeholder="you@gmail.com">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="......">
+                <label for="password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="......">
+                <div class="turnstile" data-sitekey="0x4AAAAAAA4kwOTMEdx48IMm"></div>
+                <input type="submit" value="Register">
+              </form>
+            </div>
+            <div id="login">
+              <form action="https://synergism.cc/signin" method="POST">
+                <label for="email-si">Email Address</label>
+                <input type="text" id="email-si" name="email" placeholder="you@gmail.com">
+                <label for="password-si">Password</label>
+                <input type="password" id="password-si" name="password" placeholder="......">
+                <div class="turnstile" data-sitekey="0x4AAAAAAA4kwOTMEdx48IMm"></div>
+                <input type="submit" value="Login">
+              </form>
+            </div>
+            <div id="forgotpassword">
+              <form action="https://synergism.cc/forgot-password" method="POST">
+                <label for="email-fp">Email Address</label>
+                <input type="text" id="email-fp" name="email" placeholder="you@gmail.com">
+                <div class="turnstile" data-sitekey="0x4AAAAAAA4kwOTMEdx48IMm"></div>
+                <p>This can only be once a day!</p>
+                <input type="submit" value="Send Reset Password Email">
+              </form>
+            </div>
+
+            <a
+              href="https://synergism.cc/login?with=discord"
+              style="display:inline-block;border: 2px solid #5865F2; height: 25px; width: 20%; margin-bottom:5px;"
+            >Login with Discord</a>
+            <a
+              href="https://synergism.cc/login?with=patreon"
+              style="display:inline-block;border: 2px solid #ff5900; height: 25px; width: 20%;"
+            >Login with Patreon</a>
+          </div>
           <!-- TODO: i18n (not done because of potential conflicts with pixel-update) -->
           <button id="logoutButton">Logout</button>
         </div>
@@ -4116,7 +4181,7 @@
 
     <div id="singularity">
         <div id="singularityTabsToggle">
-            <button id="toggleSingularitySubTab1" style="border: 2px solid silver; color: white; background-color: crimson" i18n="tabs.main.shop"></button>
+            <button id="toggleSingularitySubTab1" class="active-subtab" style="border: 2px solid silver; color: white;" i18n="tabs.main.shop"></button>
             <button id="toggleSingularitySubTab2" style="border: 2px solid orange; color: white" i18n="tabs.singularity.perks-penalties"></button>
             <button id="toggleSingularitySubTab3" class="octeracts" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>
             <button id="toggleSingularitySubTab4" class="ambrosia" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
@@ -4512,6 +4577,8 @@
                 <!--    <p id="ambrosiaRNG" class="lightYellowText"></p> -->
                     <p id="ambrosiaRewards" class="lightYellowText"></p>
                     <p id="ambrosiaBlueberries" class="lightYellowText"></p>
+                    <p id="cubeUpgradeThresholds" style="color: lightblue"></p>
+                    <p id="cubeUpgradeRedBarFills" class="redText"></p>
                 </div>
                 <div id="ambrosiaProgressBar">
                     <div id="ambrosiaProgress" style="width: 70%;"></div>
@@ -4645,6 +4712,11 @@
             style="background-color: #fa3e3e; border-radius: 2px; color: white; padding: 1px 3px; font-size: 10px; position: absolute; top: 0; right: 0; display: none;"
           ></span>
         </span>
+        <button
+          id="cartSubTab4"
+          style="border: 2px solid white"
+          i18n="tabs.pseudocoins.merch"
+        ></button>
       </div>
       <div id="productContainer" class="pseudoUpgradeContainer">
       </div>
@@ -4668,6 +4740,8 @@
                     <p id="description">Buy PseudoCoin upgrades, get exclusive bonuses and support development! &#10084</p>
                     <p id="pCoinEffectCurr">Click on an icon to see what you can get!</p>
                     <p id="pCoinEffectNext">Note: you must be logged in to buy or use these!</p>
+                    <p id="pCoinScalingEffect"></p>
+                    <p id="pCoinScalingCosts"></p>
                 </div>
                 <div id="pCoinButton">
                     <button id="buy" style="display: none"></button>
@@ -4696,6 +4770,10 @@
           <button id="checkout" type="submit">Checkout</button>
           <button id="closeCart" type="button">Close</button>
         </div>
+      </div>
+      <div id="merchContainer">
+        <a href="https://merch.synergism.cc">Go to Merch Site</a>
+        <div id="slideshows"></div>
       </div>
     </div>
 </body>

@@ -1,5 +1,6 @@
+/// <reference types="@types/cloudflare-turnstile" />
+
 import i18next from 'i18next'
-import localforage from 'localforage'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
@@ -99,7 +100,9 @@ export async function handleLogin () {
     document.getElementById('accountSubTab')?.appendChild(logoutElement)
   }
 
-  const response = await fetch('https://synergism.cc/api/v1/users/me')
+  const response = await fetch('https://synergism.cc/api/v1/users/me').catch(
+    () => new Response(JSON.stringify({ member: null, globalBonus: 0, personalBonus: 0 }))
+  )
 
   if (!response.ok) {
     currentBonus.textContent =
@@ -132,9 +135,7 @@ export async function handleLogin () {
       user = member.user.username
     }
 
-    const boosted = accountType === 'discord'
-      ? Boolean(member?.premium_since) || member?.roles.includes(BOOSTER)
-      : false
+    const boosted = accountType === 'discord' && (Boolean(member?.premium_since) || member?.roles.includes(BOOSTER))
     const hasTier1 = member.roles.includes(TRANSCENDED_BALLER) ?? false
     const hasTier2 = member.roles.includes(REINCARNATED_BALLER) ?? false
     const hasTier3 = member.roles.includes(ASCENDED_BALLER) ?? false
@@ -226,19 +227,26 @@ export async function handleLogin () {
     subtabElement.appendChild(cloudSaveParent)
   } else {
     // User is not logged in
-    subtabElement.innerHTML = `
-      <img id="discord-logo" alt="Discord Logo" src="Pictures/discord-mark-blue.png" loading="lazy" />
-      <a
-        href="https://synergism.cc/login?with=discord"
-        style="display:inline-block;border: 2px solid #5865F2; height: 25px; width: 250px;"
-      >Login with Discord</a>
+    subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
+      subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
+      subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
+      subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
+      renderCaptcha()
+    })
 
-      <img id="patreon-logo" alt="Patreon Logo" src="Pictures/patreon-logo.png" loading="lazy" />
-      <a
-        href="https://synergism.cc/login?with=patreon"
-        style="display:inline-block;border: 2px solid #ff5900; height: 25px; width: 250px;"
-      >Login with Patreon</a>
-    `
+    subtabElement.querySelector('#open-signin')?.addEventListener('click', () => {
+      subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
+      subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'flex')
+      subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
+      renderCaptcha()
+    })
+
+    subtabElement.querySelector('#open-forgotpassword')?.addEventListener('click', () => {
+      subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
+      subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
+      subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'flex')
+      renderCaptcha()
+    })
   }
 }
 
@@ -250,9 +258,7 @@ async function logout () {
 }
 
 async function saveToCloud () {
-  const save = (await localforage.getItem<Blob>('Synergysave2')
-    .then((b) => b?.text())
-    .catch(() => null)) ?? localStorage.getItem('Synergysave2')
+  const save = localStorage.getItem('Synergysave2')
 
   if (typeof save !== 'string') {
     console.log('Yeah, no save here.')
@@ -277,5 +283,22 @@ async function getCloudSave () {
   const response = await fetch('https://synergism.cc/api/v1/saves/get')
   const save = await response.json() as CloudSave
 
-  await importSynergism(save?.save ?? null)
+  importSynergism(save?.save ?? null)
+}
+
+const hasCaptcha = new WeakSet<HTMLElement>()
+
+export function renderCaptcha () {
+  const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
+  const visible = captchaElements.find((el) => el.offsetParent !== null)
+
+  if (visible && !hasCaptcha.has(visible)) {
+    turnstile.render(visible, {
+      sitekey: visible.getAttribute('data-sitekey')!,
+      'error-callback' () {},
+      retry: 'never'
+    })
+
+    hasCaptcha.add(visible)
+  }
 }

@@ -1,3 +1,4 @@
+import { prod } from '../Config'
 import { isLoggedIn } from '../Login'
 import { player } from '../Synergism'
 import { changeSubTab, Tabs } from '../Tabs'
@@ -5,7 +6,8 @@ import { Alert } from '../UpdateHTML'
 import { createDeferredPromise, type DeferredPromise, memoize } from '../Utility'
 import { setEmptyProductMap } from './CartUtil'
 import { clearCheckoutTab, toggleCheckoutTab } from './CheckoutTab'
-import { clearProductPage, initializeProductPage } from './ProductSubtab'
+import { clearMerchSubtab, toggleMerchSubtab } from './MerchTab'
+import { clearProductPage, toggleProductPage } from './ProductSubtab'
 import { clearUpgradeSubtab, toggleUpgradeSubtab } from './UpgradesSubtab'
 
 export type Product = {
@@ -18,7 +20,8 @@ export type Product = {
 const cartSubTabs = {
   Coins: 0,
   Upgrades: 1,
-  Checkout: 2
+  Checkout: 2,
+  Merch: 3
 } as const
 
 const tab = document.getElementById('pseudoCoins')!
@@ -61,7 +64,7 @@ class CartTab {
   static applySubtabListeners () {
     for (const [index, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
       element.addEventListener('click', () => {
-        if (isLoggedIn()) {
+        if (isLoggedIn() || !prod) {
           changeSubTab(Tabs.Purchase, { page: index })
         } else {
           Alert('Note: you must be logged in to view this tab!')
@@ -73,25 +76,37 @@ class CartTab {
   #updateSubtabs () {
     for (const [index, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
       if (player.subtabNumber === index) {
-        element.classList.add('buttonActive')
+        element.classList.add('active-subtab')
       } else {
-        element.classList.remove('buttonActive')
+        element.classList.remove('active-subtab')
       }
     }
 
     clearProductPage()
     clearUpgradeSubtab()
     clearCheckoutTab()
+    clearMerchSubtab()
 
     switch (player.subtabNumber) {
       case cartSubTabs.Coins:
-        CartTab.fetchProducts().then(() => initializeProductPage(CartTab.#products))
+        CartTab.fetchProducts().then(() => {
+          if (player.subtabNumber === cartSubTabs.Coins) {
+            toggleProductPage(CartTab.#products)
+          }
+        })
         break
       case cartSubTabs.Upgrades:
         toggleUpgradeSubtab()
         break
       case cartSubTabs.Checkout:
-        CartTab.fetchProducts().then(() => toggleCheckoutTab(CartTab.#products))
+        CartTab.fetchProducts().then(() => {
+          if (player.subtabNumber === cartSubTabs.Checkout) {
+            toggleCheckoutTab(CartTab.#products)
+          }
+        })
+        break
+      case cartSubTabs.Merch:
+        toggleMerchSubtab()
         break
     }
   }
@@ -102,7 +117,7 @@ const onInit = memoize(() => {
   CartTab.applySubtabListeners()
 
   // Switch to the upgrades tab if not logged in
-  if (!isLoggedIn()) {
+  if (!isLoggedIn() || !prod) {
     changeSubTab(Tabs.Purchase, { step: 1 })
   }
 })

@@ -188,3 +188,68 @@ export const displayPCoinEffect = (name: PseudoCoinUpgradeNames, level: number) 
       return String(i18next.t('pseudoCoins.upgradeEffects.ADD_CODE_CAP_BUFF', { amount: level + 1 }))
   }
 }
+
+export const showCostAndEffect = (name: PseudoCoinUpgradeNames) => {
+  switch (name) {
+    case 'INSTANT_UNLOCK_1':
+      return {
+        cost: 'Cost: 400 PseudoCoins',
+        effect: 'Effect: +10 Levels'
+      }
+    case 'INSTANT_UNLOCK_2':
+      return {
+        cost: 'Cost: 600 PseudoCoins',
+        effect: 'Effect: +6 Levels'
+      }
+    case 'CUBE_BUFF':
+      return {
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: 1.06/1.12/1.18/1.24/1.30x Cubes'
+      }
+    case 'AMBROSIA_LUCK_BUFF':
+      return {
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: 20/40/60/80/100 Ambrosia Luck'
+      }
+    case 'AMBROSIA_GENERATION_BUFF':
+      return {
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: 1.05/1.10/1.15/1.20/1.25x Ambrosia Generation'
+      }
+    case 'GOLDEN_QUARK_BUFF':
+      return {
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: 1.04/1.08/1.12/1.16/1.20x Golden Quarks'
+      }
+    case 'FREE_UPGRADE_PROMOCODE_BUFF':
+      return {
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: 1.02/1.04/1.06/1.08/1.10x Free Upgrade Promocodes'
+      }
+    case 'CORRUPTION_LOADOUT_SLOT_QOL':
+      return {
+        cost: 'Cost: 125/per PseudoCoins',
+        effect: 'Effect: +1 Loadout Slot per level'
+      }
+    case 'AMBROSIA_LOADOUT_SLOT_QOL':
+      return {
+        cost: 'Cost: 125/per PseudoCoins',
+        effect: 'Effect: +1 Loadout Slot per level'
+      }
+    case 'AUTO_POTION_FREE_POTIONS_QOL':
+      return {
+        cost: 'Cost: 500 PseudoCoins',
+        effect: 'Effect: Auto Potion gives free potions'
+      }
+    case 'OFFLINE_TIMER_CAP_BUFF':
+      return {
+        cost: 'Cost: 400/600 PseudoCoins',
+        effect: 'Effect: 2x/3x Offline Time Cap'
+      }
+    case 'ADD_CODE_CAP_BUFF':
+      return {
+        cost: 'Cost: 400/600 PseudoCoins',
+        effect: 'Effect: 2x/3x Add Code Cap'
+      }
+  }
+}

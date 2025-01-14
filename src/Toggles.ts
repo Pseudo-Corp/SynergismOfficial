@@ -4,6 +4,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateRuneLevels } from './Calculate'
 import { getChallengeConditions } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions'
+import { renderCaptcha } from './Login'
 import { autoResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { format, player, resetCheck } from './Synergism'
@@ -368,12 +369,10 @@ export const toggleBuildingScreen = (input: string) => {
     }
   }
 
-  for (const key in screen) {
-    DOMCacheGetOrSet(screen[key].screen).style.display = 'none'
-    DOMCacheGetOrSet(screen[key].button).style.backgroundColor = ''
+  for (const { screen: screenKey } of Object.values(screen)) {
+    DOMCacheGetOrSet(screenKey).style.display = 'none'
   }
   DOMCacheGetOrSet(screen[G.buildingSubTab].screen).style.display = 'flex'
-  DOMCacheGetOrSet(screen[G.buildingSubTab].button).style.backgroundColor = 'crimson'
   player.subtabNumber = screen[G.buildingSubTab].subtabNumber
 }
 
@@ -387,11 +386,9 @@ export const toggleRuneScreen = (indexStr: string) => {
     const b = DOMCacheGetOrSet(`runeContainer${i}`)
     if (i === index) {
       a.style.border = '2px solid gold'
-      a.style.backgroundColor = 'crimson'
       b.style.display = 'flex'
     } else {
       a.style.border = '2px solid silver'
-      a.style.backgroundColor = ''
       b.style.display = 'none'
     }
   }
@@ -402,13 +399,10 @@ export const toggleChallengesScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
   for (let i = 1; i <= 2; i++) {
-    const a = DOMCacheGetOrSet(`toggleChallengesSubTab${i}`)
     const b = DOMCacheGetOrSet(`challengesWrapper${i}`)
     if (i === index) {
-      a.style.backgroundColor = 'crimson'
       b.style.display = 'block'
     } else {
-      a.style.backgroundColor = ''
       b.style.display = 'none'
     }
   }
@@ -465,13 +459,10 @@ export const toggleSingularityScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
   for (let i = 1; i <= 4; i++) {
-    const a = DOMCacheGetOrSet(`toggleSingularitySubTab${i}`)
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
     if (i === index) {
-      a.style.backgroundColor = 'crimson'
       b.style.display = 'block'
     } else {
-      a.style.backgroundColor = ''
       b.style.display = 'none'
     }
   }
@@ -510,17 +501,12 @@ interface ChadContributor {
 }
 
 export const setActiveSettingScreen = async (subtab: string) => {
-  const clickedButton =
-    DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[player.subtabNumber]
   const subtabEl = DOMCacheGetOrSet(subtab)
   if (subtabEl.classList.contains('subtabActive')) {
     return
   }
 
-  const switcherEl = clickedButton.parentNode!
-  switcherEl.querySelectorAll('.buttonActive').forEach((b) => b.classList.remove('buttonActive'))
-  clickedButton.classList.add('buttonActive')
-
+  // subtabActive class displays the element; it is invisible by default
   subtabEl.parentNode!.querySelectorAll('.subtabActive').forEach((subtab) => subtab.classList.remove('subtabActive'))
   subtabEl.classList.add('subtabActive')
 
@@ -586,6 +572,8 @@ export const setActiveSettingScreen = async (subtab: string) => {
       const err = e as Error
       credits.appendChild(document.createTextNode(err.toString()))
     }
+  } else if (subtab === 'accountSubTab') {
+    renderCaptcha()
   }
 }
 
@@ -713,7 +701,6 @@ export const toggleCubeSubTab = (indexStr: string) => {
       cubeTab.style.display = 'flex'
       player.subtabNumber = j - 1
     }
-    DOMCacheGetOrSet(`switchCubeSubTab${j}`).style.backgroundColor = i === j ? 'crimson' : ''
   }
 
   visualUpdateCubes()

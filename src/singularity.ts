@@ -359,7 +359,9 @@ export class SingularityUpgrade extends DynamicUpgrade {
   }
 
   public computeFreeLevelSoftcap (): number {
-    const baseRealFreeLevels = player.shopUpgrades.shopSingularityPotency > 0 ? 7.66 * this.freeLevels : this.freeLevels
+    let freeLevelMult = (player.shopUpgrades.shopSingularityPotency > 0) ? 3.66 : 1
+    freeLevelMult += 0.3 / 100 * player.cubeUpgrades[75]
+    const baseRealFreeLevels = freeLevelMult * this.freeLevels
     return (
       Math.min(this.level, baseRealFreeLevels)
       + Math.sqrt(Math.max(0, baseRealFreeLevels - this.level))
@@ -2612,22 +2614,22 @@ export const calculateSingularityDebuff = (
   } else if (debuff === 'Researches') {
     return 1 + Math.sqrt(effectiveSingularities) / 2
   } else if (debuff === 'Ascension Speed') {
-    return singularityCount < 150
+    return constitutiveSingularityCount < 150
       ? 1 + Math.sqrt(effectiveSingularities) / 5
       : 1 + Math.pow(effectiveSingularities, 0.75) / 10000
   } else if (debuff === 'Cubes') {
-    const extraMult = player.singularityCount > 100
-      ? Math.pow(1.02, player.singularityCount - 100)
+    const extraMult = constitutiveSingularityCount > 100
+      ? Math.pow(1.02, constitutiveSingularityCount - 100)
       : 1
-    return player.singularityCount < 150
+    return constitutiveSingularityCount < 150
       ? 1 + (Math.sqrt(effectiveSingularities) * extraMult) / 4
       : 1 + (Math.pow(effectiveSingularities, 0.75) * extraMult) / 1000
   } else if (debuff === 'Platonic Costs') {
-    return singularityCount > 36
+    return constitutiveSingularityCount > 36
       ? 1 + Math.pow(effectiveSingularities, 3 / 10) / 12
       : 1
   } else if (debuff === 'Hepteract Costs') {
-    return singularityCount > 50
+    return constitutiveSingularityCount > 50
       ? 1 + Math.pow(effectiveSingularities, 11 / 50) / 25
       : 1
   } else {

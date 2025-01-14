@@ -11,6 +11,7 @@ import {
   octeractGainPerSecond
 } from './Calculate'
 import { quarkHandler } from './Quark'
+import { Seed, seededRandom } from './RNG'
 import { checkMaxRunes, redeemShards, unlockedRune } from './Runes'
 import { useConsumable } from './Shop'
 import { player } from './Synergism'
@@ -203,7 +204,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       const baseBlueberryTime = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
       player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * baseBlueberryTime
       player.ultimateProgress += Math.floor(8 * G.ambrosiaTimer) / 8
-        * Math.min(baseBlueberryTime, Math.pow(1000 * baseBlueberryTime, 1 / 2)) * 0.02
+        * Math.min(baseBlueberryTime, Math.pow(1000 * baseBlueberryTime, 1 / 2))
       G.ambrosiaTimer %= 0.125
 
       let timeToAmbrosia = calculateRequiredBlueberryTime()
@@ -214,7 +215,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         + (3 / 4 - 2 / 3) * +(player.singularityChallenges.noAmbrosiaUpgrades.completions >= 20)
 
       while (player.blueberryTime >= timeToAmbrosia) {
-        const RNG = Math.random()
+        const RNG = seededRandom(Seed.Ambrosia)
         const ambrosiaMult = Math.floor(ambrosiaLuck / 100)
         const luckMult = RNG < ambrosiaLuck / 100 - Math.floor(ambrosiaLuck / 100) ? 1 : 0
         const bonusAmbrosia = (player.singularityChallenges.noAmbrosiaUpgrades.rewards.bonusAmbrosia) ? 1 : 0
@@ -236,6 +237,9 @@ export const addTimers = (input: TimerInput, time = 0) => {
 
       if (player.ultimateProgress > 1e6) {
         player.ultimatePixels += Math.floor(player.ultimateProgress / 1e6)
+        if (player.cubeUpgrades[79] > 0) {
+          player.cubeUpgradeRedBarFilled += Math.floor(player.ultimateProgress / 1e6)
+        }
         player.ultimateProgress -= 1e6 * Math.floor(player.ultimateProgress / 1e6)
       }
 

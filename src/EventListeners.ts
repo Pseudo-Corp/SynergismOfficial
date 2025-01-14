@@ -1084,7 +1084,7 @@ TODO: Fix this entire tab it's utter shit
   DOMCacheGetOrSet('getBlueberries').addEventListener('click', () => exportBlueberryTree())
   DOMCacheGetOrSet('refundBlueberries').addEventListener('click', () => resetBlueberryTree())
   // Import blueberries
-  DOMCacheGetOrSet('importBlueberries').addEventListener('change', async (e) => importData(e, importBlueberryTree))
+  DOMCacheGetOrSet('importBlueberries').addEventListener('change', (e) => importData(e, importBlueberryTree))
 
   // Toggle subtabs of Singularity tab
   for (let index = 0; index < 4; index++) {
@@ -1098,7 +1098,7 @@ TODO: Fix this entire tab it's utter shit
   DOMCacheGetOrSet('unsmith').addEventListener('click', () => clickSmith())
 
   // Import button
-  DOMCacheGetOrSet('importfile').addEventListener('change', async (e) => importData(e, importSynergism))
+  DOMCacheGetOrSet('importfile').addEventListener('change', (e) => importData(e, importSynergism))
 
   for (let i = 1; i <= 5; i++) {
     DOMCacheGetOrSet(`switchTheme${i}`).addEventListener('click', () => toggleTheme(false, i, true))
