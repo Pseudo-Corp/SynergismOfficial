@@ -1119,6 +1119,7 @@ export const updateSingularityGlobalPerks = () => {
   }
 }
 
+// TODO(@KhafraDev): find way to make this sync
 export const singularity = async (setSingNumber = -1): Promise<void> => {
   if (player.runelevels[6] === 0 && setSingNumber === -1) {
     return Alert(
@@ -1356,7 +1357,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   const saveCode47 = player.codes.get(47) ?? false
   const saveCode48 = player.codes.get(48) ?? false
 
-  await importSynergism(btoa(JSON.stringify(hold)), true)
+  importSynergism(btoa(JSON.stringify(hold)), true)
   // Techically possible to import game during reset. But that will only "hurt" that imported save
 
   // TODO: Do not enable data that has never used an event code
@@ -1376,7 +1377,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   player.promoCodeTiming.time = Date.now()
 
   // Save again at the end of singularity reset
-  void saveSynergy()
+  saveSynergy()
 }
 
 const resetUpgrades = (i: number) => {

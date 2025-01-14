@@ -1,5 +1,5 @@
 import i18next from 'i18next'
-import { DOMCacheGetOrSet } from './Cache/DOM'
+import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { format, player } from './Synergism'
 import { IconSets } from './Themes'
@@ -141,6 +141,8 @@ export const corruptionDisplay = (index: number) => {
 export const corruptionStatsUpdate = () => {
   for (let i = 2; i <= 9; i++) {
     // https://discord.com/channels/677271830838640680/706329553639047241/841749032841379901
+    if (!DOMCacheHas(`corrCurrent${i}`)) continue
+
     const a = DOMCacheGetOrSet(`corrCurrent${i}`)
     const b = DOMCacheGetOrSet(`corrNext${i}`)
     a.textContent = format(player.usedCorruptions[i])
@@ -219,7 +221,6 @@ export const corruptionLoadoutTableCreate = () => {
     const row = table.insertRow()
     for (let j = 0; j <= corrCount; j++) {
       const cell = row.insertCell()
-      cell.className = `test${j}`
       if (j === 0) { // First column
         if (i === 0) { // First row
           cell.textContent = i18next.t('corruptions.loadoutTable.next')
@@ -272,6 +273,9 @@ export const corruptionLoadoutTableCreate = () => {
       cell.appendChild(btn)
     }
   }
+
+  updateCorruptionLoadoutNames()
+  corruptionStatsUpdate()
 }
 
 export const corruptionLoadoutTableUpdate = (updateRow = 0) => {

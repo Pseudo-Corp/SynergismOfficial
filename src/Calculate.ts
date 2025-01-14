@@ -1360,7 +1360,7 @@ export const timeWarp = async () => {
 
   DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
   DOMCacheGetOrSet('offlineBlur').style.display = ''
-  await calculateOffline(timeUse)
+  calculateOffline(timeUse)
 }
 
 export const calculateOffline = async (forceTime = 0) => {
@@ -1565,7 +1565,7 @@ export const calculateOffline = async (forceTime = 0) => {
     player.loadedNov13Vers = true
   }
 
-  await saveSynergy()
+  saveSynergy()
 
   updateTalismanInventory()
   calculateObtainium()
