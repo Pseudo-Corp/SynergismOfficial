@@ -1045,8 +1045,8 @@
       "68": "真惊奇！这是一盒非曲奇。",
       "69": "真惊奇！这是一盒绝世出尘的饼干。",
       "70": "真惊奇！这是一盒完美的饼干。",
-      "71": "真惊奇！这是一块潘多拉的恩惠饼干。",
-      "72": "Wow! A Singular Cookie of Vyshareth's Benefactory.",
+      "71": "真惊奇！这是一块潘多拉的恩惠奇异饼干。",
+      "72": "真惊奇！这是一块腐化女神的恩惠奇异饼干。",
       "73": "Wow! A Singular Cookie of the Giant Steps.",
       "74": "Wow! A Singular Cookie of the Lilliput Steps.",
       "75": "Wow! A Singular Cookie of another reference.",
@@ -1136,7 +1136,7 @@
       "77": "[Cx27] Each level adds <<green | +2 +0.1% ☘ Ambrosia Luck>>!",
       "78": "[Cx28] Each level adds +0.3% effectiveness to free Octeract-tier Upgrades per level!",
       "79": "[Cx29] If your Red Bar fills up with this upgrade purchased, you gain <<green | +0.02 ☘ Ambrosia Luck>>, permanently! Stacks up to 5,000 times.",
-      "80": "[Cx30] You intercept a singular message: <<gray|'Why don't you visit more often?'>>..."
+      "80": "[Cx30]您截获一条奇异的消息：<<gray|“有时间，多回来看看吧？”>>……"
     },
     "cubeMetadata": {
       "cost": "花费：{{value1}}惊奇方盒[可提升{{value2}}级]",
