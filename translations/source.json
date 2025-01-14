@@ -22,6 +22,8 @@
       "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
       "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
       "availableBlueberries": "You have <<lightblue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
+      "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
+      "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
       "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
       "refund": "You have refunded all spent Blueberries and Ambrosia.",
       "refundWord": "Refund",
