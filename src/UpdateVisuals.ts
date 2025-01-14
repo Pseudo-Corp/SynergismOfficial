@@ -11,6 +11,7 @@ import {
   calculateCorruptionPoints,
   calculateCubeQuarkMultiplier,
   calculateMaxRunes,
+  calculateNumberOfThresholds,
   calculateRecycleMultiplier,
   calculateRequiredBlueberryTime,
   calculateRuneExpToLevel,
@@ -1581,7 +1582,7 @@ export const visualUpdateAmbrosia = () => {
   DOMCacheGetOrSet('pixelProgress').style.width = `${pixelBarWidth}%`
   DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.ultimateProgress, 0, true)} / ${
     format(1000000, 0, true)
-  } [+${format(progressTimePerSecond * 0.02, 2, true)}/s]`
+  } [+${format(progressTimePerSecond, 2, true)}/s]`
   const extraLuckHTML = luckBonusPercent > 0.01
     ? `[<span style='color: var(--amber-text-color)'>☘${
       format(
@@ -1631,6 +1632,34 @@ export const visualUpdateAmbrosia = () => {
       availableBlueberries
     }
   )
+
+  if (player.cubeUpgrades[76] > 0) { 
+    DOMCacheGetOrSet('cubeUpgradeThresholds').style.display = 'block'
+    DOMCacheGetOrSet('cubeUpgradeThresholds').innerHTML = i18next.t(
+      'ambrosia.cubeUpgradeThresholds',
+      {
+        threshold: calculateNumberOfThresholds(),
+        percent: player.cubeUpgrades[76] * calculateNumberOfThresholds()
+      }
+    )
+  }
+  else {
+    DOMCacheGetOrSet('cubeUpgradeThresholds').style.display = 'none'
+  }
+
+  if (player.cubeUpgradeRedBarFilled > 0) {
+    DOMCacheGetOrSet('cubeUpgradeRedBarFills').style.display = 'block'
+    DOMCacheGetOrSet('cubeUpgradeRedBarFills').innerHTML = i18next.t(
+      'ambrosia.cubeUpgradeRedBarFills',
+      {
+        amount: format(player.cubeUpgradeRedBarFilled, 0, true),
+        luck: format(Math.min(100, player.cubeUpgradeRedBarFilled / 50), 2, true)
+      }
+    )
+  }
+  else {
+    DOMCacheGetOrSet('cubeUpgradeRedBarFills').style.display = 'none'
+  }
 }
 
 export const visualUpdateShop = () => {

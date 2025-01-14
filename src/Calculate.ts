@@ -3391,7 +3391,7 @@ export const calculateAmbrosiaLuck = () => {
     player.shopUpgrades.shopOcteractAmbrosiaLuck * (1 + Math.floor(Math.log10(player.totalWowOcteracts + 1))), // Octeract -> Ambrosia Shop Upgrade
     +player.singularityChallenges.noAmbrosiaUpgrades.rewards.additiveLuck, // No Ambrosia Challenge Reward
     2 * player.cubeUpgrades[77], // Cookie 5 (Cx27)
-    Math.min(100, player.cubeUpgradeRedBarFilled), // Filled Red Bars with (Cx29) purchased
+    Math.min(100, player.cubeUpgradeRedBarFilled / 50), // Filled Red Bars with (Cx29) purchased
     player.shopUpgrades.shopAmbrosiaUltra * sumOfExaltCompletions() // Ambrosia Ultra Shop Upgrade
   ]
 
