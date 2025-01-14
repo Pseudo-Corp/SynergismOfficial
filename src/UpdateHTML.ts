@@ -245,7 +245,7 @@ export const revealStuff = () => {
   const cookies2 = document.getElementsByClassName('assortedCookies2') as HTMLCollectionOf<HTMLElement>
   const cookies3 = document.getElementsByClassName('assortedCookies3') as HTMLCollectionOf<HTMLElement>
   const cookies4 = document.getElementsByClassName('assortedCookies4') as HTMLCollectionOf<HTMLElement>
-  const cookies5 = document.getElementsByClassName('assortedCookies4') as HTMLCollectionOf<HTMLElement>
+  const cookies5 = document.getElementsByClassName('assortedCookies5') as HTMLCollectionOf<HTMLElement>
 
   for (const HTML of Array.from(cookies1)) {
     HTML.style.display = player.singularityUpgrades.cookies.getEffect().bonus ? 'block' : 'none'
