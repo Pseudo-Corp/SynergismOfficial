@@ -351,7 +351,7 @@ export const singularityChallengeData: Record<
     uniquerewardcount: 3,
     effect: (n: number) => {
       return {
-        octeractPow: (n >= 10) ? 0.02 * n : 0.2 + (n - 20) / 100,
+        octeractPow: (n >= 10) ? 0.02 * n : 0.2 + (n - 10) / 100,
         offeringBonus: n > 0,
         obtainiumBonus: n >= 10,
         shopUpgrade: n >= 10
