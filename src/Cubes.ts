@@ -39,7 +39,8 @@ const cubeBaseCost = [
   5e5, 3e5, 2e6, 4e6, 2e6, 4e6, 1e6, 2e7, 5e7, 1e7,
   5e6, 1e7, 1e8, 4e7, 2e7, 4e7, 5e7, 1e8, 5e8, 1e8,
   1, 1e4, 1e8, 1e12, 1e16, 10, 1e5, 1e9, 1e13, 1e17,
-  1e2, 1e6, 1e10, 1e14, 1e18, 1e20, 1e30, 1e40, 1e50, 1e60
+  1e2, 1e6, 1e10, 1e14, 1e18, 1e20, 1e30, 1e40, 1e50, 1e60,
+  1, 1, 1e8, 1e16, 1e30, 1e100, 1e100, 1e200, 1e250, 1e300, 
 ]
 
 // dprint-ignore
@@ -50,7 +51,8 @@ export const cubeMaxLevel = [
   5, 1, 1, 10, 10, 10, 10, 1, 1, 10,
   5, 10, 10, 10, 10, 20, 20, 1, 1, 100000,
   1, 900, 100, 900, 900, 20, 1, 1, 400, 10000,
-  100, 1, 1, 1, 1, 1, 1, 1000, 1, 100000
+  100, 1, 1, 1, 1, 1, 1, 1000, 1, 100000,
+  1, 1, 5, 1, 30, 2, 25, 30, 1, 1
 ]
 
 const getCubeCost = (i: number, buyMax: boolean): IMultiBuy => {
@@ -100,7 +102,7 @@ export const cubeUpgradeDesc = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
   const maxLevel = getCubeMax(i)
 
   a.textContent = i18next.t(`cubes.upgradeNames.${i}`)
-  b.textContent = i18next.t(`cubes.upgradeDescriptions.${i}`)
+  b.innerHTML = i18next.t(`cubes.upgradeDescriptions.${i}`)
   c.textContent = i18next.t('cubes.cubeMetadata.cost', {
     value1: format(metaData.cost, 0, true),
     value2: format(metaData.levelCanBuy - player.cubeUpgrades[i]!, 0, true)

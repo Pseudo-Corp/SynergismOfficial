@@ -158,7 +158,8 @@ export class OcteractUpgrade extends DynamicUpgrade {
   }
 
   public computeFreeLevelSoftcap (): number {
-    return this.freeLevels
+    const freeLevelMult = 1 + 0.3 / 100 * player.cubeUpgrades[78]
+    return this.freeLevels * freeLevelMult
   }
 
   public actualTotalLevels (): number {

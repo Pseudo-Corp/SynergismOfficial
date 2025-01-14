@@ -44,6 +44,7 @@ import { calculateSingularityDebuff } from './singularity'
 import { format, formatTimeShort, player } from './Synergism'
 import type { GlobalVariables } from './types/Synergism'
 import { Globals as G } from './Variables'
+import { sumContents } from './Utility'
 
 const associated = new Map<string, string>([
   ['kMisc', 'miscStats'],
@@ -1041,9 +1042,10 @@ export const loadStatisticsOfferingMultipliers = () => {
     30: { acc: 3, desc: 'Cube Upgrade Cx4:' },
     31: { acc: 3, desc: 'Offering Electrolosis [OC]:' },
     32: { acc: 3, desc: 'RNG-based Offering Booster:' },
-    33: { acc: 3, desc: '20 Ascensions X20 [EXALT ONLY]' },
-    34: { acc: 3, desc: 'Shop EX ULTIMATE' },
-    35: { acc: 3, desc: 'Event:' }
+    33: { acc: 3, desc: 'Cube Upgrade Cx21:' },
+    34: { acc: 3, desc: '20 Ascensions X20 [EXALT ONLY]' },
+    35: { acc: 3, desc: 'Shop EX ULTIMATE' },
+    36: { acc: 3, desc: 'Event:' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`)
@@ -1430,13 +1432,19 @@ export const loadObtainiumMultipliers = () => {
       2
     )
   }`
-  DOMCacheGetOrSet('sObt53').textContent = `/${
+  DOMCacheGetOrSet('sObt53').textContent = `x${
+    format(
+      Math.pow(1.04, player.cubeUpgrades[71] * sumContents(player.talismanRarity)),
+      2
+    )
+  }`
+  DOMCacheGetOrSet('sObt54').textContent = `/${
     format(
       calculateSingularityDebuff('Obtainium'),
       2
     )
   }`
-  DOMCacheGetOrSet('sObt54').textContent = `^${
+  DOMCacheGetOrSet('sObt55').textContent = `^${
     format(
       player.usedCorruptions[5] >= 15
         ? 1 / 4
@@ -1444,7 +1452,7 @@ export const loadObtainiumMultipliers = () => {
       2
     )
   }`
-  DOMCacheGetOrSet('sObt55').textContent = `^${
+  DOMCacheGetOrSet('sObt56').textContent = `^${
     format(
       player.usedCorruptions[5] >= 16
         ? 1 / 4
@@ -1452,7 +1460,7 @@ export const loadObtainiumMultipliers = () => {
       2
     )
   }`
-  DOMCacheGetOrSet('sObt56').textContent = `x${
+  DOMCacheGetOrSet('sObt57').textContent = `x${
     format(
       player.currentChallenge.ascension === 14
         ? 0
@@ -1731,7 +1739,9 @@ export const loadStatisticsAmbrosiaLuck = () => {
     12: { acc: 0, desc: 'Perk: Two Hundred Sixty Nine!' },
     13: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
     14: { acc: 0, desc: 'No Ambrosia Upgrades EXALT' },
-    15: { acc: 0, desc: 'ULTRA Upgrade: Ambrosia Exalter' }
+    15: { acc: 0, desc: 'Cube Upgrade Cx27' },
+    16: { acc: 0, desc: 'Red Bar Fills with Cx29' },
+    17: { acc: 0, desc: 'ULTRA Upgrade: Ambrosia Exalter' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -1767,8 +1777,9 @@ export const loadStatisticsAmbrosiaGeneration = () => {
     7: { acc: 4, desc: 'Patreon Bonus' },
     8: { acc: 4, desc: 'One Ascension Challenge EXALT' },
     9: { acc: 4, desc: 'No Ambrosia Upgrades EXALT' },
-    10: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
-    11: { acc: 4, desc: 'Event Bonus' }
+    10: { acc: 4, desc: 'Cube Upgrade Cx26' },
+    11: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
+    12: { acc: 4, desc: 'Event Bonus' },
   }
   for (let i = 0; i < arr.length; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)

@@ -566,7 +566,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
         * Math.min(
           50,
           (player.shopUpgrades.shopSingularitySpeedup)
-            ? (100 * player.singularityCounter) / (3600 * 24)
+            ? (250 * player.singularityCounter) / (3600 * 24)
             : (5 * player.singularityCounter) / (3600 * 24)
         )
       rolls += +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus

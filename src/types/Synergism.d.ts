@@ -645,6 +645,7 @@ export interface Player {
 
   ultimateProgress: number
   ultimatePixels: number
+  cubeUpgradeRedBarFilled: number
 
   singChallengeTimer: number
 

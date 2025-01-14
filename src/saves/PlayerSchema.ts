@@ -747,6 +747,7 @@ export const playerSchema = z.object({
 
   ultimateProgress: z.number().default(() => blankSave.ultimateProgress),
   ultimatePixels: z.number().default(() => blankSave.ultimatePixels),
+  cubeUpgradeRedBarFilled: z.number().default(() => blankSave.cubeUpgradeRedBarFilled),
 
   singChallengeTimer: z.number().default(() => blankSave.singChallengeTimer),
 

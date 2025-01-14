@@ -754,6 +754,16 @@ export const player: Player = {
     0,
     0,
     0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
   ],
   cubeUpgradesBuyMaxToggle: false,
   autoCubeUpgradesToggle: false,
@@ -1529,6 +1539,7 @@ export const player: Player = {
 
   ultimateProgress: 0,
   ultimatePixels: 0,
+  cubeUpgradeRedBarFilled: 0,
 
   singChallengeTimer: 0,
 

@@ -204,7 +204,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       const baseBlueberryTime = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
       player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * baseBlueberryTime
       player.ultimateProgress += Math.floor(8 * G.ambrosiaTimer) / 8
-        * Math.min(baseBlueberryTime, Math.pow(1000 * baseBlueberryTime, 1 / 2)) * 0.02
+        * Math.min(baseBlueberryTime, Math.pow(1000 * baseBlueberryTime, 1 / 2))
       G.ambrosiaTimer %= 0.125
 
       let timeToAmbrosia = calculateRequiredBlueberryTime()
@@ -237,6 +237,9 @@ export const addTimers = (input: TimerInput, time = 0) => {
 
       if (player.ultimateProgress > 1e6) {
         player.ultimatePixels += Math.floor(player.ultimateProgress / 1e6)
+        if (player.cubeUpgrades[79] > 0) {
+          player.cubeUpgradeRedBarFilled += Math.floor(player.ultimateProgress / 1e6)
+        }
         player.ultimateProgress -= 1e6 * Math.floor(player.ultimateProgress / 1e6)
       }
 
