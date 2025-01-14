@@ -1724,7 +1724,7 @@
       },
       "octeractMetagenesis": {
         "name": "Octeract Metagenesis",
-        "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 640)^0.5, (level^2 * free/125000)^0.333 respectively ",
+        "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 640)^0.5, (level^2 * free/125000)^0.333 respectively.",
         "default": "Gives free levels of Octeract Cogenesis based on your current free levels and purchased levels: (level * free / 1000)^0.5"
       },
       "immaculateAlchemy": {
