@@ -22,6 +22,8 @@
     "prereqNotMetAlert": "Nie spełniasz wszystkich warunków, aby zakupić to ulepszenie.",
     "notEnoughBlueberries": "Nie masz wystarczającej ilości borówek, aby aktywować ten moduł.",
     "availableBlueberries": "Masz <<blue|{{availableBlueberries}}>> niewydanych borówek. Odblokuj moduły wyższego poziomu, używając ich!",
+    "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
+    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "Ile Ambrozji chciałbyś wydać? Masz {{amount}} Ambrozji. Wpisz -1, aby użyć wszystko!",
     "refund": "Wszystkie zużyte borówki i Ambrozja zostały zwrócone.",
     "refundWord": "Zwróć",
@@ -1043,8 +1045,16 @@
       "68": "Wow! Pudło Nie-Ciastek",
       "69": "Wow! Pudło Ciastek nie z tego świata.",
       "70": "Wow! Paczka idealnych ciastek.",
-      "71": "Wow! Osobliwe ciastka z Piekarni Pandory.",
-      "72": "Wow! Osobliwe Ciastka z Piekarni"
+      "71": "Wow! A Singular Cookie of Pandora's Benefactory.",
+      "72": "Wow! A Singular Cookie of Vyshareth's Benefactory.",
+      "73": "Wow! A Singular Cookie of the Giant Steps.",
+      "74": "Wow! A Singular Cookie of the Lilliput Steps.",
+      "75": "Wow! A Singular Cookie of another reference.",
+      "76": "Wow! A Singular Cookie of the Blue Variety.",
+      "77": "Wow! A Singular Cookie of Tyche's Benefactory.",
+      "78": "Wow! A Singular Cookie of Derpsmith's Benefactory",
+      "79": "Wow! A Singular Cookie of the Corrupt Beyond",
+      "80": "Wow! A Singular Cookie of the Grandma at the end of the Universe."
     },
     "upgradeDescriptions": {
       "1": "[1x1] Mamy to! +16.666% Sześcianów 3D z Ascendencji co poziom.",
@@ -1116,7 +1126,17 @@
       "67": "[Cx15] Co to do cholery jest??? Mniejsza z tym, limit poziomów Metafizycznego Talizmanu zwiększony o 1337.",
       "68": "[Cx18] O kurczę! To nawet nie są ciastka! +0.01% więcej kwarków co poziom. +5% więcej na poziomie 1000-cznym!",
       "69": "[Cx19] Ciastka, których nigdy nie spamiętasz. 12% więcej Złotych Kwarków w tej Osobliwości.",
-      "70": "[Cx20] Szczyt piekarnictwa. Nic nie będzie smakować lepiej niż to. Otrzymaj 0.01% więcej Okteraktów przy Ascendencji jeśli wszystkie korupcje są na poziomie 14-stym."
+      "70": "[Cx20] Szczyt piekarnictwa. Nic nie będzie smakować lepiej niż to. Otrzymaj 0.01% więcej Okteraktów przy Ascendencji jeśli wszystkie korupcje są na poziomie 14-stym.",
+      "71": "[Cx21] For each talisman rarity upgrade, multiply Obtainium gain by 1.04",
+      "72": "[Cx22] For each talisman rarity upgrade, multiply Offering gain by 1.04",
+      "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
+      "74": "[Cx24] Add +0.30 to all Corruption Multiplier values.",
+      "75": "[Cx25] Each level adds +0.3% effectiveness to free Singularity-tier Upgrades per level! (additive with all other boosts)",
+      "76": "[Cx26] Each level adds <<blue | +1% Blueberry Speed>> for each time threshold you have reached!",
+      "77": "[Cx27] Each level adds <<green | +2 +0.1% ☘ Ambrosia Luck>>!",
+      "78": "[Cx28] Each level adds +0.3% effectiveness to free Octeract-tier Upgrades per level!",
+      "79": "[Cx29] If your Red Bar fills up with this upgrade purchased, you gain <<green | +0.02 ☘ Ambrosia Luck>>, permanently! Stacks up to 5,000 times.",
+      "80": "[Cx30] You intercept a singular message: <<gray|'Why don't you visit more often?'>>..."
     },
     "cubeMetadata": {
       "cost": "Koszt: {{value1}} Wow! Sześcianów [+{{value2}} poziomy]",
@@ -1433,7 +1453,7 @@
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
-      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 20 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
     },
@@ -1725,7 +1745,7 @@
         "effectHaveNot": "You have not paid your price for salvation."
       },
       "cookies5": {
-        "name": "Przepisy na Ciasteczka V (Prace w Toku)",
+        "name": "Cookie Recipes V",
         "description": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
         "effectHave": "You have paid witness to the suffering of the masses.",
         "effectHaveNot": "You have not paid witness to the suffering of the masses."
