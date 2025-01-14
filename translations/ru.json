@@ -22,6 +22,8 @@
     "prereqNotMetAlert": "Вы не выполнили необходимые требования для покупки этого улучшения.",
     "notEnoughBlueberries": "У вас недостаточно Голубики для активации этого модуля.",
     "availableBlueberries": "У вас <<blue|{{availableBlueberries}}>> не потраченной Голубики. Разблокируйте модули нового уровня, использовав их!",
+    "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
+    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "Сколько Амброзии вы хотели бы потратить? У вас {{amount}} Амброзии. Введите -1, чтобы использовать максимум!",
     "refund": "Вы вернули всю потраченную Голубику и Амброзию.",
     "refundWord": "Возврат",
@@ -1043,8 +1045,16 @@
       "68": "Вау! Коробка с \"Не Печенье\".",
       "69": "Вау! Коробка с Печеньями за Пределами Этого Мира.",
       "70": "Вау! Коробка Идеального Печения.",
-      "71": "Вау! Уникальное Печенье от \"Pandora's Benefactory\"",
-      "72": "Вау! Уникальное Печенье от \"Vyshareth's Benefactory\""
+      "71": "Wow! A Singular Cookie of Pandora's Benefactory.",
+      "72": "Wow! A Singular Cookie of Vyshareth's Benefactory.",
+      "73": "Wow! A Singular Cookie of the Giant Steps.",
+      "74": "Wow! A Singular Cookie of the Lilliput Steps.",
+      "75": "Wow! A Singular Cookie of another reference.",
+      "76": "Wow! A Singular Cookie of the Blue Variety.",
+      "77": "Wow! A Singular Cookie of Tyche's Benefactory.",
+      "78": "Wow! A Singular Cookie of Derpsmith's Benefactory",
+      "79": "Wow! A Singular Cookie of the Corrupt Beyond",
+      "80": "Wow! A Singular Cookie of the Grandma at the end of the Universe."
     },
     "upgradeDescriptions": {
       "1": "[1x1] Не вопрос! +16.666% 3Д Кубов от Вознесения за уровень.",
@@ -1116,7 +1126,17 @@
       "67": "[Cx17] Что, чёрт возьми, в них??? В любом случае лимит уровня Талисмана Метафизики увеличен на 1,337.",
       "68": "[Cx18] Какого чёрта! Это даже не печенье. +0.01% Кварков за каждый уровень этого улучшения. +5% больше на 1,000 уровне!",
       "69": "[Cx19] Печенье, о котором вы больше никогда не вспомните. +12% Золотых Кварков к этой Сингулярности.",
-      "70": "[Cx20] Вершина выпечки. Ничто из того, что вы будете есть, не будет вкуснее этого. Получите на +0.01% больше Октерактов при Вознесении, если средний уровень всех порч минимум 14."
+      "70": "[Cx20] Вершина выпечки. Ничто из того, что вы будете есть, не будет вкуснее этого. Получите на +0.01% больше Октерактов при Вознесении, если средний уровень всех порч минимум 14.",
+      "71": "[Cx21] For each talisman rarity upgrade, multiply Obtainium gain by 1.04",
+      "72": "[Cx22] For each talisman rarity upgrade, multiply Offering gain by 1.04",
+      "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
+      "74": "[Cx24] Add +0.30 to all Corruption Multiplier values.",
+      "75": "[Cx25] Each level adds +0.3% effectiveness to free Singularity-tier Upgrades per level! (additive with all other boosts)",
+      "76": "[Cx26] Each level adds <<blue | +1% Blueberry Speed>> for each time threshold you have reached!",
+      "77": "[Cx27] Each level adds <<green | +2 +0.1% ☘ Ambrosia Luck>>!",
+      "78": "[Cx28] Each level adds +0.3% effectiveness to free Octeract-tier Upgrades per level!",
+      "79": "[Cx29] If your Red Bar fills up with this upgrade purchased, you gain <<green | +0.02 ☘ Ambrosia Luck>>, permanently! Stacks up to 5,000 times.",
+      "80": "[Cx30] You intercept a singular message: <<gray|'Why don't you visit more often?'>>..."
     },
     "cubeMetadata": {
       "cost": "Стоимость: {{value1}} Вау! Кубов [+{{value2}} Уровней]",
@@ -1433,7 +1453,7 @@
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
       "shopChronometerS": "Это улучшение даёт +1% к Скорости Вознесения и Глобальной Скорости за каждый номер текущей Сингулярности выше 200!",
       "shopAmbrosiaUltra": "Это абсурдно дорогое EX Улучшение даёт +1 постоянную ☘ Удачу Амброзии за каждое выполнение ВОЗВЫШЕНИЯ за уровень.",
-      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 20 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "Помните эти бесплатные Улучшения Сингулярности? Они теперь на 266% эффективнее (то есть, каждый теперь эквивалентен 3.66 уровням, до предела). Почему? Из-за вот этого <<gray | Ритуального Передатчика Сингулярности>>! Не спрашивайте.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
     },
@@ -1725,7 +1745,7 @@
         "effectHaveNot": "Вы не заплатили свою цену за спасение."
       },
       "cookies5": {
-        "name": "Рецепты Печенек V (НЗП)",
+        "name": "Cookie Recipes V",
         "description": "Худшее злодеяние, которое человек может совершить, это наблюдение за страданиями других, без каких либо мук совести.",
         "effectHave": "Вы уделили внимание страданиям масс.",
         "effectHaveNot": "Вы не уделили внимание страданиям масс."
