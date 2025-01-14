@@ -1045,7 +1045,7 @@
       "68": "真惊奇！这是一盒非曲奇。",
       "69": "真惊奇！这是一盒绝世出尘的饼干。",
       "70": "真惊奇！这是一盒完美的饼干。",
-      "71": "Wow! A Singular Cookie of Pandora's Benefactory.",
+      "71": "真惊奇！这是一块潘多拉的恩惠饼干。",
       "72": "Wow! A Singular Cookie of Vyshareth's Benefactory.",
       "73": "Wow! A Singular Cookie of the Giant Steps.",
       "74": "Wow! A Singular Cookie of the Lilliput Steps.",
@@ -1453,7 +1453,7 @@
       "shopEXUltra": "拥有该额外升级后，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！",
       "shopChronometerS": "200次进入奇点后，每有1次奇点次数，该升级就使飞升的速度和全局速度增加1%！",
       "shopAmbrosiaUltra": "拥有该额外升级(价格高到离谱)后，每完成1阶层拔擢，每级该升级就可以使☘ 神肴之运增加1。",
-      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularitySpeedup": "您知道那些由时间控制的奇点升级和惊奇八阶方块升级吧？它们增长的速度将变为原来的50倍！多亏了这个甚至能改变<<gray|奇点时长>>的奇怪时钟……",
       "shopSingularityPotency": "您知道那些免费奇点升级吧？它们的效果将增加266%(换句话说，不计算软上限的话，每级都将是之前3.66级的效果)。原因？是这个有点奇怪的<<gray|奇点传输仪式装置>>！别多问了。",
       "shopSadisticRune": "多奇怪的符文。店主(您永远也无法再见的那位)通过心灵感应说道，这是浸入某种<<gray|奇点物质>>的无限晋升符文。难道无限晋升符文不止一个？"
     },
@@ -1745,7 +1745,7 @@
         "effectHaveNot": "您未替饼干付费。"
       },
       "cookies5": {
-        "name": "Cookie Recipes V",
+        "name": "饼干配方 V",
         "description": "袖手旁观是人类最大的原罪。",
         "effectHave": "您已见证大众的苦难。",
         "effectHaveNot": "您未见证大众的苦难。"
