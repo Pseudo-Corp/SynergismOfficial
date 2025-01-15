@@ -12,10 +12,12 @@ import { clearUpgradeSubtab, toggleUpgradeSubtab } from './UpgradesSubtab'
 
 export type Product = {
   name: string
-  id: number
+  id: string
   price: number
   coins: number
 }
+
+export const products: Product[] = []
 
 const cartSubTabs = {
   Coins: 0,
@@ -36,7 +38,6 @@ function* yieldQuerySelectorAll (selector: string) {
 
 class CartTab {
   static #productsFetch: DeferredPromise<undefined> | undefined
-  static #products: Product[] = []
 
   constructor () {
     this.#updateSubtabs()
@@ -49,12 +50,14 @@ class CartTab {
 
     CartTab.#productsFetch = createDeferredPromise()
 
+    const url = !prod ? 'https://synergism.cc/stripe/test/products' : 'https://synergism.cc/stripe/products'
+
     // TODO: move this fetch to the products page.
-    fetch('https://synergism.cc/stripe/products')
-      .then((response) => response.json() as Promise<Product[]>)
-      .then((products) => {
-        CartTab.#products.push(...products)
-        setEmptyProductMap(products)
+    fetch(url)
+      .then((response) => response.json())
+      .then((productsList: Product[]) => {
+        products.push(...productsList)
+        setEmptyProductMap(productsList)
         CartTab.#productsFetch?.resolve(undefined)
       }, CartTab.#productsFetch.reject)
 
@@ -91,7 +94,7 @@ class CartTab {
       case cartSubTabs.Coins:
         CartTab.fetchProducts().then(() => {
           if (player.subtabNumber === cartSubTabs.Coins) {
-            toggleProductPage(CartTab.#products)
+            toggleProductPage()
           }
         })
         break
@@ -101,7 +104,7 @@ class CartTab {
       case cartSubTabs.Checkout:
         CartTab.fetchProducts().then(() => {
           if (player.subtabNumber === cartSubTabs.Checkout) {
-            toggleCheckoutTab(CartTab.#products)
+            toggleCheckoutTab()
           }
         })
         break
