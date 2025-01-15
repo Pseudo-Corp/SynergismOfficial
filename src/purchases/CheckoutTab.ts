@@ -60,7 +60,9 @@ export const initializeCheckoutTab = memoize(() => {
 
     checkout.setAttribute('disabled', '')
 
-    const url = !prod ? 'https://synergism.cc/stripe/test/create-checkout-session' : 'https://synergism.cc/stripe/create-checkout-session'
+    const url = !prod
+      ? 'https://synergism.cc/stripe/test/create-checkout-session'
+      : 'https://synergism.cc/stripe/create-checkout-session'
 
     fetch(url, {
       method: 'POST',

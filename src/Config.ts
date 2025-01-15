@@ -1,3 +1,5 @@
+declare const PROD: boolean | undefined
+
 export const version = '3.1.1 January 13, 2025 pt 1.3: The Bakery Update'
 
 /**
@@ -13,4 +15,4 @@ export const lastUpdated = new Date('##LAST_UPDATED##')
 /**
  * CHANGE THIS ONE INSTEAD
  */
-export const prod: boolean = false
+export const prod = typeof PROD === 'undefined' ? false : PROD
