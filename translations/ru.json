@@ -1576,15 +1576,15 @@
       "header": "Высшая Сингулярность, которой вы достигли - <span style=\"color: gold\">{{ord}} Сингулярность.</span><br/>Вот список привилегий, которые вы приобрели для компенсации штрафов ",
       "description": "(Наведите курсор для получения более подробной информации. В этой Сингулярности были добавлены или улучшены привилегии, <span style=\"color: gold\">отображаемые золотым текстом</span>)",
       "welcometoSingularity": {
-        "name": "Welcome to Singularity!",
-        "default": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!"
+        "name": "Добро пожаловать в Сингулярность!",
+        "default": "Добро пожаловать в Сингулярность! За достижение этого этапа, вам положена привилегия: Гептеракты теперь можно создавать автоматически (когда вы откроете их снова), а Платоновы Улучшения теперь КупиМакс, если доступны!"
       },
       "unlimitedGrowth": {
-        "name": "Unlimited Growth",
+        "name": "Неограниченный Рост",
         "default": "+10% to Quarks gain and Ascension Count for each Singularity. Currently: +{{amount}}%"
       },
       "goldenCoins": {
-        "name": "Golden Coins",
+        "name": "Золотые Монеты",
         "default": "Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity. Currently: x{{amount}}"
       },
       "xyz": {
@@ -1598,24 +1598,24 @@
         "default": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%"
       },
       "researchDummies": {
-        "name": "Research for Dummies",
+        "name": "Исследования для Чайников",
         "hasLevel1": "You permanently keep Auto Research and can Research using Hover to Buy!",
         "default": "You can Research using Hover to Buy"
       },
       "antGodsCornucopia": {
-        "name": "Ant God's Cornucopia",
+        "name": "Рог изобилия Муравьиного Бога",
         "hasLevel3": "У Скорости Муравьёв теперь есть 'чистый' множитель х4.44, а также истинно чистый множитель х1e12!",
         "hasLevel2": "У Скорости Муравьёв теперь есть 'чистый' множитель х4.44, а также истинно чистый множитель х1e6!",
         "hasLevel1": "У Скорости Муравьёв теперь есть 'чистый' множитель х4.44, а также истинно чистый множитель х1,000!",
         "default": "У Скорости Муравьёв теперь есть 'чистый' множитель х4.44."
       },
       "sweepomatic": {
-        "name": "Automatic Sweep-o-matic Mk.2",
+        "name": "Робот Пыле-сборот Мк.2",
         "hasLevel1": "Ради экономии ваших кликов, Авто Зачистка Испытаний теперь начинает Испытания Вознесения с И10 и проходит через Испытания Вознесения, если у вас есть Мгновенные Испытания 2!",
-        "default": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
+        "default": "Ради экономии ваших кликов, Авто Зачистка Испытаний теперь начинает Испытания Вознесения с И10!"
       },
       "superStart": {
-        "name": "Super Start",
+        "name": "Супер Старт",
         "hasLevel4": "Вы начинаете каждое Вознесение с 1 Трансценденцией, 1 Реинкарнацией, 1001 Мифосом, 2.22e2222 Частиц и 500 Обтаниума",
         "hasLevel3": "Вы начинаете каждое Вознесение с 1 Трансценденцией, 1 Реинкарнацией, 1001 Мифосом, 1e100 Частиц и 500 Обтаниума",
         "hasLevel2": "Вы начинаете каждое Вознесение с 1 Трансценденцией, 1 Реинкарнацией, 1001 Мифосом, 1e16 Частиц и 500 Обтаниума",
@@ -1623,7 +1623,7 @@
         "default": "Вы начинаете каждое Вознесение с 1 Трансценденцией и 1001 Мифосом"
       },
       "notSoChallenging": {
-        "name": "Not So Challenging",
+        "name": "Тоже Мне Испытание",
         "hasLevel4": "Вы начинаете каждое Вознесение с 1 выполненным Испытанием 6, 7 и 9, и 5 выполненными Испытаниями 8",
         "hasLevel3": "Вы начинаете каждое Вознесение с 1 выполненным Испытанием 6 и 7, и 5 выполненными Испытаниями 8",
         "hasLevel2": "Вы начинаете каждое Вознесение с 1 выполненным Испытанием 6, 7 и 8",
@@ -1631,7 +1631,7 @@
         "default": "Вы начинаете каждое Вознесение с 1 выполненным Испытанием 6"
       },
       "automationUpgrades": {
-        "name": "Automation Upgrades",
+        "name": "Улучшения Автоматизации",
         "hasLevel5": "Достигнув 100 Сингулярности, вы никогда не забудете вкус Вау! Кучка Печенья с Шоколадной Крошкой!",
         "hasLevel4": "У вас всегда есть с w1x4 по w1x8 и w2x10; r6x5, r6x10 и r6x20. Магазин автоматизации также приобретается автоматически!",
         "hasLevel3": "У вас всегда есть с w1x4 по w1x8 и w2x10. Магазин автоматизации теперь приобретается автоматически!",
@@ -1640,51 +1640,51 @@
         "default": "У вас всегда есть с w1x7. (Автопокупатели для строений Частиц)"
       },
       "evenMoreQuarks": {
-        "name": "Even More Quarks",
+        "name": "Ещё Больше Кварков",
         "bug": "Это баг! Напишите Platonic, если вы каким-либо образом увидели это сообщение.",
         "default": "You gain <<cyan|{{stack}}>> stacks of <<cyan|5%>> Quarks! Total Increase: <<cyan|+{{inc}}%>>"
       },
       "shopSpecialOffer": {
-        "name": "Shop Special Offer",
+        "name": "Особое Предложение в Магазине",
         "hasLevel2": "Улучшения в магазинах уровней Реинкарнации и Вознесения сохраняются постоянно!",
         "hasLevel1": "Вы постоянно сохраняете 100 бесплатных уровней каждого улучшения Магазина в первом ряду",
         "default": "Вы начинаете каждую Сингулярность с 10 бесплатными уровнями каждого улучшения Магазина в первом ряду"
       },
       "potionAutogenerator": {
-        "name": "Potion Autogenerator",
-        "default": "Every 180 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity."
+        "name": "Автогенератор Зелий",
+        "default": "Каждые 180 секунд автоматически используется одно зелье Обтаниума и Подношений! Интервал уменьшается на 3% за сингулярность."
       },
       "respecBeGone": {
-        "name": "Respec, be gone!",
-        "default": "Talismans now buff all runes at all times!"
+        "name": "Уходи, Перенабор!",
+        "default": "Теперь Талисманы всегда усиливают все руны!"
       },
       "forTheLoveOfTheAntGod": {
-        "name": "For the love of (the Ant) God!",
+        "name": "Ради (Муравьиного) Бога!",
         "hasLevel2": "Навсегда сохраняете автопокупатели Муравьёв и начинаете каждое Вознесение с Муравьёв 8-го уровня",
         "hasLevel1": "Вы навсегда сохраняете автопокупатели Муравьёв и начинаете каждое Вознесение с Муравьём 5-го уровня",
         "default": "Вы навсегда сохраняете автопокупатели Муравьёв и начинаете каждое Вознесение с Муравьём 1-го уровня"
       },
       "itAllAddsUp": {
-        "name": "It all adds up",
+        "name": "Всё идет по нарастающей",
         "default": "The 'Add' Special Action reward & cooldown is divided by {{div}} while its maximum capacity is multiplied the same amount! (Rounded Up)."
       },
       "automagicalRunes": {
-        "name": "Automagical Runes",
+        "name": "Автомагические Руны",
         "hasLevel3": "Автопокупатель рун будет покупать Благословения, Духов, Осколки Талисманов, Фрагменты и будет повышать уровень Бесконечного Восхождения И Антиквариатов Муравьиного Бога",
         "hasLevel2": "Автопокупатель рун будет покупать Благословения, Духов, Осколки Талисманов, Фрагменты и будет повышать уровень Бесконечного Восхождения",
         "hasLevel1": "Автопокупатель рун будет покупать Благословения, Духов и повышать уровень Бесконечного Восхождения",
         "default": "Автопокупатель рун будет покупать Благословения и Духов"
       },
       "eternalAscensions": {
-        "name": "Eternal Ascensions",
+        "name": "Вечные Вознесения",
         "default": "Unlock a new Real Time based Auto Ascension mode!"
       },
       "exaltedAchievements": {
-        "name": "Exalt Vault",
+        "name": "Хранилище Возвышения",
         "default": "Unlocks new, very difficult challenges! They may only be entered by reaching high enough Singularities!"
       },
       "derpSmithsCornucopia": {
-        "name": "Derpsmith's Cornucopia",
+        "name": "Рог Изобилия Кукузнеца",
         "default": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!"
       },
       "coolQOLCubes": {
@@ -1735,20 +1735,20 @@
         "default": "The 'Add' Special Action refills {{counter}}% faster per level per Singularity. Currently: {{current}} (MAX: -60% Cooldown)"
       },
       "midasMilleniumAgedGold": {
-        "name": "Midas' Millenium-Aged Gold",
-        "default": "Every use of the 'Add' Special Action gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3."
+        "name": "Тысячелетнее Золото Мидаса",
+        "default": "Каждое использование кода 'Add' даёт 0.01 бесплатных уровней ЗК1 и 0.05 бесплатных уровней ЗК3."
       },
       "goldenRevolution4": {
-        "name": "Golden Revolution IV",
+        "name": "Золотая Революция IV",
         "default": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!"
       },
       "octeractMetagenesis": {
-        "name": "Octeract Metagenesis",
+        "name": "Метагенезис Октерактов",
         "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 640)^0.5, (level^2 * free/125000)^0.333 respectively ",
         "default": "Gives free levels of Octeract Cogenesis based on your current free levels and purchased levels: (level * free / 1000)^0.5"
       },
       "immaculateAlchemy": {
-        "name": "Immaculate Alchemy",
+        "name": "Безупречная Алхимия",
         "hasLevel2": "После 200-й Сингулярности, Перемотки больше не работают! Вместо этого ваше получение ЗК умножено, а стоимость покупки ЗК разделена, на 8.",
         "hasLevel1": "После 200-й Сингулярности, Перемотки больше не работают! Вместо этого ваше получение ЗК умножено, а стоимость покупки ЗК разделена, на 5.",
         "default": "После 200-й Сингулярности, Перемотки больше не работают! Вместо этого ваше получение ЗК умножено, а стоимость покупки ЗК разделена, на 3."
