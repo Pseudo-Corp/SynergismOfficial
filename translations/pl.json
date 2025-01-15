@@ -22,6 +22,8 @@
     "prereqNotMetAlert": "Nie spełniasz wszystkich warunków, aby zakupić to ulepszenie.",
     "notEnoughBlueberries": "Nie masz wystarczającej ilości borówek, aby aktywować ten moduł.",
     "availableBlueberries": "Masz <<blue|{{availableBlueberries}}>> niewydanych borówek. Odblokuj moduły wyższego poziomu, używając ich!",
+    "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
+    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "Ile Ambrozji chciałbyś wydać? Masz {{amount}} Ambrozji. Wpisz -1, aby użyć wszystko!",
     "refund": "Wszystkie zużyte borówki i Ambrozja zostały zwrócone.",
     "refundWord": "Zwróć",
@@ -1043,8 +1045,16 @@
       "68": "Wow! Pudło Nie-Ciastek",
       "69": "Wow! Pudło Ciastek nie z tego świata.",
       "70": "Wow! Paczka idealnych ciastek.",
-      "71": "Wow! Osobliwe ciastka z Piekarni Pandory.",
-      "72": "Wow! Osobliwe Ciastka z Piekarni"
+      "71": "Wow! A Singular Cookie of Pandora's Benefactory.",
+      "72": "Wow! A Singular Cookie of Vyshareth's Benefactory.",
+      "73": "Wow! A Singular Cookie of the Giant Steps.",
+      "74": "Wow! A Singular Cookie of the Lilliput Steps.",
+      "75": "Wow! A Singular Cookie of another reference.",
+      "76": "Wow! A Singular Cookie of the Blue Variety.",
+      "77": "Wow! A Singular Cookie of Tyche's Benefactory.",
+      "78": "Wow! A Singular Cookie of Derpsmith's Benefactory",
+      "79": "Wow! A Singular Cookie of the Corrupt Beyond",
+      "80": "Wow! A Singular Cookie of the Grandma at the end of the Universe."
     },
     "upgradeDescriptions": {
       "1": "[1x1] Mamy to! +16.666% Sześcianów 3D z Ascendencji co poziom.",
@@ -1116,7 +1126,17 @@
       "67": "[Cx15] Co to do cholery jest??? Mniejsza z tym, limit poziomów Metafizycznego Talizmanu zwiększony o 1337.",
       "68": "[Cx18] O kurczę! To nawet nie są ciastka! +0.01% więcej kwarków co poziom. +5% więcej na poziomie 1000-cznym!",
       "69": "[Cx19] Ciastka, których nigdy nie spamiętasz. 12% więcej Złotych Kwarków w tej Osobliwości.",
-      "70": "[Cx20] Szczyt piekarnictwa. Nic nie będzie smakować lepiej niż to. Otrzymaj 0.01% więcej Okteraktów przy Ascendencji jeśli wszystkie korupcje są na poziomie 14-stym."
+      "70": "[Cx20] Szczyt piekarnictwa. Nic nie będzie smakować lepiej niż to. Otrzymaj 0.01% więcej Okteraktów przy Ascendencji jeśli wszystkie korupcje są na poziomie 14-stym.",
+      "71": "[Cx21] For each talisman rarity upgrade, multiply Obtainium gain by 1.04",
+      "72": "[Cx22] For each talisman rarity upgrade, multiply Offering gain by 1.04",
+      "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
+      "74": "[Cx24] Add +0.30 to all Corruption Multiplier values.",
+      "75": "[Cx25] Each level adds +0.3% effectiveness to free Singularity-tier Upgrades per level! (additive with all other boosts)",
+      "76": "[Cx26] Each level adds <<blue | +1% Blueberry Speed>> for each time threshold you have reached!",
+      "77": "[Cx27] Each level adds <<green | +2 +0.1% ☘ Ambrosia Luck>>!",
+      "78": "[Cx28] Each level adds +0.3% effectiveness to free Octeract-tier Upgrades per level!",
+      "79": "[Cx29] If your Red Bar fills up with this upgrade purchased, you gain <<green | +0.02 ☘ Ambrosia Luck>>, permanently! Stacks up to 5,000 times.",
+      "80": "[Cx30] You intercept a singular message: <<gray|'Why don't you visit more often?'>>..."
     },
     "cubeMetadata": {
       "cost": "Koszt: {{value1}} Wow! Sześcianów [+{{value2}} poziomy]",
@@ -1433,7 +1453,7 @@
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
-      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 20 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
     },
@@ -1561,21 +1581,21 @@
       },
       "unlimitedGrowth": {
         "name": "Unlimited Growth",
-        "default": "+10% do przyrostu kwarków i liczby Ascendecji dla każdej Osobliwości. Obecnie: +{{amount}}%"
+        "default": "+10% to Quarks gain and Ascension Count for each Singularity. Currently: +{{amount}}%"
       },
       "goldenCoins": {
         "name": "Golden Coins",
-        "default": "Niewydane Złote Kwarki zwiększają przyrost monet. Szczególnie silny dla pierwszych Ascendencji każdej Osobliwości. Obecnie: x{{amount}}"
+        "default": "Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity. Currently: x{{amount}}"
       },
       "xyz": {
         "name": "XYZ: Xtra dailY rewardZ",
-        "hasLevel2": "In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!",
-        "hasLevel1": "In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.",
-        "default": "The Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades, both scaling with your singularity count!"
+        "hasLevel2": "Oprócz GQ i gwarantowanych bezpłatnych poziomów do GQ 1/2/3 po +0,2/+0,2/+1, otrzymujesz PODWÓJNIE więcej darmowych poziomów ulepszeń z Codziennej Akcji Specjalnej!",
+        "hasLevel1": "Oprócz poziomów GQ i bezpłatnych ulepszeń, Codziennych akcji specjalnych zapewnia dodatkowe bezpłatne poziomy do GQ 1/2/3 odpowiednio na poziomie +0,2/+0,2/+1.",
+        "default": "Dzienna Akcja Specjalna nagradza Cię teraz Złotymi Kwarkami i darmowymi poziomami losowych ulepszeń Osobliwości, skalujących się wraz z liczbą Osobliwości!"
       },
       "generousOrbs": {
         "name": "Generous Orbs",
-        "default": "Efekt Przepływowych Kul przy otwieraniu Kostek dla Kwarków może teraz wzrosnąć do {{amount}}%"
+        "default": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%"
       },
       "researchDummies": {
         "name": "Research for Dummies",
@@ -1632,11 +1652,11 @@
       },
       "potionAutogenerator": {
         "name": "Potion Autogenerator",
-        "default": "Co 180 sekund automatycznie używaj jednej mikstury na Obtainium i Dary! Interwał zmniejszony o 3% na osobliwość."
+        "default": "Every 180 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity."
       },
       "respecBeGone": {
         "name": "Respec, be gone!",
-        "default": "Talizmany wzmacniają teraz wszystkie runy przez cały czas!"
+        "default": "Talismans now buff all runes at all times!"
       },
       "forTheLoveOfTheAntGod": {
         "name": "For the love of (the Ant) God!",
@@ -1661,7 +1681,7 @@
       },
       "exaltedAchievements": {
         "name": "Exalt Vault",
-        "default": "Unlocks new, very difficult challenges! They may only be entered after reaching high enough Singularities!"
+        "default": "Unlocks new, very difficult challenges! They may only be entered by reaching high enough Singularities!"
       },
       "derpSmithsCornucopia": {
         "name": "Derpsmith's Cornucopia",
@@ -1741,6 +1761,10 @@
         "name": "Primal Power!",
         "hasLevel1": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> Ambrosia Luck!",
         "default": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|☘ +131>> Ambrosia Luck!"
+      },
+      "permanentBenefaction": {
+        "name": "Permanent Benefaction",
+        "default": "<<lightblue | Pandora>> and <<orange | Vyshareth>> will always grant you their benefaction, so their cookies are correspondingly always eaten!"
       }
     },
     "toString": {
@@ -1800,7 +1824,7 @@
         "effectHaveNot": "You have not paid your price for salvation."
       },
       "cookies5": {
-        "name": "Przepisy na Ciasteczka V (Prace w Toku)",
+        "name": "Cookie Recipes V",
         "description": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
         "effectHave": "You have paid witness to the suffering of the masses.",
         "effectHaveNot": "You have not paid witness to the suffering of the masses."
@@ -3145,7 +3169,7 @@
       "noOcteracts": {
         "name": "No Octeract Effects",
         "description": "Beat the target Singularity, but octeracts and their upgrades do nothing!<br/>Effective Singularity is also much higher based on tier.",
-        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
+        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00) [effect halved after 10 completions]",
         "UniqueReward1": "1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
         "UniqueReward2": "10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
         "UniqueReward3": "10th - A new <<orchid|Quark Shop>> upgrade!"
