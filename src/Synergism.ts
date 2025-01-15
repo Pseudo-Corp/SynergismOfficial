@@ -2820,6 +2820,12 @@ const loadSynergy = () => {
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
     updateSingularityGlobalPerks()
+
+    // Update the Sing requirements on reload for a challenge if applicable
+    if (G.currentSingChallenge !== undefined) {
+      const sing = player.singularityChallenges[G.currentSingChallenge].computeSingularityRquirement()
+      player.singularityCount = sing
+    }
   }
 
   updateAchievementBG()
