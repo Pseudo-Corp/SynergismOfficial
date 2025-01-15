@@ -1058,6 +1058,11 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
     awardAutosCookieUpgrade()
   }
 
+  if (player.highestSingularityCount >= 244) {
+    player.cubeUpgrades[71] = 1
+    player.cubeUpgrades[72] = 1
+  }
+
   if (player.singularityUpgrades.platonicAlpha.getEffect().bonus && player.platonicUpgrades[5] === 0) {
     player.platonicUpgrades[5] = 1
     updatePlatonicUpgradeBG(5)
@@ -1319,6 +1324,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.insideSingularityChallenge = player.insideSingularityChallenge
   hold.ultimatePixels = player.ultimatePixels
   hold.ultimateProgress = player.ultimateProgress
+  hold.cubeUpgradeRedBarFilled = player.cubeUpgradeRedBarFilled
   hold.singularityChallenges = Object.fromEntries(
     Object.entries(player.singularityChallenges).map(([key, value]) => {
       return [key, {
