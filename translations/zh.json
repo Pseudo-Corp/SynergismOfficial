@@ -1763,8 +1763,8 @@
         "default": "通过达到质数次数的奇点获得惊人的力量！目前获得：<<limegreen|131>>☘ 神肴之运！"
       },
       "permanentBenefaction": {
-        "name": "Permanent Benefaction",
-        "default": "<<lightblue | Pandora>> and <<orange | Vyshareth>> will always grant you their benefaction, so their cookies are correspondingly always eaten!"
+        "name": "永久恩惠",
+        "default": "使<<lightblue|潘多拉>>和<<orange|腐化女神>>常时给予您恩惠，相应的饼干升级常时生效！"
       }
     },
     "toString": {
@@ -3169,7 +3169,7 @@
       "noOcteracts": {
         "name": "无八阶方块效果",
         "description": "您需要在惊奇八阶方块和相应升级没有效果的前提下通过目标奇点！另外，奇点相关惩罚也会根据当前阶层数量变得更高。",
-        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00) [effect halved after 10 completions]",
+        "ScalingReward1": "使<<var(--lightseagreen-text-color)|惊奇八阶方块对惊奇方盒至惊奇七阶立方>>的加成指数增加0.02(基础值为2.00)[完成10阶层后，之后的加成减半]",
         "UniqueReward1": "第1次 - 根据<<var(--lightseagreen-text-color)|八阶方块>>数量，增加<<Gold|祭品>>获取数量！",
         "UniqueReward2": "第10次 - 根据<<var(--lightseagreen-text-color)|八阶方块>>数量，增加<<steelblue|难得素>>获取数量！",
         "UniqueReward3": "第10次 - 新的<<orchid|夸克商店>>升级！"
