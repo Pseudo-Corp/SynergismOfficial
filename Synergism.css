@@ -3995,10 +3995,26 @@ form input:hover {
     margin: 0 auto;
 }
 
+.pseudoSubscriptionContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    justify-items: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
 .pseudoCoinContainer {
     margin: 10px 10px 0 0;
     border: 1px solid #ccc;
     border: 2px solid orchid;
+    text-align: center;
+}
+
+.subscriptionContainer {
+    margin: 10px 10px 0 0;
+    border: 1px solid lightgoldenrodyellow;
+    border: 2px solid gold;
     text-align: center;
 }
 
@@ -4017,8 +4033,18 @@ form input:hover {
     margin: 5px auto;
 }
 
+.pseudoSubscriptionText {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    margin: 5px auto;
+}
+
 .pseudoCoinButton {
-    width: 50%;
+    width: 75%;
     padding: 10px;
     background-color: black;
     color: white;

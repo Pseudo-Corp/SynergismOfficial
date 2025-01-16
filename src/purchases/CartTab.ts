@@ -8,6 +8,7 @@ import { setEmptyProductMap } from './CartUtil'
 import { clearCheckoutTab, toggleCheckoutTab } from './CheckoutTab'
 import { clearMerchSubtab, toggleMerchSubtab } from './MerchTab'
 import { clearProductPage, toggleProductPage } from './ProductSubtab'
+import { clearSubscriptionPage, toggleSubscriptionPage } from './SubscriptionsSubtab'
 import { clearUpgradeSubtab, toggleUpgradeSubtab } from './UpgradesSubtab'
 
 export type Product = {
@@ -15,15 +16,20 @@ export type Product = {
   id: string
   price: number
   coins: number
+  subscription: boolean
+  description: string
 }
 
 export const products: Product[] = []
+export let coinProducts: Product[] = []
+export let subscriptionProducts: Product[] = []
 
 const cartSubTabs = {
   Coins: 0,
-  Upgrades: 1,
-  Checkout: 2,
-  Merch: 3
+  Subscriptions: 1,
+  Upgrades: 2,
+  Checkout: 3,
+  Merch: 4
 } as const
 
 const tab = document.getElementById('pseudoCoins')!
@@ -58,6 +64,11 @@ class CartTab {
       .then((productsList: Product[]) => {
         products.push(...productsList)
         setEmptyProductMap(productsList)
+        coinProducts = products.filter((product) => !product.subscription)
+        subscriptionProducts = products.filter((product) => product.subscription)
+
+        // The Subscriptions do not naturally sort themselves by price
+        subscriptionProducts.sort((a, b) => a.price - b.price)
         CartTab.#productsFetch?.resolve(undefined)
       }, CartTab.#productsFetch.reject)
 
@@ -86,6 +97,7 @@ class CartTab {
     }
 
     clearProductPage()
+    clearSubscriptionPage()
     clearUpgradeSubtab()
     clearCheckoutTab()
     clearMerchSubtab()
@@ -95,6 +107,13 @@ class CartTab {
         CartTab.fetchProducts().then(() => {
           if (player.subtabNumber === cartSubTabs.Coins) {
             toggleProductPage()
+          }
+        })
+        break
+      case cartSubTabs.Subscriptions:
+        CartTab.fetchProducts().then(() => {
+          if (player.subtabNumber === cartSubTabs.Subscriptions) {
+            toggleSubscriptionPage()
           }
         })
         break

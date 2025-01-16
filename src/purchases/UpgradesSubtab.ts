@@ -32,10 +32,11 @@ type UpgradesList = Omit<Upgrades, 'level' | 'cost'> & {
   playerLevel: number
 }
 
-interface UpgradesResponse {
+export interface UpgradesResponse {
   coins: number
   upgrades: Upgrades[]
   playerUpgrades: PlayerUpgrades[]
+  tier: number
 }
 
 interface CoinsResponse {

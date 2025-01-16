@@ -1,7 +1,7 @@
 import { format } from '../Synergism'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
-import { products } from './CartTab'
+import { coinProducts } from './CartTab'
 import { addToCart } from './CartUtil'
 
 const productContainer = document.querySelector<HTMLElement>('#pseudoCoins > #productContainer')
@@ -15,7 +15,7 @@ const clickHandler = (e: HTMLElementEventMap['click']) => {
   const productId = (e.target as HTMLButtonElement).getAttribute('data-id')
   const productName = (e.target as HTMLButtonElement).getAttribute('data-name')
 
-  if (productId === null || !products.some((product) => product.id === productId)) {
+  if (productId === null || !coinProducts.some((product) => product.id === productId)) {
     Alert('Stop fucking touching the html! We do server-side validation!')
     return
   }
@@ -25,7 +25,7 @@ const clickHandler = (e: HTMLElementEventMap['click']) => {
 }
 
 export const initializeProductPage = memoize(() => {
-  productContainer!.innerHTML = products.map((product) => (`
+  productContainer!.innerHTML = coinProducts.map((product) => (`
     <section class="pseudoCoinContainer" key="${product.id}">
       <div>
         <img class="pseudoCoinImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
