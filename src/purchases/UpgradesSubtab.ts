@@ -9,6 +9,7 @@ import {
 } from '../PseudoCoinUpgrades'
 import { Alert } from '../UpdateHTML'
 import { memoize } from '../Utility'
+import { upgradeResponse } from './CartTab'
 
 interface Upgrades {
   upgradeId: number
@@ -138,67 +139,62 @@ async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
 }
 
 const initializeUpgradeSubtab = memoize(() => {
-  ;(async () => {
-    const response = await fetch('https://synergism.cc/stripe/upgrades')
-    const upgradesList = await response.json() as UpgradesResponse
+  DOMCacheGetOrSet('currentCoinBalance').innerHTML = `${
+    i18next.t('pseudoCoins.coinCount', { amount: Intl.NumberFormat().format(upgradeResponse.coins) })
+  }`
+  const grouped = upgradeResponse.upgrades.reduce((map, upgrade) => {
+    const current = map.get(upgrade.upgradeId)
+    const playerUpgrade = upgradeResponse.playerUpgrades.find((v) => v.upgradeId === upgrade.upgradeId)
 
-    DOMCacheGetOrSet('currentCoinBalance').innerHTML = `${
-      i18next.t('pseudoCoins.coinCount', { amount: Intl.NumberFormat().format(upgradesList.coins) })
-    }`
-    const grouped = upgradesList.upgrades.reduce((map, upgrade) => {
-      const current = map.get(upgrade.upgradeId)
-      const playerUpgrade = upgradesList.playerUpgrades.find((v) => v.upgradeId === upgrade.upgradeId)
+    if (!current) {
+      map.set(upgrade.upgradeId, {
+        ...upgrade,
+        cost: [upgrade.cost],
+        level: [upgrade.level],
+        playerLevel: playerUpgrade?.level ?? 0
+      })
+    } else {
+      current.maxLevel = Math.max(current.maxLevel, upgrade.maxLevel)
+      current.cost.push(upgrade.cost)
+      current.level.push(upgrade.level)
+    }
 
-      if (!current) {
-        map.set(upgrade.upgradeId, {
-          ...upgrade,
-          cost: [upgrade.cost],
-          level: [upgrade.level],
-          playerLevel: playerUpgrade?.level ?? 0
-        })
-      } else {
-        current.maxLevel = Math.max(current.maxLevel, upgrade.maxLevel)
-        current.cost.push(upgrade.cost)
-        current.level.push(upgrade.level)
+    return map
+  }, new Map<number, UpgradesList>())
+
+  tab.querySelector('#upgradeGrid')!.innerHTML = [...grouped.values()].map((u) => `
+    <div
+      data-id="${u.upgradeId}"
+      data-key="${u.name}"
+      style="margin: 40px;"
+    >
+      <img src='Pictures/PseudoShop/${u.internalName}.png' alt='${u.internalName}' />
+      <p id="a">${u.playerLevel}/${u.maxLevel}</p>
+      ${u.playerLevel === u.maxLevel ? '<p id="b">✔️</p>' : '<p id="b"></p>'}
+    </div>
+  `).join('')
+
+  const upgradesInGrid = tab.querySelectorAll<HTMLElement>('#upgradeGrid > div[data-id]')
+  upgradesInGrid.forEach((element) => {
+    element.addEventListener('click', (e) => {
+      const upgradeId = Number((e.target as HTMLElement).closest('div')?.getAttribute('data-id'))
+
+      if (Number.isNaN(upgradeId) || !Number.isSafeInteger(upgradeId)) {
+        Alert('Stop touching the fucking html! We do server-side validations!')
+        return
       }
 
-      return map
-    }, new Map<number, UpgradesList>())
+      setActiveUpgrade([...grouped.values()].find((u) => u.upgradeId === upgradeId))
 
-    tab.querySelector('#upgradeGrid')!.innerHTML = [...grouped.values()].map((u) => `
-      <div
-        data-id="${u.upgradeId}"
-        data-key="${u.name}"
-        style="margin: 40px;"
-      >
-        <img src='Pictures/PseudoShop/${u.internalName}.png' alt='${u.internalName}' />
-        <p id="a">${u.playerLevel}/${u.maxLevel}</p>
-        ${u.playerLevel === u.maxLevel ? '<p id="b">✔️</p>' : '<p id="b"></p>'}
-      </div>
-    `).join('')
-
-    const upgradesInGrid = tab.querySelectorAll<HTMLElement>('#upgradeGrid > div[data-id]')
-    upgradesInGrid.forEach((element) => {
-      element.addEventListener('click', (e) => {
-        const upgradeId = Number((e.target as HTMLElement).closest('div')?.getAttribute('data-id'))
-
-        if (Number.isNaN(upgradeId) || !Number.isSafeInteger(upgradeId)) {
-          Alert('Stop touching the fucking html! We do server-side validations!')
-          return
-        }
-
-        setActiveUpgrade([...grouped.values()].find((u) => u.upgradeId === upgradeId))
-
-        // Setting an active class here turns the border white due to a CSS rule
-        upgradesInGrid.forEach((u) => u.classList.remove('active'))
-        element.classList.add('active')
-      })
+      // Setting an active class here turns the border white due to a CSS rule
+      upgradesInGrid.forEach((u) => u.classList.remove('active'))
+      element.classList.add('active')
     })
+  })
 
-    DOMCacheGetOrSet('buy').addEventListener('click', () => {
-      purchaseUpgrade(grouped)
-    })
-  })()
+  DOMCacheGetOrSet('buy').addEventListener('click', () => {
+    purchaseUpgrade(grouped)
+  })
 })
 
 export const toggleUpgradeSubtab = () => {

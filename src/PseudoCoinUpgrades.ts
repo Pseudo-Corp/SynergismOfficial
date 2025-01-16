@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import { displayProperLoadoutCount } from './BlueberryUpgrades'
 import { corruptionLoadoutTableCreate, updateCorruptionLoadoutNames } from './Corruptions'
+import { CartTab } from './purchases/CartTab'
 import { format } from './Synergism'
 
 export type PseudoCoinUpgradeNames =
@@ -19,28 +20,6 @@ export type PseudoCoinUpgradeNames =
 
 export type PseudoCoinUpgrades = Record<PseudoCoinUpgradeNames, number>
 export type PseudoCoinUpgradeEffects = Record<PseudoCoinUpgradeNames, number>
-
-interface Upgrades {
-  upgradeId: number
-  maxLevel: number
-  name: string
-  description: string
-  internalName: string
-  level: number
-  cost: number
-}
-
-interface PlayerUpgrades {
-  level: number
-  upgradeId: number
-  internalName: PseudoCoinUpgradeNames
-}
-
-interface UpgradesResponse {
-  coins: number
-  upgrades: Upgrades[]
-  playerUpgrades: PlayerUpgrades[]
-}
 
 // TODO?: Something more robust to injections?
 
@@ -75,8 +54,7 @@ export const PCoinUpgradeEffects: PseudoCoinUpgradeEffects = {
 }
 
 export const initializePCoinCache = async () => {
-  const response = await fetch('https://synergism.cc/stripe/upgrades')
-  const upgradesList = await response.json() as UpgradesResponse
+  const upgradesList = await CartTab.fetchUpgrades()
 
   // Reset Cache
   for (const key of Object.keys(PCoinUpgrades)) {
