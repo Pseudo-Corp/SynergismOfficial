@@ -22,6 +22,8 @@
     "prereqNotMetAlert": "Je hebt niet de benodigde vereisten om deze upgrade te kopen.",
     "notEnoughBlueberries": "Je heeft niet genoeg Bosbessen om deze module te activeren.",
     "availableBlueberries": "Je hebt <<blue|{{availableBlueberries}}>> onbestede Bosbessen. Ontgrendel hogere rang modules hieronder door ze te gebruiken!",
+    "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
+    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "Hoeveel Ambrosia wil je uitgeven? Je hebt {{amount}} Ambrosia. Typ -1 om max te gebruiken!",
     "refund": "U heeft alle bestede Bosbessen en Ambrosia terugbetaald.",
     "refundWord": "Terugbetaling",
@@ -1043,8 +1045,16 @@
       "68": "Wow! Een doos met Geen koekjes.",
       "69": "Wow! Een doos koekjes Voorbij deze Wereld.",
       "70": "Wow! Een doos van perfecte koekjes.",
-      "71": "Wow! A Singular Cookie of Pandora's Benefactory",
-      "72": "Wow! A Singular Cookie of Vyshareth's Benefactory"
+      "71": "Wow! A Singular Cookie of Pandora's Benefactory.",
+      "72": "Wow! A Singular Cookie of Vyshareth's Benefactory.",
+      "73": "Wow! A Singular Cookie of the Giant Steps.",
+      "74": "Wow! A Singular Cookie of the Lilliput Steps.",
+      "75": "Wow! A Singular Cookie of another reference.",
+      "76": "Wow! A Singular Cookie of the Blue Variety.",
+      "77": "Wow! A Singular Cookie of Tyche's Benefactory.",
+      "78": "Wow! A Singular Cookie of Derpsmith's Benefactory",
+      "79": "Wow! A Singular Cookie of the Corrupt Beyond",
+      "80": "Wow! A Singular Cookie of the Grandma at the end of the Universe."
     },
     "upgradeDescriptions": {
       "1": "[1x1] You got it! +16.666% 3D Cubes from Ascending per level.",
@@ -1116,7 +1126,17 @@
       "67": "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by 1,337.",
       "68": "[Cx18] What the heck! These aren't even cookies. +0.01% Quarks per level purchased of this upgrade. +5% more at level 1,000!",
       "69": "[Cx19] Cookies that you'll never remember again. +12% Golden Quarks this Singularity.",
-      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts on Ascension if every corruption is set to level 14."
+      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. Gain +0.01% more Octeracts on Ascension if every corruption is set to level 14.",
+      "71": "[Cx21] For each talisman rarity upgrade, multiply Obtainium gain by 1.04",
+      "72": "[Cx22] For each talisman rarity upgrade, multiply Offering gain by 1.04",
+      "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
+      "74": "[Cx24] Add +0.30 to all Corruption Multiplier values.",
+      "75": "[Cx25] Each level adds +0.3% effectiveness to free Singularity-tier Upgrades per level! (additive with all other boosts)",
+      "76": "[Cx26] Each level adds <<blue | +1% Blueberry Speed>> for each time threshold you have reached!",
+      "77": "[Cx27] Each level adds <<green | +2 +0.1% ☘ Ambrosia Luck>>!",
+      "78": "[Cx28] Each level adds +0.3% effectiveness to free Octeract-tier Upgrades per level!",
+      "79": "[Cx29] If your Red Bar fills up with this upgrade purchased, you gain <<green | +0.02 ☘ Ambrosia Luck>>, permanently! Stacks up to 5,000 times.",
+      "80": "[Cx30] You intercept a singular message: <<gray|'Why don't you visit more often?'>>..."
     },
     "cubeMetadata": {
       "cost": "Cost: {{value1}} Wow! Cubes [+{{value2}} Levels]",
@@ -1433,7 +1453,7 @@
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
-      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 20 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
     },
@@ -1741,6 +1761,10 @@
         "name": "Primal Power!",
         "hasLevel1": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> Ambrosia Luck!",
         "default": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|☘ +131>> Ambrosia Luck!"
+      },
+      "permanentBenefaction": {
+        "name": "Permanent Benefaction",
+        "default": "<<lightblue | Pandora>> and <<orange | Vyshareth>> will always grant you their benefaction, so their cookies are correspondingly always eaten!"
       }
     },
     "toString": {
@@ -1800,7 +1824,7 @@
         "effectHaveNot": "You have not paid your price for salvation."
       },
       "cookies5": {
-        "name": "Cookie Recipes V (WIP)",
+        "name": "Cookie Recipes V",
         "description": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
         "effectHave": "You have paid witness to the suffering of the masses.",
         "effectHaveNot": "You have not paid witness to the suffering of the masses."
@@ -3145,7 +3169,7 @@
       "noOcteracts": {
         "name": "No Octeract Effects",
         "description": "Beat the target Singularity, but octeracts and their upgrades do nothing!<br/>Effective Singularity is also much higher based on tier.",
-        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
+        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00) [effect halved after 10 completions]",
         "UniqueReward1": "1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
         "UniqueReward2": "10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
         "UniqueReward3": "10th - A new <<orchid|Quark Shop>> upgrade!"

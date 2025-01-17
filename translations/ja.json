@@ -11,9 +11,9 @@
   },
   "ambrosia": {
     "ambrosia": "Ambrosia",
-    "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia! [Lifetime: <<white|{{lifetimeAmbrosia}}>>]",
+    "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
     "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
-    "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> Ambrosia with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>] {{extra}}",
+    "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> Ambrosia with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Generating Ambrosia when <<blue|{{thresholdTimer}}>> is accumulated.",
     "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
     "prerequisite": "Prerequisites:",
@@ -523,7 +523,7 @@
       "180": "Unlock Tier 6 Ant autobuy, and autobuy Hic and Experientia Ants! Add +1% Base Ant ELO.",
       "181": "Unlock Tier 7 Ant autobuy, and autobuy Praemoenio Ants! Add +2% Base Ant ELO.",
       "182": "Unlock Tier 8 Ant autobuy, and autobuy Scientia and Phylacterium Ants! Add +3% Base Ant ELO.",
-      "187": "Gain an Ascension Count multiplier based on your score: x{{x}}. Also: Offerings +{{y}}% [Max: 100% at 1M Ascensions]",
+      "187": "Gain an Ascension Cubes multiplier based on your score: x{{x}}. Also: Offerings +{{y}}% [Max: 100% at 1M Ascensions]",
       "188": "Gain +100 Ascension count for all Ascensions longer than 10 seconds. Also: Obtainium +{{x}}% [Max: 100% at 5M Ascensions]",
       "189": "Gain 20% of Excess time after 10 seconds each Ascension as a linear multiplier to Ascension count. Also: Cubes +{{x}}% [Max: 200% at 500M Ascensions]",
       "193": "Gain {{x}}% more Cubes on Ascension!",
@@ -966,7 +966,7 @@
     "timeExitChallenge": "Time before exiting challenge: <<var(--orchid-text-color)|{{time}}>>s",
     "timeEnterChallenge": "Time before entering challenge: <<var(--orchid-text-color)|{{time}}>>s",
     "autoTimer": "<<orange|Auto Timer:>> <<var(--orchid-text-color)|{{time}}s>>",
-    "perCompletionBonus": "Per Completion Bonuses || <<var(--orchid-text-color)|Softcapped past {{x}}! Effective completion count: {{y}}>>",
+    "perCompletionBonus": "Per Completion Bonuses || <<var(--orchid-text-color)|Softcapped pass {{x}}! Effective completion count {{y}}>>",
     "perCompletionBonusEmpty": "Per Completion Bonuses",
     "hypercubeOneTimeBonus": "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)",
     "ascensionBankAdd": "Completing the challenge adds {{x}} to Ascension Bank and increase base Score by {{y}}.",
@@ -1448,7 +1448,7 @@
       "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.6 ☘ Ambrosia luck per level, stacking additively.",
       "shopAmbrosiaLuckMultiplier4": "Gain ☘ +1% Ambrosia Luck per level! Simple as that.",
       "shopOcteractAmbrosiaLuck": "Gain ☘ +1 Ambrosia Luck per digit in your Wow! Octeract inventory per level. Simple as that.",
-      "shopCashGrabUltra": "For a nominal price, gain up to +20% Blueberry Speed, +80% Cubes and +12% Quarks per level based on Ambrosia, scaling nonlinearly until 10,000,000 lifetime earned.",
+      "shopCashGrabUltra": "For a nominal price, gain up to +15% Blueberry Speed, +120% Cubes and +8% Quarks per level based on Ambrosia, scaling nonlinearly until 10,000,000 lifetime earned.",
       "shopAmbrosiaAccelerator": "Each level of this 'accelerator' provides <<cyan|+0.2>> real-life seconds of Blueberry Generation for every <<orange|1>> Ambrosia gained, from any source!",
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
@@ -2680,7 +2680,7 @@
     "runes": "Press [1], [2], [3], [4] or [5] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!",
     "challenges": {
       "hotkey": "Press [1], [2]... up to [0] to enter challenges 1 to 10. Press [E] to exit your Transcension or Reincarnation challenge if stuck!",
-      "finishTranscension": "If you are unable to finish a Transcension challenge, press the hotkey listed above OR click on the purple Challenge \"C\" button on the reset buttons on top.",
+      "finishTranscension": "If you are unable to finish a Transcension challenge, press the hotkey listed above OR click on the red Challenge \"C\" button on the reset buttons on top.",
       "leaveReincarnation": "To leave a reincarnation challenge, press the grey Challenge \"C\" instead!"
     },
     "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> researches first. The <<var(--crimson-text-color);|red-bordered>> researches are never reset whereas the <<white;|white-bordered>> researches will reset upon the next reset tier!",
@@ -3141,7 +3141,7 @@
       "acceptFailure": "You have been transported back to your highest reached Singularity. Try again soon! -Derpsmith"
     },
     "toString": {
-      "canEnter": "Can be entered after reaching Singularity {{unlockSing}} [Your highest: {{highestSing}}]",
+      "canEnter": "Can be entered at highest Singularity {{unlockSing}} [Your highest: {{highestSing}}]",
       "tiersCompleted": "Tiers completed",
       "currentTierSingularity": "The current tier of this challenge takes place in Singularity"
     },
@@ -3227,7 +3227,7 @@
     "daily": "Daily",
     "add": "Add",
     "addAll": "xAll",
-    "add1": "Add x1",
+    "add1": "x1",
     "time": "Time",
     "enterPromoCodeHere": "Enter a promotion code here!",
     "currentTheme": "Current Theme",
