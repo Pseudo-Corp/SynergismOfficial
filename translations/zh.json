@@ -22,6 +22,8 @@
     "prereqNotMetAlert": "您未满足前提条件，无法购买该升级。",
     "notEnoughBlueberries": "您的蓝莓不足，无法激活该模块。",
     "availableBlueberries": "您有<<blue|{{availableBlueberries}}>>蓝莓未花费。您可以使用它解锁下面更高阶的模块！",
+    "cubeUpgradeThresholds": "基于神肴总数，您的蓝莓秒需求已经翻倍了<<cyan|{{threshold}}>>次，因此<<cyan|蓝莓秒的产生速度增加{{percent}}%>>！",
+    "cubeUpgradeRedBarFills": "购买饼干升级29以后，您的红色进度条填充了<<maroon|{{amount}}>>次，所以<<green|&#9752 神肴之运增加{{luck}}>>！",
     "ambrosiaBuyPrompt": "您想要花费多少神肴？您拥有{{amount}}神肴。如果想要购买最大数量，请输入-1！",
     "refund": "所有花费的蓝莓和神肴均已返还。",
     "refundWord": "返还",
@@ -1043,8 +1045,16 @@
       "68": "真惊奇！这是一盒非曲奇。",
       "69": "真惊奇！这是一盒绝世出尘的饼干。",
       "70": "真惊奇！这是一盒完美的饼干。",
-      "71": "真惊奇！这是一块潘多拉的恩惠饼干。",
-      "72": "真惊奇！这是一块腐化女神的恩惠饼干。"
+      "71": "真惊奇！这是一块潘多拉的恩惠奇异饼干。",
+      "72": "真惊奇！这是一块腐化女神的恩惠奇异饼干。",
+      "73": "真惊奇！这是一块巨人之阶的奇异饼干。",
+      "74": "真惊奇！这是一块利利普之阶的奇异饼干。",
+      "75": "真惊奇！这是一块不知道玩什么梗的奇异饼干。",
+      "76": "真惊奇！这是一块蓝色品种的奇异饼干。",
+      "77": "真惊奇！这是一块堤喀的恩惠奇异饼干。",
+      "78": "真惊奇！这是一块Derpsmith的恩惠奇异饼干。",
+      "79": "真惊奇！这是一块腐化之彼岸奇异饼干。",
+      "80": "真惊奇！这是一块宇宙尽头的奶奶奇异饼干。"
     },
     "upgradeDescriptions": {
       "1": "[1x1]好！每级增加16.666%飞升时惊奇方盒获取数量。",
@@ -1116,7 +1126,17 @@
       "67": "[Cx17]这里面都是什么玩意？？？不管了，总之玄学护身符的等级上限增加1337。",
       "68": "[Cx18]什么情况，这根本就不是饼干！每级使夸克获取数量增加0.01%，达到等级上限1000时可以使夸克获取数量再增加5%！",
       "69": "[Cx19]永远无法再回忆起来的饼干。使本次进入奇点的金夸克获取数量增加12%。",
-      "70": "[Cx20]烘焙之理的具现化。其美味已臻于食物之巅。如果腐化等级总和(不考虑视为增加的等级)超过14×8，则使惊奇八阶方块产量增加0.01%。"
+      "70": "[Cx20]烘焙之理的具现化。其美味已臻于食物之巅。如果腐化等级总和(不考虑视为增加的等级)超过14×8，则使惊奇八阶方块产量增加0.01%。",
+      "71": "[Cx21]每升阶1次护身符，就使难得素获取数量变为原来的1.04倍",
+      "72": "[Cx22]每升阶1次护身符，就使祭品获取数量变为原来的1.04倍",
+      "73": "[Cx23]每级使无限晋升符文的额外等级增加1！",
+      "74": "[Cx24]使所有腐化的分数倍率增加0.30。",
+      "75": "[Cx25]每级使奇点升级的免费等级效果增加0.3%！(效果与其他加成叠加)",
+      "76": "[Cx26]蓝莓秒每次达到阈值，每级就使<<blue|蓝莓秒产生速度>>增加1%！",
+      "77": "[Cx27]每级使<<green|☘ 神肴之运>>增加2，然后再增加0.1%！",
+      "78": "[Cx28]每级使惊奇八阶方块升级的免费等级效果增加0.3%！",
+      "79": "[Cx29]购买该升级后，当红色进度条填充1次后，将永久获得<<green|0.02 ☘ 神肴之运>>！该效果的上限为5000次。",
+      "80": "[Cx30]您截获一条奇异的消息：<<gray|“有时间，多回来看看吧？”>>……"
     },
     "cubeMetadata": {
       "cost": "花费：{{value1}}惊奇方盒[可提升{{value2}}级]",
@@ -1433,7 +1453,7 @@
       "shopEXUltra": "拥有该额外升级后，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！",
       "shopChronometerS": "200次进入奇点后，每有1次奇点次数，该升级就使飞升的速度和全局速度增加1%！",
       "shopAmbrosiaUltra": "拥有该额外升级(价格高到离谱)后，每完成1阶层拔擢，每级该升级就可以使☘ 神肴之运增加1。",
-      "shopSingularitySpeedup": "您知道那些由时间控制的奇点升级和惊奇八阶方块升级吧？它们增长的速度将变为原来的20倍！多亏了这个甚至能改变<<gray|奇点时长>>的奇怪时钟……",
+      "shopSingularitySpeedup": "您知道那些由时间控制的奇点升级和惊奇八阶方块升级吧？它们增长的速度将变为原来的50倍！多亏了这个甚至能改变<<gray|奇点时长>>的奇怪时钟……",
       "shopSingularityPotency": "您知道那些免费奇点升级吧？它们的效果将增加266%(换句话说，不计算软上限的话，每级都将是之前3.66级的效果)。原因？是这个有点奇怪的<<gray|奇点传输仪式装置>>！别多问了。",
       "shopSadisticRune": "多奇怪的符文。店主(您永远也无法再见的那位)通过心灵感应说道，这是浸入某种<<gray|奇点物质>>的无限晋升符文。难道无限晋升符文不止一个？"
     },
@@ -1561,7 +1581,7 @@
       },
       "unlimitedGrowth": {
         "name": "无限成长",
-        "default": "每进入1次奇点，夸克获取数量和飞升次数获取数量就增加10%(目前增加了{{amount}}%)%"
+        "default": "每进入1次奇点，夸克获取数量和飞升次数获取数量就增加10%(目前增加了{{amount}}%)"
       },
       "goldenCoins": {
         "name": "金币之雨",
@@ -1579,7 +1599,7 @@
       },
       "researchDummies": {
         "name": "傻瓜式研究教学",
-        "hasLevel1": "您可以保留更好的自动研究，即方盒升级[1x9]",
+        "hasLevel1": "您可以保留自动研究，可以使用鼠标停留购买升级研究！",
         "default": "您可以使用鼠标停留购买升级研究"
       },
       "antGodsCornucopia": {
@@ -1591,7 +1611,7 @@
       },
       "sweepomatic": {
         "name": "自动扫荡·改 2",
-        "hasLevel1": "自动扫荡挑战可以从挑战10开始运行飞升挑战，并且如果您拥有立即完成挑战 2，还可以自动扫荡飞升挑战，节省点击次数！",
+        "hasLevel1": "在飞升挑战中，自动扫荡挑战可以从挑战10开始运行；并且如果您拥有立即完成挑战 2，还可以自动扫荡飞升挑战，节省点击次数！",
         "default": "自动扫荡挑战可以从挑战10开始运行飞升挑战，节省点击次数！"
       },
       "superStart": {
@@ -1646,7 +1666,7 @@
       },
       "itAllAddsUp": {
         "name": "集腋成裘",
-        "default": "The 'Add' Special Action reward & cooldown is divided by {{div}} while its maximum capacity is multiplied the same amount! (Rounded Up)."
+        "default": "使用“增加”代码的奖励和恢复时间均除以{{div}}，并且使用次数上限乘以相同数值！(四舍五入)"
       },
       "automagicalRunes": {
         "name": "自动魔法符文",
@@ -1657,11 +1677,11 @@
       },
       "eternalAscensions": {
         "name": "永恒飞升",
-        "default": "Unlock a new Real Time based Auto Ascension mode!"
+        "default": "您可以根据现实时间自动飞升了！"
       },
       "exaltedAchievements": {
-        "name": "拔擢成就",
-        "default": "Unlocks new, very difficult challenges! They may only be entered after reaching high enough Singularities!"
+        "name": "拔擢保险库",
+        "default": "解锁新的，非常困难的挑战！只有在进入奇点次数足够高时才可以进行这些挑战！"
       },
       "derpSmithsCornucopia": {
         "name": "Derpsmith的聚宝盆",
@@ -1674,11 +1694,11 @@
       },
       "irishAnt": {
         "name": "爱尔兰蚂蚁",
-        "default": "受到爱尔兰之运祝福的蚂蚁可以使神肴之运增加<<limegreen|{{i}}>>！"
+        "default": "受到爱尔兰之运祝福的蚂蚁可以使<<limegreen|☘>> 神肴之运增加<<limegreen|{{i}}>>！"
       },
       "irishAnt2": {
         "name": "爱尔兰蚂蚁 II：电子布加洛舞",
-        "default": "Ants blessed with more fortunate luck of the Irish increase base ☘ Ambrosia Luck by <<limegreen|{{percent}}%>>! +1% per perk level."
+        "default": "受到爱尔兰之运更多祝福的蚂蚁可以使☘ 神肴之运再增加<<limegreen|{{percent}}%>！每级特权使加成数值增加1%。"
       },
       "overclocked": {
         "name": "超载",
@@ -1724,8 +1744,8 @@
       },
       "octeractMetagenesis": {
         "name": "八阶方块世代交替",
-        "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 640)^0.5, (level^2 * free/125000)^0.333 respectively ",
-        "default": "Gives free levels of Octeract Cogenesis based on your current free levels and purchased levels: (level * free / 1000)^0.5"
+        "hasLevel1": "使惊奇八阶方块同生和惊奇八阶方块三度起源的免费等级基于当前免费等级和购买等级增加，数值分别为：(购买等级×免费等级/640)^0.5，(购买等级^2×免费等级/125000)^0.333！",
+        "default": "使惊奇八阶方块同生的免费等级基于当前免费等级和购买等级增加，数值为：(购买等级×免费等级/1000)^0.5"
       },
       "immaculateAlchemy": {
         "name": "完美炼金术",
@@ -1738,9 +1758,13 @@
         "default": "使夸克获取数量变为((奇点次数-179)/20)的平方倍。目前倍率为{{amt}}……是的，就是这么好。"
       },
       "primalPower": {
-        "name": "Primal Power!",
-        "hasLevel1": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> Ambrosia Luck!",
-        "default": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|☘ +131>> Ambrosia Luck!"
+        "name": "质数之力！",
+        "hasLevel1": "通过达到质数次数的奇点获得惊人的力量！目前获得：<<limegreen|131>>☘ 神肴之运及<<limegreen|269>>☘ 神肴之运！",
+        "default": "通过达到质数次数的奇点获得惊人的力量！目前获得：<<limegreen|131>>☘ 神肴之运！"
+      },
+      "permanentBenefaction": {
+        "name": "永久恩惠",
+        "default": "使<<lightblue|潘多拉>>和<<orange|腐化女神>>常时给予您恩惠，相应的饼干升级常时生效！"
       }
     },
     "toString": {
@@ -1800,7 +1824,7 @@
         "effectHaveNot": "您未替饼干付费。"
       },
       "cookies5": {
-        "name": "饼干配方 V(制作中)",
+        "name": "饼干配方 V",
         "description": "袖手旁观是人类最大的原罪。",
         "effectHave": "您已见证大众的苦难。",
         "effectHaveNot": "您未见证大众的苦难。"
@@ -3145,7 +3169,7 @@
       "noOcteracts": {
         "name": "无八阶方块效果",
         "description": "您需要在惊奇八阶方块和相应升级没有效果的前提下通过目标奇点！另外，奇点相关惩罚也会根据当前阶层数量变得更高。",
-        "ScalingReward1": "使<<var(--lightseagreen-text-color)|惊奇八阶方块对惊奇方盒至惊奇七阶立方>>的加成指数增加0.02(基础值为2.00)",
+        "ScalingReward1": "使<<var(--lightseagreen-text-color)|惊奇八阶方块对惊奇方盒至惊奇七阶立方>>的加成指数增加0.02(基础值为2.00)[完成10阶层后，之后的加成减半]",
         "UniqueReward1": "第1次 - 根据<<var(--lightseagreen-text-color)|八阶方块>>数量，增加<<Gold|祭品>>获取数量！",
         "UniqueReward2": "第10次 - 根据<<var(--lightseagreen-text-color)|八阶方块>>数量，增加<<steelblue|难得素>>获取数量！",
         "UniqueReward3": "第10次 - 新的<<orchid|夸克商店>>升级！"

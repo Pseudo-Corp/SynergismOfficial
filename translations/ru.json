@@ -22,6 +22,8 @@
     "prereqNotMetAlert": "Вы не выполнили необходимые требования для покупки этого улучшения.",
     "notEnoughBlueberries": "У вас недостаточно Голубики для активации этого модуля.",
     "availableBlueberries": "У вас <<blue|{{availableBlueberries}}>> не потраченной Голубики. Разблокируйте модули нового уровня, использовав их!",
+    "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
+    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "Сколько Амброзии вы хотели бы потратить? У вас {{amount}} Амброзии. Введите -1, чтобы использовать максимум!",
     "refund": "Вы вернули всю потраченную Голубику и Амброзию.",
     "refundWord": "Возврат",
@@ -1043,8 +1045,16 @@
       "68": "Вау! Коробка с \"Не Печенье\".",
       "69": "Вау! Коробка с Печеньями за Пределами Этого Мира.",
       "70": "Вау! Коробка Идеального Печения.",
-      "71": "Вау! Уникальное Печенье от \"Pandora's Benefactory\"",
-      "72": "Вау! Уникальное Печенье от \"Vyshareth's Benefactory\""
+      "71": "Wow! A Singular Cookie of Pandora's Benefactory.",
+      "72": "Wow! A Singular Cookie of Vyshareth's Benefactory.",
+      "73": "Wow! A Singular Cookie of the Giant Steps.",
+      "74": "Wow! A Singular Cookie of the Lilliput Steps.",
+      "75": "Wow! A Singular Cookie of another reference.",
+      "76": "Wow! A Singular Cookie of the Blue Variety.",
+      "77": "Wow! A Singular Cookie of Tyche's Benefactory.",
+      "78": "Wow! A Singular Cookie of Derpsmith's Benefactory",
+      "79": "Wow! A Singular Cookie of the Corrupt Beyond",
+      "80": "Wow! A Singular Cookie of the Grandma at the end of the Universe."
     },
     "upgradeDescriptions": {
       "1": "[1x1] Не вопрос! +16.666% 3Д Кубов от Вознесения за уровень.",
@@ -1116,7 +1126,17 @@
       "67": "[Cx17] Что, чёрт возьми, в них??? В любом случае лимит уровня Талисмана Метафизики увеличен на 1,337.",
       "68": "[Cx18] Какого чёрта! Это даже не печенье. +0.01% Кварков за каждый уровень этого улучшения. +5% больше на 1,000 уровне!",
       "69": "[Cx19] Печенье, о котором вы больше никогда не вспомните. +12% Золотых Кварков к этой Сингулярности.",
-      "70": "[Cx20] Вершина выпечки. Ничто из того, что вы будете есть, не будет вкуснее этого. Получите на +0.01% больше Октерактов при Вознесении, если средний уровень всех порч минимум 14."
+      "70": "[Cx20] Вершина выпечки. Ничто из того, что вы будете есть, не будет вкуснее этого. Получите на +0.01% больше Октерактов при Вознесении, если средний уровень всех порч минимум 14.",
+      "71": "[Cx21] For each talisman rarity upgrade, multiply Obtainium gain by 1.04",
+      "72": "[Cx22] For each talisman rarity upgrade, multiply Offering gain by 1.04",
+      "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
+      "74": "[Cx24] Add +0.30 to all Corruption Multiplier values.",
+      "75": "[Cx25] Each level adds +0.3% effectiveness to free Singularity-tier Upgrades per level! (additive with all other boosts)",
+      "76": "[Cx26] Each level adds <<blue | +1% Blueberry Speed>> for each time threshold you have reached!",
+      "77": "[Cx27] Each level adds <<green | +2 +0.1% ☘ Ambrosia Luck>>!",
+      "78": "[Cx28] Each level adds +0.3% effectiveness to free Octeract-tier Upgrades per level!",
+      "79": "[Cx29] If your Red Bar fills up with this upgrade purchased, you gain <<green | +0.02 ☘ Ambrosia Luck>>, permanently! Stacks up to 5,000 times.",
+      "80": "[Cx30] You intercept a singular message: <<gray|'Why don't you visit more often?'>>..."
     },
     "cubeMetadata": {
       "cost": "Стоимость: {{value1}} Вау! Кубов [+{{value2}} Уровней]",
@@ -1433,7 +1453,7 @@
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
       "shopChronometerS": "Это улучшение даёт +1% к Скорости Вознесения и Глобальной Скорости за каждый номер текущей Сингулярности выше 200!",
       "shopAmbrosiaUltra": "Это абсурдно дорогое EX Улучшение даёт +1 постоянную ☘ Удачу Амброзии за каждое выполнение ВОЗВЫШЕНИЯ за уровень.",
-      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 20 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "Помните эти бесплатные Улучшения Сингулярности? Они теперь на 266% эффективнее (то есть, каждый теперь эквивалентен 3.66 уровням, до предела). Почему? Из-за вот этого <<gray | Ритуального Передатчика Сингулярности>>! Не спрашивайте.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
     },
@@ -1560,27 +1580,27 @@
         "default": "Добро пожаловать в Сингулярность! За достижение этого этапа, вам положена привилегия: Гептеракты теперь можно создавать автоматически (когда вы откроете их снова), а Платоновы Улучшения теперь КупиМакс, если доступны!"
       },
       "unlimitedGrowth": {
-        "name": "Неограниченный рост",
-        "default": "+10% к увеличению количества Кварков и счётчику Вознесения для каждой Сингулярности. Текущий: +{{amount}}%"
+        "name": "Неограниченный Рост",
+        "default": "+10% to Quarks gain and Ascension Count for each Singularity. Currently: +{{amount}}%"
       },
       "goldenCoins": {
-        "name": "Золотые монеты",
-        "default": "Непотраченные Золотые Кварки увеличивают получение Монет. Особенно полезно для первого Вознесения каждой Сингулярности. Текущий: x{{amount}}"
+        "name": "Золотые Монеты",
+        "default": "Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity. Currently: x{{amount}}"
       },
       "xyz": {
-        "name": "XYZ: Xтра ежедневныY приZ",
+        "name": "XYZ: Xtra dailY rewardZ",
         "hasLevel2": "В дополнении к ЗК и гарантированным бесплатным уровням к ЗК 1/2/3 на +0.2/+0.2/+1, вы получаете ДВОЙНОЕ количество бесплатных улучшений от Специального Действия 'Daily'!",
         "hasLevel1": "В дополнении к ЗК и бесплатным уровням улучшения, Специальное Действие 'Daily' даёт вам дополнительные бесплатные уровни к ЗК 1/2/3 на +0.2/+0.2/+1 уровни соответственно.",
         "default": "Специальный Код 'Daily' теперь дарует вам Золотые Кварки и случайные бесплатные улучшения Сингулярности; и то и то увеличивается в зависимости от счётчика сингулярности!"
       },
       "generousOrbs": {
-        "name": "Щедрые Сферы",
-        "default": "Эффект Сфер Изобильного Потока при открытии Кубов для Кварков теперь может увеличиваться до {{amount}}%"
+        "name": "Generous Orbs",
+        "default": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%"
       },
       "researchDummies": {
         "name": "Исследования для Чайников",
-        "hasLevel1": "Навсегда оставляете Авто Исследования",
-        "default": "Вы можете Исследовать, Наведя курсор мыши, чтобы Купить"
+        "hasLevel1": "You permanently keep Auto Research and can Research using Hover to Buy!",
+        "default": "You can Research using Hover to Buy"
       },
       "antGodsCornucopia": {
         "name": "Рог изобилия Муравьиного Бога",
@@ -1622,7 +1642,7 @@
       "evenMoreQuarks": {
         "name": "Ещё Больше Кварков",
         "bug": "Это баг! Напишите Platonic, если вы каким-либо образом увидели это сообщение.",
-        "default": "Вы получаете <<cyan|{{stack}}>> стаков по <<cyan|5%>> Кварков! Общее Увеличение: <<cyan|+{{inc}}%>>"
+        "default": "You gain <<cyan|{{stack}}>> stacks of <<cyan|5%>> Quarks! Total Increase: <<cyan|+{{inc}}%>>"
       },
       "shopSpecialOffer": {
         "name": "Особое Предложение в Магазине",
@@ -1632,7 +1652,7 @@
       },
       "potionAutogenerator": {
         "name": "Автогенератор Зелий",
-        "default": "Каждые 180 секунд автоматически используется одно зелье Обтаниума и Подношений! Интервал уменьшает на 3% за сингулярность."
+        "default": "Каждые 180 секунд автоматически используется одно зелье Обтаниума и Подношений! Интервал уменьшается на 3% за сингулярность."
       },
       "respecBeGone": {
         "name": "Уходи, Перенабор!",
@@ -1660,67 +1680,67 @@
         "default": "Unlock a new Real Time based Auto Ascension mode!"
       },
       "exaltedAchievements": {
-        "name": "Хранилище ВОЗВЫШЕНИЯ",
+        "name": "Хранилище Возвышения",
         "default": "Unlocks new, very difficult challenges! They may only be entered by reaching high enough Singularities!"
       },
       "derpSmithsCornucopia": {
         "name": "Рог Изобилия Кукузнеца",
-        "default": "С благословением от Кукузнеца, каждая сингулярность даёт +{{counter}}% больше Октерактов!"
+        "default": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!"
       },
       "coolQOLCubes": {
-        "name": "Крутой Сервис Для Кубов",
+        "name": "Cool QoL Cubes",
         "hasLevel1": "Сохраняются все исследования Открытия Кубов И появляется возможность автоматически открывать определенный процент ваших кубов при каждом Вознесении!",
         "default": "Исследования, касающиеся открытия кубов больше не сбрасываются при Вознесении"
       },
       "irishAnt": {
-        "name": "Ирландские Муравьи",
-        "default": "Муравьи, благословлённые удачей Ирландцев, дают <<limegreen|☘ {{i}}>> Удачи Амброзии!"
+        "name": "Irish Ants",
+        "default": "Ants blessed with the luck of the Irish grant <<limegreen|☘ {{i}}>> Ambrosia Luck!"
       },
       "irishAnt2": {
-        "name": "Ирландские Муравьи II: Электрическое Бугало",
+        "name": "Irish Ants II: Electric Boogaloo",
         "default": "Ants blessed with more fortunate luck of the Irish increase base ☘ Ambrosia Luck by <<limegreen|{{percent}}%>>! +1% per perk level."
       },
       "overclocked": {
-        "name": "Разогнанный",
-        "default": "Лимиты уровней для Некоторых Улучшений Сингулярности увеличены на {{i}}!"
+        "name": "Overclocked",
+        "default": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!"
       },
       "wowCubeAutomatedShipping": {
-        "name": "Автоматические Поставки Wow! Кубов",
+        "name": "Wow! Cube Automated Shipping",
         "hasLevel1": "Автоматическая покупка улучшений кубов каждое вознесение, вне зависимости от того, где вы!",
         "default": "Автоматическая покупка Улучшений Кубов каждое вознесение, но только если вы в Испытании Сингулярности."
       },
       "congealedblueberries": {
-        "name": "Замороженная Голубика",
-        "default": "Полутвёрдая Голубика, выполняет все функции нормальной. Даёт +{{i}} ягод Голубики, которые могут быть использованы в дереве Голубики!"
+        "name": "Congealed Blueberries",
+        "default": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!"
       },
       "goldenRevolution": {
-        "name": "Золотая Революция",
-        "default": "Сингулярность даёт на 0.4% больше Золотых Кварков за Сингулярность. Текущий: +{{current}}% (МАКС: +100%)"
+        "name": "Golden Revolution",
+        "default": "Singularity grants 0.4% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +100%)"
       },
       "goldenRevolutionII": {
-        "name": "Золотая Революция II",
-        "default": "Золотые Кварки стоят на 0.2% дешевле за Сингулярность. Текущий: -{{current}}% (МАКС: -50%)"
+        "name": "Golden Revolution II",
+        "default": "Golden Quarks are 0.2% cheaper per Singularity. Currently: -{{current}}% (MAX: -50%)"
       },
       "goldenRevolutionIII": {
-        "name": "Золотая Революция III",
-        "default": "Экспорт даёт на 2% больше Золотых Кварков за Сингулярность. Текущий: +{{current}}% (МАКС: +500%)"
+        "name": "Golden Revolution III",
+        "default": "Export gives 2% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +500%)"
       },
       "platonicClones": {
-        "name": "Клоны Platonic'а, Кликающие с Вами",
+        "name": "Clones of Platonic Clicking at Your Desktop",
         "hasLevel1": "Автоматическая покупка Платоновых Улучшений каждое вознесение, без траты Обтаниума или Подношений, где угодно!",
         "default": "Автоматическая покупка Платоновых Улучшений каждое вознесение, без траты Обтаниума или Подношений, но только в Испытаниях Сингулярности."
       },
       "platSigma": {
         "name": "PL-AT Σ",
-        "default": "Код 'add' восполняется на {{counter}}% быстрее за каждый уровень за Сингулярность. Текущий: {{current}} (МАКС: Время перезарядки -60%)"
+        "default": "The 'Add' Special Action refills {{counter}}% faster per level per Singularity. Currently: {{current}} (MAX: -60% Cooldown)"
       },
       "midasMilleniumAgedGold": {
         "name": "Тысячелетнее Золото Мидаса",
-        "default": "Каждое использование кода 'add' даёт 0.01 бесплатных уровней ЗК1 и 0.05 бесплатных уровней ЗК3."
+        "default": "Каждое использование кода 'Add' даёт 0.01 бесплатных уровней ЗК1 и 0.05 бесплатных уровней ЗК3."
       },
       "goldenRevolution4": {
         "name": "Золотая Революция IV",
-        "default": "Каждый тик Октеракта автоматически переводит 1 в {{gq}} ЗК, который вы получили в этой сингулярности, на ваш баланс автоматически!"
+        "default": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!"
       },
       "octeractMetagenesis": {
         "name": "Метагенезис Октерактов",
@@ -1734,13 +1754,17 @@
         "default": "После 200-й Сингулярности, Перемотки больше не работают! Вместо этого ваше получение ЗК умножено, а стоимость покупки ЗК разделена, на 3."
       },
       "skrauQ": {
-        "name": "икравК",
-        "default": "Умножает все Получения Кварков на ((Сингулярность - 179)/20)^2. Текущий: {{amt}}... Да, это настолько хорошо."
+        "name": "skrauQ",
+        "default": "Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: {{amt}}... Yes, it's that good."
       },
       "primalPower": {
         "name": "Primal Power!",
         "hasLevel1": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> Ambrosia Luck!",
         "default": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|☘ +131>> Ambrosia Luck!"
+      },
+      "permanentBenefaction": {
+        "name": "Permanent Benefaction",
+        "default": "<<lightblue | Pandora>> and <<orange | Vyshareth>> will always grant you their benefaction, so their cookies are correspondingly always eaten!"
       }
     },
     "toString": {
@@ -1800,7 +1824,7 @@
         "effectHaveNot": "Вы не заплатили свою цену за спасение."
       },
       "cookies5": {
-        "name": "Рецепты Печенек V (НЗП)",
+        "name": "Cookie Recipes V",
         "description": "Худшее злодеяние, которое человек может совершить, это наблюдение за страданиями других, без каких либо мук совести.",
         "effectHave": "Вы уделили внимание страданиям масс.",
         "effectHaveNot": "Вы не уделили внимание страданиям масс."
@@ -3145,7 +3169,7 @@
       "noOcteracts": {
         "name": "Без Эффектов Октерактов",
         "description": "Пройдите целевую Сингулярность, но октеракты и их улучшения ничего не делают! Эффективная Сингулярность также сильно растёт в зависимости от уровня.",
-        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
+        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00) [effect halved after 10 completions]",
         "UniqueReward1": "1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
         "UniqueReward2": "10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
         "UniqueReward3": "10-ое - Новое улучшение <<orchid|Магазина Кварков>>!"
