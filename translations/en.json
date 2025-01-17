@@ -3279,6 +3279,7 @@
     "openAll": "Open All",
     "autoOff": "Auto Open [OFF]",
     "autoOn": "Auto Open {{percent}}%",
+    "unlocked": "Unlocked!",
     "quarks": {
       "quarkTitle": "-=- Cube to Quark Corner -=-",
       "resetInfo": "Quark Rewards reset midnight!",
