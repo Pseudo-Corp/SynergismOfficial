@@ -24,7 +24,7 @@
     "availableBlueberries": "You have <<lightblue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
     "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
     "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
-	  "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
+    "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
     "refund": "You have refunded all spent Blueberries and Ambrosia.",
     "refundWord": "Refund",
     "data": {
@@ -1666,7 +1666,7 @@
       },
       "itAllAddsUp": {
         "name": "It all adds up",
-        "default": "The 'Add' Special Action reward & cooldown are divided by {{div}} while its maximum capacity is multiplied the same amount! (Rounded Up)."
+        "default": "The 'Add' Special Action reward & cooldown is divided by {{div}} while its maximum capacity is multiplied the same amount! (Rounded Up)."
       },
       "automagicalRunes": {
         "name": "Automagical Runes",
@@ -1744,7 +1744,7 @@
       },
       "octeractMetagenesis": {
         "name": "Octeract Metagenesis",
-        "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 640)^0.5, (level^2 * free/125000)^0.333 respectively.",
+        "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 640)^0.5, (level^2 * free/125000)^0.333 respectively ",
         "default": "Gives free levels of Octeract Cogenesis based on your current free levels and purchased levels: (level * free / 1000)^0.5"
       },
       "immaculateAlchemy": {
@@ -1761,6 +1761,10 @@
         "name": "Primal Power!",
         "hasLevel1": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> Ambrosia Luck!",
         "default": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|☘ +131>> Ambrosia Luck!"
+      },
+      "permanentBenefaction": {
+        "name": "Permanent Benefaction",
+        "default": "<<lightblue | Pandora>> and <<orange | Vyshareth>> will always grant you their benefaction, so their cookies are correspondingly always eaten!"
       }
     },
     "toString": {
@@ -3166,7 +3170,7 @@
       "noOcteracts": {
         "name": "No Octeract Effects",
         "description": "Beat the target Singularity, but octeracts and their upgrades do nothing!<br/>Effective Singularity is also much higher based on tier.",
-        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
+        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00) [effect halved after 10 completions]",
         "UniqueReward1": "1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
         "UniqueReward2": "10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
         "UniqueReward3": "10th - A new <<orchid|Quark Shop>> upgrade!"
@@ -3276,6 +3280,7 @@
     "openAll": "Open All",
     "autoOff": "Auto Open [OFF]",
     "autoOn": "Auto Open {{percent}}%",
+    "unlocked": "Unlocked!",
     "quarks": {
       "quarkTitle": "-=- Cube to Quark Corner -=-",
       "resetInfo": "Quark Rewards reset midnight!",

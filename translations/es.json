@@ -22,6 +22,8 @@
     "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
     "notEnoughBlueberries": "No tienes suficientes Arándanos para activar este módulo.",
     "availableBlueberries": "You have <<blue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
+    "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
+    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
     "refund": "Se han reembolsado todos los Arándanos y Ambrosía gastados.",
     "refundWord": "Reembolsar",
@@ -1043,8 +1045,16 @@
       "68": "¡Wow! Una caja de No Galletas.",
       "69": "¡Wow! Una caja de Galletas del Más Allá de Este Mundo.",
       "70": "¡Wow! Una caja de Galletas Perfectas.",
-      "71": "¡Wow! Una Galleta Singular de Benefactorías Pandora",
-      "72": "¡Wow! Una Galleta Singular de Benefactorías Vyshareth"
+      "71": "Wow! A Singular Cookie of Pandora's Benefactory.",
+      "72": "Wow! A Singular Cookie of Vyshareth's Benefactory.",
+      "73": "Wow! A Singular Cookie of the Giant Steps.",
+      "74": "Wow! A Singular Cookie of the Lilliput Steps.",
+      "75": "Wow! A Singular Cookie of another reference.",
+      "76": "Wow! A Singular Cookie of the Blue Variety.",
+      "77": "Wow! A Singular Cookie of Tyche's Benefactory.",
+      "78": "Wow! A Singular Cookie of Derpsmith's Benefactory",
+      "79": "Wow! A Singular Cookie of the Corrupt Beyond",
+      "80": "Wow! A Singular Cookie of the Grandma at the end of the Universe."
     },
     "upgradeDescriptions": {
       "1": "[1x1] ¡Lo tienes! +16.666% Cubos 3D de Ascensiones por nivel.",
@@ -1116,7 +1126,17 @@
       "67": "[Cx17] ¿¿¿Qué diablos tiene esto??? Bah, el máximo nivel del Talismán Metafísico aumenta en 1.337.",
       "68": "[Cx18] ¡Pero qué...! Ni siquiera son galletas. +0,01% Quarks por nivel de esta mejora. ¡A nivel 1.000 un +5% extra!",
       "69": "[Cx19] Galletas que no recordarás más. +12% Quarks Dorados en esta Singularidad.",
-      "70": "[Cx20] Lo más de la repostería. Nada que pruebes sabrá mejor que esto. Gana +0,01% más Octeractos al Ascender si todas las corrupciones tienen nivel 14."
+      "70": "[Cx20] Lo más de la repostería. Nada que pruebes sabrá mejor que esto. Gana +0,01% más Octeractos al Ascender si todas las corrupciones tienen nivel 14.",
+      "71": "[Cx21] For each talisman rarity upgrade, multiply Obtainium gain by 1.04",
+      "72": "[Cx22] For each talisman rarity upgrade, multiply Offering gain by 1.04",
+      "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
+      "74": "[Cx24] Add +0.30 to all Corruption Multiplier values.",
+      "75": "[Cx25] Each level adds +0.3% effectiveness to free Singularity-tier Upgrades per level! (additive with all other boosts)",
+      "76": "[Cx26] Each level adds <<blue | +1% Blueberry Speed>> for each time threshold you have reached!",
+      "77": "[Cx27] Each level adds <<green | +2 +0.1% ☘ Ambrosia Luck>>!",
+      "78": "[Cx28] Each level adds +0.3% effectiveness to free Octeract-tier Upgrades per level!",
+      "79": "[Cx29] If your Red Bar fills up with this upgrade purchased, you gain <<green | +0.02 ☘ Ambrosia Luck>>, permanently! Stacks up to 5,000 times.",
+      "80": "[Cx30] You intercept a singular message: <<gray|'Why don't you visit more often?'>>..."
     },
     "cubeMetadata": {
       "cost": "Coste: {{value1}} Cubos ¡Wow! [+{{value2}} Niveles]",
@@ -1433,7 +1453,7 @@
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
-      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 20 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
     },
@@ -1557,33 +1577,33 @@
       "description": "(Pasa el cursor para más detalles. Ventajas en <span style=\"color: gold\">gold text</span> se añadieron o mejoraron en esta Singularidad)",
       "welcometoSingularity": {
         "name": "Welcome to Singularity!",
-        "default": "As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!"
+        "default": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!"
       },
       "unlimitedGrowth": {
-        "name": "Crecimiento Ilimitado",
-        "default": "+10% a ganancias de Quarks y Contador de Ascensión por cada Singularidad. Actual: +{{amount}}%"
+        "name": "Unlimited Growth",
+        "default": "+10% to Quarks gain and Ascension Count for each Singularity. Currently: +{{amount}}%"
       },
       "goldenCoins": {
-        "name": "Monedas doradas",
-        "default": "Los Quarks Dorados no gastados aumentan la ganancia de Monedas. Especialmente fuerte en la primera Ascensión de cada Singularidad. Actual: x{{amount}}"
+        "name": "Golden Coins",
+        "default": "Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity. Currently: x{{amount}}"
       },
       "xyz": {
-        "name": "ZYX: recompenZas diarYas eXtra",
+        "name": "XYZ: Xtra dailY rewardZ",
         "hasLevel2": "Además de GD y niveles gratuitos garantizados de QD 1/2/3 a +0,2/+0,2/+1, ¡obtienes el DOBLE de niveles en mejoras gratuitas de Acción Diaria Especial!",
         "hasLevel1": "Además de GD y niveles gratuitos de mejoras, la Actividad Diaria Especial te da niveles gratuitos extra de QD 1/2/3 a +0,2/+0,2/+1 respectivamente.",
         "default": "La Actividad Diaria Especial te recompensa ahora con Quarks Dorados y niveles gratuitos para mejoras de Singularidades aleatorias, ¡ambas escalando con tu contador de singularidad!"
       },
       "generousOrbs": {
-        "name": "Orbes Generosos",
-        "default": "El efecto de los Orbes de Sobreflujo al abrir Cubos para Quarks puede llegar a {{amount}}%"
+        "name": "Generous Orbs",
+        "default": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%"
       },
       "researchDummies": {
-        "name": "Investigación para Dummies",
-        "hasLevel1": "Mantienes permanentemente Auto Investigación",
-        "default": "Puedes Investigar usando Pasa para Comprar"
+        "name": "Research for Dummies",
+        "hasLevel1": "You permanently keep Auto Research and can Research using Hover to Buy!",
+        "default": "You can Research using Hover to Buy"
       },
       "antGodsCornucopia": {
-        "name": "Cornucopia de Dios Hormiga",
+        "name": "Ant God's Cornucopia",
         "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
         "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
         "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
@@ -1595,7 +1615,7 @@
         "default": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
       },
       "superStart": {
-        "name": "Super Comienzo",
+        "name": "Super Start",
         "hasLevel4": "Empiezas cada Ascensión con 1 Trascensión, 1 Reencarnación, 1001 Mythos, 2,22e2222 Partículas y 500 Obtainium",
         "hasLevel3": "Empiezas cada Ascensión con 1 Trascensión, 1 Reencarnación, 1001 Mythos, 1e100 Partículas y 500 Obtainium",
         "hasLevel2": "Empiezas cada Ascensión con 1 Trascensión, 1 Reencarnación, 1001 Mythos, 1e16 Partículas y 500 Obtainium",
@@ -1603,7 +1623,7 @@
         "default": "Empiezas cada Ascensión con 1 Trascensión y 1001 Mythos"
       },
       "notSoChallenging": {
-        "name": "No Tan Desafiante",
+        "name": "Not So Challenging",
         "hasLevel4": "Empiezas cada Ascensión con 1 finalización de los Desafíos 6, 7 & 9 y 5 finalizaciones del Desafío 8",
         "hasLevel3": "Empiezas cada Ascensión con 1 finalización de los Desafíos 6 & 7 y 5 finalizaciones del Desafío 8",
         "hasLevel2": "Empiezas cada Ascensión con 1 finalización de los Desafíos 6, 7 y 8",
@@ -1611,7 +1631,7 @@
         "default": "Empiezas cada Ascensión con 1 finalización del Desafío 6"
       },
       "automationUpgrades": {
-        "name": "Mejoras de Automatización",
+        "name": "Automation Upgrades",
         "hasLevel5": "¡Tras alcanzar Singularidad 100, nunca olvidarás el sabor de ¡Wow! Una pila de Galletas  con Migas de Chocolate!",
         "hasLevel4": "Siempre tendrás w1x4 a w1x8 y w2x10; r6x5, r6x10 y r6x20. ¡La Tienda de Automatización se compra automáticamente!",
         "hasLevel3": "Siempre tendrás w1x4 a w1x8 y w2x10. ¡La Tienda de Automatización se compra automáticamente!",
@@ -1620,72 +1640,72 @@
         "default": "Siempre tendrás w1x7. (Autocompra Edificios de Partículas)"
       },
       "evenMoreQuarks": {
-        "name": "Aún Más Quarks",
+        "name": "Even More Quarks",
         "bug": "¡Esto es un bug! Contacta con Platonic si ves este mensaje, de alguna forma.",
-        "default": "¡Ganas <<cyan|{{stack}}>> montones de <<cyan|5%>> Quarks! Incremento Total: <<cyan|+{{inc}}%>>"
+        "default": "You gain <<cyan|{{stack}}>> stacks of <<cyan|5%>> Quarks! Total Increase: <<cyan|+{{inc}}%>>"
       },
       "shopSpecialOffer": {
-        "name": "Oferta Especial de Tienda",
+        "name": "Shop Special Offer",
         "hasLevel2": "¡Mantienes las mejoras de las Tiendas de Reencarnación y Ascensión permanentemente!",
         "hasLevel1": "Mantienes permanentemente 100 niveles gratuitos de cada mejora de Tienda de primera fila",
         "default": "Empiezas cada Singularidad con 10 niveles gratuitos de cada mejora de Tienda de primera fila"
       },
       "potionAutogenerator": {
-        "name": "Autogenerador de Pociones",
-        "default": "Cada 180 segundos, ¡usa una poción para Obtainium y Ofrendas automáticamente! Intervalo reducido un 3% por singularidad."
+        "name": "Potion Autogenerator",
+        "default": "Every 180 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity."
       },
       "respecBeGone": {
-        "name": "¡Hasta nunca, Reespecialización!",
-        "default": "¡Los talismanes ahora potencian todas las runas todo el tiempo!"
+        "name": "Respec, be gone!",
+        "default": "Talismans now buff all runes at all times!"
       },
       "forTheLoveOfTheAntGod": {
-        "name": "¡Por el amor de Dios (Hormiga)!",
+        "name": "For the love of (the Ant) God!",
         "hasLevel2": "Mantienes permanentemente autocompradores de Hormigas y empiezas cada ascensión con una de Rango 8",
         "hasLevel1": "Mantienes permanentemente autocompradores de Hormigas y empiezas cada ascensión con una de Rango 5",
         "default": "Mantienes permanentemente autocompradores de Hormigas y empiezas cada ascensión con una de Rango 1"
       },
       "itAllAddsUp": {
-        "name": "Todo suma",
+        "name": "It all adds up",
         "default": "The 'Add' Special Action reward & cooldown is divided by {{div}} while its maximum capacity is multiplied the same amount! (Rounded Up)."
       },
       "automagicalRunes": {
-        "name": "Runas Automágicas",
+        "name": "Automagical Runes",
         "hasLevel3": "El autocomprador de Runas comprará Bendiciones, Espíritus, Fragmentos de Talismán, Fragmentos y subirá el nivel de Ascenso Infinito Y Antigüedades del Dios Hormiga",
         "hasLevel2": "El autocomprador de Runas comprará Bendiciones, Espíritus, Fragmentos de Talismán, Fragmentos y subirá el nivel de Ascenso Infinito",
         "hasLevel1": "El autocomprador de Runas comprará Bendiciones, Espíritus y subirá el nivel de Ascenso Infinito",
         "default": "El autocomprador de Runas comprará Bendiciones y Espíritus"
       },
       "eternalAscensions": {
-        "name": "Ascensiones Eternas",
+        "name": "Eternal Ascensions",
         "default": "Unlock a new Real Time based Auto Ascension mode!"
       },
       "exaltedAchievements": {
-        "name": "Cámara de EXALTADO",
-        "default": "Unlocks new, very difficult challenges! They may only be entered after reaching high enough Singularities!"
+        "name": "Exalt Vault",
+        "default": "Unlocks new, very difficult challenges! They may only be entered by reaching high enough Singularities!"
       },
       "derpSmithsCornucopia": {
-        "name": "Cornucopia de Derpsmith",
-        "default": "¡Con la bendición de Derpsmith, cada singularidad da +{{counter}}% más Octeractos!"
+        "name": "Derpsmith's Cornucopia",
+        "default": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!"
       },
       "coolQOLCubes": {
-        "name": "Genial Cdv de Cubos",
+        "name": "Cool QoL Cubes",
         "hasLevel1": "¡Mantén todas las investigaciones sobre abrir Cubos Y gana la habilidad de abrir un porcentaje de tus cubos cada Ascensión!",
         "default": "Las Investigaciones relacionadas con abrir cubos ya no se resetean al Ascender"
       },
       "irishAnt": {
-        "name": "Hormigas Irlandesas",
-        "default": "¡Las Hormigas bendecidas con la suerte Irlandesa dan <<limegreen|☘ {{i}}>> más Suerte de Ambrosia!"
+        "name": "Irish Ants",
+        "default": "Ants blessed with the luck of the Irish grant <<limegreen|☘ {{i}}>> Ambrosia Luck!"
       },
       "irishAnt2": {
-        "name": "Hormigas Irlandesas II: La Venganza",
+        "name": "Irish Ants II: Electric Boogaloo",
         "default": "Ants blessed with more fortunate luck of the Irish increase base ☘ Ambrosia Luck by <<limegreen|{{percent}}%>>! +1% per perk level."
       },
       "overclocked": {
-        "name": "Sobreacelerado",
-        "default": "¡El nivel máximo de Ciertas Mejoras de Singularidad se incrementan un {{i}}!"
+        "name": "Overclocked",
+        "default": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!"
       },
       "wowCubeAutomatedShipping": {
-        "name": "Envío Automatizado de Cubos ¡Wow!",
+        "name": "Wow! Cube Automated Shipping",
         "hasLevel1": "¡Compra automáticamente Mejoras de Cubos cada ascensión, sin importar dónde estés!",
         "default": "Compra automáticamente Mejoras de Cubos cada ascensión, solo si estás en un Desafío de Singularidad."
       },
@@ -1694,53 +1714,57 @@
         "default": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!"
       },
       "goldenRevolution": {
-        "name": "Revolución Dorada",
-        "default": "La Singularidad te da 0,4% más Quarks Dorados por Singularidad. Actual: +{{current}}% (MAX: +100%)"
+        "name": "Golden Revolution",
+        "default": "Singularity grants 0.4% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +100%)"
       },
       "goldenRevolutionII": {
-        "name": "Revolución Dorada II",
-        "default": "Los Quarks Dorados son 0,2% más baratos por Singularidad. Actual: -{{current}}% (MAX: -50%)"
+        "name": "Golden Revolution II",
+        "default": "Golden Quarks are 0.2% cheaper per Singularity. Currently: -{{current}}% (MAX: -50%)"
       },
       "goldenRevolutionIII": {
-        "name": "Revolución Dorada III",
-        "default": "Exportar te da 2% más Quarks Dorados por Singularidad. Actual:  +{{current}}% (MAX: +500%)"
+        "name": "Golden Revolution III",
+        "default": "Export gives 2% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +500%)"
       },
       "platonicClones": {
-        "name": "Clones de Platonic clickando tu pantallaP",
+        "name": "Clones of Platonic Clicking at Your Desktop",
         "hasLevel1": "¡Compra automáticamente Mejoras Platónicas cada ascensión, sin gastar Obtainium u Ofrendas, en cualquier parte!",
         "default": "Compra automáticamente Mejoras Platónicas cada ascensión, sin gastar Obtainium u Ofrendas, pero solo en Desafíos de Singularidad."
       },
       "platSigma": {
         "name": "PL-AT Σ",
-        "default": "El código 'add' se rellena {{counter}}% más rápido por nivel y Singularidad. Actual:  {{current}} (MAX: -60% intervalo)"
+        "default": "The 'Add' Special Action refills {{counter}}% faster per level per Singularity. Currently: {{current}} (MAX: -60% Cooldown)"
       },
       "midasMilleniumAgedGold": {
-        "name": "Oro milenario de Midas",
-        "default": "Cada uso de `suma` da 0,01 niveles gratis de GD1 y 0,05 niveles gratuitos de QD3."
+        "name": "Midas' Millenium-Aged Gold",
+        "default": "Every use of the 'Add' Special Action gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3."
       },
       "goldenRevolution4": {
-        "name": "Revolución Dorada IV",
-        "default": "Cada tick de Octeracto, ¡convierte 1 en {{gq}} QD que hubieras ganado en esta singularidad a tu balance automágicamente!"
+        "name": "Golden Revolution IV",
+        "default": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!"
       },
       "octeractMetagenesis": {
-        "name": "Metagénesis de Octeractos",
+        "name": "Octeract Metagenesis",
         "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 640)^0.5, (level^2 * free/125000)^0.333 respectively ",
         "default": "Gives free levels of Octeract Cogenesis based on your current free levels and purchased levels: (level * free / 1000)^0.5"
       },
       "immaculateAlchemy": {
-        "name": "Alquimia Inmaculada",
+        "name": "Immaculate Alchemy",
         "hasLevel2": "Tras la Singularidad 200, ¡El Rebobinado Hacia Delante ya no funciona! En su lugar, multiplica tus ganancia de QD y divide el costo de comprarlos por 8.",
         "hasLevel1": "Tras la Singularidad 200, ¡El Rebobinado Hacia Delante ya no funciona! En su lugar, multiplica tus ganancia de QD y divide el costo de comprarlos por 5.",
         "default": "Tras la Singularidad 200, ¡El Rebobinado Hacia Delante ya no funciona! En su lugar, multiplica tus ganancia de QD y divide el costo de comprarlos por 3."
       },
       "skrauQ": {
         "name": "skrauQ",
-        "default": "Multiplica las Ganancias de Quarks por ((Singularidad - 179)/20)^2. Actual: {{amt}}... Sí, así de bueno."
+        "default": "Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: {{amt}}... Yes, it's that good."
       },
       "primalPower": {
         "name": "Primal Power!",
         "hasLevel1": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> Ambrosia Luck!",
         "default": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|☘ +131>> Ambrosia Luck!"
+      },
+      "permanentBenefaction": {
+        "name": "Permanent Benefaction",
+        "default": "<<lightblue | Pandora>> and <<orange | Vyshareth>> will always grant you their benefaction, so their cookies are correspondingly always eaten!"
       }
     },
     "toString": {
@@ -1800,7 +1824,7 @@
         "effectHaveNot": "No has pagado el precio por salvarte."
       },
       "cookies5": {
-        "name": "Recetas de Galletas V (WIP)",
+        "name": "Cookie Recipes V",
         "description": "La peor atrocidad que puede acometer el hombre es ver, sin empatía, el sufrimiento de otros.",
         "effectHave": "Has sido testigo del sufrimiento de las masas.",
         "effectHaveNot": "No has sido testigo del sufrimiento de las masas."
@@ -3145,7 +3169,7 @@
       "noOcteracts": {
         "name": "Sin Efectos de Octeracto",
         "description": "Supera la singularidad, ¡Pero los octeractos y sus mejoras no hacen nada! La Singularidad Efectiva es también mucho más alta basada en el rango.",
-        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
+        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00) [effect halved after 10 completions]",
         "UniqueReward1": "1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
         "UniqueReward2": "10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
         "UniqueReward3": "10th - A new <<orchid|Quark Shop>> upgrade!"

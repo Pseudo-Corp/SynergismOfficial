@@ -345,7 +345,12 @@ export const singularityChallengeData: Record<
     unlockSingularity: 100,
     HTMLTag: 'noOcteracts',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 13 * completions
+      if (completions < 10) {
+        return baseReq + 13 * completions
+      }
+      else {
+        return baseReq + 13 * 9 + 10 * (completions - 9)
+      }
     },
     scalingrewardcount: 1,
     uniquerewardcount: 3,

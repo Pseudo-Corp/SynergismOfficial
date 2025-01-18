@@ -45,6 +45,7 @@ import { format, formatTimeShort, player } from './Synergism'
 import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
+import i18next from 'i18next'
 
 const associated = new Map<string, string>([
   ['kMisc', 'miscStats'],
@@ -2043,7 +2044,7 @@ const updateDisplayC15Rewards = () => {
     if (player.challenge15Exponent >= exponentRequirements[i]) {
       DOMCacheGetOrSet(`c15Reward${i + 1}Num`).textContent = isNum[i]
         ? format(100 * values[i - skip] - 100, 2, true)
-        : 'Unlocked!'
+        : i18next.t('wowCubes.unlocked')
 
       if (!isNum[i] && i !== 24) {
         // TODO: This sucks -Platonic

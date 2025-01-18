@@ -1945,7 +1945,7 @@ export const singularityPerks: SingularityPerk[] = [
       218,
       228,
       238,
-      248
+      248,
     ],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
@@ -2235,6 +2235,16 @@ export const singularityPerks: SingularityPerk[] = [
       return i18next.t('singularity.perks.skrauQ.default', { amt })
     },
     ID: 'skrauQ'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.permanentBenefaction.name')
+    },
+    levels: [244],
+    description: () => {
+      return i18next.t('singularity.perks.permanentBenefaction.default')
+    },
+    ID: 'permanentBenefaction'
   }
 ]
 
