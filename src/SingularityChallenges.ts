@@ -347,8 +347,7 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       if (completions < 10) {
         return baseReq + 13 * completions
-      }
-      else {
+      } else {
         return baseReq + 13 * 9 + 10 * (completions - 9)
       }
     },

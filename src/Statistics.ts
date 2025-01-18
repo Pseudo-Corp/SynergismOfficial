@@ -1,4 +1,5 @@
 import Decimal from 'break_infinity.js'
+import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateAllCubeMultiplier,
@@ -45,7 +46,6 @@ import { format, formatTimeShort, player } from './Synergism'
 import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import i18next from 'i18next'
 
 const associated = new Map<string, string>([
   ['kMisc', 'miscStats'],

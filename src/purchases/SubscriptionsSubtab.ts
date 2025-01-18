@@ -1,5 +1,5 @@
 import { prod } from '../Config'
-import { Alert, Notification } from '../UpdateHTML'
+import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { type Product, subscriptionProducts, upgradeResponse } from './CartTab'
 import { addToCart, getQuantity } from './CartUtil'
@@ -14,7 +14,28 @@ const formatter = Intl.NumberFormat('en-US', {
 
 const tierCosts = [0, 300, 600, 1000, 2000]
 
-const clickHandler = (e: HTMLElementEventMap['click']) => {
+async function changeSubscription (productId: string, type: 'upgrade' | 'downgrade') {
+  const confirm = await Confirm('confirm message here')
+
+  if (!confirm) {
+    return
+  }
+
+  const link = !prod
+    ? `https://synergism.cc/stripe/test/subscription/${type}`
+    : `https://synergism.cc/stripe/subscription/${type}`
+  const url = new URL(link)
+  url.searchParams.set('key', productId)
+
+  const response = await fetch(url, {
+    method: 'POST'
+  })
+
+  // TODO: something
+  console.log(response, await response.text())
+}
+
+function clickHandler (this: HTMLButtonElement, e: HTMLElementEventMap['click']) {
   const productId = (e.target as HTMLButtonElement).getAttribute('data-id')
   const productName = (e.target as HTMLButtonElement).getAttribute('data-name')
 
@@ -23,6 +44,14 @@ const clickHandler = (e: HTMLElementEventMap['click']) => {
     return
   } else if (subscriptionProducts.some((product) => getQuantity(product.id) !== 0)) {
     Alert('You can only subscribe to 1 subscription tier!')
+    return
+  }
+
+  if (this.hasAttribute('data-downgrade')) {
+    changeSubscription(productId, 'downgrade')
+    return
+  } else if (this.hasAttribute('data-upgrade')) {
+    changeSubscription(productId, 'upgrade')
     return
   }
 
@@ -52,7 +81,7 @@ export const createIndividualSubscriptionHTML = (product: Product, existingCosts
           <p class="pseudoSubscriptionText">
           ${constructDescriptions(product.description)}
           </p>
-          <button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton" style="background-color: maroon">
+          <button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: maroon">
           Downgrade!
           </button>
       </div>
@@ -86,7 +115,7 @@ export const createIndividualSubscriptionHTML = (product: Product, existingCosts
           <p class="pseudoSubscriptionText">
           ${constructDescriptions(product.description)}
           </p>
-          <button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton">
+          <button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton">
           Upgrade for ${formatter.format((product.price - existingCosts) / 100)} USD / mo
           </button>
       </div>
