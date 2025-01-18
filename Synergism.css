@@ -3996,12 +3996,27 @@ form input:hover {
 }
 
 .pseudoSubscriptionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pseudoSubscriptionContainer > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.pseudoSubscriptionContainer > form > input[type="submit"] {
+    border: 2px solid gold;
+    width: 200px;
+    height: 40px;
+}
+
+.pseudoSubscriptionContainer > #sub-section-holder {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    justify-items: center;
-    width: 70%;
-    margin: 0 auto;
 }
 
 .pseudoCoinContainer {

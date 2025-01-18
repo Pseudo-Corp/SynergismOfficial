@@ -2,7 +2,7 @@ import { prod } from '../Config'
 import { changeSubTab, Tabs } from '../Tabs'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
-import { products } from './CartTab'
+import { products, subscriptionProducts } from './CartTab'
 import { addToCart, getPrice, getProductsInCart, getQuantity, removeFromCart } from './CartUtil'
 
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #cartContainer')!
@@ -89,6 +89,9 @@ function addItem (e: MouseEvent) {
   if (key == null || !products.some((product) => product.id === key)) {
     Alert('Stop fucking touching the html! We do server-side validation!')
     return
+  } else if (subscriptionProducts.some((product) => getQuantity(product.id) !== 0)) {
+    Alert('You can only subscribe to 1 subscription tier!')
+    return
   }
 
   addToCart(key)
@@ -123,7 +126,7 @@ function updateItemList () {
       <span style="color:cyan">
         ${product.quantity > 0 ? `x${product.quantity}` : ''}
       </span>
-      <button id="add">+</button>
+      <button id="add" ${product.subscription ? 'disabled' : ''}>+</button>
       <button id="sub">-</button>
     </div>
   `)).join('')

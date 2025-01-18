@@ -1,9 +1,11 @@
+import { prod } from '../Config'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { type Product, subscriptionProducts, upgradeResponse } from './CartTab'
-import { addToCart } from './CartUtil'
+import { addToCart, getQuantity } from './CartUtil'
 
 const subscriptionsContainer = document.querySelector<HTMLElement>('#pseudoCoins > #subscriptionsContainer')!
+const subscriptionSectionHolder = subscriptionsContainer.querySelector<HTMLElement>('#sub-section-holder')!
 
 const formatter = Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -18,6 +20,9 @@ const clickHandler = (e: HTMLElementEventMap['click']) => {
 
   if (productId === null || !subscriptionProducts.some((product) => product.id === productId)) {
     Alert('Stop fucking touching the html! We do server-side validation!')
+    return
+  } else if (subscriptionProducts.some((product) => getQuantity(product.id) !== 0)) {
+    Alert('You can only subscribe to 1 subscription tier!')
     return
   }
 
@@ -91,14 +96,29 @@ export const createIndividualSubscriptionHTML = (product: Product, existingCosts
 }
 
 export const initializeSubscriptionPage = memoize(() => {
+  // Manage subscription button
+  {
+    const form = document.createElement('form')
+    form.action = !prod
+      ? 'https://synergism.cc/stripe/test/manage-subscription'
+      : 'https://synergism.cc/stripe/manage-subscription'
+
+    const submit = document.createElement('input')
+    submit.type = 'submit'
+    submit.value = 'Manage Subscription'
+    form.appendChild(submit)
+
+    subscriptionsContainer.prepend(form)
+  }
+
   const tier = upgradeResponse.tier
   const existingCosts = tierCosts[tier] ?? 0
 
-  subscriptionsContainer!.innerHTML = subscriptionProducts.map((product) =>
+  subscriptionSectionHolder.innerHTML = subscriptionProducts.map((product) =>
     createIndividualSubscriptionHTML(product, existingCosts)
   ).join('')
 
-  subscriptionsContainer!.style.display = 'grid'
+  subscriptionSectionHolder!.style.display = 'grid'
 
   document.querySelectorAll<HTMLButtonElement>('.subscriptionContainer > div > button[data-id]').forEach(
     (element) => {
@@ -108,10 +128,10 @@ export const initializeSubscriptionPage = memoize(() => {
 })
 
 export const clearSubscriptionPage = () => {
-  subscriptionsContainer!.style.display = 'none'
+  subscriptionsContainer.style.display = 'none'
 }
 
 export const toggleSubscriptionPage = () => {
   initializeSubscriptionPage()
-  subscriptionsContainer!.style.display = 'grid'
+  subscriptionsContainer.style.display = 'flex'
 }
