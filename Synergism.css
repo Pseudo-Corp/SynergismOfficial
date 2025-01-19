@@ -4037,6 +4037,11 @@ form input:hover {
     margin-top: 8px;
 }
 
+.pseudoCoinSubImage {
+    height: 48px;
+    width: 48px;
+}
+
 .pseudoCoinText {
     width: 90%;
     height: 80px;

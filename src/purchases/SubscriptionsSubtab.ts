@@ -13,9 +13,17 @@ const formatter = Intl.NumberFormat('en-US', {
 })
 
 const tierCosts = [0, 300, 600, 1000, 2000]
-
+ 
 async function changeSubscription (productId: string, type: 'upgrade' | 'downgrade') {
-  const confirm = await Confirm('confirm message here')
+  
+  const tier = upgradeResponse.tier
+  const existingCosts = tierCosts[tier] ?? 0
+  const newSub = subscriptionProducts.find((v) => v.id === productId)
+  const newSubPrice = newSub!.price
+  const newSubName = newSub!.name
+  const confirm = (type === 'downgrade') ?
+                   await Confirm(`You are downgrading to ${newSubName}, which costs ${formatter.format((existingCosts - newSubPrice)/100)} less per month. New cost: ${formatter.format(newSubPrice / 100)} per month. Downgrading takes effect immediately!`) :
+                   await Confirm(`You are upgrading to ${newSubName}, which costs ${formatter.format((newSubPrice - existingCosts)/100)} more per month. New cost: ${formatter.format(newSubPrice / 100)} per month`)
 
   if (!confirm) {
     return
@@ -30,9 +38,8 @@ async function changeSubscription (productId: string, type: 'upgrade' | 'downgra
   const response = await fetch(url, {
     method: 'POST'
   })
-
-  // TODO: something
-  console.log(response, await response.text())
+  console.log(response, response.text())
+  return Alert(`You are now subscribed to ${newSubName}!`)
 }
 
 function clickHandler (this: HTMLButtonElement, e: HTMLElementEventMap['click']) {
@@ -76,7 +83,7 @@ export const createIndividualSubscriptionHTML = (product: Product, existingCosts
     return `
       <section class="subscriptionContainer" key="${product.id}">
       <div>
-          <img class="pseudoCoinImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
+          <img class="pseudoCoinSubImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
           <p class="pseudoCoinText">
           ${product.name.split(' - ').join('<br>')}
           </p>
@@ -93,7 +100,7 @@ export const createIndividualSubscriptionHTML = (product: Product, existingCosts
     return `
       <section class="subscriptionContainer" key="${product.id}">
       <div>
-          <img class="pseudoCoinImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
+          <img class="pseudoCoinSubImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
           <p class="pseudoCoinText">
           ${product.name.split(' - ').join('<br>')}
           </p>
@@ -110,7 +117,7 @@ export const createIndividualSubscriptionHTML = (product: Product, existingCosts
     return `
       <section class="subscriptionContainer" key="${product.id}">
       <div>
-          <img class="pseudoCoinImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
+          <img class="pseudoCoinSubImage" alt="${product.name}" src="./Pictures/${product.id}.png" />
           <p class="pseudoCoinText">
           ${product.name.split(' - ').join('<br>')}
           </p>
