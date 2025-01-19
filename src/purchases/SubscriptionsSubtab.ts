@@ -13,17 +13,26 @@ const formatter = Intl.NumberFormat('en-US', {
 })
 
 const tierCosts = [0, 300, 600, 1000, 2000]
- 
+
 async function changeSubscription (productId: string, type: 'upgrade' | 'downgrade') {
-  
   const tier = upgradeResponse.tier
   const existingCosts = tierCosts[tier] ?? 0
   const newSub = subscriptionProducts.find((v) => v.id === productId)
   const newSubPrice = newSub!.price
   const newSubName = newSub!.name
-  const confirm = (type === 'downgrade') ?
-                   await Confirm(`You are downgrading to ${newSubName}, which costs ${formatter.format((existingCosts - newSubPrice)/100)} less per month. New cost: ${formatter.format(newSubPrice / 100)} per month. Downgrading takes effect immediately!`) :
-                   await Confirm(`You are upgrading to ${newSubName}, which costs ${formatter.format((newSubPrice - existingCosts)/100)} more per month. New cost: ${formatter.format(newSubPrice / 100)} per month`)
+  const confirm = (type === 'downgrade')
+    ? await Confirm(
+      `You are downgrading to ${newSubName}, which costs ${
+        formatter.format((existingCosts - newSubPrice) / 100)
+      } less per month. New cost: ${
+        formatter.format(newSubPrice / 100)
+      } per month. Downgrading takes effect immediately!`
+    )
+    : await Confirm(
+      `You are upgrading to ${newSubName}, which costs ${
+        formatter.format((newSubPrice - existingCosts) / 100)
+      } more per month. New cost: ${formatter.format(newSubPrice / 100)} per month`
+    )
 
   if (!confirm) {
     return
