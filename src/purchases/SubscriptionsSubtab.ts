@@ -47,12 +47,14 @@ function clickHandler (this: HTMLButtonElement, e: HTMLElementEventMap['click'])
     return
   }
 
-  if (this.hasAttribute('data-downgrade')) {
-    changeSubscription(productId, 'downgrade')
-    return
-  } else if (this.hasAttribute('data-upgrade')) {
-    changeSubscription(productId, 'upgrade')
-    return
+  if (upgradeResponse.tier !== 0) {
+    if (this.hasAttribute('data-downgrade')) {
+      changeSubscription(productId, 'downgrade')
+      return
+    } else if (this.hasAttribute('data-upgrade')) {
+      changeSubscription(productId, 'upgrade')
+      return
+    }
   }
 
   addToCart(productId)
