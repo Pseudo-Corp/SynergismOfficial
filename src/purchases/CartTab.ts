@@ -8,20 +8,29 @@ import { setEmptyProductMap } from './CartUtil'
 import { clearCheckoutTab, toggleCheckoutTab } from './CheckoutTab'
 import { clearMerchSubtab, toggleMerchSubtab } from './MerchTab'
 import { clearProductPage, toggleProductPage } from './ProductSubtab'
-import { clearUpgradeSubtab, toggleUpgradeSubtab } from './UpgradesSubtab'
+import { clearSubscriptionPage, toggleSubscriptionPage } from './SubscriptionsSubtab'
+import { clearUpgradeSubtab, toggleUpgradeSubtab, type UpgradesResponse } from './UpgradesSubtab'
 
 export type Product = {
   name: string
-  id: number
+  id: string
   price: number
   coins: number
+  subscription: boolean
+  description: string
 }
+
+export const products: Product[] = []
+export let coinProducts: Product[] = []
+export let subscriptionProducts: Product[] = []
+export let upgradeResponse: UpgradesResponse
 
 const cartSubTabs = {
   Coins: 0,
-  Upgrades: 1,
-  Checkout: 2,
-  Merch: 3
+  Subscriptions: 1,
+  Upgrades: 2,
+  Checkout: 3,
+  Merch: 4
 } as const
 
 const tab = document.getElementById('pseudoCoins')!
@@ -34,9 +43,9 @@ function* yieldQuerySelectorAll (selector: string) {
   }
 }
 
-class CartTab {
+export class CartTab {
   static #productsFetch: DeferredPromise<undefined> | undefined
-  static #products: Product[] = []
+  static #upgradesFetch: DeferredPromise<UpgradesResponse> | undefined
 
   constructor () {
     this.#updateSubtabs()
@@ -49,16 +58,43 @@ class CartTab {
 
     CartTab.#productsFetch = createDeferredPromise()
 
+    const url = !prod ? 'https://synergism.cc/stripe/test/products' : 'https://synergism.cc/stripe/products'
+
     // TODO: move this fetch to the products page.
-    fetch('https://synergism.cc/stripe/products')
-      .then((response) => response.json() as Promise<Product[]>)
-      .then((products) => {
-        CartTab.#products.push(...products)
-        setEmptyProductMap(products)
+    fetch(url)
+      .then((response) => response.json())
+      .then((productsList: Product[]) => {
+        products.push(...productsList)
+        setEmptyProductMap(productsList)
+        coinProducts = products.filter((product) => !product.subscription)
+        subscriptionProducts = products.filter((product) => product.subscription)
+
+        // The Subscriptions do not naturally sort themselves by price
+        subscriptionProducts.sort((a, b) => a.price - b.price)
         CartTab.#productsFetch?.resolve(undefined)
       }, CartTab.#productsFetch.reject)
 
     return CartTab.#productsFetch.promise
+  }
+
+  static fetchUpgrades () {
+    if (CartTab.#upgradesFetch) {
+      return CartTab.#upgradesFetch.promise
+    }
+
+    CartTab.#upgradesFetch = createDeferredPromise()
+
+    const url = !prod ? 'https://synergism.cc/stripe/test/upgrades' : 'https://synergism.cc/stripe/upgrades'
+
+    // TODO: move this fetch to the products page.
+    fetch(url)
+      .then((response) => response.json())
+      .then((upgrades: UpgradesResponse) => {
+        CartTab.#upgradesFetch!.resolve(upgrades)
+        upgradeResponse = upgrades
+      }, CartTab.#upgradesFetch.reject)
+
+    return CartTab.#upgradesFetch.promise
   }
 
   static applySubtabListeners () {
@@ -83,6 +119,7 @@ class CartTab {
     }
 
     clearProductPage()
+    clearSubscriptionPage()
     clearUpgradeSubtab()
     clearCheckoutTab()
     clearMerchSubtab()
@@ -91,17 +128,28 @@ class CartTab {
       case cartSubTabs.Coins:
         CartTab.fetchProducts().then(() => {
           if (player.subtabNumber === cartSubTabs.Coins) {
-            toggleProductPage(CartTab.#products)
+            toggleProductPage()
+          }
+        })
+        break
+      case cartSubTabs.Subscriptions:
+        CartTab.fetchProducts().then(() => {
+          if (player.subtabNumber === cartSubTabs.Subscriptions) {
+            toggleSubscriptionPage()
           }
         })
         break
       case cartSubTabs.Upgrades:
-        toggleUpgradeSubtab()
+        CartTab.fetchUpgrades().then(() => {
+          if (player.subtabNumber === cartSubTabs.Upgrades) {
+            toggleUpgradeSubtab()
+          }
+        })
         break
       case cartSubTabs.Checkout:
         CartTab.fetchProducts().then(() => {
           if (player.subtabNumber === cartSubTabs.Checkout) {
-            toggleCheckoutTab(CartTab.#products)
+            toggleCheckoutTab()
           }
         })
         break

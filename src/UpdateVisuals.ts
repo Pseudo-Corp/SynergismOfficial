@@ -1633,7 +1633,7 @@ export const visualUpdateAmbrosia = () => {
     }
   )
 
-  if (player.cubeUpgrades[76] > 0) { 
+  if (player.cubeUpgrades[76] > 0) {
     DOMCacheGetOrSet('cubeUpgradeThresholds').style.display = 'block'
     DOMCacheGetOrSet('cubeUpgradeThresholds').innerHTML = i18next.t(
       'ambrosia.cubeUpgradeThresholds',
@@ -1642,8 +1642,7 @@ export const visualUpdateAmbrosia = () => {
         percent: player.cubeUpgrades[76] * calculateNumberOfThresholds()
       }
     )
-  }
-  else {
+  } else {
     DOMCacheGetOrSet('cubeUpgradeThresholds').style.display = 'none'
   }
 
@@ -1656,8 +1655,7 @@ export const visualUpdateAmbrosia = () => {
         luck: format(Math.min(100, player.cubeUpgradeRedBarFilled / 50), 2, true)
       }
     )
-  }
-  else {
+  } else {
     DOMCacheGetOrSet('cubeUpgradeRedBarFills').style.display = 'none'
   }
 }

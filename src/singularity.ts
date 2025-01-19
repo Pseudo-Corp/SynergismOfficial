@@ -1945,7 +1945,7 @@ export const singularityPerks: SingularityPerk[] = [
       218,
       228,
       238,
-      248,
+      248
     ],
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {

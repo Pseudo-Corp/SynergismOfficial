@@ -1,7 +1,8 @@
+import { prod } from '../Config'
 import { changeSubTab, Tabs } from '../Tabs'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
-import type { Product } from './CartTab'
+import { products, subscriptionProducts } from './CartTab'
 import { addToCart, getPrice, getProductsInCart, getQuantity, removeFromCart } from './CartUtil'
 
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #cartContainer')!
@@ -19,7 +20,7 @@ const formatter = Intl.NumberFormat('en-US', {
   currency: 'USD'
 })
 
-export const initializeCheckoutTab = memoize((products: Product[]) => {
+export const initializeCheckoutTab = memoize(() => {
   closeCart?.addEventListener('click', () => {
     changeSubTab(Tabs.Purchase, { page: 0 })
   })
@@ -35,7 +36,7 @@ export const initializeCheckoutTab = memoize((products: Product[]) => {
     <div key="${product.id}">
      <input
         hidden
-        name="${`product-${product.id}`}"
+        name="${product.id}"
         value="${getQuantity(product.id)}"
         type="number"
       />
@@ -52,14 +53,18 @@ export const initializeCheckoutTab = memoize((products: Product[]) => {
     const fd = new FormData()
 
     for (const product of getProductsInCart()) {
-      fd.set(`product-${product.id}`, `${product.quantity}`)
+      fd.set(product.id, `${product.quantity}`)
     }
 
     fd.set('tosAgree', tosAgreed ? 'on' : 'off')
 
     checkout.setAttribute('disabled', '')
 
-    fetch('https://synergism.cc/stripe/create-checkout-session', {
+    const url = !prod
+      ? 'https://synergism.cc/stripe/test/create-checkout-session'
+      : 'https://synergism.cc/stripe/create-checkout-session'
+
+    fetch(url, {
       method: 'POST',
       body: fd
     }).then((response) => response.json())
@@ -79,10 +84,13 @@ export const initializeCheckoutTab = memoize((products: Product[]) => {
 function addItem (e: MouseEvent) {
   e.preventDefault()
 
-  const key = Number((e.target as HTMLButtonElement).closest('div[key]')?.getAttribute('key'))
+  const key = (e.target as HTMLButtonElement).closest('div[key]')?.getAttribute('key')
 
-  if (Number.isNaN(key) || !Number.isSafeInteger(key)) {
+  if (key == null || !products.some((product) => product.id === key)) {
     Alert('Stop fucking touching the html! We do server-side validation!')
+    return
+  } else if (subscriptionProducts.some((product) => getQuantity(product.id) !== 0)) {
+    Alert('You can only subscribe to 1 subscription tier!')
     return
   }
 
@@ -94,9 +102,9 @@ function addItem (e: MouseEvent) {
 function removeItem (e: MouseEvent) {
   e.preventDefault()
 
-  const key = Number((e.target as HTMLButtonElement).closest('div[key]')?.getAttribute('key'))
+  const key = (e.target as HTMLButtonElement).closest('div[key]')?.getAttribute('key')
 
-  if (Number.isNaN(key) || !Number.isSafeInteger(key)) {
+  if (key == null || !products.some((product) => product.id === key)) {
     Alert('Stop fucking touching the html! We do server-side validation!')
     return
   }
@@ -118,7 +126,7 @@ function updateItemList () {
       <span style="color:cyan">
         ${product.quantity > 0 ? `x${product.quantity}` : ''}
       </span>
-      <button id="add">+</button>
+      <button id="add" ${product.subscription ? 'disabled' : ''}>+</button>
       <button id="sub">-</button>
     </div>
   `)).join('')
@@ -128,8 +136,8 @@ function updateItemList () {
   })
 }
 
-export const toggleCheckoutTab = (products: Product[]) => {
-  initializeCheckoutTab(products)
+export const toggleCheckoutTab = () => {
+  initializeCheckoutTab()
 
   updateTotalPriceInCart()
   updateItemList()

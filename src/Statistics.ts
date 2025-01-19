@@ -1,4 +1,5 @@
 import Decimal from 'break_infinity.js'
+import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateAllCubeMultiplier,
@@ -43,9 +44,8 @@ import {
 import { calculateSingularityDebuff } from './singularity'
 import { format, formatTimeShort, player } from './Synergism'
 import type { GlobalVariables } from './types/Synergism'
-import { Globals as G } from './Variables'
 import { sumContents } from './Utility'
-import i18next from 'i18next'
+import { Globals as G } from './Variables'
 
 const associated = new Map<string, string>([
   ['kMisc', 'miscStats'],
@@ -1780,7 +1780,7 @@ export const loadStatisticsAmbrosiaGeneration = () => {
     9: { acc: 4, desc: 'No Ambrosia Upgrades EXALT' },
     10: { acc: 4, desc: 'Cube Upgrade Cx26' },
     11: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
-    12: { acc: 4, desc: 'Event Bonus' },
+    12: { acc: 4, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)

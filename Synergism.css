@@ -3995,6 +3995,30 @@ form input:hover {
     margin: 0 auto;
 }
 
+.pseudoSubscriptionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pseudoSubscriptionContainer > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.pseudoSubscriptionContainer > form > input[type="submit"] {
+    border: 2px solid gold;
+    width: 200px;
+    height: 40px;
+}
+
+.pseudoSubscriptionContainer > #sub-section-holder {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
 .pseudoCoinContainer {
     margin: 10px 10px 0 0;
     border: 1px solid #ccc;
@@ -4002,8 +4026,20 @@ form input:hover {
     text-align: center;
 }
 
+.subscriptionContainer {
+    margin: 10px 10px 0 0;
+    border: 1px solid lightgoldenrodyellow;
+    border: 2px solid gold;
+    text-align: center;
+}
+
 #pseudoCoins > #productContainer > section > * > .pseudoCoinImage {
     margin-top: 8px;
+}
+
+.pseudoCoinSubImage {
+    height: 48px;
+    width: 48px;
 }
 
 .pseudoCoinText {
@@ -4017,8 +4053,18 @@ form input:hover {
     margin: 5px auto;
 }
 
+.pseudoSubscriptionText {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    margin: 5px auto;
+}
+
 .pseudoCoinButton {
-    width: 50%;
+    width: 75%;
     padding: 10px;
     background-color: black;
     color: white;

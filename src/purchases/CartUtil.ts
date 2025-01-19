@@ -1,7 +1,7 @@
 import type { Product } from './CartTab'
 
 /** A map of all products in the cart. */
-const cartMap = new Map<number, { quantity: number; price: number; rest: Omit<Product, 'price' | 'id'> }>()
+const cartMap = new Map<string, { quantity: number; price: number; rest: Omit<Product, 'price' | 'id'> }>()
 
 /** Total number of items in the cart */
 let inCart = 0
@@ -36,7 +36,7 @@ export const setEmptyProductMap = (products: Product[]) => {
   }
 }
 
-export const addToCart = (id: number) => {
+export const addToCart = (id: string) => {
   const itemInCart = cartMap.get(id)!
   itemInCart.quantity++
   inCart++
@@ -44,7 +44,7 @@ export const addToCart = (id: number) => {
   updateInCartCount()
 }
 
-export const removeFromCart = (id: number) => {
+export const removeFromCart = (id: string) => {
   const itemInCart = cartMap.get(id)!
   itemInCart.quantity--
   inCart--
@@ -67,7 +67,7 @@ export const getPrice = () => {
   return totalPrice
 }
 
-export const getQuantity = (id: number) => {
+export const getQuantity = (id: string) => {
   return cartMap.get(id)!.quantity
 }
 

@@ -2780,7 +2780,7 @@ export const calculateAscensionScore = () => {
     ? 1
     : 0
   bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
-  
+
   // Init Arrays with challenge values :)
   const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
   const challengeScoreArrays2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
