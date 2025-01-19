@@ -2537,6 +2537,7 @@
     },
     "pseudocoins": {
       "buy": "Purchase Coins",
+      "subscriptions": "Subscriptions",
       "upgrades": "Buy Upgrades",
       "merch": "Purchase Merch"
     }
