@@ -88,6 +88,11 @@ interface SynergismPatreonUserAPIResponse extends SynergismUserAPIResponse {
   accountType: 'patreon'
 }
 
+interface SynergismNotLoggedInResponse extends SynergismUserAPIResponse {
+  member: null
+  accountType: 'none'
+}
+
 type CloudSave = null | { save: string }
 
 export async function handleLogin () {
@@ -113,17 +118,23 @@ export async function handleLogin () {
   const { globalBonus, member, personalBonus, accountType } = await response.json() as
     | SynergismDiscordUserAPIResponse
     | SynergismPatreonUserAPIResponse
+    | SynergismNotLoggedInResponse
 
   setQuarkBonus(100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100)
   player.worlds = new QuarkHandler(Number(player.worlds))
-  loggedIn = member !== null
+  loggedIn = accountType !== 'none'
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 
   if (location.hostname !== 'synergism.cc') {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
-  } else if (member !== null) {
+  } else if (accountType === 'discord' || accountType === 'patreon') {
+    if (member === null) {
+      subtabElement.innerHTML = `You are logged in, but your profile couldn't be retrieved from Discord or Patreon.`
+      return
+    }
+
     currentBonus.textContent +=
       ` You also receive an extra ${personalBonus}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!`
 
@@ -225,7 +236,7 @@ export async function handleLogin () {
     cloudSaveParent.appendChild(loadCloudSaveElement)
 
     subtabElement.appendChild(cloudSaveParent)
-  } else {
+  } else if (accountType === 'none') {
     // User is not logged in
     subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
       subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
