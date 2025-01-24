@@ -106,7 +106,7 @@ export async function handleLogin () {
   }
 
   const response = await fetch('https://synergism.cc/api/v1/users/me').catch(
-    () => new Response(JSON.stringify({ member: null, globalBonus: 0, personalBonus: 0 }))
+    () => new Response(JSON.stringify({ member: null, globalBonus: 0, personalBonus: 0 }), { status: 401 })
   )
 
   if (!response.ok) {
@@ -122,7 +122,7 @@ export async function handleLogin () {
 
   setQuarkBonus(100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100)
   player.worlds = new QuarkHandler(Number(player.worlds))
-  loggedIn = accountType !== 'none'
+  loggedIn = accountType !== 'none' && response.ok
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 

@@ -682,8 +682,7 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
   let subTabList = subTabs.subTabList[player.subtabNumber]
 
   while (!subTabList.unlocked) {
-    assert(page === undefined)
-    player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
+    player.subtabNumber = limitRange(player.subtabNumber + (step ?? 1), 0, subTabs.subTabList.length - 1)
     subTabList = subTabs.subTabList[player.subtabNumber]
   }
 

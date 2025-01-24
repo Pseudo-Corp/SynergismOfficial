@@ -96,7 +96,7 @@
       "ambrosiaPatreon": {
         "name": "Shameless, Ambrosial Patreon Reminder",
         "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
-        "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider becoming a Patreon supporter to support development!"
+        "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider buying PseudoCoins to support development!"
       },
       "ambrosiaObtainium1": {
         "name": "RNG-based Obtainium Booster",
@@ -3253,7 +3253,7 @@
       "monotonous": "Monotonous"
     },
     "joinDiscord": "Click the image below to join the Discord!",
-    "joinPatreon": "Support Development on Patreon!",
+    "joinPatreon": "Support Development!",
     "exportQuark": "{{x}}s until +{{y}} export Quark",
     "exportGoldenQuark": "{{x}}s until +{{y}} export Golden Quark",
     "quarksOnExport": "Quarks on export: {{x}} [Max {{y}}]",

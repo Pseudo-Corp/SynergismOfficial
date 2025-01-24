@@ -64,7 +64,7 @@ import { buyGoldenQuarks, getLastUpgradeInfo, singularityPerks } from './singula
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
-import { changeSubTab, Tabs } from './Tabs'
+import { changeSubTab, changeTab, Tabs } from './Tabs'
 import {
   buyAllTalismanResources,
   buyTalismanEnhance,
@@ -885,11 +885,21 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('notation').addEventListener('click', () => toggleAnnotation())
   DOMCacheGetOrSet('iconSet').addEventListener('click', () => toggleIconSet(player.iconSet + 1))
 
+  document.querySelector('#thirdParty > #discord > button')?.addEventListener(
+    'click',
+    () => location.href = 'https://www.discord.gg/ameCknq' // TODO: redirect with synergism.cc
+  )
+  document.querySelector('#thirdParty > #patreon > button')?.addEventListener('click', () => {
+    changeTab(Tabs.Purchase)
+    changeSubTab(Tabs.Purchase, { page: 1 })
+  })
+
   // SHOP TAB
 
   /*
 
 TODO: Fix this entire tab it's utter shit
+- Update (Jan. 23rd 2025) this is still shit PLATONIC! - Khafra
 
   */
 
