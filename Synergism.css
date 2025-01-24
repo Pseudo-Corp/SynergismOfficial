@@ -907,7 +907,7 @@ p#themesTitle {
     margin: 0 auto;
 }
 
-/* Third party URLs (Discord, Patreon, patch notes) */
+/* Third party URLs (Discord or patch notes) */
 #thirdParty > div {
     flex-wrap: wrap;
     display: flex;
