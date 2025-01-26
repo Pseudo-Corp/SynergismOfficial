@@ -66,8 +66,8 @@ export class CartTab {
       .then((productsList: Product[]) => {
         products.push(...productsList)
         setEmptyProductMap(productsList)
-        coinProducts = products.filter((product) => !product.subscription)
-        subscriptionProducts = products.filter((product) => product.subscription)
+        coinProducts = products.filter((product) => (!product.subscription))
+        subscriptionProducts = products.filter((product) => (product.subscription))
 
         // The Subscriptions do not naturally sort themselves by price
         subscriptionProducts.sort((a, b) => a.price - b.price)

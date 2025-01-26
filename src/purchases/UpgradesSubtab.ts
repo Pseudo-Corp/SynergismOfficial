@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
 import {
   displayPCoinEffect,
+  PseudoCoinConsumableNames,
   type PseudoCoinUpgradeNames,
   showCostAndEffect,
   updatePCoinCache
@@ -21,10 +22,25 @@ interface Upgrades {
   cost: number
 }
 
+export interface Consumables {
+  consumableId: number
+  name: string
+  description: string
+  internalName: PseudoCoinConsumableNames
+  owned: number,
+  cost: number
+}
+
 interface PlayerUpgrades {
   level: number
   upgradeId: number
   internalName: PseudoCoinUpgradeNames
+}
+
+interface PlayerConsumables {
+  owned: number
+  consumableId: number
+  internalName: PseudoCoinConsumableNames
 }
 
 type UpgradesList = Omit<Upgrades, 'level' | 'cost'> & {
@@ -33,10 +49,18 @@ type UpgradesList = Omit<Upgrades, 'level' | 'cost'> & {
   playerLevel: number
 }
 
+type ConsumablesList = Omit<Consumables, 'owned' | 'cost'> & {
+  owned: number[]
+  cost: number[]
+  playerOwned: number
+}
+
 export interface UpgradesResponse {
   coins: number
   upgrades: Upgrades[]
   playerUpgrades: PlayerUpgrades[]
+  consumables: Consumables[]
+  playerConsumables: PlayerConsumables[]
   tier: number
 }
 
@@ -158,9 +182,28 @@ const initializeUpgradeSubtab = memoize(() => {
       current.cost.push(upgrade.cost)
       current.level.push(upgrade.level)
     }
-
+    console.log(map)
     return map
   }, new Map<number, UpgradesList>())
+
+  const consumables = upgradeResponse.consumables.reduce((map, consumable) => {
+    const current = map.get(consumable.consumableId)
+    const playerConsumable = upgradeResponse.playerConsumables.find((v) => v.consumableId === consumable.consumableId)
+
+    if (!current) {
+      map.set(consumable.consumableId, {
+        ...consumable,
+        cost: [consumable.cost],
+        owned: [consumable.owned],
+        playerOwned: playerConsumable?.owned ?? 0
+      })
+    } else {
+      current.cost.push(consumable.cost)
+      current.owned.push(consumable.owned)
+    }
+
+    return map
+  }, new Map<number, ConsumablesList>())
 
   tab.querySelector('#upgradeGrid')!.innerHTML = [...grouped.values()].map((u) => `
     <div

@@ -21,6 +21,13 @@ export type PseudoCoinUpgradeNames =
 export type PseudoCoinUpgrades = Record<PseudoCoinUpgradeNames, number>
 export type PseudoCoinUpgradeEffects = Record<PseudoCoinUpgradeNames, number>
 
+export type PseudoCoinConsumableNames = 'HAPPY_HOUR'
+export type PseudoCoinConsumables = Record<PseudoCoinConsumableNames, number>
+
+export const PCoinConsumables: PseudoCoinConsumables = {
+  'HAPPY_HOUR': 0
+}
+
 // TODO?: Something more robust to injections?
 
 export const PCoinUpgrades: PseudoCoinUpgrades = {

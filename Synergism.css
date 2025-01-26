@@ -4209,6 +4209,15 @@ form input:hover {
     margin-top: 10px;
 }
 
+#consumablesGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 10px;
+    width: 70%;
+    margin: 0 auto;
+}
+
 #upgradeGrid {
     display: grid;
     grid-template-columns: repeat(6, 15%);
