@@ -592,7 +592,6 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith' })
-    .setUnlockedState(() => G.isEvent)
     .setType(Tabs.Event)
     .makeDraggable()
     .makeRemoveable(),

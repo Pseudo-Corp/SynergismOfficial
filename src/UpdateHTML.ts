@@ -231,11 +231,6 @@ export const revealStuff = () => {
     HTML.style.display = player.highestSingularityCount >= count ? 'block' : 'none'
   }
 
-  const eventHTMLs = document.getElementsByClassName('isEvent') as HTMLCollectionOf<HTMLElement>
-  for (const HTML of Array.from(eventHTMLs)) {
-    HTML.style.display = G.isEvent ? 'block' : 'none'
-  }
-
   visualUpdateShop()
 
   const hepts = DOMCacheGetOrSet('corruptionHepteracts')

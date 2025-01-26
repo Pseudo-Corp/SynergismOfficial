@@ -40,8 +40,9 @@ import { format, formatTimeShort, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
-import { sumContents } from './Utility'
+import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
+import { getEvent } from './Event'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -1807,6 +1808,13 @@ export const visualUpdateShop = () => {
   } Quarks Each`
 }
 
-export const visualUpdateEvent = () => {}
+export const visualUpdateEvent = () => {
+  const event = getEvent()
+  if (event !== null) {
+    const eventEnd = new Date(event.end)
+    DOMCacheGetOrSet('globalEventTimer').textContent = timeReminingHours(eventEnd)
+    DOMCacheGetOrSet('globalEventName').textContent = `(${event.name.length}) - ${event.name.join(', ')}`
+  }
+}
 
 export const visualUpdatePurchase = () => {}

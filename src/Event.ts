@@ -2,8 +2,9 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAdditiveLuckMult, calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calculate'
 import { format, getTimePinnedToLoadDate, player } from './Synergism'
-import { Alert, revealStuff } from './UpdateHTML'
+import { revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables'
+import { timeReminingHours } from './Utility'
 
 export enum BuffType {
   Quark = 0,
@@ -44,7 +45,7 @@ interface GameEvent {
   color: string[]
 }
 
-let nowEvent: GameEvent | null = null
+export let nowEvent: GameEvent | null = null
 
 export const getEvent = () => nowEvent
 
@@ -60,17 +61,20 @@ export const eventCheck = async () => {
   }
 
   const apiEvents = await response.json() as GameEvent
+  console.log(apiEvents)
 
   nowEvent = null
 
   const now = new Date(getTimePinnedToLoadDate()).getTime()
-
   if (now >= apiEvents.start && now <= apiEvents.end && apiEvents.name.length) {
     nowEvent = apiEvents
   }
 
+  const eventNowEndDate = new Date(nowEvent?.end ?? 0)
+  DOMCacheGetOrSet('globalEventTimer').textContent = timeReminingHours(eventNowEndDate)
+
   const happyHolidays = DOMCacheGetOrSet('happyHolidays') as HTMLAnchorElement
-  const eventBuffs = DOMCacheGetOrSet('eventBuffs')
+  const eventBuffs = DOMCacheGetOrSet('globalEventBonus')
   const updateIsEventCheck = G.isEvent
 
   if (nowEvent) {
@@ -189,10 +193,4 @@ export const calculateEventSourceBuff = (buff: BuffType): number => {
     case BuffType.AmbrosiaLuck:
       return event.ambrosiaLuck ?? 0
   }
-}
-
-export const clickSmith = (): Promise<void> => {
-  G.eventClicked = true
-  DOMCacheGetOrSet('eventClicked').style.display = 'block'
-  return Alert(i18next.t('event.aprilFools.clicked'))
 }

@@ -32,7 +32,6 @@ import { challengeDisplay, toggleRetryChallenges } from './Challenges'
 import { testing } from './Config'
 import { corruptionCleanseConfirm, corruptionDisplay } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc } from './Cubes'
-import { clickSmith } from './Event'
 import {
   hepteractDescriptions,
   hepteractToOverfluxOrbDescription,
@@ -1095,7 +1094,6 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // EVENT TAB (Replace as events are created)
-  DOMCacheGetOrSet('unsmith').addEventListener('click', () => clickSmith())
 
   // Import button
   DOMCacheGetOrSet('importfile').addEventListener('change', (e) => importData(e, importSynergism))
