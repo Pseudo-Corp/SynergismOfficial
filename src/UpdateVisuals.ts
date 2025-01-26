@@ -42,7 +42,7 @@ import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
-import { getEvent } from './Event'
+import { BuffType, calculateEventSourceBuff, eventBuffType, getEvent } from './Event'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -1814,6 +1814,25 @@ export const visualUpdateEvent = () => {
     const eventEnd = new Date(event.end)
     DOMCacheGetOrSet('globalEventTimer').textContent = timeReminingHours(eventEnd)
     DOMCacheGetOrSet('globalEventName').textContent = `(${event.name.length}) - ${event.name.join(', ')}`
+
+    for (let i = 0; i < eventBuffType.length; i++) {
+      const eventBuff = calculateEventSourceBuff(BuffType[eventBuffType[i]])
+
+      if (eventBuff !== 0) {
+        DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'flex'
+        DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}Value`).textContent = `+${format(100 * eventBuff, 0, true)}%`
+      }
+      else {
+        DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'none'
+      }
+    }
+  }
+  else {
+    DOMCacheGetOrSet('globalEventTimer').textContent = '--:--:--'
+    DOMCacheGetOrSet('globalEventName').textContent = ''
+    for (let i = 0; i < eventBuffType.length; i++) {
+      DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'none'
+    }
   }
 }
 

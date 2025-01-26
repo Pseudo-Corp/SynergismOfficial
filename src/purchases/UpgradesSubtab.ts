@@ -50,8 +50,7 @@ type UpgradesList = Omit<Upgrades, 'level' | 'cost'> & {
 }
 
 type ConsumablesList = Omit<Consumables, 'owned' | 'cost'> & {
-  owned: number[]
-  cost: number[]
+  cost: number
   playerOwned: number
 }
 
@@ -70,6 +69,7 @@ interface CoinsResponse {
 
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #upgradesContainer')!
 let activeUpgrade: UpgradesList | undefined
+let activeConsumable: ConsumablesList | undefined
 
 const buyUpgradeSchema = z.object({
   upgradeId: z.number(),
@@ -162,6 +162,11 @@ async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
   }
 }
 
+async function purchaseConsumable (consumables: Map<number, ConsumablesList>) {
+  // TODO: Implement this -- requires knowing what the parse schema is
+  // When a player buys a consumable, it adds 1 to their owned inventory.
+}
+
 const initializeUpgradeSubtab = memoize(() => {
   DOMCacheGetOrSet('currentCoinBalance').innerHTML = `${
     i18next.t('pseudoCoins.coinCount', { amount: Intl.NumberFormat().format(upgradeResponse.coins) })
@@ -193,13 +198,12 @@ const initializeUpgradeSubtab = memoize(() => {
     if (!current) {
       map.set(consumable.consumableId, {
         ...consumable,
-        cost: [consumable.cost],
-        owned: [consumable.owned],
+        cost: consumable.cost,
         playerOwned: playerConsumable?.owned ?? 0
       })
     } else {
-      current.cost.push(consumable.cost)
-      current.owned.push(consumable.owned)
+      current.cost = consumable.cost
+      current.playerOwned = consumable.owned
     }
 
     return map
@@ -214,6 +218,17 @@ const initializeUpgradeSubtab = memoize(() => {
       <img src='Pictures/PseudoShop/${u.internalName}.png' alt='${u.internalName}' />
       <p id="a">${u.playerLevel}/${u.maxLevel}</p>
       ${u.playerLevel === u.maxLevel ? '<p id="b">✔️</p>' : '<p id="b"></p>'}
+    </div>
+  `).join('')
+
+  tab.querySelector('#consumablesGrid')!.innerHTML = [...consumables.values()].map((u) => `
+    <div
+      data-id="${u.consumableId}"
+      data-key="${u.name}"
+      style="margin: 40px;"
+    >
+      <img src='Pictures/PseudoShop/${u.internalName}.png' alt='${u.internalName}' />
+      <p id="a">${u.playerOwned}</p>
     </div>
   `).join('')
 

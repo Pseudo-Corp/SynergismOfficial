@@ -1,7 +1,6 @@
-import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAdditiveLuckMult, calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calculate'
-import { format, getTimePinnedToLoadDate, player } from './Synergism'
+import { getTimePinnedToLoadDate, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables'
 import { timeReminingHours } from './Utility'
@@ -73,46 +72,12 @@ export const eventCheck = async () => {
   const eventNowEndDate = new Date(nowEvent?.end ?? 0)
   DOMCacheGetOrSet('globalEventTimer').textContent = timeReminingHours(eventNowEndDate)
 
-  const happyHolidays = DOMCacheGetOrSet('happyHolidays') as HTMLAnchorElement
-  const eventBuffs = DOMCacheGetOrSet('globalEventBonus')
   const updateIsEventCheck = G.isEvent
 
   if (nowEvent) {
     G.isEvent = true
-    const buffs: string[] = []
-
-    for (let i = 0; i < eventBuffType.length; i++) {
-      const eventBuff = calculateEventSourceBuff(BuffType[eventBuffType[i]])
-
-      if (eventBuff !== 0) {
-        if (eventBuffType[i] === 'OneMind' && player.singularityUpgrades.oneMind.level > 0) {
-          buffs.push(
-            `<span style="color: gold">${eventBuff >= 0 ? '+' : '-'}${format(100 * eventBuff, 3, true)}% ${
-              eventBuffName[i]
-            }</span>`
-          )
-        } else if (eventBuffType[i] !== 'OneMind' || player.singularityUpgrades.oneMind.level === 0) {
-          buffs.push(`${eventBuff >= 0 ? '+' : '-'}${format(100 * eventBuff, 2, true)}% ${eventBuffName[i]}`)
-        }
-      }
-    }
-
-    DOMCacheGetOrSet('eventCurrent').textContent = i18next.t('settings.events.activeUntil', {
-      x: new Date(nowEvent.end)
-    })
-
-    eventBuffs.innerHTML = G.isEvent && buffs.length ? `Current Buffs: ${buffs.join(', ')}` : ''
-    // eventBuffs.style.color = 'lime';
-    happyHolidays.innerHTML = `(${nowEvent.name.length}) ${nowEvent.name.join(', ')}`
-    happyHolidays.style.color = nowEvent.color[Math.floor(Math.random() * nowEvent.color.length)]
-    happyHolidays.href = nowEvent.url.length > 0 ? nowEvent.url[Math.floor(Math.random() * nowEvent.url.length)] : '#'
   } else {
     G.isEvent = false
-    DOMCacheGetOrSet('eventCurrent').innerHTML = i18next.t('settings.events.inactive')
-    eventBuffs.textContent = ''
-    eventBuffs.style.color = 'var(--red-text-color)'
-    happyHolidays.innerHTML = ''
-    happyHolidays.href = ''
   }
 
   if (G.isEvent !== updateIsEventCheck) {
@@ -123,7 +88,7 @@ export const eventCheck = async () => {
   }
 }
 
-const eventBuffType: (keyof typeof BuffType)[] = [
+export const eventBuffType: (keyof typeof BuffType)[] = [
   'Quark',
   'GoldenQuark',
   'Cubes',
@@ -138,22 +103,6 @@ const eventBuffType: (keyof typeof BuffType)[] = [
   'BlueberryTime',
   'AmbrosiaLuck',
   'OneMind'
-]
-const eventBuffName = [
-  'Quarks',
-  'Golden Quarks',
-  'Cubes from all type',
-  'Powder Conversion',
-  'Ascension Speed',
-  'Global Speed',
-  'Ascension Score',
-  'Ant Sacrifice rewards',
-  'Offering',
-  'Obtainium',
-  'Eight Dimensional Hypercubes',
-  'Blueberry Time Generation',
-  'Ambrosia Luck (Additive Mult)',
-  'One Mind Quark Bonus'
 ]
 
 export const calculateEventSourceBuff = (buff: BuffType): number => {
