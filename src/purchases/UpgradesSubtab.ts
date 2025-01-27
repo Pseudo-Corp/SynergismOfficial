@@ -3,7 +3,6 @@ import { z } from 'zod'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
 import {
   displayPCoinEffect,
-  type PseudoCoinConsumableNames,
   type PseudoCoinUpgradeNames,
   showCostAndEffect,
   updatePCoinCache
@@ -28,12 +27,6 @@ interface PlayerUpgrades {
   internalName: PseudoCoinUpgradeNames
 }
 
-interface PlayerConsumables {
-  owned: number
-  consumableId: number
-  internalName: PseudoCoinConsumableNames
-}
-
 type UpgradesList = Omit<Upgrades, 'level' | 'cost'> & {
   level: number[]
   cost: number[]
@@ -44,7 +37,6 @@ export interface UpgradesResponse {
   coins: number
   upgrades: Upgrades[]
   playerUpgrades: PlayerUpgrades[]
-  playerConsumables: PlayerConsumables[]
   tier: number
 }
 

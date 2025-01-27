@@ -6,8 +6,10 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
 import { format, player } from './Synergism'
-import { Alert } from './UpdateHTML'
+import { Alert, Notification } from './UpdateHTML'
 import { assert } from './Utility'
+
+export type PseudoCoinConsumableNames = 'HAPPY_HOUR'
 
 // Consts for Patreon Supporter Roles.
 const TRANSCENDED_BALLER = '756419583941804072'
@@ -33,6 +35,10 @@ let ws: WebSocket | undefined
 let loggedIn = false
 export const isLoggedIn = () => loggedIn
 
+export const activeConsumables: Record<PseudoCoinConsumableNames, number> = {
+  HAPPY_HOUR: 0
+}
+
 const messageSchema = z.preprocess(
   (data, ctx) => {
     if (typeof data === 'string') {
@@ -44,16 +50,17 @@ const messageSchema = z.preprocess(
     ctx.addIssue({ code: 'custom', message: 'Invalid message received.' })
   },
   z.union([
-    z.object({
-      type: z.literal('join'),
-      data: z.object({ name: z.string(), internalName: z.string(), addedAt: z.string() }).array()
-    }),
+    /** Received after the user connects to the websocket */
+    z.object({ type: z.literal('join') }),
     z.object({ type: z.literal('error'), message: z.string() }),
+    /** Received after a consumable is redeemed (broadcasted to everyone) */
     z.object({ type: z.literal('consumed'), consumable: z.string(), startedAt: z.number().int() }),
+    /** Received after a consumable ends (broadcasted to everyone) */
     z.object({ type: z.literal('consumable-ended'), consumable: z.string(), endedAt: z.number().int() }),
+    /** Information about currently active consumables */
     z.object({
       type: z.literal('info'),
-      active: z.object({ internalName: z.string(), amount: z.number().int() }).array()
+      active: z.object({ name: z.string(), internalName: z.string(), amount: z.number().int() }).array()
     })
   ])
 )
@@ -288,19 +295,81 @@ export async function handleLogin () {
       renderCaptcha()
     })
   }
+
+  if (loggedIn) {
+    handleWebSocket()
+  }
 }
 
-export function handleWebSocket () {
-  assert(!ws || ws.readyState === WebSocket.CLOSED)
+const queue: string[] = []
+
+/**
+ * Delays before attempting to re-establish the connection after the socket closes.
+ * The delay is reset after a successful connection.
+ */
+const exponentialBackoff = [5000, 15000, 30000, 60000]
+let tries = 0
+
+function handleWebSocket () {
+  assert(!ws || ws.readyState === WebSocket.CLOSED, 'WebSocket has been set and is not closed')
 
   ws = new WebSocket('wss://synergism.cc/consumables/connect')
 
-  ws.addEventListener('close', () => {})
-  ws.addEventListener('error', () => {})
-  ws.addEventListener('open', () => {})
+  ws.addEventListener('close', () => {
+    const delay = exponentialBackoff[++tries]
+
+    if (delay !== undefined) {
+      setTimeout(() => handleWebSocket(), delay)
+    } else {
+      Notification(
+        'Could not re-establish your connection. Consumables and events related to Consumables will not work.'
+      )
+    }
+  })
+
+  ws.addEventListener('open', () => {
+    tries = 0
+
+    for (const message of queue) {
+      ws?.send(message)
+    }
+
+    queue.length = 0
+  })
+
   ws.addEventListener('message', (ev) => {
     const data = messageSchema.parse(ev.data)
+
+    if (data.type === 'error') {
+      Notification(data.message, 5_000)
+    } else if (data.type === 'consumed') {
+      activeConsumables[data.consumable as PseudoCoinConsumableNames]++
+      Notification(`Someone redeemed a(n) ${data.consumable}!`)
+    } else if (data.type === 'consumable-ended') {
+      activeConsumables[data.consumable as PseudoCoinConsumableNames]--
+      Notification(`A(n) ${data.consumable} ended!`)
+    } else if (data.type === 'join') {
+      Notification('Connection was established!')
+    } else if (data.type === 'info') {
+      let message = 'The following consumables are active:\n'
+
+      for (const { amount, internalName, name } of data.active) {
+        activeConsumables[internalName as PseudoCoinConsumableNames] = amount
+        message += `${name} (x${amount})`
+      }
+
+      Notification(message)
+    }
   })
+}
+
+export function sendToWebsocket (message: string) {
+  if (ws?.readyState !== WebSocket.OPEN) {
+    queue.push(message)
+    return
+  }
+
+  ws.send(message)
 }
 
 async function logout () {

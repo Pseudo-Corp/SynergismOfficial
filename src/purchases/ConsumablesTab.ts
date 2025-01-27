@@ -1,7 +1,7 @@
 import { memoize } from '../Utility'
 
 interface ConsumableListItems {
-  name:	string
+  name: string
   description: string
   internalName: string
   length: string
@@ -12,7 +12,7 @@ const tab = document.querySelector<HTMLElement>('#pseudoCoins > #consumablesGrid
 
 const initializeConsumablesTab = memoize(() => {
   fetch('https://synergism.cc/consumables/list')
-    .then(r => r.json())
+    .then((r) => r.json())
     .then((consumables: ConsumableListItems[]) => {
       tab.innerHTML = consumables.map((u) => `
         <div
