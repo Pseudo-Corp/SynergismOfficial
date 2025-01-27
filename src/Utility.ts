@@ -147,19 +147,19 @@ export const addLeadingZero = (n: number): string => {
   return n < 10 ? `0${n}` : String(n)
 }
 
-export const timeReminingHours = (targetDate: Date): string =>{
-  const now = new Date();
-  const timeDifference = targetDate.getTime() - now.getTime();
+export const timeReminingHours = (targetDate: Date): string => {
+  const now = new Date()
+  const timeDifference = targetDate.getTime() - now.getTime()
 
   if (timeDifference < 0) {
-    return "--:--:--";
+    return '--:--:--'
   }
 
-  const hours = addLeadingZero(Math.floor(timeDifference  / (1000 * 60 * 60)));
-  const minutes = addLeadingZero(Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)));
-  const seconds = addLeadingZero(Math.floor((timeDifference % (1000 * 60)) / 1000));
+  const hours = addLeadingZero(Math.floor(timeDifference / (1000 * 60 * 60)))
+  const minutes = addLeadingZero(Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)))
+  const seconds = addLeadingZero(Math.floor((timeDifference % (1000 * 60)) / 1000))
 
-  return `${hours}:${minutes}:${seconds}`;
+  return `${hours}:${minutes}:${seconds}`
 }
 
 export const cleanString = (s: string): string => {

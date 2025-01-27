@@ -2,8 +2,8 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAdditiveLuckMult, calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calculate'
 import { getTimePinnedToLoadDate, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
-import { Globals as G } from './Variables'
 import { timeReminingHours } from './Utility'
+import { Globals as G } from './Variables'
 
 export enum BuffType {
   Quark = 0,
@@ -60,7 +60,6 @@ export const eventCheck = async () => {
   }
 
   const apiEvents = await response.json() as GameEvent
-  console.log(apiEvents)
 
   nowEvent = null
 

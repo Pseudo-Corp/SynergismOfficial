@@ -63,7 +63,7 @@ import { buyGoldenQuarks, getLastUpgradeInfo, singularityPerks } from './singula
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
 import { player, resetCheck, saveSynergy } from './Synergism'
-import { changeSubTab, Tabs } from './Tabs'
+import { changeSubTab, changeTab, Tabs } from './Tabs'
 import {
   buyAllTalismanResources,
   buyTalismanEnhance,
@@ -1093,7 +1093,11 @@ TODO: Fix this entire tab it's utter shit
     )
   }
 
-  // EVENT TAB (Replace as events are created)
+  // EVENT TAB
+  document.querySelector('.consumableButton')?.addEventListener('click', () => {
+    changeTab(Tabs.Purchase)
+    changeSubTab(Tabs.Purchase, { page: 3 })
+  })
 
   // Import button
   DOMCacheGetOrSet('importfile').addEventListener('change', (e) => importData(e, importSynergism))

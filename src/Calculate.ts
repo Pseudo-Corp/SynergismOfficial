@@ -2278,7 +2278,7 @@ export const calculateTimeAcceleration = () => {
       * player.singularityCount,
     1 + +player.singularityChallenges.limitedTime.rewards.globalSpeed, // Limited Time Challenge
     Math.max(Math.pow(1.01, (player.singularityCount - 200) * player.shopUpgrades.shopChronometerS), 1), // Limited Time Upg Accels
-    1 + calculateEventBuff(BuffType.GlobalSpeed), // Event
+    1 + calculateEventBuff(BuffType.GlobalSpeed) // Event
   ]
 
   const timeMult = productContents(preCorruptionArr)

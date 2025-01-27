@@ -28,6 +28,7 @@ import {
 import { CalcECC } from './Challenges'
 import { version } from './Config'
 import type { IMultiBuy } from './Cubes'
+import { BuffType, calculateEventSourceBuff, eventBuffType, getEvent } from './Event'
 import type { hepteractTypes } from './Hepteracts'
 import { hepteractTypeList } from './Hepteracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -42,7 +43,6 @@ import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
-import { BuffType, calculateEventSourceBuff, eventBuffType, getEvent } from './Event'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -1821,13 +1821,11 @@ export const visualUpdateEvent = () => {
       if (eventBuff !== 0) {
         DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'flex'
         DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}Value`).textContent = `+${format(100 * eventBuff, 0, true)}%`
-      }
-      else {
+      } else {
         DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'none'
       }
     }
-  }
-  else {
+  } else {
     DOMCacheGetOrSet('globalEventTimer').textContent = '--:--:--'
     DOMCacheGetOrSet('globalEventName').textContent = ''
     for (let i = 0; i < eventBuffType.length; i++) {

@@ -2539,7 +2539,8 @@
       "buy": "Purchase Coins",
       "subscriptions": "Subscriptions",
       "upgrades": "Buy Upgrades",
-      "merch": "Purchase Merch"
+      "merch": "Purchase Merch",
+      "consumables": "Consumables & Events"
     }
   },
   "offlineProgress": {

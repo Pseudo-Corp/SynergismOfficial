@@ -298,16 +298,21 @@ const subtabInfo: Record<Tabs, SubTab> = {
         buttonID: 'cartSubTab3'
       },
       {
+        subTabID: 'consumablesGrid',
+        unlocked: true,
+        buttonID: 'cartSubTab4'
+      },
+      {
         subTabID: 'cartContainer',
         get unlocked () {
           return isLoggedIn() || !prod
         },
-        buttonID: 'cartSubTab4'
+        buttonID: 'cartSubTab5'
       },
       {
         subTabID: 'merchContainer',
         unlocked: true,
-        buttonID: 'cartSubTab5'
+        buttonID: 'cartSubTab6'
       }
     ]
   }
@@ -681,8 +686,7 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
   let subTabList = subTabs.subTabList[player.subtabNumber]
 
   while (!subTabList.unlocked) {
-    assert(page === undefined)
-    player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
+    player.subtabNumber = limitRange(player.subtabNumber + (step ?? 1), 0, subTabs.subTabList.length - 1)
     subTabList = subTabs.subTabList[player.subtabNumber]
   }
 

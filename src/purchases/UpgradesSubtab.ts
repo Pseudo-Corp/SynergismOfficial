@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
 import {
   displayPCoinEffect,
-  PseudoCoinConsumableNames,
+  type PseudoCoinConsumableNames,
   type PseudoCoinUpgradeNames,
   showCostAndEffect,
   updatePCoinCache
@@ -19,15 +19,6 @@ interface Upgrades {
   description: string
   internalName: PseudoCoinUpgradeNames
   level: number
-  cost: number
-}
-
-export interface Consumables {
-  consumableId: number
-  name: string
-  description: string
-  internalName: PseudoCoinConsumableNames
-  owned: number,
   cost: number
 }
 
@@ -49,16 +40,10 @@ type UpgradesList = Omit<Upgrades, 'level' | 'cost'> & {
   playerLevel: number
 }
 
-type ConsumablesList = Omit<Consumables, 'owned' | 'cost'> & {
-  cost: number
-  playerOwned: number
-}
-
 export interface UpgradesResponse {
   coins: number
   upgrades: Upgrades[]
   playerUpgrades: PlayerUpgrades[]
-  consumables: Consumables[]
   playerConsumables: PlayerConsumables[]
   tier: number
 }
@@ -69,7 +54,6 @@ interface CoinsResponse {
 
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #upgradesContainer')!
 let activeUpgrade: UpgradesList | undefined
-let activeConsumable: ConsumablesList | undefined
 
 const buyUpgradeSchema = z.object({
   upgradeId: z.number(),
@@ -162,11 +146,6 @@ async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
   }
 }
 
-async function purchaseConsumable (consumables: Map<number, ConsumablesList>) {
-  // TODO: Implement this -- requires knowing what the parse schema is
-  // When a player buys a consumable, it adds 1 to their owned inventory.
-}
-
 const initializeUpgradeSubtab = memoize(() => {
   DOMCacheGetOrSet('currentCoinBalance').innerHTML = `${
     i18next.t('pseudoCoins.coinCount', { amount: Intl.NumberFormat().format(upgradeResponse.coins) })
@@ -187,27 +166,8 @@ const initializeUpgradeSubtab = memoize(() => {
       current.cost.push(upgrade.cost)
       current.level.push(upgrade.level)
     }
-    console.log(map)
     return map
   }, new Map<number, UpgradesList>())
-
-  const consumables = upgradeResponse.consumables.reduce((map, consumable) => {
-    const current = map.get(consumable.consumableId)
-    const playerConsumable = upgradeResponse.playerConsumables.find((v) => v.consumableId === consumable.consumableId)
-
-    if (!current) {
-      map.set(consumable.consumableId, {
-        ...consumable,
-        cost: consumable.cost,
-        playerOwned: playerConsumable?.owned ?? 0
-      })
-    } else {
-      current.cost = consumable.cost
-      current.playerOwned = consumable.owned
-    }
-
-    return map
-  }, new Map<number, ConsumablesList>())
 
   tab.querySelector('#upgradeGrid')!.innerHTML = [...grouped.values()].map((u) => `
     <div
@@ -218,17 +178,6 @@ const initializeUpgradeSubtab = memoize(() => {
       <img src='Pictures/PseudoShop/${u.internalName}.png' alt='${u.internalName}' />
       <p id="a">${u.playerLevel}/${u.maxLevel}</p>
       ${u.playerLevel === u.maxLevel ? '<p id="b">✔️</p>' : '<p id="b"></p>'}
-    </div>
-  `).join('')
-
-  tab.querySelector('#consumablesGrid')!.innerHTML = [...consumables.values()].map((u) => `
-    <div
-      data-id="${u.consumableId}"
-      data-key="${u.name}"
-      style="margin: 40px;"
-    >
-      <img src='Pictures/PseudoShop/${u.internalName}.png' alt='${u.internalName}' />
-      <p id="a">${u.playerOwned}</p>
     </div>
   `).join('')
 

@@ -6,6 +6,7 @@ import { Alert } from '../UpdateHTML'
 import { createDeferredPromise, type DeferredPromise, memoize } from '../Utility'
 import { setEmptyProductMap } from './CartUtil'
 import { clearCheckoutTab, toggleCheckoutTab } from './CheckoutTab'
+import { clearConsumablesTab, toggleConsumablesTab } from './ConsumablesTab'
 import { clearMerchSubtab, toggleMerchSubtab } from './MerchTab'
 import { clearProductPage, toggleProductPage } from './ProductSubtab'
 import { clearSubscriptionPage, toggleSubscriptionPage } from './SubscriptionsSubtab'
@@ -29,8 +30,9 @@ const cartSubTabs = {
   Coins: 0,
   Subscriptions: 1,
   Upgrades: 2,
-  Checkout: 3,
-  Merch: 4
+  Consumables: 3,
+  Checkout: 4,
+  Merch: 5
 } as const
 
 const tab = document.getElementById('pseudoCoins')!
@@ -123,6 +125,7 @@ export class CartTab {
     clearUpgradeSubtab()
     clearCheckoutTab()
     clearMerchSubtab()
+    clearConsumablesTab()
 
     switch (player.subtabNumber) {
       case cartSubTabs.Coins:
@@ -145,6 +148,9 @@ export class CartTab {
             toggleUpgradeSubtab()
           }
         })
+        break
+      case cartSubTabs.Consumables:
+        toggleConsumablesTab()
         break
       case cartSubTabs.Checkout:
         CartTab.fetchProducts().then(() => {

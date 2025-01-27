@@ -1,11 +1,13 @@
 /// <reference types="@types/cloudflare-turnstile" />
 
 import i18next from 'i18next'
+import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
 import { format, player } from './Synergism'
 import { Alert } from './UpdateHTML'
+import { assert } from './Utility'
 
 // Consts for Patreon Supporter Roles.
 const TRANSCENDED_BALLER = '756419583941804072'
@@ -26,8 +28,35 @@ const SMITH_GOD = '1045562390995009606'
 const GOLDEN_SMITH_GOD = '1178125584061173800'
 const DIAMOND_SMITH_MESSIAH = '1311165096378105906'
 
+let ws: WebSocket | undefined
+
 let loggedIn = false
 export const isLoggedIn = () => loggedIn
+
+const messageSchema = z.preprocess(
+  (data, ctx) => {
+    if (typeof data === 'string') {
+      try {
+        return JSON.parse(data)
+      } catch {}
+    }
+
+    ctx.addIssue({ code: 'custom', message: 'Invalid message received.' })
+  },
+  z.union([
+    z.object({
+      type: z.literal('join'),
+      data: z.object({ name: z.string(), internalName: z.string(), addedAt: z.string() }).array()
+    }),
+    z.object({ type: z.literal('error'), message: z.string() }),
+    z.object({ type: z.literal('consumed'), consumable: z.string(), startedAt: z.number().int() }),
+    z.object({ type: z.literal('consumable-ended'), consumable: z.string(), endedAt: z.number().int() }),
+    z.object({
+      type: z.literal('info'),
+      active: z.object({ internalName: z.string(), amount: z.number().int() }).array()
+    })
+  ])
+)
 
 /**
  * @see https://discord.com/developers/docs/resources/user#user-object
@@ -261,6 +290,19 @@ export async function handleLogin () {
   }
 }
 
+export function handleWebSocket () {
+  assert(!ws || ws.readyState === WebSocket.CLOSED)
+
+  ws = new WebSocket('wss://synergism.cc/consumables/connect')
+
+  ws.addEventListener('close', () => {})
+  ws.addEventListener('error', () => {})
+  ws.addEventListener('open', () => {})
+  ws.addEventListener('message', (ev) => {
+    const data = messageSchema.parse(ev.data)
+  })
+}
+
 async function logout () {
   await fetch('https://synergism.cc/api/v1/users/logout')
   await Alert(i18next.t('account.logout'))
@@ -294,7 +336,9 @@ async function getCloudSave () {
   const response = await fetch('https://synergism.cc/api/v1/saves/get')
   const save = await response.json() as CloudSave
 
-  importSynergism(save?.save ?? null)
+  if (save !== null) {
+    importSynergism(save.save)
+  }
 }
 
 const hasCaptcha = new WeakSet<HTMLElement>()
