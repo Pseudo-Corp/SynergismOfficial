@@ -61,7 +61,9 @@ const messageSchema = z.preprocess(
     z.object({
       type: z.literal('info'),
       active: z.object({ name: z.string(), internalName: z.string(), amount: z.number().int() }).array()
-    })
+    }),
+    /** Received after the *user* successfully redeems a consumable. */
+    z.object({ type: z.literal('thanks') })
   ])
 )
 
@@ -359,6 +361,8 @@ function handleWebSocket () {
       }
 
       Notification(message)
+    } else if (data.type === 'thanks') {
+      // TODO(PseudoGod): add message
     }
   })
 }

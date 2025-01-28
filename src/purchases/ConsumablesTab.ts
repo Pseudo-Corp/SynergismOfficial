@@ -1,3 +1,4 @@
+import { sendToWebsocket } from '../Login'
 import { memoize } from '../Utility'
 
 interface ConsumableListItems {
@@ -25,6 +26,16 @@ const initializeConsumablesTab = memoize(() => {
           <button><p>Cost: </p><p>${u.cost} PseudoCoins</p></button>
         </div>
       `).join('')
+
+      tab.querySelectorAll('div > button').forEach((element) => {
+        const key = element.getAttribute('data-key')!
+        element.addEventListener('click', () => {
+          sendToWebsocket(JSON.stringify({
+            type: 'consume',
+            consumable: key
+          }))
+        })
+      })
     })
 })
 
