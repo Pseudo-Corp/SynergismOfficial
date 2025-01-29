@@ -63,7 +63,11 @@ const messageSchema = z.preprocess(
       active: z.object({ name: z.string(), internalName: z.string(), amount: z.number().int() }).array()
     }),
     /** Received after the *user* successfully redeems a consumable. */
-    z.object({ type: z.literal('thanks') })
+    z.object({ type: z.literal('thanks') }),
+    /** Received when a user is tipped */
+    z.object({ type: z.literal('tips'), tips: z.number().int() }),
+    /** Received when a user reconnects, if there are unclaimed tips */
+    z.object({ type: z.literal('tip-backlog'), tips: z.number().int() })
   ])
 )
 
@@ -362,7 +366,9 @@ function handleWebSocket () {
 
       Notification(message)
     } else if (data.type === 'thanks') {
-      // TODO(PseudoGod): add message
+      // TODO(@Pseudonian): add message
+    } else if (data.type === 'tip-backlog' || data.type === 'tips') {
+      // TODO(@Pseudonian): apply offline time
     }
   })
 }
