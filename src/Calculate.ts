@@ -1363,7 +1363,7 @@ export const timeWarp = async () => {
   calculateOffline(timeUse)
 }
 
-export const calculateOffline = async (forceTime = 0) => {
+export const calculateOffline = (forceTime = 0) => {
   disableHotkeys()
 
   G.timeWarp = true
