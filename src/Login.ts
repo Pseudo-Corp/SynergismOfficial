@@ -3,6 +3,8 @@
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateOffline } from './Calculate'
+import { updateGlobalsIsEvent } from './Event'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
 import { format, player } from './Synergism'
@@ -357,19 +359,25 @@ function handleWebSocket () {
     } else if (data.type === 'join') {
       Notification('Connection was established!')
     } else if (data.type === 'info') {
-      let message = 'The following consumables are active:\n'
+      if (data.active.length !== 0) {
+        let message = 'The following consumables are active:\n'
 
-      for (const { amount, internalName, name } of data.active) {
-        activeConsumables[internalName as PseudoCoinConsumableNames] = amount
-        message += `${name} (x${amount})`
+        for (const { amount, internalName, name } of data.active) {
+          activeConsumables[internalName as PseudoCoinConsumableNames] = amount
+          message += `${name} (x${amount})`
+        }
+
+        Notification(message)
       }
-
-      Notification(message)
     } else if (data.type === 'thanks') {
-      // TODO(@Pseudonian): add message
+      Alert(i18next.t('pseudoCoins.consumables.thanks'))
     } else if (data.type === 'tip-backlog' || data.type === 'tips') {
-      // TODO(@Pseudonian): apply offline time
+      calculateOffline(data.tips * 60)
+
+      Notification(i18next.t('pseudoCoins.consumables.tipReceived', { offlineTime: data.tips }))
     }
+
+    updateGlobalsIsEvent()
   })
 }
 

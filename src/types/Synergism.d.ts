@@ -1002,8 +1002,6 @@ export interface GlobalVariables {
   isEvent: boolean
   shopEnhanceVision: boolean
 
-  eventClicked: boolean
-
   ambrosiaTimer: number
   TIME_PER_AMBROSIA: number
 

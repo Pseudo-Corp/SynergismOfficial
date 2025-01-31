@@ -2,7 +2,6 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcCorruptionStuff, calculateTimeAcceleration } from './Calculate'
-import { Synergism } from './Events'
 import { format, player } from './Synergism'
 import { Alert, Notification, revealStuff } from './UpdateHTML'
 import { sumContents } from './Utility'
@@ -479,5 +478,4 @@ export const achievementaward = (num: number) => {
   }
 
   DOMCacheGetOrSet(`ach${num}`).style.backgroundColor = 'Green'
-  Synergism.emit('achievement', num)
 }

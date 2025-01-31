@@ -1,5 +1,6 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAdditiveLuckMult, calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calculate'
+import { activeConsumables, type PseudoCoinConsumableNames } from './Login'
 import { getTimePinnedToLoadDate, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
 import { timeReminingHours } from './Utility'
@@ -44,8 +45,7 @@ interface GameEvent {
   color: string[]
 }
 
-export let nowEvent: GameEvent | null = null
-
+let nowEvent: GameEvent | null = null
 export const getEvent = () => nowEvent
 
 export const eventCheck = async () => {
@@ -73,11 +73,7 @@ export const eventCheck = async () => {
 
   const updateIsEventCheck = G.isEvent
 
-  if (nowEvent) {
-    G.isEvent = true
-  } else {
-    G.isEvent = false
-  }
+  updateGlobalsIsEvent()
 
   if (G.isEvent !== updateIsEventCheck) {
     revealStuff()
@@ -113,32 +109,86 @@ export const calculateEventSourceBuff = (buff: BuffType): number => {
 
   switch (buff) {
     case BuffType.Quark:
-      return event.quark ?? 0
+      return event.quark + consumableEventBuff(buff)
     case BuffType.GoldenQuark:
-      return event.goldenQuark ?? 0
+      return event.goldenQuark + consumableEventBuff(buff)
     case BuffType.Cubes:
-      return event.cubes ?? 0
+      return event.cubes + consumableEventBuff(buff)
     case BuffType.PowderConversion:
-      return event.powderConversion ?? 0
+      return event.powderConversion + consumableEventBuff(buff)
     case BuffType.AscensionSpeed:
-      return event.ascensionSpeed ?? 0
+      return event.ascensionSpeed + consumableEventBuff(buff)
     case BuffType.GlobalSpeed:
-      return event.globalSpeed ?? 0
+      return event.globalSpeed + consumableEventBuff(buff)
     case BuffType.AscensionScore:
-      return event.ascensionScore ?? 0
+      return event.ascensionScore + consumableEventBuff(buff)
     case BuffType.AntSacrifice:
-      return event.antSacrifice ?? 0
+      return event.antSacrifice + consumableEventBuff(buff)
     case BuffType.Offering:
-      return event.offering ?? 0
+      return event.offering + consumableEventBuff(buff)
     case BuffType.Obtainium:
-      return event.obtainium ?? 0
+      return event.obtainium + consumableEventBuff(buff)
     case BuffType.Octeract:
-      return event.octeract ?? 0
+      return event.octeract + consumableEventBuff(buff)
     case BuffType.OneMind:
-      return player.singularityUpgrades.oneMind.level > 0 ? event.oneMind : 0
+      return player.singularityUpgrades.oneMind.level > 0 ? event.oneMind + consumableEventBuff(buff) : 0
     case BuffType.BlueberryTime:
-      return event.blueberryTime ?? 0
+      return event.blueberryTime + consumableEventBuff(buff)
     case BuffType.AmbrosiaLuck:
-      return event.ambrosiaLuck ?? 0
+      return event.ambrosiaLuck + consumableEventBuff(buff)
   }
+}
+
+const consumableEventBuff = (buff: BuffType) => {
+  const { HAPPY_HOUR } = activeConsumables
+  // The interval is the number of events queued excluding the first.
+  const happyHourInterval = HAPPY_HOUR - 1
+
+  // If no consumable is active, early return
+  if (HAPPY_HOUR === 0) {
+    return 0
+  }
+
+  switch (buff) {
+    case BuffType.Quark:
+      return HAPPY_HOUR ? 0.25 + 0.025 * happyHourInterval : 0
+    case BuffType.GoldenQuark:
+      return 0
+    case BuffType.Cubes:
+      return HAPPY_HOUR ? 0.5 + 0.05 * happyHourInterval : 0
+    case BuffType.PowderConversion:
+      return 0
+    case BuffType.AscensionSpeed:
+      return 0
+    case BuffType.GlobalSpeed:
+      return 0
+    case BuffType.AscensionScore:
+      return 0
+    case BuffType.AntSacrifice:
+      return 0
+    case BuffType.Offering:
+      return HAPPY_HOUR ? 0.5 + 0.05 * happyHourInterval : 0
+    case BuffType.Obtainium:
+      return HAPPY_HOUR ? 0.5 + 0.05 * happyHourInterval : 0
+    case BuffType.Octeract:
+      return 0
+    case BuffType.OneMind:
+      return 0
+    case BuffType.BlueberryTime:
+      return HAPPY_HOUR ? 0.1 + 0.01 * happyHourInterval : 0
+    case BuffType.AmbrosiaLuck:
+      return HAPPY_HOUR ? 0.1 + 0.01 * happyHourInterval : 0
+  }
+}
+
+const isConsumableActive = (name?: PseudoCoinConsumableNames) => {
+  if (typeof name === 'string') {
+    return activeConsumables[name] > 0
+  }
+
+  return activeConsumables.HAPPY_HOUR !== 0
+}
+
+export const updateGlobalsIsEvent = () => {
+  return G.isEvent = getEvent() !== null || isConsumableActive()
 }
