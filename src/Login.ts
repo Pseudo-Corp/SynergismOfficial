@@ -3,7 +3,6 @@
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateOffline } from './Calculate'
 import { updateGlobalsIsEvent } from './Event'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
@@ -33,9 +32,11 @@ const GOLDEN_SMITH_GOD = '1178125584061173800'
 const DIAMOND_SMITH_MESSIAH = '1311165096378105906'
 
 let ws: WebSocket | undefined
-
 let loggedIn = false
+let tips = 0
+
 export const isLoggedIn = () => loggedIn
+export const getTips = () => tips
 
 export const activeConsumables: Record<PseudoCoinConsumableNames, number> = {
   HAPPY_HOUR: 0
@@ -62,7 +63,8 @@ const messageSchema = z.preprocess(
     /** Information about currently active consumables */
     z.object({
       type: z.literal('info'),
-      active: z.object({ name: z.string(), internalName: z.string(), amount: z.number().int() }).array()
+      active: z.object({ name: z.string(), internalName: z.string(), amount: z.number().int() }).array(),
+      tips: z.number().int().nonnegative()
     }),
     /** Received after the *user* successfully redeems a consumable. */
     z.object({ type: z.literal('thanks') }),
@@ -369,10 +371,12 @@ function handleWebSocket () {
 
         Notification(message)
       }
+
+      tips = data.tips
     } else if (data.type === 'thanks') {
       Alert(i18next.t('pseudoCoins.consumables.thanks'))
     } else if (data.type === 'tip-backlog' || data.type === 'tips') {
-      calculateOffline(data.tips * 60)
+      tips += data.tips
 
       Notification(i18next.t('pseudoCoins.consumables.tipReceived', { offlineTime: data.tips }))
     }

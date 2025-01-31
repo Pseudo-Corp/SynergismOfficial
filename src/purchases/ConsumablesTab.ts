@@ -28,7 +28,7 @@ const initializeConsumablesTab = memoize(() => {
       `).join('')
 
       tab.querySelectorAll('div > button').forEach((element) => {
-        const key = element.getAttribute('data-key')!
+        const key = element.parentElement!.getAttribute('data-key')!
         element.addEventListener('click', () => {
           sendToWebsocket(JSON.stringify({
             type: 'consume',
