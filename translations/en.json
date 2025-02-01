@@ -3648,8 +3648,11 @@
       "ADD_CODE_CAP_BUFF": "Code 'add' Capacity is multiplied by <<gold | {{amount}}>>"
     },
     "consumables": {
-      "tipReceived": "{{offlineTime}} people tipped you in the last minute and you received {{offlineTime}} minutes of offline time!",
-      "thanks": "The booster is not in effect! Thank you for supporting the game!"
+      "tipReceived": "{{offlineTime}} people tipped you in the last minute!",
+      "thanks": "The booster is now in effect! Thank you for supporting the game!",
+      "eventTitle": "Active Consumables",
+      "consumableSpoiler": "Start an event for everyone, with the Happy Hour Bell!",
+      "consumableButton": "Buy at the PseudoShop!"
     }
   }
 }

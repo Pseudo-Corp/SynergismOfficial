@@ -63,7 +63,12 @@ const messageSchema = z.preprocess(
     /** Information about currently active consumables */
     z.object({
       type: z.literal('info'),
-      active: z.object({ name: z.string(), internalName: z.string(), amount: z.number().int() }).array(),
+      active: z.object({
+        name: z.string(),
+        internalName: z.string(),
+        amount: z.number().int(),
+        endsAt: z.number().int()
+      }).array(),
       tips: z.number().int().nonnegative()
     }),
     /** Received after the *user* successfully redeems a consumable. */
@@ -349,6 +354,7 @@ function handleWebSocket () {
 
   ws.addEventListener('message', (ev) => {
     const data = messageSchema.parse(ev.data)
+    console.log(data)
 
     if (data.type === 'error') {
       Notification(data.message, 5_000)
@@ -363,13 +369,16 @@ function handleWebSocket () {
     } else if (data.type === 'info') {
       if (data.active.length !== 0) {
         let message = 'The following consumables are active:\n'
+        let ends = 0
 
-        for (const { amount, internalName, name } of data.active) {
+        for (const { amount, internalName, name, endsAt } of data.active) {
           activeConsumables[internalName as PseudoCoinConsumableNames] = amount
           message += `${name} (x${amount})`
+          ends = Math.max(ends, endsAt)
         }
 
         Notification(message)
+        updateEventsPage(ends)
       }
 
       tips = data.tips
@@ -383,6 +392,14 @@ function handleWebSocket () {
 
     updateGlobalsIsEvent()
   })
+}
+
+function updateEventsPage (endsAt: number) {
+  const amount = document.getElementById('consumableEventBonus')!
+  const timer = document.getElementById('consumableEventTimer')!
+
+  timer.textContent = new Date(endsAt).toLocaleString()
+  amount.textContent = `${Object.values(activeConsumables).reduce((a, b) => a + b, 0)}`
 }
 
 export function sendToWebsocket (message: string) {
