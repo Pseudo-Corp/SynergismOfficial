@@ -3,6 +3,7 @@
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateOffline } from './Calculate'
 import { updateGlobalsIsEvent } from './Event'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
@@ -37,6 +38,7 @@ let tips = 0
 
 export const isLoggedIn = () => loggedIn
 export const getTips = () => tips
+export const setTips = (newTips: number) => tips = newTips
 
 export const activeConsumables: Record<PseudoCoinConsumableNames, number> = {
   HAPPY_HOUR: 0
@@ -76,7 +78,8 @@ const messageSchema = z.preprocess(
     /** Received when a user is tipped */
     z.object({ type: z.literal('tips'), tips: z.number().int() }),
     /** Received when a user reconnects, if there are unclaimed tips */
-    z.object({ type: z.literal('tip-backlog'), tips: z.number().int() })
+    z.object({ type: z.literal('tip-backlog'), tips: z.number().int() }),
+    z.object({ type: z.literal('applied-tip'), amount: z.number(), remaining: z.number() })
   ])
 )
 
@@ -388,6 +391,10 @@ function handleWebSocket () {
       tips += data.tips
 
       Notification(i18next.t('pseudoCoins.consumables.tipReceived', { offlineTime: data.tips }))
+    } else if (data.type === 'applied-tip') {
+      tips = data.remaining
+      calculateOffline(data.amount * 60)
+      DOMCacheGetOrSet('exitOffline').style.visibility = 'unset'
     }
 
     updateGlobalsIsEvent()

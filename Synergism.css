@@ -3847,13 +3847,20 @@ img#singularityPerksIcon {
     padding: 0;
 }
 
-.consumableButton {
+.consumableButton,
+#apply-tips {
     border: 2px solid #ffd700;
     background-color: #ffd700;
     color: black;
     cursor: pointer;
     padding: 5px;
     margin: 5px;
+    width: 150px;
+}
+
+#apply-tips:not(:hover) {
+    border: 2px solid var(--hovershop-color);
+    background-color: var(--hovershop-color);
 }
 
 @keyframes rotation {

@@ -3652,7 +3652,9 @@
       "thanks": "The booster is now in effect! Thank you for supporting the game!",
       "eventTitle": "Active Consumables",
       "consumableSpoiler": "Start an event for everyone, with the Happy Hour Bell!",
-      "consumableButton": "Buy at the PseudoShop!"
+      "consumableButton": "Buy at the PseudoShop!",
+      "applyTips": "Use Tips!",
+      "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s)."
     }
   }
 }
