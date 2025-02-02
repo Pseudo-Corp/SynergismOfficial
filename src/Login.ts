@@ -44,7 +44,9 @@ export const activeConsumables: Record<PseudoCoinConsumableNames, number> = {
   HAPPY_HOUR_BELL: 0
 }
 
-export let happyHourEndTime = 0
+export const allConsumableTimes: Record<PseudoCoinConsumableNames, Array<number>> = {
+  HAPPY_HOUR_BELL: []
+}
 
 const messageSchema = z.preprocess(
   (data, ctx) => {
@@ -71,6 +73,15 @@ const messageSchema = z.preprocess(
         name: z.string(),
         internalName: z.string(),
         amount: z.number().int(),
+        endsAt: z.number().int()
+      }).array(),
+      tips: z.number().int().nonnegative()
+    }),
+    z.object({
+      type: z.literal('info-all'),
+      active: z.object({
+        name: z.string(),
+        internalName: z.string(),
         endsAt: z.number().int()
       }).array(),
       tips: z.number().int().nonnegative()
@@ -330,6 +341,13 @@ const queue: string[] = []
 const exponentialBackoff = [5000, 15000, 30000, 60000]
 let tries = 0
 
+function resetConsumables () {
+  for (const key in activeConsumables) {
+    activeConsumables[key as PseudoCoinConsumableNames] = 0
+    allConsumableTimes[key as PseudoCoinConsumableNames].length = 0 // Specifically for info-all
+  }
+}
+
 function handleWebSocket () {
   assert(!ws || ws.readyState === WebSocket.CLOSED, 'WebSocket has been set and is not closed')
 
@@ -344,6 +362,7 @@ function handleWebSocket () {
       Notification(
         'Could not re-establish your connection. Consumables and events related to Consumables will not work.'
       )
+      resetConsumables()
     }
   })
 
@@ -355,6 +374,7 @@ function handleWebSocket () {
     }
 
     queue.length = 0
+    sendToWebsocket(JSON.stringify({ type: 'info-all' }))
   })
 
   ws.addEventListener('message', (ev) => {
@@ -363,6 +383,7 @@ function handleWebSocket () {
 
     if (data.type === 'error') {
       Notification(data.message, 5_000)
+      resetConsumables()
     } else if (data.type === 'consumed') {
       activeConsumables[data.consumable as PseudoCoinConsumableNames]++
       Notification(`Someone redeemed a(n) ${data.consumable}!`)
@@ -382,10 +403,22 @@ function handleWebSocket () {
           ends = Math.max(ends, endsAt)
         }
 
-        happyHourEndTime = ends
+        Notification(message)
+      }
+
+      tips = data.tips
+    } else if (data.type === 'info-all') { // new, needs to be checked
+      resetConsumables() // So that we can get an accurate count each time
+      if (data.active.length !== 0) {
+        let message = 'The following consumables are active:\n'
+
+        for (const { internalName, name, endsAt } of data.active) {
+          activeConsumables[internalName as PseudoCoinConsumableNames]++
+          allConsumableTimes[internalName as PseudoCoinConsumableNames].push(endsAt)
+          message += `${name}, until ${endsAt}\n`
+        }
 
         Notification(message)
-        updateEventsPage(ends)
       }
 
       tips = data.tips
@@ -403,14 +436,6 @@ function handleWebSocket () {
 
     updateGlobalsIsEvent()
   })
-}
-
-function updateEventsPage (endsAt: number) {
-  const amount = document.getElementById('consumableEventBonus')!
-  const timer = document.getElementById('consumableEventTimer')!
-
-  timer.textContent = new Date(endsAt).toLocaleString()
-  amount.textContent = `${Object.values(activeConsumables).reduce((a, b) => a + b, 0)}`
 }
 
 export function sendToWebsocket (message: string) {
