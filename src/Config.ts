@@ -1,6 +1,6 @@
 declare const PROD: boolean | undefined
 
-export const version = '3.1.1 January 15, 2025 pt 1.4: The Bakery Update'
+export const version = '3.1.2 February 1 2025: The Events Update'
 
 /**
  * PSEUDO DO NOT CHANGE THIS LINE
