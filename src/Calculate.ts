@@ -517,9 +517,6 @@ export function calculateOfferings (
     return productContents(arr)
   }
 
-  if (G.eventClicked && G.isEvent) {
-    q *= 1.05
-  }
   q /= calculateSingularityDebuff('Offering')
   if (player.currentChallenge.ascension === 15) {
     q *= 1 + 7 * player.cubeUpgrades[62]
@@ -672,10 +669,6 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= +player.octeractUpgrades.octeractObtainium1.getEffect().bonus
   G.obtainiumGain *= Math.pow(1.02, player.shopUpgrades.obtainiumEX3)
   G.obtainiumGain *= calculateTotalOcteractObtainiumBonus()
-
-  if (G.eventClicked && G.isEvent) {
-    G.obtainiumGain *= 1.05
-  }
 
   if (player.currentChallenge.ascension === 15) {
     G.obtainiumGain += 1
@@ -1363,7 +1356,10 @@ export const timeWarp = async () => {
   calculateOffline(timeUse)
 }
 
-export const calculateOffline = async (forceTime = 0) => {
+/**
+ * @param forceTime The number of SECONDS to warp. Why the fuck is it in seconds?
+ */
+export const calculateOffline = (forceTime = 0) => {
   disableHotkeys()
 
   G.timeWarp = true
@@ -1818,9 +1814,8 @@ export const calculateAllCubeMultiplier = () => {
     // Total Global Cube Multipliers: 34
   ]
 
-  const extraMult = G.isEvent && G.eventClicked ? 1.05 : 1
   return {
-    mult: productContents(arr) * extraMult,
+    mult: productContents(arr),
     list: arr
   }
 }
@@ -2181,13 +2176,11 @@ export const octeractGainPerSecond = () => {
       +player.octeractUpgrades.octeractOneMindImprover.getEffect().bonus
     )
     : 1
-  const extraMult = G.isEvent && G.eventClicked ? 1.05 : 1
   const perSecond = (1 / (24 * 3600 * 365 * 1e15))
     * baseMultiplier
     * productContents(valueMultipliers)
     * ascensionSpeed
     * oneMindModifier
-    * extraMult
   return perSecond
 }
 
@@ -2277,7 +2270,8 @@ export const calculateTimeAcceleration = () => {
     + +player.octeractUpgrades.octeractImprovedGlobalSpeed.getEffect().bonus
       * player.singularityCount,
     1 + +player.singularityChallenges.limitedTime.rewards.globalSpeed, // Limited Time Challenge
-    Math.max(Math.pow(1.01, (player.singularityCount - 200) * player.shopUpgrades.shopChronometerS), 1) // Limited Time Upg Accels
+    Math.max(Math.pow(1.01, (player.singularityCount - 200) * player.shopUpgrades.shopChronometerS), 1), // Limited Time Upg Accels
+    1 + calculateEventBuff(BuffType.GlobalSpeed) // Event
   ]
 
   const timeMult = productContents(preCorruptionArr)
@@ -3496,9 +3490,9 @@ export const forcedDailyReset = (rewards = false) => {
 }
 
 export const calculateEventBuff = (buff: BuffType) => {
-  if (!G.isEvent) {
-    return 0
-  }
+  // if (!G.isEvent) {
+  //  return 0
+  // }
   return calculateEventSourceBuff(buff)
 }
 

@@ -5,7 +5,6 @@ import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { octeractGainPerSecond } from './Calculate'
 import { testing, version } from './Config'
-import { Synergism } from './Events'
 import { addTimers } from './Helper'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
@@ -968,8 +967,6 @@ export const promocodes = async (input: string | null, amount?: number) => {
   if (!saveSynergy()) {
     return
   }
-
-  Synergism.emit('promocode', input)
 
   setTimeout(() => (el.textContent = ''), 15000)
 }

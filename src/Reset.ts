@@ -22,14 +22,14 @@ import { challengeRequirement } from './Challenges'
 import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
 import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
-import { Synergism } from './Events'
 import { getAutoHepteractCrafts } from './Hepteracts'
-import type {
-  ResetHistoryEntryAscend,
-  ResetHistoryEntryPrestige,
-  ResetHistoryEntryReincarnate,
-  ResetHistoryEntrySingularity,
-  ResetHistoryEntryTranscend
+import {
+  resetHistoryAdd,
+  type ResetHistoryEntryAscend,
+  type ResetHistoryEntryPrestige,
+  type ResetHistoryEntryReincarnate,
+  type ResetHistoryEntrySingularity,
+  type ResetHistoryEntryTranscend
 } from './History'
 import { calculateHypercubeBlessings } from './Hypercubes'
 import { importSynergism } from './ImportExport'
@@ -263,7 +263,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
       diamonds: G.prestigePointGain.toString()
     }
 
-    Synergism.emit('historyAdd', 'reset', historyEntry)
+    resetHistoryAdd('reset', historyEntry)
   } else if (input === 'transcension' || input === 'transcensionChallenge') {
     // Heuristics: transcend entries are not added when entering or leaving a challenge,
     // unless a meaningful gain in particles was made. This prevents spam when using the challenge automator.
@@ -275,7 +275,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
       mythos: G.transcendPointGain.toString()
     }
 
-    Synergism.emit('historyAdd', 'reset', historyEntry)
+    resetHistoryAdd('reset', historyEntry)
   } else if (input === 'reincarnation' || input === 'reincarnationChallenge') {
     // Heuristics: reincarnate entries are not added when entering or leaving a challenge,
     // unless a meaningful gain in particles was made. This prevents spam when using the challenge automator.
@@ -289,7 +289,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         obtainium: G.obtainiumGain
       }
 
-      Synergism.emit('historyAdd', 'reset', historyEntry)
+      resetHistoryAdd('reset', historyEntry)
     }
   } else if (input === 'ascension' || input === 'ascensionChallenge') {
     // Ascension entries will only be logged if C10 was completed.
@@ -314,7 +314,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         historyEntry.currentChallenge = player.currentChallenge.ascension
       }
 
-      Synergism.emit('historyAdd', 'ascend', historyEntry)
+      resetHistoryAdd('ascend', historyEntry)
     }
   }
 }
@@ -1155,7 +1155,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
       quarkHept: player.hepteractCrafts.quark.BAL,
       kind: 'singularity'
     }
-    Synergism.emit('historyAdd', 'singularity', historyEntry)
+    resetHistoryAdd('singularity', historyEntry)
   }
   // reset the rune instantly to hopefully prevent a double singularity
   player.runelevels[6] = 0

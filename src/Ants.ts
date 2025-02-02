@@ -14,8 +14,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { Synergism } from './Events'
-import type { ResetHistoryEntryAntSacrifice } from './History'
+import { resetHistoryAdd, type ResetHistoryEntryAntSacrifice } from './History'
 import { buyResearch } from './Research'
 import { resetAnts } from './Reset'
 import { Tabs } from './Tabs'
@@ -409,7 +408,7 @@ export const sacrificeAnts = async (auto = false) => {
       }
       calculateAntSacrificeELO()
 
-      Synergism.emit('historyAdd', 'ants', historyEntry)
+      resetHistoryAdd('ants', historyEntry)
     }
   }
 

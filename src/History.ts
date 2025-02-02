@@ -4,7 +4,6 @@ import i18next from 'i18next'
 import { antSacrificePointsToMultiplier } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { applyCorruptions } from './Corruptions'
-import { Synergism } from './Events'
 import { format, formatTimeShort, player } from './Synergism'
 import { IconSets } from './Themes'
 import { Notification } from './UpdateHTML'
@@ -351,7 +350,7 @@ const extractStringExponent = (str: string) => {
 }
 
 // Add an entry to the history. This can be called via the event system.
-const resetHistoryAdd = (category: Category, data: ResetHistoryEntryUnion) => {
+export const resetHistoryAdd = (category: Category, data: ResetHistoryEntryUnion) => {
   while (player.history[category].length > (G.historyCountMax - 1)) {
     player.history[category].shift()
   }
@@ -359,8 +358,6 @@ const resetHistoryAdd = (category: Category, data: ResetHistoryEntryUnion) => {
   player.history[category].push(data)
   resetHistoryPushNewRow(category, data)
 }
-
-Synergism.on('historyAdd', resetHistoryAdd)
 
 // Add a row to the table, shifting out old ones as required.
 const resetHistoryPushNewRow = (category: Category, data: ResetHistoryEntryUnion) => {

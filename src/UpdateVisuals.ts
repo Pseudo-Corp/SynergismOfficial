@@ -28,8 +28,10 @@ import {
 import { CalcECC } from './Challenges'
 import { version } from './Config'
 import type { IMultiBuy } from './Cubes'
+import { BuffType, calculateEventSourceBuff, consumableEventBuff, eventBuffType, getEvent } from './Event'
 import type { hepteractTypes } from './Hepteracts'
 import { hepteractTypeList } from './Hepteracts'
+import { activeConsumables, happyHourEndTime } from './Login'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { displayRuneInformation } from './Runes'
@@ -40,7 +42,7 @@ import { format, formatTimeShort, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
-import { sumContents } from './Utility'
+import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
 
 export const visualUpdateBuildings = () => {
@@ -1807,6 +1809,52 @@ export const visualUpdateShop = () => {
   } Quarks Each`
 }
 
-export const visualUpdateEvent = () => {}
+export const visualUpdateEvent = () => {
+  const event = getEvent()
+  if (event !== null) {
+    const eventEnd = new Date(event.end)
+    DOMCacheGetOrSet('globalEventTimer').textContent = timeReminingHours(eventEnd)
+    DOMCacheGetOrSet('globalEventName').textContent = `(${event.name.length}) - ${event.name.join(', ')}`
+
+    for (let i = 0; i < eventBuffType.length; i++) {
+      const eventBuff = calculateEventSourceBuff(BuffType[eventBuffType[i]])
+
+      if (eventBuff !== 0) {
+        DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'flex'
+        DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}Value`).textContent = `+${format(100 * eventBuff, 0, true)}%`
+      } else {
+        DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'none'
+      }
+    }
+  } else {
+    DOMCacheGetOrSet('globalEventTimer').textContent = '--:--:--'
+    DOMCacheGetOrSet('globalEventName').textContent = ''
+    for (let i = 0; i < eventBuffType.length; i++) {
+      DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'none'
+    }
+  }
+  const { HAPPY_HOUR_BELL } = activeConsumables
+  if (HAPPY_HOUR_BELL > 0) {
+    DOMCacheGetOrSet('consumableEventTimer').textContent = timeReminingHours(new Date(happyHourEndTime))
+    DOMCacheGetOrSet('consumableEventBonus').textContent = `${HAPPY_HOUR_BELL}`
+
+    for (let i = 0; i < eventBuffType.length; i++) {
+      const eventBuff = consumableEventBuff(BuffType[eventBuffType[i]])
+
+      if (eventBuff !== 0) {
+        DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'flex'
+        DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}Value`).textContent = `+${format(100 * eventBuff, 1, true)}%`
+      } else {
+        DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'none'
+      }
+    }
+  } else {
+    DOMCacheGetOrSet('consumableEventBonus').textContent = 'No active consumable'
+    DOMCacheGetOrSet('consumableEventTimer').textContent = '--:--:--'
+    for (let i = 0; i < eventBuffType.length; i++) {
+      DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'none'
+    }
+  }
+}
 
 export const visualUpdatePurchase = () => {}

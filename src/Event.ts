@@ -1,8 +1,9 @@
-import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAdditiveLuckMult, calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calculate'
-import { format, getTimePinnedToLoadDate, player } from './Synergism'
-import { Alert, revealStuff } from './UpdateHTML'
+import { activeConsumables, type PseudoCoinConsumableNames } from './Login'
+import { getTimePinnedToLoadDate, player } from './Synergism'
+import { revealStuff } from './UpdateHTML'
+import { timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
 
 export enum BuffType {
@@ -45,7 +46,6 @@ interface GameEvent {
 }
 
 let nowEvent: GameEvent | null = null
-
 export const getEvent = () => nowEvent
 
 export const eventCheck = async () => {
@@ -64,52 +64,16 @@ export const eventCheck = async () => {
   nowEvent = null
 
   const now = new Date(getTimePinnedToLoadDate()).getTime()
-
   if (now >= apiEvents.start && now <= apiEvents.end && apiEvents.name.length) {
     nowEvent = apiEvents
   }
 
-  const happyHolidays = DOMCacheGetOrSet('happyHolidays') as HTMLAnchorElement
-  const eventBuffs = DOMCacheGetOrSet('eventBuffs')
+  const eventNowEndDate = new Date(nowEvent?.end ?? 0)
+  DOMCacheGetOrSet('globalEventTimer').textContent = timeReminingHours(eventNowEndDate)
+
   const updateIsEventCheck = G.isEvent
 
-  if (nowEvent) {
-    G.isEvent = true
-    const buffs: string[] = []
-
-    for (let i = 0; i < eventBuffType.length; i++) {
-      const eventBuff = calculateEventSourceBuff(BuffType[eventBuffType[i]])
-
-      if (eventBuff !== 0) {
-        if (eventBuffType[i] === 'OneMind' && player.singularityUpgrades.oneMind.level > 0) {
-          buffs.push(
-            `<span style="color: gold">${eventBuff >= 0 ? '+' : '-'}${format(100 * eventBuff, 3, true)}% ${
-              eventBuffName[i]
-            }</span>`
-          )
-        } else if (eventBuffType[i] !== 'OneMind' || player.singularityUpgrades.oneMind.level === 0) {
-          buffs.push(`${eventBuff >= 0 ? '+' : '-'}${format(100 * eventBuff, 2, true)}% ${eventBuffName[i]}`)
-        }
-      }
-    }
-
-    DOMCacheGetOrSet('eventCurrent').textContent = i18next.t('settings.events.activeUntil', {
-      x: new Date(nowEvent.end)
-    })
-
-    eventBuffs.innerHTML = G.isEvent && buffs.length ? `Current Buffs: ${buffs.join(', ')}` : ''
-    // eventBuffs.style.color = 'lime';
-    happyHolidays.innerHTML = `(${nowEvent.name.length}) ${nowEvent.name.join(', ')}`
-    happyHolidays.style.color = nowEvent.color[Math.floor(Math.random() * nowEvent.color.length)]
-    happyHolidays.href = nowEvent.url.length > 0 ? nowEvent.url[Math.floor(Math.random() * nowEvent.url.length)] : '#'
-  } else {
-    G.isEvent = false
-    DOMCacheGetOrSet('eventCurrent').innerHTML = i18next.t('settings.events.inactive')
-    eventBuffs.textContent = ''
-    eventBuffs.style.color = 'var(--red-text-color)'
-    happyHolidays.innerHTML = ''
-    happyHolidays.href = ''
-  }
+  updateGlobalsIsEvent()
 
   if (G.isEvent !== updateIsEventCheck) {
     revealStuff()
@@ -119,7 +83,7 @@ export const eventCheck = async () => {
   }
 }
 
-const eventBuffType: (keyof typeof BuffType)[] = [
+export const eventBuffType: (keyof typeof BuffType)[] = [
   'Quark',
   'GoldenQuark',
   'Cubes',
@@ -135,24 +99,12 @@ const eventBuffType: (keyof typeof BuffType)[] = [
   'AmbrosiaLuck',
   'OneMind'
 ]
-const eventBuffName = [
-  'Quarks',
-  'Golden Quarks',
-  'Cubes from all type',
-  'Powder Conversion',
-  'Ascension Speed',
-  'Global Speed',
-  'Ascension Score',
-  'Ant Sacrifice rewards',
-  'Offering',
-  'Obtainium',
-  'Eight Dimensional Hypercubes',
-  'Blueberry Time Generation',
-  'Ambrosia Luck (Additive Mult)',
-  'One Mind Quark Bonus'
-]
 
 export const calculateEventSourceBuff = (buff: BuffType): number => {
+  return getEventBuff(buff) + consumableEventBuff(buff)
+}
+
+export const getEventBuff = (buff: BuffType): number => {
   const event = getEvent()
 
   if (event === null) {
@@ -161,38 +113,86 @@ export const calculateEventSourceBuff = (buff: BuffType): number => {
 
   switch (buff) {
     case BuffType.Quark:
-      return event.quark ?? 0
+      return event.quark
     case BuffType.GoldenQuark:
-      return event.goldenQuark ?? 0
+      return event.goldenQuark
     case BuffType.Cubes:
-      return event.cubes ?? 0
+      return event.cubes
     case BuffType.PowderConversion:
-      return event.powderConversion ?? 0
+      return event.powderConversion
     case BuffType.AscensionSpeed:
-      return event.ascensionSpeed ?? 0
+      return event.ascensionSpeed
     case BuffType.GlobalSpeed:
-      return event.globalSpeed ?? 0
+      return event.globalSpeed
     case BuffType.AscensionScore:
-      return event.ascensionScore ?? 0
+      return event.ascensionScore
     case BuffType.AntSacrifice:
-      return event.antSacrifice ?? 0
+      return event.antSacrifice
     case BuffType.Offering:
-      return event.offering ?? 0
+      return event.offering
     case BuffType.Obtainium:
-      return event.obtainium ?? 0
+      return event.obtainium
     case BuffType.Octeract:
-      return event.octeract ?? 0
+      return event.octeract
     case BuffType.OneMind:
       return player.singularityUpgrades.oneMind.level > 0 ? event.oneMind : 0
     case BuffType.BlueberryTime:
-      return event.blueberryTime ?? 0
+      return event.blueberryTime
     case BuffType.AmbrosiaLuck:
-      return event.ambrosiaLuck ?? 0
+      return event.ambrosiaLuck
   }
 }
 
-export const clickSmith = (): Promise<void> => {
-  G.eventClicked = true
-  DOMCacheGetOrSet('eventClicked').style.display = 'block'
-  return Alert(i18next.t('event.aprilFools.clicked'))
+export const consumableEventBuff = (buff: BuffType) => {
+  const { HAPPY_HOUR_BELL } = activeConsumables
+  // The interval is the number of events queued excluding the first.
+  const happyHourInterval = HAPPY_HOUR_BELL - 1
+
+  // If no consumable is active, early return
+  if (HAPPY_HOUR_BELL === 0) {
+    return 0
+  }
+
+  switch (buff) {
+    case BuffType.Quark:
+      return HAPPY_HOUR_BELL ? 0.25 + 0.025 * happyHourInterval : 0
+    case BuffType.GoldenQuark:
+      return 0
+    case BuffType.Cubes:
+      return HAPPY_HOUR_BELL ? 0.5 + 0.05 * happyHourInterval : 0
+    case BuffType.PowderConversion:
+      return 0
+    case BuffType.AscensionSpeed:
+      return 0
+    case BuffType.GlobalSpeed:
+      return 0
+    case BuffType.AscensionScore:
+      return 0
+    case BuffType.AntSacrifice:
+      return 0
+    case BuffType.Offering:
+      return HAPPY_HOUR_BELL ? 0.5 + 0.05 * happyHourInterval : 0
+    case BuffType.Obtainium:
+      return HAPPY_HOUR_BELL ? 0.5 + 0.05 * happyHourInterval : 0
+    case BuffType.Octeract:
+      return 0
+    case BuffType.OneMind:
+      return 0
+    case BuffType.BlueberryTime:
+      return HAPPY_HOUR_BELL ? 0.1 + 0.01 * happyHourInterval : 0
+    case BuffType.AmbrosiaLuck:
+      return HAPPY_HOUR_BELL ? 0.1 + 0.01 * happyHourInterval : 0
+  }
+}
+
+const isConsumableActive = (name?: PseudoCoinConsumableNames) => {
+  if (typeof name === 'string') {
+    return activeConsumables[name] > 0
+  }
+
+  return activeConsumables.HAPPY_HOUR_BELL !== 0
+}
+
+export const updateGlobalsIsEvent = () => {
+  return G.isEvent = getEvent() !== null || isConsumableActive()
 }

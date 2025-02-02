@@ -298,16 +298,21 @@ const subtabInfo: Record<Tabs, SubTab> = {
         buttonID: 'cartSubTab3'
       },
       {
+        subTabID: 'consumablesGrid',
+        unlocked: true,
+        buttonID: 'cartSubTab4'
+      },
+      {
         subTabID: 'cartContainer',
         get unlocked () {
           return isLoggedIn() || !prod
         },
-        buttonID: 'cartSubTab4'
+        buttonID: 'cartSubTab5'
       },
       {
         subTabID: 'merchContainer',
         unlocked: true,
-        buttonID: 'cartSubTab5'
+        buttonID: 'cartSubTab6'
       }
     ]
   }
@@ -592,7 +597,6 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith' })
-    .setUnlockedState(() => G.isEvent)
     .setType(Tabs.Event)
     .makeDraggable()
     .makeRemoveable(),

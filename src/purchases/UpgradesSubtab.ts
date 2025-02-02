@@ -158,7 +158,6 @@ const initializeUpgradeSubtab = memoize(() => {
       current.cost.push(upgrade.cost)
       current.level.push(upgrade.level)
     }
-
     return map
   }, new Map<number, UpgradesList>())
 

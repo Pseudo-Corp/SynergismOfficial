@@ -1,5 +1,4 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { Synergism } from './Events'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { Alert, revealStuff } from './UpdateHTML'
@@ -437,7 +436,6 @@ export const buyPlatonicUpgrades = (index: number, auto = false) => {
       player.wowPlatonicCubes.sub(Math.floor(platUpgradeBaseCosts[index].platonics * priceMultiplier))
       player.hepteractCrafts.abyss.spend(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier))
 
-      Synergism.emit('boughtPlatonicUpgrade', platUpgradeBaseCosts[index])
       if (index === 20 && !auto && player.singularityCount === 0) {
         void Alert(
           'While I strongly recommended you not to buy this, you did it anyway. For that, you have unlocked the rune of Grandiloquence, for you are a richass.'

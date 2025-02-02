@@ -3789,8 +3789,78 @@ img#singularityPerksIcon {
 
 #event {
     position: relative;
-    padding: 0;
+    padding: 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.event-container {
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.event-title {
+    margin: 0 0 10px;
+    color: #ffd700;
+}
+
+.event-bonus,
+.event-timer {
+    margin: 5px 0;
+}
+
+#globalEventBonus,
+#consumableEventBonus,
+#globalEventTimer,
+#consumableEventTimer {
+    color: #8f8;
+}
+
+#eventBuffContainer,
+#consumableBuffContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.eventBuffVal,
+.consumableBuffVal {
+    display: flex;
+    align-items: center;
+}
+
+.eventBuffVal img,
+.consumableBuffVal img {
+    margin: 0;
+    padding: 0;
+    height: 32px;
+    width: 32px;
+}
+
+.eventBuffVal p,
+.consumableBuffVall p {
+    margin: 0;
+    padding: 0;
+}
+
+.consumableButton,
+#apply-tips {
+    border: 2px solid #ffd700;
+    background-color: #ffd700;
+    color: black;
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    width: 150px;
+}
+
+#apply-tips:not(:hover) {
+    border: 2px solid var(--hovershop-color);
+    background-color: var(--hovershop-color);
 }
 
 @keyframes rotation {
@@ -3803,23 +3873,7 @@ img#singularityPerksIcon {
     }
 }
 
-#unsmith {
-    margin: 15px;
-    gap: 10px 15px;
-    height: auto;
-    width: 200px;
-    max-width: 500%;
-    animation: rotation 2s infinite linear;
-}
-
-.hoveredBlueberryLoadout1 div.bbPurchasedLoadout1,
-.hoveredBlueberryLoadout2 div.bbPurchasedLoadout2,
-.hoveredBlueberryLoadout3 div.bbPurchasedLoadout3,
-.hoveredBlueberryLoadout4 div.bbPurchasedLoadout4,
-.hoveredBlueberryLoadout5 div.bbPurchasedLoadout5,
-.hoveredBlueberryLoadout6 div.bbPurchasedLoadout6,
-.hoveredBlueberryLoadout7 div.bbPurchasedLoadout7,
-.hoveredBlueberryLoadout8 div.bbPurchasedLoadout8 {
+*[class^="hoveredBlueberryLoadout"] div[class^="bbPurchasedLoadout"] {
     background-color: green;
 }
 
@@ -4144,6 +4198,40 @@ form input:hover {
     justify-content: center;
     margin: 0 auto;
     margin-top: 10px;
+}
+
+#consumablesGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 10px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+#consumablesGrid > div {
+    border: 2px solid var(--amber-text-color);
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+#consumablesGrid > div > button {
+    display: flex;
+    align-items: center;
+    white-space: pre;
+    padding: 0 5px;
+    box-sizing: border-box;
+    border: 2px solid var(--amber-text-color);
+    margin: 5px auto 0;
+}
+
+/* Cost text */
+#consumablesGrid > div > button > :nth-child(2) {
+    color: var(--amber-text-color);
+}
+
+#consumablesGrid > div > * {
+    margin: 0;
 }
 
 #upgradeGrid {
