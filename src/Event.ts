@@ -101,6 +101,10 @@ export const eventBuffType: (keyof typeof BuffType)[] = [
 ]
 
 export const calculateEventSourceBuff = (buff: BuffType): number => {
+  return getEventBuff(buff) + consumableEventBuff(buff)
+}
+
+export const getEventBuff = (buff: BuffType): number => {
   const event = getEvent()
 
   if (event === null) {
@@ -109,33 +113,33 @@ export const calculateEventSourceBuff = (buff: BuffType): number => {
 
   switch (buff) {
     case BuffType.Quark:
-      return event.quark + consumableEventBuff(buff)
+      return event.quark
     case BuffType.GoldenQuark:
-      return event.goldenQuark + consumableEventBuff(buff)
+      return event.goldenQuark
     case BuffType.Cubes:
-      return event.cubes + consumableEventBuff(buff)
+      return event.cubes
     case BuffType.PowderConversion:
-      return event.powderConversion + consumableEventBuff(buff)
+      return event.powderConversion
     case BuffType.AscensionSpeed:
-      return event.ascensionSpeed + consumableEventBuff(buff)
+      return event.ascensionSpeed
     case BuffType.GlobalSpeed:
-      return event.globalSpeed + consumableEventBuff(buff)
+      return event.globalSpeed
     case BuffType.AscensionScore:
-      return event.ascensionScore + consumableEventBuff(buff)
+      return event.ascensionScore
     case BuffType.AntSacrifice:
-      return event.antSacrifice + consumableEventBuff(buff)
+      return event.antSacrifice
     case BuffType.Offering:
-      return event.offering + consumableEventBuff(buff)
+      return event.offering
     case BuffType.Obtainium:
-      return event.obtainium + consumableEventBuff(buff)
+      return event.obtainium
     case BuffType.Octeract:
-      return event.octeract + consumableEventBuff(buff)
+      return event.octeract
     case BuffType.OneMind:
-      return player.singularityUpgrades.oneMind.level > 0 ? event.oneMind + consumableEventBuff(buff) : 0
+      return player.singularityUpgrades.oneMind.level > 0 ? event.oneMind : 0
     case BuffType.BlueberryTime:
-      return event.blueberryTime + consumableEventBuff(buff)
+      return event.blueberryTime
     case BuffType.AmbrosiaLuck:
-      return event.ambrosiaLuck + consumableEventBuff(buff)
+      return event.ambrosiaLuck
   }
 }
 
