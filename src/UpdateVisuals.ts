@@ -1812,7 +1812,7 @@ export const visualUpdateShop = () => {
 export const constructConsumableTimes = (p: PseudoCoinConsumableNames) => {
   let msg = ''
   for (const time of allConsumableTimes[p]) {
-    msg += timeReminingHours(new Date(time))
+    msg += timeReminingHours(new Date(time)) + ', '
   }
   return msg
 }
