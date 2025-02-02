@@ -1152,7 +1152,7 @@
     }
   },
   "calculate": {
-    "timePrompt": "How far in the future would you like to go into the future? Anything awaits when it is testing season.",
+    "timePrompt": "How far in the future (in seconds) would you like to go into the future? Anything awaits when it is testing season.",
     "timePromptError": "Hey! That's not a valid time!",
     "offlineTimer": "You have {{value}} seconds of offline progress!",
     "offlineEarnings": "While offline, the Idle Overlords earned:",
@@ -2491,7 +2491,7 @@
       "singularity": "Singularity",
       "settings": "Settings",
       "shop": "Shop",
-      "unsmith": "UNSMITH",
+      "unsmith": "Events",
       "purchase": "PseudoCoins"
     },
     "buildings": {
@@ -2539,7 +2539,8 @@
       "buy": "Purchase Coins",
       "subscriptions": "Subscriptions",
       "upgrades": "Buy Upgrades",
-      "merch": "Purchase Merch"
+      "merch": "Purchase Merch",
+      "consumables": "Consumables & Events"
     }
   },
   "offlineProgress": {
@@ -3645,6 +3646,15 @@
       "AUTO_POTION_FREE_POTIONS_QOL": "Auto-Potion is <<gold | {{descriptor}}>> FREE!",
       "OFFLINE_TIMER_CAP_BUFF": "Offline Time Capacity is multiplied by <<gold | {{amount}}>>",
       "ADD_CODE_CAP_BUFF": "Code 'add' Capacity is multiplied by <<gold | {{amount}}>>"
+    },
+    "consumables": {
+      "tipReceived": "{{offlineTime}} people tipped you in the last minute!",
+      "thanks": "The booster is now in effect! Thank you for supporting the game!",
+      "eventTitle": "Active Consumables",
+      "consumableSpoiler": "Start an event for everyone, with the Happy Hour Bell!",
+      "consumableButton": "Buy at the PseudoShop!",
+      "applyTips": "Use Tips!",
+      "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s)."
     }
   }
 }

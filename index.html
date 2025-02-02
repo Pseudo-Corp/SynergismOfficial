@@ -111,7 +111,7 @@
             </div>
         </div>
 
-        <button id="exitOffline" class="subtabContent" style="visibility: hidden">That's cool. Take me to the game!</button>
+        <button id="exitOffline" class="subtabContent">That's cool. Take me to the game!</button>
 
     </div>
     <header>
@@ -3046,8 +3046,6 @@
                 </div>
             </div>
             <div id="versionnumber"></div>
-            <span id="eventCurrent" class="orangeredText"></span>
-            <div id="eventBuffs" style="color: lime;">Buffs: </div>
             <a href="#" target="_blank" id="happyHolidays" style="color: greenyellow"></a>
         </div>
         <div class="subtabContent subtabDisplayFlex" id="languagesubtab">
@@ -3284,6 +3282,7 @@
                 <p id="statGSMc3" class="statPortion singularity">Forbidden Clock of Time:<span id="sGSMc3" class="statNumber">0</span></p>
                 <p id="statGSMc4" class="statPortion singularity">EXALT 6: The Great Singularity Speedrun<span id="sGSMc4" class="statNumber">0</span></p>
                 <p id="statGSMc5" class="statPortion singularity">Shop Chronometer S<span id="sGSMc5" class="statNumber">0</span></p>
+                <p id="statGSMc6" class="statPortion singularity">Event<span id="sGSMc6" class="statNumber">0</span></p>
 
                 <p id ="statGSMT" class="statPortion statTotal" style="color: white">TOTAL GLOBAL SPEED MULTIPLIER:<span id="sGSMT" class="statNumber statTotal">0</span></p>
             </div>
@@ -4683,9 +4682,135 @@
     </div>
 
     <div id="event">
-        <a target="_blank" href="https://www.youtube.com/watch?v=E9de-cmycx8"><img id="unsmith" src="Pictures/Default/Unsmith.png"></a>
-        <p i18n="event.aprilFools.introText"></p>
-        <p id="eventClicked" style="color: lime; display: none" i18n="event.aprilFools.clickedText"></p>
+        <div id="globalFreeEvents" class="event-container">
+            <h4 class="event-title">Global Event <span id="globalEventName"></span></h4>
+            <div id="eventBuffContainer">
+                <div class="eventBuffVal" id="eventBuffQuark">
+                    <img src="Pictures/Default/Quark.png" alt="Quarks">
+                    <p id="eventBuffQuarkValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffGoldenQuark">
+                    <img src="Pictures/Default/GoldenQuark.png" alt="Golden Quarks">
+                    <p id="eventBuffGoldenQuarkValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffCubes">
+                    <img src="Pictures/Default/WowCube.png" alt="Cube Bonus">
+                    <p id="eventBuffCubesValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffOcteract">
+                    <img src="Pictures/Default/Octeract.png" alt="Octeract Bonus">
+                    <p id="eventBuffOcteractValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffAscensionSpeed">
+                    <img src="Pictures/Default/TinySpeedAscension.png" alt="Ascension Speed">
+                    <p id="eventBuffAscensionSpeedValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffGlobalSpeed">
+                    <img src="Pictures/Default/TinySpeed.png" alt="Global Speed">
+                    <p id="eventBuffGlobalSpeedValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffObtainium">
+                    <img src="Pictures/Default/Obtainium.png" alt="Obtainium">
+                    <p id="eventBuffObtainiumValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffOffering">
+                    <img src="Pictures/Default/Offering.png" alt="Offering">
+                    <p id="eventBuffOfferingValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffAscensionScore">
+                    <img src="Pictures/Default/TinyA.png" alt="Ascension Score">
+                    <p id="eventBuffAscensionScoreValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffBlueberryTime">
+                    <img src="Pictures/Default/Ambrosia.png" alt="Blueberry Generation Speed">
+                    <p id="eventBuffBlueberryTimeValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffAmbrosiaLuck">
+                    <img src="Pictures/Default/BlueberryLuck.png" alt="Ambrosia Luck">
+                    <p id="eventBuffAmbrosiaLuckValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffPowderConversion">
+                    <img src="Pictures/Default/HepteractOverfluxPowder.png" alt="Powder Conversion">
+                    <p id="eventBuffPowderConversionValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffAntSacrifice">
+                    <img src="Pictures/Default/AntSacrifice.png" alt="Ant Sacrifice">
+                    <p id="eventBuffAntSacrificeValue">+10%</p>
+                </div>
+                <div class="eventBuffVal" id="eventBuffOneMind">
+                    <img src="Pictures/Default/SingularityOneMind.png" alt="One Mind Bonus">
+                    <p id="eventBuffOneMindValue">+10%</p>
+                </div>
+            </div>            
+            <div class="event-timer">Time Remaining: <span id="globalEventTimer">--:--:--</span></div>
+        </div>
+    
+        <div id="consumableEvents" class="event-container">
+            <h4 class="event-title" i18n="pseudoCoins.consumables.eventTitle"></h4>
+            <div class="event-bonus">Current Amount: <span id="consumableEventBonus">No active consumable</span></div>
+            <div class="event-timer">Ends At: <span id="consumableEventTimer">--:--:--</span></div>
+            <div id="consumableBuffContainer">
+                <div class="consumableBuffVal" id="consumableBuffQuark">
+                    <img src="Pictures/Default/Quark.png">
+                    <p id="consumableBuffQuarkValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffGoldenQuark">
+                    <img src="Pictures/Default/GoldenQuark.png">
+                    <p id="consumableBuffGoldenQuarkValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffCubes">
+                    <img src="Pictures/Default/WowCube.png">
+                    <p id="consumableBuffCubesValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffOcteract">
+                    <img src="Pictures/Default/Octeract.png">
+                    <p id="consumableBuffOcteractValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffAscensionSpeed">
+                    <img src="Pictures/Default/TinySpeedAscension.png">
+                    <p id="consumableBuffAscensionSpeedValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffGlobalSpeed">
+                    <img src="Pictures/Default/TinySpeed.png">
+                    <p id="consumableBuffGlobalSpeedValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffObtainium">
+                    <img src="Pictures/Default/Obtainium.png">
+                    <p id="consumableBuffObtainiumValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffOffering">
+                    <img src="Pictures/Default/Offering.png">
+                    <p id="consumableBuffOfferingValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffAscensionScore">
+                    <img src="Pictures/Default/TinyA.png">
+                    <p id="consumableBuffAscensionScoreValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffBlueberryTime">
+                    <img src="Pictures/Default/Ambrosia.png">
+                    <p id="consumableBuffBlueberryTimeValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffAmbrosiaLuck">
+                    <img src="Pictures/Default/BlueberryLuck.png">
+                    <p id="consumableBuffAmbrosiaLuckValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffPowderConversion">
+                    <img src="Pictures/Default/HepteractOverfluxPowder.png">
+                    <p id="consumableBuffPowderConversionValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffAntSacrifice">
+                    <img src="Pictures/Default/AntSacrifice.png">
+                    <p id="consumableBuffAntSacrificeValue">+10%</p>
+                </div>
+                <div class="consumableBuffVal" id="consumableBuffOneMind">
+                    <img src="Pictures/Default/SingularityOneMind.png">
+                    <p id="consumableBuffOneMindValue">+10%</p>
+                </div>
+            </div>
+            <div class="consumableSpoiler" i18n="pseudoCoins.consumables.consumableSpoiler"></div>
+            <button class="consumableButton" i18n="pseudoCoins.consumables.consumableButton"></button>
+            <button id="apply-tips" i18n="pseudoCoins.consumables.applyTips"></button>
+        </div>
     </div>
 
     <div id="pseudoCoins">
@@ -4705,9 +4830,14 @@
           style="border: 2px solid cyan"
           i18n="tabs.pseudocoins.upgrades"
         ></button>
+        <button
+          id="cartSubTab4"
+          style="border: 2px solid #8f8"
+          i18n="tabs.pseudocoins.consumables"
+        ></button>
         <span style="position:relative">
           <button
-            id="cartSubTab4"
+            id="cartSubTab5"
             style="display: flex; align-items: center; justify-content: center; border: 2px solid cornflowerblue; width: 100%"
           >
             <p style="margin: 0">Checkout</p>
@@ -4719,7 +4849,7 @@
           ></span>
         </span>
         <button
-          id="cartSubTab5"
+          id="cartSubTab6"
           style="border: 2px solid white"
           i18n="tabs.pseudocoins.merch"
         ></button>
@@ -4758,6 +4888,8 @@
             </div>
           </div>
         </div>
+      </div>
+      <div id="consumablesGrid">
       </div>
       <div id="cartContainer">
         <div
