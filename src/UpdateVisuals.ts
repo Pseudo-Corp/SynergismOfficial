@@ -28,7 +28,7 @@ import {
 import { CalcECC } from './Challenges'
 import { version } from './Config'
 import type { IMultiBuy } from './Cubes'
-import { BuffType, calculateEventSourceBuff, eventBuffType, getEvent } from './Event'
+import { BuffType, calculateEventSourceBuff, consumableEventBuff, eventBuffType, getEvent } from './Event'
 import type { hepteractTypes } from './Hepteracts'
 import { hepteractTypeList } from './Hepteracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -43,6 +43,7 @@ import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
+import { activeConsumables, happyHourEndTime } from './Login'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -1832,6 +1833,30 @@ export const visualUpdateEvent = () => {
       DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'none'
     }
   }
+  const { HAPPY_HOUR_BELL } = activeConsumables 
+  if (HAPPY_HOUR_BELL > 0) {
+    DOMCacheGetOrSet('consumableEventTimer').textContent = timeReminingHours(new Date(happyHourEndTime))
+    DOMCacheGetOrSet('consumableEventBonus').textContent = `${HAPPY_HOUR_BELL}`
+
+    for (let i = 0; i < eventBuffType.length; i++) {
+      const eventBuff = consumableEventBuff(BuffType[eventBuffType[i]])
+
+      if (eventBuff !== 0) {
+        DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'flex'
+        DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}Value`).textContent = `+${format(100 * eventBuff, 1, true)}%`
+      } else {
+        DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'none'
+      }
+    }
+  }
+  else {
+    DOMCacheGetOrSet('consumableEventBonus').textContent = 'No active consumable'
+    DOMCacheGetOrSet('consumableEventTimer').textContent = '--:--:--'
+    for (let i = 0; i < eventBuffType.length; i++) {
+      DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'none'
+    }
+  }
+
 }
 
 export const visualUpdatePurchase = () => {}

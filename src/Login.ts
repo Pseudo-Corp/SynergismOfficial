@@ -11,7 +11,7 @@ import { format, player } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
 import { assert } from './Utility'
 
-export type PseudoCoinConsumableNames = 'HAPPY_HOUR'
+export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
 // Consts for Patreon Supporter Roles.
 const TRANSCENDED_BALLER = '756419583941804072'
@@ -41,8 +41,10 @@ export const getTips = () => tips
 export const setTips = (newTips: number) => tips = newTips
 
 export const activeConsumables: Record<PseudoCoinConsumableNames, number> = {
-  HAPPY_HOUR: 0
+  HAPPY_HOUR_BELL: 0
 }
+
+export let happyHourEndTime = 0
 
 const messageSchema = z.preprocess(
   (data, ctx) => {
@@ -379,6 +381,8 @@ function handleWebSocket () {
           message += `${name} (x${amount})`
           ends = Math.max(ends, endsAt)
         }
+
+        happyHourEndTime = ends
 
         Notification(message)
         updateEventsPage(ends)

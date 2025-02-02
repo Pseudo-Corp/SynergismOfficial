@@ -139,23 +139,23 @@ export const calculateEventSourceBuff = (buff: BuffType): number => {
   }
 }
 
-const consumableEventBuff = (buff: BuffType) => {
-  const { HAPPY_HOUR } = activeConsumables
+export const consumableEventBuff = (buff: BuffType) => {
+  const { HAPPY_HOUR_BELL } = activeConsumables
   // The interval is the number of events queued excluding the first.
-  const happyHourInterval = HAPPY_HOUR - 1
+  const happyHourInterval = HAPPY_HOUR_BELL - 1
 
   // If no consumable is active, early return
-  if (HAPPY_HOUR === 0) {
+  if (HAPPY_HOUR_BELL === 0) {
     return 0
   }
 
   switch (buff) {
     case BuffType.Quark:
-      return HAPPY_HOUR ? 0.25 + 0.025 * happyHourInterval : 0
+      return HAPPY_HOUR_BELL ? 0.25 + 0.025 * happyHourInterval : 0
     case BuffType.GoldenQuark:
       return 0
     case BuffType.Cubes:
-      return HAPPY_HOUR ? 0.5 + 0.05 * happyHourInterval : 0
+      return HAPPY_HOUR_BELL ? 0.5 + 0.05 * happyHourInterval : 0
     case BuffType.PowderConversion:
       return 0
     case BuffType.AscensionSpeed:
@@ -167,17 +167,17 @@ const consumableEventBuff = (buff: BuffType) => {
     case BuffType.AntSacrifice:
       return 0
     case BuffType.Offering:
-      return HAPPY_HOUR ? 0.5 + 0.05 * happyHourInterval : 0
+      return HAPPY_HOUR_BELL ? 0.5 + 0.05 * happyHourInterval : 0
     case BuffType.Obtainium:
-      return HAPPY_HOUR ? 0.5 + 0.05 * happyHourInterval : 0
+      return HAPPY_HOUR_BELL ? 0.5 + 0.05 * happyHourInterval : 0
     case BuffType.Octeract:
       return 0
     case BuffType.OneMind:
       return 0
     case BuffType.BlueberryTime:
-      return HAPPY_HOUR ? 0.1 + 0.01 * happyHourInterval : 0
+      return HAPPY_HOUR_BELL ? 0.1 + 0.01 * happyHourInterval : 0
     case BuffType.AmbrosiaLuck:
-      return HAPPY_HOUR ? 0.1 + 0.01 * happyHourInterval : 0
+      return HAPPY_HOUR_BELL ? 0.1 + 0.01 * happyHourInterval : 0
   }
 }
 
@@ -186,7 +186,7 @@ const isConsumableActive = (name?: PseudoCoinConsumableNames) => {
     return activeConsumables[name] > 0
   }
 
-  return activeConsumables.HAPPY_HOUR !== 0
+  return activeConsumables.HAPPY_HOUR_BELL !== 0
 }
 
 export const updateGlobalsIsEvent = () => {
