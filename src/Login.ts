@@ -415,7 +415,7 @@ function handleWebSocket () {
         for (const { internalName, name, endsAt } of data.active) {
           activeConsumables[internalName as PseudoCoinConsumableNames]++
           allConsumableTimes[internalName as PseudoCoinConsumableNames].push(endsAt)
-          message += `${name}, until ${endsAt}\n`
+          message += `${name}, until ${new Date(endsAt)}\n`
         }
 
         Notification(message)
