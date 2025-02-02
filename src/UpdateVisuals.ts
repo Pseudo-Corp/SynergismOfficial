@@ -1810,11 +1810,11 @@ export const visualUpdateShop = () => {
 }
 
 export const constructConsumableTimes = (p: PseudoCoinConsumableNames) => {
-  let msg = ''
+  const msg: string[] = []
   for (const time of allConsumableTimes[p]) {
-    msg += timeReminingHours(new Date(time)) + ', '
+    msg.push(timeReminingHours(new Date(time)))
   }
-  return msg
+  return msg.join(', ')
 }
 
 export const visualUpdateEvent = () => {

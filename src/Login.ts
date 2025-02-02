@@ -44,10 +44,6 @@ export const activeConsumables: Record<PseudoCoinConsumableNames, number> = {
   HAPPY_HOUR_BELL: 0
 }
 
-export const consumableTimes: Record<PseudoCoinConsumableNames, number> = {
-  HAPPY_HOUR_BELL: 0
-}
-
 export const allConsumableTimes: Record<PseudoCoinConsumableNames, Array<number>> = {
   HAPPY_HOUR_BELL: []
 }
@@ -87,7 +83,7 @@ const messageSchema = z.preprocess(
         name: z.string(),
         internalName: z.string(),
         endsAt: z.number().int()
-      }).array(),
+      }).array()
     }),
     /** Received after the *user* successfully redeems a consumable. */
     z.object({ type: z.literal('thanks') }),
@@ -347,7 +343,6 @@ let tries = 0
 function resetConsumables () {
   for (const key in activeConsumables) {
     activeConsumables[key as PseudoCoinConsumableNames] = 0
-    consumableTimes[key as PseudoCoinConsumableNames] = 0
     allConsumableTimes[key as PseudoCoinConsumableNames].length = 0 // Specifically for info-all
   }
 }
@@ -378,6 +373,7 @@ function handleWebSocket () {
     }
 
     queue.length = 0
+    sendToWebsocket(JSON.stringify({ type: 'info-all' }))
   })
 
   ws.addEventListener('message', (ev) => {
@@ -402,29 +398,27 @@ function handleWebSocket () {
 
         for (const { amount, internalName, name, endsAt } of data.active) {
           activeConsumables[internalName as PseudoCoinConsumableNames] = amount
-          consumableTimes[internalName as PseudoCoinConsumableNames] = endsAt
           message += `${name} (x${amount})`
           ends = Math.max(ends, endsAt)
         }
 
         Notification(message)
-        updateEventsPage(ends)
       }
 
       tips = data.tips
     } else if (data.type === 'info-all') { // new, needs to be checked
       resetConsumables() // So that we can get an accurate count each time
-      let message = 'The following consumables are active:\n'
+      if (data.active.length !== 0) {
+        let message = 'The following consumables are active:\n'
 
-      for (const { internalName, name, endsAt } of data.active) {
-        activeConsumables[internalName as PseudoCoinConsumableNames]++
-        allConsumableTimes[internalName as PseudoCoinConsumableNames].push(endsAt)
-        message += `${name}, until ${endsAt}\n`
+        for (const { internalName, name, endsAt } of data.active) {
+          activeConsumables[internalName as PseudoCoinConsumableNames]++
+          allConsumableTimes[internalName as PseudoCoinConsumableNames].push(endsAt)
+          message += `${name}, until ${endsAt}\n`
+        }
+
+        Notification(message)
       }
-
-      Notification(message)
-      // i don't think the current ui uses updateEvents page
-
     } else if (data.type === 'thanks') {
       Alert(i18next.t('pseudoCoins.consumables.thanks'))
     } else if (data.type === 'tip-backlog' || data.type === 'tips') {
@@ -439,14 +433,6 @@ function handleWebSocket () {
 
     updateGlobalsIsEvent()
   })
-}
-
-function updateEventsPage (endsAt: number) {
-  const amount = document.getElementById('consumableEventBonus')!
-  const timer = document.getElementById('consumableEventTimer')!
-
-  timer.textContent = new Date(endsAt).toLocaleString()
-  amount.textContent = `${Object.values(activeConsumables).reduce((a, b) => a + b, 0)}`
 }
 
 export function sendToWebsocket (message: string) {
