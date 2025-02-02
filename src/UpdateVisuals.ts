@@ -31,6 +31,7 @@ import type { IMultiBuy } from './Cubes'
 import { BuffType, calculateEventSourceBuff, consumableEventBuff, eventBuffType, getEvent } from './Event'
 import type { hepteractTypes } from './Hepteracts'
 import { hepteractTypeList } from './Hepteracts'
+import { activeConsumables, happyHourEndTime } from './Login'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { displayRuneInformation } from './Runes'
@@ -43,7 +44,6 @@ import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
-import { activeConsumables, happyHourEndTime } from './Login'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -1833,7 +1833,7 @@ export const visualUpdateEvent = () => {
       DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'none'
     }
   }
-  const { HAPPY_HOUR_BELL } = activeConsumables 
+  const { HAPPY_HOUR_BELL } = activeConsumables
   if (HAPPY_HOUR_BELL > 0) {
     DOMCacheGetOrSet('consumableEventTimer').textContent = timeReminingHours(new Date(happyHourEndTime))
     DOMCacheGetOrSet('consumableEventBonus').textContent = `${HAPPY_HOUR_BELL}`
@@ -1848,15 +1848,13 @@ export const visualUpdateEvent = () => {
         DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'none'
       }
     }
-  }
-  else {
+  } else {
     DOMCacheGetOrSet('consumableEventBonus').textContent = 'No active consumable'
     DOMCacheGetOrSet('consumableEventTimer').textContent = '--:--:--'
     for (let i = 0; i < eventBuffType.length; i++) {
       DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'none'
     }
   }
-
 }
 
 export const visualUpdatePurchase = () => {}

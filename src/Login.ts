@@ -365,7 +365,6 @@ function handleWebSocket () {
       Notification(data.message, 5_000)
     } else if (data.type === 'consumed') {
       activeConsumables[data.consumable as PseudoCoinConsumableNames]++
-      happyHourEndTime = data.startedAt + 3_600_000
       Notification(`Someone redeemed a(n) ${data.consumable}!`)
     } else if (data.type === 'consumable-ended') {
       activeConsumables[data.consumable as PseudoCoinConsumableNames]--

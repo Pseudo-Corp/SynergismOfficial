@@ -3490,9 +3490,9 @@ export const forcedDailyReset = (rewards = false) => {
 }
 
 export const calculateEventBuff = (buff: BuffType) => {
-  //if (!G.isEvent) {
+  // if (!G.isEvent) {
   //  return 0
-  //}
+  // }
   return calculateEventSourceBuff(buff)
 }
 
