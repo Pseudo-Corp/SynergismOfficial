@@ -83,7 +83,8 @@ const messageSchema = z.preprocess(
         name: z.string(),
         internalName: z.string(),
         endsAt: z.number().int()
-      }).array()
+      }).array(),
+      tips: z.number().int().nonnegative()
     }),
     /** Received after the *user* successfully redeems a consumable. */
     z.object({ type: z.literal('thanks') }),
@@ -419,6 +420,8 @@ function handleWebSocket () {
 
         Notification(message)
       }
+
+      tips = data.tips
     } else if (data.type === 'thanks') {
       Alert(i18next.t('pseudoCoins.consumables.thanks'))
     } else if (data.type === 'tip-backlog' || data.type === 'tips') {
