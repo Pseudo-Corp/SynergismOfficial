@@ -28,7 +28,7 @@ import {
 import { CalcECC } from './Challenges'
 import { version } from './Config'
 import type { IMultiBuy } from './Cubes'
-import { BuffType, calculateEventSourceBuff, consumableEventBuff, eventBuffType, getEvent } from './Event'
+import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
 import type { hepteractTypes } from './Hepteracts'
 import { hepteractTypeList } from './Hepteracts'
 import { activeConsumables, happyHourEndTime } from './Login'
@@ -1817,7 +1817,7 @@ export const visualUpdateEvent = () => {
     DOMCacheGetOrSet('globalEventName').textContent = `(${event.name.length}) - ${event.name.join(', ')}`
 
     for (let i = 0; i < eventBuffType.length; i++) {
-      const eventBuff = calculateEventSourceBuff(BuffType[eventBuffType[i]])
+      const eventBuff = getEventBuff(BuffType[eventBuffType[i]])
 
       if (eventBuff !== 0) {
         DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'flex'
