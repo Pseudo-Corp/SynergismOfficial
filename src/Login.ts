@@ -386,9 +386,12 @@ function handleWebSocket () {
       resetConsumables()
     } else if (data.type === 'consumed') {
       activeConsumables[data.consumable as PseudoCoinConsumableNames]++
+      allConsumableTimes[data.consumable as PseudoCoinConsumableNames].push(data.startedAt + 3600 * 1000)
       Notification(`Someone redeemed a(n) ${data.consumable}!`)
     } else if (data.type === 'consumable-ended') {
       activeConsumables[data.consumable as PseudoCoinConsumableNames]--
+      // Because of the invariant that the timestamps are sorted, we can just remove the first element
+      allConsumableTimes[data.consumable as PseudoCoinConsumableNames].shift()
       Notification(`A(n) ${data.consumable} ended!`)
     } else if (data.type === 'join') {
       Notification('Connection was established!')
@@ -412,11 +415,13 @@ function handleWebSocket () {
       if (data.active.length !== 0) {
         let message = 'The following consumables are active:\n'
 
-        for (const { internalName, name, endsAt } of data.active) {
+        for (const { internalName, endsAt } of data.active) {
           activeConsumables[internalName as PseudoCoinConsumableNames]++
           allConsumableTimes[internalName as PseudoCoinConsumableNames].push(endsAt)
-          message += `${name}, until ${new Date(endsAt)}\n`
         }
+        // Are these already in order? I assume so but just to be sure
+        allConsumableTimes.HAPPY_HOUR_BELL.sort((a, b) => a - b)
+        message += `Happy Hour Bell (x${activeConsumables.HAPPY_HOUR_BELL})`
 
         Notification(message)
       }
