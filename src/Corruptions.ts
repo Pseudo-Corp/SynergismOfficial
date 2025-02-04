@@ -284,6 +284,38 @@ export class CorruptionLoadout {
   get totalCorruptionAscensionMultiplier () {
     return this.#totalScoreMult
   }
+
+  get deflation () {
+    return this.#levels.deflation
+  }
+
+  get extinction () {
+    return this.#levels.extinction
+  }
+
+  get recession () {
+    return this.#levels.recession
+  }
+
+  get viscosity () {
+    return this.#levels.viscosity
+  }
+
+  get illiteracy () {
+    return this.#levels.illiteracy
+  }
+
+  get drought () {
+    return this.#levels.drought
+  }
+
+  get hyperchallenge () {
+    return this.#levels.hyperchallenge
+  }
+
+  get dilation () {
+    return this.#levels.dilation
+  }
 }
 
 export type SavedCorruption = {

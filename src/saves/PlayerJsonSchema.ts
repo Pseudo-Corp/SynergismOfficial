@@ -26,8 +26,8 @@ export const playerJsonSchema = playerSchema.extend({
 
   corruptions: z.any().transform((stuff: Player['corruptions']) => {
     return {
-      used: stuff.used.getLoadout(),
-      next: stuff.next.getLoadout(),
+      used: stuff.used.loadout,
+      next: stuff.next.loadout,
       saves: Object.fromEntries(
         stuff.saves.getSaves().map((save: { name: string; loadout: CorruptionLoadout }) => {
           return [save.name, save.loadout.loadout]
