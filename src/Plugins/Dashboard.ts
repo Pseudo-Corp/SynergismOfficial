@@ -88,7 +88,7 @@ const statValues: ((el: HTMLElement) => void)[] = [
   (el) => el.textContent = format(player.challenge15Exponent, 0),
   (el) => el.textContent = player.runeBlessingLevels.slice(1, 6).map((x) => format(x)).join(' / '),
   (el) => el.textContent = player.runeSpiritLevels.slice(1, 6).map((x) => format(x)).join(' / '),
-  (el) => el.textContent = player.usedCorruptions.slice(1, 10).join(' / '),
+  (el) => el.textContent = player.corruptions.used.loadout.join(' / '),
   (el) => el.textContent = player.challengecompletions.slice(1, 6).join(' / '),
   (el) => el.textContent = player.challengecompletions.slice(6, 11).join(' / '),
   (el) => el.textContent = player.runelevels.join(' / '),

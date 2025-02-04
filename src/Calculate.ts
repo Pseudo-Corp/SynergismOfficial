@@ -233,7 +233,7 @@ export function calculateRuneExpGiven (
   // Corruption Divisor
   const droughtEffect = 1
     / Math.pow(
-      G.droughtMultiplier[player.usedCorruptions[8]],
+      G.droughtMultiplier[player.corruptions.used.drought],
       1 - (1 / 2) * player.platonicUpgrades[13]
     )
 
@@ -579,14 +579,7 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= 1 + player.shopUpgrades.obtainiumAuto / 50
   G.obtainiumGain *= 1 + player.shopUpgrades.cashGrab / 100
   G.obtainiumGain *= 1 + (1 / 25) * player.shopUpgrades.obtainiumEX
-  G.obtainiumGain *= 1
-    + (G.rune5level / 200)
-      * G.effectiveLevelMult
-      * (1
-        + (player.researches[84] / 200)
-          * (1
-            + (1 * G.effectiveRuneSpiritPower[5] * calculateCorruptionPoints())
-              / 400))
+  G.obtainiumGain *= 1 + (G.rune5level / 200) * G.effectiveLevelMult * (1 + (player.researches[84] / 200) * (1 + G.effectiveRuneSpiritPower[5] * player.corruptions.used.totalCorruptionDifficultyMultiplier))
   G.obtainiumGain *= 1
     + 0.01 * player.achievements[84]
     + 0.03 * player.achievements[91]
@@ -606,7 +599,7 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= 1 + 0.1 * player.cubeUpgrades[47]
   G.obtainiumGain *= 1 + 0.1 * player.cubeUpgrades[3]
   G.obtainiumGain *= 1 + 0.5 * CalcECC('ascension', player.challengecompletions[12])
-  G.obtainiumGain *= 1 + (calculateCorruptionPoints() / 400) * G.effectiveRuneSpiritPower[4]
+  G.obtainiumGain *= 1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[4]
   G.obtainiumGain *= 1
     + ((0.03 * Math.log(player.uncommonFragments + 1)) / Math.log(4))
       * player.researches[144]
@@ -642,7 +635,7 @@ export const calculateObtainium = () => {
     G.obtainiumGain,
     Math.min(
       1,
-      G.illiteracyPower[player.usedCorruptions[5]]
+      G.illiteracyPower[player.corruptions.used.illiteracy]
         * (1
           + (9 / 100)
             * player.platonicUpgrades[9]
@@ -695,10 +688,10 @@ export const calculateObtainium = () => {
   G.obtainiumGain = Math.min(1e300, G.obtainiumGain)
   G.obtainiumGain /= calculateSingularityDebuff('Obtainium')
 
-  if (player.usedCorruptions[5] >= 15) {
+  if (player.corruptions.used.illiteracy >= 15) {
     G.obtainiumGain = Math.pow(G.obtainiumGain, 1 / 4)
   }
-  if (player.usedCorruptions[5] >= 16) {
+  if (player.corruptions.used.illiteracy >= 16) {
     G.obtainiumGain = Math.pow(G.obtainiumGain, 1 / 3)
   }
 
@@ -1879,13 +1872,13 @@ export const calculateCubeMultiplier = (score = -1) => {
     + Math.min(0.15, (0.6 / 100) * Math.log10(score + 1))
       * player.achievements[254],
     // Spirit Power
-    1 + (calculateCorruptionPoints() / 400) * G.effectiveRuneSpiritPower[2],
+    1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[2],
     // Platonic Cube Opening Bonus
     G.platonicBonusMultiplier[0],
     // Platonic 1x1
     1
     + 0.00009
-      * sumContents(player.usedCorruptions)
+      * player.corruptions.used.totalLevels
       * player.platonicUpgrades[1],
     // Cube Upgrade 63 (Cx13)
     1
@@ -1907,7 +1900,7 @@ export const calculateTesseractMultiplier = (score = -1) => {
     score = calculateAscensionScore().effectiveScore
   }
 
-  const corrSum = sumContents(player.usedCorruptions.slice(2, 10))
+  const corrSum = player.corruptions.used.totalLevels
   const arr = [
     // Ascension Score Multiplier
     Math.pow(1 + Math.max(0, score - 1e5) / 1e4, 0.35),
@@ -1992,7 +1985,7 @@ export const calculateHypercubeMultiplier = (score = -1) => {
     // Platonic Upgrade 1x3
     1
     + 0.00054
-      * sumContents(player.usedCorruptions)
+      * player.corruptions.used.totalLevels
       * player.platonicUpgrades[3],
     // Hyperreal Hepteract Bonus
     1 + (0.6 / 1000) * hepteractEffective('hyperrealism')
@@ -2088,7 +2081,7 @@ export const calculateHepteractMultiplier = (score = -1) => {
 }
 
 export const getOcteractValueMultipliers = () => {
-  const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
+  const corruptionLevelSum = player.corruptions.used.totalLevels
   return [
     PCoinUpgradeEffects.CUBE_BUFF,
     1 + (1.5 * player.shopUpgrades.seasonPass3) / 100,
@@ -2223,7 +2216,7 @@ export const calculateTimeAcceleration = () => {
     1 + 0.006 * player.researches[181], // research 8x6
     1 + 0.003 * player.researches[196], // research 8x21
     1 + 8 * G.effectiveRuneBlessingPower[1], // speed blessing
-    1 + (calculateCorruptionPoints() / 400) * G.effectiveRuneSpiritPower[1], // speed SPIRIT
+    1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[1], // speed SPIRIT
     G.cubeBonusMultiplier[10], // Chronos cube blessing
     1 + player.cubeUpgrades[18] / 5, // cube upgrade 2x8
     calculateSigmoid(2, player.antUpgrades[12 - 1]! + G.bonusant12, 69), // ant 12
@@ -2234,7 +2227,7 @@ export const calculateTimeAcceleration = () => {
 
   // Global Speed softcap + Corruption / Corruption-like effects
   const corruptionArr: number[] = [
-    G.lazinessMultiplier[player.usedCorruptions[3]] // Corruption:  Spacial Dilation
+    G.dilationMultiplier[player.corruptions.used.dilation] // Corruption:  Spacial Dilation
   ]
 
   const corruptableTimeMult = productContents(preCorruptionArr) * corruptionArr[0] // DR applies after base corruption.
@@ -2278,7 +2271,7 @@ export const calculateTimeAcceleration = () => {
     * productContents(corruptionArr)
     * productContents(postCorruptionArr)
 
-  if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
+  if (player.corruptions.used.dilation >= 6 && player.achievements[241] < 1) {
     achievementaward(241)
   }
   if (timeMult > 3600 && player.achievements[242] < 1) {
@@ -2320,7 +2313,7 @@ export const calculateAscensionSpeedMultiplier = () => {
     + Math.min(0.1, (1 / 100) * Math.log10(player.ascensionCount + 1))
       * player.achievements[263], // Achievement 263 Bonus
     1
-    + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15], // Platonic Omega
+    + 0.002 * player.corruptions.used.totalLevels * player.platonicUpgrades[15], // Platonic Omega
     G.challenge15Rewards.ascensionSpeed, // Challenge 15 Reward
     1 + (1 / 400) * player.cubeUpgrades[59], // Cookie Upgrade 9
     1
@@ -2560,20 +2553,6 @@ export const calculateGoldenQuarkGain = (computeMultiplier = false): number => {
   return calculateGoldenQuarkMultiplier(computeMultiplier).mult
 }
 
-export const calculateCorruptionPoints = () => {
-  let basePoints = 400
-  const bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect()
-      .bonus
-    ? 1
-    : 0
-
-  for (let i = 1; i <= 9; i++) {
-    basePoints += 16 * Math.pow(player.usedCorruptions[i] + bonusLevel, 2)
-  }
-
-  return basePoints
-}
-
 // If you want to sum from a baseline level i to the maximum buyable level n, what would the cost be and how many levels would you get?
 export const calculateSummationLinear = (
   baseLevel: number,
@@ -2766,7 +2745,7 @@ export const computeAscensionScoreBonusMultiplier = () => {
 
 export const calculateAscensionScore = () => {
   let baseScore = 0
-  let corruptionMultiplier = 1
+  const corruptionMultiplier = player.corruptions.used.totalCorruptionAscensionMultiplier
   let effectiveScore = 0
 
   let bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect()
@@ -2852,24 +2831,6 @@ export const calculateAscensionScore = () => {
     : 0
   bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
   bonusVal += 0.3 * player.cubeUpgrades[74]
-  for (let i = 2; i < 10; i++) {
-    const exponent = i === 2 && player.usedCorruptions[i] >= 10
-      ? 1
-        + 2 * Math.min(1, player.platonicUpgrades[17])
-        + 0.04 * player.platonicUpgrades[17]
-      : 1
-    corruptionMultiplier *= Math.pow(
-      G.corruptionPointMultipliers[player.usedCorruptions[i] + bonusLevel],
-      exponent
-    ) + bonusVal
-
-    if (
-      player.usedCorruptions[i] >= 14
-      && player.singularityUpgrades.masterPack.getEffect().bonus
-    ) {
-      corruptionMultiplier *= 1.1
-    }
-  }
 
   const bonusMultiplier = computeAscensionScoreBonusMultiplier()
 

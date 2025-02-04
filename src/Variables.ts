@@ -449,7 +449,7 @@ export const Globals: GlobalVariables = {
   autoTalismanTimer: 0,
 
   autoChallengeTimerIncrement: 0,
-  corruptionTrigger: 1,
+  corruptionTrigger: 'illiteracy',
 
   challenge15Rewards: {
     cube1: 1,

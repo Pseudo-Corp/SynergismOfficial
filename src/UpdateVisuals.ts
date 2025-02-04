@@ -8,7 +8,6 @@ import {
   calculateAmbrosiaCubeMult,
   calculateAmbrosiaQuarkMult,
   calculateAutomaticObtainium,
-  calculateCorruptionPoints,
   calculateCubeQuarkMultiplier,
   calculateMaxRunes,
   calculateNumberOfThresholds,
@@ -717,7 +716,7 @@ export const visualUpdateRunes = () => {
     const spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
     const subtract = [0, 0, 0, 1, 0, 0]
     for (let i = 1; i <= 5; i++) {
-      spiritMultiplierArray[i] *= calculateCorruptionPoints() / 400
+      spiritMultiplierArray[i] *= player.corruptions.used.totalCorruptionDifficultyMultiplier
 
       DOMCacheGetOrSet(`runeSpiritLevel${i}Value`).innerHTML = i18next.t(
         'runes.spirits.spiritLevel',
@@ -1308,8 +1307,8 @@ export const visualUpdateCorruptions = () => {
     'corruptions.antExponent',
     {
       exponent: format(
-        (1 - (0.9 / 90) * sumContents(player.usedCorruptions))
-          * G.extinctionMultiplier[player.usedCorruptions[7]],
+        (1 - (0.9 / 90) * player.corruptions.used.totalLevels)
+          * G.extinctionMultiplier[player.corruptions.used.extinction],
         3
       )
     }
@@ -1317,7 +1316,7 @@ export const visualUpdateCorruptions = () => {
   DOMCacheGetOrSet('corruptionSpiritBonus').innerHTML = i18next.t(
     'corruptions.spiritBonus',
     {
-      multiplier: format(calculateCorruptionPoints() / 400, 2, true)
+      multiplier: format(player.corruptions.used.totalCorruptionDifficultyMultiplier, 2, true)
     }
   )
   DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'block' : 'none'

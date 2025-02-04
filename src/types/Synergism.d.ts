@@ -15,6 +15,7 @@ import type {
   BlueberryInventoryCache
 } from '../StatCache'
 import type { Tabs } from '../Tabs'
+import type { Corruptions } from '../Corruptions'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 
@@ -536,11 +537,12 @@ export interface Player {
   roombaResearchIndex: number
   ascStatToggles: Record<number, boolean>
 
-  prototypeCorruptions: number[]
-  usedCorruptions: number[]
-  corruptionLoadouts: Record<number, number[]>
-  corruptionLoadoutNames: string[]
-  corruptionShowStats: boolean
+  corruptions: {
+    next: CorruptionLoadout
+    used: CorruptionLoadout
+    saves: CorruptionSaves
+    showStats: boolean
+  }
 
   constantUpgrades: ArrayStartingWithNull<number>
   history: Record<Category, ResetHistoryEntryUnion[]>
@@ -952,7 +954,7 @@ export interface GlobalVariables {
   autoTalismanTimer: number
 
   autoChallengeTimerIncrement: number
-  corruptionTrigger: number
+  corruptionTrigger: keyof Corruptions
 
   challenge15Rewards: {
     cube1: number

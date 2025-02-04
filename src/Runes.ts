@@ -1,5 +1,4 @@
 import {
-  calculateCorruptionPoints,
   calculateEffectiveIALevel,
   calculateMaxRunes,
   calculateOfferings,
@@ -19,7 +18,7 @@ import type { resetNames } from './types/Synergism'
 export const displayRuneInformation = (i: number, updatelevelup = true) => {
   const m = G.effectiveLevelMult
   const SILevelMult = 1
-    + player.researches[84] / 200 * (1 + 1 * G.effectiveRuneSpiritPower[5] * calculateCorruptionPoints() / 400)
+    + player.researches[84] / 200 * (1 + 1 * G.effectiveRuneSpiritPower[5] * player.corruptions.used.totalCorruptionDifficultyMultiplier)
   const amountPerOffering = calculateRuneExpGiven(i - 1, false, player.runelevels[i - 1])
 
   let options: StringMap
