@@ -15,7 +15,7 @@ import type {
   BlueberryInventoryCache
 } from '../StatCache'
 import type { Tabs } from '../Tabs'
-import type { Corruptions } from '../Corruptions'
+import type { Corruptions, CorruptionLoadout } from '../Corruptions'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 
