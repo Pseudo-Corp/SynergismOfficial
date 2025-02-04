@@ -923,13 +923,13 @@ export interface GlobalVariables {
   researchOrderByCost: number[]
 
   viscosityPower: number[]
-  lazinessMultiplier: number[]
-  hyperchallengedMultiplier: number[]
+  dilationMultiplier: number[]
+  hyperchallengeMultiplier: number[]
   illiteracyPower: number[]
   deflationMultiplier: number[]
   extinctionMultiplier: number[]
   droughtMultiplier: number[]
-  financialcollapsePower: number[]
+  recessionPower: number[]
 
   corruptionPointMultipliers: number[]
 
