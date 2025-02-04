@@ -282,8 +282,17 @@ export class SingularityChallenge {
   }
 }
 
+export type SingularityChallengeDataKeys =
+  | 'noSingularityUpgrades'
+  | 'oneChallengeCap'
+  | 'noOcteracts'
+  | 'limitedAscensions'
+  | 'noAmbrosiaUpgrades'
+  | 'limitedTime'
+  | 'sadisticPrequel'
+
 export const singularityChallengeData: Record<
-  keyof Player['singularityUpgrades'],
+  SingularityChallengeDataKeys,
   ISingularityChallengeData
 > = {
   noSingularityUpgrades: {

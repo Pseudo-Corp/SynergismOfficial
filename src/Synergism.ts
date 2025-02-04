@@ -170,7 +170,11 @@ import { getQuarkBonus, QuarkHandler } from './Quark'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerSchema } from './saves/PlayerSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
-import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
+import {
+  SingularityChallenge,
+  singularityChallengeData,
+  type SingularityChallengeDataKeys
+} from './SingularityChallenges'
 import {
   AmbrosiaGenerationCache,
   AmbrosiaLuckAdditiveMultCache,
@@ -1661,8 +1665,9 @@ const loadSynergy = () => {
     if (player.insideSingularityChallenge) {
       const challenges = Object.keys(player.singularityChallenges)
       for (let i = 0; i < challenges.length; i++) {
-        if (player.singularityChallenges[challenges[i]].enabled) {
-          G.currentSingChallenge = singularityChallengeData[challenges[i]].HTMLTag
+        const k = challenges[i] as SingularityChallengeDataKeys
+        if (player.singularityChallenges[k].enabled) {
+          G.currentSingChallenge = singularityChallengeData[k].HTMLTag
           break
         }
       }
