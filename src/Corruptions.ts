@@ -5,8 +5,267 @@ import { format, player } from './Synergism'
 import { IconSets } from './Themes'
 import { toggleCorruptionLevel } from './Toggles'
 import { Alert, Prompt } from './UpdateHTML'
-import { getElementById } from './Utility'
+import { getElementById, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
+
+export const convertInputToCorruption = (array: number[]): Corruptions => {
+  return {
+    viscosity: array[0],
+    dilation: array[1],
+    hyperchallenge: array[2],
+    illiteracy: array[3],
+    deflation: array[4],
+    extinction: array[5],
+    drought: array[6],
+    recession: array[7]
+  }
+}
+
+export type Corruptions = {
+  viscosity: number
+  drought: number
+  deflation: number
+  extinction: number
+  illiteracy: number
+  recession: number
+  dilation: number
+  hyperchallenge: number
+}
+
+export const c15Corruptions: Corruptions = {
+  viscosity: 11,
+  drought: 11,
+  deflation: 11,
+  extinction: 11,
+  illiteracy: 11,
+  recession: 11,
+  dilation: 11,
+  hyperchallenge: 11
+}
+
+export class CorruptionLoadout {
+  #totalScoreMult = 1
+  #corruptionScoreMults = [1, 3, 4, 5, 6, 7, 7.75, 8.5, 9.25, 10, 10.75, 11.5, 12.25, 13, 16, 20, 25, 33, 35]
+  #levels: Corruptions = {
+    viscosity: 0,
+    drought: 0,
+    deflation: 0,
+    extinction: 0,
+    illiteracy: 0,
+    recession: 0,
+    dilation: 0,
+    hyperchallenge: 0
+  }
+  #bonusLevels = 0
+
+  constructor (p: Partial<Corruptions>) {
+    Object.assign(this.#levels, p)
+  }
+
+  public setCorruptionLevels (corruptions: Partial<Corruptions>) {
+    Object.assign(this.#levels, corruptions)
+    this.clipCorruptionLevels()
+    this.#totalScoreMult = this.#calcTotalScoreMult()
+    this.#bonusLevels = this.#calcBonusLevels()
+  }
+
+  public setCorruptionLevelsWithChallengeRequirement (corruptions: Partial<Corruptions>) {
+    Object.assign(this.#levels, corruptions)
+    for (const corr in this.#levels) {
+      const corrKey = corr as keyof Corruptions
+      if (
+        player.challengecompletions[corrChallengeMinimumNew(corrKey)] === 0
+        && !player.singularityUpgrades.platonicTau.getEffect().bonus
+      ) {
+        this.setLevel(corrKey, 0)
+      }
+    }
+    this.#bonusLevels = this.#calcBonusLevels()
+    this.clipCorruptionLevels()
+    this.#totalScoreMult = this.#calcTotalScoreMult()
+  }
+
+  public clipCorruptionLevels () {
+    const minLevel = 0
+    const maxLevel = maxCorruptionLevel()
+
+    for (const [corr, level] of Object.entries(this.#levels)) {
+      const corruption = corr as keyof Corruptions
+
+      // Standard Validation
+      if (!validateNonnegativeInteger(level)) {
+        this.#levels[corruption] = 0
+      }
+
+      this.#levels[corruption] = Math.max(minLevel, this.#levels[corruption])
+      this.#levels[corruption] = Math.min(maxLevel, this.#levels[corruption])
+    }
+  }
+
+  public calculateIndividualRawMultiplier (corr: keyof Corruptions) {
+    let bonusVal = player.singularityUpgrades.advancedPack.getEffect().bonus
+      ? 0.33
+      : 0
+    bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
+
+    let bonusMult = 1
+    if (this.#levels[corr] >= 14) {
+      bonusMult *= 1.1
+    }
+
+    const totalLevel = this.#levels[corr] + this.#bonusLevels
+    const scoreMultLength = this.#corruptionScoreMults.length
+
+    if (totalLevel < scoreMultLength - 1) {
+      const portionAboveLevel = Math.ceil(totalLevel) - totalLevel
+      return this.#corruptionScoreMults[Math.floor(totalLevel)]
+        + portionAboveLevel * this.#corruptionScoreMults[Math.ceil(totalLevel)]
+    } else {
+      return (this.#corruptionScoreMults[scoreMultLength - 1] + bonusVal)
+        * Math.pow(1.2, totalLevel - scoreMultLength + 1)
+    }
+  }
+
+  #viscosityEffect () {
+    const base = G.viscosityPower[this.#levels.viscosity]
+    const multiplier = 1 + player.platonicUpgrades[6]
+    return Math.min(base * multiplier, 1)
+  }
+
+  #droughtEffect () {
+    return G.droughtMultiplier[this.#levels.drought]
+  }
+
+  #deflationEffect () {
+    return G.deflationMultiplier[this.#levels.deflation]
+  }
+
+  #extinctionEffect () {
+    return G.extinctionMultiplier[this.#levels.extinction]
+  }
+
+  #illiteracyEffect () {
+    const base = G.illiteracyPower[this.#levels.illiteracy]
+    const multiplier = 1
+      + (9 / 100) * player.platonicUpgrades[9] * Math.min(100, Math.log10(player.researchPoints + 10))
+    return Math.min(base * multiplier, 1)
+  }
+
+  #recessionEffect () {
+    return G.recessionPower[this.#levels.recession]
+  }
+
+  #dilationEffect () {
+    return G.dilationMultiplier[this.#levels.dilation]
+  }
+
+  #hyperchallengeEffect () {
+    const baseEffect = G.hyperchallengeMultiplier[this.#levels.hyperchallenge]
+    let divisor = 1
+    divisor *= 1 + 2 / 5 * player.platonicUpgrades[8]
+    return Math.max(1, baseEffect / divisor)
+  }
+
+  corruptionEffects (corr: keyof Corruptions) {
+    switch (corr) {
+      case 'deflation': {
+        return this.#deflationEffect()
+      }
+      case 'dilation': {
+        return this.#dilationEffect()
+      }
+      case 'drought': {
+        return this.#droughtEffect()
+      }
+      case 'extinction': {
+        return this.#extinctionEffect()
+      }
+      case 'hyperchallenge': {
+        return this.#hyperchallengeEffect()
+      }
+      case 'illiteracy': {
+        return this.#illiteracyEffect()
+      }
+      case 'recession': {
+        return this.#recessionEffect()
+      }
+      case 'viscosity': {
+        return this.#viscosityEffect()
+      }
+    }
+  }
+
+  get totalLevels () {
+    return sumContents(Object.values(this.#levels))
+  }
+
+  #calcBonusLevels () {
+    let bonusLevel = (player.singularityUpgrades.corruptionFifteen.level > 0) ? 1 : 0
+    bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
+    return bonusLevel
+  }
+
+  public scoreMult (corruption: keyof Corruptions) {
+    if (corruption !== 'viscosity') {
+      return this.calculateIndividualRawMultiplier(corruption)
+    } else {
+      // player.platonicUpgrades[17] is the 17th platonic upgrade, known usually as P4x2, makes
+      // Exponent 3 + 0.04 * level if the corr is viscosity and it is set at least level 10.
+      const power = (player.platonicUpgrades[17] > 0 && this.#levels.viscosity >= 10)
+        ? 3 + 0.04 * player.platonicUpgrades[17]
+        : 1
+      return Math.pow(this.calculateIndividualRawMultiplier(corruption), power)
+    }
+  }
+
+  #calcTotalScoreMult () {
+    return productContents(
+      Object.keys(this.#levels).map((key) => {
+        const corrKey = key as keyof Corruptions
+        return this.scoreMult(corrKey)
+      })
+    )
+  }
+
+  getLevel (corr: keyof Corruptions) {
+    return this.#levels[corr]
+  }
+
+  getLoadout () {
+    return this.#levels
+  }
+
+  getBonusLevel () {
+    return this.#bonusLevels
+  }
+
+  setLevel (corr: keyof Corruptions, newLevel: number) {
+    this.#levels[corr] = newLevel
+  }
+
+  resetCorruptions () {
+    for (const corr in this.#levels) {
+      const corrKey = corr as keyof Corruptions
+      this.setLevel(corrKey, 0)
+      corruptionDisplay(corrKey)
+    }
+    this.#totalScoreMult = this.#calcTotalScoreMult()
+    corruptionLoadoutTableUpdate(true, 0)
+  }
+
+  incrementDecrementLevel (corr: keyof Corruptions, val: number) {
+    const level = this.getLevel(corr)
+    const minLevel = 0
+    const maxLevel = maxCorruptionLevel()
+
+    const newLevel = Math.max(minLevel, Math.min(maxLevel, level + val))
+    this.setLevel(corr, newLevel)
+  }
+
+  getTotalScore () {
+    return this.#totalScoreMult
+  }
+}
 
 export const maxCorruptionLevel = () => {
   let max = 0
@@ -454,6 +713,29 @@ export function corrChallengeMinimum (index: number): number {
     case 8:
       return 11
     case 9:
+      return 13
+    default:
+      return 0
+  }
+}
+
+export function corrChallengeMinimumNew (corr: keyof Corruptions): number {
+  switch (corr) {
+    case 'viscosity':
+      return 11
+    case 'dilation':
+      return 14
+    case 'hyperchallenge':
+      return 14
+    case 'illiteracy':
+      return 13
+    case 'deflation':
+      return 12
+    case 'extinction':
+      return 12
+    case 'drought':
+      return 11
+    case 'recession':
       return 13
     default:
       return 0
