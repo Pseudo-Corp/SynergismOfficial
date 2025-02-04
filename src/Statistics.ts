@@ -8,7 +8,6 @@ import {
   calculateAmbrosiaQuarkMult,
   calculateAscensionSpeedMultiplier,
   calculateCashGrabQuarkBonus,
-  calculateCorruptionPoints,
   calculateCubeMultiplier,
   calculateEffectiveIALevel,
   calculateEventBuff,
@@ -306,7 +305,7 @@ export const loadStatisticsAccelerator = () => {
       Math.min(
         1,
         (1 + player.platonicUpgrades[6] / 30)
-          * G.viscosityPower[player.usedCorruptions[2]]
+          * G.viscosityPower[player.corruptions.used.viscosity]
       ),
       3,
       true
@@ -430,7 +429,7 @@ export const loadStatisticsMultiplier = () => {
       Math.min(
         1,
         (1 + player.platonicUpgrades[6] / 30)
-          * G.viscosityPower[player.usedCorruptions[2]]
+          * G.viscosityPower[player.corruptions.used.viscosity]
       ),
       3,
       true
@@ -1148,8 +1147,8 @@ export const loadObtainiumMultipliers = () => {
           * (1
             + (player.researches[84] / 200)
               * (1
-                + (1 * G.effectiveRuneSpiritPower[5] * calculateCorruptionPoints())
-                  / 400)),
+                + (G.effectiveRuneSpiritPower[5] * player.corruptions.used.totalCorruptionDifficultyMultiplier)
+                  )),
       3
     )
   }`
@@ -1219,7 +1218,7 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt20').textContent = `x${
     format(
-      1 + (calculateCorruptionPoints() / 400) * G.effectiveRuneSpiritPower[4],
+      1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[4],
       4
     )
   }`
@@ -1282,7 +1281,7 @@ export const loadObtainiumMultipliers = () => {
     format(
       Math.min(
         1,
-        G.illiteracyPower[player.usedCorruptions[5]]
+        G.illiteracyPower[player.corruptions.used.illiteracy]
           * (1
             + (9 / 100)
               * player.platonicUpgrades[9]
@@ -1447,7 +1446,7 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt55').textContent = `^${
     format(
-      player.usedCorruptions[5] >= 15
+      player.corruptions.used.illiteracy >= 15
         ? 1 / 4
         : 1,
       2
@@ -1455,7 +1454,7 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt56').textContent = `^${
     format(
-      player.usedCorruptions[5] >= 16
+      player.corruptions.used.illiteracy >= 16
         ? 1 / 4
         : 1,
       2

@@ -306,7 +306,7 @@ export const challengeachievementcheck = (i: number, auto?: boolean) => {
   }
 
   if (
-    player.challengecompletions[10] >= 50 && i === 11 && player.usedCorruptions[7] >= 5 && player.achievements[247] < 1
+    player.challengecompletions[10] >= 50 && i === 11 && player.corruptions.used.extinction >= 5 && player.achievements[247] < 1
   ) {
     achievementaward(247)
   }

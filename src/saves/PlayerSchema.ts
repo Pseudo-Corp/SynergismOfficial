@@ -10,6 +10,7 @@ import { SingularityChallenge, singularityChallengeData } from '../SingularityCh
 import { blankSave } from '../Synergism'
 import type { Player } from '../types/Synergism'
 import { deepClone, padArray } from '../Utility'
+import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 
 const decimalSchema = z.custom<Decimal>((value) => {
   try {
@@ -79,6 +80,17 @@ const hepteractCraftSchema = (k: keyof Player['hepteractCrafts']) =>
     OTHER_CONVERSIONS: z.record(z.string(), z.number()),
     UNLOCKED: z.boolean().default(() => blankSave.hepteractCrafts[k].UNLOCKED)
   })
+
+const optionalCorruptionSchema = z.object({
+  viscosity: z.number().optional(),
+  drought: z.number().optional(),
+  deflation: z.number().optional(),
+  extinction: z.number().optional(),
+  illiteracy: z.number().optional(),
+  recession: z.number().optional(),
+  dilation: z.number().optional(),
+  hyperchallenge: z.number().optional()
+})
 
 export const playerSchema = z.object({
   firstPlayed: z.string().datetime().optional().default(() => new Date().toISOString()),
@@ -519,17 +531,27 @@ export const playerSchema = z.object({
   roombaResearchIndex: z.number().default(() => blankSave.roombaResearchIndex),
   ascStatToggles: z.record(integerStringSchema, z.boolean()).default(() => ({ ...blankSave.ascStatToggles })),
 
-  prototypeCorruptions: z.number().array().default(() => [...blankSave.prototypeCorruptions]),
-  usedCorruptions: z.number().array().transform((array) => arrayExtend(array, 'usedCorruptions')).default(
-    () => [...blankSave.usedCorruptions]
-  ),
-  corruptionLoadouts: z.record(integerStringSchema, z.number().array()).default(() =>
-    deepClone(blankSave.corruptionLoadouts)
-  ),
-  corruptionLoadoutNames: z.string().array().default(() => blankSave.corruptionLoadoutNames.slice()).default(
-    () => [...blankSave.corruptionLoadoutNames]
-  ),
-  corruptionShowStats: z.boolean().default(() => blankSave.corruptionShowStats),
+  corruptions: z.object({
+    used: optionalCorruptionSchema.transform((value) => {
+      return new CorruptionLoadout(value)
+    }),
+    next: optionalCorruptionSchema.transform((value) => {
+      console.log(Object.values(value))
+      return new CorruptionLoadout(value)
+    }),
+    saves: z.record(z.string(), optionalCorruptionSchema).transform((value) => {
+      return new CorruptionSaves(value)
+    }),
+    showStats: z.boolean()
+  }).default(() => JSON.parse(JSON.stringify(blankSave.corruptions))),
+
+  prototypeCorruptions: z.number().array().optional(),
+  usedCorruptions: z.number().array().optional(),
+  corruptionLoadouts: z.record(integerStringSchema, z.number().array()).optional(),
+
+  corruptionLoadoutNames: z.string().array().optional(),
+  corruptionShowStats: z.boolean().optional(),
+
 
   constantUpgrades: arrayStartingWithNull(z.number()).default((): [
     null,
