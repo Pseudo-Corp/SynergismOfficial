@@ -10,13 +10,13 @@ import { Globals as G } from './Variables'
 export const convertInputToCorruption = (array: number[]): Corruptions => {
   return {
     viscosity: array[0],
-    dilation: array[1],
-    hyperchallenge: array[2],
-    illiteracy: array[3],
+    drought: array[6],
     deflation: array[4],
     extinction: array[5],
-    drought: array[6],
-    recession: array[7]
+    illiteracy: array[3],
+    recession: array[7],
+    dilation: array[1],
+    hyperchallenge: array[2]
   }
 }
 
@@ -454,16 +454,25 @@ export const corruptionStatsUpdate = () => {
 
 export const corruptionButtonsAdd = () => {
   const rows = document.getElementsByClassName('corruptionStatRow')
-  const keys = Object.keys(player.corruptions.used.loadout)
+  const keys = Object.keys(c15Corruptions)
 
   for (let i = 0; i < rows.length; i++) {
     const row = rows[i]
     const key = keys[i] as keyof Corruptions
-
-    // Delete rows that already exist
+    console.log(key)
+   // Delete rows that already exist
     for (let i = row.children.length - 1; i >= 1; i--) {
       row.children[i].remove()
     }
+
+    const icon = document.createElement('img')
+    icon.className = 'corruptionImg'
+    icon.src = `Pictures/${IconSets[player.iconSet][0]}${corrIcons[key]}`
+    icon.addEventListener('click', () => corruptionDisplay(key))
+    icon.loading = 'lazy'
+    icon.title = `${i18next.t(`corruptions.names.${key}`)}`
+    row.appendChild(icon)
+
 
     const p = document.createElement('p')
     p.className = 'corrDesc'
@@ -772,6 +781,7 @@ export const updateUndefinedLoadouts = () => {
 
   const maxLoadoutCount = 16 // Update if more loadouts are added
   const currLoadoutCount = Object.keys(player.corruptions.saves.getSaves()).length
+  console.log('loadin', currLoadoutCount, maxLoadoutCount)
   if (currLoadoutCount < maxLoadoutCount) {
     for (let i = currLoadoutCount + 1; i <= maxLoadoutCount; i++) {
       player.corruptions.saves.addSave(`Loadout ${i}`, {})

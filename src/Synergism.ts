@@ -6385,9 +6385,10 @@ window.addEventListener('load', async () => {
   document.title = `Synergism v${version}`
 
   generateEventHandlers()
+  corruptionButtonsAdd()
+
   reloadShit()
 
-  corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
 }, { once: true })
 

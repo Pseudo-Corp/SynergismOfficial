@@ -6,13 +6,13 @@ import type { CorruptionLoadout, Corruptions } from '../Corruptions'
 const convertArrayToCorruption = (array: number[]): Corruptions => {
   return {
     viscosity: array[2],
-    dilation: array[3],
-    hyperchallenge: array[4],
-    illiteracy: array[5],
+    drought: array[8],
     deflation: array[6],
     extinction: array[7],
-    drought: array[8],
-    recession: array[9]
+    illiteracy: array[5],
+    recession: array[9],
+    dilation: array[3],
+    hyperchallenge: array[4]
   }
 }
 
