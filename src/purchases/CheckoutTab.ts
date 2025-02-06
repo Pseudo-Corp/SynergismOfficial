@@ -1,3 +1,4 @@
+import { loadScript } from '@paypal/paypal-js'
 import { prod } from '../Config'
 import { changeSubTab, Tabs } from '../Tabs'
 import { Alert, Notification } from '../UpdateHTML'
@@ -33,19 +34,20 @@ export const initializeCheckoutTab = memoize(() => {
   itemList.insertAdjacentHTML(
     'afterend',
     products.map((product) => (`
-    <div key="${product.id}">
-     <input
-        hidden
-        name="${product.id}"
-        value="${getQuantity(product.id)}"
-        type="number"
-      />
-    </div>
-  `)).join('')
+      <div key="${product.id}">
+      <input
+          hidden
+          name="${product.id}"
+          value="${getQuantity(product.id)}"
+          type="number"
+        />
+      </div>
+    `)).join('')
   )
 
-  checkout?.addEventListener('click', () => {
+  checkout?.addEventListener('click', (e) => {
     if (!tosAgreed) {
+      e.preventDefault()
       Notification('You must accept the terms of service first!')
       return
     }
@@ -79,6 +81,8 @@ export const initializeCheckoutTab = memoize(() => {
         checkout.removeAttribute('disabled')
       })
   })
+
+  initializePayPal()
 })
 
 function addItem (e: MouseEvent) {
@@ -155,4 +159,115 @@ export const clearCheckoutTab = () => {
 
 const updateTotalPriceInCart = () => {
   totalCost!.textContent = `${formatter.format(getPrice() / 100)} USD`
+}
+
+async function initializePayPal () {
+  try {
+    const paypal = await loadScript({
+      clientId: 'AYaEpUZfchj2DRdTZJm0ukzxyXGQIHorqy3q1axPQ8RCpiRqkYqg23NiRRYtHptYBRBAyCTL28yEwtb9',
+      enableFunding: ['venmo'],
+      disableFunding: ['paylater', 'credit', 'card']
+    })
+
+    paypal?.Buttons?.({
+      style: {
+        shape: 'rect',
+        layout: 'vertical',
+        color: 'gold',
+        label: 'paypal'
+      },
+
+      async createOrder () {
+        try {
+          const response = await fetch('/api/orders', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            // use the "body" param to optionally pass additional order information
+            // like product ids and quantities
+            body: JSON.stringify({
+              cart: [
+                {
+                  id: 'YOUR_PRODUCT_ID',
+                  quantity: 'YOUR_PRODUCT_QUANTITY'
+                }
+              ]
+            })
+          })
+
+          const orderData = await response.json()
+
+          if (orderData.id) {
+            return orderData.id
+          }
+          const errorDetail = orderData?.details?.[0]
+          const errorMessage = errorDetail
+            ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
+            : JSON.stringify(orderData)
+
+          throw new Error(errorMessage)
+        } catch (error) {
+          console.error(error)
+        }
+      },
+
+      async onApprove (data, actions) {
+        try {
+          const response = await fetch(
+            `/api/orders/${data.orderID}/capture`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }
+          )
+
+          const orderData = await response.json()
+          // Three cases to handle:
+          //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+          //   (2) Other non-recoverable errors -> Show a failure message
+          //   (3) Successful transaction -> Show confirmation or thank you message
+
+          const errorDetail = orderData?.details?.[0]
+
+          if (errorDetail?.issue === 'INSTRUMENT_DECLINED') {
+            // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+            // recoverable state, per
+            // https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
+            return actions.restart()
+          } else if (errorDetail) {
+            // (2) Other non-recoverable errors -> Show a failure message
+            throw new Error(
+              `${errorDetail.description} (${orderData.debug_id})`
+            )
+          } else if (!orderData.purchase_units) {
+            throw new Error(JSON.stringify(orderData))
+          } else {
+            // (3) Successful transaction -> Show confirmation or thank you message
+            // Or go to another URL:  actions.redirect('thank_you.html');
+            const transaction = orderData?.purchase_units?.[0]?.payments
+              ?.captures?.[0]
+              || orderData?.purchase_units?.[0]?.payments
+                ?.authorizations?.[0]
+
+            Notification(
+              `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`
+            )
+            console.log(
+              'Capture result',
+              orderData,
+              JSON.stringify(orderData, null, 2)
+            )
+          }
+        } catch (error) {
+          console.error(error)
+          Notification(
+            `Sorry, your transaction could not be processed... ${error}`
+          )
+        }
+      }
+    }).render('#checkout-paypal')
+  } catch {}
 }
