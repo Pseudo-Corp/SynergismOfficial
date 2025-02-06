@@ -24,6 +24,10 @@ export const playerJsonSchema = playerSchema.extend({
   wowHypercubes: z.any().transform((hypercubes: Player['wowHypercubes']) => Number(hypercubes)),
   wowPlatonicCubes: z.any().transform((cubes: Player['wowPlatonicCubes']) => Number(cubes)),
 
+  campaigns: z.any().transform((campaignManager: Player['campaigns']) => {
+    return campaignManager.c10Completions
+  }),
+
   corruptions: z.any().transform((stuff: Player['corruptions']) => {
     return {
       used: stuff.used.loadout,

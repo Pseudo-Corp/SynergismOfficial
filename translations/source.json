@@ -2556,6 +2556,10 @@
       "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
       "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
   },
+  "campaigns": {
+    "intro": "Campaigns - Ascensions but harder™",
+    "campaignInfo": "Play through Ascensions with various modifiers to make it spicier, but also more cubical! \n Each Campaign is a <i> Corrupted form of Ascension. \n Click on an icon to see what I mean! </i>"
+  },
   "corruptions": {
       "names": {
           "1": "Corruption I: Viscosity",

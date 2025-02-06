@@ -11,6 +11,7 @@ import { blankSave } from '../Synergism'
 import type { Player } from '../types/Synergism'
 import { deepClone, padArray } from '../Utility'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
+import { CampaignManager } from '../Campaign'
 
 const decimalSchema = z.custom<Decimal>((value) => {
   try {
@@ -530,6 +531,10 @@ export const playerSchema = z.object({
   openPlatonicsCubes: z.number().default(() => blankSave.openPlatonicsCubes),
   roombaResearchIndex: z.number().default(() => blankSave.roombaResearchIndex),
   ascStatToggles: z.record(integerStringSchema, z.boolean()).default(() => ({ ...blankSave.ascStatToggles })),
+
+  campaigns: z.record(z.string(), z.number()).transform((campaigns => {
+    return new CampaignManager(campaigns)
+  })).default(() => JSON.parse(JSON.stringify(blankSave.campaigns))),
 
   corruptions: z.object({
     used: optionalCorruptionSchema.transform((value) => {

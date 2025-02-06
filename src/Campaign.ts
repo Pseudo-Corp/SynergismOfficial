@@ -1,6 +1,8 @@
 import i18next from 'i18next'
 import { CorruptionLoadout, type Corruptions } from './Corruptions'
 import { player } from './Synergism'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import { IconSets } from './Themes'
 
 export type AscensionModifiers = 'GlobalSpeed'
 
@@ -10,38 +12,44 @@ export type CampaignModifiers = Partial<Record<AscensionModifiers, number>>
 export type CampaignKeys = 'test1' | 'test2' | 'test3'
 
 export interface ICampaignManagerData {
-  currentCampaign: CampaignKeys | undefined
-  campaigns: Record<CampaignKeys, ICampaignData>
+  currentCampaign?: CampaignKeys | undefined
+  campaigns?: Record<CampaignKeys, number>
 }
 
 export interface ICampaignData {
-  campaignLoadout: CampaignLoadout
+  campaignCorruptions: Partial<Corruptions>
   campaignModifiers: CampaignModifiers
   limit: number
   isMeta: boolean
-  c10Completions?: number
 }
 
 export class CampaignManager {
-  totalCampaignTokens: number
-  currentCampaign: Campaign | undefined
-  campaigns!: Record<CampaignKeys, Campaign>
+  private totalCampaignTokens: number
+  private currentCampaign: Campaign | undefined
+  private campaigns!: Record<CampaignKeys, Campaign>
 
-  constructor (campaignManagerData: ICampaignManagerData) {
-    for (const campaignKey of Object.keys(campaignManagerData.campaigns)) {
-      const key = campaignKey as keyof typeof campaignManagerData.campaigns
-      this.campaigns[key] = new Campaign(campaignDatas[key], key)
+  constructor (campaignManagerData?: ICampaignManagerData) {
+    this.campaigns = {} as Record<CampaignKeys, Campaign>
+    if (campaignManagerData !== undefined) {
+      for (const campaignKey of Object.keys(campaignDatas)) {
+        const key = campaignKey as keyof typeof campaignDatas
+        this.campaigns[key] = new Campaign(campaignDatas[key], key, campaignManagerData.campaigns?.[key])
+      }
+      const currentKey = campaignManagerData.currentCampaign
+      if (currentKey !== undefined) {
+        this.currentCampaign = this.campaigns[currentKey]
+        player.corruptions.used = new CorruptionLoadout(this.currentCampaign.campaignCorruptions)
+      } else {
+        this.currentCampaign = undefined
+      }
     }
-
-    const currentKey = campaignManagerData.currentCampaign
-
-    if (currentKey !== undefined) {
-      this.currentCampaign = this.campaigns[currentKey]
-      player.corruptions.used = this.currentCampaign.createUsableLoadout()
-    } else {
+    else {
+      for (const campaignKey of Object.keys(campaignDatas)) {
+        const key = campaignKey as keyof typeof campaignDatas
+        this.campaigns[key] = new Campaign(campaignDatas[key], key, 0)
+      }
       this.currentCampaign = undefined
     }
-
     this.totalCampaignTokens = this.computeTotalCampaignTokens()
   }
 
@@ -53,13 +61,28 @@ export class CampaignManager {
     }
     return sum
   }
+
+  get tokens () {
+    return this.totalCampaignTokens
+  }
+
+  get current () {
+    return this.currentCampaign
+  }
+
+  // Store as this in player
+  get c10Completions (): Record<CampaignKeys, number> {
+    return Object.fromEntries(
+      Object.entries(this.campaigns).map(([key, value]) => [key, value.c10Completions])
+    ) as Record<CampaignKeys, number>
+  }
 }
 
 export class Campaign {
   // Stored as variable out of scope
   name: string
   description: string
-  campaignLoadout: CampaignLoadout
+  campaignCorruptions: CampaignLoadout
   campaignModifiers: CampaignModifiers
   limit: number
   isMeta: boolean
@@ -67,14 +90,14 @@ export class Campaign {
   // Saved as a variable
   _c10Completions = 0
 
-  constructor (campaignData: ICampaignData, key: string) {
+  constructor (campaignData: ICampaignData, key: string, c10?: number) {
     this.name = i18next.t(`campaigns.data.${key}.name`)
     this.description = i18next.t(`campaigns.data.${key}.description`)
-    this.campaignLoadout = campaignData.campaignLoadout
+    this.campaignCorruptions = campaignData.campaignCorruptions
     this.campaignModifiers = campaignData.campaignModifiers
     this.limit = campaignData.limit
     this.isMeta = campaignData.isMeta
-    this._c10Completions = campaignData.c10Completions ?? 0
+    this._c10Completions = c10 ?? 0
   }
 
   public computeTokenValue = () => {
@@ -83,7 +106,7 @@ export class Campaign {
   }
 
   public createUsableLoadout = (): CorruptionLoadout => {
-    return new CorruptionLoadout(this.campaignLoadout)
+    return new CorruptionLoadout(this.campaignCorruptions)
   }
 
   public set c10Completions (value: number) {
@@ -96,7 +119,7 @@ export class Campaign {
 
 export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
   test1: {
-    campaignLoadout: {
+    campaignCorruptions: {
       viscosity: 1
     },
     campaignModifiers: {
@@ -106,7 +129,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     limit: 10
   },
   test2: {
-    campaignLoadout: {
+    campaignCorruptions: {
       viscosity: 1,
       deflation: 1
     },
@@ -117,7 +140,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     limit: 15
   },
   test3: {
-    campaignLoadout: {
+    campaignCorruptions: {
       viscosity: 1,
       deflation: 1,
       dilation: 1
@@ -127,5 +150,16 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     },
     isMeta: true,
     limit: 20
+  }
+}
+
+export const campaignTest = () => {
+  const campaignIconDiv = DOMCacheGetOrSet('campaignIconGrid')
+
+  for (let i = 0; i < 50; i++) {
+    const campaignIcon = document.createElement('img')
+    campaignIcon.classList.add('campaignIcon')
+    campaignIcon.src = `Pictures/${IconSets[player.iconSet][0]}/Quark.png`
+    campaignIconDiv.appendChild(campaignIcon)
   }
 }

@@ -1865,3 +1865,16 @@ export const visualUpdateEvent = () => {
 }
 
 export const visualUpdatePurchase = () => {}
+
+// Experimental: Some things in the Campaign need only loaded once.
+// What if I just made it so that it loads exactly once and then
+// Never again? - 2025 Platonic
+let cachedVisualCampaignUpdates = false
+
+export const visualUpdateCampaign = () => {
+  if (!cachedVisualCampaignUpdates) {
+    DOMCacheGetOrSet('campaignsIntroduction').innerHTML = i18next.t('campaigns.intro')
+    DOMCacheGetOrSet('campaignsInfo1').innerHTML = i18next.t('campaigns.campaignInfo')
+    cachedVisualCampaignUpdates = true
+  }
+}
