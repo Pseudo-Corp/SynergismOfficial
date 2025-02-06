@@ -6,6 +6,7 @@ import { toggleCorruptionLevel } from './Toggles'
 import { Alert, Prompt } from './UpdateHTML'
 import { getElementById, productContents, sumContents, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 
 export const convertInputToCorruption = (array: number[]): Corruptions => {
   return {
@@ -59,7 +60,6 @@ export class CorruptionLoadout {
 
   constructor (p: Partial<Corruptions>) {
     Object.assign(this.#levels, p)
-    console.log('test', this.#levels)
   }
 
   public setCorruptionLevels (corruptions: Partial<Corruptions>) {
@@ -569,15 +569,18 @@ export const corruptionLoadoutTableCreate = () => {
   zeroCell.title = i18next.t('corruptions.loadoutTable.zeroTitle')
 
   // Do the rest of the thing
-  for (let i = 0; i < corrSaves.length; i++) {
+  const allowedRows = 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
+  for (let i = 0; i < Math.min(corrSaves.length, allowedRows); i++) {
     const corrSave = corrSaves[i]
     const corrLoadout = corrSave?.loadout.loadout
+    const corrName = corrSave?.name
+
     const row = table.insertRow()
     // Title Cell
     const titleCell = row.insertCell()
     titleCell.className = `test${'Title'}`
     titleCell.title = i18next.t('corruptions.loadoutTable.otherRowTitle', { value: i + 1 })
-    console.log(corrLoadout)
+    titleCell.textContent = corrName
     for (const corr in corrLoadout) {
       const corrKey = corr as keyof Corruptions
       const cell = row.insertCell()

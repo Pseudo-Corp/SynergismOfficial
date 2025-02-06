@@ -16,6 +16,7 @@ import type {
 } from '../StatCache'
 import type { Tabs } from '../Tabs'
 import type { Corruptions, CorruptionLoadout } from '../Corruptions'
+import { CampaignManager } from '../Campaign'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 
@@ -536,6 +537,8 @@ export interface Player {
   autoAscendThreshold: number
   roombaResearchIndex: number
   ascStatToggles: Record<number, boolean>
+
+  campaigns: CampaignManager
 
   corruptions: {
     next: CorruptionLoadout

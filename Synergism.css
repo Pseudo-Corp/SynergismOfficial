@@ -684,6 +684,11 @@ button.isEvent:hover {
     color: red;
 }
 
+#campaigntab {
+    border-color: red;
+    color: orange;
+}
+
 #traitstab {
     border-color: orange;
     color: red;
@@ -2878,6 +2883,55 @@ p#ascendHotKeys {
     border: 2px solid orange;
     color: white;
 }
+
+#campaigns {
+    justify-content: center;
+    align-items: start;
+    margin-top: 10px;
+}
+
+#campaignsMain {
+    width: 100%;
+    margin-top: 5%;
+    height: 50%;
+    justify-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+#campaignsIcons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    grid-area: 1 / 1 / 3 / 2;
+}
+
+#campaignIconGrid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+}
+
+#campaignsIcons p {
+    text-align: center;
+}
+
+#campaignsIcons img {
+    width: 48px;
+    height: 48px;
+    font-size: 0;
+    cursor: pointer;
+}
+
+#campaignsDescriptions { grid-area: 1 / 2 / 3 / 4; }
+
+#campaignsTokensInfo { grid-area: 3 / 1 / 4 / 4; }
 
 #traits {
     justify-content: center;

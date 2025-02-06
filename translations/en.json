@@ -2514,6 +2514,7 @@
       "research": "Research",
       "antHill": "Anthill",
       "wowCubes": "WOW! Cubes",
+      "campaign": "Campaigns",
       "corruption": "Corruption",
       "singularity": "Singularity",
       "settings": "Settings",
@@ -2592,6 +2593,10 @@
     "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
     "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
     "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
+  },
+  "campaigns": {
+    "intro": "Campaigns - <<orange | Ascensions>> but <<maroon | harder™>>",
+    "campaignInfo": "Play through <<orange | Ascensions>> with various modifiers to make it spicier, but also more cubical! \n Each Campaign is a <i> <<red | Corrupted>> form of <<orange | Ascension>>. \n <<lightgoldenrodyellow | Click on an icon to see what I mean!>> </i>"
   },
   "corruptions": {
     "names": {

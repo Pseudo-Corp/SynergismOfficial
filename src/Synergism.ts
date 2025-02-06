@@ -180,6 +180,7 @@ import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
+import { CampaignManager, campaignTest } from './Campaign'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -902,6 +903,8 @@ export const player: Player = {
     }),
     showStats: true
   },
+
+  campaigns: new CampaignManager(),
   /*prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   corruptionLoadouts: {
@@ -6390,6 +6393,7 @@ window.addEventListener('load', async () => {
   reloadShit()
 
   corruptionLoadoutTableCreate()
+  campaignTest()
 }, { once: true })
 
 window.addEventListener('unload', () => {

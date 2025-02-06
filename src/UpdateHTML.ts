@@ -22,6 +22,7 @@ import {
   visualUpdateAchievements,
   visualUpdateAnts,
   visualUpdateBuildings,
+  visualUpdateCampaign,
   visualUpdateChallenges,
   visualUpdateCorruptions,
   visualUpdateCubes,
@@ -657,6 +658,8 @@ export const hideStuff = () => {
   DOMCacheGetOrSet('ants').style.display = 'none'
   DOMCacheGetOrSet('anttab').style.backgroundColor = ''
   DOMCacheGetOrSet('cubetab').style.backgroundColor = ''
+  DOMCacheGetOrSet('campaigntab').style.backgroundColor = ''
+  DOMCacheGetOrSet('campaigns').style.display = 'none'
   DOMCacheGetOrSet('traitstab').style.backgroundColor = ''
   DOMCacheGetOrSet('cubes').style.display = 'none'
   DOMCacheGetOrSet('traits').style.display = 'none'
@@ -730,6 +733,10 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('cubes').style.display = 'flex'
     DOMCacheGetOrSet('cubetab').style.backgroundColor = 'white'
   }
+  if (G.currentTab === Tabs.Campaign) {
+    DOMCacheGetOrSet('campaigns').style.display = 'block'
+    DOMCacheGetOrSet('campaigntab').style.backgroundColor = 'red'
+  }
   if (G.currentTab === Tabs.Corruption) {
     DOMCacheGetOrSet('traits').style.display = 'flex'
     DOMCacheGetOrSet('traitstab').style.backgroundColor = 'white'
@@ -766,6 +773,7 @@ const visualTab: Record<Tabs, () => void> = {
   [Tabs.Shop]: visualUpdateShop,
   [Tabs.AntHill]: visualUpdateAnts,
   [Tabs.WowCubes]: visualUpdateCubes,
+  [Tabs.Campaign]: visualUpdateCampaign,
   [Tabs.Corruption]: visualUpdateCorruptions,
   [Tabs.Singularity]: visualUpdateSingularity,
   [Tabs.Event]: visualUpdateEvent,
