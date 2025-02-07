@@ -16,7 +16,7 @@ import type {
 } from '../StatCache'
 import type { Tabs } from '../Tabs'
 import type { Corruptions, CorruptionLoadout } from '../Corruptions'
-import { CampaignManager } from '../Campaign'
+import type { CampaignManager } from '../Campaign'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 

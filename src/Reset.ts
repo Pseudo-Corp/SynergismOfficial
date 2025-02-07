@@ -299,7 +299,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         seconds: player.ascensionCounter,
         date: Date.now(),
         c10Completions: player.challengecompletions[10],
-        usedCorruptions: player.corruptions.used, // shallow copy,
+        usedCorruptions: player.corruptions.used.loadout,
         corruptionScore: corruptionMetaData[3],
         wowCubes: corruptionMetaData[4],
         wowTesseracts: corruptionMetaData[5],

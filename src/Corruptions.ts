@@ -7,19 +7,42 @@ import { Alert, Prompt } from './UpdateHTML'
 import { getElementById, productContents, sumContents, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { z } from 'zod'
+
+export enum CorruptionIndices {
+  'viscosity' = 0,
+  'dilation' = 1,
+  'hyperchallenge' = 2,
+  'illiteracy' = 3,
+  'deflation' = 4,
+  'extinction' = 5,
+  'drought' = 6,
+  'recession' = 7
+}
 
 export const convertInputToCorruption = (array: number[]): Corruptions => {
   return {
-    viscosity: array[0],
-    drought: array[6],
-    deflation: array[4],
-    extinction: array[5],
-    illiteracy: array[3],
-    recession: array[7],
-    dilation: array[1],
-    hyperchallenge: array[2]
+    viscosity: array[CorruptionIndices.viscosity],
+    drought: array[CorruptionIndices.drought],
+    deflation: array[CorruptionIndices.deflation],
+    extinction: array[CorruptionIndices.extinction],
+    illiteracy: array[CorruptionIndices.illiteracy],
+    recession: array[CorruptionIndices.recession],
+    dilation: array[CorruptionIndices.dilation],
+    hyperchallenge: array[CorruptionIndices.hyperchallenge]
   }
 }
+
+export const corruptionsSchema = z.object({
+  viscosity: z.number().default(0),
+  drought: z.number().default(0),
+  deflation: z.number().default(0),
+  extinction: z.number().default(0),
+  illiteracy: z.number().default(0),
+  recession: z.number().default(0),
+  dilation: z.number().default(0),
+  hyperchallenge: z.number().default(0),
+})
 
 export type Corruptions = {
   viscosity: number
@@ -58,8 +81,10 @@ export class CorruptionLoadout {
   }
   #bonusLevels = 0
 
-  constructor (p: Partial<Corruptions>) {
-    Object.assign(this.#levels, p)
+  constructor (p: Corruptions) {
+    Object.entries(p).forEach(([key, value]) => {
+      this.#levels[key as keyof Corruptions] = value
+    })
   }
 
   public setCorruptionLevels (corruptions: Partial<Corruptions>) {
@@ -325,13 +350,13 @@ export type SavedCorruption = {
 
 export class CorruptionSaves {
   #saves: Array<SavedCorruption> = []
-  constructor (corrSaveData: Record<string, Partial<Corruptions>>) {
+  constructor (corrSaveData: Record<string, Corruptions>) {
     for (const saveKey of Object.keys(corrSaveData).slice(0, 16)) {
       this.#saves.push({ name: saveKey, loadout: new CorruptionLoadout(corrSaveData[saveKey]) })
     }
   }
 
-  addSave (loadoutName: string, loadoutValues: Partial<Corruptions>) {
+  addSave (loadoutName: string, loadoutValues: Corruptions) {
     this.#saves.push({ name: loadoutName, loadout: new CorruptionLoadout(loadoutValues) })
   }
 
@@ -648,9 +673,10 @@ export const applyCorruptions = (corruptions: string) => {
   console.log(corruptions)
 
   if (corruptions.includes('/') && corruptions.split('/').length === 8) {
+    // Supports legacy format
     corr = convertInputToCorruption(corruptions.split('/').map(Number))
   } else {
-    corr = JSON.parse(corruptions) as Corruptions
+    corr = corruptionsSchema.parse(corruptions)
   }
 
   if (corr) {
@@ -665,7 +691,7 @@ export const applyCorruptions = (corruptions: string) => {
 async function importCorruptionsPrompt () {
   const input = await Prompt(i18next.t('corruptions.importCorruptionsPrompt.import'))
 
-  if (!applyCorruptions(input as string)) {
+  if (input === null || !applyCorruptions(input)) {
     void Alert(i18next.t('corruptions.importCorruptionsPrompt.importError'))
   }
 }
@@ -695,7 +721,8 @@ async function corruptionLoadoutGetNewName (loadout = 0) {
 
 export const updateCorruptionLoadoutNames = () => {
   const rows = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows
-  for (let i = 0; i < 8; i++) {
+  const totalSlots = 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
+  for (let i = 0; i < totalSlots; i++) {
     const cells = rows[i + 2].cells // start changes on 2nd row
     if (cells[0].textContent!.length === 0) { // first time setup
       cells[0].addEventListener('click', () => void corruptionLoadoutGetNewName(i)) // get name function handles -1 for array

@@ -1,9 +1,9 @@
 import { z } from 'zod'
 import type { Player } from '../types/Synergism'
-import { playerSchema } from './PlayerSchema'
+import { playerCampaignSchema, playerCorruptionSchema, playerSchema } from './PlayerSchema'
 import type { CorruptionLoadout, Corruptions } from '../Corruptions'
 
-const convertArrayToCorruption = (array: number[]): Corruptions => {
+export const convertArrayToCorruption = (array: number[]): Corruptions => {
   return {
     viscosity: array[2],
     drought: array[8],
@@ -24,11 +24,11 @@ export const playerJsonSchema = playerSchema.extend({
   wowHypercubes: z.any().transform((hypercubes: Player['wowHypercubes']) => Number(hypercubes)),
   wowPlatonicCubes: z.any().transform((cubes: Player['wowPlatonicCubes']) => Number(cubes)),
 
-  campaigns: z.any().transform((campaignManager: Player['campaigns']) => {
+  campaigns: playerCampaignSchema.transform((campaignManager: Player['campaigns']) => {
     return campaignManager.c10Completions
   }),
 
-  corruptions: z.any().transform((stuff: Player['corruptions']) => {
+  corruptions: playerCorruptionSchema.transform((stuff: Player['corruptions']) => {
     return {
       used: stuff.used.loadout,
       next: stuff.next.loadout,
@@ -132,10 +132,10 @@ export const playerJsonSchema = playerSchema.extend({
     player.corruptions.saves = corruptionSaveStuff
   }
 
-  player.usedCorruptions = undefined
-  player.prototypeCorruptions = undefined
-  player.corruptionLoadoutNames = undefined
-  player.corruptionLoadouts = undefined
+  delete player.usedCorruptions
+  delete player.prototypeCorruptions
+  delete player.corruptionLoadoutNames
+  delete player.corruptionLoadouts
 
   return player
 })

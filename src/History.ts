@@ -558,10 +558,10 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
     corrs++
   }
 
-  const corr_str = JSON.stringify(corrToLoad)
+  const corrStr = JSON.stringify(corrToLoad)
 
   if (corruptions) {
-    loadout += `<button class="corrLoad ascendHistoryLoadCorruptions" data-corr='${corr_str}'>Load</button>`
+    loadout += `<button class="corrLoad ascendHistoryLoadCorruptions" data-corr='${corrStr}'>Load</button>`
   }
   if (data.currentChallenge !== undefined) {
     score += ` / C${data.currentChallenge}`

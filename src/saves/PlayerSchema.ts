@@ -83,15 +83,33 @@ const hepteractCraftSchema = (k: keyof Player['hepteractCrafts']) =>
   })
 
 const optionalCorruptionSchema = z.object({
-  viscosity: z.number().optional(),
-  drought: z.number().optional(),
-  deflation: z.number().optional(),
-  extinction: z.number().optional(),
-  illiteracy: z.number().optional(),
-  recession: z.number().optional(),
-  dilation: z.number().optional(),
-  hyperchallenge: z.number().optional()
+  viscosity: z.number().optional().default(0),
+  drought: z.number().optional().default(0),
+  deflation: z.number().optional().default(0),
+  extinction: z.number().optional().default(0),
+  illiteracy: z.number().optional().default(0),
+  recession: z.number().optional().default(0),
+  dilation: z.number().optional().default(0),
+  hyperchallenge: z.number().optional().default(0)
 })
+
+export const playerCorruptionSchema = z.object({
+  used: optionalCorruptionSchema.transform((value) => {
+    return new CorruptionLoadout(value)
+  }),
+  next: optionalCorruptionSchema.transform((value) => {
+    console.log(Object.values(value))
+    return new CorruptionLoadout(value)
+  }),
+  saves: z.record(z.string(), optionalCorruptionSchema).transform((value) => {
+    return new CorruptionSaves(value)
+  }),
+  showStats: z.boolean()
+}).default(() => JSON.parse(JSON.stringify(blankSave.corruptions)))
+
+export const playerCampaignSchema = z.record(z.string(), z.number()).transform((campaigns => {
+  return new CampaignManager(campaigns)
+})).default(() => JSON.parse(JSON.stringify(blankSave.campaigns)))
 
 export const playerSchema = z.object({
   firstPlayed: z.string().datetime().optional().default(() => new Date().toISOString()),
@@ -532,23 +550,9 @@ export const playerSchema = z.object({
   roombaResearchIndex: z.number().default(() => blankSave.roombaResearchIndex),
   ascStatToggles: z.record(integerStringSchema, z.boolean()).default(() => ({ ...blankSave.ascStatToggles })),
 
-  campaigns: z.record(z.string(), z.number()).transform((campaigns => {
-    return new CampaignManager(campaigns)
-  })).default(() => JSON.parse(JSON.stringify(blankSave.campaigns))),
+  campaigns: playerCampaignSchema,
 
-  corruptions: z.object({
-    used: optionalCorruptionSchema.transform((value) => {
-      return new CorruptionLoadout(value)
-    }),
-    next: optionalCorruptionSchema.transform((value) => {
-      console.log(Object.values(value))
-      return new CorruptionLoadout(value)
-    }),
-    saves: z.record(z.string(), optionalCorruptionSchema).transform((value) => {
-      return new CorruptionSaves(value)
-    }),
-    showStats: z.boolean()
-  }).default(() => JSON.parse(JSON.stringify(blankSave.corruptions))),
+  corruptions: playerCorruptionSchema,
 
   prototypeCorruptions: z.number().array().optional(),
   usedCorruptions: z.number().array().optional(),

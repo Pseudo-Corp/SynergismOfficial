@@ -41,7 +41,7 @@ import { format, formatTimeShort, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
-import { sumContents, timeReminingHours } from './Utility'
+import { memoize, sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
 
 export const visualUpdateBuildings = () => {
@@ -1866,15 +1866,11 @@ export const visualUpdateEvent = () => {
 
 export const visualUpdatePurchase = () => {}
 
-// Experimental: Some things in the Campaign need only loaded once.
-// What if I just made it so that it loads exactly once and then
-// Never again? - 2025 Platonic
-let cachedVisualCampaignUpdates = false
-
 export const visualUpdateCampaign = () => {
-  if (!cachedVisualCampaignUpdates) {
+
+  memoize(() => {
     DOMCacheGetOrSet('campaignsIntroduction').innerHTML = i18next.t('campaigns.intro')
     DOMCacheGetOrSet('campaignsInfo1').innerHTML = i18next.t('campaigns.campaignInfo')
-    cachedVisualCampaignUpdates = true
-  }
+  })
+  
 }
