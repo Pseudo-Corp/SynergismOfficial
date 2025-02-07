@@ -1,7 +1,7 @@
 import { z } from 'zod'
+import type { CorruptionLoadout, Corruptions } from '../Corruptions'
 import type { Player } from '../types/Synergism'
 import { playerCampaignSchema, playerCorruptionSchema, playerSchema } from './PlayerSchema'
-import type { CorruptionLoadout, Corruptions } from '../Corruptions'
 
 export const convertArrayToCorruption = (array: number[]): Corruptions => {
   return {
@@ -132,10 +132,10 @@ export const playerJsonSchema = playerSchema.extend({
     player.corruptions.saves = corruptionSaveStuff
   }
 
-  delete player.usedCorruptions
-  delete player.prototypeCorruptions
-  delete player.corruptionLoadoutNames
-  delete player.corruptionLoadouts
+  Reflect.deleteProperty(player, 'usedCorruptions')
+  Reflect.deleteProperty(player, 'prototypeCorruptions')
+  Reflect.deleteProperty(player, 'corruptionLoadoutNames')
+  Reflect.deleteProperty(player, 'corruptionLoadouts')
 
   return player
 })

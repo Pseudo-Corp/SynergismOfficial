@@ -579,7 +579,11 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= 1 + player.shopUpgrades.obtainiumAuto / 50
   G.obtainiumGain *= 1 + player.shopUpgrades.cashGrab / 100
   G.obtainiumGain *= 1 + (1 / 25) * player.shopUpgrades.obtainiumEX
-  G.obtainiumGain *= 1 + (G.rune5level / 200) * G.effectiveLevelMult * (1 + (player.researches[84] / 200) * (1 + G.effectiveRuneSpiritPower[5] * player.corruptions.used.totalCorruptionDifficultyMultiplier))
+  G.obtainiumGain *= 1
+    + (G.rune5level / 200) * G.effectiveLevelMult
+      * (1
+        + (player.researches[84] / 200)
+          * (1 + G.effectiveRuneSpiritPower[5] * player.corruptions.used.totalCorruptionDifficultyMultiplier))
   G.obtainiumGain *= 1
     + 0.01 * player.achievements[84]
     + 0.03 * player.achievements[91]

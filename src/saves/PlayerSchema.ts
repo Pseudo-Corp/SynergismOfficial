@@ -1,6 +1,8 @@
 import Decimal from 'break_infinity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
 import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
+import { CampaignManager } from '../Campaign'
+import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { createHepteract } from '../Hepteracts'
 import { octeractData, OcteractUpgrade } from '../Octeracts'
@@ -10,8 +12,6 @@ import { SingularityChallenge, singularityChallengeData } from '../SingularityCh
 import { blankSave } from '../Synergism'
 import type { Player } from '../types/Synergism'
 import { deepClone, padArray } from '../Utility'
-import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
-import { CampaignManager } from '../Campaign'
 
 const decimalSchema = z.custom<Decimal>((value) => {
   try {
@@ -107,9 +107,9 @@ export const playerCorruptionSchema = z.object({
   showStats: z.boolean()
 }).default(() => JSON.parse(JSON.stringify(blankSave.corruptions)))
 
-export const playerCampaignSchema = z.record(z.string(), z.number()).transform((campaigns => {
+export const playerCampaignSchema = z.record(z.string(), z.number()).transform((campaigns) => {
   return new CampaignManager(campaigns)
-})).default(() => JSON.parse(JSON.stringify(blankSave.campaigns)))
+}).default(() => JSON.parse(JSON.stringify(blankSave.campaigns)))
 
 export const playerSchema = z.object({
   firstPlayed: z.string().datetime().optional().default(() => new Date().toISOString()),
@@ -560,7 +560,6 @@ export const playerSchema = z.object({
 
   corruptionLoadoutNames: z.string().array().optional(),
   corruptionShowStats: z.boolean().optional(),
-
 
   constantUpgrades: arrayStartingWithNull(z.number()).default((): [
     null,
