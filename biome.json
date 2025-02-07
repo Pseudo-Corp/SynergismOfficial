@@ -22,9 +22,6 @@
       "complexity": {
         "noUselessTypeConstraint": "off",
         "noForEach": "off"
-      },
-      "performance": {
-        "noDelete": "off"
       }
     },
     "ignore": ["./dist/*", "**/node_modules/*"]

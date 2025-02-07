@@ -1147,8 +1147,7 @@ export const loadObtainiumMultipliers = () => {
           * (1
             + (player.researches[84] / 200)
               * (1
-                + (G.effectiveRuneSpiritPower[5] * player.corruptions.used.totalCorruptionDifficultyMultiplier)
-                  )),
+                + (G.effectiveRuneSpiritPower[5] * player.corruptions.used.totalCorruptionDifficultyMultiplier))),
       3
     )
   }`

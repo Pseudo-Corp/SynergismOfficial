@@ -67,7 +67,7 @@ import {
   corruptionsSchema,
   corruptionStatsUpdate,
   updateCorruptionLoadoutNames,
-  updateUndefinedLoadouts,
+  updateUndefinedLoadouts
 } from './Corruptions'
 import { updateCubeUpgradeBG } from './Cubes'
 import { generateEventHandlers } from './EventListeners'
@@ -145,6 +145,7 @@ import {
   updateLoadoutHoverClasses
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { CampaignManager, campaignTest } from './Campaign'
 import { lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
@@ -168,6 +169,7 @@ import { updatePlatonicUpgradeBG } from './Platonic'
 import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, QuarkHandler } from './Quark'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
+import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import {
@@ -180,8 +182,6 @@ import {
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
-import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
-import { CampaignManager, campaignTest } from './Campaign'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -900,7 +900,7 @@ export const player: Player = {
       'Loadout 13': corruptionsSchema.parse({}),
       'Loadout 14': corruptionsSchema.parse({}),
       'Loadout 15': corruptionsSchema.parse({}),
-      'Loadout 16': corruptionsSchema.parse({}),
+      'Loadout 16': corruptionsSchema.parse({})
     }),
     showStats: true
   },
@@ -4508,8 +4508,8 @@ export const updateAntMultipliers = (): void => {
               + (player.researches[84] / 200)
                 * (1
                   + (1
-                      * G.effectiveRuneSpiritPower[5]
-                      * player.corruptions.used.totalCorruptionDifficultyMultiplier))),
+                    * G.effectiveRuneSpiritPower[5]
+                    * player.corruptions.used.totalCorruptionDifficultyMultiplier))),
           2
         )
   )

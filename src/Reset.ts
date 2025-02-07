@@ -729,7 +729,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     }
 
     player.corruptions.used = new CorruptionLoadout(player.corruptions.next.loadout)
-    
+
     // fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving
     if (player.currentChallenge.ascension === 15 && (input === 'ascension' || input === 'ascensionChallenge')) {
       player.corruptions.used = new CorruptionLoadout(c15Corruptions)

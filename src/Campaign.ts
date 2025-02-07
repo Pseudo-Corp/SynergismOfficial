@@ -1,7 +1,7 @@
 import i18next from 'i18next'
-import { CorruptionLoadout, corruptionsSchema, type Corruptions } from './Corruptions'
-import { player } from './Synergism'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { CorruptionLoadout, type Corruptions, corruptionsSchema } from './Corruptions'
+import { player } from './Synergism'
 import { IconSets } from './Themes'
 
 export type AscensionModifiers = 'GlobalSpeed'
@@ -26,31 +26,24 @@ export interface ICampaignData {
 export class CampaignManager {
   #totalCampaignTokens: number
   #currentCampaign: Campaign | undefined
-  #campaigns!: Record<CampaignKeys, Campaign>
+  #campaigns: Record<CampaignKeys, Campaign>
 
   constructor (campaignManagerData?: ICampaignManagerData) {
-     if (campaignManagerData !== undefined) {
-      this.#campaigns = Object.fromEntries(
-        Object.entries(campaignDatas).map(([key, data]) => {
-          return [key, new Campaign(data, key, campaignManagerData.campaigns?.[key as CampaignKeys])]
-        }
-      )) as Record<CampaignKeys, Campaign>
-      const currentKey = campaignManagerData.currentCampaign
-      if (currentKey !== undefined) {
-        this.#currentCampaign = this.#campaigns[currentKey]
-        player.corruptions.used = new CorruptionLoadout(this.#currentCampaign.campaignCorruptions)
-      } else {
-        this.#currentCampaign = undefined
-      }
+    this.#campaigns = {
+      test1: new Campaign(campaignDatas.test1, 'test1', campaignManagerData?.campaigns?.test1 ?? 0),
+      test2: new Campaign(campaignDatas.test2, 'test2', campaignManagerData?.campaigns?.test2 ?? 0),
+      test3: new Campaign(campaignDatas.test3, 'test3', campaignManagerData?.campaigns?.test3 ?? 0)
     }
-    else {
-      this.#campaigns = Object.fromEntries(
-        Object.entries(campaignDatas).map(([key, data]) => {
-          return [key, new Campaign(data, key)]
-        }
-      )) as Record<CampaignKeys, Campaign>
-      this.#currentCampaign = undefined
+
+    this.#currentCampaign = campaignManagerData?.currentCampaign
+      ? this.#campaigns[campaignManagerData.currentCampaign]
+      : undefined
+
+    if (campaignManagerData?.currentCampaign !== undefined) {
+      this.#currentCampaign = this.#campaigns[campaignManagerData.currentCampaign]
+      player.corruptions.used = new CorruptionLoadout(this.#currentCampaign.campaignCorruptions)
     }
+
     this.#totalCampaignTokens = this.computeTotalCampaignTokens()
   }
 
@@ -164,7 +157,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
   test3: {
     campaignCorruptions: {
       viscosity: 1,
-      deflation: 1, 
+      deflation: 1,
       dilation: 1
     },
     campaignModifiers: {

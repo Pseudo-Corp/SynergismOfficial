@@ -1,13 +1,13 @@
 import i18next from 'i18next'
+import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { format, player } from './Synergism'
 import { IconSets } from './Themes'
 import { toggleCorruptionLevel } from './Toggles'
 import { Alert, Prompt } from './UpdateHTML'
 import { getElementById, productContents, sumContents, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
-import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { z } from 'zod'
 
 export enum CorruptionIndices {
   'viscosity' = 0,
@@ -41,7 +41,7 @@ export const corruptionsSchema = z.object({
   illiteracy: z.number().default(0),
   recession: z.number().default(0),
   dilation: z.number().default(0),
-  hyperchallenge: z.number().default(0),
+  hyperchallenge: z.number().default(0)
 })
 
 export type Corruptions = {
@@ -244,10 +244,9 @@ export class CorruptionLoadout {
   }
 
   get totalCorruptionDifficultyScore () {
-    let basePoints = 400;
-
-    (Object.keys(player.corruptions.used) as Array<keyof Corruptions>).forEach((key) => {
-      basePoints += 16 * Math.pow(player.corruptions.used.getTotalLevel(key), 2);
+    let basePoints = 400
+    ;(Object.keys(player.corruptions.used) as Array<keyof Corruptions>).forEach((key) => {
+      basePoints += 16 * Math.pow(player.corruptions.used.getTotalLevel(key), 2)
     })
 
     return basePoints
@@ -266,7 +265,6 @@ export class CorruptionLoadout {
     )
   }
 
-
   getLevel (corr: keyof Corruptions) {
     return this.#levels[corr]
   }
@@ -279,7 +277,7 @@ export class CorruptionLoadout {
     return this.#bonusLevels
   }
 
-  getTotalLevel(corr: keyof Corruptions) {
+  getTotalLevel (corr: keyof Corruptions) {
     return this.#levels[corr] + this.#bonusLevels
   }
 
@@ -364,7 +362,7 @@ export class CorruptionSaves {
     this.#saves.pop()
   }
 
-  getSaves ():Array<SavedCorruption> {
+  getSaves (): Array<SavedCorruption> {
     return this.#saves
   }
 }
@@ -485,7 +483,7 @@ export const corruptionButtonsAdd = () => {
     const row = rows[i]
     const key = keys[i] as keyof Corruptions
     console.log(key)
-   // Delete rows that already exist
+    // Delete rows that already exist
     for (let i = row.children.length - 1; i >= 1; i--) {
       row.children[i].remove()
     }
@@ -497,7 +495,6 @@ export const corruptionButtonsAdd = () => {
     icon.loading = 'lazy'
     icon.title = `${i18next.t(`corruptions.names.${key}`)}`
     row.appendChild(icon)
-
 
     const p = document.createElement('p')
     p.className = 'corrDesc'
