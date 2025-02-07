@@ -1,18 +1,6 @@
 import { CorruptionLoadout, type Corruptions, CorruptionSaves } from '../Corruptions'
+import { convertArrayToCorruption } from './PlayerJsonSchema'
 import { playerSchema } from './PlayerSchema'
-
-const convertArrayToCorruption = (array: number[]): Corruptions => {
-  return {
-    viscosity: array[2],
-    drought: array[8],
-    deflation: array[6],
-    extinction: array[7],
-    illiteracy: array[5],
-    recession: array[9],
-    dilation: array[3],
-    hyperchallenge: array[4]
-  }
-}
 
 export const playerUpdateVarSchema = playerSchema.transform((player) => {
   if (player.usedCorruptions !== undefined) {
