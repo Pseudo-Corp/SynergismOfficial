@@ -1866,9 +1866,7 @@ export const visualUpdateEvent = () => {
 
 export const visualUpdatePurchase = () => {}
 
-export const visualUpdateCampaign = () => {
-  memoize(() => {
-    DOMCacheGetOrSet('campaignsIntroduction').innerHTML = i18next.t('campaigns.intro')
-    DOMCacheGetOrSet('campaignsInfo1').innerHTML = i18next.t('campaigns.campaignInfo')
-  })
-}
+export const visualUpdateCampaign = memoize(() => {
+  DOMCacheGetOrSet('campaignsIntroduction').innerHTML = i18next.t('campaigns.intro')
+  DOMCacheGetOrSet('campaignsInfo1').innerHTML = i18next.t('campaigns.campaignInfo')
+})
