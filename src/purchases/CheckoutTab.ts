@@ -178,95 +178,71 @@ async function initializePayPal () {
       },
 
       async createOrder () {
-        try {
-          const response = await fetch('/api/orders', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            // use the "body" param to optionally pass additional order information
-            // like product ids and quantities
-            body: JSON.stringify({
-              cart: [
-                {
-                  id: 'YOUR_PRODUCT_ID',
-                  quantity: 'YOUR_PRODUCT_QUANTITY'
-                }
-              ]
-            })
-          })
+        const fd = new FormData()
 
-          const orderData = await response.json()
-
-          if (orderData.id) {
-            return orderData.id
-          }
-          const errorDetail = orderData?.details?.[0]
-          const errorMessage = errorDetail
-            ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
-            : JSON.stringify(orderData)
-
-          throw new Error(errorMessage)
-        } catch (error) {
-          console.error(error)
+        for (const product of getProductsInCart()) {
+          fd.set(product.id, `${product.quantity}`)
         }
+
+        fd.set('tosAgree', tosAgreed ? 'on' : 'off')
+        const url = 'https://synergism.cc/paypal/orders/create'
+
+        const response = await fetch(url, {
+          method: 'POST',
+          body: fd
+        })
+
+        const orderData = await response.json()
+
+        if (orderData.id) {
+          return orderData.id
+        }
+
+        const errorDetail = orderData?.details?.[0]
+        const errorMessage = errorDetail
+          ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
+          : JSON.stringify(orderData)
+
+        throw new Error(errorMessage)
       },
 
       async onApprove (data, actions) {
-        try {
-          const response = await fetch(
-            `/api/orders/${data.orderID}/capture`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            }
+        const url = `https://synergism.cc/paypal/orders/${data.orderID}/capture`
+
+        const response = await fetch(url, { method: 'POST' })
+        const orderData = await response.json()
+        const errorDetail = orderData?.details?.[0]
+
+        console.log(orderData)
+
+        if (errorDetail?.issue === 'INSTRUMENT_DECLINED') {
+          // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+          // https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
+          return actions.restart()
+        } else if (errorDetail) {
+          // (2) Other non-recoverable errors -> Show a failure message
+          throw new Error(
+            `${errorDetail.description} (${orderData.debug_id})`
           )
+        } else if (!orderData.purchase_units) {
+          throw new Error(JSON.stringify(orderData))
+        } else {
+          // (3) Successful transaction -> Show confirmation or thank you message
+          // Or go to another URL:  actions.redirect('thank_you.html');
+          const transaction = orderData?.purchase_units?.[0]?.payments
+            ?.captures?.[0]
+            || orderData?.purchase_units?.[0]?.payments
+              ?.authorizations?.[0]
 
-          const orderData = await response.json()
-          // Three cases to handle:
-          //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-          //   (2) Other non-recoverable errors -> Show a failure message
-          //   (3) Successful transaction -> Show confirmation or thank you message
-
-          const errorDetail = orderData?.details?.[0]
-
-          if (errorDetail?.issue === 'INSTRUMENT_DECLINED') {
-            // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-            // recoverable state, per
-            // https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
-            return actions.restart()
-          } else if (errorDetail) {
-            // (2) Other non-recoverable errors -> Show a failure message
-            throw new Error(
-              `${errorDetail.description} (${orderData.debug_id})`
-            )
-          } else if (!orderData.purchase_units) {
-            throw new Error(JSON.stringify(orderData))
-          } else {
-            // (3) Successful transaction -> Show confirmation or thank you message
-            // Or go to another URL:  actions.redirect('thank_you.html');
-            const transaction = orderData?.purchase_units?.[0]?.payments
-              ?.captures?.[0]
-              || orderData?.purchase_units?.[0]?.payments
-                ?.authorizations?.[0]
-
-            Notification(
-              `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`
-            )
-            console.log(
-              'Capture result',
-              orderData,
-              JSON.stringify(orderData, null, 2)
-            )
-          }
-        } catch (error) {
-          console.error(error)
           Notification(
-            `Sorry, your transaction could not be processed... ${error}`
+            `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`
           )
         }
+      },
+
+      onError (error) {
+        Notification('An error with PayPal happened. More info in console.')
+        console.log(error)
       }
     }).render('#checkout-paypal')
   } catch {}
