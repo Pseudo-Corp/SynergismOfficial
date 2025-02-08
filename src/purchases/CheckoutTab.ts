@@ -1,10 +1,10 @@
-import { loadScript } from '@paypal/paypal-js'
 import { prod } from '../Config'
 import { changeSubTab, Tabs } from '../Tabs'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { products, subscriptionProducts } from './CartTab'
-import { addToCart, getPrice, getProductsInCart, getQuantity, removeFromCart } from './CartUtil'
+import { addToCart, clearCart, getPrice, getProductsInCart, getQuantity, loadPayPal, removeFromCart } from './CartUtil'
+import { updatePseudoCoins } from './UpgradesSubtab'
 
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #cartContainer')!
 const form = tab.querySelector('div.cartList')!
@@ -163,11 +163,7 @@ const updateTotalPriceInCart = () => {
 
 async function initializePayPal () {
   try {
-    const paypal = await loadScript({
-      clientId: 'AYaEpUZfchj2DRdTZJm0ukzxyXGQIHorqy3q1axPQ8RCpiRqkYqg23NiRRYtHptYBRBAyCTL28yEwtb9',
-      enableFunding: ['venmo'],
-      disableFunding: ['paylater', 'credit', 'card']
-    })
+    const paypal = await loadPayPal()
 
     paypal?.Buttons?.({
       style: {
@@ -181,6 +177,10 @@ async function initializePayPal () {
         const fd = new FormData()
 
         for (const product of getProductsInCart()) {
+          if (product.quantity > 0 && product.subscription) {
+            throw new TypeError('skipping')
+          }
+
           fd.set(product.id, `${product.quantity}`)
         }
 
@@ -235,8 +235,14 @@ async function initializePayPal () {
               ?.authorizations?.[0]
 
           Notification(
-            `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`
+            `Transaction ${transaction.status}: ${transaction.id}. Please give us a few minutes to process it.`
           )
+
+          clearCart()
+          updateItemList()
+          updateTotalPriceInCart()
+
+          exponentialPseudoCoinBalanceCheck()
         }
       },
 
@@ -246,4 +252,20 @@ async function initializePayPal () {
       }
     }).render('#checkout-paypal')
   } catch {}
+}
+
+const sleep = (delay: number) => new Promise((r) => setTimeout(r, delay))
+
+async function exponentialPseudoCoinBalanceCheck () {
+  const delays = [0, 30_000, 60_000, 120_000, 180_000, 240_000, 300_000]
+  const lastCoinAmount = 0
+
+  for (const delay of delays) {
+    await sleep(delay)
+    const coins = await updatePseudoCoins()
+
+    if (lastCoinAmount !== coins) {
+      break
+    }
+  }
 }
