@@ -1,9 +1,10 @@
+import { loadScript } from '@paypal/paypal-js'
 import { prod } from '../Config'
 import { changeSubTab, Tabs } from '../Tabs'
 import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { products, subscriptionProducts } from './CartTab'
-import { addToCart, clearCart, getPrice, getProductsInCart, getQuantity, loadPayPal, removeFromCart } from './CartUtil'
+import { addToCart, clearCart, getPrice, getProductsInCart, getQuantity, removeFromCart } from './CartUtil'
 import { updatePseudoCoins } from './UpgradesSubtab'
 
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #cartContainer')!
@@ -163,7 +164,11 @@ const updateTotalPriceInCart = () => {
 
 async function initializePayPal () {
   try {
-    const paypal = await loadPayPal()
+    const paypal = await loadScript({
+      clientId: 'AYaEpUZfchj2DRdTZJm0ukzxyXGQIHorqy3q1axPQ8RCpiRqkYqg23NiRRYtHptYBRBAyCTL28yEwtb9',
+      enableFunding: ['venmo'],
+      disableFunding: ['paylater', 'credit', 'card']
+    })
 
     paypal?.Buttons?.({
       style: {

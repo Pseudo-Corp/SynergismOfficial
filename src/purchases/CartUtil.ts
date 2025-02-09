@@ -1,4 +1,3 @@
-import { loadScript, type PayPalNamespace } from '@paypal/paypal-js'
 import type { Product } from './CartTab'
 
 /** A map of all products in the cart. */
@@ -93,16 +92,4 @@ export const getProductsInCart = () => {
   }
 
   return temp
-}
-
-let paypal: PayPalNamespace
-
-export const loadPayPal = async () => {
-  paypal ??= (await loadScript({
-    clientId: 'AYaEpUZfchj2DRdTZJm0ukzxyXGQIHorqy3q1axPQ8RCpiRqkYqg23NiRRYtHptYBRBAyCTL28yEwtb9',
-    enableFunding: ['venmo'],
-    disableFunding: ['paylater', 'credit', 'card']
-  }))!
-
-  return paypal
 }
