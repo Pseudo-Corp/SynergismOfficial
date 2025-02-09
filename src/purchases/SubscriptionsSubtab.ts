@@ -208,6 +208,10 @@ export const initializeSubscriptionPage = memoize(() => {
 
           async onApprove (data) {
             console.log('subscription approved', data)
+
+            Alert(
+              'Please give us a few minutes to process your subscription (PayPal is slow). You will have to renew the page to receive the bonuses! Thank you for supporting Synergism!'
+            )
           },
 
           onError (error) {
