@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
 import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
-import { CampaignManager } from '../Campaign'
+import { CampaignManager, ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { createHepteract } from '../Hepteracts'
@@ -107,8 +107,13 @@ export const playerCorruptionSchema = z.object({
   showStats: z.boolean()
 }).default(() => JSON.parse(JSON.stringify(blankSave.corruptions)))
 
-export const playerCampaignSchema = z.record(z.string(), z.number()).transform((campaigns) => {
-  return new CampaignManager(campaigns)
+export const campaignSchema = z.object({
+  currentCampaign: z.string().optional(),
+  campaigns: z.record(z.string(), z.number()).optional()
+})
+
+export const playerCampaignSchema = campaignSchema.transform((campaignData) => {
+  return new CampaignManager(campaignData as ICampaignManagerData)
 }).default(() => JSON.parse(JSON.stringify(blankSave.campaigns)))
 
 export const playerSchema = z.object({

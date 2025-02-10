@@ -1,7 +1,8 @@
 import { z } from 'zod'
 import type { CorruptionLoadout, Corruptions } from '../Corruptions'
 import type { Player } from '../types/Synergism'
-import { playerCampaignSchema, playerCorruptionSchema, playerSchema } from './PlayerSchema'
+import { playerCorruptionSchema, playerSchema } from './PlayerSchema'
+
 
 export const convertArrayToCorruption = (array: number[]): Corruptions => {
   return {
@@ -24,9 +25,15 @@ export const playerJsonSchema = playerSchema.extend({
   wowHypercubes: z.any().transform((hypercubes: Player['wowHypercubes']) => Number(hypercubes)),
   wowPlatonicCubes: z.any().transform((cubes: Player['wowPlatonicCubes']) => Number(cubes)),
 
-  campaigns: playerCampaignSchema.transform((campaignManager: Player['campaigns']) => {
-    return campaignManager.c10Completions
+  campaigns: z.any().transform((campaigns: Player['campaigns']) => {
+    return campaigns.campaignManagerData
   }),
+  /*campaigns: playerCampaignSchema.transform((campaignManager: Player['campaigns']) => {
+    return {
+      currentCampaign: campaignManager.current,
+      campaigns: campaignManager.allC10Completions,
+    }
+  }),*/
 
   corruptions: playerCorruptionSchema.transform((stuff: Player['corruptions']) => {
     return {
