@@ -2596,7 +2596,49 @@
   },
   "campaigns": {
     "intro": "Campaigns - <<orange | Ascensions>> but <<maroon | harder™>>",
-    "campaignInfo": "Play through <<orange | Ascensions>> with various modifiers to make it spicier, but also more cubical! \n Each Campaign is a <i> <<red | Corrupted>> form of <<orange | Ascension>>. \n <<lightgoldenrodyellow | Click on an icon to see what I mean!>> </i>"
+    "campaignInfo": "Play through <<orange | Ascensions>> with various modifiers to make it spicier, but also more cubical! \n Each Campaign is a <i> <<red | Corrupted>> form of <<orange | Ascension>>. \n <<lightgoldenrodyellow | Click on an icon to see what I mean!>> </i>",
+    "data": {
+      "first": {
+        "name": "The first Campaign",
+        "description": "Welcome to Campaigns! These are Ascensions with corruption modifiers, which make the Ascension harder, but give better rewards!"
+      },
+      "second": {
+        "name": "The second Campaign",
+        "description": "As you can see, there are multiple different forms of corruption. You'll see more as you progress through Campaign!"
+      },
+      "third": {
+        "name": "Campaign the Third",
+        "description": "Kinda stacking a bit more. Notice the Ascension Score Multiplier? It goes up based on how many corruptions you have, and their level."
+      },
+      "chal11": {
+        "name": "Test Campaign 4",
+        "description": "This Campaign has every corruption set to 11. It's like Challenge 15... but not."
+      },
+      "ultimate": {
+        "name": "The Ultimate Campaign",
+        "description": "HEYYY!! WHAT ARE YOU TRYING TO DO?!"
+      }
+    },
+    "corruptionTexts": {
+      "viscosity": "Free Accel. and Multipliers Exponent ^{{ effect }}",
+      "dilation": "Time Speed is multiplied by {{ effect }}",
+      "hyperchallenge": "Challenge Exponent Reqs. x{{ effect }}",
+      "illiteracy": "Obtainium gain ^{{ effect }}",
+      "deflation": "Diamond gain ^{{ effect }}",
+      "extinction": "Ant Production ^{{ effect }}",
+      "drought": "Offering EXP divided by {{ effect }}",
+      "recession": "Coin Gain ^{{ effect }}"
+    },
+    "corruptionStats": {
+      "title": "Campaign Statistics",
+      "corruptionScoreMult": "Ascension Score Multiplier: {{ mult }}",
+      "corruptionDifficulty": "Campaign Difficulty Score (base is 400): {{ difficulty }}",
+      "highestc10Completion": "Highest Challenge 10 Completion in Campaign: {{ c10 }} / {{ maxc10 }}",
+      "tokensEarned": "Tokens Earned in Campaign: {{ tokens }} / {{ maxTokens }}",
+      "metaText": "This campaign has a 'meta build'! Token reward is doubled!",
+      "startCampaign": "Start Campaign! (Resets your ascension)",
+      "resetCampaign": "Exit Campaign! (Resets your ascension)"
+    }
   },
   "corruptions": {
     "names": {

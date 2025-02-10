@@ -628,6 +628,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       player.fifthOwnedParticles = 1
     }
 
+    const c10Completions = player.challengecompletions[10]
+
     // If challenge 10 is incomplete, you won't get a cube no matter what
     if (player.challengecompletions[10] > 0 && player.ascensionCounter > 0) {
       player.ascensionCount += calcAscensionCount()
@@ -728,6 +730,9 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       }
     }
 
+    if (player.campaigns.current) {
+      player.campaigns.resetCampaign(c10Completions)
+    }
     player.corruptions.used = new CorruptionLoadout(player.corruptions.next.loadout)
 
     // fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving

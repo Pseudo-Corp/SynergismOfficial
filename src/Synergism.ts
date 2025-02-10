@@ -145,7 +145,7 @@ import {
   updateLoadoutHoverClasses
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CampaignManager, campaignTest } from './Campaign'
+import { CampaignManager, createCampaignIconHTMLS } from './Campaign'
 import { lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
@@ -6394,7 +6394,7 @@ window.addEventListener('load', async () => {
   reloadShit()
 
   corruptionLoadoutTableCreate()
-  campaignTest()
+  createCampaignIconHTMLS()
 }, { once: true })
 
 window.addEventListener('unload', () => {

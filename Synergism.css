@@ -2908,6 +2908,9 @@ p#ascendHotKeys {
     justify-content: center;
     justify-items: center;
     grid-area: 1 / 1 / 3 / 2;
+    border: 2px solid orange;
+    width: 90%;
+    height: 90%;
 }
 
 #campaignIconGrid {
@@ -2918,7 +2921,7 @@ p#ascendHotKeys {
     grid-row-gap: 5px;
 }
 
-#campaignsIcons p {
+#campaignsIcons h3 {
     text-align: center;
 }
 
@@ -2929,9 +2932,77 @@ p#ascendHotKeys {
     cursor: pointer;
 }
 
-#campaignsDescriptions { grid-area: 1 / 2 / 3 / 4; }
+#campaignsDescriptions { 
+    grid-area: 1 / 2 / 3 / 4;
+    border: 2px solid red;
+    width: 90%;
+    height: 90%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
 
-#campaignsTokensInfo { grid-area: 3 / 1 / 4 / 4; }
+#campaignsDescriptions h3 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#campaignsDescriptions h5 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#campaignCorruptionInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.campaignCorrDisplay {
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+}
+
+.campaignCorrDisplay img {
+    width: 32px;
+    height: 32px;
+    font-size: 0;
+}
+
+.campaignCorrDisplay p {
+    margin: 0;
+}
+
+#campaignCorruptions {
+    width: 50%;
+    height: 100%;
+    border: 1px solid cyan;
+    display: flex;
+    flex-direction: column;
+}
+
+#campaignCorruptionStats {
+    width: 50%;
+    height: 100%;
+    border: 1px solid turquoise;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+#campaignCorruptionStats p {
+    margin: 0;
+}
+
+#campaignsTokensInfo { 
+    grid-area: 3 / 1 / 4 / 4; 
+    border: 2px solid yellow;
+    height: 90%;
+    width: 90%;
+}
 
 #traits {
     justify-content: center;

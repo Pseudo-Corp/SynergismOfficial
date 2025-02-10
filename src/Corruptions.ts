@@ -153,7 +153,7 @@ export class CorruptionLoadout {
 
   #viscosityEffect () {
     const base = G.viscosityPower[this.#levels.viscosity]
-    const multiplier = 1 + player.platonicUpgrades[6]
+    const multiplier = 1 + player.platonicUpgrades[6] / 30
     return Math.min(base * multiplier, 1)
   }
 
@@ -245,10 +245,9 @@ export class CorruptionLoadout {
 
   get totalCorruptionDifficultyScore () {
     let basePoints = 400
-    ;(Object.keys(player.corruptions.used) as Array<keyof Corruptions>).forEach((key) => {
-      basePoints += 16 * Math.pow(player.corruptions.used.getTotalLevel(key), 2)
+    Object.keys(this.#levels).forEach((key) => {
+      basePoints += 16 * Math.pow(this.getTotalLevel(key as keyof Corruptions), 2)
     })
-
     return basePoints
   }
 
@@ -305,6 +304,11 @@ export class CorruptionLoadout {
   }
 
   get totalCorruptionAscensionMultiplier () {
+    
+    if (this.#totalScoreMult === 1) {
+      this.#totalScoreMult = this.#calcTotalScoreMult()
+    }
+
     return this.#totalScoreMult
   }
 
@@ -402,7 +406,7 @@ export const maxCorruptionLevel = () => {
   return max
 }
 
-const corrIcons: Record<keyof Corruptions, string> = {
+export const corrIcons: Record<keyof Corruptions, string> = {
   viscosity: '/CorruptViscosity.png',
   drought: '/CorruptDrought.png',
   deflation: '/CorruptDeflation.png',
