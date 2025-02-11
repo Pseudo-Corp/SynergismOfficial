@@ -27,12 +27,13 @@ export enum Tabs {
   Research = 5,
   AntHill = 6,
   WowCubes = 7,
-  Corruption = 8,
-  Singularity = 9,
-  Settings = 10,
-  Shop = 11,
-  Event = 12,
-  Purchase = 13
+  Campaign = 8,
+  Corruption = 9,
+  Singularity = 10,
+  Settings = 11,
+  Shop = 12,
+  Event = 13,
+  Purchase = 14
 }
 
 /**
@@ -222,6 +223,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       }
     ]
   },
+  [Tabs.Campaign]: { subTabList: [] },
   [Tabs.Corruption]: {
     tabSwitcher: () => toggleCorruptionLoadoutsStats,
     subTabList: [
@@ -578,8 +580,13 @@ tabRow.appendButton(
     .setType(Tabs.WowCubes)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
+  new $Tab({ class: 'chal11', id: 'campaigntab', i18n: 'tabs.main.campaign' })
     .setUnlockedState(() => player.challengecompletions[11] > 0)
+    .setType(Tabs.Campaign)
+    .makeDraggable()
+    .makeRemoveable(),
+  new $Tab({ class: 'chal14', id: 'traitstab', i18n: 'tabs.main.corruption' })
+    .setUnlockedState(() => player.challengecompletions[14] > 0)
     .setType(Tabs.Corruption)
     .makeDraggable()
     .makeRemoveable(),

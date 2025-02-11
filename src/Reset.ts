@@ -19,7 +19,7 @@ import {
   calculateTalismanEffects
 } from './Calculate'
 import { challengeRequirement } from './Challenges'
-import { corrChallengeMinimum, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions'
+import { c15Corruptions, CorruptionLoadout, corruptionStatsUpdate, type SavedCorruption } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
 import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
 import { getAutoHepteractCrafts } from './Hepteracts'
@@ -299,7 +299,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         seconds: player.ascensionCounter,
         date: Date.now(),
         c10Completions: player.challengecompletions[10],
-        usedCorruptions: player.usedCorruptions.slice(0), // shallow copy,
+        usedCorruptions: player.corruptions.used.loadout,
         corruptionScore: corruptionMetaData[3],
         wowCubes: corruptionMetaData[4],
         wowTesseracts: corruptionMetaData[5],
@@ -474,7 +474,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   }
 
   if (input === 'reincarnation' || input === 'reincarnationChallenge') {
-    if (player.usedCorruptions[6] > 10 && player.platonicUpgrades[11] > 0) {
+    if (player.corruptions.used.deflation > 10 && player.platonicUpgrades[11] > 0) {
       player.prestigePoints = player.prestigePoints.add(G.reincarnationPointGain)
     }
   }
@@ -628,6 +628,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       player.fifthOwnedParticles = 1
     }
 
+    const c10Completions = player.challengecompletions[10]
+
     // If challenge 10 is incomplete, you won't get a cube no matter what
     if (player.challengecompletions[10] > 0 && player.ascensionCounter > 0) {
       player.ascensionCount += calcAscensionCount()
@@ -730,28 +732,14 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       }
     }
 
-    const maxLevel = maxCorruptionLevel()
-    player.usedCorruptions = player.prototypeCorruptions.map((curr: number, index: number) => {
-      if (index >= 2 && index <= 9) {
-        return Math.min(
-          maxLevel * (player.challengecompletions[corrChallengeMinimum(index)] > 0
-              || player.singularityUpgrades.platonicTau.getEffect().bonus
-            ? 1
-            : 0),
-          curr
-        )
-      }
-      return curr
-    })
-    player.usedCorruptions[1] = 0
-    player.prototypeCorruptions[1] = 0
+    if (player.campaigns.current) {
+      player.campaigns.resetCampaign(c10Completions)
+    }
+    player.corruptions.used = new CorruptionLoadout(player.corruptions.next.loadout)
+
     // fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving
     if (player.currentChallenge.ascension === 15 && (input === 'ascension' || input === 'ascensionChallenge')) {
-      player.usedCorruptions[0] = 0
-      player.prototypeCorruptions[0] = 0
-      for (let i = 2; i <= 9; i++) {
-        player.usedCorruptions[i] = 11
-      }
+      player.corruptions.used = new CorruptionLoadout(c15Corruptions)
     }
 
     corruptionStatsUpdate()
@@ -1245,9 +1233,12 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString
-  hold.corruptionLoadouts = player.corruptionLoadouts
-  hold.corruptionLoadoutNames = player.corruptionLoadoutNames
-  hold.corruptionShowStats = player.corruptionShowStats
+  hold.corruptions.saves = Object.fromEntries(
+    player.corruptions.saves.getSaves().map((save: SavedCorruption) => {
+      return [save.name, save.loadout.loadout]
+    })
+  )
+  hold.corruptions.showStats = player.corruptions.showStats
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
   hold.resettoggle1 = player.resettoggle1

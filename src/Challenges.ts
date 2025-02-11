@@ -407,7 +407,7 @@ export const calculateChallengeRequirementMultiplier = (
 ) => {
   let requirementMultiplier = Math.max(
     1,
-    G.hyperchallengedMultiplier[player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5)
+    G.hyperchallengeMultiplier[player.corruptions.used.hyperchallenge] / (1 + player.platonicUpgrades[8] / 2.5)
   )
   if (type === 'ascension') {
     // Normalize back to 1 if looking at ascension challenges in particular.
