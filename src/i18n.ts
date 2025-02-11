@@ -24,6 +24,7 @@ export const init = async (): Promise<void> => {
   const language = localStorage.getItem('language') ?? 'en'
 
   const response = await fetch(`./translations/${language}.json`)
+    .catch(() => fetch(`https://synergism.cc/translations/${language}.json`))
   const file = await response.json() as Resource
 
   languageCache.set(language, { translation: file })
@@ -32,6 +33,7 @@ export const init = async (): Promise<void> => {
   if (language !== 'en') {
     // We always need to load English, to use as a fallback
     const response = await fetch('./translations/en.json')
+      .catch(() => fetch('https://synergism.cc/translations/en.json'))
     const file = await response.json() as Resource
 
     languageCache.set('en', { translation: file })

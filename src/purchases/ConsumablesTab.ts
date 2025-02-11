@@ -34,11 +34,11 @@ const initializeConsumablesTab = memoize(() => {
           const alert = await Confirm(`Please confirm you would like to activate a ${key} for 500 PseudoCoins`)
           if (!alert) return Alert('Purchase cancelled')
           else {
-          sendToWebsocket(JSON.stringify({
-            type: 'consume',
-            consumable: key
-          }))
-        }
+            sendToWebsocket(JSON.stringify({
+              type: 'consume',
+              consumable: key
+            }))
+          }
         })
       })
     })
