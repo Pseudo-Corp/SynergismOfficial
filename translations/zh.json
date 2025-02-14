@@ -2537,8 +2537,10 @@
     },
     "pseudocoins": {
       "buy": "购买伪币",
+      "subscriptions": "Subscriptions",
       "upgrades": "购买升级",
-      "merch": "购买游戏周边"
+      "merch": "购买游戏周边",
+      "consumables": "Consumables & Events"
     }
   },
   "offlineProgress": {
@@ -3279,6 +3281,7 @@
     "openAll": "开启全部",
     "autoOff": "自动开启[关]",
     "autoOn": "自动开启{{percent}}%",
+    "unlocked": "Unlocked!",
     "quarks": {
       "quarkTitle": "-=- 开启方盒获取夸克 -=-",
       "resetInfo": "每日0点夸克奖励重置！",
@@ -3643,6 +3646,15 @@
       "AUTO_POTION_FREE_POTIONS_QOL": "自动使用药剂时并非<<gold|{{descriptor}}>>消耗药剂！",
       "OFFLINE_TIMER_CAP_BUFF": "使离线时间上限变为原来的<<gold|{{amount}}>>倍",
       "ADD_CODE_CAP_BUFF": "使“增加”代码的次数上限变为原来的<<gold|{{amount}}>>倍"
+    },
+    "consumables": {
+      "tipReceived": "{{offlineTime}} people tipped you in the last minute!",
+      "thanks": "The booster is now in effect! Thank you for supporting the game!",
+      "eventTitle": "Active Consumables",
+      "consumableSpoiler": "Start an event for everyone, with the Happy Hour Bell!",
+      "consumableButton": "Buy at the PseudoShop!",
+      "applyTips": "Use Tips!",
+      "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s)."
     }
   }
 }
