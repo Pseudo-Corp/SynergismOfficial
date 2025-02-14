@@ -2537,10 +2537,10 @@
     },
     "pseudocoins": {
       "buy": "购买伪币",
-      "subscriptions": "Subscriptions",
+      "subscriptions": "订阅",
       "upgrades": "购买升级",
       "merch": "购买游戏周边",
-      "consumables": "Consumables & Events"
+      "consumables": "消耗品及活动"
     }
   },
   "offlineProgress": {
@@ -3281,7 +3281,7 @@
     "openAll": "开启全部",
     "autoOff": "自动开启[关]",
     "autoOn": "自动开启{{percent}}%",
-    "unlocked": "Unlocked!",
+    "unlocked": "已解锁！",
     "quarks": {
       "quarkTitle": "-=- 开启方盒获取夸克 -=-",
       "resetInfo": "每日0点夸克奖励重置！",
@@ -3648,13 +3648,13 @@
       "ADD_CODE_CAP_BUFF": "使“增加”代码的次数上限变为原来的<<gold|{{amount}}>>倍"
     },
     "consumables": {
-      "tipReceived": "{{offlineTime}} people tipped you in the last minute!",
-      "thanks": "The booster is now in effect! Thank you for supporting the game!",
-      "eventTitle": "Active Consumables",
-      "consumableSpoiler": "Start an event for everyone, with the Happy Hour Bell!",
-      "consumableButton": "Buy at the PseudoShop!",
-      "applyTips": "Use Tips!",
-      "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s)."
+      "tipReceived": "最近一分钟内有{{offlineTime}}人给您打赏了！",
+      "thanks": "加成已生效！感谢您支持游戏！",
+      "eventTitle": "激活消耗品",
+      "consumableSpoiler": "使用快乐时光铃，为所有人开启活动！",
+      "consumableButton": "在虚假商店购买！",
+      "applyTips": "使用打赏！",
+      "applyTipsPrompt": "您想要使用多少打赏？每个打赏价值1分钟离线时间。您拥有{{tips}}个打赏。"
     }
   }
 }
