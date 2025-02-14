@@ -487,15 +487,23 @@ export const loadQuarkMultiplier = () => {
       3,
       true
     )
-  }` // Challenge 15 Reward
+  }`
   DOMCacheGetOrSet('sGQM9').textContent = `x${
+    format(
+      player.campaigns.quarkBonus,
+      3,
+      true
+    )
+  }`
+  // Challenge 15 Reward
+  DOMCacheGetOrSet('sGQM10').textContent = `x${
     format(
       player.worlds.applyBonus(1 / calculateQuarkMultiplier()),
       3,
       true
     )
   }` // Patreon Bonus
-  DOMCacheGetOrSet('sGQM10').textContent = `x${
+  DOMCacheGetOrSet('sGQM11').textContent = `x${
     format(
       G.isEvent
         ? 1
@@ -506,7 +514,7 @@ export const loadQuarkMultiplier = () => {
       true
     )
   }` // Event
-  DOMCacheGetOrSet('sGQM11').textContent = `x${
+  DOMCacheGetOrSet('sGQM12').textContent = `x${
     format(
       calculateEffectiveIALevel() > 0
         ? 1.1 + (0.15 / 75) * calculateEffectiveIALevel()
@@ -515,7 +523,7 @@ export const loadQuarkMultiplier = () => {
       true
     )
   }` // IA Rune
-  DOMCacheGetOrSet('sGQM12').textContent = `x${
+  DOMCacheGetOrSet('sGQM13').textContent = `x${
     format(
       player.challenge15Exponent >= 1e15
         ? 1 + (5 / 10000) * hepteractEffective('quark')
@@ -524,42 +532,42 @@ export const loadQuarkMultiplier = () => {
       true
     )
   }` // Quark Hepteract
-  DOMCacheGetOrSet('sGQM13').textContent = `x${
+  DOMCacheGetOrSet('sGQM14').textContent = `x${
     format(
       calculateQuarkMultFromPowder(),
       3,
       true
     )
   }` // Powder
-  DOMCacheGetOrSet('sGQM14').textContent = `x${
+  DOMCacheGetOrSet('sGQM15').textContent = `x${
     format(
       1 + player.achievements[266] * Math.min(0.1, player.ascensionCount / 1e16),
       3,
       true
     )
   }` // Achievement 266 [Max: 10% at 1Qa Ascensions]
-  DOMCacheGetOrSet('sGQM15').textContent = `x${
+  DOMCacheGetOrSet('sGQM16').textContent = `x${
     format(
       1 + player.singularityCount / 10,
       3,
       true
     )
   }` // Singularity
-  DOMCacheGetOrSet('sGQM16').textContent = `x${
+  DOMCacheGetOrSet('sGQM17').textContent = `x${
     format(
       calculateSingularityQuarkMilestoneMultiplier(),
       3,
       true
     )
   }` // Singularity Milestones
-  DOMCacheGetOrSet('sGQM17').textContent = `x${
+  DOMCacheGetOrSet('sGQM18').textContent = `x${
     format(
       1 + (0.1 * player.cubeUpgrades[53]) / 100,
       3,
       true
     )
   }` // Cube Upgrade 6x3 (Cx3)
-  DOMCacheGetOrSet('sGQM18').textContent = `x${
+  DOMCacheGetOrSet('sGQM19').textContent = `x${
     format(
       1
         + (1 / 10000) * player.cubeUpgrades[68]
@@ -568,7 +576,7 @@ export const loadQuarkMultiplier = () => {
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM19').textContent = `x${
+  DOMCacheGetOrSet('sGQM20').textContent = `x${
     format(
       1
         + 0.02 * player.singularityUpgrades.intermediatePack.level // 1.02
@@ -580,35 +588,35 @@ export const loadQuarkMultiplier = () => {
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM20').textContent = `x${
+  DOMCacheGetOrSet('sGQM21').textContent = `x${
     format(
       1 + 0.4 * +player.octeractUpgrades.octeractStarter.getEffect().bonus,
       3,
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM21').textContent = `x${
+  DOMCacheGetOrSet('sGQM22').textContent = `x${
     format(
       +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus,
       3,
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM22').textContent = `x${
+  DOMCacheGetOrSet('sGQM23').textContent = `x${
     format(
       calculateTotalOcteractQuarkBonus(),
       3,
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM23').textContent = `x${
+  DOMCacheGetOrSet('sGQM24').textContent = `x${
     format(
       1 + +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus,
       3,
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM24').textContent = `x${
+  DOMCacheGetOrSet('sGQM25').textContent = `x${
     format(
       1
         + (1 / 10000)
@@ -621,56 +629,56 @@ export const loadQuarkMultiplier = () => {
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM25').textContent = `x${
+  DOMCacheGetOrSet('sGQM26').textContent = `x${
     format(
       calculateAmbrosiaQuarkMult(),
       2,
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM26').textContent = `x${
+  DOMCacheGetOrSet('sGQM27').textContent = `x${
     format(
       +player.blueberryUpgrades.ambrosiaTutorial.bonus.quarks,
       2,
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM27').textContent = `x${
+  DOMCacheGetOrSet('sGQM28').textContent = `x${
     format(
       +player.blueberryUpgrades.ambrosiaQuarks1.bonus.quarks,
       2,
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM28').textContent = `x${
+  DOMCacheGetOrSet('sGQM29').textContent = `x${
     format(
       +player.blueberryUpgrades.ambrosiaCubeQuark1.bonus.quarks,
       2,
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM29').textContent = `x${
+  DOMCacheGetOrSet('sGQM30').textContent = `x${
     format(
       +player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks,
       2,
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM30').textContent = `x${
+  DOMCacheGetOrSet('sGQM31').textContent = `x${
     format(
       +player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks,
       2,
       true
     )
   }`
-  DOMCacheGetOrSet('sGQM31').textContent = `x${format(calculateCashGrabQuarkBonus(), 3, true)}`
-  DOMCacheGetOrSet('sGQM32').textContent = `x${
+  DOMCacheGetOrSet('sGQM32').textContent = `x${format(calculateCashGrabQuarkBonus(), 3, true)}`
+  DOMCacheGetOrSet('sGQM33').textContent = `x${
     format(1 + +player.singularityChallenges.limitedTime.rewards.quarkMult, 2, true)
   }`
-  DOMCacheGetOrSet('sGQM33').textContent = `x${
+  DOMCacheGetOrSet('sGQM34').textContent = `x${
     format(1 + +player.singularityChallenges.sadisticPrequel.rewards.quarkMult, 2, true)
   }`
-  DOMCacheGetOrSet('sGQM34').textContent = `x${format(player.highestSingularityCount === 0 ? 1.25 : 1, 2, true)}` // Buff in s0
+  DOMCacheGetOrSet('sGQM35').textContent = `x${format(player.highestSingularityCount === 0 ? 1.25 : 1, 2, true)}` // Buff in s0
 
   DOMCacheGetOrSet('sGQMT').textContent = `x${
     format(
@@ -725,40 +733,42 @@ export const loadStatisticsCubeMultipliers = () => {
   const map0: Record<number, { acc: number; desc: string; color?: string }> = {
     1: { acc: 2, desc: 'PseudoCoin Upgrade:', color: 'gold' },
     2: { acc: 2, desc: 'Ascension Time Multiplier:' },
-    3: { acc: 2, desc: 'Sun and Moon Achievements:' },
-    4: { acc: 2, desc: 'Speed Achievement:' },
-    5: { acc: 2, desc: 'Challenge 15 All Cube Bonus:' },
-    6: { acc: 2, desc: 'Rune 6 - Infinite Ascent:' },
-    7: { acc: 2, desc: 'Platonic Beta:' },
-    8: { acc: 2, desc: 'Platonic Omega:' },
-    9: { acc: 2, desc: 'Overflux Powder:' },
-    10: { acc: 2, desc: 'Event:' },
-    11: { acc: 2, desc: 'Singularity Factor:' },
-    12: { acc: 2, desc: 'Wow Pass Y' },
-    13: { acc: 2, desc: 'Starter Pack:' },
-    14: { acc: 2, desc: 'Cube Flame [GQ]:' },
-    15: { acc: 2, desc: 'Cube Blaze [GQ]:' },
-    16: { acc: 2, desc: 'Cube Inferno [GQ]:' },
-    17: { acc: 2, desc: 'Wow Pass Z:' },
-    18: { acc: 2, desc: 'Cookie Upgrade 16:' },
-    19: { acc: 2, desc: 'Cookie Upgrade 8:' },
-    20: { acc: 2, desc: 'Total Octeract Bonus:' },
-    21: { acc: 2, desc: 'No Singularity Upgrades Challenge:' },
-    22: { acc: 2, desc: 'Citadel [GQ]' },
-    23: { acc: 2, desc: 'Citadel 2 [GQ]' },
-    24: { acc: 4, desc: 'Platonic DELTA' },
-    25: { acc: 2, desc: 'Wow Pass ∞' },
-    26: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
-    27: { acc: 2, desc: 'Module- Tutorial' },
-    28: { acc: 2, desc: 'Module- Cubes 1' },
-    29: { acc: 2, desc: 'Module- Luck-Cube 1' },
-    30: { acc: 2, desc: 'Module- Quark-Cube 1' },
-    31: { acc: 2, desc: 'Module- Cubes 2' },
-    32: { acc: 2, desc: 'Module- Hyperflux' },
-    33: { acc: 2, desc: '20 Ascensions X20 Bonus [EXALT ONLY]' },
-    34: { acc: 2, desc: 'Cash Grab ULTIMATE' },
-    35: { acc: 2, desc: 'Shop EX ULTIMATE' },
-    36: { acc: 2, desc: 'Exalt 6 Penalty (for being too slow!)' }
+    3: { acc: 4, desc: 'Campaigns: Tutorial Bonus'},
+    4: { acc: 2, desc: 'Campaigns: Cube Bonus'},
+    5: { acc: 2, desc: 'Sun and Moon Achievements:' },
+    6: { acc: 2, desc: 'Speed Achievement:' },
+    7: { acc: 2, desc: 'Challenge 15 All Cube Bonus:' },
+    8: { acc: 2, desc: 'Rune 6 - Infinite Ascent:' },
+    9: { acc: 2, desc: 'Platonic Beta:' },
+    10: { acc: 2, desc: 'Platonic Omega:' },
+    11: { acc: 2, desc: 'Overflux Powder:' },
+    12: { acc: 2, desc: 'Event:' },
+    13: { acc: 2, desc: 'Singularity Factor:' },
+    14: { acc: 2, desc: 'Wow Pass Y' },
+    15: { acc: 2, desc: 'Starter Pack:' },
+    16: { acc: 2, desc: 'Cube Flame [GQ]:' },
+    17: { acc: 2, desc: 'Cube Blaze [GQ]:' },
+    18: { acc: 2, desc: 'Cube Inferno [GQ]:' },
+    19: { acc: 2, desc: 'Wow Pass Z:' },
+    20: { acc: 2, desc: 'Cookie Upgrade 16:' },
+    21: { acc: 2, desc: 'Cookie Upgrade 8:' },
+    22: { acc: 2, desc: 'Total Octeract Bonus:' },
+    23: { acc: 2, desc: 'No Singularity Upgrades Challenge:' },
+    24: { acc: 2, desc: 'Citadel [GQ]' },
+    25: { acc: 2, desc: 'Citadel 2 [GQ]' },
+    26: { acc: 4, desc: 'Platonic DELTA' },
+    27: { acc: 2, desc: 'Wow Pass ∞' },
+    28: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
+    29: { acc: 2, desc: 'Module- Tutorial' },
+    30: { acc: 2, desc: 'Module- Cubes 1' },
+    31: { acc: 2, desc: 'Module- Luck-Cube 1' },
+    32: { acc: 2, desc: 'Module- Quark-Cube 1' },
+    33: { acc: 2, desc: 'Module- Cubes 2' },
+    34: { acc: 2, desc: 'Module- Hyperflux' },
+    35: { acc: 2, desc: '20 Ascensions X20 Bonus [EXALT ONLY]' },
+    36: { acc: 2, desc: 'Cash Grab ULTIMATE' },
+    37: { acc: 2, desc: 'Shop EX ULTIMATE' },
+    38: { acc: 2, desc: 'Exalt 6 Penalty (for being too slow!)' }
   }
   for (let i = 0; i < arr0.length; i++) {
     const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
@@ -955,39 +965,40 @@ export const loadStatisticsCubeMultipliers = () => {
   const map6: Record<number, { acc: number; desc: string; color?: string }> = {
     1: { acc: 2, desc: 'Ascension Score Multiplier:' },
     2: { acc: 2, desc: 'PseudoCoin Upgrade:', color: 'gold' },
-    3: { acc: 2, desc: 'Season Pass 3:' },
-    4: { acc: 2, desc: 'Season Pass Y:' },
-    5: { acc: 2, desc: 'Season Pass Z:' },
-    6: { acc: 2, desc: 'Season Pass Lost:' },
-    7: { acc: 2, desc: 'Cookie Upgrade 20:' },
-    8: { acc: 2, desc: 'Divine Pack:' },
-    9: { acc: 2, desc: 'Cube Flame:' },
-    10: { acc: 2, desc: 'Cube Blaze:' },
-    11: { acc: 2, desc: 'Cube Inferno:' },
-    12: { acc: 2, desc: 'Octeract Absinthe' },
-    13: { acc: 2, desc: 'Pieces of Eight' },
-    14: { acc: 2, desc: 'Obelisk Shaped Like an Octagon' },
-    15: { acc: 2, desc: 'Octahedral Synthesis' },
-    16: { acc: 2, desc: 'Eighth Wonder of the World' },
-    17: { acc: 2, desc: 'Platonic is a fat sellout' },
-    18: { acc: 2, desc: 'Octeracts for Dummies' },
-    19: { acc: 2, desc: 'Octeract Cogenesis' },
-    20: { acc: 2, desc: 'Octeract Trigenesis' },
-    21: { acc: 2, desc: 'Singularity Factor' },
-    22: { acc: 2, desc: 'Digital Octeract Accumulator' },
-    23: { acc: 2, desc: 'Event Buff' },
-    24: { acc: 2, desc: 'Platonic DELTA' },
-    25: { acc: 2, desc: 'No Singularity Upgrades Challenge' },
-    26: { acc: 2, desc: 'Wow Pass ∞' },
-    27: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
-    28: { acc: 2, desc: 'Module- Tutorial' },
-    29: { acc: 2, desc: 'Module- Cubes 1' },
-    30: { acc: 2, desc: 'Module- Luck-Cube 1' },
-    31: { acc: 2, desc: 'Module- Quark-Cube 1' },
-    32: { acc: 2, desc: 'Module- Cubes 2' },
-    33: { acc: 2, desc: 'Cash Grab ULTIMATE' },
-    34: { acc: 2, desc: 'Shop EX ULTIMATE' },
-    35: { acc: 2, desc: ascensionSpeedDesc }
+    3: { acc: 4, desc: 'Campaigns: Octeract Bonus:' },
+    4: { acc: 2, desc: 'Season Pass 3:' },
+    5: { acc: 2, desc: 'Season Pass Y:' },
+    6: { acc: 2, desc: 'Season Pass Z:' },
+    7: { acc: 2, desc: 'Season Pass Lost:' },
+    8: { acc: 2, desc: 'Cookie Upgrade 20:' },
+    9: { acc: 2, desc: 'Divine Pack:' },
+    10: { acc: 2, desc: 'Cube Flame:' },
+    11: { acc: 2, desc: 'Cube Blaze:' },
+    12: { acc: 2, desc: 'Cube Inferno:' },
+    13: { acc: 2, desc: 'Octeract Absinthe' },
+    14: { acc: 2, desc: 'Pieces of Eight' },
+    15: { acc: 2, desc: 'Obelisk Shaped Like an Octagon' },
+    16: { acc: 2, desc: 'Octahedral Synthesis' },
+    17: { acc: 2, desc: 'Eighth Wonder of the World' },
+    18: { acc: 2, desc: 'Platonic is a fat sellout' },
+    19: { acc: 2, desc: 'Octeracts for Dummies' },
+    20: { acc: 2, desc: 'Octeract Cogenesis' },
+    21: { acc: 2, desc: 'Octeract Trigenesis' },
+    22: { acc: 2, desc: 'Singularity Factor' },
+    23: { acc: 2, desc: 'Digital Octeract Accumulator' },
+    24: { acc: 2, desc: 'Event Buff' },
+    25: { acc: 2, desc: 'Platonic DELTA' },
+    26: { acc: 2, desc: 'No Singularity Upgrades Challenge' },
+    27: { acc: 2, desc: 'Wow Pass ∞' },
+    28: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
+    29: { acc: 2, desc: 'Module- Tutorial' },
+    30: { acc: 2, desc: 'Module- Cubes 1' },
+    31: { acc: 2, desc: 'Module- Luck-Cube 1' },
+    32: { acc: 2, desc: 'Module- Quark-Cube 1' },
+    33: { acc: 2, desc: 'Module- Cubes 2' },
+    34: { acc: 2, desc: 'Cash Grab ULTIMATE' },
+    35: { acc: 2, desc: 'Shop EX ULTIMATE' },
+    36: { acc: 2, desc: ascensionSpeedDesc }
   }
   for (let i = 0; i < octMults.list.length; i++) {
     const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`)
@@ -1023,29 +1034,31 @@ export const loadStatisticsOfferingMultipliers = () => {
     11: { acc: 3, desc: 'Plutus Cube Tribute:' },
     12: { acc: 3, desc: 'Constant Upgrade 3:' },
     13: { acc: 3, desc: 'Research 6x24,8x4:' },
-    14: { acc: 3, desc: 'Challenge 12:' },
-    15: { acc: 3, desc: 'Research 8x25:' },
-    16: { acc: 3, desc: 'Ascension Count Achievement:' },
-    17: { acc: 3, desc: 'Sun and Moon Achievements:' },
-    18: { acc: 3, desc: 'Cube Upgrade 5x6:' },
-    19: { acc: 3, desc: 'Cube Upgrade 5x10:' },
-    20: { acc: 3, desc: 'Platonic ALPHA:' },
-    21: { acc: 3, desc: 'Platonic BETA:' },
-    22: { acc: 3, desc: 'Platonic OMEGA:' },
-    23: { acc: 3, desc: 'Challenge 15:' },
-    24: { acc: 3, desc: 'Starter Pack:' },
-    25: { acc: 3, desc: 'Offering Charge [GQ]:' },
-    26: { acc: 3, desc: 'Offering Storm [GQ]:' },
-    27: { acc: 3, desc: 'Offering Tempest [GQ]:' },
-    28: { acc: 3, desc: 'Citadel [GQ]' },
-    29: { acc: 3, desc: 'Citadel 2 [GQ]' },
-    30: { acc: 3, desc: 'Cube Upgrade Cx4:' },
-    31: { acc: 3, desc: 'Offering Electrolosis [OC]:' },
-    32: { acc: 3, desc: 'RNG-based Offering Booster:' },
-    33: { acc: 3, desc: 'Cube Upgrade Cx21:' },
-    34: { acc: 3, desc: '20 Ascensions X20 [EXALT ONLY]' },
-    35: { acc: 3, desc: 'Shop EX ULTIMATE' },
-    36: { acc: 3, desc: 'Event:' }
+    14: { acc: 3, desc: 'Campaigns: Tutorial Bonus'},
+    15: { acc: 3, desc: 'Campaigns: Offering Bonus:' },
+    16: { acc: 3, desc: 'Challenge 12:' },
+    17: { acc: 3, desc: 'Research 8x25:' },
+    18: { acc: 3, desc: 'Ascension Count Achievement:' },
+    19: { acc: 3, desc: 'Sun and Moon Achievements:' },
+    20: { acc: 3, desc: 'Cube Upgrade 5x6:' },
+    21: { acc: 3, desc: 'Cube Upgrade 5x10:' },
+    22: { acc: 3, desc: 'Platonic ALPHA:' },
+    23: { acc: 3, desc: 'Platonic BETA:' },
+    24: { acc: 3, desc: 'Platonic OMEGA:' },
+    25: { acc: 3, desc: 'Challenge 15:' },
+    26: { acc: 3, desc: 'Starter Pack:' },
+    27: { acc: 3, desc: 'Offering Charge [GQ]:' },
+    28: { acc: 3, desc: 'Offering Storm [GQ]:' },
+    29: { acc: 3, desc: 'Offering Tempest [GQ]:' },
+    30: { acc: 3, desc: 'Citadel [GQ]' },
+    31: { acc: 3, desc: 'Citadel 2 [GQ]' },
+    32: { acc: 3, desc: 'Cube Upgrade Cx4:' },
+    33: { acc: 3, desc: 'Offering Electrolosis [OC]:' },
+    34: { acc: 3, desc: 'RNG-based Offering Booster:' },
+    35: { acc: 3, desc: 'Cube Upgrade Cx21:' },
+    36: { acc: 3, desc: '20 Ascensions X20 [EXALT ONLY]' },
+    37: { acc: 3, desc: 'Shop EX ULTIMATE' },
+    38: { acc: 3, desc: 'Event:' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`)
@@ -1211,17 +1224,29 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt19').textContent = `x${
     format(
+      player.campaigns.tutorialBonus.obtainiumBonus,
+      3
+    )
+  }`
+  DOMCacheGetOrSet('sObt20').textContent = `x${
+    format(
+      player.campaigns.obtainiumBonus,
+      3
+    )
+  }`
+  DOMCacheGetOrSet('sObt21').textContent = `x${
+    format(
       1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]),
       2
     )
   }`
-  DOMCacheGetOrSet('sObt20').textContent = `x${
+  DOMCacheGetOrSet('sObt22').textContent = `x${
     format(
       1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[4],
       4
     )
   }`
-  DOMCacheGetOrSet('sObt21').textContent = `x${
+  DOMCacheGetOrSet('sObt23').textContent = `x${
     format(
       1
         + ((0.03 * Math.log(player.uncommonFragments + 1)) / Math.log(4))
@@ -1229,45 +1254,45 @@ export const loadObtainiumMultipliers = () => {
       3
     )
   }`
-  DOMCacheGetOrSet('sObt22').textContent = `x${
+  DOMCacheGetOrSet('sObt24').textContent = `x${
     format(
       1 + (0.02 / 100) * player.cubeUpgrades[50],
       4
     )
   }`
-  DOMCacheGetOrSet('sObt23').textContent = `x${
+  DOMCacheGetOrSet('sObt25').textContent = `x${
     format(
       player.achievements[53] > 0 ? 1 + (1 / 800) * G.runeSum : 1,
       3
     )
   }`
-  DOMCacheGetOrSet('sObt24').textContent = `x${
+  DOMCacheGetOrSet('sObt26').textContent = `x${
     format(
       (player.achievements[128] ? 1.5 : 1) * (player.achievements[129] ? 1.25 : 1),
       3
     )
   }`
-  DOMCacheGetOrSet('sObt25').textContent = `+${
+  DOMCacheGetOrSet('sObt27').textContent = `+${
     format(
       player.achievements[51] > 0 ? 4 : 1,
       3
     )
   }`
-  DOMCacheGetOrSet('sObt26').textContent = `+${
+  DOMCacheGetOrSet('sObt28').textContent = `+${
     format(
       (player.reincarnationcounter >= 2 ? 1 * player.researches[63] : 1)
         + (player.reincarnationcounter >= 5 ? 2 * player.researches[64] : 1),
       2
     )
   }`
-  DOMCacheGetOrSet('sObt27').textContent = `x${
+  DOMCacheGetOrSet('sObt29').textContent = `x${
     format(
       (player.reincarnationcounter >= 5 ? Math.max(1, player.reincarnationcounter / 10) : 1)
         * Math.min(1, Math.pow(player.reincarnationcounter / 10, 2)),
       3
     )
   }`
-  DOMCacheGetOrSet('sObt28').textContent = `x${
+  DOMCacheGetOrSet('sObt30').textContent = `x${
     format(
       Math.pow(
         Decimal.log(player.transcendShards.add(1), 10) / 300,
@@ -1276,7 +1301,7 @@ export const loadObtainiumMultipliers = () => {
       2
     )
   }`
-  DOMCacheGetOrSet('sObt29').textContent = `^${
+  DOMCacheGetOrSet('sObt31').textContent = `^${
     format(
       Math.min(
         1,
@@ -1289,122 +1314,122 @@ export const loadObtainiumMultipliers = () => {
       3
     )
   }`
-  DOMCacheGetOrSet('sObt30').textContent = `x${
+  DOMCacheGetOrSet('sObt32').textContent = `x${
     format(
       1 + (4 / 100) * player.cubeUpgrades[42]
         + 1 + (3 / 100) * player.cubeUpgrades[43],
       2
     )
   }`
-  DOMCacheGetOrSet('sObt31').textContent = `x${
+  DOMCacheGetOrSet('sObt33').textContent = `x${
     format(
       1 + player.platonicUpgrades[5],
       2
     )
   }`
-  DOMCacheGetOrSet('sObt32').textContent = `x${
+  DOMCacheGetOrSet('sObt34').textContent = `x${
     format(
       1 + 1.5 * player.platonicUpgrades[9],
       2
     )
   }`
-  DOMCacheGetOrSet('sObt33').textContent = `x${
+  DOMCacheGetOrSet('sObt35').textContent = `x${
     format(
       1 + 2.5 * player.platonicUpgrades[10],
       2
     )
   }`
-  DOMCacheGetOrSet('sObt34').textContent = `x${
+  DOMCacheGetOrSet('sObt36').textContent = `x${
     format(
       1 + 5 * player.platonicUpgrades[15],
       2
     )
   }`
-  DOMCacheGetOrSet('sObt35').textContent = `x${
+  DOMCacheGetOrSet('sObt37').textContent = `x${
     format(
       G.challenge15Rewards.obtainium,
       3
     )
   }`
-  DOMCacheGetOrSet('sObt36').textContent = `x${
+  DOMCacheGetOrSet('sObt38').textContent = `x${
     format(
       1 + 5 * (player.singularityUpgrades.starterPack.getEffect().bonus ? 1 : 0),
       2
     )
   }`
-  DOMCacheGetOrSet('sObt37').textContent = `x${
+  DOMCacheGetOrSet('sObt39').textContent = `x${
     format(
       +player.singularityUpgrades.singObtainium1.getEffect().bonus,
       2
     )
   }`
-  DOMCacheGetOrSet('sObt38').textContent = `x${
+  DOMCacheGetOrSet('sObt40').textContent = `x${
     format(
       +player.singularityUpgrades.singObtainium2.getEffect().bonus,
       2
     )
   }`
-  DOMCacheGetOrSet('sObt39').textContent = `x${
+  DOMCacheGetOrSet('sObt41').textContent = `x${
     format(
       +player.singularityUpgrades.singObtainium3.getEffect().bonus,
       2
     )
   }`
-  DOMCacheGetOrSet('sObt40').textContent = `x${
+  DOMCacheGetOrSet('sObt42').textContent = `x${
     format(
       1 + player.cubeUpgrades[55] / 100,
       2
     )
   }`
-  DOMCacheGetOrSet('sObt41').textContent = `x${
+  DOMCacheGetOrSet('sObt43').textContent = `x${
     format(
       1 + (1 / 200) * player.shopUpgrades.cashGrab2,
       3
     )
   }`
-  DOMCacheGetOrSet('sObt42').textContent = `x${
+  DOMCacheGetOrSet('sObt44').textContent = `x${
     format(
       1 + (1 / 100) * player.shopUpgrades.obtainiumEX2 * player.singularityCount,
       2
     )
   }`
-  DOMCacheGetOrSet('sObt43').textContent = `x${
+  DOMCacheGetOrSet('sObt45').textContent = `x${
     format(
       1 + calculateEventBuff(BuffType.Obtainium),
       2
     )
   }`
-  DOMCacheGetOrSet('sObt44').textContent = `x${
+  DOMCacheGetOrSet('sObt46').textContent = `x${
     format(
       +player.singularityUpgrades.singCitadel.getEffect().bonus,
       2
     )
   }`
-  DOMCacheGetOrSet('sObt45').textContent = `x${
+  DOMCacheGetOrSet('sObt47').textContent = `x${
     format(
       +player.singularityUpgrades.singCitadel2.getEffect().bonus,
       2
     )
   }`
-  DOMCacheGetOrSet('sObt46').textContent = `x${
+  DOMCacheGetOrSet('sObt48').textContent = `x${
     format(
       +player.octeractUpgrades.octeractObtainium1.getEffect().bonus,
       2
     )
   }`
-  DOMCacheGetOrSet('sObt47').textContent = `x${
+  DOMCacheGetOrSet('sObt49').textContent = `x${
     format(
       Math.pow(1.02, player.shopUpgrades.obtainiumEX3),
       2
     )
   }`
-  DOMCacheGetOrSet('sObt48').textContent = `x${
+  DOMCacheGetOrSet('sObt50').textContent = `x${
     format(
       calculateTotalOcteractObtainiumBonus(),
       2
     )
   }`
-  DOMCacheGetOrSet('sObt49').textContent = `x${
+  DOMCacheGetOrSet('sObt51').textContent = `x${
     format(
       player.currentChallenge.ascension === 15
         ? 1 + 7 * player.cubeUpgrades[62]
@@ -1412,38 +1437,38 @@ export const loadObtainiumMultipliers = () => {
       2
     )
   }`
-  DOMCacheGetOrSet('sObt50').textContent = `x${
+  DOMCacheGetOrSet('sObt52').textContent = `x${
     format(
       1
         + 0.001 * +player.blueberryUpgrades.ambrosiaObtainium1.bonus.obtainiumMult,
       2
     )
   }`
-  DOMCacheGetOrSet('sObt51').textContent = `x${
+  DOMCacheGetOrSet('sObt53').textContent = `x${
     format(
       calculateEXUltraObtainiumBonus(),
       2
     )
   }`
-  DOMCacheGetOrSet('sObt52').textContent = `x${
+  DOMCacheGetOrSet('sObt54').textContent = `x${
     format(
       calculateEXALTBonusMult(),
       2
     )
   }`
-  DOMCacheGetOrSet('sObt53').textContent = `x${
+  DOMCacheGetOrSet('sObt55').textContent = `x${
     format(
       Math.pow(1.04, player.cubeUpgrades[71] * sumContents(player.talismanRarity)),
       2
     )
   }`
-  DOMCacheGetOrSet('sObt54').textContent = `/${
+  DOMCacheGetOrSet('sObt56').textContent = `/${
     format(
       calculateSingularityDebuff('Obtainium'),
       2
     )
   }`
-  DOMCacheGetOrSet('sObt55').textContent = `^${
+  DOMCacheGetOrSet('sObt57').textContent = `^${
     format(
       player.corruptions.used.illiteracy >= 15
         ? 1 / 4
@@ -1451,7 +1476,7 @@ export const loadObtainiumMultipliers = () => {
       2
     )
   }`
-  DOMCacheGetOrSet('sObt56').textContent = `^${
+  DOMCacheGetOrSet('sObt58').textContent = `^${
     format(
       player.corruptions.used.illiteracy >= 16
         ? 1 / 4
@@ -1459,7 +1484,7 @@ export const loadObtainiumMultipliers = () => {
       2
     )
   }`
-  DOMCacheGetOrSet('sObt57').textContent = `x${
+  DOMCacheGetOrSet('sObt59').textContent = `x${
     format(
       player.currentChallenge.ascension === 14
         ? 0
@@ -1551,16 +1576,17 @@ export const loadStatisticsGoldenQuarkMultipliers = () => {
   const arr = calculateGoldenQuarkMultiplier()
   const map: Record<number, { acc: number; desc: string; color?: string }> = {
     1: { acc: 2, desc: 'PseudoCoin Bonus:', color: 'gold' },
-    2: { acc: 2, desc: 'Challenge 15 Exponent:' },
-    3: { acc: 2, desc: 'Patreon Bonus:' },
-    4: { acc: 2, desc: 'Golden Quarks I:' },
-    5: { acc: 2, desc: 'Cookie Upgrade 19:' },
-    6: { acc: 2, desc: 'No Singularity Upgrades:' },
-    7: { acc: 2, desc: 'Event:' },
-    8: { acc: 2, desc: 'Singularity Fast Forwards:' },
-    9: { acc: 2, desc: 'Golden Revolution II:' },
-    10: { acc: 2, desc: 'Immaculate Alchemy:' },
-    11: { acc: 2, desc: 'Total Quarks Coefficient:' }
+    2: { acc: 3, desc: 'Campaign: Golden Quark Bonus:' },
+    3: { acc: 2, desc: 'Challenge 15 Exponent:' },
+    4: { acc: 2, desc: 'Patreon Bonus:' },
+    5: { acc: 2, desc: 'Golden Quarks I:' },
+    6: { acc: 2, desc: 'Cookie Upgrade 19:' },
+    7: { acc: 2, desc: 'No Singularity Upgrades:' },
+    8: { acc: 2, desc: 'Event:' },
+    9: { acc: 2, desc: 'Singularity Fast Forwards:' },
+    10: { acc: 2, desc: 'Golden Revolution II:' },
+    11: { acc: 2, desc: 'Immaculate Alchemy:' },
+    12: { acc: 2, desc: 'Total Quarks Coefficient:' }
   }
   for (let i = 0; i < arr.list.length; i++) {
     const statGQMi = DOMCacheGetOrSet(`statGQMS${i + 1}`)
@@ -1726,21 +1752,22 @@ export const loadStatisticsAmbrosiaLuck = () => {
   const map: Record<number, { acc: number; desc: string; color?: string }> = {
     1: { acc: 0, desc: 'Base Value' },
     2: { acc: 0, desc: 'PseudoCoin Upgrade', color: 'gold' },
-    3: { acc: 0, desc: 'Irish Ants Singularity Perk' },
-    4: { acc: 1, desc: 'Shop Upgrade Bonus' },
-    5: { acc: 0, desc: 'Singularity Ambrosia Luck Upgrades' },
-    6: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrades' },
-    7: { acc: 0, desc: 'Ambrosia Luck Module I' },
-    8: { acc: 1, desc: 'Ambrosia Luck Module II' },
-    9: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
-    10: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
-    11: { acc: 0, desc: 'Primal Power: One Hundred Thirty One!' },
-    12: { acc: 0, desc: 'Primal Power: Two Hundred Sixty Nine!' },
-    13: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
-    14: { acc: 0, desc: 'No Ambrosia Upgrades EXALT' },
-    15: { acc: 0, desc: 'Cube Upgrade Cx27' },
-    16: { acc: 0, desc: 'Red Bar Fills with Cx29' },
-    17: { acc: 0, desc: 'ULTRA Upgrade: Ambrosia Exalter' }
+    3: { acc: 2, desc: 'Campaign Bonus: Ambrosia Luck'},
+    4: { acc: 0, desc: 'Irish Ants Singularity Perk' },
+    5: { acc: 1, desc: 'Shop Upgrade Bonus' },
+    6: { acc: 0, desc: 'Singularity Ambrosia Luck Upgrades' },
+    7: { acc: 0, desc: 'Octeract Ambrosia Luck Upgrades' },
+    8: { acc: 0, desc: 'Ambrosia Luck Module I' },
+    9: { acc: 1, desc: 'Ambrosia Luck Module II' },
+    10: { acc: 2, desc: 'Ambrosia Cube-Luck Hybrid Module I' },
+    11: { acc: 2, desc: 'Ambrosia Quark-Luck Hybrid Module I' },
+    12: { acc: 0, desc: 'Primal Power: One Hundred Thirty One!' },
+    13: { acc: 0, desc: 'Primal Power: Two Hundred Sixty Nine!' },
+    14: { acc: 0, desc: 'Shop: Octeract-Based Ambrosia Luck' },
+    15: { acc: 0, desc: 'No Ambrosia Upgrades EXALT' },
+    16: { acc: 0, desc: 'Cube Upgrade Cx27' },
+    17: { acc: 0, desc: 'Red Bar Fills with Cx29' },
+    18: { acc: 0, desc: 'ULTRA Upgrade: Ambrosia Exalter' }
   }
   for (let i = 0; i < arr.length - 1; i++) {
     const statALuckMi = DOMCacheGetOrSet(`statALuckM${i + 1}`)
@@ -1769,16 +1796,17 @@ export const loadStatisticsAmbrosiaGeneration = () => {
   const map: Record<number, { acc: number; desc: string; color?: string }> = {
     1: { acc: 4, desc: 'Visited Ambrosia Subtab' },
     2: { acc: 4, desc: 'PseudoCoin Upgrade', color: 'gold' },
-    3: { acc: 4, desc: 'Number of Blueberries' },
-    4: { acc: 4, desc: 'Shop Upgrade Bonus' },
-    5: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
-    6: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
-    7: { acc: 4, desc: 'Patreon Bonus' },
-    8: { acc: 4, desc: 'One Ascension Challenge EXALT' },
-    9: { acc: 4, desc: 'No Ambrosia Upgrades EXALT' },
-    10: { acc: 4, desc: 'Cube Upgrade Cx26' },
-    11: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
-    12: { acc: 4, desc: 'Event Bonus' }
+    3: { acc: 4, desc: 'Campaign Bonus: Ambrosia Generation' },
+    4: { acc: 4, desc: 'Number of Blueberries' },
+    5: { acc: 4, desc: 'Shop Upgrade Bonus' },
+    6: { acc: 4, desc: 'Singularity Ambrosia Generation Upgrades' },
+    7: { acc: 4, desc: 'Octeract Ambrosia Generation Upgrades' },
+    8: { acc: 4, desc: 'Patreon Bonus' },
+    9: { acc: 4, desc: 'One Ascension Challenge EXALT' },
+    10: { acc: 4, desc: 'No Ambrosia Upgrades EXALT' },
+    11: { acc: 4, desc: 'Cube Upgrade Cx26' },
+    12: { acc: 4, desc: 'Cash-Grab ULTIMATE' },
+    13: { acc: 4, desc: 'Event Bonus' }
   }
   for (let i = 0; i < arr.length; i++) {
     const statAGenMi = DOMCacheGetOrSet(`statAGenM${i + 1}`)

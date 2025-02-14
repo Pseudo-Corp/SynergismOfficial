@@ -703,6 +703,7 @@ export const autoAscensionChallengeSweepUnlock = () => {
 
 export const challenge15ScoreMultiplier = () => {
   const arr = [
+    player.campaigns.c15Bonus, // Campaign Bonus to c15
     1 + 5 / 10000 * hepteractEffective('challenge'), // Challenge Hepteract
     1 + 0.25 * player.platonicUpgrades[15] // Omega Upgrade
   ]

@@ -107,6 +107,7 @@ export const calculatetax = () => {
   exponent *= 1 - 0.666 * player.researches[200] / 100000
   exponent *= 1 - 0.666 * player.cubeUpgrades[50] / 100000
   exponent *= G.challenge15Rewards.taxes
+  exponent *= player.campaigns.taxMultiplier
   if (player.upgrades[121] > 0) {
     exponent *= 0.5
   }
