@@ -2537,8 +2537,10 @@
     },
     "pseudocoins": {
       "buy": "Purchase Coins",
+      "subscriptions": "Subscriptions",
       "upgrades": "Buy Upgrades",
-      "merch": "Purchase Merch"
+      "merch": "Purchase Merch",
+      "consumables": "Consumables & Events"
     }
   },
   "offlineProgress": {
@@ -3279,6 +3281,7 @@
     "openAll": "Abrir todo",
     "autoOff": "Auto Abrir [OFF]",
     "autoOn": "Auto Abrir {{percent}}%",
+    "unlocked": "Unlocked!",
     "quarks": {
       "quarkTitle": "-=- Rincón de Cubos a Quarks -=-",
       "resetInfo": "¡Las Recompensas de Quark se reinician a medianoche!",
@@ -3643,6 +3646,15 @@
       "AUTO_POTION_FREE_POTIONS_QOL": "Auto-Potion is <<gold | {{descriptor}}>> FREE!",
       "OFFLINE_TIMER_CAP_BUFF": "Offline Time Capacity is multiplied by <<gold | {{amount}}>>",
       "ADD_CODE_CAP_BUFF": "Code 'add' Capacity is multiplied by <<gold | {{amount}}>>"
+    },
+    "consumables": {
+      "tipReceived": "{{offlineTime}} people tipped you in the last minute!",
+      "thanks": "The booster is now in effect! Thank you for supporting the game!",
+      "eventTitle": "Active Consumables",
+      "consumableSpoiler": "Start an event for everyone, with the Happy Hour Bell!",
+      "consumableButton": "Buy at the PseudoShop!",
+      "applyTips": "Use Tips!",
+      "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s)."
     }
   }
 }
