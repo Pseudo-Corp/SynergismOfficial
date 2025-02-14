@@ -53,6 +53,7 @@ import { assert, getElementById } from './Utility'
 import { updateClassList } from './Utility'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
+import { campaignCorruptionStatsHTMLReset, campaignTokenRewardHTMLUpdate, createCampaignIconHTMLS } from './Campaign'
 
 let repeatreset: ReturnType<typeof setTimeout>
 
@@ -1370,6 +1371,11 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
 
   player.rngCode = Date.now()
   player.promoCodeTiming.time = Date.now()
+
+  // Campaign HTML updates
+  createCampaignIconHTMLS()
+  campaignCorruptionStatsHTMLReset()
+  campaignTokenRewardHTMLUpdate()
 
   // Save again at the end of singularity reset
   saveSynergy()

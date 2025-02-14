@@ -345,6 +345,7 @@ export const calculateMaxRunes = (i: number) => {
 export const calculateEffectiveIALevel = () => {
   let bonus = PCoinUpgradeEffects.INSTANT_UNLOCK_2 ? 6 : 0
   bonus += player.cubeUpgrades[73]
+  bonus += player.campaigns.bonusRune6
   const totalRawLevel = player.runelevels[5] + bonus
   return (
     totalRawLevel
@@ -482,6 +483,8 @@ export function calculateOfferings (
     1
     + 0.0003 * player.talismanLevels[3 - 1] * player.researches[149]
     + 0.0004 * player.talismanLevels[3 - 1] * player.researches[179], // Research 6x24,8x4
+    player.campaigns.tutorialBonus.offeringBonus, // Tutorial Offering Bonus (Campaignsd)
+    player.campaigns.offeringBonus, // Permanent Offering Bonus (Campaigns)
     1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]), // Challenge 12
     1 + (0.01 / 100) * player.researches[200], // Research 8x25
     1 + Math.min(1, player.ascensionCount / 1e6) * player.achievements[187], // Ascension Count Achievement
@@ -602,6 +605,8 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= 1 + 0.04 * player.constantUpgrades[4]
   G.obtainiumGain *= 1 + 0.1 * player.cubeUpgrades[47]
   G.obtainiumGain *= 1 + 0.1 * player.cubeUpgrades[3]
+  G.obtainiumGain *= player.campaigns.tutorialBonus.obtainiumBonus
+  G.obtainiumGain *= player.campaigns.obtainiumBonus
   G.obtainiumGain *= 1 + 0.5 * CalcECC('ascension', player.challengecompletions[12])
   G.obtainiumGain *= 1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[4]
   G.obtainiumGain *= 1
@@ -1716,6 +1721,10 @@ export const calculateAllCubeMultiplier = () => {
           + (1 / 4) * player.achievements[211]
           + (1 / 2) * player.achievements[218])
         * Math.max(0, player.ascensionCounter / 10 - 1)),
+    // Campaign Tutorial
+    player.campaigns.tutorialBonus.cubeBonus,
+    // Campaign Cubes
+    player.campaigns.cubeBonus,
     // Sun and Moon achievements
     1
     + (6 / 100) * player.achievements[250]
@@ -2088,6 +2097,7 @@ export const getOcteractValueMultipliers = () => {
   const corruptionLevelSum = player.corruptions.used.totalLevels
   return [
     PCoinUpgradeEffects.CUBE_BUFF,
+    player.campaigns.octeractBonus,
     1 + (1.5 * player.shopUpgrades.seasonPass3) / 100,
     1 + (0.75 * player.shopUpgrades.seasonPassY) / 100,
     1 + (player.shopUpgrades.seasonPassZ * player.singularityCount) / 100,
@@ -2427,6 +2437,7 @@ export const calculateQuarkMultiplier = () => {
     // Challenge 15: Exceed 1e11 exponent reward
     multiplier += G.challenge15Rewards.quarks - 1
   }
+  multiplier *= player.campaigns.quarkBonus
   if (isIARuneUnlocked()) {
     // Purchased Infinite Ascent Rune (or corresponding PCoin Upgrade)
     multiplier *= 1.1 + (0.15 / 75) * calculateEffectiveIALevel()
@@ -2720,7 +2731,7 @@ export const computeAscensionScoreBonusMultiplier = () => {
   let multiplier = 1
   multiplier *= G.challenge15Rewards.score
   multiplier *= G.platonicBonusMultiplier[6]
-
+  multiplier *= player.campaigns.ascensionScoreMultiplier
   if (player.cubeUpgrades[21] > 0) {
     multiplier *= 1 + 0.05 * player.cubeUpgrades[21]
   }
@@ -3337,6 +3348,7 @@ export const calculateAmbrosiaLuck = () => {
   const arr = [
     100, // Base
     PCoinUpgradeEffects.AMBROSIA_LUCK_BUFF, // Platonic Coin Upgrade
+    player.campaigns.ambrosiaLuckBonus, // Campaign Bonus
     calculateSingularityAmbrosiaLuckMilestoneBonus(), // Ambrosia Luck Milestones
     calculateAmbrosiaLuckShopUpgrade(), // Ambrosia Luck from Shop Upgrades (I-IV)
     calculateAmbrosiaLuckSingularityUpgrade(), // Ambrosia Luck from Singularity Upgrades (I-IV)
@@ -3384,6 +3396,7 @@ export const calculateAmbrosiaGenerationSpeed = () => {
   const arr = [
     +(player.visitedAmbrosiaSubtab),
     PCoinUpgradeEffects.AMBROSIA_GENERATION_BUFF,
+    player.campaigns.blueberrySpeedBonus,
     calculateBlueberryInventory().value,
     calculateAmbrosiaGenerationShopUpgrade(),
     calculateAmbrosiaGenerationSingularityUpgrade(),
@@ -3491,7 +3504,7 @@ export const derpsmithCornucopiaBonus = () => {
 }
 
 export const isIARuneUnlocked = () => {
-  return player.shopUpgrades.infiniteAscent > 0 || PCoinUpgradeEffects.INSTANT_UNLOCK_2
+  return player.shopUpgrades.infiniteAscent > 0 || Boolean(PCoinUpgradeEffects.INSTANT_UNLOCK_2)
 }
 
 export const isShopTalismanUnlocked = () => {

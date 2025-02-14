@@ -2617,6 +2617,46 @@
       "ultimate": {
         "name": "The Ultimate Campaign",
         "description": "HEYYY!! WHAT ARE YOU TRYING TO DO?!"
+      },
+      "freeTokens1": {
+        "name": "Free Tokens! (1)",
+        "description": "Get some free tokens to test functionalities."
+      },
+      "freeTokens2": {
+        "name": "Free Tokens! (2)",
+        "description": "Get some free tokens to test functionalities."
+      },
+      "freeTokens3": {
+        "name": "Free Tokens! (3)",
+        "description": "Get some free tokens to test functionalities."
+      },
+      "freeTokens4": {
+        "name": "Free Tokens! (4)",
+        "description": "Get some free tokens to test functionalities."
+      },
+      "freeTokens5": {
+        "name": "Free Tokens! (5)",
+        "description": "Get some free tokens to test functionalities."
+      },
+      "freeTokens6": {
+        "name": "Free Tokens! (6)",
+        "description": "Get some free tokens to test functionalities."
+      },
+      "freeTokens7": {
+        "name": "Free Tokens! (7)",
+        "description": "Get some free tokens to test functionalities."
+      },
+      "freeTokens8": {
+        "name": "Free Tokens! (8)",
+        "description": "Get some free tokens to test functionalities."
+      },
+      "freeTokens9": {
+        "name": "Free Tokens! (9)",
+        "description": "Get some free tokens to test functionalities."
+      },
+      "freeTokens10": {
+        "name": "Free Tokens! (10)",
+        "description": "Get some free tokens to test functionalities."
       }
     },
     "corruptionTexts": {
@@ -2638,7 +2678,30 @@
       "metaText": "This campaign has a 'meta build'! Token reward is doubled!",
       "startCampaign": "Start Campaign! (Resets your ascension)",
       "resetCampaign": "Exit Campaign! (Resets your ascension)"
-    }
+    },
+    "tokens": {
+      "count": "You have {{ count }} / {{ maxCount }} tokens!",
+      "rewardTexts": {
+        "tutorial": "For clearing your first Campaign, get {{cube}} more Cubes, {{obtainium}} more Obtainium, and {{offering}} more Offerings!",
+        "cube": "Increase Cube gain by {{ reward }} (Maximum +100%).",
+        "obtainium": "Increase Obtainium gain by {{ reward }} (Maximum +100%).",
+        "offering": "Increase Offering gain by {{ reward }} (Maximum +100%).",
+        "ascensionScore": "Increase Ascension Score by {{ reward }} (Maximum +100%).",
+        "timeThreshold": "For Reset Rewards that have a penalty if you reset under a certain time, reduce that time by {{ reward }} seconds (Base: 10s).",
+        "quark": "Increase Quark gain by {{ reward }} (Maximum +25%).",
+        "tax": "Taxes {{ reward }} (Minimum -20%).",
+        "c15": "Increase Challenge 15 bonus by {{ reward }} (Maximum +100%)",
+        "rune6": "Increase Rune 6 Bonus Levels by {{ reward }} (Maximum +3).",
+        "goldenQuark": "Increase Golden Quark gain by {{ reward }} (Maximum +25%).",
+        "octeract": "Increase Octeract gain by {{ reward }} (Maximum +50%).",
+        "ambrosiaLuck": "Increase ☘ Ambrosia Luck by {{ reward }} (Maximum ☘ +100).",
+        "blueberrySpeed": "Increase Blueberry Generation Speed by {{ reward }} (Maximum +10%)."
+      }
+    },
+    "currentCampaignPreTitle": "Current Campaign: ",
+    "noChallengeCompletionConfirm": "You have not yet cleared Challenge 10 and therefore will not earn Cubes if you leave. Confirm?",
+    "saveLoadout": "Save Corruption Loadout!",
+    "saveLoadoutNotification": "Saved Corruption Loadout for {{ name }}!"
   },
   "corruptions": {
     "names": {

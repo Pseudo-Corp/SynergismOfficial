@@ -2908,9 +2908,8 @@ p#ascendHotKeys {
     justify-content: center;
     justify-items: center;
     grid-area: 1 / 1 / 3 / 2;
-    border: 2px solid orange;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
 }
 
 #campaignIconGrid {
@@ -2979,7 +2978,6 @@ p#ascendHotKeys {
 #campaignCorruptions {
     width: 50%;
     height: 100%;
-    border: 1px solid cyan;
     display: flex;
     flex-direction: column;
 }
@@ -2987,7 +2985,6 @@ p#ascendHotKeys {
 #campaignCorruptionStats {
     width: 50%;
     height: 100%;
-    border: 1px solid turquoise;
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -2997,11 +2994,39 @@ p#ascendHotKeys {
     margin: 0;
 }
 
+#campaignCorruptionStats button {
+    align-self: flex-end;
+    width: 100%;
+    border: 1px solid gold;
+    font-size: 1.2em;
+}
+
 #campaignsTokensInfo { 
     grid-area: 3 / 1 / 4 / 4; 
-    border: 2px solid yellow;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
     height: 90%;
     width: 90%;
+}
+
+#campaignsTokensInfo img {
+    width: 48px;
+    height: 48px;
+    font-size: 0;
+    cursor: pointer;
+}
+
+#campaignsTokensInfo h2 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#campaignsTokensInfo h4 {
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
 
 #traits {
