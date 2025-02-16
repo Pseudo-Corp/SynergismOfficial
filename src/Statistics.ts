@@ -1136,7 +1136,7 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt9').textContent = `x${
     format(
-      1 + player.shopUpgrades.obtainiumEX / 50,
+      1 + player.shopUpgrades.obtainiumEX / 25,
       3
     )
   }`
