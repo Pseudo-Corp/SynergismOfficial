@@ -41,36 +41,43 @@ export const revealStuff = () => {
   const example = document.getElementsByClassName('coinunlock1') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example.length; i++) {
     example[i].style.display = player.unlocks.coinone ? 'block' : 'none'
+    example[i].setAttribute('aria-disabled', `${!player.unlocks.coinone}`)
   }
 
   const example2 = document.getElementsByClassName('coinunlock2') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example2.length; i++) {
     example2[i].style.display = player.unlocks.cointwo ? 'block' : 'none'
+    example2[i].setAttribute('aria-disabled', `${!player.unlocks.cointwo}`)
   }
 
   const example3 = document.getElementsByClassName('coinunlock3') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example3.length; i++) {
     example3[i].style.display = player.unlocks.cointhree ? 'block' : 'none'
+    example3[i].setAttribute('aria-disabled', `${!player.unlocks.cointhree}`)
   }
 
   const example4 = document.getElementsByClassName('coinunlock4') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example4.length; i++) {
     example4[i].style.display = player.unlocks.coinfour ? 'block' : 'none'
+    example4[i].setAttribute('aria-disabled', `${!player.unlocks.coinfour}`)
   }
 
   const example5 = document.getElementsByClassName('prestigeunlock') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example5.length; i++) {
-    const parent = example5[i].parentElement!
-    if (parent.classList.contains('offlineStats')) {
+    const parent = example5[i].parentElement
+    if (parent?.classList.contains('offlineStats')) {
       example5[i].style.display = player.unlocks.prestige ? 'flex' : 'none'
+      example5[i].setAttribute('aria-disabled', `${!player.unlocks.prestige}`)
     } else {
       example5[i].style.display = player.unlocks.prestige ? 'block' : 'none'
+      example5[i].setAttribute('aria-disabled', `${!player.unlocks.prestige}`)
     }
   }
 
   const example6 = document.getElementsByClassName('generationunlock') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example6.length; i++) {
     example6[i].style.display = player.unlocks.generation ? 'block' : 'none'
+    example6[i].setAttribute('aria-disabled', `${!player.unlocks.generation}`)
   }
 
   const example7 = document.getElementsByClassName('transcendunlock') as HTMLCollectionOf<HTMLElement>
@@ -78,8 +85,10 @@ export const revealStuff = () => {
     const parent = example7[i].parentElement!
     if (parent.classList.contains('offlineStats')) {
       example7[i].style.display = player.unlocks.transcend ? 'flex' : 'none'
+      example7[i].setAttribute('aria-disabled', `${!player.unlocks.transcend}`)
     } else {
       example7[i].style.display = player.unlocks.transcend ? 'block' : 'none'
+      example7[i].setAttribute('aria-disabled', `${!player.unlocks.transcend}`)
     }
   }
 
@@ -88,49 +97,59 @@ export const revealStuff = () => {
     const parent = example8[i].parentElement!
     if (parent.classList.contains('offlineStats')) {
       example8[i].style.display = player.unlocks.reincarnate ? 'flex' : 'none'
+      example8[i].setAttribute('aria-disabled', `${!player.unlocks.reincarnate}`)
     } else {
       example8[i].style.display = player.unlocks.reincarnate ? 'block' : 'none'
+      example8[i].setAttribute('aria-disabled', `${!player.unlocks.reincarnate}`)
     }
   }
 
   const example9 = document.getElementsByClassName('auto') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example9.length; i++) {
     example9[i].style.display = 'none'
+    example9[i].setAttribute('aria-disabled', 'true')
   }
 
   const example10 = document.getElementsByClassName('reinrow1') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example10.length; i++) {
-    player.researches[47] === 1 ? example10[i].style.display = 'block' : example10[i].style.display = 'none'
+    example10[i].style.display = player.researches[47] === 1 ? 'block' : 'none'
+    example10[i].setAttribute('aria-disabled', `${player.researches[47] !== 1}`)
   }
 
   const example11 = document.getElementsByClassName('reinrow2') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example11.length; i++) {
-    player.researches[48] === 1 ? example11[i].style.display = 'block' : example11[i].style.display = 'none'
+    example11[i].style.display = player.researches[48] === 1 ? 'block' : 'none'
+    example11[i].setAttribute('aria-disabled', `${player.researches[48] !== 1}`)
   }
 
   const example12 = document.getElementsByClassName('reinrow3') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example12.length; i++) {
-    player.researches[49] === 1 ? example12[i].style.display = 'block' : example12[i].style.display = 'none'
+    example12[i].style.display = player.researches[49] === 1 ? 'block' : 'none'
+    example12[i].setAttribute('aria-disabled', `${player.researches[49] !== 1}`)
   }
 
   const example13 = document.getElementsByClassName('reinrow4') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example13.length; i++) {
-    player.researches[50] === 1 ? example13[i].style.display = 'block' : example13[i].style.display = 'none'
+    example13[i].style.display = player.researches[50] === 1 ? 'block' : 'none'
+    example13[i].setAttribute('aria-disabled', `${player.researches[50] !== 1}`)
   }
 
   const example14 = document.getElementsByClassName('chal6') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example14.length; i++) {
-    player.achievements[113] === 1 ? example14[i].style.display = 'block' : example14[i].style.display = 'none'
+    example14[i].style.display = player.achievements[113] === 1 ? 'block' : 'none'
+    example14[i].setAttribute('aria-disabled', `${player.achievements[113] !== 1}`)
   }
 
   const example15 = document.getElementsByClassName('chal7') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example15.length; i++) {
-    player.achievements[120] === 1 ? example15[i].style.display = 'block' : example15[i].style.display = 'none'
+    example15[i].style.display = player.achievements[120] === 1 ? 'block' : 'none'
+    example15[i].setAttribute('aria-disabled', `${player.achievements[120] !== 1}`)
   }
 
   const example16 = document.getElementsByClassName('chal7x10') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example16.length; i++) {
-    player.achievements[124] === 1 ? example16[i].style.display = 'block' : example16[i].style.display = 'none'
+    example16[i].style.display = player.achievements[124] === 1 ? 'block' : 'none'
+    example16[i].setAttribute('aria-disabled', `${player.achievements[124] !== 1}`)
   }
 
   const example17 = document.getElementsByClassName('chal8') as HTMLCollectionOf<HTMLElement>
@@ -138,26 +157,29 @@ export const revealStuff = () => {
     const parent = example17[i].parentElement!
     if (parent.classList.contains('offlineStats')) {
       example17[i].style.display = player.achievements[127] === 1 ? 'flex' : 'none'
+      example17[i].setAttribute('aria-disabled', `${player.achievements[127] !== 1}`)
     } else {
       example17[i].style.display = player.achievements[127] === 1 ? 'block' : 'none'
+      example17[i].setAttribute('aria-disabled', `${player.achievements[127] !== 1}`)
     }
   }
 
   const example18 = document.getElementsByClassName('chal9') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example18.length; i++) {
-    player.achievements[134] === 1 ? example18[i].style.display = 'block' : example18[i].style.display = 'none'
+    example18[i].style.display = player.achievements[134] === 1 ? 'block' : 'none'
+    example18[i].setAttribute('aria-disabled', `${player.achievements[134] !== 1}`)
   }
 
   const example19 = document.getElementsByClassName('chal9x1') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example19.length; i++) {
-    player.highestchallengecompletions[9] > 0
-      ? example19[i].style.display = 'block'
-      : example19[i].style.display = 'none'
+    example19[i].style.display = player.highestchallengecompletions[9] > 0 ? 'block' : 'none'
+    example19[i].setAttribute('aria-disabled', `${player.highestchallengecompletions[9] <= 0}`)
   }
 
   const example20 = document.getElementsByClassName('chal10') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example20.length; i++) {
-    player.achievements[141] === 1 ? example20[i].style.display = 'block' : example20[i].style.display = 'none'
+    example20[i].style.display = player.achievements[141] === 1 ? 'block' : 'none'
+    example20[i].setAttribute('aria-disabled', `${player.achievements[141] !== 1}`)
   }
 
   const example21 = document.getElementsByClassName('ascendunlock') as HTMLCollectionOf<HTMLElement>
@@ -165,70 +187,84 @@ export const revealStuff = () => {
     const parent = example21[i].parentElement!
     if (parent.classList.contains('offlineStats')) {
       example21[i].style.display = player.ascensionCount > 0 ? 'flex' : 'none'
+      example21[i].setAttribute('aria-disabled', `${player.ascensionCount <= 0}`)
     } else {
       example21[i].style.display = player.ascensionCount > 0 ? 'block' : 'none'
+      example21[i].setAttribute('aria-disabled', `${player.ascensionCount <= 0}`)
     }
   }
 
   const example22 = document.getElementsByClassName('chal11') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example22.length; i++) {
-    player.challengecompletions[11] > 0 ? example22[i].style.display = 'block' : example22[i].style.display = 'none'
+    example22[i].style.display = player.challengecompletions[11] > 0 ? 'block' : 'none'
+    example22[i].setAttribute('aria-disabled', `${player.challengecompletions[11] <= 0}`)
   }
 
   const example23 = document.getElementsByClassName('chal12') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example23.length; i++) {
-    player.challengecompletions[12] > 0 ? example23[i].style.display = 'block' : example23[i].style.display = 'none'
+    example23[i].style.display = player.challengecompletions[12] > 0 ? 'block' : 'none'
+    example22[i].setAttribute('aria-disabled', `${player.challengecompletions[12] <= 0}`)
   }
 
   const example24 = document.getElementsByClassName('chal13') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example24.length; i++) {
-    player.challengecompletions[13] > 0 ? example24[i].style.display = 'block' : example24[i].style.display = 'none'
+    example24[i].style.display = player.challengecompletions[13] > 0 ? 'block' : 'none'
+    example22[i].setAttribute('aria-disabled', `${player.challengecompletions[13] <= 0}`)
   }
 
   const example25 = document.getElementsByClassName('chal14') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example25.length; i++) {
-    player.challengecompletions[14] > 0 ? example25[i].style.display = 'block' : example25[i].style.display = 'none'
+    example25[i].style.display = player.challengecompletions[14] > 0 ? 'block' : 'none'
+    example25[i].setAttribute('aria-disabled', `${player.challengecompletions[14] <= 0}`)
   }
 
   const example26 = document.getElementsByClassName('ascendunlockib') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example26.length; i++) {
     example26[i].style.display = player.ascensionCount > 0 ? 'inline-block' : 'none'
+    example26[i].setAttribute('aria-disabled', `${player.ascensionCount <= 0}`)
   }
 
   const example27 = document.getElementsByClassName('prestigeunlockib') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example27.length; i++) {
     example27[i].style.display = player.unlocks.prestige ? 'inline-block' : 'none'
+    example27[i].setAttribute('aria-disabled', `${!player.unlocks.prestige}`)
   }
 
   const example28 = document.getElementsByClassName('research150') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example28.length; i++) {
     example28[i].style.display = player.researches[150] > 0 ? 'block' : 'none'
+    example28[i].setAttribute('aria-disabled', `${player.researches[150] <= 0}`)
   }
 
   const example29 = document.getElementsByClassName('cubeUpgrade10') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example29.length; i++) {
     example29[i].style.display = player.cubeUpgrades[10] > 0 ? 'flex' : 'none'
+    example29[i].setAttribute('aria-disabled', `${player.cubeUpgrades[10] <= 0}`)
   }
 
   const example30 = document.getElementsByClassName('cubeUpgrade19') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example30.length; i++) {
     example30[i].style.display = player.cubeUpgrades[19] > 0 ? 'block' : 'none'
+    example30[i].setAttribute('aria-disabled', `${player.cubeUpgrades[19] <= 0}`)
   }
 
   const example31 = document.getElementsByClassName('sacrificeAnts') as HTMLCollectionOf<HTMLElement>
   for (const ex of Array.from(example31)) { // Galactic Crumb Achievement 5
     ex.style.display = player.achievements[173] === 1 ? 'block' : 'none'
+    ex.setAttribute('aria-disabled', `${player.achievements[173] !== 1}`)
   }
 
   const example32 = document.getElementsByClassName('hepteracts') as HTMLCollectionOf<HTMLElement>
   for (const ex of Array.from(example32)) { // Ability to use and gain hepteracts //
     ex.style.display = player.challenge15Exponent >= 1e15 ? 'block' : 'none'
+    ex.setAttribute('aria-disabled', `${player.challenge15Exponent < 1e15}`)
   }
 
   const singularityHTMLs = document.getElementsByClassName('singularity') as HTMLCollectionOf<HTMLElement>
   for (const HTML of Array.from(singularityHTMLs)) { // Ability to view singularity features.
     const count = Number(HTML.getAttribute('count')) || 1
     HTML.style.display = player.highestSingularityCount >= count ? 'block' : 'none'
+    HTML.setAttribute('aria-disabled', `${player.highestSingularityCount < count}`)
   }
 
   visualUpdateShop()
@@ -243,24 +279,36 @@ export const revealStuff = () => {
   const cookies5 = document.getElementsByClassName('assortedCookies5') as HTMLCollectionOf<HTMLElement>
 
   for (const HTML of Array.from(cookies1)) {
-    HTML.style.display = player.singularityUpgrades.cookies.getEffect().bonus ? 'block' : 'none'
+    const bonus = player.singularityUpgrades.cookies.getEffect().bonus
+    HTML.style.display = bonus ? 'block' : 'none'
+    HTML.setAttribute('aria-disabled', `${!bonus}`)
   }
   for (const HTML of Array.from(cookies2)) {
-    HTML.style.display = player.singularityUpgrades.cookies2.getEffect().bonus ? 'block' : 'none'
+    const bonus = player.singularityUpgrades.cookies2.getEffect().bonus
+    HTML.style.display = bonus ? 'block' : 'none'
+    HTML.setAttribute('aria-disabled', `${!bonus}`)
   }
   for (const HTML of Array.from(cookies3)) {
-    HTML.style.display = player.singularityUpgrades.cookies3.getEffect().bonus ? 'block' : 'none'
+    const bonus = player.singularityUpgrades.cookies3.getEffect().bonus
+    HTML.style.display = bonus ? 'block' : 'none'
+    HTML.setAttribute('aria-disabled', `${!bonus}`)
   }
   for (const HTML of Array.from(cookies4)) {
-    HTML.style.display = player.singularityUpgrades.cookies4.getEffect().bonus ? 'block' : 'none'
+    const bonus = player.singularityUpgrades.cookies4.getEffect().bonus
+    HTML.style.display = bonus ? 'block' : 'none'
+    HTML.setAttribute('aria-disabled', `${!bonus}`)
   }
   for (const HTML of Array.from(cookies5)) {
-    HTML.style.display = player.singularityUpgrades.cookies5.getEffect().bonus ? 'block' : 'none'
+    const bonus = player.singularityUpgrades.cookies5.getEffect().bonus
+    HTML.style.display = bonus ? 'block' : 'none'
+    HTML.setAttribute('aria-disabled', `${!bonus}`)
   }
 
   const goldenQuarks3 = document.getElementsByClassName('goldenQuark3Upg') as HTMLCollectionOf<HTMLElement>
   for (const HTML of Array.from(goldenQuarks3)) {
-    HTML.style.display = (player.singularityUpgrades.goldenQuarks3.getEffect().bonus as number) > 0 ? 'block' : 'none'
+    const bonus = (player.singularityUpgrades.goldenQuarks3.getEffect().bonus as number) > 0
+    HTML.style.display = bonus ? 'block' : 'none'
+    HTML.setAttribute('aria-disabled', `${!bonus}`)
   }
   if (player.upgrades[89] === 1) {
     DOMCacheGetOrSet('transcendautotoggle').style.display = 'block'
