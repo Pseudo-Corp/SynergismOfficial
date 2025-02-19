@@ -779,7 +779,6 @@ p#buildinghotkeys2 {
 }
 
 #upgradesFlex > section > table img {
-    background-color: var(--buttonimg-color);
     cursor: pointer;
 }
 
@@ -4495,4 +4494,8 @@ form input:hover {
 h2,
 h3 {
     margin: 2px;
+}
+
+.green-background img {
+    background-color: var(--green-text-color);
 }
