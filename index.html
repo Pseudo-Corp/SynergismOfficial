@@ -105,7 +105,7 @@
                 <img src="Pictures/Default/BackedAscensionOffTimer.png" class="offlineStatIcon">
                 <span id="offlineAscensionTimer" class="offlineStatElement" i18n="offlineProgress.currentAscensionTimer"></span>
             </div>
-            <div class="offlineStat" id="offlineQuarkCountDiv">
+            <div class="offlineStat reincarnationunlock" id="offlineQuarkCountDiv">
                 <img src="Pictures/Default/BackedQuark.png" class="offlineStatIcon">
                 <span id="offlineQuarkCount" class="offlineStatElement" i18n="offlineProgress.exportQuarks"></span>
             </div>
@@ -180,8 +180,8 @@
                     <div class="prestigeunlock statDisplay" id="offeringDisplay">1</div>
                 </div>
                 <div class="currencyContainer">
-                    <img class="img quark" src="Pictures/Default/Quark.png" alt="Quark" title="Quark" loading="lazy">
-                    <div class="statDisplay" id="quarkDisplay">1</div>
+                    <img class="reincarnationunlock img quark" src="Pictures/Default/Quark.png" alt="Quark" title="Quark" loading="lazy">
+                    <div class="reincarnationunlock statDisplay" id="quarkDisplay">1</div>
                 </div>
                 <div class="currencyContainer">
                     <img class="transcendunlock img mythos" src="Pictures/Default/Mythos.png" alt="Mythos" title="Mythos" loading="lazy">
@@ -646,223 +646,291 @@
 
     <div id="upgrades" style="display: none;">
         <div id="upgradesFlex">
-            <div>
-                <img id="upgrades1" alt="Coin" src="Pictures/Default/Coin.png" loading="lazy">
-                <p id="cointext" style="color: gold" i18n="upgrades.shopTitles.coin"></p>
-                <table id="coinupgradestable" style="display: inline-block;">
-                    <tr>
-                        <td><img src="Pictures/Default/Coin1.png" id="upg1" alt="upg1" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Coin2.png" id="upg2" alt="upg2" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Coin3.png" id="upg3" alt="upg3" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Coin4.png" id="upg4" alt="upg4" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Coin5.png" id="upg5" alt="upg5" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img class="prestigeunlock" src="Pictures/Default/Coin6.png" id="upg6" alt="upg6" loading="lazy"></td>
-                        <td><img class="prestigeunlock" src="Pictures/Default/Coin7.png" id="upg7" alt="upg7" loading="lazy"></td>
-                        <td><img class="prestigeunlock" src="Pictures/Default/Coin8.png" id="upg8" alt="upg8" loading="lazy"></td>
-                        <td><img class="prestigeunlock" src="Pictures/Default/Coin9.png" id="upg9" alt="upg9" loading="lazy"></td>
-                        <td><img class="prestigeunlock" src="Pictures/Default/Coin10.png" id="upg10" alt="upg10" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img class="generationunlock" src="Pictures/Default/Coin11.png" id="upg11" alt="upg11" loading="lazy"></td>
-                        <td><img class="generationunlock" src="Pictures/Default/Coin12.png" id="upg12" alt="upg12" loading="lazy"></td>
-                        <td><img class="generationunlock" src="Pictures/Default/Coin13.png" id="upg13" alt="upg13" loading="lazy"></td>
-                        <td><img class="generationunlock" src="Pictures/Default/Coin14.png" id="upg14" alt="upg14" loading="lazy"></td>
-                        <td><img class="generationunlock" src="Pictures/Default/Coin15.png" id="upg15" alt="upg15" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img class="transcendunlock" src="Pictures/Default/Coin16.png" id="upg16" alt="upg16" loading="lazy"></td>
-                        <td><img class="transcendunlock" src="Pictures/Default/Coin17.png" id="upg17" alt="upg17" loading="lazy"></td>
-                        <td><img class="transcendunlock" src="Pictures/Default/Coin18.png" id="upg18" alt="upg18" loading="lazy"></td>
-                        <td><img class="transcendunlock" src="Pictures/Default/Coin19.png" id="upg19" alt="upg19" loading="lazy"></td>
-                        <td><img class="transcendunlock" src="Pictures/Default/Coin20.png" id="upg20" alt="upg20" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img class="cubeUpgrade19" src="Pictures/Default/Coin21.png" id="upg121" alt="upg121" loading="lazy"></td>
-                        <td><img class="cubeUpgrade19" src="Pictures/Default/Coin22.png" id="upg122" alt="upg122" loading="lazy"></td>
-                        <td><img class="cubeUpgrade19" src="Pictures/Default/Coin23.png" id="upg123" alt="upg123" loading="lazy"></td>
-                        <td><img class="cubeUpgrade19" src="Pictures/Default/Coin24.png" id="upg124" alt="upg124" loading="lazy"></td>
-                        <td><img class="cubeUpgrade19" src="Pictures/Default/Coin25.png" id="upg125" alt="upg125" loading="lazy"></td>
-                    </tr>
-                </table>
-                <button class="autobuyerToggleButton upgradeToggle" id="coinAutoUpgrade" style="border:2px solid green">Auto: ON</button>
-            </div>
-            <div>
-                <img id="upgrades2" alt="Diamond" class="prestigeunlock" src="Pictures/Default/Diamond.png" loading="lazy">
-                <p class="prestigeunlock" id="prestigetext" style="color: cyan" i18n="upgrades.shopTitles.diamond"></p>
-                <table class="prestigeunlock" id="prestigeupgradestable">
-                    <tr>
-                        <td><img src="Pictures/Default/Diamond1.png" id="upg21" alt="upg21" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Diamond2.png" id="upg22" alt="upg22" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Diamond3.png" id="upg23" alt="upg23" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Diamond4.png" id="upg24" alt="upg24" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Diamond5.png" id="upg25" alt="upg25" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img src="Pictures/Default/Diamond6.png" id="upg26" alt="upg26" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Diamond7.png" id="upg27" alt="upg27" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Diamond8.png" id="upg28" alt="upg28" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Diamond9.png" id="upg29" alt="upg29" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Diamond10.png" id="upg30" alt="upg30" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img class="transcendunlock" src="Pictures/Default/Diamond11.png" id="upg31" alt="upg31" loading="lazy"></td>
-                        <td><img class="transcendunlock" src="Pictures/Default/Diamond12.png" id="upg32" alt="upg32" loading="lazy"></td>
-                        <td><img class="transcendunlock" src="Pictures/Default/Diamond13.png" id="upg33" alt="upg33" loading="lazy"></td>
-                        <td><img class="transcendunlock" src="Pictures/Default/Diamond14.png" id="upg34" alt="upg34" loading="lazy"></td>
-                        <td><img class="transcendunlock" src="Pictures/Default/Diamond15.png" id="upg35" alt="upg35" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img class="reincarnationunlock" src="Pictures/Default/Diamond16.png" id="upg36" alt="upg36" loading="lazy"></td>
-                        <td><img class="reincarnationunlock" src="Pictures/Default/Diamond17.png" id="upg37" alt="upg37" loading="lazy"></td>
-                        <td><img class="chal7" src="Pictures/Default/Diamond18.png" id="upg38" alt="upg38" loading="lazy"></td>
-                        <td><img class="chal8" src="Pictures/Default/Diamond19.png" id="upg39" alt="upg39" loading="lazy"></td>
-                        <td><img class="chal9" src="Pictures/Default/Diamond20.png" id="upg40" alt="upg40" loading="lazy"></td>
-                    </tr>
-
-                </table>
-                <button class="autobuyerToggleButton upgradeToggle" id="prestigeAutoUpgrade" style="border:2px solid green">Auto: ON</button>
-            </div>
-            <div>
-                <img id="upgrades3" alt="Mythos" class="transcendunlock" src="Pictures/Default/Mythos.png" loading="lazy">
-                <p class="transcendunlock" id="transcendtext" style="color: plum" i18n="upgrades.shopTitles.mythos"></p>
-                <table class="transcendunlock" id="transcendupgradestable">
-                    <tr>
-                        <td><img src="Pictures/Default/Mythos1.png" id="upg41" alt="upg41" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Mythos2.png" id="upg42" alt="upg42" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Mythos3.png" id="upg43" alt="upg43" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Mythos4.png" id="upg44" alt="upg44" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Mythos5.png" id="upg45" alt="upg45" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img src="Pictures/Default/Mythos6.png" id="upg46" alt="upg46" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Mythos7.png" id="upg47" alt="upg47" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Mythos8.png" id="upg48" alt="upg48" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Mythos9.png" id="upg49" alt="upg49" loading="lazy"></td>
-                        <td><img src="Pictures/Default/Mythos10.png" id="upg50" alt="upg50" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img class="reincarnationunlock" src="Pictures/Default/Mythos11.png" id="upg51" alt="upg51" loading="lazy"></td>
-                        <td><img class="reincarnationunlock" src="Pictures/Default/Mythos12.png" id="upg52" alt="upg52" loading="lazy"></td>
-                        <td><img class="reincarnationunlock" src="Pictures/Default/Mythos13.png" id="upg53" alt="upg53" loading="lazy"></td>
-                        <td><img class="reincarnationunlock" src="Pictures/Default/Mythos14.png" id="upg54" alt="upg54" loading="lazy"></td>
-                        <td><img class="reincarnationunlock" src="Pictures/Default/Mythos15.png" id="upg55" alt="upg55" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img class="reincarnationunlock" src="Pictures/Default/Mythos16.png" id="upg56" alt="upg56" loading="lazy"></td>
-                        <td><img class="reincarnationunlock" src="Pictures/Default/Mythos17.png" id="upg57" alt="upg57" loading="lazy"></td>
-                        <td><img class="reincarnationunlock" src="Pictures/Default/Mythos18.png" id="upg58" alt="upg58" loading="lazy"></td>
-                        <td><img class="reincarnationunlock" src="Pictures/Default/Mythos19.png" id="upg59" alt="upg59" loading="lazy"></td>
-                        <td><img class="reincarnationunlock" src="Pictures/Default/Mythos20.png" id="upg60" alt="upg60" loading="lazy"></td>
-                    </tr>
-                </table>
-                <button class="autobuyerToggleButton upgradeToggle" id="transcendAutoUpgrade" style="border:2px solid green">Auto: ON</button>
-            </div>
-            <div>
-                <img id="upgrades4" alt="Generators" class="prestigeunlock" src="Pictures/Default/Generators.png" loading="lazy">
-                <p class="prestigeunlock" id="generatortext" style="color: lightgray" i18n="upgrades.shopTitles.generator"></p>
-                <table class="prestigeunlock" id="generatortable">
-                    <tr>
-                        <td><img id="upg101" alt="upg101" src="Pictures/Default/Generator1.png" loading="lazy"></td>
-                        <td><img id="upg102" alt="upg102" class="generationunlock" src="Pictures/Default/Generator2.png" loading="lazy"></td>
-                        <td><img id="upg103" alt="upg103" class="generationunlock" src="Pictures/Default/Generator3.png" loading="lazy"></td>
-                        <td><img id="upg104" alt="upg104" class="generationunlock" src="Pictures/Default/Generator4.png" loading="lazy"></td>
-                        <td><img id="upg105" alt="upg105" class="generationunlock" src="Pictures/Default/Generator5.png" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img id="upg106" alt="upg106" class="transcendunlock" src="Pictures/Default/Generator6.png" loading="lazy"></td>
-                        <td><img id="upg107" alt="upg107" class="transcendunlock" src="Pictures/Default/Generator7.png" loading="lazy"></td>
-                        <td><img id="upg108" alt="upg108" class="transcendunlock" src="Pictures/Default/Generator8.png" loading="lazy"></td>
-                        <td><img id="upg109" alt="upg109" class="transcendunlock" src="Pictures/Default/Generator9.png" loading="lazy"></td>
-                        <td><img id="upg110" alt="upg110" class="transcendunlock" src="Pictures/Default/Generator10.png" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img id="upg111" alt="upg111" class="transcendunlock" src="Pictures/Default/Generator11.png" loading="lazy"></td>
-                        <td><img id="upg112" alt="upg112" class="transcendunlock" src="Pictures/Default/Generator12.png" loading="lazy"></td>
-                        <td><img id="upg113" alt="upg113" class="transcendunlock" src="Pictures/Default/Generator13.png" loading="lazy"></td>
-                        <td><img id="upg114" alt="upg114" class="transcendunlock" src="Pictures/Default/Generator14.png" loading="lazy"></td>
-                        <td><img id="upg115" alt="upg115" class="transcendunlock" src="Pictures/Default/Generator15.png" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img id="upg116" alt="upg116" class="transcendunlock" src="Pictures/Default/Generator16.png" loading="lazy"></td>
-                        <td><img id="upg117" alt="upg117" class="transcendunlock" src="Pictures/Default/Generator17.png" loading="lazy"></td>
-                        <td><img id="upg118" alt="upg118" class="transcendunlock" src="Pictures/Default/Generator18.png" loading="lazy"></td>
-                        <td><img id="upg119" alt="upg119" class="transcendunlock" src="Pictures/Default/Generator19.png" loading="lazy"></td>
-                        <td><img id="upg120" alt="upg120" class="transcendunlock" src="Pictures/Default/Generator20.png" loading="lazy"></td>
-                    </tr>
-                </table>
-                <button class="autobuyerToggleButton upgradeToggle" id="generatorsAutoUpgrade" style="border:2px solid green">Auto: ON</button>
-            </div>
-            <div>
-                <img id="upgrades5" alt="Automation" class="prestigeunlock" src="Pictures/Default/Automation.png" loading="lazy">
-                <p class="prestigeunlock crimsonText" id="automationtext" i18n="upgrades.shopTitles.automation"></p>
-                <table class="prestigeunlock" id="automationtable">
-                    <tr>
-                       <td><img id="upg81" alt="upg81" src="Pictures/Default/Automation1.png" loading="lazy"></td>
-                       <td><img id="upg82" alt="upg82" src="Pictures/Default/Automation2.png" loading="lazy"></td>
-                       <td><img id="upg83" alt="upg83" src="Pictures/Default/Automation3.png" loading="lazy"></td>
-                       <td><img id="upg84" alt="upg84" src="Pictures/Default/Automation4.png" loading="lazy"></td>
-                       <td><img id="upg85" alt="upg85" src="Pictures/Default/Automation5.png" loading="lazy"></td>
-                   </tr>
-                   <tr>
-                       <td><img id="upg86" alt="upg86" src="Pictures/Default/Automation6.png" loading="lazy"></td>
-                       <td><img id="upg87" alt="upg87" src="Pictures/Default/Automation7.png" loading="lazy"></td>
-                       <td><img id="upg88" alt="upg88" class="transcendunlock" src="Pictures/Default/Automation8.png" loading="lazy"></td>
-                       <td><img id="upg89" alt="upg89" class="transcendunlock" src="Pictures/Default/Automation9.png" loading="lazy"></td>
-                       <td><img id="upg90" alt="upg90" class="transcendunlock" src="Pictures/Default/Automation10.png" loading="lazy"></td>
-                   </tr>
-                   <tr>
-                       <td><img id="upg91" alt="upg91" class="transcendunlock" src="Pictures/Default/Automation11.png" loading="lazy"></td>
-                       <td><img id="upg92" alt="upg92" class="transcendunlock" src="Pictures/Default/Automation12.png" loading="lazy"></td>
-                       <td><img id="upg93" alt="upg93" class="transcendunlock" src="Pictures/Default/Automation13.png" loading="lazy"></td>
-                       <td><img id="upg94" alt="upg94" class="reincarnationunlock" src="Pictures/Default/Automation14.png" loading="lazy"></td>
-                       <td><img id="upg95" alt="upg95" class="reincarnationunlock" src="Pictures/Default/Automation15.png" loading="lazy"></td>
-                   </tr>
-                   <tr>
-                       <td><img id="upg96" alt="upg96" class="reincarnationunlock" src="Pictures/Default/Automation16.png" loading="lazy"></td>
-                       <td><img id="upg97" alt="upg97" class="reincarnationunlock" src="Pictures/Default/Automation17.png" loading="lazy"></td>
-                       <td><img id="upg98" alt="upg98" class="reincarnationunlock" src="Pictures/Default/Automation18.png" loading="lazy"></td>
-                       <td><img id="upg99" alt="upg99" class="reincarnationunlock" src="Pictures/Default/Automation19.png" loading="lazy"></td>
-                       <td><img id="upg100" alt="upg100" class="reincarnationunlock" src="Pictures/Default/Automation20.png" loading="lazy"></td>
-                   </tr>
-               </table>
-            </div>
-            <div>
-                <img id="upgrades6" alt="Particle" class="reincarnationunlock" src="Pictures/Default/Particle.png" loading="lazy">
-                <p class="reincarnationunlock" id="reincarnationtext" style="color: limegreen" i18n="upgrades.shopTitles.particles"></p>
-                <table class="reincarnationunlock" id="reincarnationupgradestable">
-                    <tr>
-                        <td><img class="reinrow1" src="Pictures/Default/Particle1.png" id="upg61" alt="upg61" loading="lazy"></td>
-                        <td><img class="reinrow1" src="Pictures/Default/Particle2.png" id="upg62" alt="upg62" loading="lazy"></td>
-                        <td><img class="reinrow1" src="Pictures/Default/Particle3.png" id="upg63" alt="upg63" loading="lazy"></td>
-                        <td><img class="reinrow1" src="Pictures/Default/Particle4.png" id="upg64" alt="upg64" loading="lazy"></td>
-                        <td><img class="reinrow1" src="Pictures/Default/Particle5.png" id="upg65" alt="upg65" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img class="reinrow2" src="Pictures/Default/Particle6.png" id="upg66" alt="upg66" loading="lazy"></td>
-                        <td><img class="reinrow2" src="Pictures/Default/Particle7.png" id="upg67" alt="upg67" loading="lazy"></td>
-                        <td><img class="reinrow2" src="Pictures/Default/Particle8.png" id="upg68" alt="upg68" loading="lazy"></td>
-                        <td><img class="reinrow2" src="Pictures/Default/Particle9.png" id="upg69" alt="upg69" loading="lazy"></td>
-                        <td><img class="reinrow2" src="Pictures/Default/Particle10.png" id="upg70" alt="upg70" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img class="reinrow3" src="Pictures/Default/Particle11.png" id="upg71" alt="upg71" loading="lazy"></td>
-                        <td><img class="reinrow3" src="Pictures/Default/Particle12.png" id="upg72" alt="upg72" loading="lazy"></td>
-                        <td><img class="reinrow3" src="Pictures/Default/Particle13.png" id="upg73" alt="upg73" loading="lazy"></td>
-                        <td><img class="reinrow3" src="Pictures/Default/Particle14.png" id="upg74" alt="upg74" loading="lazy"></td>
-                        <td><img class="reinrow3" src="Pictures/Default/Particle15.png" id="upg75" alt="upg75" loading="lazy"></td>
-                    </tr>
-                    <tr>
-                        <td><img class="reinrow4" src="Pictures/Default/Particle16.png" id="upg76" alt="upg76" loading="lazy"></td>
-                        <td><img class="reinrow4" src="Pictures/Default/Particle17.png" id="upg77" alt="upg77" loading="lazy"></td>
-                        <td><img class="reinrow4" src="Pictures/Default/Particle18.png" id="upg78" alt="upg78" loading="lazy"></td>
-                        <td><img class="reinrow4" src="Pictures/Default/Particle19.png" id="upg79" alt="upg79" loading="lazy"></td>
-                        <td><img class="reinrow4" src="Pictures/Default/Particle20.png" id="upg80" alt="upg80" loading="lazy"></td>
-                    </tr>
-                </table>
-                <button class="autobuyerToggleButton upgradeToggle" id="reincarnateAutoUpgrade" style="border: 2px solid green">Auto: ON</button>
-            </div>
+            <section class="shop-section" aria-labelledby="cointext">
+              <header>
+                  <button class="currency-icon" aria-label="Coin currency information">
+                      <img id="upgrades1" src="Pictures/Default/Coin.png" alt="" loading="lazy">
+                  </button>
+                  <h3 id="cointext" class="currency-title" style="color: gold" i18n="upgrades.shopTitles.coin"></h3>
+              </header>
+              
+              <table id="coinupgradestable" aria-label="Coin Upgrades Grid">
+                  <tbody>
+                      <!-- Basic Upgrades Row -->
+                      <tr>
+                          <th scope="row" class="sr-only">Basic Upgrades</th>
+                          <td><button id="upg1" class="upgrade-button" i18n-aria-label="upgrades.descriptions.1"><img src="Pictures/Default/Coin1.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg2" class="upgrade-button" i18n-aria-label="upgrades.descriptions.2"><img src="Pictures/Default/Coin2.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg3" class="upgrade-button" i18n-aria-label="upgrades.descriptions.3"><img src="Pictures/Default/Coin3.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg4" class="upgrade-button" i18n-aria-label="upgrades.descriptions.4"><img src="Pictures/Default/Coin4.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg5" class="upgrade-button" i18n-aria-label="upgrades.descriptions.5"><img src="Pictures/Default/Coin5.png" alt="" loading="lazy"></button></td>
+                      </tr>
+                      
+                      <!-- Prestige Upgrades Row -->
+                      <tr>
+                          <th scope="row" class="sr-only">Prestige Upgrades</th>
+                          <td><button id="upg6" class="upgrade-button prestigeunlock" i18n-aria-label="upgrades.descriptions.6"><img src="Pictures/Default/Coin6.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg7" class="upgrade-button prestigeunlock" i18n-aria-label="upgrades.descriptions.7"><img src="Pictures/Default/Coin7.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg8" class="upgrade-button prestigeunlock" i18n-aria-label="upgrades.descriptions.8"><img src="Pictures/Default/Coin8.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg9" class="upgrade-button prestigeunlock" i18n-aria-label="upgrades.descriptions.9"><img src="Pictures/Default/Coin9.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg10" class="upgrade-button prestigeunlock" i18n-aria-label="upgrades.descriptions.10"><img src="Pictures/Default/Coin10.png" alt="" loading="lazy"></button></td>
+                      </tr>
+                      
+                      <!-- Generation Upgrades Row -->
+                      <tr>
+                          <th scope="row" class="sr-only">Generation Upgrades</th>
+                          <td><button id="upg11" class="upgrade-button generationunlock" i18n-aria-label="upgrades.descriptions.11"><img src="Pictures/Default/Coin11.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg12" class="upgrade-button generationunlock" i18n-aria-label="upgrades.descriptions.12"><img src="Pictures/Default/Coin12.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg13" class="upgrade-button generationunlock" i18n-aria-label="upgrades.descriptions.13"><img src="Pictures/Default/Coin13.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg14" class="upgrade-button generationunlock" i18n-aria-label="upgrades.descriptions.14"><img src="Pictures/Default/Coin14.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg15" class="upgrade-button generationunlock" i18n-aria-label="upgrades.descriptions.15"><img src="Pictures/Default/Coin15.png" alt="" loading="lazy"></button></td>
+                      </tr>
+                      
+                      <!-- Transcend Upgrades Row -->
+                      <tr>
+                          <th scope="row" class="sr-only">Transcend Upgrades</th>
+                          <td><button id="upg16" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.16"><img src="Pictures/Default/Coin16.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg17" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.17"><img src="Pictures/Default/Coin17.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg18" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.18"><img src="Pictures/Default/Coin18.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg19" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.19"><img src="Pictures/Default/Coin19.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg20" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.20"><img src="Pictures/Default/Coin20.png" alt="" loading="lazy"></button></td>
+                      </tr>
+                      
+                      <!-- Cube Upgrades Row -->
+                      <tr>
+                          <th scope="row" class="sr-only">Cube Upgrades</th>
+                          <td><button id="upg121" class="upgrade-button cubeUpgrade19" i18n-aria-label="upgrades.descriptions.121"><img src="Pictures/Default/Coin21.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg122" class="upgrade-button cubeUpgrade19" i18n-aria-label="upgrades.descriptions.122"><img src="Pictures/Default/Coin22.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg123" class="upgrade-button cubeUpgrade19" i18n-aria-label="upgrades.descriptions.123"><img src="Pictures/Default/Coin23.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg124" class="upgrade-button cubeUpgrade19" i18n-aria-label="upgrades.descriptions.124"><img src="Pictures/Default/Coin24.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg125" class="upgrade-button cubeUpgrade19" i18n-aria-label="upgrades.descriptions.125"><img src="Pictures/Default/Coin25.png" alt="" loading="lazy"></button></td>
+                      </tr>
+                  </tbody>
+              </table>
+          
+              <button class="autobuyerToggleButton" 
+                      id="coinAutoUpgrade" 
+                      aria-pressed="true" 
+                      aria-label="Toggle coin auto-upgrader" 
+                      style="border:2px solid green">
+                  <span i18n="upgrades.auto.status"></span>
+              </button>
+            </section>
+            <section class="shop-section prestigeunlock" aria-labelledby="prestigetext">
+              <header>
+                  <button class="currency-icon prestigeunlock" aria-label="Diamond currency information">
+                      <img id="upgrades2" src="Pictures/Default/Diamond.png" alt="" loading="lazy">
+                  </button>
+                  <h3 id="prestigetext" class="currency-title" style="color: cyan" i18n="upgrades.shopTitles.diamond"></h3>
+              </header>
+              
+              <table id="prestigeupgradestable" class="prestigeunlock" aria-label="Diamond Upgrades Grid">
+                  <tbody>
+                      <!-- Basic Diamond Upgrades Row -->
+                      <tr>
+                          <th scope="row" class="sr-only">Basic Diamond Upgrades</th>
+                          <td><button id="upg21" class="upgrade-button" i18n-aria-label="upgrades.descriptions.21"><img src="Pictures/Default/Diamond1.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg22" class="upgrade-button" i18n-aria-label="upgrades.descriptions.22"><img src="Pictures/Default/Diamond2.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg23" class="upgrade-button" i18n-aria-label="upgrades.descriptions.23"><img src="Pictures/Default/Diamond3.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg24" class="upgrade-button" i18n-aria-label="upgrades.descriptions.24"><img src="Pictures/Default/Diamond4.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg25" class="upgrade-button" i18n-aria-label="upgrades.descriptions.25"><img src="Pictures/Default/Diamond5.png" alt="" loading="lazy"></button></td>
+                      </tr>
+                      
+                      <!-- Advanced Diamond Upgrades Row -->
+                      <tr>
+                          <th scope="row" class="sr-only">Advanced Diamond Upgrades</th>
+                          <td><button id="upg26" class="upgrade-button" i18n-aria-label="upgrades.descriptions.26"><img src="Pictures/Default/Diamond6.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg27" class="upgrade-button" i18n-aria-label="upgrades.descriptions.27"><img src="Pictures/Default/Diamond7.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg28" class="upgrade-button" i18n-aria-label="upgrades.descriptions.28"><img src="Pictures/Default/Diamond8.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg29" class="upgrade-button" i18n-aria-label="upgrades.descriptions.29"><img src="Pictures/Default/Diamond9.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg30" class="upgrade-button" i18n-aria-label="upgrades.descriptions.30"><img src="Pictures/Default/Diamond10.png" alt="" loading="lazy"></button></td>
+                      </tr>
+                      
+                      <!-- Transcend Diamond Upgrades Row -->
+                      <tr>
+                          <th scope="row" class="sr-only">Transcend Diamond Upgrades</th>
+                          <td><button id="upg31" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.31"><img src="Pictures/Default/Diamond11.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg32" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.32"><img src="Pictures/Default/Diamond12.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg33" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.33"><img src="Pictures/Default/Diamond13.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg34" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.34"><img src="Pictures/Default/Diamond14.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg35" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.35"><img src="Pictures/Default/Diamond15.png" alt="" loading="lazy"></button></td>
+                      </tr>
+                      
+                      <!-- Challenge Diamond Upgrades Row -->
+                      <tr>
+                          <th scope="row" class="sr-only">Challenge Diamond Upgrades</th>
+                          <td><button id="upg36" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.36"><img src="Pictures/Default/Diamond16.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg37" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.37"><img src="Pictures/Default/Diamond17.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg38" class="upgrade-button chal7" i18n-aria-label="upgrades.descriptions.38"><img src="Pictures/Default/Diamond18.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg39" class="upgrade-button chal8" i18n-aria-label="upgrades.descriptions.39"><img src="Pictures/Default/Diamond19.png" alt="" loading="lazy"></button></td>
+                          <td><button id="upg40" class="upgrade-button chal9" i18n-aria-label="upgrades.descriptions.40"><img src="Pictures/Default/Diamond20.png" alt="" loading="lazy"></button></td>
+                      </tr>
+                  </tbody>
+              </table>
+          
+              <button class="autobuyerToggleButton upgradeToggle" 
+                      id="prestigeAutoUpgrade" 
+                      aria-pressed="true"
+                      aria-label="Toggle diamond auto-upgrader" 
+                      style="border:2px solid green">
+                  <span i18n="upgrades.auto.status">Auto: ON</span>
+              </button>
+            </section>
+            <section class="shop-section transcendunlock" aria-labelledby="transcendtext">
+              <header>
+                <button class="currency-icon transcendunlock" aria-label="Mythos currency information">
+                    <img id="upgrades3" src="Pictures/Default/Mythos.png" alt="" loading="lazy">
+                </button>
+                <h3 class="transcendunlock" id="transcendtext" style="color: plum" i18n="upgrades.shopTitles.mythos"></h3>
+              </header>
+              <table class="transcendunlock" id="transcendupgradestable" i18n-aria-label="upgrades.shopTitles.mythos">
+                  <tr>
+                      <td><button id="upg41" class="upgrade-button" i18n-aria-label="upgrades.descriptions.41"><img src="Pictures/Default/Mythos1.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg42" class="upgrade-button" i18n-aria-label="upgrades.descriptions.42"><img src="Pictures/Default/Mythos2.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg43" class="upgrade-button" i18n-aria-label="upgrades.descriptions.43"><img src="Pictures/Default/Mythos3.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg44" class="upgrade-button" i18n-aria-label="upgrades.descriptions.44"><img src="Pictures/Default/Mythos4.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg45" class="upgrade-button" i18n-aria-label="upgrades.descriptions.45"><img src="Pictures/Default/Mythos5.png" alt="" loading="lazy"></button></td>
+                  </tr>
+                  <tr>
+                      <td><button id="upg46" class="upgrade-button" i18n-aria-label="upgrades.descriptions.46"><img src="Pictures/Default/Mythos6.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg47" class="upgrade-button" i18n-aria-label="upgrades.descriptions.47"><img src="Pictures/Default/Mythos7.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg48" class="upgrade-button" i18n-aria-label="upgrades.descriptions.48"><img src="Pictures/Default/Mythos8.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg49" class="upgrade-button" i18n-aria-label="upgrades.descriptions.49"><img src="Pictures/Default/Mythos9.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg50" class="upgrade-button" i18n-aria-label="upgrades.descriptions.50"><img src="Pictures/Default/Mythos10.png" alt="" loading="lazy"></button></td>
+                  </tr>
+                  <tr>
+                      <td><button id="upg51" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.51"><img src="Pictures/Default/Mythos11.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg52" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.52"><img src="Pictures/Default/Mythos12.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg53" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.53"><img src="Pictures/Default/Mythos13.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg54" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.54"><img src="Pictures/Default/Mythos14.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg55" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.55"><img src="Pictures/Default/Mythos15.png" alt="" loading="lazy"></button></td>
+                  </tr>
+                  <tr>
+                      <td><button id="upg56" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.56"><img src="Pictures/Default/Mythos16.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg57" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.57"><img src="Pictures/Default/Mythos17.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg58" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.58"><img src="Pictures/Default/Mythos18.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg59" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.59"><img src="Pictures/Default/Mythos19.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg60" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.60"><img src="Pictures/Default/Mythos20.png" alt="" loading="lazy"></button></td>
+                  </tr>
+              </table>
+              <button class="autobuyerToggleButton upgradeToggle" id="transcendAutoUpgrade" aria-pressed="true" style="border:2px solid green">Auto: ON</button>
+            </section>
+            <section class="shop-section prestigeunlock" aria-labelledby="generatortext">
+              <header>
+                <button class="currency-icon prestigeunlock" aria-label="Generators currency information">
+                    <img id="upgrades4" src="Pictures/Default/Generators.png" alt="" loading="lazy">
+                </button>
+                <h3 class="prestigeunlock" id="generatortext" style="color: lightgray" i18n="upgrades.shopTitles.generator"></h3>
+              </header>
+              <table class="prestigeunlock" id="generatortable" aria-label="Generator Upgrades">
+                  <tr>
+                      <td><button id="upg101" class="upgrade-button" i18n-aria-label="upgrades.descriptions.101"><img src="Pictures/Default/Generator1.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg102" class="upgrade-button generationunlock" i18n-aria-label="upgrades.descriptions.102"><img src="Pictures/Default/Generator2.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg103" class="upgrade-button generationunlock" i18n-aria-label="upgrades.descriptions.103"><img src="Pictures/Default/Generator3.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg104" class="upgrade-button generationunlock" i18n-aria-label="upgrades.descriptions.104"><img src="Pictures/Default/Generator4.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg105" class="upgrade-button generationunlock" i18n-aria-label="upgrades.descriptions.105"><img src="Pictures/Default/Generator5.png" alt="" loading="lazy"></button></td>
+                  </tr>
+                  <tr>
+                      <td><button id="upg106" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.106"><img src="Pictures/Default/Generator6.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg107" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.107"><img src="Pictures/Default/Generator7.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg108" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.108"><img src="Pictures/Default/Generator8.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg109" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.109"><img src="Pictures/Default/Generator9.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg110" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.110"><img src="Pictures/Default/Generator10.png" alt="" loading="lazy"></button></td>
+                  </tr>
+                  <tr>
+                      <td><button id="upg111" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.111"><img src="Pictures/Default/Generator11.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg112" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.112"><img src="Pictures/Default/Generator12.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg113" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.113"><img src="Pictures/Default/Generator13.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg114" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.114"><img src="Pictures/Default/Generator14.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg115" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.115"><img src="Pictures/Default/Generator15.png" alt="" loading="lazy"></button></td>
+                  </tr>
+                  <tr>
+                      <td><button id="upg116" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.116"><img src="Pictures/Default/Generator16.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg117" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.117"><img src="Pictures/Default/Generator17.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg118" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.118"><img src="Pictures/Default/Generator18.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg119" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.119"><img src="Pictures/Default/Generator19.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg120" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.120"><img src="Pictures/Default/Generator20.png" alt="" loading="lazy"></button></td>
+                  </tr>
+              </table>
+              <button class="autobuyerToggleButton upgradeToggle" id="generatorsAutoUpgrade" aria-pressed="true" style="border:2px solid green">Auto: ON</button>
+            </section>
+            <section class="shop-section prestigeunlock" aria-labelledby="automationtext">
+              <header>
+                <button class="currency-icon prestigeunlock" i18n-aria-label="upgrades.automation.currency">
+                    <img id="upgrades5" src="Pictures/Default/Automation.png" alt="" loading="lazy">
+                </button>
+              </header>
+              <h3 class="prestigeunlock crimsonText" id="automationtext" i18n="upgrades.shopTitles.automation"></h3>
+              <table class="prestigeunlock" id="automationtable" aria-label="Automation Upgrades">
+                  <tr>
+                      <td><button id="upg81" class="upgrade-button" i18n-aria-label="upgrades.automation.1"><img src="Pictures/Default/Automation1.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg82" class="upgrade-button" i18n-aria-label="upgrades.automation.2"><img src="Pictures/Default/Automation2.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg83" class="upgrade-button" i18n-aria-label="upgrades.automation.3"><img src="Pictures/Default/Automation3.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg84" class="upgrade-button" i18n-aria-label="upgrades.automation.4"><img src="Pictures/Default/Automation4.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg85" class="upgrade-button" i18n-aria-label="upgrades.automation.5"><img src="Pictures/Default/Automation5.png" alt="" loading="lazy"></button></td>
+                  </tr>
+                  <tr>
+                      <td><button id="upg86" class="upgrade-button" i18n-aria-label="upgrades.automation.6"><img src="Pictures/Default/Automation6.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg87" class="upgrade-button" i18n-aria-label="upgrades.automation.7"><img src="Pictures/Default/Automation7.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg88" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.automation.8"><img src="Pictures/Default/Automation8.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg89" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.automation.9"><img src="Pictures/Default/Automation9.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg90" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.automation.10"><img src="Pictures/Default/Automation10.png" alt="" loading="lazy"></button></td>
+                  </tr>
+                  <tr>
+                      <td><button id="upg91" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.automation.11"><img src="Pictures/Default/Automation11.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg92" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.automation.12"><img src="Pictures/Default/Automation12.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg93" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.automation.13"><img src="Pictures/Default/Automation13.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg94" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.automation.14"><img src="Pictures/Default/Automation14.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg95" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.automation.15"><img src="Pictures/Default/Automation15.png" alt="" loading="lazy"></button></td>
+                  </tr>
+                  <tr>
+                      <td><button id="upg96" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.automation.16"><img src="Pictures/Default/Automation16.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg97" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.automation.17"><img src="Pictures/Default/Automation17.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg98" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.automation.18"><img src="Pictures/Default/Automation18.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg99" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.automation.19"><img src="Pictures/Default/Automation19.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg100" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.automation.20"><img src="Pictures/Default/Automation20.png" alt="" loading="lazy"></button></td>
+                  </tr>
+              </table>
+            </section>
+            <section class="shop-section reincarnationunlock" aria-labelledby="reincarnationtext">
+              <header>
+                <button class="currency-icon reincarnationunlock" i18n-aria-label="upgrades.particles.currency">
+                    <img id="upgrades6" src="Pictures/Default/Particle.png" alt="" loading="lazy">
+                </button>
+                <h3 class="reincarnationunlock" id="reincarnationtext" style="color: limegreen" i18n="upgrades.shopTitles.particles"></h3>
+              </header>
+              <table class="reincarnationunlock" id="reincarnationupgradestable" i18n-aria-label="upgrades.shopTitles.particles">
+                  <tr>
+                      <td><button id="upg61" class="upgrade-button reinrow1" i18n-aria-label="upgrades.particles.1"><img src="Pictures/Default/Particle1.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg62" class="upgrade-button reinrow1" i18n-aria-label="upgrades.particles.2"><img src="Pictures/Default/Particle2.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg63" class="upgrade-button reinrow1" i18n-aria-label="upgrades.particles.3"><img src="Pictures/Default/Particle3.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg64" class="upgrade-button reinrow1" i18n-aria-label="upgrades.particles.4"><img src="Pictures/Default/Particle4.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg65" class="upgrade-button reinrow1" i18n-aria-label="upgrades.particles.5"><img src="Pictures/Default/Particle5.png" alt="" loading="lazy"></button></td>
+                  </tr>
+                  <tr>
+                      <td><button id="upg66" class="upgrade-button reinrow2" i18n-aria-label="upgrades.particles.6"><img src="Pictures/Default/Particle6.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg67" class="upgrade-button reinrow2" i18n-aria-label="upgrades.particles.7"><img src="Pictures/Default/Particle7.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg68" class="upgrade-button reinrow2" i18n-aria-label="upgrades.particles.8"><img src="Pictures/Default/Particle8.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg69" class="upgrade-button reinrow2" i18n-aria-label="upgrades.particles.9"><img src="Pictures/Default/Particle9.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg70" class="upgrade-button reinrow2" i18n-aria-label="upgrades.particles.10"><img src="Pictures/Default/Particle10.png" alt="" loading="lazy"></button></td>
+                  </tr>
+                  <tr>
+                      <td><button id="upg71" class="upgrade-button reinrow3" i18n-aria-label="upgrades.particles.11"><img src="Pictures/Default/Particle11.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg72" class="upgrade-button reinrow3" i18n-aria-label="upgrades.particles.12"><img src="Pictures/Default/Particle12.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg73" class="upgrade-button reinrow3" i18n-aria-label="upgrades.particles.13"><img src="Pictures/Default/Particle13.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg74" class="upgrade-button reinrow3" i18n-aria-label="upgrades.particles.14"><img src="Pictures/Default/Particle14.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg75" class="upgrade-button reinrow3" i18n-aria-label="upgrades.particles.15"><img src="Pictures/Default/Particle15.png" alt="" loading="lazy"></button></td>
+                  </tr>
+                  <tr>
+                      <td><button id="upg76" class="upgrade-button reinrow4" i18n-aria-label="upgrades.particles.16"><img src="Pictures/Default/Particle16.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg77" class="upgrade-button reinrow4" i18n-aria-label="upgrades.particles.17"><img src="Pictures/Default/Particle17.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg78" class="upgrade-button reinrow4" i18n-aria-label="upgrades.particles.18"><img src="Pictures/Default/Particle18.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg79" class="upgrade-button reinrow4" i18n-aria-label="upgrades.particles.19"><img src="Pictures/Default/Particle19.png" alt="" loading="lazy"></button></td>
+                      <td><button id="upg80" class="upgrade-button reinrow4" i18n-aria-label="upgrades.particles.20"><img src="Pictures/Default/Particle20.png" alt="" loading="lazy"></button></td>
+                  </tr>
+              </table>
+              <button class="autobuyerToggleButton upgradeToggle" id="reincarnateAutoUpgrade" i18n-aria-label="upgrades.particles.autobuyer" aria-pressed="true" style="border: 2px solid green">Auto: ON</button>
+            </section>
         </div>
 
         <div id="upgradesrow3">

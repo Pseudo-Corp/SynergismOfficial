@@ -756,29 +756,33 @@ p#buildinghotkeys2 {
     justify-content: space-around;
 }
 
-#upgradesFlex > div {
+#upgradesFlex > section {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#upgradesFlex > div > p {
+#upgradesFlex > section > p {
     margin: 5px 0;
     line-height: 1em;
 }
 
-#upgradesFlex > div > table {
+#upgradesFlex > section > table {
     font-size: 0;
     min-height: 182px;
     text-align: center;
+    border-collapse: collapse;
 }
 
-#upgradesFlex > div > table img {
-    background-color: var(--buttonimg-color);
+#upgradesFlex > section > table td {
+    padding-left: 3px;
+}
+
+#upgradesFlex > section > table img {
     cursor: pointer;
 }
 
-#upgradesFlex > div > button {
+#upgradesFlex > section > button {
     min-width: 80px;
 }
 
@@ -1060,6 +1064,8 @@ p#promocodeinfo {
 
 .autobuyerToggleButton {
     background-color: var(--button-color);
+    margin: 0 auto;
+    min-width: 80px;
 }
 
 .buttonRow > div > .stats {
@@ -4458,4 +4464,38 @@ form input:hover {
 @keyframes fade {
     from { opacity: 0.4; }
     to { opacity: 1; }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.upgrade-button {
+    background: none;
+    cursor: pointer;
+}
+
+.upgrade-button:focus-visible {
+    outline: 2px solid #4a90e2;
+}
+
+.upgrade-button[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+h2,
+h3 {
+    margin: 2px;
+}
+
+.green-background img {
+    background-color: var(--green-text-color);
 }
