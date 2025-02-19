@@ -432,9 +432,9 @@ export const crystalupgradedescriptions = (i: number) => {
 export const upgradeupdate = (num: number, fast?: boolean) => {
   const el = DOMCacheGetOrSet(`upg${num}`)
   if (player.upgrades[num] > 0.5) {
-    el.style.backgroundColor = 'green'
+    el.classList.add('green-background')
   } else {
-    el.style.backgroundColor = ''
+    el.classList.remove('green-background')
   }
 
   const b = i18next.t(`upgrades.descriptions.${num}`)
