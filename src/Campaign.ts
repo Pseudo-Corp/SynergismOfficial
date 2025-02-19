@@ -1,18 +1,16 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { corrIcons, CorruptionLoadout, type Corruptions, corruptionsSchema, corruptionStatsUpdate } from './Corruptions'
+import { corrIcons, CorruptionLoadout, type Corruptions, corruptionsSchema, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions'
 import { format, player } from './Synergism'
 import { IconSets } from './Themes'
 import { reset } from './Reset'
-import { Confirm, Notification } from './UpdateHTML'
+import { Alert, Confirm, Notification } from './UpdateHTML'
 import { isIARuneUnlocked } from './Calculate'
 
-export type AscensionModifiers = 'GlobalSpeed'
-
 export type CampaignLoadout = Corruptions
-export type CampaignModifiers = Partial<Record<AscensionModifiers, number>>
 
-export type CampaignKeys = 'first' | 'second' | 'third' | 'chal11' | 'ultimate' | // Next ones are for testing only
+export type CampaignKeys = 'first' | 'second' | 'third' | 'fourth' | 'fifth' |
+'sixth'| 'seventh' | 'chal11' | 'ultimate' | // Next ones are for testing only
 'freeTokens1' | 'freeTokens2' | 'freeTokens3' | 'freeTokens4' | 'freeTokens5' |
 'freeTokens6' | 'freeTokens7' | 'freeTokens8' | 'freeTokens9' | 'freeTokens10'
 
@@ -39,7 +37,7 @@ export interface ICampaignManagerData {
 
 export interface ICampaignData {
   campaignCorruptions: Partial<Corruptions>
-  campaignModifiers: CampaignModifiers
+  unlockRequirement: () => boolean
   limit: number
   isMeta: boolean
 }
@@ -55,6 +53,10 @@ export class CampaignManager {
       first: new Campaign(campaignDatas.first, 'first', campaignManagerData?.campaigns?.first ?? 0),
       second: new Campaign(campaignDatas.second, 'second', campaignManagerData?.campaigns?.second ?? 0),
       third: new Campaign(campaignDatas.third, 'third', campaignManagerData?.campaigns?.third ?? 0),
+      fourth: new Campaign(campaignDatas.fourth, 'fourth', campaignManagerData?.campaigns?.fourth ?? 0),
+      fifth: new Campaign(campaignDatas.fifth, 'fifth', campaignManagerData?.campaigns?.fifth ?? 0),
+      sixth: new Campaign(campaignDatas.sixth, 'sixth', campaignManagerData?.campaigns?.sixth ?? 0),
+      seventh: new Campaign(campaignDatas.seventh, 'seventh', campaignManagerData?.campaigns?.seventh ?? 0),
       chal11: new Campaign(campaignDatas.chal11, 'chall11', campaignManagerData?.campaigns?.chal11 ?? 0),
       ultimate: new Campaign(campaignDatas.ultimate, 'ultimate', campaignManagerData?.campaigns?.ultimate ?? 0),
       freeTokens1: new Campaign(campaignDatas.freeTokens1, 'freeTokens1', campaignManagerData?.campaigns?.freeTokens1 ?? 0),
@@ -183,25 +185,29 @@ export class CampaignManager {
   get cubeBonus () {
     return 1 + 
     0.25 * 1/25 * Math.min(this.tokens, 25) +
-    0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500))
+    0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500)) + 
+    0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
   }
 
   get obtainiumBonus () {
     return 1 + 
     0.25 * 1/25 * Math.min(this.tokens, 25) +
-    0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500))
+    0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500)) +
+    0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
   }
 
   get offeringBonus () {
     return 1 + 
     0.25 * 1/25 * Math.min(this.tokens, 25) +
-    0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500))
+    0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500)) +
+    0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
   }
 
   get ascensionScoreMultiplier () {
     return 1 + 
     0.5 * 1/100 * Math.min(this.tokens, 100) +
-    0.5 * (1 - Math.exp(-Math.max(this.tokens - 100, 0) / 1000))
+    0.5 * (1 - Math.exp(-Math.max(this.tokens - 100, 0) / 1000)) +
+    0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
   }
   /**
    * Returns the time threshold reduction for Prestige, Reincarnation and Ascension
@@ -226,7 +232,8 @@ export class CampaignManager {
     else {
       return 1 + 
       0.1 * Math.min(this.tokens - 100, 100) / 100 +
-      0.15 * (1 - Math.exp(-Math.max(this.tokens - 200, 0) / 3000))
+      0.15 * (1 - Math.exp(-Math.max(this.tokens - 200, 0) / 3000)) +
+      0.15 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 10000))
     }
   }
 
@@ -235,8 +242,9 @@ export class CampaignManager {
       return 1
     }
     return 1 -
-    0.05 * 1/250 * Math.min(this.tokens - 250, 250) +
-    0.15 * (1 - Math.exp(-Math.max(this.tokens - 500, 0) / 1250))
+    0.05 * 1/250 * Math.min(this.tokens - 250, 250) -
+    0.15 * (1 - Math.exp(-Math.max(this.tokens - 500, 0) / 1250)) -
+    0.05 * (1 - Math.exp(-Math.max(this.tokens - 4000, 0) / 5000))
   }
 
   get c15Bonus () {
@@ -301,7 +309,6 @@ export class Campaign {
   #name: string
   #description: string
   #campaignCorruptions: CampaignLoadout
-  #campaignModifiers: CampaignModifiers
   #limit: number
   #isMeta: boolean
   #c10Completions = 0
@@ -310,15 +317,21 @@ export class Campaign {
     this.#name = i18next.t(`campaigns.data.${key}.name`)
     this.#description = i18next.t(`campaigns.data.${key}.description`)
     this.#campaignCorruptions = corruptionsSchema.parse(campaignData.campaignCorruptions)
-    this.#campaignModifiers = campaignData.campaignModifiers
     this.#limit = campaignData.limit
     this.#isMeta = campaignData.isMeta
     this.#c10Completions = c10 ?? 0
   }
 
   public computeTokenValue = (amount?: number) => {
-    const metaMultiplier = this.#isMeta ? 2 : 1
-    return metaMultiplier * Math.min(amount ?? this.c10Completions, this.#limit)
+    const completed = Math.min(amount ?? this.#c10Completions, this.#limit)
+
+    let additiveTotal = 0
+    additiveTotal += completed // Base
+
+    let multiplier = 1
+    multiplier *= this.#isMeta ? 2 : 1
+
+    return Math.floor(additiveTotal * multiplier)
   }
 
   public createUsableLoadout = (): CorruptionLoadout => {
@@ -351,10 +364,6 @@ export class Campaign {
     return this.#limit
   }
 
-  public get campaignModifiers () {
-    return this.#campaignModifiers
-  }
-
   public get isMeta () {
     return this.#isMeta
   }
@@ -373,34 +382,62 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     campaignCorruptions: {
       viscosity: 1
     },
-    campaignModifiers: {
-      GlobalSpeed: 1
-    },
     isMeta: true,
+    unlockRequirement: () => {return true},
     limit: 10
   },
   second: {
     campaignCorruptions: {
-      viscosity: 1,
       deflation: 1
     },
-    campaignModifiers: {
-      GlobalSpeed: 1
-    },
-    isMeta: true,
-    limit: 15
+    isMeta: false,
+    unlockRequirement: () => {return true},
+    limit: 10
   },
   third: {
     campaignCorruptions: {
       viscosity: 1,
       deflation: 1,
-      dilation: 1
     },
-    campaignModifiers: {
-      GlobalSpeed: 1
+    isMeta: false,
+    unlockRequirement: () => {return true},
+    limit: 10
+  },
+  fourth: {
+    campaignCorruptions: {
+      viscosity: 2,
+      deflation: 2,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return true},
+    limit: 10
+  },
+  fifth: {
+    campaignCorruptions: {
+      viscosity: 3,
+      deflation: 3,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return true},
+    limit: 10
+  },
+  sixth: {
+    campaignCorruptions: {
+      viscosity: 4,
+      deflation: 4,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return true},
+    limit: 10
+  },
+  seventh: {
+    campaignCorruptions: {
+      viscosity: 5,
+      deflation: 5,
     },
     isMeta: true,
-    limit: 20
+    unlockRequirement: () => {return true},
+    limit: 10
   },
   chal11: {
     campaignCorruptions: {
@@ -413,10 +450,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       dilation: 11,
       hyperchallenge: 11
     },
-    campaignModifiers: {
-      GlobalSpeed: 1
-    },
     isMeta: true,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
     limit: 25
   },
   ultimate: {
@@ -430,68 +465,68 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       dilation: 15,
       hyperchallenge: 15
     },
-    campaignModifiers: {},
     isMeta: true,
+    unlockRequirement: () => {return maxCorruptionLevel() >= 15},
     limit: 125
   },
   freeTokens1: {
     campaignCorruptions: {},
-    campaignModifiers: {},
     isMeta: false,
+    unlockRequirement: () => {return true},
     limit: 125
   },
   freeTokens2: {
     campaignCorruptions: {},
-    campaignModifiers: {},
     isMeta: false,
+    unlockRequirement: () => {return true},
     limit: 125
   },
   freeTokens3: {
     campaignCorruptions: {},
-    campaignModifiers: {},
     isMeta: true,
+    unlockRequirement: () => {return true},
     limit: 125
   },
   freeTokens4: {
     campaignCorruptions: {},
-    campaignModifiers: {},
     isMeta: true,
+    unlockRequirement: () => {return true},
     limit: 125
   },
   freeTokens5: {
     campaignCorruptions: {},
-    campaignModifiers: {},
     isMeta: true,
+    unlockRequirement: () => {return true},
     limit: 125
   },
   freeTokens6: {
     campaignCorruptions: {},
-    campaignModifiers: {},
     isMeta: true,
+    unlockRequirement: () => {return true},
     limit: 125
   },
   freeTokens7: {
     campaignCorruptions: {},
-    campaignModifiers: {},
     isMeta: true,
+    unlockRequirement: () => {return true},
     limit: 125
   },
   freeTokens8: {
     campaignCorruptions: {},
-    campaignModifiers: {},
     isMeta: true,
+    unlockRequirement: () => {return true},
     limit: 125
   },
   freeTokens9: {
     campaignCorruptions: {},
-    campaignModifiers: {},
     isMeta: true,
+    unlockRequirement: () => {return true},
     limit: 125
   },
   freeTokens10: {
     campaignCorruptions: {},
-    campaignModifiers: {},
     isMeta: true,
+    unlockRequirement: () => {return true},
     limit: 125
   }
 }
@@ -702,7 +737,7 @@ export const createCampaignIconHTMLS = () => {
     const campaignIcon = document.createElement('img')
     campaignIcon.id = `${key}CampaignIcon`
     campaignIcon.classList.add('campaignIcon')
-    campaignIcon.src = `Pictures/${IconSets[player.iconSet][0]}/Quark.png`
+    campaignIcon.src = `Pictures/Campaigns/CampaignIcons/${key}.png`
 
     campaignIconDiv.appendChild(campaignIcon)
     campaignIconHTMLUpdate(key)
@@ -726,18 +761,18 @@ export const campaignTokenRewardHTMLUpdate = () => {
     // Create a new Icon if the player has enough tokens and extra requirements are met
     if (tokenCount >= value.tokenRequirement && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())) {
       const tokenIcon = document.createElement('img')
-      tokenIcon.src = `Pictures/${IconSets[player.iconSet][0]}/Quark.png`
+      tokenIcon.src = `Pictures/Campaigns/${key}.png`
       tokenIcon.classList.add('campaignTokenRewardIcon')
 
       if (typeof value.reward() === 'string') {
         tokenIcon.onclick = () => {
-          DOMCacheGetOrSet('campaignTokenRewardText').textContent = i18next.t(`campaigns.tokens.rewardTexts.${key}`, {reward: value.reward()})
+          DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = i18next.t(`campaigns.tokens.rewardTexts.${key}`, {reward: value.reward()})
         }
       }
       else {
         tokenIcon.onclick = () => {
           const reward = value.reward() as Partial<Record<CampaignTokenRewardNames, string>>
-          DOMCacheGetOrSet('campaignTokenRewardText').textContent = i18next.t(`campaigns.tokens.rewardTexts.${key}`, reward)
+          DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = i18next.t(`campaigns.tokens.rewardTexts.${key}`, reward)
         }
       }
 
@@ -747,6 +782,29 @@ export const campaignTokenRewardHTMLUpdate = () => {
 
   }
 
+  // Create the final icon that displays the total sum of rewards in a popup.
+  if (tokenCount > 0) {
+    const totalRewardIcon = document.createElement('img')
+    totalRewardIcon.src = 'Pictures/Campaigns/sum.png'
+
+    let popupText = ''
+    for (const [key, value] of Object.entries(campaignTokenRewardDatas)) {
+      if (tokenCount >= value.tokenRequirement && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())) {
+        if (typeof value.reward() === 'string') {
+          popupText += i18next.t(`campaigns.tokens.rewardTexts.${key}`, {reward: value.reward()}) + '\n'
+        }
+        else {
+          const reward = value.reward() as Partial<Record<CampaignTokenRewardNames, string>>
+          popupText += i18next.t(`campaigns.tokens.rewardTexts.${key}`, reward) + '\n'
+        }
+      }
+    }
+
+    totalRewardIcon.onclick = () => {
+        return Alert(popupText)
+    }
+    DOMCacheGetOrSet('campaignTokenRewardIcons').appendChild(totalRewardIcon)
+  } 
 }
 
 export const campaignTest = () => {

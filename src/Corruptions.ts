@@ -79,7 +79,6 @@ export class CorruptionLoadout {
     dilation: 0,
     hyperchallenge: 0
   }
-  #bonusLevels = 0
 
   constructor (p: Corruptions) {
     Object.entries(p).forEach(([key, value]) => {
@@ -91,7 +90,6 @@ export class CorruptionLoadout {
     Object.assign(this.#levels, corruptions)
     this.clipCorruptionLevels()
     this.#totalScoreMult = this.#calcTotalScoreMult()
-    this.#bonusLevels = this.#calcBonusLevels()
   }
 
   public setCorruptionLevelsWithChallengeRequirement (corruptions: Partial<Corruptions>) {
@@ -105,7 +103,6 @@ export class CorruptionLoadout {
         this.setLevel(corrKey, 0)
       }
     }
-    this.#bonusLevels = this.#calcBonusLevels()
     this.clipCorruptionLevels()
     this.#totalScoreMult = this.#calcTotalScoreMult()
   }
@@ -138,7 +135,7 @@ export class CorruptionLoadout {
       bonusMult *= 1.1
     }
 
-    const totalLevel = this.#levels[corr] + this.#bonusLevels
+    const totalLevel = this.#levels[corr] + this.bonusLevels
     const scoreMultLength = this.#corruptionScoreMults.length
 
     if (totalLevel < scoreMultLength - 1) {
@@ -224,8 +221,8 @@ export class CorruptionLoadout {
     return sumContents(Object.values(this.#levels))
   }
 
-  #calcBonusLevels () {
-    let bonusLevel = (player.singularityUpgrades.corruptionFifteen.level > 0) ? 1 : 0
+  get bonusLevels () {
+    let bonusLevel = Boolean(player.singularityUpgrades.corruptionFifteen.level) ? 1 : 0
     bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
     return bonusLevel
   }
@@ -272,12 +269,8 @@ export class CorruptionLoadout {
     return this.#levels
   }
 
-  getBonusLevel () {
-    return this.#bonusLevels
-  }
-
   getTotalLevel (corr: keyof Corruptions) {
-    return this.#levels[corr] + this.#bonusLevels
+    return this.#levels[corr] + this.bonusLevels
   }
 
   setLevel (corr: keyof Corruptions, newLevel: number) {
