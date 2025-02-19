@@ -505,7 +505,7 @@ export const player: Player = {
   prestigecounter: 0,
   transcendcounter: 0,
   reincarnationcounter: 0,
-  offlinetick: 0,
+  offlinetick: Date.now(),
 
   prestigeamount: 0,
   transcendamount: 0,
