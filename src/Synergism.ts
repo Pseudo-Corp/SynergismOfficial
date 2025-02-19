@@ -1001,7 +1001,7 @@ export const player: Player = {
   totalQuarksEver: 0,
   hotkeys: {},
   theme: 'Dark Mode',
-  iconSet: 0,
+  iconSet: 1,
   notation: 'Default',
 
   singularityUpgrades: {
