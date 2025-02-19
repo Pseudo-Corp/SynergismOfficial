@@ -1335,7 +1335,7 @@ export const Alert = (text: string): Promise<void> =>
     conf.style.display = 'block'
     alertWrap.style.display = 'block'
     overlay.style.display = 'block'
-    popup.querySelector('p')!.textContent = text
+    popup.querySelector('p')!.innerHTML = text
     popup.focus()
 
     const p = createDeferredPromise<void>()

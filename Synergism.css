@@ -3017,6 +3017,8 @@ p#ascendHotKeys {
     height: 48px;
     font-size: 0;
     cursor: pointer;
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 #campaignsTokensInfo h2 {

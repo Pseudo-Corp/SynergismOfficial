@@ -2608,7 +2608,23 @@
       },
       "third": {
         "name": "Campaign the Third",
-        "description": "Kinda stacking a bit more. Notice the Ascension Score Multiplier? It goes up based on how many corruptions you have, and their level."
+        "description": "Kinda stacking a bit more. Notice the Ascension Score Multiplier? It goes up based on how many corruptions you have."
+      },
+      "fourth": {
+        "name": "Campaign IV",
+        "description": "Corruptions also have levels to them. Harder Campaigns will have higher corruption levels... and a higher Ascension Score multiplier!"
+      },
+      "fifth": {
+        "name": "The fifth least Campaign",
+        "description": "You can earn tokens by completing Campaigns! Tokens automatically reward bonuses, based on how many you have earned."
+      },
+      "sixth": {
+        "name": "The sweet sixth Campaign",
+        "description": "The difficulty Score of an Ascension is based on your corruption levels, based on 400 + 16 * (sum of squared corruption levels)."
+      },
+      "seventh": {
+        "name": "I think you understand this Corruption set by now",
+        "description": "If you can beat this, then Challenge 12 should be doable!"
       },
       "chal11": {
         "name": "Test Campaign 4",
@@ -2682,26 +2698,26 @@
     "tokens": {
       "count": "You have {{ count }} / {{ maxCount }} tokens!",
       "rewardTexts": {
-        "tutorial": "For clearing your first Campaign, get {{cube}} more Cubes, {{obtainium}} more Obtainium, and {{offering}} more Offerings!",
-        "cube": "Increase Cube gain by {{ reward }} (Maximum +100%).",
-        "obtainium": "Increase Obtainium gain by {{ reward }} (Maximum +100%).",
-        "offering": "Increase Offering gain by {{ reward }} (Maximum +100%).",
-        "ascensionScore": "Increase Ascension Score by {{ reward }} (Maximum +100%).",
-        "timeThreshold": "For Reset Rewards that have a penalty if you reset under a certain time, reduce that time by {{ reward }} seconds (Base: 10s).",
-        "quark": "Increase Quark gain by {{ reward }} (Maximum +25%).",
-        "tax": "Taxes {{ reward }} (Minimum -20%).",
-        "c15": "Increase Challenge 15 bonus by {{ reward }} (Maximum +100%)",
-        "rune6": "Increase Rune 6 Bonus Levels by {{ reward }} (Maximum +3).",
-        "goldenQuark": "Increase Golden Quark gain by {{ reward }} (Maximum +25%).",
-        "octeract": "Increase Octeract gain by {{ reward }} (Maximum +50%).",
-        "ambrosiaLuck": "Increase ☘ Ambrosia Luck by {{ reward }} (Maximum ☘ +100).",
-        "blueberrySpeed": "Increase Blueberry Generation Speed by {{ reward }} (Maximum +10%)."
+        "tutorial": "For clearing your first Campaign, get {{cube}} more Cubes, <<pink | {{obtainium}}>> more Obtainium, and <<orange | {{offering}}>> more Offerings!",
+        "cube": "Increase Cube gain by {{ reward }} (Maximum +150%).",
+        "obtainium": "Increase Obtainium gain by <<pink | {{ reward }}>> (Maximum +150%).",
+        "offering": "Increase Offering gain by <<orange | {{ reward }}>> (Maximum +150%).",
+        "ascensionScore": "Increase Ascension Score by <<orange | {{ reward }}>> (Maximum +150%).",
+        "timeThreshold": "For Reset Rewards that have a penalty if you reset under a certain time, reduce that time by <<gray | {{ reward }}>> seconds (Base: 10s).",
+        "quark": "Increase Quark gain by <<cyan | {{ reward }}>> (Maximum +40%).",
+        "tax": "Taxes <<blue | {{ reward }}>> (Minimum -25%).",
+        "c15": "Increase Challenge 15 bonus by <<lightgoldenrodyellow | {{ reward }}>> (Maximum +100%)",
+        "rune6": "Increase Rune 6 Bonus Levels by <<brown | {{ reward }}>> (Maximum +3).",
+        "goldenQuark": "Increase Golden Quark gain by <<gold | {{ reward }}>> (Maximum +25%).",
+        "octeract": "Increase Octeract gain by <<teal | {{ reward }}>> (Maximum +50%).",
+        "ambrosiaLuck": "Increase ☘ Ambrosia Luck by <<green | {{ reward }}>> (Maximum ☘ +100).",
+        "blueberrySpeed": "Increase Blueberry Generation Speed by <<blue | {{ reward }}>> (Maximum +10%)."
       }
     },
     "currentCampaignPreTitle": "Current Campaign: ",
     "noChallengeCompletionConfirm": "You have not yet cleared Challenge 10 and therefore will not earn Cubes if you leave. Confirm?",
     "saveLoadout": "Save Corruption Loadout!",
-    "saveLoadoutNotification": "Saved Corruption Loadout for {{ name }}!"
+    "saveLoadoutNotification": "Saved Corruption Loadout for {{ name }} for next Ascension!"
   },
   "corruptions": {
     "names": {
