@@ -220,6 +220,8 @@ export const upgradeeffects = (i: number) => {
   } else {
     element.textContent = i18next.t(`upgrades.effects.${i}`, effect as Exclude<typeof effect, string | number>)
   }
+
+  element.setAttribute('aria-live', 'polite')
 }
 
 export const upgradedescriptions = (i: number) => {
@@ -253,8 +255,10 @@ export const upgradedescriptions = (i: number) => {
     color = 'limegreen'
   }
 
-  DOMCacheGetOrSet('upgradecost').textContent = `Cost: ${format(Decimal.pow(10, G.upgradeCosts[i]))} ${currency}`
-  DOMCacheGetOrSet('upgradecost').style.color = color
+  const upgradeCost = DOMCacheGetOrSet('upgradecost')
+  upgradeCost.textContent = `Cost: ${format(Decimal.pow(10, G.upgradeCosts[i]))} ${currency}`
+  upgradeCost.style.color = color
+  upgradeCost.setAttribute('aria-live', 'polite')
   upgradeeffects(i)
 }
 
@@ -437,12 +441,15 @@ export const upgradeupdate = (num: number, fast?: boolean) => {
     el.classList.remove('green-background')
   }
 
-  const b = i18next.t(`upgrades.descriptions.${num}`)
-  const c = player.upgrades[num] > 0.5 ? ' BOUGHT!' : ''
   if (player.upgrades[num] > 0.5) {
     if (!fast) {
-      DOMCacheGetOrSet('upgradedescription').textContent = b + c
-      DOMCacheGetOrSet('upgradedescription').style.color = 'gold'
+      const b = i18next.t(`upgrades.descriptions.${num}`)
+      const c = player.upgrades[num] > 0.5 ? i18next.t('upgrades.bought') : ''
+
+      const upgradeDescription = DOMCacheGetOrSet('upgradedescription')
+      upgradeDescription.textContent = `${b} ${c}`
+      upgradeDescription.style.color = 'gold'
+      upgradeDescription.setAttribute('aria-live', 'polite')
     }
   }
 
