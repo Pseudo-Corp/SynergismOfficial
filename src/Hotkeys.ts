@@ -96,11 +96,6 @@ const eventHotkeys = (event: KeyboardEvent): void => {
 
   const key = keyPrefix + event.key.toUpperCase()
 
-  // Disable the TAB key as it may allow unexpected operations
-  if (key === 'TAB') {
-    event.preventDefault()
-  }
-
   // Disable hotkeys if notifications are occurring
   if (key !== 'ENTER' && DOMCacheGetOrSet('transparentBG').style.display === 'block') {
     if (hotkeys.has(key) && (!hotkeys.get(key)![2])) {

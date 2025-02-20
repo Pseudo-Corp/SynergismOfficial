@@ -391,10 +391,12 @@
                         <td><img id="buycrystalupgrade5" alt="Crystal Upgrade 5" class="transcendunlock" src="Pictures/Default/CrystalUpgrade5.png" loading="lazy"></td>
                     </tr>
                 </table>
-                <p class="mainText" id="crystalupgradedescription" style="text-align: center;" i18n="buildings.hoverCrystalUpgrade"></p>
-                <p class="mainText" id="crystalupgradeslevel1" style="text-align: center;"></p>
-                <p class="mainText" id="crystalupgradescost1" style="text-align: center;"></p>
-                <p class="mainText" id="crystalupgradeseffect1" style="text-align: center;"></p>
+                <div aria-live="polite">
+                  <p class="mainText" id="crystalupgradedescription" style="text-align: center;" i18n="buildings.hoverCrystalUpgrade"></p>
+                  <p class="mainText" id="crystalupgradeslevel1" style="text-align: center;"></p>
+                  <p class="mainText" id="crystalupgradescost1" style="text-align: center;"></p>
+                  <p class="mainText" id="crystalupgradeseffect1" style="text-align: center;"></p>
+                </div>
             </div>
 
             <div class="resetautomation" id="autocrystalbuild">
@@ -933,7 +935,7 @@
             </section>
         </div>
 
-        <div id="upgradesrow3">
+        <div id="upgradesrow3" aria-live="polite">
             <p id="upgradedescription" style="color: beige" i18n="upgrades.hover"></p>
             <p id="upgradecost"></p>
             <p id="upgradeeffect"></p>
@@ -1248,8 +1250,8 @@
                 </table>
             </div>
         </div>
-        <div id="achievementinfo">
-            <p class="mainText" id="achievementtutorial" i18n="achievements.hover"></p>
+        <div id="achievementinfo" aria-live="polite">
+            <p class="mainText" i18n="achievements.hover"></p>
             <p id="achievementdescription"></p>
             <p id="achievementreward"></p>
         </div>
@@ -1354,7 +1356,7 @@
                 </div>
             </div>
 
-            <div id="runeEffectDisplays">
+            <div id="runeEffectDisplays" aria-live="polite">
                 <p id="runeshowlevelup" style="color: white"></p>
                 <p id="runeDisplayInfo" style="color: goldenrod"></p>
                 <p id="bonussummation" class="orangeredText" i18n="runes.runeEffectSummaryTitle"></p>
@@ -1411,7 +1413,7 @@
                     <span class="talismanShardAmount crimsonText" id="mythicalFragmentInventory">0</span>
                     <button class="fragmentBtn" id="buyTalismanItem7" style="border:2px solid red" i18n="runes.talismans.buy"></button>
                 </div>
-                <p id="talismanFragmentCost">Cost for 1: 1e6 Obtainium</p>
+                <p id="talismanFragmentCost" aria-live="polite">Cost for 1: 1e6 Obtainium</p>
             </div>
             <div class="talismansCenter">
                 <div class="talismansContainer">
@@ -1475,7 +1477,7 @@
                 <div class="talismansModify">
                     <button class="talismanBtn" id="respecAllTalismans" i18n="runes.talismans.respecAll"></button>
 
-                    <div id="talismanEffect">
+                    <div id="talismanEffect" aria-live="polite">
                         <p id="talismanSummary" style="color: silver"></p>
                         <p id="talismanBonus"></p>
                         <p id="talismanRune1Effect" style="color: cyan"></p>
@@ -1486,7 +1488,7 @@
                         <p id="talismanMythicEffect" style="color: gold"></p>
                     </div>
 
-                    <div id="talismanlevelup" style="table-layout: fixed; display: none">
+                    <div id="talismanlevelup" aria-live="polite" style="table-layout: fixed; display: none">
                         <p id="talismanLevelUpSummary" style="color: silver"></p>
                         <table>
                             <tr>
@@ -1510,7 +1512,7 @@
                         </table>
                     </div>
 
-                    <div id="talismanrespec" style="display: none">
+                    <div id="talismanrespec" aria-live="polite" style="display: none">
                         <p id="talismanRespecSummary" class="orchidText" i18n="runes.talismans.respecSummary"></p>
                         <div>
                             <button class="talismanRespecBtn" id="talismanRespecButton1">Speed Rune: POSITIVE</button>
@@ -2006,7 +2008,7 @@
                 </table>
             </div>
         </div>
-        <div id="researchDetails">
+        <div id="researchDetails" aria-live="polite">
             <p id="researchinfo2" style="color:pink" i18n="researches.hover"></p>
             <p id="researchcost" style="color:pink">.</p>
             <p id="researchinfo3" style="color:white;">.</p>
@@ -2043,7 +2045,7 @@
 
         <!-- <div id="antdivisor" style="border: 1px solid goldenrod"></div> -->
 
-            <div id="antrow3" style="color:plum">
+            <div id="antrow3" aria-live="polite" style="color:plum">
                 <p id="antspecies" style="font-size: 1.2em; color:royalblue"> <span id="antlevelbonus" style="color: orange"> </span></p>
                 <p id="antupgradedescription"></p>
                 <p id="antupgradecost"></p>
@@ -2616,12 +2618,14 @@
                             <td><img id="cubeUpg80" alt="cubeUpg80" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade80.png" loading="lazy"></td>
                         </tr>
                     </table>
-                    <div class="cubeUpgradeInfo">
-                        <p id="cubeUpgradeName" style="text-align:center;">Wow! Hover over the upgrades you want to look at!</p>
-                        <p id="cubeUpgradeDescription" style="text-align: center; color: lightblue"></p>
+                    <div aria-live="polite">
+                      <div class="cubeUpgradeInfo">
+                          <p id="cubeUpgradeName" style="text-align:center;">Wow! Hover over the upgrades you want to look at!</p>
+                          <p id="cubeUpgradeDescription" style="text-align: center; color: lightblue"></p>
+                      </div>
+                      <p id="cubeUpgradeCost" style="text-align:center; color:pink"></p>
+                      <p id="cubeUpgradeLevel" style="text-align: center; color: crimson"></p>
                     </div>
-                    <p id="cubeUpgradeCost" style="text-align:center; color:pink"></p>
-                    <p id="cubeUpgradeLevel" style="text-align: center; color: crimson"></p>
                     <div class="cubeUpgradeToggles">
                         <button id="toggleCubeBuy" style="text-align: center;color: white;border: 2px solid pink">Upgrade: 1 Level wow</button>
                         <button id="toggleAutoCubeUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
