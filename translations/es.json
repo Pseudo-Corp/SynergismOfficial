@@ -2475,7 +2475,8 @@
       "particles": "Mejoras de Partículas"
     },
     "hover": "¡Pasa sobre un icono de mejora para ver el detalle!",
-    "hoverOverUpgrade": "¡Pasa sobre las mejoras para ver el detalle!"
+    "hoverOverUpgrade": "¡Pasa sobre las mejoras para ver el detalle!",
+    "bought": "BOUGHT!"
   },
   "tabs": {
     "main": {
