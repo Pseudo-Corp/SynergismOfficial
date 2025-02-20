@@ -367,7 +367,9 @@ export const generateEventHandlers = () => {
   // For all upgrades in the Upgrades Tab (125) count, we have the same mouseover event. So we'll work on those first.
   for (let index = 1; index <= 125; index++) {
     // Onmouseover events ()
-    DOMCacheGetOrSet(`upg${index}`).addEventListener('mouseover', () => upgradedescriptions(index))
+    const upgrade = DOMCacheGetOrSet(`upg${index}`)
+    upgrade.addEventListener('mouseover', () => upgradedescriptions(index))
+    upgrade.addEventListener('focus', () => upgradedescriptions(index))
   }
 
   // Generates all upgrade button events
