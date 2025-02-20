@@ -2475,7 +2475,8 @@
       "particles": "Partikel-Upgrades"
     },
     "hover": "Fahren über ein Upgrade-Symbol, um Details zu sehen!",
-    "hoverOverUpgrade": "Fahren über ein Upgrade, um Details zu sehen!"
+    "hoverOverUpgrade": "Fahren über ein Upgrade, um Details zu sehen!",
+    "bought": "BOUGHT!"
   },
   "tabs": {
     "main": {
