@@ -2626,53 +2626,29 @@
         "name": "I think you understand this Corruption set by now",
         "description": "If you can beat this, then Challenge 12 should be doable!"
       },
-      "chal11": {
-        "name": "Test Campaign 4",
-        "description": "This Campaign has every corruption set to 11. It's like Challenge 15... but not."
+      "eighth": {
+        "name": "Woah, a new Corruption!",
+        "description": "This Campaign has a new corruption, which eats at your Diamond production."
       },
-      "ultimate": {
-        "name": "The Ultimate Campaign",
-        "description": "HEYYY!! WHAT ARE YOU TRYING TO DO?!"
+      "ninth": {
+        "name": "More Viscosity!",
+        "description": "We wanted to make things more viscous."
       },
-      "freeTokens1": {
-        "name": "Free Tokens! (1)",
-        "description": "Get some free tokens to test functionalities."
+      "tenth": {
+        "name": "Extinction Event I",
+        "description": "This Campaign has a new corruption, which eats at your Ants. Oh the Ant-ity!"
       },
-      "freeTokens2": {
-        "name": "Free Tokens! (2)",
-        "description": "Get some free tokens to test functionalities."
+      "eleventh": {
+        "name": "Campaign XI",
+        "description": "Harder setup. Oh, and these corruptions can go to level 7 if they want."
       },
-      "freeTokens3": {
-        "name": "Free Tokens! (3)",
-        "description": "Get some free tokens to test functionalities."
+      "twelfth": {
+        "name": "Campaign XII",
+        "description": "We can combine the new corruptions in a way that Synergistically make it more difficult to beat, but a lot more rewarding."
       },
-      "freeTokens4": {
-        "name": "Free Tokens! (4)",
-        "description": "Get some free tokens to test functionalities."
-      },
-      "freeTokens5": {
-        "name": "Free Tokens! (5)",
-        "description": "Get some free tokens to test functionalities."
-      },
-      "freeTokens6": {
-        "name": "Free Tokens! (6)",
-        "description": "Get some free tokens to test functionalities."
-      },
-      "freeTokens7": {
-        "name": "Free Tokens! (7)",
-        "description": "Get some free tokens to test functionalities."
-      },
-      "freeTokens8": {
-        "name": "Free Tokens! (8)",
-        "description": "Get some free tokens to test functionalities."
-      },
-      "freeTokens9": {
-        "name": "Free Tokens! (9)",
-        "description": "Get some free tokens to test functionalities."
-      },
-      "freeTokens10": {
-        "name": "Free Tokens! (10)",
-        "description": "Get some free tokens to test functionalities."
+      "thirteenth": {
+        "name": "Campaign XIII",
+        "description": "As you may notice, having multiple corruptions greatly boosts your score, more so than just leveling corruptions higher."
       }
     },
     "corruptionTexts": {

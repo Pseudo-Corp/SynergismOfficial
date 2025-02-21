@@ -10,9 +10,16 @@ import { isIARuneUnlocked } from './Calculate'
 export type CampaignLoadout = Corruptions
 
 export type CampaignKeys = 'first' | 'second' | 'third' | 'fourth' | 'fifth' |
-'sixth'| 'seventh' | 'chal11' | 'ultimate' | // Next ones are for testing only
-'freeTokens1' | 'freeTokens2' | 'freeTokens3' | 'freeTokens4' | 'freeTokens5' |
-'freeTokens6' | 'freeTokens7' | 'freeTokens8' | 'freeTokens9' | 'freeTokens10'
+'sixth'| 'seventh' | 'eighth' | 'ninth' | 'tenth' | 
+'eleventh' | 'twelfth' | 'thirteenth' | 'fourteenth' | 'fifteenth' |
+'sixteenth' | 'seventeenth' | 'eighteenth' | 'nineteenth' | 'twentieth' |
+'twentyFirst' | 'twentySecond' | 'twentyThird' | 'twentyFourth' | 'twentyFifth' |
+'twentySixth' | 'twentySeventh' | 'twentyEighth' | 'twentyNinth' | 'thirtieth' |
+'thirtyFirst' | 'thirtySecond' | 'thirtyThird' | 'thirtyFourth' | 'thirtyFifth' |
+'thirtySixth' | 'thirtySeventh' | 'thirtyEighth' | 'thirtyNinth' | 'fortieth' |
+'fortyFirst' | 'fortySecond' | 'fortyThird' | 'fortyFourth' | 'fortyFifth' |
+'fortySixth' | 'fortySeventh' | 'fortyEighth' | 'fortyNinth' | 'fiftieth'
+
 
 export type CampaignTokenRewardNames = 'tutorial' | 'cube' | 'obtainium' | 'offering' | 
 'ascensionScore' | 'timeThreshold' | 'quark' | 'tax' | 'c15' | 'rune6' | 'goldenQuark' |
@@ -57,18 +64,49 @@ export class CampaignManager {
       fifth: new Campaign(campaignDatas.fifth, 'fifth', campaignManagerData?.campaigns?.fifth ?? 0),
       sixth: new Campaign(campaignDatas.sixth, 'sixth', campaignManagerData?.campaigns?.sixth ?? 0),
       seventh: new Campaign(campaignDatas.seventh, 'seventh', campaignManagerData?.campaigns?.seventh ?? 0),
-      chal11: new Campaign(campaignDatas.chal11, 'chall11', campaignManagerData?.campaigns?.chal11 ?? 0),
-      ultimate: new Campaign(campaignDatas.ultimate, 'ultimate', campaignManagerData?.campaigns?.ultimate ?? 0),
-      freeTokens1: new Campaign(campaignDatas.freeTokens1, 'freeTokens1', campaignManagerData?.campaigns?.freeTokens1 ?? 0),
-      freeTokens2: new Campaign(campaignDatas.freeTokens2, 'freeTokens2', campaignManagerData?.campaigns?.freeTokens2 ?? 0),
-      freeTokens3: new Campaign(campaignDatas.freeTokens3, 'freeTokens3', campaignManagerData?.campaigns?.freeTokens3 ?? 0),
-      freeTokens4: new Campaign(campaignDatas.freeTokens4, 'freeTokens4', campaignManagerData?.campaigns?.freeTokens4 ?? 0),
-      freeTokens5: new Campaign(campaignDatas.freeTokens5, 'freeTokens5', campaignManagerData?.campaigns?.freeTokens5 ?? 0),
-      freeTokens6: new Campaign(campaignDatas.freeTokens6, 'freeTokens6', campaignManagerData?.campaigns?.freeTokens6 ?? 0),
-      freeTokens7: new Campaign(campaignDatas.freeTokens7, 'freeTokens7', campaignManagerData?.campaigns?.freeTokens7 ?? 0),
-      freeTokens8: new Campaign(campaignDatas.freeTokens8, 'freeTokens8', campaignManagerData?.campaigns?.freeTokens8 ?? 0),
-      freeTokens9: new Campaign(campaignDatas.freeTokens9, 'freeTokens9', campaignManagerData?.campaigns?.freeTokens9 ?? 0),
-      freeTokens10: new Campaign(campaignDatas.freeTokens10, 'freeTokens10', campaignManagerData?.campaigns?.freeTokens10 ?? 0)
+      eighth: new Campaign(campaignDatas.eighth, 'eighth', campaignManagerData?.campaigns?.eighth ?? 0),
+      ninth: new Campaign(campaignDatas.ninth, 'ninth', campaignManagerData?.campaigns?.ninth ?? 0),
+      tenth: new Campaign(campaignDatas.tenth, 'tenth', campaignManagerData?.campaigns?.tenth ?? 0),
+      eleventh: new Campaign(campaignDatas.eleventh, 'eleventh', campaignManagerData?.campaigns?.eleventh ?? 0),
+      twelfth: new Campaign(campaignDatas.twelfth, 'twelfth', campaignManagerData?.campaigns?.twelfth ?? 0),
+      thirteenth: new Campaign(campaignDatas.thirteenth, 'thirteenth', campaignManagerData?.campaigns?.thirteenth ?? 0),
+      fourteenth: new Campaign(campaignDatas.fourteenth, 'fourteenth', campaignManagerData?.campaigns?.fourteenth ?? 0),
+      fifteenth: new Campaign(campaignDatas.fifteenth, 'fifteenth', campaignManagerData?.campaigns?.fifteenth ?? 0),
+      sixteenth: new Campaign(campaignDatas.sixteenth, 'sixteenth', campaignManagerData?.campaigns?.sixteenth ?? 0),
+      seventeenth: new Campaign(campaignDatas.seventeenth, 'seventeenth', campaignManagerData?.campaigns?.seventeenth ?? 0),
+      eighteenth: new Campaign(campaignDatas.eighteenth, 'eighteenth', campaignManagerData?.campaigns?.eighteenth ?? 0),
+      nineteenth: new Campaign(campaignDatas.nineteenth, 'nineteenth', campaignManagerData?.campaigns?.nineteenth ?? 0),
+      twentieth: new Campaign(campaignDatas.twentieth, 'twentieth', campaignManagerData?.campaigns?.twentieth ?? 0),
+      twentyFirst: new Campaign(campaignDatas.twentyFirst, 'twentyFirst', campaignManagerData?.campaigns?.twentyFirst ?? 0),
+      twentySecond: new Campaign(campaignDatas.twentySecond, 'twentySecond', campaignManagerData?.campaigns?.twentySecond ?? 0),
+      twentyThird: new Campaign(campaignDatas.twentyThird, 'twentyThird', campaignManagerData?.campaigns?.twentyThird ?? 0),
+      twentyFourth: new Campaign(campaignDatas.twentyFourth, 'twentyFourth', campaignManagerData?.campaigns?.twentyFourth ?? 0),
+      twentyFifth: new Campaign(campaignDatas.twentyFifth, 'twentyFifth', campaignManagerData?.campaigns?.twentyFifth ?? 0),
+      twentySixth: new Campaign(campaignDatas.twentySixth, 'twentySixth', campaignManagerData?.campaigns?.twentySixth ?? 0),
+      twentySeventh: new Campaign(campaignDatas.twentySeventh, 'twentySeventh', campaignManagerData?.campaigns?.twentySeventh ?? 0),
+      twentyEighth: new Campaign(campaignDatas.twentyEighth, 'twentyEighth', campaignManagerData?.campaigns?.twentyEighth ?? 0),
+      twentyNinth: new Campaign(campaignDatas.twentyNinth, 'twentyNinth', campaignManagerData?.campaigns?.twentyNinth ?? 0),
+      thirtieth: new Campaign(campaignDatas.thirtieth, 'thirtieth', campaignManagerData?.campaigns?.thirtieth ?? 0),
+      thirtyFirst: new Campaign(campaignDatas.thirtyFirst, 'thirtyFirst', campaignManagerData?.campaigns?.thirtyFirst ?? 0),
+      thirtySecond: new Campaign(campaignDatas.thirtySecond, 'thirtySecond', campaignManagerData?.campaigns?.thirtySecond ?? 0),
+      thirtyThird: new Campaign(campaignDatas.thirtyThird, 'thirtyThird', campaignManagerData?.campaigns?.thirtyThird ?? 0),
+      thirtyFourth: new Campaign(campaignDatas.thirtyFourth, 'thirtyFourth', campaignManagerData?.campaigns?.thirtyFourth ?? 0),
+      thirtyFifth: new Campaign(campaignDatas.thirtyFifth, 'thirtyFifth', campaignManagerData?.campaigns?.thirtyFifth ?? 0),
+      thirtySixth: new Campaign(campaignDatas.thirtySixth, 'thirtySixth', campaignManagerData?.campaigns?.thirtySixth ?? 0),
+      thirtySeventh: new Campaign(campaignDatas.thirtySeventh, 'thirtySeventh', campaignManagerData?.campaigns?.thirtySeventh ?? 0),
+      thirtyEighth: new Campaign(campaignDatas.thirtyEighth, 'thirtyEighth', campaignManagerData?.campaigns?.thirtyEighth ?? 0),
+      thirtyNinth: new Campaign(campaignDatas.thirtyNinth, 'thirtyNinth', campaignManagerData?.campaigns?.thirtyNinth ?? 0),
+      fortieth: new Campaign(campaignDatas.fortieth, 'fortieth', campaignManagerData?.campaigns?.fortieth ?? 0),
+      fortyFirst: new Campaign(campaignDatas.fortyFirst, 'fortyFirst', campaignManagerData?.campaigns?.fortyFirst ?? 0),
+      fortySecond: new Campaign(campaignDatas.fortySecond, 'fortySecond', campaignManagerData?.campaigns?.fortySecond ?? 0),
+      fortyThird: new Campaign(campaignDatas.fortyThird, 'fortyThird', campaignManagerData?.campaigns?.fortyThird ?? 0),
+      fortyFourth: new Campaign(campaignDatas.fortyFourth, 'fortyFourth', campaignManagerData?.campaigns?.fortyFourth ?? 0),
+      fortyFifth: new Campaign(campaignDatas.fortyFifth, 'fortyFifth', campaignManagerData?.campaigns?.fortyFifth ?? 0),
+      fortySixth: new Campaign(campaignDatas.fortySixth, 'fortySixth', campaignManagerData?.campaigns?.fortySixth ?? 0),
+      fortySeventh: new Campaign(campaignDatas.fortySeventh, 'fortySeventh', campaignManagerData?.campaigns?.fortySeventh ?? 0),
+      fortyEighth: new Campaign(campaignDatas.fortyEighth, 'fortyEighth', campaignManagerData?.campaigns?.fortyEighth ?? 0),
+      fortyNinth: new Campaign(campaignDatas.fortyNinth, 'fortyNinth', campaignManagerData?.campaigns?.fortyNinth ?? 0),
+      fiftieth: new Campaign(campaignDatas.fiftieth, 'fiftieth', campaignManagerData?.campaigns?.fiftieth ?? 0),
     }
 
     this.#currentCampaign = campaignManagerData?.currentCampaign ?? undefined
@@ -388,7 +426,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
   },
   second: {
     campaignCorruptions: {
-      deflation: 1
+      drought: 1
     },
     isMeta: false,
     unlockRequirement: () => {return true},
@@ -397,7 +435,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
   third: {
     campaignCorruptions: {
       viscosity: 1,
-      deflation: 1,
+      drought: 1,
     },
     isMeta: false,
     unlockRequirement: () => {return true},
@@ -406,7 +444,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
   fourth: {
     campaignCorruptions: {
       viscosity: 2,
-      deflation: 2,
+      drought: 2,
     },
     isMeta: false,
     unlockRequirement: () => {return true},
@@ -415,7 +453,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
   fifth: {
     campaignCorruptions: {
       viscosity: 3,
-      deflation: 3,
+      drought: 3,
     },
     isMeta: false,
     unlockRequirement: () => {return true},
@@ -424,22 +462,575 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
   sixth: {
     campaignCorruptions: {
       viscosity: 4,
-      deflation: 4,
+      drought: 4,
     },
     isMeta: false,
     unlockRequirement: () => {return true},
-    limit: 10
+    limit: 15
   },
   seventh: {
     campaignCorruptions: {
       viscosity: 5,
-      deflation: 5,
+      drought: 5,
     },
     isMeta: true,
     unlockRequirement: () => {return true},
-    limit: 10
+    limit: 15
   },
-  chal11: {
+  eighth: {
+    campaignCorruptions: {
+      viscosity: 1,
+      drought: 1,
+      deflation: 1,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[12] > 0 || player.highestSingularityCount > 0},
+    limit: 15
+  },
+  ninth: {
+    campaignCorruptions: {
+      viscosity: 3,
+      drought: 1,
+      deflation: 1,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    limit: 15
+  },
+  tenth: {
+    campaignCorruptions: {
+      viscosity: 5,
+      drought: 1,
+      extinction: 1,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    limit: 15
+  },
+  eleventh: {
+    campaignCorruptions: {
+      viscosity: 7,
+      drought: 1,
+      extinction: 3,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    limit: 20
+  },
+  twelfth: {
+    campaignCorruptions: {
+      viscosity: 7,
+      drought: 1,
+      deflation: 3,
+      extinction: 3,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    limit: 20
+  },
+  thirteenth: {
+    campaignCorruptions: {
+      viscosity: 7,
+      drought: 3,
+      deflation: 3,
+      extinction: 3,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    limit: 20
+  },
+  fourteenth: {
+    campaignCorruptions: {
+      viscosity: 7,
+      drought: 5,
+      deflation: 3,
+      extinction: 3,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    limit: 20
+  },
+  fifteenth: {
+    campaignCorruptions: {
+      viscosity: 7,
+      drought: 7,
+      deflation: 3,
+      extinction: 3,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    limit: 20
+  },
+  sixteenth: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 4,
+      illiteracy: 1,
+      recession: 1,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    limit: 25
+  },
+  seventeenth: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 4,
+      illiteracy: 3,
+      recession: 1,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    limit: 25
+  },
+  eighteenth: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 4,
+      deflation: 1,
+      extinction: 3,
+      illiteracy: 3,
+      recession: 1,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    limit: 25
+  },
+  nineteenth: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 4,
+      deflation: 1,
+      extinction: 3,
+      illiteracy: 6,
+      recession: 1,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    limit: 25
+  },
+  twentieth: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 4,
+      deflation: 1,
+      extinction: 3,
+      illiteracy: 9,
+      recession: 1,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    limit: 25
+  },
+  twentyFirst: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 4,
+      deflation: 9,
+      extinction: 3,
+      illiteracy: 3,
+      recession: 1,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    limit: 30
+  },
+  twentySecond: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 6,
+      deflation: 9,
+      extinction: 3,
+      illiteracy: 6,
+      recession: 1,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    limit: 30
+  },
+  twentyThird: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 6,
+      deflation: 9,
+      extinction: 3,
+      illiteracy: 9,
+      recession: 1,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    limit: 30
+  },
+  twentyFourth: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 9,
+      deflation: 9,
+      extinction: 3,
+      illiteracy: 9,
+      recession: 1,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    limit: 30
+  },
+  twentyFifth: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 9,
+      deflation: 9,
+      extinction: 5,
+      illiteracy: 9,
+      recession: 3,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    limit: 30
+  },
+  twentySixth: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 9,
+      deflation: 9,
+      extinction: 3,
+      illiteracy: 9,
+      recession: 3,
+      dilation: 1,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 35
+  },
+  twentySeventh: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 9,
+      deflation: 9,
+      extinction: 3,
+      illiteracy: 9,
+      recession: 3,
+      hyperchallenge: 1,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 35
+  },
+  twentyEighth: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 9,
+      deflation: 9,
+      extinction: 3,
+      illiteracy: 9,
+      recession: 3,
+      dilation: 1,
+      hyperchallenge: 1,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 35
+  },
+  twentyNinth: {
+    campaignCorruptions: {
+      viscosity: 9,
+      drought: 9,
+      deflation: 9,
+      extinction: 3,
+      illiteracy: 9,
+      recession: 3,
+      dilation: 3,
+      hyperchallenge: 3,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 35
+  },
+  thirtieth: {
+    campaignCorruptions: {
+      viscosity: 0,
+      drought: 5,
+      deflation: 4,
+      extinction: 11,
+      illiteracy: 0,
+      recession: 11,
+      dilation: 4,
+      hyperchallenge: 1,    
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 35
+  },
+  thirtyFirst: {
+    campaignCorruptions: {
+      viscosity: 0,
+      drought: 5,
+      deflation: 4,
+      extinction: 11,
+      illiteracy: 0,
+      recession: 11,
+      dilation: 4,
+      hyperchallenge: 2,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 40
+  },
+  thirtySecond: {
+    campaignCorruptions: {
+      viscosity: 1,
+      drought: 5,
+      deflation: 4,
+      extinction: 11,
+      illiteracy: 1,
+      recession: 11,
+      dilation: 5,
+      hyperchallenge: 3,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 40
+  },
+  thirtyThird: {
+    campaignCorruptions: {
+      viscosity: 1,
+      drought: 5,
+      deflation: 4,
+      extinction: 11,
+      illiteracy: 2,
+      recession: 11,
+      dilation: 4,
+      hyperchallenge: 3,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 45
+  },
+  thirtyFourth: {
+    campaignCorruptions: {
+      viscosity: 1,
+      drought: 9,
+      deflation: 4,
+      extinction: 11,
+      illiteracy: 2,
+      recession: 11,
+      dilation: 4,
+      hyperchallenge: 5,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 45
+  },
+  thirtyFifth: {
+    campaignCorruptions: {
+      viscosity: 2,
+      drought: 9,
+      deflation: 4,
+      extinction: 11,
+      illiteracy: 2,
+      recession: 11,
+      dilation: 4,
+      hyperchallenge: 4,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 50
+  },
+  thirtySixth: {
+    campaignCorruptions: {
+      viscosity: 2,
+      drought: 9,
+      deflation: 4,
+      extinction: 11,
+      illiteracy: 2,
+      recession: 11,
+      dilation: 5,
+      hyperchallenge: 5,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 50
+  },
+  thirtySeventh: {
+    campaignCorruptions: {
+      viscosity: 2,
+      drought: 10,
+      deflation: 4,
+      extinction: 11,
+      illiteracy: 2,
+      recession: 11,
+      dilation: 5,
+      hyperchallenge: 5,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 55
+  },
+  thirtyEighth: {
+    campaignCorruptions: {
+      viscosity: 3,
+      drought: 10,
+      deflation: 4,
+      extinction: 11,
+      illiteracy: 2,
+      recession: 11,
+      dilation: 5,
+      hyperchallenge: 4,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 55
+  },
+  thirtyNinth: {
+    campaignCorruptions: {
+      viscosity: 3,
+      drought: 10,
+      deflation: 4,
+      extinction: 11,
+      illiteracy: 2,
+      recession: 11,
+      dilation: 6,
+      hyperchallenge: 9,
+    },
+    isMeta: false,
+    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    limit: 60
+  },
+  fortieth: {
+    campaignCorruptions: {
+      viscosity: 3,
+      drought: 11,
+      deflation: 4,
+      extinction: 11,
+      illiteracy: 11,
+      recession: 11,
+      dilation: 6,
+      hyperchallenge: 9,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.cubeUpgrades[50] > 99999},
+    limit: 60
+  },
+  fortyFirst: {
+    campaignCorruptions: {
+      viscosity: 3,
+      drought: 11,
+      deflation: 4,
+      extinction: 11,
+      illiteracy: 11,
+      recession: 11,
+      dilation: 7,
+      hyperchallenge: 11,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return player.cubeUpgrades[50] > 99999},
+    limit: 65
+  },
+  fortySecond: {
+    campaignCorruptions: {
+      viscosity: 3,
+      drought: 12,
+      deflation: 4,
+      extinction: 12,
+      illiteracy: 12,
+      recession: 12,
+      dilation: 9,
+      hyperchallenge: 11,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return maxCorruptionLevel() >= 12},
+    limit: 70
+  },
+  fortyThird: {
+    campaignCorruptions: {
+      viscosity: 5,
+      drought: 12,
+      deflation: 4,
+      extinction: 12,
+      illiteracy: 12,
+      recession: 12,
+      dilation: 9,
+      hyperchallenge: 11,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return maxCorruptionLevel() >= 12},
+    limit: 75
+  },
+  fortyFourth: {
+    campaignCorruptions: {
+      viscosity: 5,
+      drought: 12,
+      deflation: 12,
+      extinction: 12,
+      illiteracy: 12,
+      recession: 12,
+      dilation: 11,
+      hyperchallenge: 11,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return maxCorruptionLevel() >= 12},
+    limit: 80
+  },
+  fortyFifth: {
+    campaignCorruptions: {
+      viscosity: 5,
+      drought: 13,
+      deflation: 13,
+      extinction: 12,
+      illiteracy: 13,
+      recession: 13,
+      dilation: 11,
+      hyperchallenge: 8,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return maxCorruptionLevel() >= 13},
+    limit: 85
+  },
+  fortySixth: {
+    campaignCorruptions: {
+      viscosity: 6,
+      drought: 13,
+      deflation: 13,
+      extinction: 13,
+      illiteracy: 13,
+      recession: 13,
+      dilation: 12,
+      hyperchallenge: 11,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return maxCorruptionLevel() >= 13},
+    limit: 95
+  },
+  fortySeventh: {
+    campaignCorruptions: {
+      viscosity: 6,
+      drought: 13,
+      deflation: 13,
+      extinction: 13,
+      illiteracy: 13,
+      recession: 13,
+      dilation: 13,
+      hyperchallenge: 7,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return maxCorruptionLevel() >= 13},
+    limit: 105
+  },
+  fortyEighth: {
+    campaignCorruptions: {
+      viscosity: 6,
+      drought: 13,
+      deflation: 13,
+      extinction: 13,
+      illiteracy: 13,
+      recession: 13,
+      dilation: 13,
+      hyperchallenge: 11,
+    },
+    isMeta: true,
+    unlockRequirement: () => {return maxCorruptionLevel() >= 13},
+    limit: 115
+  },
+  fortyNinth: {
     campaignCorruptions: {
       viscosity: 11,
       drought: 11,
@@ -447,87 +1038,25 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 11,
       illiteracy: 11,
       recession: 11,
-      dilation: 11,
-      hyperchallenge: 11
+      hyperchallenge: 11,
     },
-    isMeta: true,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
-    limit: 25
+    isMeta: false,
+    unlockRequirement: () => {return maxCorruptionLevel() >= 13},
+    limit: 125
   },
-  ultimate: {
+  fiftieth: {
     campaignCorruptions: {
-      viscosity: 15,
-      drought: 15,
-      deflation: 15,
-      extinction: 15,
-      illiteracy: 15,
-      recession: 15,
-      dilation: 15,
-      hyperchallenge: 15
+      viscosity: 14,
+      drought: 14,
+      deflation: 14,
+      extinction: 14,
+      illiteracy: 14,
+      recession: 14,
+      hyperchallenge: 14,
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 15},
-    limit: 125
-  },
-  freeTokens1: {
-    campaignCorruptions: {},
-    isMeta: false,
-    unlockRequirement: () => {return true},
-    limit: 125
-  },
-  freeTokens2: {
-    campaignCorruptions: {},
-    isMeta: false,
-    unlockRequirement: () => {return true},
-    limit: 125
-  },
-  freeTokens3: {
-    campaignCorruptions: {},
-    isMeta: true,
-    unlockRequirement: () => {return true},
-    limit: 125
-  },
-  freeTokens4: {
-    campaignCorruptions: {},
-    isMeta: true,
-    unlockRequirement: () => {return true},
-    limit: 125
-  },
-  freeTokens5: {
-    campaignCorruptions: {},
-    isMeta: true,
-    unlockRequirement: () => {return true},
-    limit: 125
-  },
-  freeTokens6: {
-    campaignCorruptions: {},
-    isMeta: true,
-    unlockRequirement: () => {return true},
-    limit: 125
-  },
-  freeTokens7: {
-    campaignCorruptions: {},
-    isMeta: true,
-    unlockRequirement: () => {return true},
-    limit: 125
-  },
-  freeTokens8: {
-    campaignCorruptions: {},
-    isMeta: true,
-    unlockRequirement: () => {return true},
-    limit: 125
-  },
-  freeTokens9: {
-    campaignCorruptions: {},
-    isMeta: true,
-    unlockRequirement: () => {return true},
-    limit: 125
-  },
-  freeTokens10: {
-    campaignCorruptions: {},
-    isMeta: true,
-    unlockRequirement: () => {return true},
-    limit: 125
+    unlockRequirement: () => {return maxCorruptionLevel() >= 14},
+    limit: 140
   }
 }
 
@@ -683,13 +1212,13 @@ export const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
     maxTokens: campaign.computeTokenValue(campaignDatas[key].limit)
   })
 
-  let metaText = document.createElement('p')
+  const metaText = document.createElement('p')
   if (campaignDatas[key].isMeta) {
     metaText.textContent = i18next.t('campaigns.corruptionStats.metaText')
     metaText.style.color = 'gold'
   }
 
-  let campaignButton = document.createElement('button')
+  const campaignButton = document.createElement('button')
   if (player.campaigns.current === key) {
     campaignButton.textContent = i18next.t('campaigns.corruptionStats.resetCampaign')
     campaignButton.onclick = async () => {
@@ -708,7 +1237,7 @@ export const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
     }
   }
 
-  let saveLoadoutButton = document.createElement('button')
+  const saveLoadoutButton = document.createElement('button')
   saveLoadoutButton.classList.add('chal14')
   saveLoadoutButton.textContent = i18next.t('campaigns.saveLoadout')
   saveLoadoutButton.onclick = () => {
@@ -734,6 +1263,10 @@ export const createCampaignIconHTMLS = () => {
   campaignIconDiv.innerHTML = ''
 
   for (const key of Object.keys(campaignDatas) as CampaignKeys[]) {
+
+    if (!campaignDatas[key].unlockRequirement()) {
+      continue
+    }
     const campaignIcon = document.createElement('img')
     campaignIcon.id = `${key}CampaignIcon`
     campaignIcon.classList.add('campaignIcon')
@@ -791,11 +1324,11 @@ export const campaignTokenRewardHTMLUpdate = () => {
     for (const [key, value] of Object.entries(campaignTokenRewardDatas)) {
       if (tokenCount >= value.tokenRequirement && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())) {
         if (typeof value.reward() === 'string') {
-          popupText += i18next.t(`campaigns.tokens.rewardTexts.${key}`, {reward: value.reward()}) + '\n'
+          popupText += `${i18next.t(`campaigns.tokens.rewardTexts.${key}`, {reward: value.reward()})}\n`
         }
         else {
           const reward = value.reward() as Partial<Record<CampaignTokenRewardNames, string>>
-          popupText += i18next.t(`campaigns.tokens.rewardTexts.${key}`, reward) + '\n'
+          popupText += `${i18next.t(`campaigns.tokens.rewardTexts.${key}`, reward)}\n`
         }
       }
     }
