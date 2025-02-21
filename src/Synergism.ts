@@ -5885,6 +5885,7 @@ export const constantIntervals = (): void => {
   setInterval(saveSynergy, 5000)
   setInterval(slowUpdates, 200)
   setInterval(fastUpdates, 50)
+  setInterval(createCampaignIconHTMLS, 15000)
 
   if (!G.timeWarp) {
     exitOffline()

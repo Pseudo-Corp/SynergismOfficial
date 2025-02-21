@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
 import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
-import { CampaignManager, ICampaignManagerData } from '../Campaign'
+import { CampaignManager, type ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { createHepteract } from '../Hepteracts'
@@ -98,7 +98,7 @@ export const playerCorruptionSchema = z.object({
     return new CorruptionLoadout(value)
   }),
   next: optionalCorruptionSchema.transform((value) => {
-    console.log(Object.values(value))
+    console.log(value)
     return new CorruptionLoadout(value)
   }),
   saves: z.record(z.string(), optionalCorruptionSchema).transform((value) => {
