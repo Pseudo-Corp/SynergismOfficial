@@ -28,7 +28,6 @@ img {
 .scrollbarX {
     overflow-y: auto;
     scrollbar-width: thin;
-    outline: none;
 }
 
 .scrollbarX {
@@ -161,7 +160,6 @@ body.loading {
 a {
     color: white;
     text-decoration: none;
-    outline: none;
 }
 
 a:hover {
@@ -208,7 +206,6 @@ button {
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
-    outline: none;
 }
 
 body button:hover:not(:disabled):not(.disable-hover-color),
@@ -408,7 +405,6 @@ body button:active:not(:disabled):not(.disable-hover-color) {
         "txt txt txt txt txt"
         ". btn . btn2 ."
         ". . . . .";
-    outline: none;
 }
 
 #alert {
@@ -420,7 +416,6 @@ body button:active:not(:disabled):not(.disable-hover-color) {
         "txt txt txt"
         ". btn ."
         ". . .";
-    outline: none;
 }
 
 #prompt {
@@ -435,7 +430,6 @@ body button:active:not(:disabled):not(.disable-hover-color) {
         ". . . . ."
         ". btn . btn2 ."
         ". . . . .";
-    outline: none;
 }
 
 .confirmBox {
@@ -873,7 +867,6 @@ p#themesTitle {
     color: white;
     cursor: pointer;
     background-color: var(--button-color);
-    outline: none;
 }
 
 #savegame,
