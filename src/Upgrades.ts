@@ -253,8 +253,9 @@ export const upgradedescriptions = (i: number) => {
     color = 'limegreen'
   }
 
-  DOMCacheGetOrSet('upgradecost').textContent = `Cost: ${format(Decimal.pow(10, G.upgradeCosts[i]))} ${currency}`
-  DOMCacheGetOrSet('upgradecost').style.color = color
+  const upgradeCost = DOMCacheGetOrSet('upgradecost')
+  upgradeCost.textContent = `Cost: ${format(Decimal.pow(10, G.upgradeCosts[i]))} ${currency}`
+  upgradeCost.style.color = color
   upgradeeffects(i)
 }
 
@@ -432,17 +433,19 @@ export const crystalupgradedescriptions = (i: number) => {
 export const upgradeupdate = (num: number, fast?: boolean) => {
   const el = DOMCacheGetOrSet(`upg${num}`)
   if (player.upgrades[num] > 0.5) {
-    el.style.backgroundColor = 'green'
+    el.classList.add('green-background')
   } else {
-    el.style.backgroundColor = ''
+    el.classList.remove('green-background')
   }
 
-  const b = i18next.t(`upgrades.descriptions.${num}`)
-  const c = player.upgrades[num] > 0.5 ? ' BOUGHT!' : ''
   if (player.upgrades[num] > 0.5) {
     if (!fast) {
-      DOMCacheGetOrSet('upgradedescription').textContent = b + c
-      DOMCacheGetOrSet('upgradedescription').style.color = 'gold'
+      const b = i18next.t(`upgrades.descriptions.${num}`)
+      const c = player.upgrades[num] > 0.5 ? i18next.t('upgrades.bought') : ''
+
+      const upgradeDescription = DOMCacheGetOrSet('upgradedescription')
+      upgradeDescription.textContent = `${b} ${c}`
+      upgradeDescription.style.color = 'gold'
     }
   }
 
