@@ -631,6 +631,15 @@ export const revealStuff = () => {
     }
 
     el.style.display = automationUnlocks[key] ? 'block' : 'none'
+    
+    const onTranslationKey = el.getAttribute('i18n-on')
+    const offTranslationKey = el.getAttribute('i18n-off')
+
+    if (onTranslationKey && automationUnlocks[key]) {
+      el.textContent = i18next.t(onTranslationKey)
+    } else if (offTranslationKey && !automationUnlocks[key]) {
+      el.textContent = i18next.t(offTranslationKey)
+    }
   })
 
   revealCorruptions()
