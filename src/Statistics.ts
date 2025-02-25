@@ -1977,16 +1977,20 @@ export const c15RewardUpdate = () => {
 }
 
 const updateDisplayC15Rewards = () => {
-  DOMCacheGetOrSet('c15Reward0Num').textContent = format(
-    player.challenge15Exponent,
-    3,
-    true
-  )
-  DOMCacheGetOrSet('c15RequiredExponentNum').textContent = format(
-    Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),
-    0,
-    true
-  )
+  DOMCacheGetOrSet('c15Reward0').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.0', {
+    exponent: format(
+      player.challenge15Exponent,
+      3,
+      true
+    )
+  })
+  DOMCacheGetOrSet('c15RequiredExponent').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.requiredExponent', {
+    coins: format(
+      Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),
+      0,
+      true
+    )
+  })
   // dprint-ignore
   const exponentRequirements = [
     750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5,

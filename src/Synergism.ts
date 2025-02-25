@@ -2784,9 +2784,7 @@ const loadSynergy = () => {
     }
 
     if (player.autoWarpCheck) {
-      DOMCacheGetOrSet('warpAuto').textContent = i18next.t(
-        'general.autoOnColon'
-      )
+      DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOnColon')
       DOMCacheGetOrSet('warpAuto').style.border = '2px solid green'
     } else {
       DOMCacheGetOrSet('warpAuto').textContent = i18next.t(

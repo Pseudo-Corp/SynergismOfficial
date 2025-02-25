@@ -28,7 +28,6 @@ img {
 .scrollbarX {
     overflow-y: auto;
     scrollbar-width: thin;
-    outline: none;
 }
 
 .scrollbarX {
@@ -161,7 +160,6 @@ body.loading {
 a {
     color: white;
     text-decoration: none;
-    outline: none;
 }
 
 a:hover {
@@ -208,11 +206,10 @@ button {
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
-    outline: none;
 }
 
-body button:hover:not(:disabled),
-body button:active:not(:disabled) {
+body button:hover:not(:disabled):not(.disable-hover-color),
+body button:active:not(:disabled):not(.disable-hover-color) {
     background-color: var(--hover-color);
 }
 
@@ -408,7 +405,6 @@ body button:active:not(:disabled) {
         "txt txt txt txt txt"
         ". btn . btn2 ."
         ". . . . .";
-    outline: none;
 }
 
 #alert {
@@ -420,7 +416,6 @@ body button:active:not(:disabled) {
         "txt txt txt"
         ". btn ."
         ". . .";
-    outline: none;
 }
 
 #prompt {
@@ -435,7 +430,6 @@ body button:active:not(:disabled) {
         ". . . . ."
         ". btn . btn2 ."
         ". . . . .";
-    outline: none;
 }
 
 .confirmBox {
@@ -873,7 +867,6 @@ p#themesTitle {
     color: white;
     cursor: pointer;
     background-color: var(--button-color);
-    outline: none;
 }
 
 #savegame,
@@ -1899,7 +1892,7 @@ p#reincarnatehotkeys {
     background-color: orange;
 }
 
-#researchtable .researchMaxed {
+#researchtable .researchMaxed > img {
     background-color: green;
 }
 
@@ -2207,7 +2200,7 @@ p#reincarnatehotkeys {
 }
 
 .antBtn {
-    background-color: var(--button-color);
+    height: 100%;
 }
 
 .antTierBtnAvailable,
@@ -4498,4 +4491,8 @@ h3 {
 
 .green-background img {
     background-color: var(--green-text-color);
+}
+
+.purple-background img {
+    background-color: var(--purplebtn-color);
 }
