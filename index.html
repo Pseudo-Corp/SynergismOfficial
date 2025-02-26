@@ -714,8 +714,9 @@
                       id="coinAutoUpgrade" 
                       aria-pressed="true" 
                       aria-label="Toggle coin auto-upgrader" 
-                      style="border:2px solid green">
-                  <span i18n="upgrades.auto.status"></span>
+                      style="border:2px solid green"
+                      i18n-on="general.autoOnColon"
+                      i18n-off="general.autoOffColon">
               </button>
             </section>
             <section class="shop-section prestigeunlock" aria-labelledby="prestigetext">
@@ -770,12 +771,12 @@
                   </tbody>
               </table>
           
-              <button class="autobuyerToggleButton upgradeToggle" 
+              <button class="autobuyerToggleButton" 
                       id="prestigeAutoUpgrade" 
                       aria-pressed="true"
                       aria-label="Toggle diamond auto-upgrader" 
-                      style="border:2px solid green">
-                  <span i18n="upgrades.auto.status">Auto: ON</span>
+                      style="border:2px solid green"
+                      i18n="general.autoOnColon">
               </button>
             </section>
             <section class="shop-section transcendunlock" aria-labelledby="transcendtext">
@@ -815,7 +816,7 @@
                       <td><button id="upg60" class="upgrade-button reincarnationunlock" i18n-aria-label="upgrades.descriptions.60"><img src="Pictures/Default/Mythos20.png" alt="" loading="lazy"></button></td>
                   </tr>
               </table>
-              <button class="autobuyerToggleButton upgradeToggle" id="transcendAutoUpgrade" aria-pressed="true" style="border:2px solid green">Auto: ON</button>
+              <button class="autobuyerToggleButton" id="transcendAutoUpgrade" aria-pressed="true" style="border:2px solid green">Auto: ON</button>
             </section>
             <section class="shop-section prestigeunlock" aria-labelledby="generatortext">
               <header>
@@ -854,7 +855,7 @@
                       <td><button id="upg120" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.120"><img src="Pictures/Default/Generator20.png" alt="" loading="lazy"></button></td>
                   </tr>
               </table>
-              <button class="autobuyerToggleButton upgradeToggle" id="generatorsAutoUpgrade" aria-pressed="true" style="border:2px solid green">Auto: ON</button>
+              <button class="autobuyerToggleButton" id="generatorsAutoUpgrade" aria-pressed="true" style="border:2px solid green">Auto: ON</button>
             </section>
             <section class="shop-section prestigeunlock" aria-labelledby="automationtext">
               <header>
@@ -931,7 +932,7 @@
                       <td><button id="upg80" class="upgrade-button reinrow4" i18n-aria-label="upgrades.particles.20"><img src="Pictures/Default/Particle20.png" alt="" loading="lazy"></button></td>
                   </tr>
               </table>
-              <button class="autobuyerToggleButton upgradeToggle" id="reincarnateAutoUpgrade" i18n-aria-label="upgrades.particles.autobuyer" aria-pressed="true" style="border: 2px solid green">Auto: ON</button>
+              <button class="autobuyerToggleButton" id="reincarnateAutoUpgrade" i18n-aria-label="upgrades.particles.autobuyer" aria-pressed="true" style="border: 2px solid green">Auto: ON</button>
             </section>
         </div>
 
@@ -1790,220 +1791,220 @@
             <div class="scrollbarX">
                 <table id="researchtable">
                     <tr>
-                        <td><img id="res1" alt="res1 green border" src="Pictures/Default/Research1.png" loading="lazy"></td>
-                        <td><img id="res2" alt="res2 green border" src="Pictures/Default/Research2.png" loading="lazy"></td>
-                        <td><img id="res3" alt="res3 green border" src="Pictures/Default/Research3.png" loading="lazy"></td>
-                        <td><img id="res4" alt="res4 green border" src="Pictures/Default/Research4.png" loading="lazy"></td>
-                        <td><img id="res5" alt="res5 green border" src="Pictures/Default/Research5.png" loading="lazy"></td>
-                        <td><img id="res6" alt="res6 white border" src="Pictures/Default/Research6.png" loading="lazy"></td>
-                        <td><img id="res7" alt="res7 white border" src="Pictures/Default/Research7.png" loading="lazy"></td>
-                        <td><img id="res8" alt="res8 white border" src="Pictures/Default/Research8.png" loading="lazy"></td>
-                        <td><img id="res9" alt="res9 white border" src="Pictures/Default/Research9.png" loading="lazy"></td>
-                        <td><img id="res10" alt="res10 white border" src="Pictures/Default/Research10.png" loading="lazy"></td>
-                        <td><img id="res11" alt="res11 white border" src="Pictures/Default/Research11.png" loading="lazy"></td>
-                        <td><img id="res12" alt="res12 white border" src="Pictures/Default/Research12.png" loading="lazy"></td>
-                        <td><img id="res13" alt="res13 white border" src="Pictures/Default/Research13.png" loading="lazy"></td>
-                        <td><img id="res14" alt="res14 white border" src="Pictures/Default/Research14.png" loading="lazy"></td>
-                        <td><img id="res15" alt="res15 white border" src="Pictures/Default/Research15.png" loading="lazy"></td>
-                        <td><img id="res16" alt="res16 white border" src="Pictures/Default/Research16.png" loading="lazy"></td>
-                        <td><img id="res17" alt="res17 white border" src="Pictures/Default/Research17.png" loading="lazy"></td>
-                        <td><img id="res18" alt="res18 red border" src="Pictures/Default/Research18.png" loading="lazy"></td>
-                        <td><img id="res19" alt="res19 red border" src="Pictures/Default/Research19.png" loading="lazy"></td>
-                        <td><img id="res20" alt="res20 red border" src="Pictures/Default/Research20.png" loading="lazy"></td>
-                        <td><img id="res21" alt="res21 white border" src="Pictures/Default/Research21.png" loading="lazy"></td>
-                        <td><img id="res22" alt="res22 white border" src="Pictures/Default/Research22.png" loading="lazy"></td>
-                        <td><img id="res23" alt="res23 white border" src="Pictures/Default/Research23.png" loading="lazy"></td>
-                        <td><img id="res24" alt="res24 white border" src="Pictures/Default/Research24.png" loading="lazy"></td>
-                        <td><img id="res25" alt="res25 white border" src="Pictures/Default/Research25.png" loading="lazy"></td>
+                        <td><button id="res1" i18n-aria-label="researches.descriptions.1"><img src="Pictures/Default/Research1.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res2" i18n-aria-label="researches.descriptions.2"><img src="Pictures/Default/Research2.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res3" i18n-aria-label="researches.descriptions.3"><img src="Pictures/Default/Research3.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res4" i18n-aria-label="researches.descriptions.4"><img src="Pictures/Default/Research4.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res5" i18n-aria-label="researches.descriptions.5"><img src="Pictures/Default/Research5.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res6" i18n-aria-label="researches.descriptions.6"><img src="Pictures/Default/Research6.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res7" i18n-aria-label="researches.descriptions.7"><img src="Pictures/Default/Research7.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res8" i18n-aria-label="researches.descriptions.8"><img src="Pictures/Default/Research8.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res9" i18n-aria-label="researches.descriptions.9"><img src="Pictures/Default/Research9.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res10" i18n-aria-label="researches.descriptions.10"><img src="Pictures/Default/Research10.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res11" i18n-aria-label="researches.descriptions.11"><img src="Pictures/Default/Research11.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res12" i18n-aria-label="researches.descriptions.12"><img src="Pictures/Default/Research12.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res13" i18n-aria-label="researches.descriptions.13"><img src="Pictures/Default/Research13.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res14" i18n-aria-label="researches.descriptions.14"><img src="Pictures/Default/Research14.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res15" i18n-aria-label="researches.descriptions.15"><img src="Pictures/Default/Research15.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res16" i18n-aria-label="researches.descriptions.16"><img src="Pictures/Default/Research16.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res17" i18n-aria-label="researches.descriptions.17"><img src="Pictures/Default/Research17.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res18" i18n-aria-label="researches.descriptions.18"><img src="Pictures/Default/Research18.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res19" i18n-aria-label="researches.descriptions.19"><img src="Pictures/Default/Research19.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res20" i18n-aria-label="researches.descriptions.20"><img src="Pictures/Default/Research20.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res21" i18n-aria-label="researches.descriptions.21"><img src="Pictures/Default/Research21.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res22" i18n-aria-label="researches.descriptions.22"><img src="Pictures/Default/Research22.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res23" i18n-aria-label="researches.descriptions.23"><img src="Pictures/Default/Research23.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res24" i18n-aria-label="researches.descriptions.24"><img src="Pictures/Default/Research24.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res25" i18n-aria-label="researches.descriptions.25"><img src="Pictures/Default/Research25.png" alt="" loading="lazy"></button></td>
                     </tr>
                     <tr>
-                        <td><img id="res26" alt="res26 white border" src="Pictures/Default/Research26.png" loading="lazy"></td>
-                        <td><img id="res27" alt="res27 white border" src="Pictures/Default/Research27.png" loading="lazy"></td>
-                        <td><img id="res28" alt="res28 white border" src="Pictures/Default/Research28.png" loading="lazy"></td>
-                        <td><img id="res29" alt="res29 white border" src="Pictures/Default/Research29.png" loading="lazy"></td>
-                        <td><img id="res30" alt="res30 white border" src="Pictures/Default/Research30.png" loading="lazy"></td>
-                        <td><img id="res31" alt="res31 white border" src="Pictures/Default/Research31.png" loading="lazy"></td>
-                        <td><img id="res32" alt="res32 white border" src="Pictures/Default/Research32.png" loading="lazy"></td>
-                        <td><img id="res33" alt="res33 white border" src="Pictures/Default/Research33.png" loading="lazy"></td>
-                        <td><img id="res34" alt="res34 white border" src="Pictures/Default/Research34.png" loading="lazy"></td>
-                        <td><img id="res35" alt="res35 white border" src="Pictures/Default/Research35.png" loading="lazy"></td>
-                        <td><img id="res36" alt="res36 white border" src="Pictures/Default/Research36.png" loading="lazy"></td>
-                        <td><img id="res37" alt="res37 white border" src="Pictures/Default/Research37.png" loading="lazy"></td>
-                        <td><img id="res38" alt="res38 white border" src="Pictures/Default/Research38.png" loading="lazy"></td>
-                        <td><img id="res39" alt="res39 red border" src="Pictures/Default/Research39.png" loading="lazy"></td>
-                        <td><img id="res40" alt="res40 red border" src="Pictures/Default/Research40.png" loading="lazy"></td>
-                        <td><img id="res41" alt="res41 red border" src="Pictures/Default/Research41.png" loading="lazy"></td>
-                        <td><img id="res42" alt="res42 red border" src="Pictures/Default/Research42.png" loading="lazy"></td>
-                        <td><img id="res43" alt="res43 red border" src="Pictures/Default/Research43.png" loading="lazy"></td>
-                        <td><img id="res44" alt="res44 red border" src="Pictures/Default/Research44.png" loading="lazy"></td>
-                        <td><img id="res45" alt="res45 red border" src="Pictures/Default/Research45.png" loading="lazy"></td>
-                        <td><img id="res46" alt="res46 red border" src="Pictures/Default/Research46.png" loading="lazy"></td>
-                        <td><img id="res47" alt="res47 red border" src="Pictures/Default/Research47.png" loading="lazy"></td>
-                        <td><img id="res48" alt="res48 red border" src="Pictures/Default/Research48.png" loading="lazy"></td>
-                        <td><img id="res49" alt="res49 red border" src="Pictures/Default/Research49.png" loading="lazy"></td>
-                        <td><img id="res50" alt="res50 red border" src="Pictures/Default/Research50.png" loading="lazy"></td>
+                        <td><button id="res26" i18n-aria-label="researches.descriptions.26"><img src="Pictures/Default/Research26.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res27" i18n-aria-label="researches.descriptions.27"><img src="Pictures/Default/Research27.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res28" i18n-aria-label="researches.descriptions.28"><img src="Pictures/Default/Research28.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res29" i18n-aria-label="researches.descriptions.29"><img src="Pictures/Default/Research29.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res30" i18n-aria-label="researches.descriptions.30"><img src="Pictures/Default/Research30.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res31" i18n-aria-label="researches.descriptions.31"><img src="Pictures/Default/Research31.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res32" i18n-aria-label="researches.descriptions.32"><img src="Pictures/Default/Research32.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res33" i18n-aria-label="researches.descriptions.33"><img src="Pictures/Default/Research33.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res34" i18n-aria-label="researches.descriptions.34"><img src="Pictures/Default/Research34.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res35" i18n-aria-label="researches.descriptions.35"><img src="Pictures/Default/Research35.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res36" i18n-aria-label="researches.descriptions.36"><img src="Pictures/Default/Research36.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res37" i18n-aria-label="researches.descriptions.37"><img src="Pictures/Default/Research37.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res38" i18n-aria-label="researches.descriptions.38"><img src="Pictures/Default/Research38.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res39" i18n-aria-label="researches.descriptions.39"><img src="Pictures/Default/Research39.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res40" i18n-aria-label="researches.descriptions.40"><img src="Pictures/Default/Research40.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res41" i18n-aria-label="researches.descriptions.41"><img src="Pictures/Default/Research41.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res42" i18n-aria-label="researches.descriptions.42"><img src="Pictures/Default/Research42.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res43" i18n-aria-label="researches.descriptions.43"><img src="Pictures/Default/Research43.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res44" i18n-aria-label="researches.descriptions.44"><img src="Pictures/Default/Research44.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res45" i18n-aria-label="researches.descriptions.45"><img src="Pictures/Default/Research45.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res46" i18n-aria-label="researches.descriptions.46"><img src="Pictures/Default/Research46.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res47" i18n-aria-label="researches.descriptions.47"><img src="Pictures/Default/Research47.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res48" i18n-aria-label="researches.descriptions.48"><img src="Pictures/Default/Research48.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res49" i18n-aria-label="researches.descriptions.49"><img src="Pictures/Default/Research49.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res50" i18n-aria-label="researches.descriptions.50"><img src="Pictures/Default/Research50.png" alt="" loading="lazy"></button></td>
                     </tr>
                     <tr>
-                        <td><img id="res51" alt="res51 white border" src="Pictures/Default/Research51.png" loading="lazy"></td>
-                        <td><img id="res52" alt="res52 white border" src="Pictures/Default/Research52.png" loading="lazy"></td>
-                        <td><img id="res53" alt="res53 white border" src="Pictures/Default/Research53.png" loading="lazy"></td>
-                        <td><img id="res54" alt="res54 white border" src="Pictures/Default/Research54.png" loading="lazy"></td>
-                        <td><img id="res55" alt="res55 white border" src="Pictures/Default/Research55.png" loading="lazy"></td>
-                        <td><img id="res56" alt="res56 white border" src="Pictures/Default/Research56.png" loading="lazy"></td>
-                        <td><img id="res57" alt="res57 white border" src="Pictures/Default/Research57.png" loading="lazy"></td>
-                        <td><img id="res58" alt="res58 white border" src="Pictures/Default/Research58.png" loading="lazy"></td>
-                        <td><img id="res59" alt="res59 white border" src="Pictures/Default/Research59.png" loading="lazy"></td>
-                        <td><img id="res60" alt="res60 white border" src="Pictures/Default/Research60.png" loading="lazy"></td>
-                        <td><img id="res61" alt="res61 red border" src="Pictures/Default/Research61.png" loading="lazy"></td>
-                        <td><img id="res62" alt="res62 white border" src="Pictures/Default/Research62.png" loading="lazy"></td>
-                        <td><img id="res63" alt="res63 white border" src="Pictures/Default/Research63.png" loading="lazy"></td>
-                        <td><img id="res64" alt="res64 white border" src="Pictures/Default/Research64.png" loading="lazy"></td>
-                        <td><img id="res65" alt="res65 white border" src="Pictures/Default/Research65.png" loading="lazy"></td>
-                        <td><img id="res66" alt="res66 white border" src="Pictures/Default/Research66.png" loading="lazy"></td>
-                        <td><img id="res67" alt="res67 white border" src="Pictures/Default/Research67.png" loading="lazy"></td>
-                        <td><img id="res68" alt="res68 white border" src="Pictures/Default/Research68.png" loading="lazy"></td>
-                        <td><img id="res69" alt="res69 white border" src="Pictures/Default/Research69.png" loading="lazy"></td>
-                        <td><img id="res70" alt="res70 white border" src="Pictures/Default/Research70.png" loading="lazy"></td>
-                        <td><img id="res71" alt="res71 red border" src="Pictures/Default/Research71.png" loading="lazy"></td>
-                        <td><img id="res72" alt="res72 red border" src="Pictures/Default/Research72.png" loading="lazy"></td>
-                        <td><img id="res73" alt="res73 red border" src="Pictures/Default/Research73.png" loading="lazy"></td>
-                        <td><img id="res74" alt="res74 red border" src="Pictures/Default/Research74.png" loading="lazy"></td>
-                        <td><img id="res75" alt="res75 red border" src="Pictures/Default/Research75.png" loading="lazy"></td>
+                        <td><button id="res51" i18n-aria-label="researches.descriptions.51"><img src="Pictures/Default/Research51.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res52" i18n-aria-label="researches.descriptions.52"><img src="Pictures/Default/Research52.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res53" i18n-aria-label="researches.descriptions.53"><img src="Pictures/Default/Research53.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res54" i18n-aria-label="researches.descriptions.54"><img src="Pictures/Default/Research54.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res55" i18n-aria-label="researches.descriptions.55"><img src="Pictures/Default/Research55.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res56" i18n-aria-label="researches.descriptions.56"><img src="Pictures/Default/Research56.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res57" i18n-aria-label="researches.descriptions.57"><img src="Pictures/Default/Research57.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res58" i18n-aria-label="researches.descriptions.58"><img src="Pictures/Default/Research58.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res59" i18n-aria-label="researches.descriptions.59"><img src="Pictures/Default/Research59.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res60" i18n-aria-label="researches.descriptions.60"><img src="Pictures/Default/Research60.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res61" i18n-aria-label="researches.descriptions.61"><img src="Pictures/Default/Research61.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res62" i18n-aria-label="researches.descriptions.62"><img src="Pictures/Default/Research62.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res63" i18n-aria-label="researches.descriptions.63"><img src="Pictures/Default/Research63.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res64" i18n-aria-label="researches.descriptions.64"><img src="Pictures/Default/Research64.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res65" i18n-aria-label="researches.descriptions.65"><img src="Pictures/Default/Research65.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res66" i18n-aria-label="researches.descriptions.66"><img src="Pictures/Default/Research66.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res67" i18n-aria-label="researches.descriptions.67"><img src="Pictures/Default/Research67.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res68" i18n-aria-label="researches.descriptions.68"><img src="Pictures/Default/Research68.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res69" i18n-aria-label="researches.descriptions.69"><img src="Pictures/Default/Research69.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res70" i18n-aria-label="researches.descriptions.70"><img src="Pictures/Default/Research70.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res71" i18n-aria-label="researches.descriptions.71"><img src="Pictures/Default/Research71.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res72" i18n-aria-label="researches.descriptions.72"><img src="Pictures/Default/Research72.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res73" i18n-aria-label="researches.descriptions.73"><img src="Pictures/Default/Research73.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res74" i18n-aria-label="researches.descriptions.74"><img src="Pictures/Default/Research74.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res75" i18n-aria-label="researches.descriptions.75"><img src="Pictures/Default/Research75.png" alt="" loading="lazy"></button></td>
                     </tr>
                     <tr>
-                        <td><img id="res76" alt="res76 white border" src="Pictures/Default/Research76.png" class="chal7x10" loading="lazy"></td>
-                        <td><img id="res77" alt="res77 red border" src="Pictures/Default/Research77.png" class="chal7x10" loading="lazy"></td>
-                        <td><img id="res78" alt="res78 red border" src="Pictures/Default/Research78.png" class="chal7x10" loading="lazy"></td>
-                        <td><img id="res79" alt="res79 red border" src="Pictures/Default/Research79.png" class="chal7x10" loading="lazy"></td>
-                        <td><img id="res80" alt="res80 red border" src="Pictures/Default/Research80.png" class="chal7x10" loading="lazy"></td>
-                        <td><img id="res81" alt="res81 white border" src="Pictures/Default/Research81.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res82" alt="res82 red border" src="Pictures/Default/Research82.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res83" alt="res83 red border" src="Pictures/Default/Research83.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res84" alt="res84 red border" src="Pictures/Default/Research84.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res85" alt="res85 white border" src="Pictures/Default/Research85.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res86" alt="res86 white border" src="Pictures/Default/Research86.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res87" alt="res87 white border" src="Pictures/Default/Research87.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res88" alt="res88 white border" src="Pictures/Default/Research88.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res89" alt="res89 white border" src="Pictures/Default/Research89.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res90" alt="res90 white border" src="Pictures/Default/Research90.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res91" alt="res91 white border" src="Pictures/Default/Research91.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res92" alt="res92 white border" src="Pictures/Default/Research92.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res93" alt="res93 white border" src="Pictures/Default/Research93.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res94" alt="res94 white border" src="Pictures/Default/Research94.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res95" alt="res95 red border" src="Pictures/Default/Research95.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res96" alt="res96 white border" src="Pictures/Default/Research96.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res97" alt="res97 white border" src="Pictures/Default/Research97.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res98" alt="res98 white border" src="Pictures/Default/Research98.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res99" alt="res99 red border" src="Pictures/Default/Research99.png" class="chal8" loading="lazy"></td>
-                        <td><img id="res100" alt="res100 red border" src="Pictures/Default/Research100.png" class="chal8" loading="lazy"></td>
+                        <td><button id="res76" i18n-aria-label="researches.descriptions.76"><img src="Pictures/Default/Research76.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res77" i18n-aria-label="researches.descriptions.77"><img src="Pictures/Default/Research77.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res78" i18n-aria-label="researches.descriptions.78"><img src="Pictures/Default/Research78.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res79" i18n-aria-label="researches.descriptions.79"><img src="Pictures/Default/Research79.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res80" i18n-aria-label="researches.descriptions.80"><img src="Pictures/Default/Research80.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res81" i18n-aria-label="researches.descriptions.81"><img src="Pictures/Default/Research81.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res82" i18n-aria-label="researches.descriptions.82"><img src="Pictures/Default/Research82.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res83" i18n-aria-label="researches.descriptions.83"><img src="Pictures/Default/Research83.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res84" i18n-aria-label="researches.descriptions.84"><img src="Pictures/Default/Research84.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res85" i18n-aria-label="researches.descriptions.85"><img src="Pictures/Default/Research85.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res86" i18n-aria-label="researches.descriptions.86"><img src="Pictures/Default/Research86.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res87" i18n-aria-label="researches.descriptions.87"><img src="Pictures/Default/Research87.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res88" i18n-aria-label="researches.descriptions.88"><img src="Pictures/Default/Research88.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res89" i18n-aria-label="researches.descriptions.89"><img src="Pictures/Default/Research89.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res90" i18n-aria-label="researches.descriptions.90"><img src="Pictures/Default/Research90.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res91" i18n-aria-label="researches.descriptions.91"><img src="Pictures/Default/Research91.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res92" i18n-aria-label="researches.descriptions.92"><img src="Pictures/Default/Research92.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res93" i18n-aria-label="researches.descriptions.93"><img src="Pictures/Default/Research93.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res94" i18n-aria-label="researches.descriptions.94"><img src="Pictures/Default/Research94.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res95" i18n-aria-label="researches.descriptions.95"><img src="Pictures/Default/Research95.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res96" i18n-aria-label="researches.descriptions.96"><img src="Pictures/Default/Research96.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res97" i18n-aria-label="researches.descriptions.97"><img src="Pictures/Default/Research97.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res98" i18n-aria-label="researches.descriptions.98"><img src="Pictures/Default/Research98.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res99" i18n-aria-label="researches.descriptions.99"><img src="Pictures/Default/Research99.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res100" i18n-aria-label="researches.descriptions.100"><img src="Pictures/Default/Research100.png" alt="" loading="lazy"></button></td>
                     </tr>
                     <tr>
-                        <td><img id="res101" alt="res101 white border" src="Pictures/Default/Research101.png" class="chal9" loading="lazy"></td>
-                        <td><img id="res102" alt="res102 white border" src="Pictures/Default/Research102.png" class="chal9" loading="lazy"></td>
-                        <td><img id="res103" alt="res103 white border" src="Pictures/Default/Research103.png" class="chal9" loading="lazy"></td>
-                        <td><img id="res104" alt="res104 white border" src="Pictures/Default/Research104.png" class="chal9" loading="lazy"></td>
-                        <td><img id="res105" alt="res105 red border" src="Pictures/Default/Research105.png" class="chal9" loading="lazy"></td>
-                        <td><img id="res106" alt="res106 white border" src="Pictures/Default/Research106.png" class="chal9" loading="lazy"></td>
-                        <td><img id="res107" alt="res107 white border" src="Pictures/Default/Research107.png" class="chal9" loading="lazy"></td>
-                        <td><img id="res108" alt="res108 white border" src="Pictures/Default/Research108.png" class="chal9" loading="lazy"></td>
-                        <td><img id="res109" alt="res109 white border" src="Pictures/Default/Research109.png" class="chal9" loading="lazy"></td>
-                        <td><img id="res110" alt="res110 white border" src="Pictures/Default/Research110.png" class="chal9" loading="lazy"></td>
-                        <td><img id="res111" alt="res111 red border" src="Pictures/Default/Research111.png" class="chal10" loading="lazy"></td>
-                        <td><img id="res112" alt="res112 red border" src="Pictures/Default/Research112.png" class="chal10" loading="lazy"></td>
-                        <td><img id="res113" alt="res113 red border" src="Pictures/Default/Research113.png" class="chal10" loading="lazy"></td>
-                        <td><img id="res114" alt="res114 red border" src="Pictures/Default/Research114.png" class="chal10" loading="lazy"></td>
-                        <td><img id="res115" alt="res115 red border" src="Pictures/Default/Research115.png" class="chal10" loading="lazy"></td>
-                        <td><img id="res116" alt="res116 white border" src="Pictures/Default/Research116.png" class="chal10" loading="lazy"></td>
-                        <td><img id="res117" alt="res117 white border" src="Pictures/Default/Research117.png" class="chal10" loading="lazy"></td>
-                        <td><img id="res118" alt="res118 white border" src="Pictures/Default/Research118.png" class="chal10" loading="lazy"></td>
-                        <td><img id="res119" alt="res119 red border" src="Pictures/Default/Research119.png" class="chal10" loading="lazy"></td>
-                        <td><img id="res120" alt="res120 red border" src="Pictures/Default/Research120.png" class="chal10" loading="lazy"></td>
-                        <td><img id="res121" alt="res121 white border" src="Pictures/Default/Research121.png" class="chal9" loading="lazy"></td>
-                        <td><img id="res122" alt="res122 white border" src="Pictures/Default/Research122.png" class="chal10" loading="lazy"></td>
-                        <td><img id="res123" alt="res123 white border" src="Pictures/Default/Research123.png" class="chal10" loading="lazy"></td>
-                        <td><img id="res124" alt="res124 red border" src="Pictures/Default/Research124.png" class="chal9" loading="lazy"></td>
-                        <td><img id="res125" alt="res125 red border" src="Pictures/Default/Research125.png" class="chal10" loading="lazy"></td>
+                        <td><button id="res101" i18n-aria-label="researches.descriptions.101"><img src="Pictures/Default/Research101.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res102" i18n-aria-label="researches.descriptions.102"><img src="Pictures/Default/Research102.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res103" i18n-aria-label="researches.descriptions.103"><img src="Pictures/Default/Research103.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res104" i18n-aria-label="researches.descriptions.104"><img src="Pictures/Default/Research104.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res105" i18n-aria-label="researches.descriptions.105"><img src="Pictures/Default/Research105.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res106" i18n-aria-label="researches.descriptions.106"><img src="Pictures/Default/Research106.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res107" i18n-aria-label="researches.descriptions.107"><img src="Pictures/Default/Research107.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res108" i18n-aria-label="researches.descriptions.108"><img src="Pictures/Default/Research108.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res109" i18n-aria-label="researches.descriptions.109"><img src="Pictures/Default/Research109.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res110" i18n-aria-label="researches.descriptions.110"><img src="Pictures/Default/Research110.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res111" i18n-aria-label="researches.descriptions.111"><img src="Pictures/Default/Research111.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res112" i18n-aria-label="researches.descriptions.112"><img src="Pictures/Default/Research112.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res113" i18n-aria-label="researches.descriptions.113"><img src="Pictures/Default/Research113.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res114" i18n-aria-label="researches.descriptions.114"><img src="Pictures/Default/Research114.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res115" i18n-aria-label="researches.descriptions.115"><img src="Pictures/Default/Research115.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res116" i18n-aria-label="researches.descriptions.116"><img src="Pictures/Default/Research116.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res117" i18n-aria-label="researches.descriptions.117"><img src="Pictures/Default/Research117.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res118" i18n-aria-label="researches.descriptions.118"><img src="Pictures/Default/Research118.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res119" i18n-aria-label="researches.descriptions.119"><img src="Pictures/Default/Research119.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res120" i18n-aria-label="researches.descriptions.120"><img src="Pictures/Default/Research120.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res121" i18n-aria-label="researches.descriptions.121"><img src="Pictures/Default/Research121.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res122" i18n-aria-label="researches.descriptions.122"><img src="Pictures/Default/Research122.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res123" i18n-aria-label="researches.descriptions.123"><img src="Pictures/Default/Research123.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res124" i18n-aria-label="researches.descriptions.124"><img src="Pictures/Default/Research124.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res125" i18n-aria-label="researches.descriptions.125"><img src="Pictures/Default/Research125.png" alt="" loading="lazy"></button></td>
                     </tr>
                     <tr>
-                        <td><img id="res126" alt="res126 white border" src="Pictures/Default/Research126.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res127" alt="res127 white border" src="Pictures/Default/Research127.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res128" alt="res128 white border" src="Pictures/Default/Research128.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res129" alt="res129 white border" src="Pictures/Default/Research129.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res130" alt="res130 red border" src="Pictures/Default/Research130.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res131" alt="res131 white border" src="Pictures/Default/Research131.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res132" alt="res132 white border" src="Pictures/Default/Research132.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res133" alt="res133 white border" src="Pictures/Default/Research133.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res134" alt="res134 white border" src="Pictures/Default/Research134.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res135" alt="res135 red border" src="Pictures/Default/Research135.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res136" alt="res136 white border" src="Pictures/Default/Research136.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res137" alt="res137 white border" src="Pictures/Default/Research137.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res138" alt="res138 white border" src="Pictures/Default/Research138.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res139" alt="res139 white border" src="Pictures/Default/Research139.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res140" alt="res140 red border" src="Pictures/Default/Research140.png" class="ascendunlock" loading="lazy"></td>
-                        <td><img id="res141" alt="res141 white border" src="Pictures/Default/Research141.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res142" alt="res142 white border" src="Pictures/Default/Research142.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res143" alt="res143 white border" src="Pictures/Default/Research143.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res144" alt="res144 white border" src="Pictures/Default/Research144.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res145" alt="res145 red border" src="Pictures/Default/Research145.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res146" alt="res146 white border" src="Pictures/Default/Research146.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res147" alt="res147 white border" src="Pictures/Default/Research147.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res148" alt="res148 white border" src="Pictures/Default/Research148.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res149" alt="res149 white border" src="Pictures/Default/Research149.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res150" alt="res150 red border" src="Pictures/Default/Research150.png" class="ascendunlock" loading="lazy"></td>
+                        <td><button id="res126" i18n-aria-label="researches.descriptions.126"><img src="Pictures/Default/Research126.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res127" i18n-aria-label="researches.descriptions.127"><img src="Pictures/Default/Research127.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res128" i18n-aria-label="researches.descriptions.128"><img src="Pictures/Default/Research128.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res129" i18n-aria-label="researches.descriptions.129"><img src="Pictures/Default/Research129.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res130" i18n-aria-label="researches.descriptions.130"><img src="Pictures/Default/Research130.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res131" i18n-aria-label="researches.descriptions.131"><img src="Pictures/Default/Research131.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res132" i18n-aria-label="researches.descriptions.132"><img src="Pictures/Default/Research132.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res133" i18n-aria-label="researches.descriptions.133"><img src="Pictures/Default/Research133.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res134" i18n-aria-label="researches.descriptions.134"><img src="Pictures/Default/Research134.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res135" i18n-aria-label="researches.descriptions.135"><img src="Pictures/Default/Research135.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res136" i18n-aria-label="researches.descriptions.136"><img src="Pictures/Default/Research136.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res137" i18n-aria-label="researches.descriptions.137"><img src="Pictures/Default/Research137.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res138" i18n-aria-label="researches.descriptions.138"><img src="Pictures/Default/Research138.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res139" i18n-aria-label="researches.descriptions.139"><img src="Pictures/Default/Research139.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res140" i18n-aria-label="researches.descriptions.140"><img src="Pictures/Default/Research140.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res141" i18n-aria-label="researches.descriptions.141"><img src="Pictures/Default/Research141.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res142" i18n-aria-label="researches.descriptions.142"><img src="Pictures/Default/Research142.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res143" i18n-aria-label="researches.descriptions.143"><img src="Pictures/Default/Research143.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res144" i18n-aria-label="researches.descriptions.144"><img src="Pictures/Default/Research144.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res145" i18n-aria-label="researches.descriptions.145"><img src="Pictures/Default/Research145.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res146" i18n-aria-label="researches.descriptions.146"><img src="Pictures/Default/Research146.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res147" i18n-aria-label="researches.descriptions.147"><img src="Pictures/Default/Research147.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res148" i18n-aria-label="researches.descriptions.148"><img src="Pictures/Default/Research148.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res149" i18n-aria-label="researches.descriptions.149"><img src="Pictures/Default/Research149.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res150" i18n-aria-label="researches.descriptions.150"><img src="Pictures/Default/Research150.png" alt="" loading="lazy"></button></td>
                     </tr>
                     <tr>
-                        <td><img id="res151" alt="res151 white border" src="Pictures/Default/Research151.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res152" alt="res152 white border" src="Pictures/Default/Research152.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res153" alt="res153 white border" src="Pictures/Default/Research153.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res154" alt="res15 white border4" src="Pictures/Default/Research154.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res155" alt="res155 red border" src="Pictures/Default/Research155.png" class="chal11" loading="lazy"></td>
-                        <td><img id="res156" alt="res156 white border" src="Pictures/Default/Research156.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res157" alt="res157 white border" src="Pictures/Default/Research157.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res158" alt="res158 white border" src="Pictures/Default/Research158.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res159" alt="res159 white border" src="Pictures/Default/Research159.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res160" alt="res160 red border" src="Pictures/Default/Research160.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res161" alt="res161 white border" src="Pictures/Default/Research161.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res162" alt="res162 white border" src="Pictures/Default/Research162.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res163" alt="res163 white border" src="Pictures/Default/Research163.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res164" alt="res164 white border" src="Pictures/Default/Research164.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res165" alt="res165 red border" src="Pictures/Default/Research165.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res166" alt="res166 white border" src="Pictures/Default/Research166.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res167" alt="res167 white border" src="Pictures/Default/Research167.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res168" alt="res168 white border" src="Pictures/Default/Research168.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res169" alt="res169 white border" src="Pictures/Default/Research169.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res170" alt="res170 red border" src="Pictures/Default/Research170.png" class="chal12" loading="lazy"></td>
-                        <td><img id="res171" alt="res171 white border" src="Pictures/Default/Research171.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res172" alt="res172 white border" src="Pictures/Default/Research172.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res173" alt="res173 white border" src="Pictures/Default/Research173.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res174" alt="res174 white border" src="Pictures/Default/Research174.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res175" alt="res175 red border" src="Pictures/Default/Research175.png" class="chal13" loading="lazy"></td>
+                        <td><button id="res151" i18n-aria-label="researches.descriptions.151"><img src="Pictures/Default/Research151.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res152" i18n-aria-label="researches.descriptions.152"><img src="Pictures/Default/Research152.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res153" i18n-aria-label="researches.descriptions.153"><img src="Pictures/Default/Research153.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res154" i18n-aria-label="researches.descriptions.154"><img src="Pictures/Default/Research154.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res155" i18n-aria-label="researches.descriptions.155"><img src="Pictures/Default/Research155.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res156" i18n-aria-label="researches.descriptions.156"><img src="Pictures/Default/Research156.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res157" i18n-aria-label="researches.descriptions.157"><img src="Pictures/Default/Research157.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res158" i18n-aria-label="researches.descriptions.158"><img src="Pictures/Default/Research158.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res159" i18n-aria-label="researches.descriptions.159"><img src="Pictures/Default/Research159.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res160" i18n-aria-label="researches.descriptions.160"><img src="Pictures/Default/Research160.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res161" i18n-aria-label="researches.descriptions.161"><img src="Pictures/Default/Research161.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res162" i18n-aria-label="researches.descriptions.162"><img src="Pictures/Default/Research162.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res163" i18n-aria-label="researches.descriptions.163"><img src="Pictures/Default/Research163.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res164" i18n-aria-label="researches.descriptions.164"><img src="Pictures/Default/Research164.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res165" i18n-aria-label="researches.descriptions.165"><img src="Pictures/Default/Research165.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res166" i18n-aria-label="researches.descriptions.166"><img src="Pictures/Default/Research166.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res167" i18n-aria-label="researches.descriptions.167"><img src="Pictures/Default/Research167.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res168" i18n-aria-label="researches.descriptions.168"><img src="Pictures/Default/Research168.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res169" i18n-aria-label="researches.descriptions.169"><img src="Pictures/Default/Research169.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res170" i18n-aria-label="researches.descriptions.170"><img src="Pictures/Default/Research170.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res171" i18n-aria-label="researches.descriptions.171"><img src="Pictures/Default/Research171.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res172" i18n-aria-label="researches.descriptions.172"><img src="Pictures/Default/Research172.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res173" i18n-aria-label="researches.descriptions.173"><img src="Pictures/Default/Research173.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res174" i18n-aria-label="researches.descriptions.174"><img src="Pictures/Default/Research174.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res175" i18n-aria-label="researches.descriptions.175"><img src="Pictures/Default/Research175.png" alt="" loading="lazy"></button></td>
                     </tr>
                     <tr>
-                        <td><img id="res176" alt="res176 white border" src="Pictures/Default/Research176.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res177" alt="res177 white border" src="Pictures/Default/Research177.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res178" alt="res178 white border" src="Pictures/Default/Research178.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res179" alt="res179 white border" src="Pictures/Default/Research179.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res180" alt="res180 red border" src="Pictures/Default/Research180.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res181" alt="res181 white border" src="Pictures/Default/Research181.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res182" alt="res182 white border" src="Pictures/Default/Research182.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res183" alt="res183 white border" src="Pictures/Default/Research183.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res184" alt="res184 white border" src="Pictures/Default/Research184.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res185" alt="res185 red border" src="Pictures/Default/Research185.png" class="chal13" loading="lazy"></td>
-                        <td><img id="res186" alt="res186 white border" src="Pictures/Default/Research186.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res187" alt="res187 white border" src="Pictures/Default/Research187.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res188" alt="res188 white border" src="Pictures/Default/Research188.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res189" alt="res189 white border" src="Pictures/Default/Research189.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res190" alt="res190 red border" src="Pictures/Default/Research190.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res191" alt="res191 white border" src="Pictures/Default/Research191.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res192" alt="res192 white border" src="Pictures/Default/Research192.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res193" alt="res193 white border" src="Pictures/Default/Research193.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res194" alt="res194 white border" src="Pictures/Default/Research194.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res195" alt="res195 red border" src="Pictures/Default/Research195.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res196" alt="res196 white border" src="Pictures/Default/Research196.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res197" alt="res197 white border" src="Pictures/Default/Research197.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res198" alt="res198 white border" src="Pictures/Default/Research198.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res199" alt="res199 white border" src="Pictures/Default/Research199.png" class="chal14" loading="lazy"></td>
-                        <td><img id="res200" alt="res200 red border" src="Pictures/Default/Research200.png" class="chal14" loading="lazy"></td>
+                        <td><button id="res176" i18n-aria-label="researches.descriptions.176"><img src="Pictures/Default/Research176.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res177" i18n-aria-label="researches.descriptions.177"><img src="Pictures/Default/Research177.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res178" i18n-aria-label="researches.descriptions.178"><img src="Pictures/Default/Research178.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res179" i18n-aria-label="researches.descriptions.179"><img src="Pictures/Default/Research179.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res180" i18n-aria-label="researches.descriptions.180"><img src="Pictures/Default/Research180.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res181" i18n-aria-label="researches.descriptions.181"><img src="Pictures/Default/Research181.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res182" i18n-aria-label="researches.descriptions.182"><img src="Pictures/Default/Research182.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res183" i18n-aria-label="researches.descriptions.183"><img src="Pictures/Default/Research183.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res184" i18n-aria-label="researches.descriptions.184"><img src="Pictures/Default/Research184.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res185" i18n-aria-label="researches.descriptions.185"><img src="Pictures/Default/Research185.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res186" i18n-aria-label="researches.descriptions.186"><img src="Pictures/Default/Research186.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res187" i18n-aria-label="researches.descriptions.187"><img src="Pictures/Default/Research187.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res188" i18n-aria-label="researches.descriptions.188"><img src="Pictures/Default/Research188.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res189" i18n-aria-label="researches.descriptions.189"><img src="Pictures/Default/Research189.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res190" i18n-aria-label="researches.descriptions.190"><img src="Pictures/Default/Research190.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res191" i18n-aria-label="researches.descriptions.191"><img src="Pictures/Default/Research191.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res192" i18n-aria-label="researches.descriptions.192"><img src="Pictures/Default/Research192.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res193" i18n-aria-label="researches.descriptions.193"><img src="Pictures/Default/Research193.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res194" i18n-aria-label="researches.descriptions.194"><img src="Pictures/Default/Research194.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res195" i18n-aria-label="researches.descriptions.195"><img src="Pictures/Default/Research195.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res196" i18n-aria-label="researches.descriptions.196"><img src="Pictures/Default/Research196.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res197" i18n-aria-label="researches.descriptions.197"><img src="Pictures/Default/Research197.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res198" i18n-aria-label="researches.descriptions.198"><img src="Pictures/Default/Research198.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res199" i18n-aria-label="researches.descriptions.199"><img src="Pictures/Default/Research199.png" alt="" loading="lazy"></button></td>
+                        <td><button id="res200" i18n-aria-label="researches.descriptions.200"><img src="Pictures/Default/Research200.png" alt="" loading="lazy"></button></td>
                     </tr>
                 </table>
             </div>
@@ -2025,14 +2026,14 @@
             </div>
 
             <div id="antrow1">
-                <img id="anttier1" alt="Tier 1 Ant" class="antBtn" src="Pictures/Default/AntTier1.png" loading="lazy">
-                <img id="anttier2" alt="Tier 2 Ant" class="antBtn" src="Pictures/Default/AntTier2.png" loading="lazy">
-                <img id="anttier3" alt="Tier 3 Ant" class="antBtn" src="Pictures/Default/AntTier3.png" loading="lazy">
-                <img id="anttier4" alt="Tier 4 Ant" class="antBtn" src="Pictures/Default/AntTier4.png" loading="lazy">
-                <img id="anttier5" alt="Tier 5 Ant" class="antBtn" src="Pictures/Default/AntTier5.png" loading="lazy">
-                <img id="anttier6" alt="Tier 6 Ant" class="antBtn" src="Pictures/Default/AntTier6.png" loading="lazy">
-                <img id="anttier7" alt="Tier 7 Ant" class="antBtn" src="Pictures/Default/AntTier7.png" loading="lazy">
-                <img id="anttier8" alt="Tier 8 Ant" class="antBtn" src="Pictures/Default/AntTier8.png" loading="lazy">
+                <button id="anttier1" class="disable-hover-color" i18n-aria-label="ants.descriptions.1"><img alt="" class="antBtn" src="Pictures/Default/AntTier1.png" loading="lazy"></button>
+                <button id="anttier2" class="disable-hover-color" i18n-aria-label="ants.descriptions.2"><img alt="" class="antBtn" src="Pictures/Default/AntTier2.png" loading="lazy"></button>
+                <button id="anttier3" class="disable-hover-color" i18n-aria-label="ants.descriptions.3"><img alt="" class="antBtn" src="Pictures/Default/AntTier3.png" loading="lazy"></button>
+                <button id="anttier4" class="disable-hover-color" i18n-aria-label="ants.descriptions.4"><img alt="" class="antBtn" src="Pictures/Default/AntTier4.png" loading="lazy"></button>
+                <button id="anttier5" class="disable-hover-color" i18n-aria-label="ants.descriptions.5"><img alt="" class="antBtn" src="Pictures/Default/AntTier5.png" loading="lazy"></button>
+                <button id="anttier6" class="disable-hover-color" i18n-aria-label="ants.descriptions.6"><img alt="" class="antBtn" src="Pictures/Default/AntTier6.png" loading="lazy"></button>
+                <button id="anttier7" class="disable-hover-color" i18n-aria-label="ants.descriptions.7"><img alt="" class="antBtn" src="Pictures/Default/AntTier7.png" loading="lazy"></button>
+                <button id="anttier8" class="disable-hover-color" i18n-aria-label="ants.descriptions.8"><img alt="" class="antBtn" src="Pictures/Default/AntTier8.png" loading="lazy"></button>
             </div>
 
             <div id="antrow2" style="color: white">
@@ -2053,18 +2054,18 @@
             </div>
 
             <div id="antrow4">
-                <img id="antUpgrade1" alt="Ant Upgrade 1" class="antBtn" src="Pictures/Default/AntUpgrade1.png" loading="lazy">
-                <img id="antUpgrade2" alt="Ant Upgrade 2" class="antBtn" src="Pictures/Default/AntUpgrade2.png" loading="lazy">
-                <img id="antUpgrade3" alt="Ant Upgrade 3" class="antBtn" src="Pictures/Default/AntUpgrade3.png" loading="lazy">
-                <img id="antUpgrade4" alt="Ant Upgrade 4" class="antBtn" src="Pictures/Default/AntUpgrade4.png" loading="lazy">
-                <img id="antUpgrade5" alt="Ant Upgrade 5" class="antBtn" src="Pictures/Default/AntUpgrade5.png" loading="lazy">
-                <img id="antUpgrade6" alt="Ant Upgrade 6" class="antBtn" src="Pictures/Default/AntUpgrade6.png" loading="lazy">
-                <img id="antUpgrade7" alt="Ant Upgrade 7" class="antBtn" src="Pictures/Default/AntUpgrade7.png" loading="lazy">
-                <img id="antUpgrade8" alt="Ant Upgrade 8" class="antBtn" src="Pictures/Default/AntUpgrade8.png" loading="lazy">
-                <img id="antUpgrade9" alt="Ant Upgrade 9" class="antBtn" src="Pictures/Default/AntUpgrade9.png" loading="lazy">
-                <img id="antUpgrade10" alt="Ant Upgrade 10" class="antBtn" src="Pictures/Default/AntUpgrade10.png" loading="lazy">
-                <img id="antUpgrade11" alt="Ant Upgrade 11" class="antBtn" src="Pictures/Default/AntUpgrade11.png" loading="lazy">
-                <img id="antUpgrade12" alt="Ant Upgrade 12" class="antBtn" src="Pictures/Default/AntUpgrade12.png" loading="lazy">
+                <button id="antUpgrade1" class="disable-hover-color" i18n-aria-label="ants.upgrades.1"><img src="Pictures/Default/AntUpgrade1.png" class="antBtn" alt="" loading="lazy"></button>
+                <button id="antUpgrade2" class="disable-hover-color" i18n-aria-label="ants.upgrades.2"><img src="Pictures/Default/AntUpgrade2.png" class="antBtn" alt="" loading="lazy"></button>
+                <button id="antUpgrade3" class="disable-hover-color" i18n-aria-label="ants.upgrades.3"><img src="Pictures/Default/AntUpgrade3.png" class="antBtn" alt="" loading="lazy"></button>
+                <button id="antUpgrade4" class="disable-hover-color" i18n-aria-label="ants.upgrades.4"><img src="Pictures/Default/AntUpgrade4.png" class="antBtn" alt="" loading="lazy"></button>
+                <button id="antUpgrade5" class="disable-hover-color" i18n-aria-label="ants.upgrades.5"><img src="Pictures/Default/AntUpgrade5.png" class="antBtn" alt="" loading="lazy"></button>
+                <button id="antUpgrade6" class="disable-hover-color" i18n-aria-label="ants.upgrades.6"><img src="Pictures/Default/AntUpgrade6.png" class="antBtn" alt="" loading="lazy"></button>
+                <button id="antUpgrade7" class="disable-hover-color" i18n-aria-label="ants.upgrades.7"><img src="Pictures/Default/AntUpgrade7.png" class="antBtn" alt="" loading="lazy"></button>
+                <button id="antUpgrade8" class="disable-hover-color" i18n-aria-label="ants.upgrades.8"><img src="Pictures/Default/AntUpgrade8.png" class="antBtn" alt="" loading="lazy"></button>
+                <button id="antUpgrade9" class="disable-hover-color" i18n-aria-label="ants.upgrades.9"><img src="Pictures/Default/AntUpgrade9.png" class="antBtn" alt="" loading="lazy"></button>
+                <button id="antUpgrade10" class="disable-hover-color" i18n-aria-label="ants.upgrades.10"><img src="Pictures/Default/AntUpgrade10.png" class="antBtn" alt="" loading="lazy"></button>
+                <button id="antUpgrade11" class="disable-hover-color" i18n-aria-label="ants.upgrades.11"><img src="Pictures/Default/AntUpgrade11.png" class="antBtn" alt="" loading="lazy"></button>
+                <button id="antUpgrade12" class="disable-hover-color" i18n-aria-label="ants.upgrades.12"><img src="Pictures/Default/AntUpgrade12.png" class="antBtn" alt="" loading="lazy"></button>
             </div>
 
             <div id="antToggleFeatures">
@@ -2080,7 +2081,9 @@
                 <div id="sacrificeAnts" style="display: none">
                     <div class="sacrificeStatus">
                         <p id="antSacrificeTimer" class="bodycolor" style="color: white">Last Sacrifice: 1s ago</p>
-                        <img id="antSacrifice" alt="Ant Sacrifice" src="Pictures/Default/AntSacrifice.png" style="cursor: pointer;" loading="lazy">
+                        <button id="antSacrifice" i18n-aria-label="ants.antSacrifice" style="display: inline-block;">
+                          <img alt="" src="Pictures/Default/AntSacrifice.png" style="cursor: pointer; display: block;" loading="lazy">
+                        </button>
                     </div>
                 </div>
                 <div class="antSacrificeHeader bodycolor">
@@ -2522,100 +2525,100 @@
                     <p id="cubeAmount2" style="color: white">You have 0 Wow! Cubes</p>
                     <table id="cubeUpgradeTable">
                         <tr>
-                            <td><img id="cubeUpg1" alt="cubeUpg1" class="gridImg" src="Pictures/Default/CubeUpgrade1.png" loading="lazy"></td>
-                            <td><img id="cubeUpg2" alt="cubeUpg2" class="gridImg" src="Pictures/Default/CubeUpgrade2.png" loading="lazy"></td>
-                            <td><img id="cubeUpg3" alt="cubeUpg3" class="gridImg" src="Pictures/Default/CubeUpgrade3.png" loading="lazy"></td>
-                            <td><img id="cubeUpg4" alt="cubeUpg4" class="gridImg" src="Pictures/Default/CubeUpgrade4.png" loading="lazy"></td>
-                            <td><img id="cubeUpg5" alt="cubeUpg5" class="gridImg" src="Pictures/Default/CubeUpgrade5.png" loading="lazy"></td>
-                            <td><img id="cubeUpg6" alt="cubeUpg6" class="gridImg" src="Pictures/Default/CubeUpgrade6.png" loading="lazy"></td>
-                            <td><img id="cubeUpg7" alt="cubeUpg7" class="gridImg" src="Pictures/Default/CubeUpgrade7.png" loading="lazy"></td>
-                            <td><img id="cubeUpg8" alt="cubeUpg8" class="gridImg" src="Pictures/Default/CubeUpgrade8.png" loading="lazy"></td>
-                            <td><img id="cubeUpg9" alt="cubeUpg9" class="gridImg" src="Pictures/Default/CubeUpgrade9.png" loading="lazy"></td>
-                            <td><img id="cubeUpg10" alt="cubeUpg10" class="gridImg" src="Pictures/Default/CubeUpgrade10.png" loading="lazy"></td>
+                            <td><button id="cubeUpg1" i18n-aria-label="cubes.upgradeNames.1"><img src="Pictures/Default/CubeUpgrade1.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg2" i18n-aria-label="cubes.upgradeNames.2"><img src="Pictures/Default/CubeUpgrade2.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg3" i18n-aria-label="cubes.upgradeNames.3"><img src="Pictures/Default/CubeUpgrade3.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg4" i18n-aria-label="cubes.upgradeNames.4"><img src="Pictures/Default/CubeUpgrade4.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg5" i18n-aria-label="cubes.upgradeNames.5"><img src="Pictures/Default/CubeUpgrade5.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg6" i18n-aria-label="cubes.upgradeNames.6"><img src="Pictures/Default/CubeUpgrade6.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg7" i18n-aria-label="cubes.upgradeNames.7"><img src="Pictures/Default/CubeUpgrade7.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg8" i18n-aria-label="cubes.upgradeNames.8"><img src="Pictures/Default/CubeUpgrade8.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg9" i18n-aria-label="cubes.upgradeNames.9"><img src="Pictures/Default/CubeUpgrade9.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg10" i18n-aria-label="cubes.upgradeNames.10"><img src="Pictures/Default/CubeUpgrade10.png" class="gridImg" alt="" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><img id="cubeUpg11" alt="cubeUpg11" class="gridImg" src="Pictures/Default/CubeUpgrade11.png" loading="lazy"></td>
-                            <td><img id="cubeUpg12" alt="cubeUpg12" class="gridImg" src="Pictures/Default/CubeUpgrade12.png" loading="lazy"></td>
-                            <td><img id="cubeUpg13" alt="cubeUpg13" class="gridImg" src="Pictures/Default/CubeUpgrade13.png" loading="lazy"></td>
-                            <td><img id="cubeUpg14" alt="cubeUpg14" class="gridImg" src="Pictures/Default/CubeUpgrade14.png" loading="lazy"></td>
-                            <td><img id="cubeUpg15" alt="cubeUpg15" class="gridImg" src="Pictures/Default/CubeUpgrade15.png" loading="lazy"></td>
-                            <td><img id="cubeUpg16" alt="cubeUpg16" class="gridImg" src="Pictures/Default/CubeUpgrade16.png" loading="lazy"></td>
-                            <td><img id="cubeUpg17" alt="cubeUpg17" class="gridImg" src="Pictures/Default/CubeUpgrade17.png" loading="lazy"></td>
-                            <td><img id="cubeUpg18" alt="cubeUpg18" class="gridImg" src="Pictures/Default/CubeUpgrade18.png" loading="lazy"></td>
-                            <td><img id="cubeUpg19" alt="cubeUpg19" class="gridImg" src="Pictures/Default/CubeUpgrade19.png" loading="lazy"></td>
-                            <td><img id="cubeUpg20" alt="cubeUpg20" class="gridImg" src="Pictures/Default/CubeUpgrade20.png" loading="lazy"></td>
+                            <td><button id="cubeUpg11" i18n-aria-label="cubes.upgradeNames.11"><img src="Pictures/Default/CubeUpgrade11.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg12" i18n-aria-label="cubes.upgradeNames.12"><img src="Pictures/Default/CubeUpgrade12.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg13" i18n-aria-label="cubes.upgradeNames.13"><img src="Pictures/Default/CubeUpgrade13.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg14" i18n-aria-label="cubes.upgradeNames.14"><img src="Pictures/Default/CubeUpgrade14.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg15" i18n-aria-label="cubes.upgradeNames.15"><img src="Pictures/Default/CubeUpgrade15.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg16" i18n-aria-label="cubes.upgradeNames.16"><img src="Pictures/Default/CubeUpgrade16.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg17" i18n-aria-label="cubes.upgradeNames.17"><img src="Pictures/Default/CubeUpgrade17.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg18" i18n-aria-label="cubes.upgradeNames.18"><img src="Pictures/Default/CubeUpgrade18.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg19" i18n-aria-label="cubes.upgradeNames.19"><img src="Pictures/Default/CubeUpgrade19.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg20" i18n-aria-label="cubes.upgradeNames.20"><img src="Pictures/Default/CubeUpgrade20.png" class="gridImg" alt="" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><img id="cubeUpg21" alt="cubeUpg21" class="gridImg" src="Pictures/Default/CubeUpgrade21.png" loading="lazy"></td>
-                            <td><img id="cubeUpg22" alt="cubeUpg22" class="gridImg" src="Pictures/Default/CubeUpgrade22.png" loading="lazy"></td>
-                            <td><img id="cubeUpg23" alt="cubeUpg23" class="gridImg" src="Pictures/Default/CubeUpgrade23.png" loading="lazy"></td>
-                            <td><img id="cubeUpg24" alt="cubeUpg24" class="gridImg" src="Pictures/Default/CubeUpgrade24.png" loading="lazy"></td>
-                            <td><img id="cubeUpg25" alt="cubeUpg25" class="gridImg" src="Pictures/Default/CubeUpgrade25.png" loading="lazy"></td>
-                            <td><img id="cubeUpg26" alt="cubeUpg26" class="gridImg" src="Pictures/Default/CubeUpgrade26.png" loading="lazy"></td>
-                            <td><img id="cubeUpg27" alt="cubeUpg27" class="gridImg" src="Pictures/Default/CubeUpgrade27.png" loading="lazy"></td>
-                            <td><img id="cubeUpg28" alt="cubeUpg28" class="gridImg" src="Pictures/Default/CubeUpgrade28.png" loading="lazy"></td>
-                            <td><img id="cubeUpg29" alt="cubeUpg29" class="gridImg" src="Pictures/Default/CubeUpgrade29.png" loading="lazy"></td>
-                            <td><img id="cubeUpg30" alt="cubeUpg30" class="gridImg" src="Pictures/Default/CubeUpgrade30.png" loading="lazy"></td>
+                            <td><button id="cubeUpg21" i18n-aria-label="cubes.upgradeNames.21"><img src="Pictures/Default/CubeUpgrade21.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg22" i18n-aria-label="cubes.upgradeNames.22"><img src="Pictures/Default/CubeUpgrade22.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg23" i18n-aria-label="cubes.upgradeNames.23"><img src="Pictures/Default/CubeUpgrade23.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg24" i18n-aria-label="cubes.upgradeNames.24"><img src="Pictures/Default/CubeUpgrade24.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg25" i18n-aria-label="cubes.upgradeNames.25"><img src="Pictures/Default/CubeUpgrade25.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg26" i18n-aria-label="cubes.upgradeNames.26"><img src="Pictures/Default/CubeUpgrade26.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg27" i18n-aria-label="cubes.upgradeNames.27"><img src="Pictures/Default/CubeUpgrade27.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg28" i18n-aria-label="cubes.upgradeNames.28"><img src="Pictures/Default/CubeUpgrade28.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg29" i18n-aria-label="cubes.upgradeNames.29"><img src="Pictures/Default/CubeUpgrade29.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg30" i18n-aria-label="cubes.upgradeNames.30"><img src="Pictures/Default/CubeUpgrade30.png" class="gridImg" alt="" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><img id="cubeUpg31" alt="cubeUpg31" class="gridImg" src="Pictures/Default/CubeUpgrade31.png" loading="lazy"></td>
-                            <td><img id="cubeUpg32" alt="cubeUpg32" class="gridImg" src="Pictures/Default/CubeUpgrade32.png" loading="lazy"></td>
-                            <td><img id="cubeUpg33" alt="cubeUpg33" class="gridImg" src="Pictures/Default/CubeUpgrade33.png" loading="lazy"></td>
-                            <td><img id="cubeUpg34" alt="cubeUpg34" class="gridImg" src="Pictures/Default/CubeUpgrade34.png" loading="lazy"></td>
-                            <td><img id="cubeUpg35" alt="cubeUpg35" class="gridImg" src="Pictures/Default/CubeUpgrade35.png" loading="lazy"></td>
-                            <td><img id="cubeUpg36" alt="cubeUpg36" class="gridImg" src="Pictures/Default/CubeUpgrade36.png" loading="lazy"></td>
-                            <td><img id="cubeUpg37" alt="cubeUpg37" class="gridImg" src="Pictures/Default/CubeUpgrade37.png" loading="lazy"></td>
-                            <td><img id="cubeUpg38" alt="cubeUpg38" class="gridImg" src="Pictures/Default/CubeUpgrade38.png" loading="lazy"></td>
-                            <td><img id="cubeUpg39" alt="cubeUpg39" class="gridImg" src="Pictures/Default/CubeUpgrade39.png" loading="lazy"></td>
-                            <td><img id="cubeUpg40" alt="cubeUpg40" class="gridImg" src="Pictures/Default/CubeUpgrade40.png" loading="lazy"></td>
+                            <td><button id="cubeUpg31" i18n-aria-label="cubes.upgradeNames.31"><img src="Pictures/Default/CubeUpgrade31.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg32" i18n-aria-label="cubes.upgradeNames.32"><img src="Pictures/Default/CubeUpgrade32.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg33" i18n-aria-label="cubes.upgradeNames.33"><img src="Pictures/Default/CubeUpgrade33.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg34" i18n-aria-label="cubes.upgradeNames.34"><img src="Pictures/Default/CubeUpgrade34.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg35" i18n-aria-label="cubes.upgradeNames.35"><img src="Pictures/Default/CubeUpgrade35.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg36" i18n-aria-label="cubes.upgradeNames.36"><img src="Pictures/Default/CubeUpgrade36.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg37" i18n-aria-label="cubes.upgradeNames.37"><img src="Pictures/Default/CubeUpgrade37.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg38" i18n-aria-label="cubes.upgradeNames.38"><img src="Pictures/Default/CubeUpgrade38.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg39" i18n-aria-label="cubes.upgradeNames.39"><img src="Pictures/Default/CubeUpgrade39.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg40" i18n-aria-label="cubes.upgradeNames.40"><img src="Pictures/Default/CubeUpgrade40.png" class="gridImg" alt="" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><img id="cubeUpg41" alt="cubeUpg41" class="gridImg" src="Pictures/Default/CubeUpgrade41.png" loading="lazy"></td>
-                            <td><img id="cubeUpg42" alt="cubeUpg42" class="gridImg" src="Pictures/Default/CubeUpgrade42.png" loading="lazy"></td>
-                            <td><img id="cubeUpg43" alt="cubeUpg43" class="gridImg" src="Pictures/Default/CubeUpgrade43.png" loading="lazy"></td>
-                            <td><img id="cubeUpg44" alt="cubeUpg44" class="gridImg" src="Pictures/Default/CubeUpgrade44.png" loading="lazy"></td>
-                            <td><img id="cubeUpg45" alt="cubeUpg45" class="gridImg" src="Pictures/Default/CubeUpgrade45.png" loading="lazy"></td>
-                            <td><img id="cubeUpg46" alt="cubeUpg46" class="gridImg" src="Pictures/Default/CubeUpgrade46.png" loading="lazy"></td>
-                            <td><img id="cubeUpg47" alt="cubeUpg47" class="gridImg" src="Pictures/Default/CubeUpgrade47.png" loading="lazy"></td>
-                            <td><img id="cubeUpg48" alt="cubeUpg48" class="gridImg" src="Pictures/Default/CubeUpgrade48.png" loading="lazy"></td>
-                            <td><img id="cubeUpg49" alt="cubeUpg49" class="gridImg" src="Pictures/Default/CubeUpgrade49.png" loading="lazy"></td>
-                            <td><img id="cubeUpg50" alt="cubeUpg50" class="gridImg" src="Pictures/Default/CubeUpgrade50.png" loading="lazy"></td>
+                            <td><button id="cubeUpg41" i18n-aria-label="cubes.upgradeNames.41"><img src="Pictures/Default/CubeUpgrade41.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg42" i18n-aria-label="cubes.upgradeNames.42"><img src="Pictures/Default/CubeUpgrade42.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg43" i18n-aria-label="cubes.upgradeNames.43"><img src="Pictures/Default/CubeUpgrade43.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg44" i18n-aria-label="cubes.upgradeNames.44"><img src="Pictures/Default/CubeUpgrade44.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg45" i18n-aria-label="cubes.upgradeNames.45"><img src="Pictures/Default/CubeUpgrade45.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg46" i18n-aria-label="cubes.upgradeNames.46"><img src="Pictures/Default/CubeUpgrade46.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg47" i18n-aria-label="cubes.upgradeNames.47"><img src="Pictures/Default/CubeUpgrade47.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg48" i18n-aria-label="cubes.upgradeNames.48"><img src="Pictures/Default/CubeUpgrade48.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg49" i18n-aria-label="cubes.upgradeNames.49"><img src="Pictures/Default/CubeUpgrade49.png" class="gridImg" alt="" loading="lazy"></button></td>
+                            <td><button id="cubeUpg50" i18n-aria-label="cubes.upgradeNames.50"><img src="Pictures/Default/CubeUpgrade50.png" class="gridImg" alt="" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><img id="cubeUpg51" alt="cubeUpg51" class="assortedCookies1 gridImg" src="Pictures/Default/CubeUpgrade51.png" loading="lazy"></td>
-                            <td><img id="cubeUpg52" alt="cubeUpg52" class="assortedCookies1 gridImg" src="Pictures/Default/CubeUpgrade52.png" loading="lazy"></td>
-                            <td><img id="cubeUpg53" alt="cubeUpg53" class="assortedCookies1 gridImg" src="Pictures/Default/CubeUpgrade53.png" loading="lazy"></td>
-                            <td><img id="cubeUpg54" alt="cubeUpg54" class="assortedCookies1 gridImg" src="Pictures/Default/CubeUpgrade54.png" loading="lazy"></td>
-                            <td><img id="cubeUpg55" alt="cubeUpg55" class="assortedCookies1 gridImg" src="Pictures/Default/CubeUpgrade55.png" loading="lazy"></td>
-                            <td><img id="cubeUpg56" alt="cubeUpg56" class="assortedCookies2 gridImg" src="Pictures/Default/CubeUpgrade56.png" loading="lazy"></td>
-                            <td><img id="cubeUpg57" alt="cubeUpg57" class="assortedCookies2 gridImg" src="Pictures/Default/CubeUpgrade57.png" loading="lazy"></td>
-                            <td><img id="cubeUpg58" alt="cubeUpg58" class="assortedCookies2 gridImg" src="Pictures/Default/CubeUpgrade58.png" loading="lazy"></td>
-                            <td><img id="cubeUpg59" alt="cubeUpg59" class="assortedCookies2 gridImg" src="Pictures/Default/CubeUpgrade59.png" loading="lazy"></td>
-                            <td><img id="cubeUpg60" alt="cubeUpg60" class="assortedCookies2 gridImg" src="Pictures/Default/CubeUpgrade60.png" loading="lazy"></td>
+                            <td><button id="cubeUpg51" i18n-aria-label="cubes.upgradeNames.51"><img src="Pictures/Default/CubeUpgrade51.png" class="assortedCookies1 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg52" i18n-aria-label="cubes.upgradeNames.52"><img src="Pictures/Default/CubeUpgrade52.png" class="assortedCookies1 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg53" i18n-aria-label="cubes.upgradeNames.53"><img src="Pictures/Default/CubeUpgrade53.png" class="assortedCookies1 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg54" i18n-aria-label="cubes.upgradeNames.54"><img src="Pictures/Default/CubeUpgrade54.png" class="assortedCookies1 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg55" i18n-aria-label="cubes.upgradeNames.55"><img src="Pictures/Default/CubeUpgrade55.png" class="assortedCookies1 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg56" i18n-aria-label="cubes.upgradeNames.56"><img src="Pictures/Default/CubeUpgrade56.png" class="assortedCookies2 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg57" i18n-aria-label="cubes.upgradeNames.57"><img src="Pictures/Default/CubeUpgrade57.png" class="assortedCookies2 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg58" i18n-aria-label="cubes.upgradeNames.58"><img src="Pictures/Default/CubeUpgrade58.png" class="assortedCookies2 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg59" i18n-aria-label="cubes.upgradeNames.59"><img src="Pictures/Default/CubeUpgrade59.png" class="assortedCookies2 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg60" i18n-aria-label="cubes.upgradeNames.60"><img src="Pictures/Default/CubeUpgrade60.png" class="assortedCookies2 gridImg" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><img id="cubeUpg61" alt="cubeUpg61" class="assortedCookies3 gridImg" src="Pictures/Default/CubeUpgrade61.png" loading="lazy"></td>
-                            <td><img id="cubeUpg62" alt="cubeUpg62" class="assortedCookies3 gridImg" src="Pictures/Default/CubeUpgrade62.png" loading="lazy"></td>
-                            <td><img id="cubeUpg63" alt="cubeUpg63" class="assortedCookies3 gridImg" src="Pictures/Default/CubeUpgrade63.png" loading="lazy"></td>
-                            <td><img id="cubeUpg64" alt="cubeUpg64" class="assortedCookies3 gridImg" src="Pictures/Default/CubeUpgrade64.png" loading="lazy"></td>
-                            <td><img id="cubeUpg65" alt="cubeUpg65" class="assortedCookies3 gridImg" src="Pictures/Default/CubeUpgrade65.png" loading="lazy"></td>
-                            <td><img id="cubeUpg66" alt="cubeUpg66" class="assortedCookies4 gridImg" src="Pictures/Default/CubeUpgrade66.png" loading="lazy"></td>
-                            <td><img id="cubeUpg67" alt="cubeUpg67" class="assortedCookies4 gridImg" src="Pictures/Default/CubeUpgrade67.png" loading="lazy"></td>
-                            <td><img id="cubeUpg68" alt="cubeUpg68" class="assortedCookies4 gridImg" src="Pictures/Default/CubeUpgrade68.png" loading="lazy"></td>
-                            <td><img id="cubeUpg69" alt="cubeUpg69" class="assortedCookies4 gridImg" src="Pictures/Default/CubeUpgrade69.png" loading="lazy"></td>
-                            <td><img id="cubeUpg70" alt="cubeUpg70" class="assortedCookies4 gridImg" src="Pictures/Default/CubeUpgrade70.png" loading="lazy"></td>
+                            <td><button id="cubeUpg61" i18n-aria-label="cubes.upgradeNames.61"><img src="Pictures/Default/CubeUpgrade61.png" class="assortedCookies3 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg62" i18n-aria-label="cubes.upgradeNames.62"><img src="Pictures/Default/CubeUpgrade62.png" class="assortedCookies3 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg63" i18n-aria-label="cubes.upgradeNames.63"><img src="Pictures/Default/CubeUpgrade63.png" class="assortedCookies3 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg64" i18n-aria-label="cubes.upgradeNames.64"><img src="Pictures/Default/CubeUpgrade64.png" class="assortedCookies3 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg65" i18n-aria-label="cubes.upgradeNames.65"><img src="Pictures/Default/CubeUpgrade65.png" class="assortedCookies3 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg66" i18n-aria-label="cubes.upgradeNames.66"><img src="Pictures/Default/CubeUpgrade66.png" class="assortedCookies4 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg67" i18n-aria-label="cubes.upgradeNames.67"><img src="Pictures/Default/CubeUpgrade67.png" class="assortedCookies4 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg68" i18n-aria-label="cubes.upgradeNames.68"><img src="Pictures/Default/CubeUpgrade68.png" class="assortedCookies4 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg69" i18n-aria-label="cubes.upgradeNames.69"><img src="Pictures/Default/CubeUpgrade69.png" class="assortedCookies4 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg70" i18n-aria-label="cubes.upgradeNames.70"><img src="Pictures/Default/CubeUpgrade70.png" class="assortedCookies4 gridImg" loading="lazy"></button></td>
                         </tr>
                         <tr>
-                            <td><img id="cubeUpg71" alt="cubeUpg71" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade71.png" loading="lazy"></td>
-                            <td><img id="cubeUpg72" alt="cubeUpg72" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade72.png" loading="lazy"></td>
-                            <td><img id="cubeUpg73" alt="cubeUpg73" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade73.png" loading="lazy"></td>
-                            <td><img id="cubeUpg74" alt="cubeUpg74" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade74.png" loading="lazy"></td>
-                            <td><img id="cubeUpg75" alt="cubeUpg75" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade75.png" loading="lazy"></td>
-                            <td><img id="cubeUpg76" alt="cubeUpg76" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade76.png" loading="lazy"></td>
-                            <td><img id="cubeUpg77" alt="cubeUpg77" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade77.png" loading="lazy"></td>
-                            <td><img id="cubeUpg78" alt="cubeUpg78" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade78.png" loading="lazy"></td>
-                            <td><img id="cubeUpg79" alt="cubeUpg79" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade79.png" loading="lazy"></td>
-                            <td><img id="cubeUpg80" alt="cubeUpg80" class="assortedCookies5 gridImg" src="Pictures/Default/CubeUpgrade80.png" loading="lazy"></td>
+                            <td><button id="cubeUpg71" i18n-aria-label="cubes.upgradeNames.71"><img src="Pictures/Default/CubeUpgrade71.png" class="assortedCookies5 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg72" i18n-aria-label="cubes.upgradeNames.72"><img src="Pictures/Default/CubeUpgrade72.png" class="assortedCookies5 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg73" i18n-aria-label="cubes.upgradeNames.73"><img src="Pictures/Default/CubeUpgrade73.png" class="assortedCookies5 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg74" i18n-aria-label="cubes.upgradeNames.74"><img src="Pictures/Default/CubeUpgrade74.png" class="assortedCookies5 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg75" i18n-aria-label="cubes.upgradeNames.75"><img src="Pictures/Default/CubeUpgrade75.png" class="assortedCookies5 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg76" i18n-aria-label="cubes.upgradeNames.76"><img src="Pictures/Default/CubeUpgrade76.png" class="assortedCookies5 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg77" i18n-aria-label="cubes.upgradeNames.77"><img src="Pictures/Default/CubeUpgrade77.png" class="assortedCookies5 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg78" i18n-aria-label="cubes.upgradeNames.78"><img src="Pictures/Default/CubeUpgrade78.png" class="assortedCookies5 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg79" i18n-aria-label="cubes.upgradeNames.79"><img src="Pictures/Default/CubeUpgrade79.png" class="assortedCookies5 gridImg" loading="lazy"></button></td>
+                            <td><button id="cubeUpg80" i18n-aria-label="cubes.upgradeNames.80"><img src="Pictures/Default/CubeUpgrade80.png" class="assortedCookies5 gridImg" loading="lazy"></button></td>
                         </tr>
                     </table>
                     <div aria-live="polite">
@@ -2634,8 +2637,8 @@
             </div>
             <div id="cubeTab6" class="cubeTab" style="display: none">
                 <div id="c15Rewards" class="challengeContainer boxColor">
-                    <p id="c15Reward0" class="challengePortion">Best Challenge 15 Exponent: <span id="c15Reward0Num" class="challengeNumber" style="color: gold; font-size: 1.2em;"></span></p>
-                    <p id="c15RequiredExponent" class="challengePortion">Gain <span id="c15RequiredExponentNum" class="challengeNumber" style="color: gold; font-size: 1.2em;"></span> Coins in Challenge 15 to gain more score!</p>
+                    <p id="c15Reward0" i18n="wowCubes.platonicUpgrades.c15Rewards.0" class="challengePortion"></p>
+                    <p id="c15RequiredExponent" class="challengePortion"></p>
                     <p id="c15RewardList" class="challengePortion">Next Reward Unlocks at 0 coins.</p>
                     <p id="c15Reward1" class="challengePortion">1. All Cube Types I: +<span id="c15Reward1Num" class="challengeNumber"></span>%</p>
                     <p id="c15Reward2" class="challengePortion">2. Ascension Count: +<span id="c15Reward2Num" class="challengeNumber"></span>%</p>
@@ -2678,32 +2681,32 @@
                     <div id="platonicUpgrades">
                         <table class="boxColor" id="platonicUpgradePics">
                             <tr>
-                                <td><img id="platUpg1" alt="platUpg1" src="Pictures/Default/PlatonicUpgrade1.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg2" alt="platUpg2" src="Pictures/Default/PlatonicUpgrade2.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg3" alt="platUpg3" src="Pictures/Default/PlatonicUpgrade3.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg4" alt="platUpg4" src="Pictures/Default/PlatonicUpgrade4.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg5" alt="platUpg5" src="Pictures/Default/PlatonicUpgrade5.png" class="platonicUpgradeImage" loading="lazy"></td>
+                                <td><button id="platUpg1"><img src="Pictures/Default/PlatonicUpgrade1.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg2"><img src="Pictures/Default/PlatonicUpgrade2.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg3"><img src="Pictures/Default/PlatonicUpgrade3.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg4"><img src="Pictures/Default/PlatonicUpgrade4.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg5"><img src="Pictures/Default/PlatonicUpgrade5.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
                             </tr>
                             <tr>
-                                <td><img id="platUpg6" alt="platUpg6" src="Pictures/Default/PlatonicUpgrade6.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg7" alt="platUpg7" src="Pictures/Default/PlatonicUpgrade7.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg8" alt="platUpg8" src="Pictures/Default/PlatonicUpgrade8.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg9" alt="platUpg9" src="Pictures/Default/PlatonicUpgrade9.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg10" alt="platUpg10" src="Pictures/Default/PlatonicUpgrade10.png" class="platonicUpgradeImage" loading="lazy"></td>
+                                <td><button id="platUpg6"><img src="Pictures/Default/PlatonicUpgrade6.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg7"><img src="Pictures/Default/PlatonicUpgrade7.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg8"><img src="Pictures/Default/PlatonicUpgrade8.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg9"><img src="Pictures/Default/PlatonicUpgrade9.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg10"><img src="Pictures/Default/PlatonicUpgrade10.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
                             </tr>
                             <tr>
-                                <td><img id="platUpg11" alt="platUpg11" src="Pictures/Default/PlatonicUpgrade11.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg12" alt="platUpg12" src="Pictures/Default/PlatonicUpgrade12.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg13" alt="platUpg13" src="Pictures/Default/PlatonicUpgrade13.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg14" alt="platUpg14" src="Pictures/Default/PlatonicUpgrade14.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg15" alt="platUpg15" src="Pictures/Default/PlatonicUpgrade15.png" class="platonicUpgradeImage" loading="lazy"></td>
+                                <td><button id="platUpg11"><img src="Pictures/Default/PlatonicUpgrade11.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg12"><img src="Pictures/Default/PlatonicUpgrade12.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg13"><img src="Pictures/Default/PlatonicUpgrade13.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg14"><img src="Pictures/Default/PlatonicUpgrade14.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg15"><img src="Pictures/Default/PlatonicUpgrade15.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
                             </tr>
                             <tr>
-                                <td><img id="platUpg16" alt="platUpg16" src="Pictures/Default/PlatonicUpgrade16.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg17" alt="platUpg17" src="Pictures/Default/PlatonicUpgrade17.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg18" alt="platUpg18" src="Pictures/Default/PlatonicUpgrade18.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg19" alt="platUpg19" src="Pictures/Default/PlatonicUpgrade19.png" class="platonicUpgradeImage" loading="lazy"></td>
-                                <td><img id="platUpg20" alt="platUpg20" src="Pictures/Default/PlatonicUpgrade20.png" class="platonicUpgradeImage" loading="lazy"></td>
+                                <td><button id="platUpg16"><img src="Pictures/Default/PlatonicUpgrade16.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg17"><img src="Pictures/Default/PlatonicUpgrade17.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg18"><img src="Pictures/Default/PlatonicUpgrade18.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg19"><img src="Pictures/Default/PlatonicUpgrade19.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
+                                <td><button id="platUpg20"><img src="Pictures/Default/PlatonicUpgrade20.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
                             </tr>
                         </table>
                         <div class="platonicUpgrades2">
@@ -2712,10 +2715,10 @@
                         </div>
                     </div>
                     <div id="platonicUpgradeDescriptions" class="platonicContainer boxColor">
-                        <p id="platonicUpgradeDescriptionDivisor" class="platonicPortion">===Upgrade Description===</p>
-                        <p id="platonicUpgradeDescription" class="platonicPortion" style="color: white">Click an icon for info!</p>
+                        <p class="platonicPortion" i18n="wowCubes.platonicUpgrades.descriptionBox.descriptionDivisor"></p>
+                        <p id="platonicUpgradeDescription" i18n="wowCubes.platonicUpgrades.descriptionBox.descriptionDefault" class="platonicPortion" style="color: white"></p>
                         <p id="platonicUpgradeLevel" class="platonicPortion">---</p>
-                        <p id="platonicUpgradeCostDivisor" class="platonicPortion">===Upgrade Costs===</p>
+                        <p class="platonicPortion" i18n="wowCubes.platonicUpgrades.descriptionBox.costDivisor"></p>
                         <p id="platonicOfferingCost" class="platonicPortion">---</p>
                         <p id="platonicObtainiumCost" class="platonicPortion">---</p>
                         <p id="platonicCubeCost" class="platonicPortion">---</p>

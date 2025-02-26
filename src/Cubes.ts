@@ -134,13 +134,13 @@ export const updateCubeUpgradeBG = (i: number) => {
     player.cubeUpgrades[i] = maxCubeLevel
   }
   if (player.cubeUpgrades[i] === 0) {
-    a.style.backgroundColor = ''
+    a.classList.remove('green-background', 'purple-background')
   }
   if (cubeUpgrade > 0 && cubeUpgrade < maxCubeLevel) {
-    a.style.backgroundColor = 'purple'
+    a.classList.add('purple-background')
   }
   if (player.cubeUpgrades[i] === maxCubeLevel) {
-    a.style.backgroundColor = 'green'
+    a.classList.add('green-background')
   }
 }
 
