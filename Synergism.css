@@ -1862,33 +1862,33 @@ p#reincarnatehotkeys {
     min-height: 3em;
 }
 
-#researchtable img {
+#researchtable button > img {
     background-color: var(--buttonimg-color);
 }
 
-#researchtable .researchAvailable {
+#researchtable .researchAvailable > img {
     cursor: pointer;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
-#researchtable .researchAvailable:hover {
+#researchtable .researchAvailable:hover > img {
     background-color: var(--hover-color);
 }
 
-#researchtable .researchPurchased {
+#researchtable .researchPurchased > img {
     background-color: purple;
 }
 
-#researchtable .researchPurchasedAvailable {
+#researchtable .researchPurchasedAvailable > img {
     cursor: pointer;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
-#researchtable .researchPurchasedAvailable:hover {
+#researchtable .researchPurchasedAvailable:hover > img {
     background-color: #b300b2;
 }
 
-#researchtable .researchRoomba {
+#researchtable .researchRoomba > img {
     background-color: orange;
 }
 

@@ -108,7 +108,9 @@ function translateHTML () {
     const key = element.getAttribute('i18n')!
     const value = i18next.t(key)
 
-    if (value.includes('<span')) {
+    if (element instanceof HTMLImageElement) {
+      element.setAttribute('alt', value)
+    } else if (value.includes('<span')) {
       element.innerHTML = value
     } else {
       element.textContent = value

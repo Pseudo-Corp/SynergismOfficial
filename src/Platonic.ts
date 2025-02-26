@@ -388,12 +388,12 @@ export const updatePlatonicUpgradeBG = (i: number) => {
   const a = DOMCacheGetOrSet(`platUpg${i}`)
 
   const maxLevel = platUpgradeBaseCosts[i].maxLevel
-  if (player.platonicUpgrades[i] === 0) {
-    a.style.backgroundColor = ''
-  } else if (player.platonicUpgrades[i] > 0 && player.platonicUpgrades[i] < maxLevel) {
-    a.style.backgroundColor = 'purple'
+  a.classList.remove('green-background', 'purple-background')
+  
+  if (player.platonicUpgrades[i] > 0 && player.platonicUpgrades[i] < maxLevel) {
+    a.classList.add('purple-background')
   } else if (player.platonicUpgrades[i] === maxLevel) {
-    a.style.backgroundColor = 'green'
+    a.classList.add('green-background')
   }
 }
 
