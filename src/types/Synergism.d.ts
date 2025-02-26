@@ -1,13 +1,19 @@
 import type Decimal from 'break_infinity.js'
 import type { BlueberryUpgrade } from '../BlueberryUpgrades'
+import type { BlueberryLoadoutMode, BlueberryOpt, BlueberryUpgradeDataKeys } from '../BlueberryUpgrades'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { HepteractCraft } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrade } from '../Octeracts'
+import type { OcteractDataKeys } from '../Octeracts'
 import type { IPlatBaseCost } from '../Platonic'
 import type { QuarkHandler } from '../Quark'
-import type { SingularityUpgrade } from '../singularity'
-import type { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
+import type { SingularityDataKeys, SingularityUpgrade } from '../singularity'
+import type {
+  SingularityChallenge,
+  singularityChallengeData,
+  SingularityChallengeDataKeys
+} from '../SingularityChallenges'
 import type {
   AmbrosiaGenerationCache,
   AmbrosiaLuckAdditiveMultCache,
@@ -618,15 +624,15 @@ export interface Player {
   iconSet: number
   notation: string
 
-  singularityUpgrades: Record<keyof typeof singularityData, SingularityUpgrade>
-  octeractUpgrades: Record<keyof typeof octeractData, OcteractUpgrade>
+  singularityUpgrades: Record<SingularityDataKeys, SingularityUpgrade>
+  octeractUpgrades: Record<OcteractDataKeys, OcteractUpgrade>
   dailyCodeUsed: boolean
   hepteractAutoCraftPercentage: number
   octeractTimer: number
 
   insideSingularityChallenge: boolean
   singularityChallenges: Record<
-    keyof typeof singularityChallengeData,
+    SingularityChallengeDataKeys,
     SingularityChallenge
   >
 
@@ -637,7 +643,7 @@ export interface Player {
   visitedAmbrosiaSubtab: boolean
   spentBlueberries: number
   blueberryUpgrades: Record<
-    keyof typeof blueberryUpgradeData,
+    BlueberryUpgradeDataKeys,
     BlueberryUpgrade
   >
   blueberryLoadouts: Record<number, BlueberryOpt>
