@@ -176,7 +176,7 @@
                     <div class="prestigeunlock statDisplay" id="diamondDisplay">1</div>
                 </div>
                 <div class="currencyContainer">
-                    <img class="prestigeunlock img offering" src="Pictures/Default/Offering.png" alt="Offering" title="Offering" loading="lazy">
+                    <img class="prestigeunlock img offering" src="Pictures/Default/Offering.png" i18n="general.resources.offering" title="Offering" loading="lazy">
                     <div class="prestigeunlock statDisplay" id="offeringDisplay">1</div>
                 </div>
                 <div class="currencyContainer">
@@ -196,7 +196,7 @@
                     <div class="reincarnationunlock statDisplay" id="particlesDisplay">1</div>
                 </div>
                 <div class="currencyContainer">
-                    <img class="reincarnationunlock img obtanium" src="Pictures/Default/Obtainium.png" alt="Obtainium" title="Obtainium" loading="lazy">
+                    <img class="reincarnationunlock img obtanium" src="Pictures/Default/Obtainium.png" i18n="general.resources.obtainium" title="Obtainium" loading="lazy">
                     <div class="reincarnationunlock statDisplay" id="obtainiumDisplay">1</div>
                 </div>
             </div>
@@ -216,11 +216,11 @@
                     <div id="resetrow">
                         <div id="resetrewards" style="display: block;">
                             <div>
-                                <img id="resetofferings1" alt="Offering" src="Pictures/Default/Offering.png" style="display: none;" loading="lazy">
+                                <img id="resetofferings1" i18n="general.resources.offering" src="Pictures/Default/Offering.png" style="display: none;" loading="lazy">
                                 <div id="resetofferings2" style="color: gold"></div>
                                 <img id="resetcurrency1" alt="Diamond" src="Pictures/Default/Diamond.png" style="display: none;" loading="lazy">
                                 <div id="resetcurrency2" style="color:gold"></div>
-                                <img id="resetobtainium" alt="Obtainium" src="Pictures/Default/Obtainium.png" style="display: none;" loading="lazy">
+                                <img id="resetobtainium" i18n="general.resources.obtainium" src="Pictures/Default/Obtainium.png" style="display: none;" loading="lazy">
                                 <div id="resetobtainium2" style="color:pink;"></div>
                             </div>
                         </div>
@@ -714,9 +714,7 @@
                       id="coinAutoUpgrade" 
                       aria-pressed="true" 
                       aria-label="Toggle coin auto-upgrader" 
-                      style="border:2px solid green"
-                      i18n-on="general.autoOnColon"
-                      i18n-off="general.autoOffColon">
+                      style="border:2px solid green">
               </button>
             </section>
             <section class="shop-section prestigeunlock" aria-labelledby="prestigetext">
@@ -775,8 +773,7 @@
                       id="prestigeAutoUpgrade" 
                       aria-pressed="true"
                       aria-label="Toggle diamond auto-upgrader" 
-                      style="border:2px solid green"
-                      i18n="general.autoOnColon">
+                      style="border:2px solid green">
               </button>
             </section>
             <section class="shop-section transcendunlock" aria-labelledby="transcendtext">
@@ -855,7 +852,7 @@
                       <td><button id="upg120" class="upgrade-button transcendunlock" i18n-aria-label="upgrades.descriptions.120"><img src="Pictures/Default/Generator20.png" alt="" loading="lazy"></button></td>
                   </tr>
               </table>
-              <button class="autobuyerToggleButton" id="generatorsAutoUpgrade" aria-pressed="true" style="border:2px solid green">Auto: ON</button>
+              <button class="autobuyerToggleButton" id="generatorsAutoUpgrade" aria-pressed="true" style="border:2px solid green"></button>
             </section>
             <section class="shop-section prestigeunlock" aria-labelledby="automationtext">
               <header>
@@ -932,7 +929,7 @@
                       <td><button id="upg80" class="upgrade-button reinrow4" i18n-aria-label="upgrades.particles.20"><img src="Pictures/Default/Particle20.png" alt="" loading="lazy"></button></td>
                   </tr>
               </table>
-              <button class="autobuyerToggleButton" id="reincarnateAutoUpgrade" i18n-aria-label="upgrades.particles.autobuyer" aria-pressed="true" style="border: 2px solid green">Auto: ON</button>
+              <button class="autobuyerToggleButton" id="reincarnateAutoUpgrade" i18n-aria-label="upgrades.particles.autobuyer" aria-pressed="true" style="border: 2px solid green"></button>
             </section>
         </div>
 
@@ -2011,8 +2008,9 @@
         </div>
         <div id="researchDetails" aria-live="polite">
             <p id="researchinfo2" style="color:pink" i18n="researches.hover"></p>
-            <p id="researchcost" style="color:pink">.</p>
-            <p id="researchinfo3" style="color:white;">.</p>
+            <p id="researchcost" style="color:pink"></p>
+            <p id="researchinfo3" style="color:white;"></p>
+            <p id="researchinfo4"></p>
             <p id="automaticobtainium" style="color: lightblue" i18n="main.buyResearch3x11"></p>
             <p id="researchhotkeys" style="color: white" i18n="footnotes.research"></p>
         </div>
@@ -2097,39 +2095,39 @@
                 </div>
                 <table id="antSacrificeTable" class="bodycolor">
                     <tr style="height: 32px;">
-                        <td style="font-size: 0;"><img src="Pictures/Default/Offering.png" loading="lazy"></td>
+                        <td style="font-size: 0;"><img src="Pictures/Default/Offering.png" i18n="general.resources.offering" loading="lazy"></td>
                         <td><p id="antSacrificeOffering" style="color: gold;"></p></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img src="Pictures/Default/Obtainium.png" loading="lazy"></td>
+                        <td style="font-size: 0;"><img src="Pictures/Default/Obtainium.png" i18n="general.resources.obtainium" loading="lazy"></td>
                         <td><p id="antSacrificeObtainium" style="color: pink"></p></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShard.png" loading="lazy"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShard.png" i18n="general.resources.talismanShard" loading="lazy"></td>
                         <td><p class="chal9x1" id="antSacrificeTalismanShard" style="color: gold"></p></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardCommon.png" loading="lazy"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardCommon.png" i18n="general.resources.talismanShardCommon" loading="lazy"></td>
                         <td><p class="chal9x1" id="antSacrificeCommonFragment" style="color: white"></p></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardUncommon.png" loading="lazy"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardUncommon.png" i18n="general.resources.talismanShardUncommon" loading="lazy"></td>
                         <td><p class="chal9x1" id="antSacrificeUncommonFragment" style="color: limegreen"></p></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardRare.png" loading="lazy"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardRare.png" i18n="general.resources.talismanShardRare" loading="lazy"></td>
                         <td><p class="chal9x1 darkcyanText" id="antSacrificeRareFragment"></p></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardEpic.png" loading="lazy"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardEpic.png" i18n="general.resources.talismanShardEpic" loading="lazy"></td>
                         <td><p class="chal9x1" id="antSacrificeEpicFragment" style="color: plum"></p></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardLegendary.png" loading="lazy"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardLegendary.png" i18n="general.resources.talismanShardLegendary" loading="lazy"></td>
                         <td><p class="chal9x1" id="antSacrificeLegendaryFragment" style="color: orange"></p></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardMythical.png" loading="lazy"></td>
+                        <td style="font-size: 0;"><img class="chal9x1" src="Pictures/Default/TalismanShardMythical.png" i18n="general.resources.talismanShardMythic" loading="lazy"></td>
                         <td><p class="chal9x1 crimsonText" id="antSacrificeMythicalFragment"></p></td>
                     </tr>
                 </table>
@@ -4761,59 +4759,59 @@
             <h4 class="event-title">Global Event <span id="globalEventName"></span></h4>
             <div id="eventBuffContainer">
                 <div class="eventBuffVal" id="eventBuffQuark">
-                    <img src="Pictures/Default/Quark.png" alt="Quarks">
+                    <img src="Pictures/Default/Quark.png" i18n="general.resources.quarks">
                     <p id="eventBuffQuarkValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffGoldenQuark">
-                    <img src="Pictures/Default/GoldenQuark.png" alt="Golden Quarks">
+                    <img src="Pictures/Default/GoldenQuark.png" i18n="general.resources.goldenQuarks">
                     <p id="eventBuffGoldenQuarkValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffCubes">
-                    <img src="Pictures/Default/WowCube.png" alt="Cube Bonus">
+                    <img src="Pictures/Default/WowCube.png" i18n="general.resources.cube">
                     <p id="eventBuffCubesValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffOcteract">
-                    <img src="Pictures/Default/Octeract.png" alt="Octeract Bonus">
+                    <img src="Pictures/Default/Octeract.png" i18n="general.resources.octeract">
                     <p id="eventBuffOcteractValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffAscensionSpeed">
-                    <img src="Pictures/Default/TinySpeedAscension.png" alt="Ascension Speed">
+                    <img src="Pictures/Default/TinySpeedAscension.png" i18n="general.resources.ascensionSpeed">
                     <p id="eventBuffAscensionSpeedValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffGlobalSpeed">
-                    <img src="Pictures/Default/TinySpeed.png" alt="Global Speed">
+                    <img src="Pictures/Default/TinySpeed.png" i18n="general.resources.globalSpeed">
                     <p id="eventBuffGlobalSpeedValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffObtainium">
-                    <img src="Pictures/Default/Obtainium.png" alt="Obtainium">
+                    <img src="Pictures/Default/Obtainium.png" i18n="general.resources.obtainium">
                     <p id="eventBuffObtainiumValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffOffering">
-                    <img src="Pictures/Default/Offering.png" alt="Offering">
+                    <img src="Pictures/Default/Offering.png" i18n="general.resources.offering">
                     <p id="eventBuffOfferingValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffAscensionScore">
-                    <img src="Pictures/Default/TinyA.png" alt="Ascension Score">
+                    <img src="Pictures/Default/TinyA.png" i18n="general.resources.ascensionScore">
                     <p id="eventBuffAscensionScoreValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffBlueberryTime">
-                    <img src="Pictures/Default/Ambrosia.png" alt="Blueberry Generation Speed">
+                    <img src="Pictures/Default/Ambrosia.png" i18n="general.resources.blueberryGenerationSpeed">
                     <p id="eventBuffBlueberryTimeValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffAmbrosiaLuck">
-                    <img src="Pictures/Default/BlueberryLuck.png" alt="Ambrosia Luck">
+                    <img src="Pictures/Default/BlueberryLuck.png" i18n="general.resources.ambrosiaLuck">
                     <p id="eventBuffAmbrosiaLuckValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffPowderConversion">
-                    <img src="Pictures/Default/HepteractOverfluxPowder.png" alt="Powder Conversion">
+                    <img src="Pictures/Default/HepteractOverfluxPowder.png" i18n="general.resources.powderConversion">
                     <p id="eventBuffPowderConversionValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffAntSacrifice">
-                    <img src="Pictures/Default/AntSacrifice.png" alt="Ant Sacrifice">
+                    <img src="Pictures/Default/AntSacrifice.png" i18n="general.resources.antSacrifice">
                     <p id="eventBuffAntSacrificeValue">+10%</p>
                 </div>
                 <div class="eventBuffVal" id="eventBuffOneMind">
-                    <img src="Pictures/Default/SingularityOneMind.png" alt="One Mind Bonus">
+                    <img src="Pictures/Default/SingularityOneMind.png" i18n="general.resources.oneMind">
                     <p id="eventBuffOneMindValue">+10%</p>
                 </div>
             </div>            

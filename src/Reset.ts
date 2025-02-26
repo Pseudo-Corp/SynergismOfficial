@@ -664,18 +664,16 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         updateClassList(k, ['researchPurchased'], [
           'researchAvailable',
           'researchMaxed',
-          'researchPurchasedAvailable',
-          'researchUnpurchased'
+          'researchPurchasedAvailable'
         ])
       } else if (player.researches[j] > 0.5 && player.researches[j] >= G.researchMaxLevels[j]) {
         updateClassList(k, ['researchMaxed'], [
           'researchAvailable',
           'researchPurchased',
-          'researchPurchasedAvailable',
-          'researchUnpurchased'
+          'researchPurchasedAvailable'
         ])
       } else {
-        updateClassList(k, ['researchUnpurchased'], [
+        updateClassList(k, [], [
           'researchAvailable',
           'researchPurchased',
           'researchPurchasedAvailable',
@@ -1544,8 +1542,7 @@ export const resetAnts = () => {
   calculateRuneLevels()
 }
 
-const resetResearches = () => {
-  player.researchPoints = 0
+export const getResetResearches = () => {
   // Array listing all the research indexes deserving of removal
   // dprint-ignore
   const destroy = [
@@ -1563,7 +1560,13 @@ const resetResearches = () => {
     destroy.push(138, 153, 168, 183, 198)
   }
 
-  for (const item of destroy) {
+  return destroy
+}
+
+const resetResearches = () => {
+  player.researchPoints = 0
+  
+  for (const item of getResetResearches()) {
     player.researches[item] = 0
   }
 }
