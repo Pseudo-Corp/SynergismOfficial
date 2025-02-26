@@ -5,9 +5,7 @@ import { format, player } from './Synergism'
 import { IconSets } from './Themes'
 import { reset } from './Reset'
 import { Alert, Confirm, Notification } from './UpdateHTML'
-import { isIARuneUnlocked } from './Calculate'
-
-export type CampaignLoadout = Corruptions
+import { inheritanceTokens, isIARuneUnlocked, singularityBonusTokenMult } from './Calculate'
 
 export type CampaignKeys = 'first' | 'second' | 'third' | 'fourth' | 'fifth' |
 'sixth'| 'seventh' | 'eighth' | 'ninth' | 'tenth' | 
@@ -122,6 +120,8 @@ export class CampaignManager {
     for (const campaign of Object.values(this.#campaigns)) {
       sum += campaign.tokens
     }
+
+    sum += inheritanceTokens()
     return sum
   }
 
@@ -130,6 +130,8 @@ export class CampaignManager {
     for (const campaign of Object.values(this.#campaigns)) {
       sum += campaign.maxTokens
     }
+
+    sum += inheritanceTokens()
     return sum
   }
 
@@ -162,6 +164,10 @@ export class CampaignManager {
     return this.#campaigns[this.#currentCampaign]
   }
 
+  get allCampaigns () {
+    return this.#campaigns
+  }
+
   getCampaign(key: CampaignKeys) {
     return this.#campaigns[key]
   }
@@ -192,6 +198,12 @@ export class CampaignManager {
     if (this.#currentCampaign) {
       this.#campaigns[this.#currentCampaign].c10Completions = c10
     }
+  }
+
+  // Use this when autocompleting Campaigns based on corruption loadouts
+  // (Only for Singularity 4 or beyond)
+  setC10ToArbitrary (key: CampaignKeys, c10: number) { 
+    this.#campaigns[key].c10Completions = c10
   }
 
   resetCampaign (c10: number) {
@@ -346,9 +358,10 @@ export class CampaignManager {
 export class Campaign {
   #name: string
   #description: string
-  #campaignCorruptions: CampaignLoadout
+  #campaignCorruptions: Corruptions
   #limit: number
   #isMeta: boolean
+  #campaignCorruptionLoadout: CorruptionLoadout
   #c10Completions = 0
 
   constructor (campaignData: ICampaignData, key: string, c10?: number) {
@@ -358,6 +371,10 @@ export class Campaign {
     this.#limit = campaignData.limit
     this.#isMeta = campaignData.isMeta
     this.#c10Completions = c10 ?? 0
+
+    const temp = this.#campaignCorruptions
+
+    this.#campaignCorruptionLoadout = new CorruptionLoadout(temp)
   }
 
   public computeTokenValue = (amount?: number) => {
@@ -365,15 +382,22 @@ export class Campaign {
 
     let additiveTotal = 0
     additiveTotal += completed // Base
+    if (player.highestSingularityCount >= 16 && completed >= 1) {
+      additiveTotal += 5
+    }
+    if (player.highestSingularityCount >= 69 && completed === this.#limit) {
+      additiveTotal += 10
+    }
 
     let multiplier = 1
     multiplier *= this.#isMeta ? 2 : 1
+    multiplier *= singularityBonusTokenMult()
 
     return Math.floor(additiveTotal * multiplier)
   }
 
-  public createUsableLoadout = (): CorruptionLoadout => {
-    return new CorruptionLoadout(this.#campaignCorruptions)
+  get usableLoadout () {
+    return this.#campaignCorruptionLoadout
   }
 
   public set c10Completions (value: number) {
@@ -420,7 +444,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     campaignCorruptions: {
       viscosity: 1
     },
-    isMeta: true,
+    isMeta: false,
     unlockRequirement: () => {return true},
     limit: 10
   },
@@ -428,7 +452,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     campaignCorruptions: {
       drought: 1
     },
-    isMeta: false,
+    isMeta: true,
     unlockRequirement: () => {return true},
     limit: 10
   },
@@ -1136,10 +1160,15 @@ export const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, Campaign
   }
 }
 
+export const campaignIconHTMLUpdates = () => {
+  for (const key of Object.keys(campaignDatas) as CampaignKeys[]) {
+    campaignIconHTMLUpdate(key)
+  }
+}
+
 export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
   const icon = DOMCacheGetOrSet(`${key}CampaignIcon`)
-  console.log('campaign clear ', player.campaigns.getCampaign(key).c10Completions)
-  console.log('campaign limit ', campaignDatas[key].limit)
+  console.log(icon)
   if (key === player.campaigns.current) {
     icon.style.backgroundColor = 'orchid'
   }
@@ -1273,12 +1302,15 @@ export const createCampaignIconHTMLS = () => {
     campaignIcon.src = `Pictures/Campaigns/CampaignIcons/${key}.png`
 
     campaignIconDiv.appendChild(campaignIcon)
-    campaignIconHTMLUpdate(key)
 
     campaignIcon.onclick = () => {
       campaignCorruptionStatHTMLUpdate(key)
+    }
+
+  }
+
+  campaignIconHTMLUpdates()
 }
-}}
 
 export const campaignTokenRewardHTMLUpdate = () => {
   // Reset HTMLs for the Icons
