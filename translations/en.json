@@ -1600,6 +1600,30 @@
         "name": "Generous Orbs",
         "default": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%"
       },
+      "tokenInheritance": {
+        "name": "Token Inheritance",
+        "default": "At the start of a Singularity, gain {{amount}} additional Campaign Tokens for absolutely nothing!"
+      },
+      "autoCampaigns": {
+        "name": "Automatic Campaigns",
+        "default": "If your current corruption is of equal or higher 'difficulty' than a Campaign, gain Challenge 10 Completions when you ascend, outside of the Campaign!"
+      },
+      "firstClearTokens": {
+        "name": "First to the Slaughter",
+        "default": "Gain +5 tokens for each Campaign for which you have at least one Challenge 10 completion on!"
+      },
+      "lastClearTokens": {
+        "name": "The Blessing of Finality, Campaigns",
+        "default": "Gain +10 tokens for each Campaign for which you have at least one Challenge 10 completion on!"
+      },
+      "bonusTokens": {
+        "name": "More Tokens!",
+        "default": "Campaigns give +{{amount}}% more tokens! Rounded down, of course."
+      },
+      "cubeToQuark": {
+        "name": "Cube to Quark Corner",
+        "default": "Gain +{{amount}}% more Quarks from opening Cubes!"
+      },
       "researchDummies": {
         "name": "Research for Dummies",
         "hasLevel1": "You permanently keep Auto Research and can Research using Hover to Buy!",

@@ -145,7 +145,7 @@ import {
   updateLoadoutHoverClasses
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CampaignManager, campaignTokenRewardHTMLUpdate, createCampaignIconHTMLS } from './Campaign'
+import { campaignIconHTMLUpdates, CampaignManager, campaignTokenRewardHTMLUpdate, createCampaignIconHTMLS } from './Campaign'
 import { lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
@@ -5883,7 +5883,7 @@ export const constantIntervals = (): void => {
   setInterval(saveSynergy, 5000)
   setInterval(slowUpdates, 200)
   setInterval(fastUpdates, 50)
-  setInterval(createCampaignIconHTMLS, 15000)
+  setInterval(campaignIconHTMLUpdates, 15000)
 
   if (!G.timeWarp) {
     exitOffline()

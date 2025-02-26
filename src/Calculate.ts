@@ -3526,3 +3526,28 @@ export const sumOfExaltCompletions = () => {
   }
   return sum
 }
+
+export const inheritanceTokens = () => {
+  const levels = [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277]
+  const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
+  
+  for (let i = 15; i > 0; i--) {
+    if (player.highestSingularityCount >= levels[i - 1]) {
+      return tokens[i-1]
+    }
+  }
+
+  return 0
+}
+
+export const singularityBonusTokenMult = () => {
+  const levels = [41, 58, 113, 163, 229]
+
+  for (let i = 5; i > 0; i--) {
+    if (player.highestSingularityCount >= levels[i - 1]) {
+      return 1 + 0.02 * i
+    }
+  }
+
+  return 1
+}

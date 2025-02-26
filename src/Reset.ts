@@ -53,7 +53,7 @@ import { assert, getElementById } from './Utility'
 import { updateClassList } from './Utility'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { campaignCorruptionStatsHTMLReset, campaignTokenRewardHTMLUpdate, createCampaignIconHTMLS } from './Campaign'
+import { campaignCorruptionStatsHTMLReset, campaignDatas, campaignIconHTMLUpdate, campaignIconHTMLUpdates, type CampaignKeys, campaignTokenRewardHTMLUpdate } from './Campaign'
 
 let repeatreset: ReturnType<typeof setTimeout>
 
@@ -731,6 +731,26 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       }
     }
 
+    if (player.highestSingularityCount >= 4) {
+      const currCorruptionDifficulty = player.corruptions.used.totalCorruptionDifficultyScore
+      for (const campaign of Object.keys(player.campaigns.allCampaigns)) {
+        const campaignName = campaign as CampaignKeys
+        const campaignDifficulty = player.campaigns.getCampaign(campaignName).usableLoadout.totalCorruptionDifficultyScore
+
+        if (campaignDatas[campaignName].unlockRequirement()) {
+          continue
+        }
+
+        if (campaignDifficulty <= currCorruptionDifficulty) {
+          player.campaigns.setC10ToArbitrary(campaignName, c10Completions)
+        }
+        campaignIconHTMLUpdate(campaignName)
+      }
+
+      player.campaigns.computeTotalCampaignTokens()
+      campaignTokenRewardHTMLUpdate()
+    }
+
     if (player.campaigns.current) {
       player.campaigns.resetCampaign(c10Completions)
     }
@@ -1373,7 +1393,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   player.promoCodeTiming.time = Date.now()
 
   // Campaign HTML updates
-  createCampaignIconHTMLS()
+  campaignIconHTMLUpdates()
   campaignCorruptionStatsHTMLReset()
   campaignTokenRewardHTMLUpdate()
 
