@@ -1376,7 +1376,9 @@
     "autoModeManual": "Automatic mode: Manual",
     "hoverToBuyOn": "Hover-to-Buy [ON]",
     "hoverToBuyOff": "Hover-to-Buy [OFF]",
-    "hover": "Hover over the grid to get details about researches!"
+    "hover": "Hover over the grid to get details about researches!",
+    "resets": "Resets upon the next reset tier.",
+    "doesNotReset": "NEVER resets!"
   },
   "shop": {
     "upgradeDescriptions": {
