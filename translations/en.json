@@ -1376,7 +1376,9 @@
     "autoModeManual": "Automatic mode: Manual",
     "hoverToBuyOn": "Hover-to-Buy [ON]",
     "hoverToBuyOff": "Hover-to-Buy [OFF]",
-    "hover": "Hover over the grid to get details about researches!"
+    "hover": "Hover over the grid to get details about researches!",
+    "resets": "Resets upon the next reset tier.",
+    "doesNotReset": "NEVER resets!"
   },
   "shop": {
     "upgradeDescriptions": {
@@ -2207,7 +2209,30 @@
       "v297hotfix1NoSing": "You have loaded into the version 2.9.7 hotfix 1!",
       "v297hotfix1Sing": "You have loaded into the version 2.9.7 hotfix 1! Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience."
     },
-    "languageChange": "Changing the language requires a reload! Would you like to reload now?"
+    "languageChange": "Changing the language requires a reload! Would you like to reload now?",
+    "resources": {
+      "offering": "Offering",
+      "obtainium": "Obtainium",
+      "globalSpeed": "Global Speed",
+      "ascensionSpeed": "Ascension Speed",
+      "octeract": "Octeract",
+      "cube": "Cube",
+      "goldenQuarks": "Golden Quarks",
+      "quarks": "Quarks",
+      "ascensionScore": "Ascension Score",
+      "blueberryGenerationSpeed": "Blueberry Generation Speed",
+      "ambrosiaLuck": "Ambrosia Luck",
+      "powderConversion": "Powder Conversion",
+      "antSacrifice": "Ant Sacrifice",
+      "oneMind": "One Mind",
+      "talismanShard": "Talisman Shard",
+      "talismanShardCommon": "Common Talisman Shard",
+      "talismanShardUncommon": "Uncommon Talisman Shard",
+      "talismanShardRare": "Rare Talisman Shard",
+      "talismanShardEpic": "Epic Talisman Shard",
+      "talismanShardLegendary": "Legendary Talisman Shard",
+      "talismanShardMythic": "Mythic Talisman Shard"
+    }
   },
   "upgrades": {
     "descriptions": {
