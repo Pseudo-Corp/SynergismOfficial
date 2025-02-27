@@ -2560,7 +2560,15 @@
       "ascendHistory": "Ascend History",
       "singularityHistory": "Singularity History",
       "hotkeys": "Hotkeys",
-      "account": "Account"
+      "account": "Account",
+      "confirmation": {
+        "prestige": "Prestige",
+        "transcend": "Transcend",
+        "reincarnate": "Reincarnate",
+        "ascension": "Ascension",
+        "sacrifice": "Sacrifice Ants",
+        "singularity": "Singularity"
+      }
     },
     "pseudocoins": {
       "buy": "Purchase Coins",
