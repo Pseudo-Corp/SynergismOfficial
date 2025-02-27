@@ -1128,7 +1128,7 @@ export const updateChallengeLevel = (k: number) => {
 export const updateAchievementBG = () => {
   // When loading/importing, the game needs to correctly update achievement backgrounds.
   for (let i = 1; i <= 280; i++) { // Initiates by setting all to default
-    DOMCacheGetOrSet(`ach${i}`).style.backgroundColor = ''
+    DOMCacheGetOrSet(`ach${i}`).classList.remove('green-background')
   }
   const fixDisplay1 = document.getElementsByClassName('purpleach') as HTMLCollectionOf<HTMLElement>
   const fixDisplay2 = document.getElementsByClassName('redach') as HTMLCollectionOf<HTMLElement>
