@@ -438,7 +438,7 @@ export const getAchievementQuarks = (i: number) => {
 }
 
 export const achievementdescriptions = (i: number) => {
-  const y = i18next.t(`achievements.descriptions.${i}`, { number: `${i}` })
+  const y = i18next.t(`achievements.descriptions.${i}`)
   const z = player.achievements[i] > 0.5 ? i18next.t('achievements.completed') : ''
   const k = areward(i)
 
@@ -459,7 +459,7 @@ export const achievementdescriptions = (i: number) => {
 export const achievementaward = (num: number) => {
   if (player.achievements[num] < 1) {
     if (player.toggles[34]) {
-      const description = i18next.t(`achievements.descriptions.${num}`, { number: `${num}` })
+      const description = i18next.t(`achievements.descriptions.${num}`)
       void Notification(i18next.t('achievements.notification', { m: description }))
     }
 
@@ -477,5 +477,5 @@ export const achievementaward = (num: number) => {
     revealStuff()
   }
 
-  DOMCacheGetOrSet(`ach${num}`).style.backgroundColor = 'Green'
+  DOMCacheGetOrSet(`ach${num}`).classList.add('green-background')
 }

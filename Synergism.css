@@ -1100,8 +1100,8 @@ p#promocodeinfo {
     border-collapse: collapse;
 }
 
-#achievementstable img {
-    background-color: var(--buttonimg-color);
+#achievementstable [id^="ach"] > img {
+    image-rendering: unset;
 }
 
 .NotificationToggle {
