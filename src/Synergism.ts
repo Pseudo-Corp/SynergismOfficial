@@ -185,11 +185,11 @@ import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
   worlds: new QuarkHandler(0),
-  coins: new Decimal('1e2'),
-  coinsThisPrestige: new Decimal('1e2'),
-  coinsThisTranscension: new Decimal('1e2'),
-  coinsThisReincarnation: new Decimal('1e2'),
-  coinsTotal: new Decimal('100'),
+  coins: new Decimal('1e4'),
+  coinsThisPrestige: new Decimal('1e4'),
+  coinsThisTranscension: new Decimal('1e4'),
+  coinsThisReincarnation: new Decimal('1e4'),
+  coinsTotal: new Decimal('10000'),
 
   firstOwnedCoin: 0,
   firstGeneratedCoin: new Decimal('0'),
