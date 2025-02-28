@@ -125,12 +125,7 @@ async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
 
     setActiveUpgrade(upgrade)
 
-    const response = await fetch('https://synergism.cc/stripe/coins')
-    const coins = await response.json() as CoinsResponse
-
-    tab!.querySelector('#pseudoCoinAmounts > #currentCoinBalance')!.innerHTML = `${
-      i18next.t('pseudoCoins.coinCount', { amount: Intl.NumberFormat().format(coins.coins) })
-    }`
+    await updatePseudoCoins()
 
     updatePCoinCache(upgrade.internalName, parsed.data.level)
   } else {
@@ -204,4 +199,15 @@ export const toggleUpgradeSubtab = () => {
 
 export const clearUpgradeSubtab = () => {
   tab.style.display = 'none'
+}
+
+export const updatePseudoCoins = async () => {
+  const response = await fetch('https://synergism.cc/stripe/coins')
+  const coins = await response.json() as CoinsResponse
+
+  tab!.querySelector('#pseudoCoinAmounts > #currentCoinBalance')!.innerHTML = `${
+    i18next.t('pseudoCoins.coinCount', { amount: Intl.NumberFormat().format(coins.coins) })
+  }`
+
+  return coins.coins
 }

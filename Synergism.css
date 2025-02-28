@@ -4118,6 +4118,7 @@ form input:hover {
 
 .pseudoCoinButton {
     width: 75%;
+    height: 65px;
     padding: 10px;
     background-color: black;
     color: white;
@@ -4131,6 +4132,11 @@ form input:hover {
 .pseudoCoinButton:hover {
     background-color: white;
     color: black;
+}
+
+#checkout-paypal {
+    width: 75%;
+    margin: 0 auto;
 }
 
 #cart {
