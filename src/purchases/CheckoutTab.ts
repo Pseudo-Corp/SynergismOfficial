@@ -165,7 +165,7 @@ const updateTotalPriceInCart = () => {
 async function initializePayPal () {
   try {
     const paypal = await loadScript({
-      clientId: 'AYaEpUZfchj2DRdTZJm0ukzxyXGQIHorqy3q1axPQ8RCpiRqkYqg23NiRRYtHptYBRBAyCTL28yEwtb9',
+      clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
       enableFunding: ['venmo'],
       disableFunding: ['paylater', 'credit', 'card']
     })

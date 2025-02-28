@@ -178,7 +178,7 @@ export const initializeSubscriptionPage = memoize(() => {
   )
   ;(async () => {
     const paypal = await loadScript({
-      clientId: 'AYaEpUZfchj2DRdTZJm0ukzxyXGQIHorqy3q1axPQ8RCpiRqkYqg23NiRRYtHptYBRBAyCTL28yEwtb9',
+      clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
       enableFunding: ['venmo'],
       disableFunding: ['paylater', 'credit', 'card'],
       vault: true,
@@ -210,7 +210,7 @@ export const initializeSubscriptionPage = memoize(() => {
             console.log('subscription approved', data)
 
             Alert(
-              'Please give us a few minutes to process your subscription (PayPal is slow). You will have to renew the page to receive the bonuses! Thank you for supporting Synergism!'
+              'Please give us a few minutes to process your subscription (PayPal is slow). You will have to refresh the page to receive the bonuses! Thank you for supporting Synergism!'
             )
           },
 
