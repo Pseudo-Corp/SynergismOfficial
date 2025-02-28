@@ -2898,8 +2898,6 @@ p#ascendHotKeys {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
 }
 
 #campaignsIcons {
@@ -2931,7 +2929,7 @@ p#ascendHotKeys {
     cursor: pointer;
 }
 
-#campaignsDescriptions { 
+#campaignsDescriptions {
     grid-area: 1 / 2 / 3 / 4;
     border: 2px solid red;
     width: 90%;
@@ -2962,7 +2960,6 @@ p#ascendHotKeys {
 .campaignCorrDisplay {
     display: flex;
     flex-direction: row;
-    margin: 0px;
 }
 
 .campaignCorrDisplay img {
@@ -3001,8 +2998,8 @@ p#ascendHotKeys {
     font-size: 1.2em;
 }
 
-#campaignsTokensInfo { 
-    grid-area: 3 / 1 / 4 / 4; 
+#campaignsTokensInfo {
+    grid-area: 3 / 1 / 4 / 4;
     display: flex;
     flex-direction: column;
     justify-content: center;
