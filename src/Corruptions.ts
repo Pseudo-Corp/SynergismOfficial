@@ -429,7 +429,6 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
   } satisfies Record<string, string>
 
   if (corr !== 'exit') {
-    console.log(player.corruptions.next.scoreMult(corr))
     text = {
       name: i18next.t(`corruptions.names.${corr}`),
       description: i18next.t(`corruptions.descriptions.${corr}`),
@@ -482,7 +481,6 @@ export const corruptionButtonsAdd = () => {
   for (let i = 0; i < rows.length; i++) {
     const row = rows[i]
     const key = keys[i] as keyof Corruptions
-    console.log(key)
     // Delete rows that already exist
     for (let i = row.children.length - 1; i >= 1; i--) {
       row.children[i].remove()
@@ -667,8 +665,6 @@ export const applyCorruptions = (corruptions: string) => {
     return false
   }
 
-  console.log(corruptions)
-
   if (corruptions.includes('/') && corruptions.split('/').length === 8) {
     // Supports legacy format
     corr = convertInputToCorruption(corruptions.split('/').map(Number))
@@ -808,7 +804,6 @@ export const updateUndefinedLoadouts = () => {
 
   const maxLoadoutCount = 16 // Update if more loadouts are added
   const currLoadoutCount = Object.keys(player.corruptions.saves.getSaves()).length
-  console.log('loadin', currLoadoutCount, maxLoadoutCount)
   if (currLoadoutCount < maxLoadoutCount) {
     for (let i = currLoadoutCount + 1; i <= maxLoadoutCount; i++) {
       player.corruptions.saves.addSave(`Loadout ${i}`, {})

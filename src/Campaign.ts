@@ -1168,7 +1168,6 @@ export const campaignIconHTMLUpdates = () => {
 
 export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
   const icon = document.querySelector<HTMLElement>(`#campaignIconGrid > #${key}CampaignIcon`)!
-  console.log(icon)
   if (!campaignDatas[key].unlockRequirement()) { 
     icon.style.display = 'none'
   }
@@ -1180,12 +1179,9 @@ export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
 
   if (key === player.campaigns.current) {
     icon.classList.add('purple-background')
-  }
-  else if (player.campaigns.getCampaign(key).c10Completions === campaignDatas[key].limit) {
+  } else if (player.campaigns.getCampaign(key).c10Completions === campaignDatas[key].limit) {
     icon.classList.add('green-background')
   }
-
-  console.log(DOMCacheGetOrSet('campaignIconGrid'))
 }
 
 export const campaignCorruptionStatsHTMLReset = () => {

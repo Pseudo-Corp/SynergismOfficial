@@ -41,7 +41,7 @@ import { format, formatTimeShort, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
-import { memoize, sumContents, timeReminingHours } from './Utility'
+import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
 
 export const visualUpdateBuildings = () => {
@@ -1866,7 +1866,4 @@ export const visualUpdateEvent = () => {
 
 export const visualUpdatePurchase = () => {}
 
-export const visualUpdateCampaign = memoize(() => {
-  DOMCacheGetOrSet('campaignsIntroduction').innerHTML = i18next.t('campaigns.intro')
-  DOMCacheGetOrSet('campaignsInfo1').innerHTML = i18next.t('campaigns.campaignInfo')
-})
+export const visualUpdateCampaign = () => {}
