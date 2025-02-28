@@ -2882,16 +2882,16 @@
 
     <div id="campaigns" style="display: none;">
         <div id="campaignsFlavor" class="flex column">
-            <h2 id="campaignsIntroduction" class="tightText" i18n="campaigns.intro" style="color: red"></h1>
-            <h4 id="campaignsInfo1" class="tightText" i18n="campaigns.campaignInfo" style="color: orange"></h2>
+            <h2 id="campaignsIntroduction" class="tightText" i18n-aria-label="campaigns.intro" style="color: red"></h1>
+            <h4 id="campaignsInfo1" class="tightText" i18n-aria-label="campaigns.campaignInfo" style="color: orange"></h2>
         </div>
         <div id="campaignsMain">
             <div id="campaignsIcons">
-                <h3>Pick Your Campaign now!</p>
+                <h3 i18n-aria-label="campaigns.pickNow">Pick Your Campaign now!</p>
                 <div id = "campaignIconGrid"> 
                 </div>
             </div>
-            <div id="campaignsDescriptions">
+            <div id="campaignsDescriptions" aria-live="polite">
                 <h3 id="campaignName"></h3>
                 <h5 id="campaignDesc"></h5>
 
@@ -2903,10 +2903,10 @@
                 </div>
 
             </div>
-            <div id="campaignsTokensInfo">
-                <h2 id="campaignTokenCount">You have 100 / 1200 tokens!</h2>
+            <div id="campaignsTokensInfo" aria-live="polite">
+                <h2 id="campaignTokenCount" i18n-aria-label="campaigns.tokens.count"></h2>
                 <div id="campaignTokenRewardIcons"></div>
-                <h4 id="campaignTokenRewardText">+10% Quarks!</h4>
+                <h4 id="campaignTokenRewardText"></h4>
             </div>
         </div>
     </div>

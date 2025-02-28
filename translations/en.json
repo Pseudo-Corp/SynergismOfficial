@@ -2621,6 +2621,7 @@
   "campaigns": {
     "intro": "Campaigns - <<orange | Ascensions>> but <<maroon | harder™>>",
     "campaignInfo": "Play through <<orange | Ascensions>> with various modifiers to make it spicier, but also more cubical! \n Each Campaign is a <i> <<red | Corrupted>> form of <<orange | Ascension>>. \n <<lightgoldenrodyellow | Click on an icon to see what I mean!>> </i>",
+    "pickNow": "Pick Your Campaign now!",
     "data": {
       "first": {
         "name": "The first Campaign",
@@ -2694,7 +2695,7 @@
         "name": "Campaign XVIII",
         "description": "Let's up the ante. Six Corruptions at once! And your Ascension Score Multiplier is very quickly increasing."
       },
-      "ninteenth": {
+      "nineteenth": {
         "name": "Campaign XIX",
         "description": "Even more illiteracy! Maybe you'll notice how hard it can be to earn Hypercubes."
       },
@@ -2780,7 +2781,7 @@
       },
       "fortieth": {
         "name": "Campaign XL",
-        "description": "Before proceeding in this Campaign, you should probably max out the Thousand Moons upgrade."
+        "description": "Before proceeding in this Campaign, you have to have the Thousand Moons upgrade maxxed. Congratulations!"
       },
       "fortyFirst": {
         "name": "Campaign XLI",
@@ -2865,7 +2866,10 @@
     "currentCampaignPreTitle": "Current Campaign: ",
     "noChallengeCompletionConfirm": "You have not yet cleared Challenge 10 and therefore will not earn Cubes if you leave. Confirm?",
     "saveLoadout": "Save Corruption Loadout!",
-    "saveLoadoutNotification": "Saved Corruption Loadout for {{ name }} for next Ascension!"
+    "saveLoadoutNotification": "Saved Corruption Loadout for {{ name }} for next Ascension!",
+    "errorMessages": {
+      "ascensionChallenge": "Sorry, you are already in an Ascension Challenge! Please leave it before attempting a Campaign."
+    }
   },
   "corruptions": {
     "names": {

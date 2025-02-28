@@ -508,7 +508,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       deflation: 1,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[12] > 0 || player.highestSingularityCount > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
     limit: 15
   },
   ninth: {
@@ -518,7 +518,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       deflation: 1,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
     limit: 15
   },
   tenth: {
@@ -528,7 +528,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 1,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
     limit: 15
   },
   eleventh: {
@@ -538,7 +538,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 3,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
     limit: 20
   },
   twelfth: {
@@ -549,7 +549,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 3,
     },
     isMeta: true,
-    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
     limit: 20
   },
   thirteenth: {
@@ -560,7 +560,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 3,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
     limit: 20
   },
   fourteenth: {
@@ -571,7 +571,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 3,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
     limit: 20
   },
   fifteenth: {
@@ -582,7 +582,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 3,
     },
     isMeta: true,
-    unlockRequirement: () => {return player.challengecompletions[12] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
     limit: 20
   },
   sixteenth: {
@@ -593,7 +593,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       recession: 1,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
     limit: 25
   },
   seventeenth: {
@@ -604,7 +604,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       recession: 1,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
     limit: 25
   },
   eighteenth: {
@@ -617,7 +617,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       recession: 1,
     },
     isMeta: true,
-    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
     limit: 25
   },
   nineteenth: {
@@ -630,7 +630,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       recession: 1,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
     limit: 25
   },
   twentieth: {
@@ -643,7 +643,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       recession: 1,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
     limit: 25
   },
   twentyFirst: {
@@ -656,7 +656,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       recession: 1,
     },
     isMeta: true,
-    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
     limit: 30
   },
   twentySecond: {
@@ -669,7 +669,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       recession: 1,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
     limit: 30
   },
   twentyThird: {
@@ -682,7 +682,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       recession: 1,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
     limit: 30
   },
   twentyFourth: {
@@ -695,7 +695,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       recession: 1,
     },
     isMeta: true,
-    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
     limit: 30
   },
   twentyFifth: {
@@ -708,7 +708,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       recession: 3,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[13] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
     limit: 30
   },
   twentySixth: {
@@ -722,7 +722,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       dilation: 1,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 35
   },
   twentySeventh: {
@@ -736,7 +736,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 1,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 35
   },
   twentyEighth: {
@@ -751,7 +751,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 1,
     },
     isMeta: true,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 35
   },
   twentyNinth: {
@@ -766,7 +766,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 3,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 35
   },
   thirtieth: {
@@ -781,7 +781,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 1,    
     },
     isMeta: true,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 35
   },
   thirtyFirst: {
@@ -796,7 +796,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 2,
     },
     isMeta: true,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 40
   },
   thirtySecond: {
@@ -811,7 +811,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 3,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 40
   },
   thirtyThird: {
@@ -826,7 +826,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 3,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 45
   },
   thirtyFourth: {
@@ -841,7 +841,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 5,
     },
     isMeta: true,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 45
   },
   thirtyFifth: {
@@ -856,7 +856,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 4,
     },
     isMeta: true,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 50
   },
   thirtySixth: {
@@ -871,7 +871,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 5,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 50
   },
   thirtySeventh: {
@@ -886,7 +886,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 5,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 55
   },
   thirtyEighth: {
@@ -901,7 +901,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 4,
     },
     isMeta: true,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 55
   },
   thirtyNinth: {
@@ -916,7 +916,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 9,
     },
     isMeta: false,
-    unlockRequirement: () => {return player.challengecompletions[14] > 0},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
     limit: 60
   },
   fortieth: {
@@ -1079,7 +1079,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       hyperchallenge: 13,
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 14},
+    unlockRequirement: () => {return maxCorruptionLevel() >= 13},
     limit: 140
   }
 }
@@ -1167,7 +1167,8 @@ export const campaignIconHTMLUpdates = () => {
 }
 
 export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
-  const icon = DOMCacheGetOrSet(`${key}CampaignIcon`)
+  const icon = document.querySelector<HTMLElement>(`#campaignIconGrid > #${key}CampaignIcon`)!
+  console.log(icon)
   if (!campaignDatas[key].unlockRequirement()) { 
     icon.style.display = 'none'
   }
@@ -1175,15 +1176,16 @@ export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
     icon.style.display = 'block'
   }
 
+  icon.classList.remove('green-background', 'purple-background')
+
   if (key === player.campaigns.current) {
-    icon.style.backgroundColor = 'orchid'
+    icon.classList.add('purple-background')
   }
   else if (player.campaigns.getCampaign(key).c10Completions === campaignDatas[key].limit) {
-    icon.style.backgroundColor = 'green'
+    icon.classList.add('green-background')
   }
-  else {
-    icon.style.backgroundColor = ''
-  }
+
+  console.log(DOMCacheGetOrSet('campaignIconGrid'))
 }
 
 export const campaignCorruptionStatsHTMLReset = () => {
@@ -1267,6 +1269,9 @@ export const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
   else {
     campaignButton.textContent = i18next.t('campaigns.corruptionStats.startCampaign')
     campaignButton.onclick = () => {
+      if (player.currentChallenge.ascension !== 0) {
+        return Alert(i18next.t('campaigns.errorMessages.ascensionChallenge'))
+      }
       reset('ascension')
       player.campaigns.campaign = key
     }
@@ -1371,15 +1376,4 @@ export const campaignTokenRewardHTMLUpdate = () => {
     }
     DOMCacheGetOrSet('campaignTokenRewardIcons').appendChild(totalRewardIcon)
   } 
-}
-
-export const campaignTest = () => {
-  const campaignIconDiv = DOMCacheGetOrSet('campaignIconGrid')
-
-  for (let i = 0; i < 50; i++) {
-    const campaignIcon = document.createElement('img')
-    campaignIcon.classList.add('campaignIcon')
-    campaignIcon.src = `Pictures/${IconSets[player.iconSet][0]}/Quark.png`
-    campaignIconDiv.appendChild(campaignIcon)
-  }
 }
