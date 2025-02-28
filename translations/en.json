@@ -2673,6 +2673,154 @@
       "thirteenth": {
         "name": "Campaign XIII",
         "description": "As you may notice, having multiple corruptions greatly boosts your score, more so than just leveling corruptions higher."
+      },
+      "fourteenth": {
+        "name": "Campaign XIV",
+        "description": "You can sometimes increase a Corruption without hurting your run, if it does not strongly impact your challenge completions."
+      },
+      "fifteenth": {
+        "name": "Campaign XV",
+        "description": "The last of the Campaigns before Challenge 13. Good luck!"
+      },
+      "sixteenth": {
+        "name": "Campaign XVI",
+        "description": "New Corruptions! Reduce your Obtainium gain, and reduce your Coin gain. Maybe it reminds you of an upcoming challenge?"
+      },
+      "seventeenth": {
+        "name": "Campaign XVII",
+        "description": "Amping up the illiteracy a bit, you will gain even less Obtainium. It's probably less important than coins, right?"
+      },
+      "eighteenth": {
+        "name": "Campaign XVIII",
+        "description": "Let's up the ante. Six Corruptions at once! And your Ascension Score Multiplier is very quickly increasing."
+      },
+      "ninteenth": {
+        "name": "Campaign XIX",
+        "description": "Even more illiteracy! Maybe you'll notice how hard it can be to earn Hypercubes."
+      },
+      "twentieth": {
+        "name": "Campaign XX",
+        "description": "As long as you can handle having less Obtainium, leveling up the illiteracy corruption is worth it."
+      },
+      "twentyFirst": {
+        "name": "Campaign XXI",
+        "description": "It is also sometimes worth trading one penalty for another. In this case, you get more Obtainium, but almost no Diamonds. Higher multiplier for Corruption Levels!"
+      },
+      "twentySecond": {
+        "name": "Campaign XXII",
+        "description": "Fewer Offerings, and less Obtainium. Perhaps your ants can compensate for lost power?"
+      },
+      "twentyThird": {
+        "name": "Campaign XXIII",
+        "description": "When adjusting your setup, it helps to slowly change your loadout, trying to increase your score multiplier without sacrificing too many Challenge 10 runs."
+      },
+      "twentyFourth": {
+        "name": "Campaign XXIV",
+        "description": "A challenging but useful loadout for pre-challenge 14. Can you beat it and get Hypercubes?"
+      },
+      "twentyFifth": {
+        "name": "Campaign XXV",
+        "description": "The last Campaign before Challenge 14! After this, you can change your corruptions at will, but stay tuned for more useful corruption builds."
+      },
+      "twentySixth": {
+        "name": "Campaign XXVI",
+        "description": "Uh oh, it's time for Dilation! It does not make Ascensions slower, unless you need fast timers on pre-Ascension resets."
+      },
+      "twentySeventh": {
+        "name": "Campaign XXVII",
+        "description": "The last new Corruption, this makes your Challenge requirements directly larger. Trading completions for a direct score multiplier!"
+      },
+      "twentyEighth": {
+        "name": "Campaign XXVIII",
+        "description": "You may start to see how the Corruptions are a little difficult to master. These setups are recommended by Synergists of past, for Synergists of today."
+      },
+      "twentyNinth": {
+        "name": "Campaign XXIX",
+        "description": "This is probably harder than Campaign 30, but has a higher score multiplier. This is meant to be a challenge, so it is out-of-meta."
+      },
+      "thirtieth": {
+        "name": "Campaign 30",
+        "description": "You may want to consider this as you grind up for the Ultimate Moon Cube Upgrade."
+      },
+      "thirtyFirst": {
+        "name": "Campaign XXXI",
+        "description": "We increase Hyperchallenge as a Corruption when we can clear enough challenges to justify the increase."
+      },
+      "thirtySecond": {
+        "name": "Campaign XXXII",
+        "description": "When you finish the final Research, you should have enough power to take this on profitably. Maybe you will also get Platonic Cubes?"
+      },
+      "thirtyThird": {
+        "name": "Campaign XXXIII",
+        "description": "The Global Speed can be leveraged against having less Offerings or Obtainiums, like in this example."
+      },
+      "thirtyFourth": {
+        "name": "Campaign XXXIV",
+        "description": "Are you starting to go for the Thousand Moons Cube Upgrade?"
+      },
+      "thirtyFifth": {
+        "name": "Campaign XXXV",
+        "description": "You may REALLY want to upgrade that Cube Upgrade!"
+      },
+      "thirtySixth": {
+        "name": "Campaign XXXVI",
+        "description": "As you upgrade the Thousand Moons, you can take on much more difficult Corruption Builds!"
+      },
+      "thirtySeventh": {
+        "name": "Campaign XXXVII",
+        "description": "You should also bump up your Tributes, if you have not."
+      },
+      "thirtyEighth": {
+        "name": "Campaign XXXVIII",
+        "description": "How is that Thousand Moons Cube Upgrade coming along?"
+      },
+      "thirtyNinth": {
+        "name": "Campaign XXXIX",
+        "description": "Much more of the same"
+      },
+      "fortieth": {
+        "name": "Campaign XL",
+        "description": "Before proceeding in this Campaign, you should probably max out the Thousand Moons upgrade."
+      },
+      "fortyFirst": {
+        "name": "Campaign XLI",
+        "description": "Platonic Alpha, here we come!"
+      },
+      "fortySecond": {
+        "name": "Campaign XLII",
+        "description": "Congratulations on getting Corruptions Level 12! As you see from the Score Multiplier, it's a huge difference."
+      },
+      "fortyThird": {
+        "name": "Campaign XLIII",
+        "description": "The sixth Platonic upgrade is very powerful, but expensive. Hopefully this build can help you reach it faster."
+      },
+      "fortyFourth": {
+        "name": "Campaign XLIV",
+        "description": "As you buy the Platonic upgrades, your ability to do Corruptions will greatly increase as a result of their effect reductions."
+      },
+      "fortyFifth": {
+        "name": "Campaign XLV",
+        "description": "Corruptions Level 13! Woah! You are getting close to the end of the Campaigns."
+      },
+      "fortySixth": {
+        "name": "Campaign XLVI",
+        "description": "As we round out, you should be able to clear Ascensions with mostly maxxed Corruptions. Viscosity is strong and thus lower level."
+      },
+      "fortySeventh": {
+        "name": "Campaign XLVII",
+        "description": "While slightly easier, you may still get more Ascension rewards due to having more Challenge completions."
+      },
+      "fortyEighth": {
+        "name": "Campaign XLVIII",
+        "description": "This is the final serious setup. Good job on making it this far, and best of luck on the last two."
+      },
+      "fortyNinth": {
+        "name": "Campaign XLIX - The Challenge 15 Build",
+        "description": "It's like Challenge 15, but it's not."
+      },
+      "fiftieth": {
+        "name": "Campaign L - The Final Campaign",
+        "description": "The final campaign. Don't count on beating it on your first try. Maybe you need to go beyond Ascensions?"
       }
     },
     "corruptionTexts": {
@@ -2761,7 +2909,7 @@
       "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
     "scoreMultiplier": "Current Score Multiplier: {{ curr }} / Next Ascension Score Multiplier: {{ next }}",
-    "spiritEffect": "This corruption gives Rune Spirit Effect +{{curr}}% / Next Ascension Rune Spirit Effect +{{next}}%",
+    "spiritEffect": "This corruption gives Rune Spirit Effect +{{curr}}% / Next Ascension Rune Spirit Effect +{{next}}% (additive)",
     "exitCorruption": {
       "name": "CLEANSE THE CORRUPTION",
       "description": "Free this world of sin.",

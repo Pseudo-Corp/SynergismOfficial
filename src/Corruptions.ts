@@ -435,17 +435,20 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
       description: i18next.t(`corruptions.descriptions.${corr}`),
       current: i18next.t(`corruptions.currentLevel.${corr}`, {
         level: player.corruptions.used.getLevel(corr),
-        effect: player.corruptions.used.corruptionEffects(corr)
+        effect: format(player.corruptions.used.corruptionEffects(corr), 3, true)
       }),
       planned: i18next.t(`corruptions.prototypeLevel.${corr}`, {
         level: player.corruptions.next.getLevel(corr),
-        effect: player.corruptions.next.corruptionEffects(corr)
+        effect: format(player.corruptions.next.corruptionEffects(corr), 3, true)
       }),
       multiplier: i18next.t('corruptions.scoreMultiplier', {
-        curr: player.corruptions.used.scoreMult(corr),
-        next: player.corruptions.next.scoreMult(corr)
+        curr: format(player.corruptions.used.scoreMult(corr), 2, true),
+        next: format(player.corruptions.next.scoreMult(corr), 2, true)
       }),
-      spiritContribution: i18next.t('corruptions.spiritEffect', { curr: 1, next: 1 }),
+      spiritContribution: i18next.t('corruptions.spiritEffect', { 
+        curr: 16 / 4 * Math.pow(player.corruptions.used.getTotalLevel(corr), 2),
+        next: 16 / 4 * Math.pow(player.corruptions.next.getTotalLevel(corr), 2)
+      }),
       image: `Pictures/${IconSets[player.iconSet][0]}${corrIcons[corr]}`
     }
     DOMCacheGetOrSet(`corrCurrent${corr}`).textContent = format(player.corruptions.used.getLevel(corr))

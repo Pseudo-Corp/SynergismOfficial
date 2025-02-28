@@ -401,9 +401,9 @@ export function calculateOfferings (
       * (1 + player.researches[85] / 200)
     a *= 1
       + Math.pow(Decimal.log(player.reincarnationShards.add(1), 10), 2 / 3) / 4
-    a *= Math.min(Math.pow(player.reincarnationcounter / 10 + 1, 2), 1)
+    a *= Math.min(Math.pow(player.reincarnationcounter / resetTimeThreshold() + 1, 2), 1)
     if (player.reincarnationcounter >= 5) {
-      a *= Math.max(1, player.reincarnationcounter / 10)
+      a *= Math.max(1, player.reincarnationcounter / resetTimeThreshold())
     }
   }
   if (
@@ -429,9 +429,9 @@ export function calculateOfferings (
       * (1 + player.researches[85] / 200)
     b *= 1 + Math.pow(Decimal.log(player.transcendShards.add(1), 10), 1 / 2) / 5
     b *= 1 + CalcECC('reincarnation', player.challengecompletions[8]) / 25
-    b *= Math.min(Math.pow(player.transcendcounter / 10, 2), 1)
+    b *= Math.min(Math.pow(player.transcendcounter / resetTimeThreshold(), 2), 1)
     if (player.transcendCount >= 5) {
-      b *= Math.max(1, player.transcendcounter / 10)
+      b *= Math.max(1, player.transcendcounter / resetTimeThreshold())
     }
   }
   // This will always be calculated if '0' is not already returned
@@ -455,9 +455,9 @@ export function calculateOfferings (
     * (1 + player.researches[85] / 200)
   c *= 1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5
   c *= 1 + CalcECC('reincarnation', player.challengecompletions[6]) / 50
-  c *= Math.min(Math.pow(player.prestigecounter / 10, 2), 1)
+  c *= Math.min(Math.pow(player.prestigecounter / resetTimeThreshold(), 2), 1)
   if (player.prestigeCount >= 5) {
-    c *= Math.max(1, player.prestigecounter / 10)
+    c *= Math.max(1, player.prestigecounter / resetTimeThreshold())
   }
   q = a + b + c
 
@@ -632,9 +632,9 @@ export const calculateObtainium = () => {
   if (player.reincarnationcounter >= 5) {
     G.obtainiumGain += 2 * player.researches[64]
   }
-  G.obtainiumGain *= Math.min(1, Math.pow(player.reincarnationcounter / 10, 2))
+  G.obtainiumGain *= Math.min(1, Math.pow(player.reincarnationcounter / resetTimeThreshold(), 2))
   if (player.reincarnationCount >= 5) {
-    G.obtainiumGain *= Math.max(1, player.reincarnationcounter / 10)
+    G.obtainiumGain *= Math.max(1, player.reincarnationcounter / resetTimeThreshold())
   }
   G.obtainiumGain *= Math.pow(
     Decimal.log(player.transcendShards.add(1), 10) / 300,
@@ -1715,12 +1715,12 @@ export const calculateAllCubeMultiplier = () => {
     // Pseudocoin Multiplier
     PCoinUpgradeEffects.CUBE_BUFF,
     // Ascension Time Multiplier to cubes
-    Math.pow(Math.min(1, player.ascensionCounter / 10), 2)
+    Math.pow(Math.min(1, player.ascensionCounter / resetTimeThreshold()), 2)
     * (1
       + ((1 / 4) * player.achievements[204]
           + (1 / 4) * player.achievements[211]
           + (1 / 2) * player.achievements[218])
-        * Math.max(0, player.ascensionCounter / 10 - 1)),
+        * Math.max(0, player.ascensionCounter / resetTimeThreshold() - 1)),
     // Campaign Tutorial
     player.campaigns.tutorialBonus.cubeBonus,
     // Campaign Cubes
@@ -2950,13 +2950,13 @@ export const calcAscensionCount = () => {
   if (player.challengecompletions[10] > 0 && player.achievements[197] === 1) {
     const { effectiveScore } = calculateAscensionScore()
 
-    if (player.ascensionCounter >= 10) {
+    if (player.ascensionCounter >= resetTimeThreshold()) {
       if (player.achievements[188] > 0) {
         ascCount += 99
       }
 
       ascCount *= 1
-        + (player.ascensionCounter / 10 - 1)
+        + (player.ascensionCounter / resetTimeThreshold() - 1)
           * 0.2
           * (player.achievements[189]
             + player.achievements[202]
@@ -3532,8 +3532,8 @@ export const inheritanceTokens = () => {
   const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
   
   for (let i = 15; i > 0; i--) {
-    if (player.highestSingularityCount >= levels[i - 1]) {
-      return tokens[i-1]
+    if (player.highestSingularityCount >= levels[i]) {
+      return tokens[i]
     }
   }
 
@@ -3550,4 +3550,13 @@ export const singularityBonusTokenMult = () => {
   }
 
   return 1
+}
+
+export const resetTimeThreshold = () => {
+  const base = 10
+  let reduction = 0
+
+  reduction += player.campaigns.timeThresholdReduction
+
+  return base - reduction
 }
