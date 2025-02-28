@@ -6326,6 +6326,8 @@ export const reloadShit = (reset = false) => {
       )
     })
   showExitOffline()
+  campaignIconHTMLUpdates()
+  campaignTokenRewardHTMLUpdate()
   clearTimeout(preloadDeleteGame)
 
   setInterval(cacheReinitialize, 15000)
@@ -6394,11 +6396,9 @@ window.addEventListener('load', async () => {
   generateEventHandlers()
   corruptionButtonsAdd()
 
-  reloadShit()
-
   corruptionLoadoutTableCreate()
   createCampaignIconHTMLS()
-  campaignTokenRewardHTMLUpdate()
+  reloadShit()
 }, { once: true })
 
 window.addEventListener('unload', () => {

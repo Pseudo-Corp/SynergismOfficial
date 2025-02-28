@@ -1732,7 +1732,7 @@ export const singularityPerks: SingularityPerk[] = [
         for (let i = 15; i > 0; i--) {
           if (n >= levels[i]) {
             return i18next.t('singularity.perks.tokenInheritance.default', {
-              amount: tokens[i - 1]
+              amount: tokens[i]
             })
           }
         }

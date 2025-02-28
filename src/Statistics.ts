@@ -28,7 +28,8 @@ import {
   calculateTesseractMultiplier,
   calculateTimeAcceleration,
   calculateTotalOcteractObtainiumBonus,
-  calculateTotalOcteractQuarkBonus
+  calculateTotalOcteractQuarkBonus,
+  resetTimeThreshold
 } from './Calculate'
 import { CalcECC, challenge15ScoreMultiplier } from './Challenges'
 import { BuffType } from './Event'
@@ -1287,8 +1288,8 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt29').textContent = `x${
     format(
-      (player.reincarnationcounter >= 5 ? Math.max(1, player.reincarnationcounter / 10) : 1)
-        * Math.min(1, Math.pow(player.reincarnationcounter / 10, 2)),
+      (player.reincarnationcounter >= 5 ? Math.max(1, player.reincarnationcounter / resetTimeThreshold()) : 1)
+        * Math.min(1, Math.pow(player.reincarnationcounter / resetTimeThreshold(), 2)),
       3
     )
   }`

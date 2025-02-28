@@ -266,13 +266,13 @@ export class CampaignManager {
    * the penalty is *(time/10)^2, reducing the threshold to 5 seconds would make the penalty *(time/5)^2
    */
   get timeThresholdReduction () {
-    const thresholdReqs = [20, 100, 500, 2000]
+    const thresholdReqs = [20, 100, 250, 500, 1000, 2000, 3500, 5000]
     for (let i = 0; i < thresholdReqs.length; i++) {
       if (this.tokens < thresholdReqs[i]) {
-        return i
+        return i / 4
       }
     }
-    return 4
+    return 2
   }
 
   get quarkBonus () {
@@ -1070,13 +1070,13 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
   },
   fiftieth: {
     campaignCorruptions: {
-      viscosity: 14,
-      drought: 14,
-      deflation: 14,
-      extinction: 14,
-      illiteracy: 14,
-      recession: 14,
-      hyperchallenge: 14,
+      viscosity: 13,
+      drought: 13,
+      deflation: 13,
+      extinction: 13,
+      illiteracy: 13,
+      recession: 13,
+      hyperchallenge: 13,
     },
     isMeta: true,
     unlockRequirement: () => {return maxCorruptionLevel() >= 14},
@@ -1168,7 +1168,13 @@ export const campaignIconHTMLUpdates = () => {
 
 export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
   const icon = DOMCacheGetOrSet(`${key}CampaignIcon`)
-  console.log(icon)
+  if (!campaignDatas[key].unlockRequirement()) { 
+    icon.style.display = 'none'
+  }
+  else {
+    icon.style.display = 'block'
+  }
+
   if (key === player.campaigns.current) {
     icon.style.backgroundColor = 'orchid'
   }
@@ -1293,9 +1299,6 @@ export const createCampaignIconHTMLS = () => {
 
   for (const key of Object.keys(campaignDatas) as CampaignKeys[]) {
 
-    if (!campaignDatas[key].unlockRequirement()) {
-      continue
-    }
     const campaignIcon = document.createElement('img')
     campaignIcon.id = `${key}CampaignIcon`
     campaignIcon.classList.add('campaignIcon')
@@ -1308,8 +1311,6 @@ export const createCampaignIconHTMLS = () => {
     }
 
   }
-
-  campaignIconHTMLUpdates()
 }
 
 export const campaignTokenRewardHTMLUpdate = () => {
