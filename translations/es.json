@@ -2600,7 +2600,6 @@
       "recession": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Monedas ^{{ effect }}"
     },
     "scoreMultiplier": "Multiplicador de Puntuación Actual: {{ curr }} / Multiplicador de Puntuación la próxima Ascensión: {{ next }}",
-    "spiritEffect": "Esta corrupción da Efecto de Espíritus de Runa +{{curr}}% / Próximo Efecto de Espíritus de Runa +{{next}}%",
     "exitCorruption": {
       "name": "PURIFICA LA CORRUPCIÓN",
       "description": "Libera a este mundo del pecado.",

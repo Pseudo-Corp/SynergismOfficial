@@ -2366,7 +2366,6 @@
             "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
         },
         "scoreMultiplier": "Current Score Multiplier: {{ curr }} / Next Ascension Score Multiplier: {{ next }}",
-        "spiritEffect": "This corruption gives Rune Spirit Effect +{{curr}}% / Next Ascension Rune Spirit Effect +{{next}}%",
         "exitCorruption": {
             "name": "CLEANSE THE CORRUPTION",
             "description": "Free this world of sin.",
