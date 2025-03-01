@@ -1905,7 +1905,7 @@
       },
       "singCubes1": {
         "name": "Cube Flame",
-        "description": "Upgrade this to get +1% Cubes per level, forever!",
+        "description": "Upgrade this to get +0.6% Cubes per level, forever!",
         "effect": "Permanently gain {{n}}% more Cubes."
       },
       "singCubes2": {

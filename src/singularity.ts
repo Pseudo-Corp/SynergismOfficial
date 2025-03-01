@@ -738,10 +738,10 @@ export const singularityData: Record<
     costPerLevel: 1,
     effect: (n: number) => {
       return {
-        bonus: 1 + 0.01 * n,
+        bonus: 1 + 0.006 * n,
         get desc () {
           return i18next.t('singularity.data.singCubes1.effect', {
-            n: format(1 * n, 0, true)
+            n: format(0.6 * n, 1, true)
           })
         }
       }

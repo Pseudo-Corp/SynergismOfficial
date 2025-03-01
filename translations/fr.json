@@ -1878,7 +1878,7 @@
       },
       "singCubes1": {
         "name": "Flamme Cubique",
-        "description": "Améliorez ceci pour obtenir +1 % de Cubes par niveau, pour toujours !",
+        "description": "Améliorez ceci pour obtenir +0.6% de Cubes par niveau, pour toujours !",
         "effect": "Obtenez {{n}}% de Cubes en plus pour toujours."
       },
       "singCubes2": {

@@ -1878,7 +1878,7 @@
       },
       "singCubes1": {
         "name": "Llama de Cubos",
-        "description": "Mejora esto para ganar +1% Cubos por nivel, ¡Para siempre!",
+        "description": "Mejora esto para ganar +0.6% Cubos por nivel, ¡Para siempre!",
         "effect": "Gana permanentemente {{n}}% más Cubos."
       },
       "singCubes2": {
