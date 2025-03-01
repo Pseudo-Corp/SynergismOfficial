@@ -133,15 +133,15 @@
   },
   "achievements": {
     "descriptions": {
-      "1": "[[1]] A Loyal Employee: Hire your first Worker.",
-      "2": "[[2]] Small Business: Hire 10 Workers.",
-      "3": "[[3]] Now we're synergizing!: Hire 100 Workers.",
-      "4": "[[4]] Gaining Redundancies: Hire 1,000 Workers.",
-      "5": "[[5]] A cog in the machine: Hire 5,000 Workers.",
-      "6": "[[6]] A nail in the machine: Hire 10,000 Workers.",
-      "7": "[[7]] Are we even in the machine anymore?: Hire 20,000 Workers.",
-      "8": "[[8]] STONKS!!!: Purchase 1 Investment.",
-      "9": "[[9]] Planning ahead: Purchase 10 Investments.",
+      "1": "[[1]] O Empregado Leal: Contrate seu primeiro trabalhador.",
+      "2": "[[2]] Pequena Empresa: Contrate 10 Trabalhadores.",
+      "3": "[[3]] Agora estamos sinergizando!: Contrate 100 trabalhadores.",
+      "4": "[[4]] Ganhando Redundância: Contrate 1,000 Trabalhadores.",
+      "5": "[[5]] Uma engrenagem na máquina: Contrate 5,000 Trabalhadores.",
+      "6": "[[6]] Um prego na máquina: Contrate 10,000 Trabalhadores.",
+      "7": "[[7]] Nós ainda estamos na máquina?: Contrate 20,000 Trabalhadores.",
+      "8": "[[8]] STONKS!!!: Compre 1 Investimento.",
+      "9": "[[9]] Planejamento à frente: Compre 10 Investimentos.",
       "10": "[[10]] Inside Trading: Purchase 100 Investments.",
       "11": "[[11]] Outside Trading?: Purchase 1,000 Investments.",
       "12": "[[12]] Market Takeover: Purchase 5,000 Investments.",
@@ -674,7 +674,7 @@
     "antSacMultiplier": "Ant Sacrifice Multiplier: {{y}}x --> <<limegreen|x{{x}}>>",
     "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?",
     "elo": "+{{x}} [>{{y}} ELO]",
-    "antSacrifice": "Ant Sacrifice"
+    "antSacrifice": "Sacrificar Formiga"
   },
   "challenges": {
     "1": {
