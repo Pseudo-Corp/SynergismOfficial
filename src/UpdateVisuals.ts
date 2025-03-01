@@ -43,6 +43,7 @@ import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
+import { formatAsPercentIncrease } from './Campaign'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -1313,12 +1314,19 @@ export const visualUpdateCorruptions = () => {
       )
     }
   )
-  DOMCacheGetOrSet('corruptionSpiritBonus').innerHTML = i18next.t(
-    'corruptions.spiritBonus',
-    {
-      multiplier: format(player.corruptions.used.totalCorruptionDifficultyMultiplier, 2, true)
-    }
-  )
+  DOMCacheGetOrSet('corruptionMultiplierTotal').textContent = i18next.t('corruptions.totalScoreMultiplier', {
+    curr: format(player.corruptions.used.totalCorruptionAscensionMultiplier, 2, true),
+    next: format(player.corruptions.next.totalCorruptionAscensionMultiplier, 2, true)
+  })
+  DOMCacheGetOrSet('corruptionDifficultyTotal').textContent = i18next.t('corruptions.totalDifficulty', {
+    curr: format(player.corruptions.used.totalCorruptionDifficultyScore, 2, true),
+    next: format(player.corruptions.next.totalCorruptionDifficultyScore, 2, true)
+  })
+  DOMCacheGetOrSet('corruptionSpiritTotal').textContent = i18next.t('corruptions.totalSpiritContribution', {
+    curr: formatAsPercentIncrease(player.corruptions.used.totalCorruptionDifficultyMultiplier),
+    next: formatAsPercentIncrease(player.corruptions.next.totalCorruptionDifficultyMultiplier)
+  })
+
   DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'block' : 'none'
 
   if (ascCount > 1) {

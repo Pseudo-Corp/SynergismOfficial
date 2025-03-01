@@ -275,6 +275,7 @@ export class CorruptionLoadout {
 
   setLevel (corr: keyof Corruptions, newLevel: number) {
     this.#levels[corr] = newLevel
+    this.updateCorruptionScoreMult()
   }
 
   resetCorruptions () {
@@ -302,6 +303,11 @@ export class CorruptionLoadout {
       this.#totalScoreMult = this.#calcTotalScoreMult()
     }
 
+    return this.#totalScoreMult
+  }
+
+  updateCorruptionScoreMult () {
+    this.#totalScoreMult = this.#calcTotalScoreMult()
     return this.#totalScoreMult
   }
 
@@ -424,7 +430,7 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
     current: i18next.t('corruptions.exitCorruption.current'),
     planned: i18next.t('corruptions.exitCorruption.planned'),
     multiplier: i18next.t('corruptions.exitCorruption.multiplier'),
-    spiritContribution: '',
+    difficulty: '',
     image: `Pictures/${IconSets[player.iconSet][0]}/CorruptExit.png`
   } satisfies Record<string, string>
 
@@ -444,9 +450,9 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
         curr: format(player.corruptions.used.scoreMult(corr), 2, true),
         next: format(player.corruptions.next.scoreMult(corr), 2, true)
       }),
-      spiritContribution: i18next.t('corruptions.spiritEffect', { 
-        curr: 16 / 4 * Math.pow(player.corruptions.used.getTotalLevel(corr), 2),
-        next: 16 / 4 * Math.pow(player.corruptions.next.getTotalLevel(corr), 2)
+      difficulty: i18next.t('corruptions.difficultyEffect', { 
+        curr: format(16 * Math.pow(player.corruptions.used.getTotalLevel(corr), 2), 0, false),
+        next: format(16 * Math.pow(player.corruptions.next.getTotalLevel(corr), 2), 0, false)
       }),
       image: `Pictures/${IconSets[player.iconSet][0]}${corrIcons[corr]}`
     }
@@ -459,7 +465,7 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
   DOMCacheGetOrSet('corruptionLevelCurrent').textContent = text.current
   DOMCacheGetOrSet('corruptionLevelPlanned').textContent = text.planned
   DOMCacheGetOrSet('corruptionMultiplierContribution').textContent = text.multiplier
-  DOMCacheGetOrSet('corruptionSpiritContribution').textContent = text.spiritContribution
+  DOMCacheGetOrSet('corruptionDifficultyContribution').textContent = text.difficulty
   DOMCacheGetOrSet('corruptionSelectedPic').setAttribute('src', text.image)
 }
 

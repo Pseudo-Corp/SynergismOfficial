@@ -2913,7 +2913,10 @@
       "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
     "scoreMultiplier": "Current Score Multiplier: {{ curr }} / Next Ascension Score Multiplier: {{ next }}",
-    "spiritEffect": "This corruption gives Rune Spirit Effect +{{curr}}% / Next Ascension Rune Spirit Effect +{{next}}% (additive)",
+    "difficultyEffect": "This corruption adds {{ curr }} difficulty rating / Next Ascension +{{next}}",
+    "totalScoreMultiplier": "Corruptions give total Score Multiplier: x{{ curr }} / Next Ascension: x{{ next }}",
+    "totalDifficulty": "Total Ascension Difficulty Score: {{ curr }} / Next Ascension: {{ next }} (Base 400 difficulty)",
+    "totalSpiritContribution": "Corruption Loadout Spirit Bonus: +{{ curr }} / Next Ascension: +{{ next }} (+1% per 4 extra difficulty)",
     "exitCorruption": {
       "name": "CLEANSE THE CORRUPTION",
       "description": "Free this world of sin.",

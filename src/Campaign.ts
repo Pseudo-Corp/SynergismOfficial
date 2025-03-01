@@ -1084,7 +1084,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
   }
 }
 
-const formatAsPercentIncrease = (n: number, accuracy = 2) => {
+export const formatAsPercentIncrease = (n: number, accuracy = 2) => {
   return `${format((n - 1) * 100, accuracy, true)}%`
 }
 

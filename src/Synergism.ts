@@ -6393,7 +6393,6 @@ window.addEventListener('load', async () => {
 
   generateEventHandlers()
   corruptionButtonsAdd()
-
   corruptionLoadoutTableCreate()
   createCampaignIconHTMLS()
   reloadShit()
