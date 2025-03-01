@@ -1273,13 +1273,16 @@ export const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
     }
   }
 
-  const saveLoadoutButton = document.createElement('button')
-  saveLoadoutButton.classList.add('chal14')
-  saveLoadoutButton.textContent = i18next.t('campaigns.saveLoadout')
-  saveLoadoutButton.onclick = () => {
-    player.corruptions.next = new CorruptionLoadout(usableCorruption.loadout)
-    corruptionStatsUpdate()
-    Notification(i18next.t('campaigns.saveLoadoutNotification', { name: i18next.t(`campaigns.data.${key}.name`) }))
+  let saveLoadoutButton: HTMLButtonElement | undefined
+  if (player.challengecompletions[14] > 0 || player.highestSingularityCount >= 1) {
+    saveLoadoutButton = document.createElement('button')
+    saveLoadoutButton.classList.add('chal14')
+    saveLoadoutButton.textContent = i18next.t('campaigns.saveLoadout')
+    saveLoadoutButton.onclick = () => {
+      player.corruptions.next = new CorruptionLoadout(usableCorruption.loadout)
+      corruptionStatsUpdate()
+      Notification(i18next.t('campaigns.saveLoadoutNotification', { name: i18next.t(`campaigns.data.${key}.name`) }))
+    }
   }
 
   corruptionStats.appendChild(corruptionScoreMultiplierText)
@@ -1290,7 +1293,9 @@ export const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
     corruptionStats.appendChild(metaText)
   }
   corruptionStats.appendChild(campaignButton)
-  corruptionStats.appendChild(saveLoadoutButton)
+  if (saveLoadoutButton) {
+    corruptionStats.appendChild(saveLoadoutButton)
+  }
 }
 
 export const createCampaignIconHTMLS = () => {

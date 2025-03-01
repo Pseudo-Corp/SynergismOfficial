@@ -736,8 +736,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       for (const campaign of Object.keys(player.campaigns.allCampaigns)) {
         const campaignName = campaign as CampaignKeys
         const campaignDifficulty = player.campaigns.getCampaign(campaignName).usableLoadout.totalCorruptionDifficultyScore
-
-        if (campaignDatas[campaignName].unlockRequirement()) {
+        if (!campaignDatas[campaignName].unlockRequirement()) {
           continue
         }
 

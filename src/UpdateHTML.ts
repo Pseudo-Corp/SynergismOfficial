@@ -219,6 +219,12 @@ export const revealStuff = () => {
     example25[i].setAttribute('aria-disabled', `${player.challengecompletions[14] <= 0}`)
   }
 
+  const corr = document.getElementsByClassName('corrTab') as HTMLCollectionOf<HTMLElement>
+  for (let i = 0; i < corr.length; i++) {
+    corr[i].style.display = (player.challengecompletions[14] > 0 || (player.challengecompletions[11] > 0 && player.highestSingularityCount >= 1)) ? 'block' : 'none'
+    corr[i].setAttribute('aria-disabled', `${player.achievements[243] !== 1}`)
+  }
+
   const example26 = document.getElementsByClassName('ascendunlockib') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example26.length; i++) {
     example26[i].style.display = player.ascensionCount > 0 ? 'inline-block' : 'none'
