@@ -1361,16 +1361,16 @@ export const timeWarp = async () => {
 /**
  * @param forceTime The number of SECONDS to warp. Why the fuck is it in seconds?
  */
-export const calculateOffline = (forceTime = 0) => {
+export const calculateOffline = (forceTime = 0, fromTips = false) => {
   disableHotkeys()
 
   G.timeWarp = true
 
   // Variable Declarations i guess
-  const maximumTimer = (86400 * 3
+  const maximumTimer = !fromTips ? (86400 * 3
     + 7200 * 2 * player.researches[31]
     + 7200 * 2 * player.researches[32])
-    * PCoinUpgradeEffects.OFFLINE_TIMER_CAP_BUFF
+    * PCoinUpgradeEffects.OFFLINE_TIMER_CAP_BUFF : 1e100 // If someone exceeds this, we will be very rich aha!
 
   const updatedTime = Date.now()
   const timeAdd = Math.min(

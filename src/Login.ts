@@ -435,7 +435,7 @@ function handleWebSocket () {
       Notification(i18next.t('pseudoCoins.consumables.tipReceived', { offlineTime: data.tips }))
     } else if (data.type === 'applied-tip') {
       tips = data.remaining
-      calculateOffline(data.amount * 60)
+      calculateOffline(data.amount * 60, true)
       DOMCacheGetOrSet('exitOffline').style.visibility = 'unset'
     }
 
