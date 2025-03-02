@@ -440,6 +440,7 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
     planned: i18next.t('corruptions.exitCorruption.planned'),
     multiplier: i18next.t('corruptions.exitCorruption.multiplier'),
     difficulty: '',
+    freeLevels: '',
     image: `Pictures/${IconSets[player.iconSet][0]}/CorruptExit.png`
   } satisfies Record<string, string>
 
@@ -463,6 +464,9 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
         curr: format(16 * Math.pow(player.corruptions.used.getTotalLevel(corr), 2), 0, false),
         next: format(16 * Math.pow(player.corruptions.next.getTotalLevel(corr), 2), 0, false)
       }),
+      freeLevels: i18next.t('corruptions.freeLevels', {
+        curr: format(player.corruptions.used.bonusLevels, 2, true)
+      }),
       image: `Pictures/${IconSets[player.iconSet][0]}${corrIcons[corr]}`
     }
     DOMCacheGetOrSet(`corrCurrent${corr}`).textContent = format(player.corruptions.used.getLevel(corr))
@@ -475,6 +479,7 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
   DOMCacheGetOrSet('corruptionLevelPlanned').textContent = text.planned
   DOMCacheGetOrSet('corruptionMultiplierContribution').textContent = text.multiplier
   DOMCacheGetOrSet('corruptionDifficultyContribution').textContent = text.difficulty
+  DOMCacheGetOrSet('corruptionFreeLevels').textContent = text.freeLevels
   DOMCacheGetOrSet('corruptionSelectedPic').setAttribute('src', text.image)
 }
 

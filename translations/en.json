@@ -2914,6 +2914,7 @@
     },
     "scoreMultiplier": "Current Score Multiplier: {{ curr }} / Next Ascension Score Multiplier: {{ next }}",
     "difficultyEffect": "This corruption adds {{ curr }} difficulty rating / Next Ascension +{{next}}",
+    "freeLevels": "Free Levels: {{ curr }} (Does not increase difficulty of Corruption!)",
     "totalScoreMultiplier": "Corruptions give total Score Multiplier: x{{ curr }} / Next Ascension: x{{ next }}",
     "totalDifficulty": "Total Ascension Difficulty Score: {{ curr }} / Next Ascension: {{ next }} (Base 400 difficulty)",
     "totalSpiritContribution": "Corruption Loadout Spirit Bonus: +{{ curr }} / Next Ascension: +{{ next }} (+1% per 4 extra difficulty)",
