@@ -1878,7 +1878,7 @@
       },
       "singCubes1": {
         "name": "Llama de Cubos",
-        "description": "Mejora esto para ganar +1% Cubos por nivel, ¡Para siempre!",
+        "description": "Mejora esto para ganar +0.6% Cubos por nivel, ¡Para siempre!",
         "effect": "Gana permanentemente {{n}}% más Cubos."
       },
       "singCubes2": {
@@ -2560,47 +2560,46 @@
   },
   "corruptions": {
     "names": {
-      "1": "Corrupción I: Viscosidad",
-      "2": "Corrupción II: Dilatación Espacial",
-      "3": "Corrupción III: Hiperdesafiado",
-      "4": "Corrupción IV: Analfabetismo Científico",
-      "5": "Corrupción V: Deflación del Mercado",
-      "6": "Corrupción VI: Extinción",
-      "7": "Corrupción VII: Sequía",
-      "8": "Corrupción VIII: Recesión Financiera"
+      "viscosity": "Corrupción I: Viscosidad",
+      "dilation": "Corrupción II: Dilatación Espacial",
+      "hyperchallenge": "Corrupción III: Hiperdesafiado",
+      "illiteracy": "Corrupción IV: Analfabetismo Científico",
+      "deflation": "Corrupción V: Deflación del Mercado",
+      "extinction": "Corrupción VI: Extinción",
+      "drought": "Corrupción VII: Sequía",
+      "recession": "Corrupción VIII: Recesión Financiera"
     },
     "descriptions": {
-      "1": "Te sientes letárgico sobre el universo...",
-      "2": "Bien hecho, Albert.",
-      "3": "¿Qué tiene este Desafío?",
-      "4": "Quizá Albert no hubiera hecho la hipótesis de la Dilatación.",
-      "5": "Mina de Diamantes destruida... ¡No más Monopolios!",
-      "6": "Mató a los dinosaurios también, zoquete.",
-      "7": "Como California, ¿A que sí?",
-      "8": "Y otra catástrofe de 2020."
+      "viscosity": "Te sientes letárgico sobre el universo...",
+      "dilation": "Bien hecho, Albert.",
+      "hyperchallenge": "¿Qué tiene este Desafío?",
+      "illiteracy": "Quizá Albert no hubiera hecho la hipótesis de la Dilatación.",
+      "deflation": "Mina de Diamantes destruida... ¡No más Monopolios!",
+      "extinction": "Mató a los dinosaurios también, zoquete.",
+      "drought": "Como California, ¿A que sí?",
+      "recession": "Y otra catástrofe de 2020."
     },
     "currentLevel": {
-      "1": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Exponente de Acel. y Mult. gratuitos ^{{ effect }}",
-      "2": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Velocidad de Tiempo dividida por {{ effect }}",
-      "3": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Requisitos de Exponente de Desafío x{{ effect }}",
-      "4": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Ganancia de Obtainium ^{{ effect }}",
-      "5": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Ganancia de Diamantes ^{{ effect }}",
-      "6": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Producción de Hormigas ^{{ effect }}",
-      "7": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: EXP de Ofrendas dividida por {{ effect }}",
-      "8": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Ganancia de Monedas ^{{ effect }}"
+      "viscosity": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Exponente de Acel. y Mult. gratuitos ^{{ effect }}",
+      "dilation": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Velocidad de Tiempo dividida por {{ effect }}",
+      "hyperchallenge": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Requisitos de Exponente de Desafío x{{ effect }}",
+      "illiteracy": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Ganancia de Obtainium ^{{ effect }}",
+      "deflation": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Ganancia de Diamantes ^{{ effect }}",
+      "extinction": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Producción de Hormigas ^{{ effect }}",
+      "drought": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: EXP de Ofrendas dividida por {{ effect }}",
+      "recession": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Ganancia de Monedas ^{{ effect }}"
     },
     "prototypeLevel": {
-      "1": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Exponente de Acel. y Mult. gratuitos ^{{ effect }}",
-      "2": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Velocidad de Tiempo dividida por {{ effect }}",
-      "3": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Requisitos de Exponente de Desafío x{{ effect }}",
-      "4": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Obtainium ^{{ effect }}",
-      "5": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Diamantes ^{{ effect }}",
-      "6": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Producción de Hormigas ^{{ effect }}",
-      "7": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: EXP de Ofrendas dividida por {{ effect }}",
-      "8": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Monedas ^{{ effect }}"
+      "viscosity": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Exponente de Acel. y Mult. gratuitos ^{{ effect }}",
+      "dilation": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Velocidad de Tiempo dividida por {{ effect }}",
+      "hyperchallenge": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Requisitos de Exponente de Desafío x{{ effect }}",
+      "illiteracy": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Obtainium ^{{ effect }}",
+      "deflation": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Diamantes ^{{ effect }}",
+      "extinction": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Producción de Hormigas ^{{ effect }}",
+      "drought": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: EXP de Ofrendas dividida por {{ effect }}",
+      "recession": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Monedas ^{{ effect }}"
     },
     "scoreMultiplier": "Multiplicador de Puntuación Actual: {{ curr }} / Multiplicador de Puntuación la próxima Ascensión: {{ next }}",
-    "spiritEffect": "Esta corrupción da Efecto de Espíritus de Runa +{{curr}}% / Próximo Efecto de Espíritus de Runa +{{next}}%",
     "exitCorruption": {
       "name": "PURIFICA LA CORRUPCIÓN",
       "description": "Libera a este mundo del pecado.",
