@@ -2941,7 +2941,7 @@
       "load": "Load"
     },
     "importCorruptionsPrompt": {
-      "import": "Enter a Corruption Loadout to import for next Ascension. It must be in the following text format: 1/2/3/4/5/6/7/8",
+      "import": "Enter a Corruption Loadout to import for next Ascension. You can have it in the following format: \n {\"corr1Name\": num1, \"corr2Name\": num2, ...} \n It can also be in the following text format: num1/num2/.../num8 [Legacy] \n Possible corrNames: \"viscosity\", \"drought\", \"deflation\", \"extinction\", \"illiteracy\", \"recession\", \"dilation\". \"hyperchallenge\"",
       "importError": "Your input was not in the correct format, try again."
     },
     "corruptionLoadoutName": {

@@ -2536,6 +2536,7 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
 
   const arr = [
     PCoinUpgradeEffects.GOLDEN_QUARK_BUFF, // Golden Quark Buff from PseudoCoins
+    player.campaigns.goldenQuarkBonus, // Golden Quark Bonus from Campaigns
     1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2, // Challenge 15 Exponent
     1 + getQuarkBonus() / 100, // Patreon Bonus
     +player.singularityUpgrades.goldenQuarks1.getEffect().bonus, // Golden Quarks I

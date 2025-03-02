@@ -666,13 +666,13 @@ export const corruptionLoadoutTableUpdate = (updateNext = false, updateRow = 0) 
 
 export const corruptionSaveLoadout = (loadoutNum: number) => {
   const buildToSave = player.corruptions.next.loadout
-  player.corruptions.saves.saves[loadoutNum].loadout.setCorruptionLevels(buildToSave)
+  player.corruptions.saves.saves[loadoutNum].loadout.setCorruptionLevelsWithChallengeRequirement(buildToSave)
   corruptionLoadoutTableUpdate(false, loadoutNum + 1)
 }
 
 export const corruptionLoadLoadout = (loadoutNum: number) => {
   const buildToLoad = player.corruptions.saves.saves[loadoutNum].loadout.loadout
-  player.corruptions.next.setCorruptionLevels(buildToLoad)
+  player.corruptions.next.setCorruptionLevelsWithChallengeRequirement(buildToLoad)
   corruptionLoadoutTableUpdate(true)
   corruptionStatsUpdate()
 }
@@ -687,11 +687,13 @@ export const applyCorruptions = (corruptions: string) => {
     // Supports legacy format
     corr = convertInputToCorruption(corruptions.split('/').map(Number))
   } else {
-    corr = corruptionsSchema.parse(corruptions)
+    const corrJSON = JSON.parse(corruptions)
+    console.log(corrJSON)
+    corr = corruptionsSchema.parse(corrJSON)
   }
 
   if (corr) {
-    player.corruptions.next.setCorruptionLevels(corr)
+    player.corruptions.next.setCorruptionLevelsWithChallengeRequirement(corr)
     corruptionLoadoutTableUpdate(true, 0)
     corruptionStatsUpdate()
     return true
