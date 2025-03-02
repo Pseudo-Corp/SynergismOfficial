@@ -1252,7 +1252,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString
   hold.corruptions.saves = Object.fromEntries(
-    player.corruptions.saves.getSaves().map((save: SavedCorruption) => {
+    player.corruptions.saves.saves.map((save: SavedCorruption) => {
       return [save.name, save.loadout.loadout]
     })
   )

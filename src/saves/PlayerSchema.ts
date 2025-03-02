@@ -98,7 +98,6 @@ export const playerCorruptionSchema = z.object({
     return new CorruptionLoadout(value)
   }),
   next: optionalCorruptionSchema.transform((value) => {
-    console.log(value)
     return new CorruptionLoadout(value)
   }),
   saves: z.record(z.string(), optionalCorruptionSchema).transform((value) => {

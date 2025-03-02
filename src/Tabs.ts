@@ -585,8 +585,8 @@ tabRow.appendButton(
     .setType(Tabs.Campaign)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'corrTab', id: 'traitstab', i18n: 'tabs.main.corruption' })
-    .setUnlockedState(() => (player.challengecompletions[14] > 0) || (player.highestSingularityCount >= 1 && player.challengecompletions[11] > 0))
+  new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
+    .setUnlockedState(() => (player.challengecompletions[11] > 0))
     .setType(Tabs.Corruption)
     .makeDraggable()
     .makeRemoveable(),

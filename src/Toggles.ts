@@ -905,20 +905,7 @@ export const toggleAutoTesseracts = (i: number) => {
   player.autoTesseracts[i] = !player.autoTesseracts[i]
 }
 
-export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number, reset = false) => {
-  if (reset && player.currentChallenge.ascension !== 15) {
-    player.corruptions.used.resetCorruptions()
-    player.corruptions.next.resetCorruptions()
-
-    corruptionDisplay(G.corruptionTrigger)
-    DOMCacheGetOrSet('corruptionCleanseConfirm').style.visibility = 'hidden'
-
-    if (player.currentChallenge.ascension === 15) {
-      void resetCheck('ascensionChallenge', false, true)
-    }
-    return
-  }
-
+export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number) => {
   player.corruptions.next.incrementDecrementLevel(corr, value)
   corruptionDisplay(corr)
   corruptionLoadoutTableUpdate(true, 0)

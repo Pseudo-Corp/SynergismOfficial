@@ -1,7 +1,7 @@
 import { z } from 'zod'
-import type { CorruptionLoadout, Corruptions } from '../Corruptions'
+import type { Corruptions } from '../Corruptions'
 import type { Player } from '../types/Synergism'
-import { playerCorruptionSchema, playerSchema } from './PlayerSchema'
+import { playerSchema } from './PlayerSchema'
 
 
 export const convertArrayToCorruption = (array: number[]): Corruptions => {
@@ -35,15 +35,13 @@ export const playerJsonSchema = playerSchema.extend({
     }
   }),*/
 
-  corruptions: playerCorruptionSchema.transform((stuff: Player['corruptions']) => {
+  // Platonic (or somebody I'm so tired): Figure out why the hell using `playerCorruptionsSchema` does not work for saves
+  // But it does work for the other three fields.
+  corruptions: z.any().transform((stuff: Player['corruptions']) => {
     return {
       used: stuff.used.loadout,
       next: stuff.next.loadout,
-      saves: Object.fromEntries(
-        stuff.saves.getSaves().map((save: { name: string; loadout: CorruptionLoadout }) => {
-          return [save.name, save.loadout.loadout]
-        })
-      ),
+      saves: stuff.saves.corrSaveData, // TODO: This is the correct typing, but see above comment
       showStats: stuff.showStats
     }
   }),

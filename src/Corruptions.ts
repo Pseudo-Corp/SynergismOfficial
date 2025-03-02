@@ -279,13 +279,17 @@ export class CorruptionLoadout {
   }
 
   resetCorruptions () {
-    for (const corr in this.#levels) {
-      const corrKey = corr as keyof Corruptions
-      this.setLevel(corrKey, 0)
-      corruptionDisplay(corrKey)
+    if (player.currentChallenge.ascension !== 15) {
+      for (const corr in this.#levels) {
+        const corrKey = corr as keyof Corruptions
+        this.setLevel(corrKey, 0)
+        corruptionDisplay(corrKey)
+      }
+      this.#totalScoreMult = this.#calcTotalScoreMult()
+      corruptionLoadoutTableUpdate(true, 0)
+      corruptionDisplay(G.corruptionTrigger)
+      DOMCacheGetOrSet('corruptionCleanseConfirm').style.visibility = 'hidden'
     }
-    this.#totalScoreMult = this.#calcTotalScoreMult()
-    corruptionLoadoutTableUpdate(true, 0)
   }
 
   incrementDecrementLevel (corr: keyof Corruptions, val: number) {
@@ -350,8 +354,9 @@ export type SavedCorruption = {
 }
 
 export class CorruptionSaves {
-  #saves: Array<SavedCorruption> = []
+  #saves: Array<SavedCorruption>
   constructor (corrSaveData: Record<string, Corruptions>) {
+    this.#saves = []
     for (const saveKey of Object.keys(corrSaveData).slice(0, 16)) {
       this.#saves.push({ name: saveKey, loadout: new CorruptionLoadout(corrSaveData[saveKey]) })
     }
@@ -365,8 +370,12 @@ export class CorruptionSaves {
     this.#saves.pop()
   }
 
-  getSaves (): Array<SavedCorruption> {
+  get saves (): Array<SavedCorruption> {
     return this.#saves
+  }
+
+  get corrSaveData (): Record<string, Corruptions> {
+    return Object.fromEntries(this.#saves.map((save) => [save.name, save.loadout.loadout]))
   }
 }
 
@@ -550,7 +559,7 @@ export const corruptionLoadoutTableCreate = () => {
   const table = getElementById<HTMLTableElement>('corruptionLoadoutTable')
 
   const corrNext = player.corruptions.next.loadout
-  const corrSaves = player.corruptions.saves.getSaves()
+  const corrSaves = player.corruptions.saves.saves
 
   // Delete rows that already exist
   for (let i = table.rows.length - 1; i >= 1; i--) {
@@ -598,15 +607,13 @@ export const corruptionLoadoutTableCreate = () => {
   const allowedRows = 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
   for (let i = 0; i < Math.min(corrSaves.length, allowedRows); i++) {
     const corrSave = corrSaves[i]
-    const corrLoadout = corrSave?.loadout.loadout
-    const corrName = corrSave?.name
+    const corrLoadout = corrSave.loadout.loadout
 
     const row = table.insertRow()
     // Title Cell
     const titleCell = row.insertCell()
     titleCell.className = `test${'Title'}`
     titleCell.title = i18next.t('corruptions.loadoutTable.otherRowTitle', { value: i + 1 })
-    titleCell.textContent = corrName
     for (const corr in corrLoadout) {
       const corrKey = corr as keyof Corruptions
       const cell = row.insertCell()
@@ -642,7 +649,7 @@ export const corruptionLoadoutTableUpdate = (updateNext = false, updateRow = 0) 
       index += 1
     }
   } else {
-    const corrSaves = player.corruptions.saves.getSaves()[updateRow - 1]?.loadout.loadout
+    const corrSaves = player.corruptions.saves.saves[updateRow - 1]?.loadout.loadout
     let index = 0
     for (const corr in corrSaves) {
       const corrKey = corr as keyof Corruptions
@@ -654,12 +661,12 @@ export const corruptionLoadoutTableUpdate = (updateNext = false, updateRow = 0) 
 
 export const corruptionSaveLoadout = (loadoutNum: number) => {
   const buildToSave = player.corruptions.next.loadout
-  player.corruptions.saves.getSaves()[loadoutNum].loadout.setCorruptionLevels(buildToSave)
+  player.corruptions.saves.saves[loadoutNum].loadout.setCorruptionLevels(buildToSave)
   corruptionLoadoutTableUpdate(false, loadoutNum + 1)
 }
 
 export const corruptionLoadLoadout = (loadoutNum: number) => {
-  const buildToLoad = player.corruptions.saves.getSaves()[loadoutNum].loadout.loadout
+  const buildToLoad = player.corruptions.saves.saves[loadoutNum].loadout.loadout
   player.corruptions.next.setCorruptionLevels(buildToLoad)
   corruptionLoadoutTableUpdate(true)
   corruptionStatsUpdate()
@@ -710,13 +717,15 @@ async function corruptionLoadoutGetNewName (loadout = 0) {
   } else if (!regex.test(renamePrompt)) {
     return Alert(i18next.t('corruptions.corruptionLoadoutName.errors.regexError'))
   } else {
-    player.corruptions.saves.getSaves()[loadout].name = renamePrompt
+    player.corruptions.saves.saves[loadout].name = renamePrompt
     updateCorruptionLoadoutNames()
     if (renamePrompt === 'crazy') {
       return Alert(i18next.t('corruptions.loadoutPrompt.errors.crazyJoke'))
     }
   }
 }
+
+//let hasUpdatedCorruptionLoadoutNames = false
 
 export const updateCorruptionLoadoutNames = () => {
   const rows = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows
@@ -727,7 +736,7 @@ export const updateCorruptionLoadoutNames = () => {
       cells[0].addEventListener('click', () => void corruptionLoadoutGetNewName(i)) // get name function handles -1 for array
       cells[0].classList.add('corrLoadoutName')
     }
-    cells[0].textContent = `${player.corruptions.saves.getSaves()[i]?.name}:`
+    cells[0].textContent = `${player.corruptions.saves.saves[i]?.name}:`
   }
 }
 
@@ -807,12 +816,11 @@ export const updateUndefinedLoadouts = () => {
   // Sanity checks that you have 16 loadouts and 16 loadout names in the Player object
   // The monetization update adds more loadouts, so this is to ensure that the player object is up to date
   // And because the validation schema does not take into account length of object
-
   const maxLoadoutCount = 16 // Update if more loadouts are added
-  const currLoadoutCount = Object.keys(player.corruptions.saves.getSaves()).length
+  const currLoadoutCount = Object.keys(player.corruptions.saves.saves).length
   if (currLoadoutCount < maxLoadoutCount) {
     for (let i = currLoadoutCount + 1; i <= maxLoadoutCount; i++) {
-      player.corruptions.saves.addSave(`Loadout ${i}`, {})
+      player.corruptions.saves.addSave(`Loadout ${i}`, corruptionsSchema.parse({}))
     }
   }
 }

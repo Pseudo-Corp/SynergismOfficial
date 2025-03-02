@@ -1274,6 +1274,14 @@ export const visualUpdateCorruptions = () => {
       totalScore: format(metaData[3], 1, true)
     }
   )
+
+  if (metaData[3] > 1e23) {
+    DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'visible'
+  }
+  else {
+    DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'hidden'
+  }
+
   DOMCacheGetOrSet('corruptionCubes').innerHTML = i18next.t(
     'corruptions.corruptionCubes',
     {

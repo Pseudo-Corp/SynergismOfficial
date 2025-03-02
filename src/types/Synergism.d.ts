@@ -1,7 +1,7 @@
 import type Decimal from 'break_infinity.js'
 import type { BlueberryUpgrade } from '../BlueberryUpgrades'
 import type { CampaignManager } from '../Campaign'
-import type { CorruptionLoadout, Corruptions } from '../Corruptions'
+import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { HepteractCraft } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'

@@ -6124,7 +6124,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
           void Notification(
             i18next.t('main.corruptionLoadoutApplied', {
               x: num + 1,
-              y: player.corruptions.saves.getSaves()[num].name
+              y: player.corruptions.saves.saves[num].name
             }),
             5000
           )
