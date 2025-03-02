@@ -688,7 +688,6 @@ export const applyCorruptions = (corruptions: string) => {
     corr = convertInputToCorruption(corruptions.split('/').map(Number))
   } else {
     const corrJSON = JSON.parse(corruptions)
-    console.log(corrJSON)
     corr = corruptionsSchema.parse(corrJSON)
   }
 
