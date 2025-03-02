@@ -1878,7 +1878,7 @@
       },
       "singCubes1": {
         "name": "Cube Flame",
-        "description": "Upgrade this to get +1% Cubes per level, forever!",
+        "description": "Upgrade this to get +0.6% Cubes per level, forever!",
         "effect": "Permanently gain {{n}}% more Cubes."
       },
       "singCubes2": {
@@ -2560,47 +2560,46 @@
   },
   "corruptions": {
     "names": {
-      "1": "Korupcja I: Lepkość",
-      "2": "Korupcja II: Dylatacja przestrzenna",
-      "3": "Korupcja III: Hiperwyzwanie",
-      "4": "Korupcja IV: Analfabetyzm naukowy",
-      "5": "Korupcja V: Deflacja rynkowa",
-      "6": "Korupcja VI: Wymarcie",
-      "7": "Korupcja VII: Susza",
-      "8": "Korupcja VIII: Recesja finansowa"
+      "viscosity": "Korupcja I: Lepkość",
+      "dilation": "Korupcja II: Dylatacja przestrzenna",
+      "hyperchallenge": "Korupcja III: Hiperwyzwanie",
+      "illiteracy": "Korupcja IV: Analfabetyzm naukowy",
+      "deflation": "Korupcja V: Deflacja rynkowa",
+      "extinction": "Korupcja VI: Wymarcie",
+      "drought": "Korupcja VII: Susza",
+      "recession": "Korupcja VIII: Recesja finansowa"
     },
     "descriptions": {
-      "1": "Czujesz się ospale w całym wszechświecie...",
-      "2": "Dobra robota, Albercie.",
-      "3": "Co kryje się w wyzwaniu?",
-      "4": "Maybe Albert wouldn't have theorized Dilation after all.",
-      "5": "Diamendowa kopalnia zniszczona... nigdy więcej monopoli!",
-      "6": "It killed the dinosaurs too, ya Dingus.",
-      "7": "Bardziej jak Kalifornia, mam rację?",
-      "8": "Yet another 2020 catastrophe."
+      "viscosity": "Czujesz się ospale w całym wszechświecie...",
+      "dilation": "Dobra robota, Albercie.",
+      "hyperchallenge": "Co kryje się w wyzwaniu?",
+      "illiteracy": "Maybe Albert wouldn't have theorized Dilation after all.",
+      "deflation": "Diamendowa kopalnia zniszczona... nigdy więcej monopoli!",
+      "extinction": "It killed the dinosaurs too, ya Dingus.",
+      "drought": "Bardziej jak Kalifornia, mam rację?",
+      "recession": "Yet another 2020 catastrophe."
     },
     "currentLevel": {
-      "1": "W tej ascendencji, poziom korupcji wynosi {{ level }}. Efekt: Damowy wykładnik Akceleratorów i  Mnożników ^ {{ effect }}.",
-      "2": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-      "3": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-      "4": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-      "5": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-      "6": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
-      "7": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-      "8": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+      "viscosity": "W tej ascendencji, poziom korupcji wynosi {{ level }}. Efekt: Damowy wykładnik Akceleratorów i  Mnożników ^ {{ effect }}.",
+      "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+      "hyperchallenge": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+      "illiteracy": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+      "deflation": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+      "extinction": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
+      "drought": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+      "recession": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
     "prototypeLevel": {
-      "1": "W następnej Ascendencji poziom korupcji wyniesie {{ level }}. Efekt: Damowy wykładnik Akceleratorów i  Mnożników ^ {{ effect }}.",
-      "2": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-      "3": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-      "4": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-      "5": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-      "6": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
-      "7": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-      "8": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+      "viscosity": "W następnej Ascendencji poziom korupcji wyniesie {{ level }}. Efekt: Damowy wykładnik Akceleratorów i  Mnożników ^ {{ effect }}.",
+      "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+      "hyperchallenge": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+      "illiteracy": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+      "deflation": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+      "extinction": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
+      "drought": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+      "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
     "scoreMultiplier": "Current Score Multiplier: {{ curr }} / Next Ascension Score Multiplier: {{ next }}",
-    "spiritEffect": "This corruption gives Rune Spirit Effect +{{curr}}% / Next Ascension Rune Spirit Effect +{{next}}%",
     "exitCorruption": {
       "name": "WYCZYŚĆ KORUPCJĘ",
       "description": "Wyzwól ten świat z grzechu.",

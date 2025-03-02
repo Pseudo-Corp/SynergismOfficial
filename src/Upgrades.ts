@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAnts, calculateCorruptionPoints, calculateRuneLevels } from './Calculate'
+import { calculateAnts, calculateRuneLevels } from './Calculate'
 import { format, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
 import { sumContents } from './Utility'
@@ -22,7 +22,7 @@ const crystalupgdesc: Record<number, () => Record<string, string>> = {
     max: format(
       10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1)
           / Math.log(4)
-        + 20 * calculateCorruptionPoints() / 400 * G.effectiveRuneSpiritPower[3]
+        + 20 * player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[3]
     )
   })
 }
@@ -384,7 +384,7 @@ const crystalupgeffect: Record<number, () => Record<string, string>> = {
     x: format(
       Math.min(
         10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4)
-          + 20 * calculateCorruptionPoints() / 400 * G.effectiveRuneSpiritPower[3],
+          + 20 * player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[3],
         0.05 * player.crystalUpgrades[3]
       ),
       2,

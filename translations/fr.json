@@ -1878,7 +1878,7 @@
       },
       "singCubes1": {
         "name": "Flamme Cubique",
-        "description": "Améliorez ceci pour obtenir +1 % de Cubes par niveau, pour toujours !",
+        "description": "Améliorez ceci pour obtenir +0.6% de Cubes par niveau, pour toujours !",
         "effect": "Obtenez {{n}}% de Cubes en plus pour toujours."
       },
       "singCubes2": {
@@ -2560,47 +2560,46 @@
   },
   "corruptions": {
     "names": {
-      "1": "Corruption I : Viscosité",
-      "2": "Corruption II : Dilatation Spatiale",
-      "3": "Corruption III : Hyperdéfié",
-      "4": "Corruption IV : Illettrisme Scientifique",
-      "5": "Corruption V : Déflation Boursière",
-      "6": "Corruption VI : Extinction",
-      "7": "Corruption VII : Sécheresse",
-      "8": "Corruption VIII : Récession"
+      "viscosity": "Corruption I : Viscosité",
+      "dilation": "Corruption II : Dilatation Spatiale",
+      "hyperchallenge": "Corruption III : Hyperdéfié",
+      "illiteracy": "Corruption IV : Illettrisme Scientifique",
+      "deflation": "Corruption V : Déflation Boursière",
+      "extinction": "Corruption VI : Extinction",
+      "drought": "Corruption VII : Sécheresse",
+      "recession": "Corruption VIII : Récession"
     },
     "descriptions": {
-      "1": "Vous vous sentez léthargique à travers l'univers...",
-      "2": "Bravo, Albert.",
-      "3": "Qu'est-ce qu'un défi ?",
-      "4": "Peut-être qu'Albert n'aurait pas théorisé la Dilation après tout.",
-      "5": "Mine de diamant détruite… plus de monopoles !",
-      "6": "Ça a aussi tué les dinosaures, andouille.",
-      "7": "Ça ressemble plutôt à la Californie, pas vrai ?",
-      "8": "Encore une autre catastrophe de 2020."
+      "viscosity": "Vous vous sentez léthargique à travers l'univers...",
+      "dilation": "Bravo, Albert.",
+      "hyperchallenge": "Qu'est-ce qu'un défi ?",
+      "illiteracy": "Peut-être qu'Albert n'aurait pas théorisé la Dilation après tout.",
+      "deflation": "Mine de diamant détruite… plus de monopoles !",
+      "extinction": "Ça a aussi tué les dinosaures, andouille.",
+      "drought": "Ça ressemble plutôt à la Californie, pas vrai ?",
+      "recession": "Encore une autre catastrophe de 2020."
     },
     "currentLevel": {
-      "1": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : les Accélérateurs et Multiplicateurs gratuits sont élevés à la puissance ^{{ effect }}.",
-      "2": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : la vitesse du jeu est divisée par {{ effect }}.",
-      "3": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : l'exposant des objectifs des défis est multiplié par {{ effect }}.",
-      "4": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : les gains d'Obtainium sont élevés à la puissance ^{{ effect }}.",
-      "5": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : les gains de Diamants sont élevés à la puissance ^{{ effect }}.",
-      "6": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : la production des Fourmis est élevée à la puissance ^{{ effect }}.",
-      "7": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : l'EXP des Offrandes est divisée par {{ effect }}.",
-      "8": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : les gains de Pièces sont élevés à la puissance ^{{ effect }}."
+      "viscosity": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : les Accélérateurs et Multiplicateurs gratuits sont élevés à la puissance ^{{ effect }}.",
+      "dilation": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : la vitesse du jeu est divisée par {{ effect }}.",
+      "hyperchallenge": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : l'exposant des objectifs des défis est multiplié par {{ effect }}.",
+      "illiteracy": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : les gains d'Obtainium sont élevés à la puissance ^{{ effect }}.",
+      "deflation": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : les gains de Diamants sont élevés à la puissance ^{{ effect }}.",
+      "extinction": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : la production des Fourmis est élevée à la puissance ^{{ effect }}.",
+      "drought": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : l'EXP des Offrandes est divisée par {{ effect }}.",
+      "recession": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : les gains de Pièces sont élevés à la puissance ^{{ effect }}."
     },
     "prototypeLevel": {
-      "1": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : les Accélérateurs et Multiplicateurs gratuits sont élevés à la puissance ^{{ effect }}.",
-      "2": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : la vitesse du jeu est divisée par {{ effect }}.",
-      "3": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : l'exposant des objectifs des défis est multiplié par {{ effect }}.",
-      "4": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : les gains d'Obtainium sont élevés à la puissance ^{{ effect }}.",
-      "5": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : les gains de Diamants sont élevés à la puissance ^{{ effect }}.",
-      "6": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : la production des Fourmis est élevée à la puissance ^{{ effect }}.",
-      "7": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : l'EXP des Offrandes est divisée par {{ effect }}.",
-      "8": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : les gains de Pièces sont élevés à la puissance ^{{ effect }}."
+      "viscosity": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : les Accélérateurs et Multiplicateurs gratuits sont élevés à la puissance ^{{ effect }}.",
+      "dilation": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : la vitesse du jeu est divisée par {{ effect }}.",
+      "hyperchallenge": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : l'exposant des objectifs des défis est multiplié par {{ effect }}.",
+      "illiteracy": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : les gains d'Obtainium sont élevés à la puissance ^{{ effect }}.",
+      "deflation": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : les gains de Diamants sont élevés à la puissance ^{{ effect }}.",
+      "extinction": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : la production des Fourmis est élevée à la puissance ^{{ effect }}.",
+      "drought": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : l'EXP des Offrandes est divisée par {{ effect }}.",
+      "recession": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : les gains de Pièces sont élevés à la puissance ^{{ effect }}."
     },
     "scoreMultiplier": "Multiplicateur de score actuel : {{ curr }} / Multiplicateur de score de la prochaine Ascension : {{ next }}",
-    "spiritEffect": "Les Corruptions actuelles augmentent les effets des Esprits de +{{curr}}% / Les prochaines Corruptions augmenteront les effets des Esprits de +{{next}}%",
     "exitCorruption": {
       "name": "PURIFIER LA CORRUPTION",
       "description": "Libérez ce monde du péché.",

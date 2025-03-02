@@ -104,7 +104,6 @@ import {
   toggleBuyAmount,
   toggleBuyMaxShop,
   toggleChallenges,
-  toggleCorruptionLevel,
   toggleHepteractAutoPercentage,
   toggleHideShop,
   toggleMaxBuyCube,
@@ -833,9 +832,12 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('corrLoadoutsBtn').addEventListener('click', () => changeSubTab(Tabs.Corruption, { page: 1 }))
 
   // Part 1: Displays
-  DOMCacheGetOrSet('corruptionDisplays').addEventListener('click', () => corruptionDisplay(10))
+  DOMCacheGetOrSet('corruptionDisplays').addEventListener('click', () => corruptionDisplay('exit'))
   DOMCacheGetOrSet('corruptionCleanse').addEventListener('click', () => corruptionCleanseConfirm())
-  DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener('click', () => toggleCorruptionLevel(10, 999))
+  DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener('click', () => {
+    player.corruptions.used.resetCorruptions()
+    player.corruptions.next.resetCorruptions()
+  })
 
   // Extra toggle
   DOMCacheGetOrSet('ascensionAutoEnable').addEventListener('click', () => toggleAutoAscend(0))

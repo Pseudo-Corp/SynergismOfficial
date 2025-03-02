@@ -5,7 +5,7 @@ import { promocodes } from './ImportExport'
 import { useConsumable } from './Shop'
 import { player, resetCheck, synergismHotkeys } from './Synergism'
 import { keyboardTabChange as kbTabChange, tabRow, Tabs } from './Tabs'
-import { confirmReply, toggleAutoChallengeRun, toggleCorruptionLevel } from './Toggles'
+import { confirmReply, toggleAutoChallengeRun } from './Toggles'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
@@ -34,7 +34,7 @@ export const defaultHotkeys = new Map<string, [string, () => unknown, /* hide du
   ['ARROWUP', ['Back a subtab', () => kbTabChange(-1, true), false]],
   ['ARROWDOWN', ['Next subtab', () => kbTabChange(1, true), false]],
   ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascension'), false]],
-  ['SHIFT+C', ['Cleanse Corruptions', () => toggleCorruptionLevel(10, 999), false]],
+  ['SHIFT+C', ['Cleanse Corruptions', () => {player.corruptions.used.resetCorruptions(); player.corruptions.next.resetCorruptions()}, false]],
   ['SHIFT+D', ['Spec. Action Add x1', () => promocodes('add', 1), false]],
   ['SHIFT+E', ['Exit Asc. Challenge', () => resetCheck('ascensionChallenge'), false]], // Its already checks if inside Asc. Challenge
   ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion'), false]],
