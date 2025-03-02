@@ -867,7 +867,7 @@
         "2": "Ant Speed x(1e5)^completions! Current: ",
         "3": "+80 to Rune Caps! Current: "
       },
-      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to toggle Corruptions ;)",
+      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! Also unlocks the Campaign mode. I wonder what that does?",
       "start": "Start <[(Reduced Ants)]>",
       "current": {
         "1": "+{{value}} free ant levels",
@@ -885,7 +885,7 @@
         "2": "+12% Offerings! Current: ",
         "3": "+1 Cube Tribute per opening! Current: "
       },
-      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Increase Corruption Cap by 2 levels. Finally, unlock two new corruptions! ;)",
+      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Also adds additional Campaigns to beat!",
       "start": "Start <[(No Reincarnation)]>",
       "current": {
         "1": "+{{value}}% Obtainium",
@@ -903,7 +903,7 @@
         "2": "+6 maximum to Talisman Level Cap! Current: ",
         "3": "+3% Spirit Power effectiveness! Current: "
       },
-      "first": "Unlock 15 Researches, and unlock the power of the Hypercube! Increase Corruption Cap by 2 levels, to 9! Finally, unlock two new corruptions! ;)",
+      "first": "Unlock 15 Researches, and unlock the power of the Hypercube! Unlock even more Campaigns!",
       "start": "Start <[(Tax+++)]>",
       "current": {
         "1": "+{{value}}% Corruption Tax",
@@ -921,7 +921,7 @@
         "2": "+1 research purchased per roomba tick! Current: ",
         "3": "+200 to Rune Caps! Current: "
       },
-      "first": "Unlock 15 Researches, and a way to coalesce your power into the Singularity. Increase Corruption Cap by 2 levels, to 11! Finally, unlock two new corruptions! ;)",
+      "first": "Unlock 15 Researches, and a way to coalesce your power into the Singularity. Unlock Campaigns, and the ability to create your own Corruption builds!",
       "start": "Start <[(No Research)]>",
       "current": {
         "1": "+{{value}}% Power",
@@ -1600,6 +1600,30 @@
         "name": "Generous Orbs",
         "default": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%"
       },
+      "tokenInheritance": {
+        "name": "Token Inheritance",
+        "default": "At the start of a Singularity, gain {{amount}} additional Campaign Tokens for absolutely nothing!"
+      },
+      "autoCampaigns": {
+        "name": "Automatic Campaigns",
+        "default": "If your current corruption is of equal or higher 'difficulty' than a Campaign, gain Challenge 10 Completions when you ascend, outside of the Campaign!"
+      },
+      "firstClearTokens": {
+        "name": "First to the Slaughter",
+        "default": "Gain +5 tokens for each Campaign for which you have at least one Challenge 10 completion on!"
+      },
+      "lastClearTokens": {
+        "name": "The Blessing of Finality, Campaigns",
+        "default": "Gain +10 tokens for each Campaign for which you have at least one Challenge 10 completion on!"
+      },
+      "bonusTokens": {
+        "name": "More Tokens!",
+        "default": "Campaigns give +{{amount}}% more tokens! Rounded down, of course."
+      },
+      "cubeToQuark": {
+        "name": "Cube to Quark Corner",
+        "default": "Gain +{{amount}}% more Quarks from opening Cubes!"
+      },
       "researchDummies": {
         "name": "Research for Dummies",
         "hasLevel1": "You permanently keep Auto Research and can Research using Hover to Buy!",
@@ -1881,7 +1905,7 @@
       },
       "singCubes1": {
         "name": "Cube Flame",
-        "description": "Upgrade this to get +1% Cubes per level, forever!",
+        "description": "Upgrade this to get +0.6% Cubes per level, forever!",
         "effect": "Permanently gain {{n}}% more Cubes."
       },
       "singCubes2": {
@@ -2514,6 +2538,7 @@
       "research": "Research",
       "antHill": "Anthill",
       "wowCubes": "WOW! Cubes",
+      "campaign": "Campaigns",
       "corruption": "Corruption",
       "singularity": "Singularity",
       "settings": "Settings",
@@ -2593,49 +2618,306 @@
     "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
     "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
   },
+  "campaigns": {
+    "intro": "Campaigns - <<orange | Ascensions>> but <<maroon | harder™>>",
+    "campaignInfo": "Play through <<orange | Ascensions>> with various modifiers to make it spicier, but also more cubical! \n Each Campaign is a <i> <<red | Corrupted>> form of <<orange | Ascension>>. \n <<lightgoldenrodyellow | Click on an icon to see what I mean!>> </i>",
+    "pickNow": "Pick Your Campaign now!",
+    "data": {
+      "first": {
+        "name": "The first Campaign",
+        "description": "Welcome to Campaigns! These are Ascensions with corruption modifiers, which make the Ascension harder, but give better rewards!"
+      },
+      "second": {
+        "name": "The second Campaign",
+        "description": "As you can see, there are multiple different forms of corruption. You'll see more as you progress through Campaign!"
+      },
+      "third": {
+        "name": "Campaign the Third",
+        "description": "Kinda stacking a bit more. Notice the Ascension Score Multiplier? It goes up based on how many corruptions you have."
+      },
+      "fourth": {
+        "name": "Campaign IV",
+        "description": "Corruptions also have levels to them. Harder Campaigns will have higher corruption levels... and a higher Ascension Score multiplier!"
+      },
+      "fifth": {
+        "name": "The fifth least Campaign",
+        "description": "You can earn tokens by completing Campaigns! Tokens automatically reward bonuses, based on how many you have earned."
+      },
+      "sixth": {
+        "name": "The sweet sixth Campaign",
+        "description": "The difficulty Score of an Ascension is based on your corruption levels, based on 400 + 16 * (sum of squared corruption levels)."
+      },
+      "seventh": {
+        "name": "I think you understand this Corruption set by now",
+        "description": "If you can beat this, then Challenge 12 should be doable!"
+      },
+      "eighth": {
+        "name": "Woah, a new Corruption!",
+        "description": "This Campaign has a new corruption, which eats at your Diamond production."
+      },
+      "ninth": {
+        "name": "More Viscosity!",
+        "description": "We wanted to make things more viscous."
+      },
+      "tenth": {
+        "name": "Extinction Event I",
+        "description": "This Campaign has a new corruption, which eats at your Ants. Oh the Ant-ity!"
+      },
+      "eleventh": {
+        "name": "Campaign XI",
+        "description": "Harder setup. Oh, and these corruptions can go to level 7 if they want."
+      },
+      "twelfth": {
+        "name": "Campaign XII",
+        "description": "We can combine the new corruptions in a way that Synergistically make it more difficult to beat, but a lot more rewarding."
+      },
+      "thirteenth": {
+        "name": "Campaign XIII",
+        "description": "As you may notice, having multiple corruptions greatly boosts your score, more so than just leveling corruptions higher."
+      },
+      "fourteenth": {
+        "name": "Campaign XIV",
+        "description": "You can sometimes increase a Corruption without hurting your run, if it does not strongly impact your challenge completions."
+      },
+      "fifteenth": {
+        "name": "Campaign XV",
+        "description": "The last of the Campaigns before Challenge 13. Good luck!"
+      },
+      "sixteenth": {
+        "name": "Campaign XVI",
+        "description": "New Corruptions! Reduce your Obtainium gain, and reduce your Coin gain. Maybe it reminds you of an upcoming challenge?"
+      },
+      "seventeenth": {
+        "name": "Campaign XVII",
+        "description": "Amping up the illiteracy a bit, you will gain even less Obtainium. It's probably less important than coins, right?"
+      },
+      "eighteenth": {
+        "name": "Campaign XVIII",
+        "description": "Let's up the ante. Six Corruptions at once! And your Ascension Score Multiplier is very quickly increasing."
+      },
+      "nineteenth": {
+        "name": "Campaign XIX",
+        "description": "Even more illiteracy! Maybe you'll notice how hard it can be to earn Hypercubes."
+      },
+      "twentieth": {
+        "name": "Campaign XX",
+        "description": "As long as you can handle having less Obtainium, leveling up the illiteracy corruption is worth it."
+      },
+      "twentyFirst": {
+        "name": "Campaign XXI",
+        "description": "It is also sometimes worth trading one penalty for another. In this case, you get more Obtainium, but almost no Diamonds. Higher multiplier for Corruption Levels!"
+      },
+      "twentySecond": {
+        "name": "Campaign XXII",
+        "description": "Fewer Offerings, and less Obtainium. Perhaps your ants can compensate for lost power?"
+      },
+      "twentyThird": {
+        "name": "Campaign XXIII",
+        "description": "When adjusting your setup, it helps to slowly change your loadout, trying to increase your score multiplier without sacrificing too many Challenge 10 runs."
+      },
+      "twentyFourth": {
+        "name": "Campaign XXIV",
+        "description": "A challenging but useful loadout for pre-challenge 14. Can you beat it and get Hypercubes?"
+      },
+      "twentyFifth": {
+        "name": "Campaign XXV",
+        "description": "The last Campaign before Challenge 14! After this, you can change your corruptions at will, but stay tuned for more useful corruption builds."
+      },
+      "twentySixth": {
+        "name": "Campaign XXVI",
+        "description": "Uh oh, it's time for Dilation! It does not make Ascensions slower, unless you need fast timers on pre-Ascension resets."
+      },
+      "twentySeventh": {
+        "name": "Campaign XXVII",
+        "description": "The last new Corruption, this makes your Challenge requirements directly larger. Trading completions for a direct score multiplier!"
+      },
+      "twentyEighth": {
+        "name": "Campaign XXVIII",
+        "description": "You may start to see how the Corruptions are a little difficult to master. These setups are recommended by Synergists of past, for Synergists of today."
+      },
+      "twentyNinth": {
+        "name": "Campaign XXIX",
+        "description": "This is probably harder than Campaign 30, but has a higher score multiplier. This is meant to be a challenge, so it is out-of-meta."
+      },
+      "thirtieth": {
+        "name": "Campaign 30",
+        "description": "You may want to consider this as you grind up for the Ultimate Moon Cube Upgrade."
+      },
+      "thirtyFirst": {
+        "name": "Campaign XXXI",
+        "description": "We increase Hyperchallenge as a Corruption when we can clear enough challenges to justify the increase."
+      },
+      "thirtySecond": {
+        "name": "Campaign XXXII",
+        "description": "When you finish the final Research, you should have enough power to take this on profitably. Maybe you will also get Platonic Cubes?"
+      },
+      "thirtyThird": {
+        "name": "Campaign XXXIII",
+        "description": "The Global Speed can be leveraged against having less Offerings or Obtainiums, like in this example."
+      },
+      "thirtyFourth": {
+        "name": "Campaign XXXIV",
+        "description": "Are you starting to go for the Thousand Moons Cube Upgrade?"
+      },
+      "thirtyFifth": {
+        "name": "Campaign XXXV",
+        "description": "You may REALLY want to upgrade that Cube Upgrade!"
+      },
+      "thirtySixth": {
+        "name": "Campaign XXXVI",
+        "description": "As you upgrade the Thousand Moons, you can take on much more difficult Corruption Builds!"
+      },
+      "thirtySeventh": {
+        "name": "Campaign XXXVII",
+        "description": "You should also bump up your Tributes, if you have not."
+      },
+      "thirtyEighth": {
+        "name": "Campaign XXXVIII",
+        "description": "How is that Thousand Moons Cube Upgrade coming along?"
+      },
+      "thirtyNinth": {
+        "name": "Campaign XXXIX",
+        "description": "Much more of the same"
+      },
+      "fortieth": {
+        "name": "Campaign XL",
+        "description": "Before proceeding in this Campaign, you have to have the Thousand Moons upgrade maxxed. Congratulations!"
+      },
+      "fortyFirst": {
+        "name": "Campaign XLI",
+        "description": "Platonic Alpha, here we come!"
+      },
+      "fortySecond": {
+        "name": "Campaign XLII",
+        "description": "Congratulations on getting Corruptions Level 12! As you see from the Score Multiplier, it's a huge difference."
+      },
+      "fortyThird": {
+        "name": "Campaign XLIII",
+        "description": "The sixth Platonic upgrade is very powerful, but expensive. Hopefully this build can help you reach it faster."
+      },
+      "fortyFourth": {
+        "name": "Campaign XLIV",
+        "description": "As you buy the Platonic upgrades, your ability to do Corruptions will greatly increase as a result of their effect reductions."
+      },
+      "fortyFifth": {
+        "name": "Campaign XLV",
+        "description": "Corruptions Level 13! Woah! You are getting close to the end of the Campaigns."
+      },
+      "fortySixth": {
+        "name": "Campaign XLVI",
+        "description": "As we round out, you should be able to clear Ascensions with mostly maxxed Corruptions. Viscosity is strong and thus lower level."
+      },
+      "fortySeventh": {
+        "name": "Campaign XLVII",
+        "description": "While slightly easier, you may still get more Ascension rewards due to having more Challenge completions."
+      },
+      "fortyEighth": {
+        "name": "Campaign XLVIII",
+        "description": "This is the final serious setup. Good job on making it this far, and best of luck on the last two."
+      },
+      "fortyNinth": {
+        "name": "Campaign XLIX - The Challenge 15 Build",
+        "description": "It's like Challenge 15, but it's not."
+      },
+      "fiftieth": {
+        "name": "Campaign L - The Final Campaign",
+        "description": "The final campaign. Don't count on beating it on your first try. Maybe you need to go beyond Ascensions?"
+      }
+    },
+    "corruptionTexts": {
+      "viscosity": "Free Accel. and Multipliers Exponent ^{{ effect }}",
+      "dilation": "Time Speed is multiplied by {{ effect }}",
+      "hyperchallenge": "Challenge Exponent Reqs. x{{ effect }}",
+      "illiteracy": "Obtainium gain ^{{ effect }}",
+      "deflation": "Diamond gain ^{{ effect }}",
+      "extinction": "Ant Production ^{{ effect }}",
+      "drought": "Offering EXP divided by {{ effect }}",
+      "recession": "Coin Gain ^{{ effect }}"
+    },
+    "corruptionStats": {
+      "title": "Campaign Statistics",
+      "corruptionScoreMult": "Ascension Score Multiplier: {{ mult }}",
+      "corruptionDifficulty": "Campaign Difficulty Score (base is 400): {{ difficulty }}",
+      "highestc10Completion": "Highest Challenge 10 Completion in Campaign: {{ c10 }} / {{ maxc10 }}",
+      "tokensEarned": "Tokens Earned in Campaign: {{ tokens }} / {{ maxTokens }}",
+      "metaText": "This campaign has a 'meta build'! Token reward is doubled!",
+      "startCampaign": "Start Campaign! (Resets your ascension)",
+      "resetCampaign": "Exit Campaign! (Resets your ascension)"
+    },
+    "tokens": {
+      "count": "You have {{ count }} / {{ maxCount }} tokens!",
+      "rewardTexts": {
+        "tutorial": "For clearing your first Campaign, get {{cube}} more Cubes, <<pink | {{obtainium}}>> more Obtainium, and <<orange | {{offering}}>> more Offerings!",
+        "cube": "Increase Cube gain by {{ reward }} (Maximum +150%).",
+        "obtainium": "Increase Obtainium gain by <<pink | {{ reward }}>> (Maximum +150%).",
+        "offering": "Increase Offering gain by <<orange | {{ reward }}>> (Maximum +150%).",
+        "ascensionScore": "Increase Ascension Score by <<orange | {{ reward }}>> (Maximum +150%).",
+        "timeThreshold": "For Reset Rewards that have a penalty if you reset under a certain time, reduce that time by <<gray | {{ reward }}>> seconds (Base: 10s).",
+        "quark": "Increase Quark gain by <<cyan | {{ reward }}>> (Maximum +40%).",
+        "tax": "Taxes <<blue | {{ reward }}>> (Minimum -25%).",
+        "c15": "Increase Challenge 15 bonus by <<lightgoldenrodyellow | {{ reward }}>> (Maximum +100%)",
+        "rune6": "Increase Rune 6 Bonus Levels by <<brown | {{ reward }}>> (Maximum +3).",
+        "goldenQuark": "Increase Golden Quark gain by <<gold | {{ reward }}>> (Maximum +25%).",
+        "octeract": "Increase Octeract gain by <<teal | {{ reward }}>> (Maximum +50%).",
+        "ambrosiaLuck": "Increase ☘ Ambrosia Luck by <<green | {{ reward }}>> (Maximum ☘ +100).",
+        "blueberrySpeed": "Increase Blueberry Generation Speed by <<blue | {{ reward }}>> (Maximum +10%)."
+      }
+    },
+    "currentCampaignPreTitle": "Current Campaign: ",
+    "noChallengeCompletionConfirm": "You have not yet cleared Challenge 10 and therefore will not earn Cubes if you leave. Confirm?",
+    "saveLoadout": "Save Corruption Loadout!",
+    "saveLoadoutNotification": "Saved Corruption Loadout for {{ name }} for next Ascension!",
+    "errorMessages": {
+      "ascensionChallenge": "Sorry, you are already in an Ascension Challenge! Please leave it before attempting a Campaign."
+    }
+  },
   "corruptions": {
     "names": {
-      "1": "Corruption I: Viscosity",
-      "2": "Corruption II: Spacial Dilation",
-      "3": "Corruption III: Hyperchallenged",
-      "4": "Corruption IV: Scientific Illiteracy",
-      "5": "Corruption V: Market Deflation",
-      "6": "Corruption VI: Extinction",
-      "7": "Corruption VII: Drought",
-      "8": "Corruption VIII: Financial Recession"
+      "viscosity": "Viscous Multiplier and Accelerators",
+      "drought": "Less Fruitful Harvests",
+      "deflation": "Crystal Mine Collapse",
+      "extinction": "The Second Meteor",
+      "illiteracy": "Defunded Education",
+      "recession": "Great Depression II",
+      "dilation": "Time Dilation",
+      "hyperchallenge": "The Hyperchallenge Cube"
     },
     "descriptions": {
-      "1": "You feel lethargic across the universe...",
-      "2": "Way to go, Albert.",
-      "3": "What's in a challenge?",
-      "4": "Maybe Albert wouldn't have theorized Dilation after all.",
-      "5": "Diamond Mine destroyed... no more monopolies!",
-      "6": "It killed the dinosaurs too, ya Dingus.",
-      "7": "More like California, am I right?",
-      "8": "Yet another 2020 catastrophe."
+      "viscosity": "You feel lethargic across the universe...",
+      "dilation": "Way to go, Albert.",
+      "hyperchallenge": "What's in a challenge?",
+      "illiteracy": "Maybe Albert wouldn't have theorized Dilation after all.",
+      "deflation": "Diamond Mine destroyed... no more monopolies!",
+      "extinction": "It killed the dinosaurs too, ya Dingus.",
+      "drought": "More like California, am I right?",
+      "recession": "Yet another 2025 catastrophe."
     },
     "currentLevel": {
-      "1": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-      "2": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-      "3": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-      "4": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-      "5": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-      "6": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
-      "7": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-      "8": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+      "viscosity": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
+      "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+      "hyperchallenge": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+      "illiteracy": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+      "deflation": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+      "extinction": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
+      "drought": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+      "recession": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
     "prototypeLevel": {
-      "1": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-      "2": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-      "3": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-      "4": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-      "5": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-      "6": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
-      "7": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-      "8": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+      "viscosity": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
+      "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+      "hyperchallenge": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+      "illiteracy": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+      "deflation": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+      "extinction": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
+      "drought": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+      "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
     "scoreMultiplier": "Current Score Multiplier: {{ curr }} / Next Ascension Score Multiplier: {{ next }}",
-    "spiritEffect": "This corruption gives Rune Spirit Effect +{{curr}}% / Next Ascension Rune Spirit Effect +{{next}}%",
+    "difficultyEffect": "This corruption adds {{ curr }} difficulty rating / Next Ascension +{{next}}",
+    "freeLevels": "Free Levels: {{ curr }} (Does not increase difficulty of Corruption!)",
+    "totalScoreMultiplier": "Corruptions give total Score Multiplier: x{{ curr }} / Next Ascension: x{{ next }}",
+    "totalDifficulty": "Total Ascension Difficulty Score: {{ curr }} / Next Ascension: {{ next }} (Base 400 difficulty)",
+    "totalSpiritContribution": "Corruption Loadout Spirit Bonus: +{{ curr }} / Next Ascension: +{{ next }} (+1% per 4 extra difficulty)",
     "exitCorruption": {
       "name": "CLEANSE THE CORRUPTION",
       "description": "Free this world of sin.",
@@ -2659,7 +2941,7 @@
       "load": "Load"
     },
     "importCorruptionsPrompt": {
-      "import": "Enter a Corruption Loadout to import for next Ascension. It must be in the following text format: 1/2/3/4/5/6/7/8",
+      "import": "Enter a Corruption Loadout to import for next Ascension. You can have it in the following format: \n {\"corr1Name\": num1, \"corr2Name\": num2, ...} \n It can also be in the following text format: num1/num2/.../num8 [Legacy] \n Possible corrNames: \"viscosity\", \"drought\", \"deflation\", \"extinction\", \"illiteracy\", \"recession\", \"dilation\". \"hyperchallenge\"",
       "importError": "Your input was not in the correct format, try again."
     },
     "corruptionLoadoutName": {
@@ -2684,6 +2966,7 @@
     "spiritBonus": "However, it also multiplies Rune Spirit Effects by <<wheat|{{multiplier}}>>.",
     "corruptionBank": "You have <<var(--crimson-text-color)|{{number}}>> Wow! Cubes in the Ascension bank. Gain more by finishing Challenges! Ascend to redeem them.",
     "corruptionScore": "Your Ascension Score is <<goldenrod|{{ascScore}}>></span> (base) * <<var(--crimson-text-color)|{{corrMult}}>> (Corruption mult) * <<var(--orchid-text-color)|{{bonusMult}}>> (Bonus mult) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
+    "corruptionScoreDR": "Past 1e23 Ascension Score, further gains are square rooted! You are currently under this penalty.",
     "ascensionCount": "If you Ascend now, <<darkorange|{{ascCount}}>> will be added to your ascension count.",
     "corruptionCubes": "If you Ascend now, you will gain <<yellow|{{cubeAmount}}>> Wow! Cubes.",
     "corruptionTesseracts": "If you Ascend now, you will gain <<orange|{{tesseractAmount}}>> Wow! Tesseracts. [<<var(--orange-text-color)|Get more if Score >100,000>>]",
@@ -3734,7 +4017,7 @@
       "consumableSpoiler": "Start an event for everyone, with the Happy Hour Bell!",
       "consumableButton": "Buy at the PseudoShop!",
       "applyTips": "Use Tips!",
-      "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s)."
+      "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s). You may only use up to 1,440 tips per "
     }
   }
 }
