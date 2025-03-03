@@ -674,7 +674,7 @@
     "antSacMultiplier": "Multiplicador de Sacrificio de Hormigas: {{y}}x --> <<limegreen|x{{x}}>>",
     "autoReset": "Esto reseteará tus Migas, Hormigas y Mejoras de Hormigas a cambio de multiplicadores y recursos. ¿Continuar?",
     "elo": "+{{x}} [>{{y}} ELO]",
-    "antSacrifice": "Sacrificar Formiga"
+    "antSacrifice": "Ant Sacrifice"
   },
   "challenges": {
     "1": {
