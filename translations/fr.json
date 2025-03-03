@@ -674,7 +674,7 @@
     "antSacMultiplier": "Multiplicateur sacrificiel : x{{y}} → <<limegreen|x{{x}}>>",
     "autoReset": "Cela réinitialisera vos Miettes, Fourmis et les améliorations de Fourmis en échange d'un multiplicateur et de ressources. Continuer ?",
     "elo": "+{{x}} [>{{y}} ELO]",
-    "antSacrifice": "Sacrificar Formiga"
+    "antSacrifice": "Ant Sacrifice"
   },
   "challenges": {
     "1": {
