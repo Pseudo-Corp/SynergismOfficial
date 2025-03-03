@@ -1905,7 +1905,7 @@
       },
       "singCubes1": {
         "name": "Würfel-Flamme",
-        "description": "Upgrade this to get +0.6% Cubes per level, forever!",
+        "description": "Verbessere dies, um +0.6% Würfel pro Level zu erhalten, für immer!",
         "effect": "Erhalte permanent {{n}}% mehr Würfel."
       },
       "singCubes2": {

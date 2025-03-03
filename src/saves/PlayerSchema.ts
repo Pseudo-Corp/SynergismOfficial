@@ -1,6 +1,8 @@
 import Decimal from 'break_infinity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
 import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
+import { CampaignManager, type ICampaignManagerData } from '../Campaign'
+import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { createHepteract } from '../Hepteracts'
 import { octeractData, OcteractUpgrade } from '../Octeracts'
@@ -79,6 +81,39 @@ const hepteractCraftSchema = (k: keyof Player['hepteractCrafts']) =>
     OTHER_CONVERSIONS: z.record(z.string(), z.number()),
     UNLOCKED: z.boolean().default(() => blankSave.hepteractCrafts[k].UNLOCKED)
   })
+
+const optionalCorruptionSchema = z.object({
+  viscosity: z.number().optional().default(0),
+  drought: z.number().optional().default(0),
+  deflation: z.number().optional().default(0),
+  extinction: z.number().optional().default(0),
+  illiteracy: z.number().optional().default(0),
+  recession: z.number().optional().default(0),
+  dilation: z.number().optional().default(0),
+  hyperchallenge: z.number().optional().default(0)
+})
+
+export const playerCorruptionSchema = z.object({
+  used: optionalCorruptionSchema.transform((value) => {
+    return new CorruptionLoadout(value)
+  }),
+  next: optionalCorruptionSchema.transform((value) => {
+    return new CorruptionLoadout(value)
+  }),
+  saves: z.record(z.string(), optionalCorruptionSchema).transform((value) => {
+    return new CorruptionSaves(value)
+  }),
+  showStats: z.boolean()
+}).default(() => JSON.parse(JSON.stringify(blankSave.corruptions)))
+
+export const campaignSchema = z.object({
+  currentCampaign: z.string().optional(),
+  campaigns: z.record(z.string(), z.number()).optional()
+})
+
+export const playerCampaignSchema = campaignSchema.transform((campaignData) => {
+  return new CampaignManager(campaignData as ICampaignManagerData)
+}).default(() => JSON.parse(JSON.stringify(blankSave.campaigns)))
 
 export const playerSchema = z.object({
   firstPlayed: z.string().datetime().optional().default(() => new Date().toISOString()),
@@ -519,17 +554,16 @@ export const playerSchema = z.object({
   roombaResearchIndex: z.number().default(() => blankSave.roombaResearchIndex),
   ascStatToggles: z.record(integerStringSchema, z.boolean()).default(() => ({ ...blankSave.ascStatToggles })),
 
-  prototypeCorruptions: z.number().array().default(() => [...blankSave.prototypeCorruptions]),
-  usedCorruptions: z.number().array().transform((array) => arrayExtend(array, 'usedCorruptions')).default(
-    () => [...blankSave.usedCorruptions]
-  ),
-  corruptionLoadouts: z.record(integerStringSchema, z.number().array()).default(() =>
-    deepClone(blankSave.corruptionLoadouts)
-  ),
-  corruptionLoadoutNames: z.string().array().default(() => blankSave.corruptionLoadoutNames.slice()).default(
-    () => [...blankSave.corruptionLoadoutNames]
-  ),
-  corruptionShowStats: z.boolean().default(() => blankSave.corruptionShowStats),
+  campaigns: playerCampaignSchema,
+
+  corruptions: playerCorruptionSchema,
+
+  prototypeCorruptions: z.number().array().optional(),
+  usedCorruptions: z.number().array().optional(),
+  corruptionLoadouts: z.record(integerStringSchema, z.number().array()).optional(),
+
+  corruptionLoadoutNames: z.string().array().optional(),
+  corruptionShowStats: z.boolean().optional(),
 
   constantUpgrades: arrayStartingWithNull(z.number()).default((): [
     null,

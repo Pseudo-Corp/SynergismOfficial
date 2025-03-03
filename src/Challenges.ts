@@ -407,7 +407,7 @@ export const calculateChallengeRequirementMultiplier = (
 ) => {
   let requirementMultiplier = Math.max(
     1,
-    G.hyperchallengedMultiplier[player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5)
+    G.hyperchallengeMultiplier[player.corruptions.used.hyperchallenge] / (1 + player.platonicUpgrades[8] / 2.5)
   )
   if (type === 'ascension') {
     // Normalize back to 1 if looking at ascension challenges in particular.
@@ -703,6 +703,7 @@ export const autoAscensionChallengeSweepUnlock = () => {
 
 export const challenge15ScoreMultiplier = () => {
   const arr = [
+    player.campaigns.c15Bonus, // Campaign Bonus to c15
     1 + 5 / 10000 * hepteractEffective('challenge'), // Challenge Hepteract
     1 + 0.25 * player.platonicUpgrades[15] // Omega Upgrade
   ]

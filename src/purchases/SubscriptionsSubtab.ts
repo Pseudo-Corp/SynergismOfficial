@@ -1,3 +1,4 @@
+import { loadScript } from '@paypal/paypal-js'
 import { prod } from '../Config'
 import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
@@ -100,8 +101,9 @@ export const createIndividualSubscriptionHTML = (product: Product, existingCosts
           ${constructDescriptions(product.description)}
           </p>
           <button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: maroon">
-          Downgrade!
+            Downgrade!
           </button>
+          <div id="checkout-paypal" data-id="${product.id}"></div>
       </div>
       </section>
     `
@@ -117,8 +119,9 @@ export const createIndividualSubscriptionHTML = (product: Product, existingCosts
           ${constructDescriptions(product.description)}
           </p>
           <button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton" style="background-color: #b59410">
-          You are here!
+            You are here!
           </button>
+          <div id="checkout-paypal" data-id="${product.id}"></div>
       </div>
       </section>
     `
@@ -134,8 +137,9 @@ export const createIndividualSubscriptionHTML = (product: Product, existingCosts
           ${constructDescriptions(product.description)}
           </p>
           <button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton">
-          Upgrade for ${formatter.format((product.price - existingCosts) / 100)} USD / mo
+            Upgrade for ${formatter.format((product.price - existingCosts) / 100)} USD / mo
           </button>
+          <div id="checkout-paypal" data-id="${product.id}"></div>
       </div>
       </section>
     `
@@ -172,6 +176,52 @@ export const initializeSubscriptionPage = memoize(() => {
       element.addEventListener('click', clickHandler)
     }
   )
+  ;(async () => {
+    const paypal = await loadScript({
+      clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
+      enableFunding: ['venmo'],
+      disableFunding: ['paylater', 'credit', 'card'],
+      vault: true,
+      intent: 'subscription'
+    })
+
+    document.querySelectorAll<HTMLElement>('.subscriptionContainer > div > div[data-id]').forEach(
+      (element) => {
+        const id = element.getAttribute('data-id')!
+
+        paypal?.Buttons?.({
+          style: {
+            shape: 'rect',
+            layout: 'vertical',
+            color: 'gold',
+            label: 'paypal'
+          },
+
+          async createSubscription () {
+            const response = await fetch(`https://synergism.cc/paypal/subscriptions/create?product=${id}`, {
+              method: 'POST'
+            })
+
+            const json = await response.json()
+            return json.id
+          },
+
+          async onApprove (data) {
+            console.log('subscription approved', data)
+
+            Alert(
+              'Please give us a few minutes to process your subscription (PayPal is slow). You will have to refresh the page to receive the bonuses! Thank you for supporting Synergism!'
+            )
+          },
+
+          onError (error) {
+            Notification('An error with PayPal happened. More info in console.')
+            console.log(error)
+          }
+        }).render(element)
+      }
+    )
+  })()
 })
 
 export const clearSubscriptionPage = () => {

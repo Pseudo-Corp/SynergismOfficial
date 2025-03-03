@@ -3,7 +3,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateCorruptionPoints, calculateRuneBonuses, calculateSummationLinear } from './Calculate'
+import { calculateRuneBonuses, calculateSummationLinear } from './Calculate'
 import { CalcECC } from './Challenges'
 import { reset } from './Reset'
 import { format, player, updateAllMultiplier, updateAllTick } from './Synergism'
@@ -1276,7 +1276,7 @@ export const updateRuneBlessing = (type: 'Blessings' | 'Spirits', index: number)
     })
   } else if (type === 'Spirits') {
     const spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
-    spiritMultiplierArray[index] *= calculateCorruptionPoints() / 400
+    spiritMultiplierArray[index] *= player.corruptions.used.totalCorruptionDifficultyScore / 400
     const t = (index === 3) ? 1 : 0
 
     DOMCacheGetOrSet(`runeSpiritPower${index}Value1`).innerHTML = i18next.t('runes.spirits.spiritPower', {

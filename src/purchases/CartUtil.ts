@@ -52,6 +52,17 @@ export const removeFromCart = (id: string) => {
   updateInCartCount()
 }
 
+export const clearCart = () => {
+  for (const [id, product] of cartMap.entries()) {
+    if (product.quantity > 0) {
+      product.quantity = 1 /* removeFromCart decrements quantity */
+      removeFromCart(id)
+    }
+  }
+
+  updateInCartCount()
+}
+
 /**
  * Returns the price of everything in the cart.
  */

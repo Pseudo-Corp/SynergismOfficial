@@ -8,7 +8,6 @@ import {
   calculateAmbrosiaCubeMult,
   calculateAmbrosiaQuarkMult,
   calculateAutomaticObtainium,
-  calculateCorruptionPoints,
   calculateCubeQuarkMultiplier,
   calculateMaxRunes,
   calculateNumberOfThresholds,
@@ -44,6 +43,7 @@ import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
+import { formatAsPercentIncrease } from './Campaign'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -599,7 +599,7 @@ export const visualUpdateRunes = () => {
         )
       } else if (i === 6) {
         DOMCacheGetOrSet(`bonusrune${i}`).textContent = i18next.t('runes.bonusAmount', {
-          x: player.cubeUpgrades[73] + (PCoinUpgradeEffects.INSTANT_UNLOCK_2 ? 6 : 0)
+          x: player.cubeUpgrades[73] + (PCoinUpgradeEffects.INSTANT_UNLOCK_2 ? 6 : 0) + player.campaigns.bonusRune6
         })
       } else {
         DOMCacheGetOrSet(`bonusrune${i}`).textContent = i18next.t('runes.bonusNope')
@@ -717,7 +717,7 @@ export const visualUpdateRunes = () => {
     const spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
     const subtract = [0, 0, 0, 1, 0, 0]
     for (let i = 1; i <= 5; i++) {
-      spiritMultiplierArray[i] *= calculateCorruptionPoints() / 400
+      spiritMultiplierArray[i] *= player.corruptions.used.totalCorruptionDifficultyMultiplier
 
       DOMCacheGetOrSet(`runeSpiritLevel${i}Value`).innerHTML = i18next.t(
         'runes.spirits.spiritLevel',
@@ -1274,6 +1274,14 @@ export const visualUpdateCorruptions = () => {
       totalScore: format(metaData[3], 1, true)
     }
   )
+
+  if (metaData[3] > 1e23) {
+    DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'visible'
+  }
+  else {
+    DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'hidden'
+  }
+
   DOMCacheGetOrSet('corruptionCubes').innerHTML = i18next.t(
     'corruptions.corruptionCubes',
     {
@@ -1308,18 +1316,25 @@ export const visualUpdateCorruptions = () => {
     'corruptions.antExponent',
     {
       exponent: format(
-        (1 - (0.9 / 90) * sumContents(player.usedCorruptions))
-          * G.extinctionMultiplier[player.usedCorruptions[7]],
+        (1 - (0.9 / 90) * player.corruptions.used.totalLevels)
+          * G.extinctionMultiplier[player.corruptions.used.extinction],
         3
       )
     }
   )
-  DOMCacheGetOrSet('corruptionSpiritBonus').innerHTML = i18next.t(
-    'corruptions.spiritBonus',
-    {
-      multiplier: format(calculateCorruptionPoints() / 400, 2, true)
-    }
-  )
+  DOMCacheGetOrSet('corruptionMultiplierTotal').textContent = i18next.t('corruptions.totalScoreMultiplier', {
+    curr: format(player.corruptions.used.totalCorruptionAscensionMultiplier, 2, true),
+    next: format(player.corruptions.next.totalCorruptionAscensionMultiplier, 2, true)
+  })
+  DOMCacheGetOrSet('corruptionDifficultyTotal').textContent = i18next.t('corruptions.totalDifficulty', {
+    curr: format(player.corruptions.used.totalCorruptionDifficultyScore, 2, true),
+    next: format(player.corruptions.next.totalCorruptionDifficultyScore, 2, true)
+  })
+  DOMCacheGetOrSet('corruptionSpiritTotal').textContent = i18next.t('corruptions.totalSpiritContribution', {
+    curr: formatAsPercentIncrease(player.corruptions.used.totalCorruptionDifficultyMultiplier),
+    next: formatAsPercentIncrease(player.corruptions.next.totalCorruptionDifficultyMultiplier)
+  })
+
   DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'block' : 'none'
 
   if (ascCount > 1) {
@@ -1866,3 +1881,5 @@ export const visualUpdateEvent = () => {
 }
 
 export const visualUpdatePurchase = () => {}
+
+export const visualUpdateCampaign = () => {}

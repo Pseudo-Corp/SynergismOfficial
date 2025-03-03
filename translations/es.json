@@ -1905,7 +1905,7 @@
       },
       "singCubes1": {
         "name": "Llama de Cubos",
-        "description": "Upgrade this to get +0.6% Cubes per level, forever!",
+        "description": "Mejora esto para ganar +0.6% Cubos por nivel, ¡Para siempre!",
         "effect": "Gana permanentemente {{n}}% más Cubos."
       },
       "singCubes2": {
@@ -2873,44 +2873,44 @@
   },
   "corruptions": {
     "names": {
-      "viscosity": "Viscous Multiplier and Accelerators",
-      "drought": "Less Fruitful Harvests",
-      "deflation": "Crystal Mine Collapse",
-      "extinction": "The Second Meteor",
-      "illiteracy": "Defunded Education",
-      "recession": "Great Depression II",
-      "dilation": "Time Dilation",
-      "hyperchallenge": "The Hyperchallenge Cube"
+      "viscosity": "Corrupción I: Viscosidad",
+      "dilation": "Corrupción II: Dilatación Espacial",
+      "hyperchallenge": "Corrupción III: Hiperdesafiado",
+      "illiteracy": "Corrupción IV: Analfabetismo Científico",
+      "deflation": "Corrupción V: Deflación del Mercado",
+      "extinction": "Corrupción VI: Extinción",
+      "drought": "Corrupción VII: Sequía",
+      "recession": "Corrupción VIII: Recesión Financiera"
     },
     "descriptions": {
-      "viscosity": "You feel lethargic across the universe...",
-      "dilation": "Way to go, Albert.",
-      "hyperchallenge": "What's in a challenge?",
-      "illiteracy": "Maybe Albert wouldn't have theorized Dilation after all.",
-      "deflation": "Diamond Mine destroyed... no more monopolies!",
-      "extinction": "It killed the dinosaurs too, ya Dingus.",
-      "drought": "More like California, am I right?",
-      "recession": "Yet another 2025 catastrophe."
+      "viscosity": "Te sientes letárgico sobre el universo...",
+      "dilation": "Bien hecho, Albert.",
+      "hyperchallenge": "¿Qué tiene este Desafío?",
+      "illiteracy": "Quizá Albert no hubiera hecho la hipótesis de la Dilatación.",
+      "deflation": "Mina de Diamantes destruida... ¡No más Monopolios!",
+      "extinction": "Mató a los dinosaurios también, zoquete.",
+      "drought": "Como California, ¿A que sí?",
+      "recession": "Y otra catástrofe de 2020."
     },
     "currentLevel": {
-      "viscosity": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-      "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-      "hyperchallenge": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-      "illiteracy": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-      "deflation": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-      "extinction": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
-      "drought": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-      "recession": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+      "viscosity": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Exponente de Acel. y Mult. gratuitos ^{{ effect }}",
+      "dilation": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Velocidad de Tiempo dividida por {{ effect }}",
+      "hyperchallenge": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Requisitos de Exponente de Desafío x{{ effect }}",
+      "illiteracy": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Ganancia de Obtainium ^{{ effect }}",
+      "deflation": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Ganancia de Diamantes ^{{ effect }}",
+      "extinction": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Producción de Hormigas ^{{ effect }}",
+      "drought": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: EXP de Ofrendas dividida por {{ effect }}",
+      "recession": "En esta Ascensión, esta corrupción tiene nivel {{ level }}. Efecto: Ganancia de Monedas ^{{ effect }}"
     },
     "prototypeLevel": {
-      "viscosity": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-      "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-      "hyperchallenge": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-      "illiteracy": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-      "deflation": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-      "extinction": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
-      "drought": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-      "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+      "viscosity": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Exponente de Acel. y Mult. gratuitos ^{{ effect }}",
+      "dilation": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Velocidad de Tiempo dividida por {{ effect }}",
+      "hyperchallenge": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Requisitos de Exponente de Desafío x{{ effect }}",
+      "illiteracy": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Obtainium ^{{ effect }}",
+      "deflation": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Diamantes ^{{ effect }}",
+      "extinction": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Producción de Hormigas ^{{ effect }}",
+      "drought": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: EXP de Ofrendas dividida por {{ effect }}",
+      "recession": "La siguiente Ascensión, esta corrupción tendrá nivel {{ level }}. Efecto: Ganancia de Monedas ^{{ effect }}"
     },
     "scoreMultiplier": "Multiplicador de Puntuación Actual: {{ curr }} / Multiplicador de Puntuación la próxima Ascensión: {{ next }}",
     "difficultyEffect": "This corruption adds {{ curr }} difficulty rating / Next Ascension +{{next}}",
@@ -3424,7 +3424,7 @@
       "buyUpTo": "Compra hasta <<var(--orchid-text-color)|{{amount}}>> Niveles por compra, si es asequible. [Entrada para alternar]"
     },
     "perOfferingText": "+{{exp}} EXP por Ofrenda, {{x}} [{{y}}] Ofrendas para subir de nivel una vez.",
-    "runeEffectSummaryTitle": "=====RESUMEN EFECTO DE RUNAS=====",
+    "runeEffectSummaryTitle": "=====RESUMEN EFECTO DE RUNAS==",
     "bonusAmount": "[Bonus: {{x}}]",
     "bonusNope": "[Bonus: ¡Nnope!]",
     "resourcesToEnhance": "=-=-= Recursos requeridos para REALZAR =-=-=",

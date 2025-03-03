@@ -1,18 +1,11 @@
 declare const PROD: boolean | undefined
 
-export const version = '3.1.2 February 1 2025: The Events Update'
+export const version = '3.2.0 March 1 2025: The Campaign Update!'
 
 /**
- * PSEUDO DO NOT CHANGE THIS LINE
- * PSEUDO DO NOT CHANGE THIS LINE
- * PSEUDO DO NOT CHANGE THIS LINE
- * PSEUDO DO NOT CHANGE THIS LINE
- * PSEUDO DO NOT CHANGE THIS LINE
- * PSEUDO DO NOT CHANGE THIS LINE
+ * If true, the version is marked as a testing version.
  */
-export const testing: boolean = false
+export const testing = false
 export const lastUpdated = new Date('##LAST_UPDATED##')
-/**
- * CHANGE THIS ONE INSTEAD
- */
+
 export const prod = typeof PROD === 'undefined' ? false : PROD
