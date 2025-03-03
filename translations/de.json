@@ -674,7 +674,7 @@
     "antSacMultiplier": "Ameisen Opfer Multiplikator: {{y}}x --> <<limegreen|x{{x}}>>",
     "autoReset": "Diese wird deine Krümel, Ameisen und deine Ameisenverbesserungen zurücksetzten. Im Austausch erhältst du einen höheren Multiplikator und Ressourcen. Fortfahren?",
     "elo": "+{{x}} [>{{y}} ELO]",
-    "antSacrifice": "Sacrificar Formiga"
+    "antSacrifice": "Ant Sacrifice"
   },
   "challenges": {
     "1": {
