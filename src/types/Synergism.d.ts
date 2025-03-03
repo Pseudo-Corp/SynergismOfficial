@@ -1,5 +1,7 @@
 import type Decimal from 'break_infinity.js'
 import type { BlueberryUpgrade } from '../BlueberryUpgrades'
+import type { CampaignManager } from '../Campaign'
+import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { HepteractCraft } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
@@ -536,11 +538,14 @@ export interface Player {
   roombaResearchIndex: number
   ascStatToggles: Record<number, boolean>
 
-  prototypeCorruptions: number[]
-  usedCorruptions: number[]
-  corruptionLoadouts: Record<number, number[]>
-  corruptionLoadoutNames: string[]
-  corruptionShowStats: boolean
+  campaigns: CampaignManager
+
+  corruptions: {
+    next: CorruptionLoadout
+    used: CorruptionLoadout
+    saves: CorruptionSaves
+    showStats: boolean
+  }
 
   constantUpgrades: ArrayStartingWithNull<number>
   history: Record<Category, ResetHistoryEntryUnion[]>
@@ -923,13 +928,13 @@ export interface GlobalVariables {
   researchOrderByCost: number[]
 
   viscosityPower: number[]
-  lazinessMultiplier: number[]
-  hyperchallengedMultiplier: number[]
+  dilationMultiplier: number[]
+  hyperchallengeMultiplier: number[]
   illiteracyPower: number[]
   deflationMultiplier: number[]
   extinctionMultiplier: number[]
   droughtMultiplier: number[]
-  financialcollapsePower: number[]
+  recessionPower: number[]
 
   corruptionPointMultipliers: number[]
 
@@ -952,7 +957,7 @@ export interface GlobalVariables {
   autoTalismanTimer: number
 
   autoChallengeTimerIncrement: number
-  corruptionTrigger: number
+  corruptionTrigger: keyof Corruptions
 
   challenge15Rewards: {
     cube1: number

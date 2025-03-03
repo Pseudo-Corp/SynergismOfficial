@@ -3,7 +3,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { antSacrificePointsToMultiplier } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { applyCorruptions } from './Corruptions'
+import { applyCorruptions, convertInputToCorruption, type Corruptions } from './Corruptions'
 import { format, formatTimeShort, player } from './Synergism'
 import { IconSets } from './Themes'
 import { Notification } from './UpdateHTML'
@@ -52,7 +52,7 @@ export type ResetHistoryEntryReincarnate = ResetHistoryEntryBase & {
 
 export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
   c10Completions: number
-  usedCorruptions: number[]
+  usedCorruptions: Corruptions | number[]
   corruptionScore: number
   wowCubes: number
   wowTesseracts: number
@@ -320,28 +320,46 @@ const resetHistoryTableMapping: Record<Category, string> = {
   singularity: 'historySingularityTable'
 }
 
-// Images associated with the various corruptions.
-const resetHistoryCorruptionImages = [
-  'CorruptViscocity.png',
-  'CorruptSpatialDilation.png',
-  'CorruptHyperchallenged.png',
-  'CorruptScientificIlliteracy.png',
-  'CorruptDeflation.png',
-  'CorruptExtinction.png',
-  'CorruptDrought.png',
-  'CorruptFinancialCollapse.png'
-]
+type corruptionInfo = {
+  image: string
+  title: string
+}
 
-const resetHistoryCorruptionTitles = [
-  'Viscosity [Accelerators and Multipliers]',
-  'Spacial Dilation [Time]',
-  'Hyperchallenged [Challenge Requirements]',
-  'Scientific Illiteracy [Obtainium]',
-  'Market Deflation [Diamonds]',
-  'Extinction [Ants]',
-  'Drought [Offering EXP]',
-  'Financial Recession [Coins]'
-]
+// Images associated with the various corruptions.
+const resetHistoryCorruptionInfo: Record<keyof Corruptions, corruptionInfo> = {
+  viscosity: {
+    image: 'CorruptViscosity.png',
+    title: 'Viscosity [Accelerators and Multipliers]'
+  },
+  dilation: {
+    image: 'CorruptDilation.png',
+    title: 'Spacial Dilation [Time]'
+  },
+  hyperchallenge: {
+    image: 'CorruptHyperchallenge.png',
+    title: 'Hyperchallenge [Challenge Requirements'
+  },
+  illiteracy: {
+    image: 'CorruptIlliteracy.png',
+    title: 'Illiteracy [Obtainium]'
+  },
+  deflation: {
+    image: 'CorruptDeflation.png',
+    title: 'Market Deflation [Diamonds]'
+  },
+  extinction: {
+    image: 'CorruptExtinction.png',
+    title: 'Extinction [Ants]'
+  },
+  drought: {
+    image: 'CorruptDrought.png',
+    title: 'Drought [Offering EXP]'
+  },
+  recession: {
+    image: 'CorruptRecession.png',
+    title: 'Financial Recession [Coins]'
+  }
+}
 
 // A formatting aid that removes the mantissa from a formatted string. Converts "2.5e1000" to "e1000".
 const extractStringExponent = (str: string) => {
@@ -522,21 +540,28 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
   let corruptions = ''
   let loadout = ''
   let corrs = 0
-  for (let i = 0; i < resetHistoryCorruptionImages.length; ++i) {
-    const corruptionIdx = i + 2
-    if (corruptionIdx in data.usedCorruptions && data.usedCorruptions[corruptionIdx] !== 0) {
+  let corrToLoad: Corruptions
+  // Support old format (which is bad)
+  if (Array.isArray(data.usedCorruptions)) {
+    corrToLoad = convertInputToCorruption(data.usedCorruptions.slice(2, 10))
+  } else {
+    corrToLoad = data.usedCorruptions
+  }
+
+  for (const corruption in corrToLoad) {
+    const corrKey = corruption as keyof Corruptions
+    if (corrToLoad[corrKey] !== 0) {
       corruptions += `<img alt="${corrs > 0 ? '/' : ''}" src="Pictures/${IconSets[player.iconSet][0]}/${
-        resetHistoryCorruptionImages[i]
-      }" title="${resetHistoryCorruptionTitles[i]}">${data.usedCorruptions[corruptionIdx]}`
-    } else {
-      corruptions += `<span>${corrs > 0 ? '/0' : '0'}</span>`
+        resetHistoryCorruptionInfo[corrKey].image
+      }" title="${resetHistoryCorruptionInfo[corrKey].title}">${corrToLoad[corrKey]}`
     }
     corrs++
   }
+
+  const corrStr = JSON.stringify(corrToLoad)
+
   if (corruptions) {
-    loadout += `<button class="corrLoad ascendHistoryLoadCorruptions" data-corr="${
-      data.usedCorruptions.join('/')
-    }">Load</button>`
+    loadout += `<button class="corrLoad ascendHistoryLoadCorruptions" data-corr='${corrStr}'>Load</button>`
   }
   if (data.currentChallenge !== undefined) {
     score += ` / C${data.currentChallenge}`

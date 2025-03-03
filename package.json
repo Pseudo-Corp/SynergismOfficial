@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/bundle.js",
   "dependencies": {
+    "@paypal/paypal-js": "^8.2.0",
     "@ungap/custom-elements": "^1.3.0",
     "break_infinity.js": "^2.0.0",
     "clipboard": "^2.0.11",

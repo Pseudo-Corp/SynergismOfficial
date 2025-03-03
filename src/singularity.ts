@@ -738,10 +738,10 @@ export const singularityData: Record<
     costPerLevel: 1,
     effect: (n: number) => {
       return {
-        bonus: 1 + 0.01 * n,
+        bonus: 1 + 0.006 * n,
         get desc () {
           return i18next.t('singularity.data.singCubes1.effect', {
-            n: format(1 * n, 0, true)
+            n: format(0.6 * n, 1, true)
           })
         }
       }
@@ -1723,6 +1723,25 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
+      return i18next.t('singularity.perks.tokenInheritance.name')
+    },
+    levels: [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277],
+    description: (n: number, levels: number[]) => {
+        const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
+  
+        for (let i = 15; i > 0; i--) {
+          if (n >= levels[i]) {
+            return i18next.t('singularity.perks.tokenInheritance.default', {
+              amount: tokens[i]
+            })
+          }
+        }
+        return i18next.t('singularity.perks.tokenInheritance.default', { amount: 0 })
+    },
+    ID: 'tokenInheritance'
+  },
+  {
+    name: () => {
       return i18next.t('singularity.perks.sweepomatic.name')
     },
     levels: [2, 101],
@@ -1774,6 +1793,16 @@ export const singularityPerks: SingularityPerk[] = [
       }
     },
     ID: 'notSoChallenging'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.autoCampaigns.name')
+    },
+    levels: [4],
+    description: () => {
+      return i18next.t('singularity.perks.autoCampaigns.default')
+    },
+    ID: 'autoCampaigns'
   },
   {
     name: () => {
@@ -1927,6 +1956,16 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
+      return i18next.t('singularity.perks.firstClearTokens.name')
+    },
+    levels: [16],
+    description: () => {
+      return i18next.t('singularity.perks.firstClearTokens.default')
+    },
+    ID: 'firstClearTokens'
+  },
+  {
+    name: () => {
       return i18next.t('singularity.perks.derpSmithsCornucopia.name')
     },
     levels: [
@@ -2016,6 +2055,23 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: () => {
+      return i18next.t('singularity.perks.bonusTokens.name')
+    },
+    levels: [41, 58, 113, 163, 229],
+    description: (n: number, levels: number[]) => {
+      for (let i = levels.length - 1; i >= 0; i--) {
+        if (n >= levels[i]) {
+          return i18next.t('singularity.perks.bonusTokens.default', {
+            amount: format(2 * (i+1))
+          })
+        }
+      }
+      return i18next.t('singularity.perks.evenMoreQuarks.bug')
+    },
+    ID: 'bonusTokens'
+  },  
+  {
+    name: () => {
       return i18next.t('singularity.perks.overclocked.name')
     },
     levels: [50, 60, 75, 100, 125, 150, 175, 200, 225, 250],
@@ -2062,6 +2118,16 @@ export const singularityPerks: SingularityPerk[] = [
       return i18next.t('singularity.perks.evenMoreQuarks.bug')
     },
     ID: 'congealedblueberries'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.lastClearTokens.name')
+    },
+    levels: [69],
+    description: () => {
+      return i18next.t('singularity.perks.lastClearTokens.default')
+    },
+    ID: 'lastClearTokens'
   },
   {
     name: () => {

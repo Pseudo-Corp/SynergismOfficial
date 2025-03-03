@@ -233,7 +233,7 @@ export function calculateRuneExpGiven (
   // Corruption Divisor
   const droughtEffect = 1
     / Math.pow(
-      G.droughtMultiplier[player.usedCorruptions[8]],
+      G.droughtMultiplier[player.corruptions.used.drought],
       1 - (1 / 2) * player.platonicUpgrades[13]
     )
 
@@ -345,6 +345,7 @@ export const calculateMaxRunes = (i: number) => {
 export const calculateEffectiveIALevel = () => {
   let bonus = PCoinUpgradeEffects.INSTANT_UNLOCK_2 ? 6 : 0
   bonus += player.cubeUpgrades[73]
+  bonus += player.campaigns.bonusRune6
   const totalRawLevel = player.runelevels[5] + bonus
   return (
     totalRawLevel
@@ -400,9 +401,9 @@ export function calculateOfferings (
       * (1 + player.researches[85] / 200)
     a *= 1
       + Math.pow(Decimal.log(player.reincarnationShards.add(1), 10), 2 / 3) / 4
-    a *= Math.min(Math.pow(player.reincarnationcounter / 10 + 1, 2), 1)
+    a *= Math.min(Math.pow(player.reincarnationcounter / resetTimeThreshold() + 1, 2), 1)
     if (player.reincarnationcounter >= 5) {
-      a *= Math.max(1, player.reincarnationcounter / 10)
+      a *= Math.max(1, player.reincarnationcounter / resetTimeThreshold())
     }
   }
   if (
@@ -428,9 +429,9 @@ export function calculateOfferings (
       * (1 + player.researches[85] / 200)
     b *= 1 + Math.pow(Decimal.log(player.transcendShards.add(1), 10), 1 / 2) / 5
     b *= 1 + CalcECC('reincarnation', player.challengecompletions[8]) / 25
-    b *= Math.min(Math.pow(player.transcendcounter / 10, 2), 1)
+    b *= Math.min(Math.pow(player.transcendcounter / resetTimeThreshold(), 2), 1)
     if (player.transcendCount >= 5) {
-      b *= Math.max(1, player.transcendcounter / 10)
+      b *= Math.max(1, player.transcendcounter / resetTimeThreshold())
     }
   }
   // This will always be calculated if '0' is not already returned
@@ -454,9 +455,9 @@ export function calculateOfferings (
     * (1 + player.researches[85] / 200)
   c *= 1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5
   c *= 1 + CalcECC('reincarnation', player.challengecompletions[6]) / 50
-  c *= Math.min(Math.pow(player.prestigecounter / 10, 2), 1)
+  c *= Math.min(Math.pow(player.prestigecounter / resetTimeThreshold(), 2), 1)
   if (player.prestigeCount >= 5) {
-    c *= Math.max(1, player.prestigecounter / 10)
+    c *= Math.max(1, player.prestigecounter / resetTimeThreshold())
   }
   q = a + b + c
 
@@ -482,6 +483,8 @@ export function calculateOfferings (
     1
     + 0.0003 * player.talismanLevels[3 - 1] * player.researches[149]
     + 0.0004 * player.talismanLevels[3 - 1] * player.researches[179], // Research 6x24,8x4
+    player.campaigns.tutorialBonus.offeringBonus, // Tutorial Offering Bonus (Campaignsd)
+    player.campaigns.offeringBonus, // Permanent Offering Bonus (Campaigns)
     1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]), // Challenge 12
     1 + (0.01 / 100) * player.researches[200], // Research 8x25
     1 + Math.min(1, player.ascensionCount / 1e6) * player.achievements[187], // Ascension Count Achievement
@@ -580,13 +583,10 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= 1 + player.shopUpgrades.cashGrab / 100
   G.obtainiumGain *= 1 + (1 / 25) * player.shopUpgrades.obtainiumEX
   G.obtainiumGain *= 1
-    + (G.rune5level / 200)
-      * G.effectiveLevelMult
+    + (G.rune5level / 200) * G.effectiveLevelMult
       * (1
         + (player.researches[84] / 200)
-          * (1
-            + (1 * G.effectiveRuneSpiritPower[5] * calculateCorruptionPoints())
-              / 400))
+          * (1 + G.effectiveRuneSpiritPower[5] * player.corruptions.used.totalCorruptionDifficultyMultiplier))
   G.obtainiumGain *= 1
     + 0.01 * player.achievements[84]
     + 0.03 * player.achievements[91]
@@ -605,8 +605,10 @@ export const calculateObtainium = () => {
   G.obtainiumGain *= 1 + 0.04 * player.constantUpgrades[4]
   G.obtainiumGain *= 1 + 0.1 * player.cubeUpgrades[47]
   G.obtainiumGain *= 1 + 0.1 * player.cubeUpgrades[3]
+  G.obtainiumGain *= player.campaigns.tutorialBonus.obtainiumBonus
+  G.obtainiumGain *= player.campaigns.obtainiumBonus
   G.obtainiumGain *= 1 + 0.5 * CalcECC('ascension', player.challengecompletions[12])
-  G.obtainiumGain *= 1 + (calculateCorruptionPoints() / 400) * G.effectiveRuneSpiritPower[4]
+  G.obtainiumGain *= 1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[4]
   G.obtainiumGain *= 1
     + ((0.03 * Math.log(player.uncommonFragments + 1)) / Math.log(4))
       * player.researches[144]
@@ -630,9 +632,9 @@ export const calculateObtainium = () => {
   if (player.reincarnationcounter >= 5) {
     G.obtainiumGain += 2 * player.researches[64]
   }
-  G.obtainiumGain *= Math.min(1, Math.pow(player.reincarnationcounter / 10, 2))
+  G.obtainiumGain *= Math.min(1, Math.pow(player.reincarnationcounter / resetTimeThreshold(), 2))
   if (player.reincarnationCount >= 5) {
-    G.obtainiumGain *= Math.max(1, player.reincarnationcounter / 10)
+    G.obtainiumGain *= Math.max(1, player.reincarnationcounter / resetTimeThreshold())
   }
   G.obtainiumGain *= Math.pow(
     Decimal.log(player.transcendShards.add(1), 10) / 300,
@@ -642,7 +644,7 @@ export const calculateObtainium = () => {
     G.obtainiumGain,
     Math.min(
       1,
-      G.illiteracyPower[player.usedCorruptions[5]]
+      G.illiteracyPower[player.corruptions.used.illiteracy]
         * (1
           + (9 / 100)
             * player.platonicUpgrades[9]
@@ -695,10 +697,10 @@ export const calculateObtainium = () => {
   G.obtainiumGain = Math.min(1e300, G.obtainiumGain)
   G.obtainiumGain /= calculateSingularityDebuff('Obtainium')
 
-  if (player.usedCorruptions[5] >= 15) {
+  if (player.corruptions.used.illiteracy >= 15) {
     G.obtainiumGain = Math.pow(G.obtainiumGain, 1 / 4)
   }
-  if (player.usedCorruptions[5] >= 16) {
+  if (player.corruptions.used.illiteracy >= 16) {
     G.obtainiumGain = Math.pow(G.obtainiumGain, 1 / 3)
   }
 
@@ -1359,16 +1361,16 @@ export const timeWarp = async () => {
 /**
  * @param forceTime The number of SECONDS to warp. Why the fuck is it in seconds?
  */
-export const calculateOffline = (forceTime = 0) => {
+export const calculateOffline = (forceTime = 0, fromTips = false) => {
   disableHotkeys()
 
   G.timeWarp = true
 
   // Variable Declarations i guess
-  const maximumTimer = (86400 * 3
+  const maximumTimer = !fromTips ? (86400 * 3
     + 7200 * 2 * player.researches[31]
     + 7200 * 2 * player.researches[32])
-    * PCoinUpgradeEffects.OFFLINE_TIMER_CAP_BUFF
+    * PCoinUpgradeEffects.OFFLINE_TIMER_CAP_BUFF : 1e100 // If someone exceeds this, we will be very rich aha!
 
   const updatedTime = Date.now()
   const timeAdd = Math.min(
@@ -1713,12 +1715,16 @@ export const calculateAllCubeMultiplier = () => {
     // Pseudocoin Multiplier
     PCoinUpgradeEffects.CUBE_BUFF,
     // Ascension Time Multiplier to cubes
-    Math.pow(Math.min(1, player.ascensionCounter / 10), 2)
+    Math.pow(Math.min(1, player.ascensionCounter / resetTimeThreshold()), 2)
     * (1
       + ((1 / 4) * player.achievements[204]
           + (1 / 4) * player.achievements[211]
           + (1 / 2) * player.achievements[218])
-        * Math.max(0, player.ascensionCounter / 10 - 1)),
+        * Math.max(0, player.ascensionCounter / resetTimeThreshold() - 1)),
+    // Campaign Tutorial
+    player.campaigns.tutorialBonus.cubeBonus,
+    // Campaign Cubes
+    player.campaigns.cubeBonus,
     // Sun and Moon achievements
     1
     + (6 / 100) * player.achievements[250]
@@ -1879,13 +1885,13 @@ export const calculateCubeMultiplier = (score = -1) => {
     + Math.min(0.15, (0.6 / 100) * Math.log10(score + 1))
       * player.achievements[254],
     // Spirit Power
-    1 + (calculateCorruptionPoints() / 400) * G.effectiveRuneSpiritPower[2],
+    1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[2],
     // Platonic Cube Opening Bonus
     G.platonicBonusMultiplier[0],
     // Platonic 1x1
     1
     + 0.00009
-      * sumContents(player.usedCorruptions)
+      * player.corruptions.used.totalLevels
       * player.platonicUpgrades[1],
     // Cube Upgrade 63 (Cx13)
     1
@@ -1907,7 +1913,7 @@ export const calculateTesseractMultiplier = (score = -1) => {
     score = calculateAscensionScore().effectiveScore
   }
 
-  const corrSum = sumContents(player.usedCorruptions.slice(2, 10))
+  const corrSum = player.corruptions.used.totalLevels
   const arr = [
     // Ascension Score Multiplier
     Math.pow(1 + Math.max(0, score - 1e5) / 1e4, 0.35),
@@ -1992,7 +1998,7 @@ export const calculateHypercubeMultiplier = (score = -1) => {
     // Platonic Upgrade 1x3
     1
     + 0.00054
-      * sumContents(player.usedCorruptions)
+      * player.corruptions.used.totalLevels
       * player.platonicUpgrades[3],
     // Hyperreal Hepteract Bonus
     1 + (0.6 / 1000) * hepteractEffective('hyperrealism')
@@ -2088,9 +2094,10 @@ export const calculateHepteractMultiplier = (score = -1) => {
 }
 
 export const getOcteractValueMultipliers = () => {
-  const corruptionLevelSum = sumContents(player.usedCorruptions.slice(2, 10))
+  const corruptionLevelSum = player.corruptions.used.totalLevels
   return [
     PCoinUpgradeEffects.CUBE_BUFF,
+    player.campaigns.octeractBonus,
     1 + (1.5 * player.shopUpgrades.seasonPass3) / 100,
     1 + (0.75 * player.shopUpgrades.seasonPassY) / 100,
     1 + (player.shopUpgrades.seasonPassZ * player.singularityCount) / 100,
@@ -2223,7 +2230,7 @@ export const calculateTimeAcceleration = () => {
     1 + 0.006 * player.researches[181], // research 8x6
     1 + 0.003 * player.researches[196], // research 8x21
     1 + 8 * G.effectiveRuneBlessingPower[1], // speed blessing
-    1 + (calculateCorruptionPoints() / 400) * G.effectiveRuneSpiritPower[1], // speed SPIRIT
+    1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[1], // speed SPIRIT
     G.cubeBonusMultiplier[10], // Chronos cube blessing
     1 + player.cubeUpgrades[18] / 5, // cube upgrade 2x8
     calculateSigmoid(2, player.antUpgrades[12 - 1]! + G.bonusant12, 69), // ant 12
@@ -2234,7 +2241,7 @@ export const calculateTimeAcceleration = () => {
 
   // Global Speed softcap + Corruption / Corruption-like effects
   const corruptionArr: number[] = [
-    G.lazinessMultiplier[player.usedCorruptions[3]] // Corruption:  Spacial Dilation
+    G.dilationMultiplier[player.corruptions.used.dilation] // Corruption:  Spacial Dilation
   ]
 
   const corruptableTimeMult = productContents(preCorruptionArr) * corruptionArr[0] // DR applies after base corruption.
@@ -2278,7 +2285,7 @@ export const calculateTimeAcceleration = () => {
     * productContents(corruptionArr)
     * productContents(postCorruptionArr)
 
-  if (player.usedCorruptions[3] >= 6 && player.achievements[241] < 1) {
+  if (player.corruptions.used.dilation >= 6 && player.achievements[241] < 1) {
     achievementaward(241)
   }
   if (timeMult > 3600 && player.achievements[242] < 1) {
@@ -2320,7 +2327,7 @@ export const calculateAscensionSpeedMultiplier = () => {
     + Math.min(0.1, (1 / 100) * Math.log10(player.ascensionCount + 1))
       * player.achievements[263], // Achievement 263 Bonus
     1
-    + 0.002 * sumContents(player.usedCorruptions) * player.platonicUpgrades[15], // Platonic Omega
+    + 0.002 * player.corruptions.used.totalLevels * player.platonicUpgrades[15], // Platonic Omega
     G.challenge15Rewards.ascensionSpeed, // Challenge 15 Reward
     1 + (1 / 400) * player.cubeUpgrades[59], // Cookie Upgrade 9
     1
@@ -2430,6 +2437,7 @@ export const calculateQuarkMultiplier = () => {
     // Challenge 15: Exceed 1e11 exponent reward
     multiplier += G.challenge15Rewards.quarks - 1
   }
+  multiplier *= player.campaigns.quarkBonus
   if (isIARuneUnlocked()) {
     // Purchased Infinite Ascent Rune (or corresponding PCoin Upgrade)
     multiplier *= 1.1 + (0.15 / 75) * calculateEffectiveIALevel()
@@ -2528,6 +2536,7 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
 
   const arr = [
     PCoinUpgradeEffects.GOLDEN_QUARK_BUFF, // Golden Quark Buff from PseudoCoins
+    player.campaigns.goldenQuarkBonus, // Golden Quark Bonus from Campaigns
     1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2, // Challenge 15 Exponent
     1 + getQuarkBonus() / 100, // Patreon Bonus
     +player.singularityUpgrades.goldenQuarks1.getEffect().bonus, // Golden Quarks I
@@ -2558,20 +2567,6 @@ export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
 
 export const calculateGoldenQuarkGain = (computeMultiplier = false): number => {
   return calculateGoldenQuarkMultiplier(computeMultiplier).mult
-}
-
-export const calculateCorruptionPoints = () => {
-  let basePoints = 400
-  const bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect()
-      .bonus
-    ? 1
-    : 0
-
-  for (let i = 1; i <= 9; i++) {
-    basePoints += 16 * Math.pow(player.usedCorruptions[i] + bonusLevel, 2)
-  }
-
-  return basePoints
 }
 
 // If you want to sum from a baseline level i to the maximum buyable level n, what would the cost be and how many levels would you get?
@@ -2737,7 +2732,7 @@ export const computeAscensionScoreBonusMultiplier = () => {
   let multiplier = 1
   multiplier *= G.challenge15Rewards.score
   multiplier *= G.platonicBonusMultiplier[6]
-
+  multiplier *= player.campaigns.ascensionScoreMultiplier
   if (player.cubeUpgrades[21] > 0) {
     multiplier *= 1 + 0.05 * player.cubeUpgrades[21]
   }
@@ -2766,7 +2761,7 @@ export const computeAscensionScoreBonusMultiplier = () => {
 
 export const calculateAscensionScore = () => {
   let baseScore = 0
-  let corruptionMultiplier = 1
+  const corruptionMultiplier = player.corruptions.used.totalCorruptionAscensionMultiplier
   let effectiveScore = 0
 
   let bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect()
@@ -2852,24 +2847,6 @@ export const calculateAscensionScore = () => {
     : 0
   bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
   bonusVal += 0.3 * player.cubeUpgrades[74]
-  for (let i = 2; i < 10; i++) {
-    const exponent = i === 2 && player.usedCorruptions[i] >= 10
-      ? 1
-        + 2 * Math.min(1, player.platonicUpgrades[17])
-        + 0.04 * player.platonicUpgrades[17]
-      : 1
-    corruptionMultiplier *= Math.pow(
-      G.corruptionPointMultipliers[player.usedCorruptions[i] + bonusLevel],
-      exponent
-    ) + bonusVal
-
-    if (
-      player.usedCorruptions[i] >= 14
-      && player.singularityUpgrades.masterPack.getEffect().bonus
-    ) {
-      corruptionMultiplier *= 1.1
-    }
-  }
 
   const bonusMultiplier = computeAscensionScoreBonusMultiplier()
 
@@ -2974,13 +2951,13 @@ export const calcAscensionCount = () => {
   if (player.challengecompletions[10] > 0 && player.achievements[197] === 1) {
     const { effectiveScore } = calculateAscensionScore()
 
-    if (player.ascensionCounter >= 10) {
+    if (player.ascensionCounter >= resetTimeThreshold()) {
       if (player.achievements[188] > 0) {
         ascCount += 99
       }
 
       ascCount *= 1
-        + (player.ascensionCounter / 10 - 1)
+        + (player.ascensionCounter / resetTimeThreshold() - 1)
           * 0.2
           * (player.achievements[189]
             + player.achievements[202]
@@ -3372,6 +3349,7 @@ export const calculateAmbrosiaLuck = () => {
   const arr = [
     100, // Base
     PCoinUpgradeEffects.AMBROSIA_LUCK_BUFF, // Platonic Coin Upgrade
+    player.campaigns.ambrosiaLuckBonus, // Campaign Bonus
     calculateSingularityAmbrosiaLuckMilestoneBonus(), // Ambrosia Luck Milestones
     calculateAmbrosiaLuckShopUpgrade(), // Ambrosia Luck from Shop Upgrades (I-IV)
     calculateAmbrosiaLuckSingularityUpgrade(), // Ambrosia Luck from Singularity Upgrades (I-IV)
@@ -3419,6 +3397,7 @@ export const calculateAmbrosiaGenerationSpeed = () => {
   const arr = [
     +(player.visitedAmbrosiaSubtab),
     PCoinUpgradeEffects.AMBROSIA_GENERATION_BUFF,
+    player.campaigns.blueberrySpeedBonus,
     calculateBlueberryInventory().value,
     calculateAmbrosiaGenerationShopUpgrade(),
     calculateAmbrosiaGenerationSingularityUpgrade(),
@@ -3526,7 +3505,7 @@ export const derpsmithCornucopiaBonus = () => {
 }
 
 export const isIARuneUnlocked = () => {
-  return player.shopUpgrades.infiniteAscent > 0 || PCoinUpgradeEffects.INSTANT_UNLOCK_2
+  return player.shopUpgrades.infiniteAscent > 0 || Boolean(PCoinUpgradeEffects.INSTANT_UNLOCK_2)
 }
 
 export const isShopTalismanUnlocked = () => {
@@ -3547,4 +3526,38 @@ export const sumOfExaltCompletions = () => {
     sum += challenge.completions
   }
   return sum
+}
+
+export const inheritanceTokens = () => {
+  const levels = [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277]
+  const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
+  
+  for (let i = 15; i > 0; i--) {
+    if (player.highestSingularityCount >= levels[i]) {
+      return tokens[i]
+    }
+  }
+
+  return 0
+}
+
+export const singularityBonusTokenMult = () => {
+  const levels = [41, 58, 113, 163, 229]
+
+  for (let i = 5; i > 0; i--) {
+    if (player.highestSingularityCount >= levels[i - 1]) {
+      return 1 + 0.02 * i
+    }
+  }
+
+  return 1
+}
+
+export const resetTimeThreshold = () => {
+  const base = 10
+  let reduction = 0
+
+  reduction += player.campaigns.timeThresholdReduction
+
+  return base - reduction
 }

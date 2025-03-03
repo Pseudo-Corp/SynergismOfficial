@@ -2,6 +2,7 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAnts, calculateRuneLevels, calculateSummationNonLinear } from './Calculate'
 import type { IMultiBuy } from './Cubes'
+import { getResetResearches } from './Reset'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
@@ -62,13 +63,13 @@ export const updateAutoResearch = (index: number, auto: boolean) => {
 
     // Research is maxed
     if (player.researches[index] >= G.researchMaxLevels[index]) {
-      updateClassList(`res${player.autoResearch}`, ['researchMaxed'], ['researchPurchased', 'researchUnpurchased'])
+      updateClassList(`res${player.autoResearch}`, ['researchMaxed'], ['researchPurchased'])
     } else if (player.researches[index] >= 1) {
       // Research purchased above level 0 but not maxed
-      updateClassList(`res${player.autoResearch}`, ['researchPurchased'], ['researchUnpurchased', 'researchMaxed'])
+      updateClassList(`res${player.autoResearch}`, ['researchPurchased'], ['researchMaxed'])
     } else {
       // Research has not been purchased yet
-      updateClassList(`res${player.autoResearch}`, ['researchUnpurchased'], ['researchPurchased', 'researchMaxed'])
+      updateClassList(`res${player.autoResearch}`, [], ['researchPurchased', 'researchMaxed'])
     }
 
     return
@@ -193,11 +194,10 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     if (player.researches[i] > 0) {
       updateClassList(p, ['researchPurchased', 'researchPurchasedAvailable'], [
         'researchAvailable',
-        'researchMaxed',
-        'researchUnpurchased'
+        'researchMaxed'
       ])
     } else {
-      updateClassList(p, ['researchAvailable'], ['researchPurchased', 'researchMaxed', 'researchUnpurchased'])
+      updateClassList(p, ['researchAvailable'], ['researchPurchased', 'researchMaxed'])
     }
   }
 
@@ -212,6 +212,15 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     x: player.researches[i],
     y: G.researchMaxLevels[i]
   })
+  const resetInfo = DOMCacheGetOrSet('researchinfo4')
+  
+  if (getResetResearches().includes(i)) {
+    resetInfo.textContent = i18next.t('researches.resets')
+    resetInfo.classList.remove('crimsonText')
+  } else {
+    resetInfo.textContent = i18next.t('researches.doesNotReset')
+    resetInfo.classList.add('crimsonText')
+  }
 }
 
 export const updateResearchBG = (j: number) => {
@@ -222,10 +231,10 @@ export const updateResearchBG = (j: number) => {
 
   const k = `res${j}`
   if (player.researches[j] > 0.5 && player.researches[j] < G.researchMaxLevels[j]) {
-    updateClassList(k, ['researchPurchased'], ['researchUnpurchased', 'researchMaxed'])
+    updateClassList(k, ['researchPurchased'], ['researchMaxed'])
   } else if (player.researches[j] > 0.5 && player.researches[j] >= G.researchMaxLevels[j]) {
-    updateClassList(k, ['researchMaxed'], ['researchUnpurchased', 'researchPurchased'])
+    updateClassList(k, ['researchMaxed'], ['researchPurchased'])
   } else {
-    updateClassList(k, ['researchUnpurchased'], ['researchPurchased', 'researchMaxed'])
+    updateClassList(k, [], ['researchPurchased', 'researchMaxed'])
   }
 }

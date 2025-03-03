@@ -684,6 +684,11 @@ button.isEvent:hover {
     color: red;
 }
 
+#campaigntab {
+    border-color: red;
+    color: orange;
+}
+
 #traitstab {
     border-color: orange;
     color: red;
@@ -1100,8 +1105,8 @@ p#promocodeinfo {
     border-collapse: collapse;
 }
 
-#achievementstable img {
-    background-color: var(--buttonimg-color);
+#achievementstable [id^="ach"] > img {
+    image-rendering: unset;
 }
 
 .NotificationToggle {
@@ -1862,33 +1867,33 @@ p#reincarnatehotkeys {
     min-height: 3em;
 }
 
-#researchtable img {
+#researchtable button > img {
     background-color: var(--buttonimg-color);
 }
 
-#researchtable .researchAvailable {
+#researchtable .researchAvailable > img {
     cursor: pointer;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
-#researchtable .researchAvailable:hover {
+#researchtable .researchAvailable:hover > img {
     background-color: var(--hover-color);
 }
 
-#researchtable .researchPurchased {
+#researchtable .researchPurchased > img {
     background-color: purple;
 }
 
-#researchtable .researchPurchasedAvailable {
+#researchtable .researchPurchasedAvailable > img {
     cursor: pointer;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
-#researchtable .researchPurchasedAvailable:hover {
+#researchtable .researchPurchasedAvailable:hover > img {
     background-color: #b300b2;
 }
 
-#researchtable .researchRoomba {
+#researchtable .researchRoomba > img {
     background-color: orange;
 }
 
@@ -2877,6 +2882,160 @@ p#ascendHotKeys {
     font-size: 0.8em;
     border: 2px solid orange;
     color: white;
+}
+
+#campaigns {
+    justify-content: center;
+    align-items: start;
+    margin-top: 10px;
+}
+
+#campaignsMain {
+    width: 100%;
+    margin-top: 2%;
+    height: 90%;
+    justify-items: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+#campaignsIcons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    grid-area: 1 / 1 / 4 / 3;
+    width: 90%;
+    height: 100%;
+}
+
+#campaignIconGrid {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 48px));
+    grid-template-rows: repeat(5, minmax(0, 48px));
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+    justify-content: center;
+}
+
+#campaignsIcons h3 {
+    text-align: center;
+}
+
+#campaignsIcons img {
+    width: 48px;
+    height: 48px;
+    font-size: 0;
+    cursor: pointer;
+}
+
+#campaignsIcons img:hover {
+    background-color: var(--hover-color);
+}
+
+#campaignsDescriptions {
+    grid-area: 1 / 3 / 4 / 6;
+    border: 2px solid red;
+    width: 90%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#campaignsDescriptions h3 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#campaignsDescriptions h5 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#campaignCorruptionInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.campaignCorrDisplay {
+    display: flex;
+    flex-direction: row;
+}
+
+.campaignCorrDisplay img {
+    width: 32px;
+    height: 32px;
+    font-size: 0;
+}
+
+.campaignCorrDisplay p {
+    margin: 0;
+}
+
+#campaignCorruptions {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#campaignCorruptionStats {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+#campaignCorruptionStats p {
+    margin: 0;
+}
+
+#campaignCorruptionStats button {
+    align-self: flex-end;
+    width: 100%;
+    border: 1px solid gold;
+    font-size: 1.2em;
+}
+
+#campaignsTokensInfo {
+    grid-area: 4 / 1 / 5 / 6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+    margin-top: 1%;
+    height: 90%;
+    width: 90%;
+}
+
+#campaignsTokensInfo img {
+    width: 48px;
+    height: 48px;
+    font-size: 0;
+    cursor: pointer;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#campaignsTokensInfo img:hover {
+    background-color: var(--hover-color);
+}
+
+#campaignsTokensInfo h2 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#campaignsTokensInfo h4 {
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
 
 #traits {
@@ -4118,6 +4277,7 @@ form input:hover {
 
 .pseudoCoinButton {
     width: 75%;
+    height: 65px;
     padding: 10px;
     background-color: black;
     color: white;
@@ -4131,6 +4291,11 @@ form input:hover {
 .pseudoCoinButton:hover {
     background-color: white;
     color: black;
+}
+
+#checkout-paypal {
+    width: 75%;
+    margin: 0 auto;
 }
 
 #cart {
@@ -4487,6 +4652,14 @@ form input:hover {
 h2,
 h3 {
     margin: 2px;
+}
+
+.green-background {
+    background-color: var(--green-text-color);
+}
+
+.purple-background {
+    background-color: var(--purplebtn-color);
 }
 
 .green-background img {

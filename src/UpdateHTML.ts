@@ -22,6 +22,7 @@ import {
   visualUpdateAchievements,
   visualUpdateAnts,
   visualUpdateBuildings,
+  visualUpdateCampaign,
   visualUpdateChallenges,
   visualUpdateCorruptions,
   visualUpdateCubes,
@@ -216,6 +217,12 @@ export const revealStuff = () => {
   for (let i = 0; i < example25.length; i++) {
     example25[i].style.display = player.challengecompletions[14] > 0 ? 'block' : 'none'
     example25[i].setAttribute('aria-disabled', `${player.challengecompletions[14] <= 0}`)
+  }
+
+  const corr = document.getElementsByClassName('corrTab') as HTMLCollectionOf<HTMLElement>
+  for (let i = 0; i < corr.length; i++) {
+    corr[i].style.display = (player.challengecompletions[14] > 0 || (player.challengecompletions[11] > 0 && player.highestSingularityCount >= 1)) ? 'block' : 'none'
+    corr[i].setAttribute('aria-disabled', `${player.achievements[243] !== 1}`)
   }
 
   const example26 = document.getElementsByClassName('ascendunlockib') as HTMLCollectionOf<HTMLElement>
@@ -631,15 +638,6 @@ export const revealStuff = () => {
     }
 
     el.style.display = automationUnlocks[key] ? 'block' : 'none'
-    
-    const onTranslationKey = el.getAttribute('i18n-on')
-    const offTranslationKey = el.getAttribute('i18n-off')
-
-    if (onTranslationKey && automationUnlocks[key]) {
-      el.textContent = i18next.t(onTranslationKey)
-    } else if (offTranslationKey && !automationUnlocks[key]) {
-      el.textContent = i18next.t(offTranslationKey)
-    }
   })
 
   revealCorruptions()
@@ -666,6 +664,8 @@ export const hideStuff = () => {
   DOMCacheGetOrSet('ants').style.display = 'none'
   DOMCacheGetOrSet('anttab').style.backgroundColor = ''
   DOMCacheGetOrSet('cubetab').style.backgroundColor = ''
+  DOMCacheGetOrSet('campaigntab').style.backgroundColor = ''
+  DOMCacheGetOrSet('campaigns').style.display = 'none'
   DOMCacheGetOrSet('traitstab').style.backgroundColor = ''
   DOMCacheGetOrSet('cubes').style.display = 'none'
   DOMCacheGetOrSet('traits').style.display = 'none'
@@ -739,6 +739,10 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('cubes').style.display = 'flex'
     DOMCacheGetOrSet('cubetab').style.backgroundColor = 'white'
   }
+  if (G.currentTab === Tabs.Campaign) {
+    DOMCacheGetOrSet('campaigns').style.display = 'block'
+    DOMCacheGetOrSet('campaigntab').style.backgroundColor = 'red'
+  }
   if (G.currentTab === Tabs.Corruption) {
     DOMCacheGetOrSet('traits').style.display = 'flex'
     DOMCacheGetOrSet('traitstab').style.backgroundColor = 'white'
@@ -775,6 +779,7 @@ const visualTab: Record<Tabs, () => void> = {
   [Tabs.Shop]: visualUpdateShop,
   [Tabs.AntHill]: visualUpdateAnts,
   [Tabs.WowCubes]: visualUpdateCubes,
+  [Tabs.Campaign]: visualUpdateCampaign,
   [Tabs.Corruption]: visualUpdateCorruptions,
   [Tabs.Singularity]: visualUpdateSingularity,
   [Tabs.Event]: visualUpdateEvent,
@@ -1088,7 +1093,7 @@ export const buttoncolorchange = () => {
       player.antPoints.gte(
           Decimal.pow(
             G.antUpgradeCostIncreases[i - 1],
-            player.antUpgrades[i - 1]! * G.extinctionMultiplier[player.usedCorruptions[10]]
+            player.antUpgrades[i - 1]! * player.corruptions.used.corruptionEffects('extinction')
           ).times(G.antUpgradeBaseCost[i - 1])
         )
         ? DOMCacheGetOrSet(`antUpgrade${i}`).classList.add('antUpgradeBtnAvailable')
@@ -1137,7 +1142,7 @@ export const updateChallengeLevel = (k: number) => {
 export const updateAchievementBG = () => {
   // When loading/importing, the game needs to correctly update achievement backgrounds.
   for (let i = 1; i <= 280; i++) { // Initiates by setting all to default
-    DOMCacheGetOrSet(`ach${i}`).style.backgroundColor = ''
+    DOMCacheGetOrSet(`ach${i}`).classList.remove('green-background')
   }
   const fixDisplay1 = document.getElementsByClassName('purpleach') as HTMLCollectionOf<HTMLElement>
   const fixDisplay2 = document.getElementsByClassName('redach') as HTMLCollectionOf<HTMLElement>
@@ -1158,7 +1163,7 @@ export const showCorruptionStatsLoadouts = () => {
   const statsButton = DOMCacheGetOrSet('corrStatsBtn')
   const corrLoadoutsButton = DOMCacheGetOrSet('corrLoadoutsBtn')
 
-  if (player.corruptionShowStats) {
+  if (player.corruptions.showStats) {
     DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
     statsButton.classList.add('subtab-active')
@@ -1336,7 +1341,7 @@ export const Alert = (text: string): Promise<void> =>
     conf.style.display = 'block'
     alertWrap.style.display = 'block'
     overlay.style.display = 'block'
-    popup.querySelector('p')!.textContent = text
+    popup.querySelector('p')!.innerHTML = text
     popup.focus()
 
     const p = createDeferredPromise<void>()

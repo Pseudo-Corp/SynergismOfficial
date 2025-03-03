@@ -43,7 +43,6 @@ import {
 import {
   calculateAcceleratorMultiplier,
   calculateAnts,
-  calculateCorruptionPoints,
   calculateCubeBlessings,
   calculateGoldenQuarkGain,
   calculateObtainium,
@@ -59,13 +58,14 @@ import {
   isShopTalismanUnlocked
 } from './Calculate'
 import {
-  corrChallengeMinimum,
   corruptionButtonsAdd,
-  corruptionLoadoutSaveLoad,
+  corruptionLoadLoadout,
+  CorruptionLoadout,
   corruptionLoadoutTableCreate,
   corruptionLoadoutTableUpdate,
+  CorruptionSaves,
+  corruptionsSchema,
   corruptionStatsUpdate,
-  maxCorruptionLevel,
   updateCorruptionLoadoutNames,
   updateUndefinedLoadouts
 } from './Corruptions'
@@ -145,6 +145,7 @@ import {
   updateLoadoutHoverClasses
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { campaignIconHTMLUpdates, CampaignManager, campaignTokenRewardHTMLUpdate, createCampaignIconHTMLS } from './Campaign'
 import { lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
@@ -168,7 +169,7 @@ import { updatePlatonicUpgradeBG } from './Platonic'
 import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, QuarkHandler } from './Quark'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
-import { playerSchema } from './saves/PlayerSchema'
+import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
 import {
@@ -880,7 +881,32 @@ export const player: Player = {
     6: false
   },
 
-  prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  corruptions: {
+    next: new CorruptionLoadout(corruptionsSchema.parse({})),
+    used: new CorruptionLoadout(corruptionsSchema.parse({})),
+    saves: new CorruptionSaves({
+      'Loadout 1': corruptionsSchema.parse({}),
+      'Loadout 2': corruptionsSchema.parse({}),
+      'Loadout 3': corruptionsSchema.parse({}),
+      'Loadout 4': corruptionsSchema.parse({}),
+      'Loadout 5': corruptionsSchema.parse({}),
+      'Loadout 6': corruptionsSchema.parse({}),
+      'Loadout 7': corruptionsSchema.parse({}),
+      'Loadout 8': corruptionsSchema.parse({}),
+      'Loadout 9': corruptionsSchema.parse({}),
+      'Loadout 10': corruptionsSchema.parse({}),
+      'Loadout 11': corruptionsSchema.parse({}),
+      'Loadout 12': corruptionsSchema.parse({}),
+      'Loadout 13': corruptionsSchema.parse({}),
+      'Loadout 14': corruptionsSchema.parse({}),
+      'Loadout 15': corruptionsSchema.parse({}),
+      'Loadout 16': corruptionsSchema.parse({})
+    }),
+    showStats: true
+  },
+
+  campaigns: new CampaignManager(),
+  /*prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   corruptionLoadouts: {
     // If you add loadouts don't forget to add loadout names!
@@ -920,7 +946,7 @@ export const player: Player = {
     'Loadout 16'
   ],
   corruptionShowStats: true,
-
+  */
   constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   history: { ants: [], ascend: [], reset: [], singularity: [] },
   historyShowPerSecond: false,
@@ -1619,7 +1645,7 @@ const loadSynergy = () => {
       })
     }
 
-    const validatedPlayer = playerSchema.safeParse(data)
+    const validatedPlayer = playerUpdateVarSchema.safeParse(data)
 
     if (validatedPlayer.success) {
       Object.assign(player, validatedPlayer.data)
@@ -2099,21 +2125,7 @@ const loadSynergy = () => {
       player.dayCheck.getDate()
     )
 
-    const maxLevel = maxCorruptionLevel()
-    player.usedCorruptions = player.usedCorruptions.map(
-      (curr: number, index: number) => {
-        if (index >= 2 && index <= 9) {
-          return Math.min(
-            maxLevel
-              * (player.challengecompletions[corrChallengeMinimum(index)] > 0
-                ? 1
-                : 0),
-            curr
-          )
-        }
-        return curr
-      }
-    )
+    player.corruptions.used = new CorruptionLoadout(player.corruptions.used.loadout)
 
     for (let i = 1; i <= 5; i++) {
       const ascendBuildingI = `ascendBuilding${i as OneToFive}` as const
@@ -2152,7 +2164,7 @@ const loadSynergy = () => {
     for (let j = 1; j < player.cubeUpgrades.length; j++) {
       updateCubeUpgradeBG(j)
     }
-    const platUpg = document.querySelectorAll('img[id^="platUpg"]')
+    const platUpg = document.querySelectorAll('button[id^="platUpg"]')
     for (let j = 1; j <= platUpg.length; j++) {
       updatePlatonicUpgradeBG(j)
     }
@@ -2284,8 +2296,10 @@ const loadSynergy = () => {
     const corrs = 1 + 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
     // const corrs = Math.min(8, Object.keys(player.corruptionLoadouts).length) + 1
     for (let i = 0; i < corrs; i++) {
-      corruptionLoadoutTableUpdate(i)
+      corruptionLoadoutTableUpdate(true, i)
+      corruptionLoadoutTableUpdate(false, i)
     }
+
     showCorruptionStatsLoadouts()
     updateCorruptionLoadoutNames()
 
@@ -3339,7 +3353,7 @@ export const updateAllTick = (): void => {
     Math.min(
       1,
       (1 + player.platonicUpgrades[6] / 30)
-        * G.viscosityPower[player.usedCorruptions[2]]
+        * G.viscosityPower[player.corruptions.used.viscosity]
     )
   )
   a += 2000 * hepteractEffective('accelerator')
@@ -3347,10 +3361,10 @@ export const updateAllTick = (): void => {
   a *= 1 + (3 / 10000) * hepteractEffective('accelerator')
   a = Math.floor(Math.min(1e100, a))
 
-  if (player.usedCorruptions[2] >= 15) {
+  if (player.corruptions.used.viscosity >= 15) {
     a = Math.pow(a, 0.2)
   }
-  if (player.usedCorruptions[2] >= 16) {
+  if (player.corruptions.used.viscosity >= 16) {
     a = 1
   }
 
@@ -3586,7 +3600,7 @@ export const updateAllMultiplier = (): void => {
     Math.min(
       1,
       (1 + player.platonicUpgrades[6] / 30)
-        * G.viscosityPower[player.usedCorruptions[2]]
+        * G.viscosityPower[player.corruptions.used.viscosity]
     )
   )
   a += 1000 * hepteractEffective('multiplier')
@@ -3594,10 +3608,10 @@ export const updateAllMultiplier = (): void => {
   a *= 1 + (3 / 10000) * hepteractEffective('multiplier')
   a = Math.floor(Math.min(1e100, a))
 
-  if (player.usedCorruptions[2] >= 15) {
+  if (player.corruptions.used.viscosity >= 15) {
     a = Math.pow(a, 0.2)
   }
-  if (player.usedCorruptions[2] >= 16) {
+  if (player.corruptions.used.viscosity >= 16) {
     a = 1
   }
 
@@ -3664,8 +3678,8 @@ export const multipliers = (): void => {
     10
       + (0.05 * player.researches[129] * Math.log(player.commonFragments + 1))
         / Math.log(4)
-      + ((20 * calculateCorruptionPoints()) / 400)
-        * G.effectiveRuneSpiritPower[3],
+      + ((20 * player.corruptions.used.totalCorruptionDifficultyMultiplier)
+        * G.effectiveRuneSpiritPower[3]),
     0.05 * player.crystalUpgrades[3]
   )
   crystalExponent += 0.04 * CalcECC('transcend', player.challengecompletions[3])
@@ -3779,7 +3793,7 @@ export const multipliers = (): void => {
       lol,
       1
         + ((1 / 20)
-            * player.usedCorruptions[9]
+            * player.corruptions.used.recession
             * Decimal.log(player.coins.add(1), 10))
           / (1e7 + Decimal.log(player.coins.add(1), 10))
     )
@@ -3794,7 +3808,7 @@ export const multipliers = (): void => {
   G.globalCoinMultiplier = lol
   G.globalCoinMultiplier = Decimal.pow(
     G.globalCoinMultiplier,
-    G.financialcollapsePower[player.usedCorruptions[9]]
+    G.recessionPower[player.corruptions.used.recession]
   )
 
   G.coinOneMulti = new Decimal(1)
@@ -4494,9 +4508,8 @@ export const updateAntMultipliers = (): void => {
               + (player.researches[84] / 200)
                 * (1
                   + (1
-                      * G.effectiveRuneSpiritPower[5]
-                      * calculateCorruptionPoints())
-                    / 400)),
+                    * G.effectiveRuneSpiritPower[5]
+                    * player.corruptions.used.totalCorruptionDifficultyMultiplier))),
           2
         )
   )
@@ -4600,7 +4613,7 @@ export const updateAntMultipliers = (): void => {
   if (player.currentChallenge.ascension !== 15) {
     G.globalAntMult = Decimal.pow(
       G.globalAntMult,
-      1 - (0.9 / 90) * Math.min(99, sumContents(player.usedCorruptions))
+      1 - (0.9 / 90) * Math.min(99, player.corruptions.used.totalLevels)
     )
   } else {
     // C15 used to have 9 corruptions set to 11, which above would provide a power of 0.01. Now it's hardcoded this way.
@@ -4609,7 +4622,7 @@ export const updateAntMultipliers = (): void => {
 
   G.globalAntMult = Decimal.pow(
     G.globalAntMult,
-    G.extinctionMultiplier[player.usedCorruptions[7]]
+    G.extinctionMultiplier[player.corruptions.used.extinction]
   )
   G.globalAntMult = G.globalAntMult.times(G.challenge15Rewards.antSpeed)
   // V2.5.0: Moved ant shop upgrade as 'uncorruptable'
@@ -4635,13 +4648,13 @@ export const updateAntMultipliers = (): void => {
     G.globalAntMult = G.globalAntMult.times(4.44)
   }
 
-  if (player.usedCorruptions[7] >= 14) {
+  if (player.corruptions.used.extinction >= 14) {
     G.globalAntMult = Decimal.pow(G.globalAntMult, 0.02)
   }
-  if (player.usedCorruptions[7] >= 15) {
+  if (player.corruptions.used.extinction >= 15) {
     G.globalAntMult = Decimal.pow(G.globalAntMult, 0.02)
   }
-  if (player.usedCorruptions[7] >= 16) {
+  if (player.corruptions.used.extinction >= 16) {
     G.globalAntMult = Decimal.pow(G.globalAntMult, 0.02)
   }
 
@@ -4734,7 +4747,7 @@ export const resetCurrency = (): void => {
     prestigePow = 1e-4 / (1 + player.challengecompletions[10])
     transcendPow = 0.001
   }
-  prestigePow *= G.deflationMultiplier[player.usedCorruptions[6]]
+  prestigePow *= G.deflationMultiplier[player.corruptions.used.deflation]
   // Prestige Point Formulae
   G.prestigePointGain = Decimal.floor(
     Decimal.pow(player.coinsThisPrestige.dividedBy(1e12), prestigePow)
@@ -4749,7 +4762,7 @@ export const resetCurrency = (): void => {
         Decimal.pow(10, 1e33),
         Decimal.pow(
           G.acceleratorEffect,
-          (1 / 3) * G.deflationMultiplier[player.usedCorruptions[6]]
+          (1 / 3) * G.deflationMultiplier[player.corruptions.used.deflation]
         )
       )
     )
@@ -5023,8 +5036,7 @@ export const resetCheck = async (
         challengeDisplay(a, false)
       }
       if (
-        (manual || leaving || player.shopUpgrades.challenge15Auto > 0)
-        && player.usedCorruptions.slice(2, 10).every((a) => a === 11)
+        (manual || leaving || player.shopUpgrades.challenge15Auto > 0) // removed a check that ensures always all lv11.. did not seem necessary
       ) {
         if (
           player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))
@@ -5848,7 +5860,6 @@ export const updateAll = (): void => {
   if (
     player.shopUpgrades.challenge15Auto > 0
     && player.currentChallenge.ascension === 15
-    && player.usedCorruptions.slice(2, 10).every((a) => a === 11)
   ) {
     const c15SM = challenge15ScoreMultiplier()
     if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
@@ -5872,6 +5883,7 @@ export const constantIntervals = (): void => {
   setInterval(saveSynergy, 5000)
   setInterval(slowUpdates, 200)
   setInterval(fastUpdates, 50)
+  setInterval(campaignIconHTMLUpdates, 15000)
 
   if (!G.timeWarp) {
     exitOffline()
@@ -6107,22 +6119,22 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       num = -1
     }
     if (player.challengecompletions[11] > 0 && !isNaN(num)) {
-      if (num >= 0 && num < player.corruptionLoadoutNames.length) {
+      if (num >= 0 && num < 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL) {
         if (player.toggles[41]) {
           void Notification(
             i18next.t('main.corruptionLoadoutApplied', {
               x: num + 1,
-              y: player.corruptionLoadoutNames[num]
+              y: player.corruptions.saves.saves[num].name
             }),
             5000
           )
         }
-        corruptionLoadoutSaveLoad(false, num + 1)
+        corruptionLoadLoadout(num)
       } else {
         if (player.toggles[41]) {
           void Notification(i18next.t('main.allCorruptionsZero'), 5000)
         }
-        corruptionLoadoutSaveLoad(false, 0)
+        player.corruptions.next.resetCorruptions()
       }
       event.preventDefault()
     }
@@ -6312,6 +6324,8 @@ export const reloadShit = (reset = false) => {
       )
     })
   showExitOffline()
+  campaignIconHTMLUpdates()
+  campaignTokenRewardHTMLUpdate()
   clearTimeout(preloadDeleteGame)
 
   setInterval(cacheReinitialize, 15000)
@@ -6378,10 +6392,10 @@ window.addEventListener('load', async () => {
   document.title = `Synergism v${version}`
 
   generateEventHandlers()
-  reloadShit()
-
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
+  createCampaignIconHTMLS()
+  reloadShit()
 }, { once: true })
 
 window.addEventListener('unload', () => {

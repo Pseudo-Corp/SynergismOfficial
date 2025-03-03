@@ -172,7 +172,7 @@ export async function handleLogin () {
     document.getElementById('accountSubTab')?.appendChild(logoutElement)
   }
 
-  const response = await fetch('https://synergism.cc/api/v1/users/me').catch(
+  const response = await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'include' }).catch(
     () => new Response(JSON.stringify({ member: null, globalBonus: 0, personalBonus: 0 }), { status: 401 })
   )
 
@@ -435,7 +435,7 @@ function handleWebSocket () {
       Notification(i18next.t('pseudoCoins.consumables.tipReceived', { offlineTime: data.tips }))
     } else if (data.type === 'applied-tip') {
       tips = data.remaining
-      calculateOffline(data.amount * 60)
+      calculateOffline(data.amount * 60, true)
       DOMCacheGetOrSet('exitOffline').style.visibility = 'unset'
     }
 
