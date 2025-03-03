@@ -674,7 +674,7 @@
     "antSacMultiplier": "Множитель Пожертвования Муравьёв: {{y}}x --> <<limegreen|x{{x}}>>",
     "autoReset": "Это сбросит ваши Крошки, Муравьёв и Улучшения Муравьёв в обмен на некоторый множитель и ресурсы. Продолжить?",
     "elo": "+{{x}} [>{{y}} ЭЛО]",
-    "antSacrifice": "Ant Sacrifice"
+    "antSacrifice": "Sacrificar Formiga"
   },
   "challenges": {
     "1": {
@@ -1905,7 +1905,7 @@
       },
       "singCubes1": {
         "name": "Пламя Кубов",
-        "description": "Улучшите это, чтобы получить +0.6% Кубов за уровень, навсегда!",
+        "description": "Upgrade this to get +0.6% Cubes per level, forever!",
         "effect": "Навсегда получаете на {{n}}% больше Кубов."
       },
       "singCubes2": {
@@ -2873,44 +2873,44 @@
   },
   "corruptions": {
     "names": {
-      "viscosity": "Порча I: Вязкость",
-      "dilation": "Порча II: Пространственное Расширение",
-      "hyperchallenge": "Порча III: Гиперзакалённый",
-      "illiteracy": "Порча IV: Научная Неграмотность",
-      "deflation": "Порча V: Рыночная Дефляция",
-      "extinction": "Порча VI: Вымирание",
-      "drought": "Порча VII: Засуха",
-      "recession": "Порча VIII: Финансовая Рецессия"
+      "viscosity": "Viscous Multiplier and Accelerators",
+      "drought": "Less Fruitful Harvests",
+      "deflation": "Crystal Mine Collapse",
+      "extinction": "The Second Meteor",
+      "illiteracy": "Defunded Education",
+      "recession": "Great Depression II",
+      "dilation": "Time Dilation",
+      "hyperchallenge": "The Hyperchallenge Cube"
     },
     "descriptions": {
-      "viscosity": "Вялость чувствуется по всей вселенной...",
-      "dilation": "Так держать, Альберт.",
-      "hyperchallenge": "Что находится в этом испытании?",
-      "illiteracy": "Может всё же Альберт не должен был делать теории о Замедлении.",
-      "deflation": "Алмазные пещеры уничтожены... больше никаких монополий!",
-      "extinction": "Это и динозавров убило, клоун.",
-      "drought": "Больше похоже на Калифорнию, не так ли?",
-      "recession": "Очередная катастрофа 2020-го."
+      "viscosity": "You feel lethargic across the universe...",
+      "dilation": "Way to go, Albert.",
+      "hyperchallenge": "What's in a challenge?",
+      "illiteracy": "Maybe Albert wouldn't have theorized Dilation after all.",
+      "deflation": "Diamond Mine destroyed... no more monopolies!",
+      "extinction": "It killed the dinosaurs too, ya Dingus.",
+      "drought": "More like California, am I right?",
+      "recession": "Yet another 2025 catastrophe."
     },
     "currentLevel": {
-      "viscosity": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Степень Беспл. Ускор. и Множителей ^{{ effect }}",
-      "dilation": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Глобальная Скорость разделена на {{ effect }}",
-      "hyperchallenge": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Степень Требований Испытаний x{{ effect }}",
-      "illiteracy": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: получение Обтаниума ^{{ effect }}",
-      "deflation": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: получение Алмазов ^{{ effect }}",
-      "extinction": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Производство Муравьёв ^{{ effect }}",
-      "drought": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Опыт Подношений разделён на {{ effect }}",
-      "recession": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Получение Монет ^{{ effect }}"
+      "viscosity": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
+      "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+      "hyperchallenge": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+      "illiteracy": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+      "deflation": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+      "extinction": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
+      "drought": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+      "recession": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
     "prototypeLevel": {
-      "viscosity": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Степень Бесплатных Ускорителей и Множителей ^{{ effect }}",
-      "dilation": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Глобальная Скорость разделена на {{ effect }}",
-      "hyperchallenge": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Степень Требований Испытаний x{{ effect }}",
-      "illiteracy": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: получение Обтаниума ^{{ effect }}",
-      "deflation": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: получение Алмазов ^{{ effect }}",
-      "extinction": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Производство Муравьёв ^{{ effect }}",
-      "drought": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Опыт от Подношений разделён на {{ effect }}",
-      "recession": "При следующем Вознесении, уровень этой порчи будет {{ level }}. Эффект: Получение Монет ^{{ effect }}"
+      "viscosity": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
+      "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+      "hyperchallenge": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+      "illiteracy": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+      "deflation": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+      "extinction": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
+      "drought": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+      "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
     "scoreMultiplier": "Текущий Множитель Счёта: {{ curr }} / Множитель Счёта при следующем Вознесении: {{ next }}",
     "difficultyEffect": "This corruption adds {{ curr }} difficulty rating / Next Ascension +{{next}}",
