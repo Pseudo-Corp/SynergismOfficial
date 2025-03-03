@@ -674,7 +674,7 @@
     "antSacMultiplier": "Multiplicateur sacrificiel : x{{y}} → <<limegreen|x{{x}}>>",
     "autoReset": "Cela réinitialisera vos Miettes, Fourmis et les améliorations de Fourmis en échange d'un multiplicateur et de ressources. Continuer ?",
     "elo": "+{{x}} [>{{y}} ELO]",
-    "antSacrifice": "Ant Sacrifice"
+    "antSacrifice": "Sacrificar Formiga"
   },
   "challenges": {
     "1": {
@@ -1905,7 +1905,7 @@
       },
       "singCubes1": {
         "name": "Flamme Cubique",
-        "description": "Améliorez ceci pour obtenir +0.6% de Cubes par niveau, pour toujours !",
+        "description": "Upgrade this to get +0.6% Cubes per level, forever!",
         "effect": "Obtenez {{n}}% de Cubes en plus pour toujours."
       },
       "singCubes2": {
@@ -2873,44 +2873,44 @@
   },
   "corruptions": {
     "names": {
-      "viscosity": "Corruption I : Viscosité",
-      "dilation": "Corruption II : Dilatation Spatiale",
-      "hyperchallenge": "Corruption III : Hyperdéfié",
-      "illiteracy": "Corruption IV : Illettrisme Scientifique",
-      "deflation": "Corruption V : Déflation Boursière",
-      "extinction": "Corruption VI : Extinction",
-      "drought": "Corruption VII : Sécheresse",
-      "recession": "Corruption VIII : Récession"
+      "viscosity": "Viscous Multiplier and Accelerators",
+      "drought": "Less Fruitful Harvests",
+      "deflation": "Crystal Mine Collapse",
+      "extinction": "The Second Meteor",
+      "illiteracy": "Defunded Education",
+      "recession": "Great Depression II",
+      "dilation": "Time Dilation",
+      "hyperchallenge": "The Hyperchallenge Cube"
     },
     "descriptions": {
-      "viscosity": "Vous vous sentez léthargique à travers l'univers...",
-      "dilation": "Bravo, Albert.",
-      "hyperchallenge": "Qu'est-ce qu'un défi ?",
-      "illiteracy": "Peut-être qu'Albert n'aurait pas théorisé la Dilation après tout.",
-      "deflation": "Mine de diamant détruite… plus de monopoles !",
-      "extinction": "Ça a aussi tué les dinosaures, andouille.",
-      "drought": "Ça ressemble plutôt à la Californie, pas vrai ?",
-      "recession": "Encore une autre catastrophe de 2020."
+      "viscosity": "You feel lethargic across the universe...",
+      "dilation": "Way to go, Albert.",
+      "hyperchallenge": "What's in a challenge?",
+      "illiteracy": "Maybe Albert wouldn't have theorized Dilation after all.",
+      "deflation": "Diamond Mine destroyed... no more monopolies!",
+      "extinction": "It killed the dinosaurs too, ya Dingus.",
+      "drought": "More like California, am I right?",
+      "recession": "Yet another 2025 catastrophe."
     },
     "currentLevel": {
-      "viscosity": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : les Accélérateurs et Multiplicateurs gratuits sont élevés à la puissance ^{{ effect }}.",
-      "dilation": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : la vitesse du jeu est divisée par {{ effect }}.",
-      "hyperchallenge": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : l'exposant des objectifs des défis est multiplié par {{ effect }}.",
-      "illiteracy": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : les gains d'Obtainium sont élevés à la puissance ^{{ effect }}.",
-      "deflation": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : les gains de Diamants sont élevés à la puissance ^{{ effect }}.",
-      "extinction": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : la production des Fourmis est élevée à la puissance ^{{ effect }}.",
-      "drought": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : l'EXP des Offrandes est divisée par {{ effect }}.",
-      "recession": "Lors de cette Ascension, cette corruption est au niveau {{ level }}. Effet : les gains de Pièces sont élevés à la puissance ^{{ effect }}."
+      "viscosity": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
+      "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+      "hyperchallenge": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+      "illiteracy": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+      "deflation": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+      "extinction": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
+      "drought": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+      "recession": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
     "prototypeLevel": {
-      "viscosity": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : les Accélérateurs et Multiplicateurs gratuits sont élevés à la puissance ^{{ effect }}.",
-      "dilation": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : la vitesse du jeu est divisée par {{ effect }}.",
-      "hyperchallenge": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : l'exposant des objectifs des défis est multiplié par {{ effect }}.",
-      "illiteracy": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : les gains d'Obtainium sont élevés à la puissance ^{{ effect }}.",
-      "deflation": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : les gains de Diamants sont élevés à la puissance ^{{ effect }}.",
-      "extinction": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : la production des Fourmis est élevée à la puissance ^{{ effect }}.",
-      "drought": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : l'EXP des Offrandes est divisée par {{ effect }}.",
-      "recession": "Lors de la prochaine Ascension, cette corruption sera au niveau {{ level }}. Effet : les gains de Pièces sont élevés à la puissance ^{{ effect }}."
+      "viscosity": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
+      "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+      "hyperchallenge": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+      "illiteracy": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+      "deflation": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+      "extinction": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
+      "drought": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+      "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
     "scoreMultiplier": "Multiplicateur de score actuel : {{ curr }} / Multiplicateur de score de la prochaine Ascension : {{ next }}",
     "difficultyEffect": "This corruption adds {{ curr }} difficulty rating / Next Ascension +{{next}}",

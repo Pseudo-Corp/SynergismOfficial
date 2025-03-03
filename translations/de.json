@@ -674,7 +674,7 @@
     "antSacMultiplier": "Ameisen Opfer Multiplikator: {{y}}x --> <<limegreen|x{{x}}>>",
     "autoReset": "Diese wird deine Krümel, Ameisen und deine Ameisenverbesserungen zurücksetzten. Im Austausch erhältst du einen höheren Multiplikator und Ressourcen. Fortfahren?",
     "elo": "+{{x}} [>{{y}} ELO]",
-    "antSacrifice": "Ant Sacrifice"
+    "antSacrifice": "Sacrificar Formiga"
   },
   "challenges": {
     "1": {
@@ -1905,7 +1905,7 @@
       },
       "singCubes1": {
         "name": "Würfel-Flamme",
-        "description": "Verbessere dies, um +0.6% Würfel pro Level zu erhalten, für immer!",
+        "description": "Upgrade this to get +0.6% Cubes per level, forever!",
         "effect": "Erhalte permanent {{n}}% mehr Würfel."
       },
       "singCubes2": {
