@@ -867,7 +867,7 @@
         "2": "蚂蚁速度每完成1次变为1e5倍！当前效果： ",
         "3": "符文等级上限增加80！当前效果："
       },
-      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! Also unlocks the Campaign mode. I wonder what that does?",
+      "first": "解锁15个研究，并且解锁开启超立方的能力！还解锁了战役模式。不过这又是干啥的？",
       "start": "开始<[(蚂蚁减少挑战)]>",
       "current": {
         "1": "免费蚂蚁等级增加{{value}}",
@@ -883,9 +883,9 @@
       "per": {
         "1": "难得素获取数量增加50%！当前效果：",
         "2": "祭品获取数量增加12%！当前效果：",
-        "3": "打开每个方盒的贡品获取数量增加1！当前效果："
+        "3": "开启每个方盒的贡品获取数量增加1！当前效果："
       },
-      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Also adds additional Campaigns to beat!",
+      "first": "解锁15个研究，并且解锁神秘的魂灵能量！在符文选项卡下可以找到它们。另外，还追加了新战役等待您的挑战！",
       "start": "开始<[(无转世挑战)]>",
       "current": {
         "1": "难得素获取数量增加{{value}}%",
@@ -903,7 +903,7 @@
         "2": "护身符等级上限增加6级！当前效果：",
         "3": "魂灵能量效果增加3%！当前效果："
       },
-      "first": "Unlock 15 Researches, and unlock the power of the Hypercube! Unlock even more Campaigns!",
+      "first": "解锁15个研究，并且解锁五阶立方的力量！另外还解锁了更多战役！",
       "start": "开始<[(税收激增挑战)]>",
       "current": {
         "1": "腐化税收减少{{value}}%",
@@ -921,7 +921,7 @@
         "2": "每个时刻自动购买的研究数量增加1！当前效果： ",
         "3": "符文等级上限增加200！当前效果： "
       },
-      "first": "Unlock 15 Researches, and a way to coalesce your power into the Singularity. Unlock Campaigns, and the ability to create your own Corruption builds!",
+      "first": "解锁15个研究，并且解锁将能量与奇点结合的方法。最后，还解锁了自行设置腐化的能力！",
       "start": "开始<[(无研究挑战)]>",
       "current": {
         "1": "效果增加{{value}}%",
@@ -1300,7 +1300,7 @@
       "135": "[6x10]解锁自动升阶护身符！现实时间每2秒激活一次。",
       "136": "[6x11]是时候回顾过去了。每级使所有速度加快1.5%。",
       "137": "[6x12]赞助惊奇公司，每级让他们增加飞升库中1%的惊奇方盒数量。",
-      "138": "[6x13]打开惊奇方盒时，每级额外获得0.1%的贡品数量！",
+      "138": "[6x13]开启惊奇方盒时，每级额外获得0.1%的贡品数量！",
       "139": "[6x14]每级使超立方建筑的产量增加2%。",
       "140": "[6x15]四部曲的第一部，它可以使挑战10的基础目标减少1e100M！必读的好书！",
       "141": "[6x16]蚁神正在渗透您的思维。把良心扔掉吧！(每级增加0.8%加速器数量)",
@@ -1601,24 +1601,24 @@
         "default": "超通量珠加成夸克获取数量的效果上限变为{{amount}}%"
       },
       "tokenInheritance": {
-        "name": "Token Inheritance",
-        "default": "At the start of a Singularity, gain {{amount}} additional Campaign Tokens for absolutely nothing!"
+        "name": "代币传承",
+        "default": "进入奇点后，直接免费获得{{amount}}个额外战役代币！"
       },
       "autoCampaigns": {
-        "name": "Automatic Campaigns",
-        "default": "If your current corruption is of equal or higher 'difficulty' than a Campaign, gain Challenge 10 Completions when you ascend, outside of the Campaign!"
+        "name": "自动战役",
+        "default": "只要您目前腐化的难度等级不低于战役的难度等级，不需要进入战役也能获得相应战役的挑战10完成次数！"
       },
       "firstClearTokens": {
-        "name": "First to the Slaughter",
-        "default": "Gain +5 tokens for each Campaign for which you have at least one Challenge 10 completion on!"
+        "name": "先发制敌",
+        "default": "每有1个至少完成1次挑战10的战役，就获得5个战役代币。"
       },
       "lastClearTokens": {
-        "name": "The Blessing of Finality, Campaigns",
-        "default": "Gain +10 tokens for each Campaign for which you have at least one Challenge 10 completion on!"
+        "name": "终局战佑",
+        "default": "每有1个至少完成1次挑战10的战役，就获得10个战役代币。"
       },
       "bonusTokens": {
-        "name": "More Tokens!",
-        "default": "Campaigns give +{{amount}}% more tokens! Rounded down, of course."
+        "name": "更多代币！",
+        "default": "战役代币获取数量增加{{amount}}%(向下取整)！"
       },
       "cubeToQuark": {
         "name": "Cube to Quark Corner",
@@ -1725,7 +1725,7 @@
       },
       "irishAnt2": {
         "name": "爱尔兰蚂蚁 II：电子布加洛舞",
-        "default": "受到爱尔兰之运更多祝福的蚂蚁可以使☘ 神肴之运再增加<<limegreen|{{percent}}%>！每级特权使加成数值增加1%。"
+        "default": "受到爱尔兰之运更多祝福的蚂蚁可以使☘ 神肴之运再增加<<limegreen|{{percent}}%>>！每级特权使加成数值增加1%。"
       },
       "overclocked": {
         "name": "超载",
@@ -2913,7 +2913,7 @@
       "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
     "scoreMultiplier": "当前分数倍率：{{curr}} / 下次飞升分数倍率：{{next}}",
-    "difficultyEffect": "This corruption adds {{ curr }} difficulty rating / Next Ascension +{{next}}",
+    "difficultyEffect": "当前难度等级：{{ curr }} / 下次飞升难度等级：{{next}}",
     "freeLevels": "Free Levels: {{ curr }} (Does not increase difficulty of Corruption!)",
     "totalScoreMultiplier": "Corruptions give total Score Multiplier: x{{ curr }} / Next Ascension: x{{ next }}",
     "totalDifficulty": "Total Ascension Difficulty Score: {{ curr }} / Next Ascension: {{ next }} (Base 400 difficulty)",
