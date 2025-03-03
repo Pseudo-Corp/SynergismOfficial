@@ -2966,7 +2966,7 @@
     "spiritBonus": "但它也使符文魂灵效果变为<<wheat|{{multiplier}}>>倍。",
     "corruptionBank": "您有<<var(--crimson-text-color)|{{number}}>>个惊奇方盒还存在飞升库中。完成更多挑战，以获得更多惊奇方盒！飞升后才可以获得它们。",
     "corruptionScore": "您的飞升分数为<<goldenrod|{{ascScore}}>></span>(基础值)*<<var(--crimson-text-color)|{{corrMult}}>>(腐化因子)*<<var(--orchid-text-color)|{{bonusMult}}>>(加成因子)=<<var(--darkorchid-text-color)|{{totalScore}}>>",
-    "corruptionScoreDR": "Past 1e23 Ascension Score, further gains are square rooted! You are currently under this penalty.",
+    "corruptionScoreDR": "分数分数超过1e23以后，后续获取的飞升分数将变为正常的平方根！您已经承受了这个惩罚。",
     "ascensionCount": "如果现在飞升，您的飞升次数将增加<<darkorange|{{ascCount}}>>次。",
     "corruptionCubes": "如果现在飞升，您可以获得<<yellow|{{cubeAmount}}>>个惊奇方盒。",
     "corruptionTesseracts": "如果现在飞升，您可以获得<<orange|{{tesseractAmount}}>>个惊奇超立方。[<<var(--orange-text-color)|分数大于100,000后还可以获得更多>>]",
