@@ -674,7 +674,7 @@
     "antSacMultiplier": "蚂蚁倍率：×{{y}} --> <<limegreen|×{{x}}>>",
     "autoReset": "这么做将重置银河碎屑，蚂蚁以及蚂蚁升级，但可以获得更高的倍率和一些其他资源。您确定要继续吗？",
     "elo": "+{{x}} [分>{{y}}]",
-    "antSacrifice": "Ant Sacrifice"
+    "antSacrifice": "蚂蚁献祭"
   },
   "challenges": {
     "1": {
@@ -2859,7 +2859,7 @@
         "rune6": "使符文6的额外等级增加<<brown |{{ reward }}>>(最高增加3)。",
         "goldenQuark": "使金夸克获取数量增加<<gold |{{ reward }}>>(最高增加25%)。",
         "octeract": "使八阶方块获取数量增加<<teal |{{ reward }}>>(最高增加50%)。",
-        "ambrosiaLuck": "使☘ 神肴之运增加<<green |{{ reward }}>(最高增加100)。",
+        "ambrosiaLuck": "使☘ 神肴之运增加<<green |{{ reward }}>>(最高增加100)。",
         "blueberrySpeed": "使蓝莓秒的产生速度增加<<blue |{{ reward }}>>(最高增加10%)。"
       }
     },
