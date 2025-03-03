@@ -674,7 +674,7 @@
     "antSacMultiplier": "Ant Sacrifice Multiplier: {{y}}x --> <<limegreen|x{{x}}>>",
     "autoReset": "This resets your Crumbs, Ants and Ant Upgrades in exchange for some multiplier and resources. Continue?",
     "elo": "+{{x}} [>{{y}} ELO]",
-    "antSacrifice": "Sacrificar Formiga"
+    "antSacrifice": "Ant Sacrifice"
   },
   "challenges": {
     "1": {
