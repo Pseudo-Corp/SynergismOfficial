@@ -674,7 +674,7 @@
     "antSacMultiplier": "Ant Sacrifice Multiplier: {{y}}x --> <<limegreen|x{{x}}>>",
     "autoReset": "To zresetuje twoje Okruchy, Mrówki i Mrówcze ulepszenia w zamian za trochę mnożników i zasoby. Czy chcesz kontynuować?",
     "elo": "+{{x}} [>{{y}} ELO]",
-    "antSacrifice": "Ant Sacrifice"
+    "antSacrifice": "Sacrificar Formiga"
   },
   "challenges": {
     "1": {
@@ -2873,27 +2873,27 @@
   },
   "corruptions": {
     "names": {
-      "viscosity": "Korupcja I: Lepkość",
-      "dilation": "Korupcja II: Dylatacja przestrzenna",
-      "hyperchallenge": "Korupcja III: Hiperwyzwanie",
-      "illiteracy": "Korupcja IV: Analfabetyzm naukowy",
-      "deflation": "Korupcja V: Deflacja rynkowa",
-      "extinction": "Korupcja VI: Wymarcie",
-      "drought": "Korupcja VII: Susza",
-      "recession": "Korupcja VIII: Recesja finansowa"
+      "viscosity": "Viscous Multiplier and Accelerators",
+      "drought": "Less Fruitful Harvests",
+      "deflation": "Crystal Mine Collapse",
+      "extinction": "The Second Meteor",
+      "illiteracy": "Defunded Education",
+      "recession": "Great Depression II",
+      "dilation": "Time Dilation",
+      "hyperchallenge": "The Hyperchallenge Cube"
     },
     "descriptions": {
-      "viscosity": "Czujesz się ospale w całym wszechświecie...",
-      "dilation": "Dobra robota, Albercie.",
-      "hyperchallenge": "Co kryje się w wyzwaniu?",
+      "viscosity": "You feel lethargic across the universe...",
+      "dilation": "Way to go, Albert.",
+      "hyperchallenge": "What's in a challenge?",
       "illiteracy": "Maybe Albert wouldn't have theorized Dilation after all.",
-      "deflation": "Diamendowa kopalnia zniszczona... nigdy więcej monopoli!",
+      "deflation": "Diamond Mine destroyed... no more monopolies!",
       "extinction": "It killed the dinosaurs too, ya Dingus.",
-      "drought": "Bardziej jak Kalifornia, mam rację?",
-      "recession": "Yet another 2020 catastrophe."
+      "drought": "More like California, am I right?",
+      "recession": "Yet another 2025 catastrophe."
     },
     "currentLevel": {
-      "viscosity": "W tej ascendencji, poziom korupcji wynosi {{ level }}. Efekt: Damowy wykładnik Akceleratorów i  Mnożników ^ {{ effect }}.",
+      "viscosity": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
       "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
       "hyperchallenge": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
       "illiteracy": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
@@ -2903,7 +2903,7 @@
       "recession": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
     },
     "prototypeLevel": {
-      "viscosity": "W następnej Ascendencji poziom korupcji wyniesie {{ level }}. Efekt: Damowy wykładnik Akceleratorów i  Mnożników ^ {{ effect }}.",
+      "viscosity": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
       "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
       "hyperchallenge": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
       "illiteracy": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
