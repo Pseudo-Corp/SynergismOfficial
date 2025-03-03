@@ -734,8 +734,8 @@ export const loadStatisticsCubeMultipliers = () => {
   const map0: Record<number, { acc: number; desc: string; color?: string }> = {
     1: { acc: 2, desc: 'PseudoCoin Upgrade:', color: 'gold' },
     2: { acc: 2, desc: 'Ascension Time Multiplier:' },
-    3: { acc: 4, desc: 'Campaigns: Tutorial Bonus'},
-    4: { acc: 2, desc: 'Campaigns: Cube Bonus'},
+    3: { acc: 4, desc: 'Campaigns: Tutorial Bonus' },
+    4: { acc: 2, desc: 'Campaigns: Cube Bonus' },
     5: { acc: 2, desc: 'Sun and Moon Achievements:' },
     6: { acc: 2, desc: 'Speed Achievement:' },
     7: { acc: 2, desc: 'Challenge 15 All Cube Bonus:' },
@@ -1035,7 +1035,7 @@ export const loadStatisticsOfferingMultipliers = () => {
     11: { acc: 3, desc: 'Plutus Cube Tribute:' },
     12: { acc: 3, desc: 'Constant Upgrade 3:' },
     13: { acc: 3, desc: 'Research 6x24,8x4:' },
-    14: { acc: 3, desc: 'Campaigns: Tutorial Bonus'},
+    14: { acc: 3, desc: 'Campaigns: Tutorial Bonus' },
     15: { acc: 3, desc: 'Campaigns: Offering Bonus:' },
     16: { acc: 3, desc: 'Challenge 12:' },
     17: { acc: 3, desc: 'Research 8x25:' },
@@ -1753,7 +1753,7 @@ export const loadStatisticsAmbrosiaLuck = () => {
   const map: Record<number, { acc: number; desc: string; color?: string }> = {
     1: { acc: 0, desc: 'Base Value' },
     2: { acc: 0, desc: 'PseudoCoin Upgrade', color: 'gold' },
-    3: { acc: 2, desc: 'Campaign Bonus: Ambrosia Luck'},
+    3: { acc: 2, desc: 'Campaign Bonus: Ambrosia Luck' },
     4: { acc: 0, desc: 'Irish Ants Singularity Perk' },
     5: { acc: 1, desc: 'Shop Upgrade Bonus' },
     6: { acc: 0, desc: 'Singularity Ambrosia Luck Upgrades' },
@@ -2011,13 +2011,16 @@ const updateDisplayC15Rewards = () => {
       true
     )
   })
-  DOMCacheGetOrSet('c15RequiredExponent').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.requiredExponent', {
-    coins: format(
-      Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),
-      0,
-      true
-    )
-  })
+  DOMCacheGetOrSet('c15RequiredExponent').innerHTML = i18next.t(
+    'wowCubes.platonicUpgrades.c15Rewards.requiredExponent',
+    {
+      coins: format(
+        Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),
+        0,
+        true
+      )
+    }
+  )
   // dprint-ignore
   const exponentRequirements = [
     750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5,

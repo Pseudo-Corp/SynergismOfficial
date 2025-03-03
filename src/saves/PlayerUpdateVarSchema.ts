@@ -18,9 +18,11 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
   }
 
   if (player.corruptionLoadouts !== undefined && player.corruptionLoadoutNames !== undefined) {
-    const corruptionSaveStuff: { [key: string]: Corruptions } = player.corruptionLoadoutNames.reduce(
+    const corruptionSaveStuff = player.corruptionLoadoutNames.reduce(
       (map, key, index) => {
-        map[key] = convertArrayToCorruption(player.corruptionLoadouts![index + 1])
+        if (player.corruptionLoadouts?.[index + 1]) {
+          map[key] = convertArrayToCorruption(player.corruptionLoadouts[index + 1] ?? Array(100).fill(0))
+        }
         return map
       },
       {} as Record<string, Corruptions>

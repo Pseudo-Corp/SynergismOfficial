@@ -3,7 +3,6 @@ import type { Corruptions } from '../Corruptions'
 import type { Player } from '../types/Synergism'
 import { playerSchema } from './PlayerSchema'
 
-
 export const convertArrayToCorruption = (array: number[]): Corruptions => {
   return {
     viscosity: array[2],
@@ -126,9 +125,11 @@ export const playerJsonSchema = playerSchema.extend({
   player.corruptions.showStats = player.corruptionShowStats ?? player.corruptions.showStats
 
   if (player.corruptionLoadouts !== undefined && player.corruptionLoadoutNames !== undefined) {
-    const corruptionSaveStuff: { [key: string]: Corruptions } = player.corruptionLoadoutNames.reduce(
+    const corruptionSaveStuff = player.corruptionLoadoutNames.reduce(
       (map, key, index) => {
-        map[key] = convertArrayToCorruption(player.corruptionLoadouts![index + 1])
+        if (player.corruptionLoadouts?.[index + 1]) {
+          map[key] = convertArrayToCorruption(player.corruptionLoadouts[index + 1])
+        }
         return map
       },
       {} as Record<string, Corruptions>

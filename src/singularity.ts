@@ -1727,16 +1727,16 @@ export const singularityPerks: SingularityPerk[] = [
     },
     levels: [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277],
     description: (n: number, levels: number[]) => {
-        const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
-  
-        for (let i = 15; i > 0; i--) {
-          if (n >= levels[i]) {
-            return i18next.t('singularity.perks.tokenInheritance.default', {
-              amount: tokens[i]
-            })
-          }
+      const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
+
+      for (let i = 15; i > 0; i--) {
+        if (n >= levels[i]) {
+          return i18next.t('singularity.perks.tokenInheritance.default', {
+            amount: tokens[i]
+          })
         }
-        return i18next.t('singularity.perks.tokenInheritance.default', { amount: 0 })
+      }
+      return i18next.t('singularity.perks.tokenInheritance.default', { amount: 0 })
     },
     ID: 'tokenInheritance'
   },
@@ -2062,14 +2062,14 @@ export const singularityPerks: SingularityPerk[] = [
       for (let i = levels.length - 1; i >= 0; i--) {
         if (n >= levels[i]) {
           return i18next.t('singularity.perks.bonusTokens.default', {
-            amount: format(2 * (i+1))
+            amount: format(2 * (i + 1))
           })
         }
       }
       return i18next.t('singularity.perks.evenMoreQuarks.bug')
     },
     ID: 'bonusTokens'
-  },  
+  },
   {
     name: () => {
       return i18next.t('singularity.perks.overclocked.name')

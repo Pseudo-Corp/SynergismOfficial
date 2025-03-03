@@ -213,7 +213,7 @@ export const researchDescriptions = (i: number, auto = false, linGrowth = 0) => 
     y: G.researchMaxLevels[i]
   })
   const resetInfo = DOMCacheGetOrSet('researchinfo4')
-  
+
   if (getResetResearches().includes(i)) {
     resetInfo.textContent = i18next.t('researches.resets')
     resetInfo.classList.remove('crimsonText')

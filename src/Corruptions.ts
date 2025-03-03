@@ -302,7 +302,6 @@ export class CorruptionLoadout {
   }
 
   get totalCorruptionAscensionMultiplier () {
-    
     if (this.#totalScoreMult === 1) {
       this.#totalScoreMult = this.#calcTotalScoreMult()
     }
@@ -460,7 +459,7 @@ export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
         curr: format(player.corruptions.used.scoreMult(corr), 2, true),
         next: format(player.corruptions.next.scoreMult(corr), 2, true)
       }),
-      difficulty: i18next.t('corruptions.difficultyEffect', { 
+      difficulty: i18next.t('corruptions.difficultyEffect', {
         curr: format(16 * Math.pow(player.corruptions.used.getTotalLevel(corr), 2), 0, false),
         next: format(16 * Math.pow(player.corruptions.next.getTotalLevel(corr), 2), 0, false)
       }),
@@ -731,7 +730,7 @@ async function corruptionLoadoutGetNewName (loadout = 0) {
   }
 }
 
-//let hasUpdatedCorruptionLoadoutNames = false
+// let hasUpdatedCorruptionLoadoutNames = false
 
 export const updateCorruptionLoadoutNames = () => {
   const rows = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows

@@ -303,39 +303,59 @@ export const createPlatonicDescription = (index: number) => {
   }
   priceMultiplier *= calculateSingularityDebuff('Platonic Costs')
 
-  DOMCacheGetOrSet('platonicUpgradeDescription').textContent = i18next.t(`wowCubes.platonicUpgrades.descriptions.${index}`)
+  DOMCacheGetOrSet('platonicUpgradeDescription').textContent = i18next.t(
+    `wowCubes.platonicUpgrades.descriptions.${index}`
+  )
   DOMCacheGetOrSet('platonicUpgradeLevel').textContent = i18next.t(translationKey, {
     a: format(player.platonicUpgrades[index]),
     b: format(platUpgradeBaseCosts[index].maxLevel)
   })
-  DOMCacheGetOrSet('platonicOfferingCost').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.offeringCost', {
-    a: format(player.runeshards),
-    b: format(platUpgradeBaseCosts[index].offerings * priceMultiplier)
-  })
-  DOMCacheGetOrSet('platonicObtainiumCost').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.obtainiumCost', {
-    a: format(player.researchPoints),
-    b: format(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
-  })
+  DOMCacheGetOrSet('platonicOfferingCost').textContent = i18next.t(
+    'wowCubes.platonicUpgrades.descriptionBox.offeringCost',
+    {
+      a: format(player.runeshards),
+      b: format(platUpgradeBaseCosts[index].offerings * priceMultiplier)
+    }
+  )
+  DOMCacheGetOrSet('platonicObtainiumCost').textContent = i18next.t(
+    'wowCubes.platonicUpgrades.descriptionBox.obtainiumCost',
+    {
+      a: format(player.researchPoints),
+      b: format(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
+    }
+  )
   DOMCacheGetOrSet('platonicCubeCost').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.cubeCost', {
     a: format(player.wowCubes),
     b: format(platUpgradeBaseCosts[index].cubes * priceMultiplier)
   })
-  DOMCacheGetOrSet('platonicTesseractCost').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.tesseractCost', {
-    a: format(player.wowTesseracts),
-    b: format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier)
-  })
-  DOMCacheGetOrSet('platonicHypercubeCost').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.hypercubeCost', {
-    a: format(player.wowHypercubes),
-    b: format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier)
-  })
-  DOMCacheGetOrSet('platonicPlatonicCost').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.platonicCost', {
-    a: format(player.wowPlatonicCubes),
-    b: format(platUpgradeBaseCosts[index].platonics * priceMultiplier)
-  })
-  DOMCacheGetOrSet('platonicHepteractCost').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.hepteractCost', {
-    a: format(player.hepteractCrafts.abyss.BAL),
-    b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true)
-  })
+  DOMCacheGetOrSet('platonicTesseractCost').textContent = i18next.t(
+    'wowCubes.platonicUpgrades.descriptionBox.tesseractCost',
+    {
+      a: format(player.wowTesseracts),
+      b: format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier)
+    }
+  )
+  DOMCacheGetOrSet('platonicHypercubeCost').textContent = i18next.t(
+    'wowCubes.platonicUpgrades.descriptionBox.hypercubeCost',
+    {
+      a: format(player.wowHypercubes),
+      b: format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier)
+    }
+  )
+  DOMCacheGetOrSet('platonicPlatonicCost').textContent = i18next.t(
+    'wowCubes.platonicUpgrades.descriptionBox.platonicCost',
+    {
+      a: format(player.wowPlatonicCubes),
+      b: format(platUpgradeBaseCosts[index].platonics * priceMultiplier)
+    }
+  )
+  DOMCacheGetOrSet('platonicHepteractCost').textContent = i18next.t(
+    'wowCubes.platonicUpgrades.descriptionBox.hepteractCost',
+    {
+      a: format(player.hepteractCrafts.abyss.BAL),
+      b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true)
+    }
+  )
 
   resourceCheck.offerings
     ? DOMCacheGetOrSet('platonicOfferingCost').style.color = 'lime'
@@ -370,17 +390,23 @@ export const createPlatonicDescription = (index: number) => {
 
     if (resourceCheck.canBuy) {
       DOMCacheGetOrSet('platonicCanBuy').style.color = 'gold'
-      DOMCacheGetOrSet('platonicCanBuy').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.platonicCanBuy')
+      DOMCacheGetOrSet('platonicCanBuy').textContent = i18next.t(
+        'wowCubes.platonicUpgrades.descriptionBox.platonicCanBuy'
+      )
     } else {
       DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--crimson-text-color)'
-      DOMCacheGetOrSet('platonicCanBuy').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.platonicCannotBuy')
+      DOMCacheGetOrSet('platonicCanBuy').textContent = i18next.t(
+        'wowCubes.platonicUpgrades.descriptionBox.platonicCannotBuy'
+      )
     }
   }
 
   if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
     DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'gold'
     DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--orchid-text-color)'
-    DOMCacheGetOrSet('platonicCanBuy').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.platonicCanBuyMaxed')
+    DOMCacheGetOrSet('platonicCanBuy').textContent = i18next.t(
+      'wowCubes.platonicUpgrades.descriptionBox.platonicCanBuyMaxed'
+    )
   }
 }
 
@@ -389,7 +415,7 @@ export const updatePlatonicUpgradeBG = (i: number) => {
 
   const maxLevel = platUpgradeBaseCosts[i].maxLevel
   a.classList.remove('green-background', 'purple-background')
-  
+
   if (player.platonicUpgrades[i] > 0 && player.platonicUpgrades[i] < maxLevel) {
     a.classList.add('purple-background')
   } else if (player.platonicUpgrades[i] === maxLevel) {
