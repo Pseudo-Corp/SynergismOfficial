@@ -674,7 +674,7 @@
     "antSacMultiplier": "Множитель Пожертвования Муравьёв: {{y}}x --> <<limegreen|x{{x}}>>",
     "autoReset": "Это сбросит ваши Крошки, Муравьёв и Улучшения Муравьёв в обмен на некоторый множитель и ресурсы. Продолжить?",
     "elo": "+{{x}} [>{{y}} ЭЛО]",
-    "antSacrifice": "Sacrificar Formiga"
+    "antSacrifice": "Ant Sacrifice"
   },
   "challenges": {
     "1": {
