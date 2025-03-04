@@ -129,22 +129,28 @@ export class CorruptionLoadout {
       ? 0.33
       : 0
     bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
-
+    
     let bonusMult = 1
-    if (this.#levels[corr] >= 14) {
+    if (this.#levels[corr] >= 14 && player.singularityUpgrades.masterPack.getEffect().bonus) {
       bonusMult *= 1.1
     }
+
+    // player.platonicUpgrades[17] is the 17th platonic upgrade, known usually as P4x2, makes
+    // Exponent 3 + 0.04 * level if the corr is viscosity and it is set at least level 10.
+    const viscosityPower = (player.platonicUpgrades[17] > 0 && this.#levels.viscosity >= 10 && corr === "viscosity")
+      ? 3 + 0.04 * player.platonicUpgrades[17]
+      : 1
 
     const totalLevel = this.#levels[corr] + this.bonusLevels
     const scoreMultLength = this.#corruptionScoreMults.length
 
     if (totalLevel < scoreMultLength - 1) {
       const portionAboveLevel = Math.ceil(totalLevel) - totalLevel
-      return (this.#corruptionScoreMults[Math.floor(totalLevel)]
-        + portionAboveLevel * this.#corruptionScoreMults[Math.ceil(totalLevel)]) * bonusMult
+      return Math.pow((this.#corruptionScoreMults[Math.floor(totalLevel)] + bonusVal
+        + portionAboveLevel * this.#corruptionScoreMults[Math.ceil(totalLevel)]), viscosityPower) * bonusMult
     } else {
-      return ((this.#corruptionScoreMults[scoreMultLength - 1] + bonusVal)
-        * Math.pow(1.2, totalLevel - scoreMultLength + 1)) * bonusMult
+      return Math.pow(((this.#corruptionScoreMults[scoreMultLength - 1] + bonusVal)
+        * Math.pow(1.2, totalLevel - scoreMultLength + 1)), viscosityPower) * bonusMult
     }
   }
 
@@ -228,16 +234,7 @@ export class CorruptionLoadout {
   }
 
   public scoreMult (corruption: keyof Corruptions) {
-    if (corruption !== 'viscosity') {
-      return this.calculateIndividualRawMultiplier(corruption)
-    } else {
-      // player.platonicUpgrades[17] is the 17th platonic upgrade, known usually as P4x2, makes
-      // Exponent 3 + 0.04 * level if the corr is viscosity and it is set at least level 10.
-      const power = (player.platonicUpgrades[17] > 0 && this.#levels.viscosity >= 10)
-        ? 3 + 0.04 * player.platonicUpgrades[17]
-        : 1
-      return Math.pow(this.calculateIndividualRawMultiplier(corruption), power)
-    }
+    return this.calculateIndividualRawMultiplier(corruption)
   }
 
   get totalCorruptionDifficultyScore () {
