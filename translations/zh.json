@@ -1610,11 +1610,11 @@
       },
       "firstClearTokens": {
         "name": "先发制敌",
-        "default": "每有1个至少完成1次挑战10的战役，就获得5个战役代币。"
+        "default": "Gain +5 tokens for each Campaign for which you have at least one Challenge 10 completion!"
       },
       "lastClearTokens": {
         "name": "终局战佑",
-        "default": "每有1个至少完成1次挑战10的战役，就获得10个战役代币。"
+        "default": "Gain +10 tokens for each Campaign for which you have the maximum Challenge 10 completions!"
       },
       "bonusTokens": {
         "name": "更多代币！",
@@ -2173,6 +2173,26 @@
         "name": "幻想之沙漏",
         "description": "一个不重要也不那么“及时”的沙漏——至于这是什么意思，管他呢。它每级可以使蓝莓秒的产生速度增加2%。",
         "effect": "蓝莓秒的产生速度+{{n}}%(!)"
+      },
+      "singBonusTokens1": {
+        "name": "Spare Change on the Sofa Cushion",
+        "description": "Thanks to your perceptive eyes, you find more Tokens in Campaigns! +1 per level per Campaign with at least 1 completion.",
+        "effect": "You find {{n}} more Tokens from first clears in Campaigns!"
+      },
+      "singBonusTokens2": {
+        "name": "Spare Change in the creases of the Sofa Cushions",
+        "description": "Thanks to your more perceptive eyes, you find even more Tokens in Campaigns! +1% more Tokens per level from Campaigns.",
+        "effect": "You find +{{n}}% more Tokens from Campaigns!"
+      },
+      "singBonusTokens3": {
+        "name": "Spare Change under the Sofa",
+        "description": "Why do you have Tokens just lying everywhere near your Sofa? +2 per level per Campaign with maxxed completions.",
+        "effect": "You find {{n}} more Tokens from maxxed Campaigns!"
+      },
+      "singBonusTokens4": {
+        "name": "Spare Change from the Ant God's Coffers",
+        "description": "Those Tokens were too big to be called Tokens. Too big, too thick, too heavy, and too rough, they were more like large hunks of gold. +5 Tokens at the start of a Singularity per level.",
+        "effect": "Ant God ponies up {{n}} Tokens at the start of a Singularity!"
       }
     },
     "goldenQuarkAmount": "您有{{goldenQuarks}}金夸克！",
@@ -3197,6 +3217,26 @@
         "name": "身无分文的Derpsmith之终极兑换券",
         "description": "每级使免费升级的指数增加0.001，并且第一级额外增加0.01！",
         "effect": "第一个升级的指数增加{{n}}"
+      },
+      "octeractBonusTokens1": {
+        "name": "Tokens of Derpsmith",
+        "description": "Derpsmith gives you a token of his appreciation. +1 Tokens per level when your challenge completions are maxxed!",
+        "effect": "Token gain +{{n}} for maxxed completions."
+      },
+      "octeractBonusTokens2": {
+        "name": "Tokens of Derpsmith II",
+        "description": "Under some weird trade agreement, you get +1% Tokens from Campaigns per level. Pray that the trade is not further altered.",
+        "effect": "Token gain +{{n}}%"
+      },
+      "octeractBonusTokens3": {
+        "name": "Tokens of Derpsmith III",
+        "description": "Even grazing the doorstep, Derpsmith acknowledges your bravery. +1 Token per level for each campaign with at least 1 completion.",
+        "effect": "Token gain +{{n}} for Campaigns with at least 1 completion."
+      },
+      "octeractBonusTokens4": {
+        "name": "Tokens of Derpsmith IV",
+        "description": "Derpsmith is impressed by your dedication. +2 Tokens at the start of your Singularity per level.",
+        "effect": "Token gain +{{n}} at the start of your Singularity.."
       },
       "octeractSingUpgradeCap": {
         "name": "重写指针",
