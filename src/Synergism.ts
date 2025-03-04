@@ -1065,6 +1065,22 @@ export const player: Player = {
       singularityData.singCubes3,
       'singCubes3'
     ),
+    singBonusTokens1: new SingularityUpgrade(
+      singularityData.singBonusTokens1,
+      'singBonusTokens1'
+    ),
+    singBonusTokens2: new SingularityUpgrade(
+      singularityData.singBonusTokens2,
+      'singBonusTokens2'
+    ),
+    singBonusTokens3: new SingularityUpgrade(
+      singularityData.singBonusTokens3,
+      'singBonusTokens3'
+    ),
+    singBonusTokens4: new SingularityUpgrade(
+      singularityData.singBonusTokens4,
+      'singBonusTokens4'
+    ),
     singCitadel: new SingularityUpgrade(
       singularityData.singCitadel,
       'singCitadel'

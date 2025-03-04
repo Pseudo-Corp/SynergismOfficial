@@ -1610,11 +1610,11 @@
       },
       "firstClearTokens": {
         "name": "First to the Slaughter",
-        "default": "Gain +5 tokens for each Campaign for which you have at least one Challenge 10 completion on!"
+        "default": "Gain +5 tokens for each Campaign for which you have at least one Challenge 10 completion!"
       },
       "lastClearTokens": {
         "name": "The Blessing of Finality, Campaigns",
-        "default": "Gain +10 tokens for each Campaign for which you have at least one Challenge 10 completion on!"
+        "default": "Gain +10 tokens for each Campaign for which you have the maximum Challenge 10 completions!"
       },
       "bonusTokens": {
         "name": "More Tokens!",
@@ -2173,6 +2173,26 @@
         "name": "Hourglass of Fantasy",
         "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% Blueberry Second Generation per level.",
         "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+      },
+      "singBonusTokens1": {
+        "name": "Spare Change on the Sofa Cushion",
+        "description": "Thanks to your perceptive eyes, you find more Tokens in Campaigns! +1 per level per Campaign with at least 1 completion.",
+        "effect": "You find {{n}} more Tokens from first clears in Campaigns!"
+      },
+      "singBonusTokens2": {
+        "name": "Spare Change in the creases of the Sofa Cushions",
+        "description": "Thanks to your more perceptive eyes, you find even more Tokens in Campaigns! +1% more Tokens per level from Campaigns.",
+        "effect": "You find +{{n}}% more Tokens from Campaigns!"
+      },
+      "singBonusTokens3": {
+        "name": "Spare Change under the Sofa",
+        "description": "Why do you have Tokens just lying everywhere near your Sofa? +2 per level per Campaign with maxxed completions.",
+        "effect": "You find {{n}} more Tokens from maxxed Campaigns!"
+      },
+      "singBonusTokens4": {
+        "name": "Spare Change from the Ant God's Coffers",
+        "description": "Those Tokens were too big to be called Tokens. Too big, too thick, too heavy, and too rough, they were more like large hunks of gold. +5 Tokens at the start of a Singularity per level.",
+        "effect": "Ant God ponies up {{n}} Tokens at the start of a Singularity!"
       }
     },
     "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
