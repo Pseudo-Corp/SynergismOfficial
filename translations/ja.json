@@ -1610,11 +1610,11 @@
       },
       "firstClearTokens": {
         "name": "First to the Slaughter",
-        "default": "Gain +5 tokens for each Campaign for which you have at least one Challenge 10 completion on!"
+        "default": "Gain +5 tokens for each Campaign for which you have at least one Challenge 10 completion!"
       },
       "lastClearTokens": {
         "name": "The Blessing of Finality, Campaigns",
-        "default": "Gain +10 tokens for each Campaign for which you have at least one Challenge 10 completion on!"
+        "default": "Gain +10 tokens for each Campaign for which you have the maximum Challenge 10 completions!"
       },
       "bonusTokens": {
         "name": "More Tokens!",
@@ -2173,6 +2173,26 @@
         "name": "Hourglass of Fantasy",
         "description": "An hourglass which is unimportant and 'less timely'- whatever that means. +2% Blueberry Second Generation per level.",
         "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+      },
+      "singBonusTokens1": {
+        "name": "Spare Change on the Sofa Cushion",
+        "description": "Thanks to your perceptive eyes, you find more Tokens in Campaigns! +1 per level per Campaign with at least 1 completion.",
+        "effect": "You find {{n}} more Tokens from first clears in Campaigns!"
+      },
+      "singBonusTokens2": {
+        "name": "Spare Change in the creases of the Sofa Cushions",
+        "description": "Thanks to your more perceptive eyes, you find even more Tokens in Campaigns! +1% more Tokens per level from Campaigns.",
+        "effect": "You find +{{n}}% more Tokens from Campaigns!"
+      },
+      "singBonusTokens3": {
+        "name": "Spare Change under the Sofa",
+        "description": "Why do you have Tokens just lying everywhere near your Sofa? +2 per level per Campaign with maxxed completions.",
+        "effect": "You find {{n}} more Tokens from maxxed Campaigns!"
+      },
+      "singBonusTokens4": {
+        "name": "Spare Change from the Ant God's Coffers",
+        "description": "Those Tokens were too big to be called Tokens. Too big, too thick, too heavy, and too rough, they were more like large hunks of gold. +5 Tokens at the start of a Singularity per level.",
+        "effect": "Ant God ponies up {{n}} Tokens at the start of a Singularity!"
       }
     },
     "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
@@ -3197,6 +3217,26 @@
         "name": "Coupon of Ultimate Penniless Derpsmiths",
         "description": "Each level adds 0.001 to the exponent of free upgrades, with the first level adding another 0.01!",
         "effect": "Exponent of the first upgrade +{{n}}"
+      },
+      "octeractBonusTokens1": {
+        "name": "Tokens of Derpsmith",
+        "description": "Derpsmith gives you a token of his appreciation. +1 Tokens per level when your challenge completions are maxxed!",
+        "effect": "Token gain +{{n}} for maxxed completions."
+      },
+      "octeractBonusTokens2": {
+        "name": "Tokens of Derpsmith II",
+        "description": "Under some weird trade agreement, you get +1% Tokens from Campaigns per level. Pray that the trade is not further altered.",
+        "effect": "Token gain +{{n}}%"
+      },
+      "octeractBonusTokens3": {
+        "name": "Tokens of Derpsmith III",
+        "description": "Even grazing the doorstep, Derpsmith acknowledges your bravery. +1 Token per level for each campaign with at least 1 completion.",
+        "effect": "Token gain +{{n}} for Campaigns with at least 1 completion."
+      },
+      "octeractBonusTokens4": {
+        "name": "Tokens of Derpsmith IV",
+        "description": "Derpsmith is impressed by your dedication. +2 Tokens at the start of your Singularity per level.",
+        "effect": "Token gain +{{n}} at the start of your Singularity.."
       },
       "octeractSingUpgradeCap": {
         "name": "Overwriting Pointers",
