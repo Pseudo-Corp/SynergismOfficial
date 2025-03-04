@@ -1610,11 +1610,11 @@
       },
       "firstClearTokens": {
         "name": "先发制敌",
-        "default": "Gain +5 tokens for each Campaign for which you have at least one Challenge 10 completion!"
+        "default": "每有1个至少完成1次挑战10的战役，就获得5个战役代币。"
       },
       "lastClearTokens": {
         "name": "终局战佑",
-        "default": "Gain +10 tokens for each Campaign for which you have the maximum Challenge 10 completions!"
+        "default": "每有1个完成所有挑战10次数的战役，就获得10个战役代币！"
       },
       "bonusTokens": {
         "name": "更多代币！",
@@ -2175,24 +2175,24 @@
         "effect": "蓝莓秒的产生速度+{{n}}%(!)"
       },
       "singBonusTokens1": {
-        "name": "Spare Change on the Sofa Cushion",
-        "description": "Thanks to your perceptive eyes, you find more Tokens in Campaigns! +1 per level per Campaign with at least 1 completion.",
-        "effect": "You find {{n}} more Tokens from first clears in Campaigns!"
+        "name": "沙发垫上的零钱",
+        "description": "您慧眼如炬，从战役中发现了更多代币！每有1个至少完成1次挑战10的战役，每级就多获得1个战役代币。",
+        "effect": "根据至少完成1次挑战10的战役数量，您额外获得了{{n}}代币！"
       },
       "singBonusTokens2": {
-        "name": "Spare Change in the creases of the Sofa Cushions",
-        "description": "Thanks to your more perceptive eyes, you find even more Tokens in Campaigns! +1% more Tokens per level from Campaigns.",
-        "effect": "You find +{{n}}% more Tokens from Campaigns!"
+        "name": "沙发垫缝隙里的零钱",
+        "description": "您又发现了一些代币！每级使战役代币获取数量增加1%。",
+        "effect": "您通过战役获取的代币数量增加{{n}}%！"
       },
       "singBonusTokens3": {
-        "name": "Spare Change under the Sofa",
-        "description": "Why do you have Tokens just lying everywhere near your Sofa? +2 per level per Campaign with maxxed completions.",
-        "effect": "You find {{n}} more Tokens from maxxed Campaigns!"
+        "name": "沙发下的零钱",
+        "description": "为什么代币总是散落在沙发附近？每有1个完成所有挑战10次数的战役，每级就多获得2个战役代币。",
+        "effect": "根据完成所有挑战10的战役数量，您额外获得了{{n}}代币！"
       },
       "singBonusTokens4": {
-        "name": "Spare Change from the Ant God's Coffers",
-        "description": "Those Tokens were too big to be called Tokens. Too big, too thick, too heavy, and too rough, they were more like large hunks of gold. +5 Tokens at the start of a Singularity per level.",
-        "effect": "Ant God ponies up {{n}} Tokens at the start of a Singularity!"
+        "name": "蚁神宝库的零钱",
+        "description": "这些代币大到不太能叫做代币了。它们太大、太厚、太重，太糙，更像是一大块金块。进入奇点后，每级可以获得5个代币。",
+        "effect": "蚁神在进入奇点时投入{{n}}个代币！"
       }
     },
     "goldenQuarkAmount": "您有{{goldenQuarks}}金夸克！",
@@ -3219,24 +3219,24 @@
         "effect": "第一个升级的指数增加{{n}}"
       },
       "octeractBonusTokens1": {
-        "name": "Tokens of Derpsmith",
-        "description": "Derpsmith gives you a token of his appreciation. +1 Tokens per level when your challenge completions are maxxed!",
-        "effect": "Token gain +{{n}} for maxxed completions."
+        "name": "Derpsmith的代币",
+        "description": "Derpsmith将代币赠与您，以示赞赏。每有1个完成所有挑战10次数的战役，每级就多获得1个战役代币。",
+        "effect": "根据完成所有挑战10的战役数量，您额外获得了{{n}}代币。"
       },
       "octeractBonusTokens2": {
-        "name": "Tokens of Derpsmith II",
-        "description": "Under some weird trade agreement, you get +1% Tokens from Campaigns per level. Pray that the trade is not further altered.",
-        "effect": "Token gain +{{n}}%"
+        "name": "Derpsmith的代币 II",
+        "description": "通过某种奇怪的贸易协定，每级可以使战役代币获取数量增加1%。希望不会变卦。",
+        "effect": "战役代币获取数量增加{{n}}%"
       },
       "octeractBonusTokens3": {
-        "name": "Tokens of Derpsmith III",
-        "description": "Even grazing the doorstep, Derpsmith acknowledges your bravery. +1 Token per level for each campaign with at least 1 completion.",
-        "effect": "Token gain +{{n}} for Campaigns with at least 1 completion."
+        "name": "Derpsmith的代币 III",
+        "description": "就算浅尝辄止，Derpsmith也会承认您的勇敢。每有1个至少完成1次挑战10的战役，每级就多获得1个战役代币。",
+        "effect": "根据至少完成1次挑战10的战役数量，您额外获得了{{n}}代币。"
       },
       "octeractBonusTokens4": {
-        "name": "Tokens of Derpsmith IV",
-        "description": "Derpsmith is impressed by your dedication. +2 Tokens at the start of your Singularity per level.",
-        "effect": "Token gain +{{n}} at the start of your Singularity.."
+        "name": "Derpsmith的代币 IV",
+        "description": "Derpsmith被您的献身精神感动了。进入奇点后，每级可以获得2个代币。",
+        "effect": "进入奇点后立刻获得{{n}}代币……"
       },
       "octeractSingUpgradeCap": {
         "name": "重写指针",
