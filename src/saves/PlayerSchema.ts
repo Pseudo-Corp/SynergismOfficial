@@ -646,7 +646,7 @@ export const playerSchema = z.object({
   singularityUpgrades: z.record(z.string(), singularityUpgradeSchema('goldenQuarksInvested'))
     .transform((upgrades) =>
       Object.fromEntries(
-        Object.keys(singularityData).map((k) => {
+        Object.keys(singularityData).filter((k) => k in upgrades || k in blankSave.singularityUpgrades).map((k) => {
           const { level, goldenQuarksInvested, toggleBuy, freeLevels } = upgrades[k] ?? blankSave.singularityUpgrades[k as keyof typeof blankSave['singularityUpgrades']]
 
           return [
