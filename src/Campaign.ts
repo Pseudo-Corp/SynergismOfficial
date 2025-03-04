@@ -109,8 +109,6 @@ export interface ICampaignData {
 export class CampaignManager {
   #currentCampaign: CampaignKeys | undefined
   #campaigns: Record<CampaignKeys, Campaign>
-  #token = undefined
-  #maxToken = undefined
 
   constructor (campaignManagerData?: ICampaignManagerData) {
     this.#campaigns = {
@@ -273,6 +271,8 @@ export class CampaignManager {
     }
 
     sum += inheritanceTokens()
+    sum += +player.singularityUpgrades.singBonusTokens4.getEffect().bonus
+    sum += +player.octeractUpgrades.octeractBonusTokens4.getEffect().bonus
     return sum
   }
 
@@ -283,23 +283,18 @@ export class CampaignManager {
     }
 
     sum += inheritanceTokens()
+    sum += +player.singularityUpgrades.singBonusTokens4.getEffect().bonus
+    sum += +player.octeractUpgrades.octeractBonusTokens4.getEffect().bonus
+
     return sum
   }
 
   get tokens () {
-    if (this.#token === undefined) {
-      return this.computeTotalCampaignTokens()
-    } else {
-      return this.#token
-    }
+    return this.computeTotalCampaignTokens()
   }
 
   get maxTokens () {
-    if (this.#maxToken === undefined) {
-      return this.computeMaxCampaignTokens()
-    } else {
-      return this.#maxToken
-    }
+    return this.computeMaxCampaignTokens()
   }
 
   get current () {
@@ -528,17 +523,29 @@ export class Campaign {
 
     let additiveTotal = 0
     additiveTotal += completed // Base
-    if (player.highestSingularityCount >= 16 && completed >= 1) {
-      additiveTotal += 5
+
+    if (completed >= 1) { // TODO in day 1: Make into own method?
+      if (player.highestSingularityCount >= 16) {
+        additiveTotal += 5
+      }
+      additiveTotal += +player.singularityUpgrades.singBonusTokens1.getEffect().bonus
+      additiveTotal += +player.octeractUpgrades.octeractBonusTokens3.getEffect().bonus
     }
-    if (player.highestSingularityCount >= 69 && completed === this.#limit) {
-      additiveTotal += 10
+    
+    if (completed === this.#limit) {
+      if (player.highestSingularityCount >= 69) {
+        additiveTotal += 10
+      }
+      additiveTotal += +player.singularityUpgrades.singBonusTokens3.getEffect().bonus
+      additiveTotal += +player.octeractUpgrades.octeractBonusTokens1.getEffect().bonus
     }
 
     let multiplier = 1
+
     multiplier *= this.#isMeta ? 2 : 1
     multiplier *= singularityBonusTokenMult()
-
+    multiplier *= +player.singularityUpgrades.singBonusTokens2.getEffect().bonus
+    multiplier *= +player.octeractUpgrades.octeractBonusTokens2.getEffect().bonus
     return Math.floor(additiveTotal * multiplier)
   }
 
@@ -1304,6 +1311,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 11,
       illiteracy: 11,
       recession: 11,
+      dilation: 11,
       hyperchallenge: 11
     },
     isMeta: false,
@@ -1320,6 +1328,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 13,
       illiteracy: 13,
       recession: 13,
+      dilation: 13,
       hyperchallenge: 13
     },
     isMeta: true,

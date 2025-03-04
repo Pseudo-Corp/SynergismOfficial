@@ -1065,6 +1065,22 @@ export const player: Player = {
       singularityData.singCubes3,
       'singCubes3'
     ),
+    singBonusTokens1: new SingularityUpgrade(
+      singularityData.singBonusTokens1,
+      'singBonusTokens1'
+    ),
+    singBonusTokens2: new SingularityUpgrade(
+      singularityData.singBonusTokens2,
+      'singBonusTokens2'
+    ),
+    singBonusTokens3: new SingularityUpgrade(
+      singularityData.singBonusTokens3,
+      'singBonusTokens3'
+    ),
+    singBonusTokens4: new SingularityUpgrade(
+      singularityData.singBonusTokens4,
+      'singBonusTokens4'
+    ),
     singCitadel: new SingularityUpgrade(
       singularityData.singCitadel,
       'singCitadel'
@@ -1391,7 +1407,23 @@ export const player: Player = {
     octeractAmbrosiaGeneration4: new OcteractUpgrade(
       octeractData.octeractAmbrosiaGeneration4,
       'octeractAmbrosiaGeneration4'
-    )
+    ),
+    octeractBonusTokens1: new OcteractUpgrade(
+      octeractData.octeractBonusTokens1,
+      'octeractBonusTokens1'
+    ),
+    octeractBonusTokens2: new OcteractUpgrade(
+      octeractData.octeractBonusTokens2,
+      'octeractBonusTokens2'
+    ),
+    octeractBonusTokens3: new OcteractUpgrade(
+      octeractData.octeractBonusTokens3,
+      'octeractBonusTokens3'
+    ),
+    octeractBonusTokens4: new OcteractUpgrade(
+      octeractData.octeractBonusTokens4,
+      'octeractBonusTokens4'
+    ),
   },
 
   dailyCodeUsed: false,

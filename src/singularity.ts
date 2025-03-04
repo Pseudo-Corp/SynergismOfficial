@@ -8,6 +8,7 @@ import type { Player } from './types/Synergism'
 import { Alert, Prompt, revealStuff } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 import { Globals as G } from './Variables'
+import { campaignTokenRewardHTMLUpdate } from './Campaign'
 
 export const updateSingularityPenalties = (): void => {
   const singularityCount = player.singularityCount
@@ -1583,7 +1584,91 @@ export const singularityData: Record<
         G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
       }
     ]
-  }
+  },
+  singBonusTokens1: {
+    maxLevel: 5,
+    costPerLevel: 25,
+    minimumSingularity: 1,
+    specialCostForm: 'Exponential2',
+    effect: (n: number) => {
+      return {
+        bonus: n,
+        get desc () {
+          return i18next.t('singularity.data.singBonusTokens1.effect', {
+            n: format(n)
+          })
+        }
+      }
+    },
+    cacheUpdates: [
+      () => {
+        campaignTokenRewardHTMLUpdate()
+      }
+    ]
+  },
+  singBonusTokens2: {
+    maxLevel: 5,
+    costPerLevel: 10000,
+    minimumSingularity: 25,
+    specialCostForm: 'Exponential2',
+    effect: (n: number) => {
+      return {
+        bonus: 1 + n/100,
+        get desc () {
+          return i18next.t('singularity.data.singBonusTokens2.effect', {
+            n: format(n)
+          })
+        }
+      }
+    },
+    cacheUpdates: [
+      () => {
+        campaignTokenRewardHTMLUpdate()
+      }
+    ]
+  },
+  singBonusTokens3: {
+    maxLevel: 5,
+    costPerLevel: 1e8,
+    minimumSingularity: 100,
+    specialCostForm: 'Exponential2',
+    effect: (n: number) => {
+      return {
+        bonus: 2*n,
+        get desc () {
+          return i18next.t('singularity.data.singBonusTokens3.effect', {
+            n: format(2*n)
+          })
+        }
+      }
+    },
+    cacheUpdates: [
+      () => {
+        campaignTokenRewardHTMLUpdate()
+      }
+    ]
+  },
+  singBonusTokens4: {
+    maxLevel: 30,
+    costPerLevel: 1e13,
+    minimumSingularity: 166,
+    specialCostForm: 'Exponential2',
+    effect: (n: number) => {
+      return {
+        bonus: 5*n,
+        get desc () {
+          return i18next.t('singularity.data.singBonusTokens4.effect', {
+            n: format(5*n)
+          })
+        }
+      }
+    },
+    cacheUpdates: [
+      () => {
+        campaignTokenRewardHTMLUpdate()
+      }
+    ]
+  },
 }
 
 /**
