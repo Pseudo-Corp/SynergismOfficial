@@ -3218,6 +3218,26 @@
         "description": "Each level adds 0.001 to the exponent of free upgrades, with the first level adding another 0.01!",
         "effect": "Exponent of the first upgrade +{{n}}"
       },
+      "octeractBonusTokens1": {
+        "name": "Tokens of Derpsmith",
+        "description": "Derpsmith gives you a token of his appreciation. +1 Tokens per level when your challenge completions are maxxed!",
+        "effect": "Token gain +{{n}} for maxxed completions."
+      },
+      "octeractBonusTokens2": {
+        "name": "Tokens of Derpsmith II",
+        "description": "Under some weird trade agreement, you get +1% Tokens from Campaigns per level. Pray that the trade is not further altered.",
+        "effect": "Token gain +{{n}}%"
+      },
+      "octeractBonusTokens3": {
+        "name": "Tokens of Derpsmith III",
+        "description": "Even grazing the doorstep, Derpsmith acknowledges your bravery. +1 Token per level for each campaign with at least 1 completion.",
+        "effect": "Token gain +{{n}} for Campaigns with at least 1 completion."
+      },
+      "octeractBonusTokens4": {
+        "name": "Tokens of Derpsmith IV",
+        "description": "Derpsmith is impressed by your dedication. +2 Tokens at the start of your Singularity per level.",
+        "effect": "Token gain +{{n}} at the start of your Singularity.."
+      },
       "octeractSingUpgradeCap": {
         "name": "Overwriting Pointers",
         "description": "Derpsmith encountered a SegFault after reassigning null... +1 to level cap on certain Singularity Upgrades per level!",

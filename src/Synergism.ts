@@ -1407,7 +1407,23 @@ export const player: Player = {
     octeractAmbrosiaGeneration4: new OcteractUpgrade(
       octeractData.octeractAmbrosiaGeneration4,
       'octeractAmbrosiaGeneration4'
-    )
+    ),
+    octeractBonusTokens1: new OcteractUpgrade(
+      octeractData.octeractBonusTokens1,
+      'octeractBonusTokens1'
+    ),
+    octeractBonusTokens2: new OcteractUpgrade(
+      octeractData.octeractBonusTokens2,
+      'octeractBonusTokens2'
+    ),
+    octeractBonusTokens3: new OcteractUpgrade(
+      octeractData.octeractBonusTokens3,
+      'octeractBonusTokens3'
+    ),
+    octeractBonusTokens4: new OcteractUpgrade(
+      octeractData.octeractBonusTokens4,
+      'octeractBonusTokens4'
+    ),
   },
 
   dailyCodeUsed: false,

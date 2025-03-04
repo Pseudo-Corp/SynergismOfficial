@@ -272,6 +272,7 @@ export class CampaignManager {
 
     sum += inheritanceTokens()
     sum += +player.singularityUpgrades.singBonusTokens4.getEffect().bonus
+    sum += +player.octeractUpgrades.octeractBonusTokens4.getEffect().bonus
     return sum
   }
 
@@ -283,6 +284,7 @@ export class CampaignManager {
 
     sum += inheritanceTokens()
     sum += +player.singularityUpgrades.singBonusTokens4.getEffect().bonus
+    sum += +player.octeractUpgrades.octeractBonusTokens4.getEffect().bonus
 
     return sum
   }
@@ -527,6 +529,7 @@ export class Campaign {
         additiveTotal += 5
       }
       additiveTotal += +player.singularityUpgrades.singBonusTokens1.getEffect().bonus
+      additiveTotal += +player.octeractUpgrades.octeractBonusTokens3.getEffect().bonus
     }
     
     if (completed === this.#limit) {
@@ -534,6 +537,7 @@ export class Campaign {
         additiveTotal += 10
       }
       additiveTotal += +player.singularityUpgrades.singBonusTokens3.getEffect().bonus
+      additiveTotal += +player.octeractUpgrades.octeractBonusTokens1.getEffect().bonus
     }
 
     let multiplier = 1
@@ -541,6 +545,7 @@ export class Campaign {
     multiplier *= this.#isMeta ? 2 : 1
     multiplier *= singularityBonusTokenMult()
     multiplier *= +player.singularityUpgrades.singBonusTokens2.getEffect().bonus
+    multiplier *= +player.octeractUpgrades.octeractBonusTokens2.getEffect().bonus
     return Math.floor(additiveTotal * multiplier)
   }
 

@@ -675,7 +675,7 @@ export const playerSchema = z.object({
     .transform((upgrades) =>
       Object.fromEntries(
         Object.keys(octeractData).map((k) => {
-          const { level, octeractsInvested, toggleBuy, freeLevels } = upgrades[k] ?? octeractData[k]
+          const { level, octeractsInvested, toggleBuy, freeLevels } = upgrades[k] ?? blankSave.octeractUpgrades[k as keyof typeof blankSave['octeractUpgrades']]
 
           return [
             k,
