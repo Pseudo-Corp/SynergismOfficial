@@ -1329,19 +1329,6 @@ export const singularityData: Record<
       }
     }
   },
-  WIP: {
-    maxLevel: 100,
-    costPerLevel: 1e300,
-    minimumSingularity: 251,
-    effect: (n: number) => {
-      return {
-        bonus: n,
-        get desc () {
-          return i18next.t('singularity.data.WIP.effect')
-        }
-      }
-    }
-  },
   ultimatePen: {
     maxLevel: 1,
     costPerLevel: 2.22e22,
