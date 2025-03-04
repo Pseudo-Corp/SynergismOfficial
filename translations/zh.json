@@ -674,7 +674,7 @@
     "antSacMultiplier": "蚂蚁倍率：×{{y}} --> <<limegreen|×{{x}}>>",
     "autoReset": "这么做将重置银河碎屑，蚂蚁以及蚂蚁升级，但可以获得更高的倍率和一些其他资源。您确定要继续吗？",
     "elo": "+{{x}} [分>{{y}}]",
-    "antSacrifice": "Sacrificar Formiga"
+    "antSacrifice": "蚂蚁献祭"
   },
   "challenges": {
     "1": {
@@ -1614,7 +1614,7 @@
       },
       "lastClearTokens": {
         "name": "终局战佑",
-        "default": "每有1个至少完成1次挑战10的战役，就获得10个战役代币。"
+        "default": "每有1个完成所有挑战10次数的战役，就获得10个战役代币！"
       },
       "bonusTokens": {
         "name": "更多代币！",
@@ -2173,6 +2173,26 @@
         "name": "幻想之沙漏",
         "description": "一个不重要也不那么“及时”的沙漏——至于这是什么意思，管他呢。它每级可以使蓝莓秒的产生速度增加2%。",
         "effect": "蓝莓秒的产生速度+{{n}}%(!)"
+      },
+      "singBonusTokens1": {
+        "name": "沙发垫上的零钱",
+        "description": "您慧眼如炬，从战役中发现了更多代币！每有1个至少完成1次挑战10的战役，每级就多获得1个战役代币。",
+        "effect": "根据至少完成1次挑战10的战役数量，您额外获得了{{n}}代币！"
+      },
+      "singBonusTokens2": {
+        "name": "沙发垫缝隙里的零钱",
+        "description": "您又发现了一些代币！每级使战役代币获取数量增加1%。",
+        "effect": "您通过战役获取的代币数量增加{{n}}%！"
+      },
+      "singBonusTokens3": {
+        "name": "沙发下的零钱",
+        "description": "为什么代币总是散落在沙发附近？每有1个完成所有挑战10次数的战役，每级就多获得2个战役代币。",
+        "effect": "根据完成所有挑战10的战役数量，您额外获得了{{n}}代币！"
+      },
+      "singBonusTokens4": {
+        "name": "蚁神宝库的零钱",
+        "description": "这些代币大到不太能叫做代币了。它们太大、太厚、太重，太糙，更像是一大块金块。进入奇点后，每级可以获得5个代币。",
+        "effect": "蚁神在进入奇点时投入{{n}}个代币！"
       }
     },
     "goldenQuarkAmount": "您有{{goldenQuarks}}金夸克！",
@@ -2859,7 +2879,7 @@
         "rune6": "使符文6的额外等级增加<<brown |{{ reward }}>>(最高增加3)。",
         "goldenQuark": "使金夸克获取数量增加<<gold |{{ reward }}>>(最高增加25%)。",
         "octeract": "使八阶方块获取数量增加<<teal |{{ reward }}>>(最高增加50%)。",
-        "ambrosiaLuck": "使☘ 神肴之运增加<<green |{{ reward }}>(最高增加100)。",
+        "ambrosiaLuck": "使☘ 神肴之运增加<<green |{{ reward }}>>(最高增加100)。",
         "blueberrySpeed": "使蓝莓秒的产生速度增加<<blue |{{ reward }}>>(最高增加10%)。"
       }
     },
@@ -3197,6 +3217,26 @@
         "name": "身无分文的Derpsmith之终极兑换券",
         "description": "每级使免费升级的指数增加0.001，并且第一级额外增加0.01！",
         "effect": "第一个升级的指数增加{{n}}"
+      },
+      "octeractBonusTokens1": {
+        "name": "Derpsmith的代币",
+        "description": "Derpsmith将代币赠与您，以示赞赏。每有1个完成所有挑战10次数的战役，每级就多获得1个战役代币。",
+        "effect": "根据完成所有挑战10的战役数量，您额外获得了{{n}}代币。"
+      },
+      "octeractBonusTokens2": {
+        "name": "Derpsmith的代币 II",
+        "description": "通过某种奇怪的贸易协定，每级可以使战役代币获取数量增加1%。希望不会变卦。",
+        "effect": "战役代币获取数量增加{{n}}%"
+      },
+      "octeractBonusTokens3": {
+        "name": "Derpsmith的代币 III",
+        "description": "就算浅尝辄止，Derpsmith也会承认您的勇敢。每有1个至少完成1次挑战10的战役，每级就多获得1个战役代币。",
+        "effect": "根据至少完成1次挑战10的战役数量，您额外获得了{{n}}代币。"
+      },
+      "octeractBonusTokens4": {
+        "name": "Derpsmith的代币 IV",
+        "description": "Derpsmith被您的献身精神感动了。进入奇点后，每级可以获得2个代币。",
+        "effect": "进入奇点后立刻获得{{n}}代币……"
       },
       "octeractSingUpgradeCap": {
         "name": "重写指针",
