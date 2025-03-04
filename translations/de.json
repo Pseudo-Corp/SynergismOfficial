@@ -2107,11 +2107,6 @@
         "description": "Ascension speed is multiplied by 6 if you have not purchased Antiquities in your current Singularity.",
         "effect": "Der Effekt ist eindeutig"
       },
-      "WIP": {
-        "name": "WIP VORLAGE",
-        "description": "Dies ist eine Vorlage! Unterer Text.",
-        "effect": "Diese Beschreibung wird zu einem späteren Zeitpunkt aktualisiert!!!!!!!!!!"
-      },
       "ultimatePen": {
         "name": "Der ultimative Stift",
         "description": "Du. Du bist der Autor deiner eigenen Geschichte!",

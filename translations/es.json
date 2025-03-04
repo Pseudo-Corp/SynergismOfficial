@@ -2107,11 +2107,6 @@
         "description": "Velocidad de Ascensión multiplicada por 6 si no has comprado Antigüedades en esta singularidad.",
         "effect": "El efecto está claro"
       },
-      "WIP": {
-        "name": "Plantilla WIP",
-        "description": "¡Esto es una plantilla! Texto Inferior.",
-        "effect": "¡¡¡¡¡¡¡¡¡¡Actualiza esto después!!!!!!!!!!"
-      },
       "ultimatePen": {
         "name": "El Bolígrafo Final",
         "description": "Tú. ¡Eres tú el autor de su propia historia!",
