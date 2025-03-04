@@ -145,7 +145,12 @@ import {
   updateLoadoutHoverClasses
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { campaignIconHTMLUpdates, CampaignManager, campaignTokenRewardHTMLUpdate, createCampaignIconHTMLS } from './Campaign'
+import {
+  campaignIconHTMLUpdates,
+  CampaignManager,
+  campaignTokenRewardHTMLUpdate,
+  createCampaignIconHTMLS
+} from './Campaign'
 import { lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
@@ -906,47 +911,6 @@ export const player: Player = {
   },
 
   campaigns: new CampaignManager(),
-  /*prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  corruptionLoadouts: {
-    // If you add loadouts don't forget to add loadout names!
-    1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    5: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    6: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    7: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    8: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    9: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    10: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    11: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    12: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    13: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    14: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    15: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    16: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  },
-  corruptionLoadoutNames: [
-    'Loadout 1',
-    'Loadout 2',
-    'Loadout 3',
-    'Loadout 4',
-    'Loadout 5',
-    'Loadout 6',
-    'Loadout 7',
-    'Loadout 8',
-    'Loadout 9',
-    'Loadout 10',
-    'Loadout 11',
-    'Loadout 12',
-    'Loadout 13',
-    'Loadout 14',
-    'Loadout 15',
-    'Loadout 16'
-  ],
-  corruptionShowStats: true,
-  */
   constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   history: { ants: [], ascend: [], reset: [], singularity: [] },
   historyShowPerSecond: false,
@@ -1100,6 +1064,22 @@ export const player: Player = {
     singCubes3: new SingularityUpgrade(
       singularityData.singCubes3,
       'singCubes3'
+    ),
+    singBonusTokens1: new SingularityUpgrade(
+      singularityData.singBonusTokens1,
+      'singBonusTokens1'
+    ),
+    singBonusTokens2: new SingularityUpgrade(
+      singularityData.singBonusTokens2,
+      'singBonusTokens2'
+    ),
+    singBonusTokens3: new SingularityUpgrade(
+      singularityData.singBonusTokens3,
+      'singBonusTokens3'
+    ),
+    singBonusTokens4: new SingularityUpgrade(
+      singularityData.singBonusTokens4,
+      'singBonusTokens4'
     ),
     singCitadel: new SingularityUpgrade(
       singularityData.singCitadel,
@@ -1427,7 +1407,23 @@ export const player: Player = {
     octeractAmbrosiaGeneration4: new OcteractUpgrade(
       octeractData.octeractAmbrosiaGeneration4,
       'octeractAmbrosiaGeneration4'
-    )
+    ),
+    octeractBonusTokens1: new OcteractUpgrade(
+      octeractData.octeractBonusTokens1,
+      'octeractBonusTokens1'
+    ),
+    octeractBonusTokens2: new OcteractUpgrade(
+      octeractData.octeractBonusTokens2,
+      'octeractBonusTokens2'
+    ),
+    octeractBonusTokens3: new OcteractUpgrade(
+      octeractData.octeractBonusTokens3,
+      'octeractBonusTokens3'
+    ),
+    octeractBonusTokens4: new OcteractUpgrade(
+      octeractData.octeractBonusTokens4,
+      'octeractBonusTokens4'
+    ),
   },
 
   dailyCodeUsed: false,

@@ -7,6 +7,7 @@ import { format, formatTimeShort, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
+import { campaignTokenRewardHTMLUpdate } from './Campaign'
 
 export interface IOcteractData extends Omit<IUpgradeData, 'name' | 'description'> {
   costFormula(this: void, level: number, baseCost: number): number
@@ -815,5 +816,89 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     cacheUpdates: [() => {
       G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     }]
+  },
+  octeractBonusTokens1: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(1e2, level)
+    },
+    maxLevel: 10,
+    costPerLevel: 1e-5,
+    effect: (n: number) => {
+      return {
+        bonus: n,
+        get desc () {
+          return i18next.t('octeract.data.octeractBonusTokens1.effect', { n: format(n) })
+        }
+      }
+    },
+    cacheUpdates: [
+          () => {
+             player.campaigns.updateCurrentTokens()
+             campaignTokenRewardHTMLUpdate()
+          }
+    ]
+  },
+  octeractBonusTokens2: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(1e8, level)
+    },
+    maxLevel: 5,
+    costPerLevel: 1e8,
+    effect: (n: number) => {
+      return {
+        bonus: 1 + n/100,
+        get desc () {
+          return i18next.t('octeract.data.octeractBonusTokens2.effect', { n: format(n) })
+        }
+      }
+    },
+    cacheUpdates: [
+      () => {
+         player.campaigns.updateCurrentTokens()
+         campaignTokenRewardHTMLUpdate()
+      }
+    ]
+  },
+  octeractBonusTokens3: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(1e10, level)
+    },
+    maxLevel: 5,
+    costPerLevel: 1e40,
+    effect: (n: number) => {
+      return {
+        bonus: n,
+        get desc () {
+          return i18next.t('octeract.data.octeractBonusTokens3.effect', { n: format(n) })
+        }
+      }
+    },
+    cacheUpdates: [
+      () => {
+         player.campaigns.updateCurrentTokens()
+         campaignTokenRewardHTMLUpdate()
+      }
+    ]
+  },
+  octeractBonusTokens4: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(4, level)
+    },
+    maxLevel: 50,
+    costPerLevel: 1e75,
+    effect: (n: number) => {
+      return {
+        bonus: 2 * n,
+        get desc () {
+          return i18next.t('octeract.data.octeractBonusTokens4.effect', { n: format(2 * n) })
+        }
+      }
+    },
+    cacheUpdates: [
+      () => {
+         player.campaigns.updateCurrentTokens()
+         campaignTokenRewardHTMLUpdate()
+      }
+    ]
   }
 }

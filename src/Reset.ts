@@ -18,6 +18,14 @@ import {
   calculateRuneLevels,
   calculateTalismanEffects
 } from './Calculate'
+import {
+  campaignCorruptionStatsHTMLReset,
+  campaignDatas,
+  campaignIconHTMLUpdate,
+  campaignIconHTMLUpdates,
+  type CampaignKeys,
+  campaignTokenRewardHTMLUpdate
+} from './Campaign'
 import { challengeRequirement } from './Challenges'
 import { c15Corruptions, CorruptionLoadout, corruptionStatsUpdate, type SavedCorruption } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
@@ -53,7 +61,6 @@ import { assert, getElementById } from './Utility'
 import { updateClassList } from './Utility'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { campaignCorruptionStatsHTMLReset, campaignDatas, campaignIconHTMLUpdate, campaignIconHTMLUpdates, type CampaignKeys, campaignTokenRewardHTMLUpdate } from './Campaign'
 
 let repeatreset: ReturnType<typeof setTimeout>
 
@@ -735,7 +742,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       const currCorruptionDifficulty = player.corruptions.used.totalCorruptionDifficultyScore
       for (const campaign of Object.keys(player.campaigns.allCampaigns)) {
         const campaignName = campaign as CampaignKeys
-        const campaignDifficulty = player.campaigns.getCampaign(campaignName).usableLoadout.totalCorruptionDifficultyScore
+        const campaignDifficulty =
+          player.campaigns.getCampaign(campaignName).usableLoadout.totalCorruptionDifficultyScore
         if (!campaignDatas[campaignName].unlockRequirement()) {
           continue
         }
@@ -1581,7 +1589,7 @@ export const getResetResearches = () => {
 
 const resetResearches = () => {
   player.researchPoints = 0
-  
+
   for (const item of getResetResearches()) {
     player.researches[item] = 0
   }

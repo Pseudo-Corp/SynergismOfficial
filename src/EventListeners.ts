@@ -456,7 +456,7 @@ export const generateEventHandlers = () => {
 
   for (let index = 0; index < 7; index++) {
     DOMCacheGetOrSet(`talisman${index + 1}`).addEventListener('click', () => showTalismanEffect(index))
-    
+
     const levelTalisman = DOMCacheGetOrSet(`leveluptalisman${index + 1}`)
     levelTalisman.addEventListener('mouseover', () => showTalismanPrices(index))
     levelTalisman.addEventListener('focus', () => showTalismanPrices(index))
@@ -587,8 +587,7 @@ export const generateEventHandlers = () => {
     antTier.addEventListener('mouseover', onFocusMouseover)
     antTier.addEventListener('focus', onFocusMouseover)
 
-    antTier.addEventListener('click', () =>
-      buyAntProducers(ordinals[index - 1], antProducerCostVals[index], index))
+    antTier.addEventListener('click', () => buyAntProducers(ordinals[index - 1], antProducerCostVals[index], index))
   }
   // Part 2: Ant Upgrades (1-12)
   const antUpgradeCostVals = [

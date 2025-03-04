@@ -133,7 +133,7 @@ export const updateCubeUpgradeBG = (i: number) => {
     player.wowCubes.add((cubeUpgrade - maxCubeLevel) * cubeBaseCost[i - 1])
     player.cubeUpgrades[i] = maxCubeLevel
   }
-  
+
   a.classList.remove('green-background', 'purple-background')
 
   if (cubeUpgrade > 0 && cubeUpgrade < maxCubeLevel) {

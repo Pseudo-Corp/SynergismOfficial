@@ -24,6 +24,7 @@ import {
   calculateTotalOcteractQuarkBonus,
   octeractGainPerSecond
 } from './Calculate'
+import { formatAsPercentIncrease } from './Campaign'
 import { CalcECC } from './Challenges'
 import { version } from './Config'
 import type { IMultiBuy } from './Cubes'
@@ -43,7 +44,6 @@ import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
-import { formatAsPercentIncrease } from './Campaign'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -1277,8 +1277,7 @@ export const visualUpdateCorruptions = () => {
 
   if (metaData[3] > 1e23) {
     DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'visible'
-  }
-  else {
+  } else {
     DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'hidden'
   }
 
@@ -1453,7 +1452,7 @@ export const visualUpdateSingularity = () => {
     const val = G.shopEnhanceVision
 
     for (const key of keys) {
-      if (key === 'offeringAutomatic' || key === 'WIP') {
+      if (key === 'offeringAutomatic') {
         continue
       }
       const singItem = player.singularityUpgrades[key]

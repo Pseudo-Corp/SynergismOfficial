@@ -8,6 +8,7 @@ import type { Player } from './types/Synergism'
 import { Alert, Prompt, revealStuff } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 import { Globals as G } from './Variables'
+import { campaignTokenRewardHTMLUpdate } from './Campaign'
 
 export const updateSingularityPenalties = (): void => {
   const singularityCount = player.singularityCount
@@ -1328,19 +1329,6 @@ export const singularityData: Record<
       }
     }
   },
-  WIP: {
-    maxLevel: 100,
-    costPerLevel: 1e300,
-    minimumSingularity: 251,
-    effect: (n: number) => {
-      return {
-        bonus: n,
-        get desc () {
-          return i18next.t('singularity.data.WIP.effect')
-        }
-      }
-    }
-  },
   ultimatePen: {
     maxLevel: 1,
     costPerLevel: 2.22e22,
@@ -1583,7 +1571,95 @@ export const singularityData: Record<
         G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
       }
     ]
-  }
+  },
+  singBonusTokens1: {
+    maxLevel: 5,
+    costPerLevel: 25,
+    minimumSingularity: 1,
+    specialCostForm: 'Exponential2',
+    effect: (n: number) => {
+      return {
+        bonus: n,
+        get desc () {
+          return i18next.t('singularity.data.singBonusTokens1.effect', {
+            n: format(n)
+          })
+        }
+      }
+    },
+    cacheUpdates: [
+      () => {
+        player.campaigns.updateCurrentTokens()
+        campaignTokenRewardHTMLUpdate()
+      }
+    ]
+  },
+  singBonusTokens2: {
+    maxLevel: 5,
+    costPerLevel: 10000,
+    minimumSingularity: 25,
+    specialCostForm: 'Exponential2',
+    effect: (n: number) => {
+      return {
+        bonus: 1 + n/100,
+        get desc () {
+          return i18next.t('singularity.data.singBonusTokens2.effect', {
+            n: format(n)
+          })
+        }
+      }
+    },
+    cacheUpdates: [
+      () => {
+        player.campaigns.updateCurrentTokens()
+        campaignTokenRewardHTMLUpdate()
+      }
+    ]
+  },
+  singBonusTokens3: {
+    maxLevel: 5,
+    costPerLevel: 1e8,
+    minimumSingularity: 100,
+    specialCostForm: 'Exponential2',
+    effect: (n: number) => {
+      return {
+        bonus: 2*n,
+        get desc () {
+          return i18next.t('singularity.data.singBonusTokens3.effect', {
+            n: format(2*n)
+          })
+        }
+      }
+    },
+    cacheUpdates: [
+      () => {
+        player.campaigns.updateCurrentTokens()
+        campaignTokenRewardHTMLUpdate()
+      }
+    ]
+  },
+  singBonusTokens4: {
+    maxLevel: 30,
+    costPerLevel: 1e13,
+    minimumSingularity: 166,
+    specialCostForm: 'Exponential2',
+    effect: (n: number) => {
+      return {
+        bonus: 5*n,
+        get desc () {
+          return i18next.t('singularity.data.singBonusTokens4.effect', {
+            n: format(5*n)
+          })
+        }
+      }
+    },
+    cacheUpdates: [
+      () => {
+        player.campaigns.updateCurrentTokens()
+        campaignTokenRewardHTMLUpdate()
+      }
+    ]
+  },
 }
 
 /**
@@ -1727,16 +1803,16 @@ export const singularityPerks: SingularityPerk[] = [
     },
     levels: [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277],
     description: (n: number, levels: number[]) => {
-        const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
-  
-        for (let i = 15; i > 0; i--) {
-          if (n >= levels[i]) {
-            return i18next.t('singularity.perks.tokenInheritance.default', {
-              amount: tokens[i]
-            })
-          }
+      const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
+
+      for (let i = 15; i > 0; i--) {
+        if (n >= levels[i]) {
+          return i18next.t('singularity.perks.tokenInheritance.default', {
+            amount: tokens[i]
+          })
         }
-        return i18next.t('singularity.perks.tokenInheritance.default', { amount: 0 })
+      }
+      return i18next.t('singularity.perks.tokenInheritance.default', { amount: 0 })
     },
     ID: 'tokenInheritance'
   },
@@ -2062,14 +2138,14 @@ export const singularityPerks: SingularityPerk[] = [
       for (let i = levels.length - 1; i >= 0; i--) {
         if (n >= levels[i]) {
           return i18next.t('singularity.perks.bonusTokens.default', {
-            amount: format(2 * (i+1))
+            amount: format(2 * (i + 1))
           })
         }
       }
       return i18next.t('singularity.perks.evenMoreQuarks.bug')
     },
     ID: 'bonusTokens'
-  },  
+  },
   {
     name: () => {
       return i18next.t('singularity.perks.overclocked.name')

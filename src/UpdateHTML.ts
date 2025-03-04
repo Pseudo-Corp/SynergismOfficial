@@ -221,7 +221,10 @@ export const revealStuff = () => {
 
   const corr = document.getElementsByClassName('corrTab') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < corr.length; i++) {
-    corr[i].style.display = (player.challengecompletions[14] > 0 || (player.challengecompletions[11] > 0 && player.highestSingularityCount >= 1)) ? 'block' : 'none'
+    corr[i].style.display = (player.challengecompletions[14] > 0
+        || (player.challengecompletions[11] > 0 && player.highestSingularityCount >= 1))
+      ? 'block'
+      : 'none'
     corr[i].setAttribute('aria-disabled', `${player.achievements[243] !== 1}`)
   }
 

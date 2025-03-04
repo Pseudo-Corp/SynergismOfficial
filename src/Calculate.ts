@@ -1367,10 +1367,12 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
   G.timeWarp = true
 
   // Variable Declarations i guess
-  const maximumTimer = !fromTips ? (86400 * 3
-    + 7200 * 2 * player.researches[31]
-    + 7200 * 2 * player.researches[32])
-    * PCoinUpgradeEffects.OFFLINE_TIMER_CAP_BUFF : 1e100 // If someone exceeds this, we will be very rich aha!
+  const maximumTimer = !fromTips
+    ? (86400 * 3
+      + 7200 * 2 * player.researches[31]
+      + 7200 * 2 * player.researches[32])
+      * PCoinUpgradeEffects.OFFLINE_TIMER_CAP_BUFF
+    : 1e100 // If someone exceeds this, we will be very rich aha!
 
   const updatedTime = Date.now()
   const timeAdd = Math.min(
@@ -3531,7 +3533,7 @@ export const sumOfExaltCompletions = () => {
 export const inheritanceTokens = () => {
   const levels = [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277]
   const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
-  
+
   for (let i = 15; i > 0; i--) {
     if (player.highestSingularityCount >= levels[i]) {
       return tokens[i]

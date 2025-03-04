@@ -1,27 +1,86 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { corrIcons, CorruptionLoadout, type Corruptions, corruptionsSchema, corruptionStatsUpdate, maxCorruptionLevel } from './Corruptions'
+import { inheritanceTokens, isIARuneUnlocked, singularityBonusTokenMult } from './Calculate'
+import {
+  corrIcons,
+  CorruptionLoadout,
+  type Corruptions,
+  corruptionsSchema,
+  corruptionStatsUpdate,
+  maxCorruptionLevel
+} from './Corruptions'
+import { reset } from './Reset'
 import { format, player } from './Synergism'
 import { IconSets } from './Themes'
-import { reset } from './Reset'
 import { Alert, Confirm, Notification } from './UpdateHTML'
-import { inheritanceTokens, isIARuneUnlocked, singularityBonusTokenMult } from './Calculate'
 
-export type CampaignKeys = 'first' | 'second' | 'third' | 'fourth' | 'fifth' |
-'sixth'| 'seventh' | 'eighth' | 'ninth' | 'tenth' | 
-'eleventh' | 'twelfth' | 'thirteenth' | 'fourteenth' | 'fifteenth' |
-'sixteenth' | 'seventeenth' | 'eighteenth' | 'nineteenth' | 'twentieth' |
-'twentyFirst' | 'twentySecond' | 'twentyThird' | 'twentyFourth' | 'twentyFifth' |
-'twentySixth' | 'twentySeventh' | 'twentyEighth' | 'twentyNinth' | 'thirtieth' |
-'thirtyFirst' | 'thirtySecond' | 'thirtyThird' | 'thirtyFourth' | 'thirtyFifth' |
-'thirtySixth' | 'thirtySeventh' | 'thirtyEighth' | 'thirtyNinth' | 'fortieth' |
-'fortyFirst' | 'fortySecond' | 'fortyThird' | 'fortyFourth' | 'fortyFifth' |
-'fortySixth' | 'fortySeventh' | 'fortyEighth' | 'fortyNinth' | 'fiftieth'
+export type CampaignKeys =
+  | 'first'
+  | 'second'
+  | 'third'
+  | 'fourth'
+  | 'fifth'
+  | 'sixth'
+  | 'seventh'
+  | 'eighth'
+  | 'ninth'
+  | 'tenth'
+  | 'eleventh'
+  | 'twelfth'
+  | 'thirteenth'
+  | 'fourteenth'
+  | 'fifteenth'
+  | 'sixteenth'
+  | 'seventeenth'
+  | 'eighteenth'
+  | 'nineteenth'
+  | 'twentieth'
+  | 'twentyFirst'
+  | 'twentySecond'
+  | 'twentyThird'
+  | 'twentyFourth'
+  | 'twentyFifth'
+  | 'twentySixth'
+  | 'twentySeventh'
+  | 'twentyEighth'
+  | 'twentyNinth'
+  | 'thirtieth'
+  | 'thirtyFirst'
+  | 'thirtySecond'
+  | 'thirtyThird'
+  | 'thirtyFourth'
+  | 'thirtyFifth'
+  | 'thirtySixth'
+  | 'thirtySeventh'
+  | 'thirtyEighth'
+  | 'thirtyNinth'
+  | 'fortieth'
+  | 'fortyFirst'
+  | 'fortySecond'
+  | 'fortyThird'
+  | 'fortyFourth'
+  | 'fortyFifth'
+  | 'fortySixth'
+  | 'fortySeventh'
+  | 'fortyEighth'
+  | 'fortyNinth'
+  | 'fiftieth'
 
-
-export type CampaignTokenRewardNames = 'tutorial' | 'cube' | 'obtainium' | 'offering' | 
-'ascensionScore' | 'timeThreshold' | 'quark' | 'tax' | 'c15' | 'rune6' | 'goldenQuark' |
-'octeract' | 'ambrosiaLuck' | 'blueberrySpeed'
+export type CampaignTokenRewardNames =
+  | 'tutorial'
+  | 'cube'
+  | 'obtainium'
+  | 'offering'
+  | 'ascensionScore'
+  | 'timeThreshold'
+  | 'quark'
+  | 'tax'
+  | 'c15'
+  | 'rune6'
+  | 'goldenQuark'
+  | 'octeract'
+  | 'ambrosiaLuck'
+  | 'blueberrySpeed'
 
 type CampaignTokenRewardDisplay = {
   tokenRequirement: number
@@ -50,8 +109,10 @@ export interface ICampaignData {
 export class CampaignManager {
   #currentCampaign: CampaignKeys | undefined
   #campaigns: Record<CampaignKeys, Campaign>
-  #token = undefined
-  #maxToken = undefined
+  #tokens = 0
+  #maxTokens = 0
+  #updatedTokens = false
+  #updatedMaxTokens = false
 
   constructor (campaignManagerData?: ICampaignManagerData) {
     this.#campaigns = {
@@ -71,40 +132,132 @@ export class CampaignManager {
       fourteenth: new Campaign(campaignDatas.fourteenth, 'fourteenth', campaignManagerData?.campaigns?.fourteenth ?? 0),
       fifteenth: new Campaign(campaignDatas.fifteenth, 'fifteenth', campaignManagerData?.campaigns?.fifteenth ?? 0),
       sixteenth: new Campaign(campaignDatas.sixteenth, 'sixteenth', campaignManagerData?.campaigns?.sixteenth ?? 0),
-      seventeenth: new Campaign(campaignDatas.seventeenth, 'seventeenth', campaignManagerData?.campaigns?.seventeenth ?? 0),
+      seventeenth: new Campaign(
+        campaignDatas.seventeenth,
+        'seventeenth',
+        campaignManagerData?.campaigns?.seventeenth ?? 0
+      ),
       eighteenth: new Campaign(campaignDatas.eighteenth, 'eighteenth', campaignManagerData?.campaigns?.eighteenth ?? 0),
       nineteenth: new Campaign(campaignDatas.nineteenth, 'nineteenth', campaignManagerData?.campaigns?.nineteenth ?? 0),
       twentieth: new Campaign(campaignDatas.twentieth, 'twentieth', campaignManagerData?.campaigns?.twentieth ?? 0),
-      twentyFirst: new Campaign(campaignDatas.twentyFirst, 'twentyFirst', campaignManagerData?.campaigns?.twentyFirst ?? 0),
-      twentySecond: new Campaign(campaignDatas.twentySecond, 'twentySecond', campaignManagerData?.campaigns?.twentySecond ?? 0),
-      twentyThird: new Campaign(campaignDatas.twentyThird, 'twentyThird', campaignManagerData?.campaigns?.twentyThird ?? 0),
-      twentyFourth: new Campaign(campaignDatas.twentyFourth, 'twentyFourth', campaignManagerData?.campaigns?.twentyFourth ?? 0),
-      twentyFifth: new Campaign(campaignDatas.twentyFifth, 'twentyFifth', campaignManagerData?.campaigns?.twentyFifth ?? 0),
-      twentySixth: new Campaign(campaignDatas.twentySixth, 'twentySixth', campaignManagerData?.campaigns?.twentySixth ?? 0),
-      twentySeventh: new Campaign(campaignDatas.twentySeventh, 'twentySeventh', campaignManagerData?.campaigns?.twentySeventh ?? 0),
-      twentyEighth: new Campaign(campaignDatas.twentyEighth, 'twentyEighth', campaignManagerData?.campaigns?.twentyEighth ?? 0),
-      twentyNinth: new Campaign(campaignDatas.twentyNinth, 'twentyNinth', campaignManagerData?.campaigns?.twentyNinth ?? 0),
+      twentyFirst: new Campaign(
+        campaignDatas.twentyFirst,
+        'twentyFirst',
+        campaignManagerData?.campaigns?.twentyFirst ?? 0
+      ),
+      twentySecond: new Campaign(
+        campaignDatas.twentySecond,
+        'twentySecond',
+        campaignManagerData?.campaigns?.twentySecond ?? 0
+      ),
+      twentyThird: new Campaign(
+        campaignDatas.twentyThird,
+        'twentyThird',
+        campaignManagerData?.campaigns?.twentyThird ?? 0
+      ),
+      twentyFourth: new Campaign(
+        campaignDatas.twentyFourth,
+        'twentyFourth',
+        campaignManagerData?.campaigns?.twentyFourth ?? 0
+      ),
+      twentyFifth: new Campaign(
+        campaignDatas.twentyFifth,
+        'twentyFifth',
+        campaignManagerData?.campaigns?.twentyFifth ?? 0
+      ),
+      twentySixth: new Campaign(
+        campaignDatas.twentySixth,
+        'twentySixth',
+        campaignManagerData?.campaigns?.twentySixth ?? 0
+      ),
+      twentySeventh: new Campaign(
+        campaignDatas.twentySeventh,
+        'twentySeventh',
+        campaignManagerData?.campaigns?.twentySeventh ?? 0
+      ),
+      twentyEighth: new Campaign(
+        campaignDatas.twentyEighth,
+        'twentyEighth',
+        campaignManagerData?.campaigns?.twentyEighth ?? 0
+      ),
+      twentyNinth: new Campaign(
+        campaignDatas.twentyNinth,
+        'twentyNinth',
+        campaignManagerData?.campaigns?.twentyNinth ?? 0
+      ),
       thirtieth: new Campaign(campaignDatas.thirtieth, 'thirtieth', campaignManagerData?.campaigns?.thirtieth ?? 0),
-      thirtyFirst: new Campaign(campaignDatas.thirtyFirst, 'thirtyFirst', campaignManagerData?.campaigns?.thirtyFirst ?? 0),
-      thirtySecond: new Campaign(campaignDatas.thirtySecond, 'thirtySecond', campaignManagerData?.campaigns?.thirtySecond ?? 0),
-      thirtyThird: new Campaign(campaignDatas.thirtyThird, 'thirtyThird', campaignManagerData?.campaigns?.thirtyThird ?? 0),
-      thirtyFourth: new Campaign(campaignDatas.thirtyFourth, 'thirtyFourth', campaignManagerData?.campaigns?.thirtyFourth ?? 0),
-      thirtyFifth: new Campaign(campaignDatas.thirtyFifth, 'thirtyFifth', campaignManagerData?.campaigns?.thirtyFifth ?? 0),
-      thirtySixth: new Campaign(campaignDatas.thirtySixth, 'thirtySixth', campaignManagerData?.campaigns?.thirtySixth ?? 0),
-      thirtySeventh: new Campaign(campaignDatas.thirtySeventh, 'thirtySeventh', campaignManagerData?.campaigns?.thirtySeventh ?? 0),
-      thirtyEighth: new Campaign(campaignDatas.thirtyEighth, 'thirtyEighth', campaignManagerData?.campaigns?.thirtyEighth ?? 0),
-      thirtyNinth: new Campaign(campaignDatas.thirtyNinth, 'thirtyNinth', campaignManagerData?.campaigns?.thirtyNinth ?? 0),
+      thirtyFirst: new Campaign(
+        campaignDatas.thirtyFirst,
+        'thirtyFirst',
+        campaignManagerData?.campaigns?.thirtyFirst ?? 0
+      ),
+      thirtySecond: new Campaign(
+        campaignDatas.thirtySecond,
+        'thirtySecond',
+        campaignManagerData?.campaigns?.thirtySecond ?? 0
+      ),
+      thirtyThird: new Campaign(
+        campaignDatas.thirtyThird,
+        'thirtyThird',
+        campaignManagerData?.campaigns?.thirtyThird ?? 0
+      ),
+      thirtyFourth: new Campaign(
+        campaignDatas.thirtyFourth,
+        'thirtyFourth',
+        campaignManagerData?.campaigns?.thirtyFourth ?? 0
+      ),
+      thirtyFifth: new Campaign(
+        campaignDatas.thirtyFifth,
+        'thirtyFifth',
+        campaignManagerData?.campaigns?.thirtyFifth ?? 0
+      ),
+      thirtySixth: new Campaign(
+        campaignDatas.thirtySixth,
+        'thirtySixth',
+        campaignManagerData?.campaigns?.thirtySixth ?? 0
+      ),
+      thirtySeventh: new Campaign(
+        campaignDatas.thirtySeventh,
+        'thirtySeventh',
+        campaignManagerData?.campaigns?.thirtySeventh ?? 0
+      ),
+      thirtyEighth: new Campaign(
+        campaignDatas.thirtyEighth,
+        'thirtyEighth',
+        campaignManagerData?.campaigns?.thirtyEighth ?? 0
+      ),
+      thirtyNinth: new Campaign(
+        campaignDatas.thirtyNinth,
+        'thirtyNinth',
+        campaignManagerData?.campaigns?.thirtyNinth ?? 0
+      ),
       fortieth: new Campaign(campaignDatas.fortieth, 'fortieth', campaignManagerData?.campaigns?.fortieth ?? 0),
       fortyFirst: new Campaign(campaignDatas.fortyFirst, 'fortyFirst', campaignManagerData?.campaigns?.fortyFirst ?? 0),
-      fortySecond: new Campaign(campaignDatas.fortySecond, 'fortySecond', campaignManagerData?.campaigns?.fortySecond ?? 0),
+      fortySecond: new Campaign(
+        campaignDatas.fortySecond,
+        'fortySecond',
+        campaignManagerData?.campaigns?.fortySecond ?? 0
+      ),
       fortyThird: new Campaign(campaignDatas.fortyThird, 'fortyThird', campaignManagerData?.campaigns?.fortyThird ?? 0),
-      fortyFourth: new Campaign(campaignDatas.fortyFourth, 'fortyFourth', campaignManagerData?.campaigns?.fortyFourth ?? 0),
+      fortyFourth: new Campaign(
+        campaignDatas.fortyFourth,
+        'fortyFourth',
+        campaignManagerData?.campaigns?.fortyFourth ?? 0
+      ),
       fortyFifth: new Campaign(campaignDatas.fortyFifth, 'fortyFifth', campaignManagerData?.campaigns?.fortyFifth ?? 0),
       fortySixth: new Campaign(campaignDatas.fortySixth, 'fortySixth', campaignManagerData?.campaigns?.fortySixth ?? 0),
-      fortySeventh: new Campaign(campaignDatas.fortySeventh, 'fortySeventh', campaignManagerData?.campaigns?.fortySeventh ?? 0),
-      fortyEighth: new Campaign(campaignDatas.fortyEighth, 'fortyEighth', campaignManagerData?.campaigns?.fortyEighth ?? 0),
+      fortySeventh: new Campaign(
+        campaignDatas.fortySeventh,
+        'fortySeventh',
+        campaignManagerData?.campaigns?.fortySeventh ?? 0
+      ),
+      fortyEighth: new Campaign(
+        campaignDatas.fortyEighth,
+        'fortyEighth',
+        campaignManagerData?.campaigns?.fortyEighth ?? 0
+      ),
       fortyNinth: new Campaign(campaignDatas.fortyNinth, 'fortyNinth', campaignManagerData?.campaigns?.fortyNinth ?? 0),
-      fiftieth: new Campaign(campaignDatas.fiftieth, 'fiftieth', campaignManagerData?.campaigns?.fiftieth ?? 0),
+      fiftieth: new Campaign(campaignDatas.fiftieth, 'fiftieth', campaignManagerData?.campaigns?.fiftieth ?? 0)
     }
 
     this.#currentCampaign = campaignManagerData?.currentCampaign ?? undefined
@@ -122,6 +275,8 @@ export class CampaignManager {
     }
 
     sum += inheritanceTokens()
+    sum += +player.singularityUpgrades.singBonusTokens4.getEffect().bonus
+    sum += +player.octeractUpgrades.octeractBonusTokens4.getEffect().bonus
     return sum
   }
 
@@ -132,32 +287,44 @@ export class CampaignManager {
     }
 
     sum += inheritanceTokens()
+    sum += +player.singularityUpgrades.singBonusTokens4.getEffect().bonus
+    sum += +player.octeractUpgrades.octeractBonusTokens4.getEffect().bonus
+
     return sum
   }
 
   get tokens () {
-    if (this.#token === undefined) {
-      return this.computeTotalCampaignTokens()
+    if (!this.#updatedTokens) {
+      this.#tokens = this.computeTotalCampaignTokens()
+      this.#updatedTokens = true
+      return this.#tokens
     }
     else {
-      return this.#token
+      return this.#tokens
     }
   }
 
   get maxTokens () {
-    if (this.#maxToken === undefined) {
-      return this.computeMaxCampaignTokens()
+    if (!this.#updatedMaxTokens) {
+      this.#maxTokens = this.computeMaxCampaignTokens()
+      this.#updatedMaxTokens = true
+      return this.#maxTokens
     }
     else {
-      return this.#maxToken
+      return this.#maxTokens
     }
+  }
+
+  updateCurrentTokens () {
+    this.#tokens = this.computeTotalCampaignTokens()
+    this.#maxTokens = this.computeMaxCampaignTokens()
   }
 
   get current () {
     return this.#currentCampaign
   }
 
-  get currentCampaign() {
+  get currentCampaign () {
     if (this.#currentCampaign === undefined) {
       return undefined
     }
@@ -168,11 +335,11 @@ export class CampaignManager {
     return this.#campaigns
   }
 
-  getCampaign(key: CampaignKeys) {
+  getCampaign (key: CampaignKeys) {
     return this.#campaigns[key]
   }
 
-  get allC10Completions() {
+  get allC10Completions () {
     return Object.fromEntries(
       Object.entries(this.#campaigns).map(([key, campaign]) => [key, campaign.c10Completions])
     ) as Record<CampaignKeys, number>
@@ -202,7 +369,7 @@ export class CampaignManager {
 
   // Use this when autocompleting Campaigns based on corruption loadouts
   // (Only for Singularity 4 or beyond)
-  setC10ToArbitrary (key: CampaignKeys, c10: number) { 
+  setC10ToArbitrary (key: CampaignKeys, c10: number) {
     this.#campaigns[key].c10Completions = c10
   }
 
@@ -233,31 +400,31 @@ export class CampaignManager {
   }
 
   get cubeBonus () {
-    return 1 + 
-    0.25 * 1/25 * Math.min(this.tokens, 25) +
-    0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500)) + 
-    0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
+    return 1
+      + 0.25 * 1 / 25 * Math.min(this.tokens, 25)
+      + 0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500))
+      + 0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
   }
 
   get obtainiumBonus () {
-    return 1 + 
-    0.25 * 1/25 * Math.min(this.tokens, 25) +
-    0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500)) +
-    0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
+    return 1
+      + 0.25 * 1 / 25 * Math.min(this.tokens, 25)
+      + 0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500))
+      + 0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
   }
 
   get offeringBonus () {
-    return 1 + 
-    0.25 * 1/25 * Math.min(this.tokens, 25) +
-    0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500)) +
-    0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
+    return 1
+      + 0.25 * 1 / 25 * Math.min(this.tokens, 25)
+      + 0.75 * (1 - Math.exp(-Math.max(this.tokens - 25, 0) / 500))
+      + 0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
   }
 
   get ascensionScoreMultiplier () {
-    return 1 + 
-    0.5 * 1/100 * Math.min(this.tokens, 100) +
-    0.5 * (1 - Math.exp(-Math.max(this.tokens - 100, 0) / 1000)) +
-    0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
+    return 1
+      + 0.5 * 1 / 100 * Math.min(this.tokens, 100)
+      + 0.5 * (1 - Math.exp(-Math.max(this.tokens - 100, 0) / 1000))
+      + 0.5 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 5000))
   }
   /**
    * Returns the time threshold reduction for Prestige, Reincarnation and Ascension
@@ -278,12 +445,11 @@ export class CampaignManager {
   get quarkBonus () {
     if (this.tokens < 100) {
       return 1
-    }
-    else {
-      return 1 + 
-      0.1 * Math.min(this.tokens - 100, 100) / 100 +
-      0.15 * (1 - Math.exp(-Math.max(this.tokens - 200, 0) / 3000)) +
-      0.15 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 10000))
+    } else {
+      return 1
+        + 0.1 * Math.min(this.tokens - 100, 100) / 100
+        + 0.15 * (1 - Math.exp(-Math.max(this.tokens - 200, 0) / 3000))
+        + 0.15 * (1 - Math.exp(-Math.max(this.tokens - 2500, 0) / 10000))
     }
   }
 
@@ -291,19 +457,19 @@ export class CampaignManager {
     if (this.tokens < 250) {
       return 1
     }
-    return 1 -
-    0.05 * 1/250 * Math.min(this.tokens - 250, 250) -
-    0.15 * (1 - Math.exp(-Math.max(this.tokens - 500, 0) / 1250)) -
-    0.05 * (1 - Math.exp(-Math.max(this.tokens - 4000, 0) / 5000))
+    return 1
+      - 0.05 * 1 / 250 * Math.min(this.tokens - 250, 250)
+      - 0.15 * (1 - Math.exp(-Math.max(this.tokens - 500, 0) / 1250))
+      - 0.05 * (1 - Math.exp(-Math.max(this.tokens - 4000, 0) / 5000))
   }
 
   get c15Bonus () {
     if (this.tokens < 250) {
       return 1
     }
-    return 1 +
-    0.1 * 1/250 * Math.min(this.tokens - 250, 250) +
-    0.9 * (1 - Math.exp(-Math.max(this.tokens - 500, 0) / 1250))
+    return 1
+      + 0.1 * 1 / 250 * Math.min(this.tokens - 250, 250)
+      + 0.9 * (1 - Math.exp(-Math.max(this.tokens - 500, 0) / 1250))
   }
 
   get bonusRune6 () {
@@ -320,39 +486,37 @@ export class CampaignManager {
     if (this.tokens < 500) {
       return 1
     }
-    return 1 +
-    0.1 * 1/500 * Math.min(this.tokens - 500, 500) +
-    0.15 * (1 - Math.exp(-Math.max(this.tokens - 1000, 0) / 2500))
+    return 1
+      + 0.1 * 1 / 500 * Math.min(this.tokens - 500, 500)
+      + 0.15 * (1 - Math.exp(-Math.max(this.tokens - 1000, 0) / 2500))
   }
 
   get octeractBonus () {
     if (this.tokens < 1000) {
       return 1
     }
-    return 1 +
-    0.1 * 1/1000 * Math.min(this.tokens - 1000, 1000) +
-    0.4 * (1 - Math.exp(-Math.max(this.tokens - 2000, 0) / 4000))
+    return 1
+      + 0.1 * 1 / 1000 * Math.min(this.tokens - 1000, 1000)
+      + 0.4 * (1 - Math.exp(-Math.max(this.tokens - 2000, 0) / 4000))
   }
 
   get ambrosiaLuckBonus () {
     if (this.tokens < 2000) {
       return 0
     }
-    return 10 +
-    40 * 1/2000 * Math.min(this.tokens - 2000, 2000) +
-    50 * (1 - Math.exp(-Math.max(this.tokens - 4000, 0) / 2500))
+    return 10
+      + 40 * 1 / 2000 * Math.min(this.tokens - 2000, 2000)
+      + 50 * (1 - Math.exp(-Math.max(this.tokens - 4000, 0) / 2500))
   }
 
   get blueberrySpeedBonus () {
     if (this.tokens < 2000) {
       return 1
     }
-    return 1 +
-    0.05 * 1/2000 * Math.min(this.tokens - 2000, 2000) +
-    0.05 * (1 - Math.exp(-Math.max(this.tokens - 4000, 0) / 2000))
+    return 1
+      + 0.05 * 1 / 2000 * Math.min(this.tokens - 2000, 2000)
+      + 0.05 * (1 - Math.exp(-Math.max(this.tokens - 4000, 0) / 2000))
   }
-
-
 }
 
 export class Campaign {
@@ -382,17 +546,29 @@ export class Campaign {
 
     let additiveTotal = 0
     additiveTotal += completed // Base
-    if (player.highestSingularityCount >= 16 && completed >= 1) {
-      additiveTotal += 5
+
+    if (completed >= 1) { // TODO in day 1: Make into own method?
+      if (player.highestSingularityCount >= 16) {
+        additiveTotal += 5
+      }
+      additiveTotal += +player.singularityUpgrades.singBonusTokens1.getEffect().bonus
+      additiveTotal += +player.octeractUpgrades.octeractBonusTokens3.getEffect().bonus
     }
-    if (player.highestSingularityCount >= 69 && completed === this.#limit) {
-      additiveTotal += 10
+    
+    if (completed === this.#limit) {
+      if (player.highestSingularityCount >= 69) {
+        additiveTotal += 10
+      }
+      additiveTotal += +player.singularityUpgrades.singBonusTokens3.getEffect().bonus
+      additiveTotal += +player.octeractUpgrades.octeractBonusTokens1.getEffect().bonus
     }
 
     let multiplier = 1
+
     multiplier *= this.#isMeta ? 2 : 1
     multiplier *= singularityBonusTokenMult()
-
+    multiplier *= +player.singularityUpgrades.singBonusTokens2.getEffect().bonus
+    multiplier *= +player.octeractUpgrades.octeractBonusTokens2.getEffect().bonus
     return Math.floor(additiveTotal * multiplier)
   }
 
@@ -445,7 +621,9 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       viscosity: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return true},
+    unlockRequirement: () => {
+      return true
+    },
     limit: 10
   },
   second: {
@@ -453,92 +631,112 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       drought: 1
     },
     isMeta: true,
-    unlockRequirement: () => {return true},
+    unlockRequirement: () => {
+      return true
+    },
     limit: 10
   },
   third: {
     campaignCorruptions: {
       viscosity: 1,
-      drought: 1,
+      drought: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return true},
+    unlockRequirement: () => {
+      return true
+    },
     limit: 10
   },
   fourth: {
     campaignCorruptions: {
       viscosity: 2,
-      drought: 2,
+      drought: 2
     },
     isMeta: false,
-    unlockRequirement: () => {return true},
+    unlockRequirement: () => {
+      return true
+    },
     limit: 10
   },
   fifth: {
     campaignCorruptions: {
       viscosity: 3,
-      drought: 3,
+      drought: 3
     },
     isMeta: false,
-    unlockRequirement: () => {return true},
+    unlockRequirement: () => {
+      return true
+    },
     limit: 10
   },
   sixth: {
     campaignCorruptions: {
       viscosity: 4,
-      drought: 4,
+      drought: 4
     },
     isMeta: false,
-    unlockRequirement: () => {return true},
+    unlockRequirement: () => {
+      return true
+    },
     limit: 15
   },
   seventh: {
     campaignCorruptions: {
       viscosity: 5,
-      drought: 5,
+      drought: 5
     },
     isMeta: true,
-    unlockRequirement: () => {return true},
+    unlockRequirement: () => {
+      return true
+    },
     limit: 15
   },
   eighth: {
     campaignCorruptions: {
       viscosity: 1,
       drought: 1,
-      deflation: 1,
+      deflation: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 7
+    },
     limit: 15
   },
   ninth: {
     campaignCorruptions: {
       viscosity: 3,
       drought: 1,
-      deflation: 1,
+      deflation: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 7
+    },
     limit: 15
   },
   tenth: {
     campaignCorruptions: {
       viscosity: 5,
       drought: 1,
-      extinction: 1,
+      extinction: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 7
+    },
     limit: 15
   },
   eleventh: {
     campaignCorruptions: {
       viscosity: 7,
       drought: 1,
-      extinction: 3,
+      extinction: 3
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 7
+    },
     limit: 20
   },
   twelfth: {
@@ -546,10 +744,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       viscosity: 7,
       drought: 1,
       deflation: 3,
-      extinction: 3,
+      extinction: 3
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 7
+    },
     limit: 20
   },
   thirteenth: {
@@ -557,10 +757,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       viscosity: 7,
       drought: 3,
       deflation: 3,
-      extinction: 3,
+      extinction: 3
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 7
+    },
     limit: 20
   },
   fourteenth: {
@@ -568,10 +770,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       viscosity: 7,
       drought: 5,
       deflation: 3,
-      extinction: 3,
+      extinction: 3
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 7
+    },
     limit: 20
   },
   fifteenth: {
@@ -579,10 +783,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       viscosity: 7,
       drought: 7,
       deflation: 3,
-      extinction: 3,
+      extinction: 3
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 7},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 7
+    },
     limit: 20
   },
   sixteenth: {
@@ -590,10 +796,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       viscosity: 9,
       drought: 4,
       illiteracy: 1,
-      recession: 1,
+      recession: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 9
+    },
     limit: 25
   },
   seventeenth: {
@@ -601,10 +809,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       viscosity: 9,
       drought: 4,
       illiteracy: 3,
-      recession: 1,
+      recession: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 9
+    },
     limit: 25
   },
   eighteenth: {
@@ -614,10 +824,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       deflation: 1,
       extinction: 3,
       illiteracy: 3,
-      recession: 1,
+      recession: 1
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 9
+    },
     limit: 25
   },
   nineteenth: {
@@ -627,10 +839,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       deflation: 1,
       extinction: 3,
       illiteracy: 6,
-      recession: 1,
+      recession: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 9
+    },
     limit: 25
   },
   twentieth: {
@@ -640,10 +854,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       deflation: 1,
       extinction: 3,
       illiteracy: 9,
-      recession: 1,
+      recession: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 9
+    },
     limit: 25
   },
   twentyFirst: {
@@ -653,10 +869,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       deflation: 9,
       extinction: 3,
       illiteracy: 3,
-      recession: 1,
+      recession: 1
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 9
+    },
     limit: 30
   },
   twentySecond: {
@@ -666,10 +884,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       deflation: 9,
       extinction: 3,
       illiteracy: 6,
-      recession: 1,
+      recession: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 9
+    },
     limit: 30
   },
   twentyThird: {
@@ -679,10 +899,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       deflation: 9,
       extinction: 3,
       illiteracy: 9,
-      recession: 1,
+      recession: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 9
+    },
     limit: 30
   },
   twentyFourth: {
@@ -692,10 +914,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       deflation: 9,
       extinction: 3,
       illiteracy: 9,
-      recession: 1,
+      recession: 1
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 9
+    },
     limit: 30
   },
   twentyFifth: {
@@ -705,10 +929,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       deflation: 9,
       extinction: 5,
       illiteracy: 9,
-      recession: 3,
+      recession: 3
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 9},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 9
+    },
     limit: 30
   },
   twentySixth: {
@@ -719,10 +945,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 3,
       illiteracy: 9,
       recession: 3,
-      dilation: 1,
+      dilation: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 35
   },
   twentySeventh: {
@@ -733,10 +961,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 3,
       illiteracy: 9,
       recession: 3,
-      hyperchallenge: 1,
+      hyperchallenge: 1
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 35
   },
   twentyEighth: {
@@ -748,10 +978,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 9,
       recession: 3,
       dilation: 1,
-      hyperchallenge: 1,
+      hyperchallenge: 1
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 35
   },
   twentyNinth: {
@@ -763,10 +995,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 9,
       recession: 3,
       dilation: 3,
-      hyperchallenge: 3,
+      hyperchallenge: 3
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 35
   },
   thirtieth: {
@@ -778,10 +1012,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 0,
       recession: 11,
       dilation: 4,
-      hyperchallenge: 1,    
+      hyperchallenge: 1
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 35
   },
   thirtyFirst: {
@@ -793,10 +1029,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 0,
       recession: 11,
       dilation: 4,
-      hyperchallenge: 2,
+      hyperchallenge: 2
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 40
   },
   thirtySecond: {
@@ -808,10 +1046,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 1,
       recession: 11,
       dilation: 5,
-      hyperchallenge: 3,
+      hyperchallenge: 3
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 40
   },
   thirtyThird: {
@@ -823,10 +1063,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 2,
       recession: 11,
       dilation: 4,
-      hyperchallenge: 3,
+      hyperchallenge: 3
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 45
   },
   thirtyFourth: {
@@ -838,10 +1080,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 2,
       recession: 11,
       dilation: 4,
-      hyperchallenge: 5,
+      hyperchallenge: 5
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 45
   },
   thirtyFifth: {
@@ -853,10 +1097,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 2,
       recession: 11,
       dilation: 4,
-      hyperchallenge: 4,
+      hyperchallenge: 4
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 50
   },
   thirtySixth: {
@@ -868,10 +1114,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 2,
       recession: 11,
       dilation: 5,
-      hyperchallenge: 5,
+      hyperchallenge: 5
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 50
   },
   thirtySeventh: {
@@ -883,10 +1131,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 2,
       recession: 11,
       dilation: 5,
-      hyperchallenge: 5,
+      hyperchallenge: 5
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 55
   },
   thirtyEighth: {
@@ -898,10 +1148,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 2,
       recession: 11,
       dilation: 5,
-      hyperchallenge: 4,
+      hyperchallenge: 4
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 55
   },
   thirtyNinth: {
@@ -913,10 +1165,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 2,
       recession: 11,
       dilation: 6,
-      hyperchallenge: 9,
+      hyperchallenge: 9
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 11},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 11
+    },
     limit: 60
   },
   fortieth: {
@@ -928,10 +1182,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 11,
       recession: 11,
       dilation: 6,
-      hyperchallenge: 9,
+      hyperchallenge: 9
     },
     isMeta: true,
-    unlockRequirement: () => {return player.cubeUpgrades[50] > 99999},
+    unlockRequirement: () => {
+      return player.cubeUpgrades[50] > 99999
+    },
     limit: 60
   },
   fortyFirst: {
@@ -943,10 +1199,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 11,
       recession: 11,
       dilation: 7,
-      hyperchallenge: 11,
+      hyperchallenge: 11
     },
     isMeta: true,
-    unlockRequirement: () => {return player.cubeUpgrades[50] > 99999},
+    unlockRequirement: () => {
+      return player.cubeUpgrades[50] > 99999
+    },
     limit: 65
   },
   fortySecond: {
@@ -958,10 +1216,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 12,
       recession: 12,
       dilation: 9,
-      hyperchallenge: 11,
+      hyperchallenge: 11
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 12},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 12
+    },
     limit: 70
   },
   fortyThird: {
@@ -973,10 +1233,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 12,
       recession: 12,
       dilation: 9,
-      hyperchallenge: 11,
+      hyperchallenge: 11
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 12},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 12
+    },
     limit: 75
   },
   fortyFourth: {
@@ -988,10 +1250,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 12,
       recession: 12,
       dilation: 11,
-      hyperchallenge: 11,
+      hyperchallenge: 11
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 12},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 12
+    },
     limit: 80
   },
   fortyFifth: {
@@ -1003,10 +1267,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 13,
       recession: 13,
       dilation: 11,
-      hyperchallenge: 8,
+      hyperchallenge: 8
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 13},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 13
+    },
     limit: 85
   },
   fortySixth: {
@@ -1018,10 +1284,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 13,
       recession: 13,
       dilation: 12,
-      hyperchallenge: 11,
+      hyperchallenge: 11
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 13},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 13
+    },
     limit: 95
   },
   fortySeventh: {
@@ -1033,10 +1301,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 13,
       recession: 13,
       dilation: 13,
-      hyperchallenge: 7,
+      hyperchallenge: 7
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 13},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 13
+    },
     limit: 105
   },
   fortyEighth: {
@@ -1048,10 +1318,12 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       illiteracy: 13,
       recession: 13,
       dilation: 13,
-      hyperchallenge: 11,
+      hyperchallenge: 11
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 13},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 13
+    },
     limit: 115
   },
   fortyNinth: {
@@ -1062,10 +1334,13 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 11,
       illiteracy: 11,
       recession: 11,
-      hyperchallenge: 11,
+      dilation: 11,
+      hyperchallenge: 11
     },
     isMeta: false,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 13},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 13
+    },
     limit: 125
   },
   fiftieth: {
@@ -1076,10 +1351,13 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       extinction: 13,
       illiteracy: 13,
       recession: 13,
-      hyperchallenge: 13,
+      dilation: 13,
+      hyperchallenge: 13
     },
     isMeta: true,
-    unlockRequirement: () => {return maxCorruptionLevel() >= 13},
+    unlockRequirement: () => {
+      return maxCorruptionLevel() >= 13
+    },
     limit: 140
   }
 }
@@ -1168,10 +1446,9 @@ export const campaignIconHTMLUpdates = () => {
 
 export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
   const icon = document.querySelector<HTMLElement>(`#campaignIconGrid > #${key}CampaignIcon`)!
-  if (!campaignDatas[key].unlockRequirement()) { 
+  if (!campaignDatas[key].unlockRequirement()) {
     icon.style.display = 'none'
-  }
-  else {
+  } else {
     icon.style.display = 'block'
   }
 
@@ -1194,8 +1471,10 @@ export const campaignCorruptionStatsHTMLReset = () => {
 export const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
   // Clear existing HTMLS
   campaignCorruptionStatsHTMLReset()
-  DOMCacheGetOrSet('campaignName').textContent = `${player.campaigns.current === key ?
-    i18next.t('campaigns.currentCampaignPreTitle') : ''
+  DOMCacheGetOrSet('campaignName').textContent = `${
+    player.campaigns.current === key
+      ? i18next.t('campaigns.currentCampaignPreTitle')
+      : ''
   } ${i18next.t(`campaigns.data.${key}.name`)}`
   DOMCacheGetOrSet('campaignDesc').textContent = i18next.t(`campaigns.data.${key}.description`)
 
@@ -1205,7 +1484,6 @@ export const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
   const corruptionStats = DOMCacheGetOrSet('campaignCorruptionStats')
 
   for (const [corruption, level] of Object.entries(campaignDatas[key].campaignCorruptions)) {
-
     const corrKey = corruption as keyof Corruptions
     const corrDiv = document.createElement('div')
     corrDiv.classList.add('campaignCorrDisplay')
@@ -1215,14 +1493,16 @@ export const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
     corrDiv.appendChild(corrIcon)
 
     const corrText = document.createElement('p')
-    corrText.textContent = `lv${level} | ${i18next.t(`campaigns.corruptionTexts.${corrKey}`, {
-      effect: format(usableCorruption.corruptionEffects(corrKey), 2, true)
-    })}`
+    corrText.textContent = `lv${level} | ${
+      i18next.t(`campaigns.corruptionTexts.${corrKey}`, {
+        effect: format(usableCorruption.corruptionEffects(corrKey), 2, true)
+      })
+    }`
     corrDiv.appendChild(corrText)
 
     campaignCorrDiv.appendChild(corrDiv)
   }
-  
+
   const corruptionScoreMultiplierText = document.createElement('p')
   corruptionScoreMultiplierText.textContent = i18next.t('campaigns.corruptionStats.corruptionScoreMult', {
     mult: format(usableCorruption.totalCorruptionAscensionMultiplier, 0, true)
@@ -1257,12 +1537,11 @@ export const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
     campaignButton.onclick = async () => {
       if (player.challengecompletions[10] === 0) {
         const p = await Confirm(i18next.t('campaigns.noChallengeCompletionConfirm'))
-        if (!p) { return }
+        if (!p) return
       }
       reset('ascension')
     }
-  }
-  else {
+  } else {
     campaignButton.textContent = i18next.t('campaigns.corruptionStats.startCampaign')
     campaignButton.onclick = () => {
       if (player.currentChallenge.ascension !== 0) {
@@ -1281,7 +1560,6 @@ export const campaignCorruptionStatHTMLUpdate = (key: CampaignKeys) => {
     corruptionStatsUpdate()
     Notification(i18next.t('campaigns.saveLoadoutNotification', { name: i18next.t(`campaigns.data.${key}.name`) }))
   }
-  
 
   corruptionStats.appendChild(corruptionScoreMultiplierText)
   corruptionStats.appendChild(totalCorruptionDifficultyScoreText)
@@ -1300,7 +1578,6 @@ export const createCampaignIconHTMLS = () => {
   campaignIconDiv.innerHTML = ''
 
   for (const key of Object.keys(campaignDatas) as CampaignKeys[]) {
-
     const campaignIcon = document.createElement('img')
     campaignIcon.id = `${key}CampaignIcon`
     campaignIcon.classList.add('campaignIcon')
@@ -1311,7 +1588,6 @@ export const createCampaignIconHTMLS = () => {
     campaignIcon.onclick = () => {
       campaignCorruptionStatHTMLUpdate(key)
     }
-
   }
 }
 
@@ -1320,34 +1596,41 @@ export const campaignTokenRewardHTMLUpdate = () => {
   DOMCacheGetOrSet('campaignTokenRewardIcons').innerHTML = ''
   DOMCacheGetOrSet('campaignTokenRewardText').textContent = ''
 
-  DOMCacheGetOrSet('campaignTokenCount').textContent = i18next.t('campaigns.tokens.count', { count: player.campaigns.tokens, maxCount: player.campaigns.maxTokens })
+  DOMCacheGetOrSet('campaignTokenCount').textContent = i18next.t('campaigns.tokens.count', {
+    count: player.campaigns.tokens,
+    maxCount: player.campaigns.maxTokens
+  })
 
   const tokenCount = player.campaigns.tokens
 
   for (const [key, value] of Object.entries(campaignTokenRewardDatas)) {
-
     // Create a new Icon if the player has enough tokens and extra requirements are met
-    if (tokenCount >= value.tokenRequirement && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())) {
+    if (
+      tokenCount >= value.tokenRequirement
+      && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())
+    ) {
       const tokenIcon = document.createElement('img')
       tokenIcon.src = `Pictures/Campaigns/${key}.png`
       tokenIcon.classList.add('campaignTokenRewardIcon')
 
       if (typeof value.reward() === 'string') {
         tokenIcon.onclick = () => {
-          DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = i18next.t(`campaigns.tokens.rewardTexts.${key}`, {reward: value.reward()})
+          DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = i18next.t(`campaigns.tokens.rewardTexts.${key}`, {
+            reward: value.reward()
+          })
         }
-      }
-      else {
+      } else {
         tokenIcon.onclick = () => {
           const reward = value.reward() as Partial<Record<CampaignTokenRewardNames, string>>
-          DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = i18next.t(`campaigns.tokens.rewardTexts.${key}`, reward)
+          DOMCacheGetOrSet('campaignTokenRewardText').innerHTML = i18next.t(
+            `campaigns.tokens.rewardTexts.${key}`,
+            reward
+          )
         }
       }
-
 
       DOMCacheGetOrSet('campaignTokenRewardIcons').appendChild(tokenIcon)
     }
-
   }
 
   // Create the final icon that displays the total sum of rewards in a popup.
@@ -1357,11 +1640,13 @@ export const campaignTokenRewardHTMLUpdate = () => {
 
     let popupText = ''
     for (const [key, value] of Object.entries(campaignTokenRewardDatas)) {
-      if (tokenCount >= value.tokenRequirement && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())) {
+      if (
+        tokenCount >= value.tokenRequirement
+        && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())
+      ) {
         if (typeof value.reward() === 'string') {
-          popupText += `${i18next.t(`campaigns.tokens.rewardTexts.${key}`, {reward: value.reward()})}\n`
-        }
-        else {
+          popupText += `${i18next.t(`campaigns.tokens.rewardTexts.${key}`, { reward: value.reward() })}\n`
+        } else {
           const reward = value.reward() as Partial<Record<CampaignTokenRewardNames, string>>
           popupText += `${i18next.t(`campaigns.tokens.rewardTexts.${key}`, reward)}\n`
         }
@@ -1369,8 +1654,8 @@ export const campaignTokenRewardHTMLUpdate = () => {
     }
 
     totalRewardIcon.onclick = () => {
-        return Alert(popupText)
+      return Alert(popupText)
     }
     DOMCacheGetOrSet('campaignTokenRewardIcons').appendChild(totalRewardIcon)
-  } 
+  }
 }
