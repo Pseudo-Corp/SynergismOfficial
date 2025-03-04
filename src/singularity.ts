@@ -1602,6 +1602,7 @@ export const singularityData: Record<
     },
     cacheUpdates: [
       () => {
+        player.campaigns.updateCurrentTokens()
         campaignTokenRewardHTMLUpdate()
       }
     ]
@@ -1623,6 +1624,7 @@ export const singularityData: Record<
     },
     cacheUpdates: [
       () => {
+        player.campaigns.updateCurrentTokens()
         campaignTokenRewardHTMLUpdate()
       }
     ]
@@ -1644,6 +1646,7 @@ export const singularityData: Record<
     },
     cacheUpdates: [
       () => {
+        player.campaigns.updateCurrentTokens()
         campaignTokenRewardHTMLUpdate()
       }
     ]
@@ -1665,6 +1668,7 @@ export const singularityData: Record<
     },
     cacheUpdates: [
       () => {
+        player.campaigns.updateCurrentTokens()
         campaignTokenRewardHTMLUpdate()
       }
     ]

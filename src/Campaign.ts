@@ -109,6 +109,10 @@ export interface ICampaignData {
 export class CampaignManager {
   #currentCampaign: CampaignKeys | undefined
   #campaigns: Record<CampaignKeys, Campaign>
+  #tokens = 0
+  #maxTokens = 0
+  #updatedTokens = false
+  #updatedMaxTokens = false
 
   constructor (campaignManagerData?: ICampaignManagerData) {
     this.#campaigns = {
@@ -290,11 +294,30 @@ export class CampaignManager {
   }
 
   get tokens () {
-    return this.computeTotalCampaignTokens()
+    if (!this.#updatedTokens) {
+      this.#tokens = this.computeTotalCampaignTokens()
+      this.#updatedTokens = true
+      return this.#tokens
+    }
+    else {
+      return this.#tokens
+    }
   }
 
   get maxTokens () {
-    return this.computeMaxCampaignTokens()
+    if (!this.#updatedMaxTokens) {
+      this.#maxTokens = this.computeMaxCampaignTokens()
+      this.#updatedMaxTokens = true
+      return this.#maxTokens
+    }
+    else {
+      return this.#maxTokens
+    }
+  }
+
+  updateCurrentTokens () {
+    this.#tokens = this.computeTotalCampaignTokens()
+    this.#maxTokens = this.computeMaxCampaignTokens()
   }
 
   get current () {

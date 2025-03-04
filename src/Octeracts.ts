@@ -833,6 +833,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     cacheUpdates: [
           () => {
+             player.campaigns.updateCurrentTokens()
              campaignTokenRewardHTMLUpdate()
           }
     ]
@@ -853,6 +854,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     cacheUpdates: [
       () => {
+         player.campaigns.updateCurrentTokens()
          campaignTokenRewardHTMLUpdate()
       }
     ]
@@ -873,6 +875,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     cacheUpdates: [
       () => {
+         player.campaigns.updateCurrentTokens()
          campaignTokenRewardHTMLUpdate()
       }
     ]
@@ -893,6 +896,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     cacheUpdates: [
       () => {
+         player.campaigns.updateCurrentTokens()
          campaignTokenRewardHTMLUpdate()
       }
     ]
