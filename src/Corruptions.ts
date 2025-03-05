@@ -129,6 +129,7 @@ export class CorruptionLoadout {
       ? 0.33
       : 0
     bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
+    bonusVal += 0.3 * player.cubeUpgrades[74]
     
     let bonusMult = 1
     if (this.#levels[corr] >= 14 && player.singularityUpgrades.masterPack.getEffect().bonus) {
