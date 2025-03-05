@@ -3628,6 +3628,7 @@ header #obtainiumDisplay { color: pink; }
     display: flex;
     flex-direction: row;
     margin-top: 2px;
+    gap: 0 5px;
 }
 
 #hotKeyDesc {
@@ -3638,10 +3639,10 @@ header #obtainiumDisplay { color: pink; }
     color: var(--darkorchid-text-color);
 }
 
-#actualHotkey {
+.actualHotkey {
     padding: 1px 15px;
     color: gold;
-    cursor: pointer;
+    min-height: 2em;
 }
 
 .resetHotkeys {
@@ -3651,8 +3652,7 @@ header #obtainiumDisplay { color: pink; }
     gap: 10px;
 }
 
-.resetHotkeys > button {
-    min-height: 20px;
+.resetHotkeys>button {
     padding: 2px 4px;
 }
 
