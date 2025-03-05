@@ -571,6 +571,8 @@ export const revealStuff = () => {
     ? (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'block')
     : (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'none')
 
+  DOMCacheGetOrSet('ascSingChallengeTimeTakenStats').style.display = player.insideSingularityChallenge ? '' : 'none'
+
   DOMCacheGetOrSet('ascensionStats').style.visibility =
     (player.achievements[197] > 0 || player.highestSingularityCount > 0) ? 'visible' : 'hidden'
   DOMCacheGetOrSet('ascHyperStats').style.display = player.challengecompletions[13] > 0 ? '' : 'none'
@@ -1006,14 +1008,14 @@ export const buttoncolorchange = () => {
   }
 
   if (G.currentTab === Tabs.Runes) {
-    if (G.runescreen === 'runes') {
+    if (player.subtabNumber === 0) {
       for (let i = 1; i <= 7; i++) {
         player.runeshards > 0.5
           ? DOMCacheGetOrSet(`activaterune${i}`).classList.add('runeButtonAvailable')
           : DOMCacheGetOrSet(`activaterune${i}`).classList.remove('runeButtonAvailable')
       }
     }
-    if (G.runescreen === 'talismans') {
+    if (player.subtabNumber === 1) {
       const a = DOMCacheGetOrSet('buyTalismanItem1')
       const b = DOMCacheGetOrSet('buyTalismanItem2')
       const c = DOMCacheGetOrSet('buyTalismanItem3')

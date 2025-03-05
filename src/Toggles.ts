@@ -378,8 +378,6 @@ export const toggleBuildingScreen = (input: string) => {
 
 export const toggleRuneScreen = (indexStr: string) => {
   const index = Number(indexStr)
-  const screens = ['runes', 'talismans', 'blessings', 'spirits']
-  G.runescreen = screens[index - 1]
 
   for (let i = 1; i <= 4; i++) {
     const a = DOMCacheGetOrSet(`toggleRuneSubTab${i}`)

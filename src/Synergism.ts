@@ -5861,6 +5861,7 @@ export const updateAll = (): void => {
     if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
       player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM
       c15RewardUpdate()
+      updateChallengeLevel(15)
     }
   }
 }
@@ -6158,13 +6159,13 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         categoryUpgrades(num, false)
       }
       if (G.currentTab === Tabs.Runes) {
-        if (G.runescreen === 'runes') {
+        if (player.subtabNumber === 0) {
           redeemShards(num)
         }
-        if (G.runescreen === 'blessings') {
+        if (player.subtabNumber === 2) {
           buyRuneBonusLevels('Blessings', num)
         }
-        if (G.runescreen === 'spirits') {
+        if (player.subtabNumber === 3) {
           buyRuneBonusLevels('Spirits', num)
         }
       }

@@ -863,7 +863,6 @@ export interface GlobalVariables {
   talisman6Power: number
   talisman7Quarks: number
 
-  runescreen: string
   settingscreen: string
 
   talismanResourceObtainiumCosts: number[]
