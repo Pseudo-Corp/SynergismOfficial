@@ -2107,11 +2107,6 @@
         "description": "Ascension speed is multiplied by 6 if you have not purchased Antiquities in your current Singularity.",
         "effect": "The effect is clear"
       },
-      "WIP": {
-        "name": "Szablon roboczy",
-        "description": "To jest szablon! dolny tekst.",
-        "effect": "Zaktualizuj ten opis później!!!!!!!!!!"
-      },
       "ultimatePen": {
         "name": "The Ultimate Pen",
         "description": "You. It is you who is the author of your own story!",
