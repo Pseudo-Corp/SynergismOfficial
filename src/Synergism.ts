@@ -2828,6 +2828,7 @@ const loadSynergy = () => {
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
     updateSingularityGlobalPerks()
+    cacheReinitialize()
 
     // Update the Sing requirements on reload for a challenge if applicable
     if (G.currentSingChallenge !== undefined) {
@@ -6325,7 +6326,7 @@ export const reloadShit = (reset = false) => {
   campaignTokenRewardHTMLUpdate()
   clearTimeout(preloadDeleteGame)
 
-  setInterval(cacheReinitialize, 15000)
+  setInterval(cacheReinitialize, 5000)
 
   if (localStorage.getItem('pleaseStar') === null) {
     void Alert(i18next.t('main.starRepo'))
