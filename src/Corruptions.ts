@@ -229,7 +229,7 @@ export class CorruptionLoadout {
   }
 
   get bonusLevels () {
-    let bonusLevel = player.singularityUpgrades.corruptionFifteen.level ? 1 : 0
+    let bonusLevel = player.singularityUpgrades.corruptionFifteen.getEffect().bonus ? 1 : 0
     bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
     return bonusLevel
   }
