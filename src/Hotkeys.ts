@@ -117,8 +117,8 @@ const eventHotkeys = (event: KeyboardEvent): void => {
     DOMCacheGetOrSet('lastHotkey').textContent = key
     DOMCacheGetOrSet('lastHotkeyName').textContent = hotkeyName
 
-    if (DOMCacheGetOrSet('promptWrapper').style.display === "block") {
-      (DOMCacheGetOrSet('prompt_text') as HTMLInputElement).value = key
+    if (DOMCacheGetOrSet('promptWrapper').style.display === 'block') {
+      ;(DOMCacheGetOrSet('prompt_text') as HTMLInputElement).value = key
       event.preventDefault()
     }
   }
