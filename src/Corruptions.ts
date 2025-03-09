@@ -130,7 +130,7 @@ export class CorruptionLoadout {
       : 0
     bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
     bonusVal += 0.3 * player.cubeUpgrades[74]
-    
+
     let bonusMult = 1
     if (this.#levels[corr] >= 14 && player.singularityUpgrades.masterPack.getEffect().bonus) {
       bonusMult *= 1.1
@@ -138,7 +138,7 @@ export class CorruptionLoadout {
 
     // player.platonicUpgrades[17] is the 17th platonic upgrade, known usually as P4x2, makes
     // Exponent 3 + 0.04 * level if the corr is viscosity and it is set at least level 10.
-    const viscosityPower = (player.platonicUpgrades[17] > 0 && this.#levels.viscosity >= 10 && corr === "viscosity")
+    const viscosityPower = (player.platonicUpgrades[17] > 0 && this.#levels.viscosity >= 10 && corr === 'viscosity')
       ? 3 + 0.04 * player.platonicUpgrades[17]
       : 1
 
@@ -147,11 +147,17 @@ export class CorruptionLoadout {
 
     if (totalLevel < scoreMultLength - 1) {
       const portionAboveLevel = Math.ceil(totalLevel) - totalLevel
-      return Math.pow((this.#corruptionScoreMults[Math.floor(totalLevel)] + bonusVal
-        + portionAboveLevel * this.#corruptionScoreMults[Math.ceil(totalLevel)]), viscosityPower) * bonusMult
+      return Math.pow(
+        this.#corruptionScoreMults[Math.floor(totalLevel)] + bonusVal
+          + portionAboveLevel * this.#corruptionScoreMults[Math.ceil(totalLevel)],
+        viscosityPower
+      ) * bonusMult
     } else {
-      return Math.pow(((this.#corruptionScoreMults[scoreMultLength - 1] + bonusVal)
-        * Math.pow(1.2, totalLevel - scoreMultLength + 1)), viscosityPower) * bonusMult
+      return Math.pow(
+        (this.#corruptionScoreMults[scoreMultLength - 1] + bonusVal)
+          * Math.pow(1.2, totalLevel - scoreMultLength + 1),
+        viscosityPower
+      ) * bonusMult
     }
   }
 

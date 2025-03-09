@@ -22,7 +22,6 @@ import {
   calculatePowderConversion,
   calculateQuarkMultFromPowder,
   calculateQuarkMultiplier,
-  calculateSigmoid,
   calculateSigmoidExponential,
   calculateSingularityQuarkMilestoneMultiplier,
   calculateTesseractMultiplier,
@@ -31,7 +30,8 @@ import {
   calculateTotalOcteractQuarkBonus,
   resetTimeThreshold
 } from './Calculate'
-import { CalcECC, Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
+import { formatAsPercentIncrease } from './Campaign'
+import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
 import { BuffType } from './Event'
 import { hepteractEffective } from './Hepteracts'
 import {
@@ -46,7 +46,6 @@ import { format, formatTimeShort, player } from './Synergism'
 import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { formatAsPercentIncrease } from './Campaign'
 
 const LOADED_STATS_HTMLS = {
   challenge15: false
@@ -489,7 +488,7 @@ export const loadQuarkMultiplier = () => {
   }` // OMEGA
   DOMCacheGetOrSet('sGQM8').textContent = `+${
     format(
-      +G.challenge15Rewards.quarks.value - 1,
+      G.challenge15Rewards.quarks.value - 1,
       3,
       true
     )
@@ -1353,7 +1352,7 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt37').textContent = `x${
     format(
-      +G.challenge15Rewards.obtainium.value,
+      G.challenge15Rewards.obtainium.value,
       3
     )
   }`
@@ -1827,44 +1826,6 @@ export const loadStatisticsAmbrosiaGeneration = () => {
   DOMCacheGetOrSet('sAGenMT').textContent = `${format(totalVal, 3, true)}`
 }
 
-export const c15RewardFormulae: Record<Challenge15Rewards, (e: number) => number | boolean> = {
-  cube1: (e: number) => 1 + ((1 / 50) * Math.log2(e/175)),
-  ascensions: (e: number) => 1 + ((1 / 20) * Math.log2(e / 375)),
-  coinExponent: (e: number) => 1 + ((1 / 150) * Math.log2(e / 750)),
-  taxes: (e: number) => Math.pow(0.98, Math.log(e / 1.25e3) / Math.log(2)),
-  obtainium: (e: number) => 1 + (1 / 5) * Math.pow(e / 7.5e3, 0.75),
-  offering: (e: number) => 1 + (1 / 5) * Math.pow(e / 7.5e3, 0.75),
-  accelerator: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e3)) / Math.log(2),
-  multiplier: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e3)) / Math.log(2),
-  runeExp: (e: number) => 1 + Math.pow(e / 2e4, 1.5),
-  runeBonus: (e: number) => 1 + ((1 / 33) * Math.log(e / 1e4)) / Math.log(2),
-  cube2: (e: number) => 1 + ((1 / 100) * Math.log(e / 1.5e4)) / Math.log(2),
-  transcendChallengeReduction: (e: number) => Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2)),
-  reincarnationChallengeReduction: (e: number) => Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2)),
-  antSpeed: (e: number) => Math.pow(1 + Math.log(e / 2e5) / Math.log(2), 4),
-  bonusAntLevel: (e: number) => 1 + ((1 / 20) * Math.log(e / 1.5e5)) / Math.log(2),
-  cube3: (e: number) => 1 + ((1 / 150) * Math.log(e / 2.5e5)) / Math.log(2),
-  talismanBonus: (e: number) => 1 + ((1 / 20) * Math.log(e / 7.5e5)) / Math.log(2),
-  globalSpeed: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e6)) / Math.log(2),
-  blessingBonus: (e: number) => 1 + (1 / 5) * Math.pow(e / 3e7, 1 / 4),
-  constantBonus: (e: number) => 1 + (1 / 5) * Math.pow(e / 1e8, 2 / 3),
-  cube4: (e: number) => 1 + ((1 / 200) * Math.log(e / 1.25e8)) / Math.log(2),
-  spiritBonus: (e: number) => 1 + (1 / 5) * Math.pow(e / 2e9, 1 / 4),
-  score: (e: number) => (e >= 1e20) ? 1 + (1 / 4) * Math.pow(e / 1e10, 1 / 8) * Math.pow(1e10, 1 / 8) : 1 + (1 / 4) * Math.pow(e / 1e10, 1 / 4),
-  quarks: (e: number) => 1 + (1 / 100) * Math.log(e * 32/ 1e11) / Math.log(2),
-  hepteractsUnlocked: (e: number) => e >= 1e15,
-  challengeHepteractUnlocked: (e: number) => e >= 2e15,
-  cube5: (e: number) => 1 + (1 / 300) * Math.log2(e / (4e15 / 1024)),
-  powder: (e: number) => 1 + (1 / 50) * Math.log2(e / (7e15 / 32)),
-  abyssHepteractUnlocked: (e: number) => e >= 1e16,
-  exponent: (e: number) => calculateSigmoid(1.05, e, 1e18),
-  acceleratorHepteractUnlocked: (e: number) => e >= 3.33e16,
-  acceleratorBoostHepteractUnlocked: (e: number) => e >= 3.33e16,
-  multiplierHepteractUnlocked: (e: number) => e >= 3.33e16,
-  freeOrbs: (e: number) => Math.floor(200 * Math.pow(e / 2e17, 0.5)),
-  ascensionSpeed: (e: number) => 1 + 5 / 100 + (2 * Math.log2(e / 1.5e18)) / 100
-}
-
 export const c15RewardUpdate = () => {
   type Key = keyof GlobalVariables['challenge15Rewards']
   const e = player.challenge15Exponent
@@ -1875,31 +1836,39 @@ export const c15RewardUpdate = () => {
     v.value = v.baseValue
 
     if (e >= v.requirement) {
-      v.value = c15RewardFormulae[key](e)
+      v.value = G.c15RewardFormulae[key](e)
     }
   }
 
-  if (G.challenge15Rewards.challengeHepteractUnlocked) {
+  if (G.challenge15Rewards.challengeHepteractUnlocked.value > 0) {
     void player.hepteractCrafts.challenge.unlock('the Hepteract of Challenge')
   }
-  if (G.challenge15Rewards.abyssHepteractUnlocked) {
+  if (G.challenge15Rewards.abyssHepteractUnlocked.value > 0) {
     void player.hepteractCrafts.abyss.unlock('the Hepteract of the Abyss')
   }
-  if (G.challenge15Rewards.acceleratorHepteractUnlocked) {
+  if (G.challenge15Rewards.acceleratorHepteractUnlocked.value > 0) {
     void player.hepteractCrafts.accelerator.unlock('the Hepteract of Way Too Many Accelerators')
   }
-  if (G.challenge15Rewards.acceleratorBoostHepteractUnlocked) {
+  if (G.challenge15Rewards.acceleratorBoostHepteractUnlocked.value > 0) {
     void player.hepteractCrafts.acceleratorBoost.unlock('the Hepteract of Way Too Many Accelerator Boosts')
   }
-  if (G.challenge15Rewards.multiplierHepteractUnlocked) {
+  if (G.challenge15Rewards.multiplierHepteractUnlocked.value > 0) {
     void player.hepteractCrafts.multiplier.unlock('the Hepteract of Way Too Many Multipliers')
   }
-  
+
   updateDisplayC15Rewards()
 }
 
 const updateDisplayC15Rewards = () => {
-  DOMCacheGetOrSet('c15Reward0').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.0', {exponent: format(player.challenge15Exponent, 3, true)})
+  DOMCacheGetOrSet('c15Reward0').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.0', {
+    exponent: format(player.challenge15Exponent, 3, true)
+  })
+  DOMCacheGetOrSet('c15RequiredExponent').innerHTML = i18next.t(
+    'wowCubes.platonicUpgrades.c15Rewards.requiredExponent',
+    {
+      coins: format(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()), 0, true)
+    }
+  )
 
   const rewardDiv = DOMCacheGetOrSet('c15Rewards')
   let lowestMissingExponent = Number.MAX_VALUE
@@ -1924,134 +1893,31 @@ const updateDisplayC15Rewards = () => {
     if (player.challenge15Exponent >= requirement) {
       elm.style.display = player.challenge15Exponent >= requirement ? 'block' : 'none'
       if (typeof value === 'number') {
-        elm.innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {amount: formatAsPercentIncrease(value, 2)})
+        elm.innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {
+          amount: formatAsPercentIncrease(value, 2)
+        })
       } else {
         // Do not pass boolean value (all texts will say 'Unlocked' as you cannot see rewards not yet earned)
         elm.textContent = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`)
       }
-    }
-    else {
+    } else {
       elm.style.display = 'none'
       if (requirement < lowestMissingExponent) {
         lowestMissingExponent = requirement
       }
     }
   }
-  
+
   if (lowestMissingExponent < Number.MAX_VALUE) {
-    DOMCacheGetOrSet('c15RequiredExponent').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.requiredExponent', {coins: format(Decimal.pow(10, lowestMissingExponent / challenge15ScoreMultiplier()), 0, true)})
-  }
-  else {
-    DOMCacheGetOrSet('c15RequiredExponent').textContent = i18next.t('wowCubes.platonicUpgrades.c15Rewards.allUnlocked')
+    DOMCacheGetOrSet('c15NextReward').innerHTML = i18next.t(
+      'wowCubes.platonicUpgrades.c15Rewards.nextReward',
+      { exponent: format(lowestMissingExponent, 0, true) }
+    )
+  } else {
+    DOMCacheGetOrSet('c15NextReward').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.allUnlocked')
   }
   LOADED_STATS_HTMLS.challenge15 = true
 }
-
-/*const updateDisplayC15Rewards = () => {
-  DOMCacheGetOrSet('c15Reward0').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.0', {
-    exponent: format(
-      player.challenge15Exponent,
-      3,
-      true
-    )
-  })
-  DOMCacheGetOrSet('c15RequiredExponent').innerHTML = i18next.t(
-    'wowCubes.platonicUpgrades.c15Rewards.requiredExponent',
-    {
-      coins: format(
-        Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),
-        0,
-        true
-      )
-    }
-  )
-  // dprint-ignore
-  const exponentRequirements = [
-    750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5,
-    5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15,
-    1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18,
-  ];
-  const isNum: Record<number, boolean> = {
-    // Shit solution to a shit problem -Platonic
-    0: true,
-    1: true,
-    2: true,
-    3: true,
-    4: true,
-    5: true,
-    6: true,
-    7: true,
-    8: true,
-    9: true,
-    10: true,
-    11: true,
-    12: true,
-    13: true,
-    14: true,
-    15: true,
-    16: true,
-    17: true,
-    18: true,
-    19: true,
-    20: true,
-    21: true,
-    22: true,
-    23: true,
-    24: false,
-    25: false,
-    26: true,
-    27: true,
-    28: false,
-    29: true,
-    30: false,
-    31: false,
-    32: false,
-    33: true,
-    34: true
-  }
-  const values = Object.values(G.challenge15Rewards)
-  let keepExponent: string | number = 'None'
-  let skip = 0
-  for (let i = 0; i < exponentRequirements.length; i++) {
-    if (
-      keepExponent === 'None'
-      && player.challenge15Exponent < exponentRequirements[i]
-    ) {
-      keepExponent = exponentRequirements[i]
-    }
-    if (player.challenge15Exponent >= exponentRequirements[i]) {
-      DOMCacheGetOrSet(`c15Reward${i + 1}Num`).textContent = isNum[i]
-        ? format(100 * values[i - skip] - 100, 2, true)
-        : i18next.t('wowCubes.unlocked')
-
-      if (!isNum[i] && i !== 24) {
-        // TODO: This sucks -Platonic
-        skip += 1
-      }
-
-      if (i === 33) {
-        DOMCacheGetOrSet('c15Reward34Num').textContent = format(
-          values[i - skip],
-          0,
-          true
-        )
-      }
-    }
-
-    DOMCacheGetOrSet(`c15Reward${i + 1}`).style.display = player.challenge15Exponent >= exponentRequirements[i]
-      ? 'block'
-      : 'none'
-    DOMCacheGetOrSet('c15RewardList').textContent = typeof keepExponent === 'string'
-      ? 'You have unlocked all reward types from Challenge 15!'
-      : `Next reward type requires ${
-        format(
-          keepExponent,
-          0,
-          true
-        )
-      } exponent.`
-  }
-} */
 
 interface Stage {
   stage: number

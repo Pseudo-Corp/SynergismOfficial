@@ -298,8 +298,7 @@ export class CampaignManager {
       this.#tokens = this.computeTotalCampaignTokens()
       this.#updatedTokens = true
       return this.#tokens
-    }
-    else {
+    } else {
       return this.#tokens
     }
   }
@@ -309,8 +308,7 @@ export class CampaignManager {
       this.#maxTokens = this.computeMaxCampaignTokens()
       this.#updatedMaxTokens = true
       return this.#maxTokens
-    }
-    else {
+    } else {
       return this.#maxTokens
     }
   }
@@ -554,7 +552,7 @@ export class Campaign {
       additiveTotal += +player.singularityUpgrades.singBonusTokens1.getEffect().bonus
       additiveTotal += +player.octeractUpgrades.octeractBonusTokens3.getEffect().bonus
     }
-    
+
     if (completed === this.#limit) {
       if (player.highestSingularityCount >= 69) {
         additiveTotal += 10

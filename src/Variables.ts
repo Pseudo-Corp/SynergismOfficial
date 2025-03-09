@@ -1,4 +1,5 @@
 import Decimal from 'break_infinity.js'
+import { calculateSigmoid } from './Calculate'
 import { Tabs } from './Tabs'
 import type { GlobalVariables } from './types/Synergism'
 
@@ -450,6 +451,48 @@ export const Globals: GlobalVariables = {
 
   autoChallengeTimerIncrement: 0,
   corruptionTrigger: 'illiteracy',
+
+  c15RewardFormulae: {
+    cube1: (e: number) => 1 + ((1 / 50) * Math.log2(e / 175)),
+    ascensions: (e: number) => 1 + ((1 / 20) * Math.log2(e / 375)),
+    coinExponent: (e: number) => 1 + ((1 / 150) * Math.log2(e / 750)),
+    taxes: (e: number) => Math.pow(0.98, Math.log(e / 1.25e3) / Math.log(2)),
+    obtainium: (e: number) => 1 + (1 / 5) * Math.pow(e / 7.5e3, 0.75),
+    offering: (e: number) => 1 + (1 / 5) * Math.pow(e / 7.5e3, 0.75),
+    accelerator: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e3)) / Math.log(2),
+    multiplier: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e3)) / Math.log(2),
+    runeExp: (e: number) => 1 + Math.pow(e / 2e4, 1.5),
+    runeBonus: (e: number) => 1 + ((1 / 33) * Math.log(e / 1e4)) / Math.log(2),
+    cube2: (e: number) => 1 + ((1 / 100) * Math.log(e / 1.5e4)) / Math.log(2),
+    transcendChallengeReduction: (e: number) => Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2)),
+    reincarnationChallengeReduction: (e: number) => Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2)),
+    antSpeed: (e: number) => Math.pow(1 + Math.log(e / 2e5) / Math.log(2), 4),
+    bonusAntLevel: (e: number) => 1 + ((1 / 20) * Math.log(e / 1.5e5)) / Math.log(2),
+    cube3: (e: number) => 1 + ((1 / 150) * Math.log(e / 2.5e5)) / Math.log(2),
+    talismanBonus: (e: number) => 1 + ((1 / 20) * Math.log(e / 7.5e5)) / Math.log(2),
+    globalSpeed: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e6)) / Math.log(2),
+    blessingBonus: (e: number) => 1 + (1 / 5) * Math.pow(e / 3e7, 1 / 4),
+    constantBonus: (e: number) => 1 + (1 / 5) * Math.pow(e / 1e8, 2 / 3),
+    cube4: (e: number) => 1 + ((1 / 200) * Math.log(e / 1.25e8)) / Math.log(2),
+    spiritBonus: (e: number) => 1 + (1 / 5) * Math.pow(e / 2e9, 1 / 4),
+    score: (e: number) =>
+      (e >= 1e20)
+        ? 1 + (1 / 4) * Math.pow(e / 1e10, 1 / 8) * Math.pow(1e10, 1 / 8)
+        : 1 + (1 / 4) * Math.pow(e / 1e10, 1 / 4),
+    quarks: (e: number) => 1 + (1 / 100) * Math.log(e * 32 / 1e11) / Math.log(2),
+    hepteractsUnlocked: (e: number) => e >= 1e15 ? 1 : 0,
+    challengeHepteractUnlocked: (e: number) => e >= 2e15 ? 1 : 0,
+    cube5: (e: number) => 1 + (1 / 300) * Math.log2(e / (4e15 / 1024)),
+    powder: (e: number) => 1 + (1 / 50) * Math.log2(e / (7e15 / 32)),
+    abyssHepteractUnlocked: (e: number) => e >= 1e16 ? 1 : 0,
+    exponent: (e: number) => calculateSigmoid(1.05, e, 1e18),
+    acceleratorHepteractUnlocked: (e: number) => e >= 3.33e16 ? 1 : 0,
+    acceleratorBoostHepteractUnlocked: (e: number) => e >= 3.33e16 ? 1 : 0,
+    multiplierHepteractUnlocked: (e: number) => e >= 3.33e16 ? 1 : 0,
+    freeOrbs: (e: number) => Math.floor(200 * Math.pow(e / 2e17, 0.5)),
+    ascensionSpeed: (e: number) => 1 + 5 / 100 + (2 * Math.log2(e / 1.5e18)) / 100
+  },
+
   challenge15Rewards: {
     cube1: {
       value: 1,
@@ -540,7 +583,7 @@ export const Globals: GlobalVariables = {
       value: 1,
       baseValue: 1,
       requirement: 1e7
-    }, 
+    },
     blessingBonus: {
       value: 1,
       baseValue: 1,
@@ -573,14 +616,14 @@ export const Globals: GlobalVariables = {
       HTMLColor: 'lightgoldenrodyellow'
     },
     hepteractsUnlocked: {
-      value: false,
-      baseValue: false,
+      value: 0,
+      baseValue: 0,
       requirement: 1e15,
       HTMLColor: 'pink'
     },
     challengeHepteractUnlocked: {
-      value: false,
-      baseValue: false,
+      value: 0,
+      baseValue: 0,
       requirement: 2e15,
       HTMLColor: 'red'
     },
@@ -595,8 +638,8 @@ export const Globals: GlobalVariables = {
       requirement: 7e15
     },
     abyssHepteractUnlocked: {
-      value: false,
-      baseValue: false,
+      value: 0,
+      baseValue: 0,
       requirement: 1e16
     },
     exponent: {
@@ -605,20 +648,20 @@ export const Globals: GlobalVariables = {
       requirement: 2e16
     },
     acceleratorHepteractUnlocked: {
-      value: false,
-      baseValue: false,
+      value: 0,
+      baseValue: 0,
       requirement: 3.33e16,
       HTMLColor: 'orange'
     },
     acceleratorBoostHepteractUnlocked: {
-      value: false,
-      baseValue: false,
+      value: 0,
+      baseValue: 0,
       requirement: 3.33e16,
       HTMLColor: 'cyan'
     },
     multiplierHepteractUnlocked: {
-      value: false,
-      baseValue: false,
+      value: 0,
+      baseValue: 0,
       requirement: 3.33e16,
       HTMLColor: 'purple'
     },

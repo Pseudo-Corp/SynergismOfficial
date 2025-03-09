@@ -1,6 +1,7 @@
 import type Decimal from 'break_infinity.js'
 import type { BlueberryUpgrade } from '../BlueberryUpgrades'
 import type { CampaignManager } from '../Campaign'
+import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { HepteractCraft } from '../Hepteracts'
@@ -17,7 +18,6 @@ import type {
   BlueberryInventoryCache
 } from '../StatCache'
 import type { Tabs } from '../Tabs'
-import { Challenge15RewardObject } from '../Challenges'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 
@@ -960,6 +960,7 @@ export interface GlobalVariables {
   autoChallengeTimerIncrement: number
   corruptionTrigger: keyof Corruptions
 
+  c15RewardFormulae: Record<Challenge15Rewards, (e: number) => number>
   challenge15Rewards: Challenge15RewardObject
 
   autoResetTimers: {
