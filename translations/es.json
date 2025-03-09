@@ -2975,6 +2975,7 @@
     "corrLoadoutsBtn": "Cargas de Corrupción",
     "cleanse": "Purgar",
     "confirm": "Confirmar",
+    "resetCorruptionsError": "You cannot cleanse your Corruptions if you are in a Campaign, or Challenge 15!",
     "intro": "Las empresas más lucrativas son aquellas que pocos se atreven a realizar.",
     "traitInfo": "Selecciona los niveles de rasgos que deseas utilizar. ¡Elige sabiamente! <<var(--red-text-color)|No muerdas más de lo que puedes tragar...>>",
     "antExponent": "El clima de esta Ascensión aumenta la producción de Hormigas a la potencia de <<var(--darkorchid-text-color)|{{exponent}}>>.",
