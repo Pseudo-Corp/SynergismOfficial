@@ -292,7 +292,6 @@ export const Globals: GlobalVariables = {
   talisman6Power: 0,
   talisman7Quarks: 0,
 
-  runescreen: 'runes',
   settingscreen: 'settings',
 
   talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24],

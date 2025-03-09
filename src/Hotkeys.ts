@@ -113,9 +113,14 @@ const eventHotkeys = (event: KeyboardEvent): void => {
     event.preventDefault()
   }
 
-  if (G.currentTab === Tabs.Settings && player.subtabNumber === 6) {
+  if (G.currentTab === Tabs.Settings && player.subtabNumber === 7) {
     DOMCacheGetOrSet('lastHotkey').textContent = key
     DOMCacheGetOrSet('lastHotkeyName').textContent = hotkeyName
+
+    if (DOMCacheGetOrSet('promptWrapper').style.display === "block") {
+      (DOMCacheGetOrSet('prompt_text') as HTMLInputElement).value = key
+      event.preventDefault()
+    }
   }
 }
 
@@ -123,10 +128,10 @@ const makeSlot = (key: string, descr: string) => {
   const div = document.createElement('div')
   div.classList.add('hotkeyItem')
 
-  const span = document.createElement('span')
-  span.id = 'actualHotkey'
-  span.textContent = key
-  span.addEventListener('click', async (e) => {
+  const button = document.createElement('button')
+  button.classList.add('actualHotkey')
+  button.textContent = key
+  button.addEventListener('click', async (e) => {
     const target = e.target as HTMLElement
     const oldKey = target.textContent!.toUpperCase()
     const name = hotkeys.get(oldKey)?.[0]
@@ -179,7 +184,7 @@ const makeSlot = (key: string, descr: string) => {
   p.id = 'hotKeyDesc'
   p.textContent = descr
 
-  div.appendChild(span)
+  div.appendChild(button)
   div.appendChild(p)
 
   return div

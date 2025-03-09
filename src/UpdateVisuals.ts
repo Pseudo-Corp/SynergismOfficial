@@ -543,7 +543,7 @@ export const visualUpdateRunes = () => {
   if (G.currentTab !== Tabs.Runes) {
     return
   }
-  if (G.runescreen === 'runes') {
+  if (player.subtabNumber === 0) {
     // Placeholder and place work similarly to buildings, except for the specific Talismans.
     const talismans = [
       'rune1Talisman',
@@ -639,7 +639,7 @@ export const visualUpdateRunes = () => {
     )
   }
 
-  if (G.runescreen === 'talismans') {
+  if (player.subtabNumber === 1) {
     for (let i = 0; i < 7; i++) {
       const maxTalismanLevel = calculateMaxTalismanLevel(i)
       // TODO(@KhafraDev): i18n
@@ -649,7 +649,7 @@ export const visualUpdateRunes = () => {
     }
   }
 
-  if (G.runescreen === 'blessings') {
+  if (player.subtabNumber === 2) {
     const blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
     let t = 0
     for (let i = 1; i <= 5; i++) {
@@ -713,7 +713,7 @@ export const visualUpdateRunes = () => {
     }
   }
 
-  if (G.runescreen === 'spirits') {
+  if (player.subtabNumber === 3) {
     const spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
     const subtract = [0, 0, 0, 1, 0, 0]
     for (let i = 1; i <= 5; i++) {

@@ -627,6 +627,7 @@ export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
     changeSubTab(tab.getType(), { step })
   } else {
     changeTab(tab.getType(), step)
+    changeTabColor()
   }
 }
 

@@ -2828,6 +2828,7 @@ const loadSynergy = () => {
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
     updateSingularityGlobalPerks()
+    cacheReinitialize()
 
     // Update the Sing requirements on reload for a challenge if applicable
     if (G.currentSingChallenge !== undefined) {
@@ -5861,6 +5862,7 @@ export const updateAll = (): void => {
     if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
       player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM
       c15RewardUpdate()
+      updateChallengeLevel(15)
     }
   }
 }
@@ -6158,13 +6160,13 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         categoryUpgrades(num, false)
       }
       if (G.currentTab === Tabs.Runes) {
-        if (G.runescreen === 'runes') {
+        if (player.subtabNumber === 0) {
           redeemShards(num)
         }
-        if (G.runescreen === 'blessings') {
+        if (player.subtabNumber === 2) {
           buyRuneBonusLevels('Blessings', num)
         }
-        if (G.runescreen === 'spirits') {
+        if (player.subtabNumber === 3) {
           buyRuneBonusLevels('Spirits', num)
         }
       }
@@ -6324,7 +6326,7 @@ export const reloadShit = (reset = false) => {
   campaignTokenRewardHTMLUpdate()
   clearTimeout(preloadDeleteGame)
 
-  setInterval(cacheReinitialize, 15000)
+  setInterval(cacheReinitialize, 5000)
 
   if (localStorage.getItem('pleaseStar') === null) {
     void Alert(i18next.t('main.starRepo'))

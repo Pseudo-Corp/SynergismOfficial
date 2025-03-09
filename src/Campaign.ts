@@ -269,6 +269,7 @@ export class CampaignManager {
   }
 
   computeTotalCampaignTokens () {
+    this.#updatedTokens = false
     let sum = 0
     for (const campaign of Object.values(this.#campaigns)) {
       sum += campaign.tokens
@@ -281,6 +282,7 @@ export class CampaignManager {
   }
 
   computeMaxCampaignTokens () {
+    this.#updatedMaxTokens = false
     let sum = 0
     for (const campaign of Object.values(this.#campaigns)) {
       sum += campaign.maxTokens
