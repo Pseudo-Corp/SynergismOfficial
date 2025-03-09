@@ -2975,6 +2975,7 @@
     "corrLoadoutsBtn": "Ensembles de corruption",
     "cleanse": "Purifier",
     "confirm": "Confirmer",
+    "resetCorruptionsError": "You cannot cleanse your Corruptions if you are in a Campaign, or Challenge 15!",
     "intro": "Les expéditions les plus enrichissantes sont celles que peu osent entamer.",
     "traitInfo": "Sélectionnez les niveaux avec lesquels vous voulez partir. Choissisez judicieusement ! <<var(--red-text-color)|N'ayez pas les yeux plus gros que le ventre…>>",
     "antExponent": "Le climat de cette Ascension élève la production des Fourmis à la puissance <<var(--darkorchid-text-color)|{{exponent}}>>.",
