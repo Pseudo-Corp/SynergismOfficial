@@ -1865,17 +1865,17 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
       )
     case 'powderEX':
       return (
-        player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0
+        player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement || player.highestSingularityCount > 0
       )
     case 'chronometer2':
       return (
-        player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0
+        player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement || player.highestSingularityCount > 0
       )
     case 'chronometer3':
       return Boolean(player.singularityUpgrades.wowPass.getEffect().bonus)
     case 'seasonPassY':
       return (
-        player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0
+        player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement || player.highestSingularityCount > 0
       )
     case 'seasonPassZ':
       return Boolean(player.singularityUpgrades.wowPass.getEffect().bonus)
@@ -1905,7 +1905,7 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
       return Boolean(player.singularityUpgrades.wowPass3.getEffect().bonus)
     case 'improveQuarkHept':
       return (
-        player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0
+        player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement || player.highestSingularityCount > 0
       )
     case 'improveQuarkHept2':
       return Boolean(player.singularityUpgrades.wowPass.getEffect().bonus)

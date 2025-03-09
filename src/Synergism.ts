@@ -3353,7 +3353,7 @@ export const updateAllTick = (): void => {
     )
   )
   a += 2000 * hepteractEffective('accelerator')
-  a *= G.challenge15Rewards.accelerator
+  a *= +G.challenge15Rewards.accelerator.value
   a *= 1 + (3 / 10000) * hepteractEffective('accelerator')
   a = Math.floor(Math.min(1e100, a))
 
@@ -3600,7 +3600,7 @@ export const updateAllMultiplier = (): void => {
     )
   )
   a += 1000 * hepteractEffective('multiplier')
-  a *= G.challenge15Rewards.multiplier
+  a *= +G.challenge15Rewards.multiplier.value
   a *= 1 + (3 / 10000) * hepteractEffective('multiplier')
   a = Math.floor(Math.min(1e100, a))
 
@@ -3800,7 +3800,7 @@ export const multipliers = (): void => {
   ) {
     lol = Decimal.pow(lol, 1.1)
   }
-  lol = Decimal.pow(lol, G.challenge15Rewards.coinExponent)
+  lol = Decimal.pow(lol, +G.challenge15Rewards.coinExponent.value)
   G.globalCoinMultiplier = lol
   G.globalCoinMultiplier = Decimal.pow(
     G.globalCoinMultiplier,
@@ -4065,7 +4065,7 @@ export const multipliers = (): void => {
             100
               + 10 * player.achievements[270]
               + 10 * player.shopUpgrades.constantEX
-              + 1000 * (G.challenge15Rewards.exponent - 1)
+              + 1000 * (+G.challenge15Rewards.exponent.value - 1)
               + 3 * player.platonicUpgrades[18],
             player.constantUpgrades[2]
           ),
@@ -4088,7 +4088,7 @@ export const multipliers = (): void => {
     1 + (10 / 100) * player.researches[199]
   )
   G.globalConstantMult = G.globalConstantMult.times(
-    G.challenge15Rewards.constantBonus
+    +G.challenge15Rewards.constantBonus.value
   )
   if (player.platonicUpgrades[5] > 0) {
     G.globalConstantMult = G.globalConstantMult.times(2)
@@ -4620,7 +4620,7 @@ export const updateAntMultipliers = (): void => {
     G.globalAntMult,
     G.extinctionMultiplier[player.corruptions.used.extinction]
   )
-  G.globalAntMult = G.globalAntMult.times(G.challenge15Rewards.antSpeed)
+  G.globalAntMult = G.globalAntMult.times(+G.challenge15Rewards.antSpeed.value)
   // V2.5.0: Moved ant shop upgrade as 'uncorruptable'
   G.globalAntMult = G.globalAntMult.times(
     Decimal.pow(1.2, player.shopUpgrades.antSpeed)
@@ -5201,7 +5201,7 @@ export const updateEffectiveLevelMult = (): void => {
   G.effectiveLevelMult *= 1
     + ((0.01 * Math.log(player.talismanShards + 1)) / Math.log(4))
       * Math.min(1, player.constantUpgrades[9])
-  G.effectiveLevelMult *= G.challenge15Rewards.runeBonus
+  G.effectiveLevelMult *= +G.challenge15Rewards.runeBonus.value
 }
 
 export const updateAll = (): void => {

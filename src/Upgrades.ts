@@ -32,7 +32,7 @@ const constantUpgDesc: Record<number, () => Record<string, string>> = {
   2: () => ({
     max: format(
       10 + player.achievements[270] + player.shopUpgrades.constantEX + 100
-          * (G.challenge15Rewards.exponent - 1)
+          * (+G.challenge15Rewards.exponent.value - 1)
         + 0.3 * player.platonicUpgrades[18],
       2,
       true
@@ -483,7 +483,7 @@ const constUpgEffect: Record<number, () => Record<string, string>> = {
           + 0.001
             * Math.min(
               100 + 10 * player.achievements[270] + 10 * player.shopUpgrades.constantEX
-                + 3 * player.platonicUpgrades[18] + 1000 * (G.challenge15Rewards.exponent - 1),
+                + 3 * player.platonicUpgrades[18] + 1000 * (+G.challenge15Rewards.exponent.value - 1),
               player.constantUpgrades[2]
             ),
         ascendBuildingDR()
