@@ -1143,6 +1143,7 @@ export const singularity = (setSingNumber = -1) => {
     Alert(
       'You nearly triggered a double singularity bug! Oh no! Luckily, our staff prevented this from happening.'
     )
+    return
   }
 
   // setSingNumber is only not -1 when we are entering and exiting a challenge.
