@@ -179,7 +179,7 @@ button,
 select,
 textarea {
     font-size: 0.75em;
-    padding: 0.05em;
+    padding: 0;
     margin: 0;
     box-sizing: border-box;
     border: 0 solid #ccc;
@@ -2488,6 +2488,10 @@ button.language-select span.lang-name {
     margin: 0.4em 0;
 }
 
+#creditssubtab img {
+    image-rendering: unset;
+}
+
 #versionnumber {
     color: fuchsia;
 }
@@ -3628,6 +3632,7 @@ header #obtainiumDisplay { color: pink; }
     display: flex;
     flex-direction: row;
     margin-top: 2px;
+    gap: 0 5px;
 }
 
 #hotKeyDesc {
@@ -3638,10 +3643,10 @@ header #obtainiumDisplay { color: pink; }
     color: var(--darkorchid-text-color);
 }
 
-#actualHotkey {
+.actualHotkey {
     padding: 1px 15px;
     color: gold;
-    cursor: pointer;
+    min-height: 2em;
 }
 
 .resetHotkeys {
@@ -3652,7 +3657,6 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .resetHotkeys > button {
-    min-height: 20px;
     padding: 2px 4px;
 }
 
@@ -4247,6 +4251,10 @@ form input:hover {
 
 #pseudoCoins > #productContainer > section > * > .pseudoCoinImage {
     margin-top: 8px;
+}
+
+#pseudoCoins img {
+    image-rendering: unset;
 }
 
 .pseudoCoinSubImage {
