@@ -5,7 +5,7 @@ import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { format, player } from './Synergism'
 import { IconSets } from './Themes'
 import { toggleCorruptionLevel } from './Toggles'
-import { Alert, Prompt } from './UpdateHTML'
+import { Alert, Notification, Prompt } from './UpdateHTML'
 import { getElementById, productContents, sumContents, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -283,7 +283,7 @@ export class CorruptionLoadout {
   }
 
   resetCorruptions () {
-    if (player.currentChallenge.ascension !== 15) {
+    if (player.currentChallenge.ascension !== 15 && player.campaigns.currentCampaign === undefined) {
       for (const corr in this.#levels) {
         const corrKey = corr as keyof Corruptions
         this.setLevel(corrKey, 0)
@@ -293,6 +293,9 @@ export class CorruptionLoadout {
       corruptionLoadoutTableUpdate(true, 0)
       corruptionDisplay(G.corruptionTrigger)
       DOMCacheGetOrSet('corruptionCleanseConfirm').style.visibility = 'hidden'
+    }
+    else {
+      Notification(i18next.t('corruptions.resetCorruptionsError'))
     }
   }
 
