@@ -9,6 +9,52 @@ import { toggleAutoChallengeModeText, toggleChallenges } from './Toggles'
 import { productContents } from './Utility'
 import { Globals as G } from './Variables'
 
+export type Challenge15Rewards =
+  | 'cube1'
+  | 'ascensions'
+  | 'coinExponent'
+  | 'taxes'
+  | 'obtainium'
+  | 'offering'
+  | 'accelerator'
+  | 'multiplier'
+  | 'runeExp'
+  | 'runeBonus'
+  | 'cube2'
+  | 'transcendChallengeReduction'
+  | 'reincarnationChallengeReduction'
+  | 'antSpeed'
+  | 'bonusAntLevel'
+  | 'cube3'
+  | 'talismanBonus'
+  | 'globalSpeed'
+  | 'blessingBonus'
+  | 'constantBonus'
+  | 'cube4'
+  | 'spiritBonus'
+  | 'score'
+  | 'quarks'
+  | 'hepteractsUnlocked'
+  | 'challengeHepteractUnlocked'
+  | 'cube5'
+  | 'powder'
+  | 'abyssHepteractUnlocked'
+  | 'exponent'
+  | 'acceleratorHepteractUnlocked'
+  | 'acceleratorBoostHepteractUnlocked'
+  | 'multiplierHepteractUnlocked'
+  | 'freeOrbs'
+  | 'ascensionSpeed'
+
+export type Challenge15RewardsInformation = {
+  value: number
+  baseValue: number
+  requirement: number
+  HTMLColor?: string
+}
+
+export type Challenge15RewardObject = Record<Challenge15Rewards, Challenge15RewardsInformation>
+
 export const getMaxChallenges = (i: number) => {
   let maxChallenge = 0
   // Transcension Challenges
@@ -415,7 +461,7 @@ export const calculateChallengeRequirementMultiplier = (
   }
   switch (type) {
     case 'transcend':
-      requirementMultiplier *= G.challenge15Rewards.transcendChallengeReduction
+      requirementMultiplier *= G.challenge15Rewards.transcendChallengeReduction.value
       ;(completions >= 75)
         ? requirementMultiplier *= Math.pow(1 + completions, 12) / Math.pow(75, 8)
         : requirementMultiplier *= Math.pow(1 + completions, 2)
@@ -483,7 +529,7 @@ export const calculateChallengeRequirementMultiplier = (
       if (completions < 25) {
         requirementMultiplier *= Math.min(Math.pow(1 + completions, 2), Math.pow(1.3797, completions))
       }
-      requirementMultiplier *= G.challenge15Rewards.reincarnationChallengeReduction
+      requirementMultiplier *= G.challenge15Rewards.reincarnationChallengeReduction.value
       return requirementMultiplier
     case 'ascension':
       if (special !== 15) {

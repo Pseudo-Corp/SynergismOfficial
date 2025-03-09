@@ -647,7 +647,8 @@ export const playerSchema = z.object({
     .transform((upgrades) =>
       Object.fromEntries(
         Object.keys(singularityData).filter((k) => k in upgrades || k in blankSave.singularityUpgrades).map((k) => {
-          const { level, goldenQuarksInvested, toggleBuy, freeLevels } = upgrades[k] ?? blankSave.singularityUpgrades[k as keyof typeof blankSave['singularityUpgrades']]
+          const { level, goldenQuarksInvested, toggleBuy, freeLevels } = upgrades[k]
+            ?? blankSave.singularityUpgrades[k as keyof typeof blankSave['singularityUpgrades']]
 
           return [
             k,
@@ -675,7 +676,8 @@ export const playerSchema = z.object({
     .transform((upgrades) =>
       Object.fromEntries(
         Object.keys(octeractData).map((k) => {
-          const { level, octeractsInvested, toggleBuy, freeLevels } = upgrades[k] ?? blankSave.octeractUpgrades[k as keyof typeof blankSave['octeractUpgrades']]
+          const { level, octeractsInvested, toggleBuy, freeLevels } = upgrades[k]
+            ?? blankSave.octeractUpgrades[k as keyof typeof blankSave['octeractUpgrades']]
 
           return [
             k,

@@ -138,8 +138,6 @@ export const playerJsonSchema = playerSchema.extend({
     player.corruptions.saves = corruptionSaveStuff
   }
 
-  
-
   Reflect.deleteProperty(player, 'usedCorruptions')
   Reflect.deleteProperty(player, 'prototypeCorruptions')
   Reflect.deleteProperty(player, 'corruptionLoadoutNames')

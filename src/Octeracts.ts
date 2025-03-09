@@ -1,13 +1,13 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, octeractGainPerSecond } from './Calculate'
+import { campaignTokenRewardHTMLUpdate } from './Campaign'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import { format, formatTimeShort, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
-import { campaignTokenRewardHTMLUpdate } from './Campaign'
 
 export interface IOcteractData extends Omit<IUpgradeData, 'name' | 'description'> {
   costFormula(this: void, level: number, baseCost: number): number
@@ -832,10 +832,10 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       }
     },
     cacheUpdates: [
-          () => {
-             player.campaigns.updateCurrentTokens()
-             campaignTokenRewardHTMLUpdate()
-          }
+      () => {
+        player.campaigns.updateCurrentTokens()
+        campaignTokenRewardHTMLUpdate()
+      }
     ]
   },
   octeractBonusTokens2: {
@@ -846,7 +846,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     costPerLevel: 1e8,
     effect: (n: number) => {
       return {
-        bonus: 1 + n/100,
+        bonus: 1 + n / 100,
         get desc () {
           return i18next.t('octeract.data.octeractBonusTokens2.effect', { n: format(n) })
         }
@@ -854,8 +854,8 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     cacheUpdates: [
       () => {
-         player.campaigns.updateCurrentTokens()
-         campaignTokenRewardHTMLUpdate()
+        player.campaigns.updateCurrentTokens()
+        campaignTokenRewardHTMLUpdate()
       }
     ]
   },
@@ -875,8 +875,8 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     cacheUpdates: [
       () => {
-         player.campaigns.updateCurrentTokens()
-         campaignTokenRewardHTMLUpdate()
+        player.campaigns.updateCurrentTokens()
+        campaignTokenRewardHTMLUpdate()
       }
     ]
   },
@@ -896,8 +896,8 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     },
     cacheUpdates: [
       () => {
-         player.campaigns.updateCurrentTokens()
-         campaignTokenRewardHTMLUpdate()
+        player.campaigns.updateCurrentTokens()
+        campaignTokenRewardHTMLUpdate()
       }
     ]
   }

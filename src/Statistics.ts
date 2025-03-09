@@ -22,7 +22,6 @@ import {
   calculatePowderConversion,
   calculateQuarkMultFromPowder,
   calculateQuarkMultiplier,
-  calculateSigmoid,
   calculateSigmoidExponential,
   calculateSingularityQuarkMilestoneMultiplier,
   calculateTesseractMultiplier,
@@ -31,7 +30,8 @@ import {
   calculateTotalOcteractQuarkBonus,
   resetTimeThreshold
 } from './Calculate'
-import { CalcECC, challenge15ScoreMultiplier } from './Challenges'
+import { formatAsPercentIncrease } from './Campaign'
+import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
 import { BuffType } from './Event'
 import { hepteractEffective } from './Hepteracts'
 import {
@@ -46,6 +46,10 @@ import { format, formatTimeShort, player } from './Synergism'
 import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
+
+const LOADED_STATS_HTMLS = {
+  challenge15: false
+}
 
 const associated = new Map<string, string>([
   ['kMisc', 'miscStats'],
@@ -484,7 +488,7 @@ export const loadQuarkMultiplier = () => {
   }` // OMEGA
   DOMCacheGetOrSet('sGQM8').textContent = `+${
     format(
-      G.challenge15Rewards.quarks - 1,
+      G.challenge15Rewards.quarks.value - 1,
       3,
       true
     )
@@ -526,7 +530,7 @@ export const loadQuarkMultiplier = () => {
   }` // IA Rune
   DOMCacheGetOrSet('sGQM13').textContent = `x${
     format(
-      player.challenge15Exponent >= 1e15
+      player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
         ? 1 + (5 / 10000) * hepteractEffective('quark')
         : 1,
       3,
@@ -1348,7 +1352,7 @@ export const loadObtainiumMultipliers = () => {
   }`
   DOMCacheGetOrSet('sObt37').textContent = `x${
     format(
-      G.challenge15Rewards.obtainium,
+      G.challenge15Rewards.obtainium.value,
       3
     )
   }`
@@ -1823,181 +1827,33 @@ export const loadStatisticsAmbrosiaGeneration = () => {
 }
 
 export const c15RewardUpdate = () => {
-  // dprint-ignore
-  const exponentRequirements = [
-    750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5,
-    5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15,
-    1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18,
-  ];
   type Key = keyof GlobalVariables['challenge15Rewards']
-  const keys = Object.keys(G.challenge15Rewards) as Key[]
   const e = player.challenge15Exponent
 
-  for (const obj in G.challenge15Rewards) {
-    G.challenge15Rewards[obj as Key] = 1
-  }
-  G.challenge15Rewards.freeOrbs = 0
+  for (const [k, v] of Object.entries(G.challenge15Rewards)) {
+    const key = k as Key
+    // Reset values
+    v.value = v.baseValue
 
-  if (e >= exponentRequirements[0]) {
-    // All Cube Types 1 [750]
-    G.challenge15Rewards[keys[0]] = 1 + ((1 / 50) * Math.log(e / 175)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[1]) {
-    // Ascension Count [1500]
-    G.challenge15Rewards[keys[1]] = 1 + ((1 / 20) * Math.log(e / 375)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[2]) {
-    // Coin Exponent [3000]
-    G.challenge15Rewards[keys[2]] = 1 + ((1 / 150) * Math.log(e / 750)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[3]) {
-    // Taxes [5000]
-    G.challenge15Rewards[keys[3]] = Math.pow(
-      0.98,
-      Math.log(e / 1.25e3) / Math.log(2)
-    )
-  }
-  if (e >= exponentRequirements[4]) {
-    // Obtainium [7500]
-    G.challenge15Rewards[keys[4]] = 1 + (1 / 5) * Math.pow(e / 7.5e3, 0.75)
-  }
-  if (e >= exponentRequirements[5]) {
-    // Offerings [7500]
-    G.challenge15Rewards[keys[5]] = 1 + (1 / 5) * Math.pow(e / 7.5e3, 0.75)
-  }
-  if (e >= exponentRequirements[6]) {
-    // Accelerator Boost (Uncorruptable) [10000]
-    G.challenge15Rewards[keys[6]] = 1 + ((1 / 20) * Math.log(e / 2.5e3)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[7]) {
-    // Multiplier Boost (Uncorruptable) [10000]
-    G.challenge15Rewards[keys[7]] = 1 + ((1 / 20) * Math.log(e / 2.5e3)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[8]) {
-    // Rune EXP [20000]
-    G.challenge15Rewards[keys[8]] = 1 + Math.pow(e / 2e4, 1.5)
-  }
-  if (e >= exponentRequirements[9]) {
-    // Rune Effectiveness [40000]
-    G.challenge15Rewards[keys[9]] = 1 + ((1 / 33) * Math.log(e / 1e4)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[10]) {
-    // All Cube Types II [60000]
-    G.challenge15Rewards[keys[10]] = 1 + ((1 / 100) * Math.log(e / 1.5e4)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[11]) {
-    // Chal 1-5 Scaling [100000]
-    G.challenge15Rewards[keys[11]] = Math.pow(
-      0.98,
-      Math.log(e / 2.5e4) / Math.log(2)
-    )
-  }
-  if (e >= exponentRequirements[12]) {
-    // Chal 6-10 Scaling [100000]
-    G.challenge15Rewards[keys[12]] = Math.pow(
-      0.98,
-      Math.log(e / 2.5e4) / Math.log(2)
-    )
-  }
-  if (e >= exponentRequirements[13]) {
-    // Ant Speed [200k]
-    G.challenge15Rewards[keys[13]] = Math.pow(
-      1 + Math.log(e / 2e5) / Math.log(2),
-      4
-    )
-  }
-  if (e >= exponentRequirements[14]) {
-    // Ant Bonus Levels [500k]
-    G.challenge15Rewards[keys[14]] = 1 + ((1 / 20) * Math.log(e / 1.5e5)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[15]) {
-    // All Cube Types III [1m]
-    G.challenge15Rewards[keys[15]] = 1 + ((1 / 150) * Math.log(e / 2.5e5)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[16]) {
-    // Talisman Effectiveness [3m]
-    G.challenge15Rewards[keys[16]] = 1 + ((1 / 20) * Math.log(e / 7.5e5)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[17]) {
-    // Global Speed [10m]
-    G.challenge15Rewards[keys[17]] = 1 + ((1 / 20) * Math.log(e / 2.5e6)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[18]) {
-    // Blessing Effectiveness [30m]
-    G.challenge15Rewards[keys[18]] = 1 + (1 / 5) * Math.pow(e / 3e7, 1 / 4)
-  }
-  if (e >= exponentRequirements[19]) {
-    // Tesseract Building Speed [100m]
-    G.challenge15Rewards[keys[19]] = 1 + (1 / 5) * Math.pow(e / 1e8, 2 / 3)
-  }
-  if (e >= exponentRequirements[20]) {
-    // All Cube Types IV [500m]
-    G.challenge15Rewards[keys[20]] = 1 + ((1 / 200) * Math.log(e / 1.25e8)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[21]) {
-    // Spirit Effectiveness [2b]
-    G.challenge15Rewards[keys[21]] = 1 + (1 / 5) * Math.pow(e / 2e9, 1 / 4)
-  }
-  if (e >= exponentRequirements[22]) {
-    // Ascension Score [10b]
-    G.challenge15Rewards[keys[22]] = 1 + (1 / 4) * Math.pow(e / 1e10, 1 / 4)
-    if (e >= 1e20) {
-      G.challenge15Rewards[keys[22]] = 1 + (1 / 4) * Math.pow(e / 1e10, 1 / 8) * Math.pow(1e10, 1 / 8)
+    if (e >= v.requirement) {
+      v.value = G.c15RewardFormulae[key](e)
     }
   }
-  if (e >= exponentRequirements[23]) {
-    // Quark Gain [100b]
-    G.challenge15Rewards[keys[23]] = 1 + ((1 / 100) * Math.log((e * 32) / 1e11)) / Math.log(2)
-  }
-  if (e >= exponentRequirements[24]) {
-    // Unlock Hepteract gain [1Qa]
-    G.challenge15Rewards[keys[24]] = 2
-  }
-  if (e >= exponentRequirements[25]) {
-    // Unlock Challenge hepteract [2Qa]
+
+  if (G.challenge15Rewards.challengeHepteractUnlocked.value > 0) {
     void player.hepteractCrafts.challenge.unlock('the Hepteract of Challenge')
   }
-  if (e >= exponentRequirements[26]) {
-    // All Cube Types V [4Qa]
-    G.challenge15Rewards[keys[25]] = 1 + (1 / 300) * Math.log2(e / (4e15 / 1024))
-  }
-  if (e >= exponentRequirements[27]) {
-    // Powder Gain [7Qa]
-    G.challenge15Rewards[keys[26]] = 1 + (1 / 50) * Math.log2(e / (7e15 / 32))
-  }
-  if (e >= exponentRequirements[28]) {
-    // Unlock Abyss Hepteract [10Qa]
+  if (G.challenge15Rewards.abyssHepteractUnlocked.value > 0) {
     void player.hepteractCrafts.abyss.unlock('the Hepteract of the Abyss')
   }
-  if (e >= exponentRequirements[29]) {
-    // Constant Upgrade 2 [20Qa]
-    G.challenge15Rewards[keys[27]] = calculateSigmoid(1.05, e, 1e18)
+  if (G.challenge15Rewards.acceleratorHepteractUnlocked.value > 0) {
+    void player.hepteractCrafts.accelerator.unlock('the Hepteract of Way Too Many Accelerators')
   }
-  if (e >= exponentRequirements[30]) {
-    // Unlock ACCELERATOR HEPT [33.33Qa]
-    void player.hepteractCrafts.accelerator.unlock(
-      'the Hepteract of Way Too Many Accelerators'
-    )
+  if (G.challenge15Rewards.acceleratorBoostHepteractUnlocked.value > 0) {
+    void player.hepteractCrafts.acceleratorBoost.unlock('the Hepteract of Way Too Many Accelerator Boosts')
   }
-  if (e >= exponentRequirements[31]) {
-    // Unlock ACCELERATOR BOOST HEPT [33.33Qa]
-    void player.hepteractCrafts.acceleratorBoost.unlock(
-      'the Hepteract of Way Too Many Accelerator Boosts'
-    )
-  }
-  if (e >= exponentRequirements[32]) {
-    // Unlock MULTIPLIER Hept [33.33Qa]
-    void player.hepteractCrafts.multiplier.unlock(
-      'the Hepteract of Way Too Many Multipliers'
-    )
-  }
-  if (e >= exponentRequirements[33]) {
-    // FREE Daily Orbs
-    G.challenge15Rewards.freeOrbs = Math.floor(200 * Math.pow(e / 2e17, 0.5))
-  }
-  if (e >= exponentRequirements[34]) {
-    // Ascension Speed
-    G.challenge15Rewards.ascensionSpeed = 1 + 5 / 100 + (2 * Math.log2(e / 1.5e18)) / 100
+  if (G.challenge15Rewards.multiplierHepteractUnlocked.value > 0) {
+    void player.hepteractCrafts.multiplier.unlock('the Hepteract of Way Too Many Multipliers')
   }
 
   updateDisplayC15Rewards()
@@ -2005,108 +1861,62 @@ export const c15RewardUpdate = () => {
 
 const updateDisplayC15Rewards = () => {
   DOMCacheGetOrSet('c15Reward0').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.0', {
-    exponent: format(
-      player.challenge15Exponent,
-      3,
-      true
-    )
+    exponent: format(player.challenge15Exponent, 3, true)
   })
   DOMCacheGetOrSet('c15RequiredExponent').innerHTML = i18next.t(
     'wowCubes.platonicUpgrades.c15Rewards.requiredExponent',
     {
-      coins: format(
-        Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),
-        0,
-        true
-      )
+      coins: format(Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()), 0, true)
     }
   )
-  // dprint-ignore
-  const exponentRequirements = [
-    750, 1.5e3, 3e3, 5e3, 7.5e3, 7.5e3, 1e4, 1e4, 2e4, 4e4, 6e4, 1e5, 1e5, 2e5,
-    5e5, 1e6, 3e6, 1e7, 3e7, 1e8, 5e8, 2e9, 1e10, 1e11, 1e15, 2e15, 4e15, 7e15,
-    1e16, 2e16, 3.33e16, 3.33e16, 3.33e16, 2e17, 1.5e18,
-  ];
-  const isNum: Record<number, boolean> = {
-    // Shit solution to a shit problem -Platonic
-    0: true,
-    1: true,
-    2: true,
-    3: true,
-    4: true,
-    5: true,
-    6: true,
-    7: true,
-    8: true,
-    9: true,
-    10: true,
-    11: true,
-    12: true,
-    13: true,
-    14: true,
-    15: true,
-    16: true,
-    17: true,
-    18: true,
-    19: true,
-    20: true,
-    21: true,
-    22: true,
-    23: true,
-    24: false,
-    25: false,
-    26: true,
-    27: true,
-    28: false,
-    29: true,
-    30: false,
-    31: false,
-    32: false,
-    33: true,
-    34: true
-  }
-  const values = Object.values(G.challenge15Rewards)
-  let keepExponent: string | number = 'None'
-  let skip = 0
-  for (let i = 0; i < exponentRequirements.length; i++) {
-    if (
-      keepExponent === 'None'
-      && player.challenge15Exponent < exponentRequirements[i]
-    ) {
-      keepExponent = exponentRequirements[i]
-    }
-    if (player.challenge15Exponent >= exponentRequirements[i]) {
-      DOMCacheGetOrSet(`c15Reward${i + 1}Num`).textContent = isNum[i]
-        ? format(100 * values[i - skip] - 100, 2, true)
-        : i18next.t('wowCubes.unlocked')
 
-      if (!isNum[i] && i !== 24) {
-        // TODO: This sucks -Platonic
-        skip += 1
+  const rewardDiv = DOMCacheGetOrSet('c15Rewards')
+  let lowestMissingExponent = Number.MAX_VALUE
+  for (const [k, v] of Object.entries(G.challenge15Rewards)) {
+    const key = k as Challenge15Rewards
+    const value = v.value
+    const requirement = v.requirement
+
+    if (!LOADED_STATS_HTMLS.challenge15) {
+      const elm = document.createElement('p')
+      elm.id = `c15Reward${key}`
+      elm.className = 'challengePortion'
+
+      if (v.HTMLColor !== undefined) {
+        elm.style.color = v.HTMLColor
       }
 
-      if (i === 33) {
-        DOMCacheGetOrSet('c15Reward34Num').textContent = format(
-          values[i - skip],
-          0,
-          true
-        )
-      }
+      rewardDiv.appendChild(elm)
     }
 
-    DOMCacheGetOrSet(`c15Reward${i + 1}`).style.display = player.challenge15Exponent >= exponentRequirements[i]
-      ? 'block'
-      : 'none'
-    DOMCacheGetOrSet('c15RewardList').textContent = typeof keepExponent === 'string'
-      ? 'You have unlocked all reward types from Challenge 15!'
-      : `Next reward type requires ${
-        format(
-          keepExponent,
-          0,
-          true
-        )
-      } exponent.`
+    const elm = DOMCacheGetOrSet(`c15Reward${key}`)
+    if (player.challenge15Exponent >= requirement) {
+      elm.style.display = player.challenge15Exponent >= requirement ? 'block' : 'none'
+      if (typeof value === 'number') {
+        elm.innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {
+          amount: formatAsPercentIncrease(value, 2)
+        })
+      } else {
+        // Do not pass boolean value (all texts will say 'Unlocked' as you cannot see rewards not yet earned)
+        elm.textContent = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`)
+      }
+    } else {
+      elm.style.display = 'none'
+      if (requirement < lowestMissingExponent) {
+        lowestMissingExponent = requirement
+      }
+    }
   }
+
+  if (lowestMissingExponent < Number.MAX_VALUE) {
+    DOMCacheGetOrSet('c15NextReward').innerHTML = i18next.t(
+      'wowCubes.platonicUpgrades.c15Rewards.nextReward',
+      { exponent: format(lowestMissingExponent, 0, true) }
+    )
+  } else {
+    DOMCacheGetOrSet('c15NextReward').innerHTML = i18next.t('wowCubes.platonicUpgrades.c15Rewards.allUnlocked')
+  }
+  LOADED_STATS_HTMLS.challenge15 = true
 }
 
 interface Stage {
@@ -2236,7 +2046,7 @@ export const gameStages = (): Stage[] => {
       stage: 17,
       tier: 5,
       name: 'beta-1e15-expo',
-      unlocked: player.challenge15Exponent >= 1e15,
+      unlocked: player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement,
       reset: player.achievements[183] === 1
     },
     {

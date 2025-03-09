@@ -1,6 +1,7 @@
 import type Decimal from 'break_infinity.js'
 import type { BlueberryUpgrade } from '../BlueberryUpgrades'
 import type { CampaignManager } from '../Campaign'
+import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { HepteractCraft } from '../Hepteracts'
@@ -959,38 +960,8 @@ export interface GlobalVariables {
   autoChallengeTimerIncrement: number
   corruptionTrigger: keyof Corruptions
 
-  challenge15Rewards: {
-    cube1: number
-    ascensions: number
-    coinExponent: number
-    taxes: number
-    obtainium: number
-    offering: number
-    accelerator: number
-    multiplier: number
-    runeExp: number
-    runeBonus: number
-    cube2: number
-    transcendChallengeReduction: number
-    reincarnationChallengeReduction: number
-    antSpeed: number
-    bonusAntLevel: number
-    cube3: number
-    talismanBonus: number
-    globalSpeed: number
-    blessingBonus: number
-    constantBonus: number
-    cube4: number
-    spiritBonus: number
-    score: number
-    quarks: number
-    hepteractUnlocked: number
-    cube5: number
-    powder: number
-    exponent: number
-    freeOrbs: number
-    ascensionSpeed: number
-  }
+  c15RewardFormulae: Record<Challenge15Rewards, (e: number) => number>
+  challenge15Rewards: Challenge15RewardObject
 
   autoResetTimers: {
     prestige: number

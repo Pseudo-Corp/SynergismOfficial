@@ -1,6 +1,6 @@
 declare const PROD: boolean | undefined
 
-export const version = '3.2.1 March 4 2025: The Campaign Update, pt 1.1'
+export const version = '3.2.1 March 8 2025: The Campaign Update, pt 1.1'
 
 /**
  * If true, the version is marked as a testing version.

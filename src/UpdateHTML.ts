@@ -266,7 +266,9 @@ export const revealStuff = () => {
 
   const example32 = document.getElementsByClassName('hepteracts') as HTMLCollectionOf<HTMLElement>
   for (const ex of Array.from(example32)) { // Ability to use and gain hepteracts //
-    ex.style.display = player.challenge15Exponent >= 1e15 ? 'block' : 'none'
+    ex.style.display = player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
+      ? 'block'
+      : 'none'
     ex.setAttribute('aria-disabled', `${player.challenge15Exponent < 1e15}`)
   }
 
@@ -538,7 +540,8 @@ export const revealStuff = () => {
     : (DOMCacheGetOrSet('settingpic6').style.display = 'none')
 
   // Hepteract Confirmations toggle
-  player.highestSingularityCount > 0 && player.challenge15Exponent >= 1e15
+  player.highestSingularityCount > 0
+    && player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
     ? (DOMCacheGetOrSet('heptnotificationpic').style.display = 'block')
     : (DOMCacheGetOrSet('heptnotificationpic').style.display = 'none')
 
@@ -622,7 +625,8 @@ export const revealStuff = () => {
     toggle32: player.achievements[173] > 0, // Settings - Confirmations - Ant Sacrifice
     toggle33: player.highestSingularityCount > 0 && player.ascensionCount > 0, // Settings - Confirmations - Singularity
     toggle34: player.unlocks.coinfour, // Achievements - Notifications
-    toggle35: player.challenge15Exponent >= 1e15 && player.highestSingularityCount > 0, // Hepteracts - Notifications
+    toggle35: player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
+      && player.highestSingularityCount > 0, // Hepteracts - Notifications
     toggle36: player.highestSingularityCount >= 15, // Auto Blessings
     toggle37: player.highestSingularityCount >= 15, // Auto Spirits
     toggle38: player.highestSingularityCount > 0, // Researchs Hover to Buy

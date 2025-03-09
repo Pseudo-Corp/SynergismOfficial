@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculateBlueberryInventory } from './Calculate'
+import { campaignTokenRewardHTMLUpdate } from './Campaign'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import { format, player } from './Synergism'
@@ -8,7 +9,6 @@ import type { Player } from './types/Synergism'
 import { Alert, Prompt, revealStuff } from './UpdateHTML'
 import { toOrdinal } from './Utility'
 import { Globals as G } from './Variables'
-import { campaignTokenRewardHTMLUpdate } from './Campaign'
 
 export const updateSingularityPenalties = (): void => {
   const singularityCount = player.singularityCount
@@ -1601,7 +1601,7 @@ export const singularityData: Record<
     specialCostForm: 'Exponential2',
     effect: (n: number) => {
       return {
-        bonus: 1 + n/100,
+        bonus: 1 + n / 100,
         get desc () {
           return i18next.t('singularity.data.singBonusTokens2.effect', {
             n: format(n)
@@ -1623,10 +1623,10 @@ export const singularityData: Record<
     specialCostForm: 'Exponential2',
     effect: (n: number) => {
       return {
-        bonus: 2*n,
+        bonus: 2 * n,
         get desc () {
           return i18next.t('singularity.data.singBonusTokens3.effect', {
-            n: format(2*n)
+            n: format(2 * n)
           })
         }
       }
@@ -1645,10 +1645,10 @@ export const singularityData: Record<
     specialCostForm: 'Exponential2',
     effect: (n: number) => {
       return {
-        bonus: 5*n,
+        bonus: 5 * n,
         get desc () {
           return i18next.t('singularity.data.singBonusTokens4.effect', {
-            n: format(5*n)
+            n: format(5 * n)
           })
         }
       }
@@ -1659,7 +1659,7 @@ export const singularityData: Record<
         campaignTokenRewardHTMLUpdate()
       }
     ]
-  },
+  }
 }
 
 /**

@@ -175,7 +175,10 @@ export const generateExportSummary = async (): Promise<void> => {
       ascension = `${ascension}Platonic β: ${player.platonicUpgrades[10] > 0 ? '✔' : '✖'}\n`
       ascension = `${ascension}Platonic Ω: ${player.platonicUpgrades[15] > 0 ? '✔' : '✖'}\n`
     }
-    if (player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0) {
+    if (
+      player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
+      || player.highestSingularityCount > 0
+    ) {
       ascension = `${ascension}----- HEPTERACTS -----\n`
       ascension = `${ascension}Chronos Hepteract: ${format(player.hepteractCrafts.chronos.BAL, 0, true)}/${
         format(player.hepteractCrafts.chronos.CAP, 0, true)
