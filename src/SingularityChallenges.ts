@@ -122,7 +122,7 @@ export class SingularityChallenge {
       this.enabled = true
       G.currentSingChallenge = this.HTMLTag
       player.insideSingularityChallenge = true
-      await singularity(setSingularity)
+      singularity(setSingularity)
 
       if (!this.resetTime) {
         player.singularityCounter = holdSingTimer
@@ -176,7 +176,7 @@ export class SingularityChallenge {
     if (success) {
       this.highestSingularityCompleted = player.singularityCount
       this.updateChallengeCompletions()
-      await singularity(highestSingularityHold)
+      singularity(highestSingularityHold)
       player.singularityCounter = holdSingTimer
       this.updateCaches()
       return Alert(
@@ -186,7 +186,7 @@ export class SingularityChallenge {
         })
       )
     } else {
-      await singularity(highestSingularityHold)
+      singularity(highestSingularityHold)
       player.singularityCounter = holdSingTimer
       player.quarkstimer = holdQuarkExport
       player.goldenQuarksTimer = holdGoldenQuarkExport
