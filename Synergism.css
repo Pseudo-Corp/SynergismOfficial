@@ -4848,19 +4848,19 @@ html[data-research150="false"] .research150 {
     display: none;
 }
 
-html[data-cube-upgrade-10="true"] .cubeUpgrade10 {
+html[data-cube-upgrade10="true"] .cubeUpgrade10 {
     display: flex;
 }
 
-html[data-cube-upgrade-10="false"] .cubeUpgrade10 {
+html[data-cube-upgrade10="false"] .cubeUpgrade10 {
     display: none;
 }
 
-html[data-cube-upgrade-19="true"] .cubeUpgrade19 {
+html[data-cube-upgrade19="true"] .cubeUpgrade19 {
     display: block;
 }
 
-html[data-cube-upgrade-19="false"] .cubeUpgrade19 {
+html[data-cube-upgrade19="false"] .cubeUpgrade19 {
     display: none;
 }
 
@@ -4888,50 +4888,50 @@ html[data-singularity="false"] .singularity {
     display: none;
 }
 
-html[data-cookies-1="true"] .assortedCookies1 {
+html[data-cookies1="true"] .assortedCookies1 {
     display: block;
 }
 
-html[data-cookies-1="false"] .assortedCookies1 {
+html[data-cookies1="false"] .assortedCookies1 {
     display: none;
 }
 
-html[data-cookies-2="true"] .assortedCookies2 {
+html[data-cookies2="true"] .assortedCookies2 {
     display: block;
 }
 
-html[data-cookies-2="false"] .assortedCookies2 {
+html[data-cookies2="false"] .assortedCookies2 {
     display: none;
 }
 
-html[data-cookies-3="true"] .assortedCookies3 {
+html[data-cookies3="true"] .assortedCookies3 {
     display: block;
 }
 
-html[data-cookies-3="false"] .assortedCookies3 {
+html[data-cookies3="false"] .assortedCookies3 {
     display: none;
 }
 
-html[data-cookies-4="true"] .assortedCookies4 {
+html[data-cookies4="true"] .assortedCookies4 {
     display: block;
 }
 
-html[data-cookies-4="false"] .assortedCookies4 {
+html[data-cookies4="false"] .assortedCookies4 {
     display: none;
 }
 
-html[data-cookies-5="true"] .assortedCookies5 {
+html[data-cookies5="true"] .assortedCookies5 {
     display: block;
 }
 
-html[data-cookies-5="false"] .assortedCookies5 {
+html[data-cookies5="false"] .assortedCookies5 {
     display: none;
 }
 
-html[data-golden-quark-3-upg="true"] .goldenQuark3Upg {
+html[data-golden-quark3-upg="true"] .goldenQuark3Upg {
     display: block;
 }
 
-html[data-golden-quark-3-upg="false"] .goldenQuark3Upg {
+html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     display: none;
 }
