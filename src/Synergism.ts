@@ -5129,7 +5129,7 @@ export const resetCheck = async (
     if (!confirmed) {
       return Alert(i18next.t('main.singularityCancelled'))
     } else {
-      await singularity()
+      singularity()
       saveSynergy()
       return Alert(
         i18next.t('main.welcomeToSingularity', {

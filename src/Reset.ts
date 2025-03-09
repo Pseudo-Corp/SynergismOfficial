@@ -45,7 +45,7 @@ import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
 import { buyResearch, updateResearchBG } from './Research'
 import { resetofferings } from './Runes'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
-import { resetShopUpgrades, shopData } from './Shop'
+import { forceResetShopUpgrades, shopData } from './Shop'
 import { calculateSingularityDebuff, getFastForwardTotalMultiplier } from './singularity'
 import { blankSave, format, player, saveSynergy, updateAll, updateEffectiveLevelMult } from './Synergism'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
@@ -1138,10 +1138,9 @@ export const updateSingularityGlobalPerks = () => {
   }
 }
 
-// TODO(@KhafraDev): find way to make this sync
-export const singularity = async (setSingNumber = -1): Promise<void> => {
+export const singularity = (setSingNumber = -1) => {
   if (player.runelevels[6] === 0 && setSingNumber === -1) {
-    return Alert(
+    Alert(
       'You nearly triggered a double singularity bug! Oh no! Luckily, our staff prevented this from happening.'
     )
   }
@@ -1194,7 +1193,7 @@ export const singularity = async (setSingNumber = -1): Promise<void> => {
   }
 
   player.totalQuarksEver += player.quarksThisSingularity
-  await resetShopUpgrades(true)
+  forceResetShopUpgrades()
 
   const { data: hold, success } = playerJsonSchema.safeParse(blankSave)
   assert(success)
