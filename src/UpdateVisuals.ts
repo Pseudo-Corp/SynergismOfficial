@@ -1858,7 +1858,7 @@ export const visualUpdateEvent = () => {
   const { HAPPY_HOUR_BELL } = allConsumables
   if (HAPPY_HOUR_BELL.amount > 0) {
     DOMCacheGetOrSet('consumableEventTimer').textContent = constructConsumableTimes('HAPPY_HOUR_BELL')
-    DOMCacheGetOrSet('consumableEventBonus').textContent = `${HAPPY_HOUR_BELL}`
+    DOMCacheGetOrSet('consumableEventBonus').textContent = `${HAPPY_HOUR_BELL.amount}`
 
     for (let i = 0; i < eventBuffType.length; i++) {
       const eventBuff = consumableEventBuff(BuffType[eventBuffType[i]])
