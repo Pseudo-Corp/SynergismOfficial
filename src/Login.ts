@@ -89,7 +89,9 @@ const messageSchema = z.preprocess(
     z.object({ type: z.literal('tips'), tips: z.number().int() }),
     /** Received when a user reconnects, if there are unclaimed tips */
     z.object({ type: z.literal('tip-backlog'), tips: z.number().int() }),
-    z.object({ type: z.literal('applied-tip'), amount: z.number(), remaining: z.number() })
+    z.object({ type: z.literal('applied-tip'), amount: z.number(), remaining: z.number() }),
+    /** A warning - should *NOT* disconnect from the WebSocket */
+    z.object({ type: z.literal('warn'), message: z.string() })
   ])
 )
 
@@ -380,7 +382,9 @@ function handleWebSocket () {
     const data = messageSchema.parse(ev.data)
     console.log(data)
 
-    if (data.type === 'error') {
+    if (data.type === 'warn') {
+      Notification(data.message, 5_000)
+    } else if (data.type === 'error') {
       Notification(data.message, 5_000)
       resetConsumables()
     } else if (data.type === 'consumed') {
