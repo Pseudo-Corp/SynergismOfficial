@@ -1831,7 +1831,7 @@ p#reincarnatehotkeys {
     margin-top: 15px;
 }
 
-#researchDetails {
+.researchDetails {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -1839,7 +1839,7 @@ p#reincarnatehotkeys {
     margin-top: 5px;
 }
 
-#researchDetails > p {
+.researchDetails > p {
     width: 55em;
     max-width: 100%;
     margin: 0;
