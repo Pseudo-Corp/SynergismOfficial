@@ -1,6 +1,6 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAdditiveLuckMult, calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calculate'
-import { activeConsumables, type PseudoCoinConsumableNames } from './Login'
+import { allConsumables, type PseudoCoinConsumableNames } from './Login'
 import { getTimePinnedToLoadDate, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
 import { timeReminingHours } from './Utility'
@@ -144,12 +144,12 @@ export const getEventBuff = (buff: BuffType): number => {
 }
 
 export const consumableEventBuff = (buff: BuffType) => {
-  const { HAPPY_HOUR_BELL } = activeConsumables
+  const { HAPPY_HOUR_BELL } = allConsumables
   // The interval is the number of events queued excluding the first.
-  const happyHourInterval = HAPPY_HOUR_BELL - 1
+  const happyHourInterval = HAPPY_HOUR_BELL.amount - 1
 
   // If no consumable is active, early return
-  if (HAPPY_HOUR_BELL === 0) {
+  if (HAPPY_HOUR_BELL.amount === 0) {
     return 0
   }
 
@@ -187,10 +187,10 @@ export const consumableEventBuff = (buff: BuffType) => {
 
 const isConsumableActive = (name?: PseudoCoinConsumableNames) => {
   if (typeof name === 'string') {
-    return activeConsumables[name] > 0
+    return allConsumables[name].amount > 0
   }
 
-  return activeConsumables.HAPPY_HOUR_BELL !== 0
+  return allConsumables.HAPPY_HOUR_BELL.amount !== 0
 }
 
 export const updateGlobalsIsEvent = () => {

@@ -13,6 +13,13 @@ import { assert } from './Utility'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
+interface Consumable {
+  /** array of unix timestamps for when each individual consumable ends */
+  ends: number[]
+  amount: number
+  displayName: string
+}
+
 // Consts for Patreon Supporter Roles.
 const TRANSCENDED_BALLER = '756419583941804072'
 const REINCARNATED_BALLER = '758859750070026241'
@@ -40,12 +47,12 @@ export const isLoggedIn = () => loggedIn
 export const getTips = () => tips
 export const setTips = (newTips: number) => tips = newTips
 
-export const activeConsumables: Record<PseudoCoinConsumableNames, number> = {
-  HAPPY_HOUR_BELL: 0
-}
-
-export const allConsumableTimes: Record<PseudoCoinConsumableNames, Array<number>> = {
-  HAPPY_HOUR_BELL: []
+export const allConsumables: Record<PseudoCoinConsumableNames, Consumable> = {
+  HAPPY_HOUR_BELL: {
+    amount: 0,
+    ends: [],
+    displayName: ''
+  }
 }
 
 const messageSchema = z.preprocess(
@@ -66,17 +73,7 @@ const messageSchema = z.preprocess(
     z.object({ type: z.literal('consumed'), consumable: z.string(), startedAt: z.number().int() }),
     /** Received after a consumable ends (broadcasted to everyone) */
     z.object({ type: z.literal('consumable-ended'), consumable: z.string(), endedAt: z.number().int() }),
-    /** Information about currently active consumables */
-    z.object({
-      type: z.literal('info'),
-      active: z.object({
-        name: z.string(),
-        internalName: z.string(),
-        amount: z.number().int(),
-        endsAt: z.number().int()
-      }).array(),
-      tips: z.number().int().nonnegative()
-    }),
+    /** Information about all currently active consumables, received when the connection opens. */
     z.object({
       type: z.literal('info-all'),
       active: z.object({
@@ -342,9 +339,12 @@ const exponentialBackoff = [5000, 15000, 30000, 60000]
 let tries = 0
 
 function resetConsumables () {
-  for (const key in activeConsumables) {
-    activeConsumables[key as PseudoCoinConsumableNames] = 0
-    allConsumableTimes[key as PseudoCoinConsumableNames].length = 0 // Specifically for info-all
+  for (const key of Object.keys(allConsumables)) {
+    allConsumables[key as PseudoCoinConsumableNames] = {
+      amount: 0,
+      ends: [],
+      displayName: ''
+    }
   }
 }
 
@@ -374,7 +374,6 @@ function handleWebSocket () {
     }
 
     queue.length = 0
-    sendToWebsocket(JSON.stringify({ type: 'info-all' }))
   })
 
   ws.addEventListener('message', (ev) => {
@@ -385,43 +384,37 @@ function handleWebSocket () {
       Notification(data.message, 5_000)
       resetConsumables()
     } else if (data.type === 'consumed') {
-      activeConsumables[data.consumable as PseudoCoinConsumableNames]++
-      allConsumableTimes[data.consumable as PseudoCoinConsumableNames].push(data.startedAt + 3600 * 1000)
+      const consumable = allConsumables[data.consumable as PseudoCoinConsumableNames]
+      consumable.ends.push(data.startedAt + 3600 * 1000)
+      consumable.amount++
+
       Notification(`Someone redeemed a(n) ${data.consumable}!`)
     } else if (data.type === 'consumable-ended') {
-      activeConsumables[data.consumable as PseudoCoinConsumableNames]--
       // Because of the invariant that the timestamps are sorted, we can just remove the first element
-      allConsumableTimes[data.consumable as PseudoCoinConsumableNames].shift()
+      const consumable = allConsumables[data.consumable as PseudoCoinConsumableNames]
+      consumable.ends.shift()
+      consumable.amount--
+
       Notification(`A(n) ${data.consumable} ended!`)
     } else if (data.type === 'join') {
       Notification('Connection was established!')
-    } else if (data.type === 'info') {
-      if (data.active.length !== 0) {
-        let message = 'The following consumables are active:\n'
-        let ends = 0
-
-        for (const { amount, internalName, name, endsAt } of data.active) {
-          activeConsumables[internalName as PseudoCoinConsumableNames] = amount
-          message += `${name} (x${amount})`
-          ends = Math.max(ends, endsAt)
-        }
-
-        Notification(message)
-      }
-
-      tips = data.tips
-    } else if (data.type === 'info-all') { // new, needs to be checked
+    } else if (data.type === 'info-all') {
       resetConsumables() // So that we can get an accurate count each time
       if (data.active.length !== 0) {
         let message = 'The following consumables are active:\n'
 
-        for (const { internalName, endsAt } of data.active) {
-          activeConsumables[internalName as PseudoCoinConsumableNames]++
-          allConsumableTimes[internalName as PseudoCoinConsumableNames].push(endsAt)
+        for (const { internalName, endsAt, name } of data.active) {
+          const consumable = allConsumables[internalName as PseudoCoinConsumableNames]
+          consumable.ends.push(endsAt)
+          consumable.amount++
+          consumable.displayName = name
         }
         // Are these already in order? I assume so but just to be sure
-        allConsumableTimes.HAPPY_HOUR_BELL.sort((a, b) => a - b)
-        message += `Happy Hour Bell (x${activeConsumables.HAPPY_HOUR_BELL})`
+        allConsumables.HAPPY_HOUR_BELL.ends.sort((a, b) => a - b)
+
+        for (const { amount, displayName } of Object.values(allConsumables)) {
+          message += `${displayName} (x${amount})`
+        }
 
         Notification(message)
       }
