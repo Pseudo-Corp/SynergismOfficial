@@ -1662,12 +1662,6 @@ p#transcendhotkeys {
     text-align: center;
 }
 
-#challengeIcons > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 #challengeIcons img {
     width: 64px;
     height: 64px;
@@ -4676,4 +4670,268 @@ h3 {
 
 .purple-background img {
     background-color: var(--purplebtn-color);
+}
+
+html[data-coin-one="true"] .coinunlock1 {
+    display: flex;
+}
+
+html[data-coin-one="false"] .coinunlock1 {
+    display: none;
+}
+
+html[data-coin-two="true"] .coinunlock2 {
+    display: flex;
+}
+
+html[data-coin-two="false"] .coinunlock2 {
+    display: none;
+}
+
+html[data-coin-three="true"] .coinunlock3 {
+    display: flex;
+}
+
+html[data-coin-three="false"] .coinunlock3 {
+    display: none;
+}
+
+html[data-coin-four="true"] .coinunlock4 {
+    display: flex;
+}
+
+html[data-coin-four="false"] .coinunlock4 {
+    display: none;
+}
+
+html[data-generation-unlock="true"] .generationunlock {
+    display: block;
+}
+
+html[data-generation-unlock="false"] .generationunlock {
+    display: none;
+}
+
+html[data-reincarnation-one="true"] .reinrow1 {
+    display: block;
+}
+
+html[data-reincarnation-one="false"] .reinrow1 {
+    display: none;
+}
+
+html[data-reincarnation-two="true"] .reinrow2 {
+    display: block;
+}
+
+html[data-reincarnation-two="false"] .reinrow2 {
+    display: none;
+}
+
+html[data-reincarnation-three="true"] .reinrow3 {
+    display: block;
+}
+
+html[data-reincarnation-three="false"] .reinrow3 {
+    display: none;
+}
+
+html[data-reincarnation-four="true"] .reinrow4 {
+    display: block;
+}
+
+html[data-reincarnation-four="false"] .reinrow4 {
+    display: none;
+}
+
+html[data-chal6="true"] .chal6 {
+    display: block;
+}
+
+html[data-chal6="false"] .chal6 {
+    display: none;
+}
+
+html[data-chal7="true"] .chal7 {
+    display: block;
+}
+
+html[data-chal7="false"] .chal7 {
+    display: none;
+}
+
+html[data-chal7x10="true"] .chal7x10 {
+    display: block;
+}
+
+html[data-chal7x10="false"] .chal7x10 {
+    display: none;
+}
+
+html[data-chal9="true"] .chal9 {
+    display: block;
+}
+
+html[data-chal9="false"] .chal9 {
+    display: none;
+}
+
+html[data-chal9x1="true"] .chal9x1 {
+    display: block;
+}
+
+html[data-chal9x1="false"] .chal9x1 {
+    display: none;
+}
+
+html[data-chal10="true"] .chal10 {
+    display: block;
+}
+
+html[data-chal10="false"] .chal10 {
+    display: none;
+}
+
+html[data-chal11="true"] .chal11 {
+    display: block;
+}
+
+html[data-chal11="false"] .chal11 {
+    display: none;
+}
+
+html[data-chal12="true"] .chal12 {
+    display: block;
+}
+
+html[data-chal12="false"] .chal12 {
+    display: none;
+}
+
+html[data-chal13="true"] .chal13 {
+    display: block;
+}
+
+html[data-chal13="false"] .chal13 {
+    display: none;
+}
+
+html[data-chal14="true"] .chal14 {
+    display: block;
+}
+
+html[data-chal14="false"] .chal14 {
+    display: none;
+}
+
+html[data-ascend-unlock="true"] .ascendunlockib {
+    display: inline-block;
+}
+
+html[data-ascend-unlock="false"] .ascendunlockib {
+    display: none;
+}
+
+html[data-prestige-unlock="true"] .prestigeunlockib {
+    display: inline-block;
+}
+
+html[data-prestige-unlock="false"] .prestigeunlockib {
+    display: none;
+}
+
+html[data-research150="true"] .research150 {
+    display: block;
+}
+
+html[data-research150="false"] .research150 {
+    display: none;
+}
+
+html[data-cube-upgrade10="true"] .cubeUpgrade10 {
+    display: flex;
+}
+
+html[data-cube-upgrade10="false"] .cubeUpgrade10 {
+    display: none;
+}
+
+html[data-cube-upgrade19="true"] .cubeUpgrade19 {
+    display: block;
+}
+
+html[data-cube-upgrade19="false"] .cubeUpgrade19 {
+    display: none;
+}
+
+html[data-sacrifice-ants="true"] .sacrificeAnts {
+    display: block;
+}
+
+html[data-sacrifice-ants="false"] .sacrificeAnts {
+    display: none;
+}
+
+html[data-hepteracts="true"] .hepteracts {
+    display: block;
+}
+
+html[data-hepteracts="false"] .hepteracts {
+    display: none;
+}
+
+html[data-singularity="true"] .singularity {
+    display: block;
+}
+
+html[data-singularity="false"] .singularity {
+    display: none;
+}
+
+html[data-cookies1="true"] .assortedCookies1 {
+    display: block;
+}
+
+html[data-cookies1="false"] .assortedCookies1 {
+    display: none;
+}
+
+html[data-cookies2="true"] .assortedCookies2 {
+    display: block;
+}
+
+html[data-cookies2="false"] .assortedCookies2 {
+    display: none;
+}
+
+html[data-cookies3="true"] .assortedCookies3 {
+    display: block;
+}
+
+html[data-cookies3="false"] .assortedCookies3 {
+    display: none;
+}
+
+html[data-cookies4="true"] .assortedCookies4 {
+    display: block;
+}
+
+html[data-cookies4="false"] .assortedCookies4 {
+    display: none;
+}
+
+html[data-cookies5="true"] .assortedCookies5 {
+    display: block;
+}
+
+html[data-cookies5="false"] .assortedCookies5 {
+    display: none;
+}
+
+html[data-golden-quark3-upg="true"] .goldenQuark3Upg {
+    display: block;
+}
+
+html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
+    display: none;
 }
