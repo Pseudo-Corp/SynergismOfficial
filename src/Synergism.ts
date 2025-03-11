@@ -2120,6 +2120,8 @@ const loadSynergy = () => {
     )
 
     player.corruptions.used = new CorruptionLoadout(player.corruptions.used.loadout)
+    // This is needed to fix saves that had issues with not resetting corruption at the singularity
+    player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.used.loadout)
 
     for (let i = 1; i <= 5; i++) {
       const ascendBuildingI = `ascendBuilding${i as OneToFive}` as const
