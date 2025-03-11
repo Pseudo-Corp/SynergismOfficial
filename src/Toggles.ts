@@ -71,7 +71,7 @@ export const toggleChallenges = (i: number, auto = false) => {
     }
   }
   if (
-    (i >= 11 && i <= 15) && ((i === 11 && player.achievements[141] === 1) || player.highestchallengecompletions[i - 1] > 0)
+    (i >= 11 && i <= 15) && (i === 11 ? player.achievements[141] === 1 : player.highestchallengecompletions[i - 1] > 0)
     && ((!auto && !player.toggles[31]) || player.challengecompletions[10] > 0
       || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0
         && player.currentChallenge.ascension === 0))
