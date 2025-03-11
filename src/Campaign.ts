@@ -1459,6 +1459,7 @@ export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
 
   if (key === player.campaigns.current) {
     icon.classList.add('purple-background')
+    icon.style.setProperty('border', '1px solid red')
   } else if (completions === limit) {
     icon.classList.add('green-background')
     icon.style.setProperty('border', '1px solid gold')
