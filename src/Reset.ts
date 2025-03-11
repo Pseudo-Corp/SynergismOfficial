@@ -57,7 +57,7 @@ import { toggleAutoChallengeModeText } from './Toggles'
 import type { OneToFive, Player, resetNames } from './types/Synergism'
 import { Alert, revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { upgradeupdate } from './Upgrades'
-import { assert, getElementById } from './Utility'
+import { getElementById } from './Utility'
 import { updateClassList } from './Utility'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
@@ -1196,8 +1196,7 @@ export const singularity = (setSingNumber = -1) => {
   player.totalQuarksEver += player.quarksThisSingularity
   forceResetShopUpgrades()
 
-  const { data: hold, success } = playerJsonSchema.safeParse(blankSave)
-  assert(success)
+  const hold = playerJsonSchema.parse(blankSave)
 
   // Reset Displays
   changeTab(Tabs.Buildings)
@@ -1263,7 +1262,7 @@ export const singularity = (setSingNumber = -1) => {
     player.corruptions.saves.saves.map((save: SavedCorruption) => {
       return [save.name, save.loadout.loadout]
     })
-  )
+  ) as unknown as typeof hold['corruptions']['saves']
   hold.corruptions.showStats = player.corruptions.showStats
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges

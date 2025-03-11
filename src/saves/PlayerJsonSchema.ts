@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { Corruptions } from '../Corruptions'
+import { Corruptions } from '../Corruptions'
 import type { Player } from '../types/Synergism'
 import { playerSchema } from './PlayerSchema'
 
@@ -16,6 +16,17 @@ export const convertArrayToCorruption = (array: number[]): Corruptions => {
   }
 }
 
+const optionalCorruptionSchema = z.object({
+  viscosity: z.number().optional().default(0),
+  drought: z.number().optional().default(0),
+  deflation: z.number().optional().default(0),
+  extinction: z.number().optional().default(0),
+  illiteracy: z.number().optional().default(0),
+  recession: z.number().optional().default(0),
+  dilation: z.number().optional().default(0),
+  hyperchallenge: z.number().optional().default(0)
+})
+
 export const playerJsonSchema = playerSchema.extend({
   codes: z.any().transform((codes: Player['codes']) => Array.from(codes)),
   worlds: z.any().transform((worlds: Player['worlds']) => Number(worlds)),
@@ -27,20 +38,17 @@ export const playerJsonSchema = playerSchema.extend({
   campaigns: z.any().transform((campaigns: Player['campaigns']) => {
     return campaigns.campaignManagerData
   }),
-  /*campaigns: playerCampaignSchema.transform((campaignManager: Player['campaigns']) => {
-    return {
-      currentCampaign: campaignManager.current,
-      campaigns: campaignManager.allC10Completions,
-    }
-  }),*/
 
-  // Platonic (or somebody I'm so tired): Figure out why the hell using `playerCorruptionsSchema` does not work for saves
-  // But it does work for the other three fields.
-  corruptions: z.any().transform((stuff: Player['corruptions']) => {
+  corruptions: z.object({
+    used: z.object({ loadout: optionalCorruptionSchema }),
+    next: z.object({ loadout: optionalCorruptionSchema }),
+    saves: z.object({ corrSaveData: z.record(z.string(), optionalCorruptionSchema) }),
+    showStats: z.boolean()
+  }).transform((stuff) => {
     return {
       used: stuff.used.loadout,
       next: stuff.next.loadout,
-      saves: stuff.saves.corrSaveData, // TODO: This is the correct typing, but see above comment
+      saves: stuff.saves.corrSaveData,
       showStats: stuff.showStats
     }
   }),
@@ -107,41 +115,4 @@ export const playerJsonSchema = playerSchema.extend({
   ),
 
   dayCheck: z.any().transform((dayCheck: Player['dayCheck']) => dayCheck?.toISOString() ?? null)
-}).transform((player) => {
-  if (player.usedCorruptions !== undefined) {
-    const corrLoadout = convertArrayToCorruption(player.usedCorruptions)
-    player.corruptions.used = corrLoadout
-  }
-
-  if (player.prototypeCorruptions !== undefined) {
-    const corrLoadout = convertArrayToCorruption(player.prototypeCorruptions)
-    player.corruptions.next = corrLoadout
-  }
-
-  if (player.corruptionShowStats !== undefined) {
-    player.corruptions.showStats = player.corruptionShowStats
-  }
-
-  player.corruptions.showStats = player.corruptionShowStats ?? player.corruptions.showStats
-
-  if (player.corruptionLoadouts !== undefined && player.corruptionLoadoutNames !== undefined) {
-    const corruptionSaveStuff = player.corruptionLoadoutNames.reduce(
-      (map, key, index) => {
-        if (player.corruptionLoadouts?.[index + 1]) {
-          map[key] = convertArrayToCorruption(player.corruptionLoadouts[index + 1])
-        }
-        return map
-      },
-      {} as Record<string, Corruptions>
-    )
-
-    player.corruptions.saves = corruptionSaveStuff
-  }
-
-  Reflect.deleteProperty(player, 'usedCorruptions')
-  Reflect.deleteProperty(player, 'prototypeCorruptions')
-  Reflect.deleteProperty(player, 'corruptionLoadoutNames')
-  Reflect.deleteProperty(player, 'corruptionLoadouts')
-
-  return player
 })
