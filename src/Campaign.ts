@@ -1090,7 +1090,7 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
       return maxCorruptionLevel() >= 11
     },
     limit: 40,
-    cardinal: 32,
+    cardinal: 32
   },
   thirtyThird: {
     campaignCorruptions: {
@@ -1494,9 +1494,14 @@ export const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, Campaign
 }
 
 export const activeCampaignTextHTML = () => {
-  const campaignName = player.campaigns.current ? i18next.t(`campaigns.data.${player.campaigns.current}.name`) : i18next.t('campaigns.emptyCampaignName')
+  const campaignName = player.campaigns.current
+    ? i18next.t(`campaigns.data.${player.campaigns.current}.name`)
+    : i18next.t('campaigns.emptyCampaignName')
   const cardinal = player.campaigns.current ? campaignDatas[player.campaigns.current].cardinal : 0
-  DOMCacheGetOrSet('currentCampaignText').innerHTML = i18next.t('campaigns.activeCampaign', { name: campaignName, cardinal: cardinal })
+  DOMCacheGetOrSet('currentCampaignText').innerHTML = i18next.t('campaigns.activeCampaign', {
+    name: campaignName,
+    cardinal: cardinal
+  })
 }
 
 export const campaignIconHTMLUpdates = () => {
