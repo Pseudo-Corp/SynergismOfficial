@@ -355,20 +355,20 @@ export class CorruptionLoadout {
 
 export type SavedCorruption = {
   name: string
-  loadout: CorruptionLoadout
+  corruptions: Corruptions
 }
 
 export class CorruptionSaves {
   #saves: Array<SavedCorruption>
   constructor (corrSaveData: Record<string, Corruptions>) {
     this.#saves = []
-    for (const saveKey of Object.keys(corrSaveData).slice(0, 16)) {
-      this.#saves.push({ name: saveKey, loadout: new CorruptionLoadout(corrSaveData[saveKey]) })
+    for (const [saveKey, saveCorr] of Object.entries(corrSaveData).slice(0, 16)) {
+      this.#saves.push({ name: saveKey, corruptions: saveCorr })
     }
   }
 
   addSave (loadoutName: string, loadoutValues: Corruptions) {
-    this.#saves.push({ name: loadoutName, loadout: new CorruptionLoadout(loadoutValues) })
+    this.#saves.push({ name: loadoutName, corruptions: loadoutValues })
   }
 
   delSave () {
@@ -380,7 +380,7 @@ export class CorruptionSaves {
   }
 
   get corrSaveData (): Record<string, Corruptions> {
-    return Object.fromEntries(this.#saves.map((save) => [save.name, save.loadout.loadout]))
+    return Object.fromEntries(this.#saves.map((save) => [save.name, save.corruptions]))
   }
 }
 
@@ -617,7 +617,7 @@ export const corruptionLoadoutTableCreate = () => {
   const allowedRows = 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
   for (let i = 0; i < Math.min(corrSaves.length, allowedRows); i++) {
     const corrSave = corrSaves[i]
-    const corrLoadout = corrSave.loadout.loadout
+    const corrLoadout = corrSave.corruptions
 
     const row = table.insertRow()
     // Title Cell
@@ -659,7 +659,7 @@ export const corruptionLoadoutTableUpdate = (updateNext = false, updateRow = 0) 
       index += 1
     }
   } else {
-    const corrSaves = player.corruptions.saves.saves[updateRow - 1]?.loadout.loadout
+    const corrSaves = player.corruptions.saves.saves[updateRow - 1]?.corruptions
     let index = 0
     for (const corr in corrSaves) {
       const corrKey = corr as keyof Corruptions
@@ -670,13 +670,15 @@ export const corruptionLoadoutTableUpdate = (updateNext = false, updateRow = 0) 
 }
 
 export const corruptionSaveLoadout = (loadoutNum: number) => {
-  const buildToSave = player.corruptions.next.loadout
-  player.corruptions.saves.saves[loadoutNum].loadout.setCorruptionLevelsWithChallengeRequirement(buildToSave)
+  const buildToSave = new CorruptionLoadout(player.corruptions.next.loadout)
+  buildToSave.setCorruptionLevelsWithChallengeRequirement(player.corruptions.next.loadout)
+
+  player.corruptions.saves.saves[loadoutNum].corruptions = buildToSave.loadout
   corruptionLoadoutTableUpdate(false, loadoutNum + 1)
 }
 
 export const corruptionLoadLoadout = (loadoutNum: number) => {
-  const buildToLoad = player.corruptions.saves.saves[loadoutNum].loadout.loadout
+  const buildToLoad = player.corruptions.saves.saves[loadoutNum].corruptions
   player.corruptions.next.setCorruptionLevelsWithChallengeRequirement(buildToLoad)
   corruptionLoadoutTableUpdate(true)
   corruptionStatsUpdate()

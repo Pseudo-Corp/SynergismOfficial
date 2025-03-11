@@ -27,7 +27,7 @@ import {
   campaignTokenRewardHTMLUpdate
 } from './Campaign'
 import { challengeRequirement } from './Challenges'
-import { c15Corruptions, CorruptionLoadout, corruptionStatsUpdate, type SavedCorruption } from './Corruptions'
+import { c15Corruptions, CorruptionLoadout, corruptionStatsUpdate } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
 import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
 import { getAutoHepteractCrafts } from './Hepteracts'
@@ -1258,11 +1258,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString
-  hold.corruptions.saves = Object.fromEntries(
-    player.corruptions.saves.saves.map((save: SavedCorruption) => {
-      return [save.name, save.loadout.loadout]
-    })
-  ) as unknown as typeof hold['corruptions']['saves']
+  hold.corruptions.saves = player.corruptions.saves.corrSaveData //as unknown as typeof hold['corruptions']['saves']
   hold.corruptions.showStats = player.corruptions.showStats
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
