@@ -1462,7 +1462,6 @@ export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
     icon.style.setProperty('border', '1px solid red')
   } else if (completions === limit) {
     icon.classList.add('green-background')
-    icon.style.setProperty('border', '1px solid gold')
   }
 
   icon.style.setProperty('--pct', `${completions}/${limit}`)
