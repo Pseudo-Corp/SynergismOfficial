@@ -1,5 +1,6 @@
 import { z } from 'zod'
-import { Corruptions } from '../Corruptions'
+import { CampaignManager } from '../Campaign'
+import type { Corruptions } from '../Corruptions'
 import type { Player } from '../types/Synergism'
 import { playerSchema } from './PlayerSchema'
 
@@ -35,7 +36,7 @@ export const playerJsonSchema = playerSchema.extend({
   wowHypercubes: z.any().transform((hypercubes: Player['wowHypercubes']) => Number(hypercubes)),
   wowPlatonicCubes: z.any().transform((cubes: Player['wowPlatonicCubes']) => Number(cubes)),
 
-  campaigns: z.any().transform((campaigns: Player['campaigns']) => {
+  campaigns: z.instanceof(CampaignManager).transform((campaigns) => {
     return campaigns.campaignManagerData
   }),
 
