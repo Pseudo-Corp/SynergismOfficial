@@ -1454,11 +1454,16 @@ export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
 
   icon.classList.remove('green-background', 'purple-background')
 
+  const completions = player.campaigns.getCampaign(key).c10Completions
+  const limit = campaignDatas[key].limit
+
   if (key === player.campaigns.current) {
     icon.classList.add('purple-background')
-  } else if (player.campaigns.getCampaign(key).c10Completions === campaignDatas[key].limit) {
+  } else if (completions === limit) {
     icon.classList.add('green-background')
   }
+
+  icon.style.setProperty('--pct', `${completions}/${limit}`)
 }
 
 export const campaignCorruptionStatsHTMLReset = () => {

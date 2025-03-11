@@ -293,8 +293,7 @@ export class CorruptionLoadout {
       corruptionLoadoutTableUpdate(true, 0)
       corruptionDisplay(G.corruptionTrigger)
       DOMCacheGetOrSet('corruptionCleanseConfirm').style.visibility = 'hidden'
-    }
-    else {
+    } else {
       Notification(i18next.t('corruptions.resetCorruptionsError'))
     }
   }
