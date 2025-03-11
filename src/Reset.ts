@@ -1258,7 +1258,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString
-  hold.corruptions.saves = player.corruptions.saves.corrSaveData //as unknown as typeof hold['corruptions']['saves']
+  hold.corruptions.saves = player.corruptions.saves.corrSaveData
   hold.corruptions.showStats = player.corruptions.showStats
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
