@@ -2637,6 +2637,7 @@
     "intro": "Campaigns - <<orange | Ascensions>> but <<maroon | harder™>>",
     "campaignInfo": "Play through <<orange | Ascensions>> with various modifiers to make it spicier, but also more cubical! \n Each Campaign is a <i> <<red | Corrupted>> form of <<orange | Ascension>>. \n <<lightgoldenrodyellow | Click on an icon to see what I mean!>> </i>",
     "pickNow": "Pick Your Campaign now!",
+    "activeCampaign": "Active Campaign: <<orange | {{name}} (#{{cardinal}}) >>",
     "data": {
       "first": {
         "name": "The first Campaign",
@@ -2879,6 +2880,7 @@
       }
     },
     "currentCampaignPreTitle": "Current Campaign: ",
+    "emptyCampaignName": "No Campaign Selected",
     "noChallengeCompletionConfirm": "You have not yet cleared Challenge 10 and therefore will not earn Cubes if you leave. Confirm?",
     "saveLoadout": "Save Corruption Loadout!",
     "saveLoadoutNotification": "Saved Corruption Loadout for {{ name }} for next Ascension!",
