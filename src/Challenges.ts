@@ -633,7 +633,7 @@ export const runChallengeSweep = (dt: number) => {
   if (
     autoAscensionChallengeSweepUnlock() && player.currentChallenge.ascension === 15
     && player.shopUpgrades.challenge15Auto === 0
-    && (action === 'start' || action === 'enter') && player.autoAscend && player.challengecompletions[11] > 0
+    && (action === 'start' || action === 'enter') && player.autoAscend && player.highestchallengecompletions[11] > 0
     && player.cubeUpgrades[10] > 0
     && player.autoAscendMode === 'realAscensionTime'
     && player.ascensionCounterRealReal >= Math.max(0.1, player.autoAscendThreshold - 5)

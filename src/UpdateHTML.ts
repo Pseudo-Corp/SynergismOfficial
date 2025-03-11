@@ -125,10 +125,10 @@ export const revealStuff = () => {
     }
   }
 
-  document.documentElement.dataset.chal11 = player.challengecompletions[11] > 0 ? 'true' : 'false'
-  document.documentElement.dataset.chal12 = player.challengecompletions[12] > 0 ? 'true' : 'false'
-  document.documentElement.dataset.chal13 = player.challengecompletions[13] > 0 ? 'true' : 'false'
-  document.documentElement.dataset.chal14 = player.challengecompletions[14] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.chal11 = player.highestchallengecompletions[11] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.chal12 = player.highestchallengecompletions[12] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.chal13 = player.highestchallengecompletions[13] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.chal14 = player.highestchallengecompletions[14] > 0 ? 'true' : 'false'
 
   document.documentElement.dataset.ascendUnlock = player.ascensionCount > 0 ? 'true' : 'false'
   document.documentElement.dataset.prestigeUnlock = player.unlocks.prestige ? 'true' : 'false'
