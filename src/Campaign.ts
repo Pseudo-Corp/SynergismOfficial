@@ -104,6 +104,7 @@ export interface ICampaignData {
   unlockRequirement: () => boolean
   limit: number
   isMeta: boolean
+  cardinal: number
 }
 
 export class CampaignManager {
@@ -359,6 +360,8 @@ export class CampaignManager {
     corruptionStatsUpdate()
     campaignIconHTMLUpdate(key)
     campaignCorruptionStatHTMLUpdate(key)
+    // Update Campaign Active Text
+    activeCampaignTextHTML()
   }
 
   set c10Completions (c10: number) {
@@ -382,6 +385,9 @@ export class CampaignManager {
       // Update Token Count for player
       this.computeTotalCampaignTokens()
       campaignTokenRewardHTMLUpdate()
+
+      // Update Campaign Active Text
+      activeCampaignTextHTML()
     }
     if (savedKey) {
       // Would no longer be equal to current campaign so reset background color
@@ -624,7 +630,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return true
     },
-    limit: 10
+    limit: 10,
+    cardinal: 1
   },
   second: {
     campaignCorruptions: {
@@ -634,7 +641,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return true
     },
-    limit: 10
+    limit: 10,
+    cardinal: 2
   },
   third: {
     campaignCorruptions: {
@@ -645,7 +653,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return true
     },
-    limit: 10
+    limit: 10,
+    cardinal: 3
   },
   fourth: {
     campaignCorruptions: {
@@ -656,7 +665,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return true
     },
-    limit: 10
+    limit: 10,
+    cardinal: 4
   },
   fifth: {
     campaignCorruptions: {
@@ -667,7 +677,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return true
     },
-    limit: 10
+    limit: 10,
+    cardinal: 5
   },
   sixth: {
     campaignCorruptions: {
@@ -678,7 +689,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return true
     },
-    limit: 15
+    limit: 15,
+    cardinal: 6
   },
   seventh: {
     campaignCorruptions: {
@@ -689,7 +701,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return true
     },
-    limit: 15
+    limit: 15,
+    cardinal: 7
   },
   eighth: {
     campaignCorruptions: {
@@ -701,7 +714,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 7
     },
-    limit: 15
+    limit: 15,
+    cardinal: 8
   },
   ninth: {
     campaignCorruptions: {
@@ -713,7 +727,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 7
     },
-    limit: 15
+    limit: 15,
+    cardinal: 9
   },
   tenth: {
     campaignCorruptions: {
@@ -725,7 +740,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 7
     },
-    limit: 15
+    limit: 15,
+    cardinal: 10
   },
   eleventh: {
     campaignCorruptions: {
@@ -737,7 +753,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 7
     },
-    limit: 20
+    limit: 20,
+    cardinal: 11
   },
   twelfth: {
     campaignCorruptions: {
@@ -750,7 +767,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 7
     },
-    limit: 20
+    limit: 20,
+    cardinal: 12
   },
   thirteenth: {
     campaignCorruptions: {
@@ -763,7 +781,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 7
     },
-    limit: 20
+    limit: 20,
+    cardinal: 13
   },
   fourteenth: {
     campaignCorruptions: {
@@ -776,7 +795,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 7
     },
-    limit: 20
+    limit: 20,
+    cardinal: 14
   },
   fifteenth: {
     campaignCorruptions: {
@@ -789,7 +809,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 7
     },
-    limit: 20
+    limit: 20,
+    cardinal: 15
   },
   sixteenth: {
     campaignCorruptions: {
@@ -802,7 +823,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 9
     },
-    limit: 25
+    limit: 25,
+    cardinal: 16
   },
   seventeenth: {
     campaignCorruptions: {
@@ -815,7 +837,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 9
     },
-    limit: 25
+    limit: 25,
+    cardinal: 17
   },
   eighteenth: {
     campaignCorruptions: {
@@ -830,7 +853,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 9
     },
-    limit: 25
+    limit: 25,
+    cardinal: 18
   },
   nineteenth: {
     campaignCorruptions: {
@@ -845,7 +869,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 9
     },
-    limit: 25
+    limit: 25,
+    cardinal: 19
   },
   twentieth: {
     campaignCorruptions: {
@@ -860,7 +885,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 9
     },
-    limit: 25
+    limit: 25,
+    cardinal: 20
   },
   twentyFirst: {
     campaignCorruptions: {
@@ -875,7 +901,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 9
     },
-    limit: 30
+    limit: 30,
+    cardinal: 21
   },
   twentySecond: {
     campaignCorruptions: {
@@ -890,7 +917,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 9
     },
-    limit: 30
+    limit: 30,
+    cardinal: 22
   },
   twentyThird: {
     campaignCorruptions: {
@@ -905,7 +933,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 9
     },
-    limit: 30
+    limit: 30,
+    cardinal: 23
   },
   twentyFourth: {
     campaignCorruptions: {
@@ -920,7 +949,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 9
     },
-    limit: 30
+    limit: 30,
+    cardinal: 24
   },
   twentyFifth: {
     campaignCorruptions: {
@@ -935,7 +965,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 9
     },
-    limit: 30
+    limit: 30,
+    cardinal: 25
   },
   twentySixth: {
     campaignCorruptions: {
@@ -951,7 +982,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 35
+    limit: 35,
+    cardinal: 26
   },
   twentySeventh: {
     campaignCorruptions: {
@@ -967,7 +999,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 35
+    limit: 35,
+    cardinal: 27
   },
   twentyEighth: {
     campaignCorruptions: {
@@ -984,7 +1017,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 35
+    limit: 35,
+    cardinal: 28
   },
   twentyNinth: {
     campaignCorruptions: {
@@ -1001,7 +1035,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 35
+    limit: 35,
+    cardinal: 29
   },
   thirtieth: {
     campaignCorruptions: {
@@ -1018,7 +1053,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 35
+    limit: 35,
+    cardinal: 30
   },
   thirtyFirst: {
     campaignCorruptions: {
@@ -1035,7 +1071,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 40
+    limit: 40,
+    cardinal: 31
   },
   thirtySecond: {
     campaignCorruptions: {
@@ -1052,7 +1089,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 40
+    limit: 40,
+    cardinal: 32,
   },
   thirtyThird: {
     campaignCorruptions: {
@@ -1069,7 +1107,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 45
+    limit: 45,
+    cardinal: 33
   },
   thirtyFourth: {
     campaignCorruptions: {
@@ -1086,7 +1125,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 45
+    limit: 45,
+    cardinal: 34
   },
   thirtyFifth: {
     campaignCorruptions: {
@@ -1103,7 +1143,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 50
+    limit: 50,
+    cardinal: 35
   },
   thirtySixth: {
     campaignCorruptions: {
@@ -1120,7 +1161,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 50
+    limit: 50,
+    cardinal: 36
   },
   thirtySeventh: {
     campaignCorruptions: {
@@ -1137,7 +1179,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 55
+    limit: 55,
+    cardinal: 37
   },
   thirtyEighth: {
     campaignCorruptions: {
@@ -1154,11 +1197,11 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 55
+    limit: 55,
+    cardinal: 38
   },
   thirtyNinth: {
     campaignCorruptions: {
-      viscosity: 3,
       drought: 10,
       deflation: 4,
       extinction: 11,
@@ -1171,7 +1214,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 11
     },
-    limit: 60
+    limit: 60,
+    cardinal: 39
   },
   fortieth: {
     campaignCorruptions: {
@@ -1188,7 +1232,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return player.cubeUpgrades[50] > 99999
     },
-    limit: 60
+    limit: 60,
+    cardinal: 40
   },
   fortyFirst: {
     campaignCorruptions: {
@@ -1205,7 +1250,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return player.cubeUpgrades[50] > 99999
     },
-    limit: 65
+    limit: 65,
+    cardinal: 41
   },
   fortySecond: {
     campaignCorruptions: {
@@ -1222,7 +1268,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 12
     },
-    limit: 70
+    limit: 70,
+    cardinal: 42
   },
   fortyThird: {
     campaignCorruptions: {
@@ -1239,7 +1286,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 12
     },
-    limit: 75
+    limit: 75,
+    cardinal: 43
   },
   fortyFourth: {
     campaignCorruptions: {
@@ -1256,7 +1304,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 12
     },
-    limit: 80
+    limit: 80,
+    cardinal: 44
   },
   fortyFifth: {
     campaignCorruptions: {
@@ -1273,7 +1322,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 13
     },
-    limit: 85
+    limit: 85,
+    cardinal: 45
   },
   fortySixth: {
     campaignCorruptions: {
@@ -1290,7 +1340,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 13
     },
-    limit: 95
+    limit: 95,
+    cardinal: 46
   },
   fortySeventh: {
     campaignCorruptions: {
@@ -1307,7 +1358,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 13
     },
-    limit: 105
+    limit: 105,
+    cardinal: 47
   },
   fortyEighth: {
     campaignCorruptions: {
@@ -1324,7 +1376,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 13
     },
-    limit: 115
+    limit: 115,
+    cardinal: 48
   },
   fortyNinth: {
     campaignCorruptions: {
@@ -1341,7 +1394,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 13
     },
-    limit: 125
+    limit: 125,
+    cardinal: 49
   },
   fiftieth: {
     campaignCorruptions: {
@@ -1358,7 +1412,8 @@ export const campaignDatas: Record<CampaignKeys, ICampaignData> = {
     unlockRequirement: () => {
       return maxCorruptionLevel() >= 13
     },
-    limit: 140
+    limit: 140,
+    cardinal: 50
   }
 }
 
@@ -1438,10 +1493,19 @@ export const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, Campaign
   }
 }
 
+export const activeCampaignTextHTML = () => {
+  const campaignName = player.campaigns.current ? i18next.t(`campaigns.data.${player.campaigns.current}.name`) : i18next.t('campaigns.emptyCampaignName')
+  const cardinal = player.campaigns.current ? campaignDatas[player.campaigns.current].cardinal : 0
+  DOMCacheGetOrSet('currentCampaignText').innerHTML = i18next.t('campaigns.activeCampaign', { name: campaignName, cardinal: cardinal })
+}
+
 export const campaignIconHTMLUpdates = () => {
   for (const key of Object.keys(campaignDatas) as CampaignKeys[]) {
     campaignIconHTMLUpdate(key)
   }
+
+  // Update the active campaign text
+  activeCampaignTextHTML()
 }
 
 export const campaignIconHTMLUpdate = (key: CampaignKeys) => {
