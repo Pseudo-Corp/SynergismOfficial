@@ -198,7 +198,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
   const n = DOMCacheGetOrSet('challengeCurrent3')
 
   if (i === G.challengefocus) {
-    const completions = `${player.challengecompletions[i]}/${format(maxChallenges)}`
+    const completions = `${format(player.challengecompletions[i])}/${format(maxChallenges)}`
     const special = (i >= 6 && i <= 10) || i === 15
     const goal = format(challengeRequirement(i, player.challengecompletions[i], special ? i : 0))
 
@@ -214,6 +214,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
       }
       case 2: {
         current1 = current2 = format(5 * CalcECC('transcend', player.challengecompletions[2]))
+        current3 = format(0.25 * CalcECC('transcend', player.challengecompletions[2]))
         break
       }
       case 3: {
