@@ -337,6 +337,7 @@ class TabRow extends HTMLDivElement {
       margin-block: unset;
       padding-inline: unset;
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       gap: 0 5px;
     `
