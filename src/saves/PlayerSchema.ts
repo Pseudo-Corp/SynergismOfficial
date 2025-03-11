@@ -1,4 +1,4 @@
-import Decimal from 'break_infinity.js'
+import Decimal, { type DecimalSource } from 'break_infinity.js'
 import { z, type ZodNumber, type ZodType } from 'zod'
 import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
@@ -13,7 +13,7 @@ import { blankSave } from '../Synergism'
 import type { Player } from '../types/Synergism'
 import { deepClone, padArray } from '../Utility'
 
-const decimalSchema = z.custom<Decimal>((value) => {
+const decimalSchema = z.custom<DecimalSource>((value) => {
   try {
     new Decimal(value)
     return true

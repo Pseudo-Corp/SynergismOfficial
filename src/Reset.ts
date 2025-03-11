@@ -1,7 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementaward, ascensionAchievementCheck, challengeachievementcheck } from './Achievements'
-import type { BlueberryLoadoutMode } from './BlueberryUpgrades'
 import { buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy'
 import type { TesseractBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -1361,7 +1360,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.visitedAmbrosiaSubtab = player.visitedAmbrosiaSubtab
   hold.blueberryTime = player.blueberryTime
   hold.blueberryLoadouts = player.blueberryLoadouts
-  hold.blueberryLoadoutMode = player.blueberryLoadoutMode as BlueberryLoadoutMode
+  hold.blueberryLoadoutMode = player.blueberryLoadoutMode
   hold.wowCubes = Number(player.wowCubes)
   hold.wowTesseracts = Number(player.wowTesseracts)
   hold.wowHypercubes = Number(player.wowHypercubes)
