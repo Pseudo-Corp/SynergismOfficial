@@ -46,6 +46,7 @@ export class SingularityChallenge {
   public scalingrewardcount
   public uniquerewardcount
   readonly cacheUpdates: (() => void)[] | undefined
+  #key: string
 
   public constructor (data: ISingularityChallengeData, key: string) {
     const name = i18next.t(`singularityChallenge.data.${key}.name`)
@@ -70,6 +71,7 @@ export class SingularityChallenge {
     this.updateIconHTML()
     this.updateChallengeCompletions()
     this.cacheUpdates = data.cacheUpdates ?? undefined
+    this.#key = key
   }
 
   public computeSingularityRquirement () {
@@ -279,6 +281,28 @@ export class SingularityChallenge {
 
   public get rewards () {
     return this.effect(this.completions)
+  }
+
+  valueOf (): ISingularityChallengeData {
+    return {
+      baseReq: this.baseReq,
+      effect: this.effect,
+      HTMLTag: this.HTMLTag,
+      maxCompletions: this.maxCompletions,
+      scalingrewardcount: this.scalingrewardcount,
+      singularityRequirement: this.singularityRequirement,
+      uniquerewardcount: this.uniquerewardcount,
+      unlockSingularity: this.unlockSingularity,
+      cacheUpdates: this.cacheUpdates,
+      completions: this.completions,
+      enabled: this.enabled,
+      highestSingularityCompleted: this.highestSingularityCompleted,
+      resetTime: this.resetTime
+    }
+  }
+
+  key () {
+    return this.#key
   }
 }
 

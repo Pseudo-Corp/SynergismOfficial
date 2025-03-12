@@ -401,15 +401,18 @@ export class HepteractCraft {
     return this
   }
 
-  // Get balance of item
-  get amount () {
-    return this.BAL
-  }
-  get capacity () {
-    return this.CAP
-  }
-  get discount () {
-    return this.DISCOUNT
+  valueOf (): IHepteractCraft {
+    return {
+      BASE_CAP: this.BASE_CAP,
+      HEPTERACT_CONVERSION: this.HEPTERACT_CONVERSION,
+      OTHER_CONVERSIONS: this.OTHER_CONVERSIONS,
+      HTML_STRING: this.HTML_STRING,
+      UNLOCKED: this.UNLOCKED,
+      BAL: this.BAL,
+      CAP: this.CAP,
+      DISCOUNT: this.DISCOUNT,
+      AUTO: this.AUTO
+    }
   }
 }
 

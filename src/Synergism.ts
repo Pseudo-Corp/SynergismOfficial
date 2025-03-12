@@ -14,7 +14,7 @@ import {
   highestChallengeRewards,
   runChallengeSweep
 } from './Challenges'
-import { btoa, cleanString, isDecimal, sortWithIndices, sumContents } from './Utility'
+import { btoa, cleanString, deepClone, isDecimal, sortWithIndices, sumContents } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {
@@ -1577,9 +1577,7 @@ export const player: Player = {
   seed: Array.from({ length: 2 }, () => Date.now())
 }
 
-export const blankSave = Object.assign({}, player, {
-  codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false]))
-})
+export const blankSave = deepClone(player)
 
 export const saveSynergy = (button?: boolean) => {
   player.offlinetick = Date.now()

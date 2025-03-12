@@ -51,6 +51,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   public blueberryCost: number
   readonly preRequisites: BlueberryOpt | undefined
   readonly cacheUpdates: (() => void)[] | undefined
+  #key: string
 
   constructor (data: IBlueberryData, key: string) {
     const name = i18next.t(`ambrosia.data.${key}.name`)
@@ -64,6 +65,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     this.blueberriesInvested = data.blueberriesInvested ?? 0
     this.preRequisites = data.prerequisites ?? undefined
     this.cacheUpdates = data.cacheUpdates ?? undefined
+    this.#key = key
   }
 
   getCostTNL (): number {
@@ -305,6 +307,27 @@ export class BlueberryUpgrade extends DynamicUpgrade {
         ? 0
         : this.level
     return this.rewards(effectiveLevel)
+  }
+
+  valueOf (): IBlueberryData {
+    return {
+      blueberryCost: this.blueberryCost,
+      costFormula: this.costFormula,
+      costPerLevel: this.costPerLevel,
+      maxLevel: this.maxLevel,
+      rewards: this.rewards,
+      ambrosiaInvested: this.ambrosiaInvested,
+      blueberriesInvested: this.blueberriesInvested,
+      cacheUpdates: this.cacheUpdates,
+      freeLevels: this.freeLevels,
+      level: this.level,
+      prerequisites: this.preRequisites,
+      toggleBuy: this.toggleBuy
+    }
+  }
+
+  key () {
+    return this.#key
   }
 }
 

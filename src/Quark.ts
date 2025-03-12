@@ -84,5 +84,9 @@ export class QuarkHandler {
     this.QUARKS = 0
   }
 
+  valueOf () {
+    return this.QUARKS
+  }
+
   [Symbol.toPrimitive] = (t: string) => t === 'number' ? this.QUARKS : null
 }

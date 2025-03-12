@@ -351,7 +351,7 @@ export class CampaignManager {
     return {
       currentCampaign: this.#currentCampaign,
       campaigns: this.allC10Completions
-    } as ICampaignManagerData
+    } satisfies ICampaignManagerData
   }
 
   set campaign (key: CampaignKeys) {

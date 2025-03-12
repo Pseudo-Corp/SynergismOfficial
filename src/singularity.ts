@@ -152,6 +152,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
   public specialCostForm: SingularitySpecialCostFormulae
   public qualityOfLife: boolean
   readonly cacheUpdates: (() => void)[] | undefined
+  #key: string
 
   public constructor (data: ISingularityData, key: string) {
     const name = i18next.t(`singularity.data.${key}.name`)
@@ -164,6 +165,7 @@ export class SingularityUpgrade extends DynamicUpgrade {
     this.specialCostForm = data.specialCostForm ?? 'Default'
     this.qualityOfLife = data.qualityOfLife ?? false
     this.cacheUpdates = data.cacheUpdates ?? undefined
+    this.#key = key
   }
 
   /**
@@ -434,6 +436,27 @@ export class SingularityUpgrade extends DynamicUpgrade {
     player.goldenQuarks += this.goldenQuarksInvested
     this.level = 0
     this.goldenQuarksInvested = 0
+  }
+
+  valueOf (): ISingularityData {
+    return {
+      costPerLevel: this.costPerLevel,
+      maxLevel: this.maxLevel,
+      cacheUpdates: this.cacheUpdates,
+      canExceedCap: this.canExceedCap,
+      effect: this.effect,
+      freeLevels: this.freeLevels,
+      goldenQuarksInvested: this.goldenQuarksInvested,
+      level: this.level,
+      minimumSingularity: this.minimumSingularity,
+      qualityOfLife: this.qualityOfLife,
+      specialCostForm: this.specialCostForm,
+      toggleBuy: this.toggleBuy
+    }
+  }
+
+  key () {
+    return this.#key
   }
 }
 
