@@ -107,41 +107,4 @@ export const playerJsonSchema = playerSchema.extend({
   ),
 
   dayCheck: z.any().transform((dayCheck: Player['dayCheck']) => dayCheck?.toISOString() ?? null)
-}).transform((player) => {
-  if (player.usedCorruptions !== undefined) {
-    const corrLoadout = convertArrayToCorruption(player.usedCorruptions)
-    player.corruptions.used = corrLoadout
-  }
-
-  if (player.prototypeCorruptions !== undefined) {
-    const corrLoadout = convertArrayToCorruption(player.prototypeCorruptions)
-    player.corruptions.next = corrLoadout
-  }
-
-  if (player.corruptionShowStats !== undefined) {
-    player.corruptions.showStats = player.corruptionShowStats
-  }
-
-  player.corruptions.showStats = player.corruptionShowStats ?? player.corruptions.showStats
-
-  if (player.corruptionLoadouts !== undefined && player.corruptionLoadoutNames !== undefined) {
-    const corruptionSaveStuff = player.corruptionLoadoutNames.reduce(
-      (map, key, index) => {
-        if (player.corruptionLoadouts?.[index + 1]) {
-          map[key] = convertArrayToCorruption(player.corruptionLoadouts[index + 1])
-        }
-        return map
-      },
-      {} as Record<string, Corruptions>
-    )
-
-    player.corruptions.saves = corruptionSaveStuff
-  }
-
-  Reflect.deleteProperty(player, 'usedCorruptions')
-  Reflect.deleteProperty(player, 'prototypeCorruptions')
-  Reflect.deleteProperty(player, 'corruptionLoadoutNames')
-  Reflect.deleteProperty(player, 'corruptionLoadouts')
-
-  return player
 })
