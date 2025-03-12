@@ -17,7 +17,7 @@ import { blankSave, format, player, reloadShit, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { cleanString, getElementById, productContents, sumContents } from './Utility'
+import { cleanString, deepClone, getElementById, productContents, sumContents } from './Utility'
 import { btoa } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -289,7 +289,7 @@ export const resetGame = async (force = true) => {
     }
   }
 
-  const hold = playerJsonSchema.safeParse(blankSave)
+  const hold = playerJsonSchema.safeParse(deepClone()(blankSave))
 
   // Reset Displays
   changeTab(Tabs.Buildings)
