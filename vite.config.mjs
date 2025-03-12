@@ -35,7 +35,13 @@ export default defineConfig({
       output: {
         entryFileNames: '[name].js',
         chunkFileNames: '[name].js',
-        assetFileNames: '[name].[ext]'
+        assetFileNames (asset) {
+          if (asset.names.includes('index.css')) {
+            return 'Synergism.css'
+          }
+
+          return '[name]-[extname]'
+        }
       }
     }
   }
