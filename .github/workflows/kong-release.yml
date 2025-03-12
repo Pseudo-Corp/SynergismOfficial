@@ -22,14 +22,14 @@ jobs:
       - name: Build
         run: |
           node ./scripts/update-last-updated.js
-          npm run-script build:esbuild
+          npm run-script build
       - name: Remove old .zip
         run: |
           rm -rf Kong.zip
       - name: Create .zip File
         uses: vimtor/action-zip@v1
         with:
-          files: dist/ Pictures/Splash/ Pictures/Default/ Pictures/logo.png Pictures/logoLight.png Pictures/MISSINGIMAGE.png translations/ index.html Synergism.css favicon.ico
+          files: dist/
           dest: Kong.zip
           recursive: false
       - name: Retrieve version

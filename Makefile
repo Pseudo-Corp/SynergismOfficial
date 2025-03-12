@@ -7,11 +7,11 @@ help:		## Show help
 install: 		## Install necessary dependencies
 	npm install
 
-watch: 		## Watches for file changes and update the page automatically, similar to running `npm run build:esbuild` every time
-	npm run watch:esbuild
+watch: 		## Watches for file changes and update the page automatically
+	npm run dev
 
 build: 		## Builds the project
-	npm run build:esbuild
+	npm run build
 
 check: 		## Typecheck all TypeScript files
 	npm run check:tsc

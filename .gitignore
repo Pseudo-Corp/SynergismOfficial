@@ -2,7 +2,7 @@ node_modules/
 *.js
 !scripts/*.js
 dist
-!.eslintrc.js
+!*.config.js
 .idea
 package-lock.json
 

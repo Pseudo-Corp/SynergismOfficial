@@ -24,16 +24,12 @@ jobs:
           npm run csslint
       - name: Build
         run: |
+          rm -rf dist
           node ./scripts/update-last-updated.js
-          npm run-script build:esbuild
-      - name: Prepare for deploy
-        run: |
-          rm -rf targetdir
-          mkdir -p targetdir
-          mv dist Pictures translations index.html Synergism.css favicon.ico package.json targetdir/
+          npm run-script build
       - name: Deploy with the $GME emoji for some reason 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: targetdir
+          FOLDER: dist

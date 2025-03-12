@@ -36,6 +36,8 @@ jobs:
         run: |
           npm run lint
           npm run csslint
+      - name: Build
+        run: npm run build
       - name: Check translation files
         if: matrix.os == 'ubuntu-latest' && ${{ github.event_name == 'pull_request' }}
         uses: actions/github-script@v7
