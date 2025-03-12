@@ -1577,7 +1577,7 @@ export const player: Player = {
   seed: Array.from({ length: 2 }, () => Date.now())
 }
 
-export const blankSave = deepClone(player)
+export const blankSave = deepClone()(player)
 
 export const saveSynergy = (button?: boolean) => {
   player.offlinetick = Date.now()

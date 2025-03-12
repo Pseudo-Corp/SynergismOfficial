@@ -264,11 +264,11 @@ export const playerSchema = z.object({
   eighthCostAnts: decimalSchema,
   eighthProduceAnts: z.number().default(() => blankSave.eighthProduceAnts),
 
-  ascendBuilding1: ascendBuildingSchema.default(() => deepClone(blankSave.ascendBuilding1)),
-  ascendBuilding2: ascendBuildingSchema.default(() => deepClone(blankSave.ascendBuilding2)),
-  ascendBuilding3: ascendBuildingSchema.default(() => deepClone(blankSave.ascendBuilding3)),
-  ascendBuilding4: ascendBuildingSchema.default(() => deepClone(blankSave.ascendBuilding4)),
-  ascendBuilding5: ascendBuildingSchema.default(() => deepClone(blankSave.ascendBuilding5)),
+  ascendBuilding1: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding1)),
+  ascendBuilding2: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding2)),
+  ascendBuilding3: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding3)),
+  ascendBuilding4: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding4)),
+  ascendBuilding5: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding5)),
 
   multiplierCost: decimalSchema,
   multiplierBought: z.number(),
@@ -410,7 +410,7 @@ export const playerSchema = z.object({
   subtabNumber: z.number().default(() => blankSave.subtabNumber),
 
   codes: z.array(z.tuple([z.number(), z.boolean()])).transform((tuple) => new Map(tuple)).default(() =>
-    deepClone([...blankSave.codes])
+    deepClone()([...blankSave.codes])
   ),
 
   loaded1009: z.boolean().default(() => blankSave.loaded1009),
@@ -539,7 +539,7 @@ export const playerSchema = z.object({
     )
   }).default(() => blankSave.hepteractCrafts),
 
-  ascendShards: decimalSchema.default(() => deepClone(blankSave.ascendShards)),
+  ascendShards: decimalSchema.default(() => deepClone()(blankSave.ascendShards)),
   autoAscend: z.boolean().default(() => blankSave.autoAscend),
   autoAscendMode: z.string().default(() => blankSave.autoAscendMode),
   autoAscendThreshold: z.number().default(() => blankSave.autoAscendThreshold),
@@ -575,7 +575,7 @@ export const playerSchema = z.object({
     ascend: z.any().array().default(() => [...blankSave.history.ascend]),
     reset: z.any().array().default(() => [...blankSave.history.reset]),
     singularity: z.any().array().default(() => [...blankSave.history.singularity])
-  }).default(() => deepClone(blankSave.history)),
+  }).default(() => deepClone()(blankSave.history)),
   historyShowPerSecond: z.boolean().default(() => blankSave.historyShowPerSecond),
 
   autoChallengeRunning: z.boolean().default(() => blankSave.autoChallengeRunning),

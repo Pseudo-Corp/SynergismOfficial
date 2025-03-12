@@ -223,7 +223,7 @@ export const createDeferredPromise = <T>(): DeferredPromise<T> => {
   return { resolve, reject, promise }
 }
 
-export const deepClone = rfdc({
+export const deepClone = () => rfdc({
   proto: false,
   circles: false,
   constructorHandlers: [
