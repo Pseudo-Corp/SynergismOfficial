@@ -29,6 +29,7 @@ export default defineConfig({
   build: {
     assetsInlineLimit: 0,
     assetsDir: '',
+    emitAssets: false,
     rollupOptions: {
       input: path.resolve(__dirname, 'index.html'),
       output: {
@@ -37,6 +38,5 @@ export default defineConfig({
         assetFileNames: '[name].[ext]'
       }
     }
-  },
-  assetsInclude: ['**/*.js', '**/*.css', '**/*.html']
+  }
 })
