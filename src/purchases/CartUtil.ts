@@ -83,7 +83,7 @@ export const getQuantity = (id: string) => {
 }
 
 export const getProductsInCart = () => {
-  const temp: (Product & { quantity: number })[] = []
+  const temp = []
 
   for (const [id, { quantity, price, rest }] of cartMap) {
     if (quantity > 0) {

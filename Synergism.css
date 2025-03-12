@@ -4242,6 +4242,7 @@ form input:hover {
 .pseudoSubscriptionContainer > #sub-section-holder {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    width: 70%;
 }
 
 .pseudoCoinContainer {
@@ -4284,7 +4285,6 @@ form input:hover {
 
 .pseudoSubscriptionText {
     width: 100%;
-    height: 80px;
     padding: 10px;
     box-sizing: border-box;
     text-align: center;

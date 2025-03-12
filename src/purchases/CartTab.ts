@@ -12,18 +12,28 @@ import { clearProductPage, toggleProductPage } from './ProductSubtab'
 import { clearSubscriptionPage, toggleSubscriptionPage } from './SubscriptionsSubtab'
 import { clearUpgradeSubtab, toggleUpgradeSubtab, type UpgradesResponse } from './UpgradesSubtab'
 
-export type Product = {
+interface BaseProduct {
   name: string
   id: string
   price: number
   coins: number
-  subscription: boolean
   description: string
 }
 
+export interface SubscriptionProduct extends BaseProduct {
+  subscription: true
+  quarkBonus: number
+}
+
+export interface RegularProduct extends BaseProduct {
+  subscription: false
+}
+
+export type Product = SubscriptionProduct | RegularProduct
+
 export const products: Product[] = []
-export let coinProducts: Product[] = []
-export let subscriptionProducts: Product[] = []
+export let coinProducts: RegularProduct[] = []
+export let subscriptionProducts: SubscriptionProduct[] = []
 export let upgradeResponse: UpgradesResponse
 
 const cartSubTabs = {
@@ -68,8 +78,8 @@ export class CartTab {
       .then((productsList: Product[]) => {
         products.push(...productsList)
         setEmptyProductMap(productsList)
-        coinProducts = products.filter((product) => (!product.subscription))
-        subscriptionProducts = products.filter((product) => (product.subscription))
+        coinProducts = products.filter((product): product is RegularProduct => !product.subscription)
+        subscriptionProducts = products.filter((product): product is SubscriptionProduct => product.subscription)
 
         // The Subscriptions do not naturally sort themselves by price
         subscriptionProducts.sort((a, b) => a.price - b.price)
