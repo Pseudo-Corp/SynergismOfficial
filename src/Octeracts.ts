@@ -21,6 +21,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
   public octeractsInvested = 0
   public qualityOfLife: boolean
   readonly cacheUpdates: (() => void)[] | undefined
+  #key: string
 
   constructor (data: IOcteractData, key: string) {
     const name = i18next.t(`octeract.data.${key}.name`)
@@ -30,6 +31,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
     this.octeractsInvested = data.octeractsInvested ?? 0
     this.qualityOfLife = data.qualityOfLife ?? false
     this.cacheUpdates = data.cacheUpdates ?? undefined
+    this.#key = key
   }
 
   getCostTNL (): number {
@@ -195,6 +197,25 @@ export class OcteractUpgrade extends DynamicUpgrade {
         cache()
       }
     }
+  }
+
+  valueOf (): IOcteractData {
+    return {
+      costFormula: this.costFormula,
+      costPerLevel: this.costPerLevel,
+      maxLevel: this.maxLevel,
+      cacheUpdates: this.cacheUpdates,
+      effect: this.effect,
+      freeLevels: this.freeLevels,
+      level: this.level,
+      octeractsInvested: this.octeractsInvested,
+      qualityOfLife: this.qualityOfLife,
+      toggleBuy: this.toggleBuy
+    }
+  }
+
+  key () {
+    return this.#key
   }
 }
 
