@@ -4057,6 +4057,7 @@
     "buyButton": "Buy! <<gold|-{{amount}} PseudoCoins>>",
     "currEffect": "Текущий Уровень:",
     "nextEffect": "Следующий Уровень:",
+    "globalQuarkBonus": "Your subscription increases the global Quark bonus by +{{percent}}%!",
     "upgradeNames": {
       "INSTANT_UNLOCK_1": "Активатор-Инатор Талисмана",
       "INSTANT_UNLOCK_2": "Обнаружитель-Инатор Рун",
