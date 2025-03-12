@@ -1196,7 +1196,7 @@ export const singularity = (setSingNumber = -1) => {
   player.totalQuarksEver += player.quarksThisSingularity
   forceResetShopUpgrades()
 
-  const hold = playerJsonSchema.parse(deepClone(blankSave))
+  const hold = playerJsonSchema.parse(deepClone()(blankSave))
 
   // Reset Displays
   changeTab(Tabs.Buildings)

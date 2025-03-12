@@ -289,7 +289,7 @@ export const resetGame = async (force = true) => {
     }
   }
 
-  const hold = playerJsonSchema.safeParse(deepClone(blankSave))
+  const hold = playerJsonSchema.safeParse(deepClone()(blankSave))
 
   // Reset Displays
   changeTab(Tabs.Buildings)
