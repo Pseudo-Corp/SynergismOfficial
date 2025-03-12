@@ -50,7 +50,7 @@ export const toggleSettings = (toggle: HTMLElement) => {
 }
 
 export const toggleChallenges = (i: number, auto = false) => {
-  if ((i <= 5)) {
+  if (i >= 0 && i <= 5) {
     if (player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2) {
       player.currentChallenge.transcension = i
       reset('transcensionChallenge', false, 'enterChallenge')
@@ -60,7 +60,7 @@ export const toggleChallenges = (i: number, auto = false) => {
       resetrepeat('transcensionChallenge')
     }
   }
-  if ((i >= 6 && i < 11)) {
+  if (i >= 6 && i <= 10) {
     if (player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2) {
       player.currentChallenge.reincarnation = i
       reset('reincarnationChallenge', false, 'enterChallenge')
@@ -71,7 +71,7 @@ export const toggleChallenges = (i: number, auto = false) => {
     }
   }
   if (
-    i >= 11
+    (i >= 11 && i <= 15) && (i === 11 ? player.achievements[141] === 1 : player.highestchallengecompletions[i - 1] > 0)
     && ((!auto && !player.toggles[31]) || player.challengecompletions[10] > 0
       || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0
         && player.currentChallenge.ascension === 0))

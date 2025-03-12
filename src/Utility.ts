@@ -1,17 +1,22 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
-import { DOMCacheGetOrSet } from './Cache/DOM'
-import { format } from './Synergism'
 import rfdc from 'rfdc'
-import { QuarkHandler } from './Quark'
+import { BlueberryUpgrade } from './BlueberryUpgrades'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import { CampaignManager } from './Campaign'
+import { CorruptionLoadout, CorruptionSaves } from './Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { HepteractCraft } from './Hepteracts'
-import { CorruptionLoadout, CorruptionSaves } from './Corruptions'
-import { CampaignManager } from './Campaign'
-import { SingularityUpgrade } from './singularity'
 import { OcteractUpgrade } from './Octeracts'
+import { QuarkHandler } from './Quark'
+import { SingularityUpgrade } from './singularity'
 import { SingularityChallenge } from './SingularityChallenges'
-import { BlueberryUpgrade } from './BlueberryUpgrades'
-import { AmbrosiaGenerationCache, AmbrosiaLuckAdditiveMultCache, AmbrosiaLuckCache, BlueberryInventoryCache } from './StatCache'
+import {
+  AmbrosiaGenerationCache,
+  AmbrosiaLuckAdditiveMultCache,
+  AmbrosiaLuckCache,
+  BlueberryInventoryCache
+} from './StatCache'
+import { format } from './Synergism'
 
 export const isDecimal = (o: unknown): o is Decimal =>
   o instanceof Decimal
