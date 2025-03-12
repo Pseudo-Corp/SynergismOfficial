@@ -2637,6 +2637,7 @@
     "intro": "战役 - <<orange|进行飞升>>，但<<maroon|更加困难™>>",
     "campaignInfo": "进行<<orange |飞升>>，搭配多种变化因子，让游戏变得更刺激更盒理！ \n 每个战役都是<i><<orange |飞升>>的<<red |腐化>>形式。 \n <<lightgoldenrodyellow |点击图标查看具体说明！>></i>",
     "pickNow": "立刻选择战役！",
+    "activeCampaign": "正在进行的战役：<<orange |{{name}}(编号{{cardinal}})>>",
     "data": {
       "first": {
         "name": "第一个战役",
@@ -2879,6 +2880,7 @@
       }
     },
     "currentCampaignPreTitle": "当前战役：",
+    "emptyCampaignName": "未选择战役",
     "noChallengeCompletionConfirm": "您还未完成挑战10，如果离开，不会获得方盒。您确定吗？",
     "saveLoadout": "保存腐化预设！",
     "saveLoadoutNotification": "将腐化配置保存为{{ name }}，用于下次飞升！",
@@ -3761,7 +3763,7 @@
         "acceleratorHepteractUnlocked": "• 惊奇七阶立方·加速器：已解锁！",
         "acceleratorBoostHepteractUnlocked": "• 惊奇七阶立方·加速器加成：已解锁！",
         "multiplierHepteractUnlocked": "• 惊奇七阶立方·加倍器：已解锁！",
-        "freeOrbs": "• 每日免费超通量珠：每日开始时，+{{amount}}",
+        "freeOrbs": "• 每日免费超通量珠：+{{amount}}",
         "ascensionSpeed": "• 飞升的速度：+{{amount}}"
       },
       "descriptionBox": {
