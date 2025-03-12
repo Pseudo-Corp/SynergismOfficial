@@ -4057,6 +4057,7 @@
     "buyButton": "购买！<<gold|花费{{amount}}伪币>>",
     "currEffect": "当前等级：",
     "nextEffect": "下级：",
+    "globalQuarkBonus": "Your subscription increases the global Quark bonus by +{{percent}}%!",
     "upgradeNames": {
       "INSTANT_UNLOCK_1": "护身符激活器",
       "INSTANT_UNLOCK_2": "符文发现器",
