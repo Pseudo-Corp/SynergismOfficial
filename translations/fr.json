@@ -4057,6 +4057,7 @@
     "buyButton": "Buy! <<gold|-{{amount}} PseudoCoins>>",
     "currEffect": "Current Level:",
     "nextEffect": "Next Level:",
+    "globalQuarkBonus": "Your subscription increases the global Quark bonus by +{{percent}}%!",
     "upgradeNames": {
       "INSTANT_UNLOCK_1": "The Talisman Activator-inator",
       "INSTANT_UNLOCK_2": "The Rune Discoverer-inator",
