@@ -4,14 +4,14 @@ import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
-import { createHepteract } from '../Hepteracts'
+import { HepteractCraft } from '../Hepteracts'
 import { octeractData, OcteractUpgrade } from '../Octeracts'
 import { QuarkHandler } from '../Quark'
 import { singularityData, SingularityUpgrade } from '../singularity'
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
-import { blankSave } from '../Synergism'
+import { blankSave, deepClone } from '../Synergism'
 import type { Player } from '../types/Synergism'
-import { deepClone, padArray } from '../Utility'
+import { padArray } from '../Utility'
 
 const decimalSchema = z.custom<DecimalSource>((value) => {
   try {
@@ -530,7 +530,7 @@ export const playerSchema = z.object({
       Object.entries(blankSave.hepteractCrafts).map(([key, value]) => {
         return [
           key,
-          createHepteract({
+          new HepteractCraft({
             ...value,
             ...crafts[key as keyof typeof crafts]
           })

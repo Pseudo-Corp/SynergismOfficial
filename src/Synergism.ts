@@ -1,5 +1,5 @@
 import '@ungap/custom-elements'
-import Decimal from 'break_infinity.js'
+import Decimal, { type DecimalSource } from 'break_infinity.js'
 import LZString from 'lz-string'
 
 import {
@@ -14,7 +14,7 @@ import {
   highestChallengeRewards,
   runChallengeSweep
 } from './Challenges'
-import { btoa, cleanString, deepClone, isDecimal, sortWithIndices, sumContents } from './Utility'
+import { btoa, cleanString, isDecimal, sortWithIndices, sumContents } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {
@@ -137,6 +137,7 @@ import {
 // import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import i18next from 'i18next'
+import rfdc from 'rfdc'
 import {
   BlueberryUpgrade,
   blueberryUpgradeData,
@@ -160,6 +161,7 @@ import {
   AcceleratorHepteract,
   ChallengeHepteract,
   ChronosHepteract,
+  HepteractCraft,
   hepteractEffective,
   HyperrealismHepteract,
   MultiplierHepteract,
@@ -1576,6 +1578,33 @@ export const player: Player = {
 
   seed: Array.from({ length: 2 }, () => Date.now())
 }
+
+export const deepClone = () =>
+  rfdc({
+    proto: false,
+    circles: false,
+    constructorHandlers: [
+      [Decimal, (o: DecimalSource) => new Decimal(o)],
+      [QuarkHandler, (o: QuarkHandler) => new QuarkHandler(o.valueOf())],
+      [WowCubes, (o: WowCubes) => new WowCubes(o.valueOf())],
+      [WowTesseracts, (o: WowTesseracts) => new WowTesseracts(o.valueOf())],
+      [WowHypercubes, (o: WowHypercubes) => new WowHypercubes(o.valueOf())],
+      [WowPlatonicCubes, (o: WowPlatonicCubes) => new WowPlatonicCubes(o.valueOf())],
+      [HepteractCraft, (o: HepteractCraft) => new HepteractCraft(o.valueOf())],
+      [CorruptionLoadout, (o: CorruptionLoadout) => new CorruptionLoadout(o.loadout)],
+      [CorruptionSaves, (o: CorruptionSaves) => new CorruptionSaves(o.corrSaveData)],
+      [CampaignManager, (o: CampaignManager) => new CampaignManager(o.campaignManagerData)],
+      [SingularityUpgrade, (o: SingularityUpgrade) => new SingularityUpgrade(o.valueOf(), o.key())],
+      [OcteractUpgrade, (o: OcteractUpgrade) => new OcteractUpgrade(o.valueOf(), o.key())],
+      [SingularityChallenge, (o: SingularityChallenge) => new SingularityChallenge(o.valueOf(), o.key())],
+      [BlueberryUpgrade, (o: BlueberryUpgrade) => new BlueberryUpgrade(o.valueOf(), o.key())],
+      // WHY THE FUCK ARE THESE ON PLAYER, PLATONIC?
+      [AmbrosiaLuckAdditiveMultCache, () => new AmbrosiaLuckAdditiveMultCache()],
+      [AmbrosiaLuckCache, () => new AmbrosiaLuckCache()],
+      [AmbrosiaGenerationCache, () => new AmbrosiaGenerationCache()],
+      [BlueberryInventoryCache, () => new BlueberryInventoryCache()]
+    ]
+  })
 
 export const blankSave = deepClone()(player)
 

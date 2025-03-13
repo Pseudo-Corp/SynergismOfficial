@@ -1,21 +1,5 @@
-import Decimal, { type DecimalSource } from 'break_infinity.js'
-import rfdc from 'rfdc'
-import { BlueberryUpgrade } from './BlueberryUpgrades'
+import Decimal from 'break_infinity.js'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CampaignManager } from './Campaign'
-import { CorruptionLoadout, CorruptionSaves } from './Corruptions'
-import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
-import { HepteractCraft } from './Hepteracts'
-import { OcteractUpgrade } from './Octeracts'
-import { QuarkHandler } from './Quark'
-import { SingularityUpgrade } from './singularity'
-import { SingularityChallenge } from './SingularityChallenges'
-import {
-  AmbrosiaGenerationCache,
-  AmbrosiaLuckAdditiveMultCache,
-  AmbrosiaLuckCache,
-  BlueberryInventoryCache
-} from './StatCache'
 import { format } from './Synergism'
 
 export const isDecimal = (o: unknown): o is Decimal =>
@@ -222,33 +206,6 @@ export const createDeferredPromise = <T>(): DeferredPromise<T> => {
 
   return { resolve, reject, promise }
 }
-
-export const deepClone = () =>
-  rfdc({
-    proto: false,
-    circles: false,
-    constructorHandlers: [
-      [Decimal, (o: DecimalSource) => new Decimal(o)],
-      [QuarkHandler, (o: QuarkHandler) => new QuarkHandler(o.valueOf())],
-      [WowCubes, (o: WowCubes) => new WowCubes(o.valueOf())],
-      [WowTesseracts, (o: WowTesseracts) => new WowTesseracts(o.valueOf())],
-      [WowHypercubes, (o: WowHypercubes) => new WowHypercubes(o.valueOf())],
-      [WowPlatonicCubes, (o: WowPlatonicCubes) => new WowPlatonicCubes(o.valueOf())],
-      [HepteractCraft, (o: HepteractCraft) => new HepteractCraft(o.valueOf())],
-      [CorruptionLoadout, (o: CorruptionLoadout) => new CorruptionLoadout(o.loadout)],
-      [CorruptionSaves, (o: CorruptionSaves) => new CorruptionSaves(o.corrSaveData)],
-      [CampaignManager, (o: CampaignManager) => new CampaignManager(o.campaignManagerData)],
-      [SingularityUpgrade, (o: SingularityUpgrade) => new SingularityUpgrade(o.valueOf(), o.key())],
-      [OcteractUpgrade, (o: OcteractUpgrade) => new OcteractUpgrade(o.valueOf(), o.key())],
-      [SingularityChallenge, (o: SingularityChallenge) => new SingularityChallenge(o.valueOf(), o.key())],
-      [BlueberryUpgrade, (o: BlueberryUpgrade) => new BlueberryUpgrade(o.valueOf(), o.key())],
-      // WHY THE FUCK ARE THESE ON PLAYER, PLATONIC?
-      [AmbrosiaLuckAdditiveMultCache, () => new AmbrosiaLuckAdditiveMultCache()],
-      [AmbrosiaLuckCache, () => new AmbrosiaLuckCache()],
-      [AmbrosiaGenerationCache, () => new AmbrosiaGenerationCache()],
-      [BlueberryInventoryCache, () => new BlueberryInventoryCache()]
-    ]
-  })
 
 export function memoize<Args extends unknown[], Ret> (fn: (...args: Args) => Ret) {
   let ran = false
