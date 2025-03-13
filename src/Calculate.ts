@@ -12,7 +12,6 @@ import { getQuarkBonus, quarkHandler } from './Quark'
 import { reset } from './Reset'
 import { calculateSingularityDebuff } from './singularity'
 import { getFastForwardTotalMultiplier } from './singularity'
-import { cacheReinitialize } from './StatCache'
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
 import { clearInterval, setInterval } from './Timers'
@@ -1418,7 +1417,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
     quarks: quarkHandler().gain // Calculate this after the fact
   }
 
-  cacheReinitialize()
+  ambrosiaCurrStatsReinitialize()
 
   addTimers('ascension', timeAdd)
   addTimers('quarks', timeAdd)
@@ -3562,4 +3561,16 @@ export const resetTimeThreshold = () => {
   reduction += player.campaigns.timeThresholdReduction
 
   return base - reduction
+}
+
+export const ambrosiaCurrStatsReinitialize = () => {
+  // As of 6/13/2024, caches are no longer used. Instead calculations are done directly and the end value is stored in a Global variable
+  // which is not stored in the save.
+
+  G.ambrosiaCurrStats = {
+    ambrosiaAdditiveLuckMult: calculateAdditiveLuckMult().value,
+    ambrosiaLuck: calculateAmbrosiaLuck().value,
+    ambrosiaBlueberries: calculateBlueberryInventory().value,
+    ambrosiaGenerationSpeed: calculateAmbrosiaGenerationSpeed().value
+  }
 }

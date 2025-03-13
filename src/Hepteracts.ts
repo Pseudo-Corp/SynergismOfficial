@@ -451,10 +451,6 @@ const hepteractEffectiveValues = {
   }
 }
 
-export const createHepteract = (data: IHepteractCraft) => {
-  return new HepteractCraft(data)
-}
-
 export const hepteractEffective = (data: hepteractTypes) => {
   let effectiveValue = Math.min(player.hepteractCrafts[data].BAL, hepteractEffectiveValues[data].LIMIT)
   let exponentBoost = 0

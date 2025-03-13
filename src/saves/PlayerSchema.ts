@@ -4,14 +4,14 @@ import { BlueberryUpgrade, blueberryUpgradeData } from '../BlueberryUpgrades'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
 import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
-import { createHepteract } from '../Hepteracts'
+import { HepteractCraft } from '../Hepteracts'
 import { octeractData, OcteractUpgrade } from '../Octeracts'
 import { QuarkHandler } from '../Quark'
 import { singularityData, SingularityUpgrade } from '../singularity'
 import { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
-import { blankSave } from '../Synergism'
+import { blankSave, deepClone } from '../Synergism'
 import type { Player } from '../types/Synergism'
-import { deepClone, padArray } from '../Utility'
+import { padArray } from '../Utility'
 
 const decimalSchema = z.custom<DecimalSource>((value) => {
   try {
@@ -458,9 +458,15 @@ export const playerSchema = z.object({
   antSacrificeTimer: z.number().default(() => blankSave.antSacrificeTimer),
   antSacrificeTimerReal: z.number().default(() => blankSave.antSacrificeTimerReal),
 
-  talismanLevels: z.union([z.number().array(), arrayStartingWithNull(z.number()).transform((array) => array.slice(1))])
+  talismanLevels: z.union([
+    z.number().array(),
+    arrayStartingWithNull(z.number()).transform((array) => array.slice(1))
+  ])
     .default(() => [...blankSave.talismanLevels]),
-  talismanRarity: z.union([z.number().array(), arrayStartingWithNull(z.number()).transform((array) => array.slice(1))])
+  talismanRarity: z.union([
+    z.number().array(),
+    arrayStartingWithNull(z.number()).transform((array) => array.slice(1))
+  ])
     .default(() => [...blankSave.talismanRarity]),
   talismanOne: arrayStartingWithNull(z.number()).default(() => blankSave.talismanOne),
   talismanTwo: arrayStartingWithNull(z.number()).default(() => blankSave.talismanTwo),
@@ -530,7 +536,7 @@ export const playerSchema = z.object({
       Object.entries(blankSave.hepteractCrafts).map(([key, value]) => {
         return [
           key,
-          createHepteract({
+          new HepteractCraft({
             ...value,
             ...crafts[key as keyof typeof crafts]
           })
@@ -786,17 +792,6 @@ export const playerSchema = z.object({
   cubeUpgradeRedBarFilled: z.number().default(() => blankSave.cubeUpgradeRedBarFilled),
 
   singChallengeTimer: z.number().default(() => blankSave.singChallengeTimer),
-
-  // TODO: what type?
-  caches: z.record(z.string(), z.any())
-    .transform(() => {
-      Object.values(blankSave.caches).map((cache) => cache.reset())
-      return blankSave.caches
-    })
-    .default(() => {
-      Object.values(blankSave.caches).map((cache) => cache.reset())
-      return blankSave.caches
-    }),
 
   lastExportedSave: z.number().default(() => blankSave.lastExportedSave),
 

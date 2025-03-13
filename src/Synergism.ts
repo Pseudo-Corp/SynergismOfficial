@@ -1,5 +1,5 @@
 import '@ungap/custom-elements'
-import Decimal from 'break_infinity.js'
+import Decimal, { type DecimalSource } from 'break_infinity.js'
 import LZString from 'lz-string'
 
 import {
@@ -14,7 +14,7 @@ import {
   highestChallengeRewards,
   runChallengeSweep
 } from './Challenges'
-import { btoa, cleanString, deepClone, isDecimal, sortWithIndices, sumContents } from './Utility'
+import { btoa, cleanString, isDecimal, sortWithIndices, sumContents } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {
@@ -41,6 +41,7 @@ import {
   getReductionValue
 } from './Buy'
 import {
+  ambrosiaCurrStatsReinitialize,
   calculateAcceleratorMultiplier,
   calculateAnts,
   calculateCubeBlessings,
@@ -137,6 +138,7 @@ import {
 // import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import i18next from 'i18next'
+import rfdc from 'rfdc'
 import {
   BlueberryUpgrade,
   blueberryUpgradeData,
@@ -160,6 +162,7 @@ import {
   AcceleratorHepteract,
   ChallengeHepteract,
   ChronosHepteract,
+  HepteractCraft,
   hepteractEffective,
   HyperrealismHepteract,
   MultiplierHepteract,
@@ -177,13 +180,6 @@ import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
-import {
-  AmbrosiaGenerationCache,
-  AmbrosiaLuckAdditiveMultCache,
-  AmbrosiaLuckCache,
-  BlueberryInventoryCache,
-  cacheReinitialize
-} from './StatCache'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
@@ -1565,17 +1561,32 @@ export const player: Player = {
 
   singChallengeTimer: 0,
 
-  caches: {
-    ambrosiaLuckAdditiveMult: new AmbrosiaLuckAdditiveMultCache(),
-    ambrosiaLuck: new AmbrosiaLuckCache(),
-    ambrosiaGeneration: new AmbrosiaGenerationCache(),
-    blueberryInventory: new BlueberryInventoryCache()
-  },
-
   lastExportedSave: 0,
 
   seed: Array.from({ length: 2 }, () => Date.now())
 }
+
+export const deepClone = () =>
+  rfdc({
+    proto: false,
+    circles: false,
+    constructorHandlers: [
+      [Decimal, (o: DecimalSource) => new Decimal(o)],
+      [QuarkHandler, (o: QuarkHandler) => new QuarkHandler(o.valueOf())],
+      [WowCubes, (o: WowCubes) => new WowCubes(o.valueOf())],
+      [WowTesseracts, (o: WowTesseracts) => new WowTesseracts(o.valueOf())],
+      [WowHypercubes, (o: WowHypercubes) => new WowHypercubes(o.valueOf())],
+      [WowPlatonicCubes, (o: WowPlatonicCubes) => new WowPlatonicCubes(o.valueOf())],
+      [HepteractCraft, (o: HepteractCraft) => new HepteractCraft(o.valueOf())],
+      [CorruptionLoadout, (o: CorruptionLoadout) => new CorruptionLoadout(o.loadout)],
+      [CorruptionSaves, (o: CorruptionSaves) => new CorruptionSaves(o.corrSaveData)],
+      [CampaignManager, (o: CampaignManager) => new CampaignManager(o.campaignManagerData)],
+      [SingularityUpgrade, (o: SingularityUpgrade) => new SingularityUpgrade(o.valueOf(), o.key())],
+      [OcteractUpgrade, (o: OcteractUpgrade) => new OcteractUpgrade(o.valueOf(), o.key())],
+      [SingularityChallenge, (o: SingularityChallenge) => new SingularityChallenge(o.valueOf(), o.key())],
+      [BlueberryUpgrade, (o: BlueberryUpgrade) => new BlueberryUpgrade(o.valueOf(), o.key())]
+    ]
+  })
 
 export const blankSave = deepClone()(player)
 
@@ -2828,7 +2839,7 @@ const loadSynergy = () => {
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
     updateSingularityGlobalPerks()
-    cacheReinitialize()
+    ambrosiaCurrStatsReinitialize()
 
     // Update the Sing requirements on reload for a challenge if applicable
     if (G.currentSingChallenge !== undefined) {
@@ -6326,7 +6337,7 @@ export const reloadShit = (reset = false) => {
   campaignTokenRewardHTMLUpdate()
   clearTimeout(preloadDeleteGame)
 
-  setInterval(cacheReinitialize, 5000)
+  setInterval(ambrosiaCurrStatsReinitialize, 5000)
 
   if (localStorage.getItem('pleaseStar') === null) {
     void Alert(i18next.t('main.starRepo'))
