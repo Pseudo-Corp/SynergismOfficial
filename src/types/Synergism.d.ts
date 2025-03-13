@@ -11,12 +11,6 @@ import type { IPlatBaseCost } from '../Platonic'
 import type { QuarkHandler } from '../Quark'
 import type { SingularityUpgrade } from '../singularity'
 import type { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
-import type {
-  AmbrosiaGenerationCache,
-  AmbrosiaLuckAdditiveMultCache,
-  AmbrosiaLuckCache,
-  BlueberryInventoryCache
-} from '../StatCache'
 import type { Tabs } from '../Tabs'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
@@ -654,13 +648,6 @@ export interface Player {
   cubeUpgradeRedBarFilled: number
 
   singChallengeTimer: number
-
-  caches: {
-    ambrosiaLuckAdditiveMult: AmbrosiaLuckAdditiveMultCache
-    ambrosiaLuck: AmbrosiaLuckCache
-    ambrosiaGeneration: AmbrosiaGenerationCache
-    blueberryInventory: BlueberryInventoryCache
-  }
 
   /**
    * When the player last exported the save.

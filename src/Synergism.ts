@@ -41,6 +41,7 @@ import {
   getReductionValue
 } from './Buy'
 import {
+  ambrosiaCurrStatsReinitialize,
   calculateAcceleratorMultiplier,
   calculateAnts,
   calculateCubeBlessings,
@@ -179,13 +180,6 @@ import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
-import {
-  AmbrosiaGenerationCache,
-  AmbrosiaLuckAdditiveMultCache,
-  AmbrosiaLuckCache,
-  BlueberryInventoryCache,
-  cacheReinitialize
-} from './StatCache'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
@@ -1567,13 +1561,6 @@ export const player: Player = {
 
   singChallengeTimer: 0,
 
-  caches: {
-    ambrosiaLuckAdditiveMult: new AmbrosiaLuckAdditiveMultCache(),
-    ambrosiaLuck: new AmbrosiaLuckCache(),
-    ambrosiaGeneration: new AmbrosiaGenerationCache(),
-    blueberryInventory: new BlueberryInventoryCache()
-  },
-
   lastExportedSave: 0,
 
   seed: Array.from({ length: 2 }, () => Date.now())
@@ -1597,12 +1584,7 @@ export const deepClone = () =>
       [SingularityUpgrade, (o: SingularityUpgrade) => new SingularityUpgrade(o.valueOf(), o.key())],
       [OcteractUpgrade, (o: OcteractUpgrade) => new OcteractUpgrade(o.valueOf(), o.key())],
       [SingularityChallenge, (o: SingularityChallenge) => new SingularityChallenge(o.valueOf(), o.key())],
-      [BlueberryUpgrade, (o: BlueberryUpgrade) => new BlueberryUpgrade(o.valueOf(), o.key())],
-      // WHY THE FUCK ARE THESE ON PLAYER, PLATONIC?
-      [AmbrosiaLuckAdditiveMultCache, () => new AmbrosiaLuckAdditiveMultCache()],
-      [AmbrosiaLuckCache, () => new AmbrosiaLuckCache()],
-      [AmbrosiaGenerationCache, () => new AmbrosiaGenerationCache()],
-      [BlueberryInventoryCache, () => new BlueberryInventoryCache()]
+      [BlueberryUpgrade, (o: BlueberryUpgrade) => new BlueberryUpgrade(o.valueOf(), o.key())]
     ]
   })
 
@@ -2857,7 +2839,7 @@ const loadSynergy = () => {
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
     updateSingularityGlobalPerks()
-    cacheReinitialize()
+    ambrosiaCurrStatsReinitialize()
 
     // Update the Sing requirements on reload for a challenge if applicable
     if (G.currentSingChallenge !== undefined) {
@@ -6355,7 +6337,7 @@ export const reloadShit = (reset = false) => {
   campaignTokenRewardHTMLUpdate()
   clearTimeout(preloadDeleteGame)
 
-  setInterval(cacheReinitialize, 5000)
+  setInterval(ambrosiaCurrStatsReinitialize, 5000)
 
   if (localStorage.getItem('pleaseStar') === null) {
     void Alert(i18next.t('main.starRepo'))

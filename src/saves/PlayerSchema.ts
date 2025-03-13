@@ -458,9 +458,15 @@ export const playerSchema = z.object({
   antSacrificeTimer: z.number().default(() => blankSave.antSacrificeTimer),
   antSacrificeTimerReal: z.number().default(() => blankSave.antSacrificeTimerReal),
 
-  talismanLevels: z.union([z.number().array(), arrayStartingWithNull(z.number()).transform((array) => array.slice(1))])
+  talismanLevels: z.union([
+    z.number().array(),
+    arrayStartingWithNull(z.number()).transform((array) => array.slice(1))
+  ])
     .default(() => [...blankSave.talismanLevels]),
-  talismanRarity: z.union([z.number().array(), arrayStartingWithNull(z.number()).transform((array) => array.slice(1))])
+  talismanRarity: z.union([
+    z.number().array(),
+    arrayStartingWithNull(z.number()).transform((array) => array.slice(1))
+  ])
     .default(() => [...blankSave.talismanRarity]),
   talismanOne: arrayStartingWithNull(z.number()).default(() => blankSave.talismanOne),
   talismanTwo: arrayStartingWithNull(z.number()).default(() => blankSave.talismanTwo),
@@ -786,17 +792,6 @@ export const playerSchema = z.object({
   cubeUpgradeRedBarFilled: z.number().default(() => blankSave.cubeUpgradeRedBarFilled),
 
   singChallengeTimer: z.number().default(() => blankSave.singChallengeTimer),
-
-  // TODO: what type?
-  caches: z.record(z.string(), z.any())
-    .transform(() => {
-      Object.values(blankSave.caches).map((cache) => cache.reset())
-      return blankSave.caches
-    })
-    .default(() => {
-      Object.values(blankSave.caches).map((cache) => cache.reset())
-      return blankSave.caches
-    }),
 
   lastExportedSave: z.number().default(() => blankSave.lastExportedSave),
 
