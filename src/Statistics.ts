@@ -2,7 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  calculateAllCubeMultiplier,
+  allCubeMultiplier,
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaLuck,
   calculateAmbrosiaQuarkMult,
@@ -28,7 +28,9 @@ import {
   calculateTimeAcceleration,
   calculateTotalOcteractObtainiumBonus,
   calculateTotalOcteractQuarkBonus,
-  resetTimeThreshold
+  type FullStatisticsInfo,
+  resetTimeThreshold,
+  type StatisticsCollator
 } from './Calculate'
 import { formatAsPercentIncrease } from './Campaign'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
@@ -139,6 +141,68 @@ export const loadStatisticsUpdate = () => {
         break
     }
   }
+}
+
+let ALL_CUBE_HTML_GENERATED = false
+
+export const loadStatistics = <T extends string>(
+  statsObject: StatisticsCollator<T>,
+  parentDiv: string,
+  statLinePrefix: string
+) => {
+  const parent = DOMCacheGetOrSet(parentDiv)
+
+  for (const [key, value] of Object.entries(statsObject.statistics)) {
+    const val = value as FullStatisticsInfo
+    const statHTMLName = statLinePrefix + key
+    const statNumHTMLName = `${statLinePrefix}N${key}`
+    if (!ALL_CUBE_HTML_GENERATED) {
+      const statLine = document.createElement('p')
+      statLine.id = statHTMLName
+      statLine.className = 'statPortion'
+      statLine.style.color = val.color ?? 'white'
+      statLine.textContent = i18next.t(`statistics.${parentDiv}.${key}`)
+
+      const statNum = document.createElement('span')
+      statNum.id = statNumHTMLName
+      statNum.className = 'statNumber'
+
+      console.log(statNum)
+      statLine.appendChild(statNum)
+      parent.appendChild(statLine)
+    }
+
+    const statNumber = DOMCacheGetOrSet(statNumHTMLName)
+
+    const accuracy = val.acc ?? 2
+    const num = val.stat()
+
+    statNumber.textContent = `${statsObject.digitPrefixSymbol}${format(num, accuracy, true)}`
+  }
+
+  const statTotalHTMLName = `${statLinePrefix}T`
+  const statNumTotalHTMLName = `${statLinePrefix}NT`
+
+  if (!ALL_CUBE_HTML_GENERATED) {
+    const statTotal = document.createElement('p')
+    statTotal.id = statTotalHTMLName
+    statTotal.className = 'statPortion'
+    statTotal.classList.add('statTotal')
+    statTotal.textContent = i18next.t(`statistics.${parentDiv}.Total`)
+
+    const statTotalNum = document.createElement('span')
+    statTotalNum.id = statNumTotalHTMLName
+    statTotalNum.className = 'statNumber'
+
+    statTotal.appendChild(statTotalNum)
+    parent.appendChild(statTotal)
+
+    ALL_CUBE_HTML_GENERATED = true
+  }
+
+  const statTotalNumber = DOMCacheGetOrSet(statNumTotalHTMLName)
+  const total = statsObject.total
+  statTotalNumber.textContent = `${statsObject.digitPrefixSymbol}${format(total, 3, true)}`
 }
 
 export const loadStatisticsMiscellaneous = () => {
@@ -734,7 +798,8 @@ export const loadGlobalSpeedMultiplier = () => {
 }
 
 export const loadStatisticsCubeMultipliers = () => {
-  const arr0 = calculateAllCubeMultiplier().list
+  loadStatistics(allCubeMultiplier, 'globalCubeMultiplierStats', 'statGCM')
+  /*const arr0 = calculateAllCubeMultiplier().list
   const map0: Record<number, { acc: number; desc: string; color?: string }> = {
     1: { acc: 2, desc: 'PseudoCoin Upgrade:', color: 'gold' },
     2: { acc: 2, desc: 'Ascension Time Multiplier:' },
@@ -795,7 +860,7 @@ export const loadStatisticsCubeMultipliers = () => {
       calculateAllCubeMultiplier().mult,
       3
     )
-  }`
+  }`*/
 
   const arr = calculateCubeMultiplier().list
   const map: Record<number, { acc: number; desc: string }> = {

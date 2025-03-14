@@ -28,6 +28,344 @@ const EX_ULTRA_OFFERING = 0.125
 const EX_ULTRA_OBTAINIUM = 0.125
 const EX_ULTRA_CUBES = 0.125
 
+// March 13, 2025: Statistics Rewrite
+// Essentially, I want to create a class that
+// Can very easily be pulled for statistics.
+
+export interface VisualStatisticsInfo {
+  i18n: string
+  acc?: number
+  color?: string
+}
+
+export interface NumericStatisticsInfo {
+  stat: () => number
+}
+
+export interface FullStatisticsInfo extends VisualStatisticsInfo, NumericStatisticsInfo {}
+
+export type NumericStats<T extends string> = {
+  [key in T]: NumericStatisticsInfo
+}
+
+export type VisualStats<T extends string> = {
+  [key in T]: VisualStatisticsInfo
+}
+
+export type FullStatistics<T extends string> = {
+  [key in T]: FullStatisticsInfo
+}
+
+/**
+ * A class that collates Statistics, allowing for a multitude of different operations,
+ * including the ability to compute the total of all statistics (up to implementation).
+ *
+ * @template T The type of the statistics keys
+ * @abstract
+ * @class StatisticsCollator
+ *
+ * @property {NumericStats<T>} numericStats The numeric statistics
+ * @property {VisualStats<T>} visualStats The visual statistics
+ * @property {FullStatistics<T>} fullStats The full statistics
+ *
+ * @param {FullStatistics<T>} stats The full statistics, containing both visual and numeric statistics information
+ */
+export abstract class StatisticsCollator<T extends string> {
+  #numericStats: NumericStats<T>
+  #visualStats: VisualStats<T>
+  #fullStats: FullStatistics<T>
+
+  constructor (stats: FullStatistics<T>) {
+    this.#fullStats = stats
+    this.#visualStats = stats as VisualStats<T>
+    this.#numericStats = stats as NumericStats<T>
+  }
+
+  get statistics () {
+    return this.#fullStats
+  }
+
+  get visualStatistics () {
+    return this.#visualStats
+  }
+
+  get numericStatistics () {
+    return this.#numericStats
+  }
+
+  abstract computeTotal (): number
+
+  abstract get digitPrefixSymbol (): string
+
+  get total () {
+    return this.computeTotal()
+  }
+}
+
+/**
+ * Implements a class that collates statistics, adding all values when desired.
+ * @inheritdoc StatisticsCollator
+ */
+export class AdditionStatistics<T extends string> extends StatisticsCollator<T> {
+  get digitPrefixSymbol () {
+    return '+'
+  }
+
+  computeTotal () {
+    const stats = Object.values(this.numericStatistics) as NumericStatisticsInfo[]
+    return sumContents(stats.map((stat) => stat.stat()))
+  }
+}
+
+/**
+ * Implements a class that collates statistics, multiplying all values together when desired.
+ * @inheritdoc StatisticsCollator
+ */
+export class MultiplicativeStatistics<T extends string> extends StatisticsCollator<T> {
+  get digitPrefixSymbol () {
+    return 'x'
+  }
+
+  computeTotal () {
+    const stats = Object.values(this.numericStatistics) as NumericStatisticsInfo[]
+    return productContents(stats.map((stat) => stat.stat()))
+  }
+}
+
+type globalCubeMultiplierStats =
+  | 'PseudoCoins'
+  | 'AscensionTime'
+  | 'CampaignTutorial'
+  | 'Campaign'
+  | 'SunMoon'
+  | 'SpeedAchievement'
+  | 'Challenge15'
+  | 'InfiniteAscent'
+  | 'Beta'
+  | 'Omega'
+  | 'Powder'
+  | 'SingDebuff'
+  | 'PassY'
+  | 'PassZ'
+  | 'PassINF'
+  | 'CashGrabUltra'
+  | 'EXUltra'
+  | 'StarterPack'
+  | 'SingCubes1'
+  | 'SingCubes2'
+  | 'SingCubes3'
+  | 'SingCitadel'
+  | 'SingCitadel2'
+  | 'Delta'
+  | 'CookieUpgrade8'
+  | 'CookieUpgrade16'
+  | 'WowOcteract'
+  | 'NoSing'
+  | 'TwentyAscensions'
+  | 'Ambrosia'
+  | 'ModuleTutorial'
+  | 'ModuleCubes1'
+  | 'ModuleLuckCube1'
+  | 'ModuleQuarkCube1'
+  | 'ModuleCubes2'
+  | 'ModuleHyperflux'
+  | 'Exalt6'
+  | 'Event'
+
+export const allCubeMultiplier = new MultiplicativeStatistics<globalCubeMultiplierStats>({
+  PseudoCoins: {
+    i18n: 'PseudoCoins',
+    stat: () => PCoinUpgradeEffects.CUBE_BUFF,
+    color: 'gold'
+  },
+  AscensionTime: {
+    i18n: 'AscensionTime',
+    stat: () =>
+      Math.pow(Math.min(1, player.ascensionCounter / resetTimeThreshold()), 2)
+      * (1
+        + ((1 / 4) * player.achievements[204]
+            + (1 / 4) * player.achievements[211]
+            + (1 / 2) * player.achievements[218])
+          * Math.max(0, player.ascensionCounter / resetTimeThreshold() - 1))
+  },
+  CampaignTutorial: {
+    i18n: 'CampaignTutorial',
+    stat: () => player.campaigns.tutorialBonus.cubeBonus
+  },
+  Campaign: {
+    i18n: 'Campaign',
+    stat: () => player.campaigns.cubeBonus
+  },
+  SunMoon: {
+    i18n: 'SunMoon',
+    stat: () =>
+      1
+      + (6 / 100) * player.achievements[250]
+      + (10 / 100) * player.achievements[251]
+  },
+  SpeedAchievement: {
+    i18n: 'SpeedAchievement',
+    stat: () =>
+      1
+      + player.achievements[240]
+        * Math.min(
+          0.5,
+          Math.max(
+            0.1,
+            (1 / 20) * Math.log10(calculateTimeAcceleration().mult + 0.01)
+          )
+        )
+  },
+  Challenge15: {
+    i18n: 'Challenge15',
+    stat: () =>
+      G.challenge15Rewards.cube1.value
+      * G.challenge15Rewards.cube2.value
+      * G.challenge15Rewards.cube3.value
+      * G.challenge15Rewards.cube4.value
+      * G.challenge15Rewards.cube5.value
+  },
+  InfiniteAscent: {
+    i18n: 'InfiniteAscent',
+    stat: () => 1 + (1 / 100) * calculateEffectiveIALevel()
+  },
+  Beta: {
+    i18n: 'Beta',
+    stat: () => 1 + player.platonicUpgrades[10]
+  },
+  Omega: {
+    i18n: 'Omega',
+    stat: () => Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9])
+  },
+  Powder: {
+    i18n: 'Powder',
+    stat: () => calculateCubeMultFromPowder()
+  },
+  SingDebuff: {
+    i18n: 'SingDebuff',
+    stat: () => 1 / calculateSingularityDebuff('Cubes')
+  },
+  PassY: {
+    i18n: 'PassY',
+    stat: () => 1 + (0.75 * player.shopUpgrades.seasonPassY) / 100
+  },
+  PassZ: {
+    i18n: 'PassZ',
+    stat: () => 1 + (player.shopUpgrades.seasonPassZ * player.singularityCount) / 100
+  },
+  PassINF: {
+    i18n: 'PassINF',
+    stat: () => Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
+  },
+  CashGrabUltra: {
+    i18n: 'CashGrabUltra',
+    stat: () => +calculateCashGrabCubeBonus()
+  },
+  EXUltra: {
+    i18n: 'EXUltra',
+    stat: () => +calculateEXUltraCubeBonus()
+  },
+  StarterPack: {
+    i18n: 'StarterPack',
+    stat: () => 1 + 4 * (player.singularityUpgrades.starterPack.getEffect().bonus ? 1 : 0)
+  },
+  SingCubes1: {
+    i18n: 'SingCubes1',
+    stat: () => +player.singularityUpgrades.singCubes1.getEffect().bonus
+  },
+  SingCubes2: {
+    i18n: 'SingCubes2',
+    stat: () => +player.singularityUpgrades.singCubes2.getEffect().bonus
+  },
+  SingCubes3: {
+    i18n: 'SingCubes3',
+    stat: () => +player.singularityUpgrades.singCubes3.getEffect().bonus
+  },
+  SingCitadel: {
+    i18n: 'SingCitadel',
+    stat: () => +player.singularityUpgrades.singCitadel.getEffect().bonus
+  },
+  SingCitadel2: {
+    i18n: 'SingCitadel2',
+    stat: () => +player.singularityUpgrades.singCitadel2.getEffect().bonus
+  },
+  Delta: {
+    i18n: 'Delta',
+    stat: () =>
+      1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus
+        * Math.min(
+          9,
+          (player.shopUpgrades.shopSingularitySpeedup > 0)
+            ? player.singularityCounter * 50 / (3600 * 24)
+            : player.singularityCounter / (3600 * 24)
+        )
+  },
+  CookieUpgrade8: {
+    i18n: 'CookieUpgrade8',
+    stat: () => 1 + 0.25 * +G.isEvent * player.cubeUpgrades[58]
+  },
+  CookieUpgrade16: {
+    i18n: 'CookieUpgrade16',
+    stat: () => 1 + 1 * player.cubeUpgrades[66] * (1 - player.platonicUpgrades[15])
+  },
+  WowOcteract: {
+    i18n: 'WowOcteract',
+    stat: () => calculateTotalOcteractCubeBonus()
+  },
+  NoSing: {
+    i18n: 'NoSing',
+    stat: () => +player.singularityChallenges.noSingularityUpgrades.rewards.cubes
+  },
+  TwentyAscensions: {
+    i18n: 'TwentyAscensions',
+    stat: () => +calculateEXALTBonusMult()
+  },
+  Ambrosia: {
+    i18n: 'Ambrosia',
+    stat: () => calculateAmbrosiaCubeMult()
+  },
+  ModuleTutorial: {
+    i18n: 'ModuleTutorial',
+    stat: () => +player.blueberryUpgrades.ambrosiaTutorial.bonus.cubes
+  },
+  ModuleCubes1: {
+    i18n: 'ModuleCubes1',
+    stat: () => +player.blueberryUpgrades.ambrosiaCubes1.bonus.cubes
+  },
+  ModuleLuckCube1: {
+    i18n: 'ModuleLuckCube1',
+    stat: () => +player.blueberryUpgrades.ambrosiaLuckCube1.bonus.cubes
+  },
+  ModuleQuarkCube1: {
+    i18n: 'ModuleQuarkCube1',
+    stat: () => +player.blueberryUpgrades.ambrosiaQuarkCube1.bonus.cubes
+  },
+  ModuleCubes2: {
+    i18n: 'ModuleCubes2',
+    stat: () => +player.blueberryUpgrades.ambrosiaCubes2.bonus.cubes
+  },
+  ModuleHyperflux: {
+    i18n: 'ModuleHyperflux',
+    stat: () => +player.blueberryUpgrades.ambrosiaHyperflux.bonus.hyperFlux
+  },
+  Exalt6: {
+    i18n: 'Exalt6',
+    stat: () => {
+      let exaltPenalty = 1
+      if (player.singularityChallenges.limitedTime.enabled) {
+        const comps = player.singularityChallenges.limitedTime.completions
+        const time = player.singChallengeTimer
+        exaltPenalty = calculateExalt6Penalty(comps, time)
+      }
+      return exaltPenalty
+    }
+  },
+  Event: {
+    i18n: 'Event',
+    stat: () => 1 + calculateEventBuff(BuffType.Cubes)
+  }
+})
+
 export const calculateTotalCoinOwned = () => {
   G.totalCoinOwned = player.firstOwnedCoin
     + player.secondOwnedCoin
