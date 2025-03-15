@@ -2,16 +2,22 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  allCubeMultiplier,
+  calculateAllCubeMultiplier,
+  calculateAmbrosiaCubeMult,
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaLuck,
   calculateAmbrosiaQuarkMult,
+  calculateAscensionScore,
   calculateAscensionSpeedMultiplier,
+  calculateCashGrabCubeBonus,
   calculateCashGrabQuarkBonus,
+  calculateCubeMultFromPowder,
   calculateCubeMultiplier,
   calculateEffectiveIALevel,
   calculateEventBuff,
+  calculateExalt6Penalty,
   calculateEXALTBonusMult,
+  calculateEXUltraCubeBonus,
   calculateEXUltraObtainiumBonus,
   calculateGoldenQuarkMultiplier,
   calculateHepteractMultiplier,
@@ -26,11 +32,10 @@ import {
   calculateSingularityQuarkMilestoneMultiplier,
   calculateTesseractMultiplier,
   calculateTimeAcceleration,
+  calculateTotalOcteractCubeBonus,
   calculateTotalOcteractObtainiumBonus,
   calculateTotalOcteractQuarkBonus,
-  type FullStatisticsInfo,
-  resetTimeThreshold,
-  type StatisticsCollator
+  resetTimeThreshold
 } from './Calculate'
 import { formatAsPercentIncrease } from './Campaign'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
@@ -43,11 +48,535 @@ import {
   addCodeMaxUses,
   addCodeTimeToNextUse
 } from './ImportExport'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { calculateSingularityDebuff } from './singularity'
 import { format, formatTimeShort, player } from './Synergism'
 import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
+
+export interface StatLine {
+  i18n: string
+  stat: () => number
+  color?: string
+  acc?: number
+}
+
+export const allCubeStats: StatLine[] = [
+  {
+    i18n: 'PseudoCoins',
+    stat: () => PCoinUpgradeEffects.CUBE_BUFF,
+    color: 'gold'
+  },
+  {
+    i18n: 'AscensionTime',
+    stat: () =>
+      Math.pow(Math.min(1, player.ascensionCounter / resetTimeThreshold()), 2)
+      * (1
+        + ((1 / 4) * player.achievements[204]
+            + (1 / 4) * player.achievements[211]
+            + (1 / 2) * player.achievements[218])
+          * Math.max(0, player.ascensionCounter / resetTimeThreshold() - 1))
+  },
+  {
+    i18n: 'CampaignTutorial',
+    stat: () => player.campaigns.tutorialBonus.cubeBonus
+  },
+  {
+    i18n: 'Campaign',
+    stat: () => player.campaigns.cubeBonus
+  },
+  {
+    i18n: 'SunMoon',
+    stat: () =>
+      1
+      + (6 / 100) * player.achievements[250]
+      + (10 / 100) * player.achievements[251]
+  },
+  {
+    i18n: 'SpeedAchievement',
+    stat: () =>
+      1
+      + player.achievements[240]
+        * Math.min(
+          0.5,
+          Math.max(
+            0.1,
+            (1 / 20) * Math.log10(calculateTimeAcceleration().mult + 0.01)
+          )
+        )
+  },
+  {
+    i18n: 'Challenge15',
+    stat: () =>
+      G.challenge15Rewards.cube1.value
+      * G.challenge15Rewards.cube2.value
+      * G.challenge15Rewards.cube3.value
+      * G.challenge15Rewards.cube4.value
+      * G.challenge15Rewards.cube5.value
+  },
+  {
+    i18n: 'InfiniteAscent',
+    stat: () => 1 + (1 / 100) * calculateEffectiveIALevel()
+  },
+  {
+    i18n: 'Beta',
+    stat: () => 1 + player.platonicUpgrades[10]
+  },
+  {
+    i18n: 'Omega',
+    stat: () => Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9])
+  },
+  {
+    i18n: 'Powder',
+    stat: () => calculateCubeMultFromPowder()
+  },
+  {
+    i18n: 'SingDebuff',
+    stat: () => 1 / calculateSingularityDebuff('Cubes')
+  },
+  {
+    i18n: 'PassY',
+    stat: () => 1 + (0.75 * player.shopUpgrades.seasonPassY) / 100
+  },
+  {
+    i18n: 'PassZ',
+    stat: () => 1 + (player.shopUpgrades.seasonPassZ * player.singularityCount) / 100
+  },
+  {
+    i18n: 'PassINF',
+    stat: () => Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
+  },
+  {
+    i18n: 'CashGrabUltra',
+    stat: () => +calculateCashGrabCubeBonus()
+  },
+  {
+    i18n: 'EXUltra',
+    stat: () => +calculateEXUltraCubeBonus()
+  },
+  {
+    i18n: 'StarterPack',
+    stat: () => 1 + 4 * (player.singularityUpgrades.starterPack.getEffect().bonus ? 1 : 0)
+  },
+  {
+    i18n: 'SingCubes1',
+    stat: () => +player.singularityUpgrades.singCubes1.getEffect().bonus
+  },
+  {
+    i18n: 'SingCubes2',
+    stat: () => +player.singularityUpgrades.singCubes2.getEffect().bonus
+  },
+  {
+    i18n: 'SingCubes3',
+    stat: () => +player.singularityUpgrades.singCubes3.getEffect().bonus
+  },
+  {
+    i18n: 'SingCitadel',
+    stat: () => +player.singularityUpgrades.singCitadel.getEffect().bonus
+  },
+  {
+    i18n: 'SingCitadel2',
+    stat: () => +player.singularityUpgrades.singCitadel2.getEffect().bonus
+  },
+  {
+    i18n: 'Delta',
+    stat: () =>
+      1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus
+        * Math.min(
+          9,
+          (player.shopUpgrades.shopSingularitySpeedup > 0)
+            ? player.singularityCounter * 50 / (3600 * 24)
+            : player.singularityCounter / (3600 * 24)
+        )
+  },
+  {
+    i18n: 'CookieUpgrade8',
+    stat: () => 1 + 0.25 * +G.isEvent * player.cubeUpgrades[58]
+  },
+  {
+    i18n: 'CookieUpgrade16',
+    stat: () => 1 + 1 * player.cubeUpgrades[66] * (1 - player.platonicUpgrades[15])
+  },
+  {
+    i18n: 'WowOcteract',
+    stat: () => calculateTotalOcteractCubeBonus()
+  },
+  {
+    i18n: 'NoSing',
+    stat: () => +player.singularityChallenges.noSingularityUpgrades.rewards.cubes
+  },
+  {
+    i18n: 'TwentyAscensions',
+    stat: () => +calculateEXALTBonusMult()
+  },
+  {
+    i18n: 'Ambrosia',
+    stat: () => calculateAmbrosiaCubeMult()
+  },
+  {
+    i18n: 'ModuleTutorial',
+    stat: () => +player.blueberryUpgrades.ambrosiaTutorial.bonus.cubes
+  },
+  {
+    i18n: 'ModuleCubes1',
+    stat: () => +player.blueberryUpgrades.ambrosiaCubes1.bonus.cubes
+  },
+  {
+    i18n: 'ModuleLuckCube1',
+    stat: () => +player.blueberryUpgrades.ambrosiaLuckCube1.bonus.cubes
+  },
+  {
+    i18n: 'ModuleQuarkCube1',
+    stat: () => +player.blueberryUpgrades.ambrosiaQuarkCube1.bonus.cubes
+  },
+  {
+    i18n: 'ModuleCubes2',
+    stat: () => +player.blueberryUpgrades.ambrosiaCubes2.bonus.cubes
+  },
+  {
+    i18n: 'ModuleHyperflux',
+    stat: () => +player.blueberryUpgrades.ambrosiaHyperflux.bonus.hyperFlux
+  },
+  {
+    i18n: 'Exalt6',
+    stat: () => {
+      let exaltPenalty = 1
+      if (player.singularityChallenges.limitedTime.enabled) {
+        const comps = player.singularityChallenges.limitedTime.completions
+        const time = player.singChallengeTimer
+        exaltPenalty = calculateExalt6Penalty(comps, time)
+      }
+      return exaltPenalty
+    }
+  },
+  {
+    i18n: 'Event',
+    stat: () => 1 + calculateEventBuff(BuffType.Cubes)
+  }
+]
+
+export const allWowCubeStats: StatLine[] = [
+  {
+    i18n: 'AscensionScore',
+    stat: () => Math.pow(calculateAscensionScore().effectiveScore, 1 / 4.1)
+  },
+  {
+    i18n: 'GlobalCube',
+    stat: () => calculateAllCubeMultiplier()
+  },
+  {
+    i18n: 'SeasonPass1',
+    stat: () => 1 + (2.25 * player.shopUpgrades.seasonPass) / 100
+  },
+  {
+    i18n: 'Researches',
+    stat: () =>
+      (1 + player.researches[119] / 400) // 5x19
+      * (1 + player.researches[120] / 400) // 5x20
+      * (1 + player.researches[137] / 100) // 6x12
+      * (1 + (0.9 * player.researches[152]) / 100) // 7x2
+      * (1 + (0.8 * player.researches[167]) / 100) // 7x17
+      * (1 + (0.7 * player.researches[182]) / 100) // 8x7
+      * (1
+        + (0.03 / 100) * player.researches[192] * player.antUpgrades[12 - 1]!) // 8x17
+      * (1 + (0.6 * player.researches[197]) / 100) // 8x22
+  },
+  {
+    i18n: 'Research8x25',
+    stat: () => 1 + (0.004 / 100) * player.researches[200]
+  },
+  {
+    i18n: 'CubeUpgrades',
+    stat: () =>
+      (1 + player.cubeUpgrades[1] / 6) // 1x1
+      * (1 + player.cubeUpgrades[11] / 11) // 2x1
+      * (1 + 0.4 * player.cubeUpgrades[30]) // 3x10
+  },
+  {
+    i18n: 'ConstantUpgrade10',
+    stat: () =>
+      1
+      + 0.01
+        * Decimal.log(player.ascendShards.add(1), 4)
+        * Math.min(1, player.constantUpgrades[10])
+  },
+  {
+    i18n: 'Achievement189',
+    stat: () => 1 + player.achievements[189] * Math.min(2, player.ascensionCount / 2.5e8)
+  },
+  {
+    i18n: 'Achievement193',
+    stat: () =>
+      1
+      + (player.achievements[193] * Decimal.log(player.ascendShards.add(1), 10))
+        / 400
+  },
+  {
+    i18n: 'Achievement195',
+    stat: () =>
+      1
+      + Math.min(
+        250,
+        (player.achievements[195]
+          * Decimal.log(player.ascendShards.add(1), 10))
+          / 400
+      )
+  },
+  {
+    i18n: 'Achievement198-201',
+    stat: () =>
+      1
+      + (4 / 100)
+        * (player.achievements[198]
+          + player.achievements[199]
+          + player.achievements[200])
+      + (3 / 100) * player.achievements[201]
+  },
+  {
+    i18n: 'Achievement254',
+    stat: () =>
+      1
+      + Math.min(0.15, (0.6 / 100) * Math.log10(calculateAscensionScore().effectiveScore + 1))
+        * player.achievements[254]
+  },
+  {
+    i18n: 'SpiritPower',
+    stat: () => 1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[2]
+  },
+  {
+    i18n: 'PlatonicOpening',
+    stat: () => 1 + G.platonicBonusMultiplier[0]
+  },
+  {
+    i18n: 'Platonic1x1',
+    stat: () =>
+      1
+      + 0.00009
+        * player.corruptions.used.totalLevels
+        * player.platonicUpgrades[1]
+  },
+  {
+    i18n: 'CookieUpgrade13',
+    stat: () =>
+      1 + Math.pow(1.03, Math.log10(Math.max(1, player.wowAbyssals))) * player.cubeUpgrades[63]
+      - player.cubeUpgrades[63]
+  }
+]
+
+export const allTesseractStats: StatLine[] = [
+  {
+    i18n: 'AscensionScore',
+    stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 1e5) / 1e4, 0.35)
+  },
+  {
+    i18n: 'GlobalCube',
+    stat: () => calculateAllCubeMultiplier()
+  },
+  {
+    i18n: 'SeasonPass1',
+    stat: () => 1 + (2.25 * player.shopUpgrades.seasonPass) / 100
+  },
+  {
+    i18n: 'ConstantUpgrade10',
+    stat: () => 1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10])
+  },
+  {
+    i18n: 'CubeUpgrade3x10',
+    stat: () => 1 + 0.4 * player.cubeUpgrades[30]
+  },
+  {
+    i18n: 'CubeUpgrade4x8',
+    stat: () => 1 + (1 / 200) * player.cubeUpgrades[38] * player.corruptions.used.totalLevels
+  },
+  {
+    i18n: 'Achievement195',
+    stat: () =>
+      1 + Math.min(
+        250,
+        (player.achievements[195] * Decimal.log(player.ascendShards.add(1), 10)) / 400
+      )
+  },
+  {
+    i18n: 'Achievement202',
+    stat: () => 1 + player.achievements[202] * Math.min(2, player.ascensionCount / 5e8)
+  },
+  {
+    i18n: 'Achievement205-208',
+    stat: () =>
+      1 + (4 / 100) * (
+          player.achievements[205]
+          + player.achievements[206]
+          + player.achievements[207]
+        )
+      + (3 / 100) * player.achievements[208]
+  },
+  {
+    i18n: 'Achievement255',
+    stat: () =>
+      1 + Math.min(
+          0.15,
+          (0.6 / 100) * Math.log10(calculateAscensionScore().effectiveScore + 1)
+        ) * player.achievements[255]
+  },
+  {
+    i18n: 'PlatonicCube',
+    stat: () => G.platonicBonusMultiplier[1]
+  },
+  {
+    i18n: 'Platonic1x2',
+    stat: () => 1 + 0.00018 * player.corruptions.used.totalLevels * player.platonicUpgrades[2]
+  }
+]
+
+export const allHypercubeStats: StatLine[] = [
+  {
+    i18n: 'AscensionScore',
+    stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 1e9) / 1e8, 0.5)
+  },
+  {
+    i18n: 'GlobalCube',
+    stat: () => calculateAllCubeMultiplier()
+  },
+  {
+    i18n: 'SeasonPass2',
+    stat: () => 1 + (1.5 * player.shopUpgrades.seasonPass2) / 100
+  },
+  {
+    i18n: 'Achievement212-215',
+    stat: () =>
+      1 + (4 / 100) * (
+          player.achievements[212]
+          + player.achievements[213]
+          + player.achievements[214]
+        )
+      + (3 / 100) * player.achievements[215]
+  },
+  {
+    i18n: 'Achievement216',
+    stat: () => 1 + player.achievements[216] * Math.min(2, player.ascensionCount / 1e9)
+  },
+  {
+    i18n: 'Achievement253',
+    stat: () => 1 + (1 / 10) * player.achievements[253]
+  },
+  {
+    i18n: 'Achievement256',
+    stat: () =>
+      1 + Math.min(
+          0.15,
+          (0.6 / 100) * Math.log10(calculateAscensionScore().effectiveScore + 1)
+        ) * player.achievements[256]
+  },
+  {
+    i18n: 'Achievement265',
+    stat: () => 1 + Math.min(2, player.ascensionCount / 2.5e10) * player.achievements[265]
+  },
+  {
+    i18n: 'PlatonicCube',
+    stat: () => G.platonicBonusMultiplier[2]
+  },
+  {
+    i18n: 'Platonic1x3',
+    stat: () => 1 + 0.00054 * player.corruptions.used.totalLevels * player.platonicUpgrades[3]
+  },
+  {
+    i18n: 'HyperrealHepteract',
+    stat: () => 1 + (0.6 / 1000) * hepteractEffective('hyperrealism')
+  }
+]
+
+export const allPlatonicCubeStats: StatLine[] = [
+  {
+    i18n: 'AscensionScore',
+    stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 2.666e12) / 2.666e11, 0.75)
+  },
+  {
+    i18n: 'GlobalCube',
+    stat: () => calculateAllCubeMultiplier()
+  },
+  {
+    i18n: 'SeasonPass2',
+    stat: () => 1 + (1.5 * player.shopUpgrades.seasonPass2) / 100
+  },
+  {
+    i18n: 'Achievement196',
+    stat: () =>
+      1 + Math.min(
+        20,
+        ((player.achievements[196] * 1) / 5000) * Decimal.log(player.ascendShards.add(1), 10)
+      )
+  },
+  {
+    i18n: 'Achievement219-222',
+    stat: () =>
+      1 + (4 / 100) * (
+          player.achievements[219]
+          + player.achievements[220]
+          + player.achievements[221]
+        )
+      + (3 / 100) * player.achievements[222]
+  },
+  {
+    i18n: 'Achievement223',
+    stat: () => 1 + player.achievements[223] * Math.min(2, player.ascensionCount / 1.337e9)
+  },
+  {
+    i18n: 'Achievement257',
+    stat: () =>
+      1 + Math.min(
+          0.15,
+          (0.6 / 100) * Math.log10(calculateAscensionScore().effectiveScore + 1)
+        ) * player.achievements[257]
+  },
+  {
+    i18n: 'PlatonicCube',
+    stat: () => G.platonicBonusMultiplier[3]
+  },
+  {
+    i18n: 'Platonic1x4',
+    stat: () => 1 + (1.2 * player.platonicUpgrades[4]) / 50
+  }
+]
+
+export const allHepteractCubeStats: StatLine[] = [
+  {
+    i18n: 'AscensionScore',
+    stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 1.666e16) / 3.33e16, 0.85)
+  },
+  {
+    i18n: 'GlobalCube',
+    stat: () => calculateAllCubeMultiplier()
+  },
+  {
+    i18n: 'SeasonPass3',
+    stat: () => 1 + (1.5 * player.shopUpgrades.seasonPass3) / 100
+  },
+  {
+    i18n: 'Achievement258',
+    stat: () =>
+      1 + Math.min(
+          0.15,
+          (0.6 / 100) * Math.log10(calculateAscensionScore().effectiveScore + 1)
+        ) * player.achievements[258]
+  },
+  {
+    i18n: 'Achievement264',
+    stat: () => 1 + Math.min(0.4, player.ascensionCount / 2e13) * player.achievements[264]
+  },
+  {
+    i18n: 'Achievement265',
+    stat: () => 1 + Math.min(0.2, player.ascensionCount / 8e14) * player.achievements[265]
+  },
+  {
+    i18n: 'Achievement270',
+    stat: () =>
+      Math.min(
+        2,
+        1 + (1 / 1000000) * Decimal.log(player.ascendShards.add(1), 10) * player.achievements[270]
+      )
+  }
+]
 
 const LOADED_STATS_HTMLS = {
   challenge15: false
@@ -136,6 +665,24 @@ export const loadStatisticsUpdate = () => {
       case 'ambrosiaGenerationStats':
         loadStatisticsAmbrosiaGeneration()
         break
+      case 'globalCubeMultiplierStats':
+        loadGlobalCubeMultiplierStats()
+        break
+      case 'cubeMultiplierStats':
+        loadWowCubeMultiplierStats()
+        break
+      case 'tesseractMultiplierStats':
+        loadTesseractMultiplierStats()
+        break
+      case 'hypercubeMultiplierStats':
+        loadHypercubeMultiplierStats()
+        break
+      case 'platonicMultiplierStats':
+        loadPlatonicMultiplierStats()
+        break
+      case 'hepteractMultiplierStats':
+        loadHepteractMultiplierStats()
+        break
       default:
         loadStatisticsCubeMultipliers()
         break
@@ -143,47 +690,48 @@ export const loadStatisticsUpdate = () => {
   }
 }
 
-let ALL_CUBE_HTML_GENERATED = false
-
-export const loadStatistics = <T extends string>(
-  statsObject: StatisticsCollator<T>,
+export const loadStatistics = (
+  statsObj: StatLine[],
   parentDiv: string,
-  statLinePrefix: string
+  statLinePrefix: string,
+  specificClass: string,
+  calcTotalFunc: () => number
 ) => {
   const parent = DOMCacheGetOrSet(parentDiv)
+  const numStatLines = document.getElementsByClassName(specificClass).length
 
-  for (const [key, value] of Object.entries(statsObject.statistics)) {
-    const val = value as FullStatisticsInfo
+  for (const obj of statsObj) {
+    const key = obj.i18n
     const statHTMLName = statLinePrefix + key
     const statNumHTMLName = `${statLinePrefix}N${key}`
-    if (!ALL_CUBE_HTML_GENERATED) {
+    if (numStatLines === 0) {
       const statLine = document.createElement('p')
       statLine.id = statHTMLName
       statLine.className = 'statPortion'
-      statLine.style.color = val.color ?? 'white'
+      statLine.classList.add(specificClass)
+      statLine.style.color = obj.color ?? 'white'
       statLine.textContent = i18next.t(`statistics.${parentDiv}.${key}`)
 
       const statNum = document.createElement('span')
       statNum.id = statNumHTMLName
       statNum.className = 'statNumber'
 
-      console.log(statNum)
       statLine.appendChild(statNum)
       parent.appendChild(statLine)
     }
 
     const statNumber = DOMCacheGetOrSet(statNumHTMLName)
 
-    const accuracy = val.acc ?? 2
-    const num = val.stat()
+    const accuracy = obj.acc ?? 2
+    const num = obj.stat()
 
-    statNumber.textContent = `${statsObject.digitPrefixSymbol}${format(num, accuracy, true)}`
+    statNumber.textContent = `${format(num, accuracy, true)}`
   }
 
   const statTotalHTMLName = `${statLinePrefix}T`
   const statNumTotalHTMLName = `${statLinePrefix}NT`
 
-  if (!ALL_CUBE_HTML_GENERATED) {
+  if (numStatLines === 0) {
     const statTotal = document.createElement('p')
     statTotal.id = statTotalHTMLName
     statTotal.className = 'statPortion'
@@ -196,13 +744,11 @@ export const loadStatistics = <T extends string>(
 
     statTotal.appendChild(statTotalNum)
     parent.appendChild(statTotal)
-
-    ALL_CUBE_HTML_GENERATED = true
   }
 
   const statTotalNumber = DOMCacheGetOrSet(statNumTotalHTMLName)
-  const total = statsObject.total
-  statTotalNumber.textContent = `${statsObject.digitPrefixSymbol}${format(total, 3, true)}`
+  const total = calcTotalFunc()
+  statTotalNumber.textContent = `${format(total, 3, true)}`
 }
 
 export const loadStatisticsMiscellaneous = () => {
@@ -797,235 +1343,55 @@ export const loadGlobalSpeedMultiplier = () => {
   DOMCacheGetOrSet('sGSMT').textContent = format(globalSpeedStats.mult, 3)
 }
 
+export const loadGlobalCubeMultiplierStats = () => {
+  loadStatistics(allCubeStats, 'globalCubeMultiplierStats', 'statGCM', 'GlobalCubeStat', calculateAllCubeMultiplier)
+}
+
+export const loadWowCubeMultiplierStats = () => {
+  loadStatistics(allWowCubeStats, 'cubeMultiplierStats', 'statCM', 'WowCubeStat', calculateCubeMultiplier)
+}
+
+export const loadTesseractMultiplierStats = () => {
+  loadStatistics(
+    allTesseractStats,
+    'tesseractMultiplierStats',
+    'statTeM',
+    'TesseractStat',
+    calculateTesseractMultiplier
+  )
+}
+
+export const loadHypercubeMultiplierStats = () => {
+  loadStatistics(
+    allHypercubeStats,
+    'hypercubeMultiplierStats',
+    'statHyM',
+    'HypercubeStat',
+    calculateHypercubeMultiplier
+  )
+}
+
+export const loadPlatonicMultiplierStats = () => {
+  loadStatistics(
+    allPlatonicCubeStats,
+    'platonicMultiplierStats',
+    'statPlM',
+    'PlatonicStat',
+    calculatePlatonicMultiplier
+  )
+}
+
+export const loadHepteractMultiplierStats = () => {
+  loadStatistics(
+    allHepteractCubeStats,
+    'hepteractMultiplierStats',
+    'statHeM',
+    'HepteractCubeStat',
+    calculateHepteractMultiplier
+  )
+}
+
 export const loadStatisticsCubeMultipliers = () => {
-  loadStatistics(allCubeMultiplier, 'globalCubeMultiplierStats', 'statGCM')
-  /*const arr0 = calculateAllCubeMultiplier().list
-  const map0: Record<number, { acc: number; desc: string; color?: string }> = {
-    1: { acc: 2, desc: 'PseudoCoin Upgrade:', color: 'gold' },
-    2: { acc: 2, desc: 'Ascension Time Multiplier:' },
-    3: { acc: 4, desc: 'Campaigns: Tutorial Bonus' },
-    4: { acc: 2, desc: 'Campaigns: Cube Bonus' },
-    5: { acc: 2, desc: 'Sun and Moon Achievements:' },
-    6: { acc: 2, desc: 'Speed Achievement:' },
-    7: { acc: 2, desc: 'Challenge 15 All Cube Bonus:' },
-    8: { acc: 2, desc: 'Rune 6 - Infinite Ascent:' },
-    9: { acc: 2, desc: 'Platonic Beta:' },
-    10: { acc: 2, desc: 'Platonic Omega:' },
-    11: { acc: 2, desc: 'Overflux Powder:' },
-    12: { acc: 2, desc: 'Event:' },
-    13: { acc: 2, desc: 'Singularity Factor:' },
-    14: { acc: 2, desc: 'Wow Pass Y' },
-    15: { acc: 2, desc: 'Starter Pack:' },
-    16: { acc: 2, desc: 'Cube Flame [GQ]:' },
-    17: { acc: 2, desc: 'Cube Blaze [GQ]:' },
-    18: { acc: 2, desc: 'Cube Inferno [GQ]:' },
-    19: { acc: 2, desc: 'Wow Pass Z:' },
-    20: { acc: 2, desc: 'Cookie Upgrade 16:' },
-    21: { acc: 2, desc: 'Cookie Upgrade 8:' },
-    22: { acc: 2, desc: 'Total Octeract Bonus:' },
-    23: { acc: 2, desc: 'No Singularity Upgrades Challenge:' },
-    24: { acc: 2, desc: 'Citadel [GQ]' },
-    25: { acc: 2, desc: 'Citadel 2 [GQ]' },
-    26: { acc: 4, desc: 'Platonic DELTA' },
-    27: { acc: 2, desc: 'Wow Pass ∞' },
-    28: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
-    29: { acc: 2, desc: 'Module- Tutorial' },
-    30: { acc: 2, desc: 'Module- Cubes 1' },
-    31: { acc: 2, desc: 'Module- Luck-Cube 1' },
-    32: { acc: 2, desc: 'Module- Quark-Cube 1' },
-    33: { acc: 2, desc: 'Module- Cubes 2' },
-    34: { acc: 2, desc: 'Module- Hyperflux' },
-    35: { acc: 2, desc: '20 Ascensions X20 Bonus [EXALT ONLY]' },
-    36: { acc: 2, desc: 'Cash Grab ULTIMATE' },
-    37: { acc: 2, desc: 'Shop EX ULTIMATE' },
-    38: { acc: 2, desc: 'Exalt 6 Penalty (for being too slow!)' }
-  }
-  for (let i = 0; i < arr0.length; i++) {
-    const statGCMi = DOMCacheGetOrSet(`statGCM${i + 1}`)
-    statGCMi.childNodes[0].textContent = map0[i + 1].desc
-    if (map0[i + 1].color) {
-      statGCMi.style.color = map0[i + 1].color ?? 'white'
-    }
-    DOMCacheGetOrSet(`sGCM${i + 1}`).textContent = `x${
-      format(
-        arr0[i],
-        map0[i + 1].acc,
-        true
-      )
-    }`
-  }
-
-  DOMCacheGetOrSet('sGCMT').textContent = `x${
-    format(
-      calculateAllCubeMultiplier().mult,
-      3
-    )
-  }`*/
-
-  const arr = calculateCubeMultiplier().list
-  const map: Record<number, { acc: number; desc: string }> = {
-    1: { acc: 2, desc: 'Ascension Score Multiplier:' },
-    2: { acc: 2, desc: 'Global Cube Multiplier:' },
-    3: { acc: 2, desc: 'Season Pass 1:' },
-    4: { acc: 2, desc: 'Researches (Except 8x25):' },
-    5: { acc: 2, desc: 'Research 8x25:' },
-    6: { acc: 2, desc: 'Cube Upgrades:' },
-    7: { acc: 2, desc: 'Constant Upgrade 10:' },
-    8: { acc: 2, desc: 'Achievement 189 Bonus:' },
-    9: { acc: 2, desc: 'Achievement 193 Bonus:' },
-    10: { acc: 2, desc: 'Achievement 195 Bonus:' },
-    11: { acc: 2, desc: 'Achievement 198-201 Bonus:' },
-    12: { acc: 2, desc: 'Achievement 254 Bonus:' },
-    13: { acc: 2, desc: 'Spirit Power:' },
-    14: { acc: 2, desc: 'Platonic Cubes:' },
-    15: { acc: 2, desc: 'Platonic 1x1:' },
-    16: { acc: 2, desc: 'Cookie Upgrade 13:' }
-  }
-  for (let i = 0; i < arr.length; i++) {
-    const statCMi = DOMCacheGetOrSet(`statCM${i + 1}`)
-    statCMi.childNodes[0].textContent = map[i + 1].desc
-    DOMCacheGetOrSet(`sCM${i + 1}`).textContent = `x${
-      format(
-        arr[i],
-        map[i + 1].acc,
-        true
-      )
-    }`
-  }
-  // PLAT
-  DOMCacheGetOrSet('sCMT').textContent = `x${
-    format(
-      calculateCubeMultiplier().mult,
-      3
-    )
-  }`
-
-  const arr2 = calculateTesseractMultiplier().list
-  const map2: Record<number, { acc: number; desc: string }> = {
-    1: { acc: 2, desc: 'Ascension Score Multiplier:' },
-    2: { acc: 2, desc: 'Global Cube Multiplier:' },
-    3: { acc: 2, desc: 'Season Pass 1:' },
-    4: { acc: 2, desc: 'Constant Upgrade 10:' },
-    5: { acc: 2, desc: 'Cube Upgrade 3x10:' },
-    6: { acc: 2, desc: 'Cube Upgrade 4x8:' },
-    7: { acc: 2, desc: 'Achievement 195 Bonus:' },
-    8: { acc: 2, desc: 'Achievement 202 Bonus:' },
-    9: { acc: 2, desc: 'Achievement 205-208 Bonus:' },
-    10: { acc: 2, desc: 'Achievement 255 Bonus:' },
-    11: { acc: 2, desc: 'Platonic Cubes:' },
-    12: { acc: 2, desc: 'Platonic 1x2:' }
-  }
-  for (let i = 0; i < arr2.length; i++) {
-    const statTeMi = DOMCacheGetOrSet(`statTeM${i + 1}`)
-    statTeMi.childNodes[0].textContent = map2[i + 1].desc
-    DOMCacheGetOrSet(`sTeM${i + 1}`).textContent = `x${
-      format(
-        arr2[i],
-        map2[i + 1].acc,
-        true
-      )
-    }`
-  }
-
-  DOMCacheGetOrSet('sTeMT').textContent = `x${
-    format(
-      calculateTesseractMultiplier().mult,
-      3
-    )
-  }`
-
-  const arr3 = calculateHypercubeMultiplier().list
-  const map3: Record<number, { acc: number; desc: string }> = {
-    1: { acc: 2, desc: 'Ascension Score Multiplier:' },
-    2: { acc: 2, desc: 'Global Cube Multiplier:' },
-    3: { acc: 2, desc: 'Season Pass 2:' },
-    4: { acc: 2, desc: 'Achievement 212-215 Bonus:' },
-    5: { acc: 2, desc: 'Achievement 216 Bonus:' },
-    6: { acc: 2, desc: 'Achievement 253 Bonus:' },
-    7: { acc: 2, desc: 'Achievement 256 Bonus:' },
-    8: { acc: 2, desc: 'Achievement 265 Bonus:' },
-    9: { acc: 2, desc: 'Platonic Cubes:' },
-    10: { acc: 2, desc: 'Platonic 1x3:' },
-    11: { acc: 2, desc: 'Hyperreal Hepteract Bonus:' }
-  }
-  for (let i = 0; i < arr3.length; i++) {
-    const statHyMi = DOMCacheGetOrSet(`statHyM${i + 1}`)
-    statHyMi.childNodes[0].textContent = map3[i + 1].desc
-    DOMCacheGetOrSet(`sHyM${i + 1}`).textContent = `x${
-      format(
-        arr3[i],
-        map3[i + 1].acc,
-        true
-      )
-    }`
-  }
-
-  DOMCacheGetOrSet('sHyMT').textContent = `x${
-    format(
-      calculateHypercubeMultiplier().mult,
-      3
-    )
-  }`
-
-  const arr4 = calculatePlatonicMultiplier().list
-  const map4: Record<number, { acc: number; desc: string }> = {
-    1: { acc: 2, desc: 'Ascension Score Multiplier:' },
-    2: { acc: 2, desc: 'Global Cube Multiplier:' },
-    3: { acc: 2, desc: 'Season Pass 2:' },
-    4: { acc: 2, desc: 'Achievement 196 Bonus:' },
-    5: { acc: 2, desc: 'Achievement 219-222 Bonus:' },
-    6: { acc: 2, desc: 'Achievement 223 Bonus:' },
-    7: { acc: 2, desc: 'Achievement 257 Bonus:' },
-    8: { acc: 2, desc: 'Platonic Cubes:' },
-    9: { acc: 2, desc: 'Platonic 1x4:' }
-  }
-  for (let i = 0; i < arr4.length; i++) {
-    const statPlMi = DOMCacheGetOrSet(`statPlM${i + 1}`)
-    statPlMi.childNodes[0].textContent = map4[i + 1].desc
-    DOMCacheGetOrSet(`sPlM${i + 1}`).textContent = `x${
-      format(
-        arr4[i],
-        map4[i + 1].acc,
-        true
-      )
-    }`
-  }
-
-  DOMCacheGetOrSet('sPlMT').textContent = `x${
-    format(
-      calculatePlatonicMultiplier().mult,
-      3
-    )
-  }`
-
-  const arr5 = calculateHepteractMultiplier().list
-  const map5: Record<number, { acc: number; desc: string }> = {
-    1: { acc: 2, desc: 'Ascension Score Multiplier:' },
-    2: { acc: 2, desc: 'Global Cube Multiplier:' },
-    3: { acc: 2, desc: 'Season Pass 3:' },
-    4: { acc: 2, desc: 'Achievement 258 Bonus:' },
-    5: { acc: 2, desc: 'Achievement 264 Bonus:' },
-    6: { acc: 2, desc: 'Achievement 265 Bonus:' },
-    7: { acc: 2, desc: 'Achievement 270 Bonus:' }
-  }
-  for (let i = 0; i < arr5.length; i++) {
-    const statHeMi = DOMCacheGetOrSet(`statHeM${i + 1}`)
-    statHeMi.childNodes[0].textContent = map5[i + 1].desc
-    DOMCacheGetOrSet(`sHeM${i + 1}`).textContent = `x${
-      format(
-        arr5[i],
-        map5[i + 1].acc,
-        true
-      )
-    }`
-  }
-
-  DOMCacheGetOrSet('sHeMT').textContent = `x${
-    format(
-      calculateHepteractMultiplier().mult,
-      3
-    )
-  }`
 
   const octMults = calculateOcteractMultiplier()
   const ascensionSpeedDesc = player.singularityUpgrades.oneMind.getEffect()
