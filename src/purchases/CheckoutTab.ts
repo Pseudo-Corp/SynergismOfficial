@@ -1,7 +1,7 @@
 import { loadScript } from '@paypal/paypal-js'
 import { prod } from '../Config'
 import { changeSubTab, Tabs } from '../Tabs'
-import { Alert, Confirm, Notification } from '../UpdateHTML'
+import { Alert, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { products, subscriptionProducts } from './CartTab'
 import { addToCart, clearCart, getPrice, getProductsInCart, getQuantity, removeFromCart } from './CartUtil'
@@ -188,12 +188,6 @@ async function initializePayPal () {
           fd.set(product.id, `${product.quantity}`)
         }
 
-        const confirmed = await Confirm('Your transaction will likely need to manually handled and may take upwards of 12 hours to receive the PseudoCoins! PLEASE USE STRIPE IF POSSIBLE!')
-
-        if (!confirmed) {
-          throw new TypeError('Thank you for listening to my advice. FUCK PAYPAL.')
-        }
-
         fd.set('tosAgree', tosAgreed ? 'on' : 'off')
         const url = 'https://synergism.cc/paypal/orders/create'
 
@@ -260,7 +254,7 @@ async function initializePayPal () {
         Notification('An error with PayPal happened. More info in console.')
         console.log(error)
       }
-    }).render('#checkout-paypal')
+    }).render('.checkout-paypal')
   } catch {}
 }
 

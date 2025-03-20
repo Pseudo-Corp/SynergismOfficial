@@ -108,7 +108,7 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
           <button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: maroon">
             Downgrade!
           </button>
-          <div id="checkout-paypal" data-id="${product.id}"></div>
+          <div class="checkout-paypal" data-id="${product.id}"></div>
       </div>
       </section>
     `
@@ -126,7 +126,7 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
           <button data-id="${product.id}" data-name="${product.name}" class="pseudoCoinButton" style="background-color: #b59410">
             You are here!
           </button>
-          <div id="checkout-paypal" data-id="${product.id}"></div>
+          <div class="checkout-paypal" data-id="${product.id}"></div>
       </div>
       </section>
     `
@@ -144,7 +144,7 @@ export const createIndividualSubscriptionHTML = (product: SubscriptionProduct, e
           <button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton">
             Upgrade for ${formatter.format((product.price - existingCosts) / 100)} USD / mo
           </button>
-          <div id="checkout-paypal" data-id="${product.id}"></div>
+          <div class="checkout-paypal" data-id="${product.id}"></div>
       </div>
       </section>
     `
