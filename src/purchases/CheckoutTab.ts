@@ -1,7 +1,7 @@
 import { loadScript } from '@paypal/paypal-js'
 import { prod } from '../Config'
 import { changeSubTab, Tabs } from '../Tabs'
-import { Alert, Notification } from '../UpdateHTML'
+import { Alert, Confirm, Notification } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { products, subscriptionProducts } from './CartTab'
 import { addToCart, clearCart, getPrice, getProductsInCart, getQuantity, removeFromCart } from './CartUtil'
@@ -166,8 +166,7 @@ async function initializePayPal () {
   try {
     const paypal = await loadScript({
       clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
-      enableFunding: ['venmo'],
-      disableFunding: ['paylater', 'credit', 'card']
+      disableFunding: ['paylater', 'credit', 'card', 'venmo']
     })
 
     paypal?.Buttons?.({
@@ -187,6 +186,12 @@ async function initializePayPal () {
           }
 
           fd.set(product.id, `${product.quantity}`)
+        }
+
+        const confirmed = await Confirm('Your transaction will likely need to manually handled and may take upwards of 12 hours to receive the PseudoCoins! PLEASE USE STRIPE IF POSSIBLE!')
+
+        if (!confirmed) {
+          throw new TypeError('Thank you for listening to my advice. FUCK PAYPAL.')
         }
 
         fd.set('tosAgree', tosAgreed ? 'on' : 'off')
