@@ -4310,11 +4310,6 @@ form input:hover {
     color: black;
 }
 
-#checkout-paypal {
-    width: 75%;
-    margin: 0 auto;
-}
-
 #cart {
     width: fit-content;
     margin: 5px auto 0;
