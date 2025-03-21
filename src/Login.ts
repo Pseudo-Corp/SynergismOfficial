@@ -171,7 +171,7 @@ export async function handleLogin () {
     document.getElementById('accountSubTab')?.appendChild(logoutElement)
   }
 
-  const response = await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'include' }).catch(
+  const response = await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'same-origin' }).catch(
     () => new Response(JSON.stringify({ member: null, globalBonus: 0, personalBonus: 0 }), { status: 401 })
   )
 
