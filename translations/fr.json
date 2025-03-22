@@ -673,7 +673,7 @@
     "resetAnthill": "Réinitialiser la Fourmilière pour :",
     "antSacMultiplier": "Multiplicateur sacrificiel : x{{y}} → <<limegreen|x{{x}}>>",
     "autoReset": "Cela réinitialisera vos Miettes, Fourmis et les améliorations de Fourmis en échange d'un multiplicateur et de ressources. Continuer ?",
-    "elo": "[[x]] [[y]] ÉLÔ",
+    "elo": "+{{x}} [>{{y}} ÉLÔ]",
     "antSacrifice": "[[Ant Sacrifice]] Sacrifice les Fourmis"
   },
   "challenges": {
@@ -4087,12 +4087,12 @@
       "ADD_CODE_CAP_BUFF": ".Code 'add' Capacité multipliée par <<or | {{montant}}}>>"
     },
     "consumables": {
-      "tipReceived": "{{OfflineTime}} personnes vous ont gratifié dans la dernière minute!",
+      "tipReceived": "{{offlineTime}} personnes vous ont gratifié dans la dernière minute!",
       "thanks": "Le boost est maintenant en vigueur ! Merci de soutenir le jeu !",
       "eventTitle": "Consommables actifs",
       "consumableSpoiler": "Déclenchez un événement pour tout le monde avec la Cloche du Bonheur de l'Apéro !",
       "consumableButton": "Achetez au PseudoShop !",
-      "applyTips": "Vérifiez vos traductions une fois elles sont faites et corrigez-les si nécessaire. Si la phrase contient du texte en langue autre que le français, réfaites la traduction.",
+      "applyTips": "Utilisez des astuces !",
       "applyTipsPrompt": "Combien de conseils aimeriez-vous utiliser ? Chaque conseil donne 1.minute de temps hors ligne. Vous avez {{tips}} conseil(s). Vous ne pouvez utiliser que jusqu'à 1 440 conseils par"
     }
   }
