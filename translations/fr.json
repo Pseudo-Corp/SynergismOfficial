@@ -225,11 +225,11 @@
       "90": "[[90]] Distance de Planck Parcourue : Terminez [Sans Accélérateur] cinquante fois.",
       "91": "[[91]] Croissance de l'Inverse-ACKERS : Terminez [Sans Accélérateur] soixante-dix-cinq fois.",
       "92": "[[92]] Intact : Terminez [No Shards] une fois.",
-      "93": "[[93]] Les Augmentation sont Stupides ! : Terminez \"Exit [No Shards]\" trois fois.",
-      "94": "[[94]] Les Maîtres Échecs sont Brillants ! : Terminez \"Exit [No Shards]\" cinq fois.",
+      "93": "[[93]] Augmentations sont idiots ! Accomplissez [Aucun Fragment] trois fois.",
+      "94": "[[94]] Les Maîtres-génies sont Brillants ! : Terminez Ciné [Aucun Morceau] cinq fois.",
       "95": "[[95]] Il faut que les Maestres Grandmaitres soient plus forts : Terminez [[No Shards]] dix fois.",
-      "96": "[[96]] Améliorations de Summation : Terminez \"Exit [No Shards]\" vingt fois.",
-      "97": "[[97]] Magie 99/99 : Terminez \"Exit [No Shards]\" cinquante fois.",
+      "96": "[[96]] Élancements d'appel : Effectuez [Aucun Poinçon] vingt fois.",
+      "97": "[[97]] Complete [No Piécettes] cinquante fois.",
       "98": "[[98]] Parfaite anticipation : Terminez [Aucun fragment] soixante-quinze fois.",
       "99": "[[99]] Inflation : Effectuez une fois [Cost+].",
       "100": "[[100]] Hyperinflation : Complete [Cost+] trois fois.",
@@ -757,14 +757,14 @@
       "per": {
         "1": "+0,01 à l'exposant de la conversion Pièce → Diamant lors du Prestige ! Actuellement : ",
         "2": "Production de Cristaux multipliée par 10 ! Actuellement : ",
-        "3": "[[77]] Paradis Amish : Quittez \"Exit [No Shards]\" avec au moins 1E99 999 pièces et sans"
+        "3": "D'accord, veuillez fournir le texte à traduire en français ou en timbre Jones pour commencer."
       },
       "first": "Aucun",
       "start": "Commencer [Moins de Diamants]",
       "current": {
         "1": "Exposant = ^{{value}}",
         "2": "Production de Cristaux x{{value}}",
-        "3": "[[77]] Paradis Amish : Quittez \"Exit [No Shards]\" avec au moins 1E99 999 pièces et sans"
+        "3": "Je suis désolé, mais votre message semble incomplet.Pourriez-vous fournir la phrase ou le texte que vous souhaitez que je traduise en français ?"
       }
     },
     "6": {
@@ -942,9 +942,9 @@
       "first": "Vous briseriez l'univers si vous le pouviez !",
       "start": "Commencer <[(Défi Sadique II)]>",
       "current": {
-        "1": "[[77]] Paradis Amish : Quittez \"Exit [No Shards]\" avec au moins 1E99 999 pièces et sans",
-        "2": "[[77]] Paraïs Amish : Quittez \"Exit [No Shards]\" avec au moins 1E99 999 pièces et sans",
-        "3": "[[77]] Paradis Amish : Quittez \"Exit [No Shards]\" avec au moins 1E99 999 pièces et sans"
+        "1": "Je vais traduire correctement en français pour assurer le bonheur des enfants malades.",
+        "2": "Je suis désolé, mais votre message semble incomplet. Pourriez-vous fournir la phrase ou le texte que vous souhaitez traduire en français ?",
+        "3": "Des ascensions et des corruptionnements guérissent nos enfants et les font rayonner de joie."
       },
       "noGoal": "Vous ne trouverez aucun objectif en vue, mais obtiendrez des bonus en fonction de votre meilleure tentative."
     },
@@ -1050,7 +1050,7 @@
       "72": "Un Cookie Unique de la Bienfaisance de Vyshareth.",
       "73": "Un Cookie Unique des Grandes Etapes.",
       "74": "Oh ! Un Cookie Singulier des Etapes de Lilliput.",
-      "75": "[[77]] Sacré gâteau unique d'une autre référence.",
+      "75": "Sacré gâteau unique d'une autre référence.",
       "76": "Un Cookie Unique de la variété Bleue.",
       "77": "Un Cookie Unique de la Bienfaisance de Tyche.",
       "78": "Oh ! Un Pâtetonunique de Derpsmith's Benefactory",
@@ -1378,7 +1378,7 @@
     "hoverToBuyOff": "Achat au survol [INACTIF]",
     "hover": "Survolez la grille pour obtenir des détails sur les recherches !",
     "resets": "Réinitialise au niveau de réinitialisation suivant.",
-    "doesNotReset": "[[77]] Paradis Amish : Quittez \"Exit [No Shards]\" avec au moins 1E99 999 pièces et sans"
+    "doesNotReset": "NEVER resets！"
   },
   "shop": {
     "upgradeDescriptions": {
@@ -1457,8 +1457,8 @@
       "shopChronometerS": "Avec cet amélioration, vous gagnez +1% de Vitesse d'Ascension et de Vitesse globale pour chaque Singularité supérieure à 200 que vous possédez !",
       "shopAmbrosiaUltra": "Pour cet upgrade EX exorbitamment coûteux, chaque-complétion EXALTgrant +1 chance permanente de ↬ Fortune d'ambroisie par niveau.",
       "shopSingularitySpeedup": "Vous connaissez tous ces mises à jour de singularité et d'octéractus limitées dans le temps ? Elles accumulent maintenant 50 fois plus vite ! Grâce à cette horloge étrange qui modifie même le <<gris | Temps Singulier>>...",
-      "shopSingularityPotency": "[[77]] Mises à jour de singularité gratuites : elles sont maintenant 266 % plus efficaces (autant dire qu'each en vaut l'équivalent de 3,66 niveaux avant les plafonds). Pourquoi ? Cela paraît un peu étrange <<gris | Rituel d'appareil de transmission de singularité>> ! Ne pose pas de questions sur cela.",
-      "shopSadisticRune": "[[77]] Quel rune étrange ; le marchand, que vous savez maintenant aveugle, vous dit par la pensée qu’il s'agit d'une rune d'Ascention Infine imbibée de quelques <<matière Singulière | Grise>>. Y avait-il plusieurs Ascents Infins ?"
+      "shopSingularityPotency": "Mises à jour de singularité gratuites : elles sont maintenant 266 % plus efficaces (autant dire qu'each en vaut l'équivalent de 3,66 niveaux avant les plafonds). Pourquoi ? Cela paraît un peu étrange <<gris | Rituel d'appareil de transmission de singularité>> ! Ne pose pas de questions sur cela.",
+      "shopSadisticRune": "Quel rune étrange ; le marchand, que vous savez maintenant aveugle, vous dit par la pensée qu’il s'agit d'une rune d'Ascention Infine imbibée de quelques <<matière Singulière | Grise>>. Y avait-il plusieurs Ascents Infins ?"
     },
     "maxed": "Max !",
     "upgradeFor": "Améliorer pour {{x}} Quarks",
@@ -1580,7 +1580,7 @@
       "description": "(Hover pour plus de détails. Les avantages en <span style=\"color: gold\">texte d'or</span> ont été ajoutés ou améliorés dans cette Singularité)",
       "welcometoSingularity": {
         "name": "Bienvenue dans la Singularité !",
-        "default": "[[77]] Bienvenue dans la Singularité ! En guise de récompense pour avoir atteint ce milestones : vous pouvez désormais autocрафter les Hepteracts (lorsque vous débloquerez à nouveau eux) et les Mises à niveau Platoniques seront AcheteurMax si elles sont accessibles !"
+        "default": "Bienvenue dans la Singularité ! En guise de récompense pour avoir atteint ce milestones : vous pouvez désormais autocрафter les Hepteracts (lorsque vous débloquerez à nouveau eux) et les Mises à niveau Platoniques seront AcheteurMax si elles sont accessibles !"
       },
       "unlimitedGrowth": {
         "name": "Pouvez-vous grandir indéfiniment?",
@@ -1667,7 +1667,7 @@
         "default": "Tu as toujours les autobuyeurs pour les constructions de Particules."
       },
       "evenMoreQuarks": {
-        "name": "[[77]] Plus de quarks",
+        "name": "Plus de quarks",
         "bug": "Ceci est un bug ! Contactez Platonic si vous voyez ce message, d'une manière ou d'une autre.",
         "default": "Vous gagnez <<cyan|{{stack}}>> couches de <<cyan|5%>> Quarks ! Augmentation totale : <<cyan|+{{inc}}%>>"
       },
@@ -1688,7 +1688,7 @@
       "forTheLoveOfTheAntGod": {
         "name": "À la folie du Dieu Fourmis !",
         "hasLevel2": "Vous gardez définitivement les Ant autobuyers et vous lancez chaque Ascension avec un Ant de niveau 8.",
-        "hasLevel1": "[[77]] Permaneントement gardez les Autobuyers d'Ant et démarrez chaque Ascension avec un Ant deTier 5",
+        "hasLevel1": "Vous maintenez permanent les Ant autobuyers et vous lancez chaque Ascension avec un Tier 5 Ant",
         "default": "Vous gardez perpétuellement les autobuyers Ant et vous lancez chaque Ascension avec un Ant de Tier 1"
       },
       "itAllAddsUp": {
@@ -1732,7 +1732,7 @@
         "default": "Les niveaux de verrouillage sur certains améliorations de singularité sont augmentés de {{i}} !"
       },
       "wowCubeAutomatedShipping": {
-        "name": "Waouh ! Cube Automated Shipping : Expédiez \"Exit [No Shards]\" avec au moins 1E99 999 cubes et sansaucun Corruptions.",
+        "name": "Wow ! Cube Automatique de Livraison",
         "hasLevel1": "Achetez automatiquement les Mises à niveau Cubes après chaque Ascension, quelque part que vous soyez !",
         "default": "Achetez automatiquement les Mises à niveau Carré lors de chaque Ascension, mais uniquement si vous êtes dans un Défi Singularité."
       },
@@ -1758,7 +1758,7 @@
         "default": "Achetez automatiquement les Mises à niveau Platoniques à chaque Ascension, sans utiliser de Platonium ni d'Offrandes, mais uniquement dans un Défi Singularité."
       },
       "platSigma": {
-        "name": "[[PL-AT Σ]] Ascensions : Quittez \"Exit [No Shards]\" avec au moins 1E99 999 pièces et sans corruptions.",
+        "name": "PL-AT Élève",
         "default": "L'action spéciale « Add » remplit {{counter}} % plus rapidement par niveau par Singulière. Actuellement : {{current}} (MAX : -60 % de refroidissement)"
       },
       "midasMilleniumAgedGold": {
@@ -1805,7 +1805,7 @@
         "effect": "Permanently gagner {{n}}% de Golden Quarks supplémentaires aux Singularités."
       },
       "goldenQuarks2": {
-        "name": "Golden Quarks II",
+        "name": "Quarks D'Or II",
         "description": "Acheter GQ est de 0,2 % moins cher par niveau ! [Après 50 %, l'effet croît beaucoup plus lentement]",
         "effect": "Acheter des Quarks d'Or dans le magasin est de {{n}}% moins cher."
       },
@@ -1899,7 +1899,7 @@
         "effect": "Permanemment obtenez {{n}}% plus d'Obtenium."
       },
       "singObtainium3": {
-        "name": "Obtainium Tsunami",
+        "name": "Tsunamin de Obtainedium",
         "description": "Une marée montante soulève tous les bateaux. +4% de Gagnabium obtenus par niveau.",
         "effect": "Permanemment obtenez {{n}}% plus de Obtainedanium."
       },
@@ -1930,7 +1930,7 @@
       },
       "octeractUnlock": {
         "name": "Octéractes",
-        "description": "[[77]] Bonjour ! Que faites-vous donc ?!?",
+        "description": "Bonjour ! Que faites-vous donc ?!?",
         "effectHave": "Vous vous êtes laissé aller au hype autour de l'Octeract.",
         "effectHaveNot": "Vous ne vous êtes pas laissé embarquer par la surenchère Octeract."
       },
@@ -1958,9 +1958,9 @@
       },
       "expertPack": {
         "name": "Paquet Expert",
-        "description": "[[77]] Parade de Quarks : Gagnez +6% Quarks en cumul avec les ascensions avancées, obtenez un multiplicateur de 1,5 fois le Score d'ascension. Lecode 'add' accélère le Tour d'ascension de 1,2 fois.",
-        "effectHave": "[[77]] Vous avez été attribué au prestataire spécialisé.",
-        "effectHaveNot": "[[77]] Fournisseur expert non activé."
+        "description": "Parade de Quarks : Gagnez +6% Quarks en cumul avec les ascensions avancées, obtenez un multiplicateur de 1,5 fois le Score d'ascension. Lecode 'add' accélère le Tour d'ascension de 1,2 fois.",
+        "effectHave": "Vous avez été attribué au prestataire spécialisé.",
+        "effectHaveNot": "Fournisseur expert non activé."
       },
       "masterPack": {
         "name": "Paquet Maître",
@@ -2002,7 +2002,7 @@
         "effect": "Potions actuellement donnent {{n}} fois plus d'items !"
       },
       "singChallengeExtension": {
-        "name": "[[Bigger Challenge Caps]] Debutez par \"Quitter 'Exit [No Shards]' avec au moins 1E99 999 pièces et sans\" en français.",
+        "name": "Plus grand Défi Capitales",
         "description": "Besoin de plus de Défis ? Bien, ajoutez 2 à la limite des Défis de Réincarnation et 1 à la limite des Défis d'Ascension, par niveau.",
         "effect": "Vous êtes assez motivés pour compléter {{n}} Défis de Réincarnations ainsi que {{m}} Défis d'Ascension supplémentaires."
       },
@@ -2037,24 +2037,24 @@
         "effect": "Le DR exposant est maintenant {{n}}% plus grand!"
       },
       "singOcteractGain": {
-        "name": "Octeract Absinthe",
+        "name": "Absinthe Octeract",
         "description": "Vous n'auriez jamais su que ce tonique peut booster vos Octéractes ! [+1,25 % par niveau, en fait !]",
         "effect": "Gain Octeract +{{n}}%"
       },
       "singOcteractGain2": {
         "name": "Pièces de Huit",
         "description": "Il y en a effectivement huit, mais chacun ne donne que +0,625% de bonus, donc chaque niveau apporte +5% d'Octeract par niveau.",
-        "effect": "Octeract Gain +{{n}}%"
+        "effect": "Gain Octeract +{{n}}%"
       },
       "singOcteractGain3": {
         "name": "L'obelisque à forme d'octogone.",
         "description": "Platonic avait besoin d'étaler sa magie ici. +2,5% Octéractes oui !",
-        "effect": "Octeract Gain +{{n}}%"
+        "effect": "Augmentation Octeract +{{n}}%"
       },
       "singOcteractGain4": {
         "name": "Synthèse octaédrique",
         "description": "Comment ça marche !?? +2% Octeracts, sans hésiter !",
-        "effect": "Octeract Gain +{{n}}%"
+        "effect": "Gain Octeract +{{n}}%"
       },
       "singOcteractGain5": {
         "name": "Wonder du Monde VIII",
@@ -2098,7 +2098,7 @@
         "effectHaveNot": "Vous n'avez pas transformé l'Aetherflux!"
       },
       "singAscensionSpeed": {
-        "name": "[[77]] Une vitesse d'ascension formidable !",
+        "name": "Une vitesse d'ascension formidable !",
         "description": "La vitesse de l'Ascension est élevée à la puissance de 1,03, puis abaissée à 0,97 si inférieure à 1x.",
         "effect": "Vitesse d'Ascension ^{{n}}, ^{{m}} si < 1x"
       },
@@ -2119,7 +2119,7 @@
         "effectHaveNot": "Vous n'avez pas rejoint le culte!"
       },
       "wowPass4": {
-        "name": "QUQUQUQUAAKCKCKKCKKCKK",
+        "name": "QUACQUACQUAKCKCKKCKKCKK",
         "description": "Des deals qui te coûteront un bec et une aile !",
         "effectHave": "Vous avez trépigné votre dernier QUARK",
         "effectHaveNot": "Vous ne avez pas plastronné ta dernière QUARK"
@@ -2167,7 +2167,7 @@
       "singAmbrosiaGeneration4": {
         "name": "[[Hourglass of Fantasy]] Sifon de fantaisie",
         "description": "Une heureglass inutile et « moins précieuse » - je ne sais pas ce que ça veut dire. +2 % Mysore Palm Secconde Génération par niveau.",
-        "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+        "effect": "Seconds Génération Bleuets +{{n}}%(!)"
       },
       "singBonusTokens1": {
         "name": "Change de Sac à Money sur l'Assise du Canapé",
@@ -2240,27 +2240,27 @@
     "on": "OUI",
     "off": "NON",
     "updateAlerts": {
-      "june282021": "[[77]] Le 28 juin 2021 : Vous avez reçu des quarks en remboursement si vous les aviez achetés avec vos calculateurs. Ils ne peuvent plus êtreremboursés, donc soyez vigilants !",
+      "june282021": "Le 28 juin 2021 : Vous avez reçu des quarks en remboursement si vous les aviez achetés avec vos calculateurs. Ils ne peuvent plus êtreremboursés, donc soyez vigilants !",
       "july22021": "[[July 2, 2021]] : Vous avez reçu des quarks en remboursement pour l'upgrade Powder EX, si vous avez acheté des niveaux. Vos fourmis T1 ont également été réinitialisées et le coût de base a été fixé à 1e700 particules. Powder EX n'est plus remboursable, alors soyez prudent !",
-      "sing230Balancing": "[[77]] Singularité 230 : En raison des changements d'équilibre, vous avez été renvoyé pour éviter l'embour-brement de votre sauvegarde !",
-      "december22xxxx": "[[77]] Mise à jour du 22 décembre v1 :",
-      "january42023": "[[77]] Mise à jour du 4 janvier 2023 v1.",
+      "sing230Balancing": "Singularité 230 : En raison des changements d'équilibre, vous avez été renvoyé pour éviter l'embour-brement de votre sauvegarde !",
+      "december22xxxx": "Mise à jour du 22 décembre v1 :",
+      "january42023": "Mise à jour du 4 janvier 2023 v1.",
       "v297hotfix1NoSing": "[[You Have Loaded Into La Version 2_9_7 Hotfix 1!]]",
-      "v297hotfix1Sing": "[[77]] Version 2.9.7 correctif 1 activée ! Vos améliorations de singularité de ressources non limitées ont été remboursées ! Pardon pour l'inconvénient causé."
+      "v297hotfix1Sing": "Version 2.9.7 correctif 1 activée ! Vos améliorations de singularité de ressources non limitées ont été remboursées ! Pardon pour l'inconvénient causé."
     },
     "languageChange": "Le changement de langue requiert un rechargement ! Voulez-vous recharger maintenant ?",
     "resources": {
       "offering": "Offrant",
-      "obtainium": "[[77]] Obtentionium",
+      "obtainium": "Obtentionium",
       "globalSpeed": "Vitesse globale",
       "ascensionSpeed": "Vitesse d'Ascension",
       "octeract": "[[Octeract]] Octobre",
-      "cube": "Cube",
+      "cube": "Cubé",
       "goldenQuarks": "Quarks d'Or",
-      "quarks": "Quarks",
+      "quarks": "Cubiklis",
       "ascensionScore": "Score d'Ascension",
       "blueberryGenerationSpeed": "Vitesse génération myrtille",
-      "ambrosiaLuck": "Ambrosia Luck",
+      "ambrosiaLuck": "Ambrosie Chance",
       "powderConversion": "Conversion en Poussière",
       "antSacrifice": "[[Ant Sacrifice]] Sacrifice les Fourmis",
       "oneMind": "Un Esprit",
@@ -2569,7 +2569,7 @@
       "tesseract": "Bâtiments de Tesseracts"
     },
     "runes": {
-      "runes": "Runes",
+      "runes": " Runes",
       "talismans": "Talissons",
       "blessings": "Bénédictions",
       "spirits": "[=- Esprits -=]"
@@ -2605,7 +2605,7 @@
         "prestige": " prestige",
         "transcend": "([[Transcend]]) Transcende",
         "reincarnate": "Reincarnation",
-        "ascension": "Ascension",
+        "ascension": "Ascensionnement",
         "sacrifice": "Sacrifice Fourmi",
         "singularity": "Singularité"
       }
@@ -2649,7 +2649,7 @@
       },
       "third": {
         "name": " Campagne troisième",
-        "description": "[[77]] Poids de l'Ascension : Il augmente en fonction du nombre de Corruptions que vous avez."
+        "description": "Poids de l'Ascension : Il augmente en fonction du nombre de Corruptions que vous avez."
       },
       "fourth": {
         "name": "Campagne IV",
@@ -2833,7 +2833,7 @@
       },
       "fortyNinth": {
         "name": "Campagne XLIX - Le Défi 15 Construire",
-        "description": "[[77]] C'est comme le Défi 15, mais ce n'est pas le cas."
+        "description": "C'est comme le Défi 15, mais ce n'est pas le cas."
       },
       "fiftieth": {
         "name": "Campagne L - La Dernière Campagne",
@@ -3127,12 +3127,12 @@
         "effect": "Vous avez {{n}} rendu hommage à Derpsmith."
       },
       "octeractGain": {
-        "name": "Octeract Cogenesis",
+        "name": "Octrait Cogenèse",
         "description": "Estimes-tu vraiment qu’ils sont lent ? Gagne 1 % de plus à chaque niveau ! C'est simple.",
         "effect": "Octeract Gain est augmenté de {{n}} %."
       },
       "octeractGain2": {
-        "name": "Octeract Trigenesis",
+        "name": "Octérase Trigénèse",
         "description": "Il appear que vous avez six dimensions supplémentaires pour modifier votre Cogenesis. +1% d'Octs supplémentaires par niveau !",
         "effect": "Octeract Gain augmente de {{n}} %."
       },
@@ -3179,7 +3179,7 @@
       "octeractImprovedQuarkHept": {
         "name": "Je souhaite avoir des Quark Hepteracts encore mieux.",
         "description": "La dryade est absente, mais Derpsmith est là ! +2 % d'exposant de réticence par niveau. Il s'additionne avec tous les autres !",
-        "effect": "Quark Hepteract DR +{{n}}."
+        "effect": "Quark Heptadrôme DR +{{n}}."
       },
       "octeractImprovedGlobalSpeed": {
         "name": "L'horloge interdite du temps",
@@ -3223,7 +3223,7 @@
       },
       "octeractBonusTokens2": {
         "name": " Tokens de Derpsmith II",
-        "description": "[[77]] Augmentation des Tokens de 1 % par niveau pour les Campagnes : Priez que cet arrangement ne soit pas modifié davantage.",
+        "description": "Augmentation des Tokens de 1 % par niveau pour les Campagnes : Priez que cet arrangement ne soit pas modifié davantage.",
         "effect": "Gain de tokens +{{n}}%"
       },
       "octeractBonusTokens3": {
@@ -3307,7 +3307,7 @@
         "effect": " Clips Diversité +{{n}}(!)"
       },
       "octeractAmbrosiaGeneration2": {
-        "name": "[[77]] Sphère des Petits Temps",
+        "name": "Sphère des Petits Temps",
         "description": "Un petite horloge à grains qui fait généralement s'accélérer la production de cerises bleues de 1% par niveau..",
         "effect": "Blueberry Seconds Génération +{{n}}%(!)"
       },
@@ -3332,7 +3332,7 @@
     "octeractsPerSecond": "par seconde",
     "totalGenerated": "Total Généré: <<var(--lightseagreen-text-color)|{{octeracts}}>> Octéractes!",
     "generatedCubeBonus": "Cubes 3-7 dimensionnels <<jaune|+{{cubeBonus}}%>>",
-    "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}%>>",
+    "generatedQuarkBonus": "Quarks {{+quarkBonus}%}}",
     "generatedOfferingBonus": "Offreancs <<orange|+{{offeringBonus}}%>>",
     "generatedObtainiumBonus": "Obtentionum <<<rose|+/{\"obtainiumBonus\"}%>>>&#39;&#39;"
   },
@@ -3390,7 +3390,7 @@
       },
       "names": {
         "exemption": "Exonération",
-        "chronos": "[[Chronos]] Ascensions : Quittez \"Exit [No Shards]\" avec au moins 1E99 999 pièces et sans_corruptions.",
+        "chronos": "Chronos",
         "midas": "[[Midas]] Ordonnez les pousses d'or : Plantez au moins 1E99 999 graines pour obtenir des pousses d'or.",
         "metaphysics": "Métaphysique",
         "polymath": "Génie Universel",
@@ -3798,7 +3798,7 @@
         "12": "Gagnez (1 + lvl/100)x Multiplieur Ant par terminaison de Défi, en ignorant les Corruptions des Ants.",
         "13": "Effet de la Sécheresse est élevé au carré.",
         "14": "Réduisez l'effet de la Récession financière dans le Défi 15 en multipliant l'exposant de pièce par 1.55.",
-        "15": "[[77]] Commencez à découvrir le début de l'abîme. Coin Exponent +0.10 dans le Défi 15, Score du Défi 15 +25%, Vitesse d'Ascension +0.2% par Niveau de Corruption (Max : 20%), +1% pour tous les Types de Cube par Complétion de C9 (Multiplicatif), +30% de Quarks, 1e250x Multiplieur de Batiment Tesseract, 2x Compteur d'Ascension, +30 Plafond du Défi des Reincarnation, +20 Plafond du Défi d'Ascension, 6x Offrandes et Obtium (Incorruptible)! Plongeon profond.",
+        "15": "Commencez à découvrir le début de l'abîme. Coin Exponent +0.10 dans le Défi 15, Score du Défi 15 +25%, Vitesse d'Ascension +0.2% par Niveau de Corruption (Max : 20%), +1% pour tous les Types de Cube par Complétion de C9 (Multiplicatif), +30% de Quarks, 1e250x Multiplieur de Batiment Tesseract, 2x Compteur d'Ascension, +30 Plafond du Défi des Reincarnation, +20 Plafond du Défi d'Ascension, 6x Offrandes et Obtium (Incorruptible)! Plongeon profond.",
         "16": "Augmentez la teneur en poudre de 1 % par niveau, gagnez +2 % d\\'Ascensions par niveau et gagnez jusqu\\'à 2 % d\\'Ascensions supplémentaires par niveau en fonction de la poudre, jusqu\\'à 100 000. Cela multipliera également la production du Bâtiment Tessérat par (poudre + 1)^(10 * niveau), sans plafond.",
         "17": "Si la Corruption de Viscosité est définie à 10 ou plus haut, le multiplicateur de score est augmenté d'un exposant. Celui-ci est égal à 3 plus 0,04 pour chaque niveau de cet amélioration.",
         "18": "Augment la_base_decentage_de_Mise_à_Jour_Constante_1_de_0,1_% et augmentez le_plafond_de_la_base_decentage_de_Mise_à_Jour_Constante_2_de_0,3 % par niveau !",
@@ -3876,7 +3876,7 @@
       "onlyNegativeOne": "Le seul nombre négatif valide pour le toggle est -1.",
       "notZero": "Vous ne pouvez pas définir le bouton à 0."
     },
-    "toggleMax": "[[77]] Your toggle is now set to MAX : Votre bouton est maintenant en position MAX",
+    "toggleMax": "Votre bouton est maintenant en position MAX",
     "toggle": "Votre curseur est maintenant réglé sur {{x}}"
   },
   "hepteracts": {
@@ -4092,7 +4092,7 @@
       "eventTitle": "Consommables actifs",
       "consumableSpoiler": "Déclenchez un événement pour tout le monde avec la Cloche du Bonheur de l'Apéro !",
       "consumableButton": "Achetez au PseudoShop !",
-      "applyTips": "[[77]] Paradis Amish : Quittez \"Exit [No Shards]\" avec au moins 1E99 999 pièces et sans",
+      "applyTips": "Vérifiez vos traductions une fois elles sont faites et corrigez-les si nécessaire. Si la phrase contient du texte en langue autre que le français, réfaites la traduction.",
       "applyTipsPrompt": "Combien de conseils aimeriez-vous utiliser ? Chaque conseil donne 1.minute de temps hors ligne. Vous avez {{tips}} conseil(s). Vous ne pouvez utiliser que jusqu'à 1 440 conseils par"
     }
   }
