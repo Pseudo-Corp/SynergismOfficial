@@ -3332,7 +3332,7 @@
     "octeractsPerSecond": "par seconde",
     "totalGenerated": "Total Généré: <<var(--lightseagreen-text-color)|{{octeracts}}>> Octéractes!",
     "generatedCubeBonus": "Cubes 3-7 dimensionnels <<jaune|+{{cubeBonus}}%>>",
-    "generatedQuarkBonus": "Quarks {{+quarkBonus}%}}",
+    "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}%>>",
     "generatedOfferingBonus": "Offreancs <<orange|+{{offeringBonus}}%>>",
     "generatedObtainiumBonus": "Obtentionum <<<rose|+/{\"obtainiumBonus\"}%>>>&#39;&#39;"
   },
