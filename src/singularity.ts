@@ -2792,15 +2792,11 @@ export const calculateSingularityDebuff = (
   )
 
   if (debuff === 'Offering') {
-    return Math.sqrt(
-      Math.min(effectiveSingularities, calculateEffectiveSingularities(150)) + 1
-    )
+    return Math.sqrt(effectiveSingularities) + 1
   } else if (debuff === 'Global Speed') {
     return 1 + Math.sqrt(effectiveSingularities) / 4
   } else if (debuff === 'Obtainium') {
-    return Math.sqrt(
-      Math.min(effectiveSingularities, calculateEffectiveSingularities(150)) + 1
-    )
+    return Math.sqrt(effectiveSingularities) + 1
   } else if (debuff === 'Researches') {
     return 1 + Math.sqrt(effectiveSingularities) / 2
   } else if (debuff === 'Ascension Speed') {
