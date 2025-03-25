@@ -730,8 +730,6 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
 
   let subTabList = subTabs.subTabList[subtabInfo[tab.getType()].subtabIndex]
 
-  console.log({ s: subTabList })
-
   while (!subTabList.unlocked) {
     subtabInfo[tab.getType()].subtabIndex = limitRange(
       subtabInfo[tab.getType()].subtabIndex + (step ?? 1),
