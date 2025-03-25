@@ -16,7 +16,7 @@ import { autoResearchEnabled } from './Research'
 import { displayRuneInformation } from './Runes'
 import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
-import { Tabs } from './Tabs'
+import { getActiveSubTab, Tabs } from './Tabs'
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism'
 import {
   visualUpdateAchievements,
@@ -850,14 +850,14 @@ export const buttoncolorchange = () => {
   }
 
   if (G.currentTab === Tabs.Runes) {
-    if (player.subtabNumber === 0) {
+    if (getActiveSubTab() === 0) {
       for (let i = 1; i <= 7; i++) {
         player.runeshards > 0.5
           ? DOMCacheGetOrSet(`activaterune${i}`).classList.add('runeButtonAvailable')
           : DOMCacheGetOrSet(`activaterune${i}`).classList.remove('runeButtonAvailable')
       }
     }
-    if (player.subtabNumber === 1) {
+    if (getActiveSubTab() === 1) {
       const a = DOMCacheGetOrSet('buyTalismanItem1')
       const b = DOMCacheGetOrSet('buyTalismanItem2')
       const c = DOMCacheGetOrSet('buyTalismanItem3')

@@ -315,8 +315,6 @@ export interface Player {
     generators: boolean
     reincarnate: boolean
   }
-  tabnumber: number
-  subtabNumber: number
 
   // create a Map with keys defaulting to boolean
   codes: Map<number, boolean>

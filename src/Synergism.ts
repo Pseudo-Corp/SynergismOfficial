@@ -180,7 +180,7 @@ import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
-import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 
@@ -539,8 +539,6 @@ export const player: Player = {
     generators: true,
     reincarnate: true
   },
-  tabnumber: 1,
-  subtabNumber: 0,
 
   // create a Map with keys defaulting to false
   codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false])),
@@ -6172,13 +6170,11 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         categoryUpgrades(num, false)
       }
       if (G.currentTab === Tabs.Runes) {
-        if (player.subtabNumber === 0) {
+        if (getActiveSubTab() === 0) {
           redeemShards(num)
-        }
-        if (player.subtabNumber === 2) {
+        } else if (getActiveSubTab() === 2) {
           buyRuneBonusLevels('Blessings', num)
-        }
-        if (player.subtabNumber === 3) {
+        } else if (getActiveSubTab() === 3) {
           buyRuneBonusLevels('Spirits', num)
         }
       }
