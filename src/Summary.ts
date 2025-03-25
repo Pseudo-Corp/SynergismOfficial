@@ -7,11 +7,11 @@ import {
   calculateAscensionAcceleration,
   calculateGoldenQuarkGain,
   calculateMaxRunes,
+  calculateOcteractMultiplier,
   calculateTimeAcceleration,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractQuarkBonus,
-  isIARuneUnlocked,
-  octeractGainPerSecond
+  isIARuneUnlocked
 } from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { version } from './Config'
@@ -133,7 +133,7 @@ export const generateExportSummary = async (): Promise<void> => {
   if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
     octeract = '===== OCTERACTS =====\n'
     octeract = `${octeract}Current Octeracts: ${format(player.wowOcteracts, 2, true)}\n`
-    octeract = `${octeract}Current Per Second: ${format(octeractGainPerSecond(), 2, true)}\n`
+    octeract = `${octeract}Current Per Second: ${format(calculateOcteractMultiplier(), 2, true)}\n`
     octeract = `${octeract}Total Generated Octeracts: ${format(player.totalWowOcteracts, 2, true)}\n`
     octeract = `${octeract}Octeract Cube Bonus: ${format(100 * (calculateTotalOcteractCubeBonus() - 1), 2, true)}%\n`
     octeract = `${octeract}Octeract Quark Bonus: ${format(100 * (calculateTotalOcteractQuarkBonus() - 1), 2, true)}%\n`

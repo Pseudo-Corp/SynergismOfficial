@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, octeractGainPerSecond } from './Calculate'
+import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculateOcteractMultiplier } from './Calculate'
 import { campaignTokenRewardHTMLUpdate } from './Campaign'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
@@ -130,7 +130,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
     const isAffordable = costNextLevel <= player.wowOcteracts
     let affordTime = ''
     if (!isMaxLevel && !isAffordable) {
-      const octPerSecond = octeractGainPerSecond()
+      const octPerSecond = calculateOcteractMultiplier()
       affordTime = octPerSecond > 0
         ? formatTimeShort((costNextLevel - player.wowOcteracts) / octPerSecond)
         : `${i18next.t('general.infinity')}`
@@ -228,7 +228,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     costPerLevel: 1e-15,
     effect: (n: number) => {
       return {
-        bonus: n > 0,
+        bonus: n > 0 ? 1.4 : 1,
         get desc () {
           return i18next.t('octeract.data.octeractStarter.effect', { n: (n > 0) ? '' : 'not' })
         }

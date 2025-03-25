@@ -11,6 +11,7 @@ import {
   calculateCubeQuarkMultiplier,
   calculateMaxRunes,
   calculateNumberOfThresholds,
+  calculateOcteractMultiplier,
   calculateRecycleMultiplier,
   calculateRequiredBlueberryTime,
   calculateRuneExpToLevel,
@@ -21,8 +22,7 @@ import {
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractObtainiumBonus,
   calculateTotalOcteractOfferingBonus,
-  calculateTotalOcteractQuarkBonus,
-  octeractGainPerSecond
+  calculateTotalOcteractQuarkBonus
 } from './Calculate'
 import { formatAsPercentIncrease } from './Campaign'
 import { CalcECC } from './Challenges'
@@ -1515,7 +1515,7 @@ export const visualUpdateOcteracts = () => {
     octeracts: format(player.wowOcteracts, 2, true, true, true)
   })
 
-  const perSecond = octeractGainPerSecond()
+  const perSecond = calculateOcteractMultiplier()
 
   DOMCacheGetOrSet('secondsPerOcteract').style.display = perSecond < 1 ? 'block' : 'none'
   DOMCacheGetOrSet('secondsPerOcteract').innerHTML = i18next.t(

@@ -13,7 +13,6 @@ import { Globals as G } from './Variables'
 import Decimal from 'break_infinity.js'
 import i18next, { type StringMap } from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import type { resetNames } from './types/Synergism'
 
 export const displayRuneInformation = (i: number, updatelevelup = true) => {
   const m = G.effectiveLevelMult
@@ -86,8 +85,8 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
   }
 }
 
-export const resetofferings = (input: resetNames) => {
-  player.runeshards = Math.min(1e300, player.runeshards + calculateOfferings(input))
+export const resetofferings = () => {
+  player.runeshards = Math.min(1e300, player.runeshards + calculateOfferings())
 }
 
 export const unlockedRune = (runeIndexPlusOne: number) => {

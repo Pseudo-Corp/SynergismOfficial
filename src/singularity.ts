@@ -1091,7 +1091,7 @@ export const singularityData: Record<
     specialCostForm: 'Exponential2',
     effect: (n: number) => {
       return {
-        bonus: n / 200,
+        bonus: 1 + n / 200,
         get desc () {
           return i18next.t('singularity.data.singQuarkImprover1.effect', {
             n: format(n / 2, 2, true)
@@ -1366,6 +1366,21 @@ export const singularityData: Record<
               ? ' However, the pen just ran out of ink. How will you get more?'
               : ''
           })
+        }
+      }
+    }
+  },
+  halfMind: {
+    maxLevel: 1,
+    costPerLevel: 1.66e12,
+    minimumSingularity: 150,
+    effect: (n: number) => {
+      return {
+        bonus: n > 0,
+        get desc () {
+          return i18next.t(
+            `singularity.data.halfMind.effect${n ? 'Have' : 'HaveNot'}`
+          )
         }
       }
     }

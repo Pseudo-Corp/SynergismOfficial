@@ -387,7 +387,7 @@ export const Globals: GlobalVariables = {
     1 / 1e100
   ],
   hyperchallengeMultiplier: [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100, 400, 1600, 7777, 18888, 88888],
-  illiteracyPower: [1, 0.8, 0.7, 0.6, 0.5, 0.3, 0.2, 0.15, 0.10, 0.06, 0.04, 0.02, 0.01, 0.005, 0, 0, 0],
+  illiteracyPower: [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.20, 0.15, 0.10, 0.08, 0.06, 0.05],
   deflationMultiplier: [
     1,
     0.3,
@@ -478,7 +478,7 @@ export const Globals: GlobalVariables = {
       (e >= 1e20)
         ? 1 + (1 / 4) * Math.pow(e / 1e10, 1 / 8) * Math.pow(1e10, 1 / 8)
         : 1 + (1 / 4) * Math.pow(e / 1e10, 1 / 4),
-    quarks: (e: number) => 1 + (1 / 100) * Math.log(e * 32 / 1e11) / Math.log(2),
+    quarks: (e: number) => 1 + (3 / 400) * Math.log2(e * 32 / 1e11),
     hepteractsUnlocked: (e: number) => e >= 1e15 ? 1 : 0,
     challengeHepteractUnlocked: (e: number) => e >= 2e15 ? 1 : 0,
     cube5: (e: number) => 1 + (1 / 300) * Math.log2(e / (4e15 / 1024)),

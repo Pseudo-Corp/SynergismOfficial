@@ -1211,6 +1211,7 @@ export const player: Player = {
       singularityData.singAscensionSpeed2,
       'singAscensionSpeed2'
     ),
+    halfMind: new SingularityUpgrade(singularityData.halfMind, 'halfMind'),
     oneMind: new SingularityUpgrade(singularityData.oneMind, 'oneMind'),
     wowPass4: new SingularityUpgrade(singularityData.wowPass4, 'wowPass4'),
     offeringAutomatic: new SingularityUpgrade(
@@ -6104,7 +6105,7 @@ const tack = (dt: number) => {
       }
     }
   }
-  calculateOfferings('reincarnation')
+  calculateOfferings()
 }
 
 export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {

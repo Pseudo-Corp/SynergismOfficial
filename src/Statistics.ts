@@ -7,8 +7,11 @@ import {
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaLuck,
   calculateAmbrosiaQuarkMult,
+  calculateAscensionAcceleration,
   calculateAscensionScore,
   calculateAscensionSpeedMultiplier,
+  calculateBaseObtainium,
+  calculateBaseOfferings,
   calculateCashGrabCubeBonus,
   calculateCashGrabQuarkBonus,
   calculateCubeMultFromPowder,
@@ -19,11 +22,16 @@ import {
   calculateEXALTBonusMult,
   calculateEXUltraCubeBonus,
   calculateEXUltraObtainiumBonus,
+  calculateEXUltraOfferingBonus,
   calculateGoldenQuarkMultiplier,
   calculateHepteractMultiplier,
   calculateHypercubeMultiplier,
+  calculateObtainium,
+  calculateObtainiumDecimal,
+  calculateObtainiumDRIgnoreCap,
   calculateOcteractMultiplier,
   calculateOfferings,
+  calculateOfferingsDecimal,
   calculatePlatonicMultiplier,
   calculatePowderConversion,
   calculateQuarkMultFromPowder,
@@ -34,7 +42,10 @@ import {
   calculateTimeAcceleration,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractObtainiumBonus,
+  calculateTotalOcteractOfferingBonus,
   calculateTotalOcteractQuarkBonus,
+  derpsmithCornucopiaBonus,
+  isIARuneUnlocked,
   resetTimeThreshold
 } from './Calculate'
 import { formatAsPercentIncrease } from './Campaign'
@@ -49,6 +60,7 @@ import {
   addCodeTimeToNextUse
 } from './ImportExport'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getQuarkBonus } from './Quark'
 import { calculateSingularityDebuff } from './singularity'
 import { format, formatTimeShort, player } from './Synergism'
 import type { GlobalVariables } from './types/Synergism'
@@ -578,6 +590,943 @@ export const allHepteractCubeStats: StatLine[] = [
   }
 ]
 
+export const allOcteractCubeStats: StatLine[] = [
+  {
+    i18n: 'BasePerSecond',
+    stat: () => 1 / (24 * 3600 * 365 * 1e15)
+  },
+  {
+    i18n: 'AscensionScore',
+    stat: () => {
+      const SCOREREQ = 1e23
+      const currentScore = calculateAscensionScore().effectiveScore
+      return currentScore >= SCOREREQ ? currentScore / SCOREREQ : 0
+    }
+  },
+  {
+    i18n: 'PseudoCoins',
+    stat: () => PCoinUpgradeEffects.CUBE_BUFF,
+    color: 'gold'
+  },
+  {
+    i18n: 'Campaign',
+    stat: () => player.campaigns.octeractBonus
+  },
+  {
+    i18n: 'SeasonPass3',
+    stat: () => 1 + (1.5 * player.shopUpgrades.seasonPass3) / 100
+  },
+  {
+    i18n: 'SeasonPassY',
+    stat: () => 1 + (0.75 * player.shopUpgrades.seasonPassY) / 100
+  },
+  {
+    i18n: 'SeasonPassZ',
+    stat: () => 1 + (player.shopUpgrades.seasonPassZ * player.singularityCount) / 100
+  },
+  {
+    i18n: 'SeasonPassLost',
+    stat: () => 1 + player.shopUpgrades.seasonPassLost / 1000
+  },
+  {
+    i18n: 'CookieUpgrade20',
+    stat: () => 1 + (+(player.corruptions.used.totalLevels >= 14 * 8) * player.cubeUpgrades[70]) / 10000
+  },
+  {
+    i18n: 'DivinePack',
+    stat: () => 1 + +(player.corruptions.used.totalLevels) * +player.singularityUpgrades.divinePack.getEffect().bonus
+  },
+  {
+    i18n: 'SingCubes1',
+    stat: () => +player.singularityUpgrades.singCubes1.getEffect().bonus
+  },
+  {
+    i18n: 'SingCubes2',
+    stat: () => +player.singularityUpgrades.singCubes2.getEffect().bonus
+  },
+  {
+    i18n: 'SingCubes3',
+    stat: () => +player.singularityUpgrades.singCubes3.getEffect().bonus
+  },
+  {
+    i18n: 'SingOcteractGain',
+    stat: () => +player.singularityUpgrades.singOcteractGain.getEffect().bonus
+  },
+  {
+    i18n: 'SingOcteractGain2',
+    stat: () => +player.singularityUpgrades.singOcteractGain2.getEffect().bonus
+  },
+  {
+    i18n: 'SingOcteractGain3',
+    stat: () => +player.singularityUpgrades.singOcteractGain3.getEffect().bonus
+  },
+  {
+    i18n: 'SingOcteractGain4',
+    stat: () => +player.singularityUpgrades.singOcteractGain4.getEffect().bonus
+  },
+  {
+    i18n: 'SingOcteractGain5',
+    stat: () => +player.singularityUpgrades.singOcteractGain5.getEffect().bonus
+  },
+  {
+    i18n: 'PatreonBonus',
+    stat: () => 1 + (getQuarkBonus() / 100) * +player.singularityUpgrades.singOcteractPatreonBonus.getEffect().bonus
+  },
+  {
+    i18n: 'OcteractStarter',
+    stat: () => 1 + 0.2 * +player.octeractUpgrades.octeractStarter.getEffect().bonus
+  },
+  {
+    i18n: 'OcteractGain',
+    stat: () => +player.octeractUpgrades.octeractGain.getEffect().bonus
+  },
+  {
+    i18n: 'OcteractGain2',
+    stat: () => +player.octeractUpgrades.octeractGain2.getEffect().bonus
+  },
+  {
+    i18n: 'DerpsmithCornucopia',
+    stat: () => derpsmithCornucopiaBonus()
+  },
+  {
+    i18n: 'DigitalOcteractAccumulator',
+    stat: () =>
+      Math.pow(
+        1 + +player.octeractUpgrades.octeractAscensionsOcteractGain.getEffect().bonus,
+        1 + Math.floor(Math.log10(1 + player.ascensionCount))
+      )
+  },
+  {
+    i18n: 'Event',
+    stat: () => 1 + calculateEventBuff(BuffType.Octeract)
+  },
+  {
+    i18n: 'PlatonicDelta',
+    stat: () =>
+      1 + +player.singularityUpgrades.platonicDelta.getEffect().bonus
+        * Math.min(
+          9,
+          (player.shopUpgrades.shopSingularitySpeedup > 0)
+            ? player.singularityCounter * 50 / (3600 * 24)
+            : player.singularityCounter / (3600 * 24)
+        )
+  },
+  {
+    i18n: 'NoSingUpgrades',
+    stat: () => +player.singularityChallenges.noSingularityUpgrades.rewards.cubes
+  },
+  {
+    i18n: 'PassINF',
+    stat: () => Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
+  },
+  {
+    i18n: 'Ambrosia',
+    stat: () => calculateAmbrosiaCubeMult()
+  },
+  {
+    i18n: 'ModuleTutorial',
+    stat: () => +player.blueberryUpgrades.ambrosiaTutorial.bonus.cubes
+  },
+  {
+    i18n: 'ModuleCubes1',
+    stat: () => +player.blueberryUpgrades.ambrosiaCubes1.bonus.cubes
+  },
+  {
+    i18n: 'ModuleLuckCube1',
+    stat: () => +player.blueberryUpgrades.ambrosiaLuckCube1.bonus.cubes
+  },
+  {
+    i18n: 'ModuleQuarkCube1',
+    stat: () => +player.blueberryUpgrades.ambrosiaQuarkCube1.bonus.cubes
+  },
+  {
+    i18n: 'ModuleCubes2',
+    stat: () => +player.blueberryUpgrades.ambrosiaCubes2.bonus.cubes
+  },
+  {
+    i18n: 'CashGrabUltra',
+    stat: () => +calculateCashGrabCubeBonus()
+  },
+  {
+    i18n: 'EXUltra',
+    stat: () => +calculateEXUltraCubeBonus()
+  },
+  {
+    i18n: 'AscensionSpeed',
+    stat: () => {
+      const ascensionSpeed = player.singularityUpgrades.oneMind.getEffect().bonus
+        ? Math.pow(10, 1 / 2) * Math.pow(
+          calculateAscensionAcceleration() / 10,
+          +player.octeractUpgrades.octeractOneMindImprover.getEffect().bonus
+        )
+        : Math.pow(calculateAscensionAcceleration(), 1 / 2)
+      return ascensionSpeed
+    }
+  }
+]
+
+export const allBaseOfferingStats: StatLine[] = [
+  {
+    i18n: 'Base',
+    stat: () => 6 // Absolute Base
+  },
+  {
+    i18n: 'Prestige',
+    stat: () => player.prestigeCount > 0 ? 1 : 0 // Prestiged
+  },
+  {
+    i18n: 'Transcend',
+    stat: () => player.transcendCount > 0 ? 3 : 0 // Transcended
+  },
+  {
+    i18n: 'Reincarnate',
+    stat: () => player.reincarnationCount > 0 ? 5 : 0 // Reincarnated
+  },
+  {
+    i18n: 'Achievements',
+    stat: () =>
+      Math.min(player.prestigecounter / 1800, 1)
+      * ((player.achievements[37] > 0 ? 15 : 0)
+        + (player.achievements[44] > 0 ? 15 : 0)
+        + (player.achievements[52] > 0 ? 25 : 0)) // Achievements 37, 44, 52 (Based on Prestige Timer)
+  },
+  {
+    i18n: 'Challenge1',
+    stat: () => (player.challengecompletions[2] > 0) ? 2 : 0 // Challenge 2x1
+  },
+  {
+    i18n: 'ReincarnationUpgrade2',
+    stat: () => (player.upgrades[62] > 0) ? Math.min(50, (1 / 50) * sumContents(player.challengecompletions)) : 0 // Reincarnation Upgrade 2
+  },
+  {
+    i18n: 'Research1x24',
+    stat: () => 0.4 * player.researches[24] // Research 1x24
+  },
+  {
+    i18n: 'Research1x25',
+    stat: () => 0.6 * player.researches[25] // Research 1x25
+  },
+  {
+    i18n: 'Research4x20',
+    stat: () => (player.researches[95] > 0) ? 15 : 0 // Research 4x20
+  }
+]
+
+export const allOfferingStats = [
+  {
+    i18n: 'Base',
+    stat: () => calculateBaseOfferings()
+  },
+  {
+    i18n: 'PrestigeShards',
+    stat: () => 1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5 // Prestige Shards
+  },
+  {
+    i18n: 'SuperiorIntellect',
+    stat: () => 1 + (1 / 2000) * G.rune5level * G.effectiveLevelMult * (1 + player.researches[85] / 200) // Superior Intellect Rune
+  },
+  {
+    i18n: 'ReincarnationChallenge',
+    stat: () =>
+      1 + 1 / 50 * CalcECC('reincarnation', player.challengecompletions[6])
+      + 1 / 25 * CalcECC('reincarnation', player.challengecompletions[8])
+      + 1 / 25 * CalcECC('reincarnation', player.challengecompletions[10]) // Reincarnation Challenges
+  },
+  {
+    i18n: 'AlchemyAchievement5',
+    stat: () => 1 + (10 * player.achievements[33]) / 100 // Alchemy Achievement 5
+  },
+  {
+    i18n: 'AlchemyAchievement6',
+    stat: () => 1 + (15 * player.achievements[34]) / 100 // Alchemy Achievement 6
+  },
+  {
+    i18n: 'AlchemyAchievement7',
+    stat: () => 1 + (25 * player.achievements[35]) / 100 // Alchemy Achievement 7
+  },
+  {
+    i18n: 'DiamondUpgrade4x3',
+    stat: () => 1 + (20 * player.upgrades[38]) / 100 // Diamond Upgrade 4x3
+  },
+  {
+    i18n: 'ParticleUpgrade3x5',
+    stat: () => 1 + player.upgrades[75] * 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5)) // Particle Upgrade 3x5
+  },
+  {
+    i18n: 'AutoOfferingShop',
+    stat: () => 1 + (1 / 50) * player.shopUpgrades.offeringAuto // Auto Offering Shop
+  },
+  {
+    i18n: 'OfferingEXShop',
+    stat: () => 1 + (1 / 25) * player.shopUpgrades.offeringEX // Offering EX Shop
+  },
+  {
+    i18n: 'CashGrab',
+    stat: () => 1 + (1 / 100) * player.shopUpgrades.cashGrab // Cash Grab
+  },
+  {
+    i18n: 'Research4x10',
+    stat: () => 1 + (1 / 10000) * sumContents(player.challengecompletions) * player.researches[85] // Research 4x10
+  },
+  {
+    i18n: 'AntUpgrade',
+    stat: () => 1 + Math.pow(player.antUpgrades[6 - 1]! + G.bonusant6, 0.66) // Ant Upgrade
+  },
+  {
+    i18n: 'Brutus',
+    stat: () => G.cubeBonusMultiplier[3] // Brutus
+  },
+  {
+    i18n: 'ConstantUpgrade3',
+    stat: () => 1 + 0.02 * player.constantUpgrades[3] // Constant Upgrade 3
+  },
+  {
+    i18n: 'ResearchTalismans',
+    stat: () =>
+      1 + 0.0003 * player.talismanLevels[3 - 1] * player.researches[149]
+      + 0.0004 * player.talismanLevels[3 - 1] * player.researches[179] // Research 6x24,8x4
+  },
+  {
+    i18n: 'TutorialBonus',
+    stat: () => player.campaigns.tutorialBonus.offeringBonus // Tutorial Offering Bonus
+  },
+  {
+    i18n: 'CampaignBonus',
+    stat: () => player.campaigns.offeringBonus // Campaign Offering Bonus
+  },
+  {
+    i18n: 'Challenge12',
+    stat: () => 1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]) // Challenge 12
+  },
+  {
+    i18n: 'Research8x25',
+    stat: () => 1 + (0.01 / 100) * player.researches[200] // Research 8x25
+  },
+  {
+    i18n: 'AscensionAchievement',
+    stat: () => 1 + Math.min(1, player.ascensionCount / 1e6) * player.achievements[187] // Ascension Count Achievement
+  },
+  {
+    i18n: 'SunMoonAchievements',
+    stat: () => 1 + 0.6 * player.achievements[250] + 1 * player.achievements[251] // Sun&Moon Achievements
+  },
+  {
+    i18n: 'CubeUpgrade5x6',
+    stat: () => 1 + 0.05 * player.cubeUpgrades[46] // Cube Upgrade 5x6
+  },
+  {
+    i18n: 'CubeUpgrade5x10',
+    stat: () => 1 + (0.02 / 100) * player.cubeUpgrades[50] // Cube Upgrade 5x10
+  },
+  {
+    i18n: 'PlatonicALPHA',
+    stat: () => 1 + player.platonicUpgrades[5] // Platonic ALPHA
+  },
+  {
+    i18n: 'PlatonicBETA',
+    stat: () => 1 + 2.5 * player.platonicUpgrades[10] // Platonic BETA
+  },
+  {
+    i18n: 'PlatonicOMEGA',
+    stat: () => 1 + 5 * player.platonicUpgrades[15] // Platonic OMEGA
+  },
+  {
+    i18n: 'Challenge15',
+    stat: () => G.challenge15Rewards.offering.value // C15 Reward
+  },
+  {
+    i18n: 'SingularityDebuff',
+    stat: () => 1 / calculateSingularityDebuff('Offering'), // Singularity Debuff
+    color: 'red'
+  },
+  {
+    i18n: 'StarterPack',
+    stat: () => 1 + 5 * (player.singularityUpgrades.starterPack.getEffect().bonus ? 1 : 0) // Starter Pack Upgrade
+  },
+  {
+    i18n: 'OfferingCharge',
+    stat: () => +player.singularityUpgrades.singOfferings1.getEffect().bonus // Offering Charge GQ Upgrade
+  },
+  {
+    i18n: 'OfferingStorm',
+    stat: () => +player.singularityUpgrades.singOfferings2.getEffect().bonus // Offering Storm GQ Upgrade
+  },
+  {
+    i18n: 'OfferingTempest',
+    stat: () => +player.singularityUpgrades.singOfferings3.getEffect().bonus // Offering Tempest GQ Upgrade
+  },
+  {
+    i18n: 'Citadel',
+    stat: () => +player.singularityUpgrades.singCitadel.getEffect().bonus // Citadel GQ Upgrade
+  },
+  {
+    i18n: 'Citadel2',
+    stat: () => +player.singularityUpgrades.singCitadel2.getEffect().bonus // Citadel 2 GQ Upgrade
+  },
+  {
+    i18n: 'CubeUpgradeCx4',
+    stat: () => 1 + player.cubeUpgrades[54] / 100 // Cube upgrade 6x4 (Cx4)
+  },
+  {
+    i18n: 'CubeUpgradeCx12',
+    stat: () => (player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1 // Cube upgrade 7x2 (Cx12)
+  },
+  {
+    i18n: 'OcteractElectrolosis',
+    stat: () => +player.octeractUpgrades.octeractOfferings1.getEffect().bonus // Offering Electrolosis OC Upgrade
+  },
+  {
+    i18n: 'OcteractBonus',
+    stat: () => calculateTotalOcteractOfferingBonus() // Octeract Bonus
+  },
+  {
+    i18n: 'Ambrosia',
+    stat: () => 1 + 0.001 * +player.blueberryUpgrades.ambrosiaOffering1.bonus.offeringMult // Ambrosia!!
+  },
+  {
+    i18n: 'CubeUpgradeCx22',
+    stat: () => Math.pow(1.04, player.cubeUpgrades[72] * sumContents(player.talismanRarity)) // Cube upgrade 8x2 (Cx22)
+  },
+  {
+    i18n: 'EXALTBonus',
+    stat: () => calculateEXALTBonusMult() // 20 Ascensions X20 Bonus [EXALT ONLY]
+  },
+  {
+    i18n: 'CashGrab2',
+    stat: () => 1 + (1 / 200) * player.shopUpgrades.cashGrab2 // Cash Grab 2
+  },
+  {
+    i18n: 'OfferingEX2',
+    stat: () => 1 + (1 / 100) * player.shopUpgrades.offeringEX2 * player.singularityCount // Offering EX 2
+  },
+  {
+    i18n: 'OfferingINF',
+    stat: () => Math.pow(1.02, player.shopUpgrades.offeringEX3) // Offering INF
+  },
+  {
+    i18n: 'EXUltra',
+    stat: () => calculateEXUltraOfferingBonus() // EX Ultra Shop Upgrade
+  },
+  {
+    i18n: 'Event',
+    stat: () => 1 + calculateEventBuff(BuffType.Offering) // Event
+  },
+  {
+    i18n: 'Exalt6Penalty',
+    stat: () => calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer), // Singularity Speedrun Penalty
+    color: 'red'
+  }
+]
+
+export const allQuarkStats: StatLine[] = [
+  {
+    i18n: 'AchievementPoints',
+    stat: () => 1 + player.achievementPoints / 50000
+  },
+  {
+    i18n: 'Achievement250',
+    stat: () => player.achievements[250] > 0 ? 1.05 : 1
+  },
+  {
+    i18n: 'Achievement251',
+    stat: () => player.achievements[251] > 0 ? 1.05 : 1
+  },
+  {
+    i18n: 'Achievement266',
+    stat: () => player.achievements[266] > 0 ? 1 + Math.min(0.1, player.ascensionCount / 1e16) : 1
+  },
+  {
+    i18n: 'PlatonicALPHA',
+    stat: () => player.platonicUpgrades[5] > 0 ? 1.05 : 1
+  },
+  {
+    i18n: 'PlatonicBETA',
+    stat: () => player.platonicUpgrades[10] > 0 ? 1.1 : 1
+  },
+  {
+    i18n: 'PlatonicOMEGA',
+    stat: () => player.platonicUpgrades[15] > 0 ? 1.15 : 1
+  },
+  {
+    i18n: 'Challenge15',
+    stat: () =>
+      player.challenge15Exponent >= G.challenge15Rewards.quarks.requirement ? G.challenge15Rewards.quarks.value : 1
+  },
+  {
+    i18n: 'CampaignBonus',
+    stat: () => player.campaigns.quarkBonus
+  },
+  {
+    i18n: 'InfiniteAscent',
+    stat: () => isIARuneUnlocked() ? 1.1 + (5 / 1300) * calculateEffectiveIALevel() : 1
+  },
+  {
+    i18n: 'QuarkHepteract',
+    stat: () =>
+      player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
+        ? 1 + 5 / 10000 * hepteractEffective('quark')
+        : 1
+  },
+  {
+    i18n: 'Powder',
+    stat: () => calculateQuarkMultFromPowder()
+  },
+  {
+    i18n: 'SingularityCount',
+    stat: () => 1 + player.singularityCount / 10
+  },
+  {
+    i18n: 'CookieUpgrade3',
+    stat: () => 1 + 0.001 * player.cubeUpgrades[53]
+  },
+  {
+    i18n: 'CookieUpgrade18',
+    stat: () => 1 + (1 / 10000) * player.cubeUpgrades[68] + 0.05 * Math.floor(player.cubeUpgrades[68] / 1000)
+  },
+  {
+    i18n: 'SingularityMilestones',
+    stat: () => calculateSingularityQuarkMilestoneMultiplier()
+  },
+  {
+    i18n: 'OcteractQuarkBonus',
+    stat: () => calculateTotalOcteractQuarkBonus()
+  },
+  {
+    i18n: 'OcteractStarter',
+    stat: () => +player.octeractUpgrades.octeractStarter.getEffect().bonus
+  },
+  {
+    i18n: 'OcteractQuarkGain',
+    stat: () => +player.octeractUpgrades.octeractQuarkGain.getEffect().bonus
+  },
+  {
+    i18n: 'OcteractQuarkGain2',
+    stat: () =>
+      1
+      + (1 / 10000) * Math.floor(player.octeractUpgrades.octeractQuarkGain.level / 111)
+        * player.octeractUpgrades.octeractQuarkGain2.level
+        * Math.floor(1 + Math.log10(Math.max(1, player.hepteractCrafts.quark.BAL)))
+  },
+  {
+    i18n: 'SingularityPacks',
+    stat: () =>
+      1 + 0.02 * player.singularityUpgrades.intermediatePack.level
+      + 0.04 * player.singularityUpgrades.advancedPack.level + 0.06 * player.singularityUpgrades.expertPack.level
+      + 0.08 * player.singularityUpgrades.masterPack.level + 0.1 * player.singularityUpgrades.divinePack.level
+  },
+  {
+    i18n: 'SingQuarkImprover1',
+    stat: () => +player.singularityUpgrades.singQuarkImprover1.getEffect().bonus
+  },
+  {
+    i18n: 'AmbrosiaQuarkMult',
+    stat: () => calculateAmbrosiaQuarkMult()
+  },
+  {
+    i18n: 'AmbrosiaTutorial',
+    stat: () => +player.blueberryUpgrades.ambrosiaTutorial.bonus.quarks
+  },
+  {
+    i18n: 'AmbrosiaQuarks1',
+    stat: () => +player.blueberryUpgrades.ambrosiaQuarks1.bonus.quarks
+  },
+  {
+    i18n: 'AmbrosiaCubeQuark1',
+    stat: () => +player.blueberryUpgrades.ambrosiaCubeQuark1.bonus.quarks
+  },
+  {
+    i18n: 'AmbrosiaLuckQuark1',
+    stat: () => +player.blueberryUpgrades.ambrosiaLuckQuark1.bonus.quarks
+  },
+  {
+    i18n: 'AmbrosiaQuarks2',
+    stat: () => +player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks
+  },
+  {
+    i18n: 'CashGrabQuarkBonus',
+    stat: () => calculateCashGrabQuarkBonus()
+  },
+  {
+    i18n: 'LimitedTimeChallenge',
+    stat: () => +player.singularityChallenges.limitedTime.rewards.quarkMult
+  },
+  {
+    i18n: 'SadisticPrequel',
+    stat: () => +player.singularityChallenges.sadisticPrequel.rewards.quarkMult
+  },
+  {
+    i18n: 'FirstSingularityBonus',
+    stat: () => player.highestSingularityCount === 0 ? 1.25 : 1,
+    color: 'cyan'
+  },
+  {
+    i18n: 'Event',
+    stat: () => G.isEvent ? 1 + calculateEventBuff(BuffType.Quark) + calculateEventBuff(BuffType.OneMind) : 1,
+    color: 'lime'
+  },
+  {
+    i18n: 'PatreonBonus',
+    stat: () => 1 + getQuarkBonus() / 100,
+    acc: 3,
+    color: 'gold'
+  }
+]
+
+export const allBaseObtainiumStats: StatLine[] = [
+  {
+    i18n: 'Base',
+    stat: () => 1 // Absolute base value
+  },
+  {
+    i18n: 'Achievement51',
+    stat: () => (player.achievements[51] > 0) ? 4 : 0 // Achievement 51
+  },
+  {
+    i18n: 'Research3x13',
+    stat: () => player.researches[63] // Research 3x13
+  },
+  {
+    i18n: 'Research3x14',
+    stat: () => 2 * player.researches[64] // Research 3x14
+  },
+  {
+    i18n: 'FirstSingularity',
+    stat: () => (player.highestSingularityCount > 0) ? 3 : 0 // First Singularity Perk
+  },
+  {
+    i18n: 'SingularityCount',
+    stat: () => Math.floor(player.singularityCount / 10) // Singularity Count
+  }
+]
+
+export const allObtainiumIgnoreDRCapStats: StatLine[] = [
+  {
+    i18n: 'Base',
+    stat: () => calculateBaseObtainium() // Absolute Base
+  },
+  {
+    i18n: 'CubeUpgrade4x2',
+    stat: () => 1 + (4 / 100) * player.cubeUpgrades[42] // Cube Upgrade 4x2
+  },
+  {
+    i18n: 'CubeUpgrade4x3',
+    stat: () => 1 + (3 / 100) * player.cubeUpgrades[43] // Cube Upgrade 4x3
+  },
+  {
+    i18n: 'PlatonicALPHA',
+    stat: () => 1 + player.platonicUpgrades[5] // Platonic ALPHA
+  },
+  {
+    i18n: 'PlatonicUpgrade9',
+    stat: () => 1 + 1.5 * player.platonicUpgrades[9] // 9th Platonic Upgrade
+  },
+  {
+    i18n: 'PlatonicBETA',
+    stat: () => 1 + 2.5 * player.platonicUpgrades[10] // Platonic BETA
+  },
+  {
+    i18n: 'PlatonicOMEGA',
+    stat: () => 1 + 5 * player.platonicUpgrades[15] // Platonic OMEGA
+  },
+  {
+    i18n: 'CubeUpgradeCx5',
+    stat: () => 1 + player.cubeUpgrades[55] / 100 // Cube Upgrade 6x5 (Cx5)
+  },
+  {
+    i18n: 'CubeUpgradeCx12',
+    stat: () => (player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1, // Cube Upgrade 7x2 (Cx12)
+    color: 'cyan'
+  },
+  {
+    i18n: 'CubeUpgradeCx21',
+    stat: () => Math.pow(1.04, player.cubeUpgrades[71] * sumContents(player.talismanRarity)) // Cube Upgrade 8x1
+  },
+  {
+    i18n: 'EXALTBonus',
+    stat: () => calculateEXALTBonusMult(), // EXALT Bonus Multiplier
+    color: 'cyan'
+  },
+  {
+    i18n: 'Exalt6Penalty',
+    stat: () => calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer), // Singularity Challenge 6 Penalty
+    color: 'red'
+  },
+  {
+    i18n: 'Event',
+    stat: () => 1 + calculateEventBuff(BuffType.Obtainium) // Event Buff
+  }
+]
+
+export const allObtainiumStats: StatLine[] = [
+  {
+    i18n: 'Base',
+    stat: () => calculateBaseObtainium() // Base Obtainium
+  },
+  {
+    i18n: 'TranscendShards',
+    stat: () => Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2) // Transcend Shards
+  },
+  {
+    i18n: 'ReincarnationUpgrade9',
+    stat: () =>
+      (player.upgrades[69] > 0)
+        ? Math.min(10, Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5).toNumber())
+        : 1 // Reincarnation Upgrade 9
+  },
+  {
+    i18n: 'ReincarnationUpgrade12',
+    stat: () =>
+      (player.upgrades[72] > 0) ? Math.min(50, 1 + 2 * sumContents(player.challengecompletions.slice(6, 11))) : 1 // Reincarnation Upgrade 12
+  },
+  {
+    i18n: 'ReincarnationUpgrade14',
+    stat: () => (player.upgrades[74] > 0) ? 1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5)) : 1 // Reincarnation Upgrade 14
+  },
+  {
+    i18n: 'Research3x15',
+    stat: () => 1 + player.researches[65] / 5 // Research 3x15
+  },
+  {
+    i18n: 'Research4x1',
+    stat: () => 1 + player.researches[76] / 10 // Research 4x1
+  },
+  {
+    i18n: 'Research4x6',
+    stat: () => 1 + player.researches[81] / 10 // Research 4x6
+  },
+  {
+    i18n: 'ShopObtainiumAuto',
+    stat: () => 1 + player.shopUpgrades.obtainiumAuto / 50 // Shop Upgrade Auto Obtainium
+  },
+  {
+    i18n: 'ShopCashGrab',
+    stat: () => 1 + player.shopUpgrades.cashGrab / 100 // Shop Upgrade Cash Grab
+  },
+  {
+    i18n: 'ShopObtainiumEX',
+    stat: () => 1 + player.shopUpgrades.obtainiumEX / 25 // Shop Upgrade Obtainium EX
+  },
+  {
+    i18n: 'Rune5',
+    stat: () =>
+      1
+      + (G.rune5level / 200) * G.effectiveLevelMult
+        * (1
+          + (player.researches[84] / 200)
+            * (1 + G.effectiveRuneSpiritPower[5] * player.corruptions.used.totalCorruptionDifficultyMultiplier)) // Rune 5
+  },
+  {
+    i18n: 'ChallengeAchievements',
+    stat: () =>
+      1 + 0.01 * player.achievements[84] + 0.03 * player.achievements[91] + 0.05 * player.achievements[98]
+      + 0.07 * player.achievements[105] + 0.09 * player.achievements[112] + 0.11 * player.achievements[119]
+      + 0.13 * player.achievements[126] + 0.15 * player.achievements[133] + 0.17 * player.achievements[140]
+      + 0.19 * player.achievements[147] // Challenge Achievements
+  },
+  {
+    i18n: 'Ant10',
+    stat: () => 1 + 2 * Math.pow((player.antUpgrades[10 - 1]! + G.bonusant10) / 50, 2 / 3) // Ant 10
+  },
+  {
+    i18n: 'Achievement53',
+    stat: () => (player.achievements[53] > 0) ? 1 + G.runeSum / 800 : 1 // Achievement 53
+  },
+  {
+    i18n: 'Achievement128',
+    stat: () => (player.achievements[128] > 0) ? 1.5 : 1 // Achievement 128
+  },
+  {
+    i18n: 'Achievement129',
+    stat: () => (player.achievements[129] > 0) ? 1.25 : 1 // Achievement 129
+  },
+  {
+    i18n: 'Achievement188',
+    stat: () => (player.achievements[188] > 0) ? 1 + Math.min(2, player.ascensionCount / 5e6) : 1 // Achievement 188
+  },
+  {
+    i18n: 'Achievement250_251',
+    stat: () => 1 + 0.6 * player.achievements[250] + player.achievements[251] // Achievement 250, 251
+  },
+  {
+    i18n: 'CubeBonus',
+    stat: () => G.cubeBonusMultiplier[5] // Cube Bonus
+  },
+  {
+    i18n: 'ConstantUpgrade4',
+    stat: () => 1 + 0.04 * player.constantUpgrades[4] // Constant Upgrade
+  },
+  {
+    i18n: 'CubeUpgrade1x3',
+    stat: () => 1 + 0.1 * player.cubeUpgrades[3] // Cube Upgrade 1x3
+  },
+  {
+    i18n: 'CubeUpgrade4x7',
+    stat: () => 1 + 0.1 * player.cubeUpgrades[47] // Cube Upgrade 4x7
+  },
+  {
+    i18n: 'TutorialBonus',
+    stat: () => player.campaigns.tutorialBonus.obtainiumBonus // Campaign Tutorial Bonus
+  },
+  {
+    i18n: 'CampaignBonus',
+    stat: () => player.campaigns.obtainiumBonus // Campaign Obtainium Bonus
+  },
+  {
+    i18n: 'Challenge12',
+    stat: () => 1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]) // Challenge 12
+  },
+  {
+    i18n: 'SpiritPower',
+    stat: () => 1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[4] // 4th Spirit
+  },
+  {
+    i18n: 'Research6x19',
+    stat: () => 1 + ((0.03 * Math.log(player.uncommonFragments + 1)) / Math.log(4)) * player.researches[144] // Research 6x19
+  },
+  {
+    i18n: 'PlatonicALPHA',
+    stat: () => 1 + player.platonicUpgrades[5] // Platonic ALPHA
+  },
+  {
+    i18n: 'PlatonicUpgrade9',
+    stat: () => 1 + 1.5 * player.platonicUpgrades[9] // 9th Platonic Upgrade
+  },
+  {
+    i18n: 'PlatonicBETA',
+    stat: () => 1 + 2.5 * player.platonicUpgrades[10] // Platonic BETA
+  },
+  {
+    i18n: 'PlatonicOMEGA',
+    stat: () => 1 + 5 * player.platonicUpgrades[15] // Platonic OMEGA
+  },
+  {
+    i18n: 'CubeUpgrade5x10',
+    stat: () => 1 + 0.0002 * player.cubeUpgrades[50] // Cube Upgrade 5x10
+  },
+  {
+    i18n: 'StarterPack',
+    stat: () => 1 + 5 * (player.singularityUpgrades.starterPack.getEffect().bonus ? 1 : 0) // Starter Pack
+  },
+  {
+    i18n: 'SingObtainium1',
+    stat: () => +player.singularityUpgrades.singObtainium1.getEffect().bonus // Obtainium GQ Upgrade 1
+  },
+  {
+    i18n: 'SingObtainium2',
+    stat: () => +player.singularityUpgrades.singObtainium2.getEffect().bonus // Obtainium GQ Upgrade 2
+  },
+  {
+    i18n: 'SingObtainium3',
+    stat: () => +player.singularityUpgrades.singObtainium3.getEffect().bonus // Obtainium GQ Upgrade 3
+  },
+  {
+    i18n: 'SingCitadel',
+    stat: () => +player.singularityUpgrades.singCitadel.getEffect().bonus // Singularity Citadel 1
+  },
+  {
+    i18n: 'SingCitadel2',
+    stat: () => +player.singularityUpgrades.singCitadel2.getEffect().bonus // Singularity Citadel 2
+  },
+  {
+    i18n: 'CubeUpgradeCx5',
+    stat: () => 1 + player.cubeUpgrades[55] / 100 // Cube Upgrade 6x5 (Cx5)
+  },
+  {
+    i18n: 'CubeUpgradeCx12',
+    stat: () => (player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1, // Cube Upgrade 7x2 (Cx12)
+    color: 'cyan'
+  },
+  {
+    i18n: 'CubeUpgradeCx21',
+    stat: () => Math.pow(1.04, player.cubeUpgrades[71] * sumContents(player.talismanRarity)) // Cube Upgrade 8x1
+  },
+  {
+    i18n: 'ShopCashGrab2',
+    stat: () => 1 + (1 / 200) * player.shopUpgrades.cashGrab2 // Cash Grab 2 Shop Upgrade
+  },
+  {
+    i18n: 'ShopObtainiumEX2',
+    stat: () => 1 + (1 / 100) * player.shopUpgrades.obtainiumEX2 * player.singularityCount // Obtainium EX 2 Shop Upgrade
+  },
+  {
+    i18n: 'ShopObtainiumEX3',
+    stat: () => Math.pow(1.02, player.shopUpgrades.obtainiumEX3) // Obtainium EX 3 Shop Upgrade
+  },
+  {
+    i18n: 'OcteractBonus',
+    stat: () => calculateTotalOcteractObtainiumBonus() // Octeract Obtainium Bonus
+  },
+  {
+    i18n: 'OcteractObtainium1',
+    stat: () => +player.octeractUpgrades.octeractObtainium1.getEffect().bonus // Octeract Obtainium 1
+  },
+  {
+    i18n: 'AmbrosiaObtainium1',
+    stat: () => 1 + 0.001 * +player.blueberryUpgrades.ambrosiaObtainium1.bonus.obtainiumMult // Ambrosia Obtainium 1
+  },
+  {
+    i18n: 'EXUltraObtainium',
+    stat: () => calculateEXUltraObtainiumBonus() // EX Ultra Obtainium Bonus
+  },
+  {
+    i18n: 'EXALTBonus',
+    stat: () => calculateEXALTBonusMult(), // EXALT Bonus Multiplier
+    color: 'cyan'
+  },
+  {
+    i18n: 'Challenge14',
+    stat: () => (player.currentChallenge.ascension === 14) ? 0 : 1, // Challenge 14: No Obtainium
+    color: 'red'
+  },
+  {
+    i18n: 'SingularityDebuff',
+    stat: () => 1 / calculateSingularityDebuff('Obtainium'), // Singularity Debuff
+    color: 'red'
+  },
+  {
+    i18n: 'Exalt6Penalty',
+    stat: () => calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer), // Singularity Challenge 6 Penalty
+    color: 'red'
+  },
+  {
+    i18n: 'Event',
+    stat: () => 1 + calculateEventBuff(BuffType.Obtainium), // Event Buff
+    color: 'lime'
+  }
+]
+
+// For use in displaying the second half of Obtainium Multiplier Stats
+export const obtainiumDR: StatLine[] = [
+  {
+    i18n: 'ObtainiumDR',
+    stat: () => player.corruptions.used.corruptionEffects('illiteracy'),
+    color: 'orange'
+  },
+  {
+    i18n: 'ImmaculateObtainium',
+    stat: () => calculateObtainiumDRIgnoreCap()
+  }
+]
+
+// Ditto (This is used in the display as well as the calculation for total Obtainium / Offerings. Append this to the end of obtainiumDR in displays)
+export const offeringObtainiumTimeModifiers = (time: number, timeMultCheck: boolean): StatLine[] => {
+  return [
+    {
+      i18n: 'ThresholdPenalty',
+      stat: () => Math.min(1, Math.pow(time / resetTimeThreshold(), 2)), // Reincarnation Threshold Penalty
+      color: 'red'
+    },
+    {
+      i18n: 'TimeMultiplier',
+      stat: () => timeMultCheck ? Math.max(1, time / resetTimeThreshold()) : 1 // Reincarnation Time Multiplier
+    },
+    {
+      i18n: 'HalfMind',
+      stat: () => (player.singularityUpgrades.halfMind.getEffect().bonus) ? calculateTimeAcceleration().mult / 10 : 1
+    }
+  ]
+}
+
 const LOADED_STATS_HTMLS = {
   challenge15: false
 }
@@ -586,7 +1535,10 @@ const associated = new Map<string, string>([
   ['kMisc', 'miscStats'],
   ['kFreeAccel', 'acceleratorStats'],
   ['kFreeMult', 'multiplierStats'],
+  ['kBaseOffering', 'baseOfferingStats'],
   ['kOfferingMult', 'offeringMultiplierStats'],
+  ['kBaseObtainium', 'baseObtainiumStats'],
+  ['kObtIgnoreDR', 'obtainiumIgnoreDRCapStats'],
   ['kObtMult', 'obtainiumMultiplierStats'],
   ['kGlobalCubeMult', 'globalCubeMultiplierStats'],
   ['kQuarkMult', 'globalQuarkMultiplierStats'],
@@ -635,11 +1587,20 @@ export const loadStatisticsUpdate = () => {
       case 'multiplierStats':
         loadStatisticsMultiplier()
         break
+      case 'baseOfferingStats':
+        loadStatisticsOfferingBase()
+        break
       case 'offeringMultiplierStats':
         loadStatisticsOfferingMultipliers()
         break
+      case 'baseObtainiumStats':
+        loadStatisticsObtainiumBase()
+        break
+      case 'obtainiumIgnoreDRCapStats':
+        loadStatisticsObtainiumIgnoreDR()
+        break
       case 'obtainiumMultiplierStats':
-        loadObtainiumMultipliers()
+        loadStatisticsObtainiumMultipliers()
         break
       case 'globalQuarkMultiplierStats':
         loadQuarkMultiplier()
@@ -683,8 +1644,8 @@ export const loadStatisticsUpdate = () => {
       case 'hepteractMultiplierStats':
         loadHepteractMultiplierStats()
         break
-      default:
-        loadStatisticsCubeMultipliers()
+      case 'octeractMultiplierStats':
+        loadOcteractMultiplierStats()
         break
     }
   }
@@ -695,7 +1656,8 @@ export const loadStatistics = (
   parentDiv: string,
   statLinePrefix: string,
   specificClass: string,
-  calcTotalFunc: () => number
+  calcTotalFunc: () => number | Decimal,
+  summativeName = 'Total'
 ) => {
   const parent = DOMCacheGetOrSet(parentDiv)
   const numStatLines = document.getElementsByClassName(specificClass).length
@@ -736,7 +1698,7 @@ export const loadStatistics = (
     statTotal.id = statTotalHTMLName
     statTotal.className = 'statPortion'
     statTotal.classList.add('statTotal')
-    statTotal.textContent = i18next.t(`statistics.${parentDiv}.Total`)
+    statTotal.textContent = i18next.t(`statistics.${parentDiv}.${summativeName}`)
 
     const statTotalNum = document.createElement('span')
     statTotalNum.id = statNumTotalHTMLName
@@ -1052,7 +2014,12 @@ export const loadStatisticsMultiplier = () => {
   }`
   DOMCacheGetOrSet('sM13').textContent = format(G.freeMultiplier, 3, true)
 }
+
 export const loadQuarkMultiplier = () => {
+  loadStatistics(allQuarkStats, 'globalQuarkMultiplierStats', 'sGQM', 'quarkStats', calculateQuarkMultiplier)
+}
+
+/*export const loadQuarkMultiplier = () => {
   DOMCacheGetOrSet('sGQM1').textContent = `x${format(1, 3, true)}` // Base
   DOMCacheGetOrSet('sGQM2').textContent = `+${
     format(
@@ -1302,7 +2269,7 @@ export const loadQuarkMultiplier = () => {
       true
     )
   }`
-}
+}*/
 
 export const loadGlobalSpeedMultiplier = () => {
   const globalSpeedStats = calculateTimeAcceleration()
@@ -1391,549 +2358,56 @@ export const loadHepteractMultiplierStats = () => {
   )
 }
 
-export const loadStatisticsCubeMultipliers = () => {
+export const loadOcteractMultiplierStats = () => {
+  loadStatistics(
+    allOcteractCubeStats,
+    'octeractMultiplierStats',
+    'statOcM',
+    'OcteractCubeStat',
+    calculateOcteractMultiplier
+  )
+}
 
-  const octMults = calculateOcteractMultiplier()
-  const ascensionSpeedDesc = player.singularityUpgrades.oneMind.getEffect()
-      .bonus
-    ? 'One Mind Multiplier'
-    : 'Ascension Speed Multiplier'
-  const map6: Record<number, { acc: number; desc: string; color?: string }> = {
-    1: { acc: 2, desc: 'Ascension Score Multiplier:' },
-    2: { acc: 2, desc: 'PseudoCoin Upgrade:', color: 'gold' },
-    3: { acc: 4, desc: 'Campaigns: Octeract Bonus:' },
-    4: { acc: 2, desc: 'Season Pass 3:' },
-    5: { acc: 2, desc: 'Season Pass Y:' },
-    6: { acc: 2, desc: 'Season Pass Z:' },
-    7: { acc: 2, desc: 'Season Pass Lost:' },
-    8: { acc: 2, desc: 'Cookie Upgrade 20:' },
-    9: { acc: 2, desc: 'Divine Pack:' },
-    10: { acc: 2, desc: 'Cube Flame:' },
-    11: { acc: 2, desc: 'Cube Blaze:' },
-    12: { acc: 2, desc: 'Cube Inferno:' },
-    13: { acc: 2, desc: 'Octeract Absinthe' },
-    14: { acc: 2, desc: 'Pieces of Eight' },
-    15: { acc: 2, desc: 'Obelisk Shaped Like an Octagon' },
-    16: { acc: 2, desc: 'Octahedral Synthesis' },
-    17: { acc: 2, desc: 'Eighth Wonder of the World' },
-    18: { acc: 2, desc: 'Platonic is a fat sellout' },
-    19: { acc: 2, desc: 'Octeracts for Dummies' },
-    20: { acc: 2, desc: 'Octeract Cogenesis' },
-    21: { acc: 2, desc: 'Octeract Trigenesis' },
-    22: { acc: 2, desc: 'Singularity Factor' },
-    23: { acc: 2, desc: 'Digital Octeract Accumulator' },
-    24: { acc: 2, desc: 'Event Buff' },
-    25: { acc: 2, desc: 'Platonic DELTA' },
-    26: { acc: 2, desc: 'No Singularity Upgrades Challenge' },
-    27: { acc: 2, desc: 'Wow Pass ∞' },
-    28: { acc: 2, desc: 'Unspent Ambrosia Bonus' },
-    29: { acc: 2, desc: 'Module- Tutorial' },
-    30: { acc: 2, desc: 'Module- Cubes 1' },
-    31: { acc: 2, desc: 'Module- Luck-Cube 1' },
-    32: { acc: 2, desc: 'Module- Quark-Cube 1' },
-    33: { acc: 2, desc: 'Module- Cubes 2' },
-    34: { acc: 2, desc: 'Cash Grab ULTIMATE' },
-    35: { acc: 2, desc: 'Shop EX ULTIMATE' },
-    36: { acc: 2, desc: ascensionSpeedDesc }
-  }
-  for (let i = 0; i < octMults.list.length; i++) {
-    const statOcMi = DOMCacheGetOrSet(`statOcM${i + 1}`)
-    statOcMi.childNodes[0].textContent = map6[i + 1].desc
-    if (map6[i + 1].color) {
-      statOcMi.style.color = map6[i + 1].color ?? 'white'
-    }
-    DOMCacheGetOrSet(`sOcM${i + 1}`).textContent = `x${
-      format(
-        octMults.list[i],
-        map6[i + 1].acc,
-        true
-      )
-    }`
-  }
-
-  DOMCacheGetOrSet('sOcMT').textContent = `x${format(octMults.mult, 3)}`
+export const loadStatisticsOfferingBase = () => {
+  loadStatistics(allBaseOfferingStats, 'baseOfferingStats', 'statOffB', 'OfferingBaseStat', calculateBaseOfferings)
 }
 
 export const loadStatisticsOfferingMultipliers = () => {
-  const arr = calculateOfferings('prestige', false)
-  const map: Record<number, { acc: number; desc: string }> = {
-    1: { acc: 3, desc: 'Alchemy Achievement 5:' },
-    2: { acc: 3, desc: 'Alchemy Achievement 6:' },
-    3: { acc: 3, desc: 'Alchemy Achievement 7:' },
-    4: { acc: 3, desc: 'Diamond Upgrade 4x3:' },
-    5: { acc: 3, desc: 'Particle Upgrade 3x5:' },
-    6: { acc: 3, desc: 'Auto Offering Shop Upgrade:' },
-    7: { acc: 3, desc: 'Offering EX Shop Upgrade:' },
-    8: { acc: 3, desc: 'Cash Grab Shop Upgrade:' },
-    9: { acc: 3, desc: 'Research 4x10:' },
-    10: { acc: 3, desc: 'Sacrificium Formicidae:' },
-    11: { acc: 3, desc: 'Plutus Cube Tribute:' },
-    12: { acc: 3, desc: 'Constant Upgrade 3:' },
-    13: { acc: 3, desc: 'Research 6x24,8x4:' },
-    14: { acc: 3, desc: 'Campaigns: Tutorial Bonus' },
-    15: { acc: 3, desc: 'Campaigns: Offering Bonus:' },
-    16: { acc: 3, desc: 'Challenge 12:' },
-    17: { acc: 3, desc: 'Research 8x25:' },
-    18: { acc: 3, desc: 'Ascension Count Achievement:' },
-    19: { acc: 3, desc: 'Sun and Moon Achievements:' },
-    20: { acc: 3, desc: 'Cube Upgrade 5x6:' },
-    21: { acc: 3, desc: 'Cube Upgrade 5x10:' },
-    22: { acc: 3, desc: 'Platonic ALPHA:' },
-    23: { acc: 3, desc: 'Platonic BETA:' },
-    24: { acc: 3, desc: 'Platonic OMEGA:' },
-    25: { acc: 3, desc: 'Challenge 15:' },
-    26: { acc: 3, desc: 'Starter Pack:' },
-    27: { acc: 3, desc: 'Offering Charge [GQ]:' },
-    28: { acc: 3, desc: 'Offering Storm [GQ]:' },
-    29: { acc: 3, desc: 'Offering Tempest [GQ]:' },
-    30: { acc: 3, desc: 'Citadel [GQ]' },
-    31: { acc: 3, desc: 'Citadel 2 [GQ]' },
-    32: { acc: 3, desc: 'Cube Upgrade Cx4:' },
-    33: { acc: 3, desc: 'Offering Electrolosis [OC]:' },
-    34: { acc: 3, desc: 'RNG-based Offering Booster:' },
-    35: { acc: 3, desc: 'Cube Upgrade Cx21:' },
-    36: { acc: 3, desc: '20 Ascensions X20 [EXALT ONLY]' },
-    37: { acc: 3, desc: 'Shop EX ULTIMATE' },
-    38: { acc: 3, desc: 'Event:' }
-  }
-  for (let i = 0; i < arr.length; i++) {
-    const statOffi = DOMCacheGetOrSet(`statOff${i + 1}`)
-    statOffi.childNodes[0].textContent = map[i + 1].desc
-    DOMCacheGetOrSet(`sOff${i + 1}`).textContent = `x${
-      format(
-        arr[i],
-        map[i + 1].acc,
-        true
-      )
-    }`
-  }
-  DOMCacheGetOrSet('sOffT').textContent = `x${
-    format(
-      calculateOfferings('prestige', true, true),
-      3
-    )
-  }`
+  loadStatistics(allOfferingStats, 'offeringMultiplierStats', 'statOff', 'OfferingStat', calculateOfferingsDecimal)
+  loadStatistics(
+    offeringObtainiumTimeModifiers(player.prestigecounter, player.prestigeCount > 0),
+    'offeringMultiplierStats',
+    'statOff2',
+    'OfferingStat2',
+    calculateOfferings,
+    'Total2'
+  )
 }
-export const loadObtainiumMultipliers = () => {
-  DOMCacheGetOrSet('sObt1').textContent = `x${
-    format(
-      player.upgrades[69] > 0
-        ? Math.min(
-          10,
-          new Decimal(
-            Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)
-          ).toNumber()
-        )
-        : 1,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt2').textContent = `x${
-    format(
-      player.upgrades[72] > 0
-        ? Math.min(
-          50,
-          1
-            + 2 * player.challengecompletions[6]
-            + 2 * player.challengecompletions[7]
-            + 2 * player.challengecompletions[8]
-            + 2 * player.challengecompletions[9]
-            + 2 * player.challengecompletions[10]
-        )
-        : 1,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt3').textContent = `x${
-    format(
-      player.upgrades[74] > 0
-        ? 1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5))
-        : 1,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt4').textContent = `x${
-    format(
-      1 + player.researches[65] / 5,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt5').textContent = `x${
-    format(
-      1 + player.researches[76] / 10,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt6').textContent = `x${
-    format(
-      1 + player.researches[81] / 10,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt7').textContent = `x${
-    format(
-      1 + player.shopUpgrades.obtainiumAuto / 50,
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt8').textContent = `x${
-    format(
-      1 + player.shopUpgrades.cashGrab / 100,
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt9').textContent = `x${
-    format(
-      1 + player.shopUpgrades.obtainiumEX / 25,
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt10').textContent = `x${
-    format(
-      1
-        + (G.rune5level / 200)
-          * G.effectiveLevelMult
-          * (1
-            + (player.researches[84] / 200)
-              * (1
-                + (G.effectiveRuneSpiritPower[5] * player.corruptions.used.totalCorruptionDifficultyMultiplier))),
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt11').textContent = `x${
-    format(
-      1
-        + 0.01 * player.achievements[84]
-        + 0.03 * player.achievements[91]
-        + 0.05 * player.achievements[98]
-        + 0.07 * player.achievements[105]
-        + 0.09 * player.achievements[112]
-        + 0.11 * player.achievements[119]
-        + 0.13 * player.achievements[126]
-        + 0.15 * player.achievements[133]
-        + 0.17 * player.achievements[140]
-        + 0.19 * player.achievements[147],
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt12').textContent = `x${
-    format(
-      1 + 2 * Math.pow((player.antUpgrades[10 - 1]! + G.bonusant10) / 50, 2 / 3),
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt13').textContent = `x${
-    format(
-      1 + player.achievements[188] * Math.min(2, player.ascensionCount / 5e6),
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt14').textContent = `x${
-    format(
-      1 + 0.6 * player.achievements[250] + 1 * player.achievements[251],
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt15').textContent = `x${
-    format(
-      G.cubeBonusMultiplier[5],
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt16').textContent = `x${
-    format(
-      1 + 0.04 * player.constantUpgrades[4],
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt17').textContent = `x${
-    format(
-      1 + 0.1 * player.cubeUpgrades[3],
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt18').textContent = `x${
-    format(
-      1 + 0.1 * player.cubeUpgrades[47],
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt19').textContent = `x${
-    format(
-      player.campaigns.tutorialBonus.obtainiumBonus,
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt20').textContent = `x${
-    format(
-      player.campaigns.obtainiumBonus,
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt21').textContent = `x${
-    format(
-      1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]),
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt22').textContent = `x${
-    format(
-      1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[4],
-      4
-    )
-  }`
-  DOMCacheGetOrSet('sObt23').textContent = `x${
-    format(
-      1
-        + ((0.03 * Math.log(player.uncommonFragments + 1)) / Math.log(4))
-          * player.researches[144],
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt24').textContent = `x${
-    format(
-      1 + (0.02 / 100) * player.cubeUpgrades[50],
-      4
-    )
-  }`
-  DOMCacheGetOrSet('sObt25').textContent = `x${
-    format(
-      player.achievements[53] > 0 ? 1 + (1 / 800) * G.runeSum : 1,
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt26').textContent = `x${
-    format(
-      (player.achievements[128] ? 1.5 : 1) * (player.achievements[129] ? 1.25 : 1),
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt27').textContent = `+${
-    format(
-      player.achievements[51] > 0 ? 4 : 1,
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt28').textContent = `+${
-    format(
-      (player.reincarnationcounter >= 2 ? 1 * player.researches[63] : 1)
-        + (player.reincarnationcounter >= 5 ? 2 * player.researches[64] : 1),
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt29').textContent = `x${
-    format(
-      (player.reincarnationcounter >= 5 ? Math.max(1, player.reincarnationcounter / resetTimeThreshold()) : 1)
-        * Math.min(1, Math.pow(player.reincarnationcounter / resetTimeThreshold(), 2)),
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt30').textContent = `x${
-    format(
-      Math.pow(
-        Decimal.log(player.transcendShards.add(1), 10) / 300,
-        2
-      ),
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt31').textContent = `^${
-    format(
-      Math.min(
-        1,
-        G.illiteracyPower[player.corruptions.used.illiteracy]
-          * (1
-            + (9 / 100)
-              * player.platonicUpgrades[9]
-              * Math.min(100, Math.log10(player.researchPoints + 10)))
-      ),
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt32').textContent = `x${
-    format(
-      1 + (4 / 100) * player.cubeUpgrades[42]
-        + 1 + (3 / 100) * player.cubeUpgrades[43],
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt33').textContent = `x${
-    format(
-      1 + player.platonicUpgrades[5],
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt34').textContent = `x${
-    format(
-      1 + 1.5 * player.platonicUpgrades[9],
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt35').textContent = `x${
-    format(
-      1 + 2.5 * player.platonicUpgrades[10],
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt36').textContent = `x${
-    format(
-      1 + 5 * player.platonicUpgrades[15],
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt37').textContent = `x${
-    format(
-      G.challenge15Rewards.obtainium.value,
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt38').textContent = `x${
-    format(
-      1 + 5 * (player.singularityUpgrades.starterPack.getEffect().bonus ? 1 : 0),
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt39').textContent = `x${
-    format(
-      +player.singularityUpgrades.singObtainium1.getEffect().bonus,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt40').textContent = `x${
-    format(
-      +player.singularityUpgrades.singObtainium2.getEffect().bonus,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt41').textContent = `x${
-    format(
-      +player.singularityUpgrades.singObtainium3.getEffect().bonus,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt42').textContent = `x${
-    format(
-      1 + player.cubeUpgrades[55] / 100,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt43').textContent = `x${
-    format(
-      1 + (1 / 200) * player.shopUpgrades.cashGrab2,
-      3
-    )
-  }`
-  DOMCacheGetOrSet('sObt44').textContent = `x${
-    format(
-      1 + (1 / 100) * player.shopUpgrades.obtainiumEX2 * player.singularityCount,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt45').textContent = `x${
-    format(
-      1 + calculateEventBuff(BuffType.Obtainium),
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt46').textContent = `x${
-    format(
-      +player.singularityUpgrades.singCitadel.getEffect().bonus,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt47').textContent = `x${
-    format(
-      +player.singularityUpgrades.singCitadel2.getEffect().bonus,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt48').textContent = `x${
-    format(
-      +player.octeractUpgrades.octeractObtainium1.getEffect().bonus,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt49').textContent = `x${
-    format(
-      Math.pow(1.02, player.shopUpgrades.obtainiumEX3),
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt50').textContent = `x${
-    format(
-      calculateTotalOcteractObtainiumBonus(),
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt51').textContent = `x${
-    format(
-      player.currentChallenge.ascension === 15
-        ? 1 + 7 * player.cubeUpgrades[62]
-        : 1,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt52').textContent = `x${
-    format(
-      1
-        + 0.001 * +player.blueberryUpgrades.ambrosiaObtainium1.bonus.obtainiumMult,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt53').textContent = `x${
-    format(
-      calculateEXUltraObtainiumBonus(),
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt54').textContent = `x${
-    format(
-      calculateEXALTBonusMult(),
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt55').textContent = `x${
-    format(
-      Math.pow(1.04, player.cubeUpgrades[71] * sumContents(player.talismanRarity)),
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt56').textContent = `/${
-    format(
-      calculateSingularityDebuff('Obtainium'),
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt57').textContent = `^${
-    format(
-      player.corruptions.used.illiteracy >= 15
-        ? 1 / 4
-        : 1,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt58').textContent = `^${
-    format(
-      player.corruptions.used.illiteracy >= 16
-        ? 1 / 4
-        : 1,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObt59').textContent = `x${
-    format(
-      player.currentChallenge.ascension === 14
-        ? 0
-        : 1,
-      2
-    )
-  }`
-  DOMCacheGetOrSet('sObtT').textContent = `x${
-    format(
-      G.obtainiumGain,
-      3
-    )
-  }`
+
+export const loadStatisticsObtainiumBase = () => {
+  loadStatistics(allBaseObtainiumStats, 'baseObtainiumStats', 'statObtB', 'ObtainiumBaseStat', calculateBaseObtainium)
+}
+
+export const loadStatisticsObtainiumIgnoreDR = () => {
+  loadStatistics(
+    allObtainiumIgnoreDRCapStats,
+    'obtainiumIgnoreDRCapStats',
+    'statObtDR',
+    'ObtainiumDRStat',
+    calculateObtainiumDRIgnoreCap
+  )
+}
+
+export const loadStatisticsObtainiumMultipliers = () => {
+  loadStatistics(allObtainiumStats, 'obtainiumMultiplierStats', 'statObt', 'ObtainiumStat', calculateObtainiumDecimal)
+  loadStatistics(
+    obtainiumDR.concat(offeringObtainiumTimeModifiers(player.reincarnationcounter, player.reincarnationCount >= 5)),
+    'obtainiumMultiplierStats',
+    'statObt2',
+    'ObtainiumStat2',
+    calculateObtainium,
+    'Total2'
+  )
 }
 
 export const loadPowderMultiplier = () => {

@@ -6,9 +6,9 @@ import {
   calculateGoldenQuarkGain,
   calculateMaxRunes,
   calculateObtainium,
+  calculateOcteractMultiplier,
   calculateRequiredBlueberryTime,
-  calculateTimeAcceleration,
-  octeractGainPerSecond
+  calculateTimeAcceleration
 } from './Calculate'
 import { quarkHandler } from './Quark'
 import { Seed, seededRandom } from './RNG'
@@ -38,6 +38,10 @@ type TimerInput =
  * @param time
  */
 export const addTimers = (input: TimerInput, time = 0) => {
+  const globalTimeMultiplier = player.singularityUpgrades.halfMind.getEffect()
+    ? 10
+    : calculateTimeAcceleration().mult
+
   const timeMultiplier = input === 'ascension'
       || input === 'quarks'
       || input === 'goldenQuarks'
@@ -46,7 +50,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       || input === 'autoPotion'
       || input === 'ambrosia'
     ? 1
-    : calculateTimeAcceleration().mult
+    : globalTimeMultiplier
 
   switch (input) {
     case 'prestige': {
@@ -113,7 +117,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         const amountOfGiveaways = player.octeractTimer - (player.octeractTimer % 1)
         player.octeractTimer %= 1
 
-        const perSecond = octeractGainPerSecond()
+        const perSecond = calculateOcteractMultiplier()
         player.wowOcteracts += amountOfGiveaways * perSecond
         player.totalWowOcteracts += amountOfGiveaways * perSecond
 
