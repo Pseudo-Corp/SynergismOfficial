@@ -7,9 +7,11 @@ import {
   calculateCashGrabBlueberryBonus,
   calculateCashGrabCubeBonus,
   calculateCashGrabQuarkBonus,
+  calculateObtainiumToDecimal,
+  calculateOfferingsDecimal,
+  calculatePotionValue,
   calculatePowderConversion,
   calculateSummationNonLinear,
-  calculateTimeAcceleration,
   sumOfExaltCompletions
 } from './Calculate'
 import type { IMultiBuy } from './Cubes'
@@ -856,34 +858,18 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
   rofl.innerHTML = i18next.t(`shop.upgradeDescriptions.${input}`)
 
   shopData[input].refundable // TODO(@KhafraDev): i18n
-    ? (refundable.textContent = `This item is refundable! Will be set to level ${
-      shopData[input].refundMinimumLevel
-    } when refunded.`)
+    ? (refundable.textContent = i18next.t('shop.refundable', { level: shopData[input].refundMinimumLevel }))
     : (refundable.textContent = i18next.t('shop.cannotRefund'))
 
   switch (input) {
     case 'offeringPotion':
       lol.innerHTML = i18next.t('shop.upgradeEffects.offeringPotion', {
-        amount: format(
-          7200
-            * player.offeringpersecond
-            * calculateTimeAcceleration().mult
-            * +player.singularityUpgrades.potionBuff.getEffect().bonus,
-          0,
-          true
-        )
+        amount: format(calculatePotionValue(player.prestigecounter, calculateOfferingsDecimal()), 2, true)
       })
       break
     case 'obtainiumPotion':
       lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumPotion', {
-        amount: format(
-          7200
-            * player.maxobtainiumpersecond
-            * calculateTimeAcceleration().mult
-            * +player.singularityUpgrades.potionBuff.getEffect().bonus,
-          0,
-          true
-        )
+        amount: format(calculatePotionValue(player.reincarnationcounter, calculateObtainiumToDecimal()), 2, true)
       })
       break
     case 'offeringEX':
@@ -1641,48 +1627,26 @@ export const useConsumable = async (
     : true
 
   if (p) {
-    const multiplier = +player.singularityUpgrades.potionBuff.getEffect().bonus
-      * +player.singularityUpgrades.potionBuff2.getEffect().bonus
-      * +player.singularityUpgrades.potionBuff3.getEffect().bonus
-      * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus
-      * used
-
     if (input === 'offeringPotion') {
+      const offeringPotionValue = calculatePotionValue(player.prestigecounter, calculateOfferingsDecimal())
+
       if (infiniteAutoBrew && automatic) {
-        player.runeshards += Math.floor(
-          7200
-            * player.offeringpersecond
-            * calculateTimeAcceleration().mult
-            * multiplier
-        )
+        player.runeshards += offeringPotionValue * used
         player.runeshards = Math.min(1e300, player.runeshards)
       } else if (player.shopUpgrades.offeringPotion >= used || !spend) {
         player.shopUpgrades.offeringPotion -= spend ? used : 0
-        player.runeshards += Math.floor(
-          7200
-            * player.offeringpersecond
-            * calculateTimeAcceleration().mult
-            * multiplier
-        )
+        player.runeshards += offeringPotionValue * used
         player.runeshards = Math.min(1e300, player.runeshards)
       }
     } else if (input === 'obtainiumPotion') {
+      const obtainiumPotionValue = calculatePotionValue(player.reincarnationcounter, calculateObtainiumToDecimal())
+
       if (infiniteAutoBrew && automatic) {
-        player.researchPoints += Math.floor(
-          7200
-            * player.maxobtainiumpersecond
-            * calculateTimeAcceleration().mult
-            * multiplier
-        )
+        player.researchPoints += obtainiumPotionValue * used
         player.researchPoints = Math.min(1e300, player.researchPoints)
       } else if (player.shopUpgrades.obtainiumPotion >= used || !spend) {
         player.shopUpgrades.obtainiumPotion -= spend ? used : 0
-        player.researchPoints += Math.floor(
-          7200
-            * player.maxobtainiumpersecond
-            * calculateTimeAcceleration().mult
-            * multiplier
-        )
+        player.researchPoints += obtainiumPotionValue * used
         player.researchPoints = Math.min(1e300, player.researchPoints)
       }
     }

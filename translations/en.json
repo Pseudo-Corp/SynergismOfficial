@@ -1467,6 +1467,7 @@
     "buyYerPotions": "Buy Yer' Potions!",
     "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
     "youHaveQuarks": "You have {{x}} Quarks!",
+    "refundable": "This item is refundable! Will be set to level {{level}} when refunded.",
     "cannotRefund": "This item CANNOT be refunded! Take caution.",
     "resetPermShop": "Reset Perm Shop [Cost: 15 Quarks]",
     "shopConfirmationOn": "Shop Confirmations: ON",
@@ -3979,6 +3980,24 @@
       "ImmaculateObtainium": "Immaculate Obtainium Cap:",
       "HalfMind": "HALF MIND Modifier:",
       "Total2": "Final Obtainium Multiplier:"
+    },
+    "antSacrificeMultStats": {
+      "AntUpgrade11": "Ant Upgrade 11:",
+      "Research103": "Research 5x3:",
+      "Research104": "Research 5x4:",
+      "Achievement132": "Achievement 132:",
+      "Achievement137": "Achievement 137:",
+      "RuneBlessing": "Fortune Blessing Bonus:",
+      "Challenge10": "Challenge 10:",
+      "Research122": "Research 5x22:",
+      "Research133": "Research 6x8:",
+      "Research163": "Research 7x13:",
+      "Research193": "Research 8x18:",
+      "ParticleUpgrade4x4": "Particle Upgrade 4x4:",
+      "AcceleratorBoostUpgrade": "Accelerator Boost Upgrade:",
+      "CubeBlessingAres": "Ares' Cube Blessing:",
+      "Event": "Event Bonus:",
+      "Total": "Total Ant Sacrifice Multiplier:"
     }
   },
   "wowCubes": {
@@ -4145,7 +4164,7 @@
         "6": "Multiplies Viscosity exponent by (1 + level/30), capacity of ^1 on Multipliers and Accelerators.",
         "7": "Raises speed below 1x to the power of ^(1 - level/30).",
         "8": "Divides Hyperchallenged by (1 + 0.4 * level), with a minimum 1x Challenge requirement multiplier!",
-        "9": "Raise Obtainium to the power of (1+(0.09*log10(Obtainium owned))) and add another x2.5 multiplier (Uncorruptable), up until 1e100 Obtainium!",
+        "9": "Raise Obtainium to the power of (1+(0.01*log10(Obtainium owned))) and add another x2.5 multiplier (Uncorruptable), up until 1e100 Obtainium!",
         "10": "C10 Exponent: 1.0375 --> 1.04, Constant tax exponent +0.20, 10x faster Constant production, +25% Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 3.5x Obtainium and Offerings, 2x All Cubes, ^1.25 ant exponent in C15, +1 Corruption Cap Level again!",
         "11": "With this upgrade, you will gain diamonds equal to particle gain on Reincarnation while using Market Deflation 11 or higher! Does not work with Cube upgrade [3x8]!",
         "12": "Gain (1 + lvl/100)x Ant multiplier per Challenge completion, ignoring corruptions to Ants.",

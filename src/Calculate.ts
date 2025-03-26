@@ -26,6 +26,8 @@ import {
   allQuarkStats,
   allTesseractStats,
   allWowCubeStats,
+  antSacrificeRewardStats,
+  antSacrificeTimeStats,
   offeringObtainiumTimeModifiers
 } from './Statistics'
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
@@ -80,21 +82,25 @@ export const calculateBaseOfferings = () => {
   return allBaseOfferingStats.reduce((a, b) => a + b.stat(), 0)
 }
 
-export const calculateOfferings = () => {
-  const timeMultiplier = offeringObtainiumTimeModifiers(player.prestigecounter, player.prestigeCount > 0).reduce(
-    (a, b) => a * b.stat(),
-    1
-  )
+export const calculateOfferings = (timeMultUsed = true) => {
+  const timeMultiplier = timeMultUsed
+    ? offeringObtainiumTimeModifiers(player.prestigecounter, player.prestigeCount > 0).reduce(
+      (a, b) => a * b.stat(),
+      1
+    )
+    : 1
   const logMult = Decimal.log(calculateOfferingsDecimal(), 10)
 
   const totalLog = Math.log10(timeMultiplier) + logMult
   const effectivePowerOfTen = Math.pow(10, Math.min(300, totalLog))
 
   // Update Offering Per Second Statistic (For Plat: is this still needed?)
-  if (player.prestigecounter === 0) {
-    player.offeringpersecond = 0
-  } else {
-    player.offeringpersecond = effectivePowerOfTen / player.prestigecounter
+  if (timeMultUsed) {
+    if (player.prestigecounter === 0) {
+      player.offeringpersecond = 0
+    } else {
+      player.offeringpersecond = effectivePowerOfTen / player.prestigecounter
+    }
   }
 
   return effectivePowerOfTen
@@ -113,7 +119,12 @@ export const calculateObtainiumDRIgnoreCap = () => {
   return allObtainiumIgnoreDRCapStats.reduce((a, b) => a * b.stat(), 1)
 }
 
-export const calculateObtainium = () => {
+/**
+ * @param timeMultUsed Default true. If false, gives multiplier as if time multiplier was 1
+ * @param logMultOnly Default false. If true, returns the log10 of the obtainium multiplier, possibly greater than 300.
+ * @returns
+ */
+export const calculateObtainium = (timeMultUsed = true, logMultOnly = false) => {
   // Base Obtainium
   const base = calculateBaseObtainium()
 
@@ -124,8 +135,10 @@ export const calculateObtainium = () => {
   const DR = player.corruptions.used.corruptionEffects('illiteracy')
 
   // Reincarnation Timer Effects (Including HALF MIND)
-  const timeMultiplier = offeringObtainiumTimeModifiers(player.reincarnationcounter, player.reincarnationCount >= 5)
-    .reduce((a, b) => a * b.stat(), 1)
+  const timeMultiplier = timeMultUsed
+    ? offeringObtainiumTimeModifiers(player.reincarnationcounter, player.reincarnationCount >= 5)
+      .reduce((a, b) => a * b.stat(), 1)
+    : 1
 
   // Do some voodoo by converting all multipliers to a log10 value
   // If the multiplier is 0, we will want to cancel everything out, so subtract
@@ -145,6 +158,12 @@ export const calculateObtainium = () => {
     return 0
   }
 
+  const logTotal = (1 - DR) * Math.log10(immaculate) + DR * logMult + Math.log10(timeMultiplier)
+
+  if (logMultOnly) {
+    return logTotal
+  }
+
   const effectivePowerOfTen = Math.min(
     300,
     (1 - DR) * Math.log10(immaculate) + DR * logMult + Math.log10(timeMultiplier)
@@ -154,18 +173,116 @@ export const calculateObtainium = () => {
   const finalRawValue = Math.max(base, Math.pow(10, effectivePowerOfTen))
 
   // Update OPS
-  if (player.reincarnationcounter === 0) {
-    player.obtainiumpersecond = 0
-  } else {
-    player.obtainiumpersecond = finalRawValue / player.reincarnationcounter
-    player.maxobtainiumpersecond = Math.max(player.maxobtainiumpersecond, player.obtainiumpersecond)
+  if (timeMultUsed) {
+    if (player.reincarnationcounter === 0) {
+      player.obtainiumpersecond = 0
+    } else {
+      player.obtainiumpersecond = finalRawValue / player.reincarnationcounter
+      player.maxobtainiumpersecond = Math.max(player.maxobtainiumpersecond, player.obtainiumpersecond)
+    }
   }
 
-  return Math.max(finalRawValue, base)
+  return finalRawValue
+}
+
+/**
+ * @param timeMultUsed Default false. If true, gives proper time multiplier
+ * @returns Decimal of the obtainium multiplier, after all calculations.
+ */
+export const calculateObtainiumToDecimal = (timeMultUsed = false) => {
+  return Decimal.pow(10, calculateObtainium(timeMultUsed, true))
+}
+
+export const calculateFastForwardResourcesGlobal = (
+  resetTime: number,
+  fastForwardAmount: number,
+  resourceMult: Decimal
+) => {
+  // We're going to use the log trick to account for the fact that resourceMult * timeMult can still be >1e300
+  // Even if timeMult is very small.
+
+  const logMult = Decimal.log10(resourceMult)
+
+  // Math to compute the change in multiplier based on time
+  // The amount of offerings to give is proportional to the difference in
+  // Time Multipliers.
+  let timeMultiplier: number
+
+  const deltaTime = fastForwardAmount
+    * (player.singularityUpgrades.halfMind.getEffect() ? 10 : calculateTimeAcceleration().mult)
+
+  // Build approximations through direct computation of the derivative of time multiplier
+  // And then multiplying by deltaTime, so basically a linear approximation (See: Calculus)
+
+  // In order for the time multiplier to not decrease as your resetTime increases, while accurately portraying
+  //  take the min of
+  // two approximations: one with quadratic penalty (if less than threshold) and that of linear penalty
+  // Use the derivative of the quadratic part
+
+  timeMultiplier = Math.min(
+    2 * resetTime * deltaTime / Math.pow(resetTimeThreshold(), 2),
+    deltaTime / resetTimeThreshold()
+  )
+
+  // Correct multiplier if half mind is purchased
+  timeMultiplier *= player.singularityUpgrades.halfMind.getEffect() ? calculateTimeAcceleration().mult / 10 : 1
+  const logTime = Math.log10(timeMultiplier)
+
+  return Math.min(1e300, Math.pow(10, Math.min(300, logMult + logTime)))
+}
+
+export const calculatePotionValue = (resetTime: number, resourceMult: Decimal) => {
+  const potionTimeValue = 7200
+  const fastForwardMult = calculateFastForwardResourcesGlobal(resetTime, potionTimeValue, resourceMult)
+  const potionMultipliers = productContents([
+    +player.singularityUpgrades.potionBuff.getEffect().bonus
+    * +player.singularityUpgrades.potionBuff2.getEffect().bonus
+    * +player.singularityUpgrades.potionBuff3.getEffect().bonus
+    * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus
+  ])
+
+  return Math.min(1e300, fastForwardMult * potionMultipliers)
+}
+
+export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
+  const multiplier = productContents([
+    0.5 * player.researches[61] + 0.1 * player.researches[62],
+    1 + 0.8 * player.cubeUpgrades[3]
+  ])
+
+  if (multiplier === 0) {
+    return 0
+  }
+
+  const resourceMult = calculateObtainiumToDecimal()
+  const fastForwardMult = calculateFastForwardResourcesGlobal(player.reincarnationcounter, deltaTime, resourceMult)
+  return Math.min(1e300, fastForwardMult * multiplier)
 }
 
 export const calculateQuarkMultiplier = () => {
   return allQuarkStats.reduce((a, b) => a * b.stat(), 1)
+}
+
+export const calculateAntSacrificeMultiplier = () => {
+  return antSacrificeRewardStats.reduce((a, b) => a * b.stat(), 1)
+}
+
+export const calculateAntSacrificeObtainium = () => {
+  const base = 1 / 750
+  const antSacMult = calculateAntSacrificeMultiplier()
+  const obtainiumMult = calculateObtainiumToDecimal()
+
+  calculateAntSacrificeELO()
+
+  let deltaTime = Math.pow(
+    Math.min(1e300, base * antSacMult * G.effectiveELO),
+    player.corruptions.used.corruptionEffects('illiteracy')
+  )
+  deltaTime *= antSacrificeTimeStats(player.antSacrificeTimer, player.achievements[177] > 0).reduce(
+    (a, b) => a * b.stat(),
+    1
+  )
+  return calculateFastForwardResourcesGlobal(player.antSacrificeTimer, deltaTime, obtainiumMult)
 }
 
 export const calculateTotalCoinOwned = () => {
@@ -490,15 +607,6 @@ export const calculateEffectiveIALevel = () => {
     totalRawLevel
     + Math.max(0, totalRawLevel - 74)
     + Math.max(0, totalRawLevel - 98)
-  )
-}
-
-export const calculateAutomaticObtainium = () => {
-  return (
-    0.05
-    * (10 * player.researches[61] + 2 * player.researches[62])
-    * player.maxobtainiumpersecond
-    * (1 + (4 * player.cubeUpgrades[3]) / 5)
   )
 }
 
@@ -970,7 +1078,7 @@ export const calculateAntSacrificeELO = () => {
   }
 }
 
-const calculateAntSacrificeMultipliers = () => {
+export const calculateAntSacrificeMultipliers = () => {
   G.timeMultiplier = Math.min(1, Math.pow(player.antSacrificeTimer / 10, 2))
   if (player.achievements[177] === 0) {
     G.timeMultiplier *= Math.min(
@@ -1004,6 +1112,7 @@ const calculateAntSacrificeMultipliers = () => {
   G.upgradeMultiplier *= G.cubeBonusMultiplier[7]
   G.upgradeMultiplier *= 1 + calculateEventBuff(BuffType.AntSacrifice)
   G.upgradeMultiplier = Math.min(1e300, G.upgradeMultiplier)
+  return G.upgradeMultiplier
 }
 
 interface IAntSacRewards {
@@ -1033,7 +1142,7 @@ export const calculateAntSacrificeRewards = (): IAntSacRewards => {
     ),
     obtainium: Math.min(
       maxCap,
-      (player.maxobtainiumpersecond * 0.24 * G.effectiveELO * rewardsMult) / 180
+      calculateAntSacrificeObtainium()
     ),
     talismanShards: G.antELO > 500
       ? Math.min(
@@ -1175,8 +1284,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
   player.offlinetick = player.offlinetick < 1.5e12 ? Date.now() : player.offlinetick
 
   G.timeMultiplier = calculateTimeAcceleration().mult
-  calculateObtainium()
-  const obtainiumGain = calculateAutomaticObtainium()
+  const obtainiumGain = calculateResearchAutomaticObtainium(timeAdd)
 
   const resetAdd = {
     prestige: timeAdd / Math.max(0.01, player.fastestprestige),

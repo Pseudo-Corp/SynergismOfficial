@@ -2,12 +2,11 @@ import { sacrificeAnts } from './Ants'
 import { buyAllBlessings } from './Buy'
 import {
   calculateAscensionAcceleration,
-  calculateAutomaticObtainium,
   calculateGoldenQuarkGain,
   calculateMaxRunes,
-  calculateObtainium,
   calculateOcteractMultiplier,
   calculateRequiredBlueberryTime,
+  calculateResearchAutomaticObtainium,
   calculateTimeAcceleration
 } from './Calculate'
 import { quarkHandler } from './Quark'
@@ -264,9 +263,7 @@ type AutoToolInput =
  * @param time
  */
 export const automaticTools = (input: AutoToolInput, time: number) => {
-  const timeMultiplier = input === 'runeSacrifice' || input === 'addOfferings'
-    ? 1
-    : calculateTimeAcceleration().mult
+  const timeMultiplier = (player.singularityUpgrades.halfMind.getEffect()) ? 10 : calculateTimeAcceleration().mult
 
   switch (input) {
     case 'addObtainium': {
@@ -274,13 +271,12 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       if (player.currentChallenge.ascension === 14) {
         break
       }
-      // Update Obtainium Multipliers + Amount to gain
-      calculateObtainium()
-      const obtainiumGain = calculateAutomaticObtainium()
+
+      const obtainiumGain = calculateResearchAutomaticObtainium(time)
       // Add Obtainium
       player.researchPoints = Math.min(
         1e300,
-        player.researchPoints + obtainiumGain * time * timeMultiplier
+        player.researchPoints + obtainiumGain
       )
       // Update visual displays if appropriate
       if (G.currentTab === Tabs.Research) {

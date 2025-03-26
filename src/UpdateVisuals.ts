@@ -7,18 +7,17 @@ import {
   CalcCorruptionStuff,
   calculateAmbrosiaCubeMult,
   calculateAmbrosiaQuarkMult,
-  calculateAutomaticObtainium,
   calculateCubeQuarkMultiplier,
   calculateMaxRunes,
   calculateNumberOfThresholds,
   calculateOcteractMultiplier,
   calculateRecycleMultiplier,
   calculateRequiredBlueberryTime,
+  calculateResearchAutomaticObtainium,
   calculateRuneExpToLevel,
   calculateSigmoidExponential,
   calculateSummationLinear,
   calculateSummationNonLinear,
-  calculateTimeAcceleration,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractObtainiumBonus,
   calculateTotalOcteractOfferingBonus,
@@ -796,7 +795,7 @@ export const visualUpdateResearch = () => {
       'researches.thanksToResearches',
       {
         x: format(
-          calculateAutomaticObtainium() * calculateTimeAcceleration().mult,
+          calculateResearchAutomaticObtainium(1),
           3,
           true
         )

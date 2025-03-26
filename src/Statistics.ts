@@ -7,6 +7,7 @@ import {
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaLuck,
   calculateAmbrosiaQuarkMult,
+  calculateAntSacrificeMultipliers,
   calculateAscensionAcceleration,
   calculateAscensionScore,
   calculateAscensionSpeedMultiplier,
@@ -1513,18 +1514,96 @@ export const offeringObtainiumTimeModifiers = (time: number, timeMultCheck: bool
   return [
     {
       i18n: 'ThresholdPenalty',
-      stat: () => Math.min(1, Math.pow(time / resetTimeThreshold(), 2)), // Reincarnation Threshold Penalty
+      stat: () => Math.min(1, Math.pow(time / resetTimeThreshold(), 2)),
       color: 'red'
     },
     {
       i18n: 'TimeMultiplier',
-      stat: () => timeMultCheck ? Math.max(1, time / resetTimeThreshold()) : 1 // Reincarnation Time Multiplier
+      stat: () => timeMultCheck ? Math.max(1, time / resetTimeThreshold()) : 1
     },
     {
       i18n: 'HalfMind',
       stat: () => (player.singularityUpgrades.halfMind.getEffect().bonus) ? calculateTimeAcceleration().mult / 10 : 1
     }
   ]
+}
+
+export const antSacrificeRewardStats: StatLine[] = [
+  {
+    i18n: 'AntUpgrade11',
+    stat: () => 1 + 2 * (1 - Math.pow(2, -(player.antUpgrades[11 - 1]! + G.bonusant11) / 125))
+  },
+  {
+    i18n: 'Research103',
+    stat: () => 1 + player.researches[103] / 20
+  },
+  {
+    i18n: 'Research104',
+    stat: () => 1 + player.researches[104] / 20
+  },
+  {
+    i18n: 'Achievement132',
+    stat: () => player.achievements[132] === 1 ? 1.25 : 1
+  },
+  {
+    i18n: 'Achievement137',
+    stat: () => player.achievements[137] === 1 ? 1.25 : 1
+  },
+  {
+    i18n: 'RuneBlessing',
+    stat: () => 1 + (20 / 3) * G.effectiveRuneBlessingPower[3]
+  },
+  {
+    i18n: 'Challenge10',
+    stat: () => 1 + (1 / 50) * CalcECC('reincarnation', player.challengecompletions[10])
+  },
+  {
+    i18n: 'Research122',
+    stat: () => 1 + (1 / 50) * player.researches[122]
+  },
+  {
+    i18n: 'Research133',
+    stat: () => 1 + (3 / 100) * player.researches[133]
+  },
+  {
+    i18n: 'Research163',
+    stat: () => 1 + (2 / 100) * player.researches[163]
+  },
+  {
+    i18n: 'Research193',
+    stat: () => 1 + (1 / 100) * player.researches[193]
+  },
+  {
+    i18n: 'ParticleUpgrade4x4',
+    stat: () => 1 + (1 / 10) * player.upgrades[79]
+  },
+  {
+    i18n: 'AcceleratorBoostUpgrade',
+    stat: () => 1 + (1 / 4) * player.upgrades[40]
+  },
+  {
+    i18n: 'CubeBlessingAres',
+    stat: () => G.cubeBonusMultiplier[7]
+  },
+  {
+    i18n: 'Event',
+    stat: () => 1 + calculateEventBuff(BuffType.AntSacrifice)
+  }
+]
+
+export const antSacrificeTimeStats = (time: number, timeMultCheck: boolean): StatLine[] => {
+  return offeringObtainiumTimeModifiers(time, timeMultCheck).concat([
+    {
+      i18n: 'NoAchievement177',
+      stat: () =>
+        player.achievements[177] === 0
+          ? Math.min(
+            1000,
+            Math.max(1, player.antSacrificeTimer / resetTimeThreshold())
+          )
+          : 1
+    }
+  ])
 }
 
 const LOADED_STATS_HTMLS = {
@@ -1541,6 +1620,7 @@ const associated = new Map<string, string>([
   ['kObtIgnoreDR', 'obtainiumIgnoreDRCapStats'],
   ['kObtMult', 'obtainiumMultiplierStats'],
   ['kGlobalCubeMult', 'globalCubeMultiplierStats'],
+  ['kAntSacrificeMult', 'antSacrificeMultStats'],
   ['kQuarkMult', 'globalQuarkMultiplierStats'],
   ['kGSpeedMult', 'globalSpeedMultiplierStats'],
   ['kCubeMult', 'cubeMultiplierStats'],
@@ -1607,6 +1687,9 @@ export const loadStatisticsUpdate = () => {
         break
       case 'globalSpeedMultiplierStats':
         loadGlobalSpeedMultiplier()
+        break
+      case 'antSacrificeMultStats':
+        loadStatisticsAntSacrificeMult()
         break
       case 'powderMultiplierStats':
         loadPowderMultiplier()
@@ -2155,6 +2238,16 @@ export const loadStatisticsObtainiumMultipliers = () => {
     'ObtainiumStat2',
     calculateObtainium,
     'Total2'
+  )
+}
+
+export const loadStatisticsAntSacrificeMult = () => {
+  loadStatistics(
+    antSacrificeRewardStats,
+    'antSacrificeMultStats',
+    'statASM',
+    'AntSacrificeStat',
+    calculateAntSacrificeMultipliers
   )
 }
 
