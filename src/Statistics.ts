@@ -1263,10 +1263,6 @@ export const allObtainiumIgnoreDRStats: StatLine[] = [
 
 export const allObtainiumStats: StatLine[] = [
   {
-    i18n: 'Base',
-    stat: () => calculateBaseObtainium() // Base Obtainium
-  },
-  {
     i18n: 'TranscendShards',
     stat: () => Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2) // Transcend Shards
   },
@@ -1388,22 +1384,6 @@ export const allObtainiumStats: StatLine[] = [
     stat: () => 1 + ((0.03 * Math.log(player.uncommonFragments + 1)) / Math.log(4)) * player.researches[144] // Research 6x19
   },
   {
-    i18n: 'PlatonicALPHA',
-    stat: () => 1 + player.platonicUpgrades[5] // Platonic ALPHA
-  },
-  {
-    i18n: 'PlatonicUpgrade9',
-    stat: () => 1 + 1.5 * player.platonicUpgrades[9] // 9th Platonic Upgrade
-  },
-  {
-    i18n: 'PlatonicBETA',
-    stat: () => 1 + 2.5 * player.platonicUpgrades[10] // Platonic BETA
-  },
-  {
-    i18n: 'PlatonicOMEGA',
-    stat: () => 1 + 5 * player.platonicUpgrades[15] // Platonic OMEGA
-  },
-  {
     i18n: 'CubeUpgrade5x10',
     stat: () => 1 + 0.0002 * player.cubeUpgrades[50] // Cube Upgrade 5x10
   },
@@ -1430,19 +1410,6 @@ export const allObtainiumStats: StatLine[] = [
   {
     i18n: 'SingCitadel2',
     stat: () => +player.singularityUpgrades.singCitadel2.getEffect().bonus // Singularity Citadel 2
-  },
-  {
-    i18n: 'CubeUpgradeCx5',
-    stat: () => 1 + player.cubeUpgrades[55] / 100 // Cube Upgrade 6x5 (Cx5)
-  },
-  {
-    i18n: 'CubeUpgradeCx12',
-    stat: () => (player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1, // Cube Upgrade 7x2 (Cx12)
-    color: 'cyan'
-  },
-  {
-    i18n: 'CubeUpgradeCx21',
-    stat: () => Math.pow(1.04, player.cubeUpgrades[71] * sumContents(player.talismanRarity)) // Cube Upgrade 8x1
   },
   {
     i18n: 'ShopCashGrab2',
@@ -1473,11 +1440,6 @@ export const allObtainiumStats: StatLine[] = [
     stat: () => calculateEXUltraObtainiumBonus() // EX Ultra Obtainium Bonus
   },
   {
-    i18n: 'EXALTBonus',
-    stat: () => calculateEXALTBonusMult(), // EXALT Bonus Multiplier
-    color: 'cyan'
-  },
-  {
     i18n: 'Challenge14',
     stat: () => (player.currentChallenge.ascension === 14) ? 0 : 1, // Challenge 14: No Obtainium
     color: 'red'
@@ -1486,19 +1448,6 @@ export const allObtainiumStats: StatLine[] = [
     i18n: 'SingularityDebuff',
     stat: () => 1 / calculateSingularityDebuff('Obtainium'), // Singularity Debuff
     color: 'red'
-  },
-  {
-    i18n: 'Exalt6Penalty',
-    stat: () =>
-      (player.singularityChallenges.limitedTime.enabled)
-        ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer)
-        : 1, // Singularity Challenge 6 Penalty
-    color: 'red'
-  },
-  {
-    i18n: 'Event',
-    stat: () => 1 + calculateEventBuff(BuffType.Obtainium), // Event Buff
-    color: 'lime'
   }
 ]
 
