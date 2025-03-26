@@ -1252,7 +1252,7 @@ export const allObtainiumIgnoreDRStats: StatLine[] = [
   },
   {
     i18n: 'Exalt6Penalty',
-    stat: () => calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer), // Singularity Challenge 6 Penalty
+    stat: () => (player.singularityChallenges.limitedTime.enabled) ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer) : 1, // Singularity Challenge 6 Penalty
     color: 'red'
   },
   {
