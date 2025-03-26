@@ -1572,7 +1572,7 @@ const associated = new Map<string, string>([
   ['kBaseOffering', 'baseOfferingStats'],
   ['kOfferingMult', 'offeringMultiplierStats'],
   ['kBaseObtainium', 'baseObtainiumStats'],
-  ['kObtIgnoreDR', 'obtainiumIgnoreDRCapStats'],
+  ['kObtIgnoreDR', 'obtainiumIgnoreDRStats'],
   ['kObtMult', 'obtainiumMultiplierStats'],
   ['kGlobalCubeMult', 'globalCubeMultiplierStats'],
   ['kAntSacrificeMult', 'antSacrificeMultStats'],

@@ -41,8 +41,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
     ? 10
     : calculateTimeAcceleration().mult
 
-  console.log(globalTimeMultiplier)
-
   const timeMultiplier = input === 'ascension'
       || input === 'quarks'
       || input === 'goldenQuarks'

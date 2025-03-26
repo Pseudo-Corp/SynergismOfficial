@@ -3902,7 +3902,7 @@
       "SingularityCount": "Singularity Count Bonus:",
       "Total": "Total Base Obtainium:"
     },
-    "obtainiumIgnoreDRCapStats": {
+    "obtainiumIgnoreDRStats": {
       "Base": "Base Obtainium:",
       "CubeUpgrade4x2": "Cube Upgrade 4x2:",
       "CubeUpgrade4x3": "Cube Upgrade 4x3:",

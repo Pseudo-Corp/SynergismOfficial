@@ -83,6 +83,7 @@ export const calculateBaseOfferings = () => {
 }
 
 export const calculateOfferings = (timeMultUsed = true) => {
+  const baseOfferings = calculateBaseOfferings()
   const timeMultiplier = timeMultUsed
     ? offeringObtainiumTimeModifiers(player.prestigecounter, player.prestigeCount > 0).reduce(
       (a, b) => a * b.stat(),
@@ -103,7 +104,7 @@ export const calculateOfferings = (timeMultUsed = true) => {
     }
   }
 
-  return effectivePowerOfTen
+  return Math.max(baseOfferings, effectivePowerOfTen)
 }
 
 // Ditto
