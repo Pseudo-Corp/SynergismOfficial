@@ -184,8 +184,7 @@ export const initializeSubscriptionPage = memoize(() => {
   ;(async () => {
     const paypal = await loadScript({
       clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
-      enableFunding: ['venmo'],
-      disableFunding: ['paylater', 'credit', 'card'],
+      disableFunding: ['venmo', 'paylater', 'credit', 'card'],
       vault: true,
       intent: 'subscription'
     })

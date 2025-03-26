@@ -83,7 +83,7 @@ export const initializeCheckoutTab = memoize(() => {
       })
   })
 
-  initializePayPal()
+  initializePayPal('#checkout-paypal')
 })
 
 function addItem (e: MouseEvent) {
@@ -162,7 +162,7 @@ const updateTotalPriceInCart = () => {
   totalCost!.textContent = `${formatter.format(getPrice() / 100)} USD`
 }
 
-async function initializePayPal () {
+async function initializePayPal (selector: string | HTMLElement) {
   try {
     const paypal = await loadScript({
       clientId: 'AS1HYTVcH3Kqt7IVgx7DkjgG8lPMZ5kyPWamSBNEowJ-AJPpANNTJKkB_mF0C4NmQxFuWQ9azGbqH2Gr',
@@ -254,8 +254,10 @@ async function initializePayPal () {
         Notification('An error with PayPal happened. More info in console.')
         console.log(error)
       }
-    }).render('.checkout-paypal')
-  } catch {}
+    }).render(selector)
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 const sleep = (delay: number) => new Promise((r) => setTimeout(r, delay))
