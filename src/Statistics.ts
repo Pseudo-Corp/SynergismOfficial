@@ -29,7 +29,7 @@ import {
   calculateHypercubeMultiplier,
   calculateObtainium,
   calculateObtainiumDecimal,
-  calculateObtainiumDRIgnoreCap,
+  calculateObtainiumDRIgnoreMult,
   calculateOcteractMultiplier,
   calculateOfferings,
   calculateOfferingsDecimal,
@@ -1014,7 +1014,10 @@ export const allOfferingStats = [
   },
   {
     i18n: 'Exalt6Penalty',
-    stat: () => calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer), // Singularity Speedrun Penalty
+    stat: () =>
+      (player.singularityChallenges.limitedTime.enabled)
+        ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer)
+        : 1, // Singularity Speedrun Penalty
     color: 'red'
   }
 ]
@@ -1200,7 +1203,7 @@ export const allBaseObtainiumStats: StatLine[] = [
   }
 ]
 
-export const allObtainiumIgnoreDRCapStats: StatLine[] = [
+export const allObtainiumIgnoreDRStats: StatLine[] = [
   {
     i18n: 'Base',
     stat: () => calculateBaseObtainium() // Absolute Base
@@ -1486,7 +1489,10 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'Exalt6Penalty',
-    stat: () => calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer), // Singularity Challenge 6 Penalty
+    stat: () =>
+      (player.singularityChallenges.limitedTime.enabled)
+        ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer)
+        : 1, // Singularity Challenge 6 Penalty
     color: 'red'
   },
   {
@@ -1505,7 +1511,7 @@ export const obtainiumDR: StatLine[] = [
   },
   {
     i18n: 'ImmaculateObtainium',
-    stat: () => calculateObtainiumDRIgnoreCap()
+    stat: () => calculateObtainiumDRIgnoreMult()
   }
 ]
 
@@ -1676,7 +1682,7 @@ export const loadStatisticsUpdate = () => {
       case 'baseObtainiumStats':
         loadStatisticsObtainiumBase()
         break
-      case 'obtainiumIgnoreDRCapStats':
+      case 'obtainiumIgnoreDRStats':
         loadStatisticsObtainiumIgnoreDR()
         break
       case 'obtainiumMultiplierStats':
@@ -2221,11 +2227,11 @@ export const loadStatisticsObtainiumBase = () => {
 
 export const loadStatisticsObtainiumIgnoreDR = () => {
   loadStatistics(
-    allObtainiumIgnoreDRCapStats,
-    'obtainiumIgnoreDRCapStats',
+    allObtainiumIgnoreDRStats,
+    'obtainiumIgnoreDRStats',
     'statObtDR',
     'ObtainiumDRStat',
-    calculateObtainiumDRIgnoreCap
+    calculateObtainiumDRIgnoreMult
   )
 }
 

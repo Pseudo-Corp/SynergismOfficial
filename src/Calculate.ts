@@ -18,7 +18,7 @@ import {
   allCubeStats,
   allHepteractCubeStats,
   allHypercubeStats,
-  allObtainiumIgnoreDRCapStats,
+  allObtainiumIgnoreDRStats,
   allObtainiumStats,
   allOcteractCubeStats,
   allOfferingStats,
@@ -115,8 +115,8 @@ export const calculateBaseObtainium = () => {
   return allBaseObtainiumStats.reduce((a, b) => a + b.stat(), 0)
 }
 
-export const calculateObtainiumDRIgnoreCap = () => {
-  return allObtainiumIgnoreDRCapStats.reduce((a, b) => a * b.stat(), 1)
+export const calculateObtainiumDRIgnoreMult = () => {
+  return allObtainiumIgnoreDRStats.reduce((a, b) => a * b.stat(), 1)
 }
 
 /**
@@ -129,7 +129,7 @@ export const calculateObtainium = (timeMultUsed = true, logMultOnly = false) => 
   const base = calculateBaseObtainium()
 
   // Immaculate Offering Capacity
-  const immaculate = calculateObtainiumDRIgnoreCap()
+  const immaculate = calculateObtainiumDRIgnoreMult()
 
   // Illiteracy Effect
   const DR = player.corruptions.used.corruptionEffects('illiteracy')
@@ -149,7 +149,7 @@ export const calculateObtainium = (timeMultUsed = true, logMultOnly = false) => 
 
   // Thanks to the logMult, we can treat the corruption effect as a multplier instead of an exponent.
   // The simplest formula for the effect on obtainium for is (Immaculate)^(1 - DR) * Mult^DR so logarithmic
-  // is (1 - DR) * log10(Immaculate) + DR * log10(Mult)
+  // is log10(Immaculate) + DR * log10(Mult)
   // Hardcap this value at 300, to preserve 1e300 max
 
   // Why is this a thing? If DR = 0 (which is possible), then the calculation below will not catch chal 14 enabled.
@@ -158,7 +158,7 @@ export const calculateObtainium = (timeMultUsed = true, logMultOnly = false) => 
     return 0
   }
 
-  const logTotal = (1 - DR) * Math.log10(immaculate) + DR * logMult + Math.log10(timeMultiplier)
+  const logTotal = Math.log10(immaculate) + DR * logMult + Math.log10(timeMultiplier)
 
   if (logMultOnly) {
     return logTotal
@@ -166,7 +166,7 @@ export const calculateObtainium = (timeMultUsed = true, logMultOnly = false) => 
 
   const effectivePowerOfTen = Math.min(
     300,
-    (1 - DR) * Math.log10(immaculate) + DR * logMult + Math.log10(timeMultiplier)
+    logTotal
   )
 
   // As of Statistics Update, you can never get less than your base Offerings per Reincarnation, no matter what.
@@ -196,7 +196,8 @@ export const calculateObtainiumToDecimal = (timeMultUsed = false) => {
 export const calculateFastForwardResourcesGlobal = (
   resetTime: number,
   fastForwardAmount: number,
-  resourceMult: Decimal
+  resourceMult: Decimal,
+  baseResource: number
 ) => {
   // We're going to use the log trick to account for the fact that resourceMult * timeMult can still be >1e300
   // Even if timeMult is very small.
@@ -228,12 +229,12 @@ export const calculateFastForwardResourcesGlobal = (
   timeMultiplier *= player.singularityUpgrades.halfMind.getEffect().bonus ? calculateTimeAcceleration().mult / 10 : 1
   const logTime = Math.log10(timeMultiplier)
 
-  return Math.min(1e300, Math.pow(10, Math.min(300, logMult + logTime)))
+  return Math.min(1e300, Math.max(baseResource * fastForwardAmount, Math.pow(10, Math.min(300, logMult + logTime))))
 }
 
-export const calculatePotionValue = (resetTime: number, resourceMult: Decimal) => {
+export const calculatePotionValue = (resetTime: number, resourceMult: Decimal, baseResource: number) => {
   const potionTimeValue = 7200
-  const fastForwardMult = calculateFastForwardResourcesGlobal(resetTime, potionTimeValue, resourceMult)
+  const fastForwardMult = calculateFastForwardResourcesGlobal(resetTime, potionTimeValue, resourceMult, baseResource)
   const potionMultipliers = productContents([
     +player.singularityUpgrades.potionBuff.getEffect().bonus
     * +player.singularityUpgrades.potionBuff2.getEffect().bonus
@@ -250,12 +251,19 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
     1 + 0.8 * player.cubeUpgrades[3]
   ])
 
+  const baseObtainium = calculateBaseObtainium()
+
   if (multiplier === 0) {
     return 0
   }
 
   const resourceMult = calculateObtainiumToDecimal()
-  const fastForwardMult = calculateFastForwardResourcesGlobal(player.reincarnationcounter, deltaTime, resourceMult)
+  const fastForwardMult = calculateFastForwardResourcesGlobal(
+    player.reincarnationcounter,
+    deltaTime,
+    resourceMult,
+    baseObtainium
+  )
   return Math.min(1e300, fastForwardMult * multiplier)
 }
 
@@ -272,6 +280,8 @@ export const calculateAntSacrificeObtainium = () => {
   const antSacMult = calculateAntSacrificeMultiplier()
   const obtainiumMult = calculateObtainiumToDecimal()
 
+  const baseObtainium = calculateBaseObtainium()
+
   calculateAntSacrificeELO()
 
   let deltaTime = Math.pow(
@@ -282,7 +292,7 @@ export const calculateAntSacrificeObtainium = () => {
     (a, b) => a * b.stat(),
     1
   )
-  return calculateFastForwardResourcesGlobal(player.antSacrificeTimer, deltaTime, obtainiumMult)
+  return calculateFastForwardResourcesGlobal(player.antSacrificeTimer, deltaTime, obtainiumMult, baseObtainium)
 }
 
 export const calculateTotalCoinOwned = () => {

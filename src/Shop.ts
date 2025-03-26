@@ -4,6 +4,8 @@ import {
   calculateAdditiveLuckMult,
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaLuck,
+  calculateBaseObtainium,
+  calculateBaseOfferings,
   calculateCashGrabBlueberryBonus,
   calculateCashGrabCubeBonus,
   calculateCashGrabQuarkBonus,
@@ -864,12 +866,20 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
   switch (input) {
     case 'offeringPotion':
       lol.innerHTML = i18next.t('shop.upgradeEffects.offeringPotion', {
-        amount: format(calculatePotionValue(player.prestigecounter, calculateOfferingsDecimal()), 2, true)
+        amount: format(
+          calculatePotionValue(player.prestigecounter, calculateOfferingsDecimal(), calculateBaseOfferings()),
+          2,
+          true
+        )
       })
       break
     case 'obtainiumPotion':
       lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumPotion', {
-        amount: format(calculatePotionValue(player.reincarnationcounter, calculateObtainiumToDecimal()), 2, true)
+        amount: format(
+          calculatePotionValue(player.reincarnationcounter, calculateObtainiumToDecimal(), calculateBaseObtainium()),
+          2,
+          true
+        )
       })
       break
     case 'offeringEX':
@@ -1628,7 +1638,11 @@ export const useConsumable = async (
 
   if (p) {
     if (input === 'offeringPotion') {
-      const offeringPotionValue = calculatePotionValue(player.prestigecounter, calculateOfferingsDecimal())
+      const offeringPotionValue = calculatePotionValue(
+        player.prestigecounter,
+        calculateOfferingsDecimal(),
+        calculateBaseOfferings()
+      )
 
       if (infiniteAutoBrew && automatic) {
         player.runeshards += offeringPotionValue * used
@@ -1639,7 +1653,11 @@ export const useConsumable = async (
         player.runeshards = Math.min(1e300, player.runeshards)
       }
     } else if (input === 'obtainiumPotion') {
-      const obtainiumPotionValue = calculatePotionValue(player.reincarnationcounter, calculateObtainiumToDecimal())
+      const obtainiumPotionValue = calculatePotionValue(
+        player.reincarnationcounter,
+        calculateObtainiumToDecimal(),
+        calculateBaseObtainium()
+      )
 
       if (infiniteAutoBrew && automatic) {
         player.researchPoints += obtainiumPotionValue * used

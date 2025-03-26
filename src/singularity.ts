@@ -1383,7 +1383,8 @@ export const singularityData: Record<
           )
         }
       }
-    }
+    },
+    qualityOfLife: true
   },
   oneMind: {
     maxLevel: 1,
