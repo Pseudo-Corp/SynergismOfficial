@@ -209,7 +209,7 @@ export const calculateFastForwardResourcesGlobal = (
   let timeMultiplier: number
 
   const deltaTime = fastForwardAmount
-    * (player.singularityUpgrades.halfMind.getEffect() ? 10 : calculateTimeAcceleration().mult)
+    * (player.singularityUpgrades.halfMind.getEffect().bonus ? 10 : calculateTimeAcceleration().mult)
 
   // Build approximations through direct computation of the derivative of time multiplier
   // And then multiplying by deltaTime, so basically a linear approximation (See: Calculus)
@@ -225,7 +225,7 @@ export const calculateFastForwardResourcesGlobal = (
   )
 
   // Correct multiplier if half mind is purchased
-  timeMultiplier *= player.singularityUpgrades.halfMind.getEffect() ? calculateTimeAcceleration().mult / 10 : 1
+  timeMultiplier *= player.singularityUpgrades.halfMind.getEffect().bonus ? calculateTimeAcceleration().mult / 10 : 1
   const logTime = Math.log10(timeMultiplier)
 
   return Math.min(1e300, Math.pow(10, Math.min(300, logMult + logTime)))

@@ -37,9 +37,11 @@ type TimerInput =
  * @param time
  */
 export const addTimers = (input: TimerInput, time = 0) => {
-  const globalTimeMultiplier = player.singularityUpgrades.halfMind.getEffect()
+  const globalTimeMultiplier = player.singularityUpgrades.halfMind.getEffect().bonus
     ? 10
     : calculateTimeAcceleration().mult
+
+  console.log(globalTimeMultiplier)
 
   const timeMultiplier = input === 'ascension'
       || input === 'quarks'
@@ -263,7 +265,7 @@ type AutoToolInput =
  * @param time
  */
 export const automaticTools = (input: AutoToolInput, time: number) => {
-  const timeMultiplier = (player.singularityUpgrades.halfMind.getEffect()) ? 10 : calculateTimeAcceleration().mult
+  const timeMultiplier = (player.singularityUpgrades.halfMind.getEffect().bonus) ? 10 : calculateTimeAcceleration().mult
 
   switch (input) {
     case 'addObtainium': {
