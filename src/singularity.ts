@@ -1829,9 +1829,9 @@ export const singularityPerks: SingularityPerk[] = [
       const tokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
 
       for (let i = 15; i > 0; i--) {
-        if (n >= levels[i]) {
+        if (n >= levels[i - 1]) {
           return i18next.t('singularity.perks.tokenInheritance.default', {
-            amount: tokens[i]
+            amount: tokens[i - 1]
           })
         }
       }
