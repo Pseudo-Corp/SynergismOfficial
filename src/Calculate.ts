@@ -10,12 +10,18 @@ import { disableHotkeys, enableHotkeys } from './Hotkeys'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { reset } from './Reset'
-import { calculateSingularityDebuff } from './singularity'
 import { getFastForwardTotalMultiplier } from './singularity'
 import {
+  allAdditiveLuckMultStats,
+  allAmbrosiaBlueberryStats,
+  allAmbrosiaGenerationSpeedStats,
+  allAmbrosiaLuckStats,
+  allAscensionSpeedStats,
   allBaseObtainiumStats,
   allBaseOfferingStats,
   allCubeStats,
+  allGlobalSpeedIgnoreDRStats,
+  allGlobalSpeedStats,
   allHepteractCubeStats,
   allHypercubeStats,
   allObtainiumIgnoreDRStats,
@@ -211,7 +217,7 @@ export const calculateFastForwardResourcesGlobal = (
   let timeMultiplier: number
 
   const deltaTime = fastForwardAmount
-    * (player.singularityUpgrades.halfMind.getEffect().bonus ? 10 : calculateTimeAcceleration().mult)
+    * (player.singularityUpgrades.halfMind.getEffect().bonus ? 10 : calculateGlobalSpeedMult())
 
   // Build approximations through direct computation of the derivative of time multiplier
   // And then multiplying by deltaTime, so basically a linear approximation (See: Calculus)
@@ -227,7 +233,7 @@ export const calculateFastForwardResourcesGlobal = (
   )
 
   // Correct multiplier if half mind is purchased
-  timeMultiplier *= player.singularityUpgrades.halfMind.getEffect().bonus ? calculateTimeAcceleration().mult / 10 : 1
+  timeMultiplier *= player.singularityUpgrades.halfMind.getEffect().bonus ? calculateGlobalSpeedMult() / 10 : 1
   const logTime = Math.log10(timeMultiplier)
 
   return Math.min(1e300, Math.max(baseResource * fastForwardAmount, Math.pow(10, Math.min(300, logMult + logTime))))
@@ -294,6 +300,85 @@ export const calculateAntSacrificeObtainium = () => {
     1
   )
   return calculateFastForwardResourcesGlobal(player.antSacrificeTimer, deltaTime, obtainiumMult, baseObtainium)
+}
+
+export const calculateGlobalSpeedDRIgnoreMult = () => {
+  return allGlobalSpeedIgnoreDRStats.reduce((a, b) => a * b.stat(), 1)
+}
+
+export const calculateGlobalSpeedDREnabledMult = () => {
+  return allGlobalSpeedStats.reduce((a, b) => a * b.stat(), 1)
+}
+
+export const calculateGlobalSpeedMult = () => {
+  let normalMult = calculateGlobalSpeedDREnabledMult()
+  if (normalMult > 100) {
+    normalMult = Math.pow(normalMult, 0.5) * 10
+  } else if (normalMult < 1) {
+    const DRPower = calculatePlatonic7UpgradePower()
+    normalMult = Math.pow(normalMult, DRPower)
+  }
+
+  const immaculateMult = calculateGlobalSpeedDRIgnoreMult()
+  const totalTimeMultiplier = normalMult * immaculateMult
+  // Achievement Stuffs
+  // One second in 100 years
+  if (totalTimeMultiplier < 1 / (3600 * 24 * 365 * 100) && player.achievements[241] < 1) {
+    achievementaward(241)
+  }
+  // One hour in a second
+  if (totalTimeMultiplier > 3600 && player.achievements[242] < 1) {
+    achievementaward(242)
+  }
+
+  return totalTimeMultiplier
+}
+
+export const calculateRawAscensionSpeedMult = () => {
+  return allAscensionSpeedStats.reduce((a, b) => a * b.stat(), 1)
+}
+
+export const calculateAscensionSpeedMult = () => {
+  let base = calculateRawAscensionSpeedMult()
+
+  if (player.singularityUpgrades.singAscensionSpeed.getEffect().bonus) {
+    if (base < 1) {
+      base = Math.pow(base, 0.97)
+    } else {
+      base = Math.pow(base, 1.03)
+    }
+  }
+
+  return base
+}
+
+export const calculateAmbrosiaAdditiveLuckMult = () => {
+  return allAdditiveLuckMultStats.reduce((a, b) => a + b.stat(), 0)
+}
+
+export const calculateAmbrosiaLuckRaw = () => {
+  return allAmbrosiaLuckStats.reduce((a, b) => a + b.stat(), 0)
+}
+
+export const calculateAmbrosiaLuck = () => {
+  const rawLuck = calculateAmbrosiaLuckRaw()
+  const multiplier = calculateAmbrosiaAdditiveLuckMult()
+
+  return rawLuck * multiplier
+}
+
+export const calculateBlueberryInventory = () => {
+  return allAmbrosiaBlueberryStats.reduce((a, b) => a + b.stat(), 0)
+}
+
+export const calculateAmbrosiaGenerationSpeedRaw = () => {
+  return allAmbrosiaGenerationSpeedStats.reduce((a, b) => a * b.stat(), 1)
+}
+
+export const calculateAmbrosiaGenerationSpeed = () => {
+  const rawSpeed = calculateAmbrosiaGenerationSpeedRaw()
+  const blueberries = calculateBlueberryInventory()
+  return rawSpeed * blueberries
 }
 
 export const calculateTotalCoinOwned = () => {
@@ -1294,7 +1379,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
 
   player.offlinetick = player.offlinetick < 1.5e12 ? Date.now() : player.offlinetick
 
-  G.timeMultiplier = calculateTimeAcceleration().mult
+  G.timeMultiplier = calculateGlobalSpeedMult()
   const obtainiumGain = calculateResearchAutomaticObtainium(timeAdd)
 
   const resetAdd = {
@@ -1315,8 +1400,6 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
     quarks: quarkHandler().gain // Calculate this after the fact
   }
 
-  ambrosiaCurrStatsReinitialize()
-
   addTimers('ascension', timeAdd)
   addTimers('quarks', timeAdd)
   addTimers('goldenQuarks', timeAdd)
@@ -1332,7 +1415,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
 
   // 200 simulated all ticks [July 12, 2021]
   const runOffline = setInterval(() => {
-    G.timeMultiplier = calculateTimeAcceleration().mult
+    G.timeMultiplier = calculateGlobalSpeedMult()
     calculateObtainium()
 
     // Reset Stuff lmao!
@@ -1603,86 +1686,6 @@ export const calculateTotalOcteractObtainiumBonus = () => {
   return Math.pow(calculateTotalOcteractQuarkBonus(), 1.4)
 }
 
-export const calculateTimeAcceleration = () => {
-  const preCorruptionArr = [
-    1 + (1 / 300) * Math.log10(player.maxobtainium + 1) * player.upgrades[70], // Particle upgrade 2x5
-    1 + player.researches[121] / 50, // research 5x21
-    1 + 0.015 * player.researches[136], // research 6x11
-    1 + 0.012 * player.researches[151], // research 7x1
-    1 + 0.009 * player.researches[166], // research 7x16
-    1 + 0.006 * player.researches[181], // research 8x6
-    1 + 0.003 * player.researches[196], // research 8x21
-    1 + 8 * G.effectiveRuneBlessingPower[1], // speed blessing
-    1 + player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[1], // speed SPIRIT
-    G.cubeBonusMultiplier[10], // Chronos cube blessing
-    1 + player.cubeUpgrades[18] / 5, // cube upgrade 2x8
-    calculateSigmoid(2, player.antUpgrades[12 - 1]! + G.bonusant12, 69), // ant 12
-    1 + 0.1 * (player.talismanRarity[2 - 1] - 1), // Chronos Talisman bonus
-    G.challenge15Rewards.globalSpeed.value, // Challenge 15 reward
-    1 + 0.01 * player.cubeUpgrades[52] // cube upgrade 6x2 (Cx2)
-  ]
-
-  // Global Speed softcap + Corruption / Corruption-like effects
-  const corruptionArr: number[] = [
-    G.dilationMultiplier[player.corruptions.used.dilation] // Corruption:  Spacial Dilation
-  ]
-
-  const corruptableTimeMult = productContents(preCorruptionArr) * corruptionArr[0] // DR applies after base corruption.
-
-  if (corruptableTimeMult > 100) {
-    const postSoftcap = 10 * Math.sqrt(corruptableTimeMult)
-    const softcapRatio = postSoftcap / corruptableTimeMult
-
-    corruptionArr.push(softcapRatio)
-  } else {
-    corruptionArr.push(1)
-  }
-
-  if (corruptableTimeMult < 1) {
-    const postPlat2x2 = Math.pow(
-      corruptableTimeMult,
-      1 - player.platonicUpgrades[7] / 30
-    )
-    const plat2x2Ratio = postPlat2x2 / corruptableTimeMult
-
-    corruptionArr.push(plat2x2Ratio)
-  } else {
-    corruptionArr.push(1)
-  }
-
-  corruptionArr.push(1.0 / calculateSingularityDebuff('Global Speed'))
-
-  // Uncorruptable effects
-  const postCorruptionArr = [
-    G.platonicBonusMultiplier[7], // Chronos statue
-    1 + (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0),
-    1
-    + +player.octeractUpgrades.octeractImprovedGlobalSpeed.getEffect().bonus
-      * player.singularityCount,
-    1 + +player.singularityChallenges.limitedTime.rewards.globalSpeed, // Limited Time Challenge
-    Math.max(Math.pow(1.01, (player.singularityCount - 200) * player.shopUpgrades.shopChronometerS), 1), // Limited Time Upg Accels
-    1 + calculateEventBuff(BuffType.GlobalSpeed) // Event
-  ]
-
-  const timeMult = productContents(preCorruptionArr)
-    * productContents(corruptionArr)
-    * productContents(postCorruptionArr)
-
-  if (player.corruptions.used.dilation >= 6 && player.achievements[241] < 1) {
-    achievementaward(241)
-  }
-  if (timeMult > 3600 && player.achievements[242] < 1) {
-    achievementaward(242)
-  }
-
-  return {
-    preList: preCorruptionArr,
-    drList: corruptionArr,
-    postList: postCorruptionArr,
-    mult: timeMult
-  }
-}
-
 export const calculateLimitedAscensionsDebuff = () => {
   if (!player.singularityChallenges.limitedAscensions.enabled) {
     return 1
@@ -1695,78 +1698,6 @@ export const calculateLimitedAscensionsDebuff = () => {
     exponent = Math.max(0, exponent)
     return Math.pow(2, exponent)
   }
-}
-
-export const calculateAscensionSpeedMultiplier = () => {
-  const arr = [
-    1 + (1.2 / 100) * player.shopUpgrades.chronometer, // Chronometer
-    1 + (0.6 / 100) * player.shopUpgrades.chronometer2, // Chronometer 2
-    1 + (1.5 / 100) * player.shopUpgrades.chronometer3, // Chronometer 3
-    1 + (0.6 / 1000) * hepteractEffective('chronos'), // Chronos Hepteract
-    1
-    + Math.min(0.1, (1 / 100) * Math.log10(player.ascensionCount + 1))
-      * player.achievements[262], // Achievement 262 Bonus
-    1
-    + Math.min(0.1, (1 / 100) * Math.log10(player.ascensionCount + 1))
-      * player.achievements[263], // Achievement 263 Bonus
-    1
-    + 0.002 * player.corruptions.used.totalLevels * player.platonicUpgrades[15], // Platonic Omega
-    G.challenge15Rewards.ascensionSpeed.value, // Challenge 15 Reward
-    1 + (1 / 400) * player.cubeUpgrades[59], // Cookie Upgrade 9
-    1
-    + 0.5
-      * (player.singularityUpgrades.intermediatePack.getEffect().bonus ? 1 : 0), // Intermediate Pack, Sing Shop
-    1 + (1 / 1000) * player.singularityCount * player.shopUpgrades.chronometerZ, // Chronometer Z
-    1
-    + +player.octeractUpgrades.octeractImprovedAscensionSpeed.getEffect()
-        .bonus
-      * player.singularityCount, // Abstract Photokinetics, Oct Upg
-    1
-    + +player.octeractUpgrades.octeractImprovedAscensionSpeed2.getEffect()
-        .bonus
-      * player.singularityCount, // Abstract Exokinetics, Oct Upg
-    1 + calculateEventBuff(BuffType.AscensionSpeed), // Event
-    player.singularityUpgrades.singAscensionSpeed2.level > 0
-      && player.runelevels[6] < 1
-      ? 6
-      : 1, // A mediocre ascension speedup!
-    Math.pow(1.01, player.shopUpgrades.chronometerInfinity), // Chronometer INF
-    1 / calculateLimitedAscensionsDebuff(), // EXALT Debuff
-    Math.pow(
-      1
-        + +player.singularityChallenges.limitedAscensions.rewards
-          .ascensionSpeedMult,
-      1 + Math.max(0, Math.floor(Math.log10(player.ascensionCount)))
-    ), // EXALT Buff
-    1 + +player.singularityChallenges.limitedTime.rewards.ascensionSpeed,
-    Math.max(Math.pow(1.01, (player.singularityCount - 200) * player.shopUpgrades.shopChronometerS), 1)
-  ]
-
-  // A hecking good ascension speedup!
-  const baseMultiplier = productContents(arr)
-  const exponent = player.singularityUpgrades.singAscensionSpeed.level > 0
-    ? baseMultiplier >= 1
-      ? 1.03
-      : 0.97
-    : 1
-  arr.push(Math.pow(baseMultiplier, exponent) / baseMultiplier)
-
-  // Singularity Penalty
-  arr.push(1 / calculateSingularityDebuff('Ascension Speed'))
-
-  let multiplier = productContents(arr)
-  if (!isFinite(multiplier)) {
-    multiplier = 0
-  }
-
-  return {
-    list: arr,
-    mult: multiplier
-  }
-}
-
-export const calculateAscensionAcceleration = () => {
-  return calculateAscensionSpeedMultiplier().mult
 }
 
 export const calculateSingularityQuarkMilestoneMultiplier = () => {
@@ -2161,7 +2092,7 @@ export const CalcCorruptionStuff = () => {
   }
 
   const oneMindModifier = player.singularityUpgrades.oneMind.getEffect().bonus
-    ? calculateAscensionAcceleration() / 10
+    ? calculateAscensionSpeedMult() / 10
     : 1
 
   // Calculation of Cubes :)
@@ -2261,7 +2192,7 @@ export const calcAscensionCount = () => {
     ascCount *= +player.octeractUpgrades.octeractAscensions.getEffect().bonus
     ascCount *= +player.octeractUpgrades.octeractAscensions2.getEffect().bonus
     ascCount *= player.singularityUpgrades.oneMind.getEffect().bonus
-      ? calculateAscensionAcceleration() / 10
+      ? calculateAscensionSpeedMult() / 10
       : 1
   }
 
@@ -2598,102 +2529,6 @@ export const calculateDilatedFiveLeafBonus = () => {
   return singThresholds.length / 100
 }
 
-/**
- * Computs Additive Luck Multiplier for Ambrosia Luck. Base = 1.00
- * @returns Additive Luck Multiplier and array of modifiers
- */
-export const calculateAdditiveLuckMult = () => {
-  const arr = [
-    1,
-    +player.singularityChallenges.noSingularityUpgrades.rewards.luckBonus, // No Singularity Upgrade 1x30
-    calculateDilatedFiveLeafBonus(), // Dilated Five Leaf Clover Perk
-    player.shopUpgrades.shopAmbrosiaLuckMultiplier4 / 100, // EXALT-unlocked shop upgrade
-    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.luckBonus, // No Ambrosia Challenge Reward
-    0.001 * player.cubeUpgrades[77], // Cookie 5 (Cx27)
-    G.isEvent ? calculateEventBuff(BuffType.AmbrosiaLuck) : 0 // Event
-  ]
-
-  return {
-    value: sumContents(arr),
-    array: arr
-  }
-}
-
-/**
- * Computs Ambrosia Luck. Base = 100
- * @returns Ambrosia Luck * Additive Luck Multiplier, and array of modifiers (last entry is multiplier)
- */
-export const calculateAmbrosiaLuck = () => {
-  const arr = [
-    100, // Base
-    PCoinUpgradeEffects.AMBROSIA_LUCK_BUFF, // Platonic Coin Upgrade
-    player.campaigns.ambrosiaLuckBonus, // Campaign Bonus
-    calculateSingularityAmbrosiaLuckMilestoneBonus(), // Ambrosia Luck Milestones
-    calculateAmbrosiaLuckShopUpgrade(), // Ambrosia Luck from Shop Upgrades (I-IV)
-    calculateAmbrosiaLuckSingularityUpgrade(), // Ambrosia Luck from Singularity Upgrades (I-IV)
-    calculateAmbrosiaLuckOcteractUpgrade(), // Ambrosia Luck from Octeract Upgrades (I-IV)
-    +player.blueberryUpgrades.ambrosiaLuck1.bonus.ambrosiaLuck, // Ambrosia Luck from Luck Module I
-    +player.blueberryUpgrades.ambrosiaLuck2.bonus.ambrosiaLuck, // Ambrosia Luck from Luck Module II
-    +player.blueberryUpgrades.ambrosiaCubeLuck1.bonus.ambrosiaLuck, // Ambrosia Luck from Cube-Luck Synergy Module
-    +player.blueberryUpgrades.ambrosiaQuarkLuck1.bonus.ambrosiaLuck, // Ambrosia Luck from Quark-Luck Synergy Module
-    player.highestSingularityCount >= 131 ? 131 : 0, // Singularity Perk "One Hundred Thirty One!"
-    player.highestSingularityCount >= 269 ? 269 : 0, // Singularity Perk "Two Hundred Sixty Nine!"
-    player.shopUpgrades.shopOcteractAmbrosiaLuck * (1 + Math.floor(Math.log10(player.totalWowOcteracts + 1))), // Octeract -> Ambrosia Shop Upgrade
-    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.additiveLuck, // No Ambrosia Challenge Reward
-    2 * player.cubeUpgrades[77], // Cookie 5 (Cx27)
-    Math.min(100, player.cubeUpgradeRedBarFilled / 50), // Filled Red Bars with (Cx29) purchased
-    player.shopUpgrades.shopAmbrosiaUltra * sumOfExaltCompletions() // Ambrosia Ultra Shop Upgrade
-  ]
-
-  const multiplicativeLuck = calculateAdditiveLuckMult().value
-
-  return {
-    value: sumContents(arr) * multiplicativeLuck,
-    array: arr.concat(multiplicativeLuck)
-  }
-}
-
-/**
- * Calculates the total number of Blueberries unlocked
- * @returns Blueberry Count, and array of modifiers
- */
-export const calculateBlueberryInventory = () => {
-  const arr = [
-    +(player.singularityChallenges.noSingularityUpgrades.completions > 0), // E1x1 Clear!
-    +player.singularityUpgrades.blueberries.getEffect().bonus, // Singularity Blueberry Upgrade
-    calculateSingularityMilestoneBlueberries(), // Singularity Milestones (Congealed Blueberries)
-    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberries // No Ambrosia Challenge Reward
-  ]
-
-  return {
-    value: sumContents(arr),
-    array: arr
-  }
-}
-
-export const calculateAmbrosiaGenerationSpeed = () => {
-  const arr = [
-    +(player.visitedAmbrosiaSubtab),
-    PCoinUpgradeEffects.AMBROSIA_GENERATION_BUFF,
-    player.campaigns.blueberrySpeedBonus,
-    calculateBlueberryInventory().value,
-    calculateAmbrosiaGenerationShopUpgrade(),
-    calculateAmbrosiaGenerationSingularityUpgrade(),
-    calculateAmbrosiaGenerationOcteractUpgrade(),
-    +player.blueberryUpgrades.ambrosiaPatreon.bonus.blueberryGeneration,
-    +player.singularityChallenges.oneChallengeCap.rewards.blueberrySpeedMult,
-    +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberrySpeedMult,
-    1 + 0.01 * player.cubeUpgrades[76] * calculateNumberOfThresholds(),
-    G.isEvent ? 1 + calculateEventBuff(BuffType.BlueberryTime) : 1,
-    calculateCashGrabBlueberryBonus()
-  ]
-
-  return {
-    value: productContents(arr),
-    array: arr
-  }
-}
-
 export const dailyResetCheck = () => {
   if (!player.dayCheck) {
     return
@@ -2840,14 +2675,6 @@ export const resetTimeThreshold = () => {
   return base - reduction
 }
 
-export const ambrosiaCurrStatsReinitialize = () => {
-  // As of 6/13/2024, caches are no longer used. Instead calculations are done directly and the end value is stored in a Global variable
-  // which is not stored in the save.
-
-  G.ambrosiaCurrStats = {
-    ambrosiaAdditiveLuckMult: calculateAdditiveLuckMult().value,
-    ambrosiaLuck: calculateAmbrosiaLuck().value,
-    ambrosiaBlueberries: calculateBlueberryInventory().value,
-    ambrosiaGenerationSpeed: calculateAmbrosiaGenerationSpeed().value
-  }
+export const calculatePlatonic7UpgradePower = () => {
+  return 1 - player.platonicUpgrades[7] / 30
 }

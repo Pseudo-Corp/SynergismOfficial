@@ -41,17 +41,16 @@ import {
   getReductionValue
 } from './Buy'
 import {
-  ambrosiaCurrStatsReinitialize,
   calculateAcceleratorMultiplier,
   calculateAnts,
   calculateCubeBlessings,
+  calculateGlobalSpeedMult,
   calculateGoldenQuarkGain,
   calculateObtainium,
   calculateOfferings,
   calculateOffline,
   calculateRuneLevels,
   calculateSigmoidExponential,
-  calculateTimeAcceleration,
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
   dailyResetCheck,
@@ -2838,7 +2837,6 @@ const loadSynergy = () => {
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
     updateSingularityGlobalPerks()
-    ambrosiaCurrStatsReinitialize()
 
     // Update the Sing requirements on reload for a challenge if applicable
     if (G.currentSingChallenge !== undefined) {
@@ -5943,7 +5941,7 @@ const tick = () => {
 const tack = (dt: number) => {
   if (!G.timeWarp) {
     // Adds Resources (coins, ants, etc)
-    const timeMult = calculateTimeAcceleration().mult
+    const timeMult = calculateGlobalSpeedMult()
     resourceGain(dt * timeMult)
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
     addTimers('prestige', dt)
@@ -6333,8 +6331,6 @@ export const reloadShit = (reset = false) => {
   campaignIconHTMLUpdates()
   campaignTokenRewardHTMLUpdate()
   clearTimeout(preloadDeleteGame)
-
-  setInterval(ambrosiaCurrStatsReinitialize, 5000)
 
   if (localStorage.getItem('pleaseStar') === null) {
     void Alert(i18next.t('main.starRepo'))

@@ -1,5 +1,4 @@
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed } from './Calculate'
 import { prod } from './Config'
 import { pressedKeys } from './Hotkeys'
 import { isLoggedIn } from './Login'
@@ -755,7 +754,6 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
     subTabs.tabSwitcher?.()(subTabList.subTabID)
     if (tab.getType() === Tabs.Singularity && page === 3) {
       player.visitedAmbrosiaSubtab = true
-      G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     }
   }
 }

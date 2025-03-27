@@ -1,13 +1,15 @@
 import { sacrificeAnts } from './Ants'
 import { buyAllBlessings } from './Buy'
 import {
-  calculateAscensionAcceleration,
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
+  calculateAscensionSpeedMult,
+  calculateGlobalSpeedMult,
   calculateGoldenQuarkGain,
   calculateMaxRunes,
   calculateOcteractMultiplier,
   calculateRequiredBlueberryTime,
-  calculateResearchAutomaticObtainium,
-  calculateTimeAcceleration
+  calculateResearchAutomaticObtainium
 } from './Calculate'
 import { quarkHandler } from './Quark'
 import { Seed, seededRandom } from './RNG'
@@ -39,7 +41,7 @@ type TimerInput =
 export const addTimers = (input: TimerInput, time = 0) => {
   const globalTimeMultiplier = player.singularityUpgrades.halfMind.getEffect().bonus
     ? 10
-    : calculateTimeAcceleration().mult
+    : calculateGlobalSpeedMult()
 
   const timeMultiplier = input === 'ascension'
       || input === 'quarks'
@@ -69,7 +71,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       const ascensionSpeedMulti = player.singularityUpgrades.oneMind.getEffect()
           .bonus
         ? 10
-        : calculateAscensionAcceleration()
+        : calculateAscensionSpeedMult()
       player.ascensionCounter += time * timeMultiplier * ascensionSpeedMulti
       player.ascensionCounterReal += time * timeMultiplier
       break
@@ -192,7 +194,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       break
     }
     case 'ambrosia': {
-      const compute = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
+      const compute = calculateAmbrosiaGenerationSpeed()
       if (compute === 0) {
         break
       }
@@ -203,8 +205,8 @@ export const addTimers = (input: TimerInput, time = 0) => {
         break
       }
 
-      const ambrosiaLuck = G.ambrosiaCurrStats.ambrosiaLuck
-      const baseBlueberryTime = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
+      const ambrosiaLuck = calculateAmbrosiaLuck()
+      const baseBlueberryTime = calculateAmbrosiaGenerationSpeed()
       player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * baseBlueberryTime
       player.ultimateProgress += Math.floor(8 * G.ambrosiaTimer) / 8
         * Math.min(baseBlueberryTime, Math.pow(1000 * baseBlueberryTime, 1 / 2))
@@ -229,7 +231,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         player.blueberryTime -= timeToAmbrosia
 
         timeToAmbrosia = calculateRequiredBlueberryTime()
-        const secondsToNextAmbrosia = timeToAmbrosia / G.ambrosiaCurrStats.ambrosiaGenerationSpeed
+        const secondsToNextAmbrosia = timeToAmbrosia / calculateAmbrosiaGenerationSpeed()
 
         G.ambrosiaTimer += Math.min(
           secondsToNextAmbrosia * maxAccelMultiplier,
@@ -263,7 +265,7 @@ type AutoToolInput =
  * @param time
  */
 export const automaticTools = (input: AutoToolInput, time: number) => {
-  const timeMultiplier = (player.singularityUpgrades.halfMind.getEffect().bonus) ? 10 : calculateTimeAcceleration().mult
+  const timeMultiplier = (player.singularityUpgrades.halfMind.getEffect().bonus) ? 10 : calculateGlobalSpeedMult()
 
   switch (input) {
     case 'addObtainium': {

@@ -5,8 +5,13 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calcAscensionCount,
   CalcCorruptionStuff,
+  calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
+  calculateAmbrosiaLuckRaw,
   calculateAmbrosiaQuarkMult,
+  calculateBlueberryInventory,
   calculateCubeQuarkMultiplier,
   calculateMaxRunes,
   calculateNumberOfThresholds,
@@ -1570,16 +1575,16 @@ export const visualUpdateAmbrosia = () => {
     return
   }
 
-  const luck = G.ambrosiaCurrStats.ambrosiaLuck
-  const baseLuck = G.ambrosiaCurrStats.ambrosiaLuck / G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult
-  const luckBonusPercent = 100 * (G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult - 1)
+  const luck = calculateAmbrosiaLuck()
+  const baseLuck = calculateAmbrosiaLuckRaw()
+  const luckBonusPercent = 100 * (calculateAmbrosiaAdditiveLuckMult() - 1)
   const guaranteed = Math.floor(luck / 100)
   const chance = luck - 100 * Math.floor(luck / 100)
   const requiredTime = calculateRequiredBlueberryTime()
   const cubePercent = 100 * (calculateAmbrosiaCubeMult() - 1)
   const quarkPercent = 100 * (calculateAmbrosiaQuarkMult() - 1)
-  const availableBlueberries = G.ambrosiaCurrStats.ambrosiaBlueberries - player.spentBlueberries
-  const totalTimePerSecond = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
+  const availableBlueberries = calculateBlueberryInventory() - player.spentBlueberries
+  const totalTimePerSecond = calculateAmbrosiaGenerationSpeed()
   const progressTimePerSecond = Math.min(totalTimePerSecond, Math.pow(1000 * totalTimePerSecond, 1 / 2))
   const barWidth = 100 * Math.min(1, player.blueberryTime / requiredTime)
   const pixelBarWidth = 100 * Math.min(1, player.ultimateProgress / 1e6)

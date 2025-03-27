@@ -1,12 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import {
-  calculateAdditiveLuckMult,
-  calculateAmbrosiaGenerationSpeed,
-  calculateAmbrosiaLuck,
-  calculateBlueberryInventory,
-  calculateGoldenQuarkGain
-} from './Calculate'
+import { calculateGoldenQuarkGain } from './Calculate'
 import { singularity } from './Reset'
 import { player } from './Synergism'
 import type { Player } from './types/Synergism'
@@ -329,17 +323,7 @@ export const singularityChallengeData: Record<
         luckBonus: n >= 30 ? 0.04 : 0,
         shopUpgrade2: n >= 30
       }
-    },
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats = {
-          ambrosiaAdditiveLuckMult: calculateAdditiveLuckMult().value,
-          ambrosiaLuck: calculateAmbrosiaLuck().value,
-          ambrosiaBlueberries: calculateBlueberryInventory().value,
-          ambrosiaGenerationSpeed: calculateAmbrosiaGenerationSpeed().value
-        }
-      }
-    ]
+    }
   },
   oneChallengeCap: {
     baseReq: 10,

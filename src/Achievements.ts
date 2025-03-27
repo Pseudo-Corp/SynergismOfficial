@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CalcCorruptionStuff, calculateTimeAcceleration } from './Calculate'
+import { CalcCorruptionStuff, calculateGlobalSpeedMult } from './Calculate'
 import { format, player } from './Synergism'
 import { Alert, Notification, revealStuff } from './UpdateHTML'
 import { sumContents } from './Utility'
@@ -84,7 +84,7 @@ export const areward = (i: number): string => {
     202: format(Math.min(200, player.ascensionCount / 5e6), 2),
     216: format(Math.min(200, player.ascensionCount / 1e7), 2),
     223: format(Math.min(200, player.ascensionCount / 13370000), 2),
-    240: format(Math.min(1.5, 1 + Math.max(2, Math.log10(calculateTimeAcceleration().mult)) / 20), 2),
+    240: format(Math.min(1.5, 1 + Math.max(2, Math.log10(calculateGlobalSpeedMult())) / 20), 2),
     254: format(Math.min(15, Math.log10(corr[3] + 1) * 0.6), 2, true),
     255: format(Math.min(15, Math.log10(corr[3] + 1) * 0.6), 2, true),
     256: format(Math.min(15, Math.log10(corr[3] + 1) * 0.6), 2, true),

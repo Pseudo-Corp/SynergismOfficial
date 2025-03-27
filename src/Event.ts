@@ -1,5 +1,4 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAdditiveLuckMult, calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calculate'
 import { allConsumables, type PseudoCoinConsumableNames } from './Login'
 import { getTimePinnedToLoadDate, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
@@ -77,9 +76,6 @@ export const eventCheck = async () => {
 
   if (G.isEvent !== updateIsEventCheck) {
     revealStuff()
-    G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value
-    G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-    G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
   }
 }
 

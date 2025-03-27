@@ -1,9 +1,7 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  calculateAdditiveLuckMult,
   calculateAmbrosiaGenerationSpeed,
-  calculateAmbrosiaLuck,
   calculateBaseObtainium,
   calculateBaseOfferings,
   calculateCashGrabBlueberryBonus,
@@ -1313,7 +1311,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaAccelerator', {
         amount: format(0.2 * player.shopUpgrades.shopAmbrosiaAccelerator, 1, true),
         amount2: format(
-          player.shopUpgrades.shopAmbrosiaAccelerator * 0.2 * G.ambrosiaCurrStats.ambrosiaGenerationSpeed,
+          player.shopUpgrades.shopAmbrosiaAccelerator * 0.2 * calculateAmbrosiaGenerationSpeed(),
           0,
           true
         )
@@ -1573,10 +1571,6 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     player.worlds.sub(anyData.cost)
     player.shopUpgrades[input] = anyData.levelCanBuy
     revealStuff()
-
-    G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-    G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value
-    G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     return
   }
 
@@ -1596,9 +1590,6 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   if (p) {
     player.worlds.sub(buyCost)
     player.shopUpgrades[input] += buyAmount
-    G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-    G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value
-    G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     revealStuff()
   }
 }

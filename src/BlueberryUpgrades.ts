@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck } from './Calculate'
+import { calculateAmbrosiaLuck, calculateBlueberryInventory } from './Calculate'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { exportData, saveFilename } from './ImportExport'
@@ -11,7 +11,6 @@ import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { visualUpdateAmbrosia } from './UpdateVisuals'
 import { assert } from './Utility'
-import { Globals as G } from './Variables'
 
 export type blueberryUpgradeNames =
   | 'ambrosiaTutorial'
@@ -128,7 +127,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
         break
       } else {
         if (this.level === 0) {
-          const availableBlueberries = G.ambrosiaCurrStats.ambrosiaBlueberries - player.spentBlueberries
+          const availableBlueberries = calculateBlueberryInventory() - player.spentBlueberries
           if (availableBlueberries < this.blueberryCost) {
             return Alert(i18next.t('ambrosia.notEnoughBlueberries'))
           } else {
@@ -421,12 +420,7 @@ export const blueberryUpgradeData: Record<
     },
     prerequisites: {
       ambrosiaTutorial: 10
-    },
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-      }
-    ]
+    }
   },
   ambrosiaQuarkCube1: {
     maxLevel: 25,
@@ -463,7 +457,7 @@ export const blueberryUpgradeData: Record<
     },
     rewards: (n: number) => {
       const baseVal = 0.0002 * n
-      const val = 1 + baseVal * G.ambrosiaCurrStats.ambrosiaLuck
+      const val = 1 + baseVal * calculateAmbrosiaLuck()
       return {
         cubes: val,
         desc: String(
@@ -519,10 +513,11 @@ export const blueberryUpgradeData: Record<
     },
     rewards: (n: number) => {
       const baseVal = 0.0001 * n
+      const luck = calculateAmbrosiaLuck()
       const effectiveLuck = Math.min(
-        G.ambrosiaCurrStats.ambrosiaLuck,
+        luck,
         Math.pow(1000, 0.5)
-          * Math.pow(G.ambrosiaCurrStats.ambrosiaLuck, 0.5)
+          * Math.pow(luck, 0.5)
       )
       const val = 1 + baseVal * effectiveLuck
       return {
@@ -568,12 +563,7 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaLuck1: 30,
       ambrosiaCubes1: 20
-    },
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-      }
-    ]
+    }
   },
   ambrosiaQuarkLuck1: {
     maxLevel: 25,
@@ -598,12 +588,7 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaLuck1: 30,
       ambrosiaQuarks1: 20
-    },
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-      }
-    ]
+    }
   },
   ambrosiaQuarks2: {
     maxLevel: 100,
@@ -682,12 +667,7 @@ export const blueberryUpgradeData: Record<
     },
     prerequisites: {
       ambrosiaLuck1: 40
-    },
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-      }
-    ]
+    }
   },
   ambrosiaPatreon: {
     maxLevel: 1,
@@ -706,12 +686,7 @@ export const blueberryUpgradeData: Record<
           })
         )
       }
-    },
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
-      }
-    ]
+    }
   },
   ambrosiaObtainium1: {
     maxLevel: 2,
@@ -721,7 +696,7 @@ export const blueberryUpgradeData: Record<
       return baseCost * Math.pow(25, level)
     },
     rewards: (n: number) => {
-      const luck = G.ambrosiaCurrStats.ambrosiaLuck
+      const luck = calculateAmbrosiaLuck()
       return {
         luckMult: n,
         obtainiumMult: n * luck,
@@ -741,7 +716,7 @@ export const blueberryUpgradeData: Record<
       return baseCost * Math.pow(25, level)
     },
     rewards: (n: number) => {
-      const luck = G.ambrosiaCurrStats.ambrosiaLuck
+      const luck = calculateAmbrosiaLuck()
       return {
         luckMult: n,
         offeringMult: n * luck,
@@ -814,7 +789,7 @@ export const validateBlueberryTree = (modules: BlueberryOpt) => {
   }
 
   const ambrosiaBudget = player.lifetimeAmbrosia
-  const blueberryBudget = G.ambrosiaCurrStats.ambrosiaBlueberries
+  const blueberryBudget = calculateBlueberryInventory()
 
   let spentAmbrosia = 0
   let spentBlueberries = 0

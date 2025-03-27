@@ -4,11 +4,11 @@ import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
 import { totalachievementpoints } from './Achievements'
 import {
-  calculateAscensionAcceleration,
+  calculateAscensionSpeedMult,
+  calculateGlobalSpeedMult,
   calculateGoldenQuarkGain,
   calculateMaxRunes,
   calculateOcteractMultiplier,
-  calculateTimeAcceleration,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractQuarkBonus,
   isIARuneUnlocked
@@ -162,7 +162,7 @@ export const generateExportSummary = async (): Promise<void> => {
     ascension = `${ascension}Ascension Timer: ${formatS(player.ascensionCounter)}\n`
     ascension = `${ascension}Real Life Ascension Timer: ${formatS(player.ascensionCounterReal)}\n`
     ascension = `${ascension}Truly Real Life Ascension Timer: ${formatS(player.ascensionCounterRealReal)}\n`
-    ascension = `${ascension}Ascension Speed Multiplier: ${format(calculateAscensionAcceleration(), 2, true)}\n`
+    ascension = `${ascension}Ascension Speed Multiplier: ${format(calculateAscensionSpeedMult(), 2, true)}\n`
     ascension = `${ascension}Challenge 11 Completions: ${player.challengecompletions[11]}/${getMaxChallenges(11)}\n`
     ascension = `${ascension}Challenge 12 Completions: ${player.challengecompletions[12]}/${getMaxChallenges(12)}\n`
     ascension = `${ascension}Challenge 13 Completions: ${player.challengecompletions[13]}/${getMaxChallenges(13)}\n`
@@ -217,7 +217,7 @@ export const generateExportSummary = async (): Promise<void> => {
     reincarnation = `${reincarnation}Reincarnation Count: ${format(player.reincarnationCount, 0, true)}\n`
     reincarnation = `${reincarnation}Reincarnation Timer: ${formatS(player.reincarnationcounter)}\n`
     reincarnation = `${reincarnation}Fastest Reincarnation: ${formatS(player.fastestreincarnate)}\n`
-    reincarnation = `${reincarnation}Global Speed Multiplier: ${format(calculateTimeAcceleration().mult, 2, true)}\n`
+    reincarnation = `${reincarnation}Global Speed Multiplier: ${format(calculateGlobalSpeedMult(), 2, true)}\n`
     reincarnation = `${reincarnation}Challenge 6 Completions: ${player.highestchallengecompletions[6]}/${
       getMaxChallenges(6)
     }\n`

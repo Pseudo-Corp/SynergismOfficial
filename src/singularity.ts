@@ -1,6 +1,5 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, calculateBlueberryInventory } from './Calculate'
 import { campaignTokenRewardHTMLUpdate } from './Campaign'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
@@ -8,7 +7,6 @@ import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt, revealStuff } from './UpdateHTML'
 import { toOrdinal } from './Utility'
-import { Globals as G } from './Variables'
 
 export const updateSingularityPenalties = (): void => {
   const singularityCount = player.singularityCount
@@ -1431,15 +1429,7 @@ export const singularityData: Record<
       }
     },
     specialCostForm: 'Exponential2',
-    qualityOfLife: true,
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaBlueberries = calculateBlueberryInventory().value
-      },
-      () => {
-        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
-      }
-    ]
+    qualityOfLife: true
   },
   singAmbrosiaLuck: {
     maxLevel: -1,
@@ -1456,12 +1446,7 @@ export const singularityData: Record<
       }
     },
     specialCostForm: 'Exponential2',
-    qualityOfLife: true,
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-      }
-    ]
+    qualityOfLife: true
   },
   singAmbrosiaLuck2: {
     maxLevel: 30,
@@ -1477,12 +1462,7 @@ export const singularityData: Record<
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-      }
-    ]
+    qualityOfLife: true
   },
   singAmbrosiaLuck3: {
     maxLevel: 30,
@@ -1498,12 +1478,7 @@ export const singularityData: Record<
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-      }
-    ]
+    qualityOfLife: true
   },
   singAmbrosiaLuck4: {
     maxLevel: 50,
@@ -1519,12 +1494,7 @@ export const singularityData: Record<
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-      }
-    ]
+    qualityOfLife: true
   },
   singAmbrosiaGeneration: {
     maxLevel: -1,
@@ -1541,12 +1511,7 @@ export const singularityData: Record<
       }
     },
     specialCostForm: 'Exponential2',
-    qualityOfLife: true,
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
-      }
-    ]
+    qualityOfLife: true
   },
   singAmbrosiaGeneration2: {
     maxLevel: 20,
@@ -1562,12 +1527,7 @@ export const singularityData: Record<
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
-      }
-    ]
+    qualityOfLife: true
   },
   singAmbrosiaGeneration3: {
     maxLevel: 35,
@@ -1583,12 +1543,7 @@ export const singularityData: Record<
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
-      }
-    ]
+    qualityOfLife: true
   },
   singAmbrosiaGeneration4: {
     maxLevel: 50,
@@ -1604,12 +1559,7 @@ export const singularityData: Record<
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [
-      () => {
-        G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
-      }
-    ]
+    qualityOfLife: true
   },
   singBonusTokens1: {
     maxLevel: 5,

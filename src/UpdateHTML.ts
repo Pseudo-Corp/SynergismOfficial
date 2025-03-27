@@ -4,8 +4,8 @@ import { achievementaward, totalachievementpoints } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   CalcCorruptionStuff,
-  calculateAscensionAcceleration,
-  calculateTimeAcceleration,
+  calculateAscensionSpeedMult,
+  calculateGlobalSpeedMult,
   isIARuneUnlocked,
   isShopTalismanUnlocked
 } from './Calculate'
@@ -1039,8 +1039,8 @@ const updateAscensionStats = () => {
     ascPlatonic: format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5),
     ascHepteract: format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
     ascC10: `${format(player.challengecompletions[10])}`,
-    ascTimeAccel: `${format(calculateTimeAcceleration().mult, 3)}x`,
-    ascAscensionTimeAccel: `${format(calculateAscensionAcceleration(), 3)}x${addedAsterisk ? '*' : ''}`,
+    ascTimeAccel: `${format(calculateGlobalSpeedMult(), 3)}x`,
+    ascAscensionTimeAccel: `${format(calculateAscensionSpeedMult(), 3)}x${addedAsterisk ? '*' : ''}`,
     ascSingularityCount: format(player.singularityCount),
     ascSingLen: formatTimeShort(player.singularityCounter),
     ascSingChallengeLen: formatTimeShort(player.singChallengeTimer)
