@@ -75,7 +75,7 @@ export const resetdetails = (input: resetNames) => {
   const transcensionChallenge = player.currentChallenge.transcension
   const reincarnationChallenge = player.currentChallenge.reincarnation
 
-  const offering = calculateOfferings(input)
+  const offering = calculateOfferings()
   const offeringImage = getElementById<HTMLImageElement>('resetofferings1')
   const offeringText = DOMCacheGetOrSet('resetofferings2')
   const currencyImage1 = getElementById<HTMLImageElement>('resetcurrency1')
@@ -85,7 +85,7 @@ export const resetdetails = (input: resetNames) => {
   const resetCurrencyGain = DOMCacheGetOrSet('resetcurrency2')
   if (input === 'reincarnation') {
     resetObtainiumImage.style.display = 'block'
-    resetObtainiumText.textContent = format(Math.floor(G.obtainiumGain))
+    resetObtainiumText.textContent = format(Math.floor(calculateObtainium()))
   } else {
     resetObtainiumImage.style.display = 'none'
     resetObtainiumText.textContent = ''
@@ -259,7 +259,8 @@ export const updateAutoCubesOpens = (i: number) => {
 }
 
 const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
-  const offeringsGiven = calculateOfferings(input)
+  const offeringsGiven = calculateOfferings()
+  const obtainiumGiven = calculateObtainium()
   const isChallenge = ['enterChallenge', 'leaveChallenge'].includes(from)
 
   if (input === 'prestige') {
@@ -294,7 +295,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         offerings: offeringsGiven,
         kind: 'reincarnate',
         particles: G.reincarnationPointGain.toString(),
-        obtainium: G.obtainiumGain
+        obtainium: obtainiumGiven
       }
 
       resetHistoryAdd('reset', historyEntry)
@@ -331,7 +332,9 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
   resetAddHistoryEntry(input, from)
 
-  resetofferings(input)
+  const obtainiumToGain = calculateObtainium()
+
+  resetofferings()
   resetUpgrades(1)
   player.coins = new Decimal('102')
   player.coinsThisPrestige = new Decimal('100')
@@ -496,12 +499,15 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       ascensionAchievementCheck(1)
     }
 
-    player.researchPoints = Math.min(1e300, player.researchPoints + Math.floor(G.obtainiumGain))
+    player.researchPoints = Math.min(1e300, player.researchPoints + Math.floor(obtainiumToGain))
 
-    const opscheck = G.obtainiumGain / (1 + player.reincarnationcounter)
-    if (opscheck > player.obtainiumpersecond) {
-      player.obtainiumpersecond = opscheck
+    if (player.reincarnationcounter > 0) {
+      const opscheck = obtainiumToGain / player.reincarnationcounter
+      if (opscheck > player.obtainiumpersecond) {
+        player.obtainiumpersecond = opscheck
+      }
     }
+
     player.currentChallenge.transcension = 0
     resetUpgrades(3)
     player.coinsThisReincarnation = new Decimal('100')

@@ -52,8 +52,7 @@ export class QuarkHandler {
 
   /*** Calculates the number of quarks to give with the current bonus. */
   applyBonus (amount: number) {
-    const nonPatreon = calculateQuarkMultiplier()
-    return amount * (1 + (getQuarkBonus() / 100)) * nonPatreon
+    return amount * calculateQuarkMultiplier()
   }
 
   /** Subtracts quarks, as the name suggests. */

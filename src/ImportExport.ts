@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import LZString from 'lz-string'
 import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { octeractGainPerSecond } from './Calculate'
+import { calculateOcteractMultiplier } from './Calculate'
 import { testing, version } from './Config'
 import { addTimers } from './Helper'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -946,7 +946,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       }
     }
   } else if (input === 'spoiler') {
-    const perSecond = octeractGainPerSecond()
+    const perSecond = calculateOcteractMultiplier()
     if (perSecond > 1) {
       return Alert(
         i18next.t('importexport.promocodes.spoiler.moreThan1', {

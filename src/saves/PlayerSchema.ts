@@ -406,8 +406,8 @@ export const playerSchema = z.object({
   tesseractbuyamount: z.number().default(() => blankSave.tesseractbuyamount),
 
   shoptoggles: z.record(z.string(), z.boolean()),
-  tabnumber: z.number(),
-  subtabNumber: z.number().default(() => blankSave.subtabNumber),
+  tabnumber: z.any().optional(),
+  subtabNumber: z.any().optional(),
 
   codes: z.array(z.tuple([z.number(), z.boolean()])).transform((tuple) => new Map(tuple)).default(() =>
     deepClone()([...blankSave.codes])

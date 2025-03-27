@@ -1,14 +1,15 @@
 import { sacrificeAnts } from './Ants'
 import { buyAllBlessings } from './Buy'
 import {
-  calculateAscensionAcceleration,
-  calculateAutomaticObtainium,
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
+  calculateAscensionSpeedMult,
+  calculateGlobalSpeedMult,
   calculateGoldenQuarkGain,
   calculateMaxRunes,
-  calculateObtainium,
+  calculateOcteractMultiplier,
   calculateRequiredBlueberryTime,
-  calculateTimeAcceleration,
-  octeractGainPerSecond
+  calculateResearchAutomaticObtainium
 } from './Calculate'
 import { quarkHandler } from './Quark'
 import { Seed, seededRandom } from './RNG'
@@ -38,6 +39,10 @@ type TimerInput =
  * @param time
  */
 export const addTimers = (input: TimerInput, time = 0) => {
+  const globalTimeMultiplier = player.singularityUpgrades.halfMind.getEffect().bonus
+    ? 10
+    : calculateGlobalSpeedMult()
+
   const timeMultiplier = input === 'ascension'
       || input === 'quarks'
       || input === 'goldenQuarks'
@@ -46,7 +51,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       || input === 'autoPotion'
       || input === 'ambrosia'
     ? 1
-    : calculateTimeAcceleration().mult
+    : globalTimeMultiplier
 
   switch (input) {
     case 'prestige': {
@@ -66,7 +71,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       const ascensionSpeedMulti = player.singularityUpgrades.oneMind.getEffect()
           .bonus
         ? 10
-        : calculateAscensionAcceleration()
+        : calculateAscensionSpeedMult()
       player.ascensionCounter += time * timeMultiplier * ascensionSpeedMulti
       player.ascensionCounterReal += time * timeMultiplier
       break
@@ -113,7 +118,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         const amountOfGiveaways = player.octeractTimer - (player.octeractTimer % 1)
         player.octeractTimer %= 1
 
-        const perSecond = octeractGainPerSecond()
+        const perSecond = calculateOcteractMultiplier()
         player.wowOcteracts += amountOfGiveaways * perSecond
         player.totalWowOcteracts += amountOfGiveaways * perSecond
 
@@ -189,7 +194,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       break
     }
     case 'ambrosia': {
-      const compute = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
+      const compute = calculateAmbrosiaGenerationSpeed()
       if (compute === 0) {
         break
       }
@@ -200,8 +205,8 @@ export const addTimers = (input: TimerInput, time = 0) => {
         break
       }
 
-      const ambrosiaLuck = G.ambrosiaCurrStats.ambrosiaLuck
-      const baseBlueberryTime = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
+      const ambrosiaLuck = calculateAmbrosiaLuck()
+      const baseBlueberryTime = calculateAmbrosiaGenerationSpeed()
       player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * baseBlueberryTime
       player.ultimateProgress += Math.floor(8 * G.ambrosiaTimer) / 8
         * Math.min(baseBlueberryTime, Math.pow(1000 * baseBlueberryTime, 1 / 2))
@@ -226,7 +231,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
         player.blueberryTime -= timeToAmbrosia
 
         timeToAmbrosia = calculateRequiredBlueberryTime()
-        const secondsToNextAmbrosia = timeToAmbrosia / G.ambrosiaCurrStats.ambrosiaGenerationSpeed
+        const secondsToNextAmbrosia = timeToAmbrosia / calculateAmbrosiaGenerationSpeed()
 
         G.ambrosiaTimer += Math.min(
           secondsToNextAmbrosia * maxAccelMultiplier,
@@ -260,9 +265,7 @@ type AutoToolInput =
  * @param time
  */
 export const automaticTools = (input: AutoToolInput, time: number) => {
-  const timeMultiplier = input === 'runeSacrifice' || input === 'addOfferings'
-    ? 1
-    : calculateTimeAcceleration().mult
+  const timeMultiplier = (player.singularityUpgrades.halfMind.getEffect().bonus) ? 10 : calculateGlobalSpeedMult()
 
   switch (input) {
     case 'addObtainium': {
@@ -270,13 +273,12 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       if (player.currentChallenge.ascension === 14) {
         break
       }
-      // Update Obtainium Multipliers + Amount to gain
-      calculateObtainium()
-      const obtainiumGain = calculateAutomaticObtainium()
+
+      const obtainiumGain = calculateResearchAutomaticObtainium(time)
       // Add Obtainium
       player.researchPoints = Math.min(
         1e300,
-        player.researchPoints + obtainiumGain * time * timeMultiplier
+        player.researchPoints + obtainiumGain
       )
       // Update visual displays if appropriate
       if (G.currentTab === Tabs.Research) {

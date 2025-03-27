@@ -8,7 +8,7 @@ import { renderCaptcha } from './Login'
 import { autoResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { format, player, resetCheck } from './Synergism'
-import { subTabsInMainTab, Tabs } from './Tabs'
+import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, Player } from './types/Synergism'
 import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
@@ -341,31 +341,31 @@ export const toggleAutoBuyFragment = () => {
 
 export const toggleBuildingScreen = (input: string) => {
   G.buildingSubTab = input as BuildingSubtab
-  const screen: Record<string, { screen: string; button: string; subtabNumber: number }> = {
+  const screen: Record<string, { screen: string; button: string; subtab: number }> = {
     coin: {
       screen: 'coinBuildings',
       button: 'switchToCoinBuilding',
-      subtabNumber: 0
+      subtab: 0
     },
     diamond: {
       screen: 'prestige',
       button: 'switchToDiamondBuilding',
-      subtabNumber: 1
+      subtab: 1
     },
     mythos: {
       screen: 'transcension',
       button: 'switchToMythosBuilding',
-      subtabNumber: 2
+      subtab: 2
     },
     particle: {
       screen: 'reincarnation',
       button: 'switchToParticleBuilding',
-      subtabNumber: 3
+      subtab: 3
     },
     tesseract: {
       screen: 'ascension',
       button: 'switchToTesseractBuilding',
-      subtabNumber: 4
+      subtab: 4
     }
   }
 
@@ -373,7 +373,7 @@ export const toggleBuildingScreen = (input: string) => {
     DOMCacheGetOrSet(screenKey).style.display = 'none'
   }
   DOMCacheGetOrSet(screen[G.buildingSubTab].screen).style.display = 'flex'
-  player.subtabNumber = screen[G.buildingSubTab].subtabNumber
+  // player.subtabNumber = screen[G.buildingSubTab].subtabNumber
 }
 
 export const toggleRuneScreen = (indexStr: string) => {
@@ -390,7 +390,7 @@ export const toggleRuneScreen = (indexStr: string) => {
       b.style.display = 'none'
     }
   }
-  player.subtabNumber = index - 1
+  // player.subtabNumber = index - 1
 }
 
 export const toggleChallengesScreen = (indexStr: string) => {
@@ -404,7 +404,7 @@ export const toggleChallengesScreen = (indexStr: string) => {
       b.style.display = 'none'
     }
   }
-  player.subtabNumber = index - 1
+  // player.subtabNumber = index - 1
 }
 
 export const toggleautofortify = () => {
@@ -465,13 +465,11 @@ export const toggleSingularityScreen = (indexStr: string) => {
     }
   }
 
-  player.subtabNumber = index - 1
+  //  player.subtabNumber = index - 1
 
-  if (player.subtabNumber === 2) {
+  if (getActiveSubTab() === 2) {
     visualUpdateOcteracts()
-  }
-
-  if (player.subtabNumber === 3) {
+  } else if (getActiveSubTab() === 3) {
     visualUpdateAmbrosia()
   }
 }
@@ -697,7 +695,7 @@ export const toggleCubeSubTab = (indexStr: string) => {
     }
     if (cubeTab.style.display === 'none' && j === i) {
       cubeTab.style.display = 'flex'
-      player.subtabNumber = j - 1
+      // player.subtabNumber = j - 1
     }
   }
 
