@@ -1,15 +1,17 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  calculateAdditiveLuckMult,
   calculateAmbrosiaGenerationSpeed,
-  calculateAmbrosiaLuck,
+  calculateBaseObtainium,
+  calculateBaseOfferings,
   calculateCashGrabBlueberryBonus,
   calculateCashGrabCubeBonus,
   calculateCashGrabQuarkBonus,
+  calculateObtainiumToDecimal,
+  calculateOfferingsDecimal,
+  calculatePotionValue,
   calculatePowderConversion,
   calculateSummationNonLinear,
-  calculateTimeAcceleration,
   sumOfExaltCompletions
 } from './Calculate'
 import type { IMultiBuy } from './Cubes'
@@ -855,21 +857,16 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
   rofl.innerHTML = i18next.t(`shop.upgradeDescriptions.${input}`)
 
-  shopData[input].refundable // TODO(@KhafraDev): i18n
-    ? (refundable.textContent = `This item is refundable! Will be set to level ${
-      shopData[input].refundMinimumLevel
-    } when refunded.`)
+  shopData[input].refundable
+    ? (refundable.textContent = i18next.t('shop.refundable', { level: shopData[input].refundMinimumLevel }))
     : (refundable.textContent = i18next.t('shop.cannotRefund'))
 
   switch (input) {
     case 'offeringPotion':
       lol.innerHTML = i18next.t('shop.upgradeEffects.offeringPotion', {
         amount: format(
-          7200
-            * player.offeringpersecond
-            * calculateTimeAcceleration().mult
-            * +player.singularityUpgrades.potionBuff.getEffect().bonus,
-          0,
+          calculatePotionValue(player.prestigecounter, calculateOfferingsDecimal(), calculateBaseOfferings()),
+          2,
           true
         )
       })
@@ -877,11 +874,8 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'obtainiumPotion':
       lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumPotion', {
         amount: format(
-          7200
-            * player.maxobtainiumpersecond
-            * calculateTimeAcceleration().mult
-            * +player.singularityUpgrades.potionBuff.getEffect().bonus,
-          0,
+          calculatePotionValue(player.reincarnationcounter, calculateObtainiumToDecimal(), calculateBaseObtainium()),
+          2,
           true
         )
       })
@@ -1121,7 +1115,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         amount: format(
           100
             / (Math.max(1, player.shopUpgrades.powderAuto)
-              * calculatePowderConversion().mult),
+              * calculatePowderConversion()),
           2,
           true
         )
@@ -1317,7 +1311,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaAccelerator', {
         amount: format(0.2 * player.shopUpgrades.shopAmbrosiaAccelerator, 1, true),
         amount2: format(
-          player.shopUpgrades.shopAmbrosiaAccelerator * 0.2 * G.ambrosiaCurrStats.ambrosiaGenerationSpeed,
+          player.shopUpgrades.shopAmbrosiaAccelerator * 0.2 * calculateAmbrosiaGenerationSpeed(),
           0,
           true
         )
@@ -1577,10 +1571,6 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     player.worlds.sub(anyData.cost)
     player.shopUpgrades[input] = anyData.levelCanBuy
     revealStuff()
-
-    G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-    G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value
-    G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     return
   }
 
@@ -1600,9 +1590,6 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   if (p) {
     player.worlds.sub(buyCost)
     player.shopUpgrades[input] += buyAmount
-    G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-    G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult = calculateAdditiveLuckMult().value
-    G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
     revealStuff()
   }
 }
@@ -1641,48 +1628,34 @@ export const useConsumable = async (
     : true
 
   if (p) {
-    const multiplier = +player.singularityUpgrades.potionBuff.getEffect().bonus
-      * +player.singularityUpgrades.potionBuff2.getEffect().bonus
-      * +player.singularityUpgrades.potionBuff3.getEffect().bonus
-      * +player.octeractUpgrades.octeractAutoPotionEfficiency.getEffect().bonus
-      * used
-
     if (input === 'offeringPotion') {
+      const offeringPotionValue = calculatePotionValue(
+        player.prestigecounter,
+        calculateOfferingsDecimal(),
+        calculateBaseOfferings()
+      )
+
       if (infiniteAutoBrew && automatic) {
-        player.runeshards += Math.floor(
-          7200
-            * player.offeringpersecond
-            * calculateTimeAcceleration().mult
-            * multiplier
-        )
+        player.runeshards += offeringPotionValue * used
         player.runeshards = Math.min(1e300, player.runeshards)
       } else if (player.shopUpgrades.offeringPotion >= used || !spend) {
         player.shopUpgrades.offeringPotion -= spend ? used : 0
-        player.runeshards += Math.floor(
-          7200
-            * player.offeringpersecond
-            * calculateTimeAcceleration().mult
-            * multiplier
-        )
+        player.runeshards += offeringPotionValue * used
         player.runeshards = Math.min(1e300, player.runeshards)
       }
     } else if (input === 'obtainiumPotion') {
+      const obtainiumPotionValue = calculatePotionValue(
+        player.reincarnationcounter,
+        calculateObtainiumToDecimal(),
+        calculateBaseObtainium()
+      )
+
       if (infiniteAutoBrew && automatic) {
-        player.researchPoints += Math.floor(
-          7200
-            * player.maxobtainiumpersecond
-            * calculateTimeAcceleration().mult
-            * multiplier
-        )
+        player.researchPoints += obtainiumPotionValue * used
         player.researchPoints = Math.min(1e300, player.researchPoints)
       } else if (player.shopUpgrades.obtainiumPotion >= used || !spend) {
         player.shopUpgrades.obtainiumPotion -= spend ? used : 0
-        player.researchPoints += Math.floor(
-          7200
-            * player.maxobtainiumpersecond
-            * calculateTimeAcceleration().mult
-            * multiplier
-        )
+        player.researchPoints += obtainiumPotionValue * used
         player.researchPoints = Math.min(1e300, player.researchPoints)
       }
     }

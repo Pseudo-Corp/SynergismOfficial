@@ -41,17 +41,16 @@ import {
   getReductionValue
 } from './Buy'
 import {
-  ambrosiaCurrStatsReinitialize,
   calculateAcceleratorMultiplier,
   calculateAnts,
   calculateCubeBlessings,
-  calculateGoldenQuarkGain,
+  calculateGlobalSpeedMult,
+  calculateGoldenQuarks,
   calculateObtainium,
   calculateOfferings,
   calculateOffline,
   calculateRuneLevels,
   calculateSigmoidExponential,
-  calculateTimeAcceleration,
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
   dailyResetCheck,
@@ -180,7 +179,7 @@ import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
-import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 
@@ -539,8 +538,6 @@ export const player: Player = {
     generators: true,
     reincarnate: true
   },
-  tabnumber: 1,
-  subtabNumber: 0,
 
   // create a Map with keys defaulting to false
   codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false])),
@@ -1211,6 +1208,7 @@ export const player: Player = {
       singularityData.singAscensionSpeed2,
       'singAscensionSpeed2'
     ),
+    halfMind: new SingularityUpgrade(singularityData.halfMind, 'halfMind'),
     oneMind: new SingularityUpgrade(singularityData.oneMind, 'oneMind'),
     wowPass4: new SingularityUpgrade(singularityData.wowPass4, 'wowPass4'),
     offeringAutomatic: new SingularityUpgrade(
@@ -2839,7 +2837,6 @@ const loadSynergy = () => {
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
     updateSingularityGlobalPerks()
-    ambrosiaCurrStatsReinitialize()
 
     // Update the Sing requirements on reload for a challenge if applicable
     if (G.currentSingChallenge !== undefined) {
@@ -3167,9 +3164,9 @@ export const format = (
       }K`
     }
     return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
-  } else if (power < 6 || (long && power < 7)) {
-    // If the power is less than 6 or format long and less than 7 use standard formatting (1,234,567)
-    // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 7
+  } else if (power < 6 || (long && power < 12)) {
+    // If the power is less than 6 or format long and less than 12 use standard formatting (1,234,567)
+    // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 12
     let standard = mantissa * Math.pow(10, power)
     let standardString: string
     // Rounds up if the number experiences a rounding error
@@ -5108,7 +5105,7 @@ export const resetCheck = async (
       confirmed = await Confirm(
         i18next.t('main.singularityConfirm0', {
           x: format(nextSingularityNumber),
-          y: format(calculateGoldenQuarkGain(), 2, true)
+          y: format(calculateGoldenQuarks(), 2, true)
         })
       )
     } else {
@@ -5122,7 +5119,7 @@ export const resetCheck = async (
       await Alert(
         i18next.t('main.singularityMessage4', {
           x: format(nextSingularityNumber),
-          y: format(calculateGoldenQuarkGain(), 2, true),
+          y: format(calculateGoldenQuarks(), 2, true),
           z: format(getQuarkBonus())
         })
       )
@@ -5944,7 +5941,7 @@ const tick = () => {
 const tack = (dt: number) => {
   if (!G.timeWarp) {
     // Adds Resources (coins, ants, etc)
-    const timeMult = calculateTimeAcceleration().mult
+    const timeMult = calculateGlobalSpeedMult()
     resourceGain(dt * timeMult)
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
     addTimers('prestige', dt)
@@ -6104,7 +6101,7 @@ const tack = (dt: number) => {
       }
     }
   }
-  calculateOfferings('reincarnation')
+  calculateOfferings()
 }
 
 export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
@@ -6171,13 +6168,11 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         categoryUpgrades(num, false)
       }
       if (G.currentTab === Tabs.Runes) {
-        if (player.subtabNumber === 0) {
+        if (getActiveSubTab() === 0) {
           redeemShards(num)
-        }
-        if (player.subtabNumber === 2) {
+        } else if (getActiveSubTab() === 2) {
           buyRuneBonusLevels('Blessings', num)
-        }
-        if (player.subtabNumber === 3) {
+        } else if (getActiveSubTab() === 3) {
           buyRuneBonusLevels('Spirits', num)
         }
       }
@@ -6336,8 +6331,6 @@ export const reloadShit = (reset = false) => {
   campaignIconHTMLUpdates()
   campaignTokenRewardHTMLUpdate()
   clearTimeout(preloadDeleteGame)
-
-  setInterval(ambrosiaCurrStatsReinitialize, 5000)
 
   if (localStorage.getItem('pleaseStar') === null) {
     void Alert(i18next.t('main.starRepo'))

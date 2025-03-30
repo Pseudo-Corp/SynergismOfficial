@@ -5,24 +5,28 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calcAscensionCount,
   CalcCorruptionStuff,
+  calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
+  calculateAmbrosiaLuckRaw,
   calculateAmbrosiaQuarkMult,
-  calculateAutomaticObtainium,
+  calculateBlueberryInventory,
   calculateCubeQuarkMultiplier,
   calculateMaxRunes,
   calculateNumberOfThresholds,
+  calculateOcteractMultiplier,
   calculateRecycleMultiplier,
   calculateRequiredBlueberryTime,
+  calculateResearchAutomaticObtainium,
   calculateRuneExpToLevel,
   calculateSigmoidExponential,
   calculateSummationLinear,
   calculateSummationNonLinear,
-  calculateTimeAcceleration,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractObtainiumBonus,
   calculateTotalOcteractOfferingBonus,
-  calculateTotalOcteractQuarkBonus,
-  octeractGainPerSecond
+  calculateTotalOcteractQuarkBonus
 } from './Calculate'
 import { formatAsPercentIncrease } from './Campaign'
 import { CalcECC } from './Challenges'
@@ -39,7 +43,7 @@ import { getShopCosts, isShopUpgradeUnlocked, shopData, shopUpgradeTypes } from 
 import { getGoldenQuarkCost } from './singularity'
 import { loadStatisticsUpdate } from './Statistics'
 import { format, formatTimeShort, player } from './Synergism'
-import { Tabs } from './Tabs'
+import { getActiveSubTab, Tabs } from './Tabs'
 import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents, timeReminingHours } from './Utility'
@@ -543,7 +547,7 @@ export const visualUpdateRunes = () => {
   if (G.currentTab !== Tabs.Runes) {
     return
   }
-  if (player.subtabNumber === 0) {
+  if (getActiveSubTab() === 0) {
     // Placeholder and place work similarly to buildings, except for the specific Talismans.
     const talismans = [
       'rune1Talisman',
@@ -639,7 +643,7 @@ export const visualUpdateRunes = () => {
     )
   }
 
-  if (player.subtabNumber === 1) {
+  if (getActiveSubTab() === 1) {
     for (let i = 0; i < 7; i++) {
       const maxTalismanLevel = calculateMaxTalismanLevel(i)
       // TODO(@KhafraDev): i18n
@@ -647,9 +651,7 @@ export const visualUpdateRunes = () => {
         format(player.talismanLevels[i])
       }/${format(maxTalismanLevel)}`
     }
-  }
-
-  if (player.subtabNumber === 2) {
+  } else if (getActiveSubTab() === 2) {
     const blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
     let t = 0
     for (let i = 1; i <= 5; i++) {
@@ -711,9 +713,7 @@ export const visualUpdateRunes = () => {
         t = 1
       }
     }
-  }
-
-  if (player.subtabNumber === 3) {
+  } else if (getActiveSubTab() === 3) {
     const spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
     const subtract = [0, 0, 0, 1, 0, 0]
     for (let i = 1; i <= 5; i++) {
@@ -800,7 +800,7 @@ export const visualUpdateResearch = () => {
       'researches.thanksToResearches',
       {
         x: format(
-          calculateAutomaticObtainium() * calculateTimeAcceleration().mult,
+          calculateResearchAutomaticObtainium(1),
           3,
           true
         )
@@ -934,7 +934,7 @@ export const visualUpdateCubes = () => {
 
   // TODO: this code is fucking terrible holy shit. Also pretty sure there's a bug.
   let accuracy: [null | number, ...number[]]
-  switch (player.subtabNumber) {
+  switch (getActiveSubTab()) {
     case 0: {
       if (player.autoOpenCubes) {
         DOMCacheGetOrSet('openCubes').textContent = i18next.t(
@@ -1351,7 +1351,7 @@ export const visualUpdateSettings = () => {
     return
   }
 
-  if (player.subtabNumber === 0) {
+  if (getActiveSubTab() === 0) {
     DOMCacheGetOrSet('saveString').textContent = i18next.t(
       'settings.currently',
       {
@@ -1428,8 +1428,7 @@ export const visualUpdateSettings = () => {
         )
       }
     )
-  }
-  if (player.subtabNumber === 3) {
+  } else if (getActiveSubTab() === 3) {
     loadStatisticsUpdate()
   }
 }
@@ -1438,7 +1437,7 @@ export const visualUpdateSingularity = () => {
   if (G.currentTab !== Tabs.Singularity) {
     return
   }
-  if (player.subtabNumber === 0) {
+  if (getActiveSubTab() === 0) {
     DOMCacheGetOrSet('goldenQuarkamount').textContent = i18next.t(
       'singularity.goldenQuarkAmount',
       {
@@ -1478,8 +1477,7 @@ export const visualUpdateSingularity = () => {
         }
       }
     }
-  }
-  if (player.subtabNumber === 2) {
+  } else if (getActiveSubTab() === 2) {
     const keys = Object.keys(
       player.octeractUpgrades
     ) as (keyof Player['octeractUpgrades'])[]
@@ -1515,7 +1513,7 @@ export const visualUpdateOcteracts = () => {
     octeracts: format(player.wowOcteracts, 2, true, true, true)
   })
 
-  const perSecond = octeractGainPerSecond()
+  const perSecond = calculateOcteractMultiplier()
 
   DOMCacheGetOrSet('secondsPerOcteract').style.display = perSecond < 1 ? 'block' : 'none'
   DOMCacheGetOrSet('secondsPerOcteract').innerHTML = i18next.t(
@@ -1577,16 +1575,16 @@ export const visualUpdateAmbrosia = () => {
     return
   }
 
-  const luck = G.ambrosiaCurrStats.ambrosiaLuck
-  const baseLuck = G.ambrosiaCurrStats.ambrosiaLuck / G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult
-  const luckBonusPercent = 100 * (G.ambrosiaCurrStats.ambrosiaAdditiveLuckMult - 1)
+  const luck = calculateAmbrosiaLuck()
+  const baseLuck = calculateAmbrosiaLuckRaw()
+  const luckBonusPercent = 100 * (calculateAmbrosiaAdditiveLuckMult() - 1)
   const guaranteed = Math.floor(luck / 100)
   const chance = luck - 100 * Math.floor(luck / 100)
   const requiredTime = calculateRequiredBlueberryTime()
   const cubePercent = 100 * (calculateAmbrosiaCubeMult() - 1)
   const quarkPercent = 100 * (calculateAmbrosiaQuarkMult() - 1)
-  const availableBlueberries = G.ambrosiaCurrStats.ambrosiaBlueberries - player.spentBlueberries
-  const totalTimePerSecond = G.ambrosiaCurrStats.ambrosiaGenerationSpeed
+  const availableBlueberries = calculateBlueberryInventory() - player.spentBlueberries
+  const totalTimePerSecond = calculateAmbrosiaGenerationSpeed()
   const progressTimePerSecond = Math.min(totalTimePerSecond, Math.pow(1000 * totalTimePerSecond, 1 / 2))
   const barWidth = 100 * Math.min(1, player.blueberryTime / requiredTime)
   const pixelBarWidth = 100 * Math.min(1, player.ultimateProgress / 1e6)

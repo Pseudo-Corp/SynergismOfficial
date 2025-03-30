@@ -315,8 +315,6 @@ export interface Player {
     generators: boolean
     reincarnate: boolean
   }
-  tabnumber: number
-  subtabNumber: number
 
   // create a Map with keys defaulting to boolean
   codes: Map<number, boolean>
@@ -966,13 +964,6 @@ export interface GlobalVariables {
 
   ambrosiaTimer: number
   TIME_PER_AMBROSIA: number
-
-  ambrosiaCurrStats: {
-    ambrosiaAdditiveLuckMult: number
-    ambrosiaLuck: number
-    ambrosiaBlueberries: number
-    ambrosiaGenerationSpeed: number
-  }
 
   currentSingChallenge: keyof Player['singularityChallenges'] | undefined
 }

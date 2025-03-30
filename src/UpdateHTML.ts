@@ -4,8 +4,8 @@ import { achievementaward, totalachievementpoints } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   CalcCorruptionStuff,
-  calculateAscensionAcceleration,
-  calculateTimeAcceleration,
+  calculateAscensionSpeedMult,
+  calculateGlobalSpeedMult,
   isIARuneUnlocked,
   isShopTalismanUnlocked
 } from './Calculate'
@@ -16,7 +16,7 @@ import { autoResearchEnabled } from './Research'
 import { displayRuneInformation } from './Runes'
 import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
-import { Tabs } from './Tabs'
+import { getActiveSubTab, Tabs } from './Tabs'
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism'
 import {
   visualUpdateAchievements,
@@ -408,10 +408,6 @@ export const revealStuff = () => {
     ? (DOMCacheGetOrSet('singularitybtn').style.display = 'block')
     : (DOMCacheGetOrSet('singularitybtn').style.display = 'none')
 
-  player.highestSingularityCount > 0 && player.ascensionCount >= 1
-    ? (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'block')
-    : (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'none')
-
   DOMCacheGetOrSet('ascSingChallengeTimeTakenStats').style.display = player.insideSingularityChallenge ? '' : 'none'
 
   DOMCacheGetOrSet('ascensionStats').style.visibility =
@@ -550,6 +546,9 @@ export const hideStuff = () => {
       x: format(player.achievementPoints),
       y: format(totalachievementpoints),
       z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
+    })
+    DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t('achievements.quarkBonus', {
+      multiplier: format(1 + player.achievementPoints / 50000, 3, true)
     })
   } else if (G.currentTab === Tabs.Runes) {
     DOMCacheGetOrSet('runes').style.display = 'block'
@@ -850,14 +849,14 @@ export const buttoncolorchange = () => {
   }
 
   if (G.currentTab === Tabs.Runes) {
-    if (player.subtabNumber === 0) {
+    if (getActiveSubTab() === 0) {
       for (let i = 1; i <= 7; i++) {
         player.runeshards > 0.5
           ? DOMCacheGetOrSet(`activaterune${i}`).classList.add('runeButtonAvailable')
           : DOMCacheGetOrSet(`activaterune${i}`).classList.remove('runeButtonAvailable')
       }
     }
-    if (player.subtabNumber === 1) {
+    if (getActiveSubTab() === 1) {
       const a = DOMCacheGetOrSet('buyTalismanItem1')
       const b = DOMCacheGetOrSet('buyTalismanItem2')
       const c = DOMCacheGetOrSet('buyTalismanItem3')
@@ -1039,8 +1038,8 @@ const updateAscensionStats = () => {
     ascPlatonic: format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5),
     ascHepteract: format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
     ascC10: `${format(player.challengecompletions[10])}`,
-    ascTimeAccel: `${format(calculateTimeAcceleration().mult, 3)}x`,
-    ascAscensionTimeAccel: `${format(calculateAscensionAcceleration(), 3)}x${addedAsterisk ? '*' : ''}`,
+    ascTimeAccel: `${format(calculateGlobalSpeedMult(), 3)}x`,
+    ascAscensionTimeAccel: `${format(calculateAscensionSpeedMult(), 3)}x${addedAsterisk ? '*' : ''}`,
     ascSingularityCount: format(player.singularityCount),
     ascSingLen: formatTimeShort(player.singularityCounter),
     ascSingChallengeLen: formatTimeShort(player.singChallengeTimer)
