@@ -50,7 +50,7 @@ export const displayRuneInformation = (i: number, updatelevelup = true) => {
     options = {
       gain: format(1 + G.rune5level / 200 * m * SILevelMult, 2, true),
       speed: format(1 + Math.pow(G.rune5level * m * SILevelMult, 2) / 2500),
-      offerings: format(G.rune5level * m * SILevelMult * 0.005, 3, true)
+      offerings: format(G.rune5level * m * 0.005, 3, true)
     }
   } else if (i === 6) {
     options = {

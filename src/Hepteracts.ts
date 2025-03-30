@@ -647,7 +647,7 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?: boolean) => {
     player.wowAbyssals = 0
   }
 
-  const powderGain = player.shopUpgrades.powderAuto * calculatePowderConversion().mult * buyAmount / 100
+  const powderGain = player.shopUpgrades.powderAuto * calculatePowderConversion() * buyAmount / 100
   player.overfluxPowder += powderGain
 
   const powderText = (powderGain > 0) ? i18next.t('hepteracts.gainedPowder', { x: format(powderGain, 2, true) }) : ''
@@ -698,7 +698,7 @@ export const overfluxPowderDescription = () => {
     x: format(player.overfluxPowder, 2, true)
   })
   DOMCacheGetOrSet('hepteractEffectText').textContent = i18next.t('hepteracts.expiredOrbs', {
-    x: format(1 / calculatePowderConversion().mult, 1, true)
+    x: format(1 / calculatePowderConversion(), 1, true)
   })
   DOMCacheGetOrSet('hepteractCostText').style.display = 'none'
 

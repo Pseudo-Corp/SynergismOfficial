@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateGoldenQuarkGain } from './Calculate'
+import { calculateGoldenQuarks } from './Calculate'
 import { singularity } from './Reset'
 import { player } from './Synergism'
 import type { Player } from './types/Synergism'
@@ -113,7 +113,7 @@ export class SingularityChallenge {
       const holdSingTimer = player.singularityCounter
       const holdQuarkExport = player.quarkstimer
       const holdGoldenQuarkExport = player.goldenQuarksTimer
-      const goldenQuarkGain = calculateGoldenQuarkGain()
+      const goldenQuarkGain = calculateGoldenQuarks()
       const currentGQ = player.goldenQuarks
       this.enabled = true
       G.currentSingChallenge = this.HTMLTag

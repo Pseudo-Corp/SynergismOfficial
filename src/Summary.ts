@@ -6,7 +6,7 @@ import { totalachievementpoints } from './Achievements'
 import {
   calculateAscensionSpeedMult,
   calculateGlobalSpeedMult,
-  calculateGoldenQuarkGain,
+  calculateGoldenQuarks,
   calculateMaxRunes,
   calculateOcteractMultiplier,
   calculateTotalOcteractCubeBonus,
@@ -146,7 +146,7 @@ export const generateExportSummary = async (): Promise<void> => {
     singularity = `${singularity}Current Singularity: ${player.singularityCount}\n`
     singularity = `${singularity}Highest Singularity Reached: ${player.highestSingularityCount}\n`
     singularity = `${singularity}Golden Quarks: ${format(player.goldenQuarks, 2, true)}\n`
-    singularity = `${singularity}+Golden Quarks on Singularity: ${format(calculateGoldenQuarkGain(), 2, true)}\n`
+    singularity = `${singularity}+Golden Quarks on Singularity: ${format(calculateGoldenQuarks(), 2, true)}\n`
     singularity = `${singularity}Time in Singularity: ${formatS(player.singularityCounter)}\n`
     singularity = `${singularity}Effective Singularity [for penalties]: ${
       format(calculateEffectiveSingularities(), 2, true)

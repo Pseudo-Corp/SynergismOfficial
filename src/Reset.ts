@@ -11,7 +11,7 @@ import {
   calculateAnts,
   calculateAntSacrificeELO,
   calculateCubeBlessings,
-  calculateGoldenQuarkGain,
+  calculateGoldenQuarks,
   calculateObtainium,
   calculateOfferings,
   calculatePowderConversion,
@@ -208,7 +208,7 @@ export const resetdetails = (input: resetNames) => {
       currencyImage1.style.display = 'none'
       resetCurrencyGain.textContent = ''
       resetInfo.textContent = i18next.t('reset.details.singularity', {
-        gqAmount: format(calculateGoldenQuarkGain(), 2, true),
+        gqAmount: format(calculateGoldenQuarks(), 2, true),
         timeSpent: format(player.singularityCounter, 0, false)
       })
       resetInfo.style.color = 'lightgoldenrodyellow'
@@ -795,7 +795,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         const orbsAmount = Math.floor(heptAutoSpend / 250000)
         if (player.wowAbyssals - (250000 * orbsAmount) >= 0) {
           player.overfluxOrbs += orbsAmount
-          player.overfluxPowder += player.shopUpgrades.powderAuto * calculatePowderConversion().mult * orbsAmount / 100
+          player.overfluxPowder += player.shopUpgrades.powderAuto * calculatePowderConversion() * orbsAmount / 100
           player.wowAbyssals -= 250000 * orbsAmount
         }
         if (player.wowAbyssals < 0) {
@@ -1166,7 +1166,7 @@ export const singularity = (setSingNumber = -1) => {
       singularityCount: player.singularityCount,
       quarks: player.quarksThisSingularity,
       c15Score: player.challenge15Exponent,
-      goldenQuarks: calculateGoldenQuarkGain(),
+      goldenQuarks: calculateGoldenQuarks(),
       wowTribs: sumContents(cubeArray),
       tessTribs: sumContents(tesseractArray),
       hyperTribs: sumContents(hypercubeArray),
@@ -1180,7 +1180,7 @@ export const singularity = (setSingNumber = -1) => {
   // reset the rune instantly to hopefully prevent a double singularity
   player.runelevels[6] = 0
 
-  player.goldenQuarks += calculateGoldenQuarkGain()
+  player.goldenQuarks += calculateGoldenQuarks()
 
   if (setSingNumber === -1) {
     const incrementSingCount = 1 + getFastForwardTotalMultiplier()

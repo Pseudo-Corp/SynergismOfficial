@@ -5,7 +5,7 @@ import {
   calculateAmbrosiaLuck,
   calculateAscensionSpeedMult,
   calculateGlobalSpeedMult,
-  calculateGoldenQuarkGain,
+  calculateGoldenQuarks,
   calculateMaxRunes,
   calculateOcteractMultiplier,
   calculateRequiredBlueberryTime,
@@ -134,7 +134,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
 
           for (let i = 0; i < amountOfGiveaways; i++) {
             const quarkFraction = player.quarksThisSingularity * frac * actualLevel
-            player.goldenQuarks += quarkFraction * calculateGoldenQuarkGain(true)
+            player.goldenQuarks += quarkFraction * calculateGoldenQuarks()
             player.quarksThisSingularity -= quarkFraction
           }
         }

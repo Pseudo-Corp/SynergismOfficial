@@ -474,6 +474,10 @@ export const achievementaward = (num: number) => {
       z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
     })
 
+    DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t('achievements.quarkBonus', {
+      multiplier: format(1 + player.achievementPoints / 50000, 3, true)
+    })
+
     player.achievements[num] = 1
     revealStuff()
   }

@@ -408,10 +408,6 @@ export const revealStuff = () => {
     ? (DOMCacheGetOrSet('singularitybtn').style.display = 'block')
     : (DOMCacheGetOrSet('singularitybtn').style.display = 'none')
 
-  player.highestSingularityCount > 0 && player.ascensionCount >= 1
-    ? (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'block')
-    : (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'none')
-
   DOMCacheGetOrSet('ascSingChallengeTimeTakenStats').style.display = player.insideSingularityChallenge ? '' : 'none'
 
   DOMCacheGetOrSet('ascensionStats').style.visibility =
@@ -550,6 +546,9 @@ export const hideStuff = () => {
       x: format(player.achievementPoints),
       y: format(totalachievementpoints),
       z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
+    })
+    DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t('achievements.quarkBonus', {
+      multiplier: format(1 + player.achievementPoints / 50000, 3, true)
     })
   } else if (G.currentTab === Tabs.Runes) {
     DOMCacheGetOrSet('runes').style.display = 'block'

@@ -12,12 +12,17 @@ import { Seed, seededBetween, seededRandom } from './RNG'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { shopData } from './Shop'
 import { singularityData } from './singularity'
-import { synergismStage } from './Statistics'
+import {
+  allAddCodeCapacityMultiplierStats,
+  allAddCodeCapacityStats,
+  allAddCodeTimerStats,
+  synergismStage
+} from './Statistics'
 import { blankSave, deepClone, format, player, reloadShit, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { cleanString, getElementById, productContents, sumContents } from './Utility'
+import { cleanString, getElementById } from './Utility'
 import { btoa } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -39,8 +44,6 @@ const format12 = new Intl.DateTimeFormat('EN-GB', {
   minute: '2-digit',
   second: '2-digit'
 })
-
-const hour = 3600000
 
 const getRealTime = (type = 'default', use12 = false) => {
   const format = use12 ? format12 : format24
@@ -657,9 +660,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
     return
   } else if (input.toLowerCase() === 'add') {
     const availableUses = addCodeAvailableUses()
-    const maxUses = addCodeMaxUses().total
+    const maxUses = addCodeMaxUses()
     const timeToNextUse = format(addCodeTimeToNextUse(), 0)
-    const timeInterval = addCodeInterval().time
+    const timeInterval = addCodeInterval()
 
     if (availableUses < 1) {
       el.textContent = i18next.t('importexport.noAddCodes', {
@@ -971,7 +974,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
   setTimeout(() => (el.textContent = ''), 15000)
 }
 
-const addCodeSingularityPerkBonus = (): number => {
+export const addCodeSingularityPerkBonus = (): number => {
   const levels = [
     10,
     16,
@@ -1000,60 +1003,24 @@ const addCodeSingularityPerkBonus = (): number => {
   return 1 + count / 5
 }
 
+export const addCodeMaxUsesAdditive = () => {
+  return allAddCodeCapacityStats.reduce((a, b) => a + b.stat(), 0)
+}
+
 export const addCodeMaxUses = () => {
-  let calc5uses = Math.floor(player.shopUpgrades.calculator5 / 10)
-  if (player.shopUpgrades.calculator5 === shopData.calculator5.maxLevel) {
-    calc5uses += 6
-  }
+  const additiveValue = addCodeMaxUsesAdditive()
+  const multiplier = allAddCodeCapacityMultiplierStats.reduce((a, b) => a * b.stat(), 1)
 
-  const arr = [
-    24, // base
-    2 * player.shopUpgrades.calculator2, // PL-AT X
-    player.shopUpgrades.calculator4 === shopData.calculator4.maxLevel ? 32 : 0, // PL-AT δ
-    calc5uses, // PL-AT Γ
-    player.shopUpgrades.calculator6 === shopData.calculator6.maxLevel ? 24 : 0, // PL_AT _
-    player.shopUpgrades.calculator7 === shopData.calculator7.maxLevel ? 48 : 0 // Plat ΩΩ
-  ]
-
-  let maxUses = sumContents(arr)
-  maxUses *= PCoinUpgradeEffects.ADD_CODE_CAP_BUFF
-
-  arr.push(addCodeSingularityPerkBonus())
-  maxUses *= addCodeSingularityPerkBonus()
-
-  return {
-    list: arr,
-    total: Math.ceil(maxUses)
-  }
+  return Math.floor(additiveValue * multiplier)
 }
 
 export const addCodeInterval = () => {
-  const arr = [
-    hour, // base value
-    1 - 0.04 * player.shopUpgrades.calculator4,
-    1
-    - Math.min(
-      0.6,
-      (player.highestSingularityCount >= 125
-        ? player.highestSingularityCount / 800
-        : 0)
-        + (player.highestSingularityCount >= 200
-          ? player.highestSingularityCount / 800
-          : 0)
-    ),
-    player.runelevels[6] > 0 ? 0.8 : 1,
-    1 / addCodeSingularityPerkBonus()
-  ]
-
-  return {
-    list: arr,
-    time: productContents(arr)
-  }
+  return allAddCodeTimerStats.reduce((a, b) => a * b.stat(), 1)
 }
 
 export const addCodeAvailableUses = (): number => {
-  const maxUses = addCodeMaxUses().total
-  const timeInterval = addCodeInterval().time
+  const maxUses = addCodeMaxUses()
+  const timeInterval = addCodeInterval()
 
   return Math.floor(
     Math.min(maxUses, (Date.now() - player.rngCode) / timeInterval)
@@ -1061,17 +1028,17 @@ export const addCodeAvailableUses = (): number => {
 }
 
 export const addCodeTimeToNextUse = (): number => {
-  const timeToFirst = Math.floor(addCodeInterval().time + player.rngCode - Date.now()) / 1000
+  const timeToFirst = Math.floor(addCodeInterval() + player.rngCode - Date.now()) / 1000
 
   if (timeToFirst > 0) {
     return timeToFirst
-  } else if (addCodeAvailableUses() === addCodeMaxUses().total) {
+  } else if (addCodeAvailableUses() === addCodeMaxUses()) {
     return 0
   } else {
     const addTimerElapsedTime = Date.now() - player.rngCode
-    const remainder = addTimerElapsedTime - addCodeInterval().time * addCodeAvailableUses()
+    const remainder = addTimerElapsedTime - addCodeInterval() * addCodeAvailableUses()
 
-    return Math.floor(addCodeInterval().time - remainder) / 1000
+    return Math.floor(addCodeInterval() - remainder) / 1000
   }
 }
 

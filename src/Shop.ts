@@ -857,7 +857,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
 
   rofl.innerHTML = i18next.t(`shop.upgradeDescriptions.${input}`)
 
-  shopData[input].refundable // TODO(@KhafraDev): i18n
+  shopData[input].refundable
     ? (refundable.textContent = i18next.t('shop.refundable', { level: shopData[input].refundMinimumLevel }))
     : (refundable.textContent = i18next.t('shop.cannotRefund'))
 
@@ -1115,7 +1115,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         amount: format(
           100
             / (Math.max(1, player.shopUpgrades.powderAuto)
-              * calculatePowderConversion().mult),
+              * calculatePowderConversion()),
           2,
           true
         )

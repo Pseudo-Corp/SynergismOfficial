@@ -8,9 +8,8 @@ import { addTimers, automaticTools } from './Helper'
 import { hepteractEffective } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { getQuarkBonus, quarkHandler } from './Quark'
+import { quarkHandler } from './Quark'
 import { reset } from './Reset'
-import { getFastForwardTotalMultiplier } from './singularity'
 import {
   allAdditiveLuckMultStats,
   allAmbrosiaBlueberryStats,
@@ -22,6 +21,8 @@ import {
   allCubeStats,
   allGlobalSpeedIgnoreDRStats,
   allGlobalSpeedStats,
+  allGoldenQuarkMultiplierStats,
+  allGoldenQuarkPurchaseCostStats,
   allHepteractCubeStats,
   allHypercubeStats,
   allObtainiumIgnoreDRStats,
@@ -29,6 +30,7 @@ import {
   allOcteractCubeStats,
   allOfferingStats,
   allPlatonicCubeStats,
+  allPowderMultiplierStats,
   allQuarkStats,
   allTesseractStats,
   allWowCubeStats,
@@ -379,6 +381,18 @@ export const calculateAmbrosiaGenerationSpeed = () => {
   const rawSpeed = calculateAmbrosiaGenerationSpeedRaw()
   const blueberries = calculateBlueberryInventory()
   return rawSpeed * blueberries
+}
+
+export const calculatePowderConversion = () => {
+  return allPowderMultiplierStats.reduce((a, b) => a * b.stat(), 1)
+}
+
+export const calculateGoldenQuarks = () => {
+  return allGoldenQuarkMultiplierStats.reduce((a, b) => a * b.stat(), 1)
+}
+
+export const calculateGoldenQuarkCost = () => {
+  return allGoldenQuarkPurchaseCostStats.reduce((a, b) => a * b.stat(), 1)
 }
 
 export const calculateTotalCoinOwned = () => {
@@ -1721,63 +1735,6 @@ export const calculateSingularityQuarkMilestoneMultiplier = () => {
   return multiplier
 }
 
-/**
- * Calculate the number of Golden Quarks earned in current singularity
- */
-export const calculateGoldenQuarkMultiplier = (computeMultiplier = false) => {
-  const base = 2 * player.singularityCount + 10
-
-  let bonus = player.singularityCount < 10 ? 200 - 10 * player.singularityCount : 0
-  if (player.singularityCount === 0) {
-    bonus += 200
-  }
-
-  let perkMultiplier = 1
-  if (player.highestSingularityCount >= 200) {
-    perkMultiplier = 3
-  }
-  if (player.highestSingularityCount >= 208) {
-    perkMultiplier = 5
-  }
-  if (player.highestSingularityCount >= 221) {
-    perkMultiplier = 8
-  }
-
-  const arr = [
-    PCoinUpgradeEffects.GOLDEN_QUARK_BUFF, // Golden Quark Buff from PseudoCoins
-    player.campaigns.goldenQuarkBonus, // Golden Quark Bonus from Campaigns
-    1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2, // Challenge 15 Exponent
-    1 + getQuarkBonus() / 100, // Patreon Bonus
-    +player.singularityUpgrades.goldenQuarks1.getEffect().bonus, // Golden Quarks I
-    1 + 0.12 * player.cubeUpgrades[69], // Cookie Upgrade 19
-    +player.singularityChallenges.noSingularityUpgrades.rewards.goldenQuarks, // No Singularity Upgrades
-    1 + calculateEventBuff(BuffType.GoldenQuark), // Event
-    1 + getFastForwardTotalMultiplier(), // Singularity Fast Forwards
-    player.highestSingularityCount >= 100
-      ? 1 + Math.min(1, player.highestSingularityCount / 250)
-      : 1, // Golden Revolution II
-    perkMultiplier // Immaculate Alchemy
-  ]
-
-  // Total Quarks Coefficient
-  arr.push(
-    computeMultiplier
-      ? 1 / 1e5
-      : ((base + player.quarksThisSingularity / 1e5) * productContents(arr)
-        + bonus)
-        / productContents(arr)
-  )
-
-  return {
-    list: arr,
-    mult: productContents(arr)
-  }
-}
-
-export const calculateGoldenQuarkGain = (computeMultiplier = false): number => {
-  return calculateGoldenQuarkMultiplier(computeMultiplier).mult
-}
-
 // If you want to sum from a baseline level i to the maximum buyable level n, what would the cost be and how many levels would you get?
 export const calculateSummationLinear = (
   baseLevel: number,
@@ -2199,27 +2156,6 @@ export const calcAscensionCount = () => {
   return Math.floor(ascCount)
 }
 
-/**
- * Calculates the product of all Powder bonuses.
- * @returns The amount of Powder gained per Expired Orb on day reset
- */
-export const calculatePowderConversion = () => {
-  const arr = [
-    1 / 100, // base
-    G.challenge15Rewards.powder.value, // Challenge 15: Powder Bonus
-    1 + player.shopUpgrades.powderEX / 50, // powderEX shop upgrade, 2% per level max 20%
-    1 + player.achievements[256] / 20, // Achievement 256, 5%
-    1 + player.achievements[257] / 20, // Achievement 257, 5%
-    1 + 0.01 * player.platonicUpgrades[16], // Platonic Upgrade 4x1
-    1 + calculateEventBuff(BuffType.PowderConversion) // Event
-  ]
-
-  return {
-    list: arr,
-    mult: productContents(arr)
-  }
-}
-
 export const calculateCubeQuarkMultiplier = () => {
   return (
     (calculateSigmoid(2, Math.pow(player.overfluxOrbs, 0.5), 40)
@@ -2576,7 +2512,7 @@ export const forcedDailyReset = (rewards = false) => {
   player.platonicCubeOpenedDaily = 0
 
   if (rewards) {
-    player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion().mult
+    player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion()
     player.overfluxOrbs = G.challenge15Rewards.freeOrbs.value
   }
 }

@@ -45,7 +45,7 @@ import {
   calculateAnts,
   calculateCubeBlessings,
   calculateGlobalSpeedMult,
-  calculateGoldenQuarkGain,
+  calculateGoldenQuarks,
   calculateObtainium,
   calculateOfferings,
   calculateOffline,
@@ -3164,9 +3164,9 @@ export const format = (
       }K`
     }
     return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
-  } else if (power < 6 || (long && power < 7)) {
-    // If the power is less than 6 or format long and less than 7 use standard formatting (1,234,567)
-    // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 7
+  } else if (power < 6 || (long && power < 12)) {
+    // If the power is less than 6 or format long and less than 12 use standard formatting (1,234,567)
+    // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 12
     let standard = mantissa * Math.pow(10, power)
     let standardString: string
     // Rounds up if the number experiences a rounding error
@@ -5105,7 +5105,7 @@ export const resetCheck = async (
       confirmed = await Confirm(
         i18next.t('main.singularityConfirm0', {
           x: format(nextSingularityNumber),
-          y: format(calculateGoldenQuarkGain(), 2, true)
+          y: format(calculateGoldenQuarks(), 2, true)
         })
       )
     } else {
@@ -5119,7 +5119,7 @@ export const resetCheck = async (
       await Alert(
         i18next.t('main.singularityMessage4', {
           x: format(nextSingularityNumber),
-          y: format(calculateGoldenQuarkGain(), 2, true),
+          y: format(calculateGoldenQuarks(), 2, true),
           z: format(getQuarkBonus())
         })
       )

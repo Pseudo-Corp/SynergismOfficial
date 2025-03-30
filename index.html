@@ -948,6 +948,7 @@
             <img class="achNotification" id="achnotificationpic" alt="Notification" src="Pictures/Default/Notifications.png" title="Notifications" loading="lazy">
             <button class="auto nonSquare" id="toggle34" toggleid="34" format="[$]" style="border: 2px solid green">[ON]</button>
         </div>
+        <p id="achievementQuarkBonus" style="color: goldenrod">-</p>
         <div id="achievements">
             <div class="achievementstables scrollbarX">
             <table id="achievementstable" style="padding: 0; font-size:0;">
@@ -3139,8 +3140,6 @@
         <div class="subtabContent subtabDisplayFlex" id="statisticsSubTab">
             <div id="statsForNerds">
                 <button class="statsNerds" id="kMisc" style="border: 2px solid gold; background-color: crimson;">Miscellaneous Stats</button>
-                <button class="statsNerds" id="kFreeAccel" style="border: 2px solid yellow">Free Accelerators</button>
-                <button class="statsNerds" id="kFreeMult" style="border: 2px solid lawngreen">Free Multipliers</button>
                 <button class="prestigeunlock statsNerds" id="kBaseOffering" style="border: 2px solid palegreen">Base Offerings</button>
                 <button class="prestigeunlock statsNerds" id="kOfferingMult" style="border: 2px solid palegreen">Offering Multipliers</button>
                 <button class="reincarnationunlock statsNerds" id="kBaseObtainium" style="border: 2px solid pink">Base Obtainium</button>
@@ -3150,7 +3149,7 @@
                 <button class="statsNerds" id="kGSpeedMultIgnoreDR" style="border: 2px solid blue">Immaculate Global Speed</button>
                 <button class="statsNerds reincarnationunlock" id="kGSpeedMult" style="border: 2px solid blue">Global Speed Multipliers</button>
                 <button class="statsNerds chal8" id="kAntSacrificeMult" style="border: 2px solid burlywood">Ant Sacrifice Multipliers</button>
-                <button class="statsNerds ascendunlock" id="kASCMult" style="border: 2px solid orange">Ascension Speed Multipliers</button>
+                <button class="statsNerds ascendunlock" id="kASCMult" style="border: 2px solid orange">Asc. Speed Multipliers</button>
                 <button class="statsNerds ascendunlock" id="kGlobalCubeMult" style="border: 2px solid khaki">Global Cube Multipliers</button>
                 <button class="statsNerds ascendunlock" id="kCubeMult" style="border: 2px solid darkgoldenrod">Cube Multipliers</button>
                 <button class="statsNerds ascendunlock" id="kTessMult" style="border: 2px solid honeydew">Tesseract Multipliers</button>
@@ -3158,7 +3157,8 @@
                 <button class="statsNerds chal14" id="kPlatMult" style="border: 2px solid slateblue">Platonic Multipliers</button>
                 <button class="statsNerds hepteracts" id="kHeptMult" style="border: 2px solid rosybrown">Hepteract Multipliers</button>
                 <button class="statsNerds hepteracts" id="kOrbPowderMult" style="border: 2px solid orchid">Orb to Powder Multipliers</button>
-                <button class="statsNerds singularity" id="kGQMult" style="border: 2px solid yellow">Golden Quark Multipliers</button>
+                <button class="statsNerds singularity" id="kGQMult" style="border: 2px solid gold">Golden Quark Multipliers</button>
+                <button class="statsNerds singularity" id="kGQCost" style="border: 2px solid gold">Golden Quark Cost</button>
                 <button class="statsNerds" id="kAddStats" style="border: 2px solid green">Add Code Stats</button>
                 <button class="statsNerds singularity" id="kOctMult" style="border: 2px solid blue">Octeract Multipliers</button>
                 <button class="statsNerds octeracts" id="kAmbrosiaAdditiveLuckMult" style="border: 2px solid lime">Ambrosia Luck Mult</button>
@@ -3168,209 +3168,118 @@
 
             </div>
             <div id="miscStats" class="statContainer activeStats">
-                <p class="prestigeunlock statPortion" id="settingtitle3" style="color: plum; font-size: 1.2em">Miscellaneous Stats</p>
-                <p class="prestigeunlock statPortion" id="prestigeCountStatistic" style="color: lightblue">Prestige Count: <span id="sMisc1" class="statNumber">0</span></p>
-                <p class="prestigeunlock statPortion" id="fastestPrestigeStatistic" style="color: lightblue">Fastest Prestige <span id="sMisc2" class="statNumber">0</span></p>
-                <p class="prestigeunlock statPortion orangeredText" id="mostOfferingStatistic">Most Offerings Saved at Once: <span id="sMisc3" class="statNumber">0</span></p>
-                <p class="prestigeunlock statPortion" id="runeSumStatistic" style="color: cyan">Summative Rune Levels: <span id="sMisc4" class="statNumber">0</span></p>
-                <p class="transcendunlock statPortion" id="transcensionCountStatistic" style="color: plum">Transcension Count: <span id="sMisc5" class="statNumber">0</span></p>
-                <p class="transcendunlock statPortion" id="fastestTranscensionStatistic" style="color: plum">Fastest Transcension: <span id="sMisc6" class="statNumber">0</span></p>
-                <p class="reincarnationunlock statPortion" id="reincarnationCountStatistic" style="color: limegreen">Reincarnation Count: <span id="sMisc7" class="statNumber">0</span></p>
-                <p class="reincarnationunlock statPortion" id="fastestReincarnationStatistic" style="color: limegreen">Fastest Reincarnation: <span id="sMisc8" class="statNumber">0</span></p>
-                <p class="reincarnationunlock statPortion" id="mostObtainiumStatistic" style="color: pink">Most Obtainium Saved at Once: <span id="sMisc9" class="statNumber">0</span></p>
-                <p class="reincarnationunlock statPortion crimsonText" id="mostObtainiumPerSecondStatistic">Best Obtainium/sec: <span id="sMisc10" class="statNumber">0</span></p>
-                <p class="reincarnationunlock statPortion crimsonText" id="obtainiumPerSecondStatistic">Current Obtainium/sec: <span id="sMisc11" class="statNumber">0</span></p>
-                <p class="ascendunlock statPortion" id="ascensionCountStatistic" style="color: orange">Ascension Count: <span id="sMisc12" class="statNumber">0</span></p>
-                <p class="ascendunlock statPortion" id="totalQuarkCountStatisticSing" style="color: white">Total Quarks This Singularity: <span id="sMisc13" class="statNumber">0</span></p>
-                <p class="ascendunlock statPortion" id="totalQuarkCountStatistic" style="color: white">Total Quarks Ever (TQE): <span id="sMisc14" class="statNumber">0</span></p>
-                <p class="prestigeunlock statPortion" id="totalQuarkTimerStatistic" style="color: white">Quarks on export with Timer: <span id="sMisc15" class="statNumber">0</span></p>
-                <p class="statPortion" id="gameStageStatistic" style="color: gold">Synergism Stage<span id="sMisc16" class="statNumber">0</span></p>
-            </div>
-            <div id="acceleratorStats" class="statContainer" style="display: none;">
-                <p id="acceleratorStatTitle" class="statPortion" style="color: goldenrod; font-size: 1.2em">Free Accelerators</p>
-                <p id="statA1" class="statPortion">Accelerators from Upgrades/Misc: <span id="sA1" class="statNumber">0</span></p>
-                <p id="statA2" class="prestigeunlock statPortion">Accelerators from Boosts: <span id="sA2" class="statNumber">0</span></p>
-                <p id="statA3" class="prestigeunlock statPortion">Accelerators from Speed Rune: <span id="sA3" class="statNumber">0</span></p>
-                <p id="statA4" class="prestigeunlock statPortion">Speed Rune Multiplier: <span id="sA4" class="statNumber">0</span></p>
-                <p id="statA5" class="prestigeunlock statPortion">Upgrade Multiplier: <span id="sA5" class="statNumber">0</span></p>
-                <p id="statA6" class="prestigeunlock statPortion">Achievement Multiplier: <span id="sA6" class="statNumber">0</span></p>
-                <p id="statA7" class="reincarnationunlock statPortion">Research [1x1] Multiplier: <span id="sA7" class="statNumber">0</span></p>
-                <p id="statA8" class="reincarnationunlock statPortion">Research [1x6]-[1x10] Multiplier: <span id="sA8" class="statNumber">0</span></p>
-                <p id="statA9" class="reincarnationunlock statPortion">Research [4x11] Multiplier: <span id="sA9" class="statNumber">0</span></p>
-                <p id="statA10" class="transcendunlock statPortion">Challenge Multiplier: <span id="sA10" class="statNumber">0</span></p>
-                <p id="statA11" class="statPortion chal11">Corruption Exponent: <span id="sA11" class="statNumber">0</span></p>
-                <p id="statA12" class="statPortion statTotal">TOTAL FREE ACCELERATORS: <span id="sA12" class="statNumber statTotal">0</span></p>
-            </div>
-            <div id="multiplierStats" class="statContainer" style="display: none;">
-                <p id="multiplierStatTitle" class="statPortion" style="color: cyan; font-size: 1.2em">Free Multipliers</p>
-                <p id="statM1" class="statPortion">Multipliers from upgrades/misc<span id="sM1" class="statNumber"></span></p>
-                <p id="statM2" class="prestigeunlock statPortion">Multipliers from Duplication Rune<span id="sM2" class="statNumber"></span></p>
-                <p id="statM3" class="prestigeunlock statPortion">Duplication Rune Multiplier<span id="sM3" class="statNumber"></span></p>
-                <p id="statM4" class="prestigeunlock statPortion">Upgrade Multiplier<span id="sM4" class="statNumber"></span></p>
-                <p id="statM5" class="prestigeunlock statPortion">Achievement Multiplier<span id="sM5" class="statNumber"></span></p>
-                <p id="statM6" class="reincarnationunlock statPortion">Research [1x2] Multiplier<span id="sM6" class="statNumber"></span></p>
-                <p id="statM7" class="reincarnationunlock statPortion">Research [1x11]-[1x15] Multiplier<span id="sM7" class="statNumber"></span></p>
-                <p id="statM8" class="reincarnationunlock statPortion">Research [4x12] Multiplier<span id="sM8" class="statNumber"></span></p>
-                <p id="statM9" class="chal8 statPortion">Multa Formicidae Ant Multiplier<span id="sM9" class="statNumber"></span></p>
-                <p id="statM10" class="chal8 statPortion">Aphrodite Tribute Multiplier<span id="sM10" class="statNumber"></span></p>
-                <p id="statM11" class="transcendunlock statPortion">Challenge Multiplier<span id="sM11" class="statNumber"></span></p>
-                <p id="statM12" class="chal11 statPortion">Corruption Exponent<span id="sM12" class="statNumber"></span></p>
-                <p id="statM13" class="statPortion statTotal">TOTAL FREE MULTIPLIERS: <span id="sM13" class="statNumber statTotal">0</span></p>
+                <p class="prestigeunlock statPortion" id="settingtitle3" style="color: plum; font-size: 1.2em" i18n="statistics.miscStats.title"></p>
+                <p class="statPortion" id="gameStageStatistic" style="color: gold"></p>
             </div>
 
-            <div id="baseOfferingStats" class="statContainer" style = "display: none;">
-                <p id="baseOfferingStatTitle" class="statPortion orangeredText" style="font-size: 1.2em">Base Offering Gain (Additive)</p>
+            <div id="baseOfferingStats" class="statContainer" style = "display: none;" aria-live="polite">
+                <p id="baseOfferingStatTitle" class="statPortion orangeredText" style="font-size: 1.2em" i18n="statistics.baseOfferingStats.title"></p>
             </div>
  
-            <div id="offeringMultiplierStats" class="statContainer" style="display: none;">
-                <p id="offeringStatTitle" class="statPortion orangeredText" style="font-size: 1.2em">Offerings Gained on Prestige - Reincarnation</p>
+            <div id="offeringMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="offeringStatTitle" class="statPortion orangeredText" style="font-size: 1.2em" i18n="statistics.offeringMultiplierStats.title"></p>
             </div>
 
-            <div id="baseObtainiumStats" class="statContainer" style="display: none;">
-                <p id="baseObtainiumStatTitle" class="statPortion" style="font-size: 1.2em; color:pink">Base Obtainium Gain (Additive)</p>
+            <div id="baseObtainiumStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="baseObtainiumStatTitle" class="statPortion" style="font-size: 1.2em; color:pink" i18n="statistics.baseObtainiumStats.title"></p>
             </div>
 
-            <div id="obtainiumIgnoreDRStats" class="statContainer" style="display: none;">
-                <p id="obtainiumIgnoreDRStatTitle" class="statPortion" style="font-size: 1.2em; color:pink">Immaculate Obtainium Multiplier (Ignores Illiteracy)</p>
+            <div id="obtainiumIgnoreDRStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="obtainiumIgnoreDRStatTitle" class="statPortion" style="font-size: 1.2em; color:pink" i18n="statistics.obtainiumIgnoreDRStats.title"></p>
             </div>
 
-            <div id="obtainiumMultiplierStats" class="statContainer" style="display: none;">
-                <p id="obtainiumStatTitle" class="statPortion" style="font-size: 1.2em; color:pink">Obtainium Multipliers</p>
+            <div id="obtainiumMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="obtainiumStatTitle" class="statPortion" style="font-size: 1.2em; color:pink" i18n="statistics.obtainiumMultiplierStats.title"></p>
             </div>
 
-            <div id="antSacrificeMultStats" class="statContainer" style="display: none;">
-                <p id="antSacrificeMultStatTitle" class="statPortion" style="font-size: 1.2em; color:burlywood">Sacrifice Multipliers</p>
+            <div id="antSacrificeMultStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="antSacrificeMultStatTitle" class="statPortion" style="font-size: 1.2em; color:burlywood" i18n="statistics.antSacrificeMultStats.title"></p>
             </div>
 
-            <div id="globalSpeedIgnoreDRStats" class="statContainer" style="display: none;">
-                <p id="globalSpeedIgnoreDRStatTitle" class="statPortion" style="font-size: 1.2em; color: lightskyblue">Immaculate Global Speed</p>
+            <div id="globalSpeedIgnoreDRStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="globalSpeedIgnoreDRStatTitle" class="statPortion" style="font-size: 1.2em; color: lightskyblue" i18n="statistics.globalSpeedIgnoreDRStats.title"></p>
             </div>
 
-            <div id="globalSpeedMultiplierStats" class="statContainer" style="display: none;">
-                <p id="GlobalSpeedStatTitle" class="statPortion" style="color: lightskyblue; font-size: 1.2em">Global Speed Multipliers</p>
+            <div id="globalSpeedMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="GlobalSpeedStatTitle" class="statPortion" style="color: lightskyblue; font-size: 1.2em" i18n="statistics.globalSpeedMultiplierStats.title"></p>
             </div>
 
-            <div id="globalQuarkMultiplierStats" class="statContainer" style="display: none;">
-                <p id="GlobalQuarkStatTitle" class="statPortion" style="color: white; font-size: 1.2em">Global Quark Multipliers</p>
+            <div id="globalQuarkMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="GlobalQuarkStatTitle" class="statPortion" style="color: white; font-size: 1.2em" i18n="statistics.globalQuarkMultiplierStats.title"></p>
             </div>
 
-            <div id="ascensionSpeedMultiplierStats" class="statContainer" style="display: none;">
-                <p id="asmStatTitle" class="statPortion" style="color: orange; font-size: 1.2em;">Ascension Speed Multipliers</p>
+            <div id="ascensionSpeedMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="asmStatTitle" class="statPortion" style="color: orange; font-size: 1.2em;" i18n="statistics.ascensionSpeedMultiplierStats.title"></p>
             </div>
-            <div id="globalCubeMultiplierStats" class="statContainer" style="display: none;">
-                <p id="globalCubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Global Cube Multipliers</p>
+            <div id="globalCubeMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="globalCubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.globalCubeMultiplierStats.title"></p>
             </div>
-            <div id="cubeMultiplierStats" class="statContainer" style="display: none;">
-                <p id="cubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Cube Multipliers</p>
+            <div id="cubeMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="cubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.cubeMultiplierStats.title"></p>
             </div>
-            <div id="tesseractMultiplierStats" class="statContainer" style="display: none;">
-                <p id="tesseractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Tesseract Multipliers</p>
+            <div id="tesseractMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="tesseractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.tesseractMultiplierStats.title"></p>
             </div>
-            <div id="hypercubeMultiplierStats" class="statContainer" style="display: none;">
-                <p id="hypercubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Hypercube Multipliers</p>
-            </div>
-
-            <div id="platonicMultiplierStats" class="statContainer" style="display: none;">
-                <p id="platonicStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Platonic Multipliers</p>
+            <div id="hypercubeMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="hypercubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.hypercubeMultiplierStats.title"></p>
             </div>
 
-            <div id="hepteractMultiplierStats" class="statContainer" style="display: none;">
-                <p id="hepteractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Hepteract Multipliers</p>
+            <div id="platonicMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="platonicStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.platonicMultiplierStats.title"></p>
             </div>
 
-            <div id="octeractMultiplierStats" class="statContainer" style="display: none;">
-                <p id="octeractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Octeract Multipliers</p>
+            <div id="hepteractMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="hepteractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.hepteractMultiplierStats.title"></p>
             </div>
 
-            <div id="powderMultiplierStats" class="statContainer" style="display: none;">
-                <p id="powderStatTitle" class="statPortion" style="color: magenta; font-size: 1.2em;">Orb to Powder Multipliers</p>
-                <p id="statPoM1" class="statPortion hepteracts">Ascend Time Multi:<span id="sPoM1" class="statNumber">0</span></p>
-                <p id="statPoM2" class="statPortion hepteracts">Season pass:<span id="sPoM2" class="statNumber">0</span></p>
-                <p id="statPoM3" class="statPortion hepteracts ">Research 5x19:<span id="sPoM3" class="statNumber">0</span></p>
-                <p id="statPoM4" class="statPortion hepteracts">Research 5x20:<span id="sPoM4" class="statNumber">0</span></p>
-                <p id="statPoM5" class="statPortion hepteracts">Cube upgrade 1x1:<span id="sPoM5" class="statNumber">0</span></p>
-                <p id="statPoM6" class="statPortion hepteracts">Cube upgrade 2x1: <span id="sPoM6" class="statNumber">0</span></p>
-                <p id="statPoM7" class="statPortion hepteracts">Cube upgrade 2x1: <span id="sPoM7" class="statNumber">0</span></p>
-                <p id="statPoMT" class="statPortion statTotal orchidText">FINAL COEFFICIENT: <span
-                        id="sPoMT" class="statNumber statTotal">0</span></p>
+            <div id="octeractMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="octeractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.octeractMultiplierStats.title"></p>
             </div>
 
-            <div id="goldenQuarkMultiplierStats" class="statContainer" style="display: none;">
-                <p id="gqmStatTitle" class="statPortion" style="color: yellow; font-size: 1.2em;">Golden Quark Multipliers</p>
-                <p id="statGQMS1" class="statPortion">Campaign: Golden Quark Bonus<span id="sGQMS1" class="statNumber">0</span></p>
-                <p id="statGQMS2" class="statPortion">Challenge 15 Exponent:<span id="sGQMS2" class="statNumber">0</span></p>
-                <p id="statGQMS3" class="statPortion">Patreon Bonus:<span id="sGQMS3" class="statNumber">0</span></p>
-                <p id="statGQMS4" class="statPortion">Golden Quarks I:<span id="sGQMS4" class="statNumber">0</span></p>
-                <p id="statGQMS5" class="statPortion">Cookie Upgrade 19:<span id="sGQMS5" class="statNumber">0</span></p>
-                <p id="statGQMS6" class="statPortion">No Singularity Upgrades:<span id="sGQMS6" class="statNumber">0</span></p>
-                <p id="statGQMS7" class="statPortion">Event:<span id="sGQMS7" class="statNumber">0</span></p>
-                <p id="statGQMS8" class="statPortion">Singularity Fast Forwards:<span id="sGQMS8" class="statNumber">0</span></p>
-                <p id="statGQMS9" class="statPortion">Golden Revolution II:<span id="sGQMS9" class="statNumber">0</span></p>
-                <p id="statGQMS10" class="statPortion">Immaculate Alchemy:<span id="sGQMS10" class="statNumber">0</span></p>
-                <p id="statGQMS11" class="statPortion">Total Quarks Coefficient:<span id="sGQMS11" class="statNumber">0</span></p>
-                <p id="statGQMS12" class="statPortion">Total Quarks Coefficient:<span id="sGQMS12" class="statNumber">0</span></p>
-                <p id="statGQMST" class="statPortion statTotal" style="color: orange">TOTAL GOLDEN QUARK MULTIPLIER: <span
-                        id="sGQMST" class="statNumber statTotal">0</span></p>
+            <div id="powderMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="powderStatTitle" class="statPortion" style="color: magenta; font-size: 1.2em;" i18n="statistics.powderMultiplierStats.title"></p>
             </div>
 
-            <div id="addCodeStats" class="statContainer" style="display: none;">
-                <p id="addCodeStatTitle1" class="statPortion" style="color: green; font-size: 1.2em">Add Code Effects</p>
-                <p id="stat+eff1" class="statPortion">Quarks:<span id="s+eff1" class="statNumber"></span></p>
-                <p id="stat+eff2" class="statPortion ascendunlock">Ascension time:<span id="s+eff2" class="statNumber"></span></p>
-                <p id="stat+eff3" class="statPortion singularity">GQ Export time:<span id="s+eff3" class="statNumber"></span></p>
-                <p id="stat+eff4" class="statPortion singularity">Bonus Octeract time:<span id="s+eff4" class="statNumber"></span></p>
-                <!-- Midas perk is too troublesome (and possibly spoilery) to include here. -->
+            <div id="goldenQuarkMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="gqmStatTitle" class="statPortion" style="color: yellow; font-size: 1.2em;" i18n="statistics.goldenQuarkMultiplierStats.title"></p>
+            </div>
 
+            <div id="goldenQuarkPurchaseCostStats" class="statContainer" style="display: none;" aria-live="polite">
+                <p id="gqpStatTitle" class="statPortion" style="color: yellow; font-size: 1.2em;" i18n="statistics.goldenQuarkPurchaseCostStats.title"></p>
+            </div>
+
+            <div id="ambrosiaAdditiveLuckMultStats" class="statContainer activeStats" aria-live="polite">
+                <p id="ambrosiaAdditiveLuckMultStatTitle" class="statPortion" style="color: lime; font-size: 1.2em" i18n="statistics.ambrosiaAdditiveLuckMultStats.title"></p>
+            </div>
+
+            <div id="ambrosiaLuckStats" class="statContainer activeStats" aria-live="polite">
+                <p id="ambrosiaLuckStatTitle" class="statPortion" style="color: lime; font-size: 1.2em" i18n="statistics.ambrosiaLuckStats.title"></p>
+            </div>
+
+            <div id="ambrosiaBlueberryStats" class="statContainer activeStats" aria-live="polite">
+                <p id="ambrosiaBlueberryStatTitle" class="statPortion" style="color: skyblue; font-size: 1.2em" i18n="statistics.ambrosiaBlueberryStats.title"></p>
+            </div>
+
+            <div id="ambrosiaGenerationStats" class="statContainer activeStats" aria-live="polite">
+                <p id="ambrosiaGenStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.ambrosiaGenerationStats.title"></p>
+            </div>
+
+            <div id="addCodeStats" class="statContainer" style="display: none;" aria-live="polite">
+
+                <div id="addCodeEffects" aria-live="polite">
+                    <p id="addCodeStatTitle1" class="statPortion" style="color: green; font-size: 1.2em" i18n="statistics.addCodeEffects.title"></p>
+                </div>
                 <p id="statAddSep1" class="statPortion">&nbsp;</p>
 
-                <p id="addCodeStatTitle2" class="statPortion" style="color: green; font-size: 1.2em">Add Code Timer</p>
-                <p id="stat+time1" class="statPortion">Base:<span id="s+time1" class="statNumber">3600 sec</span></p>
-                <p id="stat+time2" class="statPortion singularity">PL-AT δ calculator:<span id="s+time2" class="statNumber">0</span></p>
-                <p id="stat+time3" class="statPortion singularity">PL-AT Σ sing perk:<span id="s+time3" class="statNumber">0</span></p>
-                <p id="stat+time4" class="statPortion hepteracts">AoAG:<span id="s+time4" class="statNumber">0</span></p>
-                <!--"It all adds up"-->
-                <p id="stat+time5" class="statPortion singularity">Singularity factor:<span id="s+time5" class="statNumber">0</span></p>
-
-                <p id="statAddSep2" class="statPortion">&nbsp;</p>
-
-                <p id="stat+timeT" class="statPortion statTotal" style="color: orange">ADD REGEN INTERVAL: <span
-                    id="s+timeT" class="statNumber statTotal">0</span></p>
-
+                <div id="addCodeTimer" aria-live="polite">
+                    <p id="addCodeStatTitle2" class="statPortion" style="color: green; font-size: 1.2em" i18n="statistics.addCodeTimer.title"></p>
+                </div>
                 <p id="statAddSep4" class="statPortion">&nbsp;</p>
 
-                <p id="addCodeStatTitle3" class="statPortion" style="color: green; font-size: 1.2em">Add Code Capacity</p>
-                <p id="stat+cap1" class="statPortion">Base:<span id="s+cap1" class="statNumber">24</span></p>
-                <p id="stat+cap2" class="statPortion ascendunlock">PL-AT X:<span id="s+cap2" class="statNumber">0</span></p>
-                <p id="stat+cap3" class="statPortion singularity">PL-AT δ:<span id="s+cap3" class="statNumber">0</span></p>
-                <p id="stat+cap4" class="statPortion singularity">PL-AT Γ:<span id="s+cap4" class="statNumber">0</span></p>
-                <p id="stat+cap5" class="statPortion singularity">PL-AT _:<span id="s+cap5" class="statNumber">0</span></p>
-                <p id="stat+cap6" class="statPortion singularity">PL-AT _:<span id="s+cap6" class="statNumber">0</span></p>
-                <!--"It all adds up"-->
-                <p id="stat+cap7" class="statPortion singularity">Singularity factor:<span id="s+cap7" class="statNumber">0</span></p>
-                <p id="stat+cap8" class="statPortion ascendunlock">Singularity factor:<span id="s+cap8" class="statNumber">0</span></p>
-
-                <p id="statAddSep3" class="statPortion">&nbsp;</p>
-
-                <p id="stat+capT" class="statPortion statTotal" style="color: orange">TOTAL ADDS / CAPACITY: <span
-                    id="s+capT" class="statNumber statTotal">0</span></p>
-
-                <p id="stat+next" class="statPortion"><span id="s+next" class="statNumber">0</span></p>
-            </div>
-
-            <div id="ambrosiaAdditiveLuckMultStats" class="statContainer activeStats">
-                <p id="ambrosiaAdditiveLuckMultStatTitle" class="statPortion" style="color: lime; font-size: 1.2em">Additive Luck Multiplier</p>
-            </div>
-
-            <div id="ambrosiaLuckStats" class="statContainer activeStats">
-                <p id="ambrosiaLuckStatTitle" class="statPortion" style="color: lime; font-size: 1.2em">Ambrosia Luck</p>
-            </div>
-
-            <div id="ambrosiaBlueberryStats" class="statContainer activeStats">
-                <p id="ambrosiaBlueberryStatTitle" class="statPortion" style="color: skyblue; font-size: 1.2em">Blueberry Inventory</p>
-            </div>
-
-            <div id="ambrosiaGenerationStats" class="statContainer activeStats">
-                <p id="ambrosiaGenStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em">Ambrosia Generation Speed</p>
+                <div id="addCodeCapacity" aria-live="polite">
+                    <p id="addCodeStatTitle3" class="statPortion" style="color: green; font-size: 1.2em" i18n="statistics.addCodeCapacity.title"></p>
+                </div>
+                <p id="stat+next" class="statPortion" style="color: gold"></p>
             </div>
 
             <button id="summaryGeneration" style="border: 2px solid grey; height: 20px; width: 250px;">Generate Savefile Stats Summary</button>

@@ -554,8 +554,8 @@
       "222": "Gain +3% Platonic Cubes on Ascension!",
       "223": "Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Platonic Cubes +{{x}}% [Max: 200% at 2.674B Ascensions]",
       "240": "Ascension Cube Gain Multipliers is VERY slightly affected by global speed multipliers: {{x}}x (Min: 1.10x, Max: 1.50x)",
-      "250": "You gain a permanent +60% Obtainium and Offering bonus, with +6% all Cube types!",
-      "251": "You gain a permanent +100% Obtainium and Offering bonus, with +10% all Cube types!",
+      "250": "You gain a permanent +60% Obtainium and Offering bonus, with +6% all Cube types! Quark Gain x1.05!",
+      "251": "You gain a permanent +100% Obtainium and Offering bonus, with +10% all Cube types! Quark Gain x1.05!",
       "253": "You will gain +10% Hypercubes! Why? I don't know.",
       "254": "Cube Gain +{{x}}% [Max: +15% at 1e25 Ascension Score]",
       "255": "Tesseract Gain +{{x}}% [Max: +15% at 1e25 Ascension Score], and allow gain of Hepteracts.",
@@ -569,7 +569,7 @@
       "263": "Ascensions are {{x}}% faster! Max: +10%",
       "264": "Hepteracts +{{x}}% [Max: 40% at 8T Ascensions]!",
       "265": "Hepteracts +{{x}}% [Max: 20% at 160T Ascensions]!",
-      "266": "Quarks +{{x}}% [Max: 10% at 1Qa Ascensions]!",
+      "266": "Quarks +{{x}}% [Max: 1.10x at 1Qa (1e15) Ascensions]!",
       "267": "Ascension Score is boosted by {{x}}% [Max: 100% at 1e100,000 Const]",
       "270": "Hepteract Gain is boosted by {{x}}% [Max: 100% at 1e1,000,000 const], Constant Upgrade 1 boosted to 1.06 (from 1.05), Constant Upgrade 2 boosted to 1.11 (from 1.10).",
       "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at 1e1,000,000 Const]"
@@ -583,7 +583,8 @@
     "totalPoints": "Achievement Points: {{x}}/{{y}} [{{z}}%]",
     "rewardGainMessage": "Reward: {{x}} AP. {{y}} Quarks! {{z}}",
     "completed": " COMPLETED!",
-    "notification": "You unlocked an achievement: {{m}}"
+    "notification": "You unlocked an achievement: {{m}}",
+    "quarkBonus": "Gain .01 Quark Multiplier per 500 AP! Quark Multiplier: <<cyan | x{{multiplier}}>>"
   },
   "reset": {
     "details": {
@@ -1244,9 +1245,9 @@
       "79": "[4x4] Increase the level cap of Prism rune by 10 per level, and +2% EXP for that rune in particular.",
       "80": "[4x5] Increase the level cap of Duplication rune by 10 per level, and +2% EXP for that rune in particular.",
       "81": "[4x6] You thought the previous researches are expensive? You're going to need this! [+10% Obtainium/level]",
-      "82": "[4x7] Permanently UNLOCK the Rune of Superior Intellect! [+%Ob / +Ant Speed / +Base Offerings.]",
+      "82": "[4x7] Permanently UNLOCK the Rune of Superior Intellect! [+%Ob / +Ant Speed / +%Off.]",
       "83": "[4x8] Taking forever to level up that SI Rune? Here's +5% SI Rune EXP per level.",
-      "84": "[4x9] Does the new rune kinda suck? Power it up! +0.5% level effectiveness for SI rune per level!",
+      "84": "[4x9] Does the new rune kinda suck? Power it up! +0.5% level effectiveness for SI rune per level! Well, except the Offering bonus. Because it's a rune, after all.",
       "85": "[4x10] Gain +0.01% more Offerings per level per Challenge completion!",
       "86": "[4x11] Yeah, going back to basics. +5% Accelerators/Level.",
       "87": "[4x12] 0/5 Multipliers SUCK: +5% Multipliers/Level.",
@@ -3354,7 +3355,7 @@
       "2": "+(Level/10) Multipliers every 10th level, +0.25% Multipliers per level. Tax growth is delayed more for each level!",
       "3": "~(1 + (Level/2)^2 * 2^(Level/2) / 256)x Crystal Production. +1 free level for each Crystal upgrade per 16 levels!",
       "4": "+0.125% building cost growth delay per level, +0.0625% Offering recycle chance per level [MAX: 25%], 2^((1000 - Level)/1100) Tax growth multiplier AFTER level 400",
-      "5": "~(1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed, +0.005 base Offerings for each tier per level",
+      "5": "~(1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed, (1 + level/2000)x Offerings",
       "6": "+0.2% Quarks, +1% all Cube types per level! Start with +10% Quarks.",
       "7": "I wonder what happens if you feed it {{exp}} Rune EXP."
     },
@@ -3363,7 +3364,7 @@
       "2": "Duplication Rune Bonus: +{{mult1}} Multipliers, +{{mult2}}% Multipliers, -{{tax}}% Tax Growth.",
       "3": "Prism Rune Bonus: All Crystal Producer production multiplied by {{mult}}, gain +{{gain}}' free crystal levels.",
       "4": "Thrift Rune Bonus: Delay all producer cost increases by {{delay}}%. Offering recycle chance: +{{chance}}%. -{{tax}}% Tax Growth",
-      "5": "S. Intellect Rune Bonus: Obtainium gain x{{gain}}. Ant Speed: x{{speed}}. Base Offerings: +{{offerings}}",
+      "5": "S. Intellect Rune Bonus: Obtainium gain x{{gain}}. Ant Speed: x{{speed}}. Offerings x{{offerings}}",
       "6": "IA Rune Bonus: Quark Gain +{{percent1}}%, Ascensions give +{{percent2}}% more of all cube types.",
       "7": "You cannot grasp the true form of Ant God's treasure."
     },
@@ -3637,6 +3638,7 @@
   },
   "statistics": {
     "globalCubeMultiplierStats": {
+      "title": "Global Cube Multiplier",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "AscensionTime": "Ascension Time Multiplier:",
       "CampaignTutorial": "Campaign - Tutorial Bonus:",
@@ -3678,6 +3680,7 @@
       "Total": "Total Universal Cube Multiplier:"
     },
     "cubeMultiplierStats": {
+      "title": "Wow! Cube Multiplier",
       "AscensionScore": "Ascension Score Multiplier:",
       "GlobalCube": "Global Cube Multiplier:",
       "SeasonPass1": "Season Pass 1:",
@@ -3697,6 +3700,7 @@
       "Total": "Total Wow! Cube Multiplier:"
     },
     "tesseractMultiplierStats": {
+      "title": "Wow! Tesseract Multiplier",
       "AscensionScore": "Ascension Score Multiplier:",
       "GlobalCube": "Global Cube Multiplier:",
       "SeasonPass1": "Season Pass 1:",
@@ -3712,6 +3716,7 @@
       "Total": "Total Tesseract Multiplier:"
     },
     "hypercubeMultiplierStats": {
+      "title": "Wow! Hypercube Multiplier",
       "AscensionScore": "Ascension Score Multiplier:",
       "GlobalCube": "Global Cube Multiplier:",
       "SeasonPass2": "Season Pass 2:",
@@ -3726,6 +3731,7 @@
       "Total": "Total Hypercube Multiplier:"
     },
     "platonicMultiplierStats": {
+      "title": "Wow! Platonic Cube Multiplier",
       "AscensionScore": "Ascension Score Multiplier:",
       "GlobalCube": "Global Cube Multiplier:",
       "SeasonPass2": "Season Pass 2:",
@@ -3738,6 +3744,7 @@
       "Total": "Total Platonic Cube Multiplier:"
     },
     "hepteractMultiplierStats": {
+      "title": "Wow! Hepteract Cube Multiplier",
       "AscensionScore": "Ascension Score Multiplier:",
       "GlobalCube": "Global Cube Multiplier:",
       "SeasonPass3": "Season Pass 3:",
@@ -3748,6 +3755,7 @@
       "Total": "Total Hepteract Multiplier:"
     },
     "octeractMultiplierStats": {
+      "title": "Wow! Octeract Cube Multiplier",
       "BasePerSecond": "Base Per Second:",
       "AscensionScore": "Ascension Score Multiplier:",
       "PseudoCoins": "PseudoCoin Upgrade:",
@@ -3788,6 +3796,7 @@
       "Total": "Total Octeract Multiplier:"
     },
     "baseOfferingStats": {
+      "title": "Base Offering Sum",
       "Base": "Base Value:",
       "Prestige": "Prestige Completion Bonus:",
       "Transcend": "Transcension Completion Bonus:",
@@ -3801,6 +3810,7 @@
       "Total": "Total Base Offerings:"
     },
     "offeringMultiplierStats": {
+      "title": "Offering Multiplier",
       "Base": "Base Offerings:",
       "PrestigeShards": "Prestige Shards Multiplier:",
       "SuperiorIntellect": "Superior Intellect Rune Bonus:",
@@ -3857,6 +3867,7 @@
       "Total2": "Final Offerings Gained:"
     },
     "globalQuarkMultiplierStats": {
+      "title": "Quark Multiplier",
       "AchievementPoints": "Achievement Points Bonus:",
       "Achievement250": "Achievement 250 Bonus:",
       "Achievement251": "Achievement 251 Bonus:",
@@ -3894,6 +3905,7 @@
       "Total": "Total Quark Multiplier:"
     },
     "baseObtainiumStats": {
+      "title": "Base Obtainium Sum",
       "Base": "Base Value:",
       "Achievement51": "Achievement 51 Bonus:",
       "Research3x13": "Research 3x13 Bonus:",
@@ -3903,6 +3915,7 @@
       "Total": "Total Base Obtainium:"
     },
     "obtainiumIgnoreDRStats": {
+      "title": "Immaculate Obtainium Multiplier",
       "Base": "Base Obtainium:",
       "CubeUpgrade4x2": "Cube Upgrade 4x2:",
       "CubeUpgrade4x3": "Cube Upgrade 4x3:",
@@ -3919,6 +3932,7 @@
       "Total": "Total DR-Ignoring Obtainium Multiplier:"
     },
     "obtainiumMultiplierStats": {
+      "title": "Obtainium Multiplier",
       "Base": "Base Obtainium:",
       "ThresholdPenalty": "Reincarnation Time Penalty:",
       "TimeMultiplier": "Reincarnation Time Multiplier:",
@@ -3982,6 +3996,7 @@
       "Total2": "Final Obtainium Multiplier:"
     },
     "antSacrificeMultStats": {
+      "title": "Ant Sacrifice Reward Multiplier",
       "AntUpgrade11": "Ant Upgrade 11:",
       "Research103": "Research 5x3:",
       "Research104": "Research 5x4:",
@@ -4000,6 +4015,7 @@
       "Total": "Total Ant Sacrifice Multiplier:"
     },
     "globalSpeedIgnoreDRStats": {
+      "title": "Immaculate Global Speed Multiplier",
       "ChronosStatue": "Chronos Statue Bonus:",
       "SingularityDebuff": "Singularity Debuff:",
       "IntermediatePack": "Intermediate Pack Bonus:",
@@ -4010,6 +4026,7 @@
       "Total": "Total DR-Ignoring Speed Multiplier:"
     },
     "globalSpeedMultiplierStats": {
+      "title": "Global Speed Multiplier",
       "ObtainiumLog": "Obtainium Log Bonus:",
       "Research5x21": "Research 5x21:",
       "Research6x11": "Research 6x11:",
@@ -4033,6 +4050,7 @@
       "Total2": "Final Global Speed Multiplier:"
     },
     "ascensionSpeedMultiplierStats": {
+      "title": "Ascension Speed Multiplier",
       "Chronometer": "Chronometer Shop Upgrade:",
       "Chronometer2": "Chronometer 2 Shop Upgrade:",
       "Chronometer3": "Chronometer 3 Shop Upgrade:",
@@ -4060,6 +4078,7 @@
       "Total2": "Final Ascension Speed Multiplier:"
     },
     "ambrosiaAdditiveLuckMultStats": {
+      "title": "Ambrosia Additive Luck Multiplier",
       "Base": "Base Multiplier:",
       "NoSingularityUpgrades": "No Singularity Upgrades Challenge:",
       "DilatedFiveLeaf": "Dilated Five Leaf Clover:",
@@ -4070,8 +4089,9 @@
       "Total": "Total Additive Luck Multiplier:"
     },
     "ambrosiaLuckStats": {
+      "title": "Ambrosia Luck",
       "Base": "Base Value:",
-      "PseudoCoins": "Platonic Coin Upgrade:",
+      "PseudoCoins": "PseudoCoin Upgrade:",
       "Campaign": "Campaign Bonus:",
       "SingularityMilestones": "Singularity Milestones:",
       "ShopUpgrades": "Shop Upgrades (I-IV):",
@@ -4093,6 +4113,7 @@
       "Total2": "Total Ambrosia Luck"
     },
     "ambrosiaBlueberryStats": {
+      "title": "Ambrosia Blueberry Inventory",
       "E1x1Clear": "No Singularity Upgrades Challenge:",
       "SingBlueberries": "Singularity Blueberry Upgrade:",
       "ConglomerateBerries": "Congealed Blueberries (Singularity Milestones):",
@@ -4100,8 +4121,9 @@
       "Total": "Total Blueberries Owned:"
     },
     "ambrosiaGenerationStats": {
+      "title": "Ambrosia Generation",
       "VisitedTab": "Visited Ambrosia Tab:",
-      "PseudoCoins": "Platonic Coin Upgrade:",
+      "PseudoCoins": "PseudoCoin Upgrade:",
       "Campaign": "Campaign Bonus:",
       "ShopUpgrades": "Shop Upgrades (I-IV):",
       "SingularityUpgrades": "Singularity Upgrades (I-IV):",
@@ -4115,7 +4137,100 @@
       "Total": "Blueberry Time / Sec:",
       "BlueberryCount": "Number of Blueberries Owned:",
       "Total2": "Final Blueberry Time/Sec:"   
-    }
+    },
+    "powderMultiplierStats": {
+      "title": "Orb to Powder Conversion",
+      "Base": "Base Conversion Rate:",
+      "Challenge15": "Challenge 15 Reward:",
+      "ShopPowderEX": "Powder EX Shop Upgrade:",
+      "Achievement256": "Achievement 256 Bonus:",
+      "Achievement257": "Achievement 257 Bonus:",
+      "PlatonicUpgrade4x1": "Platonic Upgrade 4x1:",
+      "Event": "Event Bonus:",
+      "Total": "Total Powder Per 1 Orb:"
+    },
+    "goldenQuarkMultiplierStats": {
+      "title": "Golden Quarks",
+      "Base": "Base Value:",
+      "PseudoCoins": "PseudoCoin Upgrade:",
+      "Campaign": "Campaign Bonus:",
+      "Challenge15": "Challenge 15 Exponent:",
+      "GoldenQuarks1": "Golden Quarks I Upgrade:",
+      "CookieUpgrade19": "Cookie Upgrade 19:",
+      "NoSingularityUpgrades": "No Singularity Upgrades Challenge:",
+      "GoldenRevolution2": "Golden Revolution II:",
+      "FastForwards": "Singularity Fast Forwards:",
+      "ImmaculateAlchemy": "Immaculate Alchemy:",
+      "Event": "Event Bonus:",
+      "PatreonBonus": "Patreon Bonus:",
+      "FirstSingBonus": "First Singularity Bonus:",
+      "Total": "Total Golden Quark Gained:"
+    },
+    "goldenQuarkPurchaseCostStats": {
+      "title": "Golden Quark Purchase Cost",
+      "Base": "Base Cost:",
+      "PseudoCoins": "Gold Quark PseudoCoin Upgrade:",
+      "Patreon": "Patreon:",
+      "AchievementPoints": "Achievement Points:",
+      "CubeUpgrade6x10": "Cube Upgrade 6x10:",
+      "GoldenQuarks2": "Golden Quarks II:",
+      "OcteractCostReduce": "Octeract Cost Reduce:",
+      "GoldenRevolution2": "Golden Revolution II:",
+      "ImmaculateAlchemy": "Immaculate Alchemy:",
+      "Event": "Event:",
+      "Total": "Final Quarks per Golden Quark Cost:"
+    },
+    "addCodeEffects": {
+      "title": "Add Code Effects",
+      "Quarks": "Base Quark Value (Average):",
+      "AscensionTime": "PL-AT Ω - Ascension Time (Real-Life Seconds):",
+      "GoldenQuarks": "PL-AT Γ - Golden Quark Export Timer:",
+      "Octeracts": "PL-AT _ - Octeract Gain (Real-Life Seconds):",
+      "Ambrosia": "PL-AT ΩΩ - Ambrosia Gain (Real-Life Seconds):"
+    },
+    "addCodeTimer": {
+      "title": "Add Code Timer (in Milliseconds)",
+      "BaseTimer": "Base Timer (ms):",
+      "Calculator4": "PL-AT δ Discount:",
+      "SingularityCount": "Singularity Milestone Bonus:",
+      "InfiniteAscent": "Infinite Ascent Bonus:",
+      "SingularityPerkBonus": "Singularity Perk Bonus:",
+      "Total": "Final Add Code Interval (ms):"
+    },
+    "addCodeCapacity": {
+      "title": "Add Code Capacity Modifiers",
+      "Base": "Base Capacity:",
+      "Calculator2": "PL-AT Ω Shop Upgrade:",
+      "Calculator4Max": "PL-AT δ Max Level Bonus:",
+      "Calculator5": "PL-AT Γ Shop Upgrade:",
+      "Calculator6Max": "PL-AT _ Max Level Bonus:",
+      "Calculator7Max": "PL-AT ΩΩ Max Level Bonus:",
+      "Total": "Total Add Code Capacity:",
+      "PseudoCoins": "PseudoCoin Upgrade Multiplier",
+      "SingularityPerk": "Singularity Perk Bonus",
+      "Total2": "Final Add Code Capacity"
+    },
+    "nextAdd": "Regenerate 1 Add Code usage in {{time}}s",
+    "miscStats": {
+      "title": "Misc. Statistics",
+      "PrestigeCount": "Prestige Count:",
+      "FastestPrestige": "Fastest Prestige:",
+      "MaxOfferings": "Maximum Offerings:",
+      "RuneSum": "Total Rune Levels:",
+      "TranscendCount": "Transcension Count:",
+      "FastestTranscend": "Fastest Transcension:",
+      "ReincarnationCount": "Reincarnation Count:",
+      "FastestReincarnation": "Fastest Reincarnation:",
+      "MaxObtainium": "Maximum Obtainium:",
+      "MaxObtainiumPerSecond": "Max Obtainium/sec:",
+      "ObtainiumPerSecond": "Current Obtainium/sec:",
+      "AscensionCount": "Ascension Count:",
+      "QuarksThisSingularity": "Quarks This Singularity:",
+      "TotalQuarks": "Total Quarks Ever:",
+      "QuarkTimer": "Quark Timer:",
+      "QuarkTimerMax": "Quark Timer Maximum:"
+    },
+    "gameStage": "Current Game Stage: {{stage}}"
   },
   "wowCubes": {
     "greenText": "You can also spend them on upgrades that persist through Ascension.",
@@ -4277,17 +4392,17 @@
         "2": "+0.018% Tesseracts per Corruption level per level!",
         "3": "+0.054% Hypercubes per Corruption level per level!",
         "4": "Gain +2.4% Platonic Cubes per level! It is that simple.",
-        "5": "C10 Exponent: 1.035 --> 1.0375, Constant tax exponent +0.10, 2x faster Constant production, +20% Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Obtainium and Offerings, ^1.10 coin gain in C15, as well +1 Corruption Cap Level!",
+        "5": "C10 Exponent: 1.035 --> 1.0375, Constant tax exponent +0.10, 2x faster Constant production, 1.05x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Obtainium and Offerings, ^1.10 coin gain in C15, as well +1 Corruption Cap Level!",
         "6": "Multiplies Viscosity exponent by (1 + level/30), capacity of ^1 on Multipliers and Accelerators.",
         "7": "Raises speed below 1x to the power of ^(1 - level/30).",
         "8": "Divides Hyperchallenged by (1 + 0.4 * level), with a minimum 1x Challenge requirement multiplier!",
         "9": "Raise Obtainium to the power of (1+(0.01*log10(Obtainium owned))) and add another x2.5 multiplier (Uncorruptable), up until 1e100 Obtainium!",
-        "10": "C10 Exponent: 1.0375 --> 1.04, Constant tax exponent +0.20, 10x faster Constant production, +25% Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 3.5x Obtainium and Offerings, 2x All Cubes, ^1.25 ant exponent in C15, +1 Corruption Cap Level again!",
+        "10": "C10 Exponent: 1.0375 --> 1.04, Constant tax exponent +0.20, 10x faster Constant production, 1.10x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 3.5x Obtainium and Offerings, 2x All Cubes, ^1.25 ant exponent in C15, +1 Corruption Cap Level again!",
         "11": "With this upgrade, you will gain diamonds equal to particle gain on Reincarnation while using Market Deflation 11 or higher! Does not work with Cube upgrade [3x8]!",
         "12": "Gain (1 + lvl/100)x Ant multiplier per Challenge completion, ignoring corruptions to Ants.",
         "13": "Effect of Drought is raised to the power of 0.5.",
         "14": "Reduce the effect of Financial Recession in Challenge 15, multiplying the coin exponent by 1.55.",
-        "15": "You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (Multiplicative), +30% Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Offerings and Obtainium (Uncorruptable)! Talk about a deep dive.",
+        "15": "You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (Multiplicative), 1.15x Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Offerings and Obtainium (Uncorruptable)! Talk about a deep dive.",
         "16": "Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to 100,000. This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.",
         "17": "If Viscosity Corruption is set to level 10 or higher, score multiplier is raised by an exponent. That exponent is 3 + 0.04 per level of this upgrade.",
         "18": "Raise the base percentage of Constant Upgrade 1 by 0.1% and increase the base percentage cap of Constant Upgrade 2 by 0.3% per level!",
