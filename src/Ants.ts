@@ -66,11 +66,11 @@ const antUpgradeTexts = [
   () => format(calculateSigmoid(2, player.antUpgrades[12 - 1]! + G.bonusant12, 69), 4)
 ]
 
-let repeatAnt: ReturnType<typeof setTimeout>
+let repeatAnt: number
 
 export const antRepeat = (i: number) => {
   clearInterval(repeatAnt)
-  repeatAnt = setInterval(() => updateAntDescription(i), 50)
+  repeatAnt = +setInterval(() => updateAntDescription(i), 50)
 }
 
 export const updateAntDescription = (i: number) => {

@@ -137,6 +137,10 @@ interface SynergismUserAPIResponse {
   personalBonus: number
   globalBonus: number
   accountType: string
+  subscriptionTier: number
+  bonus: {
+    quarkBonus: number
+  }
 }
 
 interface SynergismDiscordUserAPIResponse extends SynergismUserAPIResponse {
@@ -172,7 +176,20 @@ export async function handleLogin () {
   }
 
   const response = await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'include' }).catch(
-    () => new Response(JSON.stringify({ member: null, globalBonus: 0, personalBonus: 0 }), { status: 401 })
+    () =>
+      new Response(
+        JSON.stringify(
+          {
+            member: null,
+            globalBonus: 0,
+            personalBonus: 0,
+            accountType: 'none',
+            bonus: { quarkBonus: 0 },
+            subscriptionTier: 0
+          } satisfies SynergismNotLoggedInResponse
+        ),
+        { status: 401 }
+      )
   )
 
   if (!response.ok) {
@@ -181,7 +198,7 @@ export async function handleLogin () {
     return
   }
 
-  const { globalBonus, member, personalBonus, accountType } = await response.json() as
+  const { globalBonus, member, personalBonus, accountType, subscriptionTier } = await response.json() as
     | SynergismDiscordUserAPIResponse
     | SynergismPatreonUserAPIResponse
     | SynergismNotLoggedInResponse
@@ -213,10 +230,12 @@ export async function handleLogin () {
     }
 
     const boosted = accountType === 'discord' && (Boolean(member?.premium_since) || member?.roles.includes(BOOSTER))
-    const hasTier1 = member.roles.includes(TRANSCENDED_BALLER) ?? false
-    const hasTier2 = member.roles.includes(REINCARNATED_BALLER) ?? false
-    const hasTier3 = member.roles.includes(ASCENDED_BALLER) ?? false
-    const hasTier4 = member.roles.includes(OMEGA_BALLER) ?? false
+    // It is possible for someone to have the roles through the Patreon integration with Discord, yet not have their
+    // patreon linked to their Synergism (Discord/email) account.
+    const hasTier1 = subscriptionTier === 1 || member.roles.includes(TRANSCENDED_BALLER)
+    const hasTier2 = subscriptionTier === 2 || member.roles.includes(REINCARNATED_BALLER)
+    const hasTier3 = subscriptionTier === 3 || member.roles.includes(ASCENDED_BALLER)
+    const hasTier4 = subscriptionTier === 4 || member.roles.includes(OMEGA_BALLER)
 
     const checkMark = (n: number) => {
       return `<span style="color: lime">[✔] {+${n}%}</span>`

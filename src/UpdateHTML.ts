@@ -1269,8 +1269,8 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
     return p.promise
   })
 
-let closeNotification: ReturnType<typeof setTimeout>
-let closedNotification: ReturnType<typeof setTimeout>
+let closeNotification: number
+let closedNotification: number
 
 export const Notification = (text: string, time = 30000): Promise<void> => {
   const notification = DOMCacheGetOrSet('notification')
@@ -1296,7 +1296,7 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
 
     closeNotification = 0
     x.removeEventListener('click', close)
-    closedNotification = setTimeout(closed, 1000)
+    closedNotification = +setTimeout(closed, 1000)
     p.resolve()
   }
 
@@ -1307,7 +1307,7 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
   clearTimeout(closedNotification)
 
   // automatically close out after <time> ms
-  closeNotification = setTimeout(close, time)
+  closeNotification = +setTimeout(close, time)
 
   return p.promise
 }

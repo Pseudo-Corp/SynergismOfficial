@@ -62,11 +62,11 @@ import { updateClassList } from './Utility'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
-let repeatreset: ReturnType<typeof setTimeout>
+let repeatreset: number
 
 export const resetrepeat = (input: resetNames) => {
   clearInterval(repeatreset)
-  repeatreset = setInterval(() => resetdetails(input), 50)
+  repeatreset = +setInterval(() => resetdetails(input), 50)
 }
 
 export const resetdetails = (input: resetNames) => {
