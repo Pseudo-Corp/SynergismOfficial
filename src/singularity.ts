@@ -1327,7 +1327,7 @@ export const singularityData: Record<
     minimumSingularity: 128,
     effect: (n: number) => {
       return {
-        bonus: n,
+        bonus: n > 0,
         get desc () {
           return i18next.t('singularity.data.singAscensionSpeed.effect', {
             n: format(1 + 0.03 * n, 2, true),
@@ -1338,14 +1338,17 @@ export const singularityData: Record<
     }
   },
   singAscensionSpeed2: {
-    maxLevel: 1,
+    maxLevel: 30,
     costPerLevel: 1e12,
+    specialCostForm: 'Exponential2',
     minimumSingularity: 147,
     effect: (n: number) => {
       return {
-        bonus: n,
+        bonus: 0.001 * n,
         get desc () {
-          return i18next.t('singularity.data.singAscensionSpeed2.effect')
+          return i18next.t('singularity.data.singAscensionSpeed2.effect', {
+            n: format(0.001 * n, 3, true)
+          })
         }
       }
     }
@@ -2743,11 +2746,15 @@ export const calculateSingularityDebuff = (
   )
 
   if (debuff === 'Offering') {
-    return Math.sqrt(effectiveSingularities) + 1
+    return constitutiveSingularityCount < 150
+      ? Math.sqrt(effectiveSingularities) + 1
+      : Math.pow(effectiveSingularities, 2 / 3) / 400
   } else if (debuff === 'Global Speed') {
     return 1 + Math.sqrt(effectiveSingularities) / 4
   } else if (debuff === 'Obtainium') {
-    return Math.sqrt(effectiveSingularities) + 1
+    return constitutiveSingularityCount < 150
+      ? Math.sqrt(effectiveSingularities) + 1
+      : Math.pow(effectiveSingularities, 2 / 3) / 400
   } else if (debuff === 'Researches') {
     return 1 + Math.sqrt(effectiveSingularities) / 2
   } else if (debuff === 'Ascension Speed') {

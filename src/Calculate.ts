@@ -42,7 +42,7 @@ import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, upd
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
 import { clearInterval, setInterval } from './Timers'
 import { Alert, Prompt } from './UpdateHTML'
-import { productContents, sumContents } from './Utility'
+import { findInsertionIndex, productContents, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
 const CASH_GRAB_ULTRA_QUARK = 0.08
@@ -343,12 +343,12 @@ export const calculateRawAscensionSpeedMult = () => {
 export const calculateAscensionSpeedMult = () => {
   let base = calculateRawAscensionSpeedMult()
 
-  if (player.singularityUpgrades.singAscensionSpeed.getEffect().bonus) {
-    if (base < 1) {
-      base = Math.pow(base, 0.97)
-    } else {
-      base = Math.pow(base, 1.03)
-    }
+  const exponentSpread = calculateAscensionSpeedExponentSpread()
+
+  if (base < 1) {
+    base = Math.pow(base, 1 - exponentSpread)
+  } else {
+    base = Math.pow(base, 1 + exponentSpread)
   }
 
   return base
@@ -2613,4 +2613,59 @@ export const resetTimeThreshold = () => {
 
 export const calculatePlatonic7UpgradePower = () => {
   return 1 - player.platonicUpgrades[7] / 30
+}
+
+export const calculateOfferingPotionBaseOfferings = () => {
+  const thresholds = [
+    1,
+    10,
+    25,
+    50,
+    100,
+    500,
+    1000,
+    10000,
+    5e4,
+    1e5,
+    1e6,
+    1e7,
+    1e8,
+    1e9,
+    1e10,
+    1e11,
+    1e12,
+    1e13,
+    1e14,
+    1e15
+  ]
+  const amount = findInsertionIndex(player.shopPotionsConsumed.offering, thresholds)
+
+  return {
+    amount: amount,
+    toNext: (amount < thresholds.length)
+      ? thresholds[amount] - player.shopPotionsConsumed.offering
+      : Number.POSITIVE_INFINITY
+  }
+}
+
+export const calculateObtainiumPotionBaseObtainium = () => {
+  const thresholds = [1, 20, 50, 250, 1000, 20000, 4e5, 1e7, 4e8, 1e10, 1e11, 1e12, 1e13, 1e14, 1e15]
+  const amount = findInsertionIndex(player.shopPotionsConsumed.obtainium, thresholds)
+
+  return {
+    amount: amount,
+    toNext: (amount < thresholds.length)
+      ? thresholds[amount] - player.shopPotionsConsumed.obtainium
+      : Number.POSITIVE_INFINITY
+  }
+}
+
+export const calculateAscensionSpeedExponentSpread = () => {
+  const vals = [
+    player.singularityUpgrades.singAscensionSpeed.getEffect().bonus ? 0.03 : 0,
+    +player.singularityUpgrades.singAscensionSpeed2.getEffect().bonus,
+    0.001 * Math.floor(player.shopUpgrades.chronometerInfinity / 25)
+  ]
+
+  return sumContents(vals)
 }

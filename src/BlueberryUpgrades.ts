@@ -28,6 +28,10 @@ export type blueberryUpgradeNames =
   | 'ambrosiaLuck2'
   | 'ambrosiaObtainium1'
   | 'ambrosiaOffering1'
+  | 'ambrosiaBaseOffering1'
+  | 'ambrosiaBaseObtainium1'
+  | 'ambrosiaBaseOffering2'
+  | 'ambrosiaBaseObtainium2'
 
 export type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
 export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
@@ -386,7 +390,7 @@ export const blueberryUpgradeData: Record<
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
     rewards: (n: number) => {
-      const cubeAmount = (1 + 0.05 * n) * Math.pow(1.1, Math.floor(n / 10))
+      const cubeAmount = (1 + 0.05 * n) * Math.pow(1.1, Math.floor(n / 5))
       return {
         cubes: cubeAmount,
         desc: String(
@@ -430,7 +434,7 @@ export const blueberryUpgradeData: Record<
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
     rewards: (n: number) => {
-      const baseVal = 0.0005 * n
+      const baseVal = 0.001 * n
       const val = 1
         + baseVal
           * Math.floor(Math.pow(Math.log10(Number(player.worlds) + 1) + 1, 2))
@@ -456,7 +460,7 @@ export const blueberryUpgradeData: Record<
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
     rewards: (n: number) => {
-      const baseVal = 0.0002 * n
+      const baseVal = 0.0005 * n
       const val = 1 + baseVal * calculateAmbrosiaLuck()
       return {
         cubes: val,
@@ -625,12 +629,12 @@ export const blueberryUpgradeData: Record<
     },
     rewards: (n: number) => {
       const cubeAmount = (1
-        + (0.06
-            + 6
+        + (0.1
+            + 10
               * (Math.floor(player.blueberryUpgrades.ambrosiaCubes1.level / 10)
                 / 1000))
           * n)
-        * Math.pow(1.13, Math.floor(n / 10))
+        * Math.pow(1.15, Math.floor(n / 5))
       return {
         cubes: cubeAmount,
         desc: String(
@@ -755,6 +759,90 @@ export const blueberryUpgradeData: Record<
           })
         )
       }
+    }
+  },
+  ambrosiaBaseOffering1: {
+    maxLevel: 40,
+    costPerLevel: 5,
+    blueberryCost: 1,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
+    },
+    rewards: (n: number) => {
+      const val = n
+      return {
+        offering: val,
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaBaseOffering1.effect', {
+            amount: format(val, 0, true)
+          })
+        )
+      }
+    }
+  },
+  ambrosiaBaseObtainium1: {
+    maxLevel: 20,
+    costPerLevel: 40,
+    blueberryCost: 1,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
+    },
+    rewards: (n: number) => {
+      const val = n
+      return {
+        obtainium: val,
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaBaseObtainium1.effect', {
+            amount: format(val, 0, true)
+          })
+        )
+      }
+    }
+  },
+  ambrosiaBaseOffering2: {
+    maxLevel: 60,
+    costPerLevel: 20,
+    blueberryCost: 2,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
+    },
+    rewards: (n: number) => {
+      const val = n
+      return {
+        offering: val,
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaBaseOffering2.effect', {
+            amount: format(val, 0, true)
+          })
+        )
+      }
+    },
+    prerequisites: {
+      ambrosiaBaseOffering1: 30,
+      ambrosiaBaseObtainium1: 20
+    }
+  },
+  ambrosiaBaseObtainium2: {
+    maxLevel: 30,
+    costPerLevel: 160,
+    blueberryCost: 2,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
+    },
+    rewards: (n: number) => {
+      const val = n
+      return {
+        obtainium: val,
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaBaseObtainium2.effect', {
+            amount: format(val, 0, true)
+          })
+        )
+      }
+    },
+    prerequisites: {
+      ambrosiaBaseObtainium1: 30,
+      ambrosiaBaseOffering1: 20
     }
   }
 }

@@ -627,6 +627,12 @@ export const player: Player = {
     shopSingularityPotency: 0,
     shopSadisticRune: 0
   },
+
+  shopPotionsConsumed: {
+    offering: 0,
+    obtainium: 0
+  },
+
   shopBuyMaxToggle: false,
   shopHideToggle: false,
   shopConfirmationToggle: true,
@@ -1530,6 +1536,22 @@ export const player: Player = {
     ambrosiaHyperflux: new BlueberryUpgrade(
       blueberryUpgradeData.ambrosiaHyperflux,
       'ambrosiaHyperflux'
+    ),
+    ambrosiaBaseObtainium1: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaBaseObtainium1,
+      'ambrosiaBaseObtainium1'
+    ),
+    ambrosiaBaseOffering1: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaBaseOffering1,
+      'ambrosiaBaseOffering1'
+    ),
+    ambrosiaBaseObtainium2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaBaseObtainium2,
+      'ambrosiaBaseObtainium2'
+    ),
+    ambrosiaBaseOffering2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaBaseOffering2,
+      'ambrosiaBaseOffering2'
     )
   },
 

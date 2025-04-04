@@ -40,7 +40,7 @@
       },
       "ambrosiaCubes1": {
         "name": "Ambrosia Cube Module I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 10 levels gives 1.1x Cubes.",
+        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 5 levels gives 1.1x Cubes.",
         "effect": "This cube module increases cube gain by {{amount}}%"
       },
       "ambrosiaLuck1": {
@@ -60,12 +60,12 @@
       },
       "ambrosiaQuarkCube1": {
         "name": "Ambrosia Quark-Cube Hybrid Module I",
-        "description": "A first generation hybrid module. Gain +0.05% more cubes per level per digit in your Quark balance, squared!",
+        "description": "A first generation hybrid module. Gain +0.1% more cubes per level per digit in your Quark balance, squared!",
         "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
       },
       "ambrosiaLuckCube1": {
         "name": "Ambrosia Luck-Cube Hybrid Module I",
-        "description": "A first generation hybrid module. Gain +0.02% more cubes per level per 1 &#9752 Ambrosia Luck!",
+        "description": "A first generation hybrid module. Gain +0.05% more cubes per level per 1 &#9752 Ambrosia Luck!",
         "effect": "This first generation hybrid module increases cube gain by {{amount}}%"
       },
       "ambrosiaCubeLuck1": {
@@ -85,7 +85,7 @@
       },
       "ambrosiaCubes2": {
         "name": "Ambrosia Cube Module II",
-        "description": "Self-Synergies! Gain +6% cubes / lvl , +0.6% for every 10 levels in Ambrosia Cube Module I. Every 10 levels gives 1.13x cubes.",
+        "description": "Self-Synergies! Gain +10% cubes / lvl , +1% for every 10 levels in Ambrosia Cube Module I. Every 5 levels gives 1.15x cubes.",
         "effect": "This second generation Cube module increases cube gain by {{amount}}%"
       },
       "ambrosiaLuck2": {
@@ -112,6 +112,26 @@
         "name": "Hyperfluxed Wow! Cube Industrial Production",
         "description": "Gain +1% cubes per level, per level of Platonic Upgrade 4x4 purchased (multiplicative!!!)",
         "effect": "This module increases Cubes gain by {{amount}}%!"
+      },
+      "ambrosiaBaseObtainium1": {
+        "name": "Basic Obtainium Booster",
+        "description": "+1 Base Obtainium per level! Exceed the possibilities of your strength.",
+        "effect": "This module increases Base Obtainium by {{amount}}!"
+      },
+      "ambrosiaBaseOffering1": {
+        "name": "Basic Offering Booster",
+        "description": "+1 Base Offering per level! Exceed the possibilities of your strength.",
+        "effect": "This module increases Base Offering by {{amount}}!"
+      },
+      "ambrosiaBaseObtainium2": {
+        "name": "Based Obtainium Booster",
+        "description": "+1 Base Obtainium per level! Channel your inner researcher.",
+        "effect": "This module increases Base Obtainium by {{amount}}!"
+      },
+      "ambrosiaBaseOffering2": {
+        "name": "Based Offering Booster",
+        "description": "+1 Base Offering per level! Channel your... I got nothing.",
+        "effect": "This module increases Base Offering by {{amount}}!"
       }
     },
     "loadouts": {
@@ -1435,10 +1455,10 @@
       "shopImprovedDaily2": "Gain 1 additional free Singularity Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily3": "Gain 1 additional free Singularity Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily4": "Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
-      "offeringEX3": "Gain 2% more Offerings per level, multiplicative! (Multiplier is 1.02^level)",
-      "obtainiumEX3": "Gain 2% more Obtainium per level, multiplicative! (Multiplier is 1.02^level)",
-      "chronometerInfinity": "Gain +1% Ascension Speed per level, multiplicative! (Multiplier is 1.01^level)",
-      "seasonPassInfinity": "Gain +2% more cubes per level, multiplicative! (Multiplier is 1.02^level)",
+      "offeringEX3": "Gain 1% more Offerings per level, multiplicative! (Multiplier is 1.02^level). Every 25 levels, gain +1 Base Offering!",
+      "obtainiumEX3": "Gain 1% more Obtainium per level, multiplicative! (Multiplier is 1.02^level). Every 25 levels, gain 6% more Immaculate Obtainium Multiplier! (1.06^[level/25])",
+      "chronometerInfinity": "Gain 0.5% more Ascension Speed per level, multiplicative! (Multiplier is 1.005^level). Every 25 levels, gain +0.001 spread on Ascension Speed exponent modifiers on speeds greater than or less than 1 (Check Stats for Nerds for this one)!",
+      "seasonPassInfinity": "Gain 1% more cubes per level, multiplicative! (Multiplier is 1.01^level). This effect is raised to the power of 1.5 for Octeract calculations!",
       "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.",
       "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
       "improveQuarkHept5": "This is 1/50 as effective as a normal improver. Why? Because of balancing...",
@@ -1484,8 +1504,8 @@
     "buyAny": "Buy: ANY",
     "upgradeEffects": {
       "currentEffect": "Current Effect:",
-      "offeringPotion": "Gain <<orange|{{amount}}>> Offerings",
-      "obtainiumPotion": "Gain <<pink|{{amount}}>> Obtainium",
+      "offeringPotion": "Immediately, gain <<orange|{{amount}}>> Offerings. Since you've drank <<gold|{{amount2}}>> of these potions, you permanently gain <<orange|+{{amount3}}>> Base Offerings. Drink <<gold|{{amount4}}>> more to increase by 1.",
+      "obtainiumPotion": "Gain <<pink|{{amount}}>> Obtainium. Since you've drank <<gold|{{amount2}}>> of these potions, you permanently gain <<pink|+{{amount3}}>> Base Obtainium. Drink <<gold|{{amount4}}>> more to increase by 1.",
       "offeringEX": "You will gain <<goldenrod|{{amount}}%>> more Offerings!",
       "offeringAuto": "Per 10 seconds, pour <<goldenrod|{{amount1}}>> Offerings. +<<goldenrod|{{amount2}}%>> Offerings.",
       "obtainiumEX": "You will gain <<pink|{{amount}}%>> more Obtainium!",
@@ -1538,10 +1558,10 @@
       "shopImprovedDaily2": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<turquoise|+{{amount2}}%>> more Golden Quarks.",
       "shopImprovedDaily3": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<turquoise|+{{amount2}}%>> more Golden Quarks.",
       "shopImprovedDaily4": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Singularity Upgrades and <<turquoise|+{{amount2}}%>> more Golden Quarks.",
-      "offeringEX3": "You will gain <<goldenrod|{{amount}}%>> more Offerings!",
-      "obtainiumEX3": "You will gain <<pink|{{amount}}%>> more Obtainium!",
-      "chronometerInfinity": "Ascension timer increases <<orange|{{amount}}%>> faster.",
-      "seasonPassInfinity": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more cubes (of <<orchid|all>> types) on Ascension.",
+      "offeringEX3": "Gain <<goldenrod|{{amount}}%>> more Offerings! Also, gain <<goldenrod|+{{amount2}}>> more Base Offerings!",
+      "obtainiumEX3": "Gain <<pink|{{amount}}%>> more Obtainium, and an additional <<pink|{{amount2}}%>> Immaculate Obtainium Multiplier!",
+      "chronometerInfinity": "Ascension timer increases <<orange|{{amount}}%>> faster. Exponent spread is increased by <<orange|{{amount2}}>>.",
+      "seasonPassInfinity": "Ascensions give <<lightgoldenrodyellow|{{amount}}%>> more cubes (of <<orchid|all>> types) on Ascension. Octeract production is instead increased by <<green | {{amount2}}%>>.",
       "shopSingularityPenaltyDebuff": "At Singularity <<pink|{{amount1}}>>, your debuffs are as if you were in <<pink|{{amount2}}>>.",
       "shopAmbrosiaLuckMultiplier4": "Gain <<green|☘ +{{amount}}%>> Ambrosia Luck!",
       "shopOcteractAmbrosiaLuck": "Octeracts grant <<green|☘ +{{amount}}>> Ambrosia Luck!",
@@ -2105,9 +2125,9 @@
         "effect": "Ascension Speed ^{{n}}, ^{{m}} if < 1x"
       },
       "singAscensionSpeed2": {
-        "name": "A mediocre ascension speedup!",
-        "description": "Ascension speed is multiplied by 6 if you have not purchased Antiquities in your current Singularity.",
-        "effect": "The effect is clear"
+        "name": "Ascended Ascension Speedup!",
+        "description": "The first upgrade gave 0.03 of what we in the business call 'exponent spread'. This adds +0.001 per level!",
+        "effect": "Exponent Spread on Ascension Speed +{{n}}"
       },
       "ultimatePen": {
         "name": "The Ultimate Pen",
@@ -3803,10 +3823,14 @@
       "Reincarnate": "Reincarnation Completion Bonus:",
       "Achievements": "Achievement Bonus (37, 44, 52):",
       "Challenge1": "Challenge 2x1 Completion:",
+      "ShopPotionBonus": "Shop - Offering Potion Permanent Bonus:",
       "ReincarnationUpgrade2": "Reincarnation Upgrade 2:",
       "Research1x24": "Research 1x24 Bonus:",
       "Research1x25": "Research 1x25 Bonus:",
       "Research4x20": "Research 4x20 Bonus:",
+      "AmbrosiaBaseOffering1": "Blueberry Module - Basic Offering Booster:",
+      "AmbrosiaBaseOffering2": "Blueberry Module - Based Offering Booster:",
+      "OfferingEX3": "Offering EX 3 Shop Upgrade [Per 25 levels]:",
       "Total": "Total Base Offerings:"
     },
     "offeringMultiplierStats": {
@@ -3908,10 +3932,13 @@
       "title": "Base Obtainium Sum",
       "Base": "Base Value:",
       "Achievement51": "Achievement 51 Bonus:",
+      "ShopPotionBonus": "Shop - Obtainium Potion Permanent Bonus:",
       "Research3x13": "Research 3x13 Bonus:",
       "Research3x14": "Research 3x14 Bonus:",
       "FirstSingularity": "First Singularity Perk:",
       "SingularityCount": "Singularity Count Bonus:",
+      "AmbrosiaBaseObtainium1": "Blueberry Module - Basic Obtainium Booster:",
+      "AmbrosiaBaseObtainium2": "Blueberry Module - Based Obtainium Booster:",
       "Total": "Total Base Obtainium:"
     },
     "obtainiumIgnoreDRStats": {
@@ -3926,6 +3953,7 @@
       "CubeUpgradeCx5": "Cube Upgrade 6x5 (Cx5):",
       "CubeUpgradeCx12": "Cube Upgrade 7x2 (Cx12):",
       "CubeUpgradeCx21": "Cube Upgrade 8x1 (Cx21):",
+      "ObtainiumEX3": "Obtainium EX 3 Shop Upgrade [Per 25 levels]:",
       "EXALTBonus": "EXALT - Twenty Ascensions Challenge:",
       "Exalt6Penalty": "The Grand Singularity Speedrun - Too Slow:",
       "Event": "Event Bonus:",

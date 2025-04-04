@@ -430,6 +430,11 @@ export const playerSchema = z.object({
     })
     .default(() => ({ ...blankSave.shopUpgrades })),
 
+  shopPotionsConsumed: z.object({
+    offering: z.number(),
+    obtainium: z.number()
+  }).default(() => ({ ...blankSave.shopPotionsConsumed })),
+
   shopBuyMaxToggle: z.union([z.boolean(), z.string()]).default(() => blankSave.shopBuyMaxToggle),
   shopHideToggle: z.boolean().default(() => blankSave.shopHideToggle),
   shopConfirmationToggle: z.boolean().default(() => blankSave.shopConfirmationToggle),

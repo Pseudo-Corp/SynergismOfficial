@@ -1220,6 +1220,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.highestSingularityCount = player.highestSingularityCount
   hold.goldenQuarks = player.goldenQuarks
   hold.shopUpgrades = player.shopUpgrades
+  hold.shopPotionsConsumed = player.shopPotionsConsumed
 
   if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
     player.worlds.reset()

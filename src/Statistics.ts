@@ -18,6 +18,7 @@ import {
   calculateAmbrosiaQuarkMult,
   calculateAntSacrificeMultipliers,
   calculateAscensionScore,
+  calculateAscensionSpeedExponentSpread,
   calculateAscensionSpeedMult,
   calculateBaseObtainium,
   calculateBaseOfferings,
@@ -47,7 +48,9 @@ import {
   calculateObtainium,
   calculateObtainiumDecimal,
   calculateObtainiumDRIgnoreMult,
+  calculateObtainiumPotionBaseObtainium,
   calculateOcteractMultiplier,
+  calculateOfferingPotionBaseOfferings,
   calculateOfferings,
   calculateOfferingsDecimal,
   calculatePlatonicMultiplier,
@@ -180,7 +183,7 @@ export const allCubeStats: StatLine[] = [
   },
   {
     i18n: 'PassINF',
-    stat: () => Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
+    stat: () => Math.pow(1.01, player.shopUpgrades.seasonPassInfinity)
   },
   {
     i18n: 'CashGrabUltra',
@@ -741,7 +744,7 @@ export const allOcteractCubeStats: StatLine[] = [
   },
   {
     i18n: 'PassINF',
-    stat: () => Math.pow(1.02, player.shopUpgrades.seasonPassInfinity)
+    stat: () => Math.pow(1.01, player.shopUpgrades.seasonPassInfinity * 1.5)
   },
   {
     i18n: 'Ambrosia',
@@ -819,6 +822,10 @@ export const allBaseOfferingStats: StatLine[] = [
     stat: () => (player.challengecompletions[2] > 0) ? 2 : 0 // Challenge 2x1
   },
   {
+    i18n: 'ShopPotionBonus',
+    stat: () => calculateOfferingPotionBaseOfferings().amount // Potion Permanent Bonus
+  },
+  {
     i18n: 'ReincarnationUpgrade2',
     stat: () => (player.upgrades[62] > 0) ? Math.min(50, (1 / 50) * sumContents(player.challengecompletions)) : 0 // Reincarnation Upgrade 2
   },
@@ -833,6 +840,18 @@ export const allBaseOfferingStats: StatLine[] = [
   {
     i18n: 'Research4x20',
     stat: () => (player.researches[95] > 0) ? 15 : 0 // Research 4x20
+  },
+  {
+    i18n: 'AmbrosiaBaseOffering1',
+    stat: () => +player.blueberryUpgrades.ambrosiaBaseOffering1.bonus.offering // Ambrosia Base Offering 1
+  },
+  {
+    i18n: 'AmbrosiaBaseOffering2',
+    stat: () => +player.blueberryUpgrades.ambrosiaBaseOffering2.bonus.offering // Ambrosia Base Offering 2
+  },
+  {
+    i18n: 'OfferingEX3',
+    stat: () => Math.floor(player.shopUpgrades.offeringEX3 / 25) // Offering EX 3
   }
 ]
 
@@ -1025,7 +1044,7 @@ export const allOfferingStats = [
   },
   {
     i18n: 'OfferingINF',
-    stat: () => Math.pow(1.02, player.shopUpgrades.offeringEX3) // Offering INF
+    stat: () => Math.pow(1.01, player.shopUpgrades.offeringEX3) // Offering INF
   },
   {
     i18n: 'EXUltra',
@@ -1210,6 +1229,10 @@ export const allBaseObtainiumStats: StatLine[] = [
     stat: () => (player.achievements[51] > 0) ? 4 : 0 // Achievement 51
   },
   {
+    i18n: 'ShopPotionBonus',
+    stat: () => calculateObtainiumPotionBaseObtainium().amount // Potion Permanent Bonus
+  },
+  {
     i18n: 'Research3x13',
     stat: () => player.researches[63] // Research 3x13
   },
@@ -1224,6 +1247,14 @@ export const allBaseObtainiumStats: StatLine[] = [
   {
     i18n: 'SingularityCount',
     stat: () => Math.floor(player.singularityCount / 10) // Singularity Count
+  },
+  {
+    i18n: 'AmbrosiaBaseObtainium1',
+    stat: () => +player.blueberryUpgrades.ambrosiaBaseObtainium1.bonus.obtainium // Ambrosia Base Obtainium 1
+  },
+  {
+    i18n: 'AmbrosiaBaseObtainium2',
+    stat: () => +player.blueberryUpgrades.ambrosiaBaseObtainium2.bonus.obtainium // Ambrosia Base Obtainium 2
   }
 ]
 
@@ -1268,6 +1299,10 @@ export const allObtainiumIgnoreDRStats: StatLine[] = [
   {
     i18n: 'CubeUpgradeCx21',
     stat: () => Math.pow(1.04, player.cubeUpgrades[71] * sumContents(player.talismanRarity)) // Cube Upgrade 8x1
+  },
+  {
+    i18n: 'ObtainiumEX3',
+    stat: () => Math.pow(1.06, Math.floor(player.shopUpgrades.obtainiumEX3 / 25)) // Obtainium EX 3
   },
   {
     i18n: 'EXALTBonus',
@@ -1449,7 +1484,7 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'ShopObtainiumEX3',
-    stat: () => Math.pow(1.02, player.shopUpgrades.obtainiumEX3) // Obtainium EX 3 Shop Upgrade
+    stat: () => Math.pow(1.01, player.shopUpgrades.obtainiumEX3) // Obtainium EX 3 Shop Upgrade
   },
   {
     i18n: 'OcteractBonus',
@@ -1586,6 +1621,10 @@ export const antSacrificeTimeStats = (time: number, timeMultCheck: boolean): Sta
             Math.max(1, player.antSacrificeTimer / resetTimeThreshold())
           )
           : 1
+    },
+    {
+      i18n: 'HalfMind2',
+      stat: () => (player.singularityUpgrades.halfMind.getEffect().bonus) ? calculateGlobalSpeedMult() / 10 : 1
     }
   ])
 }
@@ -1767,7 +1806,7 @@ export const allAscensionSpeedStats: StatLine[] = [
   },
   {
     i18n: 'ChronometerINF',
-    stat: () => Math.pow(1.01, player.shopUpgrades.chronometerInfinity) // Chronometer INF
+    stat: () => Math.pow(1.005, player.shopUpgrades.chronometerInfinity) // Chronometer INF
   },
   {
     i18n: 'LimitedAscensionsBuff',
@@ -1805,11 +1844,13 @@ export const allAscensionSpeedStats: StatLine[] = [
 export const allAscensionSpeedPowerStats: StatLine[] = [
   {
     i18n: 'ExponentialScalingSlow',
-    stat: () => player.singularityUpgrades.singAscensionSpeed.getEffect().bonus ? 0.97 : 1
+    stat: () => 1 - calculateAscensionSpeedExponentSpread(),
+    acc: 3
   },
   {
     i18n: 'ExponentialScalingFast',
-    stat: () => player.singularityUpgrades.singAscensionSpeed2.getEffect().bonus ? 1.03 : 1
+    stat: () => 1 + calculateAscensionSpeedExponentSpread(),
+    acc: 3
   }
 ]
 

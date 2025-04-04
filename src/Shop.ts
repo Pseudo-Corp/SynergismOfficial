@@ -7,7 +7,9 @@ import {
   calculateCashGrabBlueberryBonus,
   calculateCashGrabCubeBonus,
   calculateCashGrabQuarkBonus,
+  calculateObtainiumPotionBaseObtainium,
   calculateObtainiumToDecimal,
+  calculateOfferingPotionBaseOfferings,
   calculateOfferingsDecimal,
   calculatePotionValue,
   calculatePowderConversion,
@@ -63,7 +65,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
   offeringPotion: {
     price: 100,
     priceIncrease: 0,
-    maxLevel: 999999999,
+    maxLevel: Math.pow(10, 15),
     type: shopUpgradeTypes.CONSUMABLE,
     refundable: false,
     refundMinimumLevel: 0,
@@ -73,7 +75,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     tier: 'Reincarnation',
     price: 100,
     priceIncrease: 0,
-    maxLevel: 999999999,
+    maxLevel: Math.pow(10, 15),
     type: shopUpgradeTypes.CONSUMABLE,
     refundable: false,
     refundMinimumLevel: 0
@@ -868,7 +870,10 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
           calculatePotionValue(player.prestigecounter, calculateOfferingsDecimal(), calculateBaseOfferings()),
           2,
           true
-        )
+        ),
+        amount2: format(player.shopPotionsConsumed.offering, 0, true),
+        amount3: format(calculateOfferingPotionBaseOfferings().amount, 0, true),
+        amount4: format(calculateOfferingPotionBaseOfferings().toNext, 0, true)
       })
       break
     case 'obtainiumPotion':
@@ -877,7 +882,10 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
           calculatePotionValue(player.reincarnationcounter, calculateObtainiumToDecimal(), calculateBaseObtainium()),
           2,
           true
-        )
+        ),
+        amount2: format(player.shopPotionsConsumed.obtainium, 0, true),
+        amount3: format(calculateObtainiumPotionBaseObtainium().amount, 0, true),
+        amount4: format(calculateObtainiumPotionBaseObtainium().toNext, 0, true)
       })
       break
     case 'offeringEX':
@@ -1183,8 +1191,13 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'offeringEX3':
       lol.innerHTML = i18next.t('shop.upgradeEffects.offeringEX3', {
         amount: format(
-          100 * (Math.pow(1.02, player.shopUpgrades.offeringEX3) - 1),
+          100 * (Math.pow(1.01, player.shopUpgrades.offeringEX3) - 1),
           2,
+          true
+        ),
+        amount2: format(
+          Math.floor(player.shopUpgrades.offeringEX3 / 25),
+          0,
           true
         )
       })
@@ -1192,7 +1205,12 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'obtainiumEX3':
       lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumEX3', {
         amount: format(
-          100 * (Math.pow(1.02, player.shopUpgrades.obtainiumEX3) - 1),
+          100 * (Math.pow(1.01, player.shopUpgrades.obtainiumEX3) - 1),
+          2,
+          true
+        ),
+        amount2: format(
+          100 * (Math.pow(1.06, Math.floor(player.shopUpgrades.obtainiumEX3 / 25)) - 1),
           2,
           true
         )
@@ -1206,7 +1224,12 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'seasonPassInfinity':
       lol.innerHTML = i18next.t('shop.upgradeEffects.seasonPassInfinity', {
         amount: format(
-          100 * (Math.pow(1.02, player.shopUpgrades.seasonPassInfinity) - 1),
+          100 * (Math.pow(1.01, player.shopUpgrades.seasonPassInfinity) - 1),
+          2,
+          true
+        ),
+        amount2: format(
+          100 * (Math.pow(1.01, 1.5 * player.shopUpgrades.seasonPassInfinity) - 1),
           2,
           true
         )
@@ -1215,8 +1238,13 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'chronometerInfinity':
       lol.innerHTML = i18next.t('shop.upgradeEffects.chronometerInfinity', {
         amount: format(
-          100 * (Math.pow(1.01, player.shopUpgrades.chronometerInfinity) - 1),
-          2,
+          100 * (Math.pow(1.005, player.shopUpgrades.chronometerInfinity) - 1),
+          3,
+          true
+        ),
+        amount2: format(
+          0.001 * Math.floor(player.shopUpgrades.chronometerInfinity / 25),
+          3,
           true
         )
       })
@@ -1548,6 +1576,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
       )
       player.worlds.sub(otherPot.cost)
       player.shopUpgrades[other] = otherPot.levelCanBuy
+      shopDescriptions(other)
       buyAny = buyAmount
     } else {
       buyAny = Math.floor(Number(buyInput))
@@ -1570,6 +1599,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     )
     player.worlds.sub(anyData.cost)
     player.shopUpgrades[input] = anyData.levelCanBuy
+    shopDescriptions(input)
     revealStuff()
     return
   }
@@ -1590,6 +1620,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   if (p) {
     player.worlds.sub(buyCost)
     player.shopUpgrades[input] += buyAmount
+    shopDescriptions(input)
     revealStuff()
   }
 }
@@ -1638,10 +1669,16 @@ export const useConsumable = async (
       if (infiniteAutoBrew && automatic) {
         player.runeshards += offeringPotionValue * used
         player.runeshards = Math.min(1e300, player.runeshards)
+        player.shopPotionsConsumed.offering += used
       } else if (player.shopUpgrades.offeringPotion >= used || !spend) {
         player.shopUpgrades.offeringPotion -= spend ? used : 0
         player.runeshards += offeringPotionValue * used
         player.runeshards = Math.min(1e300, player.runeshards)
+        player.shopPotionsConsumed.offering += used
+      }
+
+      if (!automatic) {
+        shopDescriptions('offeringPotion')
       }
     } else if (input === 'obtainiumPotion') {
       const obtainiumPotionValue = calculatePotionValue(
@@ -1653,10 +1690,16 @@ export const useConsumable = async (
       if (infiniteAutoBrew && automatic) {
         player.researchPoints += obtainiumPotionValue * used
         player.researchPoints = Math.min(1e300, player.researchPoints)
+        player.shopPotionsConsumed.obtainium += used
       } else if (player.shopUpgrades.obtainiumPotion >= used || !spend) {
         player.shopUpgrades.obtainiumPotion -= spend ? used : 0
         player.researchPoints += obtainiumPotionValue * used
         player.researchPoints = Math.min(1e300, player.researchPoints)
+        player.shopPotionsConsumed.obtainium += used
+      }
+
+      if (!automatic) {
+        shopDescriptions('obtainiumPotion')
       }
     }
   }

@@ -404,6 +404,12 @@ export interface Player {
     shopSingularityPotency: number
     shopSadisticRune: number
   }
+
+  shopPotionsConsumed: {
+    offering: number
+    obtainium: number
+  }
+
   shopConfirmationToggle: boolean
   shopBuyMaxToggle: boolean | 'TEN' | 'ANY'
   shopHideToggle: boolean
