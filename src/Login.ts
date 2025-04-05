@@ -159,7 +159,7 @@ interface SynergismEmailUserAPIResponse extends SynergismUserAPIResponse {
     user: {
       username: string
     }
-    roles: []
+    roles: string[] & { length: 0 }
   }
   accountType: 'email'
 }
