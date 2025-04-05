@@ -154,6 +154,16 @@ interface SynergismPatreonUserAPIResponse extends SynergismUserAPIResponse {
   accountType: 'patreon'
 }
 
+interface SynergismEmailUserAPIResponse extends SynergismUserAPIResponse {
+  member: {
+    user: {
+      username: string
+    }
+    roles: []
+  }
+  accountType: 'email'
+}
+
 interface SynergismNotLoggedInResponse extends SynergismUserAPIResponse {
   member: null
   accountType: 'none'
@@ -184,6 +194,7 @@ export async function handleLogin () {
   const { globalBonus, member, personalBonus, accountType } = await response.json() as
     | SynergismDiscordUserAPIResponse
     | SynergismPatreonUserAPIResponse
+    | SynergismEmailUserAPIResponse
     | SynergismNotLoggedInResponse
 
   setQuarkBonus(100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100)
@@ -195,7 +206,7 @@ export async function handleLogin () {
   if (location.hostname !== 'synergism.cc') {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
-  } else if (accountType === 'discord' || accountType === 'patreon') {
+  } else if (accountType === 'discord' || accountType === 'patreon' || accountType === 'email') {
     if (member === null) {
       subtabElement.innerHTML = `You are logged in, but your profile couldn't be retrieved from Discord or Patreon.`
       return
@@ -324,6 +335,8 @@ export async function handleLogin () {
       subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'flex')
       renderCaptcha()
     })
+  } else {
+    assert(false, `unknown account type ${accountType}`)
   }
 
   if (loggedIn) {
