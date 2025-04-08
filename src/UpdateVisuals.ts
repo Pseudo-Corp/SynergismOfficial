@@ -1657,13 +1657,12 @@ export const visualUpdateAmbrosia = () => {
         percent: player.cubeUpgrades[76] * calculateNumberOfThresholds()
       }
     )
-  }
-  else {
+  } else {
     DOMCacheGetOrSet('ambrosiaThresholdInfo').innerHTML = i18next.t(
       'ambrosia.timeThresholds',
       {
         threshold: calculateNumberOfThresholds(),
-        toNext: format(calculateToNextThreshold(), 0, true),
+        toNext: format(calculateToNextThreshold(), 0, true)
       }
     )
   }

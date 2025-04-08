@@ -265,7 +265,6 @@ type AutoToolInput =
  * @param time
  */
 export const automaticTools = (input: AutoToolInput, time: number) => {
-
   switch (input) {
     case 'addObtainium': {
       // If in challenge 14, abort and do not award obtainium

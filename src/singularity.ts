@@ -2643,7 +2643,7 @@ export type SingularityDebuffs =
 export const calculateSingularityReductions = () => {
   const arr = [
     player.shopUpgrades.shopSingularityPenaltyDebuff,
-    (player.insideSingularityChallenge) ? 0 : +player.blueberryUpgrades.ambrosiaSingReduction.bonus.singularityReduction,
+    (player.insideSingularityChallenge) ? 0 : +player.blueberryUpgrades.ambrosiaSingReduction.bonus.singularityReduction
   ]
 
   return sumContents(arr)
@@ -2723,7 +2723,7 @@ export const calculateNextSpike = (
   singularityCount: number = player.singularityCount
 ): number => {
   const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 216, 230, 270]
-  let penaltyDebuff = calculateSingularityReductions()
+  const penaltyDebuff = calculateSingularityReductions()
 
   for (const sing of singularityPenaltyThreshold) {
     if (sing + penaltyDebuff > singularityCount) {
@@ -2743,7 +2743,7 @@ export const calculateSingularityDebuff = (
     return 1
   }
 
-  let constitutiveSingularityCount = singularityCount - calculateSingularityReductions()
+  const constitutiveSingularityCount = singularityCount - calculateSingularityReductions()
   if (constitutiveSingularityCount < 1) {
     return 1
   }

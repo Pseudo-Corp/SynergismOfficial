@@ -904,8 +904,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       const costArr = [1, 1e3, 1e9, 1e27, 1e81, 1e111]
       if (level === 6) {
         return 0
-      }
-      else {
+      } else {
         return costArr[level] + 0 * baseCost // Base cost is not used here.
       }
     },
@@ -916,6 +915,6 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
           return i18next.t('octeract.data.octeractBlueberries.effect', { n: format(n) })
         }
       }
-    }, 
+    }
   }
 }

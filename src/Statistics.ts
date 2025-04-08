@@ -1642,7 +1642,7 @@ export const antSacrificeTimeStats = (time: number, timeMultCheck: boolean): Sta
     {
       i18n: 'TimeMultiplier',
       stat: () => timeMultCheck ? Math.max(1, time / resetTimeThreshold()) : 1
-    },
+    }
   ]
 }
 

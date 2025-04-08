@@ -688,7 +688,7 @@ export const blueberryUpgradeData: Record<
     rewards: (n: number) => {
       const quark2Mult = 1 + player.blueberryUpgrades.ambrosiaQuarks2.level / 100
       const quark3Base = 0.05 * n
-      const quarkAmount = (1 + quark3Base * quark2Mult)
+      const quarkAmount = 1 + quark3Base * quark2Mult
       return {
         quarks: quarkAmount,
         desc: String(
@@ -700,7 +700,7 @@ export const blueberryUpgradeData: Record<
     },
     prerequisites: {
       ambrosiaQuarks1: 100,
-      ambrosiaQuarks2: 50,
+      ambrosiaQuarks2: 50
     }
   },
   ambrosiaCubes3: {
@@ -726,7 +726,7 @@ export const blueberryUpgradeData: Record<
     },
     prerequisites: {
       ambrosiaCubes1: 100,
-      ambrosiaCubes2: 50,
+      ambrosiaCubes2: 50
     }
   },
   ambrosiaLuck3: {

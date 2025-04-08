@@ -215,7 +215,7 @@ export const calculateFastForwardResourcesGlobal = (
   resetTime: number,
   fastForwardAmount: number,
   resourceMult: Decimal,
-  baseResource: number,
+  baseResource: number
 ) => {
   // We're going to use the log trick to account for the fact that resourceMult * timeMult can still be >1e300
   // Even if timeMult is very small.
@@ -300,14 +300,19 @@ export const calculateAntSacrificeObtainium = () => {
   const baseObtainium = calculateBaseObtainium()
   calculateAntSacrificeELO()
 
-  
-  let deltaTime = Math.min(1e300, Math.pow(base * antSacMult * G.effectiveELO, player.corruptions.used.corruptionEffects('illiteracy')))
+  let deltaTime = Math.min(
+    1e300,
+    Math.pow(base * antSacMult * G.effectiveELO, player.corruptions.used.corruptionEffects('illiteracy'))
+  )
   deltaTime *= antSacrificeTimeStats(player.antSacrificeTimer, player.achievements[177] > 0).reduce(
     (a, b) => a * b.stat(),
     1
   )
 
-  return Math.max(baseObtainium, calculateFastForwardResourcesGlobal(player.reincarnationcounter, deltaTime, obtainiumMult, baseObtainium))
+  return Math.max(
+    baseObtainium,
+    calculateFastForwardResourcesGlobal(player.reincarnationcounter, deltaTime, obtainiumMult, baseObtainium)
+  )
 }
 
 export const calculateAntSacrificeOffering = () => {
@@ -324,8 +329,11 @@ export const calculateAntSacrificeOffering = () => {
     1
   )
 
-  return Math.max(baseOfferings, calculateFastForwardResourcesGlobal(player.prestigecounter, deltaTime, offeringMult, baseOfferings))
-} 
+  return Math.max(
+    baseOfferings,
+    calculateFastForwardResourcesGlobal(player.prestigecounter, deltaTime, offeringMult, baseOfferings)
+  )
+}
 
 export const calculateGlobalSpeedDRIgnoreMult = () => {
   return allGlobalSpeedIgnoreDRStats.reduce((a, b) => a * b.stat(), 1)
@@ -2345,7 +2353,6 @@ export const calculateAmbrosiaLuckOcteractUpgrade = () => {
 const digitReduction = 4
 
 export const calculateNumberOfThresholds = () => {
-
   const numDigits = player.lifetimeAmbrosia > 0 ? 1 + Math.floor(Math.log10(player.lifetimeAmbrosia)) : 0
   const matissa = Math.floor(player.lifetimeAmbrosia / Math.pow(10, numDigits - 1))
 
@@ -2360,14 +2367,11 @@ export const calculateToNextThreshold = () => {
 
   if (numThresholds === 0) {
     return 10000 - player.lifetimeAmbrosia
-  }
-
-  else { 
+  } else {
     // This is when the previous threshold is of the form 3 * 10^n
     if (numThresholds % 2 === 0) {
       return Math.pow(10, numThresholds / 2 + digitReduction) - player.lifetimeAmbrosia
-    }
-    // Previous threshold is of the form 10^n
+    } // Previous threshold is of the form 10^n
     else {
       return 3 * Math.pow(10, (numThresholds - 1) / 2 + digitReduction) - player.lifetimeAmbrosia
     }
