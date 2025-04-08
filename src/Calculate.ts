@@ -90,7 +90,7 @@ export const calculateBaseOfferings = () => {
   return allBaseOfferingStats.reduce((a, b) => a + b.stat(), 0)
 }
 
-export const calculateOfferings = (timeMultUsed = true) => {
+export const calculateOfferings = (timeMultUsed = true, logMultOnly = false) => {
   const baseOfferings = calculateBaseOfferings()
   const timeMultiplier = timeMultUsed
     ? offeringObtainiumTimeModifiers(player.prestigecounter, player.prestigeCount > 0).reduce(
@@ -101,6 +101,11 @@ export const calculateOfferings = (timeMultUsed = true) => {
   const logMult = Decimal.log(calculateOfferingsDecimal(), 10)
 
   const totalLog = Math.log10(timeMultiplier) + logMult
+
+  if (logMultOnly) {
+    return totalLog
+  }
+
   const effectivePowerOfTen = Math.pow(10, Math.min(300, totalLog))
 
   // Update Offering Per Second Statistic (For Plat: is this still needed?)
@@ -113,6 +118,10 @@ export const calculateOfferings = (timeMultUsed = true) => {
   }
 
   return Math.max(baseOfferings, effectivePowerOfTen)
+}
+
+export const calculateOfferingToDecimal = (timeMultUsed = false) => {
+  return Decimal.pow(10, calculateOfferings(timeMultUsed, true))
 }
 
 // Ditto
@@ -206,7 +215,7 @@ export const calculateFastForwardResourcesGlobal = (
   resetTime: number,
   fastForwardAmount: number,
   resourceMult: Decimal,
-  baseResource: number
+  baseResource: number,
 ) => {
   // We're going to use the log trick to account for the fact that resourceMult * timeMult can still be >1e300
   // Even if timeMult is very small.
@@ -288,21 +297,35 @@ export const calculateAntSacrificeObtainium = () => {
   const base = 1 / 750
   const antSacMult = calculateAntSacrificeMultiplier()
   const obtainiumMult = calculateObtainiumToDecimal()
-
   const baseObtainium = calculateBaseObtainium()
-
   calculateAntSacrificeELO()
 
-  let deltaTime = Math.pow(
-    Math.min(1e300, base * antSacMult * G.effectiveELO),
-    player.corruptions.used.corruptionEffects('illiteracy')
-  )
+  
+  let deltaTime = Math.min(1e300, Math.pow(base * antSacMult * G.effectiveELO, player.corruptions.used.corruptionEffects('illiteracy')))
   deltaTime *= antSacrificeTimeStats(player.antSacrificeTimer, player.achievements[177] > 0).reduce(
     (a, b) => a * b.stat(),
     1
   )
-  return calculateFastForwardResourcesGlobal(player.antSacrificeTimer, deltaTime, obtainiumMult, baseObtainium)
+
+  return Math.max(baseObtainium, calculateFastForwardResourcesGlobal(player.reincarnationcounter, deltaTime, obtainiumMult, baseObtainium))
 }
+
+export const calculateAntSacrificeOffering = () => {
+  const base = 1 / 1200
+  const antSacMult = calculateAntSacrificeMultiplier()
+  const offeringMult = calculateOfferingToDecimal()
+  const baseOfferings = calculateBaseOfferings()
+
+  calculateAntSacrificeELO()
+
+  let deltaTime = Math.min(1e300, base * antSacMult * G.effectiveELO)
+  deltaTime *= antSacrificeTimeStats(player.antSacrificeTimer, player.achievements[177] > 0).reduce(
+    (a, b) => a * b.stat(),
+    1
+  )
+
+  return Math.max(baseOfferings, calculateFastForwardResourcesGlobal(player.prestigecounter, deltaTime, offeringMult, baseOfferings))
+} 
 
 export const calculateGlobalSpeedDRIgnoreMult = () => {
   return allGlobalSpeedIgnoreDRStats.reduce((a, b) => a * b.stat(), 1)
@@ -1248,7 +1271,7 @@ export const calculateAntSacrificeRewards = (): IAntSacRewards => {
     antSacrificePoints: (G.effectiveELO * rewardsMult) / 85,
     offerings: Math.min(
       maxCap,
-      (player.offeringpersecond * 0.15 * G.effectiveELO * rewardsMult) / 180
+      calculateAntSacrificeOffering()
     ),
     obtainium: Math.min(
       maxCap,
@@ -1690,14 +1713,14 @@ export const calculateTotalOcteractOfferingBonus = () => {
   if (!player.singularityChallenges.noOcteracts.rewards.offeringBonus) {
     return 1
   }
-  return Math.pow(calculateTotalOcteractQuarkBonus(), 1.5)
+  return Math.pow(calculateTotalOcteractCubeBonus(), 1.25)
 }
 
 export const calculateTotalOcteractObtainiumBonus = () => {
   if (!player.singularityChallenges.noOcteracts.rewards.obtainiumBonus) {
     return 1
   }
-  return Math.pow(calculateTotalOcteractQuarkBonus(), 1.4)
+  return Math.pow(calculateTotalOcteractCubeBonus(), 1.25)
 }
 
 export const calculateLimitedAscensionsDebuff = () => {
@@ -2319,40 +2342,41 @@ export const calculateAmbrosiaLuckOcteractUpgrade = () => {
   return sumContents(vals)
 }
 
+const digitReduction = 4
+
 export const calculateNumberOfThresholds = () => {
-  const timeThresholds = [
-    5000,
-    25000,
-    75000,
-    250000,
-    500000,
-    1e6,
-    2e6,
-    4e6,
-    1e7,
-    2e7,
-    4e7,
-    1e8,
-    2e8,
-    4e8,
-    1e9
-  ]
 
-  const val = G.TIME_PER_AMBROSIA + Math.floor(player.lifetimeAmbrosia / 30)
+  const numDigits = player.lifetimeAmbrosia > 0 ? 1 + Math.floor(Math.log10(player.lifetimeAmbrosia)) : 0
+  const matissa = Math.floor(player.lifetimeAmbrosia / Math.pow(10, numDigits - 1))
 
-  let thresholds = 0
-  for (const threshold of timeThresholds) {
-    if (val >= threshold) {
-      thresholds++
-    }
+  const extraReduction = matissa >= 3 ? 1 : 0
+
+  // First reduction at 10^(digitReduction+1), add 1 at 3 * 10^(digitReduction+1)
+  return Math.max(0, 2 * (numDigits - digitReduction) - 1 + extraReduction)
+}
+
+export const calculateToNextThreshold = () => {
+  const numThresholds = calculateNumberOfThresholds()
+
+  if (numThresholds === 0) {
+    return 10000 - player.lifetimeAmbrosia
   }
 
-  return thresholds
+  else { 
+    // This is when the previous threshold is of the form 3 * 10^n
+    if (numThresholds % 2 === 0) {
+      return Math.pow(10, numThresholds / 2 + digitReduction) - player.lifetimeAmbrosia
+    }
+    // Previous threshold is of the form 10^n
+    else {
+      return 3 * Math.pow(10, (numThresholds - 1) / 2 + digitReduction) - player.lifetimeAmbrosia
+    }
+  }
 }
 
 export const calculateRequiredBlueberryTime = () => {
-  let val = G.TIME_PER_AMBROSIA // Currently 600
-  val += Math.floor(player.lifetimeAmbrosia / 30)
+  let val = G.TIME_PER_AMBROSIA // Currently 36
+  val += 0.1 * Math.floor(player.lifetimeAmbrosia / 48)
 
   const thresholds = calculateNumberOfThresholds()
   const thresholdBase = 2

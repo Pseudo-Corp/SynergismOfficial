@@ -896,5 +896,26 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         campaignTokenRewardHTMLUpdate()
       }
     ]
+  },
+  octeractBlueberries: {
+    maxLevel: 6,
+    costPerLevel: 1,
+    costFormula: (level: number, baseCost: number) => {
+      const costArr = [1, 1e3, 1e9, 1e27, 1e81, 1e111]
+      if (level === 6) {
+        return 0
+      }
+      else {
+        return costArr[level] + 0 * baseCost // Base cost is not used here.
+      }
+    },
+    effect: (n: number) => {
+      return {
+        bonus: n,
+        get desc () {
+          return i18next.t('octeract.data.octeractBlueberries.effect', { n: format(n) })
+        }
+      }
+    }, 
   }
 }

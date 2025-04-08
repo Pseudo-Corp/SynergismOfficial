@@ -655,8 +655,8 @@ export const player: Player = {
   antPoints: new Decimal('1'),
   antUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   antSacrificePoints: 0,
-  antSacrificeTimer: 900,
-  antSacrificeTimerReal: 900,
+  antSacrificeTimer: 0,
+  antSacrificeTimerReal: 0,
 
   talismanLevels: [0, 0, 0, 0, 0, 0, 0],
   talismanRarity: [1, 1, 1, 1, 1, 1, 1],
@@ -1423,6 +1423,10 @@ export const player: Player = {
     octeractBonusTokens4: new OcteractUpgrade(
       octeractData.octeractBonusTokens4,
       'octeractBonusTokens4'
+    ),
+    octeractBlueberries: new OcteractUpgrade(
+      octeractData.octeractBlueberries,
+      'octeractBlueberries'
     )
   },
 
@@ -1521,6 +1525,18 @@ export const player: Player = {
       blueberryUpgradeData.ambrosiaLuck2,
       'ambrosiaLuck2'
     ),
+    ambrosiaQuarks3: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaQuarks3,
+      'ambrosiaQuarks3'
+    ),
+    ambrosiaCubes3: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaCubes3,
+      'ambrosiaQuarks3'
+    ),
+    ambrosiaLuck3: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaLuck3,
+      'ambrosiaLuck3'
+    ),
     ambrosiaPatreon: new BlueberryUpgrade(
       blueberryUpgradeData.ambrosiaPatreon,
       'ambrosiaPatreon'
@@ -1552,6 +1568,10 @@ export const player: Player = {
     ambrosiaBaseOffering2: new BlueberryUpgrade(
       blueberryUpgradeData.ambrosiaBaseOffering2,
       'ambrosiaBaseOffering2'
+    ),
+    ambrosiaSingReduction: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaSingReduction,
+      'ambrosiaSingReduction'
     )
   },
 

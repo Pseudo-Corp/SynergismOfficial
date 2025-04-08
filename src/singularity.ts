@@ -6,7 +6,7 @@ import { DynamicUpgrade } from './DynamicUpgrade'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt, revealStuff } from './UpdateHTML'
-import { toOrdinal } from './Utility'
+import { sumContents, toOrdinal } from './Utility'
 
 export const updateSingularityPenalties = (): void => {
   const singularityCount = player.singularityCount
@@ -2640,6 +2640,15 @@ export type SingularityDebuffs =
   | 'Platonic Costs'
   | 'Hepteract Costs'
 
+export const calculateSingularityReductions = () => {
+  const arr = [
+    player.shopUpgrades.shopSingularityPenaltyDebuff,
+    (player.insideSingularityChallenge) ? 0 : +player.blueberryUpgrades.ambrosiaSingReduction.bonus.singularityReduction,
+  ]
+
+  return sumContents(arr)
+}
+
 export const calculateEffectiveSingularities = (
   singularityCount: number = player.singularityCount
 ): number => {
@@ -2714,8 +2723,7 @@ export const calculateNextSpike = (
   singularityCount: number = player.singularityCount
 ): number => {
   const singularityPenaltyThreshold = [11, 26, 37, 51, 101, 151, 201, 216, 230, 270]
-  let penaltyDebuff = 0
-  penaltyDebuff += player.shopUpgrades.shopSingularityPenaltyDebuff
+  let penaltyDebuff = calculateSingularityReductions()
 
   for (const sing of singularityPenaltyThreshold) {
     if (sing + penaltyDebuff > singularityCount) {
@@ -2735,8 +2743,7 @@ export const calculateSingularityDebuff = (
     return 1
   }
 
-  let constitutiveSingularityCount = singularityCount
-  constitutiveSingularityCount -= player.shopUpgrades.shopSingularityPenaltyDebuff
+  let constitutiveSingularityCount = singularityCount - calculateSingularityReductions()
   if (constitutiveSingularityCount < 1) {
     return 1
   }

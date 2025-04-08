@@ -22,7 +22,8 @@
     "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
     "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
     "availableBlueberries": "You have <<lightblue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
-    "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
+    "timeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia.",
+    "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
     "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
     "refund": "You have refunded all spent Blueberries and Ambrosia.",
@@ -93,6 +94,21 @@
         "description": "Self-Synergies! Gain &#9752 +3 Ambrosia Luck/lvl, +0.3 for every 10 levels in Ambrosia Luck Module I. Every 10 levels gives &#9752 +40 more!",
         "effect": "This second generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
       },
+      "ambrosiaQuarks3": {
+        "name": "Ambrosia Quark Module III",
+        "description": "A darkness emboldens this module. +5% Quarks per level, and the effect is 1% stronger per level of Ambrosia Quark Module II.",
+        "effect": "This third generation Quark module increases Quark gain by {{amount}}%"
+      },
+      "ambrosiaCubes3": {
+        "name": "Ambrosia Cube Module III",
+        "description": "A darkness emboldens this module. +20% cubes / lvl, and the effect is 3% stronger per level of Ambrosia Cube Module II. Every 5 levels gives 1.2x cubes.",
+        "effect": "This third generation Cube module increases cube gain by {{amount}}%"
+      },
+      "ambrosiaLuck3": {
+        "name": "Ambrosia Luck Module III",
+        "description": "A darkness emboldens this module. +1 &#9752 Ambrosia Luck/lvl, and the effect is multiplied by the total number of Blueberries you own!",
+        "effect": "This third generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
+      },
       "ambrosiaPatreon": {
         "name": "Shameless, Ambrosial Patreon Reminder",
         "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
@@ -132,6 +148,11 @@
         "name": "Based Offering Booster",
         "description": "+1 Base Offering per level! Channel your... I got nothing.",
         "effect": "This module increases Base Offering by {{amount}}!"
+      },
+      "ambrosiaSingReduction": {
+        "name": "Singularity Stablizer Module",
+        "description": "Retrofitted with Amber flux capacitors, your Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity per level, if you are NOT! in an EXALT.",
+        "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
       }
     },
     "loadouts": {
@@ -1962,7 +1983,7 @@
         "effect": "Octeract production is {{n}}% faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists."
       },
       "offeringAutomatic": {
-        "name": "Blueberry Shards! (WIP)",
+        "name": "Blueberry Shards!",
         "description": "The legends are true. \n The Prophecies are fulfilled. \n Ant God has heard your prayers. \n Let there be blueberries! \n And they were good.",
         "effect": "You have purchased {{n}} tasty blueberries."
       },
@@ -2153,8 +2174,8 @@
         "effectHaveNot": "You haven't quacked your last QUARK"
       },
       "blueberries": {
-        "name": "Blueberry Shards! (WIP)",
-        "description": "Blueberries! Yeah, Platonic is out of ideas. Well, each Blueberry gives a 0.01% chance per second to generate some Ambrosia!",
+        "name": "Blueberries!",
+        "description": "Blueberries! They are rich in Vitamin K, which helps clot things, including Ambrosia!",
         "effect": "You have purchased {{n}} tasty blueberries."
       },
       "singAmbrosiaLuck2": {
@@ -3353,6 +3374,11 @@
         "name": "Hourglass of Reality",
         "description": "An hourglass which is nonprimative and 'more timely'- whatever that means. +2% Blueberry Second Generation per level.",
         "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+      },
+      "octeractBlueberries": {
+        "name": "Berries that are Blue!",
+        "description": "Blueberries are a blue fruit. Enough said.",
+        "effect": "You have purchased {{n}} blue blueberries!"
       }
     },
     "amount": "You have {{octeracts}} Octeracts!",
@@ -3694,6 +3720,7 @@
       "ModuleLuckCube1": "Ambrosia - Luck Cube Module I:",
       "ModuleQuarkCube1": "Ambrosia - Quark Cube Module I:",
       "ModuleCubes2": "Ambrosia - Cube Module II:",
+      "ModuleCubes3": "Ambrosia - Cube Module III:",
       "ModuleHyperflux": "Ambrosia - Hyperflux Module:",
       "Exalt6": "The Grand Singularity Speedrun - Too Slow:",
       "Event": "Event Bonus:",
@@ -3810,6 +3837,7 @@
       "ModuleLuckCube1": "Module- Luck-Cube 1:",
       "ModuleQuarkCube1": "Module- Quark-Cube 1:",
       "ModuleCubes2": "Module- Cubes 2:",
+      "ModuleCubes3": "Module- Cubes 3:",
       "CashGrabUltra": "Cash Grab ULTIMATE:",
       "EXUltra": "Shop EX ULTIMATE:",
       "AscensionSpeed": "Ascension Speed Multiplier:",
@@ -3920,6 +3948,7 @@
       "AmbrosiaCubeQuark1": "Ambrosia Cube-Quark Module I:",
       "AmbrosiaLuckQuark1": "Ambrosia Luck-Quark Module I:",
       "AmbrosiaQuarks2": "Ambrosia Quarks Module II:",
+      "AmbrosiaQuarks3": "Ambrosia Quarks Module III:",
       "CashGrabQuarkBonus": "Cash Grab ULTRA Quark Bonus:",
       "LimitedTimeChallenge": "Limited Time Challenge Reward:",
       "SadisticPrequel": "Sadistic Prequel Challenge Reward:",
@@ -4127,6 +4156,7 @@
       "OcteractUpgrades": "Octeract Upgrades (I-IV):",
       "AmbrosiaLuck1": "Ambrosia Luck Module I:",
       "AmbrosiaLuck2": "Ambrosia Luck Module II:",
+      "AmbrosiaLuck3": "Ambrosia Luck Module III:",
       "AmbrosiaCubeLuck1": "Cube-Luck Synergy Module:",
       "AmbrosiaQuarkLuck1": "Quark-Luck Synergy Module:",
       "Singularity131": "One Hundred Thirty One!:",

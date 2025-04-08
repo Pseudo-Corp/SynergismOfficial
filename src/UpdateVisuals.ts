@@ -23,6 +23,7 @@ import {
   calculateSigmoidExponential,
   calculateSummationLinear,
   calculateSummationNonLinear,
+  calculateToNextThreshold,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractObtainiumBonus,
   calculateTotalOcteractOfferingBonus,
@@ -1648,16 +1649,23 @@ export const visualUpdateAmbrosia = () => {
   )
 
   if (player.cubeUpgrades[76] > 0) {
-    DOMCacheGetOrSet('cubeUpgradeThresholds').style.display = 'block'
-    DOMCacheGetOrSet('cubeUpgradeThresholds').innerHTML = i18next.t(
+    DOMCacheGetOrSet('ambrosiaThresholdInfo').innerHTML = i18next.t(
       'ambrosia.cubeUpgradeThresholds',
       {
         threshold: calculateNumberOfThresholds(),
+        toNext: format(calculateToNextThreshold(), 0, true),
         percent: player.cubeUpgrades[76] * calculateNumberOfThresholds()
       }
     )
-  } else {
-    DOMCacheGetOrSet('cubeUpgradeThresholds').style.display = 'none'
+  }
+  else {
+    DOMCacheGetOrSet('ambrosiaThresholdInfo').innerHTML = i18next.t(
+      'ambrosia.timeThresholds',
+      {
+        threshold: calculateNumberOfThresholds(),
+        toNext: format(calculateToNextThreshold(), 0, true),
+      }
+    )
   }
 
   if (player.cubeUpgradeRedBarFilled > 0) {

@@ -265,7 +265,6 @@ type AutoToolInput =
  * @param time
  */
 export const automaticTools = (input: AutoToolInput, time: number) => {
-  const timeMultiplier = (player.singularityUpgrades.halfMind.getEffect().bonus) ? 10 : calculateGlobalSpeedMult()
 
   switch (input) {
     case 'addObtainium': {
@@ -356,8 +355,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       }
       break
     case 'antSacrifice': {
-      // Increments real and 'fake' timers. the Real timer is on real life seconds.
-      player.antSacrificeTimer += time * timeMultiplier
+      player.antSacrificeTimer += time
       player.antSacrificeTimerReal += time
 
       // Equal to real time iff "Real Time" option selected in ants tab.

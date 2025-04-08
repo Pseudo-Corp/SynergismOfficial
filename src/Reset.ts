@@ -994,7 +994,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
   if (player.achievements[277] > 0) { // Singularity 4
     if (player.currentChallenge.ascension !== 14) {
       player.researchPoints = Math.floor(
-        500 * calculateSingularityDebuff('Offering') * calculateSingularityDebuff('Researches')
+        500 * calculateSingularityDebuff('Researches')
       )
     }
     if (player.currentChallenge.ascension !== 12) {

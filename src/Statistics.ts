@@ -277,6 +277,10 @@ export const allCubeStats: StatLine[] = [
     stat: () => +player.blueberryUpgrades.ambrosiaHyperflux.bonus.hyperFlux
   },
   {
+    i18n: 'ModuleCubes3',
+    stat: () => +player.blueberryUpgrades.ambrosiaCubes3.bonus.cubes
+  },
+  {
     i18n: 'Exalt6',
     stat: () => {
       let exaltPenalty = 1
@@ -771,6 +775,10 @@ export const allOcteractCubeStats: StatLine[] = [
     stat: () => +player.blueberryUpgrades.ambrosiaCubes2.bonus.cubes
   },
   {
+    i18n: 'ModuleCubes3',
+    stat: () => +player.blueberryUpgrades.ambrosiaCubes3.bonus.cubes
+  },
+  {
     i18n: 'CashGrabUltra',
     stat: () => +calculateCashGrabCubeBonus()
   },
@@ -1188,6 +1196,10 @@ export const allQuarkStats: StatLine[] = [
   {
     i18n: 'AmbrosiaQuarks2',
     stat: () => +player.blueberryUpgrades.ambrosiaQuarks2.bonus.quarks
+  },
+  {
+    i18n: 'AmbrosiaQuarks3',
+    stat: () => +player.blueberryUpgrades.ambrosiaQuarks3.bonus.quarks
   },
   {
     i18n: 'CashGrabQuarkBonus',
@@ -1611,7 +1623,7 @@ export const antSacrificeRewardStats: StatLine[] = [
 ]
 
 export const antSacrificeTimeStats = (time: number, timeMultCheck: boolean): StatLine[] => {
-  return offeringObtainiumTimeModifiers(time, timeMultCheck).concat([
+  return [
     {
       i18n: 'NoAchievement177',
       stat: () =>
@@ -1623,10 +1635,15 @@ export const antSacrificeTimeStats = (time: number, timeMultCheck: boolean): Sta
           : 1
     },
     {
-      i18n: 'HalfMind2',
-      stat: () => (player.singularityUpgrades.halfMind.getEffect().bonus) ? calculateGlobalSpeedMult() / 10 : 1
-    }
-  ])
+      i18n: 'ThresholdPenalty',
+      stat: () => Math.min(1, Math.pow(time / resetTimeThreshold(), 2)),
+      color: 'red'
+    },
+    {
+      i18n: 'TimeMultiplier',
+      stat: () => timeMultCheck ? Math.max(1, time / resetTimeThreshold()) : 1
+    },
+  ]
 }
 
 // Add a stat to this if you do not want the multiplier to be affected by >100 or <1 Diminishing Returns
@@ -1925,6 +1942,10 @@ export const allAmbrosiaLuckStats: StatLine[] = [
     stat: () => +player.blueberryUpgrades.ambrosiaLuck2.bonus.ambrosiaLuck // Ambrosia Luck from Luck Module II
   },
   {
+    i18n: 'AmbrosiaLuck3',
+    stat: () => +player.blueberryUpgrades.ambrosiaLuck3.bonus.ambrosiaLuck // Ambrosia Luck from Luck Module III
+  },
+  {
     i18n: 'AmbrosiaCubeLuck1',
     stat: () => +player.blueberryUpgrades.ambrosiaCubeLuck1.bonus.ambrosiaLuck // Ambrosia Luck from Cube-Luck Synergy Module
   },
@@ -1979,6 +2000,10 @@ export const allAmbrosiaBlueberryStats: StatLine[] = [
   {
     i18n: 'SingBlueberries',
     stat: () => +player.singularityUpgrades.blueberries.getEffect().bonus // Singularity Blueberry Upgrade
+  },
+  {
+    i18n: 'OcteractBlueberries',
+    stat: () => +player.octeractUpgrades.octeractBlueberries.getEffect().bonus // Octeract Blueberry Upgrade
   },
   {
     i18n: 'ConglomerateBerries',

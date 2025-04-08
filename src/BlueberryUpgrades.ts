@@ -26,12 +26,17 @@ export type blueberryUpgradeNames =
   | 'ambrosiaQuarks2'
   | 'ambrosiaCubes2'
   | 'ambrosiaLuck2'
+  | 'ambrosiaQuarks3'
+  | 'ambrosiaCubes3'
+  | 'ambrosiaLuck3'
   | 'ambrosiaObtainium1'
   | 'ambrosiaOffering1'
   | 'ambrosiaBaseOffering1'
   | 'ambrosiaBaseObtainium1'
   | 'ambrosiaBaseOffering2'
   | 'ambrosiaBaseObtainium2'
+  | 'ambrosiaHyperflux'
+  | 'ambrosiaSingReduction'
 
 export type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
 export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
@@ -673,6 +678,80 @@ export const blueberryUpgradeData: Record<
       ambrosiaLuck1: 40
     }
   },
+  ambrosiaQuarks3: {
+    maxLevel: 10,
+    costPerLevel: 500000,
+    blueberryCost: 3,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost + 50000 * level
+    },
+    rewards: (n: number) => {
+      const quark2Mult = 1 + player.blueberryUpgrades.ambrosiaQuarks2.level / 100
+      const quark3Base = 0.05 * n
+      const quarkAmount = (1 + quark3Base * quark2Mult)
+      return {
+        quarks: quarkAmount,
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaQuarks3.effect', {
+            amount: format(100 * (quarkAmount - 1), 0, true)
+          })
+        )
+      }
+    },
+    prerequisites: {
+      ambrosiaQuarks1: 100,
+      ambrosiaQuarks2: 50,
+    }
+  },
+  ambrosiaCubes3: {
+    maxLevel: 100,
+    costPerLevel: 50000,
+    blueberryCost: 3,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost + 2000 * level
+    },
+    rewards: (n: number) => {
+      const cube2Multi = 1 + 3 * player.blueberryUpgrades.ambrosiaCubes2.level / 100
+      const cube3Base = 0.2 * n
+      const cube3Exponential = Math.pow(1.2, Math.floor(n / 5))
+      const cubeAmount = (1 + cube3Base * cube2Multi) * cube3Exponential
+      return {
+        cubes: cubeAmount,
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaCubes3.effect', {
+            amount: format(100 * (cubeAmount - 1), 2, true)
+          })
+        )
+      }
+    },
+    prerequisites: {
+      ambrosiaCubes1: 100,
+      ambrosiaCubes2: 50,
+    }
+  },
+  ambrosiaLuck3: {
+    maxLevel: 100,
+    costPerLevel: 50000,
+    blueberryCost: 3,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost + 0 * level // Level has no effect
+    },
+    rewards: (n: number) => {
+      const perLevel = calculateBlueberryInventory()
+      return {
+        ambrosiaLuck: perLevel * n,
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaLuck3.effect', {
+            amount: format(perLevel * n, 0, true)
+          })
+        )
+      }
+    },
+    prerequisites: {
+      ambrosiaLuck1: 90,
+      ambrosiaLuck2: 50
+    }
+  },
   ambrosiaPatreon: {
     maxLevel: 1,
     costPerLevel: 1,
@@ -819,7 +898,7 @@ export const blueberryUpgradeData: Record<
     },
     prerequisites: {
       ambrosiaBaseOffering1: 30,
-      ambrosiaBaseObtainium1: 20
+      ambrosiaBaseObtainium1: 10
     }
   },
   ambrosiaBaseObtainium2: {
@@ -841,8 +920,30 @@ export const blueberryUpgradeData: Record<
       }
     },
     prerequisites: {
-      ambrosiaBaseObtainium1: 30,
+      ambrosiaBaseObtainium1: 15,
       ambrosiaBaseOffering1: 20
+    }
+  },
+  ambrosiaSingReduction: {
+    maxLevel: 2,
+    costPerLevel: 100000,
+    blueberryCost: 2,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost * Math.pow(99, level)
+    },
+    rewards: (n: number) => {
+      const val = (player.insideSingularityChallenge) ? 0 : n
+      return {
+        singularityReduction: val,
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaSingReduction.effect', {
+            amount: format(val, 0, true)
+          })
+        )
+      }
+    },
+    prerequisites: {
+      ambrosiaHyperflux: 4
     }
   }
 }
