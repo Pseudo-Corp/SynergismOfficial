@@ -312,8 +312,7 @@ export function initRedAmbrosiaUpgrades (investments: Record<RedAmbrosiaKeys, nu
     // Use a function that casts the result appropriately
     const upgrade = new RedAmbrosiaUpgrade(dataWithInvestment, key) // Here we need to use type assertion because TypeScript can't track
      // the relationship between the key and the generic parameter in the loop
-    // biome-ignore lint: TypeScript can't track the exact mapping between generic parameters when iterating through an object's keys
-    ;(redAmbrosiaUpgrades as any)[key] = upgrade
+    redAmbrosiaUpgrades[key as 'tutorial'] = upgrade as RedAmbrosiaUpgrade<'tutorial'>
   }
 
   console.log(redAmbrosiaUpgrades)
