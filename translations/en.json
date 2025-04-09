@@ -172,6 +172,20 @@
       "exportButton": "Export"
     }
   },
+  "redAmbrosia": {
+    "data": {
+      "tutorial": {
+        "name": "A beginners guide to Red Ambrosia",
+        "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul But you don't really care about that... +1% to Cubes, Obtainium and Offerings per level!",
+        "effect": "Cubes, Obtainium and Offerings are increased by {{amount}}%!"
+      },
+      "conversionImprovement": {
+        "name": "Ambrosia Luck Converter Improvement",
+        "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
+        "effect": "Every {{amount}} Ambrosia Luck converts to 1 Red Ambrosia Luck."
+      }
+    }
+  },
   "achievements": {
     "descriptions": {
       "1": "[[1]] A Loyal Employee: Hire your first Worker.",

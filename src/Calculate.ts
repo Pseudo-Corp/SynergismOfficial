@@ -2379,8 +2379,8 @@ export const calculateToNextThreshold = () => {
 }
 
 export const calculateRequiredBlueberryTime = () => {
-  let val = G.TIME_PER_AMBROSIA // Currently 36
-  val += 0.1 * Math.floor(player.lifetimeAmbrosia / 48)
+  let val = G.TIME_PER_AMBROSIA // Currently 30
+  val += Math.floor(player.lifetimeAmbrosia / 500)
 
   const thresholds = calculateNumberOfThresholds()
   const thresholdBase = 2

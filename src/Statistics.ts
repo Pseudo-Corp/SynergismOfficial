@@ -98,6 +98,7 @@ export interface StatLine {
   stat: () => number
   color?: string
   acc?: number
+  displayCriterion?: () => boolean
 }
 
 export const allCubeStats: StatLine[] = [
@@ -118,18 +119,21 @@ export const allCubeStats: StatLine[] = [
   },
   {
     i18n: 'CampaignTutorial',
-    stat: () => player.campaigns.tutorialBonus.cubeBonus
+    stat: () => player.campaigns.tutorialBonus.cubeBonus,
+    displayCriterion: () => player.challengecompletions[11] > 0
   },
   {
     i18n: 'Campaign',
-    stat: () => player.campaigns.cubeBonus
+    stat: () => player.campaigns.cubeBonus,
+    displayCriterion: () => player.challengecompletions[11] > 0
   },
   {
     i18n: 'SunMoon',
     stat: () =>
       1
       + (6 / 100) * player.achievements[250]
-      + (10 / 100) * player.achievements[251]
+      + (10 / 100) * player.achievements[251],
+    displayCriterion: () => player.challengecompletions[14] > 0
   },
   {
     i18n: 'SpeedAchievement',
@@ -151,7 +155,8 @@ export const allCubeStats: StatLine[] = [
       * G.challenge15Rewards.cube2.value
       * G.challenge15Rewards.cube3.value
       * G.challenge15Rewards.cube4.value
-      * G.challenge15Rewards.cube5.value
+      * G.challenge15Rewards.cube5.value,
+    displayCriterion: () => player.challengecompletions[14] > 0
   },
   {
     i18n: 'InfiniteAscent',
@@ -159,27 +164,33 @@ export const allCubeStats: StatLine[] = [
   },
   {
     i18n: 'Beta',
-    stat: () => 1 + player.platonicUpgrades[10]
+    stat: () => 1 + player.platonicUpgrades[10],
+    displayCriterion: () => player.challengecompletions[14] > 0
   },
   {
     i18n: 'Omega',
-    stat: () => Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9])
+    stat: () => Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9]),
+    displayCriterion: () => player.challengecompletions[14] > 0
   },
   {
     i18n: 'Powder',
-    stat: () => calculateCubeMultFromPowder()
+    stat: () => calculateCubeMultFromPowder(),
+    displayCriterion: () => G.challenge15Rewards.hepteractsUnlocked.value > 0
   },
   {
     i18n: 'SingDebuff',
-    stat: () => 1 / calculateSingularityDebuff('Cubes')
+    stat: () => 1 / calculateSingularityDebuff('Cubes'),
+    displayCriterion: () => player.highestSingularityCount > 0
   },
   {
     i18n: 'PassY',
-    stat: () => 1 + (0.75 * player.shopUpgrades.seasonPassY) / 100
+    stat: () => 1 + (0.75 * player.shopUpgrades.seasonPassY) / 100,
+    displayCriterion: () => player.highestSingularityCount > 0
   },
   {
     i18n: 'PassZ',
-    stat: () => 1 + (player.shopUpgrades.seasonPassZ * player.singularityCount) / 100
+    stat: () => 1 + (player.shopUpgrades.seasonPassZ * player.singularityCount) / 100,
+    displayCriterion: () => Boolean(player.singularityUpgrades.wowPass2.getEffect().bonus)
   },
   {
     i18n: 'PassINF',

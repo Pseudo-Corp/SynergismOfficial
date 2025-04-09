@@ -697,7 +697,7 @@ export const Globals: GlobalVariables = {
   // talismanResourceOfferingCosts: [0, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
 
   ambrosiaTimer: 0,
-  TIME_PER_AMBROSIA: 36,
+  TIME_PER_AMBROSIA: 30,
   currentSingChallenge: undefined
 }
 

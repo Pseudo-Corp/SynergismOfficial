@@ -175,6 +175,7 @@ import { octeractData, OcteractUpgrade } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, QuarkHandler } from './Quark'
+import { initRedAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
@@ -1598,6 +1599,14 @@ export const player: Player = {
   ultimateProgress: 0,
   ultimatePixels: 0,
   cubeUpgradeRedBarFilled: 0,
+
+  redAmbrosia: 0,
+  // NOTE: This only keeps track of the total number of Red Ambrosia
+  // Invested, because I realized that keeping classes on the player is generally a bad idea
+  redAmbrosiaUpgrades: {
+    'tutorial': 0,
+    'conversionImprovement': 0
+  },
 
   singChallengeTimer: 0,
 
@@ -6321,6 +6330,8 @@ export const reloadShit = (reset = false) => {
 
     loadSynergy()
   }
+
+  initRedAmbrosiaUpgrades(player.redAmbrosiaUpgrades)
 
   if (!reset) {
     calculateOffline()

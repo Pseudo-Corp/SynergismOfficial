@@ -9,6 +9,7 @@ import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrade } from '../Octeracts'
 import type { IPlatBaseCost } from '../Platonic'
 import type { QuarkHandler } from '../Quark'
+import type { RedAmbrosiaKeys } from '../RedAmbrosiaUpgrades'
 import type { SingularityUpgrade } from '../singularity'
 import type { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
 import type { Tabs } from '../Tabs'
@@ -636,6 +637,7 @@ export interface Player {
 
   ambrosia: number
   lifetimeAmbrosia: number
+
   blueberryTime: number
   ambrosiaRNG: number // DEPRECIATED, DO NOT USE
   visitedAmbrosiaSubtab: boolean
@@ -650,6 +652,9 @@ export interface Player {
   ultimateProgress: number
   ultimatePixels: number
   cubeUpgradeRedBarFilled: number
+
+  redAmbrosia: number
+  redAmbrosiaUpgrades: Record<RedAmbrosiaKeys, number>
 
   singChallengeTimer: number
 
