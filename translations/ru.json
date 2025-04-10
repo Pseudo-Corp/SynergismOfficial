@@ -1,6 +1,6 @@
 {
   "testing": {
-    "saveInLive": "Файлы сохранения не могут быть использованы в жизни!",
+    "saveInLive": "Файлы сохранения не могут быть использованы в настоящей игре!",
     "saveInLive2": "Вы больше не можете загрузить это сохранение!",
     "errorSaving": "Ошибка препятствует сохранению файла.",
     "gameSaved": "Игра успешно сохранена!"
@@ -13,15 +13,15 @@
     "ambrosia": "Амброзия",
     "amount": "У вас <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Амброзии!",
     "blueberryGeneration": "Каждую секунду, вы получаете <<var(--amber-text-color)|{{chance}}>> секунд Таймера Голубики.",
-    "perGen": "Сейчас получаете <<var(--amber-text-color)|{{guaranteed}}>> с вероятностью <<var(--amber-text-color)|{{extraChance}}%>> на ещё одно. [<<var(--lime-text-color)|Удача: ☘ {{ambrosiaLuck}}>>]",
-    "blueberrySecond": "Сейчас у вас накоплено <<var(--amber-text-color)|{{blueberrySecond}}>> секунд Голубики! Создаст Амброзию, когда накопится <<blue|{{thresholdTimer}}>>.",
+    "perGen": "В данный момент получаете <<var(--amber-text-color)|{{guaranteed}}>> Амброзии с вероятностью <<var(--amber-text-color)|{{extraChance}}%>> на ещё одну. [<<var(--lime-text-color)|Удача: ☘ {{ambrosiaLuck}}>>] {{extra}}",
+    "blueberrySecond": "Сейчас у вас накоплено <<var(--amber-text-color)|{{blueberrySecond}}>> Секунд Голубики! Создаст Амброзию, когда накопится <<blue|{{thresholdTimer}}>>.",
     "bonuses": "Ваша накопившаяся амброзия даёт <<var(--amber-text-color)|+{{cube}}%>> ко ВСЕМ кубам и <<cyan|+{{quark}}%>> к Кваркам!",
     "prerequisite": "Необходимо:",
     "prereqNotMet": " (Не Выполнено!)",
     "blueberryCost": "Голубики (Для Активации):",
     "prereqNotMetAlert": "Вы не выполнили необходимые требования для покупки этого улучшения.",
     "notEnoughBlueberries": "У вас недостаточно Голубики для активации этого модуля.",
-    "availableBlueberries": "У вас <<blue|{{availableBlueberries}}>> не потраченной Голубики. Разблокируйте модули нового уровня, использовав их!",
+    "availableBlueberries": "У вас <<lightblue|{{availableBlueberries}}>> не потраченной Голубики. Разблокируйте модули нового уровня, использовав их!",
     "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
     "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "Сколько Амброзии вы хотели бы потратить? У вас {{amount}} Амброзии. Введите -1, чтобы использовать максимум!",
@@ -4042,7 +4042,7 @@
   },
   "event": {
     "aprilFools": {
-      "introText": "<<white|Unsmith>> поворачивается к вам, телепатически общаясь: 'Это НЕ <<white|Rick>><<red|Roll>>, клянусь. Просто нажми на меня уже сейчас!'",
+      "introText": "<<white|Раскузнец>> поворачивается к вам, телепатически общаясь: 'Это НЕ <<white|Рик>><<red|Рол>>, клянусь. Просто нажми на меня уже!'",
       "clicked": "Видишь? Ещё одна причина доверять Unsmith. Ну что ж. За то, что вы нажали на меня, вы получите на 5% больше Подношений, Обтаниума, и ВСЕХ Кубов, пока не обновите страницу!",
       "clickedText": "Вы нажали на <<white|Unsmith>>! До обновления, получаете <<orange|+5% Подношений>>, <<pink|+5% Обтаниума>>, <<white|+5% ВСЕХ Кубов>>!"
     }
