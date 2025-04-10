@@ -23,7 +23,7 @@ const initializeConsumablesTab = memoize(() => {
         >
           <img src='Pictures/PseudoShop/${u.internalName}.png' alt='${u.name} Consumable' />
           <p>${u.name}</p>
-          <p style="white-space: pre-line">${u.description}</p>
+          <p style="white-space: pre-line">${u.description.replaceAll('\\\\n', '\n')}</p>
           <button><p>ACTIVATE: </p><p>${u.cost} PseudoCoins</p></button>
         </div>
       `).join('')
