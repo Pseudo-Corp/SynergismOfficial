@@ -25,6 +25,7 @@ import {
   allGoldenQuarkPurchaseCostStats,
   allHepteractCubeStats,
   allHypercubeStats,
+  allLuckConversionStats,
   allObtainiumIgnoreDRStats,
   allObtainiumStats,
   allOcteractCubeStats,
@@ -32,6 +33,7 @@ import {
   allPlatonicCubeStats,
   allPowderMultiplierStats,
   allQuarkStats,
+  allRedAmbrosiaLuckStats,
   allTesseractStats,
   allWowCubeStats,
   antSacrificeRewardStats,
@@ -424,6 +426,14 @@ export const calculateGoldenQuarks = () => {
 
 export const calculateGoldenQuarkCost = () => {
   return allGoldenQuarkPurchaseCostStats.reduce((a, b) => a * b.stat(), 1)
+}
+
+export const calculateLuckConversion = () => {
+  return allLuckConversionStats.reduce((a, b) => a + b.stat(), 0)
+}
+
+export const calculateRedAmbrosiaLuck = () => {
+  return allRedAmbrosiaLuckStats.reduce((a, b) => a + b.stat(), 0)
 }
 
 export const calculateTotalCoinOwned = () => {
@@ -1689,7 +1699,6 @@ export const calculateCubeBlessings = () => {
   }
   calculateRuneLevels()
   calculateAntSacrificeELO()
-  calculateObtainium()
 }
 
 export const calculateTotalOcteractCubeBonus = () => {

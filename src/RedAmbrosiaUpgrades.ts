@@ -19,9 +19,20 @@ interface ConversionImprovementReward extends BaseReward {
   conversionImprovement: number
 }
 
+interface FreeLevelReward extends BaseReward {
+  freeLevels: number
+}
+
 type RewardTypeMap = {
   'tutorial': TutorialReward
-  'conversionImprovement': ConversionImprovementReward
+  'conversionImprovement1': ConversionImprovementReward
+  'conversionImprovement2': ConversionImprovementReward
+  'conversionImprovement3': ConversionImprovementReward
+  'freeTutorialLevels': FreeLevelReward
+  'freeLevelsRow2': FreeLevelReward
+  'freeLevelsRow3': FreeLevelReward
+  'freeLevelsRow4': FreeLevelReward
+  'freeLevelsRow5': FreeLevelReward
 }
 
 export type RedAmbrosiaKeys = keyof RewardTypeMap
@@ -263,7 +274,6 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
     },
     rewards: (n: number) => {
       return {
-        type: 'tutorial',
         desc: i18next.t('redAmbrosia.data.tutorial.effect', { amount: n }),
         cubeMult: 1 + n / 100,
         obtainiumMult: 1 + n / 100,
@@ -273,19 +283,109 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
     maxLevel: 100,
     costPerLevel: 1
   },
-  conversionImprovement: {
+  conversionImprovement1: {
     costFormula: (level: number, baseCost: number) => {
       return baseCost * Math.pow(2, level)
     },
     rewards: (n: number) => {
       return {
-        type: 'conversionImprovement',
-        desc: i18next.t('redAmbrosia.data.conversionImprovement.effect', { amount: 20 - n }),
-        conversionImprovement: n
+        desc: i18next.t('redAmbrosia.data.conversionImprovement1.effect', { amount: n }),
+        conversionImprovement: -n
       }
     },
     maxLevel: 5,
     costPerLevel: 5
+  },
+  conversionImprovement2: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(4, level)
+    },
+    rewards: (n: number) => {
+      return {
+        desc: i18next.t('redAmbrosia.data.conversionImprovement2.effect', { amount: n }),
+        conversionImprovement: -n
+      }
+    },
+    maxLevel: 3,
+    costPerLevel: 200
+  },
+  conversionImprovement3: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(10, level)
+    },
+    rewards: (n: number) => {
+      return {
+        desc: i18next.t('redAmbrosia.data.conversionImprovement3.effect', { amount: n }),
+        conversionImprovement: -n
+      }
+    },
+    maxLevel: 2,
+    costPerLevel: 10000
+  },
+  freeTutorialLevels: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost + level
+    },
+    rewards: (n: number) => {
+      return {
+        desc: i18next.t('redAmbrosia.data.freeTutorialLevels.effect', { amount: n }),
+        freeLevels: n
+      }
+    },
+    maxLevel: 5,
+    costPerLevel: 1
+  },
+  freeLevelsRow2: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(2, level)
+    },
+    rewards: (n: number) => {
+      return {
+        desc: i18next.t('redAmbrosia.data.freeLevelsRow2.effect', { amount: n }),
+        freeLevels: n
+      }
+    },
+    maxLevel: 5,
+    costPerLevel: 10
+  },
+  freeLevelsRow3: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(2, level)
+    },
+    rewards: (n: number) => {
+      return {
+        desc: i18next.t('redAmbrosia.data.freeLevelsRow3.effect', { amount: n }),
+        freeLevels: n
+      }
+    },
+    maxLevel: 5,
+    costPerLevel: 250
+  },
+  freeLevelsRow4: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(2, level)
+    },
+    rewards: (n: number) => {
+      return {
+        desc: i18next.t('redAmbrosia.data.freeLevelsRow4.effect', { amount: n }),
+        freeLevels: n
+      }
+    },
+    maxLevel: 5,
+    costPerLevel: 5000
+  },
+  freeLevelsRow5: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(2, level)
+    },
+    rewards: (n: number) => {
+      return {
+        desc: i18next.t('redAmbrosia.data.freeLevelsRow5.effect', { amount: n }),
+        freeLevels: n
+      }
+    },
+    maxLevel: 5,
+    costPerLevel: 50000
   }
 }
 
@@ -311,7 +411,7 @@ export function initRedAmbrosiaUpgrades (investments: Record<RedAmbrosiaKeys, nu
 
     // Use a function that casts the result appropriately
     const upgrade = new RedAmbrosiaUpgrade(dataWithInvestment, key) // Here we need to use type assertion because TypeScript can't track
-     // the relationship between the key and the generic parameter in the loop
+    // the relationship between the key and the generic parameter in the loop
     redAmbrosiaUpgrades[key as 'tutorial'] = upgrade as RedAmbrosiaUpgrade<'tutorial'>
   }
 

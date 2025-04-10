@@ -6,6 +6,7 @@ import type { IUpgradeData } from './DynamicUpgrade'
 import { exportData, saveFilename } from './ImportExport'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus } from './Quark'
+import { getRedAmbrosiaUpgrade } from './RedAmbrosiaUpgrades'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
@@ -44,6 +45,7 @@ export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
 export interface IBlueberryData extends Omit<IUpgradeData, 'name' | 'description' | 'effect'> {
   costFormula(this: void, level: number, baseCost: number): number
   rewards(this: void, n: number): Record<string, number | boolean | string>
+  extraLevelCalc: () => number
   blueberryCost: number
   ambrosiaInvested?: number
   blueberriesInvested?: number
@@ -59,6 +61,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   public blueberryCost: number
   readonly preRequisites: BlueberryOpt | undefined
   readonly cacheUpdates: (() => void)[] | undefined
+  readonly extraLevelCalc: () => number
   #key: string
 
   constructor (data: IBlueberryData, key: string) {
@@ -69,6 +72,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     this.blueberryCost = data.blueberryCost
     this.costFormula = data.costFormula
     this.rewards = data.rewards
+    this.extraLevelCalc = data.extraLevelCalc
     this.ambrosiaInvested = data.ambrosiaInvested ?? 0
     this.blueberriesInvested = data.blueberriesInvested ?? 0
     this.preRequisites = data.prerequisites ?? undefined
@@ -172,23 +176,15 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     const isMaxLevel = this.maxLevel === this.level
     const color = isMaxLevel ? 'plum' : 'white'
 
-    let freeLevelInfo = this.freeLevels > 0
-      ? `<span style="color: orange"> [+${
+    const freeLevelInfo = this.extraLevels > 0
+      ? `<span style="color: pink"> [+${
         format(
-          this.freeLevels,
-          1,
+          this.extraLevels,
+          0,
           true
         )
       }]</span>`
       : ''
-
-    if (this.freeLevels > this.level) {
-      freeLevelInfo = `${freeLevelInfo}<span style="color: var(--maroon-text-color)">${
-        i18next.t(
-          'general.softCapped'
-        )
-      }</span>`
-    }
 
     const isAffordable = costNextLevel <= player.ambrosia
     const affordableInfo = isMaxLevel
@@ -297,24 +293,27 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     this.blueberriesInvested = 0
   }
 
+  get extraLevels (): number {
+    return this.extraLevelCalc()
+  }
+
+  get effectiveLevels (): number {
+    return (player.singularityChallenges.noAmbrosiaUpgrades.enabled
+        || player.singularityChallenges.sadisticPrequel.enabled)
+      ? 0
+      : this.level + this.extraLevels
+  }
+
   public get rewardDesc (): string {
-    const effectiveLevel =
-      (player.singularityChallenges.noAmbrosiaUpgrades.enabled || player.singularityChallenges.sadisticPrequel.enabled)
-        ? 0
-        : this.level
     if ('desc' in this.rewards(0)) {
-      return String(this.rewards(effectiveLevel).desc)
+      return String(this.rewards(this.effectiveLevels).desc)
     } else {
       return 'Contact Platonic or Khafra if you see this (should never occur!)'
     }
   }
 
   public get bonus () {
-    const effectiveLevel =
-      (player.singularityChallenges.noAmbrosiaUpgrades.enabled || player.singularityChallenges.sadisticPrequel.enabled)
-        ? 0
-        : this.level
-    return this.rewards(effectiveLevel)
+    return this.rewards(this.effectiveLevels)
   }
 
   valueOf (): IBlueberryData {
@@ -324,6 +323,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
       costPerLevel: this.costPerLevel,
       maxLevel: this.maxLevel,
       rewards: this.rewards,
+      extraLevelCalc: this.extraLevelCalc,
       ambrosiaInvested: this.ambrosiaInvested,
       blueberriesInvested: this.blueberriesInvested,
       cacheUpdates: this.cacheUpdates,
@@ -363,7 +363,8 @@ export const blueberryUpgradeData: Record<
           })
         )
       }
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeTutorialLevels').bonus.freeLevels
   },
   ambrosiaQuarks1: {
     maxLevel: 100,
@@ -385,7 +386,8 @@ export const blueberryUpgradeData: Record<
     },
     prerequisites: {
       ambrosiaTutorial: 10
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow2').bonus.freeLevels
   },
   ambrosiaCubes1: {
     maxLevel: 100,
@@ -407,7 +409,8 @@ export const blueberryUpgradeData: Record<
     },
     prerequisites: {
       ambrosiaTutorial: 10
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow2').bonus.freeLevels
   },
   ambrosiaLuck1: {
     maxLevel: 100,
@@ -429,7 +432,8 @@ export const blueberryUpgradeData: Record<
     },
     prerequisites: {
       ambrosiaTutorial: 10
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow2').bonus.freeLevels
   },
   ambrosiaQuarkCube1: {
     maxLevel: 25,
@@ -455,7 +459,8 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaCubes1: 30,
       ambrosiaQuarks1: 20
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow3').bonus.freeLevels
   },
   ambrosiaLuckCube1: {
     maxLevel: 25,
@@ -479,7 +484,8 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaCubes1: 30,
       ambrosiaLuck1: 20
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow3').bonus.freeLevels
   },
   ambrosiaCubeQuark1: {
     maxLevel: 25,
@@ -511,7 +517,8 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaQuarks1: 30,
       ambrosiaCubes1: 20
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow3').bonus.freeLevels
   },
   ambrosiaLuckQuark1: {
     maxLevel: 25,
@@ -541,7 +548,8 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaQuarks1: 30,
       ambrosiaLuck1: 20
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow3').bonus.freeLevels
   },
   ambrosiaCubeLuck1: {
     maxLevel: 25,
@@ -572,7 +580,8 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaLuck1: 30,
       ambrosiaCubes1: 20
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow3').bonus.freeLevels
   },
   ambrosiaQuarkLuck1: {
     maxLevel: 25,
@@ -597,7 +606,8 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaLuck1: 30,
       ambrosiaQuarks1: 20
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow3').bonus.freeLevels
   },
   ambrosiaQuarks2: {
     maxLevel: 100,
@@ -609,7 +619,7 @@ export const blueberryUpgradeData: Record<
     rewards: (n: number) => {
       const quarkAmount = 1
         + (0.01
-            + Math.floor(player.blueberryUpgrades.ambrosiaQuarks1.level / 10)
+            + Math.floor(player.blueberryUpgrades.ambrosiaQuarks1.effectiveLevels / 10)
               / 1000)
           * n
       return {
@@ -623,7 +633,8 @@ export const blueberryUpgradeData: Record<
     },
     prerequisites: {
       ambrosiaQuarks1: 40
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow4').bonus.freeLevels
   },
   ambrosiaCubes2: {
     maxLevel: 100,
@@ -636,7 +647,7 @@ export const blueberryUpgradeData: Record<
       const cubeAmount = (1
         + (0.1
             + 10
-              * (Math.floor(player.blueberryUpgrades.ambrosiaCubes1.level / 10)
+              * (Math.floor(player.blueberryUpgrades.ambrosiaCubes1.effectiveLevels / 10)
                 / 1000))
           * n)
         * Math.pow(1.15, Math.floor(n / 5))
@@ -651,7 +662,8 @@ export const blueberryUpgradeData: Record<
     },
     prerequisites: {
       ambrosiaCubes1: 40
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow4').bonus.freeLevels
   },
   ambrosiaLuck2: {
     maxLevel: 100,
@@ -662,7 +674,7 @@ export const blueberryUpgradeData: Record<
     },
     rewards: (n: number) => {
       const val = (3
-            + 0.3 * Math.floor(player.blueberryUpgrades.ambrosiaLuck1.level / 10))
+            + 0.3 * Math.floor(player.blueberryUpgrades.ambrosiaLuck1.effectiveLevels / 10))
           * n
         + 40 * Math.floor(n / 10)
       return {
@@ -676,7 +688,8 @@ export const blueberryUpgradeData: Record<
     },
     prerequisites: {
       ambrosiaLuck1: 40
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow4').bonus.freeLevels
   },
   ambrosiaQuarks3: {
     maxLevel: 10,
@@ -686,7 +699,7 @@ export const blueberryUpgradeData: Record<
       return baseCost + 50000 * level
     },
     rewards: (n: number) => {
-      const quark2Mult = 1 + player.blueberryUpgrades.ambrosiaQuarks2.level / 100
+      const quark2Mult = 1 + player.blueberryUpgrades.ambrosiaQuarks2.effectiveLevels / 100
       const quark3Base = 0.05 * n
       const quarkAmount = 1 + quark3Base * quark2Mult
       return {
@@ -701,7 +714,8 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaQuarks1: 100,
       ambrosiaQuarks2: 50
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow5').bonus.freeLevels
   },
   ambrosiaCubes3: {
     maxLevel: 100,
@@ -711,7 +725,7 @@ export const blueberryUpgradeData: Record<
       return baseCost + 2000 * level
     },
     rewards: (n: number) => {
-      const cube2Multi = 1 + 3 * player.blueberryUpgrades.ambrosiaCubes2.level / 100
+      const cube2Multi = 1 + 3 * player.blueberryUpgrades.ambrosiaCubes2.effectiveLevels / 100
       const cube3Base = 0.2 * n
       const cube3Exponential = Math.pow(1.2, Math.floor(n / 5))
       const cubeAmount = (1 + cube3Base * cube2Multi) * cube3Exponential
@@ -727,7 +741,8 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaCubes1: 100,
       ambrosiaCubes2: 50
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow5').bonus.freeLevels
   },
   ambrosiaLuck3: {
     maxLevel: 100,
@@ -750,7 +765,8 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaLuck1: 90,
       ambrosiaLuck2: 50
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow5').bonus.freeLevels
   },
   ambrosiaPatreon: {
     maxLevel: 1,
@@ -769,7 +785,8 @@ export const blueberryUpgradeData: Record<
           })
         )
       }
-    }
+    },
+    extraLevelCalc: () => 0
   },
   ambrosiaObtainium1: {
     maxLevel: 2,
@@ -789,7 +806,8 @@ export const blueberryUpgradeData: Record<
           })
         )
       }
-    }
+    },
+    extraLevelCalc: () => 0
   },
   ambrosiaOffering1: {
     maxLevel: 2,
@@ -809,7 +827,8 @@ export const blueberryUpgradeData: Record<
           })
         )
       }
-    }
+    },
+    extraLevelCalc: () => 0
   },
   ambrosiaHyperflux: {
     maxLevel: 7,
@@ -838,7 +857,8 @@ export const blueberryUpgradeData: Record<
           })
         )
       }
-    }
+    },
+    extraLevelCalc: () => 0
   },
   ambrosiaBaseOffering1: {
     maxLevel: 40,
@@ -857,7 +877,8 @@ export const blueberryUpgradeData: Record<
           })
         )
       }
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow2').bonus.freeLevels
   },
   ambrosiaBaseObtainium1: {
     maxLevel: 20,
@@ -876,7 +897,8 @@ export const blueberryUpgradeData: Record<
           })
         )
       }
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow2').bonus.freeLevels
   },
   ambrosiaBaseOffering2: {
     maxLevel: 60,
@@ -899,7 +921,8 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaBaseOffering1: 30,
       ambrosiaBaseObtainium1: 10
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow4').bonus.freeLevels
   },
   ambrosiaBaseObtainium2: {
     maxLevel: 30,
@@ -922,7 +945,8 @@ export const blueberryUpgradeData: Record<
     prerequisites: {
       ambrosiaBaseObtainium1: 15,
       ambrosiaBaseOffering1: 20
-    }
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow4').bonus.freeLevels
   },
   ambrosiaSingReduction: {
     maxLevel: 2,
@@ -944,7 +968,8 @@ export const blueberryUpgradeData: Record<
     },
     prerequisites: {
       ambrosiaHyperflux: 4
-    }
+    },
+    extraLevelCalc: () => 0
   }
 }
 

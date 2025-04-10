@@ -1605,7 +1605,14 @@ export const player: Player = {
   // Invested, because I realized that keeping classes on the player is generally a bad idea
   redAmbrosiaUpgrades: {
     'tutorial': 0,
-    'conversionImprovement': 0
+    'conversionImprovement1': 0,
+    'conversionImprovement2': 0,
+    'conversionImprovement3': 0,
+    'freeTutorialLevels': 0,
+    'freeLevelsRow2': 0,
+    'freeLevelsRow3': 0,
+    'freeLevelsRow4': 0,
+    'freeLevelsRow5': 0
   },
 
   singChallengeTimer: 0,
@@ -6450,6 +6457,7 @@ window.addEventListener('load', async () => {
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
   createCampaignIconHTMLS()
+  initRedAmbrosiaUpgrades(player.redAmbrosiaUpgrades)
   reloadShit()
 }, { once: true })
 

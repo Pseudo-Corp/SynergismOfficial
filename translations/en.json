@@ -179,10 +179,45 @@
         "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul But you don't really care about that... +1% to Cubes, Obtainium and Offerings per level!",
         "effect": "Cubes, Obtainium and Offerings are increased by {{amount}}%!"
       },
-      "conversionImprovement": {
+      "conversionImprovement1": {
         "name": "Ambrosia Luck Converter Improvement",
         "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Every {{amount}} Ambrosia Luck converts to 1 Red Ambrosia Luck."
+        "effect": "Reduces the number of Ambrosia Luck needed by <lime | {{amount}}>>!"
+      },
+      "conversionImprovement2": {
+        "name": "Ambrosia Luck Converter Improvement II: The Red Electric Boogaloo",
+        "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
+        "effect": "Reduces the number of Ambrosia Luck needed by <lime | {{amount}}>>!"
+      },
+      "conversionImprovement3": {
+        "name": "Ambrosia Luck Converter Improvement III and a half",
+        "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
+        "effect": "Reduces the number of Ambrosia Luck needed by <lime | {{amount}}>>!"
+      },
+      "freeTutorialLevels": {
+        "name": "More Blueberry Tutorial Module Levels!",
+        "description": "A meta-tutorial of sorts. A powerful ability of Red Ambrosia is to power your Blueberry tree! Increase the effective level of Blueberry Tutorial Module by 1 per level.",
+        "effect": "This module increases the effective level of Blueberry Tutorial Module by {{amount}}!"
+      },
+      "freeLevelsRow2": {
+        "name": "More Row 2 Blueberry Upgrade Levels!",
+        "description": "With no exceptions, add one effective level to all Modules that reside on the second row, per level.",
+        "effect": "This module increases the effective level of ALL row 2 Blueberry Upgrades by {{amount}}!"
+      },
+      "freeLevelsRow3": {
+        "name": "More Row 3 Blueberry Upgrade Levels!",
+        "description": "With the exception of the Singularity Stablizer, add one effective level to all Modules that reside on the third row, per level.",
+        "effect": "This module increases the effective level of (most) row 3 Blueberry Upgrades by {{amount}}!"
+      },
+      "freeLevelsRow4": {
+        "name": "More Row 4 Blueberry Upgrade Levels!",
+        "description": "With no exceptions, add one effective level to all Modules that reside on the fourth row, per level.",
+        "effect": "This module increases the effective level of ALL row 4 Blueberry Upgrades by {{amount}}!"
+      },
+      "freeLevelsRow5": {
+        "name": "More Row 5 Blueberry Upgrade Levels!",
+        "description": "With no exceptions, add one effective level to all Modules that reside on the fifth row, per level.",
+        "effect": "This module increases the effective level of ALL row 5 Blueberry Upgrades by {{amount}}!"
       }
     }
   },
@@ -3736,6 +3771,7 @@
       "ModuleCubes2": "Ambrosia - Cube Module II:",
       "ModuleCubes3": "Ambrosia - Cube Module III:",
       "ModuleHyperflux": "Ambrosia - Hyperflux Module:",
+      "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
       "Exalt6": "The Grand Singularity Speedrun - Too Slow:",
       "Event": "Event Bonus:",
       "Total": "Total Universal Cube Multiplier:"
@@ -3852,6 +3888,7 @@
       "ModuleQuarkCube1": "Module- Quark-Cube 1:",
       "ModuleCubes2": "Module- Cubes 2:",
       "ModuleCubes3": "Module- Cubes 3:",
+      "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
       "CashGrabUltra": "Cash Grab ULTIMATE:",
       "EXUltra": "Shop EX ULTIMATE:",
       "AscensionSpeed": "Ascension Speed Multiplier:",
@@ -3926,6 +3963,7 @@
       "OfferingEX2": "Offering EX 2 Shop Upgrade:",
       "OfferingINF": "Offering INF Shop Upgrade:",
       "EXUltra": "Shop EX ULTIMATE:",
+      "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
       "Event": "Event Bonus:",
       "Exalt6Penalty": "The Grand Singularity Speedrun - Too Slow:",
       "Total": "Offering Multiplier:",
@@ -3997,6 +4035,7 @@
       "CubeUpgradeCx12": "Cube Upgrade 7x2 (Cx12):",
       "CubeUpgradeCx21": "Cube Upgrade 8x1 (Cx21):",
       "ObtainiumEX3": "Obtainium EX 3 Shop Upgrade [Per 25 levels]:",
+      "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
       "EXALTBonus": "EXALT - Twenty Ascensions Challenge:",
       "Exalt6Penalty": "The Grand Singularity Speedrun - Too Slow:",
       "Event": "Event Bonus:",
@@ -4190,6 +4229,7 @@
       "SingBlueberries": "Singularity Blueberry Upgrade:",
       "ConglomerateBerries": "Congealed Blueberries (Singularity Milestones):",
       "NoAmbrosiaUpgrades": "No Ambrosia Upgrades Challenge Reward:",
+      "OcteractBlueberries": "Octeract Blueberry Upgrade:",
       "Total": "Total Blueberries Owned:"
     },
     "ambrosiaGenerationStats": {
@@ -4301,6 +4341,20 @@
       "TotalQuarks": "Total Quarks Ever:",
       "QuarkTimer": "Quark Timer:",
       "QuarkTimerMax": "Quark Timer Maximum:"
+    },
+    "luckConversionStats": {
+      "title": "Ambrosia Luck Conversion",
+      "Base": "Base Conversion Value:",
+      "RedAmbrosiaUpgrade1": "Red Ambrosia Upgrade: Conversion Improvement I",
+      "RedAmbrosiaUpgrade2": "Red Ambrosia Upgrade: Conversion Improvement II",
+      "RedAmbrosiaUpgrade3": "Red Ambrosia Upgrade: Conversion Improvement III",
+      "Total": "Ambrosia Luck per 1 Red Ambrosia Luck:"
+    },
+    "redAmbrosiaLuckStats": {
+      "title": "Red Ambrosia Luck",
+      "Base": "Base Value:",
+      "LuckConversion": "Luck from Ambrosia Luck:",
+      "Total": "Total Red Ambrosia Luck:"
     },
     "gameStage": "Current Game Stage: {{stage}}"
   },

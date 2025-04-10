@@ -44,6 +44,7 @@ import {
   calculateHepteractMultiplier,
   calculateHypercubeMultiplier,
   calculateLimitedAscensionsDebuff,
+  calculateLuckConversion,
   calculateNumberOfThresholds,
   calculateObtainium,
   calculateObtainiumDecimal,
@@ -58,6 +59,7 @@ import {
   calculateQuarkMultFromPowder,
   calculateQuarkMultiplier,
   calculateRawAscensionSpeedMult,
+  calculateRedAmbrosiaLuck,
   calculateSigmoid,
   calculateSingularityAmbrosiaLuckMilestoneBonus,
   calculateSingularityMilestoneBlueberries,
@@ -86,6 +88,7 @@ import {
 } from './ImportExport'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus } from './Quark'
+import { getRedAmbrosiaUpgrade } from './RedAmbrosiaUpgrades'
 import { shopData } from './Shop'
 import { calculateSingularityDebuff, getFastForwardTotalMultiplier } from './singularity'
 import { format, player } from './Synergism'
@@ -290,6 +293,10 @@ export const allCubeStats: StatLine[] = [
   {
     i18n: 'ModuleCubes3',
     stat: () => +player.blueberryUpgrades.ambrosiaCubes3.bonus.cubes
+  },
+  {
+    i18n: 'RedAmbrosiaTutorial',
+    stat: () => getRedAmbrosiaUpgrade('tutorial').bonus.cubeMult
   },
   {
     i18n: 'Exalt6',
@@ -790,6 +797,10 @@ export const allOcteractCubeStats: StatLine[] = [
     stat: () => +player.blueberryUpgrades.ambrosiaCubes3.bonus.cubes
   },
   {
+    i18n: 'RedAmbrosiaTutorial',
+    stat: () => getRedAmbrosiaUpgrade('tutorial').bonus.cubeMult
+  },
+  {
     i18n: 'CashGrabUltra',
     stat: () => +calculateCashGrabCubeBonus()
   },
@@ -1044,6 +1055,10 @@ export const allOfferingStats = [
   {
     i18n: 'Ambrosia',
     stat: () => 1 + 0.001 * +player.blueberryUpgrades.ambrosiaOffering1.bonus.offeringMult // Ambrosia!!
+  },
+  {
+    i18n: 'RedAmbrosiaTutorial',
+    stat: () => getRedAmbrosiaUpgrade('tutorial').bonus.offeringMult // Red Ambrosia Tutorial
   },
   {
     i18n: 'CubeUpgradeCx22',
@@ -1318,6 +1333,10 @@ export const allObtainiumIgnoreDRStats: StatLine[] = [
     i18n: 'CubeUpgradeCx12',
     stat: () => (player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1, // Cube Upgrade 7x2 (Cx12)
     color: 'cyan'
+  },
+  {
+    i18n: 'RedAmbrosiaTutorial',
+    stat: () => getRedAmbrosiaUpgrade('tutorial').bonus.obtainiumMult // Red Ambrosia Tutorial
   },
   {
     i18n: 'CubeUpgradeCx21',
@@ -2367,6 +2386,36 @@ export const allAddCodeCapacityMultiplierStats: StatLine[] = [
   }
 ]
 
+export const allLuckConversionStats: StatLine[] = [
+  {
+    i18n: 'Base',
+    stat: () => 20 // Base value of 20.00
+  },
+  {
+    i18n: 'RedAmbrosiaUpgrade1',
+    stat: () => getRedAmbrosiaUpgrade('conversionImprovement1').bonus.conversionImprovement // Conversion Improvement I
+  },
+  {
+    i18n: 'RedAmbrosiaUpgrade2',
+    stat: () => getRedAmbrosiaUpgrade('conversionImprovement2').bonus.conversionImprovement // Conversion Improvement II
+  },
+  {
+    i18n: 'RedAmbrosiaUpgrade3',
+    stat: () => getRedAmbrosiaUpgrade('conversionImprovement3').bonus.conversionImprovement // Conversion Improvement III
+  }
+]
+
+export const allRedAmbrosiaLuckStats: StatLine[] = [
+  {
+    i18n: 'Base',
+    stat: () => 100 // Base value of 100
+  },
+  {
+    i18n: 'LuckConversion',
+    stat: () => Math.floor((calculateAmbrosiaLuck() - 100) / calculateLuckConversion()) // Luck Conversion
+  }
+]
+
 export const allMiscStats: StatLine[] = [
   {
     i18n: 'PrestigeCount',
@@ -2480,7 +2529,9 @@ const associated = new Map<string, string>([
   ['kAmbrosiaAdditiveLuckMult', 'ambrosiaAdditiveLuckMultStats'],
   ['kAmbrosiaLuck', 'ambrosiaLuckStats'],
   ['kAmbrosiaBlueberries', 'ambrosiaBlueberryStats'],
-  ['kAmbrosiaGenMult', 'ambrosiaGenerationStats']
+  ['kAmbrosiaGenMult', 'ambrosiaGenerationStats'],
+  ['kLuckConversion', 'luckConversionStats'],
+  ['kRedAmbrosiaLuck', 'redAmbrosiaLuckStats']
 ])
 
 export const displayStats = (btn: HTMLElement) => {
@@ -2583,6 +2634,12 @@ export const loadStatisticsUpdate = () => {
         break
       case 'octeractMultiplierStats':
         loadOcteractMultiplierStats()
+        break
+      case 'luckConversionStats':
+        loadLuckConversionStats()
+        break
+      case 'redAmbrosiaLuckStats':
+        loadRedAmbrosiaLuckStats()
         break
     }
   }
@@ -2913,6 +2970,20 @@ export const loadAddCodeCapacityStats = () => {
   DOMCacheGetOrSet('stat+next').innerHTML = i18next.t('statistics.nextAdd', {
     time: format(addCodeTimeToNextUse(), 0, true)
   })
+}
+
+export const loadLuckConversionStats = () => {
+  loadStatistics(allLuckConversionStats, 'luckConversionStats', 'statLC', 'LuckConversionStat', calculateLuckConversion)
+}
+
+export const loadRedAmbrosiaLuckStats = () => {
+  loadStatistics(
+    allRedAmbrosiaLuckStats,
+    'redAmbrosiaLuckStats',
+    'statRAL',
+    'redAmbrosiaLuckStat',
+    calculateRedAmbrosiaLuck
+  )
 }
 
 export const loadMiscellaneousStats = () => {

@@ -778,6 +778,7 @@ export const playerSchema = z.object({
               blueberryCost: blueberryUpgradeData[k].blueberryCost,
               rewards: blueberryUpgradeData[k].rewards,
               costFormula: blueberryUpgradeData[k].costFormula,
+              extraLevelCalc: blueberryUpgradeData[k].extraLevelCalc,
               freeLevels: freeLevels as number,
               prerequisites: blueberryUpgradeData[k].prerequisites,
               cacheUpdates: blueberryUpgradeData[k].cacheUpdates
@@ -797,7 +798,17 @@ export const playerSchema = z.object({
   cubeUpgradeRedBarFilled: z.number().default(() => blankSave.cubeUpgradeRedBarFilled),
 
   redAmbrosia: z.number().default(() => blankSave.redAmbrosia),
-  redAmbrosiaUpgrades: z.record(z.string(), z.number()).default(() => ({ ...blankSave.redAmbrosiaUpgrades })),
+  redAmbrosiaUpgrades: z.record(z.string(), z.number()).transform(
+    (object) => {
+      return Object.fromEntries(
+        Object.keys(blankSave.redAmbrosiaUpgrades).map((key) => {
+          const value = object[key]
+            ?? blankSave.redAmbrosiaUpgrades[key as keyof typeof blankSave['redAmbrosiaUpgrades']]
+          return value === null ? [key, 0] : [key, Number(value)]
+        })
+      )
+    }
+  ).default(() => ({ ...blankSave.redAmbrosiaUpgrades })),
 
   singChallengeTimer: z.number().default(() => blankSave.singChallengeTimer),
 
