@@ -281,63 +281,63 @@
       "146": "[[146]] Спуск: Выполните {[Садизм I]} Двадцать Раз.",
       "147": "[[147]] Конец Вселенной: Выполните {[Садизм I]} Двадцать Пять Раз.",
       "148": "[[148]] Gas gas gas: Купите 5 Ускорителей.",
-      "149": "[[149]] 0 to 25: Purchase 25 Accelerators.",
-      "150": "[[150]] 0 to 100: Purchase 100 Accelerators",
-      "151": "[[151]] Highway to Hell: Purchase 666 Accelerators.",
-      "152": "[[152]] Perhaps you should brake: Purchase 2,000 Accelerators.",
-      "153": "[[153]] Exit the vehicle now!: Purchase 12,500 Accelerators.",
-      "154": "[[154]] Faster than light: Purchase 100,000 Accelerators.",
-      "155": "[[155]] I've been duped!: Purchase 2 Multipliers.",
-      "156": "[[156]] Funhouse Mirrors: Purchase 20 Multipliers.",
-      "157": "[[157]] Friend of binary: Purchase 100 Multipliers.",
-      "158": "[[158]] Feeling the cost growth yet?: Purchase 500 Multipliers.",
-      "159": "[[159]] Perhaps you'll feel the cost now: Purchase 2,000 Multipliers.",
-      "160": "[[160]] Exponential Synergy: Purchase 12,500 Multipliers.",
-      "161": "[[161]] Cloned: Purchase 100,000 Multipliers.",
-      "162": "[[162]] Jerk > 0: Purchase 2 Accelerator Boosts.",
-      "163": "[[163]] Can't the speedometer move any faster?: Purchase 10 Accelerator Boosts.",
-      "164": "[[164]] 50 G rotations: Purchase 50 Accelerator Boosts.",
-      "165": "[[165]] Dematerialize: Purchase 200 Accelerator Boosts.",
-      "166": "[[166]] Breaking the laws of Physics: Purchase 1,000 Accelerator Boosts.",
-      "167": "[[167]] Decayed Realism: Purchase 5,000 Accelerator Boosts.",
-      "168": "[[168]] Kinda fast: Purchase 15,000 Accelerator Boosts.",
-      "169": "[[169]] The Galactic Feast: Obtain 3 Galactic Crumbs.",
-      "170": "[[170]] Only the finest: Obtain 100,000 Galactic Crumbs.",
-      "171": "[[171]] Six-Course Meal: Obtain 666,666,666 Galactic Crumbs.",
-      "172": "[[172]] Accumulation of Food: Obtain 1e20 Galactic Crumbs.",
-      "173": "[[173]] Cookie Clicking: Obtain 1e40 Galactic Crumbs.",
-      "174": "[[174]] Unlimited Bread Sticks!: Obtain 1e500 Galactic Crumbs.",
-      "175": "[[175]] Restaurant at the end of the Universe: Obtain 1e2500 Galactic Crumbs.",
-      "176": "[[176]] Ant-icipation!: Amass a 2x Ant Multiplier through sacrifice and own a Tier 2 Ant.",
-      "177": "[[177]] Ant-ecedent: Amass a 6x Ant Multiplier through sacrifice and own a Tier 3 Ant.",
-      "178": "[[178]] Ants are friends, not food!: Amass a 20x Ant Multiplier through sacrifice and own a Tier 4 Ant.",
-      "179": "[[179]] Ant Devil?: Amass a 100x Ant Multiplier through sacrifice and own a Tier 5 Ant.",
-      "180": "[[180]] The world's best chef: Amass a 500x Ant Multiplier through sacrifice and own a Tier 6 Ant.",
-      "181": "[[181]] 6 Michelin Stars: Amass a 6,666x Ant Multiplier through sacrifice and own a Tier 7 Ant.",
-      "182": "[[182]] Keys to the Restaurant at the end of the Universe: Amass a 77,777x Ant Multiplier through sacrifice and own a Tier 8 Ant.",
-      "183": "[[183]] Up: Ascend Once.",
-      "184": "[[184]] Double-Up: Ascend Twice.",
-      "185": "[[185]] Give me Ten!: Ascend Ten Times.",
-      "186": "[[186]] Give me a Hundred: Ascend 100 Times.",
-      "187": "[[187]] Give me a Thousand: Ascend 1,000 Times.",
-      "188": "[[188]] Give me some arbitrary number I: Ascend 14,142 Times.",
-      "189": "[[189]] Give me some arbitrary number II: Ascend 141,421 Times.",
-      "190": "[[190]] Now that's what I call getting some Pi!: Attain a constant of 3.14.",
-      "191": "[[191]] One in a million: Attain a constant of 1,000,000 [1e6].",
-      "192": "[[192]] A number: Attain a constant of 4.32e10.",
-      "193": "[[193]] The coolest of numbers: Attain a constant of 6.9e21.",
-      "194": "[[194]] Planck^(-1): Attain a constant of 1.509e33.",
-      "195": "[[195]] Epsilon > a lot: Attain a constant of 1e66.",
-      "196": "[[196]] NUM_MAX: Attain a constant of 1.8e308.",
-      "197": "[[197]] Casualties: Clear 'Reduced Ants' challenge once.",
-      "198": "[[198]] Fatalities: Clear 'Reduced Ants' challenge twice.",
-      "199": "[[199]] Destruction: Clear 'Reduced Ants' challenge three times.",
-      "200": "[[200]] War, what is it good for?: Clear 'Reduced Ants' challenge five times.",
-      "201": "[[201]] Absolutely everything.: Clear 'Reduced Ants' challenge ten times.",
-      "202": "[[202]] Perfect Storm: Clear 'Reduced Ants' challenge twenty times.",
-      "203": "[[203]] Immaculate Storm: Clear 'Reduced Ants' challenge thirty times.",
-      "204": "[[204]] I didn't need those stupid reincarnations anyway!: Clear 'No Reincarnation' challenge once.",
-      "205": "[[205]] [x1,x2,0,x3]: Clear 'No Reincarnation' challenge twice.",
+      "149": "[[149]] От 0 до 25: Купите 25 Ускорителей.",
+      "150": "[[150]] От 0 до 100: Купите 100 Ускорителей",
+      "151": "[[151]] Highway to Hell: Купите 666 Ускорителей.",
+      "152": "[[152]] Вам бы сбавить обороты: Купите 2 000 Ускорителей.",
+      "153": "[[153]] Немедленно выйдите из машины!: Купите 12 500 Ускорителей.",
+      "154": "[[154]] Быстрее света: Купите 100 000 Ускорителей.",
+      "155": "[[155]] Два меня и ноль денег!: Купите 2 Множителя.",
+      "156": "[[156]] Карикатурные Зеркала: Купите 20 Множителей.",
+      "157": "[[157]] Друг двоичных: Купите 100 Множителей.",
+      "158": "[[158]] Чувствуете рост цен?: Купите 500 Множителей.",
+      "159": "[[159]] Может теперь почувствуете?: Купите 2 000 Множителей.",
+      "160": "[[160]] Экспоненциальная Синергия: Купите 12 500 Множителей.",
+      "161": "[[161]] Клонирован: Купите 100 000 Множителей.",
+      "162": "[[162]] Рывок > 0: Купите 2 Усилителя Ускорителей.",
+      "163": "[[163]] Можно спидометр побыстрее?: Купить 10 Усилителей Ускорителей.",
+      "164": "[[164]] 50 G Манёвры: Купите 50 Усилителей Ускорителей.",
+      "165": "[[165]] Дематериализация: Купите 200 Усилителей Ускорителей.",
+      "166": "[[166]] Нарушая законы Физики: Купите 1 000 Усилителей Ускорителей.",
+      "167": "[[167]] Увядший Реализм: Купите 5 000 Усилителей Ускорителей.",
+      "168": "[[168]] Довольно быстро: Купите 15 000 Усилителей Ускорителей.",
+      "169": "[[169]] Галактический Пир: Получите 3 Галактических Крошки.",
+      "170": "[[170]] Только самое лучшее: Получите 100 000 Галактических Крошек.",
+      "171": "[[171]] Обед на Шесть Блюд: Получите 666 666 666 Галактических Крошек.",
+      "172": "[[172]] Скопление Еды: Получите 1e20 Галактических Крошек.",
+      "173": "[[173]] Кликанье по Печеньке: Получите 1e40 Галактических Крошек.",
+      "174": "[[174]] Безлимитные Хлебные Палочки!: Получите 1e500 Галактических Крошек.",
+      "175": "[[175]] Ресторан на краю Вселенной: Получите 1e2 500 Галактических Крошек.",
+      "176": "[[176]] Мур-ашки!: Приобретите Муравья 2 Вида и, через пожертвования, накопите Муравьиный Множитель 2x.",
+      "177": "[[177]] Пред-трут-венник: Приобретите Муравья 3 Вида и, через пожертвования, накопите Муравьиный Множитель 6x.",
+      "178": "[[178]] Муравьи - друзья, а не еда!: Приобретите Муравья 4 Вида и, через пожертвования, накопите Муравьиный Множитель 20x.",
+      "179": "[[179]] Муравьиный дьявол?: Приобретите Муравья 5 Вида и, через пожертвования, накопите Муравьиный Множитель 100x.",
+      "180": "[[180]] Лучший повар в мире: Приобретите Муравья 6 Вида и, через пожертвования, накопите Муравьиный Множитель 500x.",
+      "181": "[[181]] Шесть звёзд Мишлен: Приобретите Муравья 7 Вида и, через пожертвования, накопите Муравьиный Множитель 6 666x.",
+      "182": "[[182]] Ключи от ресторана на краю Вселенной: Приобретите Муравья 8 Вида и, через пожертвования, накопите Муравьиный Множитель 77 777x.",
+      "183": "[[183]] Вверх: Вознеситесь Один раз.",
+      "184": "[[184]] Растяжка: Вознеситесь Два раза.",
+      "185": "[[185]] Дай мне Десять!: Вознеситесь Десять Раз.",
+      "186": "[[186]] Дай мне Сотню!: Вознеситесь 100 Раз.",
+      "187": "[[187]] Дай мне Тысячу: Вознеситесь 1 000 Раз.",
+      "188": "[[188]] Дай мне сколько захочешь I: Вознеситесь 14 142 Раз.",
+      "189": "[[189]] Дай мне сколько захочешь II: Вознеситесь 141 421 Раз.",
+      "190": "[[190]] Вот что я называю получением Pi!: Набрать константу 3.14.",
+      "191": "[[191]] Один на миллион: Набрать константу 1 000 000 [1e6].",
+      "192": "[[192]] Число: Набрать константу 4.32e10.",
+      "193": "[[193]] Крутейшее из чисел: Набрать константу 6.9e21.",
+      "194": "[[194]] Постоянная Планка^(-1): Набрать константу 1.509e33.",
+      "195": "[[195]] Эспилон > много: Набрать константу 1e66.",
+      "196": "[[196]] NUM_MAX: Набрать константу 1.8e308.",
+      "197": "[[197]] Жертвы: Выполните испытание 'Меньше Муравьёв' один раз.",
+      "198": "[198]] Смерти: Выполните испытание 'Меньше Муравьёв' два раза.",
+      "199": "[[199]] Разрушение: Выполните испытание 'Меньше Муравьёв' три раза.",
+      "200": "[[200]] Война, для чего же она хороша?: Выполните испытание 'Меньше Муравьёв' пять раз.",
+      "201": "[[201]] Да для чего угодно.: Выполните испытание 'Меньше Муравьёв' десять раз.",
+      "202": "[[202]] Идеальный Шторм: Выполните испытание 'Меньше Муравьёв' двадцать раз.",
+      "203": "[[203]] Безупречная Буря: Выполните испытание 'Меньше Муравьёв' тридцать раз.",
+      "204": "[[204]] Кому нужны эти тупые реинкарнации?!: Выполните испытание 'Без Реинкарнаций' один раз.",
+      "205": "[[205]] [x1,x2,0,x3]: Выполните испытание 'Без Реинкарнаций' два раза.",
       "206": "[[206]] Nonmetaphysical: Clear 'No Reincarnation' challenge three times.",
       "207": "[[207]] Living alone: Clear 'No Reincarnation' challenge five times.",
       "208": "[[208]] DM me on discord if you read these names: Clear 'No Reincarnation' challenge ten times.",
@@ -674,7 +674,7 @@
     "antSacMultiplier": "Множитель Пожертвования Муравьёв: {{y}}x --> <<limegreen|x{{x}}>>",
     "autoReset": "Это сбросит ваши Крошки, Муравьёв и Улучшения Муравьёв в обмен на некоторый множитель и ресурсы. Продолжить?",
     "elo": "+{{x}} [>{{y}} ЭЛО]",
-    "antSacrifice": "Ant Sacrifice"
+    "antSacrifice": "Пожертвовать Муравьёв"
   },
   "challenges": {
     "1": {
@@ -867,7 +867,7 @@
         "2": "x(1e5)^Выполнения к Скорости Муравьёв. Текущий эффект: ",
         "3": "+80 к Пределу Рун! Текущий эффект: "
       },
-      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! Also unlocks the Campaign mode. I wonder what that does?",
+      "first": "Открывает 15 Исследований, а также возможность открывать Тессеракты! Для вас стал доступен режим Кампании. Интересно, для чего он?",
       "start": "Начать <[(Меньше Муравьёв)]>",
       "current": {
         "1": "+{{value}} бесплатных уровней у муравьев",
@@ -885,7 +885,7 @@
         "2": "+12% Подношений! Текущий: ",
         "3": "+1 Дань Кубов за открытие! Текущий: "
       },
-      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Also adds additional Campaigns to beat!",
+      "first": "Открывает 15 Исследований и мистические Духовные Силы! Их можно найти во вкладке Руны. Также добавляет новые Кампании для прохождения!",
       "start": "Начать <[(Без Реинкарнаций)]>",
       "current": {
         "1": "+{{value}}% Обтаниума",
@@ -903,7 +903,7 @@
         "2": "+6 к максимальному Пределу Уровня Талисмана! Текущий: ",
         "3": "+3% к эффективности Сил Духов! Текущий: "
       },
-      "first": "Unlock 15 Researches, and unlock the power of the Hypercube! Unlock even more Campaigns!",
+      "first": "Открывает 15 Исследований и силу Гиперкуба! А также ещё больше Кампаний!",
       "start": "Начать <[(Налоги+++)]>",
       "current": {
         "1": "+{{value}}% к Порче налогов",
@@ -921,7 +921,7 @@
         "2": "+1 купленное исследование за каждый такт roomba! Текущий: ",
         "3": "+200 к Пределу Рун! Текущий эффект: "
       },
-      "first": "Unlock 15 Researches, and a way to coalesce your power into the Singularity. Unlock Campaigns, and the ability to create your own Corruption builds!",
+      "first": "Открывает 15 Исследований и способ объединить ваши силы в Сингулярность. Добавляет новые Кампании и способность создавать собственные заготовки Порчи!",
       "start": "Начать <[(Без Исследований)]>",
       "current": {
         "1": "+{{value}}% Силы",
@@ -1128,11 +1128,11 @@
       "68": "[Cx18] Какого чёрта! Это даже не печенье. +0.01% Кварков за каждый уровень этого улучшения. +5% больше на 1,000 уровне!",
       "69": "[Cx19] Печенье, о котором вы больше никогда не вспомните. +12% Золотых Кварков в этой Сингулярности.",
       "70": "[Cx20] Вершина выпечки. Ничто из того, что вы будете есть, не будет вкуснее этого. +0.01% Октерактов при Вознесении, если средний уровень всех порч не меньше 14.",
-      "71": "[Cx21] For each talisman rarity upgrade, multiply Obtainium gain by 1.04",
-      "72": "[Cx22] For each talisman rarity upgrade, multiply Offering gain by 1.04",
-      "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
-      "74": "[Cx24] Add +0.30 to all Corruption Multiplier values.",
-      "75": "[Cx25] Each level adds +0.3% effectiveness to free Singularity-tier Upgrades per level! (additive with all other boosts)",
+      "71": "[Cx21] За каждый уровень зачарований талисманов, умножает получение Обтаниума на 1.04.",
+      "72": "[Cx22] За каждый уровень зачарований талисманов, умножает получение Подношений на 1.04.",
+      "73": "[Cx23] Каждый уровень добавляет 1 бонусный уровень руны Бесконечного Восхождения!",
+      "74": "[Cx24] +0.30 ко всем значениям Множителей Порчи.",
+      "75": "[Cx25] Каждый уровень добавляет +0.3% эффективности бесплатных улучшений Сингулярности за уровень! (Добавочно к другим бонусам)",
       "76": "[Cx26] Each level adds <<blue | +1% Blueberry Speed>> for each time threshold you have reached!",
       "77": "[Cx27] Each level adds <<green | +2 +0.1% ☘ Ambrosia Luck>>!",
       "78": "[Cx28] Each level adds +0.3% effectiveness to free Octeract-tier Upgrades per level!",
@@ -1377,8 +1377,8 @@
     "hoverToBuyOn": "Наведите-для-Покупки [ON]",
     "hoverToBuyOff": "Наведите-для-Покупки [OFF]",
     "hover": "Наведите курсор на иконки, чтобы узнать сведения об исследованиях!",
-    "resets": "Resets upon the next reset tier.",
-    "doesNotReset": "NEVER resets!"
+    "resets": "Сбрасывается при следующем уровне сброса.",
+    "doesNotReset": "НИКОГДА не сбрасывается!"
   },
   "shop": {
     "upgradeDescriptions": {
@@ -1453,12 +1453,12 @@
       "shopOcteractAmbrosiaLuck": "☘ +1 Удача Амброзии за цифру в вашем инвентаре Вау! Октерактов за уровень. Проще некуда.",
       "shopCashGrabUltra": "Всего лишь за символическую сумму, даёт до +15% Скорости Голубики, +120% Кубов и +8% Кварков за уровень, в зависимости от Амброзии. Бонусы увеличиваются нелинейно, пока не получено 10 000 000 Амброзии за всё время.",
       "shopAmbrosiaAccelerator": "Каждый уровень этого 'ускорителя' даёт <<cyan|+0.2>> реальных секунд Генерации Голубики за каждую <<orange|1>> полученную из любых источников Амброзию!",
-      "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
+      "shopEXUltra": "С этим EX Улучшением, каждая 1 000 имеющейся Амброзии даёт +0.1% <<orchid|Обтаниума>>, <<orange|Подношений>> и <<white|Кубов>>! Лимит этого эффекта - 125 000 * (уровень этого улучшения)!",
       "shopChronometerS": "Это улучшение даёт +1% к Скорости Вознесения и Глобальной Скорости за каждый номер текущей Сингулярности выше 200!",
       "shopAmbrosiaUltra": "Это абсурдно дорогое EX Улучшение даёт +1 постоянную ☘ Удачу Амброзии за каждое выполнение ВОЗВЫШЕНИЯ за уровень.",
-      "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularitySpeedup": "Помните все эти ограниченные времени Улучшения Октерактов и Сингулярности? Теперь они накапливаются в 50 раз быстрее! Всё благодаря этим странным часам, которые каким то образом изменяют даже <<gray | Время Сингулярности>>...",
       "shopSingularityPotency": "Помните эти бесплатные Улучшения Сингулярности? Они теперь на 266% эффективнее (то есть, каждый теперь эквивалентен 3.66 уровням, до предела). Почему? Из-за вот этого <<gray | Ритуального Передатчика Сингулярности>>! Не спрашивайте.",
-      "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
+      "shopSadisticRune": "Какая странная руна; Торговец (который, как вы знаете, ослеп) с помощью телепатии поведал вам, что это руна Бесконечного Восхождения, пропитанная какой-то <<gray | Сингулярной Материей>>. Этих рун было несколько?"
     },
     "maxed": "Максимум!",
     "upgradeFor": "Улучшить за {{x}} Кварков",
@@ -1584,28 +1584,28 @@
       },
       "unlimitedGrowth": {
         "name": "Неограниченный Рост",
-        "default": "+10% to Quarks gain and Ascension Count for each Singularity. Currently: +{{amount}}%"
+        "default": "+10% к Кваркам и счётчику Вознесения за каждую Сингулярность. Текущий: +{{amount}}%"
       },
       "goldenCoins": {
         "name": "Золотые Монеты",
-        "default": "Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity. Currently: x{{amount}}"
+        "default": "Не потраченные Золотые Кварки увеличивают получение Монет. Особенно полезно для первого Вознесения каждой Сингулярности. Текущий: x{{amount}}"
       },
       "xyz": {
-        "name": "XYZ: Xtra dailY rewardZ",
+        "name": "XYZ: Xтра ежедневныY приZ",
         "hasLevel2": "В дополнении к ЗК и гарантированным бесплатным уровням к ЗК 1/2/3 на +0.2/+0.2/+1, вы получаете ДВОЙНОЕ количество бесплатных улучшений от Специального Действия 'Daily'!",
         "hasLevel1": "В дополнении к ЗК и бесплатным уровням улучшения, Специальное Действие 'Daily' даёт вам дополнительные бесплатные уровни к ЗК 1/2/3 на +0.2/+0.2/+1 уровни соответственно.",
         "default": "Специальный Код 'Daily' теперь дарует вам Золотые Кварки и случайные бесплатные улучшения Сингулярности; и то и то увеличивается в зависимости от счётчика сингулярности!"
       },
       "generousOrbs": {
-        "name": "Generous Orbs",
-        "default": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%"
+        "name": "Щедрые Сферы",
+        "default": "Эффект Сфер Изобильного Потока при открытии Кубов для Кварков теперь может увеличиваться до {{amount}}%"
       },
       "tokenInheritance": {
         "name": "Token Inheritance",
         "default": "At the start of a Singularity, gain {{amount}} additional Campaign Tokens for absolutely nothing!"
       },
       "autoCampaigns": {
-        "name": "Automatic Campaigns",
+        "name": "Автоматические Кампании",
         "default": "If your current corruption is of equal or higher 'difficulty' than a Campaign, gain Challenge 10 Completions when you ascend, outside of the Campaign!"
       },
       "firstClearTokens": {
@@ -1621,13 +1621,13 @@
         "default": "Campaigns give +{{amount}}% more tokens! Rounded down, of course."
       },
       "cubeToQuark": {
-        "name": "Cube to Quark Corner",
-        "default": "Gain +{{amount}}% more Quarks from opening Cubes!"
+        "name": "Уголок Кубов в Кварки",
+        "default": "+{{amount}}% Кварков от открытия Кубов!"
       },
       "researchDummies": {
         "name": "Исследования для Чайников",
-        "hasLevel1": "You permanently keep Auto Research and can Research using Hover to Buy!",
-        "default": "You can Research using Hover to Buy"
+        "hasLevel1": "Вам всегда доступно Авто Исследование, а также позволяет Исследовать, используя Наведи-для-Покупки!",
+        "default": "Вы можете Исследовать, используя Навести-для-Покупки"
       },
       "antGodsCornucopia": {
         "name": "Рог изобилия Муравьиного Бога",
@@ -1715,21 +1715,21 @@
         "default": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!"
       },
       "coolQOLCubes": {
-        "name": "Cool QoL Cubes",
+        "name": "Крутой Сервис Для Кубов",
         "hasLevel1": "Сохраняются все исследования Открытия Кубов И появляется возможность автоматически открывать определенный процент ваших кубов при каждом Вознесении!",
         "default": "Исследования, касающиеся открытия кубов больше не сбрасываются при Вознесении"
       },
       "irishAnt": {
-        "name": "Irish Ants",
+        "name": "Ирландские Муравьи",
         "default": "Ants blessed with the luck of the Irish grant <<limegreen|☘ {{i}}>> Ambrosia Luck!"
       },
       "irishAnt2": {
-        "name": "Irish Ants II: Electric Boogaloo",
+        "name": "Ирландские Муравьи II: Электрическое Бугало",
         "default": "Ants blessed with more fortunate luck of the Irish increase base ☘ Ambrosia Luck by <<limegreen|{{percent}}%>>! +1% per perk level."
       },
       "overclocked": {
-        "name": "Overclocked",
-        "default": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!"
+        "name": "Разогнанный",
+        "default": "Лимиты уровней для Некоторых Улучшений Сингулярности увеличены на {{i}}!"
       },
       "wowCubeAutomatedShipping": {
         "name": "Автоматические Поставки Вау! Кубов",
@@ -1737,29 +1737,29 @@
         "default": "Автоматическая покупка Улучшений Кубов каждое вознесение, но только если вы в Испытании Сингулярности."
       },
       "congealedblueberries": {
-        "name": "Congealed Blueberries",
-        "default": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!"
+        "name": "Замороженная Голубика",
+        "default": "Полутвёрдая Голубика, выполняет все функции нормальной. Даёт +{{i}} ягод Голубики, которые могут быть использованы в дереве Голубики!"
       },
       "goldenRevolution": {
-        "name": "Golden Revolution",
-        "default": "Singularity grants 0.4% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +100%)"
+        "name": "Золотая Революция",
+        "default": "Сингулярность даёт на 0.4% больше Золотых Кварков за Сингулярность. Текущий: +{{current}}% (МАКС: +100%)"
       },
       "goldenRevolutionII": {
-        "name": "Golden Revolution II",
-        "default": "Golden Quarks are 0.2% cheaper per Singularity. Currently: -{{current}}% (MAX: -50%)"
+        "name": "Золотая Революция II",
+        "default": "Золотые Кварки на 0.2% дешевле за Сингулярность. Текущий: -{{current}}% (МАКС: -50%)"
       },
       "goldenRevolutionIII": {
-        "name": "Golden Revolution III",
-        "default": "Export gives 2% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +500%)"
+        "name": "Золотая Революция III",
+        "default": "Экспорт даёт на 2% больше Золотых Кварков за Сингулярность. Текущий: +{{current}}% (МАКС: +500%)"
       },
       "platonicClones": {
-        "name": "Clones of Platonic Clicking at Your Desktop",
+        "name": "Клоны Platonic'а, Кликающие с Вами",
         "hasLevel1": "Автоматическая покупка Платоновых Улучшений каждое вознесение, без траты Обтаниума или Подношений, где угодно!",
         "default": "Автоматическая покупка Платоновых Улучшений каждое вознесение, без траты Обтаниума или Подношений, но только в Испытаниях Сингулярности."
       },
       "platSigma": {
         "name": "PL-AT Σ",
-        "default": "The 'Add' Special Action refills {{counter}}% faster per level per Singularity. Currently: {{current}} (MAX: -60% Cooldown)"
+        "default": "Код 'Add' восполняется на {{counter}}% быстрее за каждый уровень за Сингулярность. Текущий: {{current}} (МАКС: Время перезарядки -60%)"
       },
       "midasMilleniumAgedGold": {
         "name": "Тысячелетнее Золото Мидаса",
@@ -1767,7 +1767,7 @@
       },
       "goldenRevolution4": {
         "name": "Золотая Революция IV",
-        "default": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!"
+        "default": "Каждый такт Октеракта автомагически переводит 1 из {{gq}} ЗК, который вы бы получили в этой сингулярности, на ваш баланс!"
       },
       "octeractMetagenesis": {
         "name": "Метагенезис Октерактов",
@@ -1785,7 +1785,7 @@
         "default": "Умножает всё Получение Кварков на ((Сингулярность - 179)/20)^2. Текущее: {{amt}}... Да, эта Привилегия настолько хороша."
       },
       "primalPower": {
-        "name": "Primal Power!",
+        "name": "Первобытная Сила!",
         "hasLevel1": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> Ambrosia Luck!",
         "default": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|☘ +131>> Ambrosia Luck!"
       },
@@ -1905,7 +1905,7 @@
       },
       "singCubes1": {
         "name": "Пламя Кубов",
-        "description": "Upgrade this to get +0.6% Cubes per level, forever!",
+        "description": "Улучшите это, чтобы навсегда получить +0.6% Кубов за уровень!",
         "effect": "Навсегда получаете на {{n}}% больше Кубов."
       },
       "singCubes2": {
@@ -2250,27 +2250,27 @@
     },
     "languageChange": "Смена языка требует перезагрузки! Хотите перезагрузить сейчас?",
     "resources": {
-      "offering": "Offering",
-      "obtainium": "Obtainium",
-      "globalSpeed": "Global Speed",
-      "ascensionSpeed": "Ascension Speed",
-      "octeract": "Octeract",
-      "cube": "Cube",
-      "goldenQuarks": "Golden Quarks",
-      "quarks": "Quarks",
-      "ascensionScore": "Ascension Score",
-      "blueberryGenerationSpeed": "Blueberry Generation Speed",
-      "ambrosiaLuck": "Ambrosia Luck",
-      "powderConversion": "Powder Conversion",
-      "antSacrifice": "Ant Sacrifice",
-      "oneMind": "One Mind",
-      "talismanShard": "Talisman Shard",
-      "talismanShardCommon": "Common Talisman Shard",
-      "talismanShardUncommon": "Uncommon Talisman Shard",
-      "talismanShardRare": "Rare Talisman Shard",
-      "talismanShardEpic": "Epic Talisman Shard",
-      "talismanShardLegendary": "Legendary Talisman Shard",
-      "talismanShardMythic": "Mythic Talisman Shard"
+      "offering": "Подношение",
+      "obtainium": "Обтаниум",
+      "globalSpeed": "Глобальная Скорость",
+      "ascensionSpeed": "Скорость Вознесения",
+      "octeract": "Октеракт",
+      "cube": "Куб",
+      "goldenQuarks": "Золотые Кварки",
+      "quarks": "Кварки",
+      "ascensionScore": "Счёт Вознесения",
+      "blueberryGenerationSpeed": "Скорость Генерации Голубики",
+      "ambrosiaLuck": "Удача Амброзии",
+      "powderConversion": "Преобразование Порошка",
+      "antSacrifice": "Пожертвование Муравьёв",
+      "oneMind": "Единый Разум",
+      "talismanShard": "Осколок Талисмана",
+      "talismanShardCommon": "Обычный Осколок Талисмана",
+      "talismanShardUncommon": "Необычный Осколок Талисмана",
+      "talismanShardRare": "Редкий Осколок Талисмана",
+      "talismanShardEpic": "Эпический Осколок Талисмана",
+      "talismanShardLegendary": "Легендарный Осколок Талисмана",
+      "talismanShardMythic": "Мифический Осколок Талисмана"
     }
   },
   "upgrades": {
@@ -2553,7 +2553,7 @@
       "research": "Исследования",
       "antHill": "Муравейник",
       "wowCubes": "WOW! Кубы",
-      "campaign": "Campaigns",
+      "campaign": "Кампании",
       "corruption": "Порча",
       "singularity": "Сингулярность",
       "settings": "Настройки",
@@ -2602,20 +2602,20 @@
       "hotkeys": "Горячие клавиши",
       "account": "Аккаунт",
       "confirmation": {
-        "prestige": "Prestige",
-        "transcend": "Transcend",
-        "reincarnate": "Reincarnate",
-        "ascension": "Ascension",
-        "sacrifice": "Sacrifice Ants",
-        "singularity": "Singularity"
+        "prestige": "Престиж",
+        "transcend": "Выйти за пределы",
+        "reincarnate": "Реинкарнировать",
+        "ascension": "Вознесение",
+        "sacrifice": "Пожертвовать Муравьёв",
+        "singularity": "Сингулярность"
       }
     },
     "pseudocoins": {
       "buy": "Купить Монеты",
-      "subscriptions": "Subscriptions",
+      "subscriptions": "Подписки",
       "upgrades": "Купить Улучшения",
       "merch": "Купить Мерч",
-      "consumables": "Consumables & Events"
+      "consumables": "Расходники и События"
     }
   },
   "offlineProgress": {
@@ -2680,163 +2680,163 @@
         "description": "This Campaign has a new corruption, which eats at your Ants. Oh the Ant-ity!"
       },
       "eleventh": {
-        "name": "Campaign XI",
+        "name": "Кампания XI",
         "description": "Harder setup. Oh, and these corruptions can go to level 7 if they want."
       },
       "twelfth": {
-        "name": "Campaign XII",
+        "name": "Кампания XII",
         "description": "We can combine the new corruptions in a way that Synergistically make it more difficult to beat, but a lot more rewarding."
       },
       "thirteenth": {
-        "name": "Campaign XIII",
+        "name": "Кампания XIII",
         "description": "As you may notice, having multiple corruptions greatly boosts your score, more so than just leveling corruptions higher."
       },
       "fourteenth": {
-        "name": "Campaign XIV",
+        "name": "Кампания XIV",
         "description": "You can sometimes increase a Corruption without hurting your run, if it does not strongly impact your challenge completions."
       },
       "fifteenth": {
-        "name": "Campaign XV",
+        "name": "Кампания XV",
         "description": "The last of the Campaigns before Challenge 13. Good luck!"
       },
       "sixteenth": {
-        "name": "Campaign XVI",
+        "name": "Кампания XVI",
         "description": "New Corruptions! Reduce your Obtainium gain, and reduce your Coin gain. Maybe it reminds you of an upcoming challenge?"
       },
       "seventeenth": {
-        "name": "Campaign XVII",
+        "name": "Кампания XVII",
         "description": "Amping up the illiteracy a bit, you will gain even less Obtainium. It's probably less important than coins, right?"
       },
       "eighteenth": {
-        "name": "Campaign XVIII",
+        "name": "Кампания XVIII",
         "description": "Let's up the ante. Six Corruptions at once! And your Ascension Score Multiplier is very quickly increasing."
       },
       "nineteenth": {
-        "name": "Campaign XIX",
+        "name": "Кампания XIX",
         "description": "Even more illiteracy! Maybe you'll notice how hard it can be to earn Hypercubes."
       },
       "twentieth": {
-        "name": "Campaign XX",
+        "name": "Кампания XX",
         "description": "As long as you can handle having less Obtainium, leveling up the illiteracy corruption is worth it."
       },
       "twentyFirst": {
-        "name": "Campaign XXI",
+        "name": "Кампания XXI",
         "description": "It is also sometimes worth trading one penalty for another. In this case, you get more Obtainium, but almost no Diamonds. Higher multiplier for Corruption Levels!"
       },
       "twentySecond": {
-        "name": "Campaign XXII",
+        "name": "Кампания XXII",
         "description": "Fewer Offerings, and less Obtainium. Perhaps your ants can compensate for lost power?"
       },
       "twentyThird": {
-        "name": "Campaign XXIII",
+        "name": "Кампания XXIII",
         "description": "When adjusting your setup, it helps to slowly change your loadout, trying to increase your score multiplier without sacrificing too many Challenge 10 runs."
       },
       "twentyFourth": {
-        "name": "Campaign XXIV",
+        "name": "Кампания XXIV",
         "description": "A challenging but useful loadout for pre-challenge 14. Can you beat it and get Hypercubes?"
       },
       "twentyFifth": {
-        "name": "Campaign XXV",
+        "name": "Кампания XXV",
         "description": "The last Campaign before Challenge 14! After this, you can change your corruptions at will, but stay tuned for more useful corruption builds."
       },
       "twentySixth": {
-        "name": "Campaign XXVI",
+        "name": "Кампания XXVI",
         "description": "Uh oh, it's time for Dilation! It does not make Ascensions slower, unless you need fast timers on pre-Ascension resets."
       },
       "twentySeventh": {
-        "name": "Campaign XXVII",
+        "name": "Кампания XXVII",
         "description": "The last new Corruption, this makes your Challenge requirements directly larger. Trading completions for a direct score multiplier!"
       },
       "twentyEighth": {
-        "name": "Campaign XXVIII",
+        "name": "Кампания XXVIII",
         "description": "You may start to see how the Corruptions are a little difficult to master. These setups are recommended by Synergists of past, for Synergists of today."
       },
       "twentyNinth": {
-        "name": "Campaign XXIX",
+        "name": "Кампания XXIX",
         "description": "This is probably harder than Campaign 30, but has a higher score multiplier. This is meant to be a challenge, so it is out-of-meta."
       },
       "thirtieth": {
-        "name": "Campaign 30",
+        "name": "Кампания 30",
         "description": "You may want to consider this as you grind up for the Ultimate Moon Cube Upgrade."
       },
       "thirtyFirst": {
-        "name": "Campaign XXXI",
+        "name": "Кампания XXXI",
         "description": "We increase Hyperchallenge as a Corruption when we can clear enough challenges to justify the increase."
       },
       "thirtySecond": {
-        "name": "Campaign XXXII",
+        "name": "Кампания XXXII",
         "description": "When you finish the final Research, you should have enough power to take this on profitably. Maybe you will also get Platonic Cubes?"
       },
       "thirtyThird": {
-        "name": "Campaign XXXIII",
+        "name": "Кампания XXXIII",
         "description": "The Global Speed can be leveraged against having less Offerings or Obtainiums, like in this example."
       },
       "thirtyFourth": {
-        "name": "Campaign XXXIV",
+        "name": "Кампания XXXIV",
         "description": "Are you starting to go for the Thousand Moons Cube Upgrade?"
       },
       "thirtyFifth": {
-        "name": "Campaign XXXV",
+        "name": "Кампания XXXV",
         "description": "You may REALLY want to upgrade that Cube Upgrade!"
       },
       "thirtySixth": {
-        "name": "Campaign XXXVI",
+        "name": "Кампания XXXVI",
         "description": "As you upgrade the Thousand Moons, you can take on much more difficult Corruption Builds!"
       },
       "thirtySeventh": {
-        "name": "Campaign XXXVII",
+        "name": "Кампания XXXVII",
         "description": "You should also bump up your Tributes, if you have not."
       },
       "thirtyEighth": {
-        "name": "Campaign XXXVIII",
+        "name": "Кампания XXXVIII",
         "description": "How is that Thousand Moons Cube Upgrade coming along?"
       },
       "thirtyNinth": {
-        "name": "Campaign XXXIX",
+        "name": "Кампания XXXIX",
         "description": "Much more of the same"
       },
       "fortieth": {
-        "name": "Campaign XL",
+        "name": "Кампания XL",
         "description": "Before proceeding in this Campaign, you have to have the Thousand Moons upgrade maxxed. Congratulations!"
       },
       "fortyFirst": {
-        "name": "Campaign XLI",
+        "name": "Кампания XLI",
         "description": "Platonic Alpha, here we come!"
       },
       "fortySecond": {
-        "name": "Campaign XLII",
+        "name": "Кампания XLII",
         "description": "Congratulations on getting Corruptions Level 12! As you see from the Score Multiplier, it's a huge difference."
       },
       "fortyThird": {
-        "name": "Campaign XLIII",
+        "name": "Кампания XLIII",
         "description": "The sixth Platonic upgrade is very powerful, but expensive. Hopefully this build can help you reach it faster."
       },
       "fortyFourth": {
-        "name": "Campaign XLIV",
+        "name": "Кампания XLIV",
         "description": "As you buy the Platonic upgrades, your ability to do Corruptions will greatly increase as a result of their effect reductions."
       },
       "fortyFifth": {
-        "name": "Campaign XLV",
+        "name": "Кампания XLV",
         "description": "Corruptions Level 13! Woah! You are getting close to the end of the Campaigns."
       },
       "fortySixth": {
-        "name": "Campaign XLVI",
+        "name": "Кампания XLVI",
         "description": "As we round out, you should be able to clear Ascensions with mostly maxxed Corruptions. Viscosity is strong and thus lower level."
       },
       "fortySeventh": {
-        "name": "Campaign XLVII",
+        "name": "Кампания XLVII",
         "description": "While slightly easier, you may still get more Ascension rewards due to having more Challenge completions."
       },
       "fortyEighth": {
-        "name": "Campaign XLVIII",
+        "name": "Кампания XLVIII",
         "description": "This is the final serious setup. Good job on making it this far, and best of luck on the last two."
       },
       "fortyNinth": {
-        "name": "Campaign XLIX - The Challenge 15 Build",
+        "name": "Кампания XLIX - Сборка Испытания 15",
         "description": "It's like Challenge 15, but it's not."
       },
       "fiftieth": {
-        "name": "Campaign L - The Final Campaign",
+        "name": "Кампания L - Финальная Кампания",
         "description": "The final campaign. Don't count on beating it on your first try. Maybe you need to go beyond Ascensions?"
       }
     },
@@ -2879,8 +2879,8 @@
         "blueberrySpeed": "Increase Blueberry Generation Speed by <<blue | {{ reward }}>> (Maximum +10%)."
       }
     },
-    "currentCampaignPreTitle": "Current Campaign: ",
-    "emptyCampaignName": "No Campaign Selected",
+    "currentCampaignPreTitle": "Текущая Кампания: ",
+    "emptyCampaignName": "Кампания не Выбрана",
     "noChallengeCompletionConfirm": "You have not yet cleared Challenge 10 and therefore will not earn Cubes if you leave. Confirm?",
     "saveLoadout": "Save Corruption Loadout!",
     "saveLoadoutNotification": "Saved Corruption Loadout for {{ name }} for next Ascension!",
@@ -2896,28 +2896,28 @@
       "extinction": "The Second Meteor",
       "illiteracy": "Defunded Education",
       "recession": "Great Depression II",
-      "dilation": "Time Dilation",
+      "dilation": "Замедленное время",
       "hyperchallenge": "The Hyperchallenge Cube"
     },
     "descriptions": {
-      "viscosity": "You feel lethargic across the universe...",
-      "dilation": "Way to go, Albert.",
-      "hyperchallenge": "What's in a challenge?",
-      "illiteracy": "Maybe Albert wouldn't have theorized Dilation after all.",
-      "deflation": "Diamond Mine destroyed... no more monopolies!",
-      "extinction": "It killed the dinosaurs too, ya Dingus.",
-      "drought": "More like California, am I right?",
-      "recession": "Yet another 2025 catastrophe."
+      "viscosity": "Вялость чувствуется по всей вселенной...",
+      "dilation": "Так держать, Альберт.",
+      "hyperchallenge": "Что находится в этом испытании?",
+      "illiteracy": "Похоже Альберту всё-таки не стоило выводить Замедление.",
+      "deflation": "Алмазные пещеры уничтожены... больше никаких монополий!",
+      "extinction": "Это и динозавров убило, Клоун.",
+      "drought": "Больше похоже на Калифорнию, не так ли?",
+      "recession": "Очередная катастрофа 2025-го."
     },
     "currentLevel": {
-      "viscosity": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-      "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-      "hyperchallenge": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-      "illiteracy": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-      "deflation": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-      "extinction": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
-      "drought": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-      "recession": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+      "viscosity": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Степень Беспл. Ускор. и Множителей ^{{ effect }}",
+      "dilation": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Глобальная Скорость разделена на {{ effect }}",
+      "hyperchallenge": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Степень Требований Испытаний x{{ effect }}",
+      "illiteracy": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: получение Обтаниума ^{{ effect }}",
+      "deflation": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: получение Алмазов ^{{ effect }}",
+      "extinction": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Производство Муравьёв ^{{ effect }}",
+      "drought": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Опыт Подношений разделён на {{ effect }}",
+      "recession": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Получение Монет ^{{ effect }}"
     },
     "prototypeLevel": {
       "viscosity": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
