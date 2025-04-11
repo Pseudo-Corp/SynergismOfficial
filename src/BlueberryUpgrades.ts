@@ -201,8 +201,10 @@ export class BlueberryUpgrade extends DynamicUpgrade {
         )
       }</span>`
 
-    let preReqText = i18next.t('ambrosia.prerequisite')
+    let preReqText: string | undefined
+
     if (this.preRequisites !== undefined) {
+      preReqText = String(i18next.t('ambrosia.prerequisite'))
       for (const [prereq, val] of Object.entries(this.preRequisites)) {
         const k = prereq as keyof Player['blueberryUpgrades']
         const color = player.blueberryUpgrades[k].level >= val ? 'green' : 'red'
@@ -218,13 +220,12 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     }
 
     return `<span style="color: gold">${this.name}</span>
-                ${preReqText}
-                <span style="color: lightblue">${this.description}</span>
-                <span style="color: ${color}"> ${
+            <span style="color: ${color}"> ${
       i18next.t(
         'general.level'
       )
-    } ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>
+    } ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>${preReqText ? `\n ${preReqText}` : ''}
+                <span style="color: lightblue">${this.description}</span>
                 <span style="color: gold">${this.rewardDesc}</span>
                 ${
       i18next.t(
@@ -233,7 +234,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     }: <span style="color:orange">${
       format(
         costNextLevel,
-        2,
+        0,
         true,
         true,
         true
@@ -251,7 +252,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     }: <span style="color:orange">${
       format(
         this.ambrosiaInvested,
-        2,
+        0,
         true,
         true,
         true

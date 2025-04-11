@@ -1976,11 +1976,18 @@ p#reincarnatehotkeys {
 #goldenQuarksDisplay,
 #octeractsDisplay,
 #totalOcteractsDisplay,
-#ambrosiaDisplay {
+#ambrosiaDisplay,
+#redAmbrosiaDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    white-space: pre-line;
+}
+
+#ambrosiaDisplay > p,
+#redAmbrosiaDisplay > p {
+    margin: 0
 }
 
 #ambrosiaTexts {
@@ -2008,7 +2015,8 @@ p#reincarnatehotkeys {
     margin-left: 5px;
 }
 
-#ambrosiaAmount {
+#ambrosiaAmount,
+#redAmbrosiaAmount {
     font-size: 1.2em;
     margin-left: 5px;
 }
@@ -3728,7 +3736,8 @@ header #obtainiumDisplay { color: pink; }
 .singularityUpgrade,
 .octeractUpgrade,
 .singularityChallenge,
-.blueberryUpgrade {
+.blueberryUpgrade,
+.redAmbrosiaUpgrade {
     font-size: 0;
     cursor: pointer;
 }
@@ -3856,9 +3865,21 @@ img#singularityPerksIcon {
     margin-top: 5px;
 }
 
+#octeractUpgradeValues,
+#ambrosiaUpgradeValues {
+    width: 100%;
+}
+
 #testingMultiline,
 #singularityOcteractsMultiline,
-#singularityAmbrosiaMultiline,
+#singularityAmbrosiaMultiline {
+    white-space: pre-line;
+    margin: 15px auto 0;
+    justify-content: center;
+    width: 40%;
+    text-align: center;
+}
+
 #accountSubTab {
     white-space: pre-line;
     margin: 15px 0 0;

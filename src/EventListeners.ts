@@ -56,6 +56,7 @@ import {
 } from './ImportExport'
 import { getTips, sendToWebsocket, setTips } from './Login'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
+import { getRedAmbrosiaUpgrade } from './RedAmbrosiaUpgrades'
 import { buyResearch, researchDescriptions } from './Research'
 import { resetrepeat, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { displayRuneInformation, redeemShards } from './Runes'
@@ -1093,6 +1094,22 @@ TODO: Fix this entire tab it's utter shit
   DOMCacheGetOrSet('refundBlueberries').addEventListener('click', () => resetBlueberryTree())
   // Import blueberries
   DOMCacheGetOrSet('importBlueberries').addEventListener('change', (e) => importData(e, importBlueberryTree))
+
+  // RED AMBROSIA
+  const redAmbrosiaUpgrades = Object.keys(
+    player.redAmbrosiaUpgrades
+  ) as (keyof Player['redAmbrosiaUpgrades'])[]
+  for (const key of redAmbrosiaUpgrades) {
+    const capitalizedName = key.charAt(0).toUpperCase() + key.slice(1)
+    DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
+      'mouseover',
+      () => getRedAmbrosiaUpgrade(key).updateUpgradeHTML()
+    )
+    DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
+      'click',
+      (event) => getRedAmbrosiaUpgrade(key).buyLevel(event)
+    )
+  }
 
   // Toggle subtabs of Singularity tab
   for (let index = 0; index < 4; index++) {

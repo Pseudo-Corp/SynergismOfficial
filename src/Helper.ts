@@ -8,7 +8,10 @@ import {
   calculateGoldenQuarks,
   calculateMaxRunes,
   calculateOcteractMultiplier,
+  calculateRedAmbrosiaGenerationSpeed,
+  calculateRedAmbrosiaLuck,
   calculateRequiredBlueberryTime,
+  calculateRequiredRedAmbrosiaTime,
   calculateResearchAutomaticObtainium
 } from './Calculate'
 import { quarkHandler } from './Quark'
@@ -32,6 +35,7 @@ type TimerInput =
   | 'octeracts'
   | 'autoPotion'
   | 'ambrosia'
+  | 'redAmbrosia'
 
 /**
  * addTimers will add (in milliseconds) time to the reset counters, and quark export timer
@@ -50,6 +54,7 @@ export const addTimers = (input: TimerInput, time = 0) => {
       || input === 'octeracts'
       || input === 'autoPotion'
       || input === 'ambrosia'
+      || input === 'redAmbrosia'
     ? 1
     : globalTimeMultiplier
 
@@ -208,8 +213,6 @@ export const addTimers = (input: TimerInput, time = 0) => {
       const ambrosiaLuck = calculateAmbrosiaLuck()
       const baseBlueberryTime = calculateAmbrosiaGenerationSpeed()
       player.blueberryTime += Math.floor(8 * G.ambrosiaTimer) / 8 * baseBlueberryTime
-      player.ultimateProgress += Math.floor(8 * G.ambrosiaTimer) / 8
-        * Math.min(baseBlueberryTime, Math.pow(1000 * baseBlueberryTime, 1 / 2))
       G.ambrosiaTimer %= 0.125
 
       let timeToAmbrosia = calculateRequiredBlueberryTime()
@@ -240,15 +243,37 @@ export const addTimers = (input: TimerInput, time = 0) => {
         timeToAmbrosia = calculateRequiredBlueberryTime()
       }
 
-      if (player.ultimateProgress > 1e6) {
-        player.ultimatePixels += Math.floor(player.ultimateProgress / 1e6)
-        if (player.cubeUpgrades[79] > 0) {
-          player.cubeUpgradeRedBarFilled += Math.floor(player.ultimateProgress / 1e6)
-        }
-        player.ultimateProgress -= 1e6 * Math.floor(player.ultimateProgress / 1e6)
-      }
-
       visualUpdateAmbrosia()
+      break
+    }
+    case 'redAmbrosia': {
+      if (!player.visitedAmbrosiaSubtabRed) {
+        break
+      } else {
+        const speed = calculateRedAmbrosiaGenerationSpeed()
+        G.redAmbrosiaTimer += time * timeMultiplier
+        if (G.redAmbrosiaTimer < 0.125) {
+          break
+        }
+
+        player.redAmbrosiaTime += Math.floor(8 * G.redAmbrosiaTimer) / 8 * speed
+        G.redAmbrosiaTimer %= 0.125
+        let timeToRedAmbrosia = calculateRequiredRedAmbrosiaTime()
+        while (player.redAmbrosiaTime >= timeToRedAmbrosia) {
+          const redAmbrosiaLuck = calculateRedAmbrosiaLuck()
+          const RNG = seededRandom(Seed.RedAmbrosia)
+          const redAmbrosiaMult = Math.floor(redAmbrosiaLuck / 100)
+          const luckMult = RNG < redAmbrosiaLuck / 100 - Math.floor(redAmbrosiaLuck / 100) ? 1 : 0
+          const redAmbrosiaToGain = redAmbrosiaMult + luckMult
+
+          player.redAmbrosia += redAmbrosiaToGain
+          player.lifetimeRedAmbrosia += redAmbrosiaToGain
+          player.redAmbrosiaTime -= timeToRedAmbrosia
+          timeToRedAmbrosia = calculateRequiredRedAmbrosiaTime()
+        }
+
+        visualUpdateAmbrosia()
+      }
     }
   }
 }

@@ -26,6 +26,7 @@ import {
   calculateCashGrabBlueberryBonus,
   calculateCashGrabCubeBonus,
   calculateCashGrabQuarkBonus,
+  calculateCookieUpgrade29Luck,
   calculateCubeMultFromPowder,
   calculateCubeMultiplier,
   calculateDilatedFiveLeafBonus,
@@ -2001,12 +2002,16 @@ export const allAmbrosiaLuckStats: StatLine[] = [
     stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.additiveLuck // No Ambrosia Challenge Reward
   },
   {
+    i18n: 'RedAmbrosiaUpgrade',
+    stat: () => getRedAmbrosiaUpgrade('regularLuck').bonus.ambrosiaLuck // Red Ambrosia Upgrade
+  },
+  {
     i18n: 'Cookie5',
     stat: () => 2 * player.cubeUpgrades[77] // Cookie 5 (Cx27)
   },
   {
     i18n: 'RedBars',
-    stat: () => Math.min(100, player.cubeUpgradeRedBarFilled / 50) // Filled Red Bars with (Cx29) purchased
+    stat: () => calculateCookieUpgrade29Luck() // Cookie Upgrade 29 (Cx29)
   },
   {
     i18n: 'AmbrosiaUltra',
@@ -2082,6 +2087,10 @@ export const allAmbrosiaGenerationSpeedStats: StatLine[] = [
   {
     i18n: 'NoAmbrosiaUpgradesReward',
     stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.blueberrySpeedMult // No Ambrosia Upgrades Reward
+  },
+  {
+    i18n: 'RedAmbrosiaUpgrade',
+    stat: () => getRedAmbrosiaUpgrade('blueberryGenerationSpeed').bonus.blueberryGenerationSpeed // Red Ambrosia Upgrade
   },
   {
     i18n: 'CookieUpgrade26',
@@ -2413,6 +2422,20 @@ export const allRedAmbrosiaLuckStats: StatLine[] = [
   {
     i18n: 'LuckConversion',
     stat: () => Math.floor((calculateAmbrosiaLuck() - 100) / calculateLuckConversion()) // Luck Conversion
+  }
+]
+
+export const allRedAmbrosiaGenerationSpeedStats: StatLine[] = [
+  {
+    i18n: 'Base',
+    stat: () => 1 // Base value of 1.00
+  },
+  {
+    i18n: 'BlueberrySpeed',
+    stat: () => {
+      const bSpeed = calculateAmbrosiaGenerationSpeed()
+      return bSpeed > 1000 ? Math.pow(bSpeed * 1000, 1 / 2) : bSpeed // Blueberry Speed
+    }
   }
 ]
 

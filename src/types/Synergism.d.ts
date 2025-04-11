@@ -641,6 +641,7 @@ export interface Player {
   blueberryTime: number
   ambrosiaRNG: number // DEPRECIATED, DO NOT USE
   visitedAmbrosiaSubtab: boolean
+  visitedAmbrosiaSubtabRed: boolean
   spentBlueberries: number
   blueberryUpgrades: Record<
     keyof typeof blueberryUpgradeData,
@@ -654,6 +655,8 @@ export interface Player {
   cubeUpgradeRedBarFilled: number
 
   redAmbrosia: number
+  lifetimeRedAmbrosia: number
+  redAmbrosiaTime: number
   redAmbrosiaUpgrades: Record<RedAmbrosiaKeys, number>
 
   singChallengeTimer: number
@@ -974,7 +977,9 @@ export interface GlobalVariables {
   shopEnhanceVision: boolean
 
   ambrosiaTimer: number
+  redAmbrosiaTimer: number
   TIME_PER_AMBROSIA: number
+  TIME_PER_RED_AMBROSIA: number
 
   currentSingChallenge: keyof Player['singularityChallenges'] | undefined
 }

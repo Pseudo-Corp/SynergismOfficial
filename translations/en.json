@@ -11,7 +11,7 @@
   },
   "ambrosia": {
     "ambrosia": "Ambrosia",
-    "amount": "You have <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia! [Lifetime: <<white|{{lifetimeAmbrosia}}>>]",
+    "amount": "Ambrosia: <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Current | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> Lifetime",
     "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
     "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> Ambrosia with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>] {{extra}}",
     "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Generating Ambrosia when <<blue|{{thresholdTimer}}>> is accumulated.",
@@ -173,26 +173,30 @@
     }
   },
   "redAmbrosia": {
+    "redAmbrosia": "Red Ambrosia",
+    "amount": "Ambrosia: <<red|{{redAmbrosia}}>> Current | <<red|{{lifetimeRedAmbrosia}}>> Lifetime",
+    "purchaseWarning": "<<gold | ⚠>> Unlike Blueberry Modules, you <<red | CANNOT>> refund this upgrade. Please spend wisely!",
+    "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: &#9861; {{ambrosiaLuck}}>>]",
     "data": {
       "tutorial": {
         "name": "A beginners guide to Red Ambrosia",
-        "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul But you don't really care about that... +1% to Cubes, Obtainium and Offerings per level!",
-        "effect": "Cubes, Obtainium and Offerings are increased by {{amount}}%!"
+        "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul But you don't really care about that... 1.01x Cubes, Obtainium and Offerings per level!",
+        "effect": "Cubes, Obtainium and Offerings are increased by {{amount}}!"
       },
       "conversionImprovement1": {
         "name": "Ambrosia Luck Converter Improvement",
         "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <lime | {{amount}}>>!"
+        "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
       },
       "conversionImprovement2": {
         "name": "Ambrosia Luck Converter Improvement II: The Red Electric Boogaloo",
         "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <lime | {{amount}}>>!"
+        "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
       },
       "conversionImprovement3": {
         "name": "Ambrosia Luck Converter Improvement III and a half",
         "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <lime | {{amount}}>>!"
+        "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
       },
       "freeTutorialLevels": {
         "name": "More Blueberry Tutorial Module Levels!",
@@ -201,23 +205,33 @@
       },
       "freeLevelsRow2": {
         "name": "More Row 2 Blueberry Upgrade Levels!",
-        "description": "With no exceptions, add one effective level to all Modules that reside on the second row, per level.",
-        "effect": "This module increases the effective level of ALL row 2 Blueberry Upgrades by {{amount}}!"
+        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the second row, per level.",
+        "effect": "This module increases the effective level of ALL row 2 Blueberry Modules by {{amount}}!"
       },
       "freeLevelsRow3": {
         "name": "More Row 3 Blueberry Upgrade Levels!",
-        "description": "With the exception of the Singularity Stablizer, add one effective level to all Modules that reside on the third row, per level.",
-        "effect": "This module increases the effective level of (most) row 3 Blueberry Upgrades by {{amount}}!"
+        "description": "With the exception of the Singularity Stablizer, add one effective level to all Blueberry Modules that reside on the third row, per level.",
+        "effect": "This module increases the effective level of (most) row 3 Blueberry Modules by {{amount}}!"
       },
       "freeLevelsRow4": {
         "name": "More Row 4 Blueberry Upgrade Levels!",
-        "description": "With no exceptions, add one effective level to all Modules that reside on the fourth row, per level.",
-        "effect": "This module increases the effective level of ALL row 4 Blueberry Upgrades by {{amount}}!"
+        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the fourth row, per level.",
+        "effect": "This module increases the effective level of ALL row 4 Blueberry Modules by {{amount}}!"
       },
       "freeLevelsRow5": {
         "name": "More Row 5 Blueberry Upgrade Levels!",
-        "description": "With no exceptions, add one effective level to all Modules that reside on the fifth row, per level.",
-        "effect": "This module increases the effective level of ALL row 5 Blueberry Upgrades by {{amount}}!"
+        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the fifth row, per level.",
+        "effect": "This module increases the effective level of ALL row 5 Blueberry Modules by {{amount}}!"
+      },
+      "blueberryGenerationSpeed": {
+        "name": "The Sands of Time",
+        "description": "+0.2% Blueberry Generation Speed per level. They say this hourglass has the benediction of Chronos himself.",
+        "effect": "This module increases Blueberry Generation Speed by {{amount}}!"
+      },
+      "regularLuck": {
+        "name": "Ossified Blueberry Tactics",
+        "description": "Most strange. Adding this gold-colored wax on your blueberries makes you slightly more likely to get Ambrosia! +2 Ambrosia Luck / level.",
+        "effect": "This module increases Ambrosia Luck by {{amount}}!"
       }
     }
   },
@@ -1227,7 +1241,7 @@
       "76": "[Cx26] Each level adds <<blue | +1% Blueberry Speed>> for each time threshold you have reached!",
       "77": "[Cx27] Each level adds <<green | +2 +0.1% ☘ Ambrosia Luck>>!",
       "78": "[Cx28] Each level adds +0.3% effectiveness to free Octeract-tier Upgrades per level!",
-      "79": "[Cx29] If your Red Bar fills up with this upgrade purchased, you gain <<green | +0.02 ☘ Ambrosia Luck>>, permanently! Stacks up to 5,000 times.",
+      "79": "[Cx29] Gain Ambrosia Luck when this upgrade is purchased, based on your Lifetime Red Ambrosia! [Formula is 10 * (Log_10(x))^2]",
       "80": "[Cx30] You intercept a singular message: <<gray|'Why don't you visit more often?'>>..."
     },
     "cubeMetadata": {
@@ -4216,6 +4230,7 @@
       "Singularity269": "Two Hundred Sixty Nine!:",
       "OcteractShop": "Octeract -> Ambrosia Shop:",
       "NoAmbrosiaUpgrades": "No Ambrosia Challenge Reward:",
+      "RedAmbrosiaUpgrade": "Red Ambrosia Upgrade: Ossified Blueberry Tactics",
       "Cookie5": "Cookie 5 (Cx27):",
       "RedBars": "Filled Red Bars with Cx29:",
       "AmbrosiaUltra": "Ambrosia Ultra Shop Upgrade:",
@@ -4243,6 +4258,7 @@
       "PatreonBonus": "Patreon Bonus:",
       "OneChallengeCap": "One Challenge Cap Reward:",
       "NoAmbrosiaUpgradesReward": "No Ambrosia Upgrades Challenge Reward:",
+      "RedAmbrosiaUpgrade": "Red Ambrosia Upgrade: Sands of Time",
       "CookieUpgrade26": "Cookie Upgrade 26 (Cx26):",
       "Event": "Event Bonus:",
       "CashGrabUltra": "Cash Grab ULTRA Blueberry Bonus:",

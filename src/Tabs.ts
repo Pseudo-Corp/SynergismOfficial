@@ -754,6 +754,10 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
     subTabs.tabSwitcher?.()(subTabList.subTabID)
     if (tab.getType() === Tabs.Singularity && page === 3) {
       player.visitedAmbrosiaSubtab = true
+
+      if (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0) {
+        player.visitedAmbrosiaSubtabRed = true
+      }
     }
   }
 }

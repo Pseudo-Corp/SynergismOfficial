@@ -757,6 +757,7 @@ export const playerSchema = z.object({
   ambrosiaRNG: z.number().default(() => blankSave.ambrosiaRNG),
   blueberryTime: z.number().default(() => blankSave.blueberryTime),
   visitedAmbrosiaSubtab: z.boolean().default(() => blankSave.visitedAmbrosiaSubtab),
+  visitedAmbrosiaSubtabRed: z.boolean().default(() => blankSave.visitedAmbrosiaSubtabRed),
   spentBlueberries: z.number().default(() => blankSave.spentBlueberries),
   // TODO: is this right?
   blueberryUpgrades: z.record(z.string(), singularityUpgradeSchema('blueberriesInvested', 'ambrosiaInvested'))
@@ -798,6 +799,8 @@ export const playerSchema = z.object({
   cubeUpgradeRedBarFilled: z.number().default(() => blankSave.cubeUpgradeRedBarFilled),
 
   redAmbrosia: z.number().default(() => blankSave.redAmbrosia),
+  lifetimeRedAmbrosia: z.number().default(() => blankSave.lifetimeRedAmbrosia),
+  redAmbrosiaTime: z.number().default(() => blankSave.redAmbrosiaTime),
   redAmbrosiaUpgrades: z.record(z.string(), z.number()).transform(
     (object) => {
       return Object.fromEntries(

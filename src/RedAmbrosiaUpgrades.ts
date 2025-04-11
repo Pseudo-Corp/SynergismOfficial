@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { formatAsPercentIncrease } from './Campaign'
 import { DynamicUpgrade, type IUpgradeData } from './DynamicUpgrade'
 import { format, player } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
@@ -23,6 +24,14 @@ interface FreeLevelReward extends BaseReward {
   freeLevels: number
 }
 
+interface BlueberrySpeedReward extends BaseReward {
+  blueberryGenerationSpeed: number
+}
+
+interface AmbrosiaLuckReward extends BaseReward {
+  ambrosiaLuck: number
+}
+
 type RewardTypeMap = {
   'tutorial': TutorialReward
   'conversionImprovement1': ConversionImprovementReward
@@ -33,6 +42,8 @@ type RewardTypeMap = {
   'freeLevelsRow3': FreeLevelReward
   'freeLevelsRow4': FreeLevelReward
   'freeLevelsRow5': FreeLevelReward
+  'blueberryGenerationSpeed': BlueberrySpeedReward
+  'regularLuck': AmbrosiaLuckReward
 }
 
 export type RedAmbrosiaKeys = keyof RewardTypeMap
@@ -172,24 +183,6 @@ export class RedAmbrosiaUpgrade<K extends RedAmbrosiaKeys> extends DynamicUpgrad
     const isMaxLevel = this.maxLevel === this.level
     const color = isMaxLevel ? 'plum' : 'white'
 
-    let freeLevelInfo = this.freeLevels > 0
-      ? `<span style="color: orange"> [+${
-        format(
-          this.freeLevels,
-          1,
-          true
-        )
-      }]</span>`
-      : ''
-
-    if (this.freeLevels > this.level) {
-      freeLevelInfo = `${freeLevelInfo}<span style="color: var(--maroon-text-color)">${
-        i18next.t(
-          'general.softCapped'
-        )
-      }</span>`
-    }
-
     const isAffordable = costNextLevel <= player.redAmbrosia
     const affordableInfo = isMaxLevel
       ? `<span style="color: plum"> ${i18next.t('general.maxed')}</span>`
@@ -205,44 +198,24 @@ export class RedAmbrosiaUpgrade<K extends RedAmbrosiaKeys> extends DynamicUpgrad
         )
       }</span>`
 
-    return `<span style="color: gold">${this.name}</span>
-                <span style="color: lightblue">${this.description}</span>
-                <span style="color: ${color}"> ${
+    const nameSpan = `<span style="color: gold">${this.name}</span>`
+    const levelSpan = `<span style="color: ${color}"> ${
       i18next.t(
         'general.level'
       )
-    } ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>
-                <span style="color: gold">${this.rewardDesc}</span>
-                ${
-      i18next.t(
-        'octeract.toString.costNextLevel'
-      )
-    }: <span style="color:orange">${
-      format(
-        costNextLevel,
-        2,
-        true,
-        true,
-        true
-      )
-    }</span> ${i18next.t('ambrosia.ambrosia')} ${affordableInfo}
-                ${
-      i18next.t(
-        'ambrosia.blueberryCost'
-      )
-    }           ${i18next.t('general.spent')} ${
-      i18next.t(
-        'ambrosia.ambrosia'
-      )
-    }: <span style="color:orange">${
-      format(
-        this.redAmbrosiaInvested,
-        2,
-        true,
-        true,
-        true
-      )
+    } ${format(this.level, 0, true)}${maxLevel}</span>`
+    const descriptionSpan = `<span style="color: lightblue">${this.description}</span>`
+    const rewardDescSpan = `<span style="color: gold">${this.rewardDesc}</span>`
+    const costNextLevelSpan = `${i18next.t('octeract.toString.costNextLevel')} <span style="color:red">${
+      format(costNextLevel, 0, true, true, true)
+    }</span> ${i18next.t('redAmbrosia.redAmbrosia')} ${affordableInfo}`
+    const spentSpan = `${i18next.t('general.spent')} ${i18next.t('redAmbrosia.redAmbrosia')}: <span style="color:red">${
+      format(this.redAmbrosiaInvested, 0, true, true, true)
     }</span>`
+    const purchaseWarningSpan = `<span>${i18next.t('redAmbrosia.purchaseWarning')}</span>`
+    return `${nameSpan} \n ${levelSpan} \n ${descriptionSpan} \n ${rewardDescSpan} \n ${
+      (!isMaxLevel) ? `${costNextLevelSpan} \n` : ''
+    } ${spentSpan} \n ${purchaseWarningSpan}`
   }
 
   updateUpgradeHTML (): void {
@@ -273,11 +246,12 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
       return baseCost + 0 * level // Level has no effect.
     },
     rewards: (n: number) => {
+      const val = Math.pow(1.01, n)
       return {
-        desc: i18next.t('redAmbrosia.data.tutorial.effect', { amount: n }),
-        cubeMult: 1 + n / 100,
-        obtainiumMult: 1 + n / 100,
-        offeringMult: 1 + n / 100
+        desc: i18next.t('redAmbrosia.data.tutorial.effect', { amount: formatAsPercentIncrease(val) }),
+        cubeMult: val,
+        obtainiumMult: val,
+        offeringMult: val
       }
     },
     maxLevel: 100,
@@ -386,6 +360,34 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
     },
     maxLevel: 5,
     costPerLevel: 50000
+  },
+  blueberryGenerationSpeed: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (level + 1)
+    },
+    rewards: (n: number) => {
+      const val = 1 + n / 500
+      return {
+        desc: i18next.t('redAmbrosia.data.blueberryGenerationSpeed.effect', { amount: formatAsPercentIncrease(val) }),
+        blueberryGenerationSpeed: val
+      }
+    },
+    maxLevel: 100,
+    costPerLevel: 1
+  },
+  regularLuck: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (level + 1)
+    },
+    rewards: (n: number) => {
+      const val = 2 * n
+      return {
+        desc: i18next.t('redAmbrosia.data.regularLuck.effect', { amount: val }),
+        ambrosiaLuck: val
+      }
+    },
+    maxLevel: 100,
+    costPerLevel: 1
   }
 }
 

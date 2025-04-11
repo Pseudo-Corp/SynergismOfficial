@@ -33,6 +33,7 @@ import {
   allPlatonicCubeStats,
   allPowderMultiplierStats,
   allQuarkStats,
+  allRedAmbrosiaGenerationSpeedStats,
   allRedAmbrosiaLuckStats,
   allTesseractStats,
   allWowCubeStats,
@@ -434,6 +435,10 @@ export const calculateLuckConversion = () => {
 
 export const calculateRedAmbrosiaLuck = () => {
   return allRedAmbrosiaLuckStats.reduce((a, b) => a + b.stat(), 0)
+}
+
+export const calculateRedAmbrosiaGenerationSpeed = () => {
+  return allRedAmbrosiaGenerationSpeedStats.reduce((a, b) => a * b.stat(), 1)
 }
 
 export const calculateTotalCoinOwned = () => {
@@ -1461,6 +1466,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
   addTimers('singularity', timeAdd)
   addTimers('octeracts', timeTick)
   addTimers('ambrosia', timeAdd)
+  addTimers('redAmbrosia', timeAdd)
 
   player.prestigeCount += resetAdd.prestige
   player.transcendCount += resetAdd.transcension
@@ -2396,6 +2402,13 @@ export const calculateRequiredBlueberryTime = () => {
   return Math.pow(thresholdBase, thresholds) * val
 }
 
+export const calculateRequiredRedAmbrosiaTime = () => {
+  let val = G.TIME_PER_RED_AMBROSIA // Currently 100,000
+  val += 200 * player.lifetimeRedAmbrosia
+
+  return Math.min(1e6, val)
+}
+
 export const calculateSingularityMilestoneBlueberries = () => {
   let val = 0
   if (player.highestSingularityCount >= 270) val = 5
@@ -2705,4 +2718,12 @@ export const calculateAscensionSpeedExponentSpread = () => {
   ]
 
   return sumContents(vals)
+}
+
+export const calculateCookieUpgrade29Luck = () => {
+  if (player.cubeUpgrades[79] === 0 || player.lifetimeRedAmbrosia === 0) {
+    return 0
+  } else {
+    return 10 * Math.pow(Math.log10(player.lifetimeRedAmbrosia), 2)
+  }
 }

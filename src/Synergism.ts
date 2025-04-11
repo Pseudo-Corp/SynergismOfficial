@@ -1472,6 +1472,7 @@ export const player: Player = {
   ambrosiaRNG: 0,
   blueberryTime: 0,
   visitedAmbrosiaSubtab: false,
+  visitedAmbrosiaSubtabRed: false,
   spentBlueberries: 0,
   blueberryUpgrades: {
     ambrosiaTutorial: new BlueberryUpgrade(
@@ -1601,6 +1602,8 @@ export const player: Player = {
   cubeUpgradeRedBarFilled: 0,
 
   redAmbrosia: 0,
+  lifetimeRedAmbrosia: 0,
+  redAmbrosiaTime: 0,
   // NOTE: This only keeps track of the total number of Red Ambrosia
   // Invested, because I realized that keeping classes on the player is generally a bad idea
   redAmbrosiaUpgrades: {
@@ -1612,14 +1615,16 @@ export const player: Player = {
     'freeLevelsRow2': 0,
     'freeLevelsRow3': 0,
     'freeLevelsRow4': 0,
-    'freeLevelsRow5': 0
+    'freeLevelsRow5': 0,
+    'blueberryGenerationSpeed': 0,
+    'regularLuck': 0
   },
 
   singChallengeTimer: 0,
 
   lastExportedSave: 0,
 
-  seed: Array.from({ length: 2 }, () => Date.now())
+  seed: Array.from({ length: 3 }, () => Date.now())
 }
 
 export const deepClone = () =>
@@ -6012,6 +6017,7 @@ const tack = (dt: number) => {
     addTimers('singularity', dt)
     addTimers('autoPotion', dt)
     addTimers('ambrosia', dt)
+    addTimers('redAmbrosia', dt)
 
     // Triggers automatic rune sacrifice (adds milliseconds to payload timer)
     if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle) {
