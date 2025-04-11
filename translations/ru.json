@@ -2882,22 +2882,22 @@
     "currentCampaignPreTitle": "Текущая Кампания: ",
     "emptyCampaignName": "Кампания не Выбрана",
     "noChallengeCompletionConfirm": "You have not yet cleared Challenge 10 and therefore will not earn Cubes if you leave. Confirm?",
-    "saveLoadout": "Save Corruption Loadout!",
-    "saveLoadoutNotification": "Saved Corruption Loadout for {{ name }} for next Ascension!",
+    "saveLoadout": "Сохранить Заготовку Порчи!",
+    "saveLoadoutNotification": "Заготовка Порчи {{ name }} сохранена для следующего Вознесения!",
     "errorMessages": {
-      "ascensionChallenge": "Sorry, you are already in an Ascension Challenge! Please leave it before attempting a Campaign."
+      "ascensionChallenge": "Извините, вы уже в Испытании Вознесения! Перед тем как начать кампанию, пожалуйста, покиньте его."
     }
   },
   "corruptions": {
     "names": {
-      "viscosity": "Viscous Multiplier and Accelerators",
-      "drought": "Less Fruitful Harvests",
-      "deflation": "Crystal Mine Collapse",
-      "extinction": "The Second Meteor",
-      "illiteracy": "Defunded Education",
-      "recession": "Great Depression II",
+      "viscosity": "Вязкие Множители и Ускорители",
+      "drought": "Менее Изобильные Урожаи",
+      "deflation": "Обрушение Кристальной Шахты",
+      "extinction": "Второй Метеор",
+      "illiteracy": "Упразднённое Образование",
+      "recession": "Великая Депрессия II",
       "dilation": "Замедленное время",
-      "hyperchallenge": "The Hyperchallenge Cube"
+      "hyperchallenge": "Куб Гипериспытания"
     },
     "descriptions": {
       "viscosity": "Вялость чувствуется по всей вселенной...",
@@ -2920,21 +2920,21 @@
       "recession": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Получение Монет ^{{ effect }}"
     },
     "prototypeLevel": {
-      "viscosity": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-      "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-      "hyperchallenge": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-      "illiteracy": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-      "deflation": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-      "extinction": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
-      "drought": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-      "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+      "viscosity": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Степень Бесплатных Ускорителей и Множителей ^{{ effect }}",
+      "dilation": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Глобальная Скорость разделена на {{ effect }}",
+      "hyperchallenge": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Степень Требований Испытаний x{{ effect }}",
+      "illiteracy": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: получение Обтаниума ^{{ effect }}",
+      "deflation": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: получение Алмазов ^{{ effect }}",
+      "extinction": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Производство Муравьёв ^{{ effect }}",
+      "drought": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Опыт от Подношений разделён на {{ effect }}",
+      "recession": "При следующем Вознесении, уровень этой порчи будет {{ level }}. Эффект: Получение Монет ^{{ effect }}"
     },
     "scoreMultiplier": "Текущий Множитель Счёта: {{ curr }} / Множитель Счёта при следующем Вознесении: {{ next }}",
-    "difficultyEffect": "This corruption adds {{ curr }} difficulty rating / Next Ascension +{{next}}",
-    "freeLevels": "Free Levels: {{ curr }} (Does not increase difficulty of Corruption!)",
-    "totalScoreMultiplier": "Corruptions give total Score Multiplier: x{{ curr }} / Next Ascension: x{{ next }}",
-    "totalDifficulty": "Total Ascension Difficulty Score: {{ curr }} / Next Ascension: {{ next }} (Base 400 difficulty)",
-    "totalSpiritContribution": "Corruption Loadout Spirit Bonus: +{{ curr }} / Next Ascension: +{{ next }} (+1% per 4 extra difficulty)",
+    "difficultyEffect": "Эта порча добавляет {{ curr }} рейтинга сложности / Следующее Вознесение +{{next}}",
+    "freeLevels": "Бесплатные Уровни: {{ curr }} (Не увеличивает сложность Порчи!)",
+    "totalScoreMultiplier": "Всего порча даёт Множитель Счёта: x{{ curr }} / Следующее Вознесение: x{{ next }}",
+    "totalDifficulty": "Общий Счёт Сложности Вознесения: {{ curr }} / Следующее Вознесение: {{ next }} (Начальная сложность - 400)",
+    "totalSpiritContribution": "Бонус к Духам от Заготовки Порчи: +{{ curr }} / Следующее Вознесение: +{{ next }} (+1% за 4 очка сложности)",
     "exitCorruption": {
       "name": "ОЧИСТИТЬ ПОРЧУ",
       "description": "Освободите этот мир от греха.",
@@ -2958,7 +2958,7 @@
       "load": "Загрузить"
     },
     "importCorruptionsPrompt": {
-      "import": "Enter a Corruption Loadout to import for next Ascension. You can have it in the following format: \n {\"corr1Name\": num1, \"corr2Name\": num2, ...} \n It can also be in the following text format: num1/num2/.../num8 [Legacy] \n Possible corrNames: \"viscosity\", \"drought\", \"deflation\", \"extinction\", \"illiteracy\", \"recession\", \"dilation\". \"hyperchallenge\"",
+      "import": "Введите Заготовку Порчи для импорта в следующее Вознесение. Она может быть в следующем формате: \n {corr1Name\": num1, \"corr2Name\": num2, ...} \n Возможен другой текстовый формат: num1/num2/.../num8 [Устарело] \n Возможные corrNames: \"viscosity\", \"drought\", \"deflation\", \"extinction\", \"illiteracy\", \"recession\", \"dilation\". \"hyperchallenge\"",
       "importError": "Вы ввели данные в неправильном формате, Попробуйте ещё раз."
     },
     "corruptionLoadoutName": {
@@ -2977,7 +2977,7 @@
     "corrLoadoutsBtn": "Заготовки Порчи",
     "cleanse": "Очистить",
     "confirm": "Подтвердить",
-    "resetCorruptionsError": "You cannot cleanse your Corruptions if you are in a Campaign, or Challenge 15!",
+    "resetCorruptionsError": "Вы не можете очистить Порчи пока находитесь в Кампании или Испытании 15!",
     "intro": "Самая прибыльная затея - это та, на которую немногие отважились бы пуститься.",
     "traitInfo": "Выберите уровни характеристик, с которыми вы хотите начать. Выбирайте с умом! <<var(--red-text-color)|Не откусывайте больше, чем можете прожевать...>>",
     "antExponent": "Климат этого Вознесения возводит производство Муравьёв в степень <<var(--darkorchid-text-color)|{{exponent}}>>.",
@@ -3217,7 +3217,7 @@
         "effect": "Степень первого улучшения +{{n}}"
       },
       "octeractBonusTokens1": {
-        "name": "Tokens of Derpsmith",
+        "name": "Жетоны Кукузнеца",
         "description": "Derpsmith gives you a token of his appreciation. +1 Tokens per level when your challenge completions are maxxed!",
         "effect": "Token gain +{{n}} for maxxed completions."
       },
@@ -3517,8 +3517,8 @@
       "oneChallengeCap": {
         "name": "Предел в Одно Выполнение",
         "description": "Завершите необходимую Сингулярность, но лимит выполнений первых 14 Испытаний - 1!",
-        "ScalingReward1": "+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
-        "ScalingReward2": "+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+        "ScalingReward1": "+0.03 к значениям <<var(--red-text-color)|Множителей Порчи>>",
+        "ScalingReward2": "+1% Скорости <<var(--blueberry-box-color)|Генерации Голубики>>",
         "UniqueReward1": "1st - +3 <<green|Reincarnation Challenge>> Cap!",
         "UniqueReward2": "20-ое +1 Бесплатный <<var(--red-text-color)|Уровень Порчиl>>",
         "UniqueReward3": "20-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
@@ -3558,7 +3558,7 @@
         "description": "У Кукузнеца есть секундомер, и он не побоится его использовать! Пройдите целевую Сингулярность за ограниченное время! <br/><red|Лимит времени зависит от уровня испытания.><br/>После (600 - 20 * прохождения) секунд, ваше производство обт./подн./кубов разрушается (Уменьшается в (10 + прохождения) раз) каждую минуту.",
         "ScalingReward1": "+6% к <<orange|Глобальной Скорости>>!",
         "ScalingReward2": "+6% к <<orange|Скорости Вознесения>>!",
-        "ScalingReward3": "+1% <<cyan|Quarks>>!",
+        "ScalingReward3": "+1% к <<cyan|Кваркам>>!",
         "UniqueReward1": "1-ое - кварки больше не сбрасываются после сингулярности!",
         "UniqueReward2": "15-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
         "UniqueReward3": "25th - A very expensive, not good, pretty bad <<orange|Quark Shop>> upgrade!"
@@ -3637,7 +3637,7 @@
     "openAll": "Открыть Все",
     "autoOff": "Авто Открытие [OFF]",
     "autoOn": "Авто Открытие {{percent}}%",
-    "unlocked": "Unlocked!",
+    "unlocked": "Разблокировано!",
     "quarks": {
       "quarkTitle": "-=- Уголок Кубов в Кварки -=-",
       "resetInfo": "Награды Кварков сбрасываются в полночь!",
@@ -3726,30 +3726,30 @@
     },
     "platonicUpgrades": {
       "c15Rewards": {
-        "requiredExponent": "Gain <span class=\"challengeNumber\" style=\"color: gold; font-size: 1.2em;\">{{coins}}</span> Coins in Challenge 15 to gain more Exponent!",
-        "nextReward": "Next reward type requires <<white | {{exponent}}>> Exponent.",
-        "allUnlocked": "You have unlocked <<gold | all>> reward types from Challenge 15!",
+        "requiredExponent": "Получите <span class=\"challengeNumber\" style=\"color: gold; font-size: 1.2em;\">{{coins}}</span> Монет в Испытании 15, чтобы получить больше Экспоненты!",
+        "nextReward": "Следующий тип наград требует Экспоненту <<white | {{exponent}}>>.",
+        "allUnlocked": "Вы разблокировали <<gold | все> типы наград из Испытания 15!",
         "0": "Best Challenge 15 Exponent: <span class=\"challengeNumber\" style=\"color: gold; font-size: 1.2em;\">{{exponent}}</span>",
-        "cube1": "• All Cube Types I: +{{amount}}",
-        "ascensions": "• Ascension Count: +{{amount}}",
-        "coinExponent": "• Coin Exponent: +{{amount}}",
-        "taxes": "• Taxes: {{amount}}",
-        "obtainium": "• Obtainium: +{{amount}}",
-        "offering": "• Offerings: +{{amount}}",
-        "accelerator": "• Accelerators: +{{amount}} [Uncorruptable!]",
-        "multiplier": "• Multipliers: +{{amount}} [Uncorruptable!]",
-        "runeExp": "• Rune EXP: +{{amount}}",
-        "runeBonus": "• Rune Effectiveness: +{{amount}}",
-        "cube2": "• All Cube Types II: +{{amount}}",
-        "transcendChallengeReduction": "• Challenge 1-5 Requirement Scaling: {{amount}}",
-        "reincarnationChallengeReduction": "• Challenge 6-10 Requirement Scaling: {{amount}}",
-        "antSpeed": "• Ant Speed: +{{amount}} [Uncorruptable!]",
-        "bonusAntLevel": "• Bonus Ant Levels: +{{amount}}",
-        "cube3": "• All Cube Types III: +{{amount}}",
-        "talismanBonus": "• Talisman Effectiveness: +{{amount}}",
-        "globalSpeed": "• Global Speed: +{{amount}}",
-        "blessingBonus": "• Blessing Effectiveness: +{{amount}}",
-        "constantBonus": "• Ascend Building Production: +{{amount}}",
+        "cube1": "• Все Кубы I: +{{amount}}",
+        "ascensions": "• Счётчик Вознесений: +{{amount}}",
+        "coinExponent": "• Экспонента Монет: +{{amount}}",
+        "taxes": "• Налоги: {{amount}}",
+        "obtainium": "• Обтаниум: +{{amount}}",
+        "offering": "• Подношения: +{{amount}}",
+        "accelerator": "• Ускорители: +{{amount}} [Чистые!]",
+        "multiplier": "• Множители: +{{amount}} [Чистые!]",
+        "runeExp": "• ОПЫТ Рун +{{amount}}",
+        "runeBonus": "• Эффективность Рун +{{amount}}",
+        "cube2": "• Все Кубы II: +{{amount}}",
+        "transcendChallengeReduction": "• Рост Требований Испытаний 1-5: {{amount}}",
+        "reincarnationChallengeReduction": "• Рост Требований Испытаний 6-10: {{amount}}",
+        "antSpeed": "• Скорость Муравьёв: +{{amount}} [Чистая!]",
+        "bonusAntLevel": "• Бонусные Уровни Муравьёв: +{{amount}}",
+        "cube3": "• Все Кубы III: +{{amount}}",
+        "talismanBonus": "• Эффективность Талисманов: +{{amount}}",
+        "globalSpeed": "• Глобальная Скорость: +{{amount}}",
+        "blessingBonus": "• Эффективность Благословений: +{{amount}}",
+        "constantBonus": "• Производство Строений Вознесения: +{{amount}}",
         "cube4": "• All Cube Types IV: +{{amount}}",
         "spiritBonus": "• Spirit Effectiveness: +{{amount}}",
         "score": "• Ascension Score: +{{amount}}",
@@ -3954,7 +3954,7 @@
         "calculator3": "Благодаря ПЛ-АТ Ω вы также получаете {{x}} реальных секунд к вашему Таймеру Вознесения!",
         "calculator5": "Благодаря PL-AT Γ вы также получаете {{x}} реальных секунд к вашему Таймеру Экспорта ЗК!",
         "calculator6": "Наконец, благодаря PL-AT _ вы получаете {{x}} секунд к созданию Октерактов!",
-        "calculator7": "Finally, thanks to PL-AT Ω you have gained {{x}} seconds of Blueberry Time Generation!",
+        "calculator7": "Наконец, благодаря PL-AT Ω, вы получаете {{x}} секунд Генерации Голубики!",
         "calculatorSolution": "За {{w}} Кварков или ничего: Сколько будет {{x}} + {{y}}? В соответствии с вашим калькулятором, ответ {{z}}.",
         "calculatorPrompt": "За {{w}} Кварков или ничего: Сколько будет {{x}} + {{y}}?",
         "calculatorMaxed": "Ваш калькулятор сам понял что {{a}} + {{b}} = {{c}}, так что вам было выдано {{d}} Кварков! {{e}} {{f}} {{g}} {{h}} У вас есть {{i}} использований Add. Вы получите одно через {{j}} секунд.",
@@ -3990,7 +3990,7 @@
       "invalid": "Ваш код либо недействителен или уже использован. Попробуйте снова!",
       "bribe": {
         "notUnlocked": "Хммм... вы ещё не готовы.",
-        "overCapacity": "You can't hold more!",
+        "overCapacity": "Больше не поместится!",
         "thanks": "Поблагодарите Alonso (в Дискорде) за взятку."
       }
     }
@@ -4051,24 +4051,24 @@
     "logout": "Страница сейчас обновится. Вы вышли из аккаунта! Пока!!"
   },
   "pseudoCoins": {
-    "coinCount": "You have <<gold|{{amount}} PseudoCoins>>!",
-    "cost": "Cost: <<gold|{{amount}} PseudoCoins>>",
-    "maxxed": "<<gold|Maxed!>>",
-    "buyButton": "Buy! <<gold|-{{amount}} PseudoCoins>>",
+    "coinCount": "У вас <<gold|{{amount}} ПсевдоМонет>>!",
+    "cost": "Стоимость: <<gold|{{amount}} ПсевдоМонет>>",
+    "maxxed": "<<gold|Макс!>>",
+    "buyButton": "Купить! <<gold|-{{amount}} ПсевдоМонет>>",
     "currEffect": "Текущий Уровень:",
     "nextEffect": "Следующий Уровень:",
-    "globalQuarkBonus": "Your subscription increases the global Quark bonus by +{{percent}}%!",
+    "globalQuarkBonus": "Ваша подписка увеличивает глобальный бонус Кварков на +{{percent}}%!",
     "upgradeNames": {
       "INSTANT_UNLOCK_1": "Активатор-Инатор Талисмана",
       "INSTANT_UNLOCK_2": "Обнаружитель-Инатор Рун",
       "CUBE_BUFF": "Gold-Infused Cubes",
       "AMBROSIA_LUCK_BUFF": "Клевера с Золотыми Листьями",
       "AMBROSIA_GENERATION_BUFF": "Алхимически Ускоренная Амброзия",
-      "GOLDEN_QUARK_BUFF": "Even Golder Quarks",
+      "GOLDEN_QUARK_BUFF": "Ещё Более Золотые Кварки",
       "FREE_UPGRADE_PROMOCODE_BUFF": "Взятка Коду Daily",
       "CORRUPTION_LOADOUT_SLOT_QOL": "Больше Заготовок Порчи!",
       "AMBROSIA_LOADOUT_SLOT_QOL": "Больше Заготовок Амброзии!",
-      "AUTO_POTION_FREE_POTIONS_QOL": "Potion Duplication Glitch",
+      "AUTO_POTION_FREE_POTIONS_QOL": "Глитч Клонирования Зелий",
       "OFFLINE_TIMER_CAP_BUFF": "Оправленные Золотом Мягкие Кровати",
       "ADD_CODE_CAP_BUFF": "Эксклюзивный PLAT-P Калькулятор"
     },
