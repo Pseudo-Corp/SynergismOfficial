@@ -3310,7 +3310,7 @@
       },
       "octeractImprovedFree": {
         "name": "Wow! I want free upgrades to be better.",
-        "description": "Singularity Upgrade level is (paid level * free levels)^0.6 instead of being added.",
+        "description": "Upgrade level of Golden Quark and Octerct upgrades becomes (paid level * free levels)^0.6 instead of being added.",
         "effect": "Singularity Upgrade free levels are {{n}} being powered!"
       },
       "octeractImprovedFree2": {
