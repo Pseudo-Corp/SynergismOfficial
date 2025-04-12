@@ -1,8 +1,8 @@
 {
   "testing": {
-    "saveInLive": "Savefiles cannot be used in live!",
-    "saveInLive2": "You can't load this save anymore!",
-    "errorSaving": "An error prevented this file from being saved.",
+    "saveInLive": "セーブファイルはライブでは使用できません！",
+    "saveInLive2": "このセーブはもうロードできません！",
+    "errorSaving": "エラーのためこのファイルを保存できませんでした。",
     "gameSaved": "Game saved successfully!"
   },
   "save": {
@@ -3018,7 +3018,7 @@
     "runes": "Press [1], [2], [3], [4] or [5] on your keyboard to use offerings for each rune, starting with Speed Rune on the left; must have rune unlocked to use hotkey!",
     "challenges": {
       "hotkey": "Press [1], [2]... up to [0] to enter challenges 1 to 10. Press [E] to exit your Transcension or Reincarnation challenge if stuck!",
-      "finishTranscension": "If you are unable to finish a Transcension challenge, press the hotkey listed above OR click on the red Challenge \"C\" button on the reset buttons on top.",
+      "finishTranscension": "超越チャレンジを完了できない場合は、上記のホットキーを押すか、上部のリセット ボタンにある紫色のチャレンジ「C」ボタンをクリックしてください。",
       "leaveReincarnation": "To leave a reincarnation challenge, press the grey Challenge \"C\" instead!"
     },
     "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> researches first. The <<var(--crimson-text-color);|red-bordered>> researches are never reset whereas the <<white;|white-bordered>> researches will reset upon the next reset tier!",
@@ -3585,7 +3585,7 @@
     "daily": "Daily",
     "add": "Add",
     "addAll": "xAll",
-    "add1": "x1",
+    "add1": "1 追加",
     "time": "Time",
     "enterPromoCodeHere": "Enter a promotion code here!",
     "currentTheme": "Current Theme",
@@ -3610,7 +3610,7 @@
       "monotonous": "Monotonous"
     },
     "joinDiscord": "Click the image below to join the Discord!",
-    "joinPatreon": "Support Development on Patreon!",
+    "joinPatreon": "開発をサポート！",
     "exportQuark": "{{x}}s until +{{y}} export Quark",
     "exportGoldenQuark": "{{x}}s until +{{y}} export Golden Quark",
     "quarksOnExport": "Quarks on export: {{x}} [Max {{y}}]",
