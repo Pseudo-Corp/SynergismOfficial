@@ -1610,11 +1610,11 @@
       },
       "firstClearTokens": {
         "name": "Первый на Убой",
-        "default": "Gain +5 tokens for each Campaign for which you have at least one Challenge 10 completion!"
+        "default": "+5 Жетонов за каждую кампанию, в который у вас есть хотя бы одно выполнение Испытания 10!"
       },
       "lastClearTokens": {
-        "name": "The Blessing of Finality, Campaigns",
-        "default": "Gain +10 tokens for each Campaign for which you have the maximum Challenge 10 completions!"
+        "name": "Финальное Благословение, Кампании",
+        "default": "+10 Жетонов за каждую кампанию, в который у вас есть хотя бы одно выполнение Испытания 10!"
       },
       "bonusTokens": {
         "name": "Больше Жетонов!",
@@ -2176,13 +2176,13 @@
       },
       "singBonusTokens2": {
         "name": "Мелочь в складках Диванных Подушек",
-        "description": "Thanks to your more perceptive eyes, you find even more Tokens in Campaigns! +1% more Tokens per level from Campaigns.",
-        "effect": "You find +{{n}}% more Tokens from Campaigns!"
+        "description": "Благодаря вашему более острому зрению, вы находите больше Жетонов в Кампаниях! +1% Жетонов от Кампаний за уровень.",
+        "effect": "Вы находите на +{{n}}% Жетонов в Кампаниях!"
       },
       "singBonusTokens3": {
         "name": "Мелочь под Диваном",
-        "description": "Why do you have Tokens just lying everywhere near your Sofa? +2 per level per Campaign with maxxed completions.",
-        "effect": "You find {{n}} more Tokens from maxxed Campaigns!"
+        "description": "Почему у вас рядом с Диваном валяется так много Жетонов? +2 Жетона за уровень за каждую кампанию с максимальным количеством прохождений.",
+        "effect": "Вы находите на {{n}} Жетонов в Кампаниях с максимальным количеством прохождений!"
       },
       "singBonusTokens4": {
         "name": "Мелочь из Кошелька Муравьиного Бога",
@@ -2635,9 +2635,9 @@
   },
   "campaigns": {
     "intro": "Кампании - <<orange | Вознесения>>, но <<maroon | сложнее™>>",
-    "campaignInfo": "Play through <<orange | Ascensions>> with various modifiers to make it spicier, but also more cubical! \n Each Campaign is a <i> <<red | Corrupted>> form of <<orange | Ascension>>. \n <<lightgoldenrodyellow | Click on an icon to see what I mean!>> </i>",
-    "pickNow": "Pick Your Campaign now!",
-    "activeCampaign": "Active Campaign: <<orange | {{name}} (#{{cardinal}}) >>",
+    "campaignInfo": "Проходите <<orange | Вознесения>> с различными модификаторами, которые не только повышают сложность, но и приносят больше кубов! \n Каждая Кампания - это <i> <<red | Испорченая>> форма <<orange | Вознесения>>. \n <<lightgoldenrodyellow | Нажмите на иконку и вы поймёте, что я имел в виду!>> </i>",
+    "pickNow": "А теперь Выберите Кампанию!",
+    "activeCampaign": "Текущая Кампания: <<orange | {{name}} (#{{cardinal}}) >>",
     "data": {
       "first": {
         "name": "Первая Кампания",
@@ -2841,42 +2841,42 @@
       }
     },
     "corruptionTexts": {
-      "viscosity": "Free Accel. and Multipliers Exponent ^{{ effect }}",
-      "dilation": "Time Speed is multiplied by {{ effect }}",
-      "hyperchallenge": "Challenge Exponent Reqs. x{{ effect }}",
-      "illiteracy": "Obtainium gain ^{{ effect }}",
-      "deflation": "Diamond gain ^{{ effect }}",
-      "extinction": "Ant Production ^{{ effect }}",
-      "drought": "Offering EXP divided by {{ effect }}",
-      "recession": "Coin Gain ^{{ effect }}"
+      "viscosity": "Экспонента Бесплатных Ускор. и Множителей ^{{ effect }}",
+      "dilation": "Время Ускорено в {{ effect }} раз",
+      "hyperchallenge": "Экспонента Треб. Испытаний x{{ effect }}",
+      "illiteracy": "Обтаниум ^{{ effect }}",
+      "deflation": "Алмазы ^{{ effect }}",
+      "extinction": "Производство Муравьёв ^{{ effect }}",
+      "drought": "ОПЫТ Подношений разделён на {{ effect }}",
+      "recession": "Монеты ^{{ effect }}"
     },
     "corruptionStats": {
       "title": "Статистика Кампании",
       "corruptionScoreMult": "Множитель Очков Вознесения: {{ mult }}",
-      "corruptionDifficulty": "Campaign Difficulty Score (base is 400): {{ difficulty }}",
-      "highestc10Completion": "Highest Challenge 10 Completion in Campaign: {{ c10 }} / {{ maxc10 }}",
-      "tokensEarned": "Tokens Earned in Campaign: {{ tokens }} / {{ maxTokens }}",
-      "metaText": "This campaign has a 'meta build'! Token reward is doubled!",
+      "corruptionDifficulty": "Счёт Сложности Кампании (начальный - 400): {{ difficulty }}",
+      "highestc10Completion": "Наибольшее число Прохождений И10 в Кампании: {{ c10 }} / {{ maxc10 }}",
+      "tokensEarned": "Жетоны, Полученные в Кампании: {{ tokens }} / {{ maxTokens }}",
+      "metaText": "Эта кампания содержит 'мета сборку'! Количество Жетонов удвоено!",
       "startCampaign": "Начать Кампанию! (Сбрасывает текущее вознесение)",
       "resetCampaign": "Выйти из Кампании! (Сбрасывает текущее вознесение)"
     },
     "tokens": {
       "count": "У вас {{ count }} / {{ maxCount }} жетонов!",
       "rewardTexts": {
-        "tutorial": "For clearing your first Campaign, get {{cube}} more Cubes, <<pink | {{obtainium}}>> more Obtainium, and <<orange | {{offering}}>> more Offerings!",
-        "cube": "Increase Cube gain by {{ reward }} (Maximum +150%).",
-        "obtainium": "Increase Obtainium gain by <<pink | {{ reward }}>> (Maximum +150%).",
-        "offering": "Increase Offering gain by <<orange | {{ reward }}>> (Maximum +150%).",
-        "ascensionScore": "Increase Ascension Score by <<orange | {{ reward }}>> (Maximum +150%).",
-        "timeThreshold": "For Reset Rewards that have a penalty if you reset under a certain time, reduce that time by <<gray | {{ reward }}>> seconds (Base: 10s).",
-        "quark": "Increase Quark gain by <<cyan | {{ reward }}>> (Maximum +40%).",
-        "tax": "Taxes <<blue | {{ reward }}>> (Minimum -25%).",
-        "c15": "Increase Challenge 15 bonus by <<lightgoldenrodyellow | {{ reward }}>> (Maximum +100%)",
-        "rune6": "Increase Rune 6 Bonus Levels by <<brown | {{ reward }}>> (Maximum +3).",
-        "goldenQuark": "Increase Golden Quark gain by <<gold | {{ reward }}>> (Maximum +25%).",
-        "octeract": "Increase Octeract gain by <<teal | {{ reward }}>> (Maximum +50%).",
-        "ambrosiaLuck": "Increase ☘ Ambrosia Luck by <<green | {{ reward }}>> (Maximum ☘ +100).",
-        "blueberrySpeed": "Increase Blueberry Generation Speed by <<blue | {{ reward }}>> (Maximum +10%)."
+        "tutorial": "За прохождение первой Кампании, вы получаете на {{cube}} больше Кубов, на <<pink | {{obtainium}}>> больше Обтаниума, и на <<orange | {{offering}}>> больше Подношений!",
+        "cube": "Увеличивает получение Кубов на {{ reward }} (Максимум +150%).",
+        "obtainium": "Увеличивает получение Обтаниума на <<pink | {{ reward }}>> (Максимум +150%).",
+        "offering": "Увеличивает получение Подношений на <<orange | {{ reward }}>> (Максимум +150%).",
+        "ascensionScore": "Увеличивает Счёт Вознесения на <<orange | {{ reward }}>> (Максимум +150%).",
+        "timeThreshold": "Для Наград за Сброс, у которых есть штраф, если сброс произошёл до определённого момента, уменьшает этот момент на <<gray | {{ reward }}>> секунд. (Начальное: 10 сек.).",
+        "quark": "Увеличивает получение Кварков на <<cyan | {{ reward }}>> (Максимум +40%).",
+        "tax": "Налоги <<blue | {{ reward }}>> (Минимум -25%).",
+        "c15": "Увеличивает бонусы от Испытания 15 на <<lightgoldenrodyellow | {{ reward }}>> (Максимум +100%)",
+        "rune6": "Увеличивает Бонусные Уровни Руны 6 на <<brown | {{ reward }}>> (Максимум +3).",
+        "goldenQuark": "Увеличивает получение Золотых Кварков на <<gold | {{ reward }}>> (Максимум +25%).",
+        "octeract": "Увеличивает получение Октерактов на <<teal | {{ reward }}>> (Максимум +50%).",
+        "ambrosiaLuck": "Увеличивает ☘ Удачу Амброзии на <<green | {{ reward }}>> (Максимум ☘ +100).",
+        "blueberrySpeed": "Увеличивает Скорость Генерации Голубики на <<blue | {{ reward }}>> (Максимум +10%)."
       }
     },
     "currentCampaignPreTitle": "Текущая Кампания: ",
@@ -3218,8 +3218,8 @@
       },
       "octeractBonusTokens1": {
         "name": "Жетоны Кукузнеца",
-        "description": "Derpsmith gives you a token of his appreciation. +1 Tokens per level when your challenge completions are maxxed!",
-        "effect": "Token gain +{{n}} for maxxed completions."
+        "description": "Кукузнец дарует вам жетон признательности. +1 Жетон за уровень когда выполнения испытаний на максимуме!",
+        "effect": "Получение Жетонов за максимум выполнений +{{n}}."
       },
       "octeractBonusTokens2": {
         "name": "Жетоны Кукузнеца II",
