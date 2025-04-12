@@ -2769,75 +2769,75 @@
       },
       "thirtyThird": {
         "name": "Кампания XXXIII",
-        "description": "The Global Speed can be leveraged against having less Offerings or Obtainiums, like in this example."
+        "description": "Глобальная Скорость может быть использована в при недостатке Подношений или Обтаниума. Как, например, здесь."
       },
       "thirtyFourth": {
         "name": "Кампания XXXIV",
-        "description": "Are you starting to go for the Thousand Moons Cube Upgrade?"
+        "description": "Вы уже начали работать над Улучшением Кубов Тысяча Лун?"
       },
       "thirtyFifth": {
         "name": "Кампания XXXV",
-        "description": "You may REALLY want to upgrade that Cube Upgrade!"
+        "description": "Вам ДЕЙСТВИТЕЛЬНО стоит улучшить это Улучшение Кубов!"
       },
       "thirtySixth": {
         "name": "Кампания XXXVI",
-        "description": "As you upgrade the Thousand Moons, you can take on much more difficult Corruption Builds!"
+        "description": "С улучшением Тысячи Лун, вы сможете пройти гораздо более сложные Сборки Порч!"
       },
       "thirtySeventh": {
         "name": "Кампания XXXVII",
-        "description": "You should also bump up your Tributes, if you have not."
+        "description": "Если вы ещё этого не сделали, вложитесь в Дани."
       },
       "thirtyEighth": {
         "name": "Кампания XXXVIII",
-        "description": "How is that Thousand Moons Cube Upgrade coming along?"
+        "description": "Как там поживает Улучшение Кубов Тысяча Лун?"
       },
       "thirtyNinth": {
         "name": "Кампания XXXIX",
-        "description": "Much more of the same"
+        "description": "Просто больше того же самого"
       },
       "fortieth": {
         "name": "Кампания XL",
-        "description": "Before proceeding in this Campaign, you have to have the Thousand Moons upgrade maxxed. Congratulations!"
+        "description": "Прежде чем начать эту Кампанию, у вас должно быть улучшение Тысячи Лун максимального уровня. Поздравляю!"
       },
       "fortyFirst": {
         "name": "Кампания XLI",
-        "description": "Platonic Alpha, here we come!"
+        "description": "Платонова Альфа, мы уже в пути!"
       },
       "fortySecond": {
         "name": "Кампания XLII",
-        "description": "Congratulations on getting Corruptions Level 12! As you see from the Score Multiplier, it's a huge difference."
+        "description": "Поздравляю с получением Порч 12 Уровня! Как вы могли заметить по Множителю Счёта, разница огромна."
       },
       "fortyThird": {
         "name": "Кампания XLIII",
-        "description": "The sixth Platonic upgrade is very powerful, but expensive. Hopefully this build can help you reach it faster."
+        "description": "Шестое Платоново Улучшение очень мощное, но дорогое. Надеюсь, эта сборка поможет вам достичь его быстрее."
       },
       "fortyFourth": {
         "name": "Кампания XLIV",
-        "description": "As you buy the Platonic upgrades, your ability to do Corruptions will greatly increase as a result of their effect reductions."
+        "description": "С покупкой Платоновых улучшений, ваша способность использовать Порчи значительно возрастёт, т.к они уменьшают их эффект."
       },
       "fortyFifth": {
         "name": "Кампания XLV",
-        "description": "Corruptions Level 13! Woah! You are getting close to the end of the Campaigns."
+        "description": "Порчи 13 Уровня! Воу! Вы почти достигли конца Кампаний."
       },
       "fortySixth": {
         "name": "Кампания XLVI",
-        "description": "As we round out, you should be able to clear Ascensions with mostly maxxed Corruptions. Viscosity is strong and thus lower level."
+        "description": "По мере приближения к концу, вы можете проходить Вознесения с в основном максимальными Порчами. Вязкость очень сильна, поэтому её уровень меньше."
       },
       "fortySeventh": {
         "name": "Кампания XLVII",
-        "description": "While slightly easier, you may still get more Ascension rewards due to having more Challenge completions."
+        "description": "Хотя эта немного проще, скорее всего, вы получите больше наград Вознесения, т.к у вас будет больше выполнений Испытаний."
       },
       "fortyEighth": {
         "name": "Кампания XLVIII",
-        "description": "This is the final serious setup. Good job on making it this far, and best of luck on the last two."
+        "description": "Это финальная серьёзная сборка. Вы хорошо постарались, дойдя до этого момента. Удачи в последних двух."
       },
       "fortyNinth": {
         "name": "Кампания XLIX - Сборка Испытания 15",
-        "description": "It's like Challenge 15, but it's not."
+        "description": "Как Испытание 15, но не оно."
       },
       "fiftieth": {
         "name": "Кампания L - Финальная Кампания",
-        "description": "The final campaign. Don't count on beating it on your first try. Maybe you need to go beyond Ascensions?"
+        "description": "Последняя кампания. Не ожидайте, что пройдёте её с первого раза. Возможно, пора выйти за пределы Вознесений?"
       }
     },
     "corruptionTexts": {
