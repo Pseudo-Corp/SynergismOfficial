@@ -2729,43 +2729,43 @@
       },
       "twentyThird": {
         "name": "Кампания XXIII",
-        "description": "When adjusting your setup, it helps to slowly change your loadout, trying to increase your score multiplier without sacrificing too many Challenge 10 runs."
+        "description": "При настройке сборки, имеет смысл медленно менять вашу заготовку, увеличивая множитель счёта без потерь слишком большого количества выполнений Испытания 10."
       },
       "twentyFourth": {
         "name": "Кампания XXIV",
-        "description": "A challenging but useful loadout for pre-challenge 14. Can you beat it and get Hypercubes?"
+        "description": "Сложная, но полезная заготовка для подготовки к Испытанию 14. Сможете ли вы пройти её и получить Гиперкубы?"
       },
       "twentyFifth": {
         "name": "Кампания XXV",
-        "description": "The last Campaign before Challenge 14! After this, you can change your corruptions at will, but stay tuned for more useful corruption builds."
+        "description": "Последняя Кампания перед Испытанием 14! После неё, вы можете изменять ваши порчи как захотите, но вскоре мы покажем больше полезных сборок порч."
       },
       "twentySixth": {
         "name": "Кампания XXVI",
-        "description": "Uh oh, it's time for Dilation! It does not make Ascensions slower, unless you need fast timers on pre-Ascension resets."
+        "description": "О оу, время Искривления! Оно не делает Вознесения медленнее, исключая случаи, когда вам нужны быстрые таймеры на сбросах пред-Вознесения."
       },
       "twentySeventh": {
         "name": "Кампания XXVII",
-        "description": "The last new Corruption, this makes your Challenge requirements directly larger. Trading completions for a direct score multiplier!"
+        "description": "Последняя новая Порча, она делает требования Испытаний больше. Эдакий обмен выполнений на множитель счёта!"
       },
       "twentyEighth": {
         "name": "Кампания XXVIII",
-        "description": "You may start to see how the Corruptions are a little difficult to master. These setups are recommended by Synergists of past, for Synergists of today."
+        "description": "Сейчас вы могли заметить, что Порчами сложно овладеть. Эти сборки рекомендованы Синергистами прошлого для Синергистов сегодняшнего дня."
       },
       "twentyNinth": {
         "name": "Кампания XXIX",
-        "description": "This is probably harder than Campaign 30, but has a higher score multiplier. This is meant to be a challenge, so it is out-of-meta."
+        "description": "Эта, скорее всего, сложнее чем Кампания 30, но имеет больший множитель счёта. Это не мета сборка, а, скорее, испытание."
       },
       "thirtieth": {
         "name": "Кампания 30",
-        "description": "You may want to consider this as you grind up for the Ultimate Moon Cube Upgrade."
+        "description": "Я бы посоветовал использовать это для гринда Улучшения Кубов Тысячи Лун."
       },
       "thirtyFirst": {
         "name": "Кампания XXXI",
-        "description": "We increase Hyperchallenge as a Corruption when we can clear enough challenges to justify the increase."
+        "description": "Мы увеличиваем Порчу Гипериспытания тогда, когда мы можем пройти достаточно испытаний, чтобы оправдать увеличение."
       },
       "thirtySecond": {
         "name": "Кампания XXXII",
-        "description": "When you finish the final Research, you should have enough power to take this on profitably. Maybe you will also get Platonic Cubes?"
+        "description": "Когда вы завершите финальное Исследование, у вас должно быть достаточно мощи, чтобы играючи пройти эту Кампанию. Может быть, вы даже получите Платоновы Кубы?"
       },
       "thirtyThird": {
         "name": "Кампания XXXIII",
@@ -3228,12 +3228,12 @@
       },
       "octeractBonusTokens3": {
         "name": "Жетоны Кукузнеца III",
-        "description": "Even grazing the doorstep, Derpsmith acknowledges your bravery. +1 Token per level for each campaign with at least 1 completion.",
-        "effect": "Token gain +{{n}} for Campaigns with at least 1 completion."
+        "description": "После подреза у порога, Кукузнец признал вашу смелость. +1 Жетон за уровень за каждую кампанию с хотя бы 1 выполнением.",
+        "effect": "+{{n}} Жетонов за Кампании с хотя бы одним выполнением."
       },
       "octeractBonusTokens4": {
         "name": "Жетоны Кукузнеца IV",
-        "description": "Derpsmith is impressed by your dedication. +2 Tokens at the start of your Singularity per level.",
+        "description": "Кукузнец впечатлён вашей преданностью. +2 Жетона в начале Сингулярности за уровень.",
         "effect": "+{{n}} Жетонов в начале Сингулярности.."
       },
       "octeractSingUpgradeCap": {
@@ -3527,31 +3527,31 @@
       "noOcteracts": {
         "name": "Без Эффектов Октерактов",
         "description": "Пройдите целевую Сингулярность, но октеракты и их улучшения ничего не делают!<br/>Эффективная Сингулярность также сильно растёт в зависимости от уровня.",
-        "ScalingReward1": "+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00) [effect halved after 10 completions]",
-        "UniqueReward1": "1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
-        "UniqueReward2": "10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
-        "UniqueReward3": "10-ое - Новое улучшение <<orchid|Магазина Кварков>>!"
+        "ScalingReward1": "+0.02 к силе бонуса <<var(--lightseagreen-text-color)|ОКТЕРАКТОВ В КУБЫ>> (Начальный: 2.00) [эффект вдвое меньше после 10 выполнений]",
+        "UniqueReward1": "1-ое - Бонус к <<Gold|Подношениям>>, зависящий от <<var(--lightseagreen-text-color)|Октерактов>>!",
+        "UniqueReward2": "10-ое - Бонус к <<steelblue|Обтаниуму>>, зависящий от <<var(--lightseagreen-text-color)|Октерактов>>!",
+        "UniqueReward3": "10-ое - Новое улучшение в <<orchid|Магазине Кварков>>!"
       },
       "limitedAscensions": {
         "name": "Испытание Двадцати Вознесений",
         "description": "Кукузнец наложил эмбарго на Вознесения. На всю сингулярность дано только (20-выполнения), прежде чем Вознесения активируют негативные эффекты!<br/>Множитель Счётчика Вознесения не может быть выше 1. Ах, да, Дельта тоже отключена. Хе.",
-        "ScalingReward1": "<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
+        "ScalingReward1": "<<orange|+0.1% Скорости Вознесения>> за Цифру в вашем <<orange|Счётчике Вознесений!>>",
         "UniqueReward1": "1-ое - Навсегда бесплатно удваивает лимит <<Pink|всех Гептерактов>>!!! (Это отличная награда!)",
-        "UniqueReward2": "1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
-        "UniqueReward3": "20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
-        "UniqueReward4": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
+        "UniqueReward2": "1-ое - Новая Функция ;) <<var(--red-text-color)|[В ПРОЦЕССЕ]>>",
+        "UniqueReward3": "20-ое - Бонус к <<Yellow|Кубам>>, <<steelblue|Обтаниуму>> и <<Gold|Подношениям>>, пока вы находитесь в ВОЗВЫШЕНИИ! (Зависит от общего количества выполнений этого Возвышения!)",
+        "UniqueReward4": "25-ое - Новый Калькулятор в <<orchid|Магазине Кварков>>, вуху!"
       },
       "noAmbrosiaUpgrades": {
         "name": "Без Улучшений Амброзии",
-        "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
-        "ScalingReward1": "+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
-        "ScalingReward2": "+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
-        "UniqueReward1": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
-        "UniqueReward2": "1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
-        "UniqueReward3": "10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
-        "UniqueReward4": "15-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
-        "UniqueReward5": "20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
-        "UniqueReward6": "20th - An <<gold|ULTRA Quark Shop>> upgrade!"
+        "description": "Золотой Парень растерял весь кураж (и да - это его имя!) и ему нужна ваша помощь.<br/>Пройдите Сингулярность без эффектов от Амброзии или Улучшений Амброзии!",
+        "ScalingReward1": "+15 & +0.5% <<lime|&#9752 Удачи Амброзии>>",
+        "ScalingReward2": "+2% Скорости <<var(--blueberry-box-color)|Генерации Голубики>>",
+        "UniqueReward1": "1-ое - Бесплатная <<var(--blueberry-box-color)|Голубика>>!",
+        "UniqueReward2": "1-ое - Каждый раз, когда вы получаете <<var(--amber-text-color)|Амброзию>>, вы получаете <<var(--amber-text-color)|Ещё одну>>!",
+        "UniqueReward3": "10-ое - Ещё одна бесплатная <<var(--blueberry-box-color)|Голубика>>!!!",
+        "UniqueReward4": "15-ое - Новое улучшение в <<orchid|Магазине Кварков>>!",
+        "UniqueReward5": "20-ое - ТРЕТЬЯ БЕСПЛАТНАЯ <<var(--blueberry-box-color)|ГОЛУБИКА>>?!?!",
+        "UniqueReward6": "20-ое - <<gold|УЛЬТРА Улучшение>> в Магазине Кварков!"
       },
       "limitedTime": {
         "name": "Великий Спидран Сингулярности!",
@@ -3561,17 +3561,17 @@
         "ScalingReward3": "+1% к <<cyan|Кваркам>>!",
         "UniqueReward1": "1-ое - кварки больше не сбрасываются после сингулярности!",
         "UniqueReward2": "15-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
-        "UniqueReward3": "25th - A very expensive, not good, pretty bad <<orange|Quark Shop>> upgrade!"
+        "UniqueReward3": "25-ое - Новое, очень дорогое, не то чтобы хорошее, очень даже плохое улучшение в <<orange|Магазине Кварков>>!"
       },
       "sadisticPrequel": {
         "name": "ВОЗВЫШЕНИЕ САДИЗМ III - Приквел",
-        "description": "How much more will Platonic misuse the word 'Sadistic'? [No Sing Upgrade, Oct Upgrades OR Ambrosia Upgrades]",
+        "description": "Сколько ещё раз Platonic злоупотребит словом 'Садистский'? [Без Улучшений Сингулярности, Октерактов ИЛИ Амброзии]",
         "ScalingReward1": "+3% <<cyan|Кварков>> за каждое прохождение!",
         "ScalingReward2": "Ещё +3% <<orange|Бесплатных Улучшений>> от кода 'Daily' за каждое прохождение!",
         "UniqueReward1": "1-ое - +50 Бесплатных Улучшений от кода 'Daily\"!",
-        "UniqueReward2": "10th - A first-tier <<pink|Exalt Upgrade>>",
-        "UniqueReward3": "20th - A second-tier <<pink|Exalt Upgrade>>",
-        "UniqueReward4": "30th - A particularly Sadistic <<gray|ULTRA Upgrade>>!"
+        "UniqueReward2": "10-ое - <<pink|Улучшение Возвышения>> первого уровня",
+        "UniqueReward3": "20-ое - <<pink|Улучшение Возвышения>> второго уровня",
+        "UniqueReward4": "30-ое - Особенно Садистское <<gray|УЛЬТРА Улучшение>>!"
       }
     },
     "intro": "Есть ли у вас всё необходимое, чтобы заслужить ВОЗВЫШЕНИЕ от Муравьиного Бога?",
@@ -3789,20 +3789,20 @@
         "3": "+0.054% Гиперкубов за уровень Порчи за уровень!",
         "4": "+2.4% Платоновых Кубов за уровень. И ничего лишнего.",
         "5": "Экспонента И10: 1.035 --> 1.0375, экспонента налогов от Константы +0.10, скорость произвосдтва Константы 2х, +20% Кварков, +10 к Лимиту выполнений Испытаний Реинкарнации, +5 к Лимиту выполнений Испытаний Вознесения, 2x Обтаниума и Подношений, получение монет в И15 ^1.10, а также +1 к Лимиту Уровней Порч!",
-        "6": "Multiplies Viscosity exponent by (1 + level/30), capacity of ^1 on Multipliers and Accelerators.",
+        "6": "Умножает Экспоненту Вязкости на (1 + уровень/30), до максимума ^1 Множителей и Ускорителей.",
         "7": "Возводит скорость ниже 1x в степень ^(1 - уровень/30).",
-        "8": "Divides Hyperchallenged by (1 + 0.4 * level), with a minimum 1x Challenge requirement multiplier!",
-        "9": "Raise Obtainium to the power of (1+(0.09*log10(Obtainium owned))) and add another x2.5 multiplier (Uncorruptable), up until 1e100 Obtainium!",
+        "8": "Разделяет Гипериспытание на (1 + 0.4 * уровень), до минимума множителя требований Испытаний 1x!",
+        "9": "Возводит Обтаниум в степень (1+(0.09*log10(имеющийся Обтаниум))) и добавляет ещё один множитель x2.5 (Чистый), действует вплоть до 1e100 Обтаниума!",
         "10": "Экспонента И1.250: 1.0375 --> 1.04, экспонента налогов от Константы +0.20, скорость произвосдтва Константы 10х, +25% Кварков, +10 к Лимиту выполнений Испытаний Реинкарнации, +5 к Лимиту выполнений Испытаний Вознесения, 3.5x Обтаниума и Подношений, Все Кубы 2x, экспонента муравьёв в И15 ^1.25, и вновь +1 к Лимиту Уровней Порч!",
-        "11": "With this upgrade, you will gain diamonds equal to particle gain on Reincarnation while using Market Deflation 11 or higher! Does not work with Cube upgrade [3x8]!",
-        "12": "Gain (1 + lvl/100)x Ant multiplier per Challenge completion, ignoring corruptions to Ants.",
-        "13": "Effect of Drought is raised to the power of 0.5.",
-        "14": "Reduce the effect of Financial Recession in Challenge 15, multiplying the coin exponent by 1.55.",
-        "15": "You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (Multiplicative), +30% Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Offerings and Obtainium (Uncorruptable)! Talk about a deep dive.",
-        "16": "Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to 100,000. This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.",
-        "17": "If Viscosity Corruption is set to level 10 or higher, score multiplier is raised by an exponent. That exponent is 3 + 0.04 per level of this upgrade.",
-        "18": "Raise the base percentage of Constant Upgrade 1 by 0.1% and increase the base percentage cap of Constant Upgrade 2 by 0.3% per level!",
-        "19": "The diminishing return power on Chronos Hepteract changes from 0.166 to (0.166 + 0.00133 * level) [Max of 0.2333].",
+        "11": "С этим улучшением, пока Дефляция Рынка установлена на 11 или выше, при Реинкарнации, вы будете получать алмазы, равные количеству частиц! Не работает с Улучшением Кубов [3x8]!",
+        "12": "(1 + ур/100)x Множитель Муравьёв за выполнение Испытания, игнорирует порчи Муравьёв.",
+        "13": "Эффект Засухи возведён в степень 0.5.",
+        "14": "Уменьшает эффект Финансовой Рецессии в Испытании 15, умножая экспоненту монет на 1.55.",
+        "15": "Вы встали на путь поиска начала бездны. Экспонента Монет в Испытании 15 +0.10, Счёт Испытания 15 +25%, Скорость Вознесения +0.2% за Уровень Порчи (Макс: 20%), +1% ко всем Кубам за Выполнение И9 (Перемножаемо), +30% Кварков, Множитель Строений Тессерактов 1e250x, Счётчик Вознесений 2x, +30 К Лимиту Выполнений Испытаний Реинкарнаций, +20 К Лимиту Выполнений Испытаний Вознесения, 6x Подношений и Обтаниума (Чистые)! Вот это я понимаю глубокое погружение.",
+        "16": "Увеличивает коэффициент преобразования порошка на 1% за уровень, +2% счётчика Вознесений за уровень и ещё 2% в зависимости от порошка (до 100 000). Также умножает производство Строений Тессерактов на (Порошок +1)^(10 * уровень), без лимита.",
+        "17": "Если уровень Порчи Вязкости 10 или выше, множитель счёта возводится в степень. Эта степень - 3 + 0.04 за уровень этого улучшения.",
+        "18": "Увеличивает базовый процент Улучшения Константы 1 на 0.1% и лимит базового процента Улучшения Константы 2 на 0.3% за уровень!",
+        "19": "Уменьшающаяся полезность Гептеракта Кроноса изменяется с 0.166 на (0.166 + 0.00133 * уровень) [Максимум 0.2333].",
         "20": "Знаете, возможно, некоторые вещи лучше не покупать."
       }
     },
