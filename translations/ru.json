@@ -1693,7 +1693,7 @@
       },
       "itAllAddsUp": {
         "name": "Всё идет по нарастающей",
-        "default": "The 'Add' Special Action reward & cooldown is divided by {{div}} while its maximum capacity is multiplied the same amount! (Rounded Up)."
+        "default": "Награда и перезарядка Специального Действия 'Add' разделены на {{div}}, в то время как максимальная ёмкость умножена на то же число! (Округление Вверх)."
       },
       "automagicalRunes": {
         "name": "Автомагические Руны",
@@ -1771,8 +1771,8 @@
       },
       "octeractMetagenesis": {
         "name": "Метагенезис Октерактов",
-        "hasLevel1": "Даёт бесплатные уровни Когенезиса И Тригенезиса Октерактов в зависимсоти от ваших текущих бесплатных и купленных уровней: (уровень * бесплатные / 640)^0.5, (уровень^2 * бесплатные/125000)^0.333 соответственно ",
-        "default": "Gives free levels of Octeract Cogenesis based on your current free levels and purchased levels: (level * free / 1000)^0.5"
+        "hasLevel1": "Даёт бесплатные уровни Когенезиса И Тригенезиса Октерактов в зависимости от ваших текущих бесплатных и купленных уровней: (уровень * бесплатные / 640)^0.5, (уровень^2 * бесплатные/125000)^0.333 соответственно ",
+        "default": "Даёт бесплатные уровни Когенезиса Октерактов в зависимости от ваших текущих бесплатных и купленных уровней: (уровень * бесплатные / 1000)^0.5"
       },
       "immaculateAlchemy": {
         "name": "Безупречная Алхимия",
@@ -1786,12 +1786,12 @@
       },
       "primalPower": {
         "name": "Первобытная Сила!",
-        "hasLevel1": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> Ambrosia Luck!",
-        "default": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|☘ +131>> Ambrosia Luck!"
+        "hasLevel1": "Даёт невероятную силу за достижение Сингулярностей, у которых номер - Простое Число! Текущий бонус: + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> Удачи Амброзии!",
+        "default": "Даёт невероятную силу за достижение Сингулярностей, у которых номер - Простое Число! Текущий бонус: + <<limegreen|☘ +131>> Удачи Амброзии!"
       },
       "permanentBenefaction": {
-        "name": "Permanent Benefaction",
-        "default": "<<lightblue | Pandora>> and <<orange | Vyshareth>> will always grant you their benefaction, so their cookies are correspondingly always eaten!"
+        "name": "Постоянное Спонсорство",
+        "default": "Спонсорство от <<lightblue | Пандора>> и <<orange | Вишарет>> теперь постоянно, поэтому их печеньки, соответственно, всегда съедены!"
       }
     },
     "toString": {
@@ -2170,24 +2170,24 @@
         "effect": "Генерация Секунд Голубики +{{n}}%(!)"
       },
       "singBonusTokens1": {
-        "name": "Spare Change on the Sofa Cushion",
-        "description": "Thanks to your perceptive eyes, you find more Tokens in Campaigns! +1 per level per Campaign with at least 1 completion.",
-        "effect": "You find {{n}} more Tokens from first clears in Campaigns!"
+        "name": "Мелочь на Диванной Подушке",
+        "description": "Благодаря вашему острому зрению, вы находите больше Жетонов в Кампаниях! +1 за уровень за Кампанию с хотя бы 1 выполнением.",
+        "effect": "Вы находите больше на {{n}} Жетонов больше во время первого выполнения Кампаний!"
       },
       "singBonusTokens2": {
-        "name": "Spare Change in the creases of the Sofa Cushions",
+        "name": "Мелочь в складках Диванных Подушек",
         "description": "Thanks to your more perceptive eyes, you find even more Tokens in Campaigns! +1% more Tokens per level from Campaigns.",
         "effect": "You find +{{n}}% more Tokens from Campaigns!"
       },
       "singBonusTokens3": {
-        "name": "Spare Change under the Sofa",
+        "name": "Мелочь под Диваном",
         "description": "Why do you have Tokens just lying everywhere near your Sofa? +2 per level per Campaign with maxxed completions.",
         "effect": "You find {{n}} more Tokens from maxxed Campaigns!"
       },
       "singBonusTokens4": {
-        "name": "Spare Change from the Ant God's Coffers",
-        "description": "Those Tokens were too big to be called Tokens. Too big, too thick, too heavy, and too rough, they were more like large hunks of gold. +5 Tokens at the start of a Singularity per level.",
-        "effect": "Ant God ponies up {{n}} Tokens at the start of a Singularity!"
+        "name": "Мелочь из Кошелька Муравьиного Бога",
+        "description": "Эти Жетоны были слишком большими, чтобы их можно было назвать Жетонами. Массивные, толстые, тяжелые и слишком грубые. Действительно, они были словно груды золота. +5 Жетонов в начале Сингулярности за уровень.",
+        "effect": "В начале Сингулярности, Муравьиный Бог раскошеливается на {{n}} Жетонов!"
       }
     },
     "goldenQuarkAmount": "У вас {{goldenQuarks}} Золотых Кварков!",
@@ -2634,49 +2634,49 @@
     "exportQuarks": "Экспорт Кварки: +<<goldenrod|{{value}}>>"
   },
   "campaigns": {
-    "intro": "Campaigns - <<orange | Ascensions>> but <<maroon | harder™>>",
+    "intro": "Кампании - <<orange | Вознесения>>, но <<maroon | сложнее™>>",
     "campaignInfo": "Play through <<orange | Ascensions>> with various modifiers to make it spicier, but also more cubical! \n Each Campaign is a <i> <<red | Corrupted>> form of <<orange | Ascension>>. \n <<lightgoldenrodyellow | Click on an icon to see what I mean!>> </i>",
     "pickNow": "Pick Your Campaign now!",
     "activeCampaign": "Active Campaign: <<orange | {{name}} (#{{cardinal}}) >>",
     "data": {
       "first": {
-        "name": "The first Campaign",
+        "name": "Первая Кампания",
         "description": "Welcome to Campaigns! These are Ascensions with corruption modifiers, which make the Ascension harder, but give better rewards!"
       },
       "second": {
-        "name": "The second Campaign",
+        "name": "Вторая Кампания",
         "description": "As you can see, there are multiple different forms of corruption. You'll see more as you progress through Campaign!"
       },
       "third": {
-        "name": "Campaign the Third",
+        "name": "Третья Кампания",
         "description": "Kinda stacking a bit more. Notice the Ascension Score Multiplier? It goes up based on how many corruptions you have."
       },
       "fourth": {
-        "name": "Campaign IV",
+        "name": "Кампания IV",
         "description": "Corruptions also have levels to them. Harder Campaigns will have higher corruption levels... and a higher Ascension Score multiplier!"
       },
       "fifth": {
-        "name": "The fifth least Campaign",
+        "name": "Пятая с начала Кампания",
         "description": "You can earn tokens by completing Campaigns! Tokens automatically reward bonuses, based on how many you have earned."
       },
       "sixth": {
-        "name": "The sweet sixth Campaign",
+        "name": "Сладкая Шестая Кампания",
         "description": "The difficulty Score of an Ascension is based on your corruption levels, based on 400 + 16 * (sum of squared corruption levels)."
       },
       "seventh": {
-        "name": "I think you understand this Corruption set by now",
+        "name": "Я думаю, вам уже примерно понятен этот набор Порч",
         "description": "If you can beat this, then Challenge 12 should be doable!"
       },
       "eighth": {
-        "name": "Woah, a new Corruption!",
+        "name": "Воу, новая Порча!",
         "description": "This Campaign has a new corruption, which eats at your Diamond production."
       },
       "ninth": {
-        "name": "More Viscosity!",
+        "name": "Больше Вязкости!",
         "description": "We wanted to make things more viscous."
       },
       "tenth": {
-        "name": "Extinction Event I",
+        "name": "Вымирание I",
         "description": "This Campaign has a new corruption, which eats at your Ants. Oh the Ant-ity!"
       },
       "eleventh": {
@@ -2851,17 +2851,17 @@
       "recession": "Coin Gain ^{{ effect }}"
     },
     "corruptionStats": {
-      "title": "Campaign Statistics",
-      "corruptionScoreMult": "Ascension Score Multiplier: {{ mult }}",
+      "title": "Статистика Кампании",
+      "corruptionScoreMult": "Множитель Очков Вознесения: {{ mult }}",
       "corruptionDifficulty": "Campaign Difficulty Score (base is 400): {{ difficulty }}",
       "highestc10Completion": "Highest Challenge 10 Completion in Campaign: {{ c10 }} / {{ maxc10 }}",
       "tokensEarned": "Tokens Earned in Campaign: {{ tokens }} / {{ maxTokens }}",
       "metaText": "This campaign has a 'meta build'! Token reward is doubled!",
-      "startCampaign": "Start Campaign! (Resets your ascension)",
-      "resetCampaign": "Exit Campaign! (Resets your ascension)"
+      "startCampaign": "Начать Кампанию! (Сбрасывает текущее вознесение)",
+      "resetCampaign": "Выйти из Кампании! (Сбрасывает текущее вознесение)"
     },
     "tokens": {
-      "count": "You have {{ count }} / {{ maxCount }} tokens!",
+      "count": "У вас {{ count }} / {{ maxCount }} жетонов!",
       "rewardTexts": {
         "tutorial": "For clearing your first Campaign, get {{cube}} more Cubes, <<pink | {{obtainium}}>> more Obtainium, and <<orange | {{offering}}>> more Offerings!",
         "cube": "Increase Cube gain by {{ reward }} (Maximum +150%).",
@@ -2881,7 +2881,7 @@
     },
     "currentCampaignPreTitle": "Текущая Кампания: ",
     "emptyCampaignName": "Кампания не Выбрана",
-    "noChallengeCompletionConfirm": "You have not yet cleared Challenge 10 and therefore will not earn Cubes if you leave. Confirm?",
+    "noChallengeCompletionConfirm": "Вы не прошли Испытание 10 и, следовательно, не получите кубов, если покинете испытание. Продолжить?",
     "saveLoadout": "Сохранить Заготовку Порчи!",
     "saveLoadoutNotification": "Заготовка Порчи {{ name }} сохранена для следующего Вознесения!",
     "errorMessages": {
@@ -2984,7 +2984,7 @@
     "spiritBonus": "Однако это также повышает Эффекты Духов Рун на <<wheat|{{multiplier}}>>.",
     "corruptionBank": "У вас <<var(--crimson-text-color)|{{number}}>> Wow! Кубов в банке Вознесения. Получите больше, выполняя Испытания! Вознеситесь, чтобы забрать их.",
     "corruptionScore": "Ваш счёт Вознесения <<goldenrod|{{ascScore}}>></span> (основной) * <<var(--crimson-text-color)|{{corrMult}}>> (Множ. порчи) * <<var(--orchid-text-color)|{{bonusMult}}>> (Бонусный множ.) = <<var(--darkorchid-text-color)|{{totalScore}}>>",
-    "corruptionScoreDR": "Past 1e23 Ascension Score, further gains are square rooted! You are currently under this penalty.",
+    "corruptionScoreDR": "После Счёта Вознесение 1e23, дальнейшее получение возведено в квадратный корень! В данный момент, штраф активен.",
     "ascensionCount": "Если вы Вознесётесь сейчас, к вашему счётчику вознесений будет добавлено <<darkorange|{{ascCount}}>>.",
     "corruptionCubes": "При Вознесении сейчас, вы получите <<yellow|{{cubeAmount}}>> Wow! Кубов.",
     "corruptionTesseracts": "При Вознесении сейчас, вы получите <<orange|{{tesseractAmount}}>> Wow! Тессерактов. [<<var(--orange-text-color)|Получите больше если Счёт >100,000>>]",
@@ -3222,19 +3222,19 @@
         "effect": "Token gain +{{n}} for maxxed completions."
       },
       "octeractBonusTokens2": {
-        "name": "Tokens of Derpsmith II",
+        "name": "Жетоны Кукузнеца II",
         "description": "Under some weird trade agreement, you get +1% Tokens from Campaigns per level. Pray that the trade is not further altered.",
         "effect": "Token gain +{{n}}%"
       },
       "octeractBonusTokens3": {
-        "name": "Tokens of Derpsmith III",
+        "name": "Жетоны Кукузнеца III",
         "description": "Even grazing the doorstep, Derpsmith acknowledges your bravery. +1 Token per level for each campaign with at least 1 completion.",
         "effect": "Token gain +{{n}} for Campaigns with at least 1 completion."
       },
       "octeractBonusTokens4": {
-        "name": "Tokens of Derpsmith IV",
+        "name": "Жетоны Кукузнеца IV",
         "description": "Derpsmith is impressed by your dedication. +2 Tokens at the start of your Singularity per level.",
-        "effect": "Token gain +{{n}} at the start of your Singularity.."
+        "effect": "+{{n}} Жетонов в начале Сингулярности.."
       },
       "octeractSingUpgradeCap": {
         "name": "Перезаписывающие Указатели",
@@ -3519,10 +3519,10 @@
         "description": "Завершите необходимую Сингулярность, но лимит выполнений первых 14 Испытаний - 1!",
         "ScalingReward1": "+0.03 к значениям <<var(--red-text-color)|Множителей Порчи>>",
         "ScalingReward2": "+1% Скорости <<var(--blueberry-box-color)|Генерации Голубики>>",
-        "UniqueReward1": "1st - +3 <<green|Reincarnation Challenge>> Cap!",
+        "UniqueReward1": "1-ое - +3 к лимиту выполнений <<green|Испытаний Реинкарнации>>!",
         "UniqueReward2": "20-ое +1 Бесплатный <<var(--red-text-color)|Уровень Порчиl>>",
         "UniqueReward3": "20-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
-        "UniqueReward4": "25th - +7 <<green|Reincarnation Challenge>> Cap! And +2 to Ascension Challenge caps."
+        "UniqueReward4": "25-ое - +7 к лимиту выполнений <<green|Испытаний Реинкарнации>>! А также +2 к лимиту выполнений Испытаний Вознесения."
       },
       "noOcteracts": {
         "name": "Без Эффектов Октерактов",
@@ -3729,7 +3729,7 @@
         "requiredExponent": "Получите <span class=\"challengeNumber\" style=\"color: gold; font-size: 1.2em;\">{{coins}}</span> Монет в Испытании 15, чтобы получить больше Экспоненты!",
         "nextReward": "Следующий тип наград требует Экспоненту <<white | {{exponent}}>>.",
         "allUnlocked": "Вы разблокировали <<gold | все> типы наград из Испытания 15!",
-        "0": "Best Challenge 15 Exponent: <span class=\"challengeNumber\" style=\"color: gold; font-size: 1.2em;\">{{exponent}}</span>",
+        "0": "Лучшая Экспонента Испытания 15: <span class=\"challengeNumber\" style=\"color: gold; font-size: 1.2em;\">{{exponent}}</span>",
         "cube1": "• Все Кубы I: +{{amount}}",
         "ascensions": "• Счётчик Вознесений: +{{amount}}",
         "coinExponent": "• Экспонента Монет: +{{amount}}",
@@ -3750,50 +3750,50 @@
         "globalSpeed": "• Глобальная Скорость: +{{amount}}",
         "blessingBonus": "• Эффективность Благословений: +{{amount}}",
         "constantBonus": "• Производство Строений Вознесения: +{{amount}}",
-        "cube4": "• All Cube Types IV: +{{amount}}",
-        "spiritBonus": "• Spirit Effectiveness: +{{amount}}",
-        "score": "• Ascension Score: +{{amount}}",
-        "quarks": "• Quarks: +{{amount}}",
-        "hepteractsUnlocked": "• Hepteracts: Unlocked!",
-        "challengeHepteractUnlocked": "• Challenge Hepteract: Unlocked!",
-        "cube5": "• All Cube Types V: +{{amount}}",
-        "powder": "• Powder Conversion: +{{amount}}",
-        "abyssHepteractUnlocked": "• Abyss Hepteract: Unlocked!",
-        "exponent": "• Constant Upgrade 2: +{{amount}}",
-        "acceleratorHepteractUnlocked": "• Accelerator Hepteract: Unlocked!",
-        "acceleratorBoostHepteractUnlocked": "• Accelerator Boost Hepteract: Unlocked!",
-        "multiplierHepteractUnlocked": "• Multiplier Hepteract: Unlocked!",
-        "freeOrbs": "• Free Daily Overflux Orbs: +{{amount}} at the start of the day",
-        "ascensionSpeed": "• Ascension Speed: +{{amount}}"
+        "cube4": "• Все Кубы IV: +{{amount}}",
+        "spiritBonus": "• Эффективность Духов: +{{amount}}",
+        "score": "• Счёт Вознесений: +{{amount}}",
+        "quarks": "• Кварки: +{{amount}}",
+        "hepteractsUnlocked": "• Гептеракты: Разблокированы!",
+        "challengeHepteractUnlocked": "• Гептеракт Испытаний: Разблокирован!",
+        "cube5": "• Все Кубы V: +{{amount}}",
+        "powder": "• Преобразование Порошка: +{{amount}}",
+        "abyssHepteractUnlocked": "• Гептеракт Бездны: Разблокирован!",
+        "exponent": "• Улучшение Константы 2: +{{amount}}",
+        "acceleratorHepteractUnlocked": "• Гептеракт Ускорителей: Разблокирован!",
+        "acceleratorBoostHepteractUnlocked": "• Гептеракт Усилителей Ускорителей: Разблокирован!",
+        "multiplierHepteractUnlocked": "• Гептеракт Множителей: Разблокирован!",
+        "freeOrbs": "• Еждневные Бесплатные Сферы Изобильного Потока: +{{amount}} в начале каждого дня",
+        "ascensionSpeed": "• Скорость Вознесений: +{{amount}}"
       },
       "descriptionBox": {
-        "descriptionDivisor": "===Upgrade Description===",
-        "descriptionDefault": "Click an icon for info!",
-        "costDivisor": "===Upgrade Costs===",
-        "upgradeLevel": "Level: {{a}}/{{b}}",
-        "upgradeLevelMaxed": "Level: {{a}}/{{b}} [MAXED]",
-        "offeringCost": "{{a}}/{{b}} Offerings",
-        "obtainiumCost": "{{a}}/{{b}} Obtainium",
-        "cubeCost": "{{a}}/{{b}} Wow! Cubes",
-        "tesseractCost": "{{a}}/{{b}} Wow! Tesseracts",
-        "hypercubeCost": "{{a}}/{{b}} Wow! Hypercubes",
-        "platonicCost": "{{a}}/{{b}} Platonic! Cubes",
-        "hepteractCost": "{{a}}/{{b}} Hepteracts of the Abyss",
-        "platonicCanBuy": "===Affordable! Click to buy!===",
-        "platonicCannotBuy": "===You cannot afford this!===",
-        "platonicCanBuyMaxed": "===Maxed==="
+        "descriptionDivisor": "===Описание Улучшения===",
+        "descriptionDefault": "Нажмите на иконку для информации!",
+        "costDivisor": "===Стоимость Улучшения===",
+        "upgradeLevel": "Уровень: {{a}}/{{b}}",
+        "upgradeLevelMaxed": "Уровень: {{a}}/{{b}} [МАКС]",
+        "offeringCost": "{{a}}/{{b}} Подношений",
+        "obtainiumCost": "{{a}}/{{b}} Обтаниума",
+        "cubeCost": "{{a}}/{{b}} Вау! Кубов",
+        "tesseractCost": "{{a}}/{{b}} Вау! Тессерактов",
+        "hypercubeCost": "{{a}}/{{b}} Вау! Гиперкубов",
+        "platonicCost": "{{a}}/{{b}} Платоновых! Кубов",
+        "hepteractCost": "{{a}}/{{b}} Гептерактов Бездны",
+        "platonicCanBuy": "===Доступно! Нажмите, чтобы купить!===",
+        "platonicCannotBuy": "===Сейчас вы не можете это купить!===",
+        "platonicCanBuyMaxed": "===Максимум==="
       },
       "descriptions": {
-        "1": "+0.0090% Cubes per Corruption level per level!",
-        "2": "+0.018% Tesseracts per Corruption level per level!",
-        "3": "+0.054% Hypercubes per Corruption level per level!",
-        "4": "Gain +2.4% Platonic Cubes per level! It is that simple.",
-        "5": "C10 Exponent: 1.035 --> 1.0375, Constant tax exponent +0.10, 2x faster Constant production, +20% Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Obtainium and Offerings, ^1.10 coin gain in C15, as well +1 Corruption Cap Level!",
+        "1": "+0.0090% Кубов за уровень Порчи за уровень!",
+        "2": "+0.018% Тессерактов за уровень Порчи за уровень!",
+        "3": "+0.054% Гиперкубов за уровень Порчи за уровень!",
+        "4": "+2.4% Платоновых Кубов за уровень. И ничего лишнего.",
+        "5": "Экспонента И10: 1.035 --> 1.0375, экспонента налогов от Константы +0.10, скорость произвосдтва Константы 2х, +20% Кварков, +10 к Лимиту выполнений Испытаний Реинкарнации, +5 к Лимиту выполнений Испытаний Вознесения, 2x Обтаниума и Подношений, получение монет в И15 ^1.10, а также +1 к Лимиту Уровней Порч!",
         "6": "Multiplies Viscosity exponent by (1 + level/30), capacity of ^1 on Multipliers and Accelerators.",
-        "7": "Raises speed below 1x to the power of ^(1 - level/30).",
+        "7": "Возводит скорость ниже 1x в степень ^(1 - уровень/30).",
         "8": "Divides Hyperchallenged by (1 + 0.4 * level), with a minimum 1x Challenge requirement multiplier!",
         "9": "Raise Obtainium to the power of (1+(0.09*log10(Obtainium owned))) and add another x2.5 multiplier (Uncorruptable), up until 1e100 Obtainium!",
-        "10": "C10 Exponent: 1.0375 --> 1.04, Constant tax exponent +0.20, 10x faster Constant production, +25% Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 3.5x Obtainium and Offerings, 2x All Cubes, ^1.25 ant exponent in C15, +1 Corruption Cap Level again!",
+        "10": "Экспонента И1.250: 1.0375 --> 1.04, экспонента налогов от Константы +0.20, скорость произвосдтва Константы 10х, +25% Кварков, +10 к Лимиту выполнений Испытаний Реинкарнации, +5 к Лимиту выполнений Испытаний Вознесения, 3.5x Обтаниума и Подношений, Все Кубы 2x, экспонента муравьёв в И15 ^1.25, и вновь +1 к Лимиту Уровней Порч!",
         "11": "With this upgrade, you will gain diamonds equal to particle gain on Reincarnation while using Market Deflation 11 or higher! Does not work with Cube upgrade [3x8]!",
         "12": "Gain (1 + lvl/100)x Ant multiplier per Challenge completion, ignoring corruptions to Ants.",
         "13": "Effect of Drought is raised to the power of 0.5.",
@@ -3803,7 +3803,7 @@
         "17": "If Viscosity Corruption is set to level 10 or higher, score multiplier is raised by an exponent. That exponent is 3 + 0.04 per level of this upgrade.",
         "18": "Raise the base percentage of Constant Upgrade 1 by 0.1% and increase the base percentage cap of Constant Upgrade 2 by 0.3% per level!",
         "19": "The diminishing return power on Chronos Hepteract changes from 0.166 to (0.166 + 0.00133 * level) [Max of 0.2333].",
-        "20": "You know, maybe some things should be left unbought."
+        "20": "Знаете, возможно, некоторые вещи лучше не покупать."
       }
     },
     "hepteractForge": {
@@ -4061,7 +4061,7 @@
     "upgradeNames": {
       "INSTANT_UNLOCK_1": "Активатор-Инатор Талисмана",
       "INSTANT_UNLOCK_2": "Обнаружитель-Инатор Рун",
-      "CUBE_BUFF": "Gold-Infused Cubes",
+      "CUBE_BUFF": "Пропитанные Золотом Кубы",
       "AMBROSIA_LUCK_BUFF": "Клевера с Золотыми Листьями",
       "AMBROSIA_GENERATION_BUFF": "Алхимически Ускоренная Амброзия",
       "GOLDEN_QUARK_BUFF": "Ещё Более Золотые Кварки",
@@ -4073,27 +4073,27 @@
       "ADD_CODE_CAP_BUFF": "Эксклюзивный PLAT-P Калькулятор"
     },
     "upgradeEffects": {
-      "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
-      "INSTANT_UNLOCK_2": "The Rune of Infinite Ascent is <<gold | {{descriptor}}>> always unlocked! <<orange | Bonus Levels +{{amount}}>>",
-      "CUBE_BUFF": "Cube Gain is multiplied by <<gold | {{amount}}>>",
-      "AMBROSIA_LUCK_BUFF": "Ambrosia Luck is increased by <<gold | {{amount}}>>",
-      "AMBROSIA_GENERATION_BUFF": "Blueberry Generation Speed is multiplied by <<gold | {{amount}}>>",
-      "GOLDEN_QUARK_BUFF": "Golden Quark Gain is multiplied by <<gold | {{amount}}>>",
-      "FREE_UPGRADE_PROMOCODE_BUFF": "Code 'Daily' gives <<gold | {{amount}}x>> the Free Upgrades!",
-      "CORRUPTION_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Corruption Loadout slots!",
-      "AMBROSIA_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Ambrosia Loadout slots!",
+      "INSTANT_UNLOCK_1": "Талисман Пластик <<gold | {{descriptor}}>> всегда доступен! <<orange | Максимальный Уровень +{{amount}}>>",
+      "INSTANT_UNLOCK_2": "Руна Бесконечного Восхождения <<gold | {{descriptor}}>> всегда доступна! <<orange | Бонусные Уровни +{{amount}}>>",
+      "CUBE_BUFF": "Получение Кубов умножено на <<gold | {{amount}}>>",
+      "AMBROSIA_LUCK_BUFF": "Удача Амброзии увеличена на <<gold | {{amount}}>>",
+      "AMBROSIA_GENERATION_BUFF": "Скорость Генерации Голубики умножена на <<gold | {{amount}}>>",
+      "GOLDEN_QUARK_BUFF": "Получение Золотых Кварков умножено на <<gold | {{amount}}>>",
+      "FREE_UPGRADE_PROMOCODE_BUFF": "Код 'Daily' даёт в <<gold | {{amount}}x>> раз больше Бесплатных Улучшений!",
+      "CORRUPTION_LOADOUT_SLOT_QOL": "У вас <<gold | {{amount}}>> дополнительных слотов под Заготовки Порчи!",
+      "AMBROSIA_LOADOUT_SLOT_QOL": "У вас <<gold | {{amount}}>> дополнительных слотов под Заготовки Амброзии!",
       "AUTO_POTION_FREE_POTIONS_QOL": "Авто-Зелья <<gold | {{descriptor}}>> БЕСПЛАТНЫ!",
       "OFFLINE_TIMER_CAP_BUFF": "Лимит Офлайн Времени увеличен в <<gold | {{amount}}>> раз",
       "ADD_CODE_CAP_BUFF": "Ёмкость кода 'add' увеличена в <<gold | {{amount}}>> раз"
     },
     "consumables": {
-      "tipReceived": "{{offlineTime}} people tipped you in the last minute!",
-      "thanks": "The booster is now in effect! Thank you for supporting the game!",
-      "eventTitle": "Active Consumables",
-      "consumableSpoiler": "Start an event for everyone, with the Happy Hour Bell!",
-      "consumableButton": "Buy at the PseudoShop!",
-      "applyTips": "Use Tips!",
-      "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s). You may only use up to 1,440 tips per "
+      "tipReceived": "За последнюю минуту, вас поблагодарило {{offlineTime}} человек!",
+      "thanks": "Усилитель активирован! Спасибо за поддержку игры!",
+      "eventTitle": "Активные Расходники",
+      "consumableSpoiler": "Начните событие для всех, использовав Колокольчик Счастливого Часа!",
+      "consumableButton": "Купить в ПсевдоМагазине!",
+      "applyTips": "Использовать Чаевые!",
+      "applyTipsPrompt": "Сколько чаевых вы бы хотели использовать? Каждые дают 1 минуту Оффлайн Времени. У вас {{tips}} чаевых. За раз можно использовать до 1 440 чаевых "
     }
   }
 }
