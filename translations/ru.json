@@ -2641,91 +2641,91 @@
     "data": {
       "first": {
         "name": "Первая Кампания",
-        "description": "Welcome to Campaigns! These are Ascensions with corruption modifiers, which make the Ascension harder, but give better rewards!"
+        "description": "Добро пожаловать в Кампании! Кампании - это Вознесения с модификаторами порчи, которые делают их сложнее, но дают больше наград!"
       },
       "second": {
         "name": "Вторая Кампания",
-        "description": "As you can see, there are multiple different forms of corruption. You'll see more as you progress through Campaign!"
+        "description": "Как вы могли заметить, существует несколько разных порч. По мере вашего прохождения Кампаний, вы увидите ещё больше!"
       },
       "third": {
         "name": "Третья Кампания",
-        "description": "Kinda stacking a bit more. Notice the Ascension Score Multiplier? It goes up based on how many corruptions you have."
+        "description": "Немного поднимем ставки. Заметили Множитель Счёта Вознесения? Чем больше у вас порч, тем больше счёт."
       },
       "fourth": {
         "name": "Кампания IV",
-        "description": "Corruptions also have levels to them. Harder Campaigns will have higher corruption levels... and a higher Ascension Score multiplier!"
+        "description": "Порчи имеют уровни. В более сложных Кампаниях уровни порч будут выше... ровно как и множитель Счёта Вознесения!"
       },
       "fifth": {
         "name": "Пятая с начала Кампания",
-        "description": "You can earn tokens by completing Campaigns! Tokens automatically reward bonuses, based on how many you have earned."
+        "description": "За прохождение Кампаний вы получите жетоны! Они автоматически дают бонусы в зависимости от того, сколько их у вас."
       },
       "sixth": {
         "name": "Сладкая Шестая Кампания",
-        "description": "The difficulty Score of an Ascension is based on your corruption levels, based on 400 + 16 * (sum of squared corruption levels)."
+        "description": "Счёт сложности Вознесения зависит от уровней порч, на основе формулы 400 + 16 * (сумма уровней порч в квадрате)."
       },
       "seventh": {
         "name": "Я думаю, вам уже примерно понятен этот набор Порч",
-        "description": "If you can beat this, then Challenge 12 should be doable!"
+        "description": "Если вы сможете пройти это, Испытание 12 должно быть выполнимо!"
       },
       "eighth": {
         "name": "Воу, новая Порча!",
-        "description": "This Campaign has a new corruption, which eats at your Diamond production."
+        "description": "В этой Кампании появляется новая порча, которая вбивает клин между вами и производством Алмазов."
       },
       "ninth": {
         "name": "Больше Вязкости!",
-        "description": "We wanted to make things more viscous."
+        "description": "Мы считаем, что миру не помешает побольше вязкости."
       },
       "tenth": {
         "name": "Вымирание I",
-        "description": "This Campaign has a new corruption, which eats at your Ants. Oh the Ant-ity!"
+        "description": "В этой Кампании появляется новая порча, которая поедает ваших Муравьёв. Чистой воды Муразм!"
       },
       "eleventh": {
         "name": "Кампания XI",
-        "description": "Harder setup. Oh, and these corruptions can go to level 7 if they want."
+        "description": "Теперь сборка посложнее. К слову, никто не запрещает этим порчам достигать 7 уровня."
       },
       "twelfth": {
         "name": "Кампания XII",
-        "description": "We can combine the new corruptions in a way that Synergistically make it more difficult to beat, but a lot more rewarding."
+        "description": "Благодаря Синергии, мы получили новый способ объединить новые порчи так, что Кампанию гораздо тяжелее пройти. Но и награды под стать."
       },
       "thirteenth": {
         "name": "Кампания XIII",
-        "description": "As you may notice, having multiple corruptions greatly boosts your score, more so than just leveling corruptions higher."
+        "description": "Как вы могли заметить, несколько порч вместе намного больше увеличивают ваш счёт, чем если бы вы увеличивали их уровень по отдельности."
       },
       "fourteenth": {
         "name": "Кампания XIV",
-        "description": "You can sometimes increase a Corruption without hurting your run, if it does not strongly impact your challenge completions."
+        "description": "Иногда, если порчи сильно не влияют на количество выполнений испытаний, их уровень можно увеличить без особых проблем."
       },
       "fifteenth": {
         "name": "Кампания XV",
-        "description": "The last of the Campaigns before Challenge 13. Good luck!"
+        "description": "Последняя из Кампаний перед Испытанием 13. Удачи!"
       },
       "sixteenth": {
         "name": "Кампания XVI",
-        "description": "New Corruptions! Reduce your Obtainium gain, and reduce your Coin gain. Maybe it reminds you of an upcoming challenge?"
+        "description": "Новые Порчи! Они уменьшают ваше получение Обтаниума и Монет. Не напоминает предстоящее испытание?"
       },
       "seventeenth": {
         "name": "Кампания XVII",
-        "description": "Amping up the illiteracy a bit, you will gain even less Obtainium. It's probably less important than coins, right?"
+        "description": "Поднимаем уровень неграмотности, получение Обтаниума ещё уменьшено. Он явно не так важен, как монеты, не так ли?"
       },
       "eighteenth": {
         "name": "Кампания XVIII",
-        "description": "Let's up the ante. Six Corruptions at once! And your Ascension Score Multiplier is very quickly increasing."
+        "description": "Повышаем ставки. Сразу Шесть Порч! Ваш Множитель Счёта Вознесения также быстро растёт."
       },
       "nineteenth": {
         "name": "Кампания XIX",
-        "description": "Even more illiteracy! Maybe you'll notice how hard it can be to earn Hypercubes."
+        "description": "Ещё больше неграмотности! Может теперь вы заметите, как тяжело бывает получить Гиперкубы."
       },
       "twentieth": {
         "name": "Кампания XX",
-        "description": "As long as you can handle having less Obtainium, leveling up the illiteracy corruption is worth it."
+        "description": "Пока вас не смущает меньшее количество Обтаниума, повышение уровня порчи неграмотности стоит того."
       },
       "twentyFirst": {
         "name": "Кампания XXI",
-        "description": "It is also sometimes worth trading one penalty for another. In this case, you get more Obtainium, but almost no Diamonds. Higher multiplier for Corruption Levels!"
+        "description": "Стоит отметить, иногда верным решением будет обмен одного штрафа на другой. В данном случае, вы получаете больше Обтаниума, но почти никаких Алмазов. Больше Множителя за Уровни Порчи!"
       },
       "twentySecond": {
         "name": "Кампания XXII",
-        "description": "Fewer Offerings, and less Obtainium. Perhaps your ants can compensate for lost power?"
+        "description": "Меньше Подношений и Обтаниума. Возможно, муравьи помогут восполнить потерянные силы?"
       },
       "twentyThird": {
         "name": "Кампания XXIII",
@@ -3223,8 +3223,8 @@
       },
       "octeractBonusTokens2": {
         "name": "Жетоны Кукузнеца II",
-        "description": "Under some weird trade agreement, you get +1% Tokens from Campaigns per level. Pray that the trade is not further altered.",
-        "effect": "Token gain +{{n}}%"
+        "description": "Из-за какого-то странного торгового соглашения, вы получаете +1% Жетонов от Кампаний за уровень. Молитесь, что это соглашение не изменится.",
+        "effect": "+{{n}}% Жетонов"
       },
       "octeractBonusTokens3": {
         "name": "Жетоны Кукузнеца III",
