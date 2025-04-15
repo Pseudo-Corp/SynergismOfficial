@@ -757,14 +757,14 @@
       "per": {
         "1": "+0,01 à l'exposant de la conversion Pièce → Diamant lors du Prestige ! Actuellement : ",
         "2": "Production de Cristaux multipliée par 10 ! Actuellement : ",
-        "3": "D'accord, veuillez fournir le texte à traduire en français ou en timbre Jones pour commencer."
+        "3": " "
       },
       "first": "Aucun",
       "start": "Commencer [Moins de Diamants]",
       "current": {
         "1": "Exposant = ^{{value}}",
         "2": "Production de Cristaux x{{value}}",
-        "3": "Je suis désolé, mais votre message semble incomplet.Pourriez-vous fournir la phrase ou le texte que vous souhaitez que je traduise en français ?"
+        "3": " "
       }
     },
     "6": {
@@ -816,7 +816,7 @@
       "first": "Débloque la fonctionnalité Fourmilière ! Inclut 20 nouvelles Recherches. Une amélioration globale.",
       "start": "Commencer <Coût++>",
       "current": {
-        "1": "+=valuerслушаю, пожалуйста, переключите на французский язык.",
+        "1": "+{{value}}",
         "2": "+{{value}}% d'EXP",
         "3": "+{{value}}% Offrandes de Transcendance"
       }
@@ -942,9 +942,9 @@
       "first": "Vous briseriez l'univers si vous le pouviez !",
       "start": "Commencer <[(Défi Sadique II)]>",
       "current": {
-        "1": "Je vais traduire correctement en français pour assurer le bonheur des enfants malades.",
-        "2": "Je suis désolé, mais votre message semble incomplet. Pourriez-vous fournir la phrase ou le texte que vous souhaitez traduire en français ?",
-        "3": "Des ascensions et des corruptionnements guérissent nos enfants et les font rayonner de joie."
+        "1": " ",
+        "2": " ",
+        "3": " "
       },
       "noGoal": "Vous ne trouverez aucun objectif en vue, mais obtiendrez des bonus en fonction de votre meilleure tentative."
     },
@@ -3985,7 +3985,7 @@
       },
       "spoiler": {
         "moreThan1": "Vous gagnerez {{x}} Octeracts (lorsqu'ils sortiront) chaque seconde, à condition qu'ils soient débloqués !",
-        "one": "Vous obtiendrez un Octeract (quand ilsWill gain an Octeract (when they come out) every {{x}} seconds, assuming you have them unlocked! \n\nVeuillez rétranslator en français correctement :\n Vous gagnerez un Octeract (lorsqu’ils sortiront) tous les {{x}} secondes, supposant que vous les avez débloqués !"
+        "one": "Vous gagnerez un Octeract (lorsqu’ils sortiront) tous les {{x}} secondes, supposant que vous les avez débloqués !"
       },
       "invalid": "Votre code est soit invalide, soit déjà utilisé. Essayez à nouveau !",
       "bribe": {
