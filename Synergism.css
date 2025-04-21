@@ -1977,7 +1977,8 @@ p#reincarnatehotkeys {
 #octeractsDisplay,
 #totalOcteractsDisplay,
 #ambrosiaDisplay,
-#redAmbrosiaDisplay {
+#redAmbrosiaDisplay,
+#blueberryDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1985,9 +1986,10 @@ p#reincarnatehotkeys {
     white-space: pre-line;
 }
 
+#blueberryDisplay > p,
 #ambrosiaDisplay > p,
 #redAmbrosiaDisplay > p {
-    margin: 0
+    margin: 0 0 0 10px;
 }
 
 #ambrosiaTexts {

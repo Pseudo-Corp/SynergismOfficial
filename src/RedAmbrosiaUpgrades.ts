@@ -32,6 +32,37 @@ interface AmbrosiaLuckReward extends BaseReward {
   ambrosiaLuck: number
 }
 
+interface RedAmbrosiaSpeedReward extends BaseReward {
+  redAmbrosiaGenerationSpeed: number
+}
+
+interface RedAmbrosiaLuckReward extends BaseReward {
+  redAmbrosiaLuck: number
+}
+
+interface UnlockedRedAmbrosiaCubeReward extends BaseReward {
+  unlockedRedAmbrosiaCube: number
+}
+
+interface UnlockRedAmbrosiaObtainiumReward extends BaseReward {
+  unlockRedAmbrosiaObtainium: number
+}
+
+interface UnlockRedAmbrosiaOfferingReward extends BaseReward {
+  unlockRedAmbrosiaOffering: number
+}
+
+interface RedAmbrosiaCubeImproverReward extends BaseReward {
+  extraExponent: number
+}
+
+interface ViscountReward extends BaseReward {
+  roleUnlock: boolean
+  quarkBonus: number
+  luckBonus: number
+  redLuckBonus: number
+}
+
 type RewardTypeMap = {
   'tutorial': TutorialReward
   'conversionImprovement1': ConversionImprovementReward
@@ -44,6 +75,13 @@ type RewardTypeMap = {
   'freeLevelsRow5': FreeLevelReward
   'blueberryGenerationSpeed': BlueberrySpeedReward
   'regularLuck': AmbrosiaLuckReward
+  'redGenerationSpeed': RedAmbrosiaSpeedReward
+  'redLuck': RedAmbrosiaLuckReward
+  'redAmbrosiaCube': UnlockedRedAmbrosiaCubeReward
+  'redAmbrosiaObtainium': UnlockRedAmbrosiaObtainiumReward
+  'redAmbrosiaOffering': UnlockRedAmbrosiaOfferingReward
+  'redAmbrosiaCubeImprover': RedAmbrosiaCubeImproverReward
+  'viscount': ViscountReward
 }
 
 export type RedAmbrosiaKeys = keyof RewardTypeMap
@@ -388,6 +426,107 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
     },
     maxLevel: 100,
     costPerLevel: 1
+  },
+  redGenerationSpeed: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (level + 1)
+    },
+    rewards: (n: number) => {
+      const val = 1 + 3 * n / 1000
+      return {
+        desc: i18next.t('redAmbrosia.data.redGenerationSpeed.effect', { amount: formatAsPercentIncrease(val) }),
+        redAmbrosiaGenerationSpeed: val
+      }
+    },
+    maxLevel: 100,
+    costPerLevel: 20
+  },
+  redLuck: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (level + 1)
+    },
+    rewards: (n: number) => {
+      const val = n
+      return {
+        desc: i18next.t('redAmbrosia.data.redLuck.effect', { amount: val }),
+        redAmbrosiaLuck: val
+      }
+    },
+    maxLevel: 100,
+    costPerLevel: 20
+  },
+  redAmbrosiaCube: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (level + 1)
+    },
+    rewards: (n: number) => {
+      const exponent = 0.5 + getRedAmbrosiaUpgrade('redAmbrosiaCubeImprover').bonus.extraExponent
+      return {
+        desc: i18next.t('redAmbrosia.data.redAmbrosiaCube.effect', {
+          amount: n > 0,
+          exponent: format(exponent, 2, true)
+        }),
+        unlockedRedAmbrosiaCube: n
+      }
+    },
+    maxLevel: 1,
+    costPerLevel: 500
+  },
+  redAmbrosiaObtainium: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (level + 1)
+    },
+    rewards: (n: number) => {
+      return {
+        desc: i18next.t('redAmbrosia.data.redAmbrosiaObtainium.effect', { amount: n > 0 }),
+        unlockRedAmbrosiaObtainium: n
+      }
+    },
+    maxLevel: 1,
+    costPerLevel: 1250
+  },
+  redAmbrosiaOffering: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (level + 1)
+    },
+    rewards: (n: number) => {
+      return {
+        desc: i18next.t('redAmbrosia.data.redAmbrosiaOffering.effect', { amount: n > 0 }),
+        unlockRedAmbrosiaOffering: n
+      }
+    },
+    maxLevel: 1,
+    costPerLevel: 4000
+  },
+  redAmbrosiaCubeImprover: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (level + 1)
+    },
+    rewards: (n: number) => {
+      const val = 0.01 * n
+      return {
+        desc: i18next.t('redAmbrosia.data.redAmbrosiaCubeImprover.effect', { newExponent: format(0.5 + val, 2, true) }),
+        extraExponent: val
+      }
+    },
+    maxLevel: 20,
+    costPerLevel: 100
+  },
+  viscount: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * (level + 1)
+    },
+    rewards: (n: number) => {
+      return {
+        desc: i18next.t('redAmbrosia.data.viscount.effect', { mark: n > 0 ? '✔' : '❌' }),
+        roleUnlock: n > 0,
+        quarkBonus: 1 + 0.1 * n,
+        luckBonus: 125 * n,
+        redLuckBonus: 25 * n
+      }
+    },
+    maxLevel: 1,
+    costPerLevel: 99999
   }
 }
 

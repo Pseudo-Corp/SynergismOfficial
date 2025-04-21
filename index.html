@@ -3777,6 +3777,21 @@
                             <p id="shopAmbrosiaLuck4Level"></p>
                             <button class="permshopbutton" id="shopAmbrosiaLuck4Button" style="border: 2px solid limegreen"></button>
                         </div>
+                        <div class="singularityShopUnlock4" id="shopRedLuck1Hide">
+                            <img id="shopRedLuck1" alt="Red Luck Improvement 1" src="Pictures/Default/ShopRedLuck1.png" loading="lazy">
+                            <p id="shopRedLuck1Level"></p>
+                            <button class="permshopbutton" id="shopRedLuck1Button" style="border: 2px solid red"></button>
+                        </div>
+                        <div class="singularityShopUnlock4" id="shopRedLuck2Hide">
+                            <img id="shopRedLuck2" alt="Red Luck Improvement 2" src="Pictures/Default/ShopRedLuck2.png" loading="lazy">
+                            <p id="shopRedLuck2Level"></p>
+                            <button class="permshopbutton" id="shopRedLuck2Button" style="border: 2px solid red"></button>
+                        </div>
+                        <div class="singularityShopUnlock4" id="shopRedLuck3Hide">
+                            <img id="shopRedLuck3" alt="Red Luck Improvement 3" src="Pictures/Default/ShopRedLuck3.png" loading="lazy">
+                            <p id="shopRedLuck3Level"></p>
+                            <button class="permshopbutton" id="shopRedLuck3Button" style="border: 2px solid red"></button>
+                        </div>
                         <div class="exalt1X30Unlock" id="shopCashGrabUltraHide">
                             <img id="shopCashGrabUltra" alt="The ULTIMATE Cash Grab" src="Pictures/Default/ShopCashGrabUltra.png" loading="lazy">
                             <p id="shopCashGrabUltraLevel"></p>
@@ -4260,20 +4275,27 @@
                 <div id="ambrosiaDisplay">
                     <img src="Pictures/Default/Ambrosia.png" loading="lazy">
                     <p id="ambrosiaAmount" class="amberText"></p>
+                    <p id="ambrosiaCubeBonus">+500% Cubes</p>
+                    <p id="ambrosiaQuarkBonus">+112% Quarks</p>
                 </div>
                 <div id="redAmbrosiaDisplay">
                     <img src="Pictures/RedAmbrosia/RedAmbrosia.png" loading="lazy">
                     <p id="redAmbrosiaAmount" class="amberText"></p>
+                    <p id="redAmbrosiaCubeBonus">+2% Cubes</p>
+                    <p id="redAmbrosiaOfferingBonus">+8% Offerings</p>
+                    <p id="redAmbrosiaObtainiumBonus">+4% Obtainium</p>
+                    <p id="redAmbrosiaLuckBonus">+93 Ambrosia Luck</p>
+                </div>
+                <div id="blueberryDisplay">
+                    <img src="Pictures/Default/Blueberries.png" loading="lazy">
+                    <p id="blueberryAmount" class="amberText">Unspent: 1 | Total: 25</p>
                 </div>
                 <div id="ambrosiaTexts">
                 <!--    <p id="ambrosiaChance" class="lightYellowText"></p> -->
                     <p id="ambrosiaAmountPerGeneration" class="lightYellowText"></p>
                     <p id="redAmbrosiaAmountPerGeneration" class="lightYellowText"></p>
                 <!--    <p id="ambrosiaRNG" class="lightYellowText"></p> -->
-                    <p id="ambrosiaRewards" class="lightYellowText"></p>
-                    <p id="ambrosiaBlueberries" class="lightYellowText"></p>
                     <p id="ambrosiaThresholdInfo" style="color: lightblue"></p>
-                    <p id="cubeUpgradeRedBarFills" class="redText"></p>
                 </div>
                 <div id="ambrosiaProgressBar">
                     <div id="ambrosiaProgress" style="width: 70%;"></div>
@@ -4332,8 +4354,20 @@
                         <div class="blueberryUpgrade">
                             <img id="ambrosiaBaseObtainium1" src="Pictures/Default/BlueberryBaseObtainium1.png">
                         </div>
+                        <div class="blueberryUpgrade">
+                            <img id="ambrosiaSingReduction" src="Pictures/Default/BlueberrySingReduction.png">
+                        </div>
                         <div class="redAmbrosiaUpgrade">
                             <img id="redAmbrosiaFreeLevelsRow2" src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow2.png">
+                        </div>
+                        <div class="redAmbrosiaUpgrade">
+                            <img id="redAmbrosiaRedAmbrosiaCube" src="Pictures/RedAmbrosia/RedAmbrosiaRedAmbrosiaCube.png">
+                        </div>
+                        <div class="redAmbrosiaUpgrade">
+                            <img id="redAmbrosiaRedAmbrosiaObtainium" src="Pictures/RedAmbrosia/RedAmbrosiaObtainium.png">
+                        </div>
+                        <div class ="redAmbrosiaUpgrade">
+                            <img id="redAmbrosiaRedAmbrosiaOffering" src="Pictures/RedAmbrosia/RedAmbrosiaOffering.png">
                         </div>
                     </div>
                     <div class="blueberryUpgradeTier">
@@ -4355,14 +4389,17 @@
                         <div class="blueberryUpgrade">
                             <img id="ambrosiaQuarkLuck1" src="Pictures/Default/BlueberryQuarkLuck.png">
                         </div>
-                        <div class="blueberryUpgrade">
-                            <img id="ambrosiaSingReduction" src="Pictures/Default/BlueberrySingReduction.png">
-                        </div>
                         <div class="redAmbrosiaUpgrade">
                             <img id="redAmbrosiaFreeLevelsRow3" src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow3.png">
                         </div>
-                        <div class="blueberryUpgrade">
+                        <div class="redAmbrosiaUpgrade">
                             <img id="redAmbrosiaConversionImprovement2" src="Pictures/RedAmbrosia/RedAmbrosiaConversionImprovement2.png">
+                        </div>
+                        <div class="redAmbrosiaUpgrade">
+                            <img id="redAmbrosiaRedGenerationSpeed" src="Pictures/RedAmbrosia/RedAmbrosiaRedGenerationSpeed.png">
+                        </div>
+                        <div class="redAmbrosiaUpgrade">
+                            <img id="redAmbrosiaRedLuck" src="Pictures/RedAmbrosia/RedAmbrosiaRedLuck.png">
                         </div>
                     </div>
                     <div class="blueberryUpgradeTier">
@@ -4384,6 +4421,9 @@
                         <div class="redAmbrosiaUpgrade">
                             <img id="redAmbrosiaFreeLevelsRow4" src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow4.png">
                         </div>
+                        <div class="redAmbrosiaUpgrade">
+                            <img id="redAmbrosiaRedAmbrosiaCubeImprover" src="Pictures/RedAmbrosia/RedAmbrosiaRedAmbrosiaCubeImprover.png">
+                        </div>
                     </div>
                     <div class="blueberryUpgradeTier">
                         <div class="blueberryUpgrade">
@@ -4400,6 +4440,9 @@
                         </div>
                         <div class="redAmbrosiaUpgrade">
                             <img id="redAmbrosiaConversionImprovement3" src="Pictures/RedAmbrosia/RedAmbrosiaConversionImprovement3.png">
+                        </div>
+                        <div class="redAmbrosiaUpgrade">
+                            <img id="redAmbrosiaViscount" src="Pictures/RedAmbrosia/RedAmbrosiaTutorial.png">
                         </div>
                     </div>
                     <div class="blueberryUpgradeTier">

@@ -12,16 +12,21 @@
   "ambrosia": {
     "ambrosia": "Ambrosia",
     "amount": "Ambrosia: <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Current | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> Lifetime",
+    "blueberryAmount": "Blueberries: <<lightblue | {{unspentBlueberries}}>> Unspent | <<lightblue | {{blueberries}}>> Total",
     "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
     "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> Ambrosia with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>] {{extra}}",
     "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Generating Ambrosia when <<blue|{{thresholdTimer}}>> is accumulated.",
-    "bonuses": "Your ambrosia is giving <<var(--amber-text-color)|+{{cube}}%>> ALL cubes and <<cyan|+{{quark}}%>> Quarks!",
+    "generatedCubeBonus": "Cubes <<yellow|+{{cubeBonus}}>>",
+    "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}>>",
+    "generatedLuckBonus": "Ambrosia Luck <<lime|+{{luckBonus}}>>",
+    "generatedBlueberryBonus": "Blueberry Generation Speed <<blue|+{{blueberryBonus}}>>",
+    "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}>>",
+    "generatedOfferingBonus":"Offerings <<orange|+{{offeringBonus}}>>",
     "prerequisite": "Prerequisites:",
     "prereqNotMet": " (Not Met!)",
     "blueberryCost": "Blueberries (To Activate):",
     "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
     "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
-    "availableBlueberries": "You have <<lightblue|{{availableBlueberries}}>> unspent Blueberries. Unlock higher tier modules below using them!",
     "timeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia.",
     "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
     "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
@@ -201,37 +206,72 @@
       "freeTutorialLevels": {
         "name": "More Blueberry Tutorial Module Levels!",
         "description": "A meta-tutorial of sorts. A powerful ability of Red Ambrosia is to power your Blueberry tree! Increase the effective level of Blueberry Tutorial Module by 1 per level.",
-        "effect": "This module increases the effective level of Blueberry Tutorial Module by {{amount}}!"
+        "effect": "This upgrade increases the effective level of Blueberry Tutorial Module by {{amount}}!"
       },
       "freeLevelsRow2": {
         "name": "More Row 2 Blueberry Upgrade Levels!",
-        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the second row, per level.",
-        "effect": "This module increases the effective level of ALL row 2 Blueberry Modules by {{amount}}!"
+        "description": "With the exception of the Singularity Stablizer, add one effective level to all Blueberry Modules that reside on the second row, per level.",
+        "effect": "This upgrade increases the effective level of (most) row 2 Blueberry Modules by {{amount}}!"
       },
       "freeLevelsRow3": {
         "name": "More Row 3 Blueberry Upgrade Levels!",
-        "description": "With the exception of the Singularity Stablizer, add one effective level to all Blueberry Modules that reside on the third row, per level.",
-        "effect": "This module increases the effective level of (most) row 3 Blueberry Modules by {{amount}}!"
+        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the third row, per level.",
+        "effect": "This upgrade increases the effective level of ALL row 3 Blueberry Modules by {{amount}}!"
       },
       "freeLevelsRow4": {
         "name": "More Row 4 Blueberry Upgrade Levels!",
         "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the fourth row, per level.",
-        "effect": "This module increases the effective level of ALL row 4 Blueberry Modules by {{amount}}!"
+        "effect": "This upgrade increases the effective level of ALL row 4 Blueberry Modules by {{amount}}!"
       },
       "freeLevelsRow5": {
         "name": "More Row 5 Blueberry Upgrade Levels!",
         "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the fifth row, per level.",
-        "effect": "This module increases the effective level of ALL row 5 Blueberry Modules by {{amount}}!"
+        "effect": "This upgrade increases the effective level of ALL row 5 Blueberry Modules by {{amount}}!"
       },
       "blueberryGenerationSpeed": {
         "name": "The Sands of Time",
         "description": "+0.2% Blueberry Generation Speed per level. They say this hourglass has the benediction of Chronos himself.",
-        "effect": "This module increases Blueberry Generation Speed by {{amount}}!"
+        "effect": "This upgrade increases Blueberry Generation Speed by {{amount}}!"
       },
       "regularLuck": {
         "name": "Ossified Blueberry Tactics",
         "description": "Most strange. Adding this gold-colored wax on your blueberries makes you slightly more likely to get Ambrosia! +2 Ambrosia Luck / level.",
-        "effect": "This module increases Ambrosia Luck by {{amount}}!"
+        "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
+      },
+      "redGenerationSpeed": {
+        "name": "Millenium-Aged Red Ambrosia",
+        "description": "Surely, with how long this Ambrosia is left to sit, it knows something about time. +0.3% Red Ambrosia Generation Speed per level.",
+        "effect": "This upgrade increases Red Ambrosia Generation Speed by {{amount}}!"
+      },
+      "redLuck": {
+        "name": "The Dice that Decide Your Fate",
+        "description": "A life on every face, until you're finally left with an eight. +1 Red Ambrosia Luck per level!",
+        "effect": "This upgrade increases Red Ambrosia Luck by {{amount}}!"
+      },
+      "redAmbrosiaCube": {
+        "name": "Cubes \"made\" of Red Ambrosia",
+        "description": "Hey, Ambrosia gives cubes! Why not Red Ambrosia as well?",
+        "effect": "If purchased, multiply your cubes by 1 + (Lifetime)^{{exponent}} / 100."
+      },
+      "redAmbrosiaObtainium": {
+        "name": "Obtainium \"\"made\"\" of Red Ambrosia",
+        "description": "I don't know why you can make a blue object from a red object. But you can.",
+        "effect": "If purchased, multiply your Obtainium by 1 + (Lifetime)^0.7 / 100."
+      },
+      "redAmbrosiaOffering": {
+        "name": "Offerings \"\"\"made\"\"\" of Red Ambrosia",
+        "description": "Wait, this one kinda makes sense.",
+        "effect": "If purchased, multiply your Offerings by 1 + (Lifetime)^0.7 / 100."
+      },
+      "redAmbrosiaCubeImprover": {
+        "name": "Hire Red Ambrosia Artisans",
+        "description": "They are better at making cubes out of Red Ambrosia for you, depending on how many you have. +0.01 exponent to \"Cubes 'made' of Red Ambrosia\" per level.",
+        "effect": "Exponent for that Red Ambrosia Upgrade: 0.50 → {{newExponent}}"
+      },
+      "viscount": {
+        "name": "Viscount of Ruby Guy",
+        "description": "For a stupid amount of Red Ambrosia, obtain a small amount of land, becoming 'viscount' of this land. Purchase this to get +10% Quarks, +125 Ambrosia Luck, +25 Red Luck, and a Discord Role!",
+        "effect": "📜 {{mark}}"
       }
     }
   },
@@ -1554,6 +1594,9 @@
       "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
       "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
       "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.6 ☘ Ambrosia luck per level, stacking additively.",
+      "shopRedLuck1": "A small, lesser dice from the tactician of gambling himself. +0.05 &#9861 Red Ambrosia Luck per level. With the final level, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.75.",
+      "shopRedLuck2": "This one seems to have a heavy side. I wonder what that is about. +0.075 &#9861 Red Ambrosia Luck per level. With the final level, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.75.",
+      "shopRedLuck3": "When you pick up this dice, it phases out of existence, then returns, the six face-up. +0.1 &#9861 Red Ambrosia Luck per level. With the final level, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.5.",
       "shopAmbrosiaLuckMultiplier4": "Gain ☘ +1% Ambrosia Luck per level! Simple as that.",
       "shopOcteractAmbrosiaLuck": "Gain ☘ +1 Ambrosia Luck per digit in your Wow! Octeract inventory per level. Simple as that.",
       "shopCashGrabUltra": "For a nominal price, gain up to +20% Blueberry Speed, +80% Cubes and +12% Quarks per level based on Ambrosia, scaling nonlinearly until 10,000,000 lifetime earned.",
@@ -1657,6 +1700,9 @@
       "shopAmbrosiaLuck2": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
       "shopAmbrosiaLuck3": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
       "shopAmbrosiaLuck4": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
+      "shopRedLuck1": "Red Ambrosia Luck <<red|&#9861 +{{amount}}>>, Conversion Ratio <<brown|-{{amount2}}>>",
+      "shopRedLuck2": "Red Ambrosia Luck <<red|&#9861 +{{amount}}>>, Conversion Ratio <<brown|-{{amount2}}>>",
+      "shopRedLuck3": "Red Ambrosia Luck <<red|&#9861 +{{amount}}>>, Conversion Ratio <<brown|-{{amount2}}>>",
       "shopCashGrabUltra": "Blueberry Generation is <<blue|{{amount}}%>> faster. Also, Cubes <<white|+{{amount2}}%>>! Finally, Quarks <<cyan|+{{amount3}}%>>!",
       "shopAmbrosiaAccelerator": "For every <<orange|Ambrosia>> gained, add <<cyan|{{amount}}>> seconds of Blueberry Generation (<<cyan|{{amount2}}>> Blueberry Seconds)!",
       "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}%>>!",
@@ -3663,6 +3709,8 @@
         "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
         "ScalingReward1": "+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
         "ScalingReward2": "+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+        "ScalingReward3": "+4 <<red|&#9861 Red Ambrosia Luck>>",
+        "ScalingReward4": "+1% <<red|Red Generation>> Speed",
         "UniqueReward1": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
         "UniqueReward2": "1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
         "UniqueReward3": "10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
@@ -3786,6 +3834,7 @@
       "ModuleCubes3": "Ambrosia - Cube Module III:",
       "ModuleHyperflux": "Ambrosia - Hyperflux Module:",
       "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
+      "RedAmbrosia": "Cubes \"made\" of Red Ambrosia",
       "Exalt6": "The Grand Singularity Speedrun - Too Slow:",
       "Event": "Event Bonus:",
       "Total": "Total Universal Cube Multiplier:"
@@ -3903,6 +3952,7 @@
       "ModuleCubes2": "Module- Cubes 2:",
       "ModuleCubes3": "Module- Cubes 3:",
       "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
+      "RedAmbrosia": "Cubes \"made\" of Red Ambrosia",
       "CashGrabUltra": "Cash Grab ULTIMATE:",
       "EXUltra": "Shop EX ULTIMATE:",
       "AscensionSpeed": "Ascension Speed Multiplier:",
@@ -3978,6 +4028,7 @@
       "OfferingINF": "Offering INF Shop Upgrade:",
       "EXUltra": "Shop EX ULTIMATE:",
       "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
+      "RedAmbrosia": "Offerings \"\"\"made\"\"\" of Red Ambrosia",
       "Event": "Event Bonus:",
       "Exalt6Penalty": "The Grand Singularity Speedrun - Too Slow:",
       "Total": "Offering Multiplier:",
@@ -4018,6 +4069,7 @@
       "CashGrabQuarkBonus": "Cash Grab ULTRA Quark Bonus:",
       "LimitedTimeChallenge": "Limited Time Challenge Reward:",
       "SadisticPrequel": "Sadistic Prequel Challenge Reward:",
+      "Viscount": "Benefits of being a Viscount:",
       "FirstSingularityBonus": "First Singularity Bonus:",
       "Event": "Event + Consumables Bonus:",
       "PatreonBonus": "Patreon Bonus:",
@@ -4051,6 +4103,7 @@
       "ObtainiumEX3": "Obtainium EX 3 Shop Upgrade [Per 25 levels]:",
       "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
       "EXALTBonus": "EXALT - Twenty Ascensions Challenge:",
+      "RedAmbrosia": "Obtainium \"\"made\"\" of Red Ambrosia:",
       "Exalt6Penalty": "The Grand Singularity Speedrun - Too Slow:",
       "Event": "Event Bonus:",
       "Total": "Total DR-Ignoring Obtainium Multiplier:"
@@ -4234,6 +4287,7 @@
       "Cookie5": "Cookie 5 (Cx27):",
       "RedBars": "Filled Red Bars with Cx29:",
       "AmbrosiaUltra": "Ambrosia Ultra Shop Upgrade:",
+      "Viscount": "Benefits of being a Viscount:",
       "AdditiveLuckMult": "Additive Luck Multiplier:",
       "Total": "Ambrosia Luck:",
       "Total2": "Total Ambrosia Luck"
@@ -4361,15 +4415,24 @@
     "luckConversionStats": {
       "title": "Ambrosia Luck Conversion",
       "Base": "Base Conversion Value:",
-      "RedAmbrosiaUpgrade1": "Red Ambrosia Upgrade: Conversion Improvement I",
-      "RedAmbrosiaUpgrade2": "Red Ambrosia Upgrade: Conversion Improvement II",
-      "RedAmbrosiaUpgrade3": "Red Ambrosia Upgrade: Conversion Improvement III",
+      "RedAmbrosiaUpgrade1": "Red Ambrosia Upgrade - Conversion Improvement I:",
+      "RedAmbrosiaUpgrade2": "Red Ambrosia Upgrade - Conversion Improvement II:",
+      "RedAmbrosiaUpgrade3": "Red Ambrosia Upgrade - Conversion Improvement III:",
+      "ShopRedLuck1": "Low Class Dice of Asmodeus:",
+      "ShopRedLuck2": "Dice of Asmodeus:",
+      "ShopRedLuck3": "High Class Dice of Asmodeus:",
       "Total": "Ambrosia Luck per 1 Red Ambrosia Luck:"
     },
     "redAmbrosiaLuckStats": {
       "title": "Red Ambrosia Luck",
       "Base": "Base Value:",
       "LuckConversion": "Luck from Ambrosia Luck:",
+      "RedAmbrosia": "The Dice That Decide Your Fate",
+      "Exalt5": "Exalt 5 Reward",
+      "ShopRedLuck1": "Low Class Dice of Asmodeus:",
+      "ShopRedLuck2": "Dice of Asmodeus:",
+      "ShopRedLuck3": "High Class Dice of Asmodeus:",
+      "Viscount": "Benefits of being a Viscount:",
       "Total": "Total Red Ambrosia Luck:"
     },
     "gameStage": "Current Game Stage: {{stage}}"

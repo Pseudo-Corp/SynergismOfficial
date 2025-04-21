@@ -803,6 +803,7 @@ export const playerSchema = z.object({
   redAmbrosiaTime: z.number().default(() => blankSave.redAmbrosiaTime),
   redAmbrosiaUpgrades: z.record(z.string(), z.number()).transform(
     (object) => {
+      console.log(object)
       return Object.fromEntries(
         Object.keys(blankSave.redAmbrosiaUpgrades).map((key) => {
           const value = object[key]

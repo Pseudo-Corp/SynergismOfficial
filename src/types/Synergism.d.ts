@@ -404,6 +404,9 @@ export interface Player {
     shopSingularitySpeedup: number
     shopSingularityPotency: number
     shopSadisticRune: number
+    shopRedLuck1: number
+    shopRedLuck2: number
+    shopRedLuck3: number
   }
 
   shopPotionsConsumed: {

@@ -9,6 +9,7 @@ import { hepteractEffective } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { quarkHandler } from './Quark'
+import { getRedAmbrosiaUpgrade } from './RedAmbrosiaUpgrades'
 import { reset } from './Reset'
 import {
   allAdditiveLuckMultStats,
@@ -2725,5 +2726,30 @@ export const calculateCookieUpgrade29Luck = () => {
     return 0
   } else {
     return 10 * Math.pow(Math.log10(player.lifetimeRedAmbrosia), 2)
+  }
+}
+
+export const calculateRedAmbrosiaCubes = () => {
+  if (getRedAmbrosiaUpgrade('redAmbrosiaCube').bonus.unlockedRedAmbrosiaCube) {
+    const exponent = 0.5 + getRedAmbrosiaUpgrade('redAmbrosiaCubeImprover').bonus.extraExponent
+    return 1 + Math.pow(player.lifetimeRedAmbrosia, exponent) / 100
+  } else {
+    return 1
+  }
+}
+
+export const calculateRedAmbrosiaObtainium = () => {
+  if (getRedAmbrosiaUpgrade('redAmbrosiaObtainium').bonus.unlockRedAmbrosiaObtainium) {
+    return 1 + Math.pow(player.lifetimeRedAmbrosia, 0.7) / 100
+  } else {
+    return 1
+  }
+}
+
+export const calculateRedAmbrosiaOffering = () => {
+  if (getRedAmbrosiaUpgrade('redAmbrosiaOffering').bonus.unlockRedAmbrosiaOffering) {
+    return 1 + Math.pow(player.lifetimeRedAmbrosia, 0.7) / 100
+  } else {
+    return 1
   }
 }

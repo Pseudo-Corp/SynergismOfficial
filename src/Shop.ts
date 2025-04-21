@@ -531,7 +531,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   offeringEX3: {
-    tier: 'SingularityVol3',
+    tier: 'SingularityVol4',
     price: 1,
     priceIncrease: 1.25e12,
     maxLevel: 1000,
@@ -540,7 +540,7 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     refundMinimumLevel: 0
   },
   obtainiumEX3: {
-    tier: 'SingularityVol3',
+    tier: 'SingularityVol4',
     price: 1,
     priceIncrease: 1.25e12,
     maxLevel: 1000,
@@ -678,6 +678,33 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     tier: 'SingularityVol4',
     price: 1e17,
     priceIncrease: 4 * 1e16,
+    maxLevel: 1000,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopRedLuck1: {
+    tier: 'SingularityVol4',
+    price: 5e13,
+    priceIncrease: 5e13,
+    maxLevel: 1000,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopRedLuck2: {
+    tier: 'SingularityVol4',
+    price: 1e17,
+    priceIncrease: 1e17,
+    maxLevel: 1000,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
+  },
+  shopRedLuck3: {
+    tier: 'SingularityVol4',
+    price: 1e21,
+    priceIncrease: 3e19,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
@@ -837,6 +864,9 @@ type ShopUpgradeNames =
   | 'shopSingularitySpeedup'
   | 'shopSingularityPotency'
   | 'shopSadisticRune'
+  | 'shopRedLuck1'
+  | 'shopRedLuck2'
+  | 'shopRedLuck3'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
   if (
@@ -1304,6 +1334,24 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         )
       })
       break
+    case 'shopRedLuck1':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopRedLuck1', {
+        amount: format(0.05 * player.shopUpgrades.shopRedLuck1, 2, true),
+        amount2: (player.shopUpgrades.shopRedLuck1 === shopData.shopRedLuck1.maxLevel ? 0.75 : 0)
+      })
+      break
+    case 'shopRedLuck2':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopRedLuck2', {
+        amount: format(0.075 * player.shopUpgrades.shopRedLuck2, 3, true),
+        amount2: (player.shopUpgrades.shopRedLuck2 === shopData.shopRedLuck2.maxLevel ? 0.75 : 0)
+      })
+      break
+    case 'shopRedLuck3':
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopRedLuck3', {
+        amount: format(0.1 * player.shopUpgrades.shopRedLuck3, 1, true),
+        amount2: (player.shopUpgrades.shopRedLuck3 === shopData.shopRedLuck3.maxLevel ? 0.5 : 0)
+      })
+      break
     case 'shopAmbrosiaLuck1':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopAmbrosiaLuck1', {
         amount: format(2 * player.shopUpgrades.shopAmbrosiaLuck1)
@@ -1464,6 +1512,9 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
     shopAmbrosiaLuck2: 'Another Ambrosia Luck Increaser',
     shopAmbrosiaLuck3: 'A better Ambrosia Generation Speedup',
     shopAmbrosiaLuck4: 'A FINAL Ambrosia Generation Speedup',
+    shopRedLuck1: 'Low Class Dice of Asmodeus',
+    shopRedLuck2: 'Dice of Asmodeus',
+    shopRedLuck3: 'High Class Dice of Asmodeus',
     shopCashGrabUltra: 'It\'s the FINAL CASHGRAB!',
     shopAmbrosiaAccelerator: 'An Ambrosial Accelerator!',
     shopEXUltra: 'It\'s the FINAL E X!',
@@ -1982,6 +2033,12 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
     case 'shopAmbrosiaLuck3':
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
     case 'shopAmbrosiaLuck4':
+      return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+    case 'shopRedLuck1':
+      return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+    case 'shopRedLuck2':
+      return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
+    case 'shopRedLuck3':
       return Boolean(player.singularityUpgrades.wowPass4.getEffect().bonus)
     case 'shopCashGrabUltra':
       return Boolean(player.singularityChallenges.noSingularityUpgrades.rewards.shopUpgrade2)

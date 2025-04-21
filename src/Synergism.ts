@@ -626,7 +626,10 @@ export const player: Player = {
     shopAmbrosiaUltra: 0,
     shopSingularitySpeedup: 0,
     shopSingularityPotency: 0,
-    shopSadisticRune: 0
+    shopSadisticRune: 0,
+    shopRedLuck1: 0,
+    shopRedLuck2: 0,
+    shopRedLuck3: 0
   },
 
   shopPotionsConsumed: {
@@ -1617,7 +1620,14 @@ export const player: Player = {
     'freeLevelsRow4': 0,
     'freeLevelsRow5': 0,
     'blueberryGenerationSpeed': 0,
-    'regularLuck': 0
+    'regularLuck': 0,
+    'redGenerationSpeed': 0,
+    'redLuck': 0,
+    'redAmbrosiaCube': 0,
+    'redAmbrosiaObtainium': 0,
+    'redAmbrosiaOffering': 0,
+    'redAmbrosiaCubeImprover': 0,
+    'viscount': 0
   },
 
   singChallengeTimer: 0,
@@ -1658,7 +1668,6 @@ export const saveSynergy = (button?: boolean) => {
 
   const p = playerJsonSchema.parse(player)
   const save = btoa(JSON.stringify(p))
-
   if (save !== null) {
     localStorage.setItem('Synergysave2', save)
   } else {

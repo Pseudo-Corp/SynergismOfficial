@@ -60,7 +60,10 @@ import {
   calculateQuarkMultFromPowder,
   calculateQuarkMultiplier,
   calculateRawAscensionSpeedMult,
+  calculateRedAmbrosiaCubes,
   calculateRedAmbrosiaLuck,
+  calculateRedAmbrosiaObtainium,
+  calculateRedAmbrosiaOffering,
   calculateSigmoid,
   calculateSingularityAmbrosiaLuckMilestoneBonus,
   calculateSingularityMilestoneBlueberries,
@@ -298,6 +301,10 @@ export const allCubeStats: StatLine[] = [
   {
     i18n: 'RedAmbrosiaTutorial',
     stat: () => getRedAmbrosiaUpgrade('tutorial').bonus.cubeMult
+  },
+  {
+    i18n: 'RedAmbrosia',
+    stat: () => calculateRedAmbrosiaCubes()
   },
   {
     i18n: 'Exalt6',
@@ -802,6 +809,10 @@ export const allOcteractCubeStats: StatLine[] = [
     stat: () => getRedAmbrosiaUpgrade('tutorial').bonus.cubeMult
   },
   {
+    i18n: 'RedAmbrosia',
+    stat: () => calculateRedAmbrosiaCubes()
+  },
+  {
     i18n: 'CashGrabUltra',
     stat: () => +calculateCashGrabCubeBonus()
   },
@@ -1062,6 +1073,10 @@ export const allOfferingStats = [
     stat: () => getRedAmbrosiaUpgrade('tutorial').bonus.offeringMult // Red Ambrosia Tutorial
   },
   {
+    i18n: 'RedAmbrosia',
+    stat: () => calculateRedAmbrosiaOffering() // Red Ambrosia
+  },
+  {
     i18n: 'CubeUpgradeCx22',
     stat: () => Math.pow(1.04, player.cubeUpgrades[72] * sumContents(player.talismanRarity)) // Cube upgrade 8x2 (Cx22)
   },
@@ -1229,6 +1244,11 @@ export const allQuarkStats: StatLine[] = [
     stat: () => +player.blueberryUpgrades.ambrosiaQuarks3.bonus.quarks
   },
   {
+    i18n: 'Viscount',
+    stat: () => getRedAmbrosiaUpgrade('viscount').bonus.quarkBonus,
+    color: 'red'
+  },
+  {
     i18n: 'CashGrabQuarkBonus',
     stat: () => calculateCashGrabQuarkBonus()
   },
@@ -1338,6 +1358,10 @@ export const allObtainiumIgnoreDRStats: StatLine[] = [
   {
     i18n: 'RedAmbrosiaTutorial',
     stat: () => getRedAmbrosiaUpgrade('tutorial').bonus.obtainiumMult // Red Ambrosia Tutorial
+  },
+  {
+    i18n: 'RedAmbrosia',
+    stat: () => calculateRedAmbrosiaObtainium() // Red Ambrosia
   },
   {
     i18n: 'CubeUpgradeCx21',
@@ -2006,6 +2030,11 @@ export const allAmbrosiaLuckStats: StatLine[] = [
     stat: () => getRedAmbrosiaUpgrade('regularLuck').bonus.ambrosiaLuck // Red Ambrosia Upgrade
   },
   {
+    i18n: 'Viscount',
+    stat: () => getRedAmbrosiaUpgrade('viscount').bonus.luckBonus, // Viscount Red Ambrosia Upgrade
+    color: 'red'
+  },
+  {
     i18n: 'Cookie5',
     stat: () => 2 * player.cubeUpgrades[77] // Cookie 5 (Cx27)
   },
@@ -2411,6 +2440,18 @@ export const allLuckConversionStats: StatLine[] = [
   {
     i18n: 'RedAmbrosiaUpgrade3',
     stat: () => getRedAmbrosiaUpgrade('conversionImprovement3').bonus.conversionImprovement // Conversion Improvement III
+  },
+  {
+    i18n: 'ShopRedLuck1',
+    stat: () => player.shopUpgrades.shopRedLuck1 === shopData.shopRedLuck1.maxLevel ? -0.75 : 0 // Shop Red Luck I
+  },
+  {
+    i18n: 'ShopRedLuck2',
+    stat: () => player.shopUpgrades.shopRedLuck2 === shopData.shopRedLuck2.maxLevel ? -0.75 : 0 // Shop Red Luck II
+  },
+  {
+    i18n: 'ShopRedLuck3',
+    stat: () => player.shopUpgrades.shopRedLuck3 === shopData.shopRedLuck3.maxLevel ? -0.5 : 0 // Shop Red Luck III
   }
 ]
 
@@ -2422,6 +2463,31 @@ export const allRedAmbrosiaLuckStats: StatLine[] = [
   {
     i18n: 'LuckConversion',
     stat: () => Math.floor((calculateAmbrosiaLuck() - 100) / calculateLuckConversion()) // Luck Conversion
+  },
+  {
+    i18n: 'RedAmbrosia',
+    stat: () => getRedAmbrosiaUpgrade('redLuck').bonus.redAmbrosiaLuck // The Dice That Decide Your Fate
+  },
+  {
+    i18n: 'Exalt5',
+    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.redLuck
+  },
+  {
+    i18n: 'ShopRedLuck1',
+    stat: () => player.shopUpgrades.shopRedLuck1 * 0.05 // Shop Red Luck I
+  },
+  {
+    i18n: 'ShopRedLuck2',
+    stat: () => player.shopUpgrades.shopRedLuck2 * 0.075 // Shop Red Luck II
+  },
+  {
+    i18n: 'ShopRedLuck3',
+    stat: () => player.shopUpgrades.shopRedLuck3 * 0.1 // Shop Red Luck III
+  },
+  {
+    i18n: 'Viscount',
+    stat: () => getRedAmbrosiaUpgrade('viscount').bonus.redLuckBonus, // Viscount Red Ambrosia Upgrade
+    color: 'red'
   }
 ]
 
@@ -2436,6 +2502,14 @@ export const allRedAmbrosiaGenerationSpeedStats: StatLine[] = [
       const bSpeed = calculateAmbrosiaGenerationSpeed()
       return bSpeed > 1000 ? Math.pow(bSpeed * 1000, 1 / 2) : bSpeed // Blueberry Speed
     }
+  },
+  {
+    i18n: 'RedAmbrosia',
+    stat: () => getRedAmbrosiaUpgrade('redGenerationSpeed').bonus.redAmbrosiaGenerationSpeed
+  },
+  {
+    i18n: 'Exalt5',
+    stat: () => +player.singularityChallenges.noAmbrosiaUpgrades.rewards.redSpeedMult
   }
 ]
 

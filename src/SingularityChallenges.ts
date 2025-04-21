@@ -398,7 +398,7 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 6 * completions
     },
-    scalingrewardcount: 2,
+    scalingrewardcount: 4,
     uniquerewardcount: 6,
     effect: (n: number) => {
       return {
@@ -406,7 +406,9 @@ export const singularityChallengeData: Record<
         blueberries: Math.floor(n / 10) + +(n > 0),
         luckBonus: n / 200,
         additiveLuck: 15 * n,
+        redLuck: 4 * n,
         blueberrySpeedMult: (1 + n / 50),
+        redSpeedMult: 1 + n / 100,
         shopUpgrade: n >= 15,
         shopUpgrade2: n >= 20
       }
@@ -434,12 +436,12 @@ export const singularityChallengeData: Record<
     }
   },
   sadisticPrequel: {
-    baseReq: 135,
+    baseReq: 120,
     maxCompletions: 30,
-    unlockSingularity: 273,
+    unlockSingularity: 256,
     HTMLTag: 'sadisticPrequel',
     singularityRequirement: (baseReq: number, completions: number) => {
-      return baseReq + 3 * completions
+      return baseReq + 4 * completions
     },
     scalingrewardcount: 2,
     uniquerewardcount: 4,
