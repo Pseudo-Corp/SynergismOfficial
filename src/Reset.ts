@@ -1348,6 +1348,10 @@ export const singularity = (setSingNumber = -1) => {
   hold.ultimatePixels = player.ultimatePixels
   hold.ultimateProgress = player.ultimateProgress
   hold.cubeUpgradeRedBarFilled = player.cubeUpgradeRedBarFilled
+  hold.redAmbrosia = player.redAmbrosia
+  hold.lifetimeRedAmbrosia = player.lifetimeRedAmbrosia
+  hold.redAmbrosiaTime = player.redAmbrosiaTime
+  hold.redAmbrosiaUpgrades = player.redAmbrosiaUpgrades
   hold.singularityChallenges = Object.fromEntries(
     Object.entries(player.singularityChallenges).map(([key, value]) => {
       return [key, {

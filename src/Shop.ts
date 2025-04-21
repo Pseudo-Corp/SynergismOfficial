@@ -1342,7 +1342,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       break
     case 'shopRedLuck2':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopRedLuck2', {
-        amount: format(0.075 * player.shopUpgrades.shopRedLuck2, 3, true),
+        amount: format(0.075 * player.shopUpgrades.shopRedLuck2, 2, true),
         amount2: (player.shopUpgrades.shopRedLuck2 === shopData.shopRedLuck2.maxLevel ? 0.75 : 0)
       })
       break
