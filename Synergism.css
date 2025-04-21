@@ -3886,9 +3886,6 @@ img#singularityPerksIcon {
     white-space: pre-line;
     margin: 15px 0 0;
     justify-content: center;
-}
-
-#accountSubTab {
     flex-direction: column;
 }
 
