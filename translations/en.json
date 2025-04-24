@@ -155,7 +155,7 @@
         "effect": "This module increases Base Offering by {{amount}}!"
       },
       "ambrosiaSingReduction": {
-        "name": "Singularity Stablizer Module",
+        "name": "Singularity Stabilizer Module",
         "description": "Retrofitted with Amber flux capacitors, your Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity per level, if you are NOT! in an EXALT.",
         "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
       },
@@ -195,7 +195,7 @@
     "data": {
       "tutorial": {
         "name": "A beginners guide to Red Ambrosia",
-        "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul But you don't really care about that... 1.01x Cubes, Obtainium and Offerings per level!",
+        "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul. But you don't really care about that... 1.01x Cubes, Obtainium and Offerings per level!",
         "effect": "Cubes, Obtainium and Offerings are increased by {{amount}}!"
       },
       "conversionImprovement1": {
@@ -220,7 +220,7 @@
       },
       "freeLevelsRow2": {
         "name": "More Row 2 Blueberry Upgrade Levels!",
-        "description": "With the exception of the Singularity Stablizer, add one effective level to all Blueberry Modules that reside on the second row, per level.",
+        "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the second row, per level.",
         "effect": "This upgrade increases the effective level of (most) row 2 Blueberry Modules by {{amount}}!"
       },
       "freeLevelsRow3": {
@@ -1599,8 +1599,8 @@
       "shopImprovedDaily2": "Gain 1 additional free Singularity Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily3": "Gain 1 additional free Singularity Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily4": "Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
-      "offeringEX3": "[Supplied by - Infinity CO.] Gain 1% more Offerings per level, multiplicative! (Multiplier is 1.02^level). Every 25 levels, gain +1 Base Offering!",
-      "obtainiumEX3": "[Supplied by - Infinity CO.] Gain 1% more Obtainium per level, multiplicative! (Multiplier is 1.02^level). Every 25 levels, gain 6% more Immaculate Obtainium Multiplier! (1.06^[level/25])",
+      "offeringEX3": "[Supplied by - Infinity CO.] Gain 1% more Offerings per level, multiplicative! (Multiplier is 1.01^level). Every 25 levels, gain +1 Base Offering!",
+      "obtainiumEX3": "[Supplied by - Infinity CO.] Gain 1% more Obtainium per level, multiplicative! (Multiplier is 1.01^level). Every 25 levels, gain 6% more Immaculate Obtainium Multiplier! (1.06^[level/25])",
       "chronometerInfinity": "[Supplied by - Infinity CO.] Gain 0.5% more Ascension Speed per level, multiplicative! (Multiplier is 1.005^level). Every 25 levels, gain +0.001 spread on Ascension Speed exponent modifiers on speeds greater than or less than 1 (Check Stats for Nerds for this one)!",
       "seasonPassInfinity": "[Supplied by - Infinity CO.] Gain 1% more cubes per level, multiplicative! (Multiplier is 1.01^level). This effect is raised to the power of 1.5 for Octeract calculations!",
       "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.",
