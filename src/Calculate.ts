@@ -36,6 +36,7 @@ import {
   allQuarkStats,
   allRedAmbrosiaGenerationSpeedStats,
   allRedAmbrosiaLuckStats,
+  allShopTablets,
   allTesseractStats,
   allWowCubeStats,
   antSacrificeRewardStats,
@@ -440,6 +441,10 @@ export const calculateRedAmbrosiaLuck = () => {
 
 export const calculateRedAmbrosiaGenerationSpeed = () => {
   return allRedAmbrosiaGenerationSpeedStats.reduce((a, b) => a * b.stat(), 1)
+}
+
+export const calculateFreeShopInfinityUpgrades = () => {
+  return allShopTablets.reduce((a, b) => a + b.stat(), 0)
 }
 
 export const calculateTotalCoinOwned = () => {
@@ -2487,17 +2492,6 @@ export const calculateEXUltraCubeBonus = () => {
   return calculateEXUltraBonus(EX_ULTRA_CUBES)
 }
 
-export const calculateEXALTBonusMult = () => {
-  if (!player.singularityChallenges.limitedAscensions.rewards.exaltBonus) {
-    return 1
-  }
-
-  if (G.currentSingChallenge !== undefined) {
-    return Math.pow(1.04, player.singularityChallenges[G.currentSingChallenge].completions)
-  }
-  return 1
-}
-
 export const calculateExalt6Penalty = (comps: number, time: number) => {
   const displacedTime = Math.max(0, time - 600 + 20 * comps)
   if (displacedTime === 0) {
@@ -2715,7 +2709,7 @@ export const calculateAscensionSpeedExponentSpread = () => {
   const vals = [
     player.singularityUpgrades.singAscensionSpeed.getEffect().bonus ? 0.03 : 0,
     +player.singularityUpgrades.singAscensionSpeed2.getEffect().bonus,
-    0.001 * Math.floor(player.shopUpgrades.chronometerInfinity / 25)
+    0.001 * Math.floor((player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) / 25)
   ]
 
   return sumContents(vals)
@@ -2731,7 +2725,7 @@ export const calculateCookieUpgrade29Luck = () => {
 
 export const calculateRedAmbrosiaCubes = () => {
   if (getRedAmbrosiaUpgrade('redAmbrosiaCube').bonus.unlockedRedAmbrosiaCube) {
-    const exponent = 0.5 + getRedAmbrosiaUpgrade('redAmbrosiaCubeImprover').bonus.extraExponent
+    const exponent = 0.4 + getRedAmbrosiaUpgrade('redAmbrosiaCubeImprover').bonus.extraExponent
     return 1 + Math.pow(player.lifetimeRedAmbrosia, exponent) / 100
   } else {
     return 1
@@ -2740,7 +2734,7 @@ export const calculateRedAmbrosiaCubes = () => {
 
 export const calculateRedAmbrosiaObtainium = () => {
   if (getRedAmbrosiaUpgrade('redAmbrosiaObtainium').bonus.unlockRedAmbrosiaObtainium) {
-    return 1 + Math.pow(player.lifetimeRedAmbrosia, 0.7) / 100
+    return 1 + Math.pow(player.lifetimeRedAmbrosia, 0.6) / 100
   } else {
     return 1
   }
@@ -2748,7 +2742,7 @@ export const calculateRedAmbrosiaObtainium = () => {
 
 export const calculateRedAmbrosiaOffering = () => {
   if (getRedAmbrosiaUpgrade('redAmbrosiaOffering').bonus.unlockRedAmbrosiaOffering) {
-    return 1 + Math.pow(player.lifetimeRedAmbrosia, 0.7) / 100
+    return 1 + Math.pow(player.lifetimeRedAmbrosia, 0.6) / 100
   } else {
     return 1
   }

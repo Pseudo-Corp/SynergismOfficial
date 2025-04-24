@@ -385,7 +385,7 @@ export const singularityChallengeData: Record<
         ultimateProgressBarUnlock: (n > 0),
         ascensionSpeedMult: (0.1 * n) / 100,
         hepteractCap: n > 0,
-        exaltBonus: n >= 20,
+        shopUpgrade0: n >= 20,
         shopUpgrade: n >= 25
       }
     }

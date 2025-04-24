@@ -56,6 +56,10 @@ interface RedAmbrosiaCubeImproverReward extends BaseReward {
   extraExponent: number
 }
 
+interface RedAmbrosiaAcceleratorReward extends BaseReward {
+  ambrosiaTimePerRedAmbrosia: number
+}
+
 interface ViscountReward extends BaseReward {
   roleUnlock: boolean
   quarkBonus: number
@@ -82,6 +86,8 @@ type RewardTypeMap = {
   'redAmbrosiaOffering': UnlockRedAmbrosiaOfferingReward
   'redAmbrosiaCubeImprover': RedAmbrosiaCubeImproverReward
   'viscount': ViscountReward
+  'infiniteShopUpgrades': FreeLevelReward
+  'redAmbrosiaAccelerator': RedAmbrosiaAcceleratorReward
 }
 
 export type RedAmbrosiaKeys = keyof RewardTypeMap
@@ -439,7 +445,7 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
       }
     },
     maxLevel: 100,
-    costPerLevel: 20
+    costPerLevel: 12
   },
   redLuck: {
     costFormula: (level: number, baseCost: number) => {
@@ -453,7 +459,7 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
       }
     },
     maxLevel: 100,
-    costPerLevel: 20
+    costPerLevel: 4
   },
   redAmbrosiaCube: {
     costFormula: (level: number, baseCost: number) => {
@@ -527,6 +533,33 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
     },
     maxLevel: 1,
     costPerLevel: 99999
+  },
+  infiniteShopUpgrades: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost + 25 * level
+    },
+    rewards: (n: number) => {
+      return {
+        desc: i18next.t('redAmbrosia.data.infiniteShopUpgrades.effect', { amount: n }),
+        freeLevels: n
+      }
+    },
+    maxLevel: 75,
+    costPerLevel: 75
+  },
+  redAmbrosiaAccelerator: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost + level * 0
+    },
+    rewards: (n: number) => {
+      const val = 0.008 * n + ((n > 0) ? 0.2 : 0)
+      return {
+        desc: i18next.t('redAmbrosia.data.redAmbrosiaAccelerator.effect', { amount: format(val, 3, true) }),
+        ambrosiaTimePerRedAmbrosia: val
+      }
+    },
+    maxLevel: 100,
+    costPerLevel: 1000
   }
 }
 

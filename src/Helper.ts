@@ -15,6 +15,7 @@ import {
   calculateResearchAutomaticObtainium
 } from './Calculate'
 import { quarkHandler } from './Quark'
+import { getRedAmbrosiaUpgrade } from './RedAmbrosiaUpgrades'
 import { Seed, seededRandom } from './RNG'
 import { checkMaxRunes, redeemShards, unlockedRune } from './Runes'
 import { useConsumable } from './Shop'
@@ -259,6 +260,10 @@ export const addTimers = (input: TimerInput, time = 0) => {
         player.redAmbrosiaTime += Math.floor(8 * G.redAmbrosiaTimer) / 8 * speed
         G.redAmbrosiaTimer %= 0.125
         let timeToRedAmbrosia = calculateRequiredRedAmbrosiaTime()
+
+        let ambrosiaTimeToGrant = 0
+        const timeCoeff = getRedAmbrosiaUpgrade('redAmbrosiaAccelerator').bonus.ambrosiaTimePerRedAmbrosia
+
         while (player.redAmbrosiaTime >= timeToRedAmbrosia) {
           const redAmbrosiaLuck = calculateRedAmbrosiaLuck()
           const RNG = seededRandom(Seed.RedAmbrosia)
@@ -268,8 +273,13 @@ export const addTimers = (input: TimerInput, time = 0) => {
 
           player.redAmbrosia += redAmbrosiaToGain
           player.lifetimeRedAmbrosia += redAmbrosiaToGain
+          ambrosiaTimeToGrant += redAmbrosiaToGain * timeCoeff
           player.redAmbrosiaTime -= timeToRedAmbrosia
           timeToRedAmbrosia = calculateRequiredRedAmbrosiaTime()
+        }
+
+        if (ambrosiaTimeToGrant > 0) {
+          addTimers('ambrosia', ambrosiaTimeToGrant)
         }
 
         visualUpdateAmbrosia()

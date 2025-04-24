@@ -38,6 +38,8 @@ export type blueberryUpgradeNames =
   | 'ambrosiaBaseObtainium2'
   | 'ambrosiaHyperflux'
   | 'ambrosiaSingReduction'
+  | 'ambrosiaInfiniteShopUpgrades'
+  | 'ambrosiaInfiniteShopUpgrades2'
 
 export type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
 export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
@@ -971,6 +973,57 @@ export const blueberryUpgradeData: Record<
       ambrosiaHyperflux: 4
     },
     extraLevelCalc: () => 0
+  },
+  ambrosiaInfiniteShopUpgrades: {
+    maxLevel: 75,
+    costPerLevel: 10000,
+    blueberryCost: 1,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost + 0 * level
+    },
+    rewards: (n: number) => {
+      const val = n
+      return {
+        freeLevels: val,
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaInfiniteShopUpgrades.effect', {
+            amount: format(val, 0, true)
+          })
+        )
+      }
+    },
+    prerequisites: {
+      'ambrosiaCubes1': 70,
+      'ambrosiaBaseOffering1': 20,
+      'ambrosiaBaseObtainium1': 10
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow4').bonus.freeLevels
+  },
+  ambrosiaInfiniteShopUpgrades2: {
+    maxLevel: 50,
+    costPerLevel: 45000,
+    blueberryCost: 2,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost + 0 * level
+    },
+    rewards: (n: number) => {
+      const val = n
+      return {
+        freeLevels: val,
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaInfiniteShopUpgrades2.effect', {
+            amount: format(val, 0, true)
+          })
+        )
+      }
+    },
+    prerequisites: {
+      'ambrosiaInfiniteShopUpgrades': 75,
+      'ambrosiaCubes2': 50,
+      'ambrosiaBaseOffering2': 20,
+      'ambrosiaBaseObtainium2': 10
+    },
+    extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow5').bonus.freeLevels
   }
 }
 

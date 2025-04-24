@@ -1651,6 +1651,21 @@ export const singularityData: Record<
         campaignTokenRewardHTMLUpdate()
       }
     ]
+  },
+  singInfiniteShopUpgrades: {
+    maxLevel: 100,
+    costPerLevel: 1e18,
+    minimumSingularity: 233,
+    effect: (n: number) => {
+      return {
+        bonus: n,
+        get desc () {
+          return i18next.t('singularity.data.singInfiniteShopUpgrades.effect', {
+            n: format(n)
+          })
+        }
+      }
+    }
   }
 }
 
@@ -2379,6 +2394,26 @@ export const singularityPerks: SingularityPerk[] = [
       return i18next.t('singularity.perks.permanentBenefaction.default')
     },
     ID: 'permanentBenefaction'
+  },
+  {
+    name: () => {
+      return i18next.t('singularity.perks.infiniteShopUpgrades.name')
+    },
+    levels: [250, 280],
+    description: () => {
+      if (player.highestSingularityCount < 280) {
+        const effect = player.highestSingularityCount - 200
+        return i18next.t('singularity.perks.infiniteShopUpgrades.default', {
+          amt: format(effect, 0, true)
+        })
+      } else {
+        const effect = Math.floor(1.25 * (player.highestSingularityCount - 200))
+        return i18next.t('singularity.perks.infiniteShopUpgrades.level2', {
+          amt: format(effect, 0, true)
+        })
+      }
+    },
+    ID: 'infiniteShopUpgrades'
   }
 ]
 

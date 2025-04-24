@@ -629,7 +629,8 @@ export const player: Player = {
     shopSadisticRune: 0,
     shopRedLuck1: 0,
     shopRedLuck2: 0,
-    shopRedLuck3: 0
+    shopRedLuck3: 0,
+    shopInfiniteShopUpgrades: 0
   },
 
   shopPotionsConsumed: {
@@ -1260,6 +1261,10 @@ export const player: Player = {
     singAmbrosiaGeneration4: new SingularityUpgrade(
       singularityData.singAmbrosiaGeneration4,
       'singAmbrosiaGeneration4'
+    ),
+    singInfiniteShopUpgrades: new SingularityUpgrade(
+      singularityData.singInfiniteShopUpgrades,
+      'singInfiniteShopUpgrades'
     )
   },
 
@@ -1431,6 +1436,10 @@ export const player: Player = {
     octeractBlueberries: new OcteractUpgrade(
       octeractData.octeractBlueberries,
       'octeractBlueberries'
+    ),
+    octeractInfiniteShopUpgrades: new OcteractUpgrade(
+      octeractData.octeractInfiniteShopUpgrades,
+      'octeractInfiniteShopUpgrades'
     )
   },
 
@@ -1577,6 +1586,14 @@ export const player: Player = {
     ambrosiaSingReduction: new BlueberryUpgrade(
       blueberryUpgradeData.ambrosiaSingReduction,
       'ambrosiaSingReduction'
+    ),
+    ambrosiaInfiniteShopUpgrades: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaInfiniteShopUpgrades,
+      'ambrosiaInfiniteShopUpgrades'
+    ),
+    ambrosiaInfiniteShopUpgrades2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaInfiniteShopUpgrades2,
+      'ambrosiaInfiniteShopUpgrades2'
     )
   },
 
@@ -1627,7 +1644,9 @@ export const player: Player = {
     'redAmbrosiaObtainium': 0,
     'redAmbrosiaOffering': 0,
     'redAmbrosiaCubeImprover': 0,
-    'viscount': 0
+    'viscount': 0,
+    'infiniteShopUpgrades': 0,
+    'redAmbrosiaAccelerator': 0
   },
 
   singChallengeTimer: 0,

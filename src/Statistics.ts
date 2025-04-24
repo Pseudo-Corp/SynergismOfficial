@@ -33,10 +33,10 @@ import {
   calculateEffectiveIALevel,
   calculateEventBuff,
   calculateExalt6Penalty,
-  calculateEXALTBonusMult,
   calculateEXUltraCubeBonus,
   calculateEXUltraObtainiumBonus,
   calculateEXUltraOfferingBonus,
+  calculateFreeShopInfinityUpgrades,
   calculateGlobalSpeedDREnabledMult,
   calculateGlobalSpeedDRIgnoreMult,
   calculateGlobalSpeedMult,
@@ -201,7 +201,7 @@ export const allCubeStats: StatLine[] = [
   },
   {
     i18n: 'PassINF',
-    stat: () => Math.pow(1.01, player.shopUpgrades.seasonPassInfinity)
+    stat: () => Math.pow(1.01, player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades())
   },
   {
     i18n: 'CashGrabUltra',
@@ -261,10 +261,6 @@ export const allCubeStats: StatLine[] = [
   {
     i18n: 'NoSing',
     stat: () => +player.singularityChallenges.noSingularityUpgrades.rewards.cubes
-  },
-  {
-    i18n: 'TwentyAscensions',
-    stat: () => +calculateEXALTBonusMult()
   },
   {
     i18n: 'Ambrosia',
@@ -328,7 +324,7 @@ export const allCubeStats: StatLine[] = [
 export const allWowCubeStats: StatLine[] = [
   {
     i18n: 'AscensionScore',
-    stat: () => Math.pow(calculateAscensionScore().effectiveScore, 1 / 4.1)
+    stat: () => Math.pow(calculateAscensionScore().effectiveScore / 3000, 1 / 4.1)
   },
   {
     i18n: 'GlobalCube',
@@ -774,7 +770,7 @@ export const allOcteractCubeStats: StatLine[] = [
   },
   {
     i18n: 'PassINF',
-    stat: () => Math.pow(1.01, player.shopUpgrades.seasonPassInfinity * 1.5)
+    stat: () => Math.pow(1.01, (player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()) * 1.5)
   },
   {
     i18n: 'Ambrosia',
@@ -893,7 +889,7 @@ export const allBaseOfferingStats: StatLine[] = [
   },
   {
     i18n: 'OfferingEX3',
-    stat: () => Math.floor(player.shopUpgrades.offeringEX3 / 25) // Offering EX 3
+    stat: () => Math.floor((player.shopUpgrades.offeringEX3 + calculateFreeShopInfinityUpgrades()) / 25) // Offering EX 3
   }
 ]
 
@@ -1081,10 +1077,6 @@ export const allOfferingStats = [
     stat: () => Math.pow(1.04, player.cubeUpgrades[72] * sumContents(player.talismanRarity)) // Cube upgrade 8x2 (Cx22)
   },
   {
-    i18n: 'EXALTBonus',
-    stat: () => calculateEXALTBonusMult() // 20 Ascensions X20 Bonus [EXALT ONLY]
-  },
-  {
     i18n: 'CashGrab2',
     stat: () => 1 + (1 / 200) * player.shopUpgrades.cashGrab2 // Cash Grab 2
   },
@@ -1094,7 +1086,7 @@ export const allOfferingStats = [
   },
   {
     i18n: 'OfferingINF',
-    stat: () => Math.pow(1.01, player.shopUpgrades.offeringEX3) // Offering INF
+    stat: () => Math.pow(1.01, player.shopUpgrades.offeringEX3 + calculateFreeShopInfinityUpgrades()) // Offering INF
   },
   {
     i18n: 'EXUltra',
@@ -1369,12 +1361,8 @@ export const allObtainiumIgnoreDRStats: StatLine[] = [
   },
   {
     i18n: 'ObtainiumEX3',
-    stat: () => Math.pow(1.06, Math.floor(player.shopUpgrades.obtainiumEX3 / 25)) // Obtainium EX 3
-  },
-  {
-    i18n: 'EXALTBonus',
-    stat: () => calculateEXALTBonusMult(), // EXALT Bonus Multiplier
-    color: 'cyan'
+    stat: () =>
+      Math.pow(1.06, Math.floor((player.shopUpgrades.obtainiumEX3 + calculateFreeShopInfinityUpgrades()) / 25)) // Obtainium EX 3
   },
   {
     i18n: 'Exalt6Penalty',
@@ -1551,7 +1539,7 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'ShopObtainiumEX3',
-    stat: () => Math.pow(1.01, player.shopUpgrades.obtainiumEX3) // Obtainium EX 3 Shop Upgrade
+    stat: () => Math.pow(1.01, player.shopUpgrades.obtainiumEX3 + calculateFreeShopInfinityUpgrades()) // Obtainium EX 3 Shop Upgrade
   },
   {
     i18n: 'OcteractBonus',
@@ -1873,12 +1861,8 @@ export const allAscensionSpeedStats: StatLine[] = [
     stat: () => 1 + +player.octeractUpgrades.octeractImprovedAscensionSpeed2.getEffect().bonus * player.singularityCount // Abstract Exokinetics, Oct Upg
   },
   {
-    i18n: 'NoInfiniteAscent',
-    stat: () => player.singularityUpgrades.singAscensionSpeed2.level > 0 && player.runelevels[6] < 1 ? 6 : 1 // A mediocre ascension speedup!
-  },
-  {
     i18n: 'ChronometerINF',
-    stat: () => Math.pow(1.005, player.shopUpgrades.chronometerInfinity) // Chronometer INF
+    stat: () => Math.pow(1.005, player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) // Chronometer INF
   },
   {
     i18n: 'LimitedAscensionsBuff',
@@ -2513,6 +2497,78 @@ export const allRedAmbrosiaGenerationSpeedStats: StatLine[] = [
   }
 ]
 
+export const infinityShopUpgrades: StatLine[] = [
+  {
+    i18n: 'Offerings',
+    stat: () => player.shopUpgrades.offeringEX3
+  },
+  {
+    i18n: 'Obtainium',
+    stat: () => player.shopUpgrades.obtainiumEX3
+  },
+  {
+    i18n: 'WowPass',
+    stat: () => player.shopUpgrades.seasonPassInfinity
+  },
+  {
+    i18n: 'Chronometer',
+    stat: () => player.shopUpgrades.chronometerInfinity
+  }
+]
+
+export const allShopTablets: StatLine[] = [
+  {
+    i18n: 'Red',
+    stat: () => getRedAmbrosiaUpgrade('infiniteShopUpgrades').bonus.freeLevels, // Red Ambrosia Upgrade
+    acc: 0,
+    color: 'red'
+  },
+  {
+    i18n: 'Orange',
+    stat: () => {
+      if (player.highestSingularityCount >= 280) {
+        return Math.floor(1.25 * (player.highestSingularityCount - 200))
+      } else if (player.highestSingularityCount >= 250) {
+        return player.highestSingularityCount - 200
+      } else {
+        return 0
+      }
+    },
+    acc: 0,
+    color: 'orange'
+  },
+  {
+    i18n: 'Yellow',
+    stat: () => +player.singularityUpgrades.singInfiniteShopUpgrades.getEffect().bonus, // Singularity Upgrade
+    acc: 0,
+    color: 'yellow'
+  },
+  {
+    i18n: 'Green',
+    stat: () => +player.octeractUpgrades.octeractInfiniteShopUpgrades.getEffect().bonus, // Octeract Upgrade
+    acc: 0,
+    color: 'green'
+  },
+  {
+    i18n: 'Blue',
+    stat: () => Math.floor(0.01 * player.shopUpgrades.shopInfiniteShopUpgrades * sumOfExaltCompletions()), // Shop Upgrade
+    acc: 0,
+    color: 'blue'
+  },
+  {
+    i18n: 'Indigo',
+    stat: () => +player.blueberryUpgrades.ambrosiaInfiniteShopUpgrades.bonus.freeLevels, // Blueberry Upgrade
+    acc: 0,
+    color: 'indigo'
+  },
+  {
+    i18n: 'Violet',
+    stat: () => +player.blueberryUpgrades.ambrosiaInfiniteShopUpgrades2.bonus.freeLevels, // Blueberry Upgrade 2
+    acc: 0,
+    color: 'violet'
+  }
+]
+
 export const allMiscStats: StatLine[] = [
   {
     i18n: 'PrestigeCount',
@@ -2628,7 +2684,8 @@ const associated = new Map<string, string>([
   ['kAmbrosiaBlueberries', 'ambrosiaBlueberryStats'],
   ['kAmbrosiaGenMult', 'ambrosiaGenerationStats'],
   ['kLuckConversion', 'luckConversionStats'],
-  ['kRedAmbrosiaLuck', 'redAmbrosiaLuckStats']
+  ['kRedAmbrosiaLuck', 'redAmbrosiaLuckStats'],
+  ['kShopVouchers', 'shopVoucherStats']
 ])
 
 export const displayStats = (btn: HTMLElement) => {
@@ -2737,6 +2794,9 @@ export const loadStatisticsUpdate = () => {
         break
       case 'redAmbrosiaLuckStats':
         loadRedAmbrosiaLuckStats()
+        break
+      case 'shopVoucherStats':
+        loadShopVoucherStats()
         break
     }
   }
@@ -3080,6 +3140,25 @@ export const loadRedAmbrosiaLuckStats = () => {
     'statRAL',
     'redAmbrosiaLuckStat',
     calculateRedAmbrosiaLuck
+  )
+}
+
+export const loadShopVoucherStats = () => {
+  loadStatistics(
+    infinityShopUpgrades,
+    'shopVoucherStats',
+    'statSV',
+    'ShopVoucherStat',
+    () => 0,
+    '',
+    false
+  )
+  loadStatistics(
+    allShopTablets,
+    'shopVoucherStats',
+    'statSV2',
+    'ShopVoucherStat2',
+    calculateFreeShopInfinityUpgrades
   )
 }
 

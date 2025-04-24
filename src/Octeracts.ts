@@ -916,5 +916,20 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         }
       }
     }
+  },
+  octeractInfiniteShopUpgrades: {
+    maxLevel: 100,
+    costPerLevel: 1e30,
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(9, level)
+    },
+    effect: (n: number) => {
+      return {
+        bonus: n,
+        get desc () {
+          return i18next.t('octeract.data.octeractInfiniteShopUpgrades.effect', { n: format(n) })
+        }
+      }
+    }
   }
 }

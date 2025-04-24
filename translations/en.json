@@ -158,6 +158,16 @@
         "name": "Singularity Stablizer Module",
         "description": "Retrofitted with Amber flux capacitors, your Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity per level, if you are NOT! in an EXALT.",
         "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
+      },
+      "ambrosiaInfiniteShopUpgrades": {
+        "name": "Indigo Infinity Shop Voucher",
+        "description": "A Shop Voucher, printed on an indigo tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
+        "effect": "'Infinity' shop upgrades level +{{amount}}"
+      },
+      "ambrosiaInfiniteShopUpgrades2": {
+        "name": "Violet Infinity Shop Voucher",
+        "description": "A Shop Voucher, printed on a violet tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
+        "effect": "'Infinity' shop upgrades level +{{amount}}"
       }
     },
     "loadouts": {
@@ -256,22 +266,32 @@
       "redAmbrosiaObtainium": {
         "name": "Obtainium \"\"made\"\" of Red Ambrosia",
         "description": "I don't know why you can make a blue object from a red object. But you can.",
-        "effect": "If purchased, multiply your Obtainium by 1 + (Lifetime)^0.7 / 100."
+        "effect": "If purchased, multiply your Obtainium by 1 + (Lifetime)^0.6 / 100."
       },
       "redAmbrosiaOffering": {
         "name": "Offerings \"\"\"made\"\"\" of Red Ambrosia",
         "description": "Wait, this one kinda makes sense.",
-        "effect": "If purchased, multiply your Offerings by 1 + (Lifetime)^0.7 / 100."
+        "effect": "If purchased, multiply your Offerings by 1 + (Lifetime)^0.6 / 100."
       },
       "redAmbrosiaCubeImprover": {
         "name": "Hire Red Ambrosia Artisans",
         "description": "They are better at making cubes out of Red Ambrosia for you, depending on how many you have. +0.01 exponent to \"Cubes 'made' of Red Ambrosia\" per level.",
-        "effect": "Exponent for that Red Ambrosia Upgrade: 0.50 → {{newExponent}}"
+        "effect": "Exponent for that Red Ambrosia Upgrade: 0.40 → {{newExponent}}"
       },
       "viscount": {
         "name": "Viscount of Ruby Guy",
         "description": "For a stupid amount of Red Ambrosia, obtain a small amount of land, becoming 'viscount' of this land. Purchase this to get +10% Quarks, +125 Ambrosia Luck, +25 Red Luck, and a Discord Role!",
         "effect": "📜 {{mark}}"
+      },
+      "infiniteShopUpgrades": {
+        "name": "Red Infinity Shop Voucher",
+        "description": "A Shop Voucher, printed on a red tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
+        "effect": "'Infinity' shop upgrades level +{{amount}}"
+      },
+      "redAmbrosiaAccelerator": {
+        "name": "Red-Blue Ultrafusion",
+        "description": "When you gain a Red Ambrosia, you gain a bit of progress toward regular Ambrosia! +0.008 real-life seconds of Blueberry Time Generation per level, per Red Ambrosia generated, with the first level giving +0.20(!)",
+        "effect": "Each Red Ambrosia generated grants {{amount}} seconds of Blueberry Time Generation."
       }
     }
   },
@@ -1579,13 +1599,13 @@
       "shopImprovedDaily2": "Gain 1 additional free Singularity Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily3": "Gain 1 additional free Singularity Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily4": "Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
-      "offeringEX3": "Gain 1% more Offerings per level, multiplicative! (Multiplier is 1.02^level). Every 25 levels, gain +1 Base Offering!",
-      "obtainiumEX3": "Gain 1% more Obtainium per level, multiplicative! (Multiplier is 1.02^level). Every 25 levels, gain 6% more Immaculate Obtainium Multiplier! (1.06^[level/25])",
-      "chronometerInfinity": "Gain 0.5% more Ascension Speed per level, multiplicative! (Multiplier is 1.005^level). Every 25 levels, gain +0.001 spread on Ascension Speed exponent modifiers on speeds greater than or less than 1 (Check Stats for Nerds for this one)!",
-      "seasonPassInfinity": "Gain 1% more cubes per level, multiplicative! (Multiplier is 1.01^level). This effect is raised to the power of 1.5 for Octeract calculations!",
+      "offeringEX3": "[Supplied by - Infinity CO.] Gain 1% more Offerings per level, multiplicative! (Multiplier is 1.02^level). Every 25 levels, gain +1 Base Offering!",
+      "obtainiumEX3": "[Supplied by - Infinity CO.] Gain 1% more Obtainium per level, multiplicative! (Multiplier is 1.02^level). Every 25 levels, gain 6% more Immaculate Obtainium Multiplier! (1.06^[level/25])",
+      "chronometerInfinity": "[Supplied by - Infinity CO.] Gain 0.5% more Ascension Speed per level, multiplicative! (Multiplier is 1.005^level). Every 25 levels, gain +0.001 spread on Ascension Speed exponent modifiers on speeds greater than or less than 1 (Check Stats for Nerds for this one)!",
+      "seasonPassInfinity": "[Supplied by - Infinity CO.] Gain 1% more cubes per level, multiplicative! (Multiplier is 1.01^level). This effect is raised to the power of 1.5 for Octeract calculations!",
       "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.",
       "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
-      "improveQuarkHept5": "This is 1/50 as effective as a normal improver. Why? Because of balancing...",
+      "improveQuarkHept5": "[NOT Supplied by - Infinity CO.] This is 1/50 as effective as a normal improver. Why? Because of balancing...",
       "shopAmbrosiaGeneration1": "Buying this charm grants +1% faster Blueberry Time generation per level, for more Ambrosia! Don't know what that means? You soon will.",
       "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% faster Blueberry Time generation per level, stacking multiplicatively.",
       "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% faster Blueberry Time generation per level, stacking multiplicatively.",
@@ -1606,7 +1626,8 @@
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
       "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
-      "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?"
+      "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?",
+      "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +0.01 effective level for the 'Infinity CO.' Quark shop upgrades, multiplied by your total number of EXALT completions!"
     },
     "maxed": "Maxed!",
     "upgradeFor": "Upgrade for {{x}} Quarks",
@@ -1710,7 +1731,8 @@
       "shopAmbrosiaUltra": "Gain <<lime|☘ +{{amount}}>> Ambrosia Luck from your EXALT completions!",
       "shopSingularitySpeedup": "Singularity Perks and Upgrades accumulate <<gray|{{amount}}>> times faster!",
       "shopSingularityPotency": "Free Singularity Upgrades are as if you had <<gray|{{amount}}>> of them.",
-      "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know."
+      "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know.",
+      "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark shop upgrades are increased by <<white|{{amount}}>>!"
     }
   },
   "singularity": {
@@ -1944,6 +1966,11 @@
       "permanentBenefaction": {
         "name": "Permanent Benefaction",
         "default": "<<lightblue | Pandora>> and <<orange | Vyshareth>> will always grant you their benefaction, so their cookies are correspondingly always eaten!"
+      },
+      "infiniteShopUpgrades": {
+        "name": "Orange Infinity Shop Voucher",
+        "default": "Gain +1 to 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200. Currently: {{amt}}",
+        "level2": "Gain +1.25 to 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200, rounded down! Currently: {{amt}}"
       }
     },
     "toString": {
@@ -2346,6 +2373,11 @@
         "name": "Spare Change from the Ant God's Coffers",
         "description": "Those Tokens were too big to be called Tokens. Too big, too thick, too heavy, and too rough, they were more like large hunks of gold. +5 Tokens at the start of a Singularity per level.",
         "effect": "Ant God ponies up {{n}} Tokens at the start of a Singularity!"
+      },
+      "singInfiniteShopUpgrades": {
+        "name": "Yellow Infinity Shop Voucher",
+        "description": "A Shop Voucher, printed on a yellow tablet. Each grants +1 effective level the 'Infinity CO.' Quark Shop upgrades.",
+        "effect": "You have +{{n}} free levels of the 'Infinity CO.' Quark Shop upgrades."
       }
     },
     "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
@@ -3488,6 +3520,11 @@
         "name": "Berries that are Blue!",
         "description": "Blueberries are a blue fruit. Enough said.",
         "effect": "You have purchased {{n}} blue blueberries!"
+      },
+      "octeractInfiniteShopUpgrades": {
+        "name": "Green Infinity Shop Voucher",
+        "description": "A Shop Voucher, printed on a green tablet. Each grants +1 effective level for the 'Infinity CO.' Quark Shop upgrades.",
+        "effect": "'Infinity CO.' shop upgrades level +{{n}}"
       }
     },
     "amount": "You have {{octeracts}} Octeracts!",
@@ -3701,7 +3738,7 @@
         "ScalingReward1": "<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
         "UniqueReward1": "1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
         "UniqueReward2": "1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
-        "UniqueReward3": "20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
+        "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!",
         "UniqueReward4": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
       },
       "noAmbrosiaUpgrades": {
@@ -4022,7 +4059,6 @@
       "OcteractBonus": "Octeract Passive Bonus:",
       "Ambrosia": "Ambrosia Passive Bonus:",
       "CubeUpgradeCx22": "Cube Upgrade 8x2 (Cx22):",
-      "EXALTBonus": "EXALT - Twenty Ascensions Challenge:",
       "CashGrab2": "Cash Grab 2 Shop Upgrade:",
       "OfferingEX2": "Offering EX 2 Shop Upgrade:",
       "OfferingINF": "Offering INF Shop Upgrade:",
@@ -4102,7 +4138,6 @@
       "CubeUpgradeCx21": "Cube Upgrade 8x1 (Cx21):",
       "ObtainiumEX3": "Obtainium EX 3 Shop Upgrade [Per 25 levels]:",
       "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
-      "EXALTBonus": "EXALT - Twenty Ascensions Challenge:",
       "RedAmbrosia": "Obtainium \"\"made\"\" of Red Ambrosia:",
       "Exalt6Penalty": "The Grand Singularity Speedrun - Too Slow:",
       "Event": "Event Bonus:",
@@ -4161,7 +4196,6 @@
       "OcteractObtainium1": "Octeract Obtainium Upgrade 1:",
       "AmbrosiaObtainium1": "Ambrosia Obtainium Upgrade 1:",
       "EXUltraObtainium": "EX ULTIMATE Obtainium Bonus:",
-      "EXALTBonus": "EXALT - Twenty Ascensions Challenge:",
       "Challenge14": "Challenge 14 - No Obtainium:",
       "SingularityDebuff": "Singularity Debuff:",
       "Exalt6Penalty": "The Grand Singularity Speedrun - Too Slow:",
@@ -4434,6 +4468,21 @@
       "ShopRedLuck3": "High Class Dice of Asmodeus:",
       "Viscount": "Benefits of being a Viscount:",
       "Total": "Total Red Ambrosia Luck:"
+    },
+    "shopVoucherStats": {
+      "title": "Free 'Infinity CO' Quark Shop Levels",
+      "Obtainium": "Base Obtainium Infinity Levels",
+      "Offerings": "Base Offering Infinity Levels",
+      "WowPass": "Base Wow Pass Infinity Levels",
+      "Chronometer": "Base Chronometer Infinity Levels",
+      "Red": "Red Vouchers [Red Ambrosia]:",
+      "Orange": "Orange Vouchers [Singularity Perk]:",
+      "Yellow": "Yellow Vouchers [Golden Quarks]:",
+      "Green": "Green Vouchers [Octeracts]:",
+      "Blue": "Blue Vouchers [Shop]:",
+      "Indigo": "Indigo Vouchers [Ambrosia 1]:",
+      "Violet": "Violet Vouchers [Ambrosia 2]:",
+      "Total": "Total Free Levels:"
     },
     "gameStage": "Current Game Stage: {{stage}}"
   },

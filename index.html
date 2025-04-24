@@ -3167,7 +3167,7 @@
                 <button class="statsNerds octeracts" id="kAmbrosiaGenMult" style="border: 2px solid #ffbf00">Ambrosia Generation</button>
                 <button class="statsNerds octeracts" id="kLuckConversion" style="border: 2px solid yellow">Luck Conversion</button>
                 <button class="statsNerds octeracts" id="kRedAmbrosiaLuck" style="border: 2px solid red">Red Ambrosia Luck</button>
-
+                <button class="statsNerds octeracts" id="kShopVouchers" style="border: 2px solid cyan">Shop Vouchers</button>
             </div>
             <div id="miscStats" class="statContainer activeStats">
                 <p class="prestigeunlock statPortion" id="settingtitle3" style="color: plum; font-size: 1.2em" i18n="statistics.miscStats.title"></p>
@@ -3272,6 +3272,10 @@
 
             <div id="redAmbrosiaLuckStats" class="statContainer activeStats" aria-live="polite">
                 <p id="redAmbrosiaLuckStatTitle" class="statPortion" style="color: red; font-size: 1.2em" i18n="statistics.redAmbrosiaLuckStats.title"></p>
+            </div>
+
+            <div id="shopVoucherStats" class="statContainer activeStats" aria-live="polite">
+                <p id="shopVoucherStatTitle" class="statPortion" style="color: cyan; font-size: 1.2em" i18n="statistics.shopVoucherStats.title"></p>
             </div>
 
             <div id="addCodeStats" class="statContainer" style="display: none;" aria-live="polite">
@@ -3792,6 +3796,11 @@
                             <p id="shopRedLuck3Level"></p>
                             <button class="permshopbutton" id="shopRedLuck3Button" style="border: 2px solid red"></button>
                         </div>
+                        <div class="exalt2X20Unlock" id="shopInfiniteShopUpgradesHide">
+                            <img id="shopInfiniteShopUpgrades" alt="Infinite Shop Upgrades (Blue)" src="Pictures/Default/ShopInfiniteShopUpgrades.png" loading="lazy">
+                            <p id="shopInfiniteShopUpgradesLevel"></p>
+                            <button class="permshopbutton" id="shopInfiniteShopUpgradesButton" style="border: 2px solid blue"></button>
+                        </div>
                         <div class="exalt1X30Unlock" id="shopCashGrabUltraHide">
                             <img id="shopCashGrabUltra" alt="The ULTIMATE Cash Grab" src="Pictures/Default/ShopCashGrabUltra.png" loading="lazy">
                             <p id="shopCashGrabUltraLevel"></p>
@@ -4091,6 +4100,9 @@
                     <div class="singularityUpgrade">
                         <img id="singAmbrosiaGeneration4" src="Pictures/Default/SingularityAmbrosiaGeneration4.png" style="cursor: pointer">
                     </div>
+                    <div class="singularityUpgrade">
+                        <img id="singInfiniteShopUpgrades" src="Pictures/Default/SingularityInfiniteShopLevels.png" style="cursor: pointer">
+                    </div>
                 </div>
             </div>
             <div id="singularityUpgradeShit">
@@ -4259,8 +4271,11 @@
                     <div class="octeractUpgrade">
                         <img id="octeractAmbrosiaGeneration4" src="Pictures/Default/OcteractAmbrosiaGeneration4.png" style="cursor: pointer">
                     </div>
-                    <div class="octeractBlueberries">
+                    <div class="octeractUpgrade">
                         <img id="octeractBlueberries" src="Pictures/Default/OcteractBlueberries.png" style="cursor: pointer">
+                    </div>
+                    <div class="octeractUpgrade">
+                        <img id="octeractInfiniteShopUpgrades" src="Pictures/Default/OcteractInfiniteShopUpgrades.png" style="cursor: pointer">
                     </div>
                 </div>
 
@@ -4418,11 +4433,20 @@
                         <div class="blueberryUpgrade">
                             <img id="ambrosiaBaseObtainium2" src="Pictures/Default/BlueberryBaseObtainium2.png">
                         </div>
+                        <div class="blueberryUpgrade">
+                            <img id="ambrosiaInfiniteShopUpgrades" src="Pictures/Default/BlueberryInfiniteShopUpgrades.png">
+                        </div>
                         <div class="redAmbrosiaUpgrade">
                             <img id="redAmbrosiaFreeLevelsRow4" src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow4.png">
                         </div>
                         <div class="redAmbrosiaUpgrade">
                             <img id="redAmbrosiaRedAmbrosiaCubeImprover" src="Pictures/RedAmbrosia/RedAmbrosiaRedAmbrosiaCubeImprover.png">
+                        </div>
+                        <div class="redAmbrosiaUpgrade">
+                            <img id="redAmbrosiaInfiniteShopUpgrades" src="Pictures/RedAmbrosia/RedAmbrosiaInfiniteShopLevels.png">
+                        </div>
+                        <div class="redAmbrosiaUpgrade">
+                            <img id="redAmbrosiaRedAmbrosiaAccelerator" src="Pictures/RedAmbrosia/RedAmbrosiaAccelerator.png">
                         </div>
                     </div>
                     <div class="blueberryUpgradeTier">
@@ -4434,6 +4458,9 @@
                         </div>
                         <div class="blueberryUpgrade">
                             <img id="ambrosiaLuck3" src="Pictures/Default/BlueberryLuck3.png">
+                        </div>
+                        <div class="blueberryUpgrade">
+                            <img id="ambrosiaInfiniteShopUpgrades2" src="Pictures/Default/BlueberryInfiniteShopUpgrades2.png">
                         </div>
                         <div class="redAmbrosiaUpgrade">
                             <img id="redAmbrosiaFreeLevelsRow5" src="Pictures/RedAmbrosia/RedAmbrosiaFreeLevelsRow5.png">

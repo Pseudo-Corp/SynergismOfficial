@@ -7,6 +7,7 @@ import {
   calculateCashGrabBlueberryBonus,
   calculateCashGrabCubeBonus,
   calculateCashGrabQuarkBonus,
+  calculateFreeShopInfinityUpgrades,
   calculateObtainiumPotionBaseObtainium,
   calculateObtainiumToDecimal,
   calculateOfferingPotionBaseOfferings,
@@ -42,6 +43,7 @@ type shopResetTier =
   | 'Exalt2'
   | 'Exalt3'
   | 'Exalt4'
+  | 'Exalt2x20'
   | 'Exalt1x30'
   | 'Exalt5'
   | 'Exalt5x20'
@@ -781,6 +783,15 @@ export const shopData: Record<keyof Player['shopUpgrades'], IShopData> = {
     type: shopUpgradeTypes.UPGRADE,
     refundable: false,
     refundMinimumLevel: 0
+  },
+  shopInfiniteShopUpgrades: {
+    tier: 'Exalt2x20',
+    price: 1e20,
+    priceIncrease: 0,
+    maxLevel: 100,
+    type: shopUpgradeTypes.UPGRADE,
+    refundable: false,
+    refundMinimumLevel: 0
   }
 }
 
@@ -867,6 +878,7 @@ type ShopUpgradeNames =
   | 'shopRedLuck1'
   | 'shopRedLuck2'
   | 'shopRedLuck3'
+  | 'shopInfiniteShopUpgrades'
 
 export const getShopCosts = (input: ShopUpgradeNames) => {
   if (
@@ -1221,12 +1233,12 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'offeringEX3':
       lol.innerHTML = i18next.t('shop.upgradeEffects.offeringEX3', {
         amount: format(
-          100 * (Math.pow(1.01, player.shopUpgrades.offeringEX3) - 1),
+          100 * (Math.pow(1.01, player.shopUpgrades.offeringEX3 + calculateFreeShopInfinityUpgrades()) - 1),
           2,
           true
         ),
         amount2: format(
-          Math.floor(player.shopUpgrades.offeringEX3 / 25),
+          Math.floor((player.shopUpgrades.offeringEX3 + calculateFreeShopInfinityUpgrades()) / 25),
           0,
           true
         )
@@ -1235,12 +1247,14 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'obtainiumEX3':
       lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumEX3', {
         amount: format(
-          100 * (Math.pow(1.01, player.shopUpgrades.obtainiumEX3) - 1),
+          100 * (Math.pow(1.01, player.shopUpgrades.obtainiumEX3 + calculateFreeShopInfinityUpgrades()) - 1),
           2,
           true
         ),
         amount2: format(
-          100 * (Math.pow(1.06, Math.floor(player.shopUpgrades.obtainiumEX3 / 25)) - 1),
+          100
+            * (Math.pow(1.06, Math.floor((player.shopUpgrades.obtainiumEX3 + calculateFreeShopInfinityUpgrades()) / 25))
+              - 1),
           2,
           true
         )
@@ -1254,12 +1268,14 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'seasonPassInfinity':
       lol.innerHTML = i18next.t('shop.upgradeEffects.seasonPassInfinity', {
         amount: format(
-          100 * (Math.pow(1.01, player.shopUpgrades.seasonPassInfinity) - 1),
+          100 * (Math.pow(1.01, player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()) - 1),
           2,
           true
         ),
         amount2: format(
-          100 * (Math.pow(1.01, 1.5 * player.shopUpgrades.seasonPassInfinity) - 1),
+          100
+            * (Math.pow(1.01, 1.5 * (player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()))
+              - 1),
           2,
           true
         )
@@ -1268,12 +1284,12 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'chronometerInfinity':
       lol.innerHTML = i18next.t('shop.upgradeEffects.chronometerInfinity', {
         amount: format(
-          100 * (Math.pow(1.005, player.shopUpgrades.chronometerInfinity) - 1),
+          100 * (Math.pow(1.005, player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) - 1),
           3,
           true
         ),
         amount2: format(
-          0.001 * Math.floor(player.shopUpgrades.chronometerInfinity / 25),
+          0.001 * Math.floor((player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) / 25),
           3,
           true
         )
@@ -1435,6 +1451,14 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
       break
     case 'shopSadisticRune': {
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopSadisticRune')
+      break
+    }
+    case 'shopInfiniteShopUpgrades': {
+      const exaltCompletions = sumOfExaltCompletions()
+      lol.innerHTML = i18next.t('shop.upgradeEffects.shopInfiniteShopUpgrades', {
+        amount: format(Math.floor(player.shopUpgrades.shopInfiniteShopUpgrades * 0.01 * exaltCompletions), 0, true)
+      })
+      break
     }
   }
 }
@@ -1522,7 +1546,8 @@ export const friendlyShopName = (input: ShopUpgradeNames) => {
     shopAmbrosiaUltra: 'The FINAL Ambrosia Exaltation... I don\'t flippin know!',
     shopSingularitySpeedup: 'Singularity Timed-Perks Speedup',
     shopSingularityPotency: 'Singularity Passives Potency',
-    shopSadisticRune: 'Sadistic Rune Unlock! Or does it?'
+    shopSadisticRune: 'Sadistic Rune Unlock! Or does it?',
+    shopInfiniteShopUpgrades: 'Blue Infinity Shop Voucher'
   }
 
   return names[input]
@@ -2056,5 +2081,7 @@ export const isShopUpgradeUnlocked = (upgrade: ShopUpgradeNames): boolean => {
       return Boolean(player.singularityChallenges.sadisticPrequel.rewards.shopUpgrade2)
     case 'shopSadisticRune':
       return Boolean(player.singularityChallenges.sadisticPrequel.rewards.shopUpgrade3)
+    case 'shopInfiniteShopUpgrades':
+      return Boolean(player.singularityChallenges.limitedAscensions.rewards.shopUpgrade0)
   }
 }

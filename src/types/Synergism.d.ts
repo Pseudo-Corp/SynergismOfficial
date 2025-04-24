@@ -407,6 +407,7 @@ export interface Player {
     shopRedLuck1: number
     shopRedLuck2: number
     shopRedLuck3: number
+    shopInfiniteShopUpgrades: number
   }
 
   shopPotionsConsumed: {
