@@ -2678,7 +2678,9 @@ export type SingularityDebuffs =
 export const calculateSingularityReductions = () => {
   const arr = [
     player.shopUpgrades.shopSingularityPenaltyDebuff,
-    (player.insideSingularityChallenge) ? 0 : +player.blueberryUpgrades.ambrosiaSingReduction.bonus.singularityReduction
+    (player.insideSingularityChallenge)
+      ? +player.blueberryUpgrades.ambrosiaSingReduction2.bonus.singularityReduction
+      : +player.blueberryUpgrades.ambrosiaSingReduction.bonus.singularityReduction
   ]
 
   return sumContents(arr)

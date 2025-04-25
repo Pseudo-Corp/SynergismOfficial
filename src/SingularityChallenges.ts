@@ -379,10 +379,9 @@ export const singularityChallengeData: Record<
       return baseReq + 10 * completions
     },
     scalingrewardcount: 1,
-    uniquerewardcount: 4,
+    uniquerewardcount: 3,
     effect: (n: number) => {
       return {
-        ultimateProgressBarUnlock: (n > 0),
         ascensionSpeedMult: (0.1 * n) / 100,
         hepteractCap: n > 0,
         shopUpgrade0: n >= 20,
@@ -399,7 +398,7 @@ export const singularityChallengeData: Record<
       return baseReq + 6 * completions
     },
     scalingrewardcount: 4,
-    uniquerewardcount: 6,
+    uniquerewardcount: 7,
     effect: (n: number) => {
       return {
         bonusAmbrosia: +(n > 0),
@@ -422,7 +421,7 @@ export const singularityChallengeData: Record<
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + 3 * completions
     },
-    scalingrewardcount: 3,
+    scalingrewardcount: 4,
     uniquerewardcount: 3,
     effect: (n: number) => {
       return {
@@ -430,6 +429,7 @@ export const singularityChallengeData: Record<
         quarkMult: 1 + 0.01 * n,
         globalSpeed: 0.06 * n,
         ascensionSpeed: 0.06 * n,
+        barRequirementMultiplier: 1 - 0.01 * n,
         tier1Upgrade: n >= 15,
         tier2Upgrade: n >= 25
       }

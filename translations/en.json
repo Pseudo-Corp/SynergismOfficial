@@ -168,6 +168,11 @@
         "name": "Violet Infinity Shop Voucher",
         "description": "A Shop Voucher, printed on a violet tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
         "effect": "'Infinity' shop upgrades level +{{amount}}"
+      },
+      "ambrosiaSingReduction2": {
+        "name": "Exo-Chromatic Kinetic Post-Modulated Singularity Stabilizer Module",
+        "description": "Retrofitted with... those kinds of Stabilizers, your EXALTED Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity, if you are ACTUALLY! in an EXALT.",
+        "effect": "Singularity Penalties are as if you were {{amount}} lower."
       }
     },
     "loadouts": {
@@ -192,6 +197,7 @@
     "amount": "Ambrosia: <<red|{{redAmbrosia}}>> Current | <<red|{{lifetimeRedAmbrosia}}>> Lifetime",
     "purchaseWarning": "<<gold | ⚠>> Unlike Blueberry Modules, you <<red | CANNOT>> refund this upgrade. Please spend wisely!",
     "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: &#9861; {{ambrosiaLuck}}>>]",
+    "redAmbrosiaBuyPrompt": "How many Red Ambrosia would you like to spend? You have {{amount}} Red Ambrosia. Type -1 to use max!",
     "data": {
       "tutorial": {
         "name": "A beginners guide to Red Ambrosia",
@@ -290,8 +296,18 @@
       },
       "redAmbrosiaAccelerator": {
         "name": "Red-Blue Ultrafusion",
-        "description": "When you gain a Red Ambrosia, you gain a bit of progress toward regular Ambrosia! +0.008 real-life seconds of Blueberry Time Generation per level, per Red Ambrosia generated, with the first level giving +0.20(!)",
+        "description": "When you gain a Red Ambrosia, you gain a bit of progress toward regular Ambrosia! +0.02 real-life seconds of Blueberry Time Generation per level, per Red Ambrosia generated, with the first level giving +1!",
         "effect": "Each Red Ambrosia generated grants {{amount}} seconds of Blueberry Time Generation."
+      },
+      "regularLuck2": {
+        "name": "Ossified Blueberry Tactics II",
+        "description": "This also gives +2 Ambrosia Luck / level, but you can purchase a ton of levels of this!",
+        "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
+      },
+      "blueberryGenerationSpeed2": {
+        "name": "The Sands of Time II",
+        "description": "This gives +0.1% Blueberry Generation Speed per level, but you can purchase a ton of levels of this!",
+        "effect": "This upgrade increases Blueberry Generation Speed by {{amount}}!"
       }
     }
   },
@@ -3737,7 +3753,6 @@
         "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs!<br/>Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
         "ScalingReward1": "<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
         "UniqueReward1": "1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
-        "UniqueReward2": "1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
         "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!",
         "UniqueReward4": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
       },
@@ -3750,10 +3765,11 @@
         "ScalingReward4": "+1% <<red|Red Generation>> Speed",
         "UniqueReward1": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
         "UniqueReward2": "1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
-        "UniqueReward3": "10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
-        "UniqueReward4": "15th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward5": "20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
-        "UniqueReward6": "20th - An <<gold|ULTRA Quark Shop>> upgrade!"
+        "UniqueReward3": "1st - Unlock <<red|Red Ambrosia>>! It's like Ambrosia, but <<red|red>>.",
+        "UniqueReward4": "10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
+        "UniqueReward5": "15th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward6": "20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
+        "UniqueReward7": "20th - An <<gold|ULTRA Quark Shop>> upgrade!"
       },
       "limitedTime": {
         "name": "The Grand Singularity Speedrun!",
@@ -3761,6 +3777,7 @@
         "ScalingReward1": "+6% <<orange|Global Speed>>!",
         "ScalingReward2": "+6% <<orange|Ascension Speed>>!",
         "ScalingReward3": "+1% <<cyan|Quarks>>!",
+        "ScalingReward4": "-1% <<red|Red Bar Fill Requirements>>!",
         "UniqueReward1": "1st - your quarks no longer reset on singulatity!",
         "UniqueReward2": "15th - A new <<orchid|Quark Shop>> upgrade!",
         "UniqueReward3": "25th - A very expensive, not good, pretty bad <<orange|Quark Shop>> upgrade!"
@@ -3831,6 +3848,39 @@
     }
   },
   "statistics": {
+    "subtabs": {
+      "misc": "Miscellaneous Stats",
+      "baseOffering": "Base Offerings",
+      "offeringMult": "Offering Multipliers",
+      "baseObtainium": "Base Obtainium",
+      "obtIgnoreDR": "Illiteracy Ignore Cap",
+      "obtMult": "Obtainium Multipliers",
+      "quarkMult": "Global Quark Multipliers",
+      "gSpeedMultIgnoreDR": "Immaculate Global Speed",
+      "gSpeedMult": "Global Speed Multipliers",
+      "antSacrificeMult": "Ant Sacrifice Multipliers",
+      "ascMult": "Asc. Speed Multipliers",
+      "globalCubeMult": "Global Cube Multipliers",
+      "cubeMult": "Cube Multipliers",
+      "tessMult": "Tesseract Multipliers",
+      "hypercubeMult": "Hypercube Multipliers",
+      "platMult": "Platonic Multipliers",
+      "heptMult": "Hepteract Multipliers",
+      "orbPowderMult": "Orb to Powder Multipliers",
+      "gqMult": "Golden Quark Multipliers",
+      "gqCost": "Golden Quark Cost",
+      "addStats": "Add Code Stats",
+      "octMult": "Octeract Multipliers",
+      "ambrosiaAdditiveLuckMult": "Ambrosia Luck Mult",
+      "ambrosiaLuck": "Ambrosia Luck",
+      "ambrosiaBlueberries": "Blueberry Inventory",
+      "ambrosiaGenMult": "Ambrosia Generation",
+      "luckConversion": "Luck Conversion",
+      "redAmbrosiaLuck": "Red Ambrosia Luck",
+      "redAmbrosiaGenMult": "Red Ambrosia Generation",
+      "shopVouchers": "Shop Vouchers",
+      "generate": "Generate Savefile Stats Summary"
+    },
     "globalCubeMultiplierStats": {
       "title": "Global Cube Multiplier",
       "PseudoCoins": "PseudoCoin Upgrade:",
@@ -4318,6 +4368,7 @@
       "OcteractShop": "Octeract -> Ambrosia Shop:",
       "NoAmbrosiaUpgrades": "No Ambrosia Challenge Reward:",
       "RedAmbrosiaUpgrade": "Red Ambrosia Upgrade: Ossified Blueberry Tactics",
+      "RedAmbrosiaUpgrade2": "Red Ambrosia Upgrade: Ossified Blueberry Tactics II",
       "Cookie5": "Cookie 5 (Cx27):",
       "RedBars": "Filled Red Bars with Cx29:",
       "AmbrosiaUltra": "Ambrosia Ultra Shop Upgrade:",
@@ -4347,6 +4398,7 @@
       "OneChallengeCap": "One Challenge Cap Reward:",
       "NoAmbrosiaUpgradesReward": "No Ambrosia Upgrades Challenge Reward:",
       "RedAmbrosiaUpgrade": "Red Ambrosia Upgrade: Sands of Time",
+      "RedAmbrosiaUpgrade2": "Red Ambrosia Upgrade: Sands of Time II",
       "CookieUpgrade26": "Cookie Upgrade 26 (Cx26):",
       "Event": "Event Bonus:",
       "CashGrabUltra": "Cash Grab ULTRA Blueberry Bonus:",
@@ -4468,6 +4520,14 @@
       "ShopRedLuck3": "High Class Dice of Asmodeus:",
       "Viscount": "Benefits of being a Viscount:",
       "Total": "Total Red Ambrosia Luck:"
+    },
+    "redAmbrosiaGenerationStats": {
+      "title": "Red Ambrosia Generation",
+      "Base": "Visited Ambrosia Subtab after clearing EXALT 5x1:",
+      "BlueberrySpeed": "Speed from Ambrosia (0.5 DR after 1,000):",
+      "RedAmbrosia": "Millenium-Aged Red Ambrosia:",
+      "Exalt5": "EXALT Reward - No Ambrosia Upgrades:",
+      "Total": "Total Red Ambrosia Generation:"
     },
     "shopVoucherStats": {
       "title": "Free 'Infinity CO' Quark Shop Levels",

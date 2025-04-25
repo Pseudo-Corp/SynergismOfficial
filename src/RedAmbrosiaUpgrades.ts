@@ -88,6 +88,8 @@ type RewardTypeMap = {
   'viscount': ViscountReward
   'infiniteShopUpgrades': FreeLevelReward
   'redAmbrosiaAccelerator': RedAmbrosiaAcceleratorReward
+  'regularLuck2': AmbrosiaLuckReward
+  'blueberryGenerationSpeed2': BlueberrySpeedReward
 }
 
 export type RedAmbrosiaKeys = keyof RewardTypeMap
@@ -552,14 +554,42 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
       return baseCost + level * 0
     },
     rewards: (n: number) => {
-      const val = 0.008 * n + ((n > 0) ? 0.2 : 0)
+      const val = 0.02 * n + ((n > 0) ? 1 : 0)
       return {
-        desc: i18next.t('redAmbrosia.data.redAmbrosiaAccelerator.effect', { amount: format(val, 3, true) }),
+        desc: i18next.t('redAmbrosia.data.redAmbrosiaAccelerator.effect', { amount: format(val, 2, true) }),
         ambrosiaTimePerRedAmbrosia: val
       }
     },
     maxLevel: 100,
     costPerLevel: 1000
+  },
+  regularLuck2: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost + 0 * level
+    },
+    rewards: (n: number) => {
+      const val = 2 * n
+      return {
+        desc: i18next.t('redAmbrosia.data.regularLuck2.effect', { amount: val }),
+        ambrosiaLuck: val
+      }
+    },
+    maxLevel: 500,
+    costPerLevel: 2000
+  },
+  blueberryGenerationSpeed2: {
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost + 0 * level
+    },
+    rewards: (n: number) => {
+      const val = 1 + n / 1000
+      return {
+        desc: i18next.t('redAmbrosia.data.blueberryGenerationSpeed2.effect', { amount: formatAsPercentIncrease(val) }),
+        blueberryGenerationSpeed: val
+      }
+    },
+    maxLevel: 500,
+    costPerLevel: 2000
   }
 }
 

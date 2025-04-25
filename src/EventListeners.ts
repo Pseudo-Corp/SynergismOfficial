@@ -1095,6 +1095,10 @@ TODO: Fix this entire tab it's utter shit
   // Import blueberries
   DOMCacheGetOrSet('importBlueberries').addEventListener('change', (e) => importData(e, importBlueberryTree))
 
+  DOMCacheGetOrSet('importBlueberriesButton').addEventListener('click', () => {
+    DOMCacheGetOrSet('importBlueberries').click()
+  })
+
   // RED AMBROSIA
   const redAmbrosiaUpgrades = Object.keys(
     player.redAmbrosiaUpgrades

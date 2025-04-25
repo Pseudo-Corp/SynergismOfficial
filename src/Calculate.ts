@@ -269,16 +269,20 @@ export const calculatePotionValue = (resetTime: number, resourceMult: Decimal, b
 }
 
 export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
+  if (player.currentChallenge.ascension === 14) {
+    return 0
+  }
+
   const multiplier = productContents([
     0.5 * player.researches[61] + 0.1 * player.researches[62],
     1 + 0.8 * player.cubeUpgrades[3]
   ])
 
-  const baseObtainium = calculateBaseObtainium()
-
   if (multiplier === 0) {
     return 0
   }
+
+  const baseObtainium = calculateBaseObtainium()
 
   const resourceMult = calculateObtainiumToDecimal()
   const fastForwardMult = calculateFastForwardResourcesGlobal(
@@ -2412,7 +2416,10 @@ export const calculateRequiredRedAmbrosiaTime = () => {
   let val = G.TIME_PER_RED_AMBROSIA // Currently 100,000
   val += 200 * player.lifetimeRedAmbrosia
 
-  return Math.min(1e6, val)
+  const max = 1e6 * +player.singularityChallenges.limitedTime.rewards.barRequirementMultiplier
+  val *= +player.singularityChallenges.limitedTime.rewards.barRequirementMultiplier
+
+  return Math.min(max, val)
 }
 
 export const calculateSingularityMilestoneBlueberries = () => {

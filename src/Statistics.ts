@@ -61,6 +61,7 @@ import {
   calculateQuarkMultiplier,
   calculateRawAscensionSpeedMult,
   calculateRedAmbrosiaCubes,
+  calculateRedAmbrosiaGenerationSpeed,
   calculateRedAmbrosiaLuck,
   calculateRedAmbrosiaObtainium,
   calculateRedAmbrosiaOffering,
@@ -2014,6 +2015,10 @@ export const allAmbrosiaLuckStats: StatLine[] = [
     stat: () => getRedAmbrosiaUpgrade('regularLuck').bonus.ambrosiaLuck // Red Ambrosia Upgrade
   },
   {
+    i18n: 'RedAmbrosiaUpgrade2',
+    stat: () => getRedAmbrosiaUpgrade('regularLuck2').bonus.ambrosiaLuck // Red Ambrosia Upgrade 2
+  },
+  {
     i18n: 'Viscount',
     stat: () => getRedAmbrosiaUpgrade('viscount').bonus.luckBonus, // Viscount Red Ambrosia Upgrade
     color: 'red'
@@ -2104,6 +2109,10 @@ export const allAmbrosiaGenerationSpeedStats: StatLine[] = [
   {
     i18n: 'RedAmbrosiaUpgrade',
     stat: () => getRedAmbrosiaUpgrade('blueberryGenerationSpeed').bonus.blueberryGenerationSpeed // Red Ambrosia Upgrade
+  },
+  {
+    i18n: 'RedAmbrosiaUpgrade2',
+    stat: () => getRedAmbrosiaUpgrade('blueberryGenerationSpeed2').bonus.blueberryGenerationSpeed // Red Ambrosia Upgrade 2
   },
   {
     i18n: 'CookieUpgrade26',
@@ -2685,6 +2694,7 @@ const associated = new Map<string, string>([
   ['kAmbrosiaGenMult', 'ambrosiaGenerationStats'],
   ['kLuckConversion', 'luckConversionStats'],
   ['kRedAmbrosiaLuck', 'redAmbrosiaLuckStats'],
+  ['kRedAmbrosiaGenMult', 'redAmbrosiaGenerationStats'],
   ['kShopVouchers', 'shopVoucherStats']
 ])
 
@@ -2794,6 +2804,9 @@ export const loadStatisticsUpdate = () => {
         break
       case 'redAmbrosiaLuckStats':
         loadRedAmbrosiaLuckStats()
+        break
+      case 'redAmbrosiaGenerationStats':
+        loadRedAmbrosiaGenerationStats()
         break
       case 'shopVoucherStats':
         loadShopVoucherStats()
@@ -3140,6 +3153,16 @@ export const loadRedAmbrosiaLuckStats = () => {
     'statRAL',
     'redAmbrosiaLuckStat',
     calculateRedAmbrosiaLuck
+  )
+}
+
+export const loadRedAmbrosiaGenerationStats = () => {
+  loadStatistics(
+    allRedAmbrosiaGenerationSpeedStats,
+    'redAmbrosiaGenerationStats',
+    'statRAGM',
+    'redAmbrosiaGenStat',
+    calculateRedAmbrosiaGenerationSpeed
   )
 }
 

@@ -1757,6 +1757,10 @@ export const useConsumable = async (
         shopDescriptions('offeringPotion')
       }
     } else if (input === 'obtainiumPotion') {
+      if (player.currentChallenge.ascension === 14) {
+        return
+      }
+
       const obtainiumPotionValue = calculatePotionValue(
         player.reincarnationcounter,
         calculateObtainiumToDecimal(),

@@ -40,6 +40,7 @@ export type blueberryUpgradeNames =
   | 'ambrosiaSingReduction'
   | 'ambrosiaInfiniteShopUpgrades'
   | 'ambrosiaInfiniteShopUpgrades2'
+  | 'ambrosiaSingReduction2'
 
 export type BlueberryOpt = Partial<Record<blueberryUpgradeNames, number>>
 export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
@@ -1024,6 +1025,26 @@ export const blueberryUpgradeData: Record<
       'ambrosiaBaseObtainium2': 10
     },
     extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow5').bonus.freeLevels
+  },
+  ambrosiaSingReduction2: {
+    maxLevel: 1,
+    costPerLevel: 2.5e7,
+    blueberryCost: 4,
+    costFormula: (level: number, baseCost: number): number => {
+      return baseCost + 0 * level
+    },
+    rewards: (n: number) => {
+      const val = (player.insideSingularityChallenge) ? n : 0
+      return {
+        singularityReduction: val,
+        desc: String(
+          i18next.t('ambrosia.data.ambrosiaSingReduction2.effect', {
+            amount: format(val, 0, true)
+          })
+        )
+      }
+    },
+    extraLevelCalc: () => 0
   }
 }
 

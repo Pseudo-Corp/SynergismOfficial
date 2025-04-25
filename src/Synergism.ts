@@ -1594,6 +1594,10 @@ export const player: Player = {
     ambrosiaInfiniteShopUpgrades2: new BlueberryUpgrade(
       blueberryUpgradeData.ambrosiaInfiniteShopUpgrades2,
       'ambrosiaInfiniteShopUpgrades2'
+    ),
+    ambrosiaSingReduction2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaSingReduction,
+      'ambrosiaSingReduction'
     )
   },
 
@@ -1637,7 +1641,9 @@ export const player: Player = {
     'freeLevelsRow4': 0,
     'freeLevelsRow5': 0,
     'blueberryGenerationSpeed': 0,
+    'blueberryGenerationSpeed2': 0,
     'regularLuck': 0,
+    'regularLuck2': 0,
     'redGenerationSpeed': 0,
     'redLuck': 0,
     'redAmbrosiaCube': 0,

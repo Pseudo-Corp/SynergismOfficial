@@ -2617,9 +2617,9 @@ p#ascendHotKeys {
 }
 
 .statContainer {
-    width: 20em;
-    min-width: 400px;
-    max-width: 500px;
+    width: 30em;
+    min-width: 600px;
+    max-width: 750px;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: auto;
@@ -3742,6 +3742,13 @@ header #obtainiumDisplay { color: pink; }
 .redAmbrosiaUpgrade {
     font-size: 0;
     cursor: pointer;
+}
+
+.ambrosiaLoadoutBtn {
+    width: 25%;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
 }
 
 .blueberryLoadoutSlot {
