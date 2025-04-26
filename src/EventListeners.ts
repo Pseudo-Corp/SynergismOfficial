@@ -9,11 +9,17 @@ import {
   updateAntDescription
 } from './Ants'
 import {
+  type blueberryUpgradeNames,
   createLoadoutDescription,
+  displayLevelsBlueberry,
+  displayOnlyLoadout,
   exportBlueberryTree,
+  highlightPrerequisites,
   importBlueberryTree,
   loadoutHandler,
-  resetBlueberryTree
+  resetBlueberryTree,
+  resetHighlights,
+  resetLoadoutOnlyDisplay
 } from './BlueberryUpgrades'
 import {
   boostAccelerator,
@@ -56,7 +62,7 @@ import {
 } from './ImportExport'
 import { getTips, sendToWebsocket, setTips } from './Login'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
-import { getRedAmbrosiaUpgrade } from './RedAmbrosiaUpgrades'
+import { displayRedAmbrosiaLevels, getRedAmbrosiaUpgrade, resetRedAmbrosiaDisplay } from './RedAmbrosiaUpgrades'
 import { buyResearch, researchDescriptions } from './Research'
 import { resetrepeat, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { displayRuneInformation, redeemShards } from './Runes'
@@ -1052,9 +1058,19 @@ TODO: Fix this entire tab it's utter shit
     player.blueberryUpgrades
   ) as (keyof Player['blueberryUpgrades'])[]
   for (const key of blueberryUpgrades) {
+    const k = key as blueberryUpgradeNames
     DOMCacheGetOrSet(`${String(key)}`).addEventListener(
       'mouseover',
-      () => player.blueberryUpgrades[`${String(key)}`].updateUpgradeHTML()
+      () => {
+        player.blueberryUpgrades[`${String(key)}`].updateUpgradeHTML();
+        highlightPrerequisites(k)
+      }
+    )
+    DOMCacheGetOrSet(`${String(key)}`).addEventListener(
+      'mouseout',
+      () => {
+        resetHighlights()
+      }
     )
     DOMCacheGetOrSet(`${String(key)}`).addEventListener(
       'click',
@@ -1066,6 +1082,7 @@ TODO: Fix this entire tab it's utter shit
   const blueberryLoadouts = Array.from(
     document.querySelectorAll('[id^="blueberryLoadout"]')
   )
+
   const loadoutContainer = DOMCacheGetOrSet('blueberryUpgradeContainer')
 
   for (let i = 0; i < blueberryLoadouts.length; i++) {
@@ -1077,9 +1094,11 @@ TODO: Fix this entire tab it's utter shit
         player.blueberryLoadouts[shiftedKey] ?? { ambrosiaTutorial: 0 }
       )
       loadoutContainer.classList.add(`hoveredBlueberryLoadout${shiftedKey}`)
+      displayOnlyLoadout(player.blueberryLoadouts[shiftedKey])
     })
     el.addEventListener('mouseout', () => {
       loadoutContainer.classList.remove(`hoveredBlueberryLoadout${shiftedKey}`)
+      resetLoadoutOnlyDisplay()
     })
     el.addEventListener('click', () =>
       loadoutHandler(
@@ -1097,6 +1116,15 @@ TODO: Fix this entire tab it's utter shit
 
   DOMCacheGetOrSet('importBlueberriesButton').addEventListener('click', () => {
     DOMCacheGetOrSet('importBlueberries').click()
+  })
+
+  DOMCacheGetOrSet('showCurrAmbrosiaUpgrades').addEventListener('mouseover', () => {
+    displayLevelsBlueberry()
+    displayRedAmbrosiaLevels()
+  })
+  DOMCacheGetOrSet('showCurrAmbrosiaUpgrades').addEventListener('mouseout', () => {
+    resetLoadoutOnlyDisplay()
+    resetRedAmbrosiaDisplay()
   })
 
   // RED AMBROSIA

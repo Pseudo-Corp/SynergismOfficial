@@ -3737,18 +3737,24 @@ header #obtainiumDisplay { color: pink; }
 
 .singularityUpgrade,
 .octeractUpgrade,
-.singularityChallenge,
-.blueberryUpgrade,
-.redAmbrosiaUpgrade {
+.singularityChallenge {
     font-size: 0;
     cursor: pointer;
 }
 
 .ambrosiaLoadoutBtn {
-    width: 25%;
+    width: 20%;
     height: 30px;
     cursor: pointer;
     text-align: center;
+}
+
+#showCurrAmbrosiaUpgrades {
+    width: 8%;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid orange
 }
 
 .blueberryLoadoutSlot {
@@ -4075,6 +4081,53 @@ img#singularityPerksIcon {
     background-color: green;
 }
 
+.blueberryPrereq {
+    height: 28px;
+    width: 28px;
+    border: 2px solid gold;
+}
+
+.notInLoadout {
+    visibility: hidden;
+}
+
+/* Style for dimmed image */
+.blueberryUpgrade img.dimmed,
+.redAmbrosiaUpgrade img.dimmed {
+    opacity: 0.5; /* Adjust the opacity to control the dimming effect */
+}
+
+/* Style for level display */
+.blueberryUpgrade .level-overlay,
+.redAmbrosiaUpgrade .level-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1em; /* Adjust font size as needed */
+    text-shadow: 2px 2px 4px #000; /* Add a text shadow for better readability */
+    z-index: 999; /* Ensure the text is on top of the image */
+}
+
+/* Style for relative positioning */
+.blueberryUpgrade,
+.redAmbrosiaUpgrade {
+    position: relative;
+    display: inline-block; /* Or block, depending on your layout */
+    cursor: pointer;
+}
+
+.maxBlueberryLevel,
+.maxRedAmbrosiaLevel {
+    color: orchid;
+    font-weight: bold;
+}
+
+.notMaxBlueberryLevel,
+.notMaxRedAmbrosiaLevel {
+    color: white
+}
+
 /* Stolen from https://codepen.io/mike-schultz/pen/NgQvGO */
 #switchSettingSubTab9 {
     --border-width: 2px;
@@ -4083,7 +4136,8 @@ img#singularityPerksIcon {
     border-radius: var(--border-width);
 }
 
-#switchSettingSubTab9::after {
+#switchSettingSubTab9::after,
+.blueberryPrereq::after {
     content: "";
     position: absolute;
     top: calc(-1 * var(--border-width));

@@ -109,6 +109,14 @@
                 <img src="Pictures/Default/BackedQuark.png" class="offlineStatIcon">
                 <span id="offlineQuarkCount" class="offlineStatElement" i18n="offlineProgress.exportQuarks"></span>
             </div>
+            <div class="offlineStat octeracts" id="offlineAmbrosiaCountDiv">
+                <img src="Pictures/Default/BackedAmbrosia.png" class="offlineStatIcon">
+                <span id="offlineAmbrosiaCount" class="offlineStatElement" i18n="offlineProgress.ambrosia"></span>
+            </div>
+            <div class="offlineStat octeracts" id="offlineRedAmbrosiaCountDiv">
+                <img src="Pictures/Default/BackedRedAmbrosia.png" class="offlineStatIcon">
+                <span id="offlineRedAmbrosiaCount" class="offlineStatElement" i18n="offlineProgress.redAmbrosia"></span>
+            </div>
         </div>
 
         <button id="exitOffline" class="subtabContent">That's cool. Take me to the game!</button>
@@ -4505,6 +4513,7 @@
                         <button class="ambrosiaLoadoutBtn" id="getBlueberries" style="border: 2px solid blue" i18n="ambrosia.exportTree.exportButton"></button>
                         <button class="ambrosiaLoadoutBtn" id="importBlueberriesButton" for="importBlueberries" style="border: 2px solid orange" i18n="settings.loadFromFile"></button>
                         <input type="file" id="importBlueberries" style="display: none">
+                        <button id="showCurrAmbrosiaUpgrades">🔎</button>
                     </div>
                 </div>
                 <div class="blueberryBoxColor" id="bbLoadoutContainer">

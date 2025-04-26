@@ -1467,8 +1467,14 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
     ants: timeAdd * G.timeMultiplier,
     antsReal: timeAdd,
     ascension: player.ascensionCounter, // Calculate this after the fact
-    quarks: quarkHandler().gain // Calculate this after the fact
-  }
+    quarks: quarkHandler().gain, // Calculate this after the fact
+    ambrosia: player.lifetimeAmbrosia,
+    redAmbrosia: player.lifetimeRedAmbrosia,
+    ambrosiaPoints: timeAdd * calculateAmbrosiaGenerationSpeed(),
+    redAmbrosiaPoints: timeAdd * calculateRedAmbrosiaGenerationSpeed()
+ }
+
+
 
   addTimers('ascension', timeAdd)
   addTimers('quarks', timeAdd)
@@ -1483,6 +1489,8 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
   player.reincarnationCount += resetAdd.reincarnation
   timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
   timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
+  timerAdd.ambrosia = player.lifetimeAmbrosia - timerAdd.ambrosia
+  timerAdd.redAmbrosia = player.lifetimeRedAmbrosia - timerAdd.redAmbrosia
 
   // 200 simulated all ticks [July 12, 2021]
   const runOffline = setInterval(() => {
@@ -1598,6 +1606,20 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
       value: format(timerAdd.quarks, 0, true)
     }
   )
+  DOMCacheGetOrSet('offlineAmbrosiaCount').innerHTML = i18next.t(
+    'offlineProgress.ambrosia',
+    {
+      value: format(timerAdd.ambrosia, 0, true),
+      value2: format(timerAdd.ambrosiaPoints, 0, true)
+    }
+  )
+  DOMCacheGetOrSet('offlineRedAmbrosiaCount').innerHTML = i18next.t(
+    'offlineProgress.redAmbrosia',
+    {
+      value: format(timerAdd.redAmbrosia, 0, true),
+      value2: format(timerAdd.redAmbrosiaPoints, 0, true)
+    }
+  )
 
   DOMCacheGetOrSet('progressbardescription').textContent = i18next.t(
     'calculate.offlineEarnings'
@@ -1630,7 +1652,6 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
     el.classList.remove('slide-in')
     document.body.classList.remove('scrollbar')
     document.body.classList.add('loading')
-    DOMCacheGetOrSet('exitOffline').style.visibility = 'hidden'
     DOMCacheGetOrSet('offlineContainer').style.display = 'flex'
     DOMCacheGetOrSet('transparentBG').style.display = 'block'
   } else {

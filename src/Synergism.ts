@@ -143,7 +143,6 @@ import {
   blueberryUpgradeData,
   displayProperLoadoutCount,
   updateBlueberryLoadoutCount,
-  updateLoadoutHoverClasses
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -1755,8 +1754,6 @@ const loadSynergy = () => {
       clearTimers()
       return
     }
-
-    updateLoadoutHoverClasses()
 
     player.lastExportedSave = data.lastExportedSave ?? 0
 

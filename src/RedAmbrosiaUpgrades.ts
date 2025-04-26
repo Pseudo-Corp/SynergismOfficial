@@ -513,7 +513,7 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
     rewards: (n: number) => {
       const val = 0.01 * n
       return {
-        desc: i18next.t('redAmbrosia.data.redAmbrosiaCubeImprover.effect', { newExponent: format(0.5 + val, 2, true) }),
+        desc: i18next.t('redAmbrosia.data.redAmbrosiaCubeImprover.effect', { newExponent: format(0.4 + val, 2, true) }),
         extraExponent: val
       }
     },
@@ -627,4 +627,56 @@ export function getRedAmbrosiaUpgrade<K extends RedAmbrosiaKeys> (key: K): RedAm
     throw new Error('RedAmbrosiaUpgrades not initialized. Call initRedAmbrosiaUpgrades first.')
   }
   return redAmbrosiaUpgrades[key]
+}
+
+export const displayRedAmbrosiaLevels = () => {
+
+  for (const key of Object.keys(redAmbrosiaUpgradeData)) {
+    const k = key as RedAmbrosiaKeys
+
+    const capKey = key.charAt(0).toUpperCase() + key.slice(1)
+    const name = `redAmbrosia${capKey}`
+    const elm = DOMCacheGetOrSet(name)
+    const level = getRedAmbrosiaUpgrade(k).level || 0; // Get the level from the loadout, default to 0 if not present
+    const parent = elm.parentElement!
+
+    elm.classList.add('dimmed')
+    let levelOverlay = parent.querySelector('.level-overlay') as HTMLDivElement
+    if (!levelOverlay) {
+      levelOverlay = document.createElement('p')
+      levelOverlay.classList.add('level-overlay')
+
+      if (level === redAmbrosiaUpgradeData[k].maxLevel) {
+        levelOverlay.classList.add('maxRedAmbrosiaLevel')
+      }
+      else {
+        levelOverlay.classList.add('notMaxRedAmbrosiaLevel')
+      }
+
+      parent.classList.add('relative-container'); // Apply relative container to the element
+      parent.appendChild(levelOverlay); // Append to the element
+
+      levelOverlay.textContent = String(level); // Set the level text
+    }
+
+  }
+}
+  
+
+export const resetRedAmbrosiaDisplay = () => {
+  for (const key of Object.keys(redAmbrosiaUpgradeData)) {
+
+    const capKey = key.charAt(0).toUpperCase() + key.slice(1)
+    const name = `redAmbrosia${capKey}`
+    const elm = DOMCacheGetOrSet(name)
+    const parent = elm.parentElement!
+    elm.classList.remove('dimmed'); // Remove the dimmed class
+
+    // Remove the level overlay if it exists
+    const levelOverlay = parent.querySelector('.level-overlay');
+    if (levelOverlay) {
+      levelOverlay.remove();
+      parent.classList.remove('relative-container'); // Remove relative container
+    }
+  }
 }

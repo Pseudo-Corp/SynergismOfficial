@@ -1224,30 +1224,6 @@ export const loadoutHandler = async (n: number, modules: BlueberryOpt) => {
   }
 }
 
-export const updateLoadoutHoverClasses = () => {
-  const upgradeNames = Object.keys(
-    blueberryUpgradeData
-  ) as blueberryUpgradeNames[]
-
-  for (const loadoutKey of Object.keys(player.blueberryLoadouts)) {
-    const i = Number.parseInt(loadoutKey, 10)
-    const loadout = player.blueberryLoadouts[i]
-
-    const upgradeHoverClass = `bbPurchasedLoadout${i}`
-    for (const upgradeKey of upgradeNames) {
-      if (loadout[upgradeKey]) {
-        DOMCacheGetOrSet(upgradeKey).parentElement?.classList.add(
-          upgradeHoverClass
-        )
-      } else {
-        DOMCacheGetOrSet(upgradeKey).parentElement?.classList.remove(
-          upgradeHoverClass
-        )
-      }
-    }
-  }
-}
-
 export const saveBlueberryTree = async (
   input: number,
   previous: BlueberryOpt
@@ -1260,7 +1236,6 @@ export const saveBlueberryTree = async (
   player.blueberryLoadouts[input] = getBlueberryTree()
   createLoadoutDescription(input, player.blueberryLoadouts[input])
 
-  updateLoadoutHoverClasses()
 }
 
 export const createLoadoutDescription = (
@@ -1303,4 +1278,94 @@ export const updateBlueberryLoadoutCount = () => {
       player.blueberryLoadouts[i] = {}
     }
   }
+}
+
+export const highlightPrerequisites = (k: blueberryUpgradeNames) => {
+
+  const preReq = blueberryUpgradeData[k].prerequisites
+  if (preReq === undefined) return
+  
+  for (const key of Object.keys(blueberryUpgradeData)) {
+    const k2 = key as blueberryUpgradeNames
+    const elm = DOMCacheGetOrSet(k2)
+    if (preReq[k2] !== undefined) {
+      elm.classList.add('blueberryPrereq')
+    } else {
+      elm.classList.remove('blueberryPrereq')
+    }
+  }
+
+}
+
+export const resetHighlights = () => {
+  for (const key of Object.keys(blueberryUpgradeData)) {
+    const k = key as blueberryUpgradeNames
+    const elm = DOMCacheGetOrSet(k)
+    elm.classList.remove('blueberryPrereq')
+  }
+}
+
+export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
+  const loadoutKeys = Object.keys(loadout)
+
+  for (const key of Object.keys(blueberryUpgradeData)) {
+    const k = key as blueberryUpgradeNames
+    const elm = DOMCacheGetOrSet(k)
+    const level = loadout[k] || 0; // Get the level from the loadout, default to 0 if not present
+    const parent = elm.parentElement!
+
+    if (loadoutKeys.includes(k) && level > 0) {
+      elm.classList.remove('notInLoadout');
+      elm.classList.add('dimmed'); // Apply the dimmed class
+
+      // Create or get the level overlay element
+      let levelOverlay = parent.querySelector('.level-overlay') as HTMLDivElement;
+      if (!levelOverlay) {
+        levelOverlay = document.createElement('p');
+        levelOverlay.classList.add('level-overlay');
+
+        if (level === blueberryUpgradeData[k].maxLevel) {
+          levelOverlay.classList.add('maxBlueberryLevel');
+        } else {
+          levelOverlay.classList.add('notMaxBlueberryLevel');
+        }
+
+        parent.classList.add('relative-container'); // Apply relative container to the element
+        parent.appendChild(levelOverlay); // Append to the element
+      }
+      levelOverlay.textContent = String(level); // Set the level text
+    } else {
+      elm.classList.add('notInLoadout');
+      elm.classList.remove('dimmed'); // Remove the dimmed class
+
+      // Remove the level overlay if it exists
+      const levelOverlay = parent.querySelector('.level-overlay');
+      if (levelOverlay) {
+        levelOverlay.remove();
+        parent.classList.remove('relative-container'); // Remove relative container
+      }
+    }
+  }
+}
+
+export const resetLoadoutOnlyDisplay = () => {
+  for (const key of Object.keys(blueberryUpgradeData)) {
+    const k = key as blueberryUpgradeNames
+    const elm = DOMCacheGetOrSet(k)
+    const parent = elm.parentElement!
+    elm.classList.remove('notInLoadout');
+    elm.classList.remove('dimmed'); // Remove the dimmed class
+
+    // Remove the level overlay if it exists
+    const levelOverlay = parent.querySelector('.level-overlay');
+    if (levelOverlay) {
+      levelOverlay.remove();
+      parent.classList.remove('relative-container'); // Remove relative container
+    }
+  }
+}
+
+export const displayLevelsBlueberry = () => {
+  const curr = getBlueberryTree()
+  displayOnlyLoadout(curr)
 }

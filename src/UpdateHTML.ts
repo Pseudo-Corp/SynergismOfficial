@@ -387,7 +387,15 @@ export const revealStuff = () => {
 
   const octeractUnlocks = document.getElementsByClassName('octeracts') as HTMLCollectionOf<HTMLElement>
   for (const item of Array.from(octeractUnlocks)) { // Stuff that you need octeracts to access
-    item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'block' : 'none'
+    const parent = item.parentElement!
+    if (parent.classList.contains('offlineStats')) {
+      item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'flex' : 'none'
+      item.setAttribute('aria-disabled', `${!player.singularityUpgrades.octeractUnlock.getEffect().bonus}`)
+    }
+    else {
+      item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'block' : 'none'
+      item.setAttribute('aria-disabled', `${!player.singularityUpgrades.octeractUnlock.getEffect().bonus}`)
+    }
   }
 
   const singChallengeUnlocks = document.getElementsByClassName('singChallenges') as HTMLCollectionOf<HTMLElement>

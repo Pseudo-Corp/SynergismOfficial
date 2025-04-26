@@ -241,8 +241,8 @@
       },
       "freeLevelsRow5": {
         "name": "More Row 5 Blueberry Upgrade Levels!",
-        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the fifth row, per level.",
-        "effect": "This upgrade increases the effective level of ALL row 5 Blueberry Modules by {{amount}}!"
+        "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the fifth row, per level.",
+        "effect": "This upgrade increases the effective level of (most) row 5 Blueberry Modules by {{amount}}!"
       },
       "blueberryGenerationSpeed": {
         "name": "The Sands of Time",
@@ -2837,7 +2837,9 @@
     "ingameAntSacTimer": "In-Game Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
     "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
     "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
-    "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>"
+    "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>",
+    "ambrosia": "Ambrosia: +<<orange|{{value}}>> | Ambrosia Bar Points +<<lightblue|{{value2}}>>",
+    "redAmbrosia":"Red Ambrosia: +<<red|{{value}}>> | Red Bar Points +<<red|{{value2}}>>"
   },
   "campaigns": {
     "intro": "Campaigns - <<orange | Ascensions>> but <<maroon | harder™>>",
@@ -3753,8 +3755,8 @@
         "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs!<br/>Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
         "ScalingReward1": "<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
         "UniqueReward1": "1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
-        "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward4": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
+        "UniqueReward2": "20th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward3": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
       },
       "noAmbrosiaUpgrades": {
         "name": "No Ambrosia Upgrades",
