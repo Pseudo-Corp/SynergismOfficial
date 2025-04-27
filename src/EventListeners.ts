@@ -1062,7 +1062,7 @@ TODO: Fix this entire tab it's utter shit
     DOMCacheGetOrSet(`${String(key)}`).addEventListener(
       'mouseover',
       () => {
-        player.blueberryUpgrades[`${String(key)}`].updateUpgradeHTML();
+        player.blueberryUpgrades[`${String(key)}`].updateUpgradeHTML()
         highlightPrerequisites(k)
       }
     )

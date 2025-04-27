@@ -4499,7 +4499,7 @@ form input:hover {
 #upgradeGrid {
     display: grid;
     grid-template-columns: repeat(6, 15%);
-    grid-template-rows: repeat(2, 15%);
+    grid-template-rows: repeat(3, 15%);
     column-gap: 10px;
     row-gap: 64px;
     margin: 0;

@@ -630,14 +630,13 @@ export function getRedAmbrosiaUpgrade<K extends RedAmbrosiaKeys> (key: K): RedAm
 }
 
 export const displayRedAmbrosiaLevels = () => {
-
   for (const key of Object.keys(redAmbrosiaUpgradeData)) {
     const k = key as RedAmbrosiaKeys
 
     const capKey = key.charAt(0).toUpperCase() + key.slice(1)
     const name = `redAmbrosia${capKey}`
     const elm = DOMCacheGetOrSet(name)
-    const level = getRedAmbrosiaUpgrade(k).level || 0; // Get the level from the loadout, default to 0 if not present
+    const level = getRedAmbrosiaUpgrade(k).level || 0 // Get the level from the loadout, default to 0 if not present
     const parent = elm.parentElement!
 
     elm.classList.add('dimmed')
@@ -648,35 +647,31 @@ export const displayRedAmbrosiaLevels = () => {
 
       if (level === redAmbrosiaUpgradeData[k].maxLevel) {
         levelOverlay.classList.add('maxRedAmbrosiaLevel')
-      }
-      else {
+      } else {
         levelOverlay.classList.add('notMaxRedAmbrosiaLevel')
       }
 
-      parent.classList.add('relative-container'); // Apply relative container to the element
-      parent.appendChild(levelOverlay); // Append to the element
+      parent.classList.add('relative-container') // Apply relative container to the element
+      parent.appendChild(levelOverlay) // Append to the element
 
-      levelOverlay.textContent = String(level); // Set the level text
+      levelOverlay.textContent = String(level) // Set the level text
     }
-
   }
 }
-  
 
 export const resetRedAmbrosiaDisplay = () => {
   for (const key of Object.keys(redAmbrosiaUpgradeData)) {
-
     const capKey = key.charAt(0).toUpperCase() + key.slice(1)
     const name = `redAmbrosia${capKey}`
     const elm = DOMCacheGetOrSet(name)
     const parent = elm.parentElement!
-    elm.classList.remove('dimmed'); // Remove the dimmed class
+    elm.classList.remove('dimmed') // Remove the dimmed class
 
     // Remove the level overlay if it exists
-    const levelOverlay = parent.querySelector('.level-overlay');
+    const levelOverlay = parent.querySelector('.level-overlay')
     if (levelOverlay) {
-      levelOverlay.remove();
-      parent.classList.remove('relative-container'); // Remove relative container
+      levelOverlay.remove()
+      parent.classList.remove('relative-container') // Remove relative container
     }
   }
 }

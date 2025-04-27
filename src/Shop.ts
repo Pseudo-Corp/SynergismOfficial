@@ -1274,7 +1274,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
         ),
         amount2: format(
           100
-            * (Math.pow(1.01, 1.5 * (player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()))
+            * (Math.pow(1.01, 1.25 * (player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()))
               - 1),
           2,
           true
@@ -1289,7 +1289,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
           true
         ),
         amount2: format(
-          0.001 * Math.floor((player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) / 25),
+          0.001 * Math.floor((player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) / 40),
           3,
           true
         )

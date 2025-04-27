@@ -17,6 +17,10 @@ export type PseudoCoinUpgradeNames =
   | 'AUTO_POTION_FREE_POTIONS_QOL'
   | 'OFFLINE_TIMER_CAP_BUFF'
   | 'ADD_CODE_CAP_BUFF'
+  | 'BASE_OFFERING_BUFF'
+  | 'BASE_OBTAINIUM_BUFF'
+  | 'RED_GENERATION_BUFF'
+  | 'RED_LUCK_BUFF'
 
 export type PseudoCoinUpgrades = Record<PseudoCoinUpgradeNames, number>
 export type PseudoCoinUpgradeEffects = Record<PseudoCoinUpgradeNames, number>
@@ -35,7 +39,11 @@ export const PCoinUpgrades: PseudoCoinUpgrades = {
   'AMBROSIA_LOADOUT_SLOT_QOL': 0,
   'AUTO_POTION_FREE_POTIONS_QOL': 0,
   'OFFLINE_TIMER_CAP_BUFF': 0,
-  'ADD_CODE_CAP_BUFF': 0
+  'ADD_CODE_CAP_BUFF': 0,
+  'BASE_OFFERING_BUFF': 0,
+  'BASE_OBTAINIUM_BUFF': 0,
+  'RED_GENERATION_BUFF': 0,
+  'RED_LUCK_BUFF': 0
 }
 
 export const PCoinUpgradeEffects: PseudoCoinUpgradeEffects = {
@@ -50,7 +58,11 @@ export const PCoinUpgradeEffects: PseudoCoinUpgradeEffects = {
   AMBROSIA_LOADOUT_SLOT_QOL: 0,
   AUTO_POTION_FREE_POTIONS_QOL: 0,
   OFFLINE_TIMER_CAP_BUFF: 1,
-  ADD_CODE_CAP_BUFF: 1
+  ADD_CODE_CAP_BUFF: 1,
+  BASE_OFFERING_BUFF: 0,
+  BASE_OBTAINIUM_BUFF: 0,
+  RED_GENERATION_BUFF: 1,
+  RED_LUCK_BUFF: 0
 }
 
 export const initializePCoinCache = async () => {
@@ -115,6 +127,18 @@ export const updatePCoinEffects = (name: PseudoCoinUpgradeNames, level: number) 
     case 'ADD_CODE_CAP_BUFF':
       PCoinUpgradeEffects.ADD_CODE_CAP_BUFF = 1 + level
       break
+    case 'BASE_OFFERING_BUFF':
+      PCoinUpgradeEffects.BASE_OFFERING_BUFF = 6 * level
+      break
+    case 'BASE_OBTAINIUM_BUFF':
+      PCoinUpgradeEffects.BASE_OBTAINIUM_BUFF = 3 * level
+      break
+    case 'RED_GENERATION_BUFF':
+      PCoinUpgradeEffects.RED_GENERATION_BUFF = 1 + level * 0.05
+      break
+    case 'RED_LUCK_BUFF':
+      PCoinUpgradeEffects.RED_LUCK_BUFF = level * 20
+      break
   }
 }
 
@@ -164,6 +188,16 @@ export const displayPCoinEffect = (name: PseudoCoinUpgradeNames, level: number) 
       return String(i18next.t('pseudoCoins.upgradeEffects.OFFLINE_TIMER_CAP_BUFF', { amount: level + 1 }))
     case 'ADD_CODE_CAP_BUFF':
       return String(i18next.t('pseudoCoins.upgradeEffects.ADD_CODE_CAP_BUFF', { amount: level + 1 }))
+    case 'BASE_OFFERING_BUFF':
+      return String(i18next.t('pseudoCoins.upgradeEffects.BASE_OFFERING_BUFF', { amount: 6 * level }))
+    case 'BASE_OBTAINIUM_BUFF':
+      return String(i18next.t('pseudoCoins.upgradeEffects.BASE_OBTAINIUM_BUFF', { amount: 3 * level }))
+    case 'RED_GENERATION_BUFF':
+      return String(
+        i18next.t('pseudoCoins.upgradeEffects.RED_GENERATION_BUFF', { amount: format(1 + 0.05 * level, 2, true) })
+      )
+    case 'RED_LUCK_BUFF':
+      return String(i18next.t('pseudoCoins.upgradeEffects.RED_LUCK_BUFF', { amount: 20 * level }))
   }
 }
 
@@ -228,6 +262,26 @@ export const showCostAndEffect = (name: PseudoCoinUpgradeNames) => {
       return {
         cost: 'Cost: 400/600 PseudoCoins',
         effect: 'Effect: 2x/3x Add Code Cap'
+      }
+    case 'BASE_OFFERING_BUFF':
+      return {
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: +6/+12/+18/+24/+30 Base Offering'
+      }
+    case 'BASE_OBTAINIUM_BUFF':
+      return {
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: +3/+6/+9/+12/+15 Base Obtainium'
+      }
+    case 'RED_GENERATION_BUFF':
+      return {
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: 1.05/1.10/1.15/1.20/1.25x Red Generation'
+      }
+    case 'RED_LUCK_BUFF':
+      return {
+        cost: 'Cost: 100/150/200/250/300 PseudoCoins',
+        effect: 'Effect: 20/40/60/80/100 Red Luck'
       }
   }
 }

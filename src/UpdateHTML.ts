@@ -391,8 +391,7 @@ export const revealStuff = () => {
     if (parent.classList.contains('offlineStats')) {
       item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'flex' : 'none'
       item.setAttribute('aria-disabled', `${!player.singularityUpgrades.octeractUnlock.getEffect().bonus}`)
-    }
-    else {
+    } else {
       item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'block' : 'none'
       item.setAttribute('aria-disabled', `${!player.singularityUpgrades.octeractUnlock.getEffect().bonus}`)
     }

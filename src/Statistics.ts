@@ -771,7 +771,7 @@ export const allOcteractCubeStats: StatLine[] = [
   },
   {
     i18n: 'PassINF',
-    stat: () => Math.pow(1.01, (player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()) * 1.5)
+    stat: () => Math.pow(1.01, (player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()) * 1.25)
   },
   {
     i18n: 'Ambrosia',
@@ -835,6 +835,11 @@ export const allBaseOfferingStats: StatLine[] = [
   {
     i18n: 'Base',
     stat: () => 6 // Absolute Base
+  },
+  {
+    i18n: 'PseudoCoins',
+    stat: () => PCoinUpgradeEffects.BASE_OFFERING_BUFF, // PseudoCoin Upgrade
+    color: 'gold'
   },
   {
     i18n: 'Prestige',
@@ -1275,6 +1280,11 @@ export const allBaseObtainiumStats: StatLine[] = [
   {
     i18n: 'Base',
     stat: () => 1 // Absolute base value
+  },
+  {
+    i18n: 'PseudoCoins',
+    stat: () => PCoinUpgradeEffects.BASE_OBTAINIUM_BUFF, // PseudoCoin Upgrade
+    color: 'gold'
   },
   {
     i18n: 'Achievement51',
@@ -2454,6 +2464,11 @@ export const allRedAmbrosiaLuckStats: StatLine[] = [
     stat: () => 100 // Base value of 100
   },
   {
+    i18n: 'PseudoCoins',
+    stat: () => PCoinUpgradeEffects.RED_LUCK_BUFF, // PseudoCoin Upgrade
+    color: 'gold'
+  },
+  {
     i18n: 'LuckConversion',
     stat: () => Math.floor((calculateAmbrosiaLuck() - 100) / calculateLuckConversion()) // Luck Conversion
   },
@@ -2488,6 +2503,11 @@ export const allRedAmbrosiaGenerationSpeedStats: StatLine[] = [
   {
     i18n: 'Base',
     stat: () => 1 // Base value of 1.00
+  },
+  {
+    i18n: 'PseudoCoins',
+    stat: () => PCoinUpgradeEffects.RED_GENERATION_BUFF, // PseudoCoin Upgrade
+    color: 'gold'
   },
   {
     i18n: 'BlueberrySpeed',

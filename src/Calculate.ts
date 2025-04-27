@@ -250,6 +250,9 @@ export const calculateFastForwardResourcesGlobal = (
 
   // Correct multiplier if half mind is purchased
   timeMultiplier *= player.singularityUpgrades.halfMind.getEffect().bonus ? calculateGlobalSpeedMult() / 10 : 1
+
+  timeMultiplier = Math.min(1e300, timeMultiplier)
+
   const logTime = Math.log10(timeMultiplier)
 
   return Math.min(1e300, Math.max(baseResource * fastForwardAmount, Math.pow(10, Math.min(300, logMult + logTime))))
@@ -1301,7 +1304,7 @@ export const calculateAntSacrificeRewards = (): IAntSacRewards => {
   const maxCap = 1e300
   const rewardsMult = Math.min(maxCap, G.timeMultiplier * G.upgradeMultiplier)
   const rewards: IAntSacRewards = {
-    antSacrificePoints: (G.effectiveELO * rewardsMult) / 85,
+    antSacrificePoints: Math.min(maxCap, (G.effectiveELO * rewardsMult) / 85),
     offerings: Math.min(
       maxCap,
       calculateAntSacrificeOffering()
@@ -1472,9 +1475,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
     redAmbrosia: player.lifetimeRedAmbrosia,
     ambrosiaPoints: timeAdd * calculateAmbrosiaGenerationSpeed(),
     redAmbrosiaPoints: timeAdd * calculateRedAmbrosiaGenerationSpeed()
- }
-
-
+  }
 
   addTimers('ascension', timeAdd)
   addTimers('quarks', timeAdd)
@@ -2737,7 +2738,7 @@ export const calculateAscensionSpeedExponentSpread = () => {
   const vals = [
     player.singularityUpgrades.singAscensionSpeed.getEffect().bonus ? 0.03 : 0,
     +player.singularityUpgrades.singAscensionSpeed2.getEffect().bonus,
-    0.001 * Math.floor((player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) / 25)
+    0.001 * Math.floor((player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) / 40)
   ]
 
   return sumContents(vals)

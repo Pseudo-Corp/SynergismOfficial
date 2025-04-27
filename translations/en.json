@@ -33,6 +33,7 @@
     "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
     "refund": "You have refunded all spent Blueberries and Ambrosia.",
     "refundWord": "Refund",
+    "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
     "data": {
       "ambrosiaTutorial": {
         "name": "Ambrosia Tutorial Module",
@@ -172,7 +173,7 @@
       "ambrosiaSingReduction2": {
         "name": "Exo-Chromatic Kinetic Post-Modulated Singularity Stabilizer Module",
         "description": "Retrofitted with... those kinds of Stabilizers, your EXALTED Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity, if you are ACTUALLY! in an EXALT.",
-        "effect": "Singularity Penalties are as if you were {{amount}} lower."
+        "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
       }
     },
     "loadouts": {
@@ -1617,8 +1618,8 @@
       "shopImprovedDaily4": "Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
       "offeringEX3": "[Supplied by - Infinity CO.] Gain 1% more Offerings per level, multiplicative! (Multiplier is 1.01^level). Every 25 levels, gain +1 Base Offering!",
       "obtainiumEX3": "[Supplied by - Infinity CO.] Gain 1% more Obtainium per level, multiplicative! (Multiplier is 1.01^level). Every 25 levels, gain 6% more Immaculate Obtainium Multiplier! (1.06^[level/25])",
-      "chronometerInfinity": "[Supplied by - Infinity CO.] Gain 0.5% more Ascension Speed per level, multiplicative! (Multiplier is 1.005^level). Every 25 levels, gain +0.001 spread on Ascension Speed exponent modifiers on speeds greater than or less than 1 (Check Stats for Nerds for this one)!",
-      "seasonPassInfinity": "[Supplied by - Infinity CO.] Gain 1% more cubes per level, multiplicative! (Multiplier is 1.01^level). This effect is raised to the power of 1.5 for Octeract calculations!",
+      "chronometerInfinity": "[Supplied by - Infinity CO.] Gain 0.5% more Ascension Speed per level, multiplicative! (Multiplier is 1.005^level). Every 40 levels, gain +0.001 spread on Ascension Speed exponent modifiers on speeds greater than or less than 1 (Check Stats for Nerds for this one)!",
+      "seasonPassInfinity": "[Supplied by - Infinity CO.] Gain 1% more cubes per level, multiplicative! (Multiplier is 1.01^level). This effect is raised to the power of 1.25 for Octeract calculations!",
       "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.",
       "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
       "improveQuarkHept5": "[NOT Supplied by - Infinity CO.] This is 1/50 as effective as a normal improver. Why? Because of balancing...",
@@ -4050,6 +4051,7 @@
     "baseOfferingStats": {
       "title": "Base Offering Sum",
       "Base": "Base Value:",
+      "PseudoCoins": "PseudoCoin Upgrade:",
       "Prestige": "Prestige Completion Bonus:",
       "Transcend": "Transcension Completion Bonus:",
       "Reincarnate": "Reincarnation Completion Bonus:",
@@ -4166,6 +4168,7 @@
     "baseObtainiumStats": {
       "title": "Base Obtainium Sum",
       "Base": "Base Value:",
+      "PseudoCoins": "PseudoCoin Upgrade:",
       "Achievement51": "Achievement 51 Bonus:",
       "ShopPotionBonus": "Shop - Obtainium Potion Permanent Bonus:",
       "Research3x13": "Research 3x13 Bonus:",
@@ -4514,6 +4517,7 @@
     "redAmbrosiaLuckStats": {
       "title": "Red Ambrosia Luck",
       "Base": "Base Value:",
+      "PseudoCoins": "PseudoCoin Upgrade:",
       "LuckConversion": "Luck from Ambrosia Luck:",
       "RedAmbrosia": "The Dice That Decide Your Fate",
       "Exalt5": "Exalt 5 Reward",
@@ -4525,6 +4529,7 @@
     },
     "redAmbrosiaGenerationStats": {
       "title": "Red Ambrosia Generation",
+      "PseudoCoins": "PseudoCoin Upgrade:",
       "Base": "Visited Ambrosia Subtab after clearing EXALT 5x1:",
       "BlueberrySpeed": "Speed from Ambrosia (0.5 DR after 1,000):",
       "RedAmbrosia": "Millenium-Aged Red Ambrosia:",
@@ -4990,7 +4995,11 @@
       "AMBROSIA_LOADOUT_SLOT_QOL": "More Ambrosia Loadouts!",
       "AUTO_POTION_FREE_POTIONS_QOL": "Potion Duplication Glitch",
       "OFFLINE_TIMER_CAP_BUFF": "Cozier Beds Enshrined in Gold",
-      "ADD_CODE_CAP_BUFF": "The Limited-Edition PLAT-P Calculator"
+      "ADD_CODE_CAP_BUFF": "The Limited-Edition PLAT-P Calculator",
+      "BASE_OFFERING_BUFF": "Abundant Harvests",
+      "BASE_OBTAINIUM_BUFF": "Super Literate Scientists",
+      "RED_LUCK_BUFF": "Golden Fuzzy Dice",
+      "RED_GENERATION_BUFF": "Century-Aged Red Ambrosia"
     },
     "upgradeEffects": {
       "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
@@ -5004,7 +5013,11 @@
       "AMBROSIA_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Ambrosia Loadout slots!",
       "AUTO_POTION_FREE_POTIONS_QOL": "Auto-Potion is <<gold | {{descriptor}}>> FREE!",
       "OFFLINE_TIMER_CAP_BUFF": "Offline Time Capacity is multiplied by <<gold | {{amount}}>>",
-      "ADD_CODE_CAP_BUFF": "Code 'add' Capacity is multiplied by <<gold | {{amount}}>>"
+      "ADD_CODE_CAP_BUFF": "Code 'add' Capacity is multiplied by <<gold | {{amount}}>>",
+      "BASE_OFFERING_BUFF": "Base Offering Gain is increased by <<gold | {{amount}}>>, which is affected by all multipliers.",
+      "BASE_OBTAINIUM_BUFF": "Base Obtainium Gain is increased by <<gold | {{amount}}>>, which is affected by all multipliers.",
+      "RED_LUCK_BUFF": "Red Ambrosia Luck is increased by <<gold | {{amount}}>>",
+      "RED_GENERATION_BUFF": "Red Ambrosia Generation Speed is multiplied by <<gold | {{amount}}>>"
     },
     "consumables": {
       "tipReceived": "{{offlineTime}} people tipped you in the last minute!",

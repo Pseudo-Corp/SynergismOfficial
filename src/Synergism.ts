@@ -142,7 +142,7 @@ import {
   BlueberryUpgrade,
   blueberryUpgradeData,
   displayProperLoadoutCount,
-  updateBlueberryLoadoutCount,
+  updateBlueberryLoadoutCount
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {

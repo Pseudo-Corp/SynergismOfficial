@@ -54,6 +54,7 @@ export interface IBlueberryData extends Omit<IUpgradeData, 'name' | 'description
   blueberriesInvested?: number
   prerequisites?: BlueberryOpt
   cacheUpdates?: (() => void)[] // TODO: Improve this type signature -Plat
+  ignoreEXALT?: boolean
 }
 
 export class BlueberryUpgrade extends DynamicUpgrade {
@@ -65,6 +66,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   readonly preRequisites: BlueberryOpt | undefined
   readonly cacheUpdates: (() => void)[] | undefined
   readonly extraLevelCalc: () => number
+  readonly ignoreEXALT: boolean
   #key: string
 
   constructor (data: IBlueberryData, key: string) {
@@ -80,6 +82,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
     this.blueberriesInvested = data.blueberriesInvested ?? 0
     this.preRequisites = data.prerequisites ?? undefined
     this.cacheUpdates = data.cacheUpdates ?? undefined
+    this.ignoreEXALT = data.ignoreEXALT ?? false
     this.#key = key
   }
 
@@ -227,8 +230,9 @@ export class BlueberryUpgrade extends DynamicUpgrade {
       i18next.t(
         'general.level'
       )
-    } ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>${preReqText ? `\n ${preReqText}` : ''}
-                <span style="color: lightblue">${this.description}</span>
+    } ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>${preReqText ? `\n ${preReqText}` : ''}${
+      this.ignoreEXALT ? `\n<span style="color: orchid"> ${i18next.t('ambrosia.ignoreEXALT')}</span>\n` : ''
+    }<span style="color: lightblue">${this.description}</span>
                 <span style="color: gold">${this.rewardDesc}</span>
                 ${
       i18next.t(
@@ -302,8 +306,8 @@ export class BlueberryUpgrade extends DynamicUpgrade {
   }
 
   get effectiveLevels (): number {
-    return (player.singularityChallenges.noAmbrosiaUpgrades.enabled
-        || player.singularityChallenges.sadisticPrequel.enabled)
+    return ((player.singularityChallenges.noAmbrosiaUpgrades.enabled
+        || player.singularityChallenges.sadisticPrequel.enabled) && !this.ignoreEXALT)
       ? 0
       : this.level + this.extraLevels
   }
@@ -697,7 +701,7 @@ export const blueberryUpgradeData: Record<
   },
   ambrosiaQuarks3: {
     maxLevel: 10,
-    costPerLevel: 500000,
+    costPerLevel: 750000,
     blueberryCost: 3,
     costFormula: (level: number, baseCost: number): number => {
       return baseCost + 50000 * level
@@ -723,10 +727,10 @@ export const blueberryUpgradeData: Record<
   },
   ambrosiaCubes3: {
     maxLevel: 100,
-    costPerLevel: 50000,
+    costPerLevel: 75000,
     blueberryCost: 3,
     costFormula: (level: number, baseCost: number): number => {
-      return baseCost + 2000 * level
+      return baseCost + 5000 * level
     },
     rewards: (n: number) => {
       const cube2Multi = 1 + 3 * player.blueberryUpgrades.ambrosiaCubes2.effectiveLevels / 100
@@ -1027,11 +1031,11 @@ export const blueberryUpgradeData: Record<
     extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow5').bonus.freeLevels
   },
   ambrosiaSingReduction2: {
-    maxLevel: 1,
-    costPerLevel: 2.5e7,
+    maxLevel: 2,
+    costPerLevel: 1.25e7,
     blueberryCost: 4,
     costFormula: (level: number, baseCost: number): number => {
-      return baseCost + 0 * level
+      return baseCost * Math.pow(3, level)
     },
     rewards: (n: number) => {
       const val = (player.insideSingularityChallenge) ? n : 0
@@ -1044,7 +1048,8 @@ export const blueberryUpgradeData: Record<
         )
       }
     },
-    extraLevelCalc: () => 0
+    extraLevelCalc: () => 0,
+    ignoreEXALT: true
   }
 }
 
@@ -1235,7 +1240,6 @@ export const saveBlueberryTree = async (
 
   player.blueberryLoadouts[input] = getBlueberryTree()
   createLoadoutDescription(input, player.blueberryLoadouts[input])
-
 }
 
 export const createLoadoutDescription = (
@@ -1281,10 +1285,9 @@ export const updateBlueberryLoadoutCount = () => {
 }
 
 export const highlightPrerequisites = (k: blueberryUpgradeNames) => {
-
   const preReq = blueberryUpgradeData[k].prerequisites
   if (preReq === undefined) return
-  
+
   for (const key of Object.keys(blueberryUpgradeData)) {
     const k2 = key as blueberryUpgradeNames
     const elm = DOMCacheGetOrSet(k2)
@@ -1294,7 +1297,6 @@ export const highlightPrerequisites = (k: blueberryUpgradeNames) => {
       elm.classList.remove('blueberryPrereq')
     }
   }
-
 }
 
 export const resetHighlights = () => {
@@ -1311,38 +1313,38 @@ export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
   for (const key of Object.keys(blueberryUpgradeData)) {
     const k = key as blueberryUpgradeNames
     const elm = DOMCacheGetOrSet(k)
-    const level = loadout[k] || 0; // Get the level from the loadout, default to 0 if not present
+    const level = loadout[k] || 0 // Get the level from the loadout, default to 0 if not present
     const parent = elm.parentElement!
 
     if (loadoutKeys.includes(k) && level > 0) {
-      elm.classList.remove('notInLoadout');
-      elm.classList.add('dimmed'); // Apply the dimmed class
+      elm.classList.remove('notInLoadout')
+      elm.classList.add('dimmed') // Apply the dimmed class
 
       // Create or get the level overlay element
-      let levelOverlay = parent.querySelector('.level-overlay') as HTMLDivElement;
+      let levelOverlay = parent.querySelector('.level-overlay') as HTMLDivElement
       if (!levelOverlay) {
-        levelOverlay = document.createElement('p');
-        levelOverlay.classList.add('level-overlay');
+        levelOverlay = document.createElement('p')
+        levelOverlay.classList.add('level-overlay')
 
         if (level === blueberryUpgradeData[k].maxLevel) {
-          levelOverlay.classList.add('maxBlueberryLevel');
+          levelOverlay.classList.add('maxBlueberryLevel')
         } else {
-          levelOverlay.classList.add('notMaxBlueberryLevel');
+          levelOverlay.classList.add('notMaxBlueberryLevel')
         }
 
-        parent.classList.add('relative-container'); // Apply relative container to the element
-        parent.appendChild(levelOverlay); // Append to the element
+        parent.classList.add('relative-container') // Apply relative container to the element
+        parent.appendChild(levelOverlay) // Append to the element
       }
-      levelOverlay.textContent = String(level); // Set the level text
+      levelOverlay.textContent = String(level) // Set the level text
     } else {
-      elm.classList.add('notInLoadout');
-      elm.classList.remove('dimmed'); // Remove the dimmed class
+      elm.classList.add('notInLoadout')
+      elm.classList.remove('dimmed') // Remove the dimmed class
 
       // Remove the level overlay if it exists
-      const levelOverlay = parent.querySelector('.level-overlay');
+      const levelOverlay = parent.querySelector('.level-overlay')
       if (levelOverlay) {
-        levelOverlay.remove();
-        parent.classList.remove('relative-container'); // Remove relative container
+        levelOverlay.remove()
+        parent.classList.remove('relative-container') // Remove relative container
       }
     }
   }
@@ -1353,14 +1355,14 @@ export const resetLoadoutOnlyDisplay = () => {
     const k = key as blueberryUpgradeNames
     const elm = DOMCacheGetOrSet(k)
     const parent = elm.parentElement!
-    elm.classList.remove('notInLoadout');
-    elm.classList.remove('dimmed'); // Remove the dimmed class
+    elm.classList.remove('notInLoadout')
+    elm.classList.remove('dimmed') // Remove the dimmed class
 
     // Remove the level overlay if it exists
-    const levelOverlay = parent.querySelector('.level-overlay');
+    const levelOverlay = parent.querySelector('.level-overlay')
     if (levelOverlay) {
-      levelOverlay.remove();
-      parent.classList.remove('relative-container'); // Remove relative container
+      levelOverlay.remove()
+      parent.classList.remove('relative-container') // Remove relative container
     }
   }
 }
