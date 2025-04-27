@@ -654,10 +654,6 @@ export interface Player {
   blueberryLoadouts: Record<number, BlueberryOpt>
   blueberryLoadoutMode: BlueberryLoadoutMode
 
-  ultimateProgress: number
-  ultimatePixels: number
-  cubeUpgradeRedBarFilled: number
-
   redAmbrosia: number
   lifetimeRedAmbrosia: number
   redAmbrosiaTime: number

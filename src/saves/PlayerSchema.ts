@@ -795,9 +795,9 @@ export const playerSchema = z.object({
   blueberryLoadouts: z.record(integerStringSchema, z.any()).default(() => blankSave.blueberryLoadouts),
   blueberryLoadoutMode: z.string().default(() => blankSave.blueberryLoadoutMode),
 
-  ultimateProgress: z.number().default(() => blankSave.ultimateProgress),
-  ultimatePixels: z.number().default(() => blankSave.ultimatePixels),
-  cubeUpgradeRedBarFilled: z.number().default(() => blankSave.cubeUpgradeRedBarFilled),
+  ultimateProgress: z.number().optional(),
+  ultimatePixels: z.number().optional(),
+  cubeUpgradeRedBarFilled: z.number().optional(),
 
   redAmbrosia: z.number().default(() => blankSave.redAmbrosia),
   lifetimeRedAmbrosia: z.number().default(() => blankSave.lifetimeRedAmbrosia),

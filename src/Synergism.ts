@@ -1620,10 +1620,6 @@ export const player: Player = {
   },
   blueberryLoadoutMode: 'saveTree',
 
-  ultimateProgress: 0,
-  ultimatePixels: 0,
-  cubeUpgradeRedBarFilled: 0,
-
   redAmbrosia: 0,
   lifetimeRedAmbrosia: 0,
   redAmbrosiaTime: 0,
