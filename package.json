@@ -40,12 +40,12 @@
     "csslint:fix": "npx stylelint Synergism.css --fix",
     "htmllint": "npx htmlhint index.html",
     "build:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\" --define:PROD=true",
-    "watch:esbuild": "npx esbuild src/Synergism.ts --bundle --minify --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\" --watch --sourcemap --define:PROD=false --define:DEV=true",
+    "watch:esbuild": "node --run msw:init && npx esbuild src/Synergism.ts --bundle --minify --target=\"chrome58,firefox57,safari11,edge29\" --outfile=\"./dist/out.js\" --watch --sourcemap --define:PROD=false --define:DEV=true",
     "check:tsc": "npx -p typescript tsc",
     "watch:tsc": "npx -p typescript tsc --watch",
     "prepare": "husky install",
     "cloudflare:build": "node scripts/needsBundling.js || npm run build:esbuild",
-    "msw:init": "npx -y msw init ./dist --save"
+    "msw:init": "npx -y msw init . --save"
   },
   "repository": {
     "type": "git",
@@ -63,7 +63,8 @@
   "homepage": "https://github.com/Pseudo-Corp/SynergismOfficial#readme",
   "msw": {
     "workerDirectory": [
-      "dist"
+      ".",
+      ""
     ]
   }
 }

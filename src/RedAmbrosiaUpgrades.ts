@@ -618,8 +618,6 @@ export function initRedAmbrosiaUpgrades (investments: Record<RedAmbrosiaKeys, nu
     // the relationship between the key and the generic parameter in the loop
     redAmbrosiaUpgrades[key as 'tutorial'] = upgrade as RedAmbrosiaUpgrade<'tutorial'>
   }
-
-  console.log(redAmbrosiaUpgrades)
 }
 
 export function getRedAmbrosiaUpgrade<K extends RedAmbrosiaKeys> (key: K): RedAmbrosiaUpgrade<K> {

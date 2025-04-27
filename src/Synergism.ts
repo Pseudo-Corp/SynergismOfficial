@@ -6454,7 +6454,7 @@ window.addEventListener('load', async () => {
     const { worker } = await import('./mock/browser')
     await worker.start({
       serviceWorker: {
-        url: './dist/mockServiceWorker.js'
+        url: './mockServiceWorker.js'
       }
     })
   }
