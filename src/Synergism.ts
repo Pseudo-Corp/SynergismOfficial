@@ -151,7 +151,7 @@ import {
   campaignTokenRewardHTMLUpdate,
   createCampaignIconHTMLS
 } from './Campaign'
-import { lastUpdated, prod, testing, version } from './Config'
+import { dev, lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
 import {
@@ -6450,6 +6450,15 @@ export const reloadShit = (reset = false) => {
 }
 
 window.addEventListener('load', async () => {
+  if (dev) {
+    const { worker } = await import('./mock/browser')
+    await worker.start({
+      serviceWorker: {
+        url: './dist/mockServiceWorker.js'
+      }
+    })
+  }
+
   await i18nInit()
   handleLogin().catch(console.error)
 

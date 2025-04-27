@@ -1,4 +1,5 @@
 declare const PROD: boolean | undefined
+declare const DEV: boolean | undefined
 
 export const version = '3.2.2 April 26, 2025: The Statistics Update: Release Candidate 9 v2'
 
@@ -9,3 +10,4 @@ export const testing = true
 export const lastUpdated = new Date('##LAST_UPDATED##')
 
 export const prod = typeof PROD === 'undefined' ? false : PROD
+export const dev = typeof DEV === 'undefined' ? false : DEV
