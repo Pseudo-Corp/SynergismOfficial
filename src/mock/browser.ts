@@ -1,5 +1,6 @@
 import { http, HttpResponse } from 'msw'
 import { setupWorker } from 'msw/browser'
+import { consumeHandlers } from './websocket'
 
 export const worker = setupWorker(
   http.get('https://synergism.cc/api/v1/users/me', () => {
@@ -45,5 +46,6 @@ export const worker = setupWorker(
       },
       subscriptionTier: 0
     })
-  })
+  }),
+  ...consumeHandlers
 )

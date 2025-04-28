@@ -60,7 +60,7 @@ import {
   resetGame,
   updateSaveString
 } from './ImportExport'
-import { getTips, sendToWebsocket, setTips } from './Login'
+import { exitFastForward, getTips, sendToWebsocket, setTips } from './Login'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
 import { displayRedAmbrosiaLevels, getRedAmbrosiaUpgrade, resetRedAmbrosiaDisplay } from './RedAmbrosiaUpgrades'
 import { buyResearch, researchDescriptions } from './Research'
@@ -187,6 +187,11 @@ export const generateEventHandlers = () => {
   // Offline Button
   DOMCacheGetOrSet('exitOffline').addEventListener('click', () => exitOffline())
   DOMCacheGetOrSet('offlineContainer').addEventListener('dblclick', () => exitOffline())
+
+  // Fast forward button
+  DOMCacheGetOrSet('exitFastForward').addEventListener('click', () => exitFastForward())
+  DOMCacheGetOrSet('fastForwardContainer').addEventListener('dblclick', () => exitFastForward())
+
   // UPPER UI ELEMENTS
   // Prelude: Cube/Tesseract/Hypercube/Platonic display UIs (Onclicks)
   DOMCacheGetOrSet('ascCubeStats').addEventListener('click', () => toggleAscStatPerSecond(1))

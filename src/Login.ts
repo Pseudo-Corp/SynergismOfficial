@@ -3,15 +3,27 @@
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateOffline } from './Calculate'
+import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosiaGenerationSpeed } from './Calculate'
 import { updateGlobalsIsEvent } from './Event'
+import { addTimers, automaticTools } from './Helper'
 import { importSynergism } from './ImportExport'
 import { QuarkHandler, setQuarkBonus } from './Quark'
-import { format, player } from './Synergism'
+import { format, player, saveSynergy } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
 import { assert } from './Utility'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
+
+type PseudoCoinTimeskipNames =
+  | 'SMALL_GLOBAL_TIMESKIP'
+  | 'LARGE_GLOBAL_TIMESKIP'
+  | 'JUMBO_GLOBAL_TIMESKIP'
+  | 'SMALL_ASCENSION_TIMESKIP'
+  | 'LARGE_ASCENSION_TIMESKIP'
+  | 'JUMBO_ASCENSION_TIMESKIP'
+  | 'SMALL_AMBROSIA_TIMESKIP'
+  | 'LARGE_AMBROSIA_TIMESKIP'
+  | 'JUMBO_AMBROSIA_TIMESKIP'
 
 interface Consumable {
   /** array of unix timestamps for when each individual consumable ends */
@@ -47,7 +59,7 @@ export const isLoggedIn = () => loggedIn
 export const getTips = () => tips
 export const setTips = (newTips: number) => tips = newTips
 
-export const allConsumables: Record<PseudoCoinConsumableNames, Consumable> = {
+export const allDurableConsumables: Record<PseudoCoinConsumableNames, Consumable> = {
   HAPPY_HOUR_BELL: {
     amount: 0,
     ends: [],
@@ -90,6 +102,10 @@ const messageSchema = z.preprocess(
     /** Received when a user reconnects, if there are unclaimed tips */
     z.object({ type: z.literal('tip-backlog'), tips: z.number().int() }),
     z.object({ type: z.literal('applied-tip'), amount: z.number(), remaining: z.number() }),
+
+    /** Received when a timeSkip is used */
+    z.object({ type: z.literal('time-skip'), consumableName: z.string(), amount: z.number().int() }),
+
     /** A warning - should *NOT* disconnect from the WebSocket */
     z.object({ type: z.literal('warn'), message: z.string() })
   ])
@@ -360,8 +376,8 @@ const exponentialBackoff = [5000, 15000, 30000, 60000]
 let tries = 0
 
 function resetConsumables () {
-  for (const key of Object.keys(allConsumables)) {
-    allConsumables[key as PseudoCoinConsumableNames] = {
+  for (const key of Object.keys(allDurableConsumables)) {
+    allDurableConsumables[key as PseudoCoinConsumableNames] = {
       amount: 0,
       ends: [],
       displayName: ''
@@ -407,14 +423,14 @@ function handleWebSocket () {
       Notification(data.message, 5_000)
       resetConsumables()
     } else if (data.type === 'consumed') {
-      const consumable = allConsumables[data.consumable as PseudoCoinConsumableNames]
+      const consumable = allDurableConsumables[data.consumable as PseudoCoinConsumableNames]
       consumable.ends.push(data.startedAt + 3600 * 1000)
       consumable.amount++
 
       Notification(`Someone redeemed a(n) ${data.consumable}!`)
     } else if (data.type === 'consumable-ended') {
       // Because of the invariant that the timestamps are sorted, we can just remove the first element
-      const consumable = allConsumables[data.consumable as PseudoCoinConsumableNames]
+      const consumable = allDurableConsumables[data.consumable as PseudoCoinConsumableNames]
       consumable.ends.shift()
       consumable.amount--
 
@@ -427,15 +443,17 @@ function handleWebSocket () {
         let message = 'The following consumables are active:\n'
 
         for (const { internalName, endsAt, name } of data.active) {
-          const consumable = allConsumables[internalName as PseudoCoinConsumableNames]
+          const consumable = allDurableConsumables[internalName as PseudoCoinConsumableNames]
           consumable.ends.push(endsAt)
           consumable.amount++
           consumable.displayName = name
         }
         // Are these already in order? I assume so but just to be sure
-        allConsumables.HAPPY_HOUR_BELL.ends.sort((a, b) => a - b)
+        for (const item of Object.values(allDurableConsumables)) {
+          item.ends.sort((a, b) => a - b)
+        }
 
-        for (const { amount, displayName } of Object.values(allConsumables)) {
+        for (const { amount, displayName } of Object.values(allDurableConsumables)) {
           message += `${displayName} (x${amount})`
         }
 
@@ -453,6 +471,14 @@ function handleWebSocket () {
       tips = data.remaining
       calculateOffline(data.amount * 60, true)
       DOMCacheGetOrSet('exitOffline').style.visibility = 'unset'
+    } else if (data.type === 'time-skip') {
+      console.log('test!')
+      const timeSkipName = data.consumableName as PseudoCoinTimeskipNames
+      const minutes = data.amount
+
+      // Do the thing with the timeSkip
+      activateTimeSkip(timeSkipName, minutes)
+      saveSynergy()
     }
 
     updateGlobalsIsEvent()
@@ -520,5 +546,178 @@ export function renderCaptcha () {
     })
 
     hasCaptcha.add(visible)
+  }
+}
+
+const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
+  const seconds = minutes * 60
+  // Only display relevant fast forward stats based on which one was purchased.
+  const fastForwardStat = document.getElementsByClassName('fastForwardStat') as HTMLCollectionOf<HTMLElement>
+  for (let i = 0; i < fastForwardStat.length; i++) {
+    const element = fastForwardStat[i]
+    if (
+      (element.classList.contains('globalSkip') && name.includes('GLOBAL'))
+      || (element.classList.contains('ascensionSkip') && name.includes('ASCENSION'))
+      || (element.classList.contains('ambrosiaSkip') && name.includes('AMBROSIA'))
+    ) {
+      element.classList.add('fastForwardVisible')
+    } else {
+      element.classList.remove('fastForwardVisible')
+    }
+  }
+
+  if (name.includes('GLOBAL')) {
+    const beforeStats = {
+      prestigeTime: player.prestigecounter,
+      prestigeCount: player.prestigeCount,
+      transcensionTime: player.transcendcounter,
+      transcensionCount: player.transcendCount,
+      reincarnationTime: player.reincarnationcounter,
+      reincarnationCount: player.reincarnationCount
+    }
+
+    // Timer Things
+    addTimers('prestige', seconds)
+    addTimers('transcension', seconds)
+    addTimers('reincarnation', seconds)
+    automaticTools('antSacrifice', seconds)
+    player.prestigeCount += seconds / Math.max(0.01, player.fastestprestige)
+    player.transcendCount += seconds / Math.max(0.01, player.fastesttranscend)
+    player.reincarnationCount += seconds / Math.max(0.01, player.fastestreincarnate)
+
+    // Add Obt/Off, why not?
+    automaticTools('addObtainium', seconds)
+    automaticTools('addOfferings', seconds)
+
+    const addedStats = {
+      prestigeTime: player.prestigecounter - beforeStats.prestigeTime,
+      prestigeCount: player.prestigeCount - beforeStats.prestigeCount,
+      transcensionTime: player.transcendcounter - beforeStats.transcensionTime,
+      transcensionCount: player.transcendCount - beforeStats.transcensionCount,
+      reincarnationTime: player.reincarnationcounter - beforeStats.reincarnationTime,
+      reincarnationCount: player.reincarnationCount - beforeStats.reincarnationCount,
+      antTimer: seconds
+    }
+
+    DOMCacheGetOrSet('fastForwardTimer').innerHTML = i18next.t('fastForward.global', {
+      time: format(seconds, 0, true)
+    })
+    DOMCacheGetOrSet('fastForwardPrestigeCount').innerHTML = i18next.t('offlineProgress.prestigeCount', {
+      value: Math.floor(addedStats.prestigeCount)
+    })
+    DOMCacheGetOrSet('fastForwardPrestigeTimer').innerHTML = i18next.t('offlineProgress.currentPrestigeTimer', {
+      value: format(addedStats.prestigeTime, 2, true)
+    })
+    DOMCacheGetOrSet('fastForwardTranscensionCount').innerHTML = i18next.t('offlineProgress.transcensionCount', {
+      value: Math.floor(addedStats.transcensionCount)
+    })
+    DOMCacheGetOrSet('fastForwardTranscensionTimer').innerHTML = i18next.t(
+      'offlineProgress.currentTranscensionCounter',
+      {
+        value: format(addedStats.transcensionTime, 2, true)
+      }
+    )
+    DOMCacheGetOrSet('fastForwardReincarnationCount').innerHTML = i18next.t('offlineProgress.reincarnationCount', {
+      value: Math.floor(addedStats.reincarnationCount)
+    })
+    DOMCacheGetOrSet('fastForwardReincarnationTimer').innerHTML = i18next.t(
+      'offlineProgress.currentReincarnationTimer',
+      {
+        value: format(addedStats.reincarnationTime, 2, true)
+      }
+    )
+    DOMCacheGetOrSet('fastForwardAntTimer').innerHTML = i18next.t('offlineProgress.ingameAntSacTimer', {
+      value: format(addedStats.antTimer, 0, true)
+    })
+  }
+
+  if (name.includes('ASCENSION')) {
+    const beforeStats = {
+      ascensionTime: player.ascensionCounter
+    }
+
+    // Timer Things
+    addTimers('ascension', seconds)
+
+    const addedStats = {
+      ascensionTime: player.ascensionCounter - beforeStats.ascensionTime
+    }
+
+    DOMCacheGetOrSet('fastForwardTimer').innerHTML = i18next.t('fastForward.ascension', {
+      time: format(seconds, 0, true)
+    })
+    DOMCacheGetOrSet('fastForwardAscensionTimer').innerHTML = i18next.t('offlineProgress.currentAscensionTimer', {
+      value: format(addedStats.ascensionTime, 2, true)
+    })
+  }
+
+  if (name.includes('AMBROSIA')) {
+    const beforeStats = {
+      redAmbrosia: player.lifetimeRedAmbrosia,
+      ambrosia: player.lifetimeAmbrosia
+    }
+
+    // Timer Things
+    addTimers('ambrosia', seconds)
+    addTimers('redAmbrosia', seconds)
+
+    const addedStats = {
+      redAmbrosia: player.lifetimeRedAmbrosia - beforeStats.redAmbrosia,
+      ambrosia: player.lifetimeAmbrosia - beforeStats.ambrosia,
+      ambrosiaBarFill: calculateAmbrosiaGenerationSpeed() * seconds,
+      redBarFill: calculateRedAmbrosiaGenerationSpeed() * seconds
+    }
+
+    DOMCacheGetOrSet('fastForwardTimer').innerHTML = i18next.t('fastForward.ambrosia', {
+      time: format(seconds, 0, true)
+    })
+    DOMCacheGetOrSet('fastForwardAmbrosiaCount').innerHTML = i18next.t('offlineProgress.ambrosia', {
+      value: format(addedStats.ambrosia, 0, true),
+      value2: format(addedStats.ambrosiaBarFill, 0, true)
+    })
+    DOMCacheGetOrSet('fastForwardRedAmbrosiaCount').innerHTML = i18next.t('offlineProgress.redAmbrosia', {
+      value: format(addedStats.redAmbrosia, 0, true),
+      value2: format(addedStats.redBarFill, 0, true)
+    })
+  }
+
+  DOMCacheGetOrSet('fastForwardContainer').style.display = 'flex'
+}
+
+export const exitFastForward = () => {
+  DOMCacheGetOrSet('fastForwardContainer').style.display = 'none'
+}
+
+const activateTimeSkip = (name: PseudoCoinTimeskipNames, minutes: number) => {
+  createFastForward(name, minutes)
+  // TODO for Platonic: i18n this shit
+  switch (name) {
+    case 'SMALL_GLOBAL_TIMESKIP':
+      Notification('You have activated a small global timeskip! Enjoy!')
+      break
+    case 'LARGE_GLOBAL_TIMESKIP':
+      Notification('You have activated a large global timeskip! Enjoy!')
+      break
+    case 'JUMBO_GLOBAL_TIMESKIP':
+      Notification('You have activated a JUMBO global timeskip! Enjoy!')
+      break
+    case 'SMALL_ASCENSION_TIMESKIP':
+      Notification('You have activated a small ascension timeskip! Enjoy!')
+      break
+    case 'LARGE_ASCENSION_TIMESKIP':
+      Notification('You have activated a large ascension timeskip! Enjoy!')
+      break
+    case 'JUMBO_ASCENSION_TIMESKIP':
+      Notification('You have activated a JUMBO ascension timeskip! Enjoy!')
+      break
+    case 'SMALL_AMBROSIA_TIMESKIP':
+      Notification('You have activated a small ambrosia timeskip! Enjoy!')
+      break
+    case 'LARGE_AMBROSIA_TIMESKIP':
+      Notification('You have activated a large ambrosia timeskip! Enjoy!')
+      break
+    case 'JUMBO_AMBROSIA_TIMESKIP':
+      Notification('You have activated a JUMBO ambrosia timeskip! Enjoy!')
+      break
   }
 }

@@ -1345,9 +1345,6 @@ export const singularity = (setSingNumber = -1) => {
   hold.autoCubeUpgradesToggle = player.autoCubeUpgradesToggle
   hold.autoPlatonicUpgradesToggle = player.autoPlatonicUpgradesToggle
   hold.insideSingularityChallenge = player.insideSingularityChallenge
-  hold.ultimatePixels = player.ultimatePixels
-  hold.ultimateProgress = player.ultimateProgress
-  hold.cubeUpgradeRedBarFilled = player.cubeUpgradeRedBarFilled
   hold.redAmbrosia = player.redAmbrosia
   hold.lifetimeRedAmbrosia = player.lifetimeRedAmbrosia
   hold.redAmbrosiaTime = player.redAmbrosiaTime

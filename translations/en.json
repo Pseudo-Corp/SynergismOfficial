@@ -2827,7 +2827,7 @@
   },
   "offlineProgress": {
     "loading": "Loading Offline Progress...",
-    "prestigeCount": "Prestige Count: +",
+    "prestigeCount": "Prestige Count: +<<cyan|{{value}}>>",
     "currentPrestigeTimer": "Current Prestige Timer: +<<cyan|{{value}}>> seconds",
     "offeringsGenerated": "Offerings Generated: <<orange|{{value}}>>",
     "transcensionCount": "Transcension Count: +<<var(--orchid-text-color);|{{value}}>>",
@@ -2841,6 +2841,11 @@
     "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>",
     "ambrosia": "Ambrosia: +<<orange|{{value}}>> | Ambrosia Bar Points +<<lightblue|{{value2}}>>",
     "redAmbrosia":"Red Ambrosia: +<<red|{{value}}>> | Red Bar Points +<<red|{{value2}}>>"
+  },
+  "fastForward": {
+    "global": "Your Global stuff fast forwarded {{time}} seconds!",
+    "ascension": "Your Ascension stuff fast forwarded {{time}} seconds!",
+    "ambrosia": "Your Ambrosia stuff fast forwarded {{time}} seconds!"
   },
   "campaigns": {
     "intro": "Campaigns - <<orange | Ascensions>> but <<maroon | harder™>>",

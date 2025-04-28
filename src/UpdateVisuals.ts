@@ -43,7 +43,7 @@ import type { IMultiBuy } from './Cubes'
 import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
 import type { hepteractTypes } from './Hepteracts'
 import { hepteractTypeList } from './Hepteracts'
-import { allConsumables, type PseudoCoinConsumableNames } from './Login'
+import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { displayRuneInformation } from './Runes'
@@ -1885,7 +1885,7 @@ export const visualUpdateShop = () => {
 
 export const constructConsumableTimes = (p: PseudoCoinConsumableNames) => {
   const msg: string[] = []
-  for (const time of allConsumables[p].ends) {
+  for (const time of allDurableConsumables[p].ends) {
     msg.push(timeReminingHours(new Date(time)))
   }
   return msg.join(', ')
@@ -1915,7 +1915,7 @@ export const visualUpdateEvent = () => {
       DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'none'
     }
   }
-  const { HAPPY_HOUR_BELL } = allConsumables
+  const { HAPPY_HOUR_BELL } = allDurableConsumables
   if (HAPPY_HOUR_BELL.amount > 0) {
     DOMCacheGetOrSet('consumableEventTimer').textContent = constructConsumableTimes('HAPPY_HOUR_BELL')
     DOMCacheGetOrSet('consumableEventBonus').textContent = `${HAPPY_HOUR_BELL.amount}`

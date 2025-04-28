@@ -1536,10 +1536,11 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
     }
   }, 0)
 
-  DOMCacheGetOrSet('offlinePrestigeCountNumber').textContent = format(
-    resetAdd.prestige,
-    0,
-    true
+  DOMCacheGetOrSet('offlinePrestigeCount').innerHTML = i18next.t(
+    'offlineProgress.prestigeCount',
+    {
+      value: format(resetAdd.prestige, 0, true)
+    }
   )
   DOMCacheGetOrSet('offlinePrestigeTimer').innerHTML = i18next.t(
     'offlineProgress.currentPrestigeTimer',

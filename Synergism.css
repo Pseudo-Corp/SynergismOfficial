@@ -463,7 +463,8 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     filter: blur(4px);
 }
 
-#offlineContainer {
+#offlineContainer,
+#fastForwardContainer {
     flex-direction: column;
     align-items: center;
     position: fixed;
@@ -497,6 +498,14 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     margin-bottom: 2px;
 }
 
+.fastForwardStat {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    z-index: 3;
+    margin-bottom: 2px;
+}
+
 .offlineStatElement,
 .cartListElement {
     margin-left: 10px;
@@ -515,6 +524,7 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 }
 
 #exitOffline,
+#exitFastForward,
 #closeCart,
 #checkout {
     width: 18em;
@@ -4746,6 +4756,12 @@ form input:hover {
     opacity: 0.6;
     cursor: not-allowed;
 }
+
+.fastForwardVisible {
+    display: flex !important;
+}
+
+
 
 h2,
 h3 {
