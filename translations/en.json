@@ -5019,8 +5019,8 @@
       "AUTO_POTION_FREE_POTIONS_QOL": "Auto-Potion is <<gold | {{descriptor}}>> FREE!",
       "OFFLINE_TIMER_CAP_BUFF": "Offline Time Capacity is multiplied by <<gold | {{amount}}>>",
       "ADD_CODE_CAP_BUFF": "Code 'add' Capacity is multiplied by <<gold | {{amount}}>>",
-      "BASE_OFFERING_BUFF": "Base Offering Gain is increased by <<gold | {{amount}}>>, which is affected by all multipliers.",
-      "BASE_OBTAINIUM_BUFF": "Base Obtainium Gain is increased by <<gold | {{amount}}>>, which is affected by all multipliers.",
+      "BASE_OFFERING_BUFF": "Base Offering Gain is increased by <<gold | {{amount}}>>",
+      "BASE_OBTAINIUM_BUFF": "Base Obtainium Gain is increased by <<gold | {{amount}}>>",
       "RED_LUCK_BUFF": "Red Ambrosia Luck is increased by <<gold | {{amount}}>>",
       "RED_GENERATION_BUFF": "Red Ambrosia Generation Speed is multiplied by <<gold | {{amount}}>>"
     },
