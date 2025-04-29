@@ -5032,6 +5032,22 @@
       "consumableButton": "Buy at the PseudoShop!",
       "applyTips": "Use Tips!",
       "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s). You may only use up to 1,440 tips per "
+    },
+    "timeSkips": {
+      "GLOBAL": {
+        "title": "P/T/R/Ant Time Skips",
+        "description": "Fast-forward real-life time on your Prestige, Transcension, Reincarnation and Ant Sacrifice Timers!"
+      },
+      "ASCENSION": {
+        "title": "Ascension Time Skips",
+        "description": "Fast-forward real-life time on your Ascension Timer!"
+      },
+      "AMBROSIA": {
+        "title": "Ambrosia Time Skips",
+        "description": "Fast-forward real-life time on your Ambrosia and Red Ambrosia Bar Points!"
+      },
+      "purchaseBtn": "+{{time}} hours [<<gold|{{cost}} PseudoCoins>>]",
+      "warning": "<<gold | ⚠>> Applies Immediately! <<gold | ⚠>>"
     }
   }
 }
