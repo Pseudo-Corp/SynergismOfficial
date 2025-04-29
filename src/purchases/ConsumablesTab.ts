@@ -1,30 +1,14 @@
 import i18next from 'i18next'
 import { sendToWebsocket } from '../Login'
+import { format } from '../Synergism'
 import { Alert, Confirm } from '../UpdateHTML'
 import { memoize } from '../Utility'
-import { format } from '../Synergism'
 
 interface ConsumableListItems {
   name: string
   description: string
   internalName: string
-  length: string | number
-  cost: number
-}
-
-interface DurableConsumableItems {
-  name: string
-  description: string
-  internalName: string
   length: string
-  cost: number
-}
-
-interface TimeSkipConsumableItems {
-  name: string
-  description: string
-  internalName: string
-  length: number
   cost: number
 }
 
@@ -36,9 +20,11 @@ const initializeConsumablesTab = memoize(() => {
   fetch('https://synergism.cc/consumables/list')
     .then((r) => r.json())
     .then((consumables: ConsumableListItems[]) => {
-      const durableConsume = consumables.filter((u) => typeof u.length === 'string') as DurableConsumableItems[]
-      const timeSkip = consumables.filter((u) => typeof u.length === 'number') as TimeSkipConsumableItems[]
-      tab.innerHTML = `${durableConsume.map((u) => `
+      // Thank you Gemini for the number test
+      const durableConsume = consumables.filter((u) => !Number.isFinite(+u.length))
+      const timeSkip = consumables.filter((u) => Number.isFinite(+u.length))
+      tab.innerHTML = `${
+        durableConsume.map((u) => `
         <div
           data-key="${u.internalName}"
           data-cost="${u.cost}"
@@ -50,7 +36,8 @@ const initializeConsumablesTab = memoize(() => {
           <p style="white-space: pre-line">${u.description}</p>
           <button class="consumablePurchaseBtn"><p>ACTIVATE: </p><p>${u.cost} PseudoCoins</p></button>
         </div>
-      `).join('')}
+      `).join('')
+      }
       <div class="timeSkipSet">
         ${createTimeskipHTML(timeSkip, 'GLOBAL')}
         ${createTimeskipHTML(timeSkip, 'ASCENSION')}
@@ -74,25 +61,32 @@ const initializeConsumablesTab = memoize(() => {
     })
 })
 
-export const createTimeskipHTML = (timeSkips: TimeSkipConsumableItems[], filter: TimeSkipCategories) => {
-  const relevantTimeSkips = timeSkips.filter((u) => u.internalName.includes(filter)).sort((a, b) => a.length - b.length)
+export const createTimeskipHTML = (timeSkips: ConsumableListItems[], filter: TimeSkipCategories) => {
+  // Safe because we check for if length is a numeric string earlier
+  const relevantTimeSkips = timeSkips.filter((u) => u.internalName.includes(filter)).sort((a, b) =>
+    +a.length - +b.length
+  )
   return `
   <div class="timeSkipContainer purchaseConsumableContainer">
     <img src='Pictures/PseudoShop/${filter}TimeSkip.png' alt='${filter} TimeSkip Box' />
     <p>${i18next.t(`pseudoCoins.timeSkips.${filter}.title`)}</p>
     <p style="text-align: center; min-height: 55px">${i18next.t(`pseudoCoins.timeSkips.${filter}.description`)}</p>
-    <p style="text-align: center">${i18next.t("pseudoCoins.timeSkips.warning")}</p>
+    <p style="text-align: center">${i18next.t('pseudoCoins.timeSkips.warning')}</p>
     <div class="timeSkipOptions">
-      ${relevantTimeSkips.map((u) => `
+      ${
+    relevantTimeSkips.map((u) => `
         <div data-key=${u.internalName} data-cost=${u.cost}>
           <button class="consumablePurchaseBtn" style="width: 190px"> 
-            <p style="text-align: center; width: 180px">${i18next.t("pseudoCoins.timeSkips.purchaseBtn", {
-            time: format(Math.floor(u.length / 60), 0, true),
-            cost: format(u.cost, 0, true)
-            })}</p>
+            <p style="text-align: center; width: 180px">${
+      i18next.t('pseudoCoins.timeSkips.purchaseBtn', {
+        time: format(Math.floor(+u.length / 60), 0, true),
+        cost: format(u.cost, 0, true)
+      })
+    }</p>
           </button>
         </div>
-      `).join('')}
+      `).join('')
+  }
     </div>
   </div>
   `

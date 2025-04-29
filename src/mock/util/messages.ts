@@ -58,7 +58,7 @@ export const messages = {
 
   timeSkip (name: string, amount: number) {
     return JSON.stringify({
-      type: 'timeSkip',
+      type: 'time-skip',
       consumableName: name,
       amount
     })

@@ -104,7 +104,7 @@ const messageSchema = z.preprocess(
     z.object({ type: z.literal('applied-tip'), amount: z.number(), remaining: z.number() }),
 
     /** Received when a timeSkip is used */
-    z.object({ type: z.literal('timeSkip'), consumableName: z.string(), amount: z.number().int() }),
+    z.object({ type: z.literal('time-skip'), consumableName: z.string(), amount: z.number().int() }),
 
     /** A warning - should *NOT* disconnect from the WebSocket */
     z.object({ type: z.literal('warn'), message: z.string() })
@@ -471,7 +471,7 @@ function handleWebSocket () {
       tips = data.remaining
       calculateOffline(data.amount * 60, true)
       DOMCacheGetOrSet('exitOffline').style.visibility = 'unset'
-    } else if (data.type === 'timeSkip') {
+    } else if (data.type === 'time-skip') {
       console.log('test!')
       const timeSkipName = data.consumableName as PseudoCoinTimeskipNames
       const minutes = data.amount
