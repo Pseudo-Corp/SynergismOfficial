@@ -21,7 +21,7 @@
     "generatedLuckBonus": "Ambrosia Luck <<lime|+{{luckBonus}}>>",
     "generatedBlueberryBonus": "Ambrosia Bar Point Gain <<blue|+{{blueberryBonus}}>>",
     "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}>>",
-    "generatedOfferingBonus":"Offerings <<orange|+{{offeringBonus}}>>",
+    "generatedOfferingBonus": "Offerings <<orange|+{{offeringBonus}}>>",
     "prerequisite": "Prerequisites:",
     "prereqNotMet": " (Not Met!)",
     "blueberryCost": "Blueberries (To Activate):",
@@ -2842,7 +2842,7 @@
     "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
     "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>",
     "ambrosia": "Ambrosia: +<<orange|{{value}}>> | Ambrosia Bar Points +<<lightblue|{{value2}}>>",
-    "redAmbrosia":"Red Ambrosia: +<<red|{{value}}>> | Red Bar Points +<<red|{{value2}}>>"
+    "redAmbrosia": "Red Ambrosia: +<<red|{{value}}>> | Red Bar Points +<<red|{{value2}}>>"
   },
   "fastForward": {
     "global": "Your Global stuff fast forwarded {{time}} seconds!",
@@ -4416,7 +4416,7 @@
       "CashGrabUltra": "Cash Grab ULTRA Blueberry Bonus:",
       "Total": "Ambrosia Bar Points/s:",
       "BlueberryCount": "Number of Blueberries Owned:",
-      "Total2": "Final Ambrosia Bar Points/s:"   
+      "Total2": "Final Ambrosia Bar Points/s:"
     },
     "powderMultiplierStats": {
       "title": "Orb to Powder Conversion",
