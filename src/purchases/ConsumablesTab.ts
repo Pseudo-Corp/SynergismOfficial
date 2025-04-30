@@ -3,6 +3,7 @@ import { sendToWebsocket } from '../Login'
 import { format } from '../Synergism'
 import { Alert, Confirm } from '../UpdateHTML'
 import { memoize } from '../Utility'
+import { updatePseudoCoins } from './UpgradesSubtab'
 
 interface ConsumableListItems {
   name: string
@@ -14,7 +15,7 @@ interface ConsumableListItems {
 
 type TimeSkipCategories = 'GLOBAL' | 'ASCENSION' | 'AMBROSIA'
 
-const tab = document.querySelector<HTMLElement>('#pseudoCoins > #consumablesGrid')!
+const tab = document.querySelector<HTMLElement>('#pseudoCoins > #consumablesSection')!
 
 const initializeConsumablesTab = memoize(() => {
   fetch('https://synergism.cc/consumables/list')
@@ -23,7 +24,11 @@ const initializeConsumablesTab = memoize(() => {
       // Thank you Gemini for the number test
       const durableConsume = consumables.filter((u) => !u.internalName.includes('TIMESKIP'))
       const timeSkip = consumables.filter((u) => u.internalName.includes('TIMESKIP'))
-      tab.innerHTML = `${
+
+      // Update coin count just in case
+      updatePseudoCoins()
+      const grid = tab!.querySelector('#consumablesGrid')!
+      grid.innerHTML = `${
         durableConsume.map((u) => `
         <div
           data-key="${u.internalName}"
@@ -56,6 +61,8 @@ const initializeConsumablesTab = memoize(() => {
               consumable: key
             }))
           }
+
+          updatePseudoCoins()
         })
       })
     })

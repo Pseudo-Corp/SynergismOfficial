@@ -329,7 +329,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
         buttonID: 'cartSubTab3'
       },
       {
-        subTabID: 'consumablesGrid',
+        subTabID: 'consumablesSection',
         unlocked: true,
         buttonID: 'cartSubTab4'
       },
