@@ -15,13 +15,11 @@
     "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>蓝莓秒。",
     "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<<blue|{{thresholdTimer}}>>后可以产生神肴。",
-    "bonuses": "您拥有的神肴使所有类型的方盒、立方和方块获取数量增加<<var(--amber-text-color)|{{cube}}%>>，并且使夸克获取数量增加<<cyan|{{quark}}%>>！",
     "prerequisite": "前提条件：",
     "prereqNotMet": "（未满足！）",
     "blueberryCost": "启用花费蓝莓：",
     "prereqNotMetAlert": "您未满足前提条件，无法购买该升级。",
     "notEnoughBlueberries": "您的蓝莓不足，无法激活该模块。",
-    "availableBlueberries": "您有<<blue|{{availableBlueberries}}>>蓝莓未花费。您可以使用它解锁下面更高阶的模块！",
     "cubeUpgradeThresholds": "基于神肴总数，您的蓝莓秒需求已经翻倍了<<cyan|{{threshold}}>>次，因此<<cyan|蓝莓秒的产生速度增加{{percent}}%>>！",
     "cubeUpgradeRedBarFills": "购买饼干升级29以后，您的红色进度条填充了<<maroon|{{amount}}>>次，所以<<green|&#9752 神肴之运增加{{luck}}>>！",
     "ambrosiaBuyPrompt": "您想要花费多少神肴？您拥有{{amount}}神肴。如果想要购买最大数量，请输入-1！",
@@ -3537,9 +3535,8 @@
         "description": "Derpsmith颁布了飞升禁令。整个奇点只能进行 (20 - 阶层完成数) 次飞升，之后将触发极其巨大的惩罚！飞升次数倍率锁定为1。哦对了，PLATONIC·德尔塔在该挑战中失效，哈。",
         "ScalingReward1": "<<orange|飞升次数>>每个数量级可以使<<orange|飞升的速度增加0.1%！>>",
         "UniqueReward1": "第1次 - 永久使<<Pink|所有七阶立方>>的上限翻倍！！！(效果拔群！)",
-        "UniqueReward2": "第1次 - 新的游戏机制 ;) <<var(--red-text-color)|[未完工]>>",
-        "UniqueReward3": "第20次 - 在拔擢中使<<Yellow|方盒获取数量>>、<<steelblue|难得素获取数量>>和<<Gold|祭品获取数量>>增加！(数值与拔擢的总阶层完成数有关！)",
-        "UniqueReward4": "第25次 - 新的<<orchid|夸克商店>>计算器，真棒！"
+        "UniqueReward2": "第20次 - 在拔擢中使<<Yellow|方盒获取数量>>、<<steelblue|难得素获取数量>>和<<Gold|祭品获取数量>>增加！(数值与拔擢的总阶层完成数有关！)",
+        "UniqueReward3": "第25次 - 新的<<orchid|夸克商店>>计算器，真棒！"
       },
       "noAmbrosiaUpgrades": {
         "name": "无神肴升级",
