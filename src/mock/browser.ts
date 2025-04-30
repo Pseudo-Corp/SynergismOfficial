@@ -1101,26 +1101,8 @@ const GETHandlers = [
           name: 'Multi-Level',
           description: 'Receive +5% more Red Ambrosia Bar Points per level',
           internalName: 'RED_GENERATION_BUFF',
-          level: 1,
-          cost: 100
-        },
-        {
-          upgradeId: 19,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +5% more Red Ambrosia Bar Points per level',
-          internalName: 'RED_GENERATION_BUFF',
-          level: 2,
-          cost: 150
-        },
-        {
-          upgradeId: 19,
-          maxLevel: 5,
-          name: 'Multi-Level',
-          description: 'Receive +5% more Red Ambrosia Bar Points per level',
-          internalName: 'RED_GENERATION_BUFF',
-          level: 3,
-          cost: 200
+          level: 5,
+          cost: 300
         },
         {
           upgradeId: 19,
@@ -1137,8 +1119,26 @@ const GETHandlers = [
           name: 'Multi-Level',
           description: 'Receive +5% more Red Ambrosia Bar Points per level',
           internalName: 'RED_GENERATION_BUFF',
-          level: 5,
-          cost: 300
+          level: 3,
+          cost: 200
+        },
+        {
+          upgradeId: 19,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +5% more Red Ambrosia Bar Points per level',
+          internalName: 'RED_GENERATION_BUFF',
+          level: 2,
+          cost: 150
+        },
+        {
+          upgradeId: 19,
+          maxLevel: 5,
+          name: 'Multi-Level',
+          description: 'Receive +5% more Red Ambrosia Bar Points per level',
+          internalName: 'RED_GENERATION_BUFF',
+          level: 1,
+          cost: 100
         }
       ],
       playerUpgrades: [],
