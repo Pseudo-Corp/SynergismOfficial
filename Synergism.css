@@ -4467,7 +4467,7 @@ form input:hover {
     margin-top: 10px;
 }
 
-#consumablesGrid {
+#consumablesSection {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -4574,7 +4574,8 @@ form input:hover {
     outline: 2px solid white;
 }
 
-#pseudoCoinAmounts {
+#pseudoCoinAmounts,
+#pseudoCoinAmounts2 {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -4582,7 +4583,8 @@ form input:hover {
     margin: 10px;
 }
 
-#pseudoCoinAmounts > img {
+#pseudoCoinAmounts > img,
+#pseudoCoinAmounts2 > img {
     max-height: 32px;
     max-width: 32px;
 }
