@@ -3737,7 +3737,7 @@
         "UniqueReward1": "1st - +12% <<gold|Golden Quarks>>!",
         "UniqueReward2": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
         "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward4": "30th - +6% <<lime|&#9752 Ambrosia Luck>> for free!",
+        "UniqueReward4": "30th - +5% <<lime|&#9752 Ambrosia Luck>> for free!",
         "UniqueReward5": "30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
       },
       "oneChallengeCap": {
