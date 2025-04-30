@@ -234,6 +234,11 @@ export class SingularityUpgrade extends DynamicUpgrade {
    */
   getCostTNL (): number {
     let costMultiplier = 1
+    if (this.computeMaxLevel() === this.level) {
+      return 0
+    }
+
+    // Overcap
     if (this.computeMaxLevel() > this.maxLevel && this.level >= this.maxLevel) {
       costMultiplier *= Math.pow(4, this.level - this.maxLevel + 1)
     }
@@ -809,7 +814,9 @@ export const singularityData: Record<
         get desc () {
           return i18next.t('singularity.data.singCubes2.effect', {
             n: format(
-              100 * ((1 + 0.02 * n) * (1 + Math.floor(n / 10) / 100) - 1)
+              100 * ((1 + 0.02 * n) * (1 + Math.floor(n / 10) / 100) - 1),
+              2,
+              true
             )
           })
         }
@@ -827,7 +834,9 @@ export const singularityData: Record<
         get desc () {
           return i18next.t('singularity.data.singCubes3.effect', {
             n: format(
-              100 * ((1 + 0.02 * n) * (1 + Math.floor(n / 10) / 100) - 1)
+              100 * ((1 + 0.02 * n) * (1 + Math.floor(n / 10) / 100) - 1),
+              2,
+              true
             )
           })
         }
@@ -1653,7 +1662,7 @@ export const singularityData: Record<
     ]
   },
   singInfiniteShopUpgrades: {
-    maxLevel: 100,
+    maxLevel: 80,
     costPerLevel: 1e18,
     minimumSingularity: 233,
     effect: (n: number) => {
@@ -2680,7 +2689,7 @@ export const calculateSingularityReductions = () => {
     player.shopUpgrades.shopSingularityPenaltyDebuff,
     (player.insideSingularityChallenge)
       ? +player.blueberryUpgrades.ambrosiaSingReduction2.bonus.singularityReduction
-      : +player.blueberryUpgrades.ambrosiaSingReduction.bonus.singularityReduction
+      : +player.blueberryUpgrades.ambrosiaSingReduction1.bonus.singularityReduction
   ]
 
   return sumContents(arr)

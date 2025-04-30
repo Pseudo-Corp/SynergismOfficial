@@ -1612,14 +1612,24 @@ export const visualUpdateAmbrosia = () => {
   const redAmbLuckBonus = calculateCookieUpgrade29Luck()
 
   DOMCacheGetOrSet('ambrosiaProgress').style.width = `${barWidth}%`
-  DOMCacheGetOrSet('ambrosiaProgressText').textContent = `${format(player.blueberryTime, 0, true)} / ${
-    format(requiredTime, 0, true)
-  } [+${format(totalTimePerSecond, 0, true)}/s]`
+
+  if (player.visitedAmbrosiaSubtab) {
+    DOMCacheGetOrSet('ambrosiaProgressText').textContent = `${format(player.blueberryTime, 0, true)} / ${
+      format(requiredTime, 0, true)
+    } [+${format(totalTimePerSecond, 0, true)}/s]`
+  } else {
+    DOMCacheGetOrSet('ambrosiaProgressText').textContent = i18next.t('ambrosia.notUnlocked')
+  }
 
   DOMCacheGetOrSet('pixelProgress').style.width = `${pixelBarWidth}%`
-  DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.redAmbrosiaTime, 0, true)} / ${
-    format(requiredTimeRed, 0, true)
-  } [+${format(totalTimePerSecondRed, 2, true)}/s]`
+
+  if (player.visitedAmbrosiaSubtabRed) {
+    DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.redAmbrosiaTime, 0, true)} / ${
+      format(requiredTimeRed, 0, true)
+    } [+${format(totalTimePerSecondRed, 2, true)}/s]`
+  } else {
+    DOMCacheGetOrSet('pixelProgressText').textContent = i18next.t('redAmbrosia.notUnlocked')
+  }
   const extraLuckHTML = luckBonusPercent > 0.01
     ? `[<span style='color: var(--amber-text-color)'>☘${
       format(

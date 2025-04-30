@@ -538,7 +538,7 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
   },
   infiniteShopUpgrades: {
     costFormula: (level: number, baseCost: number) => {
-      return baseCost + 25 * level
+      return baseCost + 100 * level
     },
     rewards: (n: number) => {
       return {
@@ -546,8 +546,8 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
         freeLevels: n
       }
     },
-    maxLevel: 75,
-    costPerLevel: 75
+    maxLevel: 40,
+    costPerLevel: 200
   },
   redAmbrosiaAccelerator: {
     costFormula: (level: number, baseCost: number) => {

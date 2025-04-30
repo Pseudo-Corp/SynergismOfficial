@@ -2446,15 +2446,15 @@ export const allLuckConversionStats: StatLine[] = [
   },
   {
     i18n: 'ShopRedLuck1',
-    stat: () => player.shopUpgrades.shopRedLuck1 === shopData.shopRedLuck1.maxLevel ? -0.75 : 0 // Shop Red Luck I
+    stat: () => -0.01 * Math.floor(player.shopUpgrades.shopRedLuck1 / 20) // Shop Red Luck I
   },
   {
     i18n: 'ShopRedLuck2',
-    stat: () => player.shopUpgrades.shopRedLuck2 === shopData.shopRedLuck2.maxLevel ? -0.75 : 0 // Shop Red Luck II
+    stat: () => -0.01 * Math.floor(player.shopUpgrades.shopRedLuck2 / 20) // Shop Red Luck II
   },
   {
     i18n: 'ShopRedLuck3',
-    stat: () => player.shopUpgrades.shopRedLuck3 === shopData.shopRedLuck3.maxLevel ? -0.5 : 0 // Shop Red Luck III
+    stat: () => -0.01 * Math.floor(player.shopUpgrades.shopRedLuck3 / 20) // Shop Red Luck III
   }
 ]
 
@@ -2556,9 +2556,9 @@ export const allShopTablets: StatLine[] = [
     i18n: 'Orange',
     stat: () => {
       if (player.highestSingularityCount >= 280) {
-        return Math.floor(1.25 * (player.highestSingularityCount - 200))
+        return Math.floor(0.8 * (player.highestSingularityCount - 200))
       } else if (player.highestSingularityCount >= 250) {
-        return player.highestSingularityCount - 200
+        return Math.floor(0.5 * (player.highestSingularityCount - 200))
       } else {
         return 0
       }
@@ -2580,15 +2580,15 @@ export const allShopTablets: StatLine[] = [
   },
   {
     i18n: 'Blue',
-    stat: () => Math.floor(0.01 * player.shopUpgrades.shopInfiniteShopUpgrades * sumOfExaltCompletions()), // Shop Upgrade
+    stat: () => Math.floor(0.005 * player.shopUpgrades.shopInfiniteShopUpgrades * sumOfExaltCompletions()), // Shop Upgrade
     acc: 0,
-    color: 'blue'
+    color: 'lightblue'
   },
   {
     i18n: 'Indigo',
-    stat: () => +player.blueberryUpgrades.ambrosiaInfiniteShopUpgrades.bonus.freeLevels, // Blueberry Upgrade
+    stat: () => +player.blueberryUpgrades.ambrosiaInfiniteShopUpgrades1.bonus.freeLevels, // Blueberry Upgrade
     acc: 0,
-    color: 'indigo'
+    color: 'orchid'
   },
   {
     i18n: 'Violet',

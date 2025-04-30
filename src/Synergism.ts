@@ -1582,12 +1582,12 @@ export const player: Player = {
       blueberryUpgradeData.ambrosiaBaseOffering2,
       'ambrosiaBaseOffering2'
     ),
-    ambrosiaSingReduction: new BlueberryUpgrade(
-      blueberryUpgradeData.ambrosiaSingReduction,
-      'ambrosiaSingReduction'
+    ambrosiaSingReduction1: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaSingReduction1,
+      'ambrosiaSingReduction1'
     ),
-    ambrosiaInfiniteShopUpgrades: new BlueberryUpgrade(
-      blueberryUpgradeData.ambrosiaInfiniteShopUpgrades,
+    ambrosiaInfiniteShopUpgrades1: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaInfiniteShopUpgrades1,
       'ambrosiaInfiniteShopUpgrades'
     ),
     ambrosiaInfiniteShopUpgrades2: new BlueberryUpgrade(
@@ -1595,8 +1595,8 @@ export const player: Player = {
       'ambrosiaInfiniteShopUpgrades2'
     ),
     ambrosiaSingReduction2: new BlueberryUpgrade(
-      blueberryUpgradeData.ambrosiaSingReduction,
-      'ambrosiaSingReduction'
+      blueberryUpgradeData.ambrosiaSingReduction2,
+      'ambrosiaSingReduction2'
     )
   },
 

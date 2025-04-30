@@ -1233,7 +1233,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'offeringEX3':
       lol.innerHTML = i18next.t('shop.upgradeEffects.offeringEX3', {
         amount: format(
-          100 * (Math.pow(1.01, player.shopUpgrades.offeringEX3 + calculateFreeShopInfinityUpgrades()) - 1),
+          100 * (Math.pow(1.012, player.shopUpgrades.offeringEX3 + calculateFreeShopInfinityUpgrades()) - 1),
           2,
           true
         ),
@@ -1247,7 +1247,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'obtainiumEX3':
       lol.innerHTML = i18next.t('shop.upgradeEffects.obtainiumEX3', {
         amount: format(
-          100 * (Math.pow(1.01, player.shopUpgrades.obtainiumEX3 + calculateFreeShopInfinityUpgrades()) - 1),
+          100 * (Math.pow(1.012, player.shopUpgrades.obtainiumEX3 + calculateFreeShopInfinityUpgrades()) - 1),
           2,
           true
         ),
@@ -1268,13 +1268,13 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'seasonPassInfinity':
       lol.innerHTML = i18next.t('shop.upgradeEffects.seasonPassInfinity', {
         amount: format(
-          100 * (Math.pow(1.01, player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()) - 1),
+          100 * (Math.pow(1.012, player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()) - 1),
           2,
           true
         ),
         amount2: format(
           100
-            * (Math.pow(1.01, 1.25 * (player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()))
+            * (Math.pow(1.012, 1.25 * (player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()))
               - 1),
           2,
           true
@@ -1284,7 +1284,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'chronometerInfinity':
       lol.innerHTML = i18next.t('shop.upgradeEffects.chronometerInfinity', {
         amount: format(
-          100 * (Math.pow(1.005, player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) - 1),
+          100 * (Math.pow(1.006, player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) - 1),
           3,
           true
         ),
@@ -1353,19 +1353,19 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'shopRedLuck1':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopRedLuck1', {
         amount: format(0.05 * player.shopUpgrades.shopRedLuck1, 2, true),
-        amount2: (player.shopUpgrades.shopRedLuck1 === shopData.shopRedLuck1.maxLevel ? 0.75 : 0)
+        amount2: format(0.01 * Math.floor(player.shopUpgrades.shopRedLuck1), 2, true)
       })
       break
     case 'shopRedLuck2':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopRedLuck2', {
         amount: format(0.075 * player.shopUpgrades.shopRedLuck2, 2, true),
-        amount2: (player.shopUpgrades.shopRedLuck2 === shopData.shopRedLuck2.maxLevel ? 0.75 : 0)
+        amount2: format(0.01 * Math.floor(player.shopUpgrades.shopRedLuck2), 2, true)
       })
       break
     case 'shopRedLuck3':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopRedLuck3', {
         amount: format(0.1 * player.shopUpgrades.shopRedLuck3, 1, true),
-        amount2: (player.shopUpgrades.shopRedLuck3 === shopData.shopRedLuck3.maxLevel ? 0.5 : 0)
+        amount2: format(0.01 * Math.floor(player.shopUpgrades.shopRedLuck3), 2, true)
       })
       break
     case 'shopAmbrosiaLuck1':
@@ -1456,7 +1456,7 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'shopInfiniteShopUpgrades': {
       const exaltCompletions = sumOfExaltCompletions()
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopInfiniteShopUpgrades', {
-        amount: format(Math.floor(player.shopUpgrades.shopInfiniteShopUpgrades * 0.01 * exaltCompletions), 0, true)
+        amount: format(Math.floor(player.shopUpgrades.shopInfiniteShopUpgrades * 0.005 * exaltCompletions), 0, true)
       })
       break
     }

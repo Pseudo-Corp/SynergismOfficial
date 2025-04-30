@@ -295,7 +295,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
       {
         subTabID: '4',
         get unlocked () {
-          return player.singularityChallenges.noSingularityUpgrades.completions >= 1
+          return player.highestSingularityCount >= 25
         },
         buttonID: 'toggleSingularitySubTab4'
       }
@@ -753,7 +753,9 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
 
     subTabs.tabSwitcher?.()(subTabList.subTabID)
     if (tab.getType() === Tabs.Singularity && page === 3) {
-      player.visitedAmbrosiaSubtab = true
+      if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
+        player.visitedAmbrosiaSubtab = true
+      }
 
       if (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0) {
         player.visitedAmbrosiaSubtabRed = true

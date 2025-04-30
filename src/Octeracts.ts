@@ -669,7 +669,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       const fasterMult = (level >= 10) ? (Math.pow(1e3, level - 10)) : 1
       return baseCost * Math.pow(1e5, level) * fasterMult
     },
-    maxLevel: 16,
+    maxLevel: 20,
     costPerLevel: 1e25,
     effect: (n: number) => {
       return {
@@ -918,10 +918,10 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     }
   },
   octeractInfiniteShopUpgrades: {
-    maxLevel: 100,
+    maxLevel: 80,
     costPerLevel: 1e30,
     costFormula: (level: number, baseCost: number) => {
-      return baseCost * Math.pow(9, level)
+      return baseCost * Math.pow(16, level)
     },
     effect: (n: number) => {
       return {

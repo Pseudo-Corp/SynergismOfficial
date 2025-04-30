@@ -13,13 +13,13 @@
     "ambrosia": "Ambrosia",
     "amount": "Ambrosia: <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Current | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> Lifetime",
     "blueberryAmount": "Blueberries: <<lightblue | {{unspentBlueberries}}>> Unspent | <<lightblue | {{blueberries}}>> Total",
-    "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> seconds of Blueberry Time.",
+    "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> Ambrosia Bar Points.",
     "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> Ambrosia with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>] {{extra}}",
     "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Generating Ambrosia when <<blue|{{thresholdTimer}}>> is accumulated.",
     "generatedCubeBonus": "Cubes <<yellow|+{{cubeBonus}}>>",
     "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}>>",
     "generatedLuckBonus": "Ambrosia Luck <<lime|+{{luckBonus}}>>",
-    "generatedBlueberryBonus": "Blueberry Generation Speed <<blue|+{{blueberryBonus}}>>",
+    "generatedBlueberryBonus": "Ambrosia Bar Point Gain <<blue|+{{blueberryBonus}}>>",
     "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}>>",
     "generatedOfferingBonus":"Offerings <<orange|+{{offeringBonus}}>>",
     "prerequisite": "Prerequisites:",
@@ -27,13 +27,14 @@
     "blueberryCost": "Blueberries (To Activate):",
     "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
     "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
-    "timeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia.",
-    "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
+    "timeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia.",
+    "cubeUpgradeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia. <<cyan | Ambrosia Bar Point gain +{{percent}}%>>!",
     "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
     "refund": "You have refunded all spent Blueberries and Ambrosia.",
     "refundWord": "Refund",
     "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
+    "notUnlocked": "Clear No Singularity Upgrades, Tier 1!",
     "data": {
       "ambrosiaTutorial": {
         "name": "Ambrosia Tutorial Module",
@@ -117,8 +118,8 @@
       },
       "ambrosiaPatreon": {
         "name": "Shameless, Ambrosial Patreon Reminder",
-        "description": "In every realm, Platonic sells out. +1% Blueberry Generation Speed for every +1% Quarks by the Patreon bonus!",
-        "effect": "Generous Patreon supporters grant you {{amount}}% more Blueberry Time Generation. If you are not already, consider buying PseudoCoins to support development!"
+        "description": "In every realm, Platonic sells out. +1% Ambrosia Bar Point speed for every +1% Quarks by the Patreon bonus!",
+        "effect": "Generous Patreon supporters grant you {{amount}}% more Ambrosia Bar Points. If you are not already, consider buying PseudoCoins to support development!"
       },
       "ambrosiaObtainium1": {
         "name": "RNG-based Obtainium Booster",
@@ -155,12 +156,12 @@
         "description": "+1 Base Offering per level! Channel your... I got nothing.",
         "effect": "This module increases Base Offering by {{amount}}!"
       },
-      "ambrosiaSingReduction": {
+      "ambrosiaSingReduction1": {
         "name": "Singularity Stabilizer Module",
         "description": "Retrofitted with Amber flux capacitors, your Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity per level, if you are NOT! in an EXALT.",
         "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
       },
-      "ambrosiaInfiniteShopUpgrades": {
+      "ambrosiaInfiniteShopUpgrades1": {
         "name": "Indigo Infinity Shop Voucher",
         "description": "A Shop Voucher, printed on an indigo tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
         "effect": "'Infinity' shop upgrades level +{{amount}}"
@@ -199,6 +200,7 @@
     "purchaseWarning": "<<gold | ⚠>> Unlike Blueberry Modules, you <<red | CANNOT>> refund this upgrade. Please spend wisely!",
     "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: &#9861; {{ambrosiaLuck}}>>]",
     "redAmbrosiaBuyPrompt": "How many Red Ambrosia would you like to spend? You have {{amount}} Red Ambrosia. Type -1 to use max!",
+    "notUnlocked": "Clear No Ambrosia Upgrades, Tier 1!",
     "data": {
       "tutorial": {
         "name": "A beginners guide to Red Ambrosia",
@@ -247,8 +249,8 @@
       },
       "blueberryGenerationSpeed": {
         "name": "The Sands of Time",
-        "description": "+0.2% Blueberry Generation Speed per level. They say this hourglass has the benediction of Chronos himself.",
-        "effect": "This upgrade increases Blueberry Generation Speed by {{amount}}!"
+        "description": "+0.2% Ambrosia Bar Point gain per level. They say this hourglass has the benediction of Chronos himself.",
+        "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
       },
       "regularLuck": {
         "name": "Ossified Blueberry Tactics",
@@ -257,8 +259,8 @@
       },
       "redGenerationSpeed": {
         "name": "Millenium-Aged Red Ambrosia",
-        "description": "Surely, with how long this Ambrosia is left to sit, it knows something about time. +0.3% Red Ambrosia Generation Speed per level.",
-        "effect": "This upgrade increases Red Ambrosia Generation Speed by {{amount}}!"
+        "description": "Surely, with how long this Ambrosia is left to sit, it knows something about time. +0.3% more Red Ambrosia Bar Points per level.",
+        "effect": "This upgrade increases Red Ambrosia Bar Point gain by {{amount}}!"
       },
       "redLuck": {
         "name": "The Dice that Decide Your Fate",
@@ -297,8 +299,8 @@
       },
       "redAmbrosiaAccelerator": {
         "name": "Red-Blue Ultrafusion",
-        "description": "When you gain a Red Ambrosia, you gain a bit of progress toward regular Ambrosia! +0.02 real-life seconds of Blueberry Time Generation per level, per Red Ambrosia generated, with the first level giving +1!",
-        "effect": "Each Red Ambrosia generated grants {{amount}} seconds of Blueberry Time Generation."
+        "description": "When you gain a Red Ambrosia, you gain a bit of progress toward regular Ambrosia! +0.02 real-life seconds of Ambrosia Bar Points per level, per Red Ambrosia generated, with the first level giving +1!",
+        "effect": "Each Red Ambrosia generated grants {{amount}} real-life seconds of Ambrosia Bar Points."
       },
       "regularLuck2": {
         "name": "Ossified Blueberry Tactics II",
@@ -307,8 +309,8 @@
       },
       "blueberryGenerationSpeed2": {
         "name": "The Sands of Time II",
-        "description": "This gives +0.1% Blueberry Generation Speed per level, but you can purchase a ton of levels of this!",
-        "effect": "This upgrade increases Blueberry Generation Speed by {{amount}}!"
+        "description": "This gives +0.1% Ambrosia Bar Point gain per level, but you can purchase a ton of levels of this!",
+        "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
       }
     }
   },
@@ -350,26 +352,26 @@
       "34": "[[34]] Golden Paradise: Create 17,777 Alchemies.",
       "35": "[[35]] Unlocking secrets to the world: Create 42,777 Alchemies.",
       "36": "[[36]] Leveling up: Prestige for at least 1 Diamond.",
-      "37": "[[37]] High-Tiered: Prestige for at least 1e+6 Diamonds.",
-      "38": "[[38]] Highly Regarded: Prestige for at least 1e+100 Diamonds.",
-      "39": "[[39]] Prestigious: Prestige for at least 1e+1000 Diamonds.",
-      "40": "[[40]] Legendary: Prestige for at least 1e+10000 Diamonds.",
-      "41": "[[41]] Divine: Prestige for at least 1e+77777 Diamonds.",
-      "42": "[[42]] Perfectly Respected: Prestige for at least 1e+250000 Diamonds.",
+      "37": "[[37]] High-Tiered: Prestige for at least 1e6 Diamonds.",
+      "38": "[[38]] Highly Regarded: Prestige for at least 1e100 Diamonds.",
+      "39": "[[39]] Prestigious: Prestige for at least 1e1,000 Diamonds.",
+      "40": "[[40]] Legendary: Prestige for at least 1e10,000 Diamonds.",
+      "41": "[[41]] Divine: Prestige for at least 1e77,777 Diamonds.",
+      "42": "[[42]] Perfectly Respected: Prestige for at least 1e250,000 Diamonds.",
       "43": "[[43]] A Simple Detour: Transcend for at least 1 Mythos.",
-      "44": "[[44]] Tunnel Vision: Transcend for at least 1e+6 Mythos.",
-      "45": "[[45]] Risen from the Ashes: Transcend for at least 1e+50 Mythos.",
-      "46": "[[46]] Paradigm Shift: Transcend for at least 1e+308 Mythos.",
-      "47": "[[47]] Preparation: Transcend for at least 1e+2000 Mythos.",
-      "48": "[[48]] Revising the Plan: Transcend for at least 1e+25000 Mythos.",
-      "49": "[[49]] Leaving the Universe: Transcend for at least 1e+100000 Mythos.",
+      "44": "[[44]] Tunnel Vision: Transcend for at least 1e6 Mythos.",
+      "45": "[[45]] Risen from the Ashes: Transcend for at least 1e50 Mythos.",
+      "46": "[[46]] Paradigm Shift: Transcend for at least 1e308 Mythos.",
+      "47": "[[47]] Preparation: Transcend for at least 1e1,500 Mythos.",
+      "48": "[[48]] Revising the Plan: Transcend for at least 1e25,000 Mythos.",
+      "49": "[[49]] Leaving the Universe: Transcend for at least 1e100,000 Mythos.",
       "50": "[[50]] Going Quantum: Reincarnate for at least 1 Particle.",
       "51": "[[51]] Tunneling Vision: Reincarnate for at least 100,000 Particles.",
-      "52": "[[52]] Simulating the World: Reincarnate for at least 1e+30 Particles.",
-      "53": "[[53]] Multidimensional Creation: Reincarnate for at least 1e+200 Particles.",
-      "54": "[[54]] Lepton Dance: Reincarnate for at least 1e+1500 Particles.",
-      "55": "[[55]] Do we have enough yet?: Reincarnate for at least 1e+5000 Particles.",
-      "56": "[[56]] I Feel Luck in My Cells: Reincarnate for at least 1e+7777 Particles.",
+      "52": "[[52]] Simulating the World: Reincarnate for at least 1e30 Particles.",
+      "53": "[[53]] Multidimensional Creation: Reincarnate for at least 1e200 Particles.",
+      "54": "[[54]] Lepton Dance: Reincarnate for at least 1e1,500 Particles.",
+      "55": "[[55]] Do we have enough yet?: Reincarnate for at least 1e5,000 Particles.",
+      "56": "[[56]] I Feel Luck in My Cells: Reincarnate for at least 1e7,777 Particles.",
       "57": "[[57]] One Way Only: Prestige without buying Multipliers.",
       "58": "[[58]] Authentic Shifting: Transcend without having bought a Multiplier.",
       "59": "[[59]] The Singularity: Reincarnate without having bought a Multiplier.",
@@ -825,18 +827,18 @@
       "8": "Generates {{x}} ALMIGHTIES/sec"
     },
     "rewards": {
-      "1": "CURRENT EFFECT: ALL Ants work at {{x}}x speed.",
-      "2": "CURRENT EFFECT: Crumb --> Coin exponent is ^{{x}}",
-      "3": "CURRENT EFFECT: Tax growth is multiplied by {{x}}",
-      "4": "CURRENT EFFECT: Accelerator Boosts +{{x}}%",
-      "5": "CURRENT EFFECT: Multipliers +{{x}}%",
-      "6": "CURRENT EFFECT: Offerings x{{x}}",
-      "7": "CURRENT EFFECT: Building Costs scale {{x}}% slower!",
-      "8": "CURRENT EFFECT: Rune EXP is multiplied by {{x}}!",
-      "9": "CURRENT EFFECT: Each rune has +{{x}} effective levels.",
-      "10": "CURRENT EFFECT: Obtainium x{{x}}",
-      "11": "CURRENT EFFECT: Sacrificing is {{x}}x as effective",
-      "12": "CURRENT EFFECT: Global timer is sped up by a factor of {{x}}"
+      "1": "ALL Ants work at {{x}}x speed.",
+      "2": "Crumb --> Coin exponent is ^{{x}}",
+      "3": "Tax growth is multiplied by {{x}}",
+      "4": "Accelerator Boosts +{{x}}%",
+      "5": "Multipliers +{{x}}%",
+      "6": "Offerings x{{x}}",
+      "7": "Building Costs scale {{x}}% slower!",
+      "8": "Rune EXP is multiplied by {{x}}!",
+      "9": "Each rune has +{{x}} effective levels.",
+      "10": "Obtainium x{{x}}",
+      "11": "Sacrificing is {{x}}x as effective",
+      "12": "Global Speed is multiplied by {{x}}"
     },
     "header": "The ants welcome you to their home.",
     "hover": "Hover over the icons for description. Click icons to buy!",
@@ -1590,7 +1592,7 @@
       "calculator4": "The PL-AT δ runs at 4,096Hz, which is a huge improvement over previous models. Add attempts refill 4% faster per level! Final level adds 32 additional capacity!",
       "calculator5": "The PL-AT Γ model somehow performs more 'powerful' computations, whatever that means. +6 seconds of GQ Export timer per level. +1 capacity every 10 levels, with 6 more at final level!",
       "calculator6": "The PL-AT _ model was made by Derpsmith, before he was banished from the industry forever. Gain 1 second of Octeract per usage per level. Final level grants 24 additional capacity!",
-      "calculator7": "The PL-AT ΩΩ model was made by Derpsmith Ω, before he was banished from the industry forever. Gain 1 second of Blueberry Time per usage per level. Final level grants 48 additional capacity!",
+      "calculator7": "The PL-AT ΩΩ model was made by Derpsmith Ω, before he was banished from the industry forever. Gain 1 real-life second of Ambrosia Bar Points per usage per level. Final level grants 48 additional capacity!",
       "constantEX": "The merchant has one last trick up its sleeve: It can augment your second constant upgrade to be marginally better, but it'll cost an arm and a leg! Instead of the cap being 10% (or 11% with achievements) it will be raised by 1% per level.",
       "powderEX": "Platonic himself gives you 2% better conversion rate on Overflux Orbs to Powder per level. This activates when Orbs expire.",
       "chronometer2": "Okay, fine. Here's another +0.6% Ascension Speed per level, stacks multiplicatively with the first upgrade!",
@@ -1616,35 +1618,35 @@
       "shopImprovedDaily2": "Gain 1 additional free Singularity Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily3": "Gain 1 additional free Singularity Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily4": "Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
-      "offeringEX3": "[Supplied by - Infinity CO.] Gain 1% more Offerings per level, multiplicative! (Multiplier is 1.01^level). Every 25 levels, gain +1 Base Offering!",
-      "obtainiumEX3": "[Supplied by - Infinity CO.] Gain 1% more Obtainium per level, multiplicative! (Multiplier is 1.01^level). Every 25 levels, gain 6% more Immaculate Obtainium Multiplier! (1.06^[level/25])",
-      "chronometerInfinity": "[Supplied by - Infinity CO.] Gain 0.5% more Ascension Speed per level, multiplicative! (Multiplier is 1.005^level). Every 40 levels, gain +0.001 spread on Ascension Speed exponent modifiers on speeds greater than or less than 1 (Check Stats for Nerds for this one)!",
-      "seasonPassInfinity": "[Supplied by - Infinity CO.] Gain 1% more cubes per level, multiplicative! (Multiplier is 1.01^level). This effect is raised to the power of 1.25 for Octeract calculations!",
+      "offeringEX3": "[Supplied by - Infinity CO.] Gain 1.2% more Offerings per level, multiplicative! (Multiplier is 1.012^level). Every 25 levels, gain +1 Base Offering!",
+      "obtainiumEX3": "[Supplied by - Infinity CO.] Gain 1.2% more Obtainium per level, multiplicative! (Multiplier is 1.012^level). Every 25 levels, gain 6% more Immaculate Obtainium Multiplier! (1.06^[level/25])",
+      "chronometerInfinity": "[Supplied by - Infinity CO.] Gain 0.6% more Ascension Speed per level, multiplicative! (Multiplier is 1.006^level). Every 40 levels, gain +0.001 spread on Ascension Speed exponent modifiers on speeds greater than or less than 1 (Check Stats for Nerds for this one)!",
+      "seasonPassInfinity": "[Supplied by - Infinity CO.] Gain 1.2% more cubes per level, multiplicative! (Multiplier is 1.012^level). This effect is raised to the power of 1.25 for Octeract calculations!",
       "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.",
       "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
       "improveQuarkHept5": "[NOT Supplied by - Infinity CO.] This is 1/50 as effective as a normal improver. Why? Because of balancing...",
-      "shopAmbrosiaGeneration1": "Buying this charm grants +1% faster Blueberry Time generation per level, for more Ambrosia! Don't know what that means? You soon will.",
-      "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% faster Blueberry Time generation per level, stacking multiplicatively.",
-      "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% faster Blueberry Time generation per level, stacking multiplicatively.",
-      "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +0.1% faster Blueberry Time generation per level, stacking multiplicatively.",
+      "shopAmbrosiaGeneration1": "Buying this charm grants +1% more Ambrosia Bar Points per level, for more Ambrosia! Don't know what that means? You soon will.",
+      "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% more Ambrosia Bar Points per level, stacking multiplicatively.",
+      "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% more Ambrosia Bar Points per level, stacking multiplicatively.",
+      "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +0.1% more Ambrosia Bar Points per level, stacking multiplicatively.",
       "shopAmbrosiaLuck1": "Buying this charm grants +2 ☘ Ambrosia luck per level, for more Ambrosia! Don't know what that means? You soon will.",
       "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
       "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +2 ☘ Ambrosia luck per level, stacking additively.",
       "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +0.6 ☘ Ambrosia luck per level, stacking additively.",
-      "shopRedLuck1": "A small, lesser dice from the tactician of gambling himself. +0.05 &#9861 Red Ambrosia Luck per level. With the final level, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.75.",
-      "shopRedLuck2": "This one seems to have a heavy side. I wonder what that is about. +0.075 &#9861 Red Ambrosia Luck per level. With the final level, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.75.",
-      "shopRedLuck3": "When you pick up this dice, it phases out of existence, then returns, the six face-up. +0.1 &#9861 Red Ambrosia Luck per level. With the final level, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.5.",
+      "shopRedLuck1": "A small, lesser dice from the tactician of gambling himself. +0.05 &#9861 Red Ambrosia Luck per level. Every 20 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.01.",
+      "shopRedLuck2": "This one seems to have a heavy side. I wonder what that is about. +0.075 &#9861 Red Ambrosia Luck per level. Every 20 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.01.",
+      "shopRedLuck3": "When you pick up this dice, it phases out of existence, then returns, the six face-up. +0.1 &#9861 Red Ambrosia Luck per level. Every 20 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.01.",
       "shopAmbrosiaLuckMultiplier4": "Gain ☘ +1% Ambrosia Luck per level! Simple as that.",
       "shopOcteractAmbrosiaLuck": "Gain ☘ +1 Ambrosia Luck per digit in your Wow! Octeract inventory per level. Simple as that.",
       "shopCashGrabUltra": "For a nominal price, gain up to +20% Blueberry Speed, +80% Cubes and +12% Quarks per level based on Ambrosia, scaling nonlinearly until 10,000,000 lifetime earned.",
-      "shopAmbrosiaAccelerator": "Each level of this 'accelerator' provides <<cyan|+0.2>> real-life seconds of Blueberry Generation for every <<orange|1>> Ambrosia gained, from any source!",
+      "shopAmbrosiaAccelerator": "Each level of this 'accelerator' provides <<cyan|+0.2>> real-life seconds worth of Ambrosia Bar Points for every <<orange|1>> Ambrosia gained, from any source!",
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +1 permanent ☘ Ambrosia Luck, per level.",
       "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?",
-      "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +0.01 effective level for the 'Infinity CO.' Quark shop upgrades, multiplied by your total number of EXALT completions!"
+      "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +0.005 effective levels for the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down."
     },
     "maxed": "Maxed!",
     "upgradeFor": "Upgrade for {{x}} Quarks",
@@ -1695,7 +1697,7 @@
       "calculator4": "Code 'add' refills <<orchid|{{amount1}}%>> faster. Capacity is increased by <<orchid|+{{amount2}}>>.",
       "calculator5": "Code 'add' generates <<orchid|{{amount1}}>> seconds of GQ export timer. Capacity is increased by <<orchid|+{{amount2}}>>.",
       "calculator6": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Octeracts. Capacity is increased by <<orchid|+{{amount2}}>>.",
-      "calculator7": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Blueberry Generation. Capacity is increased by <<orchid|+{{amount2}}>>.",
+      "calculator7": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Ambrosia Bar Points. Capacity is increased by <<orchid|+{{amount2}}>>.",
       "constantEX": "<<orange|+{{amount}}>> max percent on Constant Upgrade 2'",
       "powderEX": "Gain <<red|+{{amount}}%>> Overflux Powder when Overflux Orbs expire (midnight, daily).",
       "chronometer2": "Ascension timer increases <<orange|{{amount}}%>> faster!",
@@ -1730,10 +1732,10 @@
       "shopSingularityPenaltyDebuff": "At Singularity <<pink|{{amount1}}>>, your debuffs are as if you were in <<pink|{{amount2}}>>.",
       "shopAmbrosiaLuckMultiplier4": "Gain <<green|☘ +{{amount}}%>> Ambrosia Luck!",
       "shopOcteractAmbrosiaLuck": "Octeracts grant <<green|☘ +{{amount}}>> Ambrosia Luck!",
-      "shopAmbrosiaGeneration1": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
-      "shopAmbrosiaGeneration2": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
-      "shopAmbrosiaGeneration3": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
-      "shopAmbrosiaGeneration4": "Blueberry Time is generated <<blue|{{amount}}%>> faster.",
+      "shopAmbrosiaGeneration1": "Ambrosia Bar Points are generated <<blue|{{amount}}%>> faster.",
+      "shopAmbrosiaGeneration2": "Ambrosia Bar Points are generated <<blue|{{amount}}%>> faster.",
+      "shopAmbrosiaGeneration3": "Ambrosia Bar Points are generated <<blue|{{amount}}%>> faster.",
+      "shopAmbrosiaGeneration4": "Ambrosia Bar Points are generated <<blue|{{amount}}%>> faster.",
       "shopAmbrosiaLuck1": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
       "shopAmbrosiaLuck2": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
       "shopAmbrosiaLuck3": "Ambrosia Luck <<lime|☘ +{{amount}}>>",
@@ -1741,8 +1743,8 @@
       "shopRedLuck1": "Red Ambrosia Luck <<red|&#9861 +{{amount}}>>, Conversion Ratio <<brown|-{{amount2}}>>",
       "shopRedLuck2": "Red Ambrosia Luck <<red|&#9861 +{{amount}}>>, Conversion Ratio <<brown|-{{amount2}}>>",
       "shopRedLuck3": "Red Ambrosia Luck <<red|&#9861 +{{amount}}>>, Conversion Ratio <<brown|-{{amount2}}>>",
-      "shopCashGrabUltra": "Blueberry Generation is <<blue|{{amount}}%>> faster. Also, Cubes <<white|+{{amount2}}%>>! Finally, Quarks <<cyan|+{{amount3}}%>>!",
-      "shopAmbrosiaAccelerator": "For every <<orange|Ambrosia>> gained, add <<cyan|{{amount}}>> seconds of Blueberry Generation (<<cyan|{{amount2}}>> Blueberry Seconds)!",
+      "shopCashGrabUltra": "Ambrosia Bar Point gain is <<blue|{{amount}}%>> faster. Also, Cubes <<white|+{{amount2}}%>>! Finally, Quarks <<cyan|+{{amount3}}%>>!",
+      "shopAmbrosiaAccelerator": "For every <<orange|Ambrosia>> gained, generate <<cyan|{{amount}}>> real-life seconds of Ambrosia Bar Points (<<cyan|{{amount2}}>> ABP)!",
       "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}%>>!",
       "shopChronometerS": "Ascension Speed and Global Speed are both increased by <<orange|{{amount}}%>>!",
       "shopAmbrosiaUltra": "Gain <<lime|☘ +{{amount}}>> Ambrosia Luck from your EXALT completions!",
@@ -1986,8 +1988,8 @@
       },
       "infiniteShopUpgrades": {
         "name": "Orange Infinity Shop Voucher",
-        "default": "Gain +1 to 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200. Currently: {{amt}}",
-        "level2": "Gain +1.25 to 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200, rounded down! Currently: {{amt}}"
+        "default": "Gain +0.5 to 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200, rounded down!. Currently: {{amt}}",
+        "level2": "Gain +0.8 to 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200, rounded down! Currently: {{amt}}"
       }
     },
     "toString": {
@@ -2466,7 +2468,7 @@
       "goldenQuarks": "Golden Quarks",
       "quarks": "Quarks",
       "ascensionScore": "Ascension Score",
-      "blueberryGenerationSpeed": "Blueberry Generation Speed",
+      "blueberryGenerationSpeed": "Ambrosia Bar Points / second",
       "ambrosiaLuck": "Ambrosia Luck",
       "powderConversion": "Powder Conversion",
       "antSacrifice": "Ant Sacrifice",
@@ -3090,7 +3092,7 @@
         "goldenQuark": "Increase Golden Quark gain by <<gold | {{ reward }}>> (Maximum +25%).",
         "octeract": "Increase Octeract gain by <<teal | {{ reward }}>> (Maximum +50%).",
         "ambrosiaLuck": "Increase ☘ Ambrosia Luck by <<green | {{ reward }}>> (Maximum ☘ +100).",
-        "blueberrySpeed": "Increase Blueberry Generation Speed by <<blue | {{ reward }}>> (Maximum +10%)."
+        "blueberrySpeed": "Increase Ambrosia Bar Points gain by <<blue | {{ reward }}>> (Maximum +10%)."
       }
     },
     "currentCampaignPreTitle": "Current Campaign: ",
@@ -3125,7 +3127,7 @@
     },
     "currentLevel": {
       "viscosity": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-      "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+      "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is multiplied by {{ effect }}",
       "hyperchallenge": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
       "illiteracy": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
       "deflation": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
@@ -3135,7 +3137,7 @@
     },
     "prototypeLevel": {
       "viscosity": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-      "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+      "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is multiplied by {{ effect }}",
       "hyperchallenge": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
       "illiteracy": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
       "deflation": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
@@ -3742,7 +3744,7 @@
         "name": "One Challenge Caps",
         "description": "Beat the target Singularity, but the first 14 Challenges have cap of only 1!",
         "ScalingReward1": "+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
-        "ScalingReward2": "+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+        "ScalingReward2": "+1% <<var(--blueberry-box-color)|Ambrosia Bar Points>> gained",
         "UniqueReward1": "1st - +3 <<green|Reincarnation Challenge>> Cap!",
         "UniqueReward2": "20th - +1 Free <<var(--red-text-color)|Corruption Level>>",
         "UniqueReward3": "20th - A new <<orchid|Quark Shop>> upgrade!",
@@ -3768,9 +3770,9 @@
         "name": "No Ambrosia Upgrades",
         "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
         "ScalingReward1": "+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
-        "ScalingReward2": "+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+        "ScalingReward2": "+2% <<var(--blueberry-box-color)|Ambrosia Bar Point>> gain",
         "ScalingReward3": "+4 <<red|&#9861 Red Ambrosia Luck>>",
-        "ScalingReward4": "+1% <<red|Red Generation>> Speed",
+        "ScalingReward4": "+1% <<red|Red Bar Point>> gain",
         "UniqueReward1": "1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
         "UniqueReward2": "1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
         "UniqueReward3": "1st - Unlock <<red|Red Ambrosia>>! It's like Ambrosia, but <<red|red>>.",
@@ -3786,7 +3788,7 @@
         "ScalingReward2": "+6% <<orange|Ascension Speed>>!",
         "ScalingReward3": "+1% <<cyan|Quarks>>!",
         "ScalingReward4": "-1% <<red|Red Bar Fill Requirements>>!",
-        "UniqueReward1": "1st - your quarks no longer reset on singulatity!",
+        "UniqueReward1": "1st - Your quarks no longer reset on Singularity!",
         "UniqueReward2": "15th - A new <<orchid|Quark Shop>> upgrade!",
         "UniqueReward3": "25th - A very expensive, not good, pretty bad <<orange|Quark Shop>> upgrade!"
       },
@@ -3882,10 +3884,10 @@
       "ambrosiaAdditiveLuckMult": "Ambrosia Luck Mult",
       "ambrosiaLuck": "Ambrosia Luck",
       "ambrosiaBlueberries": "Blueberry Inventory",
-      "ambrosiaGenMult": "Ambrosia Generation",
+      "ambrosiaGenMult": "Ambrosia Bar Points",
       "luckConversion": "Luck Conversion",
       "redAmbrosiaLuck": "Red Ambrosia Luck",
-      "redAmbrosiaGenMult": "Red Ambrosia Generation",
+      "redAmbrosiaGenMult": "Red Ambrosia Bar Points",
       "shopVouchers": "Shop Vouchers",
       "generate": "Generate Savefile Stats Summary"
     },
@@ -4397,7 +4399,7 @@
       "Total": "Total Blueberries Owned:"
     },
     "ambrosiaGenerationStats": {
-      "title": "Ambrosia Generation",
+      "title": "Ambrosia Bar Points",
       "VisitedTab": "Visited Ambrosia Tab:",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Campaign": "Campaign Bonus:",
@@ -4412,9 +4414,9 @@
       "CookieUpgrade26": "Cookie Upgrade 26 (Cx26):",
       "Event": "Event Bonus:",
       "CashGrabUltra": "Cash Grab ULTRA Blueberry Bonus:",
-      "Total": "Blueberry Time / Sec:",
+      "Total": "Ambrosia Bar Points/s:",
       "BlueberryCount": "Number of Blueberries Owned:",
-      "Total2": "Final Blueberry Time/Sec:"   
+      "Total2": "Final Ambrosia Bar Points/s:"   
     },
     "powderMultiplierStats": {
       "title": "Orb to Powder Conversion",
@@ -4533,13 +4535,13 @@
       "Total": "Total Red Ambrosia Luck:"
     },
     "redAmbrosiaGenerationStats": {
-      "title": "Red Ambrosia Generation",
+      "title": "Red Ambrosia Bar Points",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Base": "Visited Ambrosia Subtab after clearing EXALT 5x1:",
       "BlueberrySpeed": "Speed from Ambrosia (0.5 DR after 1,000):",
       "RedAmbrosia": "Millenium-Aged Red Ambrosia:",
       "Exalt5": "EXALT Reward - No Ambrosia Upgrades:",
-      "Total": "Total Red Ambrosia Generation:"
+      "Total": "Total Red Ambrosia Bar Points/s:"
     },
     "shopVoucherStats": {
       "title": "Free 'Infinity CO' Quark Shop Levels",
@@ -4884,7 +4886,7 @@
         "calculator3": "Thanks to PL-AT Ω you have also gained {{x}} real-life seconds to your Ascension Timer!",
         "calculator5": "Thanks to PL-AT Γ you have additionally gained {{x}} real-life seconds to your GQ Export Timer!",
         "calculator6": "Thanks to PL-AT _ you have gained {{x}} seconds of Octeract generation!",
-        "calculator7": "Finally, thanks to PL-AT Ω you have gained {{x}} seconds of Blueberry Time Generation!",
+        "calculator7": "Finally, thanks to PL-AT Ω you have gained {{x}} real-life seconds of Ambrosia Bar Points!",
         "calculatorSolution": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}? The answer is {{z}} according to your calculator.",
         "calculatorPrompt": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}?",
         "calculatorMaxed": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks! {{e}} {{f}} {{g}} {{h}} {{i}} You have {{j}} uses of Add. You will gain 1 in {{k}} seconds.",
@@ -4911,7 +4913,7 @@
         "confirm": "Click the button within the next 15 seconds to test your luck! If you click within {{x}} ms of a randomly generated time, you will win a prize! This particular instance has a {{y}}x multiplier due to elapsed time between uses.",
         "won": "You clicked at the right time! [+{{x}} Quarkies]",
         "lost": "You didn't guess the right time, try again soon!",
-        "ambrosia": "Your blueberries resonate slightly, giving {{blueberryTime}} real life seconds of Blueberry Time."
+        "ambrosia": "Your blueberries resonate slightly, giving {{blueberryTime}} real-life seconds of Ambrosia Bar Points."
       },
       "spoiler": {
         "moreThan1": "You will gain {{x}} Octeracts (when they come out) every second, assuming you have them unlocked!",
@@ -5011,7 +5013,7 @@
       "INSTANT_UNLOCK_2": "The Rune of Infinite Ascent is <<gold | {{descriptor}}>> always unlocked! <<orange | Bonus Levels +{{amount}}>>",
       "CUBE_BUFF": "Cube Gain is multiplied by <<gold | {{amount}}>>",
       "AMBROSIA_LUCK_BUFF": "Ambrosia Luck is increased by <<gold | {{amount}}>>",
-      "AMBROSIA_GENERATION_BUFF": "Blueberry Generation Speed is multiplied by <<gold | {{amount}}>>",
+      "AMBROSIA_GENERATION_BUFF": "Ambrosia Bar Points production is multiplied by <<gold | {{amount}}>>",
       "GOLDEN_QUARK_BUFF": "Golden Quark Gain is multiplied by <<gold | {{amount}}>>",
       "FREE_UPGRADE_PROMOCODE_BUFF": "Code 'Daily' gives <<gold | {{amount}}x>> the Free Upgrades!",
       "CORRUPTION_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Corruption Loadout slots!",
@@ -5022,7 +5024,7 @@
       "BASE_OFFERING_BUFF": "Base Offering Gain is increased by <<gold | {{amount}}>>",
       "BASE_OBTAINIUM_BUFF": "Base Obtainium Gain is increased by <<gold | {{amount}}>>",
       "RED_LUCK_BUFF": "Red Ambrosia Luck is increased by <<gold | {{amount}}>>",
-      "RED_GENERATION_BUFF": "Red Ambrosia Generation Speed is multiplied by <<gold | {{amount}}>>"
+      "RED_GENERATION_BUFF": "Red Ambrosia Bar Point gain is multiplied by <<gold | {{amount}}>>"
     },
     "consumables": {
       "tipReceived": "{{offlineTime}} people tipped you in the last minute!",

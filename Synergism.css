@@ -3764,7 +3764,7 @@ header #obtainiumDisplay { color: pink; }
     height: 30px;
     cursor: pointer;
     text-align: center;
-    border: 2px solid orange
+    border: 2px solid orange;
 }
 
 .blueberryLoadoutSlot {
@@ -4135,7 +4135,7 @@ img#singularityPerksIcon {
 
 .notMaxBlueberryLevel,
 .notMaxRedAmbrosiaLevel {
-    color: white
+    color: white;
 }
 
 /* Stolen from https://codepen.io/mike-schultz/pen/NgQvGO */
@@ -4787,8 +4787,6 @@ form input:hover {
 .fastForwardVisible {
     display: flex !important;
 }
-
-
 
 h2,
 h3 {

@@ -37,8 +37,8 @@ export type blueberryUpgradeNames =
   | 'ambrosiaBaseOffering2'
   | 'ambrosiaBaseObtainium2'
   | 'ambrosiaHyperflux'
-  | 'ambrosiaSingReduction'
-  | 'ambrosiaInfiniteShopUpgrades'
+  | 'ambrosiaSingReduction1'
+  | 'ambrosiaInfiniteShopUpgrades1'
   | 'ambrosiaInfiniteShopUpgrades2'
   | 'ambrosiaSingReduction2'
 
@@ -231,7 +231,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
         'general.level'
       )
     } ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>${preReqText ? `\n ${preReqText}` : ''}${
-      this.ignoreEXALT ? `\n<span style="color: orchid"> ${i18next.t('ambrosia.ignoreEXALT')}</span>\n` : ''
+      this.ignoreEXALT ? `\n<span style="color: orchid"> ${i18next.t('ambrosia.ignoreEXALT')}</span>\n` : '\n'
     }<span style="color: lightblue">${this.description}</span>
                 <span style="color: gold">${this.rewardDesc}</span>
                 ${
@@ -956,7 +956,7 @@ export const blueberryUpgradeData: Record<
     },
     extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow4').bonus.freeLevels
   },
-  ambrosiaSingReduction: {
+  ambrosiaSingReduction1: {
     maxLevel: 2,
     costPerLevel: 100000,
     blueberryCost: 2,
@@ -968,7 +968,7 @@ export const blueberryUpgradeData: Record<
       return {
         singularityReduction: val,
         desc: String(
-          i18next.t('ambrosia.data.ambrosiaSingReduction.effect', {
+          i18next.t('ambrosia.data.ambrosiaSingReduction1.effect', {
             amount: format(val, 0, true)
           })
         )
@@ -979,9 +979,9 @@ export const blueberryUpgradeData: Record<
     },
     extraLevelCalc: () => 0
   },
-  ambrosiaInfiniteShopUpgrades: {
-    maxLevel: 75,
-    costPerLevel: 10000,
+  ambrosiaInfiniteShopUpgrades1: {
+    maxLevel: 20,
+    costPerLevel: 25000,
     blueberryCost: 1,
     costFormula: (level: number, baseCost: number): number => {
       return baseCost + 0 * level
@@ -991,7 +991,7 @@ export const blueberryUpgradeData: Record<
       return {
         freeLevels: val,
         desc: String(
-          i18next.t('ambrosia.data.ambrosiaInfiniteShopUpgrades.effect', {
+          i18next.t('ambrosia.data.ambrosiaInfiniteShopUpgrades1.effect', {
             amount: format(val, 0, true)
           })
         )
@@ -1005,8 +1005,8 @@ export const blueberryUpgradeData: Record<
     extraLevelCalc: () => getRedAmbrosiaUpgrade('freeLevelsRow4').bonus.freeLevels
   },
   ambrosiaInfiniteShopUpgrades2: {
-    maxLevel: 50,
-    costPerLevel: 45000,
+    maxLevel: 20,
+    costPerLevel: 75000,
     blueberryCost: 2,
     costFormula: (level: number, baseCost: number): number => {
       return baseCost + 0 * level
@@ -1023,7 +1023,7 @@ export const blueberryUpgradeData: Record<
       }
     },
     prerequisites: {
-      'ambrosiaInfiniteShopUpgrades': 75,
+      'ambrosiaInfiniteShopUpgrades1': 20,
       'ambrosiaCubes2': 50,
       'ambrosiaBaseOffering2': 20,
       'ambrosiaBaseObtainium2': 10

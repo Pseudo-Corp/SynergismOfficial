@@ -108,11 +108,11 @@
                 <img src="Pictures/Default/BackedQuark.png" class="offlineStatIcon">
                 <span id="offlineQuarkCount" class="offlineStatElement" i18n="offlineProgress.exportQuarks"></span>
             </div>
-            <div class="offlineStat octeracts" id="offlineAmbrosiaCountDiv">
+            <div class="offlineStat Exalt1x1" id="offlineAmbrosiaCountDiv">
                 <img src="Pictures/Default/BackedAmbrosia.png" class="offlineStatIcon">
                 <span id="offlineAmbrosiaCount" class="offlineStatElement" i18n="offlineProgress.ambrosia"></span>
             </div>
-            <div class="offlineStat octeracts" id="offlineRedAmbrosiaCountDiv">
+            <div class="offlineStat Exalt5x1" id="offlineRedAmbrosiaCountDiv">
                 <img src="Pictures/Default/BackedRedAmbrosia.png" class="offlineStatIcon">
                 <span id="offlineRedAmbrosiaCount" class="offlineStatElement" i18n="offlineProgress.redAmbrosia"></span>
             </div>
@@ -2103,9 +2103,9 @@
 
             <div id="antrow3" aria-live="polite" style="color:plum">
                 <p id="antspecies" style="font-size: 1.2em; color:royalblue"> <span id="antlevelbonus" style="color: orange"> </span></p>
-                <p id="antupgradedescription"></p>
-                <p id="antupgradecost"></p>
-                <p id="antupgradeeffect"></p>
+                <p id="antupgradedescription" style="color: burlywood"></p>
+                <p id="antupgradecost" style="color: white"></p>
+                <p id="antupgradeeffect" style="color: yellow"></p>
             </div>
 
             <div id="antrow4">
@@ -3926,7 +3926,7 @@
             <button id="toggleSingularitySubTab1" class="active-subtab" style="border: 2px solid silver; color: white;" i18n="tabs.main.shop"></button>
             <button id="toggleSingularitySubTab2" style="border: 2px solid orange; color: white" i18n="tabs.singularity.perks-penalties"></button>
             <button id="toggleSingularitySubTab3" class="octeracts" style="border: 2px solid blue; color: white" i18n="tabs.singularity.octeracts"></button>
-            <button id="toggleSingularitySubTab4" class="ambrosia" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
+            <button id="toggleSingularitySubTab4" class="singChallenges" style="border: 2px solid #ffbf00; color: gold" i18n="tabs.singularity.ambrosia"></button>
         </div>
 
         <div id="singularityContainer1">
@@ -4345,13 +4345,13 @@
 
         <div id="singularityContainer4" style="display: none;">
             <div id="singularityAmbrosia" class="singularityContainer">
-                <div id="ambrosiaDisplay">
+                <div id="ambrosiaDisplay" class="Exalt1x1">
                     <img src="Pictures/Default/Ambrosia.png" loading="lazy">
                     <p id="ambrosiaAmount" class="amberText"></p>
                     <p id="ambrosiaCubeBonus">+500% Cubes</p>
                     <p id="ambrosiaQuarkBonus">+112% Quarks</p>
                 </div>
-                <div id="redAmbrosiaDisplay">
+                <div id="redAmbrosiaDisplay" class="Exalt5x1">
                     <img src="Pictures/RedAmbrosia/RedAmbrosia.png" loading="lazy">
                     <p id="redAmbrosiaAmount" class="amberText"></p>
                     <p id="redAmbrosiaCubeBonus">+2% Cubes</p>
@@ -4359,15 +4359,13 @@
                     <p id="redAmbrosiaObtainiumBonus">+4% Obtainium</p>
                     <p id="redAmbrosiaLuckBonus">+93 Ambrosia Luck</p>
                 </div>
-                <div id="blueberryDisplay">
+                <div id="blueberryDisplay" class="Exalt1x1">
                     <img src="Pictures/Default/Blueberries.png" loading="lazy">
                     <p id="blueberryAmount" class="amberText">Unspent: 1 | Total: 25</p>
                 </div>
-                <div id="ambrosiaTexts">
-                <!--    <p id="ambrosiaChance" class="lightYellowText"></p> -->
+                <div id="ambrosiaTexts" class="Exalt1x1">
                     <p id="ambrosiaAmountPerGeneration" class="lightYellowText"></p>
-                    <p id="redAmbrosiaAmountPerGeneration" class="lightYellowText"></p>
-                <!--    <p id="ambrosiaRNG" class="lightYellowText"></p> -->
+                    <p id="redAmbrosiaAmountPerGeneration" class="lightYellowText Exalt5x1"></p>
                     <p id="ambrosiaThresholdInfo" style="color: lightblue"></p>
                 </div>
                 <div id="ambrosiaProgressBar">
@@ -4378,7 +4376,7 @@
                     <div id="pixelProgress" style="width: 70%;"></div>
                     <span id="pixelProgressText">EVAL 492942 + 4294256!</span>
                 </div>
-                <div class="blueberryBoxColor" id="blueberryUpgradeContainer">
+                <div class="blueberryBoxColor Exalt1x1" id="blueberryUpgradeContainer">
                     <div class="blueberryUpgradeTier">
                         <div class="blueberryUpgrade">
                             <img id="ambrosiaTutorial" src="Pictures/Default/BlueberryTutorial.png">
@@ -4431,7 +4429,7 @@
                             <img id="ambrosiaBaseOffering1" src="Pictures/Default/BlueberryBaseOffering1.png">
                         </div>
                         <div class="blueberryUpgrade">
-                            <img id="ambrosiaSingReduction" src="Pictures/Default/BlueberrySingReduction.png">
+                            <img id="ambrosiaSingReduction1" src="Pictures/Default/BlueberrySingReduction.png">
                         </div>
                         <div class="ambrosiaBorder">
                             <img src="Pictures/RedAmbrosia/AmbrosiaBorders.png">
@@ -4501,7 +4499,7 @@
                             <img id="ambrosiaBaseOffering2" src="Pictures/Default/BlueberryBaseOffering2.png">
                         </div>
                         <div class="blueberryUpgrade">
-                            <img id="ambrosiaInfiniteShopUpgrades" src="Pictures/Default/BlueberryInfiniteShopUpgrades.png">
+                            <img id="ambrosiaInfiniteShopUpgrades1" src="Pictures/Default/BlueberryInfiniteShopUpgrades.png">
                         </div>
                         <div class="ambrosiaBorder">
                             <img src="Pictures/RedAmbrosia/AmbrosiaBorders.png">
@@ -4562,7 +4560,7 @@
                         <button id="showCurrAmbrosiaUpgrades">🔎</button>
                     </div>
                 </div>
-                <div class="blueberryBoxColor" id="bbLoadoutContainer">
+                <div class="blueberryBoxColor Exalt1x1" id="bbLoadoutContainer">
                     <button class="blueberryLoadoutSlot" id="blueberryLoadout1">1</button>
                     <button class="blueberryLoadoutSlot" id="blueberryLoadout2">2</button>
                     <button class="blueberryLoadoutSlot" id="blueberryLoadout3">3</button>
