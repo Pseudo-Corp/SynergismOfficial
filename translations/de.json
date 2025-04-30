@@ -15,13 +15,11 @@
     "blueberryGeneration": "Jede Sekunde, erhalte <<var(--amber-text-color)|{{chance}}>> Sekunden Blaubeeren-Zeit.",
     "perGen": "Momentan erhältst du <<var(--amber-text-color)|{{guaranteed}}>> mit einer <<var(--amber-text-color)|{{extraChance}}%>> Chance, ein weiteres zu erhalten. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
-    "bonuses": "Dein Ambrosia gibt dir <<var(--amber-text-color)|+{{cube}}%>> ALLER Würfel und <<cyan|+{{quark}}%>> Quarks!",
     "prerequisite": "Voraussetzungen:",
     "prereqNotMet": " (Nicht Erfüllt!)",
     "blueberryCost": "Blaubeeren (Zum Aktivieren):",
     "prereqNotMetAlert": "Du hast nicht die notwendigen Voraussetzungen, um dieses Upgrade zu kaufen.",
     "notEnoughBlueberries": "Du hast nicht genug Blaubeeren, um dieses Modul zu aktivieren.",
-    "availableBlueberries": "Du hast <<blue|{{availableBlueberries}}>> Blaubeeren übrig. Nutze sie, um unten Module höherer Stufen freizuschalten!",
     "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
     "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "Wie viel Ambrosia willst du ausgeben? Du hast {{amount}} Ambrosia. Gib -1 ein, um das Maximum zu verwenden!",
@@ -3537,9 +3535,8 @@
         "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs!<br/>Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
         "ScalingReward1": "<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
         "UniqueReward1": "1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
-        "UniqueReward2": "1st - A new feature ;) <<var(--red-text-color)|[WORK IN PROGRESS]>>",
-        "UniqueReward3": "20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
-        "UniqueReward4": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
+        "UniqueReward2": "20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
+        "UniqueReward3": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
       },
       "noAmbrosiaUpgrades": {
         "name": "No Ambrosia Upgrades",
