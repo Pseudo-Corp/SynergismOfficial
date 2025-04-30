@@ -406,8 +406,8 @@ export const playerSchema = z.object({
   tesseractbuyamount: z.number().default(() => blankSave.tesseractbuyamount),
 
   shoptoggles: z.record(z.string(), z.boolean()),
-  tabnumber: z.number(),
-  subtabNumber: z.number().default(() => blankSave.subtabNumber),
+  tabnumber: z.any().optional(),
+  subtabNumber: z.any().optional(),
 
   codes: z.array(z.tuple([z.number(), z.boolean()])).transform((tuple) => new Map(tuple)).default(() =>
     deepClone()([...blankSave.codes])
@@ -429,6 +429,11 @@ export const playerSchema = z.object({
       )
     })
     .default(() => ({ ...blankSave.shopUpgrades })),
+
+  shopPotionsConsumed: z.object({
+    offering: z.number(),
+    obtainium: z.number()
+  }).default(() => ({ ...blankSave.shopPotionsConsumed })),
 
   shopBuyMaxToggle: z.union([z.boolean(), z.string()]).default(() => blankSave.shopBuyMaxToggle),
   shopHideToggle: z.boolean().default(() => blankSave.shopHideToggle),
@@ -752,6 +757,7 @@ export const playerSchema = z.object({
   ambrosiaRNG: z.number().default(() => blankSave.ambrosiaRNG),
   blueberryTime: z.number().default(() => blankSave.blueberryTime),
   visitedAmbrosiaSubtab: z.boolean().default(() => blankSave.visitedAmbrosiaSubtab),
+  visitedAmbrosiaSubtabRed: z.boolean().default(() => blankSave.visitedAmbrosiaSubtabRed),
   spentBlueberries: z.number().default(() => blankSave.spentBlueberries),
   // TODO: is this right?
   blueberryUpgrades: z.record(z.string(), singularityUpgradeSchema('blueberriesInvested', 'ambrosiaInvested'))
@@ -773,9 +779,11 @@ export const playerSchema = z.object({
               blueberryCost: blueberryUpgradeData[k].blueberryCost,
               rewards: blueberryUpgradeData[k].rewards,
               costFormula: blueberryUpgradeData[k].costFormula,
+              extraLevelCalc: blueberryUpgradeData[k].extraLevelCalc,
               freeLevels: freeLevels as number,
               prerequisites: blueberryUpgradeData[k].prerequisites,
-              cacheUpdates: blueberryUpgradeData[k].cacheUpdates
+              cacheUpdates: blueberryUpgradeData[k].cacheUpdates,
+              ignoreEXALT: blueberryUpgradeData[k].ignoreEXALT
             }, k)
           ]
         })
@@ -787,9 +795,24 @@ export const playerSchema = z.object({
   blueberryLoadouts: z.record(integerStringSchema, z.any()).default(() => blankSave.blueberryLoadouts),
   blueberryLoadoutMode: z.string().default(() => blankSave.blueberryLoadoutMode),
 
-  ultimateProgress: z.number().default(() => blankSave.ultimateProgress),
-  ultimatePixels: z.number().default(() => blankSave.ultimatePixels),
-  cubeUpgradeRedBarFilled: z.number().default(() => blankSave.cubeUpgradeRedBarFilled),
+  ultimateProgress: z.number().optional(),
+  ultimatePixels: z.number().optional(),
+  cubeUpgradeRedBarFilled: z.number().optional(),
+
+  redAmbrosia: z.number().default(() => blankSave.redAmbrosia),
+  lifetimeRedAmbrosia: z.number().default(() => blankSave.lifetimeRedAmbrosia),
+  redAmbrosiaTime: z.number().default(() => blankSave.redAmbrosiaTime),
+  redAmbrosiaUpgrades: z.record(z.string(), z.number()).transform(
+    (object) => {
+      return Object.fromEntries(
+        Object.keys(blankSave.redAmbrosiaUpgrades).map((key) => {
+          const value = object[key]
+            ?? blankSave.redAmbrosiaUpgrades[key as keyof typeof blankSave['redAmbrosiaUpgrades']]
+          return value === null ? [key, 0] : [key, Number(value)]
+        })
+      )
+    }
+  ).default(() => ({ ...blankSave.redAmbrosiaUpgrades })),
 
   singChallengeTimer: z.number().default(() => blankSave.singChallengeTimer),
 

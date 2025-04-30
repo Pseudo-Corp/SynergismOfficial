@@ -31,10 +31,19 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
     player.corruptions.saves = new CorruptionSaves(corruptionSaveStuff)
   }
 
+  if (player.ultimatePixels !== undefined && player.cubeUpgradeRedBarFilled !== undefined) {
+    // One-time conversion for red bar filled and ultimate pixels (to a lesser degree)
+    player.redAmbrosia += Math.floor(player.ultimatePixels * 0.2 + player.cubeUpgradeRedBarFilled)
+    player.lifetimeRedAmbrosia += Math.floor(player.ultimatePixels * 0.2 + player.cubeUpgradeRedBarFilled)
+  }
+
   player.usedCorruptions = undefined
   player.prototypeCorruptions = undefined
   player.corruptionLoadoutNames = undefined
   player.corruptionLoadouts = undefined
+  player.ultimatePixels = undefined
+  player.ultimateProgress = undefined
+  player.cubeUpgradeRedBarFilled = undefined
 
   return player
 })

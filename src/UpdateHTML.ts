@@ -4,8 +4,8 @@ import { achievementaward, totalachievementpoints } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   CalcCorruptionStuff,
-  calculateAscensionAcceleration,
-  calculateTimeAcceleration,
+  calculateAscensionSpeedMult,
+  calculateGlobalSpeedMult,
   isIARuneUnlocked,
   isShopTalismanUnlocked
 } from './Calculate'
@@ -16,7 +16,7 @@ import { autoResearchEnabled } from './Research'
 import { displayRuneInformation } from './Runes'
 import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
-import { Tabs } from './Tabs'
+import { getActiveSubTab, Tabs } from './Tabs'
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism'
 import {
   visualUpdateAchievements,
@@ -387,7 +387,14 @@ export const revealStuff = () => {
 
   const octeractUnlocks = document.getElementsByClassName('octeracts') as HTMLCollectionOf<HTMLElement>
   for (const item of Array.from(octeractUnlocks)) { // Stuff that you need octeracts to access
-    item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'block' : 'none'
+    const parent = item.parentElement!
+    if (parent.classList.contains('offlineStats')) {
+      item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'flex' : 'none'
+      item.setAttribute('aria-disabled', `${!player.singularityUpgrades.octeractUnlock.getEffect().bonus}`)
+    } else {
+      item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'block' : 'none'
+      item.setAttribute('aria-disabled', `${!player.singularityUpgrades.octeractUnlock.getEffect().bonus}`)
+    }
   }
 
   const singChallengeUnlocks = document.getElementsByClassName('singChallenges') as HTMLCollectionOf<HTMLElement>
@@ -395,10 +402,33 @@ export const revealStuff = () => {
     item.style.display = player.highestSingularityCount >= 25 ? 'block' : 'none'
   }
 
-  DOMCacheGetOrSet('toggleSingularitySubTab4').style.display =
-    player.singularityChallenges.noSingularityUpgrades.completions >= 1
-      ? 'block'
-      : 'none'
+  const exalt1x1Unlocks = document.getElementsByClassName('Exalt1x1') as HTMLCollectionOf<HTMLElement>
+  for (const item of Array.from(exalt1x1Unlocks)) {
+    const parent = item.parentElement!
+    if (parent.classList.contains('offlineStats')) {
+      item.style.display = player.singularityChallenges.noSingularityUpgrades.completions >= 1 ? 'flex' : 'none'
+      item.setAttribute('aria-disabled', `${player.singularityChallenges.noSingularityUpgrades.completions < 1}`)
+    } else {
+      item.style.visibility = player.singularityChallenges.noSingularityUpgrades.completions >= 1 ? 'visible' : 'hidden'
+      item.setAttribute('aria-disabled', `${player.singularityChallenges.noSingularityUpgrades.completions < 1}`)
+    }
+  }
+
+  const exalt5x1Unlocks = document.getElementsByClassName('Exalt5x1') as HTMLCollectionOf<HTMLElement>
+  for (const item of Array.from(exalt5x1Unlocks)) {
+    const parent = item.parentElement!
+    if (parent.classList.contains('offlineStats')) {
+      item.style.display = player.singularityChallenges.noAmbrosiaUpgrades.completions >= 1 ? 'flex' : 'none'
+      item.setAttribute('aria-disabled', `${player.singularityChallenges.noAmbrosiaUpgrades.completions < 1}`)
+    } else {
+      item.style.visibility = player.singularityChallenges.noAmbrosiaUpgrades.completions >= 1 ? 'visible' : 'hidden'
+      item.setAttribute('aria-disabled', `${player.singularityChallenges.noAmbrosiaUpgrades.completions < 1}`)
+    }
+  }
+
+  DOMCacheGetOrSet('toggleSingularitySubTab4').style.display = player.highestSingularityCount >= 25
+    ? 'block'
+    : 'none'
   // Hide Challenge Subtabs until Exalts are unlocked
   DOMCacheGetOrSet('challengesTabsToggle').style.display = player.highestSingularityCount >= 25
     ? 'flex'
@@ -407,10 +437,6 @@ export const revealStuff = () => {
   player.runelevels[6] > 0 || player.highestSingularityCount > 0
     ? (DOMCacheGetOrSet('singularitybtn').style.display = 'block')
     : (DOMCacheGetOrSet('singularitybtn').style.display = 'none')
-
-  player.highestSingularityCount > 0 && player.ascensionCount >= 1
-    ? (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'block')
-    : (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'none')
 
   DOMCacheGetOrSet('ascSingChallengeTimeTakenStats').style.display = player.insideSingularityChallenge ? '' : 'none'
 
@@ -550,6 +576,9 @@ export const hideStuff = () => {
       x: format(player.achievementPoints),
       y: format(totalachievementpoints),
       z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
+    })
+    DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t('achievements.quarkBonus', {
+      multiplier: format(1 + player.achievementPoints / 50000, 3, true)
     })
   } else if (G.currentTab === Tabs.Runes) {
     DOMCacheGetOrSet('runes').style.display = 'block'
@@ -850,14 +879,14 @@ export const buttoncolorchange = () => {
   }
 
   if (G.currentTab === Tabs.Runes) {
-    if (player.subtabNumber === 0) {
+    if (getActiveSubTab() === 0) {
       for (let i = 1; i <= 7; i++) {
         player.runeshards > 0.5
           ? DOMCacheGetOrSet(`activaterune${i}`).classList.add('runeButtonAvailable')
           : DOMCacheGetOrSet(`activaterune${i}`).classList.remove('runeButtonAvailable')
       }
     }
-    if (player.subtabNumber === 1) {
+    if (getActiveSubTab() === 1) {
       const a = DOMCacheGetOrSet('buyTalismanItem1')
       const b = DOMCacheGetOrSet('buyTalismanItem2')
       const c = DOMCacheGetOrSet('buyTalismanItem3')
@@ -1039,8 +1068,8 @@ const updateAscensionStats = () => {
     ascPlatonic: format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5),
     ascHepteract: format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
     ascC10: `${format(player.challengecompletions[10])}`,
-    ascTimeAccel: `${format(calculateTimeAcceleration().mult, 3)}x`,
-    ascAscensionTimeAccel: `${format(calculateAscensionAcceleration(), 3)}x${addedAsterisk ? '*' : ''}`,
+    ascTimeAccel: `${format(calculateGlobalSpeedMult(), 3)}x`,
+    ascAscensionTimeAccel: `${format(calculateAscensionSpeedMult(), 3)}x${addedAsterisk ? '*' : ''}`,
     ascSingularityCount: format(player.singularityCount),
     ascSingLen: formatTimeShort(player.singularityCounter),
     ascSingChallengeLen: formatTimeShort(player.singChallengeTimer)
@@ -1270,8 +1299,8 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
     return p.promise
   })
 
-let closeNotification: ReturnType<typeof setTimeout>
-let closedNotification: ReturnType<typeof setTimeout>
+let closeNotification: number
+let closedNotification: number
 
 export const Notification = (text: string, time = 30000): Promise<void> => {
   const notification = DOMCacheGetOrSet('notification')
@@ -1297,7 +1326,7 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
 
     closeNotification = 0
     x.removeEventListener('click', close)
-    closedNotification = setTimeout(closed, 1000)
+    closedNotification = +setTimeout(closed, 1000)
     p.resolve()
   }
 
@@ -1308,7 +1337,7 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
   clearTimeout(closedNotification)
 
   // automatically close out after <time> ms
-  closeNotification = setTimeout(close, time)
+  closeNotification = +setTimeout(close, time)
 
   return p.promise
 }

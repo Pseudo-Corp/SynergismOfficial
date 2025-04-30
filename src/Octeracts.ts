@@ -1,13 +1,12 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAmbrosiaGenerationSpeed, calculateAmbrosiaLuck, octeractGainPerSecond } from './Calculate'
+import { calculateOcteractMultiplier } from './Calculate'
 import { campaignTokenRewardHTMLUpdate } from './Campaign'
 import type { IUpgradeData } from './DynamicUpgrade'
 import { DynamicUpgrade } from './DynamicUpgrade'
 import { format, formatTimeShort, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
-import { Globals as G } from './Variables'
 
 export interface IOcteractData extends Omit<IUpgradeData, 'name' | 'description'> {
   costFormula(this: void, level: number, baseCost: number): number
@@ -130,7 +129,7 @@ export class OcteractUpgrade extends DynamicUpgrade {
     const isAffordable = costNextLevel <= player.wowOcteracts
     let affordTime = ''
     if (!isMaxLevel && !isAffordable) {
-      const octPerSecond = octeractGainPerSecond()
+      const octPerSecond = calculateOcteractMultiplier()
       affordTime = octPerSecond > 0
         ? formatTimeShort((costNextLevel - player.wowOcteracts) / octPerSecond)
         : `${i18next.t('general.infinity')}`
@@ -228,7 +227,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
     costPerLevel: 1e-15,
     effect: (n: number) => {
       return {
-        bonus: n > 0,
+        bonus: n > 0 ? 1.4 : 1,
         get desc () {
           return i18next.t('octeract.data.octeractStarter.effect', { n: (n > 0) ? '' : 'not' })
         }
@@ -670,7 +669,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
       const fasterMult = (level >= 10) ? (Math.pow(1e3, level - 10)) : 1
       return baseCost * Math.pow(1e5, level) * fasterMult
     },
-    maxLevel: 16,
+    maxLevel: 20,
     costPerLevel: 1e25,
     effect: (n: number) => {
       return {
@@ -697,10 +696,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [() => {
-      G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-    }]
+    qualityOfLife: true
   },
   octeractAmbrosiaLuck2: {
     costFormula: (level: number, baseCost: number) => {
@@ -716,10 +712,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [() => {
-      G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-    }]
+    qualityOfLife: true
   },
   octeractAmbrosiaLuck3: {
     costFormula: (level: number, baseCost: number) => {
@@ -735,10 +728,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [() => {
-      G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-    }]
+    qualityOfLife: true
   },
   octeractAmbrosiaLuck4: {
     costFormula: (level: number, baseCost: number) => {
@@ -755,10 +745,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [() => {
-      G.ambrosiaCurrStats.ambrosiaLuck = calculateAmbrosiaLuck().value
-    }]
+    qualityOfLife: true
   },
   octeractAmbrosiaGeneration: {
     costFormula: (level: number, baseCost: number) => {
@@ -775,10 +762,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [() => {
-      G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
-    }]
+    qualityOfLife: true
   },
   octeractAmbrosiaGeneration2: {
     costFormula: (level: number, baseCost: number) => {
@@ -794,10 +778,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [() => {
-      G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
-    }]
+    qualityOfLife: true
   },
   octeractAmbrosiaGeneration3: {
     costFormula: (level: number, baseCost: number) => {
@@ -813,10 +794,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [() => {
-      G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
-    }]
+    qualityOfLife: true
   },
   octeractAmbrosiaGeneration4: {
     costFormula: (level: number, baseCost: number) => {
@@ -833,10 +811,7 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         }
       }
     },
-    qualityOfLife: true,
-    cacheUpdates: [() => {
-      G.ambrosiaCurrStats.ambrosiaGenerationSpeed = calculateAmbrosiaGenerationSpeed().value
-    }]
+    qualityOfLife: true
   },
   octeractBonusTokens1: {
     costFormula: (level: number, baseCost: number) => {
@@ -921,5 +896,40 @@ export const octeractData: Record<keyof Player['octeractUpgrades'], IOcteractDat
         campaignTokenRewardHTMLUpdate()
       }
     ]
+  },
+  octeractBlueberries: {
+    maxLevel: 6,
+    costPerLevel: 1,
+    costFormula: (level: number, baseCost: number) => {
+      const costArr = [1, 1e3, 1e9, 1e27, 1e81, 1e111]
+      if (level === 6) {
+        return 0
+      } else {
+        return costArr[level] + 0 * baseCost // Base cost is not used here.
+      }
+    },
+    effect: (n: number) => {
+      return {
+        bonus: n,
+        get desc () {
+          return i18next.t('octeract.data.octeractBlueberries.effect', { n: format(n) })
+        }
+      }
+    }
+  },
+  octeractInfiniteShopUpgrades: {
+    maxLevel: 80,
+    costPerLevel: 1e30,
+    costFormula: (level: number, baseCost: number) => {
+      return baseCost * Math.pow(16, level)
+    },
+    effect: (n: number) => {
+      return {
+        bonus: n,
+        get desc () {
+          return i18next.t('octeract.data.octeractInfiniteShopUpgrades.effect', { n: format(n) })
+        }
+      }
+    }
   }
 }

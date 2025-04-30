@@ -463,7 +463,8 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     filter: blur(4px);
 }
 
-#offlineContainer {
+#offlineContainer,
+#fastForwardContainer {
     flex-direction: column;
     align-items: center;
     position: fixed;
@@ -497,6 +498,14 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     margin-bottom: 2px;
 }
 
+.fastForwardStat {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    z-index: 3;
+    margin-bottom: 2px;
+}
+
 .offlineStatElement,
 .cartListElement {
     margin-left: 10px;
@@ -515,6 +524,7 @@ body button:active:not(:disabled):not(.disable-hover-color) {
 }
 
 #exitOffline,
+#exitFastForward,
 #closeCart,
 #checkout {
     width: 18em;
@@ -1976,11 +1986,20 @@ p#reincarnatehotkeys {
 #goldenQuarksDisplay,
 #octeractsDisplay,
 #totalOcteractsDisplay,
-#ambrosiaDisplay {
+#ambrosiaDisplay,
+#redAmbrosiaDisplay,
+#blueberryDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    white-space: pre-line;
+}
+
+#blueberryDisplay > p,
+#ambrosiaDisplay > p,
+#redAmbrosiaDisplay > p {
+    margin: 0 0 0 10px;
 }
 
 #ambrosiaTexts {
@@ -2008,7 +2027,8 @@ p#reincarnatehotkeys {
     margin-left: 5px;
 }
 
-#ambrosiaAmount {
+#ambrosiaAmount,
+#redAmbrosiaAmount {
     font-size: 1.2em;
     margin-left: 5px;
 }
@@ -2607,9 +2627,9 @@ p#ascendHotKeys {
 }
 
 .statContainer {
-    width: 20em;
-    min-width: 400px;
-    max-width: 500px;
+    width: 30em;
+    min-width: 600px;
+    max-width: 750px;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: auto;
@@ -3727,10 +3747,24 @@ header #obtainiumDisplay { color: pink; }
 
 .singularityUpgrade,
 .octeractUpgrade,
-.singularityChallenge,
-.blueberryUpgrade {
+.singularityChallenge {
     font-size: 0;
     cursor: pointer;
+}
+
+.ambrosiaLoadoutBtn {
+    width: 20%;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#showCurrAmbrosiaUpgrades {
+    width: 8%;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid orange;
 }
 
 .blueberryLoadoutSlot {
@@ -3856,16 +3890,25 @@ img#singularityPerksIcon {
     margin-top: 5px;
 }
 
+#octeractUpgradeValues,
+#ambrosiaUpgradeValues {
+    width: 100%;
+}
+
 #testingMultiline,
 #singularityOcteractsMultiline,
-#singularityAmbrosiaMultiline,
+#singularityAmbrosiaMultiline {
+    white-space: pre-line;
+    margin: 15px auto 0;
+    justify-content: center;
+    width: 40%;
+    text-align: center;
+}
+
 #accountSubTab {
     white-space: pre-line;
     margin: 15px 0 0;
     justify-content: center;
-}
-
-#accountSubTab {
     flex-direction: column;
 }
 
@@ -4048,6 +4091,53 @@ img#singularityPerksIcon {
     background-color: green;
 }
 
+.blueberryPrereq {
+    height: 28px;
+    width: 28px;
+    border: 2px solid gold;
+}
+
+.notInLoadout {
+    visibility: hidden;
+}
+
+/* Style for dimmed image */
+.blueberryUpgrade img.dimmed,
+.redAmbrosiaUpgrade img.dimmed {
+    opacity: 0.5; /* Adjust the opacity to control the dimming effect */
+}
+
+/* Style for level display */
+.blueberryUpgrade .level-overlay,
+.redAmbrosiaUpgrade .level-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1em; /* Adjust font size as needed */
+    text-shadow: 2px 2px 4px #000; /* Add a text shadow for better readability */
+    z-index: 999; /* Ensure the text is on top of the image */
+}
+
+/* Style for relative positioning */
+.blueberryUpgrade,
+.redAmbrosiaUpgrade {
+    position: relative;
+    display: inline-block; /* Or block, depending on your layout */
+    cursor: pointer;
+}
+
+.maxBlueberryLevel,
+.maxRedAmbrosiaLevel {
+    color: orchid;
+    font-weight: bold;
+}
+
+.notMaxBlueberryLevel,
+.notMaxRedAmbrosiaLevel {
+    color: white;
+}
+
 /* Stolen from https://codepen.io/mike-schultz/pen/NgQvGO */
 #switchSettingSubTab9 {
     --border-width: 2px;
@@ -4056,7 +4146,8 @@ img#singularityPerksIcon {
     border-radius: var(--border-width);
 }
 
-#switchSettingSubTab9::after {
+#switchSettingSubTab9::after,
+.blueberryPrereq::after {
     content: "";
     position: absolute;
     top: calc(-1 * var(--border-width));
@@ -4377,21 +4468,21 @@ form input:hover {
 }
 
 #consumablesGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    gap: 10px;
-    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin: 0 auto;
+    width: 70%;
 }
 
-#consumablesGrid > div {
+.purchaseConsumableContainer {
     border: 2px solid var(--amber-text-color);
     padding: 5px;
     box-sizing: border-box;
 }
 
-#consumablesGrid > div > button {
+.consumablePurchaseBtn {
     display: flex;
     align-items: center;
     white-space: pre;
@@ -4399,6 +4490,33 @@ form input:hover {
     box-sizing: border-box;
     border: 2px solid var(--amber-text-color);
     margin: 5px auto 0;
+}
+
+.timeSkipSet {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.timeSkipContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 33%;
+    height: 30%;
+}
+
+.timeSkipOptions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 /* Cost text */
@@ -4413,13 +4531,13 @@ form input:hover {
 #upgradeGrid {
     display: grid;
     grid-template-columns: repeat(6, 15%);
-    grid-template-rows: repeat(2, 15%);
+    grid-template-rows: repeat(3, 15%);
     column-gap: 10px;
     row-gap: 64px;
     margin: 0;
     width: 38%;
     padding-top: 15px;
-    max-height: 192px;
+    max-height: 256px;
 }
 
 #upgradeGrid > div {
@@ -4659,6 +4777,10 @@ form input:hover {
 .upgrade-button[aria-disabled="true"] {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+.fastForwardVisible {
+    display: flex !important;
 }
 
 h2,

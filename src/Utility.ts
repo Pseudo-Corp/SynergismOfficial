@@ -224,3 +224,33 @@ export function memoize<Args extends unknown[], Ret> (fn: (...args: Args) => Ret
 export const validateNonnegativeInteger = (n: number | string): boolean => {
   return Number.isFinite(n) && !Number.isNaN(n) && Number.isInteger(n)
 }
+/**
+ * Finds the highest (index + 1) where array[index] is less than or equal to the target number,
+ * but array[index + 1] is greater than the target number.
+ * @param target {number} The target number to compare against.
+ * @param array {number[]} A sorted array of numbers.
+ * @returns {number} The highest (index + 1) satisfying the condition, or 0 if the target is smaller than all numbers,
+ * or array.length if the target is larger than the largest number.
+ */
+export const findInsertionIndex = (target: number, array: number[]): number => {
+  if (array.length === 0 || target < array[0]) {
+    return 0
+  }
+  if (target >= array[array.length - 1]) {
+    return array.length
+  }
+
+  let low = 0
+  let high = array.length - 1
+
+  while (low < high) {
+    const mid = Math.floor((low + high + 1) / 2)
+    if (array[mid] <= target) {
+      low = mid
+    } else {
+      high = mid - 1
+    }
+  }
+
+  return low + 1
+}
