@@ -21,8 +21,8 @@ const initializeConsumablesTab = memoize(() => {
     .then((r) => r.json())
     .then((consumables: ConsumableListItems[]) => {
       // Thank you Gemini for the number test
-      const durableConsume = consumables.filter((u) => !Number.isFinite(+u.length))
-      const timeSkip = consumables.filter((u) => Number.isFinite(+u.length))
+      const durableConsume = consumables.filter((u) => !u.internalName.includes('TIMESKIP'))
+      const timeSkip = consumables.filter((u) => u.internalName.includes('TIMESKIP'))
       tab.innerHTML = `${
         durableConsume.map((u) => `
         <div
