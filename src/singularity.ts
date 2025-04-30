@@ -2411,12 +2411,12 @@ export const singularityPerks: SingularityPerk[] = [
     levels: [250, 280],
     description: () => {
       if (player.highestSingularityCount < 280) {
-        const effect = player.highestSingularityCount - 200
+        const effect = Math.floor(0.5 * (player.highestSingularityCount - 200))
         return i18next.t('singularity.perks.infiniteShopUpgrades.default', {
           amt: format(effect, 0, true)
         })
       } else {
-        const effect = Math.floor(1.25 * (player.highestSingularityCount - 200))
+        const effect = Math.floor(0.8 * (player.highestSingularityCount - 200))
         return i18next.t('singularity.perks.infiniteShopUpgrades.level2', {
           amt: format(effect, 0, true)
         })

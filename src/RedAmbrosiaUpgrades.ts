@@ -468,7 +468,7 @@ export const redAmbrosiaUpgradeData: { [K in RedAmbrosiaKeys]: IRedAmbrosiaData<
       return baseCost * (level + 1)
     },
     rewards: (n: number) => {
-      const exponent = 0.5 + getRedAmbrosiaUpgrade('redAmbrosiaCubeImprover').bonus.extraExponent
+      const exponent = 0.4 + getRedAmbrosiaUpgrade('redAmbrosiaCubeImprover').bonus.extraExponent
       return {
         desc: i18next.t('redAmbrosia.data.redAmbrosiaCube.effect', {
           amount: n > 0,

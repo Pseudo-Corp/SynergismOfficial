@@ -1353,19 +1353,19 @@ export const shopDescriptions = (input: ShopUpgradeNames) => {
     case 'shopRedLuck1':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopRedLuck1', {
         amount: format(0.05 * player.shopUpgrades.shopRedLuck1, 2, true),
-        amount2: format(0.01 * Math.floor(player.shopUpgrades.shopRedLuck1), 2, true)
+        amount2: format(0.01 * Math.floor(player.shopUpgrades.shopRedLuck1 / 20), 2, true)
       })
       break
     case 'shopRedLuck2':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopRedLuck2', {
         amount: format(0.075 * player.shopUpgrades.shopRedLuck2, 2, true),
-        amount2: format(0.01 * Math.floor(player.shopUpgrades.shopRedLuck2), 2, true)
+        amount2: format(0.01 * Math.floor(player.shopUpgrades.shopRedLuck2 / 20), 2, true)
       })
       break
     case 'shopRedLuck3':
       lol.innerHTML = i18next.t('shop.upgradeEffects.shopRedLuck3', {
         amount: format(0.1 * player.shopUpgrades.shopRedLuck3, 1, true),
-        amount2: format(0.01 * Math.floor(player.shopUpgrades.shopRedLuck3), 2, true)
+        amount2: format(0.01 * Math.floor(player.shopUpgrades.shopRedLuck3 / 20), 2, true)
       })
       break
     case 'shopAmbrosiaLuck1':
