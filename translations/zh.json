@@ -12,29 +12,29 @@
   "ambrosia": {
     "ambrosia": "神肴",
     "amount": "神肴：目前有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>，共有<<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>>",
-    "blueberryAmount": "蓝莓：<<lightblue | {{unspentBlueberries}}>>尚未花费，共有<<lightblue | {{blueberries}}>>",
+    "blueberryAmount": "蓝莓：<<lightblue|{{unspentBlueberries}}>>尚未花费，共有<<lightblue|{{blueberries}}>>",
     "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>神肴条点数。",
     "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<<blue|{{thresholdTimer}}>>后可以产生神肴。",
-    "generatedCubeBonus": "Cubes <<yellow|+{{cubeBonus}}>>",
-    "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}>>",
-    "generatedLuckBonus": "Ambrosia Luck <<lime|+{{luckBonus}}>>",
-    "generatedBlueberryBonus": "Ambrosia Bar Point Gain <<blue|+{{blueberryBonus}}>>",
-    "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}>>",
-    "generatedOfferingBonus": "Offerings <<orange|+{{offeringBonus}}>>",
+    "generatedCubeBonus": "所有类型的方盒、立方和方块获取数量<<yellow|增加{{cubeBonus}}>>",
+    "generatedQuarkBonus": "夸克获取数量<<cyan|增加{{quarkBonus}}>>",
+    "generatedLuckBonus": "神肴之运<<lime|增加{{luckBonus}}>>",
+    "generatedBlueberryBonus": "神肴条点数获取速度<<blue|增加{{blueberryBonus}}>>",
+    "generatedObtainiumBonus": "难得素获取数量<<pink|增加{{obtainiumBonus}}>>",
+    "generatedOfferingBonus": "祭品获取数量<<orange|增加{{offeringBonus}}>>",
     "prerequisite": "前提条件：",
     "prereqNotMet": "（未满足！）",
     "blueberryCost": "启用花费蓝莓：",
     "prereqNotMetAlert": "您未满足前提条件，无法购买该升级。",
     "notEnoughBlueberries": "您的蓝莓不足，无法激活该模块。",
-    "timeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia.",
-    "cubeUpgradeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia. <<cyan | Ambrosia Bar Point gain +{{percent}}%>>!",
+    "timeThresholds": "由于神肴总数，神肴条点数需求翻倍了<<cyan|{{threshold}}>>次。神肴总数到达<<orange|{{toNext}}>>后将再度翻倍。",
+    "cubeUpgradeThresholds": "由于神肴总数，神肴条点数需求翻倍了<<cyan|{{threshold}}>>次。神肴总数到达<<orange|{{toNext}}>>后将再度翻倍。<<cyan|神肴条点数获取速度+{{percent}}%>>！",
     "cubeUpgradeRedBarFills": "购买饼干升级29以后，您的红色进度条填充了<<maroon|{{amount}}>>次，所以<<green|&#9752 神肴之运增加{{luck}}>>！",
     "ambrosiaBuyPrompt": "您想要花费多少神肴？您拥有{{amount}}神肴。如果想要购买最大数量，请输入-1！",
     "refund": "所有花费的蓝莓和神肴均已返还。",
     "refundWord": "返还",
-    "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
-    "notUnlocked": "Clear No Singularity Upgrades, Tier 1!",
+    "ignoreEXALT": "[<<white|♔>>]即使拔擢有相应限制，该升级仍然会生效！",
+    "notUnlocked": "首次完成无奇点升级！",
     "data": {
       "ambrosiaTutorial": {
         "name": "神肴教程模块",
@@ -48,7 +48,7 @@
       },
       "ambrosiaCubes1": {
         "name": "神肴方盒模块 I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 5 levels gives 1.1x Cubes.",
+        "description": "恭喜您完成了教程模块的升级。您需要在它满级后才可以购买该模块。每级使所有类型的方盒、立方和方块获取数量增加5%，且每5级还可以使所有类型的方盒、立方和方块获取数量变为原来的1.1倍。",
         "effect": "神肴方盒模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
       },
       "ambrosiaLuck1": {
@@ -68,12 +68,12 @@
       },
       "ambrosiaQuarkCube1": {
         "name": "神肴夸克-方盒混合模块 I",
-        "description": "A first generation hybrid module. Gain +0.1% more cubes per level per digit in your Quark balance, squared!",
+        "description": "第一代混合模块。当前夸克数量每有一个数量级，每级该升级就可以使所有类型的方盒、立方和方块获取数量增加0.1%，然后再乘以当前夸克数量的数量级。",
         "effect": "第一代混合模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
       },
       "ambrosiaLuckCube1": {
         "name": "神肴之运-方盒混合模块 I",
-        "description": "A first generation hybrid module. Gain +0.05% more cubes per level per 1 &#9752 Ambrosia Luck!",
+        "description": "第一代混合模块。每有1 &#9752 神肴之运，每级该升级就可以使所有类型的方盒、立方和方块获取数量增加0.05%。",
         "effect": "第一代混合模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
       },
       "ambrosiaCubeLuck1": {
@@ -93,7 +93,7 @@
       },
       "ambrosiaCubes2": {
         "name": "神肴方盒模块 II",
-        "description": "Self-Synergies! Gain +10% cubes / lvl , +1% for every 10 levels in Ambrosia Cube Module I. Every 5 levels gives 1.15x cubes.",
+        "description": "自我协同！每级使所有类型的方盒、立方和方块获取数量增加10%，且神肴方盒模块 I每有10级，该数值还会再增加1%。另外，每5级还可以使所有类型的方盒、立方和方块获取数量变为原来的1.15倍。",
         "effect": "第二代方盒模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
       },
       "ambrosiaLuck2": {
@@ -102,24 +102,24 @@
         "effect": "第二代神肴之运模块使&#9752 神肴之运增加了{{amount}}。"
       },
       "ambrosiaQuarks3": {
-        "name": "Ambrosia Quark Module III",
-        "description": "A darkness emboldens this module. +5% Quarks per level, and the effect is 1% stronger per level of Ambrosia Quark Module II.",
-        "effect": "This third generation Quark module increases Quark gain by {{amount}}%"
+        "name": "神肴夸克模块 III",
+        "description": "这个模块因黑暗而变得更加强大。每级使夸克获取数量增加5%，并且神肴夸克模块 II每有一级，该效果再增加1%。",
+        "effect": "第三代夸克模块使夸克获取数量增加了{{amount}}%。"
       },
       "ambrosiaCubes3": {
-        "name": "Ambrosia Cube Module III",
-        "description": "A darkness emboldens this module. +20% cubes / lvl, and the effect is 3% stronger per level of Ambrosia Cube Module II. Every 5 levels gives 1.2x cubes.",
-        "effect": "This third generation Cube module increases cube gain by {{amount}}%"
+        "name": "神肴方盒模块 III",
+        "description": "这个模块因黑暗而变得更加强大。每级使所有类型的方盒、立方和方块获取数量增加20%，并且神肴方盒模块 II每有一级，该效果再增加3%。另外，每5级还可以使所有类型的方盒、立方和方块获取数量变为原来的1.2倍。",
+        "effect": "第三代方盒模块使所有类型的方盒、立方和方块获取数量增加了{{amount}}%。"
       },
       "ambrosiaLuck3": {
-        "name": "Ambrosia Luck Module III",
-        "description": "A darkness emboldens this module. +1 &#9752 Ambrosia Luck/lvl, and the effect is multiplied by the total number of Blueberries you own!",
-        "effect": "This third generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
+        "name": "神肴之运模块 III",
+        "description": "这个模块因黑暗而变得更加强大。每级使&#9752 神肴之运增加1，且该效果乘以您拥有的蓝莓总数！",
+        "effect": "第三代神肴之运模块使&#9752 神肴之运增加了{{amount}}。"
       },
       "ambrosiaPatreon": {
         "name": "厚颜的蓝莓Patreon提醒",
-        "description": "In every realm, Platonic sells out. +1% Ambrosia Bar Point speed for every +1% Quarks by the Patreon bonus!",
-        "effect": "Generous Patreon supporters grant you {{amount}}% more Ambrosia Bar Points. If you are not already, consider buying PseudoCoins to support development!"
+        "description": "Platonic到哪都受欢迎。Patreon对夸克获取数量的加成每有1%，就使神肴条点数获取速度增加1%！",
+        "effect": "慷慨的Patreon支持者使神肴条点数获取速度增加 {{amount}}%。您也可以考虑在Patreon上支持本游戏的开发！"
       },
       "ambrosiaObtainium1": {
         "name": "基于随机数的难得素加成",
@@ -137,34 +137,34 @@
         "effect": "该模块使方盒获取数量增加{{amount}}%！"
       },
       "ambrosiaBaseObtainium1": {
-        "name": "Basic Obtainium Booster",
-        "description": "+1 Base Obtainium per level! Exceed the possibilities of your strength.",
-        "effect": "This module increases Base Obtainium by {{amount}}!"
+        "name": "基础难得素加成",
+        "description": "每级使基础难度素获取数量增加1！突破力量的极限。",
+        "effect": "该模块使基础难得素获取数量增加{{amount}}！"
       },
       "ambrosiaBaseOffering1": {
-        "name": "Basic Offering Booster",
-        "description": "+1 Base Offering per level! Exceed the possibilities of your strength.",
-        "effect": "This module increases Base Offering by {{amount}}!"
+        "name": "基础祭品加成",
+        "description": "每级使基础祭品获取数量增加1！突破力量的极限。",
+        "effect": "该模块使基础祭品获取数量增加{{amount}}！"
       },
       "ambrosiaBaseObtainium2": {
-        "name": "Based Obtainium Booster",
-        "description": "+1 Base Obtainium per level! Channel your inner researcher.",
-        "effect": "This module increases Base Obtainium by {{amount}}!"
+        "name": "基本难得素加成",
+        "description": "每级使基础难度素获取数量增加1！激活研究本能。",
+        "effect": "该模块使基础难得素获取数量增加{{amount}}！"
       },
       "ambrosiaBaseOffering2": {
-        "name": "Based Offering Booster",
-        "description": "+1 Base Offering per level! Channel your... I got nothing.",
-        "effect": "This module increases Base Offering by {{amount}}!"
+        "name": "基本祭品加成",
+        "description": "每级使基础祭品获取数量增加1！激活……祭品不足。",
+        "effect": "该模块使基础祭品获取数量增加{{amount}}！"
       },
       "ambrosiaSingReduction1": {
-        "name": "Singularity Stabilizer Module",
-        "description": "Retrofitted with Amber flux capacitors, your Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity per level, if you are NOT! in an EXALT.",
-        "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
+        "name": "奇点稳定模块",
+        "description": "装配神肴通量电容器后，奇点更加平滑。只要不在拔擢中，每级就使奇点相关惩罚视为减少1次奇点的惩罚。",
+        "effect": "奇点相关惩罚视为减少{{amount}}次奇点的惩罚。"
       },
       "ambrosiaInfiniteShopUpgrades1": {
-        "name": "Indigo Infinity Shop Voucher",
-        "description": "A Shop Voucher, printed on an indigo tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
-        "effect": "'Infinity' shop upgrades level +{{amount}}"
+        "name": "靛蓝无限商店代金券",
+        "description": "印在靛蓝铭牌‌上的商店代金券。每级使“无限”商店升级的有效等级增加1。",
+        "effect": "“无限”商店升级的等级增加{{amount}}"
       },
       "ambrosiaInfiniteShopUpgrades2": {
         "name": "Violet Infinity Shop Voucher",
@@ -1253,7 +1253,7 @@
       "9": "[1x9]商店中出售的自动研究现在会自动购买最便宜的升级了。就像扫地机器人一样！",
       "10": "[1x10]解锁自动飞升。很贵，也很酷。",
       "11": "[2x1]好好！每级增加9.09%飞升时惊奇方盒获取数量。",
-      "12": "[2x2]将建筑能量变为(1+等级*0.09)次方。",
+      "12": "[2x2]将建筑能量变为(1 + 等级 * 0.09)次方。",
       "13": "[2x3]每开启20个方盒，就额外获得1个随机贡品。",
       "14": "[2x4]伊里斯照亮了您。每级使效果的指数增加0.01(如果超过1000贡品则改为增加0.005)。",
       "15": "[2x5]阿瑞斯教导了您兵法韬略。每级使效果的指数增加0.01(如果超过1000贡品则改为增加0.0033)。",
@@ -1277,7 +1277,7 @@
       "33": "[4x3]每开启20个方盒，就再次额外获得1个随机贡品。",
       "34": "[4x4]柯罗诺斯将宇宙加速以使您受益。(与其他的奖励相同)",
       "35": "[4x5]阿佛洛狄忒让您的金币更能生。(与其他的奖励相同)",
-      "36": "[4x6]再次将建筑能量变为(1+等级*0.05)次方。",
+      "36": "[4x6]再次将建筑能量变为(1 + 等级 * 0.05)次方。",
       "37": "[4x7]每级使符文等级上限再次增加20。",
       "38": "[4x8]每激活一级腐化，飞升的超立方获取数量就多0.5%。",
       "39": "[4x9]分数倍率从1.03^(挑战10完成次数)变为1.035^(挑战10完成次数)！",
@@ -2553,9 +2553,9 @@
       "67": "每个粒子生产者使原子产量增加3%！",
       "68": "税收每增加1e1000倍就获得一个免费加倍器。",
       "69": "根据您的粒子产量增加难得素的获取数量。[以减少的倍率对自动难得素生效！]",
-      "70": "购买这个以后，时间似乎加快了 0.333*log10(最大持有的难得素数量+1)% 。",
+      "70": "购买这个以后，时间似乎加快了 0.333 * log10(最大持有的难得素数量 + 1)% 。",
       "71": "每献祭一个祭品，符文就额外获得(符文等级/25)的经验值。",
-      "72": "转世的难得素获取数量变为 (1+2C) 倍，上限为50倍，C为转世挑战完成次数！",
+      "72": "转世的难得素获取数量变为 (1 + 2C) 倍，上限为50倍，C为转世挑战完成次数！",
       "73": "仅在转世挑战时免费加速器加成数量增加100%，免费水晶升级等级增加10。",
       "74": "根据最大持有的祭品数量增加难得素获取数量。[祭品数量效果上限：100000]",
       "75": "根据最大持有的难得素数量增加祭品获取数量。[难得素数量效果上限：30000000]",
