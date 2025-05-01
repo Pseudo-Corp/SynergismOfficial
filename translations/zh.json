@@ -264,13 +264,13 @@
       },
       "redLuck": {
         "name": "决定命运的骰子",
-        "description": "A life on every face, until you're finally left with an eight. +1 Red Ambrosia Luck per level!",
-        "effect": "This upgrade increases Red Ambrosia Luck by {{amount}}!"
+        "description": "骰面铭刻诸般命途，终末徒余八面沉浮。每级使红运增加1！",
+        "effect": "该升级使红运增加了{{amount}}！"
       },
       "redAmbrosiaCube": {
-        "name": "Cubes \"made\" of Red Ambrosia",
-        "description": "Hey, Ambrosia gives cubes! Why not Red Ambrosia as well?",
-        "effect": "If purchased, multiply your cubes by 1 + (Lifetime)^{{exponent}} / 100."
+        "name": "由红神肴“制取”的方盒",
+        "description": "嘿，神肴能提供方盒，红神肴没道理不行！",
+        "effect": "购买后，使所有类型的方盒、立方和方块获取数量变为原来的 1 + (获取总数)^{{exponent}} / 100 倍。"
       },
       "redAmbrosiaObtainium": {
         "name": "由红神肴“制取”的难得素",
@@ -305,12 +305,12 @@
       "regularLuck2": {
         "name": "固化蓝莓战术 II",
         "description": "每级同样使神肴之运增加2，但您可以多购买很多次升级！",
-        "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
+        "effect": "该升级使神肴之运增加了{{amount}}！"
       },
       "blueberryGenerationSpeed2": {
-        "name": "The Sands of Time II",
-        "description": "This gives +0.1% Ambrosia Bar Point gain per level, but you can purchase a ton of levels of this!",
-        "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
+        "name": "时之沙 II",
+        "description": "每级使神肴进度条点数获取速度增加0.1%，但您可以多购买很多次升级！",
+        "effect": "该升级使神肴进度条点数获取速度增加{{amount}}！"
       }
     }
   },
@@ -352,26 +352,26 @@
       "34": "[[34]]黄金天堂：创造17777个炼金术。",
       "35": "[[35]]揭示世界之谜底：创造42777个炼金术。",
       "36": "[[36]]升级了：转生获得至少1个钻石。",
-      "37": "[[37]] High-Tiered: Prestige for at least 1e6 Diamonds.",
-      "38": "[[38]] Highly Regarded: Prestige for at least 1e100 Diamonds.",
-      "39": "[[39]] Prestigious: Prestige for at least 1e1,000 Diamonds.",
-      "40": "[[40]] Legendary: Prestige for at least 1e10,000 Diamonds.",
-      "41": "[[41]] Divine: Prestige for at least 1e77,777 Diamonds.",
-      "42": "[[42]] Perfectly Respected: Prestige for at least 1e250,000 Diamonds.",
+      "37": "[[37]]更高阶了：转生获得至少1e6个钻石。",
+      "38": "[[38]]备受推崇：转生获得至少1e100个钻石。",
+      "39": "[[39]]威名远扬：转生获得至少1e1000个钻石。",
+      "40": "[[40]]成为传奇：转生获得至少1e10000个钻石。",
+      "41": "[[41]]具有神性：转生获得至少1e77777个钻石。",
+      "42": "[[42]]无人不知：转生获得1e250000个钻石。",
       "43": "[[43]]简单迂回：超越获得至少1个神话。",
-      "44": "[[44]] Tunnel Vision: Transcend for at least 1e6 Mythos.",
-      "45": "[[45]] Risen from the Ashes: Transcend for at least 1e50 Mythos.",
-      "46": "[[46]] Paradigm Shift: Transcend for at least 1e308 Mythos.",
-      "47": "[[47]] Preparation: Transcend for at least 1e1,500 Mythos.",
-      "48": "[[48]] Revising the Plan: Transcend for at least 1e25,000 Mythos.",
-      "49": "[[49]] Leaving the Universe: Transcend for at least 1e100,000 Mythos.",
+      "44": "[[44]]井底之蛙：超越获得至少1e6个神话。",
+      "45": "",
+      "46": "[[46]]模式转换：超越获得1e308个神话。",
+      "47": "[[47]]准备工作：超越获得1e500个神话。",
+      "48": "[[48]]完善计划：超越获得1e25000个神话。",
+      "49": "[[49]]离开宇宙：超越获得1e100000个神话。",
       "50": "[[50]]量子化：转世获得至少1个粒子。",
       "51": "[[51]]鼠目寸光：转世获得至少100000个粒子。",
-      "52": "[[52]] Simulating the World: Reincarnate for at least 1e30 Particles.",
-      "53": "[[53]] Multidimensional Creation: Reincarnate for at least 1e200 Particles.",
-      "54": "[[54]] Lepton Dance: Reincarnate for at least 1e1,500 Particles.",
-      "55": "[[55]] Do we have enough yet?: Reincarnate for at least 1e5,000 Particles.",
-      "56": "[[56]] I Feel Luck in My Cells: Reincarnate for at least 1e7,777 Particles.",
+      "52": "[[52]]模拟世界：转世获得1e30个粒子。",
+      "53": "[[53]]多维创造：转世获得1e200个粒子。",
+      "54": "[[54]]轻子之舞：转世获得1e1500个粒子。",
+      "55": "[[55]]还不够吗？：转世获得1e5000个粒子。",
+      "56": "[[56]]生而为细胞，我很幸运：转世获得1e7777个粒子。",
       "57": "[[57]]单行道：不购买加倍器进行一次转生。",
       "58": "[[58]]正宗的转变：不购买加倍器进行一次超越。",
       "59": "[[59]]奇点：不购买加倍器进行一次转世。",
@@ -737,8 +737,8 @@
       "222": "飞升时PLATONIC方盒获取数量增加3%！",
       "223": "飞升时间超过10秒以后，超出部分的时间的2%将变为飞升次数的倍率。另外，PLATONIC方盒获取数量增加{{x}}%[与飞升次数有关，在2674000000(2.674e9)次飞升时达到上限：200%]",
       "240": "飞升时所有类型的方盒及立方获取数量受到全局速度轻微的影响：乘以{{x}}(最小1.10倍，最大1.50倍)",
-      "250": "You gain a permanent +60% Obtainium and Offering bonus, with +6% all Cube types! Quark Gain x1.05!",
-      "251": "You gain a permanent +100% Obtainium and Offering bonus, with +10% all Cube types! Quark Gain x1.05!",
+      "250": "难得素和祭品获取数量永久增加60%，所有类型的方盒及立方获取数量永久增加6%！夸克获取数量变为原来的1.05倍！",
+      "251": "难得素和祭品获取数量永久增加100%，所有类型的方盒及立方获取数量永久增加10%！夸克获取数量变为原来的1.05倍！",
       "253": "五阶立方获取数量增加10%！原因？我也不知道。",
       "254": "方盒获取数量增加{{x}}%[在1e25飞升分数时达到上限：15%]",
       "255": "超立方获取数量增加{{x}}%[在1e25飞升分数时达到上限：15%]，并且您可以获取惊奇七阶立方了。",
@@ -752,7 +752,7 @@
       "263": "飞升的速度增加{{x}}%！上限：增加10%",
       "264": "七阶立方获取数量增加{{x}}%[在8000000000000(8e12)次飞升时达到上限：40%]！",
       "265": "七阶立方获取数量增加{{x}}%[在160000000000000(1.6e14)次飞升时达到上限：20%]！",
-      "266": "Quarks +{{x}}% [Max: 1.10x at 1Qa (1e15) Ascensions]!",
+      "266": "夸克获取数量增加{{x}}%[在1000000000000000(1e15)次飞升时达到上限：1.1倍]！",
       "267": "飞升分数增加{{x}}%[在e100000常数时达到上限：100%]",
       "270": "七阶立方获取数量增加{{x}}%[在e1000000常数时达到上限：100%]，数学常数升级1的效果从1.05变为1.06，数学常数升级2的效果从1.1变为1.11。",
       "271": "开启一个PLATONIC方盒时，获得{{x}}个五阶立方，向下取整[在e1000000常数时达到上限：1]"
@@ -767,7 +767,7 @@
     "rewardGainMessage": "奖励：{{x}}成就点数。{{y}}夸克！{{z}}",
     "completed": "已完成！",
     "notification": "您解锁了成就：{{m}}",
-    "quarkBonus": "Gain .01 Quark Multiplier per 500 AP! Quark Multiplier: <<cyan | x{{multiplier}}>>"
+    "quarkBonus": "每500成就点数使夸克获取数量增加0.01倍！目前夸克倍率：<<cyan|{{multiplier}}倍>>"
   },
   "reset": {
     "details": {
@@ -827,7 +827,7 @@
       "8": "每秒产生{{x}}全能蚁"
     },
     "rewards": {
-      "1": "ALL Ants work at {{x}}x speed.",
+      "1": "所有蚂蚁的工作速度变为原来的{{x}}倍。",
       "2": "Crumb --> Coin exponent is ^{{x}}",
       "3": "Tax growth is multiplied by {{x}}",
       "4": "Accelerator Boosts +{{x}}%",
