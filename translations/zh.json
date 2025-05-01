@@ -1751,7 +1751,7 @@
       "shopSingularitySpeedup": "奇点特权和升级的增长速度变为原来的<<gray|{{amount}}>>倍！",
       "shopSingularityPotency": "免费奇点升级的效果变为原来的<<gray|{{amount}}>>倍。",
       "shopSadisticRune": "我也不知道这个符文有什么用。您已经买了吗？总之您知道的，我看不见。",
-      "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark shop upgrades are increased by <<white|{{amount}}>>!"
+      "shopInfiniteShopUpgrades": "使“无限公司”相关商店升级的有效等级增加<<white|{{amount}}>>！"
     }
   },
   "singularity": {
@@ -1987,9 +1987,9 @@
         "default": "使<<lightblue|潘多拉>>和<<orange|腐化女神>>常时给予您恩惠，相应的饼干升级常时生效！"
       },
       "infiniteShopUpgrades": {
-        "name": "Orange Infinity Shop Voucher",
-        "default": "Gain +0.5 to 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200, rounded down!. Currently: {{amt}}",
-        "level2": "Gain +0.8 to 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200, rounded down! Currently: {{amt}}"
+        "name": "橙色无限商店代金券",
+        "default": "最高奇点次数减去200后每有1次，每级该升级就使“无限公司”相关商店升级的有效等级增加0.5，向下取整！目前增加了{{amt}}",
+        "level2": "最高奇点次数减去200后每有1次，每级该升级就使“无限公司”相关商店升级的有效等级增加0.8，向下取整！目前增加了{{amt}}"
       }
     },
     "toString": {
@@ -2138,7 +2138,7 @@
         "effect": "Patreon上每月赞助金额每有10美元，就使惊奇八阶方块的获取数量增加{{n}}%！数值跟现有的夸克获取数量加成一致。"
       },
       "offeringAutomatic": {
-        "name": "Blueberry Shards!",
+        "name": "蓝莓碎片！",
         "description": "传说成真。\n预言应验。\n蚁神听到了您的祈祷。\n要有蓝莓！\n味道一流。",
         "effect": "您购买了{{n}}个美味的蓝莓。"
       },
@@ -2301,9 +2301,9 @@
         "effect": "飞升的速度变为原来的{{n}}次方。飞升的速度如果低于1倍，则变为原来的{{m}}次方。"
       },
       "singAscensionSpeed2": {
-        "name": "Ascended Ascension Speedup!",
-        "description": "The first upgrade gave 0.03 of what we in the business call 'exponent spread'. This adds +0.001 per level!",
-        "effect": "Exponent Spread on Ascension Speed +{{n}}"
+        "name": "飞升的速度飞跃性提升！",
+        "description": "在业内我们称第一个升级为使飞升的速度指数变化数值增加了0.03。然后，该升级每级再使该数值增加0.001！",
+        "effect": "飞升的速度指数变化数值增加{{n}}。"
       },
       "ultimatePen": {
         "name": "终极妙笔",
@@ -2311,14 +2311,14 @@
         "effect": "您{{n}}拥有终极妙笔。{{m}}"
       },
       "halfMind": {
-        "name": "HALF MIND",
-        "description": "A note, you found on the 'ground': seems like an advertisement for a cult. \"Lock your global speed to 10x, and multiply all obtainium and offerings based on the difference.\" Hmm...",
-        "effectHave": "You have joined the cult!",
-        "effectHaveNot": "You haven't joined the cult!"
+        "name": "半心",
+        "description": "您在地上发现一张纸条，似乎是什么异教的宣传单。“将全局速度限制在10倍，然后使难得素获取数量和祭品获取数量乘以全局速度变化的倍数。”嗯……",
+        "effectHave": "您已加入异教！",
+        "effectHaveNot": "您未加入异教！"
       },
       "oneMind": {
         "name": "一心",
-        "description": "The Cult Master, in his third eye, stares into your brain. \"Hmm. You need the other half. For a heavy tithe, let me extend the benefits of the MIND to your Ascension Speed for Cubes as well.\" Hmm indeed...",
+        "description": "教主用他的第三只眼凝视着您的大脑。“嗯，你还需要另一半。献上大量供奉，我将对心之力进行扩展，让飞升的速度以相同方式加成所有类型的方盒、立方和方块获取数量。”确实如此……",
         "effectHave": "您已加入异教！",
         "effectHaveNot": "您未加入异教！"
       },
@@ -2329,8 +2329,8 @@
         "effectHaveNot": "您未嘎了最后的嘎克"
       },
       "blueberries": {
-        "name": "Blueberries!",
-        "description": "Blueberries! They are rich in Vitamin K, which helps clot things, including Ambrosia!",
+        "name": "蓝莓！",
+        "description": "蓝莓！它们富含维生素K，有助于凝结东西，包括神肴！",
         "effect": "您购买了{{n}}个美味的蓝莓。"
       },
       "singAmbrosiaLuck2": {
@@ -2394,9 +2394,9 @@
         "effect": "蚁神在进入奇点时投入{{n}}个代币！"
       },
       "singInfiniteShopUpgrades": {
-        "name": "Yellow Infinity Shop Voucher",
-        "description": "A Shop Voucher, printed on a yellow tablet. Each grants +1 effective level the 'Infinity CO.' Quark Shop upgrades.",
-        "effect": "You have +{{n}} free levels of the 'Infinity CO.' Quark Shop upgrades."
+        "name": "黄色无限商店代金券",
+        "description": "印在黄色铭牌‌上的商店代金券。每级使“无限公司”商店升级的有效等级增加1。",
+        "effect": "“无限公司”相关商店升级的免费等级增加了{{n}}。"
       }
     },
     "goldenQuarkAmount": "您有{{goldenQuarks}}金夸克！",
@@ -2468,7 +2468,7 @@
       "goldenQuarks": "金夸克",
       "quarks": "夸克",
       "ascensionScore": "飞升分数",
-      "blueberryGenerationSpeed": "Ambrosia Bar Points / second",
+      "blueberryGenerationSpeed": "每秒神肴进度条点数",
       "ambrosiaLuck": "神肴之运",
       "powderConversion": "超通量粉转换效率",
       "antSacrifice": "蚂蚁献祭",
@@ -2829,7 +2829,7 @@
   },
   "offlineProgress": {
     "loading": "加载离线进度...",
-    "prestigeCount": "Prestige Count: +<<cyan|{{value}}>>",
+    "prestigeCount": "转生次数：+<<cyan|{{value}}>>",
     "currentPrestigeTimer": "当前转生时间：+<<cyan|{{value}}>>秒",
     "offeringsGenerated": "产生的祭品数量: <<orange|{{value}}>>",
     "transcensionCount": "超越次数：+<<var(--orchid-text-color);|{{value}}>>",
@@ -2841,13 +2841,13 @@
     "realAntSacTimer": "现实中的蚂蚁计时：+<<var(--red-text-color);|{{value}}>>秒",
     "currentAscensionTimer": "当前飞升时间：+<<gold|{{value}}>>秒",
     "exportQuarks": "导出可获得的夸克数量：+<<goldenrod|{{value}}>>",
-    "ambrosia": "Ambrosia: +<<orange|{{value}}>> | Ambrosia Bar Points +<<lightblue|{{value2}}>>",
-    "redAmbrosia": "Red Ambrosia: +<<red|{{value}}>> | Red Bar Points +<<red|{{value2}}>>"
+    "ambrosia": "神肴：+<<orange|{{value}}>> | 神肴进度条点数 +<<lightblue|{{value2}}>>",
+    "redAmbrosia": "红神肴：+<<red|{{value}}>> | 红神肴进度条点数 +<<red|{{value2}}>>"
   },
   "fastForward": {
-    "global": "Your Global stuff fast forwarded {{time}} seconds!",
-    "ascension": "Your Ascension stuff fast forwarded {{time}} seconds!",
-    "ambrosia": "Your Ambrosia stuff fast forwarded {{time}} seconds!"
+    "global": "您的全局相关内容推进了{{time}}秒！",
+    "ascension": "您的飞升相关内容推进了{{time}}秒！",
+    "ambrosia": "您的神肴相关内容推进了{{time}}秒！"
   },
   "campaigns": {
     "intro": "战役 - <<orange|进行飞升>>，但<<maroon|更加困难™>>",
@@ -3092,7 +3092,7 @@
         "goldenQuark": "使金夸克获取数量增加<<gold |{{ reward }}>>(最高增加25%)。",
         "octeract": "使八阶方块获取数量增加<<teal |{{ reward }}>>(最高增加50%)。",
         "ambrosiaLuck": "使☘ 神肴之运增加<<green |{{ reward }}>>(最高增加100)。",
-        "blueberrySpeed": "Increase Ambrosia Bar Points gain by <<blue | {{ reward }}>> (Maximum +10%)."
+        "blueberrySpeed": "使神肴进度条点数获取速度增加<<blue|{{ reward }}>>(最高增加10%)。"
       }
     },
     "currentCampaignPreTitle": "当前战役：",
@@ -3127,7 +3127,7 @@
     },
     "currentLevel": {
       "viscosity": "本次飞升，此腐化等级为{{ level }}。效果为：免费加速器和加倍器的指数变为原来的{{ effect }}次方",
-      "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is multiplied by {{ effect }}",
+      "dilation": "本次飞升，此腐化等级为{{ level }}。效果为：全局速度乘以{{ effect }}",
       "hyperchallenge": "本次飞升，此腐化等级为{{ level }}。效果为：挑战需求指数乘以{{ effect }}",
       "illiteracy": "本次飞升，此腐化等级为{{ level }}。效果为：难得素获取数量变为原来的{{ effect }}次方",
       "deflation": "本次飞升，此腐化等级为{{ level }}。效果为：钻石获取数量变为原来的{{ effect }}次方",
@@ -3137,7 +3137,7 @@
     },
     "prototypeLevel": {
       "viscosity": "下次飞升，此腐化等级将变为{{ level }}。效果为：免费加速器和加倍器的指数变为原来的{{ effect }}次方",
-      "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is multiplied by {{ effect }}",
+      "dilation": "下次飞升，此腐化等级将变为{{ level }}。效果为：全局速度乘以{{ effect }}",
       "hyperchallenge": "下次飞升，此腐化等级将变为{{ level }}。效果为：挑战需求指数乘以{{ effect }}",
       "illiteracy": "下次飞升，此腐化等级将变为{{ level }}。效果为：难得素获取数量变为原来的{{ effect }}次方",
       "deflation": "下次飞升，此腐化等级将变为{{ level }}。效果为：钻石获取数量变为原来的{{ effect }}次方",
@@ -3414,7 +3414,7 @@
       },
       "octeractImprovedFree": {
         "name": "真惊奇！我希望免费升级效果变得更好。",
-        "description": "Upgrade level of Golden Quark and Octerct upgrades becomes (paid level * free levels)^0.6 instead of being added.",
+        "description": "奇点商店升级和八阶方块升级的效果从购买等级与免费等级直接相加改为 [购买等级×免费等级]的0.6次方。",
         "effect": "奇点商店的免费等级效果{{n}}强化！"
       },
       "octeractImprovedFree2": {
@@ -3543,14 +3543,14 @@
         "effect": "蓝莓秒的产生速度+{{n}}%(!)"
       },
       "octeractBlueberries": {
-        "name": "Berries that are Blue!",
-        "description": "Blueberries are a blue fruit. Enough said.",
-        "effect": "You have purchased {{n}} blue blueberries!"
+        "name": "蓝色的莓！",
+        "description": "蓝莓是一种蓝色水果。就这样。",
+        "effect": "您购买了{{n}}个蓝色的蓝莓！"
       },
       "octeractInfiniteShopUpgrades": {
-        "name": "Green Infinity Shop Voucher",
-        "description": "A Shop Voucher, printed on a green tablet. Each grants +1 effective level for the 'Infinity CO.' Quark Shop upgrades.",
-        "effect": "'Infinity CO.' shop upgrades level +{{n}}"
+        "name": "绿色无限商店代金券",
+        "description": "印在绿色铭牌‌上的商店代金券。每级使“无限公司”商店升级的有效等级增加1。",
+        "effect": "“无限公司”商店升级的等级增加{{n}}"
       }
     },
     "amount": "您有{{octeracts}}惊奇八阶方块！",
@@ -3573,7 +3573,7 @@
       "2": "每10级使加倍器数量增加(等级/10)，且每级再增加0.25%。每级使税收增长减缓更多！",
       "3": "使水晶产量变为[1+(等级/2)^2*2^(等级/2)/256]倍。每16级使每个水晶升级免费增加1级！",
       "4": "每级使建筑成本增长减缓0.125%，每级使祭品回收概率增加0.0625%[上限：25%]。另外当等级超过400以后，还可以使税收增长倍率变为2^[(1000-等级)/1100]倍",
-      "5": "~(1 + level/200)x Obtainium, (1 + Level^2/2500)x Ant Hatch Speed, (1 + level/2000)x Offerings",
+      "5": "使难得素获取数量变为(1+等级/200)倍，蚂蚁速度变为(1+等级^2/2500)倍，祭品获取数量变为(1+等级/2000)倍",
       "6": "每级使夸克获取数量增加0.2%，所有类型的方盒、立方和方块获取数量增加1%！初始状态下使夸克获取数量增加10%。",
       "7": "如果给它{{exp}}符文经验值，或许会发生什么事情。"
     },
@@ -3582,7 +3582,7 @@
       "2": "重叠符文奖励：使加倍器数量增加{{mult1}}，再增加{{mult2}}%，税收增长减缓{{tax}}%。",
       "3": "棱柱符文奖励：使水晶产量变为{{mult}}倍，每个水晶升级免费增加{{gain}}级。",
       "4": "节俭符文奖励：使所有建筑成本增长减缓{{delay}}%，祭品回收概率增加{{chance}}%，税收增长减缓{{tax}}%。",
-      "5": "S. Intellect Rune Bonus: Obtainium gain x{{gain}}. Ant Speed: x{{speed}}. Offerings x{{offerings}}",
+      "5": "卓越智慧符文奖励：使难得素获取数量变为{{gain}}倍，蚂蚁速度变为{{speed}}倍，祭品获取数量变为{{offerings}}倍",
       "6": "无限晋升符文奖励：使夸克获取数量增加{{percent1}}%，飞升时所有类型的方盒及立方获取数量增加{{percent2}}%。",
       "7": "您无法得知蚁神至宝的真面目。"
     },
@@ -3737,14 +3737,14 @@
         "UniqueReward1": "第1次 - 使<<gold|金夸克>>获取数量增加12%！",
         "UniqueReward2": "第1次 - 免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！",
         "UniqueReward3": "第20次 - 新的<<orchid|夸克商店>>升级！",
-        "UniqueReward4": "30th - +5% <<lime|&#9752 Ambrosia Luck>> for free!",
+        "UniqueReward4": "第30次 - 使<<lime|&#9752 神肴之运>>免费增加5%！",
         "UniqueReward5": "第30次 - 新的<<orchid|夸克商店>>升级！当然，不免费。"
       },
       "oneChallengeCap": {
         "name": "挑战上限恒为一",
         "description": "您需要在前14个挑战的上限只有1的前提下通过目标奇点！",
         "ScalingReward1": "使<<var(--red-text-color)|腐化的相关加成倍率>>增加0.03",
-        "ScalingReward2": "+1% <<var(--blueberry-box-color)|Ambrosia Bar Points>> gained",
+        "ScalingReward2": "使<<var(--blueberry-box-color)|神肴进度条点数获取速度>>增加1%",
         "UniqueReward1": "第1次 - 使<<green|转世挑战>>的完成次数上限增加3次！",
         "UniqueReward2": "第20次 - 使<<var(--red-text-color)|腐化等级>>免费增加1级",
         "UniqueReward3": "第20次 - 新的<<orchid|夸克商店>>升级！",
@@ -3763,23 +3763,23 @@
         "description": "Derpsmith颁布了飞升禁令。整个奇点只能进行 (20 - 阶层完成数) 次飞升，之后将触发极其巨大的惩罚！飞升次数倍率锁定为1。哦对了，PLATONIC·德尔塔在该挑战中失效，哈。",
         "ScalingReward1": "<<orange|飞升次数>>每个数量级可以使<<orange|飞升的速度增加0.1%！>>",
         "UniqueReward1": "第1次 - 永久使<<Pink|所有七阶立方>>的上限翻倍！！！(效果拔群！)",
-        "UniqueReward2": "20th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward3": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
+        "UniqueReward2": "第20次 - 新的<<orchid|夸克商店>>升级！",
+        "UniqueReward3": "第25次 - 新的<<orchid|夸克商店>>计算器，真棒！"
       },
       "noAmbrosiaUpgrades": {
         "name": "无神肴升级",
         "description": "那个金色家伙失去了热情，连名字也记不起来了，他需要您的帮助。<br/>您需要在神肴和神肴升级没有效果的前提下通过目标奇点！",
         "ScalingReward1": "使<<lime|&#9752 神肴之运>>增加15，再增加0.5%",
-        "ScalingReward2": "+2% <<var(--blueberry-box-color)|Ambrosia Bar Point>> gain",
-        "ScalingReward3": "+4 <<red|&#9861 Red Ambrosia Luck>>",
-        "ScalingReward4": "+1% <<red|Red Bar Point>> gain",
+        "ScalingReward2": "使<<var(--blueberry-box-color)|神肴进度条点数获取速度>>增加2%",
+        "ScalingReward3": "使<<red|&#9861 红运>>增加4",
+        "ScalingReward4": "使<<red|红神肴进度条点数获取速度>>增加1%",
         "UniqueReward1": "第1次 - 免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！",
         "UniqueReward2": "第1次 - 每次获得<<var(--amber-text-color)|神肴>>时，使<<var(--amber-text-color)|神肴>>增加1！",
-        "UniqueReward3": "1st - Unlock <<red|Red Ambrosia>>! It's like Ambrosia, but <<red|red>>.",
-        "UniqueReward4": "10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
-        "UniqueReward5": "15th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward6": "20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
-        "UniqueReward7": "20th - An <<gold|ULTRA Quark Shop>> upgrade!"
+        "UniqueReward3": "第1次 - 解锁 <<red|红神肴>>！它很像神肴，只不过是<<red|红的>>。",
+        "UniqueReward4": "第10次 - 再次免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！！！",
+        "UniqueReward5": "第15次 - 新的<<orchid|夸克商店>>升级！",
+        "UniqueReward6": "第20次 - 第3次免费获得1颗<<var(--blueberry-box-color)|蓝莓>>？！？！",
+        "UniqueReward7": "第20次 - 新的<<orchid|超究夸克商店>>升级！"
       },
       "limitedTime": {
         "name": "奇点大竞速赛！",
@@ -3787,8 +3787,8 @@
         "ScalingReward1": "使<<orange|全局速度>>增加6%！",
         "ScalingReward2": "使<<orange|飞升的速度>>增加6%！",
         "ScalingReward3": "使<<cyan|夸克获取数量>>增加1%！",
-        "ScalingReward4": "-1% <<red|Red Bar Fill Requirements>>!",
-        "UniqueReward1": "1st - Your quarks no longer reset on Singularity!",
+        "ScalingReward4": "使<<red|红神肴进度条点数需求>>减少1%！",
+        "UniqueReward1": "第1次 - 进入奇点时不再重置夸克数量！",
         "UniqueReward2": "第15次 - 新的<<orchid|夸克商店>>升级！",
         "UniqueReward3": "第25次 - 非常昂贵、不好、很坏的<<orange|夸克商店>>升级！"
       },
@@ -3859,37 +3859,37 @@
   },
   "statistics": {
     "subtabs": {
-      "misc": "Miscellaneous Stats",
-      "baseOffering": "Base Offerings",
-      "offeringMult": "Offering Multipliers",
-      "baseObtainium": "Base Obtainium",
-      "obtIgnoreDR": "Illiteracy Ignore Cap",
-      "obtMult": "Obtainium Multipliers",
-      "quarkMult": "Global Quark Multipliers",
-      "gSpeedMultIgnoreDR": "Immaculate Global Speed",
-      "gSpeedMult": "Global Speed Multipliers",
-      "antSacrificeMult": "Ant Sacrifice Multipliers",
-      "ascMult": "Asc. Speed Multipliers",
-      "globalCubeMult": "Global Cube Multipliers",
-      "cubeMult": "Cube Multipliers",
-      "tessMult": "Tesseract Multipliers",
-      "hypercubeMult": "Hypercube Multipliers",
-      "platMult": "Platonic Multipliers",
-      "heptMult": "Hepteract Multipliers",
-      "orbPowderMult": "Orb to Powder Multipliers",
-      "gqMult": "Golden Quark Multipliers",
-      "gqCost": "Golden Quark Cost",
-      "addStats": "Add Code Stats",
-      "octMult": "Octeract Multipliers",
-      "ambrosiaAdditiveLuckMult": "Ambrosia Luck Mult",
-      "ambrosiaLuck": "Ambrosia Luck",
-      "ambrosiaBlueberries": "Blueberry Inventory",
-      "ambrosiaGenMult": "Ambrosia Bar Points",
-      "luckConversion": "Luck Conversion",
-      "redAmbrosiaLuck": "Red Ambrosia Luck",
-      "redAmbrosiaGenMult": "Red Ambrosia Bar Points",
-      "shopVouchers": "Shop Vouchers",
-      "generate": "Generate Savefile Stats Summary"
+      "misc": "杂项数据",
+      "baseOffering": "基础祭品获取数量",
+      "offeringMult": "祭品获取数量倍率",
+      "baseObtainium": "基础难得素获取数量",
+      "obtIgnoreDR": "无视文盲的上限",
+      "obtMult": "难得素获取数量倍率",
+      "quarkMult": "全局夸克获取数量倍率",
+      "gSpeedMultIgnoreDR": "无瑕全局速度",
+      "gSpeedMult": "全局速度倍率",
+      "antSacrificeMult": "蚂蚁献祭倍率",
+      "ascMult": "飞升的速度倍率",
+      "globalCubeMult": "全局方盒倍率",
+      "cubeMult": "方盒倍率",
+      "tessMult": "超立方倍率",
+      "hypercubeMult": "五阶立方倍率",
+      "platMult": "PLATONIC方盒倍率",
+      "heptMult": "七阶立方倍率",
+      "orbPowderMult": "超通量粉转换效率",
+      "gqMult": "金夸克获取数量倍率",
+      "gqCost": "购买金夸克花费",
+      "addStats": "“增加”代码统计数据",
+      "octMult": "八阶方块倍率",
+      "ambrosiaAdditiveLuckMult": "神肴之运倍率",
+      "ambrosiaLuck": "神肴之运",
+      "ambrosiaBlueberries": "蓝莓库存",
+      "ambrosiaGenMult": "神肴进度条点数",
+      "luckConversion": "神肴之运转换比率",
+      "redAmbrosiaLuck": "红运",
+      "redAmbrosiaGenMult": "红神肴进度条点数",
+      "shopVouchers": "商店代金券",
+      "generate": "生成统计数据报告"
     },
     "globalCubeMultiplierStats": {
       "title": "Global Cube Multiplier",
