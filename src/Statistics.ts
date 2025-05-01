@@ -202,7 +202,7 @@ export const allCubeStats: StatLine[] = [
   },
   {
     i18n: 'PassINF',
-    stat: () => Math.pow(1.01, player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades())
+    stat: () => Math.pow(1.012, player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades())
   },
   {
     i18n: 'CashGrabUltra',
@@ -771,7 +771,7 @@ export const allOcteractCubeStats: StatLine[] = [
   },
   {
     i18n: 'PassINF',
-    stat: () => Math.pow(1.01, (player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()) * 1.25)
+    stat: () => Math.pow(1.012, (player.shopUpgrades.seasonPassInfinity + calculateFreeShopInfinityUpgrades()) * 1.25)
   },
   {
     i18n: 'Ambrosia',
@@ -1092,7 +1092,7 @@ export const allOfferingStats = [
   },
   {
     i18n: 'OfferingINF',
-    stat: () => Math.pow(1.01, player.shopUpgrades.offeringEX3 + calculateFreeShopInfinityUpgrades()) // Offering INF
+    stat: () => Math.pow(1.012, player.shopUpgrades.offeringEX3 + calculateFreeShopInfinityUpgrades()) // Offering INF
   },
   {
     i18n: 'EXUltra',
@@ -1550,7 +1550,7 @@ export const allObtainiumStats: StatLine[] = [
   },
   {
     i18n: 'ShopObtainiumEX3',
-    stat: () => Math.pow(1.01, player.shopUpgrades.obtainiumEX3 + calculateFreeShopInfinityUpgrades()) // Obtainium EX 3 Shop Upgrade
+    stat: () => Math.pow(1.012, player.shopUpgrades.obtainiumEX3 + calculateFreeShopInfinityUpgrades()) // Obtainium EX 3 Shop Upgrade
   },
   {
     i18n: 'OcteractBonus',
@@ -1873,7 +1873,7 @@ export const allAscensionSpeedStats: StatLine[] = [
   },
   {
     i18n: 'ChronometerINF',
-    stat: () => Math.pow(1.005, player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) // Chronometer INF
+    stat: () => Math.pow(1.006, player.shopUpgrades.chronometerInfinity + calculateFreeShopInfinityUpgrades()) // Chronometer INF
   },
   {
     i18n: 'LimitedAscensionsBuff',
