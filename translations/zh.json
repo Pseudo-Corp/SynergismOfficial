@@ -133,7 +133,7 @@
       },
       "ambrosiaHyperflux": {
         "name": "惊奇方盒终级工业生产",
-        "description": "Platonic升级4x4每有1级，每级就可以使方盒获取数量增加1%(效果叠乘！！！)",
+        "description": "Platonic升级4x4每有1级，每级该升级就可以使方盒获取数量增加1%(效果叠乘！！！)",
         "effect": "该模块使方盒获取数量增加{{amount}}%！"
       },
       "ambrosiaBaseObtainium1": {
@@ -158,7 +158,7 @@
       },
       "ambrosiaSingReduction1": {
         "name": "奇点稳定模块",
-        "description": "装配神肴通量电容器后，奇点更加平滑。只要不在拔擢中，每级就使奇点相关惩罚视为减少1次奇点的惩罚。",
+        "description": "装配神肴通量电容器后，奇点更加平滑。只要不在拔擢中，每级该升级就使奇点相关惩罚视为减少1次奇点的惩罚。",
         "effect": "奇点相关惩罚视为减少{{amount}}次奇点的惩罚。"
       },
       "ambrosiaInfiniteShopUpgrades1": {
@@ -173,7 +173,7 @@
       },
       "ambrosiaSingReduction2": {
         "name": "超维色动后激奇点稳定模块",
-        "description": "装配……那种稳定器后，拔擢的奇点更加平滑。只要在拔擢中，每级就使奇点相关惩罚视为减少1次奇点的惩罚。",
+        "description": "装配……那种稳定器后，拔擢的奇点更加平滑。只要在拔擢中，每级该升级就使奇点相关惩罚视为减少1次奇点的惩罚。",
         "effect": "奇点相关惩罚视为减少{{amount}}次奇点的惩罚。"
       }
     },
@@ -1317,7 +1317,7 @@
       "73": "[Cx23]每级使无限晋升符文的额外等级增加1！",
       "74": "[Cx24]使所有腐化的分数倍率增加0.30。",
       "75": "[Cx25]每级使奇点升级的免费等级效果增加0.3%！(效果与其他加成叠加)",
-      "76": "[Cx26]蓝莓秒每次达到阈值，每级就使<<blue|蓝莓秒产生速度>>增加1%！",
+      "76": "[Cx26]蓝莓秒每次达到阈值，每级该升级就使<<blue|蓝莓秒产生速度>>增加1%！",
       "77": "[Cx27]每级使<<green|☘ 神肴之运>>增加2，然后再增加0.1%！",
       "78": "[Cx28]每级使惊奇八阶方块升级的免费等级效果增加0.3%！",
       "79": "[Cx29]购买该升级时获得神肴之运，数量基于红神肴总数！[公式为 10 * (Log_10(x))^2]",
@@ -1639,14 +1639,14 @@
       "shopAmbrosiaLuckMultiplier4": "每级使☘ 神肴之运增加1%！就这么简单。",
       "shopOcteractAmbrosiaLuck": "惊奇八阶方块每有一个数量级，每级就使☘ 神肴之运增加1%！就这么简单。",
       "shopCashGrabUltra": "象征性地支付一点费用，根据神肴数量，每级至多使蓝莓秒的产生速度增加15%，方盒获取数量增加120%，夸克获取数量增加8%。效果增长非线性，直到一共获得10000000神肴为止。",
-      "shopAmbrosiaAccelerator": "Each level of this 'accelerator' provides <<cyan|+0.2>> real-life seconds worth of Ambrosia Bar Points for every <<orange|1>> Ambrosia gained, from any source!",
+      "shopAmbrosiaAccelerator": "每获得<<orange|1>>神肴时(无论来自何处)，每级该升级就可以使神肴进度条点数立刻增加现实<<cyan|0.2>>秒的产量。",
       "shopEXUltra": "拥有该额外升级后，每有1000神肴，就使<<orchid|难得素获取数量>>、<<orange|祭品获取数量>>和<<white|方盒获取数量>>增加0.1%！该效果的上限为125000×该升级等级！",
       "shopChronometerS": "200次进入奇点后，每有1次奇点次数，该升级就使飞升的速度和全局速度增加1%！",
       "shopAmbrosiaUltra": "拥有该额外升级(价格高到离谱)后，每完成1阶层拔擢，每级该升级就可以使☘ 神肴之运增加1。",
       "shopSingularitySpeedup": "您知道那些由时间控制的奇点升级和惊奇八阶方块升级吧？它们增长的速度将变为原来的50倍！多亏了这个甚至能改变<<gray|奇点时长>>的奇怪时钟……",
       "shopSingularityPotency": "您知道那些免费奇点升级吧？它们的效果将增加266%(换句话说，不计算软上限的话，每级都将是之前3.66级的效果)。原因？是这个有点奇怪的<<gray|奇点传输仪式装置>>！别多问了。",
       "shopSadisticRune": "多奇怪的符文。店主(您永远也无法再见的那位)通过心灵感应说道，这是浸入某种<<gray|奇点物质>>的无限晋升符文。难道无限晋升符文不止一个？",
-      "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +0.005 effective levels for the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down."
+      "shopInfiniteShopUpgrades": "印在蓝色铭牌‌上的商店代金券。每完成1阶层拔擢，每级该升级就使“无限公司”相关商店升级的有效等级增加0.005，向下取整。"
     },
     "maxed": "已满级！",
     "upgradeFor": "使用{{x}}",
@@ -1655,7 +1655,7 @@
     "buyYerPotions": "买点药剂！",
     "header": "欢迎来到夸克商店，您肯定想不到这里会有些什么！",
     "youHaveQuarks": "您有{{x}}夸克！",
-    "refundable": "This item is refundable! Will be set to level {{level}} when refunded.",
+    "refundable": "您可以重置此项购买！重置后将变为{{level}}级。",
     "cannotRefund": "请注意！您无法重置此项购买！",
     "resetPermShop": "重置商店购买[花费：15夸克]",
     "shopConfirmationOn": "商店确认框：开",
@@ -4716,10 +4716,10 @@
         "platonicCanBuyMaxed": "===等级已达最大==="
       },
       "descriptions": {
-        "1": "每有一级腐化，每级此升级就可以使方盒获取数量增加0.0090%！",
-        "2": "每有一级腐化，每级此升级就可以使超立方获取数量增加0.018%！",
-        "3": "每有一级腐化，每级此升级就可以使惊奇五阶立方获取数量增加0.054%！",
-        "4": "每级此升级使PLATONIC方盒获取数量增加2.4%！简单明了。",
+        "1": "每有一级腐化，每级该升级就可以使方盒获取数量增加0.0090%！",
+        "2": "每有一级腐化，每级该升级就可以使超立方获取数量增加0.018%！",
+        "3": "每有一级腐化，每级该升级就可以使惊奇五阶立方获取数量增加0.054%！",
+        "4": "每级该升级使PLATONIC方盒获取数量增加2.4%！简单明了。",
         "5": "C10 Exponent: 1.035 --> 1.0375, Constant tax exponent +0.10, 2x faster Constant production, 1.05x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^1.10 coin gain in C15, as well +1 Corruption Cap Level!",
         "6": "Viscous's exponent is multiplied by 1+(level/30), capped at ^1.",
         "7": "Global speed below 1x is raised to ^1-(level/30), ignoring Immaculate multipliers.",
@@ -4731,7 +4731,7 @@
         "13": "The effect of Less Fruitful Harvests is raised to ^0.5.",
         "14": "Multiply Great Depression II's coin exponent by 1.55, but only in Challenge 15.",
         "15": "You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (Multiplicative), 1.15x Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings (Uncorruptable)! Talk about a deep dive.",
-        "16": "每级此升级使超通量粉转换效率增加1%，使飞升次数获取数量增加2%，并且根据超通量粉的数量(上限100000)最多还可以使飞升次数获取数量再增加2%。另外，超立方建筑产量变为(超通量粉数量+1)^(10*等级)倍，无上限。",
+        "16": "每级该升级使超通量粉转换效率增加1%，使飞升次数获取数量增加2%，并且根据超通量粉的数量(上限100000)最多还可以使飞升次数获取数量再增加2%。另外，超立方建筑产量变为(超通量粉数量+1)^(10*等级)倍，无上限。",
         "17": "If this is bought, Viscous's score multiplier is raised to 3+(level*0.04) if its level is set to 10 or higher.",
         "18": "每级使数学常数升级1的基础效果百分比增加0.1%，并使数学常数升级2的基础上限百分比增加0.3%！",
         "19": "The Chronos Hepteract's diminishing return exponent is increased by level/750 (roughly 0.00133). (Base: 1/6)",
