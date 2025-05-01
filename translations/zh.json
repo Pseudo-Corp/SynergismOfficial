@@ -223,47 +223,47 @@
         "effect": "使转换需要的神肴之运数量减少<<lime|{{amount}}>>！"
       },
       "freeTutorialLevels": {
-        "name": "More Blueberry Tutorial Module Levels!",
-        "description": "A meta-tutorial of sorts. A powerful ability of Red Ambrosia is to power your Blueberry tree! Increase the effective level of Blueberry Tutorial Module by 1 per level.",
-        "effect": "This upgrade increases the effective level of Blueberry Tutorial Module by {{amount}}!"
+        "name": "增加神肴教程模块的等级",
+        "description": "某种元教程。红神肴的强大能力之一是为蓝莓树供能！每级可以使神肴教程模块的有效等级增加1。",
+        "effect": "该升级使神肴教程模块的有效等级增加{{amount}}！"
       },
       "freeLevelsRow2": {
-        "name": "More Row 2 Blueberry Upgrade Levels!",
-        "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the second row, per level.",
-        "effect": "This upgrade increases the effective level of (most) row 2 Blueberry Modules by {{amount}}!"
+        "name": "增加第2行蓝莓升级的等级",
+        "description": "每级使第二行所有蓝莓模块(除了奇点稳定模块以外)的有效等级增加1。",
+        "effect": "该升级使第2行大部分蓝莓模块的有效等级增加{{amount}}！"
       },
       "freeLevelsRow3": {
-        "name": "More Row 3 Blueberry Upgrade Levels!",
-        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the third row, per level.",
-        "effect": "This upgrade increases the effective level of ALL row 3 Blueberry Modules by {{amount}}!"
+        "name": "增加第3行蓝莓升级的等级",
+        "description": "每级使第三行所有蓝莓模块的有效等级增加1。",
+        "effect": "该升级使第3行所有蓝莓模块的有效等级增加{{amount}}！"
       },
       "freeLevelsRow4": {
-        "name": "More Row 4 Blueberry Upgrade Levels!",
-        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the fourth row, per level.",
-        "effect": "This upgrade increases the effective level of ALL row 4 Blueberry Modules by {{amount}}!"
+        "name": "增加第4行蓝莓升级的等级",
+        "description": "每级使第四行所有蓝莓模块的有效等级增加1。",
+        "effect": "该升级使第4行所有蓝莓模块的有效等级增加{{amount}}！"
       },
       "freeLevelsRow5": {
-        "name": "More Row 5 Blueberry Upgrade Levels!",
-        "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the fifth row, per level.",
-        "effect": "This upgrade increases the effective level of (most) row 5 Blueberry Modules by {{amount}}!"
+        "name": "增加第5行蓝莓升级的等级",
+        "description": "每级使第五行所有蓝莓模块(除了奇点稳定模块以外)的有效等级增加1。",
+        "effect": "该升级使第5行大部分蓝莓模块的有效等级增加{{amount}}！"
       },
       "blueberryGenerationSpeed": {
-        "name": "The Sands of Time",
-        "description": "+0.2% Ambrosia Bar Point gain per level. They say this hourglass has the benediction of Chronos himself.",
-        "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
+        "name": "时之沙",
+        "description": "每级使神肴进度条点数获取速度增加0.2%。据说这个沙漏拥有柯罗诺斯本人的恩赐。",
+        "effect": "该升级使神肴进度条点数获取速度增加{{amount}}！"
       },
       "regularLuck": {
         "name": "固化蓝莓战术",
-        "description": "Most strange. Adding this gold-colored wax on your blueberries makes you slightly more likely to get Ambrosia! +2 Ambrosia Luck / level.",
-        "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
+        "description": "最奇怪的是，给蓝莓加上这种金色蜡竟然会让您多一点可能获得神肴！每级使神肴之运增加2。",
+        "effect": "该升级使神肴之运增加了{{amount}}！"
       },
       "redGenerationSpeed": {
-        "name": "Millenium-Aged Red Ambrosia",
-        "description": "Surely, with how long this Ambrosia is left to sit, it knows something about time. +0.3% more Red Ambrosia Bar Points per level.",
-        "effect": "This upgrade increases Red Ambrosia Bar Point gain by {{amount}}!"
+        "name": "千年之红神肴",
+        "description": "考虑到这份神肴放置的时间，它肯定也很了解时间。每级使红神肴进度条点数获取速度增加0.3%。",
+        "effect": "该升级使红神肴进度条点数获取速度增加{{amount}}！"
       },
       "redLuck": {
-        "name": "The Dice that Decide Your Fate",
+        "name": "决定命运的骰子",
         "description": "A life on every face, until you're finally left with an eight. +1 Red Ambrosia Luck per level!",
         "effect": "This upgrade increases Red Ambrosia Luck by {{amount}}!"
       },
