@@ -31,19 +31,23 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
     player.corruptions.saves = new CorruptionSaves(corruptionSaveStuff)
   }
 
-  if (player.ultimatePixels !== undefined && player.cubeUpgradeRedBarFilled !== undefined) {
+  if (player.ultimatePixels !== undefined || player.cubeUpgradeRedBarFilled !== undefined) {
     // One-time conversion for red bar filled and ultimate pixels (to a lesser degree)
-    player.redAmbrosia += Math.floor(player.ultimatePixels * 0.2 + player.cubeUpgradeRedBarFilled)
-    player.lifetimeRedAmbrosia += Math.floor(player.ultimatePixels * 0.2 + player.cubeUpgradeRedBarFilled)
+
+    const redBarFilled = player.cubeUpgradeRedBarFilled ?? 0
+    const ultimatePixels = player.ultimatePixels ?? 0
+
+    player.redAmbrosia += Math.floor(ultimatePixels * 0.2 + redBarFilled)
+    player.lifetimeRedAmbrosia += Math.floor(ultimatePixels * 0.2 + redBarFilled)
   }
 
-  player.usedCorruptions = undefined
-  player.prototypeCorruptions = undefined
-  player.corruptionLoadoutNames = undefined
-  player.corruptionLoadouts = undefined
-  player.ultimatePixels = undefined
-  player.ultimateProgress = undefined
-  player.cubeUpgradeRedBarFilled = undefined
+  Reflect.deleteProperty(player, 'usedCorruptions')
+  Reflect.deleteProperty(player, 'prototypeCorruptions')
+  Reflect.deleteProperty(player, 'corruptionShowStats')
+  Reflect.deleteProperty(player, 'corruptionLoadouts')
+  Reflect.deleteProperty(player, 'corruptionLoadoutNames')
+  Reflect.deleteProperty(player, 'ultimatePixels')
+  Reflect.deleteProperty(player, 'cubeUpgradeRedBarFilled')
 
   return player
 })

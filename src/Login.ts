@@ -7,6 +7,7 @@ import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosi
 import { updateGlobalsIsEvent } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { importSynergism } from './ImportExport'
+import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, setQuarkBonus } from './Quark'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
@@ -428,7 +429,6 @@ function handleWebSocket () {
 
   ws.addEventListener('message', (ev) => {
     const data = messageSchema.parse(ev.data)
-    console.log(data)
 
     if (data.type === 'warn') {
       Notification(data.message, 5_000)
@@ -476,6 +476,7 @@ function handleWebSocket () {
       tips = data.tips
     } else if (data.type === 'thanks') {
       Alert(i18next.t('pseudoCoins.consumables.thanks'))
+      updatePseudoCoins()
     } else if (data.type === 'tip-backlog' || data.type === 'tips') {
       tips += data.tips
 
@@ -485,13 +486,14 @@ function handleWebSocket () {
       calculateOffline(data.amount * 60, true)
       DOMCacheGetOrSet('exitOffline').style.visibility = 'unset'
     } else if (data.type === 'time-skip') {
-      console.log('test!')
       const timeSkipName = data.consumableName as PseudoCoinTimeskipNames
       const minutes = data.amount
 
       // Do the thing with the timeSkip
       activateTimeSkip(timeSkipName, minutes)
       saveSynergy()
+
+      updatePseudoCoins()
     }
 
     updateGlobalsIsEvent()

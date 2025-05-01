@@ -61,8 +61,6 @@ const initializeConsumablesTab = memoize(() => {
               consumable: key
             }))
           }
-
-          updatePseudoCoins()
         })
       })
     })
