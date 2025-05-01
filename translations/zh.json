@@ -284,18 +284,18 @@
       },
       "redAmbrosiaCubeImprover": {
         "name": "雇佣红神肴工匠",
-        "description": "They are better at making cubes out of Red Ambrosia for you, depending on how many you have. +0.01 exponent to \"Cubes 'made' of Red Ambrosia\" per level.",
-        "effect": "Exponent for that Red Ambrosia Upgrade: 0.40 → {{newExponent}}"
+        "description": "他们擅长使用红神肴制作方盒，多多益善。每级使“由红神肴‘制取’的方盒”升级的指数增加0.01。",
+        "effect": "由红神肴“制取”的方盒升级的指数从 0.40 变为 {{newExponent}}"
       },
       "viscount": {
-        "name": "Viscount of Ruby Guy",
-        "description": "For a stupid amount of Red Ambrosia, obtain a small amount of land, becoming 'viscount' of this land. Purchase this to get +10% Quarks, +125 Ambrosia Luck, +25 Red Luck, and a Discord Role!",
+        "name": "红宝石家伙子爵",
+        "description": "花费一大笔红神肴，获取一块土地，成为这片土地的“子爵”。购买后，夸克获取数量增加10%，神肴之运增加125，红运增加25，并可以获得一个Discord角色！",
         "effect": "📜 {{mark}}"
       },
       "infiniteShopUpgrades": {
-        "name": "Red Infinity Shop Voucher",
-        "description": "A Shop Voucher, printed on a red tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
-        "effect": "'Infinity' shop upgrades level +{{amount}}"
+        "name": "红色无限商店代金券",
+        "description": "印在红色铭牌‌上的商店代金券。每级使“无限”商店升级的有效等级增加1。",
+        "effect": "“无限”商店升级的等级增加{{amount}}"
       },
       "redAmbrosiaAccelerator": {
         "name": "Red-Blue Ultrafusion",
