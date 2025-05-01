@@ -173,8 +173,8 @@
       },
       "ambrosiaSingReduction2": {
         "name": "超维色动后激奇点稳定模块",
-        "description": "Retrofitted with... those kinds of Stabilizers, your EXALTED Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity, if you are ACTUALLY! in an EXALT.",
-        "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
+        "description": "装配……那种稳定器后，拔擢的奇点更加平滑。只要在拔擢中，每级就使奇点相关惩罚视为减少1次奇点的惩罚。",
+        "effect": "奇点相关惩罚视为减少{{amount}}次奇点的惩罚。"
       }
     },
     "loadouts": {
@@ -195,32 +195,32 @@
     }
   },
   "redAmbrosia": {
-    "redAmbrosia": "Red Ambrosia",
-    "amount": "Ambrosia: <<red|{{redAmbrosia}}>> Current | <<red|{{lifetimeRedAmbrosia}}>> Lifetime",
-    "purchaseWarning": "<<gold | ⚠>> Unlike Blueberry Modules, you <<red | CANNOT>> refund this upgrade. Please spend wisely!",
-    "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: &#9861; {{ambrosiaLuck}}>>]",
-    "redAmbrosiaBuyPrompt": "How many Red Ambrosia would you like to spend? You have {{amount}} Red Ambrosia. Type -1 to use max!",
-    "notUnlocked": "Clear No Ambrosia Upgrades, Tier 1!",
+    "redAmbrosia": "红神肴",
+    "amount": "神肴：目前有<<red|{{redAmbrosia}}>>，共有<<red|{{lifetimeRedAmbrosia}}>>",
+    "purchaseWarning": "<<gold|⚠>>与蓝莓模块不同的是您<<red|无法>>返还相应升级。请明智地进行购买！",
+    "perGen": "目前可以获得<<red|{{guaranteed}}>>，并有<<red|{{extraChance}}%>>概率再获得1个。[<<red|红运：&#9861; {{ambrosiaLuck}}>>]",
+    "redAmbrosiaBuyPrompt": "您想要花费多少红神肴？您拥有{{amount}}红神肴。如果想要购买最大数量，请输入-1！",
+    "notUnlocked": "首次完成无神肴升级！",
     "data": {
       "tutorial": {
-        "name": "A beginners guide to Red Ambrosia",
-        "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul. But you don't really care about that... 1.01x Cubes, Obtainium and Offerings per level!",
-        "effect": "Cubes, Obtainium and Offerings are increased by {{amount}}!"
+        "name": "红神肴新手指南",
+        "description": "就像神肴是神明的生命之源一样，红神肴则是您灵魂的生命之源。但您并不真正在意……每级使所有类型的方盒、立方和方块获取数量、难得素获取数量和祭品获取数量变为原来的1.01倍！",
+        "effect": "所有类型的方盒、立方和方块获取数量、难得素获取数量和祭品获取数量增加了{{amount}}！"
       },
       "conversionImprovement1": {
-        "name": "Ambrosia Luck Converter Improvement",
-        "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
+        "name": "神肴之运改进转换",
+        "description": "每20神肴之运才能转换为1红运？呵，不如把这个比率降低1吧。",
+        "effect": "使转换需要的神肴之运数量减少<<lime|{{amount}}>>！"
       },
       "conversionImprovement2": {
-        "name": "Ambrosia Luck Converter Improvement II: The Red Electric Boogaloo",
-        "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
+        "name": "神肴之运改进转换 II：红色电子布加洛舞",
+        "description": "每20神肴之运才能转换为1红运？呵，不如把这个比率降低1吧。",
+        "effect": "使转换需要的神肴之运数量减少<<lime|{{amount}}>>！"
       },
       "conversionImprovement3": {
-        "name": "Ambrosia Luck Converter Improvement III and a half",
-        "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
+        "name": "神肴之运改进转换 III 代半",
+        "description": "每20神肴之运才能转换为1红运？呵，不如把这个比率降低1吧。",
+        "effect": "使转换需要的神肴之运数量减少<<lime|{{amount}}>>！"
       },
       "freeTutorialLevels": {
         "name": "More Blueberry Tutorial Module Levels!",
@@ -253,7 +253,7 @@
         "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
       },
       "regularLuck": {
-        "name": "Ossified Blueberry Tactics",
+        "name": "固化蓝莓战术",
         "description": "Most strange. Adding this gold-colored wax on your blueberries makes you slightly more likely to get Ambrosia! +2 Ambrosia Luck / level.",
         "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
       },
@@ -298,13 +298,13 @@
         "effect": "“无限”商店升级的等级增加{{amount}}"
       },
       "redAmbrosiaAccelerator": {
-        "name": "Red-Blue Ultrafusion",
-        "description": "When you gain a Red Ambrosia, you gain a bit of progress toward regular Ambrosia! +0.02 real-life seconds of Ambrosia Bar Points per level, per Red Ambrosia generated, with the first level giving +1!",
-        "effect": "Each Red Ambrosia generated grants {{amount}} real-life seconds of Ambrosia Bar Points."
+        "name": "红蓝超融合",
+        "description": "当您获得红神肴时，普通神肴的进度条也会有进展！每生成1红神肴，每级该升级就使神肴进度条点数增加0.02秒的产量，且第1级该升级的加成为增加1秒的产量！",
+        "effect": "每生成1红神肴，神肴进度条点数就增加{{amount}}秒的产量。"
       },
       "regularLuck2": {
-        "name": "Ossified Blueberry Tactics II",
-        "description": "This also gives +2 Ambrosia Luck / level, but you can purchase a ton of levels of this!",
+        "name": "固化蓝莓战术 II",
+        "description": "每级同样使神肴之运增加2，但您可以多购买很多次升级！",
         "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
       },
       "blueberryGenerationSpeed2": {
