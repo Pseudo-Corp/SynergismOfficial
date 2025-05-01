@@ -11,9 +11,9 @@
   },
   "ambrosia": {
     "ambrosia": "神肴",
-    "amount": "Ambrosia: <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Current | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> Lifetime",
-    "blueberryAmount": "Blueberries: <<lightblue | {{unspentBlueberries}}>> Unspent | <<lightblue | {{blueberries}}>> Total",
-    "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> Ambrosia Bar Points.",
+    "amount": "神肴：目前有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>，共有<<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>>",
+    "blueberryAmount": "蓝莓：<<lightblue | {{unspentBlueberries}}>>尚未花费，共有<<lightblue | {{blueberries}}>>",
+    "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>神肴条点数。",
     "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：☘ {{ambrosiaLuck}}>>]",
     "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<<blue|{{thresholdTimer}}>>后可以产生神肴。",
     "generatedCubeBonus": "Cubes <<yellow|+{{cubeBonus}}>>",
