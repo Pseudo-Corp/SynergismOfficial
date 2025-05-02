@@ -312,13 +312,13 @@ export const calculateAntSacrificeObtainium = () => {
   const baseObtainium = calculateBaseObtainium()
   calculateAntSacrificeELO()
 
-  let deltaTime = Math.min(
-    1e300,
-    Math.pow(base * antSacMult * G.effectiveELO, player.corruptions.used.corruptionEffects('illiteracy'))
-  )
-  deltaTime *= antSacrificeTimeStats(player.antSacrificeTimer, player.achievements[177] > 0).reduce(
+  const timeMult = antSacrificeTimeStats(player.antSacrificeTimer, player.achievements[177] > 0).reduce(
     (a, b) => a * b.stat(),
     1
+  )
+  const deltaTime = Math.min(
+    1e300,
+    base * antSacMult * G.effectiveELO * timeMult
   )
 
   return Math.max(
@@ -335,11 +335,11 @@ export const calculateAntSacrificeOffering = () => {
 
   calculateAntSacrificeELO()
 
-  let deltaTime = Math.min(1e300, base * antSacMult * G.effectiveELO)
-  deltaTime *= antSacrificeTimeStats(player.antSacrificeTimer, player.achievements[177] > 0).reduce(
+  const timeMult = offeringObtainiumTimeModifiers(player.antSacrificeTimer, player.achievements[177] > 0).reduce(
     (a, b) => a * b.stat(),
     1
   )
+  const deltaTime = Math.min(1e300, base * antSacMult * G.effectiveELO * timeMult)
 
   return Math.max(
     baseOfferings,
@@ -1258,6 +1258,7 @@ export const calculateAntSacrificeMultipliers = () => {
   if (player.achievements[177] > 0) {
     G.timeMultiplier *= Math.max(1, player.antSacrificeTimer / 10)
   }
+  G.timeMultiplier *= player.singularityUpgrades.halfMind.getEffect().bonus ? calculateGlobalSpeedMult() / 10 : 1
 
   G.upgradeMultiplier = 1
   G.upgradeMultiplier *= 1
@@ -1301,8 +1302,12 @@ export const calculateAntSacrificeRewards = (): IAntSacRewards => {
   calculateAntSacrificeELO()
   calculateAntSacrificeMultipliers()
 
+  const halfMindModifier = player.singularityUpgrades.halfMind.getEffect().bonus
+    ? calculateGlobalSpeedMult() / 10
+    : 1
+
   const maxCap = 1e300
-  const rewardsMult = Math.min(maxCap, G.timeMultiplier * G.upgradeMultiplier)
+  const rewardsMult = Math.min(maxCap, G.timeMultiplier * G.upgradeMultiplier * halfMindModifier)
   const rewards: IAntSacRewards = {
     antSacrificePoints: Math.min(maxCap, (G.effectiveELO * rewardsMult) / 85),
     offerings: Math.min(

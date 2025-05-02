@@ -1334,6 +1334,14 @@ export const allObtainiumIgnoreDRStats: StatLine[] = [
     stat: () => 1 + (3 / 100) * player.cubeUpgrades[43] // Cube Upgrade 4x3
   },
   {
+    i18n: 'TutorialBonus',
+    stat: () => player.campaigns.tutorialBonus.obtainiumBonus // Campaign Tutorial Bonus
+  },
+  {
+    i18n: 'CampaignBonus',
+    stat: () => player.campaigns.obtainiumBonus // Campaign Obtainium Bonus
+  },
+  {
     i18n: 'PlatonicALPHA',
     stat: () => 1 + player.platonicUpgrades[5] // Platonic ALPHA
   },
@@ -1491,14 +1499,6 @@ export const allObtainiumStats: StatLine[] = [
   {
     i18n: 'CubeUpgrade4x7',
     stat: () => 1 + 0.1 * player.cubeUpgrades[47] // Cube Upgrade 4x7
-  },
-  {
-    i18n: 'TutorialBonus',
-    stat: () => player.campaigns.tutorialBonus.obtainiumBonus // Campaign Tutorial Bonus
-  },
-  {
-    i18n: 'CampaignBonus',
-    stat: () => player.campaigns.obtainiumBonus // Campaign Obtainium Bonus
   },
   {
     i18n: 'Challenge12',
@@ -1696,6 +1696,10 @@ export const antSacrificeTimeStats = (time: number, timeMultCheck: boolean): Sta
     {
       i18n: 'TimeMultiplier',
       stat: () => timeMultCheck ? Math.max(1, time / resetTimeThreshold()) : 1
+    },
+    {
+      i18n: 'HalfMind',
+      stat: () => (player.singularityUpgrades.halfMind.getEffect().bonus) ? calculateGlobalSpeedMult() / 10 : 1
     }
   ]
 }

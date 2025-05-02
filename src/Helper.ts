@@ -389,7 +389,9 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       }
       break
     case 'antSacrifice': {
-      player.antSacrificeTimer += time
+      const globalDelta = player.singularityUpgrades.halfMind.getEffect().bonus ? 10 : calculateGlobalSpeedMult()
+
+      player.antSacrificeTimer += time * globalDelta
       player.antSacrificeTimerReal += time
 
       // Equal to real time iff "Real Time" option selected in ants tab.

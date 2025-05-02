@@ -493,10 +493,7 @@ function handleWebSocket () {
       activateTimeSkip(timeSkipName, minutes)
       saveSynergy()
 
-      setTimeout(() => {
-        updatePseudoCoins(), 4000
-      })
-
+      setTimeout(() => updatePseudoCoins(), 4000)
     }
 
     updateGlobalsIsEvent()
