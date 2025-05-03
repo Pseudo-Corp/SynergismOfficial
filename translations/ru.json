@@ -102,12 +102,12 @@
         "effect": "Этот модуль Удачи второго поколения увеличивает &#9752 Удачу Амброзии на {{amount}}"
       },
       "ambrosiaQuarks3": {
-        "name": "Ambrosia Quark Module III",
+        "name": "Модуль Амброзии: Кварки III",
         "description": "A darkness emboldens this module. +5% Quarks per level, and the effect is 1% stronger per level of Ambrosia Quark Module II.",
         "effect": "This third generation Quark module increases Quark gain by {{amount}}%"
       },
       "ambrosiaCubes3": {
-        "name": "Ambrosia Cube Module III",
+        "name": "Модуль Амброзии: Кубы III",
         "description": "A darkness emboldens this module. +20% cubes / lvl, and the effect is 3% stronger per level of Ambrosia Cube Module II. Every 5 levels gives 1.2x cubes.",
         "effect": "This third generation Cube module increases cube gain by {{amount}}%"
       },
