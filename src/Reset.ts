@@ -11,7 +11,7 @@ import {
   calculateAnts,
   calculateAntSacrificeELO,
   calculateCubeBlessings,
-  calculateGoldenQuarkGain,
+  calculateGoldenQuarks,
   calculateObtainium,
   calculateOfferings,
   calculatePowderConversion,
@@ -62,11 +62,11 @@ import { updateClassList } from './Utility'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
-let repeatreset: ReturnType<typeof setTimeout>
+let repeatreset: number
 
 export const resetrepeat = (input: resetNames) => {
   clearInterval(repeatreset)
-  repeatreset = setInterval(() => resetdetails(input), 50)
+  repeatreset = +setInterval(() => resetdetails(input), 50)
 }
 
 export const resetdetails = (input: resetNames) => {
@@ -75,7 +75,7 @@ export const resetdetails = (input: resetNames) => {
   const transcensionChallenge = player.currentChallenge.transcension
   const reincarnationChallenge = player.currentChallenge.reincarnation
 
-  const offering = calculateOfferings(input)
+  const offering = calculateOfferings()
   const offeringImage = getElementById<HTMLImageElement>('resetofferings1')
   const offeringText = DOMCacheGetOrSet('resetofferings2')
   const currencyImage1 = getElementById<HTMLImageElement>('resetcurrency1')
@@ -85,7 +85,7 @@ export const resetdetails = (input: resetNames) => {
   const resetCurrencyGain = DOMCacheGetOrSet('resetcurrency2')
   if (input === 'reincarnation') {
     resetObtainiumImage.style.display = 'block'
-    resetObtainiumText.textContent = format(Math.floor(G.obtainiumGain))
+    resetObtainiumText.textContent = format(Math.floor(calculateObtainium()))
   } else {
     resetObtainiumImage.style.display = 'none'
     resetObtainiumText.textContent = ''
@@ -208,7 +208,7 @@ export const resetdetails = (input: resetNames) => {
       currencyImage1.style.display = 'none'
       resetCurrencyGain.textContent = ''
       resetInfo.textContent = i18next.t('reset.details.singularity', {
-        gqAmount: format(calculateGoldenQuarkGain(), 2, true),
+        gqAmount: format(calculateGoldenQuarks(), 2, true),
         timeSpent: format(player.singularityCounter, 0, false)
       })
       resetInfo.style.color = 'lightgoldenrodyellow'
@@ -259,7 +259,8 @@ export const updateAutoCubesOpens = (i: number) => {
 }
 
 const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
-  const offeringsGiven = calculateOfferings(input)
+  const offeringsGiven = calculateOfferings()
+  const obtainiumGiven = calculateObtainium()
   const isChallenge = ['enterChallenge', 'leaveChallenge'].includes(from)
 
   if (input === 'prestige') {
@@ -294,7 +295,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         offerings: offeringsGiven,
         kind: 'reincarnate',
         particles: G.reincarnationPointGain.toString(),
-        obtainium: G.obtainiumGain
+        obtainium: obtainiumGiven
       }
 
       resetHistoryAdd('reset', historyEntry)
@@ -331,7 +332,9 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
   resetAddHistoryEntry(input, from)
 
-  resetofferings(input)
+  const obtainiumToGain = calculateObtainium()
+
+  resetofferings()
   resetUpgrades(1)
   player.coins = new Decimal('102')
   player.coinsThisPrestige = new Decimal('100')
@@ -496,12 +499,15 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       ascensionAchievementCheck(1)
     }
 
-    player.researchPoints = Math.min(1e300, player.researchPoints + Math.floor(G.obtainiumGain))
+    player.researchPoints = Math.min(1e300, player.researchPoints + Math.floor(obtainiumToGain))
 
-    const opscheck = G.obtainiumGain / (1 + player.reincarnationcounter)
-    if (opscheck > player.obtainiumpersecond) {
-      player.obtainiumpersecond = opscheck
+    if (player.reincarnationcounter > 0) {
+      const opscheck = obtainiumToGain / player.reincarnationcounter
+      if (opscheck > player.obtainiumpersecond) {
+        player.obtainiumpersecond = opscheck
+      }
     }
+
     player.currentChallenge.transcension = 0
     resetUpgrades(3)
     player.coinsThisReincarnation = new Decimal('100')
@@ -789,7 +795,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
         const orbsAmount = Math.floor(heptAutoSpend / 250000)
         if (player.wowAbyssals - (250000 * orbsAmount) >= 0) {
           player.overfluxOrbs += orbsAmount
-          player.overfluxPowder += player.shopUpgrades.powderAuto * calculatePowderConversion().mult * orbsAmount / 100
+          player.overfluxPowder += player.shopUpgrades.powderAuto * calculatePowderConversion() * orbsAmount / 100
           player.wowAbyssals -= 250000 * orbsAmount
         }
         if (player.wowAbyssals < 0) {
@@ -988,7 +994,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
   if (player.achievements[277] > 0) { // Singularity 4
     if (player.currentChallenge.ascension !== 14) {
       player.researchPoints = Math.floor(
-        500 * calculateSingularityDebuff('Offering') * calculateSingularityDebuff('Researches')
+        500 * calculateSingularityDebuff('Researches')
       )
     }
     if (player.currentChallenge.ascension !== 12) {
@@ -1160,7 +1166,7 @@ export const singularity = (setSingNumber = -1) => {
       singularityCount: player.singularityCount,
       quarks: player.quarksThisSingularity,
       c15Score: player.challenge15Exponent,
-      goldenQuarks: calculateGoldenQuarkGain(),
+      goldenQuarks: calculateGoldenQuarks(),
       wowTribs: sumContents(cubeArray),
       tessTribs: sumContents(tesseractArray),
       hyperTribs: sumContents(hypercubeArray),
@@ -1174,7 +1180,7 @@ export const singularity = (setSingNumber = -1) => {
   // reset the rune instantly to hopefully prevent a double singularity
   player.runelevels[6] = 0
 
-  player.goldenQuarks += calculateGoldenQuarkGain()
+  player.goldenQuarks += calculateGoldenQuarks()
 
   if (setSingNumber === -1) {
     const incrementSingCount = 1 + getFastForwardTotalMultiplier()
@@ -1214,6 +1220,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.highestSingularityCount = player.highestSingularityCount
   hold.goldenQuarks = player.goldenQuarks
   hold.shopUpgrades = player.shopUpgrades
+  hold.shopPotionsConsumed = player.shopPotionsConsumed
 
   if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
     player.worlds.reset()
@@ -1338,9 +1345,11 @@ export const singularity = (setSingNumber = -1) => {
   hold.autoCubeUpgradesToggle = player.autoCubeUpgradesToggle
   hold.autoPlatonicUpgradesToggle = player.autoPlatonicUpgradesToggle
   hold.insideSingularityChallenge = player.insideSingularityChallenge
-  hold.ultimatePixels = player.ultimatePixels
-  hold.ultimateProgress = player.ultimateProgress
-  hold.cubeUpgradeRedBarFilled = player.cubeUpgradeRedBarFilled
+  hold.redAmbrosia = player.redAmbrosia
+  hold.lifetimeRedAmbrosia = player.lifetimeRedAmbrosia
+  hold.redAmbrosiaTime = player.redAmbrosiaTime
+  hold.redAmbrosiaUpgrades = player.redAmbrosiaUpgrades
+  hold.visitedAmbrosiaSubtabRed = player.visitedAmbrosiaSubtabRed
   hold.singularityChallenges = Object.fromEntries(
     Object.entries(player.singularityChallenges).map(([key, value]) => {
       return [key, {

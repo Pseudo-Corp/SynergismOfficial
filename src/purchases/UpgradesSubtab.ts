@@ -64,6 +64,11 @@ function setActiveUpgrade (upgrade: UpgradesList | undefined) {
     `Pictures/PseudoShop/${upgrade?.internalName ?? 'PseudoCoins'}.png`
   )
 
+  const levelCostMap: { [level: number]: number } = {}
+  upgrade?.level.forEach((level, index) => {
+    levelCostMap[level] = upgrade.cost[index]
+  })
+
   const buy = DOMCacheGetOrSet('buy')
   const currEffect = DOMCacheGetOrSet('pCoinEffectCurr')
   const nextEffect = DOMCacheGetOrSet('pCoinEffectNext')
@@ -88,7 +93,9 @@ function setActiveUpgrade (upgrade: UpgradesList | undefined) {
     nextEffect.removeAttribute('style')
     buy!.innerHTML = upgrade
       ? `${
-        i18next.t('pseudoCoins.buyButton', { amount: Intl.NumberFormat().format(upgrade.cost[upgrade.playerLevel]) })
+        i18next.t('pseudoCoins.buyButton', {
+          amount: Intl.NumberFormat().format(levelCostMap[upgrade.playerLevel + 1])
+        })
       }`
       : 'Cannot buy. Sorry!'
     const info = showCostAndEffect(upgrade!.internalName)
@@ -134,9 +141,7 @@ async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
 }
 
 const initializeUpgradeSubtab = memoize(() => {
-  DOMCacheGetOrSet('currentCoinBalance').innerHTML = `${
-    i18next.t('pseudoCoins.coinCount', { amount: Intl.NumberFormat().format(upgradeResponse.coins) })
-  }`
+  updatePseudoCoins()
   const grouped = upgradeResponse.upgrades.reduce((map, upgrade) => {
     const current = map.get(upgrade.upgradeId)
     const playerUpgrade = upgradeResponse.playerUpgrades.find((v) => v.upgradeId === upgrade.upgradeId)
@@ -206,6 +211,11 @@ export const updatePseudoCoins = async () => {
   const coins = await response.json() as CoinsResponse
 
   tab!.querySelector('#pseudoCoinAmounts > #currentCoinBalance')!.innerHTML = `${
+    i18next.t('pseudoCoins.coinCount', { amount: Intl.NumberFormat().format(coins.coins) })
+  }`
+
+  // WOW this is so hacky and shit but It's the best I can do in a pinch -Platonic
+  DOMCacheGetOrSet('currentCoinBalance2')!.innerHTML = `${
     i18next.t('pseudoCoins.coinCount', { amount: Intl.NumberFormat().format(coins.coins) })
   }`
 

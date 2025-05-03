@@ -13,7 +13,8 @@ export const seededBetween = (index: SeedValues, min: number, max: number) =>
 
 export const Seed = {
   PromoCodes: 0,
-  Ambrosia: 1
+  Ambrosia: 1,
+  RedAmbrosia: 2
 } as const
 
 export type SeedValues = typeof Seed[keyof typeof Seed]

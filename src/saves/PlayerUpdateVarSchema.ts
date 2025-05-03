@@ -31,10 +31,23 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
     player.corruptions.saves = new CorruptionSaves(corruptionSaveStuff)
   }
 
-  player.usedCorruptions = undefined
-  player.prototypeCorruptions = undefined
-  player.corruptionLoadoutNames = undefined
-  player.corruptionLoadouts = undefined
+  if (player.ultimatePixels !== undefined || player.cubeUpgradeRedBarFilled !== undefined) {
+    // One-time conversion for red bar filled and ultimate pixels (to a lesser degree)
+
+    const redBarFilled = player.cubeUpgradeRedBarFilled ?? 0
+    const ultimatePixels = player.ultimatePixels ?? 0
+
+    player.redAmbrosia += Math.floor(ultimatePixels * 0.2 + redBarFilled)
+    player.lifetimeRedAmbrosia += Math.floor(ultimatePixels * 0.2 + redBarFilled)
+  }
+
+  Reflect.deleteProperty(player, 'usedCorruptions')
+  Reflect.deleteProperty(player, 'prototypeCorruptions')
+  Reflect.deleteProperty(player, 'corruptionShowStats')
+  Reflect.deleteProperty(player, 'corruptionLoadouts')
+  Reflect.deleteProperty(player, 'corruptionLoadoutNames')
+  Reflect.deleteProperty(player, 'ultimatePixels')
+  Reflect.deleteProperty(player, 'cubeUpgradeRedBarFilled')
 
   return player
 })

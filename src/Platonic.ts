@@ -352,7 +352,7 @@ export const createPlatonicDescription = (index: number) => {
   DOMCacheGetOrSet('platonicHepteractCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.hepteractCost',
     {
-      a: format(player.hepteractCrafts.abyss.BAL),
+      a: format(player.hepteractCrafts.abyss.BAL, 0, true),
       b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier), 0, true)
     }
   )

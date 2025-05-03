@@ -1,7 +1,6 @@
 import { prod } from '../Config'
 import { isLoggedIn } from '../Login'
-import { player } from '../Synergism'
-import { changeSubTab, Tabs } from '../Tabs'
+import { changeSubTab, getActiveSubTab, Tabs } from '../Tabs'
 import { Alert } from '../UpdateHTML'
 import { createDeferredPromise, type DeferredPromise, memoize } from '../Utility'
 import { setEmptyProductMap } from './CartUtil'
@@ -123,7 +122,7 @@ export class CartTab {
 
   #updateSubtabs () {
     for (const [index, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
-      if (player.subtabNumber === index) {
+      if (getActiveSubTab() === index) {
         element.classList.add('active-subtab')
       } else {
         element.classList.remove('active-subtab')
@@ -137,24 +136,24 @@ export class CartTab {
     clearMerchSubtab()
     clearConsumablesTab()
 
-    switch (player.subtabNumber) {
+    switch (getActiveSubTab()) {
       case cartSubTabs.Coins:
         CartTab.fetchProducts().then(() => {
-          if (player.subtabNumber === cartSubTabs.Coins) {
+          if (getActiveSubTab() === cartSubTabs.Coins) {
             toggleProductPage()
           }
         })
         break
       case cartSubTabs.Subscriptions:
         CartTab.fetchProducts().then(() => {
-          if (player.subtabNumber === cartSubTabs.Subscriptions) {
+          if (getActiveSubTab() === cartSubTabs.Subscriptions) {
             toggleSubscriptionPage()
           }
         })
         break
       case cartSubTabs.Upgrades:
         CartTab.fetchUpgrades().then(() => {
-          if (player.subtabNumber === cartSubTabs.Upgrades) {
+          if (getActiveSubTab() === cartSubTabs.Upgrades) {
             toggleUpgradeSubtab()
           }
         })
@@ -164,7 +163,7 @@ export class CartTab {
         break
       case cartSubTabs.Checkout:
         CartTab.fetchProducts().then(() => {
-          if (player.subtabNumber === cartSubTabs.Checkout) {
+          if (getActiveSubTab() === cartSubTabs.Checkout) {
             toggleCheckoutTab()
           }
         })

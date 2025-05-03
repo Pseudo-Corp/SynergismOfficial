@@ -9,6 +9,7 @@ import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrade } from '../Octeracts'
 import type { IPlatBaseCost } from '../Platonic'
 import type { QuarkHandler } from '../Quark'
+import type { RedAmbrosiaKeys } from '../RedAmbrosiaUpgrades'
 import type { SingularityUpgrade } from '../singularity'
 import type { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
 import type { Tabs } from '../Tabs'
@@ -315,8 +316,6 @@ export interface Player {
     generators: boolean
     reincarnate: boolean
   }
-  tabnumber: number
-  subtabNumber: number
 
   // create a Map with keys defaulting to boolean
   codes: Map<number, boolean>
@@ -405,7 +404,17 @@ export interface Player {
     shopSingularitySpeedup: number
     shopSingularityPotency: number
     shopSadisticRune: number
+    shopRedLuck1: number
+    shopRedLuck2: number
+    shopRedLuck3: number
+    shopInfiniteShopUpgrades: number
   }
+
+  shopPotionsConsumed: {
+    offering: number
+    obtainium: number
+  }
+
   shopConfirmationToggle: boolean
   shopBuyMaxToggle: boolean | 'TEN' | 'ANY'
   shopHideToggle: boolean
@@ -632,9 +641,11 @@ export interface Player {
 
   ambrosia: number
   lifetimeAmbrosia: number
+
   blueberryTime: number
   ambrosiaRNG: number // DEPRECIATED, DO NOT USE
   visitedAmbrosiaSubtab: boolean
+  visitedAmbrosiaSubtabRed: boolean
   spentBlueberries: number
   blueberryUpgrades: Record<
     keyof typeof blueberryUpgradeData,
@@ -643,9 +654,10 @@ export interface Player {
   blueberryLoadouts: Record<number, BlueberryOpt>
   blueberryLoadoutMode: BlueberryLoadoutMode
 
-  ultimateProgress: number
-  ultimatePixels: number
-  cubeUpgradeRedBarFilled: number
+  redAmbrosia: number
+  lifetimeRedAmbrosia: number
+  redAmbrosiaTime: number
+  redAmbrosiaUpgrades: Record<RedAmbrosiaKeys, number>
 
   singChallengeTimer: number
 
@@ -965,14 +977,9 @@ export interface GlobalVariables {
   shopEnhanceVision: boolean
 
   ambrosiaTimer: number
+  redAmbrosiaTimer: number
   TIME_PER_AMBROSIA: number
-
-  ambrosiaCurrStats: {
-    ambrosiaAdditiveLuckMult: number
-    ambrosiaLuck: number
-    ambrosiaBlueberries: number
-    ambrosiaGenerationSpeed: number
-  }
+  TIME_PER_RED_AMBROSIA: number
 
   currentSingChallenge: keyof Player['singularityChallenges'] | undefined
 }

@@ -41,17 +41,16 @@ import {
   getReductionValue
 } from './Buy'
 import {
-  ambrosiaCurrStatsReinitialize,
   calculateAcceleratorMultiplier,
   calculateAnts,
   calculateCubeBlessings,
-  calculateGoldenQuarkGain,
+  calculateGlobalSpeedMult,
+  calculateGoldenQuarks,
   calculateObtainium,
   calculateOfferings,
   calculateOffline,
   calculateRuneLevels,
   calculateSigmoidExponential,
-  calculateTimeAcceleration,
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
   dailyResetCheck,
@@ -143,8 +142,7 @@ import {
   BlueberryUpgrade,
   blueberryUpgradeData,
   displayProperLoadoutCount,
-  updateBlueberryLoadoutCount,
-  updateLoadoutHoverClasses
+  updateBlueberryLoadoutCount
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -153,7 +151,7 @@ import {
   campaignTokenRewardHTMLUpdate,
   createCampaignIconHTMLS
 } from './Campaign'
-import { lastUpdated, prod, testing, version } from './Config'
+import { dev, lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
 import {
@@ -176,11 +174,12 @@ import { octeractData, OcteractUpgrade } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus, QuarkHandler } from './Quark'
+import { initRedAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
-import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
 
@@ -539,8 +538,6 @@ export const player: Player = {
     generators: true,
     reincarnate: true
   },
-  tabnumber: 1,
-  subtabNumber: 0,
 
   // create a Map with keys defaulting to false
   codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false])),
@@ -628,8 +625,18 @@ export const player: Player = {
     shopAmbrosiaUltra: 0,
     shopSingularitySpeedup: 0,
     shopSingularityPotency: 0,
-    shopSadisticRune: 0
+    shopSadisticRune: 0,
+    shopRedLuck1: 0,
+    shopRedLuck2: 0,
+    shopRedLuck3: 0,
+    shopInfiniteShopUpgrades: 0
   },
+
+  shopPotionsConsumed: {
+    offering: 0,
+    obtainium: 0
+  },
+
   shopBuyMaxToggle: false,
   shopHideToggle: false,
   shopConfirmationToggle: true,
@@ -652,8 +659,8 @@ export const player: Player = {
   antPoints: new Decimal('1'),
   antUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   antSacrificePoints: 0,
-  antSacrificeTimer: 900,
-  antSacrificeTimerReal: 900,
+  antSacrificeTimer: 0,
+  antSacrificeTimerReal: 0,
 
   talismanLevels: [0, 0, 0, 0, 0, 0, 0],
   talismanRarity: [1, 1, 1, 1, 1, 1, 1],
@@ -1211,6 +1218,7 @@ export const player: Player = {
       singularityData.singAscensionSpeed2,
       'singAscensionSpeed2'
     ),
+    halfMind: new SingularityUpgrade(singularityData.halfMind, 'halfMind'),
     oneMind: new SingularityUpgrade(singularityData.oneMind, 'oneMind'),
     wowPass4: new SingularityUpgrade(singularityData.wowPass4, 'wowPass4'),
     offeringAutomatic: new SingularityUpgrade(
@@ -1252,6 +1260,10 @@ export const player: Player = {
     singAmbrosiaGeneration4: new SingularityUpgrade(
       singularityData.singAmbrosiaGeneration4,
       'singAmbrosiaGeneration4'
+    ),
+    singInfiniteShopUpgrades: new SingularityUpgrade(
+      singularityData.singInfiniteShopUpgrades,
+      'singInfiniteShopUpgrades'
     )
   },
 
@@ -1419,6 +1431,14 @@ export const player: Player = {
     octeractBonusTokens4: new OcteractUpgrade(
       octeractData.octeractBonusTokens4,
       'octeractBonusTokens4'
+    ),
+    octeractBlueberries: new OcteractUpgrade(
+      octeractData.octeractBlueberries,
+      'octeractBlueberries'
+    ),
+    octeractInfiniteShopUpgrades: new OcteractUpgrade(
+      octeractData.octeractInfiniteShopUpgrades,
+      'octeractInfiniteShopUpgrades'
     )
   },
 
@@ -1463,6 +1483,7 @@ export const player: Player = {
   ambrosiaRNG: 0,
   blueberryTime: 0,
   visitedAmbrosiaSubtab: false,
+  visitedAmbrosiaSubtabRed: false,
   spentBlueberries: 0,
   blueberryUpgrades: {
     ambrosiaTutorial: new BlueberryUpgrade(
@@ -1517,6 +1538,18 @@ export const player: Player = {
       blueberryUpgradeData.ambrosiaLuck2,
       'ambrosiaLuck2'
     ),
+    ambrosiaQuarks3: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaQuarks3,
+      'ambrosiaQuarks3'
+    ),
+    ambrosiaCubes3: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaCubes3,
+      'ambrosiaQuarks3'
+    ),
+    ambrosiaLuck3: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaLuck3,
+      'ambrosiaLuck3'
+    ),
     ambrosiaPatreon: new BlueberryUpgrade(
       blueberryUpgradeData.ambrosiaPatreon,
       'ambrosiaPatreon'
@@ -1532,6 +1565,38 @@ export const player: Player = {
     ambrosiaHyperflux: new BlueberryUpgrade(
       blueberryUpgradeData.ambrosiaHyperflux,
       'ambrosiaHyperflux'
+    ),
+    ambrosiaBaseObtainium1: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaBaseObtainium1,
+      'ambrosiaBaseObtainium1'
+    ),
+    ambrosiaBaseOffering1: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaBaseOffering1,
+      'ambrosiaBaseOffering1'
+    ),
+    ambrosiaBaseObtainium2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaBaseObtainium2,
+      'ambrosiaBaseObtainium2'
+    ),
+    ambrosiaBaseOffering2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaBaseOffering2,
+      'ambrosiaBaseOffering2'
+    ),
+    ambrosiaSingReduction1: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaSingReduction1,
+      'ambrosiaSingReduction1'
+    ),
+    ambrosiaInfiniteShopUpgrades1: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaInfiniteShopUpgrades1,
+      'ambrosiaInfiniteShopUpgrades'
+    ),
+    ambrosiaInfiniteShopUpgrades2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaInfiniteShopUpgrades2,
+      'ambrosiaInfiniteShopUpgrades2'
+    ),
+    ambrosiaSingReduction2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaSingReduction2,
+      'ambrosiaSingReduction2'
     )
   },
 
@@ -1555,15 +1620,41 @@ export const player: Player = {
   },
   blueberryLoadoutMode: 'saveTree',
 
-  ultimateProgress: 0,
-  ultimatePixels: 0,
-  cubeUpgradeRedBarFilled: 0,
+  redAmbrosia: 0,
+  lifetimeRedAmbrosia: 0,
+  redAmbrosiaTime: 0,
+  // NOTE: This only keeps track of the total number of Red Ambrosia
+  // Invested, because I realized that keeping classes on the player is generally a bad idea
+  redAmbrosiaUpgrades: {
+    'tutorial': 0,
+    'conversionImprovement1': 0,
+    'conversionImprovement2': 0,
+    'conversionImprovement3': 0,
+    'freeTutorialLevels': 0,
+    'freeLevelsRow2': 0,
+    'freeLevelsRow3': 0,
+    'freeLevelsRow4': 0,
+    'freeLevelsRow5': 0,
+    'blueberryGenerationSpeed': 0,
+    'blueberryGenerationSpeed2': 0,
+    'regularLuck': 0,
+    'regularLuck2': 0,
+    'redGenerationSpeed': 0,
+    'redLuck': 0,
+    'redAmbrosiaCube': 0,
+    'redAmbrosiaObtainium': 0,
+    'redAmbrosiaOffering': 0,
+    'redAmbrosiaCubeImprover': 0,
+    'viscount': 0,
+    'infiniteShopUpgrades': 0,
+    'redAmbrosiaAccelerator': 0
+  },
 
   singChallengeTimer: 0,
 
   lastExportedSave: 0,
 
-  seed: Array.from({ length: 2 }, () => Date.now())
+  seed: Array.from({ length: 3 }, () => Date.now())
 }
 
 export const deepClone = () =>
@@ -1597,7 +1688,6 @@ export const saveSynergy = (button?: boolean) => {
 
   const p = playerJsonSchema.parse(player)
   const save = btoa(JSON.stringify(p))
-
   if (save !== null) {
     localStorage.setItem('Synergysave2', save)
   } else {
@@ -1660,8 +1750,6 @@ const loadSynergy = () => {
       clearTimers()
       return
     }
-
-    updateLoadoutHoverClasses()
 
     player.lastExportedSave = data.lastExportedSave ?? 0
 
@@ -2839,7 +2927,6 @@ const loadSynergy = () => {
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
     updateSingularityGlobalPerks()
-    ambrosiaCurrStatsReinitialize()
 
     // Update the Sing requirements on reload for a challenge if applicable
     if (G.currentSingChallenge !== undefined) {
@@ -3167,9 +3254,9 @@ export const format = (
       }K`
     }
     return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
-  } else if (power < 6 || (long && power < 7)) {
-    // If the power is less than 6 or format long and less than 7 use standard formatting (1,234,567)
-    // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 7
+  } else if (power < 6 || (long && power < 12)) {
+    // If the power is less than 6 or format long and less than 12 use standard formatting (1,234,567)
+    // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 12
     let standard = mantissa * Math.pow(10, power)
     let standardString: string
     // Rounds up if the number experiences a rounding error
@@ -5108,7 +5195,7 @@ export const resetCheck = async (
       confirmed = await Confirm(
         i18next.t('main.singularityConfirm0', {
           x: format(nextSingularityNumber),
-          y: format(calculateGoldenQuarkGain(), 2, true)
+          y: format(calculateGoldenQuarks(), 2, true)
         })
       )
     } else {
@@ -5122,7 +5209,7 @@ export const resetCheck = async (
       await Alert(
         i18next.t('main.singularityMessage4', {
           x: format(nextSingularityNumber),
-          y: format(calculateGoldenQuarkGain(), 2, true),
+          y: format(calculateGoldenQuarks(), 2, true),
           z: format(getQuarkBonus())
         })
       )
@@ -5944,7 +6031,7 @@ const tick = () => {
 const tack = (dt: number) => {
   if (!G.timeWarp) {
     // Adds Resources (coins, ants, etc)
-    const timeMult = calculateTimeAcceleration().mult
+    const timeMult = calculateGlobalSpeedMult()
     resourceGain(dt * timeMult)
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
     addTimers('prestige', dt)
@@ -5957,6 +6044,7 @@ const tack = (dt: number) => {
     addTimers('singularity', dt)
     addTimers('autoPotion', dt)
     addTimers('ambrosia', dt)
+    addTimers('redAmbrosia', dt)
 
     // Triggers automatic rune sacrifice (adds milliseconds to payload timer)
     if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle) {
@@ -6104,7 +6192,7 @@ const tack = (dt: number) => {
       }
     }
   }
-  calculateOfferings('reincarnation')
+  calculateOfferings()
 }
 
 export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
@@ -6171,13 +6259,11 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         categoryUpgrades(num, false)
       }
       if (G.currentTab === Tabs.Runes) {
-        if (player.subtabNumber === 0) {
+        if (getActiveSubTab() === 0) {
           redeemShards(num)
-        }
-        if (player.subtabNumber === 2) {
+        } else if (getActiveSubTab() === 2) {
           buyRuneBonusLevels('Blessings', num)
-        }
-        if (player.subtabNumber === 3) {
+        } else if (getActiveSubTab() === 3) {
           buyRuneBonusLevels('Spirits', num)
         }
       }
@@ -6285,6 +6371,8 @@ export const reloadShit = (reset = false) => {
     loadSynergy()
   }
 
+  initRedAmbrosiaUpgrades(player.redAmbrosiaUpgrades)
+
   if (!reset) {
     calculateOffline()
   } else {
@@ -6337,8 +6425,6 @@ export const reloadShit = (reset = false) => {
   campaignTokenRewardHTMLUpdate()
   clearTimeout(preloadDeleteGame)
 
-  setInterval(ambrosiaCurrStatsReinitialize, 5000)
-
   if (localStorage.getItem('pleaseStar') === null) {
     void Alert(i18next.t('main.starRepo'))
     localStorage.setItem('pleaseStar', '')
@@ -6364,6 +6450,15 @@ export const reloadShit = (reset = false) => {
 }
 
 window.addEventListener('load', async () => {
+  if (dev) {
+    const { worker } = await import('./mock/browser')
+    await worker.start({
+      serviceWorker: {
+        url: './mockServiceWorker.js'
+      }
+    })
+  }
+
   await i18nInit()
   handleLogin().catch(console.error)
 
@@ -6404,6 +6499,7 @@ window.addEventListener('load', async () => {
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
   createCampaignIconHTMLS()
+  initRedAmbrosiaUpgrades(player.redAmbrosiaUpgrades)
   reloadShit()
 }, { once: true })
 
