@@ -11,30 +11,30 @@
   },
   "ambrosia": {
     "ambrosia": "Амброзия",
-    "amount": "Ambrosia: <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Current | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> Lifetime",
-    "blueberryAmount": "Blueberries: <<lightblue | {{unspentBlueberries}}>> Unspent | <<lightblue | {{blueberries}}>> Total",
-    "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> Ambrosia Bar Points.",
+    "amount": "Амброзия: <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Текущая | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> За всё время",
+    "blueberryAmount": "Голубика: <<lightblue | {{unspentBlueberries}}>> Не потраченная | <<lightblue | {{blueberries}}>> Всего",
+    "blueberryGeneration": "Каждую секунду даёт <<var(--amber-text-color)|{{chance}}>> Очков Шкалы Амброзии.",
     "perGen": "В данный момент получаете <<var(--amber-text-color)|{{guaranteed}}>> Амброзии с вероятностью <<var(--amber-text-color)|{{extraChance}}%>> на ещё одну. [<<var(--lime-text-color)|Удача: ☘ {{ambrosiaLuck}}>>] {{extra}}",
     "blueberrySecond": "Сейчас у вас накоплено <<var(--amber-text-color)|{{blueberrySecond}}>> Секунд Голубики! Создаст Амброзию, когда накопится <<blue|{{thresholdTimer}}>>.",
-    "generatedCubeBonus": "Cubes <<yellow|+{{cubeBonus}}>>",
-    "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}>>",
-    "generatedLuckBonus": "Ambrosia Luck <<lime|+{{luckBonus}}>>",
-    "generatedBlueberryBonus": "Ambrosia Bar Point Gain <<blue|+{{blueberryBonus}}>>",
-    "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}>>",
-    "generatedOfferingBonus": "Offerings <<orange|+{{offeringBonus}}>>",
+    "generatedCubeBonus": "Кубы <<yellow|+{{cubeBonus}}>>",
+    "generatedQuarkBonus": "Кварки <<cyan|+{{quarkBonus}}>>",
+    "generatedLuckBonus": "Удача Амброзии <<lime|+{{luckBonus}}>>",
+    "generatedBlueberryBonus": "Получение Очков Шкалы Амброзии <<blue|+{{blueberryBonus}}>>",
+    "generatedObtainiumBonus": "Обтаниум <<pink|+{{obtainiumBonus}}>>",
+    "generatedOfferingBonus": "Подношения <<orange|+{{offeringBonus}}>>",
     "prerequisite": "Необходимо:",
     "prereqNotMet": " (Не Выполнено!)",
     "blueberryCost": "Голубики (Для Активации):",
     "prereqNotMetAlert": "Вы не выполнили необходимые требования для покупки этого улучшения.",
     "notEnoughBlueberries": "У вас недостаточно Голубики для активации этого модуля.",
-    "timeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia.",
-    "cubeUpgradeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia. <<cyan | Ambrosia Bar Point gain +{{percent}}%>>!",
+    "timeThresholds": "Из-за Амброзии за всё время, требования Очков Шкалы Амброзии были удвоены <<cyan | {{threshold}}>> раз. Следующее удвоение при достижении <<orange|{{toNext}}>> Амброзии.",
+    "cubeUpgradeThresholds": "Из-за Амброзии за всё время, требования Очков Шкалы Амброзии были удвоены <<cyan | {{threshold}}>> раз. Следующее удвоение при достижении <<orange|{{toNext}}>> Амброзии. <<cyan | Очки Шкалы Амброзии +{{percent}}%>>!",
     "cubeUpgradeRedBarFills": "Пока Улучшение Печенек 29 было куплено, ваша Красная Шкала была заполнена <<maroon | {{amount}}>> раз, что даёт вам <<green | +{{luck}} &#9752 Удачи Амброзии>>!",
     "ambrosiaBuyPrompt": "Сколько Амброзии вы хотели бы потратить? У вас {{amount}} Амброзии. Введите -1, чтобы использовать максимум!",
     "refund": "Вы вернули всю потраченную Голубику и Амброзию.",
     "refundWord": "Возврат",
-    "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
-    "notUnlocked": "Clear No Singularity Upgrades, Tier 1!",
+    "ignoreEXALT": "[<<white|♔>>] Это улучшение активно даже когда ВОЗВЫШЕНИЕ упоминает обратное!",
+    "notUnlocked": "Завершите Без Улучшений Сингулярности, Уровень 1!",
     "data": {
       "ambrosiaTutorial": {
         "name": "Тренировочный Модуль Амброзии",
@@ -48,7 +48,7 @@
       },
       "ambrosiaCubes1": {
         "name": "Модуль Амброзии: Кубы I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 5 levels gives 1.1x Cubes.",
+        "description": "Поздравляем с завершением тренировочного модуля. Он нужен максимального уровня, чтобы купить уровень этого. +5% Кубов/ур. Каждые 5 уровней, даёт 1.1х Кубов.",
         "effect": "Этот модуль кубов увеличивает получение кубов на {{amount}}%"
       },
       "ambrosiaLuck1": {
@@ -68,12 +68,12 @@
       },
       "ambrosiaQuarkCube1": {
         "name": "Гибридный Модуль Амброзии: Кварки-Кубы I",
-        "description": "A first generation hybrid module. Gain +0.1% more cubes per level per digit in your Quark balance, squared!",
+        "description": "Гибридный модуль первого поколения. Даёт +0.1% кубов за уровень за квадрат количества знаков вашего счёта Кварков!",
         "effect": "Этот гибридный модуль первого поколения увеличивает получение кубов на {{amount}}%"
       },
       "ambrosiaLuckCube1": {
         "name": "Гибридный Модуль Амброзии: Удача-Кубы I",
-        "description": "A first generation hybrid module. Gain +0.05% more cubes per level per 1 &#9752 Ambrosia Luck!",
+        "description": "Гибридный модуль первого поколения. Даёт +0.05% кубов за уровень за 1 &#9752 Удачу Амброзии!",
         "effect": "Этот гибридный модуль первого поколения увеличивает получение кубов на {{amount}}%"
       },
       "ambrosiaCubeLuck1": {
@@ -93,7 +93,7 @@
       },
       "ambrosiaCubes2": {
         "name": "Модуль Амброзии: Кубы II",
-        "description": "Self-Synergies! Gain +10% cubes / lvl , +1% for every 10 levels in Ambrosia Cube Module I. Every 5 levels gives 1.15x cubes.",
+        "description": "Само-Синергии! +10% кубов / ур, +1% за каждые 10 уровней Модуля Амброзии: Кубы I. Каждые 5 уровней дают 1.15х к кубам.",
         "effect": "Этот модуль Кубов второго поколения увеличивает получение кубов на {{amount}}%"
       },
       "ambrosiaLuck2": {
@@ -102,24 +102,24 @@
         "effect": "Этот модуль Удачи второго поколения увеличивает &#9752 Удачу Амброзии на {{amount}}"
       },
       "ambrosiaQuarks3": {
-        "name": "Ambrosia Quark Module III",
-        "description": "A darkness emboldens this module. +5% Quarks per level, and the effect is 1% stronger per level of Ambrosia Quark Module II.",
-        "effect": "This third generation Quark module increases Quark gain by {{amount}}%"
+        "name": "Модуль Амброзии: Кварки III",
+        "description": "Тьма окутывает этот модуль. +5% Кварков за уровень; эффект также становится сильнее на 1% за каждый уровень Модуля Амброзии: Кварки II.",
+        "effect": "Этот модуль Кварков третьего поколения увеличивает получение Кварков на {{amount}}%"
       },
       "ambrosiaCubes3": {
-        "name": "Ambrosia Cube Module III",
-        "description": "A darkness emboldens this module. +20% cubes / lvl, and the effect is 3% stronger per level of Ambrosia Cube Module II. Every 5 levels gives 1.2x cubes.",
-        "effect": "This third generation Cube module increases cube gain by {{amount}}%"
+        "name": "Модуль Амброзии: Кубы III",
+        "description": "Тьма окутывает этот модуль. +20% кубов / ур; эффект также становится сильнее на 3% за каждый уровень Модуля Амброзии: Кубы II. Каждые 5 уровней дают 1.2х к кубам.",
+        "effect": "Этот модуль Кубов третьего поколения увеличивает получение кубов на {{amount}}%"
       },
       "ambrosiaLuck3": {
-        "name": "Ambrosia Luck Module III",
-        "description": "A darkness emboldens this module. +1 &#9752 Ambrosia Luck/lvl, and the effect is multiplied by the total number of Blueberries you own!",
-        "effect": "This third generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
+        "name": "Модуль Амброзии: Удача III",
+        "description": "Тьма окутывает этот модуль. +1 &#9752 Удачи Амброзии/ур; эффект также умножен на число имеющихся Ягод Голубики!",
+        "effect": "Этот модуль Удачи третьего поколения увеличивает &#9752 Удачу Амброзии на {{amount}}"
       },
       "ambrosiaPatreon": {
         "name": "Модуль Амброзии: Бесстыжее Напоминание о Patreon",
-        "description": "In every realm, Platonic sells out. +1% Ambrosia Bar Point speed for every +1% Quarks by the Patreon bonus!",
-        "effect": "Generous Patreon supporters grant you {{amount}}% more Ambrosia Bar Points. If you are not already, consider buying PseudoCoins to support development!"
+        "description": "В каждом измерении, Platonic продажный. +1% Очков Шкалы Амброзии за каждый +1% Бонуса Кварков от Patreon!",
+        "effect": "Щедрые спонсоры с Patreon даруют вам {{amount}}% Очков Шкалы Амброзии. Рассмотрите вариант покупки ПсевдоМонет, если ещё не купили, для поддержки разработки!"
       },
       "ambrosiaObtainium1": {
         "name": "Рандомный Усилитель Обтаниума",
@@ -137,27 +137,27 @@
         "effect": "Этот модуль увеличивает получение Кубов на {{amount}}%!"
       },
       "ambrosiaBaseObtainium1": {
-        "name": "Basic Obtainium Booster",
+        "name": "Базовый Усилитель Обтаниума",
         "description": "+1 Base Obtainium per level! Exceed the possibilities of your strength.",
         "effect": "This module increases Base Obtainium by {{amount}}!"
       },
       "ambrosiaBaseOffering1": {
-        "name": "Basic Offering Booster",
+        "name": "Базовый Усилитель Подношений",
         "description": "+1 Base Offering per level! Exceed the possibilities of your strength.",
         "effect": "This module increases Base Offering by {{amount}}!"
       },
       "ambrosiaBaseObtainium2": {
-        "name": "Based Obtainium Booster",
+        "name": "Базированный Усилитель Обтаниума",
         "description": "+1 Base Obtainium per level! Channel your inner researcher.",
         "effect": "This module increases Base Obtainium by {{amount}}!"
       },
       "ambrosiaBaseOffering2": {
-        "name": "Based Offering Booster",
+        "name": "Базированный Усилитель Подношений",
         "description": "+1 Base Offering per level! Channel your... I got nothing.",
         "effect": "This module increases Base Offering by {{amount}}!"
       },
       "ambrosiaSingReduction1": {
-        "name": "Singularity Stabilizer Module",
+        "name": "Модуль Стабилизации Сингулярности",
         "description": "Retrofitted with Amber flux capacitors, your Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity per level, if you are NOT! in an EXALT.",
         "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
       },
@@ -195,15 +195,15 @@
     }
   },
   "redAmbrosia": {
-    "redAmbrosia": "Red Ambrosia",
-    "amount": "Ambrosia: <<red|{{redAmbrosia}}>> Current | <<red|{{lifetimeRedAmbrosia}}>> Lifetime",
-    "purchaseWarning": "<<gold | ⚠>> Unlike Blueberry Modules, you <<red | CANNOT>> refund this upgrade. Please spend wisely!",
-    "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: &#9861; {{ambrosiaLuck}}>>]",
-    "redAmbrosiaBuyPrompt": "How many Red Ambrosia would you like to spend? You have {{amount}} Red Ambrosia. Type -1 to use max!",
-    "notUnlocked": "Clear No Ambrosia Upgrades, Tier 1!",
+    "redAmbrosia": "Красная Амброзия",
+    "amount": "Амброзия:<<red|{{redAmbrosia}}>> Текущая | <<red|{{lifetimeRedAmbrosia}}>> За всё время",
+    "purchaseWarning": "<<gold | ⚠>> В отличие от Модулей Голубики, возврат этого улучшения <<red | НЕВОЗМОЖЕН>>. Покупайте с умом!",
+    "perGen": "В данный момент получаете <<red|{{guaranteed}}>> Красной Амброзии с вероятностью <<red|{{extraChance}}%>> на ещё одну. [<<red|Удача: &#9861; {{ambrosiaLuck}}>>]",
+    "redAmbrosiaBuyPrompt": "Сколько Красной Амброзии вы хотели бы потратить? У вас {{amount}} Красной Амброзии. Введите -1, чтобы использовать максимум!",
+    "notUnlocked": "Завершите Без Амброзии, Уровень 1!",
     "data": {
       "tutorial": {
-        "name": "A beginners guide to Red Ambrosia",
+        "name": "Красная Амброзия: руководство для новичков",
         "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul. But you don't really care about that... 1.01x Cubes, Obtainium and Offerings per level!",
         "effect": "Cubes, Obtainium and Offerings are increased by {{amount}}!"
       },
@@ -827,7 +827,7 @@
       "8": "Создаёт {{x}} ВСЕМОГУЩИХ/сек"
     },
     "rewards": {
-      "1": "ALL Ants work at {{x}}x speed.",
+      "1": "ВСЕ Муравьи работают в {{x}}х раз быстрее.",
       "2": "Crumb --> Coin exponent is ^{{x}}",
       "3": "Tax growth is multiplied by {{x}}",
       "4": "Accelerator Boosts +{{x}}%",
@@ -3859,7 +3859,7 @@
   },
   "statistics": {
     "subtabs": {
-      "misc": "Miscellaneous Stats",
+      "misc": "Прочая Статистика",
       "baseOffering": "Base Offerings",
       "offeringMult": "Offering Multipliers",
       "baseObtainium": "Base Obtainium",
