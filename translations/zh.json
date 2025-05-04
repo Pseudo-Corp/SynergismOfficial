@@ -275,12 +275,12 @@
       "redAmbrosiaObtainium": {
         "name": "由红神肴“制取”的难得素",
         "description": "我不太懂红色物体是怎么制成蓝色物体的，但确实可行。",
-        "effect": "购买后，使难得素获取数量变为原来的 1 + (难得素获取总数)^0.6 / 100 倍。"
+        "effect": "购买后，使难得素获取数量变为原来的 1 + (红神肴获取总数)^0.6 / 100 倍。"
       },
       "redAmbrosiaOffering": {
         "name": "由红神肴“制取”的祭品",
         "description": "等等，这个好像有点道理。",
-        "effect": "购买后，使祭品获取数量变为原来的 1 + (祭品获取总数)^0.6 / 100 倍。"
+        "effect": "购买后，使祭品获取数量变为原来的 1 + (红神肴获取总数)^0.6 / 100 倍。"
       },
       "redAmbrosiaCubeImprover": {
         "name": "雇佣红神肴工匠",
@@ -3794,7 +3794,7 @@
       },
       "sadisticPrequel": {
         "name": "虐待狂拔擢 III - 前传",
-        "description": "Platonic还要滥用多少次“虐待狂”？[无奇点升级、八阶方块升级或神肴升级]",
+        "description": "Platonic还要滥用多少次“虐待狂”？[无奇点升级、八阶方块升级和神肴升级]",
         "ScalingReward1": "使<<cyan|夸克获取数量>>增加3%！",
         "ScalingReward2": "使“每日”代码获得的<<orange|免费奇点升级>>增加3%！",
         "UniqueReward1": "第1次 - 使“每日”代码可以多提供50级免费奇点升级！",
@@ -4913,7 +4913,7 @@
         "confirm": "在接下来的15秒内点击确定按钮，以此来测试运气！如果您在随机生成时间点的{{x}}毫秒范围内点击了按钮，您将获得一份奖励！由于两次使用该代码之间的时间间隔，本次代码的奖励变为{{y}}倍。",
         "won": "您点击的时机很好！[增加{{x}}夸克]",
         "lost": "点击的时机不对，下次再来吧！",
-        "ambrosia": "Your blueberries resonate slightly, giving {{blueberryTime}} real-life seconds of Ambrosia Bar Points."
+        "ambrosia": "您的蓝莓产生了微弱的共鸣，您获得了相当于现实时间{{blueberryTime}}秒的神肴进度条点数。"
       },
       "spoiler": {
         "moreThan1": "如果您已经解锁它们，则每秒可以获得{{x}}惊奇八阶方块！",
@@ -5003,17 +5003,17 @@
       "AUTO_POTION_FREE_POTIONS_QOL": "药剂复制漏洞",
       "OFFLINE_TIMER_CAP_BUFF": "镶金的舒适之床",
       "ADD_CODE_CAP_BUFF": "限定版PLAT-P计算器",
-      "BASE_OFFERING_BUFF": "Abundant Harvests",
-      "BASE_OBTAINIUM_BUFF": "Super Literate Scientists",
-      "RED_LUCK_BUFF": "Golden Fuzzy Dice",
-      "RED_GENERATION_BUFF": "Century-Aged Red Ambrosia"
+      "BASE_OFFERING_BUFF": "丰收",
+      "BASE_OBTAINIUM_BUFF": "博学科学家",
+      "RED_LUCK_BUFF": "鎏金惑骰",
+      "RED_GENERATION_BUFF": "世纪之红神肴"
     },
     "upgradeEffects": {
       "INSTANT_UNLOCK_1": "使信卡护身符<<gold|{{descriptor}}>>常时解锁！<<orange|等级上限增加{{amount}}>>",
       "INSTANT_UNLOCK_2": "使无限晋升符文<<gold|{{descriptor}}>>常时解锁！<<orange|额外等级增加{{amount}}>>",
       "CUBE_BUFF": "使方盒获取数量增加<<gold|{{amount}}>>",
       "AMBROSIA_LUCK_BUFF": "使神肴之运增加<<gold|{{amount}}>>",
-      "AMBROSIA_GENERATION_BUFF": "Ambrosia Bar Points production is multiplied by <<gold | {{amount}}>>",
+      "AMBROSIA_GENERATION_BUFF": "使神肴进度条点数获取速度变为原来的<<gold|{{amount}}>>倍",
       "GOLDEN_QUARK_BUFF": "使金夸克获取数量变为原来的<<gold|{{amount}}>>倍",
       "FREE_UPGRADE_PROMOCODE_BUFF": "使“每日”代码获得的免费奇点升级变为原来的<<gold|{{amount}}倍>>！",
       "CORRUPTION_LOADOUT_SLOT_QOL": "您额外获得<<gold|{{amount}}>>个腐化预设槽位！",
@@ -5021,10 +5021,10 @@
       "AUTO_POTION_FREE_POTIONS_QOL": "自动使用药剂时并非<<gold|{{descriptor}}>>消耗药剂！",
       "OFFLINE_TIMER_CAP_BUFF": "使离线时间上限变为原来的<<gold|{{amount}}>>倍",
       "ADD_CODE_CAP_BUFF": "使“增加”代码的次数上限变为原来的<<gold|{{amount}}>>倍",
-      "BASE_OFFERING_BUFF": "Base Offering Gain is increased by <<gold | {{amount}}>>",
-      "BASE_OBTAINIUM_BUFF": "Base Obtainium Gain is increased by <<gold | {{amount}}>>",
-      "RED_LUCK_BUFF": "Red Ambrosia Luck is increased by <<gold | {{amount}}>>",
-      "RED_GENERATION_BUFF": "Red Ambrosia Bar Point gain is multiplied by <<gold | {{amount}}>>"
+      "BASE_OFFERING_BUFF": "使基础祭品获取数量增加<<gold|{{amount}}>>",
+      "BASE_OBTAINIUM_BUFF": "使基础难得素获取数量增加<<gold|{{amount}}>>",
+      "RED_LUCK_BUFF": "使红运增加<<gold|{{amount}}>>",
+      "RED_GENERATION_BUFF": "使红神肴进度条点数获取速度变为原来的<<gold|{{amount}}>>倍"
     },
     "consumables": {
       "tipReceived": "最近一分钟内有{{offlineTime}}人给您打赏了！",
@@ -5037,19 +5037,19 @@
     },
     "timeSkips": {
       "GLOBAL": {
-        "title": "P/T/R/Ant Time Skips",
-        "description": "Fast-forward real-life time on your Prestige, Transcension, Reincarnation and Ant Sacrifice Timers!"
+        "title": "转生/超越/转世/蚂蚁 - 时间跳跃",
+        "description": "使转生、超越、转世和蚂蚁献祭的计时直接增加相应现实时间！"
       },
       "ASCENSION": {
-        "title": "Ascension Time Skips",
-        "description": "Fast-forward real-life time on your Ascension Timer!"
+        "title": "飞升 - 时间跳跃",
+        "description": "使飞升的计时直接增加相应现实时间！"
       },
       "AMBROSIA": {
-        "title": "Ambrosia Time Skips",
-        "description": "Fast-forward real-life time on your Ambrosia and Red Ambrosia Bar Points!"
+        "title": "神肴 - 时间跳跃",
+        "description": "使神肴进度条点数和红神肴进度条点数的计时直接增加相应现实时间！"
       },
-      "purchaseBtn": "+{{time}} hours [<<gold|{{cost}} PseudoCoins>>]",
-      "warning": "<<gold | ⚠>> Takes a few seconds to apply after purchase! <<gold | ⚠>>"
+      "purchaseBtn": "增加{{time}}小时[<<gold|花费{{cost}}伪币>>",
+      "warning": "<<gold|⚠>>购买后需要经过几秒才能生效！<<gold|⚠>>"
     }
   }
 }
