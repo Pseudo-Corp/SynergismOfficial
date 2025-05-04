@@ -157,7 +157,7 @@
         "effect": "This module increases Base Offering by {{amount}}!"
       },
       "ambrosiaSingReduction1": {
-        "name": "Singularity Stabilizer Module",
+        "name": "Модуль Стабилизации Сингулярности",
         "description": "Retrofitted with Amber flux capacitors, your Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity per level, if you are NOT! in an EXALT.",
         "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
       },
