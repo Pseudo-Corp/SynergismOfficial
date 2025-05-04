@@ -113,13 +113,13 @@
       },
       "ambrosiaLuck3": {
         "name": "Модуль Амброзии: Удача III",
-        "description": "A darkness emboldens this module. +1 &#9752 Ambrosia Luck/lvl, and the effect is multiplied by the total number of Blueberries you own!",
-        "effect": "This third generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
+        "description": "Тьма окутывает этот модуль. +1 &#9752 Удачи Амброзии/ур; эффект также умножен на число имеющихся Ягод Голубики!",
+        "effect": "Этот модуль Удачи третьего поколения увеличивает &#9752 Удачу Амброзии на {{amount}}"
       },
       "ambrosiaPatreon": {
         "name": "Модуль Амброзии: Бесстыжее Напоминание о Patreon",
-        "description": "In every realm, Platonic sells out. +1% Ambrosia Bar Point speed for every +1% Quarks by the Patreon bonus!",
-        "effect": "Generous Patreon supporters grant you {{amount}}% more Ambrosia Bar Points. If you are not already, consider buying PseudoCoins to support development!"
+        "description": "В каждом измерении, Platonic продажный. +1% Очков Шкалы Амброзии за каждый +1% Бонуса Кварков от Patreon!",
+        "effect": "Щедрые спонсоры с Patreon даруют вам {{amount}}% Очков Шкалы Амброзии. Рассмотрите вариант покупки ПсевдоМонет, если ещё не купили, для поддержки разработки!"
       },
       "ambrosiaObtainium1": {
         "name": "Рандомный Усилитель Обтаниума",
@@ -137,22 +137,22 @@
         "effect": "Этот модуль увеличивает получение Кубов на {{amount}}%!"
       },
       "ambrosiaBaseObtainium1": {
-        "name": "Basic Obtainium Booster",
+        "name": "Базовый Усилитель Обтаниума",
         "description": "+1 Base Obtainium per level! Exceed the possibilities of your strength.",
         "effect": "This module increases Base Obtainium by {{amount}}!"
       },
       "ambrosiaBaseOffering1": {
-        "name": "Basic Offering Booster",
+        "name": "Базовый Усилитель Подношений",
         "description": "+1 Base Offering per level! Exceed the possibilities of your strength.",
         "effect": "This module increases Base Offering by {{amount}}!"
       },
       "ambrosiaBaseObtainium2": {
-        "name": "Based Obtainium Booster",
+        "name": "Базированный Усилитель Обтаниума",
         "description": "+1 Base Obtainium per level! Channel your inner researcher.",
         "effect": "This module increases Base Obtainium by {{amount}}!"
       },
       "ambrosiaBaseOffering2": {
-        "name": "Based Offering Booster",
+        "name": "Базированный Усилитель Подношений",
         "description": "+1 Base Offering per level! Channel your... I got nothing.",
         "effect": "This module increases Base Offering by {{amount}}!"
       },
