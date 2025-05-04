@@ -33,8 +33,8 @@
     "ambrosiaBuyPrompt": "Сколько Амброзии вы хотели бы потратить? У вас {{amount}} Амброзии. Введите -1, чтобы использовать максимум!",
     "refund": "Вы вернули всю потраченную Голубику и Амброзию.",
     "refundWord": "Возврат",
-    "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
-    "notUnlocked": "Clear No Singularity Upgrades, Tier 1!",
+    "ignoreEXALT": "[<<white|♔>>] Это улучшение активно даже когда ВОЗВЫШЕНИЕ упоминает обратное!",
+    "notUnlocked": "Завершите Без Улучшений Сингулярности, Уровень 1!",
     "data": {
       "ambrosiaTutorial": {
         "name": "Тренировочный Модуль Амброзии",
@@ -48,7 +48,7 @@
       },
       "ambrosiaCubes1": {
         "name": "Модуль Амброзии: Кубы I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 5 levels gives 1.1x Cubes.",
+        "description": "Поздравляем с завершением тренировочного модуля. Он нужен максимального уровня, чтобы купить уровень этого. +5% Кубов/ур. Каждые 5 уровней, даёт 1.1х Кубов.",
         "effect": "Этот модуль кубов увеличивает получение кубов на {{amount}}%"
       },
       "ambrosiaLuck1": {
@@ -68,12 +68,12 @@
       },
       "ambrosiaQuarkCube1": {
         "name": "Гибридный Модуль Амброзии: Кварки-Кубы I",
-        "description": "A first generation hybrid module. Gain +0.1% more cubes per level per digit in your Quark balance, squared!",
+        "description": "Гибридный модуль первого поколения. Даёт +0.1% кубов за уровень за квадрат количества знаков вашего счёта Кварков!",
         "effect": "Этот гибридный модуль первого поколения увеличивает получение кубов на {{amount}}%"
       },
       "ambrosiaLuckCube1": {
         "name": "Гибридный Модуль Амброзии: Удача-Кубы I",
-        "description": "A first generation hybrid module. Gain +0.05% more cubes per level per 1 &#9752 Ambrosia Luck!",
+        "description": "Гибридный модуль первого поколения. Даёт +0.05% кубов за уровень за 1 &#9752 Удачу Амброзии!",
         "effect": "Этот гибридный модуль первого поколения увеличивает получение кубов на {{amount}}%"
       },
       "ambrosiaCubeLuck1": {
@@ -93,7 +93,7 @@
       },
       "ambrosiaCubes2": {
         "name": "Модуль Амброзии: Кубы II",
-        "description": "Self-Synergies! Gain +10% cubes / lvl , +1% for every 10 levels in Ambrosia Cube Module I. Every 5 levels gives 1.15x cubes.",
+        "description": "Само-Синергии! +10% кубов / ур, +1% за каждые 10 уровней Модуля Амброзии: Кубы I. Каждые 5 уровней дают 1.15х к кубам.",
         "effect": "Этот модуль Кубов второго поколения увеличивает получение кубов на {{amount}}%"
       },
       "ambrosiaLuck2": {
@@ -103,16 +103,16 @@
       },
       "ambrosiaQuarks3": {
         "name": "Модуль Амброзии: Кварки III",
-        "description": "A darkness emboldens this module. +5% Quarks per level, and the effect is 1% stronger per level of Ambrosia Quark Module II.",
-        "effect": "This third generation Quark module increases Quark gain by {{amount}}%"
+        "description": "Тьма окутывает этот модуль. +5% Кварков за уровень; эффект также становится сильнее на 1% за каждый уровень Модуля Амброзии: Кварки II.",
+        "effect": "Этот модуль Кварков третьего поколения увеличивает получение Кварков на {{amount}}%"
       },
       "ambrosiaCubes3": {
         "name": "Модуль Амброзии: Кубы III",
-        "description": "A darkness emboldens this module. +20% cubes / lvl, and the effect is 3% stronger per level of Ambrosia Cube Module II. Every 5 levels gives 1.2x cubes.",
-        "effect": "This third generation Cube module increases cube gain by {{amount}}%"
+        "description": "Тьма окутывает этот модуль. +20% кубов / ур; эффект также становится сильнее на 3% за каждый уровень Модуля Амброзии: Кубы II. Каждые 5 уровней дают 1.2х к кубам.",
+        "effect": "Этот модуль Кубов третьего поколения увеличивает получение кубов на {{amount}}%"
       },
       "ambrosiaLuck3": {
-        "name": "Ambrosia Luck Module III",
+        "name": "Модуль Амброзии: Удача III",
         "description": "A darkness emboldens this module. +1 &#9752 Ambrosia Luck/lvl, and the effect is multiplied by the total number of Blueberries you own!",
         "effect": "This third generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
       },
@@ -195,15 +195,15 @@
     }
   },
   "redAmbrosia": {
-    "redAmbrosia": "Red Ambrosia",
-    "amount": "Ambrosia: <<red|{{redAmbrosia}}>> Current | <<red|{{lifetimeRedAmbrosia}}>> Lifetime",
-    "purchaseWarning": "<<gold | ⚠>> Unlike Blueberry Modules, you <<red | CANNOT>> refund this upgrade. Please spend wisely!",
-    "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: &#9861; {{ambrosiaLuck}}>>]",
-    "redAmbrosiaBuyPrompt": "How many Red Ambrosia would you like to spend? You have {{amount}} Red Ambrosia. Type -1 to use max!",
-    "notUnlocked": "Clear No Ambrosia Upgrades, Tier 1!",
+    "redAmbrosia": "Красная Амброзия",
+    "amount": "Амброзия:<<red|{{redAmbrosia}}>> Текущая | <<red|{{lifetimeRedAmbrosia}}>> За всё время",
+    "purchaseWarning": "<<gold | ⚠>> В отличие от Модулей Голубики, возврат этого улучшения <<red | НЕВОЗМОЖЕН>>. Покупайте с умом!",
+    "perGen": "В данный момент получаете <<red|{{guaranteed}}>> Красной Амброзии с вероятностью <<red|{{extraChance}}%>> на ещё одну. [<<red|Удача: &#9861; {{ambrosiaLuck}}>>]",
+    "redAmbrosiaBuyPrompt": "Сколько Красной Амброзии вы хотели бы потратить? У вас {{amount}} Красной Амброзии. Введите -1, чтобы использовать максимум!",
+    "notUnlocked": "Завершите Без Амброзии, Уровень 1!",
     "data": {
       "tutorial": {
-        "name": "A beginners guide to Red Ambrosia",
+        "name": "Красная Амброзия: руководство для новичков",
         "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul. But you don't really care about that... 1.01x Cubes, Obtainium and Offerings per level!",
         "effect": "Cubes, Obtainium and Offerings are increased by {{amount}}!"
       },
@@ -827,7 +827,7 @@
       "8": "Создаёт {{x}} ВСЕМОГУЩИХ/сек"
     },
     "rewards": {
-      "1": "ALL Ants work at {{x}}x speed.",
+      "1": "ВСЕ Муравьи работают в {{x}}х раз быстрее.",
       "2": "Crumb --> Coin exponent is ^{{x}}",
       "3": "Tax growth is multiplied by {{x}}",
       "4": "Accelerator Boosts +{{x}}%",
@@ -3859,7 +3859,7 @@
   },
   "statistics": {
     "subtabs": {
-      "misc": "Miscellaneous Stats",
+      "misc": "Прочая Статистика",
       "baseOffering": "Base Offerings",
       "offeringMult": "Offering Multipliers",
       "baseObtainium": "Base Obtainium",
