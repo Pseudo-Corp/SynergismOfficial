@@ -275,12 +275,12 @@
       "redAmbrosiaObtainium": {
         "name": "由红神肴“制取”的难得素",
         "description": "我不太懂红色物体是怎么制成蓝色物体的，但确实可行。",
-        "effect": "购买后，使难得素获取数量变为原来的 1 + (难得素获取总数)^0.6 / 100 倍。"
+        "effect": "购买后，使难得素获取数量变为原来的 1 + (红神肴获取总数)^0.6 / 100 倍。"
       },
       "redAmbrosiaOffering": {
         "name": "由红神肴“制取”的祭品",
         "description": "等等，这个好像有点道理。",
-        "effect": "购买后，使祭品获取数量变为原来的 1 + (祭品获取总数)^0.6 / 100 倍。"
+        "effect": "购买后，使祭品获取数量变为原来的 1 + (红神肴获取总数)^0.6 / 100 倍。"
       },
       "redAmbrosiaCubeImprover": {
         "name": "雇佣红神肴工匠",
@@ -3794,7 +3794,7 @@
       },
       "sadisticPrequel": {
         "name": "虐待狂拔擢 III - 前传",
-        "description": "Platonic还要滥用多少次“虐待狂”？[无奇点升级、八阶方块升级或神肴升级]",
+        "description": "Platonic还要滥用多少次“虐待狂”？[无奇点升级、八阶方块升级和神肴升级]",
         "ScalingReward1": "使<<cyan|夸克获取数量>>增加3%！",
         "ScalingReward2": "使“每日”代码获得的<<orange|免费奇点升级>>增加3%！",
         "UniqueReward1": "第1次 - 使“每日”代码可以多提供50级免费奇点升级！",
