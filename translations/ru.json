@@ -27,7 +27,7 @@
     "blueberryCost": "Голубики (Для Активации):",
     "prereqNotMetAlert": "Вы не выполнили необходимые требования для покупки этого улучшения.",
     "notEnoughBlueberries": "У вас недостаточно Голубики для активации этого модуля.",
-    "timeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia.",
+    "timeThresholds": "Из-за Амброзии за всё время, требования Очков Шкалы Амброзии были удвоены <<cyan | {{threshold}}>> раз. Следующее удвоение при достижении <<orange|{{toNext}}>> Амброзии.",
     "cubeUpgradeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia. <<cyan | Ambrosia Bar Point gain +{{percent}}%>>!",
     "cubeUpgradeRedBarFills": "Пока Улучшение Печенек 29 было куплено, ваша Красная Шкала была заполнена <<maroon | {{amount}}>> раз, что даёт вам <<green | +{{luck}} &#9752 Удачи Амброзии>>!",
     "ambrosiaBuyPrompt": "Сколько Амброзии вы хотели бы потратить? У вас {{amount}} Амброзии. Введите -1, чтобы использовать максимум!",
