@@ -138,7 +138,7 @@
       },
       "ambrosiaBaseObtainium1": {
         "name": "Базовый Усилитель Обтаниума",
-        "description": "+1 Base Obtainium per level! Exceed the possibilities of your strength.",
+        "description": "+1 Базового Обтаниума за уровень! Превзойдите возможности вашей силы.",
         "effect": "This module increases Base Obtainium by {{amount}}!"
       },
       "ambrosiaBaseOffering1": {
