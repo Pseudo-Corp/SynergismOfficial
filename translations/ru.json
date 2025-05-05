@@ -139,22 +139,22 @@
       "ambrosiaBaseObtainium1": {
         "name": "Базовый Усилитель Обтаниума",
         "description": "+1 Базового Обтаниума за уровень! Превзойдите возможности вашей силы.",
-        "effect": "This module increases Base Obtainium by {{amount}}!"
+        "effect": "Этот модуль увеличивает Базовый Обтаниум на {{amount}}!"
       },
       "ambrosiaBaseOffering1": {
         "name": "Базовый Усилитель Подношений",
-        "description": "+1 Base Offering per level! Exceed the possibilities of your strength.",
-        "effect": "This module increases Base Offering by {{amount}}!"
+        "description": "+1 Базовое Подношение за уровень! Превзойдите возможности вашей силы.",
+        "effect": "Этот модуль увеличивает Базовые Подношения на {{amount}}!"
       },
       "ambrosiaBaseObtainium2": {
         "name": "Базированный Усилитель Обтаниума",
-        "description": "+1 Base Obtainium per level! Channel your inner researcher.",
-        "effect": "This module increases Base Obtainium by {{amount}}!"
+        "description": "+1 Базового Обтаниума за уровень! Пробудите своего внутреннего исследователя.",
+        "effect": "Этот модуль увеличивает Базовый Обтаниум на {{amount}}!"
       },
       "ambrosiaBaseOffering2": {
         "name": "Базированный Усилитель Подношений",
-        "description": "+1 Base Offering per level! Channel your... I got nothing.",
-        "effect": "This module increases Base Offering by {{amount}}!"
+        "description": "+1 Базовое Подношение за уровень! Пробудите своё... у меня кончились идеи.",
+        "effect": "Этот модуль увеличивает Базовые Подношения на {{amount}}!"
       },
       "ambrosiaSingReduction1": {
         "name": "Модуль Стабилизации Сингулярности",
