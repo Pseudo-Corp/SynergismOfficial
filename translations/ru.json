@@ -158,12 +158,12 @@
       },
       "ambrosiaSingReduction1": {
         "name": "Модуль Стабилизации Сингулярности",
-        "description": "Retrofitted with Amber flux capacitors, your Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity per level, if you are NOT! in an EXALT.",
-        "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
+        "description": "Благодаря Янтарным потоковым накопителям, ваши Сингулярности теперь немного мягче. Штрафы Сингулярности отложены на 1 за уровень, только если вы НЕ! в ВОЗВЫШЕНИИ.",
+        "effect": "Штрафы Сингулярности действуют как если бы вы были на {{amount}} Сингулярностей ниже."
       },
       "ambrosiaInfiniteShopUpgrades1": {
-        "name": "Indigo Infinity Shop Voucher",
-        "description": "A Shop Voucher, printed on an indigo tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
+        "name": "Купоны Магазина Бесконечностей цвета Индиго",
+        "description": "Купон, напечатанный на индиго табличке. Каждый купон даёт +1 к эффективному уровню 'бесконечных' улучшений магазина.",
         "effect": "'Infinity' shop upgrades level +{{amount}}"
       },
       "ambrosiaInfiniteShopUpgrades2": {
