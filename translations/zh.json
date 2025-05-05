@@ -5048,7 +5048,7 @@
         "title": "神肴 - 时间跳跃",
         "description": "使神肴进度条点数和红神肴进度条点数的计时直接增加相应现实时间！"
       },
-      "purchaseBtn": "增加{{time}}小时[<<gold|花费{{cost}}伪币>>",
+      "purchaseBtn": "增加{{time}}小时[<<gold|花费{{cost}}伪币>>]",
       "warning": "<<gold|⚠>>购买后需要经过几秒才能生效！<<gold|⚠>>"
     }
   }
