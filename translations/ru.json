@@ -164,17 +164,17 @@
       "ambrosiaInfiniteShopUpgrades1": {
         "name": "Купоны Магазина Бесконечностей цвета Индиго",
         "description": "Купон, напечатанный на индиго табличке. Каждый купон даёт +1 к эффективному уровню 'бесконечных' улучшений магазина.",
-        "effect": "'Infinity' shop upgrades level +{{amount}}"
+        "effect": "Уровень улучшений мазагина 'Бесконечности' +{{amount}}"
       },
       "ambrosiaInfiniteShopUpgrades2": {
-        "name": "Violet Infinity Shop Voucher",
-        "description": "A Shop Voucher, printed on a violet tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
-        "effect": "'Infinity' shop upgrades level +{{amount}}"
+        "name": "Купоны Магазина Бесконечностей Фиолетового цвета",
+        "description": "Купон, напечатанный на фиолетовой табличке. Каждый купон даёт +1 к эффективному уровню 'бесконечных' улучшений магазина.",
+        "effect": "Уровень улучшений мазагина 'Бесконечности' +{{amount}}"
       },
       "ambrosiaSingReduction2": {
-        "name": "Exo-Chromatic Kinetic Post-Modulated Singularity Stabilizer Module",
-        "description": "Retrofitted with... those kinds of Stabilizers, your EXALTED Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity, if you are ACTUALLY! in an EXALT.",
-        "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
+        "name": "Экзо-Хроматический Кинетический Пост-Модулированый Модуль Стабилизации Сингулярности",
+        "description": "Благодаря... вышеупомянутым Стабилизаторам, ваши ВОЗВЫШЕННЫЕ Сингулярности теперь немного мягче. Штрафы Сингулярности отложены на 1 Сингулярность, ТОЛЬКО! если вы в ВОЗВЫШЕНИИ.",
+        "effect": "Штрафы Сингулярности действуют как если бы вы были на {{amount}} Сингулярностей ниже."
       }
     },
     "loadouts": {
@@ -204,13 +204,13 @@
     "data": {
       "tutorial": {
         "name": "Красная Амброзия: руководство для новичков",
-        "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul. But you don't really care about that... 1.01x Cubes, Obtainium and Offerings per level!",
-        "effect": "Cubes, Obtainium and Offerings are increased by {{amount}}!"
+        "description": "Если Амброзия - это жизненная сила Богов, Красная Амброзия - это жизненная сила вашей души. Но вам это не особо интересно... 1.01х к Кубами, Обтаниуму и Подношениям!",
+        "effect": "Кубы, Обтаниум и Подношения увеличены на {{amount}}!"
       },
       "conversionImprovement1": {
-        "name": "Ambrosia Luck Converter Improvement",
-        "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
+        "name": "Улучшение Конвертации Удачи Амброзии",
+        "description": "Каждые 20 Удачи Амброзии конвертируются в 1 Красную Удачу Амброзии? Нее. Давайте-ка уменьшим это соотношение на 1 за уровень.",
+        "effect": "Уменьшает количество необходимой Удачи Амброзии на <<lime | {{amount}}>>!"
       },
       "conversionImprovement2": {
         "name": "Ambrosia Luck Converter Improvement II: The Red Electric Boogaloo",
@@ -248,12 +248,12 @@
         "effect": "This upgrade increases the effective level of (most) row 5 Blueberry Modules by {{amount}}!"
       },
       "blueberryGenerationSpeed": {
-        "name": "The Sands of Time",
+        "name": "Пески Времени",
         "description": "+0.2% Ambrosia Bar Point gain per level. They say this hourglass has the benediction of Chronos himself.",
         "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
       },
       "regularLuck": {
-        "name": "Ossified Blueberry Tactics",
+        "name": "Тактика Окостеневшей Голубики",
         "description": "Most strange. Adding this gold-colored wax on your blueberries makes you slightly more likely to get Ambrosia! +2 Ambrosia Luck / level.",
         "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
       },
@@ -265,20 +265,20 @@
       "redLuck": {
         "name": "The Dice that Decide Your Fate",
         "description": "A life on every face, until you're finally left with an eight. +1 Red Ambrosia Luck per level!",
-        "effect": "This upgrade increases Red Ambrosia Luck by {{amount}}!"
+        "effect": "Это улучшение увеличивает Красную Удачу Амброзии на {{amount}}!"
       },
       "redAmbrosiaCube": {
-        "name": "Cubes \"made\" of Red Ambrosia",
+        "name": "Кубы \"из\" Красной Амброзии",
         "description": "Hey, Ambrosia gives cubes! Why not Red Ambrosia as well?",
         "effect": "If purchased, multiply your cubes by 1 + (Lifetime)^{{exponent}} / 100."
       },
       "redAmbrosiaObtainium": {
-        "name": "Obtainium \"\"made\"\" of Red Ambrosia",
+        "name": "Обтаниума \"\"из\"\" Красной Амброзии",
         "description": "I don't know why you can make a blue object from a red object. But you can.",
         "effect": "If purchased, multiply your Obtainium by 1 + (Lifetime)^0.6 / 100."
       },
       "redAmbrosiaOffering": {
-        "name": "Offerings \"\"\"made\"\"\" of Red Ambrosia",
+        "name": "Подношения \"\"\"из\"\"\" Красной Амброзии",
         "description": "Wait, this one kinda makes sense.",
         "effect": "If purchased, multiply your Offerings by 1 + (Lifetime)^0.6 / 100."
       },
@@ -288,17 +288,17 @@
         "effect": "Exponent for that Red Ambrosia Upgrade: 0.40 → {{newExponent}}"
       },
       "viscount": {
-        "name": "Viscount of Ruby Guy",
+        "name": "Титул Висконта Рубинов",
         "description": "For a stupid amount of Red Ambrosia, obtain a small amount of land, becoming 'viscount' of this land. Purchase this to get +10% Quarks, +125 Ambrosia Luck, +25 Red Luck, and a Discord Role!",
         "effect": "📜 {{mark}}"
       },
       "infiniteShopUpgrades": {
-        "name": "Red Infinity Shop Voucher",
+        "name": "Купоны Магазина Бесконечностей Красного цвета",
         "description": "A Shop Voucher, printed on a red tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
-        "effect": "'Infinity' shop upgrades level +{{amount}}"
+        "effect": "Уровень улучшений мазагина 'Бесконечности' +{{amount}}"
       },
       "redAmbrosiaAccelerator": {
-        "name": "Red-Blue Ultrafusion",
+        "name": "Красно-Синее Ультраслияние",
         "description": "When you gain a Red Ambrosia, you gain a bit of progress toward regular Ambrosia! +0.02 real-life seconds of Ambrosia Bar Points per level, per Red Ambrosia generated, with the first level giving +1!",
         "effect": "Each Red Ambrosia generated grants {{amount}} real-life seconds of Ambrosia Bar Points."
       },
@@ -352,26 +352,26 @@
       "34": "[[34]] Золотой Рай: Создайте 17 777 Алхимий.",
       "35": "[[35]] Открывая секреты миру: Создайте 42 777 Алхимий.",
       "36": "[[36]] Новый уровень: Престиж хотя бы ради 1 Алмаза.",
-      "37": "[[37]] High-Tiered: Prestige for at least 1e6 Diamonds.",
-      "38": "[[38]] Highly Regarded: Prestige for at least 1e100 Diamonds.",
-      "39": "[[39]] Prestigious: Prestige for at least 1e1,000 Diamonds.",
-      "40": "[[40]] Legendary: Prestige for at least 1e10,000 Diamonds.",
-      "41": "[[41]] Divine: Prestige for at least 1e77,777 Diamonds.",
-      "42": "[[42]] Perfectly Respected: Prestige for at least 1e250,000 Diamonds.",
+      "37": "[[37]] Высокопоставленный: Престиж хотя бы ради 1e6 Алмазов.",
+      "38": "[[38]] Очень Уважаемый: Престиж хотя бы ради 1e100 Алмазов.",
+      "39": "[[39]] Престижный: Престиж хотя бы ради 1e1000 Алмазов.",
+      "40": "[[40]] Легендарный: Престиж хотя бы ради 1e10000 Алмазов.",
+      "41": "[[41]] Божественный: Престиж хотя бы ради 1e77777 Алмазов.",
+      "42": "[42]] Безукоризненно Чтимый: Престиж хотя бы ради 1e250000 Алмазов.",
       "43": "[[43]] Небольшой Объезд: Выйти за пределы хотя бы ради 1 Мифа.",
-      "44": "[[44]] Tunnel Vision: Transcend for at least 1e6 Mythos.",
-      "45": "[[45]] Risen from the Ashes: Transcend for at least 1e50 Mythos.",
-      "46": "[[46]] Paradigm Shift: Transcend for at least 1e308 Mythos.",
-      "47": "[[47]] Preparation: Transcend for at least 1e1,500 Mythos.",
-      "48": "[[48]] Revising the Plan: Transcend for at least 1e25,000 Mythos.",
-      "49": "[[49]] Leaving the Universe: Transcend for at least 1e100,000 Mythos.",
+      "44": "[44]] Туннельное Зрение: Выйти за пределы хотя бы ради 1e6 Мифов.",
+      "45": "[[45]] Восставший из Пепла: Выйти за пределы хотя бы ради 1e50 Мифов.",
+      "46": "[[46]] Сдвиг Парадигмы: Выйти за пределы хотя бы ради 1e308 Мифов.",
+      "47": "[[47]] Подготовка: Выйти за пределы хотя бы ради 1e500 Мифов.",
+      "48": "[[48]] Корректировка Плана: Выйти за пределы хотя бы ради 1e25000 Мифов.",
+      "49": "[[49]] Покидая Вселенную: Выйти за пределы хотя бы ради 1e100000 Мифов.",
       "50": "[[50]] Впадая в Квантовость: Реинкарнируйте хотя бы ради 1 Частицы.",
       "51": "[[51]] Туннелирование Зрения: Реинкарнируйте хотя бы ради 100 000 Частиц.",
-      "52": "[[52]] Simulating the World: Reincarnate for at least 1e30 Particles.",
-      "53": "[[53]] Multidimensional Creation: Reincarnate for at least 1e200 Particles.",
-      "54": "[[54]] Lepton Dance: Reincarnate for at least 1e1,500 Particles.",
-      "55": "[[55]] Do we have enough yet?: Reincarnate for at least 1e5,000 Particles.",
-      "56": "[[56]] I Feel Luck in My Cells: Reincarnate for at least 1e7,777 Particles.",
+      "52": "[[52]] Симуляция Мира: Реинкарнируйте хотя бы ради 1e30 Частиц.",
+      "53": "[[53]] Многомерное Создание: Реинкарнируйте хотя бы ради 1e200 Частиц.",
+      "54": "[[54]] Танец Лептонов: Реинкарнируйте хотя бы ради 1e1500 Частиц.",
+      "55": "[[55]] У нас уже достаточно?: Реинкарнируйте хотя бы ради 1e5000 Частиц.",
+      "56": "[[56]] Я Чувствую Удачу в Своих Клетках: Реинкарнируйте хотя бы ради 1e7777 Частиц.",
       "57": "[[57]] Только один путь: Престиж без покупки Множителей.",
       "58": "[[58]] Аутентичное Переключение: Выйти за пределы без покупки Множителей.",
       "59": "[[59]] Сингулярность: Реинкарнируйте без покупки Множителей.",
@@ -737,8 +737,8 @@
       "222": "+3% Платоновых Кубов при Вознесении!",
       "223": "20% Избыточного времени после 10 секунд каждого Вознесения прибавляются как линейный множитель к счётчику Вознесения. Также: Платоновы Кубы +{{x}}% [Макс: 200% при 2.674B Вознесений]",
       "240": "Множитель получения Кубов при Вознесении ОЧЕНЬ слабо зависим от множителя глобальной скорости: {{x}}x (Мин: 1.10x, Макс: 1.50x)",
-      "250": "You gain a permanent +60% Obtainium and Offering bonus, with +6% all Cube types! Quark Gain x1.05!",
-      "251": "You gain a permanent +100% Obtainium and Offering bonus, with +10% all Cube types! Quark Gain x1.05!",
+      "250": "Вы получите постоянный +60% бонус Обтаниума и Подношений, а также +6% ко всем типам Кубов! Кварки x1.05!",
+      "251": "Вы получите постоянный +100% бонус Обтаниума и Подношений, а также +10% ко всем типам Кубов! Кварки x1.05!",
       "253": "+10% Гиперкубов! Зачем? Без понятия.",
       "254": "Прирост Кубов +{{x}}% [Макс: +15% при счёте Вознесения 1e25]",
       "255": "Прирост Тессерактов +{{x}}% [Макс: +15% при счёте Вознесения 1e25], и позволяет получать Гептеракты.",
@@ -752,7 +752,7 @@
       "263": "Вознесения на {{x}}% быстрее! Макс: +10%",
       "264": "Гептеракты +{{x}}% [Макс: 40% при 8Т Вознесений]!",
       "265": "Гептеракты +{{x}}% [Макс: 20% при 160Т Вознесений]!",
-      "266": "Quarks +{{x}}% [Max: 1.10x at 1Qa (1e15) Ascensions]!",
+      "266": "Кварки +{{x}}% [Макс: 1.10x при 1Qa (1e15) Вознесений]!",
       "267": "Счёт Вознесения повышен на {{x}}% [Макс: 100% при Константе 1e100 000]",
       "270": "Прирост Гептерактов повышен на {{x}}% [Макс: 100% при Константе 1e1 000 000], Улучшение Константы 1 усилено до 1.06 (с 1.05), Улучшение Константы 2 усилено до 1.11 (с 1.10).",
       "271": "Когда вы открываете Платоновы Кубы, получаете {{x}} Гиперкубов, с округлением в меньшую сторону [Макс: 1 при Константе 1e1 000 000]"
@@ -767,7 +767,7 @@
     "rewardGainMessage": "Награда: {{x}} ОД. {{y}} Кварков! {{z}}",
     "completed": " ЗАВЕРШЕНО!",
     "notification": "Вы разблокировали достижение: {{m}}",
-    "quarkBonus": "Gain .01 Quark Multiplier per 500 AP! Quark Multiplier: <<cyan | x{{multiplier}}>>"
+    "quarkBonus": "+0.01 К Множителю Кварков за 500 ОД! Множитель Кварков: <<cyan | x{{multiplier}}>>"
   },
   "reset": {
     "details": {
@@ -836,7 +836,7 @@
       "7": "Building Costs scale {{x}}% slower!",
       "8": "Rune EXP is multiplied by {{x}}!",
       "9": "Each rune has +{{x}} effective levels.",
-      "10": "Obtainium x{{x}}",
+      "10": "Обтаниум: x{{x}}",
       "11": "Sacrificing is {{x}}x as effective",
       "12": "Global Speed is multiplied by {{x}}"
     },
@@ -1826,8 +1826,8 @@
         "name": "Рог изобилия Муравьиного Бога",
         "hasLevel3": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e12 multiplier!",
         "hasLevel2": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e6 multiplier!",
-        "hasLevel1": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1,000 multiplier!",
-        "default": "Ant Speed now has a permanent immaculate x4.44 multiplier."
+        "hasLevel1": "У Скорости Муравьёв теперь есть безупречный множитель х4.44, а также истинно безупречный множитель х1,000!",
+        "default": "У Скорости Муравьёв теперь есть безупречный множитель х4.44."
       },
       "sweepomatic": {
         "name": "Робот Пыле-сборот Мк.2",
@@ -1987,7 +1987,7 @@
         "default": "Спонсорство от <<lightblue | Пандоры>> и <<orange | Вишарет>> теперь постоянно, поэтому их печеньки, соответственно, всегда съедены!"
       },
       "infiniteShopUpgrades": {
-        "name": "Orange Infinity Shop Voucher",
+        "name": "Купоны Магазина Бесконечностей Оранжевого цвета",
         "default": "Gain +0.5 to 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200, rounded down!. Currently: {{amt}}",
         "level2": "Gain +0.8 to 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200, rounded down! Currently: {{amt}}"
       }
@@ -2311,7 +2311,7 @@
         "effect": "Вы {{n}} имеете Идеальную Ручку. {{m}}"
       },
       "halfMind": {
-        "name": "HALF MIND",
+        "name": "ПОЛОВИННЫЙ РАЗУМ",
         "description": "A note, you found on the 'ground': seems like an advertisement for a cult. \"Lock your global speed to 10x, and multiply all obtainium and offerings based on the difference.\" Hmm...",
         "effectHave": "You have joined the cult!",
         "effectHaveNot": "You haven't joined the cult!"
@@ -3543,12 +3543,12 @@
         "effect": "Генерация Секунд Голубики +{{n}}%(!)"
       },
       "octeractBlueberries": {
-        "name": "Berries that are Blue!",
-        "description": "Blueberries are a blue fruit. Enough said.",
-        "effect": "You have purchased {{n}} blue blueberries!"
+        "name": "Голубая Голубика!",
+        "description": "Голубика - голубая ягода. Ни слова больше.",
+        "effect": "Вы купили {{n}} ягод голубой голубики!"
       },
       "octeractInfiniteShopUpgrades": {
-        "name": "Green Infinity Shop Voucher",
+        "name": "Купоны Магазина Бесконечностей Зелёного цвета",
         "description": "A Shop Voucher, printed on a green tablet. Each grants +1 effective level for the 'Infinity CO.' Quark Shop upgrades.",
         "effect": "'Infinity CO.' shop upgrades level +{{n}}"
       }
@@ -3737,14 +3737,14 @@
         "UniqueReward1": "1-ое - +12% <<gold|Золотых Кварков>>!",
         "UniqueReward2": "1-ое - Бесплатная <<var(--blueberry-box-color)|Голубика>>!",
         "UniqueReward3": "20-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
-        "UniqueReward4": "30th - +5% <<lime|&#9752 Ambrosia Luck>> for free!",
+        "UniqueReward4": "30-ое +5% <<lime|&#9752 Удачи Амброзии>> бесплатно!",
         "UniqueReward5": "30-ое Новое улучшение в <<orchid|Магазине Кварков>>: НЕ БЕСПЛАТНОЕ!"
       },
       "oneChallengeCap": {
         "name": "Предел в Одно Выполнение",
         "description": "Завершите необходимую Сингулярность, но лимит выполнений первых 14 Испытаний - 1!",
         "ScalingReward1": "+0.03 к значениям <<var(--red-text-color)|Множителей Порчи>>",
-        "ScalingReward2": "+1% <<var(--blueberry-box-color)|Ambrosia Bar Points>> gained",
+        "ScalingReward2": "+1% <<var(--blueberry-box-color)|Очков Шкалы Амброзии>> получено",
         "UniqueReward1": "1-ое - +3 к лимиту выполнений <<green|Испытаний Реинкарнации>>!",
         "UniqueReward2": "20-ое +1 Бесплатный <<var(--red-text-color)|Уровень Порчиl>>",
         "UniqueReward3": "20-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
@@ -3763,14 +3763,14 @@
         "description": "Кукузнец наложил эмбарго на Вознесения. На всю сингулярность дано только (20-выполнения), прежде чем Вознесения активируют негативные эффекты!<br/>Множитель Счётчика Вознесения не может быть выше 1. Ах, да, Дельта тоже отключена. Хе.",
         "ScalingReward1": "<<orange|+0.1% Скорости Вознесения>> за Цифру в вашем <<orange|Счётчике Вознесений!>>",
         "UniqueReward1": "1-ое - Навсегда бесплатно удваивает лимит <<Pink|всех Гептерактов>>!!! (Это отличная награда!)",
-        "UniqueReward2": "20th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward3": "25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
+        "UniqueReward2": "20-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
+        "UniqueReward3": "25-ое - Новый Калькулятор в <<orchid|Магазине Кварков>>, вуху!"
       },
       "noAmbrosiaUpgrades": {
         "name": "Без Улучшений Амброзии",
         "description": "Золотой Парень растерял весь кураж (и да - это его имя!) и ему нужна ваша помощь.<br/>Пройдите Сингулярность без эффектов от Амброзии или Улучшений Амброзии!",
         "ScalingReward1": "+15 & +0.5% <<lime|&#9752 Удачи Амброзии>>",
-        "ScalingReward2": "+2% <<var(--blueberry-box-color)|Ambrosia Bar Point>> gain",
+        "ScalingReward2": "+2% <<var(--blueberry-box-color)|Очков Шкалы Амброзии>> получено",
         "ScalingReward3": "+4 <<red|&#9861 Red Ambrosia Luck>>",
         "ScalingReward4": "+1% <<red|Red Bar Point>> gain",
         "UniqueReward1": "1-ое - Бесплатная <<var(--blueberry-box-color)|Голубика>>!",
@@ -3778,8 +3778,8 @@
         "UniqueReward3": "1st - Unlock <<red|Red Ambrosia>>! It's like Ambrosia, but <<red|red>>.",
         "UniqueReward4": "10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
         "UniqueReward5": "15th - A new <<orchid|Quark Shop>> upgrade!",
-        "UniqueReward6": "20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
-        "UniqueReward7": "20th - An <<gold|ULTRA Quark Shop>> upgrade!"
+        "UniqueReward6": "20-ое - ТРЕТЬЯ БЕСПЛАТНАЯ <<var(--blueberry-box-color)|ГОЛУБИКА>>?!?!",
+        "UniqueReward7": "20-ое - <<gold|УЛЬТРА Улучшение>> в Магазине Кварков!"
       },
       "limitedTime": {
         "name": "Великий Спидран Сингулярности!",
@@ -3787,8 +3787,8 @@
         "ScalingReward1": "+6% к <<orange|Глобальной Скорости>>!",
         "ScalingReward2": "+6% к <<orange|Скорости Вознесения>>!",
         "ScalingReward3": "+1% к <<cyan|Кваркам>>!",
-        "ScalingReward4": "-1% <<red|Red Bar Fill Requirements>>!",
-        "UniqueReward1": "1st - Your quarks no longer reset on Singularity!",
+        "ScalingReward4": "-1% к <<red|Требованиям Заполнения Красной Шкалы>>!",
+        "UniqueReward1": "1-ое - Кварки больше не сбрасываются после Сингулярности!",
         "UniqueReward2": "15-ое - Новое улучшение <<orchid|Магазина Кварков>>!",
         "UniqueReward3": "25-ое - Новое, очень дорогое, не то чтобы хорошее, очень даже плохое улучшение в <<orange|Магазине Кварков>>!"
       },
@@ -3860,11 +3860,11 @@
   "statistics": {
     "subtabs": {
       "misc": "Прочая Статистика",
-      "baseOffering": "Base Offerings",
-      "offeringMult": "Offering Multipliers",
-      "baseObtainium": "Base Obtainium",
-      "obtIgnoreDR": "Immaculate Obtainium",
-      "obtMult": "Obtainium Multipliers",
+      "baseOffering": "Базовые Подношения",
+      "offeringMult": "Множители Подношений",
+      "baseObtainium": "Базовый Обтаниум",
+      "obtIgnoreDR": "Безупречный Обтаниум",
+      "obtMult": "Множители Обтаниума",
       "quarkMult": "Global Quark Multipliers",
       "gSpeedMultIgnoreDR": "Immaculate Global Speed",
       "gSpeedMult": "Global Speed Multipliers",
