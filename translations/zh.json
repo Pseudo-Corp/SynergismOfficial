@@ -3775,7 +3775,7 @@
         "ScalingReward4": "使<<red|红神肴进度条点数获取速度>>增加1%",
         "UniqueReward1": "第1次 - 免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！",
         "UniqueReward2": "第1次 - 每次获得<<var(--amber-text-color)|神肴>>时，使<<var(--amber-text-color)|神肴>>增加1！",
-        "UniqueReward3": "第1次 - 解锁 <<red|红神肴>>！它很像神肴，只不过是<<red|红的>>。",
+        "UniqueReward3": "第1次 - 解锁<<red|红神肴>>！它很像神肴，只不过是<<red|红的>>。",
         "UniqueReward4": "第10次 - 再次免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！！！",
         "UniqueReward5": "第15次 - 新的<<orchid|夸克商店>>升级！",
         "UniqueReward6": "第20次 - 第3次免费获得1颗<<var(--blueberry-box-color)|蓝莓>>？！？！",
