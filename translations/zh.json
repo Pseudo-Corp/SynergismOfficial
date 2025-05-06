@@ -1201,8 +1201,8 @@
       "39": "真惊奇！我想要让完成挑战10给予的分数更高。",
       "40": "真惊奇！我想让雅典娜的贡品加成更高1。",
       "41": "真惊奇！我想要破解到更多分数3。",
-      "42": "Wow! I want some Immaculate Obtainium.",
-      "43": "Wow! I want even more Immaculate Obtainium!",
+      "42": "真惊奇！我想要一些无瑕的难得素。",
+      "43": "真惊奇！我还想要一些无瑕的难得素！",
       "44": "真惊奇！我想让米达斯的贡品加成更高1。",
       "45": "真惊奇！我想让赫尔墨斯的贡品加成更高1。",
       "46": "真惊奇！我想要更多更多的祭品！",
@@ -1573,7 +1573,7 @@
       "obtainiumEX": "难得素获取数量增加4%！",
       "obtainiumAuto": "自动使用难得素进行研究。第一级解锁机制，且每一级使难得素获取数量增加2%。每次转世，尽可能地使用难得素升级目标研究，激活方式与自动献祭类似。",
       "instantChallenge": "只要开启重新尝试挑战，超越和转世挑战将不再重置资源，且每个时刻可以完成10次超越和转世挑战。另外，在退出转世挑战时，立刻使超越挑战的完成次数达到之前的完成次数上限。",
-      "antSpeed": "Each level gives a 1.2x speed multiplier to all Ant tiers' production! (Immaculate!) Short and simple.",
+      "antSpeed": "每级使蚂蚁速度变为1.2倍！(无瑕！)简单有效。",
       "cashGrab": "这玩意非常贵，但是效果拔群。每级使祭品和难得素的获取数量增加1%。",
       "shopTalisman": "永久解锁一个商店护身符！",
       "seasonPass": "惊奇方盒提出交易：购买这个完全公平的季票以后，每级使您飞升的方盒和超立方获取数量增加2.25%！",
@@ -1824,10 +1824,10 @@
       },
       "antGodsCornucopia": {
         "name": "蚁神的聚宝盆",
-        "hasLevel3": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e12 multiplier!",
-        "hasLevel2": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e6 multiplier!",
-        "hasLevel1": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1,000 multiplier!",
-        "default": "Ant Speed now has a permanent immaculate x4.44 multiplier."
+        "hasLevel3": "蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1e12倍！",
+        "hasLevel2": "蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1e6倍！",
+        "hasLevel1": "蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1000倍！",
+        "default": "蚂蚁速度变为无瑕的4.44倍。"
       },
       "sweepomatic": {
         "name": "自动扫荡·改 2",
@@ -3863,7 +3863,7 @@
       "baseOffering": "基础祭品获取数量",
       "offeringMult": "祭品获取数量倍率",
       "baseObtainium": "基础难得素获取数量",
-      "obtIgnoreDR": "Immaculate Obtainium",
+      "obtIgnoreDR": "无瑕难得素",
       "obtMult": "难得素获取数量倍率",
       "quarkMult": "全局夸克获取数量倍率",
       "gSpeedMultIgnoreDR": "无瑕全局速度",
