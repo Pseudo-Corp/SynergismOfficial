@@ -1342,6 +1342,10 @@ export const allObtainiumIgnoreDRStats: StatLine[] = [
     stat: () => player.campaigns.obtainiumBonus // Campaign Obtainium Bonus
   },
   {
+    i18n: 'ChallengeBonus',
+    stat: () => G.challenge15Rewards.obtainium.value // Challenge 15 Reward
+  },
+  {
     i18n: 'PlatonicALPHA',
     stat: () => 1 + player.platonicUpgrades[5] // Platonic ALPHA
   },
