@@ -213,37 +213,37 @@
         "effect": "Уменьшает количество необходимой Удачи Амброзии на <<lime | {{amount}}>>!"
       },
       "conversionImprovement2": {
-        "name": "Ambrosia Luck Converter Improvement II: The Red Electric Boogaloo",
-        "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
+        "name": "Улучшение Конвертации Удачи Амброзии II: Красное Электрическое Бугалу",
+        "description": "Каждые 20 Удачи Амброзии конвертируются в 1 Красную Удачу Амброзии? Нее. Давайте-ка уменьшим это соотношение на 1 за уровень.",
+        "effect": "Уменьшает количество необходимой Удачи Амброзии на <<lime | {{amount}}>>!"
       },
       "conversionImprovement3": {
-        "name": "Ambrosia Luck Converter Improvement III and a half",
-        "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
+        "name": "Улучшение Конвертации Удачи Амброзии III с хвостиком",
+        "description": "Каждые 20 Удачи Амброзии конвертируются в 1 Красную Удачу Амброзии? Нее. Давайте-ка уменьшим это соотношение на 1 за уровень.",
+        "effect": "Уменьшает количество необходимой Удачи Амброзии на <<lime | {{amount}}>>!"
       },
       "freeTutorialLevels": {
-        "name": "More Blueberry Tutorial Module Levels!",
-        "description": "A meta-tutorial of sorts. A powerful ability of Red Ambrosia is to power your Blueberry tree! Increase the effective level of Blueberry Tutorial Module by 1 per level.",
-        "effect": "This upgrade increases the effective level of Blueberry Tutorial Module by {{amount}}!"
+        "name": "Больше Уровней Тренировочного Модуля Голубики!",
+        "description": "Эдакое мета-руководство. Мощная способность Красной Амброзии позволяет питать ваше дерево Голубики! Увеличивает эффективный уровень Тренировочного Модуля Голубики на 1 за уровень.",
+        "effect": "Это улучшение увеличивает эффективный уровень Тренировочного Модуля Голубики на {{amount}}!"
       },
       "freeLevelsRow2": {
-        "name": "More Row 2 Blueberry Upgrade Levels!",
-        "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the second row, per level.",
-        "effect": "This upgrade increases the effective level of (most) row 2 Blueberry Modules by {{amount}}!"
+        "name": "Больше Уровней Улучшений Голубики 2-го Ряда!",
+        "description": "За исключением Стабилизатора Сингулярности, добавляет один эффективный уровень ко всем Модулям Голубики, находящимся во 2-ом ряду, за уровень.",
+        "effect": "Это улучшение увеличивает эффективный уровень (большинства) Модулей Голубики во 2-ом ряду на {{amount}}!"
       },
       "freeLevelsRow3": {
-        "name": "More Row 3 Blueberry Upgrade Levels!",
+        "name": "Больше Уровней Улучшений Голубики 3-го Ряда!",
         "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the third row, per level.",
         "effect": "This upgrade increases the effective level of ALL row 3 Blueberry Modules by {{amount}}!"
       },
       "freeLevelsRow4": {
-        "name": "More Row 4 Blueberry Upgrade Levels!",
+        "name": "Больше Уровней Улучшений Голубики 4-го Ряда!",
         "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the fourth row, per level.",
         "effect": "This upgrade increases the effective level of ALL row 4 Blueberry Modules by {{amount}}!"
       },
       "freeLevelsRow5": {
-        "name": "More Row 5 Blueberry Upgrade Levels!",
+        "name": "Больше Уровней Улучшений Голубики 5-го Ряда!",
         "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the fifth row, per level.",
         "effect": "This upgrade increases the effective level of (most) row 5 Blueberry Modules by {{amount}}!"
       },
