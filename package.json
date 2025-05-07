@@ -8,6 +8,7 @@
     "@ungap/custom-elements": "^1.3.0",
     "break_infinity.js": "^2.0.0",
     "clipboard": "^2.0.11",
+    "dompurify": "^3.2.5",
     "fast-mersenne-twister": "^1.0.3",
     "i18next": "^22.4.9",
     "lz-string": "^1.4.4",

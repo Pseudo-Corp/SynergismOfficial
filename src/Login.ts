@@ -1,5 +1,6 @@
 /// <reference types="@types/cloudflare-turnstile" />
 
+import DOMPurify from 'dompurify'
 import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -255,6 +256,10 @@ export async function handleLogin () {
       user = member.nick ?? member.user?.username ?? member.user?.global_name ?? null
     } else {
       user = member.user.username
+    }
+
+    if (user !== null) {
+      user = DOMPurify.sanitize(user)
     }
 
     const boosted = accountType === 'discord' && (Boolean(member?.premium_since) || member?.roles.includes(BOOSTER))
