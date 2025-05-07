@@ -4,14 +4,16 @@ import i18next from 'i18next'
 import { z } from 'zod'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateAmbrosiaGenerationSpeed, calculateOffline, calculateRedAmbrosiaGenerationSpeed } from './Calculate'
+import { prod } from './Config'
 import { updateGlobalsIsEvent } from './Event'
 import { addTimers, automaticTools } from './Helper'
-import { importSynergism } from './ImportExport'
+import { exportData, importSynergism, saveFilename } from './ImportExport'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
-import { QuarkHandler, setQuarkBonus } from './Quark'
+import { QuarkHandler, refreshQuarkBonus, setQuarkBonus } from './Quark'
+import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
-import { assert } from './Utility'
+import { assert, btoa } from './Utility'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
@@ -31,6 +33,13 @@ interface Consumable {
   ends: number[]
   amount: number
   displayName: string
+}
+
+interface Save {
+  id: number
+  name: string
+  uploadedAt: string
+  save: string
 }
 
 // Consts for Patreon Supporter Roles.
@@ -55,6 +64,8 @@ const DIAMOND_SMITH_MESSIAH = '1311165096378105906'
 let ws: WebSocket | undefined
 let loggedIn = false
 let tips = 0
+
+const cloudSaves: Save[] = []
 
 export const isLoggedIn = () => loggedIn
 export const getTips = () => tips
@@ -83,7 +94,12 @@ const messageSchema = z.preprocess(
     z.object({ type: z.literal('join') }),
     z.object({ type: z.literal('error'), message: z.string() }),
     /** Received after a consumable is redeemed (broadcasted to everyone) */
-    z.object({ type: z.literal('consumed'), consumable: z.string(), startedAt: z.number().int() }),
+    z.object({
+      type: z.literal('consumed'),
+      consumable: z.string(),
+      displayName: z.string(),
+      startedAt: z.number().int()
+    }),
     /** Received after a consumable ends (broadcasted to everyone) */
     z.object({ type: z.literal('consumable-ended'), consumable: z.string(), endedAt: z.number().int() }),
     /** Information about all currently active consumables, received when the connection opens. */
@@ -193,7 +209,7 @@ interface SynergismNotLoggedInResponse extends SynergismUserAPIResponse {
 type CloudSave = null | { save: string }
 
 export async function handleLogin () {
-  const subtabElement = document.querySelector('#accountSubTab > div.scrollbarX')!
+  const subtabElement = document.querySelector('#accountSubTab div#left.scrollbarX')!
   const currentBonus = DOMCacheGetOrSet('currentBonus')
 
   const logoutElement = document.getElementById('logoutButton')
@@ -231,13 +247,14 @@ export async function handleLogin () {
     | SynergismEmailUserAPIResponse
     | SynergismNotLoggedInResponse
 
-  setQuarkBonus(100 * (1 + globalBonus / 100) * (1 + personalBonus / 100) - 100)
+  setQuarkBonus(personalBonus, globalBonus)
+  setInterval(() => refreshQuarkBonus(), 1000 * 60 * 15)
   player.worlds = new QuarkHandler(Number(player.worlds))
   loggedIn = accountType !== 'none' && response.ok
 
   currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
 
-  if (location.hostname !== 'synergism.cc') {
+  if (location.hostname !== 'synergism.cc' && prod) {
     // TODO: better error, make link clickable, etc.
     subtabElement.textContent = 'Login is not available here, go to https://synergism.cc instead!'
   } else if (accountType === 'discord' || accountType === 'patreon' || accountType === 'email') {
@@ -377,6 +394,7 @@ export async function handleLogin () {
 
   if (loggedIn) {
     handleWebSocket()
+    handleCloudSaves()
   }
 }
 
@@ -440,7 +458,8 @@ function handleWebSocket () {
       consumable.ends.push(data.startedAt + 3600 * 1000)
       consumable.amount++
 
-      Notification(`Someone redeemed a(n) ${data.consumable}!`)
+      const article = /^[AEIOU]/i.test(data.displayName) ? 'an' : 'a'
+      Notification(`Someone redeemed ${article} ${data.displayName}!`)
     } else if (data.type === 'consumable-ended') {
       // Because of the invariant that the timestamps are sorted, we can just remove the first element
       const consumable = allDurableConsumables[data.consumable as PseudoCoinConsumableNames]
@@ -554,6 +573,7 @@ export function renderCaptcha () {
   const visible = captchaElements.find((el) => el.offsetParent !== null)
 
   if (visible && !hasCaptcha.has(visible)) {
+    // biome-ignore lint/correctness/noUndeclaredVariables: declared in types as a global
     turnstile.render(visible, {
       sitekey: visible.getAttribute('data-sitekey')!,
       'error-callback' () {},
@@ -596,9 +616,9 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
     addTimers('transcension', seconds)
     addTimers('reincarnation', seconds)
     automaticTools('antSacrifice', seconds)
-    player.prestigeCount += seconds / Math.max(0.01, player.fastestprestige)
-    player.transcendCount += seconds / Math.max(0.01, player.fastesttranscend)
-    player.reincarnationCount += seconds / Math.max(0.01, player.fastestreincarnate)
+    updatePrestigeCount(seconds / Math.max(0.25, player.fastestprestige))
+    updateTranscensionCount(seconds / Math.max(0.25, player.fastesttranscend))
+    updateReincarnationCount(seconds / Math.max(0.25, player.fastestreincarnate))
 
     // Add Obt/Off, why not?
     automaticTools('addObtainium', seconds)
@@ -735,4 +755,243 @@ const activateTimeSkip = (name: PseudoCoinTimeskipNames, minutes: number) => {
       Notification('You have activated a JUMBO ambrosia timeskip! Enjoy!')
       break
   }
+}
+
+function handleCloudSaves () {
+  const subtabElement = document.querySelector('#accountSubTab div#right.scrollbarX')!
+  const table = subtabElement.querySelector('#table > #dataGrid')!
+
+  const uploadButton = subtabElement.querySelector<HTMLButtonElement>('button#upload')
+  const transferButton = subtabElement.querySelector<HTMLButtonElement>('button#transfer')
+
+  function populateTable () {
+    fetch('/saves/retrieve/all')
+      .then((response) => response.json())
+      .then(($saves: Save[]) => {
+        cloudSaves.length = 0
+        cloudSaves.push(...$saves)
+
+        const existingRows = table.querySelectorAll('.grid-row')
+        existingRows.forEach((row) => row.remove())
+
+        const content = table.querySelector('.details-content')
+        content?.remove()
+
+        if (cloudSaves.length === 0) {
+          const emptyDiv = document.createElement('div')
+          emptyDiv.className = 'grid-row empty-state'
+          emptyDiv.style.gridColumn = '1 / -1'
+          emptyDiv.textContent = i18next.t('account.noSaves')
+          table.appendChild(emptyDiv)
+          return
+        }
+
+        cloudSaves.forEach(({ id, name, uploadedAt }, index) => {
+          const rowDiv = document.createElement('div')
+          rowDiv.className = 'grid-row'
+          rowDiv.style.display = 'contents'
+
+          const idCell = document.createElement('div')
+          idCell.className = 'grid-cell id-cell'
+          idCell.textContent = `#${id}`
+
+          const nameCell = document.createElement('div')
+          nameCell.className = 'grid-cell name-cell'
+          nameCell.textContent = name.length > 60 ? `${name.slice(0, 60)}...` : name
+
+          const dateCell = document.createElement('div')
+          dateCell.className = 'grid-cell date-cell'
+          dateCell.textContent = new Date(uploadedAt).toLocaleString()
+
+          rowDiv.appendChild(idCell)
+          rowDiv.appendChild(nameCell)
+          rowDiv.appendChild(dateCell)
+
+          if (index % 2 === 0) {
+            idCell.classList.add('alt-row')
+            nameCell.classList.add('alt-row')
+            dateCell.classList.add('alt-row')
+          }
+
+          // Create the expandable details row
+          const detailsRow = document.createElement('div')
+          detailsRow.className = 'grid-details-row'
+          detailsRow.style.display = 'none'
+          detailsRow.style.gridColumn = '1 / -1'
+
+          const detailsContent = document.createElement('div')
+          detailsContent.className = 'details-content'
+          detailsContent.innerHTML = `
+            <div class="details-actions">
+              <button class="btn-download" data-id="${id}">${i18next.t('account.download')}</button>
+              <button class="btn-load" data-id="${id}">${i18next.t('account.loadSave')}</button>
+              <button class="btn-delete" data-id="${id}">${i18next.t('account.delete')}</button>
+            </div>
+          `
+
+          detailsRow.appendChild(detailsContent)
+
+          rowDiv.addEventListener('click', () => {
+            const isVisible = detailsRow.style.display !== 'none'
+
+            const allDetailsRows = table.querySelectorAll<HTMLElement>('.grid-details-row')
+            allDetailsRows.forEach((row) => {
+              if (row !== detailsRow) {
+                row.style.display = 'none'
+              }
+            })
+
+            detailsRow.style.display = isVisible ? 'none' : 'block'
+          })
+
+          detailsContent.addEventListener('click', (e) => {
+            e.stopPropagation()
+
+            const target = e.target as HTMLElement
+            const saveId = Number(target.getAttribute('data-id'))
+
+            if (target.classList.contains('btn-download')) {
+              handleDownload(saveId)
+            } else if (target.classList.contains('btn-load')) {
+              handleLoadSave(saveId)
+            } else if (target.classList.contains('btn-delete')) {
+              handleDeleteSave(saveId)
+            }
+          })
+
+          table.appendChild(rowDiv)
+          table.appendChild(detailsRow)
+        })
+
+        async function decodeSave (save: string) {
+          const decoded = atob(save)
+          const bytes = new Uint8Array(decoded.length)
+          for (let i = 0; i < decoded.length; i++) {
+            bytes[i] = decoded.charCodeAt(i)
+          }
+
+          const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
+          const textBody = await new Response(stream).text()
+          const encoder = new TextEncoder()
+          const jsonBytes = encoder.encode(textBody)
+          const final = btoa(String.fromCharCode(...jsonBytes))
+
+          return final
+        }
+
+        async function handleDownload (saveId: number) {
+          const save = cloudSaves.find((save) => saveId === save.id)
+
+          if (!save) {
+            Alert(i18next.t('account.noSaveFound'))
+            return
+          }
+
+          const decoded = await decodeSave(save.save)
+
+          if (decoded === null) {
+            Alert('Please send this to Khafra')
+            return
+          }
+
+          await exportData(decoded, save.name)
+          Alert(i18next.t('account.downloadComplete'))
+        }
+
+        async function handleLoadSave (saveId: number) {
+          const save = cloudSaves.find((save) => saveId === save.id)
+
+          if (!save) {
+            Alert(i18next.t('account.noSaveFound'))
+            return
+          }
+
+          const decoded = await decodeSave(save.save)
+          await importSynergism(decoded)
+        }
+
+        async function handleDeleteSave (saveId: number) {
+          const save = cloudSaves.find((save) => saveId === save.id)
+
+          if (!save) {
+            Alert(i18next.t('account.noSaveFound'))
+            return
+          }
+
+          const response = await fetch('/saves/delete', {
+            method: 'DELETE',
+            body: JSON.stringify({ name: save.name })
+          })
+
+          if (response.ok) {
+            Alert(i18next.t('account.deletedSave', { name: save.name }))
+          } else {
+            console.log(response)
+            Alert(i18next.t('account.notDeleted'))
+          }
+
+          populateTable()
+        }
+      })
+  }
+
+  populateTable()
+
+  // Handle uploading savefiles
+  uploadButton?.addEventListener('click', () => {
+    uploadButton.disabled = true
+    const originalText = uploadButton.textContent
+    uploadButton.innerHTML = '<span class="spinner"></span> Uploading...'
+
+    const name = saveFilename()
+    const save = localStorage.getItem('Synergysave2')
+    assert(save !== null, 'no save')
+
+    const fd = new FormData()
+    fd.set('file', new File([save], name))
+    fd.set('name', name)
+
+    fetch('/saves/upload', {
+      method: 'POST',
+      body: fd
+    }).then((response) => {
+      if (!response.ok) {
+        throw new TypeError(`Received status ${response.status}`)
+      }
+
+      uploadButton.textContent = i18next.t('settings.cloud.uploadSuccess')
+      populateTable()
+    }).catch((e) => {
+      console.error(e)
+      uploadButton.textContent = i18next.t('settings.cloud.uploadFailed')
+    }).finally(() => {
+      setTimeout(() => {
+        uploadButton.disabled = false
+        uploadButton.textContent = originalText
+      }, 5000)
+    })
+  })
+
+  transferButton?.addEventListener('click', () => {
+    transferButton.disabled = true
+    const originalText = transferButton.textContent
+    transferButton.innerHTML = '<span class="spinner"></span> Transferring...'
+
+    fetch('/saves/transfer').then((response) => {
+      if (!response.ok) {
+        throw new TypeError(`Received status ${response.status}`)
+      }
+
+      transferButton.textContent = i18next.t('settings.cloud.transferSuccess')
+      populateTable()
+    }).catch((e) => {
+      console.error(e)
+      transferButton.textContent = i18next.t('settings.cloud.transferFailed')
+    }).finally(() => {
+      setTimeout(() => {
+        transferButton.disabled = false
+        transferButton.textContent = originalText
+      }, 5000)
+    })
+  })
 }

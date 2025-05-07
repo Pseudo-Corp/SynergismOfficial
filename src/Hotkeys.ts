@@ -2,7 +2,7 @@ import { sacrificeAnts } from './Ants'
 import { boostAccelerator, buyAccelerator, buyMultiplier } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { promocodes } from './ImportExport'
-import { useConsumable } from './Shop'
+import { useConsumablePrompt } from './Shop'
 import { player, resetCheck, synergismHotkeys } from './Synergism'
 import { getActiveSubTab, keyboardTabChange as kbTabChange, tabRow, Tabs } from './Tabs'
 import { confirmReply, toggleAutoChallengeRun } from './Toggles'
@@ -40,8 +40,8 @@ export const defaultHotkeys = new Map<string, [string, () => unknown, /* hide du
   }, false]],
   ['SHIFT+D', ['Spec. Action Add x1', () => promocodes('add', 1), false]],
   ['SHIFT+E', ['Exit Asc. Challenge', () => resetCheck('ascensionChallenge'), false]], // Its already checks if inside Asc. Challenge
-  ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion'), false]],
-  ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion'), false]],
+  ['SHIFT+O', ['Use Off. Potion', () => useConsumablePrompt('offeringPotion'), false]],
+  ['SHIFT+P', ['Use Obt. Potion', () => useConsumablePrompt('obtainiumPotion'), false]],
   ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity'), false]],
   ['CTRL+B', ['Un-hide Tabs', () => tabRow.reappend(), false]]
 ])

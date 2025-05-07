@@ -6,18 +6,13 @@ file without asking me first. You may edit this file as much as you
 want, though!
 Thank you! */
 
-import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { achievementaward } from './Achievements'
-import { calculateCubeBlessings } from './Calculate'
-import { CalcECC } from './Challenges'
-import { calculateHypercubeBlessings } from './Hypercubes'
-import { calculatePlatonicBlessings } from './PlatonicCubes'
+import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { quarkHandler } from './Quark'
 import { format, player } from './Synergism'
-import { calculateTesseractBlessings } from './Tesseracts'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
+import { sumContents } from './Utility'
 
 /* Constants */
 
@@ -91,7 +86,7 @@ export abstract class Cube {
   async openCustom () {
     // TODO: Replace this with `this`?
     const thisInPlayer = player[this.key] as Cube
-    const amount = await Prompt(i18next.t('cubes.howManyCubesOpen', { x: format(thisInPlayer, 0, true) }))
+    const amount = await Prompt(i18next.t('cubes.howManyCubesOpen', { x: format(thisInPlayer.valueOf(), 0, true) }))
 
     if (amount === null) {
       return Alert(i18next.t('cubes.noCubesOpened'))
@@ -178,8 +173,8 @@ export class WowCubes extends Cube {
   open (value: number, max = false, free = false) {
     let toSpend = max ? Number(this) : (free ? value : Math.min(Number(this), value))
 
-    if (value === 1 && player.cubeBlessings.accelerator >= 2e11 && player.achievements[246] < 1) {
-      achievementaward(246)
+    if (value === 1 && player.cubeBlessings.accelerator >= 2e11) {
+      awardUngroupedAchievement('oneCubeOfMany')
     }
 
     if (!free) {
@@ -193,11 +188,27 @@ export class WowCubes extends Cube {
     player.cubeQuarkDaily += actualQuarksGain
     player.worlds.add(actualQuarksGain, false)
 
+    const sumOfTributes = sumContents(Object.values(player.cubeBlessings))
+    // if >= 1e300 totalTribute, do not award tributes
+    if (sumOfTributes >= 1e300) {
+      return
+    }
+
     toSpend *= 1 + player.researches[138] / 1000
     toSpend *= 1 + 0.8 * player.researches[168] / 1000
     toSpend *= 1 + 0.6 * player.researches[198] / 1000
 
     toSpend = Math.floor(toSpend)
+
+    toSpend = Math.min(toSpend, 1e300 - sumOfTributes)
+
+    if (
+      player.singularityChallenges.taxmanLastStand.enabled
+      && player.singularityChallenges.taxmanLastStand.completions >= 5
+    ) {
+      toSpend /= Math.pow(1 + Math.log(1 + sumOfTributes + toSpend), 3)
+    }
+
     let toSpendModulo = toSpend % 20
     let toSpendDiv20 = Math.floor(toSpend / 20)
 
@@ -219,7 +230,6 @@ export class WowCubes extends Cube {
     // If you're opening more than 20 cubes, it will consume all cubes until remainder mod 20, giving expected values.
     for (const key of keys) {
       player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20
-        * (1 + Math.floor(CalcECC('ascension', player.challengecompletions[12])))
     }
 
     // Then, the remaining cubes will be opened, simulating the probability [RNG Element]
@@ -227,12 +237,10 @@ export class WowCubes extends Cube {
       const num = 100 * Math.random()
       for (const key of keys) {
         if (blessings[key].pdf(num)) {
-          player.cubeBlessings[key] += 1 + Math.floor(CalcECC('ascension', player.challengecompletions[12]))
+          player.cubeBlessings[key] += 1
         }
       }
     }
-
-    calculateCubeBlessings()
   }
 }
 
@@ -272,8 +280,6 @@ export class WowTesseracts extends Cube {
         }
       }
     }
-
-    calculateTesseractBlessings()
     const extraCubeBlessings = Math.floor(12 * toSpend * player.researches[153])
     player.wowCubes.open(extraCubeBlessings, false, true)
   }
@@ -315,8 +321,6 @@ export class WowHypercubes extends Cube {
         }
       }
     }
-
-    calculateHypercubeBlessings()
     const extraTesseractBlessings = Math.floor(100 * toSpend * player.researches[183])
     player.wowTesseracts.open(extraTesseractBlessings, false, true)
   }
@@ -381,10 +385,11 @@ export class WowPlatonicCubes extends Cube {
         }
       }
     }
-    calculatePlatonicBlessings()
-    if (player.achievements[271] > 0) {
+
+    const hyperCubesPerPlatonic = +getAchievementReward('platonicToHypercubes')
+    if (hyperCubesPerPlatonic > 0) {
       const extraHypercubes = Math.floor(
-        toSpend * Math.max(0, Math.min(1, (Decimal.log(player.ascendShards.add(1), 10) - 1e5) / 9e5))
+        toSpend * hyperCubesPerPlatonic
       )
       player.wowHypercubes.open(extraHypercubes, false, true)
     }

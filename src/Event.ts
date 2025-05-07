@@ -1,5 +1,6 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
+import { getGQUpgradeEffect } from './singularity'
 import { getTimePinnedToLoadDate, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
 import { timeReminingHours } from './Utility'
@@ -52,7 +53,7 @@ export const eventCheck = async () => {
     return
   }
 
-  const response = await fetch('https://synergism.cc/api/v2/events/get')
+  const response = await fetch('https://synergism.cc/events/get')
 
   if (!response.ok) {
     throw new Error('God fucking dammit')
@@ -131,7 +132,7 @@ export const getEventBuff = (buff: BuffType): number => {
     case BuffType.Octeract:
       return event.octeract
     case BuffType.OneMind:
-      return player.singularityUpgrades.oneMind.level > 0 ? event.oneMind : 0
+      return getGQUpgradeEffect('oneMind') > 0 ? event.oneMind : 0
     case BuffType.BlueberryTime:
       return event.blueberryTime
     case BuffType.AmbrosiaLuck:

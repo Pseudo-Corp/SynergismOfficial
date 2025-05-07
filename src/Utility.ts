@@ -1,4 +1,4 @@
-import Decimal from 'break_infinity.js'
+import Decimal, { type DecimalSource } from 'break_infinity.js'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format } from './Synergism'
 
@@ -32,25 +32,71 @@ export const smallestInc = (x = 0): number => {
  * @returns {number}
  */
 export const sumContents = (array: number[]): number => {
-  array = Array.isArray(array)
-    ? array
-    : Object.values(array)
+  assert(Array.isArray(array))
 
-  return array.reduce((a, b) => a + b, 0)
+  switch (array.length) {
+    case 0:
+      return 0
+    case 1:
+      return array[0]
+    case 2:
+      return array[0] + array[1]
+    case 3:
+      return array[0] + array[1] + array[2]
+    case 4:
+      return array[0] + array[1] + array[2] + array[3]
+    case 5:
+      return array[0] + array[1] + array[2] + array[3] + array[4]
+  }
+
+  let total = 0
+  for (let i = 0; i < array.length; i++) {
+    total += array[i]
+  }
+
+  return total
 }
 
 /**
  * Returns the product of all contents in an array
  * @param array {number[]}
- * @returns {number}
  */
-// TODO: Add a productContents for Decimal, but callable using productContents...
-export const productContents = (array: number[]): number => array.reduce((a, b) => a * b)
+export const productContents = (array: number[]) => {
+  switch (array.length) {
+    case 0:
+      return 0
+    case 1:
+      return array[0]
+    case 2:
+      return array[0] * array[1]
+    case 3:
+      return array[0] * array[1] * array[2]
+    case 4:
+      return array[0] * array[1] * array[2] * array[3]
+    case 5:
+      return array[0] * array[1] * array[2] * array[3] * array[4]
+  }
+
+  let total = 1
+  for (let i = 0; i < array.length; i++) {
+    total *= array[i]
+  }
+
+  return total
+}
 
 export const sortWithIndices = (toSort: number[]) => {
   return Array
     .from([...toSort.keys()])
     .sort((a, b) => toSort[a] < toSort[b] ? -1 : +(toSort[b] < toSort[a]))
+}
+
+export const sortDecimalWithIndices = (toSort: DecimalSource[]) => {
+  return Array
+    .from([...toSort.keys()])
+    .sort((a, b) =>
+      new Decimal(toSort[a]).lt(new Decimal(toSort[b])) ? -1 : +(new Decimal(toSort[b]).lt(new Decimal(toSort[a])))
+    )
 }
 
 /**
@@ -175,7 +221,7 @@ export const cleanString = (s: string): string => {
 
 export function assert (condition: unknown, message?: string): asserts condition {
   if (!condition) {
-    throw new TypeError('assertion failed', { cause: new TypeError(message) })
+    throw new TypeError('assertion failed', message ? { cause: new TypeError(message) } : undefined)
   }
 }
 
@@ -253,4 +299,11 @@ export const findInsertionIndex = (target: number, array: number[]): number => {
   }
 
   return low + 1
+}
+
+export let isMobile = true
+
+export function isMobileDevice () {
+  isMobile = window.matchMedia('(pointer: coarse)').matches
+    || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 }

@@ -1,15 +1,16 @@
 import i18next from 'i18next'
-import { achievementaward } from './Achievements'
+import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateRuneLevels } from './Calculate'
 import { getChallengeConditions } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } from './Corruptions'
 import { renderCaptcha } from './Login'
-import { autoResearchEnabled } from './Research'
+import { initializeMessages } from './Messages'
+import { researchOrderByCost, roombaResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
+import { indexToRune } from './Runes'
 import { format, player, resetCheck } from './Synergism'
 import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
-import type { BuildingSubtab, Player } from './types/Synergism'
+import type { BuildingSubtab, BuyAmount, Player } from './types/Synergism'
 import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
 import { Globals as G } from './Variables'
@@ -71,7 +72,10 @@ export const toggleChallenges = (i: number, auto = false) => {
     }
   }
   if (
-    (i >= 11 && i <= 15) && (i === 11 ? player.achievements[141] === 1 : player.highestchallengecompletions[i - 1] > 0)
+    (i >= 11 && i <= 15)
+    && (i === 11
+      ? player.unlocks.ascensions
+      : player.highestchallengecompletions[i - 1] > 0)
     && ((!auto && !player.toggles[31]) || player.challengecompletions[10] > 0
       || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0
         && player.currentChallenge.ascension === 0))
@@ -91,15 +95,15 @@ export const toggleChallenges = (i: number, auto = false) => {
 
   if (
     player.currentChallenge.transcension !== 0 && player.currentChallenge.reincarnation !== 0
-    && player.currentChallenge.ascension !== 0 && player.achievements[238] < 1
+    && player.currentChallenge.ascension !== 0
   ) {
-    achievementaward(238)
+    awardUngroupedAchievement('metaChallenged')
   }
 }
 
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract'
 
-export const toggleBuyAmount = (quantity: 1 | 10 | 100 | 1000 | 10000 | 100000, type: ToggleBuy) => {
+export const toggleBuyAmount = (quantity: BuyAmount, type: ToggleBuy) => {
   player[`${type}buyamount` as const] = quantity
   const a = ['one', 'ten', 'hundred', 'thousand', '10k', '100k'][quantity.toString().length - 1]
 
@@ -274,14 +278,14 @@ export const toggleAutoResearch = () => {
     el.textContent = i18next.t('researches.automaticOn')
   }
 
-  if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
-    player.autoResearch = G.researchOrderByCost[player.roombaResearchIndex]
+  if (player.autoResearchToggle && roombaResearchEnabled() && player.autoResearchMode === 'cheapest') {
+    player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
 }
 
 export const toggleAutoResearchMode = () => {
   const el = DOMCacheGetOrSet('toggleautoresearchmode')
-  if (player.autoResearchMode === 'cheapest' || !autoResearchEnabled()) {
+  if (player.autoResearchMode === 'cheapest' || !roombaResearchEnabled()) {
     player.autoResearchMode = 'manual'
     el.textContent = i18next.t('researches.autoModeManual')
   } else {
@@ -290,14 +294,15 @@ export const toggleAutoResearchMode = () => {
   }
   DOMCacheGetOrSet(`res${player.autoResearch || 1}`).classList.remove('researchRoomba')
 
-  if (player.autoResearchToggle && autoResearchEnabled() && player.autoResearchMode === 'cheapest') {
-    player.autoResearch = G.researchOrderByCost[player.roombaResearchIndex]
+  if (player.autoResearchToggle && roombaResearchEnabled() && player.autoResearchMode === 'cheapest') {
+    player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
   }
 }
 
 export const toggleAutoSacrifice = (index: number) => {
   const el = DOMCacheGetOrSet('toggleautosacrifice')
-  if (index === 0) {
+  const numIndex = Number(index)
+  if (numIndex === 0) {
     if (player.autoSacrificeToggle) {
       player.autoSacrificeToggle = false
       el.textContent = i18next.t('runes.blessings.autoRuneOff')
@@ -312,16 +317,15 @@ export const toggleAutoSacrifice = (index: number) => {
       DOMCacheGetOrSet('saveOffToggle').style.color = 'white'
     }
   } else if (player.autoSacrificeToggle && player.shopUpgrades.offeringAuto > 0.5) {
-    if (player.autoSacrifice === index) {
+    if (player.autoSacrifice === numIndex) {
       player.autoSacrifice = 0
     } else {
-      player.autoSacrifice = index
+      player.autoSacrifice = numIndex
     }
   }
   for (let i = 1; i <= 5; i++) {
-    DOMCacheGetOrSet(`rune${i}`).style.backgroundColor = player.autoSacrifice === i ? 'orange' : ''
+    DOMCacheGetOrSet(`${indexToRune[i]}Rune`).style.backgroundColor = player.autoSacrifice === i ? 'orange' : ''
   }
-  calculateRuneLevels()
 }
 
 export const toggleAutoBuyFragment = () => {
@@ -376,6 +380,22 @@ export const toggleBuildingScreen = (input: string) => {
   // player.subtabNumber = screen[G.buildingSubTab].subtabNumber
 }
 
+export const toggleAchievementScreen = (indexStr: string) => {
+  const index = Number(indexStr)
+
+  for (let i = 1; i <= 2; i++) {
+    const a = DOMCacheGetOrSet(`toggleAchievementSubTab${i}`)
+    const b = DOMCacheGetOrSet(`achievementContainer${i}`)
+    if (i === index) {
+      a.style.border = '2px solid gold'
+      b.style.display = 'flex'
+    } else {
+      a.style.border = '2px solid silver'
+      b.style.display = 'none'
+    }
+  }
+}
+
 export const toggleRuneScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
@@ -389,6 +409,12 @@ export const toggleRuneScreen = (indexStr: string) => {
       a.style.border = '2px solid silver'
       b.style.display = 'none'
     }
+  }
+
+  if (index === 2) {
+    DOMCacheGetOrSet('offeringDetails').style.display = 'none'
+  } else {
+    DOMCacheGetOrSet('offeringDetails').style.display = 'flex'
   }
   // player.subtabNumber = index - 1
 }
@@ -570,6 +596,8 @@ export const setActiveSettingScreen = async (subtab: string) => {
     }
   } else if (subtab === 'accountSubTab') {
     renderCaptcha()
+  } else if (subtab === 'messagesSubTab') {
+    initializeMessages()
   }
 }
 

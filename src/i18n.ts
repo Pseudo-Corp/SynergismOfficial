@@ -2,6 +2,7 @@ import i18next, { type Resource } from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { prod } from './Config'
 import ColorTextPlugin from './Plugins/ColorText'
+import StatSymbolsPlugin from './Plugins/StatSymbols'
 import { Confirm } from './UpdateHTML'
 
 // For 'flag': https://emojipedia.org/emoji-flag-sequence/
@@ -40,12 +41,12 @@ export const init = async (): Promise<void> => {
     resources.en = { translation: file }
   }
 
-  await i18next.use(ColorTextPlugin).init({
+  await i18next.use(StatSymbolsPlugin).use(ColorTextPlugin).init({
     lng: language,
     fallbackLng: 'en',
     debug: !prod,
     resources,
-    postProcess: ['ColorText'],
+    postProcess: ['StatSymbols', 'ColorText'],
     // crowdin returns an empty string when a translation for
     // a language isn't present
     returnEmptyString: false,

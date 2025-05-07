@@ -25,3 +25,6 @@ lintcode: 		## Lint just the code
 
 lintcss: 		## Lint just the CSS
 	npm run csslint
+
+dev:		## Start esbuild:watch and open a live server on port 3000
+	npm run dev
