@@ -1635,11 +1635,11 @@
       "shopAmbrosiaLuck4": "Вы получите четырёхлистный клевер 'получше' — что бы это не значило, — дающий +0.6 ☘ удачи Амброзии за уровень, складывающейся суммарно.",
       "shopRedLuck1": "Меньший кубик самого стратега азарта. +0.05 &#9861 Красной Удачи Амброзии за уровень. Каждые 20 уровней уменьшает коэффициент конверсии Удачи Амброзии в Красную Удачу на 0.01.",
       "shopRedLuck2": "У этого смещён центр тяжести. Интересно - для чего? +0.075 &#9861 Красной Удачи Амброзии за уровень. Каждые 20 уровней уменьшает коэффициент конверсии Удачи Амброзии в Красную Удачу на 0.01.",
-      "shopRedLuck3": "When you pick up this dice, it phases out of existence, then returns, the six face-up. +0.1 &#9861 Red Ambrosia Luck per level. Every 20 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.01.",
+      "shopRedLuck3": "Когда вы берёте этот кубик, он исчезает и вновь появляется, но уже с гранью шесть наверху. +0.1 &#9861 Красной Удачи Амброзии за уровень. Каждые 20 уровней, снижает коэффициент конверсии Удачи Амброзии в Красную Удачу на 0.01.",
       "shopAmbrosiaLuckMultiplier4": "☘ +1% Удачи Амброзии за уровень! Проще некуда.",
       "shopOcteractAmbrosiaLuck": "☘ +1 Удача Амброзии за цифру в вашем инвентаре Вау! Октерактов за уровень. Проще некуда.",
       "shopCashGrabUltra": "Всего лишь за символическую сумму, даёт до +15% Скорости Голубики, +120% Кубов и +8% Кварков за уровень, в зависимости от Амброзии. Бонусы увеличиваются нелинейно, пока не получено 10 000 000 Амброзии за всё время.",
-      "shopAmbrosiaAccelerator": "Each level of this 'accelerator' provides <<cyan|+0.2>> real-life seconds worth of Ambrosia Bar Points for every <<orange|1>> Ambrosia gained, from any source!",
+      "shopAmbrosiaAccelerator": "Каждый уровень этого 'ускорителя' даёт <<cyan|+0.2>> реальные секунды Очков Шкалы Амброзии за каждую <<orange|1>> Амброзию, полученную из любых источников!",
       "shopEXUltra": "С этим EX Улучшением, каждая 1 000 имеющейся Амброзии даёт +0.1% <<orchid|Обтаниума>>, <<orange|Подношений>> и <<white|Кубов>>! Лимит этого эффекта - 125 000 * (уровень этого улучшения)!",
       "shopChronometerS": "Это улучшение даёт +1% к Скорости Вознесения и Глобальной Скорости за каждый номер текущей Сингулярности выше 200!",
       "shopAmbrosiaUltra": "Это абсурдно дорогое EX Улучшение даёт +1 постоянную ☘ Удачу Амброзии за каждое выполнение ВОЗВЫШЕНИЯ за уровень.",
@@ -1655,7 +1655,7 @@
     "buyYerPotions": "Купите себе зелий!",
     "header": "Добро пожаловать в Магазин Кварков. Вы не поверите что здесь продаётся!",
     "youHaveQuarks": "У вас {{x}} Кварков!",
-    "refundable": "This item is refundable! Will be set to level {{level}} when refunded.",
+    "refundable": "Этот предмет подлежит возврату! После возврата, его уровень станет равным {{level}}.",
     "cannotRefund": "Это предмет НЕ ПОДЛЕЖИТ к возврату. Будьте осторожны.",
     "resetPermShop": "Сброс Пост. Магазина [Стоимость: 15 Кварков]",
     "shopConfirmationOn": "Подтверждения Покупок: ВКЛ",
@@ -2395,8 +2395,8 @@
       },
       "singInfiniteShopUpgrades": {
         "name": "Купоны Магазина Бесконечностей Жёлтого цвета",
-        "description": "A Shop Voucher, printed on a yellow tablet. Each grants +1 effective level the 'Infinity CO.' Quark Shop upgrades.",
-        "effect": "You have +{{n}} free levels of the 'Infinity CO.' Quark Shop upgrades."
+        "description": "Купон, напечатанный на жёлтой табличке. Каждый купон даёт +1 к эффективному уровню 'бесконечных' улучшений магазина.",
+        "effect": "У вас +{{n}} бесплатных уровней улучшений Магазина Кварков от 'Компании \"Бесконечность\"'."
       }
     },
     "goldenQuarkAmount": "У вас {{goldenQuarks}} Золотых Кварков!",
@@ -2841,13 +2841,13 @@
     "realAntSacTimer": "Таймер Реального Времени Жертвоприношений: +<<var(--red-text-color);|{{value}}>> секунд",
     "currentAscensionTimer": "Таймер Текущего Вознесения: +<<gold|{{value}}>> секунд",
     "exportQuarks": "Экспорт Кварки: +<<goldenrod|{{value}}>>",
-    "ambrosia": "Ambrosia: +<<orange|{{value}}>> | Ambrosia Bar Points +<<lightblue|{{value2}}>>",
-    "redAmbrosia": "Red Ambrosia: +<<red|{{value}}>> | Red Bar Points +<<red|{{value2}}>>"
+    "ambrosia": "Амброзия: +<<orange|{{value}}>> | Очки Шкалы Амброзии +<<lightblue|{{value2}}>>",
+    "redAmbrosia": "Красная Амброзия: +<<red|{{value}}>> | Очки Шкалы Красной Амброзии +<<red|{{value2}}>>"
   },
   "fastForward": {
-    "global": "Your Global stuff fast forwarded {{time}} seconds!",
-    "ascension": "Your Ascension stuff fast forwarded {{time}} seconds!",
-    "ambrosia": "Your Ambrosia stuff fast forwarded {{time}} seconds!"
+    "global": "Все Глобальные вещи были перемотаны на {{time}} секунд вперёд!",
+    "ascension": "Все вещи Вознесения были перемотаны на {{time}} секунд вперёд!",
+    "ambrosia": "Все вещи Амброзии были перемотаны на {{time}} секунд вперёд!"
   },
   "campaigns": {
     "intro": "Кампании - <<orange | Вознесения>>, но <<maroon | сложнее™>>",
@@ -3092,7 +3092,7 @@
         "goldenQuark": "Увеличивает получение Золотых Кварков на <<gold | {{ reward }}>> (Максимум +25%).",
         "octeract": "Увеличивает получение Октерактов на <<teal | {{ reward }}>> (Максимум +50%).",
         "ambrosiaLuck": "Увеличивает ☘ Удачу Амброзии на <<green | {{ reward }}>> (Максимум ☘ +100).",
-        "blueberrySpeed": "Increase Ambrosia Bar Points gain by <<blue | {{ reward }}>> (Maximum +10%)."
+        "blueberrySpeed": "Увеличивает получение Очков Шкалы Амброзии на <<blue | {{ reward }}>> (Максимум +10%)."
       }
     },
     "currentCampaignPreTitle": "Текущая Кампания: ",
@@ -3127,7 +3127,7 @@
     },
     "currentLevel": {
       "viscosity": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Степень Беспл. Ускор. и Множителей ^{{ effect }}",
-      "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is multiplied by {{ effect }}",
+      "dilation": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Скорость Времени умножена на {{ effect }}",
       "hyperchallenge": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: Степень Требований Испытаний x{{ effect }}",
       "illiteracy": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: получение Обтаниума ^{{ effect }}",
       "deflation": "В этом Вознесении, уровень этой порчи - {{ level }}. Эффект: получение Алмазов ^{{ effect }}",
@@ -3137,7 +3137,7 @@
     },
     "prototypeLevel": {
       "viscosity": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Степень Бесплатных Ускорителей и Множителей ^{{ effect }}",
-      "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is multiplied by {{ effect }}",
+      "dilation": "При следующем Вознесении, уровень этой порчи будет {{ level }}. Эффект: Скорость Времени умножена на {{ effect }}",
       "hyperchallenge": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: Степень Требований Испытаний x{{ effect }}",
       "illiteracy": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: получение Обтаниума ^{{ effect }}",
       "deflation": "При следующем Вознесении уровень этой порчи будет {{ level }}. Эффект: получение Алмазов ^{{ effect }}",
