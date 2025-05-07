@@ -234,67 +234,67 @@
       },
       "freeLevelsRow3": {
         "name": "Больше Уровней Улучшений Голубики 3-го Ряда!",
-        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the third row, per level.",
-        "effect": "This upgrade increases the effective level of ALL row 3 Blueberry Modules by {{amount}}!"
+        "description": "Добавляет один эффективный уровень ко всем Модулям Голубики, находящимся в третьем ряду, за уровень. Без исключений.",
+        "effect": "Это улучшение увеличивает эффективный уровень ВСЕХ Модулей Голубики в 3-ем ряду на {{amount}}!"
       },
       "freeLevelsRow4": {
         "name": "Больше Уровней Улучшений Голубики 4-го Ряда!",
-        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the fourth row, per level.",
-        "effect": "This upgrade increases the effective level of ALL row 4 Blueberry Modules by {{amount}}!"
+        "description": "Добавляет один эффективный уровень ко всем Модулям Голубики, находящимся в четвёртом ряду, за уровень. Без исключений.",
+        "effect": "Это улучшение увеличивает эффективный уровень ВСЕХ Модулей Голубики в 4-ом ряду на {{amount}}!"
       },
       "freeLevelsRow5": {
         "name": "Больше Уровней Улучшений Голубики 5-го Ряда!",
-        "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the fifth row, per level.",
-        "effect": "This upgrade increases the effective level of (most) row 5 Blueberry Modules by {{amount}}!"
+        "description": "За исключением Стабилизатора Сингулярности, добавляет один эффективный уровень ко всем Модулям Голубики, находящимся в пятом ряду, за уровень.",
+        "effect": "Это улучшение увеличивает эффективный уровень (большинства) Модулей Голубики в 5-ом ряду на {{amount}}!"
       },
       "blueberryGenerationSpeed": {
         "name": "Пески Времени",
-        "description": "+0.2% Ambrosia Bar Point gain per level. They say this hourglass has the benediction of Chronos himself.",
-        "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
+        "description": "+0.2% Очков Шкалы Амброзии за уровень. Поговаривают, эти песочные часы благословил сам Хронос.",
+        "effect": "Это улучшение увеличивает Очки Шкалы Амброзии на {{amount}}!"
       },
       "regularLuck": {
         "name": "Тактика Окостеневшей Голубики",
-        "description": "Most strange. Adding this gold-colored wax on your blueberries makes you slightly more likely to get Ambrosia! +2 Ambrosia Luck / level.",
-        "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
+        "description": "Интересный феномен. Добавление золотого воска на ваши ягоды увеличивает ваши шансы на получение Амброзии! +2 Удачи Амброзии / уровень.",
+        "effect": "Это улучшение увеличивает Удачу Амброзии на {{amount}}!"
       },
       "redGenerationSpeed": {
-        "name": "Millenium-Aged Red Ambrosia",
-        "description": "Surely, with how long this Ambrosia is left to sit, it knows something about time. +0.3% more Red Ambrosia Bar Points per level.",
-        "effect": "This upgrade increases Red Ambrosia Bar Point gain by {{amount}}!"
+        "name": "Красная Амброзия Тысячелетней Выдержки",
+        "description": "Учитывая, насколько эту Амброзию здесь оставили, она, несомненно, что-нибудь знает о времени. +0.3% Очков Шкалы Красной Амброзии за уровень.",
+        "effect": "Это улучшение увеличивает Очки Шкалы Красной Амброзии на {{amount}}!"
       },
       "redLuck": {
-        "name": "The Dice that Decide Your Fate",
-        "description": "A life on every face, until you're finally left with an eight. +1 Red Ambrosia Luck per level!",
+        "name": "Кости Решат Вашу Участь",
+        "description": "Всякое грань сверкает жизнью, пока вы не останетесь с бесконечностью. +1 Красной Удачи Амброзии за уровень!",
         "effect": "Это улучшение увеличивает Красную Удачу Амброзии на {{amount}}!"
       },
       "redAmbrosiaCube": {
         "name": "Кубы \"из\" Красной Амброзии",
-        "description": "Hey, Ambrosia gives cubes! Why not Red Ambrosia as well?",
-        "effect": "If purchased, multiply your cubes by 1 + (Lifetime)^{{exponent}} / 100."
+        "description": "Хэй, Амброзия даёт кубы! Значит, и Красная Амброзия может?",
+        "effect": "Если куплено, умножает ваши кубы на 1 + (За всё время)^{{exponent}} / 100."
       },
       "redAmbrosiaObtainium": {
         "name": "Обтаниума \"\"из\"\" Красной Амброзии",
-        "description": "I don't know why you can make a blue object from a red object. But you can.",
-        "effect": "If purchased, multiply your Obtainium by 1 + (Lifetime)^0.6 / 100."
+        "description": "Я не знаю каким образом вы можете сделать из красного синее, но вы можете.",
+        "effect": "Если куплено, умножает ваш Обтаниум на 1 + (За всё время)^0.6 / 100."
       },
       "redAmbrosiaOffering": {
         "name": "Подношения \"\"\"из\"\"\" Красной Амброзии",
-        "description": "Wait, this one kinda makes sense.",
-        "effect": "If purchased, multiply your Offerings by 1 + (Lifetime)^0.6 / 100."
+        "description": "Ну, в принципе звучит логично.",
+        "effect": "Если куплено, умножает ваши Подношения на 1 + (За всё время)^0.6 / 100."
       },
       "redAmbrosiaCubeImprover": {
-        "name": "Hire Red Ambrosia Artisans",
-        "description": "They are better at making cubes out of Red Ambrosia for you, depending on how many you have. +0.01 exponent to \"Cubes 'made' of Red Ambrosia\" per level.",
-        "effect": "Exponent for that Red Ambrosia Upgrade: 0.40 → {{newExponent}}"
+        "name": "Найм Ремесленников Красной Амброзии",
+        "description": "В зависимости от количества, они пригодятся в производстве кубов из Красной Амброзии для вас. +0.01 к экспоненте \"Кубы 'из' Красной Амброзии\" за уровень.",
+        "effect": "Экспонента для этого Улучшения Красной Амброзии: 0.40 → {{newExponent}}"
       },
       "viscount": {
         "name": "Титул Висконта Рубинов",
-        "description": "For a stupid amount of Red Ambrosia, obtain a small amount of land, becoming 'viscount' of this land. Purchase this to get +10% Quarks, +125 Ambrosia Luck, +25 Red Luck, and a Discord Role!",
+        "description": "За немыслимое количество Красной Амброзии, даёт небольшой земельный участок, что делает вас 'висконтом' этих земель. Купите это, чтобы получить +10% к Кваркам, +125 Удачи Амброзии, +25 Красной Удачи, и Роль в Discord!",
         "effect": "📜 {{mark}}"
       },
       "infiniteShopUpgrades": {
         "name": "Купоны Магазина Бесконечностей Красного цвета",
-        "description": "A Shop Voucher, printed on a red tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
+        "description": "Купон, напечатанный на красной табличке. Каждый купон даёт +1 к эффективному уровню 'бесконечных' улучшений магазина.",
         "effect": "Уровень улучшений мазагина 'Бесконечности' +{{amount}}"
       },
       "redAmbrosiaAccelerator": {
@@ -303,12 +303,12 @@
         "effect": "Each Red Ambrosia generated grants {{amount}} real-life seconds of Ambrosia Bar Points."
       },
       "regularLuck2": {
-        "name": "Ossified Blueberry Tactics II",
+        "name": "Тактика Окостеневшей Голубики II",
         "description": "This also gives +2 Ambrosia Luck / level, but you can purchase a ton of levels of this!",
         "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
       },
       "blueberryGenerationSpeed2": {
-        "name": "The Sands of Time II",
+        "name": "Пески Времени II",
         "description": "This gives +0.1% Ambrosia Bar Point gain per level, but you can purchase a ton of levels of this!",
         "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
       }
@@ -835,10 +835,10 @@
       "6": "Offerings x{{x}}",
       "7": "Building Costs scale {{x}}% slower!",
       "8": "Rune EXP is multiplied by {{x}}!",
-      "9": "Each rune has +{{x}} effective levels.",
+      "9": "Каждая руна имеет +{{x}} эффективных уровней.",
       "10": "Обтаниум: x{{x}}",
       "11": "Sacrificing is {{x}}x as effective",
-      "12": "Global Speed is multiplied by {{x}}"
+      "12": "Глобальная Скорость умножена в {{x}} раз"
     },
     "header": "Муравьи приглашают вас в свой дом.",
     "hover": "Наведите на иконки, чтобы посмотреть их описание. Нажмите, чтобы купить!",
@@ -1201,8 +1201,8 @@
       "39": "Вау! Я хочу больше очков от выполнений Испытания 10.",
       "40": "Вау! Я хочу, чтобы бонусы Дани Афине были эффективнее 1.",
       "41": "Вау! Я хочу накрутить побольше очков 3.",
-      "42": "Wow! I want some Immaculate Obtainium.",
-      "43": "Wow! I want even more Immaculate Obtainium!",
+      "42": "Вау! Я хочу немного Чистого Обтаниума.",
+      "43": "Вау! Я хочу больше Чистого Обтаниума!",
       "44": "Вау! Я хочу, чтобы бонусы Дани Мидасу были эффективнее 1.",
       "45": "Вау! Я хочу, чтобы бонусы Дани Гермесу были эффективнее 1.",
       "46": "Вау! Я хочу ещё БОЛЬШЕ подношений!",
@@ -1573,7 +1573,7 @@
       "obtainiumEX": "+4% Обтаниума от всех источников!",
       "obtainiumAuto": "Автоматически вливает Обтаниум в исследование. 1-й уровень разблокирует функцию, и каждый уровень увеличивает получение Обтаниума на 2%. Каждая Реинкарнация выбрасывает весь полученный Обтаниум на исследование до тех пор, пока его уровень не достигнет максимума.",
       "instantChallenge": "В и Р Испытания не вызывают сбросов если включён повтор и набирают до 10 прохождений за такт. Также, при выходе из Р Испытаний, мгновенно получаете прохождение В Испытаний до высшего пройденного.",
-      "antSpeed": "Each level gives a 1.2x speed multiplier to all Ant tiers' production! (Immaculate!) Short and simple.",
+      "antSpeed": "Каждый уровень даёт 1.2х множитель скорости производства всех видов Муравьёв! (Чистый!) Коротко и просто.",
       "cashGrab": "Это обдираловка, но она даёт пару интересных статов. +1% производства Подношений и Обтаниума за уровень.",
       "shopTalisman": "Навсегда открывает талисман Магазина!",
       "seasonPass": "Wow! Кубы дают вам сделку: Купите определённо справедливый Сезонный Пропуск и получите +2.25% больше Кубов и Тессерактов за уровень при Вознесении!",
@@ -1826,8 +1826,8 @@
         "name": "Рог изобилия Муравьиного Бога",
         "hasLevel3": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e12 multiplier!",
         "hasLevel2": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e6 multiplier!",
-        "hasLevel1": "У Скорости Муравьёв теперь есть безупречный множитель х4.44, а также истинно безупречный множитель х1,000!",
-        "default": "У Скорости Муравьёв теперь есть безупречный множитель х4.44."
+        "hasLevel1": "У Скорости Муравьёв теперь есть чистый множитель х4.44, а также истинно чистый множитель х1,000!",
+        "default": "У Скорости Муравьёв теперь есть чистый множитель х4.44."
       },
       "sweepomatic": {
         "name": "Робот Пыле-сборот Мк.2",
@@ -2138,7 +2138,7 @@
         "effect": "Производство Октеракта на {{n}}% быстрее за каждые 10 долларов в месяц на Patreon! То же самое, что и бонус Кварка, который уже существует."
       },
       "offeringAutomatic": {
-        "name": "Blueberry Shards!",
+        "name": "Осколки Голубики!",
         "description": "Легенды правдивы. \n Пророчества выполнены. \n Бог Муравьиный услышал молитвы. \n Да будет же голубика! \n И была она хороша.",
         "effect": "Вы купили {{n}} вкусной голубики."
       },
@@ -2312,9 +2312,9 @@
       },
       "halfMind": {
         "name": "ПОЛОВИННЫЙ РАЗУМ",
-        "description": "A note, you found on the 'ground': seems like an advertisement for a cult. \"Lock your global speed to 10x, and multiply all obtainium and offerings based on the difference.\" Hmm...",
-        "effectHave": "You have joined the cult!",
-        "effectHaveNot": "You haven't joined the cult!"
+        "description": "Заметка, которую вы нашли на 'земле': похоже на рекламу культа. \"Зафиксируйте свою глобальную скорость на 10х и умножьте все подношения и обтаниум на основе разницы\". Хм...",
+        "effectHave": "Вы присоединились к культу!",
+        "effectHaveNot": "Вы не присоединились к культу!"
       },
       "oneMind": {
         "name": "ЕДИНЫЙ РАЗУМ",
@@ -2329,7 +2329,7 @@
         "effectHaveNot": "Вы не крякнули свой последний КВАРК"
       },
       "blueberries": {
-        "name": "Blueberries!",
+        "name": "Голубика!",
         "description": "Blueberries! They are rich in Vitamin K, which helps clot things, including Ambrosia!",
         "effect": "Вы купили {{n}} вкусной голубики."
       },
@@ -2394,7 +2394,7 @@
         "effect": "В начале Сингулярности, Муравьиный Бог раскошеливается на {{n}} Жетонов!"
       },
       "singInfiniteShopUpgrades": {
-        "name": "Yellow Infinity Shop Voucher",
+        "name": "Купоны Магазина Бесконечностей Жёлтого цвета",
         "description": "A Shop Voucher, printed on a yellow tablet. Each grants +1 effective level the 'Infinity CO.' Quark Shop upgrades.",
         "effect": "You have +{{n}} free levels of the 'Infinity CO.' Quark Shop upgrades."
       }
@@ -2829,7 +2829,7 @@
   },
   "offlineProgress": {
     "loading": "Загрузка оффлайн прогресса...",
-    "prestigeCount": "Prestige Count: +<<cyan|{{value}}>>",
+    "prestigeCount": "Счётчик Престижа: +<<cyan|{{value}}>>",
     "currentPrestigeTimer": "Таймер Текущего Престижа: +<<cyan|{{value}}>> секунд",
     "offeringsGenerated": "Подношений Создано: <<orange|{{value}}>>",
     "transcensionCount": "Счётчик Выходов за пределы: +<<var(--orchid-text-color);|{{value}}>>",
@@ -3582,7 +3582,7 @@
       "2": "Бонус Руны Дубликации: +{{mult1}} Множителей, +{{mult2}}% Множителей, -{{tax}}% Прирост налогов.",
       "3": "Бонус Руны Призмы: Все Производители Кристаллов производят в {{mult}} раз больше, получите +{{gain}} бесплатных уровней улучшений Кристаллов.",
       "4": "Бонус Руны Экономии: Откладывает рост стоимости всех производителей на {{delay}}%. Шанс переработки Подношений: +{{chance}}%. Рост налогов: -{{tax}}%",
-      "5": "S. Intellect Rune Bonus: Obtainium gain x{{gain}}. Ant Speed: x{{speed}}. Offerings x{{offerings}}",
+      "5": "Бонус Руны П. Интеллекта: Получение Обтаниума x{{gain}}. Скорость Муравьёв: x{{speed}}. Подношения: x{{offerings}}",
       "6": "Бонус Руны БВ: Получение Кварков +{{percent1}}%, Вознесения дают +{{percent2}}% больше всех типов кубов.",
       "7": "Вы не можете понять истинную форму сокровища Муравьиного Бога."
     },
@@ -3771,13 +3771,13 @@
         "description": "Золотой Парень растерял весь кураж (и да - это его имя!) и ему нужна ваша помощь.<br/>Пройдите Сингулярность без эффектов от Амброзии или Улучшений Амброзии!",
         "ScalingReward1": "+15 & +0.5% <<lime|&#9752 Удачи Амброзии>>",
         "ScalingReward2": "+2% <<var(--blueberry-box-color)|Очков Шкалы Амброзии>> получено",
-        "ScalingReward3": "+4 <<red|&#9861 Red Ambrosia Luck>>",
-        "ScalingReward4": "+1% <<red|Red Bar Point>> gain",
+        "ScalingReward3": "+4% <red|&#9861 Красной Удачи Амброзии>",
+        "ScalingReward4": "+1% <<red|Очков Красной Шкалы>>",
         "UniqueReward1": "1-ое - Бесплатная <<var(--blueberry-box-color)|Голубика>>!",
         "UniqueReward2": "1-ое - Каждый раз, когда вы получаете <<var(--amber-text-color)|Амброзию>>, вы получаете <<var(--amber-text-color)|Ещё одну>>!",
-        "UniqueReward3": "1st - Unlock <<red|Red Ambrosia>>! It's like Ambrosia, but <<red|red>>.",
-        "UniqueReward4": "10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
-        "UniqueReward5": "15th - A new <<orchid|Quark Shop>> upgrade!",
+        "UniqueReward3": "1-ое - Открывает <<red|Красную Амброзию>>! Она прям как Амброзия, но <<red|красная>>.",
+        "UniqueReward4": "10-ое - Ещё одна бесплатная <<var(--blueberry-box-color)|Голубика>>!!!",
+        "UniqueReward5": "15-ое - Новое улучшение в <<orchid|Магазине Кварков>>!",
         "UniqueReward6": "20-ое - ТРЕТЬЯ БЕСПЛАТНАЯ <<var(--blueberry-box-color)|ГОЛУБИКА>>?!?!",
         "UniqueReward7": "20-ое - <<gold|УЛЬТРА Улучшение>> в Магазине Кварков!"
       },
@@ -3863,10 +3863,10 @@
       "baseOffering": "Базовые Подношения",
       "offeringMult": "Множители Подношений",
       "baseObtainium": "Базовый Обтаниум",
-      "obtIgnoreDR": "Безупречный Обтаниум",
+      "obtIgnoreDR": "Чистый Обтаниум",
       "obtMult": "Множители Обтаниума",
       "quarkMult": "Global Quark Multipliers",
-      "gSpeedMultIgnoreDR": "Immaculate Global Speed",
+      "gSpeedMultIgnoreDR": "Чистая Глобальная Скорость",
       "gSpeedMult": "Global Speed Multipliers",
       "antSacrificeMult": "Ant Sacrifice Multipliers",
       "ascMult": "Asc. Speed Multipliers",
@@ -4187,7 +4187,7 @@
       "Total": "Total Base Obtainium:"
     },
     "obtainiumIgnoreDRStats": {
-      "title": "Immaculate Obtainium Multiplier",
+      "title": "Множитель Чистого Обтаниума",
       "Base": "Base Obtainium:",
       "CubeUpgrade4x2": "Cube Upgrade 4x2:",
       "CubeUpgrade4x3": "Cube Upgrade 4x3:",
@@ -4265,7 +4265,7 @@
       "Event": "Event Bonus:",
       "Total": "Obtainium Multiplier:",
       "ObtainiumDR": "Illiteracy Power:",
-      "ImmaculateObtainium": "Immaculate Obtainium Cap:",
+      "ImmaculateObtainium": "Лимит Чистого Обтаниума:",
       "HalfMind": "HALF MIND Modifier:",
       "Total2": "Final Obtainium Multiplier:"
     },
@@ -4289,7 +4289,7 @@
       "Total": "Total Ant Sacrifice Multiplier:"
     },
     "globalSpeedIgnoreDRStats": {
-      "title": "Immaculate Global Speed Multiplier",
+      "title": "Множитель Чистой Глобальной Скорости",
       "ChronosStatue": "Chronos Statue Bonus:",
       "SingularityDebuff": "Singularity Debuff:",
       "IntermediatePack": "Intermediate Pack Bonus:",
@@ -4319,7 +4319,7 @@
       "SpacialDilation": "Corruption: Spacial Dilation:",
       "FastSpeedDR": "Global Speed Fast Softcap Power (>100):",
       "SlowSpeedDR": "Global Speed Slow Softcap Power (<1):",
-      "ImmaculateSpeedMult": "Immaculate Global Speed DR-Ignore:",
+      "ImmaculateSpeedMult": "УП-Игнорирование Чистой Глобальной Скорости:",
       "Total": "Global Speed Multiplier:",
       "Total2": "Final Global Speed Multiplier:"
     },
@@ -4441,7 +4441,7 @@
       "NoSingularityUpgrades": "No Singularity Upgrades Challenge:",
       "GoldenRevolution2": "Golden Revolution II:",
       "FastForwards": "Singularity Fast Forwards:",
-      "ImmaculateAlchemy": "Immaculate Alchemy:",
+      "ImmaculateAlchemy": "Безупречная Алхимия:",
       "Event": "Event Bonus:",
       "PatreonBonus": "Patreon Bonus:",
       "FirstSingBonus": "First Singularity Bonus:",
@@ -4457,7 +4457,7 @@
       "GoldenQuarks2": "Golden Quarks II:",
       "OcteractCostReduce": "Octeract Cost Reduce:",
       "GoldenRevolution2": "Golden Revolution II:",
-      "ImmaculateAlchemy": "Immaculate Alchemy:",
+      "ImmaculateAlchemy": "Безупречная Алхимия:",
       "Event": "Event:",
       "Total": "Final Quarks per Golden Quark Cost:"
     },
@@ -4667,16 +4667,16 @@
         "ascensions": "• Счётчик Вознесений: +{{amount}}",
         "coinExponent": "• Экспонента Монет: +{{amount}}",
         "taxes": "• Налоги: {{amount}}",
-        "obtainium": "• Immaculate Obtainium: +{{amount}}",
+        "obtainium": "• Чистый Обтаниум: +{{amount}}",
         "offering": "• Подношения: +{{amount}}",
-        "accelerator": "• Accelerators: +{{amount}} [Immaculate!]",
-        "multiplier": "• Multipliers: +{{amount}} [Immaculate!]",
+        "accelerator": "• Ускорители: +{{amount}} [Чистые!]",
+        "multiplier": "• Множители: +{{amount}} [Чистые!]",
         "runeExp": "• ОПЫТ Рун +{{amount}}",
         "runeBonus": "• Эффективность Рун +{{amount}}",
         "cube2": "• Все Кубы II: +{{amount}}",
         "transcendChallengeReduction": "• Рост Требований Испытаний 1-5: {{amount}}",
         "reincarnationChallengeReduction": "• Рост Требований Испытаний 6-10: {{amount}}",
-        "antSpeed": "• Ant Speed: +{{amount}} [Immaculate!]",
+        "antSpeed": "• Скорость Муравьёв: +{{amount}} [Чистая!]",
         "bonusAntLevel": "• Бонусные Уровни Муравьёв: +{{amount}}",
         "cube3": "• Все Кубы III: +{{amount}}",
         "talismanBonus": "• Эффективность Талисманов: +{{amount}}",
@@ -4721,17 +4721,17 @@
         "2": "+0.018% Тессерактов за уровень Порчи за уровень!",
         "3": "+0.054% Гиперкубов за уровень Порчи за уровень!",
         "4": "+2.4% Платоновых Кубов за уровень. И ничего лишнего.",
-        "5": "C10 Exponent: 1.035 --> 1.0375, Constant tax exponent +0.10, 2x faster Constant production, 1.05x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^1.10 coin gain in C15, as well +1 Corruption Cap Level!",
+        "5": "Экспонента И10: 1.035 --> 1.0375, экспонента налогов от Константы +0.10, скорость производства Константы 2х, Кварки 1.05x, +10 к Лимиту выполнений Испытаний Реинкарнации, +5 к Лимиту выполнений Испытаний Вознесения, 2x Чистого Обтаниума и Подношений, получение монет в И15 ^1.10, а также +1 к Лимиту Уровней Порч!",
         "6": "Viscous's exponent is multiplied by 1+(level/30), capped at ^1.",
-        "7": "Global speed below 1x is raised to ^1-(level/30), ignoring Immaculate multipliers.",
+        "7": "Глобальная скорость ниже 1x возводится в степень ^1-(уровень/30), игнорируя Чистые множители.",
         "8": "The Hyperchallenge Cube's effect is divided by 1+(level*0.4), with a minimum of 1x.",
-        "9": "Gain 2.5x Immaculate Obtainium and multiply Defunded Education's exponent by 1+log10(Obtainium+1)/100, capped at 1e100 Obtainium.",
-        "10": "C10 Exponent: 1.0375 --> 1.04, Constant tax exponent +0.20, 10x faster Constant production, 1.10x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 3.5x Immaculate Obtainium and Offerings, 2x All Cubes, ^1.25 ant exponent in C15, +1 Corruption Cap Level again!",
+        "9": "Даёт 2.5x Чистого Обтаниума и умножает экспоненту Упразднённого Образования на 1+log10(Обтаниум+1)/100, достигая лимита при 1e100 Обтаниума.",
+        "10": "Экспонента И1.1.0: 1.0375 --> 1.04, экспонента налогов от Константы +0.20, скорость производства Константы 10х, Кварки 1.10x, +10 к Лимиту выполнений Испытаний Реинкарнации, +5 к Лимиту выполнений Испытаний Вознесения, 3.5x Чистого Обтаниума и Подношений, Все Кубы 2x, экспонента муравьёв в И15 ^1.25, и вновь +1 к Лимиту Уровней Порч!",
         "11": "If Crystal Mine Collapse is set to level 11 or higher, Reincarnations will also give Diamonds based on Particle gain!",
         "12": "Gain an incorruptible x(1 + level/100) Ant multiplier per Challenge completion!",
         "13": "The effect of Less Fruitful Harvests is raised to ^0.5.",
         "14": "Multiply Great Depression II's coin exponent by 1.55, but only in Challenge 15.",
-        "15": "You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (Multiplicative), 1.15x Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
+        "15": "Вы встали на путь поиска начала бездны. Экспонента Монет в Испытании 15 +0.10, Счёт Испытания 15 +25%, Скорость Вознесения +0.2% за Уровень Порчи (Макс: 20%), +1% ко всем Кубам за Выполнение И9 (Перемножаемо), Кварки 1.15x, Множитель Строений Тессерактов 1e250x, Счётчик Вознесений 2x, +30 К Лимиту Выполнений Испытаний Реинкарнаций, +20 К Лимиту Выполнений Испытаний Вознесения, 6x Чистых Подношений и Обтаниума! Вот это я понимаю глубокое погружение.",
         "16": "Увеличивает коэффициент преобразования порошка на 1% за уровень, +2% счётчика Вознесений за уровень и ещё 2% в зависимости от порошка (до 100 000). Также умножает производство Строений Тессерактов на (Порошок +1)^(10 * уровень), без лимита.",
         "17": "If this is bought, Viscous's score multiplier is raised to 3+(level*0.04) if its level is set to 10 or higher.",
         "18": "Увеличивает базовый процент Улучшения Константы 1 на 0.1% и лимит базового процента Улучшения Константы 2 на 0.3% за уровень!",
@@ -4785,8 +4785,8 @@
           "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Вау! Кубов(лол)"
         },
         "accelerator": {
-          "effect": "Haha, stupid Corruptions. +2,000 +0.03% Immaculate Accelerators per 'Way too many accelerators' Hepteract!",
-          "currentEffect": "Current Effect: Immaculate Accelerators +{{x}} + {{y}}%",
+          "effect": "Хаха, тупые Порчи. +2,000 и +0.03% Чистых Ускорителей за каждый Гептеракт 'Изобилия ускорителей'!",
+          "currentEffect": "Текущий Эффект: Чистые Ускорители +{{x}} + {{y}}%",
           "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Вау! Тессерактов"
         },
         "acceleratorBoost": {
@@ -4795,8 +4795,8 @@
           "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Гиперкубов"
         },
         "multiplier": {
-          "effect": "Haha, stupid Corruptions. +1,000 +0.03% Immaculate Multipliers per 'Way too many multipliers' Hepteract!",
-          "currentEffect": "Current Effect: Immaculate Multipliers +{{x}} +{{y}}%",
+          "effect": "Хаха, тупые Порчи. +1,000 и +0.03% Чистых Множителей за каждый Гептеракт 'Изобилия множителей'!",
+          "currentEffect": "Текущий Эффект: Чистые Множители +{{x}} + {{y}}%",
           "oneCost": "Один такой будет стоить вам {{x}} Гептерактов и {{y}} Обтаниума"
         }
       }
