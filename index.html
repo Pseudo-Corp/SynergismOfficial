@@ -703,12 +703,12 @@
     <div id="upgrades" style="display: none;">
         <div id="upgradesFlex">
             <section class="shop-section" aria-labelledby="cointext">
-              <header>
+            <div class="upgradesTitle">
                   <button class="currency-icon" aria-label="Coin currency information">
                       <img id="upgrades1" src="Pictures/Default/Coin.png" alt="" loading="lazy">
                   </button>
                   <h3 id="cointext" class="currency-title" style="color: gold" i18n="upgrades.shopTitles.coin"></h3>
-              </header>
+            </div>
               
               <table id="coinupgradestable" aria-label="Coin Upgrades Grid">
                   <tbody>
@@ -772,12 +772,12 @@
               </button>
             </section>
             <section class="shop-section prestigeunlock" aria-labelledby="prestigetext">
-              <header>
+            <div class="upgradesTitle">
                   <button class="currency-icon prestigeunlock" aria-label="Diamond currency information">
                       <img id="upgrades2" src="Pictures/Default/Diamond.png" alt="" loading="lazy">
                   </button>
                   <h3 id="prestigetext" class="currency-title" style="color: cyan" i18n="upgrades.shopTitles.diamond"></h3>
-              </header>
+            </div>
               
               <table id="prestigeupgradestable" class="prestigeunlock" aria-label="Diamond Upgrades Grid">
                   <tbody>
@@ -831,12 +831,12 @@
               </button>
             </section>
             <section class="shop-section transcendunlock" aria-labelledby="transcendtext">
-              <header>
+            <div class="upgradesTitle">
                 <button class="currency-icon transcendunlock" aria-label="Mythos currency information">
                     <img id="upgrades3" src="Pictures/Default/Mythos.png" alt="" loading="lazy">
                 </button>
                 <h3 class="transcendunlock" id="transcendtext" style="color: plum" i18n="upgrades.shopTitles.mythos"></h3>
-              </header>
+            </div>
               <table class="transcendunlock" id="transcendupgradestable" i18n-aria-label="upgrades.shopTitles.mythos">
                   <tr>
                       <td><button id="upg41" class="upgrade-button" i18n-aria-label="upgrades.descriptions.41"><img src="Pictures/Default/Mythos1.png" alt="" loading="lazy"></button></td>
@@ -870,12 +870,12 @@
               <button class="autobuyerToggleButton" id="transcendAutoUpgrade" aria-pressed="true" style="border:2px solid green">Auto: ON</button>
             </section>
             <section class="shop-section prestigeunlock" aria-labelledby="generatortext">
-              <header>
+            <div class="upgradesTitle">
                 <button class="currency-icon prestigeunlock" aria-label="Generators currency information">
                     <img id="upgrades4" src="Pictures/Default/Generators.png" alt="" loading="lazy">
                 </button>
                 <h3 class="prestigeunlock" id="generatortext" style="color: lightgray" i18n="upgrades.shopTitles.generator"></h3>
-              </header>
+            </div>
               <table class="prestigeunlock" id="generatortable" aria-label="Generator Upgrades">
                   <tr>
                       <td><button id="upg101" class="upgrade-button" i18n-aria-label="upgrades.descriptions.101"><img src="Pictures/Default/Generator1.png" alt="" loading="lazy"></button></td>
@@ -909,11 +909,11 @@
               <button class="autobuyerToggleButton" id="generatorsAutoUpgrade" aria-pressed="true" style="border:2px solid green"></button>
             </section>
             <section class="shop-section prestigeunlock" aria-labelledby="automationtext">
-              <header>
+            <div class="upgradesTitle">
                 <button class="currency-icon prestigeunlock" aria-label="Automation Upgrade information">
                     <img id="upgrades5" src="Pictures/Default/Automation.png" alt="" loading="lazy">
                 </button>
-              </header>
+            </div>
               <h3 class="prestigeunlock crimsonText" id="automationtext" i18n="upgrades.shopTitles.automation"></h3>
               <table class="prestigeunlock" id="automationtable" aria-label="Automation Upgrades">
                   <tr>
@@ -947,12 +947,12 @@
               </table>
             </section>
             <section class="shop-section reincarnationunlock" aria-labelledby="reincarnationtext">
-              <header>
+            <div class="upgradesTitle">
                 <button class="currency-icon reincarnationunlock" i18n-aria-label="upgrades.descriptions.currency">
                     <img id="upgrades6" src="Pictures/Default/Particle.png" alt="" loading="lazy">
                 </button>
                 <h3 class="reincarnationunlock" id="reincarnationtext" style="color: limegreen" i18n="upgrades.shopTitles.particles"></h3>
-              </header>
+            </div>
               <table class="reincarnationunlock" id="reincarnationupgradestable" i18n-aria-label="upgrades.shopTitles.particles">
                   <tr>
                       <td><button id="upg61" class="upgrade-button reinrow1" i18n-aria-label="upgrades.descriptions.61"><img src="Pictures/Default/Particle1.png" alt="" loading="lazy"></button></td>
@@ -2728,7 +2728,7 @@
                                 <td><button id="platUpg20"><img src="Pictures/Default/PlatonicUpgrade20.png" class="platonicUpgradeImage" alt="" loading="lazy"></button></td>
                             </tr>
                         </table>
-                        <div class="platonicUpgrades2">
+                        <div class="platonicUpgradesToggles">
                             <button id="saveOffToggle" style="border: 2px solid gold" title="If ON, then it will turn OFF Auto Runes toggle">Save Offerings [OFF]</button>
                             <button id="toggleAutoPlatonicUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
                         </div>
@@ -3991,10 +3991,10 @@
                         <img id="cookies4" alt="cookies4" src="Pictures/Default/SingularityCookies4.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="cookies5" alt="cookies5" src="Pictures/Default/SingularityCookies5.png" style="cursor: pointer">
+                        <img id="cookies5" alt="cookies5" src="Pictures/Default/SingularityCookies5.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="ascensions" alt="ascensions" src="Pictures/Default/SingularityAscensions.png" style="cursor:pointer">
+                        <img id="ascensions" alt="ascensions" src="Pictures/Default/SingularityAscensions.png">
                     </div>
                     <div class="singularityUpgrade">
                         <img id="corruptionFourteen" alt="corruptionFourteen" src="Pictures/Default/SingularityCorruption14.png">
@@ -4003,19 +4003,19 @@
                         <img id="corruptionFifteen" alt="corruptionFifteen" src="Pictures/Default/SingularityCorruption15.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="platonicTau" alt="platonicTau" src="Pictures/Default/SingularityTau.png" style="cursor: pointer">
+                        <img id="platonicTau" alt="platonicTau" src="Pictures/Default/SingularityTau.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="platonicAlpha" alt="platonicAlpha" src="Pictures/Default/SingularityAlpha.png" style="cursor: pointer">
+                        <img id="platonicAlpha" alt="platonicAlpha" src="Pictures/Default/SingularityAlpha.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="platonicDelta" alt="platonicDelta" src="Pictures/Default/SingularityDelta.png" style="cursor: pointer">
+                        <img id="platonicDelta" alt="platonicDelta" src="Pictures/Default/SingularityDelta.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="platonicPhi" alt="platonicPhi" src="Pictures/Default/SingularityPhi.png" style="cursor: pointer">
+                        <img id="platonicPhi" alt="platonicPhi" src="Pictures/Default/SingularityPhi.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singOfferings1" alt="singOfferings1" src="Pictures/Default/SingularityOfferings1.png" style="cursor: pointer">
+                        <img id="singOfferings1" alt="singOfferings1" src="Pictures/Default/SingularityOfferings1.png">
                     </div>
                     <div class="singularityUpgrade">
                         <img id="singOfferings2" alt="singOfferings2" src="Pictures/Default/SingularityOfferings2.png">
@@ -4096,70 +4096,70 @@
                         <img id="singQuarkHepteract3" alt="singQuarkHepteract3" src="Pictures/Default/SingularityQuarkHepteract3.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singOcteractGain" src="Pictures/Default/SingularityOcteractGain1.png" style="cursor: pointer">
+                        <img id="singOcteractGain" src="Pictures/Default/SingularityOcteractGain1.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singOcteractGain2" src="Pictures/Default/SingularityOcteractGain2.png" style="cursor: pointer">
+                        <img id="singOcteractGain2" src="Pictures/Default/SingularityOcteractGain2.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singOcteractGain3" src="Pictures/Default/SingularityOcteractGain3.png" style="cursor: pointer">
+                        <img id="singOcteractGain3" src="Pictures/Default/SingularityOcteractGain3.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singOcteractGain4" src="Pictures/Default/SingularityOcteractGain4.png" style="cursor: pointer">
+                        <img id="singOcteractGain4" src="Pictures/Default/SingularityOcteractGain4.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singOcteractGain5" src="Pictures/Default/SingularityOcteractGain5.png" style="cursor: pointer">
+                        <img id="singOcteractGain5" src="Pictures/Default/SingularityOcteractGain5.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singFastForward" src="Pictures/Default/SingularityFastForward.png" style="cursor: pointer">
+                        <img id="singFastForward" src="Pictures/Default/SingularityFastForward.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singFastForward2" src="Pictures/Default/SingularityFastForward2.png" style="cursor: pointer">
+                        <img id="singFastForward2" src="Pictures/Default/SingularityFastForward2.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singAscensionSpeed" src="Pictures/Default/SingularityAscensionSpeed.png" style="cursor: pointer">
+                        <img id="singAscensionSpeed" src="Pictures/Default/SingularityAscensionSpeed.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singAscensionSpeed2" src="Pictures/Default/SingularityAscensionSpeed2.png" style="cursor: pointer">
+                        <img id="singAscensionSpeed2" src="Pictures/Default/SingularityAscensionSpeed2.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="ultimatePen" src="Pictures/Default/UltimatePen.png" style="cursor: pointer">
+                        <img id="ultimatePen" src="Pictures/Default/UltimatePen.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="halfMind" src="Pictures/Default/SingularityOneMind.png" style="cursor: pointer">
+                        <img id="halfMind" src="Pictures/Default/SingularityOneMind.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="oneMind" src="Pictures/Default/SingularityOneMind.png" style="cursor: pointer">
+                        <img id="oneMind" src="Pictures/Default/SingularityOneMind.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="blueberries" src="Pictures/Default/SingularityBlueBerry.png" style="cursor: pointer">
+                        <img id="blueberries" src="Pictures/Default/SingularityBlueBerry.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singAmbrosiaLuck2" src="Pictures/Default/SingularityAmbrosiaImprover.png" style="cursor: pointer">
+                        <img id="singAmbrosiaLuck2" src="Pictures/Default/SingularityAmbrosiaImprover.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singAmbrosiaLuck3" src="Pictures/Default/SingularityAmbrosiaImprover2.png" style="cursor: pointer">
+                        <img id="singAmbrosiaLuck3" src="Pictures/Default/SingularityAmbrosiaImprover2.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singAmbrosiaLuck" src="Pictures/Default/SingularityAmbrosiaImprover3.png" style="cursor: pointer">
+                        <img id="singAmbrosiaLuck" src="Pictures/Default/SingularityAmbrosiaImprover3.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singAmbrosiaLuck4" src="Pictures/Default/SingularityAmbrosiaImprover4.png" style="cursor: pointer">
+                        <img id="singAmbrosiaLuck4" src="Pictures/Default/SingularityAmbrosiaImprover4.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singAmbrosiaGeneration2" src="Pictures/Default/SingularityAmbrosiaGeneration.png" style="cursor: pointer">
+                        <img id="singAmbrosiaGeneration2" src="Pictures/Default/SingularityAmbrosiaGeneration.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singAmbrosiaGeneration3" src="Pictures/Default/SingularityAmbrosiaGeneration2.png" style="cursor: pointer">
+                        <img id="singAmbrosiaGeneration3" src="Pictures/Default/SingularityAmbrosiaGeneration2.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singAmbrosiaGeneration" src="Pictures/Default/SingularityAmbrosiaGeneration3.png" style="cursor: pointer">
+                        <img id="singAmbrosiaGeneration" src="Pictures/Default/SingularityAmbrosiaGeneration3.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singAmbrosiaGeneration4" src="Pictures/Default/SingularityAmbrosiaGeneration4.png" style="cursor: pointer">
+                        <img id="singAmbrosiaGeneration4" src="Pictures/Default/SingularityAmbrosiaGeneration4.png">
                     </div>
                     <div class="singularityUpgrade">
-                        <img id="singInfiniteShopUpgrades" src="Pictures/Default/SingularityInfiniteShopLevels.png" style="cursor: pointer">
+                        <img id="singInfiniteShopUpgrades" src="Pictures/Default/SingularityInfiniteShopLevels.png">
                     </div>
                 </div>
             </div>
@@ -4207,133 +4207,133 @@
                 </div>
                 <div class="boxColor" id="octeractUpgradeContainer">
                     <div class="octeractUpgrade">
-                        <img id="octeractStarter" src="Pictures/Default/OcteractStarter.png" style="cursor: pointer">
+                        <img id="octeractStarter" src="Pictures/Default/OcteractStarter.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractGain" src="Pictures/Default/OcteractOcteracts.png" style="cursor: pointer">
+                        <img id="octeractGain" src="Pictures/Default/OcteractOcteracts.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractGain2" src="Pictures/Default/OcteractOcteracts2.png" style="cursor: pointer">
+                        <img id="octeractGain2" src="Pictures/Default/OcteractOcteracts2.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractQuarkGain" src="Pictures/Default/OcteractQuarks.png" style="cursor: pointer">
+                        <img id="octeractQuarkGain" src="Pictures/Default/OcteractQuarks.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractQuarkGain2" src="Pictures/Default/OcteractQuarks2.png" style="cursor: pointer">
+                        <img id="octeractQuarkGain2" src="Pictures/Default/OcteractQuarks2.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractCorruption" src="Pictures/Default/OcteractCorruptions.png" style="cursor: pointer">
+                        <img id="octeractCorruption" src="Pictures/Default/OcteractCorruptions.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractGQCostReduce" src="Pictures/Default/OcteractGoldenQuarkCost.png" style="cursor: pointer">
+                        <img id="octeractGQCostReduce" src="Pictures/Default/OcteractGoldenQuarkCost.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractExportQuarks" src="Pictures/Default/OcteractExportQuarks.png" style="cursor: pointer">
+                        <img id="octeractExportQuarks" src="Pictures/Default/OcteractExportQuarks.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractImprovedDaily" src="Pictures/Default/OcteractImprovedDaily.png" style="cursor: pointer">
+                        <img id="octeractImprovedDaily" src="Pictures/Default/OcteractImprovedDaily.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractImprovedDaily2" src="Pictures/Default/OcteractImprovedDaily2.png" style="cursor: pointer">
+                        <img id="octeractImprovedDaily2" src="Pictures/Default/OcteractImprovedDaily2.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractImprovedDaily3" src="Pictures/Default/OcteractImprovedDaily3.png" style="cursor: pointer">
+                        <img id="octeractImprovedDaily3" src="Pictures/Default/OcteractImprovedDaily3.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractImprovedQuarkHept" src="Pictures/Default/OcteractImprovedQuarkHepteract.png" style="cursor:pointer">
+                        <img id="octeractImprovedQuarkHept" src="Pictures/Default/OcteractImprovedQuarkHepteract.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractImprovedGlobalSpeed" src="Pictures/Default/OcteractImprovedGlobalSpeed.png" style="cursor: pointer">
+                        <img id="octeractImprovedGlobalSpeed" src="Pictures/Default/OcteractImprovedGlobalSpeed.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractImprovedAscensionSpeed" src="Pictures/Default/OcteractImprovedAscensionSpeed.png" style="cursor: pointer">
+                        <img id="octeractImprovedAscensionSpeed" src="Pictures/Default/OcteractImprovedAscensionSpeed.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractImprovedAscensionSpeed2" src="Pictures/Default/OcteractImprovedAscensionSpeed2.png" style="cursor: pointer">
+                        <img id="octeractImprovedAscensionSpeed2" src="Pictures/Default/OcteractImprovedAscensionSpeed2.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractImprovedFree" src="Pictures/Default/OcteractFreeUpgradeImprovement.png" style="cursor: pointer">
+                        <img id="octeractImprovedFree" src="Pictures/Default/OcteractFreeUpgradeImprovement.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractImprovedFree2" src="Pictures/Default/OcteractFreeUpgradeImprovement2.png" style="cursor: pointer">
+                        <img id="octeractImprovedFree2" src="Pictures/Default/OcteractFreeUpgradeImprovement2.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractImprovedFree3" src="Pictures/Default/OcteractFreeUpgradeImprovement3.png" style="cursor: pointer">
+                        <img id="octeractImprovedFree3" src="Pictures/Default/OcteractFreeUpgradeImprovement3.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractImprovedFree4" src="Pictures/Default/OcteractFreeUpgradeImprovement4.png" style="cursor: pointer">
+                        <img id="octeractImprovedFree4" src="Pictures/Default/OcteractFreeUpgradeImprovement4.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractBonusTokens1" src="Pictures/Default/OcteractBonusTokens1.png" style="cursor: pointer">
+                        <img id="octeractBonusTokens1" src="Pictures/Default/OcteractBonusTokens1.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractBonusTokens2" src="Pictures/Default/OcteractBonusTokens2.png" style="cursor: pointer">
+                        <img id="octeractBonusTokens2" src="Pictures/Default/OcteractBonusTokens2.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractBonusTokens3" src="Pictures/Default/OcteractBonusTokens3.png" style="cursor: pointer">
+                        <img id="octeractBonusTokens3" src="Pictures/Default/OcteractBonusTokens3.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractBonusTokens4" src="Pictures/Default/OcteractBonusTokens4.png" style="cursor: pointer">
+                        <img id="octeractBonusTokens4" src="Pictures/Default/OcteractBonusTokens4.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractSingUpgradeCap" src="Pictures/Default/OcteractMaxSingularityUpgrade.png" style="cursor: pointer">
+                        <img id="octeractSingUpgradeCap" src="Pictures/Default/OcteractMaxSingularityUpgrade.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractOfferings1" src="Pictures/Default/OcteractOfferings.png" style="cursor: pointer">
+                        <img id="octeractOfferings1" src="Pictures/Default/OcteractOfferings.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractObtainium1" src="Pictures/Default/OcteractObtainium.png" style="cursor: pointer">
+                        <img id="octeractObtainium1" src="Pictures/Default/OcteractObtainium.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAscensions" src="Pictures/Default/OcteractAscensionCount.png" style="cursor: pointer">
+                        <img id="octeractAscensions" src="Pictures/Default/OcteractAscensionCount.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAscensions2" src="Pictures/Default/OcteractAscensionCount2.png" style="cursor: pointer">
+                        <img id="octeractAscensions2" src="Pictures/Default/OcteractAscensionCount2.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAscensionsOcteractGain" src="Pictures/Default/OcteractAscensionOcteracts.png" style="cursor: pointer">
+                        <img id="octeractAscensionsOcteractGain" src="Pictures/Default/OcteractAscensionOcteracts.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractFastForward" src="Pictures/Default/OcteractFastForward.png" style="cursor: pointer">
+                        <img id="octeractFastForward" src="Pictures/Default/OcteractFastForward.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAutoPotionSpeed" src="Pictures/Default/OcteractAutoPotionSpeed.png" style="cursor: pointer">
+                        <img id="octeractAutoPotionSpeed" src="Pictures/Default/OcteractAutoPotionSpeed.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAutoPotionEfficiency" src="Pictures/Default/OcteractAutoPotionEfficiency.png" style="cursor: pointer">
+                        <img id="octeractAutoPotionEfficiency" src="Pictures/Default/OcteractAutoPotionEfficiency.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractOneMindImprover" src="Pictures/Default/OcteractOneMindImprover.png" style="cursor: pointer">
+                        <img id="octeractOneMindImprover" src="Pictures/Default/OcteractOneMindImprover.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAmbrosiaLuck2" src="Pictures/Default/OcteractAmbrosiaImprover.png" style="cursor: pointer">
+                        <img id="octeractAmbrosiaLuck2" src="Pictures/Default/OcteractAmbrosiaImprover.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAmbrosiaLuck3" src="Pictures/Default/OcteractAmbrosiaImprover2.png" style="cursor: pointer">
+                        <img id="octeractAmbrosiaLuck3" src="Pictures/Default/OcteractAmbrosiaImprover2.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAmbrosiaLuck" src="Pictures/Default/OcteractAmbrosiaImprover3.png" style="cursor: pointer">
+                        <img id="octeractAmbrosiaLuck" src="Pictures/Default/OcteractAmbrosiaImprover3.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAmbrosiaLuck4" src="Pictures/Default/OcteractAmbrosiaImprover4.png" style="cursor: pointer">
+                        <img id="octeractAmbrosiaLuck4" src="Pictures/Default/OcteractAmbrosiaImprover4.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAmbrosiaGeneration2" src="Pictures/Default/OcteractAmbrosiaGeneration.png" style="cursor: pointer">
+                        <img id="octeractAmbrosiaGeneration2" src="Pictures/Default/OcteractAmbrosiaGeneration.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAmbrosiaGeneration3" src="Pictures/Default/OcteractAmbrosiaGeneration2.png" style="cursor: pointer">
+                        <img id="octeractAmbrosiaGeneration3" src="Pictures/Default/OcteractAmbrosiaGeneration2.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAmbrosiaGeneration" src="Pictures/Default/OcteractAmbrosiaGeneration3.png" style="cursor: pointer">
+                        <img id="octeractAmbrosiaGeneration" src="Pictures/Default/OcteractAmbrosiaGeneration3.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractAmbrosiaGeneration4" src="Pictures/Default/OcteractAmbrosiaGeneration4.png" style="cursor: pointer">
+                        <img id="octeractAmbrosiaGeneration4" src="Pictures/Default/OcteractAmbrosiaGeneration4.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractBlueberries" src="Pictures/Default/OcteractBlueberries.png" style="cursor: pointer">
+                        <img id="octeractBlueberries" src="Pictures/Default/OcteractBlueberries.png">
                     </div>
                     <div class="octeractUpgrade">
-                        <img id="octeractInfiniteShopUpgrades" src="Pictures/Default/OcteractInfiniteShopUpgrades.png" style="cursor: pointer">
+                        <img id="octeractInfiniteShopUpgrades" src="Pictures/Default/OcteractInfiniteShopUpgrades.png">
                     </div>
                 </div>
 
