@@ -795,6 +795,20 @@ p#buildinghotkeys2 {
     min-width: 80px;
 }
 
+.upgradesTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button.currency-icon {
+    background-color: inherit;
+}
+
+#coinupgradestable {
+    display: block;
+}
+
 #shoptogglecoin { grid-column-start: 1; }
 #shoptoggleprestige { grid-column-start: 2; }
 #shoptoggletranscend { grid-column-start: 3; }
@@ -1477,6 +1491,7 @@ img.runeTypeElement:hover {
 .talismanIcon {
     width: 64px;
     border: 4px solid white;
+    background-color: var(--button-color);
     cursor: pointer;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
@@ -2960,15 +2975,20 @@ p#ascendHotKeys {
     text-align: center;
 }
 
-#campaignsIcons img {
+.campaignIcon {
     width: 48px;
     height: 48px;
     font-size: 0;
     cursor: pointer;
 }
 
-#campaignsIcons img:hover {
-    background-color: var(--hover-color);
+.campaignIcon.green-background:hover {
+    background-color: color-mix(in srgb, color-mix(in srgb, var(--hover-color) 75%, white), var(--green-text-color));
+}
+
+.campaignIcon:hover {
+    background-color: color-mix(in srgb, var(--hover-color) 50%, var(--button-color));
+    filter: brightness(1.2);
 }
 
 #campaignsDescriptions {
@@ -3753,7 +3773,6 @@ header #obtainiumDisplay { color: pink; }
 .octeractUpgrade,
 .singularityChallenge {
     font-size: 0;
-    cursor: pointer;
 }
 
 .ambrosiaLoadoutBtn {
@@ -3821,9 +3840,25 @@ header #obtainiumDisplay { color: pink; }
     to { transform: rotate(360deg); }
 }
 
-.singularityUpgrade > img,
-.octeractUpgrade > img,
 .singularityChallenge img {
+    cursor: pointer;
+}
+
+.upgradeMaximized {
+    filter: brightness(0.6);
+}
+
+.upgradeLocked {
+    filter: grayscale(0.9) brightness(0.5);
+}
+
+.upgradeSoftCapped {
+    filter: invert(0.1) brightness(1.2) saturate(2);
+    cursor: pointer;
+}
+
+.upgradeAvailable {
+    filter: invert(0.1) brightness(1.1) saturate(1.2);
     cursor: pointer;
 }
 
@@ -4537,7 +4572,7 @@ form input:hover {
     grid-template-columns: repeat(6, 15%);
     grid-template-rows: repeat(3, 15%);
     column-gap: 10px;
-    row-gap: 64px;
+    row-gap: 48px;
     margin: 0;
     width: 38%;
     padding-top: 15px;
@@ -4548,8 +4583,14 @@ form input:hover {
     position: relative;
     height: 64px;
     width: 64px;
-    background: #222;
+    background-color: var(--button-color);
     place-self: center;
+    transition: background-color var(--transition-extra), border-color var(--transition-extra);
+    cursor: pointer;
+}
+
+#upgradeGrid > div:hover {
+    background-color: var(--hover-color);
 }
 
 #upgradeGrid > div > p {
@@ -4570,7 +4611,7 @@ form input:hover {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 50%;
+    clip-path: circle(50%);
     width: 70%;
 }
 
@@ -4612,9 +4653,9 @@ form input:hover {
 
 #pseudoCoinUpgradeDescription {
     display: grid;
-    height: 192px;
+    min-height: 192px;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 192px;
+    grid-template-rows: auto;
     width: 100%;
 }
 
