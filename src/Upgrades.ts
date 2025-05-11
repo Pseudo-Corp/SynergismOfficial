@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAnts, calculateCorruptionPoints, calculateRuneLevels } from './Calculate'
+import { calculateAnts, calculateRuneLevels } from './Calculate'
 import { format, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
 import { sumContents } from './Utility'
@@ -22,7 +22,7 @@ const crystalupgdesc: Record<number, () => Record<string, string>> = {
     max: format(
       10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1)
           / Math.log(4)
-        + 20 * calculateCorruptionPoints() / 400 * G.effectiveRuneSpiritPower[3]
+        + 20 * player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[3]
     )
   })
 }
@@ -32,7 +32,7 @@ const constantUpgDesc: Record<number, () => Record<string, string>> = {
   2: () => ({
     max: format(
       10 + player.achievements[270] + player.shopUpgrades.constantEX + 100
-          * (G.challenge15Rewards.exponent - 1)
+          * (G.challenge15Rewards.exponent.value - 1)
         + 0.3 * player.platonicUpgrades[18],
       2,
       true
@@ -150,7 +150,7 @@ const upgradetexts = [
   () => null,
   () => null,
   () => null,
-  () => Math.floor(1 / 5 * (sumContents(player.challengecompletions))),
+  () => Math.floor(1 / 50 * (sumContents(player.challengecompletions))),
   () => format(Decimal.min('1e6000', Decimal.pow(player.reincarnationPoints.add(1), 6))),
   () => format(Decimal.pow(player.reincarnationPoints.add(1), 2)),
   () => null,
@@ -253,8 +253,9 @@ export const upgradedescriptions = (i: number) => {
     color = 'limegreen'
   }
 
-  DOMCacheGetOrSet('upgradecost').textContent = `Cost: ${format(Decimal.pow(10, G.upgradeCosts[i]))} ${currency}`
-  DOMCacheGetOrSet('upgradecost').style.color = color
+  const upgradeCost = DOMCacheGetOrSet('upgradecost')
+  upgradeCost.textContent = `Cost: ${format(Decimal.pow(10, G.upgradeCosts[i]))} ${currency}`
+  upgradeCost.style.color = color
   upgradeeffects(i)
 }
 
@@ -383,7 +384,7 @@ const crystalupgeffect: Record<number, () => Record<string, string>> = {
     x: format(
       Math.min(
         10 + 0.05 * player.researches[129] * Math.log(player.commonFragments + 1) / Math.log(4)
-          + 20 * calculateCorruptionPoints() / 400 * G.effectiveRuneSpiritPower[3],
+          + 20 * player.corruptions.used.totalCorruptionDifficultyMultiplier * G.effectiveRuneSpiritPower[3],
         0.05 * player.crystalUpgrades[3]
       ),
       2,
@@ -432,17 +433,19 @@ export const crystalupgradedescriptions = (i: number) => {
 export const upgradeupdate = (num: number, fast?: boolean) => {
   const el = DOMCacheGetOrSet(`upg${num}`)
   if (player.upgrades[num] > 0.5) {
-    el.style.backgroundColor = 'green'
+    el.classList.add('green-background')
   } else {
-    el.style.backgroundColor = ''
+    el.classList.remove('green-background')
   }
 
-  const b = i18next.t(`upgrades.descriptions.${num}`)
-  const c = player.upgrades[num] > 0.5 ? ' BOUGHT!' : ''
   if (player.upgrades[num] > 0.5) {
     if (!fast) {
-      DOMCacheGetOrSet('upgradedescription').textContent = b + c
-      DOMCacheGetOrSet('upgradedescription').style.color = 'gold'
+      const b = i18next.t(`upgrades.descriptions.${num}`)
+      const c = player.upgrades[num] > 0.5 ? i18next.t('upgrades.bought') : ''
+
+      const upgradeDescription = DOMCacheGetOrSet('upgradedescription')
+      upgradeDescription.textContent = `${b} ${c}`
+      upgradeDescription.style.color = 'gold'
     }
   }
 
@@ -480,7 +483,7 @@ const constUpgEffect: Record<number, () => Record<string, string>> = {
           + 0.001
             * Math.min(
               100 + 10 * player.achievements[270] + 10 * player.shopUpgrades.constantEX
-                + 3 * player.platonicUpgrades[18] + 1000 * (G.challenge15Rewards.exponent - 1),
+                + 3 * player.platonicUpgrades[18] + 1000 * (G.challenge15Rewards.exponent.value - 1),
               player.constantUpgrades[2]
             ),
         ascendBuildingDR()

@@ -1,20 +1,20 @@
 import type Decimal from 'break_infinity.js'
 import type { BlueberryUpgrade } from '../BlueberryUpgrades'
+import type { CampaignManager } from '../Campaign'
+import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
+import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { HepteractCraft } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrade } from '../Octeracts'
 import type { IPlatBaseCost } from '../Platonic'
 import type { QuarkHandler } from '../Quark'
+import type { RedAmbrosiaKeys } from '../RedAmbrosiaUpgrades'
 import type { SingularityUpgrade } from '../singularity'
 import type { SingularityChallenge, singularityChallengeData } from '../SingularityChallenges'
-import type {
-  AmbrosiaGenerationCache,
-  AmbrosiaLuckAdditiveMultCache,
-  AmbrosiaLuckCache,
-  BlueberryInventoryCache
-} from '../StatCache'
 import type { Tabs } from '../Tabs'
+
+type ArrayStartingWithNull<T> = [null, ...T[]]
 
 export interface Player {
   firstPlayed: string
@@ -316,8 +316,6 @@ export interface Player {
     generators: boolean
     reincarnate: boolean
   }
-  tabnumber: number
-  subtabNumber: number
 
   // create a Map with keys defaulting to boolean
   codes: Map<number, boolean>
@@ -401,7 +399,22 @@ export interface Player {
     shopCashGrabUltra: number
     shopAmbrosiaAccelerator: number
     shopEXUltra: number
+    shopChronometerS: number
+    shopAmbrosiaUltra: number
+    shopSingularitySpeedup: number
+    shopSingularityPotency: number
+    shopSadisticRune: number
+    shopRedLuck1: number
+    shopRedLuck2: number
+    shopRedLuck3: number
+    shopInfiniteShopUpgrades: number
   }
+
+  shopPotionsConsumed: {
+    offering: number
+    obtainium: number
+  }
+
   shopConfirmationToggle: boolean
   shopBuyMaxToggle: boolean | 'TEN' | 'ANY'
   shopHideToggle: boolean
@@ -422,20 +435,20 @@ export interface Player {
   goldenQuarksTimer: number
 
   antPoints: Decimal
-  antUpgrades: (null | number)[]
+  antUpgrades: number[]
   antSacrificePoints: number
   antSacrificeTimer: number
   antSacrificeTimerReal: number
 
   talismanLevels: number[]
   talismanRarity: number[]
-  talismanOne: (null | number)[]
-  talismanTwo: (null | number)[]
-  talismanThree: (null | number)[]
-  talismanFour: (null | number)[]
-  talismanFive: (null | number)[]
-  talismanSix: (null | number)[]
-  talismanSeven: (null | number)[]
+  talismanOne: ArrayStartingWithNull<number>
+  talismanTwo: ArrayStartingWithNull<number>
+  talismanThree: ArrayStartingWithNull<number>
+  talismanFour: ArrayStartingWithNull<number>
+  talismanFive: ArrayStartingWithNull<number>
+  talismanSix: ArrayStartingWithNull<number>
+  talismanSeven: ArrayStartingWithNull<number>
   talismanShards: number
   commonFragments: number
   uncommonFragments: number
@@ -463,7 +476,7 @@ export interface Player {
   openHypercubes: number
   autoOpenPlatonicsCubes: boolean
   openPlatonicsCubes: number
-  cubeUpgrades: [null, ...number[]]
+  cubeUpgrades: ArrayStartingWithNull<number>
   cubeUpgradesBuyMaxToggle: boolean
   autoCubeUpgradesToggle: boolean
   autoPlatonicUpgradesToggle: boolean
@@ -529,13 +542,16 @@ export interface Player {
   roombaResearchIndex: number
   ascStatToggles: Record<number, boolean>
 
-  prototypeCorruptions: number[]
-  usedCorruptions: number[]
-  corruptionLoadouts: Record<number, number[]>
-  corruptionLoadoutNames: string[]
-  corruptionShowStats: boolean
+  campaigns: CampaignManager
 
-  constantUpgrades: [null, ...number[]]
+  corruptions: {
+    next: CorruptionLoadout
+    used: CorruptionLoadout
+    saves: CorruptionSaves
+    showStats: boolean
+  }
+
+  constantUpgrades: ArrayStartingWithNull<number>
   history: Record<Category, ResetHistoryEntryUnion[]>
   historyShowPerSecond: boolean
 
@@ -625,9 +641,11 @@ export interface Player {
 
   ambrosia: number
   lifetimeAmbrosia: number
+
   blueberryTime: number
   ambrosiaRNG: number // DEPRECIATED, DO NOT USE
   visitedAmbrosiaSubtab: boolean
+  visitedAmbrosiaSubtabRed: boolean
   spentBlueberries: number
   blueberryUpgrades: Record<
     keyof typeof blueberryUpgradeData,
@@ -636,20 +654,19 @@ export interface Player {
   blueberryLoadouts: Record<number, BlueberryOpt>
   blueberryLoadoutMode: BlueberryLoadoutMode
 
-  ultimateProgress: number
-  ultimatePixels: number
+  redAmbrosia: number
+  lifetimeRedAmbrosia: number
+  redAmbrosiaTime: number
+  redAmbrosiaUpgrades: Record<RedAmbrosiaKeys, number>
 
-  caches: {
-    ambrosiaLuckAdditiveMult: AmbrosiaLuckAdditiveMultCache
-    ambrosiaLuck: AmbrosiaLuckCache
-    ambrosiaGeneration: AmbrosiaGenerationCache
-    blueberryInventory: BlueberryInventoryCache
-  }
+  singChallengeTimer: number
 
   /**
    * When the player last exported the save.
    */
   lastExportedSave: number
+
+  seed: number[]
 }
 
 export interface GlobalVariables {
@@ -835,18 +852,17 @@ export interface GlobalVariables {
   rune4Talisman: number
   rune5Talisman: number
 
-  talisman1Effect: [null, ...number[]]
-  talisman2Effect: [null, ...number[]]
-  talisman3Effect: [null, ...number[]]
-  talisman4Effect: [null, ...number[]]
-  talisman5Effect: [null, ...number[]]
-  talisman6Effect: [null, ...number[]]
-  talisman7Effect: [null, ...number[]]
+  talisman1Effect: ArrayStartingWithNull<number>
+  talisman2Effect: ArrayStartingWithNull<number>
+  talisman3Effect: ArrayStartingWithNull<number>
+  talisman4Effect: ArrayStartingWithNull<number>
+  talisman5Effect: ArrayStartingWithNull<number>
+  talisman6Effect: ArrayStartingWithNull<number>
+  talisman7Effect: ArrayStartingWithNull<number>
 
   talisman6Power: number
   talisman7Quarks: number
 
-  runescreen: string
   settingscreen: string
 
   talismanResourceObtainiumCosts: number[]
@@ -854,21 +870,21 @@ export interface GlobalVariables {
 
   talismanLevelCostMultiplier: number[]
 
-  talismanPositiveModifier: [null, ...number[]]
-  talismanNegativeModifier: [null, ...number[]]
+  talismanPositiveModifier: ArrayStartingWithNull<number>
+  talismanNegativeModifier: ArrayStartingWithNull<number>
 
-  commonTalismanEnhanceCost: [null, ...number[]]
-  uncommonTalismanEnchanceCost: [null, ...number[]]
-  rareTalismanEnchanceCost: [null, ...number[]]
-  epicTalismanEnhanceCost: [null, ...number[]]
-  legendaryTalismanEnchanceCost: [null, ...number[]]
-  mythicalTalismanEnchanceCost: [null, ...number[]]
+  commonTalismanEnhanceCost: ArrayStartingWithNull<number>
+  uncommonTalismanEnchanceCost: ArrayStartingWithNull<number>
+  rareTalismanEnchanceCost: ArrayStartingWithNull<number>
+  epicTalismanEnhanceCost: ArrayStartingWithNull<number>
+  legendaryTalismanEnchanceCost: ArrayStartingWithNull<number>
+  mythicalTalismanEnchanceCost: ArrayStartingWithNull<number>
 
   talismanRespec: number
 
   obtainiumGain: number
 
-  mirrorTalismanStats: [null, ...number[]]
+  mirrorTalismanStats: ArrayStartingWithNull<number>
   antELO: number
   effectiveELO: number
 
@@ -891,19 +907,19 @@ export interface GlobalVariables {
 
   buildingSubTab: BuildingSubtab
   // number000 of each before Diminishing Returns
-  blessingbase: [null, ...number[]]
-  blessingDRPower: [null, ...number[]]
+  blessingbase: ArrayStartingWithNull<number>
+  blessingDRPower: ArrayStartingWithNull<number>
   giftbase: number[]
   giftDRPower: number[]
-  benedictionbase: [null, ...number[]]
-  benedictionDRPower: [null, ...number[]]
+  benedictionbase: ArrayStartingWithNull<number>
+  benedictionDRPower: ArrayStartingWithNull<number>
   // 10 Million of each before Diminishing returns on first number 200k for second, and 10k for the last few
   platonicCubeBase: number[]
   platonicDRPower: number[]
 
-  cubeBonusMultiplier: [null, ...number[]]
-  tesseractBonusMultiplier: [null, ...number[]]
-  hypercubeBonusMultiplier: [null, ...number[]]
+  cubeBonusMultiplier: ArrayStartingWithNull<number>
+  tesseractBonusMultiplier: ArrayStartingWithNull<number>
+  hypercubeBonusMultiplier: ArrayStartingWithNull<number>
   platonicBonusMultiplier: number[]
 
   autoOfferingCounter: number
@@ -911,13 +927,13 @@ export interface GlobalVariables {
   researchOrderByCost: number[]
 
   viscosityPower: number[]
-  lazinessMultiplier: number[]
-  hyperchallengedMultiplier: number[]
+  dilationMultiplier: number[]
+  hyperchallengeMultiplier: number[]
   illiteracyPower: number[]
   deflationMultiplier: number[]
   extinctionMultiplier: number[]
   droughtMultiplier: number[]
-  financialcollapsePower: number[]
+  recessionPower: number[]
 
   corruptionPointMultipliers: number[]
 
@@ -934,46 +950,16 @@ export interface GlobalVariables {
   acceleratorMultiplier: number
   multiplierMultiplier: number
 
-  constUpgradeCosts: [null, ...number[]]
+  constUpgradeCosts: ArrayStartingWithNull<number>
 
   globalConstantMult: Decimal
   autoTalismanTimer: number
 
   autoChallengeTimerIncrement: number
-  corruptionTrigger: number
+  corruptionTrigger: keyof Corruptions
 
-  challenge15Rewards: {
-    cube1: number
-    ascensions: number
-    coinExponent: number
-    taxes: number
-    obtainium: number
-    offering: number
-    accelerator: number
-    multiplier: number
-    runeExp: number
-    runeBonus: number
-    cube2: number
-    transcendChallengeReduction: number
-    reincarnationChallengeReduction: number
-    antSpeed: number
-    bonusAntLevel: number
-    cube3: number
-    talismanBonus: number
-    globalSpeed: number
-    blessingBonus: number
-    constantBonus: number
-    cube4: number
-    spiritBonus: number
-    score: number
-    quarks: number
-    hepteractUnlocked: number
-    cube5: number
-    powder: number
-    exponent: number
-    freeOrbs: number
-    ascensionSpeed: number
-  }
+  c15RewardFormulae: Record<Challenge15Rewards, (e: number) => number>
+  challenge15Rewards: Challenge15RewardObject
 
   autoResetTimers: {
     prestige: number
@@ -990,10 +976,10 @@ export interface GlobalVariables {
   isEvent: boolean
   shopEnhanceVision: boolean
 
-  eventClicked: boolean
-
   ambrosiaTimer: number
+  redAmbrosiaTimer: number
   TIME_PER_AMBROSIA: number
+  TIME_PER_RED_AMBROSIA: number
 
   currentSingChallenge: keyof Player['singularityChallenges'] | undefined
 }
@@ -1042,3 +1028,21 @@ export type ZeroToSeven = ZeroToFour | 5 | 6 | 7
 export type FirstToFifth = GlobalVariables['ordinals'][ZeroToFour]
 
 export type FirstToEighth = GlobalVariables['ordinals'][ZeroToSeven]
+
+export type SaveSupplier<K extends keyof Player = keyof Player> = Map<K, (value: unknown) => Player[K]>
+
+export type PseudoCoinUpgradeNames =
+  | 'INSTANT_UNLOCK_1'
+  | 'INSTANT_UNLOCK_2'
+  | 'CUBE_BUFF'
+  | 'AMBROSIA_LUCK_BUFF'
+  | 'AMBROSIA_GENERATION_BUFF'
+  | 'GOLDEN_QUARK_BUFF'
+  | 'FREE_UPGRADE_PROMOCODE_BUFF'
+  | 'CORRUPTION_LOADOUT_SLOT_QOL'
+  | 'AMBROSIA_LOADOUT_SLOT_QOL'
+  | 'AUTO_POTION_FREE_POTIONS_QOL'
+  | 'OFFLINE_TIMER_CAP_BUFF'
+  | 'ADD_CODE_CAP_BUFF'
+
+export type PseudoCoinUpgrades = Record<PseudoCoinUpgradeNames, number>

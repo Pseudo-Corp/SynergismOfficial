@@ -154,6 +154,10 @@ export abstract class Cube {
     return this
   }
 
+  valueOf () {
+    return this.value
+  }
+
   [Symbol.toPrimitive] (h: string) {
     switch (h) {
       case 'string':

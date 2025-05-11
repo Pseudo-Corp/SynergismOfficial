@@ -1397,35 +1397,47 @@
             "unlockedIn": "You will unlock a whole new Perk in Singularity {{sing}}",
             "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties",
             "description":"(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
-            "welcometoSingularity": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!",
-            "unlimitedGrowth": "+10% to Quarks gain and Ascension Count for each Singularity. Currently: +{{amount}}%",
-            "goldenCoins": "Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity. Currently: x{{amount}}",
+"welcometoSingularity": {
+                "name": "Welcome to Singularity!",
+                "default": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!"
+            },
+            "unlimitedGrowth": {
+                "name": "Unlimited Growth",
+                "default": "+10% to Quarks gain and Ascension Count for each Singularity. Currently: +{{amount}}%"
+            },
+            "goldenCoins": {
+                "name": "Golden Coins",
+                "default": "Unspent Golden Quarks boost Coin gain. Especially strong for first Ascensions of each Singularity. Currently: x{{amount}}"
+            },
             "xyz": {
+                "name": "XYZ: Xtra dailY rewardZ",
                 "hasLevel2": "In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!",
                 "hasLevel1": "In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.",
                 "default": "The Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades, both scaling with your singularity count!"
             },
-            "hepteractAutocraft": "Hepteract Autocraft will be unlocked",
-            "generousOrbs": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%",
+            "generousOrbs": {
+                "name": "Generous Orbs",
+                "default": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%"
+            },
             "researchDummies": {
-                "hasLevel1": "You permanently keep Auto Research",
-                "otherwise": "You can Research using Hover to Buy"
+                "name": "Research for Dummies",
+                "hasLevel1": "You permanently keep Auto Research and can Research using Hover to Buy!",
+                "default": "You can Research using Hover to Buy"
             },
-            "eternalAscensions": {
-                "hasLevel1": "Your ascension count is multipled based on your Singularity count and unlock a new Real Time based Auto Ascension mode! Currently: x{{amount}}",
-                "default": "Your ascension count is multipled based on your Singularity count! Currently: x{{amount}}"
-            },
-              "antGodsCornucopia": {
+            "antGodsCornucopia": {
+                "name": "Ant God's Cornucopia",
                 "hasLevel3": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e12 multiplier!",
                 "hasLevel2": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1e6 multiplier!",
                 "hasLevel1": "Ant Speed now has an 'uncorruptable' x4.44 multiplier and a true uncorruptable x1,000 multiplier!",
                 "default": "Ant Speed now has a permanent 'uncorruptable' x4.44 multiplier."
             },
-              "sweepomatic":{
+            "sweepomatic": {
+                "name": "Automatic Sweep-o-matic Mk.2",
                 "hasLevel1": "The Auto Challenge Sweeper will now start Ascension Challenges at c10 and can now sweep through Ascension Challenges if you have Instant Challenges 2, saving you clicks!",
-                "otherwise": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
+                "default": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
             },
             "superStart": {
+                "name": "Super Start",
                 "hasLevel4": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 2.22e2222 Particles and 500 Obtainium",
                 "hasLevel3": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e100 Particles and 500 Obtainium",
                 "hasLevel2": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e16 Particles and 500 Obtainium",
@@ -1433,6 +1445,7 @@
                 "default": "You start each Ascension with 1 Transcension and 1001 Mythos"
             },
             "notSoChallenging": {
+                "name": "Not So Challenging",
                 "hasLevel4": "You start each Ascension with 1 completion of Challenges 6, 7 & 9 and 5 completions of Challenge 8",
                 "hasLevel3": "You start each Ascension with 1 completion of Challenges 6 & 7 and 5 completions of Challenge 8",
                 "hasLevel2": "You start each Ascension with 1 completion of Challenges 6, 7 and 8",
@@ -1440,6 +1453,7 @@
                 "default": "You start each Ascension with 1 completion of Challenge 6"
             },
             "automationUpgrades": {
+                "name": "Automation Upgrades",
                 "hasLevel5": "Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!",
                 "hasLevel4": "You always have w1x4 through w1x8 and w2x10; r6x5, r6x10 and r6x20. Automation Shop is also automatically purchased!",
                 "hasLevel3": "You always have w1x4 through w1x8 and w2x10. Automation Shop is now automatically purchased!",
@@ -1448,60 +1462,128 @@
                 "default": "You always have w1x7. (Autobuyers for Particle buildings)"
             },
             "evenMoreQuarks": {
+                "name": "Even More Quarks",
                 "bug": "This is a bug! Contact Platonic if you see this message, somehow.",
-                "m": "You gain {{stack}} stacks of 5% Quarks! Total Increase: +{{inc}}%"
+                "default": "You gain <<cyan|{{stack}}>> stacks of <<cyan|5%>> Quarks! Total Increase: <<cyan|+{{inc}}%>>"
             },
             "shopSpecialOffer": {
+                "name": "Shop Special Offer",
                 "hasLevel2": "Reincarnation and Ascension tier Shop upgrades are kept permanently!",
                 "hasLevel1": "You permanently keep 100 free levels of each Shop upgrade in the first row",
                 "default": "You start each Singularity with 10 free levels of each Shop upgrade in the first row"
             },
-            "potionAutogenerator": "Every 180 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity.",
-            "respecBeGone": "Talismans now buff all runes at all times!",
+            "potionAutogenerator": {
+                "name": "Potion Autogenerator",
+                "default": "Every 180 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity."
+            },
+            "respecBeGone": {
+                "name": "Respec, be gone!",
+                "default": "Talismans now buff all runes at all times!"
+            },
             "forTheLoveOfTheAntGod": {
+                "name": "For the love of (the Ant) God!",
                 "hasLevel2": "You permanently keep Ant autobuyers and start each Ascension with a Tier 8 Ant",
                 "hasLevel1": "You permanently keep Ant autobuyers and start each Ascension with a Tier 5 Ant",
                 "default": "You permanently keep Ant autobuyers and start each Ascension with a Tier 1 Ant"
             },
-            "itAllAddsUp": "ADD code reward is divided by {{div}} but the cooldown is also divided by {{div2}} and capacity is multiplied by {{cap}} (rounded up).",
+            "itAllAddsUp": {
+                "name": "It all adds up",
+                "default": "The 'Add' Special Action reward & cooldown is divided by {{div}} while its maximum capacity is multiplied the same amount! (Rounded Up)."
+            },
             "automagicalRunes": {
+                "name": "Automagical Runes",
                 "hasLevel3": "Runes autobuyer will buy Blessings, Spirits, Talisman Shards, Fragments and will level up Infinite Ascent AND Antiquities of Ant God",
                 "hasLevel2": "Runes autobuyer will buy Blessings, Spirits, Talisman Shards, Fragments and will level up Infinite Ascent",
                 "hasLevel1": "Runes autobuyer will buy Blessings, Spirits and level up Infinite Ascent",
                 "default": "Runes autobuyer will buy Blessings and Spirits"
             },
-            "exaltedAchievements": "Unlocks new, very difficult achievements! They are earned differently from others, however...",
+            "eternalAscensions": {
+                "name": "Eternal Ascensions",
+                "default": "Unlock a new Real Time based Auto Ascension mode!"
+            },
+            "exaltedAchievements": {
+                "name": "Exalt Vault",
+                "default": "Unlocks new, very difficult challenges! They may only be entered by reaching high enough Singularities!"
+            },
+            "derpSmithsCornucopia": {
+                "name": "Derpsmith's Cornucopia",
+                "default": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!"
+            },
             "coolQOLCubes": {
+                "name": "Cool QoL Cubes",
                 "hasLevel1": "Keep all Cube Opening researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
                 "default": "Researches related to opening cubes will no longer reset on Ascension"
             },
-            "overclocked": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!",
+            "irishAnt": {
+                "name": "Irish Ants",
+                "default": "Ants blessed with the luck of the Irish grant <<limegreen|☘ {{i}}>> Ambrosia Luck!"
+            },
+            "irishAnt2": {
+                "name": "Irish Ants II: Electric Boogaloo",
+                "default": "Ants blessed with more fortunate luck of the Irish increase base ☘ Ambrosia Luck by <<limegreen|{{percent}}%>>! +1% per perk level."
+            },
+            "overclocked": {
+                "name": "Overclocked",
+                "default": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!"
+            },
             "wowCubeAutomatedShipping": {
+                "name": "Wow! Cube Automated Shipping",
                 "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
                 "default": "Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge."
             },
-            "congealedblueberries": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!",
-            "goldenRevolution": "Singularity grants 0.4% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +100%)",
-            "goldenRevolutionII": "Golden Quarks are 0.2% cheaper per Singularity. Currently: -{{current}}% (MAX: -50%)",
-            "goldenRevolutionIII": "Export gives 2% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +500%)",
+            "congealedblueberries": {
+                "name": "Congealed Blueberries",
+                "default": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!"
+            },
+            "goldenRevolution": {
+                "name": "Golden Revolution",
+                "default": "Singularity grants 0.4% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +100%)"
+            },
+            "goldenRevolutionII": {
+                "name": "Golden Revolution II",
+                "default": "Golden Quarks are 0.2% cheaper per Singularity. Currently: -{{current}}% (MAX: -50%)"
+            },
+            "goldenRevolutionIII": {
+                "name": "Golden Revolution III",
+                "default": "Export gives 2% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +500%)"
+            },
             "platonicClones": {
+                "name": "Clones of Platonic Clicking at Your Desktop",
                 "hasLevel1": "Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, anywhere!",
                 "default": "Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, but only in a Singularity Challenge."
             },
-            "platSigma": "Code 'add' refills {{counter}}% faster per level per Singularity. Currently: {{current}} (MAX: -60% Cooldown)",
-            "midasMilleniumAgedGold": "Every use of code `add` gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3.",
-            "goldenRevolution4": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!",
+            "platSigma": {
+                "name": "PL-AT Σ",
+                "default": "The 'Add' Special Action refills {{counter}}% faster per level per Singularity. Currently: {{current}} (MAX: -60% Cooldown)"
+            },
+            "midasMilleniumAgedGold": {
+                "name": "Midas' Millenium-Aged Gold",
+                "default": "Every use of the 'Add' Special Action gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3."
+            },
+            "goldenRevolution4": {
+                "name": "Golden Revolution IV",
+                "default": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!"
+            },
             "octeractMetagenesis": {
-                "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
-                "default": "Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge."
+                "name": "Octeract Metagenesis",
+                "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 640)^0.5, (level^2 * free/125000)^0.333 respectively ",
+                "default": "Gives free levels of Octeract Cogenesis based on your current free levels and purchased levels: (level * free / 1000)^0.5"
             },
             "immaculateAlchemy": {
+                "name": "Immaculate Alchemy",
                 "hasLevel2": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 8.",
                 "hasLevel1": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 5.",
                 "default": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 3."
             },
-            "skrauQ": "Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: {{amt}}... Yes, it's that good.",
-            "derpSmithsCornucopia": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!"
+            "skrauQ": {
+                "name": "skrauQ",
+                "default": "Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: {{amt}}... Yes, it's that good."
+            },
+            "primalPower": {
+                "name": "Primal Power!",
+                "hasLevel1": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> Ambrosia Luck!",
+                "default": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|☘ +131>> Ambrosia Luck!"
+            }
         },
         "toString": {
             "noMinimum": "No minimal Singularity to purchase required",
@@ -1614,7 +1696,7 @@
             },
             "singCubes1": {
                 "name": "Cube Flame",
-                "description": "Upgrade this to get +1% Cubes per level, forever!",
+                "description": "Upgrade this to get +0.6% Cubes per level, forever!",
                 "effect": "Permanently gain {{n}}% more Cubes."
             },
             "singCubes2": {
@@ -1816,11 +1898,6 @@
                 "description": "Ascension speed is multiplied by 6 if you have not purchased Antiquities in your current Singularity.",
                 "effect": "The effect is clear"
             },
-            "WIP": {
-                "name": "WIP TEMPLATE",
-                "description": "This is a template! Bottom Text.",
-                "effect": "Update this description at a later time!!!!!!!!!!"
-            },
             "ultimatePen": {
                 "name": "The Ultimate Pen",
                 "description": "You. It is you who is the author of your own story!",
@@ -1859,43 +1936,6 @@
             "penaltyRough": "Your penalties will sharply worsen in <<var(--red-text-color)|Singularity {{num}}>>.",
             "antiquitiesBought": "<<var(--green-text-color)|Antiquities of Ant God is maxed! Penalties are dispelled!>>",
             "antiquitiesNotBought": "<<var(--red-text-color)|Penalties are active because you have not leveled up Antiquities of Ant God!>>"
-        },
-        "perkNames": {
-            "xyz": "XYZ: Xtra dailY rewardZ",
-            "unlimitedGrowth": "Unlimited growth",
-            "goldenCoins": "Golden coins",
-            "hepteractAutocraft": "Hepteract Autocraft",
-            "generousOrbs": "Generous Orbs",
-            "researchDummies": "Research for Dummies",
-            "sweepomatic": "Automatic Sweep-o-matic Mk.2",
-            "superStart": "Super Start",
-            "notSoChallenging": "Not So Challenging",
-            "automationUpgrades": "Automation Upgrades",
-            "evenMoreQuarks": "Even More Quarks",
-            "shopSpecialOffer": "Shop Special Offer",
-            "potionAutogenerator": "Potion Autogenerator",
-            "respecBeGone": "Respec, be gone!",
-            "forTheLoveOfTheAntGod": "For the love of (the Ant) God!",
-            "itAllAddsUp": "It all adds up",
-            "automagicalRunes": "Automagical Runes",
-            "exaltedAchievements": "EXALT Vault",
-            "derpSmithsCornucopia": "Derpsmith's Cornucopia",
-            "coolQOLCubes": "Cool Qol Cubes",
-            "eternalAscensions": "Eternal Ascensions",
-            "antGodsCornucopia": "Ant God's Cornucopia",
-            "overclocked": "Overclocked",
-            "wowCubeAutomatedShipping": "Wow! Cube Automated Shipping",
-            "congealedblueberries": "Congealed Blueberries",
-            "goldenRevolution": "Golden Revolution",
-            "goldenRevolutionII": "Golden Revolution II",
-            "goldenRevolutionIII": "Golden Revolution III",
-            "platonicClones": "Clones of Platonic Clicking at Your Desktop",
-            "platSigma": "PL-AT Σ",
-            "midasMilleniumAgedGold": "Midas' Millenium-Aged Gold",
-            "goldenRevolution4": "Golden Revolution IV",
-            "octeractMetagenesis": "Octeract Metagenesis",
-            "immaculateAlchemy": "Immaculate Alchemy",
-            "skrauQ": "skrauQ"
         }
     },
     "general": {
@@ -1939,8 +1979,7 @@
             "v297hotfix1NoSing": "You have loaded into the version 2.9.7 hotfix 1!",
             "v297hotfix1Sing": "You have loaded into the version 2.9.7 hotfix 1! Your uncapped resource singularity upgrades have been refunded! Sorry for the inconvenience."
         },
-        "languageChange": "Changing the language requires a reload! Would you like to reload now?",
-        "exportYourGame": "You haven't exported your game in a while, you better export it soon or you could lose it!"
+        "languageChange": "Changing the language requires a reload! Would you like to reload now?"
     },
     "upgrades": {
         "descriptions": {
@@ -2238,6 +2277,10 @@
             "blessings": "Blessings",
             "spirits": "[=-Spirits-=]"
         },
+        "challenges":{
+            "normal": "Normal",
+            "exalt": "EXALT"
+          },
         "cubes": {
             "cubeTributes": "Cube Tributes",
             "tesseract": "Tesseract Gifts",
@@ -2249,8 +2292,7 @@
         },
         "singularity": {
             "perks-penalties": "Perks / Penalties",
-            "octeracts": "Octeracts",
-            "exalt": "EXALT"
+            "octeracts": "Octeracts"
         },
         "settings": {
             "languages": "🌐 Languages 🌐",
@@ -2279,47 +2321,46 @@
     },
     "corruptions": {
         "names": {
-            "1": "Corruption I: Viscosity",
-            "2": "Corruption II: Spacial Dilation",
-            "3": "Corruption III: Hyperchallenged",
-            "4": "Corruption IV: Scientific Illiteracy",
-            "5": "Corruption V: Market Deflation",
-            "6": "Corruption VI: Extinction",
-            "7": "Corruption VII: Drought",
-            "8": "Corruption VIII: Financial Recession"
+            "viscosity": "Viscous Multiplier and Accelerators",
+            "drought": "Less Fruitful Harvests",
+            "deflation": "Crystal Mine Collapse",
+            "extinction": "The Second Meteor",
+            "illiteracy": "Defunded Education",
+            "recession": "Great Depression II",
+            "dilation": "Time Dilation",
+            "hyperchallenge": "The Hyperchallenge Cube"
         },
         "descriptions": {
-            "1": "You feel lethargic across the universe...",
-            "2": "Way to go, Albert.",
-            "3": "What's in a challenge?",
-            "4": "Maybe Albert wouldn't have theorized Dilation after all.",
-            "5": "Diamond Mine destroyed... no more monopolies!",
-            "6": "It killed the dinosaurs too, ya Dingus.",
-            "7": "More like California, am I right?",
-            "8": "Yet another 2020 catastrophe."
+            "viscosity": "You feel lethargic across the universe...",
+            "dilation": "Way to go, Albert.",
+            "hyperchallenge": "What's in a challenge?",
+            "illiteracy": "Maybe Albert wouldn't have theorized Dilation after all.",
+            "deflation": "Diamond Mine destroyed... no more monopolies!",
+            "extinction": "It killed the dinosaurs too, ya Dingus.",
+            "drought": "More like California, am I right?",
+            "recession": "Yet another 2025 catastrophe."
         },
         "currentLevel": {
-            "1": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-            "2": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-            "3": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-            "4": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-            "5": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-            "6": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
-            "7": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-            "8": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+            "viscosity": "On this Ascension, this corruption is level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
+            "dilation": "On this Ascension, this corruption is level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+            "hyperchallenge": "On this Ascension, this corruption is level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+            "illiteracy": "On this Ascension, this corruption is level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+            "deflation": "On this Ascension, this corruption is level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+            "extinction": "On this Ascension, this corruption is level {{ level }}. Effect: Ant Production ^{{ effect }}",
+            "drought": "On this Ascension, this corruption is level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+            "recession": "On this Ascension, this corruption is level {{ level }}. Effect: Coin Gain ^{{ effect }}"
         },
         "prototypeLevel": {
-            "1": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
-            "2": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
-            "3": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
-            "4": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
-            "5": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
-            "6": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
-            "7": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
-            "8": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
+            "viscosity": "On next Ascension, this corruption will be level {{ level }}. Effect: Free Accel. and Multipliers Exponent ^{{ effect }}",
+            "dilation": "On next Ascension, this corruption will be level {{ level }}. Effect: Time Speed is divided by {{ effect }}",
+            "hyperchallenge": "On next Ascension, this corruption will be level {{ level }}. Effect: Challenge Exponent Reqs. x{{ effect }}",
+            "illiteracy": "On next Ascension, this corruption will be level {{ level }}. Effect: Obtainium gain ^{{ effect }}",
+            "deflation": "On next Ascension, this corruption will be level {{ level }}. Effect: Diamond gain ^{{ effect }}",
+            "extinction": "On next Ascension, this corruption will be level {{ level }}. Effect: Ant Production ^{{ effect }}",
+            "drought": "On next Ascension, this corruption will be level {{ level }}. Effect: Offering EXP divided by {{ effect }}",
+            "recession": "On next Ascension, this corruption will be level {{ level }}. Effect: Coin Gain ^{{ effect }}"
         },
         "scoreMultiplier": "Current Score Multiplier: {{ curr }} / Next Ascension Score Multiplier: {{ next }}",
-        "spiritEffect": "This corruption gives Rune Spirit Effect +{{curr}}% / Next Ascension Rune Spirit Effect +{{next}}%",
         "exitCorruption": {
             "name": "CLEANSE THE CORRUPTION",
             "description": "Free this world of sin.",
@@ -2817,26 +2858,55 @@
         "data": {
             "noSingularityUpgrades": {
                 "name": "No Singularity Upgrades",
-                "description": "Simply put, you have to beat the target singularity without (most) Singularity Upgrades. Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
-                "rewardDescription": "Each completion increases cube gain of every dimension by 50%! First completion gives +12% Golden Quarks. 20th awards something `special` ;)"
+                "description": "Simply put, you have to beat the target singularity without (most) Singularity Upgrades.<br/>Octeracts, Perks and Quality of Life Singularity Upgrades are preserved.",
+                "ScalingReward1":"+50% increase to <<yellow|ALL Cube>> gain",
+                "UniqueReward1":"1st - +12% <<gold|Golden Quarks>>!",
+                "UniqueReward2":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
+                "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!",
+                "UniqueReward4":"30th - +6% <<lime|&#9752 Ambrosia Luck>> for free!",
+                "UniqueReward5":"30th - A new <<orchid|Quark Shop>> upgrade for NOT FREE!"
             },
             "oneChallengeCap": {
                 "name": "One Challenge Caps",
                 "description": "Beat the target Singularity, but the first 14 Challenges have cap of only 1!",
-                "rewardDescription": "Each completion increases Corruption Multiplier Values by 0.03, no matter what. First Completion gives +3 to Reincarnation Challenge Cap. 20th completion grants +1 free Corruption level!"
+                "ScalingReward1":"+0.03 increase to <<var(--red-text-color)|Corrupt Multiplier>> values",
+                "ScalingReward2":"+1% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+                "UniqueReward1":"1st - +3 <<green|Reincarnation Challenge>> Cap!",
+                "UniqueReward2":"20th - +1 Free <<var(--red-text-color)|Corruption Level>>",
+                "UniqueReward3":"20th - A new <<orchid|Quark Shop>> upgrade!"
             },
             "noOcteracts": {
                 "name": "No Octeract Effects",
-                "description": "Beat the target Singularity, but octeracts and their upgrades do nothing! Effective Singularity is also much higher based on tier.",
-                "rewardDescription": "Each completion increases Octeract to Cube Bonus power by 0.02 (BASE: 2.00). First completion adds a bonus to Offerings based on Octeracts. Final completion adds a bonus to Obtainium based on Octeracts."
+                "description": "Beat the target Singularity, but octeracts and their upgrades do nothing!<br/>Effective Singularity is also much higher based on tier.",
+                "ScalingReward1":"+0.02 increase to <<var(--lightseagreen-text-color)|OCTERACT to CUBE>> bonus power (Base: 2.00)",
+                "UniqueReward1":"1st - A bonus to <<Gold|Offerings>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
+                "UniqueReward2":"10th - A bonus to <<steelblue|Obtainium>> based on <<var(--lightseagreen-text-color)|Octeracts>>!",
+                "UniqueReward3":"10th - A new <<orchid|Quark Shop>> upgrade!"
             },
             "limitedAscensions": {
                 "name": "Twenty Ascensions Challenge",
-                "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs! Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
-                "rewardDescription": "Each completion grants 0.1% Ascension Speed per completion per digit in your Ascension count! First completion doubles the cap of all hepteract. Final completion adds another calculator in the shop!"
+                "description": "Derpsmith put an embargo on Ascensions. Only (20 - completions) are allowed throughout the entire Singularity, before Ascensions trigger massive debuffs!<br/>Ascension Count Multiplier is hardcapped at 1. Oh and Delta is disabled. Ha.",
+                "ScalingReward1":"<<orange|+0.1% Ascension Speed>> per Digit in your <<orange|Ascension Count!>>",
+                "UniqueReward1":"1st - Permanently double the cap of <<Pink|all Hepteracts>> for free!!! (This is really good!)",
+                "UniqueReward2":"20th - A bonus to <<Yellow|Cubes>>, <<steelblue|Obtainium>> & <<Gold|Offerings>> while in an EXALT! (Based on that Exalts total completions!)",
+                "UniqueReward3":"25th - A new <<orchid|Quark Shop>> Calculator, amazing!"
+            },
+            "noAmbrosiaUpgrades": {
+                "name": "No Ambrosia Upgrades",
+                "description": "Gold Guy has lost his muster (and yes, that's his name!) and needs your help.<br/>Clear the Singularity without any effects from Ambrosia or Ambrosia-Tier Upgrades!",
+                "ScalingReward1":"+15 & +0.5% <<lime|&#9752 Ambrosia Luck>>",
+                "ScalingReward2":"+2% <<var(--blueberry-box-color)|Blueberry Generation>> Speed",
+                "UniqueReward1":"1st - A free <<var(--blueberry-box-color)|Blueberry>>!",
+                "UniqueReward2":"1st - +1 <<var(--amber-text-color)|Ambrosia>> every time <<var(--amber-text-color)|Ambrosia>> is gained!",
+                "UniqueReward3":"10th - Another free <<var(--blueberry-box-color)|Blueberry>>!!!",
+                "UniqueReward4":"15th - A new <<orchid|Quark Shop>> upgrade!",
+                "UniqueReward5":"20th - A THIRD FREE <<var(--blueberry-box-color)|BLUEBERRY>>?!?!",
+                "UniqueReward6":"20th - An <<gold|ULTRA Quark Shop>> upgrade!"
             }
         },
-        "intro": "Do you have what it takes to earn EXALT from Ant God?"
+        "intro": "Do you have what it takes to earn EXALT from Ant God?",
+        "ScalingHeader": "Scaling Effects (Per Completion)",
+        "UniqueHeader": "Unique Effects (On Completion #)"
     },
     "settings": {
         "confirmationTitle": "Confirmation Toggles",

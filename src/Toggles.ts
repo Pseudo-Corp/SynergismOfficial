@@ -3,11 +3,12 @@ import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateRuneLevels } from './Calculate'
 import { getChallengeConditions } from './Challenges'
-import { corruptionDisplay, corruptionLoadoutTableUpdate, maxCorruptionLevel } from './Corruptions'
+import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } from './Corruptions'
+import { renderCaptcha } from './Login'
 import { autoResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { format, player, resetCheck } from './Synergism'
-import { subTabsInMainTab, Tabs } from './Tabs'
+import { getActiveSubTab, subTabsInMainTab, Tabs } from './Tabs'
 import type { BuildingSubtab, Player } from './types/Synergism'
 import { Alert, Prompt, showCorruptionStatsLoadouts, updateChallengeDisplay } from './UpdateHTML'
 import { visualUpdateAmbrosia, visualUpdateCubes, visualUpdateOcteracts } from './UpdateVisuals'
@@ -49,7 +50,7 @@ export const toggleSettings = (toggle: HTMLElement) => {
 }
 
 export const toggleChallenges = (i: number, auto = false) => {
-  if ((i <= 5)) {
+  if (i >= 0 && i <= 5) {
     if (player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2) {
       player.currentChallenge.transcension = i
       reset('transcensionChallenge', false, 'enterChallenge')
@@ -59,7 +60,7 @@ export const toggleChallenges = (i: number, auto = false) => {
       resetrepeat('transcensionChallenge')
     }
   }
-  if ((i >= 6 && i < 11)) {
+  if (i >= 6 && i <= 10) {
     if (player.currentChallenge.ascension !== 15 || player.ascensionCounter >= 2) {
       player.currentChallenge.reincarnation = i
       reset('reincarnationChallenge', false, 'enterChallenge')
@@ -70,7 +71,7 @@ export const toggleChallenges = (i: number, auto = false) => {
     }
   }
   if (
-    i >= 11
+    (i >= 11 && i <= 15) && (i === 11 ? player.achievements[141] === 1 : player.highestchallengecompletions[i - 1] > 0)
     && ((!auto && !player.toggles[31]) || player.challengecompletions[10] > 0
       || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0
         && player.currentChallenge.ascension === 0))
@@ -340,62 +341,70 @@ export const toggleAutoBuyFragment = () => {
 
 export const toggleBuildingScreen = (input: string) => {
   G.buildingSubTab = input as BuildingSubtab
-  const screen: Record<string, { screen: string; button: string; subtabNumber: number }> = {
+  const screen: Record<string, { screen: string; button: string; subtab: number }> = {
     coin: {
       screen: 'coinBuildings',
       button: 'switchToCoinBuilding',
-      subtabNumber: 0
+      subtab: 0
     },
     diamond: {
       screen: 'prestige',
       button: 'switchToDiamondBuilding',
-      subtabNumber: 1
+      subtab: 1
     },
     mythos: {
       screen: 'transcension',
       button: 'switchToMythosBuilding',
-      subtabNumber: 2
+      subtab: 2
     },
     particle: {
       screen: 'reincarnation',
       button: 'switchToParticleBuilding',
-      subtabNumber: 3
+      subtab: 3
     },
     tesseract: {
       screen: 'ascension',
       button: 'switchToTesseractBuilding',
-      subtabNumber: 4
+      subtab: 4
     }
   }
 
-  for (const key in screen) {
-    DOMCacheGetOrSet(screen[key].screen).style.display = 'none'
-    DOMCacheGetOrSet(screen[key].button).style.backgroundColor = ''
+  for (const { screen: screenKey } of Object.values(screen)) {
+    DOMCacheGetOrSet(screenKey).style.display = 'none'
   }
   DOMCacheGetOrSet(screen[G.buildingSubTab].screen).style.display = 'flex'
-  DOMCacheGetOrSet(screen[G.buildingSubTab].button).style.backgroundColor = 'crimson'
-  player.subtabNumber = screen[G.buildingSubTab].subtabNumber
+  // player.subtabNumber = screen[G.buildingSubTab].subtabNumber
 }
 
 export const toggleRuneScreen = (indexStr: string) => {
   const index = Number(indexStr)
-  const screens = ['runes', 'talismans', 'blessings', 'spirits']
-  G.runescreen = screens[index - 1]
 
   for (let i = 1; i <= 4; i++) {
     const a = DOMCacheGetOrSet(`toggleRuneSubTab${i}`)
     const b = DOMCacheGetOrSet(`runeContainer${i}`)
     if (i === index) {
       a.style.border = '2px solid gold'
-      a.style.backgroundColor = 'crimson'
       b.style.display = 'flex'
     } else {
       a.style.border = '2px solid silver'
-      a.style.backgroundColor = ''
       b.style.display = 'none'
     }
   }
-  player.subtabNumber = index - 1
+  // player.subtabNumber = index - 1
+}
+
+export const toggleChallengesScreen = (indexStr: string) => {
+  const index = Number(indexStr)
+
+  for (let i = 1; i <= 2; i++) {
+    const b = DOMCacheGetOrSet(`challengesWrapper${i}`)
+    if (i === index) {
+      b.style.display = 'block'
+    } else {
+      b.style.display = 'none'
+    }
+  }
+  // player.subtabNumber = index - 1
 }
 
 export const toggleautofortify = () => {
@@ -447,25 +456,20 @@ export const toggleSaveOff = () => {
 export const toggleSingularityScreen = (indexStr: string) => {
   const index = Number(indexStr)
 
-  for (let i = 1; i <= 5; i++) {
-    const a = DOMCacheGetOrSet(`toggleSingularitySubTab${i}`)
+  for (let i = 1; i <= 4; i++) {
     const b = DOMCacheGetOrSet(`singularityContainer${i}`)
     if (i === index) {
-      a.style.backgroundColor = 'crimson'
       b.style.display = 'block'
     } else {
-      a.style.backgroundColor = ''
       b.style.display = 'none'
     }
   }
 
-  player.subtabNumber = index - 1
+  //  player.subtabNumber = index - 1
 
-  if (player.subtabNumber === 2) {
+  if (getActiveSubTab() === 2) {
     visualUpdateOcteracts()
-  }
-
-  if (player.subtabNumber === 4) {
+  } else if (getActiveSubTab() === 3) {
     visualUpdateAmbrosia()
   }
 }
@@ -493,17 +497,12 @@ interface ChadContributor {
 }
 
 export const setActiveSettingScreen = async (subtab: string) => {
-  const clickedButton =
-    DOMCacheGetOrSet('settings').getElementsByClassName('subtabSwitcher')[0].children[player.subtabNumber]
   const subtabEl = DOMCacheGetOrSet(subtab)
   if (subtabEl.classList.contains('subtabActive')) {
     return
   }
 
-  const switcherEl = clickedButton.parentNode!
-  switcherEl.querySelectorAll('.buttonActive').forEach((b) => b.classList.remove('buttonActive'))
-  clickedButton.classList.add('buttonActive')
-
+  // subtabActive class displays the element; it is invisible by default
   subtabEl.parentNode!.querySelectorAll('.subtabActive').forEach((subtab) => subtab.classList.remove('subtabActive'))
   subtabEl.classList.add('subtabActive')
 
@@ -569,6 +568,8 @@ export const setActiveSettingScreen = async (subtab: string) => {
       const err = e as Error
       credits.appendChild(document.createTextNode(err.toString()))
     }
+  } else if (subtab === 'accountSubTab') {
+    renderCaptcha()
   }
 }
 
@@ -694,9 +695,8 @@ export const toggleCubeSubTab = (indexStr: string) => {
     }
     if (cubeTab.style.display === 'none' && j === i) {
       cubeTab.style.display = 'flex'
-      player.subtabNumber = j - 1
+      // player.subtabNumber = j - 1
     }
-    DOMCacheGetOrSet(`switchCubeSubTab${j}`).style.backgroundColor = i === j ? 'crimson' : ''
   }
 
   visualUpdateCubes()
@@ -901,39 +901,15 @@ export const toggleAutoTesseracts = (i: number) => {
   player.autoTesseracts[i] = !player.autoTesseracts[i]
 }
 
-export const toggleCorruptionLevel = (index: number, value: number) => {
-  const current = player.prototypeCorruptions[index]
-  const maxCorruption = maxCorruptionLevel()
-  if (value > 0 && current < maxCorruption && 0 < index && index <= 9) {
-    player.prototypeCorruptions[index] += Math.min(maxCorruption - current, value)
-  }
-  if (value < 0 && current > 0 && 0 < index && index <= 9) {
-    player.prototypeCorruptions[index] -= Math.min(current, -value)
-  }
-  player.prototypeCorruptions[index] = Math.min(maxCorruption, Math.max(0, player.prototypeCorruptions[index]))
-  if (value === 999 && player.currentChallenge.ascension !== 15) {
-    for (let i = 0; i <= 9; i++) {
-      player.usedCorruptions[i] = 0
-      player.prototypeCorruptions[i] = 0
-      if (i > 1) {
-        corruptionDisplay(i)
-      }
-    }
-
-    corruptionDisplay(G.corruptionTrigger)
-    DOMCacheGetOrSet('corruptionCleanseConfirm').style.visibility = 'hidden'
-
-    if (player.currentChallenge.ascension === 15) {
-      void resetCheck('ascensionChallenge', false, true)
-    }
-  }
-  corruptionDisplay(index)
-  corruptionLoadoutTableUpdate()
+export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number) => {
+  player.corruptions.next.incrementDecrementLevel(corr, value)
+  corruptionDisplay(corr)
+  corruptionLoadoutTableUpdate(true, 0)
 }
 
 export const toggleCorruptionLoadoutsStats = (statsStr: string) => {
   const stats = statsStr === 'true'
-  player.corruptionShowStats = stats
+  player.corruptions.showStats = stats
   showCorruptionStatsLoadouts()
 }
 

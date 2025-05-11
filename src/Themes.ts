@@ -362,8 +362,8 @@ export const toggleIconSet = (changeTo = player.iconSet) => {
 
 // If no image is found falls back to designated fallback, then Legacy, then MISSINGIMAGE.png
 // MISSINGIMAGE.png(s) will not be replaced except on a full page reload
-export function imgErrorHandler (evt: ErrorEvent) {
-  console.log('error: ', evt.error)
+export function imgErrorHandler (evt: ErrorEvent | Event) {
+  if (evt instanceof ErrorEvent) console.log('error: ', evt.error)
 
   if (!evt.target || !(evt.target instanceof HTMLImageElement)) {
     return

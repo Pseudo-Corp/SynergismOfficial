@@ -9,6 +9,52 @@ import { toggleAutoChallengeModeText, toggleChallenges } from './Toggles'
 import { productContents } from './Utility'
 import { Globals as G } from './Variables'
 
+export type Challenge15Rewards =
+  | 'cube1'
+  | 'ascensions'
+  | 'coinExponent'
+  | 'taxes'
+  | 'obtainium'
+  | 'offering'
+  | 'accelerator'
+  | 'multiplier'
+  | 'runeExp'
+  | 'runeBonus'
+  | 'cube2'
+  | 'transcendChallengeReduction'
+  | 'reincarnationChallengeReduction'
+  | 'antSpeed'
+  | 'bonusAntLevel'
+  | 'cube3'
+  | 'talismanBonus'
+  | 'globalSpeed'
+  | 'blessingBonus'
+  | 'constantBonus'
+  | 'cube4'
+  | 'spiritBonus'
+  | 'score'
+  | 'quarks'
+  | 'hepteractsUnlocked'
+  | 'challengeHepteractUnlocked'
+  | 'cube5'
+  | 'powder'
+  | 'abyssHepteractUnlocked'
+  | 'exponent'
+  | 'acceleratorHepteractUnlocked'
+  | 'acceleratorBoostHepteractUnlocked'
+  | 'multiplierHepteractUnlocked'
+  | 'freeOrbs'
+  | 'ascensionSpeed'
+
+export type Challenge15RewardsInformation = {
+  value: number
+  baseValue: number
+  requirement: number
+  HTMLColor?: string
+}
+
+export type Challenge15RewardObject = Record<Challenge15Rewards, Challenge15RewardsInformation>
+
 export const getMaxChallenges = (i: number) => {
   let maxChallenge = 0
   // Transcension Challenges
@@ -55,6 +101,7 @@ export const getMaxChallenges = (i: number) => {
     maxChallenge += 2 * +player.singularityUpgrades.singChallengeExtension3.getEffect().bonus
 
     maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.capIncrease
+    maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.reinCapIncrease2
     return maxChallenge
   }
   // Ascension Challenge
@@ -84,6 +131,7 @@ export const getMaxChallenges = (i: number) => {
     maxChallenge += +player.singularityUpgrades.singChallengeExtension.getEffect().bonus
     maxChallenge += +player.singularityUpgrades.singChallengeExtension2.getEffect().bonus
     maxChallenge += +player.singularityUpgrades.singChallengeExtension3.getEffect().bonus
+    maxChallenge += +player.singularityChallenges.oneChallengeCap.rewards.ascCapIncrease2
     return maxChallenge
   }
 
@@ -150,7 +198,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
   const n = DOMCacheGetOrSet('challengeCurrent3')
 
   if (i === G.challengefocus) {
-    const completions = `${player.challengecompletions[i]}/${format(maxChallenges)}`
+    const completions = `${format(player.challengecompletions[i])}/${format(maxChallenges)}`
     const special = (i >= 6 && i <= 10) || i === 15
     const goal = format(challengeRequirement(i, player.challengecompletions[i], special ? i : 0))
 
@@ -166,6 +214,7 @@ export const challengeDisplay = (i: number, changefocus = true) => {
       }
       case 2: {
         current1 = current2 = format(5 * CalcECC('transcend', player.challengecompletions[2]))
+        current3 = format(0.25 * CalcECC('transcend', player.challengecompletions[2]))
         break
       }
       case 3: {
@@ -405,7 +454,7 @@ export const calculateChallengeRequirementMultiplier = (
 ) => {
   let requirementMultiplier = Math.max(
     1,
-    G.hyperchallengedMultiplier[player.usedCorruptions[4]] / (1 + player.platonicUpgrades[8] / 2.5)
+    G.hyperchallengeMultiplier[player.corruptions.used.hyperchallenge] / (1 + player.platonicUpgrades[8] / 2.5)
   )
   if (type === 'ascension') {
     // Normalize back to 1 if looking at ascension challenges in particular.
@@ -413,7 +462,7 @@ export const calculateChallengeRequirementMultiplier = (
   }
   switch (type) {
     case 'transcend':
-      requirementMultiplier *= G.challenge15Rewards.transcendChallengeReduction
+      requirementMultiplier *= G.challenge15Rewards.transcendChallengeReduction.value
       ;(completions >= 75)
         ? requirementMultiplier *= Math.pow(1 + completions, 12) / Math.pow(75, 8)
         : requirementMultiplier *= Math.pow(1 + completions, 2)
@@ -481,7 +530,7 @@ export const calculateChallengeRequirementMultiplier = (
       if (completions < 25) {
         requirementMultiplier *= Math.min(Math.pow(1 + completions, 2), Math.pow(1.3797, completions))
       }
-      requirementMultiplier *= G.challenge15Rewards.reincarnationChallengeReduction
+      requirementMultiplier *= G.challenge15Rewards.reincarnationChallengeReduction.value
       return requirementMultiplier
     case 'ascension':
       if (special !== 15) {
@@ -585,7 +634,7 @@ export const runChallengeSweep = (dt: number) => {
   if (
     autoAscensionChallengeSweepUnlock() && player.currentChallenge.ascension === 15
     && player.shopUpgrades.challenge15Auto === 0
-    && (action === 'start' || action === 'enter') && player.autoAscend && player.challengecompletions[11] > 0
+    && (action === 'start' || action === 'enter') && player.autoAscend && player.highestchallengecompletions[11] > 0
     && player.cubeUpgrades[10] > 0
     && player.autoAscendMode === 'realAscensionTime'
     && player.ascensionCounterRealReal >= Math.max(0.1, player.autoAscendThreshold - 5)
@@ -701,6 +750,7 @@ export const autoAscensionChallengeSweepUnlock = () => {
 
 export const challenge15ScoreMultiplier = () => {
   const arr = [
+    player.campaigns.c15Bonus, // Campaign Bonus to c15
     1 + 5 / 10000 * hepteractEffective('challenge'), // Challenge Hepteract
     1 + 0.25 * player.platonicUpgrades[15] // Omega Upgrade
   ]

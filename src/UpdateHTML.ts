@@ -2,23 +2,32 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementaward, totalachievementpoints } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CalcCorruptionStuff, calculateAscensionAcceleration, calculateTimeAcceleration } from './Calculate'
+import {
+  CalcCorruptionStuff,
+  calculateAscensionSpeedMult,
+  calculateGlobalSpeedMult,
+  isIARuneUnlocked,
+  isShopTalismanUnlocked
+} from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { revealCorruptions } from './Corruptions'
+import { initializeCart } from './purchases/CartTab'
 import { autoResearchEnabled } from './Research'
 import { displayRuneInformation } from './Runes'
 import { updateSingularityPenalties, updateSingularityPerks } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
-import { Tabs } from './Tabs'
+import { getActiveSubTab, Tabs } from './Tabs'
 import type { OneToFive, ZeroToFour, ZeroToSeven } from './types/Synergism'
 import {
   visualUpdateAchievements,
   visualUpdateAnts,
   visualUpdateBuildings,
+  visualUpdateCampaign,
   visualUpdateChallenges,
   visualUpdateCorruptions,
   visualUpdateCubes,
   visualUpdateEvent,
+  visualUpdatePurchase,
   visualUpdateResearch,
   visualUpdateRunes,
   visualUpdateSettings,
@@ -30,48 +39,34 @@ import { createDeferredPromise } from './Utility'
 import { Globals as G } from './Variables'
 
 export const revealStuff = () => {
-  const example = document.getElementsByClassName('coinunlock1') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example.length; i++) {
-    example[i].style.display = player.unlocks.coinone ? 'block' : 'none'
-  }
-
-  const example2 = document.getElementsByClassName('coinunlock2') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example2.length; i++) {
-    example2[i].style.display = player.unlocks.cointwo ? 'block' : 'none'
-  }
-
-  const example3 = document.getElementsByClassName('coinunlock3') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example3.length; i++) {
-    example3[i].style.display = player.unlocks.cointhree ? 'block' : 'none'
-  }
-
-  const example4 = document.getElementsByClassName('coinunlock4') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example4.length; i++) {
-    example4[i].style.display = player.unlocks.coinfour ? 'block' : 'none'
-  }
+  document.documentElement.dataset.coinOne = player.unlocks.coinone ? 'true' : 'false'
+  document.documentElement.dataset.coinTwo = player.unlocks.cointwo ? 'true' : 'false'
+  document.documentElement.dataset.coinThree = player.unlocks.cointhree ? 'true' : 'false'
+  document.documentElement.dataset.coinFour = player.unlocks.coinfour ? 'true' : 'false'
 
   const example5 = document.getElementsByClassName('prestigeunlock') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example5.length; i++) {
-    const parent = example5[i].parentElement!
-    if (parent.classList.contains('offlineStats')) {
+    const parent = example5[i].parentElement
+    if (parent?.classList.contains('offlineStats')) {
       example5[i].style.display = player.unlocks.prestige ? 'flex' : 'none'
+      example5[i].setAttribute('aria-disabled', `${!player.unlocks.prestige}`)
     } else {
       example5[i].style.display = player.unlocks.prestige ? 'block' : 'none'
+      example5[i].setAttribute('aria-disabled', `${!player.unlocks.prestige}`)
     }
   }
 
-  const example6 = document.getElementsByClassName('generationunlock') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example6.length; i++) {
-    example6[i].style.display = player.unlocks.generation ? 'block' : 'none'
-  }
+  document.documentElement.dataset.generationUnlock = player.unlocks.generation ? 'true' : 'false'
 
   const example7 = document.getElementsByClassName('transcendunlock') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example7.length; i++) {
     const parent = example7[i].parentElement!
     if (parent.classList.contains('offlineStats')) {
       example7[i].style.display = player.unlocks.transcend ? 'flex' : 'none'
+      example7[i].setAttribute('aria-disabled', `${!player.unlocks.transcend}`)
     } else {
       example7[i].style.display = player.unlocks.transcend ? 'block' : 'none'
+      example7[i].setAttribute('aria-disabled', `${!player.unlocks.transcend}`)
     }
   }
 
@@ -80,180 +75,91 @@ export const revealStuff = () => {
     const parent = example8[i].parentElement!
     if (parent.classList.contains('offlineStats')) {
       example8[i].style.display = player.unlocks.reincarnate ? 'flex' : 'none'
+      example8[i].setAttribute('aria-disabled', `${!player.unlocks.reincarnate}`)
     } else {
       example8[i].style.display = player.unlocks.reincarnate ? 'block' : 'none'
+      example8[i].setAttribute('aria-disabled', `${!player.unlocks.reincarnate}`)
     }
   }
 
   const example9 = document.getElementsByClassName('auto') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example9.length; i++) {
     example9[i].style.display = 'none'
+    example9[i].setAttribute('aria-disabled', 'true')
   }
 
-  const example10 = document.getElementsByClassName('reinrow1') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example10.length; i++) {
-    player.researches[47] === 1 ? example10[i].style.display = 'block' : example10[i].style.display = 'none'
-  }
+  document.documentElement.dataset.reincarnationOne = player.researches[47] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.reincarnationTwo = player.researches[48] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.reincarnationThree = player.researches[49] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.reincarnationFour = player.researches[50] === 1 ? 'true' : 'false'
 
-  const example11 = document.getElementsByClassName('reinrow2') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example11.length; i++) {
-    player.researches[48] === 1 ? example11[i].style.display = 'block' : example11[i].style.display = 'none'
-  }
-
-  const example12 = document.getElementsByClassName('reinrow3') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example12.length; i++) {
-    player.researches[49] === 1 ? example12[i].style.display = 'block' : example12[i].style.display = 'none'
-  }
-
-  const example13 = document.getElementsByClassName('reinrow4') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example13.length; i++) {
-    player.researches[50] === 1 ? example13[i].style.display = 'block' : example13[i].style.display = 'none'
-  }
-
-  const example14 = document.getElementsByClassName('chal6') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example14.length; i++) {
-    player.achievements[113] === 1 ? example14[i].style.display = 'block' : example14[i].style.display = 'none'
-  }
-
-  const example15 = document.getElementsByClassName('chal7') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example15.length; i++) {
-    player.achievements[120] === 1 ? example15[i].style.display = 'block' : example15[i].style.display = 'none'
-  }
-
-  const example16 = document.getElementsByClassName('chal7x10') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example16.length; i++) {
-    player.achievements[124] === 1 ? example16[i].style.display = 'block' : example16[i].style.display = 'none'
-  }
+  document.documentElement.dataset.chal6 = player.achievements[113] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.chal7 = player.achievements[120] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.chal7x10 = player.achievements[124] === 1 ? 'true' : 'false'
 
   const example17 = document.getElementsByClassName('chal8') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example17.length; i++) {
     const parent = example17[i].parentElement!
     if (parent.classList.contains('offlineStats')) {
       example17[i].style.display = player.achievements[127] === 1 ? 'flex' : 'none'
+      example17[i].setAttribute('aria-disabled', `${player.achievements[127] !== 1}`)
     } else {
       example17[i].style.display = player.achievements[127] === 1 ? 'block' : 'none'
+      example17[i].setAttribute('aria-disabled', `${player.achievements[127] !== 1}`)
     }
   }
 
-  const example18 = document.getElementsByClassName('chal9') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example18.length; i++) {
-    player.achievements[134] === 1 ? example18[i].style.display = 'block' : example18[i].style.display = 'none'
-  }
-
-  const example19 = document.getElementsByClassName('chal9x1') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example19.length; i++) {
-    player.highestchallengecompletions[9] > 0
-      ? example19[i].style.display = 'block'
-      : example19[i].style.display = 'none'
-  }
-
-  const example20 = document.getElementsByClassName('chal10') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example20.length; i++) {
-    player.achievements[141] === 1 ? example20[i].style.display = 'block' : example20[i].style.display = 'none'
-  }
+  document.documentElement.dataset.chal9 = player.achievements[134] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.chal9x1 = player.highestchallengecompletions[9] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.chal10 = player.achievements[141] === 1 ? 'true' : 'false'
 
   const example21 = document.getElementsByClassName('ascendunlock') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example21.length; i++) {
     const parent = example21[i].parentElement!
     if (parent.classList.contains('offlineStats')) {
       example21[i].style.display = player.ascensionCount > 0 ? 'flex' : 'none'
+      example21[i].setAttribute('aria-disabled', `${player.ascensionCount <= 0}`)
     } else {
       example21[i].style.display = player.ascensionCount > 0 ? 'block' : 'none'
+      example21[i].setAttribute('aria-disabled', `${player.ascensionCount <= 0}`)
     }
   }
 
-  const example22 = document.getElementsByClassName('chal11') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example22.length; i++) {
-    player.challengecompletions[11] > 0 ? example22[i].style.display = 'block' : example22[i].style.display = 'none'
-  }
+  document.documentElement.dataset.chal11 = player.highestchallengecompletions[11] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.chal12 = player.highestchallengecompletions[12] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.chal13 = player.highestchallengecompletions[13] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.chal14 = player.highestchallengecompletions[14] > 0 ? 'true' : 'false'
 
-  const example23 = document.getElementsByClassName('chal12') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example23.length; i++) {
-    player.challengecompletions[12] > 0 ? example23[i].style.display = 'block' : example23[i].style.display = 'none'
-  }
+  document.documentElement.dataset.ascendUnlock = player.ascensionCount > 0 ? 'true' : 'false'
+  document.documentElement.dataset.prestigeUnlock = player.unlocks.prestige ? 'true' : 'false'
 
-  const example24 = document.getElementsByClassName('chal13') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example24.length; i++) {
-    player.challengecompletions[13] > 0 ? example24[i].style.display = 'block' : example24[i].style.display = 'none'
-  }
+  document.documentElement.dataset.research150 = player.researches[150] > 0 ? 'true' : 'false'
 
-  const example25 = document.getElementsByClassName('chal14') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example25.length; i++) {
-    player.challengecompletions[14] > 0 ? example25[i].style.display = 'block' : example25[i].style.display = 'none'
-  }
+  document.documentElement.dataset.cubeUpgrade10 = player.cubeUpgrades[10] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.cubeUpgrade19 = player.cubeUpgrades[19] > 0 ? 'true' : 'false'
 
-  const example26 = document.getElementsByClassName('ascendunlockib') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example26.length; i++) {
-    example26[i].style.display = player.ascensionCount > 0 ? 'inline-block' : 'none'
-  }
+  document.documentElement.dataset.sacrificeAnts = player.achievements[173] === 1 ? 'true' : 'false'
 
-  const example27 = document.getElementsByClassName('prestigeunlockib') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example27.length; i++) {
-    example27[i].style.display = player.unlocks.prestige ? 'inline-block' : 'none'
-  }
+  document.documentElement.dataset.hepteracts = // Ability to use and gain hepteracts
+    player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement ? 'true' : 'false'
 
-  const example28 = document.getElementsByClassName('research150') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example28.length; i++) {
-    example28[i].style.display = player.researches[150] > 0 ? 'block' : 'none'
-  }
-
-  const example29 = document.getElementsByClassName('cubeUpgrade10') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example29.length; i++) {
-    example29[i].style.display = player.cubeUpgrades[10] > 0 ? 'flex' : 'none'
-  }
-
-  const example30 = document.getElementsByClassName('cubeUpgrade19') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < example30.length; i++) {
-    example30[i].style.display = player.cubeUpgrades[19] > 0 ? 'block' : 'none'
-  }
-
-  const example31 = document.getElementsByClassName('sacrificeAnts') as HTMLCollectionOf<HTMLElement>
-  for (const ex of Array.from(example31)) { // Galactic Crumb Achievement 5
-    ex.style.display = player.achievements[173] === 1 ? 'block' : 'none'
-  }
-
-  const example32 = document.getElementsByClassName('hepteracts') as HTMLCollectionOf<HTMLElement>
-  for (const ex of Array.from(example32)) { // Ability to use and gain hepteracts //
-    ex.style.display = player.challenge15Exponent >= 1e15 ? 'block' : 'none'
-  }
-
-  const singularityHTMLs = document.getElementsByClassName('singularity') as HTMLCollectionOf<HTMLElement>
-  for (const HTML of Array.from(singularityHTMLs)) { // Ability to view singularity features.
-    const count = Number(HTML.getAttribute('count')) || 1
-    HTML.style.display = player.highestSingularityCount >= count ? 'block' : 'none'
-  }
-
-  const eventHTMLs = document.getElementsByClassName('isEvent') as HTMLCollectionOf<HTMLElement>
-  for (const HTML of Array.from(eventHTMLs)) {
-    HTML.style.display = G.isEvent ? 'block' : 'none'
-  }
+  document.documentElement.dataset.singularity = // Ability to view singularity features
+    player.highestSingularityCount >= 1 ? 'true' : 'false'
 
   visualUpdateShop()
 
   const hepts = DOMCacheGetOrSet('corruptionHepteracts')
   hepts.style.display = (player.achievements[255] > 0) ? 'block' : 'none'
 
-  const cookies1 = document.getElementsByClassName('assortedCookies1') as HTMLCollectionOf<HTMLElement>
-  const cookies2 = document.getElementsByClassName('assortedCookies2') as HTMLCollectionOf<HTMLElement>
-  const cookies3 = document.getElementsByClassName('assortedCookies3') as HTMLCollectionOf<HTMLElement>
-  const cookies4 = document.getElementsByClassName('assortedCookies4') as HTMLCollectionOf<HTMLElement>
-  for (const HTML of Array.from(cookies1)) {
-    HTML.style.display = player.singularityUpgrades.cookies.getEffect().bonus ? 'block' : 'none'
-  }
-  for (const HTML of Array.from(cookies2)) {
-    HTML.style.display = player.singularityUpgrades.cookies2.getEffect().bonus ? 'block' : 'none'
-  }
-  for (const HTML of Array.from(cookies3)) {
-    HTML.style.display = player.singularityUpgrades.cookies3.getEffect().bonus ? 'block' : 'none'
-  }
-  for (const HTML of Array.from(cookies4)) {
-    HTML.style.display = player.singularityUpgrades.cookies4.getEffect().bonus ? 'block' : 'none'
-  }
+  document.documentElement.dataset.cookies1 = player.singularityUpgrades.cookies.getEffect().bonus ? 'true' : 'false'
+  document.documentElement.dataset.cookies2 = player.singularityUpgrades.cookies2.getEffect().bonus ? 'true' : 'false'
+  document.documentElement.dataset.cookies3 = player.singularityUpgrades.cookies3.getEffect().bonus ? 'true' : 'false'
+  document.documentElement.dataset.cookies4 = player.singularityUpgrades.cookies4.getEffect().bonus ? 'true' : 'false'
+  document.documentElement.dataset.cookies5 = player.singularityUpgrades.cookies5.getEffect().bonus ? 'true' : 'false'
 
-  const goldenQuarks3 = document.getElementsByClassName('goldenQuark3Upg') as HTMLCollectionOf<HTMLElement>
-  for (const HTML of Array.from(goldenQuarks3)) {
-    HTML.style.display = (player.singularityUpgrades.goldenQuarks3.getEffect().bonus as number) > 0 ? 'block' : 'none'
-  }
+  document.documentElement.dataset.goldenQuark3Upg =
+    (player.singularityUpgrades.goldenQuarks3.getEffect().bonus as number) > 0 ? 'true' : 'false'
+
   if (player.upgrades[89] === 1) {
     DOMCacheGetOrSet('transcendautotoggle').style.display = 'block'
     DOMCacheGetOrSet('transcendamount').style.display = 'block'
@@ -408,7 +314,7 @@ export const revealStuff = () => {
       ? 'block'
       : 'none'
 
-  player.shopUpgrades.shopTalisman > 0 // Plastic Talisman Shop Purchase
+  isShopTalismanUnlocked() // Plastic Talisman Shop Purchase
     ? DOMCacheGetOrSet('talisman7area').style.display = 'flex'
     : DOMCacheGetOrSet('talisman7area').style.display = 'none'
 
@@ -416,7 +322,7 @@ export const revealStuff = () => {
     ? DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = 'block'
     : DOMCacheGetOrSet('reincarnateAutoUpgrade').style.display = 'none'
 
-  if (player.shopUpgrades.infiniteAscent) {
+  if (isIARuneUnlocked()) {
     DOMCacheGetOrSet('rune6area').style.display = 'flex'
     DOMCacheGetOrSet('runeshowpower6').style.display = 'block'
   } else {
@@ -472,7 +378,8 @@ export const revealStuff = () => {
     : (DOMCacheGetOrSet('settingpic6').style.display = 'none')
 
   // Hepteract Confirmations toggle
-  player.highestSingularityCount > 0 && player.challenge15Exponent >= 1e15
+  player.highestSingularityCount > 0
+    && player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
     ? (DOMCacheGetOrSet('heptnotificationpic').style.display = 'block')
     : (DOMCacheGetOrSet('heptnotificationpic').style.display = 'none')
 
@@ -480,7 +387,14 @@ export const revealStuff = () => {
 
   const octeractUnlocks = document.getElementsByClassName('octeracts') as HTMLCollectionOf<HTMLElement>
   for (const item of Array.from(octeractUnlocks)) { // Stuff that you need octeracts to access
-    item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'block' : 'none'
+    const parent = item.parentElement!
+    if (parent.classList.contains('offlineStats')) {
+      item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'flex' : 'none'
+      item.setAttribute('aria-disabled', `${!player.singularityUpgrades.octeractUnlock.getEffect().bonus}`)
+    } else {
+      item.style.display = player.singularityUpgrades.octeractUnlock.getEffect().bonus ? 'block' : 'none'
+      item.setAttribute('aria-disabled', `${!player.singularityUpgrades.octeractUnlock.getEffect().bonus}`)
+    }
   }
 
   const singChallengeUnlocks = document.getElementsByClassName('singChallenges') as HTMLCollectionOf<HTMLElement>
@@ -488,18 +402,43 @@ export const revealStuff = () => {
     item.style.display = player.highestSingularityCount >= 25 ? 'block' : 'none'
   }
 
-  DOMCacheGetOrSet('toggleSingularitySubTab5').style.display =
-    player.singularityChallenges.noSingularityUpgrades.completions >= 1
-      ? 'block'
-      : 'none'
+  const exalt1x1Unlocks = document.getElementsByClassName('Exalt1x1') as HTMLCollectionOf<HTMLElement>
+  for (const item of Array.from(exalt1x1Unlocks)) {
+    const parent = item.parentElement!
+    if (parent.classList.contains('offlineStats')) {
+      item.style.display = player.singularityChallenges.noSingularityUpgrades.completions >= 1 ? 'flex' : 'none'
+      item.setAttribute('aria-disabled', `${player.singularityChallenges.noSingularityUpgrades.completions < 1}`)
+    } else {
+      item.style.visibility = player.singularityChallenges.noSingularityUpgrades.completions >= 1 ? 'visible' : 'hidden'
+      item.setAttribute('aria-disabled', `${player.singularityChallenges.noSingularityUpgrades.completions < 1}`)
+    }
+  }
+
+  const exalt5x1Unlocks = document.getElementsByClassName('Exalt5x1') as HTMLCollectionOf<HTMLElement>
+  for (const item of Array.from(exalt5x1Unlocks)) {
+    const parent = item.parentElement!
+    if (parent.classList.contains('offlineStats')) {
+      item.style.display = player.singularityChallenges.noAmbrosiaUpgrades.completions >= 1 ? 'flex' : 'none'
+      item.setAttribute('aria-disabled', `${player.singularityChallenges.noAmbrosiaUpgrades.completions < 1}`)
+    } else {
+      item.style.visibility = player.singularityChallenges.noAmbrosiaUpgrades.completions >= 1 ? 'visible' : 'hidden'
+      item.setAttribute('aria-disabled', `${player.singularityChallenges.noAmbrosiaUpgrades.completions < 1}`)
+    }
+  }
+
+  DOMCacheGetOrSet('toggleSingularitySubTab4').style.display = player.highestSingularityCount >= 25
+    ? 'block'
+    : 'none'
+  // Hide Challenge Subtabs until Exalts are unlocked
+  DOMCacheGetOrSet('challengesTabsToggle').style.display = player.highestSingularityCount >= 25
+    ? 'flex'
+    : 'none'
 
   player.runelevels[6] > 0 || player.highestSingularityCount > 0
     ? (DOMCacheGetOrSet('singularitybtn').style.display = 'block')
     : (DOMCacheGetOrSet('singularitybtn').style.display = 'none')
 
-  player.highestSingularityCount > 0 && player.ascensionCount >= 1
-    ? (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'block')
-    : (DOMCacheGetOrSet('totalQuarkCountStatisticSing').style.display = 'none')
+  DOMCacheGetOrSet('ascSingChallengeTimeTakenStats').style.display = player.insideSingularityChallenge ? '' : 'none'
 
   DOMCacheGetOrSet('ascensionStats').style.visibility =
     (player.achievements[197] > 0 || player.highestSingularityCount > 0) ? 'visible' : 'hidden'
@@ -552,7 +491,8 @@ export const revealStuff = () => {
     toggle32: player.achievements[173] > 0, // Settings - Confirmations - Ant Sacrifice
     toggle33: player.highestSingularityCount > 0 && player.ascensionCount > 0, // Settings - Confirmations - Singularity
     toggle34: player.unlocks.coinfour, // Achievements - Notifications
-    toggle35: player.challenge15Exponent >= 1e15 && player.highestSingularityCount > 0, // Hepteracts - Notifications
+    toggle35: player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
+      && player.highestSingularityCount > 0, // Hepteracts - Notifications
     toggle36: player.highestSingularityCount >= 15, // Auto Blessings
     toggle37: player.highestSingularityCount >= 15, // Auto Spirits
     toggle38: player.highestSingularityCount > 0, // Researchs Hover to Buy
@@ -597,6 +537,8 @@ export const hideStuff = () => {
   DOMCacheGetOrSet('ants').style.display = 'none'
   DOMCacheGetOrSet('anttab').style.backgroundColor = ''
   DOMCacheGetOrSet('cubetab').style.backgroundColor = ''
+  DOMCacheGetOrSet('campaigntab').style.backgroundColor = ''
+  DOMCacheGetOrSet('campaigns').style.display = 'none'
   DOMCacheGetOrSet('traitstab').style.backgroundColor = ''
   DOMCacheGetOrSet('cubes').style.display = 'none'
   DOMCacheGetOrSet('traits').style.display = 'none'
@@ -604,6 +546,8 @@ export const hideStuff = () => {
   DOMCacheGetOrSet('singularitytab').style.backgroundColor = ''
   DOMCacheGetOrSet('event').style.display = 'none'
   DOMCacheGetOrSet('eventtab').style.backgroundColor = ''
+  document.getElementById('pseudoCoins')?.style.setProperty('display', 'none')
+  DOMCacheGetOrSet('pseudoCoinstab').style.backgroundColor = ''
 
   const tab = DOMCacheGetOrSet('settingstab')!
   tab.style.backgroundColor = ''
@@ -632,6 +576,9 @@ export const hideStuff = () => {
       x: format(player.achievementPoints),
       y: format(totalachievementpoints),
       z: (100 * player.achievementPoints / totalachievementpoints).toPrecision(4)
+    })
+    DOMCacheGetOrSet('achievementQuarkBonus').innerHTML = i18next.t('achievements.quarkBonus', {
+      multiplier: format(1 + player.achievementPoints / 50000, 3, true)
     })
   } else if (G.currentTab === Tabs.Runes) {
     DOMCacheGetOrSet('runes').style.display = 'block'
@@ -668,6 +615,10 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('cubes').style.display = 'flex'
     DOMCacheGetOrSet('cubetab').style.backgroundColor = 'white'
   }
+  if (G.currentTab === Tabs.Campaign) {
+    DOMCacheGetOrSet('campaigns').style.display = 'block'
+    DOMCacheGetOrSet('campaigntab').style.backgroundColor = 'red'
+  }
   if (G.currentTab === Tabs.Corruption) {
     DOMCacheGetOrSet('traits').style.display = 'flex'
     DOMCacheGetOrSet('traitstab').style.backgroundColor = 'white'
@@ -684,6 +635,13 @@ export const hideStuff = () => {
     DOMCacheGetOrSet('event').style.display = 'block'
     DOMCacheGetOrSet('eventtab').style.backgroundColor = 'gold'
   }
+
+  if (G.currentTab === Tabs.Purchase) {
+    initializeCart()
+
+    document.getElementById('pseudoCoins')?.style.setProperty('display', 'unset')
+    DOMCacheGetOrSet('pseudoCoinstab').style.backgroundColor = 'orange'
+  }
 }
 
 const visualTab: Record<Tabs, () => void> = {
@@ -697,9 +655,11 @@ const visualTab: Record<Tabs, () => void> = {
   [Tabs.Shop]: visualUpdateShop,
   [Tabs.AntHill]: visualUpdateAnts,
   [Tabs.WowCubes]: visualUpdateCubes,
+  [Tabs.Campaign]: visualUpdateCampaign,
   [Tabs.Corruption]: visualUpdateCorruptions,
   [Tabs.Singularity]: visualUpdateSingularity,
-  [Tabs.Event]: visualUpdateEvent
+  [Tabs.Event]: visualUpdateEvent,
+  [Tabs.Purchase]: visualUpdatePurchase
 }
 
 export const htmlInserts = () => {
@@ -919,14 +879,14 @@ export const buttoncolorchange = () => {
   }
 
   if (G.currentTab === Tabs.Runes) {
-    if (G.runescreen === 'runes') {
+    if (getActiveSubTab() === 0) {
       for (let i = 1; i <= 7; i++) {
         player.runeshards > 0.5
           ? DOMCacheGetOrSet(`activaterune${i}`).classList.add('runeButtonAvailable')
           : DOMCacheGetOrSet(`activaterune${i}`).classList.remove('runeButtonAvailable')
       }
     }
-    if (G.runescreen === 'talismans') {
+    if (getActiveSubTab() === 1) {
       const a = DOMCacheGetOrSet('buyTalismanItem1')
       const b = DOMCacheGetOrSet('buyTalismanItem2')
       const c = DOMCacheGetOrSet('buyTalismanItem3')
@@ -1009,7 +969,7 @@ export const buttoncolorchange = () => {
       player.antPoints.gte(
           Decimal.pow(
             G.antUpgradeCostIncreases[i - 1],
-            player.antUpgrades[i - 1]! * G.extinctionMultiplier[player.usedCorruptions[10]]
+            player.antUpgrades[i - 1]! * player.corruptions.used.corruptionEffects('extinction')
           ).times(G.antUpgradeBaseCost[i - 1])
         )
         ? DOMCacheGetOrSet(`antUpgrade${i}`).classList.add('antUpgradeBtnAvailable')
@@ -1049,7 +1009,7 @@ export const updateChallengeLevel = (k: number) => {
   const maxChallenges = getMaxChallenges(k)
 
   if (k === 15) {
-    el.textContent = format(player.challenge15Exponent, 0, true)
+    el.textContent = format(player.challenge15Exponent, 0, false)
   } else {
     el.textContent = `${player.challengecompletions[k]}/${maxChallenges}`
   }
@@ -1058,7 +1018,7 @@ export const updateChallengeLevel = (k: number) => {
 export const updateAchievementBG = () => {
   // When loading/importing, the game needs to correctly update achievement backgrounds.
   for (let i = 1; i <= 280; i++) { // Initiates by setting all to default
-    DOMCacheGetOrSet(`ach${i}`).style.backgroundColor = ''
+    DOMCacheGetOrSet(`ach${i}`).classList.remove('green-background')
   }
   const fixDisplay1 = document.getElementsByClassName('purpleach') as HTMLCollectionOf<HTMLElement>
   const fixDisplay2 = document.getElementsByClassName('redach') as HTMLCollectionOf<HTMLElement>
@@ -1076,16 +1036,19 @@ export const updateAchievementBG = () => {
 }
 
 export const showCorruptionStatsLoadouts = () => {
-  if (player.corruptionShowStats) {
+  const statsButton = DOMCacheGetOrSet('corrStatsBtn')
+  const corrLoadoutsButton = DOMCacheGetOrSet('corrLoadoutsBtn')
+
+  if (player.corruptions.showStats) {
     DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
-    DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'dodgerblue'
-    DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'white'
+    statsButton.classList.add('subtab-active')
+    corrLoadoutsButton.classList.remove('subtab-active')
   } else {
     DOMCacheGetOrSet('corruptionStats').style.display = 'none'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'flex'
-    DOMCacheGetOrSet('corrStatsBtn').style.borderColor = 'white'
-    DOMCacheGetOrSet('corrLoadoutsBtn').style.borderColor = 'dodgerblue'
+    statsButton.classList.remove('subtab-active')
+    corrLoadoutsButton.classList.add('subtab-active')
   }
 }
 
@@ -1105,15 +1068,26 @@ const updateAscensionStats = () => {
     ascPlatonic: format(platonic * (player.ascStatToggles[4] ? 1 : 1 / t), 5),
     ascHepteract: format(hepteract * (player.ascStatToggles[5] ? 1 : 1 / t), 3),
     ascC10: `${format(player.challengecompletions[10])}`,
-    ascTimeAccel: `${format(calculateTimeAcceleration().mult, 3)}x`,
-    ascAscensionTimeAccel: `${format(calculateAscensionAcceleration(), 3)}x${addedAsterisk ? '*' : ''}`,
+    ascTimeAccel: `${format(calculateGlobalSpeedMult(), 3)}x`,
+    ascAscensionTimeAccel: `${format(calculateAscensionSpeedMult(), 3)}x${addedAsterisk ? '*' : ''}`,
     ascSingularityCount: format(player.singularityCount),
-    ascSingLen: formatTimeShort(player.singularityCounter)
+    ascSingLen: formatTimeShort(player.singularityCounter),
+    ascSingChallengeLen: formatTimeShort(player.singChallengeTimer)
   }
   for (const key in fillers) {
     const dom = DOMCacheGetOrSet(key)
     if (dom.textContent !== fillers[key]) {
       dom.textContent = fillers[key]
+    }
+    if (key === 'ascSingChallengeLen') {
+      if (
+        player.singularityChallenges.limitedTime.enabled
+        && player.singChallengeTimer > 600 - 20 * player.singularityChallenges.limitedTime.completions
+      ) {
+        dom.style.color = 'red'
+      } else {
+        dom.style.color = 'white'
+      }
     }
   }
 }
@@ -1139,152 +1113,194 @@ export const changeTabColor = () => {
   tab.style.backgroundColor = color
 }
 
-export const Confirm = (text: string): Promise<boolean> => {
-  const conf = DOMCacheGetOrSet('confirmationBox')
-  const confWrap = DOMCacheGetOrSet('confirmWrapper')
-  const popup = DOMCacheGetOrSet('confirm')
-  const overlay = DOMCacheGetOrSet('transparentBG')
-  const ok = DOMCacheGetOrSet('ok_confirm')
-  const cancel = DOMCacheGetOrSet('cancel_confirm')
+class AsyncQueue {
+  #items: {
+    action: () => Promise<unknown>
+    resolve: (value: unknown) => void
+    reject: (err: Error) => void
+  }[] = []
+  #pending = false
 
-  DOMCacheGetOrSet('alertWrapper').style.display = 'none'
-  DOMCacheGetOrSet('promptWrapper').style.display = 'none'
-
-  conf.style.display = 'block'
-  confWrap.style.display = 'block'
-  overlay.style.display = 'block'
-  popup.querySelector('p')!.textContent = text
-  popup.focus()
-
-  const p = createDeferredPromise<boolean>()
-
-  // IF you clean up the typing here also clean up PromptCB
-  const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
-    const targetEl = target as HTMLButtonElement
-    ok.removeEventListener('click', listener)
-    cancel.removeEventListener('click', listener)
-    popup.removeEventListener('keyup', kbListener)
-
-    conf.style.display = 'none'
-    confWrap.style.display = 'none'
-    overlay.style.display = 'none'
-
-    p.resolve(targetEl === ok)
+  enqueue<T> (action: () => Promise<T>): Promise<T> {
+    return new Promise((resolve: (value: unknown) => void, reject) => {
+      this.#items.push({ action, resolve, reject })
+      this.dequeue()
+    }) as Promise<T>
   }
 
-  const kbListener = (e: KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      return listener({ target: ok })
-    } else if (e.key === 'Escape') {
-      return listener({ target: cancel })
+  async dequeue () {
+    if (this.#pending) return false
+
+    const item = this.#items.shift()
+    if (!item) return false
+
+    try {
+      this.#pending = true
+
+      const payload = await item.action()
+      item.resolve(payload)
+    } catch (e) {
+      item.reject(e as Error)
+    } finally {
+      this.#pending = false
+      this.dequeue()
     }
 
-    return e.preventDefault()
+    return true
   }
-
-  ok.addEventListener('click', listener, { once: true })
-  cancel.addEventListener('click', listener, { once: true })
-  popup.addEventListener('keyup', kbListener)
-
-  return p.promise
 }
 
-export const Alert = (text: string): Promise<void> => {
-  const conf = DOMCacheGetOrSet('confirmationBox')
-  const alertWrap = DOMCacheGetOrSet('alertWrapper')
-  const overlay = DOMCacheGetOrSet('transparentBG')
-  const popup = DOMCacheGetOrSet('alert')
-  const ok = DOMCacheGetOrSet('ok_alert')
+const queue = new AsyncQueue()
 
-  DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
-  DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+export const Confirm = async (text: string) =>
+  queue.enqueue(() => {
+    const conf = DOMCacheGetOrSet('confirmationBox')
+    const confWrap = DOMCacheGetOrSet('confirmWrapper')
+    const popup = DOMCacheGetOrSet('confirm')
+    const overlay = DOMCacheGetOrSet('transparentBG')
+    const ok = DOMCacheGetOrSet('ok_confirm')
+    const cancel = DOMCacheGetOrSet('cancel_confirm')
 
-  conf.style.display = 'block'
-  alertWrap.style.display = 'block'
-  overlay.style.display = 'block'
-  popup.querySelector('p')!.textContent = text
-  popup.focus()
+    DOMCacheGetOrSet('alertWrapper').style.display = 'none'
+    DOMCacheGetOrSet('promptWrapper').style.display = 'none'
 
-  const p = createDeferredPromise<void>()
+    conf.style.display = 'block'
+    confWrap.style.display = 'block'
+    overlay.style.display = 'block'
+    popup.querySelector('p')!.textContent = text
+    popup.focus()
 
-  const listener = () => {
-    ok.removeEventListener('click', listener)
-    popup.removeEventListener('keyup', kbListener)
+    const p = createDeferredPromise<boolean>()
 
-    conf.style.display = 'none'
-    alertWrap.style.display = 'none'
-    overlay.style.display = 'none'
-    p.resolve()
-  }
+    // IF you clean up the typing here also clean up PromptCB
+    const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
+      const targetEl = target as HTMLButtonElement
+      ok.removeEventListener('click', listener)
+      cancel.removeEventListener('click', listener)
+      popup.removeEventListener('keyup', kbListener)
 
-  const kbListener = (e: KeyboardEvent) => (e.key === 'Enter' || e.key === ' ') && listener()
+      conf.style.display = 'none'
+      confWrap.style.display = 'none'
+      overlay.style.display = 'none'
 
-  ok.addEventListener('click', listener, { once: true })
-  popup.addEventListener('keyup', kbListener)
-
-  return p.promise
-}
-
-export const Prompt = (text: string, defaultValue?: string): Promise<string | null> => {
-  const conf = DOMCacheGetOrSet('confirmationBox')
-  const confWrap = DOMCacheGetOrSet('promptWrapper')
-  const overlay = DOMCacheGetOrSet('transparentBG')
-  const popup = DOMCacheGetOrSet('prompt')
-  const ok = DOMCacheGetOrSet('ok_prompt')
-  const cancel = DOMCacheGetOrSet('cancel_prompt')
-
-  DOMCacheGetOrSet('alertWrapper').style.display = 'none'
-  DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
-
-  conf.style.display = 'block'
-  confWrap.style.display = 'block'
-  overlay.style.display = 'block'
-  popup.querySelector('label')!.textContent = text
-  if (defaultValue) {
-    popup.querySelector('input')!.placeholder = defaultValue
-  }
-  popup.querySelector('input')!.focus()
-
-  const p = createDeferredPromise<string | null>()
-
-  // kinda disgusting types but whatever
-  const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
-    const targetEl = target as HTMLButtonElement
-    const el = targetEl.parentNode!.querySelector('input')!
-
-    ok.removeEventListener('click', listener)
-    cancel.removeEventListener('click', listener)
-    popup.querySelector('input')!.removeEventListener('keyup', kbListener)
-
-    conf.style.display = 'none'
-    confWrap.style.display = 'none'
-    overlay.style.display = 'none'
-
-    p.resolve(targetEl.id === ok.id ? el.value || el.placeholder : null)
-
-    el.value = el.textContent = el.placeholder = ''
-    popup.querySelector('input')!.blur()
-  }
-
-  const kbListener = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      return listener({ target: ok })
-    } else if (e.key === 'Escape') {
-      return listener({ target: cancel })
+      p.resolve(targetEl === ok)
     }
 
-    return e.preventDefault()
-  }
+    const kbListener = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        return listener({ target: ok })
+      } else if (e.key === 'Escape') {
+        return listener({ target: cancel })
+      }
 
-  ok.addEventListener('click', listener, { once: true })
-  cancel.addEventListener('click', listener, { once: true })
-  popup.querySelector('input')!.addEventListener('keyup', kbListener)
+      return e.preventDefault()
+    }
 
-  return p.promise
-}
+    ok.addEventListener('click', listener, { once: true })
+    cancel.addEventListener('click', listener, { once: true })
+    popup.addEventListener('keyup', kbListener)
 
-let closeNotification: ReturnType<typeof setTimeout>
-let closedNotification: ReturnType<typeof setTimeout>
+    return p.promise
+  })
+
+export const Alert = (text: string): Promise<void> =>
+  queue.enqueue(() => {
+    const conf = DOMCacheGetOrSet('confirmationBox')
+    const alertWrap = DOMCacheGetOrSet('alertWrapper')
+    const overlay = DOMCacheGetOrSet('transparentBG')
+    const popup = DOMCacheGetOrSet('alert')
+    const ok = DOMCacheGetOrSet('ok_alert')
+
+    DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
+    DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+
+    conf.style.display = 'block'
+    alertWrap.style.display = 'block'
+    overlay.style.display = 'block'
+    popup.querySelector('p')!.innerHTML = text
+    popup.focus()
+
+    const p = createDeferredPromise<void>()
+
+    const listener = () => {
+      ok.removeEventListener('click', listener)
+      popup.removeEventListener('keyup', kbListener)
+
+      conf.style.display = 'none'
+      alertWrap.style.display = 'none'
+      overlay.style.display = 'none'
+      p.resolve()
+    }
+
+    const kbListener = (e: KeyboardEvent) => (e.key === 'Enter' || e.key === ' ') && listener()
+
+    ok.addEventListener('click', listener, { once: true })
+    popup.addEventListener('keyup', kbListener)
+
+    return p.promise
+  })
+
+export const Prompt = (text: string, defaultValue?: string): Promise<string | null> =>
+  queue.enqueue(() => {
+    const conf = DOMCacheGetOrSet('confirmationBox')
+    const confWrap = DOMCacheGetOrSet('promptWrapper')
+    const overlay = DOMCacheGetOrSet('transparentBG')
+    const popup = DOMCacheGetOrSet('prompt')
+    const ok = DOMCacheGetOrSet('ok_prompt')
+    const cancel = DOMCacheGetOrSet('cancel_prompt')
+
+    DOMCacheGetOrSet('alertWrapper').style.display = 'none'
+    DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
+
+    conf.style.display = 'block'
+    confWrap.style.display = 'block'
+    overlay.style.display = 'block'
+    popup.querySelector('label')!.textContent = text
+    if (defaultValue) {
+      popup.querySelector('input')!.placeholder = defaultValue
+    }
+    popup.querySelector('input')!.focus()
+
+    const p = createDeferredPromise<string | null>()
+
+    // kinda disgusting types but whatever
+    const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
+      const targetEl = target as HTMLButtonElement
+      const el = targetEl.parentNode!.querySelector('input')!
+
+      ok.removeEventListener('click', listener)
+      cancel.removeEventListener('click', listener)
+      popup.querySelector('input')!.removeEventListener('keyup', kbListener)
+
+      conf.style.display = 'none'
+      confWrap.style.display = 'none'
+      overlay.style.display = 'none'
+
+      p.resolve(targetEl.id === ok.id ? el.value || el.placeholder : null)
+
+      el.value = el.textContent = el.placeholder = ''
+      popup.querySelector('input')!.blur()
+    }
+
+    const kbListener = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        return listener({ target: ok })
+      } else if (e.key === 'Escape') {
+        return listener({ target: cancel })
+      }
+
+      return e.preventDefault()
+    }
+
+    ok.addEventListener('click', listener, { once: true })
+    cancel.addEventListener('click', listener, { once: true })
+    popup.querySelector('input')!.addEventListener('keyup', kbListener)
+
+    return p.promise
+  })
+
+let closeNotification: number
+let closedNotification: number
 
 export const Notification = (text: string, time = 30000): Promise<void> => {
   const notification = DOMCacheGetOrSet('notification')
@@ -1310,7 +1326,7 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
 
     closeNotification = 0
     x.removeEventListener('click', close)
-    closedNotification = setTimeout(closed, 1000)
+    closedNotification = +setTimeout(closed, 1000)
     p.resolve()
   }
 
@@ -1321,7 +1337,7 @@ export const Notification = (text: string, time = 30000): Promise<void> => {
   clearTimeout(closedNotification)
 
   // automatically close out after <time> ms
-  closeNotification = setTimeout(close, time)
+  closeNotification = +setTimeout(close, time)
 
   return p.promise
 }

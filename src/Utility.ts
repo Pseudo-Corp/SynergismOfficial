@@ -142,6 +142,25 @@ export const formatS = (s: number) => {
   return formatMS(1000 * s)
 }
 
+export const addLeadingZero = (n: number): string => {
+  return n < 10 ? `0${n}` : String(n)
+}
+
+export const timeReminingHours = (targetDate: Date): string => {
+  const now = new Date()
+  const timeDifference = targetDate.getTime() - now.getTime()
+
+  if (timeDifference < 0) {
+    return '--:--:--'
+  }
+
+  const hours = addLeadingZero(Math.floor(timeDifference / (1000 * 60 * 60)))
+  const minutes = addLeadingZero(Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)))
+  const seconds = addLeadingZero(Math.floor((timeDifference % (1000 * 60)) / 1000))
+
+  return `${hours}:${minutes}:${seconds}`
+}
+
 export const cleanString = (s: string): string => {
   let cleaned = ''
 
@@ -154,9 +173,9 @@ export const cleanString = (s: string): string => {
   return cleaned
 }
 
-export function assert (condition: unknown): asserts condition {
+export function assert (condition: unknown, message?: string): asserts condition {
   if (!condition) {
-    throw new TypeError('assertion failed')
+    throw new TypeError('assertion failed', { cause: new TypeError(message) })
   }
 }
 
@@ -170,7 +189,13 @@ export function limitRange (number: number, min: number, max: number): number {
   return number
 }
 
-export const createDeferredPromise = <T>() => {
+export interface DeferredPromise<T> {
+  promise: Promise<T>
+  resolve: (value: T) => void
+  reject: (err: Error) => void
+}
+
+export const createDeferredPromise = <T>(): DeferredPromise<T> => {
   let resolve!: (unknown: T) => void
   let reject!: (err: Error) => void
 
@@ -180,4 +205,52 @@ export const createDeferredPromise = <T>() => {
   })
 
   return { resolve, reject, promise }
+}
+
+export function memoize<Args extends unknown[], Ret> (fn: (...args: Args) => Ret) {
+  let ran = false
+  let ret: Ret
+
+  return (...args: Args): Ret => {
+    if (!ran) {
+      ran = true
+      ret = fn(...args)
+    }
+
+    return ret
+  }
+}
+
+export const validateNonnegativeInteger = (n: number | string): boolean => {
+  return Number.isFinite(n) && !Number.isNaN(n) && Number.isInteger(n)
+}
+/**
+ * Finds the highest (index + 1) where array[index] is less than or equal to the target number,
+ * but array[index + 1] is greater than the target number.
+ * @param target {number} The target number to compare against.
+ * @param array {number[]} A sorted array of numbers.
+ * @returns {number} The highest (index + 1) satisfying the condition, or 0 if the target is smaller than all numbers,
+ * or array.length if the target is larger than the largest number.
+ */
+export const findInsertionIndex = (target: number, array: number[]): number => {
+  if (array.length === 0 || target < array[0]) {
+    return 0
+  }
+  if (target >= array[array.length - 1]) {
+    return array.length
+  }
+
+  let low = 0
+  let high = array.length - 1
+
+  while (low < high) {
+    const mid = Math.floor((low + high + 1) / 2)
+    if (array[mid] <= target) {
+      low = mid
+    } else {
+      high = mid - 1
+    }
+  }
+
+  return low + 1
 }

@@ -3,6 +3,7 @@ import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateRuneLevels } from './Calculate'
 import { CalcECC } from './Challenges'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { format, player } from './Synergism'
 import { Globals as G } from './Variables'
 
@@ -44,6 +45,10 @@ export const calculateMaxTalismanLevel = (i: number) => {
   maxLevel += 6 * CalcECC('ascension', player.challengecompletions[13])
   maxLevel += Math.floor(player.researches[200] / 400)
 
+  if (i === 6) {
+    maxLevel += PCoinUpgradeEffects.INSTANT_UNLOCK_1 ? 10 : 0
+  }
+
   if (player.cubeUpgrades[67] > 0 && i === 3) {
     maxLevel += 1337
   }
@@ -61,7 +66,7 @@ const getTalismanResourceInfo = (
   const maxBuyObtainium = Math.max(1, Math.floor(player.researchPoints / obtainiumCost))
   const maxBuyOffering = Math.max(1, Math.floor(player.runeshards / offeringCost))
   const amountToBuy = Math.max(1, Math.floor(percentage / 100 * Math.min(maxBuyObtainium, maxBuyOffering)))
-  const canBuy = (obtainiumCost <= player.researchPoints && offeringCost <= player.runeshards)
+  const canBuy = obtainiumCost <= player.researchPoints && offeringCost <= player.runeshards
   return {
     canBuy, // Boolean, if false will not buy any fragments
     buyAmount: amountToBuy, // Integer, will buy as specified above.

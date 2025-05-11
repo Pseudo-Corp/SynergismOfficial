@@ -4,13 +4,14 @@ import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
 import { totalachievementpoints } from './Achievements'
 import {
-  calculateAscensionAcceleration,
-  calculateGoldenQuarkGain,
+  calculateAscensionSpeedMult,
+  calculateGlobalSpeedMult,
+  calculateGoldenQuarks,
   calculateMaxRunes,
-  calculateTimeAcceleration,
+  calculateOcteractMultiplier,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractQuarkBonus,
-  octeractGainPerSecond
+  isIARuneUnlocked
 } from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { version } from './Config'
@@ -132,7 +133,7 @@ export const generateExportSummary = async (): Promise<void> => {
   if (player.singularityUpgrades.octeractUnlock.getEffect().bonus) {
     octeract = '===== OCTERACTS =====\n'
     octeract = `${octeract}Current Octeracts: ${format(player.wowOcteracts, 2, true)}\n`
-    octeract = `${octeract}Current Per Second: ${format(octeractGainPerSecond(), 2, true)}\n`
+    octeract = `${octeract}Current Per Second: ${format(calculateOcteractMultiplier(), 2, true)}\n`
     octeract = `${octeract}Total Generated Octeracts: ${format(player.totalWowOcteracts, 2, true)}\n`
     octeract = `${octeract}Octeract Cube Bonus: ${format(100 * (calculateTotalOcteractCubeBonus() - 1), 2, true)}%\n`
     octeract = `${octeract}Octeract Quark Bonus: ${format(100 * (calculateTotalOcteractQuarkBonus() - 1), 2, true)}%\n`
@@ -145,7 +146,7 @@ export const generateExportSummary = async (): Promise<void> => {
     singularity = `${singularity}Current Singularity: ${player.singularityCount}\n`
     singularity = `${singularity}Highest Singularity Reached: ${player.highestSingularityCount}\n`
     singularity = `${singularity}Golden Quarks: ${format(player.goldenQuarks, 2, true)}\n`
-    singularity = `${singularity}+Golden Quarks on Singularity: ${format(calculateGoldenQuarkGain(), 2, true)}\n`
+    singularity = `${singularity}+Golden Quarks on Singularity: ${format(calculateGoldenQuarks(), 2, true)}\n`
     singularity = `${singularity}Time in Singularity: ${formatS(player.singularityCounter)}\n`
     singularity = `${singularity}Effective Singularity [for penalties]: ${
       format(calculateEffectiveSingularities(), 2, true)
@@ -161,7 +162,7 @@ export const generateExportSummary = async (): Promise<void> => {
     ascension = `${ascension}Ascension Timer: ${formatS(player.ascensionCounter)}\n`
     ascension = `${ascension}Real Life Ascension Timer: ${formatS(player.ascensionCounterReal)}\n`
     ascension = `${ascension}Truly Real Life Ascension Timer: ${formatS(player.ascensionCounterRealReal)}\n`
-    ascension = `${ascension}Ascension Speed Multiplier: ${format(calculateAscensionAcceleration(), 2, true)}\n`
+    ascension = `${ascension}Ascension Speed Multiplier: ${format(calculateAscensionSpeedMult(), 2, true)}\n`
     ascension = `${ascension}Challenge 11 Completions: ${player.challengecompletions[11]}/${getMaxChallenges(11)}\n`
     ascension = `${ascension}Challenge 12 Completions: ${player.challengecompletions[12]}/${getMaxChallenges(12)}\n`
     ascension = `${ascension}Challenge 13 Completions: ${player.challengecompletions[13]}/${getMaxChallenges(13)}\n`
@@ -174,7 +175,10 @@ export const generateExportSummary = async (): Promise<void> => {
       ascension = `${ascension}Platonic β: ${player.platonicUpgrades[10] > 0 ? '✔' : '✖'}\n`
       ascension = `${ascension}Platonic Ω: ${player.platonicUpgrades[15] > 0 ? '✔' : '✖'}\n`
     }
-    if (player.challenge15Exponent >= 1e15 || player.highestSingularityCount > 0) {
+    if (
+      player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
+      || player.highestSingularityCount > 0
+    ) {
       ascension = `${ascension}----- HEPTERACTS -----\n`
       ascension = `${ascension}Chronos Hepteract: ${format(player.hepteractCrafts.chronos.BAL, 0, true)}/${
         format(player.hepteractCrafts.chronos.CAP, 0, true)
@@ -213,7 +217,7 @@ export const generateExportSummary = async (): Promise<void> => {
     reincarnation = `${reincarnation}Reincarnation Count: ${format(player.reincarnationCount, 0, true)}\n`
     reincarnation = `${reincarnation}Reincarnation Timer: ${formatS(player.reincarnationcounter)}\n`
     reincarnation = `${reincarnation}Fastest Reincarnation: ${formatS(player.fastestreincarnate)}\n`
-    reincarnation = `${reincarnation}Global Speed Multiplier: ${format(calculateTimeAcceleration().mult, 2, true)}\n`
+    reincarnation = `${reincarnation}Global Speed Multiplier: ${format(calculateGlobalSpeedMult(), 2, true)}\n`
     reincarnation = `${reincarnation}Challenge 6 Completions: ${player.highestchallengecompletions[6]}/${
       getMaxChallenges(6)
     }\n`
@@ -292,7 +296,7 @@ export const generateExportSummary = async (): Promise<void> => {
         format(calculateMaxRunes(5))
       } [Bonus: ${format(G.rune5level - player.runelevels[4], 0, true)}]\n`
     }
-    if (player.shopUpgrades.infiniteAscent > 0 || player.highestSingularityCount > 0) {
+    if (isIARuneUnlocked() || player.highestSingularityCount > 0) {
       prestige = `${prestige}Infinite Ascent: Level ${format(player.runelevels[5], 0, true)}/${
         format(calculateMaxRunes(6))
       }\n`

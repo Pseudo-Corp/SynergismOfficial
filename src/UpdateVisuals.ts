@@ -5,40 +5,56 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calcAscensionCount,
   CalcCorruptionStuff,
+  calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
+  calculateAmbrosiaGenerationSpeed,
+  calculateAmbrosiaLuck,
+  calculateAmbrosiaLuckRaw,
   calculateAmbrosiaQuarkMult,
-  calculateAutomaticObtainium,
-  calculateCorruptionPoints,
+  calculateBlueberryInventory,
+  calculateCookieUpgrade29Luck,
   calculateCubeQuarkMultiplier,
   calculateMaxRunes,
+  calculateNumberOfThresholds,
+  calculateOcteractMultiplier,
   calculateRecycleMultiplier,
+  calculateRedAmbrosiaCubes,
+  calculateRedAmbrosiaGenerationSpeed,
+  calculateRedAmbrosiaLuck,
+  calculateRedAmbrosiaObtainium,
+  calculateRedAmbrosiaOffering,
   calculateRequiredBlueberryTime,
+  calculateRequiredRedAmbrosiaTime,
+  calculateResearchAutomaticObtainium,
   calculateRuneExpToLevel,
   calculateSigmoidExponential,
   calculateSummationLinear,
   calculateSummationNonLinear,
-  calculateTimeAcceleration,
+  calculateToNextThreshold,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractObtainiumBonus,
   calculateTotalOcteractOfferingBonus,
-  calculateTotalOcteractQuarkBonus,
-  octeractGainPerSecond
+  calculateTotalOcteractQuarkBonus
 } from './Calculate'
+import { formatAsPercentIncrease } from './Campaign'
 import { CalcECC } from './Challenges'
 import { version } from './Config'
 import type { IMultiBuy } from './Cubes'
+import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
 import type { hepteractTypes } from './Hepteracts'
 import { hepteractTypeList } from './Hepteracts'
-import { quarkHandler } from './Quark'
+import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getQuarkBonus, quarkHandler } from './Quark'
 import { displayRuneInformation } from './Runes'
 import { getShopCosts, isShopUpgradeUnlocked, shopData, shopUpgradeTypes } from './Shop'
 import { getGoldenQuarkCost } from './singularity'
 import { loadStatisticsUpdate } from './Statistics'
 import { format, formatTimeShort, player } from './Synergism'
-import { Tabs } from './Tabs'
+import { getActiveSubTab, Tabs } from './Tabs'
 import { calculateMaxTalismanLevel } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
-import { sumContents } from './Utility'
+import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
 
 export const visualUpdateBuildings = () => {
@@ -539,7 +555,7 @@ export const visualUpdateRunes = () => {
   if (G.currentTab !== Tabs.Runes) {
     return
   }
-  if (G.runescreen === 'runes') {
+  if (getActiveSubTab() === 0) {
     // Placeholder and place work similarly to buildings, except for the specific Talismans.
     const talismans = [
       'rune1Talisman',
@@ -593,6 +609,10 @@ export const visualUpdateRunes = () => {
             )
           }
         )
+      } else if (i === 6) {
+        DOMCacheGetOrSet(`bonusrune${i}`).textContent = i18next.t('runes.bonusAmount', {
+          x: player.cubeUpgrades[73] + (PCoinUpgradeEffects.INSTANT_UNLOCK_2 ? 6 : 0) + player.campaigns.bonusRune6
+        })
       } else {
         DOMCacheGetOrSet(`bonusrune${i}`).textContent = i18next.t('runes.bonusNope')
       }
@@ -631,7 +651,7 @@ export const visualUpdateRunes = () => {
     )
   }
 
-  if (G.runescreen === 'talismans') {
+  if (getActiveSubTab() === 1) {
     for (let i = 0; i < 7; i++) {
       const maxTalismanLevel = calculateMaxTalismanLevel(i)
       // TODO(@KhafraDev): i18n
@@ -639,9 +659,7 @@ export const visualUpdateRunes = () => {
         format(player.talismanLevels[i])
       }/${format(maxTalismanLevel)}`
     }
-  }
-
-  if (G.runescreen === 'blessings') {
+  } else if (getActiveSubTab() === 2) {
     const blessingMultiplierArray = [0, 8, 10, 6.66, 2, 1]
     let t = 0
     for (let i = 1; i <= 5; i++) {
@@ -703,13 +721,11 @@ export const visualUpdateRunes = () => {
         t = 1
       }
     }
-  }
-
-  if (G.runescreen === 'spirits') {
+  } else if (getActiveSubTab() === 3) {
     const spiritMultiplierArray = [0, 1, 1, 20, 1, 100]
     const subtract = [0, 0, 0, 1, 0, 0]
     for (let i = 1; i <= 5; i++) {
-      spiritMultiplierArray[i] *= calculateCorruptionPoints() / 400
+      spiritMultiplierArray[i] *= player.corruptions.used.totalCorruptionDifficultyMultiplier
 
       DOMCacheGetOrSet(`runeSpiritLevel${i}Value`).innerHTML = i18next.t(
         'runes.spirits.spiritLevel',
@@ -792,7 +808,7 @@ export const visualUpdateResearch = () => {
       'researches.thanksToResearches',
       {
         x: format(
-          calculateAutomaticObtainium() * calculateTimeAcceleration().mult,
+          calculateResearchAutomaticObtainium(1),
           3,
           true
         )
@@ -926,7 +942,7 @@ export const visualUpdateCubes = () => {
 
   // TODO: this code is fucking terrible holy shit. Also pretty sure there's a bug.
   let accuracy: [null | number, ...number[]]
-  switch (player.subtabNumber) {
+  switch (getActiveSubTab()) {
     case 0: {
       if (player.autoOpenCubes) {
         DOMCacheGetOrSet('openCubes').textContent = i18next.t(
@@ -1266,6 +1282,13 @@ export const visualUpdateCorruptions = () => {
       totalScore: format(metaData[3], 1, true)
     }
   )
+
+  if (metaData[3] > 1e23) {
+    DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'visible'
+  } else {
+    DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'hidden'
+  }
+
   DOMCacheGetOrSet('corruptionCubes').innerHTML = i18next.t(
     'corruptions.corruptionCubes',
     {
@@ -1300,18 +1323,25 @@ export const visualUpdateCorruptions = () => {
     'corruptions.antExponent',
     {
       exponent: format(
-        (1 - (0.9 / 90) * sumContents(player.usedCorruptions))
-          * G.extinctionMultiplier[player.usedCorruptions[7]],
+        (1 - (0.9 / 90) * player.corruptions.used.totalLevels)
+          * G.extinctionMultiplier[player.corruptions.used.extinction],
         3
       )
     }
   )
-  DOMCacheGetOrSet('corruptionSpiritBonus').innerHTML = i18next.t(
-    'corruptions.spiritBonus',
-    {
-      multiplier: format(calculateCorruptionPoints() / 400, 2, true)
-    }
-  )
+  DOMCacheGetOrSet('corruptionMultiplierTotal').textContent = i18next.t('corruptions.totalScoreMultiplier', {
+    curr: format(player.corruptions.used.totalCorruptionAscensionMultiplier, 2, true),
+    next: format(player.corruptions.next.totalCorruptionAscensionMultiplier, 2, true)
+  })
+  DOMCacheGetOrSet('corruptionDifficultyTotal').textContent = i18next.t('corruptions.totalDifficulty', {
+    curr: format(player.corruptions.used.totalCorruptionDifficultyScore, 2, true),
+    next: format(player.corruptions.next.totalCorruptionDifficultyScore, 2, true)
+  })
+  DOMCacheGetOrSet('corruptionSpiritTotal').textContent = i18next.t('corruptions.totalSpiritContribution', {
+    curr: formatAsPercentIncrease(player.corruptions.used.totalCorruptionDifficultyMultiplier),
+    next: formatAsPercentIncrease(player.corruptions.next.totalCorruptionDifficultyMultiplier)
+  })
+
   DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'block' : 'none'
 
   if (ascCount > 1) {
@@ -1329,7 +1359,7 @@ export const visualUpdateSettings = () => {
     return
   }
 
-  if (player.subtabNumber === 0) {
+  if (getActiveSubTab() === 0) {
     DOMCacheGetOrSet('saveString').textContent = i18next.t(
       'settings.currently',
       {
@@ -1342,7 +1372,7 @@ export const visualUpdateSettings = () => {
     const maxExportQuarks = quarkData.capacity
 
     let goldenQuarkMultiplier = 1
-    goldenQuarkMultiplier *= 1 + player.worlds.BONUS / 100
+    goldenQuarkMultiplier *= 1 + getQuarkBonus() / 100
     goldenQuarkMultiplier *= player.highestSingularityCount >= 100
       ? 1 + player.highestSingularityCount / 50
       : 1
@@ -1406,8 +1436,7 @@ export const visualUpdateSettings = () => {
         )
       }
     )
-  }
-  if (player.subtabNumber === 3) {
+  } else if (getActiveSubTab() === 3) {
     loadStatisticsUpdate()
   }
 }
@@ -1416,7 +1445,7 @@ export const visualUpdateSingularity = () => {
   if (G.currentTab !== Tabs.Singularity) {
     return
   }
-  if (player.subtabNumber === 0) {
+  if (getActiveSubTab() === 0) {
     DOMCacheGetOrSet('goldenQuarkamount').textContent = i18next.t(
       'singularity.goldenQuarkAmount',
       {
@@ -1456,8 +1485,7 @@ export const visualUpdateSingularity = () => {
         }
       }
     }
-  }
-  if (player.subtabNumber === 2) {
+  } else if (getActiveSubTab() === 2) {
     const keys = Object.keys(
       player.octeractUpgrades
     ) as (keyof Player['octeractUpgrades'])[]
@@ -1493,7 +1521,7 @@ export const visualUpdateOcteracts = () => {
     octeracts: format(player.wowOcteracts, 2, true, true, true)
   })
 
-  const perSecond = octeractGainPerSecond()
+  const perSecond = calculateOcteractMultiplier()
 
   DOMCacheGetOrSet('secondsPerOcteract').style.display = perSecond < 1 ? 'block' : 'none'
   DOMCacheGetOrSet('secondsPerOcteract').innerHTML = i18next.t(
@@ -1555,24 +1583,53 @@ export const visualUpdateAmbrosia = () => {
     return
   }
 
-  const luck = player.caches.ambrosiaLuck.usedTotal
-  const baseLuck = player.caches.ambrosiaLuck.totalVal
-  const luckBonusPercent = 100 * (player.caches.ambrosiaLuckAdditiveMult.totalVal - 1)
+  const luck = calculateAmbrosiaLuck()
+  const baseLuck = calculateAmbrosiaLuckRaw()
+  const luckBonusPercent = 100 * (calculateAmbrosiaAdditiveLuckMult() - 1)
   const guaranteed = Math.floor(luck / 100)
   const chance = luck - 100 * Math.floor(luck / 100)
+
+  const luckRed = calculateRedAmbrosiaLuck()
+  const guaranteedRed = Math.floor(luckRed / 100)
+  const chanceRed = luckRed - 100 * Math.floor(luckRed / 100)
+
   const requiredTime = calculateRequiredBlueberryTime()
-  const cubePercent = 100 * (calculateAmbrosiaCubeMult() - 1)
-  const quarkPercent = 100 * (calculateAmbrosiaQuarkMult() - 1)
-  const availableBlueberries = player.caches.blueberryInventory.totalVal - player.spentBlueberries
-  const totalTimePerSecond = player.caches.ambrosiaGeneration.totalVal
-  const progressTimePerSecond = Math.min(totalTimePerSecond, Math.pow(1000 * totalTimePerSecond, 1/2))
+  const requiredTimeRed = calculateRequiredRedAmbrosiaTime()
+
+  const totalBlueberries = calculateBlueberryInventory()
+  const availableBlueberries = totalBlueberries - player.spentBlueberries
+
+  const totalTimePerSecond = calculateAmbrosiaGenerationSpeed()
+  const totalTimePerSecondRed = calculateRedAmbrosiaGenerationSpeed()
   const barWidth = 100 * Math.min(1, player.blueberryTime / requiredTime)
-  const pixelBarWidth = 100 * Math.min(1, player.ultimateProgress / 1e6)
+  const pixelBarWidth = 100 * Math.min(1, player.redAmbrosiaTime / requiredTimeRed)
+
+  const ambCubeBonus = calculateAmbrosiaCubeMult()
+  const ambQuarkBonus = calculateAmbrosiaQuarkMult()
+  const redAmbCubeBonus = calculateRedAmbrosiaCubes()
+  const redAmbObtBonus = calculateRedAmbrosiaObtainium()
+  const redAmbOffBonus = calculateRedAmbrosiaOffering()
+  const redAmbLuckBonus = calculateCookieUpgrade29Luck()
+
   DOMCacheGetOrSet('ambrosiaProgress').style.width = `${barWidth}%`
-  DOMCacheGetOrSet('ambrosiaProgressText').textContent = `${format(player.blueberryTime, 0, true)} / ${format(requiredTime, 0, true)} [+${format(totalTimePerSecond, 0, true)}/s]`
+
+  if (player.visitedAmbrosiaSubtab) {
+    DOMCacheGetOrSet('ambrosiaProgressText').textContent = `${format(player.blueberryTime, 0, true)} / ${
+      format(requiredTime, 0, true)
+    } [+${format(totalTimePerSecond, 0, true)}/s]`
+  } else {
+    DOMCacheGetOrSet('ambrosiaProgressText').textContent = i18next.t('ambrosia.notUnlocked')
+  }
 
   DOMCacheGetOrSet('pixelProgress').style.width = `${pixelBarWidth}%`
-  DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.ultimateProgress, 0, true)} / ${format(1000000, 0, true)} [+${format(progressTimePerSecond * 0.02, 2, true)}/s]`
+
+  if (player.visitedAmbrosiaSubtabRed) {
+    DOMCacheGetOrSet('pixelProgressText').textContent = `${format(player.redAmbrosiaTime, 0, true)} / ${
+      format(requiredTimeRed, 0, true)
+    } [+${format(totalTimePerSecondRed, 2, true)}/s]`
+  } else {
+    DOMCacheGetOrSet('pixelProgressText').textContent = i18next.t('redAmbrosia.notUnlocked')
+  }
   const extraLuckHTML = luckBonusPercent > 0.01
     ? `[<span style='color: var(--amber-text-color)'>☘${
       format(
@@ -1587,12 +1644,69 @@ export const visualUpdateAmbrosia = () => {
     ambrosia: format(player.ambrosia, 0, true),
     lifetimeAmbrosia: format(player.lifetimeAmbrosia, 0, true)
   })
-  /*DOMCacheGetOrSet('ambrosiaChance').innerHTML = i18next.t(
-    'ambrosia.blueberryGeneration',
+
+  DOMCacheGetOrSet('ambrosiaCubeBonus').style.display = ambCubeBonus > 1 ? 'block' : 'none'
+  DOMCacheGetOrSet('ambrosiaQuarkBonus').style.display = ambQuarkBonus > 1 ? 'block' : 'none'
+
+  DOMCacheGetOrSet('ambrosiaCubeBonus').innerHTML = i18next.t(
+    'ambrosia.generatedCubeBonus',
     {
-      chance: format(totalTimePerSecond, 2, true)
+      cubeBonus: formatAsPercentIncrease(ambCubeBonus, 2)
     }
-  )*/
+  )
+  DOMCacheGetOrSet('ambrosiaQuarkBonus').innerHTML = i18next.t(
+    'ambrosia.generatedQuarkBonus',
+    {
+      quarkBonus: formatAsPercentIncrease(ambQuarkBonus, 2)
+    }
+  )
+
+  DOMCacheGetOrSet('redAmbrosiaAmount').innerHTML = i18next.t('redAmbrosia.amount', {
+    redAmbrosia: format(player.redAmbrosia, 0, true),
+    lifetimeRedAmbrosia: format(player.lifetimeRedAmbrosia, 0, true)
+  })
+
+  DOMCacheGetOrSet('redAmbrosiaCubeBonus').style.display = redAmbCubeBonus > 1 ? 'block' : 'none'
+  DOMCacheGetOrSet('redAmbrosiaObtainiumBonus').style.display = redAmbObtBonus > 1 ? 'block' : 'none'
+  DOMCacheGetOrSet('redAmbrosiaOfferingBonus').style.display = redAmbOffBonus > 1 ? 'block' : 'none'
+  DOMCacheGetOrSet('redAmbrosiaLuckBonus').style.display = redAmbLuckBonus > 0 ? 'block' : 'none'
+
+  DOMCacheGetOrSet('redAmbrosiaCubeBonus').innerHTML = i18next.t(
+    'ambrosia.generatedCubeBonus',
+    {
+      cubeBonus: formatAsPercentIncrease(redAmbCubeBonus, 2)
+    }
+  )
+
+  DOMCacheGetOrSet('redAmbrosiaObtainiumBonus').innerHTML = i18next.t(
+    'ambrosia.generatedObtainiumBonus',
+    {
+      obtainiumBonus: formatAsPercentIncrease(redAmbObtBonus, 2)
+    }
+  )
+
+  DOMCacheGetOrSet('redAmbrosiaOfferingBonus').innerHTML = i18next.t(
+    'ambrosia.generatedOfferingBonus',
+    {
+      offeringBonus: formatAsPercentIncrease(redAmbOffBonus, 2)
+    }
+  )
+
+  DOMCacheGetOrSet('redAmbrosiaLuckBonus').innerHTML = i18next.t(
+    'ambrosia.generatedLuckBonus',
+    {
+      luckBonus: format(redAmbLuckBonus, 2, true)
+    }
+  )
+
+  DOMCacheGetOrSet('blueberryAmount').innerHTML = i18next.t(
+    'ambrosia.blueberryAmount',
+    {
+      unspentBlueberries: format(availableBlueberries, 0, true),
+      blueberries: format(totalBlueberries, 0, true)
+    }
+  )
+
   DOMCacheGetOrSet('ambrosiaAmountPerGeneration').innerHTML = i18next.t(
     'ambrosia.perGen',
     {
@@ -1602,26 +1716,34 @@ export const visualUpdateAmbrosia = () => {
       extra: extraLuckHTML
     }
   )
- /* DOMCacheGetOrSet('ambrosiaRNG').innerHTML = i18next.t(
-    'ambrosia.blueberrySecond',
+
+  DOMCacheGetOrSet('redAmbrosiaAmountPerGeneration').innerHTML = i18next.t(
+    'redAmbrosia.perGen',
     {
-      blueberrySecond: format(player.blueberryTime, 0, true),
-      thresholdTimer: format(requiredTime, 0, true)
-    }
-  )*/
-  DOMCacheGetOrSet('ambrosiaRewards').innerHTML = i18next.t(
-    'ambrosia.bonuses',
-    {
-      cube: format(cubePercent, 0, true),
-      quark: format(quarkPercent, 0, true)
+      guaranteed: format(guaranteedRed, 0, true),
+      extraChance: format(chanceRed, 0, true),
+      ambrosiaLuck: format(luckRed, 0, true)
     }
   )
-  DOMCacheGetOrSet('ambrosiaBlueberries').innerHTML = i18next.t(
-    'ambrosia.availableBlueberries',
-    {
-      availableBlueberries
-    }
-  )
+
+  if (player.cubeUpgrades[76] > 0) {
+    DOMCacheGetOrSet('ambrosiaThresholdInfo').innerHTML = i18next.t(
+      'ambrosia.cubeUpgradeThresholds',
+      {
+        threshold: calculateNumberOfThresholds(),
+        toNext: format(calculateToNextThreshold(), 0, true),
+        percent: player.cubeUpgrades[76] * calculateNumberOfThresholds()
+      }
+    )
+  } else {
+    DOMCacheGetOrSet('ambrosiaThresholdInfo').innerHTML = i18next.t(
+      'ambrosia.timeThresholds',
+      {
+        threshold: calculateNumberOfThresholds(),
+        toNext: format(calculateToNextThreshold(), 0, true)
+      }
+    )
+  }
 }
 
 export const visualUpdateShop = () => {
@@ -1771,4 +1893,62 @@ export const visualUpdateShop = () => {
   } Quarks Each`
 }
 
-export const visualUpdateEvent = () => {}
+export const constructConsumableTimes = (p: PseudoCoinConsumableNames) => {
+  const msg: string[] = []
+  for (const time of allDurableConsumables[p].ends) {
+    msg.push(timeReminingHours(new Date(time)))
+  }
+  return msg.join(', ')
+}
+
+export const visualUpdateEvent = () => {
+  const event = getEvent()
+  if (event !== null) {
+    const eventEnd = new Date(event.end)
+    DOMCacheGetOrSet('globalEventTimer').textContent = timeReminingHours(eventEnd)
+    DOMCacheGetOrSet('globalEventName').textContent = `(${event.name.length}) - ${event.name.join(', ')}`
+
+    for (let i = 0; i < eventBuffType.length; i++) {
+      const eventBuff = getEventBuff(BuffType[eventBuffType[i]])
+
+      if (eventBuff !== 0) {
+        DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'flex'
+        DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}Value`).textContent = `+${format(100 * eventBuff, 0, true)}%`
+      } else {
+        DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'none'
+      }
+    }
+  } else {
+    DOMCacheGetOrSet('globalEventTimer').textContent = '--:--:--'
+    DOMCacheGetOrSet('globalEventName').textContent = ''
+    for (let i = 0; i < eventBuffType.length; i++) {
+      DOMCacheGetOrSet(`eventBuff${eventBuffType[i]}`).style.display = 'none'
+    }
+  }
+  const { HAPPY_HOUR_BELL } = allDurableConsumables
+  if (HAPPY_HOUR_BELL.amount > 0) {
+    DOMCacheGetOrSet('consumableEventTimer').textContent = constructConsumableTimes('HAPPY_HOUR_BELL')
+    DOMCacheGetOrSet('consumableEventBonus').textContent = `${HAPPY_HOUR_BELL.amount}`
+
+    for (let i = 0; i < eventBuffType.length; i++) {
+      const eventBuff = consumableEventBuff(BuffType[eventBuffType[i]])
+
+      if (eventBuff !== 0) {
+        DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'flex'
+        DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}Value`).textContent = `+${format(100 * eventBuff, 1, true)}%`
+      } else {
+        DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'none'
+      }
+    }
+  } else {
+    DOMCacheGetOrSet('consumableEventBonus').textContent = 'No active consumable'
+    DOMCacheGetOrSet('consumableEventTimer').textContent = '--:--:--'
+    for (let i = 0; i < eventBuffType.length; i++) {
+      DOMCacheGetOrSet(`consumableBuff${eventBuffType[i]}`).style.display = 'none'
+    }
+  }
+}
+
+export const visualUpdatePurchase = () => {}
+
+export const visualUpdateCampaign = () => {}

@@ -1,22 +1,28 @@
 import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
-import localforage from 'localforage'
 import LZString from 'lz-string'
 import { achievementaward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { octeractGainPerSecond } from './Calculate'
+import { calculateOcteractMultiplier } from './Calculate'
 import { testing, version } from './Config'
-import { Synergism } from './Events'
 import { addTimers } from './Helper'
-import { quarkHandler } from './Quark'
+import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getQuarkBonus, quarkHandler } from './Quark'
+import { Seed, seededBetween, seededRandom } from './RNG'
+import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { shopData } from './Shop'
 import { singularityData } from './singularity'
-import { synergismStage } from './Statistics'
-import { blankSave, format, player, reloadShit, saveCheck, saveSynergy } from './Synergism'
+import {
+  allAddCodeCapacityMultiplierStats,
+  allAddCodeCapacityStats,
+  allAddCodeTimerStats,
+  synergismStage
+} from './Statistics'
+import { blankSave, deepClone, format, player, reloadShit, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { cleanString, getElementById, productContents, sumContents } from './Utility'
+import { cleanString, getElementById } from './Utility'
 import { btoa } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -38,8 +44,6 @@ const format12 = new Intl.DateTimeFormat('EN-GB', {
   minute: '2-digit',
   second: '2-digit'
 })
-
-const hour = 3600000
 
 const getRealTime = (type = 'default', use12 = false) => {
   const format = use12 ? format12 : format24
@@ -239,14 +243,13 @@ export const exportSynergism = async (
     const quarkData = quarkHandler()
 
     let bonusGQMultiplier = 1
-    bonusGQMultiplier *= 1 + player.worlds.BONUS / 100
+    bonusGQMultiplier *= 1 + getQuarkBonus() / 100
     bonusGQMultiplier *= player.highestSingularityCount >= 100
       ? 1 + player.highestSingularityCount / 50
       : 1
     if (+player.singularityUpgrades.goldenQuarks3.getEffect().bonus > 0) {
       player.goldenQuarks += Math.floor(
-        player.goldenQuarksTimer
-          / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
+        player.goldenQuarksTimer / (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
       ) * bonusGQMultiplier
       player.goldenQuarksTimer = player.goldenQuarksTimer
         % (3600 / +player.singularityUpgrades.goldenQuarks3.getEffect().bonus)
@@ -257,17 +260,13 @@ export const exportSynergism = async (
     }
   }
 
-  const saved = await saveSynergy()
-
-  if (!saved) {
+  if (!saveSynergy()) {
     return
   }
 
-  const save = (await localforage.getItem<Blob>('Synergysave2'))
-    ?? localStorage.getItem('Synergysave2')
-  const saveString = typeof save === 'string' ? save : await save?.text()
+  const saveString = localStorage.getItem('Synergysave2')
 
-  if (saveString === undefined) {
+  if (!saveString) {
     return Alert('How?')
   }
 
@@ -277,38 +276,40 @@ export const exportSynergism = async (
 
 export const reloadDeleteGame = async () => {
   await Alert(i18next.t('importexport.reloadDeletePrompt'))
-  await resetGame()
+  await resetGame(true)
 }
 
-export const resetGame = async () => {
-  const a = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
-  const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
+export const resetGame = async (force = true) => {
+  if (!force) {
+    const a = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
+    const b = window.crypto.getRandomValues(new Uint16Array(1))[0] % 16
 
-  const result = await Prompt(
-    i18next.t('importexport.resetPrompt', { a, b, sum: a + b })
-  )
-  if (result === null || Number(result) !== a + b) {
-    return Alert(i18next.t('importexport.wrongAnswer'))
+    const result = await Prompt(
+      i18next.t('importexport.resetPrompt', { a, b, sum: a + b })
+    )
+    if (result === null || Number(result) !== a + b) {
+      return Alert(i18next.t('importexport.wrongAnswer'))
+    }
   }
 
-  const hold = Object.assign({}, blankSave, {
-    codes: Array.from(blankSave.codes)
-  }) as Player
+  const hold = playerJsonSchema.safeParse(deepClone()(blankSave))
+
   // Reset Displays
   changeTab(Tabs.Buildings)
   changeSubTab(Tabs.Buildings, { page: 0 })
   changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
+  changeSubTab(Tabs.Challenges, { page: 0 }) // Set 'challenges' subtab back to 'normal' tab
   changeSubTab(Tabs.WowCubes, { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
   changeSubTab(Tabs.Corruption, { page: 0 }) // set 'corruption main'
   changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
   changeSubTab(Tabs.Settings, { page: 0 }) // set 'statistics main'
   // Import Game
-  await importSynergism(btoa(JSON.stringify(hold)), true)
+  importSynergism(btoa(JSON.stringify(hold.data)), true)
 }
 
 export const importData = async (
   e: Event,
-  importFunc: (save: string | null) => Promise<void> | Promise<undefined>
+  importFunc: (save: string | null) => void
 ) => {
   const element = e.target as HTMLInputElement
   const file = element.files![0]
@@ -333,7 +334,7 @@ export const importData = async (
   return importFunc(save)
 }
 
-export const importSynergism = async (input: string | null, reset = false) => {
+export const importSynergism = (input: string | null, reset = false) => {
   if (typeof input !== 'string') {
     return Alert(i18next.t('importexport.unableImport'))
   }
@@ -353,15 +354,9 @@ export const importSynergism = async (input: string | null, reset = false) => {
       return Alert(i18next.t('importexport.unableImport'))
     }
 
-    saveCheck.canSave = false
-    const item = new Blob([saveString], { type: 'text/plain' })
     localStorage.setItem('Synergysave2', saveString)
-    await localforage.setItem<Blob>('Synergysave2', item)
 
-    localStorage.setItem('saveScumIsCheating', Date.now().toString())
-
-    await reloadShit(reset)
-    saveCheck.canSave = true
+    reloadShit(reset)
     return
   } else {
     return Alert(i18next.t('importexport.loadTestInLive'))
@@ -498,7 +493,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     el.textContent = i18next.t('importexport.promocodes.antismith')
   } else if (input === 'Khafra' && !player.codes.get(26)) {
     player.codes.set(26, true)
-    const quarks = Math.floor(Math.random() * (400 - 100 + 1) + 100)
+    const quarks = Math.floor(seededRandom(Seed.PromoCodes) * (400 - 100 + 1) + 100)
     player.worlds.add(quarks)
     el.textContent = i18next.t('importexport.promocodes.khafra', {
       x: player.worlds.applyBonus(quarks)
@@ -570,15 +565,23 @@ export const promocodes = async (input: string | null, amount?: number) => {
       rolls += player.shopUpgrades.shopImprovedDaily3
       rolls += player.shopUpgrades.shopImprovedDaily4
       rolls += +player.singularityUpgrades.platonicPhi.getEffect().bonus
-        * Math.min(50, (5 * player.singularityCounter) / (3600 * 24))
+        * Math.min(
+          50,
+          (player.shopUpgrades.shopSingularitySpeedup)
+            ? (250 * player.singularityCounter) / (3600 * 24)
+            : (5 * player.singularityCounter) / (3600 * 24)
+        )
       rolls += +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus
+      rolls += +player.singularityChallenges.sadisticPrequel.rewards.extraFree
       rolls *= +player.octeractUpgrades.octeractImprovedDaily2.getEffect().bonus
       rolls *= 1
         + +player.octeractUpgrades.octeractImprovedDaily3.getEffect().bonus / 200
-
+      rolls *= 1 + +player.singularityChallenges.sadisticPrequel.rewards.freeUpgradeMult
       if (player.highestSingularityCount >= 200) {
         rolls *= 2
       }
+
+      rolls *= PCoinUpgradeEffects.FREE_UPGRADE_PROMOCODE_BUFF
 
       rolls = Math.floor(rolls)
 
@@ -590,7 +593,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       // The same upgrade can be drawn several times, so we save the sum of the levels gained, to display them only once at the end
       const freeLevels: Record<string, number> = {}
       for (let i = 0; i < rolls; i++) {
-        const num = 1000 * Math.random()
+        const num = 1000 * seededRandom(Seed.PromoCodes)
         for (const key of keys) {
           if (upgradeDistribution[key].pdf(num)) {
             player.singularityUpgrades[key].freeLevels += upgradeDistribution[key].value
@@ -616,14 +619,37 @@ export const promocodes = async (input: string | null, amount?: number) => {
           : (freeLevels.goldenQuarks3 = 1)
       }
 
-      if (player.highestSingularityCount >= 200) {
-        player.octeractUpgrades.octeractGain.freeLevels += player.octeractUpgrades.octeractGain.level / 100
-        freeLevels.octeractGain = player.octeractUpgrades.octeractGain.level / 100
-      }
+      if (player.highestSingularityCount >= 200 && player.highestSingularityCount < 205) {
+        const freeLevelOct1 = Math.max(
+          player.octeractUpgrades.octeractGain.level / 100,
+          Math.pow(
+            player.octeractUpgrades.octeractGain.level * player.octeractUpgrades.octeractGain.freeLevels / 1000,
+            0.5
+          )
+        )
+        player.octeractUpgrades.octeractGain.freeLevels += freeLevelOct1
+        freeLevels.octeractGain = freeLevelOct1
+      } else if (player.highestSingularityCount >= 205) {
+        const freeLevelOct1 = Math.max(
+          player.octeractUpgrades.octeractGain.level / 100,
+          Math.pow(
+            player.octeractUpgrades.octeractGain.level * player.octeractUpgrades.octeractGain.freeLevels / 640,
+            0.5
+          )
+        )
+        const freeLevelOct2 = Math.max(
+          player.octeractUpgrades.octeractGain2.level / 100,
+          Math.pow(
+            Math.pow(player.octeractUpgrades.octeractGain2.level, 2) * player.octeractUpgrades.octeractGain2.freeLevels
+              / 125000,
+            0.333
+          )
+        )
 
-      if (player.highestSingularityCount >= 205) {
-        player.octeractUpgrades.octeractGain2.freeLevels += player.octeractUpgrades.octeractGain2.level / 100
-        freeLevels.octeractGain2 = player.octeractUpgrades.octeractGain2.level / 100
+        player.octeractUpgrades.octeractGain.freeLevels += freeLevelOct1
+        player.octeractUpgrades.octeractGain2.freeLevels += freeLevelOct2
+        freeLevels.octeractGain = freeLevelOct1
+        freeLevels.octeractGain2 = freeLevelOct2
       }
 
       for (const key of Object.keys(freeLevels)) {
@@ -634,9 +660,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
     return
   } else if (input.toLowerCase() === 'add') {
     const availableUses = addCodeAvailableUses()
-    const maxUses = addCodeMaxUses().total
+    const maxUses = addCodeMaxUses()
     const timeToNextUse = format(addCodeTimeToNextUse(), 0)
-    const timeInterval = addCodeInterval().time
+    const timeInterval = addCodeInterval()
 
     if (availableUses < 1) {
       el.textContent = i18next.t('importexport.noAddCodes', {
@@ -824,25 +850,16 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     player.worlds.sub(quarks < amount ? amount - quarks : amount)
   } else if (input === 'gamble') {
-    if (
-      typeof player.skillCode === 'number'
-      || typeof localStorage.getItem('saveScumIsCheating') === 'string'
-    ) {
-      if (
-        (Date.now() - player.skillCode!) / 1000 < 3600
-        || (Date.now() - Number(localStorage.getItem('saveScumIsCheating')))
-              / 1000
-          < 3600
-      ) {
+    if (typeof player.skillCode === 'number') {
+      if ((Date.now() - player.skillCode!) / 1000 < 3600) {
         return (el.textContent = i18next.t(
           'importexport.promocodes.gamble.wait'
         ))
       }
     }
 
-    const confirmed = await Confirm(
-      i18next.t('importexport.promocodes.gamble.confirm')
-    )
+    const confirmed = await Confirm(i18next.t('importexport.promocodes.gamble.prompt'))
+
     if (!confirmed) {
       return (el.textContent = i18next.t(
         'importexport.promocodes.gamble.cancelled'
@@ -864,8 +881,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       ))
     }
 
-    localStorage.setItem('saveScumIsCheating', Date.now().toString())
-    const dice = (window.crypto.getRandomValues(new Uint8Array(1))[0] % 6) + 1 // [1, 6]
+    const dice = seededBetween(Seed.PromoCodes, 1, 6) // [1, 6]
 
     if (dice === 1) {
       const won = bet * 0.25 // lmao
@@ -889,7 +905,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     const rewardMult = timeCodeRewardMultiplier()
 
-    const random = Math.random() * 15000 // random time within 15 seconds
+    const random = seededRandom(Seed.PromoCodes) * 15000 // random time within 15 seconds
     const start = Date.now()
     const playerConfirmed = await Confirm(
       i18next.t('importexport.promocodes.time.confirm', {
@@ -933,7 +949,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       }
     }
   } else if (input === 'spoiler') {
-    const perSecond = octeractGainPerSecond()
+    const perSecond = calculateOcteractMultiplier()
     if (perSecond > 1) {
       return Alert(
         i18next.t('importexport.promocodes.spoiler.moreThan1', {
@@ -951,18 +967,14 @@ export const promocodes = async (input: string | null, amount?: number) => {
     el.textContent = i18next.t('importexport.promocodes.invalid')
   }
 
-  const saved = await saveSynergy() // should fix refresh bug where you can continuously enter promocodes
-
-  if (!saved) {
+  if (!saveSynergy()) {
     return
   }
-
-  Synergism.emit('promocode', input)
 
   setTimeout(() => (el.textContent = ''), 15000)
 }
 
-const addCodeSingularityPerkBonus = (): number => {
+export const addCodeSingularityPerkBonus = (): number => {
   const levels = [
     10,
     16,
@@ -991,59 +1003,24 @@ const addCodeSingularityPerkBonus = (): number => {
   return 1 + count / 5
 }
 
+export const addCodeMaxUsesAdditive = () => {
+  return allAddCodeCapacityStats.reduce((a, b) => a + b.stat(), 0)
+}
+
 export const addCodeMaxUses = () => {
-  let calc5uses = Math.floor(player.shopUpgrades.calculator5 / 10)
-  if (player.shopUpgrades.calculator5 === shopData.calculator5.maxLevel) {
-    calc5uses += 6
-  }
+  const additiveValue = addCodeMaxUsesAdditive()
+  const multiplier = allAddCodeCapacityMultiplierStats.reduce((a, b) => a * b.stat(), 1)
 
-  const arr = [
-    24, // base
-    2 * player.shopUpgrades.calculator2, // PL-AT X
-    player.shopUpgrades.calculator4 === shopData.calculator4.maxLevel ? 32 : 0, // PL-AT δ
-    calc5uses, // PL-AT Γ
-    player.shopUpgrades.calculator6 === shopData.calculator6.maxLevel ? 24 : 0, // PL_AT _
-    player.shopUpgrades.calculator7 === shopData.calculator7.maxLevel ? 48 : 0 // Plat ΩΩ
-  ]
-
-  let maxUses = sumContents(arr)
-
-  arr.push(addCodeSingularityPerkBonus())
-  maxUses *= addCodeSingularityPerkBonus()
-
-  return {
-    list: arr,
-    total: Math.ceil(maxUses)
-  }
+  return Math.floor(additiveValue * multiplier)
 }
 
 export const addCodeInterval = () => {
-  const arr = [
-    hour, // base value
-    1 - 0.04 * player.shopUpgrades.calculator4,
-    1
-    - Math.min(
-      0.6,
-      (player.highestSingularityCount >= 125
-        ? player.highestSingularityCount / 800
-        : 0)
-        + (player.highestSingularityCount >= 200
-          ? player.highestSingularityCount / 800
-          : 0)
-    ),
-    player.runelevels[6] > 0 ? 0.8 : 1,
-    1 / addCodeSingularityPerkBonus()
-  ]
-
-  return {
-    list: arr,
-    time: productContents(arr)
-  }
+  return allAddCodeTimerStats.reduce((a, b) => a * b.stat(), 1)
 }
 
 export const addCodeAvailableUses = (): number => {
-  const maxUses = addCodeMaxUses().total
-  const timeInterval = addCodeInterval().time
+  const maxUses = addCodeMaxUses()
+  const timeInterval = addCodeInterval()
 
   return Math.floor(
     Math.min(maxUses, (Date.now() - player.rngCode) / timeInterval)
@@ -1051,17 +1028,17 @@ export const addCodeAvailableUses = (): number => {
 }
 
 export const addCodeTimeToNextUse = (): number => {
-  const timeToFirst = Math.floor(addCodeInterval().time + player.rngCode - Date.now()) / 1000
+  const timeToFirst = Math.floor(addCodeInterval() + player.rngCode - Date.now()) / 1000
 
   if (timeToFirst > 0) {
     return timeToFirst
-  } else if (addCodeAvailableUses() === addCodeMaxUses().total) {
+  } else if (addCodeAvailableUses() === addCodeMaxUses()) {
     return 0
   } else {
     const addTimerElapsedTime = Date.now() - player.rngCode
-    const remainder = addTimerElapsedTime - addCodeInterval().time * addCodeAvailableUses()
+    const remainder = addTimerElapsedTime - addCodeInterval() * addCodeAvailableUses()
 
-    return Math.floor(addCodeInterval().time - remainder) / 1000
+    return Math.floor(addCodeInterval() - remainder) / 1000
   }
 }
 
@@ -1076,7 +1053,7 @@ export const addCodeBonuses = () => {
 
   const sampledMult = Math.max(
     0.4 + 0.02 * player.shopUpgrades.calculator3,
-    2 / 5 + (window.crypto.getRandomValues(new Uint16Array(2))[0] % 128) / 640
+    2 / 5 + seededBetween(Seed.PromoCodes, 0, 127) / 640
   ) // [0.4, 0.6], slightly biased in favor of 0.4. =)
   const minMult = 0.4 + 0.02 * player.shopUpgrades.calculator3
   const maxMult = 0.6
@@ -1129,7 +1106,7 @@ const dailyCodeFormatFreeLevelMessage = (
   const upgradeNiceName = upgradeKey in singularityData
     ? i18next.t(`singularity.data.${upgradeKey}.name`)
     : i18next.t(`octeract.data.${upgradeKey}.name`)
-  return `\n+${freeLevelAmount} extra levels of '${upgradeNiceName}'`
+  return `\n+${format(freeLevelAmount, 0, true)} extra levels of '${upgradeNiceName}'`
 }
 
 const dailyCodeReward = () => {

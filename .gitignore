@@ -11,3 +11,5 @@ package-lock.json
 Pictures/Thumbs.db
 Pictures/Splash/Thumbs.db
 Pictures/TransparentPics/Thumbs.db
+
+**/.DS_Store

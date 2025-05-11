@@ -28,7 +28,6 @@ img {
 .scrollbarX {
     overflow-y: auto;
     scrollbar-width: thin;
-    outline: none;
 }
 
 .scrollbarX {
@@ -93,6 +92,7 @@ body {
     --buildings-hover-color: #666;
     --blessings-canbuy-color: #222;
     --blessings-hover-color: #444;
+    --darkgold-color: #b59410;
     --tab-color: #171717;
     --singtab-color: black;
     --buttonimg-color: black;
@@ -136,6 +136,15 @@ body.loading {
 .amberText { color: var(--amber-text-color); }
 .lightyellowText { color: var(--lightgoldenrodyellow-text-color); }
 
+.active-subtab {
+    background-color: crimson;
+}
+
+#corrStatsBtn.active-subtab,
+#corrLoadoutsBtn.active-subtab {
+    background-color: dodgerblue;
+}
+
 .boxColor {
     border: 3px solid;
     border-color: var(--boxmain-bordercolor);
@@ -151,7 +160,6 @@ body.loading {
 a {
     color: white;
     text-decoration: none;
-    outline: none;
 }
 
 a:hover {
@@ -171,7 +179,7 @@ button,
 select,
 textarea {
     font-size: 0.75em;
-    padding: 0.05em;
+    padding: 0;
     margin: 0;
     box-sizing: border-box;
     border: 0 solid #ccc;
@@ -198,11 +206,10 @@ button {
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
-    outline: none;
 }
 
-body button:hover,
-body button:active {
+body button:hover:not(:disabled):not(.disable-hover-color),
+body button:active:not(:disabled):not(.disable-hover-color) {
     background-color: var(--hover-color);
 }
 
@@ -321,7 +328,8 @@ body button:active {
     background-color: var(--hover-color);
 }
 
-#confirmationBox {
+#confirmationBox,
+#captchaHolder {
     display: none;
     position: fixed;
     top: 50vh;
@@ -397,7 +405,6 @@ body button:active {
         "txt txt txt txt txt"
         ". btn . btn2 ."
         ". . . . .";
-    outline: none;
 }
 
 #alert {
@@ -409,7 +416,6 @@ body button:active {
         "txt txt txt"
         ". btn ."
         ". . .";
-    outline: none;
 }
 
 #prompt {
@@ -424,7 +430,6 @@ body button:active {
         ". . . . ."
         ". btn . btn2 ."
         ". . . . .";
-    outline: none;
 }
 
 .confirmBox {
@@ -458,7 +463,8 @@ body button:active {
     filter: blur(4px);
 }
 
-#offlineContainer {
+#offlineContainer,
+#fastForwardContainer {
     flex-direction: column;
     align-items: center;
     position: fixed;
@@ -477,7 +483,8 @@ body button:active {
     font-size: min(1em, 20px);
 }
 
-.offlineStats {
+.offlineStats,
+.cartList {
     display: flex;
     flex-direction: column;
     z-index: 3;
@@ -491,7 +498,16 @@ body button:active {
     margin-bottom: 2px;
 }
 
-.offlineStatElement {
+.fastForwardStat {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    z-index: 3;
+    margin-bottom: 2px;
+}
+
+.offlineStatElement,
+.cartListElement {
     margin-left: 10px;
 }
 
@@ -507,7 +523,10 @@ body button:active {
     margin: 5px 0;
 }
 
-#exitOffline {
+#exitOffline,
+#exitFastForward,
+#closeCart,
+#checkout {
     width: 18em;
     min-height: auto;
     min-width: 220px;
@@ -519,7 +538,9 @@ body button:active {
     color: white;
 }
 
-#exitOffline:hover {
+#exitOffline:hover,
+#closeCart:hover,
+#checkout:not(:disabled):hover {
     background-color: var(--purplehover-color);
 }
 
@@ -673,6 +694,11 @@ button.isEvent:hover {
     color: red;
 }
 
+#campaigntab {
+    border-color: red;
+    color: orange;
+}
+
 #traitstab {
     border-color: orange;
     color: red;
@@ -739,29 +765,33 @@ p#buildinghotkeys2 {
     justify-content: space-around;
 }
 
-#upgradesFlex > div {
+#upgradesFlex > section {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#upgradesFlex > div > p {
+#upgradesFlex > section > p {
     margin: 5px 0;
     line-height: 1em;
 }
 
-#upgradesFlex > div > table {
+#upgradesFlex > section > table {
     font-size: 0;
     min-height: 182px;
     text-align: center;
+    border-collapse: collapse;
 }
 
-#upgradesFlex > div > table img {
-    background-color: var(--buttonimg-color);
+#upgradesFlex > section > table td {
+    padding-left: 3px;
+}
+
+#upgradesFlex > section > table img {
     cursor: pointer;
 }
 
-#upgradesFlex > div > button {
+#upgradesFlex > section > button {
     min-width: 80px;
 }
 
@@ -852,7 +882,6 @@ p#themesTitle {
     color: white;
     cursor: pointer;
     background-color: var(--button-color);
-    outline: none;
 }
 
 #savegame,
@@ -890,7 +919,7 @@ p#themesTitle {
     margin: 0 auto;
 }
 
-/* Third party URLs (Discord, Patreon, patch notes) */
+/* Third party URLs (Discord or patch notes) */
 #thirdParty > div {
     flex-wrap: wrap;
     display: flex;
@@ -1043,6 +1072,8 @@ p#promocodeinfo {
 
 .autobuyerToggleButton {
     background-color: var(--button-color);
+    margin: 0 auto;
+    min-width: 80px;
 }
 
 .buttonRow > div > .stats {
@@ -1084,8 +1115,8 @@ p#promocodeinfo {
     border-collapse: collapse;
 }
 
-#achievementstable img {
-    background-color: var(--buttonimg-color);
+#achievementstable [id^="ach"] > img {
+    image-rendering: unset;
 }
 
 .NotificationToggle {
@@ -1558,6 +1589,26 @@ p#transcendhotkeys {
     padding: 0;
 }
 
+#challengesTabsToggle {
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    gap: 10px 15px;
+}
+
+#challengesTabsToggle > button {
+    min-width: 100px;
+    text-align: center;
+}
+
+.singularityChallenges {
+    display: flex;
+    justify-content: center;
+    column-gap: 4px;
+}
+
 #challengesWrapper {
     display: flex;
     flex-direction: column;
@@ -1567,7 +1618,15 @@ p#transcendhotkeys {
 #challengeIntroduction {
     text-align: center;
     font-size: 1.2em;
-    margin: 20px 0 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#ExaltIntroduction {
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #challengesAutoToggles {
@@ -1575,6 +1634,7 @@ p#transcendhotkeys {
     justify-content: center;
     flex-flow: wrap;
     gap: 10px 15px;
+    margin-bottom: 10px;
 }
 
 #challengesAutoToggles > button {
@@ -1612,12 +1672,6 @@ p#transcendhotkeys {
     text-align: center;
 }
 
-#challengeIcons > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 #challengeIcons img {
     width: 64px;
     height: 64px;
@@ -1635,10 +1689,11 @@ p#transcendhotkeys {
 }
 
 #challengeDetails {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
     justify-content: center;
-    max-width: 1200px;
     align-self: center;
+    margin-top: 10px;
 }
 
 #challengeTimers {
@@ -1786,7 +1841,7 @@ p#reincarnatehotkeys {
     margin-top: 15px;
 }
 
-#researchDetails {
+.researchDetails {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -1794,7 +1849,7 @@ p#reincarnatehotkeys {
     margin-top: 5px;
 }
 
-#researchDetails > p {
+.researchDetails > p {
     width: 55em;
     max-width: 100%;
     margin: 0;
@@ -1804,7 +1859,6 @@ p#reincarnatehotkeys {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    flex-flow: wrap;
     gap: 10px 15px;
     margin: 15px 0;
 }
@@ -1817,37 +1871,37 @@ p#reincarnatehotkeys {
     min-height: 3em;
 }
 
-#researchtable img {
+#researchtable button > img {
     background-color: var(--buttonimg-color);
 }
 
-#researchtable .researchAvailable {
+#researchtable .researchAvailable > img {
     cursor: pointer;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
-#researchtable .researchAvailable:hover {
+#researchtable .researchAvailable:hover > img {
     background-color: var(--hover-color);
 }
 
-#researchtable .researchPurchased {
+#researchtable .researchPurchased > img {
     background-color: purple;
 }
 
-#researchtable .researchPurchasedAvailable {
+#researchtable .researchPurchasedAvailable > img {
     cursor: pointer;
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
 }
 
-#researchtable .researchPurchasedAvailable:hover {
+#researchtable .researchPurchasedAvailable:hover > img {
     background-color: #b300b2;
 }
 
-#researchtable .researchRoomba {
+#researchtable .researchRoomba > img {
     background-color: orange;
 }
 
-#researchtable .researchMaxed {
+#researchtable .researchMaxed > img {
     background-color: green;
 }
 
@@ -1932,11 +1986,20 @@ p#reincarnatehotkeys {
 #goldenQuarksDisplay,
 #octeractsDisplay,
 #totalOcteractsDisplay,
-#ambrosiaDisplay {
+#ambrosiaDisplay,
+#redAmbrosiaDisplay,
+#blueberryDisplay {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    white-space: pre-line;
+}
+
+#blueberryDisplay > p,
+#ambrosiaDisplay > p,
+#redAmbrosiaDisplay > p {
+    margin: 0 0 0 10px;
 }
 
 #ambrosiaTexts {
@@ -1964,7 +2027,8 @@ p#reincarnatehotkeys {
     margin-left: 5px;
 }
 
-#ambrosiaAmount {
+#ambrosiaAmount,
+#redAmbrosiaAmount {
     font-size: 1.2em;
     margin-left: 5px;
 }
@@ -2155,7 +2219,7 @@ p#reincarnatehotkeys {
 }
 
 .antBtn {
-    background-color: var(--button-color);
+    height: 100%;
 }
 
 .antTierBtnAvailable,
@@ -2438,6 +2502,10 @@ button.language-select span.lang-name {
     margin: 0.4em 0;
 }
 
+#creditssubtab img {
+    image-rendering: unset;
+}
+
 #versionnumber {
     color: fuchsia;
 }
@@ -2559,9 +2627,9 @@ p#ascendHotKeys {
 }
 
 .statContainer {
-    width: 20em;
-    min-width: 400px;
-    max-width: 500px;
+    width: 30em;
+    min-width: 600px;
+    max-width: 750px;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: auto;
@@ -2618,23 +2686,6 @@ p#ascendHotKeys {
 
 .constUpgradeAuto {
     background-color: green;
-}
-
-/* .constUpgradeSingle {
-    background-color: gold;
-}
-
-.constUpgradeSingleAvailable {
-    background-color: gold;
-    cursor: pointer;
-}
-
-.constUpgradeSingleAvailable:hover {
-    background-color: #fff4b3;
-} */
-
-.subtabSwitcher > button.buttonActive {
-    background-color: crimson;
 }
 
 .subtabContent {
@@ -2849,6 +2900,175 @@ p#ascendHotKeys {
     font-size: 0.8em;
     border: 2px solid orange;
     color: white;
+}
+
+#campaigns {
+    justify-content: center;
+    align-items: start;
+    margin-top: 10px;
+}
+
+#campaignsMain {
+    width: 100%;
+    margin-top: 2%;
+    height: 90%;
+    justify-items: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+#campaignsIcons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    grid-area: 1 / 1 / 4 / 3;
+    width: 90%;
+    height: 100%;
+}
+
+#campaignIconGrid {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 48px));
+    grid-template-rows: repeat(5, minmax(0, 48px));
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+    justify-content: center;
+}
+
+/* Credit: gwabo_ */
+.campaignIcon:not(.green-background) {
+    --pct: 0;
+
+    background-image:
+        linear-gradient(
+            0deg,
+            #00800033 -25%,
+            #00800088 calc(round(var(--pct) * 100%, 1px) - 1px),
+            green calc(round(var(--pct) * 100%, 1px) - 1px),
+            green calc(round(var(--pct) * 100%, 1px)),
+            transparent calc(round(var(--pct) * 100%, 1px))
+        );
+}
+
+#campaignsIcons h3 {
+    text-align: center;
+}
+
+#campaignsIcons img {
+    width: 48px;
+    height: 48px;
+    font-size: 0;
+    cursor: pointer;
+}
+
+#campaignsIcons img:hover {
+    background-color: var(--hover-color);
+}
+
+#campaignsDescriptions {
+    grid-area: 1 / 3 / 4 / 6;
+    border: 2px solid red;
+    width: 90%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#campaignsDescriptions h3 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#campaignsDescriptions h5 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#campaignCorruptionInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.campaignCorrDisplay {
+    display: flex;
+    flex-direction: row;
+}
+
+.campaignCorrDisplay img {
+    width: 32px;
+    height: 32px;
+    font-size: 0;
+}
+
+.campaignCorrDisplay p {
+    margin: 0;
+}
+
+#campaignCorruptions {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#campaignCorruptionStats {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+#campaignCorruptionStats p {
+    margin: 0;
+}
+
+#campaignCorruptionStats button {
+    align-self: flex-end;
+    width: 100%;
+    border: 1px solid gold;
+    font-size: 1.2em;
+}
+
+#campaignsTokensInfo {
+    grid-area: 4 / 1 / 5 / 6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+    margin-top: 1%;
+    height: 90%;
+    width: 90%;
+}
+
+#campaignsTokensInfo img {
+    width: 48px;
+    height: 48px;
+    font-size: 0;
+    cursor: pointer;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#campaignsTokensInfo img:hover {
+    background-color: var(--hover-color);
+}
+
+#campaignsTokensInfo h2 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#campaignsTokensInfo h4 {
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
 
 #traits {
@@ -3441,6 +3661,7 @@ header #obtainiumDisplay { color: pink; }
     display: flex;
     flex-direction: row;
     margin-top: 2px;
+    gap: 0 5px;
 }
 
 #hotKeyDesc {
@@ -3451,10 +3672,10 @@ header #obtainiumDisplay { color: pink; }
     color: var(--darkorchid-text-color);
 }
 
-#actualHotkey {
+.actualHotkey {
     padding: 1px 15px;
     color: gold;
-    cursor: pointer;
+    min-height: 2em;
 }
 
 .resetHotkeys {
@@ -3465,7 +3686,6 @@ header #obtainiumDisplay { color: pink; }
 }
 
 .resetHotkeys > button {
-    min-height: 20px;
     padding: 2px 4px;
 }
 
@@ -3527,10 +3747,24 @@ header #obtainiumDisplay { color: pink; }
 
 .singularityUpgrade,
 .octeractUpgrade,
-.singularityChallenge,
-.blueberryUpgrade {
+.singularityChallenge {
     font-size: 0;
     cursor: pointer;
+}
+
+.ambrosiaLoadoutBtn {
+    width: 20%;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#showCurrAmbrosiaUpgrades {
+    width: 8%;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid orange;
 }
 
 .blueberryLoadoutSlot {
@@ -3543,12 +3777,6 @@ header #obtainiumDisplay { color: pink; }
     height: 32px;
     width: 192px;
     border: 2px solid blue;
-}
-
-.singularityChallenges {
-    display: flex;
-    justify-content: center;
-    column-gap: 4px;
 }
 
 .rainbowBorder {
@@ -3568,6 +3796,11 @@ header #obtainiumDisplay { color: pink; }
     object-fit: none;
     background-color: var(--bg-color);
     border-radius: 3px;
+}
+
+.rainbowBorder:hover {
+    cursor: pointer;
+    background-color: var(--hover-color);
 }
 
 .rainbowBorder::before {
@@ -3657,23 +3890,72 @@ img#singularityPerksIcon {
     margin-top: 5px;
 }
 
+#octeractUpgradeValues,
+#ambrosiaUpgradeValues {
+    width: 100%;
+}
+
 #testingMultiline,
 #singularityOcteractsMultiline,
-#singularityAmbrosiaMultiline,
+#singularityAmbrosiaMultiline {
+    white-space: pre-line;
+    margin: 15px auto 0;
+    justify-content: center;
+    width: 40%;
+    text-align: center;
+}
+
 #accountSubTab {
     white-space: pre-line;
     margin: 15px 0 0;
     justify-content: center;
+    flex-direction: column;
 }
 
 #singularityChallengeDetails {
-    width: 50%;
-    margin-left: 25%;
+    display: block;
 }
 
-#singularityChallengesMultiline {
+#singularityChallengesInfo {
     white-space: pre-line;
-    margin: 15px 0 0;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#singularityChallengeAllRewards {
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(2, 375px);
+    justify-content: center;
+    grid-gap: 10px;
+}
+
+#singularityChallengeScalingHeader {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    margin: 0;
+}
+
+#singularityChallengeUniqueHeader {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    margin: 0;
+}
+
+#singularityChallengesScalingRewards {
+    display: block;
+    white-space: pre-line;
+    margin: 0;
+    text-align: center;
+}
+
+#singularityChallengesUniqueRewards {
+    display: block;
+    white-space: pre-line;
+    margin: 0;
 }
 
 .newPerk {
@@ -3721,8 +4003,78 @@ img#singularityPerksIcon {
 
 #event {
     position: relative;
-    padding: 0;
+    padding: 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.event-container {
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.event-title {
+    margin: 0 0 10px;
+    color: #ffd700;
+}
+
+.event-bonus,
+.event-timer {
+    margin: 5px 0;
+}
+
+#globalEventBonus,
+#consumableEventBonus,
+#globalEventTimer,
+#consumableEventTimer {
+    color: #8f8;
+}
+
+#eventBuffContainer,
+#consumableBuffContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.eventBuffVal,
+.consumableBuffVal {
+    display: flex;
+    align-items: center;
+}
+
+.eventBuffVal img,
+.consumableBuffVal img {
+    margin: 0;
+    padding: 0;
+    height: 32px;
+    width: 32px;
+}
+
+.eventBuffVal p,
+.consumableBuffVall p {
+    margin: 0;
+    padding: 0;
+}
+
+.consumableButton,
+#apply-tips {
+    border: 2px solid #ffd700;
+    background-color: #ffd700;
+    color: black;
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    width: 150px;
+}
+
+#apply-tips:not(:hover) {
+    border: 2px solid var(--hovershop-color);
+    background-color: var(--hovershop-color);
 }
 
 @keyframes rotation {
@@ -3735,24 +4087,55 @@ img#singularityPerksIcon {
     }
 }
 
-#unsmith {
-    margin: 15px;
-    gap: 10px 15px;
-    height: auto;
-    width: 200px;
-    max-width: 500%;
-    animation: rotation 2s infinite linear;
+*[class^="hoveredBlueberryLoadout"] div[class^="bbPurchasedLoadout"] {
+    background-color: green;
 }
 
-.hoveredBlueberryLoadout1 div.bbPurchasedLoadout1,
-.hoveredBlueberryLoadout2 div.bbPurchasedLoadout2,
-.hoveredBlueberryLoadout3 div.bbPurchasedLoadout3,
-.hoveredBlueberryLoadout4 div.bbPurchasedLoadout4,
-.hoveredBlueberryLoadout5 div.bbPurchasedLoadout5,
-.hoveredBlueberryLoadout6 div.bbPurchasedLoadout6,
-.hoveredBlueberryLoadout7 div.bbPurchasedLoadout7,
-.hoveredBlueberryLoadout8 div.bbPurchasedLoadout8 {
-    background-color: green;
+.blueberryPrereq {
+    height: 28px;
+    width: 28px;
+    border: 2px solid gold;
+}
+
+.notInLoadout {
+    visibility: hidden;
+}
+
+/* Style for dimmed image */
+.blueberryUpgrade img.dimmed,
+.redAmbrosiaUpgrade img.dimmed {
+    opacity: 0.5; /* Adjust the opacity to control the dimming effect */
+}
+
+/* Style for level display */
+.blueberryUpgrade .level-overlay,
+.redAmbrosiaUpgrade .level-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1em; /* Adjust font size as needed */
+    text-shadow: 2px 2px 4px #000; /* Add a text shadow for better readability */
+    z-index: 999; /* Ensure the text is on top of the image */
+}
+
+/* Style for relative positioning */
+.blueberryUpgrade,
+.redAmbrosiaUpgrade {
+    position: relative;
+    display: inline-block; /* Or block, depending on your layout */
+    cursor: pointer;
+}
+
+.maxBlueberryLevel,
+.maxRedAmbrosiaLevel {
+    color: orchid;
+    font-weight: bold;
+}
+
+.notMaxBlueberryLevel,
+.notMaxRedAmbrosiaLevel {
+    color: white;
 }
 
 /* Stolen from https://codepen.io/mike-schultz/pen/NgQvGO */
@@ -3763,7 +4146,8 @@ img#singularityPerksIcon {
     border-radius: var(--border-width);
 }
 
-#switchSettingSubTab9::after {
+#switchSettingSubTab9::after,
+.blueberryPrereq::after {
     content: "";
     position: absolute;
     top: calc(-1 * var(--border-width));
@@ -3797,15 +4181,44 @@ img#singularityPerksIcon {
 
 /* // Stolen from https://codepen.io/mike-schultz/pen/NgQvGO */
 
-#accountSubTab > div.scrollbarX {
-    padding-top: 10px;
+#accountSubTab > div.scrollbarX > div[id="button-holder"] {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-#accountSubTab > div.scrollbarX > img#discord-logo {
-    /* A 1.3 width x height ratio */
-    width: 96px;
-    height: 72px;
-    image-rendering: auto;
+#accountSubTab > div.scrollbarX > div[id="button-holder"] > button {
+    border: 2px solid red;
+    min-width: 150px;
+    min-height: 30px;
+    margin: 2px;
+}
+
+#accountSubTab > div.scrollbarX > div:is(#register, #login, #forgotpassword) {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gold;
+    width: max-content;
+    margin: 0 auto;
+}
+
+#accountSubTab > div.scrollbarX > div:is(#login, #forgotpassword) {
+    display: none;
+}
+
+/** Remove vertical spacing */
+#accountSubTab > div.scrollbarX > div > form {
+    font-size: 0;
+}
+
+#accountSubTab > div.scrollbarX > div > form > * {
+    font-size: medium;
+    margin: 2px 10px;
+}
+
+#accountSubTab > div.scrollbarX > div > form > input[type="submit"] {
+    border: 1px solid gold;
+    padding: 3px 5px;
 }
 
 #pixelProgressBar {
@@ -3868,7 +4281,791 @@ img#singularityPerksIcon {
     font-weight: bold;
 }
 
+#bbLoadoutContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+}
+
 form input:hover {
     background-color: var(--hover-color);
     cursor: pointer;
+}
+
+#logoutButton {
+    border: 2px solid #5865f2;
+    height: 25px;
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+
+.pseudoUpgradeContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    justify-items: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.pseudoSubscriptionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pseudoSubscriptionContainer > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.pseudoSubscriptionContainer > form > input[type="submit"] {
+    border: 2px solid gold;
+    width: 200px;
+    height: 40px;
+}
+
+.pseudoSubscriptionContainer > #sub-section-holder {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 70%;
+}
+
+.pseudoCoinContainer {
+    margin: 10px 10px 0 0;
+    border: 1px solid #ccc;
+    border: 2px solid orchid;
+    text-align: center;
+}
+
+.subscriptionContainer {
+    margin: 10px 10px 0 0;
+    border: 1px solid lightgoldenrodyellow;
+    border: 2px solid gold;
+    text-align: center;
+}
+
+#pseudoCoins > #productContainer > section > * > .pseudoCoinImage {
+    margin-top: 8px;
+}
+
+#pseudoCoins img {
+    image-rendering: unset;
+}
+
+.pseudoCoinSubImage {
+    height: 48px;
+    width: 48px;
+}
+
+.pseudoCoinText {
+    width: 90%;
+    height: 80px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    border: 1px solid #ccc;
+    margin: 5px auto;
+}
+
+.pseudoSubscriptionText {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    margin: 5px auto;
+}
+
+.pseudoCoinButton {
+    width: 75%;
+    height: 65px;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    border: 2px solid white;
+    font-size: 1.2em;
+    word-wrap: break-word;
+    margin-bottom: 5px;
+}
+
+.pseudoCoinButton:hover {
+    background-color: white;
+    color: black;
+}
+
+#cart {
+    width: fit-content;
+    margin: 5px auto 0;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+#cart > img {
+    width: 24px;
+    height: 24px;
+}
+
+#totalCost {
+    margin: 0 auto;
+}
+
+#closeCart,
+#checkout {
+    margin: 2px auto 4px;
+}
+
+.cartListElementContainer > * {
+    width: 5vh;
+}
+
+.cartListElementContainer > button {
+    min-height: unset;
+    height: 50%;
+    border: 2px solid green;
+    border-radius: 2px;
+}
+
+#itemList {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.cartListElementContainer {
+    display: flex;
+}
+
+.cartListElement {
+    width: 30vh;
+}
+
+.cartListElementContainer > span:first-of-type {
+    width: 80%;
+}
+
+#upgradesContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#cartContainer {
+    display: flex;
+    width: 70vh;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+#consumablesSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 70%;
+}
+
+.purchaseConsumableContainer {
+    border: 2px solid var(--amber-text-color);
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.consumablePurchaseBtn {
+    display: flex;
+    align-items: center;
+    white-space: pre;
+    padding: 0 5px;
+    box-sizing: border-box;
+    border: 2px solid var(--amber-text-color);
+    margin: 5px auto 0;
+}
+
+.timeSkipSet {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.timeSkipContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 33%;
+    height: 30%;
+}
+
+.timeSkipOptions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Cost text */
+#consumablesGrid > div > button > :nth-child(2) {
+    color: var(--amber-text-color);
+}
+
+#consumablesGrid > div > * {
+    margin: 0;
+}
+
+#upgradeGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 15%);
+    grid-template-rows: repeat(3, 15%);
+    column-gap: 10px;
+    row-gap: 64px;
+    margin: 0;
+    width: 38%;
+    padding-top: 15px;
+    max-height: 256px;
+}
+
+#upgradeGrid > div {
+    position: relative;
+    height: 64px;
+    width: 64px;
+    background: #222;
+    place-self: center;
+}
+
+#upgradeGrid > div > p {
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+}
+
+#upgradeGrid > div > p:nth-child(odd) {
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#upgradeGrid > div > img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    width: 70%;
+}
+
+#upgradeGrid > div[data-id].active {
+    outline: 2px solid white;
+}
+
+#pseudoCoinAmounts,
+#pseudoCoinAmounts2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+#pseudoCoinAmounts > img,
+#pseudoCoinAmounts2 > img {
+    max-height: 32px;
+    max-width: 32px;
+}
+
+#upgradeInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    width: 50%;
+    border: 3px solid var(--darkgold-color);
+}
+
+#pseudoCoinUpgradeName {
+    background-color: var(--darkgold-color);
+    width: 100%;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+#pseudoCoinUpgradeDescription {
+    display: grid;
+    height: 192px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 192px;
+    width: 100%;
+}
+
+#pseudoCoinUpgradeIcon {
+    grid-column: 1;
+    margin: auto;
+}
+
+#pseudoCoinUpgradeTexts {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-column: 2 / 4;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+#pCoinUpgradeDesc {
+    grid-row: 1 / 6;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+}
+
+#pCoinUpgradeDesc > p {
+    margin: 0;
+}
+
+#pCoinButton {
+    grid-row: 6;
+    margin: 0 auto;
+    width: 100%;
+}
+
+#buy {
+    width: 100%;
+    border: 2px solid gold;
+    font-size: 1.2em;
+}
+
+#captchaHolder > .cf-turnstile {
+    max-width: fit-content;
+    max-height: fit-content;
+    margin: auto;
+}
+
+#merchContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#merchContainer > a {
+    text-decoration: none;
+    margin-top: 10px;
+    border: 2px solid purple;
+    min-width: 150px;
+    text-align: center;
+}
+
+#merchContainer > a:hover {
+    background-color: var(--hover-color);
+}
+
+#merchContainer > #slideshows {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+}
+
+.slideshow-container .slide {
+    display: none;
+}
+
+.slideshow-container .prev,
+.slideshow-container .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.slideshow-container .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.slideshow-container .prev:hover,
+.slideshow-container .next:hover {
+    background-color: rgba(0 0 0 / 80%);
+}
+
+.slideshow-container .text {
+    color: black;
+    background-color: #e3e3e3;
+    width: max-content;
+    font-weight: bold;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.slideshow-container .pageNumber {
+    color: black;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.slideshow-container .active {
+    background-color: #717171;
+    display: block;
+}
+
+.slideshow-container .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.upgrade-button {
+    background: none;
+    cursor: pointer;
+}
+
+.upgrade-button:focus-visible {
+    outline: 2px solid #4a90e2;
+}
+
+.upgrade-button[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.fastForwardVisible {
+    display: flex !important;
+}
+
+h2,
+h3 {
+    margin: 2px;
+}
+
+.green-background {
+    background-color: var(--green-text-color);
+}
+
+.purple-background {
+    background-color: var(--purplebtn-color);
+}
+
+.green-background img {
+    background-color: var(--green-text-color);
+}
+
+.purple-background img {
+    background-color: var(--purplebtn-color);
+}
+
+html[data-coin-one="true"] .coinunlock1 {
+    display: flex;
+}
+
+html[data-coin-one="false"] .coinunlock1 {
+    display: none;
+}
+
+html[data-coin-two="true"] .coinunlock2 {
+    display: flex;
+}
+
+html[data-coin-two="false"] .coinunlock2 {
+    display: none;
+}
+
+html[data-coin-three="true"] .coinunlock3 {
+    display: flex;
+}
+
+html[data-coin-three="false"] .coinunlock3 {
+    display: none;
+}
+
+html[data-coin-four="true"] .coinunlock4 {
+    display: flex;
+}
+
+html[data-coin-four="false"] .coinunlock4 {
+    display: none;
+}
+
+html[data-generation-unlock="true"] .generationunlock {
+    display: block;
+}
+
+html[data-generation-unlock="false"] .generationunlock {
+    display: none;
+}
+
+html[data-reincarnation-one="true"] .reinrow1 {
+    display: block;
+}
+
+html[data-reincarnation-one="false"] .reinrow1 {
+    display: none;
+}
+
+html[data-reincarnation-two="true"] .reinrow2 {
+    display: block;
+}
+
+html[data-reincarnation-two="false"] .reinrow2 {
+    display: none;
+}
+
+html[data-reincarnation-three="true"] .reinrow3 {
+    display: block;
+}
+
+html[data-reincarnation-three="false"] .reinrow3 {
+    display: none;
+}
+
+html[data-reincarnation-four="true"] .reinrow4 {
+    display: block;
+}
+
+html[data-reincarnation-four="false"] .reinrow4 {
+    display: none;
+}
+
+html[data-chal6="true"] .chal6 {
+    display: block;
+}
+
+html[data-chal6="false"] .chal6 {
+    display: none;
+}
+
+html[data-chal7="true"] .chal7 {
+    display: block;
+}
+
+html[data-chal7="false"] .chal7 {
+    display: none;
+}
+
+html[data-chal7x10="true"] .chal7x10 {
+    display: block;
+}
+
+html[data-chal7x10="false"] .chal7x10 {
+    display: none;
+}
+
+html[data-chal9="true"] .chal9 {
+    display: block;
+}
+
+html[data-chal9="false"] .chal9 {
+    display: none;
+}
+
+html[data-chal9x1="true"] .chal9x1 {
+    display: block;
+}
+
+html[data-chal9x1="false"] .chal9x1 {
+    display: none;
+}
+
+html[data-chal10="true"] .chal10 {
+    display: block;
+}
+
+html[data-chal10="false"] .chal10 {
+    display: none;
+}
+
+html[data-chal11="true"] .chal11 {
+    display: block;
+}
+
+html[data-chal11="false"] .chal11 {
+    display: none;
+}
+
+html[data-chal12="true"] .chal12 {
+    display: block;
+}
+
+html[data-chal12="false"] .chal12 {
+    display: none;
+}
+
+html[data-chal13="true"] .chal13 {
+    display: block;
+}
+
+html[data-chal13="false"] .chal13 {
+    display: none;
+}
+
+html[data-chal14="true"] .chal14 {
+    display: block;
+}
+
+html[data-chal14="false"] .chal14 {
+    display: none;
+}
+
+html[data-ascend-unlock="true"] .ascendunlockib {
+    display: inline-block;
+}
+
+html[data-ascend-unlock="false"] .ascendunlockib {
+    display: none;
+}
+
+html[data-prestige-unlock="true"] .prestigeunlockib {
+    display: inline-block;
+}
+
+html[data-prestige-unlock="false"] .prestigeunlockib {
+    display: none;
+}
+
+html[data-research150="true"] .research150 {
+    display: block;
+}
+
+html[data-research150="false"] .research150 {
+    display: none;
+}
+
+html[data-cube-upgrade10="true"] .cubeUpgrade10 {
+    display: flex;
+}
+
+html[data-cube-upgrade10="false"] .cubeUpgrade10 {
+    display: none;
+}
+
+html[data-cube-upgrade19="true"] .cubeUpgrade19 {
+    display: block;
+}
+
+html[data-cube-upgrade19="false"] .cubeUpgrade19 {
+    display: none;
+}
+
+html[data-sacrifice-ants="true"] .sacrificeAnts {
+    display: block;
+}
+
+html[data-sacrifice-ants="false"] .sacrificeAnts {
+    display: none;
+}
+
+html[data-hepteracts="true"] .hepteracts {
+    display: block;
+}
+
+html[data-hepteracts="false"] .hepteracts {
+    display: none;
+}
+
+html[data-singularity="true"] .singularity {
+    display: block;
+}
+
+html[data-singularity="false"] .singularity {
+    display: none;
+}
+
+html[data-cookies1="true"] .assortedCookies1 {
+    display: block;
+}
+
+html[data-cookies1="false"] .assortedCookies1 {
+    display: none;
+}
+
+html[data-cookies2="true"] .assortedCookies2 {
+    display: block;
+}
+
+html[data-cookies2="false"] .assortedCookies2 {
+    display: none;
+}
+
+html[data-cookies3="true"] .assortedCookies3 {
+    display: block;
+}
+
+html[data-cookies3="false"] .assortedCookies3 {
+    display: none;
+}
+
+html[data-cookies4="true"] .assortedCookies4 {
+    display: block;
+}
+
+html[data-cookies4="false"] .assortedCookies4 {
+    display: none;
+}
+
+html[data-cookies5="true"] .assortedCookies5 {
+    display: block;
+}
+
+html[data-cookies5="false"] .assortedCookies5 {
+    display: none;
+}
+
+html[data-golden-quark3-upg="true"] .goldenQuark3Upg {
+    display: block;
+}
+
+html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
+    display: none;
 }

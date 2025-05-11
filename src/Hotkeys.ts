@@ -4,8 +4,8 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { promocodes } from './ImportExport'
 import { useConsumable } from './Shop'
 import { player, resetCheck, synergismHotkeys } from './Synergism'
-import { keyboardTabChange as kbTabChange, tabRow, Tabs } from './Tabs'
-import { confirmReply, toggleAutoChallengeRun, toggleCorruptionLevel } from './Toggles'
+import { getActiveSubTab, keyboardTabChange as kbTabChange, tabRow, Tabs } from './Tabs'
+import { confirmReply, toggleAutoChallengeRun } from './Toggles'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
@@ -34,7 +34,10 @@ export const defaultHotkeys = new Map<string, [string, () => unknown, /* hide du
   ['ARROWUP', ['Back a subtab', () => kbTabChange(-1, true), false]],
   ['ARROWDOWN', ['Next subtab', () => kbTabChange(1, true), false]],
   ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascension'), false]],
-  ['SHIFT+C', ['Cleanse Corruptions', () => toggleCorruptionLevel(10, 999), false]],
+  ['SHIFT+C', ['Cleanse Corruptions', () => {
+    player.corruptions.used.resetCorruptions()
+    player.corruptions.next.resetCorruptions()
+  }, false]],
   ['SHIFT+D', ['Spec. Action Add x1', () => promocodes('add', 1), false]],
   ['SHIFT+E', ['Exit Asc. Challenge', () => resetCheck('ascensionChallenge'), false]], // Its already checks if inside Asc. Challenge
   ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion'), false]],
@@ -96,11 +99,6 @@ const eventHotkeys = (event: KeyboardEvent): void => {
 
   const key = keyPrefix + event.key.toUpperCase()
 
-  // Disable the TAB key as it may allow unexpected operations
-  if (key === 'TAB') {
-    event.preventDefault()
-  }
-
   // Disable hotkeys if notifications are occurring
   if (key !== 'ENTER' && DOMCacheGetOrSet('transparentBG').style.display === 'block') {
     if (hotkeys.has(key) && (!hotkeys.get(key)![2])) {
@@ -115,9 +113,14 @@ const eventHotkeys = (event: KeyboardEvent): void => {
     event.preventDefault()
   }
 
-  if (G.currentTab === Tabs.Settings && player.subtabNumber === 6) {
+  if (G.currentTab === Tabs.Settings && getActiveSubTab() === 7) {
     DOMCacheGetOrSet('lastHotkey').textContent = key
     DOMCacheGetOrSet('lastHotkeyName').textContent = hotkeyName
+
+    if (DOMCacheGetOrSet('promptWrapper').style.display === 'block') {
+      ;(DOMCacheGetOrSet('prompt_text') as HTMLInputElement).value = key
+      event.preventDefault()
+    }
   }
 }
 
@@ -125,10 +128,10 @@ const makeSlot = (key: string, descr: string) => {
   const div = document.createElement('div')
   div.classList.add('hotkeyItem')
 
-  const span = document.createElement('span')
-  span.id = 'actualHotkey'
-  span.textContent = key
-  span.addEventListener('click', async (e) => {
+  const button = document.createElement('button')
+  button.classList.add('actualHotkey')
+  button.textContent = key
+  button.addEventListener('click', async (e) => {
     const target = e.target as HTMLElement
     const oldKey = target.textContent!.toUpperCase()
     const name = hotkeys.get(oldKey)?.[0]
@@ -181,7 +184,7 @@ const makeSlot = (key: string, descr: string) => {
   p.id = 'hotKeyDesc'
   p.textContent = descr
 
-  div.appendChild(span)
+  div.appendChild(button)
   div.appendChild(p)
 
   return div

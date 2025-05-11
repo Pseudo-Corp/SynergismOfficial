@@ -1,4 +1,5 @@
 import Decimal from 'break_infinity.js'
+import { calculateSigmoid } from './Calculate'
 import { Tabs } from './Tabs'
 import type { GlobalVariables } from './types/Synergism'
 
@@ -291,7 +292,6 @@ export const Globals: GlobalVariables = {
   talisman6Power: 0,
   talisman7Quarks: 0,
 
-  runescreen: 'runes',
   settingscreen: 'settings',
 
   talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24],
@@ -367,27 +367,27 @@ export const Globals: GlobalVariables = {
   researchOrderByCost: [],
 
   viscosityPower: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05, 0, 0, 0],
-  lazinessMultiplier: [
+  dilationMultiplier: [
     1,
     1 / 3,
     1 / 10,
     1 / 40,
     1 / 200,
-    1 / 1e5,
-    1 / 1e7,
-    1 / 1e10,
-    1 / 1e13,
-    1 / 1e16,
-    1 / 1e20,
-    1 / 1e25,
-    1 / 1e35,
-    1 / 1e50,
+    1 / 3e4,
+    1 / 3e6,
+    1 / 3e9,
+    1 / 3e12,
+    1 / 1e15,
+    1 / 1e19,
+    1 / 1e24,
+    1 / 1e34,
+    1 / 1e48,
     1 / 1e65,
     1 / 1e80,
     1 / 1e100
   ],
-  hyperchallengedMultiplier: [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100, 400, 1600, 7777, 18888, 88888],
-  illiteracyPower: [1, 0.8, 0.7, 0.6, 0.5, 0.3, 0.2, 0.15, 0.10, 0.06, 0.04, 0.02, 0.01, 0.005, 0, 0, 0],
+  hyperchallengeMultiplier: [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100, 400, 1600, 7777, 18888, 88888],
+  illiteracyPower: [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.20, 0.15, 0.10, 0.08, 0.06, 0.04],
   deflationMultiplier: [
     1,
     0.3,
@@ -409,7 +409,7 @@ export const Globals: GlobalVariables = {
   ],
   extinctionMultiplier: [1, 0.92, 0.86, 0.8, 0.74, 0.65, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.1, 0, 0, 0, 0],
   droughtMultiplier: [1, 5, 25, 200, 1e4, 1e7, 1e11, 1e16, 1e22, 1e30, 1e40, 1e55, 1e80, 1e120, 1e177, 1e200, 1e250],
-  financialcollapsePower: [
+  recessionPower: [
     1,
     0.9,
     0.7,
@@ -449,39 +449,233 @@ export const Globals: GlobalVariables = {
   autoTalismanTimer: 0,
 
   autoChallengeTimerIncrement: 0,
-  corruptionTrigger: 1,
+  corruptionTrigger: 'illiteracy',
+
+  c15RewardFormulae: {
+    cube1: (e: number) => 1 + ((1 / 50) * Math.log2(e / 175)),
+    ascensions: (e: number) => 1 + ((1 / 20) * Math.log2(e / 375)),
+    coinExponent: (e: number) => 1 + ((1 / 150) * Math.log2(e / 750)),
+    taxes: (e: number) => Math.pow(0.98, Math.log(e / 1.25e3) / Math.log(2)),
+    obtainium: (e: number) => 1 + (1 / 4) * Math.pow(e / 7.5e3, 0.6),
+    offering: (e: number) => 1 + (1 / 4) * Math.pow(e / 7.5e3, 0.8),
+    accelerator: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e3)) / Math.log(2),
+    multiplier: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e3)) / Math.log(2),
+    runeExp: (e: number) => 1 + Math.pow(e / 2e4, 1.5),
+    runeBonus: (e: number) => 1 + ((1 / 33) * Math.log(e / 1e4)) / Math.log(2),
+    cube2: (e: number) => 1 + ((1 / 100) * Math.log(e / 1.5e4)) / Math.log(2),
+    transcendChallengeReduction: (e: number) => Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2)),
+    reincarnationChallengeReduction: (e: number) => Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2)),
+    antSpeed: (e: number) => Math.pow(1 + Math.log(e / 2e5) / Math.log(2), 4),
+    bonusAntLevel: (e: number) => 1 + ((1 / 20) * Math.log(e / 1.5e5)) / Math.log(2),
+    cube3: (e: number) => 1 + ((1 / 150) * Math.log(e / 2.5e5)) / Math.log(2),
+    talismanBonus: (e: number) => 1 + ((1 / 20) * Math.log(e / 7.5e5)) / Math.log(2),
+    globalSpeed: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e6)) / Math.log(2),
+    blessingBonus: (e: number) => 1 + (1 / 5) * Math.pow(e / 3e7, 1 / 4),
+    constantBonus: (e: number) => 1 + (1 / 5) * Math.pow(e / 1e8, 2 / 3),
+    cube4: (e: number) => 1 + ((1 / 200) * Math.log(e / 1.25e8)) / Math.log(2),
+    spiritBonus: (e: number) => 1 + (1 / 5) * Math.pow(e / 2e9, 1 / 4),
+    score: (e: number) =>
+      (e >= 1e20)
+        ? 1 + (1 / 4) * Math.pow(e / 1e10, 1 / 8) * Math.pow(1e10, 1 / 8)
+        : 1 + (1 / 4) * Math.pow(e / 1e10, 1 / 4),
+    quarks: (e: number) => 1 + (3 / 400) * Math.log2(e * 32 / 1e11),
+    hepteractsUnlocked: (e: number) => e >= 1e15 ? 1 : 0,
+    challengeHepteractUnlocked: (e: number) => e >= 2e15 ? 1 : 0,
+    cube5: (e: number) => 1 + (1 / 300) * Math.log2(e / (4e15 / 1024)),
+    powder: (e: number) => 1 + (1 / 50) * Math.log2(e / (7e15 / 32)),
+    abyssHepteractUnlocked: (e: number) => e >= 1e16 ? 1 : 0,
+    exponent: (e: number) => calculateSigmoid(1.05, e, 1e18),
+    acceleratorHepteractUnlocked: (e: number) => e >= 3.33e16 ? 1 : 0,
+    acceleratorBoostHepteractUnlocked: (e: number) => e >= 3.33e16 ? 1 : 0,
+    multiplierHepteractUnlocked: (e: number) => e >= 3.33e16 ? 1 : 0,
+    freeOrbs: (e: number) => Math.floor(200 * Math.pow(e / 2e17, 0.5)),
+    ascensionSpeed: (e: number) => 1 + 5 / 100 + (2 * Math.log2(e / 1.5e18)) / 100
+  },
 
   challenge15Rewards: {
-    cube1: 1,
-    ascensions: 1,
-    coinExponent: 1,
-    taxes: 1,
-    obtainium: 1,
-    offering: 1,
-    accelerator: 1,
-    multiplier: 1,
-    runeExp: 1,
-    runeBonus: 1,
-    cube2: 1,
-    transcendChallengeReduction: 1,
-    reincarnationChallengeReduction: 1,
-    antSpeed: 1,
-    bonusAntLevel: 1,
-    cube3: 1,
-    talismanBonus: 1,
-    globalSpeed: 1,
-    blessingBonus: 1,
-    constantBonus: 1,
-    cube4: 1,
-    spiritBonus: 1,
-    score: 1,
-    quarks: 1,
-    hepteractUnlocked: 0,
-    cube5: 1,
-    powder: 1,
-    exponent: 1,
-    freeOrbs: 0,
-    ascensionSpeed: 1
+    cube1: {
+      value: 1,
+      baseValue: 1,
+      requirement: 750
+    },
+    ascensions: {
+      value: 1,
+      baseValue: 1,
+      requirement: 1500
+    },
+    coinExponent: {
+      value: 1,
+      baseValue: 1,
+      requirement: 3000
+    },
+    taxes: {
+      value: 1,
+      baseValue: 1,
+      requirement: 5000
+    },
+    obtainium: {
+      value: 1,
+      baseValue: 1,
+      requirement: 7500
+    },
+    offering: {
+      value: 1,
+      baseValue: 1,
+      requirement: 7500
+    },
+    accelerator: {
+      value: 1,
+      baseValue: 1,
+      requirement: 10000
+    },
+    multiplier: {
+      value: 1,
+      baseValue: 1,
+      requirement: 10000
+    },
+    runeExp: {
+      value: 1,
+      baseValue: 1,
+      requirement: 20000
+    },
+    runeBonus: {
+      value: 1,
+      baseValue: 1,
+      requirement: 40000
+    },
+    cube2: {
+      value: 1,
+      baseValue: 1,
+      requirement: 60000
+    },
+    transcendChallengeReduction: {
+      value: 1,
+      baseValue: 1,
+      requirement: 100000
+    },
+    reincarnationChallengeReduction: {
+      value: 1,
+      baseValue: 1,
+      requirement: 100000
+    },
+    antSpeed: {
+      value: 1,
+      baseValue: 1,
+      requirement: 200000
+    },
+    bonusAntLevel: {
+      value: 1,
+      baseValue: 1,
+      requirement: 500000
+    },
+    cube3: {
+      value: 1,
+      baseValue: 1,
+      requirement: 1000000
+    },
+    talismanBonus: {
+      value: 1,
+      baseValue: 1,
+      requirement: 3000000
+    },
+    globalSpeed: {
+      value: 1,
+      baseValue: 1,
+      requirement: 1e7
+    },
+    blessingBonus: {
+      value: 1,
+      baseValue: 1,
+      requirement: 3e7
+    },
+    constantBonus: {
+      value: 1,
+      baseValue: 1,
+      requirement: 1e8
+    },
+    cube4: {
+      value: 1,
+      baseValue: 1,
+      requirement: 5e8
+    },
+    spiritBonus: {
+      value: 1,
+      baseValue: 1,
+      requirement: 2e9
+    },
+    score: {
+      value: 1,
+      baseValue: 1,
+      requirement: 1e10
+    },
+    quarks: {
+      value: 1,
+      baseValue: 1,
+      requirement: 1e11,
+      HTMLColor: 'lightgoldenrodyellow'
+    },
+    hepteractsUnlocked: {
+      value: 0,
+      baseValue: 0,
+      requirement: 1e15,
+      HTMLColor: 'pink'
+    },
+    challengeHepteractUnlocked: {
+      value: 0,
+      baseValue: 0,
+      requirement: 2e15,
+      HTMLColor: 'red'
+    },
+    cube5: {
+      value: 1,
+      baseValue: 1,
+      requirement: 4e15
+    },
+    powder: {
+      value: 1,
+      baseValue: 1,
+      requirement: 7e15
+    },
+    abyssHepteractUnlocked: {
+      value: 0,
+      baseValue: 0,
+      requirement: 1e16
+    },
+    exponent: {
+      value: 1,
+      baseValue: 1,
+      requirement: 2e16
+    },
+    acceleratorHepteractUnlocked: {
+      value: 0,
+      baseValue: 0,
+      requirement: 3.33e16,
+      HTMLColor: 'orange'
+    },
+    acceleratorBoostHepteractUnlocked: {
+      value: 0,
+      baseValue: 0,
+      requirement: 3.33e16,
+      HTMLColor: 'cyan'
+    },
+    multiplierHepteractUnlocked: {
+      value: 0,
+      baseValue: 0,
+      requirement: 3.33e16,
+      HTMLColor: 'purple'
+    },
+    freeOrbs: {
+      value: 0,
+      baseValue: 0,
+      requirement: 2e17,
+      HTMLColor: 'pink'
+    },
+    ascensionSpeed: {
+      value: 1,
+      baseValue: 1,
+      requirement: 1.5e18,
+      HTMLColor: 'orange'
+    }
   },
 
   autoResetTimers: {
@@ -502,11 +696,10 @@ export const Globals: GlobalVariables = {
   // talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24]
   // talismanResourceOfferingCosts: [0, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
 
-  eventClicked: false,
-
   ambrosiaTimer: 0,
-  TIME_PER_AMBROSIA: 600,
-
+  redAmbrosiaTimer: 0,
+  TIME_PER_AMBROSIA: 30,
+  TIME_PER_RED_AMBROSIA: 100000,
   currentSingChallenge: undefined
 }
 

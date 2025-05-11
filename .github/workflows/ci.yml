@@ -48,13 +48,13 @@ jobs:
             var { addedDiff: diff } = require('deep-object-diff');
             var { inspect } = require('util');
 
-            var source = JSON.parse(fs.readFileSync('./translations/source.json'));
+            var source = JSON.parse(fs.readFileSync('./translations/en.json'));
             var translations = fs.readdirSync('./translations')
               .map(f => path.join('./translations', f))
               .map(j => ({ path: j, json: JSON.parse(fs.readFileSync(j)) }));
 
             for (var json of translations) {
-              const added = diff(source, json.json)
+              var added = diff(source, json.json)
 
               if (Object.keys(added).length) {
                 console.log(inspect(added, undefined, 100, true), json.path)

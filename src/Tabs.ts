@@ -1,9 +1,13 @@
-import { DOMCacheGetOrSet } from './Cache/DOM'
+import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
+import { prod } from './Config'
 import { pressedKeys } from './Hotkeys'
+import { isLoggedIn } from './Login'
+import { initializeCart } from './purchases/CartTab'
 import { player } from './Synergism'
 import {
   setActiveSettingScreen,
   toggleBuildingScreen,
+  toggleChallengesScreen,
   toggleCorruptionLoadoutsStats,
   toggleCubeSubTab,
   toggleRuneScreen,
@@ -22,11 +26,13 @@ export enum Tabs {
   Research = 5,
   AntHill = 6,
   WowCubes = 7,
-  Corruption = 8,
-  Singularity = 9,
-  Settings = 10,
-  Shop = 11,
-  Event = 12
+  Campaign = 8,
+  Corruption = 9,
+  Singularity = 10,
+  Settings = 11,
+  Shop = 12,
+  Event = 13,
+  Purchase = 14
 }
 
 /**
@@ -37,6 +43,7 @@ type SubTabSwitchOptions = { step: number; page?: undefined } | { page: number; 
 
 interface SubTab {
   tabSwitcher?: () => (id: string) => unknown
+  subtabIndex: number
   subTabList: {
     subTabID: string
     unlocked: boolean
@@ -47,36 +54,44 @@ interface SubTab {
 const subtabInfo: Record<Tabs, SubTab> = {
   [Tabs.Settings]: {
     tabSwitcher: () => setActiveSettingScreen,
+    subtabIndex: 0,
     subTabList: [
-      { subTabID: 'settingsubtab', unlocked: true },
-      { subTabID: 'languagesubtab', unlocked: true },
-      { subTabID: 'creditssubtab', unlocked: true },
-      { subTabID: 'statisticsSubTab', unlocked: true },
+      { subTabID: 'settingsubtab', unlocked: true, buttonID: 'switchSettingSubTab1' },
+      { subTabID: 'languagesubtab', unlocked: true, buttonID: 'switchSettingSubTab2' },
+      { subTabID: 'creditssubtab', unlocked: true, buttonID: 'switchSettingSubTab3' },
+      { subTabID: 'statisticsSubTab', unlocked: true, buttonID: 'switchSettingSubTab4' },
       {
         subTabID: 'resetHistorySubTab',
         get unlocked () {
           return player.unlocks.prestige
-        }
+        },
+        buttonID: 'switchSettingSubTab5'
       },
       {
         subTabID: 'ascendHistorySubTab',
         get unlocked () {
           return player.ascensionCount > 0
-        }
+        },
+        buttonID: 'switchSettingSubTab6'
       },
       {
         subTabID: 'singularityHistorySubTab',
         get unlocked () {
           return player.highestSingularityCount > 0
-        }
+        },
+        buttonID: 'switchSettingSubTab7'
       },
-      { subTabID: 'hotkeys', unlocked: true },
-      { subTabID: 'accountSubTab', unlocked: true }
+      { subTabID: 'hotkeys', unlocked: true, buttonID: 'switchSettingSubTab8' },
+      { subTabID: 'accountSubTab', unlocked: true, buttonID: 'switchSettingSubTab9' }
     ]
   },
-  [Tabs.Shop]: { subTabList: [] },
+  [Tabs.Shop]: {
+    subTabList: [],
+    subtabIndex: 0
+  },
   [Tabs.Buildings]: {
     tabSwitcher: () => toggleBuildingScreen,
+    subtabIndex: 0,
     subTabList: [
       { subTabID: 'coin', unlocked: true, buttonID: 'switchToCoinBuilding' },
       {
@@ -109,10 +124,17 @@ const subtabInfo: Record<Tabs, SubTab> = {
       }
     ]
   },
-  [Tabs.Upgrades]: { subTabList: [] },
-  [Tabs.Achievements]: { subTabList: [] },
+  [Tabs.Upgrades]: {
+    subTabList: [],
+    subtabIndex: 0
+  },
+  [Tabs.Achievements]: {
+    subTabList: [],
+    subtabIndex: 0
+  },
   [Tabs.Runes]: {
     tabSwitcher: () => toggleRuneScreen,
+    subtabIndex: 0,
     subTabList: [
       {
         subTabID: '1',
@@ -144,11 +166,31 @@ const subtabInfo: Record<Tabs, SubTab> = {
       }
     ]
   },
-  [Tabs.Challenges]: { subTabList: [] },
-  [Tabs.Research]: { subTabList: [] },
-  [Tabs.AntHill]: { subTabList: [] },
+  [Tabs.Challenges]: {
+    tabSwitcher: () => toggleChallengesScreen,
+    subtabIndex: 0,
+    subTabList: [
+      { subTabID: '1', unlocked: true, buttonID: 'toggleChallengesSubTab1' },
+      {
+        subTabID: '2',
+        get unlocked () {
+          return player.highestSingularityCount >= 25
+        },
+        buttonID: 'toggleChallengesSubTab2'
+      }
+    ]
+  },
+  [Tabs.Research]: {
+    subTabList: [],
+    subtabIndex: 0
+  },
+  [Tabs.AntHill]: {
+    subTabList: [],
+    subtabIndex: 0
+  },
   [Tabs.WowCubes]: {
     tabSwitcher: () => toggleCubeSubTab,
+    subtabIndex: 0,
     subTabList: [
       {
         subTabID: '1',
@@ -195,14 +237,19 @@ const subtabInfo: Record<Tabs, SubTab> = {
       {
         subTabID: '7',
         get unlocked () {
-          return player.challenge15Exponent >= 1e15
+          return player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
         },
         buttonID: 'switchCubeSubTab7'
       }
     ]
   },
+  [Tabs.Campaign]: {
+    subTabList: [],
+    subtabIndex: 0
+  },
   [Tabs.Corruption]: {
     tabSwitcher: () => toggleCorruptionLoadoutsStats,
+    subtabIndex: 0,
     subTabList: [
       {
         subTabID: 'true',
@@ -222,6 +269,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
   },
   [Tabs.Singularity]: {
     tabSwitcher: () => toggleSingularityScreen,
+    subtabIndex: 0,
     subTabList: [
       {
         subTabID: '1',
@@ -250,17 +298,55 @@ const subtabInfo: Record<Tabs, SubTab> = {
           return player.highestSingularityCount >= 25
         },
         buttonID: 'toggleSingularitySubTab4'
-      },
-      {
-        subTabID: '5',
-        get unlocked () {
-          return player.singularityChallenges.noSingularityUpgrades.completions >= 1
-        },
-        buttonID: 'toggleSingularitySubTab5'
       }
     ]
   },
-  [Tabs.Event]: { subTabList: [] }
+  [Tabs.Event]: {
+    subTabList: [],
+    subtabIndex: 0
+  },
+  [Tabs.Purchase]: {
+    tabSwitcher: () => initializeCart,
+    subtabIndex: 0,
+    subTabList: [
+      {
+        subTabID: 'productContainer',
+        get unlocked () {
+          return isLoggedIn() || !prod
+        },
+        buttonID: 'cartSubTab1'
+      },
+      {
+        subTabID: 'subscriptionContainer',
+        get unlocked () {
+          return isLoggedIn() || !prod
+        },
+        buttonID: 'cartSubTab2'
+      },
+      {
+        subTabID: 'upgradesContainer',
+        unlocked: true,
+        buttonID: 'cartSubTab3'
+      },
+      {
+        subTabID: 'consumablesSection',
+        unlocked: true,
+        buttonID: 'cartSubTab4'
+      },
+      {
+        subTabID: 'cartContainer',
+        get unlocked () {
+          return isLoggedIn() || !prod
+        },
+        buttonID: 'cartSubTab5'
+      },
+      {
+        subTabID: 'merchContainer',
+        unlocked: true,
+        buttonID: 'cartSubTab6'
+      }
+    ]
+  }
 }
 
 class TabRow extends HTMLDivElement {
@@ -280,11 +366,10 @@ class TabRow extends HTMLDivElement {
       margin-block: unset;
       padding-inline: unset;
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       gap: 0 5px;
     `
-
-    document.getElementsByClassName('navbar').item(0)?.appendChild(this)
   }
 
   getSubs () {
@@ -309,6 +394,7 @@ class TabRow extends HTMLDivElement {
     const index = this.#list.indexOf(this.#currentTab)
 
     this.#currentTab = this.#list[index + 1] ?? this.#list[0]
+    changeSubTab(this.#currentTab.getType(), { page: subtabInfo[this.#currentTab.getType()].subtabIndex })
     return this.#currentTab
   }
 
@@ -316,6 +402,7 @@ class TabRow extends HTMLDivElement {
     const index = this.#list.indexOf(this.#currentTab)
 
     this.#currentTab = this.#list[index - 1] ?? this.#list[this.#list.length - 1]
+    changeSubTab(this.#currentTab.getType(), { page: subtabInfo[this.#currentTab.getType()].subtabIndex })
     return this.#currentTab
   }
 
@@ -484,6 +571,7 @@ customElements.define('tab-row', TabRow, { extends: 'div' })
 customElements.define('sub-tab', $Tab, { extends: 'button' })
 
 export const tabRow = new TabRow()
+document.getElementsByClassName('navbar').item(0)?.appendChild(tabRow)
 
 tabRow.appendButton(
   new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings' })
@@ -524,8 +612,13 @@ tabRow.appendButton(
     .setType(Tabs.WowCubes)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
+  new $Tab({ class: 'chal11', id: 'campaigntab', i18n: 'tabs.main.campaign' })
     .setUnlockedState(() => player.challengecompletions[11] > 0)
+    .setType(Tabs.Campaign)
+    .makeDraggable()
+    .makeRemoveable(),
+  new $Tab({ class: 'chal11', id: 'traitstab', i18n: 'tabs.main.corruption' })
+    .setUnlockedState(() => (player.challengecompletions[11] > 0))
     .setType(Tabs.Corruption)
     .makeDraggable()
     .makeRemoveable(),
@@ -543,10 +636,12 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({ class: 'isEvent', id: 'eventtab', i18n: 'tabs.main.unsmith' })
-    .setUnlockedState(() => G.isEvent)
     .setType(Tabs.Event)
     .makeDraggable()
-    .makeRemoveable()
+    .makeRemoveable(),
+  new $Tab({ id: 'pseudoCoinstab', i18n: 'tabs.main.purchase' })
+    .setType(Tabs.Purchase)
+    .makeDraggable()
 )
 
 /**
@@ -564,6 +659,7 @@ export const keyboardTabChange = (step: 1 | -1 = 1, changeSubtab = false) => {
     changeSubTab(tab.getType(), { step })
   } else {
     changeTab(tab.getType(), step)
+    changeTabColor()
   }
 }
 
@@ -587,36 +683,20 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   }
 
   G.currentTab = tabRow.getCurrentTab().getType()
-  player.tabnumber = 0
+  subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex
 
   revealStuff()
   hideStuff()
   ;(document.activeElement as HTMLElement | null)?.blur()
 
   const subTabList = subtabInfo[G.currentTab].subTabList
-  if (G.currentTab !== Tabs.Settings) {
-    for (let i = 0; i < subTabList.length; i++) {
-      const id = subTabList[i].buttonID
-      if (id) {
-        const button = DOMCacheGetOrSet(id)
+  for (let i = 0; i < subTabList.length; i++) {
+    const id = subTabList[i].buttonID
+    if (id && DOMCacheHas(id)) {
+      const button = DOMCacheGetOrSet(id)
 
-        if (button.style.backgroundColor === 'crimson') { // handles every tab except settings and corruptions
-          player.subtabNumber = i
-          break
-        }
-        // what in the shit is this?!
-        if (player.tabnumber === 9 && button.style.borderColor === 'dodgerblue') { // handle corruption tab
-          player.subtabNumber = i
-          break
-        }
-      }
-    }
-  } else { // handle settings tab
-    // The first getElementById makes sure that it still works if other tabs start using the subtabSwitcher class
-    const btns = document.querySelectorAll('[id^="switchSettingSubTab"]')
-    for (let i = 0; i < btns.length; i++) {
-      if (btns[i].classList.contains('buttonActive')) {
-        player.subtabNumber = i
+      if (button.classList.contains('active-subtab')) {
+        subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex = i
         break
       }
     }
@@ -638,24 +718,48 @@ export const changeSubTab = (tabs: Tabs, { page, step }: SubTabSwitchOptions) =>
   }
 
   if (page !== undefined) {
-    player.subtabNumber = limitRange(page, 0, subTabs.subTabList.length - 1)
+    subtabInfo[tab.getType()].subtabIndex = limitRange(page, 0, subTabs.subTabList.length - 1)
   } else {
-    player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
+    subtabInfo[tab.getType()].subtabIndex = limitRange(
+      subtabInfo[tab.getType()].subtabIndex + step,
+      0,
+      subTabs.subTabList.length - 1
+    )
   }
 
-  let subTabList = subTabs.subTabList[player.subtabNumber]
+  let subTabList = subTabs.subTabList[subtabInfo[tab.getType()].subtabIndex]
 
   while (!subTabList.unlocked) {
-    assert(page === undefined)
-    player.subtabNumber = limitRange(player.subtabNumber + step, 0, subTabs.subTabList.length - 1)
-    subTabList = subTabs.subTabList[player.subtabNumber]
+    subtabInfo[tab.getType()].subtabIndex = limitRange(
+      subtabInfo[tab.getType()].subtabIndex + (step ?? 1),
+      0,
+      subTabs.subTabList.length - 1
+    )
+    subTabList = subTabs.subTabList[subtabInfo[tab.getType()].subtabIndex]
   }
 
   if (subTabList.unlocked) {
+    for (const subtab of subTabs.subTabList) {
+      if (!subtab.buttonID) continue
+
+      const element = DOMCacheGetOrSet(subtab.buttonID)
+
+      if (subtab === subTabList) {
+        element.classList.add('active-subtab')
+      } else {
+        element.classList.remove('active-subtab')
+      }
+    }
+
     subTabs.tabSwitcher?.()(subTabList.subTabID)
-    if (tab.getType() === Tabs.Singularity && page === 4) {
-      player.visitedAmbrosiaSubtab = true
-      player.caches.ambrosiaGeneration.updateVal('DefaultVal')
+    if (tab.getType() === Tabs.Singularity && page === 3) {
+      if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
+        player.visitedAmbrosiaSubtab = true
+      }
+
+      if (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0) {
+        player.visitedAmbrosiaSubtabRed = true
+      }
     }
   }
 }
@@ -668,4 +772,12 @@ export function subTabsInMainTab (name: Tabs) {
   }
 
   return tab.getSubTabs().subTabList.length
+}
+
+export function getActiveSubTab () {
+  return subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex
+}
+
+export function getActiveTab () {
+  return tabRow.getCurrentTab().getType()
 }

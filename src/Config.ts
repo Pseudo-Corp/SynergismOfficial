@@ -1,16 +1,13 @@
-export const version = '3.0.0 pt 5.2: April 29: Progress Bar!!'
+declare const PROD: boolean | undefined
+declare const DEV: boolean | undefined
+
+export const version = '3.3.3 May 3, 2025: The Statistics and Ambrosia Update'
 
 /**
- * PSEUDO DO NOT CHANGE THIS LINE
- * PSEUDO DO NOT CHANGE THIS LINE
- * PSEUDO DO NOT CHANGE THIS LINE
- * PSEUDO DO NOT CHANGE THIS LINE
- * PSEUDO DO NOT CHANGE THIS LINE
- * PSEUDO DO NOT CHANGE THIS LINE
+ * If true, the version is marked as a testing version.
  */
-export const testing: boolean = false
+export const testing = false
 export const lastUpdated = new Date('##LAST_UPDATED##')
-/**
- * CHANGE THIS ONE INSTEAD
- */
-export const prod: boolean = false
+
+export const prod = typeof PROD === 'undefined' ? false : PROD
+export const dev = typeof DEV === 'undefined' ? false : DEV

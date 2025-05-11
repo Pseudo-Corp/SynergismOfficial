@@ -1,6 +1,5 @@
 import '@ungap/custom-elements'
-import type { DecimalSource } from 'break_infinity.js'
-import Decimal from 'break_infinity.js'
+import Decimal, { type DecimalSource } from 'break_infinity.js'
 import LZString from 'lz-string'
 
 import {
@@ -44,29 +43,31 @@ import {
 import {
   calculateAcceleratorMultiplier,
   calculateAnts,
-  calculateCorruptionPoints,
   calculateCubeBlessings,
-  calculateGoldenQuarkGain,
+  calculateGlobalSpeedMult,
+  calculateGoldenQuarks,
   calculateObtainium,
   calculateOfferings,
   calculateOffline,
   calculateRuneLevels,
   calculateSigmoidExponential,
-  calculateTimeAcceleration,
   calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
   dailyResetCheck,
-  exitOffline
+  exitOffline,
+  isShopTalismanUnlocked
 } from './Calculate'
 import {
-  corrChallengeMinimum,
   corruptionButtonsAdd,
-  corruptionLoadoutSaveLoad,
+  corruptionLoadLoadout,
+  CorruptionLoadout,
   corruptionLoadoutTableCreate,
   corruptionLoadoutTableUpdate,
+  CorruptionSaves,
+  corruptionsSchema,
   corruptionStatsUpdate,
-  maxCorruptionLevel,
-  updateCorruptionLoadoutNames
+  updateCorruptionLoadoutNames,
+  updateUndefinedLoadouts
 } from './Corruptions'
 import { updateCubeUpgradeBG } from './Cubes'
 import { generateEventHandlers } from './EventListeners'
@@ -136,11 +137,21 @@ import {
 // import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import i18next from 'i18next'
-import localforage from 'localforage'
-import { BlueberryUpgrade, blueberryUpgradeData } from './BlueberryUpgrades'
+import rfdc from 'rfdc'
+import {
+  BlueberryUpgrade,
+  blueberryUpgradeData,
+  displayProperLoadoutCount,
+  updateBlueberryLoadoutCount
+} from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { checkVariablesOnLoad } from './CheckVariables'
-import { lastUpdated, prod, testing, version } from './Config'
+import {
+  campaignIconHTMLUpdates,
+  CampaignManager,
+  campaignTokenRewardHTMLUpdate,
+  createCampaignIconHTMLS
+} from './Campaign'
+import { dev, lastUpdated, prod, testing, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
 import {
@@ -149,6 +160,7 @@ import {
   AcceleratorHepteract,
   ChallengeHepteract,
   ChronosHepteract,
+  HepteractCraft,
   hepteractEffective,
   HyperrealismHepteract,
   MultiplierHepteract,
@@ -160,24 +172,20 @@ import { init as i18nInit } from './i18n'
 import { handleLogin } from './Login'
 import { octeractData, OcteractUpgrade } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
-import { QuarkHandler } from './Quark'
+import { initializePCoinCache, PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { getQuarkBonus, QuarkHandler } from './Quark'
+import { initRedAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
+import { playerJsonSchema } from './saves/PlayerJsonSchema'
+import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { getFastForwardTotalMultiplier, singularityData, SingularityUpgrade } from './singularity'
 import { SingularityChallenge, singularityChallengeData } from './SingularityChallenges'
-import {
-  AmbrosiaGenerationCache,
-  AmbrosiaLuckAdditiveMultCache,
-  AmbrosiaLuckCache,
-  BlueberryInventoryCache,
-  cacheReinitialize
-} from './StatCache'
-import { changeSubTab, changeTab, Tabs } from './Tabs'
+import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
-import type { PlayerSave } from './types/LegacySynergism'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
-  worlds: new QuarkHandler({ quarks: 0, bonus: 0 }),
+  worlds: new QuarkHandler(0),
   coins: new Decimal('1e2'),
   coinsThisPrestige: new Decimal('1e2'),
   coinsThisTranscension: new Decimal('1e2'),
@@ -498,7 +506,7 @@ export const player: Player = {
   prestigecounter: 0,
   transcendcounter: 0,
   reincarnationcounter: 0,
-  offlinetick: 0,
+  offlinetick: Date.now(),
 
   prestigeamount: 0,
   transcendamount: 0,
@@ -530,8 +538,6 @@ export const player: Player = {
     generators: true,
     reincarnate: true
   },
-  tabnumber: 1,
-  subtabNumber: 0,
 
   // create a Map with keys defaulting to false
   codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false])),
@@ -615,7 +621,22 @@ export const player: Player = {
     shopCashGrabUltra: 0,
     shopAmbrosiaAccelerator: 0,
     shopEXUltra: 0,
+    shopChronometerS: 0,
+    shopAmbrosiaUltra: 0,
+    shopSingularitySpeedup: 0,
+    shopSingularityPotency: 0,
+    shopSadisticRune: 0,
+    shopRedLuck1: 0,
+    shopRedLuck2: 0,
+    shopRedLuck3: 0,
+    shopInfiniteShopUpgrades: 0
   },
+
+  shopPotionsConsumed: {
+    offering: 0,
+    obtainium: 0
+  },
+
   shopBuyMaxToggle: false,
   shopHideToggle: false,
   shopConfirmationToggle: true,
@@ -638,8 +659,8 @@ export const player: Player = {
   antPoints: new Decimal('1'),
   antUpgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   antSacrificePoints: 0,
-  antSacrificeTimer: 900,
-  antSacrificeTimerReal: 900,
+  antSacrificeTimer: 0,
+  antSacrificeTimerReal: 0,
 
   talismanLevels: [0, 0, 0, 0, 0, 0, 0],
   talismanRarity: [1, 1, 1, 1, 1, 1, 1],
@@ -742,6 +763,16 @@ export const player: Player = {
     0,
     0,
     0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
   ],
   cubeUpgradesBuyMaxToggle: false,
   autoCubeUpgradesToggle: false,
@@ -858,31 +889,31 @@ export const player: Player = {
     6: false
   },
 
-  prototypeCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  usedCorruptions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  corruptionLoadouts: {
-    // If you add loadouts don't forget to add loadout names!
-    1: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    2: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    3: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    4: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    5: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    6: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    7: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    8: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  corruptions: {
+    next: new CorruptionLoadout(corruptionsSchema.parse({})),
+    used: new CorruptionLoadout(corruptionsSchema.parse({})),
+    saves: new CorruptionSaves({
+      'Loadout 1': corruptionsSchema.parse({}),
+      'Loadout 2': corruptionsSchema.parse({}),
+      'Loadout 3': corruptionsSchema.parse({}),
+      'Loadout 4': corruptionsSchema.parse({}),
+      'Loadout 5': corruptionsSchema.parse({}),
+      'Loadout 6': corruptionsSchema.parse({}),
+      'Loadout 7': corruptionsSchema.parse({}),
+      'Loadout 8': corruptionsSchema.parse({}),
+      'Loadout 9': corruptionsSchema.parse({}),
+      'Loadout 10': corruptionsSchema.parse({}),
+      'Loadout 11': corruptionsSchema.parse({}),
+      'Loadout 12': corruptionsSchema.parse({}),
+      'Loadout 13': corruptionsSchema.parse({}),
+      'Loadout 14': corruptionsSchema.parse({}),
+      'Loadout 15': corruptionsSchema.parse({}),
+      'Loadout 16': corruptionsSchema.parse({})
+    }),
+    showStats: true
   },
-  corruptionLoadoutNames: [
-    'Loadout 1',
-    'Loadout 2',
-    'Loadout 3',
-    'Loadout 4',
-    'Loadout 5',
-    'Loadout 6',
-    'Loadout 7',
-    'Loadout 8'
-  ],
-  corruptionShowStats: true,
 
+  campaigns: new CampaignManager(),
   constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   history: { ants: [], ascend: [], reset: [], singularity: [] },
   historyShowPerSecond: false,
@@ -963,7 +994,7 @@ export const player: Player = {
   totalQuarksEver: 0,
   hotkeys: {},
   theme: 'Dark Mode',
-  iconSet: 0,
+  iconSet: 1,
   notation: 'Default',
 
   singularityUpgrades: {
@@ -1036,6 +1067,22 @@ export const player: Player = {
     singCubes3: new SingularityUpgrade(
       singularityData.singCubes3,
       'singCubes3'
+    ),
+    singBonusTokens1: new SingularityUpgrade(
+      singularityData.singBonusTokens1,
+      'singBonusTokens1'
+    ),
+    singBonusTokens2: new SingularityUpgrade(
+      singularityData.singBonusTokens2,
+      'singBonusTokens2'
+    ),
+    singBonusTokens3: new SingularityUpgrade(
+      singularityData.singBonusTokens3,
+      'singBonusTokens3'
+    ),
+    singBonusTokens4: new SingularityUpgrade(
+      singularityData.singBonusTokens4,
+      'singBonusTokens4'
     ),
     singCitadel: new SingularityUpgrade(
       singularityData.singCitadel,
@@ -1171,6 +1218,7 @@ export const player: Player = {
       singularityData.singAscensionSpeed2,
       'singAscensionSpeed2'
     ),
+    halfMind: new SingularityUpgrade(singularityData.halfMind, 'halfMind'),
     oneMind: new SingularityUpgrade(singularityData.oneMind, 'oneMind'),
     wowPass4: new SingularityUpgrade(singularityData.wowPass4, 'wowPass4'),
     offeringAutomatic: new SingularityUpgrade(
@@ -1212,6 +1260,10 @@ export const player: Player = {
     singAmbrosiaGeneration4: new SingularityUpgrade(
       singularityData.singAmbrosiaGeneration4,
       'singAmbrosiaGeneration4'
+    ),
+    singInfiniteShopUpgrades: new SingularityUpgrade(
+      singularityData.singInfiniteShopUpgrades,
+      'singInfiniteShopUpgrades'
     )
   },
 
@@ -1363,6 +1415,30 @@ export const player: Player = {
     octeractAmbrosiaGeneration4: new OcteractUpgrade(
       octeractData.octeractAmbrosiaGeneration4,
       'octeractAmbrosiaGeneration4'
+    ),
+    octeractBonusTokens1: new OcteractUpgrade(
+      octeractData.octeractBonusTokens1,
+      'octeractBonusTokens1'
+    ),
+    octeractBonusTokens2: new OcteractUpgrade(
+      octeractData.octeractBonusTokens2,
+      'octeractBonusTokens2'
+    ),
+    octeractBonusTokens3: new OcteractUpgrade(
+      octeractData.octeractBonusTokens3,
+      'octeractBonusTokens3'
+    ),
+    octeractBonusTokens4: new OcteractUpgrade(
+      octeractData.octeractBonusTokens4,
+      'octeractBonusTokens4'
+    ),
+    octeractBlueberries: new OcteractUpgrade(
+      octeractData.octeractBlueberries,
+      'octeractBlueberries'
+    ),
+    octeractInfiniteShopUpgrades: new OcteractUpgrade(
+      octeractData.octeractInfiniteShopUpgrades,
+      'octeractInfiniteShopUpgrades'
     )
   },
 
@@ -1391,6 +1467,14 @@ export const player: Player = {
     noAmbrosiaUpgrades: new SingularityChallenge(
       singularityChallengeData.noAmbrosiaUpgrades,
       'noAmbrosiaUpgrades'
+    ),
+    limitedTime: new SingularityChallenge(
+      singularityChallengeData.limitedTime,
+      'limitedTime'
+    ),
+    sadisticPrequel: new SingularityChallenge(
+      singularityChallengeData.sadisticPrequel,
+      'sadisticPrequel'
     )
   },
 
@@ -1399,6 +1483,7 @@ export const player: Player = {
   ambrosiaRNG: 0,
   blueberryTime: 0,
   visitedAmbrosiaSubtab: false,
+  visitedAmbrosiaSubtabRed: false,
   spentBlueberries: 0,
   blueberryUpgrades: {
     ambrosiaTutorial: new BlueberryUpgrade(
@@ -1453,6 +1538,18 @@ export const player: Player = {
       blueberryUpgradeData.ambrosiaLuck2,
       'ambrosiaLuck2'
     ),
+    ambrosiaQuarks3: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaQuarks3,
+      'ambrosiaQuarks3'
+    ),
+    ambrosiaCubes3: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaCubes3,
+      'ambrosiaQuarks3'
+    ),
+    ambrosiaLuck3: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaLuck3,
+      'ambrosiaLuck3'
+    ),
     ambrosiaPatreon: new BlueberryUpgrade(
       blueberryUpgradeData.ambrosiaPatreon,
       'ambrosiaPatreon'
@@ -1468,6 +1565,38 @@ export const player: Player = {
     ambrosiaHyperflux: new BlueberryUpgrade(
       blueberryUpgradeData.ambrosiaHyperflux,
       'ambrosiaHyperflux'
+    ),
+    ambrosiaBaseObtainium1: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaBaseObtainium1,
+      'ambrosiaBaseObtainium1'
+    ),
+    ambrosiaBaseOffering1: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaBaseOffering1,
+      'ambrosiaBaseOffering1'
+    ),
+    ambrosiaBaseObtainium2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaBaseObtainium2,
+      'ambrosiaBaseObtainium2'
+    ),
+    ambrosiaBaseOffering2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaBaseOffering2,
+      'ambrosiaBaseOffering2'
+    ),
+    ambrosiaSingReduction1: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaSingReduction1,
+      'ambrosiaSingReduction1'
+    ),
+    ambrosiaInfiniteShopUpgrades1: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaInfiniteShopUpgrades1,
+      'ambrosiaInfiniteShopUpgrades'
+    ),
+    ambrosiaInfiniteShopUpgrades2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaInfiniteShopUpgrades2,
+      'ambrosiaInfiniteShopUpgrades2'
+    ),
+    ambrosiaSingReduction2: new BlueberryUpgrade(
+      blueberryUpgradeData.ambrosiaSingReduction2,
+      'ambrosiaSingReduction2'
     )
   },
 
@@ -1479,113 +1608,90 @@ export const player: Player = {
     5: {},
     6: {},
     7: {},
-    8: {}
+    8: {},
+    9: {},
+    10: {},
+    11: {},
+    12: {},
+    13: {},
+    14: {},
+    15: {},
+    16: {}
   },
   blueberryLoadoutMode: 'saveTree',
 
-  ultimateProgress: 0,
-  ultimatePixels: 0,
-
-  caches: {
-    ambrosiaLuckAdditiveMult: new AmbrosiaLuckAdditiveMultCache(),
-    ambrosiaLuck: new AmbrosiaLuckCache(),
-    ambrosiaGeneration: new AmbrosiaGenerationCache(),
-    blueberryInventory: new BlueberryInventoryCache()
+  redAmbrosia: 0,
+  lifetimeRedAmbrosia: 0,
+  redAmbrosiaTime: 0,
+  // NOTE: This only keeps track of the total number of Red Ambrosia
+  // Invested, because I realized that keeping classes on the player is generally a bad idea
+  redAmbrosiaUpgrades: {
+    'tutorial': 0,
+    'conversionImprovement1': 0,
+    'conversionImprovement2': 0,
+    'conversionImprovement3': 0,
+    'freeTutorialLevels': 0,
+    'freeLevelsRow2': 0,
+    'freeLevelsRow3': 0,
+    'freeLevelsRow4': 0,
+    'freeLevelsRow5': 0,
+    'blueberryGenerationSpeed': 0,
+    'blueberryGenerationSpeed2': 0,
+    'regularLuck': 0,
+    'regularLuck2': 0,
+    'redGenerationSpeed': 0,
+    'redLuck': 0,
+    'redAmbrosiaCube': 0,
+    'redAmbrosiaObtainium': 0,
+    'redAmbrosiaOffering': 0,
+    'redAmbrosiaCubeImprover': 0,
+    'viscount': 0,
+    'infiniteShopUpgrades': 0,
+    'redAmbrosiaAccelerator': 0
   },
 
-  lastExportedSave: 0
+  singChallengeTimer: 0,
+
+  lastExportedSave: 0,
+
+  seed: Array.from({ length: 3 }, () => Date.now())
 }
 
-export const blankSave = Object.assign({}, player, {
-  codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false]))
-})
+export const deepClone = () =>
+  rfdc({
+    proto: false,
+    circles: false,
+    constructorHandlers: [
+      [Decimal, (o: DecimalSource) => new Decimal(o)],
+      [QuarkHandler, (o: QuarkHandler) => new QuarkHandler(o.valueOf())],
+      [WowCubes, (o: WowCubes) => new WowCubes(o.valueOf())],
+      [WowTesseracts, (o: WowTesseracts) => new WowTesseracts(o.valueOf())],
+      [WowHypercubes, (o: WowHypercubes) => new WowHypercubes(o.valueOf())],
+      [WowPlatonicCubes, (o: WowPlatonicCubes) => new WowPlatonicCubes(o.valueOf())],
+      [HepteractCraft, (o: HepteractCraft) => new HepteractCraft(o.valueOf())],
+      [CorruptionLoadout, (o: CorruptionLoadout) => new CorruptionLoadout(o.loadout)],
+      [CorruptionSaves, (o: CorruptionSaves) => new CorruptionSaves(o.corrSaveData)],
+      [CampaignManager, (o: CampaignManager) => new CampaignManager(o.campaignManagerData)],
+      [SingularityUpgrade, (o: SingularityUpgrade) => new SingularityUpgrade(o.valueOf(), o.key())],
+      [OcteractUpgrade, (o: OcteractUpgrade) => new OcteractUpgrade(o.valueOf(), o.key())],
+      [SingularityChallenge, (o: SingularityChallenge) => new SingularityChallenge(o.valueOf(), o.key())],
+      [BlueberryUpgrade, (o: BlueberryUpgrade) => new BlueberryUpgrade(o.valueOf(), o.key())]
+    ]
+  })
 
-// The main cause of the double singularity bug was caused by a race condition
-// when the game was saving just as the user was entering a Singularity. To fix
-// this, hopefully, we disable saving the game when in the prompt or currently
-// entering a Singularity.
-export const saveCheck = { canSave: true }
+export const blankSave = deepClone()(player)
 
-export const saveSynergy = async (button?: boolean): Promise<boolean> => {
+export const saveSynergy = (button?: boolean) => {
   player.offlinetick = Date.now()
   player.loaded1009 = true
   player.loaded1009hotfix1 = true
 
-  // shallow hold, doesn't modify OG object nor is affected by modifications to OG
-  const p = Object.assign({}, player, {
-    codes: Array.from(player.codes),
-    worlds: Number(player.worlds),
-    wowCubes: Number(player.wowCubes),
-    wowTesseracts: Number(player.wowTesseracts),
-    wowHypercubes: Number(player.wowHypercubes),
-    wowPlatonicCubes: Number(player.wowPlatonicCubes),
-    singularityUpgrades: Object.fromEntries(
-      Object.entries(player.singularityUpgrades).map(([key, value]) => {
-        return [
-          key,
-          {
-            level: value.level,
-            goldenQuarksInvested: value.goldenQuarksInvested,
-            toggleBuy: value.toggleBuy,
-            freeLevels: value.freeLevels
-          }
-        ]
-      })
-    ),
-    octeractUpgrades: Object.fromEntries(
-      Object.entries(player.octeractUpgrades).map(([key, value]) => {
-        return [
-          key,
-          {
-            level: value.level,
-            octeractsInvested: value.octeractsInvested,
-            toggleBuy: value.toggleBuy,
-            freeLevels: value.freeLevels
-          }
-        ]
-      })
-    ),
-    singularityChallenges: Object.fromEntries(
-      Object.entries(player.singularityChallenges).map(([key, value]) => {
-        return [
-          key,
-          {
-            completions: value.completions,
-            highestSingularityCompleted: value.highestSingularityCompleted,
-            enabled: value.enabled
-          }
-        ]
-      })
-    ),
-    blueberryUpgrades: Object.fromEntries(
-      Object.entries(player.blueberryUpgrades).map(([key, value]) => {
-        return [
-          key,
-          {
-            level: value.level,
-            ambrosiaInvested: value.ambrosiaInvested,
-            blueberriesInvested: value.blueberriesInvested,
-            toggleBuy: value.toggleBuy,
-            freeLevels: value.freeLevels
-          }
-        ]
-      })
-    )
-  })
-
+  const p = playerJsonSchema.parse(player)
   const save = btoa(JSON.stringify(p))
   if (save !== null) {
-    const saveBlob = new Blob([save], { type: 'text/plain' })
-
-    // Should prevent overwritting of localforage that is currently used
-    if (!saveCheck.canSave) {
-      return false
-    }
-
     localStorage.setItem('Synergysave2', save)
-    await localforage.setItem<Blob>('Synergysave2', saveBlob)
   } else {
-    await Alert(i18next.t('testing.errorSaving'))
+    void Alert(i18next.t('testing.errorSaving'))
     return false
   }
 
@@ -1598,41 +1704,9 @@ export const saveSynergy = async (button?: boolean): Promise<boolean> => {
   return true
 }
 
-/**
- * Map of properties on the Player object to adapt
- */
-const toAdapt = new Map<keyof Player, (data: PlayerSave) => unknown>([
-  [
-    'worlds',
-    (data) =>
-      new QuarkHandler({
-        quarks: Number(data.worlds) || 0,
-        bonus: player.worlds.BONUS
-      })
-  ],
-  ['wowCubes', (data) => new WowCubes(Number(data.wowCubes) || 0)],
-  [
-    'wowTesseracts',
-    (data) => new WowTesseracts(Number(data.wowTesseracts) || 0)
-  ],
-  [
-    'wowHypercubes',
-    (data) => new WowHypercubes(Number(data.wowHypercubes) || 0)
-  ],
-  [
-    'wowPlatonicCubes',
-    (data) => new WowPlatonicCubes(Number(data.wowPlatonicCubes) || 0)
-  ]
-])
-
-const loadSynergy = async () => {
-  const save = (await localforage.getItem<Blob>('Synergysave2'))
-    ?? localStorage.getItem('Synergysave2')
-
-  const saveString = typeof save === 'string' ? save : await save?.text()
-  const data = saveString
-    ? (JSON.parse(atob(saveString)) as PlayerSave & Record<string, unknown>)
-    : null
+const loadSynergy = () => {
+  const saveString = localStorage.getItem('Synergysave2')
+  const data = saveString ? JSON.parse(atob(saveString)) : null
 
   if (testing || !prod) {
     Object.defineProperties(window, {
@@ -1654,11 +1728,6 @@ const loadSynergy = async () => {
       return Alert(i18next.t('testing.saveInLive2'))
     }
 
-    const oldCodesUsed = Array.from(
-      { length: 24 }, // old codes only went up to 24
-      (_, i) => `offerpromo${i + 1}used`
-    )
-
     // size before loading
     const size = player.codes.size
 
@@ -1671,38 +1740,16 @@ const loadSynergy = async () => {
       })
     }
 
-    Object.keys(data).forEach((stringProp) => {
-      const prop = stringProp as keyof Player
-      if (!(prop in player)) {
-        return
-      } else if (toAdapt.has(prop)) {
-        return ((player[prop] as unknown) = toAdapt.get(prop)!(data))
-      } else if (isDecimal(player[prop])) {
-        return ((player[prop] as Decimal) = new Decimal(
-          data[prop] as DecimalSource
-        ))
-      } else if (prop === 'codes') {
-        const codes = data[prop]
-        if (codes != null) {
-          return (player.codes = new Map(codes))
-        }
-      } else if (oldCodesUsed.includes(prop)) {
-        return
-      } else if (Array.isArray(data[prop])) {
-        const arr = data[prop] as unknown[]
-        // in old savefiles, some arrays may be 1-based instead of 0-based (newer)
-        // so if the lengths of the savefile key is greater than that of the player obj
-        // it means a key was removed; likely a 1-based index where array[0] was null
-        // so we can get rid of it entirely.
-        if ((player[prop] as unknown[]).length < arr.length) {
-          return ((player[prop] as unknown[]) = arr.slice(
-            arr.length - (player[prop] as unknown[]).length
-          ))
-        }
-      }
+    const validatedPlayer = playerUpdateVarSchema.safeParse(data)
 
-      return ((player[prop] as unknown) = data[prop])
-    })
+    if (validatedPlayer.success) {
+      Object.assign(player, validatedPlayer.data)
+    } else {
+      console.log(validatedPlayer.error)
+      console.log(data)
+      clearTimers()
+      return
+    }
 
     player.lastExportedSave = data.lastExportedSave ?? 0
 
@@ -1728,6 +1775,18 @@ const loadSynergy = async () => {
       }
     }
 
+    // TODO(@KhafraDev): remove G.currentSingChallenge
+    // fix current sing challenge blank
+    if (player.insideSingularityChallenge) {
+      const challenges = Object.keys(player.singularityChallenges)
+      for (let i = 0; i < challenges.length; i++) {
+        if (player.singularityChallenges[challenges[i]].enabled) {
+          G.currentSingChallenge = singularityChallengeData[challenges[i]].HTMLTag
+          break
+        }
+      }
+    }
+
     if (!('rngCode' in data)) {
       player.rngCode = 0
     }
@@ -1746,12 +1805,6 @@ const loadSynergy = async () => {
     }
     if (data.loaded10101 === undefined) {
       player.loaded10101 = false
-    }
-
-    // Fix dumb shop stuff
-    // First, if shop isn't even defined we just define it as so
-    if (data.shopUpgrades === undefined) {
-      player.shopUpgrades = Object.assign({}, blankSave.shopUpgrades)
     }
 
     if (typeof player.researches[76] === 'undefined') {
@@ -2048,10 +2101,10 @@ const loadSynergy = async () => {
       player.firstOwnedAnts = 0
     }
 
-    checkVariablesOnLoad(data)
-    if (data.ascensionCount === undefined || player.ascensionCount === 0) {
-      player.ascensionCount = 0
-      if (player.ascensionCounter === 0 && player.prestigeCount > 0) {
+    // checkVariablesOnLoad(data)
+
+    if (player.ascensionCount === 0) {
+      if (player.prestigeCount > 0) {
         player.ascensionCounter = 86400 * 90
       }
       /*player.cubeUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -2081,12 +2134,6 @@ const loadSynergy = async () => {
         talismanBonus: 0,
         globalSpeed: 0
       }
-    }
-    if (data.autoAntSacTimer == null) {
-      player.autoAntSacTimer = 900
-    }
-    if (data.autoAntSacrificeMode === undefined) {
-      player.autoAntSacrificeMode = 0
     }
 
     if (player.transcendCount < 0) {
@@ -2126,25 +2173,6 @@ const loadSynergy = async () => {
         rrow3: false,
         rrow4: false
       }
-    }
-
-    if (data.history === undefined) {
-      player.history = { ants: [], ascend: [], reset: [], singularity: [] }
-    } else {
-      // See: https://discord.com/channels/677271830838640680/964168000360038481/964168002071330879
-      const keys = Object.keys(
-        blankSave.history
-      ) as (keyof (typeof blankSave)['history'])[]
-
-      for (const historyKey of keys) {
-        if (!(historyKey in player.history)) {
-          player.history[historyKey] = []
-        }
-      }
-    }
-
-    if (data.historyShowPerSecond === undefined) {
-      player.historyShowPerSecond = false
     }
 
     if (!Number.isInteger(player.ascendBuilding1.cost)) {
@@ -2190,21 +2218,9 @@ const loadSynergy = async () => {
       player.dayCheck.getDate()
     )
 
-    const maxLevel = maxCorruptionLevel()
-    player.usedCorruptions = player.usedCorruptions.map(
-      (curr: number, index: number) => {
-        if (index >= 2 && index <= 9) {
-          return Math.min(
-            maxLevel
-              * (player.challengecompletions[corrChallengeMinimum(index)] > 0
-                ? 1
-                : 0),
-            curr
-          )
-        }
-        return curr
-      }
-    )
+    player.corruptions.used = new CorruptionLoadout(player.corruptions.used.loadout)
+    // This is needed to fix saves that had issues with not resetting corruption at the singularity
+    player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.used.loadout)
 
     for (let i = 1; i <= 5; i++) {
       const ascendBuildingI = `ascendBuilding${i as OneToFive}` as const
@@ -2243,7 +2259,7 @@ const loadSynergy = async () => {
     for (let j = 1; j < player.cubeUpgrades.length; j++) {
       updateCubeUpgradeBG(j)
     }
-    const platUpg = document.querySelectorAll('img[id^="platUpg"]')
+    const platUpg = document.querySelectorAll('button[id^="platUpg"]')
     for (let j = 1; j <= platUpg.length; j++) {
       updatePlatonicUpgradeBG(j)
     }
@@ -2369,12 +2385,21 @@ const loadSynergy = async () => {
     }
 
     corruptionStatsUpdate()
-    const corrs = Math.min(8, Object.keys(player.corruptionLoadouts).length) + 1
+    updateUndefinedLoadouts() // Monetization update added more corruption loadout slots
+    updateBlueberryLoadoutCount() // Monetization update also added more Blueberry loadout slots
+
+    const corrs = 1 + 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
+    // const corrs = Math.min(8, Object.keys(player.corruptionLoadouts).length) + 1
     for (let i = 0; i < corrs; i++) {
-      corruptionLoadoutTableUpdate(i)
+      corruptionLoadoutTableUpdate(true, i)
+      corruptionLoadoutTableUpdate(false, i)
     }
+
     showCorruptionStatsLoadouts()
     updateCorruptionLoadoutNames()
+
+    // For blueberry upgrades!
+    displayProperLoadoutCount()
 
     DOMCacheGetOrSet('researchrunebonus').textContent = i18next.t(
       'runes.thanksResearches',
@@ -2868,9 +2893,7 @@ const loadSynergy = async () => {
     }
 
     if (player.autoWarpCheck) {
-      DOMCacheGetOrSet('warpAuto').textContent = i18next.t(
-        'general.autoOnColon'
-      )
+      DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOnColon')
       DOMCacheGetOrSet('warpAuto').style.border = '2px solid green'
     } else {
       DOMCacheGetOrSet('warpAuto').textContent = i18next.t(
@@ -2904,6 +2927,12 @@ const loadSynergy = async () => {
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
     updateSingularityGlobalPerks()
+
+    // Update the Sing requirements on reload for a challenge if applicable
+    if (G.currentSingChallenge !== undefined) {
+      const sing = player.singularityChallenges[G.currentSingChallenge].computeSingularityRquirement()
+      player.singularityCount = sing
+    }
   }
 
   updateAchievementBG()
@@ -3225,9 +3254,9 @@ export const format = (
       }K`
     }
     return `${format(mantissa, accuracy, long)} / ${Math.pow(10, -power)}`
-  } else if (power < 6 || (long && power < 7)) {
-    // If the power is less than 6 or format long and less than 7 use standard formatting (1,234,567)
-    // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 7
+  } else if (power < 6 || (long && power < 12)) {
+    // If the power is less than 6 or format long and less than 12 use standard formatting (1,234,567)
+    // Gets the standard representation of the number, safe as power is guaranteed to be > -12 and < 12
     let standard = mantissa * Math.pow(10, power)
     let standardString: string
     // Rounds up if the number experiences a rounding error
@@ -3419,18 +3448,18 @@ export const updateAllTick = (): void => {
     Math.min(
       1,
       (1 + player.platonicUpgrades[6] / 30)
-        * G.viscosityPower[player.usedCorruptions[2]]
+        * G.viscosityPower[player.corruptions.used.viscosity]
     )
   )
   a += 2000 * hepteractEffective('accelerator')
-  a *= G.challenge15Rewards.accelerator
+  a *= G.challenge15Rewards.accelerator.value
   a *= 1 + (3 / 10000) * hepteractEffective('accelerator')
   a = Math.floor(Math.min(1e100, a))
 
-  if (player.usedCorruptions[2] >= 15) {
+  if (player.corruptions.used.viscosity >= 15) {
     a = Math.pow(a, 0.2)
   }
-  if (player.usedCorruptions[2] >= 16) {
+  if (player.corruptions.used.viscosity >= 16) {
     a = 1
   }
 
@@ -3666,18 +3695,18 @@ export const updateAllMultiplier = (): void => {
     Math.min(
       1,
       (1 + player.platonicUpgrades[6] / 30)
-        * G.viscosityPower[player.usedCorruptions[2]]
+        * G.viscosityPower[player.corruptions.used.viscosity]
     )
   )
   a += 1000 * hepteractEffective('multiplier')
-  a *= G.challenge15Rewards.multiplier
+  a *= G.challenge15Rewards.multiplier.value
   a *= 1 + (3 / 10000) * hepteractEffective('multiplier')
   a = Math.floor(Math.min(1e100, a))
 
-  if (player.usedCorruptions[2] >= 15) {
+  if (player.corruptions.used.viscosity >= 15) {
     a = Math.pow(a, 0.2)
   }
-  if (player.usedCorruptions[2] >= 16) {
+  if (player.corruptions.used.viscosity >= 16) {
     a = 1
   }
 
@@ -3744,8 +3773,8 @@ export const multipliers = (): void => {
     10
       + (0.05 * player.researches[129] * Math.log(player.commonFragments + 1))
         / Math.log(4)
-      + ((20 * calculateCorruptionPoints()) / 400)
-        * G.effectiveRuneSpiritPower[3],
+      + ((20 * player.corruptions.used.totalCorruptionDifficultyMultiplier)
+        * G.effectiveRuneSpiritPower[3]),
     0.05 * player.crystalUpgrades[3]
   )
   crystalExponent += 0.04 * CalcECC('transcend', player.challengecompletions[3])
@@ -3859,7 +3888,7 @@ export const multipliers = (): void => {
       lol,
       1
         + ((1 / 20)
-            * player.usedCorruptions[9]
+            * player.corruptions.used.recession
             * Decimal.log(player.coins.add(1), 10))
           / (1e7 + Decimal.log(player.coins.add(1), 10))
     )
@@ -3870,11 +3899,11 @@ export const multipliers = (): void => {
   ) {
     lol = Decimal.pow(lol, 1.1)
   }
-  lol = Decimal.pow(lol, G.challenge15Rewards.coinExponent)
+  lol = Decimal.pow(lol, G.challenge15Rewards.coinExponent.value)
   G.globalCoinMultiplier = lol
   G.globalCoinMultiplier = Decimal.pow(
     G.globalCoinMultiplier,
-    G.financialcollapsePower[player.usedCorruptions[9]]
+    G.recessionPower[player.corruptions.used.recession]
   )
 
   G.coinOneMulti = new Decimal(1)
@@ -4135,7 +4164,7 @@ export const multipliers = (): void => {
             100
               + 10 * player.achievements[270]
               + 10 * player.shopUpgrades.constantEX
-              + 1000 * (G.challenge15Rewards.exponent - 1)
+              + 1000 * (G.challenge15Rewards.exponent.value - 1)
               + 3 * player.platonicUpgrades[18],
             player.constantUpgrades[2]
           ),
@@ -4158,7 +4187,7 @@ export const multipliers = (): void => {
     1 + (10 / 100) * player.researches[199]
   )
   G.globalConstantMult = G.globalConstantMult.times(
-    G.challenge15Rewards.constantBonus
+    G.challenge15Rewards.constantBonus.value
   )
   if (player.platonicUpgrades[5] > 0) {
     G.globalConstantMult = G.globalConstantMult.times(2)
@@ -4574,9 +4603,8 @@ export const updateAntMultipliers = (): void => {
               + (player.researches[84] / 200)
                 * (1
                   + (1
-                      * G.effectiveRuneSpiritPower[5]
-                      * calculateCorruptionPoints())
-                    / 400)),
+                    * G.effectiveRuneSpiritPower[5]
+                    * player.corruptions.used.totalCorruptionDifficultyMultiplier))),
           2
         )
   )
@@ -4680,7 +4708,7 @@ export const updateAntMultipliers = (): void => {
   if (player.currentChallenge.ascension !== 15) {
     G.globalAntMult = Decimal.pow(
       G.globalAntMult,
-      1 - (0.9 / 90) * Math.min(99, sumContents(player.usedCorruptions))
+      1 - (0.9 / 90) * Math.min(99, player.corruptions.used.totalLevels)
     )
   } else {
     // C15 used to have 9 corruptions set to 11, which above would provide a power of 0.01. Now it's hardcoded this way.
@@ -4689,9 +4717,9 @@ export const updateAntMultipliers = (): void => {
 
   G.globalAntMult = Decimal.pow(
     G.globalAntMult,
-    G.extinctionMultiplier[player.usedCorruptions[7]]
+    G.extinctionMultiplier[player.corruptions.used.extinction]
   )
-  G.globalAntMult = G.globalAntMult.times(G.challenge15Rewards.antSpeed)
+  G.globalAntMult = G.globalAntMult.times(G.challenge15Rewards.antSpeed.value)
   // V2.5.0: Moved ant shop upgrade as 'uncorruptable'
   G.globalAntMult = G.globalAntMult.times(
     Decimal.pow(1.2, player.shopUpgrades.antSpeed)
@@ -4715,13 +4743,13 @@ export const updateAntMultipliers = (): void => {
     G.globalAntMult = G.globalAntMult.times(4.44)
   }
 
-  if (player.usedCorruptions[7] >= 14) {
+  if (player.corruptions.used.extinction >= 14) {
     G.globalAntMult = Decimal.pow(G.globalAntMult, 0.02)
   }
-  if (player.usedCorruptions[7] >= 15) {
+  if (player.corruptions.used.extinction >= 15) {
     G.globalAntMult = Decimal.pow(G.globalAntMult, 0.02)
   }
-  if (player.usedCorruptions[7] >= 16) {
+  if (player.corruptions.used.extinction >= 16) {
     G.globalAntMult = Decimal.pow(G.globalAntMult, 0.02)
   }
 
@@ -4814,7 +4842,7 @@ export const resetCurrency = (): void => {
     prestigePow = 1e-4 / (1 + player.challengecompletions[10])
     transcendPow = 0.001
   }
-  prestigePow *= G.deflationMultiplier[player.usedCorruptions[6]]
+  prestigePow *= G.deflationMultiplier[player.corruptions.used.deflation]
   // Prestige Point Formulae
   G.prestigePointGain = Decimal.floor(
     Decimal.pow(player.coinsThisPrestige.dividedBy(1e12), prestigePow)
@@ -4829,7 +4857,7 @@ export const resetCurrency = (): void => {
         Decimal.pow(10, 1e33),
         Decimal.pow(
           G.acceleratorEffect,
-          (1 / 3) * G.deflationMultiplier[player.usedCorruptions[6]]
+          (1 / 3) * G.deflationMultiplier[player.corruptions.used.deflation]
         )
       )
     )
@@ -5103,8 +5131,7 @@ export const resetCheck = async (
         challengeDisplay(a, false)
       }
       if (
-        (manual || leaving || player.shopUpgrades.challenge15Auto > 0)
-        && player.usedCorruptions.slice(2, 10).every((a) => a === 11)
+        (manual || leaving || player.shopUpgrades.challenge15Auto > 0) // removed a check that ensures always all lv11.. did not seem necessary
       ) {
         if (
           player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))
@@ -5168,7 +5195,7 @@ export const resetCheck = async (
       confirmed = await Confirm(
         i18next.t('main.singularityConfirm0', {
           x: format(nextSingularityNumber),
-          y: format(calculateGoldenQuarkGain(), 2, true)
+          y: format(calculateGoldenQuarks(), 2, true)
         })
       )
     } else {
@@ -5182,8 +5209,8 @@ export const resetCheck = async (
       await Alert(
         i18next.t('main.singularityMessage4', {
           x: format(nextSingularityNumber),
-          y: format(calculateGoldenQuarkGain(), 2, true),
-          z: format(player.worlds.BONUS)
+          y: format(calculateGoldenQuarks(), 2, true),
+          z: format(getQuarkBonus())
         })
       )
       await Alert(i18next.t('main.singularityMessage5'))
@@ -5200,8 +5227,8 @@ export const resetCheck = async (
     if (!confirmed) {
       return Alert(i18next.t('main.singularityCancelled'))
     } else {
-      await singularity()
-      await saveSynergy()
+      singularity()
+      saveSynergy()
       return Alert(
         i18next.t('main.welcomeToSingularity', {
           x: format(player.singularityCount)
@@ -5273,7 +5300,7 @@ export const updateEffectiveLevelMult = (): void => {
   G.effectiveLevelMult *= 1
     + ((0.01 * Math.log(player.talismanShards + 1)) / Math.log(4))
       * Math.min(1, player.constantUpgrades[9])
-  G.effectiveLevelMult *= G.challenge15Rewards.runeBonus
+  G.effectiveLevelMult *= G.challenge15Rewards.runeBonus.value
 }
 
 export const updateAll = (): void => {
@@ -5630,7 +5657,7 @@ export const updateAll = (): void => {
       player.achievements[140] > 0,
       player.achievements[147] > 0,
       player.antUpgrades[11]! > 0 || player.ascensionCount > 0,
-      player.shopUpgrades.shopTalisman > 0
+      isShopTalismanUnlocked()
     ]
     let upgradedTalisman = false
 
@@ -5928,12 +5955,12 @@ export const updateAll = (): void => {
   if (
     player.shopUpgrades.challenge15Auto > 0
     && player.currentChallenge.ascension === 15
-    && player.usedCorruptions.slice(2, 10).every((a) => a === 11)
   ) {
     const c15SM = challenge15ScoreMultiplier()
     if (player.coins.gte(Decimal.pow(10, player.challenge15Exponent / c15SM))) {
       player.challenge15Exponent = Decimal.log(player.coins.add(1), 10) * c15SM
       c15RewardUpdate()
+      updateChallengeLevel(15)
     }
   }
 }
@@ -5952,6 +5979,7 @@ export const constantIntervals = (): void => {
   setInterval(saveSynergy, 5000)
   setInterval(slowUpdates, 200)
   setInterval(fastUpdates, 50)
+  setInterval(campaignIconHTMLUpdates, 15000)
 
   if (!G.timeWarp) {
     exitOffline()
@@ -6003,7 +6031,7 @@ const tick = () => {
 const tack = (dt: number) => {
   if (!G.timeWarp) {
     // Adds Resources (coins, ants, etc)
-    const timeMult = calculateTimeAcceleration().mult
+    const timeMult = calculateGlobalSpeedMult()
     resourceGain(dt * timeMult)
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
     addTimers('prestige', dt)
@@ -6016,6 +6044,7 @@ const tack = (dt: number) => {
     addTimers('singularity', dt)
     addTimers('autoPotion', dt)
     addTimers('ambrosia', dt)
+    addTimers('redAmbrosia', dt)
 
     // Triggers automatic rune sacrifice (adds milliseconds to payload timer)
     if (player.shopUpgrades.offeringAuto > 0 && player.autoSacrificeToggle) {
@@ -6163,7 +6192,7 @@ const tack = (dt: number) => {
       }
     }
   }
-  calculateOfferings('reincarnation')
+  calculateOfferings()
 }
 
 export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
@@ -6187,22 +6216,22 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       num = -1
     }
     if (player.challengecompletions[11] > 0 && !isNaN(num)) {
-      if (num >= 0 && num < player.corruptionLoadoutNames.length) {
+      if (num >= 0 && num < 8 + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL) {
         if (player.toggles[41]) {
           void Notification(
             i18next.t('main.corruptionLoadoutApplied', {
               x: num + 1,
-              y: player.corruptionLoadoutNames[num]
+              y: player.corruptions.saves.saves[num].name
             }),
             5000
           )
         }
-        corruptionLoadoutSaveLoad(false, num + 1)
+        corruptionLoadLoadout(num)
       } else {
         if (player.toggles[41]) {
           void Notification(i18next.t('main.allCorruptionsZero'), 5000)
         }
-        corruptionLoadoutSaveLoad(false, 0)
+        player.corruptions.next.resetCorruptions()
       }
       event.preventDefault()
     }
@@ -6230,13 +6259,11 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
         categoryUpgrades(num, false)
       }
       if (G.currentTab === Tabs.Runes) {
-        if (G.runescreen === 'runes') {
+        if (getActiveSubTab() === 0) {
           redeemShards(num)
-        }
-        if (G.runescreen === 'blessings') {
+        } else if (getActiveSubTab() === 2) {
           buyRuneBonusLevels('Blessings', num)
-        }
-        if (G.runescreen === 'spirits') {
+        } else if (getActiveSubTab() === 3) {
           buyRuneBonusLevels('Spirits', num)
         }
       }
@@ -6308,7 +6335,7 @@ export const showExitOffline = () => {
  * Reloads shit.
  * @param reset if this param is passed, offline progression will not be calculated.
  */
-export const reloadShit = async (reset = false) => {
+export const reloadShit = (reset = false) => {
   clearTimers()
 
   // Shows a reset button when page loading seems to stop or cause an error
@@ -6319,16 +6346,7 @@ export const reloadShit = async (reset = false) => {
 
   disableHotkeys()
 
-  // Wait a tick to continue. This is a (likely futile) attempt to see if this solves save corrupting.
-  // This ensures all queued tasks are executed before continuing on.
-  await new Promise((res) => {
-    setTimeout(res, 0)
-  })
-
-  const save = (await localforage.getItem<Blob>('Synergysave2'))
-    ?? localStorage.getItem('Synergysave2')
-
-  const saveObject = typeof save === 'string' ? save : await save?.text()
+  const saveObject = localStorage.getItem('Synergysave2')
 
   if (saveObject) {
     const dec = LZString.decompressFromBase64(saveObject)
@@ -6346,26 +6364,24 @@ export const reloadShit = async (reset = false) => {
       }
 
       localStorage.clear()
-      const blob = new Blob([saveString], { type: 'text/plain' })
       localStorage.setItem('Synergysave2', saveString)
-      await localforage.setItem<Blob>('Synergysave2', blob)
-      await Alert(i18next.t('main.transferredFromLZ'))
+      Alert(i18next.t('main.transferredFromLZ'))
     }
 
-    await loadSynergy()
+    loadSynergy()
   }
 
+  initRedAmbrosiaUpgrades(player.redAmbrosiaUpgrades)
+
   if (!reset) {
-    await calculateOffline()
+    calculateOffline()
   } else {
-    player.worlds.reset()
-    // saving is disabled during a singularity event to prevent bug
-    // early return here if the save fails can keep game state from properly resetting after a singularity
-    if (saveCheck.canSave) {
-      const saved = await saveSynergy()
-      if (!saved) {
-        return
-      }
+    if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
+      player.worlds.reset()
+    }
+
+    if (!saveSynergy()) {
+      return
     }
   }
 
@@ -6377,16 +6393,11 @@ export const reloadShit = async (reset = false) => {
   createTimer()
 
   // Reset Displays
-  if (!playerNeedsReminderToExport()) {
-    changeTab(Tabs.Buildings)
-  } else {
-    changeTab(Tabs.Settings)
-
-    void Alert(i18next.t('general.exportYourGame'))
-  }
+  changeTab(Tabs.Buildings)
 
   changeSubTab(Tabs.Buildings, { page: 0 })
   changeSubTab(Tabs.Runes, { page: 0 }) // Set 'runes' subtab back to 'runes' tab
+  changeSubTab(Tabs.Challenges, { page: 0 }) // Set 'challenges' subtab back to 'normal' tab
   changeSubTab(Tabs.WowCubes, { page: 0 }) // Set 'cube tribues' subtab back to 'cubes' tab
   changeSubTab(Tabs.Corruption, { page: 0 }) // set 'corruption main'
   changeSubTab(Tabs.Singularity, { page: 0 }) // set 'singularity main'
@@ -6406,13 +6417,13 @@ export const reloadShit = async (reset = false) => {
           eventCheck().catch((error: Error) => {
             console.error(error)
           }),
-        15_000
+        1000 * 60 * 5
       )
     })
   showExitOffline()
+  campaignIconHTMLUpdates()
+  campaignTokenRewardHTMLUpdate()
   clearTimeout(preloadDeleteGame)
-
-  setInterval(cacheReinitialize, 15000)
 
   if (localStorage.getItem('pleaseStar') === null) {
     void Alert(i18next.t('main.starRepo'))
@@ -6425,31 +6436,43 @@ export const reloadShit = async (reset = false) => {
     typeof navigator.storage?.persist === 'function'
     && typeof navigator.storage?.persisted === 'function'
   ) {
-    const persistent = await navigator.storage.persisted()
-
-    if (!persistent) {
-      const isPersistentNow = await navigator.storage.persist()
-
-      if (isPersistentNow) {
-        void Alert(i18next.t('main.dataPersistent'))
-      }
-    } else {
-      console.log(`Storage is persistent! (persistent = ${persistent})`)
-    }
+    navigator.storage.persisted()
+      .then((persistent) => persistent ? Promise.resolve(false) : navigator.storage.persist())
+      .then((isPersistentNow) => {
+        if (isPersistentNow) {
+          void Alert(i18next.t('main.dataPersistent'))
+        }
+      })
   }
 
   const saveType = DOMCacheGetOrSet('saveType') as HTMLInputElement
   saveType.checked = localStorage.getItem('copyToClipboard') !== null
 }
 
-function playerNeedsReminderToExport () {
-  const day = 1000 * 60 * 60 * 24
-
-  return Date.now() - player.lastExportedSave > day * 3
-}
-
 window.addEventListener('load', async () => {
+  if (dev) {
+    const { worker } = await import('./mock/browser')
+    await worker.start({
+      serviceWorker: {
+        url: './mockServiceWorker.js'
+      }
+    })
+  }
+
   await i18nInit()
+  handleLogin().catch(console.error)
+
+  try {
+    await initializePCoinCache()
+  } catch (e) {
+    console.error(e)
+    const response = await Confirm(
+      'PseudoCoin bonuses weren\'t fetched, if you have purchased upgrades they will not take effect. '
+        + 'Press OK to continue to the game without upgrades.'
+    )
+
+    if (!response) return
+  }
 
   const ver = DOMCacheGetOrSet('versionnumber')
   const addZero = (n: number) => `${n}`.padStart(2, '0')
@@ -6473,14 +6496,15 @@ window.addEventListener('load', async () => {
   document.title = `Synergism v${version}`
 
   generateEventHandlers()
-
-  void reloadShit()
-
   corruptionButtonsAdd()
   corruptionLoadoutTableCreate()
-
-  handleLogin().catch(console.error)
-})
+  createCampaignIconHTMLS()
+  initRedAmbrosiaUpgrades(player.redAmbrosiaUpgrades)
+  Alert(
+    `If you have the time, please submit feedback for the recent update! Form closes May 11, 2025. \n <a href="https://forms.gle/SLVUakXBc9RvEfqz8" style="border: 2px solid gold" target="_blank">CLICK ME!</a>`
+  )
+  reloadShit()
+}, { once: true })
 
 window.addEventListener('unload', () => {
   // This fixes a bug in Chrome (who would have guessed?) that

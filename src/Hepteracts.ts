@@ -401,15 +401,18 @@ export class HepteractCraft {
     return this
   }
 
-  // Get balance of item
-  get amount () {
-    return this.BAL
-  }
-  get capacity () {
-    return this.CAP
-  }
-  get discount () {
-    return this.DISCOUNT
+  valueOf (): IHepteractCraft {
+    return {
+      BASE_CAP: this.BASE_CAP,
+      HEPTERACT_CONVERSION: this.HEPTERACT_CONVERSION,
+      OTHER_CONVERSIONS: this.OTHER_CONVERSIONS,
+      HTML_STRING: this.HTML_STRING,
+      UNLOCKED: this.UNLOCKED,
+      BAL: this.BAL,
+      CAP: this.CAP,
+      DISCOUNT: this.DISCOUNT,
+      AUTO: this.AUTO
+    }
   }
 }
 
@@ -446,10 +449,6 @@ const hepteractEffectiveValues = {
     LIMIT: 1000,
     DR: 0.2
   }
-}
-
-export const createHepteract = (data: IHepteractCraft) => {
-  return new HepteractCraft(data)
 }
 
 export const hepteractEffective = (data: hepteractTypes) => {
@@ -648,7 +647,7 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?: boolean) => {
     player.wowAbyssals = 0
   }
 
-  const powderGain = player.shopUpgrades.powderAuto * calculatePowderConversion().mult * buyAmount / 100
+  const powderGain = player.shopUpgrades.powderAuto * calculatePowderConversion() * buyAmount / 100
   player.overfluxPowder += powderGain
 
   const powderText = (powderGain > 0) ? i18next.t('hepteracts.gainedPowder', { x: format(powderGain, 2, true) }) : ''
@@ -699,7 +698,7 @@ export const overfluxPowderDescription = () => {
     x: format(player.overfluxPowder, 2, true)
   })
   DOMCacheGetOrSet('hepteractEffectText').textContent = i18next.t('hepteracts.expiredOrbs', {
-    x: format(1 / calculatePowderConversion().mult, 1, true)
+    x: format(1 / calculatePowderConversion(), 1, true)
   })
   DOMCacheGetOrSet('hepteractCostText').style.display = 'none'
 
