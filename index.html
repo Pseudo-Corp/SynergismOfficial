@@ -3359,7 +3359,7 @@
         <div class="subtabContent subtabDisplayFlex historySubTab" id="resetHistorySubTab">
             <div class="scrollbarX">
                 <div id="historyReset">
-                    <p>Here's what you got from your last resets (except challenges):</p>
+                    <p i18n="history.historyReset"></p>
                     <div class="historyTableWrap">
                         <table id="historyResetTable">
                             <tbody></tbody>
@@ -3367,7 +3367,7 @@
                     </div>
                 </div>
                 <div id="historyAnts" class="sacrificeAnts">
-                    <p>Your sacrifices got you the following:</p>
+                    <p i18n="history.historySac"></p>
                     <div class="historyTableWrap">
                         <table id="historyAntsTable">
                             <tbody></tbody>
@@ -3380,8 +3380,8 @@
             <div class="scrollbarX">
                 <div id="historyAscend">
                     <div>
-                        <p style="float: left">Your last ascensions got you the following:</p>
-                        <button class="onOffToggle" id="historyTogglePerSecondButton">Per second: OFF</button>
+                        <p style="float: left" i18n="history.historyAsc"></p>
+                        <button class="onOffToggle" id="historyTogglePerSecondButton" i18n="history.perSecondOff"></button>
                     </div>
                     <div class="historyTableWrap" style="clear: both">
                         <table id="historyAscendTable">
@@ -3395,7 +3395,7 @@
             <div class="scrollbarX">
                 <div id="historySingularity">
                     <div>
-                    <p style="float: left">Your last singularities got you the following:</p>
+                    <p style="float: left" i18n="history.historySing"></p>
                     </div>
                     <div class="historyTableWrap" style="clear: both">
                         <table id="historySingularityTable">
@@ -3408,10 +3408,10 @@
         <div class="subtabContent subtabDisplayFlex" id="hotkeys">
             <div class="hotkeys"></div>
             <span style="color: lightblue;">Last enabled key: <span style="color: gold;" id="lastHotkey"></span> <span style="color: white;" id="lastHotkeyName"></span></span>
-            <span id="hotkeyTooltip">Why don't you try clicking on one of the item's <span style="color:gold;">gold</span> text above to get started? You can always cancel!</span>
-            <span class="chal11 grayText">Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!</span>
+            <span id="hotkeyTooltip" i18n="hotkeys.note2"></span>
+            <span class="chal11 grayText" i18n="hotkeys.note1"></span>
             <div class="resetHotkeys">
-                <button id="resetHotkeys" style="border: 2px solid brown">Reset Hotkeys</button>
+                <button id="resetHotkeys" style="border: 2px solid brown" i18n="hotkeys.reset"></button>
                 <button class="auto" id="toggle39" toggleid="39" format="Hotkeys: $" style="border:2px solid green">Hotkeys: ON</button>
                 <button class="auto" id="toggle40" toggleid="40" format="Number Hotkeys: $" style="border:2px solid green">Number Hotkeys: ON</button>
                 <button class="auto" id="toggle41" toggleid="41" format="Loadouts Notify: $" style="border:2px solid green">Loadouts Notify: ON</button>
@@ -3479,14 +3479,14 @@
                         <div id="offeringPotionHide">
                             <img id="offeringPotions" alt="Offering Potions" src="Pictures/Default/OfferingPotion.png" loading="lazy">
                             <p id="offeringpotionowned">Own: 2222</p>
-                            <button class="consumablebutton" id="buyofferingpotion" style="border: 2px solid white">Buy: 100 Quarks Each</button>
+                            <button class="consumablebutton" id="buyofferingpotion" style="border: 2px solid white" i18n="shop.buyPotion"></button>
                             <button class="consumablebutton" id="useofferingpotion" style="border: 2px solid orange" i18n="shop.consume"></button>
                             <button class="consumablebutton auto" id="toggle42" toggleid="42" format="Auto Catalyze: $" style="border:2px solid red" title="Speeds up AutoPotion while enabled&#013If you run out of potions, it will refill/spend at normal rate, automatically.">Auto Use: OFF</button>
                         </div>
                         <div id="obtainiumPotionHide">
                             <img id="obtainiumPotions" alt="Obtainium Potions" src="Pictures/Default/ObtainiumPotion.png" loading="lazy">
                             <p id="obtainiumpotionowned">Own: 0</p>
-                            <button class="consumablebutton" id="buyobtainiumpotion" style="border: 2px solid white">Buy: 100 Quarks Each</button>
+                            <button class="consumablebutton" id="buyobtainiumpotion" style="border: 2px solid white" i18n="shop.buyPotion"></button>
                             <button class="consumablebutton" id="useobtainiumpotion" style="border: 2px solid blue" i18n="shop.consume"></button>
                             <button class="consumablebutton auto" id="toggle43" toggleid="43" format="Auto Catalyze: $" style="border:2px solid red" title="Speeds up AutoPotion while enabled&#013If you run out of potions, it will refill/spend at normal rate, automatically.">Auto Use: OFF</button>
                         </div>
@@ -4652,64 +4652,64 @@
     
         <div id="consumableEvents" class="event-container">
             <h4 class="event-title" i18n="pseudoCoins.consumables.eventTitle"></h4>
-            <div class="event-bonus">Current Amount: <span id="consumableEventBonus">No active consumable</span></div>
+            <div class="event-bonus">Current Amount: <span id="consumableEventBonus"></span></div>
             <div class="event-timer">Ends At: <span id="consumableEventTimer">--:--:--</span></div>
             <div id="consumableBuffContainer">
                 <div class="consumableBuffVal" id="consumableBuffQuark">
                     <img src="Pictures/Default/Quark.png">
-                    <p id="consumableBuffQuarkValue">+10%</p>
+                    <p id="consumableBuffQuarkValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffGoldenQuark">
                     <img src="Pictures/Default/GoldenQuark.png">
-                    <p id="consumableBuffGoldenQuarkValue">+10%</p>
+                    <p id="consumableBuffGoldenQuarkValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffCubes">
                     <img src="Pictures/Default/WowCube.png">
-                    <p id="consumableBuffCubesValue">+10%</p>
+                    <p id="consumableBuffCubesValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffOcteract">
                     <img src="Pictures/Default/Octeract.png">
-                    <p id="consumableBuffOcteractValue">+10%</p>
+                    <p id="consumableBuffOcteractValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffAscensionSpeed">
                     <img src="Pictures/Default/TinySpeedAscension.png">
-                    <p id="consumableBuffAscensionSpeedValue">+10%</p>
+                    <p id="consumableBuffAscensionSpeedValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffGlobalSpeed">
                     <img src="Pictures/Default/TinySpeed.png">
-                    <p id="consumableBuffGlobalSpeedValue">+10%</p>
+                    <p id="consumableBuffGlobalSpeedValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffObtainium">
                     <img src="Pictures/Default/Obtainium.png">
-                    <p id="consumableBuffObtainiumValue">+10%</p>
+                    <p id="consumableBuffObtainiumValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffOffering">
                     <img src="Pictures/Default/Offering.png">
-                    <p id="consumableBuffOfferingValue">+10%</p>
+                    <p id="consumableBuffOfferingValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffAscensionScore">
                     <img src="Pictures/Default/TinyA.png">
-                    <p id="consumableBuffAscensionScoreValue">+10%</p>
+                    <p id="consumableBuffAscensionScoreValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffBlueberryTime">
                     <img src="Pictures/Default/Ambrosia.png">
-                    <p id="consumableBuffBlueberryTimeValue">+10%</p>
+                    <p id="consumableBuffBlueberryTimeValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffAmbrosiaLuck">
                     <img src="Pictures/Default/BlueberryLuck.png">
-                    <p id="consumableBuffAmbrosiaLuckValue">+10%</p>
+                    <p id="consumableBuffAmbrosiaLuckValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffPowderConversion">
                     <img src="Pictures/Default/HepteractOverfluxPowder.png">
-                    <p id="consumableBuffPowderConversionValue">+10%</p>
+                    <p id="consumableBuffPowderConversionValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffAntSacrifice">
                     <img src="Pictures/Default/AntSacrifice.png">
-                    <p id="consumableBuffAntSacrificeValue">+10%</p>
+                    <p id="consumableBuffAntSacrificeValue"></p>
                 </div>
                 <div class="consumableBuffVal" id="consumableBuffOneMind">
                     <img src="Pictures/Default/SingularityOneMind.png">
-                    <p id="consumableBuffOneMindValue">+10%</p>
+                    <p id="consumableBuffOneMindValue"></p>
                 </div>
             </div>
             <div class="consumableSpoiler" i18n="pseudoCoins.consumables.consumableSpoiler"></div>
