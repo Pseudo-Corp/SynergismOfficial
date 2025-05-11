@@ -108,7 +108,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
 
   if (themeNumber === 1) {
     localStorage.removeItem('theme')
-    themeButton.textContent = 'Dark Mode'
+    themeButton.textContent = i18next.t('settings.themes.dark')
   } else if (themeNumber === 2) { // 'Darker Mode'
     body.style.setProperty('--header-color', 'black')
     body.style.setProperty('--bg-color', '#0c0c0f')
@@ -137,7 +137,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('exportgame').style.backgroundColor = 'black' // Special cases
     DOMCacheGetOrSet('importFileButton').style.backgroundColor = 'black'
 
-    themeButton.textContent = 'Darker Mode'
+    themeButton.textContent = i18next.t('settings.themes.darker')
   } else if (themeNumber === 3) { // 'Lighter Dark Mode'
     body.style.setProperty('--header-color', '#18171c')
     body.style.setProperty('--bg-color', '#1c1b22')
@@ -163,7 +163,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('platonicUpgradePics').style.backgroundColor = '#0c0c0f'
     body.style.setProperty('--maroon-text-color', '#a90000')
 
-    themeButton.textContent = 'Lighter Dark Mode'
+    themeButton.textContent = i18next.t('settings.themes.lighterDark')
   } else if (themeNumber === 4) { // 'Light Mode'
     body.classList.add('textOutline')
     body.style.setProperty('--header-color', '#736e8d')
@@ -218,7 +218,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = '#f58'
     DOMCacheGetOrSet('runeshowpower5').style.color = '#ff7158'
 
-    themeButton.textContent = 'Light Mode'
+    themeButton.textContent = i18next.t('settings.themes.light')
   } else if (themeNumber === 5) { // 'Dracula Mode'
     body.style.setProperty('--header-color', '#0a0a11')
     body.style.setProperty('--bg-color', '#131319')
@@ -282,7 +282,7 @@ export const toggleTheme = (initial = false, themeNumber = 1, change = false) =>
     DOMCacheGetOrSet('buildinghotkeys').style.color = '#838383'
     DOMCacheGetOrSet('buildinghotkeys2').style.color = '#838383'
 
-    themeButton.textContent = 'Dracula Mode'
+    themeButton.textContent = i18next.t('settings.themes.dracula')
   }
   if (change) {
     setTimeout(() => {

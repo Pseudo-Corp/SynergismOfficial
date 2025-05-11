@@ -1,3 +1,4 @@
+import i18next from 'i18next'
 import { sacrificeAnts } from './Ants'
 import { boostAccelerator, buyAccelerator, buyMultiplier } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -10,40 +11,40 @@ import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
 export const defaultHotkeys = new Map<string, [string, () => unknown, /* hide during notification */ boolean]>([
-  ['A', ['Buy Accelerators', () => buyAccelerator(), false]],
-  ['B', ['Boost Accelerator', () => boostAccelerator(), false]],
-  ['C', ['Auto Challenge', () => {
+  ['A', ['hotkeys.names.buyAccelerators', () => buyAccelerator(), false]],
+  ['B', ['hotkeys.names.boostAccelerator', () => boostAccelerator(), false]],
+  ['C', ['autoChallenge', () => {
     toggleChallengeSweep()
   }, false]],
-  ['E', ['Exit T / R Challenge', () => {
+  ['E', ['hotkeys.names.exitTRChallenge', () => {
     if (player.autoChallengeRunning) {
       toggleChallengeSweep()
     } else {
       exitTranscendAndPrestigeChallenge()
     }
   }, false]],
-  ['M', ['Multipliers', () => buyMultiplier(), false]],
-  ['N', ['No (Cancel)', () => confirmReply(false), true]],
-  ['P', ['Reset Prestige', () => resetCheck('prestige'), false]],
-  ['R', ['Reset Reincarnate', () => resetCheck('reincarnation'), false]],
-  ['S', ['Sacrifice Ants', () => sacrificeAnts(), false]],
-  ['T', ['Reset Transcend', () => resetCheck('transcension'), false]],
-  ['Y', ['Yes (OK)', () => confirmReply(true), true]],
-  ['ARROWLEFT', ['Back a tab', () => kbTabChange(-1), false]],
-  ['ARROWRIGHT', ['Next tab', () => kbTabChange(1), false]],
-  ['ARROWUP', ['Back a subtab', () => kbTabChange(-1, true), false]],
-  ['ARROWDOWN', ['Next subtab', () => kbTabChange(1, true), false]],
-  ['SHIFT+A', ['Reset Ascend', () => resetCheck('ascension'), false]],
-  ['SHIFT+C', ['Cleanse Corruptions', () => {
+  ['M', ['hotkeys.names.multipliers', () => buyMultiplier(), false]],
+  ['N', ['hotkeys.names.noCancel', () => confirmReply(false), true]],
+  ['P', ['hotkeys.names.resetPrestige', () => resetCheck('prestige'), false]],
+  ['R', ['hotkeys.names.resetReincarnate', () => resetCheck('reincarnation'), false]],
+  ['S', ['hotkeys.names.sacrificeAnts', () => sacrificeAnts(), false]],
+  ['T', ['hotkeys.names.resetTranscend', () => resetCheck('transcension'), false]],
+  ['Y', ['hotkeys.names.yesOK', () => confirmReply(true), true]],
+  ['ARROWLEFT', ['hotkeys.names.backTab', () => kbTabChange(-1), false]],
+  ['ARROWRIGHT', ['hotkeys.names.nextTab', () => kbTabChange(1), false]],
+  ['ARROWUP', ['hotkeys.names.backSubtab', () => kbTabChange(-1, true), false]],
+  ['ARROWDOWN', ['hotkeys.names.nextSubtab', () => kbTabChange(1, true), false]],
+  ['SHIFT+A', ['hotkeys.names.resetAscend', () => resetCheck('ascension'), false]],
+  ['SHIFT+C', ['hotkeys.names.cleanseCorruptions', () => {
     player.corruptions.used.resetCorruptions()
     player.corruptions.next.resetCorruptions()
   }, false]],
-  ['SHIFT+D', ['Spec. Action Add x1', () => promocodes('add', 1), false]],
-  ['SHIFT+E', ['Exit Asc. Challenge', () => resetCheck('ascensionChallenge'), false]], // Its already checks if inside Asc. Challenge
-  ['SHIFT+O', ['Use Off. Potion', () => useConsumable('offeringPotion'), false]],
-  ['SHIFT+P', ['Use Obt. Potion', () => useConsumable('obtainiumPotion'), false]],
-  ['SHIFT+S', ['Reset Singularity', () => resetCheck('singularity'), false]],
-  ['CTRL+B', ['Un-hide Tabs', () => tabRow.reappend(), false]]
+  ['SHIFT+D', ['hotkeys.names.specActionAdd1', () => promocodes('add', 1), false]],
+  ['SHIFT+E', ['hotkeys.names.exitAscChallenge', () => resetCheck('ascensionChallenge'), false]], // Its already checks if inside Asc. Challenge
+  ['SHIFT+O', ['hotkeys.names.useOffPotion', () => useConsumable('offeringPotion'), false]],
+  ['SHIFT+P', ['hotkeys.names.useObtPotion', () => useConsumable('obtainiumPotion'), false]],
+  ['SHIFT+S', ['hotkeys.names.resetSingularity', () => resetCheck('singularity'), false]],
+  ['CTRL+B', ['hotkeys.names.unhideTabs', () => tabRow.reappend(), false]]
 ])
 
 export let hotkeysEnabled = false
@@ -98,18 +99,19 @@ const eventHotkeys = (event: KeyboardEvent): void => {
   }
 
   const key = keyPrefix + event.key.toUpperCase()
+  const hotkey = hotkeys.get(key)
 
   // Disable hotkeys if notifications are occurring
   if (key !== 'ENTER' && DOMCacheGetOrSet('transparentBG').style.display === 'block') {
-    if (hotkeys.has(key) && (!hotkeys.get(key)![2])) {
+    if (hotkey && !hotkey[2]) {
       return
     }
   }
 
   let hotkeyName = ''
-  if (hotkeys.has(key)) {
-    hotkeyName = `${hotkeys.get(key)![0]}`
-    hotkeys.get(key)![1]()
+  if (hotkey) {
+    hotkeyName = i18next.t(hotkey[0])
+    hotkey[1]()
     event.preventDefault()
   }
 
@@ -202,7 +204,7 @@ export const enableHotkeys = () => {
   }
 
   for (const [key, [descr]] of [...hotkeys.entries()]) {
-    const div = makeSlot(key, descr)
+    const div = makeSlot(key, i18next.t(descr))
 
     hotkey.appendChild(div)
   }

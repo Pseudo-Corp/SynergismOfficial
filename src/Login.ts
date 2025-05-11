@@ -236,7 +236,7 @@ export async function handleLogin () {
   player.worlds = new QuarkHandler(Number(player.worlds))
   loggedIn = accountType !== 'none' && response.ok
 
-  currentBonus.textContent = `Generous patrons give you a bonus of ${globalBonus}% more Quarks!`
+  currentBonus.textContent = i18next.t('settings.quarkBonusSimple', { globalBonus })
 
   if (location.hostname !== 'synergism.cc') {
     // TODO: better error, make link clickable, etc.
@@ -247,8 +247,7 @@ export async function handleLogin () {
       return
     }
 
-    currentBonus.textContent +=
-      ` You also receive an extra ${personalBonus}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!`
+    currentBonus.textContent = i18next.t('settings.quarkBonusExtended', { globalBonus, personalBonus })
 
     let user: string | null
 

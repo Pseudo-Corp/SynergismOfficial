@@ -1883,14 +1883,13 @@ export const visualUpdateShop = () => {
     }
   }
 
-  DOMCacheGetOrSet('buySingularityQuarksAmount').textContent = `${player.goldenQuarks < 1000 ? 'Owned: ' : ''}${
-    format(player.goldenQuarks)
-  }`
-  DOMCacheGetOrSet('buySingularityQuarksButton').textContent = `Buy! ${
-    format(
-      getGoldenQuarkCost().cost
-    )
-  } Quarks Each`
+  DOMCacheGetOrSet('buySingularityQuarksAmount').textContent = player.goldenQuarks < 1000
+    ? i18next.t('shop.singularityQuarkAmount', { amount: format(player.goldenQuarks) })
+    : format(player.goldenQuarks)
+
+  DOMCacheGetOrSet('buySingularityQuarksButton').textContent = i18next.t('shop.singularityQuarkCost', {
+    cost: format(getGoldenQuarkCost().cost)
+  })
 }
 
 export const constructConsumableTimes = (p: PseudoCoinConsumableNames) => {
