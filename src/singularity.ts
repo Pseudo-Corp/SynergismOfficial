@@ -199,6 +199,22 @@ export class SingularityUpgrade extends DynamicUpgrade {
       }</span>`
     }
 
+    const costNextLevelStr = i18next.t('singularity.toString.costNextLevel', {
+      amount: format(
+        costNextLevel,
+        0,
+        true
+      )
+    })
+
+    const spentQuarksStr = i18next.t('singularity.toString.spentQuarks', {
+      amount: format(
+        this.goldenQuarksInvested,
+        0,
+        true
+      )
+    })
+
     return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color: ${minReqColor}">${minimumSingularity}</span>
@@ -208,20 +224,8 @@ export class SingularityUpgrade extends DynamicUpgrade {
       )
     } ${format(this.level, 0, true)}${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.getEffect().desc}</span>
-                ${i18next.t('singularity.toString.costNextLevel')}: ${
-      format(
-        costNextLevel,
-        0,
-        true
-      )
-    } Golden Quarks.
-                ${i18next.t('general.spent')} Quarks: ${
-      format(
-        this.goldenQuarksInvested,
-        0,
-        true
-      )
-    }`
+                ${costNextLevelStr}
+                ${spentQuarksStr}`
   }
 
   public updateUpgradeHTML (): void {

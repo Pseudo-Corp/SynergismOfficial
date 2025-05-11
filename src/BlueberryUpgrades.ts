@@ -225,6 +225,11 @@ export class BlueberryUpgrade extends DynamicUpgrade {
       preReqText = preReqText.slice(0, -1)
     }
 
+    const costNextLevelStr = i18next.t('octeract.toString.costNextLevel', {
+      amount: `<span style="color:orange">${format(costNextLevel, 0, true, true, true)}</span>`,
+      resource: i18next.t('ambrosia.ambrosia')
+    })
+
     return `<span style="color: gold">${this.name}</span>
             <span style="color: ${color}"> ${
       i18next.t(
@@ -234,19 +239,7 @@ export class BlueberryUpgrade extends DynamicUpgrade {
       this.ignoreEXALT ? `\n<span style="color: orchid"> ${i18next.t('ambrosia.ignoreEXALT')}</span>\n` : '\n'
     }<span style="color: lightblue">${this.description}</span>
                 <span style="color: gold">${this.rewardDesc}</span>
-                ${
-      i18next.t(
-        'octeract.toString.costNextLevel'
-      )
-    }: <span style="color:orange">${
-      format(
-        costNextLevel,
-        0,
-        true,
-        true,
-        true
-      )
-    }</span> ${i18next.t('ambrosia.ambrosia')} ${affordableInfo}
+                ${costNextLevelStr} ${affordableInfo}
                 ${
       i18next.t(
         'ambrosia.blueberryCost'

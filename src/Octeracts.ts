@@ -140,16 +140,23 @@ export class OcteractUpgrade extends DynamicUpgrade {
       ? `<span style="color: var(--green-text-color)"> ${i18next.t('general.affordable')}</span>`
       : `<span style="color: yellow"> ${i18next.t('octeract.toString.becomeAffordable', { n: affordTime })}</span>`
 
+    const costNextLevelStr = i18next.t('octeract.toString.costNextLevel', {
+      amount: format(costNextLevel, 2, true, true, true),
+      resource: i18next.t('tabs.singularity.octeracts') // TODO: dedicated i18n translation rather than stealing from tabs
+    })
+
+    const spentOcteractsStr = i18next.t('octeract.toString.spentOcteracts', {
+      amount: format(this.octeractsInvested, 2, true, true, true)
+    })
+
     return `<span style="color: gold">${this.name}</span>
                 <span style="color: lightblue">${this.description}</span>
                 <span style="color: ${color}"> ${i18next.t('general.level')} ${
       format(this.level, 0, true)
     }${maxLevel}${freeLevelInfo}</span>
                 <span style="color: gold">${this.getEffect().desc}</span>
-                ${i18next.t('octeract.toString.costNextLevel')}: ${
-      format(costNextLevel, 2, true, true, true)
-    } Octeracts${affordableInfo}
-                ${i18next.t('general.spent')} Octeracts: ${format(this.octeractsInvested, 2, true, true, true)}`
+                ${costNextLevelStr}${affordableInfo}
+                ${spentOcteractsStr}`
   }
 
   public updateUpgradeHTML (): void {

@@ -1997,7 +1997,8 @@
     },
     "toString": {
       "noMinimum": "No minimal Singularity to purchase required",
-      "costNextLevel": "Cost for next level"
+      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks.",
+      "spentQuarks": "Spent Quarks: {{amount}}"
     },
     "data": {
       "goldenQuarks1": {
@@ -3336,8 +3337,9 @@
       "multiBuy": "Purchased {{n}} levels, thanks to Multi Buy!"
     },
     "toString": {
-      "costNextLevel": "Cost for next level",
-      "becomeAffordable": "(Affordable in {{n}})"
+      "costNextLevel": "Cost for next level: {{amount}} {{resource}}.",
+      "becomeAffordable": "(Affordable in {{n}})",
+      "spentOcteracts": "Spent Octeracts: {{amount}}"
     },
     "data": {
       "octeractStarter": {
