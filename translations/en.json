@@ -1652,6 +1652,9 @@
     "upgradeFor": "Upgrade for {{x}} Quarks",
     "plusForQuarks": "+ {{x}} for {{y}} Quarks",
     "consume": "CONSUME",
+    "buyPotion": "Buy: 100 Quarks Each",
+    "singularityQuarkCost": "Buy! {{cost}} Quarks Each",
+    "singularityQuarkAmount": "Owned: {{amount}}",
     "buyYerPotions": "Buy Yer' Potions!",
     "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
     "youHaveQuarks": "You have {{x}} Quarks!",
@@ -1994,7 +1997,8 @@
     },
     "toString": {
       "noMinimum": "No minimal Singularity to purchase required",
-      "costNextLevel": "Cost for next level"
+      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks.",
+      "spentQuarks": "Spent Quarks: {{amount}}"
     },
     "data": {
       "goldenQuarks1": {
@@ -3333,8 +3337,9 @@
       "multiBuy": "Purchased {{n}} levels, thanks to Multi Buy!"
     },
     "toString": {
-      "costNextLevel": "Cost for next level",
-      "becomeAffordable": "(Affordable in {{n}})"
+      "costNextLevel": "Cost for next level: {{amount}} {{resource}}.",
+      "becomeAffordable": "(Affordable in {{n}})",
+      "spentOcteracts": "Spent Octeracts: {{amount}}"
     },
     "data": {
       "octeractStarter": {
@@ -3855,7 +3860,9 @@
       "inactive": "<<var(--orchid-text-color);|Event Status:>> INACTIVE",
       "activeUntil": "ACTIVE UNTIL: {{x}}",
       "starts": "STARTS {{x}}"
-    }
+    },
+    "quarkBonusSimple": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks!",
+    "quarkBonusExtended": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks! You also receive an extra {{personalBonus}}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!"
   },
   "statistics": {
     "subtabs": {
@@ -4971,7 +4978,11 @@
   },
   "history": {
     "perSecondOn": "Per second: ON",
-    "perSecondOff": "Per second: OFF"
+    "perSecondOff": "Per second: OFF",
+    "historyReset": "Here's what you got from your last resets (except challenges):",
+    "historySac": "Your sacrifices got you the following:",
+    "historyAsc": "Your last ascensions got you the following:",
+    "historySing": "Your last singularities got you the following:"
   },
   "event": {
     "aprilFools": {
@@ -5052,5 +5063,37 @@
       "purchaseBtn": "+{{time}} hours [<<gold|{{cost}} PseudoCoins>>]",
       "warning": "<<gold | ⚠>> Takes a few seconds to apply after purchase! <<gold | ⚠>>"
     }
+  },
+  "hotkeys": {
+    "note1": "Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!",
+    "note2": "Why don't you try clicking on one of the item's <span style=\"color:gold;\">gold</span> text above to get started? You can always cancel!",
+    "reset": "Reset Hotkeys",
+    "names": {
+      "buyAccelerators": "Buy Accelerators",
+      "boostAccelerator": "Boost Accelerator",
+      "autoChallenge": "Auto Challenge",
+      "exitTRChallenge": "Exit T / R Challenge",
+      "multipliers": "Multipliers",
+      "noCancel": "No (Cancel)",
+      "resetPrestige": "Reset Prestige",
+      "resetReincarnate": "Reset Reincarnate",
+      "sacrificeAnts": "Sacrifice Ants",
+      "resetTranscend": "Reset Transcend",
+      "yesOK": "Yes (OK)",
+      "backTab": "Back a tab",
+      "nextTab": "Next tab",
+      "backSubtab": "Back a subtab",
+      "nextSubtab": "Next subtab",
+      "resetAscend": "Reset Ascend",
+      "cleanseCorruptions": "Cleanse Corruptions",
+      "specActionAdd1": "Spec. Action Add x1",
+      "exitAscChallenge": "Exit Asc. Challenge",
+      "useOffPotion": "Use Off. Potion",
+      "useObtPotion": "Use Obt. Potion",
+      "resetSingularity": "Reset Singularity",
+      "unhideTabs": "Un-hide Tabs"
+    },
+    "hotkeysON": "Hotkeys: ON",
+    "hotkeysOFF": "Hotkeys: OFF"
   }
 }
