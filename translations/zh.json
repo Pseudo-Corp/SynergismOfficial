@@ -687,7 +687,7 @@
       "131": "税收增长减缓5.66%。",
       "132": "献祭奖励永久增加25%！",
       "133": "难得素的获取数量增加15%。获得米达斯的一份礼物。",
-      "134": "解锁10个极贵也极强的研究。解锁符文选项卡下的<<护身符>>面板！",
+      "134": "解锁10个极贵也极强的研究。解锁符文选项卡下的<<护身符>>子面板！",
       "135": "护身符的每级加成效果增加0.02。",
       "136": "护身符的每级加成效果再增加0.02。",
       "137": "献祭奖励永久增加25%！",
@@ -1119,9 +1119,9 @@
       "restrictions": "立即飞升开始挑战，腐化全部为11级，并且无法清除，蚂蚁产量^0.01。",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
-        "1": "愚蠢的人类",
-        "2": "竟然会相信",
-        "3": "他们可以打败蚁神"
+        "1": "世人多可笑",
+        "2": "欲胜蚁神千载功",
+        "3": "终究空自忙"
       },
       "first": "如果您能做到的话，宇宙将会崩坏！",
       "start": "开始<[(虐待狂挑战 II)]>",
@@ -4979,10 +4979,10 @@
   "history": {
     "perSecondOn": "每秒产量：开",
     "perSecondOff": "每秒产量：关",
-    "historyReset": "Here's what you got from your last resets (except challenges):",
-    "historySac": "Your sacrifices got you the following:",
-    "historyAsc": "Your last ascensions got you the following:",
-    "historySing": "Your last singularities got you the following:"
+    "historyReset": "以下为您从之前重置中获得的东西(挑战除外)：",
+    "historySac": "您进行献祭获得了这些东西：",
+    "historyAsc": "您之前进行飞升获得了这些东西：",
+    "historySing": "您之前进入奇点获得了这些东西："
   },
   "event": {
     "aprilFools": {
@@ -5065,35 +5065,35 @@
     }
   },
   "hotkeys": {
-    "note1": "Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!",
-    "note2": "Why don't you try clicking on one of the item's <span style=\"color:gold;\">gold</span> text above to get started? You can always cancel!",
-    "reset": "Reset Hotkeys",
+    "note1": "预设分别对应SHIFT+0至SHIFT+8以及SHIFT+反引号键。您无法修改它。",
+    "note2": "不试试看点击上面某项<span style=\"color:gold;\">金色</span>文字吗？随时都可以取消哦！",
+    "reset": "重置快捷键",
     "names": {
-      "buyAccelerators": "Buy Accelerators",
-      "boostAccelerator": "Boost Accelerator",
-      "autoChallenge": "Auto Challenge",
-      "exitTRChallenge": "Exit T / R Challenge",
-      "multipliers": "Multipliers",
-      "noCancel": "No (Cancel)",
-      "resetPrestige": "Reset Prestige",
-      "resetReincarnate": "Reset Reincarnate",
-      "sacrificeAnts": "Sacrifice Ants",
-      "resetTranscend": "Reset Transcend",
-      "yesOK": "Yes (OK)",
-      "backTab": "Back a tab",
-      "nextTab": "Next tab",
-      "backSubtab": "Back a subtab",
-      "nextSubtab": "Next subtab",
-      "resetAscend": "Reset Ascend",
-      "cleanseCorruptions": "Cleanse Corruptions",
-      "specActionAdd1": "Spec. Action Add x1",
-      "exitAscChallenge": "Exit Asc. Challenge",
-      "useOffPotion": "Use Off. Potion",
-      "useObtPotion": "Use Obt. Potion",
-      "resetSingularity": "Reset Singularity",
-      "unhideTabs": "Un-hide Tabs"
+      "buyAccelerators": "购买加速器",
+      "boostAccelerator": "加速器加成",
+      "autoChallenge": "自动挑战",
+      "exitTRChallenge": "退出超越或转世挑战",
+      "multipliers": "加倍器",
+      "noCancel": "否(取消)",
+      "resetPrestige": "进行转生重置",
+      "resetReincarnate": "进行转世重置",
+      "sacrificeAnts": "进行蚂蚁献祭",
+      "resetTranscend": "进行超越重置",
+      "yesOK": "是(确定)",
+      "backTab": "切换到前一个选项卡",
+      "nextTab": "切换到后一个选项卡",
+      "backSubtab": "切换到前一个子面板",
+      "nextSubtab": "切换到后一个子面板",
+      "resetAscend": "进行飞升重置",
+      "cleanseCorruptions": "清除腐化",
+      "specActionAdd1": "特殊操作-1次“增加”代码",
+      "exitAscChallenge": "退出飞升挑战",
+      "useOffPotion": "使用祭品药剂",
+      "useObtPotion": "使用难得素药剂",
+      "resetSingularity": "进入奇点",
+      "unhideTabs": "取消隐藏选项卡"
     },
-    "hotkeysON": "Hotkeys: ON",
-    "hotkeysOFF": "Hotkeys: OFF"
+    "hotkeysON": "快捷键：开",
+    "hotkeysOFF": "快捷键：关"
   }
 }
