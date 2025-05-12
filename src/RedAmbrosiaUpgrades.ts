@@ -252,15 +252,16 @@ export class RedAmbrosiaUpgrade<K extends RedAmbrosiaKeys> extends DynamicUpgrad
     } ${format(this.level, 0, true)}${maxLevel}</span>`
     const descriptionSpan = `<span style="color: lightblue">${this.description}</span>`
     const rewardDescSpan = `<span style="color: gold">${this.rewardDesc}</span>`
-    const costNextLevelSpan = `${i18next.t('octeract.toString.costNextLevel')} <span style="color:red">${
-      format(costNextLevel, 0, true, true, true)
-    }</span> ${i18next.t('redAmbrosia.redAmbrosia')} ${affordableInfo}`
+    const costNextLevelSpan = i18next.t('octeract.toString.costNextLevel', {
+      amount: `<span style="color:red">${format(costNextLevel, 0, true, true, true)}</span>`,
+      resource: i18next.t('redAmbrosia.redAmbrosia')
+    })
     const spentSpan = `${i18next.t('general.spent')} ${i18next.t('redAmbrosia.redAmbrosia')}: <span style="color:red">${
       format(this.redAmbrosiaInvested, 0, true, true, true)
     }</span>`
     const purchaseWarningSpan = `<span>${i18next.t('redAmbrosia.purchaseWarning')}</span>`
     return `${nameSpan} \n ${levelSpan} \n ${descriptionSpan} \n ${rewardDescSpan} \n ${
-      (!isMaxLevel) ? `${costNextLevelSpan} \n` : ''
+      (!isMaxLevel) ? `${costNextLevelSpan} ${affordableInfo} \n` : ''
     } ${spentSpan} \n ${purchaseWarningSpan}`
   }
 
