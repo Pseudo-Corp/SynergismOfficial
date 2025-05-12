@@ -123,7 +123,7 @@ import {
   updateRuneBlessingBuyAmount
 } from './Toggles'
 import type { FirstToEighth, FirstToFifth, OneToFive, Player } from './types/Synergism'
-import { Confirm, Prompt } from './UpdateHTML'
+import { closeChangelog, Confirm, openChangelog, Prompt } from './UpdateHTML'
 import { shopMouseover } from './UpdateVisuals'
 import {
   buyConstantUpgrades,
@@ -1203,6 +1203,9 @@ TODO: Fix this entire tab it's utter shit
       localStorage.removeItem('copyToClipboard')
     }
   })
+
+  document.getElementById('patchnotes')?.addEventListener('click', () => openChangelog())
+  document.getElementById('changelogBlur')?.addEventListener('click', () => closeChangelog())
 
   // Window
   window.addEventListener('error', imgErrorHandler, { capture: true })
