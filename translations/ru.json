@@ -1652,9 +1652,9 @@
     "upgradeFor": "Улучшить за {{x}} Кварков",
     "plusForQuarks": "+{{x}} за {{y}} Кварков",
     "consume": "ИСПОЛЬЗОВАТЬ",
-    "buyPotion": "Buy: 100 Quarks Each",
-    "singularityQuarkCost": "Buy! {{cost}} Quarks Each",
-    "singularityQuarkAmount": "Owned: {{amount}}",
+    "buyPotion": "Купить: 100 Кварков за 1 шт.",
+    "singularityQuarkCost": "Купить! {{cost}} Кварков за Каждый",
+    "singularityQuarkAmount": "Имеется: {{amount}}",
     "buyYerPotions": "Купите себе зелий!",
     "header": "Добро пожаловать в Магазин Кварков. Вы не поверите что здесь продаётся!",
     "youHaveQuarks": "У вас {{x}} Кварков!",
@@ -1997,8 +1997,8 @@
     },
     "toString": {
       "noMinimum": "Никакой минимальной Сингулярности для покупки не требуется",
-      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks.",
-      "spentQuarks": "Spent Quarks: {{amount}}"
+      "costNextLevel": "Стоимость следующего уровня: {{amount}} Золотых Кварков.",
+      "spentQuarks": "Кварков Потрачено: {{amount}}"
     },
     "data": {
       "goldenQuarks1": {
@@ -3337,9 +3337,9 @@
       "multiBuy": "Куплено {{n}} уровней, благодаря Множественной Покупке!"
     },
     "toString": {
-      "costNextLevel": "Cost for next level: {{amount}} {{resource}}.",
+      "costNextLevel": "Стоимость следующего уровня: {{amount}} {{resource}}.",
       "becomeAffordable": "(Доступно через {{n}})",
-      "spentOcteracts": "Spent Octeracts: {{amount}}"
+      "spentOcteracts": "Октерактов Потрачено: {{amount}}"
     },
     "data": {
       "octeractStarter": {
@@ -5067,28 +5067,28 @@
   "hotkeys": {
     "note1": "Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!",
     "note2": "Why don't you try clicking on one of the item's <span style=\"color:gold;\">gold</span> text above to get started? You can always cancel!",
-    "reset": "Reset Hotkeys",
+    "reset": "Сброс Горячих Клавиш",
     "names": {
-      "buyAccelerators": "Buy Accelerators",
-      "boostAccelerator": "Boost Accelerator",
-      "autoChallenge": "Auto Challenge",
-      "exitTRChallenge": "Exit T / R Challenge",
-      "multipliers": "Multipliers",
-      "noCancel": "No (Cancel)",
-      "resetPrestige": "Reset Prestige",
-      "resetReincarnate": "Reset Reincarnate",
-      "sacrificeAnts": "Sacrifice Ants",
-      "resetTranscend": "Reset Transcend",
-      "yesOK": "Yes (OK)",
-      "backTab": "Back a tab",
-      "nextTab": "Next tab",
-      "backSubtab": "Back a subtab",
-      "nextSubtab": "Next subtab",
-      "resetAscend": "Reset Ascend",
-      "cleanseCorruptions": "Cleanse Corruptions",
-      "specActionAdd1": "Spec. Action Add x1",
-      "exitAscChallenge": "Exit Asc. Challenge",
-      "useOffPotion": "Use Off. Potion",
+      "buyAccelerators": "Купить Ускорители",
+      "boostAccelerator": "Усилитель Ускорителя",
+      "autoChallenge": "Авто Испытания",
+      "exitTRChallenge": "Покинуть В / Р Испытание",
+      "multipliers": "Множители",
+      "noCancel": "Нет (Отмена)",
+      "resetPrestige": "Сбросить Престиж",
+      "resetReincarnate": "Сбросить Реинкарнацию",
+      "sacrificeAnts": "Жертвоприношение Муравьёв",
+      "resetTranscend": "Сбросить Выход",
+      "yesOK": "Да (OK)",
+      "backTab": "Предыдущая вкладка",
+      "nextTab": "Следующая вкладка",
+      "backSubtab": "Предыдущая подвкладка",
+      "nextSubtab": "Следующая подвкладка",
+      "resetAscend": "Сбросить Возвышение",
+      "cleanseCorruptions": "Очистить Порчи",
+      "specActionAdd1": "Спец. Действие Add x1",
+      "exitAscChallenge": "Покинуть Испытание Возн.",
+      "useOffPotion": "Использовать Зелье Подн.",
       "useObtPotion": "Use Obt. Potion",
       "resetSingularity": "Reset Singularity",
       "unhideTabs": "Un-hide Tabs"
