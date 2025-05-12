@@ -3861,8 +3861,8 @@
       "activeUntil": "АКТИВНО ДО: {{x}}",
       "starts": "НАЧАЛО {{x}}"
     },
-    "quarkBonusSimple": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks!",
-    "quarkBonusExtended": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks! You also receive an extra {{personalBonus}}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!"
+    "quarkBonusSimple": "Щедрые покровители даруют вам бонус {{globalBonus}}% к Кваркам!",
+    "quarkBonusExtended": "Щедрые покровители даруют вам бонус {{globalBonus}}% к Кваркам! Вы также получаете дополнительный бонус {{personalBonus}}% за то, что являетесь членом Patreon и/или бустером сервера Discord! Перемножаемо с глобальным бонусом!"
   },
   "statistics": {
     "subtabs": {
@@ -4979,10 +4979,10 @@
   "history": {
     "perSecondOn": "В секунду: ВКЛ",
     "perSecondOff": "В секунду: ВЫКЛ",
-    "historyReset": "Here's what you got from your last resets (except challenges):",
-    "historySac": "Your sacrifices got you the following:",
-    "historyAsc": "Your last ascensions got you the following:",
-    "historySing": "Your last singularities got you the following:"
+    "historyReset": "Вот что вы получили от вашего предыдущего сброса (исключая испытания):",
+    "historySac": "Ваши жертвоприношения принесли вам следующее:",
+    "historyAsc": "Ваши предыдущие вознесения принесли вам следующее:",
+    "historySing": "Ваши предыдущие сингулярности принесли вам следующее:"
   },
   "event": {
     "aprilFools": {
@@ -5065,8 +5065,8 @@
     }
   },
   "hotkeys": {
-    "note1": "Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!",
-    "note2": "Why don't you try clicking on one of the item's <span style=\"color:gold;\">gold</span> text above to get started? You can always cancel!",
+    "note1": "Заготовки соответствуют клавишам SHIFT + 0 по SHIFT + 8 и SHIFT + BACKQUOTE. Эти назначения изменить нельзя!",
+    "note2": "Для начала, почему бы вам не попробовать кликнуть на один из <span style=\"color:gold;\">золотых</span> текстов выше? Вы всегда можете отменить этого действие!",
     "reset": "Сброс Горячих Клавиш",
     "names": {
       "buyAccelerators": "Купить Ускорители",
@@ -5089,11 +5089,11 @@
       "specActionAdd1": "Спец. Действие Add x1",
       "exitAscChallenge": "Покинуть Испытание Возн.",
       "useOffPotion": "Использовать Зелье Подн.",
-      "useObtPotion": "Use Obt. Potion",
-      "resetSingularity": "Reset Singularity",
-      "unhideTabs": "Un-hide Tabs"
+      "useObtPotion": "Использовать Зелье Обт.",
+      "resetSingularity": "Сбросить Сингулярность",
+      "unhideTabs": "Показать Вкладки"
     },
-    "hotkeysON": "Hotkeys: ON",
-    "hotkeysOFF": "Hotkeys: OFF"
+    "hotkeysON": "Горячие Клавиши: ВКЛ",
+    "hotkeysOFF": "Горячие Клавиши: ВЫКЛ"
   }
 }
