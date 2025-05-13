@@ -1201,8 +1201,8 @@
       "39": "Wow! Ich möchte mehr Punkte von Abschlüssen von Herausforderung 10.",
       "40": "Wow! Ich möchte, dass Athena Tribute Boni besser skalieren 1.",
       "41": "Wow! Ich möchte die Punktzahl durchs hacken erhöhen 3.",
-      "42": "Wow! Ich möchte ein bisschen unkorrumpierbares Obtainium.",
-      "43": "Wow! Ich möchte noch mehr unkorrumpierbares Obtainium!",
+      "42": "Wow! I want some Immaculate Obtainium.",
+      "43": "Wow! I want even more Immaculate Obtainium!",
       "44": "Wow! Ich möchte, dass Midas Tribute Boni besser skalieren 1.",
       "45": "Wow! Ich möchte, dass Hermes Tribute Boni besser skalieren 1.",
       "46": "Wow! Ich möchte noch MEHR Opfergaben!",
@@ -1573,7 +1573,7 @@
       "obtainiumEX": "Erhalte +4% mehr Obtainium aus allen Quellen!",
       "obtainiumAuto": "Erledige Forschungen automatisch mit Obtainium. Das erste Level schaltet die Mechanik frei, and jedes weiter Level erhöht das erhaltene Obtainium um 2. Das gesamte Obtainium wird in Forschungen gesteckt bis sie abgeschlossen sind.",
       "instantChallenge": "T and R Herausforderungen setzten sich bei Abschluss nicht zurück solange die automatische Wiederholung aktiv ist. Solange diese aktiv ist erhalte bis zu 10 Abschlüsse pro Sekunde. Außerdem erhälts du nach verlassen einer R Herausforderung automatisch die maximalen T Herausforderungsabschlüsse während diesem Aufstieg.",
-      "antSpeed": "Jedes Level gibt einen 1,2x Geschwindigkeitsmultiplikator für Ameisen auf allen Stufen! (Unkorrumpierbar!) Kurz und einfach.",
+      "antSpeed": "Each level gives a 1.2x speed multiplier to all Ant tiers' production! (Immaculate!) Short and simple.",
       "cashGrab": "Das hier ist Geldverschwendung, gibt aber ein paar hübsche Boni. Pro Level +1% Gaben und Obtainium.",
       "shopTalisman": "Schalte dauerhaft den Markttalisman frei!",
       "seasonPass": "Wow! Würfel machen dir ein Angebot: Kaufe diesen total fairen Season Pass und erhalte pro Level +2,25% Würfel und Tesserakte beim Aufstieg!",
@@ -1652,6 +1652,9 @@
     "upgradeFor": "Verbessern für {{x}} Quarks",
     "plusForQuarks": "+ {{x}} für {{y}} Quarks",
     "consume": "BENUTZE",
+    "buyPotion": "Buy: 100 Quarks Each",
+    "singularityQuarkCost": "Buy! {{cost}} Quarks Each",
+    "singularityQuarkAmount": "Owned: {{amount}}",
     "buyYerPotions": "Kauf´ deine Tränke!",
     "header": "Willkommen am Quark Markt. Du wirst nicht glauben, was alles zum Verkauf steht!",
     "youHaveQuarks": "Du hast {{x}} Quarks!",
@@ -1824,10 +1827,10 @@
       },
       "antGodsCornucopia": {
         "name": "Ant God's Cornucopia",
-        "hasLevel3": "Ameisengeschwindigkeit hat nun eine 'unzerstörbare' x4,44 Multiplikator und eine wahre unzerstörbare x1e12 Multiplikator!",
-        "hasLevel2": "Ameisengeschwindigkeit hat nun eine 'unzerstörbare' x4,44 Multiplikator und eine wahre unzerstörbare x1e6 Multiplikator!",
-        "hasLevel1": "Ameisengeschwindigkeit hat nun eine 'unzerstörbare' x4,44 Multiplikator und eine wahre unzerstörbare x1000 Multiplikator!",
-        "default": "Ameisengeschwindigkeit hat nun permanent ein 'unzerstörbare' x4,44 Multiplikator."
+        "hasLevel3": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e12 multiplier!",
+        "hasLevel2": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e6 multiplier!",
+        "hasLevel1": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1,000 multiplier!",
+        "default": "Ant Speed now has a permanent immaculate x4.44 multiplier."
       },
       "sweepomatic": {
         "name": "Automatic Sweep-o-matic Mk.2",
@@ -1994,7 +1997,8 @@
     },
     "toString": {
       "noMinimum": "Keine minimale Menge an Singularitäten zum Kaufen erforderlich",
-      "costNextLevel": "Kosten für nächstes Level"
+      "costNextLevel": "Cost for next level: {{amount}} Golden Quarks.",
+      "spentQuarks": "Spent Quarks: {{amount}}"
     },
     "data": {
       "goldenQuarks1": {
@@ -3333,8 +3337,9 @@
       "multiBuy": "Purchased {{n}} levels, thanks to Multi Buy!"
     },
     "toString": {
-      "costNextLevel": "Cost for next level",
-      "becomeAffordable": "(Affordable in {{n}})"
+      "costNextLevel": "Cost for next level: {{amount}} {{resource}}.",
+      "becomeAffordable": "(Affordable in {{n}})",
+      "spentOcteracts": "Spent Octeracts: {{amount}}"
     },
     "data": {
       "octeractStarter": {
@@ -3855,7 +3860,9 @@
       "inactive": "<<var(--orchid-text-color);|Event Status:>> INACTIVE",
       "activeUntil": "ACTIVE UNTIL: {{x}}",
       "starts": "STARTS {{x}}"
-    }
+    },
+    "quarkBonusSimple": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks!",
+    "quarkBonusExtended": "Generous patrons give you a bonus of {{globalBonus}}% more Quarks! You also receive an extra {{personalBonus}}% bonus for being a Patreon member and/or boosting the Discord server! Multiplicative with global bonus!"
   },
   "statistics": {
     "subtabs": {
@@ -3863,7 +3870,7 @@
       "baseOffering": "Base Offerings",
       "offeringMult": "Offering Multipliers",
       "baseObtainium": "Base Obtainium",
-      "obtIgnoreDR": "Illiteracy Ignore Cap",
+      "obtIgnoreDR": "Immaculate Obtainium",
       "obtMult": "Obtainium Multipliers",
       "quarkMult": "Global Quark Multipliers",
       "gSpeedMultIgnoreDR": "Immaculate Global Speed",
@@ -3925,8 +3932,8 @@
       "Ambrosia": "Ambrosia - Passive Bonus:",
       "ModuleTutorial": "Ambrosia - Tutorial Module:",
       "ModuleCubes1": "Ambrosia - Cube Module I:",
-      "ModuleLuckCube1": "Ambrosia - Luck Cube Module I:",
-      "ModuleQuarkCube1": "Ambrosia - Quark Cube Module I:",
+      "ModuleLuckCube1": "Ambrosia - Luck-Cube Hybrid Module I:",
+      "ModuleQuarkCube1": "Ambrosia - Quark-Cube Hybrid Module I:",
       "ModuleCubes2": "Ambrosia - Cube Module II:",
       "ModuleCubes3": "Ambrosia - Cube Module III:",
       "ModuleHyperflux": "Ambrosia - Hyperflux Module:",
@@ -4156,13 +4163,13 @@
       "OcteractQuarkGain2": "Octo-Hepteract Primality Synergy:",
       "SingularityPacks": "Singularity Pack Upgrades:",
       "SingQuarkImprover1": "Singularity Doohickey Bonus:",
-      "AmbrosiaQuarkMult": "Ambrosia Passive Bonus:",
-      "AmbrosiaTutorial": "Ambrosia Tutorial Module:",
-      "AmbrosiaQuarks1": "Ambrosia Quarks Module I:",
-      "AmbrosiaCubeQuark1": "Ambrosia Cube-Quark Module I:",
-      "AmbrosiaLuckQuark1": "Ambrosia Luck-Quark Module I:",
-      "AmbrosiaQuarks2": "Ambrosia Quarks Module II:",
-      "AmbrosiaQuarks3": "Ambrosia Quarks Module III:",
+      "AmbrosiaQuarkMult": "Ambrosia - Passive Bonus:",
+      "AmbrosiaTutorial": "Ambrosia - Tutorial Module:",
+      "AmbrosiaQuarks1": "Ambrosia - Quark Module I:",
+      "AmbrosiaCubeQuark1": "Ambrosia - Cube-Quark Hybrid Module I:",
+      "AmbrosiaLuckQuark1": "Ambrosia - Luck-Quark Hybrid Module I:",
+      "AmbrosiaQuarks2": "Ambrosia - Quark Module II:",
+      "AmbrosiaQuarks3": "Ambrosia - Quark Module III:",
       "CashGrabQuarkBonus": "Cash Grab ULTRA Quark Bonus:",
       "LimitedTimeChallenge": "Limited Time Challenge Reward:",
       "SadisticPrequel": "Sadistic Prequel Challenge Reward:",
@@ -4193,6 +4200,7 @@
       "CubeUpgrade4x3": "Cube Upgrade 4x3:",
       "TutorialBonus": "Campaign - Tutorial Bonus:",
       "CampaignBonus": "Campaign - Obtainium Bonus:",
+      "ChallengeBonus": "Challenge 15 - Obtainium Bonus:",
       "PlatonicALPHA": "Platonic ALPHA:",
       "PlatonicUpgrade9": "Platonic Upgrade 9:",
       "PlatonicBETA": "Platonic BETA:",
@@ -4370,17 +4378,17 @@
       "ShopUpgrades": "Shop Upgrades (I-IV):",
       "SingularityUpgrades": "Singularity Upgrades (I-IV):",
       "OcteractUpgrades": "Octeract Upgrades (I-IV):",
-      "AmbrosiaLuck1": "Ambrosia Luck Module I:",
-      "AmbrosiaLuck2": "Ambrosia Luck Module II:",
-      "AmbrosiaLuck3": "Ambrosia Luck Module III:",
-      "AmbrosiaCubeLuck1": "Cube-Luck Synergy Module:",
-      "AmbrosiaQuarkLuck1": "Quark-Luck Synergy Module:",
+      "AmbrosiaLuck1": "Ambrosia - Luck Module I:",
+      "AmbrosiaLuck2": "Ambrosia - Luck Module II:",
+      "AmbrosiaLuck3": "Ambrosia - Luck Module III:",
+      "AmbrosiaCubeLuck1": "Ambrosia - Cube-Luck Module:",
+      "AmbrosiaQuarkLuck1": "Ambrosia - Quark-Luck Module:",
       "Singularity131": "One Hundred Thirty One!:",
       "Singularity269": "Two Hundred Sixty Nine!:",
       "OcteractShop": "Octeract -> Ambrosia Shop:",
       "NoAmbrosiaUpgrades": "No Ambrosia Challenge Reward:",
-      "RedAmbrosiaUpgrade": "Red Ambrosia Upgrade: Ossified Blueberry Tactics",
-      "RedAmbrosiaUpgrade2": "Red Ambrosia Upgrade: Ossified Blueberry Tactics II",
+      "RedAmbrosiaUpgrade": "Red Ambrosia Upgrade - Ossified Blueberry Tactics",
+      "RedAmbrosiaUpgrade2": "Red Ambrosia Upgrade - Ossified Blueberry Tactics II",
       "Cookie5": "Cookie 5 (Cx27):",
       "RedBars": "Filled Red Bars with Cx29:",
       "AmbrosiaUltra": "Ambrosia Ultra Shop Upgrade:",
@@ -4409,8 +4417,8 @@
       "PatreonBonus": "Patreon Bonus:",
       "OneChallengeCap": "One Challenge Cap Reward:",
       "NoAmbrosiaUpgradesReward": "No Ambrosia Upgrades Challenge Reward:",
-      "RedAmbrosiaUpgrade": "Red Ambrosia Upgrade: Sands of Time",
-      "RedAmbrosiaUpgrade2": "Red Ambrosia Upgrade: Sands of Time II",
+      "RedAmbrosiaUpgrade": "Red Ambrosia Upgrade - Sands of Time",
+      "RedAmbrosiaUpgrade2": "Red Ambrosia Upgrade - Sands of Time II",
       "CookieUpgrade26": "Cookie Upgrade 26 (Cx26):",
       "Event": "Event Bonus:",
       "CashGrabUltra": "Cash Grab ULTRA Blueberry Bonus:",
@@ -4666,16 +4674,16 @@
         "ascensions": "• Ascension Count: +{{amount}}",
         "coinExponent": "• Coin Exponent: +{{amount}}",
         "taxes": "• Taxes: {{amount}}",
-        "obtainium": "• Obtainium: +{{amount}}",
+        "obtainium": "• Immaculate Obtainium: +{{amount}}",
         "offering": "• Offerings: +{{amount}}",
-        "accelerator": "• Accelerators: +{{amount}} [Uncorruptable!]",
-        "multiplier": "• Multipliers: +{{amount}} [Uncorruptable!]",
+        "accelerator": "• Accelerators: +{{amount}} [Immaculate!]",
+        "multiplier": "• Multipliers: +{{amount}} [Immaculate!]",
         "runeExp": "• Rune EXP: +{{amount}}",
         "runeBonus": "• Rune Effectiveness: +{{amount}}",
         "cube2": "• All Cube Types II: +{{amount}}",
         "transcendChallengeReduction": "• Challenge 1-5 Requirement Scaling: {{amount}}",
         "reincarnationChallengeReduction": "• Challenge 6-10 Requirement Scaling: {{amount}}",
-        "antSpeed": "• Ant Speed: +{{amount}} [Uncorruptable!]",
+        "antSpeed": "• Ant Speed: +{{amount}} [Immaculate!]",
         "bonusAntLevel": "• Bonus Ant Levels: +{{amount}}",
         "cube3": "• All Cube Types III: +{{amount}}",
         "talismanBonus": "• Talisman Effectiveness: +{{amount}}",
@@ -4730,7 +4738,7 @@
         "12": "Gain an incorruptible x(1 + level/100) Ant multiplier per Challenge completion!",
         "13": "The effect of Less Fruitful Harvests is raised to ^0.5.",
         "14": "Multiply Great Depression II's coin exponent by 1.55, but only in Challenge 15.",
-        "15": "You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (Multiplicative), 1.15x Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings (Uncorruptable)! Talk about a deep dive.",
+        "15": "You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% all Cube types per C9 Completion (Multiplicative), 1.15x Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
         "16": "Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to 100,000. This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.",
         "17": "If this is bought, Viscous's score multiplier is raised to 3+(level*0.04) if its level is set to 10 or higher.",
         "18": "Raise the base percentage of Constant Upgrade 1 by 0.1% and increase the base percentage cap of Constant Upgrade 2 by 0.3% per level!",
@@ -4784,8 +4792,8 @@
           "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Cubes (lol)"
         },
         "accelerator": {
-          "effect": "Haha, stupid Corruptions. +2,000 +0.03% Uncorruptable Accelerators per 'Way too many accelerators' Hepteract!",
-          "currentEffect": "Current Effect: Uncorruptable Accelerators +{{x}} + {{y}}%",
+          "effect": "Haha, stupid Corruptions. +2,000 +0.03% Immaculate Accelerators per 'Way too many accelerators' Hepteract!",
+          "currentEffect": "Current Effect: Immaculate Accelerators +{{x}} + {{y}}%",
           "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Tesseracts"
         },
         "acceleratorBoost": {
@@ -4794,8 +4802,8 @@
           "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Hypercubes"
         },
         "multiplier": {
-          "effect": "Haha, stupid Corruptions. +1,000 +0.03% Uncorruptable Multipliers per 'Way too many multipliers' Hepteract!",
-          "currentEffect": "Current Effect: Uncorruptable Multipliers +{{x}} +{{y}}%",
+          "effect": "Haha, stupid Corruptions. +1,000 +0.03% Immaculate Multipliers per 'Way too many multipliers' Hepteract!",
+          "currentEffect": "Current Effect: Immaculate Multipliers +{{x}} +{{y}}%",
           "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Obtainium"
         }
       }
@@ -4970,7 +4978,11 @@
   },
   "history": {
     "perSecondOn": "Per second: ON",
-    "perSecondOff": "Per second: OFF"
+    "perSecondOff": "Per second: OFF",
+    "historyReset": "Here's what you got from your last resets (except challenges):",
+    "historySac": "Your sacrifices got you the following:",
+    "historyAsc": "Your last ascensions got you the following:",
+    "historySing": "Your last singularities got you the following:"
   },
   "event": {
     "aprilFools": {
@@ -5051,5 +5063,37 @@
       "purchaseBtn": "+{{time}} hours [<<gold|{{cost}} PseudoCoins>>]",
       "warning": "<<gold | ⚠>> Takes a few seconds to apply after purchase! <<gold | ⚠>>"
     }
+  },
+  "hotkeys": {
+    "note1": "Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!",
+    "note2": "Why don't you try clicking on one of the item's <span style=\"color:gold;\">gold</span> text above to get started? You can always cancel!",
+    "reset": "Reset Hotkeys",
+    "names": {
+      "buyAccelerators": "Buy Accelerators",
+      "boostAccelerator": "Boost Accelerator",
+      "autoChallenge": "Auto Challenge",
+      "exitTRChallenge": "Exit T / R Challenge",
+      "multipliers": "Multipliers",
+      "noCancel": "No (Cancel)",
+      "resetPrestige": "Reset Prestige",
+      "resetReincarnate": "Reset Reincarnate",
+      "sacrificeAnts": "Sacrifice Ants",
+      "resetTranscend": "Reset Transcend",
+      "yesOK": "Yes (OK)",
+      "backTab": "Back a tab",
+      "nextTab": "Next tab",
+      "backSubtab": "Back a subtab",
+      "nextSubtab": "Next subtab",
+      "resetAscend": "Reset Ascend",
+      "cleanseCorruptions": "Cleanse Corruptions",
+      "specActionAdd1": "Spec. Action Add x1",
+      "exitAscChallenge": "Exit Asc. Challenge",
+      "useOffPotion": "Use Off. Potion",
+      "useObtPotion": "Use Obt. Potion",
+      "resetSingularity": "Reset Singularity",
+      "unhideTabs": "Un-hide Tabs"
+    },
+    "hotkeysON": "Hotkeys: ON",
+    "hotkeysOFF": "Hotkeys: OFF"
   }
 }
