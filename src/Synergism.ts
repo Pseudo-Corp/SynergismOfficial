@@ -6501,9 +6501,6 @@ window.addEventListener('load', async () => {
   corruptionLoadoutTableCreate()
   createCampaignIconHTMLS()
   initRedAmbrosiaUpgrades(player.redAmbrosiaUpgrades)
-  Alert(
-    `If you have the time, please submit feedback for the recent update! Form closes May 11, 2025. \n <a href="https://forms.gle/SLVUakXBc9RvEfqz8" style="border: 2px solid gold" target="_blank">CLICK ME!</a>`
-  )
   reloadShit()
 }, { once: true })
 
