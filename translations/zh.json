@@ -27,8 +27,8 @@
     "blueberryCost": "启用花费蓝莓：",
     "prereqNotMetAlert": "您未满足前提条件，无法购买该升级。",
     "notEnoughBlueberries": "您的蓝莓不足，无法激活该模块。",
-    "timeThresholds": "由于神肴总数，神肴进度条点数需求翻倍了<<cyan|{{threshold}}>>次。神肴总数到达<<orange|{{toNext}}>>后将再度翻倍。",
-    "cubeUpgradeThresholds": "由于神肴总数，神肴进度条点数需求翻倍了<<cyan|{{threshold}}>>次。神肴总数到达<<orange|{{toNext}}>>后将再度翻倍。<<cyan|神肴进度条点数获取速度+{{percent}}%>>！",
+    "timeThresholds": "由于神肴总数，神肴进度条点数需求翻倍了<<cyan|{{threshold}}>>次。神肴总数再增加<<orange|{{toNext}}>>后将再度翻倍。",
+    "cubeUpgradeThresholds": "由于神肴总数，神肴进度条点数需求翻倍了<<cyan|{{threshold}}>>次。神肴总数再增加<<orange|{{toNext}}>>后将再度翻倍。<<cyan|神肴进度条点数获取速度+{{percent}}%>>！",
     "cubeUpgradeRedBarFills": "购买饼干升级29以后，您的红色进度条填充了<<maroon|{{amount}}>>次，所以<<green|&#9752 神肴之运增加{{luck}}>>！",
     "ambrosiaBuyPrompt": "您想要花费多少神肴？您拥有{{amount}}神肴。如果想要购买最大数量，请输入-1！",
     "refund": "所有花费的蓝莓和神肴均已返还。",
@@ -218,7 +218,7 @@
         "effect": "使转换需要的神肴之运数量减少<<lime|{{amount}}>>！"
       },
       "conversionImprovement3": {
-        "name": "神肴之运改进转换 III 代半",
+        "name": "神肴之运改进转换 III 又二分之一",
         "description": "每20神肴之运才能转换为1红运？呵，不如把这个比率降低1吧。",
         "effect": "使转换需要的神肴之运数量减少<<lime|{{amount}}>>！"
       },
@@ -687,7 +687,7 @@
       "131": "税收增长减缓5.66%。",
       "132": "献祭奖励永久增加25%！",
       "133": "难得素的获取数量增加15%。获得米达斯的一份礼物。",
-      "134": "解锁10个极贵也极强的研究。解锁符文选项卡下的<<护身符>>面板！",
+      "134": "解锁10个极贵也极强的研究。解锁符文选项卡下的<<护身符>>子面板！",
       "135": "护身符的每级加成效果增加0.02。",
       "136": "护身符的每级加成效果再增加0.02。",
       "137": "献祭奖励永久增加25%！",
@@ -1119,9 +1119,9 @@
       "restrictions": "立即飞升开始挑战，腐化全部为11级，并且无法清除，蚂蚁产量^0.01。",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
-        "1": "愚蠢的人类",
-        "2": "竟然会相信",
-        "3": "他们可以打败蚁神"
+        "1": "世人多可笑",
+        "2": "欲胜蚁神千载功",
+        "3": "终究空自忙"
       },
       "first": "如果您能做到的话，宇宙将会崩坏！",
       "start": "开始<[(虐待狂挑战 II)]>",
@@ -1201,8 +1201,8 @@
       "39": "真惊奇！我想要让完成挑战10给予的分数更高。",
       "40": "真惊奇！我想让雅典娜的贡品加成更高1。",
       "41": "真惊奇！我想要破解到更多分数3。",
-      "42": "真惊奇！我想要一些无法腐化的难得素。",
-      "43": "真惊奇！我还想要一些无法腐化的难得素！",
+      "42": "真惊奇！我想要一些无瑕的难得素。",
+      "43": "真惊奇！我还想要一些无瑕的难得素！",
       "44": "真惊奇！我想让米达斯的贡品加成更高1。",
       "45": "真惊奇！我想让赫尔墨斯的贡品加成更高1。",
       "46": "真惊奇！我想要更多更多的祭品！",
@@ -1462,7 +1462,7 @@
       "113": "[5x13]牛顿的愉悦[每级使棱柱符文等级上限增加10，且此符文经验值获取数量增加1%]",
       "114": "[5x14]顺手牵羊[每级使节俭符文等级上限增加10，且此符文经验值获取数量增加1%]",
       "115": "[5x15]科学突破[每级使卓越智慧等级上限增加10，且此符文经验值获取数量增加1%]",
-      "116": "[5x16]每级使每级护身符多增加0.015级符文。等级异常！",
+      "116": "[5x16]每级使每级护身符多增加0.015级符文。等级套娃！",
       "117": "[5x17]每级使每级护身符再次多增加0.015级符文。",
       "118": "[5x18]每级使每级护身符无加成的符文增加0.06级！",
       "119": "[5x19]每级使飞升的惊奇方盒获取数量增加0.25%。",
@@ -1573,7 +1573,7 @@
       "obtainiumEX": "难得素获取数量增加4%！",
       "obtainiumAuto": "自动使用难得素进行研究。第一级解锁机制，且每一级使难得素获取数量增加2%。每次转世，尽可能地使用难得素升级目标研究，激活方式与自动献祭类似。",
       "instantChallenge": "只要开启重新尝试挑战，超越和转世挑战将不再重置资源，且每个时刻可以完成10次超越和转世挑战。另外，在退出转世挑战时，立刻使超越挑战的完成次数达到之前的完成次数上限。",
-      "antSpeed": "每级使蚂蚁速度变为1.2倍！(不受腐化影响！)简单有效。",
+      "antSpeed": "每级使蚂蚁速度变为1.2倍！(无瑕！)简单有效。",
       "cashGrab": "这玩意非常贵，但是效果拔群。每级使祭品和难得素的获取数量增加1%。",
       "shopTalisman": "永久解锁一个商店护身符！",
       "seasonPass": "惊奇方盒提出交易：购买这个完全公平的季票以后，每级使您飞升的方盒和超立方获取数量增加2.25%！",
@@ -1652,6 +1652,9 @@
     "upgradeFor": "使用{{x}}",
     "plusForQuarks": "使用{{y}}夸克升{{x}}级",
     "consume": "使用",
+    "buyPotion": "购买：每瓶花费100夸克",
+    "singularityQuarkCost": "购买！每个花费{{cost}}夸克",
+    "singularityQuarkAmount": "拥有：{{amount}}",
     "buyYerPotions": "买点药剂！",
     "header": "欢迎来到夸克商店，您肯定想不到这里会有些什么！",
     "youHaveQuarks": "您有{{x}}夸克！",
@@ -1824,10 +1827,10 @@
       },
       "antGodsCornucopia": {
         "name": "蚁神的聚宝盆",
-        "hasLevel3": "蚂蚁速度变为不受腐化影响的4.44倍，且再乘以完全不受任何等级腐化影响的1e12倍！",
-        "hasLevel2": "蚂蚁速度变为不受腐化影响的4.44倍，且再乘以完全不受任何等级腐化影响的1e6倍！",
-        "hasLevel1": "蚂蚁速度变为不受腐化影响的4.44倍，且再乘以完全不受任何等级腐化影响的1000倍！",
-        "default": "蚂蚁速度变为不受腐化影响的4.44倍。"
+        "hasLevel3": "蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1e12倍！",
+        "hasLevel2": "蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1e6倍！",
+        "hasLevel1": "蚂蚁速度变为无瑕的4.44倍，且再乘以完全无瑕的1000倍！",
+        "default": "蚂蚁速度变为无瑕的4.44倍。"
       },
       "sweepomatic": {
         "name": "自动扫荡·改 2",
@@ -1994,7 +1997,8 @@
     },
     "toString": {
       "noMinimum": "无进入奇点次数要求",
-      "costNextLevel": "下一级的花费"
+      "costNextLevel": "下一级的花费：{{amount}}金夸克。",
+      "spentQuarks": "已花费夸克数量：{{amount}}"
     },
     "data": {
       "goldenQuarks1": {
@@ -3333,8 +3337,9 @@
       "multiBuy": "一共升了{{n}}级，多重购买真是太棒了！"
     },
     "toString": {
-      "costNextLevel": "下一级的花费",
-      "becomeAffordable": "({{n}}后可购买)"
+      "costNextLevel": "下一级的花费：{{amount}}{{resource}}。",
+      "becomeAffordable": "({{n}}后可购买)",
+      "spentOcteracts": "已花费八阶方块数量：{{amount}}"
     },
     "data": {
       "octeractStarter": {
@@ -3775,7 +3780,7 @@
         "ScalingReward4": "使<<red|红神肴进度条点数获取速度>>增加1%",
         "UniqueReward1": "第1次 - 免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！",
         "UniqueReward2": "第1次 - 每次获得<<var(--amber-text-color)|神肴>>时，使<<var(--amber-text-color)|神肴>>增加1！",
-        "UniqueReward3": "第1次 - 解锁 <<red|红神肴>>！它很像神肴，只不过是<<red|红的>>。",
+        "UniqueReward3": "第1次 - 解锁<<red|红神肴>>！它很像神肴，只不过是<<red|红的>>。",
         "UniqueReward4": "第10次 - 再次免费获得1颗<<var(--blueberry-box-color)|蓝莓>>！！！",
         "UniqueReward5": "第15次 - 新的<<orchid|夸克商店>>升级！",
         "UniqueReward6": "第20次 - 第3次免费获得1颗<<var(--blueberry-box-color)|蓝莓>>？！？！",
@@ -3855,7 +3860,9 @@
       "inactive": "<<var(--orchid-text-color);|活动状态：>>暂无活动",
       "activeUntil": "活动持续到{{x}}",
       "starts": "活动开始于{{x}}"
-    }
+    },
+    "quarkBonusSimple": "慷慨的Patreon支持者使夸克获取数量增加{{globalBonus}}%！",
+    "quarkBonusExtended": "慷慨的Patreon支持者使夸克获取数量增加{{globalBonus}}%！由于您也是支持者，又或者您进行了Discord助力，该加成额外再增加{{personalBonus}}%！该加成与全局夸克获取数量倍率叠乘！"
   },
   "statistics": {
     "subtabs": {
@@ -3863,7 +3870,7 @@
       "baseOffering": "基础祭品获取数量",
       "offeringMult": "祭品获取数量倍率",
       "baseObtainium": "基础难得素获取数量",
-      "obtIgnoreDR": "无瑕难得素上限",
+      "obtIgnoreDR": "无瑕难得素",
       "obtMult": "难得素获取数量倍率",
       "quarkMult": "全局夸克获取数量倍率",
       "gSpeedMultIgnoreDR": "无瑕全局速度",
@@ -3926,7 +3933,7 @@
       "ModuleTutorial": "神肴 - 教程模块：",
       "ModuleCubes1": "神肴 - 方盒模块 I：",
       "ModuleLuckCube1": "神肴 - 神肴之运-方盒混合模块 I：",
-      "ModuleQuarkCube1": "神肴 - 神肴夸克-方盒混合模块 I：",
+      "ModuleQuarkCube1": "神肴 - 夸克-方盒混合模块 I：",
       "ModuleCubes2": "神肴 - 方盒模块 II：",
       "ModuleCubes3": "神肴 - 方盒模块 III：",
       "ModuleHyperflux": "神肴 - 惊奇方盒终极工业生产模块：",
@@ -4156,13 +4163,13 @@
       "OcteractQuarkGain2": "七-八阶原始协同升级：",
       "SingularityPacks": "奇点礼包升级：",
       "SingQuarkImprover1": "奇点小装置升级加成：",
-      "AmbrosiaQuarkMult": "神肴被动加成：",
-      "AmbrosiaTutorial": "神肴教程模块：",
-      "AmbrosiaQuarks1": "神肴夸克模块 I：",
-      "AmbrosiaCubeQuark1": "神肴方盒-夸克混合模块 I：",
-      "AmbrosiaLuckQuark1": "神肴之运-夸克混合模块 I：",
-      "AmbrosiaQuarks2": "神肴夸克模块 II：",
-      "AmbrosiaQuarks3": "神肴夸克模块 III：",
+      "AmbrosiaQuarkMult": "神肴 - 被动加成：",
+      "AmbrosiaTutorial": "神肴 - 教程模块：",
+      "AmbrosiaQuarks1": "神肴 - 夸克模块 I：",
+      "AmbrosiaCubeQuark1": "神肴 - 方盒-夸克混合模块 I：",
+      "AmbrosiaLuckQuark1": "神肴 - 神肴之运-夸克混合模块 I：",
+      "AmbrosiaQuarks2": "神肴 - 夸克模块 II：",
+      "AmbrosiaQuarks3": "神肴 - 夸克模块 III：",
       "CashGrabQuarkBonus": "超究昂贵物品夸克加成：",
       "LimitedTimeChallenge": "奇点大竞速赛奖励：",
       "SadisticPrequel": "虐待狂拔擢 III - 前传奖励：",
@@ -4193,6 +4200,7 @@
       "CubeUpgrade4x3": "方盒升级4x3：",
       "TutorialBonus": "战役 - 教程加成：",
       "CampaignBonus": "战役 - 难得素加成：",
+      "ChallengeBonus": "挑战15 - 难得素加成：",
       "PlatonicALPHA": "PLATONIC·阿尔法：",
       "PlatonicUpgrade9": "PLATONIC升级2x4：",
       "PlatonicBETA": "PLATONIC·贝塔：",
@@ -4370,17 +4378,17 @@
       "ShopUpgrades": "商店升级(I-IV)：",
       "SingularityUpgrades": "奇点升级(I-IV)：",
       "OcteractUpgrades": "八阶方块升级(I-IV)：",
-      "AmbrosiaLuck1": "神肴之运模块 I：",
-      "AmbrosiaLuck2": "神肴之运模块 II：",
-      "AmbrosiaLuck3": "神肴之运模块 III：",
-      "AmbrosiaCubeLuck1": "神肴方盒-之运混合模块：",
-      "AmbrosiaQuarkLuck1": "神肴夸克-之运混合模块：",
+      "AmbrosiaLuck1": "神肴 - 神肴之运模块 I：",
+      "AmbrosiaLuck2": "神肴 - 神肴之运模块 II：",
+      "AmbrosiaLuck3": "神肴 - 神肴之运模块 III：",
+      "AmbrosiaCubeLuck1": "神肴 - 方盒-神肴之运混合模块：",
+      "AmbrosiaQuarkLuck1": "神肴 - 夸克-神肴之运混合模块：",
       "Singularity131": "壹佰叁拾壹！：",
       "Singularity269": "贰佰陆拾玖！：",
       "OcteractShop": "商店八阶方块对神肴之运的加成升级：",
       "NoAmbrosiaUpgrades": "无神肴升级奖励：",
-      "RedAmbrosiaUpgrade": "红神肴升级：固化蓝莓战术",
-      "RedAmbrosiaUpgrade2": "红神肴升级：固化蓝莓战术 II",
+      "RedAmbrosiaUpgrade": "红神肴升级 - 固化蓝莓战术",
+      "RedAmbrosiaUpgrade2": "红神肴升级 - 固化蓝莓战术 II",
       "Cookie5": "饼干升级27[Cx27]加成：",
       "RedBars": "购买饼干升级29[Cx29]后获得的数量：",
       "AmbrosiaUltra": "商店超究神肴升级：",
@@ -4409,8 +4417,8 @@
       "PatreonBonus": "Patreon加成：",
       "OneChallengeCap": "挑战上限恒为一奖励：",
       "NoAmbrosiaUpgradesReward": "无神肴升级奖励：",
-      "RedAmbrosiaUpgrade": "红神肴升级：时之沙",
-      "RedAmbrosiaUpgrade2": "红神肴升级：时之沙 II",
+      "RedAmbrosiaUpgrade": "红神肴升级 - 时之沙",
+      "RedAmbrosiaUpgrade2": "红神肴升级 - 时之沙 II",
       "CookieUpgrade26": "饼干升级26[Cx26]加成：",
       "Event": "活动加成：",
       "CashGrabUltra": "超究昂贵物品蓝莓加成：",
@@ -4666,16 +4674,16 @@
         "ascensions": "• 飞升次数：+{{amount}}",
         "coinExponent": "• 金币指数：+{{amount}}",
         "taxes": "• 税收：{{amount}}",
-        "obtainium": "• 难得素：+{{amount}}",
+        "obtainium": "• 无瑕难得素：+{{amount}}",
         "offering": "• 祭品：+{{amount}}",
-        "accelerator": "• 加速器：+{{amount}} [不受腐化影响！]",
-        "multiplier": "• 加倍器：+{{amount}} [不受腐化影响！]",
+        "accelerator": "• 加速器：+{{amount}} [无瑕！]",
+        "multiplier": "• 加倍器：+{{amount}} [无瑕！]",
         "runeExp": "• 祭品提供的符文经验值：+{{amount}}",
         "runeBonus": "• 符文效果：+{{amount}}",
         "cube2": "• 所有类型的方盒、立方和方块获取数量 II：+{{amount}}",
         "transcendChallengeReduction": "• 挑战1至挑战5目标增长速度：{{amount}}",
         "reincarnationChallengeReduction": "• 挑战6至挑战10目标增长速度：{{amount}}",
-        "antSpeed": "• 蚂蚁速度：+{{amount}} [不受腐化影响！]",
+        "antSpeed": "• 蚂蚁速度：+{{amount}} [无瑕！]",
         "bonusAntLevel": "• 蚂蚁额外等级：+{{amount}}",
         "cube3": "• 所有类型的方盒、立方和方块获取数量 III：+{{amount}}",
         "talismanBonus": "• 护身符效果：+{{amount}}",
@@ -4784,8 +4792,8 @@
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}惊奇方盒(笑)"
         },
         "accelerator": {
-          "effect": "哈哈，腐化你个蠢蛋。每个惊奇七阶立方·加速器可以使不受腐化影响的加速器数量增加2000，然后再增加0.03%。",
-          "currentEffect": "当前效果：不受腐化影响的加速器数量增加{{x}}，再增加{{y}}%",
+          "effect": "哈哈，腐化你个蠢蛋。每个惊奇七阶立方·加速器可以使无瑕加速器数量增加2000，然后再增加0.03%。",
+          "currentEffect": "当前效果：无瑕加速器数量增加{{x}}，再增加{{y}}%",
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}惊奇超立方"
         },
         "acceleratorBoost": {
@@ -4794,8 +4802,8 @@
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}惊奇五阶立方"
         },
         "multiplier": {
-          "effect": "哈哈，腐化你个蠢蛋。每个惊奇七阶立方·加倍器可以使不受腐化影响的加倍器数量增加1000，然后再增加0.03%。",
-          "currentEffect": "当前效果：不受腐化影响的加倍器数量增加{{x}}，再增加{{y}}%",
+          "effect": "哈哈，腐化你个蠢蛋。每个惊奇七阶立方·加倍器可以使无瑕加倍器数量增加1000，然后再增加0.03%。",
+          "currentEffect": "当前效果：无瑕加倍器数量增加{{x}}，再增加{{y}}%",
           "oneCost": "锻造一个将消耗{{x}}七阶立方及{{y}}难得素"
         }
       }
@@ -4970,7 +4978,11 @@
   },
   "history": {
     "perSecondOn": "每秒产量：开",
-    "perSecondOff": "每秒产量：关"
+    "perSecondOff": "每秒产量：关",
+    "historyReset": "以下为您从之前重置中获得的东西(挑战除外)：",
+    "historySac": "您进行献祭获得了这些东西：",
+    "historyAsc": "您之前进行飞升获得了这些东西：",
+    "historySing": "您之前进入奇点获得了这些东西："
   },
   "event": {
     "aprilFools": {
@@ -5048,8 +5060,40 @@
         "title": "神肴 - 时间跳跃",
         "description": "使神肴进度条点数和红神肴进度条点数的计时直接增加相应现实时间！"
       },
-      "purchaseBtn": "增加{{time}}小时[<<gold|花费{{cost}}伪币>>",
+      "purchaseBtn": "增加{{time}}小时[<<gold|花费{{cost}}伪币>>]",
       "warning": "<<gold|⚠>>购买后需要经过几秒才能生效！<<gold|⚠>>"
     }
+  },
+  "hotkeys": {
+    "note1": "预设分别对应SHIFT+0至SHIFT+8以及SHIFT+反引号键。您无法修改它。",
+    "note2": "不试试看点击上面某项<span style=\"color:gold;\">金色</span>文字吗？随时都可以取消哦！",
+    "reset": "重置快捷键",
+    "names": {
+      "buyAccelerators": "购买加速器",
+      "boostAccelerator": "加速器加成",
+      "autoChallenge": "自动挑战",
+      "exitTRChallenge": "退出超越或转世挑战",
+      "multipliers": "加倍器",
+      "noCancel": "否(取消)",
+      "resetPrestige": "进行转生重置",
+      "resetReincarnate": "进行转世重置",
+      "sacrificeAnts": "进行蚂蚁献祭",
+      "resetTranscend": "进行超越重置",
+      "yesOK": "是(确定)",
+      "backTab": "切换到前一个选项卡",
+      "nextTab": "切换到后一个选项卡",
+      "backSubtab": "切换到前一个子面板",
+      "nextSubtab": "切换到后一个子面板",
+      "resetAscend": "进行飞升重置",
+      "cleanseCorruptions": "清除腐化",
+      "specActionAdd1": "特殊操作-1次“增加”代码",
+      "exitAscChallenge": "退出飞升挑战",
+      "useOffPotion": "使用祭品药剂",
+      "useObtPotion": "使用难得素药剂",
+      "resetSingularity": "进入奇点",
+      "unhideTabs": "取消隐藏选项卡"
+    },
+    "hotkeysON": "快捷键：开",
+    "hotkeysOFF": "快捷键：关"
   }
 }
