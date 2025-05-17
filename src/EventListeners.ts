@@ -467,7 +467,10 @@ export const generateEventHandlers = () => {
   buyTalismanAll.addEventListener('click', () => buyAllTalismanResources())
 
   for (let index = 0; index < 7; index++) {
-    DOMCacheGetOrSet(`talisman${index + 1}`).addEventListener('click', () => showTalismanEffect(index))
+    const iconTalisman = DOMCacheGetOrSet(`talisman${index + 1}`)
+    iconTalisman.addEventListener('mouseover', () => showTalismanEffect(index))
+    iconTalisman.addEventListener('focus', () => showTalismanEffect(index))
+    iconTalisman.addEventListener('click', () => showTalismanEffect(index))
 
     const levelTalisman = DOMCacheGetOrSet(`leveluptalisman${index + 1}`)
     levelTalisman.addEventListener('mouseover', () => showTalismanPrices(index))
