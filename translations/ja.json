@@ -3,11 +3,11 @@
     "saveInLive": "セーブファイルはライブでは使用できません！",
     "saveInLive2": "このセーブはもうロードできません！",
     "errorSaving": "エラーのためこのファイルを保存できませんでした。",
-    "gameSaved": "Game saved successfully!"
+    "gameSaved": "ゲームは正常に保存されました。"
   },
   "save": {
-    "loadFailed": "Unable to load save.",
-    "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
+    "loadFailed": "セーブデータの読み込みに失敗しました。",
+    "saveToClipboard": "セーブデータの保存先をクリップボードに変更しますか？"
   },
   "ambrosia": {
     "ambrosia": "Ambrosia",
