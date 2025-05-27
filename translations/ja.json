@@ -2488,7 +2488,7 @@
   },
   "upgrades": {
     "descriptions": {
-      "1": "Increase production of Workers per producer bought.",
+      "1": "労働者一人あたりの生産量を増やす。",
       "2": "Increase production of Investments per producer bought.",
       "3": "Increase production of Printers per producer bought.",
       "4": "Increase production of Mints per producer bought.",
@@ -2656,7 +2656,7 @@
       "10": "When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on Ascension."
     },
     "effects": {
-      "1": "Effect: Worker Production x{{x}}",
+      "1": "効果： 労働者の生産量 x{{x}}",
       "2": "Effect: Investment Production x{{x}}",
       "3": "Effect: Printer Production x{{x}}",
       "4": "Effect: Mint Production x{{x}}",
@@ -2665,7 +2665,7 @@
       "7": "Effect: Gain {{x}} free Multipliers from bought Alchemies.",
       "8": "Effect: +{{x}} free Accelerators.",
       "9": "Effect: +{{x}} free Multipliers.",
-      "10": "Effect: Worker Production x{{x}}",
+      "10": "効果： 労働者の生産量 x{{x}}",
       "11": "Effect: Generator efficiency x{{x}}",
       "12": "Effect: All Coin production x{{x}}",
       "13": "Effect: Investment Production x{{x}}",
@@ -3249,7 +3249,7 @@
     "acceleratorPower": "Acceleration Power: {{power}}% || Acceleration Multiplier: {{mult}}x",
     "multiplierPower": "Multiplier Power: {{power}}x || Multiplier: {{mult}}x",
     "acceleratorBoost": "Reset Diamonds and Prestige Upgrades, but add {{amount}}% Acceleration Power and 5 free Accelerators.",
-    "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
+    "coinsPerSecond": "コイン/毎秒: {{coins}} [{{percent}}%",
     "costCoins": "Cost: {{coins}} coins.",
     "costDiamonds": "Cost: {{diamonds}} Diamonds.",
     "names": {
