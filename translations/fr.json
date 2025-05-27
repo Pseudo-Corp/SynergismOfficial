@@ -11,17 +11,17 @@
   },
   "ambrosia": {
     "ambrosia": "Ambroisie",
-    "amount": "Ambrosia: <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Current | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> Lifetime",
-    "blueberryAmount": "Blueberries: <<lightblue | {{unspentBlueberries}}>> Unspent | <<lightblue | {{blueberries}}>> Total",
-    "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> Ambrosia Bar Points.",
+    "amount": "Ambroisie : <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Disponible | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> Totale",
+    "blueberryAmount": "Myrtilles : <<lightblue | {{unspentBlueberries}}>> Disponibles | <<lightblue | {{blueberries}}>> Totales",
+    "blueberryGeneration": "Chaque seconde, obtenez <<var(--amber-text-color)|{{chance}}>> points de barre d'Ambroisie.",
     "perGen": "Actuellement, vous gagnez <<var(--amber-text-color)|{{guaranteed}}>> avec <<var(--amber-text-color)|{{extraChance}}%>> de chance d'une supplémentaire. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
-    "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
-    "generatedCubeBonus": "Cubes <<yellow|+{{cubeBonus}}>>",
-    "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}>>",
-    "generatedLuckBonus": "Ambrosia Luck <<lime|+{{luckBonus}}>>",
-    "generatedBlueberryBonus": "Ambrosia Bar Point Gain <<blue|+{{blueberryBonus}}>>",
-    "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}>>",
-    "generatedOfferingBonus": "Offerings <<orange|+{{offeringBonus}}>>",
+    "blueberrySecond": "Vous avez accumulé <<var(--amber-text-color)|{{blueberrySecond}}>> secondes-Myrtilles ! Génère de l'Ambroisie quand vous en avez accumulé <<blue|{{thresholdTimer}}>>.",
+    "generatedCubeBonus": "<<yellow|+{{cubeBonus}}>> Cubes",
+    "generatedQuarkBonus": "<<cyan|+{{quarkBonus}}>> Quarks",
+    "generatedLuckBonus": "Chance d'Ambroisie <<lime|+{{luckBonus}}>>",
+    "generatedBlueberryBonus": "Gains de points de barre d'Ambroisie <<blue|+{{blueberryBonus}}>>",
+    "generatedObtainiumBonus": "<<pink|+{{obtainiumBonus}}>> Obtainium",
+    "generatedOfferingBonus": "<<orange|+{{offeringBonus}}>> Offrandes",
     "prerequisite": "Prérequis :",
     "prereqNotMet": " (Non satisfaits!)",
     "blueberryCost": "Myrtilles (Pour Activer):",
@@ -188,7 +188,7 @@
     "importTree": {
       "success": "Arbre importé avec succès !",
       "failure": "Échec d'import d'arbre car il est invalide !",
-      "error": "Impossible d'analyser le fichier soumis ! Vérifiez qu'il s'agit d'un fichier de configuration d'Arbre-Myrtille."
+      "error": "Impossible d'analyser le fichier soumis ! Vérifiez qu'il s'agit bien d'un fichier de configuration d'arbre-Myrtille."
     },
     "exportTree": {
       "exportButton": "Exporter"
@@ -1638,7 +1638,7 @@
       "shopRedLuck3": "When you pick up this dice, it phases out of existence, then returns, the six face-up. +0.1 &#9861 Red Ambrosia Luck per level. Every 20 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by 0.01.",
       "shopAmbrosiaLuckMultiplier4": "Gain ☘ +1% Ambrosia Luck per level! Simple as that.",
       "shopOcteractAmbrosiaLuck": "Gain ☘ +1 Ambrosia Luck per digit in your Wow! Octeract inventory per level. Simple as that.",
-      "shopCashGrabUltra": "For a nominal price, gain up to +15% Blueberry Speed, +120% Cubes and +8% Quarks per level based on Ambrosia, scaling nonlinearly until 10,000,000 lifetime earned.",
+      "shopCashGrabUltra": "Pour un prix nominal, obtenez jusqu'à +20% de vitesse de Myrtille, +80% de Cubes et +12% de Quarks par niveau selon votre Ambroisie, de façon non linéaire jusqu'à en avoir accumulé 10 000 000 au total.",
       "shopAmbrosiaAccelerator": "Each level of this 'accelerator' provides <<cyan|+0.2>> real-life seconds worth of Ambrosia Bar Points for every <<orange|1>> Ambrosia gained, from any source!",
       "shopEXUltra": "With this EX Upgrade, every 1,000 owned Ambrosia adds +0.1% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at 125,000 * (level of shop upgrade)!",
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
@@ -4921,7 +4921,7 @@
         "confirm": "Cliquez le bouton dans les 15 prochaines secondes pour tester votre chance ! Si vous cliquez au temps généré aléatoirement à {{x}} ms près, vous gagnerez un prix ! Dans ce cas, les récompenses seront multipliées par x{{y}} à cause du temps passé depuis la dernière utilisation.",
         "won": "Vous avez cliqué au bon moment ! [+{{x}} Quarkies]",
         "lost": "Vous n'avez pas cliqué au bon moment, réessayez bientôt !",
-        "ambrosia": "Your blueberries resonate slightly, giving {{blueberryTime}} real-life seconds of Ambrosia Bar Points."
+        "ambrosia": "Vos Myrtilles résonnent légèrement, vous donnant {{blueberryTime}} secondes réelles de points de barre d'Ambroisie."
       },
       "spoiler": {
         "moreThan1": "You will gain {{x}} Octeracts (when they come out) every second, assuming you have them unlocked!",
