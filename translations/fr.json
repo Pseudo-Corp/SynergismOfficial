@@ -14,7 +14,7 @@
     "amount": "Ambroisie : <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Disponible | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> Totale",
     "blueberryAmount": "Myrtilles : <<lightblue | {{unspentBlueberries}}>> Disponibles | <<lightblue | {{blueberries}}>> Totales",
     "blueberryGeneration": "Chaque seconde, obtenez <<var(--amber-text-color)|{{chance}}>> points de barre d'Ambroisie.",
-    "perGen": "Actuellement, vous gagnez <<var(--amber-text-color)|{{guaranteed}}>> avec <<var(--amber-text-color)|{{extraChance}}%>> de chance d'une supplémentaire. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
+    "perGen": "Vous obtenez pour le moment <<var(--amber-text-color)|{{guaranteed}}>> Ambroisie avec <<var(--amber-text-color)|{{extraChance}}%>> de chance d'en obtenir une supplémentaire. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>] {{extra}}",
     "blueberrySecond": "Vous avez accumulé <<var(--amber-text-color)|{{blueberrySecond}}>> secondes-Myrtilles ! Génère de l'Ambroisie quand vous en avez accumulé <<blue|{{thresholdTimer}}>>.",
     "generatedCubeBonus": "<<yellow|+{{cubeBonus}}>> Cubes",
     "generatedQuarkBonus": "<<cyan|+{{quarkBonus}}>> Quarks",
@@ -31,14 +31,14 @@
     "cubeUpgradeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia. <<cyan | Ambrosia Bar Point gain +{{percent}}%>>!",
     "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
     "ambrosiaBuyPrompt": "Combien d'Ambroisie vous voulez dépenser? Vous avez {{amount}} Ambroisie. Écrivez -1 pour tout les utiliser!",
-    "refund": "Vous avez tout remboursé les Bleuets et Ambroisie dépensés.",
+    "refund": "Vous avez remboursé toute l'Ambroisie et les Myrtilles dépensées.",
     "refundWord": "Rembourser",
     "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
     "notUnlocked": "Clear No Singularity Upgrades, Tier 1!",
     "data": {
       "ambrosiaTutorial": {
         "name": "Module tutoriel d'Ambroise",
-        "description": "Bleuets génère de l'ambroisie avec le temps. Utilisez-les dans l'arbre d'ambroisie! +5% Cubes/nv, +1% Quarks/nv",
+        "description": "Les Myrtilles génèrent de l'Ambroisie avec le temps. Utilisez-les dans l'arbre de Myrtilles ! +5% de Cubes/nv, +1% de Quarks/nv",
         "effect": "Ce module de tutoriel augmente les gains de cube par {{cubeAmount}}% et quarks par {{quarkAmount}}%"
       },
       "ambrosiaQuarks1": {
@@ -188,7 +188,7 @@
     "importTree": {
       "success": "Arbre importé avec succès !",
       "failure": "Échec d'import d'arbre car il est invalide !",
-      "error": "Impossible d'analyser le fichier soumis ! Vérifiez qu'il s'agit bien d'un fichier de configuration d'arbre-Myrtille."
+      "error": "Impossible d'analyser le fichier soumis ! Vérifiez qu'il s'agit bien d'un fichier de configuration d'arbre de Myrtilles."
     },
     "exportTree": {
       "exportButton": "Exporter"
@@ -198,7 +198,7 @@
     "redAmbrosia": "Red Ambrosia",
     "amount": "Ambrosia: <<red|{{redAmbrosia}}>> Current | <<red|{{lifetimeRedAmbrosia}}>> Lifetime",
     "purchaseWarning": "<<gold | ⚠>> Contrairement aux modules de Myrtilles, vous ne pouvez <<red | PAS>> rembourser cette amélioration. Merci de dépenser sagement !",
-    "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: &#9861; {{ambrosiaLuck}}>>]",
+    "perGen": "Vous obtenez pour le moment <<red|{{guaranteed}}>> Ambroisie Rouge avec <<red|{{extraChance}}%>> de chance d'en obtenir une supplémentaire. [<<red|Luck: &#9861; {{ambrosiaLuck}}>>]",
     "redAmbrosiaBuyPrompt": "How many Red Ambrosia would you like to spend? You have {{amount}} Red Ambrosia. Type -1 to use max!",
     "notUnlocked": "Clear No Ambrosia Upgrades, Tier 1!",
     "data": {
@@ -229,7 +229,7 @@
       },
       "freeLevelsRow2": {
         "name": "Plus de niveaux pour la ligne 2 de l'arbre de Myrtilles !",
-        "description": "À l'exception du Stabilisateur de Singularité, ajoute un niveau à tous les modules de Myrtilles qui se trouvent sur la seconde ligne, par niveau.",
+        "description": "À l'exception du Stabilisateur de Singularité, ajoute un niveau effectif à tous les modules de Myrtilles qui se trouvent sur la seconde ligne, par niveau.",
         "effect": "Cette amélioration augmente le niveau effectif (de la plupart) des modules de Myrtilles de la ligne 2 de {{amount}} !"
       },
       "freeLevelsRow3": {
@@ -239,12 +239,12 @@
       },
       "freeLevelsRow4": {
         "name": "Plus de niveaux pour la ligne 4 de l'arbre de Myrtilles !",
-        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the fourth row, per level.",
+        "description": "Sans exceptions, ajoute un niveau effectif à tous les modules de Myrtilles qui se trouvent sur la quatrième ligne, par niveau.",
         "effect": "Cette amélioration augmente le niveau effectif de TOUS les modules de Myrtilles de la ligne 4 de {{amount}} !"
       },
       "freeLevelsRow5": {
         "name": "Plus de niveaux pour la ligne 5 de l'arbre de Myrtilles !",
-        "description": "À l'exception du Stabilisateur de Singularité, ajoute un niveau à tous les modules de Myrtilles qui se trouvent sur la cinquième ligne, par niveau.",
+        "description": "À l'exception du Stabilisateur de Singularité, ajoute un niveau effectif à tous les modules de Myrtilles qui se trouvent sur la cinquième ligne, par niveau.",
         "effect": "Cette amélioration augmente le niveau effectif (de la plupart) des modules de Myrtilles de la ligne 5 de {{amount}} !"
       },
       "blueberryGenerationSpeed": {
@@ -253,7 +253,7 @@
         "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
       },
       "regularLuck": {
-        "name": "Ossified Blueberry Tactics",
+        "name": "Tactiques de Myrtilles Ossifiées",
         "description": "Most strange. Adding this gold-colored wax on your blueberries makes you slightly more likely to get Ambrosia! +2 Ambrosia Luck / level.",
         "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
       },
@@ -303,7 +303,7 @@
         "effect": "Each Red Ambrosia generated grants {{amount}} real-life seconds of Ambrosia Bar Points."
       },
       "regularLuck2": {
-        "name": "Ossified Blueberry Tactics II",
+        "name": "Tactiques de Myrtilles Ossifiées II",
         "description": "This also gives +2 Ambrosia Luck / level, but you can purchase a ton of levels of this!",
         "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
       },
@@ -1982,8 +1982,8 @@
       },
       "primalPower": {
         "name": "Primal Power!",
-        "hasLevel1": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> Ambrosia Luck!",
-        "default": "Gain awesome power by reaching Prime Numbered Singularities! Currently gaining: <<limegreen|☘ +131>> Ambrosia Luck!"
+        "hasLevel1": "Obtenez une puissance impressionnante en atteignant des Singularités numérotées avec des nombres premiers ! Obtenez : + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> chance d'Ambroisie !",
+        "default": "Obtenez une puissance impressionnante en atteignant des Singularités numérotées avec des nombres premiers ! Obtenez : + <<limegreen|☘ +131>> chance d'Ambroisie !"
       },
       "permanentBenefaction": {
         "name": "Permanent Benefaction",
@@ -2365,7 +2365,7 @@
       "singAmbrosiaGeneration3": {
         "name": "Hourglass of Significance",
         "description": "An hourglass which is still important, perhaps even more so. +1% Blueberry Second Generation per level.",
-        "effect": "Blueberry Seconds Generation +{{n}}%(!)"
+        "effect": "Génération de secondes-Myrtilles +{{n}}% (!)"
       },
       "singAmbrosiaGeneration": {
         "name": "Hourglass of Limitlessness",
