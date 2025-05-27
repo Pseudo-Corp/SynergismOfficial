@@ -197,7 +197,7 @@
   "redAmbrosia": {
     "redAmbrosia": "Red Ambrosia",
     "amount": "Ambrosia: <<red|{{redAmbrosia}}>> Current | <<red|{{lifetimeRedAmbrosia}}>> Lifetime",
-    "purchaseWarning": "<<gold | ⚠>> Unlike Blueberry Modules, you <<red | CANNOT>> refund this upgrade. Please spend wisely!",
+    "purchaseWarning": "<<gold | ⚠>> Contrairement aux modules de Myrtilles, vous ne pouvez <<red | PAS>> rembourser cette amélioration. Merci de dépenser sagement !",
     "perGen": "Currently gaining <<red|{{guaranteed}}>> Red Ambrosia with a <<red|{{extraChance}}%>> chance of another. [<<red|Luck: &#9861; {{ambrosiaLuck}}>>]",
     "redAmbrosiaBuyPrompt": "How many Red Ambrosia would you like to spend? You have {{amount}} Red Ambrosia. Type -1 to use max!",
     "notUnlocked": "Clear No Ambrosia Upgrades, Tier 1!",
@@ -223,29 +223,29 @@
         "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
       },
       "freeTutorialLevels": {
-        "name": "More Blueberry Tutorial Module Levels!",
-        "description": "A meta-tutorial of sorts. A powerful ability of Red Ambrosia is to power your Blueberry tree! Increase the effective level of Blueberry Tutorial Module by 1 per level.",
-        "effect": "This upgrade increases the effective level of Blueberry Tutorial Module by {{amount}}!"
+        "name": "Plus de niveaux du module tutoriel de Myrtille !",
+        "description": "Une sorte de méta-tutoriel. Une puissante capacité de l'Ambroisie Rouge est d'enrichir votre arbre de Myrtilles ! Augmente le niveau effectif du module tutoriel de Myrtille de 1 par niveau.",
+        "effect": "Cette amélioration augmente le niveau effectif du module tutoriel de Myrtille de {{amount}} !"
       },
       "freeLevelsRow2": {
-        "name": "More Row 2 Blueberry Upgrade Levels!",
-        "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the second row, per level.",
-        "effect": "This upgrade increases the effective level of (most) row 2 Blueberry Modules by {{amount}}!"
+        "name": "Plus de niveaux pour la ligne 2 de l'arbre de Myrtilles !",
+        "description": "À l'exception du Stabilisateur de Singularité, ajoute un niveau à tous les modules de Myrtilles qui se trouvent sur la seconde ligne, par niveau.",
+        "effect": "Cette amélioration augmente le niveau effectif (de la plupart) des modules de Myrtilles de la ligne 2 de {{amount}} !"
       },
       "freeLevelsRow3": {
-        "name": "More Row 3 Blueberry Upgrade Levels!",
-        "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the third row, per level.",
-        "effect": "This upgrade increases the effective level of ALL row 3 Blueberry Modules by {{amount}}!"
+        "name": "Plus de niveaux pour la ligne 3 de l'arbre de Myrtilles !",
+        "description": "Sans exceptions, ajoute un niveau effectif à tous les modules de Myrtilles qui se trouvent sur la troisième ligne, par niveau.",
+        "effect": "Cette amélioration augmente le niveau effectif de TOUS les modules de Myrtilles de la ligne 3 de {{amount}} !"
       },
       "freeLevelsRow4": {
-        "name": "More Row 4 Blueberry Upgrade Levels!",
+        "name": "Plus de niveaux pour la ligne 4 de l'arbre de Myrtilles !",
         "description": "With no exceptions, add one effective level to all Blueberry Modules that reside on the fourth row, per level.",
-        "effect": "This upgrade increases the effective level of ALL row 4 Blueberry Modules by {{amount}}!"
+        "effect": "Cette amélioration augmente le niveau effectif de TOUS les modules de Myrtilles de la ligne 4 de {{amount}} !"
       },
       "freeLevelsRow5": {
-        "name": "More Row 5 Blueberry Upgrade Levels!",
-        "description": "With the exception of the Singularity Stabilizer, add one effective level to all Blueberry Modules that reside on the fifth row, per level.",
-        "effect": "This upgrade increases the effective level of (most) row 5 Blueberry Modules by {{amount}}!"
+        "name": "Plus de niveaux pour la ligne 5 de l'arbre de Myrtilles !",
+        "description": "À l'exception du Stabilisateur de Singularité, ajoute un niveau à tous les modules de Myrtilles qui se trouvent sur la cinquième ligne, par niveau.",
+        "effect": "Cette amélioration augmente le niveau effectif (de la plupart) des modules de Myrtilles de la ligne 5 de {{amount}} !"
       },
       "blueberryGenerationSpeed": {
         "name": "The Sands of Time",
