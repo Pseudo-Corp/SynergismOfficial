@@ -53,7 +53,7 @@
       },
       "ambrosiaLuck1": {
         "name": "Module de chance d'ambroisie I",
-        "description": "Félicitations pour avoir complété ce module tutoriel. You devez posséder cette habileté au maximum pour acheter des niveaux de celui-ci. &#9752 +2 chances d'ambroisie/nv. Chaque 2 niveaux achetés donnent &#9752 +12 de plus!",
+        "description": "Bravo, vous avez complété le module tutoriel. Vous devez l'avoir au maximum pour pouvoir acheter celui-là. &#9752 +2 chance d'Ambroisie/nv. Tous les 10 niveaux, obtenez &#9752 +12 supplémentaires !",
         "effect": "Ce module de chance augmente la chance &#9752 d'ambroisie de {{amount}}"
       },
       "ambrosiaCubeQuark1": {
@@ -133,8 +133,8 @@
       },
       "ambrosiaHyperflux": {
         "name": "Hyperfluxed Wow! Cube Industrial Production",
-        "description": "Gagnez +1% de cubes par niveau, par niveau d'amélioration Platonique 4x4 achetés (multiplicatif !!!)",
-        "effect": "Ce module de cube augmente le gain de Cube par {{amount}}% !"
+        "description": "Obtenez +1% de Cubes par niveau, par niveau d'amélioration Platonique 4x4 achetés (multiplicatif !!!)",
+        "effect": "Ce module augmente le gain de Cubes de {{amount}}% !"
       },
       "ambrosiaBaseObtainium1": {
         "name": "Basic Obtainium Booster",
@@ -223,7 +223,7 @@
         "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
       },
       "freeTutorialLevels": {
-        "name": "Plus de niveaux du module tutoriel de Myrtille !",
+        "name": "Plus de niveaux du module tutoriel de Myrtilles !",
         "description": "Une sorte de méta-tutoriel. Une puissante capacité de l'Ambroisie Rouge est d'enrichir votre arbre de Myrtilles ! Augmente le niveau effectif du module tutoriel de Myrtille de 1 par niveau.",
         "effect": "Cette amélioration augmente le niveau effectif du module tutoriel de Myrtille de {{amount}} !"
       },
