@@ -37,82 +37,82 @@
     "notUnlocked": "Clear No Singularity Upgrades, Tier 1!",
     "data": {
       "ambrosiaTutorial": {
-        "name": "Module tutoriel d'Ambroise",
+        "name": "Module tutoriel d'Ambroisie",
         "description": "Les Myrtilles génèrent de l'Ambroisie avec le temps. Utilisez-les dans l'arbre de Myrtilles ! +5% de Cubes/nv, +1% de Quarks/nv",
-        "effect": "Ce module de tutoriel augmente les gains de cube par {{cubeAmount}}% et quarks par {{quarkAmount}}%"
+        "effect": "Ce module tutoriel augmente les gains de Cubes de {{cubeAmount}}% et de Quarks de {{quarkAmount}}%"
       },
       "ambrosiaQuarks1": {
-        "name": "Module de Quark d'ambroisie I",
-        "description": "Félicitation pour avoir complété ce module tutoriel. You devez posséder cette habileté au maximum pour acheter des niveaux de celui-ci. +1 Quarks/nv.",
-        "effect": "Ce module de quark augmente le gain de Quark par {{amount}}%"
+        "name": "Module de d'Ambroisie de Quarks I",
+        "description": "Bravo, vous avez complété le module tutoriel. Vous devez l'avoir au niveau maximum pour pouvoir acheter celui-là. +1% de Quarks/nv.",
+        "effect": "Ce module de Quarks augmente les gains de Quarks de {{amount}}%"
       },
       "ambrosiaCubes1": {
-        "name": "Module de Cube d'ambroisie I",
-        "description": "Congrats on completing the tutorial module. You need to have it maxxed to buy levels of this. +5% Cubes/lvl. Every 5 levels gives 1.1x Cubes.",
-        "effect": "Ce module de cube augmente le gain de Cube par {{amount}}%"
+        "name": "Module de d'Ambroisie de Cubes I",
+        "description": "Bravo, vous avez complété le module tutoriel. Vous devez l'avoir au niveau maximum pour pouvoir acheter celui-là. +5% de Cubes/nv. Chaque tranche de 5 niveaux donne 1,1x de Cubes.",
+        "effect": "Ce module de Cubes augmente les gains de Cubes de {{amount}}%"
       },
       "ambrosiaLuck1": {
-        "name": "Module de chance d'ambroisie I",
-        "description": "Bravo, vous avez complété le module tutoriel. Vous devez l'avoir au maximum pour pouvoir acheter celui-là. &#9752 +2 chance d'Ambroisie/nv. Tous les 10 niveaux, obtenez &#9752 +12 supplémentaires !",
-        "effect": "Ce module de chance augmente la chance &#9752 d'ambroisie de {{amount}}"
+        "name": "Module de d'Ambroisie de chance I",
+        "description": "Bravo, vous avez complété le module tutoriel. Vous devez l'avoir au niveau maximum pour pouvoir acheter celui-là. &#9752 +2 chance d'Ambroisie/nv. Tous les 10 niveaux, obtenez &#9752 +12 supplémentaires !",
+        "effect": "Ce module de chance augmente la &#9752 chance d'Ambroisie de {{amount}}"
       },
       "ambrosiaCubeQuark1": {
-        "name": "Module hybride Ambroisie Cube-Quark I",
-        "description": "Un module hybride de première génération. Gain de +0.01% Quarks par niveau par chiffre de tout valeur de type de cubes.",
-        "effect": "Ce module hybride de première génération augmente le gain de Quark par {{amount}}%"
+        "name": "Module hybride d'Ambroisie Cube-Quark I",
+        "description": "Un module hybride de première génération. Obtenez +0,01% de Quarks par niveau pour chaque chiffre dans les valeurs de tous les types de Cubes.",
+        "effect": "Ce module hybride de première génération augmente le gain de Quarks de {{amount}}%"
       },
       "ambrosiaLuckQuark1": {
-        "name": "Module hybride de chance d'ambroisie-quark I",
-        "description": "Un module hybride de première génération. Gain de +0.01% plus de Quark par niveau par &#9752 chance d'ambroisie. Gain diminutif après 1,000 chance d'ambroisie.",
-        "effect": "Ce module hybride de première génération augmente le gain de Quark par {{amount}}%"
+        "name": "Module hybride d'Ambroisie chance-Quark I",
+        "description": "Un module hybride de première génération. Obtenez +0,01% de Quarks par niveau par &#9752 chance d'Ambroisie. Rendement décroissant après 1 000 chance d'Ambroisie.",
+        "effect": "Ce module hybride de première génération augmente le gain de Quarks de {{amount}}%"
       },
       "ambrosiaQuarkCube1": {
-        "name": "Module hybride d'ambroisie Quark-Cube I",
-        "description": "A first generation hybrid module. Gain +0.1% more cubes per level per digit in your Quark balance, squared!",
-        "effect": "Ce module hybride de première génération augmente les gains de cubes de {{amount}}%"
+        "name": "Module hybride d'Ambroisie Quark-Cube I",
+        "description": "Un module hybride de première génération. Obtenez +0,1% de Cubes par niveau par chiffre dans votre solde de Quarks, au carré !",
+        "effect": "Ce module hybride de première génération augmente les gains de Cubes de {{amount}}%"
       },
       "ambrosiaLuckCube1": {
-        "name": "Module hybride d'ambroisie Chance-Cube I",
-        "description": "A first generation hybrid module. Gain +0.05% more cubes per level per 1 &#9752 Ambrosia Luck!",
+        "name": "Module hybride d'Ambroisie chance-Cube I",
+        "description": "Un module hybride de première génération. Obtenez +0,05% de Cubes par niveau par &#9752 chance d'Ambroisie !",
         "effect": "Ce module hybride de première génération augmente les gains de Cubes de {{amount}}%"
       },
       "ambrosiaCubeLuck1": {
-        "name": "Module hybride d'ambroisie Cube-Chance I",
-        "description": "Un module hybride de première génération. Gagnez +0.02 &#9752 Chance d'Ambroisie par niveau, par chiffre dans les valeurs de tous les types de cubes.",
-        "effect": "Ce module hybride de première génération augmente la &#9752 Chance d'Ambroisie de {{amount}}"
+        "name": "Module hybride d'Ambroisie Cube-chance I",
+        "description": "Un module hybride de première génération. Obtenez +0,02 &#9752 chance d'Ambroisie par niveau, pour chaque chiffre dans les valeurs de tous les types de Cubes.",
+        "effect": "Ce module hybride de première génération augmente la &#9752 chance d'Ambroisie de {{amount}}"
       },
       "ambrosiaQuarkLuck1": {
-        "name": "Module hybride d'ambroisie Quark-Chance I",
-        "description": "Un module hybride de première génération. Gagnez +0.02 &#9752 Chance d'Ambroisie par niveau, par chiffre dans votre solde de Quark, au carré.",
-        "effect": "Ce module hybride de première génération augmente la &#9752 Chance d'Ambroisie de {{amount}}"
+        "name": "Module hybride d'Ambroisie Quark-chance I",
+        "description": "Un module hybride de première génération. Obtenez +0,02 &#9752 chance d'Ambroisie par niveau, par chiffre dans votre solde de Quarks, au carré.",
+        "effect": "Ce module hybride de première génération augmente la &#9752 chance d'Ambroisie de {{amount}}"
       },
       "ambrosiaQuarks2": {
-        "name": "Module d'ambroisie Quark II",
-        "description": "Synergie propre ! Gagnez 1% de quarks par niveau, +0.1% par 10 niveaux dans Module d'Ambroisie-Quark I.",
+        "name": "Module d'ambroisie de Quarks II",
+        "description": "Auto-synergies ! Obtenez 1% de Quarks par niveau, +0,1% par tranche de 10 niveaux dans le module d'Ambroisie de Quarks I.",
         "effect": "Ce module de Quark de seconde génération augmente les gains de Quarks de {{amount}}%"
       },
       "ambrosiaCubes2": {
-        "name": "Module d'ambroisie Cube II",
-        "description": "Self-Synergies! Gain +10% cubes / lvl , +1% for every 10 levels in Ambrosia Cube Module I. Every 5 levels gives 1.15x cubes.",
+        "name": "Module d'Ambroisie de Cubes II",
+        "description": "Auto-synergies ! Obtenez +10% de Cubes/nv, +1% par tranche de 10 niveaux dans le module d'Ambroisie de Cubes I. Chaque tranche de 5 niveaux donne 1,15x de Cubes.",
         "effect": "Ce module de Cube de seconde génération augmente les gains de Cubes de {{amount}}%"
       },
       "ambrosiaLuck2": {
-        "name": "Module d'ambroisie Chance II",
-        "description": "Synergie propre ! Gagnez +3 &#9752 Chance d'Ambroisie par niveau, +0.3 par 10 niveaux dans Module de Chance d'Ambroisie I. Chaque tranche de 10 niveaux donne +40 &#9752 en plus !",
-        "effect": "Ce module de Chance de seconde génération augmente la &#9752 Chance d'Ambroisie de {{amount}}"
+        "name": "Module d'Ambroisie de chance II",
+        "description": "Auto-synergies ! Obtenez +3 &#9752 chance d'Ambroisie par niveau, +0,3 par tranche de 10 niveaux dans le module d'Ambroisie de chance I. Chaque tranche de 10 niveaux donne +40 &#9752 en plus !",
+        "effect": "Ce module de chance de seconde génération augmente la &#9752 Chance d'Ambroisie de {{amount}}"
       },
       "ambrosiaQuarks3": {
-        "name": "Ambrosia Quark Module III",
+        "name": "Module d'Ambroisie de Quarks III",
         "description": "A darkness emboldens this module. +5% Quarks per level, and the effect is 1% stronger per level of Ambrosia Quark Module II.",
         "effect": "This third generation Quark module increases Quark gain by {{amount}}%"
       },
       "ambrosiaCubes3": {
-        "name": "Ambrosia Cube Module III",
+        "name": "Module d'Ambroisie de Cubes III",
         "description": "A darkness emboldens this module. +20% cubes / lvl, and the effect is 3% stronger per level of Ambrosia Cube Module II. Every 5 levels gives 1.2x cubes.",
         "effect": "This third generation Cube module increases cube gain by {{amount}}%"
       },
       "ambrosiaLuck3": {
-        "name": "Ambrosia Luck Module III",
+        "name": "Module d'Ambroisie de chance III",
         "description": "A darkness emboldens this module. +1 &#9752 Ambrosia Luck/lvl, and the effect is multiplied by the total number of Blueberries you own!",
         "effect": "This third generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
       },
@@ -133,7 +133,7 @@
       },
       "ambrosiaHyperflux": {
         "name": "Hyperfluxed Wow! Cube Industrial Production",
-        "description": "Obtenez +1% de Cubes par niveau, par niveau d'amélioration Platonique 4x4 achetés (multiplicatif !!!)",
+        "description": "Obtenez +1% de Cubes par niveau, par niveau d'amélioration Platonique 4x4 acheté (multiplicatif !!!)",
         "effect": "Ce module augmente le gain de Cubes de {{amount}}% !"
       },
       "ambrosiaBaseObtainium1": {
