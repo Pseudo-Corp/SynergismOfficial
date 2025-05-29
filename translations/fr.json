@@ -27,14 +27,14 @@
     "blueberryCost": "Myrtilles (Pour Activer):",
     "prereqNotMetAlert": "Vous n'avez pas les prérequis nécessaires pour acheter cette amélioration.",
     "notEnoughBlueberries": "Vous n'avez pas assez de Myrtilles pour activer ce module.",
-    "timeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia.",
-    "cubeUpgradeThresholds": "Your Ambrosia Bar Point requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. Next doubling in <<orange|{{toNext}}>> lifetime Ambrosia. <<cyan | Ambrosia Bar Point gain +{{percent}}%>>!",
-    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
+    "timeThresholds": "La quantité de points de la barre d'Ambroisie a été doublée <<cyan | {{threshold}}>> fois à cause de votre total d'Ambroisie. Prochain doublement à <<orange|{{toNext}}>> Ambroisie totale.",
+    "cubeUpgradeThresholds": "La quantité de points de la barre d'Ambroisie a été doublée <<cyan | {{threshold}}>> fois à cause de votre total d'Ambroisie. Prochain doublement à <<orange|{{toNext}}>> Ambroisie totale. <<cyan | gains de points de la barre d'Ambroisie +{{percent}}%>> !",
+    "cubeUpgradeRedBarFills": "Votre barre Rouge a été remplie <<maroon | {{amount}}>> fois quand l'amélioration de Cookie 29 était achetée, ce qui vous donne <<green | +{{luck}} &#9752 chance d'Ambroisie>> !",
     "ambrosiaBuyPrompt": "Combien d'Ambroisie vous voulez dépenser? Vous avez {{amount}} Ambroisie. Écrivez -1 pour tout les utiliser!",
     "refund": "Vous avez remboursé toute l'Ambroisie et les Myrtilles dépensées.",
     "refundWord": "Rembourser",
-    "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
-    "notUnlocked": "Clear No Singularity Upgrades, Tier 1!",
+    "ignoreEXALT": "[<<white|♔>>] Cette amélioration est active même si un EXALT dit le contraire !",
+    "notUnlocked": "Terminez Pas d'Améliorations de Singularité, rang 1 !",
     "data": {
       "ambrosiaTutorial": {
         "name": "Module tutoriel d'Ambroisie",
@@ -300,17 +300,17 @@
       "redAmbrosiaAccelerator": {
         "name": "Ultrafusion Bleue-Rouge",
         "description": "Quand vous obtenez de l'Ambroisie Rouge, vous obtenez un peu de progression vers de l'Ambroisie normale ! +0,02 seconde réelle de points de la barre d'Ambroisie par niveau, par Ambroisie Rouge générée, avec le premier niveau donnant +1 !",
-        "effect": "Each Red Ambrosia generated grants {{amount}} real-life seconds of Ambrosia Bar Points."
+        "effect": "Chaque Ambroisie Rouge générée octroie {{amount}} secondes réelles de points de la barre d'Ambroisie."
       },
       "regularLuck2": {
         "name": "Tactiques de Myrtilles Ossifiées II",
-        "description": "This also gives +2 Ambrosia Luck / level, but you can purchase a ton of levels of this!",
-        "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
+        "description": "Celui-ci donne aussi +2 chance d'Ambroisie / niveau, mais vous pouvez en acheter à foison !",
+        "effect": "Cette amélioration augmente la chance d'Ambroisie de {{amount}} !"
       },
       "blueberryGenerationSpeed2": {
-        "name": "The Sands of Time II",
-        "description": "This gives +0.1% Ambrosia Bar Point gain per level, but you can purchase a ton of levels of this!",
-        "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
+        "name": "Les Sables du Temps II",
+        "description": "Obtenez +0,1% de points de la barre d'Ambroisie par niveau, mais vous pouvez en acheter à foison !",
+        "effect": "Cette amélioration augmente les gains de points de la barre d'Ambroisie de {{amount}} !"
       }
     }
   },
@@ -2473,7 +2473,7 @@
       "quarks": "Quarks",
       "ascensionScore": "Ascension Score",
       "blueberryGenerationSpeed": "Ambrosia Bar Points / second",
-      "ambrosiaLuck": "Ambrosia Luck",
+      "ambrosiaLuck": "Chance d'Ambroisie",
       "powderConversion": "Powder Conversion",
       "antSacrifice": "Ant Sacrifice",
       "oneMind": "One Mind",
@@ -2845,7 +2845,7 @@
     "realAntSacTimer": "Durée réelle du sacrifice : +<<var(--red-text-color);|{{value}}>> secondes",
     "currentAscensionTimer": "Durée de l'Ascension actuelle : +<<gold|{{value}}>> secondes",
     "exportQuarks": "Quarks à l'export : <<goldenrod|{{value}}>>",
-    "ambrosia": "Ambrosia: +<<orange|{{value}}>> | Ambrosia Bar Points +<<lightblue|{{value2}}>>",
+    "ambrosia": "Ambroisie : +<<orange|{{value}}>> | Points de la barre d'Ambroisie +<<lightblue|{{value2}}>>",
     "redAmbrosia": "Red Ambrosia: +<<red|{{value}}>> | Red Bar Points +<<red|{{value2}}>>"
   },
   "fastForward": {
@@ -3095,7 +3095,7 @@
         "rune6": "Increase Rune 6 Bonus Levels by <<brown | {{ reward }}>> (Maximum +3).",
         "goldenQuark": "Increase Golden Quark gain by <<gold | {{ reward }}>> (Maximum +25%).",
         "octeract": "Increase Octeract gain by <<teal | {{ reward }}>> (Maximum +50%).",
-        "ambrosiaLuck": "Increase ☘ Ambrosia Luck by <<green | {{ reward }}>> (Maximum ☘ +100).",
+        "ambrosiaLuck": "Augmente la ☘ chance d'Ambroisie de <<green | {{ reward }}>> (Maximum ☘ 100).",
         "blueberrySpeed": "Increase Ambrosia Bar Points gain by <<blue | {{ reward }}>> (Maximum +10%)."
       }
     },
@@ -3888,10 +3888,10 @@
       "gqCost": "Golden Quark Cost",
       "addStats": "Add Code Stats",
       "octMult": "Octeract Multipliers",
-      "ambrosiaAdditiveLuckMult": "Ambrosia Luck Mult",
-      "ambrosiaLuck": "Ambrosia Luck",
-      "ambrosiaBlueberries": "Blueberry Inventory",
-      "ambrosiaGenMult": "Ambrosia Bar Points",
+      "ambrosiaAdditiveLuckMult": "Multiplicateur de chance d'Ambroisie",
+      "ambrosiaLuck": "Chance d'Ambroisie",
+      "ambrosiaBlueberries": "Inventaire des Myrtilles",
+      "ambrosiaGenMult": "Points de la barre d'Ambroisie",
       "luckConversion": "Luck Conversion",
       "redAmbrosiaLuck": "Red Ambrosia Luck",
       "redAmbrosiaGenMult": "Red Ambrosia Bar Points",
@@ -4359,19 +4359,19 @@
       "Total2": "Final Ascension Speed Multiplier:"
     },
     "ambrosiaAdditiveLuckMultStats": {
-      "title": "Ambrosia Additive Luck Multiplier",
-      "Base": "Base Multiplier:",
-      "NoSingularityUpgrades": "No Singularity Upgrades Challenge:",
-      "DilatedFiveLeaf": "Dilated Five Leaf Clover:",
-      "ShopUpgrade": "EXALT Ambrosia Luck Multiplier:",
-      "NoAmbrosiaUpgrades": "No Ambrosia Upgrades Challenge:",
-      "Cookie5": "Cookie Upgrade 5 (Cx27):",
-      "Event": "Event Bonus:",
-      "Total": "Total Additive Luck Multiplier:"
+      "title": "Multiplicateur additif de chance d'Ambroisie",
+      "Base": "Multiplicateur de base :",
+      "NoSingularityUpgrades": "Défi Pas d'Améliorations de Singularité :",
+      "DilatedFiveLeaf": "Trèfle à Cinq Feuilles Dilaté :",
+      "ShopUpgrade": "Multiplicateur de chance d'Ambroisie des EXALT :",
+      "NoAmbrosiaUpgrades": "Défi Pas d'Améliorations d'Ambroisie :",
+      "Cookie5": "Amélioration de Cookie 5 (Cx27) :",
+      "Event": "Bonus d'Évènement :",
+      "Total": "Total des multiplicateurs additifs :"
     },
     "ambrosiaLuckStats": {
-      "title": "Ambrosia Luck",
-      "Base": "Base Value:",
+      "title": "Chance d'Ambroisie",
+      "Base": "Valeur de base :",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Campaign": "Campaign Bonus:",
       "SingularityMilestones": "Singularity Milestones:",
