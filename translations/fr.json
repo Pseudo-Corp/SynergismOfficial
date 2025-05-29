@@ -259,47 +259,47 @@
       },
       "redGenerationSpeed": {
         "name": "Ambroisie Rouge Millénaire",
-        "description": "Surely, with how long this Ambrosia is left to sit, it knows something about time. +0.3% more Red Ambrosia Bar Points per level.",
-        "effect": "This upgrade increases Red Ambrosia Bar Point gain by {{amount}}!"
+        "description": "Assurément, avec la longue attente vécue par cette Ambroisie, elle en connait un rayon sur le temps. +0,3% de points de la barre d'Ambroisie Rouge par niveau.",
+        "effect": "Cette amélioration augmente le gain de points de la barre d'Ambroisie Rouge de {{amount}} !"
       },
       "redLuck": {
-        "name": "The Dice that Decide Your Fate",
-        "description": "A life on every face, until you're finally left with an eight. +1 Red Ambrosia Luck per level!",
-        "effect": "This upgrade increases Red Ambrosia Luck by {{amount}}!"
+        "name": "Le Dé qui Décide de votre Destin",
+        "description": "Une vie sur chaque face, jusqu'à que vous obteniez finalement un huit. +1 chance d'Ambroisie Rouge par niveau !",
+        "effect": "Cette amélioration augmente la chance d'Ambroisie Rouge de {{amount}} !"
       },
       "redAmbrosiaCube": {
-        "name": "Cubes \"made\" of Red Ambrosia",
-        "description": "Hey, Ambrosia gives cubes! Why not Red Ambrosia as well?",
-        "effect": "If purchased, multiply your cubes by 1 + (Lifetime)^{{exponent}} / 100."
+        "name": "Des Cubes \"fabriqués\" à partir d'Ambroisie Rouge",
+        "description": "Hey, l'Ambroisie donne des Cubes ! Pourquoi pas l'Ambroisie Rouge également ?",
+        "effect": "Si acheté, multiplie vos Cubes par 1 + (Total)^{{exponent}} / 100."
       },
       "redAmbrosiaObtainium": {
-        "name": "Obtainium \"\"made\"\" of Red Ambrosia",
-        "description": "I don't know why you can make a blue object from a red object. But you can.",
-        "effect": "If purchased, multiply your Obtainium by 1 + (Lifetime)^0.6 / 100."
+        "name": "Obtainium \"fabriqué\" à partir d'Ambroisie Rouge",
+        "description": "Je ne sais pas pourquoi vous pouvez fabriquer un objet bleu à partir d'un objet rouge. Mais vous pouvez.",
+        "effect": "Si acheté, multiplie votre Obtainium par 1 + (Total)^0,6 / 100."
       },
       "redAmbrosiaOffering": {
-        "name": "Offerings \"\"\"made\"\"\" of Red Ambrosia",
-        "description": "Wait, this one kinda makes sense.",
-        "effect": "If purchased, multiply your Offerings by 1 + (Lifetime)^0.6 / 100."
+        "name": "Offrandes \"fabriqués\" à partir d'Ambroisie Rouge",
+        "description": "Attendez, celui-ci est plutôt logique.",
+        "effect": "Si acheté, multiplie vos Offrandes par 1 + (Total)^0,6 / 100."
       },
       "redAmbrosiaCubeImprover": {
-        "name": "Hire Red Ambrosia Artisans",
-        "description": "They are better at making cubes out of Red Ambrosia for you, depending on how many you have. +0.01 exponent to \"Cubes 'made' of Red Ambrosia\" per level.",
-        "effect": "Exponent for that Red Ambrosia Upgrade: 0.40 → {{newExponent}}"
+        "name": "Embauchez des Artisans d'Ambroisie Rouge",
+        "description": "Ils sont meilleurs pour fabriquer des Cubes à partir d'Ambroisie Rouge pour vour, selon la quantité que vous détenez. +0,01 à l'exposant de \"Des Cubes \"fabriqués\" à partir d'Ambroisie Rouge\" par niveau.",
+        "effect": "Exposant de cette amélioration d'Ambroisie Rouge : 0,40 → {{newExponent}}"
       },
       "viscount": {
-        "name": "Viscount of Ruby Guy",
-        "description": "For a stupid amount of Red Ambrosia, obtain a small amount of land, becoming 'viscount' of this land. Purchase this to get +10% Quarks, +125 Ambrosia Luck, +25 Red Luck, and a Discord Role!",
+        "name": "Vicomte du Gars Rubis",
+        "description": "Pour une quantité absurde d'Ambroisie Rouge, obtenez une petite portion de terre, ce qui fait de vous un \"vicomte\" de cette terre. Achetez ceci pour obtenir +10% de Quarks, +125 chance d'Ambroisie, +25 chance Rouge, et un rôle Discord !",
         "effect": "📜 {{mark}}"
       },
       "infiniteShopUpgrades": {
-        "name": "Red Infinity Shop Voucher",
-        "description": "A Shop Voucher, printed on a red tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
-        "effect": "'Infinity' shop upgrades level +{{amount}}"
+        "name": "Bon de Réduction Rouge de la Boutique Infinie",
+        "description": "Un bon de réduction, imprimé sur une tablette rouge. Chaque niveau donne +1 niveau effectif des améliorations \"infinies\" de la boutique.",
+        "effect": "Niveau des améliorations \"infinies\" de la boutique +{{amount}}"
       },
       "redAmbrosiaAccelerator": {
-        "name": "Red-Blue Ultrafusion",
-        "description": "When you gain a Red Ambrosia, you gain a bit of progress toward regular Ambrosia! +0.02 real-life seconds of Ambrosia Bar Points per level, per Red Ambrosia generated, with the first level giving +1!",
+        "name": "Ultrafusion Bleue-Rouge",
+        "description": "Quand vous obtenez de l'Ambroisie Rouge, vous obtenez un peu de progression vers de l'Ambroisie normale ! +0,02 seconde réelle de points de la barre d'Ambroisie par niveau, par Ambroisie Rouge générée, avec le premier niveau donnant +1 !",
         "effect": "Each Red Ambrosia generated grants {{amount}} real-life seconds of Ambrosia Bar Points."
       },
       "regularLuck2": {
