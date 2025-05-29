@@ -103,22 +103,22 @@
       },
       "ambrosiaQuarks3": {
         "name": "Module d'Ambroisie de Quarks III",
-        "description": "A darkness emboldens this module. +5% Quarks per level, and the effect is 1% stronger per level of Ambrosia Quark Module II.",
-        "effect": "This third generation Quark module increases Quark gain by {{amount}}%"
+        "description": "Les ténèbres amplifient ce module. +5% de Quarks par niveau, et l'effet est 1% plus puissant par niveau du module d'Ambroisie de Quarks II.",
+        "effect": "Ce module de Quark de troisième génération augmente les gains de Quarks de {{amount}}%"
       },
       "ambrosiaCubes3": {
         "name": "Module d'Ambroisie de Cubes III",
-        "description": "A darkness emboldens this module. +20% cubes / lvl, and the effect is 3% stronger per level of Ambrosia Cube Module II. Every 5 levels gives 1.2x cubes.",
-        "effect": "This third generation Cube module increases cube gain by {{amount}}%"
+        "description": "Les ténèbres amplifient ce module. +20% de Cubes/nv, et l'effet est 3% plus puissant par niveau du module d'Ambroisie de Cubes II. Chaque tranche de 5 niveaux donne 1,2x plus de Cubes.",
+        "effect": "Ce module de Cube de troisième génération augmente les gains de Cubes de {{amount}}%"
       },
       "ambrosiaLuck3": {
         "name": "Module d'Ambroisie de chance III",
-        "description": "A darkness emboldens this module. +1 &#9752 Ambrosia Luck/lvl, and the effect is multiplied by the total number of Blueberries you own!",
-        "effect": "This third generation Luck module increases &#9752 Ambrosia Luck by {{amount}}"
+        "description": "Les ténèbres amplifient ce module. +1 &#9752 chance d'Ambroisie/nv, et l'effet est multiplié par le nombre total de Myrtilles que vous possédez !",
+        "effect": "Ce module de chance de troisième génération augmente la &#9752 Chance d'Ambroisie de {{amount}}"
       },
       "ambrosiaPatreon": {
         "name": "Rappel éhonté de Patreon d'Ambroisie",
-        "description": "In every realm, Platonic sells out. +1% Ambrosia Bar Point speed for every +1% Quarks by the Patreon bonus!",
+        "description": "Dans toutes les dimensions, Platonic est un vendu.+1% de vitesse de la barre d'Ambroisie pour chaque +1% de Quarks du bonus de Patreon !",
         "effect": "Generous Patreon supporters grant you {{amount}}% more Ambrosia Bar Points. If you are not already, consider buying PseudoCoins to support development!"
       },
       "ambrosiaObtainium1": {
