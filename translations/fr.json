@@ -119,62 +119,62 @@
       "ambrosiaPatreon": {
         "name": "Rappel éhonté de Patreon d'Ambroisie",
         "description": "Dans toutes les dimensions, Platonic est un vendu.+1% de vitesse de la barre d'Ambroisie pour chaque +1% de Quarks du bonus de Patreon !",
-        "effect": "Generous Patreon supporters grant you {{amount}}% more Ambrosia Bar Points. If you are not already, consider buying PseudoCoins to support development!"
+        "effect": "Les généreux soutiens Patreon vous donnent {{amount}}% plus de points de la barre d'Ambroisie. Si vous ne le faites pas déjà, envisagez d'acheter des PseudoCoins pour supporter le développement !"
       },
       "ambrosiaObtainium1": {
-        "name": "RNG-based Obtainium Booster",
-        "description": "Gain +0.1% Obtainium per &#9752 Ambrosia Luck!",
-        "effect": "This module increases Obtainium gain by {{amount}}%!"
+        "name": "Amplificateur d'Obtainium basé sur la RNG",
+        "description": "Obtenez +0,1% d'Obtainium par &#9752 chance d'Ambroisie !",
+        "effect": "Ce module augmente les gains d'Obtainium de {{amount}}% !"
       },
       "ambrosiaOffering1": {
-        "name": "RNG-based Offering Booster",
-        "description": "Gain +0.1% Offerings per &#9752 Ambrosia Luck!",
-        "effect": "This module increases Offering gain by {{amount}}%!"
+        "name": "Amplificateur d'Offrandes basé sur la RNG",
+        "description": "Obtenez +0,1% d'Offrandes par &#9752 chance d'Ambroisie !",
+        "effect": "Ce module augmente les gains d'Offrandes de {{amount}}% !"
       },
       "ambrosiaHyperflux": {
-        "name": "Hyperfluxed Wow! Cube Industrial Production",
+        "name": "Production Industrielle Hyperfluxée de Cubes Wow!",
         "description": "Obtenez +1% de Cubes par niveau, par niveau d'amélioration Platonique 4x4 acheté (multiplicatif !!!)",
         "effect": "Ce module augmente le gain de Cubes de {{amount}}% !"
       },
       "ambrosiaBaseObtainium1": {
-        "name": "Basic Obtainium Booster",
-        "description": "+1 Base Obtainium per level! Exceed the possibilities of your strength.",
-        "effect": "This module increases Base Obtainium by {{amount}}!"
+        "name": "Amplificateur d'Obtainium Basique",
+        "description": "+1 Obtainium de base par niveau ! Dépassez les possibilités de votre force.",
+        "effect": "Ce module augmente l'Obtainium de base de {{amount}} !"
       },
       "ambrosiaBaseOffering1": {
-        "name": "Basic Offering Booster",
-        "description": "+1 Base Offering per level! Exceed the possibilities of your strength.",
-        "effect": "This module increases Base Offering by {{amount}}!"
+        "name": "Amplificateur d'Offrandes Basiques",
+        "description": "+1 Offrande de base par niveau ! Dépassez les possibilités de votre force.",
+        "effect": "Ce module augmente les Offrandes de base de {{amount}} !"
       },
       "ambrosiaBaseObtainium2": {
-        "name": "Based Obtainium Booster",
-        "description": "+1 Base Obtainium per level! Channel your inner researcher.",
-        "effect": "This module increases Base Obtainium by {{amount}}!"
+        "name": "Amplificateur d'Obtainium Basé",
+        "description": "+1 Obtainium de base par niveau ! Canalisez votre chercheur intérieur.",
+        "effect": "Ce module augmente l'Obtainium de base de {{amount}} !"
       },
       "ambrosiaBaseOffering2": {
-        "name": "Based Offering Booster",
-        "description": "+1 Base Offering per level! Channel your... I got nothing.",
-        "effect": "This module increases Base Offering by {{amount}}!"
+        "name": "Amplificateur d'Offrandes Basé",
+        "description": "+1 Offrande de base par niveau ! Canalisez votre… je n'ai rien.",
+        "effect": "Ce module augmente les Offrandes de base de {{amount}} !"
       },
       "ambrosiaSingReduction1": {
-        "name": "Singularity Stabilizer Module",
-        "description": "Retrofitted with Amber flux capacitors, your Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity per level, if you are NOT! in an EXALT.",
-        "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
+        "name": "Module Stabilisateur de Singularité",
+        "description": "Modernisées avec des condensateurs de flux d'Ambroisie, vos Singularités sont un peu plus agréables. Les pénalités de Singularité sont retardées de 1 Singularité par niveau, si vous n'êtes PAS! dans un EXALT.",
+        "effect": "Les pénalités de Singularité sont comme si vous étiez {{amount}} Singularités plus basses."
       },
       "ambrosiaInfiniteShopUpgrades1": {
-        "name": "Indigo Infinity Shop Voucher",
-        "description": "A Shop Voucher, printed on an indigo tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
-        "effect": "'Infinity' shop upgrades level +{{amount}}"
+        "name": "Bon de Réduction Indigo de la Boutique Infinie",
+        "description": "Un bon de réduction, imprimé sur une tablette indigo. Chaque niveau donne +1 niveau effectif des améliorations \"infinies\" de la boutique.",
+        "effect": "Niveau des améliorations \"infinies\" de la boutique +{{amount}}"
       },
       "ambrosiaInfiniteShopUpgrades2": {
-        "name": "Violet Infinity Shop Voucher",
-        "description": "A Shop Voucher, printed on a violet tablet. Each grants +1 effective level the 'infinity' shop upgrades.",
-        "effect": "'Infinity' shop upgrades level +{{amount}}"
+        "name": "Bon de Réduction Violet de la Boutique Infinie",
+        "description": "Un bon de réduction, imprimé sur une tablette violette. Chaque niveau donne +1 niveau effectif des améliorations \"infinies\" de la boutique.",
+        "effect": "Niveau des améliorations \"infinies\" de la boutique +{{amount}}"
       },
       "ambrosiaSingReduction2": {
-        "name": "Exo-Chromatic Kinetic Post-Modulated Singularity Stabilizer Module",
-        "description": "Retrofitted with... those kinds of Stabilizers, your EXALTED Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity, if you are ACTUALLY! in an EXALT.",
-        "effect": "Singularity Penalties are as if you were {{amount}} Singularities lower."
+        "name": "Module Exo-Chromatique Cinétique Post-Modulé Stabilisateur de Singularité",
+        "description": "Modernisée avec… ce genre de stabilisateurs, vos Singularités EXALTÉES sont un peu plus agréables. Les pénalités de Singularité sont retardées de 1 Singularité par niveau, si vous être VRAIMENT! dans un EXALT.",
+        "effect": "Les pénalités de Singularité sont comme si vous étiez {{amount}} Singularités plus basses."
       }
     },
     "loadouts": {
@@ -203,24 +203,24 @@
     "notUnlocked": "Clear No Ambrosia Upgrades, Tier 1!",
     "data": {
       "tutorial": {
-        "name": "A beginners guide to Red Ambrosia",
-        "description": "Much like Ambrosia is the life force of the Gods, Red Ambrosia is the life force of your soul. But you don't really care about that... 1.01x Cubes, Obtainium and Offerings per level!",
-        "effect": "Cubes, Obtainium and Offerings are increased by {{amount}}!"
+        "name": "L'Ambroisie Rouge pour les Nuls",
+        "description": "Tout comme l'Ambroisie est la force vitale des Dieux, l'Ambroisie Rouge est la force vitale de votre âme. Mais ça ne vous intéresse pas vraiment… 1,01x Cubes, Obtainium et Offrandes par niveau !",
+        "effect": "Cubes, Obtainium et Offrandes augmentés de {{amount}} !"
       },
       "conversionImprovement1": {
-        "name": "Ambrosia Luck Converter Improvement",
-        "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
+        "name": "Bonificateur de la Conversion de Chance d'Ambroisie",
+        "description": "Chaque tranche de 20 chance d'Ambroisie est convertie en 1 chance d'Ambroisie Rouge ? Nan. Diminuons ce ratio de 1 par niveau.",
+        "effect": "Réduit la quantité de chance d'Ambroisie nécessaire de <<lime | {{amount}}>> !"
       },
       "conversionImprovement2": {
-        "name": "Ambrosia Luck Converter Improvement II: The Red Electric Boogaloo",
-        "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
+        "name": "Bonificateur de la Conversion de Chance d'Ambroisie II : le Boogaloo Électrique Rouge",
+        "description": "Chaque tranche de 20 chance d'Ambroisie est convertie en 1 chance d'Ambroisie Rouge ? Nan. Diminuons ce ratio de 1 par niveau.",
+        "effect": "Réduit la quantité de chance d'Ambroisie nécessaire de <<lime | {{amount}}>> !"
       },
       "conversionImprovement3": {
-        "name": "Ambrosia Luck Converter Improvement III and a half",
-        "description": "Every 20 Ambrosia luck converts to 1 Red Ambrosia Luck? Nah. Let's lower that ratio by 1 per level.",
-        "effect": "Reduces the number of Ambrosia Luck needed by <<lime | {{amount}}>>!"
+        "name": "Bonificateur de la Conversion de Chance d'Ambroisie III et demi",
+        "description": "Chaque tranche de 20 chance d'Ambroisie est convertie en 1 chance d'Ambroisie Rouge ? Nan. Diminuons ce ratio de 1 par niveau.",
+        "effect": "Réduit la quantité de chance d'Ambroisie nécessaire de <<lime | {{amount}}>> !"
       },
       "freeTutorialLevels": {
         "name": "Plus de niveaux du module tutoriel de Myrtilles !",
@@ -248,17 +248,17 @@
         "effect": "Cette amélioration augmente le niveau effectif (de la plupart) des modules de Myrtilles de la ligne 5 de {{amount}} !"
       },
       "blueberryGenerationSpeed": {
-        "name": "The Sands of Time",
-        "description": "+0.2% Ambrosia Bar Point gain per level. They say this hourglass has the benediction of Chronos himself.",
-        "effect": "This upgrade increases Ambrosia Bar Point gain by {{amount}}!"
+        "name": "Les Sables du Temps",
+        "description": "+0,2% de gain de points de la barre d'Ambroisie par niveau. On dit que ce sablier a la bénédiction de Chronos lui-même.",
+        "effect": "Cette amélioration augmente les gains de points de la barre d'Ambroisie de {{amount}} !"
       },
       "regularLuck": {
         "name": "Tactiques de Myrtilles Ossifiées",
-        "description": "Most strange. Adding this gold-colored wax on your blueberries makes you slightly more likely to get Ambrosia! +2 Ambrosia Luck / level.",
-        "effect": "This upgrade increases Ambrosia Luck by {{amount}}!"
+        "description": "Plutôt déconcertant. Ajouter cette cire de couleur dorée sur vos Myrtilles augmente légèrement vos chances d'obtenir de l'Ambroisie ! +2 chance d'Ambroisie / niveau.",
+        "effect": "Cette amélioration augmente la chance d'Ambroisie de {{amount}} !"
       },
       "redGenerationSpeed": {
-        "name": "Millenium-Aged Red Ambrosia",
+        "name": "Ambroisie Rouge Millénaire",
         "description": "Surely, with how long this Ambrosia is left to sit, it knows something about time. +0.3% more Red Ambrosia Bar Points per level.",
         "effect": "This upgrade increases Red Ambrosia Bar Point gain by {{amount}}!"
       },
