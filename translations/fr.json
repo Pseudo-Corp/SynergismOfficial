@@ -627,7 +627,7 @@
       "37": "Multipliez la production de Cristaux par le logarithme décimal du nombre de Diamants possédés. Les prestiges donnent plus d'Offrandes en fonction du temps écoulé. [jusqu'à +15 pour 1 800 secondes]",
       "38": "Débloquez la rune de Duplication !",
       "43": "Les Renforts d'Accélérateur peuvent être achetés depuis n'importe quelle fenêtre. Débloquez la fonctionnalité auto-Prestige.",
-      "44": "Débloquez la Rune du Prisme ! Les Transcendances donnent plus d'Offrandes, en fonction du temps écoulé. [jusqu'à +15 pour 1800 secondes]",
+      "44": "Débloquez la Rune Prismatique ! Les Transcendances donnent plus d'Offrandes, en fonction du temps écoulé. [jusqu'à +15 pour 1800 secondes]",
       "45": "Réduisez jusqu'à 5 % la croissance des impôts, en fonction de la durée du Prestige.",
       "46": "Réduisez jusqu'à 5% de plus la croissance des impôts, en fonction de la durée du Prestige.",
       "47": "Réduisez jusqu'à 10% de PLUS la croissance des impôts, en fonction de la durée du Prestige !",
@@ -745,7 +745,7 @@
       "256": "+{{x}}% d'Hypercubes [Maximum : 15% à 1e25 de score d'Ascension]. De plus, le taux de conversion de Poudre de Surfusion est 5% meilleur !",
       "257": "+{{x}}% de Platonics [Maximum : 15% à 1e25 de score d'Ascension]. De plus, le taux de conversion de Poudre de Surfusion est 5% meilleur !",
       "258": "+{{x}}% d'Hepteracts [Maximum : 15% à 1e25 de score d'Ascension]",
-      "259": "Le score de Corruption est augmenté de 1% pour chaque dilatation des Hepteracts des Abysses !",
+      "259": "Le score de Corruption est augmenté de 1% pour chaque dilatation des Hepteracts Abyssaux !",
       "260": "Vous obtenez 10% plus d'Ascensions, pour toujours !",
       "261": "Vous obtenez 10% d'Ascensions supplémentaires, pour toujours !",
       "262": "Les Ascensions sont {{x}}% plus rapides ! Maximum : +10%",
@@ -869,7 +869,7 @@
       "per": {
         "1": "+10 Renforts de Multiplicateur de base ! [+0,05 à leur puissance !] Actuellement : ",
         "2": "+10% de Renforts de Multiplicateur ! Actuellement : ",
-        "3": "+0,04 EXP de Rune de base par Offrande ! Actuellement : "
+        "3": "+0,04 expérience de Rune de base par Offrande ! Actuellement : "
       },
       "first": "+1 Multiplicateur gratuit ! +1 EXP de base par Offrande utilisée !",
       "start": "Commencer [Pas de Multiplicateurs]",
@@ -994,7 +994,7 @@
       "goal": "Objectif : obtenez {{value}} Éclats de Mythos dans le Défi.",
       "per": {
         "1": "+0,25 à la puissance de base des bâtiments ! Actuellement : ",
-        "2": "+20% d'EXP pour la Rune du Prisme ! Actuellement : ",
+        "2": "+20% d'EXP pour la Rune Prismatique ! Actuellement : ",
         "3": "Offrandes de Transcendance +4% ! Actuellement : "
       },
       "first": "Débloque la fonctionnalité Fourmilière ! Inclut 20 nouvelles Recherches. Une amélioration globale.",
@@ -1201,8 +1201,8 @@
       "39": "Wow! Je veux plus de score des complétions du Défi 10.",
       "40": "Wow! Je veux que les tributs d'Athéna donnent plus de bonus 1.",
       "41": "Wow! Je veux pirater plus de score 3.",
-      "42": "Wow! I want some Immaculate Obtainium.",
-      "43": "Wow! I want even more Immaculate Obtainium!",
+      "42": "Wow! Je veux un peu d'Obtainium Immaculé.",
+      "43": "Wow! Je veux encore plus d'Obtainium Immaculé !",
       "44": "Wow! Je veux que les tributs de Midas donnent plus de bonus 1.",
       "45": "Wow! Je veux que les tributs d'Hermès donnent plus de bonus 1.",
       "46": "Wow! Je veux encore PLUS d’Offrandes !",
@@ -1425,7 +1425,7 @@
       "76": "[4x1] Bienvenue dans le pays des recherches onéreuses. Voici +10% d'Obtainium par niveau pour vous aider !",
       "77": "[4x2] Augmente de 10 la limite de niveau de la Rune de l'Épargne par niveau, et donne +2% d'EXP à cette Rune.",
       "78": "[4x3] Augmente de 10 la limite de niveau de la Rune de Célérité par niveau, et donne +2% d'EXP à cette Rune.",
-      "79": "[4x4] Augmente de 10 la limite de niveau de la Rune du Prisme par niveau, et donne +2% d'EXP à cette Rune.",
+      "79": "[4x4] Augmente de 10 la limite de niveau de la Rune Prismatique par niveau, et donne +2% d'EXP à cette Rune.",
       "80": "[4x5] Augmente de 10 la limite de niveau de la Rune de Duplication par niveau, et donne +2% d'EXP à cette Rune.",
       "81": "[4x6] Vous trouvez que les recherches précédentes étaient hors de prix ? Vous allez avoir besoin de cela ! [+10% d'Obtainium / niveau]",
       "82": "[4x7] Permanently UNLOCK the Rune of Superior Intellect! [+%Ob / +Ant Speed / +%Off.]",
@@ -1562,7 +1562,7 @@
     "hoverToBuyOff": "Achat au survol [INACTIF]",
     "hover": "Survolez la grille pour obtenir des détails sur les recherches !",
     "resets": "Resets upon the next reset tier.",
-    "doesNotReset": "NEVER resets!"
+    "doesNotReset": "JAMAIS réinitialisé !"
   },
   "shop": {
     "upgradeDescriptions": {
@@ -1671,7 +1671,7 @@
     "buy10": "Acheter : 10",
     "buy1": "Acheter : 1",
     "buyMax": "Acheter : MAX",
-    "buyAny": "Buy: ANY",
+    "buyAny": "Acheter : configurer",
     "upgradeEffects": {
       "currentEffect": "Effet actuel :",
       "offeringPotion": "Immediately, gain <<orange|{{amount}}>> Offerings. Since you've drank <<gold|{{amount2}}>> of these potions, you permanently gain <<orange|+{{amount3}}>> Base Offerings. Drink <<gold|{{amount4}}>> more to increase by 1.",
@@ -1916,7 +1916,7 @@
         "default": "Les Recherches relatives à l'ouverture des Cubes ne se réinitialisent plus à chaque Ascension."
       },
       "irishAnt": {
-        "name": "Irish Ants",
+        "name": "Fourmis Irlandaises",
         "default": "Ants blessed with the luck of the Irish grant <<limegreen|☘ {{i}}>> Ambrosia Luck!"
       },
       "irishAnt2": {
@@ -1924,7 +1924,7 @@
         "default": "Ants blessed with more fortunate luck of the Irish increase base ☘ Ambrosia Luck by <<limegreen|{{percent}}%>>! +1% per perk level."
       },
       "overclocked": {
-        "name": "Overclocked",
+        "name": "Surcadencé",
         "default": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!"
       },
       "wowCubeAutomatedShipping": {
@@ -1962,11 +1962,11 @@
         "default": "Every use of the 'Add' Special Action gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3."
       },
       "goldenRevolution4": {
-        "name": "Golden Revolution IV",
+        "name": "Révolution Dorée IV",
         "default": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!"
       },
       "octeractMetagenesis": {
-        "name": "Octeract Metagenesis",
+        "name": "Métagenèse d'Octeracts",
         "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 640)^0.5, (level^2 * free/125000)^0.333 respectively ",
         "default": "Gives free levels of Octeract Cogenesis based on your current free levels and purchased levels: (level * free / 1000)^0.5"
       },
@@ -2801,7 +2801,7 @@
       "hepteract": "Forge d'Hepteract"
     },
     "singularity": {
-      "perks-penalties": "Avantages / Pénalités",
+      "perks-penalties": "Faveurs / Pénalités",
       "octeracts": "Octeracts",
       "ambrosia": "Ambroisie"
     },
@@ -3585,7 +3585,7 @@
     "power": {
       "1": "Bonus de la Rune de Célérité : +{{bonus}} Accélérateurs, +{{percent}}% d'Accélérateurs, +{{boost}} Renforts d'Accélérateur.",
       "2": "Bonus de la Rune de Duplication : +{{mult1}} Multiplicateurs, +{{mult2}}% de Multiplicateurs, -{{tax}}% de croissance des impôts.",
-      "3": "Bonus de la Rune du Prisme : efficacité de tous les producteurs de Cristaux multipliée par {{mult}}, +{{gain}} niveaux d'améliorations de Cristal gratuits.",
+      "3": "Bonus de la Rune Prismatique : efficacité de tous les producteurs de Cristaux multipliée par {{mult}}, +{{gain}} niveaux d'améliorations de Cristal gratuits.",
       "4": "Bonus de la Rune de l'Épargne : retarde l'augmentation des coûts des bâtiments de {{delay}}%. +{{chance}}% de chances de recyclage des Offrandes. -{{tax}}% de croissance des impôts.",
       "5": "S. Intellect Rune Bonus: Obtainium gain x{{gain}}. Ant Speed: x{{speed}}. Offerings x{{offerings}}",
       "6": "Bonus de la Rune d'A.I. : +{{percent1}}% de Quarks, +{{percent2}}% de Cubes de tous les types lors des Ascensions.",
@@ -3649,7 +3649,7 @@
       "bonusRuneLevels": {
         "speed": "Niveaux gratuits pour la Rune de Célérité : {{x}}",
         "duplication": "Niveaux gratuits pour la Rune de Duplication : {{x}}",
-        "prism": "Niveaux gratuits pour la Rune du Prisme : {{x}}",
+        "prism": "Niveaux gratuits pour la Rune Prismatique : {{x}}",
         "thrift": "Niveaux gratuits pour la Rune de l'Épargne : {{x}}",
         "SI": "Niveaux gratuits pour la Rune d'IS : {{x}}"
       },
@@ -3657,7 +3657,7 @@
         "exemption": "Effet mythique : +400 niveaux gratuits pour la Rune de Duplication !",
         "chronos": "Effet mythique : +400 niveaux gratuits pour la Rune de Célérité !",
         "midas": "Effet mythique : +400 niveaux gratuits pour la Rune de l'Épargne !",
-        "metaphysics": "Effet mythique : +400 niveaux gratuits pour la Rune du Prisme !",
+        "metaphysics": "Effet mythique : +400 niveaux gratuits pour la Rune Prismatique !",
         "polymath": "Effet mythique : +400 niveaux gratuits pour la Rune d'IS !",
         "mortuus": "Effet mythique : obtenez de la vitesse de Fourmis en fonction des niveaux des Runes !",
         "plastic": "Effet mythique : obtenez 1x la valeur normale des Quarks (blague) !"
@@ -3705,9 +3705,9 @@
     "names": {
       "speed": "Rune de Célérité",
       "duplication": "Rune de Duplication",
-      "prism": "Rune du Prisme",
+      "prism": "Rune Prismatique",
       "thrift": "Rune de l'Épargne",
-      "SI": "Intelligence Supérieure",
+      "SI": "Intellect Supérieur",
       "IA": "Ascension Infinie",
       "AOAG": "Antiquités du Dieu Fourmi"
     },
@@ -4537,19 +4537,19 @@
       "RedAmbrosia": "Le Dé qui Décide de votre Destin",
       "Exalt5": "Récompense de l'EXALT 5",
       "ShopRedLuck1": "Dé d'Asmodée seconde classe :",
-      "ShopRedLuck2": "Dice of Asmodeus:",
-      "ShopRedLuck3": "High Class Dice of Asmodeus:",
-      "Viscount": "Benefits of being a Viscount:",
-      "Total": "Total Red Ambrosia Luck:"
+      "ShopRedLuck2": "Dé d'Asmodée :",
+      "ShopRedLuck3": "Dé d'Asmodée première classe :",
+      "Viscount": "Bénéfices d'être un Vicomte :",
+      "Total": "Chance d'Ambroisie Rouge totale :"
     },
     "redAmbrosiaGenerationStats": {
-      "title": "Red Ambrosia Bar Points",
-      "PseudoCoins": "PseudoCoin Upgrade:",
-      "Base": "Visited Ambrosia Subtab after clearing EXALT 5x1:",
+      "title": "Points de la barre d'Ambroisie Rouge",
+      "PseudoCoins": "Amélioration de PseudoCoin :",
+      "Base": "Visité l'onglet d'Ambroisie après avoir terminé l'EXALT 5x1 :",
       "BlueberrySpeed": "Vitesse venant de l'Ambroisie (0,5 RD après 1 000) :",
       "RedAmbrosia": "Ambroisie Rouge Millénaire :",
-      "Exalt5": "EXALT Reward - No Ambrosia Upgrades:",
-      "Total": "Total Red Ambrosia Bar Points/s:"
+      "Exalt5": "Récompense d'EXALT - Pas d'améliorations d'Ambroisie :",
+      "Total": "Points totaux de la barre d'Ambroisie Rouge/s :"
     },
     "shopVoucherStats": {
       "title": "Free 'Infinity CO' Quark Shop Levels",
@@ -4718,7 +4718,7 @@
         "tesseractCost": "{{a}}/{{b}} Wow! Tesseracts",
         "hypercubeCost": "{{a}}/{{b}} Wow! Hypercubes",
         "platonicCost": "{{a}}/{{b}} Platonic! Cubes",
-        "hepteractCost": "{{a}}/{{b}} Hepteracts of the Abyss",
+        "hepteractCost": "{{a}}/{{b}} Hepteracts Abyssaux",
         "platonicCanBuy": "===Affordable! Click to buy!===",
         "platonicCannotBuy": "===You cannot afford this!===",
         "platonicCanBuyMaxed": "===Maxed==="
@@ -5006,12 +5006,12 @@
       "INSTANT_UNLOCK_1": "The Talisman Activator-inator",
       "INSTANT_UNLOCK_2": "The Rune Discoverer-inator",
       "CUBE_BUFF": "Gold-Infused Cubes",
-      "AMBROSIA_LUCK_BUFF": "The Gold Leaf Clovers",
-      "AMBROSIA_GENERATION_BUFF": "Alchemized Ambrosia Speedup",
+      "AMBROSIA_LUCK_BUFF": "Les Trèfles à Feuilles d'Or",
+      "AMBROSIA_GENERATION_BUFF": "Accélération Alchimisée d'Ambroisie",
       "GOLDEN_QUARK_BUFF": "Even Golder Quarks",
       "FREE_UPGRADE_PROMOCODE_BUFF": "Bribing the Daily Code",
       "CORRUPTION_LOADOUT_SLOT_QOL": "More Corruption Loadouts!",
-      "AMBROSIA_LOADOUT_SLOT_QOL": "More Ambrosia Loadouts!",
+      "AMBROSIA_LOADOUT_SLOT_QOL": "Plus de configurations d'Ambroisie !",
       "AUTO_POTION_FREE_POTIONS_QOL": "Potion Duplication Glitch",
       "OFFLINE_TIMER_CAP_BUFF": "Cozier Beds Enshrined in Gold",
       "ADD_CODE_CAP_BUFF": "The Limited-Edition PLAT-P Calculator",
@@ -5024,12 +5024,12 @@
       "INSTANT_UNLOCK_1": "The Plastic Talisman is <<gold | {{descriptor}}>> always unlocked! <<orange | Level Cap +{{amount}}>>",
       "INSTANT_UNLOCK_2": "The Rune of Infinite Ascent is <<gold | {{descriptor}}>> always unlocked! <<orange | Bonus Levels +{{amount}}>>",
       "CUBE_BUFF": "Cube Gain is multiplied by <<gold | {{amount}}>>",
-      "AMBROSIA_LUCK_BUFF": "Ambrosia Luck is increased by <<gold | {{amount}}>>",
-      "AMBROSIA_GENERATION_BUFF": "Ambrosia Bar Points production is multiplied by <<gold | {{amount}}>>",
+      "AMBROSIA_LUCK_BUFF": "La chance d'Ambroisie est augmentée de <<gold | {{amount}}>>",
+      "AMBROSIA_GENERATION_BUFF": "La production de points de la barre d'Ambroisie est multipliée par <<gold | {{amount}}>>",
       "GOLDEN_QUARK_BUFF": "Golden Quark Gain is multiplied by <<gold | {{amount}}>>",
       "FREE_UPGRADE_PROMOCODE_BUFF": "Code 'Daily' gives <<gold | {{amount}}x>> the Free Upgrades!",
       "CORRUPTION_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Corruption Loadout slots!",
-      "AMBROSIA_LOADOUT_SLOT_QOL": "You have <<gold | {{amount}}>> additional Ambrosia Loadout slots!",
+      "AMBROSIA_LOADOUT_SLOT_QOL": "Vous avez <<gold | {{amount}}>> emplacements de configuration d'Ambroisie supplémentaires !",
       "AUTO_POTION_FREE_POTIONS_QOL": "Auto-Potion is <<gold | {{descriptor}}>> FREE!",
       "OFFLINE_TIMER_CAP_BUFF": "Offline Time Capacity is multiplied by <<gold | {{amount}}>>",
       "ADD_CODE_CAP_BUFF": "Code 'add' Capacity is multiplied by <<gold | {{amount}}>>",
@@ -5057,8 +5057,8 @@
         "description": "Fast-forward real-life time on your Ascension Timer!"
       },
       "AMBROSIA": {
-        "title": "Ambrosia Time Skips",
-        "description": "Fast-forward real-life time on your Ambrosia and Red Ambrosia Bar Points!"
+        "title": "Sauts temporels d'Ambroisie",
+        "description": "Accélérez le temps pour vos points des barres d'Ambroisie et d'Ambroisie Rouge !"
       },
       "purchaseBtn": "+{{time}} hours [<<gold|{{cost}} PseudoCoins>>]",
       "warning": "<<gold | ⚠>> Takes a few seconds to apply after purchase! <<gold | ⚠>>"
