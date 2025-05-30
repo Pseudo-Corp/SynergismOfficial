@@ -199,8 +199,8 @@
     "amount": "Ambroisie : <<red|{{redAmbrosia}}>> Disponible | <<red|{{lifetimeRedAmbrosia}}>> Totale",
     "purchaseWarning": "<<gold | ⚠>> Contrairement aux modules de Myrtilles, vous ne pouvez <<red | PAS>> rembourser cette amélioration. Merci de dépenser sagement !",
     "perGen": "Vous obtenez pour le moment <<red|{{guaranteed}}>> Ambroisie Rouge avec <<red|{{extraChance}}%>> de chance d'en obtenir une supplémentaire. [<<red|Luck: &#9861; {{ambrosiaLuck}}>>]",
-    "redAmbrosiaBuyPrompt": "How many Red Ambrosia would you like to spend? You have {{amount}} Red Ambrosia. Type -1 to use max!",
-    "notUnlocked": "Clear No Ambrosia Upgrades, Tier 1!",
+    "redAmbrosiaBuyPrompt": "Combien d'Ambroisie Rouge voulez-vous dépenser ? Vous avez {{amount}} Ambroisie Rouge. Entrez -1 pour en utiliser le maximum possible !",
+    "notUnlocked": "Terminez Pas d'Améliorations d'Ambroisie, rang 1 !",
     "data": {
       "tutorial": {
         "name": "L'Ambroisie Rouge pour les Nuls",
