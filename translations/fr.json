@@ -1788,122 +1788,122 @@
       },
       "xyz": {
         "name": "XYZ : eXtra paYe quotidienneZ",
-        "hasLevel2": "In addition to GQ and guaranteed free levels to GQ 1/2/3 at +0.2/+0.2/+1, you get DOUBLE the amount of free upgrade levels from the Daily Special Action!",
-        "hasLevel1": "In addition to GQ and free upgrade levels, the Daily Special Action gives you additional free levels to GQ 1/2/3 at +0.2/+0.2/+1 levels respectively.",
-        "default": "The Daily Special Action now rewards you with Golden Quarks and free levels for random Singularity upgrades, both scaling with your singularity count!"
+        "hasLevel2": "En plus des QD et des niveaux gratuits des améliorations de QD 1/2/3 de +0,2/+0,2/+1, vous obtiendrez le DOUBLE d'améliorations gratuites de l'action spéciale Quotidienne !",
+        "hasLevel1": "En plus des QD et des niveaux gratuits d'améliorations, l'action spéciale Quotidienne donnera des niveaux gratuits additionnels pour les améliorations de QD 1/2/3, de +0,2/+0,2/+1 niveaux respectivement.",
+        "default": "L'action spéciale Quotidienne vous récompense maintenant avec des Quarks Dorés et des niveaux gratuits pour des améliorations de Singularité aléatoires, tous les deux en fonction de votre nombre de Singularités !"
       },
       "generousOrbs": {
-        "name": "Generous Orbs",
-        "default": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%"
+        "name": "Orbes Généreuses",
+        "default": "L'effet des Orbes de Surfusion sur les Quarks à l'ouverture des Cubes peut maintenant monter jusqu'à {{amount}}%"
       },
       "tokenInheritance": {
-        "name": "Token Inheritance",
-        "default": "At the start of a Singularity, gain {{amount}} additional Campaign Tokens for absolutely nothing!"
+        "name": "Héritage de Jetons",
+        "default": "Au début de la Singularité, obtenez {{amount}} Jetons de Campagne additionnels en échange de rien du tout !"
       },
       "autoCampaigns": {
-        "name": "Automatic Campaigns",
-        "default": "If your current corruption is of equal or higher 'difficulty' than a Campaign, gain Challenge 10 Completions when you ascend, outside of the Campaign!"
+        "name": "Campagnes Automatiques",
+        "default": "Si votre Corruption actuelle est autant ou plus \"difficile\" qu'une Campagne donnée, obtenez des complétions du Défi 10 quand vous effectuez une Ascension, en dehors de la Campagne !"
       },
       "firstClearTokens": {
-        "name": "First to the Slaughter",
-        "default": "Gain +5 tokens for each Campaign for which you have at least one Challenge 10 completion!"
+        "name": "Premier à l'Abattoir",
+        "default": "Obtenez +5 Jetons pour les Campagnes pour lesquelles vous avez au moins une complétion du Défi 10 !"
       },
       "lastClearTokens": {
-        "name": "The Blessing of Finality, Campaigns",
-        "default": "Gain +10 tokens for each Campaign for which you have the maximum Challenge 10 completions!"
+        "name": "Les Campagnes, Bénédiction de la Finalité",
+        "default": "Obtenez +10 Jetons pour les Campagnes pour lesquelles vous avez le nombre maximal de complétions du Défi 10 !"
       },
       "bonusTokens": {
-        "name": "More Tokens!",
-        "default": "Campaigns give +{{amount}}% more tokens! Rounded down, of course."
+        "name": "Plus de Jetons !",
+        "default": "Les Campagnes donnent +{{amount}}% de Jetons ! Arrondi à l'inférieur, bien évidemment."
       },
       "cubeToQuark": {
-        "name": "Cube to Quark Corner",
-        "default": "Gain +{{amount}}% more Quarks from opening Cubes!"
+        "name": "Coin des Quarks de Cubes",
+        "default": "Obtenez +{{amount}}% de Quarks en ouvrant des Cubes !"
       },
       "researchDummies": {
-        "name": "Research for Dummies",
-        "hasLevel1": "You permanently keep Auto Research and can Research using Hover to Buy!",
-        "default": "You can Research using Hover to Buy"
+        "name": "La Recherche pour les Nuls",
+        "hasLevel1": "Vous gardez la Recherche Auto de façon permanente et pouvez rechercher en utilisant Survoler pour Acheter !",
+        "default": "Vous pouvez rechercher en utilisant Survoler pour Acheter"
       },
       "antGodsCornucopia": {
-        "name": "Ant God's Cornucopia",
-        "hasLevel3": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e12 multiplier!",
-        "hasLevel2": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1e6 multiplier!",
-        "hasLevel1": "Ant Speed now has an immaculate x4.44 multiplier and a true immaculate x1,000 multiplier!",
-        "default": "Ant Speed now has a permanent immaculate x4.44 multiplier."
+        "name": "Corne d'Abondance du Dieu Fourmi",
+        "hasLevel3": "La vitesse des Fourmis a maintenant un multiplicateur immaculé de x4,44 et un multiplicateur vraiment immaculé de x1e12 !",
+        "hasLevel2": "La vitesse des Fourmis a maintenant un multiplicateur immaculé de x4,44 et un multiplicateur vraiment immaculé de x1e6 !",
+        "hasLevel1": "La vitesse des Fourmis a maintenant un multiplicateur immaculé de x4,44 et un multiplicateur vraiment immaculé de x1 000 !",
+        "default": "La vitesse des Fourmis a maintenant un multiplicateur immaculé permanent de x4,44."
       },
       "sweepomatic": {
-        "name": "Automatic Sweep-o-matic Mk.2",
+        "name": "Balayage Automatique v2",
         "hasLevel1": "Le balayage automatique de Défis commencera maintenant les Défis d'Ascension à C10, et vous pouvez maintenant balayer les Défis d'Ascension si vous avez les Défis instantanés 2, pour vous économiser quelques clics !",
-        "default": "The Auto Challenge Sweeper will now start Ascension Challenges at c10, saving you clicks!"
+        "default": "Le balayage automatique des Défis commencera maintenant les Ascensions au Défi 10, vous économisant des clics !"
       },
       "superStart": {
-        "name": "Super Start",
-        "hasLevel4": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 2.22e2222 Particles and 500 Obtainium",
-        "hasLevel3": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e100 Particles and 500 Obtainium",
-        "hasLevel2": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, 1e16 Particles and 500 Obtainium",
-        "hasLevel1": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos and 10 Particles",
-        "default": "You start each Ascension with 1 Transcension and 1001 Mythos"
+        "name": "Super Départ",
+        "hasLevel4": "Vous commencez chaque Ascension avec une Transcendance, une Réincarnation, 1001 Mythos, 2,22e2 222 Particules et 500 Obtainium.",
+        "hasLevel3": "Vous commencez chaque Ascension avec une Transcendance, une Réincarnation, 1001 Mythos, 1e100 Particules et 500 Obtainium.",
+        "hasLevel2": "Vous commencez chaque Ascension avec une Transcendance, une Réincarnation, 1001 Mythos, 1e16 Particules et 500 Obtainium.",
+        "hasLevel1": "Vous commencez chaque Ascension avec une Transcendance, une Réincarnation, 1001 Mythos et 10 Particules.",
+        "default": "Vous commencez chaque Ascension avec une Transcendance et 1001 Mythos."
       },
       "notSoChallenging": {
-        "name": "Not So Challenging",
+        "name": "Pas Si Déficille",
         "hasLevel4": "Vous commencez chaque Ascension avec une complétion des Défis 6, 7 et 9, et 5 complétions du Défi 8.",
         "hasLevel3": "Vous commencez chaque Ascension avec une complétion des Défis 6 et 7, et 5 complétions du Défi 8.",
         "hasLevel2": "Vous commencez chaque Ascension avec une complétion des Défis 6, 7 et 8.",
         "hasLevel1": "Vous commencez chaque Ascension avec une complétion des Défis 6 et 7.",
-        "default": "You start each Ascension with 1 completion of Challenge 6"
+        "default": "Vous commencez chaque Ascension avec une complétion du Défi 6."
       },
       "automationUpgrades": {
-        "name": "Automation Upgrades",
-        "hasLevel5": "Having achieved 100 Singularity, you will never forget the taste of Wow! A pile of Chocolate Chip Cookies!",
-        "hasLevel4": "You always have w1x4 through w1x8 and w2x10; r6x5, r6x10 and r6x20. Automation Shop is also automatically purchased!",
-        "hasLevel3": "You always have w1x4 through w1x8 and w2x10. Automation Shop is now automatically purchased!",
+        "name": "Améliorations d'Automatisation",
+        "hasLevel5": "Ayant atteint la Singularité 100, vous n'oublierez jamais le goût de Wow! Un tas de Cookies aux Pépites de Chocolat !",
+        "hasLevel4": "Vous conservez w1x4 à w1x8 et w2x10 ; r6x5, r6x10 et r6x20. La Boutique d'Automation est également achetée automatiquement !",
+        "hasLevel3": "Vous conservez w1x4 à w1x8 et w2x10. La Boutique d'Automation est maintenant achetée automatiquement !",
         "hasLevel2": "Vous avez toujours w1x4 à w1x8 et w2x10.",
         "hasLevel1": "Vous avez toujours w1x4 à w1x8.",
-        "default": "You always have w1x7. (Autobuyers for Particle buildings)"
+        "default": "Vous conservez w1x7. (Autoacheteurs pour les bâtiments de Particules)"
       },
       "evenMoreQuarks": {
-        "name": "Even More Quarks",
+        "name": "Encore Plus de Quarks",
         "bug": "Ceci est un bug ! Contactez Platonic si vous voyez ce message, d'une manière ou d'une autre.",
-        "default": "You gain <<cyan|{{stack}}>> stacks of <<cyan|5%>> Quarks! Total Increase: <<cyan|+{{inc}}%>>"
+        "default": "Vous obtenez <<cyan|{{stack}}>> fois <<cyan|+5%>> de Quarks ! Augmentation totale : <<cyan|+{{inc}}%>>"
       },
       "shopSpecialOffer": {
-        "name": "Shop Special Offer",
-        "hasLevel2": "Reincarnation and Ascension tier Shop upgrades are kept permanently!",
-        "hasLevel1": "You permanently keep 100 free levels of each Shop upgrade in the first row",
-        "default": "You start each Singularity with 10 free levels of each Shop upgrade in the first row"
+        "name": "Offre Spéciale de la Boutique",
+        "hasLevel2": "Les améliorations de la Boutique concernant les Réincarnations et les Ascensions sont toujours conservées !",
+        "hasLevel1": "Vous conservez 100 niveaux gratuits de chaque amélioration de la Boutique de la première ligne.",
+        "default": "Vous commencez chaque Singularité avec 10 niveaux gratuits de chaque amélioration de la Boutique de la première ligne."
       },
       "potionAutogenerator": {
-        "name": "Potion Autogenerator",
-        "default": "Every 180 Seconds, automatically use one potion for Obtainium and Offerings! Interval reduced by 3% per singularity."
+        "name": "Autogénérateur de Potions",
+        "default": "Toutes les 180 secondes, utilisez automatiquement une potion d'Obtainium et d'Offrandes ! Intervalle réduit de 3% par Singularité."
       },
       "respecBeGone": {
-        "name": "Respec, be gone!",
-        "default": "Talismans now buff all runes at all times!"
+        "name": "Spécialisation, disparait !",
+        "default": "Les Talismans améliorent désormais toutes les Runes tout le temps !"
       },
       "forTheLoveOfTheAntGod": {
-        "name": "For the love of (the Ant) God!",
-        "hasLevel2": "You permanently keep Ant autobuyers and start each Ascension with a Tier 8 Ant",
-        "hasLevel1": "You permanently keep Ant autobuyers and start each Ascension with a Tier 5 Ant",
-        "default": "You permanently keep Ant autobuyers and start each Ascension with a Tier 1 Ant"
+        "name": "Pour l'amour du Dieu (Fourmi) !",
+        "hasLevel2": "Vous conservez les autoacheteurs de Fourmi et commencez chaque Ascension avec une Fourmi de niveau 8.",
+        "hasLevel1": "Vous conservez les autoacheteurs de Fourmi et commencez chaque Ascension avec une Fourmi de niveau 5.",
+        "default": "Vous conservez les autoacheteurs de Fourmi et commencez chaque Ascension avec une Fourmi de niveau 1."
       },
       "itAllAddsUp": {
-        "name": "It all adds up",
-        "default": "The 'Add' Special Action reward & cooldown is divided by {{div}} while its maximum capacity is multiplied the same amount! (Rounded Up)."
+        "name": "L'addition, s'il vous plaît",
+        "default": "Les récompenses et le délai de l'action spéciale \"Addition\" sont divisés par {{div}} tandis que sa capacité maximale est multiplié par la même quantité ! (Arrondi au supérieur)."
       },
       "automagicalRunes": {
-        "name": "Automagical Runes",
-        "hasLevel3": "Runes autobuyer will buy Blessings, Spirits, Talisman Shards, Fragments and will level up Infinite Ascent AND Antiquities of Ant God",
-        "hasLevel2": "Runes autobuyer will buy Blessings, Spirits, Talisman Shards, Fragments and will level up Infinite Ascent",
-        "hasLevel1": "Runes autobuyer will buy Blessings, Spirits and level up Infinite Ascent",
-        "default": "Runes autobuyer will buy Blessings and Spirits"
+        "name": "Runes Automagiques",
+        "hasLevel3": "L'acheteur automatique de Runes achète aussi les Bénédictions, les Esprits, les Morceaux de Talismans et les Runes d'Ascension Infinie et d'Antiquité du Dieu Fourmi.",
+        "hasLevel2": "L'acheteur automatique de Runes achète aussi les Bénédictions, les Esprits, les Morceaux de Talismans et la Rune d'Ascension Infinie.",
+        "hasLevel1": "L'acheteur automatique de Runes achète aussi les Bénédictions, les Esprits et la Rune d'Ascension Infinie.",
+        "default": "L'acheteur automatique des Runes achète aussi les Bénédictions et les Esprits"
       },
       "eternalAscensions": {
-        "name": "Eternal Ascensions",
-        "default": "Unlock a new Real Time based Auto Ascension mode!"
+        "name": "Ascensions Éternelles",
+        "default": "Débloquez un nouveau mode d'Ascension automatique basé sur le temps réel !"
       },
       "exaltedAchievements": {
-        "name": "Exalt Vault",
+        "name": "Coffre-Fort d'Exalt",
         "default": "Unlocks new, very difficult challenges! They may only be entered by reaching high enough Singularities!"
       },
       "derpSmithsCornucopia": {
