@@ -788,7 +788,7 @@
       },
       "ascensionChallenge": "Cliquez ici si vous êtes dans un Défi d'Ascension et que vous voulez en sortir. Vous connaissez la chanson !",
       "ascension": "Terminez l'Ascension, C10 est requis ! +{{cubeAmount}} Cubes Wow! au moment de le faire ! Temps : {{timeSpent}} secondes. (Temps réel : {{realTimeSpent}} secondes)",
-      "singularity": "Êtes-vous prêt·e à abandonner vous lauriers pour un plus grand Défi ? Le Dieu Fourmi vous soudoie avec {{gqAmount}} Quarks d'Or. Temps : {{timeSpent}} secondes."
+      "singularity": "Êtes-vous prêt·e à abandonner vous lauriers pour un plus grand Défi ? Le Dieu Fourmi vous soudoie avec {{gqAmount}} Quarks Dorés. Temps : {{timeSpent}} secondes."
     }
   },
   "ants": {
@@ -1301,7 +1301,7 @@
       "57": "[Cx7] Miam miam ! Maintenant ça me parle… ou pas. Augmentez de 1 la limite des améliorations de Cube 1x1, 2x1, 3x1, 4x1 et 5x1.",
       "58": "[Cx8] Un peu festifs ! Quand il y a un évènement, les gains de tous les Cubes sont multipliés par 1,25.",
       "59": "[Cx9] Un peu acide pour un biscuit. Mais il augmente votre vitesse d'Ascension de 0,25% par niveau, alors de quoi vous plaignez-vous ?",
-      "60": "[Cx10] Wow! La pâtisserie a des restes de gingembre de leur vente de Noël. Réduisez le prix d'achat des Quarks d'Or de 0,003% par niveau.",
+      "60": "[Cx10] Wow! La pâtisserie a des restes de gingembre de leur vente de Noël. Réduisez le prix d'achat des Quarks Dorés de 0,003% par niveau.",
       "61": "[Cx11] Comestibles mais faciles à rater. Ajoutez 125 millisecondes complètes à la tolérance du code 'temps', et augmentez les récompenses de +2% par niveau.",
       "62": "[Cx12] Platonic adore le caramel. Octuplez les gains d'Obtainium et d'Offrandes dans le Défi 15.",
       "63": "[Cx13] Les biscuits Brownie, le meilleur des deux mondes. Augmentez les gains de Cubes normaux en fonction des Hepteracts possédés (+3% par ordre de grandeur).",
@@ -1310,7 +1310,7 @@
       "66": "[Cx16] Vous aimeriez avoir juste un dernier biscuit cuisiné par elle. Obtenez le double de tous les Cubes avant d'avoir acheté OMEGA.",
       "67": "[Cx17] C'est quoi ces horreurs ??? En tout cas, la limite de niveau du Talisman Métaphysique est augmentée de 1337.",
       "68": "[Cx18] Mais enfin ! Ce ne sont même pas des biscuits. +0,01% de Quarks par niveau acheté, et +5% supplémentaires au niveau 1000 !",
-      "69": "[Cx19] Des biscuits dont vous ne garderez aucun souvenir. +12% de Quarks d'Or pendant cette Singularité.",
+      "69": "[Cx19] Des biscuits dont vous ne garderez aucun souvenir. +12% de Quarks Dorés pendant cette Singularité.",
       "70": "[Cx20] L'apogée de la pâtisserie. Rien de ce que vous pourrez manger ne sera meilleur que ceci. Obtenez +0,01% d'Octeracts supplémentaires lors de l'Ascension si le niveau moyen des Corruptions est au moins de 14.",
       "71": "[Cx21] For each talisman rarity upgrade, multiply Obtainium gain by 1.04",
       "72": "[Cx22] For each talisman rarity upgrade, multiply Offering gain by 1.04",
@@ -1619,12 +1619,12 @@
       "shopImprovedDaily3": "Gain 1 additional free Singularity Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily4": "Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
       "offeringEX3": "[Fourni par - Infinité SARL] Obtenez 1,2% d'Offrandes supplémentaires par niveau, de façon multiplicative ! (Le multiplicateur est de 1,012^niveau). Tous les 25 niveaux, obtenez +1 Offrande de base !",
-      "obtainiumEX3": "[Supplied by - Infinity CO.] Gain 1.2% more Obtainium per level, multiplicative! (Multiplier is 1.012^level). Every 25 levels, gain 6% more Immaculate Obtainium Multiplier! (1.06^[level/25])",
-      "chronometerInfinity": "[Supplied by - Infinity CO.] Gain 0.6% more Ascension Speed per level, multiplicative! (Multiplier is 1.006^level). Every 40 levels, gain +0.001 spread on Ascension Speed exponent modifiers on speeds greater than or less than 1 (Check Stats for Nerds for this one)!",
-      "seasonPassInfinity": "[Supplied by - Infinity CO.] Gain 1.2% more cubes per level, multiplicative! (Multiplier is 1.012^level). This effect is raised to the power of 1.25 for Octeract calculations!",
+      "obtainiumEX3": "[Fourni par - Infinité SARL] Obtenez 1,2% d'Obtainium supplémentaire par niveau, de façon multiplicative ! (Le multiplicateur est de 1,012^niveau). Tous les 25 niveaux, obtenez 6% d'Obtainium immaculé multiplicatif ! (1,06^[niveau/25])",
+      "chronometerInfinity": "[Fourni par - Infinité SARL] Obtenez 0,6% de vitesse d'Ascension supplémentaire par niveau, de façon multiplicative ! (Le multiplicateur est de 1,006^niveau). Tous les 40 niveaux, obtenez +0,001 de diffusion des modificateurs d'exposant de vitesse d'Ascension pour les vitesses plus grandes ou plus petites que 1 (allez voir les stats pour les nerds pour celui-ci) !",
+      "seasonPassInfinity": "[Fourni par - Infinité SARL] Obtenez 1,2% de Cubes supplémentaires par niveau, de façon multiplicative ! (Le multiplicateur est de 1,012^niveau). Cet effet est élevé à la puissance 1,25 pour les calculs d'Octeracts !",
       "shopSingularityPenaltyDebuff": "Derpsmith was so proud of your performance in the first EXALT that he wants to make your singularity debuffs weaker. At a cost. A big cost.",
       "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
-      "improveQuarkHept5": "[NOT Supplied by - Infinity CO.] This is 1/50 as effective as a normal improver. Why? Because of balancing...",
+      "improveQuarkHept5": "[NON Fourni par - Infinité SARL] Ceci est 50 fois moins efficace qu'un améliorateur normal. Pourquoi ? À cause de l'équilibrage…",
       "shopAmbrosiaGeneration1": "Cette breloque donne +1% de points de la barre d'Ambroisie par niveau, pour plus d'Ambroisie ! Vous n'avez aucune idée de ce que ça veut dire ? Vous le saurez bientôt.",
       "shopAmbrosiaGeneration2": "Cette nouvelle poudre d'Obtainium renforcée rend votre breloque plus puissante, lui donnant +1% de points de la barre d'Ambroisie, se cumulant de façon multiplicative.",
       "shopAmbrosiaGeneration3": "Il s'avère que rajouter plus de poudre d'Obtainium rend votre breloque encore plus puissante, va savoir. +1% de points de la barre d'Ambroisie par niveau, se cumulant de façon multiplicative.",
@@ -1725,9 +1725,9 @@
       "improveQuarkHept4": "Le rendement décroissant de l'exposant des Hepteracts de Quarks est augmenté de <<cyan|+{{amount}}%>>.",
       "improveQuarkHept5": "Le rendement décroissant de l'exposant des Hepteracts de Quarks est augmenté de <<cyan|+{{amount}}%>>.",
       "shopImprovedDaily": "Le code 'daily' donne <<cyan|+{{amount}}%>> plus de Quarks.",
-      "shopImprovedDaily2": "Le code 'quotidien' donne <<turquoise|+{{amount1}}>> améliorations de Singularité gratuites et <<turquoise|+{{amount2}}%>> plus de Quarks d'Or.",
-      "shopImprovedDaily3": "Le code 'quotidien' donne <<turquoise|+{{amount1}}>> améliorations de Singularité gratuites et <<turquoise|+{{amount2}}%>> plus de Quarks d'Or.",
-      "shopImprovedDaily4": "Le code 'quotidien' donne <<turquoise|+{{amount1}}>> améliorations de Singularité gratuites et <<turquoise|+{{amount2}}%>> plus de Quarks d'Or.",
+      "shopImprovedDaily2": "Le code \"quotidien\" donne <<turquoise|+{{amount1}}>> améliorations de Singularité gratuites et <<turquoise|+{{amount2}}%>> plus de Quarks Dorés.",
+      "shopImprovedDaily3": "Le code 'quotidien' donne <<turquoise|+{{amount1}}>> améliorations de Singularité gratuites et <<turquoise|+{{amount2}}%>> plus de Quarks Dorés.",
+      "shopImprovedDaily4": "Le code 'quotidien' donne <<turquoise|+{{amount1}}>> améliorations de Singularité gratuites et <<turquoise|+{{amount2}}%>> plus de Quarks Dorés.",
       "offeringEX3": "Gain <<goldenrod|{{amount}}%>> more Offerings! Also, gain <<goldenrod|+{{amount2}}>> more Base Offerings!",
       "obtainiumEX3": "Gain <<pink|{{amount}}%>> more Obtainium, and an additional <<pink|{{amount2}}%>> Immaculate Obtainium Multiplier!",
       "chronometerInfinity": "Ascension timer increases <<orange|{{amount}}%>> faster. Exponent spread is increased by <<orange|{{amount2}}>>.",
@@ -2002,29 +2002,29 @@
     },
     "data": {
       "goldenQuarks1": {
-        "name": "Quarks d'Or I",
-        "description": "In the future, you will gain 10% more Golden Quarks on Singularities per level!",
-        "effect": "Permanently gain {{n}}% more Golden Quarks on Singularities."
+        "name": "Quarks Dorés I",
+        "description": "Dans le futur, vous obtiendrez 10% de Quarks Dorés en plus par niveau !",
+        "effect": "Obtenez {{n}}% de Quarks Dorés en plus lors des Singularités."
       },
       "goldenQuarks2": {
-        "name": "Golden Quarks II",
-        "description": "Buying GQ is 0.2% cheaper per level! [After 50%, effect grows much slower]",
-        "effect": "Purchasing Golden Quarks in the shop is {{n}}% cheaper."
+        "name": "Quarks Dorés II",
+        "description": "L'achat de QD est 0,2% moins cher par niveau ! [Après 50%, l'effet augmente beaucoup plus lentement]",
+        "effect": "L’achat de Quarks Dorés dans la Boutique est {{n}}% moins cher."
       },
       "goldenQuarks3": {
-        "name": "Golden Quarks III",
-        "description": "If you buy this, you will gain Golden Quarks per hour from Exports. Leveling up gives (level) additional per hour!",
-        "effect": "Every hour, you gain {{n}} Golden Quarks from exporting."
+        "name": "Quarks Dorés III",
+        "description": "Si vous achetez ceci, vous obtiendrez des Quarks Dorés par heure lors de l'exportation. Améliorer ceci en donne (niveau) supplémentaires par heure !",
+        "effect": "Chaque heure, vous obtenez {{n}} Quarks Dorés en exportant."
       },
       "starterPack": {
         "name": "Paquet Débutant",
-        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources, post-corruption.",
-        "effectHave": "You have unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings.",
-        "effectHaveNot": "You have not unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings."
+        "description": "Achetez ceci ! Achetez ceci ! Les gains de Cubes sont multipliés de façon permanente par 5, et obtenez 6 fois plus d'Obtainium et d'Offrandes de toutes les sources, après corruption.",
+        "effectHave": "Vous avez débloqué un multiplicateur de 5x pour les Cubes et 6x pour l'Obtainium et les Offrandes.",
+        "effectHaveNot": "Vous n'avez pas débloqué un multiplicateur de 5x pour les Cubes et 6x pour l'Obtainium et les Offrandes."
       },
       "wowPass": {
         "name": "Shop Bonanza",
-        "description": "Cette amélioration convaincra le Phoque marchant de vous vendre plus de trucs sympas, qui persistent même lors de la Singularité !",
+        "description": "Cette amélioration convaincra le Phoque marchant de vous vendre plus de trucs sympas, qui persistent même lors des Singularités !",
         "effectHave": "You have unlocked the Shop Bonanza.",
         "effectHaveNot": "You have not unlocked the Shop Bonanza."
       },
@@ -2061,62 +2061,62 @@
       "ascensions": {
         "name": "Improved Ascension Gain",
         "description": "Buying this, you will gain +2% Ascension Count forever, per level! Every 10 levels grants an additional, multiplicative +1% Ascension Count.",
-        "effect": "Ascension Count increases {{n}}% faster."
+        "effect": "Le nombre d'Ascensions augmente {{n}}% plus vite."
       },
       "corruptionFourteen": {
-        "name": "Level Fourteen Corruptions",
-        "description": "Buy this to unlock level fourteen corruptions. :)",
-        "effectHave": "You have gained the ability to use level 14 corruptions. {{m}}",
-        "effectHaveNot": "You have not gained the ability to use level 14 corruptions. {{m}}"
+        "name": "Corruptions de Niveau Quatorze",
+        "description": "Achetez ceci pour déverrouiller les corruptions de niveau 14 :)",
+        "effectHave": "Vous avez obtenu la capacité d'utiliser des corruptions de niveau 14. {{m}}",
+        "effectHaveNot": "Vous n'avez pas obtenu la capacité d'utiliser des corruptions de niveau 14. {{m}}"
       },
       "corruptionFifteen": {
-        "name": "Level Fifteen Corruptions",
-        "description": "This doesn't *really* raise the corruption limit. Rather, it adds one FREE level to corruption multipliers, no matter what (can exceed cap). :)",
-        "effectHave": "You have gained a free corruption level. {{m}}",
-        "effectHaveNot": "You have not gained a free corruption level. {{m}}"
+        "name": "Corruptions de Niveau Quinze",
+        "description": "Cela n'augmente pas *vraiment* la limite de corruption. Ça ajoute plutôt un niveau GRATUIT aux multiplicateurs de corruption, quoi qu'il arrive (peut dépasser la limite). :)",
+        "effectHave": "Vous avez obtenu un niveau de corruption gratuit. {{m}}",
+        "effectHaveNot": "Vous n'avez pas obtenu un niveau de corruption gratuit. {{m}}"
       },
       "singOfferings1": {
         "name": "Éclair d'Offrandes",
-        "description": "Upgrade this to get +2% Offerings per level, forever!",
-        "effect": "Permanently gain {{n}}% more Offerings."
+        "description": "Améliorez ceci pour obtenir +2 % d'Offrandes par niveau, pour toujours !",
+        "effect": "Obtenez {{n}}% d'Offrandes supplémentaires pour toujours."
       },
       "singOfferings2": {
         "name": "Orage d'Offrandes",
-        "description": "Apparently, you can use this bar to attract more Offerings. +8% per level, to be precise.",
-        "effect": "Permanently gain {{n}}% more Offerings."
+        "description": "Apparemment, vous pouvez utiliser cette barre pour attirer plus d'Offrandes. +8% par niveau, pour être exact.",
+        "effect": "Obtenez {{n}}% d'Offrandes supplémentaires pour toujours."
       },
       "singOfferings3": {
         "name": "Tempête d'Offrandes",
         "description": "This bar is so prestine, it'll make anyone submit their Offerings. +4% per level, to be precise.",
-        "effect": "Permanently gain {{n}}% more Offerings."
+        "effect": "Obtenez {{n}}% d'Offrandes supplémentaires pour toujours."
       },
       "singObtainium1": {
-        "name": "Obtainium Wave",
+        "name": "Vague d'Obtainium",
         "description": "Améliorez ceci pour obtenir +2 % d'Obtainium par niveau, pour toujours !",
         "effect": "Obtenez {{n}}% d'Obtainium supplémentaire pour toujours."
       },
       "singObtainium2": {
-        "name": "Obtainium Flood",
-        "description": "Holy crap, water bending! +8% gained Obtainium per level.",
-        "effect": "Permanently gain {{n}}% more Obtainium."
+        "name": "Inondation d'Obtainium",
+        "description": "Truc de dingue, le contrôle de l'eau ! Obtenez +8% d'Obtainium par niveau.",
+        "effect": "Obtenez {{n}}% d'Obtainium supplémentaire pour toujours."
       },
       "singObtainium3": {
-        "name": "Obtainium Tsunami",
-        "description": "A rising tide lifts all boats. +4% gained Obtainium per level.",
-        "effect": "Permanently gain {{n}}% more Obtainium."
+        "name": "Tsunami d'Obtainium",
+        "description": "Une marée montante soulève tous les navires. Obtenez +4% d'Obtainium par niveau.",
+        "effect": "Obtenez {{n}}% d'Obtainium supplémentaire pour toujours."
       },
       "singCubes1": {
         "name": "Flamme Cubique",
-        "description": "Upgrade this to get +0.6% Cubes per level, forever!",
-        "effect": "Obtenez {{n}}% de Cubes en plus pour toujours."
+        "description": "Améliorez ceci pour obtenir +0,6% de Cubes par niveau, pour toujours !",
+        "effect": "Obtenez {{n}}% de Cubes supplémentaires pour toujours."
       },
       "singCubes2": {
         "name": "Incendie Cubique",
         "description": "Burn some more Golden Quarks! +8% gained Cubes per level.",
-        "effect": "Obtenez {{n}}% de Cubes en plus pour toujours."
+        "effect": "Obtenez {{n}}% de Cubes supplémentaires pour toujours."
       },
       "singCubes3": {
-        "name": "Enfer Cubique",
+        "name": "Fournaise Cubique",
         "description": "Even Dante is impressed. +4% gained Cubes per level.",
         "effect": "Obtenez {{n}}% de Cubes supplémentaires de façon définitive."
       },
@@ -2126,7 +2126,7 @@
         "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
       },
       "singCitadel2": {
-        "name": "Citadelle de la 'Singularité': La Vraie Édition",
+        "name": "Citadelle de la \"Singularité\" : La Vraie Édition",
         "description": "This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels! Also sets the free level of the fake citadel to whatever level this is.",
         "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
       },
@@ -2195,7 +2195,7 @@
       },
       "potionBuff2": {
         "name": "Potion Decanter of Inquisition",
-        "description": "En regardant dans le miroir, vous n'êtes pas vraiment sur de ce qu'est cette potion",
+        "description": "En regardant dans le miroir, vous n'êtes pas vraiment sûr de ce qu'est cette potion.",
         "effect": "Potions currently give {{n}}x items!"
       },
       "potionBuff3": {
@@ -2394,11 +2394,11 @@
       },
       "singBonusTokens4": {
         "name": "Spare Change from the Ant God's Coffers",
-        "description": "Those Tokens were too big to be called Tokens. Too big, too thick, too heavy, and too rough, they were more like large hunks of gold. +5 Tokens at the start of a Singularity per level.",
+        "description": "Ces Jetons étaient trop grands pour être appelés Jetons. Trop grands, trop épais, trop lourds et trop rugueux, ils ressemblaient plus à de gros morceaux d'or. +5 Jetons au début d'une Singularité par niveau.",
         "effect": "Ant God ponies up {{n}} Tokens at the start of a Singularity!"
       },
       "singInfiniteShopUpgrades": {
-        "name": "Yellow Infinity Shop Voucher",
+        "name": "Bon de Réduction Jaune de la Boutique Infinie",
         "description": "Un bon d'achat, imprimé sur une tablette jaune. Chaque niveau donne +1 niveau effectif des améliorations \"Infinité SARL\" de la boutique de Quarks.",
         "effect": "Vous avez +{{n}} niveaux gratuits des améliorations \"Infinité SARL\" de la Boutique de Quarks."
       }
@@ -2427,7 +2427,7 @@
       "zeroOrLess": "Seulement des nombres strictement positifs, svp !",
       "moreThanPlayerHas": "Vous n'avez pas encore les moyens !",
       "fraction": "Ouais, ce n'est pas un entier. On n'accepte pas les fractions ici !",
-      "goldenQuarksTooMany": "Désolé, je ne peux pas vous vendre autant de Quarks d'Or ! Essayez d'en acheter moins ou entrez -1 pour en acheter le maximum !",
+      "goldenQuarksTooMany": "Désolé, je ne peux pas vous vendre autant de Quarks Dorés ! Essayez d'en acheter moins ou entrez -1 pour en acheter le maximum !",
       "finiteInt": "La valeur doit être un nombre entier fini !",
       "invalidNumber": "Hé ! Ce n'est pas un nombre valide !"
     },
@@ -3846,9 +3846,9 @@
     "joinDiscord": "Cliquez sur l'image ci-dessous pour rejoindre le serveur Discord !",
     "joinPatreon": "Soutenez le développement sur Patreon !",
     "exportQuark": "{{x}}s avant +{{y}} Quarks à l'exportation",
-    "exportGoldenQuark": "{{x}}s avant +{{y}} Quarks d'Or à l'exportation",
+    "exportGoldenQuark": "{{x}}s avant +{{y}} Quarks Dorés à l'exportation",
     "quarksOnExport": "Quarks à l'exportation : {{x}} [Maximum {{y}}]",
-    "goldenQuarksOnExport": "Quarks d'Or à l'exportation : {{x}} [Maximum {{y}}]",
+    "goldenQuarksOnExport": "Quarks Dorés à l'exportation : {{x}} [Maximum {{y}}]",
     "copyToClipboard": "Copier dans le presse-papiers",
     "exportHere": "Exportez le jeu ici",
     "currently": "Actuellement : {{x}}",
@@ -4472,7 +4472,7 @@
       "title": "Add Code Effects",
       "Quarks": "Base Quark Value (Average):",
       "AscensionTime": "PL-AT Ω - Temps d'Ascension (secondes réelles) :",
-      "GoldenQuarks": "PL-AT Γ - Chronomètre des Quarks d'Or à l'export :",
+      "GoldenQuarks": "PL-AT Γ - Chronomètre des Quarks Dorés à l'export :",
       "Octeracts": "PL-AT _ - Gain d'Octeracts (secondes réelles) :",
       "Ambrosia": "PL-AT ΩΩ - Gain d'Ambroisie (secondes réelles) :"
     },
@@ -4964,9 +4964,9 @@
     "singularityMessage1": "Vous avez atteint la fin du jeu, à la Singularité numéro {{x}}. Platonic et le Dieu Fourmi sont fiers de vous.",
     "singularityMessage2": "Vous pouvez vous reposer sur vos lauriers et considérer que vous avez fini le jeu, ou vous pouvez faire quelque chose de plus intéressant.",
     "singularityMessage3": "Vous êtes trop puissant cet univers. Le multivers de Synergism est vraiment infini, mais il y a des univers parallèles au vôtre qui vous mettront encore bien plus au défi.",
-    "singularityMessage4": "Reprenez du tout début, et entrez dans la Singularité numéro {{x}}. Votre prochain univers est plus dur que l'actuel, mais vous débloquez une bonification permanente de 10% pour les Quarks et le nombre d'Ascensions, et vous obtenez également {{y}} Quarks d'Or, qui peuvent être utilisés pour acheter des améliorations de fin de partie qui changent la donne. [Augmentés de {{z}}% grâce à la bonification de Patreon !]",
+    "singularityMessage4": "Reprenez du tout début, et entrez dans la Singularité numéro {{x}}. Votre prochain univers est plus dur que l'actuel, mais vous débloquez une bonification permanente de 10% pour les Quarks et le nombre d'Ascensions, et vous obtenez également {{y}} Quarks Dorés, qui peuvent être utilisés pour acheter des améliorations de fin de partie qui changent la donne. [Augmentés de {{z}}% grâce à la bonification de Patreon !]",
     "singularityMessage5": "Cependant, tous vos accomplissements passés sont oubliés ! Tous les défis, les améliorations remboursables de la boutique, l'onglet des améliorations, les Runes, toutes les améliorations de Cubes, tous les Cubes ouverts, les Hepteracts (à l'exceptions des Hepteracts de Quarks) et les succès seront complètement effacés.",
-    "singularityConfirm0": "Voulez-vous commencer la Singularité numéro {{x}} ? Votre prochain univers sera plus difficile mais vous obtiendrez {{y}} Quarks d'Or.",
+    "singularityConfirm0": "Voulez-vous commencer la Singularité numéro {{x}} ? Votre prochain univers sera plus difficile mais vous obtiendrez {{y}} Quarks Dorés.",
     "singularityConfirm1": "Alors, qu'en dites-vous ? Voulez-vous entrer dans la Singularité ?",
     "singularityConfirm2": "Êtes-vous sûr·e de vouloir entrer dans la Singularité ?",
     "singularityConfirm3": "Êtes-vous VRAIMENT SÛR·E ? Vous ne pourrez pas retourner en arrière (sans une ancienne sauvegarde) ! Confirmez une dernière fois pour valider votre décision.",
