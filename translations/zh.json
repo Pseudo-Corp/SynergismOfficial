@@ -5001,7 +5001,7 @@
     "buyButton": "购买！<<gold|花费{{amount}}伪币>>",
     "currEffect": "当前等级：",
     "nextEffect": "下级：",
-    "globalQuarkBonus": "由于您付费订阅，夸克获取数量增加了{{percent}}%！",
+    "globalQuarkBonus": "付费订阅后，夸克获取数量将增加{{percent}}%！",
     "upgradeNames": {
       "INSTANT_UNLOCK_1": "护身符激活器",
       "INSTANT_UNLOCK_2": "符文发现器",

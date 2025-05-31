@@ -3,11 +3,11 @@
     "saveInLive": "セーブファイルはライブでは使用できません！",
     "saveInLive2": "このセーブはもうロードできません！",
     "errorSaving": "エラーのためこのファイルを保存できませんでした。",
-    "gameSaved": "Game saved successfully!"
+    "gameSaved": "ゲームは正常に保存されました。"
   },
   "save": {
-    "loadFailed": "Unable to load save.",
-    "saveToClipboard": "Are you sure you want to enable copy save to clipboard?"
+    "loadFailed": "セーブデータの読み込みに失敗しました。",
+    "saveToClipboard": "セーブデータの保存先をクリップボードに変更しますか？"
   },
   "ambrosia": {
     "ambrosia": "Ambrosia",
@@ -862,12 +862,12 @@
   },
   "challenges": {
     "1": {
-      "name": "No Multipliers Challenge || {{- value}} Completions",
+      "name": "Multiplierが何の効果も及ぼさなくなる || クリア回数 {{- value}}",
       "flavor": "Multipliers make the game a little too fast. Let's take them out!",
       "restrictions": "Transcend and reach the goal except Multipliers do nothing but act like Accelerators, which are nerfed by 50%!",
-      "goal": "Goal: Gain {{value}} Coins in challenge.",
+      "goal": "目標： {{value}}コインを獲得する。",
       "per": {
-        "1": "+10 base Multiplier Boosts! [+0.05 to power!] Current: ",
+        "1": "+10 基本倍率ブースト [+0.05 パワー] 現在: ",
         "2": "+10% total Multiplier Boosts! Current: ",
         "3": "+0.04 base Rune exp per Offering! Current: "
       },
@@ -883,7 +883,7 @@
       "name": "No Accelerators Challenge || {{- value}} Completions",
       "flavor": "Who needs accelerators? They do basically nothing now.",
       "restrictions": "Transcend and reach the goal except Accelerators do nothing! Multipliers are nerfed a bit as well.",
-      "goal": "Goal: Gain {{value}} Coins in challenge.",
+      "goal": "目標： {{value}}コインを獲得する。",
       "per": {
         "1": "+5 Free Accelerators! Current: ",
         "2": "+5% Accelerator Boost Power! Current: ",
@@ -901,7 +901,7 @@
       "name": "No Shards Challenge || {{- value}} Completions",
       "flavor": "Alright, now you're thinking, how else can I make the game harder?",
       "restrictions": "Transcend and reach the goal except you do not produce Crystals or Mythos Shards.",
-      "goal": "Goal: Gain {{value}} Coins in challenge.",
+      "goal": "目標： {{value}}コインを獲得する。",
       "per": {
         "1": "Crystal --> Coin conversion exponent +0.04! Current: ",
         "2": "+0.5% to Grandmaster production per Mythos producer bought. Current: ",
@@ -919,7 +919,7 @@
       "name": "Cost+ Challenge || {{- value}} Completions",
       "flavor": "You're getting rich now, but inflation hasn't happened yet? I don't think so!",
       "restrictions": "Transcend and reach the goal except Coin/Crystal producers, Accelerators and Multipliers cost more. [Gets harder each time!]",
-      "goal": "Goal: Gain {{value}} Coins in challenge.",
+      "goal": "目標： {{value}}コインを獲得する。",
       "per": {
         "1": "Accelerator Cost scale slows down by +5 purchases. Current: ",
         "2": "Multiplier Cost scale slows down by +2 purchases. Current: ",
@@ -937,7 +937,7 @@
       "name": "Reduced Diamonds Challenge || {{- value}} Completions",
       "flavor": "You ever wonder how you get so many diamonds?",
       "restrictions": "Transcend and reach the goal except you gain far fewer Diamonds from all sources [Gets harder each time!]",
-      "goal": "Goal: Gain {{value}} Coins in challenge.",
+      "goal": "目標： {{value}}コインを獲得する。",
       "per": {
         "1": "+0.01 Coin --> Diamond conversion exponent on Prestige! Current: ",
         "2": "Multiply Crystal production by 10! Current: ",
@@ -2488,7 +2488,7 @@
   },
   "upgrades": {
     "descriptions": {
-      "1": "Increase production of Workers per producer bought.",
+      "1": "労働者一人あたりの生産量を増やす。",
       "2": "Increase production of Investments per producer bought.",
       "3": "Increase production of Printers per producer bought.",
       "4": "Increase production of Mints per producer bought.",
@@ -2656,7 +2656,7 @@
       "10": "When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on Ascension."
     },
     "effects": {
-      "1": "Effect: Worker Production x{{x}}",
+      "1": "効果： 労働者の生産量 x{{x}}",
       "2": "Effect: Investment Production x{{x}}",
       "3": "Effect: Printer Production x{{x}}",
       "4": "Effect: Mint Production x{{x}}",
@@ -2665,7 +2665,7 @@
       "7": "Effect: Gain {{x}} free Multipliers from bought Alchemies.",
       "8": "Effect: +{{x}} free Accelerators.",
       "9": "Effect: +{{x}} free Multipliers.",
-      "10": "Effect: Worker Production x{{x}}",
+      "10": "効果： 労働者の生産量 x{{x}}",
       "11": "Effect: Generator efficiency x{{x}}",
       "12": "Effect: All Coin production x{{x}}",
       "13": "Effect: Investment Production x{{x}}",
@@ -3249,7 +3249,7 @@
     "acceleratorPower": "Acceleration Power: {{power}}% || Acceleration Multiplier: {{mult}}x",
     "multiplierPower": "Multiplier Power: {{power}}x || Multiplier: {{mult}}x",
     "acceleratorBoost": "Reset Diamonds and Prestige Upgrades, but add {{amount}}% Acceleration Power and 5 free Accelerators.",
-    "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
+    "coinsPerSecond": "コイン/毎秒: {{coins}} [{{percent}}%",
     "costCoins": "Cost: {{coins}} coins.",
     "costDiamonds": "Cost: {{diamonds}} Diamonds.",
     "names": {
