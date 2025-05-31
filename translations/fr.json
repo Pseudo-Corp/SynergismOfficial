@@ -1904,28 +1904,28 @@
       },
       "exaltedAchievements": {
         "name": "Coffre-Fort d'Exalt",
-        "default": "Unlocks new, very difficult challenges! They may only be entered by reaching high enough Singularities!"
+        "default": "Débloquez de nouveaux défis très difficiles ! Ils ne peuvent être commencés qu'en atteignant des Singularités assez élevées !"
       },
       "derpSmithsCornucopia": {
-        "name": "Derpsmith's Cornucopia",
-        "default": "With blessing from the Derpsmith, every singularity grants +{{counter}}% more Octeracts!"
+        "name": "Corne d'Abondance de Derpsmith",
+        "default": "Avec la bénédiction de Derpsmith, chaque Singularité accorde +{{counter}}% d'Octeracts en plus !"
       },
       "coolQOLCubes": {
-        "name": "Cool QoL Cubes",
+        "name": "Des QdV Sympa pour les Cubes",
         "hasLevel1": "Gardez toutes les Recherches d'ouverture de Cubes et obtenez la possibilité d'ouvrir automatiquement un pourcentage de vos Cubes à chaque Ascension !",
         "default": "Les Recherches relatives à l'ouverture des Cubes ne se réinitialisent plus à chaque Ascension."
       },
       "irishAnt": {
         "name": "Fourmis Irlandaises",
-        "default": "Ants blessed with the luck of the Irish grant <<limegreen|☘ {{i}}>> Ambrosia Luck!"
+        "default": "Les Fourmis bénies avec la chance Irlandaise donnent <<limegreen|☘ {{i}}>> chance d'Ambroisie !"
       },
       "irishAnt2": {
-        "name": "Irish Ants II: Electric Boogaloo",
-        "default": "Ants blessed with more fortunate luck of the Irish increase base ☘ Ambrosia Luck by <<limegreen|{{percent}}%>>! +1% per perk level."
+        "name": "Fourmis Irlandaises II : Le Boogaloo Électrique",
+        "default": "Les Fourmis bénies avec plus de chance Irlandaise augmentent la ☘ chance d'Ambroisie de base de <<limegreen|{{percent}}%>> ! +1% par niveau de Faveur."
       },
       "overclocked": {
         "name": "Surcadencé",
-        "default": "Level Caps on Certain Singularity Upgrades are increased by {{i}}!"
+        "default": "La limite sur certaines améliorations de Singularité est augmentée de {{i}} !"
       },
       "wowCubeAutomatedShipping": {
         "name": "Wow! Cube Automated Shipping",
