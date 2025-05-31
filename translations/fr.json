@@ -1618,7 +1618,7 @@
       "shopImprovedDaily2": "Gain 1 additional free Singularity Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily3": "Gain 1 additional free Singularity Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
       "shopImprovedDaily4": "Gain 1 additional free Singularity Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
-      "offeringEX3": "[Supplied by - Infinity CO.] Gain 1.2% more Offerings per level, multiplicative! (Multiplier is 1.012^level). Every 25 levels, gain +1 Base Offering!",
+      "offeringEX3": "[Fourni par - Infinité SARL] Obtenez 1,2% d'Offrandes supplémentaires par niveau, de façon multiplicative ! (Le multiplicateur est de 1,012^niveau). Tous les 25 niveaux, obtenez +1 Offrande de base !",
       "obtainiumEX3": "[Supplied by - Infinity CO.] Gain 1.2% more Obtainium per level, multiplicative! (Multiplier is 1.012^level). Every 25 levels, gain 6% more Immaculate Obtainium Multiplier! (1.06^[level/25])",
       "chronometerInfinity": "[Supplied by - Infinity CO.] Gain 0.6% more Ascension Speed per level, multiplicative! (Multiplier is 1.006^level). Every 40 levels, gain +0.001 spread on Ascension Speed exponent modifiers on speeds greater than or less than 1 (Check Stats for Nerds for this one)!",
       "seasonPassInfinity": "[Supplied by - Infinity CO.] Gain 1.2% more cubes per level, multiplicative! (Multiplier is 1.012^level). This effect is raised to the power of 1.25 for Octeract calculations!",
@@ -1646,7 +1646,7 @@
       "shopSingularitySpeedup": "You know all those time-gated Singularity and Octeract Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
       "shopSingularityPotency": "You know all those free Singularity Upgrades? They are now 266% more effective (so, each is worth the equivalent to 3.66 levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. There were multiple infinite ascents?",
-      "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +0.005 effective levels for the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down."
+      "shopInfiniteShopUpgrades": "Un bon d'achat, imprimé sur une tablette bleue. Chaque niveau donne +0,005 niveau effectif des améliorations \"Infinité SARL\" de la Boutique de Quarks, multipliées par la somme de vos complétions d'EXALTs, le tout arrondi vers le bas."
     },
     "maxed": "Max !",
     "upgradeFor": "Améliorer pour {{x}} Quarks",
@@ -1754,7 +1754,7 @@
       "shopSingularitySpeedup": "Singularity Perks and Upgrades accumulate <<gray|{{amount}}>> times faster!",
       "shopSingularityPotency": "Free Singularity Upgrades are as if you had <<gray|{{amount}}>> of them.",
       "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know.",
-      "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark shop upgrades are increased by <<white|{{amount}}>>!"
+      "shopInfiniteShopUpgrades": "Le niveau effectif des améliorations \"Infinité SARL\" de la Boutique de Quarks est augmenté de <<white|{{amount}}>> !"
     }
   },
   "singularity": {
@@ -1928,71 +1928,71 @@
         "default": "La limite sur certaines améliorations de Singularité est augmentée de {{i}} !"
       },
       "wowCubeAutomatedShipping": {
-        "name": "Wow! Cube Automated Shipping",
-        "hasLevel1": "Automatically buy Cube Upgrades with each ascension, no matter where you are!",
-        "default": "Automatically buy Cube Upgrades with each ascension, but only if you are in a Singularity Challenge."
+        "name": "Livraison Automatique de Cubes Wow!",
+        "hasLevel1": "Achetez automatiquement les améliorations de Cubes à chaque Ascension, où que vous soyez !",
+        "default": "Achetez automatiquement les améliorations de Cubes à chaque Ascension, mais seulement si vous êtes dans un Défi de Singularité."
       },
       "congealedblueberries": {
-        "name": "Congealed Blueberries",
-        "default": "Semisolid Blueberries act like normal Blueberries. Gain +{{i}} Blueberries which may be used in the Blueberry tree!"
+        "name": "Myrtilles Surgelées",
+        "default": "Ces Myrtilles semisolides fonctionnent comme des Myrtilles normales. Obtenez +{{i}} Myrtilles qui peuvent être utilisées dans l'arbre de Myrtilles !"
       },
       "goldenRevolution": {
-        "name": "Golden Revolution",
-        "default": "Singularity grants 0.4% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +100%)"
+        "name": "Révolution Dorée",
+        "default": "Les Singularités donnent 0,4% de Quarks Dorés en plus par Singularité. Actuellement : +{{current}}% (Max : +100%)"
       },
       "goldenRevolutionII": {
-        "name": "Golden Revolution II",
-        "default": "Golden Quarks are 0.2% cheaper per Singularity. Currently: -{{current}}% (MAX: -50%)"
+        "name": "Révolution Dorée II",
+        "default": "Les Quarks Dorés sont 0,2% moins chers par Singularité. Actuellement : -{{current}}% (Max : -50%)"
       },
       "goldenRevolutionIII": {
-        "name": "Golden Revolution III",
-        "default": "Export gives 2% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +500%)"
+        "name": "Révolution Dorée III",
+        "default": "L'exportation donne 2% de Quarks Dorés supplémentaires par Singularité. Actuellement : +{{current}}% (Max : +500%)"
       },
       "platonicClones": {
-        "name": "Clones of Platonic Clicking at Your Desktop",
-        "hasLevel1": "Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, anywhere!",
-        "default": "Automatically buy Platonic Upgrades with each ascension, without spending Obtainium or Offerings, but only in a Singularity Challenge."
+        "name": "Des Clones de Platonic qui Cliquent devant votre Bureau",
+        "hasLevel1": "Achetez automatiquement les améliorations Platoniques à chaque Ascension, sans dépenser d'Obtainium ou d'Offrandes, où que vous soyez !",
+        "default": "Achetez automatiquement les améliorations Platoniques à chaque Ascension, sans dépenser d'Obtainium ou d'Offrandes, mais seulement dans un Défi de Singularité."
       },
       "platSigma": {
         "name": "PL-AT Σ",
-        "default": "The 'Add' Special Action refills {{counter}}% faster per level per Singularity. Currently: {{current}} (MAX: -60% Cooldown)"
+        "default": "L'action spéciale « Addition » se recharge {{counter}}% plus rapidement par niveau par Singularité. Actuellement : {{current}} (Max : -60% de temps de recharge)"
       },
       "midasMilleniumAgedGold": {
-        "name": "Midas' Millenium-Aged Gold",
-        "default": "Every use of the 'Add' Special Action gives 0.01 free levels of GQ1 and 0.05 free levels of GQ3."
+        "name": "L'Or Millénaire de Midas",
+        "default": "Chaque utilisation de l'action spéciale \" Addition \" donne 0,01 niveau gratuits de QD1 et 0,05 niveau gratuit de QD3."
       },
       "goldenRevolution4": {
         "name": "Révolution Dorée IV",
-        "default": "Every Octeract tick, convert 1 in {{gq}} GQ you would gain in this singularity to your balance automagically!"
+        "default": "Chaque tic d'Octeract, transférez 1 QD sur {{gq}} que vous gagneriez cette Singularité sur votre solde automatiquement !"
       },
       "octeractMetagenesis": {
         "name": "Métagenèse d'Octeracts",
-        "hasLevel1": "Gives free levels of Octeract Cogenesis AND Trigenesis based on your current free levels and purchased levels: (level * free / 640)^0.5, (level^2 * free/125000)^0.333 respectively ",
-        "default": "Gives free levels of Octeract Cogenesis based on your current free levels and purchased levels: (level * free / 1000)^0.5"
+        "hasLevel1": "Donne des niveaux gratuits de Cogenèse ET Trigenèse d'Octeracts selon vos niveaux gratuits et achetés actuels : (niveaux * gratuits / 640)^0,5 et (niveaux^2 * gratuits / 125 000)^0,333 respectivement.",
+        "default": "Donne des niveaux gratuits de Cogenèse d'Octeracts selon vos niveaux gratuits et achetés actuels : (niveaux * gratuits / 1000)^0,5."
       },
       "immaculateAlchemy": {
-        "name": "Immaculate Alchemy",
-        "hasLevel2": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 8.",
-        "hasLevel1": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 5.",
-        "default": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 3."
+        "name": "Alchimie Immaculée",
+        "hasLevel2": "Après la Singularité 200, l'avancement rapide ne fonctionne plus ! À la place, multipliez vos gains de QD et votre prix d'achat des QD par 8.",
+        "hasLevel1": "Après la Singularité 200, l'avancement rapide ne fonctionne plus ! À la place, multipliez vos gains de QD et votre prix d'achat des QD par 5.",
+        "default": "Après la Singularité 200, l'avancement rapide ne fonctionne plus ! À la place, multipliez vos gains de QD et votre prix d'achat des QD par 3."
       },
       "skrauQ": {
         "name": "skrauQ",
-        "default": "Multiply all Quark Gain by ((Singularity - 179)/20)^2. Currently: {{amt}}... Yes, it's that good."
+        "default": "Multiplie tous les gains de Quarks par ((Singularité - 179)/20)^2. Actuellement : {{amt}}… Oui, c'est aussi fort que ça."
       },
       "primalPower": {
-        "name": "Primal Power!",
+        "name": "Puissance Première !",
         "hasLevel1": "Obtenez une puissance impressionnante en atteignant des Singularités numérotées avec des nombres premiers ! Obtenez : + <<limegreen|☘ 131>> & <<limegreen|☘ 269>> chance d'Ambroisie !",
         "default": "Obtenez une puissance impressionnante en atteignant des Singularités numérotées avec des nombres premiers ! Obtenez : + <<limegreen|☘ +131>> chance d'Ambroisie !"
       },
       "permanentBenefaction": {
-        "name": "Permanent Benefaction",
-        "default": "<<lightblue | Pandora>> and <<orange | Vyshareth>> will always grant you their benefaction, so their cookies are correspondingly always eaten!"
+        "name": "Bienfait Permanent",
+        "default": "<<lightblue | Pandore>> et <<orange | Vyshareth>> vous donneront toujours leurs bienfaits, donc leurs cookies respectifs seront toujours mangés !"
       },
       "infiniteShopUpgrades": {
-        "name": "Orange Infinity Shop Voucher",
-        "default": "Gain +0.5 to 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200, rounded down!. Currently: {{amt}}",
-        "level2": "Gain +0.8 to 'Infinity CO.' Quark Shop upgrades per highest Singularity, minus 200, rounded down! Currently: {{amt}}"
+        "name": "Bon de Réduction Orange de la Boutique Infinie",
+        "default": "Gagnez +0,5 aux améliorations \"Infinité SARL\" de la Boutique de Quarks par Singularité la plus élevée, moins 200, arrondi vers le bas ! Actuellement : {{amt}}",
+        "level2": "Gagnez +0,8 aux améliorations \"Infinité SARL\" de la Boutique de Quarks par Singularité la plus élevée, moins 200, arrondi vers le bas ! Actuellement : {{amt}}"
       }
     },
     "toString": {
@@ -2399,8 +2399,8 @@
       },
       "singInfiniteShopUpgrades": {
         "name": "Yellow Infinity Shop Voucher",
-        "description": "A Shop Voucher, printed on a yellow tablet. Each grants +1 effective level the 'Infinity CO.' Quark Shop upgrades.",
-        "effect": "You have +{{n}} free levels of the 'Infinity CO.' Quark Shop upgrades."
+        "description": "Un bon d'achat, imprimé sur une tablette jaune. Chaque niveau donne +1 niveau effectif des améliorations \"Infinité SARL\" de la boutique de Quarks.",
+        "effect": "Vous avez +{{n}} niveaux gratuits des améliorations \"Infinité SARL\" de la Boutique de Quarks."
       }
     },
     "goldenQuarkAmount": "You have {{goldenQuarks}} Golden Quarks!",
@@ -3554,8 +3554,8 @@
       },
       "octeractInfiniteShopUpgrades": {
         "name": "Green Infinity Shop Voucher",
-        "description": "A Shop Voucher, printed on a green tablet. Each grants +1 effective level for the 'Infinity CO.' Quark Shop upgrades.",
-        "effect": "'Infinity CO.' shop upgrades level +{{n}}"
+        "description": "Un bon d'achat, imprimé sur une tablette verte. Chaque niveau donne +1 niveau effectif des améliorations \"Infinité SARL\" de la boutique de Quarks.",
+        "effect": "Niveau des améliorations \"Infinité SARL\" de la Boutique +{{n}}"
       }
     },
     "amount": "You have {{octeracts}} Octeracts!",
@@ -4552,7 +4552,7 @@
       "Total": "Points totaux de la barre d'Ambroisie Rouge/s :"
     },
     "shopVoucherStats": {
-      "title": "Free 'Infinity CO' Quark Shop Levels",
+      "title": "Niveaux gratuits des Améliorations \"Infinité SARL\" de la Boutique de Quarks",
       "Obtainium": "Base Obtainium Infinity Levels",
       "Offerings": "Base Offering Infinity Levels",
       "WowPass": "Base Wow Pass Infinity Levels",
