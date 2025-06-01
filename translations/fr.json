@@ -2035,25 +2035,25 @@
         "effectHaveNot": "You have not unlocked volume 1 of the recipe book."
       },
       "cookies2": {
-        "name": "Cookie Recipes II",
+        "name": "Recettes de Cookies II",
         "description": "Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related Cube upgrades.",
         "effectHave": "You have unlocked volume 2 of the recipe book.",
         "effectHaveNot": "You have not unlocked volume 2 of the recipe book."
       },
       "cookies3": {
-        "name": "Cookie Recipes III",
+        "name": "Recettes de Cookies III",
         "description": "Your Bakers threaten to quit without a higher pay. If you do pay them, they will bake even more fancy cookies.",
         "effectHave": "You have appeased the union of Bakers.",
         "effectHaveNot": "You have not appeased the union of Bakers."
       },
       "cookies4": {
-        "name": "Cookie Recipes IV",
+        "name": "Recettes de Cookies IV",
         "description": "C'est un petit prix à payer pour le Salut.",
         "effectHave": "You have paid your price for salvation.",
         "effectHaveNot": "You have not paid your price for salvation."
       },
       "cookies5": {
-        "name": "Cookie Recipes V",
+        "name": "Recettes de Cookies V",
         "description": "La pire atrocité qu'un homme puisse commettre est d'assister, sans angoisse, à la souffrance des autres.",
         "effectHave": "You have paid witness to the suffering of the masses.",
         "effectHaveNot": "You have not paid witness to the suffering of the masses."
@@ -2132,7 +2132,7 @@
       },
       "octeractUnlock": {
         "name": "Octeracts",
-        "description": "Hey!!! What are you trying to do?!?",
+        "description": "Hey !!! Qu'essayez-vous de faire ?!?",
         "effectHave": "You have bought into the Octeract hype.",
         "effectHaveNot": "You have not bought into the Octeract hype."
       },
@@ -2445,7 +2445,7 @@
     "enabled": "(Activé)",
     "infinity": "Infini",
     "sacrificeCapital": "SACRIFICE",
-    "multiBuyInstructions": "Achetez plusieurs niveaux d'un coup en maintenant la touche <var(--orchid-text-color)|'SHIFT'> en cliquant !",
+    "multiBuyInstructions": "Achetez plusieurs niveaux d'un coup en maintenant la touche <<var(--orchid-text-color)|\"MAJ\">> en cliquant !",
     "autoOnColon": "Auto : Activé",
     "autoOffColon": "Auto : Désactivé",
     "buyMaxOn": "Achat maximum : Activé",
@@ -4971,7 +4971,7 @@
     "singularityConfirm2": "Êtes-vous sûr·e de vouloir entrer dans la Singularité ?",
     "singularityConfirm3": "Êtes-vous VRAIMENT SÛR·E ? Vous ne pourrez pas retourner en arrière (sans une ancienne sauvegarde) ! Confirmez une dernière fois pour valider votre décision.",
     "noAntiquity": "Mmpf. Revenez avec une Antiquité s'il vous plaît. Merci. - Dieu Fourmi",
-    "insideSingularityChallenge": "Derpsmith pense que vous êtes dans un défi de Singularité. Vous pouvez en sortir en cliquant sur l'icône de défi dans l'onglet de Singularité.",
+    "insideSingularityChallenge": "Derpsmith pense que vous êtes dans un Défi de Singularité. Vous pouvez en sortir en cliquant sur l'icône de Défi dans l'onglet des EXALTs.",
     "gameBeat": "Bien. Il semble que vous avez atteint l'œil de la Singularité. J'en suis satisfait. Cela signifie également qu'il n'y a nulle part ailleurs où aller. Du moins, pas tant que de plus grandes puissances n'allongent votre voyage.",
     "exitAscensionChallenge": "Êtes-vous absolument certain·e que vous souhaitez quitter le défi d'Ascension ? Vous aurez besoin de compléter le défi 10 à nouveau avant de pouvoir de faire une nouvelle tentative !",
     "buyResearch3x11": "[VERROUILLÉ - Achetez la Recherche 3x11]"
