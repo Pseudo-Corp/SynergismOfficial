@@ -2082,7 +2082,7 @@
       },
       "singOfferings2": {
         "name": "Orage d'Offrandes",
-        "description": "Apparemment, vous pouvez utiliser cette barre pour attirer plus d'Offrandes. +8% par niveau, pour être exact.",
+        "description": "Apparemment, vous pouvez utiliser cette barre pour attirer plus d'Offrandes. +8% par niveau, pour être précis.",
         "effect": "Obtenez {{n}}% d'Offrandes supplémentaires pour toujours."
       },
       "singOfferings3": {
@@ -2160,31 +2160,31 @@
       },
       "expertPack": {
         "name": "Paquet Expert",
-        "description": "That's a handful! Gain +6% Quarks stack with advanced, 1.5x Ascension Score, Code 'add' gives 1.2x Ascension Timer.",
+        "description": "C'est une poignée ! Obtenez +6% de Quarks cumulés avec le paquet avancé, 1,5x de score d'Ascension, le code \"Addition\" donne 1,2x de temps d'Ascension.",
         "effectHave": "Vous êtes passé au fournisseur expert.",
         "effectHaveNot": "Vous n'êtes pas passé au fournisseur expert."
       },
       "masterPack": {
-        "name": "Paquet Maître",
-        "description": "A tad insane. Gain +8% Quarks stack with expert, for every level 14 corruption, Ascension score is multiplied by 1.1.",
-        "effectHave": "You have mastered your inner chakras.",
-        "effectHaveNot": "You have not mastered your inner chakras."
+        "name": "Paquet de Maître",
+        "description": "Un peu dément. Obtenez +8% de Quarks se cumulant avec le paquet expert, pour chaque Corruption au niveau 14 le score d'Ascension est multiplié par 1,1.",
+        "effectHave": "Vous avez maîtrisé vos chakras intérieurs.",
+        "effectHaveNot": "Vous n'avez pas maîtrisé vos chakras intérieurs."
       },
       "divinePack": {
         "name": "Paquet Divin",
-        "description": "OHHHHH. Gain +10% Quarks stack with master, and multiply Octeract gain by 7.77 if corruptions are all set to 14.",
-        "effectHave": "You have found the reason for existence.",
-        "effectHaveNot": "You have not found the reason for existence."
+        "description": "OHHHHH. Obtenez +10% de Quarks se cumulant avec le paquet de Maître, et multipliez les gains d'Octeracts par 7,77 si toutes les Corruptions sont au niveau 14.",
+        "effectHave": "Vous avez trouvé le sens de l'existence.",
+        "effectHaveNot": "Vous n'avez pas trouvé le sens de l'existence."
       },
       "wowPass2": {
         "name": "Soldes",
         "description": "Le Phoque marchant a besoin d'écouler quelques produits exotiques. Mais pour un prix atrocement élevé. Je ne crois pas que les soldes fonctionnent de cette manière.",
-        "effectHave": "You have triggered the Liquidation event!",
-        "effectHaveNot": "You have not triggered the Liquidation event!"
+        "effectHave": "Vous avez déclenché les soldes !",
+        "effectHaveNot": "Vous n'avez pas déclenché les soldes !"
       },
       "wowPass3": {
-        "name": "QUAAAACK",
-        "description": "QUAAAAAAAACK. The Merchant has gone crazy for your QUARKS!",
+        "name": "COIIIIIN",
+        "description": "COIIIIIIIIIIN. Le marchant est devenu dingue de vos CUARKS !",
         "effectHave": "You have triggered the QUACKSTRAVAGANZA!!",
         "effectHaveNot": "You have not triggered the QUACKSTRAVAGANZA!!"
       },
