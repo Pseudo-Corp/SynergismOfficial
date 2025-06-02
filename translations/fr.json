@@ -2023,44 +2023,44 @@
         "effectHaveNot": "Vous n'avez pas débloqué un multiplicateur de 5x pour les Cubes et 6x pour l'Obtainium et les Offrandes."
       },
       "wowPass": {
-        "name": "Shop Bonanza",
+        "name": "Aubaine de la Boutique",
         "description": "Cette amélioration convaincra le Phoque marchant de vous vendre plus de trucs sympas, qui persistent même lors des Singularités !",
-        "effectHave": "You have unlocked the Shop Bonanza.",
-        "effectHaveNot": "You have not unlocked the Shop Bonanza."
+        "effectHave": "Vous avez débloqué l'aubaine de la Boutique.",
+        "effectHaveNot": "Vous n'avez pas débloqué l'aubaine de la Boutique."
       },
       "cookies": {
         "name": "Recettes de Cookies I",
-        "description": "For just a few Golden Quarks, re-open Wow! Bakery, adding five cookie-related Cube upgrades.",
-        "effectHave": "You have unlocked volume 1 of the recipe book.",
-        "effectHaveNot": "You have not unlocked volume 1 of the recipe book."
+        "description": "Pour seulement quelques Quarks Dorés, rouvrez la boulangerie Wow!, ajoutant cinq améliorations de Cubes liées aux cookies.",
+        "effectHave": "Vous avez débloqué le volume 1 du livre de recettes.",
+        "effectHaveNot": "Vous n'avez pas débloqué le volume 1 du livre de recettes."
       },
       "cookies2": {
         "name": "Recettes de Cookies II",
-        "description": "Diversify Wow! Bakery into cooking slightly more exotic cookies, adding five more cookie-related Cube upgrades.",
-        "effectHave": "You have unlocked volume 2 of the recipe book.",
-        "effectHaveNot": "You have not unlocked volume 2 of the recipe book."
+        "description": "Diversifiez la boulangerie Wow! en cuisinant des cookies légèrement plus exotiques, ajoutant ainsi cinque améliorations de Cubes liées aux cookies.",
+        "effectHave": "Vous avez débloqué le volume 2 du livre de recettes.",
+        "effectHaveNot": "Vous n'avez pas débloqué le volume 2 du livre de recettes."
       },
       "cookies3": {
         "name": "Recettes de Cookies III",
-        "description": "Your Bakers threaten to quit without a higher pay. If you do pay them, they will bake even more fancy cookies.",
-        "effectHave": "You have appeased the union of Bakers.",
-        "effectHaveNot": "You have not appeased the union of Bakers."
+        "description": "Vos boulangers menacent de démissionner sans un salaire plus élevé. Si vous les payez, ils cuisineront des cookies encore plus fantaisies.",
+        "effectHave": "Vous avez apaisé le syndicat des boulangers.",
+        "effectHaveNot": "Vous n'avez pas apaisé le syndicat des boulangers."
       },
       "cookies4": {
         "name": "Recettes de Cookies IV",
         "description": "C'est un petit prix à payer pour le Salut.",
-        "effectHave": "You have paid your price for salvation.",
-        "effectHaveNot": "You have not paid your price for salvation."
+        "effectHave": "Vous avez payé le prix de votre salut.",
+        "effectHaveNot": "Vous n'avez pas payé le prix de votre salut."
       },
       "cookies5": {
         "name": "Recettes de Cookies V",
         "description": "La pire atrocité qu'un homme puisse commettre est d'assister, sans angoisse, à la souffrance des autres.",
-        "effectHave": "You have paid witness to the suffering of the masses.",
-        "effectHaveNot": "You have not paid witness to the suffering of the masses."
+        "effectHave": "Vous avez témoigné de la souffrance des masses.",
+        "effectHaveNot": "Vous n'avez pas témoigné de la souffrance des masses."
       },
       "ascensions": {
-        "name": "Improved Ascension Gain",
-        "description": "Buying this, you will gain +2% Ascension Count forever, per level! Every 10 levels grants an additional, multiplicative +1% Ascension Count.",
+        "name": "Gain d'Ascensions amélioré",
+        "description": "En achetant ceci, vous gagnez +2% de nombre d’Ascensions pour toujours, par niveau ! Tous les 10 niveaux donnent un bonus multiplicatif supplémentaire au nombre d’Ascensions de +1%.",
         "effect": "Le nombre d'Ascensions augmente {{n}}% plus vite."
       },
       "corruptionFourteen": {
@@ -2087,7 +2087,7 @@
       },
       "singOfferings3": {
         "name": "Tempête d'Offrandes",
-        "description": "This bar is so prestine, it'll make anyone submit their Offerings. +4% per level, to be precise.",
+        "description": "Cette barre est si parfaite qu'elle fera en sorte que quiconque donne ses Offrandes. +4% par niveau, pour être précis.",
         "effect": "Obtenez {{n}}% d'Offrandes supplémentaires pour toujours."
       },
       "singObtainium1": {
@@ -2112,39 +2112,39 @@
       },
       "singCubes2": {
         "name": "Incendie Cubique",
-        "description": "Burn some more Golden Quarks! +8% gained Cubes per level.",
+        "description": "Brûlez encore des Quarks Dorés ! +8% de Cubes obtenus par niveau.",
         "effect": "Obtenez {{n}}% de Cubes supplémentaires pour toujours."
       },
       "singCubes3": {
         "name": "Fournaise Cubique",
-        "description": "Even Dante is impressed. +4% gained Cubes per level.",
+        "description": "Même Dante est impressionné. +4% de Cubes obtenus par niveau.",
         "effect": "Obtenez {{n}}% de Cubes supplémentaires de façon définitive."
       },
       "singCitadel": {
         "name": "Citadelle de la Singularité",
-        "description": "What a unique structual phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
-        "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
+        "description": "Quel phénomène structurel unique… mais il donne +2% d'Obtainium, d'Offrandes et de Cubes 3-7D par niveau ! +1% additionnel pour chaque tranche de 10 niveaux !",
+        "effect": "+{{n}}% d'Obtainium, d'Offrandes et de Cubes 3-7D, pour toujours !"
       },
       "singCitadel2": {
         "name": "Citadelle de la \"Singularité\" : La Vraie Édition",
         "description": "This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels! Also sets the free level of the fake citadel to whatever level this is.",
-        "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}%, forever!"
+        "effect": "+{{n}}% d'Obtainium, d'Offrandes et de Cubes 3-7D, pour toujours !"
       },
       "octeractUnlock": {
         "name": "Octeracts",
         "description": "Hey !!! Qu'essayez-vous de faire ?!?",
-        "effectHave": "You have bought into the Octeract hype.",
-        "effectHaveNot": "You have not bought into the Octeract hype."
+        "effectHave": "Vous avez cédé à la mode des Octeracts.",
+        "effectHaveNot": "Vous n'avez pas cédé à la mode des Octeracts."
       },
       "singOcteractPatreonBonus": {
-        "name": "Platonic $ells out!!!",
+        "name": "Platonic V€ndu !!!",
         "description": "You know that Patreon bonus? Yeah, that's cool and all, but what if it also boosted Octeract production by the same amount?",
         "effect": "Octeract production is {{n}}% faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists."
       },
       "offeringAutomatic": {
-        "name": "Blueberry Shards!",
-        "description": "The legends are true. \n The Prophecies are fulfilled. \n Ant God has heard your prayers. \n Let there be blueberries! \n And they were good.",
-        "effect": "You have purchased {{n}} tasty blueberries."
+        "name": "Morceaux de Myrtilles !",
+        "description": "Les légendes sont vraies\nLes prophéties sont accomplies\nLe Dieu Fourmi a entendu vos prières\nQue les Myrtilles Soient !\nEt cela était bien.",
+        "effect": "Vous avez acheté {{n}} Myrtilles savoureuses."
       },
       "intermediatePack": {
         "name": "Paquet Intermédiaire",
