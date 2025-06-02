@@ -2127,7 +2127,7 @@
       },
       "singCitadel2": {
         "name": "Citadelle de la \"Singularité\" : La Vraie Édition",
-        "description": "This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels! Also sets the free level of the fake citadel to whatever level this is.",
+        "description": "Cette véritable Citadelle donne +2% d'Obtainium, d'Offrandes et de Cubes 3-7D par niveau ! +1% additionnel par tranche de 10 niveaux ! De plus, le niveau gratuit de la fausse citadelle est égal au niveau de celle-ci.",
         "effect": "+{{n}}% d'Obtainium, d'Offrandes et de Cubes 3-7D, pour toujours !"
       },
       "octeractUnlock": {
@@ -2138,8 +2138,8 @@
       },
       "singOcteractPatreonBonus": {
         "name": "Platonic V€ndu !!!",
-        "description": "You know that Patreon bonus? Yeah, that's cool and all, but what if it also boosted Octeract production by the same amount?",
-        "effect": "Octeract production is {{n}}% faster for every $10 per month on the Patreon! Same as the Quark bonus which already exists."
+        "description": "Vous voyez ce bonus de Patreon ? Oui, il est sympa et tout, mais s'il augmentait aussi la production d'Octeracts de la même quantité ?",
+        "effect": "La production d'Octeracts est {{n}}% plus rapide pour chaque $10 par mois sur le Patreon ! Le même bonus que celui qui existe déjà pour les Quarks."
       },
       "offeringAutomatic": {
         "name": "Morceaux de Myrtilles !",
@@ -2148,21 +2148,21 @@
       },
       "intermediatePack": {
         "name": "Paquet Intermédiaire",
-        "description": "Double Global Speed, Multiply Ascension speed by 1.5, and gain +2% Quarks forever. Yum... 2% Quark Milk.",
-        "effectHave": "You have upgraded your package to intermediate.",
-        "effectHaveNot": "You have not upgraded your package to intermediate."
+        "description": "Doublez la vitesse globale, multipliez la vitesse d'Ascension par 1,5 et obtenez +2% de Quarks pour toujours. Miam… 2% de Quarks.",
+        "effectHave": "Vous avez amélioré votre paquet vers intermédiaire.",
+        "effectHaveNot": "Vous n'avez pas amélioré votre paquet vers intermédiaire."
       },
       "advancedPack": {
         "name": "Paquet Avancé",
-        "description": "Now we're cooking with kerosene! Gain +4% Quarks stack with intermediate, +0.33 to all corruption score multipliers, regardless of level!",
-        "effectHave": "You have bought our advanced package.",
-        "effectHaveNot": "You have not bought our advanced package."
+        "description": "Maintenant nous cuisinons avec du kérosène ! Obtenez +4% de Quarks se cumulant avec le paquet intermédiaire, +0,33 à tous les multiplicateurs de points de Corruptions, quel qu'en soit le niveau !",
+        "effectHave": "Vous avez acheté notre paquet avancé.",
+        "effectHaveNot": "Vous n'avez pas acheté notre paquet avancé."
       },
       "expertPack": {
         "name": "Paquet Expert",
         "description": "That's a handful! Gain +6% Quarks stack with advanced, 1.5x Ascension Score, Code 'add' gives 1.2x Ascension Timer.",
-        "effectHave": "You have switched to the expert provider.",
-        "effectHaveNot": "You have not switched to the expert provider."
+        "effectHave": "Vous êtes passé au fournisseur expert.",
+        "effectHaveNot": "Vous n'êtes pas passé au fournisseur expert."
       },
       "masterPack": {
         "name": "Paquet Maître",
