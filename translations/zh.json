@@ -14,7 +14,7 @@
     "amount": "神肴：目前有<<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>>，共有<<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>>",
     "blueberryAmount": "蓝莓：<<lightblue|{{unspentBlueberries}}>>尚未花费，共有<<lightblue|{{blueberries}}>>",
     "blueberryGeneration": "每秒获得<<var(--amber-text-color)|{{chance}}>>神肴进度条点数。",
-    "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：☘ {{ambrosiaLuck}}>>]",
+    "perGen": "目前可以获得<<var(--amber-text-color)|{{guaranteed}}>>，并有<<var(--amber-text-color)|{{extraChance}}%>>概率再获得1个。[<<var(--lime-text-color)|神肴之运：☘ {{ambrosiaLuck}}>>] {{extra}}",
     "blueberrySecond": "您目前积累了<<var(--amber-text-color)|{{blueberrySecond}}>>蓝莓秒！积累<<blue|{{thresholdTimer}}>>后可以产生神肴。",
     "generatedCubeBonus": "所有类型的方盒、立方和方块获取数量<<yellow|增加{{cubeBonus}}>>",
     "generatedQuarkBonus": "夸克获取数量<<cyan|增加{{quarkBonus}}>>",
