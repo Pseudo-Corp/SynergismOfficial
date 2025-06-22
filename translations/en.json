@@ -1972,9 +1972,9 @@
       },
       "immaculateAlchemy": {
         "name": "Immaculate Alchemy",
-        "hasLevel2": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 8.",
-        "hasLevel1": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 5.",
-        "default": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 3."
+        "hasLevel2": "Starting at Singularity 200, Fast Forwards will be reduced by 1 every 15 Sings! In exchange, multiply your GQ gain and divide your GQ buy cost by 8.",
+        "hasLevel1": "Starting at Singularity 200, Fast Forwards will be reduced by 1 every 15 Sings! In exchange, multiply your GQ gain and divide your GQ buy cost by 5.",
+        "default": "Starting at Singularity 200, Fast Forwards will be reduced by 1 every 15 Sings! In exchange, multiply your GQ gain and divide your GQ buy cost by 3."
       },
       "skrauQ": {
         "name": "skrauQ",
