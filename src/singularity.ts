@@ -2552,8 +2552,9 @@ const handlePerks = (singularityCount: number) => {
 // Indicates the number of extra Singularity count gained on Singularity reset
 export const getFastForwardTotalMultiplier = (): number => {
   let fastForward = 0
-  // Please for the love of god don't allow FF during a challenge or if Sing is at least 245 (Don't do needless maths).
-  if (player.insideSingularityChallenge || player.singularityCount >= 245) {
+  var ffHardCap = 245 // True Hardcap for FF (Change as needed).
+  // Please for the love of god don't allow FF during a challenge or if Sing is at least at Hardcap (Don't do needless maths).
+  if (player.insideSingularityChallenge || player.singularityCount >= ffHardCap) {
     return 0
   }
 
@@ -2569,12 +2570,12 @@ export const getFastForwardTotalMultiplier = (): number => {
     ))
   }
 
-  // Stop at Sing 245 even if you include fast forward. Also acts as a Negative Value check.
+  // Stop at Hardcap even if you include fast forward. Also acts as a Negative Value check.
   fastForward = Math.max(
     0,
     Math.min(
       fastForward, 
-      245 - player.singularityCount - 1
+      ffHardCap - player.singularityCount - 1
     )
   )
 
