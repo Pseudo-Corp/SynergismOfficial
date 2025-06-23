@@ -98,10 +98,10 @@ function setActiveUpgrade (upgrade: UpgradesList | undefined) {
         })
       }`
       : 'Cannot buy. Sorry!'
-    const info = showCostAndEffect(upgrade!.internalName)
-    costs.innerHTML = info.cost
-    effects.innerHTML = info.effect
   }
+  const info = showCostAndEffect(upgrade!.internalName)
+  costs.innerHTML = info.cost
+  effects.innerHTML = info.effect
 }
 
 async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
