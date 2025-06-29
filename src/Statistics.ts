@@ -3465,15 +3465,22 @@ export const gameStages = (): Stage[] => {
     {
       stage: 21,
       tier: 6,
-      name: 'exalt1x1-onemind',
-      unlocked: player.singularityUpgrades.oneMind.level > 0,
+      name: 'exalt1x1-exalt5x1',
+      unlocked: player.singularityChallenges.noAmbrosiaUpgrades.completions > 0,
       reset: player.highestSingularityCount > 0
     },
     {
       stage: 22,
       tier: 6,
-      name: 'onemind-end',
-      unlocked: player.singularityUpgrades.offeringAutomatic.level > 0,
+      name: 'exalt5x1-s256',
+      unlocked: player.highestSingularityCount > 256,
+      reset: player.highestSingularityCount > 0
+    },
+    {
+      stage: 23,
+      tier: 6,
+      name: 's256-exalt6x25',
+      unlocked: player.singularityChallenges.limitedTime.completions >= 25,
       reset: player.highestSingularityCount > 0
     },
     {
