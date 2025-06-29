@@ -3486,7 +3486,7 @@ export const gameStages = (): Stage[] => {
     {
       stage: 24,
       tier: 6,
-      name: 'end-pen',
+      name: 'exalt6x25-pen',
       unlocked: player.singularityUpgrades.ultimatePen.level > 0,
       reset: player.highestSingularityCount > 0
     },
