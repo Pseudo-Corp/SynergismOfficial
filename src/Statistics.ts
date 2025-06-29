@@ -3484,14 +3484,14 @@ export const gameStages = (): Stage[] => {
       reset: player.highestSingularityCount > 0
     },
     {
-      stage: 23,
+      stage: 24,
       tier: 6,
       name: 'end-pen',
       unlocked: player.singularityUpgrades.ultimatePen.level > 0,
       reset: player.highestSingularityCount > 0
     },
     {
-      stage: 24,
+      stage: 25,
       tier: 6,
       name: 'pen',
       unlocked: false,
