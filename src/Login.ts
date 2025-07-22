@@ -178,10 +178,9 @@ interface SynergismPatreonUserAPIResponse extends SynergismUserAPIResponse {
 
 interface SynergismEmailUserAPIResponse extends SynergismUserAPIResponse {
   member: {
-    user: {
-      username: string
-    }
-    roles: string[] & { length: 0 }
+    email: string
+    verified: boolean
+    roles: undefined // FUCK OFF TYPESCRIPT!
   }
   accountType: 'email'
 }
@@ -249,11 +248,13 @@ export async function handleLogin () {
 
     currentBonus.textContent = i18next.t('settings.quarkBonusExtended', { globalBonus, personalBonus })
 
-    let user: string | null
+    let user: string | null = null
 
     if (accountType === 'discord') {
       user = member.nick ?? member.user?.username ?? member.user?.global_name ?? null
-    } else {
+    } else if (accountType === 'email') {
+      user = member.email
+    } else if (accountType === 'patreon') {
       user = member.user.username
     }
 
@@ -264,10 +265,10 @@ export async function handleLogin () {
     const boosted = accountType === 'discord' && (Boolean(member?.premium_since) || member?.roles.includes(BOOSTER))
     // It is possible for someone to have the roles through the Patreon integration with Discord, yet not have their
     // patreon linked to their Synergism (Discord/email) account.
-    const hasTier1 = subscriptionTier === 1 || member.roles.includes(TRANSCENDED_BALLER)
-    const hasTier2 = subscriptionTier === 2 || member.roles.includes(REINCARNATED_BALLER)
-    const hasTier3 = subscriptionTier === 3 || member.roles.includes(ASCENDED_BALLER)
-    const hasTier4 = subscriptionTier === 4 || member.roles.includes(OMEGA_BALLER)
+    const hasTier1 = subscriptionTier === 1 || member.roles?.includes(TRANSCENDED_BALLER)
+    const hasTier2 = subscriptionTier === 2 || member.roles?.includes(REINCARNATED_BALLER)
+    const hasTier3 = subscriptionTier === 3 || member.roles?.includes(ASCENDED_BALLER)
+    const hasTier4 = subscriptionTier === 4 || member.roles?.includes(OMEGA_BALLER)
 
     const checkMark = (n: number) => {
       return `<span style="color: lime">[✔] {+${n}%}</span>`
@@ -287,34 +288,34 @@ export async function handleLogin () {
 
       Event Bonuses:
       <span style="color: #ffcc00">Thanksgiving 2023</span> [+0.2%] - ${
-      member.roles.includes(THANKSGIVING_2023) ? checkMark(0.2) : exMark
+      member.roles?.includes(THANKSGIVING_2023) ? checkMark(0.2) : exMark
     }
       <span style="color: #ffcc00">Thanksgiving 2024</span> [+0.3%] - ${
-      member.roles.includes(THANKSGIVING_2024) ? checkMark(0.3) : exMark
+      member.roles?.includes(THANKSGIVING_2024) ? checkMark(0.3) : exMark
     }
       <span style="color: #ffcc00">Conductor 2023</span> [+0.3%] - ${
-      member.roles.includes(CONDUCTOR_2023) ? checkMark(0.3) : exMark
+      member.roles?.includes(CONDUCTOR_2023) ? checkMark(0.3) : exMark
     }
       <span style="color: #ffcc00">Conductor 2024</span> [+0.4%] - ${
-      member.roles.includes(CONDUCTOR_2024) ? checkMark(0.4) : exMark
+      member.roles?.includes(CONDUCTOR_2024) ? checkMark(0.4) : exMark
     }
       <span style="color: #ffcc00">Eight Leaf</span> [+0.3%] - ${
-      member.roles.includes(EIGHT_LEAF) ? checkMark(0.3) : exMark
+      member.roles?.includes(EIGHT_LEAF) ? checkMark(0.3) : exMark
     }
       <span style="color: #ffcc00">Ten Leaf</span> [+0.4%] - ${
-      member.roles.includes(TEN_LEAF) ? checkMark(0.4) : exMark
+      member.roles?.includes(TEN_LEAF) ? checkMark(0.4) : exMark
     }
       <span style="color: #ffcc00">Smith Incarnate</span> [+0.6%] - ${
-      member.roles.includes(SMITH_INCARNATE) ? checkMark(0.6) : exMark
+      member.roles?.includes(SMITH_INCARNATE) ? checkMark(0.6) : exMark
     }
       <span style="color: #ffcc00">Smith God</span> [+0.7%] - ${
-      member.roles.includes(SMITH_GOD) ? checkMark(0.7) : exMark
+      member.roles?.includes(SMITH_GOD) ? checkMark(0.7) : exMark
     }
       <span style="color: #ffcc00">Golden Smith God</span> [+0.8%] - ${
-      member.roles.includes(GOLDEN_SMITH_GOD) ? checkMark(0.8) : exMark
+      member.roles?.includes(GOLDEN_SMITH_GOD) ? checkMark(0.8) : exMark
     }
       <span style="color: #ffcc00">Diamond Smith Messiah</span> [+1%] - ${
-      member.roles.includes(DIAMOND_SMITH_MESSIAH) ? checkMark(1.2) : exMark
+      member.roles?.includes(DIAMOND_SMITH_MESSIAH) ? checkMark(1.2) : exMark
     }
 
       And Finally...
