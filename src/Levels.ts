@@ -89,84 +89,84 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     wowCubes: {
         name: () => i18next.t('achievements.levelRewards.wowCubes.name'),
         description: () => i18next.t('achievements.levelRewards.wowCubes.description'),
-        effect: (lv: number) => 1 + (lv - 19) / 20,
+        effect: (lv: number) => (1 + (lv - 39) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 4),
         effectDescription: () => {
             const multiplier = getLevelReward('wowCubes')
             return i18next.t('achievements.levelRewards.wowCubes.effect', {
                 mult: formatAsPercentIncrease(multiplier, 2)
             })
         },
-        minLevel: 20,
+        minLevel: 40,
         defaultValue: 1,
         nameColor: 'lightgrey'
     },
     wowTesseracts: {
         name: () => i18next.t('achievements.levelRewards.wowTesseracts.name'),
         description: () => i18next.t('achievements.levelRewards.wowTesseracts.description'),
-        effect: (lv: number) => 1 + (lv - 29) / 20,
+        effect: (lv: number) => (1 + (lv - 59) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 6),
         effectDescription: () => {
             const multiplier = getLevelReward('wowTesseracts')
             return i18next.t('achievements.levelRewards.wowTesseracts.effect', {
                 mult: formatAsPercentIncrease(multiplier, 2)
             })
         },
-        minLevel: 30,
+        minLevel: 60,
         defaultValue: 1,
         nameColor: 'orchid'
     },
     wowHyperCubes: {
         name: () => i18next.t('achievements.levelRewards.wowHyperCubes.name'),
         description: () => i18next.t('achievements.levelRewards.wowHyperCubes.description'),
-        effect: (lv: number) => 1 + (lv - 39) / 20,
+        effect: (lv: number) => (1 + (lv - 79) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 8),
         effectDescription: () => {
             const multiplier = getLevelReward('wowHyperCubes')
             return i18next.t('achievements.levelRewards.wowHyperCubes.effect', {
                 mult: formatAsPercentIncrease(multiplier, 2)
             })
         },
-        minLevel: 40,
+        minLevel: 80,
         defaultValue: 1,
         nameColor: 'crimson'
     },
     wowPlatonicCubes: {
         name: () => i18next.t('achievements.levelRewards.wowPlatonicCubes.name'),
         description: () => i18next.t('achievements.levelRewards.wowPlatonicCubes.description'),
-        effect: (lv: number) => 1 + (lv - 49) / 20,
+        effect: (lv: number) => (1 + (lv - 99) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 10),
         effectDescription: () => {
             const multiplier = getLevelReward('wowPlatonicCubes')
             return i18next.t('achievements.levelRewards.wowPlatonicCubes.effect', {
                 mult: formatAsPercentIncrease(multiplier, 2)
             })
         },
-        minLevel: 50,
+        minLevel: 100,
         defaultValue: 1,
         nameColor: 'lightgoldenrodyellow'
     },
     wowHepteractCubes: {
         name: () => i18next.t('achievements.levelRewards.wowHepteractCubes.name'),
         description: () => i18next.t('achievements.levelRewards.wowHepteractCubes.description'),
-        effect: (lv: number) => 1 + (lv - 69) / 20,
+        effect: (lv: number) => (1 + (lv - 124) / 20) * Math.pow(1.07, Math.floor(lv / 10) - 12),
         effectDescription: () => {
             const multiplier = getLevelReward('wowHepteractCubes')
             return i18next.t('achievements.levelRewards.wowHepteractCubes.effect', {
                 mult: formatAsPercentIncrease(multiplier, 2)
             })
         },
-        minLevel: 70,
+        minLevel: 125,
         defaultValue: 1,
         nameColor: 'mediumpurple'
     },
     wowOcteracts: {
         name: () => i18next.t('achievements.levelRewards.wowOcteracts.name'),
         description: () => i18next.t('achievements.levelRewards.wowOcteracts.description'),
-        effect: (lv: number) => (1 + (lv - 149) / 20) * Math.pow(1.02, lv - 149),
+        effect: (lv: number) => (1 + (lv - 187) / 20) * Math.pow(1.02, lv - 187),
         effectDescription: () => {
             const multiplier = getLevelReward('wowOcteracts')
             return i18next.t('achievements.levelRewards.wowOcteracts.effect', {
                 mult: formatAsPercentIncrease(multiplier, 2)
             })
         },
-        minLevel: 150,
+        minLevel: 188,
         defaultValue: 1,
         nameColor: 'turquoise'
     },
@@ -261,7 +261,7 @@ export const generateLevelRewardHTMLs = () => {
     }
 }
 
-export type SynergismLevelMilestones = 'offeringTimerScaling' | 'duplicationRune' | 'prismRune' | 'thriftRune' | 'autoPrestige' |
+export type SynergismLevelMilestones = 'offeringTimerScaling' | 'speedRune' | 'duplicationRune' | 'prismRune' | 'thriftRune' | 'SIRune' | 'autoPrestige' |
 'tier1CrystalAutobuy' | 'tier2CrystalAutobuy' | 'tier3CrystalAutobuy' | 'tier4CrystalAutobuy' | 'tier5CrystalAutobuy' |
 'achievementTalismanUnlock' | 'achievementTalismanEnhancement' | 'salvageChallengeBuff'
 
@@ -306,47 +306,85 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
         levelReq: 10,
         displayOrder: 2
     },
+    speedRune: {
+        name: () => i18next.t('achievements.levelMilestones.speedRune.name'),
+        description: () => i18next.t('achievements.levelMilestones.speedRune.description'),
+        effect: () => {
+            return 0.5 * (achievementLevel - 19)
+        },
+        defaultValue: 0,
+        effectDescription: () => {
+            const speedRune = getLevelMilestone('speedRune')
+            return i18next.t('achievements.levelMilestones.speedRune.effect', {
+                speedRune: format(speedRune, 2, true)
+            })
+        },
+        levelReq: 20,
+        displayOrder: 3
+    },
     duplicationRune: {
         name: () => i18next.t('achievements.levelMilestones.duplicationRune.name'),
         description: () => i18next.t('achievements.levelMilestones.duplicationRune.description'),
-        effect: () => 1,
+        effect: () => {
+            return 0.4 * (achievementLevel - 39)
+        },
         defaultValue: 0,
         effectDescription: () => {
-            const duplicationRune = getLevelMilestone('duplicationRune') === 1
+            const duplicationRune = getLevelMilestone('duplicationRune')
             return i18next.t('achievements.levelMilestones.duplicationRune.effect', {
-                duplicationRune: duplicationRune ? i18next.t('achievements.rewardTypes.unlocked') : i18next.t('achievements.rewardTypes.locked')
+                duplicationRune: format(duplicationRune, 2, true)
             })
         },
-        levelReq: 10,
-        displayOrder: 3
+        levelReq: 40,
+        displayOrder: 4
     },
     prismRune: {
         name: () => i18next.t('achievements.levelMilestones.prismRune.name'),
         description: () => i18next.t('achievements.levelMilestones.prismRune.description'),
-        effect: () => 1,
+        effect: () => {
+            return 0.3 * (achievementLevel - 59)
+        },
         defaultValue: 0,
         effectDescription: () => {
-            const prismRune = getLevelMilestone('prismRune') === 1
+            const prismRune = getLevelMilestone('prismRune')
             return i18next.t('achievements.levelMilestones.prismRune.effect', {
-                prismRune: prismRune ? i18next.t('achievements.rewardTypes.unlocked') : i18next.t('achievements.rewardTypes.locked')
+                prismRune: format(prismRune, 2, true)
             })
         },
-        levelReq: 20,
-        displayOrder: 4
+        levelReq: 60,
+        displayOrder: 5
     },
     thriftRune: {
         name: () => i18next.t('achievements.levelMilestones.thriftRune.name'),
         description: () => i18next.t('achievements.levelMilestones.thriftRune.description'),
-        effect: () => 1,
+        effect: () => {
+            return 0.2 * (achievementLevel - 79)
+        },
         defaultValue: 0,
         effectDescription: () => {
-            const thriftRune = getLevelMilestone('thriftRune') === 1
+            const thriftRune = getLevelMilestone('thriftRune')
             return i18next.t('achievements.levelMilestones.thriftRune.effect', {
-                thriftRune: thriftRune ? i18next.t('achievements.rewardTypes.unlocked') : i18next.t('achievements.rewardTypes.locked')
+                thriftRune: format(thriftRune, 2, true)
             })
         },
-        levelReq: 30,
-        displayOrder: 5
+        levelReq: 80,
+        displayOrder: 6
+    },
+    SIRune: {
+        name: () => i18next.t('achievements.levelMilestones.SIRune.name'),
+        description: () => i18next.t('achievements.levelMilestones.SIRune.description'),
+        effect: () => {
+            return 0.1 * (achievementLevel - 99)
+        },
+        defaultValue: 0,
+        effectDescription: () => {
+            const siRune = getLevelMilestone('SIRune')
+            return i18next.t('achievements.levelMilestones.SIRune.effect', {
+                siRune: format(siRune, 2, true)
+            })
+        },
+        levelReq: 100,
+        displayOrder: 7
     },
     tier1CrystalAutobuy: {
         name: () => i18next.t('achievements.levelMilestones.tier1CrystalAutobuy.name'),
@@ -360,7 +398,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
             })
         },
         levelReq: 6,
-        displayOrder: 6
+        displayOrder: 8
     },
     tier2CrystalAutobuy: {
         name: () => i18next.t('achievements.levelMilestones.tier2CrystalAutobuy.name'),
@@ -374,7 +412,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
             })
         },
         levelReq: 9,
-        displayOrder: 7
+        displayOrder: 9
     },
     tier3CrystalAutobuy: {
         name: () => i18next.t('achievements.levelMilestones.tier3CrystalAutobuy.name'),
@@ -388,7 +426,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
             })
         },
         levelReq: 12,
-        displayOrder: 8
+        displayOrder: 10
     },
     tier4CrystalAutobuy: {
         name: () => i18next.t('achievements.levelMilestones.tier4CrystalAutobuy.name'),
@@ -402,7 +440,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
             })
         },
         levelReq: 15,
-        displayOrder: 9
+        displayOrder: 11
     },
     tier5CrystalAutobuy: {
         name: () => i18next.t('achievements.levelMilestones.tier5CrystalAutobuy.name'),
@@ -416,7 +454,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
             })
         },
         levelReq: 20,
-        displayOrder: 10
+        displayOrder: 12
     },
     achievementTalismanUnlock: {
         name: () => i18next.t('achievements.levelMilestones.achievementTalismanUnlock.name'),
@@ -430,7 +468,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
             })
         },
         levelReq: 100,
-        displayOrder: 11
+        displayOrder: 13
     },
     achievementTalismanEnhancement: {
         name: () => i18next.t('achievements.levelMilestones.achievementTalismanEnhancement.name'),
@@ -444,7 +482,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
             })
         },
         levelReq: 160,
-        displayOrder: 12
+        displayOrder: 14
     },
     salvageChallengeBuff: {
         name: () => i18next.t('achievements.levelMilestones.salvageChallengeBuff.name'),
@@ -473,7 +511,7 @@ export const synergismLevelMilestones: Record<SynergismLevelMilestones, Synergis
             })
         },
         levelReq: 180,
-        displayOrder: 13
+        displayOrder: 15
     }
 }
 

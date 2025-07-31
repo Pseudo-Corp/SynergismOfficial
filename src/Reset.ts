@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { awardAchievementGroup, challengeAchievementCheck } from './Achievements'
+import { awardAchievementGroup, challengeAchievementCheck, getAchievementReward } from './Achievements'
 import type { BlueberryLoadoutMode } from './BlueberryUpgrades'
 import { buyTesseractBuilding, calculateTessBuildingsInBudget } from './Buy'
 import type { TesseractBuildings } from './Buy'
@@ -26,7 +26,7 @@ import {
   updateMaxTokens,
   updateTokens
 } from './Campaign'
-import { challengeRequirement } from './Challenges'
+import { CalcECC, challengeRequirement } from './Challenges'
 import { c15Corruptions, CorruptionLoadout, corruptionStatsUpdate, type SavedCorruption } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
 import { autoBuyCubeUpgrades, awardAutosCookieUpgrade, updateCubeUpgradeBG } from './Cubes'
@@ -345,6 +345,48 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
   }
 }
 
+export const updatePrestigeCount = (count: number) => {
+  let multiplier = 1
+  multiplier *= +getAchievementReward('prestigeCountMultiplier')
+  multiplier *= 1 + 0.05 * CalcECC('transcend', player.challengecompletions[5])
+
+  const prestigeToAdd = Math.floor(count * multiplier)
+  if (prestigeToAdd > 0) {
+    player.prestigeCount += prestigeToAdd
+    awardAchievementGroup('prestigeCount')
+  }
+}
+
+export const updateTranscensionCount = (count: number) => {
+  let multiplier = 1
+  multiplier *= +getAchievementReward('transcensionCountMultiplier')
+  multiplier *= 1 + 0.15 * CalcECC('reincarnation', player.challengecompletions[7])
+
+  const transcendToAdd = Math.floor(count * multiplier)
+  if (transcendToAdd > 0) {
+    player.transcendCount += transcendToAdd
+    awardAchievementGroup('transcensionCount')
+  }
+  if (getAchievementReward('transcendToPrestige')) {
+    updatePrestigeCount(transcendToAdd)
+  }
+}
+
+export const updateReincarnationCount = (count: number) => {
+  let multiplier = 1
+  multiplier *= +getAchievementReward('reincarnationCountMultiplier')
+  multiplier *= 1 + 0.2 * CalcECC('ascension', player.challengecompletions[12])
+
+  const reincarnationToAdd = Math.floor(count * multiplier)
+  if (reincarnationToAdd > 0) {
+    player.reincarnationCount += reincarnationToAdd
+    awardAchievementGroup('reincarnationCount')
+  }
+  if (getAchievementReward('reincarnationToTranscend')) {
+    updateTranscensionCount(reincarnationToAdd)
+  }
+}
+
 export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
   resetAddHistoryEntry(input, from)
@@ -380,7 +422,7 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
   player.acceleratorCost = new Decimal('500')
   player.acceleratorBought = 0
 
-  player.prestigeCount += 1
+  updatePrestigeCount(1)
 
   player.prestigePoints = player.prestigePoints.add(G.prestigePointGain)
   player.prestigeShards = new Decimal('0')
@@ -446,7 +488,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.acceleratorBoostBought = 0
     player.acceleratorBoostCost = new Decimal('1e3')
 
-    player.transcendCount += 1
+    updateTranscensionCount(1)
+    awardAchievementGroup('transcensionCount')
 
     player.prestigePoints = new Decimal('0')
     player.transcendPoints = player.transcendPoints.add(G.transcendPointGain)
@@ -517,7 +560,8 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.fourthGeneratedParticles = new Decimal('0')
     player.fifthGeneratedParticles = new Decimal('0')
 
-    player.reincarnationCount += 1
+    updateReincarnationCount(1)
+    awardAchievementGroup('reincarnationCount')
 
     player.transcendPoints = new Decimal('0')
     player.reincarnationPoints = player.reincarnationPoints.add(G.reincarnationPointGain)

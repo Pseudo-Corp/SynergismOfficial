@@ -1,7 +1,7 @@
 import ClipboardJS from 'clipboard'
 import i18next from 'i18next'
 import LZString from 'lz-string'
-import { awardAchievement, resetAchievements, ungroupedNameMap } from './Achievements'
+import { awardUngroupedAchievement, resetAchievements } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
 import { testing, version } from './Config'
@@ -441,10 +441,10 @@ export const promocodes = async (input: string | null, amount?: number) => {
     player.worlds.add(50)
     el.textContent = i18next.t('importexport.promocodes.synergism2021')
   } else if (input === ':unsmith:') {
-    awardAchievement(ungroupedNameMap.unsmith)
+    awardUngroupedAchievement('unsmith')
     el.textContent = i18next.t('importexport.promocodes.unsmith')
-  } else if (input === ':antismith:') {
-    awardAchievement(ungroupedNameMap.smith)
+  } else if (input === ':antismith:' || input === 'smith') {
+    awardUngroupedAchievement('smith')
     el.textContent = i18next.t('importexport.promocodes.antismith')
   } else if (input === 'Khafra' && !player.codes.get(26)) {
     player.codes.set(26, true)

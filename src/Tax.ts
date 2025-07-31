@@ -3,7 +3,7 @@ import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
 import Decimal from 'break_infinity.js'
-import { awardAchievement, getAchievementReward, ungroupedNameMap } from './Achievements'
+import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { CalcECC } from './Challenges'
 import { getRuneEffects } from './Runes'
 import { getTalismanEffects } from './Talismans'
@@ -123,7 +123,7 @@ export const calculatetax = () => {
     // as soon as the challenge is opened you don't have enough tax reducers to have max exponent above 100000
     // so for the achievement description to make sense i think it should require at least 1 challenge completion || Dorijanko
     if (c13effcompletions >= 1) {
-      awardAchievement(ungroupedNameMap.overtaxed)
+      awardUngroupedAchievement('overtaxed')
     }
   }
 

@@ -778,9 +778,9 @@ p#buildinghotkeys2 {
 
 #upgradesFlex > section > table {
     font-size: 0;
-    min-height: 182px;
     text-align: center;
     border-collapse: collapse;
+    margin: 3px;
 }
 
 #upgradesFlex > section > table td {

@@ -771,7 +771,52 @@
       "432": "Thousandaire: Gain 1,000 Campaign Tokens from Campaigns.",
       "433": "Question 6 of a possible 15: Gain 2,000 Campaign Tokens from Campaigns.",
       "434": "Platonic Campaigns: Gain 4,000 Campaign Tokens from Campaigns.",
-      "435": "Campaign Master: Gain 9,000 Campaign Tokens from Campaigns."
+      "435": "Campaign Master: Gain 9,000 Campaign Tokens from Campaigns.",
+      "436": "Baby's first Prestige: Prestige for the first time.",
+      "437": "Ten Reputation: Prestige 10 times.",
+      "438": "Duplicating yourself: Prestige 100 times.",
+      "439": "Number? Go UP!: Prestige 1,000 times.",
+      "440": "Pretend to be a god: Prestige 10,000 times.",
+      "441": "The now-idolized: Prestige 100,000 times.",
+      "442": "One. Million. Prestige.: Prestige 1,000,000 times.",
+      "443": "Powers of Ten: Prestige 10,000,000 times.",
+      "444": "Now that's what I call Prestige!: Prestige 100,000,000 times.",
+      "445": "Billionaire I: Prestige 1,000,000,000 times.",
+      "446": "Powers of a Hundred: Prestige 100,000,000,000 times.",
+      "447": "Numbers as large as they are wide: Prestige 10,000,000,000,000 times.",
+      "448": "That's a quadrillion to you: Prestige 1e15 times.",
+      "449": "Prestige ad nauseum: Prestige 1e17 times.",
+      "450": "Prestige so Presitgious, it becomes ordinary: Prestige 1e20 times.",
+      "451": "Transcendental: Transcend for the first time.",
+      "452": "Ten degrees of separation: Transcend 10 times.",
+      "453": "Polychroma: Transcend 100 times.",
+      "454": "Absent further instructions: Transcend 1,000 times.",
+      "455": "The visage of godliness: Transcend 10,000 times.",
+      "456": "Post-human: Transcend 100,000 times.",
+      "457": "The Million Transcension Man: Transcend 1,000,000 times.",
+      "458": "Why not another?: Transcend 10,000,000 times.",
+      "459": "The average AI Salary in 2025: Transcend 100,000,000 times.",
+      "460": "Billionaire II: Transcend 1,000,000,000 times.",
+      "461": "Powers of thirty: Transcend 30,000,000,000 times.",
+      "462": "Wheel turning round and round: Transcend 900,000,000,000 times.",
+      "463": "The pursuit of numbers: Transcend 2.7e13 times.",
+      "464": "42 Achievement Points: Transcend 8.1e14 times.",
+      "465": "How to Transcend your Dragon: Transcend 1e17 times.",
+      "466": "Particle Man: Reincarnate for the first time.",
+      "467": "Some giants, possibly: Reincarnate 10 times.",
+      "468": "Atomic Discounts: Reincarnate 100 times.",
+      "469": "The nuclear option: Reincarnate 1,000 times.",
+      "470": "Reinvent yourself: Reincarnate 10,000 times.",
+      "471": "Your mind is software: Reincarnate 100,000 times.",
+      "472": "Bioethical: Reincarnate 1,000,000 times.",
+      "473": "Can you count to 10 million: Reincarnate 10,000,000 times.",
+      "474": "Reincarnated Grandmas... wait: Reincarnate 100,000,000 times.",
+      "475": "Billionaire III: Reincarnate 1,000,000,000 times.",
+      "476": "Out of bodies: Reincarnate 8,000,000,000 times",
+      "477": "Become the unsmith: Reincarnate 100,000,000,000 times.",
+      "478": "One trillion reincarnations later: Reincarnate 1,000,000,000,000 times.",
+      "479": "Log-triskaidekaphobia: Reincarnate 13,131,313,131,313 times.",
+      "480": "M2: Reincarnate 2e14 times."
     },
     "achievementRewards": {
       "3": {
@@ -1425,6 +1470,49 @@
       },
       "425": {
         "salvage": "♻ Salvage +7"
+      },
+      "437": {
+        "prestigeCountMultiplier": "Gain +100% more Prestige Count per digit in your Prestige Count (additive)!"
+      },
+      "438": {
+        "duplicationRuneUnlock": "Permanently unlock the Duplication Rune!"
+      },
+      "439": {
+        "offeringBonus": "Gain +2% more Offerings per digit in your Prestige Count (additive)!"
+      },
+      "442": {
+        "transcendToPrestige": "For each Transcension Count you gain, you get 1 Prestige Count (subject to Prestige Count multipliers)"
+      },
+      "444": {
+        "transcensionCountMultiplier": "Gain up to 4x the Transcension Count based on your Prestige Timer (maxes at 10s)"
+      },
+      "452": {
+        "transcensionCountMultiplier": "Gain +100% more Transcension Count per digit in your Transcension Count (additive)!"
+      },
+      "453": {
+        "salvage": "Gain ♻ Salvage +2 per digit in your Transcension Count!"
+      },
+      "454": {
+        "prismRuneUnlock": "Permanently unlock the Prism Rune!"
+      },
+      "457": {
+        "reincarnationToTranscend": "For each Reincarnation Count you gain, you get 1 Transcension Count (subject to Transcension Count multipliers)"
+      },
+      "459": {
+        "reincarnationCountMultiplier": "Gain up to 4x the Reincarnation Count based on your Prestige Timer (maxes at 1,000s)"
+      },
+      "467": {
+        "reincarnationCountMultiplier": "Gain +100% more Reincarnation Count per digit in your Reincarnation Count (additive)!"
+      },
+      "468": {
+        "obtainiumBonus": "Gain +2% more Obtainium per digit in your Reincarnation Count (additive)!"
+      },
+      "470": {
+        "thriftRuneUnlock": "Permanently unlock the Thrift Rune!"
+      },
+      "474": {
+        "prestigeCountMultiplier": "Gain up to 4x the Prestige Count based on your Prestige Timer (maxes at 1,000,000s)",
+        "ascensionCountMultiplier": "Gain up to 1.25x the Ascension Count based on your Ascension Timer (maxes at 1,000,000s)"
       }
     },
     "rewards": {
@@ -1625,6 +1713,9 @@
       "runeLevel": "Rune Levels",
       "runeFreeLevel": "Free Rune Levels",
       "campaignTokens": "Campaign Tokens",
+      "prestigeCount": "Times Prestiged",
+      "transcensionCount": "Times Transcended",
+      "reincarnationCount": "Times Reincarnated",
       "ungrouped": "Miscellaneous"
     },
     "rewardTypes": {
@@ -1725,32 +1816,32 @@
       },
       "wowCubes": {
         "name": "Wow! Cube Production",
-        "description": "For each level past 19, gain +5% more Wow! Cubes.",
+        "description": "For each level past 39, gain +5% more Wow! Cubes. Every 10 levels, multiply the bonus by 1.07.",
         "effect": "Current Effect: +{{mult}} Wow! Cube Gain"
       },
       "wowTesseracts": {
         "name": "Wow! Tesseract Production",
-        "description": "For each level past 29, gain +5% more Wow! Tesseracts.",
+        "description": "For each level past 59, gain +5% more Wow! Tesseracts. Every 10 levels, multiply the bonus by 1.07.",
         "effect": "Current Effect: +{{mult}} Wow! Tesseract Gain"
       },
       "wowHyperCubes": {
         "name": "Wow! Hypercube Production",
-        "description": "For each level past 39, gain +5% more Wow! Hypercubes.",
+        "description": "For each level past 79, gain +5% more Wow! Hypercubes. Every 10 levels, multiply the bonus by 1.07.",
         "effect": "Current Effect: +{{mult}} Wow! Hypercube Gain"
       },
       "wowPlatonicCubes": {
         "name": "Wow! Platonic Cube Production",
-        "description": "For each level past 49, gain +5% more Wow! Platonic Cubes.",
+        "description": "For each level past 99, gain +5% more Wow! Platonic Cubes. Every 10 levels, multiply the bonus by 1.07.",
         "effect": "Current Effect: +{{mult}} Wow! Platonic Cube Gain"
       },
       "wowHepteractCubes": {
         "name": "Wow! Hepteract Production",
-        "description": "For each level past 69 (lol), gain +5% more Wow! Hepteracts.",
+        "description": "For each level past 124, gain +5% more Wow! Hepteracts. Every 10 levels, multiply the bonus by 1.07.",
         "effect": "Current Effect: +{{mult}} Wow! Hepteract Gain"
       },
       "wowOcteracts": {
         "name": "Wow! Octeracts!... Wait, what?",
-        "description": "For each level past 149, gain +5% more Wow! Octeracts. What's more, multiply this by 1.02 per level as well!",
+        "description": "For each level past 187, gain +5% more Wow! Octeracts. What's more, multiply this by 1.02 per level as well!",
         "effect": "Current Effect: +{{mult}} Wow! Octeract Gain"
       },
       "ambrosiaLuck": {
@@ -1771,19 +1862,29 @@
         "effect": "Current Effect: Gain {{mult}} more Offerings from Prestige timer"
       },
       "duplicationRune": {
-        "name": "The Duplication Rune!",
-        "description": "Making it to level 10, you unlock a second rune. This one has more to do with your Multipliers!",
-        "effect": "Current Effect: Duplication Rune Unlocked!"
+        "name": "Duplication Rune XL!",
+        "description": "Power up your Duplication Rune! Each level 40+ grants +0.4 to Duplication Rune's <i>Rune Coefficient</i>.",
+        "effect": "Current Effect: Duplication Rune - Rune Coefficient +{{duplicationRune}}"
+      },
+      "speedRune": {
+        "name": "Speed Rune XL",
+        "description": "Power up your Speed Rune! Each level 20+ grants +0.5 to Speed Rune's <i>Rune Coefficient</i>.",
+        "effect": "Current Effect: Speed Rune - Rune Coefficient +{{speedRune}}"
       },
       "prismRune": {
-        "name": "The Prism Rune!",
-        "description": "Making it to level 20, you unlock a third rune. This one has more to do with your Crystals!",
-        "effect": "Current Effect: Prism Rune Unlocked!"
+        "name": "Prism Rune XL",
+        "description": "Power up your Prism Rune! Each level 60+ grants +0.3 to Prism Rune's <i>Rune Coefficient</i>.",
+        "effect": "Current Effect: Prism Rune - Rune Coefficient +{{prismRune}}"
       },
       "thriftRune": {
-        "name": "The Thrift Rune!",
-        "description": "Making it to level 30, you unlock a fourth rune. This one has more to do with your Salvage and building costs!",
-        "effect": "Current Effect: Thrift Rune Unlocked!"
+        "name": "Thrift Rune XL",
+        "description": "Power up your Thrift Rune! Each level 80+ grants +0.2 to Thrift Rune's <i>Rune Coefficient</i>.",
+        "effect": "Current Effect: Thrift Rune - Rune Coefficient +{{thriftRune}}"
+      },
+      "SIRune": {
+        "name": "SI Rune XL",
+        "description": "Power up your SI Rune! Each level 100+ grants +0.1 to SI Rune's <i>Rune Coefficient</i>.",
+        "effect": "Current Effect: SI Rune - Rune Coefficient +{{siRune}}"
       },
       "autoPrestige": {
         "name": "Auto Prestiging!",
@@ -2073,14 +2174,14 @@
       "per": {
         "1": "+0.01 Coin --> Diamond conversion exponent on Prestige! Current: ",
         "2": "Multiply Crystal production by 10! Current: ",
-        "3": " "
+        "3": "+5% Prestige Count when Prestiging! Current: "
       },
       "first": "None",
       "start": "Start [Reduced Diamonds]",
       "current": {
         "1": "Exponent = ^{{value}}",
         "2": "Crystal production x{{value}}",
-        "3": " "
+        "3": "Prestige Count +{{value}}%"
       }
     },
     "6": {
@@ -2108,15 +2209,15 @@
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
       "per": {
         "1": "Accelerator/Multiplier boost power exponent +0.04! Current: ",
-        "2": "Speed Rune Exp +10%! Current: ",
-        "3": "Duplication Rune Exp +10%! Current: "
+        "2": "Speed and Duplication Rune have +1 effective Salvage! Current: ",
+        "3": "+15% more Transcension Count when Transcending! Current: "
       },
       "first": "Multiplier Boost power +25%! The first Discord-Booster Global Diamond Upgrade.",
       "start": "Start <No Multipliers/Accelerators>",
       "current": {
         "1": "Exponent = ^{{value}}",
-        "2": "EXP +{{value}}%",
-        "3": "EXP +{{value}}%"
+        "2": "Salvage +{{value}}",
+        "3": "Transcension Count +{{value}}%"
       }
     },
     "8": {
@@ -2199,14 +2300,14 @@
       "per": {
         "1": "+50% Obtainium! Current: ",
         "2": "+12% Offerings! Current: ",
-        "3": "+1 Cube Tribute per opening! Current: "
+        "3": "+20% more Reincarnation Count on Reincarnation! Current: "
       },
       "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Also adds additional Campaigns to beat!",
       "start": "Start <[(No Reincarnation)]>",
       "current": {
         "1": "+{{value}}% Obtainium",
         "2": "+{{value}}% Offerings",
-        "3": "+{{value}} additional Cube Tributes"
+        "3": "+{{value}}% Reincarnation Count"
       }
     },
     "13": {
@@ -5340,6 +5441,8 @@
     },
     "cubeMultiplierStats": {
       "title": "Wow! Cube Multiplier",
+      "AchievementBonus": "Achievement Wow! Cubes Bonus:",
+      "SynergismLevel": "Synergism Level Reward:",
       "AscensionScore": "Ascension Score Multiplier:",
       "GlobalCube": "Global Cube Multiplier:",
       "SeasonPass1": "Season Pass 1:",
@@ -5361,6 +5464,8 @@
     },
     "tesseractMultiplierStats": {
       "title": "Wow! Tesseract Multiplier",
+      "AchievementBonus": "Achievement Wow! Tesseracts Bonus:",
+      "SynergismLevel": "Synergism Level Reward:",
       "AscensionScore": "Ascension Score Multiplier:",
       "GlobalCube": "Global Cube Multiplier:",
       "SeasonPass1": "Season Pass 1:",
@@ -5378,6 +5483,8 @@
     },
     "hypercubeMultiplierStats": {
       "title": "Wow! Hypercube Multiplier",
+      "AchievementBonus": "Achievement Wow! Hypercubes Bonus:",
+      "SynergismLevel": "Synergism Level Reward:",
       "AscensionScore": "Ascension Score Multiplier:",
       "GlobalCube": "Global Cube Multiplier:",
       "SeasonPass2": "Season Pass 2:",
@@ -5394,6 +5501,8 @@
     },
     "platonicMultiplierStats": {
       "title": "Wow! Platonic Cube Multiplier",
+      "AchievementBonus": "Achievement Platonic Cubes Bonus:",
+      "SynergismLevel": "Synergism Level Reward:",
       "AscensionScore": "Ascension Score Multiplier:",
       "GlobalCube": "Global Cube Multiplier:",
       "SeasonPass2": "Season Pass 2:",
@@ -5408,6 +5517,8 @@
     },
     "hepteractMultiplierStats": {
       "title": "Wow! Hepteract Cube Multiplier",
+      "AchievementBonus": "Achievement Hepteracts Bonus:",
+      "SynergismLevel": "Synergism Level Reward:",
       "AscensionScore": "Ascension Score Multiplier:",
       "GlobalCube": "Global Cube Multiplier:",
       "SeasonPass3": "Season Pass 3:",
@@ -5420,6 +5531,7 @@
     },
     "octeractMultiplierStats": {
       "title": "Wow! Octeract Cube Multiplier",
+      "SynergismLevel": "Synergism Level Reward:",
       "BasePerSecond": "Base Per Second:",
       "AscensionScore": "Ascension Score Multiplier:",
       "PseudoCoins": "PseudoCoin Upgrade:",
@@ -5485,6 +5597,8 @@
     "offeringMultiplierStats": {
       "title": "Offering Multiplier",
       "Base": "Base Offerings:",
+      "AchievementBonus": "Achievement Offering Multiplier:",
+      "SynergismLevel": "Synergism Level Reward:",
       "PrestigeShards": "Prestige Shards Multiplier:",
       "SuperiorIntellect": "Superior Intellect Rune Bonus:",
       "ReincarnationChallenge": "Reincarnation Challenges 6, 8, 10:",
@@ -5565,7 +5679,9 @@
     "globalQuarkMultiplierStats": {
       "title": "Quark Multiplier",
       "AchievementPoints": "Achievement Points Bonus:",
-      "plasticTalisman": "Plastic Talisman - Inscription Bonus:",
+      "AchievementBonus": "Achievement Quarks Multiplier:",
+      "SynergismLevel": "Synergism Level Reward:",
+      "PlasticTalisman": "Plastic Talisman - Inscription Bonus:",
       "Achievement250": "Achievement 250 Bonus:",
       "Achievement251": "Achievement 251 Bonus:",
       "Achievement266": "Achievement 266 Bonus:",
@@ -5643,6 +5759,8 @@
     "obtainiumMultiplierStats": {
       "title": "Obtainium Multiplier",
       "Base": "Base Obtainium:",
+      "AchievementBonus": "Achievement Obtainium Multiplier:",
+      "SynergismLevel": "Synergism Level Reward:",
       "ThresholdPenalty": "Reincarnation Time Penalty:",
       "TimeMultiplier": "Reincarnation Time Multiplier:",
       "TranscendShards": "Transcend Shards Bonus:",
@@ -5703,6 +5821,7 @@
     },
     "antSacrificeMultStats": {
       "title": "Ant Sacrifice Reward Multiplier",
+      "AchievementBonus": "Achievement Ant Sacrifice Multiplier:",
       "AntUpgrade11": "Ant Upgrade 11:",
       "Research103": "Research 5x3:",
       "Research104": "Research 5x4:",
@@ -5802,6 +5921,7 @@
     "ambrosiaLuckStats": {
       "title": "Ambrosia Luck",
       "Base": "Base Value:",
+      "SynergismLevel": "Synergism Level Reward:",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Campaign": "Campaign Bonus:",
       "SingularityMilestones": "Singularity Milestones:",
@@ -5860,6 +5980,7 @@
     "powderMultiplierStats": {
       "title": "Orb to Powder Conversion",
       "Base": "Base Conversion Rate:",
+      "AchievementBonus": "Achievement Power Conversion Bonus:",
       "Challenge15": "Challenge 15 Reward:",
       "ShopPowderEX": "Powder EX Shop Upgrade:",
       "Achievement256": "Achievement 256 Bonus:",
@@ -5964,6 +6085,7 @@
     "redAmbrosiaLuckStats": {
       "title": "Red Ambrosia Luck",
       "Base": "Base Value:",
+      "SynergismLevel": "Synergism Level Reward:",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "LuckConversion": "Luck from Ambrosia Luck:",
       "RedAmbrosia": "The Dice That Decide Your Fate",
@@ -6003,8 +6125,7 @@
     "talismanRuneBonusMultiplierStats": {
       "title": "Talisman Rune Bonus Additive Multiplier",
       "Base": "Base Multiplier",
-      "Achievement135": "Achievement 135:",
-      "Achievement136": "Achievement 136:",
+      "AchievementBonus": "Achievement Talisman Effect Bonus:",
       "Research106": "Research 5x6:",
       "Research107": "Research 5x7:",
       "Research116": "Research 5x16:",
@@ -6029,7 +6150,7 @@
     "salvagePositive": {
       "title": "Positive ♲ Salvage",
       "AchievementBonus": "Salvage from Achievements:",
-      "SynergismLevel": "Synergism Level:",
+      "SynergismLevel": "Synergism Level Reward:",
       "SynergismLevelMilestone": "Level Milestone - Salvage Challenge Buff:",
       "UpgradeBonus": "Reincarnation Upgrade 1:",
       "RuneBonus": "Thrift Rune:",
@@ -6075,7 +6196,7 @@
       "hypercubeQuarksToday": "Quarks gained from Hypercubes: <<cyan|{{amount}}>>",
       "hypercubeQuarksOpenRequirement": "Open {{amount}} Hypercubes for next quark.",
       "hypercubeQuarksOpenToday": "Hypercubes opened today: <<orchid|{{amount}}>>",
-      "platonicCubeQuarksToday": "Platonic Cubes gained from Cubes: <<cyan|{{amount}}>>",
+      "platonicCubeQuarksToday": "Quarks gained from Platonic Cubes: <<cyan|{{amount}}>>",
       "platonicCubeQuarksOpenRequirement": "Open {{amount}} Platonic Cubes for next quark.",
       "platonicCubeQuarksOpenToday": "Platonic Cubes opened today: <<orchid|{{amount}}>>"
     },

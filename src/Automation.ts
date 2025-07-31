@@ -1,5 +1,5 @@
 import Decimal from 'break_infinity.js'
-import { awardAchievement, getAchievementReward, ungroupedNameMap } from './Achievements'
+import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { buyUpgrades } from './Buy'
 import { player } from './Synergism'
 import { clickUpgrades, upgradeupdate } from './Upgrades'
@@ -23,10 +23,10 @@ export const buyGenerator = (i: number, state: boolean) => {
     player[type] = player[type].sub(cost)
     player.upgrades[q] = 1
     upgradeupdate(q, state)
-    awardAchievement(ungroupedNameMap.generationAch1)
-    awardAchievement(ungroupedNameMap.generationAch2)
-    awardAchievement(ungroupedNameMap.generationAch3)
-    awardAchievement(ungroupedNameMap.generationAch4)
+    awardUngroupedAchievement('generationAch1')
+    awardUngroupedAchievement('generationAch2')
+    awardUngroupedAchievement('generationAch3')
+    awardUngroupedAchievement('generationAch4')
   }
 }
 

@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { achievementPoints, awardAchievement, getAchievementReward, ungroupedNameMap } from './Achievements'
+import { achievementPoints, awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { isShopTalismanUnlocked } from './Calculate'
 import { CalcECC } from './Challenges'
@@ -748,6 +748,14 @@ export const updateTalismanLevelAndSpentFromInvested = (t: TalismanKeys): void =
   setTalismanRarity(t)
 }
 
+export const updateTalismanRarities = (): void => {
+  for (const t of Object.keys(talismans) as TalismanKeys[]) {
+    if (talismans[t].isUnlocked()) {
+      setTalismanRarity(t)
+    }
+  }
+}
+
 export const getPlayerTalismanBudget = () => {
   return {
     shard: player.talismanShards,
@@ -1334,7 +1342,7 @@ export const buyTalismanResources = (
       player[`${type}s` as const] += talismanResourcesData.buyAmount
     }
     if (type === 'mythicalFragment' && player.mythicalFragments >= 1e25) {
-      awardAchievement(ungroupedNameMap.seeingRed)
+      awardUngroupedAchievement('seeingRed')
     }
 
     player.obtainium = player.obtainium.sub(talismanResourcesData.obtainiumCost)

@@ -832,6 +832,10 @@ export const allOfferingStats = [
     stat: () => 1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5 // Prestige Shards
   },
   {
+    i18n: 'AchievementBonus',
+    stat: () => +getAchievementReward('offeringBonus')
+  },
+  {
     i18n: 'SynergismLevel',
     stat: () => getLevelReward('offerings') // Synergism Level
   },
@@ -1436,6 +1440,10 @@ export const allObtainiumStats: StatLine[] = [
   {
     i18n: 'TranscendShards',
     stat: () => Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2) // Transcend Shards
+  },
+  {
+    i18n: 'AchievementBonus',
+    stat: () => +getAchievementReward('obtainiumBonus') // Achievement Bonus
   },
   {
     i18n: 'SynergismLevel',
@@ -2778,6 +2786,10 @@ export const allTalismanRuneBonusStats: StatLine[] = [
 ]
 
 export const positiveSalvageStats: StatLine[] = [
+  {
+    i18n: 'AchievementBonus',
+    stat: () => +getAchievementReward('salvage')
+  },
   {
     i18n: 'SynergismLevel',
     stat: () => getLevelReward('salvage')

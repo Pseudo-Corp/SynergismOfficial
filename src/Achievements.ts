@@ -8,7 +8,7 @@ import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { runeBlessings } from './RuneBlessings'
 import { runes, sumOfFreeRuneLevels, sumOfRuneLevels } from './Runes'
 import { runeSpirits } from './RuneSpirits'
-import { goldenQuarkUpgrades } from './singularity'
+import { getGQUpgradeEffect, goldenQuarkUpgrades } from './singularity'
 import { maxAPFromChallenges, type SingularityChallengeDataKeys } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { talismans } from './Talismans'
@@ -23,25 +23,25 @@ import { antSacrificePointsToMultiplier } from './Ants'
 
 export const resetAchievementCheck = (reset: resetNames) => {
   if (reset === 'prestige') {
-    awardAchievement(ungroupedNameMap.prestigeNoAccelerator)
-    awardAchievement(ungroupedNameMap.prestigeNoMult)
-    awardAchievement(ungroupedNameMap.prestigeNoCoinUpgrade)
+    awardUngroupedAchievement('prestigeNoAccelerator')
+    awardUngroupedAchievement('prestigeNoMult')
+    awardUngroupedAchievement('prestigeNoCoinUpgrade')
     awardAchievementGroup('prestigePointGain')
   }
   if (reset === 'transcension') {
-    awardAchievement(ungroupedNameMap.transcendNoAccelerator)
-    awardAchievement(ungroupedNameMap.transcendNoMult)
-    awardAchievement(ungroupedNameMap.transcendNoCoinUpgrade)
-    awardAchievement(ungroupedNameMap.transcendNoCoinDiamondUpgrade)
+    awardUngroupedAchievement('transcendNoAccelerator')
+    awardUngroupedAchievement('transcendNoMult')
+    awardUngroupedAchievement('transcendNoCoinUpgrade')
+    awardUngroupedAchievement('transcendNoCoinDiamondUpgrade')
     awardAchievementGroup('transcendPointGain')
   }
   if (reset === 'reincarnation') {
-    awardAchievement(ungroupedNameMap.reincarnationNoAccelerator)
-    awardAchievement(ungroupedNameMap.reincarnationNoMult)
-    awardAchievement(ungroupedNameMap.reincarnationNoCoinUpgrade)
-    awardAchievement(ungroupedNameMap.reincarnationNoCoinDiamondUpgrade)
-    awardAchievement(ungroupedNameMap.reincarnationNoCoinDiamondMythosUpgrade)
-    awardAchievement(ungroupedNameMap.reincarnationMinimumUpgrades)
+    awardUngroupedAchievement('reincarnationNoAccelerator')
+    awardUngroupedAchievement('reincarnationNoMult')
+    awardUngroupedAchievement('reincarnationNoCoinUpgrade')
+    awardUngroupedAchievement('reincarnationNoCoinDiamondUpgrade')
+    awardUngroupedAchievement('reincarnationNoCoinDiamondMythosUpgrade')
+    awardUngroupedAchievement('reincarnationMinimumUpgrades')
     awardAchievementGroup('reincarnationPointGain')
   }
 }
@@ -50,22 +50,22 @@ export const challengeAchievementCheck = (i: number) => {
   switch (i) {
     case 1:
       awardAchievementGroup('challenge1')
-      awardAchievement(ungroupedNameMap.chal1NoGen)
+      awardUngroupedAchievement('chal1NoGen')
       break
     case 2:
       awardAchievementGroup('challenge2')
-      awardAchievement(ungroupedNameMap.chal2NoGen)
+      awardUngroupedAchievement('chal2NoGen')
       break
     case 3:
       awardAchievementGroup('challenge3')
-      awardAchievement(ungroupedNameMap.chal3NoGen)
+      awardUngroupedAchievement('chal3NoGen')
       break
     case 4:
       awardAchievementGroup('challenge4')
       break
     case 5:
       awardAchievementGroup('challenge5')
-      awardAchievement(ungroupedNameMap.diamondSearch)
+      awardUngroupedAchievement('diamondSearch')
       break
     case 6:
       awardAchievementGroup('challenge6')
@@ -85,7 +85,7 @@ export const challengeAchievementCheck = (i: number) => {
     case 11:
       awardAchievementGroup('challenge11')
       if (player.challengecompletions[10] > 50 && player.corruptions.used.extinction >= 5) {
-        awardAchievement(ungroupedNameMap.extraChallenging)
+        awardUngroupedAchievement('extraChallenging')
       }
       break
     case 12:
@@ -98,7 +98,7 @@ export const challengeAchievementCheck = (i: number) => {
       awardAchievementGroup('challenge14')
       break
     case 15:
-      awardAchievement(ungroupedNameMap.sadisticAch)
+      awardUngroupedAchievement('sadisticAch')
       break
   }
 }
@@ -159,6 +159,9 @@ export type AchievementGroups =
   | 'runeLevel'
   | 'runeFreeLevel'
   | 'campaignTokens'
+  | 'prestigeCount'
+  | 'transcensionCount'
+  | 'reincarnationCount'
   | 'ungrouped'
 
 export type AchievementRewards =
@@ -204,6 +207,17 @@ export type AchievementRewards =
   | 'diamondUpgrade18'
   | 'diamondUpgrade19'
   | 'diamondUpgrade20'
+  | 'prestigeCountMultiplier'
+  | 'transcensionCountMultiplier'
+  | 'reincarnationCountMultiplier'
+  | 'duplicationRuneUnlock'
+  | 'prismRuneUnlock'
+  | 'thriftRuneUnlock'
+  | 'salvage'
+  | 'offeringBonus'
+  | 'obtainiumBonus'
+  | 'transcendToPrestige'
+  | 'reincarnationToTranscend'
 
 export type AchievementReward = Partial<Record<AchievementRewards, () => number>>
 
@@ -227,6 +241,8 @@ export interface ProgressiveAchievement {
   useCachedValue: boolean
   rewardedAP: number // Updating achievementPoints: pointsAwarded() - rewardedAP
   extraI18n?: () => Record<string, number>
+  displayOrder: number
+  displayCondition: () => boolean
 }
 
 export const progressiveAchievements: Record<ProgressiveAchievements, ProgressiveAchievement> = {
@@ -240,7 +256,9 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
       return sumOfRuneLevels()
     },
     useCachedValue: true,
-    rewardedAP: 0
+    rewardedAP: 0,
+    displayOrder: 1,
+    displayCondition: () => player.prestigeCount > 0
   },
   freeRuneLevel: {
     maxPointValue: 1000,
@@ -252,7 +270,9 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
       return sumOfFreeRuneLevels()
     },
     useCachedValue: true,
-    rewardedAP: 0
+    rewardedAP: 0,
+    displayOrder: 2,
+    displayCondition: () => player.prestigeCount > 0
   },
   singularityCount: {
     maxPointValue: 3600,
@@ -265,7 +285,9 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
       return 0
     },
     useCachedValue: false,
-    rewardedAP: 0
+    rewardedAP: 0,
+    displayOrder: 4,
+    displayCondition: () => player.highestSingularityCount > 0
   },
   ambrosiaCount: {
     maxPointValue: 800,
@@ -278,7 +300,9 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
       return player.lifetimeAmbrosia
     },
     useCachedValue: true,
-    rewardedAP: 0
+    rewardedAP: 0,
+    displayOrder: 8,
+    displayCondition: () => player.highestSingularityCount >= 25
   },
   redAmbrosiaCount: {
     maxPointValue: 800,
@@ -291,7 +315,9 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
       return player.lifetimeRedAmbrosia
     },
     useCachedValue: true,
-    rewardedAP: 0
+    rewardedAP: 0,
+    displayOrder: 9,
+    displayCondition: () => player.highestSingularityCount >= 150
   },
   exalts: {
     maxPointValue: maxAPFromChallenges,
@@ -326,7 +352,9 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
         num8: player.singularityChallenges.noOfferingPower.rewardAP,
         cap8: player.singularityChallenges.noOfferingPower.maxAP,
       }
-    }
+    },
+    displayOrder: 7,
+    displayCondition: () => player.highestSingularityCount >= 25
   },
   singularityUpgrades: {
     maxPointValue: -1,
@@ -344,7 +372,9 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
       return 0
     },
     useCachedValue: false,
-    rewardedAP: 0
+    rewardedAP: 0,
+    displayOrder: 5,
+    displayCondition: () => player.highestSingularityCount > 0
   },
   octeractUpgrades: {
     maxPointValue: -1,
@@ -362,7 +392,9 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
       return 0
     },
     useCachedValue: false,
-    rewardedAP: 0
+    rewardedAP: 0,
+    displayOrder: 6,
+    displayCondition: () => Boolean(getGQUpgradeEffect('octeractUnlock'))
   },
   redAmbrosiaUpgrades: {
     maxPointValue: -1,
@@ -379,7 +411,9 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
       return 0
     },
     useCachedValue: false,
-    rewardedAP: 0
+    rewardedAP: 0,
+    displayOrder: 10,
+    displayCondition: () => player.highestSingularityCount >= 150
   },
   talismanRarities: {
     maxPointValue: -1,
@@ -394,6 +428,8 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     },
     useCachedValue: true,
     rewardedAP: 0,
+    displayOrder: 3,
+    displayCondition: () => player.unlocks.talismans
   }
 }
 
@@ -2018,14 +2054,254 @@ export const achievements: Achievement[] = [
     unlockCondition: () => campaignTokens >= 9000,
     group: 'campaignTokens'
   },
+  {
+    pointValue: 2,
+    unlockCondition: () => player.prestigeCount >= 1,
+    group: 'prestigeCount'
+  },
+  {
+    pointValue: 4,
+    unlockCondition: () => player.prestigeCount >= 10,
+    group: 'prestigeCount',
+    reward: { prestigeCountMultiplier: () => Math.max(1, 1 + Math.floor(Math.log10(player.prestigeCount)))}
+  },
+  {
+    pointValue: 6,
+    unlockCondition: () => player.prestigeCount >= 100,
+    group: 'prestigeCount',
+    reward: { duplicationRuneUnlock: () => 1 }
+  },
+  {
+    pointValue: 8,
+    unlockCondition: () => player.prestigeCount >= 1_000,
+    group: 'prestigeCount',
+    reward: { offeringBonus: () => 1 + 0.02 * Math.max(1, 1 + Math.floor(Math.log10(player.prestigeCount))) }
+  },
+  {
+    pointValue: 10,
+    unlockCondition: () => player.prestigeCount >= 10_000,
+    group: 'prestigeCount'
+  },
+  {
+    pointValue: 12,
+    unlockCondition: () => player.prestigeCount >= 100_000,
+    group: 'prestigeCount'
+  },
+  {
+    pointValue: 14,
+    unlockCondition: () => player.prestigeCount >= 1_000_000,
+    group: 'prestigeCount',
+    reward: { transcendToPrestige: () => 1 }
+  },
+  {
+    pointValue: 16,
+    unlockCondition: () => player.prestigeCount >= 10_000_000,
+    group: 'prestigeCount'
+  },
+  {
+    pointValue: 18,
+    unlockCondition: () => player.prestigeCount >= 100_000_000,
+    group: 'prestigeCount',
+    reward: { transcensionCountMultiplier: () => Math.min(4, 1.25 + 2.75 * Math.floor(player.prestigecounter / 10)) }
+  },
+  {
+    pointValue: 20,
+    unlockCondition: () => player.prestigeCount >= 1_000_000_000,
+    group: 'prestigeCount'
+  },
+  {
+    pointValue: 22,
+    unlockCondition: () => player.prestigeCount >= 100_000_000_000,
+    group: 'prestigeCount'
+  },
+  {
+    pointValue: 24,
+    unlockCondition: () => player.prestigeCount >= 10_000_000_000_000,
+    group: 'prestigeCount'
+  },
+  {
+    pointValue: 26,
+    unlockCondition: () => player.prestigeCount >= 1e15,
+    group: 'prestigeCount'
+  },
+  {
+    pointValue: 28,
+    unlockCondition: () => player.prestigeCount >= 1e17,
+    group: 'prestigeCount'
+  },
+  {
+    pointValue: 30,
+    unlockCondition: () => player.prestigeCount >= 1e20,
+    group: 'prestigeCount'
+  },
+  {
+    pointValue: 3,
+    unlockCondition: () => player.transcendCount >= 1,
+    group: 'transcensionCount'
+  },
+  {
+    pointValue: 6,
+    unlockCondition: () => player.transcendCount >= 10,
+    group: 'transcensionCount',
+    reward: { transcensionCountMultiplier: () => Math.max(1, 1 + Math.floor(Math.log10(player.transcendCount))) }
+  },
+  {
+    pointValue: 9,
+    unlockCondition: () => player.transcendCount >= 100,
+    group: 'transcensionCount',
+    reward: { salvage: () => 2 * Math.max(1, 1 + Math.floor(Math.log10(player.transcendCount))) }
+  },
+  {
+    pointValue: 12,
+    unlockCondition: () => player.transcendCount >= 1_000,
+    group: 'transcensionCount',
+    reward: { prismRuneUnlock: () => 1 }
+  },
+  {
+    pointValue: 15,
+    unlockCondition: () => player.transcendCount >= 10_000,
+    group: 'transcensionCount'
+  },
+  {
+    pointValue: 18,
+    unlockCondition: () => player.transcendCount >= 100_000,
+    group: 'transcensionCount'
+  },
+  {
+    pointValue: 21,
+    unlockCondition: () => player.transcendCount >= 1_000_000,
+    group: 'transcensionCount',
+    reward: { reincarnationToTranscend: () => 1 }
+  },
+  {
+    pointValue: 24,
+    unlockCondition: () => player.transcendCount >= 10_000_000,
+    group: 'transcensionCount'
+  },
+  {
+    pointValue: 27,
+    unlockCondition: () => player.transcendCount >= 100_000_000,
+    group: 'transcensionCount',
+    reward: { reincarnationCountMultiplier: () => Math.min(4, 1.25 + 2.75 * Math.floor(player.prestigecounter / 1000)) }
+  },
+  {
+    pointValue: 30,
+    unlockCondition: () => player.transcendCount >= 1_000_000_000,
+    group: 'transcensionCount'
+  },
+  {
+    pointValue: 33,
+    unlockCondition: () => player.transcendCount >= 30_000_000_000,
+    group: 'transcensionCount'
+  },
+  {
+    pointValue: 36,
+    unlockCondition: () => player.transcendCount >= 900_000_000_000,
+    group: 'transcensionCount'
+  },
+  {
+    pointValue: 39,
+    unlockCondition: () => player.transcendCount >= 27_000_000_000_000,
+    group: 'transcensionCount'
+  },
+  {
+    pointValue: 42,
+    unlockCondition: () => player.transcendCount >= 810_000_000_000_000,
+    group: 'transcensionCount'
+  },
+  {
+    pointValue: 45,
+    unlockCondition: () => player.transcendCount >= 1e17,
+    group: 'transcensionCount'
+  },
+  {
+    pointValue: 4,
+    unlockCondition: () => player.reincarnationCount >= 1,
+    group: 'reincarnationCount'
+  },
+  {
+    pointValue: 8,
+    unlockCondition: () => player.reincarnationCount >= 10,
+    group: 'reincarnationCount',
+    reward: { reincarnationCountMultiplier: () => Math.max(1, 1 + Math.floor(Math.log10(player.reincarnationCount))) }
+  },
+  {
+    pointValue: 12,
+    unlockCondition: () => player.reincarnationCount >= 100,
+    group: 'reincarnationCount',
+    reward: { obtainiumBonus: () => 1 + 0.02 * Math.max(1, 1 + Math.floor(Math.log10(player.reincarnationCount))) }
+  },
+  {
+    pointValue: 16,
+    unlockCondition: () => player.reincarnationCount >= 1_000,
+    group: 'reincarnationCount'
+  },
+  {
+    pointValue: 20,
+    unlockCondition: () => player.reincarnationCount >= 10_000,
+    group: 'reincarnationCount',
+    reward: { thriftRuneUnlock: () => 1}
+  },
+  {
+    pointValue: 24,
+    unlockCondition: () => player.reincarnationCount >= 100_000,
+    group: 'reincarnationCount'
+  },
+  {
+    pointValue: 28,
+    unlockCondition: () => player.reincarnationCount >= 1_000_000,
+    group: 'reincarnationCount'
+  },
+  {
+    pointValue: 32,
+    unlockCondition: () => player.reincarnationCount >= 10_000_000,
+    group: 'reincarnationCount'
+  },
+  {
+    pointValue: 36,
+    unlockCondition: () => player.reincarnationCount >= 100_000_000,
+    group: 'reincarnationCount',
+    reward: { prestigeCountMultiplier: () => Math.min(4, 1.25 + 2.75 * Math.floor(player.prestigecounter / 1e6)),
+      ascensionCountMultiplier: () => Math.min(1.25, 1 + 0.25 * Math.floor(player.ascensionCounter / 1e6)) }
+  },
+  {
+    pointValue: 40,
+    unlockCondition: () => player.reincarnationCount >= 1_000_000_000,
+    group: 'reincarnationCount'
+  },
+  {
+    pointValue: 44,
+    unlockCondition: () => player.reincarnationCount >= 8_000_000_000,
+    group: 'reincarnationCount'
+  },
+  {
+    pointValue: 48,
+    unlockCondition: () => player.reincarnationCount >= 100_000_000_000,
+    group: 'reincarnationCount'
+  },
+  {
+    pointValue: 52,
+    unlockCondition: () => player.reincarnationCount >= 1_000_000_000_000,
+    group: 'reincarnationCount'
+  },
+  {
+    pointValue: 56,
+    unlockCondition: () => player.reincarnationCount >= 13_131_313_131_313,
+    group: 'reincarnationCount'
+  },
+  {
+    pointValue: 60,
+    unlockCondition: () => player.reincarnationCount >= 2e14,
+    group: 'reincarnationCount'
+  }
 ]
 
-export interface GroupAchievementInfo {
+export interface AchievementDisplayInfo {
   order: number // Display achs in certain order
   displayCondition: () => boolean
 }
 
-export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungrouped'>, GroupAchievementInfo> = {
+export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungrouped'>, AchievementDisplayInfo> = {
   firstOwnedCoin: {
     order: 0,
     displayCondition: () => player.prestigeCount > 0
@@ -2044,6 +2320,10 @@ export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungroupe
   },
   fifthOwnedCoin: {
     order: 4,
+    displayCondition: () => player.prestigeCount > 0
+  },
+  prestigeCount: {
+    order: 4.5,
     displayCondition: () => player.prestigeCount > 0
   },
   prestigePointGain: {
@@ -2065,6 +2345,10 @@ export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungroupe
   runeLevel: {
     order: 9,
     displayCondition: () => player.prestigeCount > 0
+  },
+  transcensionCount: {
+    order: 9.5,
+    displayCondition: () => player.transcendCount > 0
   },
   transcendPointGain: {
     order: 10,
@@ -2089,6 +2373,10 @@ export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungroupe
   challenge5: {
     order: 15,
     displayCondition: () => player.transcendCount > 0
+  },
+  reincarnationCount: {
+    order: 15.5,
+    displayCondition: () => player.reincarnationCount > 0
   },
   reincarnationPointGain: {
     order: 16,
@@ -2172,44 +2460,236 @@ export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungroupe
   }
 }
 
-export const ungroupedNameMap = {
-  'participationTrophy': 0,
-  'prestigeNoMult': 57,
-  'transcendNoMult': 58,
-  'reincarnationNoMult': 59,
-  'prestigeNoAccelerator': 60,
-  'transcendNoAccelerator': 61,
-  'reincarnationNoAccelerator': 62,
-  'diamondSearch': 63,
-  'prestigeNoCoinUpgrade': 64,
-  'transcendNoCoinUpgrade': 65,
-  'transcendNoCoinDiamondUpgrade': 66,
-  'reincarnationNoCoinUpgrade': 67,
-  'reincarnationNoCoinDiamondUpgrade': 68,
-  'reincarnationNoCoinDiamondMythosUpgrade': 69,
-  'reincarnationMinimumUpgrades': 70,
-  'generationAch1': 71,
-  'generationAch2': 72,
-  'generationAch3': 73,
-  'generationAch4': 74,
-  'chal1NoGen': 75,
-  'chal2NoGen': 76,
-  'chal3NoGen': 77,
-  'metaChallenged': 238,
-  'seeingRed': 239,
-  'ascended': 240,
-  'verySlow': 241,
-  'veryFast': 242,
-  'unsmith': 243,
-  'smith': 244,
-  'highlyBlessed': 245,
-  'oneCubeOfMany': 246,
-  'extraChallenging': 247,
-  'seeingRedNoBlue': 248,
-  'overtaxed': 249,
-  'thousandSuns': 250,
-  'thousandMoons': 251,
-  'sadisticAch': 252
+export type UngroupedAchievementNames =
+'participationTrophy' |
+'prestigeNoMult' |
+'transcendNoMult' |
+'reincarnationNoMult' |
+'prestigeNoAccelerator' |
+'transcendNoAccelerator' |
+'reincarnationNoAccelerator' |
+'diamondSearch' |
+'prestigeNoCoinUpgrade' |
+'transcendNoCoinUpgrade' |
+'reincarnationNoCoinUpgrade' |
+'transcendNoCoinDiamondUpgrade' |
+'reincarnationNoCoinDiamondUpgrade' |
+'reincarnationNoCoinDiamondMythosUpgrade' |
+'reincarnationMinimumUpgrades' |
+'generationAch1' |
+'generationAch2' |
+'generationAch3' |
+'generationAch4' |
+'chal1NoGen' |
+'chal2NoGen' |
+'chal3NoGen' |
+'metaChallenged' |
+'seeingRed' |
+'ascended' |
+'verySlow' |
+'veryFast' |
+'unsmith' |
+'smith' |
+'highlyBlessed' |
+'oneCubeOfMany' |
+'extraChallenging' |
+'seeingRedNoBlue' |
+'overtaxed' |
+'thousandSuns' |
+'thousandMoons' |
+'sadisticAch'
+
+
+interface UngroupedAchievementDisplayInfo extends AchievementDisplayInfo {
+  achievementID: number
+}
+
+export const ungroupedAchievementData: Record<UngroupedAchievementNames, UngroupedAchievementDisplayInfo> = {
+  participationTrophy: {
+    order: 0,
+    displayCondition: () => true,
+    achievementID: 0,
+  },
+  prestigeNoMult: {
+    order: 1,
+    displayCondition: () => player.prestigeCount > 0,
+    achievementID: 57,
+  },
+  transcendNoMult: {
+    order: 3,
+    displayCondition: () => player.transcendCount > 0, 
+    achievementID: 58,
+  },
+  reincarnationNoMult: {
+    order: 5,
+    displayCondition: () => player.reincarnationCount > 0,
+    achievementID: 59
+  },
+  prestigeNoAccelerator: {
+    order: 2,
+    displayCondition: () => player.prestigeCount > 0,
+    achievementID: 60
+  },
+  transcendNoAccelerator: {
+    order: 4,
+    displayCondition: () => player.transcendCount > 0,
+    achievementID: 61
+  },
+  reincarnationNoAccelerator: {
+    order: 6,
+    displayCondition: () => player.reincarnationCount > 0,
+    achievementID: 62
+  },
+  diamondSearch: {
+    order: 7,
+    displayCondition: () => player.transcendCount > 0,
+    achievementID: 63
+  },
+  prestigeNoCoinUpgrade: {
+    order: 8,
+    displayCondition: () => player.prestigeCount > 0,
+    achievementID: 64
+  },
+  transcendNoCoinUpgrade: { 
+    order: 9,
+    displayCondition: () => player.transcendCount > 0,
+    achievementID: 65
+  },
+  transcendNoCoinDiamondUpgrade: {
+    order: 10,
+    displayCondition: () => player.transcendCount > 0,
+    achievementID: 66
+  },
+  reincarnationNoCoinUpgrade: {
+    order: 11,
+    displayCondition: () => player.reincarnationCount > 0,
+    achievementID: 67
+  },
+  reincarnationNoCoinDiamondUpgrade: {
+    order: 12,
+    displayCondition: () => player.reincarnationCount > 0,
+    achievementID: 68
+  },
+  reincarnationNoCoinDiamondMythosUpgrade: {
+    order: 13,
+    displayCondition: () => player.reincarnationCount > 0,
+    achievementID: 69
+  },
+  reincarnationMinimumUpgrades: {
+    order: 14,
+    displayCondition: () => player.reincarnationCount > 0,
+    achievementID: 70
+  },
+  generationAch1: {
+    order: 15,
+    displayCondition: () => player.prestigeCount > 0,
+    achievementID: 71
+  },
+  generationAch2: {
+    order: 16,
+    displayCondition: () => player.prestigeCount > 0,
+    achievementID: 72
+  },
+  generationAch3: {
+    order: 17,
+    displayCondition: () => player.prestigeCount > 0,
+    achievementID: 73
+  },
+  generationAch4: {
+    order: 18,  
+    displayCondition: () => player.prestigeCount > 0,
+    achievementID: 74
+  },
+  chal1NoGen: {
+    order: 19,
+    displayCondition: () => player.transcendCount > 0, 
+    achievementID: 75
+  },
+  chal2NoGen: { 
+    order: 20,
+    displayCondition: () => player.transcendCount > 0,
+    achievementID: 76
+  },
+  chal3NoGen: {
+    order: 21,
+    displayCondition: () => player.transcendCount > 0,
+    achievementID: 77
+  },
+  metaChallenged: {
+    order: 22,
+    displayCondition: () => player.ascensionCount > 0,
+    achievementID: 238
+  },
+  seeingRed: {
+    order: 23,
+    displayCondition: () => player.unlocks.talismans,
+    achievementID: 239
+  },
+  ascended: {
+    order: 24,
+    displayCondition: () => player.challengecompletions[14] > 0,
+    achievementID: 240
+  },
+  verySlow: {
+    order: 25,
+    displayCondition: () => player.challengecompletions[12] > 0,
+    achievementID: 241
+  },
+  veryFast: {
+    order: 26,
+    displayCondition: () => player.challengecompletions[12] > 0,
+    achievementID: 242
+  },
+  unsmith: {
+    order: 27,  
+    displayCondition: () => true,
+    achievementID: 243
+  },
+  smith: {
+    order: 28,
+    displayCondition: () => true,
+    achievementID: 244
+  },
+  highlyBlessed: {
+    order: 29,
+    displayCondition: () => player.unlocks.blessings,
+    achievementID: 245
+  },
+  oneCubeOfMany: { 
+    order: 30,
+    displayCondition: () => player.ascensionCount > 0,
+    achievementID: 246
+  },
+  extraChallenging: {
+    order: 31,
+    displayCondition: () => player.challengecompletions[11] >= 20,
+    achievementID: 247
+  },
+  seeingRedNoBlue: {
+    order: 32,
+    displayCondition: () => player.challengecompletions[14] > 0,
+    achievementID: 248
+  },
+  overtaxed: {
+    order: 33,
+    displayCondition: () => player.challengecompletions[12] > 0,
+    achievementID: 249
+  },
+  thousandSuns: {
+    order: 34,
+    displayCondition: () => player.challengecompletions[14] > 0,
+    achievementID: 250
+  },
+  thousandMoons: {
+    order: 35,
+    displayCondition: () => player.challengecompletions[14] > 0,
+    achievementID: 251
+  },
+  sadisticAch: {
+    order: 36,
+    displayCondition: () => player.challengecompletions[14] > 0,
+    achievementID: 252
+  }
 }
 
 export type ProgressiveAchievements =
@@ -2227,8 +2707,6 @@ export type ProgressiveAchievements =
 export const emptyProgressiveCaches: Record<ProgressiveAchievements, number> = Object.fromEntries(
   (Object.keys(progressiveAchievements)).map((key) => [key, 0])
 ) as Record<ProgressiveAchievements, number>
-
-export type ungroupedName = keyof typeof ungroupedNameMap
 
 export const numAchievements = achievements.length
 export const maxAchievementPoints = achievements.reduce((sum, ach) => sum + ach.pointValue, 0)
@@ -2431,8 +2909,8 @@ export const achRewards: Record<AchievementRewards, () => number | boolean> = {
   },
   ascensionScore: (): number => {
     return achievementsByReward.ascensionScore.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.ascensionScore!() : 0),
-      0
+      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.ascensionScore!() : 1),
+      1
     )
   },
   ascensionRewardScaling: (): boolean => {
@@ -2474,6 +2952,57 @@ export const achRewards: Record<AchievementRewards, () => number | boolean> = {
   diamondUpgrade20: (): boolean => {
     return Boolean(player.achievements[achievementsByReward.diamondUpgrade20[0]])
   },
+  prestigeCountMultiplier: (): number => {
+    return achievementsByReward.prestigeCountMultiplier.reduce(
+      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.prestigeCountMultiplier!() : 1),
+      1
+    )
+  },
+  transcensionCountMultiplier: (): number => {
+    return achievementsByReward.transcensionCountMultiplier.reduce(
+      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.transcensionCountMultiplier!() : 1),
+      1
+    )
+  },
+  reincarnationCountMultiplier: (): number => {
+    return achievementsByReward.reincarnationCountMultiplier.reduce(
+      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.reincarnationCountMultiplier!() : 1),
+      1
+    )
+  },
+  duplicationRuneUnlock: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.duplicationRuneUnlock[0]])
+  },
+  offeringBonus: (): number => {
+    return achievementsByReward.offeringBonus.reduce(
+      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.offeringBonus!() : 1),
+      1
+    )
+  },
+  obtainiumBonus: (): number => {
+    return achievementsByReward.obtainiumBonus.reduce(
+      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.obtainiumBonus!() : 1),
+      1
+    )
+  },
+  salvage: (): number => {
+    return achievementsByReward.salvage.reduce(
+      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.salvage!() : 0),
+      0
+    )
+  },
+  prismRuneUnlock: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.prismRuneUnlock[0]])
+  },
+  thriftRuneUnlock: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.thriftRuneUnlock[0]])
+  },
+  transcendToPrestige: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.transcendToPrestige[0]])
+  },
+  reincarnationToTranscend: (): boolean => {
+    return Boolean(player.achievements[achievementsByReward.reincarnationToTranscend[0]])
+  }
 }
 
 export let achievementPoints = 0
@@ -2520,6 +3049,11 @@ export const awardAchievement = (index: number) => {
       }
     }
   }
+}
+
+export const awardUngroupedAchievement = (name: UngroupedAchievementNames) => {
+  const index = ungroupedAchievementData[name].achievementID
+  awardAchievement(index)
 }
 
 export const awardAchievementGroup = (group: AchievementGroups) => {
@@ -2719,42 +3253,43 @@ export const createGroupedAchievementDescription = (group: AchievementGroups) =>
   DOMCacheGetOrSet('achievementMultiLine').innerHTML = finalText
 }
 
-export const generateUngroupedDescription = (name: ungroupedName) => {
-  const ach = ungroupedNameMap[name]
-  const achText = i18next.t(`achievements.descriptions.${ach}`)
+export const generateUngroupedDescription = (name: UngroupedAchievementNames) => {
+  const index = ungroupedAchievementData[name].achievementID
+  const ach = achievements[index]
+  const achText = i18next.t(`achievements.descriptions.${index}`)
 
   const colonIndex = achText.indexOf(':')
   let achName = achText.substring(0, colonIndex)
   const requirement = achText.substring(colonIndex + 1)
   let trimmedRequirement = requirement?.trim() || ''
 
-  const value = achievements[ach].pointValue
+  const value = ach.pointValue
   let earnedValue = 0
 
-  const hasAch = player.achievements[ach]
+  const hasAch = player.achievements[index] === 1
   if (hasAch) {
     achName = `<span class='rainbowText'>${achName} - COMPLETE!</span>`
     earnedValue = value
   } else {
-    trimmedRequirement += ` [+${achievements[ach].pointValue} AP]`
+    trimmedRequirement += ` [+${ach.pointValue} AP]`
   }
 
   let extraText = ''
-  if (achievements[ach].reward) {
-    extraText = 'This Achievement also gives the following bonus!<br>'
-    for (const [rewardType, rewardFunction] of Object.entries(achievements[ach].reward)) {
+  if (ach.reward) {
+    extraText = i18next.t('achievements.ungroupedExtraRewards') + '<br>'
+    for (const [rewardType, rewardFunction] of Object.entries(ach.reward)) {
       const rewardGroup = rewardType as AchievementRewards
       const rewardValue = achRewards[rewardGroup]()
 
       if (typeof rewardValue === 'boolean') {
         extraText += `<span style="color:${hasAch ? 'green' : 'maroon'}">${
-          i18next.t(`achievements.achievementRewards.${ach}.${rewardType}`, {
+          i18next.t(`achievements.achievementRewards.${index}.${rewardType}`, {
             unlock: i18next.t('achievements.rewardTypes.unlocked')
           })
         }</span><br>`
       } else if (typeof rewardValue === 'number') {
         extraText += `<span style="color:${hasAch ? 'green' : 'maroon'}">${
-          i18next.t(`achievements.achievementRewards.${ach}.${rewardType}`, {
+          i18next.t(`achievements.achievementRewards.${index}.${rewardType}`, {
             val: format(rewardFunction(), 2, false)
           })
         }</span><br>`
@@ -2835,19 +3370,20 @@ export const generateAchievementHTMLs = () => {
       img.onclick = () => {
         createGroupedAchievementDescription(k)
       }
-      img.onmouseover = () => {
-        createGroupedAchievementDescription(k)
-      }
-      img.focus = () => {
-        createGroupedAchievementDescription(k)
-      }
 
       // attach to the table
       div.appendChild(img)
       table.appendChild(div)
     }
 
-    for (const k of Object.keys(ungroupedNameMap)) {
+    const sortedUngrouped = (Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[])
+    .sort((a, b) => {
+      const orderA = ungroupedAchievementData[a]?.order ?? Number.POSITIVE_INFINITY
+      const orderB = ungroupedAchievementData[b]?.order ?? Number.POSITIVE_INFINITY
+      return orderA - orderB
+    })
+
+    for (const k of sortedUngrouped) {
       const capitalizedName = k.charAt(0).toUpperCase() + k.slice(1)
       // create a new image element for each ungrouped achievement
 
@@ -2861,13 +3397,7 @@ export const generateAchievementHTMLs = () => {
       img.style.cursor = 'pointer'
 
       img.onclick = () => {
-        generateUngroupedDescription(k as ungroupedName)
-      }
-      img.onmouseover = () => {
-        generateUngroupedDescription(k as ungroupedName)
-      }
-      img.focus = () => {
-        generateUngroupedDescription(k as ungroupedName)
+        generateUngroupedDescription(k as UngroupedAchievementNames)
       }
 
       // attach to the table
@@ -2875,7 +3405,14 @@ export const generateAchievementHTMLs = () => {
       ungroupedTable.appendChild(div)
     }
 
-    for (const k of Object.keys(progressiveAchievements)) {
+    const sortedProgressive = (Object.keys(progressiveAchievements) as ProgressiveAchievements[])
+    .sort((a, b) => {
+      const orderA = progressiveAchievements[a]?.displayOrder ?? Number.POSITIVE_INFINITY
+      const orderB = progressiveAchievements[b]?.displayOrder ?? Number.POSITIVE_INFINITY
+      return orderA - orderB
+    })
+
+    for (const k of sortedProgressive) {
       const capitalizedName = k.charAt(0).toUpperCase() + k.slice(1)
       // create a new image element for each progressive achievement
 
@@ -2889,12 +3426,6 @@ export const generateAchievementHTMLs = () => {
       img.style.cursor = 'pointer'
 
       img.onclick = () => {
-        generateProgressiveAchievementDescription(k as ProgressiveAchievements)
-      }
-      img.onmouseover = () => {
-        generateProgressiveAchievementDescription(k as ProgressiveAchievements)
-      }
-      img.focus = () => {
         generateProgressiveAchievementDescription(k as ProgressiveAchievements)
       }
 
@@ -2941,7 +3472,7 @@ export const updateAllGroupedAchievementProgress = () => {
 }
 
 export const updateUngroupedAchievementProgress = (id: number) => {
-  const capitalizedName = Object.keys(ungroupedNameMap).find((k) => ungroupedNameMap[k as ungroupedName] === id)
+  const capitalizedName = Object.keys(ungroupedAchievementData).find((k) => ungroupedAchievementData[k as UngroupedAchievementNames].achievementID === id)
   if (!capitalizedName) {
     throw new Error(`Ungrouped achievement with ID ${id} not found`)
   }
@@ -2959,8 +3490,8 @@ export const updateUngroupedAchievementProgress = (id: number) => {
 }
 
 export const updateAllUngroupedAchievementProgress = () => {
-  for (const idx of Object.values(ungroupedNameMap)) {
-    updateUngroupedAchievementProgress(idx)
+  for (const ach of Object.values(ungroupedAchievementData)) {
+    updateUngroupedAchievementProgress(ach.achievementID)
   }
 }
 
@@ -3055,13 +3586,13 @@ export const displayAchievementProgress = () => {
   }
 
   // Display Ungrouped Achievements AP
-  for (const k of Object.keys(ungroupedNameMap)) {
+  for (const k of Object.keys(ungroupedAchievementData)) {
     const capitalizedName = k.charAt(0).toUpperCase() + k.slice(1)
     const img = DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`) as HTMLElement
     const parent = img.parentElement!
 
     if (img) {
-      const achievementId = ungroupedNameMap[k as ungroupedName]
+      const achievementId = ungroupedAchievementData[k as UngroupedAchievementNames].achievementID
       const isCompleted = player.achievements[achievementId] === 1
       const pointValue = achievements[achievementId].pointValue
       const earnedAP = isCompleted ? pointValue : 0

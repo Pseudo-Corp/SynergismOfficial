@@ -13,6 +13,7 @@ import { QuarkHandler, refreshQuarkBonus, setQuarkBonus } from './Quark'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
 import { assert } from './Utility'
+import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
@@ -607,9 +608,9 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
     addTimers('transcension', seconds)
     addTimers('reincarnation', seconds)
     automaticTools('antSacrifice', seconds)
-    player.prestigeCount += seconds / Math.max(0.01, player.fastestprestige)
-    player.transcendCount += seconds / Math.max(0.01, player.fastesttranscend)
-    player.reincarnationCount += seconds / Math.max(0.01, player.fastestreincarnate)
+    updatePrestigeCount(seconds / Math.max(0.25, player.fastestprestige))
+    updateTranscensionCount(seconds / Math.max(0.25, player.fastesttranscend))
+    updateReincarnationCount(seconds / Math.max(0.25, player.fastestreincarnate))
 
     // Add Obt/Off, why not?
     automaticTools('addObtainium', seconds)

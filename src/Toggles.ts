@@ -1,5 +1,5 @@
 import i18next from 'i18next'
-import { awardAchievement, ungroupedNameMap } from './Achievements'
+import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { getChallengeConditions } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } from './Corruptions'
@@ -96,7 +96,7 @@ export const toggleChallenges = (i: number, auto = false) => {
     player.currentChallenge.transcension !== 0 && player.currentChallenge.reincarnation !== 0
     && player.currentChallenge.ascension !== 0
   ) {
-    awardAchievement(ungroupedNameMap.metaChallenged)
+    awardUngroupedAchievement('metaChallenged')
   }
 }
 

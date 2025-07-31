@@ -1,4 +1,4 @@
-import { awardAchievement, ungroupedNameMap } from './Achievements'
+import { awardUngroupedAchievement } from './Achievements'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
 import { prod } from './Config'
 import { pressedKeys } from './Hotkeys'
@@ -701,7 +701,7 @@ export const changeTab = (tabs: Tabs, step?: number) => {
   subtabInfo[tabRow.getCurrentTab().getType()].subtabIndex
 
   if (G.currentTab === Tabs.Achievements) {
-    awardAchievement(ungroupedNameMap.participationTrophy)
+    awardUngroupedAchievement('participationTrophy')
   }
 
   revealStuff()

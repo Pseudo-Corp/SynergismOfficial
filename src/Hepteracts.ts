@@ -557,6 +557,16 @@ export const autoCraftHepteracts = (hept: HepteractKeys, heptAmount: number) => 
   }
 }
 
+export const setAutomaticHepteractTexts = () => {
+  for (const hept of hepteractKeys) {
+    const HTML = DOMCacheGetOrSet(`${hept}HepteractAuto`)
+    hepteracts[hept].AUTO = player.hepteracts[hept].AUTO ?? hepteracts[hept].AUTO
+
+    HTML.textContent = hepteracts[hept].AUTO ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
+    HTML.style.border = `2px solid ${hepteracts[hept].AUTO ? 'green' : 'red'}`
+  }
+}
+
 export const toggleAutomaticHepteracts = (hept: HepteractKeys, newValue?: boolean) => {
   const HTML = DOMCacheGetOrSet(`${hept}HepteractAuto`)
 

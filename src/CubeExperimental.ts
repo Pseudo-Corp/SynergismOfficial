@@ -7,9 +7,8 @@ want, though!
 Thank you! */
 
 import i18next from 'i18next'
-import { awardAchievement, getAchievementReward, ungroupedNameMap } from './Achievements'
+import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { calculateCubeBlessings } from './Calculate'
-import { CalcECC } from './Challenges'
 import { calculateHypercubeBlessings } from './Hypercubes'
 import { calculatePlatonicBlessings } from './PlatonicCubes'
 import { quarkHandler } from './Quark'
@@ -178,7 +177,7 @@ export class WowCubes extends Cube {
     let toSpend = max ? Number(this) : (free ? value : Math.min(Number(this), value))
 
     if (value === 1 && player.cubeBlessings.accelerator >= 2e11) {
-      awardAchievement(ungroupedNameMap.oneCubeOfMany)
+      awardUngroupedAchievement('oneCubeOfMany')
     }
 
     if (!free) {
@@ -218,7 +217,6 @@ export class WowCubes extends Cube {
     // If you're opening more than 20 cubes, it will consume all cubes until remainder mod 20, giving expected values.
     for (const key of keys) {
       player.cubeBlessings[key] += blessings[key].weight * toSpendDiv20
-        * (1 + Math.floor(CalcECC('ascension', player.challengecompletions[12])))
     }
 
     // Then, the remaining cubes will be opened, simulating the probability [RNG Element]
@@ -226,7 +224,7 @@ export class WowCubes extends Cube {
       const num = 100 * Math.random()
       for (const key of keys) {
         if (blessings[key].pdf(num)) {
-          player.cubeBlessings[key] += 1 + Math.floor(CalcECC('ascension', player.challengecompletions[12]))
+          player.cubeBlessings[key] += 1
         }
       }
     }

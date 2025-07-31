@@ -17,7 +17,7 @@ import { firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Sta
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
 import { assert } from './Utility'
-import { awardAchievementGroup } from './Achievements'
+import { awardAchievementGroup, getAchievementReward } from './Achievements'
 import { getLevelMilestone } from './Levels'
 
 export enum resetTiers {
@@ -92,6 +92,7 @@ export interface RuneData<K extends RuneKeys> {
   runeEXP: Decimal
   costCoefficient: Decimal
   levelsPerOOM: number
+  ignoreChal9: boolean
   levelsPerOOMIncrease: () => number
   effectiveLevelMult: () => number
   freeLevels: () => number
@@ -191,6 +192,7 @@ export const speedRuneOOMIncrease = () => {
     + player.cubeUpgrades[16]
     + getTalismanEffects('chronos').speedOOMBonus
     + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getLevelMilestone('speedRune')
   )
 }
 
@@ -204,6 +206,7 @@ export const duplicationRuneOOMIncrease = () => {
     + 1.5 * CalcECC('ascension', player.challengecompletions[14])
     + getTalismanEffects('exemption').duplicationOOMBonus
     + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getLevelMilestone('duplicationRune')
   )
 }
 
@@ -217,6 +220,7 @@ export const prismRuneOOMIncrease = () => {
     + player.cubeUpgrades[16]
     + getTalismanEffects('mortuus').prismOOMBonus
     + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getLevelMilestone('prismRune')
   )
 }
 
@@ -230,6 +234,7 @@ export const thriftRuneOOMIncrease = () => {
     + player.cubeUpgrades[37]
     + getTalismanEffects('midas').thriftOOMBonus
     + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getLevelMilestone('thriftRune')
   )
 }
 
@@ -242,6 +247,7 @@ export const superiorIntellectOOMIncrease = () => {
     + player.cubeUpgrades[37]
     + getTalismanEffects('polymath').SIOOMBonus
     + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus').runeOOMBonus
+    + getLevelMilestone('SIRune')
   )
 }
 
@@ -364,6 +370,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal(50),
     levelsPerOOM: 150,
+    ignoreChal9: false,
     levelsPerOOMIncrease: () => speedRuneOOMIncrease(),
     effects: (n) => {
       const acceleratorPower = 0.0002 * n
@@ -395,8 +402,9 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
   duplication: {
     level: 0,
     runeEXP: new Decimal('0'),
-    costCoefficient: new Decimal(2500),
+    costCoefficient: new Decimal(20000),
     levelsPerOOM: 120,
+    ignoreChal9: false,
     levelsPerOOMIncrease: () => duplicationRuneOOMIncrease(),
     effects: (n) => {
       const multiplierBoosts = n / 5
@@ -419,7 +427,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsDuplication(),
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels).times(duplicationEXPMult()),
-    isUnlocked: () => getLevelMilestone('duplicationRune') === 1,
+    isUnlocked: () => Boolean(getAchievementReward('duplicationRuneUnlock')),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.duplication.name'),
     description: () => i18next.t('runes.duplication.description'),
@@ -428,8 +436,9 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
   prism: {
     level: 0,
     runeEXP: new Decimal('0'),
-    costCoefficient: new Decimal(2.5e4),
+    costCoefficient: new Decimal(5e5),
     levelsPerOOM: 90,
+    ignoreChal9: false,
     levelsPerOOMIncrease: () => prismRuneOOMIncrease(),
     effects: (level) => {
       const productionLog10 = Math.max(0, 2 * Math.log10(1 + level / 2) + (level / 2) * Math.log10(2) - Math.log10(256))
@@ -452,7 +461,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsPrism(),
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels).times(prismEXPMult()),
-    isUnlocked: () => getLevelMilestone('prismRune') === 1,
+    isUnlocked: () => Boolean(getAchievementReward('prismRuneUnlock')),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.prism.name'),
     description: () => i18next.t('runes.prism.description'),
@@ -461,8 +470,9 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
   thrift: {
     level: 0,
     runeEXP: new Decimal('0'),
-    costCoefficient: new Decimal(2.5e5),
+    costCoefficient: new Decimal(2.5e7),
     levelsPerOOM: 60,
+    ignoreChal9: false,
     levelsPerOOMIncrease: () => thriftRuneOOMIncrease(),
     effects: (level) => {
       const costDelay = Math.min(1e15, level / 125)
@@ -485,7 +495,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsThrift(),
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels).times(thriftEXPMult()),
-    isUnlocked: () => getLevelMilestone('thriftRune') === 1,
+    isUnlocked: () => Boolean(getAchievementReward('thriftRuneUnlock')),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.thrift.name'),
     description: () => i18next.t('runes.thrift.description'),
@@ -494,8 +504,9 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
   superiorIntellect: {
     level: 0,
     runeEXP: new Decimal('0'),
-    costCoefficient: new Decimal(2.5e7),
+    costCoefficient: new Decimal(1e12),
     levelsPerOOM: 30,
+    ignoreChal9: false,
     levelsPerOOMIncrease: () => superiorIntellectOOMIncrease(),
     effects: (level) => {
       const offeringMult = 1 + level / 2000
@@ -529,6 +540,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal(1e75),
     levelsPerOOM: 1 / 2,
+    ignoreChal9: true,
     levelsPerOOMIncrease: () => infiniteAscentOOMIncrease(),
     effects: (level) => {
       const quarkMult = 1 + level / 500 + (level > 0 ? 0.1 : 0)
@@ -574,6 +586,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal(1e206),
     levelsPerOOM: 1 / 50,
+    ignoreChal9: true,
     levelsPerOOMIncrease: () => 0,
     effects: (level) => {
       const addCodeCooldownReduction = level > 0 ? 0.8 - 0.3 * (level - 1) / (level + 10) : 1
@@ -607,6 +620,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal('1e500'),
     levelsPerOOM: 1 / 16,
+    ignoreChal9: true,
     levelsPerOOMIncrease: () => 0,
     effects: (level) => {
       const ambrosiaLuck = 5 * level
@@ -641,14 +655,17 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
 }
 
 export const getRuneEffectiveLevel = (rune: RuneKeys): number => {
+  if (!runes[rune].isUnlocked()) {
+    return 0
+  }
+  if (player.currentChallenge.reincarnation === 9 && !runes[rune].ignoreChal9) {
+    return 1
+  }
   const effectiveMult = runes[rune].effectiveLevelMult()
   return (runes[rune].level + runes[rune].freeLevels()) * effectiveMult
 }
 
 export const getRuneEffects = <T extends RuneKeys>(rune: T): RuneTypeMap[T] => {
-  if (player.currentChallenge.reincarnation === 9) {
-    return runes[rune].effects(1)
-  }
   return runes[rune].effects(getRuneEffectiveLevel(rune))
 }
 

@@ -31,7 +31,7 @@ import {
 } from './UpdateVisuals'
 import { createDeferredPromise } from './Utility'
 import { Globals as G } from './Variables'
-import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP, updateAllGroupedAchievementProgress, updateAllProgressiveAchievementProgress, updateAllUngroupedAchievementProgress } from './Achievements'
+import { AchievementGroups, achievementLevel, achievementPoints, getAchievementReward, groupedAchievementData, ProgressiveAchievements, progressiveAchievements, toNextAchievementLevelEXP, ungroupedAchievementData, UngroupedAchievementNames, updateAllGroupedAchievementProgress, updateAllProgressiveAchievementProgress, updateAllUngroupedAchievementProgress } from './Achievements'
 import { getLevelMilestone } from './Levels'
 
 export const revealStuff = () => {
@@ -163,6 +163,33 @@ export const revealStuff = () => {
     DOMCacheGetOrSet('transcendautotoggle').style.display = 'none'
     DOMCacheGetOrSet('transcendamount').style.display = 'none'
     DOMCacheGetOrSet('autotranscend').style.display = 'none'
+  }
+
+  for (const groupedAch of Object.keys(groupedAchievementData) as (Exclude<AchievementGroups, 'ungrouped'>)[]) {
+    const capitalizedName = groupedAch.charAt(0).toUpperCase() + groupedAch.slice(1)
+
+    DOMCacheGetOrSet(`achievementGroup${capitalizedName}`).style.display = 
+      (groupedAchievementData[groupedAch].displayCondition() || player.highestSingularityCount > 0) ?
+      'block' :
+      'none'
+  }
+
+  for (const ungroupedAch of Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[]) {
+    const capitalizedName = ungroupedAch.charAt(0).toUpperCase() + ungroupedAch.slice(1)
+
+    DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`).style.display =
+      (ungroupedAchievementData[ungroupedAch].displayCondition() || player.highestSingularityCount > 0) ?
+      'block' :
+      'none'
+  }
+
+  for (const progAch of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
+    const capitalizedName = progAch.charAt(0).toUpperCase() + progAch.slice(1)
+
+    DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`).style.display =
+      (progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0) ?
+      'block' :
+      'none'
   }
 
   for (const rune of Object.keys(player.runes) as RuneKeys[]) {
