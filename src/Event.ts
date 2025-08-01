@@ -53,7 +53,7 @@ export const eventCheck = async () => {
     return
   }
 
-  const response = await fetch('https://synergism.cc/api/v2/events/get')
+  const response = await fetch('https://synergism.cc/events/get')
 
   if (!response.ok) {
     throw new Error('God fucking dammit')
