@@ -70,7 +70,7 @@ import {
   buyOcteractUpgradeLevel,
   type OcteractDataKeys,
   octeractUpgrades,
-  updateOcteractUpgradeHTML
+  upgradeOcteractToString,
 } from './Octeracts'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
 import {
@@ -1015,12 +1015,31 @@ TODO: Fix this entire tab it's utter shit
   const octUpgrade = Object.keys(octeractUpgrades) as OcteractDataKeys[]
   for (const key of octUpgrade) {
     DOMCacheGetOrSet(key).addEventListener(
-      'mouseover',
-      () => updateOcteractUpgradeHTML(key)
+      'mousemove',
+      (e: MouseEvent) => Modal(upgradeOcteractToString(key), e.clientX, e.clientY, {borderColor: 'lightseagreen'})
+    )
+    DOMCacheGetOrSet(key).addEventListener(
+      'focus',
+      () => {
+        const element = DOMCacheGetOrSet(key)
+        const elmRect = element.getBoundingClientRect()
+        Modal(upgradeOcteractToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'lightseagreen'})
+      }
+    )
+    DOMCacheGetOrSet(key).addEventListener(
+      'mouseout',
+      () => CloseModal()
+    )
+    DOMCacheGetOrSet(key).addEventListener(
+      'blur',
+      () => CloseModal()
     )
     DOMCacheGetOrSet(key).addEventListener(
       'click',
-      (event) => buyOcteractUpgradeLevel(key, event)
+      (event) => {
+        buyOcteractUpgradeLevel(key, event)
+        Modal(upgradeOcteractToString(key), event.clientX, event.clientY, {borderColor: 'lightseagreen'}, true)
+      }
     )
   }
 

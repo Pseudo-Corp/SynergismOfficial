@@ -1869,14 +1869,14 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   }
 
   const effectiveLevelText = totalEffectiveLevels !== upgrade.level
-    ? `<span style="color: white">${i18next.t('general.effectiveLevel', {
+    ? `<br><b><span style="color: white">${i18next.t('general.effectiveLevel', {
       level: format(totalEffectiveLevels, 2, true)
-    })}</span>`
+    })}</span></b>`
     : ''
 
   const levelText = `<span style="color: ${color}">${i18next.t('general.level')} ${
     format(upgrade.level, 0, true)
-  }${maxLevel}${freeLevelText}&nbsp;&nbsp;<b>${effectiveLevelText}</b></span>`
+  }${maxLevel}${freeLevelText}</span>`
 
   // Upgrade Effect Text
   const upgradeEffectHTML = `<span style="color: gold">${effectDesc}</span>`
@@ -1887,7 +1887,7 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   // QoL Text
   const qualityOfLifeText = upgrade.qualityOfLife ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>` : ''
 
-  return `${nameHTML}<br>${levelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${qualityOfLifeText}`
+  return `${nameHTML}<br>${levelText}${effectiveLevelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${qualityOfLifeText}`
 }
 
 /**
