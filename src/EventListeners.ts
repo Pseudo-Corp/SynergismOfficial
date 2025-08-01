@@ -11,6 +11,7 @@ import {
 import {
   type AmbrosiaUpgradeNames,
   ambrosiaUpgrades,
+  ambrosiaUpgradeToString,
   buyAmbrosiaUpgradeLevel,
   createLoadoutDescription,
   displayLevelsBlueberry,
@@ -22,7 +23,6 @@ import {
   resetBlueberryTree,
   resetHighlights,
   resetLoadoutOnlyDisplay,
-  updateAmbrosiaUpgradeHTML
 } from './BlueberryUpgrades'
 import {
   boostAccelerator,
@@ -76,8 +76,8 @@ import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
+  redAmbrosiaUpgradeToString,
   resetRedAmbrosiaDisplay,
-  updateRedAmbrosiaUpgradeHTML
 } from './RedAmbrosiaUpgrades'
 import { buyResearch, researchDescriptions } from './Research'
 import { resetrepeat, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
@@ -1071,21 +1071,41 @@ TODO: Fix this entire tab it's utter shit
   ) as AmbrosiaUpgradeNames[]
   for (const key of blueberryUpgrades) {
     DOMCacheGetOrSet(key).addEventListener(
-      'mouseover',
-      () => {
-        updateAmbrosiaUpgradeHTML(key)
+      'mousemove',
+      (e: MouseEvent) => {
+        Modal(ambrosiaUpgradeToString(key), e.clientX, e.clientY, {borderColor: 'blue'})
         highlightPrerequisites(key)
       }
     )
     DOMCacheGetOrSet(key).addEventListener(
       'mouseout',
       () => {
+        CloseModal()
+        resetHighlights()
+      }
+    )
+    DOMCacheGetOrSet(key).addEventListener(
+      'focus',
+      () => {
+        const element = DOMCacheGetOrSet(key)
+        const elmRect = element.getBoundingClientRect()
+        Modal(ambrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'blue'})
+        highlightPrerequisites(key)
+      }
+    )
+    DOMCacheGetOrSet(key).addEventListener(
+      'blur',
+      () => {
+        CloseModal()
         resetHighlights()
       }
     )
     DOMCacheGetOrSet(key).addEventListener(
       'click',
-      (event) => buyAmbrosiaUpgradeLevel(key, event)
+      (event) => {
+        buyAmbrosiaUpgradeLevel(key, event)
+        Modal(ambrosiaUpgradeToString(key), event.clientX, event.clientY, {borderColor: 'blue'}, true)
+      }
     )
   }
 
@@ -1145,12 +1165,31 @@ TODO: Fix this entire tab it's utter shit
   for (const key of redAmbrosiaUpgrades) {
     const capitalizedName = key.charAt(0).toUpperCase() + key.slice(1)
     DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
-      'mouseover',
-      () => updateRedAmbrosiaUpgradeHTML(key)
+      'mousemove',
+      (e: MouseEvent) => Modal(redAmbrosiaUpgradeToString(key), e.clientX, e.clientY, {borderColor: 'red'})
+    )
+    DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
+      'mouseout',
+      () => CloseModal()
+    )
+    DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
+      'focus',
+      () => {
+        const element = DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`)
+        const elmRect = element.getBoundingClientRect()
+        Modal(redAmbrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'red'})
+      }
+    )
+    DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
+      'blur',
+      () => CloseModal()
     )
     DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
       'click',
-      (event) => buyRedAmbrosiaUpgradeLevel(key, event)
+      (event) => {
+        buyRedAmbrosiaUpgradeLevel(key, event)
+        Modal(redAmbrosiaUpgradeToString(key), event.clientX, event.clientY, {borderColor: 'red'}, true)
+      }
     )
   }
 

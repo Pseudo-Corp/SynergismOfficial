@@ -2,7 +2,6 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
-import { visualUpdateAmbrosia } from './UpdateVisuals'
 
 type RedAmbrosiaUpgradeRewards = {
   tutorial: { cubeMult: number; obtainiumMult: number; offeringMult: number }
@@ -610,14 +609,9 @@ export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string
   }</span>`
   const purchaseWarningSpan = `<span>${i18next.t('redAmbrosia.purchaseWarning')}</span>`
 
-  return `${nameSpan} \n ${levelSpan} \n ${descriptionSpan} \n ${rewardDescSpan} \n ${
-    (!isMaxLevel) ? `${costNextLevelSpan} \n` : ''
-  } ${spentSpan} \n ${purchaseWarningSpan}`
-}
-
-export const updateRedAmbrosiaUpgradeHTML = (upgradeKey: RedAmbrosiaNames): void => {
-  DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = redAmbrosiaUpgradeToString(upgradeKey)
-  visualUpdateAmbrosia()
+  return `${nameSpan} <br> ${levelSpan} <br> ${descriptionSpan} <br> ${rewardDescSpan} <br> ${
+    (!isMaxLevel) ? `${costNextLevelSpan} <br>` : ''
+  } ${spentSpan} <br> ${purchaseWarningSpan}`
 }
 
 export const buyRedAmbrosiaUpgradeLevel = async (upgradeKey: RedAmbrosiaNames, event: MouseEvent): Promise<void> => {
@@ -685,7 +679,6 @@ export const buyRedAmbrosiaUpgradeLevel = async (upgradeKey: RedAmbrosiaNames, e
     )
   }
 
-  updateRedAmbrosiaUpgradeHTML(upgradeKey)
 }
 
 export const displayRedAmbrosiaLevels = () => {
@@ -695,11 +688,12 @@ export const displayRedAmbrosiaLevels = () => {
     const capKey = key.charAt(0).toUpperCase() + key.slice(1)
     const name = `redAmbrosia${capKey}`
     const elm = DOMCacheGetOrSet(name)
+    // There is an image in the elm. find it.
+    const img = elm.querySelector('img') as HTMLImageElement
     const level = redAmbrosiaUpgrades[k].level || 0
-    const parent = elm.parentElement!
 
-    elm.classList.add('dimmed')
-    let levelOverlay = parent.querySelector('.level-overlay') as HTMLDivElement
+    img.classList.add('dimmed')
+    let levelOverlay = elm.querySelector('.level-overlay') as HTMLDivElement
     if (!levelOverlay) {
       levelOverlay = document.createElement('div')
       levelOverlay.classList.add('level-overlay')
@@ -710,8 +704,8 @@ export const displayRedAmbrosiaLevels = () => {
         levelOverlay.classList.add('notMaxRedAmbrosiaLevel')
       }
 
-      parent.classList.add('relative-container') // Apply relative container to the element
-      parent.appendChild(levelOverlay) // Append to the element
+      elm.classList.add('relative-container') // Apply relative container to the element
+      elm.appendChild(levelOverlay) // Append to the element
 
       levelOverlay.textContent = String(level) // Set the level text
     }
@@ -723,14 +717,14 @@ export const resetRedAmbrosiaDisplay = () => {
     const capKey = key.charAt(0).toUpperCase() + key.slice(1)
     const name = `redAmbrosia${capKey}`
     const elm = DOMCacheGetOrSet(name)
-    const parent = elm.parentElement!
-    elm.classList.remove('dimmed') // Remove the dimmed class
+    const img = elm.querySelector('img') as HTMLImageElement
+    img.classList.remove('dimmed') // Remove the dimmed class
 
     // Remove the level overlay if it exists
-    const levelOverlay = parent.querySelector('.level-overlay')
+    const levelOverlay = elm.querySelector('.level-overlay')
     if (levelOverlay) {
       levelOverlay.remove()
-      parent.classList.remove('relative-container') // Remove relative container
+      elm.classList.remove('relative-container') // Remove relative container
     }
   }
 }

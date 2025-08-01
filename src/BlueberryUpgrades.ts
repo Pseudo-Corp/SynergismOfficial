@@ -7,7 +7,6 @@ import { getQuarkBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { visualUpdateAmbrosia } from './UpdateVisuals'
 import { assert } from './Utility'
 
 export type BlueberryOpt = Partial<Record<AmbrosiaUpgradeNames, number>>
@@ -1193,25 +1192,23 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
 
   const effectsDescription = getAmbrosiaUpgradeEffectsDescription(upgradeKey)
 
-  return `<span style="color: gold">${upgrade.name()}</span>
+  return `<span style="color: gold">${upgrade.name()}</span><br>
           <span style="color: ${color}"> ${i18next.t('general.level')} ${
     format(upgrade.level, 0, true)
-  }${maxLevel}${freeLevelInfo}</span>${preReqText ? `\n ${preReqText}` : ''}${
-    upgrade.ignoreEXALT ? `\n<span style="color: orchid"> ${i18next.t('ambrosia.ignoreEXALT')}</span>\n` : '\n'
-  }<span style="color: lightblue">${upgrade.description()}</span>
-              <span style="color: gold">${effectsDescription}</span>
+  }${maxLevel}${freeLevelInfo}</span><br>
+  ${preReqText ? `${preReqText}<br>` : ''}
+  ${
+    upgrade.ignoreEXALT ? `<span style="color: orchid"> ${i18next.t('ambrosia.ignoreEXALT')}</span><br>` : ''
+  }
+  <span style="color: lightblue">${upgrade.description()}</span><br>
+              <span style="color: gold">${effectsDescription}</span><br>
               ${i18next.t('octeract.toString.costNextLevel')}: <span style="color:orange">${
     format(costNextLevel, 0, true, true, true)
-  }</span> ${i18next.t('ambrosia.ambrosia')} ${affordableInfo}
-              ${i18next.t('ambrosia.blueberryCost')} <span style="color:blue">${upgrade.blueberryCost}</span>
+  }</span> ${i18next.t('ambrosia.ambrosia')} ${affordableInfo}<br>
+              ${i18next.t('ambrosia.blueberryCost')} <span style="color:blue">${upgrade.blueberryCost}</span><br>
               ${i18next.t('general.spent')} ${i18next.t('ambrosia.ambrosia')}: <span style="color:orange">${
     format(upgrade.ambrosiaInvested, 0, true, true, true)
   }</span>`
-}
-
-export const updateAmbrosiaUpgradeHTML = (upgradeKey: AmbrosiaUpgradeNames): void => {
-  DOMCacheGetOrSet('singularityAmbrosiaMultiline').innerHTML = ambrosiaUpgradeToString(upgradeKey)
-  visualUpdateAmbrosia()
 }
 
 export const buyAmbrosiaUpgradeLevel = async (upgradeKey: AmbrosiaUpgradeNames, event: MouseEvent): Promise<void> => {
@@ -1290,7 +1287,6 @@ export const buyAmbrosiaUpgradeLevel = async (upgradeKey: AmbrosiaUpgradeNames, 
     )
   }
 
-  updateAmbrosiaUpgradeHTML(upgradeKey)
 }
 
 export const displayProperLoadoutCount = () => {
@@ -1530,10 +1526,11 @@ export const highlightPrerequisites = (k: AmbrosiaUpgradeNames) => {
   for (const key of Object.keys(ambrosiaUpgrades)) {
     const k2 = key as AmbrosiaUpgradeNames
     const elm = DOMCacheGetOrSet(k2)
+    const img = elm.querySelector('img') as HTMLImageElement
     if (preReq[k2] !== undefined) {
-      elm.classList.add('blueberryPrereq')
+      img.classList.add('blueberryPrereq')
     } else {
-      elm.classList.remove('blueberryPrereq')
+      img.classList.remove('blueberryPrereq')
     }
   }
 }
@@ -1542,7 +1539,8 @@ export const resetHighlights = () => {
   for (const key of Object.keys(ambrosiaUpgrades)) {
     const k = key as AmbrosiaUpgradeNames
     const elm = DOMCacheGetOrSet(k)
-    elm.classList.remove('blueberryPrereq')
+    const img = elm.querySelector('img') as HTMLImageElement
+    img.classList.remove('blueberryPrereq')
   }
 }
 
@@ -1552,25 +1550,25 @@ export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
   for (const key of Object.keys(ambrosiaUpgrades)) {
     const k = key as AmbrosiaUpgradeNames
     const elm = DOMCacheGetOrSet(k)
+    const img = elm.querySelector('img') as HTMLImageElement
     const level = loadout[k] || 0 // Get the level from the loadout, default to 0 if not present
-    const parent = elm.parentElement!
 
-    let levelOverlay = parent.querySelector('.level-overlay') as HTMLDivElement
+    let levelOverlay = elm.querySelector('.level-overlay') as HTMLDivElement
     if (!levelOverlay) {
       levelOverlay = document.createElement('div') // Changed from 'p' to 'div'
       levelOverlay.classList.add('level-overlay')
-      parent.classList.add('relative-container') // Apply relative container to the element
-      parent.appendChild(levelOverlay) // Append to the element
+      elm.classList.add('relative-container') // Apply relative container to the element
+      elm.appendChild(levelOverlay) // Append to the element
     }
 
     if (loadoutKeys.includes(k) && level > 0) {
-      elm.classList.add('dimmed') // Apply the dimmed class
+      img.classList.add('dimmed') // Apply the dimmed class
       levelOverlay.textContent = String(level) // Set the level text
       if (level === ambrosiaUpgrades[k].maxLevel) {
         levelOverlay.classList.add('maxBlueberryLevel')
       }
     } else {
-      elm.classList.add('superDimmed')
+      img.classList.add('superDimmed')
       levelOverlay!.textContent = ''
     }
   }
@@ -1580,15 +1578,15 @@ export const resetLoadoutOnlyDisplay = () => {
   for (const key of Object.keys(ambrosiaUpgrades)) {
     const k = key as AmbrosiaUpgradeNames
     const elm = DOMCacheGetOrSet(k)
-    const parent = elm.parentElement!
-    elm.classList.remove('dimmed') // Remove the dimmed class
-    elm.classList.remove('superDimmed') // Remove the superDimmed class
+    const img = elm.querySelector('img') as HTMLImageElement
+    img.classList.remove('dimmed') // Remove the dimmed class
+    img.classList.remove('superDimmed') // Remove the superDimmed class
 
     // Remove the level overlay if it exists
-    const levelOverlay = parent.querySelector('.level-overlay')
+    const levelOverlay = elm.querySelector('.level-overlay')
     if (levelOverlay) {
       levelOverlay.remove()
-      parent.classList.remove('relative-container') // Remove relative container
+      elm.classList.remove('relative-container') // Remove relative container
     }
   }
 }
