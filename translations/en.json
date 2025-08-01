@@ -2000,7 +2000,9 @@
     "quarkBonus": "Gain .01 Quark Multiplier per 500 AP! Quark Multiplier: <<cyan | x{{multiplier}}>>",
     "achievementLevel": "Based on your Achievement Points, you are at Synergism Level <span class=\"rainbowText\">{{level}}</span>",
     "achievementToNextLevel": "Level {{level}} in {{AP}} AP",
-    "levelUpNotification": "Level Up! Synergism Level {{old}} → {{new}}"
+    "levelUpNotification": "Level Up! Synergism Level {{old}} → {{new}}",
+    "complete": " &nbsp;&nbsp; Tier {{tier}} (COMPLETE!)",
+    "tier": " &nbsp;&nbsp; Tier {{tier}}"
   },
   "reset": {
     "details": {
@@ -3714,6 +3716,8 @@
     "maxed": "(Maxed)",
     "affordable": "(Affordable)",
     "enabled": "(Enabled)",
+    "effectiveLevel": "Effective Level: {{level}}",
+    "alwaysEnabled": "[<<white|♔>>] This upgrade is <b>always active</b>, even if something else says otherwise!",
     "infinity": "Infinity",
     "sacrificeCapital": "SACRIFICE",
     "multiBuyInstructions": "Buy multiple levels at once by holding <<var(--orchid-text-color)|'SHIFT'>> while clicking!",

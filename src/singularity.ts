@@ -1819,7 +1819,7 @@ export const blankGQLevelObject: Record<SingularityDataKeys, { level: number; fr
 ) as Record<SingularityDataKeys, { level: number; freeLevel: number }>
 
 /**
- * Get the upgrade's string representation with all relevant information
+ * Get the upgrade's HTML representation with all relevant information
  */
 export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   const upgrade = goldenQuarkUpgrades[upgradeKey]
@@ -1830,6 +1830,7 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   const effectDesc = getGQUpgradeDescription(upgradeKey)
   const freeLevelMult = computeFreeLevelMultiplier()
   const freeLevelsWithMult = upgrade.freeLevel * freeLevelMult
+  const totalEffectiveLevels = actualGQUpgradeTotalLevels(upgradeKey)
   const color = computeGQUpgradeMaxLevel(upgradeKey) === upgrade.level ? 'plum' : 'white'
 
   // Upgrade Name Text
@@ -1867,9 +1868,15 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     }</span>`
   }
 
+  const effectiveLevelText = totalEffectiveLevels !== upgrade.level
+    ? `<span style="color: white">${i18next.t('general.effectiveLevel', {
+      level: format(totalEffectiveLevels, 2, true)
+    })}</span>`
+    : ''
+
   const levelText = `<span style="color: ${color}">${i18next.t('general.level')} ${
     format(upgrade.level, 0, true)
-  }${maxLevel}${freeLevelText}</span>`
+  }${maxLevel}${freeLevelText}&nbsp;&nbsp;<b>${effectiveLevelText}</b></span>`
 
   // Upgrade Effect Text
   const upgradeEffectHTML = `<span style="color: gold">${effectDesc}</span>`
@@ -1877,14 +1884,10 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   // TNL Cost Text
   const costHTML = computeGQUpgradeMaxLevel(upgradeKey) === upgrade.level ? '' : i18next.t('singularity.toString.costNextLevel', { amount: format(costNextLevel, 0, true) })
 
-  return `${nameHTML}<br>${levelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}`
-}
+  // QoL Text
+  const qualityOfLifeText = upgrade.qualityOfLife ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>` : ''
 
-/**
- * Update the upgrade HTML display
- */
-export function updateGQUpgradeHTML (upgradeKey: SingularityDataKeys): void {
-  DOMCacheGetOrSet('testingMultiline').innerHTML = upgradeGQToString(upgradeKey)
+  return `${nameHTML}<br>${levelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${qualityOfLifeText}`
 }
 
 /**
@@ -2017,7 +2020,6 @@ export async function buyGQUpgradeLevel (upgradeKey: SingularityDataKeys, event:
     )
   }
 
-  updateGQUpgradeHTML(upgradeKey)
   updateSingularityPenalties()
   updateSingularityPerks()
   updateTokens()

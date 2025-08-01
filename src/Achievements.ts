@@ -13,7 +13,7 @@ import { maxAPFromChallenges, type SingularityChallengeDataKeys } from './Singul
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { talismans } from './Talismans'
 import type { resetNames } from './types/Synergism'
-import { Alert, Notification, revealStuff } from './UpdateHTML'
+import { Alert, CloseModal, Modal, Notification, revealStuff } from './UpdateHTML'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 import { Tabs } from './Tabs'
@@ -3234,10 +3234,14 @@ export const createGroupedAchievementDescription = (group: AchievementGroups) =>
     currTier += 1
   }
   if (achTier === currTier) {
-    groupName += ' - COMPLETE!'
+    groupName += `<b style='color: gold'>${i18next.t('achievements.complete', {
+      tier: achTier
+    })}</b>`
     groupName = `<span class='rainbowText'>${groupName}</span>`
   } else {
-    groupName += ` - Tier ${achTier}`
+    groupName += `<b style='color: gold'>${i18next.t('achievements.tier', {
+      tier: achTier
+    })}</b>`
   }
 
   const focusedIndex = achievementsByGroup[group][Math.min(achTier, currTier - 1)]
@@ -3250,7 +3254,8 @@ export const createGroupedAchievementDescription = (group: AchievementGroups) =>
   ${earnedAP}/${possibleAP} AP<br>
   ${tierText}<br>
   ${extraBonuses}`
-  DOMCacheGetOrSet('achievementMultiLine').innerHTML = finalText
+  return finalText
+  //DOMCacheGetOrSet('achievementMultiLine').innerHTML = finalText
 }
 
 export const generateUngroupedDescription = (name: UngroupedAchievementNames) => {
@@ -3301,7 +3306,7 @@ export const generateUngroupedDescription = (name: UngroupedAchievementNames) =>
   ${earnedValue}/${value} AP<br>
   ${trimmedRequirement}<br>
   ${extraText}`
-  DOMCacheGetOrSet('achievementMultiLine').innerHTML = finalText
+  return finalText
 }
 
 export const generateProgressiveAchievementDescription = (name: ProgressiveAchievements) => {
@@ -3331,7 +3336,7 @@ export const generateProgressiveAchievementDescription = (name: ProgressiveAchie
   ${achText}<br>
   ${achAPSourceText}`
 
-  DOMCacheGetOrSet('achievementMultiLine').innerHTML = finalText
+  return finalText
 }
 
 export const generateAchievementHTMLs = () => {
@@ -3366,9 +3371,23 @@ export const generateAchievementHTMLs = () => {
       img.src = `Pictures/Achievements/Grouped/${capitalizedName}.png`
       img.alt = i18next.t(`achievements.groupNames.${k}`)
       img.style.cursor = 'pointer'
+      img.tabIndex = 0
 
-      img.onclick = () => {
-        createGroupedAchievementDescription(k)
+      img.onmousemove = (e: MouseEvent) => {
+        Modal(createGroupedAchievementDescription(k), e.clientX, e.clientY, {borderColor: 'cyan'})
+      }
+      img.onfocus = () => {
+        const elm = img.getBoundingClientRect()
+        // Get x, y current based on the element's position
+        Modal(createGroupedAchievementDescription(k), elm.x, elm.y + elm.height / 2, {borderColor: 'cyan'})
+      }
+
+      img.onmouseout = () => {
+        CloseModal()
+      }
+
+      img.onblur = () => {
+        CloseModal()
       }
 
       // attach to the table
@@ -3395,9 +3414,23 @@ export const generateAchievementHTMLs = () => {
       img.src = `Pictures/Achievements/Ungrouped/${capitalizedName}.png`
       img.alt = i18next.t(`achievements.ungroupedNames.${k}`)
       img.style.cursor = 'pointer'
+      img.tabIndex = 0
 
-      img.onclick = () => {
-        generateUngroupedDescription(k as UngroupedAchievementNames)
+      img.onmousemove = (e: MouseEvent) => {
+        Modal(generateUngroupedDescription(k as UngroupedAchievementNames), e.clientX, e.clientY, {borderColor: 'white'})
+      }
+
+      img.onfocus = () => {
+        const elm = img.getBoundingClientRect()
+        // Get x, y current based on the element's position
+        Modal(generateUngroupedDescription(k as UngroupedAchievementNames), elm.x, elm.y + elm.height / 2, {borderColor: 'white'})
+      }
+
+      img.onmouseout = () => {
+        CloseModal()
+      }
+      img.onblur = () => {
+        CloseModal()
       }
 
       // attach to the table
@@ -3424,9 +3457,24 @@ export const generateAchievementHTMLs = () => {
       img.src = `Pictures/Achievements/Progressive/${capitalizedName}.png`
       img.alt = i18next.t(`achievements.progressiveNames.${k}`)
       img.style.cursor = 'pointer'
+      img.tabIndex = 0
 
-      img.onclick = () => {
-        generateProgressiveAchievementDescription(k as ProgressiveAchievements)
+      img.onmousemove = (e: MouseEvent) => {
+        Modal(generateProgressiveAchievementDescription(k as ProgressiveAchievements), e.clientX, e.clientY, {borderColor: 'turquoise'})
+      }
+
+      img.onfocus = () => {
+        const elm = img.getBoundingClientRect()
+        // Get x, y current based on the element's position
+        Modal(generateProgressiveAchievementDescription(k as ProgressiveAchievements), elm.x, elm.y + elm.height / 2, {borderColor: 'turquoise'})
+      }
+
+      img.onmouseout = () => {
+        CloseModal()
+      }
+
+      img.onblur = () => {
+        CloseModal()
       }
 
       // attach to the table

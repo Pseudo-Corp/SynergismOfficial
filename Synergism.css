@@ -289,6 +289,28 @@ body button:active:not(:disabled):not(.disable-hover-color) {
     background-color: var(--alert-color);
 }
 
+#modal {
+    position: fixed;
+    display: none;
+    z-index: 6969;
+    width: 33%;
+    overflow: hidden;
+    border: 2px solid gold;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: min(1em, 24px);
+    color: white;
+    background-color: var(--alert-color);
+}
+
+#modalContent {
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
 .slide-in {
     animation: slide-in 1000ms;
     animation-fill-mode: forwards;

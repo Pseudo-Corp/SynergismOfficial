@@ -99,7 +99,7 @@ import {
   goldenQuarkUpgrades,
   type SingularityDataKeys,
   singularityPerks,
-  updateGQUpgradeHTML
+  upgradeGQToString,
 } from './singularity'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
 import { displayStats } from './Statistics'
@@ -155,7 +155,7 @@ import {
   updateRuneBlessingBuyAmount
 } from './Toggles'
 import type { FirstToEighth, FirstToFifth, OneToFive, Player } from './types/Synergism'
-import { Confirm, Prompt } from './UpdateHTML'
+import { CloseModal, Confirm, Modal, Prompt } from './UpdateHTML'
 import { shopMouseover } from './UpdateVisuals'
 import {
   buyConstantUpgrades,
@@ -439,6 +439,7 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('showAchievementProgress').addEventListener('mouseover', () => displayAchievementProgress())
   DOMCacheGetOrSet('showAchievementProgress').addEventListener('focus', () => displayAchievementProgress())
   DOMCacheGetOrSet('showAchievementProgress').addEventListener('mouseout', () => resetAchievementProgressDisplay())
+  DOMCacheGetOrSet('showAchievementProgress').addEventListener('blur', () => resetAchievementProgressDisplay())
 
   for (let index = 0; index < 2; index++) {
     DOMCacheGetOrSet(`toggleAchievementSubTab${index + 1}`).addEventListener(
@@ -944,12 +945,34 @@ TODO: Fix this entire tab it's utter shit
       continue
     }
     DOMCacheGetOrSet(key).addEventListener(
-      'mouseover',
-      () => updateGQUpgradeHTML(key)
+      'mousemove',
+      (e: MouseEvent) => Modal(upgradeGQToString(key), e.clientX, e.clientY, {borderColor: 'gold'})
     )
     DOMCacheGetOrSet(key).addEventListener(
+      'focus',
+      () => {
+        const element = DOMCacheGetOrSet(key)
+        const elmRect = element.getBoundingClientRect()
+        console.log('test!')
+        Modal(upgradeGQToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'gold'})
+      }
+    )
+    
+    DOMCacheGetOrSet(key).addEventListener(
+      'mouseout',
+      () => CloseModal()
+    )
+    DOMCacheGetOrSet(key).addEventListener(
+      'blur',
+      () => CloseModal()
+    )
+
+    DOMCacheGetOrSet(key).addEventListener(
       'click',
-      (event) => buyGQUpgradeLevel(key, event)
+      (event) => {
+        buyGQUpgradeLevel(key, event)
+        Modal(upgradeGQToString(key), event.clientX, event.clientY, {borderColor: 'gold'}, true)
+      }
     )
   }
   DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener(
