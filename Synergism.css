@@ -4115,7 +4115,7 @@ img#singularityPerksIcon {
     width: 100%;
 }
 
-#testingMultiline,
+#goldenQuarkMultiline,
 #singularityOcteractsMultiline,
 #singularityAmbrosiaMultiline {
     white-space: pre-line;
@@ -4335,7 +4335,7 @@ img#singularityPerksIcon {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1em;
+    font-size: 1.2em;
     text-shadow: 2px 2px 4px #000;
     z-index: 999;
     display: flex;
@@ -5467,4 +5467,13 @@ html[data-golden-quark3-upg="true"] .goldenQuark3Upg {
 
 html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     display: none;
+}
+
+.modalBtnBuy {
+    width: 60px;
+    height: 30px;
+    background-color: var(--button-color);
+    border: 2px solid gold;
+    margin: 5px auto;
+    text-align: center;
 }

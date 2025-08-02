@@ -3727,6 +3727,8 @@
     "buyMaxOff": "Buy Max: OFF",
     "on": "ON",
     "off": "OFF",
+    "buyOne": "Buy x1",
+    "buyMax": "Buy MAX",
     "updateAlerts": {
       "june282021": "June 28, 2021: V2.5.3. You have been refunded quarks from calculators if you purchased them. They are no longer refundable so be wary!",
       "july22021": "July 2, 2021: V2.5.5. You have been refunded quarks from Powder EX upgrade, if you purchased levels. Your T1 ants were also reset and base cost set to 1e700 particles. Powder EX is no longer refundable, though, so be careful!",

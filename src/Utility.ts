@@ -292,3 +292,10 @@ export const findInsertionIndex = (target: number, array: number[]): number => {
 
   return low + 1
 }
+
+export let isMobile = true
+
+export function isMobileDevice() {
+  isMobile = window.matchMedia("(pointer: coarse)").matches ||
+         /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}

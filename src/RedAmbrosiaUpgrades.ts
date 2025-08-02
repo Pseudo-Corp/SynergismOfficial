@@ -2,6 +2,7 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
+import { isMobile } from './Utility'
 
 type RedAmbrosiaUpgradeRewards = {
   tutorial: { cubeMult: number; obtainiumMult: number; offeringMult: number }
@@ -614,14 +615,44 @@ export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string
   } ${spentSpan} <br> ${purchaseWarningSpan}`
 }
 
-export const buyRedAmbrosiaUpgradeLevel = async (upgradeKey: RedAmbrosiaNames, event: MouseEvent): Promise<void> => {
+export const updateMobileRedAmbrosiaHTML = (k: RedAmbrosiaNames) => {
+  const elm = DOMCacheGetOrSet('singularityAmbrosiaMultiline')
+  elm.innerHTML = redAmbrosiaUpgradeToString(k)
+      // MOBILE ONLY - Add a button for buying upgrades
+      if (isMobile) {
+        const buttonDiv = document.createElement('div')
+    
+        const buyOne = document.createElement('button')
+        const buyMax = document.createElement('button')
+    
+        buyOne.classList.add('modalBtnBuy')
+        buyOne.textContent = i18next.t('general.buyOne')
+        buyOne.addEventListener('click', (event: MouseEvent) => {
+          buyRedAmbrosiaUpgradeLevel(k, event, false)
+          updateMobileRedAmbrosiaHTML(k)
+        })
+    
+        buyMax.classList.add('modalBtnBuy')
+        buyMax.textContent = i18next.t('general.buyMax')
+        buyMax.addEventListener('click', (event: MouseEvent) => {
+          buyRedAmbrosiaUpgradeLevel(k, event, true)
+          updateMobileRedAmbrosiaHTML(k)
+        })
+    
+        buttonDiv.appendChild(buyOne)
+        buttonDiv.appendChild(buyMax)
+        elm.appendChild(buttonDiv)
+      }
+}
+
+export const buyRedAmbrosiaUpgradeLevel = async (upgradeKey: RedAmbrosiaNames, event: MouseEvent, buyMax = false): Promise<void> => {
   const upgrade = redAmbrosiaUpgrades[upgradeKey]
   let purchased = 0
   let maxPurchasable = 1
   let redAmbrosiaBudget = player.redAmbrosia
 
-  if (event.shiftKey) {
-    maxPurchasable = 1000000
+  if (event.shiftKey || buyMax) {
+    maxPurchasable = 100000000
     const buy = Number(
       await Prompt(
         i18next.t('redAmbrosia.redAmbrosiaBuyPrompt', {

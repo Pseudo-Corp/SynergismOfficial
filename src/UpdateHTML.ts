@@ -1331,37 +1331,40 @@ export const Modal = (HTML: string, currX: number, currY: number, styleMods: Opt
   // Measure the dimensions of modal content and viewport
   modal.style.visibility = 'hidden'
   modal.style.display = 'block'
-  const modalRect = modalContent.getBoundingClientRect()
-  const viewportWidth = window.innerWidth
-  const viewportHeight = window.innerHeight
+  requestAnimationFrame(() => {
+    const modalRect = modalContent.getBoundingClientRect()
+    const viewportWidth = window.innerWidth
+    const viewportHeight = window.innerHeight
 
-  // Base positioning
-  let modalX = currX + 20
-  let modalY = currY + 20
+    // Base positioning
+    let modalX = currX + 20
+    let modalY = currY + 20
 
-  // Check right edge boundary
-  if (modalX + modalRect.width > viewportWidth) {
-    modalX = currX - modalRect.width - - 20
-  }
+    // Check right edge boundary
+    if (modalX + modalRect.width > viewportWidth) {
+      modalX = currX - modalRect.width - - 20
+    }
 
-  // Check bottom edge boundary
-  if (modalY + modalRect.height > viewportHeight) {
-    modalY = currY - modalRect.height - 20
-  }
+    // Check bottom edge boundary
+    if (modalY + modalRect.height > viewportHeight) {
+      modalY = currY - modalRect.height - 20
+    }
 
-  modalX = Math.max(0, modalX)
-  modalY = Math.max(0, modalY)
+    modalX = Math.max(0, modalX)
+    modalY = Math.max(0, modalY)
 
-  modal.style.left = `${modalX}px`
-  modal.style.top = `${modalY}px`
+    modal.style.left = `${modalX}px`
+    modal.style.top = `${modalY}px`
 
-  modal.style.visibility = 'visible'
+    modal.style.visibility = 'visible'
+  })
 }
 
 export const CloseModal = () => {
 
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
+    
   // Clear the content
   modalContent.innerHTML = ''
 

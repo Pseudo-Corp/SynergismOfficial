@@ -5,7 +5,7 @@ import { getOcteractUpgradeEffect } from './Octeracts'
 import { runes } from './Runes'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Prompt, revealStuff } from './UpdateHTML'
-import { toOrdinal } from './Utility'
+import { isMobile, toOrdinal } from './Utility'
 import { updateMaxTokens, updateTokens } from './Campaign'
 
 export type SingularityDataKeys =
@@ -1890,6 +1890,38 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   return `${nameHTML}<br>${levelText}${effectiveLevelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${qualityOfLifeText}`
 }
 
+export function updateMobileGQHTML(k: SingularityDataKeys) {
+  const elm = DOMCacheGetOrSet('goldenQuarkMultiline')
+  elm.innerHTML = upgradeGQToString(k)
+
+  // MOBILE ONLY - Add a button for buying upgrades
+  if (isMobile) {
+    const buttonDiv = document.createElement('div')
+
+    const buyOne = document.createElement('button')
+    const buyMax = document.createElement('button')
+
+    buyOne.classList.add('modalBtnBuy')
+    buyOne.textContent = i18next.t('general.buyOne')
+    buyOne.addEventListener('click', (event: MouseEvent) => {
+      console.log('test for buyOne inherit')
+      buyGQUpgradeLevel(k, event, false)
+      updateMobileGQHTML(k)
+    })
+
+    buyMax.classList.add('modalBtnBuy')
+    buyMax.textContent = i18next.t('general.buyMax')
+    buyMax.addEventListener('click', (event: MouseEvent) => {
+      buyGQUpgradeLevel(k, event, true)
+      updateMobileGQHTML(k)
+    })
+
+    buttonDiv.appendChild(buyOne)
+    buttonDiv.appendChild(buyMax)
+    elm.appendChild(buttonDiv)
+  }
+}
+
 /**
  * Get the cost for upgrading once. Returns 0 if maxed.
  */
@@ -1939,14 +1971,14 @@ export function getGQUpgradeCostTNL (upgradeKey: SingularityDataKeys): number {
 /**
  * Buy levels for an upgrade
  */
-export async function buyGQUpgradeLevel (upgradeKey: SingularityDataKeys, event: MouseEvent): Promise<void> {
+export async function buyGQUpgradeLevel (upgradeKey: SingularityDataKeys, event: MouseEvent, buyMax = false): Promise<void> {
   const upgrade = goldenQuarkUpgrades[upgradeKey]
   let purchased = 0
   let maxPurchasable = 1
   let GQBudget = player.goldenQuarks
 
-  if (event.shiftKey) {
-    maxPurchasable = 100000
+  if (event.shiftKey || buyMax) {
+    maxPurchasable = 100000000
     const buy = Number(
       await Prompt(
         i18next.t('singularity.goldenQuarks.spendPrompt', {

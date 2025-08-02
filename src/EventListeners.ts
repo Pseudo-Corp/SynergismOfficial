@@ -23,6 +23,7 @@ import {
   resetBlueberryTree,
   resetHighlights,
   resetLoadoutOnlyDisplay,
+  updateMobileAmbrosiaHTML,
 } from './BlueberryUpgrades'
 import {
   boostAccelerator,
@@ -70,6 +71,7 @@ import {
   buyOcteractUpgradeLevel,
   type OcteractDataKeys,
   octeractUpgrades,
+  updateMobileOcteractHTML,
   upgradeOcteractToString,
 } from './Octeracts'
 import { buyPlatonicUpgrades, createPlatonicDescription } from './Platonic'
@@ -78,6 +80,7 @@ import {
   displayRedAmbrosiaLevels,
   redAmbrosiaUpgradeToString,
   resetRedAmbrosiaDisplay,
+  updateMobileRedAmbrosiaHTML,
 } from './RedAmbrosiaUpgrades'
 import { buyResearch, researchDescriptions } from './Research'
 import { resetrepeat, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
@@ -99,6 +102,7 @@ import {
   goldenQuarkUpgrades,
   type SingularityDataKeys,
   singularityPerks,
+  updateMobileGQHTML,
   upgradeGQToString,
 } from './singularity'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
@@ -166,6 +170,7 @@ import {
   upgradedescriptions
 } from './Upgrades'
 import { Globals as G } from './Variables'
+import { isMobile } from './Utility'
 
 /* STYLE GUIDE */
 /*
@@ -941,39 +946,50 @@ TODO: Fix this entire tab it's utter shit
   // SINGULARITY TAB
   const GQUpgrades = Object.keys(goldenQuarkUpgrades) as SingularityDataKeys[]
   for (const key of GQUpgrades) {
-    if (key === 'offeringAutomatic') {
-      continue
-    }
-    DOMCacheGetOrSet(key).addEventListener(
-      'mousemove',
-      (e: MouseEvent) => Modal(upgradeGQToString(key), e.clientX, e.clientY, {borderColor: 'gold'})
-    )
-    DOMCacheGetOrSet(key).addEventListener(
-      'focus',
-      () => {
-        const element = DOMCacheGetOrSet(key)
-        const elmRect = element.getBoundingClientRect()
-        console.log('test!')
-        Modal(upgradeGQToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'gold'})
+    if (!isMobile) {
+      if (key === 'offeringAutomatic') {
+        continue
       }
-    )
-    
-    DOMCacheGetOrSet(key).addEventListener(
-      'mouseout',
-      () => CloseModal()
-    )
-    DOMCacheGetOrSet(key).addEventListener(
-      'blur',
-      () => CloseModal()
-    )
+      DOMCacheGetOrSet(key).addEventListener(
+        'mousemove',
+        (e: MouseEvent) => Modal(upgradeGQToString(key), e.clientX, e.clientY, {borderColor: 'gold'})
+      )
+      DOMCacheGetOrSet(key).addEventListener(
+        'focus',
+        () => {
+          const element = DOMCacheGetOrSet(key)
+          const elmRect = element.getBoundingClientRect()
+          console.log('test!')
+          Modal(upgradeGQToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'gold'})
+        }
+      )
+      
+      DOMCacheGetOrSet(key).addEventListener(
+        'mouseout',
+        () => CloseModal()
+      )
+      DOMCacheGetOrSet(key).addEventListener(
+        'blur',
+        () => CloseModal()
+      )
 
-    DOMCacheGetOrSet(key).addEventListener(
-      'click',
-      (event) => {
-        buyGQUpgradeLevel(key, event)
-        Modal(upgradeGQToString(key), event.clientX, event.clientY, {borderColor: 'gold'}, true)
+      DOMCacheGetOrSet(key).addEventListener(
+        'click',
+        (event) => {
+          buyGQUpgradeLevel(key, event)
+          Modal(upgradeGQToString(key), event.clientX, event.clientY, {borderColor: 'gold'}, true)
+        }
+      )
+    }
+    else {
+      if (key === 'offeringAutomatic') {
+        continue
       }
-    )
+      DOMCacheGetOrSet(key).addEventListener(
+        'click',
+        () => updateMobileGQHTML(key)
+      )
+    }
   }
   DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener(
     'mouseover',
@@ -1014,33 +1030,41 @@ TODO: Fix this entire tab it's utter shit
   // Octeract Upgrades
   const octUpgrade = Object.keys(octeractUpgrades) as OcteractDataKeys[]
   for (const key of octUpgrade) {
-    DOMCacheGetOrSet(key).addEventListener(
-      'mousemove',
-      (e: MouseEvent) => Modal(upgradeOcteractToString(key), e.clientX, e.clientY, {borderColor: 'lightseagreen'})
-    )
-    DOMCacheGetOrSet(key).addEventListener(
-      'focus',
-      () => {
-        const element = DOMCacheGetOrSet(key)
-        const elmRect = element.getBoundingClientRect()
-        Modal(upgradeOcteractToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'lightseagreen'})
-      }
-    )
-    DOMCacheGetOrSet(key).addEventListener(
-      'mouseout',
-      () => CloseModal()
-    )
-    DOMCacheGetOrSet(key).addEventListener(
-      'blur',
-      () => CloseModal()
-    )
-    DOMCacheGetOrSet(key).addEventListener(
-      'click',
-      (event) => {
-        buyOcteractUpgradeLevel(key, event)
-        Modal(upgradeOcteractToString(key), event.clientX, event.clientY, {borderColor: 'lightseagreen'}, true)
-      }
-    )
+    if (!isMobile) {
+      DOMCacheGetOrSet(key).addEventListener(
+        'mousemove',
+        (e: MouseEvent) => Modal(upgradeOcteractToString(key), e.clientX, e.clientY, {borderColor: 'lightseagreen'})
+      )
+      DOMCacheGetOrSet(key).addEventListener(
+        'focus',
+        () => {
+          const element = DOMCacheGetOrSet(key)
+          const elmRect = element.getBoundingClientRect()
+          Modal(upgradeOcteractToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'lightseagreen'})
+        }
+      )
+      DOMCacheGetOrSet(key).addEventListener(
+        'mouseout',
+        () => CloseModal()
+      )
+      DOMCacheGetOrSet(key).addEventListener(
+        'blur',
+        () => CloseModal()
+      )
+      DOMCacheGetOrSet(key).addEventListener(
+        'click',
+        (event) => {
+          buyOcteractUpgradeLevel(key, event)
+          Modal(upgradeOcteractToString(key), event.clientX, event.clientY, {borderColor: 'lightseagreen'}, true)
+        }
+      )
+    }
+    else {
+      DOMCacheGetOrSet(key).addEventListener(
+        'click',
+        () => updateMobileOcteractHTML(key)
+      )
+    }
   }
 
   DOMCacheGetOrSet('octeractUpgradeContainer').addEventListener(
@@ -1070,43 +1094,54 @@ TODO: Fix this entire tab it's utter shit
     ambrosiaUpgrades
   ) as AmbrosiaUpgradeNames[]
   for (const key of blueberryUpgrades) {
-    DOMCacheGetOrSet(key).addEventListener(
-      'mousemove',
-      (e: MouseEvent) => {
-        Modal(ambrosiaUpgradeToString(key), e.clientX, e.clientY, {borderColor: 'blue'})
-        highlightPrerequisites(key)
-      }
-    )
-    DOMCacheGetOrSet(key).addEventListener(
-      'mouseout',
-      () => {
-        CloseModal()
-        resetHighlights()
-      }
-    )
-    DOMCacheGetOrSet(key).addEventListener(
-      'focus',
-      () => {
-        const element = DOMCacheGetOrSet(key)
-        const elmRect = element.getBoundingClientRect()
-        Modal(ambrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'blue'})
-        highlightPrerequisites(key)
-      }
-    )
-    DOMCacheGetOrSet(key).addEventListener(
-      'blur',
-      () => {
-        CloseModal()
-        resetHighlights()
-      }
-    )
-    DOMCacheGetOrSet(key).addEventListener(
-      'click',
-      (event) => {
-        buyAmbrosiaUpgradeLevel(key, event)
-        Modal(ambrosiaUpgradeToString(key), event.clientX, event.clientY, {borderColor: 'blue'}, true)
-      }
-    )
+    if (!isMobile) {
+      DOMCacheGetOrSet(key).addEventListener(
+        'mousemove',
+        (e: MouseEvent) => {
+          Modal(ambrosiaUpgradeToString(key), e.clientX, e.clientY, {borderColor: 'blue'})
+          highlightPrerequisites(key)
+        }
+      )
+      DOMCacheGetOrSet(key).addEventListener(
+        'mouseout',
+        () => {
+          CloseModal()
+          resetHighlights()
+        }
+      )
+      DOMCacheGetOrSet(key).addEventListener(
+        'focus',
+        () => {
+          const element = DOMCacheGetOrSet(key)
+          const elmRect = element.getBoundingClientRect()
+          Modal(ambrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'blue'})
+          highlightPrerequisites(key)
+        }
+      )
+      DOMCacheGetOrSet(key).addEventListener(
+        'blur',
+        () => {
+          CloseModal()
+          resetHighlights()
+        }
+      )
+      DOMCacheGetOrSet(key).addEventListener(
+        'click',
+        (event) => {
+          buyAmbrosiaUpgradeLevel(key, event)
+          Modal(ambrosiaUpgradeToString(key), event.clientX, event.clientY, {borderColor: 'blue'}, true)
+        }
+      )
+    } 
+    else {
+      DOMCacheGetOrSet(key).addEventListener(
+        'click',
+        () => {
+          updateMobileAmbrosiaHTML(key)
+          highlightPrerequisites(key)
+        }
+      )
+    }
   }
 
   // BLUEBERRY LOADOUTS
@@ -1164,33 +1199,40 @@ TODO: Fix this entire tab it's utter shit
   ) as (keyof Player['redAmbrosiaUpgrades'])[]
   for (const key of redAmbrosiaUpgrades) {
     const capitalizedName = key.charAt(0).toUpperCase() + key.slice(1)
-    DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
-      'mousemove',
-      (e: MouseEvent) => Modal(redAmbrosiaUpgradeToString(key), e.clientX, e.clientY, {borderColor: 'red'})
-    )
-    DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
-      'mouseout',
-      () => CloseModal()
-    )
-    DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
-      'focus',
-      () => {
-        const element = DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`)
-        const elmRect = element.getBoundingClientRect()
-        Modal(redAmbrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'red'})
-      }
-    )
-    DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
-      'blur',
-      () => CloseModal()
-    )
-    DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
-      'click',
-      (event) => {
-        buyRedAmbrosiaUpgradeLevel(key, event)
-        Modal(redAmbrosiaUpgradeToString(key), event.clientX, event.clientY, {borderColor: 'red'}, true)
-      }
-    )
+    if (!isMobile) {
+      DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
+        'mousemove',
+        (e: MouseEvent) => Modal(redAmbrosiaUpgradeToString(key), e.clientX, e.clientY, {borderColor: 'red'})
+      )
+      DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
+        'mouseout',
+        () => CloseModal()
+      )
+      DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
+        'focus',
+        () => {
+          const element = DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`)
+          const elmRect = element.getBoundingClientRect()
+          Modal(redAmbrosiaUpgradeToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'red'})
+        }
+      )
+      DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
+        'blur',
+        () => CloseModal()
+      )
+      DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
+        'click',
+        (event) => {
+          buyRedAmbrosiaUpgradeLevel(key, event)
+          Modal(redAmbrosiaUpgradeToString(key), event.clientX, event.clientY, {borderColor: 'red'}, true)
+        }
+      )
+    } else {
+        DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`).addEventListener(
+          'click',
+          () => updateMobileRedAmbrosiaHTML(key)
+        )
+    }
   }
 
   // Toggle subtabs of Singularity tab

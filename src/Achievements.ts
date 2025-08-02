@@ -14,7 +14,7 @@ import { format, formatAsPercentIncrease, player } from './Synergism'
 import { talismans } from './Talismans'
 import type { resetNames } from './types/Synergism'
 import { Alert, CloseModal, Modal, Notification, revealStuff } from './UpdateHTML'
-import { sumContents } from './Utility'
+import { isMobile, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 import { Tabs } from './Tabs'
 import { displayLevelStuff } from './Levels'
@@ -3373,21 +3373,27 @@ export const generateAchievementHTMLs = () => {
       img.style.cursor = 'pointer'
       img.tabIndex = 0
 
-      img.onmousemove = (e: MouseEvent) => {
-        Modal(createGroupedAchievementDescription(k), e.clientX, e.clientY, {borderColor: 'cyan'})
-      }
-      img.onfocus = () => {
-        const elm = img.getBoundingClientRect()
-        // Get x, y current based on the element's position
-        Modal(createGroupedAchievementDescription(k), elm.x, elm.y + elm.height / 2, {borderColor: 'cyan'})
-      }
+      if (!isMobile) {
+        img.onmousemove = (e: MouseEvent) => {
+          Modal(createGroupedAchievementDescription(k), e.clientX, e.clientY, {borderColor: 'cyan'})
+        }
+        img.onfocus = () => {
+          const elm = img.getBoundingClientRect()
+          // Get x, y current based on the element's position
+          Modal(createGroupedAchievementDescription(k), elm.x, elm.y + elm.height / 2, {borderColor: 'cyan'})
+        }
 
-      img.onmouseout = () => {
-        CloseModal()
-      }
+        img.onmouseout = () => {
+          CloseModal()
+        }
 
-      img.onblur = () => {
-        CloseModal()
+        img.onblur = () => {
+          CloseModal()
+        }
+      } else {
+        img.onclick = () => {
+          DOMCacheGetOrSet('achievementMultiLine').innerHTML = createGroupedAchievementDescription(k)
+        }
       }
 
       // attach to the table
@@ -3416,21 +3422,27 @@ export const generateAchievementHTMLs = () => {
       img.style.cursor = 'pointer'
       img.tabIndex = 0
 
-      img.onmousemove = (e: MouseEvent) => {
-        Modal(generateUngroupedDescription(k as UngroupedAchievementNames), e.clientX, e.clientY, {borderColor: 'white'})
-      }
+      if (!isMobile) {
+        img.onmousemove = (e: MouseEvent) => {
+          Modal(generateUngroupedDescription(k as UngroupedAchievementNames), e.clientX, e.clientY, {borderColor: 'white'})
+        }
 
-      img.onfocus = () => {
-        const elm = img.getBoundingClientRect()
-        // Get x, y current based on the element's position
-        Modal(generateUngroupedDescription(k as UngroupedAchievementNames), elm.x, elm.y + elm.height / 2, {borderColor: 'white'})
-      }
+        img.onfocus = () => {
+          const elm = img.getBoundingClientRect()
+          // Get x, y current based on the element's position
+          Modal(generateUngroupedDescription(k as UngroupedAchievementNames), elm.x, elm.y + elm.height / 2, {borderColor: 'white'})
+        }
 
-      img.onmouseout = () => {
-        CloseModal()
-      }
-      img.onblur = () => {
-        CloseModal()
+        img.onmouseout = () => {
+          CloseModal()
+        }
+        img.onblur = () => {
+          CloseModal()
+        }
+      } else {
+        img.onclick = () => {
+          DOMCacheGetOrSet('achievementMultiLine').innerHTML = generateUngroupedDescription(k as UngroupedAchievementNames)
+        }
       }
 
       // attach to the table
@@ -3459,22 +3471,28 @@ export const generateAchievementHTMLs = () => {
       img.style.cursor = 'pointer'
       img.tabIndex = 0
 
-      img.onmousemove = (e: MouseEvent) => {
-        Modal(generateProgressiveAchievementDescription(k as ProgressiveAchievements), e.clientX, e.clientY, {borderColor: 'turquoise'})
-      }
+      if (!isMobile) {
+        img.onmousemove = (e: MouseEvent) => {
+          Modal(generateProgressiveAchievementDescription(k as ProgressiveAchievements), e.clientX, e.clientY, {borderColor: 'turquoise'})
+        }
 
-      img.onfocus = () => {
-        const elm = img.getBoundingClientRect()
-        // Get x, y current based on the element's position
-        Modal(generateProgressiveAchievementDescription(k as ProgressiveAchievements), elm.x, elm.y + elm.height / 2, {borderColor: 'turquoise'})
-      }
+        img.onfocus = () => {
+          const elm = img.getBoundingClientRect()
+          // Get x, y current based on the element's position
+          Modal(generateProgressiveAchievementDescription(k as ProgressiveAchievements), elm.x, elm.y + elm.height / 2, {borderColor: 'turquoise'})
+        }
 
-      img.onmouseout = () => {
-        CloseModal()
-      }
+        img.onmouseout = () => {
+          CloseModal()
+        }
 
-      img.onblur = () => {
-        CloseModal()
+        img.onblur = () => {
+          CloseModal()
+        }
+      } else {
+        img.onclick = () => {
+          DOMCacheGetOrSet('achievementMultiLine').innerHTML = generateProgressiveAchievementDescription(k as ProgressiveAchievements)
+        }
       }
 
       // attach to the table

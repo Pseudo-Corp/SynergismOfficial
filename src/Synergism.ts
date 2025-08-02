@@ -14,7 +14,7 @@ import {
   highestChallengeRewards,
   runChallengeSweep
 } from './Challenges'
-import { btoa, sortWithIndices, sumContents } from './Utility'
+import { btoa, isMobileDevice, sortWithIndices, sumContents } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {
@@ -5537,6 +5537,8 @@ window.addEventListener('load', async () => {
       }
     })
   }
+
+  isMobileDevice()
 
   await i18nInit()
   handleLogin().catch(console.error)

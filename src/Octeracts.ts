@@ -3,6 +3,8 @@ import { calculateOcteractMultiplier } from './Calculate'
 import { format, formatAsPercentIncrease, formatTimeShort, player } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { updateMaxTokens, updateTokens } from './Campaign'
+import { DOMCacheGetOrSet } from './Cache/DOM'
+import { isMobile } from './Utility'
 
 export type OcteractDataKeys =
   | 'octeractStarter'
@@ -1014,14 +1016,46 @@ export const upgradeOcteractToString = (upgradeKey: OcteractDataKeys): string =>
   return `${nameHTML}<br>${levelHTML}${effectiveLevelText}<br>${descriptionHTML}<br>${effectHTML}<br>${costHTML}${qualityOfLifeText}`
 }
 
-export const buyOcteractUpgradeLevel = async (upgradeKey: OcteractDataKeys, event: MouseEvent): Promise<void> => {
+export const updateMobileOcteractHTML = (upgradeKey: OcteractDataKeys): void => {
+  const elm = DOMCacheGetOrSet('singularityOcteractsMultiline')
+  elm.innerHTML = upgradeOcteractToString(upgradeKey)
+
+    // MOBILE ONLY - Add a button for buying upgrades
+    if (isMobile) {
+      const buttonDiv = document.createElement('div')
+  
+      const buyOne = document.createElement('button')
+      const buyMax = document.createElement('button')
+  
+      buyOne.classList.add('modalBtnBuy')
+      buyOne.textContent = i18next.t('general.buyOne')
+      buyOne.addEventListener('click', (event: MouseEvent) => {
+        console.log('test for buyOne inherit')
+        buyOcteractUpgradeLevel(upgradeKey, event, false)
+        updateMobileOcteractHTML(upgradeKey)
+      })
+  
+      buyMax.classList.add('modalBtnBuy')
+      buyMax.textContent = i18next.t('general.buyMax')
+      buyMax.addEventListener('click', (event: MouseEvent) => {
+        buyOcteractUpgradeLevel(upgradeKey, event, true)
+        updateMobileOcteractHTML(upgradeKey)
+      })
+  
+      buttonDiv.appendChild(buyOne)
+      buttonDiv.appendChild(buyMax)
+      elm.appendChild(buttonDiv)
+    }
+}
+
+export const buyOcteractUpgradeLevel = async (upgradeKey: OcteractDataKeys, event: MouseEvent, buyMax = false): Promise<void> => {
   const upgrade = octeractUpgrades[upgradeKey]
   let purchased = 0
   let maxPurchasable = 1
   let OCTBudget = player.wowOcteracts
 
-  if (event.shiftKey) {
-    maxPurchasable = 1000000
+  if (event.shiftKey || buyMax) {
+    maxPurchasable = 100000000
     const buy = Number(
       await Prompt(`${i18next.t('octeract.buyLevel.buyPrompt', { n: format(player.wowOcteracts, 0, true) })}`)
     )
