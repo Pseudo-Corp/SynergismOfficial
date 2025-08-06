@@ -110,10 +110,10 @@ export const calculatetax = () => {
 
   if (player.singularityChallenges.taxmanLastStand.enabled) {
     if (player.unlocks.ascensions) {
-      exponent *= 2
+      exponent *= 4
     }
     if (player.highestchallengecompletions[14] > 0) {
-      exponent *= 3
+      exponent *= 5
     }
   }
 

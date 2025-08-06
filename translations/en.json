@@ -5294,7 +5294,7 @@
       },
       "taxmanLastStand": {
         "name": "The Taxman's Last Stand",
-        "description": "The Tax Man, wanting the Ultimate Pen, has some devious new tricks up his sleeve. Beat the target Singularity, except: <br><<lime|♽ Positive Salvage past 100 is vastly reduced, and Negative Salvage sources give +500% more>><br>¢ Gain <<orange|2x>> the taxes when you've beaten Challenge 10, and <<red|3x>> more taxes when you've beaten Challenge 14<br><<orange|☼ Each digit in your Offering Count divides your Obtainium gain by 1.5>><br><<pink|☢ Each digit in your Obtainium Count divides your Offering gain by 1.5>>",
+        "description": "The Tax Man, wanting the Ultimate Pen, has some devious new tricks up his sleeve. Beat the target Singularity, except: <br><<lime|♽ Positive Salvage past 100 is vastly reduced, and Negative Salvage sources give +500% more>><br>¢ Gain <<orange|4x>> the taxes when you've beaten Challenge 10, and <<red|5x>> more taxes when you've beaten Challenge 14<br><<orange|☼ Each digit in your Offering Count divides your Obtainium gain by 2 (+0.01/tier)>><br><<pink|☢ Each digit in your Obtainium Count divides your Offering gain by 2 (+0.01/tier)>>",
         "ScalingReward1": "+10 <<var(--red-text-color)|Talisman Level Caps>> for any Talisman that resets on Singularity",
         "ScalingReward2": "+1% <<var(--blueberry-box-color)|Talisman Free Rune Levels>>",
         "ScalingReward3": "+0.00066 <<var(--amber-text-color)|Rune Coefficient>> for Antiquities!",

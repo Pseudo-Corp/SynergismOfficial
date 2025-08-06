@@ -189,8 +189,9 @@ export class WowCubes extends Cube {
     player.cubeQuarkDaily += actualQuarksGain
     player.worlds.add(actualQuarksGain, false)
 
+    const sumOfTributes = sumContents(Object.values(player.cubeBlessings))
     // if >= 1e300 totalTribute, do not award tributes
-    if (sumContents(Object.values(player.cubeBlessings)) >= 1e300) {
+    if (sumOfTributes >= 1e300) {
       return
     }
 
@@ -199,7 +200,7 @@ export class WowCubes extends Cube {
     toSpend *= 1 + 0.6 * player.researches[198] / 1000
 
     toSpend = Math.floor(toSpend)
-    toSpend = Math.min(toSpend, 1e300 - sumContents(Object.values(player.cubeBlessings)))
+    toSpend = Math.min(toSpend, 1e300 - sumOfTributes)
     let toSpendModulo = toSpend % 20
     let toSpendDiv20 = Math.floor(toSpend / 20)
 

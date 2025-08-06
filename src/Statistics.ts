@@ -1033,7 +1033,8 @@ export const allOfferingStats = [
         return 1
       }
       const offeringDigits = Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))
-      return Math.pow(1.5, -Math.min(500, offeringDigits)) // Taxman Debuff
+      const comps = player.singularityChallenges.taxmanLastStand.completions
+      return Math.pow(2 + comps / 100, -Math.min(500, offeringDigits)) // Taxman Debuff
     }
   },
   {
@@ -1605,7 +1606,8 @@ export const allObtainiumStats: StatLine[] = [
         return 1
       }
       const offeringDigits = Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))
-      return Math.pow(1.5, -Math.min(500, offeringDigits)) // Taxman Debuff
+      const comps = player.singularityChallenges.taxmanLastStand.completions
+      return Math.pow(2 + comps / 100, -Math.min(500, offeringDigits)) // Taxman Debuff
     }
   }
 ]
