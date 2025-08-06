@@ -51,7 +51,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     level: 0,
     runeEXP: new Decimal(0),
     costCoefficient: new Decimal(1e8),
-    levelsPerOOM: 25,
+    levelsPerOOM: 4,
     effects: (level) => {
       const globalSpeed = 1 + level / 1000000
       return {
@@ -73,7 +73,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     level: 0,
     runeEXP: new Decimal(0),
     costCoefficient: new Decimal(1e10),
-    levelsPerOOM: 20,
+    levelsPerOOM: 4,
     effects: (level) => {
       const multiplierBoosts = 1 + level / 1000000
       return {
@@ -95,7 +95,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     level: 0,
     runeEXP: new Decimal(0),
     costCoefficient: new Decimal(1e13),
-    levelsPerOOM: 15,
+    levelsPerOOM: 4,
     effects: (level) => {
       const antSacrificeMult = 1 + level / 1000000
       return {
@@ -117,7 +117,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     level: 0,
     runeEXP: new Decimal(0),
     costCoefficient: new Decimal(1e16),
-    levelsPerOOM: 10,
+    levelsPerOOM: 4,
     effects: (level) => {
       const accelBoostCostDelay = 1 + level / 1000000
       return {
@@ -139,7 +139,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     level: 0,
     runeEXP: new Decimal(0),
     costCoefficient: new Decimal(1e20),
-    levelsPerOOM: 5,
+    levelsPerOOM: 4,
     effects: (level) => {
       const obtToAntExponent = Math.log(1 + level / 1000000)
       return {

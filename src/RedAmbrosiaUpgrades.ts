@@ -499,13 +499,20 @@ export const redAmbrosiaUpgrades: { [K in RedAmbrosiaNames]: RedAmbrosiaUpgrade<
       return baseCost * (level + 1)
     },
     effects: (n: number) => {
+      if (player.singularityChallenges.taxmanLastStand.enabled) {
+        return {
+          positiveSalvage: 0,
+          negativeSalvage: 0
+        }
+      }
       return {
         positiveSalvage: 10 * n,
         negativeSalvage: -10 * n
       }
     },
     effectsDescription: (n: number) => {
-      return i18next.t('redAmbrosia.data.salvageYinYang.effect', { amount: 10 * n })
+      const bonus = player.singularityChallenges.taxmanLastStand.enabled ? 0 : 10 * n
+      return i18next.t('redAmbrosia.data.salvageYinYang.effect', { amount: bonus })
     },
     maxLevel: 100,
     costPerLevel: 200,

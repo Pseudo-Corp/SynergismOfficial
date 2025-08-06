@@ -99,7 +99,7 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     EFFECTSDESCRIPTION: (hept) => {
       const effects = hepteracts.hyperrealism.EFFECTS(hept)
       return i18next.t('wowCubes.hepteractForge.descriptions.hyperrealism.currentEffect', {
-        x: formatAsPercentIncrease(effects.hypercubeMultiplier * 6 / 100, 2)
+        x: formatAsPercentIncrease(effects.hypercubeMultiplier, 2)
       })
     },
     DESCRIPTION: () => i18next.t('wowCubes.hepteractForge.descriptions.hyperrealism.effect'),
@@ -284,7 +284,7 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
       const effects = hepteracts.multiplier.EFFECTS(hept)
       return i18next.t('wowCubes.hepteractForge.descriptions.multiplier.currentEffect', {
         x: format(effects.multiplier, 0, true),
-        y: formatAsPercentIncrease(effects.multiplierMultiplier * 3 / 100, 2)
+        y: formatAsPercentIncrease(effects.multiplierMultiplier, 2)
       })
     },
     DESCRIPTION: () => i18next.t('wowCubes.hepteractForge.descriptions.multiplier.effect'),

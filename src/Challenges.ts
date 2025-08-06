@@ -238,26 +238,26 @@ export const challengeDisplay = (i: number, changefocus = true) => {
       }
       case 6: {
         current1 = format(Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6])), 3, true)
-        current2 = format(10 * CalcECC('reincarnation', player.challengecompletions[6]))
+        current2 = format(0.3 * CalcECC('reincarnation', player.challengecompletions[6]), 2, true)
         current3 = format(2 * CalcECC('reincarnation', player.challengecompletions[6]))
         break
       }
       case 7: {
         current1 = format(1 + 0.04 * CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
-        current2 = format(CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
+        current2 = format(0.3 * CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
         current3 = format(15 * CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
         break
       }
       case 8: {
         current1 = format(0.25 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
-        current2 = format(20 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
+        current2 = format(0.4 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
         current3 = format(4 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
         break
       }
       case 9: {
         current1 = format(CalcECC('reincarnation', player.challengecompletions[9]))
         current2 = format(Math.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])), 2, true)
-        current3 = format(20 * CalcECC('reincarnation', player.challengecompletions[9]), 2, true)
+        current3 = format(0.5 * CalcECC('reincarnation', player.challengecompletions[9]), 2, true)
         break
       }
       case 10: {

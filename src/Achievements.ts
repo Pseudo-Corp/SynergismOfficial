@@ -349,8 +349,8 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
         cap6: player.singularityChallenges.limitedTime.maxAP,
         num7: player.singularityChallenges.sadisticPrequel.rewardAP,
         cap7: player.singularityChallenges.sadisticPrequel.maxAP,
-        num8: player.singularityChallenges.noOfferingPower.rewardAP,
-        cap8: player.singularityChallenges.noOfferingPower.maxAP,
+        num8: player.singularityChallenges.taxmanLastStand.rewardAP,
+        cap8: player.singularityChallenges.taxmanLastStand.maxAP,
       }
     },
     displayOrder: 7,
@@ -1536,22 +1536,22 @@ export const achievements: Achievement[] = [
   { pointValue: 25, unlockCondition: () => CalcCorruptionStuff()[3] >= 1e9, group: 'ascensionScore' },
   { pointValue: 30, unlockCondition: () => CalcCorruptionStuff()[3] >= 5e9, group: 'ascensionScore' },
   { pointValue: 35, unlockCondition: () => CalcCorruptionStuff()[3] >= 2.5e10, group: 'ascensionScore' },
-  { pointValue: 10, unlockCondition: () => runeBlessings.speed.level >= 100, group: 'speedBlessing', },
+  { pointValue: 10, unlockCondition: () => runeBlessings.speed.level >= 20, group: 'speedBlessing', },
   {
     pointValue: 20,
-    unlockCondition: () => runeBlessings.speed.level >= 250,
+    unlockCondition: () => runeBlessings.speed.level >= 40,
     group: 'speedBlessing',
   },
-  { pointValue: 30, unlockCondition: () => runeBlessings.speed.level >= 500, group: 'speedBlessing' },
+  { pointValue: 30, unlockCondition: () => runeBlessings.speed.level >= 80, group: 'speedBlessing' },
   {
     pointValue: 10,
-    unlockCondition: () => runeSpirits.speed.level >= 100,
+    unlockCondition: () => runeSpirits.speed.level >= 20,
     group: 'speedSpirit',
   },
-  { pointValue: 20, unlockCondition: () => runeSpirits.speed.level >= 250, group: 'speedSpirit' },
+  { pointValue: 20, unlockCondition: () => runeSpirits.speed.level >= 40, group: 'speedSpirit' },
   {
     pointValue: 30,
-    unlockCondition: () => runeSpirits.speed.level >= 500,
+    unlockCondition: () => runeSpirits.speed.level >= 80,
     group: 'speedSpirit',
   },
   {
@@ -1579,7 +1579,7 @@ export const achievements: Achievement[] = [
   // 245: High Speed Blessing
   {
     pointValue: 50,
-    unlockCondition: () => runeBlessings.speed.level >= 2222,
+    unlockCondition: () => runeBlessings.speed.level >= 380,
     group: 'ungrouped',
   },
   // 246: Open 1 cube with a ton of cube tributes already
@@ -1862,46 +1862,46 @@ export const achievements: Achievement[] = [
   { pointValue: 120, unlockCondition: () => player.challengecompletions[14] >= 72, group: 'challenge14' },
   {
     pointValue: 40,
-    unlockCondition: () => runeBlessings.speed.level >= 1000,
+    unlockCondition: () => runeBlessings.speed.level >= 200,
     group: 'speedBlessing',
   },
-  { pointValue: 50, unlockCondition: () => runeBlessings.speed.level >= 2000, group: 'speedBlessing' },
+  { pointValue: 50, unlockCondition: () => runeBlessings.speed.level >= 400, group: 'speedBlessing' },
   {
     pointValue: 60,
-    unlockCondition: () => runeBlessings.speed.level >= 4000,
+    unlockCondition: () => runeBlessings.speed.level >= 800,
     group: 'speedBlessing',
   },
-  { pointValue: 70, unlockCondition: () => runeBlessings.speed.level >= 6000, group: 'speedBlessing' },
+  { pointValue: 70, unlockCondition: () => runeBlessings.speed.level >= 1000, group: 'speedBlessing' },
   {
     pointValue: 80,
-    unlockCondition: () => runeBlessings.speed.level >= 8000,
+    unlockCondition: () => runeBlessings.speed.level >= 1200,
     group: 'speedBlessing',
   },
-  { pointValue: 90, unlockCondition: () => runeBlessings.speed.level >= 10000, group: 'speedBlessing' },
+  { pointValue: 90, unlockCondition: () => runeBlessings.speed.level >= 1500, group: 'speedBlessing' },
   {
     pointValue: 100,
-    unlockCondition: () => runeBlessings.speed.level >= 12500,
+    unlockCondition: () => runeBlessings.speed.level >= 2000,
     group: 'speedBlessing',
   },
-  { pointValue: 40, unlockCondition: () => runeSpirits.speed.level >= 1000, group: 'speedSpirit' },
+  { pointValue: 40, unlockCondition: () => runeSpirits.speed.level >= 160, group: 'speedSpirit' },
   {
     pointValue: 50,
-    unlockCondition: () => runeSpirits.speed.level >= 2000,
+    unlockCondition: () => runeSpirits.speed.level >= 320,
     group: 'speedSpirit',
   },
-  { pointValue: 60, unlockCondition: () => runeSpirits.speed.level >= 4000, group: 'speedSpirit' },
+  { pointValue: 60, unlockCondition: () => runeSpirits.speed.level >= 640, group: 'speedSpirit' },
   {
     pointValue: 70,
-    unlockCondition: () => runeSpirits.speed.level >= 6000,
+    unlockCondition: () => runeSpirits.speed.level >= 960,
     group: 'speedSpirit',
   },
-  { pointValue: 80, unlockCondition: () => runeSpirits.speed.level >= 8000, group: 'speedSpirit' },
+  { pointValue: 80, unlockCondition: () => runeSpirits.speed.level >= 1280, group: 'speedSpirit' },
   {
     pointValue: 90,
-    unlockCondition: () => runeSpirits.speed.level >= 10000,
+    unlockCondition: () => runeSpirits.speed.level >= 1600,
     group: 'speedSpirit',
   },
-  { pointValue: 100, unlockCondition: () => runeSpirits.speed.level >= 12500, group: 'speedSpirit' },
+  { pointValue: 100, unlockCondition: () => runeSpirits.speed.level >= 2000, group: 'speedSpirit' },
   {
     pointValue: 2,
     unlockCondition: () => runes.speed.level >= 100,
@@ -3021,7 +3021,8 @@ export const updateAchievementPoints = () => {
     progressiveAchievements[k].rewardedAP = pointsAwarded
   }
 
-  updateAchievementLevel()
+  const sourcedFromUpdatePoints = true
+  updateAchievementLevel(sourcedFromUpdatePoints)
 }
 
 export const awardAchievement = (index: number) => {
@@ -3090,7 +3091,7 @@ export const updateProgressiveCache = (ach: ProgressiveAchievements) => {
   }
 }
 
-export const updateAchievementLevel = () => {
+export const updateAchievementLevel = (fromUpdatePoints = false) => {
   const oldLevel = achievementLevel
   if (achievementPoints < 2500) {
     achievementLevel = Math.floor(achievementPoints / 50)
@@ -3100,7 +3101,7 @@ export const updateAchievementLevel = () => {
   displayLevelStuff()
 
   if (oldLevel < achievementLevel) {
-    if (player.toggles[34]) {
+    if (player.toggles[34] && !fromUpdatePoints) {
       void Notification(i18next.t('achievements.levelUpNotification', { old: oldLevel, new: achievementLevel }))
     }
   }
@@ -3769,6 +3770,7 @@ export const resetAchievements = () => {
   player.achievements.fill(0)
   for (const k of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
     player.progressiveAchievements[k] = 0
+    progressiveAchievements[k].rewardedAP = 0
   }
   achievementPoints = 0
   achievementLevel = 0

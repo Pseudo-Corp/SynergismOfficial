@@ -160,7 +160,7 @@ export const universalTalismanMaxLevelIncreasers = () => {
   return (
     6 * CalcECC('ascension', player.challengecompletions[13])
     + Math.floor(player.researches[200] / 400)
-    + +player.singularityChallenges.noOfferingPower.rewards.talismanFreeLevel
+    + +player.singularityChallenges.taxmanLastStand.rewards.talismanFreeLevel
     + getOcteractUpgradeEffect('octeractTalismanLevelCap1')
     + getOcteractUpgradeEffect('octeractTalismanLevelCap2')
     + getOcteractUpgradeEffect('octeractTalismanLevelCap3')
@@ -655,7 +655,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'never',
     isUnlocked: () => {
-      return Boolean(player.singularityChallenges.noOfferingPower.rewards.talismanUnlock)
+      return Boolean(player.singularityChallenges.taxmanLastStand.rewards.talismanUnlock)
     },
     name: () => i18next.t('runes.talismans.horseShoe.name'),
     description: () => i18next.t('runes.talismans.horseShoe.description')
@@ -1117,6 +1117,11 @@ export const resetTalismanData = (tier: keyof typeof resetTiers) => {
   for (const t of Object.keys(talismans) as TalismanKeys[]) {
     if (resetTiers[tier] >= resetTiers[talismans[t].minimalResetTier]) {
       resetSingleTalisman(t)
+    }
+
+    // Hard reset
+    if (tier === 'never') {
+      talismans[t].rarity = 0
     }
   }
 

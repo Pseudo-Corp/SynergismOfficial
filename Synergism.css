@@ -2513,7 +2513,28 @@ p[id$="BlessingsTotal"] {
 #cubeBlessingsTotal { color: orange; }
 #tesseractBlessingsTotal { color: var(--orchid-text-color); }
 #hypercubeBlessingsTotal { color: rgb(255 0 76); }
-#platonicBlessingsTotal { color: orange; }
+#platonicBlessingsTotal { 
+    color: orange;
+    margin: 0
+}
+
+#platonicFooter,
+#cubeFooter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#platonicFooter p,
+#cubeFooter p {
+    margin: 0;
+}
+
+#platonicAsterisk {
+    font-size: 0.75em;
+}
 
 #cubesWrapper {
     display: flex;

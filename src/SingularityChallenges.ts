@@ -32,7 +32,7 @@ export type SingularityChallengeDataKeys =
   | 'noAmbrosiaUpgrades'
   | 'limitedTime'
   | 'sadisticPrequel'
-  | 'noOfferingPower'
+  | 'taxmanLastStand'
 
 export class SingularityChallenge {
   public name
@@ -486,14 +486,14 @@ export const singularityChallengeData: Record<
       }
     }
   },
-  noOfferingPower: {
-    baseReq: 250,
+  taxmanLastStand: {
+    baseReq: 100,
     maxCompletions: 30,
     unlockSingularity: 1,
     achievementPointValue: (n) => {
       return 10 * n + 5 * Math.max(0, n - 5) + 5 * Math.max(0, n - 15) + 5 * Math.max(0, n - 25)
     },
-    HTMLTag: 'noOfferingPower',
+    HTMLTag: 'taxmanLastStand',
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + completions
     },

@@ -56,6 +56,8 @@ import { Alert, Prompt } from './UpdateHTML'
 import { findInsertionIndex, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 import { getLevelMilestone } from './Levels'
+import { calculateAntSacrificeCubeBlessing, calculateObtainiumCubeBlessing, calculateOfferingCubeBlessing } from './Cubes'
+import { calculateAscensionScorePlatonicBlessing } from './PlatonicCubes'
 
 const CASH_GRAB_ULTRA_QUARK = 0.08
 const CASH_GRAB_ULTRA_CUBE = 1.2
@@ -95,7 +97,9 @@ export const calculateOcteractMultiplier = () => {
 
 // 'Decimal' is used for calculating stats that can exceed the 1e300 cap.
 export const calculateOfferingsDecimal = () => {
-  return allOfferingStats.reduce((a, b) => a.times(b.stat()), new Decimal(1))
+  return allOfferingStats.reduce((a, b) => a.times(b.stat()), new Decimal(1)).times(
+    calculateOfferingCubeBlessing()
+  )
 }
 
 export const calculateBaseOfferings = () => {
@@ -112,12 +116,16 @@ export const calculateOfferings = (timeMultUsed = true) => {
     : 1
   const offeringMult = calculateOfferingsDecimal()
 
-  return Decimal.max(baseOfferings, offeringMult.times(timeMultiplier))
+  return Decimal.max(baseOfferings, offeringMult.times(timeMultiplier).times(
+    calculateOfferingCubeBlessing()
+  ))
 }
 
 // Ditto
 export const calculateObtainiumDecimal = () => {
-  return allObtainiumStats.reduce((a, b) => a.times(b.stat()), new Decimal(1))
+  return allObtainiumStats.reduce((a, b) => a.times(b.stat()), new Decimal(1)).times(
+    calculateObtainiumCubeBlessing()
+  )
 }
 
 export const calculateBaseObtainium = () => {
@@ -166,7 +174,9 @@ export const calculateObtainium = (timeMultUsed = true) => {
     return new Decimal('0')
   }
 
-  const total = new Decimal(immaculate).times(Decimal.pow(baseMults, DR)).times(timeMultiplier)
+  const total = new Decimal(immaculate).times(Decimal.pow(baseMults, DR)).times(timeMultiplier).times(
+    calculateObtainiumCubeBlessing()
+  )
 
   // As of Statistics Update, you can never get less than your base Offerings per Reincarnation, no matter what.
   return Decimal.max(base, total)
@@ -494,6 +504,7 @@ export const calculatePositiveSalvageMultiplier = () => {
   const posSalvagePerkSings = [230, 245, 260, 275, 290]
   let multiplier = 1 + posSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100
   multiplier += getTalismanEffects('achievement').positiveSalvageMult
+
   return multiplier
 }
 
@@ -502,6 +513,12 @@ export const calculateRawPositiveSalvage = () => {
 }
 
 export const calculatePositiveSalvage = () => {
+  if (player.singularityChallenges.taxmanLastStand.enabled) {
+    let baseSalvage = 100
+    const positiveSalvage = calculateRawPositiveSalvage()
+
+    return baseSalvage + (positiveSalvage * calculatePositiveSalvageMultiplier()) / Math.max(1, Math.log(positiveSalvage))
+  }
   return calculateRawPositiveSalvage() * calculatePositiveSalvageMultiplier()
 }
 
@@ -509,6 +526,9 @@ export const calculateNegativeSalvageMultiplier = () => {
   const negSalvagePerkSings = [75, 85, 105, 125, 155, 185, 215, 245, 260, 275]
   let multiplier = 1 - negSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100
   multiplier += getTalismanEffects('achievement').negativeSalvageMult
+  if (player.singularityChallenges.taxmanLastStand.enabled) {
+    multiplier += 5
+  }
   return multiplier
 }
 
@@ -713,7 +733,7 @@ export const calculateAntSacrificeMultipliers = () => {
   G.upgradeMultiplier *= 1 + (1 / 100) * player.researches[193]
   G.upgradeMultiplier *= 1 + (1 / 10) * player.upgrades[79]
   G.upgradeMultiplier *= 1 + (1 / 4) * player.upgrades[40]
-  G.upgradeMultiplier *= G.cubeBonusMultiplier[7]
+  G.upgradeMultiplier *= calculateAntSacrificeCubeBlessing()
   G.upgradeMultiplier *= 1 + calculateEventBuff(BuffType.AntSacrifice)
   G.upgradeMultiplier = Math.min(1e300, G.upgradeMultiplier)
   return G.upgradeMultiplier
@@ -1128,65 +1148,6 @@ export const calculateSigmoidExponential = (
   return 1 + (constant - 1) * (1 - Math.exp(-coefficient))
 }
 
-export const calculateCubeBlessings = () => {
-  // The visual updates are handled in visualUpdateCubes()
-  const cubeArray = [
-    player.cubeBlessings.accelerator,
-    player.cubeBlessings.multiplier,
-    player.cubeBlessings.offering,
-    player.cubeBlessings.runeExp,
-    player.cubeBlessings.obtainium,
-    player.cubeBlessings.antSpeed,
-    player.cubeBlessings.antSacrifice,
-    player.cubeBlessings.antELO,
-    player.cubeBlessings.talismanBonus,
-    player.cubeBlessings.globalSpeed
-  ]
-  const powerBonus = [
-    player.cubeUpgrades[45] / 100,
-    player.cubeUpgrades[35] / 100,
-    player.cubeUpgrades[24] / 100,
-    player.cubeUpgrades[14] / 100,
-    player.cubeUpgrades[40] / 100,
-    player.cubeUpgrades[22] / 40,
-    player.cubeUpgrades[15] / 50,
-    player.cubeUpgrades[25] / 100,
-    player.cubeUpgrades[44] / 100,
-    player.cubeUpgrades[34] / 100
-  ]
-
-  for (let i = 1; i <= 10; i++) {
-    // TODO: 2020 Platonic, this really fucking blows. This will be fixed in the update.
-    if (i === 8) {
-      continue
-    }
-
-    let power = 1
-    let mult = 1
-    if (cubeArray[i - 1] >= 1000) {
-      power = G.blessingDRPower[i]!
-      mult *= Math.pow(
-        1000,
-        (1 - G.blessingDRPower[i]!) * (1 + powerBonus[i - 1])
-      )
-    }
-    if (i === 6) {
-      power = 2.25
-      mult = 1
-    }
-
-    G.cubeBonusMultiplier[i] = Math.min(
-      1e300,
-      1
-        + mult
-          * G.blessingbase[i]!
-          * Math.pow(cubeArray[i - 1], power * (1 + powerBonus[i - 1]))
-          * G.tesseractBonusMultiplier[i]!
-    )
-  }
-  calculateAntSacrificeELO()
-}
-
 export const calculateTotalOcteractCubeBonus = () => {
   if (player.singularityChallenges.noOcteracts.enabled) {
     return 1
@@ -1444,7 +1405,7 @@ export const calculateCubicSumData = (
 export const computeAscensionScoreBonusMultiplier = () => {
   let multiplier = 1
   multiplier *= G.challenge15Rewards.score.value
-  multiplier *= G.platonicBonusMultiplier[6]
+  multiplier *= calculateAscensionScorePlatonicBlessing()
   multiplier *= player.campaigns.ascensionScoreMultiplier
   if (player.cubeUpgrades[21] > 0) {
     multiplier *= 1 + 0.05 * player.cubeUpgrades[21]

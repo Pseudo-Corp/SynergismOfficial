@@ -233,8 +233,6 @@ export const Globals: GlobalVariables = {
 
   maxexponent: 10000,
 
-  effectiveLevelMult: 1,
-
   globalAntMult: new Decimal('1'),
   antMultiplier: new Decimal('1'),
 
@@ -298,32 +296,6 @@ export const Globals: GlobalVariables = {
 
   buildingSubTab: 'coin',
   // 1,000 of each before Diminishing Returns
-  blessingbase: [null, 1 / 500, 1 / 5000, 1 / 2000, 1 / 750, 1 / 200, 1 / 10000, 1 / 5000, 1 / 10, 1 / 10000, 1 / 1000],
-  blessingDRPower: [null, 1 / 3, 1 / 3, 2 / 3, 1 / 2, 2 / 3, 2, 2 / 3, 1 / 3, 1 / 16, 1 / 16],
-  giftbase: [1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000, 1 / 1000],
-  giftDRPower: [1 / 6, 1 / 6, 1 / 3, 1 / 4, 1 / 3, 1, 1 / 6, 1 / 6, 1 / 32, 1 / 32],
-  benedictionbase: [
-    null,
-    1 / 1000,
-    1 / 1000,
-    1 / 1000,
-    1 / 1000,
-    1 / 1000,
-    1 / 1000,
-    1 / 1000,
-    1 / 1000,
-    1 / 1000,
-    1 / 1000
-  ],
-  benedictionDRPower: [null, 1 / 12, 1 / 12, 1 / 6, 1 / 8, 1 / 6, 1 / 2, 1 / 12, 1 / 12, 1 / 64, 1 / 64],
-  // 10 Million of each before Diminishing returns on first 3, 200k for second, and 10k for the last few
-  platonicCubeBase: [2 / 4e6, 1.5 / 4e6, 1 / 4e6, 1 / 8e4, 1 / 1e4, 1 / 1e5, 1 / 1e4, 1 / 1e4],
-  platonicDRPower: [1 / 5, 1 / 5, 1 / 5, 1 / 5, 1 / 16, 1 / 16, 1 / 4, 1 / 8],
-
-  cubeBonusMultiplier: [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  tesseractBonusMultiplier: [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  hypercubeBonusMultiplier: [null, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  platonicBonusMultiplier: [1, 1, 1, 1, 1, 1, 1, 1],
 
   autoOfferingCounter: 0,
   researchOrderByCost: [],

@@ -19,8 +19,6 @@ import { blankGlobals, Globals as G } from './Variables'
 
 import {
   achievementPoints,
-  type AchievementRewards,
-  achRewards,
   awardAchievementGroup,
   awardUngroupedAchievement,
   buildingAchievementCheck,
@@ -55,7 +53,6 @@ import {
 import {
   calculateAcceleratorMultiplier,
   calculateAnts,
-  calculateCubeBlessings,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
   calculateObtainium,
@@ -79,12 +76,10 @@ import {
   updateCorruptionLoadoutNames,
   updateUndefinedLoadouts
 } from './Corruptions'
-import { updateCubeUpgradeBG } from './Cubes'
+import { calculateAcceleratorCubeBlessing, calculateAntSpeedCubeBlessing, calculateMultiplierCubeBlessing, updateCubeUpgradeBG } from './Cubes'
 import { generateEventHandlers } from './EventListeners'
 import { addTimers, automaticTools } from './Helper'
 import { resetHistoryRenderAllTables } from './History'
-import { calculateHypercubeBlessings } from './Hypercubes'
-import { calculatePlatonicBlessings } from './PlatonicCubes'
 import { buyResearch, maxRoombaResearchIndex, updateResearchBG } from './Research'
 import { autoResearchEnabled } from './Research'
 import {
@@ -121,7 +116,6 @@ import {
   updateTalismanRarities
 } from './Talismans'
 import { calculatetax } from './Tax'
-import { calculateTesseractBlessings } from './Tesseracts'
 import {
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
@@ -1150,9 +1144,9 @@ export const player: Player = {
       singularityChallengeData.sadisticPrequel,
       'sadisticPrequel'
     ),
-    noOfferingPower: new SingularityChallenge(
-      singularityChallengeData.noOfferingPower,
-      'noOfferingPower'
+    taxmanLastStand: new SingularityChallenge(
+      singularityChallengeData.taxmanLastStand,
+      'taxmanLastStand'
     )
   },
 
@@ -1590,11 +1584,6 @@ const loadSynergy = () => {
 
     // This must be initialized at the beginning of the calculation
     c15RewardUpdate()
-
-    calculatePlatonicBlessings()
-    calculateHypercubeBlessings()
-    calculateTesseractBlessings()
-    calculateCubeBlessings()
 
     for (const id in player.ascStatToggles) {
       toggleAscStatPerSecond(+id) // toggle each stat twice to make sure the displays are correct and match what they used to be
@@ -2517,6 +2506,10 @@ export const formatAsPercentIncrease = (n: number, accuracy = 2) => {
   return `${format((n - 1) * 100, accuracy, true)}%`
 }
 
+export const formatDecimalAsPercentIncrease = (n: Decimal, accuracy = 2) => {
+  return `${format(n.minus(1).times(100), accuracy, true)}%`
+}
+
 export const updateAllTick = (): void => {
   let a = 0
 
@@ -2562,7 +2555,7 @@ export const updateAllTick = (): void => {
       + 2 * player.researches[18]
       + 2 * player.researches[19]
       + 3 * player.researches[20]
-      + (G.cubeBonusMultiplier[1] - 1))
+      + calculateAcceleratorCubeBlessing())
 
   if (player.unlocks.prestige) {
     a *= getRuneEffects('speed').multiplicativeAccelerators
@@ -2745,7 +2738,7 @@ export const updateAllMultiplier = (): void => {
     40,
     (((player.antUpgrades[4]! + G.bonusant5) / 1000) * 40) / 39
   )
-  a *= G.cubeBonusMultiplier[2]
+  a *= calculateMultiplierCubeBlessing()
   if (
     (player.currentChallenge.transcension !== 0
       || player.currentChallenge.reincarnation !== 0)
@@ -3691,7 +3684,7 @@ export const updateAntMultipliers = (): void => {
   G.globalAntMult = G.globalAntMult.times(
     Decimal.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9]))
   )
-  G.globalAntMult = G.globalAntMult.times(G.cubeBonusMultiplier[6])
+  G.globalAntMult = G.globalAntMult.times(calculateAntSpeedCubeBlessing())
   G.globalAntMult = G.globalAntMult.times(
     +getAchievementReward('antSpeed')
   )
@@ -3794,12 +3787,6 @@ export const updateAntMultipliers = (): void => {
 
   if (player.highestSingularityCount >= 100) {
     G.globalAntMult = G.globalAntMult.times(1e6)
-  }
-
-  if (player.singularityChallenges.noOfferingPower.enabled) {
-    G.globalAntMult = G.globalAntMult.times(
-      1e10 * Math.pow(2, -player.singularityChallenges.noOfferingPower.completions)
-    )
   }
 }
 
@@ -4000,7 +3987,6 @@ export const resetCheck = async (
         player.highestchallengecompletions[q] += 1
         highestChallengeRewards(q, player.highestchallengecompletions[q])
       }
-      calculateCubeBlessings()
     }
     challengeAchievementCheck(q)
     if (
@@ -4083,9 +4069,7 @@ export const resetCheck = async (
         player.highestchallengecompletions[q] += 1
         highestChallengeRewards(q, player.highestchallengecompletions[q])
       }
-      calculateHypercubeBlessings()
-      calculateTesseractBlessings()
-      calculateCubeBlessings()
+
     }
     challengeAchievementCheck(q)
     if (player.highestchallengecompletions[8] > 0) {
@@ -4342,25 +4326,6 @@ export const resetConfirmation = async (i: string): Promise<void> => {
   }
 }
 
-export const updateEffectiveLevelMult = (): void => {
-  G.effectiveLevelMult = 1
-  G.effectiveLevelMult *= 1
-    + (player.researches[4] / 10)
-      * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14])) // Research 1x4
-  G.effectiveLevelMult *= 1 + player.researches[21] / 100 // Research 2x6
-  G.effectiveLevelMult *= 1 + player.researches[90] / 100 // Research 4x15
-  G.effectiveLevelMult *= 1 + player.researches[131] / 200 // Research 6x6
-  G.effectiveLevelMult *= 1 + ((player.researches[161] / 200) * 3) / 5 // Research 7x11
-  G.effectiveLevelMult *= 1 + ((player.researches[176] / 200) * 2) / 5 // Research 8x1
-  G.effectiveLevelMult *= 1 + ((player.researches[191] / 200) * 1) / 5 // Research 8x16
-  G.effectiveLevelMult *= 1 + ((player.researches[146] / 200) * 4) / 5 // Research 6x21
-  G.effectiveLevelMult *= 1
-    + ((0.01 * Math.log(player.talismanShards + 1)) / Math.log(4))
-      * Math.min(1, player.constantUpgrades[9])
-  G.effectiveLevelMult *= G.challenge15Rewards.runeBonus.value
-  G.effectiveLevelMult *= G.cubeBonusMultiplier[9]
-}
-
 export const updateAll = (): void => {
   G.uFourteenMulti = new Decimal(1)
   G.uFifteenMulti = new Decimal(1)
@@ -4492,8 +4457,6 @@ export const updateAll = (): void => {
   ) {
     buyMax(5, 'Diamonds')
   }
-
-  updateEffectiveLevelMult() // update before prism rune, fixes c15 bug
 
   let c = 0
   if (
@@ -5075,11 +5038,6 @@ const tack = (dt: number) => {
     automaticTools('addOfferings', dt / 2)
   }
 
-  // Adds an offering every 1/(cube upgrade 1x2) seconds. It shares a timer with the one above.
-  if (player.cubeUpgrades[2] > 0) {
-    automaticTools('addOfferings', dt * player.cubeUpgrades[2])
-  }
-
   runChallengeSweep(dt)
 
   // Check for automatic resets
@@ -5441,10 +5399,6 @@ export const reloadShit = (reset = false) => {
   updateAchievementPoints()
   setAmbrosiaUpgradeLevels()
   setRedAmbrosiaUpgradeLevels()
-
-  for (const k of Object.keys(achRewards) as AchievementRewards[]) {
-    console.log(`Applying reward ${k}: `, getAchievementReward(k))
-  }
 
   if (!reset) {
     calculateOffline()

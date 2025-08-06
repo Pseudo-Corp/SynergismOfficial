@@ -259,7 +259,7 @@ export const infiniteAscentOOMIncrease = () => {
 
 export const antiquitiesOOMIncrease = () => {
   return (
-    +player.singularityChallenges.noOfferingPower.rewards.antiquitiesOOMBonus
+    +player.singularityChallenges.taxmanLastStand.rewards.antiquitiesOOMBonus
   )
 }
 
@@ -312,8 +312,6 @@ export const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
       999,
       (1 / 10000) * Math.pow(player.antUpgrades[8 - 1]! + G.bonusant8, 1.1)
     ),
-    // Cube Bonus
-    G.cubeBonusMultiplier[4],
     // Cube Upgrade Bonus
     1 + (player.ascensionCounter / 1000) * player.cubeUpgrades[32],
     // Constant Upgrade Multiplier
@@ -323,45 +321,6 @@ export const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
   ].reduce((x, y) => x.times(y), new Decimal('1'))
 
   return allRuneExpMultiplier.times(allRuneExpAdditiveMultiplier).times(recycleMultiplier)
-}
-
-export const speedEXPMult = () => {
-  return [
-    1 + CalcECC('reincarnation', player.challengecompletions[7]) / 10
-  ].reduce((x, y) => x.times(y), new Decimal('1'))
-}
-
-export const duplicationEXPMult = () => {
-  return [
-    1 + CalcECC('reincarnation', player.challengecompletions[7]) / 10
-  ].reduce((x, y) => x.times(y), new Decimal('1'))
-}
-
-export const prismEXPMult = () => {
-  return [
-    1 + CalcECC('reincarnation', player.challengecompletions[8]) / 5
-  ].reduce((x, y) => x.times(y), new Decimal('1'))
-}
-
-export const thriftEXPMult = () => {
-  return [
-    1 + CalcECC('reincarnation', player.challengecompletions[6]) / 10
-  ].reduce((x, y) => x.times(y), new Decimal('1'))
-}
-
-export const superiorIntellectEXPMult = () => {
-  return [
-    1 + CalcECC('reincarnation', player.challengecompletions[9]) / 5,
-    1 + 1 / 20 * player.researches[83]
-  ].reduce((x, y) => x.times(y), new Decimal('1'))
-}
-
-export const infiniteAscentEXPMult = () => {
-  return new Decimal('1')
-}
-
-export const antiquitiesEXPMult = () => {
-  return new Decimal('1')
 }
 
 export const runes: { [K in RuneKeys]: RuneData<K> } = {
@@ -392,7 +351,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsSpeed(),
-    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels).times(speedEXPMult()),
+    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => true,
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.speed.name'),
@@ -426,7 +385,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsDuplication(),
-    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels).times(duplicationEXPMult()),
+    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => Boolean(getAchievementReward('duplicationRuneUnlock')),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.duplication.name'),
@@ -460,7 +419,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
       })},
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsPrism(),
-    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels).times(prismEXPMult()),
+    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => Boolean(getAchievementReward('prismRuneUnlock')),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.prism.name'),
@@ -494,7 +453,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsThrift(),
-    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels).times(thriftEXPMult()),
+    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => Boolean(getAchievementReward('thriftRuneUnlock')),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.thrift.name'),
@@ -528,7 +487,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult() * SIEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsSI(),
-    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels).times(superiorIntellectEXPMult()),
+    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => player.researches[82] > 0,
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.superiorIntellect.name'),
@@ -574,7 +533,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     },
     effectiveLevelMult: () => 1,
     freeLevels: () => bonusRuneLevelsIA(),
-    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels).times(infiniteAscentEXPMult()),
+    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => isIARuneUnlocked(),
     minimalResetTier: 'singularity',
     name: () => i18next.t('runes.infiniteAscent.name'),
@@ -608,7 +567,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     },
     effectiveLevelMult: () => 1,
     freeLevels: () => bonusRuneLevelsAntiquities(),
-    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels).times(antiquitiesEXPMult()),
+    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => player.platonicUpgrades[20] > 0,
     minimalResetTier: 'singularity',
     name: () => i18next.t('runes.antiquities.name'),
@@ -644,7 +603,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     freeLevels: () => bonusRuneLevelsHorseShoe(),
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
     isUnlocked: () => {
-      const condition = Boolean(player.singularityChallenges.noOfferingPower.rewards.horseShoeUnlock)
+      const condition = Boolean(player.singularityChallenges.taxmanLastStand.rewards.horseShoeUnlock)
       return condition
     },
     minimalResetTier: 'singularity',

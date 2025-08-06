@@ -36,7 +36,7 @@ import {
 } from './Calculate'
 import { CalcECC } from './Challenges'
 import { version } from './Config'
-import type { IMultiBuy } from './Cubes'
+import { calculateAcceleratorCubeBlessing, calculateAntELOCubeBlessing, calculateAntSacrificeCubeBlessing, calculateAntSpeedCubeBlessing, calculateGlobalSpeedCubeBlessing, calculateMultiplierCubeBlessing, calculateObtainiumCubeBlessing, calculateOfferingCubeBlessing, calculateRuneEffectivenessCubeBlessing, calculateSalvageCubeBlessing, type IMultiBuy } from './Cubes'
 import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
 import { getFinalHepteractCap, type HepteractKeys, hepteractKeys, hepteracts } from './Hepteracts'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
@@ -56,13 +56,16 @@ import {
   type SingularityDataKeys
 } from './singularity'
 import { loadStatisticsUpdate } from './Statistics'
-import { format, formatAsPercentIncrease, formatTimeShort, player } from './Synergism'
+import { format, formatAsPercentIncrease, formatDecimalAsPercentIncrease, formatTimeShort, player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { getTalismanLevelCap, type TalismanKeys, talismans, updateAllTalismanHTML } from './Talismans'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
+import { calculateAscensionScorePlatonicBlessing, calculateCubeMultiplierPlatonicBlessing, calculateGlobalSpeedPlatonicBlessing, calculateHypercubeBlessingMultiplierPlatonicBlessing, calculateHypercubeMultiplierPlatonicBlessing, calculatePlatonicMultiplierPlatonicBlessing, calculateTaxPlatonicBlessing, calculateTesseractMultiplierPlatonicBlessing } from './PlatonicCubes'
+import { calculateAcceleratorTesseractBlessing, calculateAntELOTesseractBlessing, calculateAntSacrificeTesseractBlessing, calculateAntSpeedTesseractBlessing, calculateGlobalSpeedTesseractBlessing, calculateMultiplierTesseractBlessing, calculateObtainiumTesseractBlessing, calculateOfferingTesseractBlessing, calculateRuneEffectivenessTesseractBlessing, calculateSalvageTesseractBlessing } from './Tesseracts'
+import { calculateAcceleratorHypercubeBlessing, calculateAntELOHypercubeBlessing, calculateAntSacrificeHypercubeBlessing, calculateAntSpeedHypercubeBlessing, calculateGlobalSpeedHypercubeBlessing, calculateMultiplierHypercubeBlessing, calculateObtainiumHypercubeBlessing, calculateOfferingHypercubeBlessing, calculateRuneEffectivenessHypercubeBlessing, calculateSalvageHypercubeBlessing } from './Hypercubes'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -203,7 +206,7 @@ export const visualUpdateBuildings = () => {
             + 2 * player.researches[18]
             + 2 * player.researches[19]
             + 3 * player.researches[20]
-            + (G.cubeBonusMultiplier[1] - 1),
+            + (calculateAcceleratorCubeBlessing()),
           0,
           true
         )
@@ -560,7 +563,7 @@ export const visualUpdateBuildings = () => {
                 * player.upgrades[125]
               + 0.1 * player.platonicUpgrades[5]
               + 0.2 * player.platonicUpgrades[10]
-              + (G.platonicBonusMultiplier[5] - 1)
+              + calculateTaxPlatonicBlessing()
           ),
           4,
           true
@@ -834,7 +837,6 @@ export const visualUpdateCubes = () => {
   }
 
   // TODO: this code is fucking terrible holy shit. Also pretty sure there's a bug.
-  let accuracy: [null | number, ...number[]]
   switch (getActiveSubTab()) {
     case 0: {
       if (player.autoOpenCubes) {
@@ -851,61 +853,100 @@ export const visualUpdateCubes = () => {
           amount: format(player.wowCubes.valueOf(), 0, true)
         }
       )
-      const cubeArray = [
-        null,
-        player.cubeBlessings.accelerator,
-        player.cubeBlessings.multiplier,
-        player.cubeBlessings.offering,
-        player.cubeBlessings.runeExp,
-        player.cubeBlessings.obtainium,
-        player.cubeBlessings.antSpeed,
-        player.cubeBlessings.antSacrifice,
-        player.cubeBlessings.antELO,
-        player.cubeBlessings.talismanBonus,
-        player.cubeBlessings.globalSpeed
-      ]
 
-      accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 1, 4, 3]
-      for (let i = 1; i <= 10; i++) {
-        let augmentAccuracy = 0
-        if (cubeArray[i]! >= 1000 && i !== 6) {
-          augmentAccuracy += 2
+      DOMCacheGetOrSet('cubeAcceleratorBonus').innerHTML = i18next.t(
+        'wowCubes.cubes.items.1',
+        {
+          amount: format(player.cubeBlessings.accelerator, 0, true),
+          bonus: format(calculateAcceleratorCubeBlessing(), 3, true)
         }
+      )
 
-        if (i === 8) {
-          DOMCacheGetOrSet('cube8Bonus').innerHTML = i18next.t(
-            'wowCubes.cubes.items.8',
-            {
-              amount: format(cubeArray[i], 0, true),
-              bonus: format(
-                Math.log10(1 + player.cubeBlessings.antELO),
-                accuracy[i]! + augmentAccuracy,
-                true
-              )
-            }
-          )
-          continue
+      DOMCacheGetOrSet('cubeMultiplierBonus').innerHTML = i18next.t(
+        'wowCubes.cubes.items.2',
+        {
+          amount: format(player.cubeBlessings.multiplier, 0, true),
+          bonus: formatAsPercentIncrease(calculateMultiplierCubeBlessing(), 2)
         }
+      )
 
-        const aestheticMultiplier = i === 1 || i === 9 ? 1 : 100
-        DOMCacheGetOrSet(`cube${i}Bonus`).innerHTML = i18next.t(
-          `wowCubes.cubes.items.${i}`,
-          {
-            amount: format(cubeArray[i], 0, true),
-            bonus: format(
-              aestheticMultiplier * (G.cubeBonusMultiplier[i]! - 1),
-              accuracy[i]! + augmentAccuracy,
-              true
-            )
-          }
-        )
-      }
+      DOMCacheGetOrSet('cubeOfferingBonus').innerHTML = i18next.t(
+        'wowCubes.cubes.items.3',
+        {
+          amount: format(player.cubeBlessings.offering, 0, true),
+          bonus: formatDecimalAsPercentIncrease(calculateOfferingCubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('cubeSalvageBonus').innerHTML = i18next.t(
+        'wowCubes.cubes.items.4',
+        {
+          amount: format(player.cubeBlessings.runeExp, 0, true),
+          bonus: format(calculateSalvageCubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('cubeObtainiumBonus').innerHTML = i18next.t(
+        'wowCubes.cubes.items.5',
+        {
+          amount: format(player.cubeBlessings.obtainium, 0, true),
+          bonus: formatDecimalAsPercentIncrease(calculateObtainiumCubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('cubeAntSpeedBonus').innerHTML = i18next.t(
+        'wowCubes.cubes.items.6',
+        {
+          amount: format(player.cubeBlessings.antSpeed, 0, true),
+          bonus: formatDecimalAsPercentIncrease(calculateAntSpeedCubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('cubeAntSacrificeBonus').innerHTML = i18next.t(
+        'wowCubes.cubes.items.7',
+        {
+          amount: format(player.cubeBlessings.antSacrifice, 0, true),
+          bonus: formatAsPercentIncrease(calculateAntSacrificeCubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('cubeAntELOBonus').innerHTML = i18next.t(
+        'wowCubes.cubes.items.8',
+        {
+          amount: format(player.cubeBlessings.antELO, 0, true),
+          bonus: formatAsPercentIncrease(calculateAntELOCubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('cubeRuneEffectBonus').innerHTML = i18next.t(
+        'wowCubes.cubes.items.9',
+        {
+          amount: format(player.cubeBlessings.talismanBonus, 0, true),
+          bonus: formatAsPercentIncrease(calculateRuneEffectivenessCubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('cubeGlobalSpeedBonus').innerHTML = i18next.t(
+        'wowCubes.cubes.items.10',
+        {
+          amount: format(player.cubeBlessings.globalSpeed, 0, true),
+          bonus: formatAsPercentIncrease(calculateGlobalSpeedCubeBlessing(), 2)
+        }
+      )
+
       DOMCacheGetOrSet('cubeBlessingsTotal').innerHTML = i18next.t(
         'wowCubes.cubes.total',
         {
-          amount: format(sumContents(cubeArray.slice(1) as number[]), 0, true)
+          amount: format(sumContents(Object.values(player.cubeBlessings)), 0, true)
         }
       )
+
+      const sumOfTributes = sumContents(Object.values(player.cubeBlessings))
+
+      DOMCacheGetOrSet('cubeFull').innerHTML = 
+      sumOfTributes >= 1e300 ?
+      i18next.t('wowCubes.cubes.full') :
+      ''
       break
     }
     case 1: {
@@ -923,56 +964,93 @@ export const visualUpdateCubes = () => {
           amount: format(player.wowTesseracts.valueOf(), 0, true)
         }
       )
-      const tesseractArray = [
-        null,
-        player.tesseractBlessings.accelerator,
-        player.tesseractBlessings.multiplier,
-        player.tesseractBlessings.offering,
-        player.tesseractBlessings.runeExp,
-        player.tesseractBlessings.obtainium,
-        player.tesseractBlessings.antSpeed,
-        player.tesseractBlessings.antSacrifice,
-        player.tesseractBlessings.antELO,
-        player.tesseractBlessings.talismanBonus,
-        player.tesseractBlessings.globalSpeed
-      ]
-      accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
-      for (let i = 1; i <= 10; i++) {
-        let augmentAccuracy = 0
-        if (tesseractArray[i]! >= 1000 && i !== 6) {
-          augmentAccuracy += 2
+
+      DOMCacheGetOrSet('tesseractAcceleratorBonus').innerHTML = i18next.t(
+        'wowCubes.tesseracts.items.1',
+        {
+          amount: format(player.tesseractBlessings.accelerator, 0, true),
+          bonus: formatAsPercentIncrease(calculateAcceleratorTesseractBlessing(), 2)
         }
-        if (i === 8) {
-          DOMCacheGetOrSet('tesseract8Bonus').innerHTML = i18next.t(
-            'wowCubes.tesseracts.items.8',
-            {
-              amount: format(tesseractArray[i], 0, true),
-              bonus: format(
-                Math.log10(1 + player.tesseractBlessings.antELO),
-                accuracy[i]! + augmentAccuracy,
-                true
-              )
-            }
-          )
-          continue
+      )
+
+      DOMCacheGetOrSet('tesseractMultiplierBonus').innerHTML = i18next.t(
+        'wowCubes.tesseracts.items.2',
+        {
+          amount: format(player.tesseractBlessings.multiplier, 0, true),
+          bonus: formatAsPercentIncrease(calculateMultiplierTesseractBlessing(), 2)
         }
-        DOMCacheGetOrSet(`tesseract${i}Bonus`).innerHTML = i18next.t(
-          `wowCubes.tesseracts.items.${i}`,
-          {
-            amount: format(tesseractArray[i], 0, true),
-            bonus: format(
-              100 * (G.tesseractBonusMultiplier[i]! - 1),
-              accuracy[i]! + augmentAccuracy,
-              true
-            )
-          }
-        )
-      }
+      )
+
+      DOMCacheGetOrSet('tesseractOfferingBonus').innerHTML = i18next.t(
+        'wowCubes.tesseracts.items.3',
+        {
+          amount: format(player.tesseractBlessings.offering, 0, true),
+          bonus: formatAsPercentIncrease(calculateOfferingTesseractBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('tesseractSalvageBonus').innerHTML = i18next.t(
+        'wowCubes.tesseracts.items.4',
+        {
+          amount: format(player.tesseractBlessings.runeExp, 0, true),
+          bonus: formatAsPercentIncrease(calculateSalvageTesseractBlessing(), 2),
+          cap: formatAsPercentIncrease(1 + 0.5 * calculateSalvageHypercubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('tesseractObtainiumBonus').innerHTML = i18next.t(
+        'wowCubes.tesseracts.items.5',
+        {
+          amount: format(player.tesseractBlessings.obtainium, 0, true),
+          bonus: formatAsPercentIncrease(calculateObtainiumTesseractBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('tesseractAntSpeedBonus').innerHTML = i18next.t(
+        'wowCubes.tesseracts.items.6',
+        {
+          amount: format(player.tesseractBlessings.antSpeed, 0, true),
+          bonus: formatDecimalAsPercentIncrease(calculateAntSpeedTesseractBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('tesseractAntSacrificeBonus').innerHTML = i18next.t(
+        'wowCubes.tesseracts.items.7',
+        {
+          amount: format(player.tesseractBlessings.antSacrifice, 0, true),
+          bonus: formatAsPercentIncrease(calculateAntSacrificeTesseractBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('tesseractAntELOBonus').innerHTML = i18next.t(
+        'wowCubes.tesseracts.items.8',
+        {
+          amount: format(player.tesseractBlessings.antELO, 0, true),
+          bonus: formatAsPercentIncrease(calculateAntELOTesseractBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('tesseractRuneEffectBonus').innerHTML = i18next.t(
+        'wowCubes.tesseracts.items.9',
+        {
+          amount: format(player.tesseractBlessings.talismanBonus, 0, true),
+          bonus: formatAsPercentIncrease(calculateRuneEffectivenessTesseractBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('tesseractGlobalSpeedBonus').innerHTML = i18next.t(
+        'wowCubes.tesseracts.items.10',
+        {
+          amount: format(player.tesseractBlessings.globalSpeed, 0, true),
+          bonus: formatAsPercentIncrease(calculateGlobalSpeedTesseractBlessing(), 2)
+        }
+      )
+
       DOMCacheGetOrSet('tesseractBlessingsTotal').innerHTML = i18next.t(
         'wowCubes.tesseracts.total',
         {
           amount: format(
-            sumContents(tesseractArray.slice(1) as number[]),
+            sumContents(Object.values(player.tesseractBlessings)),
             0,
             true
           )
@@ -995,56 +1073,92 @@ export const visualUpdateCubes = () => {
           amount: format(player.wowHypercubes.valueOf(), 0, true)
         }
       )
-      const hypercubeArray = [
-        null,
-        player.hypercubeBlessings.accelerator,
-        player.hypercubeBlessings.multiplier,
-        player.hypercubeBlessings.offering,
-        player.hypercubeBlessings.runeExp,
-        player.hypercubeBlessings.obtainium,
-        player.hypercubeBlessings.antSpeed,
-        player.hypercubeBlessings.antSacrifice,
-        player.hypercubeBlessings.antELO,
-        player.hypercubeBlessings.talismanBonus,
-        player.hypercubeBlessings.globalSpeed
-      ]
-      accuracy = [null, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
-      for (let i = 1; i <= 10; i++) {
-        let augmentAccuracy = 0
-        if (hypercubeArray[i]! >= 1000) {
-          augmentAccuracy += 2
+
+      DOMCacheGetOrSet('hypercubeAcceleratorBonus').innerHTML = i18next.t(
+        'wowCubes.hypercubes.items.1',
+        {
+          amount: format(player.hypercubeBlessings.accelerator, 0, true),
+          bonus: formatAsPercentIncrease(calculateAcceleratorHypercubeBlessing(), 2)
         }
-        if (i === 8) {
-          DOMCacheGetOrSet('hypercube8Bonus').innerHTML = i18next.t(
-            'wowCubes.hypercubes.items.8',
-            {
-              amount: format(hypercubeArray[i], 0, true),
-              bonus: format(
-                Math.log10(1 + player.hypercubeBlessings.antELO),
-                accuracy[i]! + augmentAccuracy,
-                true
-              )
-            }
-          )
-          continue
+      )
+
+      DOMCacheGetOrSet('hypercubeMultiplierBonus').innerHTML = i18next.t(
+        'wowCubes.hypercubes.items.2',
+        {
+          amount: format(player.hypercubeBlessings.multiplier, 0, true),
+          bonus: formatAsPercentIncrease(calculateMultiplierHypercubeBlessing(), 2)
         }
-        DOMCacheGetOrSet(`hypercube${i}Bonus`).innerHTML = i18next.t(
-          `wowCubes.hypercubes.items.${i}`,
-          {
-            amount: format(hypercubeArray[i], 0, true),
-            bonus: format(
-              100 * (G.hypercubeBonusMultiplier[i]! - 1),
-              accuracy[i]! + augmentAccuracy,
-              true
-            )
-          }
-        )
-      }
+      )
+
+      DOMCacheGetOrSet('hypercubeOfferingBonus').innerHTML = i18next.t(
+        'wowCubes.hypercubes.items.3',
+        {
+          amount: format(player.hypercubeBlessings.offering, 0, true),
+          bonus: formatAsPercentIncrease(calculateOfferingHypercubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('hypercubeSalvageBonus').innerHTML = i18next.t(
+        'wowCubes.hypercubes.items.4',
+        {
+          amount: format(player.hypercubeBlessings.runeExp, 0, true),
+          bonus: formatAsPercentIncrease(calculateSalvageHypercubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('hypercubeObtainiumBonus').innerHTML = i18next.t(
+        'wowCubes.hypercubes.items.5',
+        {
+          amount: format(player.hypercubeBlessings.obtainium, 0, true),
+          bonus: formatAsPercentIncrease(calculateObtainiumHypercubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('hypercubeAntSpeedBonus').innerHTML = i18next.t(
+        'wowCubes.hypercubes.items.6',
+        {
+          amount: format(player.hypercubeBlessings.antSpeed, 0, true),
+          bonus: formatAsPercentIncrease(calculateAntSpeedHypercubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('hypercubeAntSacrificeBonus').innerHTML = i18next.t(
+        'wowCubes.hypercubes.items.7',
+        {
+          amount: format(player.hypercubeBlessings.antSacrifice, 0, true),
+          bonus: formatAsPercentIncrease(calculateAntSacrificeHypercubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('hypercubeAntELOBonus').innerHTML = i18next.t(
+        'wowCubes.hypercubes.items.8',
+        {
+          amount: format(player.hypercubeBlessings.antELO, 0, true),
+          bonus: formatAsPercentIncrease(calculateAntELOHypercubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('hypercubeRuneEffectBonus').innerHTML = i18next.t(
+        'wowCubes.hypercubes.items.9',
+        {
+          amount: format(player.hypercubeBlessings.talismanBonus, 0, true),
+          bonus: formatAsPercentIncrease(calculateRuneEffectivenessHypercubeBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('hypercubeGlobalSpeedBonus').innerHTML = i18next.t(
+        'wowCubes.hypercubes.items.10',
+        {
+          amount: format(player.hypercubeBlessings.globalSpeed, 0, true),
+          bonus: formatAsPercentIncrease(calculateGlobalSpeedHypercubeBlessing(), 2)
+        }
+      )
+
       DOMCacheGetOrSet('hypercubeBlessingsTotal').innerHTML = i18next.t(
         'wowCubes.hypercubes.total',
         {
           amount: format(
-            sumContents(hypercubeArray.slice(1) as number[]),
+            sumContents(Object.values(player.hypercubeBlessings)),
             0,
             true
           )
@@ -1067,39 +1181,75 @@ export const visualUpdateCubes = () => {
           amount: format(player.wowPlatonicCubes.valueOf(), 0, true)
         }
       )
-      const platonicArray = [
-        player.platonicBlessings.cubes,
-        player.platonicBlessings.tesseracts,
-        player.platonicBlessings.hypercubes,
-        player.platonicBlessings.platonics,
-        player.platonicBlessings.hypercubeBonus,
-        player.platonicBlessings.taxes,
-        player.platonicBlessings.scoreBonus,
-        player.platonicBlessings.globalSpeed
-      ]
-      const DRThreshold = [4e6, 4e6, 4e6, 8e4, 1e4, 1e4, 1e4, 1e4]
-      accuracy = [5, 5, 5, 5, 2, 3, 3, 2]
-      for (let i = 0; i < platonicArray.length; i++) {
-        let augmentAccuracy = 0
-        if (platonicArray[i] >= DRThreshold[i]) {
-          augmentAccuracy += 1
+
+      DOMCacheGetOrSet('platonicCubeMultiplierBonus').innerHTML = i18next.t(
+        'wowCubes.platonics.items.1',
+        {
+          amount: format(player.platonicBlessings.cubes, 0, true),
+          bonus: formatAsPercentIncrease(calculateCubeMultiplierPlatonicBlessing(), 2)
         }
-        DOMCacheGetOrSet(`platonicCube${i + 1}Bonus`).innerHTML = i18next.t(
-          `wowCubes.platonics.items.${i + 1}`,
-          {
-            amount: format(platonicArray[i], 0, true),
-            bonus: format(
-              100 * (G.platonicBonusMultiplier[i] - 1),
-              accuracy[i]! + augmentAccuracy,
-              true
-            )
-          }
-        )
-      }
+      )
+
+      DOMCacheGetOrSet('platonicTesseractMultiplierBonus').innerHTML = i18next.t(
+        'wowCubes.platonics.items.2',
+        {
+          amount: format(player.platonicBlessings.tesseracts, 0, true),
+          bonus: formatAsPercentIncrease(calculateTesseractMultiplierPlatonicBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('platonicHypercubeMultiplierBonus').innerHTML = i18next.t(
+        'wowCubes.platonics.items.3',
+        {
+          amount: format(player.platonicBlessings.hypercubes, 0, true),
+          bonus: formatAsPercentIncrease(calculateHypercubeMultiplierPlatonicBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('platonicPlatonicMultiplierBonus').innerHTML = i18next.t(
+        'wowCubes.platonics.items.4',
+        {
+          amount: format(player.platonicBlessings.platonics, 0, true),
+          bonus: formatAsPercentIncrease(calculatePlatonicMultiplierPlatonicBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('platonicHypercubeBlessingBonus').innerHTML = i18next.t(
+        'wowCubes.platonics.items.5',
+        {
+          amount: format(player.platonicBlessings.hypercubeBonus, 0, true),
+          bonus: formatAsPercentIncrease(calculateHypercubeBlessingMultiplierPlatonicBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('platonicTaxBonus').innerHTML = i18next.t(
+        'wowCubes.platonics.items.6',
+        {
+          amount: format(player.platonicBlessings.taxes, 0, true),
+          bonus: format(calculateTaxPlatonicBlessing(), 3, true)
+        }
+      )
+
+      DOMCacheGetOrSet('platonicAscensionScoreBonus').innerHTML = i18next.t(
+        'wowCubes.platonics.items.7',
+        {
+          amount: format(player.platonicBlessings.scoreBonus, 0, true),
+          bonus: formatAsPercentIncrease(calculateAscensionScorePlatonicBlessing(), 2)
+        }
+      )
+
+      DOMCacheGetOrSet('platonicGlobalSpeedBonus').innerHTML = i18next.t(
+        'wowCubes.platonics.items.8',
+        {
+          amount: format(player.platonicBlessings.globalSpeed, 0, true),
+          bonus: formatAsPercentIncrease(calculateGlobalSpeedPlatonicBlessing(), 2)
+        }
+      )
+
       DOMCacheGetOrSet('platonicBlessingsTotal').innerHTML = i18next.t(
         'wowCubes.platonics.total',
         {
-          amount: format(sumContents(platonicArray), 0, true)
+          amount: format(sumContents(Object.values(player.platonicBlessings)), 0, true)
         }
       )
       break

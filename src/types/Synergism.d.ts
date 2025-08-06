@@ -518,7 +518,7 @@ export interface Player {
     antSacrifice: number
     antELO: number
     talismanBonus: number
-    globalSpeed: 0
+    globalSpeed: number
   }
   tesseractBlessings: {
     accelerator: number
@@ -833,8 +833,6 @@ export interface GlobalVariables {
 
   maxexponent: number
 
-  effectiveLevelMult: number
-
   globalAntMult: Decimal
   antMultiplier: Decimal
 
@@ -897,21 +895,6 @@ export interface GlobalVariables {
   prevReductionValue: number
 
   buildingSubTab: BuildingSubtab
-  // number000 of each before Diminishing Returns
-  blessingbase: ArrayStartingWithNull<number>
-  blessingDRPower: ArrayStartingWithNull<number>
-  giftbase: number[]
-  giftDRPower: number[]
-  benedictionbase: ArrayStartingWithNull<number>
-  benedictionDRPower: ArrayStartingWithNull<number>
-  // 10 Million of each before Diminishing returns on first number 200k for second, and 10k for the last few
-  platonicCubeBase: number[]
-  platonicDRPower: number[]
-
-  cubeBonusMultiplier: ArrayStartingWithNull<number>
-  tesseractBonusMultiplier: ArrayStartingWithNull<number>
-  hypercubeBonusMultiplier: ArrayStartingWithNull<number>
-  platonicBonusMultiplier: number[]
 
   autoOfferingCounter: number
 

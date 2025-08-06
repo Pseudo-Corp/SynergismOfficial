@@ -1051,6 +1051,8 @@ export const ambrosiaUpgrades: {
   }
 }
 
+export const ambrosiaUpgradeNames = Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]
+
 export const blankAmbrosiaUpgradeObject: Record<
   AmbrosiaUpgradeNames,
   { ambrosiaInvested: number; blueberriesInvested: number }
@@ -1136,23 +1138,6 @@ export const checkAmbrosiaUpgradePrerequisites = (upgradeKey: AmbrosiaUpgradeNam
     }
   }
   return true
-}
-
-export const refundAmbrosiaUpgrade = (upgradeKey: AmbrosiaUpgradeNames): void => {
-  const upgrade = ambrosiaUpgrades[upgradeKey]
-
-  player.ambrosia += upgrade.ambrosiaInvested
-  upgrade.ambrosiaInvested = 0
-  upgrade.level = 0
-
-  player.spentBlueberries -= upgrade.blueberriesInvested
-  upgrade.blueberriesInvested = 0
-
-  // Just in case!
-  player.ambrosiaUpgrades[upgradeKey] = {
-    ambrosiaInvested: 0,
-    blueberriesInvested: 0
-  } 
 }
 
 export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): string => {
@@ -1328,11 +1313,16 @@ export const displayProperLoadoutCount = () => {
   }
 }
 
-export const resetBlueberryTree = async (giveAlert = true) => {
-  for (const upgrade of Object.keys(ambrosiaUpgrades)) {
-    const k = upgrade as AmbrosiaUpgradeNames
-    refundAmbrosiaUpgrade(k)
+export const resetBlueberryTree = (giveAlert = true) => {
+  for (const k of Object.keys(ambrosiaUpgrades) as AmbrosiaUpgradeNames[]) {
+    ambrosiaUpgrades[k].level = 0
+    ambrosiaUpgrades[k].ambrosiaInvested = 0
+    ambrosiaUpgrades[k].blueberriesInvested = 0
+    player.ambrosiaUpgrades[k].ambrosiaInvested = 0
+    player.ambrosiaUpgrades[k].blueberriesInvested = 0
   }
+  player.ambrosia = player.lifetimeAmbrosia
+  player.spentBlueberries = 0
   if (giveAlert) return Alert(i18next.t('ambrosia.refund'))
 }
 
@@ -1432,7 +1422,7 @@ export const exportBlueberryTree = () => {
   void exportData(save, name)
 }
 
-export const createBlueberryTree = async (modules: BlueberryOpt) => {
+export const createBlueberryTree = (modules: BlueberryOpt) => {
   // Check to see if tree being created is valid.
   const isPossible = validateBlueberryTree(modules)
   if (!isPossible) {
@@ -1442,7 +1432,7 @@ export const createBlueberryTree = async (modules: BlueberryOpt) => {
 
   // If valid, we will create the tree.
   // Refund (reset) the tree!
-  await resetBlueberryTree(false) // no alert; return type is undefined
+  resetBlueberryTree(false) // no alert; return type is undefined
 
   // Fix blueberry levels on a valid tree (not done by validation)
   const actualModules = fixBlueberryLevel(modules)
@@ -1466,13 +1456,13 @@ export const createBlueberryTree = async (modules: BlueberryOpt) => {
   void Alert(i18next.t('ambrosia.importTree.success'))
 }
 
-export const importBlueberryTree = async (input: string | null) => {
+export const importBlueberryTree = (input: string | null) => {
   if (typeof input !== 'string') {
     return Alert(i18next.t('importexport.unableImport'))
   } else {
     try {
       const modules = JSON.parse(input) as BlueberryOpt
-      await createBlueberryTree(modules)
+      createBlueberryTree(modules)
       createLoadoutDescription(0, modules)
     } catch (err) {
       return Alert(i18next.t('ambrosia.importTree.error'))
@@ -1480,12 +1470,12 @@ export const importBlueberryTree = async (input: string | null) => {
   }
 }
 
-export const loadoutHandler = async (n: number, modules: BlueberryOpt) => {
+export const loadoutHandler = (n: number, modules: BlueberryOpt) => {
   if (player.blueberryLoadoutMode === 'saveTree') {
-    await saveBlueberryTree(n, modules)
+    saveBlueberryTree(n, modules)
   }
   if (player.blueberryLoadoutMode === 'loadTree') {
-    await createBlueberryTree(modules)
+    createBlueberryTree(modules)
   }
 }
 

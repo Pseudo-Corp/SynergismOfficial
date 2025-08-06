@@ -124,6 +124,8 @@ import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 import { getAchievementReward } from './Achievements'
 import { getLevelMilestone, getLevelReward } from './Levels'
+import { calculateAntSacrificeCubeBlessing, calculateGlobalSpeedCubeBlessing, calculateRuneEffectivenessCubeBlessing, calculateSalvageCubeBlessing } from './Cubes'
+import { calculateCubeMultiplierPlatonicBlessing, calculateGlobalSpeedPlatonicBlessing, calculateHypercubeMultiplierPlatonicBlessing, calculatePlatonicMultiplierPlatonicBlessing, calculateTesseractMultiplierPlatonicBlessing } from './PlatonicCubes'
 
 export interface StatLine {
   i18n: string
@@ -396,7 +398,7 @@ export const allWowCubeStats: StatLine[] = [
   },
   {
     i18n: 'PlatonicOpening',
-    stat: () => 1 + G.platonicBonusMultiplier[0]
+    stat: () => calculateCubeMultiplierPlatonicBlessing()
   },
   {
     i18n: 'Platonic1x1',
@@ -454,7 +456,7 @@ export const allTesseractStats: StatLine[] = [
   },
   {
     i18n: 'PlatonicCube',
-    stat: () => G.platonicBonusMultiplier[1]
+    stat: () => calculateTesseractMultiplierPlatonicBlessing()
   },
   {
     i18n: 'Platonic1x2',
@@ -490,7 +492,7 @@ export const allHypercubeStats: StatLine[] = [
   },
   {
     i18n: 'PlatonicCube',
-    stat: () => G.platonicBonusMultiplier[2]
+    stat: () => calculateHypercubeMultiplierPlatonicBlessing()
   },
   {
     i18n: 'Platonic1x3',
@@ -530,7 +532,7 @@ export const allPlatonicCubeStats: StatLine[] = [
   },
   {
     i18n: 'PlatonicCube',
-    stat: () => G.platonicBonusMultiplier[3]
+    stat: () => calculatePlatonicMultiplierPlatonicBlessing()
   },
   {
     i18n: 'Platonic1x4',
@@ -882,10 +884,6 @@ export const allOfferingStats = [
     stat: () => 1 + Math.pow(player.antUpgrades[6 - 1]! + G.bonusant6, 0.66) // Ant Upgrade
   },
   {
-    i18n: 'Brutus',
-    stat: () => G.cubeBonusMultiplier[3] // Brutus
-  },
-  {
     i18n: 'ConstantUpgrade3',
     stat: () => 1 + 0.02 * player.constantUpgrades[3] // Constant Upgrade 3
   },
@@ -1029,6 +1027,16 @@ export const allOfferingStats = [
     color: 'red'
   },
   {
+    i18n: 'TaxmanDebuff',
+    stat: () => {
+      if (!player.singularityChallenges.taxmanLastStand.enabled) {
+        return 1
+      }
+      const offeringDigits = Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))
+      return Math.pow(1.5, -Math.min(500, offeringDigits)) // Taxman Debuff
+    }
+  },
+  {
     i18n: 'Event',
     stat: () => 1 + calculateEventBuff(BuffType.Offering), // Event
     color: 'lime'
@@ -1130,7 +1138,7 @@ export const firstFiveRuneEffectivenessStats: StatLine[] = [
   },
   {
     i18n: 'MidasTribute',
-    stat: () => G.cubeBonusMultiplier[9],
+    stat: () => calculateRuneEffectivenessCubeBlessing(),
     displayCriterion: () => {
       const ascCount = player.ascensionCount
       const singularity = player.highestSingularityCount
@@ -1501,10 +1509,6 @@ export const allObtainiumStats: StatLine[] = [
     stat: () => 1 + 2 * Math.pow((player.antUpgrades[10 - 1]! + G.bonusant10) / 50, 2 / 3) // Ant 10
   },
   {
-    i18n: 'CubeBonus',
-    stat: () => G.cubeBonusMultiplier[5] // Cube Bonus
-  },
-  {
     i18n: 'ConstantUpgrade4',
     stat: () => 1 + 0.04 * player.constantUpgrades[4] // Constant Upgrade
   },
@@ -1593,6 +1597,16 @@ export const allObtainiumStats: StatLine[] = [
     i18n: 'SingularityDebuff',
     stat: () => 1 / calculateSingularityDebuff('Obtainium'), // Singularity Debuff
     color: 'red'
+  },
+  {
+    i18n: 'TaxmanDebuff',
+    stat: () => {
+      if (!player.singularityChallenges.taxmanLastStand.enabled) {
+        return 1
+      }
+      const offeringDigits = Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))
+      return Math.pow(1.5, -Math.min(500, offeringDigits)) // Taxman Debuff
+    }
   }
 ]
 
@@ -1679,7 +1693,7 @@ export const antSacrificeRewardStats: StatLine[] = [
   },
   {
     i18n: 'CubeBlessingAres',
-    stat: () => G.cubeBonusMultiplier[7]
+    stat: () => calculateAntSacrificeCubeBlessing()
   },
   {
     i18n: 'Event',
@@ -1710,7 +1724,7 @@ export const antSacrificeTimeStats = (time: number, timeMultCheck: boolean): Sta
 export const allGlobalSpeedIgnoreDRStats: StatLine[] = [
   {
     i18n: 'ChronosStatue',
-    stat: () => G.platonicBonusMultiplier[7] // Chronos statue
+    stat: () => calculateGlobalSpeedPlatonicBlessing() // Chronos statue
   },
   {
     i18n: 'SingularityDebuff',
@@ -1784,7 +1798,7 @@ export const allGlobalSpeedStats: StatLine[] = [
   },
   {
     i18n: 'ChronosCube',
-    stat: () => G.cubeBonusMultiplier[10] // Chronos cube blessing
+    stat: () => calculateGlobalSpeedCubeBlessing() // Chronos cube blessing
   },
   {
     i18n: 'CubeUpgrade2x8',
@@ -2651,7 +2665,7 @@ export const allTalismanRuneBonusStatsSum = () => {
     + getGQUpgradeEffect('singTalismanBonusRunes3')
     + getGQUpgradeEffect('singTalismanBonusRunes4')
     + getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel').talismanBonusRuneLevel
-    + +player.singularityChallenges.noOfferingPower.rewards.talismanRuneEffect
+    + +player.singularityChallenges.taxmanLastStand.rewards.talismanRuneEffect
   )
 }
 
@@ -2776,8 +2790,8 @@ export const allTalismanRuneBonusStats: StatLine[] = [
     stat: () => getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel').talismanBonusRuneLevel
   },
   {
-    i18n: 'NoOfferingPower',
-    stat: () => +player.singularityChallenges.noOfferingPower.rewards.talismanRuneEffect,
+    i18n: 'TaxmanLastStand',
+    stat: () => +player.singularityChallenges.taxmanLastStand.rewards.talismanRuneEffect,
     displayCriterion: () => {
       const singStuff = player.highestSingularityCount >= 270
       return singStuff
@@ -2807,8 +2821,21 @@ export const positiveSalvageStats: StatLine[] = [
     stat: () => getRuneEffects('thrift').salvage // Thrift Rune
   },
   {
+    i18n: 'ReincarnationChallenge',
+    stat: () => {
+      return 0.3 * CalcECC('reincarnation', player.challengecompletions[6]) +
+      0.3 * CalcECC('reincarnation', player.challengecompletions[7]) +
+      0.4 * CalcECC('reincarnation', player.challengecompletions[8]) +
+      0.5 * CalcECC('reincarnation', player.challengecompletions[9])
+    }
+  },
+  {
+    i18n: 'CubeBlessing',
+    stat: () => calculateSalvageCubeBlessing() // Cube Blessing
+  },
+  {
     i18n: 'CubeUpgrade2',
-    stat: () => 0.5 * player.cubeUpgrades[2] // Cube Upgrade 2
+    stat: () => 3 * player.cubeUpgrades[2] // Cube Upgrade 2
   },
   {
     i18n: 'AbyssHepteract',

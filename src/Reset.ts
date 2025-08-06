@@ -10,7 +10,6 @@ import {
   CalcCorruptionStuff,
   calculateAnts,
   calculateAntSacrificeELO,
-  calculateCubeBlessings,
   calculateGoldenQuarks,
   calculateObtainium,
   calculateOfferings,
@@ -39,7 +38,6 @@ import {
   type ResetHistoryEntrySingularity,
   type ResetHistoryEntryTranscend
 } from './History'
-import { calculateHypercubeBlessings } from './Hypercubes'
 import { importSynergism } from './ImportExport'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
 import { buyResearch, updateResearchBG } from './Research'
@@ -54,10 +52,9 @@ import {
   getGQUpgradeEffect,
   goldenQuarkUpgrades
 } from './singularity'
-import { blankSave, deepClone, format, player, saveSynergy, updateAll, updateEffectiveLevelMult } from './Synergism'
+import { blankSave, deepClone, format, player, saveSynergy, updateAll } from './Synergism'
 import { changeSubTab, changeTab, Tabs } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
-import { calculateTesseractBlessings } from './Tesseracts'
 import { IconSets } from './Themes'
 import { clearInterval, setInterval } from './Timers'
 import { toggleAutoChallengeModeText } from './Toggles'
@@ -593,7 +590,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
       player.fastestreincarnate = player.reincarnationcounter
     }
 
-    calculateCubeBlessings()
     player.reincarnationcounter = 0
     G.autoResetTimers.reincarnation = 0
 
@@ -732,9 +728,6 @@ export const reset = (input: resetNames, fast = false, from = 'unknown') => {
     player.ascensionCounterRealReal = 0
 
     updateTalismanInventory()
-    calculateCubeBlessings()
-    calculateTesseractBlessings()
-    calculateHypercubeBlessings()
 
     if (player.cubeUpgrades[4] === 1) {
       player.upgrades[94] = 1
@@ -1424,8 +1417,6 @@ const resetUpgrades = (i: number) => {
   if (i > 1.5) {
     player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
     player.crystalUpgradesCost = [7, 15, 20, 40, 100, 200, 500, 1000]
-
-    updateEffectiveLevelMult() // update before prism rune, fixes c15 bug
 
     let m = 0
     if (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0) {

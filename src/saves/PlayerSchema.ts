@@ -13,7 +13,7 @@ import {
 import { blankSave, deepClone } from '../Synergism'
 import { noTalismanFragments } from '../Talismans'
 import type { Player } from '../types/Synergism'
-import { padArray } from '../Utility'
+import { padArray, sumContents } from '../Utility'
 
 const decimalSchema = z.custom<DecimalSource>((value) => {
   try {
@@ -625,7 +625,25 @@ export const playerSchema = z.object({
   wowAbyssals: z.number().default(() => blankSave.wowAbyssals),
   wowOcteracts: z.number().default(() => blankSave.wowOcteracts),
   totalWowOcteracts: z.number().default(() => blankSave.totalWowOcteracts),
-  cubeBlessings: z.record(z.string(), z.number()).default(() => ({ ...blankSave.cubeBlessings })),
+  cubeBlessings: z.record(z.string(), z.number()).transform((obj) => {
+    let sum = sumContents(Object.values(obj))
+    if (!isFinite(sum) || sum > 1e300) {
+      const obj: typeof blankSave.cubeBlessings = {
+        accelerator: 2e299,
+        multiplier: 2e299,
+        offering: 1e299,
+        runeExp: 1e299,
+        obtainium: 1e299,
+        antSpeed: 1e299,
+        antSacrifice: 5e298,
+        antELO: 5e298,
+        talismanBonus: 5e298,
+        globalSpeed: 5e298,
+      }
+      return obj
+    }
+    return obj
+  }).default(() => ({ ...blankSave.cubeBlessings })),
   tesseractBlessings: z.record(z.string(), z.number()).default(() => ({ ...blankSave.tesseractBlessings })),
   hypercubeBlessings: z.record(z.string(), z.number()).default(() => ({ ...blankSave.hypercubeBlessings })),
   platonicBlessings: z.record(z.string(), z.number()).default(() => ({ ...blankSave.platonicBlessings })),

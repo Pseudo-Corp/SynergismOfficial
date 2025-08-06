@@ -7,6 +7,7 @@ import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { CalcECC } from './Challenges'
 import { getRuneEffects } from './Runes'
 import { getTalismanEffects } from './Talismans'
+import { calculateTaxPlatonicBlessing } from './PlatonicCubes'
 
 export const calculatetax = () => {
   let exp = 1
@@ -89,8 +90,8 @@ export const calculatetax = () => {
   exponent *= 1
     / Math.pow(
       1 + Decimal.log(player.ascendShards.add(1), 10),
-      1 + .2 / 60 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5]
-        + 0.2 * player.platonicUpgrades[10] + (G.platonicBonusMultiplier[5] - 1)
+      1 + 1 / 300 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5]
+        + 0.2 * player.platonicUpgrades[10] + calculateTaxPlatonicBlessing()
     )
   exponent *= 1 + getTalismanEffects('exemption').taxReduction
   exponent *= Math.pow(0.98, 3 / 5 * Math.log(1 + player.rareFragments) / Math.log(10) * player.researches[159])
@@ -107,8 +108,13 @@ export const calculatetax = () => {
     exponent *= 0.5
   }
 
-  if (player.singularityChallenges.noOfferingPower.enabled) {
-    exponent *= 0.1
+  if (player.singularityChallenges.taxmanLastStand.enabled) {
+    if (player.unlocks.ascensions) {
+      exponent *= 2
+    }
+    if (player.highestchallengecompletions[14] > 0) {
+      exponent *= 3
+    }
   }
 
   // Cap the calculation overflow bug || httpsnet
