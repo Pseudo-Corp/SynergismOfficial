@@ -1187,8 +1187,6 @@ export const player: Player = {
 
   singChallengeTimer: 0,
 
-  purchasedGrandmaTalisman: false,
-
   lastExportedSave: 0,
 
   seed: Array.from({ length: 3 }, () => Date.now())
@@ -1457,11 +1455,6 @@ const loadSynergy = () => {
       player.dayCheck.getMonth(),
       player.dayCheck.getDate()
     )
-
-    // Probably want to remove Corruptions from Player Object...
-    player.corruptions.used = new CorruptionLoadout(player.corruptions.used.loadout)
-    // This is needed to fix saves that had issues with not resetting corruption at the singularity
-    player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.used.loadout)
 
     for (let j = 1; j < 126; j++) {
       upgradeupdate(j, true)
@@ -4466,12 +4459,13 @@ export const updateAll = (): void => {
   ) {
     c += 10
   }
+  const logDiscount = getRuneEffects('prism').costDivisorLog10
   if (
     getLevelMilestone('tier1CrystalAutobuy') === 1
     && player.prestigeShards.gte(
       Decimal.pow(
         10,
-        G.crystalUpgradesCost[0]
+        G.crystalUpgradesCost[0] - logDiscount
           + G.crystalUpgradeCostIncrement[0]
             * Math.floor(Math.pow(player.crystalUpgrades[0] - 0.5 - c, 2) / 2)
       )
@@ -4484,7 +4478,7 @@ export const updateAll = (): void => {
     && player.prestigeShards.gte(
       Decimal.pow(
         10,
-        G.crystalUpgradesCost[1]
+        G.crystalUpgradesCost[1] - logDiscount
           + G.crystalUpgradeCostIncrement[1]
             * Math.floor(Math.pow(player.crystalUpgrades[1] - 0.5 - c, 2) / 2)
       )
@@ -4497,7 +4491,7 @@ export const updateAll = (): void => {
     && player.prestigeShards.gte(
       Decimal.pow(
         10,
-        G.crystalUpgradesCost[2]
+        G.crystalUpgradesCost[2] - logDiscount
           + G.crystalUpgradeCostIncrement[2]
             * Math.floor(Math.pow(player.crystalUpgrades[2] - 0.5 - c, 2) / 2)
       )
@@ -4510,7 +4504,7 @@ export const updateAll = (): void => {
     && player.prestigeShards.gte(
       Decimal.pow(
         10,
-        G.crystalUpgradesCost[3]
+        G.crystalUpgradesCost[3] - logDiscount
           + G.crystalUpgradeCostIncrement[3]
             * Math.floor(Math.pow(player.crystalUpgrades[3] - 0.5 - c, 2) / 2)
       )
@@ -4523,7 +4517,7 @@ export const updateAll = (): void => {
     && player.prestigeShards.gte(
       Decimal.pow(
         10,
-        G.crystalUpgradesCost[4]
+        G.crystalUpgradesCost[4] - logDiscount
           + G.crystalUpgradeCostIncrement[4]
             * Math.floor(Math.pow(player.crystalUpgrades[4] - 0.5 - c, 2) / 2)
       )
@@ -5322,7 +5316,6 @@ export const reloadShit = (reset = false) => {
     loadSynergy()
   }
 
-  if (!reset) {
     // Recover Sing Upgrade (now GQ upgrade) level from Player Obj
     if (player.goldenQuarkUpgrades !== undefined) {
       for (const [key, value] of Object.entries(player.goldenQuarkUpgrades)) {
@@ -5396,7 +5389,11 @@ export const reloadShit = (reset = false) => {
           ?? hepteracts[key].TIMES_CAP_EXTENDED
       }
     }
-  }
+
+    // Probably want to remove Corruptions from Player Object...
+    player.corruptions.used = new CorruptionLoadout(player.corruptions.used.loadout)
+    // This is needed to fix saves that had issues with not resetting corruption at the singularity
+    player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.used.loadout)
 
   updateTokens()
   updateMaxTokens()

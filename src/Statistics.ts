@@ -832,7 +832,6 @@ export const allOfferingStats = [
   {
     i18n: 'PrestigeShards',
     stat: () => 1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5
-    //stat: () => Math.max(1, 1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1/ 2) / 5)
   },
   {
     i18n: 'AchievementBonus',

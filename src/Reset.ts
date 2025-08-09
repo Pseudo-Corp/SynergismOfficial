@@ -1199,7 +1199,6 @@ export const singularity = (setSingNumber = -1) => {
   hold.shopPotionsConsumed = player.shopPotionsConsumed
 
   hold.talismans = { ...player.talismans }
-  hold.purchasedGrandmaTalisman = player.purchasedGrandmaTalisman
   hold.cubeUpgrades[80] = player.cubeUpgrades[80]
 
   if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {

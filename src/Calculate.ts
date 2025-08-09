@@ -260,7 +260,7 @@ export const calculateQuarkMultiplier = () => {
 }
 
 export const calculateAntSacrificeMultiplier = () => {
-  return antSacrificeRewardStats.reduce((a, b) => a * b.stat(), 1)
+  return Math.min(1e300, antSacrificeRewardStats.reduce((a, b) => a * b.stat(), 1))
 }
 
 export const calculateAntSacrificeObtainium = () => {

@@ -592,7 +592,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       }
     },
     inscriptionDesc: (n) => {
-      const inscriptValues = [0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.15, 0.15, 0.16, 0.175]
+      const inscriptValues = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1]
       return i18next.t('runes.talismans.cookieGrandma.inscription', {
         val: format(inscriptValues[n] ?? 0, 3)
       })
@@ -610,7 +610,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'never',
     isUnlocked: () => {
-      return player.purchasedGrandmaTalisman
+      return player.cubeUpgrades[80] > 0
     },
     name: () => i18next.t('runes.talismans.cookieGrandma.name'),
     description: () => i18next.t('runes.talismans.cookieGrandma.description')
@@ -710,14 +710,15 @@ export const levelsUntilRarityIncrease = (t: TalismanKeys) => {
   }
 }
 
-export const affordableNextLevel = (t: TalismanKeys, budget: Record<TalismanCraftItems, number>): boolean => {
-  const costs = talismans[t].costs(talismans[t].baseMult, talismans[t].level)
+export const affordableNextLevel = (t: TalismanKeys, budget: Record<TalismanCraftItems, number>, level: number): boolean => {
+  const costs = talismans[t].costs(talismans[t].baseMult, level)
 
   for (const item in costs) {
     if (costs[item as TalismanCraftItems] > budget[item as TalismanCraftItems]) {
       return false
     }
   }
+
   return true
 }
 
@@ -730,7 +731,7 @@ export const updateTalismanLevelAndSpentFromInvested = (t: TalismanKeys): void =
 
   let nextCost = talismans[t].costs(talismans[t].baseMult, level)
 
-  let canAffordNextLevel = affordableNextLevel(t, budget)
+  let canAffordNextLevel = affordableNextLevel(t, budget, level)
 
   while (canAffordNextLevel) {
     for (const item in nextCost) {
@@ -743,7 +744,7 @@ export const updateTalismanLevelAndSpentFromInvested = (t: TalismanKeys): void =
       break
     }
 
-    canAffordNextLevel = affordableNextLevel(t, budget)
+    canAffordNextLevel = affordableNextLevel(t, budget, level)
   }
 
   talismans[t].level = level
@@ -781,7 +782,7 @@ export const buyTalismanLevel = (t: TalismanKeys, fromMultibuy = false): void =>
 
   const costs = talismans[t].costs(talismans[t].baseMult, talismans[t].level)
   const budget = getPlayerTalismanBudget()
-  const canAffordNextLevel = affordableNextLevel(t, budget)
+  const canAffordNextLevel = affordableNextLevel(t, budget, talismans[t].level)
 
   if (canAffordNextLevel) {
     player.talismanShards -= costs.shard
@@ -811,7 +812,7 @@ export const buyTalismanLevelToRarityIncrease = (t: TalismanKeys, auto = false):
   if (levelsToBuy > 0) {
     for (let i = 0; i < levelsToBuy; i++) {
       const budget = getPlayerTalismanBudget()
-      if (!affordableNextLevel(t, budget)) {
+      if (!affordableNextLevel(t, budget, talismans[t].level)) {
         break
       }
       buyTalismanLevel(t, true)
@@ -831,7 +832,7 @@ export const buyTalismanLevelToMax = (t: TalismanKeys): void => {
   if (levelsToBuy > 0) {
     for (let i = 0; i < levelsToBuy; i++) {
       const budget = getPlayerTalismanBudget()
-      if (!affordableNextLevel(t, budget)) {
+      if (!affordableNextLevel(t, budget, talismans[t].level)) {
         break
       }
       buyTalismanLevel(t, true)
@@ -916,7 +917,7 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   </span>
   </span>`
 
-  const legendary = `<span style="color: darkorange">${i18next.t('runes.talismans.rarityInfo.legendary')} <span class="rarityReqNum">
+  const legendary = `<span style="color: orange">${i18next.t('runes.talismans.rarityInfo.legendary')} <span class="rarityReqNum">
   ${rarity === 5 ? '▶ ' : ''}
   ${i18next.t('runes.talismans.rarityInfo.levelReq', {
     level: format(Math.ceil(levelCap * 2 / 3), 0, true)
@@ -932,7 +933,7 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   </span>
   </span>`
   
-  const extraordinary = `<span style="color: violet">${i18next.t('runes.talismans.rarityInfo.extraordinary')} <span class="rarityReqNum">
+  const extraordinary = `<span style="color: cyan">${i18next.t('runes.talismans.rarityInfo.extraordinary')} <span class="rarityReqNum">
   ${rarity === 7 ? '▶ ' : ''}
   ${i18next.t('runes.talismans.rarityInfo.levelReq', {
     level: format(levelCap, 0, true)
@@ -940,7 +941,7 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   </span>
   </span>`
   
-  const godlike = `<span style="color: lightcoral">${i18next.t('runes.talismans.rarityInfo.godlike')} <span class="rarityReqNum">
+  const godlike = `<span style="color: red">${i18next.t('runes.talismans.rarityInfo.godlike')} <span class="rarityReqNum">
   ${rarity === 8 ? '▶ ' : ''}
   ${i18next.t('runes.talismans.rarityInfo.levelReq', {
     level: format(2 * levelCap, 0, true)

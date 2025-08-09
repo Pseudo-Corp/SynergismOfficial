@@ -2304,23 +2304,23 @@ export interface AchievementDisplayInfo {
 export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungrouped'>, AchievementDisplayInfo> = {
   firstOwnedCoin: {
     order: 0,
-    displayCondition: () => player.prestigeCount > 0
+    displayCondition: () => true
   },
   secondOwnedCoin: {
     order: 1,
-    displayCondition: () => player.prestigeCount > 0
+    displayCondition: () => true
   },
   thirdOwnedCoin: {
     order: 2,
-    displayCondition: () => player.prestigeCount > 0
+    displayCondition: () => true
   },
   fourthOwnedCoin: {
     order: 3,
-    displayCondition: () => player.prestigeCount > 0
+    displayCondition: () => true
   },
   fifthOwnedCoin: {
     order: 4,
-    displayCondition: () => player.prestigeCount > 0
+    displayCondition: () => true
   },
   prestigeCount: {
     order: 4.5,
@@ -2332,11 +2332,11 @@ export const groupedAchievementData: Record<Exclude<AchievementGroups, 'ungroupe
   },
   accelerators: {
     order: 6,
-    displayCondition: () => player.prestigeCount > 0
+    displayCondition: () => true
   },
   multipliers: {
     order: 7,
-    displayCondition: () => player.prestigeCount > 0
+    displayCondition: () => true
   },
   acceleratorBoosts: {
     order: 8,

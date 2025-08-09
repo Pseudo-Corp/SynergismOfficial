@@ -5131,7 +5131,7 @@
         "superiorIntellect": "Bonus Superior Intellect Rune Levels: <<orange|{{x}}>>",
         "infiniteAscent": "Bonus Infinite Ascent Rune Levels: <<orange|{{x}}>>",
         "antiquities": "Bonus Antiquities of Ant God Rune Levels: <<orange|{{x}}>>",
-        "horseShoe": "Bonus: Horse Shoe levels: <<orange|{{x}}>>"
+        "horseShoe": "Bonus Horse Shoe levels: <<orange|{{x}}>>"
       },
       "mythicEffects": {
         "exemption": "Mythic Effect: +400 Duplication Rune Levels!",

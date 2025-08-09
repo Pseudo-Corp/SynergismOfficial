@@ -107,13 +107,13 @@ export const calculateAscensionScorePlatonicBlessing = () => {
 
 export const calculateGlobalSpeedPlatonicBlessing = () => {
   const DR = 1 / 8
-  const limit = 1000
+  const limit = 1e4
   const effectPerBlessing = 1 / 1e4
 
   if (player.platonicBlessings.globalSpeed < limit) {
     return 1 + effectPerBlessing * player.platonicBlessings.globalSpeed
   } else {
     const limitMult = Math.pow(limit, 1 - DR)
-    return effectPerBlessing * limitMult * Math.pow(player.platonicBlessings.globalSpeed, DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.platonicBlessings.globalSpeed, DR)
   }
 }

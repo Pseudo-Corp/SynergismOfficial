@@ -889,8 +889,6 @@ export const playerSchema = z.object({
 
   singChallengeTimer: z.number().default(() => blankSave.singChallengeTimer),
 
-  purchasedGrandmaTalisman: z.boolean().default(() => blankSave.purchasedGrandmaTalisman),
-
   lastExportedSave: z.number().default(() => blankSave.lastExportedSave),
 
   seed: z.number().array().default(() => blankSave.seed)
