@@ -690,6 +690,8 @@ export interface Player {
 
   singChallengeTimer: number
 
+  purchasedGrandmaTalisman: boolean
+
   /**
    * When the player last exported the save.
    */

@@ -1961,7 +1961,7 @@
       "exalts": {
         "name": "Progressive Achievement - EXALT Completions",
         "description": "Gain AP for each EXALT you have completed!",
-        "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Twenty Ascensions: {{num3}}/{{cap3}} AP <br> No Octeract Effects: {{num4}}/{{cap4}} AP <br> No Ambrosia Upgrades: {{num5}}/{{cap5}} AP <br> Grand Singularity Speedrun: {{num6}}/{{cap6}} AP <br> Sadistic III: {{num7}}/{{cap7}} AP <br> Rejected by the Gods: {{num8}}/{{cap8}} AP"
+        "apSource": "No Golden Quark Upgrades: {{num1}}/{{cap1}} AP <br> One Challenge Caps: {{num2}}/{{cap2}} AP <br> Twenty Ascensions: {{num3}}/{{cap3}} AP <br> No Octeract Effects: {{num4}}/{{cap4}} AP <br> No Ambrosia Upgrades: {{num5}}/{{cap5}} AP <br> Grand Singularity Speedrun: {{num6}}/{{cap6}} AP <br> Sadistic III: {{num7}}/{{cap7}} AP <br> Taxman's Last Stand: {{num8}}/{{cap8}} AP"
       },
       "singularityUpgrades": {
         "name": "Progressive Achievement - Golden Quark Upgrades",
@@ -5062,7 +5062,7 @@
         "name": "Freshly-Baked Cookie",
         "description": "Kinda burns your neck. Thanks Grandma!",
         "inscription": "<<gold | ✏>> Inscription: Gain <<gold|+{{val}}>> free Corruption Levels!",
-        "signature": "<<crimson | ✎>> Signature: Unlock three more Cookie Upgrades in the Cube Upgrades subtab!"
+        "signature": "<<crimson | ✎>> Signature: Unlock three more Cookie Upgrades!"
       },
       "horseShoe": {
         "name": "The Horse's Boot",
@@ -5294,11 +5294,11 @@
       },
       "taxmanLastStand": {
         "name": "The Taxman's Last Stand",
-        "description": "The Tax Man, wanting the Ultimate Pen, has some devious new tricks up his sleeve. Beat the target Singularity, except: <br><<lime|♽ Positive Salvage past 100 is vastly reduced, and Negative Salvage sources give +500% more>><br>¢ Gain <<orange|4x>> the taxes when you've beaten Challenge 10, and <<red|5x>> more taxes when you've beaten Challenge 14<br><<orange|☼ Each digit in your Offering Count divides your Obtainium gain by 2 (+0.01/tier)>><br><<pink|☢ Each digit in your Obtainium Count divides your Offering gain by 2 (+0.01/tier)>>",
-        "ScalingReward1": "+10 <<var(--red-text-color)|Talisman Level Caps>> for any Talisman that resets on Singularity",
-        "ScalingReward2": "+1% <<var(--blueberry-box-color)|Talisman Free Rune Levels>>",
-        "ScalingReward3": "+0.00066 <<var(--amber-text-color)|Rune Coefficient>> for Antiquities!",
-        "ScalingReward4": "+0.00333 <<var(--amber-text-color)|Rune Coefficient>> for... <<burlywood | something>>...",
+        "description": "The Tax Man, wanting the Ultimate Pen, has some devious new tricks up his sleeve. Beat the target Singularity, except: <br><<lime|♽ Positive Salvage past 100 is vastly reduced, and Negative Salvage sources give +500% more>><br>¢ Gain <<orange|4x>> the taxes when you've beaten Challenge 10, and <<red|5x>> more taxes when you've beaten Challenge 14<br><<orange|☼ Each digit in your Offering Count divides your Obtainium gain by 2.5 (+0.06/tier)>><br><<pink|☢ Each digit in your Obtainium Count divides your Offering gain by 2.5 (+0.04/tier)>>",
+        "ScalingReward1": "+25 <<var(--red-text-color)|Talisman Level Caps>> for any Talisman that resets on Singularity",
+        "ScalingReward2": "+3% <<var(--blueberry-box-color)|Talisman Free Rune Levels>>",
+        "ScalingReward3": "+0.002 <<var(--amber-text-color)|Rune Coefficient>> for Antiquities!",
+        "ScalingReward4": "+0.005 <<var(--amber-text-color)|Rune Coefficient>> for... <<burlywood | something>>...",
         "UniqueReward1": "1st - Unlock <<burlywood | Something Cool... and Runelike>>",
         "UniqueReward2": "15th - Unlock <<pink | a new Shop Upgrade!>>",
         "UniqueReward3": "30th - Unlock <<burlywood | Something even Cooler... and Fashionable...>>"

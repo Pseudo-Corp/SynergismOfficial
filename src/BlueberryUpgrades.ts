@@ -1203,7 +1203,6 @@ export const updateMobileAmbrosiaHTML = (k: AmbrosiaUpgradeNames) => {
         buyOne.classList.add('modalBtnBuy')
         buyOne.textContent = i18next.t('general.buyOne')
         buyOne.addEventListener('click', (event: MouseEvent) => {
-          console.log('test for buyOne inherit')
           buyAmbrosiaUpgradeLevel(k, event, false)
           updateMobileAmbrosiaHTML(k)
         })

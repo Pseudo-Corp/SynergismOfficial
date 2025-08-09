@@ -259,7 +259,13 @@ export const infiniteAscentOOMIncrease = () => {
 
 export const antiquitiesOOMIncrease = () => {
   return (
-    +player.singularityChallenges.taxmanLastStand.rewards.antiquitiesOOMBonus
+    +player.singularityChallenges.taxmanLastStand.rewards.antiquityOOM
+  )
+}
+
+export const horseShoeOOMIncrease = () => {
+  return (
+    +player.singularityChallenges.taxmanLastStand.rewards.horseShoeOOM
   )
 }
 
@@ -546,7 +552,7 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     costCoefficient: new Decimal(1e206),
     levelsPerOOM: 1 / 50,
     ignoreChal9: true,
-    levelsPerOOMIncrease: () => 0,
+    levelsPerOOMIncrease: () => antiquitiesOOMIncrease(),
     effects: (level) => {
       const addCodeCooldownReduction = level > 0 ? 0.8 - 0.3 * (level - 1) / (level + 10) : 1
       const offeringLog10 = level
@@ -578,9 +584,9 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
     level: 0,
     runeEXP: new Decimal('0'),
     costCoefficient: new Decimal('1e500'),
-    levelsPerOOM: 1 / 16,
+    levelsPerOOM: 1 / 20,
     ignoreChal9: true,
-    levelsPerOOMIncrease: () => 0,
+    levelsPerOOMIncrease: () => horseShoeOOMIncrease(),
     effects: (level) => {
       const ambrosiaLuck = 5 * level
       const redLuck = level

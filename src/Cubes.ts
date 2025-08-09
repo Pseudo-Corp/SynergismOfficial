@@ -205,6 +205,10 @@ export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
     }
   }
 
+  if (i === 80 && player.cubeUpgrades[80] > 0) {
+    player.purchasedGrandmaTalisman = true
+  }
+
   if (!auto) {
     cubeUpgradeDesc(i)
     revealStuff()

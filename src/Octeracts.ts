@@ -1030,7 +1030,6 @@ export const updateMobileOcteractHTML = (upgradeKey: OcteractDataKeys): void => 
       buyOne.classList.add('modalBtnBuy')
       buyOne.textContent = i18next.t('general.buyOne')
       buyOne.addEventListener('click', (event: MouseEvent) => {
-        console.log('test for buyOne inherit')
         buyOcteractUpgradeLevel(upgradeKey, event, false)
         updateMobileOcteractHTML(upgradeKey)
       })

@@ -959,7 +959,6 @@ TODO: Fix this entire tab it's utter shit
         () => {
           const element = DOMCacheGetOrSet(key)
           const elmRect = element.getBoundingClientRect()
-          console.log('test!')
           Modal(upgradeGQToString(key), elmRect.x, elmRect.y + elmRect.height / 2, {borderColor: 'gold'})
         }
       )

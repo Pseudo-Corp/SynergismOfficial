@@ -580,11 +580,11 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     rarity: 0,
     fragmentsInvested: { ...noTalismanFragments },
     baseMult: 1e290,
-    maxLevel: 60,
+    maxLevel: 6,
     costs: exponentialCostProgression,
-    levelCapIncrease: () => 0,
+    levelCapIncrease: () => 54,
     effects: (n) => {
-      const inscriptValues = [0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.15, 0.15, 0.16, 0.175]
+      const inscriptValues = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10]
       const cookiesSix = n >= 6
       return {
         freeCorruptionLevel: inscriptValues[n] ?? 0,
@@ -610,7 +610,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'never',
     isUnlocked: () => {
-      return player.cubeUpgrades[80] > 0
+      return player.purchasedGrandmaTalisman
     },
     name: () => i18next.t('runes.talismans.cookieGrandma.name'),
     description: () => i18next.t('runes.talismans.cookieGrandma.description')
@@ -620,11 +620,11 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     rarity: 0,
     fragmentsInvested: { ...noTalismanFragments },
     baseMult: 1e290,
-    maxLevel: 100,
+    maxLevel: 12,
     costs: exponentialCostProgression,
-    levelCapIncrease: () => 0,
+    levelCapIncrease: () => 88,
     effects: (n) => {
-      const inscriptValues = [0, 0.005, 0.01, 0.015, 0.02, 0.03, 0.04, 0.05, 0.055, 0.06, 0.077]
+      const inscriptValues = [0, 0.001, 0.002, 0.003, 0.004, 0.005, 0.007, 0.01, 0.012, 0.015, 0.02]
       const signatureValue = (n >= 6) ? 40 : 0
       return {
         luckPercentage: inscriptValues[n] ?? 0,
@@ -632,7 +632,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       }
     },
     inscriptionDesc: (n) => {
-      const inscriptValues = [0, 0.005, 0.01, 0.015, 0.02, 0.03, 0.04, 0.05, 0.055, 0.06, 0.077]
+      const inscriptValues = [0, 0.001, 0.002, 0.003, 0.004, 0.005, 0.007, 0.01, 0.012, 0.015, 0.02]
       return i18next.t('runes.talismans.horseShoe.inscription', {
         val: format(100 * (inscriptValues[n] ?? 0), 2)
       })
@@ -723,6 +723,7 @@ export const affordableNextLevel = (t: TalismanKeys, budget: Record<TalismanCraf
 
 export const updateTalismanLevelAndSpentFromInvested = (t: TalismanKeys): void => {
   let level = 0
+
   const budget = { ...player.talismans[t] }
   talismans[t].fragmentsInvested = { ...player.talismans[t] }
   const trueLevelCap = getTalismanLevelCap(t)
@@ -730,6 +731,7 @@ export const updateTalismanLevelAndSpentFromInvested = (t: TalismanKeys): void =
   let nextCost = talismans[t].costs(talismans[t].baseMult, level)
 
   let canAffordNextLevel = affordableNextLevel(t, budget)
+
   while (canAffordNextLevel) {
     for (const item in nextCost) {
       budget[item as TalismanCraftItems] -= nextCost[item as TalismanCraftItems]

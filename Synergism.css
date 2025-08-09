@@ -1557,14 +1557,14 @@ img.runeTypeElement:hover {
 
 #runeContainer2 {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(3, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     position: relative;
 }
 .talismansCenter {
-    grid-area: 1 / 2 / 4 / 6;
+    grid-area: 1 / 2 / 4 / 8;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -1578,7 +1578,7 @@ img.runeTypeElement:hover {
     width: 100%;
 }
 .talismanToggles { 
-    grid-area: 1 / 6 / 4 / 7;
+    grid-area: 1 / 8 / 4 / 9;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1679,11 +1679,12 @@ img.runeTypeElement:hover {
     position: relative;
     justify-content: center;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .talismanContainer {
     flex-direction: column;
-    width: 96px;
+    width: 80px;
     align-items: center;
     white-space: nowrap;
     padding: 2px;

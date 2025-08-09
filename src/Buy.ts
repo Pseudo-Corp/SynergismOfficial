@@ -694,6 +694,8 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
       if (!auto) {
         crystalupgradedescriptions(i)
       }
+      // This can sometimes just happen... yeah pretty bad!
+      player.prestigeShards = player.prestigeShards.max(0)
     }
   }
 }

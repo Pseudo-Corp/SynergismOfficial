@@ -1187,6 +1187,8 @@ export const player: Player = {
 
   singChallengeTimer: 0,
 
+  purchasedGrandmaTalisman: false,
+
   lastExportedSave: 0,
 
   seed: Array.from({ length: 3 }, () => Date.now())
@@ -1512,7 +1514,6 @@ const loadSynergy = () => {
       }
       let c = ''
       const curBuyAmount = player[`${q[j]}buyamount` as const]
-      console.log(curBuyAmount)
       if (curBuyAmount === 1) {
         c = 'one'
       }
@@ -5321,76 +5322,79 @@ export const reloadShit = (reset = false) => {
     loadSynergy()
   }
 
-  // Recover Sing Upgrade (now GQ upgrade) level from Player Obj
-  if (player.goldenQuarkUpgrades !== undefined) {
-    for (const [key, value] of Object.entries(player.goldenQuarkUpgrades)) {
-      const k = key as SingularityDataKeys
-      goldenQuarkUpgrades[k].level = value.level
-      goldenQuarkUpgrades[k].freeLevel = value.freeLevel
+  if (!reset) {
+    // Recover Sing Upgrade (now GQ upgrade) level from Player Obj
+    if (player.goldenQuarkUpgrades !== undefined) {
+      for (const [key, value] of Object.entries(player.goldenQuarkUpgrades)) {
+        const k = key as SingularityDataKeys
+        goldenQuarkUpgrades[k].level = value.level
+        goldenQuarkUpgrades[k].freeLevel = value.freeLevel
+      }
     }
-  }
 
-  // Recover Oct Upgrades level from Player Obj
-  if (player.octUpgrades !== undefined) {
-    for (const [key, value] of Object.entries(player.octUpgrades)) {
-      const k = key as OcteractDataKeys
+    // Recover Oct Upgrades level from Player Obj
+    if (player.octUpgrades !== undefined) {
+      for (const [key, value] of Object.entries(player.octUpgrades)) {
+        const k = key as OcteractDataKeys
 
-      octeractUpgrades[k].level = value.level
-      octeractUpgrades[k].freeLevel = value.freeLevel
+        octeractUpgrades[k].level = value.level
+        octeractUpgrades[k].freeLevel = value.freeLevel
+      }
     }
-  }
 
-  if (player.ambrosiaUpgrades !== undefined) {
-    for (const [key, value] of Object.entries(player.ambrosiaUpgrades)) {
-      const k = key as AmbrosiaUpgradeNames
-      ambrosiaUpgrades[k].ambrosiaInvested = value.ambrosiaInvested ?? 0
-      ambrosiaUpgrades[k].blueberriesInvested = value.blueberriesInvested ?? 0
+    if (player.ambrosiaUpgrades !== undefined) {
+      for (const [key, value] of Object.entries(player.ambrosiaUpgrades)) {
+        const k = key as AmbrosiaUpgradeNames
+        ambrosiaUpgrades[k].ambrosiaInvested = value.ambrosiaInvested ?? 0
+        ambrosiaUpgrades[k].blueberriesInvested = value.blueberriesInvested ?? 0
+      }
     }
-  }
 
-  if (player.redAmbrosiaUpgrades !== undefined) {
-    for (const [key, value] of Object.entries(player.redAmbrosiaUpgrades)) {
-      const k = key as RedAmbrosiaNames
-      redAmbrosiaUpgrades[k].redAmbrosiaInvested = value
+    if (player.redAmbrosiaUpgrades !== undefined) {
+      for (const [key, value] of Object.entries(player.redAmbrosiaUpgrades)) {
+        const k = key as RedAmbrosiaNames
+        redAmbrosiaUpgrades[k].redAmbrosiaInvested = value
+      }
     }
-  }
 
-  if (player.talismans !== undefined) {
-    for (const key of Object.keys(player.talismans) as TalismanKeys[]) {
-      updateTalismanLevelAndSpentFromInvested(key)
+    if (player.talismans !== undefined) {
+      for (const key of Object.keys(player.talismans) as TalismanKeys[]) {
+        updateTalismanLevelAndSpentFromInvested(key)
+      }
     }
-  }
 
-  if (player.runes !== undefined) {
-    for (const key of Object.keys(player.runes) as RuneKeys[]) {
-      const runeEXP = player.runes[key]
-      runes[key].runeEXP = new Decimal(runeEXP)
+
+    if (player.runes !== undefined) {
+      for (const key of Object.keys(player.runes) as RuneKeys[]) {
+        const runeEXP = player.runes[key]
+        runes[key].runeEXP = new Decimal(runeEXP)
+      }
+      updateAllRuneLevelsFromEXP()
     }
-    updateAllRuneLevelsFromEXP()
-  }
 
-  if (player.runeBlessings !== undefined) {
-    for (const key of Object.keys(player.runeBlessings) as RuneBlessingKeys[]) {
-      const blessingEXP = player.runeBlessings[key]
-      runeBlessings[key].runeEXP = new Decimal(blessingEXP)
+    if (player.runeBlessings !== undefined) {
+      for (const key of Object.keys(player.runeBlessings) as RuneBlessingKeys[]) {
+        const blessingEXP = player.runeBlessings[key]
+        runeBlessings[key].runeEXP = new Decimal(blessingEXP)
+      }
+      updateAllBlessingLevelsFromEXP()
     }
-    updateAllBlessingLevelsFromEXP()
-  }
 
-  if (player.runeSpirits !== undefined) {
-    for (const key of Object.keys(player.runeSpirits) as RuneSpiritKeys[]) {
-      const spiritEXP = player.runeSpirits[key]
-      runeSpirits[key].runeEXP = new Decimal(spiritEXP)
+    if (player.runeSpirits !== undefined) {
+      for (const key of Object.keys(player.runeSpirits) as RuneSpiritKeys[]) {
+        const spiritEXP = player.runeSpirits[key]
+        runeSpirits[key].runeEXP = new Decimal(spiritEXP)
+      }
+      updateAllSpiritLevelsFromEXP()
     }
-    updateAllSpiritLevelsFromEXP()
-  }
 
-  if (player.hepteracts !== undefined) {
-    for (const key of Object.keys(player.hepteracts) as HepteractKeys[]) {
-      hepteracts[key].BAL = player.hepteracts[key].BAL ?? hepteracts[key].BAL
-      hepteracts[key].AUTO = player.hepteracts[key].AUTO ?? hepteracts[key].AUTO
-      hepteracts[key].TIMES_CAP_EXTENDED = player.hepteracts[key].TIMES_CAP_EXTENDED
-        ?? hepteracts[key].TIMES_CAP_EXTENDED
+    if (player.hepteracts !== undefined) {
+      for (const key of Object.keys(player.hepteracts) as HepteractKeys[]) {
+        hepteracts[key].BAL = player.hepteracts[key].BAL ?? hepteracts[key].BAL
+        hepteracts[key].AUTO = player.hepteracts[key].AUTO ?? hepteracts[key].AUTO
+        hepteracts[key].TIMES_CAP_EXTENDED = player.hepteracts[key].TIMES_CAP_EXTENDED
+          ?? hepteracts[key].TIMES_CAP_EXTENDED
+      }
     }
   }
 

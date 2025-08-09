@@ -831,7 +831,8 @@ export const allOfferingStats = [
   },
   {
     i18n: 'PrestigeShards',
-    stat: () => 1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5 // Prestige Shards
+    stat: () => 1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5
+    //stat: () => Math.max(1, 1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1/ 2) / 5)
   },
   {
     i18n: 'AchievementBonus',
@@ -1034,7 +1035,7 @@ export const allOfferingStats = [
       }
       const offeringDigits = Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))
       const comps = player.singularityChallenges.taxmanLastStand.completions
-      return Math.pow(2 + comps / 100, -Math.min(500, offeringDigits)) // Taxman Debuff
+      return Math.pow(2.5 + 4 * comps / 100, -Math.min(500, offeringDigits)) // Taxman Debuff
     }
   },
   {
@@ -1448,7 +1449,7 @@ export const allObtainiumIgnoreDRStats: StatLine[] = [
 export const allObtainiumStats: StatLine[] = [
   {
     i18n: 'TranscendShards',
-    stat: () => Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2) // Transcend Shards
+    stat: () => Math.max(1, Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2)) // Transcend Shards
   },
   {
     i18n: 'AchievementBonus',
@@ -1607,7 +1608,7 @@ export const allObtainiumStats: StatLine[] = [
       }
       const offeringDigits = Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))
       const comps = player.singularityChallenges.taxmanLastStand.completions
-      return Math.pow(2 + comps / 100, -Math.min(500, offeringDigits)) // Taxman Debuff
+      return Math.pow(2.5 + 6 * comps / 100, -Math.min(500, offeringDigits)) // Taxman Debuff
     }
   }
 ]

@@ -1904,7 +1904,6 @@ export function updateMobileGQHTML(k: SingularityDataKeys) {
     buyOne.classList.add('modalBtnBuy')
     buyOne.textContent = i18next.t('general.buyOne')
     buyOne.addEventListener('click', (event: MouseEvent) => {
-      console.log('test for buyOne inherit')
       buyGQUpgradeLevel(k, event, false)
       updateMobileGQHTML(k)
     })

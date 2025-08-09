@@ -946,7 +946,7 @@ export const updateSingularityMilestoneAwards = (singularityReset = true): void 
       player.transcendCount = 1
     }
     player.transcendPoints = new Decimal('1001')
-
+    player.firstOwnedCoin = 1
     player.unlocks.coinone = true
     player.unlocks.cointwo = true
     player.unlocks.cointhree = true
@@ -1197,6 +1197,10 @@ export const singularity = (setSingNumber = -1) => {
   hold.goldenQuarks = player.goldenQuarks
   hold.shopUpgrades = player.shopUpgrades
   hold.shopPotionsConsumed = player.shopPotionsConsumed
+
+  hold.talismans = { ...player.talismans }
+  hold.purchasedGrandmaTalisman = player.purchasedGrandmaTalisman
+  hold.cubeUpgrades[80] = player.cubeUpgrades[80]
 
   if (!player.singularityChallenges.limitedTime.rewards.preserveQuarks) {
     player.worlds.reset()

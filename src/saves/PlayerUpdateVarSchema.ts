@@ -185,7 +185,9 @@ export const playerUpdateVarSchema = playerSchema.transform((player) => {
     player.unlocks.hypercubes = (player.achievements[211] === 1)
     player.unlocks.platonics = (player.achievements[218] === 1)
     player.unlocks.hepteracts = (player.challenge15Exponent >= 1e15)
+    player.purchasedGrandmaTalisman = (player.cubeUpgrades[80] > 0)
   }
+
 
   Reflect.deleteProperty(player, 'runeshards')
   Reflect.deleteProperty(player, 'maxofferings')

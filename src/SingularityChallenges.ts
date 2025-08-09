@@ -487,11 +487,11 @@ export const singularityChallengeData: Record<
     }
   },
   taxmanLastStand: {
-    baseReq: 150,
-    maxCompletions: 30,
+    baseReq: 231,
+    maxCompletions: 10,
     unlockSingularity: 1,
     achievementPointValue: (n) => {
-      return 10 * n + 5 * Math.max(0, n - 5) + 5 * Math.max(0, n - 15) + 5 * Math.max(0, n - 25)
+      return 50 * n
     },
     HTMLTag: 'taxmanLastStand',
     singularityRequirement: (baseReq: number, completions: number) => {
@@ -502,12 +502,12 @@ export const singularityChallengeData: Record<
     effect: (n: number) => {
       return {
         horseShoeUnlock: n > 0,
-        shopUpgrade: n >= 15,
-        talismanUnlock: n >= 30,
-        talismanFreeLevel: 10 * n,
-        talismanRuneEffect: 0.01 * n,
-        antiquityOOM: 1 / 50 * n / 30,
-        horseShoeOOM: 1 / 16 * n / 30
+        shopUpgrade: n >= 5,
+        talismanUnlock: n >= 10,
+        talismanFreeLevel: 25 * n,
+        talismanRuneEffect: 0.03 * n,
+        antiquityOOM: 1 / 50 * n / 10,
+        horseShoeOOM: 1 / 20 * n / 10
       }
     }
   }
