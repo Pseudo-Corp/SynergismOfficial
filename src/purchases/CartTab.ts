@@ -111,7 +111,7 @@ export class CartTab {
   static applySubtabListeners () {
     for (const [index, element] of yieldQuerySelectorAll('.subtabSwitcher button')) {
       element.addEventListener('click', () => {
-        if (isLoggedIn() || !prod) {
+        if (isLoggedIn() || !prod || element.classList.contains('without-login')) {
           changeSubTab(Tabs.Purchase, { page: index })
         } else {
           Alert('Note: you must be logged in to view this tab!')
