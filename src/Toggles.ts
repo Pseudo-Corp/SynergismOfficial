@@ -393,7 +393,6 @@ export const toggleAchievementScreen = (indexStr: string) => {
       b.style.display = 'none'
     }
   }
-
 }
 
 export const toggleRuneScreen = (indexStr: string) => {
@@ -413,8 +412,7 @@ export const toggleRuneScreen = (indexStr: string) => {
 
   if (index === 2) {
     DOMCacheGetOrSet('offeringDetails').style.display = 'none'
-  }
-  else {
+  } else {
     DOMCacheGetOrSet('offeringDetails').style.display = 'flex'
   }
   // player.subtabNumber = index - 1

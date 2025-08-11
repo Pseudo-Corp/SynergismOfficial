@@ -6,8 +6,7 @@ export const calculateCubeMultiplierPlatonicBlessing = () => {
   const limit = 4e6
   if (player.platonicBlessings.cubes < limit) {
     return 1 + effectPerBlessing * player.platonicBlessings.cubes
-  }
-  else {
+  } else {
     const limitMult = Math.pow(limit, 1 - DR)
     return effectPerBlessing * limitMult * Math.pow(player.platonicBlessings.cubes, DR)
   }
@@ -19,8 +18,7 @@ export const calculateTesseractMultiplierPlatonicBlessing = () => {
   const limit = 4e6
   if (player.platonicBlessings.tesseracts < limit) {
     return 1 + effectPerBlessing * player.platonicBlessings.tesseracts
-  }
-  else {
+  } else {
     const limitMult = Math.pow(limit, 1 - DR)
     return effectPerBlessing * limitMult * Math.pow(player.platonicBlessings.tesseracts, DR)
   }
@@ -32,8 +30,7 @@ export const calculateHypercubeMultiplierPlatonicBlessing = () => {
   const limit = 4e6
   if (player.platonicBlessings.hypercubes < limit) {
     return 1 + effectPerBlessing * player.platonicBlessings.hypercubes
-  }
-  else {
+  } else {
     const limitMult = Math.pow(limit, 1 - DR)
     return effectPerBlessing * limitMult * Math.pow(player.platonicBlessings.hypercubes, DR)
   }
@@ -45,8 +42,7 @@ export const calculatePlatonicMultiplierPlatonicBlessing = () => {
   const limit = 8e4
   if (player.platonicBlessings.platonics < limit) {
     return 1 + effectPerBlessing * player.platonicBlessings.platonics
-  }
-  else {
+  } else {
     const limitMult = Math.pow(limit, 1 - DR)
     return effectPerBlessing * limitMult * Math.pow(player.platonicBlessings.platonics, DR)
   }
@@ -58,15 +54,13 @@ export const calculateHypercubeBlessingMultiplierPlatonicBlessing = () => {
   const limit = 1e4
   if (player.platonicBlessings.hypercubeBonus < limit) {
     return 1 + effectPerBlessing * player.platonicBlessings.hypercubeBonus
-  }
-  else {
+  } else {
     const limitMult = Math.pow(limit, 1 - DR)
     return effectPerBlessing * limitMult * Math.pow(player.platonicBlessings.hypercubeBonus, DR)
   }
 }
 
 export const calculateTaxPlatonicBlessing = () => {
-
   // 0 < effect < 1
   const factor = Math.pow(Math.log10(1 + player.platonicBlessings.taxes), 1.5)
   return factor / (125 + factor)
@@ -92,12 +86,10 @@ export const calculateAscensionScorePlatonicBlessing = () => {
 
   if (player.platonicBlessings.globalSpeed < limit1) {
     return 1 + effectPerBlessing * player.platonicBlessings.globalSpeed
-  }
-  else if (limit1 <= player.platonicBlessings.globalSpeed && player.platonicBlessings.globalSpeed < limit2) {
+  } else if (limit1 <= player.platonicBlessings.globalSpeed && player.platonicBlessings.globalSpeed < limit2) {
     const limitMult = Math.pow(limit1, 1 - DR1)
     return 1 + effectPerBlessing * limitMult * Math.pow(player.platonicBlessings.globalSpeed, DR1)
-  }
-  else {
+  } else {
     // Can derive that this works using algebra (Platonic did it)
     const limitMult1 = Math.pow(limit1, 1 - DR1)
     const limitMult2 = Math.pow(limit2, DR1 - DR2)

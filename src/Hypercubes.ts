@@ -39,7 +39,7 @@ export const calculateOfferingHypercubeBlessing = () => {
 
 export const calculateSalvageHypercubeBlessing = () => {
   const factor = Math.pow(Math.log10(player.hypercubeBlessings.runeExp + 1), 1.25)
-  const cap = 3/2
+  const cap = 3 / 2
   return 1 + cap * factor / (40 + factor)
 }
 

@@ -1178,14 +1178,24 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
   const effectsDescription = getAmbrosiaUpgradeEffectsDescription(upgradeKey)
 
   const nameHTML = `<span style="color: gold">${upgrade.name()}</span>`
-  const levelHTML = `<span style="color: ${color}"> ${i18next.t('general.level')} ${format(upgrade.level, 0, true)}${maxLevel}${freeLevelInfo}</span>`
+  const levelHTML = `<span style="color: ${color}"> ${i18next.t('general.level')} ${
+    format(upgrade.level, 0, true)
+  }${maxLevel}${freeLevelInfo}</span>`
   const preReqHTML = preReqText ? `${preReqText}<br>` : ''
   const descriptionHTML = `<span style="color: lightblue">${upgrade.description()}</span>`
   const effectsHTML = `<span style="color: gold">${effectsDescription}</span>`
-  const costNextLevelHTML = `${i18next.t('octeract.toString.costNextLevel')}: <span style="color:orange">${format(costNextLevel, 0, true, true, true)}</span> ${i18next.t('ambrosia.ambrosia')} ${affordableInfo}`
-  const blueberryCostHTML = `${i18next.t('ambrosia.blueberryCost')} <span style="color:blue">${upgrade.blueberryCost}</span>`
-  const spentAmbrosiaHTML = `${i18next.t('general.spent')} ${i18next.t('ambrosia.ambrosia')}: <span style="color:orange">${format(upgrade.ambrosiaInvested, 0, true, true, true)}</span>`
-  const ignoreEXALTHTML = upgrade.ignoreEXALT ? `<br><span style="color: orchid"> ${i18next.t('ambrosia.ignoreEXALT')}</span>` : ''
+  const costNextLevelHTML = `${i18next.t('octeract.toString.costNextLevel')}: <span style="color:orange">${
+    format(costNextLevel, 0, true, true, true)
+  }</span> ${i18next.t('ambrosia.ambrosia')} ${affordableInfo}`
+  const blueberryCostHTML = `${
+    i18next.t('ambrosia.blueberryCost')
+  } <span style="color:blue">${upgrade.blueberryCost}</span>`
+  const spentAmbrosiaHTML = `${i18next.t('general.spent')} ${
+    i18next.t('ambrosia.ambrosia')
+  }: <span style="color:orange">${format(upgrade.ambrosiaInvested, 0, true, true, true)}</span>`
+  const ignoreEXALTHTML = upgrade.ignoreEXALT
+    ? `<br><span style="color: orchid"> ${i18next.t('ambrosia.ignoreEXALT')}</span>`
+    : ''
 
   return `${nameHTML}<br>${levelHTML}<br>${preReqHTML}${descriptionHTML}<br>${effectsHTML}<br>${costNextLevelHTML}<br>${blueberryCostHTML}<br>${spentAmbrosiaHTML}${ignoreEXALTHTML}`
 }
@@ -1193,34 +1203,38 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
 export const updateMobileAmbrosiaHTML = (k: AmbrosiaUpgradeNames) => {
   const elm = DOMCacheGetOrSet('singularityAmbrosiaMultiline')
   elm.innerHTML = ambrosiaUpgradeToString(k)
-      // MOBILE ONLY - Add a button for buying upgrades
-      if (isMobile) {
-        const buttonDiv = document.createElement('div')
-    
-        const buyOne = document.createElement('button')
-        const buyMax = document.createElement('button')
-    
-        buyOne.classList.add('modalBtnBuy')
-        buyOne.textContent = i18next.t('general.buyOne')
-        buyOne.addEventListener('click', (event: MouseEvent) => {
-          buyAmbrosiaUpgradeLevel(k, event, false)
-          updateMobileAmbrosiaHTML(k)
-        })
-    
-        buyMax.classList.add('modalBtnBuy')
-        buyMax.textContent = i18next.t('general.buyMax')
-        buyMax.addEventListener('click', (event: MouseEvent) => {
-          buyAmbrosiaUpgradeLevel(k, event, true)
-          updateMobileAmbrosiaHTML(k)
-        })
-    
-        buttonDiv.appendChild(buyOne)
-        buttonDiv.appendChild(buyMax)
-        elm.appendChild(buttonDiv)
-      }
+  // MOBILE ONLY - Add a button for buying upgrades
+  if (isMobile) {
+    const buttonDiv = document.createElement('div')
+
+    const buyOne = document.createElement('button')
+    const buyMax = document.createElement('button')
+
+    buyOne.classList.add('modalBtnBuy')
+    buyOne.textContent = i18next.t('general.buyOne')
+    buyOne.addEventListener('click', (event: MouseEvent) => {
+      buyAmbrosiaUpgradeLevel(k, event, false)
+      updateMobileAmbrosiaHTML(k)
+    })
+
+    buyMax.classList.add('modalBtnBuy')
+    buyMax.textContent = i18next.t('general.buyMax')
+    buyMax.addEventListener('click', (event: MouseEvent) => {
+      buyAmbrosiaUpgradeLevel(k, event, true)
+      updateMobileAmbrosiaHTML(k)
+    })
+
+    buttonDiv.appendChild(buyOne)
+    buttonDiv.appendChild(buyMax)
+    elm.appendChild(buttonDiv)
+  }
 }
 
-export const buyAmbrosiaUpgradeLevel = async (upgradeKey: AmbrosiaUpgradeNames, event: MouseEvent, buyMax = false): Promise<void> => {
+export const buyAmbrosiaUpgradeLevel = async (
+  upgradeKey: AmbrosiaUpgradeNames,
+  event: MouseEvent,
+  buyMax = false
+): Promise<void> => {
   const upgrade = ambrosiaUpgrades[upgradeKey]
   let purchased = 0
   let maxPurchasable = 1
@@ -1275,7 +1289,6 @@ export const buyAmbrosiaUpgradeLevel = async (upgradeKey: AmbrosiaUpgradeNames, 
         } else {
           player.spentBlueberries += upgrade.blueberryCost
           upgrade.blueberriesInvested = upgrade.blueberryCost
-
         }
       }
       player.ambrosia -= cost
@@ -1295,7 +1308,6 @@ export const buyAmbrosiaUpgradeLevel = async (upgradeKey: AmbrosiaUpgradeNames, 
       `${i18next.t('octeract.buyLevel.multiBuy', { n: format(purchased) })}`
     )
   }
-
 }
 
 export const displayProperLoadoutCount = () => {

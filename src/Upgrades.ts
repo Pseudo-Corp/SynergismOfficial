@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import { achievementPoints, getAchievementReward } from './Achievements'
 import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -10,7 +11,6 @@ import { format, player } from './Synergism'
 import { revealStuff } from './UpdateHTML'
 import { sumContents } from './Utility'
 import { Globals as G, Upgrade } from './Variables'
-import { achievementPoints, getAchievementReward } from './Achievements'
 
 const crystalupgdesc: Record<number, () => Record<string, string>> = {
   3: () => ({

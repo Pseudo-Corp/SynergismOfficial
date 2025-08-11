@@ -3,11 +3,18 @@ import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
+import {
+  calculateAntSacrificeCubeBlessing,
+  calculateObtainiumCubeBlessing,
+  calculateOfferingCubeBlessing
+} from './Cubes'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { addTimers, automaticTools } from './Helper'
 import { hepteractEffective } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
+import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
+import { calculateAscensionScorePlatonicBlessing } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
@@ -55,9 +62,6 @@ import { clearInterval, setInterval } from './Timers'
 import { Alert, Prompt } from './UpdateHTML'
 import { findInsertionIndex, sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { getLevelMilestone } from './Levels'
-import { calculateAntSacrificeCubeBlessing, calculateObtainiumCubeBlessing, calculateOfferingCubeBlessing } from './Cubes'
-import { calculateAscensionScorePlatonicBlessing } from './PlatonicCubes'
 
 const CASH_GRAB_ULTRA_QUARK = 0.08
 const CASH_GRAB_ULTRA_CUBE = 1.2
@@ -116,9 +120,12 @@ export const calculateOfferings = (timeMultUsed = true) => {
     : 1
   const offeringMult = calculateOfferingsDecimal()
 
-  return Decimal.max(baseOfferings, offeringMult.times(timeMultiplier).times(
-    calculateOfferingCubeBlessing()
-  ))
+  return Decimal.max(
+    baseOfferings,
+    offeringMult.times(timeMultiplier).times(
+      calculateOfferingCubeBlessing()
+    )
+  )
 }
 
 // Ditto
@@ -514,10 +521,11 @@ export const calculateRawPositiveSalvage = () => {
 
 export const calculatePositiveSalvage = () => {
   if (player.singularityChallenges.taxmanLastStand.enabled) {
-    let baseSalvage = 100
+    const baseSalvage = 100
     const positiveSalvage = calculateRawPositiveSalvage()
 
-    return baseSalvage + (positiveSalvage * calculatePositiveSalvageMultiplier()) / Math.max(1, Math.log(positiveSalvage))
+    return baseSalvage
+      + (positiveSalvage * calculatePositiveSalvageMultiplier()) / Math.max(1, Math.log(positiveSalvage))
   }
   return calculateRawPositiveSalvage() * calculatePositiveSalvageMultiplier()
 }
@@ -919,7 +927,7 @@ export const calculateOffline = (forceTime = 0, fromTips = false) => {
   const resetAddDisplay = {
     prestige: player.prestigeCount,
     transcension: player.transcendCount,
-    reincarnation: player.reincarnationCount,
+    reincarnation: player.reincarnationCount
   }
 
   const timerAdd = {

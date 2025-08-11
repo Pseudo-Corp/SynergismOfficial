@@ -1,4 +1,5 @@
 import i18next from 'i18next'
+import { awardAchievementGroup } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { inheritanceTokens, isIARuneUnlocked, singularityBonusTokenMult } from './Calculate'
 import {
@@ -15,7 +16,6 @@ import { getGQUpgradeEffect } from './singularity'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { IconSets } from './Themes'
 import { Alert, Confirm, Notification } from './UpdateHTML'
-import { awardAchievementGroup } from './Achievements'
 
 export let campaignTokens = 0
 export let maxCampaignTokens = 0
@@ -491,29 +491,29 @@ export class CampaignManager {
 
 export const updateTokens = () => {
   let sum = 0
-    for (const campaign of Object.values(player.campaigns.allCampaigns)) {
-      sum += campaign.tokens
-    }
+  for (const campaign of Object.values(player.campaigns.allCampaigns)) {
+    sum += campaign.tokens
+  }
 
-    sum += inheritanceTokens()
-    sum += getGQUpgradeEffect('singBonusTokens4')
-    sum += getOcteractUpgradeEffect('octeractBonusTokens4')
-    campaignTokens = sum
+  sum += inheritanceTokens()
+  sum += getGQUpgradeEffect('singBonusTokens4')
+  sum += getOcteractUpgradeEffect('octeractBonusTokens4')
+  campaignTokens = sum
 
-    awardAchievementGroup('campaignTokens')
+  awardAchievementGroup('campaignTokens')
 }
 
 export const updateMaxTokens = () => {
   let sum = 0
-    for (const campaign of Object.values(player.campaigns.allCampaigns)) {
-      sum += campaign.maxTokens
-    }
+  for (const campaign of Object.values(player.campaigns.allCampaigns)) {
+    sum += campaign.maxTokens
+  }
 
-    sum += inheritanceTokens()
-    sum += getGQUpgradeEffect('singBonusTokens4')
-    sum += getOcteractUpgradeEffect('octeractBonusTokens4')
+  sum += inheritanceTokens()
+  sum += getGQUpgradeEffect('singBonusTokens4')
+  sum += getOcteractUpgradeEffect('octeractBonusTokens4')
 
-    maxCampaignTokens = sum
+  maxCampaignTokens = sum
 }
 
 export class Campaign {

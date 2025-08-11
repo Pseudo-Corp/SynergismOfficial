@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import { awardAchievementGroup } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSalvageRuneEXPMultiplier } from './Calculate'
 import { resetTiers } from './Reset'
@@ -9,7 +10,6 @@ import { format, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { assert } from './Utility'
 import { Globals as G } from './Variables'
-import { awardAchievementGroup } from './Achievements'
 
 type RuneSpiritTypeMap = {
   speed: { globalSpeed: number }
@@ -198,10 +198,10 @@ export const buyAllSpiritLevels = (budget: Decimal) => {
     buySpiritLevels(key, Decimal.floor(budget.div(ratio)))
   }
 
-    if (player.offerings.lt(0)) {
-      // TODO: Figure out why this fucking happens so often
-      player.offerings = new Decimal(0)
-    }
+  if (player.offerings.lt(0)) {
+    // TODO: Figure out why this fucking happens so often
+    player.offerings = new Decimal(0)
+  }
 }
 
 export const levelSpirit = (spirit: RuneSpiritKeys, timesLeveled: number, budget: Decimal) => {

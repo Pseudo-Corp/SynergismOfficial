@@ -33,7 +33,7 @@ import {
   updateAllGroupedAchievementProgress,
   updateAllProgressiveAchievementProgress,
   updateAllUngroupedAchievementProgress,
-  updateProgressiveCache,
+  updateProgressiveCache
 } from './Achievements'
 import { antSacrificePointsToMultiplier, autoBuyAnts, calculateCrumbToCoinExp } from './Ants'
 import { autoUpgrades } from './Automation'
@@ -76,7 +76,12 @@ import {
   updateCorruptionLoadoutNames,
   updateUndefinedLoadouts
 } from './Corruptions'
-import { calculateAcceleratorCubeBlessing, calculateAntSpeedCubeBlessing, calculateMultiplierCubeBlessing, updateCubeUpgradeBG } from './Cubes'
+import {
+  calculateAcceleratorCubeBlessing,
+  calculateAntSpeedCubeBlessing,
+  calculateMultiplierCubeBlessing,
+  updateCubeUpgradeBG
+} from './Cubes'
 import { generateEventHandlers } from './EventListeners'
 import { addTimers, automaticTools } from './Helper'
 import { resetHistoryRenderAllTables } from './History'
@@ -185,6 +190,7 @@ import {
 } from './Hepteracts'
 import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
+import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
 import {
   blankOcteractLevelObject,
@@ -231,7 +237,6 @@ import {
 import { changeSubTab, changeTab, getActiveSubTab, Tabs } from './Tabs'
 import { settingAnnotation, toggleIconSet, toggleTheme } from './Themes'
 import { clearTimeout, clearTimers, setInterval, setTimeout } from './Timers'
-import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -533,7 +538,7 @@ export const player: Player = {
     tesseracts: false,
     hypercubes: false,
     platonics: false,
-    hepteracts: false,
+    hepteracts: false
   },
   achievements: Array(numAchievements).fill(0) as number[],
   progressiveAchievements: {
@@ -4063,7 +4068,6 @@ export const resetCheck = async (
         player.highestchallengecompletions[q] += 1
         highestChallengeRewards(q, player.highestchallengecompletions[q])
       }
-
     }
     challengeAchievementCheck(q)
     if (player.highestchallengecompletions[8] > 0) {
@@ -5316,84 +5320,83 @@ export const reloadShit = (reset = false) => {
     loadSynergy()
   }
 
-    // Recover Sing Upgrade (now GQ upgrade) level from Player Obj
-    if (player.goldenQuarkUpgrades !== undefined) {
-      for (const [key, value] of Object.entries(player.goldenQuarkUpgrades)) {
-        const k = key as SingularityDataKeys
-        goldenQuarkUpgrades[k].level = value.level
-        goldenQuarkUpgrades[k].freeLevel = value.freeLevel
-      }
+  // Recover Sing Upgrade (now GQ upgrade) level from Player Obj
+  if (player.goldenQuarkUpgrades !== undefined) {
+    for (const [key, value] of Object.entries(player.goldenQuarkUpgrades)) {
+      const k = key as SingularityDataKeys
+      goldenQuarkUpgrades[k].level = value.level
+      goldenQuarkUpgrades[k].freeLevel = value.freeLevel
     }
+  }
 
-    // Recover Oct Upgrades level from Player Obj
-    if (player.octUpgrades !== undefined) {
-      for (const [key, value] of Object.entries(player.octUpgrades)) {
-        const k = key as OcteractDataKeys
+  // Recover Oct Upgrades level from Player Obj
+  if (player.octUpgrades !== undefined) {
+    for (const [key, value] of Object.entries(player.octUpgrades)) {
+      const k = key as OcteractDataKeys
 
-        octeractUpgrades[k].level = value.level
-        octeractUpgrades[k].freeLevel = value.freeLevel
-      }
+      octeractUpgrades[k].level = value.level
+      octeractUpgrades[k].freeLevel = value.freeLevel
     }
+  }
 
-    if (player.ambrosiaUpgrades !== undefined) {
-      for (const [key, value] of Object.entries(player.ambrosiaUpgrades)) {
-        const k = key as AmbrosiaUpgradeNames
-        ambrosiaUpgrades[k].ambrosiaInvested = value.ambrosiaInvested ?? 0
-        ambrosiaUpgrades[k].blueberriesInvested = value.blueberriesInvested ?? 0
-      }
+  if (player.ambrosiaUpgrades !== undefined) {
+    for (const [key, value] of Object.entries(player.ambrosiaUpgrades)) {
+      const k = key as AmbrosiaUpgradeNames
+      ambrosiaUpgrades[k].ambrosiaInvested = value.ambrosiaInvested ?? 0
+      ambrosiaUpgrades[k].blueberriesInvested = value.blueberriesInvested ?? 0
     }
+  }
 
-    if (player.redAmbrosiaUpgrades !== undefined) {
-      for (const [key, value] of Object.entries(player.redAmbrosiaUpgrades)) {
-        const k = key as RedAmbrosiaNames
-        redAmbrosiaUpgrades[k].redAmbrosiaInvested = value
-      }
+  if (player.redAmbrosiaUpgrades !== undefined) {
+    for (const [key, value] of Object.entries(player.redAmbrosiaUpgrades)) {
+      const k = key as RedAmbrosiaNames
+      redAmbrosiaUpgrades[k].redAmbrosiaInvested = value
     }
+  }
 
-    if (player.talismans !== undefined) {
-      for (const key of Object.keys(player.talismans) as TalismanKeys[]) {
-        updateTalismanLevelAndSpentFromInvested(key)
-      }
+  if (player.talismans !== undefined) {
+    for (const key of Object.keys(player.talismans) as TalismanKeys[]) {
+      updateTalismanLevelAndSpentFromInvested(key)
     }
+  }
 
-
-    if (player.runes !== undefined) {
-      for (const key of Object.keys(player.runes) as RuneKeys[]) {
-        const runeEXP = player.runes[key]
-        runes[key].runeEXP = new Decimal(runeEXP)
-      }
-      updateAllRuneLevelsFromEXP()
+  if (player.runes !== undefined) {
+    for (const key of Object.keys(player.runes) as RuneKeys[]) {
+      const runeEXP = player.runes[key]
+      runes[key].runeEXP = new Decimal(runeEXP)
     }
+    updateAllRuneLevelsFromEXP()
+  }
 
-    if (player.runeBlessings !== undefined) {
-      for (const key of Object.keys(player.runeBlessings) as RuneBlessingKeys[]) {
-        const blessingEXP = player.runeBlessings[key]
-        runeBlessings[key].runeEXP = new Decimal(blessingEXP)
-      }
-      updateAllBlessingLevelsFromEXP()
+  if (player.runeBlessings !== undefined) {
+    for (const key of Object.keys(player.runeBlessings) as RuneBlessingKeys[]) {
+      const blessingEXP = player.runeBlessings[key]
+      runeBlessings[key].runeEXP = new Decimal(blessingEXP)
     }
+    updateAllBlessingLevelsFromEXP()
+  }
 
-    if (player.runeSpirits !== undefined) {
-      for (const key of Object.keys(player.runeSpirits) as RuneSpiritKeys[]) {
-        const spiritEXP = player.runeSpirits[key]
-        runeSpirits[key].runeEXP = new Decimal(spiritEXP)
-      }
-      updateAllSpiritLevelsFromEXP()
+  if (player.runeSpirits !== undefined) {
+    for (const key of Object.keys(player.runeSpirits) as RuneSpiritKeys[]) {
+      const spiritEXP = player.runeSpirits[key]
+      runeSpirits[key].runeEXP = new Decimal(spiritEXP)
     }
+    updateAllSpiritLevelsFromEXP()
+  }
 
-    if (player.hepteracts !== undefined) {
-      for (const key of Object.keys(player.hepteracts) as HepteractKeys[]) {
-        hepteracts[key].BAL = player.hepteracts[key].BAL ?? hepteracts[key].BAL
-        hepteracts[key].AUTO = player.hepteracts[key].AUTO ?? hepteracts[key].AUTO
-        hepteracts[key].TIMES_CAP_EXTENDED = player.hepteracts[key].TIMES_CAP_EXTENDED
-          ?? hepteracts[key].TIMES_CAP_EXTENDED
-      }
+  if (player.hepteracts !== undefined) {
+    for (const key of Object.keys(player.hepteracts) as HepteractKeys[]) {
+      hepteracts[key].BAL = player.hepteracts[key].BAL ?? hepteracts[key].BAL
+      hepteracts[key].AUTO = player.hepteracts[key].AUTO ?? hepteracts[key].AUTO
+      hepteracts[key].TIMES_CAP_EXTENDED = player.hepteracts[key].TIMES_CAP_EXTENDED
+        ?? hepteracts[key].TIMES_CAP_EXTENDED
     }
+  }
 
-    // Probably want to remove Corruptions from Player Object...
-    player.corruptions.used = new CorruptionLoadout(player.corruptions.used.loadout)
-    // This is needed to fix saves that had issues with not resetting corruption at the singularity
-    player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.used.loadout)
+  // Probably want to remove Corruptions from Player Object...
+  player.corruptions.used = new CorruptionLoadout(player.corruptions.used.loadout)
+  // This is needed to fix saves that had issues with not resetting corruption at the singularity
+  player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.used.loadout)
 
   updateTokens()
   updateMaxTokens()

@@ -5,9 +5,9 @@ import { Globals as G } from './Variables'
 import Decimal from 'break_infinity.js'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { CalcECC } from './Challenges'
+import { calculateTaxPlatonicBlessing } from './PlatonicCubes'
 import { getRuneEffects } from './Runes'
 import { getTalismanEffects } from './Talismans'
-import { calculateTaxPlatonicBlessing } from './PlatonicCubes'
 
 export const calculatetax = () => {
   let exp = 1

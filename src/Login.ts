@@ -10,10 +10,10 @@ import { addTimers, automaticTools } from './Helper'
 import { importSynergism, saveFilename } from './ImportExport'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, refreshQuarkBonus, setQuarkBonus } from './Quark'
+import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Notification } from './UpdateHTML'
 import { assert } from './Utility'
-import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
@@ -92,7 +92,12 @@ const messageSchema = z.preprocess(
     z.object({ type: z.literal('join') }),
     z.object({ type: z.literal('error'), message: z.string() }),
     /** Received after a consumable is redeemed (broadcasted to everyone) */
-    z.object({ type: z.literal('consumed'), consumable: z.string(), startedAt: z.number().int() }),
+    z.object({
+      type: z.literal('consumed'),
+      consumable: z.string(),
+      displayName: z.string(),
+      startedAt: z.number().int()
+    }),
     /** Received after a consumable ends (broadcasted to everyone) */
     z.object({ type: z.literal('consumable-ended'), consumable: z.string(), endedAt: z.number().int() }),
     /** Information about all currently active consumables, received when the connection opens. */
@@ -451,7 +456,8 @@ function handleWebSocket () {
       consumable.ends.push(data.startedAt + 3600 * 1000)
       consumable.amount++
 
-      Notification(`Someone redeemed a(n) ${data.consumable}!`)
+      const article = /^[AEIOU]/i.test(data.displayName) ? 'an' : 'a'
+      Notification(`Someone redeemed ${article} ${data.displayName}!`)
     } else if (data.type === 'consumable-ended') {
       // Because of the invariant that the timestamps are sorted, we can just remove the first element
       const consumable = allDurableConsumables[data.consumable as PseudoCoinConsumableNames]

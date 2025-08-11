@@ -1,9 +1,25 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import {
+  type AchievementGroups,
+  achievementLevel,
+  achievementPoints,
+  getAchievementReward,
+  groupedAchievementData,
+  type ProgressiveAchievements,
+  progressiveAchievements,
+  toNextAchievementLevelEXP,
+  ungroupedAchievementData,
+  type UngroupedAchievementNames,
+  updateAllGroupedAchievementProgress,
+  updateAllProgressiveAchievementProgress,
+  updateAllUngroupedAchievementProgress
+} from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcCorruptionStuff, calculateAscensionSpeedMult, calculateGlobalSpeedMult } from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { revealCorruptions } from './Corruptions'
+import { getLevelMilestone } from './Levels'
 import { initializeCart } from './purchases/CartTab'
 import { autoResearchEnabled } from './Research'
 import { getRuneEffects, type RuneKeys, runes, updateRuneEffectHTML, updateRuneHTML } from './Runes'
@@ -31,8 +47,6 @@ import {
 } from './UpdateVisuals'
 import { createDeferredPromise } from './Utility'
 import { Globals as G } from './Variables'
-import { AchievementGroups, achievementLevel, achievementPoints, getAchievementReward, groupedAchievementData, ProgressiveAchievements, progressiveAchievements, toNextAchievementLevelEXP, ungroupedAchievementData, UngroupedAchievementNames, updateAllGroupedAchievementProgress, updateAllProgressiveAchievementProgress, updateAllUngroupedAchievementProgress } from './Achievements'
-import { getLevelMilestone } from './Levels'
 
 export const revealStuff = () => {
   document.documentElement.dataset.coinOne = player.unlocks.coinone ? 'true' : 'false'
@@ -168,28 +182,28 @@ export const revealStuff = () => {
   for (const groupedAch of Object.keys(groupedAchievementData) as (Exclude<AchievementGroups, 'ungrouped'>)[]) {
     const capitalizedName = groupedAch.charAt(0).toUpperCase() + groupedAch.slice(1)
 
-    DOMCacheGetOrSet(`achievementGroup${capitalizedName}`).style.display = 
-      (groupedAchievementData[groupedAch].displayCondition() || player.highestSingularityCount > 0) ?
-      'block' :
-      'none'
+    DOMCacheGetOrSet(`achievementGroup${capitalizedName}`).style.display =
+      (groupedAchievementData[groupedAch].displayCondition() || player.highestSingularityCount > 0)
+        ? 'block'
+        : 'none'
   }
 
   for (const ungroupedAch of Object.keys(ungroupedAchievementData) as UngroupedAchievementNames[]) {
     const capitalizedName = ungroupedAch.charAt(0).toUpperCase() + ungroupedAch.slice(1)
 
     DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`).style.display =
-      (ungroupedAchievementData[ungroupedAch].displayCondition() || player.highestSingularityCount > 0) ?
-      'block' :
-      'none'
+      (ungroupedAchievementData[ungroupedAch].displayCondition() || player.highestSingularityCount > 0)
+        ? 'block'
+        : 'none'
   }
 
   for (const progAch of Object.keys(progressiveAchievements) as ProgressiveAchievements[]) {
     const capitalizedName = progAch.charAt(0).toUpperCase() + progAch.slice(1)
 
     DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`).style.display =
-      (progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0) ?
-      'block' :
-      'none'
+      (progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0)
+        ? 'block'
+        : 'none'
   }
 
   for (const rune of Object.keys(player.runes) as RuneKeys[]) {
@@ -662,10 +676,9 @@ export const htmlInserts = () => {
 
 // TODO(not @KhafraDev): cache the elements and stop getting them every time?
 export const buttoncolorchange = () => {
-  DOMCacheGetOrSet('prestigebtn').style.backgroundColor =
-    player.toggles[15] && getLevelMilestone('autoPrestige') === 1
-      ? 'green'
-      : ''
+  DOMCacheGetOrSet('prestigebtn').style.backgroundColor = player.toggles[15] && getLevelMilestone('autoPrestige') === 1
+    ? 'green'
+    : ''
 
   DOMCacheGetOrSet('transcendbtn').style.backgroundColor =
     player.toggles[21] && player.upgrades[89] > 0.5 && (player.currentChallenge.transcension === 0) ? 'green' : ''
@@ -1316,8 +1329,13 @@ export type OptionalHTMLStyle = Partial<CSSStyleDeclaration>
 
 let modalUsed = false
 
-export const Modal = (HTML: string, currX: number, currY: number, styleMods: OptionalHTMLStyle = {}, forceUpdate = false) => {
-
+export const Modal = (
+  HTML: string,
+  currX: number,
+  currY: number,
+  styleMods: OptionalHTMLStyle = {},
+  forceUpdate = false
+) => {
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
 
@@ -1342,7 +1360,7 @@ export const Modal = (HTML: string, currX: number, currY: number, styleMods: Opt
 
     // Check right edge boundary
     if (modalX + modalRect.width > viewportWidth) {
-      modalX = currX - modalRect.width - - 20
+      modalX = currX - modalRect.width - -20
     }
 
     // Check bottom edge boundary
@@ -1361,10 +1379,9 @@ export const Modal = (HTML: string, currX: number, currY: number, styleMods: Opt
 }
 
 export const CloseModal = () => {
-
   const modal = DOMCacheGetOrSet('modal')
   const modalContent = DOMCacheGetOrSet('modalContent')
-    
+
   // Clear the content
   modalContent.innerHTML = ''
 

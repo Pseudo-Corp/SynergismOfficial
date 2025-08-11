@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
 import { showSacrifice } from './Ants'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -36,11 +37,45 @@ import {
 } from './Calculate'
 import { CalcECC } from './Challenges'
 import { version } from './Config'
-import { calculateAcceleratorCubeBlessing, calculateAntELOCubeBlessing, calculateAntSacrificeCubeBlessing, calculateAntSpeedCubeBlessing, calculateGlobalSpeedCubeBlessing, calculateMultiplierCubeBlessing, calculateObtainiumCubeBlessing, calculateOfferingCubeBlessing, calculateRuneEffectivenessCubeBlessing, calculateSalvageCubeBlessing, type IMultiBuy } from './Cubes'
+import {
+  calculateAcceleratorCubeBlessing,
+  calculateAntELOCubeBlessing,
+  calculateAntSacrificeCubeBlessing,
+  calculateAntSpeedCubeBlessing,
+  calculateGlobalSpeedCubeBlessing,
+  calculateMultiplierCubeBlessing,
+  calculateObtainiumCubeBlessing,
+  calculateOfferingCubeBlessing,
+  calculateRuneEffectivenessCubeBlessing,
+  calculateSalvageCubeBlessing,
+  type IMultiBuy
+} from './Cubes'
 import { BuffType, consumableEventBuff, eventBuffType, getEvent, getEventBuff } from './Event'
 import { getFinalHepteractCap, type HepteractKeys, hepteractKeys, hepteracts } from './Hepteracts'
+import {
+  calculateAcceleratorHypercubeBlessing,
+  calculateAntELOHypercubeBlessing,
+  calculateAntSacrificeHypercubeBlessing,
+  calculateAntSpeedHypercubeBlessing,
+  calculateGlobalSpeedHypercubeBlessing,
+  calculateMultiplierHypercubeBlessing,
+  calculateObtainiumHypercubeBlessing,
+  calculateOfferingHypercubeBlessing,
+  calculateRuneEffectivenessHypercubeBlessing,
+  calculateSalvageHypercubeBlessing
+} from './Hypercubes'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
 import { getOcteractUpgradeCostTNL, type OcteractDataKeys, octeractUpgrades } from './Octeracts'
+import {
+  calculateAscensionScorePlatonicBlessing,
+  calculateCubeMultiplierPlatonicBlessing,
+  calculateGlobalSpeedPlatonicBlessing,
+  calculateHypercubeBlessingMultiplierPlatonicBlessing,
+  calculateHypercubeMultiplierPlatonicBlessing,
+  calculatePlatonicMultiplierPlatonicBlessing,
+  calculateTaxPlatonicBlessing,
+  calculateTesseractMultiplierPlatonicBlessing
+} from './PlatonicCubes'
 import { getQuarkBonus, quarkHandler } from './Quark'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneEffectHTML, updateRuneHTML } from './Runes'
@@ -59,13 +94,21 @@ import { loadStatisticsUpdate } from './Statistics'
 import { format, formatAsPercentIncrease, formatDecimalAsPercentIncrease, formatTimeShort, player } from './Synergism'
 import { getActiveSubTab, Tabs } from './Tabs'
 import { getTalismanLevelCap, type TalismanKeys, talismans, updateAllTalismanHTML } from './Talismans'
+import {
+  calculateAcceleratorTesseractBlessing,
+  calculateAntELOTesseractBlessing,
+  calculateAntSacrificeTesseractBlessing,
+  calculateAntSpeedTesseractBlessing,
+  calculateGlobalSpeedTesseractBlessing,
+  calculateMultiplierTesseractBlessing,
+  calculateObtainiumTesseractBlessing,
+  calculateOfferingTesseractBlessing,
+  calculateRuneEffectivenessTesseractBlessing,
+  calculateSalvageTesseractBlessing
+} from './Tesseracts'
 import type { Player, ZeroToFour } from './types/Synergism'
 import { sumContents, timeReminingHours } from './Utility'
 import { Globals as G } from './Variables'
-import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
-import { calculateAscensionScorePlatonicBlessing, calculateCubeMultiplierPlatonicBlessing, calculateGlobalSpeedPlatonicBlessing, calculateHypercubeBlessingMultiplierPlatonicBlessing, calculateHypercubeMultiplierPlatonicBlessing, calculatePlatonicMultiplierPlatonicBlessing, calculateTaxPlatonicBlessing, calculateTesseractMultiplierPlatonicBlessing } from './PlatonicCubes'
-import { calculateAcceleratorTesseractBlessing, calculateAntELOTesseractBlessing, calculateAntSacrificeTesseractBlessing, calculateAntSpeedTesseractBlessing, calculateGlobalSpeedTesseractBlessing, calculateMultiplierTesseractBlessing, calculateObtainiumTesseractBlessing, calculateOfferingTesseractBlessing, calculateRuneEffectivenessTesseractBlessing, calculateSalvageTesseractBlessing } from './Tesseracts'
-import { calculateAcceleratorHypercubeBlessing, calculateAntELOHypercubeBlessing, calculateAntSacrificeHypercubeBlessing, calculateAntSpeedHypercubeBlessing, calculateGlobalSpeedHypercubeBlessing, calculateMultiplierHypercubeBlessing, calculateObtainiumHypercubeBlessing, calculateOfferingHypercubeBlessing, calculateRuneEffectivenessHypercubeBlessing, calculateSalvageHypercubeBlessing } from './Hypercubes'
 
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
@@ -610,13 +653,9 @@ export const visualUpdateAchievements = () => {
   })
 
   if (achievementPoints < 2500) {
-    DOMCacheGetOrSet('achievementProgressFill').style.width = `${
-      Math.floor(100 * (50 - tnl) / 50)
-    }%`
+    DOMCacheGetOrSet('achievementProgressFill').style.width = `${Math.floor(100 * (50 - tnl) / 50)}%`
   } else {
-    DOMCacheGetOrSet('achievementProgressFill').style.width = `${
-      Math.floor(100 * (100 - tnl) / 100)
-    }%`
+    DOMCacheGetOrSet('achievementProgressFill').style.width = `${Math.floor(100 * (100 - tnl) / 100)}%`
   }
 }
 
@@ -943,10 +982,9 @@ export const visualUpdateCubes = () => {
 
       const sumOfTributes = sumContents(Object.values(player.cubeBlessings))
 
-      DOMCacheGetOrSet('cubeFull').innerHTML = 
-      sumOfTributes >= 1e300 ?
-      i18next.t('wowCubes.cubes.full') :
-      ''
+      DOMCacheGetOrSet('cubeFull').innerHTML = sumOfTributes >= 1e300
+        ? i18next.t('wowCubes.cubes.full')
+        : ''
       break
     }
     case 1: {

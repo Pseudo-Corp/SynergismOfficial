@@ -1,5 +1,6 @@
 import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
+import { awardAchievementGroup } from './Achievements'
 import { CalcECC } from './Challenges'
 import { reset } from './Reset'
 import { getRuneBlessingEffect } from './RuneBlessings'
@@ -9,7 +10,6 @@ import type { FirstToFifth, OneToFive, ZeroToFour } from './types/Synergism'
 import { crystalupgradedescriptions, upgradeupdate } from './Upgrades'
 import { smallestInc } from './Utility'
 import { Globals as G, Upgrade } from './Variables'
-import { awardAchievementGroup } from './Achievements'
 
 export const getReductionValue = () => {
   let reduction = 1
@@ -269,9 +269,9 @@ export const buyMultiplier = (autobuyer?: boolean) => {
   }
 
   if (player.multiplierBought > 0) {
-  player.prestigenomultiplier = false
-  player.transcendnomultiplier = false
-  player.reincarnatenomultiplier = false
+    player.prestigenomultiplier = false
+    player.transcendnomultiplier = false
+    player.reincarnatenomultiplier = false
   }
 
   updateAllMultiplier()

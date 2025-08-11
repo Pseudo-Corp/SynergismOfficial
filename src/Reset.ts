@@ -39,6 +39,7 @@ import {
   type ResetHistoryEntryTranscend
 } from './History'
 import { importSynergism } from './ImportExport'
+import { getLevelMilestone } from './Levels'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
 import { buyResearch, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
@@ -65,7 +66,6 @@ import { getElementById } from './Utility'
 import { updateClassList } from './Utility'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { getLevelMilestone } from './Levels'
 
 let repeatreset: number
 

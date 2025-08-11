@@ -1,12 +1,12 @@
 import i18next from 'i18next'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { updateMaxTokens, updateTokens } from './Campaign'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { runes } from './Runes'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Prompt, revealStuff } from './UpdateHTML'
 import { isMobile, toOrdinal } from './Utility'
-import { updateMaxTokens, updateTokens } from './Campaign'
 
 export type SingularityDataKeys =
   | 'goldenQuarks1'
@@ -1869,9 +1869,11 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   }
 
   const effectiveLevelText = totalEffectiveLevels !== upgrade.level
-    ? `<br><b><span style="color: white">${i18next.t('general.effectiveLevel', {
-      level: format(totalEffectiveLevels, 2, true)
-    })}</span></b>`
+    ? `<br><b><span style="color: white">${
+      i18next.t('general.effectiveLevel', {
+        level: format(totalEffectiveLevels, 2, true)
+      })
+    }</span></b>`
     : ''
 
   const levelText = `<span style="color: ${color}">${i18next.t('general.level')} ${
@@ -1882,15 +1884,19 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   const upgradeEffectHTML = `<span style="color: gold">${effectDesc}</span>`
 
   // TNL Cost Text
-  const costHTML = computeGQUpgradeMaxLevel(upgradeKey) === upgrade.level ? '' : i18next.t('singularity.toString.costNextLevel', { amount: format(costNextLevel, 0, true) })
+  const costHTML = computeGQUpgradeMaxLevel(upgradeKey) === upgrade.level
+    ? ''
+    : i18next.t('singularity.toString.costNextLevel', { amount: format(costNextLevel, 0, true) })
 
   // QoL Text
-  const qualityOfLifeText = upgrade.qualityOfLife ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>` : ''
+  const qualityOfLifeText = upgrade.qualityOfLife
+    ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>`
+    : ''
 
   return `${nameHTML}<br>${levelText}${effectiveLevelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${qualityOfLifeText}`
 }
 
-export function updateMobileGQHTML(k: SingularityDataKeys) {
+export function updateMobileGQHTML (k: SingularityDataKeys) {
   const elm = DOMCacheGetOrSet('goldenQuarkMultiline')
   elm.innerHTML = upgradeGQToString(k)
 
@@ -1970,7 +1976,11 @@ export function getGQUpgradeCostTNL (upgradeKey: SingularityDataKeys): number {
 /**
  * Buy levels for an upgrade
  */
-export async function buyGQUpgradeLevel (upgradeKey: SingularityDataKeys, event: MouseEvent, buyMax = false): Promise<void> {
+export async function buyGQUpgradeLevel (
+  upgradeKey: SingularityDataKeys,
+  event: MouseEvent,
+  buyMax = false
+): Promise<void> {
   const upgrade = goldenQuarkUpgrades[upgradeKey]
   let purchased = 0
   let maxPurchasable = 1
@@ -3134,7 +3144,7 @@ export const getGoldenQuarkCost = (): {
 
   let costReduction = 10000 // We will construct our cost reduction by subtracting 10000 - this value.
 
-  //costReduction *= achievementManager.goldQuarkDiscountMultiplier
+  // costReduction *= achievementManager.goldQuarkDiscountMultiplier
   costReduction *= 1 - (0.3 * player.cubeUpgrades[60]) / 10000
   costReduction *= getGQUpgradeEffect('goldenQuarks2')
   costReduction *= getOcteractUpgradeEffect('octeractGQCostReduce')

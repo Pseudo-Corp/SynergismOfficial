@@ -625,34 +625,38 @@ export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string
 export const updateMobileRedAmbrosiaHTML = (k: RedAmbrosiaNames) => {
   const elm = DOMCacheGetOrSet('singularityAmbrosiaMultiline')
   elm.innerHTML = redAmbrosiaUpgradeToString(k)
-      // MOBILE ONLY - Add a button for buying upgrades
-      if (isMobile) {
-        const buttonDiv = document.createElement('div')
-    
-        const buyOne = document.createElement('button')
-        const buyMax = document.createElement('button')
-    
-        buyOne.classList.add('modalBtnBuy')
-        buyOne.textContent = i18next.t('general.buyOne')
-        buyOne.addEventListener('click', (event: MouseEvent) => {
-          buyRedAmbrosiaUpgradeLevel(k, event, false)
-          updateMobileRedAmbrosiaHTML(k)
-        })
-    
-        buyMax.classList.add('modalBtnBuy')
-        buyMax.textContent = i18next.t('general.buyMax')
-        buyMax.addEventListener('click', (event: MouseEvent) => {
-          buyRedAmbrosiaUpgradeLevel(k, event, true)
-          updateMobileRedAmbrosiaHTML(k)
-        })
-    
-        buttonDiv.appendChild(buyOne)
-        buttonDiv.appendChild(buyMax)
-        elm.appendChild(buttonDiv)
-      }
+  // MOBILE ONLY - Add a button for buying upgrades
+  if (isMobile) {
+    const buttonDiv = document.createElement('div')
+
+    const buyOne = document.createElement('button')
+    const buyMax = document.createElement('button')
+
+    buyOne.classList.add('modalBtnBuy')
+    buyOne.textContent = i18next.t('general.buyOne')
+    buyOne.addEventListener('click', (event: MouseEvent) => {
+      buyRedAmbrosiaUpgradeLevel(k, event, false)
+      updateMobileRedAmbrosiaHTML(k)
+    })
+
+    buyMax.classList.add('modalBtnBuy')
+    buyMax.textContent = i18next.t('general.buyMax')
+    buyMax.addEventListener('click', (event: MouseEvent) => {
+      buyRedAmbrosiaUpgradeLevel(k, event, true)
+      updateMobileRedAmbrosiaHTML(k)
+    })
+
+    buttonDiv.appendChild(buyOne)
+    buttonDiv.appendChild(buyMax)
+    elm.appendChild(buttonDiv)
+  }
 }
 
-export const buyRedAmbrosiaUpgradeLevel = async (upgradeKey: RedAmbrosiaNames, event: MouseEvent, buyMax = false): Promise<void> => {
+export const buyRedAmbrosiaUpgradeLevel = async (
+  upgradeKey: RedAmbrosiaNames,
+  event: MouseEvent,
+  buyMax = false
+): Promise<void> => {
   const upgrade = redAmbrosiaUpgrades[upgradeKey]
   let purchased = 0
   let maxPurchasable = 1
@@ -716,7 +720,6 @@ export const buyRedAmbrosiaUpgradeLevel = async (upgradeKey: RedAmbrosiaNames, e
       `${i18next.t('octeract.buyLevel.multiBuy', { n: format(purchased) })}`
     )
   }
-
 }
 
 export const displayRedAmbrosiaLevels = () => {

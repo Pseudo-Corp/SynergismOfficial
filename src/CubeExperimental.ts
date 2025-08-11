@@ -171,7 +171,6 @@ export class WowCubes extends Cube {
   }
 
   open (value: number, max = false, free = false) {
-
     let toSpend = max ? Number(this) : (free ? value : Math.min(Number(this), value))
 
     if (value === 1 && player.cubeBlessings.accelerator >= 2e11) {

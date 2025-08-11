@@ -149,7 +149,7 @@ const subtabInfo: Record<Tabs, SubTab> = {
         },
         buttonID: 'toggleAchievementSubTab2'
       }
-    ],
+    ]
   },
   [Tabs.Runes]: {
     tabSwitcher: () => toggleRuneScreen,
@@ -598,7 +598,7 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({ /*class: 'prestigeunlock',*/ id: 'achievementstab', i18n: 'tabs.main.achievements' })
-    //.setUnlockedState(() => player.unlocks.prestige)
+    // .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Achievements)
     .makeDraggable()
     .makeRemoveable(),

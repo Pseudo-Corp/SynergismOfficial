@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import { getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -87,6 +88,12 @@ import {
   sumOfExaltCompletions
 } from './Calculate'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
+import {
+  calculateAntSacrificeCubeBlessing,
+  calculateGlobalSpeedCubeBlessing,
+  calculateRuneEffectivenessCubeBlessing,
+  calculateSalvageCubeBlessing
+} from './Cubes'
 import { BuffType } from './Event'
 import { getHepteractEffects, hepteracts } from './Hepteracts'
 import {
@@ -97,7 +104,15 @@ import {
   addCodeSingularityPerkBonus,
   addCodeTimeToNextUse
 } from './ImportExport'
+import { getLevelMilestone, getLevelReward } from './Levels'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
+import {
+  calculateCubeMultiplierPlatonicBlessing,
+  calculateGlobalSpeedPlatonicBlessing,
+  calculateHypercubeMultiplierPlatonicBlessing,
+  calculatePlatonicMultiplierPlatonicBlessing,
+  calculateTesseractMultiplierPlatonicBlessing
+} from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getQuarkBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
@@ -122,10 +137,6 @@ import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talisman
 import type { GlobalVariables } from './types/Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
-import { getAchievementReward } from './Achievements'
-import { getLevelMilestone, getLevelReward } from './Levels'
-import { calculateAntSacrificeCubeBlessing, calculateGlobalSpeedCubeBlessing, calculateRuneEffectivenessCubeBlessing, calculateSalvageCubeBlessing } from './Cubes'
-import { calculateCubeMultiplierPlatonicBlessing, calculateGlobalSpeedPlatonicBlessing, calculateHypercubeMultiplierPlatonicBlessing, calculatePlatonicMultiplierPlatonicBlessing, calculateTesseractMultiplierPlatonicBlessing } from './PlatonicCubes'
 
 export interface StatLine {
   i18n: string
@@ -2825,10 +2836,10 @@ export const positiveSalvageStats: StatLine[] = [
   {
     i18n: 'ReincarnationChallenge',
     stat: () => {
-      return 0.3 * CalcECC('reincarnation', player.challengecompletions[6]) +
-      0.3 * CalcECC('reincarnation', player.challengecompletions[7]) +
-      0.4 * CalcECC('reincarnation', player.challengecompletions[8]) +
-      0.5 * CalcECC('reincarnation', player.challengecompletions[9])
+      return 0.3 * CalcECC('reincarnation', player.challengecompletions[6])
+        + 0.3 * CalcECC('reincarnation', player.challengecompletions[7])
+        + 0.4 * CalcECC('reincarnation', player.challengecompletions[8])
+        + 0.5 * CalcECC('reincarnation', player.challengecompletions[9])
     }
   },
   {

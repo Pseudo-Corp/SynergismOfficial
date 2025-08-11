@@ -626,7 +626,7 @@ export const playerSchema = z.object({
   wowOcteracts: z.number().default(() => blankSave.wowOcteracts),
   totalWowOcteracts: z.number().default(() => blankSave.totalWowOcteracts),
   cubeBlessings: z.record(z.string(), z.number()).transform((obj) => {
-    let sum = sumContents(Object.values(obj))
+    const sum = sumContents(Object.values(obj))
     if (!isFinite(sum) || sum > 1e300) {
       const obj: typeof blankSave.cubeBlessings = {
         accelerator: 2e299,
@@ -638,7 +638,7 @@ export const playerSchema = z.object({
         antSacrifice: 5e298,
         antELO: 5e298,
         talismanBonus: 5e298,
-        globalSpeed: 5e298,
+        globalSpeed: 5e298
       }
       return obj
     }

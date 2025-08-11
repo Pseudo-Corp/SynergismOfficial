@@ -4,6 +4,7 @@ import { achievementPoints, awardUngroupedAchievement, getAchievementReward } fr
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { isShopTalismanUnlocked } from './Calculate'
 import { CalcECC } from './Challenges'
+import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { resetTiers, type RuneKeys } from './Runes'
@@ -12,7 +13,6 @@ import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { assert } from './Utility'
 import { Globals as G } from './Variables'
-import { getLevelMilestone } from './Levels'
 
 interface TalismanFragmentCost {
   obtainium: number
@@ -571,9 +571,10 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       return getLevelMilestone('achievementTalismanUnlock') === 1
     },
     name: () => i18next.t('runes.talismans.achievement.name'),
-    description: () => i18next.t('runes.talismans.achievement.description', {
-      num: achievementPoints
-    })
+    description: () =>
+      i18next.t('runes.talismans.achievement.description', {
+        num: achievementPoints
+      })
   },
   cookieGrandma: {
     level: 0,
@@ -710,7 +711,11 @@ export const levelsUntilRarityIncrease = (t: TalismanKeys) => {
   }
 }
 
-export const affordableNextLevel = (t: TalismanKeys, budget: Record<TalismanCraftItems, number>, level: number): boolean => {
+export const affordableNextLevel = (
+  t: TalismanKeys,
+  budget: Record<TalismanCraftItems, number>,
+  level: number
+): boolean => {
   const costs = talismans[t].costs(talismans[t].baseMult, level)
 
   for (const item in costs) {
@@ -876,92 +881,129 @@ export const getTalismanEffects = <T extends TalismanKeys>(
 }
 
 export const talismanRarityInfo = (t: TalismanKeys): void => {
-
   DOMCacheGetOrSet('rarityInfoTexts').style.display = 'block'
 
-  const title = `<span style="color: lightgoldenrodyellow">${i18next.t('runes.talismans.rarityInfo.title', {
-    talismanName: String(i18next.t(`runes.talismans.${t}.name`))
-  })}
+  const title = `<span style="color: lightgoldenrodyellow">${
+    i18next.t('runes.talismans.rarityInfo.title', {
+      talismanName: String(i18next.t(`runes.talismans.${t}.name`))
+    })
+  }
   </span>`
 
   const levelCap = talismans[t].maxLevel
   const rarity = talismans[t].rarity
 
-  const common = `<span style="color: white">${i18next.t('runes.talismans.rarityInfo.common')} <span class="rarityReqNum">
+  const common = `<span style="color: white">${
+    i18next.t('runes.talismans.rarityInfo.common')
+  } <span class="rarityReqNum">
   ${rarity === 1 ? '▶ ' : ''}
   ${i18next.t('runes.talismans.rarityInfo.default')}
   </span>
   </span>`
 
-  const uncommon = `<span style="color: limegreen">${i18next.t('runes.talismans.rarityInfo.uncommon')} <span class="rarityReqNum">
+  const uncommon = `<span style="color: limegreen">${
+    i18next.t('runes.talismans.rarityInfo.uncommon')
+  } <span class="rarityReqNum">
   ${rarity === 2 ? '▶ ' : ''}
-  ${i18next.t('runes.talismans.rarityInfo.levelReq', {
-    level: format(Math.ceil(levelCap / 6), 0, true)
-  })}
+  ${
+    i18next.t('runes.talismans.rarityInfo.levelReq', {
+      level: format(Math.ceil(levelCap / 6), 0, true)
+    })
+  }
   </span>
   </span>`
 
-  const rare = `<span style="color: lightblue">${i18next.t('runes.talismans.rarityInfo.rare')} <span class="rarityReqNum">
+  const rare = `<span style="color: lightblue">${
+    i18next.t('runes.talismans.rarityInfo.rare')
+  } <span class="rarityReqNum">
   ${rarity === 3 ? '▶ ' : ''}
-  ${i18next.t('runes.talismans.rarityInfo.levelReq', {
-    level: format(Math.ceil(levelCap / 3), 0, true)
-  })}
+  ${
+    i18next.t('runes.talismans.rarityInfo.levelReq', {
+      level: format(Math.ceil(levelCap / 3), 0, true)
+    })
+  }
   </span>
   </span>`
- 
+
   const epic = `<span style="color: plum">${i18next.t('runes.talismans.rarityInfo.epic')} <span class="rarityReqNum">
   ${rarity === 4 ? '▶ ' : ''}
-  ${i18next.t('runes.talismans.rarityInfo.levelReq', {
-    level: format(Math.ceil(levelCap / 2), 0, true)
-  })}
+  ${
+    i18next.t('runes.talismans.rarityInfo.levelReq', {
+      level: format(Math.ceil(levelCap / 2), 0, true)
+    })
+  }
   </span>
   </span>`
 
-  const legendary = `<span style="color: orange">${i18next.t('runes.talismans.rarityInfo.legendary')} <span class="rarityReqNum">
+  const legendary = `<span style="color: orange">${
+    i18next.t('runes.talismans.rarityInfo.legendary')
+  } <span class="rarityReqNum">
   ${rarity === 5 ? '▶ ' : ''}
-  ${i18next.t('runes.talismans.rarityInfo.levelReq', {
-    level: format(Math.ceil(levelCap * 2 / 3), 0, true)
-  })}
+  ${
+    i18next.t('runes.talismans.rarityInfo.levelReq', {
+      level: format(Math.ceil(levelCap * 2 / 3), 0, true)
+    })
+  }
   </span>
   </span>`
 
-  const mythic = `<span style="color: crimson">${i18next.t('runes.talismans.rarityInfo.mythic')} <span class="rarityReqNum">
+  const mythic = `<span style="color: crimson">${
+    i18next.t('runes.talismans.rarityInfo.mythic')
+  } <span class="rarityReqNum">
   ${rarity === 6 ? '▶ ' : ''}
-  ${i18next.t('runes.talismans.rarityInfo.levelReq', {
-    level: format(Math.ceil(levelCap * 5 / 6), 0, true)
-  })}
+  ${
+    i18next.t('runes.talismans.rarityInfo.levelReq', {
+      level: format(Math.ceil(levelCap * 5 / 6), 0, true)
+    })
+  }
   </span>
   </span>`
-  
-  const extraordinary = `<span style="color: cyan">${i18next.t('runes.talismans.rarityInfo.extraordinary')} <span class="rarityReqNum">
+
+  const extraordinary = `<span style="color: cyan">${
+    i18next.t('runes.talismans.rarityInfo.extraordinary')
+  } <span class="rarityReqNum">
   ${rarity === 7 ? '▶ ' : ''}
-  ${i18next.t('runes.talismans.rarityInfo.levelReq', {
-    level: format(levelCap, 0, true)
-  })}
+  ${
+    i18next.t('runes.talismans.rarityInfo.levelReq', {
+      level: format(levelCap, 0, true)
+    })
+  }
   </span>
   </span>`
-  
-  const godlike = `<span style="color: red">${i18next.t('runes.talismans.rarityInfo.godlike')} <span class="rarityReqNum">
+
+  const godlike = `<span style="color: red">${
+    i18next.t('runes.talismans.rarityInfo.godlike')
+  } <span class="rarityReqNum">
   ${rarity === 8 ? '▶ ' : ''}
-  ${i18next.t('runes.talismans.rarityInfo.levelReq', {
-    level: format(2 * levelCap, 0, true)
-  })}
+  ${
+    i18next.t('runes.talismans.rarityInfo.levelReq', {
+      level: format(2 * levelCap, 0, true)
+    })
+  }
   </span>
   </span>`
 
-  const perfect = `<span style="color: gold">${i18next.t('runes.talismans.rarityInfo.perfect')} <span class="rarityReqNum">
+  const perfect = `<span style="color: gold">${
+    i18next.t('runes.talismans.rarityInfo.perfect')
+  } <span class="rarityReqNum">
   ${rarity === 9 ? '▶ ' : ''}
-  ${i18next.t('runes.talismans.rarityInfo.levelReq', {
-    level: format(4 * levelCap, 0, true)
-  })}
+  ${
+    i18next.t('runes.talismans.rarityInfo.levelReq', {
+      level: format(4 * levelCap, 0, true)
+    })
+  }
   </span>
   </span>`
 
-  const immaculate = `<span class="rainbowText">${i18next.t('runes.talismans.rarityInfo.immaculate')} <span class="rarityReqNum rainbowText">
+  const immaculate = `<span class="rainbowText">${
+    i18next.t('runes.talismans.rarityInfo.immaculate')
+  } <span class="rarityReqNum rainbowText">
   ${rarity === 10 ? '▶ ' : ''}
-  ${i18next.t('runes.talismans.rarityInfo.levelReq', {
-    level: format(8 * levelCap, 0, true)
-  })}
+  ${
+    i18next.t('runes.talismans.rarityInfo.levelReq', {
+      level: format(8 * levelCap, 0, true)
+    })
+  }
   </span>
   </span>`
 

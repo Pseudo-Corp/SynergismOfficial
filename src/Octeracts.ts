@@ -1,9 +1,9 @@
 import i18next from 'i18next'
+import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
+import { updateMaxTokens, updateTokens } from './Campaign'
 import { format, formatAsPercentIncrease, formatTimeShort, player } from './Synergism'
 import { Alert, Prompt } from './UpdateHTML'
-import { updateMaxTokens, updateTokens } from './Campaign'
-import { DOMCacheGetOrSet } from './Cache/DOM'
 import { isMobile } from './Utility'
 
 export type OcteractDataKeys =
@@ -978,9 +978,11 @@ export const upgradeOcteractToString = (upgradeKey: OcteractDataKeys): string =>
   }
 
   const effectiveLevelText = totalEffectiveLevels !== upgrade.level + upgrade.freeLevel
-    ?  `<br><b><span style="color: white">${i18next.t('general.effectiveLevel', {
-      level: format(totalEffectiveLevels, 2, true)
-    })}</span></b>`
+    ? `<br><b><span style="color: white">${
+      i18next.t('general.effectiveLevel', {
+        level: format(totalEffectiveLevels, 2, true)
+      })
+    }</span></b>`
     : ''
 
   const levelHTML = `<span style="color: ${color}"> ${i18next.t('general.level')} ${
@@ -1005,13 +1007,15 @@ export const upgradeOcteractToString = (upgradeKey: OcteractDataKeys): string =>
   const totalLevels = actualOcteractUpgradeTotalLevels(upgradeKey)
   const effectHTML = `<span style="color: gold">${upgrade.effectDescription(totalLevels)}</span>`
 
-  const costHTML = (upgrade.level === upgrade.maxLevel && upgrade.maxLevel !== -1) ?
-  '' :
-  `${i18next.t('octeract.toString.costNextLevel')} ${
-    format(costNextLevel, 2, true, true, true)
-  } Octeracts${affordableInfo}`
+  const costHTML = (upgrade.level === upgrade.maxLevel && upgrade.maxLevel !== -1)
+    ? ''
+    : `${i18next.t('octeract.toString.costNextLevel')} ${
+      format(costNextLevel, 2, true, true, true)
+    } Octeracts${affordableInfo}`
 
-  const qualityOfLifeText = upgrade.qualityOfLife ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>` : ''
+  const qualityOfLifeText = upgrade.qualityOfLife
+    ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>`
+    : ''
 
   return `${nameHTML}<br>${levelHTML}${effectiveLevelText}<br>${descriptionHTML}<br>${effectHTML}<br>${costHTML}${qualityOfLifeText}`
 }
@@ -1020,34 +1024,38 @@ export const updateMobileOcteractHTML = (upgradeKey: OcteractDataKeys): void => 
   const elm = DOMCacheGetOrSet('singularityOcteractsMultiline')
   elm.innerHTML = upgradeOcteractToString(upgradeKey)
 
-    // MOBILE ONLY - Add a button for buying upgrades
-    if (isMobile) {
-      const buttonDiv = document.createElement('div')
-  
-      const buyOne = document.createElement('button')
-      const buyMax = document.createElement('button')
-  
-      buyOne.classList.add('modalBtnBuy')
-      buyOne.textContent = i18next.t('general.buyOne')
-      buyOne.addEventListener('click', (event: MouseEvent) => {
-        buyOcteractUpgradeLevel(upgradeKey, event, false)
-        updateMobileOcteractHTML(upgradeKey)
-      })
-  
-      buyMax.classList.add('modalBtnBuy')
-      buyMax.textContent = i18next.t('general.buyMax')
-      buyMax.addEventListener('click', (event: MouseEvent) => {
-        buyOcteractUpgradeLevel(upgradeKey, event, true)
-        updateMobileOcteractHTML(upgradeKey)
-      })
-  
-      buttonDiv.appendChild(buyOne)
-      buttonDiv.appendChild(buyMax)
-      elm.appendChild(buttonDiv)
-    }
+  // MOBILE ONLY - Add a button for buying upgrades
+  if (isMobile) {
+    const buttonDiv = document.createElement('div')
+
+    const buyOne = document.createElement('button')
+    const buyMax = document.createElement('button')
+
+    buyOne.classList.add('modalBtnBuy')
+    buyOne.textContent = i18next.t('general.buyOne')
+    buyOne.addEventListener('click', (event: MouseEvent) => {
+      buyOcteractUpgradeLevel(upgradeKey, event, false)
+      updateMobileOcteractHTML(upgradeKey)
+    })
+
+    buyMax.classList.add('modalBtnBuy')
+    buyMax.textContent = i18next.t('general.buyMax')
+    buyMax.addEventListener('click', (event: MouseEvent) => {
+      buyOcteractUpgradeLevel(upgradeKey, event, true)
+      updateMobileOcteractHTML(upgradeKey)
+    })
+
+    buttonDiv.appendChild(buyOne)
+    buttonDiv.appendChild(buyMax)
+    elm.appendChild(buttonDiv)
+  }
 }
 
-export const buyOcteractUpgradeLevel = async (upgradeKey: OcteractDataKeys, event: MouseEvent, buyMax = false): Promise<void> => {
+export const buyOcteractUpgradeLevel = async (
+  upgradeKey: OcteractDataKeys,
+  event: MouseEvent,
+  buyMax = false
+): Promise<void> => {
   const upgrade = octeractUpgrades[upgradeKey]
   let purchased = 0
   let maxPurchasable = 1

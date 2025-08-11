@@ -153,7 +153,8 @@ export class CorruptionLoadout {
       const portionAboveLevel = Math.ceil(totalLevel) - totalLevel
       return Math.pow(
         this.#corruptionScoreMults[Math.floor(totalLevel)] + bonusVal
-          + portionAboveLevel * (this.#corruptionScoreMults[Math.ceil(totalLevel)] - this.#corruptionScoreMults[Math.floor(totalLevel)]),
+          + portionAboveLevel
+            * (this.#corruptionScoreMults[Math.ceil(totalLevel)] - this.#corruptionScoreMults[Math.floor(totalLevel)]),
         viscosityPower
       ) * bonusMult
     } else {

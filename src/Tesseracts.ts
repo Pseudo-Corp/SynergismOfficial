@@ -1,6 +1,17 @@
-import { calculateAcceleratorHypercubeBlessing, calculateAntELOHypercubeBlessing, calculateAntSacrificeHypercubeBlessing, calculateAntSpeedHypercubeBlessing, calculateGlobalSpeedHypercubeBlessing, calculateMultiplierHypercubeBlessing, calculateObtainiumHypercubeBlessing, calculateOfferingHypercubeBlessing, calculateRuneEffectivenessHypercubeBlessing, calculateSalvageHypercubeBlessing } from './Hypercubes'
-import { player } from './Synergism'
 import Decimal from 'break_infinity.js'
+import {
+  calculateAcceleratorHypercubeBlessing,
+  calculateAntELOHypercubeBlessing,
+  calculateAntSacrificeHypercubeBlessing,
+  calculateAntSpeedHypercubeBlessing,
+  calculateGlobalSpeedHypercubeBlessing,
+  calculateMultiplierHypercubeBlessing,
+  calculateObtainiumHypercubeBlessing,
+  calculateOfferingHypercubeBlessing,
+  calculateRuneEffectivenessHypercubeBlessing,
+  calculateSalvageHypercubeBlessing
+} from './Hypercubes'
+import { player } from './Synergism'
 
 export const calculateAcceleratorTesseractBlessing = () => {
   const DR = 1 / 6
@@ -9,8 +20,7 @@ export const calculateAcceleratorTesseractBlessing = () => {
 
   if (player.tesseractBlessings.accelerator < limit) {
     return 1 + effectPerBlessing * player.tesseractBlessings.accelerator
-  }
-  else {
+  } else {
     const limitMult = Math.pow(limit, 1 - DR)
     return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.accelerator, DR)
   }
@@ -22,8 +32,7 @@ export const calculateMultiplierTesseractBlessing = () => {
   const limit = 1000
   if (player.tesseractBlessings.multiplier < limit) {
     return 1 + effectPerBlessing * player.tesseractBlessings.multiplier
-  }
-  else {
+  } else {
     const limitMult = Math.pow(limit, 1 - DR)
     return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.multiplier, DR)
   }
@@ -35,8 +44,7 @@ export const calculateOfferingTesseractBlessing = () => {
   const limit = 1000
   if (player.tesseractBlessings.offering < limit) {
     return 1 + effectPerBlessing * player.tesseractBlessings.offering
-  }
-  else {
+  } else {
     const limitMult = Math.pow(limit, 1 - DR)
     return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.offering, DR)
   }
@@ -44,7 +52,7 @@ export const calculateOfferingTesseractBlessing = () => {
 
 export const calculateSalvageTesseractBlessing = () => {
   const factor = Math.pow(Math.log10(player.tesseractBlessings.runeExp + 1), 1.25)
-  const cap = 1/2 * calculateSalvageHypercubeBlessing()
+  const cap = 1 / 2 * calculateSalvageHypercubeBlessing()
   return 1 + cap * factor / (20 + factor)
 }
 
@@ -54,8 +62,7 @@ export const calculateObtainiumTesseractBlessing = () => {
   const limit = 1000
   if (player.tesseractBlessings.obtainium < limit) {
     return 1 + effectPerBlessing * player.tesseractBlessings.obtainium
-  }
-  else {
+  } else {
     const limitMult = Math.pow(limit, 1 - DR)
     return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.obtainium, DR)
   }
@@ -63,7 +70,9 @@ export const calculateObtainiumTesseractBlessing = () => {
 
 export const calculateAntSpeedTesseractBlessing = () => {
   const effectPerBlessing = 1 / 1000
-  return new Decimal(1 + effectPerBlessing * player.tesseractBlessings.antSpeed).times(calculateAntSpeedHypercubeBlessing())
+  return new Decimal(1 + effectPerBlessing * player.tesseractBlessings.antSpeed).times(
+    calculateAntSpeedHypercubeBlessing()
+  )
 }
 
 export const calculateAntSacrificeTesseractBlessing = () => {
@@ -72,8 +81,7 @@ export const calculateAntSacrificeTesseractBlessing = () => {
   const limit = 1000
   if (player.tesseractBlessings.antSacrifice < limit) {
     return 1 + effectPerBlessing * player.tesseractBlessings.antSacrifice
-  }
-  else {
+  } else {
     const limitMult = Math.pow(limit, 1 - DR)
     return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.antSacrifice, DR)
   }
@@ -90,8 +98,7 @@ export const calculateRuneEffectivenessTesseractBlessing = () => {
   const limit = 1000
   if (player.tesseractBlessings.talismanBonus < limit) {
     return 1 + effectPerBlessing * player.tesseractBlessings.talismanBonus
-  }
-  else {
+  } else {
     const limitMult = Math.pow(limit, 1 - DR)
     return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.talismanBonus, DR)
   }
@@ -103,8 +110,7 @@ export const calculateGlobalSpeedTesseractBlessing = () => {
   const limit = 1000
   if (player.tesseractBlessings.globalSpeed < limit) {
     return 1 + effectPerBlessing * player.tesseractBlessings.globalSpeed
-  }
-  else {
+  } else {
     const limitMult = Math.pow(limit, 1 - DR)
     return effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.globalSpeed, DR)
   }

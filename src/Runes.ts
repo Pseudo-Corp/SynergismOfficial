@@ -9,16 +9,16 @@ import { Globals as G } from './Variables'
 
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import { awardAchievementGroup, getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC } from './Challenges'
+import { getLevelMilestone } from './Levels'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
 import { assert } from './Utility'
-import { awardAchievementGroup, getAchievementReward } from './Achievements'
-import { getLevelMilestone } from './Levels'
 
 export enum resetTiers {
   prestige = 1,
@@ -422,7 +422,8 @@ export const runes: { [K in RuneKeys]: RuneData<K> } = {
           true
         ),
         val2: format(Decimal.pow(10, effect.costDivisorLog10), 2, true)
-      })},
+      })
+    },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsPrism(),
     runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
