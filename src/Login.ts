@@ -106,7 +106,7 @@ const messageSchema = z.preprocess(
     z.object({ type: z.literal('applied-tip'), amount: z.number(), remaining: z.number() }),
 
     /** Received when a timeSkip is used */
-    z.object({ type: z.literal('time-skip'), consumableName: z.string(), amount: z.number().int() }),
+    z.object({ type: z.literal('time-skip'), consumableName: z.string(), id: z.string().uuid(), amount: z.number().int() }),
 
     /** A warning - should *NOT* disconnect from the WebSocket */
     z.object({ type: z.literal('warn'), message: z.string() })
@@ -497,6 +497,12 @@ function handleWebSocket () {
       // Do the thing with the timeSkip
       activateTimeSkip(timeSkipName, minutes)
       saveSynergy()
+
+      sendToWebsocket(JSON.stringify({
+        type: 'confirm',
+        id: data.id,
+        consumableId: data.consumableName
+      }))
 
       setTimeout(() => updatePseudoCoins(), 4000)
     }

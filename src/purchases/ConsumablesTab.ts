@@ -58,7 +58,8 @@ const initializeConsumablesTab = memoize(() => {
           else {
             sendToWebsocket(JSON.stringify({
               type: 'consume',
-              consumable: key
+              consumable: key,
+              version: '2'
             }))
           }
         })
