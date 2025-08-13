@@ -192,6 +192,7 @@ import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
+import { fetchUnreadMessages } from './Messages'
 import {
   blankOcteractLevelObject,
   getOcteractUpgradeEffect,
@@ -5543,6 +5544,9 @@ window.addEventListener('load', async () => {
   generateAchievementHTMLs()
   generateLevelRewardHTMLs()
   generateLevelMilestoneHTMLS()
+
+  // Initialize messages on game load
+  fetchUnreadMessages().catch(console.error)
 
   reloadShit()
 }, { once: true })

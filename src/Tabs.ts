@@ -3,6 +3,7 @@ import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
 import { prod } from './Config'
 import { pressedKeys } from './Hotkeys'
 import { isLoggedIn } from './Login'
+import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
 import { getGQUpgradeEffect } from './singularity'
 import { player } from './Synergism'
@@ -85,7 +86,14 @@ const subtabInfo: Record<Tabs, SubTab> = {
         buttonID: 'switchSettingSubTab7'
       },
       { subTabID: 'hotkeys', unlocked: true, buttonID: 'switchSettingSubTab8' },
-      { subTabID: 'accountSubTab', unlocked: true, buttonID: 'switchSettingSubTab9' }
+      { subTabID: 'accountSubTab', unlocked: true, buttonID: 'switchSettingSubTab9' },
+      {
+        subTabID: 'messagesSubTab',
+        get unlocked () {
+          return hasUnreadMessages()
+        },
+        buttonID: 'switchSettingSubTab10'
+      }
     ]
   },
   [Tabs.Shop]: {

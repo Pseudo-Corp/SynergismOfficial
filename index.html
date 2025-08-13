@@ -2675,6 +2675,7 @@
             <button id="switchSettingSubTab7" class="singularity" style="border: 2px solid darkorange"  i18n="tabs.settings.singularityHistory"></button>
             <button id="switchSettingSubTab8" style="border: 2px solid white"  i18n="tabs.settings.hotkeys"></button>
             <button id="switchSettingSubTab9" i18n="tabs.settings.account"></button>
+            <button id="switchSettingSubTab10" style="border: 2px solid red" i18n="tabs.settings.messages"></button>
         </div>
         <div class="subtabContent subtabDisplayFlex subtabActive" id="settingsubtab">
             <div class="settingSubTabUpper">
@@ -3140,6 +3141,19 @@
           </div>
           <!-- TODO: i18n (not done because of potential conflicts with pixel-update) -->
           <button id="logoutButton">Logout</button>
+        </div>
+        <div class="subtabContent subtabDisplayFlex" id="messagesSubTab">
+            <div style="width: 100%; max-width: 800px; margin: 0 auto;">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h2 style="color: #ff6b6b; margin-bottom: 10px;">📬 Unread Messages</h2>
+                    <p style="color: #ccc; font-style: italic;">Important announcements and updates from the Synergism team</p>
+                </div>
+                <div id="messagesContainer" style="max-height: 400px; overflow-y: auto;" class="scrollbar">
+                    <div style="text-align: center; color: #666; font-style: italic; padding: 20px;">
+                        Loading messages...
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

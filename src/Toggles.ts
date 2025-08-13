@@ -4,6 +4,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { getChallengeConditions } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions } from './Corruptions'
 import { renderCaptcha } from './Login'
+import { initializeMessages } from './Messages'
 import { autoResearchEnabled } from './Research'
 import { reset, resetrepeat } from './Reset'
 import { indexToRune } from './Runes'
@@ -595,6 +596,8 @@ export const setActiveSettingScreen = async (subtab: string) => {
     }
   } else if (subtab === 'accountSubTab') {
     renderCaptcha()
+  } else if (subtab === 'messagesSubTab') {
+    initializeMessages()
   }
 }
 

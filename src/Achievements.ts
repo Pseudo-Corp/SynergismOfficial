@@ -3296,7 +3296,7 @@ export const generateUngroupedDescription = (name: UngroupedAchievementNames) =>
 
   let extraText = ''
   if (ach.reward) {
-    extraText = i18next.t('achievements.ungroupedExtraRewards') + '<br>'
+    extraText = `${i18next.t('achievements.ungroupedExtraRewards')}<br>`
     for (const [rewardType, rewardFunction] of Object.entries(ach.reward)) {
       const rewardGroup = rewardType as AchievementRewards
       const rewardValue = achRewards[rewardGroup]()

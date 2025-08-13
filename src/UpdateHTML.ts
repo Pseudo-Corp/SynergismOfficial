@@ -20,6 +20,7 @@ import { CalcCorruptionStuff, calculateAscensionSpeedMult, calculateGlobalSpeedM
 import { getMaxChallenges } from './Challenges'
 import { revealCorruptions } from './Corruptions'
 import { getLevelMilestone } from './Levels'
+import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
 import { autoResearchEnabled } from './Research'
 import { getRuneEffects, type RuneKeys, runes, updateRuneEffectHTML, updateRuneHTML } from './Runes'
@@ -487,6 +488,9 @@ export const revealStuff = () => {
 
     el.style.display = automationUnlocks[key] ? 'block' : 'none'
   })
+
+  // Messages subtab visibility - only show when there are unread messages
+  DOMCacheGetOrSet('switchSettingSubTab10').style.display = hasUnreadMessages() ? 'block' : 'none'
 
   revealCorruptions()
 }
